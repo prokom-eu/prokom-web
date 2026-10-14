@@ -1,0 +1,36 @@
+# zależności i build
+node_modules/
+.next/
+out/
+build/
+dist/
+.pnpm-store/
+
+# środowisko — sekrety nigdy do repo
+.env
+.env.*
+!.env.example
+
+# lokalne dane
+media/
+backups/
+*.sql
+*.dump
+*.log
+
+# testy
+playwright-report/
+test-results/
+coverage/
+
+# Claude Code — lokalne ustawienia i robocze katalogi
+.claude/settings.local.json
+.claude/worktrees/
+
+# system / edytor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/*
+!.vscode/extensions.json
+.idea/

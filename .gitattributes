@@ -1,0 +1,12 @@
+# Jednolite końce linii (LF) niezależnie od systemu — ważne przy pracy na Windows i wdrożeniu na Linux
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.avif binary
+*.ico binary
+*.pdf binary
+*.woff binary
+*.woff2 binary
