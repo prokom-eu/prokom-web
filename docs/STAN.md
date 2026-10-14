@@ -27,6 +27,5 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 - (puste)
 
 ## Otwarte pytania
-- Pliki znaku z paczki `PRO-KOM_znak_2026-10` mają kolory sprzed zamiany Instalacje ↔ Zakopane (14.10) — do wygenerowania na nowo przed użyciem logotypów tych dwóch linii (patrz `marka.md`).
 - Telefony i adresy e-mail dla każdej strony; kto odbiera powiadomienia o zapytaniach.
 - Serwery i sieć: Biznes czy Instalacje? Ceny na stronie czy „Zapytaj o ofertę”? (do specyfikacji Biznes)
