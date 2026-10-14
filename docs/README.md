@@ -3,6 +3,7 @@
 | Plik | Co zawiera | Kiedy czytać |
 |---|---|---|
 | `STAN.md` | co zrobione, w toku, następne kroki | na początku każdej sesji |
+| `sposob-pracy.md` | praca na dwóch komputerach, synchronizacja, rytm dnia, skrypty start/koniec | przy konfiguracji komputera i gdy coś się rozjedzie |
 | `zadania/fundament.md` | plan fundamentu: sesje S1–S10 z zakresem i warunkami odbioru | przy pracy nad fundamentem |
 | `architektura.md` | jak działa aplikacja: domeny, tenanci, panel, dane, serwer | przed zmianą struktury |
 | `jakosc.md` | Definition of Done, testy, wydajność, dostępność | przed PR |

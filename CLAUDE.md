@@ -40,7 +40,15 @@ docs/  docker/  .github/workflows/  public/brand/
 - Domeny dev: `biznes.localhost:3000`, `instalacje.localhost:3000`, `software.localhost:3000`, panel: `panel.localhost:3000/admin`.
 - `docker compose -f docker/compose.dev.yml up -d` — PostgreSQL + Mailpit (podgląd maili: `localhost:8025`).
 - Komendy (uzupełnij w S1, jeśli się różnią): `pnpm dev`, `pnpm build`, `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm test:e2e`, `pnpm payload migrate:create`, `pnpm payload migrate`, `pnpm seed` (tylko lokalnie).
-- System Krystiana: Windows, repo w `D:\PRO-KOM\repos\prokom-web`. Końce linii: LF (`.gitattributes`).
+- System Krystiana: Windows, repo w `D:\PRO-KOM\repos\prokom-web` (na drugim komputerze może być inna litera dysku). Końce linii: LF (`.gitattributes`).
+
+## Praca na dwóch komputerach (firma + dom) — `docs/sposob-pracy.md`
+Krystian pracuje na komputerze w firmie i w domu. **Jedynym kanałem synchronizacji kodu jest GitHub.** Historia sesji Claude Code NIE przechodzi między komputerami — ciągłość niesie `docs/STAN.md`.
+- **Na początku każdej sesji:** uruchom `git status` i `git fetch`. Jeśli gałąź jest za `origin` albo są niezacommitowane zmiany — powiedz mi o tym, zanim zaczniesz (rozwiązanie: `scripts\start.ps1`). Przeczytaj w `docs/STAN.md` sekcję „W toku” → „Następny krok”.
+- **Na końcu każdej sesji** (`/koniec-sesji`): w `docs/STAN.md` → „W toku” zapisz gałąź, co zrobione, **dokładny następny krok** i rzeczy niedokończone — tak, żeby nowa sesja na drugim komputerze ruszyła bez pytań. Przypomnij o `scripts\koniec.ps1` (commit `wip:` + push).
+- Nie zakładaj, że lokalna baza ma jakieś dane — dane testowe tylko z `pnpm seed` (powtarzalny, idempotentny). Każda migracja w repo, bo drugi komputer odtwarza bazę z migracji.
+- Żadnych ścieżek bezwzględnych (`D:\...`, `C:\Users\...`) w kodzie, skryptach ani dokumentacji — tylko ścieżki względne do katalogu repo.
+- Nowa zmienna środowiskowa → `.env.example` z opisem (Krystian przenosi wartości przez menedżer haseł).
 
 ## Zasady kodu
 - TypeScript strict, bez `any` (wyjątek z komentarzem dla typów z zewnętrznych bibliotek).
@@ -75,4 +83,5 @@ docs/  docker/  .github/workflows/  public/brand/
 - `/zadanie <sesja lub opis>` — kontekst, plan, czekasz na „ok”, potem kod.
 - `/przeglad` — przegląd zmian przed PR.
 - `/wdrozenie staging|produkcja` — checklista przed wdrożeniem.
-- `/koniec-sesji` — aktualizacja `docs/STAN.md` i podsumowanie.
+- `/koniec-sesji` — aktualizacja `docs/STAN.md` (z następnym krokiem) i podsumowanie.
+- Skrypty Krystiana (nie uruchamiaj ich sam): `scripts\start.ps1` — start pracy; `scripts\koniec.ps1` — koniec pracy.

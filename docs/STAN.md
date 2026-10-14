@@ -13,8 +13,11 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 
 ## W toku
 - S1 — szkielet repo i bramka jakości.
+  - Gałąź: (jeszcze nie założona)
+  - Następny krok: `/zadanie S1` w trybie planowania.
 
 ## Zrobione
+- 14.10.2026 — sposób pracy na dwóch komputerach (`docs/sposob-pracy.md`, `scripts/start.ps1`, `scripts/koniec.ps1`).
 - 14.10.2026 — organizacja GitHub firmy `prokom-eu` skonfigurowana (2FA wymagane, uprawnienia członków ograniczone, Actions tylko GitHub + zweryfikowani twórcy). Aktualizacja dokumentacji: ADR-002 (Seohost), ADR-003 (decyzja), ADR-005, ADR-006, ADR-007, plan fundamentu, tokeny marki.
 - 12.10.2026 — założenie dokumentacji repo (CLAUDE.md, docs/, komendy).
 
