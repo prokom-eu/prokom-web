@@ -64,20 +64,32 @@ Wszystko robi `scripts/setup-komputera.ps1` (można uruchamiać wielokrotnie —
    - instaluje (winget): Git, PowerShell 7, GitHub CLI, fnm (wersje Node), Starship (prompt z gałęzią), Docker Desktop;
    - Node LTS przez fnm + pnpm (corepack); dokładną wersję dla projektu ustala `.nvmrc`, a fnm przełącza ją sam po wejściu do repo;
    - dopisuje do profilu PowerShell 7: fnm + Starship;
-   - ustawia globalnie gita: `pull.ff only`, `fetch.prune`, `push.autoSetupRemote`, `rerere`, `core.autocrlf false`, aliasy `git lg` i `git st`, imię i e-mail;
-   - loguje `gh` (HTTPS, przez przeglądarkę), klonuje repo do `D:\PRO-KOM\repos\prokom-web`, dodaje `safe.directory`.
+   - ustawia globalnie gita: `pull.ff only`, `fetch.prune`, `push.autoSetupRemote`, `rerere`, `core.autocrlf false`, czytelniejsze konflikty (`merge.conflictstyle zdiff3`) i diffy (`diff.algorithm histogram`, `diff.colorMoved`), `rebase.autoStash`, gałęzie od najnowszych (`branch.sort`), diff w edytorze opisu commita (`commit.verbose`), aliasy `git lg` i `git st`, imię i e-mail;
+   - loguje `gh` (HTTPS, przez przeglądarkę), klonuje repo do `D:\PRO-KOM\repos\prokom-web`, dodaje `safe.directory`;
+   - **podpisywanie commitów kluczem SSH:** tworzy klucz `~/.ssh/id_ed25519_signing` (osobny na każdym komputerze, bez hasła — służy tylko do podpisu), włącza `commit.gpgsign`, dodaje klucz na GitHub jako *Signing key* (raz poprosi w przeglądarce o zgodę `admin:ssh_signing_key`). Efekt: commity na GitHubie mają znaczek **Verified**; squash merge robi GitHub i podpisuje go sam.
 3. Ręcznie (skrypt przypomina na końcu):
    - Windows Terminal → Ctrl+, → Uruchamianie → Profil domyślny: „PowerShell” (czarna ikona, nie „Windows PowerShell”); Profile → PowerShell → Katalog startowy = folder repo; „Uruchom jako Administrator” = wyłączone;
    - Docker Desktop — pierwsze uruchomienie (WSL 2);
    - Claude Code — `claude --version`, logowanie;
    - `.env` — `.env.example` → `.env`, wartości z menedżera haseł (wpis „prokom-web .env lokalny”);
-   - aplikacja dysku w chmurze: synchronizuj `marka`, `materialy`, `notatki` — NIE `repos`.
+   - aplikacja dysku w chmurze: synchronizuj `marka`, `materialy`, `notatki` — NIE `repos`;
+   - e-mail w gicie (`git config user.email` w repo) = e-mail **zweryfikowany** na koncie GitHub — inaczej podpis nie da znaczka Verified.
 4. Nowy terminal → `.\scripts\start.ps1` → `pnpm seed` (gdy projekt ma już kod).
 
 **Do pracy nad projektem NIGDY nie używaj okna „Administrator”** — pliki utworzone jako administrator należą do innego właściciela i git zgłasza „dubious ownership”. Administrator tylko do instalowania programów (instalatory same o to poproszą).
 
+## Nawyki (tak pracuje senior)
+1. **Czytam diff przed każdym commitem:** `git diff --staged` — linia po linii. Nie commituję kodu, którego nie umiem wyjaśnić. Claude Code pisze szybko, odpowiedzialność za kod jest moja.
+2. **Jedna rzecz naraz:** jedna gałąź w toku. Pomysł w trakcie → `docs/STAN.md` → „Pomysły na później”, powrót do zadania.
+3. **Świeży kontekst:** w Claude Code `/clear` (albo nowa sesja) między zadaniami; każde zadanie zaczyna się od planu (`/zadanie`) w trybie planowania.
+4. **Test najpierw tam, gdzie błąd kosztuje pieniądze** (izolacja tenantów, formularz, retencja, seed). Gdzie indziej testów nie dopisujemy na siłę.
+5. **Małe PR-y:** do ~400 linii diffu; większe dzielę. Mały PR łatwiej sprawdzić i łatwiej cofnąć.
+6. **Kopia działa tylko wtedy, gdy była odtworzona:** próbne odtworzenie raz w miesiącu (`docs/wdrozenia.md`).
+7. **Narzędzia zamrożone do 26.10:** nowe pomysły na narzędzia i automaty → „Pomysły na później”. Najpierw dowozimy strony.
+
 ## Bezpieczeństwo
-- Konto GitHub i menedżer haseł z 2FA na obu komputerach.
+- Konto GitHub i menedżer haseł z 2FA na obu komputerach. **Kody odzyskiwania 2FA** (GitHub, rejestrator domen, Seohost, menedżer haseł) zapisane w menedżerze haseł — zgubiony telefon nie może oznaczać utraty konta.
+- Domeny i konta dostawców (rejestrator, Seohost) na dane i e-mail firmy, nie prywatne — `docs/dns.md`.
 - Komputer domowy: szyfrowanie dysku (BitLocker / szyfrowanie urządzenia), hasło do konta Windows, blokada ekranu.
 - `.env` nigdy w gicie (pilnuje `.gitignore` i gitleaks w CI); wartości przenoszę tylko przez menedżer haseł.
 - Na komputery nie ściągamy kopii baz produkcyjnych ani danych klientów — praca na `pnpm seed` i stagingu.
@@ -92,4 +104,6 @@ Wszystko robi `scripts/setup-komputera.ps1` (można uruchamiać wielokrotnie —
 | `git pull` odmawia (rozjechana historia) | nie używaj `--force`; `git status` + `git log --oneline -5` → pytanie w czacie |
 | Na drugim komputerze brakuje danych w panelu | normalne — lokalna baza jest per komputer; `pnpm seed` |
 | Błąd migracji po `pull` | `pnpm payload migrate`; jeśli dalej błąd — lokalnie można odtworzyć bazę od zera (`docker compose ... down -v`, `up -d`, `migrate`, `seed`) |
+| Commit bez znaczka **Verified** na GitHubie | `git config user.email` ≠ e-mail zweryfikowany na GitHubie albo klucz nie dodany jako *Signing key* (GitHub → Settings → SSH and GPG keys) → uruchom ponownie `.\scripts\setup-komputera.ps1` |
+| `error: ... ssh-keygen` / `failed to write commit object` przy commicie | brak klienta OpenSSH: Ustawienia → System → Funkcje opcjonalne → „Klient OpenSSH” → zainstaluj; nie wyłączaj podpisywania |
 | Zapomniałem wypchnąć pracę z drugiego komputera | nie zaczynaj tej samej gałęzi od nowa — dokończ na tamtym komputerze albo zacznij inną sesję/zadanie |

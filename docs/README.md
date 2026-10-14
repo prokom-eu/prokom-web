@@ -8,6 +8,7 @@
 | `architektura.md` | jak działa aplikacja: domeny, tenanci, panel, dane, serwer | przed zmianą struktury |
 | `jakosc.md` | Definition of Done, testy, wydajność, dostępność | przed PR |
 | `wdrozenia.md` | środowiska, pipeline, kopie, cofanie | przed wdrożeniem |
+| `dns.md` | domeny, rejestrator, rekordy DNS, poczta (SPF/DKIM/DMARC) | przed każdą zmianą DNS i przy problemach z pocztą |
 | `marka.md` | kolory, fonty, logo — tokeny dla kodu | przy pracy nad UI |
 | `strony/<domena>.md` | specyfikacja strony: zakres, mapa, treści, SEO | przy pracy nad daną stroną |
 | `decyzje/ADR-*.md` | decyzje architektoniczne z uzasadnieniem | gdy decyzja dotyczy zadania |

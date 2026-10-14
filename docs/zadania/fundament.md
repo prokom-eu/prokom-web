@@ -65,15 +65,24 @@ ADR do przeczytania przed fundamentem: 001, 003, 004, 005, 006, 007.
 
 ## S8 — skrzynka zapytań
 **Zakres:** dokładnie wg ADR-003: `POST /api/inquiry`, `submitInquiry()`, schemat Zod, `Inquiries`, honeypot + minimalny czas + limit, powiadomienie e-mail (SMTP z env) + potwierdzenie dla klienta, widok w panelu (edycja tylko statusu), komponent `InquiryForm` (dostępny, z komunikatami błędów i zgodą RODO z wersją klauzuli).
-**Gotowe, gdy:** Playwright: wysłanie formularza → rekord w panelu → mail w Mailpit; spam (honeypot / za szybko / limit) odrzucony; publicznie nie da się odczytać zapytań.
+- **Retencja (RODO, ADR-003):** zadanie cykliczne usuwa zapytania o statusie `closed` starsze niż okres retencji (wartość z env, domyślnie 24 miesiące); usunięcie pojedynczego zapytania na żądanie osoby — akcja w panelu tylko dla roli `admin`, z wpisem kto i kiedy (bez treści zapytania). Mechanizm zadań: wbudowany w Payload, jeśli wystarcza — bez nowych usług.
+- **Nadawca maili:** adres w domenie, dla której ustawimy SPF/DKIM/DMARC (`docs/dns.md`); adres nadawcy i odbiorcy z env / ustawień tenanta, nigdy na sztywno w kodzie.
+- **Dane osobowe poza logami:** e-mail, telefon, imię i treść zapytania nie trafiają do logów ani komunikatów błędów.
+**Gotowe, gdy:** Playwright: wysłanie formularza → rekord w panelu → mail w Mailpit; spam (honeypot / za szybko / limit) odrzucony; publicznie nie da się odczytać zapytań; test Vitest retencji (stare `closed` usunięte, `new`/`in_progress` nietknięte).
 
 ## S9 — gotowość produkcyjna (bez serwera)
 **Zakres:** `Dockerfile` wieloetapowy (Next `standalone`, użytkownik nie-root), `/api/health`; workflow budujący obraz do GHCR (tag = SHA, tylko na `main`/`develop`); `docker/compose.prod.yml` i `compose.staging.yml` (app, postgres, nginx; limity pamięci; wolumeny na bazę i media); migracje przy starcie wdrożenia; konfiguracja Nginx (nagłówki bezpieczeństwa, basic auth dla stagingu); skrypty kopii (`pg_dump` + media, szyfrowanie, wysyłka poza serwer) i odtworzenia; `docs/runbook.md` (wdrożenie, rollback, odtworzenie, „strona nie działa”).
-**Gotowe, gdy:** lokalnie `compose.prod.yml` uruchamia aplikację z obrazu; kopia wykonana i **odtworzona na czystej bazie**; runbook przetestowany krok po kroku.
+- **Logi strukturalne:** jeden lekki logger (JSON na stdout) z polami `level`, `time`, `tenant`, `requestId`, `msg`; `requestId` nadawany w middleware i zwracany w nagłówku odpowiedzi. Bez danych osobowych. Rotacja logów Dockera (`max-size`, `max-file`) w compose, żeby logi nie zapchały dysku.
+- **Smoke test** jako skrypt w repo (`scripts/smoke.sh <adres>`): `/api/health`, strona główna każdego tenanta (200), `/sitemap.xml`, `/admin` na domenie strony → 404. Uruchamiany lokalnie na `compose.prod.yml` i w pipeline po każdym wdrożeniu (S10).
+**Gotowe, gdy:** lokalnie `compose.prod.yml` uruchamia aplikację z obrazu; `scripts/smoke.sh` przechodzi; logi w formacie JSON z `tenant` i `requestId`; kopia wykonana i **odtworzona na czystej bazie**; runbook przetestowany krok po kroku.
 
 ## S10 — serwer (po dostawie VPS)
 **Zakres:** utwardzenie (aktualizacja do Ubuntu 24.04, SSH tylko kluczem, firewall, fail2ban, automatyczne poprawki bezpieczeństwa, swap); Docker; DNS `staging.prokombiznes.pl` (i pozostałych domen) + `panel.pro-kom.eu`; certyfikaty; wdrożenie stagingu z workflow; kopie z harmonogramem; Sentry; zewnętrzny monitoring dostępności.
-**Gotowe, gdy:** staging działa za hasłem z `noindex`; wdrożenie i rollback przetestowane; **test odtworzenia z kopii na serwerze** zaliczony; alert monitoringu dochodzi na telefon.
+- **DNS jako dokumentacja:** każdy rekord najpierw w `docs/dns.md` (PR), potem u dostawcy.
+- **Poczta wychodząca:** SPF, DKIM i DMARC (na start `p=none` z raportami, po 2–4 tygodniach bez problemów `p=quarantine`) dla domeny nadawcy powiadomień; test wysyłki np. w mail-tester.com — wynik zapisany w `docs/dns.md`.
+- **Smoke test w pipeline:** po każdym wdrożeniu `scripts/smoke.sh`; błąd → wdrożenie oznaczone jako nieudane i automatyczny powrót do poprzedniego obrazu (tylko aplikacja — baza bez zmian).
+- **Budżet wydajności:** Lighthouse CI po wdrożeniu stagingu, dla strony głównej i jednej podstrony każdego tenanta (wersja mobilna); próg: Performance, Accessibility, SEO, Best Practices ≥ 90, LCP ≤ 2,5 s, CLS ≤ 0,1. Przekroczenie = czerwony przebieg, który blokuje wdrożenie produkcji.
+**Gotowe, gdy:** staging działa za hasłem z `noindex`; wdrożenie i rollback przetestowane (także automatyczny po celowo zepsutym smoke teście); Lighthouse CI raportuje i blokuje przy przekroczeniu budżetu; mail z formularza na stagingu dochodzi do skrzynki Gmail i Outlook **poza spamem**; **test odtworzenia z kopii na serwerze** zaliczony; alert monitoringu dochodzi na telefon.
 
 ---
 
@@ -85,6 +94,9 @@ ADR do przeczytania przed fundamentem: 001, 003, 004, 005, 006, 007.
 - [ ] sitemap, robots, dane strukturalne per domena
 - [ ] CI zielone, obraz w GHCR, produkcyjny compose działa
 - [ ] kopia zapasowa wykonana i odtworzona
+- [ ] po wdrożeniu: smoke test i Lighthouse CI (budżet) w pipeline, automatyczny powrót przy błędzie
+- [ ] maile z formularza poza spamem (SPF, DKIM, DMARC); retencja zapytań działa
+- [ ] `docs/dns.md` zgodny z rzeczywistością
 - [ ] ADR-y i runbook aktualne
 
 ## Świadomie NIE w fundamencie

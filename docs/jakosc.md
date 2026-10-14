@@ -26,7 +26,7 @@ Zadanie jest skończone, gdy:
 - [ ] `sitemap.xml`, `robots.txt`; staging ma `noindex`.
 
 ## Wydajność i dostępność
-- [ ] Lighthouse ≥ 90: Performance, SEO, Accessibility, Best Practices.
+- [ ] Lighthouse ≥ 90: Performance, SEO, Accessibility, Best Practices; LCP ≤ 2,5 s, CLS ≤ 0,1 (wersja mobilna). Na stagingu pilnuje tego Lighthouse CI (S10).
 - [ ] Obrazy przez `next/image`, właściwe rozmiary, `alt`.
 - [ ] Kontrast WCAG AA, widoczny focus, formularze z etykietami i komunikatami błędów.
 
@@ -35,6 +35,7 @@ Zadanie jest skończone, gdy:
 - [ ] Zgoda RODO przy formularzu + link do polityki prywatności.
 - [ ] Nagłówki bezpieczeństwa (CSP, HSTS, X-Content-Type-Options) w Nginx/Next.
 - [ ] Uprawnienia kolekcji Payload: publiczny tylko odczyt opublikowanych treści.
+- [ ] Dane osobowe (e-mail, telefon, treść zapytania) nie trafiają do logów, komunikatów błędów ani Sentry.
 
 ## Dokumentacja
 - [ ] `docs/STAN.md` zaktualizowany; decyzja architektoniczna → ADR.

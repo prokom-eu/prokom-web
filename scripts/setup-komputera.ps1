@@ -11,6 +11,7 @@
 #  3. profil PowerShell 7: fnm (automatyczna wersja Node z .nvmrc) + Starship (galaz i stan repo w prompcie)
 #  4. globalna konfiguracja gita (dobre praktyki) + Twoje imie i e-mail
 #  5. logowanie gh i klon repo prokom-web (jesli go nie ma) + safe.directory
+#  6. podpisywanie commitow kluczem SSH (znaczek "Verified" na GitHubie)
 # Opis: docs/sposob-pracy.md
 
 param(
@@ -42,7 +43,7 @@ if ($isAdmin) {
 try { Set-ExecutionPolicy -Scope CurrentUser RemoteSigned -Force -ErrorAction Stop; Ok "ExecutionPolicy: RemoteSigned (CurrentUser)" } catch { Warn "Nie udalo sie ustawic ExecutionPolicy: $_" }
 
 # 1. Programy przez winget
-Info "`n[1/5] Programy (winget)"
+Info "`n[1/6] Programy (winget)"
 if (-not (Get-Command winget -ErrorAction SilentlyContinue)) {
     Warn "Brak winget - zainstaluj 'Instalator aplikacji' (App Installer) z Microsoft Store i uruchom skrypt ponownie."
     exit 1
@@ -68,7 +69,7 @@ foreach ($p in $packages) {
 Refresh-Path
 
 # 2. Node LTS + pnpm
-Info "`n[2/5] Node.js (fnm) i pnpm"
+Info "`n[2/6] Node.js (fnm) i pnpm"
 if (Get-Command fnm -ErrorAction SilentlyContinue) {
     fnm env --use-on-cd --shell powershell | Out-String | Invoke-Expression
     fnm install --lts
@@ -88,7 +89,7 @@ if (Get-Command fnm -ErrorAction SilentlyContinue) {
 }
 
 # 3. Profil PowerShell 7 (fnm + Starship)
-Info "`n[3/5] Profil PowerShell 7"
+Info "`n[3/6] Profil PowerShell 7"
 $docs = [Environment]::GetFolderPath('MyDocuments')
 $profilePath = Join-Path $docs 'PowerShell\Microsoft.PowerShell_profile.ps1'
 New-Item -ItemType Directory -Force -Path (Split-Path $profilePath) | Out-Null
@@ -111,12 +112,13 @@ if (Get-Command starship -ErrorAction SilentlyContinue) { Invoke-Expression (&st
 }
 
 # 4. Git - konfiguracja globalna
-Info "`n[4/5] Git"
+Info "`n[4/6] Git"
 if (-not (Get-Command git -ErrorAction SilentlyContinue)) { Warn "git niedostepny w tej sesji - otworz nowy terminal i uruchom skrypt ponownie."; exit 1 }
 $name  = git config --global user.name
 $email = git config --global user.email
 if (-not $name)  { $name  = Read-Host "  Imie i nazwisko do commitow (np. Krystian Potaczek)"; git config --global user.name  "$name" }
-if (-not $email) { $email = Read-Host "  E-mail z konta GitHub";                             git config --global user.email "$email" }
+if (-not $email) { $email = Read-Host "  E-mail z konta GitHub (zweryfikowany)";             git config --global user.email "$email" }
+if ($name -notmatch ' ') { Warn "user.name = '$name' - wpisz pelne imie i nazwisko: git config --global user.name `"Imie Nazwisko`"" }
 git config --global init.defaultBranch main
 git config --global pull.ff only
 git config --global fetch.prune true
@@ -125,10 +127,16 @@ git config --global rerere.enabled true
 git config --global core.autocrlf false
 git config --global alias.lg "log --oneline --graph --decorate -20"
 git config --global alias.st "status -sb"
-Ok "Git: $name <$email>; pull.ff only, fetch.prune, push.autoSetupRemote, rerere, aliasy lg/st"
+git config --global merge.conflictstyle zdiff3
+git config --global diff.algorithm histogram
+git config --global diff.colorMoved zebra
+git config --global rebase.autoStash true
+git config --global branch.sort -committerdate
+git config --global commit.verbose true
+Ok "Git: $name <$email>; pull.ff only, fetch.prune, push.autoSetupRemote, rerere, zdiff3, histogram, autoStash, aliasy lg/st"
 
 # 5. GitHub CLI + repo
-Info "`n[5/5] GitHub i repozytorium"
+Info "`n[5/6] GitHub i repozytorium"
 if (Get-Command gh -ErrorAction SilentlyContinue) {
     gh auth status *> $null
     if ($LASTEXITCODE -ne 0) {
@@ -153,6 +161,57 @@ $existing = git config --global --get-all safe.directory
 if ($existing -notcontains $safe) { git config --global --add safe.directory $safe }
 Ok "safe.directory: $safe"
 
+# 6. Podpisywanie commitow kluczem SSH
+Info "`n[6/6] Podpisywanie commitow (SSH)"
+$sshDir  = Join-Path $HOME '.ssh'
+$keyPath = Join-Path $sshDir 'id_ed25519_signing'
+$pubPath = "$keyPath.pub"
+if (-not (Get-Command ssh-keygen -ErrorAction SilentlyContinue)) {
+    Warn "Brak ssh-keygen. Ustawienia -> System -> Funkcje opcjonalne -> 'Klient OpenSSH' -> zainstaluj, potem uruchom skrypt ponownie."
+} else {
+    New-Item -ItemType Directory -Force -Path $sshDir | Out-Null
+    if (-not (Test-Path $pubPath)) {
+        Write-Host "  ->  tworze klucz do podpisywania commitow (osobny dla tego komputera)."
+        Write-Host "      Na pytanie o haslo (passphrase) nacisnij Enter dwa razy - klucz sluzy tylko do podpisu."
+        ssh-keygen -t ed25519 -C "$email" -f "$keyPath"
+    }
+    if (Test-Path $pubPath) {
+        git config --global gpg.format ssh
+        git config --global user.signingkey ($keyPath -replace '\\','/')
+        git config --global commit.gpgsign true
+        git config --global tag.gpgsign true
+        # lokalna weryfikacja podpisow (git log --show-signature)
+        $allowed = Join-Path $sshDir 'allowed_signers'
+        $pubKey  = (Get-Content $pubPath -Raw).Trim()
+        if (-not (Test-Path $allowed) -or -not (Select-String -Path $allowed -SimpleMatch $pubKey -Quiet)) {
+            Add-Content -Path $allowed -Value "$email namespaces=`"git`" $pubKey" -Encoding ascii
+        }
+        git config --global gpg.ssh.allowedSignersFile ($allowed -replace '\\','/')
+        Ok "git podpisuje commity kluczem $pubPath"
+
+        # Klucz na GitHub jako 'Signing key' (raz na komputer)
+        $marker = git config --global --get prokom.signingKeyOnGithub
+        if ($marker -eq $pubKey) {
+            Ok "klucz do podpisu juz jest na GitHubie"
+        } elseif (Get-Command gh -ErrorAction SilentlyContinue) {
+            $title = "podpis-$env:COMPUTERNAME"
+            gh ssh-key add $pubPath --type signing --title $title *> $null
+            if ($LASTEXITCODE -ne 0) {
+                Write-Host "  ->  GitHub prosi o zgode na dodawanie kluczy do podpisu (przegladarka, jednorazowo)"
+                gh auth refresh --hostname github.com --scopes admin:ssh_signing_key
+                gh ssh-key add $pubPath --type signing --title $title
+            }
+            if ($LASTEXITCODE -eq 0) {
+                git config --global prokom.signingKeyOnGithub "$pubKey"
+                Ok "klucz dodany na GitHub jako Signing key ($title)"
+            } else {
+                Warn "Nie udalo sie dodac klucza przez gh. Jesli komunikat mowi, ze klucz juz istnieje - jest OK."
+                Warn "Inaczej recznie: GitHub -> Settings -> SSH and GPG keys -> New SSH key -> Key type: Signing Key -> wklej zawartosc $pubPath"
+            }
+        }
+    }
+}
+
 # Podsumowanie
 Write-Host ""
 Info "=== GOTOWE ==="
@@ -163,5 +222,7 @@ Write-Host "  2. Docker Desktop: uruchom raz i przejdz konfiguracje (WSL 2)."
 Write-Host "  3. Claude Code: sprawdz 'claude --version' i zaloguj sie, jesli trzeba."
 Write-Host "  4. .env: skopiuj .env.example do .env (gdy bedzie w repo) i uzupelnij z menedzera hasel."
 Write-Host "  5. Zamknij ten terminal i otworz nowy - zaladuje sie profil (fnm + Starship)."
+Write-Host "  6. Kody odzyskiwania 2FA (GitHub, rejestrator domen, Seohost) zapisz w menedzerze hasel."
+Write-Host "  7. Pierwszy commit: na GitHubie przy commicie ma byc znaczek 'Verified'."
 Write-Host ""
 Write-Host "Potem w repo: .\scripts\start.ps1" -ForegroundColor Cyan

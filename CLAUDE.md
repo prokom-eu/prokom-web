@@ -61,6 +61,7 @@ Krystian pracuje na komputerze w firmie i w domu. **Jedynym kanałem synchroniza
 - Formularze: walidacja Zod na serwerze, honeypot + minimalny czas + limit zgłoszeń, zgoda RODO z wersją klauzuli, zapis przez `submitInquiry()` (ADR-003). Żadnych zewnętrznych usług (CAPTCHA, analityka, fonty z CDN) bez ADR.
 - Teksty po polsku; nie kopiuj tekstów między domenami (SEO).
 - Nowa zależność = uzasadnienie w opisie PR.
+- Dane osobowe (e-mail, telefon, imię, treść zapytania) nigdy w logach, komunikatach błędów ani Sentry. Logi: logger z `lib/` (JSON, `tenant`, `requestId`), nie `console.log`.
 
 ## Definition of Done
 - `lint`, `typecheck`, `test`, `build` zielone lokalnie i w CI.
@@ -78,6 +79,17 @@ Krystian pracuje na komputerze w firmie i w domu. **Jedynym kanałem synchroniza
 - `main` = produkcja, `develop` = staging. Gałęzie: `feat/<opis>`, `fix/<opis>`, `chore/<opis>`, `docs/<opis>`.
 - **Nigdy nie pushuj bezpośrednio na `main` ani `develop`** — tylko PR z zielonym CI, scalanie przez squash.
 - Conventional Commits, po polsku lub angielsku — konsekwentnie w obrębie PR. Jedno zadanie = jedna gałąź = jeden PR.
+- Po każdej akcji na GitHubie (utworzenie PR, edycja, scalenie) **zweryfikuj ją** (`gh pr view` / `gh pr list`) i podaj link — nie raportuj sukcesu bez sprawdzenia.
+- Testy najpierw dla logiki biznesowej (rozpoznawanie domeny, izolacja tenantów, walidacja formularzy): najpierw test, który nie przechodzi, potem kod.
+- Commity są podpisywane kluczem SSH (`commit.gpgsign`). Jeśli podpis się nie uda — **nie wyłączaj go** i nie używaj `--no-gpg-sign`; powiedz mi.
+- Przed każdym commitem pokaż mi `git diff --staged --stat` i 1–3 zdania: co i dlaczego. Commit dopiero, gdy Krystian przeczyta zmiany.
+- Zmiany DNS: najpierw `docs/dns.md`, potem dostawca — nigdy odwrotnie.
+
+## Jak ze mną pracujesz (rzemiosło)
+- **Krystian ma rozumieć każdą linię, którą commituje.** Przy nieoczywistej decyzji (wzorzec, biblioteka, kompromis) dodaj 1–2 zdania „dlaczego tak” — w odpowiedzi, nie w komentarzach do kodu.
+- **Jedna rzecz naraz.** Pomysł spoza zakresu sesji → wpis w `docs/STAN.md` → „Pomysły na później”, nie implementujesz go „przy okazji”.
+- **Małe kroki:** plan → test → kod → `lint/typecheck/test` → pokazanie diffu. Gdy zmiana rośnie powyżej ~400 linii diffu, zaproponuj podział na osobne PR.
+- Gdy nie jesteś pewien API biblioteki — sprawdź dokumentację zainstalowanej wersji albo powiedz, że nie wiesz. Nie zgaduj.
 
 ## Komendy projektu
 - `/zadanie <sesja lub opis>` — kontekst, plan, czekasz na „ok”, potem kod.
