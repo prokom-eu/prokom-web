@@ -14,10 +14,10 @@
 |---|---|---|---|
 | `--c-prokom` (Zieleń Dioda) | `#45A02C` | `#4FB034` | marka główna, hub pro-kom.eu |
 | `--c-biznes` (Granat) | `#244FB0` | `#4A7BE0` | prokombiznes.pl |
-| `--c-instalacje` (Turkus Morskiego Oka) | `#0093B3` | `#12B6D8` | prokominstalacje.pl |
+| `--c-instalacje` (Turkus Instalacji) | `#0093B3` | `#12B6D8` | prokominstalacje.pl |
 | `--c-software` (Fiolet Kodu) | `#8B61E3` | `#9670EE` | prokomsoftware.pl |
 | `--c-tech` (Czerwień) | `#D13A2E` | `#E2483A` | PRO-KOM Tech (prokomserwis.pl) |
-| `--c-zakopane` (Bursztyn) | `#DD8600` | `#F29A00` | PRO-KOM Zakopane |
+| `--c-zakopane` (Bursztyn Podhala) | `#DD8600` | `#F29A00` | PRO-KOM Zakopane |
 | `--c-grafit` | `#121613` | — | tekst, napis PRO-KOM, ciemne tła |
 | `--c-papier` | `#F4F5F1` | — | jasne tła sekcji |
 | `--c-white` | `#FFFFFF` | — | tło |
@@ -50,7 +50,7 @@ Nazwy jak w paczce: `prokom-<linia>_<układ>_<wersja>.svg`
 
 Do repo trafiają tylko potrzebne SVG (poziome + negatyw dla aktywnych linii, sygnety) oraz favicony i ikony (`favicon.ico`, `favicon.svg`, 180/192/512 px). Rastrów, PDF, EPS i plików źródłowych **nie** trzymamy w repo.
 
-> ⚠️ **Przed użyciem logotypów Instalacje i Zakopane:** pliki w paczce mają kolory sprzed zamiany (Instalacje bursztyn, Zakopane turkus) — trzeba je wygenerować ponownie (Instalacje → turkus, Zakopane → bursztyn). Logotypy PRO-KOM, Biznes, Software i Tech są aktualne.
+> Paczka plików i księga zostały przegenerowane po zamianie kolorów Instalacje ↔ Zakopane (14.10.2026) — przed skopiowaniem SVG do repo sprawdź, czy kreska Instalacji jest turkusowa, a Zakopanego bursztynowa.
 
 ## Zasady znaku
 - Pole ochronne: 0,5 H (H = wysokość napisu PRO-KOM).
