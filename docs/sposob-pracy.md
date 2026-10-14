@@ -49,11 +49,11 @@ Skrypt: robi commit `wip: …` na gałęzi zadania i wypycha go na GitHub; spraw
 ### Zasady
 1. **Nigdy nie wychodzę od komputera z niewypchniętą pracą.** Commity `wip:` na gałęzi zadania są OK — przy squash merge sklejają się w jeden.
 2. **Jedno zadanie = jedna gałąź**, kontynuowana na obu komputerach. Na drugim komputerze: `git switch <ta-sama-gałąź>` (skrypt start robi `pull`).
-3. Zadanie skończone → PR do `develop` → zielone CI → squash merge → `.\scripts\start.ps1` (wraca na aktualny `develop`).
+3. Zadanie skończone → w Claude Code `/przeglad`, potem `/pr` (gotowy tytuł i opis, PR zakładany przez `gh`) → zielone CI → **Squash and merge** → `.\scripts\start.ps1` (wraca na aktualny `develop`). Tytuł PR zostaje w historii `develop` — nigdy „wip”.
 4. Konflikt albo „coś się rozjechało” → nie kombinuję z `--force`; `git status`, zrzut ekranu i pytanie w czacie.
 
 ## Konfiguracja nowego komputera (jednorazowo, ok. 30 min)
-1. Zainstaluj: Git for Windows, Node.js (wersja z `.nvmrc`), Docker Desktop, Claude Code, GitHub CLI.
+1. Zainstaluj: Git for Windows, Node.js (wersja z `.nvmrc`), Docker Desktop, Claude Code, GitHub CLI (`winget install GitHub.cli`).
 2. `corepack enable` (pnpm w wersji z `package.json`).
 3. `gh auth login` — moje konto GitHub (2FA).
 4. Pozwolenie na skrypty (raz, dla mojego użytkownika): `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`.
