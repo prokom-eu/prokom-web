@@ -82,6 +82,7 @@ Krystian pracuje na komputerze w firmie i w domu. **Jedynym kanałem synchroniza
 ## Komendy projektu
 - `/zadanie <sesja lub opis>` — kontekst, plan, czekasz na „ok”, potem kod.
 - `/przeglad` — przegląd zmian przed PR.
+- `/pr` — tytuł (Conventional Commits) i opis wg `.github/pull_request_template.md`, po mojej akceptacji `gh pr create --base develop`.
 - `/wdrozenie staging|produkcja` — checklista przed wdrożeniem.
 - `/koniec-sesji` — aktualizacja `docs/STAN.md` (z następnym krokiem) i podsumowanie.
 - Skrypty Krystiana (nie uruchamiaj ich sam): `scripts\start.ps1` — start pracy; `scripts\koniec.ps1` — koniec pracy.
