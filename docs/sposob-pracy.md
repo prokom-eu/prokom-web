@@ -52,25 +52,29 @@ Skrypt: robi commit `wip: …` na gałęzi zadania i wypycha go na GitHub; spraw
 3. Zadanie skończone → w Claude Code `/przeglad`, potem `/pr` (gotowy tytuł i opis, PR zakładany przez `gh`) → zielone CI → **Squash and merge** → `.\scripts\start.ps1` (wraca na aktualny `develop`). Tytuł PR zostaje w historii `develop` — nigdy „wip”.
 4. Konflikt albo „coś się rozjechało” → nie kombinuję z `--force`; `git status`, zrzut ekranu i pytanie w czacie.
 
-## Konfiguracja nowego komputera (jednorazowo, ok. 30 min)
-1. Zainstaluj: Git for Windows, Node.js (wersja z `.nvmrc`), Docker Desktop, Claude Code, GitHub CLI (`winget install GitHub.cli`).
-2. **Terminal:** PowerShell 7 (`winget install Microsoft.PowerShell`) jako profil domyślny w Windows Terminal (Ctrl+, → Uruchamianie → Profil domyślny: „PowerShell” z czarną ikoną, nie „Windows PowerShell”); „Uruchom ten profil jako Administrator” — wyłączone; Katalog startowy: folder repo. PowerShell 7 = poprawne polskie znaki w commitach.
-   **Do pracy nad projektem NIGDY nie używaj okna „Administrator”** — pliki utworzone jako administrator należą do innego właściciela i git zgłasza „dubious ownership” (Claude Code i skrypty przestają działać). Administrator tylko do instalowania programów.
-3. `corepack enable` (pnpm w wersji z `package.json`).
-4. `gh auth login` — moje konto GitHub (HTTPS, „Authenticate Git” = Yes, logowanie przez przeglądarkę, 2FA).
-5. Pozwolenie na skrypty (raz, dla mojego użytkownika): `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned` → `Y`.
-6. Klon: `git clone https://github.com/prokom-eu/prokom-web.git D:\PRO-KOM\repos\prokom-web`.
-7. W repo:
+## Konfiguracja nowego komputera (jednorazowo, ok. 15 min)
+Wszystko robi `scripts/setup-komputera.ps1` (można uruchamiać wielokrotnie — pomija to, co już jest).
+
+1. **Zwykłe** okno PowerShell (NIE „Administrator”). Na nowym komputerze, gdzie repo jeszcze nie ma: pobierz `scripts/setup-komputera.ps1` z GitHuba (repo → plik → „Download raw file”) i uruchom:
    ```powershell
-   git config user.name "Krystian Potaczek"
-   git config user.email "<e-mail z konta GitHub>"
-   git config core.autocrlf false
-   git config pull.ff only
-   git config --global --add safe.directory D:/PRO-KOM/repos/prokom-web
+   powershell -ExecutionPolicy Bypass -File .\setup-komputera.ps1
    ```
-8. `.env` — skopiuj `.env.example` do `.env` i uzupełnij wartości lokalne z menedżera haseł (wpis „prokom-web .env lokalny”).
-9. `.\scripts\start.ps1`, potem `pnpm seed` (dane testowe).
-10. Aplikacja dysku w chmurze: synchronizuj `marka`, `materialy`, `notatki` — NIE `repos`.
+   Gdy repo już jest: `.\scripts\setup-komputera.ps1`.
+2. Skrypt:
+   - instaluje (winget): Git, PowerShell 7, GitHub CLI, fnm (wersje Node), Starship (prompt z gałęzią), Docker Desktop;
+   - Node LTS przez fnm + pnpm (corepack); dokładną wersję dla projektu ustala `.nvmrc`, a fnm przełącza ją sam po wejściu do repo;
+   - dopisuje do profilu PowerShell 7: fnm + Starship;
+   - ustawia globalnie gita: `pull.ff only`, `fetch.prune`, `push.autoSetupRemote`, `rerere`, `core.autocrlf false`, aliasy `git lg` i `git st`, imię i e-mail;
+   - loguje `gh` (HTTPS, przez przeglądarkę), klonuje repo do `D:\PRO-KOM\repos\prokom-web`, dodaje `safe.directory`.
+3. Ręcznie (skrypt przypomina na końcu):
+   - Windows Terminal → Ctrl+, → Uruchamianie → Profil domyślny: „PowerShell” (czarna ikona, nie „Windows PowerShell”); Profile → PowerShell → Katalog startowy = folder repo; „Uruchom jako Administrator” = wyłączone;
+   - Docker Desktop — pierwsze uruchomienie (WSL 2);
+   - Claude Code — `claude --version`, logowanie;
+   - `.env` — `.env.example` → `.env`, wartości z menedżera haseł (wpis „prokom-web .env lokalny”);
+   - aplikacja dysku w chmurze: synchronizuj `marka`, `materialy`, `notatki` — NIE `repos`.
+4. Nowy terminal → `.\scripts\start.ps1` → `pnpm seed` (gdy projekt ma już kod).
+
+**Do pracy nad projektem NIGDY nie używaj okna „Administrator”** — pliki utworzone jako administrator należą do innego właściciela i git zgłasza „dubious ownership”. Administrator tylko do instalowania programów (instalatory same o to poproszą).
 
 ## Bezpieczeństwo
 - Konto GitHub i menedżer haseł z 2FA na obu komputerach.

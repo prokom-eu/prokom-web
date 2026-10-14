@@ -22,11 +22,18 @@ ADR do przeczytania przed fundamentem: 001, 003, 004, 005, 006, 007.
 - `.github/workflows/ci.yml`: install (cache pnpm) → lint → typecheck → test → build → gitleaks. Jedna przeglądarka w Playwright, timeouty, `concurrency` (anulowanie starszych przebiegów).
 - `.github/dependabot.yml` (npm + github-actions, grupowanie, Next/Payload ignorowane w aktualizacjach major).
 - `.vscode/extensions.json` (ESLint, Prettier, Tailwind).
-**Poza zakresem:** kolekcje, tenanci, wygląd, Docker produkcyjny.
-**Gotowe, gdy:** `pnpm dev` startuje, `/admin` lokalnie pokazuje ekran tworzenia pierwszego użytkownika; CI zielone na PR; brak `.env` w repo; `docs/STAN.md` i komendy w `CLAUDE.md` zgodne z rzeczywistością.
+- `.nvmrc` z wersją Node wspieraną przez Payload 3 (fnm na obu komputerach przełącza się automatycznie; CI czyta tę samą wersję).
+- **Haki git (husky + lint-staged):** przed commitem — Prettier i ESLint tylko na zmienionych plikach, gitleaks na staged (blokada sekretów). Szybkie (sekundy); nie uruchamiać pełnych testów w haku.
+- **Kontrola tytułu PR w CI:** osobny job sprawdza, czy tytuł PR pasuje do Conventional Commits (`typ(zakres)?: opis`, typy: feat, fix, chore, docs, refactor, test, perf, ci, build) — prosty skrypt w workflow, bez zewnętrznej akcji. Przy squash merge tytuł PR = historia `develop`.
+- **Claude Code — hak po edycji:** w `.claude/settings.json` hak `PostToolUse` dla Edit/Write uruchamiający Prettier na zmienionym pliku (szczegóły i składnię sprawdź w aktualnej dokumentacji Claude Code). Uwaga: plików w `.claude/` Krystian zapisuje lokalnie — przygotuj treść, on zatwierdzi.
+- **Claude Code — recenzent:** subagent `.claude/agents/recenzent.md` (czysty kontekst: tylko diff, specyfikacja/sesja, ADR-y, `jakosc.md`); `/przeglad` korzysta z niego. Zasada: autor nie recenzuje sam siebie.
+- **Aktualna dokumentacja bibliotek dla Claude Code:** sprawdź i zaproponuj (ADR) serwer MCP z aktualną dokumentacją bibliotek (np. Context7) — Payload 3 / Next.js zmieniają API; decyzja przed S2.
+**Poza zakresem:** kolekcje, tenanci, wygląd, Docker produkcyjny, wersjonowanie/changelog (przy pierwszej produkcji).
+**Gotowe, gdy:** `pnpm dev` startuje, `/admin` lokalnie pokazuje ekran tworzenia pierwszego użytkownika; CI zielone na PR (łącznie z kontrolą tytułu); commit z błędem formatowania albo przykładowym sekretem jest blokowany przez hak; `docs/STAN.md` i komendy w `CLAUDE.md` zgodne z rzeczywistością.
 
 ## S2 — baza, migracje, użytkownicy
 **Zakres:**
+- **Testy najpierw** dla logiki (tu: blokada seeda na produkcji, walidacja haseł/ról) — najpierw test, który nie przechodzi, potem kod. Ta zasada obowiązuje dalej w S3 (rozpoznawanie domeny, izolacja tenantów) i S8 (walidacja formularza, antyspam).
 - Adapter PostgreSQL; **migracje wersjonowane** w repo (`push` tylko w dev — udokumentuj, jak to jest ustawione).
 - `Users`: role `admin` / `editor`; limit nieudanych logowań i blokada czasowa; silne hasła.
 - Skrypt `seed` (tylko gdy `NODE_ENV !== 'production'` — twarda blokada): admin lokalny.
