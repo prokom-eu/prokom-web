@@ -62,7 +62,13 @@ if (-not $dockerOk) {
     docker compose -f docker/compose.dev.yml up -d
 }
 
-# 6. Zaleznosci i migracje (gdy projekt juz ma kod - od sesji S1)
+# 6. Node z .nvmrc (fnm), pnpm, zaleznosci i migracje (gdy projekt juz ma kod - od sesji S1)
+if ((Test-Path ".nvmrc") -and (Get-Command fnm -ErrorAction SilentlyContinue)) {
+    fnm use --install-if-missing --silent-if-unchanged
+}
+if ((Test-Path "package.json") -and -not (Get-Command pnpm -ErrorAction SilentlyContinue)) {
+    corepack enable
+}
 if (Test-Path "package.json") {
     pnpm install --frozen-lockfile
     if ((Test-Path ".env") -and $dockerOk) {
