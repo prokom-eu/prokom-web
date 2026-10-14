@@ -26,7 +26,15 @@ Docelowo zapytania żyją w PRO-KOM System (Django, styczeń 2027). Pierwsza str
 - Ochrona: honeypot, minimalny czas wypełnienia, limit zgłoszeń na adres IP (licznik w pamięci/bazie, **bez trwałego zapisu pełnego IP**).
 - Po zapisie: powiadomienie e-mail (SMTP z `.env`) do adresu z ustawień tenanta + potwierdzenie dla klienta z obiecanym czasem odpowiedzi.
 - Panel: kolekcja tylko do odczytu, edytowalne wyłącznie pole `status`; filtr po linii i statusie. Publicznie: tylko tworzenie przez endpoint, brak odczytu.
-- Retencja (RODO): zapytania bez dalszej współpracy — usuwane po 24 miesiącach (do potwierdzenia przy polityce prywatności).
+- Retencja (RODO): zapytania bez dalszej współpracy — usuwane po 24 miesiącach (do potwierdzenia przy polityce prywatności). Szczegóły — sekcja „Retencja” niżej.
+
+## Retencja i prawa osób (uzupełnienie 2026-10-15)
+- **Okres:** zapytanie o statusie `closed` jest usuwane trwale po okresie retencji liczonym od ostatniej zmiany statusu. Wartość w env (`INQUIRY_RETENTION_MONTHS`, domyślnie 24), żeby zmiana po decyzji przy polityce prywatności nie wymagała zmiany kodu. Zapytania `new` i `in_progress` nie są usuwane automatycznie.
+- **Mechanizm:** zadanie cykliczne raz na dobę (mechanizm zadań Payload, bez nowych usług), z wpisem w logach: ile rekordów usunięto (bez danych osobowych).
+- **Usunięcie na żądanie** (prawo do usunięcia danych): akcja w panelu tylko dla roli `admin`; zostaje ślad „kto, kiedy, ID rekordu”, bez treści zapytania.
+- **Kopie zapasowe:** usunięte rekordy znikają z kopii wraz z ich rotacją (`docs/wdrozenia.md`: 14 dziennych + 3 miesięczne) — opisujemy to w polityce prywatności.
+- **Logi:** dane osobowe z zapytań nigdy nie trafiają do logów ani do Sentry.
+- **Migracja 2027:** te same zasady przechodzą do PRO-KOM System razem z modelem `Inquiry`.
 
 ## Konsekwencje
 - Styczeń 2027: `submitInquiry()` zapisuje do API PRO-KOM System; jednorazowy skrypt migruje istniejące rekordy. Formularze bez zmian.
