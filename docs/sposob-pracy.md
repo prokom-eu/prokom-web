@@ -54,20 +54,23 @@ Skrypt: robi commit `wip: …` na gałęzi zadania i wypycha go na GitHub; spraw
 
 ## Konfiguracja nowego komputera (jednorazowo, ok. 30 min)
 1. Zainstaluj: Git for Windows, Node.js (wersja z `.nvmrc`), Docker Desktop, Claude Code, GitHub CLI (`winget install GitHub.cli`).
-2. `corepack enable` (pnpm w wersji z `package.json`).
-3. `gh auth login` — moje konto GitHub (2FA).
-4. Pozwolenie na skrypty (raz, dla mojego użytkownika): `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`.
-5. Klon: `git clone https://github.com/prokom-eu/prokom-web.git D:\PRO-KOM\repos\prokom-web`.
-6. W repo:
+2. **Terminal:** PowerShell 7 (`winget install Microsoft.PowerShell`) jako profil domyślny w Windows Terminal (Ctrl+, → Uruchamianie → Profil domyślny: „PowerShell” z czarną ikoną, nie „Windows PowerShell”); „Uruchom ten profil jako Administrator” — wyłączone; Katalog startowy: folder repo. PowerShell 7 = poprawne polskie znaki w commitach.
+   **Do pracy nad projektem NIGDY nie używaj okna „Administrator”** — pliki utworzone jako administrator należą do innego właściciela i git zgłasza „dubious ownership” (Claude Code i skrypty przestają działać). Administrator tylko do instalowania programów.
+3. `corepack enable` (pnpm w wersji z `package.json`).
+4. `gh auth login` — moje konto GitHub (HTTPS, „Authenticate Git” = Yes, logowanie przez przeglądarkę, 2FA).
+5. Pozwolenie na skrypty (raz, dla mojego użytkownika): `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned` → `Y`.
+6. Klon: `git clone https://github.com/prokom-eu/prokom-web.git D:\PRO-KOM\repos\prokom-web`.
+7. W repo:
    ```powershell
    git config user.name "Krystian Potaczek"
    git config user.email "<e-mail z konta GitHub>"
    git config core.autocrlf false
    git config pull.ff only
+   git config --global --add safe.directory D:/PRO-KOM/repos/prokom-web
    ```
-7. `.env` — skopiuj `.env.example` do `.env` i uzupełnij wartości lokalne z menedżera haseł (wpis „prokom-web .env lokalny”).
-8. `.\scripts\start.ps1`, potem `pnpm seed` (dane testowe).
-9. Aplikacja dysku w chmurze: synchronizuj `marka`, `materialy`, `notatki` — NIE `repos`.
+8. `.env` — skopiuj `.env.example` do `.env` i uzupełnij wartości lokalne z menedżera haseł (wpis „prokom-web .env lokalny”).
+9. `.\scripts\start.ps1`, potem `pnpm seed` (dane testowe).
+10. Aplikacja dysku w chmurze: synchronizuj `marka`, `materialy`, `notatki` — NIE `repos`.
 
 ## Bezpieczeństwo
 - Konto GitHub i menedżer haseł z 2FA na obu komputerach.
@@ -78,6 +81,9 @@ Skrypt: robi commit `wip: …` na gałęzi zadania i wypycha go na GitHub; spraw
 ## Gdy coś nie gra
 | Objaw | Co zrobić |
 |---|---|
+| `dubious ownership` przy komendach git | okno było „Administrator” albo repo założone jako admin → zwykły terminal + `git config --global --add safe.directory <ścieżka-repo-z-ukośnikami-/>` |
+| krzaki zamiast polskich znaków w commitach | używasz starego „Windows PowerShell” 5.1 → przełącz na PowerShell 7 |
+| w terminalu pojawia się `>>` | wkleiłeś kilka linii naraz — wklejaj po jednej komendzie |
 | `start.ps1`: „masz niezacommitowane zmiany” | sprawdź `git status`; jeśli to Twoja praca — `.\scripts\koniec.ps1 "opis"` i ponownie start |
 | `git pull` odmawia (rozjechana historia) | nie używaj `--force`; `git status` + `git log --oneline -5` → pytanie w czacie |
 | Na drugim komputerze brakuje danych w panelu | normalne — lokalna baza jest per komputer; `pnpm seed` |
