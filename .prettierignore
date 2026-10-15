@@ -1,0 +1,11 @@
+pnpm-lock.yaml
+.next/
+node_modules/
+playwright-report/
+test-results/
+coverage/
+media/
+src/payload-types.ts
+src/app/(payload)/admin/importMap.js
+docs/
+*.md

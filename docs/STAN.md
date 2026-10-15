@@ -12,9 +12,9 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 | prokomsoftware.pl | 31.10 | ⏳ |
 
 ## W toku
-- S1 — szkielet repo i bramka jakości.
-  - Gałąź: (jeszcze nie założona)
-  - Następny krok: `/zadanie S1` w trybie planowania.
+- S1 podzielona na dwa PR-y (`docs/zadania/fundament.md` → S1).
+  - **S1a — szkielet aplikacji i lokalna bramka jakości.** Gałąź: `feat/fundament-s1a-szkielet`. Zrobione: Payload 3.90.2 + Next 16.3.8 (szablon blank/PostgreSQL), Node 24.22.0 (`.nvmrc`), pnpm 11.28.2 (`packageManager`, ustawienia w `pnpm-workspace.yaml`), ESLint/Prettier/TS strict, Vitest (test `lib/env`), Playwright (strona i `/admin` startują), `src/lib/env.ts` (Zod) + `.env.example`, `docker/compose.dev.yml` (PostgreSQL 17 na porcie 54320 + Mailpit). Lint/typecheck/test/build/test:e2e zielone, `/admin` pokazuje „Create first user”. Następny krok: przegląd diffu przez Krystiana → commit → `/przeglad` → `/pr`.
+  - **S1b — automaty (osobny PR, po scaleniu S1a):** `.github/workflows/ci.yml` (install → lint → typecheck → test → build → gitleaks; build z testowymi wartościami env), Dependabot, husky + lint-staged + gitleaks w haku, kontrola tytułu PR, hak Prettiera w `.claude/settings.json`, subagent `recenzent`, ADR o MCP z aktualną dokumentacją bibliotek. Następny krok: `/zadanie S1b` w trybie planowania.
 
 ## Zrobione
 - 15.10.2026 — uzupełnienia fundamentu: `docs/dns.md` (własność domen, rekordy, SPF/DKIM/DMARC); retencja zapytań w ADR-003 i S8; logi strukturalne i smoke test w S9; budżet Lighthouse CI, poczta i automatyczny powrót w S10; podpisywanie commitów SSH i lepsze ustawienia gita w `setup-komputera.ps1`; nawyki pracy w `CLAUDE.md` i `sposob-pracy.md`.
@@ -31,6 +31,7 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 ## Pomysły na później (poza zakresem bieżących sesji)
 - Przy pierwszej produkcji (26.10): wersje i lista zmian — tag `vX.Y.Z` przy wdrożeniu na `main`, automatyczny changelog z tytułów PR (dla szefa: „co nowego”, dla nas: punkt rollbacku).
 - Gdy dojdzie druga osoba do kodu: plan GitHub Team (prawdziwa ochrona gałęzi `main`/`develop` w prywatnym repo). Dziś wystarcza blokada w `.claude/settings.json` + CI.
+- S1b (ADR o dokumentacji bibliotek): `create-payload-app -a claude` instaluje oficjalny skill Payload dla Claude Code — rozważyć obok MCP.
 - Przy pierwszej produkcji: komenda `/raport-tygodnia` — scalone PR-y z tygodnia + STAN → 5 linijek statusu do Asany (prostym językiem dla szefa).
 
 ## Otwarte pytania
