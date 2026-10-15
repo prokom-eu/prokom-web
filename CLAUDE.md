@@ -20,6 +20,7 @@ Właściciel kodu: firma PRO-KOM Tadeusz Wójciak — organizacja GitHub `prokom
 - Menedżer pakietów: **pnpm** (przez Corepack). Node: wersja z `.nvmrc`.
 - Docker Compose, Nginx + Let's Encrypt, GitHub Actions, obrazy w GHCR.
 - Testy: Vitest (logika), Playwright (krytyczne ścieżki). Jakość: ESLint + Prettier, gitleaks w CI.
+- Automaty (S1b): CI `.github/workflows/ci.yml` (lint → format:check → typecheck → test → build → e2e + gitleaks) i `pr-title.yml` (tytuł PR wg Conventional Commits); Dependabot do `develop`. Hak przed commitem (husky + lint-staged): gitleaks na staged + Prettier/ESLint na zmienionych plikach — bez autopoprawek, błąd = `pnpm format` i ponowny commit; bez gitleaks w PATH commit jest blokowany (`winget install --id Gitleaks.Gitleaks`). Claude Code: hak `PostToolUse` formatuje edytowane pliki (`.claude/hooks/format.mjs`), `/przeglad` używa subagenta `recenzent`.
 
 ## Struktura (docelowa)
 ```

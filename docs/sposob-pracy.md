@@ -91,7 +91,7 @@ Wszystko robi `scripts/setup-komputera.ps1` (można uruchamiać wielokrotnie —
 - Konto GitHub i menedżer haseł z 2FA na obu komputerach. **Kody odzyskiwania 2FA** (GitHub, rejestrator domen, Seohost, menedżer haseł) zapisane w menedżerze haseł — zgubiony telefon nie może oznaczać utraty konta.
 - Domeny i konta dostawców (rejestrator, Seohost) na dane i e-mail firmy, nie prywatne — `docs/dns.md`.
 - Komputer domowy: szyfrowanie dysku (BitLocker / szyfrowanie urządzenia), hasło do konta Windows, blokada ekranu.
-- `.env` nigdy w gicie (pilnuje `.gitignore` i gitleaks w CI); wartości przenoszę tylko przez menedżer haseł.
+- `.env` nigdy w gicie (pilnuje `.gitignore`, gitleaks w haku przed commitem i w CI); wartości przenoszę tylko przez menedżer haseł.
 - Na komputery nie ściągamy kopii baz produkcyjnych ani danych klientów — praca na `pnpm seed` i stagingu.
 
 ## Gdy coś nie gra
@@ -106,4 +106,7 @@ Wszystko robi `scripts/setup-komputera.ps1` (można uruchamiać wielokrotnie —
 | Błąd migracji po `pull` | `pnpm payload migrate`; jeśli dalej błąd — lokalnie można odtworzyć bazę od zera (`docker compose ... down -v`, `up -d`, `migrate`, `seed`) |
 | Commit bez znaczka **Verified** na GitHubie | `git config user.email` ≠ e-mail zweryfikowany na GitHubie albo klucz nie dodany jako *Signing key* (GitHub → Settings → SSH and GPG keys) → uruchom ponownie `.\scripts\setup-komputera.ps1` |
 | `error: ... ssh-keygen` / `failed to write commit object` przy commicie | brak klienta OpenSSH: Ustawienia → System → Funkcje opcjonalne → „Klient OpenSSH” → zainstaluj; nie wyłączaj podpisywania |
+| Commit zablokowany: „gitleaks is not installed” albo `pnpm: command not found` (np. commit z VS Code) | hak nie widzi programów w PATH: zainstaluj gitleaks (`winget install --id Gitleaks.Gitleaks`), zamknij i otwórz ponownie terminal/VS Code; w razie wątpliwości commituj z terminala PowerShell 7 |
+| Commit zablokowany: „leaks found” | gitleaks znalazł sekret w zmianach (plik i linia w komunikacie) — usuń go z pliku, przenieś do `.env`; nie omijaj haka (`--no-verify`) |
+| Commit zablokowany przez Prettier/ESLint | `pnpm format` (i poprawki ESLint), przejrzyj zmiany, `git add` i commit ponownie |
 | Zapomniałem wypchnąć pracę z drugiego komputera | nie zaczynaj tej samej gałęzi od nowa — dokończ na tamtym komputerze albo zacznij inną sesję/zadanie |
