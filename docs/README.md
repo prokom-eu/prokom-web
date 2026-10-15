@@ -11,6 +11,7 @@
 | `dns.md` | domeny, rejestrator, rekordy DNS, poczta (SPF/DKIM/DMARC) | przed każdą zmianą DNS i przy problemach z pocztą |
 | `marka.md` | kolory, fonty, logo — tokeny dla kodu | przy pracy nad UI |
 | `strony/<domena>.md` | specyfikacja strony: zakres, mapa, treści, SEO | przy pracy nad daną stroną |
+| `strony/<domena>-design.md` | brief wizualny strony: odczucie, zamknięty motyw, zakazy | przy pracy nad wyglądem danej strony |
 | `decyzje/ADR-*.md` | decyzje architektoniczne z uzasadnieniem | gdy decyzja dotyczy zadania |
 | `runbook.md` | co robić, gdy coś nie działa (powstaje w S9–S10) | przy awarii |
 
