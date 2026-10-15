@@ -1,6 +1,6 @@
 # ADR-008: Aktualna dokumentacja bibliotek dla Claude Code
 
-- **Status:** proponowana (decyzja przed S2)
+- **Status:** przyjęta (15.10.2026)
 - **Data:** 2026-10-15
 - **Decyduje:** Krystian (technika)
 
@@ -20,7 +20,7 @@ Stan na 15.10.2026 (sprawdzone):
 | B. Context7 MCP | Jedno narzędzie dla wielu bibliotek (też Zod, Tailwind, Playwright); wyszukiwanie po fragmentach | Nowa ruchoma część: konfiguracja MCP na dwóch komputerach, klucz API w menedżerze haseł; usługa zewnętrzna i jej limity; wersje indeksu nie zawsze równe naszym | 0 zł (darmowy plan) |
 | C. A + B | Najszersze pokrycie | Dwa źródła, czasem sprzeczne; największa złożoność | 0 zł |
 
-## Decyzja (propozycja)
+## Decyzja
 Wybieramy **A**, ponieważ daje dokumentację dokładnie zainstalowanych wersji bez nowej usługi i bez konfiguracji na dwóch komputerach — zgodnie z zasadą „każda ruchoma część musi mieć uzasadnienie”.
 
 Kolejność źródeł dla Claude:
@@ -30,6 +30,6 @@ Kolejność źródeł dla Claude:
 4. Gdy źródło milczy — powiedzieć „nie wiem”, nie zgadywać (CLAUDE.md).
 
 ## Konsekwencje
-- Po przyjęciu: dopisać kolejność źródeł do `CLAUDE.md` („Zanim zaczniesz zadanie”, pkt 6).
+- Kolejność źródeł dopisana do `CLAUDE.md` („Zanim zaczniesz zadanie”, pkt 6).
 - Przy pierwszej aktualizacji Payload, która dołącza skill: sprawdzić `node_modules/payload/skills/payload/`, dodać `AGENTS.md` wskazujący na skill (jak robi `create-payload-app`) i zaktualizować ten ADR.
 - Wracamy do Context7 (opcja B), jeśli w S2–S5 Claude co najmniej kilka razy użyje nieistniejącego API mimo źródeł z opcji A.

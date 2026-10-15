@@ -10,7 +10,7 @@ Właściciel kodu: firma PRO-KOM Tadeusz Wójciak — organizacja GitHub `prokom
 3. Zadanie strony → specyfikacja `docs/strony/<domena>.md`. **Specyfikacja jest źródłem prawdy dla treści i zakresu.** Braki oznacz `TODO(krystian):`, nie zgaduj.
 4. Decyzje architektoniczne: `docs/decyzje/ADR-*.md`. Nie zmieniaj ich po cichu — jeśli trzeba, zaproponuj nowy ADR.
 5. Wygląd: `docs/marka.md`. Kolory i fonty tylko z tokenów.
-6. Wersje bibliotek: zanim użyjesz API Payload / Next.js, sprawdź **aktualną dokumentację** zainstalowanej wersji — nie pisz z pamięci (API Payload 3 i Next.js zmieniają się często).
+6. Wersje bibliotek: zanim użyjesz API Payload / Next.js, sprawdź **aktualną dokumentację** zainstalowanej wersji — nie pisz z pamięci (API Payload 3 i Next.js zmieniają się często). Źródła (ADR-008): Next.js → `node_modules/next/dist/docs/`; Payload → `node_modules/payload/skills/payload/SKILL.md`, a dopóki go nie ma — `https://payloadcms.com/llms-full.txt` + typy `node_modules/payload/dist/**/*.d.ts`; inne → README/typy w `node_modules`. Źródło milczy → „nie wiem”.
 
 ## Stos (ADR-001, ADR-005)
 - Next.js (App Router, TypeScript `strict`) + **Payload CMS 3** w tej samej aplikacji. Wersje: te, które oficjalnie wspiera aktualny Payload 3 (z jego szablonu), **przypięte dokładnie** w `package.json`.
@@ -57,7 +57,7 @@ Krystian pracuje na komputerze w firmie i w domu. **Jedynym kanałem synchroniza
 - Server Components domyślnie; `"use client"` tylko przy interakcji.
 - Treści z Payload przez Local API po stronie serwera, **zawsze z filtrem tenanta** (helpery w `lib/tenant`). Treść jednej domeny nigdy nie może pojawić się na innej — pilnuje tego test izolacji.
 - Nieznana domena → 404, nigdy domyślny tenant.
-- Zmiana schematu bazy = migracja w repo. `push` schematu tylko lokalnie.
+- Zmiana schematu bazy = migracja w repo (`pnpm payload migrate:create`), także lokalnie — `push` wyłączony wszędzie (ADR-009).
 - Każda strona: metadane, `sitemap.xml` i `robots.txt` per domena, dane strukturalne, obrazy przez `next/image` z `alt`.
 - Dostępność: kontrast WCAG AA, semantyczny HTML, widoczny focus, etykiety formularzy.
 - Formularze: walidacja Zod na serwerze, honeypot + minimalny czas + limit zgłoszeń, zgoda RODO z wersją klauzuli, zapis przez `submitInquiry()` (ADR-003). Żadnych zewnętrznych usług (CAPTCHA, analityka, fonty z CDN) bez ADR.
