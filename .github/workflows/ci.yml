@@ -85,14 +85,17 @@ jobs:
       - name: Unit tests
         run: pnpm test
 
+      # ADR-009: push is disabled, so the empty CI database gets its schema from migrations only.
+      - name: Migrate database
+        run: pnpm payload migrate
+
       - name: Build
         run: pnpm build
 
       - name: Install Playwright (Chromium only)
         run: pnpm exec playwright install --with-deps chromium
 
-      # Uses `pnpm dev` (playwright.config.ts): until migrations exist (S2) only dev mode
-      # creates the schema in an empty database.
+      # Uses `pnpm dev` (playwright.config.ts) on the migrated database.
       - name: E2E tests
         run: pnpm test:e2e
 

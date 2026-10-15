@@ -52,6 +52,13 @@ Skrypt: robi commit `wip: …` na gałęzi zadania i wypycha go na GitHub; spraw
 3. Zadanie skończone → w Claude Code `/przeglad`, potem `/pr` (gotowy tytuł i opis, PR zakładany przez `gh`) → zielone CI → **Squash and merge** → `.\scripts\start.ps1` (wraca na aktualny `develop`). Tytuł PR zostaje w historii `develop` — nigdy „wip”.
 4. Konflikt albo „coś się rozjechało” → nie kombinuję z `--force`; `git status`, zrzut ekranu i pytanie w czacie.
 
+### Zmiana schematu bazy (ADR-009)
+`push` jest wyłączony (`push: false` w `src/payload.config.ts`) — Payload sam nie zmienia tabel. Schemat zmienia się tylko przez migracje w `src/migrations/`:
+1. Zmieniam kolekcję/pole → `pnpm payload migrate:create <krotka-nazwa>` (powstaje plik `.ts` + migawka `.json`).
+2. `pnpm payload migrate` → sprawdzam w panelu → `pnpm generate:types` → commit migracji razem ze zmianą kolekcji.
+3. Drugi komputer dostaje migrację z GitHuba, `scripts\start.ps1` uruchamia `migrate`. CI migruje pustą bazę przed buildem.
+4. Dane testowe: `pnpm seed` (admin z `SEED_ADMIN_EMAIL` / `SEED_ADMIN_PASSWORD`; na produkcji seed odmawia działania).
+
 ## Konfiguracja nowego komputera (jednorazowo, ok. 15 min)
 Wszystko robi `scripts/setup-komputera.ps1` (można uruchamiać wielokrotnie — pomija to, co już jest).
 

@@ -12,7 +12,7 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 | prokomsoftware.pl | 31.10 | ⏳ |
 
 ## W toku
-- **Decyzje przed S2.** Gałąź: `docs/decyzje-przed-s2`. Zrobione: ADR-008 przyjęty (dokumentacja bibliotek z `node_modules`, kolejność źródeł w `CLAUDE.md`), ADR-009 (`push` wyłączony także lokalnie, schemat tylko przez migracje), zasady logowania w S2 (5 prób → blokada 15 min, hasło min. 12 znaków), projekt strony głównej prokombiznes (PDF) w `docs/strony/`. Następny krok: PR → scalenie → nowa sesja `/zadanie S2`. Do sprawdzenia przy okazji: hak Prettiera w nowej sesji Claude Code (edycja `.ts` ze złym formatem); log pierwszego przebiegu Dependabota.
+- **S2 — baza, migracje, użytkownicy.** Gałąź: `feat/s2-baza-migracje-uzytkownicy`. Zrobione: `push: false` + pierwsza migracja (`src/migrations/`), `Users` z rolami `admin`/`editor` (zarządzanie użytkownikami tylko admin, edytor widzi/edytuje siebie bez zmiany roli, pierwszy użytkownik = admin), 5 prób → blokada 15 min, hasło min. 12 znaków (hak `beforeOperation` — obejmuje też reset hasła), `pnpm seed` z blokadą na produkcji, `pnpm payload migrate` w CI. Sprawdzone na pustej bazie: migrate, seed (2×), polityka haseł, blokada, role, e2e, build. **Uwaga:** lokalna baza z S1 ma schemat z `push` — odtworzyć od zera (`docker compose -f docker/compose.dev.yml down -v`, `up -d`, `pnpm payload migrate`, `pnpm seed`) i dopisać `SEED_ADMIN_*` do `.env`. Następny krok: commit → `/przeglad` → `/pr` → zielone CI → merge → `/zadanie S3`.
 
 ## Zrobione
 - 15.10.2026 — S1b scalone (#9): CI (lint/format/typecheck/test/build/e2e + gitleaks), kontrola tytułu PR, Dependabot, haki git (husky + lint-staged + gitleaks), hak Prettiera i subagent `recenzent` w Claude Code. CI na `develop` zielone. Dependabot otworzył pierwsze PR-y (#10–#14; #7 — poprawki bezpieczeństwa do scalenia po zielonym CI).
@@ -35,6 +35,8 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 - Przy pierwszej produkcji: komenda `/raport-tygodnia` — scalone PR-y z tygodnia + STAN → 5 linijek statusu do Asany (prostym językiem dla szefa).
 - S2: gdy będą migracje — e2e w CI na zbudowanej aplikacji (`pnpm start` + `payload migrate`) zamiast `pnpm dev` (bliżej produkcji, szybciej).
 - CI: `--max-old-space-size=8000` w skrypcie `build` (z szablonu) przekracza RAM runnera GitHub (~8 GB) — obniżyć do ~6144, gdy build urośnie albo pojawi się exit 137.
+
+- CI: kontrola „schemat = migracje” — job, który na zmigrowanej bazie uruchamia `migrate:create` i failuje, gdy powstałaby niepusta migracja (złapie zmianę kolekcji bez migracji).
 
 ## Otwarte pytania
 - **16.10 (Krystian, przy zakupie):** domeny na firmę (abonent PRO-KOM) i konto rejestratora na firmowy e-mail z 2FA i autoodnawianiem (`docs/dns.md`).
