@@ -26,6 +26,9 @@ export default buildConfig({
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
   db: postgresAdapter({
+    // ADR-009: schema changes only through versioned migrations, never dev `push`.
+    push: false,
+    migrationDir: path.resolve(dirname, 'migrations'),
     pool: {
       connectionString: env.DATABASE_URL,
     },
