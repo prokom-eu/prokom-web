@@ -12,9 +12,10 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 | prokomsoftware.pl | 31.10 | ⏳ |
 
 ## W toku
-- **S1b — automaty.** Gałąź: `chore/fundament-s1b-automaty`. Zrobione: `.github/workflows/ci.yml` (lint → format:check → typecheck → test → build → e2e z PostgreSQL w kontenerze; osobny job gitleaks — binarka z sumą SHA256, bo `gitleaks-action` wymaga licencji dla organizacji), `pr-title.yml` (Conventional Commits), `dependabot.yml` (npm co tydzień, actions co miesiąc, do `develop`, bez major Next/Payload/React), husky + lint-staged (gitleaks na staged + Prettier/ESLint bez autopoprawek; bez gitleaks commit blokowany), hak `PostToolUse` z Prettierem (`.claude/hooks/format.mjs`), subagent `recenzent` + `/przeglad`, ADR-008 (proponowany: dokumentacja z `node_modules` zamiast Context7), gitleaks w `setup-komputera.ps1`, tabela „Gdy coś nie gra” w `sposob-pracy.md`. Sprawdzone lokalnie: lint/typecheck/test/build zielone; hak blokuje zły format, przykładowy token GitHub i brak gitleaks. `/przeglad` (recenzent) zrobiony, poprawki wprowadzone. Następny krok: `/pr` → CI zielone na PR (oba workflowy) → squash merge. Po scaleniu: (1) w nowej sesji Claude Code edycja pliku `.ts` ze złym formatem — sprawdzić, że hak Prettiera go poprawia; (2) GitHub → Insights → Dependency graph → Dependabot — log pierwszego przebiegu (czy obsługuje pnpm 11); (3) decyzja ADR-008 przed S2.
+- **Decyzje przed S2.** Gałąź: `docs/decyzje-przed-s2`. Zrobione: ADR-008 przyjęty (dokumentacja bibliotek z `node_modules`, kolejność źródeł w `CLAUDE.md`), ADR-009 (`push` wyłączony także lokalnie, schemat tylko przez migracje), zasady logowania w S2 (5 prób → blokada 15 min, hasło min. 12 znaków), projekt strony głównej prokombiznes (PDF) w `docs/strony/`. Następny krok: PR → scalenie → nowa sesja `/zadanie S2`. Do sprawdzenia przy okazji: hak Prettiera w nowej sesji Claude Code (edycja `.ts` ze złym formatem); log pierwszego przebiegu Dependabota.
 
 ## Zrobione
+- 15.10.2026 — S1b scalone (#9): CI (lint/format/typecheck/test/build/e2e + gitleaks), kontrola tytułu PR, Dependabot, haki git (husky + lint-staged + gitleaks), hak Prettiera i subagent `recenzent` w Claude Code. CI na `develop` zielone. Dependabot otworzył pierwsze PR-y (#10–#14; #7 — poprawki bezpieczeństwa do scalenia po zielonym CI).
 - 15.10.2026 — S1a scalone (#6): szkielet Next 16.3.8 + Payload 3.90.2, pnpm 11, TS strict, ESLint/Prettier, Vitest, Playwright, `lib/env.ts`, `docker/compose.dev.yml`.
 - 15.10.2026 — brief wizualny prokombiznes.pl (szkic do akceptacji) przeniesiony do `docs/strony/prokombiznes-design.md`, link w specyfikacji.
 - 15.10.2026 — uzupełnienia fundamentu: `docs/dns.md` (własność domen, rekordy, SPF/DKIM/DMARC); retencja zapytań w ADR-003 i S8; logi strukturalne i smoke test w S9; budżet Lighthouse CI, poczta i automatyczny powrót w S10; podpisywanie commitów SSH i lepsze ustawienia gita w `setup-komputera.ps1`; nawyki pracy w `CLAUDE.md` i `sposob-pracy.md`.
@@ -36,7 +37,7 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 - CI: `--max-old-space-size=8000` w skrypcie `build` (z szablonu) przekracza RAM runnera GitHub (~8 GB) — obniżyć do ~6144, gdy build urośnie albo pojawi się exit 137.
 
 ## Otwarte pytania
-- **Przed zakupem 16.10:** domeny na firmę (abonent PRO-KOM) i konto rejestratora na firmowy e-mail z 2FA i autoodnawianiem (`docs/dns.md`).
+- **16.10 (Krystian, przy zakupie):** domeny na firmę (abonent PRO-KOM) i konto rejestratora na firmowy e-mail z 2FA i autoodnawianiem (`docs/dns.md`).
 - Z jakiego adresu wychodzą maile z formularzy (domena nadawcy) — decyzja w S8.
 - Okres retencji zapytań (domyślnie 24 miesiące, ADR-003) — potwierdzić przy polityce prywatności.
 - Telefony i adresy e-mail dla każdej strony; kto odbiera powiadomienia o zapytaniach.

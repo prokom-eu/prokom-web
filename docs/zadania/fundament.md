@@ -35,8 +35,8 @@ ADR do przeczytania przed fundamentem: 001, 003, 004, 005, 006, 007.
 ## S2 — baza, migracje, użytkownicy
 **Zakres:**
 - **Testy najpierw** dla logiki (tu: blokada seeda na produkcji, walidacja haseł/ról) — najpierw test, który nie przechodzi, potem kod. Ta zasada obowiązuje dalej w S3 (rozpoznawanie domeny, izolacja tenantów) i S8 (walidacja formularza, antyspam).
-- Adapter PostgreSQL; **migracje wersjonowane** w repo (`push` tylko w dev — udokumentuj, jak to jest ustawione).
-- `Users`: role `admin` / `editor`; limit nieudanych logowań i blokada czasowa; silne hasła.
+- Adapter PostgreSQL; **migracje wersjonowane** w repo; `push: false` wszędzie, także lokalnie (ADR-009) — schemat zmienia się tylko przez `migrate:create` + `migrate`. Udokumentuj, jak to jest ustawione.
+- `Users`: role `admin` / `editor`; limit nieudanych logowań i blokada czasowa (decyzja 15.10.2026: **5 nieudanych prób → blokada 15 min**); silne hasła (**min. 12 znaków**, bez wymogu znaków specjalnych — długość daje więcej niż reguły).
 - Skrypt `seed` (tylko gdy `NODE_ENV !== 'production'` — twarda blokada): admin lokalny.
 **Gotowe, gdy:** świeża baza → `pnpm payload migrate` → działa; test Vitest dla blokady seeda na produkcji.
 
