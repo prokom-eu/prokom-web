@@ -20,8 +20,18 @@ try {
     overrideAccess: true,
   })
 
-  if (existing.totalDocs > 0) {
+  const [user] = existing.docs
+  if (user?.role === 'admin') {
     payload.logger.info('Seed: local admin already exists, skipped.')
+  } else if (user) {
+    // Local-only: restore the admin role if the account was demoted by hand.
+    await payload.update({
+      collection: 'users',
+      id: user.id,
+      data: { role: 'admin' },
+      overrideAccess: true,
+    })
+    payload.logger.info('Seed: existing local account promoted back to admin.')
   } else {
     await payload.create({
       collection: 'users',

@@ -18,7 +18,12 @@ describe('passwordProblem', () => {
     expect(passwordProblem(null)).toBeNull()
   })
 
-  it('rejects an empty string', () => {
+  it('rejects an empty string when a password is being set (create, reset)', () => {
     expect(passwordProblem('')).not.toBeNull()
+  })
+
+  it('treats an empty string as "unchanged" on update, like Payload does', () => {
+    expect(passwordProblem('', { emptyMeansUnchanged: true })).toBeNull()
+    expect(passwordProblem('a'.repeat(11), { emptyMeansUnchanged: true })).toMatch(/12/)
   })
 })

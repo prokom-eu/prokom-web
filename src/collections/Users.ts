@@ -8,7 +8,8 @@ import type {
 import { adminOnly, adminOnlyField, adminOrSelf, ROLES } from '../lib/auth/access'
 import { passwordProblem } from '../lib/auth/password'
 
-const PASSWORD_OPERATIONS = new Set(['create', 'update', 'updateByID', 'resetPassword'])
+// `updateByID` runs `beforeOperation` with `operation: 'update'`.
+const PASSWORD_OPERATIONS = new Set(['create', 'update', 'resetPassword'])
 
 /**
  * Payload hard-codes a 3-character minimum when hashing. `beforeOperation` is the one hook
@@ -17,7 +18,7 @@ const PASSWORD_OPERATIONS = new Set(['create', 'update', 'updateByID', 'resetPas
 const enforcePasswordPolicy: CollectionBeforeOperationHook = ({ args, operation, req }) => {
   if (!PASSWORD_OPERATIONS.has(operation)) return args
   const data = 'data' in args ? (args.data as { password?: unknown } | undefined) : undefined
-  const problem = passwordProblem(data?.password)
+  const problem = passwordProblem(data?.password, { emptyMeansUnchanged: operation === 'update' })
   if (problem) {
     throw new ValidationError({
       collection: 'users',
