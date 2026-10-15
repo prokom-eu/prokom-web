@@ -17,6 +17,7 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
   - **S1b — automaty (osobny PR, po scaleniu S1a):** `.github/workflows/ci.yml` (install → lint → typecheck → test → build → gitleaks; build z testowymi wartościami env), Dependabot, husky + lint-staged + gitleaks w haku, kontrola tytułu PR, hak Prettiera w `.claude/settings.json`, subagent `recenzent`, ADR o MCP z aktualną dokumentacją bibliotek. Następny krok: `/zadanie S1b` w trybie planowania.
 
 ## Zrobione
+- 15.10.2026 — brief wizualny prokombiznes.pl (szkic do akceptacji) przeniesiony do `docs/strony/prokombiznes-design.md`, link w specyfikacji.
 - 15.10.2026 — uzupełnienia fundamentu: `docs/dns.md` (własność domen, rekordy, SPF/DKIM/DMARC); retencja zapytań w ADR-003 i S8; logi strukturalne i smoke test w S9; budżet Lighthouse CI, poczta i automatyczny powrót w S10; podpisywanie commitów SSH i lepsze ustawienia gita w `setup-komputera.ps1`; nawyki pracy w `CLAUDE.md` i `sposob-pracy.md`.
 - 14.10.2026 — `scripts/setup-komputera.ps1` (konfiguracja komputera jedną komendą); `start.ps1` przełącza Node z `.nvmrc` (fnm); zakres S1 rozszerzony o haki git, kontrolę tytułu PR, haki i recenzenta w Claude Code.
 - 14.10.2026 — sposób pracy na dwóch komputerach (`docs/sposob-pracy.md`, `scripts/start.ps1`, `scripts/koniec.ps1`).

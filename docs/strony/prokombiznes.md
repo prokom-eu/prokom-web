@@ -2,6 +2,7 @@
 
 - **Status:** SZKIC — czeka na akceptację szefa (Asana: „SZEF · Biznes: akceptacja oferty na stronie”, termin 15.10.2026). Nie budować treści finalnych przed akceptacją; strukturę i komponenty można.
 - **Tenant:** `biznes` · **Kolor akcentu:** `--accent-biznes`
+- **Wygląd i zachowanie:** brief wizualny `docs/strony/prokombiznes-design.md` (szkic). Przy sprzeczności wygrywa ta specyfikacja.
 - **Cel biznesowy:** linia z największymi pieniędzmi — klienci firmowi znajdują całą ofertę B2B PRO-KOM w jednym miejscu i wysyłają zapytanie. Miara: liczba zapytań z formularzy (wg kategorii) i kliknięć „Zadzwoń”.
 - **Odbiorcy:** firmy B2B, gastronomia, sklepy, hotele i pensjonaty, szkoły, gminy i instytucje, szpitale, uzdrowiska (Podhale i okolice).
 - **Wdrożenie:** 26.10.2026.
