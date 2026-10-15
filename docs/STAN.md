@@ -12,11 +12,10 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 | prokomsoftware.pl | 31.10 | ⏳ |
 
 ## W toku
-- S1 podzielona na dwa PR-y (`docs/zadania/fundament.md` → S1).
-  - **S1a — szkielet aplikacji i lokalna bramka jakości.** Gałąź: `feat/fundament-s1a-szkielet`. Zrobione: Payload 3.90.2 + Next 16.3.8 (szablon blank/PostgreSQL), Node 24.22.0 (`.nvmrc`), pnpm 11.28.2 (`packageManager`, ustawienia w `pnpm-workspace.yaml`), ESLint/Prettier/TS strict, Vitest (test `lib/env`), Playwright (strona i `/admin` startują), `src/lib/env.ts` (Zod) + `.env.example`, `docker/compose.dev.yml` (PostgreSQL 17 na porcie 54320 + Mailpit). Lint/typecheck/test/build/test:e2e zielone, `/admin` pokazuje „Create first user”. Następny krok: przegląd diffu przez Krystiana → commit → `/przeglad` → `/pr`.
-  - **S1b — automaty (osobny PR, po scaleniu S1a):** `.github/workflows/ci.yml` (install → lint → typecheck → test → build → gitleaks; build z testowymi wartościami env), Dependabot, husky + lint-staged + gitleaks w haku, kontrola tytułu PR, hak Prettiera w `.claude/settings.json`, subagent `recenzent`, ADR o MCP z aktualną dokumentacją bibliotek. Następny krok: `/zadanie S1b` w trybie planowania.
+- **S1b — automaty.** Gałąź: `chore/fundament-s1b-automaty`. Zrobione: `.github/workflows/ci.yml` (lint → format:check → typecheck → test → build → e2e z PostgreSQL w kontenerze; osobny job gitleaks — binarka z sumą SHA256, bo `gitleaks-action` wymaga licencji dla organizacji), `pr-title.yml` (Conventional Commits), `dependabot.yml` (npm co tydzień, actions co miesiąc, do `develop`, bez major Next/Payload), husky + lint-staged (gitleaks na staged + Prettier/ESLint bez autopoprawek; bez gitleaks commit blokowany), hak `PostToolUse` z Prettierem (`.claude/hooks/format.mjs`), subagent `recenzent` + `/przeglad`, ADR-008 (proponowany: dokumentacja z `node_modules` zamiast Context7), gitleaks w `setup-komputera.ps1`. Następny krok: Krystian instaluje gitleaks (`winget install --id Gitleaks.Gitleaks`) i sprawdza blokadę haka → decyzja ADR-008 → commit → `/przeglad` → `/pr` → CI zielone na PR.
 
 ## Zrobione
+- 15.10.2026 — S1a scalone (#6): szkielet Next 16.3.8 + Payload 3.90.2, pnpm 11, TS strict, ESLint/Prettier, Vitest, Playwright, `lib/env.ts`, `docker/compose.dev.yml`.
 - 15.10.2026 — brief wizualny prokombiznes.pl (szkic do akceptacji) przeniesiony do `docs/strony/prokombiznes-design.md`, link w specyfikacji.
 - 15.10.2026 — uzupełnienia fundamentu: `docs/dns.md` (własność domen, rekordy, SPF/DKIM/DMARC); retencja zapytań w ADR-003 i S8; logi strukturalne i smoke test w S9; budżet Lighthouse CI, poczta i automatyczny powrót w S10; podpisywanie commitów SSH i lepsze ustawienia gita w `setup-komputera.ps1`; nawyki pracy w `CLAUDE.md` i `sposob-pracy.md`.
 - 14.10.2026 — `scripts/setup-komputera.ps1` (konfiguracja komputera jedną komendą); `start.ps1` przełącza Node z `.nvmrc` (fnm); zakres S1 rozszerzony o haki git, kontrolę tytułu PR, haki i recenzenta w Claude Code.
@@ -32,8 +31,8 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 ## Pomysły na później (poza zakresem bieżących sesji)
 - Przy pierwszej produkcji (26.10): wersje i lista zmian — tag `vX.Y.Z` przy wdrożeniu na `main`, automatyczny changelog z tytułów PR (dla szefa: „co nowego”, dla nas: punkt rollbacku).
 - Gdy dojdzie druga osoba do kodu: plan GitHub Team (prawdziwa ochrona gałęzi `main`/`develop` w prywatnym repo). Dziś wystarcza blokada w `.claude/settings.json` + CI.
-- S1b (ADR o dokumentacji bibliotek): `create-payload-app -a claude` instaluje oficjalny skill Payload dla Claude Code — rozważyć obok MCP.
 - Przy pierwszej produkcji: komenda `/raport-tygodnia` — scalone PR-y z tygodnia + STAN → 5 linijek statusu do Asany (prostym językiem dla szefa).
+- S2: gdy będą migracje — e2e w CI na zbudowanej aplikacji (`pnpm start` + `payload migrate`) zamiast `pnpm dev` (bliżej produkcji, szybciej).
 
 ## Otwarte pytania
 - **Przed zakupem 16.10:** domeny na firmę (abonent PRO-KOM) i konto rejestratora na firmowy e-mail z 2FA i autoodnawianiem (`docs/dns.md`).

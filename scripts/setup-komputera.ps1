@@ -6,7 +6,7 @@
 #   .\scripts\setup-komputera.ps1
 #
 # Co robi:
-#  1. instaluje przez winget: Git, PowerShell 7, GitHub CLI, fnm (Node), Starship (prompt), Docker Desktop
+#  1. instaluje przez winget: Git, PowerShell 7, GitHub CLI, fnm (Node), Starship (prompt), Docker Desktop, gitleaks
 #  2. Node LTS przez fnm + pnpm (corepack)
 #  3. profil PowerShell 7: fnm (automatyczna wersja Node z .nvmrc) + Starship (galaz i stan repo w prompcie)
 #  4. globalna konfiguracja gita (dobre praktyki) + Twoje imie i e-mail
@@ -54,7 +54,8 @@ $packages = @(
     @{ Id = 'GitHub.cli';            Name = 'GitHub CLI (gh)' },
     @{ Id = 'Schniz.fnm';            Name = 'fnm (wersje Node)' },
     @{ Id = 'Starship.Starship';     Name = 'Starship (prompt)' },
-    @{ Id = 'Docker.DockerDesktop';  Name = 'Docker Desktop' }
+    @{ Id = 'Docker.DockerDesktop';  Name = 'Docker Desktop' },
+    @{ Id = 'Gitleaks.Gitleaks';     Name = 'gitleaks (hak przed commitem)' }
 )
 foreach ($p in $packages) {
     winget list --id $p.Id --exact --accept-source-agreements *> $null
