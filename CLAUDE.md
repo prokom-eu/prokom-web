@@ -100,6 +100,15 @@ Krystian pracuje na komputerze w firmie i w domu. **Jedynym kanałem synchroniza
 - `/koniec-sesji` — aktualizacja `docs/STAN.md` (z następnym krokiem) i podsumowanie.
 - Skrypty Krystiana (nie uruchamiaj ich sam): `scripts\start.ps1` — start pracy; `scripts\koniec.ps1` — koniec pracy.
 
+## Wtyczki Claude Code
+- frontend-design: stosuj przy każdym UI, ALE marka jest zamknięta: kolory, kroje i znak
+  wyłącznie wg docs/marka.md, ADR-007 i docs/strony/<domena>-design.md. Przy sprzeczności wygrywa marka.
+- Superpowers: używamy brainstorming, writing-plans, systematic-debugging,
+  verification-before-completion. NIE używamy worktree, subagent-driven-development,
+  finishing-a-development-branch — obowiązuje nasz flow (/zadanie → plan → PR, /przeglad).
+  TDD wg docs/jakosc.md i fundament.md (od S2 dla logiki), nie dla szkieletu z szablonu.
+- Przy sprzeczności skilla z tym plikiem albo ze specyfikacją wygrywa ten plik i specyfikacja.
+
 <!-- BEGIN:nextjs-agent-rules -->
 
 # This is NOT the Next.js you know
