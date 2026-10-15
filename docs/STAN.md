@@ -12,7 +12,7 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 | prokomsoftware.pl | 31.10 | ⏳ |
 
 ## W toku
-- **S1b — automaty.** Gałąź: `chore/fundament-s1b-automaty`. Zrobione: `.github/workflows/ci.yml` (lint → format:check → typecheck → test → build → e2e z PostgreSQL w kontenerze; osobny job gitleaks — binarka z sumą SHA256, bo `gitleaks-action` wymaga licencji dla organizacji), `pr-title.yml` (Conventional Commits), `dependabot.yml` (npm co tydzień, actions co miesiąc, do `develop`, bez major Next/Payload), husky + lint-staged (gitleaks na staged + Prettier/ESLint bez autopoprawek; bez gitleaks commit blokowany), hak `PostToolUse` z Prettierem (`.claude/hooks/format.mjs`), subagent `recenzent` + `/przeglad`, ADR-008 (proponowany: dokumentacja z `node_modules` zamiast Context7), gitleaks w `setup-komputera.ps1`. Następny krok: Krystian instaluje gitleaks (`winget install --id Gitleaks.Gitleaks`) i sprawdza blokadę haka → decyzja ADR-008 → commit → `/przeglad` → `/pr` → CI zielone na PR.
+- **S1b — automaty.** Gałąź: `chore/fundament-s1b-automaty`. Zrobione: `.github/workflows/ci.yml` (lint → format:check → typecheck → test → build → e2e z PostgreSQL w kontenerze; osobny job gitleaks — binarka z sumą SHA256, bo `gitleaks-action` wymaga licencji dla organizacji), `pr-title.yml` (Conventional Commits), `dependabot.yml` (npm co tydzień, actions co miesiąc, do `develop`, bez major Next/Payload/React), husky + lint-staged (gitleaks na staged + Prettier/ESLint bez autopoprawek; bez gitleaks commit blokowany), hak `PostToolUse` z Prettierem (`.claude/hooks/format.mjs`), subagent `recenzent` + `/przeglad`, ADR-008 (proponowany: dokumentacja z `node_modules` zamiast Context7), gitleaks w `setup-komputera.ps1`, tabela „Gdy coś nie gra” w `sposob-pracy.md`. Sprawdzone lokalnie: lint/typecheck/test/build zielone; hak blokuje zły format, przykładowy token GitHub i brak gitleaks. `/przeglad` (recenzent) zrobiony, poprawki wprowadzone. Następny krok: `/pr` → CI zielone na PR (oba workflowy) → squash merge. Po scaleniu: (1) w nowej sesji Claude Code edycja pliku `.ts` ze złym formatem — sprawdzić, że hak Prettiera go poprawia; (2) GitHub → Insights → Dependency graph → Dependabot — log pierwszego przebiegu (czy obsługuje pnpm 11); (3) decyzja ADR-008 przed S2.
 
 ## Zrobione
 - 15.10.2026 — S1a scalone (#6): szkielet Next 16.3.8 + Payload 3.90.2, pnpm 11, TS strict, ESLint/Prettier, Vitest, Playwright, `lib/env.ts`, `docker/compose.dev.yml`.
@@ -33,6 +33,7 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 - Gdy dojdzie druga osoba do kodu: plan GitHub Team (prawdziwa ochrona gałęzi `main`/`develop` w prywatnym repo). Dziś wystarcza blokada w `.claude/settings.json` + CI.
 - Przy pierwszej produkcji: komenda `/raport-tygodnia` — scalone PR-y z tygodnia + STAN → 5 linijek statusu do Asany (prostym językiem dla szefa).
 - S2: gdy będą migracje — e2e w CI na zbudowanej aplikacji (`pnpm start` + `payload migrate`) zamiast `pnpm dev` (bliżej produkcji, szybciej).
+- CI: `--max-old-space-size=8000` w skrypcie `build` (z szablonu) przekracza RAM runnera GitHub (~8 GB) — obniżyć do ~6144, gdy build urośnie albo pojawi się exit 137.
 
 ## Otwarte pytania
 - **Przed zakupem 16.10:** domeny na firmę (abonent PRO-KOM) i konto rejestratora na firmowy e-mail z 2FA i autoodnawianiem (`docs/dns.md`).
