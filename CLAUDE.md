@@ -38,8 +38,9 @@ docs/  docker/  .github/workflows/  public/brand/
 
 ## Lokalnie
 - Domeny dev: `biznes.localhost:3000`, `instalacje.localhost:3000`, `software.localhost:3000`, panel: `panel.localhost:3000/admin`.
-- `docker compose -f docker/compose.dev.yml up -d` — PostgreSQL + Mailpit (podgląd maili: `localhost:8025`).
-- Komendy (uzupełnij w S1, jeśli się różnią): `pnpm dev`, `pnpm build`, `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm test:e2e`, `pnpm payload migrate:create`, `pnpm payload migrate`, `pnpm seed` (tylko lokalnie).
+- `docker compose -f docker/compose.dev.yml up -d` — PostgreSQL (na hoście port **54320**, bo 5432/5433 bywają zajęte przez natywny PostgreSQL) + Mailpit (SMTP `localhost:1025`, podgląd maili: `localhost:8025`).
+- Komendy: `pnpm dev`, `pnpm build`, `pnpm start`, `pnpm lint`, `pnpm typecheck`, `pnpm format` / `pnpm format:check`, `pnpm test` (Vitest, `src/**/*.test.ts`), `pnpm test:e2e` (Playwright, `tests/e2e`, wymaga działającej bazy), `pnpm generate:types`, `pnpm generate:importmap`; od S2: `pnpm payload migrate:create`, `pnpm payload migrate`, `pnpm seed` (tylko lokalnie).
+- pnpm: wersja z `packageManager` (11.x). Wywołuj `pnpm` bezpośrednio — sam przełącza się na przypiętą wersję. Nie używaj `corepack pnpm`: psuje `webServer` w Playwright.
 - System Krystiana: Windows, repo w `D:\PRO-KOM\repos\prokom-web` (na drugim komputerze może być inna litera dysku). Końce linii: LF (`.gitattributes`).
 
 ## Praca na dwóch komputerach (firma + dom) — `docs/sposob-pracy.md`
@@ -98,3 +99,13 @@ Krystian pracuje na komputerze w firmie i w domu. **Jedynym kanałem synchroniza
 - `/wdrozenie staging|produkcja` — checklista przed wdrożeniem.
 - `/koniec-sesji` — aktualizacja `docs/STAN.md` (z następnym krokiem) i podsumowanie.
 - Skrypty Krystiana (nie uruchamiaj ich sam): `scripts\start.ps1` — start pracy; `scripts\koniec.ps1` — koniec pracy.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

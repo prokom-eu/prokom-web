@@ -13,6 +13,7 @@ ADR do przeczytania przed fundamentem: 001, 003, 004, 005, 006, 007.
 
 ## S1 — szkielet i bramka jakości
 **Cel:** puste, ale profesjonalne repo, w którym każdy PR przechodzi przez automat.
+**Podział (15.10.2026), dwa osobne PR-y:** **S1a** — szkielet aplikacji i lokalna bramka jakości (wersje, szablon Payload, pnpm, TS/ESLint/Prettier, Vitest, Playwright, `lib/env.ts`, `.env.example`, `docker/compose.dev.yml`, `.vscode`). **S1b** — reszta zakresu: CI, Dependabot, haki git, kontrola tytułu PR, hak Prettiera i recenzent w Claude Code, ADR o MCP z dokumentacją.
 **Zakres:**
 - Sprawdź, jaką wersję Next.js i Node oficjalnie wspiera aktualny Payload 3; zaproponuj dokładne wersje. Szkielet z **oficjalnego szablonu Payload** (blank, PostgreSQL) wygenerowany w katalogu tymczasowym i przeniesiony do repo **bez nadpisywania** `docs/`, `CLAUDE.md`, `.claude/`, `.gitignore`, `.gitattributes`.
 - pnpm przez Corepack (`packageManager` w `package.json`), `.nvmrc`, dokładne wersje zależności.

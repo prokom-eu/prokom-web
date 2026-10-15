@@ -34,3 +34,9 @@ desktop.ini
 .vscode/*
 !.vscode/extensions.json
 .idea/
+
+# Next.js / TypeScript (generated)
+next-env.d.ts
+*.tsbuildinfo
+blob-report/
+playwright/.cache/
