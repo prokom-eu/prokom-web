@@ -55,9 +55,9 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   DROP TABLE "users_tenants" CASCADE;
   DROP TABLE "tenants_domains" CASCADE;
   DROP TABLE "tenants" CASCADE;
-  ALTER TABLE "payload_locked_documents_rels" DROP CONSTRAINT "payload_locked_documents_rels_tenants_fk";
+  ALTER TABLE "payload_locked_documents_rels" DROP CONSTRAINT IF EXISTS "payload_locked_documents_rels_tenants_fk";
   
-  DROP INDEX "payload_locked_documents_rels_tenants_id_idx";
+  DROP INDEX IF EXISTS "payload_locked_documents_rels_tenants_id_idx";
   ALTER TABLE "payload_locked_documents_rels" DROP COLUMN "tenants_id";
   DROP TYPE "public"."enum_tenants_domains_environment";
   DROP TYPE "public"."enum_tenants_line";`)

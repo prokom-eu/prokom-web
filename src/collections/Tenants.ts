@@ -62,19 +62,37 @@ const validateDomains: ArrayField['validate'] = async (value, { id, req }) => {
  * `cleanupAfterTenantDelete` is off (content must never vanish silently), so a tenant still
  * referenced by users would fail on a database constraint. Refuse with a readable message
  * instead; deactivating (`active` = false) is the normal way to take a site offline.
- * TODO(S4/S5): also count tenant-scoped content (SiteSettings, Pages, Media) here.
+ * Tenant-scoped content would otherwise be orphaned (`ON DELETE set null`).
+ * TODO(S5/S7): also count Pages and Media here.
  */
 const preventDeleteWhileInUse: CollectionBeforeDeleteHook = async ({ id, req }) => {
-  const { totalDocs } = await req.payload.count({
-    collection: 'users',
-    where: { 'tenants.tenant': { equals: id } },
-    overrideAccess: true,
-    req,
-  })
-  if (totalDocs > 0) {
+  const [users, settings] = await Promise.all([
+    req.payload.count({
+      collection: 'users',
+      where: { 'tenants.tenant': { equals: id } },
+      overrideAccess: true,
+      req,
+    }),
+    req.payload.count({
+      collection: 'site-settings',
+      where: { tenant: { equals: id } },
+      overrideAccess: true,
+      req,
+    }),
+  ])
+  if (users.totalDocs > 0) {
     throw new APIError(
-      `Tej strony nie można usunąć: ma przypisanych użytkowników (${totalDocs}). ` +
+      `Tej strony nie można usunąć: ma przypisanych użytkowników (${users.totalDocs}). ` +
         'Najpierw ich odepnij albo wyłącz stronę polem „Aktywna”.',
+      400,
+      null,
+      true,
+    )
+  }
+  if (settings.totalDocs > 0) {
+    throw new APIError(
+      'Tej strony nie można usunąć: ma zapisane ustawienia strony. ' +
+        'Wyłącz ją polem „Aktywna” albo najpierw usuń jej ustawienia.',
       400,
       null,
       true,
