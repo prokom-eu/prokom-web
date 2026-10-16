@@ -1,4 +1,5 @@
-import type { CompanyDatum, SiteSetting } from '../payload-types'
+import { HOME_SLUG } from '../lib/pages/slug'
+import type { CompanyDatum, Page, SiteSetting } from '../payload-types'
 
 /**
  * SAMPLE data for local development — not real contact details. Real values are entered
@@ -47,4 +48,32 @@ export function sampleSiteSettings(tenant: { name: string; slug: string }, index
     seo: { titleTemplate: `%s | ${tenant.name}`, description: null },
   }
   return settings
+}
+
+type SamplePage = Pick<Page, 'title' | 'slug' | 'layout'>
+
+/**
+ * Per-line SAMPLE pages: a start page and the contact page the sample navigation links to.
+ * Texts name only their own line, so the isolation tests can tell the domains apart.
+ */
+export function samplePages(tenant: { name: string }): SamplePage[] {
+  return [
+    {
+      title: 'Strona główna',
+      slug: HOME_SLUG,
+      layout: [
+        {
+          blockType: 'hero',
+          heading: tenant.name,
+          lead: `Przykładowa strona główna (${tenant.name}) — treść do zastąpienia w panelu.`,
+          cta: { label: 'Kontakt', href: '/kontakt' },
+        },
+      ],
+    },
+    {
+      title: 'Kontakt',
+      slug: 'kontakt',
+      layout: [{ blockType: 'contact', heading: 'Dane kontaktowe', showLocations: true }],
+    },
+  ]
 }

@@ -1,37 +1,12 @@
-import { expect, type Page, test } from '@playwright/test'
+import { expect, test } from '@playwright/test'
+
+import { api, loginAsAdmin, site } from './helpers'
 
 // S4 acceptance: CompanyData is shared by every domain, SiteSettings belong to one line.
 // Edits go through the panel's REST API as the seed admin and are reverted afterwards,
 // so the tests can run repeatedly on the same database (run `pnpm seed` first).
 
 const HOSTS = ['biznes.localhost', 'instalacje.localhost', 'software.localhost']
-const site = (host: string) => `http://${host}:3000/`
-
-type ApiResult = { status: number; json: Record<string, unknown> }
-
-/** REST call from inside the panel page: Chromium resolves *.localhost, Node.js may not. */
-async function api(page: Page, method: string, path: string, body?: unknown): Promise<ApiResult> {
-  return page.evaluate(
-    async ({ method, path, body }) => {
-      const response = await fetch(path, {
-        method,
-        headers: { 'Content-Type': 'application/json' },
-        body: body === undefined ? undefined : JSON.stringify(body),
-      })
-      return { status: response.status, json: (await response.json()) as Record<string, unknown> }
-    },
-    { method, path, body },
-  )
-}
-
-async function loginAsAdmin(page: Page): Promise<void> {
-  const email = process.env.SEED_ADMIN_EMAIL
-  const password = process.env.SEED_ADMIN_PASSWORD
-  if (!email || !password) throw new Error('SEED_ADMIN_EMAIL / SEED_ADMIN_PASSWORD are not set.')
-  await page.goto('/admin/login')
-  const { status } = await api(page, 'POST', '/api/users/login', { email, password })
-  expect(status).toBe(200)
-}
 
 const uniquePhone = () => `+48 000 ${String(Date.now()).slice(-6)}`
 

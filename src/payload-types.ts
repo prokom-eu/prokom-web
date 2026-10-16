@@ -70,7 +70,9 @@ export interface Config {
     users: User;
     tenants: Tenant;
     'site-settings': SiteSetting;
+    pages: Page;
     'payload-kv': PayloadKv;
+    'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -80,7 +82,9 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     tenants: TenantsSelect<false> | TenantsSelect<true>;
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
+    pages: PagesSelect<false> | PagesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
+    'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -101,7 +105,13 @@ export interface Config {
   };
   user: User;
   jobs: {
-    tasks: unknown;
+    tasks: {
+      schedulePublish: TaskSchedulePublish;
+      inline: {
+        input: unknown;
+        output: unknown;
+      };
+    };
     workflows: unknown;
   };
 }
@@ -225,6 +235,134 @@ export interface SiteSetting {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages".
+ */
+export interface Page {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  title: string;
+  /**
+   * Część adresu po domenie, np. „kontakt” → /kontakt. Strona główna: „home”.
+   */
+  slug: string;
+  layout?: (HeroBlock | RichTextBlock | ServiceGridBlock | CallToActionBlock | FaqBlock | ContactBlock)[] | null;
+  seo?: {
+    /**
+     * Puste = tytuł podstrony. Szablon z ustawień strony dopisze nazwę.
+     */
+    title?: string | null;
+    /**
+     * Puste = domyślny opis z ustawień strony.
+     */
+    description?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroBlock".
+ */
+export interface HeroBlock {
+  heading: string;
+  lead?: string | null;
+  cta?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'hero';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RichTextBlock".
+ */
+export interface RichTextBlock {
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'richText';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServiceGridBlock".
+ */
+export interface ServiceGridBlock {
+  heading?: string | null;
+  intro?: string | null;
+  items: {
+    title: string;
+    description?: string | null;
+    link?: {
+      label?: string | null;
+      href?: string | null;
+    };
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'serviceGrid';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CallToActionBlock".
+ */
+export interface CallToActionBlock {
+  heading: string;
+  text?: string | null;
+  link: {
+    label: string;
+    href: string;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'callToAction';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FaqBlock".
+ */
+export interface FaqBlock {
+  heading?: string | null;
+  items: {
+    question: string;
+    answer: string;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'faq';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactBlock".
+ */
+export interface ContactBlock {
+  heading?: string | null;
+  text?: string | null;
+  showLocations?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'contact';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -239,6 +377,98 @@ export interface PayloadKv {
     | number
     | boolean
     | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-jobs".
+ */
+export interface PayloadJob {
+  id: number;
+  /**
+   * Input data provided to the job
+   */
+  input?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  taskStatus?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  completedAt?: string | null;
+  totalTried?: number | null;
+  /**
+   * If hasError is true this job will not be retried
+   */
+  hasError?: boolean | null;
+  /**
+   * If hasError is true, this is the error that caused it
+   */
+  error?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
+   * Task execution log
+   */
+  log?:
+    | {
+        executedAt: string;
+        completedAt: string;
+        taskSlug: 'inline' | 'schedulePublish';
+        taskID: string;
+        input?:
+          | {
+              [k: string]: unknown;
+            }
+          | unknown[]
+          | string
+          | number
+          | boolean
+          | null;
+        output?:
+          | {
+              [k: string]: unknown;
+            }
+          | unknown[]
+          | string
+          | number
+          | boolean
+          | null;
+        state: 'failed' | 'succeeded';
+        error?:
+          | {
+              [k: string]: unknown;
+            }
+          | unknown[]
+          | string
+          | number
+          | boolean
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  taskSlug?: ('inline' | 'schedulePublish') | null;
+  queue?: string | null;
+  waitUntil?: string | null;
+  processing?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -258,6 +488,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'site-settings';
         value: number | SiteSetting;
+      } | null)
+    | ({
+        relationTo: 'pages';
+        value: number | Page;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -389,11 +623,161 @@ export interface SiteSettingsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages_select".
+ */
+export interface PagesSelect<T extends boolean = true> {
+  tenant?: T;
+  title?: T;
+  slug?: T;
+  layout?:
+    | T
+    | {
+        hero?: T | HeroBlockSelect<T>;
+        richText?: T | RichTextBlockSelect<T>;
+        serviceGrid?: T | ServiceGridBlockSelect<T>;
+        callToAction?: T | CallToActionBlockSelect<T>;
+        faq?: T | FaqBlockSelect<T>;
+        contact?: T | ContactBlockSelect<T>;
+      };
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroBlock_select".
+ */
+export interface HeroBlockSelect<T extends boolean = true> {
+  heading?: T;
+  lead?: T;
+  cta?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RichTextBlock_select".
+ */
+export interface RichTextBlockSelect<T extends boolean = true> {
+  content?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServiceGridBlock_select".
+ */
+export interface ServiceGridBlockSelect<T extends boolean = true> {
+  heading?: T;
+  intro?: T;
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        link?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CallToActionBlock_select".
+ */
+export interface CallToActionBlockSelect<T extends boolean = true> {
+  heading?: T;
+  text?: T;
+  link?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FaqBlock_select".
+ */
+export interface FaqBlockSelect<T extends boolean = true> {
+  heading?: T;
+  items?:
+    | T
+    | {
+        question?: T;
+        answer?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactBlock_select".
+ */
+export interface ContactBlockSelect<T extends boolean = true> {
+  heading?: T;
+  text?: T;
+  showLocations?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv_select".
  */
 export interface PayloadKvSelect<T extends boolean = true> {
   key?: T;
   data?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-jobs_select".
+ */
+export interface PayloadJobsSelect<T extends boolean = true> {
+  input?: T;
+  taskStatus?: T;
+  completedAt?: T;
+  totalTried?: T;
+  hasError?: T;
+  error?: T;
+  log?:
+    | T
+    | {
+        executedAt?: T;
+        completedAt?: T;
+        taskSlug?: T;
+        taskID?: T;
+        input?: T;
+        output?: T;
+        state?: T;
+        error?: T;
+        id?: T;
+      };
+  taskSlug?: T;
+  queue?: T;
+  waitUntil?: T;
+  processing?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -524,6 +908,26 @@ export interface CollectionsWidget {
     [k: string]: unknown;
   };
   width: 'full';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TaskSchedulePublish".
+ */
+export interface TaskSchedulePublish {
+  input: {
+    type?: ('publish' | 'unpublish') | null;
+    locale?: string | null;
+    doc?: {
+      relationTo: 'pages';
+      value: number | Page;
+    } | null;
+    global?: string | null;
+    user?: {
+      relationTo: 'users';
+      value: number | User;
+    } | null;
+  };
+  output?: unknown;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

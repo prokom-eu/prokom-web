@@ -1,11 +1,12 @@
 import { createTenantCache } from './cache'
+import type { Line } from './lines'
 
 /** What the public site may know about a tenant — no notification e-mail, no domains. */
 export type SiteTenant = {
   id: number
   name: string
   slug: string
-  line: 'prokom' | 'biznes' | 'instalacje' | 'software'
+  line: Line
 }
 
 const TTL_MS = 60_000
