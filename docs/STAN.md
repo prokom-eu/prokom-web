@@ -5,16 +5,17 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 ## Cel października 2026
 | Etap | Termin | Status |
 |---|---|---|
-| Fundament (S1–S9 lokalnie, S10 na serwerze) — `docs/zadania/fundament.md` | S1–S9: 15–21.10 · S10: po dostawie VPS | ⏳ start |
+| Fundament (S1–S9 lokalnie, S10 na serwerze) — `docs/zadania/fundament.md` | S1–S9: 15–21.10 · S10: po dostawie VPS | ⏳ S1–S2 gotowe, następna S3 |
 | prokombiznes.pl — specyfikacja (czat „Spec · prokombiznes.pl”) | po fundamencie | ⏳ szkic w `strony/prokombiznes.md` |
 | prokombiznes.pl — wdrożenie | 26.10 | ⏳ |
 | prokominstalacje.pl | 29.10 | ⏳ |
 | prokomsoftware.pl | 31.10 | ⏳ |
 
 ## W toku
-- **S2 — baza, migracje, użytkownicy.** Gałąź: `feat/s2-baza-migracje-uzytkownicy`. Zrobione: `push: false` + pierwsza migracja (`src/migrations/`), `Users` z rolami `admin`/`editor` (zarządzanie użytkownikami tylko admin, edytor widzi/edytuje siebie bez zmiany roli, pierwszy użytkownik = admin), 5 prób → blokada 15 min, hasło min. 12 znaków (hak `beforeOperation` — obejmuje też reset hasła), `pnpm seed` z blokadą na produkcji, `pnpm payload migrate` w CI. Sprawdzone na pustej bazie: migrate, seed (2×), polityka haseł, blokada, role, e2e, build. **Uwaga:** lokalna baza z S1 ma schemat z `push` — odtworzyć od zera (`docker compose -f docker/compose.dev.yml down -v`, `up -d`, `pnpm payload migrate`, `pnpm seed`) i dopisać `SEED_ADMIN_*` do `.env`. Następny krok: commit → `/przeglad` → `/pr` → zielone CI → merge → `/zadanie S3`.
+- **Nic w toku — S2 zamknięte.** Gałąź: brak (pracujemy z `develop`). Niedokończone: nic. Na drugim komputerze **raz**: dopisz `SEED_ADMIN_EMAIL` / `SEED_ADMIN_PASSWORD` do `.env` (z menedżera haseł), `docker compose -f docker/compose.dev.yml down -v` (stara baza z `push`), `.scriptsstart.ps1`, `pnpm seed`. Do sprawdzenia przy okazji: czy hak Prettiera w Claude Code formatuje edytowane pliki; log pierwszego przebiegu Dependabota. Następny krok: nowa sesja Claude Code → `/zadanie S3` (tenanci i routing po domenie).
 
 ## Zrobione
+- 15.10.2026 — S2 scalone (#16): migracje zamiast `push` (pierwsza migracja, `migrate` w CI), `Users` z rolami `admin`/`editor` i dostępem wg ról, blokada po 5 nieudanych logowaniach na 15 min, hasło min. 12 znaków (także przy resecie), `pnpm seed` z blokadą na produkcji. Przegląd subagentem `recenzent`, poprawki w tym samym PR. Lokalna baza odtworzona z migracji, logowanie adminem z seeda sprawdzone.
 - 15.10.2026 — S1b scalone (#9): CI (lint/format/typecheck/test/build/e2e + gitleaks), kontrola tytułu PR, Dependabot, haki git (husky + lint-staged + gitleaks), hak Prettiera i subagent `recenzent` w Claude Code. CI na `develop` zielone. Dependabot otworzył pierwsze PR-y (#10–#14; #7 — poprawki bezpieczeństwa do scalenia po zielonym CI).
 - 15.10.2026 — S1a scalone (#6): szkielet Next 16.3.8 + Payload 3.90.2, pnpm 11, TS strict, ESLint/Prettier, Vitest, Playwright, `lib/env.ts`, `docker/compose.dev.yml`.
 - 15.10.2026 — brief wizualny prokombiznes.pl (szkic do akceptacji) przeniesiony do `docs/strony/prokombiznes-design.md`, link w specyfikacji.
