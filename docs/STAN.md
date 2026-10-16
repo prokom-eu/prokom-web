@@ -5,16 +5,17 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 ## Cel października 2026
 | Etap | Termin | Status |
 |---|---|---|
-| Fundament (S1–S9 lokalnie, S10 na serwerze) — `docs/zadania/fundament.md` | S1–S9: 15–21.10 · S10: po dostawie VPS | ⏳ S1–S2 gotowe, S3 w toku |
+| Fundament (S1–S9 lokalnie, S10 na serwerze) — `docs/zadania/fundament.md` | S1–S9: 15–21.10 · S10: po dostawie VPS | ⏳ S1–S3 gotowe, następna S4 |
 | prokombiznes.pl — specyfikacja (czat „Spec · prokombiznes.pl”) | po fundamencie | ⏳ szkic w `strony/prokombiznes.md` |
 | prokombiznes.pl — wdrożenie | 26.10 | ⏳ |
 | prokominstalacje.pl | 29.10 | ⏳ |
 | prokomsoftware.pl | 31.10 | ⏳ |
 
 ## W toku
-- **S3 — tenanci i routing po domenie.** Gałąź: `feat/s3-tenanci-routing` (zmiany w stage, bez commita w chwili zapisu). Zrobione: kolekcja `Tenants` (domeny `{ host, environment }`, host unikalny), wtyczka Multi-Tenant, `src/proxy.ts` + `lib/tenant/routing.ts`, `(sites)/[domain]` z rozpoznaniem tenanta z bazy (cache 60 s) i sprawdzeniem `Host`, blokada usuwania tenanta z użytkownikami, seed 3 tenantów, testy Vitest + e2e (13+), CI z seedem i `PANEL_HOST`. Przegląd `recenzent`: poprawione obejście routingu ścieżką z domeną, błąd 500 przy usuwaniu tenanta, format sluga. **Następny krok:** commit → `/pr` → zielone CI → squash do `develop` → `/koniec-sesji`. Na drugim komputerze raz: `PANEL_HOST=panel.localhost` w `.env`, potem `pnpm payload migrate` i `pnpm seed`.
+- **Nic w toku — S3 zamknięte.** Gałąź: brak (pracujemy z `develop`). Zrobione w tej sesji: S3 scalone (#19) — tenanci, routing po domenie, panel tylko na `PANEL_HOST`. Niedokończone: nic. Na drugim komputerze **raz**: dopisz `PANEL_HOST=panel.localhost` do `.env`, potem `.\scripts\start.ps1`, `pnpm payload migrate`, `pnpm seed`; strony sprawdzisz po `pnpm dev` pod `http://biznes.localhost:3000` (sam `localhost:3000` daje teraz 404, panel: `http://panel.localhost:3000/admin`). **Następny krok:** nowa sesja Claude Code → `/zadanie S4` (dane firmy `CompanyData` i `SiteSettings` per tenant); w S4 dopisz `SiteSettings` do `collections` wtyczki Multi-Tenant (`isGlobal: true`) i do licznika w `preventDeleteWhileInUse` (`src/collections/Tenants.ts`, `TODO(S4/S5)`).
 
 ## Zrobione
+- 16.10.2026 — S3 scalone (#19): kolekcja `Tenants` (domeny `{ host, environment }`, host unikalny — walidacja + indeks; uzupełnienie ADR-006), oficjalna wtyczka Multi-Tenant (admin — wszyscy tenanci, edytor — przypisani; usunięcie tenanta nie kasuje treści, a z przypisanymi użytkownikami jest odrzucane), `src/proxy.ts` + `lib/tenant/routing.ts` (panel i API Payload tylko na `PANEL_HOST`), `(sites)/[domain]` z tenantem z bazy (cache 60 s) i kontrolą `Host`, seed 3 tenantów, nowa zmienna `PANEL_HOST`. Testy: 70 Vitest, 15 e2e (izolacja, nieznany host, panel). Przegląd `recenzent` znalazł obejście routingu ścieżką `/<inna domena>` — poprawione w tym samym PR. CI zielone.
 - 15.10.2026 — S2 scalone (#16): migracje zamiast `push` (pierwsza migracja, `migrate` w CI), `Users` z rolami `admin`/`editor` i dostępem wg ról, blokada po 5 nieudanych logowaniach na 15 min, hasło min. 12 znaków (także przy resecie), `pnpm seed` z blokadą na produkcji. Przegląd subagentem `recenzent`, poprawki w tym samym PR. Lokalna baza odtworzona z migracji, logowanie adminem z seeda sprawdzone.
 - 15.10.2026 — S1b scalone (#9): CI (lint/format/typecheck/test/build/e2e + gitleaks), kontrola tytułu PR, Dependabot, haki git (husky + lint-staged + gitleaks), hak Prettiera i subagent `recenzent` w Claude Code. CI na `develop` zielone. Dependabot otworzył pierwsze PR-y (#10–#14; #7 — poprawki bezpieczeństwa do scalenia po zielonym CI).
 - 15.10.2026 — S1a scalone (#6): szkielet Next 16.3.8 + Payload 3.90.2, pnpm 11, TS strict, ESLint/Prettier, Vitest, Playwright, `lib/env.ts`, `docker/compose.dev.yml`.
