@@ -69,6 +69,7 @@ export interface Config {
   collections: {
     users: User;
     tenants: Tenant;
+    'site-settings': SiteSetting;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -78,6 +79,7 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     tenants: TenantsSelect<false> | TenantsSelect<true>;
+    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -87,8 +89,12 @@ export interface Config {
     defaultIDType: number;
   };
   fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    'company-data': CompanyDatum;
+  };
+  globalsSelect: {
+    'company-data': CompanyDataSelect<false> | CompanyDataSelect<true>;
+  };
   locale: null;
   widgets: {
     collections: CollectionsWidget;
@@ -180,6 +186,45 @@ export interface Tenant {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings".
+ */
+export interface SiteSetting {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  phone?: string | null;
+  email?: string | null;
+  navigation?:
+    | {
+        label: string;
+        href: string;
+        id?: string | null;
+      }[]
+    | null;
+  footer?: {
+    text?: string | null;
+    links?:
+      | {
+          label: string;
+          href: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  seo?: {
+    /**
+     * %s zastępuje tytuł podstrony, np. „%s | PRO-KOM Biznes”.
+     */
+    titleTemplate?: string | null;
+    /**
+     * Domyślny opis w wynikach wyszukiwania (do 160 znaków).
+     */
+    description?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -209,6 +254,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'tenants';
         value: number | Tenant;
+      } | null)
+    | ({
+        relationTo: 'site-settings';
+        value: number | SiteSetting;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -304,6 +353,42 @@ export interface TenantsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings_select".
+ */
+export interface SiteSettingsSelect<T extends boolean = true> {
+  tenant?: T;
+  phone?: T;
+  email?: T;
+  navigation?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        id?: T;
+      };
+  footer?:
+    | T
+    | {
+        text?: T;
+        links?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+              id?: T;
+            };
+      };
+  seo?:
+    | T
+    | {
+        titleTemplate?: T;
+        description?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv_select".
  */
 export interface PayloadKvSelect<T extends boolean = true> {
@@ -341,6 +426,94 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "company-data".
+ */
+export interface CompanyDatum {
+  id: number;
+  name: string;
+  nip: string;
+  email: string;
+  phones: {
+    label?: string | null;
+    number: string;
+    id?: string | null;
+  }[];
+  locations: {
+    name: string;
+    street: string;
+    postalCode: string;
+    city: string;
+    /**
+     * Dni, w które oddział jest zamknięty, pomiń.
+     */
+    hours?:
+      | {
+          days: ('mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat' | 'sun')[];
+          opens: string;
+          closes: string;
+          id?: string | null;
+        }[]
+      | null;
+    id?: string | null;
+  }[];
+  /**
+   * Widoczny na wszystkich stronach, gdy ma tekst i trwa okres od–do.
+   */
+  promoBar?: {
+    text?: string | null;
+    href?: string | null;
+    startsAt?: string | null;
+    endsAt?: string | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "company-data_select".
+ */
+export interface CompanyDataSelect<T extends boolean = true> {
+  name?: T;
+  nip?: T;
+  email?: T;
+  phones?:
+    | T
+    | {
+        label?: T;
+        number?: T;
+        id?: T;
+      };
+  locations?:
+    | T
+    | {
+        name?: T;
+        street?: T;
+        postalCode?: T;
+        city?: T;
+        hours?:
+          | T
+          | {
+              days?: T;
+              opens?: T;
+              closes?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  promoBar?:
+    | T
+    | {
+        text?: T;
+        href?: T;
+        startsAt?: T;
+        endsAt?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -29,6 +29,8 @@ Fundament ma obsłużyć wszystkie przyszłe strony linii, zanim powstaną ich s
 
 **Uzupełnienie (16.10.2026, S3):** domeny tenanta to jedna tablica `domains` z wpisami `{ host, environment: production | staging | local }` zamiast osobnych pól „domeny produkcyjne / staging” — jedno wyszukiwanie po hoście, jedna kontrola unikalności (host należy do dokładnie jednego tenanta), a lokalne `*.localhost` mieszczą się w tym samym modelu. Decyzja co do zakresu `Tenants` bez zmian.
 
+**Uzupełnienie (16.10.2026, S4):** `CompanyData` edytują admin **i edytor** (także edytor przypisany tylko do jednej linii) — szef sam aktualizuje telefony, godziny i pasek promocji. Świadomy kompromis: zmiana jest widoczna na wszystkich domenach naraz, więc edytorami zostają tylko zaufane osoby. Gdy dojdzie edytor spoza ścisłego kierownictwa — zawęzić `update` do admina (nowy ADR). `SiteSettings` edytor zmienia tylko dla przypisanych tenantów (wtyczka Multi-Tenant), usuwa je tylko admin.
+
 ## Konsekwencje
 - Nowa strona linii = rekord `Tenants` + `SiteSettings` + treści, ewentualnie nowe bloki z jej specyfikacji.
 - Kolekcje `Offers`, `Projects` (realizacje), `Posts` (aktualności huba) dodajemy z odpowiednimi specyfikacjami — osobny ADR tylko, jeśli zmieniają ten model.

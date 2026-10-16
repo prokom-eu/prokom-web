@@ -6,6 +6,7 @@ import { getPayload } from 'payload'
 
 import config from '../payload.config'
 import { assertSeedAllowed, parseSeedEnv } from './config'
+import { SAMPLE_COMPANY, sampleSiteSettings } from './sample'
 import { SEED_TENANTS } from './tenants'
 
 assertSeedAllowed(process.env.NODE_ENV)
@@ -42,22 +43,54 @@ try {
     payload.logger.info('Seed: local admin created.')
   }
 
-  for (const { localHost, ...tenant } of SEED_TENANTS) {
-    const { totalDocs } = await payload.count({
+  for (const [index, { localHost, ...tenant }] of SEED_TENANTS.entries()) {
+    const existingTenant = await payload.find({
       collection: 'tenants',
       where: { slug: { equals: tenant.slug } },
+      limit: 1,
+      depth: 0,
       overrideAccess: true,
     })
-    if (totalDocs > 0) {
+    let [tenantDoc] = existingTenant.docs
+    if (tenantDoc) {
       payload.logger.info(`Seed: tenant "${tenant.slug}" already exists, skipped.`)
-      continue
+    } else {
+      tenantDoc = await payload.create({
+        collection: 'tenants',
+        data: { ...tenant, active: true, domains: [{ host: localHost, environment: 'local' }] },
+        overrideAccess: true,
+      })
+      payload.logger.info(`Seed: tenant "${tenant.slug}" created.`)
     }
-    await payload.create({
-      collection: 'tenants',
-      data: { ...tenant, active: true, domains: [{ host: localHost, environment: 'local' }] },
+
+    const { totalDocs: settingsCount } = await payload.count({
+      collection: 'site-settings',
+      where: { tenant: { equals: tenantDoc.id } },
       overrideAccess: true,
     })
-    payload.logger.info(`Seed: tenant "${tenant.slug}" created.`)
+    if (settingsCount > 0) {
+      payload.logger.info(`Seed: settings of "${tenant.slug}" already exist, skipped.`)
+    } else {
+      await payload.create({
+        collection: 'site-settings',
+        data: { ...sampleSiteSettings(tenant, index), tenant: tenantDoc.id },
+        overrideAccess: true,
+      })
+      payload.logger.info(`Seed: sample settings of "${tenant.slug}" created.`)
+    }
+  }
+
+  // The global always exists; it counts as unset until it has a company name.
+  const company = await payload.findGlobal({ slug: 'company-data', overrideAccess: true })
+  if (company.name) {
+    payload.logger.info('Seed: company data already set, skipped.')
+  } else {
+    await payload.updateGlobal({
+      slug: 'company-data',
+      data: SAMPLE_COMPANY,
+      overrideAccess: true,
+    })
+    payload.logger.info('Seed: sample company data set.')
   }
 } finally {
   await payload.destroy()

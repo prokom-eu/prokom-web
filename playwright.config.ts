@@ -1,5 +1,13 @@
 import { defineConfig, devices } from '@playwright/test'
 
+// Tests that edit content log in as the seed admin (SEED_ADMIN_*). CI sets the variables
+// itself; locally they come from `.env`, read by Node's built-in loader.
+try {
+  process.loadEnvFile()
+} catch {
+  // No `.env` (CI) — the variables are already in the environment.
+}
+
 // Chromium resolves *.localhost to the loopback address, no hosts file needed.
 // `localhost` itself is not a tenant (404), so the panel is the default address.
 const baseURL = 'http://panel.localhost:3000'

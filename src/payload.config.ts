@@ -6,8 +6,10 @@ import { buildConfig } from 'payload'
 import sharp from 'sharp'
 import { fileURLToPath } from 'url'
 
+import { SiteSettings } from './collections/SiteSettings'
 import { Tenants } from './collections/Tenants'
 import { Users } from './collections/Users'
+import { CompanyData } from './globals/CompanyData'
 import { adminOnlyField, isAdmin } from './lib/auth/access'
 import { getEnv } from './lib/env'
 import type { Config } from './payload-types'
@@ -23,7 +25,8 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Tenants],
+  collections: [Users, Tenants, SiteSettings],
+  globals: [CompanyData],
   editor: lexicalEditor(),
   secret: env.PAYLOAD_SECRET,
   typescript: {
@@ -40,8 +43,11 @@ export default buildConfig({
   sharp,
   plugins: [
     multiTenantPlugin<Config>({
-      // Tenant-scoped collections arrive with S4/S5 (SiteSettings, Pages, Media, …).
-      collections: {},
+      // More tenant-scoped collections arrive with S5/S7 (Pages, Media, …).
+      collections: {
+        // One settings document per tenant (unique tenant field).
+        'site-settings': { isGlobal: true },
+      },
       // Deleting a tenant must never silently delete its content.
       cleanupAfterTenantDelete: false,
       userHasAccessToAllTenants: (user) => isAdmin(user),

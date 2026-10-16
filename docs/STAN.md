@@ -5,14 +5,14 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 ## Cel października 2026
 | Etap | Termin | Status |
 |---|---|---|
-| Fundament (S1–S9 lokalnie, S10 na serwerze) — `docs/zadania/fundament.md` | S1–S9: 15–21.10 · S10: po dostawie VPS | ⏳ S1–S3 gotowe, następna S4 |
+| Fundament (S1–S9 lokalnie, S10 na serwerze) — `docs/zadania/fundament.md` | S1–S9: 15–21.10 · S10: po dostawie VPS | ⏳ S1–S3 gotowe, S4 w PR |
 | prokombiznes.pl — specyfikacja (czat „Spec · prokombiznes.pl”) | po fundamencie | ⏳ szkic w `strony/prokombiznes.md` |
 | prokombiznes.pl — wdrożenie | 26.10 | ⏳ |
 | prokominstalacje.pl | 29.10 | ⏳ |
 | prokomsoftware.pl | 31.10 | ⏳ |
 
 ## W toku
-- **Nic w toku — S3 zamknięte.** Gałąź: brak (pracujemy z `develop`). Zrobione w tej sesji: S3 scalone (#19) — tenanci, routing po domenie, panel tylko na `PANEL_HOST`. Niedokończone: nic. Na drugim komputerze **raz**: dopisz `PANEL_HOST=panel.localhost` do `.env`, potem `.\scripts\start.ps1`, `pnpm payload migrate`, `pnpm seed`; strony sprawdzisz po `pnpm dev` pod `http://biznes.localhost:3000` (sam `localhost:3000` daje teraz 404, panel: `http://panel.localhost:3000/admin`). **Następny krok:** nowa sesja Claude Code → `/zadanie S4` (dane firmy `CompanyData` i `SiteSettings` per tenant); w S4 dopisz `SiteSettings` do `collections` wtyczki Multi-Tenant (`isGlobal: true`) i do licznika w `preventDeleteWhileInUse` (`src/collections/Tenants.ts`, `TODO(S4/S5)`).
+- **S4 w toku — gotowe do PR.** Gałąź: `feat/s4-dane-firmy-ustawienia` (niezacommitowana w chwili zapisu). Zrobione: global `CompanyData` (edytuje admin i edytor — uzupełnienie ADR-006), kolekcja `SiteSettings` (1 na tenanta, `isGlobal: true` → unikalny `tenant_id`), odczyt w `src/lib/site/data.ts` (zawsze z filtrem tenanta), minimalna stopka/nawigacja/pasek promocji w layoucie (wygląd w S6), migracja `20261016_205432_company_data_site_settings`, seed z danymi przykładowymi, blokada usunięcia tenanta z ustawieniami. Przegląd `recenzent` — poprawki w tym samym PR, m.in. `down` migracji S3 i S4 (`IF EXISTS`; sprawdzone lokalnie `migrate:down` ×2 → `migrate` → `seed`). Testy: Vitest + 2 nowe e2e (`tests/e2e/site-data.e2e.spec.ts`; wymagają `pnpm seed` i `SEED_ADMIN_*` w `.env` — Playwright wczytuje `.env` sam). Na drugim komputerze: `.\scripts\start.ps1`, `pnpm payload migrate`, `pnpm seed`. **Następny krok:** commit, `/pr`, zielone CI, scalenie (squash), `/koniec-sesji`; potem `/zadanie S5`.
 
 ## Zrobione
 - 16.10.2026 — S3 scalone (#19): kolekcja `Tenants` (domeny `{ host, environment }`, host unikalny — walidacja + indeks; uzupełnienie ADR-006), oficjalna wtyczka Multi-Tenant (admin — wszyscy tenanci, edytor — przypisani; usunięcie tenanta nie kasuje treści, a z przypisanymi użytkownikami jest odrzucane), `src/proxy.ts` + `lib/tenant/routing.ts` (panel i API Payload tylko na `PANEL_HOST`), `(sites)/[domain]` z tenantem z bazy (cache 60 s) i kontrolą `Host`, seed 3 tenantów, nowa zmienna `PANEL_HOST`. Testy: 70 Vitest, 15 e2e (izolacja, nieznany host, panel). Przegląd `recenzent` znalazł obejście routingu ścieżką `/<inna domena>` — poprawione w tym samym PR. CI zielone.
@@ -32,6 +32,10 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 3. VPS Seohost — zamówienie w tygodniu 19–23.10 → S10 (staging).
 
 ## Pomysły na później (poza zakresem bieżących sesji)
+- Z S4 → S5: przy cache/ISR stron pasek promocji liczy okno od–do w chwili renderowania — rewalidacja musi uwzględnić `startsAt`/`endsAt` (albo pasek renderowany dynamicznie).
+- Z S4 (ADR-006): `CompanyData` tylko do odczytu dla prokomserwis.pl (klucz API) — po fundamencie.
+- Z S4 → S7: domyślny obraz OG w `SiteSettings.seo` (`TODO(S7)`, wymaga `Media`).
+- Z S4: generator migracji Payload pisze `down` z `DROP CONSTRAINT` po `DROP TABLE … CASCADE` — każdą nową migrację sprawdzać lokalnie `migrate:down` → `migrate` (kandydat do `docs/sposob-pracy.md` → „Zmiana schematu bazy”).
 - Z S3 → S7: `robots.txt` i `sitemap.xml` per domena mają rozszerzenie, więc `decideRoute` (`lib/tenant/routing.ts`) puszcza je dziś jako plik z `public/` — dodać wyjątek (rewrite na `/<host>/...`) z testem.
 - Z S3 → S8: proxy blokuje na domenach stron całe `/api`; `/api/inquiry` (ADR-003) wymaga wyjątku w `decideRoute` z testem.
 - Z S3 → S7: 404 z proxy (`/admin`, `/api` na domenie strony) to goły tekst „Not Found”, a 404 z layoutu to strona `(sites)/not-found.tsx` — ujednolicić przy własnej stronie 404.
