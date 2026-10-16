@@ -26,19 +26,19 @@ Właściciel kodu: firma PRO-KOM Tadeusz Wójciak — organizacja GitHub `prokom
 ```
 src/
   app/
-    (sites)/[tenant]/...   # publiczne strony; middleware: host → tenant
+    (sites)/[domain]/...   # publiczne strony; proxy.ts przepisuje host → /<host>/..., layout: host → tenant (baza)
     (payload)/admin/...    # panel Payload — dostępny TYLKO na domenie panelu
     api/inquiry/           # przyjmowanie formularzy (kontrakt ADR-003)
   collections/  globals/  blocks/
   components/              # wspólne komponenty
   sites/<tenant>/          # tylko to, co naprawdę unikalne dla jednej strony
   lib/                     # tenant, seo, inquiry, env
-  middleware.ts
+  proxy.ts                 # Next 16: dawne middleware.ts (lib/tenant/routing)
 docs/  docker/  .github/workflows/  public/brand/
 ```
 
 ## Lokalnie
-- Domeny dev: `biznes.localhost:3000`, `instalacje.localhost:3000`, `software.localhost:3000`, panel: `panel.localhost:3000/admin`.
+- Domeny dev: `biznes.localhost:3000`, `instalacje.localhost:3000`, `software.localhost:3000`, panel: `panel.localhost:3000/admin` (`PANEL_HOST=panel.localhost` w `.env`). Sam `localhost:3000` to nieznana domena → 404.
 - `docker compose -f docker/compose.dev.yml up -d` — PostgreSQL (na hoście port **54320**, bo 5432/5433 bywają zajęte przez natywny PostgreSQL) + Mailpit (SMTP `localhost:1025`, podgląd maili: `localhost:8025`).
 - Komendy: `pnpm dev`, `pnpm build`, `pnpm start`, `pnpm lint`, `pnpm typecheck`, `pnpm format` / `pnpm format:check`, `pnpm test` (Vitest, `src/**/*.test.ts`), `pnpm test:e2e` (Playwright, `tests/e2e`, wymaga działającej bazy), `pnpm generate:types`, `pnpm generate:importmap`, `pnpm payload migrate:create <nazwa>`, `pnpm payload migrate`, `pnpm seed` (tylko lokalnie; admin z `SEED_ADMIN_EMAIL` / `SEED_ADMIN_PASSWORD`, na produkcji zablokowany). Zmiana schematu: `docs/sposob-pracy.md` → „Zmiana schematu bazy”.
 - pnpm: wersja z `packageManager` (11.x). Wywołuj `pnpm` bezpośrednio — sam przełącza się na przypiętą wersję. Nie używaj `corepack pnpm`: psuje `webServer` w Playwright.

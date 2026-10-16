@@ -6,6 +6,7 @@ const valid = {
   NODE_ENV: 'test',
   DATABASE_URL: 'postgresql://prokom:prokom@127.0.0.1:54320/prokom_web',
   PAYLOAD_SECRET: 'a'.repeat(32),
+  PANEL_HOST: 'panel.localhost',
 }
 
 describe('parseEnv', () => {
@@ -31,5 +32,18 @@ describe('parseEnv', () => {
     const secret = 'too-short-secret'
     expect(() => parseEnv({ ...valid, PAYLOAD_SECRET: secret })).toThrow(/PAYLOAD_SECRET/)
     expect(() => parseEnv({ ...valid, PAYLOAD_SECRET: secret })).not.toThrow(secret)
+  })
+
+  it('normalizes PANEL_HOST', () => {
+    expect(parseEnv({ ...valid, PANEL_HOST: 'Panel.Localhost:3000' }).PANEL_HOST).toBe(
+      'panel.localhost',
+    )
+  })
+
+  it('rejects a missing or invalid PANEL_HOST', () => {
+    expect(() => parseEnv({ ...valid, PANEL_HOST: undefined })).toThrow(/PANEL_HOST/)
+    expect(() => parseEnv({ ...valid, PANEL_HOST: 'https://panel.pro-kom.eu/' })).toThrow(
+      /PANEL_HOST/,
+    )
   })
 })

@@ -1,9 +1,20 @@
 import { z } from 'zod'
 
+import { normalizeHost } from './tenant/host'
+
 const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
   DATABASE_URL: z.url({ protocol: /^postgres(ql)?$/ }),
   PAYLOAD_SECRET: z.string().min(32),
+  // Domain of the admin panel; `/admin` and the Payload API answer only there (ADR-006).
+  PANEL_HOST: z.string().transform((value, ctx) => {
+    const host = normalizeHost(value)
+    if (!host) {
+      ctx.addIssue({ code: 'custom', message: 'expected a bare hostname, e.g. panel.localhost' })
+      return z.NEVER
+    }
+    return host
+  }),
 })
 
 export type Env = z.infer<typeof envSchema>
