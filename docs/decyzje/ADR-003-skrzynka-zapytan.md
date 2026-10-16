@@ -36,6 +36,12 @@ Docelowo zapytania żyją w PRO-KOM System (Django, styczeń 2027). Pierwsza str
 - **Logi:** dane osobowe z zapytań nigdy nie trafiają do logów ani do Sentry.
 - **Migracja 2027:** te same zasady przechodzą do PRO-KOM System razem z modelem `Inquiry`.
 
+## Obsługa zapytań do czasu PRO-KOM System (uzupełnienie 2026-10-16)
+- Każda linia ma własną skrzynkę i jest ona adresem powiadomień tenanta (`Tenants.notificationEmail`, ustawiany w panelu, nie w kodzie): `biznes@pro-kom.eu`, `instalacje@pro-kom.eu`, `software@pro-kom.eu`. Hub pro-kom.eu: TODO(krystian): skrzynka do decyzji.
+- Zapytania na bieżąco obsługują **Krystian i szef**, obaj mają te skrzynki w Thunderbirdzie. Rekord w `Inquiries` zostaje źródłem prawdy i zabezpieczeniem (mail może nie dojść, rekord zostaje).
+- Powiadomienie ma ułatwiać pracę w programie pocztowym: `Reply-To` = e-mail klienta (gdy podany), temat z linią i kategorią, w treści wszystkie pola formularza i link do rekordu w panelu.
+- Skrzynki powstają dziś u obecnego dostawcy poczty pro-kom.eu — muszą wejść do listy skrzynek przy migracji poczty do Seohost (ADR-002).
+
 ## Konsekwencje
 - Styczeń 2027: `submitInquiry()` zapisuje do API PRO-KOM System; jednorazowy skrypt migruje istniejące rekordy. Formularze bez zmian.
 - Zasada „Payload tylko treści” ma świadomy, czasowy wyjątek — kolekcja `Inquiries` zostanie usunięta po migracji.

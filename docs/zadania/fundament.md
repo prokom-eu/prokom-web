@@ -53,8 +53,8 @@ ADR do przeczytania przed fundamentem: 001, 003, 004, 005, 006, 007.
 **Gotowe, gdy:** zmiana telefonu w `CompanyData` jest widoczna na wszystkich trzech domenach; zmiana w `SiteSettings` jednej linii — tylko na jej domenie (test).
 
 ## S5 — strony z bloków
-**Zakres:** `Pages` z blokami generycznymi (ADR-006), wersje robocze, publikacja z datą, podgląd na żywo, renderowanie bloków; odświeżanie (rewalidacja) tylko ścieżek danego tenanta po publikacji.
-**Gotowe, gdy:** szkic niewidoczny publicznie; publikacja → zmiana widoczna na właściwej domenie; podgląd na żywo działa; test Playwright ścieżki „edytuj → opublikuj → widać”.
+**Zakres:** `Pages` z blokami generycznymi (ADR-006), wersje robocze, publikacja z datą, podgląd na żywo, renderowanie bloków; odświeżanie (rewalidacja) tylko ścieżek danego tenanta po publikacji; **rejestr bloków z listą dozwolonych per linia (ADR-010)** — na start każda linia ma wszystkie bloki generyczne.
+**Gotowe, gdy:** szkic niewidoczny publicznie; publikacja → zmiana widoczna na właściwej domenie; podgląd na żywo działa; test Playwright ścieżki „edytuj → opublikuj → widać”; blok spoza listy linii jest odrzucany przy zapisie (test).
 
 ## S6 — system wyglądu
 **Zakres:** tokeny z `docs/marka.md`, Tailwind tylko na tokenach, `data-line` → `--accent*`; wyliczenie `--accent-text` (≥ 4,5:1) dla każdej linii i wpisanie wartości do `docs/marka.md`; fonty Archivo/Manrope self-hosted; szkielet strony: pasek marki (linki do linii), nagłówek z logo linii, stopka z `CompanyData`; SVG znaków i favicony w `public/brand/` (Krystian dostarcza pliki); komponenty bazowe (Button, Container, Section, Heading, Link); test axe w Playwright.
@@ -68,6 +68,7 @@ ADR do przeczytania przed fundamentem: 001, 003, 004, 005, 006, 007.
 **Zakres:** dokładnie wg ADR-003: `POST /api/inquiry`, `submitInquiry()`, schemat Zod, `Inquiries`, honeypot + minimalny czas + limit, powiadomienie e-mail (SMTP z env) + potwierdzenie dla klienta, widok w panelu (edycja tylko statusu), komponent `InquiryForm` (dostępny, z komunikatami błędów i zgodą RODO z wersją klauzuli).
 - **Retencja (RODO, ADR-003):** zadanie cykliczne usuwa zapytania o statusie `closed` starsze niż okres retencji (wartość z env, domyślnie 24 miesiące); usunięcie pojedynczego zapytania na żądanie osoby — akcja w panelu tylko dla roli `admin`, z wpisem kto i kiedy (bez treści zapytania). Mechanizm zadań: wbudowany w Payload, jeśli wystarcza — bez nowych usług.
 - **Nadawca maili:** adres w domenie, dla której ustawimy SPF/DKIM/DMARC (`docs/dns.md`); adres nadawcy i odbiorcy z env / ustawień tenanta, nigdy na sztywno w kodzie.
+- **Odbiorcy (ADR-003, uzupełnienie 16.10):** powiadomienie idzie na `notificationEmail` tenanta (skrzynki linii, np. `biznes@pro-kom.eu`); `Reply-To` = e-mail klienta, temat z linią i kategorią, link do rekordu w panelu — obsługa w Thunderbirdzie. Tenant bez `notificationEmail` → zapis i tak się udaje, a w logach ostrzeżenie (bez danych osobowych).
 - **Dane osobowe poza logami:** e-mail, telefon, imię i treść zapytania nie trafiają do logów ani komunikatów błędów.
 **Gotowe, gdy:** Playwright: wysłanie formularza → rekord w panelu → mail w Mailpit; spam (honeypot / za szybko / limit) odrzucony; publicznie nie da się odczytać zapytań; test Vitest retencji (stare `closed` usunięte, `new`/`in_progress` nietknięte).
 
