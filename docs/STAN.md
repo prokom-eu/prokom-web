@@ -12,7 +12,7 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 | prokomsoftware.pl | 31.10 | ⏳ |
 
 ## W toku
-- **Nic w toku — S4 zamknięte.** Gałąź: brak (pracujemy z `develop`). Zrobione w tej sesji: S4 scalone (#22) — `CompanyData`, `SiteSettings` per tenant, stopka z danymi; poprawione `down` migracji S3/S4. Niedokończone: nic. Na drugim komputerze **raz**: `.\scripts\start.ps1`, `pnpm payload migrate`, `pnpm seed` (doda ustawienia stron i przykładowe dane firmy); e2e wymagają `SEED_ADMIN_*` w `.env`. **Następny krok:** nowa sesja Claude Code → `/zadanie S5` (strony z bloków: `Pages`, wersje robocze, podgląd, rewalidacja per tenant); w S5 dopisz `Pages` do `collections` wtyczki Multi-Tenant i do licznika w `preventDeleteWhileInUse` (`src/collections/Tenants.ts`, `TODO(S5/S7)`), a przy cache uwzględnij okno paska promocji (Pomysły na później).
+- **Nic w toku — S4 zamknięte.** Gałąź: brak (pracujemy z `develop`). Zrobione w tej sesji: S4 scalone (#22) — `CompanyData`, `SiteSettings` per tenant, stopka z danymi; poprawione `down` migracji S3/S4. Niedokończone: nic. Na drugim komputerze **raz**: `.\scripts\start.ps1`, `pnpm payload migrate`, `pnpm seed` (doda ustawienia stron i przykładowe dane firmy); e2e wymagają `SEED_ADMIN_*` w `.env`. **Następny krok:** nowa sesja Claude Code → `/zadanie S5` (strony z bloków: `Pages`, wersje robocze, podgląd, rewalidacja per tenant, **rejestr bloków per linia wg ADR-010** — strony linii będą bardzo różne); w S5 dopisz `Pages` do `collections` wtyczki Multi-Tenant i do licznika w `preventDeleteWhileInUse` (`src/collections/Tenants.ts`, `TODO(S5/S7)`), a przy cache uwzględnij okno paska promocji (Pomysły na później).
 
 ## Zrobione
 - 16.10.2026 — S4 scalone (#22): global `CompanyData` (NIP z sumą kontrolną, telefony, oddziały z godzinami, pasek promocji od–do; edytuje admin i edytor — uzupełnienie ADR-006), kolekcja `SiteSettings` (1 na tenanta, unikalny `tenant_id`), odczyt w `lib/site/data.ts` z filtrem tenanta, minimalna nawigacja/stopka/pasek w layoucie, seed z danymi przykładowymi, blokada usunięcia tenanta z ustawieniami. Przegląd `recenzent`: poprawione `down` migracji S3 i S4 (sprawdzone `migrate:down` → `migrate`), walidator linków odrzuca `\`. Testy: 122 Vitest, 17 e2e. CI zielone.
@@ -31,6 +31,7 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 1. S1 → S9 według `docs/zadania/fundament.md`, po kolei, każda sesja = jeden PR.
 2. Domeny (prokombiznes.pl, prokominstalacje.pl, prokomsoftware.pl) — zakup 16.10.
 3. VPS Seohost — zamówienie w tygodniu 19–23.10 → S10 (staging).
+4. Skrzynki `biznes@`, `instalacje@`, `software@pro-kom.eu` — założyć przed 26.10 (Krystian + szef, Thunderbird); dopisać do listy skrzynek przy migracji poczty do Seohost (ADR-002).
 
 ## Pomysły na później (poza zakresem bieżących sesji)
 - Z S4 → S5: przy cache/ISR stron pasek promocji liczy okno od–do w chwili renderowania — rewalidacja musi uwzględnić `startsAt`/`endsAt` (albo pasek renderowany dynamicznie).
@@ -54,5 +55,5 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 - **16.10 (Krystian, przy zakupie):** domeny na firmę (abonent PRO-KOM) i konto rejestratora na firmowy e-mail z 2FA i autoodnawianiem (`docs/dns.md`).
 - Z jakiego adresu wychodzą maile z formularzy (domena nadawcy) — decyzja w S8.
 - Okres retencji zapytań (domyślnie 24 miesiące, ADR-003) — potwierdzić przy polityce prywatności.
-- Telefony i adresy e-mail dla każdej strony; kto odbiera powiadomienia o zapytaniach.
+- Telefony i adresy e-mail dla każdej strony. Powiadomienia o zapytaniach — **ustalone 16.10** (ADR-003): skrzynki `biznes@`, `instalacje@`, `software@pro-kom.eu`, obsługują Krystian i szef w Thunderbirdzie; otwarte: skrzynka huba pro-kom.eu.
 - Serwery i sieć: Biznes czy Instalacje? Ceny na stronie czy „Zapytaj o ofertę”? (do specyfikacji Biznes)
