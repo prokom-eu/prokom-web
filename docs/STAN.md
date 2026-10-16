@@ -5,14 +5,14 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 ## Cel października 2026
 | Etap | Termin | Status |
 |---|---|---|
-| Fundament (S1–S9 lokalnie, S10 na serwerze) — `docs/zadania/fundament.md` | S1–S9: 15–21.10 · S10: po dostawie VPS | ⏳ S1–S2 gotowe, następna S3 |
+| Fundament (S1–S9 lokalnie, S10 na serwerze) — `docs/zadania/fundament.md` | S1–S9: 15–21.10 · S10: po dostawie VPS | ⏳ S1–S2 gotowe, S3 w toku |
 | prokombiznes.pl — specyfikacja (czat „Spec · prokombiznes.pl”) | po fundamencie | ⏳ szkic w `strony/prokombiznes.md` |
 | prokombiznes.pl — wdrożenie | 26.10 | ⏳ |
 | prokominstalacje.pl | 29.10 | ⏳ |
 | prokomsoftware.pl | 31.10 | ⏳ |
 
 ## W toku
-- **Nic w toku — S2 zamknięte.** Gałąź: brak (pracujemy z `develop`). Niedokończone: nic. Na drugim komputerze **raz**: dopisz `SEED_ADMIN_EMAIL` / `SEED_ADMIN_PASSWORD` do `.env` (z menedżera haseł), `docker compose -f docker/compose.dev.yml down -v` (stara baza z `push`), `.scriptsstart.ps1`, `pnpm seed`. Do sprawdzenia przy okazji: czy hak Prettiera w Claude Code formatuje edytowane pliki; log pierwszego przebiegu Dependabota. Następny krok: nowa sesja Claude Code → `/zadanie S3` (tenanci i routing po domenie).
+- **S3 — tenanci i routing po domenie.** Gałąź: `feat/s3-tenanci-routing` (zmiany w stage, bez commita w chwili zapisu). Zrobione: kolekcja `Tenants` (domeny `{ host, environment }`, host unikalny), wtyczka Multi-Tenant, `src/proxy.ts` + `lib/tenant/routing.ts`, `(sites)/[domain]` z rozpoznaniem tenanta z bazy (cache 60 s) i sprawdzeniem `Host`, blokada usuwania tenanta z użytkownikami, seed 3 tenantów, testy Vitest + e2e (13+), CI z seedem i `PANEL_HOST`. Przegląd `recenzent`: poprawione obejście routingu ścieżką z domeną, błąd 500 przy usuwaniu tenanta, format sluga. **Następny krok:** commit → `/pr` → zielone CI → squash do `develop` → `/koniec-sesji`. Na drugim komputerze raz: `PANEL_HOST=panel.localhost` w `.env`, potem `pnpm payload migrate` i `pnpm seed`.
 
 ## Zrobione
 - 15.10.2026 — S2 scalone (#16): migracje zamiast `push` (pierwsza migracja, `migrate` w CI), `Users` z rolami `admin`/`editor` i dostępem wg ról, blokada po 5 nieudanych logowaniach na 15 min, hasło min. 12 znaków (także przy resecie), `pnpm seed` z blokadą na produkcji. Przegląd subagentem `recenzent`, poprawki w tym samym PR. Lokalna baza odtworzona z migracji, logowanie adminem z seeda sprawdzone.
@@ -31,6 +31,11 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 3. VPS Seohost — zamówienie w tygodniu 19–23.10 → S10 (staging).
 
 ## Pomysły na później (poza zakresem bieżących sesji)
+- Z S3 → S7: `robots.txt` i `sitemap.xml` per domena mają rozszerzenie, więc `decideRoute` (`lib/tenant/routing.ts`) puszcza je dziś jako plik z `public/` — dodać wyjątek (rewrite na `/<host>/...`) z testem.
+- Z S3 → S8: proxy blokuje na domenach stron całe `/api`; `/api/inquiry` (ADR-003) wymaga wyjątku w `decideRoute` z testem.
+- Z S3 → S7: 404 z proxy (`/admin`, `/api` na domenie strony) to goły tekst „Not Found”, a 404 z layoutu to strona `(sites)/not-found.tsx` — ujednolicić przy własnej stronie 404.
+- Z S3 → S10: pliki z `public/brand/` odpowiadają 200 także na obcym hoście (proxy ich nie przepisuje) — Nginx z `server_name` tylko dla naszych domen odetnie obce hosty; przy okazji cache tenantów przestanie się czyścić od losowych hostów.
+- Z S3 → S10: Nginx musi przekazywać oryginalny nagłówek `Host` (`proxy_set_header Host $host`) — od niego zależy wybór tenanta.
 - Przy pierwszej produkcji (26.10): wersje i lista zmian — tag `vX.Y.Z` przy wdrożeniu na `main`, automatyczny changelog z tytułów PR (dla szefa: „co nowego”, dla nas: punkt rollbacku).
 - Gdy dojdzie druga osoba do kodu: plan GitHub Team (prawdziwa ochrona gałęzi `main`/`develop` w prywatnym repo). Dziś wystarcza blokada w `.claude/settings.json` + CI.
 - Przy pierwszej produkcji: komenda `/raport-tygodnia` — scalone PR-y z tygodnia + STAN → 5 linijek statusu do Asany (prostym językiem dla szefa).

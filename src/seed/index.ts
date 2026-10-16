@@ -6,6 +6,7 @@ import { getPayload } from 'payload'
 
 import config from '../payload.config'
 import { assertSeedAllowed, parseSeedEnv } from './config'
+import { SEED_TENANTS } from './tenants'
 
 assertSeedAllowed(process.env.NODE_ENV)
 const { adminEmail, adminPassword } = parseSeedEnv(process.env)
@@ -39,6 +40,24 @@ try {
       overrideAccess: true,
     })
     payload.logger.info('Seed: local admin created.')
+  }
+
+  for (const { localHost, ...tenant } of SEED_TENANTS) {
+    const { totalDocs } = await payload.count({
+      collection: 'tenants',
+      where: { slug: { equals: tenant.slug } },
+      overrideAccess: true,
+    })
+    if (totalDocs > 0) {
+      payload.logger.info(`Seed: tenant "${tenant.slug}" already exists, skipped.`)
+      continue
+    }
+    await payload.create({
+      collection: 'tenants',
+      data: { ...tenant, active: true, domains: [{ host: localHost, environment: 'local' }] },
+      overrideAccess: true,
+    })
+    payload.logger.info(`Seed: tenant "${tenant.slug}" created.`)
   }
 } finally {
   await payload.destroy()

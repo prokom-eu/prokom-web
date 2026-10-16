@@ -43,8 +43,8 @@ ADR do przeczytania przed fundamentem: 001, 003, 004, 005, 006, 007.
 ## S3 — tenanci i routing po domenie (najważniejsza sesja)
 **Zakres:**
 - `Tenants` wg ADR-006, oficjalna wtyczka Multi-Tenant.
-- `middleware.ts`: host → tenant (dane z bazy z krótkim cache, nie z kodu); nieznana domena → 404; `/admin` i zapisujące API tylko na domenie panelu (`PANEL_HOST` z env).
-- Struktura `app/(sites)/[tenant]/...`, strona startowa tenanta.
+- `middleware.ts` (w Next 16: `proxy.ts`): host → tenant (dane z bazy z krótkim cache, nie z kodu); nieznana domena → 404; `/admin` i zapisujące API tylko na domenie panelu (`PANEL_HOST` z env).
+- Struktura `app/(sites)/[tenant]/...` (zrealizowane jako `[domain]` — parametrem jest host), strona startowa tenanta.
 - Seed: tenanci `biznes`, `instalacje`, `software` z domenami `*.localhost`.
 **Gotowe, gdy:** testy (Vitest + Playwright): (1) treść tenanta A nigdy nie pojawia się na domenie B, (2) nieznany host → 404, (3) `/admin` na domenie strony → 404, (4) panel działa na `panel.localhost`.
 

@@ -45,6 +45,8 @@ jobs:
 
     env:
       DATABASE_URL: postgresql://prokom:prokom@127.0.0.1:5432/prokom_web
+      PANEL_HOST: panel.localhost
+      SEED_ADMIN_EMAIL: ci-admin@example.test
 
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -71,7 +73,9 @@ jobs:
 
       # Throwaway secret generated per run, so no secret-looking value lives in the repo.
       - name: Test-only environment
-        run: echo "PAYLOAD_SECRET=$(openssl rand -hex 32)" >> "$GITHUB_ENV"
+        run: |
+          echo "PAYLOAD_SECRET=$(openssl rand -hex 32)" >> "$GITHUB_ENV"
+          echo "SEED_ADMIN_PASSWORD=$(openssl rand -hex 16)" >> "$GITHUB_ENV"
 
       - name: Lint
         run: pnpm lint
@@ -88,6 +92,10 @@ jobs:
       # ADR-009: push is disabled, so the empty CI database gets its schema from migrations only.
       - name: Migrate database
         run: pnpm payload migrate
+
+      # Tenants biznes / instalacje / software on *.localhost — the e2e tests depend on them.
+      - name: Seed database
+        run: pnpm seed
 
       - name: Build
         run: pnpm build

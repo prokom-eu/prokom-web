@@ -1,6 +1,8 @@
 import { defineConfig, devices } from '@playwright/test'
 
-const baseURL = 'http://localhost:3000'
+// Chromium resolves *.localhost to the loopback address, no hosts file needed.
+// `localhost` itself is not a tenant (404), so the panel is the default address.
+const baseURL = 'http://panel.localhost:3000'
 
 export default defineConfig({
   testDir: './tests/e2e',
@@ -16,7 +18,9 @@ export default defineConfig({
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
   webServer: {
     command: 'pnpm dev',
-    url: baseURL,
+    // Waits for the port: Node.js does not resolve *.localhost on every system, and every
+    // non-panel URL answers 404, which Playwright does not count as "ready".
+    port: 3000,
     reuseExistingServer: !process.env.CI,
     timeout: 180_000,
   },

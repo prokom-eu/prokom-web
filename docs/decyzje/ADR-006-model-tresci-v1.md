@@ -27,6 +27,8 @@ Fundament ma obsłużyć wszystkie przyszłe strony linii, zanim powstaną ich s
 - Publicznie: odczyt wyłącznie opublikowanych treści; brak odczytu `Users`, `Inquiries`.
 - Odświeżanie stron po publikacji: tylko ścieżki danego tenanta (tag/ścieżka rewalidacji z tenantem), nie przebudowa całości.
 
+**Uzupełnienie (16.10.2026, S3):** domeny tenanta to jedna tablica `domains` z wpisami `{ host, environment: production | staging | local }` zamiast osobnych pól „domeny produkcyjne / staging” — jedno wyszukiwanie po hoście, jedna kontrola unikalności (host należy do dokładnie jednego tenanta), a lokalne `*.localhost` mieszczą się w tym samym modelu. Decyzja co do zakresu `Tenants` bez zmian.
+
 ## Konsekwencje
 - Nowa strona linii = rekord `Tenants` + `SiteSettings` + treści, ewentualnie nowe bloki z jej specyfikacji.
 - Kolekcje `Offers`, `Projects` (realizacje), `Posts` (aktualności huba) dodajemy z odpowiednimi specyfikacjami — osobny ADR tylko, jeśli zmieniają ten model.
