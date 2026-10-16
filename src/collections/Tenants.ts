@@ -4,14 +4,8 @@ import type { ArrayField, CollectionBeforeDeleteHook, CollectionConfig, FieldHoo
 import { adminOnly } from '../lib/auth/access'
 import { clearTenantCache } from '../lib/tenant/byHost'
 import { findDuplicateHosts, normalizeHost } from '../lib/tenant/host'
+import { LINES } from '../lib/tenant/lines'
 import { isValidTenantSlug } from '../lib/tenant/slug'
-
-const LINES = [
-  { label: 'PRO-KOM (hub)', value: 'prokom' },
-  { label: 'Biznes', value: 'biznes' },
-  { label: 'Instalacje', value: 'instalacje' },
-  { label: 'Software', value: 'software' },
-]
 
 const ENVIRONMENTS = [
   { label: 'Produkcja', value: 'production' },
@@ -63,10 +57,10 @@ const validateDomains: ArrayField['validate'] = async (value, { id, req }) => {
  * referenced by users would fail on a database constraint. Refuse with a readable message
  * instead; deactivating (`active` = false) is the normal way to take a site offline.
  * Tenant-scoped content would otherwise be orphaned (`ON DELETE set null`).
- * TODO(S5/S7): also count Pages and Media here.
+ * TODO(S7): also count Media here.
  */
 const preventDeleteWhileInUse: CollectionBeforeDeleteHook = async ({ id, req }) => {
-  const [users, settings] = await Promise.all([
+  const [users, settings, pages] = await Promise.all([
     req.payload.count({
       collection: 'users',
       where: { 'tenants.tenant': { equals: id } },
@@ -75,6 +69,12 @@ const preventDeleteWhileInUse: CollectionBeforeDeleteHook = async ({ id, req }) 
     }),
     req.payload.count({
       collection: 'site-settings',
+      where: { tenant: { equals: id } },
+      overrideAccess: true,
+      req,
+    }),
+    req.payload.count({
+      collection: 'pages',
       where: { tenant: { equals: id } },
       overrideAccess: true,
       req,
@@ -93,6 +93,15 @@ const preventDeleteWhileInUse: CollectionBeforeDeleteHook = async ({ id, req }) 
     throw new APIError(
       'Tej strony nie można usunąć: ma zapisane ustawienia strony. ' +
         'Wyłącz ją polem „Aktywna” albo najpierw usuń jej ustawienia.',
+      400,
+      null,
+      true,
+    )
+  }
+  if (pages.totalDocs > 0) {
+    throw new APIError(
+      `Tej strony nie można usunąć: ma podstrony (${pages.totalDocs}). ` +
+        'Wyłącz ją polem „Aktywna” albo najpierw usuń jej podstrony.',
       400,
       null,
       true,
@@ -134,7 +143,7 @@ export const Tenants: CollectionConfig = {
           : 'Tylko małe litery, cyfry i pojedyncze myślniki, np. „biznes”.',
       admin: { description: 'Krótki identyfikator, np. „biznes”. Nie zmieniaj po starcie strony.' },
     },
-    { name: 'line', label: 'Linia', type: 'select', required: true, options: LINES },
+    { name: 'line', label: 'Linia', type: 'select', required: true, options: [...LINES] },
     {
       name: 'domains',
       label: 'Domeny',

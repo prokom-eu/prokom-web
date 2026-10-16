@@ -6,6 +6,7 @@ import { buildConfig } from 'payload'
 import sharp from 'sharp'
 import { fileURLToPath } from 'url'
 
+import { Pages } from './collections/Pages'
 import { SiteSettings } from './collections/SiteSettings'
 import { Tenants } from './collections/Tenants'
 import { Users } from './collections/Users'
@@ -25,9 +26,14 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Tenants, SiteSettings],
+  collections: [Users, Tenants, SiteSettings, Pages],
   globals: [CompanyData],
   editor: lexicalEditor(),
+  jobs: {
+    // Runs scheduled publishes (`Pages` → "Zaplanuj publikację") inside the app process, every
+    // minute. Fine for our long-running container; not for serverless (Payload docs).
+    autoRun: [{ cron: '* * * * *', queue: 'default' }],
+  },
   secret: env.PAYLOAD_SECRET,
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
@@ -43,8 +49,9 @@ export default buildConfig({
   sharp,
   plugins: [
     multiTenantPlugin<Config>({
-      // More tenant-scoped collections arrive with S5/S7 (Pages, Media, …).
+      // More tenant-scoped collections arrive with S7 (Media, …).
       collections: {
+        pages: {},
         // One settings document per tenant (unique tenant field).
         'site-settings': { isGlobal: true },
       },

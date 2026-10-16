@@ -1,21 +1,6 @@
 import type { PublicCompanyData, PublicSiteSettings } from '@/lib/site/public'
-import { sortDays } from '@/lib/site/company'
-import { toTelHref } from '@/lib/site/link'
 
-const DAY_LABELS: Record<string, string> = {
-  mon: 'pon.',
-  tue: 'wt.',
-  wed: 'śr.',
-  thu: 'czw.',
-  fri: 'pt.',
-  sat: 'sob.',
-  sun: 'niedz.',
-}
-
-function Phone({ number }: { number: string }) {
-  const href = toTelHref(number)
-  return href ? <a href={href}>{number}</a> : <>{number}</>
-}
+import { LocationAddress, Phone } from './ContactDetails'
 
 type Props = { company: PublicCompanyData | null; settings: PublicSiteSettings | null }
 
@@ -66,20 +51,7 @@ export function SiteFooter({ company, settings }: Props) {
             <a href={`mailto:${company.email}`}>{company.email}</a>
           </p>
           {company.locations.map((location) => (
-            <address key={`${location.name}-${location.street}`}>
-              <strong>{location.name}</strong>
-              <br />
-              {location.street}, {location.postalCode} {location.city}
-              {location.hours.map((row) => (
-                <span key={`${row.days.join()}-${row.opens}`}>
-                  <br />
-                  {sortDays(row.days)
-                    .map((day) => DAY_LABELS[day] ?? day)
-                    .join(', ')}{' '}
-                  {row.opens}–{row.closes}
-                </span>
-              ))}
-            </address>
+            <LocationAddress key={`${location.name}-${location.street}`} location={location} />
           ))}
         </section>
       )}

@@ -6,7 +6,7 @@ import { getPayload } from 'payload'
 
 import config from '../payload.config'
 import { assertSeedAllowed, parseSeedEnv } from './config'
-import { SAMPLE_COMPANY, sampleSiteSettings } from './sample'
+import { SAMPLE_COMPANY, samplePages, sampleSiteSettings } from './sample'
 import { SEED_TENANTS } from './tenants'
 
 assertSeedAllowed(process.env.NODE_ENV)
@@ -77,6 +77,24 @@ try {
         overrideAccess: true,
       })
       payload.logger.info(`Seed: sample settings of "${tenant.slug}" created.`)
+    }
+
+    for (const page of samplePages(tenant)) {
+      const { totalDocs: pageCount } = await payload.count({
+        collection: 'pages',
+        where: { and: [{ tenant: { equals: tenantDoc.id } }, { slug: { equals: page.slug } }] },
+        overrideAccess: true,
+      })
+      if (pageCount > 0) {
+        payload.logger.info(`Seed: page "${tenant.slug}/${page.slug}" already exists, skipped.`)
+        continue
+      }
+      await payload.create({
+        collection: 'pages',
+        data: { ...page, tenant: tenantDoc.id, _status: 'published' },
+        overrideAccess: true,
+      })
+      payload.logger.info(`Seed: sample page "${tenant.slug}/${page.slug}" published.`)
     }
   }
 
