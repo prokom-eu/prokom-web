@@ -122,6 +122,25 @@ describe('decideRoute — site domains', () => {
     }
   })
 
+  it('answers the health check on any host (Docker, smoke test, monitoring)', () => {
+    for (const host of ['biznes.localhost', 'panel.localhost', 'localhost:3000', '127.0.0.1']) {
+      for (const method of ['GET', 'HEAD']) {
+        expect(decideRoute({ host, pathname: '/api/health', method, panelHost })).toEqual({
+          type: 'next',
+        })
+      }
+    }
+  })
+
+  it('keeps the rest of the health path closed on site domains', () => {
+    expect(
+      decideRoute({ host: 'biznes.localhost', pathname: '/api/health', method: 'POST', panelHost }),
+    ).toEqual(SITE_404)
+    for (const pathname of ['/api/health/', '/api/health/x', '/api/healthz']) {
+      expect(route('biznes.localhost', pathname)).toEqual(SITE_404)
+    }
+  })
+
   it.each(['/robots.txt', '/sitemap.xml'])('rewrites %s to the domain segment', (pathname) => {
     expect(route('software.localhost:3000', pathname)).toEqual({
       type: 'rewrite',

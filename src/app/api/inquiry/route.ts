@@ -1,4 +1,5 @@
 import { submitInquiry } from '@/lib/inquiry/submit'
+import { REQUEST_ID_HEADER, requestIdFrom } from '@/lib/requestId'
 
 // Far above any honest inquiry (message ≤ 5000 characters); larger bodies are not parsed.
 const MAX_BODY_BYTES = 32 * 1024
@@ -39,11 +40,10 @@ export async function POST(request: Request) {
     return json({ error: 'invalid', fields: [] }, 400)
   }
 
-  const result = await submitInquiry({
-    host: request.headers.get('host'),
-    ip: clientIp(request),
-    body,
-  })
+  const result = await submitInquiry(
+    { host: request.headers.get('host'), ip: clientIp(request), body },
+    { requestId: requestIdFrom(request.headers.get(REQUEST_ID_HEADER)) },
+  )
   if (result.ok) return json({ ok: true }, 201)
   switch (result.error) {
     case 'unknown_host':

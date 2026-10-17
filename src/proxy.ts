@@ -3,12 +3,26 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { getEnv } from './lib/env'
 import { getRedirectsByHost } from './lib/redirects/byHost'
 import { matchRedirect } from './lib/redirects/rules'
+import { REQUEST_ID_HEADER, requestIdFrom } from './lib/requestId'
 import { siteOrigin } from './lib/seo/origin'
 import { normalizeHost } from './lib/tenant/host'
 import { decideRoute } from './lib/tenant/routing'
 
-/** Host → site routing and panel-only paths; the decision itself lives in `lib/tenant/routing`. */
+/**
+ * Every request gets an id (`X-Request-Id`): passed on to the app for its logs and returned to the
+ * client, so a visitor's report ("error at 12:03, id …") leads to the log lines.
+ */
 export async function proxy(request: NextRequest) {
+  const requestId = requestIdFrom(request.headers.get(REQUEST_ID_HEADER))
+  const headers = new Headers(request.headers)
+  headers.set(REQUEST_ID_HEADER, requestId)
+  const response = await route(request, { request: { headers } })
+  response.headers.set(REQUEST_ID_HEADER, requestId)
+  return response
+}
+
+/** Host → site routing and panel-only paths; the decision itself lives in `lib/tenant/routing`. */
+async function route(request: NextRequest, upstream: { request: { headers: Headers } }) {
   const env = getEnv()
   const decision = decideRoute({
     host: request.headers.get('host'),
@@ -19,13 +33,13 @@ export async function proxy(request: NextRequest) {
 
   switch (decision.type) {
     case 'next':
-      return NextResponse.next()
+      return NextResponse.next(upstream)
     case 'notFound':
       return new NextResponse('Not Found', { status: 404 })
     case 'notFoundPage': {
       const url = request.nextUrl.clone()
       url.pathname = decision.pathname
-      return NextResponse.rewrite(url)
+      return NextResponse.rewrite(url, upstream)
     }
     case 'redirect':
       return NextResponse.redirect(new URL(decision.pathname, request.url))
@@ -50,7 +64,7 @@ export async function proxy(request: NextRequest) {
 
       const url = request.nextUrl.clone()
       url.pathname = decision.pathname
-      return NextResponse.rewrite(url)
+      return NextResponse.rewrite(url, upstream)
     }
   }
 }

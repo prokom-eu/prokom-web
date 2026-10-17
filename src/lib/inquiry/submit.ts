@@ -1,5 +1,6 @@
 import type { Inquiry } from '@/payload-types'
 
+import { log } from '../log'
 import { normalizeHost } from '../tenant/host'
 import type { Line } from '../tenant/lines'
 import { confirmationEmail, notificationEmail, type Email, type InquiryForEmail } from './emails'
@@ -162,7 +163,10 @@ const limiter = (store[LIMITER_KEY] ??= createRateLimiter({ limit: 5, windowMs: 
  * Accepts an inquiry from a site form (ADR-003): tenant from `Host`, spam checks, validation,
  * save, e-mails. In 2027 `save` moves to the PRO-KOM System API; the forms stay as they are.
  */
-export async function submitInquiry(request: SubmitRequest): Promise<SubmitResult> {
+export async function submitInquiry(
+  request: SubmitRequest,
+  context: { requestId: string },
+): Promise<SubmitResult> {
   // Imported lazily, like `lib/tenant/byHost`: keeps the Payload config out of unit tests.
   const [{ getPayload }, { default: config }, { getEnv }, { getTenantByHost }, { siteOrigin }] =
     await Promise.all([
@@ -202,11 +206,7 @@ export async function submitInquiry(request: SubmitRequest): Promise<SubmitResul
         const origin = siteOrigin(port ? `${env.PANEL_HOST}:${port}` : env.PANEL_HOST, env.SITE_ENV)
         return `${origin}/admin/collections/inquiries/${id}`
       },
-      log: {
-        info: (fields, msg) => payload.logger.info(fields, msg),
-        warn: (fields, msg) => payload.logger.warn(fields, msg),
-        error: (fields, msg) => payload.logger.error(fields, msg),
-      },
+      log: log.child({ requestId: context.requestId }),
     },
     request,
   )
