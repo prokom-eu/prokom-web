@@ -21,6 +21,22 @@ const envSchema = z.object({
   // Which deployment this is: staging is never indexed (noindex, robots `Disallow: /`);
   // `local` serves http:// addresses, the others https:// (canonical, sitemap).
   SITE_ENV: z.enum(['production', 'staging', 'local']).default('local'),
+  // Outgoing mail (inquiry notifications, ADR-003). Locally Mailpit from docker/compose.dev.yml.
+  SMTP_HOST: z.string().min(1),
+  SMTP_PORT: z.coerce.number().int().min(1).max(65535),
+  // `true` = TLS from the first byte (port 465); `false` = STARTTLS when the server offers it.
+  SMTP_SECURE: z
+    .enum(['true', 'false'])
+    .default('false')
+    .transform((value) => value === 'true'),
+  SMTP_USER: z.string().min(1).optional(),
+  SMTP_PASS: z.string().min(1).optional(),
+  // Sender of every mail: an address in a domain with SPF/DKIM/DMARC (docs/dns.md). Never
+  // hard-coded, so moving the mail provider changes no code.
+  MAIL_FROM_ADDRESS: z.email(),
+  MAIL_FROM_NAME: z.string().min(1).default('PRO-KOM'),
+  // Closed inquiries are deleted this many months after their last status change (ADR-003).
+  INQUIRY_RETENTION_MONTHS: z.coerce.number().int().min(1).default(24),
 })
 
 export type Env = z.infer<typeof envSchema>

@@ -42,11 +42,20 @@ jobs:
           --health-interval 5s
           --health-timeout 3s
           --health-retries 10
+      # Catches inquiry e-mails for Playwright (same version as docker/compose.dev.yml).
+      mailpit:
+        image: axllent/mailpit:v1.31.6
+        ports:
+          - 1025:1025
+          - 8025:8025
 
     env:
       DATABASE_URL: postgresql://prokom:prokom@127.0.0.1:5432/prokom_web
       PANEL_HOST: panel.localhost
       SEED_ADMIN_EMAIL: ci-admin@example.test
+      SMTP_HOST: 127.0.0.1
+      SMTP_PORT: '1025'
+      MAIL_FROM_ADDRESS: formularz@example.test
 
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1

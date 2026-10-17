@@ -26,6 +26,8 @@ const PUBLIC_PREFIXES = ['/brand']
 // Payload serves only after its `read` access (tenant of the `Host`, see `lib/media/access`).
 const UPLOAD_FILE = /^\/api\/(media|partners)\/file\/[^/]+$/
 const READ_METHODS = ['GET', 'HEAD']
+// The inquiry endpoint (ADR-003): a Next route handler outside Payload, create only.
+const INQUIRY_PATH = '/api/inquiry'
 // Not a valid page slug, so `[domain]/[slug]` answers with the site's 404 page.
 export const NOT_FOUND_SEGMENT = '_404'
 
@@ -36,7 +38,7 @@ function startsWithSegment(pathname: string, prefix: string): boolean {
 /**
  * Decides what the proxy does with a request (ADR-006):
  * - panel domain: only the admin panel and the Payload API,
- * - any other domain: never the admin or the API (only uploaded image files); pages are rewritten to
+ * - any other domain: never the admin or the API (only uploaded image files and inquiries); pages are rewritten to
  *   `/<host>/<path>`, where the `[domain]` layout resolves the tenant (unknown → 404).
  */
 export function decideRoute({
@@ -57,6 +59,7 @@ export function decideRoute({
   }
 
   if (UPLOAD_FILE.test(pathname) && READ_METHODS.includes(method)) return { type: 'next' }
+  if (pathname === INQUIRY_PATH && method === 'POST') return { type: 'next' }
   if (panelOnly) return { type: 'notFoundPage', pathname: `/${host}/${NOT_FOUND_SEGMENT}` }
   if (PUBLIC_PREFIXES.some((prefix) => pathname.startsWith(`${prefix}/`))) return { type: 'next' }
   return { type: 'rewrite', pathname: pathname === '/' ? `/${host}` : `/${host}${pathname}` }

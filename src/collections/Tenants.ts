@@ -60,7 +60,7 @@ const validateDomains: ArrayField['validate'] = async (value, { id, req }) => {
  * Tenant-scoped content would otherwise be orphaned (`ON DELETE set null`).
  */
 const preventDeleteWhileInUse: CollectionBeforeDeleteHook = async ({ id, req }) => {
-  const [users, settings, pages, media, redirects] = await Promise.all([
+  const [users, settings, pages, media, redirects, inquiries] = await Promise.all([
     req.payload.count({
       collection: 'users',
       where: { 'tenants.tenant': { equals: id } },
@@ -87,6 +87,12 @@ const preventDeleteWhileInUse: CollectionBeforeDeleteHook = async ({ id, req }) 
     }),
     req.payload.count({
       collection: 'redirects',
+      where: { tenant: { equals: id } },
+      overrideAccess: true,
+      req,
+    }),
+    req.payload.count({
+      collection: 'inquiries',
       where: { tenant: { equals: id } },
       overrideAccess: true,
       req,
@@ -132,6 +138,15 @@ const preventDeleteWhileInUse: CollectionBeforeDeleteHook = async ({ id, req }) 
     throw new APIError(
       `Tej strony nie można usunąć: ma przekierowania (${redirects.totalDocs}). ` +
         'Wyłącz ją polem „Aktywna” albo najpierw usuń jej przekierowania.',
+      400,
+      null,
+      true,
+    )
+  }
+  if (inquiries.totalDocs > 0) {
+    throw new APIError(
+      `Tej strony nie można usunąć: ma zapytania klientów (${inquiries.totalDocs}). ` +
+        'Wyłącz ją polem „Aktywna”.',
       400,
       null,
       true,
