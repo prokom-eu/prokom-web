@@ -1,0 +1,68 @@
+/* Tokeny prokombiznes.pl — wyciągnięte z wizualizacji (base.css). Źródło prawdy dla kolorów strony Biznes.
+   Nazwy zmiennych jak w wizualizacji; w kodzie można je przemapować na --color-* (Tailwind @theme), ale wartości bez zmian. */
+:root, [data-theme="light"] {
+  --bg:#FFFFFF;
+  --bg2:#F3F5FA;
+  --bg3:#E9EDF6;
+  --ink:#0D1326;
+  --ink2:#4A5470;
+  --ink3:#6B7590;
+  --line:#E2E6EF;
+  --acc:#244FB0;
+  --acc2:#4A7BE0;
+  --accInk:#FFFFFF;
+  --card:#FFFFFF;
+  --glow:rgba(74,123,224,.22);
+  --grid:rgba(36,79,176,.07);
+  --shadow:0 30px 60px -30px rgba(13,19,38,.35);
+  --pill:#FFFFFF;
+  --hdr:rgba(255,255,255,.78);
+  --dot:#45A02C;
+  --dark:#0A1430;
+  --font-display: "Archivo", system-ui, sans-serif;   /* font-stretch 112–118%, waga 800 */
+  --font-body: "Manrope", system-ui, sans-serif;
+  --font-hand: "Caveat", cursive;                     /* tylko podpis właściciela */
+  --radius-sm: 12px; --radius-md: 14px; --radius-lg: 20px; --radius-xl: 28px;
+  --wrap: 1280px; --gutter: 32px;                     /* telefon ≤640px: 18px */
+  --bp-tablet: 1080px; --bp-phone: 640px;
+}
+[data-theme="dark"] {
+  --bg:#060A15;
+  --bg2:#0B1222;
+  --bg3:#111A30;
+  --ink:#EEF2FB;
+  --ink2:#A6B1C9;
+  --ink3:#7C88A4;
+  --line:#1B2440;
+  --acc:#4A7BE0;
+  --acc2:#8FB0F4;
+  --accInk:#06102A;
+  --card:#0C1427;
+  --glow:rgba(74,123,224,.42);
+  --grid:rgba(143,176,244,.07);
+  --shadow:0 40px 80px -30px rgba(0,0,0,.8);
+  --pill:#F4F6FB;
+  --hdr:rgba(6,10,21,.72);
+  --dot:#4FB034;
+  --dark:#0A1430;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg:#060A15;
+  --bg2:#0B1222;
+  --bg3:#111A30;
+  --ink:#EEF2FB;
+  --ink2:#A6B1C9;
+  --ink3:#7C88A4;
+  --line:#1B2440;
+  --acc:#4A7BE0;
+  --acc2:#8FB0F4;
+  --accInk:#06102A;
+  --card:#0C1427;
+  --glow:rgba(74,123,224,.42);
+  --grid:rgba(143,176,244,.07);
+  --shadow:0 40px 80px -30px rgba(0,0,0,.8);
+  --pill:#F4F6FB;
+  --hdr:rgba(6,10,21,.72);
+  --dot:#4FB034;
+  --dark:#0A1430;
+} }

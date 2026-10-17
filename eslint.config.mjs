@@ -27,6 +27,8 @@ export default defineConfig([
     },
   },
   globalIgnores([
+    // Documentation, incl. design reference boards with their own (minified) scripts.
+    'docs/**',
     '.next/**',
     'node_modules/**',
     'playwright-report/**',
