@@ -27,7 +27,7 @@
 ## Nginx i staging (S9b-1)
 Trzy stosy Docker Compose na jednym serwerze, połączone siecią `prokom-proxy`:
 - `docker/compose.proxy.yml` (`prokom-proxy`): Nginx + certbot, jedyny z portami 80/443. Konfiguracja w `docker/nginx/`: `nginx.conf`, `snippets/`, `templates/` (domeny z `.env.proxy`). Aplikacje znajduje po nazwie kontenera (`prokom-prod-app-1`, `prokom-staging-app-1`) w chwili żądania, więc startuje także, gdy jeden stos nie działa.
-- `docker/compose.prod.yml` (`prokom-prod`) i ta sama definicja + `docker/compose.staging.yml` (`prokom-staging`): osobne bazy, wolumeny i limity pamięci.
+- `docker/compose.prod.yml` (`prokom-prod`) i ta sama definicja + `docker/compose.staging.yml` (`prokom-staging`): osobne bazy, wolumeny i limity pamięci. Staging zawsze czyta `.env.staging` (na sztywno w nakładce), więc nie może dostać sekretów produkcji.
 
 Co robi Nginx:
 - HTTP → HTTPS (301), poza `/.well-known/acme-challenge/` (odnawianie certyfikatów).
@@ -36,13 +36,19 @@ Co robi Nginx:
 - Nagłówki: HSTS (bez `includeSubDomains`, bo pro-kom.eu ma inne usługi), `nosniff`, `Referrer-Policy`, `Permissions-Policy`, bazowe CSP (`frame-ancestors`, `base-uri`, `object-src`, `form-action`). Strony: ramki zabronione, poza `/podglad/` (tylko z domeny panelu). Panel: ramki tylko z własnej domeny.
 - Limity: body 64 KB na domenach stron, 20 MB na panelu (obrazy); `/api/health` 1 żądanie/s na IP (zapas 10), `/api/inquiry` 10/min na IP (zapas 5) — odpowiedź 429.
 - Staging: hasło (basic auth) i `X-Robots-Tag: noindex, nofollow` na wszystkim.
-- Logi JSON na stdout, adres **bez query** (tokeny podglądu nie trafiają do logów).
+- Logi dostępu JSON na stdout, adres **bez query** (tokeny podglądu nie trafiają do access logu). Wyjątek: log błędów Nginx przy błędzie aplikacji (502, restart) zapisuje pełną linię żądania, także z tokenem podglądu — token jest podpisany i krótkotrwały, a log błędów rotowany jak reszta.
 
 Pierwsze uruchomienie na serwerze (S10, szczegóły w runbooku):
 1. `docker network create prokom-proxy` (raz).
-2. Plik hasła stagingu poza repo: `printf "szef:%s
-" "$(openssl passwd -apr1)" > ../secrets/staging.htpasswd` (ścieżka w `STAGING_HTPASSWD_FILE`, względna do `docker/`).
-3. Pierwsze certyfikaty, zanim wystartuje Nginx (bez nich nie ruszy): `certbot certonly --standalone --cert-name prokom-prod -d …` i tak samo `prokom-staging` — na wolumenie `prokom-proxy_letsencrypt`. Później odnawia kontener `certbot` (co 12 h), a Nginx przeładowuje się co 6 h.
+2. Plik hasła stagingu poza repo (ścieżka w `STAGING_HTPASSWD_FILE`, względna do `docker/`); `openssl` zapyta o hasło:
+   ```bash
+   printf 'szef:%s\n' "$(openssl passwd -apr1)" > ../secrets/staging.htpasswd
+   ```
+3. Pierwsze certyfikaty, zanim wystartuje Nginx (bez nich nie ruszy) — certbot z kontenera, na wolumenie `prokom-proxy_letsencrypt`, port 80 wolny:
+   ```bash
+   docker compose --env-file .env.proxy -f docker/compose.proxy.yml run --rm -p 80:80 --entrypoint certbot certbot certonly --standalone --cert-name prokom-prod -d prokombiznes.pl -d …
+   ```
+   i tak samo `--cert-name prokom-staging` dla domen stagingu i panelu stagingu. Później odnawia kontener `certbot` (`renew --webroot`, co 12 h; przy odnowieniu zapisuje webroot w miejsce `standalone`), a Nginx przeładowuje się co 6 h.
 4. `docker compose --env-file .env.proxy -f docker/compose.proxy.yml up -d`, potem stosy aplikacji.
 5. Smoke przez Nginx: `PANEL_HOST=<panel> bash scripts/smoke.sh https://127.0.0.1 <domeny…>` (staging: `SMOKE_AUTH=użytkownik:hasło`).
 
