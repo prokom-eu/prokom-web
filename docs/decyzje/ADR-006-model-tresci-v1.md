@@ -31,6 +31,10 @@ Fundament ma obsłużyć wszystkie przyszłe strony linii, zanim powstaną ich s
 
 **Uzupełnienie (16.10.2026, S4):** `CompanyData` edytują admin **i edytor** (także edytor przypisany tylko do jednej linii) — szef sam aktualizuje telefony, godziny i pasek promocji. Świadomy kompromis: zmiana jest widoczna na wszystkich domenach naraz, więc edytorami zostają tylko zaufane osoby. Gdy dojdzie edytor spoza ścisłego kierownictwa — zawęzić `update` do admina (nowy ADR). `SiteSettings` edytor zmienia tylko dla przypisanych tenantów (wtyczka Multi-Tenant), usuwa je tylko admin.
 
+**Uzupełnienie (17.10.2026, S7a):**
+- `Media` (per tenant) ma oprócz wymaganego `alt` pola `source` (źródło/autor) i `requiresConsent` (np. logo klienta bez pisemnej zgody) — z ADR-012. Publicznie plik jest serwowany tylko na domenie swojego tenanta i tylko bez `requiresConsent` (dostęp `read` Payload, sprawdzany też przy serwowaniu pliku). Na domenach stron otwarte jest wyłącznie `GET/HEAD /api/{media,partners}/file/<plik>`; reszta API nadal 404. Formaty: JPEG, PNG, WebP (bez SVG — skrypt w SVG wykonałby się na domenie strony). Rozmiary 480/960/1600 px w WebP robi Payload przy wgraniu; `next/image` dostaje je przez własny loader zamiast optymalizatora Next (jego wewnętrzne żądanie nie ma nagłówka `Host`, od którego zależą routing i dostęp). AVIF — nie teraz.
+- `Partners` to **jedna kolekcja dla partnerów i marek** (także `brands` z ADR-012): rekord jest plikiem logo (upload), `name`, `website`, `partnerStatus` (marka / autoryzowany serwis / autoryzowany partner), `tenants` (gdzie widoczny), `order`. Edytuje admin i edytor (jak `CompanyData` — zaufane osoby), usuwa admin.
+
 ## Konsekwencje
 - Nowa strona linii = rekord `Tenants` + `SiteSettings` + treści, ewentualnie nowe bloki z jej specyfikacji.
 - Kolekcje `Offers`, `Projects` (realizacje), `Posts` (aktualności huba) dodajemy z odpowiednimi specyfikacjami — osobny ADR tylko, jeśli zmieniają ten model.

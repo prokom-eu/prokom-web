@@ -57,10 +57,9 @@ const validateDomains: ArrayField['validate'] = async (value, { id, req }) => {
  * referenced by users would fail on a database constraint. Refuse with a readable message
  * instead; deactivating (`active` = false) is the normal way to take a site offline.
  * Tenant-scoped content would otherwise be orphaned (`ON DELETE set null`).
- * TODO(S7): also count Media here.
  */
 const preventDeleteWhileInUse: CollectionBeforeDeleteHook = async ({ id, req }) => {
-  const [users, settings, pages] = await Promise.all([
+  const [users, settings, pages, media] = await Promise.all([
     req.payload.count({
       collection: 'users',
       where: { 'tenants.tenant': { equals: id } },
@@ -75,6 +74,12 @@ const preventDeleteWhileInUse: CollectionBeforeDeleteHook = async ({ id, req }) 
     }),
     req.payload.count({
       collection: 'pages',
+      where: { tenant: { equals: id } },
+      overrideAccess: true,
+      req,
+    }),
+    req.payload.count({
+      collection: 'media',
       where: { tenant: { equals: id } },
       overrideAccess: true,
       req,
@@ -102,6 +107,15 @@ const preventDeleteWhileInUse: CollectionBeforeDeleteHook = async ({ id, req }) 
     throw new APIError(
       `Tej strony nie można usunąć: ma podstrony (${pages.totalDocs}). ` +
         'Wyłącz ją polem „Aktywna” albo najpierw usuń jej podstrony.',
+      400,
+      null,
+      true,
+    )
+  }
+  if (media.totalDocs > 0) {
+    throw new APIError(
+      `Tej strony nie można usunąć: ma obrazy (${media.totalDocs}). ` +
+        'Wyłącz ją polem „Aktywna” albo najpierw usuń jej obrazy.',
       400,
       null,
       true,

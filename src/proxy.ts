@@ -8,6 +8,7 @@ export function proxy(request: NextRequest) {
   const decision = decideRoute({
     host: request.headers.get('host'),
     pathname: request.nextUrl.pathname,
+    method: request.method,
     panelHost: getEnv().PANEL_HOST,
   })
 

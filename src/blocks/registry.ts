@@ -6,6 +6,7 @@ import { CallToActionBlock } from './CallToAction/config'
 import { ContactBlock } from './Contact/config'
 import { FaqBlock } from './Faq/config'
 import { HeroBlock } from './Hero/config'
+import { PartnersBlock } from './Partners/config'
 import { RichTextBlock } from './RichText/config'
 import { ServiceGridBlock } from './ServiceGrid/config'
 
@@ -20,6 +21,7 @@ export const ALL_BLOCKS: Block[] = [
   CallToActionBlock,
   FaqBlock,
   ContactBlock,
+  PartnersBlock,
 ]
 
 export const BLOCK_SLUGS: readonly string[] = ALL_BLOCKS.map((block) => block.slug)

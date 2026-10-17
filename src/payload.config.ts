@@ -6,7 +6,9 @@ import { buildConfig } from 'payload'
 import sharp from 'sharp'
 import { fileURLToPath } from 'url'
 
+import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
+import { Partners } from './collections/Partners'
 import { SiteSettings } from './collections/SiteSettings'
 import { Tenants } from './collections/Tenants'
 import { Users } from './collections/Users'
@@ -26,7 +28,8 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Tenants, SiteSettings, Pages],
+  // New collections go after `Pages`: inserting earlier renumbers Payload's index names (S5).
+  collections: [Users, Tenants, SiteSettings, Pages, Media, Partners],
   globals: [CompanyData],
   editor: lexicalEditor(),
   jobs: {
@@ -49,9 +52,10 @@ export default buildConfig({
   sharp,
   plugins: [
     multiTenantPlugin<Config>({
-      // More tenant-scoped collections arrive with S7 (Media, …).
+      // `partners` is shared on purpose (its own `tenants` field), so it is not listed here.
       collections: {
         pages: {},
+        media: {},
         // One settings document per tenant (unique tenant field).
         'site-settings': { isGlobal: true },
       },

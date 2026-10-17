@@ -71,6 +71,8 @@ export interface Config {
     tenants: Tenant;
     'site-settings': SiteSetting;
     pages: Page;
+    media: Media;
+    partners: Partner;
     'payload-kv': PayloadKv;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
@@ -83,6 +85,8 @@ export interface Config {
     tenants: TenantsSelect<false> | TenantsSelect<true>;
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
+    media: MediaSelect<false> | MediaSelect<true>;
+    partners: PartnersSelect<false> | PartnersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -229,9 +233,70 @@ export interface SiteSetting {
      * Domyślny opis w wynikach wyszukiwania (do 160 znaków).
      */
     description?: string | null;
+    /**
+     * Pokazuje się przy linku na Facebooku czy w komunikatorach (1200×630).
+     */
+    ogImage?: (number | null) | Media;
   };
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  /**
+   * Co jest na obrazie — czytają to niewidomi i wyszukiwarki.
+   */
+  alt: string;
+  /**
+   * Skąd jest obraz (np. „materiały prasowe Posnet”, „własne”).
+   */
+  source?: string | null;
+  /**
+   * Np. logo klienta bez pisemnej zgody. Taki obraz nie trafi na stronę.
+   */
+  requiresConsent?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+  sizes?: {
+    small?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    medium?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    large?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -245,7 +310,9 @@ export interface Page {
    * Część adresu po domenie, np. „kontakt” → /kontakt. Strona główna: „home”.
    */
   slug: string;
-  layout?: (HeroBlock | RichTextBlock | ServiceGridBlock | CallToActionBlock | FaqBlock | ContactBlock)[] | null;
+  layout?:
+    | (HeroBlock | RichTextBlock | ServiceGridBlock | CallToActionBlock | FaqBlock | ContactBlock | PartnersBlock)[]
+    | null;
   seo?: {
     /**
      * Puste = tytuł podstrony. Szablon z ustawień strony dopisze nazwę.
@@ -271,6 +338,10 @@ export interface HeroBlock {
     label?: string | null;
     href?: string | null;
   };
+  /**
+   * Opcjonalny; obok nagłówka na komputerze, pod nim na telefonie.
+   */
+  image?: (number | null) | Media;
   id?: string | null;
   blockName?: string | null;
   blockType: 'hero';
@@ -360,6 +431,53 @@ export interface ContactBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'contact';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PartnersBlock".
+ */
+export interface PartnersBlock {
+  heading?: string | null;
+  lead?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'partners';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partners".
+ */
+export interface Partner {
+  id: number;
+  name: string;
+  website?: string | null;
+  partnerStatus: 'none' | 'authorized-service' | 'authorized-partner';
+  tenants?: (number | Tenant)[] | null;
+  /**
+   * Mniejsza liczba = wcześniej.
+   */
+  order?: number | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+  sizes?: {
+    logo?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -492,6 +610,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'pages';
         value: number | Page;
+      } | null)
+    | ({
+        relationTo: 'media';
+        value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'partners';
+        value: number | Partner;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -617,6 +743,7 @@ export interface SiteSettingsSelect<T extends boolean = true> {
     | {
         titleTemplate?: T;
         description?: T;
+        ogImage?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -638,6 +765,7 @@ export interface PagesSelect<T extends boolean = true> {
         callToAction?: T | CallToActionBlockSelect<T>;
         faq?: T | FaqBlockSelect<T>;
         contact?: T | ContactBlockSelect<T>;
+        partners?: T | PartnersBlockSelect<T>;
       };
   seo?:
     | T
@@ -662,6 +790,7 @@ export interface HeroBlockSelect<T extends boolean = true> {
         label?: T;
         href?: T;
       };
+  image?: T;
   id?: T;
   blockName?: T;
 }
@@ -739,6 +868,107 @@ export interface ContactBlockSelect<T extends boolean = true> {
   showLocations?: T;
   id?: T;
   blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PartnersBlock_select".
+ */
+export interface PartnersBlockSelect<T extends boolean = true> {
+  heading?: T;
+  lead?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media_select".
+ */
+export interface MediaSelect<T extends boolean = true> {
+  tenant?: T;
+  alt?: T;
+  source?: T;
+  requiresConsent?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+  sizes?:
+    | T
+    | {
+        small?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        medium?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        large?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partners_select".
+ */
+export interface PartnersSelect<T extends boolean = true> {
+  name?: T;
+  website?: T;
+  partnerStatus?: T;
+  tenants?: T;
+  order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+  sizes?:
+    | T
+    | {
+        logo?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

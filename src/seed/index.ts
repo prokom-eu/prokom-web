@@ -6,7 +6,14 @@ import { getPayload } from 'payload'
 
 import config from '../payload.config'
 import { assertSeedAllowed, parseSeedEnv } from './config'
-import { SAMPLE_COMPANY, samplePages, sampleSiteSettings } from './sample'
+import { sampleImage } from './media'
+import {
+  SAMPLE_COMPANY,
+  SAMPLE_PARTNER_NAME,
+  sampleImageAlt,
+  samplePages,
+  sampleSiteSettings,
+} from './sample'
 import { SEED_TENANTS } from './tenants'
 
 assertSeedAllowed(process.env.NODE_ENV)
@@ -79,7 +86,34 @@ try {
       payload.logger.info(`Seed: sample settings of "${tenant.slug}" created.`)
     }
 
-    for (const page of samplePages(tenant)) {
+    const alt = sampleImageAlt(tenant)
+    const existingImage = await payload.find({
+      collection: 'media',
+      where: { and: [{ tenant: { equals: tenantDoc.id } }, { alt: { equals: alt } }] },
+      limit: 1,
+      depth: 0,
+      overrideAccess: true,
+    })
+    let [imageDoc] = existingImage.docs
+    if (imageDoc) {
+      payload.logger.info(`Seed: sample image of "${tenant.slug}" already exists, skipped.`)
+    } else {
+      const data = await sampleImage(1600, 900)
+      imageDoc = await payload.create({
+        collection: 'media',
+        data: { alt, source: 'Wygenerowany przez seed', tenant: tenantDoc.id },
+        file: {
+          data,
+          mimetype: 'image/png',
+          name: `przyklad-${tenant.slug}.png`,
+          size: data.length,
+        },
+        overrideAccess: true,
+      })
+      payload.logger.info(`Seed: sample image of "${tenant.slug}" created.`)
+    }
+
+    for (const page of samplePages(tenant, imageDoc.id)) {
       const { totalDocs: pageCount } = await payload.count({
         collection: 'pages',
         where: { and: [{ tenant: { equals: tenantDoc.id } }, { slug: { equals: page.slug } }] },
@@ -96,6 +130,34 @@ try {
       })
       payload.logger.info(`Seed: sample page "${tenant.slug}/${page.slug}" published.`)
     }
+  }
+
+  const { totalDocs: partnerCount } = await payload.count({
+    collection: 'partners',
+    where: { name: { equals: SAMPLE_PARTNER_NAME } },
+    overrideAccess: true,
+  })
+  if (partnerCount > 0) {
+    payload.logger.info('Seed: sample partner already exists, skipped.')
+  } else {
+    const { docs: tenants } = await payload.find({
+      collection: 'tenants',
+      where: { slug: { in: SEED_TENANTS.map((tenant) => tenant.slug) } },
+      depth: 0,
+      overrideAccess: true,
+    })
+    const data = await sampleImage(400, 160)
+    await payload.create({
+      collection: 'partners',
+      data: {
+        name: SAMPLE_PARTNER_NAME,
+        partnerStatus: 'none',
+        tenants: tenants.map((tenant) => tenant.id),
+      },
+      file: { data, mimetype: 'image/png', name: 'partner-przyklad.png', size: data.length },
+      overrideAccess: true,
+    })
+    payload.logger.info('Seed: sample partner created.')
   }
 
   // The global always exists; it counts as unset until it has a company name.

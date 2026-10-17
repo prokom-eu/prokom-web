@@ -1,5 +1,7 @@
 import type { Block } from 'payload'
 
+import { tenantImageFilter } from '../../lib/media/access'
+
 import { linkGroup } from '../fields'
 
 export const HeroBlock: Block = {
@@ -10,6 +12,13 @@ export const HeroBlock: Block = {
     { name: 'heading', label: 'Nagłówek', type: 'text', required: true },
     { name: 'lead', label: 'Wstęp', type: 'textarea', maxLength: 300 },
     linkGroup('cta', 'Przycisk'),
-    // TODO(S7): image — needs the Media collection.
+    {
+      name: 'image',
+      label: 'Obraz',
+      type: 'upload',
+      relationTo: 'media',
+      filterOptions: tenantImageFilter,
+      admin: { description: 'Opcjonalny; obok nagłówka na komputerze, pod nim na telefonie.' },
+    },
   ],
 }
