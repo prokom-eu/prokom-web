@@ -57,3 +57,84 @@
     outline-color: var(--accent-on-dark);
   }
 }
+
+/* Output of the rich text editor (Text block) — only what its restricted toolbar can produce. */
+@layer components {
+  .rich-text {
+    font-size: 1.0625rem;
+    line-height: 1.7;
+  }
+
+  .rich-text > * + * {
+    margin-top: 1em;
+  }
+
+  .rich-text :is(h2, h3, h4) {
+    margin-top: 1.6em;
+    font-weight: 800;
+    line-height: 1.2;
+  }
+
+  .rich-text h2 {
+    font-size: 1.75rem;
+  }
+
+  .rich-text h3 {
+    font-size: 1.375rem;
+  }
+
+  .rich-text :is(ul, ol) {
+    padding-left: 1.5em;
+  }
+
+  .rich-text ul {
+    list-style: disc;
+  }
+
+  .rich-text ol {
+    list-style: decimal;
+  }
+
+  .rich-text a {
+    color: var(--accent-text);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+  }
+
+  .rich-text blockquote {
+    border-left: 4px solid var(--accent);
+    padding-left: 1em;
+    color: var(--ink-2);
+  }
+}
+
+/*
+ * Elements with a light and a dark variant (e.g. the logo), rendered only on lines with a dark
+ * theme (ADR-013). Same conditions as the dark rules in `tokens.css`: an explicit choice, or
+ * the system preference when there is none.
+ */
+@layer components {
+  .theme-dark-only {
+    display: none;
+  }
+
+  [data-theme='dark'] .theme-dark-only {
+    display: revert;
+  }
+
+  [data-theme='dark'] .theme-light-only {
+    display: none;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) .theme-dark-only {
+      display: revert;
+    }
+
+    :root:not([data-theme='light']) .theme-light-only {
+      display: none;
+    }
+  }
+}

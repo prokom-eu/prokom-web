@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { hasDarkTheme, THEME_SCRIPT } from './theme'
+import { hasDarkTheme, THEME_SCRIPT, THEME_STORAGE_KEY } from './theme'
 
 /** Runs the inline script against a fake `document` and `localStorage`. */
 function runScript(stored: string | null | Error): string | null {
@@ -9,7 +9,8 @@ function runScript(stored: string | null | Error): string | null {
     documentElement: { setAttribute: (_: string, value: string) => (theme = value) },
   }
   const localStorage = {
-    getItem: () => {
+    getItem: (key: string) => {
+      expect(key).toBe(THEME_STORAGE_KEY)
       if (stored instanceof Error) throw stored
       return stored
     },
@@ -34,6 +35,12 @@ describe('THEME_SCRIPT', () => {
 
   it('does not throw when storage is blocked', () => {
     expect(runScript(new Error('SecurityError'))).toBeNull()
+  })
+})
+
+describe('THEME_STORAGE_KEY', () => {
+  it('is the key from the Biznes specification (§3.5)', () => {
+    expect(THEME_STORAGE_KEY).toBe('pk-theme')
   })
 })
 

@@ -1,7 +1,10 @@
 import type { Metadata } from 'next'
 import React from 'react'
 
+import { BrandBar } from '@/components/BrandBar'
+import { PromoBar } from '@/components/PromoBar'
 import { SiteFooter } from '@/components/SiteFooter'
+import { SiteHeader } from '@/components/SiteHeader'
 import { brandIcons } from '@/lib/brand/lines'
 import { getCompanyData, getSiteSettings } from '@/lib/site/data'
 import { isValidTitleTemplate } from '@/lib/site/title'
@@ -28,28 +31,17 @@ export default async function TenantLayout({ children, params }: Props) {
   const [company, settings] = await Promise.all([getCompanyData(), getSiteSettings(tenant.id)])
   return (
     <>
-      {company?.promo && (
-        <aside aria-label="Promocja">
-          {company.promo.href ? (
-            <a href={company.promo.href}>{company.promo.text}</a>
-          ) : (
-            company.promo.text
-          )}
-        </aside>
-      )}
-      {settings && settings.navigation.length > 0 && (
-        <nav aria-label="Główna">
-          <ul>
-            {settings.navigation.map((link, i) => (
-              <li key={`${i}-${link.href}`}>
-                <a href={link.href}>{link.label}</a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      )}
-      <main>{children}</main>
-      <SiteFooter company={company} settings={settings} />
+      <a
+        href="#tresc"
+        className="sr-only z-50 rounded-xl bg-accent-text px-4 py-2 font-bold text-accent-ink focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+      >
+        Przejdź do treści
+      </a>
+      <BrandBar line={tenant.line} phone={settings?.phone ?? null} />
+      {company?.promo && <PromoBar promo={company.promo} />}
+      <SiteHeader tenant={tenant} settings={settings} />
+      <main id="tresc">{children}</main>
+      <SiteFooter line={tenant.line} name={tenant.name} company={company} settings={settings} />
     </>
   )
 }

@@ -2,6 +2,8 @@ import { sortDays } from '@/lib/site/company'
 import { toTelHref } from '@/lib/site/link'
 import type { PublicCompanyData } from '@/lib/site/public'
 
+import { TextLink } from './ui/TextLink'
+
 const DAY_LABELS: Record<string, string> = {
   mon: 'pon.',
   tue: 'wt.',
@@ -14,7 +16,7 @@ const DAY_LABELS: Record<string, string> = {
 
 export function Phone({ number }: { number: string }) {
   const href = toTelHref(number)
-  return href ? <a href={href}>{number}</a> : <>{number}</>
+  return href ? <TextLink href={href}>{number}</TextLink> : <>{number}</>
 }
 
 type Location = PublicCompanyData['locations'][number]
@@ -22,8 +24,8 @@ type Location = PublicCompanyData['locations'][number]
 /** Branch address with opening hours (footer and the Contact block). */
 export function LocationAddress({ location }: { location: Location }) {
   return (
-    <address>
-      <strong>{location.name}</strong>
+    <address className="not-italic">
+      <strong className="font-bold">{location.name}</strong>
       <br />
       {location.street}, {location.postalCode} {location.city}
       {location.hours.map((row) => (

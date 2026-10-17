@@ -1,13 +1,17 @@
+import { Heading } from '@/components/ui/Heading'
+import { Section } from '@/components/ui/Section'
 import type { CallToActionBlock as CallToActionBlockData } from '@/payload-types'
 
 import { BlockLink } from '../BlockLink'
 
 export function CallToActionBlock({ block }: { block: CallToActionBlockData }) {
   return (
-    <section>
-      <h2>{block.heading}</h2>
-      {block.text && <p>{block.text}</p>}
-      <BlockLink link={block.link} />
-    </section>
+    <Section surface="dark">
+      <div className="max-w-3xl">
+        <Heading level={2}>{block.heading}</Heading>
+        {block.text && <p className="mt-4 text-lg leading-relaxed">{block.text}</p>}
+        <BlockLink link={block.link} />
+      </div>
+    </Section>
   )
 }

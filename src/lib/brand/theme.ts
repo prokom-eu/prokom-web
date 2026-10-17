@@ -9,8 +9,15 @@ export function hasDarkTheme(line: Line): boolean {
 
 export type Theme = 'light' | 'dark'
 
-/** `localStorage` key of the visitor's choice. No cookie: nothing is sent to the server. */
-export const THEME_STORAGE_KEY = 'theme'
+/**
+ * `localStorage` key of the visitor's choice (name from docs/strony/prokombiznes.md §3.5).
+ * No cookie: nothing is sent to the server.
+ */
+export const THEME_STORAGE_KEY = 'pk-theme'
+
+export function isTheme(value: unknown): value is Theme {
+  return value === 'light' || value === 'dark'
+}
 
 /**
  * Inline script for `<head>`: applies a stored choice before the first paint (Next.js guide
