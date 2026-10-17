@@ -44,7 +44,10 @@ helper_image="$(docker inspect -f '{{.Config.Image}}' "$pg")"
 
 log() { echo "$(date -u +%Y-%m-%dT%H:%M:%SZ) backup $project: $*"; }
 
-work="$(mktemp -d)"
+# The unencrypted dump holds personal data (inquiries): kept next to the backups (not in /tmp)
+# and removed on exit.
+mkdir -p "$backup_dir"
+work="$(mktemp -d "$backup_dir/.backup-XXXXXX")"
 trap 'rm -rf "$work"' EXIT
 
 stamp="$(date -u +%Y%m%dT%H%M%SZ)"

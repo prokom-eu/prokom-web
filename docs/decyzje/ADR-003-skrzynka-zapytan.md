@@ -32,7 +32,7 @@ Docelowo zapytania żyją w PRO-KOM System (Django, styczeń 2027). Pierwsza str
 - **Okres:** zapytanie o statusie `closed` jest usuwane trwale po okresie retencji liczonym od ostatniej zmiany statusu. Wartość w env (`INQUIRY_RETENTION_MONTHS`, domyślnie 24), żeby zmiana po decyzji przy polityce prywatności nie wymagała zmiany kodu. Zapytania `new` i `in_progress` nie są usuwane automatycznie.
 - **Mechanizm:** zadanie cykliczne raz na dobę (mechanizm zadań Payload, bez nowych usług), z wpisem w logach: ile rekordów usunięto (bez danych osobowych).
 - **Usunięcie na żądanie** (prawo do usunięcia danych): akcja w panelu tylko dla roli `admin`; zostaje ślad „kto, kiedy, ID rekordu”, bez treści zapytania.
-- **Kopie zapasowe:** usunięte rekordy znikają z kopii wraz z ich rotacją (`docs/wdrozenia.md`: 14 dziennych + 3 miesięczne) — opisujemy to w polityce prywatności.
+- **Kopie zapasowe:** usunięte rekordy znikają z kopii wraz z ich rotacją — opisujemy to w polityce prywatności. **Uzupełnienie 17.10.2026 (S9b-2):** retencja kopii po wieku pliku: `daily` 14 dni, `monthly` 93 dni, `predeploy` (przed wdrożeniem produkcji) 30 dni — usunięte zapytanie znika ze wszystkich kopii najpóźniej po ok. 3 miesiącach (`docs/wdrozenia.md`). Kopie są szyfrowane (`age`).
 - **Logi:** dane osobowe z zapytań nigdy nie trafiają do logów ani do Sentry.
 - **Migracja 2027:** te same zasady przechodzą do PRO-KOM System razem z modelem `Inquiry`.
 

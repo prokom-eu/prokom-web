@@ -1,20 +1,31 @@
 #!/usr/bin/env bash
 # Restores a backup made by scripts/backup.sh into a running stack (S9b-2). DESTRUCTIVE for the
 # target: its database is dropped and recreated, its media volume emptied.
-# Usage: scripts/restore.sh <backup file | rclone remote path> <project> <database>
+# Usage: scripts/restore.sh [--no-start] <backup file | rclone remote path> <project> <database>
 #   monthly test, on a fresh stack:  scripts/restore.sh offsite:prokom-backups/prod/daily/<file> prokom-restoretest prokom_prod
-#   real restore of production:      scripts/restore.sh ../backups/prod/predeploy/<file> prokom-prod prokom_prod
-# The target stack must exist (its postgres running); the app is stopped for the restore and
-# started again. Pending migrations of a newer image run when it starts (prodMigrations).
+#   rollback with the database:      scripts/restore.sh --no-start ../backups/prod/predeploy/<file> prokom-prod prokom_prod
+#                                    then `docker compose … up -d app` (the image from .env.prod)
+# The target stack must exist (its postgres running). The app is stopped for the restore. Without
+# --no-start the SAME container is started again — the image it was created from, not the tag in
+# .env.prod; after a tag change use --no-start and `up -d`. Pending migrations of the started
+# image run when it starts (prodMigrations).
+# Safety: the database in the backup's manifest must equal <database> (RESTORE_ANY_DB=1 to restore
+# into another one on purpose); prokom-prod / prokom-staging ask to type the project name
+# (RESTORE_CONFIRM=<project> answers it).
 # Settings: `.env.backup` (or BACKUP_ENV=<file>) — AGE_IDENTITY: file with the PRIVATE age key,
 # taken from the password manager for the restore and deleted afterwards.
-# prokom-prod / prokom-staging ask to type the project name; RESTORE_CONFIRM=<project> answers it.
 set -euo pipefail
 export MSYS_NO_PATHCONV=1 # Git Bash on Windows (local test): keep container paths as they are
 
-source="${1:?usage: scripts/restore.sh <backup file | remote path> <project> <database>}"
-project="${2:?usage: scripts/restore.sh <backup file | remote path> <project> <database>}"
-db="${3:?usage: scripts/restore.sh <backup file | remote path> <project> <database>}"
+usage="usage: scripts/restore.sh [--no-start] <backup file | remote path> <project> <database>"
+start_app=1
+if [ "${1:-}" = --no-start ]; then
+  start_app=0
+  shift
+fi
+source="${1:?$usage}"
+project="${2:?$usage}"
+db="${3:?$usage}"
 
 root="$(cd "$(dirname "$0")/.." && pwd)"
 env_file="${BACKUP_ENV:-$root/.env.backup}"
@@ -25,6 +36,7 @@ if [ -f "$env_file" ]; then
   set +a
 fi
 : "${AGE_IDENTITY:?set AGE_IDENTITY (file with the private age key)}"
+backup_dir="${BACKUP_DIR:-$root/../backups}"
 
 pg="$project-postgres-1"
 app="$project-app-1"
@@ -33,7 +45,10 @@ helper_image="$(docker inspect -f '{{.Config.Image}}' "$pg")"
 
 log() { echo "$(date -u +%Y-%m-%dT%H:%M:%SZ) restore $project: $*"; }
 
-work="$(mktemp -d)"
+# The decrypted dump holds personal data (inquiries): kept next to the backups (not in /tmp) and
+# removed on exit.
+mkdir -p "$backup_dir"
+work="$(mktemp -d "$backup_dir/.restore-XXXXXX")"
 trap 'rm -rf "$work"' EXIT
 
 if [ -f "$source" ]; then
@@ -48,10 +63,17 @@ if ! age -d -i "$AGE_IDENTITY" -o "$work/backup.tar" "$file"; then
   log "cannot decrypt — wrong AGE_IDENTITY or not a backup file; nothing was changed"
   exit 1
 fi
-tar -C "$work" -xf "$work/backup.tar"
+tar -C "$work" -xf - <"$work/backup.tar" # stdin: GNU tar reads "C:/…" as a remote host
+rm "$work/backup.tar"
 echo "--- manifest"
 cat "$work/manifest.txt"
 echo "---"
+
+backup_db="$(sed -n 's/^database=//p' "$work/manifest.txt")"
+if [ "$backup_db" != "$db" ] && [ "${RESTORE_ANY_DB:-}" != 1 ]; then
+  log "the backup is of database $backup_db, not $db — wrong file or target? (RESTORE_ANY_DB=1 if intended); nothing was changed"
+  exit 1
+fi
 
 case "$project" in
   prokom-prod | prokom-staging)
@@ -78,8 +100,13 @@ docker run --rm -i -v "$media_volume:/media" "$helper_image" \
   sh -c 'find /media -mindepth 1 -delete && tar -C /media -xf - && chown -R 1000:1000 /media' \
   <"$work/media.tar"
 
+if [ "$start_app" = 0 ]; then
+  log "done — app left stopped; start it with docker compose … up -d app, then scripts/smoke.sh"
+  exit 0
+fi
+
 if docker inspect "$app" >/dev/null 2>&1; then
-  log "start app, waiting for health"
+  log "start app ($(docker inspect -f '{{.Config.Image}}' "$app")), waiting for health"
   docker start "$app" >/dev/null
   for _ in $(seq 1 60); do
     status="$(docker inspect -f '{{.State.Health.Status}}' "$app")"

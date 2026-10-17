@@ -27,11 +27,14 @@ staging="docker compose --env-file .env.staging -f docker/compose.prod.yml -f do
    - `sudo apt install age rclone`;
    - `rclone config` — cel poza serwerem (`TODO(S10)`: dostawca inny niż Seohost, ADR-002), nazwa np. `offsite`;
    - `.env.backup` wg `.env.example` (sekcja „Backup”): `AGE_RECIPIENT` = klucz publiczny z `age-keygen` (klucz prywatny od razu do menedżera haseł i usunąć z serwera), `RCLONE_REMOTE=offsite:prokom-backups`;
+   - `mkdir -p ../backups` (cron zapisuje log tam, zanim skrypt cokolwiek utworzy);
    - cron (`crontab -e`), noc, poza godziną zadania retencji zapytań (03:00):
      ```
      30 2 * * * cd <repo> && scripts/backup.sh prod >> ../backups/backup.log 2>&1
      45 2 * * * cd <repo> && scripts/backup.sh staging >> ../backups/backup.log 2>&1
      ```
+   - rotacja logu: `/etc/logrotate.d/prokom-backup` z `<repo>/../backups/backup.log { monthly rotate 6 compress missingok notifempty }`;
+   - kopia `monthly` powstaje tylko z przebiegu nocnego 1. dnia miesiąca (UTC) — jeśli ten się nie uda, w danym miesiącu jej nie ma; dlatego alarm o braku świeżej kopii (S10).
 
 ## 2. Wdrożenie stagingu (ręcznie, zanim zrobi to pipeline w S10)
 
@@ -58,9 +61,10 @@ Tylko po akceptacji szefa w Asanie i tylko obraz, który przeszedł staging (ADR
 2. `$prod up -d app`, zdrowie, smoke.
 
 **B. Obraz + baza** (migracja niezgodna wstecz albo zepsute dane):
-1. Jak A, krok 1.
-2. `scripts/restore.sh ../backups/prod/predeploy/<plik> prokom-prod prokom_prod` — zapyta o nazwę projektu; potrzebny klucz prywatny `age` (6.1).
-3. Zdrowie, smoke. Zapytania z formularzy, które przyszły między kopią a cofnięciem, giną — sprawdź w Mailpit/skrzynkach powiadomień i wpisz ręcznie, jeśli trzeba.
+1. Jak A, krok 1 (poprzedni tag w `.env.prod`).
+2. `scripts/restore.sh --no-start ../backups/prod/predeploy/<plik> prokom-prod prokom_prod` — zapyta o nazwę projektu; potrzebny klucz prywatny `age` (6.1). **`--no-start` jest konieczne:** bez niego skrypt uruchomiłby z powrotem ten sam kontener, czyli **nowy** obraz, który od razu ponowiłby niezgodną migrację.
+3. `$prod up -d app` — kontener powstaje od nowa z poprzednim tagiem, na odtworzonej bazie.
+4. Zdrowie, smoke. Zapytania z formularzy, które przyszły między kopią a cofnięciem, giną — sprawdź w Mailpit/skrzynkach powiadomień i wpisz ręcznie, jeśli trzeba.
 
 ## 5. Migracje — zasada „expand / contract”
 
@@ -77,6 +81,8 @@ Nieudana migracja: kontener działa, ale `/api/health` = 503, a healthcheck co 1
 1. Klucz prywatny z menedżera haseł do pliku tylko na czas odtworzenia: `install -m 600 /dev/null ../secrets/age.key`, wklej, w `.env.backup` `AGE_IDENTITY=../secrets/age.key`. **Po odtworzeniu usuń plik.**
 2. Wybór kopii: lokalnie `ls ../backups/prod/{daily,monthly,predeploy}/`, poza serwerem `rclone ls offsite:prokom-backups/prod/`.
 3. `scripts/restore.sh <plik albo offsite:prokom-backups/prod/daily/<plik>> prokom-prod prokom_prod`
+   - uruchamia potem **ten sam kontener** (obraz, z którego powstał); jeśli w `.env.prod` jest inny tag, użyj `--no-start` i `$prod up -d app`;
+   - baza z manifestu musi się zgadzać z podaną (`prokom_prod`) — kopia stagingu nie trafi na produkcję przez pomyłkę;
    - pokazuje manifest (data, obraz, lista migracji) i pyta o nazwę projektu;
    - zły klucz → „cannot decrypt … nothing was changed”;
    - zatrzymuje aplikację, odtwarza bazę (`pg_restore` na nowo utworzoną) i wolumen mediów, uruchamia aplikację i czeka na `healthy`.
@@ -87,11 +93,11 @@ Serwer stracony w całości: nowy serwer wg 1 → stosy wg 2/3 z ostatnim tagiem
 ## 7. Comiesięczny test odtworzenia
 
 Na osobnym stosie — produkcja i staging zostają nietknięte.
-1. `.env.restoretest` = kopia `.env.prod` z `APP_PORT=3200` i dopisanym `ENV_FILE=../.env.restoretest` (żeby kontener nie czytał `.env.prod`); inne hasło bazy dozwolone, byle zgodne z `DATABASE_URL`.
+1. `.env.restoretest` = kopia `.env.prod` z `APP_PORT=3200`, dopisanym `ENV_FILE=../.env.restoretest` (żeby kontener nie czytał `.env.prod`) i **`SMTP_HOST=127.0.0.1`** — odtworzona baza ma prawdziwe zapytania, a stos testowy nie może wysyłać maili do klientów ani skrzynek. Inne hasło bazy dozwolone, byle zgodne z `DATABASE_URL`.
 2. `docker compose -p prokom-restoretest --env-file .env.restoretest -f docker/compose.prod.yml up -d`, czekaj na `healthy` (`prokom-restoretest-app-1`).
 3. `scripts/restore.sh offsite:prokom-backups/prod/daily/<najnowszy> prokom-restoretest prokom_prod` (klucz jak w 6.1).
 4. `PANEL_HOST=<panel> bash scripts/smoke.sh http://127.0.0.1:3200 <domeny…>` i porównanie liczby stron/zapytań z produkcją (`docker exec prokom-prod-postgres-1 psql -U prokom -d prokom_prod -c 'select count(*) from pages'`).
-5. `docker compose -p prokom-restoretest … down -v`, usuń klucz, wpisz datę testu w `docs/STAN.md`.
+5. **Od razu** `docker compose -p prokom-restoretest … down -v` — stos zajmuje do ~2,3 GB RAM obok produkcji i stagingu, a jego zadania w tle (np. retencja zapytań) działają na kopii danych osobowych. Usuń klucz, wpisz datę testu w `docs/STAN.md`.
 
 ## 8. „Strona nie działa”
 
