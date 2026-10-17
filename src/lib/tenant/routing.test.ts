@@ -98,6 +98,30 @@ describe('decideRoute — site domains', () => {
     }
   })
 
+  it('accepts inquiries (ADR-003): POST /api/inquiry', () => {
+    expect(
+      decideRoute({
+        host: 'biznes.localhost',
+        pathname: '/api/inquiry',
+        method: 'POST',
+        panelHost,
+      }),
+    ).toEqual({ type: 'next' })
+  })
+
+  it('keeps the rest of the inquiry API closed', () => {
+    for (const method of ['GET', 'HEAD', 'PATCH', 'DELETE']) {
+      expect(
+        decideRoute({ host: 'biznes.localhost', pathname: '/api/inquiry', method, panelHost }),
+      ).toEqual(SITE_404)
+    }
+    for (const pathname of ['/api/inquiries', '/api/inquiry/', '/api/inquiry/1', '/api/inquiryx']) {
+      expect(
+        decideRoute({ host: 'biznes.localhost', pathname, method: 'POST', panelHost }),
+      ).toEqual(SITE_404)
+    }
+  })
+
   it.each(['/robots.txt', '/sitemap.xml'])('rewrites %s to the domain segment', (pathname) => {
     expect(route('software.localhost:3000', pathname)).toEqual({
       type: 'rewrite',

@@ -14,7 +14,7 @@ import {
   samplePages,
   sampleSiteSettings,
 } from './sample'
-import { SEED_TENANTS } from './tenants'
+import { SEED_TENANTS, seedNotificationEmail } from './tenants'
 
 assertSeedAllowed(process.env.NODE_ENV)
 const { adminEmail, adminPassword } = parseSeedEnv(process.env)
@@ -59,12 +59,27 @@ try {
       overrideAccess: true,
     })
     let [tenantDoc] = existingTenant.docs
-    if (tenantDoc) {
+    const notificationEmail = seedNotificationEmail(tenant.slug)
+    if (tenantDoc && !tenantDoc.notificationEmail) {
+      // Tenants seeded before S8 get the inquiry inbox; one set in the panel is kept.
+      tenantDoc = await payload.update({
+        collection: 'tenants',
+        id: tenantDoc.id,
+        data: { notificationEmail },
+        overrideAccess: true,
+      })
+      payload.logger.info(`Seed: tenant "${tenant.slug}" got a notification e-mail.`)
+    } else if (tenantDoc) {
       payload.logger.info(`Seed: tenant "${tenant.slug}" already exists, skipped.`)
     } else {
       tenantDoc = await payload.create({
         collection: 'tenants',
-        data: { ...tenant, active: true, domains: [{ host: localHost, environment: 'local' }] },
+        data: {
+          ...tenant,
+          notificationEmail,
+          active: true,
+          domains: [{ host: localHost, environment: 'local' }],
+        },
         overrideAccess: true,
       })
       payload.logger.info(`Seed: tenant "${tenant.slug}" created.`)

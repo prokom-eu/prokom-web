@@ -12,7 +12,7 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 | prokomsoftware.pl | 31.10 | ⏳ |
 
 ## W toku
-- **Nic w toku — S7 zamknięte** (S7a #33, S7b #34, obrazy wzorca #35). Gałąź: brak (pracujemy z `develop`; na tym komputerze gałąź `docs/stan-po-s7` z tym wpisem — do scalenia). Zrobione w tej sesji: media i partnerzy (S7a), SEO per domena, przekierowania 301 i strony błędów (S7b), brakujące obrazy wzorca prokombiznes w repo. Niedokończone: nic. Na drugim komputerze **raz**: `.\scripts\start.ps1`, `pnpm install`, `pnpm payload migrate` (nowe migracje `media_partners` i `redirects`), `pnpm seed` (obraz przykładowy każdej linii i partner; istniejącej strony `home` nie zmienia). Nowe zmienne opcjonalne: `MEDIA_DIR`, `SITE_ENV` (`.env.example`). **Następny krok:** nowa sesja Claude Code → `/zadanie S8` (skrzynka zapytań wg ADR-003) — przed planem przeczytaj w ADR-012 punkt „Do uzgodnienia” o ADR-003 (`/api/inquiry` + `submitInquiry()`) i w „Pomysłach” wpisy „→ S8” (`--border-input`, wyjątek `/api/inquiry` w `decideRoute`, blok Formularz).
+- **S8a — backend skrzynki zapytań** (gałąź `feat/s8a-inquiry-backend`, PR do otwarcia). Zrobione: `POST /api/inquiry` (wyjątek w `decideRoute`), `submitInquiry()` w `lib/inquiry` (schemat Zod 1:1 z ADR-003, honeypot, podpisany token z min. 3 s, limit 5 / 10 min na skrót IP z `X-Real-IP`), kolekcje `Inquiries` (w panelu zmienia się tylko `status`, usuwa tylko admin) i `InquiryDeletions` (ślad usunięcia), maile przez `@payloadcms/email-nodemailer` (powiadomienie z `Reply-To` + potwierdzenie), zadanie dobowe `inquiryRetention` (03:00, `INQUIRY_RETENTION_MONTHS`), seed `notificationEmail`, Mailpit w CI; poprawki po przeglądzie `recenzent` (błąd bazy → 503 bez danych osobowych w logach, limity czasu SMTP, `tenant` zapytania zablokowany w panelu, limit liczony po walidacji). Nowe zmienne **wymagane**: `SMTP_HOST`, `SMTP_PORT`, `MAIL_FROM_ADDRESS` (+ opcjonalne `SMTP_SECURE`, `SMTP_USER`, `SMTP_PASS`, `MAIL_FROM_NAME`, `INQUIRY_RETENTION_MONTHS`) — dopisać do `.env` na obu komputerach (`.env.example`). Na drugim komputerze: `pnpm install`, `pnpm payload migrate`, `pnpm seed`. **Następny krok:** `/pr`, potem nowa sesja `/zadanie S8b` (formularz `InquiryForm`, blok Formularz, `--border-input`, e2e formularz → panel → Mailpit). Treści z `TODO(krystian)` w `src/lib/inquiry/consent.ts` (klauzula RODO, czas odpowiedzi) — do potwierdzenia z szefem.
 
 ## Zrobione
 - 17.10.2026 — obrazy wzorca prokombiznes (#35): 93 pliki w `docs/design/prokombiznes/boards/media/`, dotąd ukryte przez wzorzec `media/` w `.gitignore`. Logo klientów bez potwierdzonych praw — tylko materiał referencyjny.
@@ -43,6 +43,10 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 5. Skrzynki `biznes@`, `instalacje@`, `software@pro-kom.eu` — założyć przed 26.10 (Krystian + szef, Thunderbird); dopisać do listy skrzynek przy migracji poczty do Seohost (ADR-002).
 
 ## Pomysły na później (poza zakresem bieżących sesji)
+- Z S8a → S9/S10: Nginx musi ustawiać `proxy_set_header X-Real-IP $remote_addr` (nadpisuje wartość klienta) — od niego zależy limit zapytań na IP; bez nagłówka wszyscy dzielą jeden limit (5 zapytań / 10 min dla całego ruchu) — sprawdzić w smoke teście albo runbooku przed 26.10.
+- Z S8a: limit zapytań jest w pamięci procesu (restart zeruje, nie działa przy > 1 instancji) — przy skalowaniu przenieść do bazy.
+- Z S8a → S9: Nginx `client_max_body_size` (np. 64k) dla `/api/inquiry`; aplikacja i tak odrzuca body > 32 KB (413).
+- Z S8a (przegląd): token formularza można użyć wiele razy przez 24 h, a potwierdzenie idzie na dowolny wpisany adres — ogranicza to tylko limit IP; obserwować po starcie (reputacja domeny nadawcy).
 - Z #35: hak przed commitem (lint-staged → `prettier --check`) nie mieści ok. 90 ścieżek w jednym wywołaniu w Windows („The command line is too long”) — przy dużych commitach dzielić je albo zawęzić wzorzec Prettiera w lint-staged do plików tekstowych.
 - Z S7b (przegląd): dwa bloki FAQ na jednej stronie dają dwa obiekty `FAQPage` (Google oczekuje jednego) — gdy się pojawią, zbierać pytania na poziomie strony (`RenderBlocks`).
 - Z S7b (przegląd): nazwy indeksów złożonych bez prefiksu kolekcji (`tenant_from_idx`, `tenant_slug_idx`) są globalne w schemacie — przy kolejnej kolekcji z tymi samymi polami kolizja; sprawdzić, czy Payload pozwala nadać nazwę.
@@ -55,13 +59,13 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 - Z S7a: logo partnerów w SVG — dziś odrzucane (XSS na domenie strony); jeśli oficjalne pliki są tylko w SVG, konwersja do PNG/WebP przy wgraniu albo sanityzacja.
 - Z S6b-2 → zadanie #3 Biznesu (`docs/design/prokombiznes/PRZEKAZANIE.md`): mega menu Oferta, Branże ▾, wyszukiwarka, szuflada i licznik zapytania, dolny pasek na telefonie, status godzin na żywo w górnym pasku, pasek sezonowy z zamykaniem (`pk-sz-closed`), kolumny stopki Oferta i miejscowości, nagłówek półprzezroczysty wg wzorca (76 px jest, blur jest); przełącznik motywu na telefonie przenieść z nagłówka do menu pełnoekranowego (spec. §3.3 — dziś w nagłówku, bo menu pełnoekranowego jeszcze nie ma).
 - Z S6b-2: seed `kontakt` ma tytuł strony „Kontakt” i blok Kontakt z nagłówkiem „Kontakt” — na stronie dwa razy to samo (h1 + h2); przy treściach docelowych dać blokowi inny nagłówek albo pierwszy blok Hero.
-- Z S6b-1 (przegląd) → S8: token `--border-input` (obramowanie pól formularzy ≥ 3:1, WCAG 1.4.11, ADR-013 pkt 5) z testem kontrastu — dzisiejszy `--border` (~1,25:1) jest tylko dekoracyjny, nie używać go na `<input>`.
+- Z S6b-1 (przegląd) → S8b: token `--border-input` (obramowanie pól formularzy ≥ 3:1, WCAG 1.4.11, ADR-013 pkt 5) z testem kontrastu — dzisiejszy `--border` (~1,25:1) jest tylko dekoracyjny, nie używać go na `<input>`.
 - Z S6b-1 (przegląd): `text-ink-3` tylko na `surface`/`card` (jasny Biznes: 4,21 na `surface-2`) — Tailwind tego nie blokuje; pilnować w blokach stron (axe wyłapie tylko na stronach z testu).
 - Z S6b-2: Lighthouse nie był uruchamiany dla nowego szkieletu — sprawdzić przy pierwszych treściach Biznesu (budżet w S10).
 - Z S6b-1 → S9: skrypt motywu inline w `<head>` (`lib/brand/theme.ts`, tylko domeny z trybem ciemnym) — przy CSP w Nginx/Next dopuścić go hashem (`script-src 'sha256-…'`, treść stała) albo nonce.
 - Z S6a (przegląd) → **decyzja przed S9:** `next/font/google` pobiera fonty przy buildzie — CI i build obrazu zależą od Google Fonts. Alternatywa: `next/font/local` z woff2 z paczki znaku (`04_zrodlo/fonty`, Archivo z osią `wdth`, latin + latin-ext) w repo.
 - Z S6a → S9: Tailwind (`tailwindcss`, `@tailwindcss/postcss`) jest w devDependencies, a potrzebny przy buildzie — w Dockerfile żadnego `pnpm install --prod` przed `pnpm build`.
-- Z S5 → S8: blok Formularz (komponent `InquiryForm`) — wpis w rejestrze bloków + migracja.
+- Z S5 → S8b: blok Formularz (komponent `InquiryForm`) — wpis w rejestrze bloków + migracja.
 - Z S5 → S10: podgląd na żywo na stagingu — dziś wybiera domenę `production` przy buildzie produkcyjnym (`lib/preview/origin.ts`, `TODO(S10)`); sygnał środowiska jest już w `SITE_ENV` (S7b) — użyć go w `lib/preview/origin.ts`. Nginx musi też ustawiać `X-Forwarded-Proto` (adres podglądu i origin panelu).
 - Z S5: szkice nie są walidowane (domyślne Payload), więc blok spoza listy linii wychodzi dopiero przy publikacji — rozważyć `drafts.validate`, gdy edytorów będzie więcej.
 - Z S5 (przegląd): `pagesTag` jest przypięty do każdej strony i unieważniany przy każdej zmianie, więc `pageTag` niczego dziś nie zawęża — uprościć (jeden tag) albo nie przypinać `pagesTag` do pojedynczych stron, gdy pojawi się lista/sitemap (S7).
@@ -73,7 +77,6 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 - Z S5: panel Payload jest po angielsku („Publish changes”, „Live Preview”) — rozważyć `i18n` z językiem polskim dla szefa.
 - Z S4 (ADR-006): `CompanyData` tylko do odczytu dla prokomserwis.pl (klucz API) — po fundamencie.
 - Z S4: generator migracji Payload pisze `down` z `DROP CONSTRAINT` po `DROP TABLE … CASCADE` — każdą nową migrację sprawdzać lokalnie `migrate:down` → `migrate` (kandydat do `docs/sposob-pracy.md` → „Zmiana schematu bazy”).
-- Z S3 → S8: proxy blokuje na domenach stron całe `/api`; `/api/inquiry` (ADR-003) wymaga wyjątku w `decideRoute` z testem.
 - Z S3 → S10: pliki z `public/brand/` odpowiadają 200 także na obcym hoście (proxy ich nie przepisuje) — Nginx z `server_name` tylko dla naszych domen odetnie obce hosty; przy okazji cache tenantów przestanie się czyścić od losowych hostów.
 - Z S3 → S10: Nginx musi przekazywać oryginalny nagłówek `Host` (`proxy_set_header Host $host`) — od niego zależy wybór tenanta (i port w adresie podglądu na żywo, S5).
 - Przy pierwszej produkcji (26.10): wersje i lista zmian — tag `vX.Y.Z` przy wdrożeniu na `main`, automatyczny changelog z tytułów PR (dla szefa: „co nowego”, dla nas: punkt rollbacku).
@@ -89,7 +92,7 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 - Fakty z wizualizacji do potwierdzenia z szefem przed publikacją: `docs/strony/prokombiznes.md` §13 (ulga 700 zł, parametry Elzab/Fawag, statusy partnerów, liczby GoPOS, przepisy KSeF); logo klientów tylko z pisemną zgodą.
 - **ADR-011 (proponowana, 17.10):** podgląd na żywo przez podpisany token zamiast draft mode Next i cron zadań Payload w procesie aplikacji — do przyjęcia przez Krystiana.
 - **16.10 (Krystian, przy zakupie):** domeny na firmę (abonent PRO-KOM) i konto rejestratora na firmowy e-mail z 2FA i autoodnawianiem (`docs/dns.md`).
-- Z jakiego adresu wychodzą maile z formularzy (domena nadawcy) — decyzja w S8.
+- Z jakiego adresu wychodzą maile z formularzy (domena nadawcy) — w kodzie `MAIL_FROM_ADDRESS` z env (S8a); wartość produkcyjną ustalić z SPF/DKIM w S10.
 - Okres retencji zapytań (domyślnie 24 miesiące, ADR-003) — potwierdzić przy polityce prywatności.
 - Telefony i adresy e-mail dla każdej strony. Powiadomienia o zapytaniach — **ustalone 16.10** (ADR-003): skrzynki `biznes@`, `instalacje@`, `software@pro-kom.eu`, obsługują Krystian i szef w Thunderbirdzie; otwarte: skrzynka huba pro-kom.eu.
 - Serwery i sieć: Biznes czy Instalacje? Ceny na stronie czy „Zapytaj o ofertę”? (do specyfikacji Biznes)

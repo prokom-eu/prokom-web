@@ -74,6 +74,8 @@ export interface Config {
     media: Media;
     partners: Partner;
     redirects: Redirect;
+    inquiries: Inquiry;
+    'inquiry-deletions': InquiryDeletion;
     'payload-kv': PayloadKv;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
@@ -89,6 +91,8 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     partners: PartnersSelect<false> | PartnersSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
+    inquiries: InquiriesSelect<false> | InquiriesSelect<true>;
+    'inquiry-deletions': InquiryDeletionsSelect<false> | InquiryDeletionsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -101,9 +105,11 @@ export interface Config {
   fallbackLocale: null;
   globals: {
     'company-data': CompanyDatum;
+    'payload-jobs-stats': PayloadJobsStat;
   };
   globalsSelect: {
     'company-data': CompanyDataSelect<false> | CompanyDataSelect<true>;
+    'payload-jobs-stats': PayloadJobsStatsSelect<false> | PayloadJobsStatsSelect<true>;
   };
   locale: null;
   widgets: {
@@ -112,6 +118,7 @@ export interface Config {
   user: User;
   jobs: {
     tasks: {
+      inquiryRetention: TaskInquiryRetention;
       schedulePublish: TaskSchedulePublish;
       inline: {
         input: unknown;
@@ -497,6 +504,56 @@ export interface Redirect {
   createdAt: string;
 }
 /**
+ * Zapytania z formularzy stron. Zmieniasz tylko status.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "inquiries".
+ */
+export interface Inquiry {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  status: 'new' | 'in_progress' | 'closed';
+  /**
+   * Od tej daty liczy się okres przechowywania zamkniętych zapytań.
+   */
+  statusChangedAt?: string | null;
+  line: 'prokom' | 'biznes' | 'instalacje' | 'software';
+  category?: string | null;
+  name: string;
+  company?: string | null;
+  nip?: string | null;
+  email?: string | null;
+  phone?: string | null;
+  message: string;
+  source: {
+    url: string;
+    utmSource?: string | null;
+    utmMedium?: string | null;
+    utmCampaign?: string | null;
+  };
+  consent: {
+    accepted: boolean;
+    clauseVersion: string;
+    acceptedAt: string;
+  };
+  marketingConsent?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "inquiry-deletions".
+ */
+export interface InquiryDeletion {
+  id: number;
+  inquiryId: number;
+  reason: 'request' | 'retention';
+  deletedBy?: (number | null) | User;
+  deletedByEmail?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
@@ -565,7 +622,7 @@ export interface PayloadJob {
     | {
         executedAt: string;
         completedAt: string;
-        taskSlug: 'inline' | 'schedulePublish';
+        taskSlug: 'inline' | 'inquiryRetention' | 'schedulePublish';
         taskID: string;
         input?:
           | {
@@ -598,10 +655,19 @@ export interface PayloadJob {
         id?: string | null;
       }[]
     | null;
-  taskSlug?: ('inline' | 'schedulePublish') | null;
+  taskSlug?: ('inline' | 'inquiryRetention' | 'schedulePublish') | null;
   queue?: string | null;
   waitUntil?: string | null;
   processing?: boolean | null;
+  meta?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -639,6 +705,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'redirects';
         value: number | Redirect;
+      } | null)
+    | ({
+        relationTo: 'inquiries';
+        value: number | Inquiry;
+      } | null)
+    | ({
+        relationTo: 'inquiry-deletions';
+        value: number | InquiryDeletion;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -1004,6 +1078,53 @@ export interface RedirectsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "inquiries_select".
+ */
+export interface InquiriesSelect<T extends boolean = true> {
+  tenant?: T;
+  status?: T;
+  statusChangedAt?: T;
+  line?: T;
+  category?: T;
+  name?: T;
+  company?: T;
+  nip?: T;
+  email?: T;
+  phone?: T;
+  message?: T;
+  source?:
+    | T
+    | {
+        url?: T;
+        utmSource?: T;
+        utmMedium?: T;
+        utmCampaign?: T;
+      };
+  consent?:
+    | T
+    | {
+        accepted?: T;
+        clauseVersion?: T;
+        acceptedAt?: T;
+      };
+  marketingConsent?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "inquiry-deletions_select".
+ */
+export interface InquiryDeletionsSelect<T extends boolean = true> {
+  inquiryId?: T;
+  reason?: T;
+  deletedBy?: T;
+  deletedByEmail?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv_select".
  */
 export interface PayloadKvSelect<T extends boolean = true> {
@@ -1038,6 +1159,7 @@ export interface PayloadJobsSelect<T extends boolean = true> {
   queue?: T;
   waitUntil?: T;
   processing?: T;
+  meta?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1119,6 +1241,24 @@ export interface CompanyDatum {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-jobs-stats".
+ */
+export interface PayloadJobsStat {
+  id: number;
+  stats?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "company-data_select".
  */
 export interface CompanyDataSelect<T extends boolean = true> {
@@ -1163,6 +1303,16 @@ export interface CompanyDataSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-jobs-stats_select".
+ */
+export interface PayloadJobsStatsSelect<T extends boolean = true> {
+  stats?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "collections_widget".
  */
 export interface CollectionsWidget {
@@ -1170,6 +1320,16 @@ export interface CollectionsWidget {
     [k: string]: unknown;
   };
   width: 'full';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TaskInquiryRetention".
+ */
+export interface TaskInquiryRetention {
+  input?: unknown;
+  output: {
+    deleted: number;
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -1,4 +1,5 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
+import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 import { multiTenantPlugin } from '@payloadcms/plugin-multi-tenant'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
@@ -6,6 +7,8 @@ import { buildConfig } from 'payload'
 import sharp from 'sharp'
 import { fileURLToPath } from 'url'
 
+import { Inquiries } from './collections/Inquiries'
+import { InquiryDeletions } from './collections/InquiryDeletions'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Partners } from './collections/Partners'
@@ -16,6 +19,7 @@ import { Users } from './collections/Users'
 import { CompanyData } from './globals/CompanyData'
 import { adminOnlyField, isAdmin } from './lib/auth/access'
 import { getEnv } from './lib/env'
+import { inquiryRetentionTask } from './lib/inquiry/retention'
 import type { Config } from './payload-types'
 
 const filename = fileURLToPath(import.meta.url)
@@ -30,13 +34,44 @@ export default buildConfig({
     },
   },
   // New collections go after `Pages`: inserting earlier renumbers Payload's index names (S5).
-  collections: [Users, Tenants, SiteSettings, Pages, Media, Partners, Redirects],
+  collections: [
+    Users,
+    Tenants,
+    SiteSettings,
+    Pages,
+    Media,
+    Partners,
+    Redirects,
+    Inquiries,
+    InquiryDeletions,
+  ],
   globals: [CompanyData],
   editor: lexicalEditor(),
+  // SMTP from env (ADR-003); locally Mailpit. Transport options are always given, so the adapter
+  // never falls back to its ethereal.email test account. No verify at start: `build` must not
+  // need a mail server; a broken SMTP shows up in the logs of the first send.
+  email: nodemailerAdapter({
+    defaultFromAddress: env.MAIL_FROM_ADDRESS,
+    defaultFromName: env.MAIL_FROM_NAME,
+    skipVerify: true,
+    transportOptions: {
+      host: env.SMTP_HOST,
+      port: env.SMTP_PORT,
+      secure: env.SMTP_SECURE,
+      // The form waits for the e-mails; a hung SMTP server must not hold it until the proxy
+      // times out (the customer would resend, the record is already saved). Defaults: up to 10 min.
+      connectionTimeout: 10_000,
+      greetingTimeout: 10_000,
+      socketTimeout: 20_000,
+      ...(env.SMTP_USER ? { auth: { user: env.SMTP_USER, pass: env.SMTP_PASS } } : {}),
+    },
+  }),
   jobs: {
     // Runs scheduled publishes (`Pages` → "Zaplanuj publikację") inside the app process, every
     // minute. Fine for our long-running container; not for serverless (Payload docs).
+    // The same runner schedules tasks with a `schedule` in this queue (inquiry retention, daily).
     autoRun: [{ cron: '* * * * *', queue: 'default' }],
+    tasks: [inquiryRetentionTask],
   },
   secret: env.PAYLOAD_SECRET,
   typescript: {
@@ -58,6 +93,9 @@ export default buildConfig({
         pages: {},
         media: {},
         redirects: {},
+        // ADR-003: only `status` changes in the panel; moving an inquiry to another site would
+        // also leave its `line` behind.
+        inquiries: { tenantFieldOverrides: { access: { update: () => false } } },
         // One settings document per tenant (unique tenant field).
         'site-settings': { isGlobal: true },
       },

@@ -7,11 +7,63 @@ const valid = {
   DATABASE_URL: 'postgresql://prokom:prokom@127.0.0.1:54320/prokom_web',
   PAYLOAD_SECRET: 'a'.repeat(32),
   PANEL_HOST: 'panel.localhost',
+  SMTP_HOST: '127.0.0.1',
+  SMTP_PORT: '1025',
+  MAIL_FROM_ADDRESS: 'formularz@example.test',
+}
+
+const defaults = {
+  MEDIA_DIR: 'media',
+  SITE_ENV: 'local',
+  SMTP_PORT: 1025,
+  SMTP_SECURE: false,
+  MAIL_FROM_NAME: 'PRO-KOM',
+  INQUIRY_RETENTION_MONTHS: 24,
 }
 
 describe('parseEnv', () => {
   it('accepts a valid environment', () => {
-    expect(parseEnv(valid)).toEqual({ ...valid, MEDIA_DIR: 'media', SITE_ENV: 'local' })
+    expect(parseEnv(valid)).toEqual({ ...valid, ...defaults })
+  })
+
+  it('requires the SMTP server and the sender address (ADR-003)', () => {
+    expect(() => parseEnv({ ...valid, SMTP_HOST: undefined })).toThrow(/SMTP_HOST/)
+    expect(() => parseEnv({ ...valid, SMTP_PORT: undefined })).toThrow(/SMTP_PORT/)
+    expect(() => parseEnv({ ...valid, MAIL_FROM_ADDRESS: undefined })).toThrow(/MAIL_FROM_ADDRESS/)
+  })
+
+  it('reads SMTP credentials and TLS', () => {
+    const env = parseEnv({
+      ...valid,
+      SMTP_PORT: '465',
+      SMTP_SECURE: 'true',
+      SMTP_USER: 'formularz',
+      SMTP_PASS: 'x'.repeat(16),
+    })
+    expect(env).toMatchObject({ SMTP_PORT: 465, SMTP_SECURE: true, SMTP_USER: 'formularz' })
+  })
+
+  it('requires SMTP_USER and SMTP_PASS together', () => {
+    expect(() => parseEnv({ ...valid, SMTP_USER: 'formularz' })).toThrow(/SMTP_PASS/)
+    expect(() => parseEnv({ ...valid, SMTP_PASS: 'x'.repeat(16) })).toThrow(/SMTP_PASS/)
+  })
+
+  it('rejects an invalid SMTP_PORT or SMTP_SECURE', () => {
+    expect(() => parseEnv({ ...valid, SMTP_PORT: 'smtp' })).toThrow(/SMTP_PORT/)
+    expect(() => parseEnv({ ...valid, SMTP_SECURE: 'yes' })).toThrow(/SMTP_SECURE/)
+  })
+
+  it('rejects an invalid MAIL_FROM_ADDRESS', () => {
+    expect(() => parseEnv({ ...valid, MAIL_FROM_ADDRESS: 'PRO-KOM <a@b.pl>' })).toThrow(
+      /MAIL_FROM_ADDRESS/,
+    )
+  })
+
+  it('reads the inquiry retention in months', () => {
+    expect(parseEnv({ ...valid, INQUIRY_RETENTION_MONTHS: '12' }).INQUIRY_RETENTION_MONTHS).toBe(12)
+    expect(() => parseEnv({ ...valid, INQUIRY_RETENTION_MONTHS: '0' })).toThrow(
+      /INQUIRY_RETENTION_MONTHS/,
+    )
   })
 
   it('accepts staging as SITE_ENV', () => {
