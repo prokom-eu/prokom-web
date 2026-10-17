@@ -1,0 +1,47 @@
+/* Public sites only — the Payload panel has its own root layout and styles. */
+@import 'tailwindcss';
+@import '../../styles/tokens.css';
+
+/*
+ * Tailwind knows only the brand tokens: the default palette and fonts are reset, so a class
+ * like `bg-red-500` or `font-serif` does not exist (ADR-007). `inline` keeps the `var(--accent…)`
+ * references, so each element resolves them against its own `data-line`.
+ */
+@theme inline {
+  --color-*: initial;
+  --color-accent: var(--accent);
+  --color-accent-text: var(--accent-text);
+  --color-accent-on-dark: var(--accent-on-dark);
+  --color-grafit: var(--c-grafit);
+  --color-papier: var(--c-papier);
+  --color-white: var(--c-white);
+  --color-border: var(--c-border);
+
+  --font-*: initial;
+  --font-sans: var(--font-manrope), system-ui, sans-serif;
+  --font-display: var(--font-archivo), system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    background-color: var(--c-white);
+    color: var(--c-grafit);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+  }
+
+  /* Visible focus everywhere (WCAG 2.4.7); on dark surfaces the on-dark accent keeps 3:1. */
+  :focus-visible {
+    outline: 3px solid var(--accent-text);
+    outline-offset: 3px;
+  }
+
+  [data-surface='dark'] :focus-visible {
+    outline-color: var(--accent-on-dark);
+  }
+}

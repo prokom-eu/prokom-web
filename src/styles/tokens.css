@@ -1,0 +1,68 @@
+/*
+ * Brand tokens — the only place with colour values (docs/marka.md, ADR-007).
+ * Components use the `--accent*` variables (via Tailwind), never a line's own colour.
+ *   --c-<line>          brand book colour on light backgrounds: logo, rules, icons, large headings
+ *   --c-<line>-on-dark  brand book colour on dark backgrounds
+ *   --c-<line>-text     darker shade with ≥ 4.5:1 on white and papier: text, links, white-label buttons
+ * Contrast is checked by `tokens.test.ts`.
+ */
+
+:root {
+  --c-prokom: #45a02c;
+  --c-prokom-on-dark: #4fb034;
+  --c-prokom-text: #367e23;
+
+  --c-biznes: #244fb0;
+  --c-biznes-on-dark: #4a7be0;
+  --c-biznes-text: #244fb0;
+
+  --c-instalacje: #0093b3;
+  --c-instalacje-on-dark: #12b6d8;
+  --c-instalacje-text: #007994;
+
+  --c-software: #8b61e3;
+  --c-software-on-dark: #9670ee;
+  --c-software-text: #7e58cd;
+
+  --c-tech: #d13a2e;
+  --c-tech-on-dark: #e2483a;
+  --c-tech-text: #cb382d;
+
+  --c-zakopane: #dd8600;
+  --c-zakopane-on-dark: #f29a00;
+  --c-zakopane-text: #9f6000;
+
+  --c-grafit: #121613;
+  --c-papier: #f4f5f1;
+  --c-white: #ffffff;
+  --c-border: #e3e6df;
+
+  /* No `data-line` (unknown domain, 404): the main PRO-KOM line. */
+  --accent: var(--c-prokom);
+  --accent-on-dark: var(--c-prokom-on-dark);
+  --accent-text: var(--c-prokom-text);
+}
+
+[data-line='prokom'] {
+  --accent: var(--c-prokom);
+  --accent-on-dark: var(--c-prokom-on-dark);
+  --accent-text: var(--c-prokom-text);
+}
+
+[data-line='biznes'] {
+  --accent: var(--c-biznes);
+  --accent-on-dark: var(--c-biznes-on-dark);
+  --accent-text: var(--c-biznes-text);
+}
+
+[data-line='instalacje'] {
+  --accent: var(--c-instalacje);
+  --accent-on-dark: var(--c-instalacje-on-dark);
+  --accent-text: var(--c-instalacje-text);
+}
+
+[data-line='software'] {
+  --accent: var(--c-software);
+  --accent-on-dark: var(--c-software-on-dark);
+  --accent-text: var(--c-software-text);
+}

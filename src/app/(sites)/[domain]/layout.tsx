@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import React from 'react'
 
 import { SiteFooter } from '@/components/SiteFooter'
+import { brandIcons } from '@/lib/brand/lines'
 import { getCompanyData, getSiteSettings } from '@/lib/site/data'
 import { isValidTitleTemplate } from '@/lib/site/title'
 
@@ -18,6 +19,7 @@ export async function generateMetadata({ params }: Omit<Props, 'children'>): Pro
     title:
       template && isValidTitleTemplate(template) ? { default: tenant.name, template } : tenant.name,
     description: settings?.seo.description ?? undefined,
+    icons: brandIcons(tenant.line),
   }
 }
 
