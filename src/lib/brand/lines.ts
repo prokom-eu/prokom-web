@@ -39,3 +39,19 @@ export function brandIcons(line: Line): NonNullable<Metadata['icons']> {
     apple: { url: brandAsset(line, 'apple-touch-icon-180.png'), sizes: '180x180' },
   }
 }
+
+/** A PRO-KOM line in the brand bar; `line` is set for lines with a site in this repo. */
+export type BrandLink = { label: string; href: string; line?: Line }
+
+/**
+ * Brand bar: the PRO-KOM lines and their public sites. Production addresses on purpose — the
+ * bar links out to other brands, and these change only with a new site (docs/dns.md).
+ * TODO(krystian): PRO-KOM Zakopane — add once it has its own address.
+ */
+export const BRAND_LINKS: readonly BrandLink[] = [
+  { label: 'PRO-KOM', href: 'https://pro-kom.eu', line: 'prokom' },
+  { label: 'Biznes', href: 'https://prokombiznes.pl', line: 'biznes' },
+  { label: 'Instalacje', href: 'https://prokominstalacje.pl', line: 'instalacje' },
+  { label: 'Software', href: 'https://prokomsoftware.pl', line: 'software' },
+  { label: 'Tech · naprawy', href: 'https://prokomserwis.pl' },
+]

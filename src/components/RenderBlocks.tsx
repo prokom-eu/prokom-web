@@ -5,6 +5,8 @@ import { HeroBlock } from '@/blocks/Hero/Component'
 import { renderableBlocks } from '@/blocks/registry'
 import { RichTextBlock } from '@/blocks/RichText/Component'
 import { ServiceGridBlock } from '@/blocks/ServiceGrid/Component'
+import { Heading } from '@/components/ui/Heading'
+import { Section } from '@/components/ui/Section'
 import type { PublicPage } from '@/lib/pages/data'
 import type { SiteTenant } from '@/lib/tenant/byHost'
 
@@ -19,7 +21,13 @@ export function RenderBlocks({ page, tenant }: Props) {
   const blocks = renderableBlocks(tenant.line, page.layout)
   return (
     <>
-      {blocks[0]?.blockType !== 'hero' && <h1>{page.title}</h1>}
+      {blocks[0]?.blockType !== 'hero' && (
+        <Section className="pb-0 sm:pb-0">
+          <Heading level={1} size="xl">
+            {page.title}
+          </Heading>
+        </Section>
+      )}
       {blocks.map((block, i) => {
         const key = block.id ?? `${block.blockType}-${i}`
         switch (block.blockType) {

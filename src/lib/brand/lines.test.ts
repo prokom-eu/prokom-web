@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest'
 
 import { LINE_VALUES } from '@/lib/tenant/lines'
 
-import { BRAND_ASSETS, brandAsset, brandIcons } from './lines'
+import { BRAND_ASSETS, BRAND_LINKS, brandAsset, brandIcons } from './lines'
 
 const publicFile = (href: string) => path.join('public', ...href.split('/'))
 
@@ -29,5 +29,16 @@ describe('brandIcons', () => {
     expect(hrefs).toContain('/brand/prokom-instalacje_favicon.svg')
     expect(hrefs).toContain('/brand/prokom-instalacje_apple-touch-icon-180.png')
     expect(hrefs).not.toMatch(/biznes|software|glowna/)
+  })
+})
+
+describe('BRAND_LINKS', () => {
+  it('lists every line with a site exactly once', () => {
+    const lines = BRAND_LINKS.flatMap((link) => (link.line ? [link.line] : []))
+    expect([...lines].sort()).toEqual([...LINE_VALUES].sort())
+  })
+
+  it('links only to https addresses', () => {
+    for (const link of BRAND_LINKS) expect(new URL(link.href).protocol).toBe('https:')
   })
 })
