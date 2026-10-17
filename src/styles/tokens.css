@@ -1,10 +1,15 @@
 /*
- * Brand tokens — the only place with colour values (docs/marka.md, ADR-007).
- * Components use the `--accent*` variables (via Tailwind), never a line's own colour.
+ * Brand tokens — the only place with colour values (docs/marka.md, ADR-007, ADR-013).
+ * Components use the semantic variables below (via Tailwind), never a line's own colour.
  *   --c-<line>          brand book colour on light backgrounds: logo, rules, icons, large headings
  *   --c-<line>-on-dark  brand book colour on dark backgrounds
  *   --c-<line>-text     darker shade with ≥ 4.5:1 on white and papier: text, links, white-label buttons
- * Contrast is checked by `tokens.test.ts`.
+ *   --c-biznes-*        Biznes palette from its approved visualisation (docs/design/prokombiznes)
+ * Semantic variables (set per line through `data-line`, per theme through `data-theme`):
+ *   --accent, --accent-2, --accent-text, --accent-on-dark, --accent-ink (label on accent buttons)
+ *   --surface, --surface-2, --surface-3, --card, --surface-dark (dark rhythm blocks)
+ *   --ink, --ink-2, --ink-3 (text, secondary, tertiary), --border, --glow, --grid
+ * Contrast is checked by `tokens.test.ts` and `themes.test.ts`.
  */
 
 :root {
@@ -37,32 +42,132 @@
   --c-white: #ffffff;
   --c-border: #e3e6df;
 
+  /* Biznes — light theme of the visualisation. */
+  --c-biznes-light-surface-2: #f3f5fa;
+  --c-biznes-light-surface-3: #e9edf6;
+  --c-biznes-light-ink: #0d1326;
+  --c-biznes-light-ink-2: #4a5470;
+  --c-biznes-light-ink-3: #6b7590;
+  --c-biznes-light-border: #e2e6ef;
+  --c-biznes-light-glow: rgba(74, 123, 224, 0.22);
+  --c-biznes-light-grid: rgba(36, 79, 176, 0.07);
+  /* Biznes — dark theme of the visualisation. */
+  --c-biznes-night-surface: #060a15;
+  --c-biznes-night-surface-2: #0b1222;
+  --c-biznes-night-surface-3: #111a30;
+  --c-biznes-night-card: #0c1427;
+  --c-biznes-night-ink: #eef2fb;
+  --c-biznes-night-ink-2: #a6b1c9;
+  --c-biznes-night-ink-3: #7c88a4;
+  --c-biznes-night-border: #1b2440;
+  --c-biznes-night-accent-2: #8fb0f4;
+  --c-biznes-night-accent-ink: #06102a;
+  --c-biznes-night-glow: rgba(74, 123, 224, 0.42);
+  --c-biznes-night-grid: rgba(143, 176, 244, 0.07);
+  /* Biznes — dark rhythm blocks, the same in both themes. */
+  --c-biznes-navy: #0a1430;
+
   /* No `data-line` (unknown domain, 404): the main PRO-KOM line. */
   --accent: var(--c-prokom);
   --accent-on-dark: var(--c-prokom-on-dark);
   --accent-text: var(--c-prokom-text);
+  --accent-2: var(--c-prokom);
+  --accent-ink: var(--c-white);
+
+  /* Neutrals of lines without their own visualisation: white / papier / grafit (marka.md). */
+  --surface: var(--c-white);
+  --surface-2: var(--c-papier);
+  --surface-3: var(--c-papier);
+  --card: var(--c-white);
+  --surface-dark: var(--c-grafit);
+  --ink: var(--c-grafit);
+  --ink-2: var(--c-grafit);
+  --ink-3: var(--c-grafit);
+  --border: var(--c-border);
+  --glow: transparent;
+  --grid: transparent;
 }
 
 [data-line='prokom'] {
   --accent: var(--c-prokom);
   --accent-on-dark: var(--c-prokom-on-dark);
   --accent-text: var(--c-prokom-text);
+  --accent-2: var(--c-prokom);
 }
 
 [data-line='biznes'] {
   --accent: var(--c-biznes);
   --accent-on-dark: var(--c-biznes-on-dark);
   --accent-text: var(--c-biznes-text);
+  --accent-2: var(--c-biznes-on-dark);
+  --accent-ink: var(--c-white);
+  --surface: var(--c-white);
+  --surface-2: var(--c-biznes-light-surface-2);
+  --surface-3: var(--c-biznes-light-surface-3);
+  --card: var(--c-white);
+  --surface-dark: var(--c-biznes-navy);
+  --ink: var(--c-biznes-light-ink);
+  --ink-2: var(--c-biznes-light-ink-2);
+  --ink-3: var(--c-biznes-light-ink-3);
+  --border: var(--c-biznes-light-border);
+  --glow: var(--c-biznes-light-glow);
+  --grid: var(--c-biznes-light-grid);
 }
 
 [data-line='instalacje'] {
   --accent: var(--c-instalacje);
   --accent-on-dark: var(--c-instalacje-on-dark);
   --accent-text: var(--c-instalacje-text);
+  --accent-2: var(--c-instalacje);
 }
 
 [data-line='software'] {
   --accent: var(--c-software);
   --accent-on-dark: var(--c-software-on-dark);
   --accent-text: var(--c-software-text);
+  --accent-2: var(--c-software);
+}
+
+/* Dark theme — chosen by the visitor (`data-theme`, see lib/brand/theme.ts)… */
+[data-line='biznes'][data-theme='dark'] {
+  color-scheme: dark;
+  --accent: var(--c-biznes-on-dark);
+  --accent-on-dark: var(--c-biznes-night-accent-2);
+  --accent-text: var(--c-biznes-on-dark);
+  --accent-2: var(--c-biznes-night-accent-2);
+  --accent-ink: var(--c-biznes-night-accent-ink);
+  --surface: var(--c-biznes-night-surface);
+  --surface-2: var(--c-biznes-night-surface-2);
+  --surface-3: var(--c-biznes-night-surface-3);
+  --card: var(--c-biznes-night-card);
+  --surface-dark: var(--c-biznes-navy);
+  --ink: var(--c-biznes-night-ink);
+  --ink-2: var(--c-biznes-night-ink-2);
+  --ink-3: var(--c-biznes-night-ink-3);
+  --border: var(--c-biznes-night-border);
+  --glow: var(--c-biznes-night-glow);
+  --grid: var(--c-biznes-night-grid);
+}
+
+/* …or by the system when there is no choice. Keep in sync with the rule above (tested). */
+@media (prefers-color-scheme: dark) {
+  [data-line='biznes']:not([data-theme='light']) {
+    color-scheme: dark;
+    --accent: var(--c-biznes-on-dark);
+    --accent-on-dark: var(--c-biznes-night-accent-2);
+    --accent-text: var(--c-biznes-on-dark);
+    --accent-2: var(--c-biznes-night-accent-2);
+    --accent-ink: var(--c-biznes-night-accent-ink);
+    --surface: var(--c-biznes-night-surface);
+    --surface-2: var(--c-biznes-night-surface-2);
+    --surface-3: var(--c-biznes-night-surface-3);
+    --card: var(--c-biznes-night-card);
+    --surface-dark: var(--c-biznes-navy);
+    --ink: var(--c-biznes-night-ink);
+    --ink-2: var(--c-biznes-night-ink-2);
+    --ink-3: var(--c-biznes-night-ink-3);
+    --border: var(--c-biznes-night-border);
+    --glow: var(--c-biznes-night-glow);
+    --grid: var(--c-biznes-night-grid);
+  }
 }

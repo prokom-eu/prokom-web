@@ -1,28 +1,9 @@
-import { readFileSync } from 'node:fs'
-import { fileURLToPath } from 'node:url'
-
 import { describe, expect, it } from 'vitest'
 
 import { contrastRatio } from '@/lib/brand/contrast'
 import { LINE_VALUES } from '@/lib/tenant/lines'
 
-// The test reads the stylesheet itself, so the checked values are the ones the browser gets.
-const css = readFileSync(fileURLToPath(new URL('./tokens.css', import.meta.url)), 'utf8')
-
-/** Declarations of one rule (`:root`, `[data-line='biznes']`), as `{ '--accent': 'var(...)' }`. */
-function rule(selector: string): Record<string, string> {
-  const escaped = selector.replace(/[[\]().*+?^$|\\]/g, '\\$&')
-  const match = new RegExp(`(?:^|\\n)${escaped}\\s*\\{([^}]*)\\}`).exec(css)
-  if (!match) throw new Error(`No rule for ${selector} in tokens.css`)
-  const body = match[1].replace(/\/\*[\s\S]*?\*\//g, '')
-  return Object.fromEntries(
-    body
-      .split(';')
-      .map((declaration) => declaration.split(':').map((part) => part.trim()))
-      .filter(([name, value]) => name?.startsWith('--') && value)
-      .map(([name, value]) => [name, value]),
-  )
-}
+import { rule } from './parse-tokens'
 
 const root = rule(':root')
 
@@ -75,7 +56,7 @@ describe('data-line → --accent* (ADR-007)', () => {
   })
 
   it.each([...LINE_VALUES])('maps the %s line', (line) => {
-    expect(rule(`[data-line='${line}']`)).toEqual(accents(line))
+    expect(rule(`[data-line='${line}']`)).toMatchObject(accents(line))
   })
 
   it('defaults to the main PRO-KOM line without the attribute (unknown domain)', () => {

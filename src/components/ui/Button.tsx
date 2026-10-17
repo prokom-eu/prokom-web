@@ -4,15 +4,15 @@ import { cx } from './cx'
 
 export type ButtonVariant = 'primary' | 'secondary'
 
-// Touch target ≥ 44 px. Primary: white label on the text accent (≥ 4.5:1 for every line).
+// Touch target ≥ 44 px. Primary: `accent-ink` label on the text accent (≥ 4.5:1, themes.test.ts).
 const BASE =
   'inline-flex min-h-11 items-center justify-center gap-2 rounded-xl px-6 py-2.5 font-bold transition-colors'
 
 const VARIANT: Record<ButtonVariant, string> = {
   primary:
-    'bg-accent-text text-white hover:bg-grafit in-data-[surface=dark]:hover:bg-papier in-data-[surface=dark]:hover:text-grafit',
+    'bg-accent-text text-accent-ink hover:bg-ink hover:text-surface in-data-[surface=dark]:hover:bg-white in-data-[surface=dark]:hover:text-surface-dark',
   secondary:
-    'border-2 border-accent-text text-accent-text hover:bg-papier in-data-[surface=dark]:border-white in-data-[surface=dark]:text-white in-data-[surface=dark]:hover:bg-white in-data-[surface=dark]:hover:text-grafit',
+    'border-2 border-accent-text text-accent-text hover:bg-surface-2 in-data-[surface=dark]:border-white in-data-[surface=dark]:text-white in-data-[surface=dark]:hover:bg-white in-data-[surface=dark]:hover:text-surface-dark',
 }
 
 type Common = { variant?: ButtonVariant }
