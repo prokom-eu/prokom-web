@@ -57,7 +57,8 @@ Ten sam odcień co kolor z księgi, przyciemniony do ≥ 4,5:1 na białym **i** 
 ### Kolory pomocnicze
 | Token | Wartość | Użycie |
 |---|---|---|
-| `--c-border` | `#E3E6DF` | obramowania kart i pól (1,5 px) — z briefu `strony/prokombiznes-design.md` |
+| `--c-border` | `#E3E6DF` | obramowania kart (1,5 px), tylko dekoracyjne — z briefu `strony/prokombiznes-design.md` |
+| `--c-input-border` | `#767C74` | obramowanie pól formularzy linii bez wizualizacji (≥ 3:1 na bieli i papierze, WCAG 1.4.11; S8b). Biznes: `--ink-3` swojego motywu. Token semantyczny `--border-input`, test w `themes.test.ts` |
 
 ### Linie z własną wizualizacją (ADR-013, przyjęta 17.10.2026)
 Linia z zaakceptowaną wizualizacją może mieć własne kolory neutralne (tła, tekst, ciemne bloki) i motyw ciemny — dziś Biznes (`docs/design/prokombiznes/tokens.css`). Kolor linii z księgi i znak bez zmian. Szczegóły i ograniczenia kontrastu: `docs/decyzje/ADR-013-wyglad-linii-z-wizualizacji.md`.

@@ -320,7 +320,16 @@ export interface Page {
    */
   slug: string;
   layout?:
-    | (HeroBlock | RichTextBlock | ServiceGridBlock | CallToActionBlock | FaqBlock | ContactBlock | PartnersBlock)[]
+    | (
+        | HeroBlock
+        | RichTextBlock
+        | ServiceGridBlock
+        | CallToActionBlock
+        | FaqBlock
+        | ContactBlock
+        | PartnersBlock
+        | InquiryFormBlock
+      )[]
     | null;
   seo?: {
     /**
@@ -451,6 +460,24 @@ export interface PartnersBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'partners';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InquiryFormBlock".
+ */
+export interface InquiryFormBlock {
+  /**
+   * Jeden formularz na stronę — linki „#formularz” prowadzą do niego.
+   */
+  heading?: string | null;
+  text?: string | null;
+  /**
+   * Opcjonalnie, np. „Kasy fiskalne” — trafia do tematu powiadomienia i do panelu.
+   */
+  category?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'inquiryForm';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -861,6 +888,7 @@ export interface PagesSelect<T extends boolean = true> {
         faq?: T | FaqBlockSelect<T>;
         contact?: T | ContactBlockSelect<T>;
         partners?: T | PartnersBlockSelect<T>;
+        inquiryForm?: T | InquiryFormBlockSelect<T>;
       };
   seo?:
     | T
@@ -971,6 +999,17 @@ export interface ContactBlockSelect<T extends boolean = true> {
 export interface PartnersBlockSelect<T extends boolean = true> {
   heading?: T;
   lead?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InquiryFormBlock_select".
+ */
+export interface InquiryFormBlockSelect<T extends boolean = true> {
+  heading?: T;
+  text?: T;
+  category?: T;
   id?: T;
   blockName?: T;
 }

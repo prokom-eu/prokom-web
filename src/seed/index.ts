@@ -11,6 +11,7 @@ import {
   SAMPLE_COMPANY,
   SAMPLE_PARTNER_NAME,
   sampleImageAlt,
+  missingSampleBlocks,
   samplePages,
   sampleSiteSettings,
 } from './sample'
@@ -129,13 +130,28 @@ try {
     }
 
     for (const page of samplePages(tenant, imageDoc.id)) {
-      const { totalDocs: pageCount } = await payload.count({
+      const {
+        docs: [existingPage],
+      } = await payload.find({
         collection: 'pages',
         where: { and: [{ tenant: { equals: tenantDoc.id } }, { slug: { equals: page.slug } }] },
+        limit: 1,
+        depth: 0,
         overrideAccess: true,
       })
-      if (pageCount > 0) {
-        payload.logger.info(`Seed: page "${tenant.slug}/${page.slug}" already exists, skipped.`)
+      if (existingPage) {
+        const missing = missingSampleBlocks(existingPage.layout, page.layout ?? [])
+        if (missing.length === 0) {
+          payload.logger.info(`Seed: page "${tenant.slug}/${page.slug}" already exists, skipped.`)
+          continue
+        }
+        await payload.update({
+          collection: 'pages',
+          id: existingPage.id,
+          data: { layout: [...(existingPage.layout ?? []), ...missing], _status: 'published' },
+          overrideAccess: true,
+        })
+        payload.logger.info(`Seed: page "${tenant.slug}/${page.slug}" got new sample blocks.`)
         continue
       }
       await payload.create({
