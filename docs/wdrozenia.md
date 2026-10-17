@@ -6,8 +6,8 @@
 | Środowisko | Gałąź | Adres | Baza | Indeksowanie |
 |---|---|---|---|---|
 | lokalne | dowolna | `*.localhost:3000` | Docker lokalnie | — |
-| staging | `develop` | `staging.<domena>` (hasło) | `prokom_staging` | `noindex` |
-| produkcja | `main` | domeny docelowe | `prokom_prod` | tak |
+| staging | `develop` | `staging.<domena>` (hasło) | `prokom_staging` (stos `prokom-staging`) | `noindex` |
+| produkcja | `main` | domeny docelowe | `prokom_prod` (stos `prokom-prod`) | tak |
 
 ## Pipeline (GitHub Actions)
 1. PR → lint, typecheck, test, build, gitleaks.
@@ -23,6 +23,30 @@
 - `/api/health` odpowiada na każdym hoście (200 / 503, bez danych). Każda odpowiedź ma `X-Request-Id` (przyjęty z Nginx `$request_id` albo nowy) — ten sam identyfikator jest w logach.
 - Logi: JSON na stdout (`level`, `time`, `msg`, `tenant`, `requestId`) — `lib/log.ts` i logger Payload w produkcji. Odczyt: `docker compose -f docker/compose.prod.yml logs app`.
 - Smoke test: `PANEL_HOST=<domena panelu> bash scripts/smoke.sh http://127.0.0.1:3000 <domena> …` (Host w nagłówku; bez domen — trzy lokalne `*.localhost`, panel domyślnie `panel.localhost`).
+
+## Nginx i staging (S9b-1)
+Trzy stosy Docker Compose na jednym serwerze, połączone siecią `prokom-proxy`:
+- `docker/compose.proxy.yml` (`prokom-proxy`): Nginx + certbot, jedyny z portami 80/443. Konfiguracja w `docker/nginx/`: `nginx.conf`, `snippets/`, `templates/` (domeny z `.env.proxy`). Aplikacje znajduje po nazwie kontenera (`prokom-prod-app-1`, `prokom-staging-app-1`) w chwili żądania, więc startuje także, gdy jeden stos nie działa.
+- `docker/compose.prod.yml` (`prokom-prod`) i ta sama definicja + `docker/compose.staging.yml` (`prokom-staging`): osobne bazy, wolumeny i limity pamięci.
+
+Co robi Nginx:
+- HTTP → HTTPS (301), poza `/.well-known/acme-challenge/` (odnawianie certyfikatów).
+- Obce hosty: brak odpowiedzi (444, a przez HTTPS bez certyfikatu).
+- Nadpisuje nagłówki od klienta: `Host`, `X-Real-IP` (limit zapytań w aplikacji), `X-Forwarded-For`, `X-Forwarded-Proto`, `X-Request-Id` (`$request_id` — ten sam identyfikator w logu Nginx i aplikacji).
+- Nagłówki: HSTS (bez `includeSubDomains`, bo pro-kom.eu ma inne usługi), `nosniff`, `Referrer-Policy`, `Permissions-Policy`, bazowe CSP (`frame-ancestors`, `base-uri`, `object-src`, `form-action`). Strony: ramki zabronione, poza `/podglad/` (tylko z domeny panelu). Panel: ramki tylko z własnej domeny.
+- Limity: body 64 KB na domenach stron, 20 MB na panelu (obrazy); `/api/health` 1 żądanie/s na IP (zapas 10), `/api/inquiry` 10/min na IP (zapas 5) — odpowiedź 429.
+- Staging: hasło (basic auth) i `X-Robots-Tag: noindex, nofollow` na wszystkim.
+- Logi JSON na stdout, adres **bez query** (tokeny podglądu nie trafiają do logów).
+
+Pierwsze uruchomienie na serwerze (S10, szczegóły w runbooku):
+1. `docker network create prokom-proxy` (raz).
+2. Plik hasła stagingu poza repo: `printf "szef:%s
+" "$(openssl passwd -apr1)" > ../secrets/staging.htpasswd` (ścieżka w `STAGING_HTPASSWD_FILE`, względna do `docker/`).
+3. Pierwsze certyfikaty, zanim wystartuje Nginx (bez nich nie ruszy): `certbot certonly --standalone --cert-name prokom-prod -d …` i tak samo `prokom-staging` — na wolumenie `prokom-proxy_letsencrypt`. Później odnawia kontener `certbot` (co 12 h), a Nginx przeładowuje się co 6 h.
+4. `docker compose --env-file .env.proxy -f docker/compose.proxy.yml up -d`, potem stosy aplikacji.
+5. Smoke przez Nginx: `PANEL_HOST=<panel> bash scripts/smoke.sh https://127.0.0.1 <domeny…>` (staging: `SMOKE_AUTH=użytkownik:hasło`).
+
+Test lokalny (S9b-1, 17.10): certyfikaty self-signed, porty 18080/18443, `SMOKE_INSECURE=1` — smoke zielony, nagłówki jak wyżej, staging 401 bez hasła, obcy host 444, 413 dla dużego body, 429 na health, ten sam `requestId` w obu logach.
 
 ## Kopie zapasowe
 - Co noc: `pg_dump` (prod i staging) + katalog mediów → poza serwer (inna lokalizacja/dostawca), szyfrowane. Retencja: 14 dziennych + 3 miesięczne.

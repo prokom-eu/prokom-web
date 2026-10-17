@@ -1,0 +1,24 @@
+# Staging stack (ADR-004): the production file with a few differences, run as its own project
+# with its own database and volumes, next to production on the same server:
+#   docker compose --env-file .env.staging -f docker/compose.prod.yml -f docker/compose.staging.yml up -d
+# `.env.staging`: like `.env.prod` with SITE_ENV=staging, APP_PORT=3001, ENV_FILE=../.env.staging
+# and DATABASE_URL ending in /prokom_staging. Nginx adds the password and noindex.
+
+name: prokom-staging
+
+services:
+  app:
+    deploy:
+      resources:
+        limits:
+          memory: 1024m
+
+  postgres:
+    environment:
+      POSTGRES_DB: prokom_staging
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U prokom -d prokom_staging']
+    deploy:
+      resources:
+        limits:
+          memory: 512m
