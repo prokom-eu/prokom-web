@@ -1,8 +1,11 @@
 import { describe, expect, it } from 'vitest'
 
-import { decideRoute } from './routing'
+import { isValidPageSlug } from '../pages/slug'
+import { decideRoute, NOT_FOUND_SEGMENT } from './routing'
 
 const panelHost = 'panel.localhost'
+// 404 of a site domain is rendered by the site (its header and footer), not the proxy.
+const SITE_404 = { type: 'notFoundPage', pathname: '/biznes.localhost/_404' }
 
 function route(host: string | null, pathname: string) {
   return decideRoute({ host, pathname, panelHost })
@@ -28,6 +31,10 @@ describe('decideRoute — panel domain', () => {
 })
 
 describe('decideRoute — site domains', () => {
+  it('uses a 404 segment that can never be a page slug', () => {
+    expect(isValidPageSlug(NOT_FOUND_SEGMENT)).toBe(false)
+  })
+
   it('rewrites a page to the domain segment', () => {
     expect(route('Biznes.localhost:3000', '/')).toEqual({
       type: 'rewrite',
@@ -42,13 +49,13 @@ describe('decideRoute — site domains', () => {
   it.each(['/admin', '/admin/', '/admin/login', '/api', '/api/users', '/api/graphql'])(
     'returns 404 for %s',
     (pathname) => {
-      expect(route('biznes.localhost:3000', pathname)).toEqual({ type: 'notFound' })
+      expect(route('biznes.localhost:3000', pathname)).toEqual(SITE_404)
     },
   )
 
   it('blocks the admin and API even when the path looks like a file', () => {
-    expect(route('biznes.localhost', '/api/users/file/x.png')).toEqual({ type: 'notFound' })
-    expect(route('biznes.localhost', '/admin/x.js')).toEqual({ type: 'notFound' })
+    expect(route('biznes.localhost', '/api/users/file/x.png')).toEqual(SITE_404)
+    expect(route('biznes.localhost', '/admin/x.js')).toEqual(SITE_404)
   })
 
   it('serves uploaded images (file access is checked by Payload per host)', () => {
@@ -75,7 +82,7 @@ describe('decideRoute — site domains', () => {
     '/api/media/file/a.png/',
     '/api/partners/file/../users',
   ])('keeps the rest of the upload API closed: %s', (pathname) => {
-    expect(route('biznes.localhost', pathname)).toEqual({ type: 'notFound' })
+    expect(route('biznes.localhost', pathname)).toEqual(SITE_404)
   })
 
   it('serves uploaded images only to GET and HEAD', () => {
@@ -87,8 +94,15 @@ describe('decideRoute — site domains', () => {
           method,
           panelHost,
         }),
-      ).toEqual({ type: 'notFound' })
+      ).toEqual(SITE_404)
     }
+  })
+
+  it.each(['/robots.txt', '/sitemap.xml'])('rewrites %s to the domain segment', (pathname) => {
+    expect(route('software.localhost:3000', pathname)).toEqual({
+      type: 'rewrite',
+      pathname: `/software.localhost${pathname}`,
+    })
   })
 
   it('does not treat similar paths as the admin', () => {

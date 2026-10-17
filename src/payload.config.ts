@@ -9,6 +9,7 @@ import { fileURLToPath } from 'url'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Partners } from './collections/Partners'
+import { Redirects } from './collections/Redirects'
 import { SiteSettings } from './collections/SiteSettings'
 import { Tenants } from './collections/Tenants'
 import { Users } from './collections/Users'
@@ -29,7 +30,7 @@ export default buildConfig({
     },
   },
   // New collections go after `Pages`: inserting earlier renumbers Payload's index names (S5).
-  collections: [Users, Tenants, SiteSettings, Pages, Media, Partners],
+  collections: [Users, Tenants, SiteSettings, Pages, Media, Partners, Redirects],
   globals: [CompanyData],
   editor: lexicalEditor(),
   jobs: {
@@ -56,6 +57,7 @@ export default buildConfig({
       collections: {
         pages: {},
         media: {},
+        redirects: {},
         // One settings document per tenant (unique tenant field).
         'site-settings': { isGlobal: true },
       },

@@ -120,7 +120,7 @@ Wszystkie kolekcje mają pole `tenant`; slugi są unikalne w obrębie tenanta.
   - `BreadcrumbList`;
   - `FAQPage`;
   - `Article`.
-- Przekierowania 301 ze starych adresów pro-kom.eu przez wtyczkę Redirects; lista w osobnym zadaniu.
+- Przekierowania 301 ze starych adresów pro-kom.eu przez kolekcję `Redirects` (własna zamiast wtyczki — uzupełnienie ADR-006, S7b); lista w osobnym zadaniu.
 
 ### 2.4 Indeks wyszukiwarki
 - Indeks to `GET /api/catalog-index` (route handler Next).

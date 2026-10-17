@@ -1,6 +1,8 @@
 import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
 
+import { getEnv } from '@/lib/env'
+import { siteOrigin } from '@/lib/seo/origin'
 import { getTenantByHost, type SiteTenant } from '@/lib/tenant/byHost'
 import { normalizeHost } from '@/lib/tenant/host'
 
@@ -12,11 +14,22 @@ import { normalizeHost } from '@/lib/tenant/host'
  * `/<other domain>` can never render another tenant, whatever the proxy rules let through.
  */
 export async function requireTenant(params: Promise<{ domain: string }>): Promise<SiteTenant> {
-  const [{ domain }, requestHeaders] = await Promise.all([params, headers()])
-  const host = normalizeHost(requestHeaders.get('host'))
-  if (!host || domain !== host) notFound()
-
-  const tenant = await getTenantByHost(host)
+  const tenant = await findTenant(params)
   if (!tenant) notFound()
   return tenant
+}
+
+/** Same checks as `requireTenant`, but `null` instead of `notFound()` — for route handlers. */
+export async function findTenant(params: Promise<{ domain: string }>): Promise<SiteTenant | null> {
+  const [{ domain }, requestHeaders] = await Promise.all([params, headers()])
+  const host = normalizeHost(requestHeaders.get('host'))
+  if (!host || domain !== host) return null
+  return getTenantByHost(host)
+}
+
+/** Origin of the request's domain (`lib/seo/origin`), for canonical, sitemap and JSON-LD. */
+export async function requestOrigin(): Promise<string> {
+  const origin = siteOrigin((await headers()).get('host'), getEnv().SITE_ENV)
+  if (!origin) notFound()
+  return origin
 }

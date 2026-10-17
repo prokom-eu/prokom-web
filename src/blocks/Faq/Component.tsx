@@ -1,12 +1,16 @@
 import { Heading } from '@/components/ui/Heading'
 import { Section } from '@/components/ui/Section'
+import { faqJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
 import type { FaqBlock as FaqBlockData } from '@/payload-types'
 
 // `<details>` works without JavaScript and is accessible by default.
-// TODO(S7): FAQPage structured data.
 export function FaqBlock({ block }: { block: FaqBlockData }) {
   return (
     <Section>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(faqJsonLd(block.items)) }}
+      />
       <div className="max-w-3xl">
         {block.heading && <Heading level={2}>{block.heading}</Heading>}
         <div className="mt-8 divide-y divide-border border-y border-border">

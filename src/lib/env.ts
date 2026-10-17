@@ -18,6 +18,9 @@ const envSchema = z.object({
   // Directory for uploaded files (relative to the app's working directory or absolute);
   // a Docker volume on the server (S9). Each upload collection has a subfolder.
   MEDIA_DIR: z.string().min(1).default('media'),
+  // Which deployment this is: staging is never indexed (noindex, robots `Disallow: /`);
+  // `local` serves http:// addresses, the others https:// (canonical, sitemap).
+  SITE_ENV: z.enum(['production', 'staging', 'local']).default('local'),
 })
 
 export type Env = z.infer<typeof envSchema>

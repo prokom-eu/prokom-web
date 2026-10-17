@@ -1,5 +1,7 @@
 import type { CompanyDatum, SiteSetting } from '@/payload-types'
 
+import { publicImage, type PublicImage } from '../media/public'
+import { tenantIdOf } from '../tenant/id'
 import { isPromoActive } from './promo'
 
 type Link = { label: string; href: string }
@@ -26,7 +28,7 @@ export type PublicSiteSettings = {
   email: string | null
   navigation: Link[]
   footer: { text: string | null; links: Link[] }
-  seo: { titleTemplate: string | null; description: string | null }
+  seo: { titleTemplate: string | null; description: string | null; ogImage: PublicImage | null }
 }
 
 const toLinks = (rows: { label: string; href: string }[] | null | undefined): Link[] =>
@@ -57,6 +59,7 @@ export function toPublicCompanyData(doc: CompanyDatum, now: Date): PublicCompany
 }
 
 export function toPublicSiteSettings(doc: SiteSetting): PublicSiteSettings {
+  const tenantId = tenantIdOf(doc.tenant)
   return {
     phone: doc.phone ?? null,
     email: doc.email ?? null,
@@ -65,6 +68,8 @@ export function toPublicSiteSettings(doc: SiteSetting): PublicSiteSettings {
     seo: {
       titleTemplate: doc.seo?.titleTemplate ?? null,
       description: doc.seo?.description ?? null,
+      // Populated when read with depth 1; only a public image of this tenant (`publicImage`).
+      ogImage: tenantId === null ? null : publicImage(doc.seo?.ogImage, tenantId),
     },
   }
 }
