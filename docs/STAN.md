@@ -40,8 +40,8 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 
 ## Następne kroki
 1. S1 → S9 według `docs/zadania/fundament.md`, po kolei, każda sesja = jeden PR.
-2. Domeny (prokombiznes.pl, prokominstalacje.pl, prokomsoftware.pl) — zakup 16.10.
-3. VPS Seohost — zamówienie w tygodniu 19–23.10 → S10 (staging).
+2. Domeny (prokombiznes.pl, prokominstalacje.pl, prokomsoftware.pl) i VPS Seohost — zakup i zamówienie w poniedziałek 19.10 rano (potwierdzone 17.10) → S10 (staging) 20–21.10.
+3. Plan budowy prokombiznes.pl: `docs/zadania/prokombiznes.md` (sesje B0–B11, B0 = decyzje 18.10).
 4. Po fundamencie: budowa prokombiznes.pl wg `docs/strony/prokombiznes.md` §10 i planu sesji w `docs/design/prokombiznes/PRZEKAZANIE.md` §3 (termin 26.10 — w razie braku czasu tniemy od końca listy).
 5. Skrzynki `biznes@`, `instalacje@`, `software@pro-kom.eu` — założyć przed 26.10 (Krystian + szef, Thunderbird); dopisać do listy skrzynek przy migracji poczty do Seohost (ADR-002).
 
