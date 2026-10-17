@@ -11,7 +11,15 @@ const valid = {
 
 describe('parseEnv', () => {
   it('accepts a valid environment', () => {
-    expect(parseEnv(valid)).toEqual({ ...valid, MEDIA_DIR: 'media' })
+    expect(parseEnv(valid)).toEqual({ ...valid, MEDIA_DIR: 'media', SITE_ENV: 'local' })
+  })
+
+  it('accepts staging as SITE_ENV', () => {
+    expect(parseEnv({ ...valid, SITE_ENV: 'staging' }).SITE_ENV).toBe('staging')
+  })
+
+  it('rejects an unknown SITE_ENV', () => {
+    expect(() => parseEnv({ ...valid, SITE_ENV: 'prod' })).toThrow(/SITE_ENV/)
   })
 
   it('accepts a custom MEDIA_DIR', () => {

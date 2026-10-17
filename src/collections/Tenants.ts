@@ -2,6 +2,7 @@ import { APIError } from 'payload'
 import type { ArrayField, CollectionBeforeDeleteHook, CollectionConfig, FieldHook } from 'payload'
 
 import { adminOnly } from '../lib/auth/access'
+import { clearRedirectCache } from '../lib/redirects/byHost'
 import { clearTenantCache } from '../lib/tenant/byHost'
 import { findDuplicateHosts, normalizeHost } from '../lib/tenant/host'
 import { LINES } from '../lib/tenant/lines'
@@ -59,7 +60,7 @@ const validateDomains: ArrayField['validate'] = async (value, { id, req }) => {
  * Tenant-scoped content would otherwise be orphaned (`ON DELETE set null`).
  */
 const preventDeleteWhileInUse: CollectionBeforeDeleteHook = async ({ id, req }) => {
-  const [users, settings, pages, media] = await Promise.all([
+  const [users, settings, pages, media, redirects] = await Promise.all([
     req.payload.count({
       collection: 'users',
       where: { 'tenants.tenant': { equals: id } },
@@ -80,6 +81,12 @@ const preventDeleteWhileInUse: CollectionBeforeDeleteHook = async ({ id, req }) 
     }),
     req.payload.count({
       collection: 'media',
+      where: { tenant: { equals: id } },
+      overrideAccess: true,
+      req,
+    }),
+    req.payload.count({
+      collection: 'redirects',
       where: { tenant: { equals: id } },
       overrideAccess: true,
       req,
@@ -121,6 +128,21 @@ const preventDeleteWhileInUse: CollectionBeforeDeleteHook = async ({ id, req }) 
       true,
     )
   }
+  if (redirects.totalDocs > 0) {
+    throw new APIError(
+      `Tej strony nie można usunąć: ma przekierowania (${redirects.totalDocs}). ` +
+        'Wyłącz ją polem „Aktywna” albo najpierw usuń jej przekierowania.',
+      400,
+      null,
+      true,
+    )
+  }
+}
+
+// Redirect rules are cached per host too, so a domain change must clear them as well.
+function clearCaches(): void {
+  clearTenantCache()
+  clearRedirectCache()
 }
 
 export const Tenants: CollectionConfig = {
@@ -139,9 +161,9 @@ export const Tenants: CollectionConfig = {
     delete: adminOnly,
   },
   hooks: {
-    afterChange: [() => clearTenantCache()],
+    afterChange: [clearCaches],
     beforeDelete: [preventDeleteWhileInUse],
-    afterDelete: [() => clearTenantCache()],
+    afterDelete: [clearCaches],
   },
   fields: [
     { name: 'name', label: 'Nazwa', type: 'text', required: true },

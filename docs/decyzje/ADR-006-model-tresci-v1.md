@@ -18,7 +18,7 @@ Fundament ma obsłużyć wszystkie przyszłe strony linii, zanim powstaną ich s
 | `Media` | per tenant | obrazy z **wymaganym** `alt`, rozmiary pod `next/image` |
 | `Partners` | wspólna | nazwa, logo (tylko oficjalne pliki), link, na których tenantach widoczny |
 | `Inquiries` | per tenant | wg ADR-003 |
-| `Redirects` | wtyczka | 301, per domena |
+| `Redirects` | kolekcja (własna, uzupełnienie S7b) | 301, per domena |
 
 **Bloki generyczne:** Hero, Tekst (rich text), Siatka usług/kafelków, CTA, FAQ, Partnerzy, Formularz, Kontakt.
 
@@ -34,6 +34,8 @@ Fundament ma obsłużyć wszystkie przyszłe strony linii, zanim powstaną ich s
 **Uzupełnienie (17.10.2026, S7a):**
 - `Media` (per tenant) ma oprócz wymaganego `alt` pola `source` (źródło/autor) i `requiresConsent` (np. logo klienta bez pisemnej zgody) — z ADR-012. Publicznie plik jest serwowany tylko na domenie swojego tenanta i tylko bez `requiresConsent` (dostęp `read` Payload, sprawdzany też przy serwowaniu pliku). Na domenach stron otwarte jest wyłącznie `GET/HEAD /api/{media,partners}/file/<plik>`; reszta API nadal 404. Formaty: JPEG, PNG, WebP (bez SVG — skrypt w SVG wykonałby się na domenie strony). Rozmiary 480/960/1600 px w WebP robi Payload przy wgraniu; `next/image` dostaje je przez własny loader zamiast optymalizatora Next (jego wewnętrzne żądanie nie ma nagłówka `Host`, od którego zależą routing i dostęp). AVIF — nie teraz.
 - `Partners` to **jedna kolekcja dla partnerów i marek** (także `brands` z ADR-012): rekord jest plikiem logo (upload), `name`, `website`, `partnerStatus` (marka / autoryzowany serwis / autoryzowany partner), `tenants` (gdzie widoczny), `order`. Edytuje admin i edytor (jak `CompanyData` — zaufane osoby), usuwa admin.
+
+**Uzupełnienie (17.10.2026, S7b):** `Redirects` to **własna kolekcja per tenant** zamiast oficjalnej wtyczki — pole `from` wtyczki jest unikalne globalnie, a ta sama stara ścieżka może istnieć na kilku domenach. Pola: `from` (sama ścieżka, zapisywana w postaci znormalizowanej: odkodowana, bez końcowego `/`, bez `?` i `#`), `to` (ścieżka tej strony albo adres `https://`); unikalne `(tenant, from)` (z czytelnym komunikatem przy zapisie), bez pętli: cel nie może być źródłem innej reguły tego tenanta. Przekierowanie **301** wykonuje `proxy.ts` (Node, Next 16) przed jakąkolwiek stroną, więc reguła ma pierwszeństwo przed stroną pod tym samym adresem. Reguły są trzymane per host w pamięci procesu (60 s, czyszczone po zapisie reguły lub tenanta). `Location` jest absolutny, z `Host` żądania i `SITE_ENV` (jak canonical); odpowiedź ma `Cache-Control: max-age=86400`, żeby pomyłkę dało się odkręcić. Gdy reguł nie da się odczytać (błąd bazy), proxy przepuszcza żądanie dalej bez przekierowania.
 
 ## Konsekwencje
 - Nowa strona linii = rekord `Tenants` + `SiteSettings` + treści, ewentualnie nowe bloki z jej specyfikacji.

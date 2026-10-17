@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import { RenderBlocks } from '@/components/RenderBlocks'
 import { getPublishedPage } from '@/lib/pages/data'
 import { pageMetadata } from '@/lib/pages/metadata'
+import { getSiteSettings } from '@/lib/site/data'
 import { slugFromSegment } from '@/lib/pages/slug'
 
 import { requireTenant } from '../tenant'
@@ -18,8 +19,10 @@ async function load(params: Props['params']) {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { page } = await load(params)
-  return page ? pageMetadata(page) : {}
+  const { tenant, page } = await load(params)
+  if (!page) return {}
+  const settings = await getSiteSettings(tenant.id)
+  return pageMetadata(page, { name: tenant.name, ogImage: settings?.seo.ogImage ?? null })
 }
 
 /** Subpage of a tenant (flat addresses: `/kontakt`). Unknown or unpublished → 404. */

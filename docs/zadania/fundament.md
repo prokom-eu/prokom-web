@@ -61,7 +61,7 @@ ADR do przeczytania przed fundamentem: 001, 003, 004, 005, 006, 007.
 **Gotowe, gdy:** trzy domeny w trzech kolorach linii; zero błędów axe; kontrasty w testach.
 
 ## S7 — media, SEO, przekierowania
-**Zakres:** `Media` (wymagany `alt`, rozmiary, WebP/AVIF, zapis na dysku), `Partners`; metadane z `SiteSettings` + `Pages`; `sitemap.xml` i `robots.txt` per domena; dane strukturalne `LocalBusiness`/`Organization` z `CompanyData`; canonical; wtyczka Redirects (301 per domena); własne 404 i strona błędu; `noindex` gdy `SITE_ENV=staging`.
+**Zakres:** `Media` (wymagany `alt`, rozmiary, WebP/AVIF, zapis na dysku), `Partners`; metadane z `SiteSettings` + `Pages`; `sitemap.xml` i `robots.txt` per domena; dane strukturalne `LocalBusiness`/`Organization` z `CompanyData`; canonical; przekierowania `Redirects` (301 per domena; własna kolekcja zamiast wtyczki — uzupełnienie ADR-006, S7b); własne 404 i strona błędu; `noindex` gdy `SITE_ENV=staging`.
 **Gotowe, gdy:** sitemap i robots poprawne dla każdej domeny; staging ma `noindex`; test przekierowania 301.
 
 ## S8 — skrzynka zapytań

@@ -59,6 +59,30 @@ export const getPublishedPage = cache(
     )(),
 )
 
+export type PublishedPageEntry = Pick<Page, 'slug' | 'updatedAt'>
+
+/** Published pages of one tenant for its sitemap; cached under `pagesTag` like the pages. */
+export const getPublishedPageList = cache((tenantId: number): Promise<PublishedPageEntry[]> =>
+  unstable_cache(
+    async () => {
+      const payload = await getPayload({ config })
+      const { docs } = await payload.find({
+        collection: 'pages',
+        where: { and: [{ tenant: { equals: tenantId } }, { _status: { equals: 'published' } }] },
+        draft: false,
+        limit: 1000,
+        depth: 0,
+        sort: 'slug',
+        select: { slug: true, updatedAt: true },
+        overrideAccess: true,
+      })
+      return docs.map(({ slug, updatedAt }) => ({ slug, updatedAt }))
+    },
+    ['published-page-list', String(tenantId)],
+    { tags: [pagesTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
+  )(),
+)
+
 /**
  * Latest draft of a page for the live preview — never cached. Only when the page belongs to
  * the tenant of the requesting domain; the caller has already verified the preview token.

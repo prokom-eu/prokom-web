@@ -32,7 +32,8 @@ export const getSiteSettings = cache(
       collection: 'site-settings',
       where: { tenant: { equals: tenantId } },
       limit: 1,
-      depth: 0,
+      // 1: the OG image comes populated (`toPublicSiteSettings` keeps only a public one).
+      depth: 1,
       overrideAccess: true,
     })
     const [doc] = docs

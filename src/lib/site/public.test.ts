@@ -58,7 +58,7 @@ describe('toPublicSiteSettings', () => {
       email: null,
       navigation: [{ label: 'Kontakt', href: '/kontakt' }],
       footer: { text: null, links: [] },
-      seo: { titleTemplate: null, description: null },
+      seo: { titleTemplate: null, description: null, ogImage: null },
     })
   })
 })
