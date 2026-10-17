@@ -4,18 +4,30 @@
 
 /*
  * Tailwind knows only the brand tokens: the default palette and fonts are reset, so a class
- * like `bg-red-500` or `font-serif` does not exist (ADR-007). `inline` keeps the `var(--accent…)`
- * references, so each element resolves them against its own `data-line`.
+ * like `bg-red-500` or `font-serif` does not exist (ADR-007). Semantic names only (ADR-013):
+ * `bg-surface-2`, `text-ink-2`, `bg-accent-text text-accent-ink` — never a line's own colour.
+ * `inline` keeps the `var(--…)` references, so each element resolves them against its own
+ * `data-line` and `data-theme`.
  */
 @theme inline {
   --color-*: initial;
   --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
   --color-accent-text: var(--accent-text);
   --color-accent-on-dark: var(--accent-on-dark);
-  --color-grafit: var(--c-grafit);
-  --color-papier: var(--c-papier);
+  --color-accent-ink: var(--accent-ink);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-card: var(--card);
+  --color-surface-dark: var(--surface-dark);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-border: var(--border);
+  --color-glow: var(--glow);
+  --color-grid: var(--grid);
   --color-white: var(--c-white);
-  --color-border: var(--c-border);
 
   --font-*: initial;
   --font-sans: var(--font-manrope), system-ui, sans-serif;
@@ -24,8 +36,8 @@
 
 @layer base {
   html {
-    background-color: var(--c-white);
-    color: var(--c-grafit);
+    background-color: var(--surface);
+    color: var(--ink);
   }
 
   h1,

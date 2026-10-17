@@ -75,12 +75,12 @@ Używaj ich do odczytu treści i zachowań. **Nie przenoś tej architektury do N
 - **Archivo** (variable, oś `wdth`): nagłówki, liczby, numeracja.
   - H1: waga 800, `font-stretch: 118%`, `letter-spacing: -.025em`, `clamp(40px, 4.3vw, 64px)`, interlinia .98.
   - H2: 800, `font-stretch: 112%`, `-.02em`, `clamp(32px, 3.8vw, 52px)`, 1.02.
-  - Druga część H1 („Jeden telefon do wszystkiego.”) ma gradient `--acc → --acc2 → fiolet` przez `background-clip: text`. Wzór: `screens/Main-1440-light/01.jpg`.
+  - Druga część H1 („Jeden telefon do wszystkiego.”) ma gradient `--acc → --acc2 → fiolet` przez `background-clip: text`. **ADR-013: bez fioletu — tylko `--acc → --acc2`.** Wzór: `screens/Main-1440-light/01.jpg`.
 - **Manrope:** tekst.
   - lead: `clamp(17px, 1.4vw, 20px)`, interlinia 1.6, kolor `--ink2`, max 62ch;
   - treść: 15–17 px;
   - przyciski i etykiety: 700–800.
-- **Caveat:** wyłącznie podpis właściciela w sekcji Fakty.
+- **Caveat:** wyłącznie podpis właściciela w sekcji Fakty. **ADR-013: podpis jako SVG, bez kroju Caveat.**
 - **Eyebrow nad sekcją:** Manrope 800, wersaliki, 12–13 px, tracking .08em, kolor akcentu.
 - Fonty **self-hosted** (ADR-007), przez `next/font/local` albo pakiety `@fontsource-variable/archivo`, `@fontsource-variable/manrope`, `@fontsource/caveat`. Podzbiór latin + latin-ext. **Archivo musi mieć oś szerokości** (plik „standard” zawiera wght i wdth).
 

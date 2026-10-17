@@ -1,6 +1,6 @@
 # ADR-013: Wygląd linii z wizualizacji — neutralne kolory per linia, gradienty, tryb ciemny
 
-- **Status:** proponowana (szkic do akceptacji Krystiana)
+- **Status:** przyjęta (17.10.2026, decyzje w sekcji „Rozstrzygnięcia”)
 - **Data:** 2026-10-17
 - **Decyduje:** Krystian
 - **Częściowo zastępuje:** ADR-007 (punkt „tokeny z księgi znaku” w zakresie kolorów neutralnych i efektów) oraz brief `docs/strony/prokombiznes-design.md` z 15.10.2026 (§2 „Motyw zamknięty”, §4 „bez gradientów”, §10 „gradienty, tła z poświatą”).
@@ -23,7 +23,7 @@
 | B. **Neutralne kolory jako tokeny per linia** + motyw ciemny per linia + gradienty w wyznaczonych miejscach | wzorzec 1:1 dla Biznesu, mechanizm gotowy dla kolejnych linii, komponenty dalej nie znają linii | więcej tokenów, testy kontrastu dla dwóch motywów |
 | C. Osobny arkusz/komponenty dla Biznesu (`src/sites/biznes`) | szybko | dwa systemy wyglądu, rozjazd stron, łamie „jedna firma” z ADR-007 |
 
-## Decyzja (proponowana): B
+## Decyzja: B
 1. **Tokeny neutralne per linia.** Obok `--accent*` każda linia ustawia przez `[data-line]` także: `--surface`, `--surface-2`, `--surface-3`, `--ink`, `--ink-2`, `--ink-3`, `--border`, `--surface-dark` (ciemne bloki rytmu). Domyślnie (wszystkie linie bez własnej wizualizacji): biel / papier / grafit z `docs/marka.md`. Biznes: wartości z `docs/design/prokombiznes/tokens.css` (nazwy wizualizacji `--bg`, `--bg2`, `--ink`… mapujemy na nasze; wartości bez zmian).
 2. **Motyw ciemny** przez `data-theme="dark"` na `<html>` i `prefers-color-scheme: dark` (gdy użytkownik nie wybrał). Włączony tylko dla linii, która ma zaprojektowany motyw ciemny (dziś Biznes); pozostałe linie zostają jasne. Przełącznik motywu: zapis wyboru w `localStorage` (bez ciasteczek, bez danych osobowych).
 3. **Kolory linii i znak bez zmian:** akcent Biznesu to nadal `#244FB0` / `#4A7BE0` z księgi (wizualizacja używa tych samych). Napis PRO-KOM i pliki znaku tylko z `public/brand/` — nie z `docs/design/prokombiznes/boards/media/brand-*`.
@@ -42,10 +42,10 @@
    `--accInk` na `--acc` (napis przycisku): jasny 7,45, ciemny 4,66 — OK. Obramowania `--line` (1,25–1,29) są dekoracyjne; pola formularzy muszą mieć obramowanie ≥ 3:1 (WCAG 1.4.11) — osobny token.
 6. **Tailwind** dalej zna tylko tokeny (S6a); nowe tokeny dochodzą do `@theme`, wartości tylko w `src/styles/tokens.css`.
 
-## Do decyzji Krystiana (przed implementacją)
-- **Gradient H1** w wizualizacji: `--acc → --acc2 → fiolet`. Fiolet to kolor linii Software — mieszanie kolorów linii łamie zasadę „każda linia ma swój kolor” z księgi. Propozycja: `--acc → --acc2` bez fioletu.
-- **Caveat** (trzeci krój, tylko podpis właściciela): `docs/marka.md` przewiduje dwa kroje. Propozycja: dopuścić wyłącznie do tego jednego elementu, self-hosted jak pozostałe; albo podpis jako obraz SVG (zero dodatkowego fontu).
-- **Poświata i siatka tła** (`--glow`, `--grid`, rgba) — dopuszczone jak w wizualizacji czy tylko hero.
+## Rozstrzygnięcia (Krystian, 17.10.2026)
+- **Gradient H1:** `--acc → --acc2`, **bez fioletu** — fiolet to kolor linii Software, kolory linii się nie mieszają.
+- **Podpis właściciela:** **SVG** (ścieżka z `aria-label`/`alt`), bez kroju Caveat — marka zostaje przy dwóch krojach (Archivo, Manrope).
+- **Poświata i siatka tła** (`--glow`, `--grid`): **jak w wizualizacji** — wszędzie tam, gdzie używają ich plansze (hero, ciemne karty, produkty w motywie ciemnym), wyłącznie przez tokeny. Punkt 4 decyzji („tylko w wyznaczonych miejscach”) rozumiemy jako: miejsca z plansz `docs/design/prokombiznes/boards/`.
 
 ## Konsekwencje
 - S6b (szkielet strony) dostaje tokeny neutralne per linia i mechanizm motywu ciemnego; wygląd ogólny dla wszystkich domen, wartości Biznesu z wizualizacji. Komponenty używają `--surface*`, `--ink*`, `--accent*`, nigdy wartości.

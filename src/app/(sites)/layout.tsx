@@ -1,6 +1,7 @@
 import { headers } from 'next/headers'
 import React from 'react'
 
+import { hasDarkTheme, THEME_SCRIPT } from '@/lib/brand/theme'
 import { getTenantByHost } from '@/lib/tenant/byHost'
 import { normalizeHost } from '@/lib/tenant/host'
 
@@ -14,12 +15,20 @@ import './globals.css'
  */
 export default async function SitesRootLayout({ children }: { children: React.ReactNode }) {
   const host = normalizeHost((await headers()).get('host'))
+  const line = host ? await lineFor(host) : undefined
   return (
+    // The theme script may set `data-theme` before hydration (ADR-013), hence the suppression.
     <html
       lang="pl"
-      data-line={host ? await lineFor(host) : undefined}
+      data-line={line}
       className={`${archivo.variable} ${manrope.variable}`}
+      suppressHydrationWarning
     >
+      {line && hasDarkTheme(line) && (
+        <head>
+          <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+        </head>
+      )}
       <body>{children}</body>
     </html>
   )

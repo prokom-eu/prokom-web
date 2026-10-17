@@ -59,8 +59,10 @@ Ten sam odcień co kolor z księgi, przyciemniony do ≥ 4,5:1 na białym **i** 
 |---|---|---|
 | `--c-border` | `#E3E6DF` | obramowania kart i pól (1,5 px) — z briefu `strony/prokombiznes-design.md` |
 
-### Linie z własną wizualizacją (ADR-013, proponowana 17.10.2026)
+### Linie z własną wizualizacją (ADR-013, przyjęta 17.10.2026)
 Linia z zaakceptowaną wizualizacją może mieć własne kolory neutralne (tła, tekst, ciemne bloki) i motyw ciemny — dziś Biznes (`docs/design/prokombiznes/tokens.css`). Kolor linii z księgi i znak bez zmian. Szczegóły i ograniczenia kontrastu: `docs/decyzje/ADR-013-wyglad-linii-z-wizualizacji.md`.
+
+**W kodzie (S6b-1):** tokeny semantyczne w `src/styles/tokens.css` — `--surface`, `--surface-2`, `--surface-3`, `--card`, `--surface-dark`, `--ink`, `--ink-2`, `--ink-3`, `--border`, `--accent-2`, `--accent-ink`, `--glow`, `--grid` (obok `--accent*`). Linie bez wizualizacji: biel / papier / grafit (`--ink-2` i `--ink-3` = grafit, bo księga nie ma odcieni tekstu — `TODO(krystian):` jeśli mają powstać, z wizualizacją linii). Tryb ciemny: `data-theme` na `<html>` (wybór w `localStorage`, skrypt w `<head>` — `src/lib/brand/theme.ts`) albo `prefers-color-scheme`; tylko linie z `DARK_THEME_LINES`. Tailwind: `bg-surface-2`, `text-ink-2`, `bg-accent-text text-accent-ink` — klas `grafit`/`papier` już nie ma. Kontrast par tekst/tło w obu motywach: `src/styles/themes.test.ts`.
 
 ## Kroje pisma
 - **Archivo** — logo, nagłówki. **Manrope** — teksty. Licencja SIL OFL (bezpłatnie, także komercyjnie).

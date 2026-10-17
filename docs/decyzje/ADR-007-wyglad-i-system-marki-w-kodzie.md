@@ -2,7 +2,7 @@
 
 - **Status:** przyjęta
 - **Data:** 2026-10-14
-- **Uzupełnienie (17.10.2026):** kolory neutralne per linia, gradienty w wyznaczonych miejscach i tryb ciemny — **ADR-013** (proponowana). Do jej przyjęcia obowiązuje ten ADR bez zmian.
+- **Uzupełnienie (17.10.2026):** kolory neutralne per linia, gradienty w wyznaczonych miejscach i tryb ciemny — **ADR-013** (przyjęta 17.10.2026).
 
 ## Kontekst
 Wszystkie strony mają wyglądać jak jedna firma (wspólny pasek marki, nagłówek, stopka, formularze, fonty, odstępy), a różnić się kolorem linii i treścią. Część kolorów linii nie spełnia WCAG AA dla zwykłego tekstu (patrz `docs/marka.md`).
