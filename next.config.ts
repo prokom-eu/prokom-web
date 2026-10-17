@@ -7,6 +7,8 @@ const __filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(__filename)
 
 const nextConfig: NextConfig = {
+  // Docker image (ADR-004): `.next/standalone` holds the server and only the traced node_modules.
+  output: 'standalone',
   webpack: (webpackConfig) => {
     webpackConfig.resolve.extensionAlias = {
       '.cjs': ['.cts', '.cjs'],

@@ -15,6 +15,15 @@
 3. Merge `develop` → `main` **tylko po akceptacji szefa w Asanie** → ten sam obraz na produkcję → `pg_dump` → migracje → smoke test.
 4. Smoke test nie przechodzi → wdrożenie nieudane, automatyczny powrót do poprzedniego obrazu aplikacji (baza bez zmian), alert.
 
+## Obraz i start aplikacji (S9a)
+- `Dockerfile` (wieloetapowy): pełna instalacja → `pnpm build` (zmienne tylko atrapy) → obraz z `.next/standalone`, użytkownik `node`, `HEALTHCHECK` na `/api/health`. Lokalnie: `docker build -t prokom-web:local .`.
+- `.github/workflows/image.yml`: każdy push do `develop`/`main` → `ghcr.io/prokom-eu/prokom-web:<SHA>`.
+- `docker/compose.prod.yml`: `app` + `postgres` (wolumeny `pgdata`, `media`; limity pamięci; rotacja logów 5 × 10 MB). Zmienne w `.env.prod` obok repo (wzór: `.env.example`, sekcja „Server only”).
+- **Migracje** uruchamia sama aplikacja przy starcie (`prodMigrations` w `payload.config.ts`, tylko `NODE_ENV=production`) — wdrożenie jest gotowe, gdy `/api/health` odpowiada 200. Przed wdrożeniem produkcji: `pg_dump` (skrypt w S9b).
+- `/api/health` odpowiada na każdym hoście (200 / 503, bez danych). Każda odpowiedź ma `X-Request-Id` (przyjęty z Nginx `$request_id` albo nowy) — ten sam identyfikator jest w logach.
+- Logi: JSON na stdout (`level`, `time`, `msg`, `tenant`, `requestId`) — `lib/log.ts` i logger Payload w produkcji. Odczyt: `docker compose -f docker/compose.prod.yml logs app`.
+- Smoke test: `bash scripts/smoke.sh http://127.0.0.1:3000 <domena> …` (Host w nagłówku; bez domen — trzy lokalne `*.localhost`).
+
 ## Kopie zapasowe
 - Co noc: `pg_dump` (prod i staging) + katalog mediów → poza serwer (inna lokalizacja/dostawca), szyfrowane. Retencja: 14 dziennych + 3 miesięczne.
 - Przed każdym wdrożeniem produkcji: dodatkowy `pg_dump`.

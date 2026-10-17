@@ -20,6 +20,7 @@ import { CompanyData } from './globals/CompanyData'
 import { adminOnlyField, isAdmin } from './lib/auth/access'
 import { getEnv } from './lib/env'
 import { inquiryRetentionTask } from './lib/inquiry/retention'
+import { migrations } from './migrations'
 import type { Config } from './payload-types'
 
 const filename = fileURLToPath(import.meta.url)
@@ -74,6 +75,19 @@ export default buildConfig({
     tasks: [inquiryRetentionTask],
   },
   secret: env.PAYLOAD_SECRET,
+  // Production: Payload's own lines (migrations, jobs, errors) in the same JSON shape as
+  // `lib/log` (`level` as text, ISO `time`, `msg`); locally the readable default stays.
+  ...(env.NODE_ENV === 'production' && {
+    logger: {
+      options: {
+        level: 'info',
+        base: null,
+        messageKey: 'msg',
+        timestamp: () => `,"time":"${new Date().toISOString()}"`,
+        formatters: { level: (label: string) => ({ level: label }) },
+      },
+    },
+  }),
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
@@ -81,6 +95,9 @@ export default buildConfig({
     // ADR-009: schema changes only through versioned migrations, never dev `push`.
     push: false,
     migrationDir: path.resolve(dirname, 'migrations'),
+    // Production runs pending migrations itself when Payload starts (ADR-004, S9): the standalone
+    // image has no Payload CLI. Locally and in CI: `pnpm payload migrate`.
+    prodMigrations: migrations,
     pool: {
       connectionString: env.DATABASE_URL,
     },
