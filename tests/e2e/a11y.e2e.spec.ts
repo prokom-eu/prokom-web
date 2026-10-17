@@ -89,3 +89,19 @@ test.describe('dark theme switch', () => {
     await expect(page.getByRole('button', { name: 'Tryb ciemny' })).toHaveCount(0)
   })
 })
+
+test.describe('main navigation', () => {
+  // `usePathname` behind the host rewrite (proxy.ts) must match the browser address, both on
+  // the server and after hydration — otherwise the marker is missing or React reports a mismatch.
+  test('marks the current page and hydrates cleanly', async ({ page }) => {
+    const hydrationErrors: string[] = []
+    page.on('console', (message) => {
+      if (/hydrat/i.test(message.text())) hydrationErrors.push(message.text())
+    })
+    await page.goto(site('biznes.localhost', '/kontakt'))
+    const nav = page.getByRole('navigation', { name: 'Główna' })
+    await expect(nav.getByRole('link', { name: 'Kontakt' })).toHaveAttribute('aria-current', 'page')
+    await page.waitForLoadState('networkidle')
+    expect(hydrationErrors).toEqual([])
+  })
+})

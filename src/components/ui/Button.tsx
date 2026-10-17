@@ -11,7 +11,7 @@ const BASE =
 
 const VARIANT: Record<ButtonVariant, string> = {
   primary:
-    'bg-accent-text text-accent-ink hover:bg-ink hover:text-surface in-data-[surface=dark]:bg-white in-data-[surface=dark]:text-surface-dark in-data-[surface=dark]:hover:bg-white in-data-[surface=dark]:hover:underline',
+    'bg-accent-text text-accent-ink hover:bg-ink hover:text-surface in-data-[surface=dark]:bg-white in-data-[surface=dark]:text-surface-dark in-data-[surface=dark]:hover:underline',
   secondary:
     'border-2 border-accent-text text-accent-text hover:bg-surface-2 in-data-[surface=dark]:border-white in-data-[surface=dark]:text-white in-data-[surface=dark]:hover:bg-white in-data-[surface=dark]:hover:text-surface-dark',
 }

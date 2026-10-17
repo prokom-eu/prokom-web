@@ -41,7 +41,7 @@ export default async function TenantLayout({ children, params }: Props) {
       {company?.promo && <PromoBar promo={company.promo} />}
       <SiteHeader tenant={tenant} settings={settings} />
       <main id="tresc">{children}</main>
-      <SiteFooter line={tenant.line} company={company} settings={settings} />
+      <SiteFooter line={tenant.line} name={tenant.name} company={company} settings={settings} />
     </>
   )
 }

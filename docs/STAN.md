@@ -39,7 +39,7 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 5. Skrzynki `biznes@`, `instalacje@`, `software@pro-kom.eu` — założyć przed 26.10 (Krystian + szef, Thunderbird); dopisać do listy skrzynek przy migracji poczty do Seohost (ADR-002).
 
 ## Pomysły na później (poza zakresem bieżących sesji)
-- Z S6b-2 → zadanie #3 Biznesu (`docs/design/prokombiznes/PRZEKAZANIE.md`): mega menu Oferta, Branże ▾, wyszukiwarka, szuflada i licznik zapytania, dolny pasek na telefonie, status godzin na żywo w górnym pasku, pasek sezonowy z zamykaniem (`pk-sz-closed`), kolumny stopki Oferta i miejscowości, nagłówek półprzezroczysty wg wzorca (76 px jest, blur jest).
+- Z S6b-2 → zadanie #3 Biznesu (`docs/design/prokombiznes/PRZEKAZANIE.md`): mega menu Oferta, Branże ▾, wyszukiwarka, szuflada i licznik zapytania, dolny pasek na telefonie, status godzin na żywo w górnym pasku, pasek sezonowy z zamykaniem (`pk-sz-closed`), kolumny stopki Oferta i miejscowości, nagłówek półprzezroczysty wg wzorca (76 px jest, blur jest); przełącznik motywu na telefonie przenieść z nagłówka do menu pełnoekranowego (spec. §3.3 — dziś w nagłówku, bo menu pełnoekranowego jeszcze nie ma).
 - Z S6b-2: seed `kontakt` ma tytuł strony „Kontakt” i blok Kontakt z nagłówkiem „Kontakt” — na stronie dwa razy to samo (h1 + h2); przy treściach docelowych dać blokowi inny nagłówek albo pierwszy blok Hero.
 - Z S6b-1 (przegląd) → S8: token `--border-input` (obramowanie pól formularzy ≥ 3:1, WCAG 1.4.11, ADR-013 pkt 5) z testem kontrastu — dzisiejszy `--border` (~1,25:1) jest tylko dekoracyjny, nie używać go na `<input>`.
 - Z S6b-1 (przegląd) → S6b-2: `text-ink-3` tylko na `surface`/`card` (jasny Biznes: 4,21 na `surface-2`) — Tailwind tego nie blokuje, pilnować w blokach.

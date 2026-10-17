@@ -10,7 +10,11 @@ export function PromoBar({ promo }: { promo: Promo }) {
     <aside aria-label="Promocja" className="bg-accent-text text-sm text-accent-ink">
       <Container className="py-2 text-center font-semibold">
         {promo.href ? (
-          <a href={promo.href} className="underline decoration-2 underline-offset-4">
+          <a
+            href={promo.href}
+            // The global focus ring has the bar's own colour; use the label colour here.
+            className="underline decoration-2 underline-offset-4 focus-visible:outline-accent-ink"
+          >
             {promo.text}
           </a>
         ) : (

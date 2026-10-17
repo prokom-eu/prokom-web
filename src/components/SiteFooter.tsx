@@ -1,6 +1,6 @@
 import Image from 'next/image'
 
-import { BRAND_LINKS, brandAsset } from '@/lib/brand/lines'
+import { BRAND_LINKS, brandAsset, HORIZONTAL_LOGO_SIZE } from '@/lib/brand/lines'
 import type { PublicCompanyData, PublicSiteSettings } from '@/lib/site/public'
 import type { Line } from '@/lib/tenant/lines'
 
@@ -10,6 +10,8 @@ import { TextLink } from './ui/TextLink'
 
 type Props = {
   line: Line
+  /** Tenant name, the logo's alternative text (as in the header). */
+  name: string
   company: PublicCompanyData | null
   settings: PublicSiteSettings | null
 }
@@ -21,7 +23,7 @@ const COLUMN_HEADING = 'mb-3 font-display text-sm font-extrabold uppercase track
  * branches with opening hours (`CompanyData`) and the other PRO-KOM lines. Site-specific
  * columns (e.g. Biznes: offer groups, towns served) belong to that site's own task.
  */
-export function SiteFooter({ line, company, settings }: Props) {
+export function SiteFooter({ line, name, company, settings }: Props) {
   const lineContact = settings && (settings.phone || settings.email || settings.footer.text)
   const otherLines = BRAND_LINKS.filter((link) => link.line !== line)
   return (
@@ -30,9 +32,8 @@ export function SiteFooter({ line, company, settings }: Props) {
         <div>
           <Image
             src={brandAsset(line, 'poziome_negatyw.svg')}
-            alt={company?.name ?? 'PRO-KOM'}
-            width={836}
-            height={167}
+            alt={name}
+            {...HORIZONTAL_LOGO_SIZE}
             className="h-8 w-auto"
           />
           {lineContact && (

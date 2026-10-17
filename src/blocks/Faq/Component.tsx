@@ -12,7 +12,7 @@ export function FaqBlock({ block }: { block: FaqBlockData }) {
         <div className="mt-8 divide-y divide-border border-y border-border">
           {block.items.map((item, i) => (
             <details key={item.id ?? i} className="group">
-              <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 py-4 font-bold">
+              <summary className="flex min-h-14 cursor-pointer list-none items-center [&::-webkit-details-marker]:hidden justify-between gap-4 py-4 font-bold">
                 {item.question}
                 <span
                   aria-hidden="true"

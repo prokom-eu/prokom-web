@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { brandAsset } from '@/lib/brand/lines'
+import { brandAsset, HORIZONTAL_LOGO_SIZE as LOGO } from '@/lib/brand/lines'
 import { hasDarkTheme } from '@/lib/brand/theme'
 import type { PublicSiteSettings } from '@/lib/site/public'
 import type { SiteTenant } from '@/lib/tenant/byHost'
@@ -11,9 +11,6 @@ import { ThemeToggle } from './ThemeToggle'
 import { Container } from './ui/Container'
 
 type Props = { tenant: SiteTenant; settings: PublicSiteSettings | null }
-
-// Intrinsic size of the horizontal marks in `public/brand/` (all lines share the viewBox).
-const LOGO = { width: 836, height: 167 }
 
 const ICON_BUTTON =
   'inline-flex size-11 items-center justify-center rounded-xl border border-border text-ink hover:bg-surface-2'
@@ -52,7 +49,9 @@ export function SiteHeader({ tenant, settings }: Props) {
             <nav aria-label="Główna">
               <NavLinks links={links} className="hidden items-center gap-5 md:flex" />
               <details className="group relative md:hidden">
-                <summary className={`${ICON_BUTTON} cursor-pointer list-none`}>
+                <summary
+                  className={`${ICON_BUTTON} cursor-pointer list-none [&::-webkit-details-marker]:hidden`}
+                >
                   <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
                     <path
                       d="M4 7h16M4 12h16M4 17h16"

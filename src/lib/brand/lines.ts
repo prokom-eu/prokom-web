@@ -24,6 +24,9 @@ const FILE_PREFIX: Record<Line, string> = {
   software: 'prokom-software',
 }
 
+/** Intrinsic size of the horizontal marks (`poziome_*`); all lines share the viewBox. */
+export const HORIZONTAL_LOGO_SIZE = { width: 836, height: 167 } as const
+
 /** Public URL of a line's brand file, e.g. `/brand/prokom-biznes_poziome_kolor.svg`. */
 export function brandAsset(line: Line, asset: BrandAsset): string {
   return `/brand/${FILE_PREFIX[line]}_${asset}`
