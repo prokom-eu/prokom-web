@@ -11,7 +11,11 @@ const valid = {
 
 describe('parseEnv', () => {
   it('accepts a valid environment', () => {
-    expect(parseEnv(valid)).toEqual(valid)
+    expect(parseEnv(valid)).toEqual({ ...valid, MEDIA_DIR: 'media' })
+  })
+
+  it('accepts a custom MEDIA_DIR', () => {
+    expect(parseEnv({ ...valid, MEDIA_DIR: '/data/media' }).MEDIA_DIR).toBe('/data/media')
   })
 
   it('defaults NODE_ENV to development', () => {

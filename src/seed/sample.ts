@@ -55,8 +55,9 @@ type SamplePage = Pick<Page, 'title' | 'slug' | 'layout'>
 /**
  * Per-line SAMPLE pages: a start page and the contact page the sample navigation links to.
  * Texts name only their own line, so the isolation tests can tell the domains apart.
+ * The hero gets the line's sample image (`seed/media.ts`), when there is one.
  */
-export function samplePages(tenant: { name: string }): SamplePage[] {
+export function samplePages(tenant: { name: string }, heroImageId?: number): SamplePage[] {
   return [
     {
       title: 'Strona główna',
@@ -67,7 +68,9 @@ export function samplePages(tenant: { name: string }): SamplePage[] {
           heading: tenant.name,
           lead: `Przykładowa strona główna (${tenant.name}) — treść do zastąpienia w panelu.`,
           cta: { label: 'Kontakt', href: '/kontakt' },
+          image: heroImageId,
         },
+        { blockType: 'partners', heading: 'Partnerzy (przykład)' },
       ],
     },
     {
@@ -77,3 +80,9 @@ export function samplePages(tenant: { name: string }): SamplePage[] {
     },
   ]
 }
+
+/** Alt of the per-line sample image; the seed finds an existing one by it. */
+export const sampleImageAlt = (tenant: { name: string }) => `Obraz przykładowy — ${tenant.name}`
+
+/** One SAMPLE partner shown on every line, with a generated placeholder logo. */
+export const SAMPLE_PARTNER_NAME = 'Partner przykładowy'

@@ -46,7 +46,8 @@ export const getPublishedPage = cache(
           },
           draft: false,
           limit: 1,
-          depth: 0,
+          // 1: images in blocks come populated; `publicImage` re-checks tenant and consent.
+          depth: 1,
           // Server-side read; drafts never leave here (`draft: false` + status filter).
           overrideAccess: true,
         })
@@ -69,7 +70,7 @@ export async function getDraftPage(id: number, tenantId: number): Promise<Public
     where: { and: [{ id: { equals: id } }, { tenant: { equals: tenantId } }] },
     draft: true,
     limit: 1,
-    depth: 0,
+    depth: 1,
     overrideAccess: true,
   })
   const [doc] = docs

@@ -2,6 +2,7 @@ import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { ContactBlock } from '@/blocks/Contact/Component'
 import { FaqBlock } from '@/blocks/Faq/Component'
 import { HeroBlock } from '@/blocks/Hero/Component'
+import { PartnersBlock } from '@/blocks/Partners/Component'
 import { renderableBlocks } from '@/blocks/registry'
 import { RichTextBlock } from '@/blocks/RichText/Component'
 import { ServiceGridBlock } from '@/blocks/ServiceGrid/Component'
@@ -32,7 +33,7 @@ export function RenderBlocks({ page, tenant }: Props) {
         const key = block.id ?? `${block.blockType}-${i}`
         switch (block.blockType) {
           case 'hero':
-            return <HeroBlock key={key} block={block} isFirst={i === 0} />
+            return <HeroBlock key={key} block={block} isFirst={i === 0} tenantId={tenant.id} />
           case 'richText':
             return <RichTextBlock key={key} block={block} />
           case 'serviceGrid':
@@ -43,6 +44,8 @@ export function RenderBlocks({ page, tenant }: Props) {
             return <FaqBlock key={key} block={block} />
           case 'contact':
             return <ContactBlock key={key} block={block} tenantId={tenant.id} />
+          case 'partners':
+            return <PartnersBlock key={key} block={block} tenantId={tenant.id} />
         }
       })}
     </>

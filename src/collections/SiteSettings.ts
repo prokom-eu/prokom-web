@@ -1,6 +1,7 @@
 import type { CollectionConfig, Field } from 'payload'
 
 import { adminOnly } from '../lib/auth/access'
+import { tenantImageFilter } from '../lib/media/access'
 import { isValidNavHref } from '../lib/site/link'
 import { isValidTitleTemplate } from '../lib/site/title'
 
@@ -72,7 +73,16 @@ export const SiteSettings: CollectionConfig = {
           maxLength: 160,
           admin: { description: 'Domyślny opis w wynikach wyszukiwania (do 160 znaków).' },
         },
-        // TODO(S7): default OG image — needs the Media collection.
+        {
+          name: 'ogImage',
+          label: 'Obraz do udostępnień',
+          type: 'upload',
+          relationTo: 'media',
+          filterOptions: tenantImageFilter,
+          admin: {
+            description: 'Pokazuje się przy linku na Facebooku czy w komunikatorach (1200×630).',
+          },
+        },
       ],
     },
   ],

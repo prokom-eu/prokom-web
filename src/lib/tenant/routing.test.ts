@@ -47,8 +47,48 @@ describe('decideRoute — site domains', () => {
   )
 
   it('blocks the admin and API even when the path looks like a file', () => {
-    expect(route('biznes.localhost', '/api/media/file/logo.png')).toEqual({ type: 'notFound' })
+    expect(route('biznes.localhost', '/api/users/file/x.png')).toEqual({ type: 'notFound' })
     expect(route('biznes.localhost', '/admin/x.js')).toEqual({ type: 'notFound' })
+  })
+
+  it('serves uploaded images (file access is checked by Payload per host)', () => {
+    expect(route('biznes.localhost', '/api/media/file/hero-960x480.webp')).toEqual({
+      type: 'next',
+    })
+    expect(route('biznes.localhost', '/api/partners/file/posnet.png')).toEqual({ type: 'next' })
+    expect(
+      decideRoute({
+        host: 'biznes.localhost',
+        pathname: '/api/media/file/a.png',
+        method: 'HEAD',
+        panelHost,
+      }),
+    ).toEqual({ type: 'next' })
+  })
+
+  it.each([
+    '/api/media',
+    '/api/media/1',
+    '/api/media/file',
+    '/api/media/file/',
+    '/api/media/file/a/b.png',
+    '/api/media/file/a.png/',
+    '/api/partners/file/../users',
+  ])('keeps the rest of the upload API closed: %s', (pathname) => {
+    expect(route('biznes.localhost', pathname)).toEqual({ type: 'notFound' })
+  })
+
+  it('serves uploaded images only to GET and HEAD', () => {
+    for (const method of ['POST', 'PATCH', 'DELETE']) {
+      expect(
+        decideRoute({
+          host: 'biznes.localhost',
+          pathname: '/api/media/file/a.png',
+          method,
+          panelHost,
+        }),
+      ).toEqual({ type: 'notFound' })
+    }
   })
 
   it('does not treat similar paths as the admin', () => {
