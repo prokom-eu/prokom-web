@@ -1,9 +1,10 @@
 import { describe, expect, it } from 'vitest'
 
-import { CONSENT_CLAUSE } from './consent'
+import { CONSENT_CLAUSE, PRIVACY_POLICY_LINK_TEXT } from './consent'
 import {
   buildInquiryBody,
   checkRequired,
+  linkInText,
   readOutcome,
   sourceFromHref,
   type FormValues,
@@ -23,17 +24,25 @@ const values: FormValues = {
 }
 
 describe('sourceFromHref', () => {
-  it('keeps the page address without the fragment and reads the UTM parameters', () => {
+  it('keeps the page address without parameters or fragment, and reads the UTM parameters', () => {
     expect(
       sourceFromHref(
-        'https://prokombiznes.pl/kontakt?utm_source=google&utm_medium=cpc&utm_campaign=jesien&x=1#formularz',
+        'https://prokombiznes.pl/kontakt?utm_source=google&utm_medium=cpc&utm_campaign=jesien&gclid=abc#formularz',
       ),
     ).toEqual({
-      url: 'https://prokombiznes.pl/kontakt?utm_source=google&utm_medium=cpc&utm_campaign=jesien&x=1',
+      url: 'https://prokombiznes.pl/kontakt',
       utmSource: 'google',
       utmMedium: 'cpc',
       utmCampaign: 'jesien',
     })
+  })
+
+  it('fits the server limits however long the address is', () => {
+    const source = sourceFromHref(
+      `https://prokombiznes.pl/kontakt?fbclid=${'x'.repeat(3000)}&utm_source=${'g'.repeat(500)}`,
+    )
+    expect(source.url).toBe('https://prokombiznes.pl/kontakt')
+    expect(source.utmSource).toHaveLength(200)
   })
 
   it('leaves out missing UTM parameters', () => {
@@ -87,6 +96,14 @@ describe('readOutcome', () => {
     expect(outcome.formError).toBeUndefined()
   })
 
+  it('shows a general error when the server names no field', () => {
+    expect(readOutcome(400, { error: 'invalid', fields: [] })).toMatchObject({
+      kind: 'invalid',
+      fields: {},
+      formError: expect.stringMatching(/Nie udało się/),
+    })
+  })
+
   it('asks to reload when the clause version or the form is outdated', () => {
     const outdated = readOutcome(400, { error: 'invalid', fields: ['consent.clauseVersion'] })
     expect(outdated).toMatchObject({ kind: 'invalid', formError: expect.stringMatching(/Odśwież/) })
@@ -105,6 +122,24 @@ describe('readOutcome', () => {
       kind: 'error',
       message: expect.stringMatching(message),
     })
+  })
+})
+
+describe('linkInText', () => {
+  it('splits the clause around the policy words', () => {
+    expect(linkInText('Szczegóły w polityce prywatności.', 'polityce prywatności')).toEqual({
+      before: 'Szczegóły w ',
+      link: 'polityce prywatności',
+      after: '.',
+    })
+  })
+
+  it('returns null when the words are not in the text', () => {
+    expect(linkInText('Inna treść.', 'polityce prywatności')).toBeNull()
+  })
+
+  it('finds the words in the current clause', () => {
+    expect(linkInText(CONSENT_CLAUSE.text, PRIVACY_POLICY_LINK_TEXT)).not.toBeNull()
   })
 })
 

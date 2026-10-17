@@ -16,6 +16,9 @@ export const CONSENT_CLAUSE = {
 // TODO(krystian): confirm the response time with the boss (per line, if it differs).
 export const RESPONSE_TIME = 'w ciągu 1 dnia roboczego'
 
+/** Words of the clause that link to the policy (`linkInText`); keep them in the text. */
+export const PRIVACY_POLICY_LINK_TEXT = 'polityce prywatności'
+
 /** Same path on every domain; the page itself is a `Pages` entry of each site. */
 // TODO(krystian): create the privacy policy page on every site before production (404 until then).
 export const PRIVACY_POLICY_PATH = '/polityka-prywatnosci'

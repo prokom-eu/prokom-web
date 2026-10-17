@@ -5,10 +5,16 @@ import { useId, useRef, useState, type FormEvent } from 'react'
 import { Button } from '@/components/ui/Button'
 import { CheckboxField, TextAreaField, TextField } from '@/components/ui/Field'
 import { TextLink } from '@/components/ui/TextLink'
-import { CONSENT_CLAUSE, MARKETING_CONSENT_TEXT, PRIVACY_POLICY_PATH } from '@/lib/inquiry/consent'
+import {
+  CONSENT_CLAUSE,
+  MARKETING_CONSENT_TEXT,
+  PRIVACY_POLICY_LINK_TEXT,
+  PRIVACY_POLICY_PATH,
+} from '@/lib/inquiry/consent'
 import {
   buildInquiryBody,
   checkRequired,
+  linkInText,
   readOutcome,
   type FieldName,
   type FormValues,
@@ -27,6 +33,8 @@ type Status =
   | { kind: 'sending' }
   | { kind: 'sent'; emailed: boolean }
   | { kind: 'failed'; message?: string }
+
+const consentClause = linkInText(CONSENT_CLAUSE.text, PRIVACY_POLICY_LINK_TEXT)
 
 // Order of the fields on screen: the first invalid one gets the focus.
 const FIELD_ORDER: FieldName[] = ['name', 'company', 'email', 'phone', 'nip', 'message', 'consent']
@@ -101,10 +109,18 @@ export function InquiryForm({ formToken, category }: Props) {
     if (outcome.kind === 'sent') {
       showStatus({ kind: 'sent', emailed: values.email.trim() !== '' })
     } else if (outcome.kind === 'invalid') {
-      setStatus(
-        outcome.formError ? { kind: 'failed', message: outcome.formError } : { kind: 'idle' },
-      )
-      showErrors(outcome.fields, form)
+      const failed: Status = outcome.formError
+        ? { kind: 'failed', message: outcome.formError }
+        : { kind: 'idle' }
+      // With field errors the focus goes to the first field; without, to the message —
+      // the button was disabled while sending, so the focus would otherwise be lost.
+      if (Object.keys(outcome.fields).length > 0) {
+        setStatus(failed)
+        showErrors(outcome.fields, form)
+      } else {
+        setErrors({})
+        showStatus(failed)
+      }
     } else {
       showStatus({ kind: 'failed', message: outcome.message })
     }
@@ -121,7 +137,7 @@ export function InquiryForm({ formToken, category }: Props) {
         <p className="text-xl font-bold text-ink">Dziękujemy, zapytanie zostało wysłane.</p>
         <p className="mt-2 text-ink-2">
           Odpowiemy najszybciej, jak to możliwe.
-          {status.emailed && ' Na podany adres e-mail wysłaliśmy potwierdzenie.'}
+          {status.emailed && ' Na podany adres e-mail wyślemy potwierdzenie.'}
         </p>
       </div>
     )
@@ -142,7 +158,9 @@ export function InquiryForm({ formToken, category }: Props) {
         </p>
       </noscript>
       {status.kind === 'failed' && status.message && (
-        <div ref={statusRef} tabIndex={-1} role="alert" className="sm:col-span-2">
+        // Announced through the focus it receives (`showStatus`); `role="alert"` on top
+        // would make screen readers read it twice.
+        <div ref={statusRef} tabIndex={-1} className="sm:col-span-2">
           <p className="rounded-xl border-[3px] border-border-input bg-card p-4 font-bold text-ink">
             {status.message}
           </p>
@@ -211,7 +229,18 @@ export function InquiryForm({ formToken, category }: Props) {
         error={errors.consent}
         className="sm:col-span-2"
       >
-        {CONSENT_CLAUSE.text} <TextLink href={PRIVACY_POLICY_PATH}>Polityka prywatności</TextLink>
+        {consentClause ? (
+          <>
+            {consentClause.before}
+            <TextLink href={PRIVACY_POLICY_PATH}>{consentClause.link}</TextLink>
+            {consentClause.after}
+          </>
+        ) : (
+          <>
+            {CONSENT_CLAUSE.text}{' '}
+            <TextLink href={PRIVACY_POLICY_PATH}>Polityka prywatności</TextLink>
+          </>
+        )}
       </CheckboxField>
       <CheckboxField id={fieldId('marketing')} name="marketingConsent" className="sm:col-span-2">
         {MARKETING_CONSENT_TEXT}

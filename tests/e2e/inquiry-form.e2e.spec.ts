@@ -53,11 +53,12 @@ test.describe('inquiry form (S8b)', () => {
       `/api/inquiries?where[name][equals]=${encodeURIComponent(marker)}&depth=0`,
     )
     const [record] = json.docs as Record<string, unknown>[]
+    expect(record, 'the inquiry is in the panel').toBeDefined()
     expect(record).toMatchObject({
       line: 'biznes',
       nip: '5260001246',
       marketingConsent: false,
-      source: { url: 'http://biznes.localhost:3000/kontakt?utm_source=e2e', utmSource: 'e2e' },
+      source: { url: 'http://biznes.localhost:3000/kontakt', utmSource: 'e2e' },
     })
     try {
       await expect

@@ -6,7 +6,14 @@ export const InquiryFormBlock: Block = {
   interfaceName: 'InquiryFormBlock',
   labels: { singular: 'Formularz zapytania', plural: 'Formularze zapytania' },
   fields: [
-    { name: 'heading', label: 'Nagłówek', type: 'text', defaultValue: 'Napisz do nas' },
+    {
+      name: 'heading',
+      label: 'Nagłówek',
+      type: 'text',
+      defaultValue: 'Napisz do nas',
+      // The section is the `#formularz` anchor other pages link to.
+      admin: { description: 'Jeden formularz na stronę — linki „#formularz” prowadzą do niego.' },
+    },
     { name: 'text', label: 'Tekst', type: 'textarea', maxLength: 300 },
     {
       name: 'category',

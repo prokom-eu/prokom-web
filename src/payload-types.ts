@@ -466,6 +466,9 @@ export interface PartnersBlock {
  * via the `definition` "InquiryFormBlock".
  */
 export interface InquiryFormBlock {
+  /**
+   * Jeden formularz na stronę — linki „#formularz” prowadzą do niego.
+   */
   heading?: string | null;
   text?: string | null;
   /**

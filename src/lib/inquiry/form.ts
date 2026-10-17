@@ -21,16 +21,35 @@ export type FieldName = 'name' | 'company' | 'nip' | 'email' | 'phone' | 'messag
 
 type Source = { url: string; utmSource?: string; utmMedium?: string; utmCampaign?: string }
 
+/**
+ * Splits a text around the words that become a link. `null` when the words are missing,
+ * so a reworded clause falls back to a separate link instead of losing it.
+ */
+export function linkInText(
+  text: string,
+  linkText: string,
+): { before: string; link: string; after: string } | null {
+  const at = text.indexOf(linkText)
+  if (at < 0) return null
+  return { before: text.slice(0, at), link: linkText, after: text.slice(at + linkText.length) }
+}
+
 const UTM = { utmSource: 'utm_source', utmMedium: 'utm_medium', utmCampaign: 'utm_campaign' }
 
-/** Page address (without `#…`) and its UTM parameters, so the office knows where it came from. */
+// Server limit per UTM value (`schema.ts`).
+const UTM_MAX = 200
+
+/**
+ * Page address and its UTM parameters, so the office knows where the inquiry came from. Only
+ * the path: other parameters (`gclid`, `fbclid`…) are tracking ids we do not need to keep,
+ * and they could push the address past the server's 2000-character limit.
+ */
 export function sourceFromHref(href: string): Source {
   const url = new URL(href)
-  url.hash = ''
-  const source: Source = { url: url.toString() }
+  const source: Source = { url: `${url.origin}${url.pathname}` }
   for (const [key, param] of Object.entries(UTM) as [keyof typeof UTM, string][]) {
-    const value = url.searchParams.get(param)
-    if (value) source[key] = value
+    const value = url.searchParams.get(param)?.trim()
+    if (value) source[key] = value.slice(0, UTM_MAX)
   }
   return source
 }
@@ -111,6 +130,8 @@ export function readOutcome(status: number, json: unknown): Outcome {
         formError = FALLBACK
       }
     }
+    // No field named (e.g. a malformed request): the form must still say something.
+    if (Object.keys(fields).length === 0) formError ??= FALLBACK
     return { kind: 'invalid', fields, ...(formError ? { formError } : {}) }
   }
   return { kind: 'error', message: FALLBACK }
