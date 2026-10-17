@@ -23,6 +23,7 @@
 | `--c-white` | `#FFFFFF` | — | tło |
 
 **W kodzie:** layout tenanta ustawia atrybut `data-line="biznes"` na `<html>`; CSS mapuje go na `--accent`, `--accent-on-dark`, `--accent-text`. Komponenty używają wyłącznie `--accent*`, nigdy konkretnego koloru linii.
+Pliki: tokeny `src/styles/tokens.css` (jedyne miejsce z wartościami kolorów), Tailwind `src/app/(sites)/globals.css` — zna tylko tokeny (`bg-accent-text`, `text-grafit`, `bg-papier`, `border-border`…; domyślna paleta Tailwinda jest wyłączona). Ciemna sekcja ma `data-surface="dark"` — linki i obrys fokusu przechodzą wtedy na `--accent-on-dark`. Brak `data-line` (nieznana domena) = zieleń PRO-KOM.
 
 ### Kontrast — ważne (WCAG AA)
 Policzone dla kolorów „na jasne tło” (14.10.2026):
@@ -38,13 +39,35 @@ Policzone dla kolorów „na jasne tło” (14.10.2026):
 
 Zasada: kolory z księgi stosujemy do **logo, kresek, ikon, dużych nagłówków (≥ 24 px lub ≥ 19 px pogrubione) i elementów graficznych** (próg 3:1). Do **zwykłego tekstu, linków i przycisków z białym napisem** każda linia ma token `--accent-text` — przyciemniony odcień tego samego koloru z kontrastem ≥ 4,5:1 na białym i papierze (wyliczany w S6, zapisany tutaj w tabeli i sprawdzany testem).
 
+### `--accent-text` — tekst, linki, przyciski z białym napisem (S6, 17.10.2026)
+Ten sam odcień co kolor z księgi, przyciemniony do ≥ 4,5:1 na białym **i** papierze. Wartości w `src/styles/tokens.css` (`--c-<linia>-text`), sprawdzane przez `src/styles/tokens.test.ts`.
+
+| Linia | Kolor z księgi | `--accent-text` | na białym | na papierze |
+|---|---|---|---|---|
+| PRO-KOM | `#45A02C` | `#367E23` | 5,04 | 4,60 |
+| Biznes | `#244FB0` | `#244FB0` (bez zmian) | 7,45 | 6,80 |
+| Instalacje | `#0093B3` | `#007994` | 5,04 | 4,61 |
+| Software | `#8B61E3` | `#7E58CD` | 5,04 | 4,60 |
+| Tech | `#D13A2E` | `#CB382D` | 5,07 | 4,63 |
+| Zakopane | `#DD8600` | `#9F6000` | 5,06 | 4,62 |
+
+- Kolory „na ciemne tło” mają ≥ 4,5:1 na grafitowym (Biznes 4,52 i Tech 4,54 — na granicy, ale OK), więc nadają się do linków w ciemnych sekcjach i stopce.
+- ⚠️ **Zakopane:** bursztyn z księgi ma 2,81:1 na białym — nie spełnia nawet progu 3:1 dla dużych elementów. Gdy powstanie strona Zakopanego, także duże nagłówki w kolorze linii muszą używać `--accent-text`.
+
+### Kolory pomocnicze
+| Token | Wartość | Użycie |
+|---|---|---|
+| `--c-border` | `#E3E6DF` | obramowania kart i pól (1,5 px) — z briefu `strony/prokombiznes-design.md` |
+
 ## Kroje pisma
 - **Archivo** — logo, nagłówki. **Manrope** — teksty. Licencja SIL OFL (bezpłatnie, także komercyjnie).
 - Hostowane **z naszego serwera** (`next/font/local` lub `next/font/google` w trybie self-host przy buildzie) — żadnych zapytań do Google Fonts z przeglądarki klienta (RODO).
+- **Wybrane w S6:** `next/font/google` (`src/app/(sites)/fonts.ts`) — Next pobiera pliki przy buildzie i serwuje je z `/_next/static/media`; podzbiory `latin` + `latin-ext` (polskie znaki), Archivo z osią szerokości (`font-stretch-112%`). Build wymaga dostępu do sieci.
 
 ## Pliki znaku (`public/brand/`)
 Nazwy jak w paczce: `prokom-<linia>_<układ>_<wersja>.svg`
-- linie: `prokom`, `biznes`, `instalacje`, `software`, `tech`, `zakopane`
+- linie: `glowna` (w kodzie linia `prokom`), `biznes`, `instalacje`, `software`, `tech`, `zakopane` — mapowanie w `src/lib/brand/lines.ts`
+- w repo (S6, 17.10.2026): dla `glowna`, `biznes`, `instalacje`, `software` — `poziome_kolor`, `poziome_negatyw`, `sygnet_kolor` (SVG) oraz `favicon.svg`, `favicon.ico`, `apple-touch-icon-180.png`, `icon-192.png`, `icon-512.png`; kreska Instalacji sprawdzona (turkus `#0093B3`)
 - układy: `poziome`, `pionowe`, `sygnet`, `sygnet-bez-tla`, `slogan`
 - wersje: `kolor`, `negatyw`, `czarny`, `bialy`, `mono`
 
