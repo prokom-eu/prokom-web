@@ -116,13 +116,18 @@ test.describe('inquiry inbox (ADR-003)', () => {
 
       // What the customer sent stays as sent, even for an admin; the status changes.
       const before = record?.statusChangedAt
+      const otherTenant = (
+        await api(page, 'GET', '/api/tenants?where[slug][equals]=software&depth=0')
+      ).json.docs as { id: number }[]
       const edited = await api(page, 'PATCH', `/api/inquiries/${id}`, {
         message: 'zmienione',
+        tenant: otherTenant[0]?.id,
         status: 'in_progress',
       })
       expect(edited.status).toBe(200)
       const { json: after } = await api(page, 'GET', `/api/inquiries/${id}?depth=0`)
       expect(after.message).toBe(`Wiadomość testowa ${marker}`)
+      expect(after.tenant).toBe(record?.tenant)
       expect(after.status).toBe('in_progress')
       expect(after.statusChangedAt).not.toBe(before)
 
@@ -168,15 +173,37 @@ test.describe('inquiry inbox (ADR-003)', () => {
     )
     expect(forged.status).toBe(400)
 
-    // 5 attempts per 10 minutes from one address; the sixth is refused before validation.
+    await loginAsAdmin(page)
+    expect(await findInquiries(page, marker)).toEqual([])
+  })
+
+  test('one address may send 5 inquiries per 10 minutes', async ({ page }) => {
+    const marker = `E2E-LIMIT-${Date.now()}`
+    await page.goto(site('biznes.localhost'))
     const ip = randomIp()
-    for (let i = 0; i < 5; i++) {
+
+    // A person correcting the form does not use up the limit.
+    for (let i = 0; i < 3; i++) {
       const invalid = await post(page, inquiry(marker, { name: '' }), ip)
       expect(invalid).toEqual({ status: 400, json: { error: 'invalid', fields: ['name'] } })
     }
-    expect((await post(page, inquiry(marker), ip)).status).toBe(429)
-
-    await loginAsAdmin(page)
+    try {
+      for (let i = 0; i < 5; i++) {
+        expect((await post(page, inquiry(marker), ip)).status).toBe(201)
+      }
+      expect(await post(page, inquiry(marker), ip)).toEqual({
+        status: 429,
+        json: { error: 'rate_limited' },
+      })
+    } finally {
+      await loginAsAdmin(page)
+      const removed = await api(
+        page,
+        'DELETE',
+        `/api/inquiries?where[category][equals]=${encodeURIComponent(marker)}`,
+      )
+      expect(removed.status).toBe(200)
+    }
     expect(await findInquiries(page, marker)).toEqual([])
   })
 

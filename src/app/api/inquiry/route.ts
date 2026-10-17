@@ -23,6 +23,11 @@ export async function POST(request: Request) {
   if (!request.headers.get('content-type')?.toLowerCase().startsWith('application/json')) {
     return json({ error: 'unsupported_media_type' }, 415)
   }
+  // Cheap refusal by the declared size first; the read body is checked again below
+  // (the header may be missing or wrong).
+  if (Number(request.headers.get('content-length') ?? 0) > MAX_BODY_BYTES) {
+    return json({ error: 'too_large' }, 413)
+  }
   const raw = await request.text()
   if (new TextEncoder().encode(raw).length > MAX_BODY_BYTES) {
     return json({ error: 'too_large' }, 413)
@@ -45,6 +50,8 @@ export async function POST(request: Request) {
       return json({ error: 'not_found' }, 404)
     case 'rate_limited':
       return json({ error: 'rate_limited' }, 429)
+    case 'unavailable':
+      return json({ error: 'unavailable' }, 503)
     case 'spam':
       return json({ error: 'rejected' }, 400)
     case 'invalid':

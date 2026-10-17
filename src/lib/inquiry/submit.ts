@@ -14,7 +14,7 @@ import {
 
 export type SubmitResult =
   | { ok: true; id: number }
-  | { ok: false; error: 'unknown_host' | 'spam' | 'rate_limited' }
+  | { ok: false; error: 'unknown_host' | 'spam' | 'rate_limited' | 'unavailable' }
   | { ok: false; error: 'invalid'; fields: string[] }
 
 type InquiryTenant = { id: number; name: string; line: Line; notificationEmail?: string | null }
@@ -42,6 +42,12 @@ export type SubmitRequest = {
   body: unknown
 }
 
+// Only the error class: database errors quote query parameters (the form data), SMTP errors
+// quote recipients — neither may reach the logs (ADR-003).
+function errorName(error: unknown): string {
+  return error instanceof Error ? error.name : 'unknown'
+}
+
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value)
 }
@@ -52,7 +58,13 @@ export async function submitInquiryWith(
   { host, ip, body }: SubmitRequest,
 ): Promise<SubmitResult> {
   const normalized = normalizeHost(host)
-  const tenant = normalized ? await deps.findTenant(normalized) : null
+  let tenant: InquiryTenant | null = null
+  try {
+    tenant = normalized ? await deps.findTenant(normalized) : null
+  } catch (error) {
+    deps.log.error({ error: errorName(error) }, 'Inquiry tenant lookup failed')
+    return { ok: false, error: 'unavailable' }
+  }
   if (!tenant) return { ok: false, error: 'unknown_host' }
   if (!isRecord(body)) return { ok: false, error: 'invalid', fields: [] }
 
@@ -64,33 +76,42 @@ export async function submitInquiryWith(
     deps.log.info({ tenant: tenant.id }, 'Inquiry rejected as spam')
     return { ok: false, error: 'spam' }
   }
-  if (!deps.limiter.hit(rateLimitKey(ip ?? 'unknown', deps.secret))) {
-    deps.log.warn({ tenant: tenant.id }, 'Inquiry rate-limited')
-    return { ok: false, error: 'rate_limited' }
-  }
 
+  // Validation first: invalid attempts save nothing, so they do not use up the limit of
+  // a person correcting the form; the limit guards what costs — records and e-mails.
   const parsed = parseInquiryInput(body)
   if (!parsed.success) {
     return { ok: false, error: 'invalid', fields: inquiryFieldErrors(parsed.error) }
   }
+  if (!deps.limiter.hit(rateLimitKey(ip ?? 'unknown', deps.secret))) {
+    deps.log.warn({ tenant: tenant.id }, 'Inquiry rate-limited')
+    return { ok: false, error: 'rate_limited' }
+  }
   const input = parsed.data
   const acceptedAt = new Date(now).toISOString()
 
-  const { id } = await deps.save({
-    tenant: tenant.id,
-    line: tenant.line,
-    status: 'new',
-    category: input.category,
-    name: input.name,
-    company: input.company,
-    nip: input.nip,
-    email: input.email,
-    phone: input.phone,
-    message: input.message,
-    source: input.source,
-    consent: { ...input.consent, acceptedAt },
-    marketingConsent: input.marketingConsent,
-  })
+  let saved: { id: number }
+  try {
+    saved = await deps.save({
+      tenant: tenant.id,
+      line: tenant.line,
+      status: 'new',
+      category: input.category,
+      name: input.name,
+      company: input.company,
+      nip: input.nip,
+      email: input.email,
+      phone: input.phone,
+      message: input.message,
+      source: input.source,
+      consent: { ...input.consent, acceptedAt },
+      marketingConsent: input.marketingConsent,
+    })
+  } catch (error) {
+    deps.log.error({ tenant: tenant.id, error: errorName(error) }, 'Inquiry not saved')
+    return { ok: false, error: 'unavailable' }
+  }
+  const { id } = saved
   deps.log.info({ tenant: tenant.id, inquiry: id }, 'Inquiry saved')
 
   // The record is the source of truth: a failed e-mail is logged, the customer still gets 201.
@@ -119,10 +140,8 @@ export async function submitInquiryWith(
   const results = await Promise.allSettled(emails.map(({ email }) => deps.sendEmail(email)))
   results.forEach((result, i) => {
     if (result.status === 'rejected') {
-      // Only the error class: SMTP errors may quote recipient addresses.
-      const error = result.reason instanceof Error ? result.reason.name : 'unknown'
       deps.log.error(
-        { tenant: tenant.id, inquiry: id, email: emails[i]?.kind, error },
+        { tenant: tenant.id, inquiry: id, email: emails[i]?.kind, error: errorName(result.reason) },
         'Inquiry e-mail not sent',
       )
     }

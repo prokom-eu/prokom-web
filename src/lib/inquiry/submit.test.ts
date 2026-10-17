@@ -104,6 +104,40 @@ describe('submitInquiry (ADR-003)', () => {
     })
   })
 
+  it('does not count invalid attempts against the limit (a person fixing the form)', async () => {
+    const d = deps({ limiter: createRateLimiter({ limit: 1, windowMs: 600_000, now: () => now }) })
+    for (let i = 0; i < 3; i++) {
+      expect(await submitInquiryWith(d, { ...request, body: { ...body, name: '' } })).toMatchObject(
+        { error: 'invalid' },
+      )
+    }
+    expect(await submitInquiryWith(d, { ...request, body })).toMatchObject({ ok: true })
+  })
+
+  it('answers "unavailable" when the database fails, and logs no personal data', async () => {
+    // Drizzle puts the query parameters (the form data) into the error message.
+    const failure = new Error('Failed query: insert ...\nparams: Jan Kowalski,jan@example.test')
+    const d = deps({ save: vi.fn(async () => Promise.reject(failure)) })
+    expect(await submitInquiryWith(d, { ...request, body })).toEqual({
+      ok: false,
+      error: 'unavailable',
+    })
+    const logged = JSON.stringify(vi.mocked(d.log.error).mock.calls)
+    expect(logged).toContain('Error')
+    for (const personal of ['Jan', 'jan@example.test']) {
+      expect(logged).not.toContain(personal)
+    }
+    expect(d.sendEmail).not.toHaveBeenCalled()
+  })
+
+  it('answers "unavailable" when the tenant lookup fails', async () => {
+    const d = deps({ findTenant: vi.fn(async () => Promise.reject(new Error('db down'))) })
+    expect(await submitInquiryWith(d, { ...request, body })).toEqual({
+      ok: false,
+      error: 'unavailable',
+    })
+  })
+
   it('returns the invalid fields', async () => {
     const d = deps()
     expect(

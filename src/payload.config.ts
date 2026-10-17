@@ -58,6 +58,11 @@ export default buildConfig({
       host: env.SMTP_HOST,
       port: env.SMTP_PORT,
       secure: env.SMTP_SECURE,
+      // The form waits for the e-mails; a hung SMTP server must not hold it until the proxy
+      // times out (the customer would resend, the record is already saved). Defaults: up to 10 min.
+      connectionTimeout: 10_000,
+      greetingTimeout: 10_000,
+      socketTimeout: 20_000,
       ...(env.SMTP_USER ? { auth: { user: env.SMTP_USER, pass: env.SMTP_PASS } } : {}),
     },
   }),
@@ -88,7 +93,9 @@ export default buildConfig({
         pages: {},
         media: {},
         redirects: {},
-        inquiries: {},
+        // ADR-003: only `status` changes in the panel; moving an inquiry to another site would
+        // also leave its `line` behind.
+        inquiries: { tenantFieldOverrides: { access: { update: () => false } } },
         // One settings document per tenant (unique tenant field).
         'site-settings': { isGlobal: true },
       },
