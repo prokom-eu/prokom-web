@@ -30,11 +30,15 @@ src/
     (payload)/admin/...    # panel Payload — dostępny TYLKO na domenie panelu
     api/inquiry/           # przyjmowanie formularzy (kontrakt ADR-003)
   collections/  globals/  blocks/
-  components/              # wspólne komponenty
+  components/              # wspólne komponenty (szkielet: BrandBar, SiteHeader, SiteFooter)
+  components/ui/           # komponenty bazowe: Container, Section, Heading, Button, TextLink
+  styles/tokens.css        # JEDYNE miejsce z wartościami kolorów (ADR-007, ADR-013); testy kontrastu obok
   sites/<tenant>/          # tylko to, co naprawdę unikalne dla jednej strony
-  lib/                     # tenant, seo, inquiry, env
+  lib/                     # tenant, brand (linie, motyw), seo, inquiry, env
   proxy.ts                 # Next 16: dawne middleware.ts (lib/tenant/routing)
 docs/  docker/  .github/workflows/  public/brand/
+docs/design/<strona>/      # wzorzec wyglądu strony (zrzuty, plansze, tokeny) — cel wizualny
+seed/<strona>/             # dane startowe strony z pakietu (JSON 1:1, poza Prettierem)
 ```
 
 ## Lokalnie
