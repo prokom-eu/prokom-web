@@ -5,7 +5,7 @@ import { hasDarkTheme, THEME_SCRIPT } from '@/lib/brand/theme'
 import { getTenantByHost } from '@/lib/tenant/byHost'
 import { normalizeHost } from '@/lib/tenant/host'
 
-import { archivo, manrope } from './fonts'
+import { fontVariables } from './fonts'
 import './globals.css'
 
 /**
@@ -18,12 +18,7 @@ export default async function SitesRootLayout({ children }: { children: React.Re
   const line = host ? await lineFor(host) : undefined
   return (
     // The theme script may set `data-theme` before hydration (ADR-013), hence the suppression.
-    <html
-      lang="pl"
-      data-line={line}
-      className={`${archivo.variable} ${manrope.variable}`}
-      suppressHydrationWarning
-    >
+    <html lang="pl" data-line={line} className={fontVariables} suppressHydrationWarning>
       {line && hasDarkTheme(line) && (
         <head>
           <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
