@@ -71,6 +71,11 @@ describe.each(cases)('$line, $mode theme', ({ line, mode }) => {
   it('accent reaches 3:1 on the surface (large elements)', () => {
     expect(contrastRatio(hex('--accent', s), hex('--surface', s))).toBeGreaterThanOrEqual(3)
   })
+
+  // ADR-013: the second accent ends the H1 gradient — large text, so 3:1.
+  it('second accent reaches 3:1 on the surface (H1 gradient)', () => {
+    expect(contrastRatio(hex('--accent-2', s), hex('--surface', s))).toBeGreaterThanOrEqual(3)
+  })
 })
 
 describe('dark theme definitions', () => {

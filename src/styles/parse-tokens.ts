@@ -1,11 +1,15 @@
 import { readFileSync } from 'node:fs'
-import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 /**
  * Reads `tokens.css` for the token tests, so the checked values are the ones the browser gets.
  * Deliberately simple: one rule per selector, no nesting beyond one `@media` block.
+ * The path is relative to this module, so the tests work from any working directory.
  */
-export const tokensCss = readFileSync(path.join('src', 'styles', 'tokens.css'), 'utf8')
+export const tokensCss = readFileSync(
+  fileURLToPath(new URL('./tokens.css', import.meta.url)),
+  'utf8',
+)
 
 export type Declarations = Record<string, string>
 
