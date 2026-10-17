@@ -35,6 +35,9 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 4. Skrzynki `biznes@`, `instalacje@`, `software@pro-kom.eu` — założyć przed 26.10 (Krystian + szef, Thunderbird); dopisać do listy skrzynek przy migracji poczty do Seohost (ADR-002).
 
 ## Pomysły na później (poza zakresem bieżących sesji)
+- Z S6a (przegląd) → **decyzja przed S9:** `next/font/google` pobiera fonty przy buildzie — CI i build obrazu zależą od Google Fonts. Alternatywa: `next/font/local` z woff2 z paczki znaku (`04_zrodlo/fonty`, Archivo z osią `wdth`, latin + latin-ext) w repo.
+- Z S6a (przegląd) → S6b: `Button` z pustym `href` daje link do bieżącej strony — przy podpinaniu bloków puste linki pomijać (jak `BlockLink`); przycisk `primary` na grafitowym tle słabo się odcina (`--accent-text` ~2,6:1 do tła) — ocenić wzrokowo, ewentualnie `bg-accent-on-dark` z grafitowym napisem.
+- Z S6a → S9: Tailwind (`tailwindcss`, `@tailwindcss/postcss`) jest w devDependencies, a potrzebny przy buildzie — w Dockerfile żadnego `pnpm install --prod` przed `pnpm build`.
 - Z S5 → S7: obraz w bloku Hero (`TODO(S7)`, wymaga `Media`), blok Partnerzy (wymaga `Partners`), dane strukturalne `FAQPage` dla bloku FAQ.
 - Z S5 → S8: blok Formularz (komponent `InquiryForm`) — wpis w rejestrze bloków + migracja.
 - Z S5 → S10: podgląd na żywo na stagingu — dziś wybiera domenę `production` przy buildzie produkcyjnym (`lib/preview/origin.ts`, `TODO(S10)`); potrzebny sygnał środowiska (np. `SITE_ENV` z S7). Nginx musi też ustawiać `X-Forwarded-Proto` (adres podglądu i origin panelu).

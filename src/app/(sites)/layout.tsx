@@ -14,10 +14,26 @@ import './globals.css'
  */
 export default async function SitesRootLayout({ children }: { children: React.ReactNode }) {
   const host = normalizeHost((await headers()).get('host'))
-  const tenant = host ? await getTenantByHost(host) : null
   return (
-    <html lang="pl" data-line={tenant?.line} className={`${archivo.variable} ${manrope.variable}`}>
+    <html
+      lang="pl"
+      data-line={host ? await lineFor(host) : undefined}
+      className={`${archivo.variable} ${manrope.variable}`}
+    >
       <body>{children}</body>
     </html>
   )
+}
+
+/**
+ * Line of the tenant, or `undefined` when the lookup fails (e.g. database down). The root
+ * layout must not throw: an error here would bypass every error and not-found page below it.
+ * The `[domain]` layout runs the same lookup and surfaces the failure there.
+ */
+async function lineFor(host: string) {
+  try {
+    return (await getTenantByHost(host))?.line
+  } catch {
+    return undefined
+  }
 }

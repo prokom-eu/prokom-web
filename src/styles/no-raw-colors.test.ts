@@ -1,11 +1,14 @@
-import { readdirSync, readFileSync } from 'node:fs'
+import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import path from 'node:path'
 
 import { describe, expect, it } from 'vitest'
 
 // ADR-007: colour values live only in `tokens.css`; site code uses tokens (Tailwind classes or
 // `var(--…)`). This guard catches hex/rgb/hsl/oklch literals, also as Tailwind arbitrary values.
-const ROOTS = ['src/components', 'src/blocks', 'src/app/(sites)', 'src/styles']
+// `src/sites` (code unique to one site) does not exist yet; it is checked once it does.
+const ROOTS = ['src/components', 'src/blocks', 'src/app/(sites)', 'src/styles', 'src/sites'].filter(
+  (dir) => existsSync(dir),
+)
 const ALLOWED = new Set([path.normalize('src/styles/tokens.css')])
 const EXTENSIONS = new Set(['.ts', '.tsx', '.css'])
 const RAW_COLOR =
