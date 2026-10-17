@@ -5,16 +5,21 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 ## Cel października 2026
 | Etap | Termin | Status |
 |---|---|---|
-| Fundament (S1–S9 lokalnie, S10 na serwerze) — `docs/zadania/fundament.md` | S1–S9: 15–21.10 · S10: po dostawie VPS | ⏳ S1–S8, S9a, S9b-1 gotowe, w toku S9b-2 |
+| Fundament (S1–S9 lokalnie, S10 na serwerze) — `docs/zadania/fundament.md` | S1–S9: 15–21.10 · S10: po dostawie VPS | ⏳ S1–S9 gotowe lokalnie; S10 po zakupie VPS (19.10) |
 | prokombiznes.pl — specyfikacja i wzorzec wyglądu | 17.10 | ✅ `strony/prokombiznes.md`, `design/prokombiznes/` (#28) |
 | prokombiznes.pl — wdrożenie | 26.10 | ⏳ |
 | prokominstalacje.pl | 29.10 | ⏳ |
 | prokomsoftware.pl | 31.10 | ⏳ |
 
 ## W toku
-- **S9b-2 — kopie zapasowe i runbook** (gałąź `feat/s9b-backup-runbook`, PR do otwarcia). Zrobione: `scripts/backup.sh` (`pg_dump -Fc` sprawdzony `pg_restore --list` + wolumen mediów + manifest, szyfrowanie `age`, `rclone` poza serwer, rodzaje `daily`/`monthly`/`predeploy` z retencją 14/93/30 dni), `scripts/restore.sh` (odszyfrowanie kluczem prywatnym, baza i media od nowa, aplikacja z powrotem `healthy`, potwierdzenie na prod/staging), `docs/runbook.md` (wdrożenie, cofnięcie A/B, expand/contract, odtworzenie, test miesięczny na `prokom-restoretest`, „strona nie działa”), sekcja „Backup” w `.env.example`. Sprawdzone lokalnie: kopia → `rclone` → odtworzenie na czystym stosie (liczby rekordów i suma kontrolna mediów zgodne, smoke zielony, logowanie admina), zły klucz bez zmian, potwierdzenie przerywa, retencja usuwa stare. Lokalnie zainstalowane `age` i `rclone` (winget). Przegląd `recenzent`, poprawki w tej gałęzi: `restore.sh --no-start` (cofnięcie 4B uruchamia stary obraz przez `up -d`, przećwiczone na tagach `old`/`new`), blokada, gdy baza z manifestu ≠ docelowa, katalog roboczy z niezaszyfrowanym zrzutem w `BACKUP_DIR` zamiast `/tmp`, w runbooku `mkdir` i logrotate dla crona, stos testowy bez SMTP, ADR-003 z nową retencją kopii. **Następny krok:** `/pr`; po merge **S9 zamknięte** → S10 (serwer, po zakupie 19.10) albo B0/B1 Biznesu.
+- **Brak zadania w toku — S9 zamknięte (18.10).**
+  - Gałąź: `develop` (aktualny, ostatni commit #42); ta aktualizacja STAN na `docs/stan-po-s9`.
+  - Zrobione w tej sesji: S9a (#39 — obraz, health, logi JSON, smoke, fonty lokalne), S9b-1 (#40 — Nginx, staging z hasłem), S9b-2 (#42 — kopie `age` + `rclone`, odtworzenie, runbook); plan Biznesu (#41).
+  - Niedokończone: nic w kodzie. Na drugim komputerze do testów kopii: `winget install FiloSottile.age Rclone.Rclone` (opcjonalnie).
+  - **Następny krok:** B0 — decyzje bez kodu wg `docs/zadania/prokombiznes.md` §2 (rozstrzygnięcia ADR-012 wpisać do ADR i zmienić jej status na „przyjęta”, przyjąć ADR-011, uwagi szefa i model kanałów kontaktu), potem `/zadanie B1`; w poniedziałek 19.10 rano zakup domen i VPS, potem `/zadanie S10` z `docs/runbook.md` §1.
 
 ## Zrobione
+- 18.10.2026 — S9b-2 scalone (#42), **S9 zamknięte**: `scripts/backup.sh` (`pg_dump -Fc` + media + manifest, `age`, `rclone`, daily/monthly/predeploy 14/93/30 dni), `scripts/restore.sh` (`--no-start` do cofnięcia z bazą, blokada złej bazy, potwierdzenie na prod/staging), `docs/runbook.md`, ADR-003 z retencją kopii. Przetestowane lokalnie: odtworzenie na czystym stosie (rekordy i media zgodne, smoke zielony) i cofnięcie 4B na tagach `old`/`new`. Przegląd `recenzent`, poprawki w tym samym PR.
 - 17.10.2026 — S9b-1 scalone (#40): Nginx jako osobny stos (`compose.proxy.yml`, sieć `prokom-proxy`), nagłówki i bazowe CSP, staging z hasłem i `noindex`, `compose.staging.yml` (`.env.staging` na sztywno), bazy `prokom_prod`/`prokom_staging`, `smoke.sh` przez TLS. Przegląd `recenzent`, poprawki w tym samym PR. Pakiet GHCR prywatny (ustawienia organizacji), pierwszy obraz z `develop` zbudowany.
 - 17.10.2026 — plan budowy prokombiznes.pl (#41): `docs/zadania/prokombiznes.md` (B0–B11).
 - 17.10.2026 — S9a scalone (#39): `Dockerfile` (standalone, użytkownik `node`), `/api/health`, logger JSON z `requestId` i `errorFields()`, `X-Request-Id` w proxy, `prodMigrations`, `docker/compose.prod.yml`, workflow `image.yml` (tylko `develop`, tag = SHA), `scripts/smoke.sh`, fonty `next/font/local`. Przegląd `recenzent`, poprawki w tym samym PR. Testy: 515 Vitest, 60 e2e.
@@ -41,11 +46,10 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 - 12.10.2026 — założenie dokumentacji repo (CLAUDE.md, docs/, komendy).
 
 ## Następne kroki
-1. S1 → S9 według `docs/zadania/fundament.md`, po kolei, każda sesja = jeden PR.
-2. Domeny (prokombiznes.pl, prokominstalacje.pl, prokomsoftware.pl) i VPS Seohost — zakup i zamówienie w poniedziałek 19.10 rano (potwierdzone 17.10) → S10 (staging) 20–21.10.
-3. Plan budowy prokombiznes.pl: `docs/zadania/prokombiznes.md` (sesje B0–B11, B0 = decyzje 18.10).
-4. Po fundamencie: budowa prokombiznes.pl wg `docs/strony/prokombiznes.md` §10 i planu sesji w `docs/design/prokombiznes/PRZEKAZANIE.md` §3 (termin 26.10 — w razie braku czasu tniemy od końca listy).
-5. Skrzynki `biznes@`, `instalacje@`, `software@pro-kom.eu` — założyć przed 26.10 (Krystian + szef, Thunderbird); dopisać do listy skrzynek przy migracji poczty do Seohost (ADR-002).
+1. B0 (18.10) → B1–B11 wg `docs/zadania/prokombiznes.md` (demo na stagingu 23.10, produkcja 26.10; plan cięcia w §3 planu).
+2. Domeny (prokombiznes.pl, prokominstalacje.pl, prokomsoftware.pl) i VPS Seohost — zakup i zamówienie w poniedziałek 19.10 rano → S10 (serwer, DNS, certyfikaty, staging, kopie, monitoring) 20–21.10 wg `docs/runbook.md` §1.
+3. S10: wybrać cel kopii poza serwerem (inny dostawca niż Seohost, ADR-002, dostęp przez `rclone`) i token GHCR `read:packages` dla serwera.
+4. Skrzynki `biznes@`, `instalacje@`, `software@pro-kom.eu` — założyć przed 26.10 (Krystian + szef, Thunderbird); dopisać do listy skrzynek przy migracji poczty do Seohost (ADR-002).
 
 ## Pomysły na później (poza zakresem bieżących sesji)
 - Z S8b (przegląd) → S9/S10, checklista wdrożenia: strona `/polityka-prywatnosci` na każdej domenie i treści z `TODO(krystian)` w `src/lib/inquiry/consent.ts` — link przy zgodzie RODO nie może prowadzić do 404 na produkcji.
@@ -101,6 +105,7 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 - Z S9b-1: log Nginx zawiera IP klienta (potrzebne do nadużyć); retencja = rotacja 5 × 10 MB — wspomnieć w polityce prywatności.
 
 ## Otwarte pytania
+- **Cel kopii poza serwerem (S10):** dostawca inny niż Seohost (ADR-002) z dostępem przez `rclone` (S3 / SFTP / Backblaze itp.) — koszt i umowa do decyzji Krystiana i szefa przed 20.10.
 - **ADR-012 (proponowana):** katalog prokombiznes — rozbieżności z ADR-003/006 do uzgodnienia przed sesją kolekcji.
 - Fakty z wizualizacji do potwierdzenia z szefem przed publikacją: `docs/strony/prokombiznes.md` §13 (ulga 700 zł, parametry Elzab/Fawag, statusy partnerów, liczby GoPOS, przepisy KSeF); logo klientów tylko z pisemną zgodą.
 - **ADR-011 (proponowana, 17.10):** podgląd na żywo przez podpisany token zamiast draft mode Next i cron zadań Payload w procesie aplikacji — do przyjęcia przez Krystiana.
