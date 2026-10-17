@@ -1,9 +1,10 @@
 type Level = 'info' | 'warn' | 'error'
 
 /**
- * Structured fields of a log line: ids, the tenant, counts, error classes — never form data
- * (e-mail, phone, name, message; ADR-003). An `Error` value is logged as its class only, because
- * database and SMTP messages quote query parameters and recipients.
+ * Structured fields of a log line: ids, the tenant, counts — never form data (e-mail, phone,
+ * name, message; ADR-003). Pass a caught error as `error`: only its class and a short code
+ * (`ECONNREFUSED`, SQLSTATE `28P01`) are logged, because database and SMTP messages quote query
+ * parameters and recipients. A thrown non-`Error` value is logged as its type only.
  */
 export type LogFields = Record<string, unknown>
 
@@ -19,12 +20,37 @@ type LoggerOptions = {
 
 // Written last, so a field named like them cannot fake the level, time or message.
 const FIXED = new Set(['level', 'time', 'msg'])
+// Error codes are identifiers (`ECONNREFUSED`, `ETIMEDOUT`, SQLSTATE `42P01`), like class names;
+// anything longer or with other characters (a thrown string may be form data) is not logged.
+const IDENTIFIER = /^[A-Za-z0-9_]{1,40}$/
+
+function codeOf(error: Error): string | undefined {
+  for (const candidate of [error, error.cause]) {
+    const code = (candidate as { code?: unknown } | undefined)?.code
+    if (typeof code === 'string' && IDENTIFIER.test(code)) return code
+  }
+  return undefined
+}
+
+/**
+ * Log fields of a caught value: the class and a short code of an `Error`, an identifier-like
+ * string as it is (e.g. a class name), otherwise only the type. Never the message.
+ */
+export function errorFields(value: unknown): { error: string; errorCode?: string } {
+  if (value instanceof Error) {
+    const errorCode = codeOf(value)
+    return errorCode ? { error: value.name, errorCode } : { error: value.name }
+  }
+  if (typeof value === 'string' && IDENTIFIER.test(value)) return { error: value }
+  return { error: typeof value }
+}
 
 function serialize(fields: LogFields): LogFields {
   const out: LogFields = {}
   for (const [key, value] of Object.entries(fields)) {
     if (value === undefined || FIXED.has(key)) continue
-    out[key] = value instanceof Error ? value.name : value
+    if (key === 'error') Object.assign(out, errorFields(value))
+    else out[key] = value instanceof Error ? value.name : value
   }
   return out
 }

@@ -3,12 +3,14 @@
 # Usage: scripts/smoke.sh <base-url> [site-host ...]
 #   scripts/smoke.sh http://127.0.0.1:3000 biznes.localhost instalacje.localhost software.localhost
 # Every request goes to <base-url> with the site's domain in `Host`, so it works before DNS and
-# behind Nginx alike. Without hosts: the three local dev domains. Exit code 1 on any failure.
+# behind Nginx alike. Without hosts: the three local dev domains. PANEL_HOST (default
+# panel.localhost) is the admin panel's domain. Exit code 1 on any failure.
 set -euo pipefail
 
 base="${1:?usage: scripts/smoke.sh <base-url> [site-host ...]}"
 shift
 hosts=("$@")
+panel="${PANEL_HOST:-panel.localhost}"
 if [ ${#hosts[@]} -eq 0 ]; then
   hosts=(biznes.localhost instalacje.localhost software.localhost)
 fi
@@ -28,6 +30,8 @@ check() {
 }
 
 check 200 "${hosts[0]}" /api/health
+# The admin build (import map, assets) is the most fragile part of a standalone image.
+check 200 "$panel" /admin/login
 for host in "${hosts[@]}"; do
   check 200 "$host" /
   check 200 "$host" /sitemap.xml

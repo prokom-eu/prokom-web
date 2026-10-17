@@ -1,11 +1,13 @@
-# Production image (ADR-004): built once per merge into develop/main, pushed to GHCR with the
-# commit SHA as its tag. Staging and production run the same image (deploy: S10).
+# Production image (ADR-004): built once per merge into develop, pushed to GHCR with the commit
+# SHA as its tag. Only develop: a squash merge into main makes a new commit, and a rebuild there
+# would ship an image staging never ran. Production gets the tested develop image by its tag
+# (promotion in the S10 pipeline).
 
 name: Image
 
 on:
   push:
-    branches: [develop, main]
+    branches: [develop]
 
 concurrency:
   group: image-${{ github.ref }}

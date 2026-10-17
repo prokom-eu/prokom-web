@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { createLogger } from './log'
+import { createLogger, errorFields } from './log'
 
 function capture() {
   const lines: string[] = []
@@ -53,9 +53,43 @@ describe('createLogger', () => {
     expect(lines[0]).not.toContain('jan@example.test')
   })
 
+  it('adds a string error code, also from the cause (database driver errors)', () => {
+    const { lines, log, parsed } = capture()
+    const refused = Object.assign(new Error('connect ECONNREFUSED 10.0.0.5:5432'), {
+      code: 'ECONNREFUSED',
+    })
+    const wrapped = new Error('Failed query: select … params: jan@example.test', {
+      cause: Object.assign(new Error('relation "x" does not exist'), { code: '42P01' }),
+    })
+    log.error({ error: refused }, 'a')
+    log.error({ error: wrapped }, 'b')
+    log.error({ error: Object.assign(new Error('x'), { code: 42 }) }, 'c')
+    const [a, b, c] = parsed()
+    expect(a).toMatchObject({ error: 'Error', errorCode: 'ECONNREFUSED' })
+    expect(b).toMatchObject({ error: 'Error', errorCode: '42P01' })
+    expect(c).not.toHaveProperty('errorCode')
+    expect(lines.join('')).not.toContain('jan@example.test')
+    expect(lines.join('')).not.toContain('10.0.0.5')
+  })
+
+  it('logs only the type of a thrown non-Error value', () => {
+    const { lines, log, parsed } = capture()
+    log.error({ error: 'jan@example.test' }, 'Thrown string')
+    expect(parsed()[0]?.error).toBe('string')
+    expect(lines[0]).not.toContain('jan@example.test')
+  })
+
   it('drops undefined fields', () => {
     const { log, parsed } = capture()
     log.info({ tenant: undefined }, 'x')
     expect(parsed()[0]).not.toHaveProperty('tenant')
+  })
+})
+
+describe('errorFields', () => {
+  it('keeps identifier-like strings (class names) and nothing else', () => {
+    expect(errorFields('TypeError')).toEqual({ error: 'TypeError' })
+    expect(errorFields('jan@example.test')).toEqual({ error: 'string' })
+    expect(errorFields(null)).toEqual({ error: 'object' })
   })
 })
