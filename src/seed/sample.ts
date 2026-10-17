@@ -76,9 +76,28 @@ export function samplePages(tenant: { name: string }, heroImageId?: number): Sam
     {
       title: 'Kontakt',
       slug: 'kontakt',
-      layout: [{ blockType: 'contact', heading: 'Dane kontaktowe', showLocations: true }],
+      layout: [
+        { blockType: 'contact', heading: 'Dane kontaktowe', showLocations: true },
+        {
+          blockType: 'inquiryForm',
+          heading: 'Napisz do nas',
+          text: 'Przykładowy formularz — zapytanie trafi do skrzynki w panelu.',
+        },
+      ],
     },
   ]
+}
+
+/**
+ * Sample blocks a page seeded earlier does not have yet (by block type), so a new block
+ * (e.g. the S8b form) reaches existing local databases without touching what is there.
+ */
+export function missingSampleBlocks<T extends { blockType: string }>(
+  existing: readonly { blockType: string }[] | null | undefined,
+  sample: readonly T[],
+): T[] {
+  const present = new Set((existing ?? []).map((block) => block.blockType))
+  return sample.filter((block) => !present.has(block.blockType))
 }
 
 /** Alt of the per-line sample image; the seed finds an existing one by it. */

@@ -2,6 +2,7 @@ import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { ContactBlock } from '@/blocks/Contact/Component'
 import { FaqBlock } from '@/blocks/Faq/Component'
 import { HeroBlock } from '@/blocks/Hero/Component'
+import { InquiryFormBlock } from '@/blocks/InquiryForm/Component'
 import { PartnersBlock } from '@/blocks/Partners/Component'
 import { renderableBlocks } from '@/blocks/registry'
 import { RichTextBlock } from '@/blocks/RichText/Component'
@@ -46,6 +47,8 @@ export function RenderBlocks({ page, tenant }: Props) {
             return <ContactBlock key={key} block={block} tenantId={tenant.id} />
           case 'partners':
             return <PartnersBlock key={key} block={block} tenantId={tenant.id} />
+          case 'inquiryForm':
+            return <InquiryFormBlock key={key} block={block} />
         }
       })}
     </>

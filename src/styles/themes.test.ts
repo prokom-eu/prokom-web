@@ -68,6 +68,17 @@ describe.each(cases)('$line, $mode theme', ({ line, mode }) => {
     ).toBeGreaterThanOrEqual(4.5)
   })
 
+  // WCAG 1.4.11: a form field must be visible against the field and what surrounds it.
+  // `--border` (~1.25:1) is decorative only (ADR-013 point 5).
+  it('form field border reaches 3:1 on every surface', () => {
+    for (const surface of ['--surface', '--surface-2', '--surface-3', '--card']) {
+      expect(
+        contrastRatio(hex('--border-input', s), hex(surface, s)),
+        `--border-input on ${surface}`,
+      ).toBeGreaterThanOrEqual(3)
+    }
+  })
+
   it('accent reaches 3:1 on the surface (large elements)', () => {
     expect(contrastRatio(hex('--accent', s), hex('--surface', s))).toBeGreaterThanOrEqual(3)
   })

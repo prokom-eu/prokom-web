@@ -3,8 +3,7 @@ import { createHmac, timingSafeEqual } from 'node:crypto'
 // Spam protection without third-party services (ADR-003): a honeypot field, a signed
 // "form shown at" time (bots post instantly) and a per-IP limit kept in memory.
 
-/** Name of the hidden field humans never fill in. */
-export const HONEYPOT_FIELD = 'website'
+export { HONEYPOT_FIELD } from './honeypot'
 export const FORM_MIN_FILL_MS = 3_000
 // A form left open longer than a day is reloaded rather than accepted.
 export const FORM_MAX_AGE_MS = 24 * 60 * 60 * 1000

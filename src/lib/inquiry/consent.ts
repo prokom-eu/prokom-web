@@ -15,3 +15,13 @@ export const CONSENT_CLAUSE = {
 /** Promise made to the customer in the confirmation e-mail. */
 // TODO(krystian): confirm the response time with the boss (per line, if it differs).
 export const RESPONSE_TIME = 'w ciągu 1 dnia roboczego'
+
+/** Same path on every domain; the page itself is a `Pages` entry of each site. */
+// TODO(krystian): create the privacy policy page on every site before production (404 until then).
+export const PRIVACY_POLICY_PATH = '/polityka-prywatnosci'
+
+/** Optional marketing consent, separate from the one needed to answer (ADR-003). */
+// TODO(krystian): wording to confirm with the boss (channels: e-mail, phone).
+export const MARKETING_CONSENT_TEXT =
+  'Chcę otrzymywać od PRO-KOM informacje o nowościach i promocjach (zgoda dobrowolna, ' +
+  'można ją wycofać w każdej chwili).'
