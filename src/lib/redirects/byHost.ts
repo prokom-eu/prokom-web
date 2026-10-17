@@ -1,3 +1,4 @@
+import { log } from '../log'
 import { createTenantCache } from '../tenant/cache'
 import { createRedirectLookup } from './lookup'
 import { buildRedirectMap } from './rules'
@@ -36,15 +37,7 @@ const cache: Cache = (store[KEY] ??= createTenantCache(lookup, { ttlMs: TTL_MS }
 
 /** Redirect rules of the tenant behind a normalized host; none for unknown hosts or on errors. */
 export const getRedirectsByHost = createRedirectLookup(cache, (host, error) => {
-  // TODO(S9): the JSON logger from `lib/` (with `requestId`); no personal data here either way.
-  console.error(
-    JSON.stringify({
-      level: 'error',
-      msg: 'Redirect rules not loaded; request passed on without redirects.',
-      host,
-      error: error instanceof Error ? error.message : String(error),
-    }),
-  )
+  log.error({ host, error }, 'Redirect rules not loaded; request passed on without redirects.')
 })
 
 /** Called after any change to `Redirects`, so a new rule applies without waiting for the TTL. */

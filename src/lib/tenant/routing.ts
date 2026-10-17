@@ -28,6 +28,9 @@ const UPLOAD_FILE = /^\/api\/(media|partners)\/file\/[^/]+$/
 const READ_METHODS = ['GET', 'HEAD']
 // The inquiry endpoint (ADR-003): a Next route handler outside Payload, create only.
 const INQUIRY_PATH = '/api/inquiry'
+// Liveness of the app and its database (S9): Docker, the smoke test and monitoring call it by
+// IP or any domain, so it answers on every host. Read only, returns no data.
+const HEALTH_PATH = '/api/health'
 // Not a valid page slug, so `[domain]/[slug]` answers with the site's 404 page.
 export const NOT_FOUND_SEGMENT = '_404'
 
@@ -38,7 +41,8 @@ function startsWithSegment(pathname: string, prefix: string): boolean {
 /**
  * Decides what the proxy does with a request (ADR-006):
  * - panel domain: only the admin panel and the Payload API,
- * - any other domain: never the admin or the API (only uploaded image files and inquiries); pages are rewritten to
+ * - any other domain: never the admin or the API (only uploaded image files, inquiries and the
+ *   health check); pages are rewritten to
  *   `/<host>/<path>`, where the `[domain]` layout resolves the tenant (unknown → 404).
  */
 export function decideRoute({
@@ -49,6 +53,7 @@ export function decideRoute({
 }: RouteInput): RouteDecision {
   const host = normalizeHost(rawHost)
   if (!host) return { type: 'notFound' }
+  if (pathname === HEALTH_PATH && READ_METHODS.includes(method)) return { type: 'next' }
 
   const panelOnly = PANEL_ONLY_PREFIXES.some((prefix) => startsWithSegment(pathname, prefix))
 

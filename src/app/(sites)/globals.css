@@ -31,8 +31,9 @@
   --color-white: var(--c-white);
 
   --font-*: initial;
-  --font-sans: var(--font-manrope), system-ui, sans-serif;
-  --font-display: var(--font-archivo), system-ui, sans-serif;
+  /* Subset chains (see fonts.ts): basic Latin first, then Polish and other Latin letters. */
+  --font-sans: var(--font-manrope-latin), var(--font-manrope-latin-ext), system-ui, sans-serif;
+  --font-display: var(--font-archivo-latin), var(--font-archivo-latin-ext), system-ui, sans-serif;
 }
 
 @layer base {

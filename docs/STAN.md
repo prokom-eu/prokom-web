@@ -5,16 +5,17 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 ## Cel października 2026
 | Etap | Termin | Status |
 |---|---|---|
-| Fundament (S1–S9 lokalnie, S10 na serwerze) — `docs/zadania/fundament.md` | S1–S9: 15–21.10 · S10: po dostawie VPS | ⏳ S1–S8a gotowe, w toku S8b |
+| Fundament (S1–S9 lokalnie, S10 na serwerze) — `docs/zadania/fundament.md` | S1–S9: 15–21.10 · S10: po dostawie VPS | ⏳ S1–S8 gotowe, w toku S9a |
 | prokombiznes.pl — specyfikacja i wzorzec wyglądu | 17.10 | ✅ `strony/prokombiznes.md`, `design/prokombiznes/` (#28) |
 | prokombiznes.pl — wdrożenie | 26.10 | ⏳ |
 | prokominstalacje.pl | 29.10 | ⏳ |
 | prokomsoftware.pl | 31.10 | ⏳ |
 
 ## W toku
-- **S8b — formularz zapytania** (gałąź `feat/s8b-inquiry-form`, PR do otwarcia). Zrobione: token `--border-input` (≥ 3:1 na wszystkich powierzchniach i motywach, test w `themes.test.ts`, `--c-input-border` w `docs/marka.md`), komponenty pól `components/ui/Field.tsx` (etykieta, dopisek, błąd przez `aria-describedby` — bez koloru błędu: pogrubienie, ikona, grubsza ramka), `InquiryForm` (JSON do `/api/inquiry`, szybka kontrola wymaganych pól, błędy serwera przy polach, fokus na pierwszym błędzie / komunikacie), blok `inquiryForm` (nagłówek, tekst, kategoria; `#formularz`, token przy renderze po `connection()`) + migracja, seed: blok na `kontakt` każdej linii (także w istniejących bazach). Na drugim komputerze: `pnpm payload migrate`, `pnpm seed`. **Następny krok:** `/pr` (przegląd `recenzent` zrobiony, poprawki w commicie `fix`); potem S9. `TODO(krystian)`: treść zgody marketingowej i strona `/polityka-prywatnosci` (dziś 404) — `src/lib/inquiry/consent.ts`.
+- **S9a — obraz i gotowość aplikacji** (gałąź `feat/s9a-docker-image`, PR do otwarcia). Podział S9 (17.10): S9a — aplikacja i obraz; S9b — Nginx (nagłówki, basic auth stagingu, `X-Real-IP`, `client_max_body_size`, CSP), `compose.staging.yml`, kopie (`age` + `rclone`, cel `TODO(S10)`) z odtworzeniem na czystej bazie, `docs/runbook.md`. Zrobione: `output: 'standalone'`, `prodMigrations` (migracje przy starcie w production), `/api/health` na każdym hoście, logger JSON `lib/log.ts` (błąd = tylko klasa) + logger Payload w JSON na produkcji, `X-Request-Id` w proxy (przyjęty albo nowy), `Dockerfile` (użytkownik `node`, `HEALTHCHECK`), `docker/compose.prod.yml`, workflow `image.yml` (GHCR, tag = SHA), `scripts/smoke.sh`, fonty `next/font/local` z paczki znaku (`src/app/(sites)/fonts/`, licencje OFL obok; podzbiory latin / latin-ext jako osobne rodziny w łańcuchu `--font-sans` / `--font-display`, bo `next/font/local` nie daje plikowi `unicode-range`). Sprawdzone lokalnie: obraz z czystą bazą → migracje → seed → smoke zielony, `sharp` w kontenerze, logi JSON z `requestId` i `tenant`. Przegląd `recenzent`, poprawki w tej gałęzi: obraz budowany tylko z `develop` (produkcja dostaje przetestowany obraz przez promocję tagu w S10 — squash do `main` zmienia SHA), w logach klasa + kod błędu (`errorFields()`, np. `ECONNREFUSED`, SQLSTATE), smoke sprawdza też panel. Testy: 515 Vitest, 60 e2e. **Następny krok:** `/pr`; po merge sprawdzić pierwszy przebieg `image.yml` i pakiet w GHCR. Potem S9b.
 
 ## Zrobione
+- 17.10.2026 — S8b scalone (#38): formularz zapytania (`Field`, `InquiryForm`), blok `inquiryForm` na `kontakt` każdej linii, token `--border-input`. `TODO(krystian)`: treść zgody marketingowej i `/polityka-prywatnosci` (`src/lib/inquiry/consent.ts`).
 - 17.10.2026 — S8a scalone (#37): `POST /api/inquiry` + `submitInquiry()` (ADR-003), antyspam (honeypot, podpisany token, limit 5 / 10 min na skrót `X-Real-IP`), `Inquiries` (w panelu tylko `status`, także `tenant` zablokowany) i `InquiryDeletions`, maile `@payloadcms/email-nodemailer` (limity czasu SMTP), błąd bazy → 503 bez danych osobowych, zadanie `inquiryRetention` (03:00), Mailpit w CI. Przegląd `recenzent`, poprawki w tym samym PR. Testy: 465 Vitest, 57 e2e. Wymagane zmienne: `SMTP_HOST`, `SMTP_PORT`, `MAIL_FROM_ADDRESS`.
 - 17.10.2026 — obrazy wzorca prokombiznes (#35): 93 pliki w `docs/design/prokombiznes/boards/media/`, dotąd ukryte przez wzorzec `media/` w `.gitignore`. Logo klientów bez potwierdzonych praw — tylko materiał referencyjny.
 - 17.10.2026 — S7b scalone (#34), **S7 zamknięte**: `SITE_ENV`, `robots.txt` i `sitemap.xml` per domena (route handlery w `[domain]`, sitemap pod `pagesTag`), canonical i Open Graph, JSON-LD `Organization` + `LocalBusiness` z `CompanyData` i `FAQPage`, `noindex` + `Disallow: /` na stagingu, własna kolekcja `Redirects` z 301 w proxy (uzupełnienie ADR-006; bez duplikatów i pętli, `Cache-Control` 1 dzień, błąd bazy nie blokuje strony), własna 404 w szkielecie linii (także `/admin`, `/api` na domenie strony), `error.tsx`, `global-error.tsx`. Przegląd `recenzent`, poprawki w tym samym PR. Testy: 388 Vitest, 53 e2e (SEO także na `next start`). CI zielone.
@@ -50,7 +51,7 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 - Z S8b: formularz bez JS nie działa (komunikat `<noscript>`); wysyłka bez JS wymagałaby obsługi `application/x-www-form-urlencoded` w `/api/inquiry`.
 - Z S8a → S9/S10: Nginx musi ustawiać `proxy_set_header X-Real-IP $remote_addr` (nadpisuje wartość klienta) — od niego zależy limit zapytań na IP; bez nagłówka wszyscy dzielą jeden limit (5 zapytań / 10 min dla całego ruchu) — sprawdzić w smoke teście albo runbooku przed 26.10.
 - Z S8a: limit zapytań jest w pamięci procesu (restart zeruje, nie działa przy > 1 instancji) — przy skalowaniu przenieść do bazy.
-- Z S8a → S9: Nginx `client_max_body_size` (np. 64k) dla `/api/inquiry`; aplikacja i tak odrzuca body > 32 KB (413).
+- Z S8a → S9b: Nginx `client_max_body_size` (np. 64k) dla `/api/inquiry`; aplikacja i tak odrzuca body > 32 KB (413).
 - Z S8a (przegląd): token formularza można użyć wiele razy przez 24 h, a potwierdzenie idzie na dowolny wpisany adres — ogranicza to tylko limit IP; obserwować po starcie (reputacja domeny nadawcy).
 - Z #35: hak przed commitem (lint-staged → `prettier --check`) nie mieści ok. 90 ścieżek w jednym wywołaniu w Windows („The command line is too long”) — przy dużych commitach dzielić je albo zawęzić wzorzec Prettiera w lint-staged do plików tekstowych.
 - Z S7b (przegląd): dwa bloki FAQ na jednej stronie dają dwa obiekty `FAQPage` (Google oczekuje jednego) — gdy się pojawią, zbierać pytania na poziomie strony (`RenderBlocks`).
@@ -66,9 +67,8 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 - Z S6b-2: seed `kontakt` ma tytuł strony „Kontakt” i blok Kontakt z nagłówkiem „Kontakt” — na stronie dwa razy to samo (h1 + h2); przy treściach docelowych dać blokowi inny nagłówek albo pierwszy blok Hero.
 - Z S6b-1 (przegląd): `text-ink-3` tylko na `surface`/`card` (jasny Biznes: 4,21 na `surface-2`) — Tailwind tego nie blokuje; pilnować w blokach stron (axe wyłapie tylko na stronach z testu).
 - Z S6b-2: Lighthouse nie był uruchamiany dla nowego szkieletu — sprawdzić przy pierwszych treściach Biznesu (budżet w S10).
-- Z S6b-1 → S9: skrypt motywu inline w `<head>` (`lib/brand/theme.ts`, tylko domeny z trybem ciemnym) — przy CSP w Nginx/Next dopuścić go hashem (`script-src 'sha256-…'`, treść stała) albo nonce.
-- Z S6a (przegląd) → **decyzja przed S9:** `next/font/google` pobiera fonty przy buildzie — CI i build obrazu zależą od Google Fonts. Alternatywa: `next/font/local` z woff2 z paczki znaku (`04_zrodlo/fonty`, Archivo z osią `wdth`, latin + latin-ext) w repo.
-- Z S6a → S9: Tailwind (`tailwindcss`, `@tailwindcss/postcss`) jest w devDependencies, a potrzebny przy buildzie — w Dockerfile żadnego `pnpm install --prod` przed `pnpm build`.
+- Z S6b-1 → S9b: skrypt motywu inline w `<head>` (`lib/brand/theme.ts`, tylko domeny z trybem ciemnym) — przy CSP w Nginx/Next dopuścić go hashem (`script-src 'sha256-…'`, treść stała) albo nonce.
+- Z S6a (przegląd): `next/font/google` pobiera fonty przy buildzie (CI i obraz zależą od Google Fonts) — zamknięte w S9a: `next/font/local` z plikami z paczki znaku.
 - Z S5 → S10: podgląd na żywo na stagingu — dziś wybiera domenę `production` przy buildzie produkcyjnym (`lib/preview/origin.ts`, `TODO(S10)`); sygnał środowiska jest już w `SITE_ENV` (S7b) — użyć go w `lib/preview/origin.ts`. Nginx musi też ustawiać `X-Forwarded-Proto` (adres podglądu i origin panelu).
 - Z S5: szkice nie są walidowane (domyślne Payload), więc blok spoza listy linii wychodzi dopiero przy publikacji — rozważyć `drafts.validate`, gdy edytorów będzie więcej.
 - Z S5 (przegląd): `pagesTag` jest przypięty do każdej strony i unieważniany przy każdej zmianie, więc `pageTag` niczego dziś nie zawęża — uprościć (jeden tag) albo nie przypinać `pagesTag` do pojedynczych stron, gdy pojawi się lista/sitemap (S7).
@@ -89,6 +89,15 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 - CI: `--max-old-space-size=8000` w skrypcie `build` (z szablonu) przekracza RAM runnera GitHub (~8 GB) — obniżyć do ~6144, gdy build urośnie albo pojawi się exit 137.
 - CI: kontrola „schemat = migracje” — job, który na zmigrowanej bazie uruchamia `migrate:create` i failuje, gdy powstałaby niepusta migracja (złapie zmianę kolekcji bez migracji).
 - Ochrona ostatniego admina (z przeglądu S2): hak `beforeChange`/`beforeDelete` w `Users` odrzuca zmianę roli lub usunięcie, gdy po niej nie zostałby żaden admin — przed dodaniem drugiego użytkownika-admina, najpóźniej przed produkcją 26.10.
+
+- Z S9a (przegląd) → S9b, runbook: `prodMigrations` migruje przy starcie nowej wersji, więc powrót do poprzedniego obrazu przy „bazie bez zmian” działa tylko dla migracji zgodnych wstecz — zasada: migracje expand/contract, a przy zmianie niezgodnej rollback = odtworzenie z `pg_dump` sprzed wdrożenia. Nieudana migracja nie zatrzymuje kontenera (healthcheck ponawia init co 15 s) — opisać w „strona nie działa”.
+- Z S9a (przegląd) → S9b: Nginx nadpisuje `X-Request-Id` (`proxy_set_header X-Request-Id $request_id`) — dziś aplikacja przyjmuje poprawnie sformatowane id od klienta (można podszyć się pod cudze id w logach).
+- Z S9a (przegląd) → S9b: nazwa bazy — `compose.prod.yml` ma `prokom_web`, `docs/wdrozenia.md` mówi `prokom_prod` / `prokom_staging`; ujednolicić przy `compose.staging.yml`.
+- Z S9a (przegląd) → S9b: `/api/health` odpowiada na każdym hoście i pyta bazę przy każdym wywołaniu — w Nginx limit albo `allow` tylko dla monitoringu i localhost.
+- Z S9a (przegląd): cztery fonty preloadowane (~216 KB, Archivo 176 KB) — przy pierwszym Lighthouse sprawdzić `preload: false` dla `archivo-latin-ext`.
+- Z S9a: obraz budowany tylko po merge (`image.yml`) — zepsuty `Dockerfile` wyjdzie dopiero na `develop`; jeśli się zdarzy, dodać build bez push na PR. Dependabot dla obrazów Dockera (`package-ecosystem: docker`) — przy S10.
+- Z S9a → S10: pierwsze wypchnięcie tworzy pakiet `prokom-web` w GHCR organizacji — sprawdzić, czy ustawienia organizacji pozwalają `GITHUB_TOKEN` tworzyć pakiety, i ustawić go jako prywatny.
+- Z S9a: Next przy starcie wypisuje kilka linii tekstem (baner „Ready”) — poza tym logi są JSON; agregator logów musi to tolerować.
 
 ## Otwarte pytania
 - **ADR-012 (proponowana):** katalog prokombiznes — rozbieżności z ADR-003/006 do uzgodnienia przed sesją kolekcji.

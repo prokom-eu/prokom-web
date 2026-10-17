@@ -1,5 +1,6 @@
 import type { Inquiry } from '@/payload-types'
 
+import { errorFields, log } from '../log'
 import { normalizeHost } from '../tenant/host'
 import type { Line } from '../tenant/lines'
 import { confirmationEmail, notificationEmail, type Email, type InquiryForEmail } from './emails'
@@ -30,7 +31,8 @@ export type SubmitDeps = {
   save: (data: NewInquiry) => Promise<{ id: number }>
   sendEmail: (email: Email) => Promise<unknown>
   panelUrl: (id: number) => string
-  // Structured fields only: ids, tenant, error codes — never form data (ADR-003).
+  // Structured fields only: ids, tenant, `errorFields()` of a caught error — never form data
+  // (ADR-003); database errors quote the query parameters, SMTP errors the recipients.
   log: Record<'info' | 'warn' | 'error', (fields: Record<string, unknown>, msg: string) => void>
 }
 
@@ -40,12 +42,6 @@ export type SubmitRequest = {
   /** Client IP set by the reverse proxy; `null` locally (one shared limit). */
   ip: string | null
   body: unknown
-}
-
-// Only the error class: database errors quote query parameters (the form data), SMTP errors
-// quote recipients — neither may reach the logs (ADR-003).
-function errorName(error: unknown): string {
-  return error instanceof Error ? error.name : 'unknown'
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -62,7 +58,7 @@ export async function submitInquiryWith(
   try {
     tenant = normalized ? await deps.findTenant(normalized) : null
   } catch (error) {
-    deps.log.error({ error: errorName(error) }, 'Inquiry tenant lookup failed')
+    deps.log.error(errorFields(error), 'Inquiry tenant lookup failed')
     return { ok: false, error: 'unavailable' }
   }
   if (!tenant) return { ok: false, error: 'unknown_host' }
@@ -108,7 +104,7 @@ export async function submitInquiryWith(
       marketingConsent: input.marketingConsent,
     })
   } catch (error) {
-    deps.log.error({ tenant: tenant.id, error: errorName(error) }, 'Inquiry not saved')
+    deps.log.error({ tenant: tenant.id, ...errorFields(error) }, 'Inquiry not saved')
     return { ok: false, error: 'unavailable' }
   }
   const { id } = saved
@@ -141,7 +137,7 @@ export async function submitInquiryWith(
   results.forEach((result, i) => {
     if (result.status === 'rejected') {
       deps.log.error(
-        { tenant: tenant.id, inquiry: id, email: emails[i]?.kind, error: errorName(result.reason) },
+        { tenant: tenant.id, inquiry: id, email: emails[i]?.kind, ...errorFields(result.reason) },
         'Inquiry e-mail not sent',
       )
     }
@@ -162,7 +158,10 @@ const limiter = (store[LIMITER_KEY] ??= createRateLimiter({ limit: 5, windowMs: 
  * Accepts an inquiry from a site form (ADR-003): tenant from `Host`, spam checks, validation,
  * save, e-mails. In 2027 `save` moves to the PRO-KOM System API; the forms stay as they are.
  */
-export async function submitInquiry(request: SubmitRequest): Promise<SubmitResult> {
+export async function submitInquiry(
+  request: SubmitRequest,
+  context: { requestId: string },
+): Promise<SubmitResult> {
   // Imported lazily, like `lib/tenant/byHost`: keeps the Payload config out of unit tests.
   const [{ getPayload }, { default: config }, { getEnv }, { getTenantByHost }, { siteOrigin }] =
     await Promise.all([
@@ -202,11 +201,7 @@ export async function submitInquiry(request: SubmitRequest): Promise<SubmitResul
         const origin = siteOrigin(port ? `${env.PANEL_HOST}:${port}` : env.PANEL_HOST, env.SITE_ENV)
         return `${origin}/admin/collections/inquiries/${id}`
       },
-      log: {
-        info: (fields, msg) => payload.logger.info(fields, msg),
-        warn: (fields, msg) => payload.logger.warn(fields, msg),
-        error: (fields, msg) => payload.logger.error(fields, msg),
-      },
+      log: log.child({ requestId: context.requestId }),
     },
     request,
   )
