@@ -54,15 +54,17 @@ Pierwsze uruchomienie na serwerze (S10, szczegóły w runbooku):
 
 Test lokalny (S9b-1, 17.10): certyfikaty self-signed, porty 18080/18443, `SMOKE_INSECURE=1` — smoke zielony, nagłówki jak wyżej, staging 401 bez hasła, obcy host 444, 413 dla dużego body, 429 na health, ten sam `requestId` w obu logach.
 
-## Kopie zapasowe
-- Co noc: `pg_dump` (prod i staging) + katalog mediów → poza serwer (inna lokalizacja/dostawca), szyfrowane. Retencja: 14 dziennych + 3 miesięczne.
-- Przed każdym wdrożeniem produkcji: dodatkowy `pg_dump`.
-- Raz w miesiącu: próbne odtworzenie na stagingu.
+## Kopie zapasowe (S9b-2)
+- `scripts/backup.sh <prod|staging> [predeploy]`: `pg_dump -Fc` (sprawdzony `pg_restore --list`) + wolumen mediów + manifest (data, obraz, lista migracji) w jednym pliku, szyfrowanym `age` kluczem publicznym → `../backups/<stos>/<rodzaj>/` i `RCLONE_REMOTE/<stos>/<rodzaj>/` (poza serwerem, inny dostawca — ADR-002; cel: `TODO(S10)`).
+- Rodzaje i retencja (usuwanie po wieku, lokalnie i zdalnie): `daily` 14 dni, `monthly` (kopia z 1. dnia miesiąca) 93 dni, `predeploy` 30 dni.
+- Co noc z crona (prod i staging); przed każdym wdrożeniem produkcji `backup.sh prod predeploy`.
+- `scripts/restore.sh <plik|zdalna ścieżka> <projekt> <baza>`: odszyfrowanie kluczem prywatnym (tylko menedżer haseł), baza od nowa (`pg_restore`), wolumen mediów od nowa, aplikacja z powrotem `healthy`. Na `prokom-prod`/`prokom-staging` pyta o nazwę projektu.
+- Raz w miesiącu: próbne odtworzenie na osobnym stosie `prokom-restoretest` (runbook §7).
+- Test 17.10 (lokalnie): kopia stosu z obrazu → wysyłka `rclone` → odtworzenie na czystym stosie: liczby rekordów i suma kontrolna mediów zgodne, smoke zielony, logowanie admina działa; zły klucz przerywa przed zmianami; retencja usuwa stare pliki.
+- Procedury krok po kroku: `docs/runbook.md`.
 
 ## Cofnięcie wdrożenia
-1. Ustaw poprzedni tag obrazu (`APP_IMAGE_TAG`).
-2. `docker compose -f docker/compose.prod.yml up -d app`.
-3. Jeśli migracja zmieniła dane — odtworzenie bazy z kopii sprzed wdrożenia (decyzja ręczna).
+Tylko obraz (migracje zgodne wstecz) albo obraz + baza z kopii `predeploy` — `docs/runbook.md` §4 i zasada migracji §5.
 
 ## Nowa domena — checklista
 1. Domena kupiona u Seohost (abonent: firma).
