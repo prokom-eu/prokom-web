@@ -1,0 +1,2291 @@
+{
+ "zrodlo": "biznes-produkty-fakty.md (stan 15.10.2026) — dane z wizualizacji. Parametry Elzab i Fawag do sprawdzenia na stronach producentów przed publikacją.",
+ "grupy": [
+  {
+   "slug": "sprz",
+   "nazwa": "Kasy i sprzedaż",
+   "ikona": "store",
+   "gradient": [
+    "#244FB0",
+    "#4FA3F0"
+   ],
+   "kolejnosc": 0
+  },
+  {
+   "slug": "biuro",
+   "nazwa": "Komputery i biuro",
+   "ikona": "monitor",
+   "gradient": [
+    "#0E7C86",
+    "#33C2B5"
+   ],
+   "kolejnosc": 1
+  },
+  {
+   "slug": "prog",
+   "nazwa": "Oprogramowanie",
+   "ikona": "doc",
+   "gradient": [
+    "#6D3FD1",
+    "#A07BF0"
+   ],
+   "kolejnosc": 2
+  },
+  {
+   "slug": "bezp",
+   "nazwa": "Bezpieczeństwo, sieć i podpis",
+   "ikona": "shield",
+   "gradient": [
+    "#1F7A4A",
+    "#46C78B"
+   ],
+   "kolejnosc": 3
+  },
+  {
+   "slug": "usl",
+   "nazwa": "Serwis i usługi",
+   "ikona": "wrench",
+   "gradient": [
+    "#C2410C",
+    "#F59E0B"
+   ],
+   "kolejnosc": 4
+  }
+ ],
+ "kategorie": [
+  {
+   "slug": "kasy",
+   "nazwa": "Kasy fiskalne",
+   "grupa": "sprz",
+   "opis": "Posnet, Elzab, Fawag — online, z fiskalizacją i szkoleniem",
+   "kolejnosc": 0
+  },
+  {
+   "slug": "druk",
+   "nazwa": "Drukarki fiskalne",
+   "grupa": "sprz",
+   "opis": "do programu sprzedażowego i POS",
+   "kolejnosc": 1
+  },
+  {
+   "slug": "pos",
+   "nazwa": "Stanowiska POS",
+   "grupa": "sprz",
+   "opis": "dotykowe all-in-one pod GoPOS i sklep",
+   "kolejnosc": 2
+  },
+  {
+   "slug": "mob",
+   "nazwa": "Kasoterminale i mobilne",
+   "grupa": "sprz",
+   "opis": "kelner przy stoliku, sprzedaż w terenie",
+   "kolejnosc": 3
+  },
+  {
+   "slug": "term",
+   "nazwa": "Terminale płatnicze",
+   "grupa": "sprz",
+   "opis": "PolCard from Fiserv, BLIK, zbliżeniowe",
+   "kolejnosc": 4
+  },
+  {
+   "slug": "kiosk",
+   "nazwa": "Kioski i ekrany kuchenne",
+   "grupa": "sprz",
+   "opis": "samoobsługa i kuchnia bez papieru",
+   "kolejnosc": 5
+  },
+  {
+   "slug": "akc",
+   "nazwa": "Akcesoria POS i wagi",
+   "grupa": "sprz",
+   "opis": "szuflady, skanery, drukarki bonów, wagi",
+   "kolejnosc": 6
+  },
+  {
+   "slug": "komp",
+   "nazwa": "Komputery i monitory",
+   "grupa": "biuro",
+   "opis": "Lenovo, Dell — gotowe do pracy",
+   "kolejnosc": 7
+  },
+  {
+   "slug": "serw",
+   "nazwa": "Serwery, NAS i UPS",
+   "grupa": "biuro",
+   "opis": "Dell PowerEdge, Synology, QNAP, APC",
+   "kolejnosc": 8
+  },
+  {
+   "slug": "mfp",
+   "nazwa": "Drukarki wielofunkcyjne",
+   "grupa": "biuro",
+   "opis": "Konica Minolta, Kyocera",
+   "kolejnosc": 9
+  },
+  {
+   "slug": "av",
+   "nazwa": "Ekrany i projektory",
+   "grupa": "biuro",
+   "opis": "monitory interaktywne, digital signage",
+   "kolejnosc": 10
+  },
+  {
+   "slug": "progs",
+   "nazwa": "Programy sprzedażowe i ERP",
+   "grupa": "prog",
+   "opis": "InsERT, Comarch, Insoft",
+   "kolejnosc": 11
+  },
+  {
+   "slug": "progb",
+   "nazwa": "Programy branżowe",
+   "grupa": "prog",
+   "opis": "GoPOS, NFHotel",
+   "kolejnosc": 12
+  },
+  {
+   "slug": "m365",
+   "nazwa": "Microsoft 365 i licencje",
+   "grupa": "prog",
+   "opis": "poczta, Office, Teams, Windows",
+   "kolejnosc": 13
+  },
+  {
+   "slug": "siec",
+   "nazwa": "Sieć i Wi-Fi",
+   "grupa": "bezp",
+   "opis": "Ubiquiti UniFi",
+   "kolejnosc": 14
+  },
+  {
+   "slug": "ochr",
+   "nazwa": "Antywirus i firewall",
+   "grupa": "bezp",
+   "opis": "ESET, Stormshield",
+   "kolejnosc": 15
+  },
+  {
+   "slug": "podpis",
+   "nazwa": "Podpis i pieczęć kwalifikowana",
+   "grupa": "bezp",
+   "opis": "EuroCert — do KSeF, ZUS, KRS",
+   "kolejnosc": 16
+  },
+  {
+   "slug": "it",
+   "nazwa": "Opieka IT i wdrożenia",
+   "grupa": "usl",
+   "opis": "abonament, KSeF, programy, szkolenia",
+   "kolejnosc": 17
+  },
+  {
+   "slug": "serwis",
+   "nazwa": "Serwis i przeglądy",
+   "grupa": "usl",
+   "opis": "autoryzowany serwis Posnet i Elzab",
+   "kolejnosc": 18
+  },
+  {
+   "slug": "dof",
+   "nazwa": "Dofinansowania",
+   "grupa": "usl",
+   "opis": "zakupy w projektach z dofinansowaniem",
+   "kolejnosc": 19
+  }
+ ],
+ "branze": [
+  {
+   "slug": "gastro",
+   "nazwa": "Gastronomia"
+  },
+  {
+   "slug": "handel",
+   "nazwa": "Handel i sklepy"
+  },
+  {
+   "slug": "noclegi",
+   "nazwa": "Hotele i pensjonaty"
+  },
+  {
+   "slug": "uslugi",
+   "nazwa": "Biura i usługi"
+  },
+  {
+   "slug": "szkoly",
+   "nazwa": "Szkoły i instytucje"
+  },
+  {
+   "slug": "zdrowie",
+   "nazwa": "Zdrowie i uzdrowiska"
+  }
+ ],
+ "marki": [
+  {
+   "nazwa": "APC",
+   "slug": "apc",
+   "logo": null
+  },
+  {
+   "nazwa": "Avtek",
+   "slug": "avtek",
+   "logo": "logo-avtek.webp"
+  },
+  {
+   "nazwa": "Comarch",
+   "slug": "comarch",
+   "logo": "logo-comarch.webp"
+  },
+  {
+   "nazwa": "Dell",
+   "slug": "dell",
+   "logo": "logo-dell.webp"
+  },
+  {
+   "nazwa": "ESET",
+   "slug": "eset",
+   "logo": "logo-eset.webp"
+  },
+  {
+   "nazwa": "Elzab",
+   "slug": "elzab",
+   "logo": "logo-elzab.webp"
+  },
+  {
+   "nazwa": "EuroCert",
+   "slug": "eurocert",
+   "logo": "logo-eurocert.webp"
+  },
+  {
+   "nazwa": "Fawag",
+   "slug": "fawag",
+   "logo": "logo-fawag.webp"
+  },
+  {
+   "nazwa": "GoPOS",
+   "slug": "gopos",
+   "logo": "logo-gopos.webp"
+  },
+  {
+   "nazwa": "InsERT",
+   "slug": "insert",
+   "logo": "logo-insert.webp"
+  },
+  {
+   "nazwa": "Insoft",
+   "slug": "insoft",
+   "logo": "logo-insoft.webp"
+  },
+  {
+   "nazwa": "Konica Minolta",
+   "slug": "konica-minolta",
+   "logo": "logo-konica-minolta.webp"
+  },
+  {
+   "nazwa": "Kyocera",
+   "slug": "kyocera",
+   "logo": "logo-kyocera.webp"
+  },
+  {
+   "nazwa": "Lenovo",
+   "slug": "lenovo",
+   "logo": "logo-lenovo.webp"
+  },
+  {
+   "nazwa": "Microsoft",
+   "slug": "microsoft",
+   "logo": "logo-microsoft.webp"
+  },
+  {
+   "nazwa": "NFHotel",
+   "slug": "nfhotel",
+   "logo": "logo-nfhotel.webp"
+  },
+  {
+   "nazwa": "PRO-KOM",
+   "slug": "pro-kom",
+   "logo": "brand-prokom-biznes-jasne.svg"
+  },
+  {
+   "nazwa": "PolCard",
+   "slug": "polcard",
+   "logo": "logo-polcard.webp"
+  },
+  {
+   "nazwa": "Posnet",
+   "slug": "posnet",
+   "logo": "logo-posnet.webp"
+  },
+  {
+   "nazwa": "QNAP",
+   "slug": "qnap",
+   "logo": "logo-qnap.webp"
+  },
+  {
+   "nazwa": "Samsung",
+   "slug": "samsung",
+   "logo": null
+  },
+  {
+   "nazwa": "Sharp/NEC",
+   "slug": "sharp-nec",
+   "logo": "logo-sharp-nec.webp"
+  },
+  {
+   "nazwa": "StorageCraft",
+   "slug": "storagecraft",
+   "logo": "logo-storagecraft.webp"
+  },
+  {
+   "nazwa": "Stormshield",
+   "slug": "stormshield",
+   "logo": "logo-stormshield.webp"
+  },
+  {
+   "nazwa": "Sunmi",
+   "slug": "sunmi",
+   "logo": "logo-sunmi.webp"
+  },
+  {
+   "nazwa": "Synology",
+   "slug": "synology",
+   "logo": "logo-synology.webp"
+  },
+  {
+   "nazwa": "Ubiquiti",
+   "slug": "ubiquiti",
+   "logo": "logo-ubiquiti.webp"
+  }
+ ],
+ "produkty": [
+  {
+   "slug": "ergo",
+   "nazwa": "Posnet Ergo Online",
+   "marka": "Posnet",
+   "kategoria": "kasy",
+   "rodzaj": "urzadzenie",
+   "zdjecie": "p-posnet-ergo.webp",
+   "korzysc": "Mała kasa z modułem WiFi lub LTE i płatnością BLIK prosto na kasie.",
+   "cechy": [
+    "Online",
+    "WiFi / LTE",
+    "0,6 kg"
+   ],
+   "branze": [
+    "uslugi",
+    "gastro",
+    "handel"
+   ],
+   "autoryzacja": true,
+   "nowosc": false,
+   "slowa_kluczowe": "mobilna przenosna bateria fryzjer cukiernia food truck",
+   "odznaka": "Ulga do 700 zł",
+   "popularnosc": 98,
+   "parametry_kasy": {
+    "typ": "mała / mobilna",
+    "ekr": "2 × 192×64",
+    "kl": "29, bryzgoszczelna",
+    "plu": "4 000 (do 8 000)",
+    "dr": "57 mm · 20 l/s",
+    "lacz": "USB; moduł WiFi lub LTE",
+    "waga": "0,6 kg",
+    "dla": "fryzjerzy, cukiernie, food trucki"
+   },
+   "typ_kasy": [
+    "mob",
+    "mala"
+   ],
+   "wyrozniony_na_glownej": true
+  },
+  {
+   "slug": "mobile",
+   "nazwa": "Posnet Mobile Online",
+   "marka": "Posnet",
+   "kategoria": "kasy",
+   "rodzaj": "urzadzenie",
+   "zdjecie": "p-posnet-mobile.webp",
+   "korzysc": "Najmniejsza kasa online Posnet — mieści się w kieszeni.",
+   "cechy": [
+    "Online",
+    "WiFi / GPRS",
+    "410 g"
+   ],
+   "branze": [
+    "uslugi",
+    "gastro"
+   ],
+   "autoryzacja": true,
+   "nowosc": false,
+   "slowa_kluczowe": "mobilna przenosna mechanik lekarz kieszen bilety",
+   "odznaka": null,
+   "popularnosc": 80,
+   "parametry_kasy": {
+    "typ": "mobilna",
+    "ekr": "2 × LCD 2×16",
+    "kl": "19 klawiszy",
+    "plu": "4 000",
+    "dr": "57 mm · 22 l/s",
+    "lacz": "WiFi lub GPRS (SIM)",
+    "waga": "410 g",
+    "dla": "mechanicy, lekarze, food trucki"
+   },
+   "typ_kasy": [
+    "mob"
+   ],
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "neo",
+   "nazwa": "Posnet Neo Online",
+   "marka": "Posnet",
+   "kategoria": "kasy",
+   "rodzaj": "urzadzenie",
+   "zdjecie": "p-posnet-neo.webp",
+   "korzysc": "Kasa systemowa do sklepu z dużą liczbą towarów i skanerem.",
+   "cechy": [
+    "PLU 30 000",
+    "2 wyświetlacze",
+    "Ethernet"
+   ],
+   "branze": [
+    "handel"
+   ],
+   "autoryzacja": true,
+   "nowosc": false,
+   "slowa_kluczowe": "systemowa supermarket delikatesy skaner",
+   "odznaka": null,
+   "popularnosc": 70,
+   "parametry_kasy": {
+    "typ": "systemowa",
+    "ekr": "2 × 192×64",
+    "kl": "56 (26 programowalnych)",
+    "plu": "30 000 (do 60 000)",
+    "dr": "57 mm · 20 l/s",
+    "lacz": "Ethernet, USB, 4×RS232",
+    "waga": "4,3 kg",
+    "dla": "supermarkety, delikatesy"
+   },
+   "typ_kasy": [
+    "sys"
+   ],
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "k10",
+   "nazwa": "Elzab K10 Online",
+   "marka": "Elzab",
+   "kategoria": "kasy",
+   "rodzaj": "urzadzenie",
+   "zdjecie": "p-elzab-k10.webp",
+   "korzysc": "Kasa z ekranem dotykowym 4,3\" i wymienną baterią, w 7 kolorach.",
+   "cechy": [
+    "Dotyk 4,3\"",
+    "WiFi / BT",
+    "bateria"
+   ],
+   "branze": [
+    "uslugi",
+    "handel",
+    "gastro"
+   ],
+   "autoryzacja": true,
+   "nowosc": false,
+   "slowa_kluczowe": "dotykowa mobilna przenosna kolorowa",
+   "odznaka": null,
+   "popularnosc": 90,
+   "parametry_kasy": {
+    "typ": "mobilna, dotykowa",
+    "ekr": "dotyk 4,3\" + klient 2×16",
+    "kl": "50 na ekranie",
+    "plu": "5 000",
+    "dr": "57 mm · 21 l/s",
+    "lacz": "2×USB, WiFi, BT; GSM opcja",
+    "waga": "0,65 kg",
+    "dla": "handel mobilny, usługi"
+   },
+   "typ_kasy": [
+    "mob",
+    "dot"
+   ],
+   "wyrozniony_na_glownej": true
+  },
+  {
+   "slug": "mini",
+   "nazwa": "Elzab Mini Online",
+   "marka": "Elzab",
+   "kategoria": "kasy",
+   "rodzaj": "urzadzenie",
+   "zdjecie": "p-elzab-mini.webp",
+   "korzysc": "Mała kasa z Ethernetem w standardzie — do sklepu i usług.",
+   "cechy": [
+    "PLU 10 000",
+    "Ethernet",
+    "0,9 kg"
+   ],
+   "branze": [
+    "handel",
+    "uslugi"
+   ],
+   "autoryzacja": true,
+   "nowosc": false,
+   "slowa_kluczowe": "mala sklep uslugi wypozyczalnia",
+   "odznaka": null,
+   "popularnosc": 66,
+   "parametry_kasy": {
+    "typ": "mała",
+    "ekr": "LCD 2×24 + LED klienta",
+    "kl": "62 klawisze",
+    "plu": "10 000",
+    "dr": "57 mm · 15 l/s",
+    "lacz": "Ethernet, 2×USB, 2×RS232",
+    "waga": "0,9 kg",
+    "dla": "małe sklepy, usługi"
+   },
+   "typ_kasy": [
+    "mala"
+   ],
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "jota",
+   "nazwa": "Elzab Jota Online",
+   "marka": "Elzab",
+   "kategoria": "kasy",
+   "rodzaj": "urzadzenie",
+   "zdjecie": null,
+   "korzysc": "Kasa do sklepu spożywczego, mięsnego i cukierni — z akumulatorem.",
+   "cechy": [
+    "PLU 20 000",
+    "LAN",
+    "akumulator"
+   ],
+   "branze": [
+    "handel"
+   ],
+   "autoryzacja": true,
+   "nowosc": false,
+   "slowa_kluczowe": "srednia spozywczy miesny cukiernia",
+   "odznaka": null,
+   "popularnosc": 50,
+   "parametry_kasy": {
+    "typ": "średnia",
+    "ekr": "LCD 4×24",
+    "kl": "34 (71 funkcji)",
+    "plu": "20 000",
+    "dr": "57 mm · rolka 80 m",
+    "lacz": "LAN",
+    "waga": "2,1 kg",
+    "dla": "spożywcze, mięsne, cukiernie"
+   },
+   "typ_kasy": [
+    "sys"
+   ],
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "lite",
+   "nazwa": "Fawag Lite Online",
+   "marka": "Fawag",
+   "kategoria": "kasy",
+   "rodzaj": "urzadzenie",
+   "zdjecie": null,
+   "korzysc": "Prosta kasa do małego sklepu, kwiaciarni i butiku.",
+   "cechy": [
+    "PLU 2 000",
+    "Ethernet",
+    "1 kg"
+   ],
+   "branze": [
+    "handel",
+    "uslugi"
+   ],
+   "autoryzacja": false,
+   "nowosc": false,
+   "slowa_kluczowe": "mala kwiaciarnia butik tania prosta",
+   "odznaka": null,
+   "popularnosc": 40,
+   "parametry_kasy": {
+    "typ": "mała",
+    "ekr": "2 × LCD 2×16",
+    "kl": "27 klawiszy",
+    "plu": "2 000",
+    "dr": "57 mm · 16 l/s",
+    "lacz": "Ethernet, USB, 2×RS232",
+    "waga": "1 kg",
+    "dla": "małe sklepy, kwiaciarnie"
+   },
+   "typ_kasy": [
+    "mala"
+   ],
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "hx",
+   "nazwa": "Posnet Thermal HX Online",
+   "marka": "Posnet",
+   "kategoria": "druk",
+   "rodzaj": "urzadzenie",
+   "zdjecie": "p-posnet-thermal-hx.webp",
+   "korzysc": "Drukarka fiskalna do dużego ruchu — papier 80 lub 57 mm, obcinacz.",
+   "cechy": [
+    "47 linii/s",
+    "Ethernet",
+    "PLU 250 000"
+   ],
+   "branze": [
+    "gastro",
+    "handel",
+    "noclegi"
+   ],
+   "autoryzacja": true,
+   "nowosc": false,
+   "slowa_kluczowe": "drukarka restauracja hotel siec hurtownia",
+   "odznaka": null,
+   "popularnosc": 85,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "trio",
+   "nazwa": "Posnet Trio Online",
+   "marka": "Posnet",
+   "kategoria": "druk",
+   "rodzaj": "urzadzenie",
+   "zdjecie": "p-posnet-trio.webp",
+   "korzysc": "Kompaktowa drukarka fiskalna z wymienną baterią. Dobry Wzór 2017.",
+   "cechy": [
+    "30 linii/s",
+    "USB / WiFi",
+    "0,7 kg"
+   ],
+   "branze": [
+    "handel",
+    "gastro"
+   ],
+   "autoryzacja": true,
+   "nowosc": false,
+   "slowa_kluczowe": "drukarka butik piekarnia fast food",
+   "odznaka": null,
+   "popularnosc": 75,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "temo",
+   "nazwa": "Posnet Temo Online",
+   "marka": "Posnet",
+   "kategoria": "druk",
+   "rodzaj": "urzadzenie",
+   "zdjecie": "p-posnet-temo.webp",
+   "korzysc": "Mobilna drukarka fiskalna do pracy w terenie.",
+   "cechy": [
+    "315 g",
+    "bateria",
+    "WiFi / BT opcja"
+   ],
+   "branze": [
+    "uslugi"
+   ],
+   "autoryzacja": true,
+   "nowosc": false,
+   "slowa_kluczowe": "drukarka mobilna przenosna parking wypozyczalnia",
+   "odznaka": null,
+   "popularnosc": 55,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "zeta",
+   "nazwa": "Elzab Zeta Online",
+   "marka": "Elzab",
+   "kategoria": "druk",
+   "rodzaj": "urzadzenie",
+   "zdjecie": "p-elzab-zeta.webp",
+   "korzysc": "Kompaktowa drukarka z WiFi i Bluetooth na pokładzie.",
+   "cechy": [
+    "PLU 500 000",
+    "WiFi / BT",
+    "0,9 kg"
+   ],
+   "branze": [
+    "handel",
+    "uslugi"
+   ],
+   "autoryzacja": true,
+   "nowosc": false,
+   "slowa_kluczowe": "drukarka kiosk stoisko e-commerce",
+   "odznaka": null,
+   "popularnosc": 60,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "fbox",
+   "nazwa": "Fawag Box Online",
+   "marka": "Fawag",
+   "kategoria": "druk",
+   "rodzaj": "urzadzenie",
+   "zdjecie": "p-fawag-box.webp",
+   "korzysc": "Kompaktowa drukarka fiskalna, rozumie protokoły Posnet i Thermal.",
+   "cechy": [
+    "Ethernet",
+    "USB",
+    "1 kg"
+   ],
+   "branze": [
+    "handel",
+    "uslugi"
+   ],
+   "autoryzacja": false,
+   "nowosc": false,
+   "slowa_kluczowe": "drukarka salon warsztat drogeria",
+   "odznaka": null,
+   "popularnosc": 45,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "d3",
+   "nazwa": "Sunmi D3 PRO",
+   "marka": "Sunmi",
+   "kategoria": "pos",
+   "rodzaj": "urzadzenie",
+   "zdjecie": "p-sunmi-d3-pro.webp",
+   "korzysc": "Stanowisko POS 15,6\" na Androidzie — pod GoPOS i programy sklepowe.",
+   "cechy": [
+    "15,6\" FHD",
+    "Android 13",
+    "ekran klienta opcja"
+   ],
+   "branze": [
+    "gastro",
+    "handel",
+    "noclegi"
+   ],
+   "autoryzacja": false,
+   "nowosc": false,
+   "slowa_kluczowe": "pos dotykowy komputer kasowy restauracja",
+   "odznaka": null,
+   "popularnosc": 88,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": true
+  },
+  {
+   "slug": "vero",
+   "nazwa": "Posnet Vero",
+   "marka": "Posnet",
+   "kategoria": "pos",
+   "rodzaj": "urzadzenie",
+   "zdjecie": "p-posnet-vero.webp",
+   "korzysc": "POS all-in-one 10,1\" z wbudowaną drukarką fiskalną.",
+   "cechy": [
+    "10,1\" dotyk",
+    "Android",
+    "drukarka fiskalna"
+   ],
+   "branze": [
+    "gastro",
+    "handel",
+    "uslugi"
+   ],
+   "autoryzacja": true,
+   "nowosc": false,
+   "slowa_kluczowe": "pos all in one tablet gopos",
+   "odznaka": null,
+   "popularnosc": 72,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "triotab",
+   "nazwa": "Zestaw Trio Online + TrioTAB",
+   "marka": "Posnet",
+   "kategoria": "pos",
+   "rodzaj": "urzadzenie",
+   "zdjecie": "p-posnet-trio-triotab.webp",
+   "korzysc": "Drukarka Trio i tablet 10,1\" z wbudowanym skanerem 2D — gotowy POS.",
+   "cechy": [
+    "Android 14",
+    "skaner 2D",
+    "980 g"
+   ],
+   "branze": [
+    "gastro",
+    "handel"
+   ],
+   "autoryzacja": true,
+   "nowosc": true,
+   "slowa_kluczowe": "pos tablet zestaw nowosc",
+   "odznaka": null,
+   "popularnosc": 78,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "v3mix",
+   "nazwa": "Sunmi V3 MIX",
+   "marka": "Sunmi",
+   "kategoria": "mob",
+   "rodzaj": "urzadzenie",
+   "zdjecie": "p-sunmi-v3-mix.webp",
+   "korzysc": "Tablet 10,1\" z drukarką, skanerem i NFC — kelner przy stoliku.",
+   "cechy": [
+    "10,1\"",
+    "drukarka 58/80 mm",
+    "2 × SIM"
+   ],
+   "branze": [
+    "gastro",
+    "noclegi"
+   ],
+   "autoryzacja": false,
+   "nowosc": false,
+   "slowa_kluczowe": "kelner mobilny tablet drukarka",
+   "odznaka": null,
+   "popularnosc": 74,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "v3",
+   "nazwa": "Sunmi V3",
+   "marka": "Sunmi",
+   "kategoria": "mob",
+   "rodzaj": "urzadzenie",
+   "zdjecie": "p-sunmi-v3.webp",
+   "korzysc": "Kieszonkowy terminal z drukarką 58 mm, 4G i GPS.",
+   "cechy": [
+    "6,75\"",
+    "4G",
+    "GPS"
+   ],
+   "branze": [
+    "gastro",
+    "uslugi"
+   ],
+   "autoryzacja": false,
+   "nowosc": false,
+   "slowa_kluczowe": "mobilny kieszonkowy kelner dostawa",
+   "odznaka": null,
+   "popularnosc": 52,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "pol",
+   "nazwa": "Terminal płatniczy PolCard",
+   "marka": "PolCard",
+   "kategoria": "term",
+   "rodzaj": "urzadzenie",
+   "zdjecie": "p-terminal-polcard.webp",
+   "korzysc": "Karty, BLIK, Apple Pay i Google Pay. Środki następnego dnia roboczego.",
+   "cechy": [
+    "BLIK",
+    "zbliżeniowe",
+    "helpdesk 24/7"
+   ],
+   "branze": [
+    "gastro",
+    "handel",
+    "noclegi",
+    "uslugi",
+    "szkoly",
+    "zdrowie"
+   ],
+   "autoryzacja": false,
+   "nowosc": false,
+   "slowa_kluczowe": "terminal platnosci karta blik polska bezgotowkowa",
+   "odznaka": "0 zł przez 12 mies.",
+   "popularnosc": 95,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": true
+  },
+  {
+   "slug": "softpos",
+   "nazwa": "PolCard Go — terminal w telefonie",
+   "marka": "PolCard",
+   "kategoria": "term",
+   "rodzaj": "urzadzenie",
+   "zdjecie": null,
+   "korzysc": "Płatności kartą w telefonie z Androidem, bez osobnego terminala.",
+   "cechy": [
+    "SoftPOS",
+    "Android",
+    "zbliżeniowe"
+   ],
+   "branze": [
+    "uslugi",
+    "gastro"
+   ],
+   "autoryzacja": false,
+   "nowosc": true,
+   "slowa_kluczowe": "terminal telefon softpos karta",
+   "odznaka": null,
+   "popularnosc": 48,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "kiosk",
+   "nazwa": "Sunmi K2 — kiosk samoobsługowy",
+   "marka": "Sunmi",
+   "kategoria": "kiosk",
+   "rodzaj": "urzadzenie",
+   "zdjecie": "p-sunmi-kiosk.webp",
+   "korzysc": "Ekran 24\", drukarka i skaner — gość sam zamawia i płaci.",
+   "cechy": [
+    "24\" FHD",
+    "drukarka 80 mm",
+    "NFC"
+   ],
+   "branze": [
+    "gastro"
+   ],
+   "autoryzacja": false,
+   "nowosc": false,
+   "slowa_kluczowe": "kiosk samoobsluga zamawianie",
+   "odznaka": null,
+   "popularnosc": 58,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "kds",
+   "nazwa": "Sunmi FLEX 3 KDS",
+   "marka": "Sunmi",
+   "kategoria": "kiosk",
+   "rodzaj": "urzadzenie",
+   "zdjecie": "p-sunmi-kds.webp",
+   "korzysc": "Ekran kuchenny IP55 — działa mokrymi dłońmi i w rękawiczkach.",
+   "cechy": [
+    "IP55",
+    "15,6–22\"",
+    "VESA"
+   ],
+   "branze": [
+    "gastro"
+   ],
+   "autoryzacja": false,
+   "nowosc": false,
+   "slowa_kluczowe": "kuchnia ekran kds zamowienia",
+   "odznaka": null,
+   "popularnosc": 56,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "szuf",
+   "nazwa": "Szuflada Posnet SKL",
+   "marka": "Posnet",
+   "kategoria": "akc",
+   "rodzaj": "urzadzenie",
+   "zdjecie": "p-szuflada-kasowa.webp",
+   "korzysc": "Szuflada na 8 przegród banknotów (PLN i EUR) i 9 monet.",
+   "cechy": [
+    "8 + 9 przegród",
+    "RJ12",
+    "prowadnice kulkowe"
+   ],
+   "branze": [
+    "handel",
+    "gastro"
+   ],
+   "autoryzacja": false,
+   "nowosc": false,
+   "slowa_kluczowe": "szuflada kasowa pieniadze",
+   "odznaka": null,
+   "popularnosc": 44,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "skaner",
+   "nazwa": "Skaner Sunmi 2D NS021",
+   "marka": "Sunmi",
+   "kategoria": "akc",
+   "rodzaj": "urzadzenie",
+   "zdjecie": "p-sunmi-skaner.webp",
+   "korzysc": "Czyta kody 1D, 2D i QR — także z ekranu telefonu.",
+   "cechy": [
+    "1D / 2D / QR",
+    "USB",
+    "upadek 1,2 m"
+   ],
+   "branze": [
+    "handel",
+    "gastro"
+   ],
+   "autoryzacja": false,
+   "nowosc": false,
+   "slowa_kluczowe": "skaner czytnik kodow kreskowych",
+   "odznaka": null,
+   "popularnosc": 46,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "druks",
+   "nazwa": "Drukarka bonów Sunmi NT311",
+   "marka": "Sunmi",
+   "kategoria": "akc",
+   "rodzaj": "urzadzenie",
+   "zdjecie": "p-sunmi-drukarka-bonow.webp",
+   "korzysc": "Drukarka 80 mm do kuchni i baru, z drukiem z chmury.",
+   "cechy": [
+    "250 mm/s",
+    "WiFi / LAN / BT",
+    "IP52"
+   ],
+   "branze": [
+    "gastro"
+   ],
+   "autoryzacja": false,
+   "nowosc": false,
+   "slowa_kluczowe": "drukarka bonow kuchnia bar",
+   "odznaka": null,
+   "popularnosc": 42,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "waga",
+   "nazwa": "Waga kontrolna Fawag WS-1",
+   "marka": "Fawag",
+   "kategoria": "akc",
+   "rodzaj": "urzadzenie",
+   "zdjecie": null,
+   "korzysc": "Waga 6/15 kg z dwoma wyświetlaczami, do sklepu i magazynu.",
+   "cechy": [
+    "6 / 15 kg",
+    "RS-232 / USB",
+    "stal nierdzewna"
+   ],
+   "branze": [
+    "handel",
+    "gastro"
+   ],
+   "autoryzacja": false,
+   "nowosc": false,
+   "slowa_kluczowe": "waga wazenie",
+   "odznaka": null,
+   "popularnosc": 30,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "tp",
+   "nazwa": "Lenovo ThinkPad E14 Gen 6",
+   "marka": "Lenovo",
+   "kategoria": "komp",
+   "rodzaj": "urzadzenie",
+   "zdjecie": "p-lenovo-thinkpad.webp",
+   "korzysc": "Wytrzymały laptop 14\" z Core Ultra i normą MIL-STD-810H.",
+   "cechy": [
+    "Core Ultra 5 / 7",
+    "do 64 GB",
+    "1,42 kg"
+   ],
+   "branze": [
+    "uslugi",
+    "szkoly",
+    "zdrowie",
+    "handel"
+   ],
+   "autoryzacja": false,
+   "nowosc": false,
+   "slowa_kluczowe": "laptop notebook komputer przenosny",
+   "odznaka": null,
+   "popularnosc": 82,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": true
+  },
+  {
+   "slug": "tb",
+   "nazwa": "Lenovo ThinkBook 14 Gen 6",
+   "marka": "Lenovo",
+   "kategoria": "komp",
+   "rodzaj": "urzadzenie",
+   "zdjecie": "p-lenovo-laptop.webp",
+   "korzysc": "Lekki laptop do biura z Thunderbolt 4.",
+   "cechy": [
+    "Intel i5 / i7",
+    "do 64 GB",
+    "1,38 kg"
+   ],
+   "branze": [
+    "uslugi",
+    "szkoly"
+   ],
+   "autoryzacja": false,
+   "nowosc": false,
+   "slowa_kluczowe": "laptop notebook komputer",
+   "odznaka": null,
+   "popularnosc": 64,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "tc",
+   "nazwa": "Lenovo ThinkCentre neo 30s Gen 5",
+   "marka": "Lenovo",
+   "kategoria": "komp",
+   "rodzaj": "urzadzenie",
+   "zdjecie": "p-lenovo-thinkcentre.webp",
+   "korzysc": "Mały komputer stacjonarny SFF z Windows 11 Pro.",
+   "cechy": [
+    "SFF 8,2 l",
+    "do 64 GB",
+    "Win 11 Pro"
+   ],
+   "branze": [
+    "uslugi",
+    "handel",
+    "szkoly",
+    "zdrowie"
+   ],
+   "autoryzacja": false,
+   "nowosc": false,
+   "slowa_kluczowe": "komputer stacjonarny pc biuro",
+   "odznaka": null,
+   "popularnosc": 60,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "mon",
+   "nazwa": "Lenovo ThinkVision S27i-30",
+   "marka": "Lenovo",
+   "kategoria": "komp",
+   "rodzaj": "urzadzenie",
+   "zdjecie": "p-lenovo-monitor.webp",
+   "korzysc": "Monitor 27\" IPS 100 Hz z 3 latami gwarancji.",
+   "cechy": [
+    "27\" FHD",
+    "100 Hz",
+    "2 × HDMI"
+   ],
+   "branze": [
+    "uslugi",
+    "szkoly"
+   ],
+   "autoryzacja": false,
+   "nowosc": false,
+   "slowa_kluczowe": "monitor ekran",
+   "odznaka": null,
+   "popularnosc": 50,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "dell",
+   "nazwa": "Laptopy Dell dla firm",
+   "marka": "Dell",
+   "kategoria": "komp",
+   "rodzaj": "urzadzenie",
+   "zdjecie": "p-dell-komputer.webp",
+   "korzysc": "Do biura i w teren — dobierzemy model do Twojej pracy.",
+   "cechy": [
+    "Windows 11 Pro",
+    "dobór modelu",
+    "konfiguracja"
+   ],
+   "branze": [
+    "uslugi"
+   ],
+   "autoryzacja": false,
+   "nowosc": false,
+   "slowa_kluczowe": "laptop notebook dell latitude",
+   "odznaka": null,
+   "popularnosc": 40,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "srvt",
+   "nazwa": "Serwer Dell PowerEdge (wieża)",
+   "marka": "Dell",
+   "kategoria": "serw",
+   "rodzaj": "urzadzenie",
+   "zdjecie": "p-dell-poweredge-tower.webp",
+   "korzysc": "Serwer do biura bez serwerowni — pliki, domena, pulpit zdalny.",
+   "cechy": [
+    "T-series",
+    "Windows Server",
+    "RDP"
+   ],
+   "branze": [
+    "uslugi",
+    "zdrowie",
+    "szkoly",
+    "noclegi"
+   ],
+   "autoryzacja": false,
+   "nowosc": false,
+   "slowa_kluczowe": "serwer domena windows server",
+   "odznaka": null,
+   "popularnosc": 54,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "srvr",
+   "nazwa": "Serwer Dell PowerEdge (rack)",
+   "marka": "Dell",
+   "kategoria": "serw",
+   "rodzaj": "urzadzenie",
+   "zdjecie": "p-dell-poweredge-rack.webp",
+   "korzysc": "Do szafy rack — wirtualizacja i większe firmy.",
+   "cechy": [
+    "R-series",
+    "wirtualizacja",
+    "rack 19\""
+   ],
+   "branze": [
+    "uslugi"
+   ],
+   "autoryzacja": false,
+   "nowosc": false,
+   "slowa_kluczowe": "serwer rack wirtualizacja",
+   "odznaka": null,
+   "popularnosc": 36,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "nas",
+   "nazwa": "Synology NAS",
+   "marka": "Synology",
+   "kategoria": "serw",
+   "rodzaj": "urzadzenie",
+   "zdjecie": "p-synology-nas.webp",
+   "korzysc": "Serwer plików i kopie zapasowe 3-2-1 w firmie.",
+   "cechy": [
+    "kopie",
+    "pliki",
+    "nagrania"
+   ],
+   "branze": [
+    "gastro",
+    "handel",
+    "noclegi",
+    "uslugi",
+    "szkoly",
+    "zdrowie"
+   ],
+   "autoryzacja": false,
+   "nowosc": false,
+   "slowa_kluczowe": "nas backup kopia dysk sieciowy",
+   "odznaka": null,
+   "popularnosc": 62,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": true
+  },
+  {
+   "slug": "qnap",
+   "nazwa": "QNAP NAS",
+   "marka": "QNAP",
+   "kategoria": "serw",
+   "rodzaj": "urzadzenie",
+   "zdjecie": "p-qnap-nas.webp",
+   "korzysc": "Serwer plików i kopii dla biura i sklepu.",
+   "cechy": [
+    "kopie",
+    "pliki",
+    "RAID"
+   ],
+   "branze": [
+    "gastro",
+    "handel",
+    "noclegi",
+    "uslugi",
+    "szkoly",
+    "zdrowie"
+   ],
+   "autoryzacja": false,
+   "nowosc": false,
+   "slowa_kluczowe": "nas backup kopia dysk sieciowy",
+   "odznaka": null,
+   "popularnosc": 44,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "ups",
+   "nazwa": "Zasilanie awaryjne APC",
+   "marka": "APC",
+   "kategoria": "serw",
+   "rodzaj": "urzadzenie",
+   "zdjecie": "p-apc-ups.webp",
+   "korzysc": "UPS dla serwera, kas i sieci — praca przy zaniku prądu.",
+   "cechy": [
+    "serwer",
+    "kasy",
+    "sieć"
+   ],
+   "branze": [
+    "gastro",
+    "handel",
+    "noclegi",
+    "uslugi",
+    "szkoly",
+    "zdrowie"
+   ],
+   "autoryzacja": false,
+   "nowosc": false,
+   "slowa_kluczowe": "ups zasilanie prad awaria",
+   "odznaka": null,
+   "popularnosc": 38,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "mfp",
+   "nazwa": "Konica Minolta bizhub C251i",
+   "marka": "Konica Minolta",
+   "kategoria": "mfp",
+   "rodzaj": "urzadzenie",
+   "zdjecie": "p-konica-minolta-mfp.webp",
+   "korzysc": "Kolor A3, 25 str./min, skan do e-maila i OCR.",
+   "cechy": [
+    "A3 kolor",
+    "25 str./min",
+    "ADF dual-scan"
+   ],
+   "branze": [
+    "uslugi",
+    "szkoly",
+    "zdrowie"
+   ],
+   "autoryzacja": false,
+   "nowosc": false,
+   "slowa_kluczowe": "drukarka ksero skaner wielofunkcyjne",
+   "odznaka": null,
+   "popularnosc": 46,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "kyo",
+   "nazwa": "Urządzenia wielofunkcyjne Kyocera",
+   "marka": "Kyocera",
+   "kategoria": "mfp",
+   "rodzaj": "urzadzenie",
+   "zdjecie": "p-kyocera-mfp.webp",
+   "korzysc": "Drukarki A4 i A3 do biura — druk, skan, faks.",
+   "cechy": [
+    "A4 / A3",
+    "kolor",
+    "skan / faks"
+   ],
+   "branze": [
+    "uslugi",
+    "szkoly"
+   ],
+   "autoryzacja": false,
+   "nowosc": false,
+   "slowa_kluczowe": "drukarka ksero skaner wielofunkcyjne ecosys taskalfa",
+   "odznaka": null,
+   "popularnosc": 40,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "avtek",
+   "nazwa": "Avtek TS 8 Lite G",
+   "marka": "Avtek",
+   "kategoria": "av",
+   "rodzaj": "urzadzenie",
+   "zdjecie": "p-avtek-monitor-interaktywny.webp",
+   "korzysc": "Monitor interaktywny 4K, 65–98\", z Androidem — do sal i klas.",
+   "cechy": [
+    "4K",
+    "65–98\"",
+    "Android"
+   ],
+   "branze": [
+    "szkoly"
+   ],
+   "autoryzacja": false,
+   "nowosc": false,
+   "slowa_kluczowe": "monitor interaktywny tablica szkola",
+   "odznaka": null,
+   "popularnosc": 48,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "nec",
+   "nazwa": "Projektory Sharp/NEC",
+   "marka": "Sharp/NEC",
+   "kategoria": "av",
+   "rodzaj": "urzadzenie",
+   "zdjecie": "p-sharp-nec-monitor.webp",
+   "korzysc": "Projektory do sal szkoleniowych, konferencyjnych i klas.",
+   "cechy": [
+    "sale szkoleniowe",
+    "klasy",
+    "dobór do sali"
+   ],
+   "branze": [
+    "szkoly",
+    "noclegi"
+   ],
+   "autoryzacja": false,
+   "nowosc": false,
+   "slowa_kluczowe": "projektor rzutnik",
+   "odznaka": null,
+   "popularnosc": 30,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "ds",
+   "nazwa": "Ekrany reklamowe Samsung + MagicINFO",
+   "marka": "Samsung",
+   "kategoria": "av",
+   "rodzaj": "urzadzenie",
+   "zdjecie": "p-digital-signage.webp",
+   "korzysc": "Monitory reklamowe z treściami zmienianymi z jednego panelu.",
+   "cechy": [
+    "digital signage",
+    "MagicINFO",
+    "harmonogram"
+   ],
+   "branze": [
+    "handel",
+    "gastro",
+    "noclegi",
+    "zdrowie"
+   ],
+   "autoryzacja": false,
+   "nowosc": false,
+   "slowa_kluczowe": "reklama ekran menu board digital signage",
+   "odznaka": null,
+   "popularnosc": 42,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "nexo",
+   "nazwa": "InsERT Subiekt nexo",
+   "marka": "InsERT",
+   "kategoria": "progs",
+   "rodzaj": "program",
+   "zdjecie": "p-insert-subiekt-nexo.webp",
+   "korzysc": "Sprzedaż i magazyn dla sklepów, hurtowni i warsztatów — gotowy na KSeF.",
+   "cechy": [
+    "KSeF",
+    "wiele magazynów",
+    "szkolenie"
+   ],
+   "branze": [
+    "handel",
+    "uslugi"
+   ],
+   "autoryzacja": true,
+   "nowosc": false,
+   "slowa_kluczowe": "program faktury magazyn sprzedaz subiekt",
+   "odznaka": null,
+   "popularnosc": 92,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": true
+  },
+  {
+   "slug": "s123",
+   "nazwa": "InsERT Subiekt 123",
+   "marka": "InsERT",
+   "kategoria": "progs",
+   "rodzaj": "program",
+   "zdjecie": "p-insert-subiekt-123.webp",
+   "korzysc": "Sprzedaż i faktury w przeglądarce — dla najmniejszych firm.",
+   "cechy": [
+    "w przeglądarce",
+    "faktury",
+    "KSeF"
+   ],
+   "branze": [
+    "uslugi",
+    "handel"
+   ],
+   "autoryzacja": true,
+   "nowosc": false,
+   "slowa_kluczowe": "program faktury online chmura subiekt",
+   "odznaka": null,
+   "popularnosc": 60,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "gt",
+   "nazwa": "InsERT Subiekt GT",
+   "marka": "InsERT",
+   "kategoria": "progs",
+   "rodzaj": "program",
+   "zdjecie": null,
+   "korzysc": "Sprawdzony program dla mikro i małych firm, które już na nim pracują.",
+   "cechy": [
+    "mikro i małe firmy",
+    "KSeF",
+    "magazyn"
+   ],
+   "branze": [
+    "handel",
+    "uslugi"
+   ],
+   "autoryzacja": true,
+   "nowosc": false,
+   "slowa_kluczowe": "program faktury subiekt gt",
+   "odznaka": null,
+   "popularnosc": 50,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "optima",
+   "nazwa": "Comarch ERP Optima",
+   "marka": "Comarch",
+   "kategoria": "progs",
+   "rodzaj": "program",
+   "zdjecie": "p-comarch-optima.webp",
+   "korzysc": "Księgowość, kadry i handel w jednym — dla firm i biur rachunkowych.",
+   "cechy": [
+    "księgowość",
+    "kadry",
+    "handel"
+   ],
+   "branze": [
+    "uslugi"
+   ],
+   "autoryzacja": false,
+   "nowosc": false,
+   "slowa_kluczowe": "program ksiegowosc kadry biuro rachunkowe faktury",
+   "odznaka": null,
+   "popularnosc": 56,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "pcm",
+   "nazwa": "Insoft PC-Market 7",
+   "marka": "Insoft",
+   "kategoria": "progs",
+   "rodzaj": "program",
+   "zdjecie": null,
+   "korzysc": "Program dla sklepu spożywczego i sieci 2–20 sklepów, z systemem kaucyjnym.",
+   "cechy": [
+    "system kaucyjny",
+    "KSeF",
+    "etykiety"
+   ],
+   "branze": [
+    "handel"
+   ],
+   "autoryzacja": false,
+   "nowosc": false,
+   "slowa_kluczowe": "program sklep spozywczy kaucja",
+   "odznaka": null,
+   "popularnosc": 44,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "gopos",
+   "nazwa": "GoPOS",
+   "marka": "GoPOS",
+   "kategoria": "progb",
+   "rodzaj": "program",
+   "zdjecie": "p-gopos-zestaw.webp",
+   "korzysc": "System dla gastronomii: sala, kuchnia, dowozy i KSeF — w jednym.",
+   "cechy": [
+    "6000+ lokali",
+    "dowozy",
+    "offline"
+   ],
+   "branze": [
+    "gastro",
+    "noclegi"
+   ],
+   "autoryzacja": true,
+   "nowosc": false,
+   "slowa_kluczowe": "restauracja gastronomia system pos kelner",
+   "odznaka": null,
+   "popularnosc": 97,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": true
+  },
+  {
+   "slug": "nfh",
+   "nazwa": "NFHotel",
+   "marka": "NFHotel",
+   "kategoria": "progb",
+   "rodzaj": "program",
+   "zdjecie": "p-nfhotel.webp",
+   "korzysc": "Recepcja, rezerwacje online i channel manager dla hoteli i pensjonatów.",
+   "cechy": [
+    "Booking.com, Airbnb",
+    "KSeF",
+    "integracja GoPOS"
+   ],
+   "branze": [
+    "noclegi"
+   ],
+   "autoryzacja": false,
+   "nowosc": false,
+   "slowa_kluczowe": "hotel pensjonat apartamenty rezerwacje",
+   "odznaka": null,
+   "popularnosc": 58,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "m365",
+   "nazwa": "Microsoft 365 Business",
+   "marka": "Microsoft",
+   "kategoria": "m365",
+   "rodzaj": "program",
+   "zdjecie": "p-microsoft-365.webp",
+   "korzysc": "Poczta, Office, Teams i OneDrive — z migracją bez przestoju.",
+   "cechy": [
+    "Basic / Standard / Premium",
+    "Teams",
+    "OneDrive 1 TB"
+   ],
+   "branze": [
+    "gastro",
+    "handel",
+    "noclegi",
+    "uslugi",
+    "szkoly",
+    "zdrowie"
+   ],
+   "autoryzacja": false,
+   "nowosc": false,
+   "slowa_kluczowe": "poczta office outlook teams email",
+   "odznaka": null,
+   "popularnosc": 66,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "mslic",
+   "nazwa": "Licencje Microsoft",
+   "marka": "Microsoft",
+   "kategoria": "m365",
+   "rodzaj": "program",
+   "zdjecie": null,
+   "korzysc": "Windows, Office, Windows Server i CAL — legalnie i z fakturą.",
+   "cechy": [
+    "Windows",
+    "Office",
+    "Server i CAL"
+   ],
+   "branze": [
+    "gastro",
+    "handel",
+    "noclegi",
+    "uslugi",
+    "szkoly",
+    "zdrowie"
+   ],
+   "autoryzacja": false,
+   "nowosc": false,
+   "slowa_kluczowe": "licencja windows office server",
+   "odznaka": null,
+   "popularnosc": 34,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "u7",
+   "nazwa": "Ubiquiti UniFi U7 Pro",
+   "marka": "Ubiquiti",
+   "kategoria": "siec",
+   "rodzaj": "urzadzenie",
+   "zdjecie": "p-ubiquiti-u7.webp",
+   "korzysc": "Punkt dostępowy Wi-Fi 7 — goście osobno, kasy osobno.",
+   "cechy": [
+    "Wi-Fi 7",
+    "UniFi",
+    "PoE"
+   ],
+   "branze": [
+    "gastro",
+    "handel",
+    "noclegi",
+    "uslugi",
+    "szkoly",
+    "zdrowie"
+   ],
+   "autoryzacja": false,
+   "nowosc": false,
+   "slowa_kluczowe": "wifi internet siec router access point",
+   "odznaka": null,
+   "popularnosc": 52,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "eset",
+   "nazwa": "ESET PROTECT",
+   "marka": "ESET",
+   "kategoria": "ochr",
+   "rodzaj": "program",
+   "zdjecie": "p-eset.webp",
+   "korzysc": "Ochrona komputerów i serwerów z jednej konsoli w chmurze.",
+   "cechy": [
+    "Entry → Elite",
+    "konsola w chmurze",
+    "serwery"
+   ],
+   "branze": [
+    "gastro",
+    "handel",
+    "noclegi",
+    "uslugi",
+    "szkoly",
+    "zdrowie"
+   ],
+   "autoryzacja": false,
+   "nowosc": false,
+   "slowa_kluczowe": "antywirus wirus ochrona bezpieczenstwo",
+   "odznaka": null,
+   "popularnosc": 68,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": true
+  },
+  {
+   "slug": "fw",
+   "nazwa": "Firewall Stormshield",
+   "marka": "Stormshield",
+   "kategoria": "ochr",
+   "rodzaj": "urzadzenie",
+   "zdjecie": "p-stormshield-urzadzenie.webp",
+   "korzysc": "Bramka bezpieczeństwa sieci firmowej: VPN i filtrowanie ruchu.",
+   "cechy": [
+    "VPN",
+    "filtrowanie",
+    "biura i placówki"
+   ],
+   "branze": [
+    "uslugi",
+    "zdrowie",
+    "szkoly"
+   ],
+   "autoryzacja": false,
+   "nowosc": false,
+   "slowa_kluczowe": "firewall bezpieczenstwo vpn",
+   "odznaka": null,
+   "popularnosc": 36,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "euro",
+   "nazwa": "Podpis kwalifikowany EuroCert",
+   "marka": "EuroCert",
+   "kategoria": "podpis",
+   "rodzaj": "urzadzenie",
+   "zdjecie": "p-eurocert-podpis.webp",
+   "korzysc": "Karta, token albo podpis w telefonie — do KSeF, ZUS, KRS i przetargów.",
+   "cechy": [
+    "karta / token / telefon",
+    "ważny w UE",
+    "KSeF"
+   ],
+   "branze": [
+    "gastro",
+    "handel",
+    "noclegi",
+    "uslugi",
+    "szkoly",
+    "zdrowie"
+   ],
+   "autoryzacja": false,
+   "nowosc": false,
+   "slowa_kluczowe": "podpis elektroniczny kwalifikowany",
+   "odznaka": null,
+   "popularnosc": 76,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": true
+  },
+  {
+   "slug": "piecz",
+   "nazwa": "Pieczęć kwalifikowana EuroCert",
+   "marka": "EuroCert",
+   "kategoria": "podpis",
+   "rodzaj": "urzadzenie",
+   "zdjecie": "p-eurocert-podpis.webp",
+   "korzysc": "Elektroniczna pieczęć firmy — do KSeF i dokumentów automatycznych.",
+   "cechy": [
+    "dla spółek",
+    "KSeF",
+    "eIDAS"
+   ],
+   "branze": [
+    "uslugi",
+    "handel"
+   ],
+   "autoryzacja": false,
+   "nowosc": false,
+   "slowa_kluczowe": "pieczec elektroniczna spolka",
+   "odznaka": null,
+   "popularnosc": 38,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "opieka",
+   "nazwa": "Opieka informatyczna",
+   "marka": "PRO-KOM",
+   "kategoria": "it",
+   "rodzaj": "usluga",
+   "zdjecie": null,
+   "korzysc": "Stała opieka nad komputerami, siecią, kopiami i kasami — w jednej umowie.",
+   "cechy": [
+    "stała opłata",
+    "czas reakcji w umowie",
+    "monitoring"
+   ],
+   "branze": [
+    "gastro",
+    "handel",
+    "noclegi",
+    "uslugi",
+    "szkoly",
+    "zdrowie"
+   ],
+   "autoryzacja": true,
+   "nowosc": false,
+   "slowa_kluczowe": "opieka it informatyk outsourcing abonament",
+   "odznaka": null,
+   "popularnosc": 94,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": true
+  },
+  {
+   "slug": "przeglad",
+   "nazwa": "Bezpłatny przegląd IT",
+   "marka": "PRO-KOM",
+   "kategoria": "it",
+   "rodzaj": "usluga",
+   "zdjecie": null,
+   "korzysc": "Sprawdzamy 8 obszarów i zostawiamy raport — bez zobowiązań.",
+   "cechy": [
+    "raport",
+    "8 obszarów",
+    "u Ciebie w firmie"
+   ],
+   "branze": [
+    "gastro",
+    "handel",
+    "noclegi",
+    "uslugi",
+    "szkoly",
+    "zdrowie"
+   ],
+   "autoryzacja": false,
+   "nowosc": false,
+   "slowa_kluczowe": "audyt przeglad it bezplatny",
+   "odznaka": "Bezpłatnie",
+   "popularnosc": 84,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "ksef",
+   "nazwa": "Wdrożenie KSeF w firmie",
+   "marka": "PRO-KOM",
+   "kategoria": "it",
+   "rodzaj": "usluga",
+   "zdjecie": "p-ksef.webp",
+   "korzysc": "Uprawnienia, certyfikat, program i kasy — gotowe przed 1.01.2027.",
+   "cechy": [
+    "uprawnienia",
+    "certyfikat",
+    "program i kasy"
+   ],
+   "branze": [
+    "gastro",
+    "handel",
+    "noclegi",
+    "uslugi",
+    "szkoly",
+    "zdrowie"
+   ],
+   "autoryzacja": false,
+   "nowosc": false,
+   "slowa_kluczowe": "ksef faktury e-faktura",
+   "odznaka": null,
+   "popularnosc": 91,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": true
+  },
+  {
+   "slug": "wdrprog",
+   "nazwa": "Wdrożenie programu z przeniesieniem danych",
+   "marka": "PRO-KOM",
+   "kategoria": "it",
+   "rodzaj": "usluga",
+   "zdjecie": null,
+   "korzysc": "Instalacja, przeniesienie kartotek i szkolenie na Twoich danych.",
+   "cechy": [
+    "migracja danych",
+    "konfiguracja",
+    "szkolenie"
+   ],
+   "branze": [
+    "gastro",
+    "handel",
+    "noclegi",
+    "uslugi",
+    "szkoly",
+    "zdrowie"
+   ],
+   "autoryzacja": false,
+   "nowosc": false,
+   "slowa_kluczowe": "wdrozenie program migracja",
+   "odznaka": null,
+   "popularnosc": 46,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "szkol",
+   "nazwa": "Szkolenia zespołu",
+   "marka": "PRO-KOM",
+   "kategoria": "it",
+   "rodzaj": "usluga",
+   "zdjecie": null,
+   "korzysc": "Kasy, programy, Microsoft 365 i bezpieczeństwo — w Waszej firmie.",
+   "cechy": [
+    "na Waszych danych",
+    "nowi pracownicy",
+    "phishing"
+   ],
+   "branze": [
+    "gastro",
+    "handel",
+    "noclegi",
+    "uslugi",
+    "szkoly",
+    "zdrowie"
+   ],
+   "autoryzacja": false,
+   "nowosc": false,
+   "slowa_kluczowe": "szkolenie kurs",
+   "odznaka": null,
+   "popularnosc": 32,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "kopie",
+   "nazwa": "Kopie zapasowe z testem odtworzenia",
+   "marka": "PRO-KOM",
+   "kategoria": "it",
+   "rodzaj": "usluga",
+   "zdjecie": null,
+   "korzysc": "Kopie 3-2-1 na NAS i poza firmą — sprawdzamy, że dane wracają.",
+   "cechy": [
+    "3-2-1",
+    "Synology / QNAP",
+    "StorageCraft"
+   ],
+   "branze": [
+    "gastro",
+    "handel",
+    "noclegi",
+    "uslugi",
+    "szkoly",
+    "zdrowie"
+   ],
+   "autoryzacja": false,
+   "nowosc": false,
+   "slowa_kluczowe": "backup kopia zapasowa",
+   "odznaka": null,
+   "popularnosc": 48,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "srvkas",
+   "nazwa": "Serwis kas i drukarek fiskalnych",
+   "marka": "PRO-KOM",
+   "kategoria": "serwis",
+   "rodzaj": "usluga",
+   "zdjecie": null,
+   "korzysc": "Autoryzowany serwis Posnet i Elzab: fiskalizacja, naprawy, wymiany.",
+   "cechy": [
+    "Posnet i Elzab",
+    "fiskalizacja",
+    "naprawy"
+   ],
+   "branze": [
+    "handel",
+    "gastro",
+    "uslugi",
+    "noclegi"
+   ],
+   "autoryzacja": true,
+   "nowosc": false,
+   "slowa_kluczowe": "serwis kasy naprawa fiskalizacja",
+   "odznaka": null,
+   "popularnosc": 89,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "przkas",
+   "nazwa": "Przegląd kasy fiskalnej",
+   "marka": "PRO-KOM",
+   "kategoria": "serwis",
+   "rodzaj": "usluga",
+   "zdjecie": null,
+   "korzysc": "Obowiązkowy co najmniej raz na 2 lata — przypomnimy o terminie.",
+   "cechy": [
+    "co 2 lata",
+    "przypomnienie",
+    "u Ciebie lub w Rabce"
+   ],
+   "branze": [
+    "handel",
+    "gastro",
+    "uslugi",
+    "noclegi"
+   ],
+   "autoryzacja": true,
+   "nowosc": false,
+   "slowa_kluczowe": "przeglad kasy serwis termin",
+   "odznaka": null,
+   "popularnosc": 86,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "zmiana",
+   "nazwa": "Przejęcie serwisu kasy",
+   "marka": "PRO-KOM",
+   "kategoria": "serwis",
+   "rodzaj": "usluga",
+   "zdjecie": null,
+   "korzysc": "Przenieś serwis kasy do nas — formalności załatwiamy my.",
+   "cechy": [
+    "formalności po naszej stronie",
+    "bez przestoju",
+    "Posnet i Elzab"
+   ],
+   "branze": [
+    "handel",
+    "gastro",
+    "uslugi",
+    "noclegi"
+   ],
+   "autoryzacja": true,
+   "nowosc": false,
+   "slowa_kluczowe": "zmiana serwisu kasy przejecie",
+   "odznaka": null,
+   "popularnosc": 64,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "srvpos",
+   "nazwa": "Serwis POS i terminali",
+   "marka": "PRO-KOM",
+   "kategoria": "serwis",
+   "rodzaj": "usluga",
+   "zdjecie": null,
+   "korzysc": "Stanowiska Sunmi, Posnet i terminale — zdalnie albo na miejscu.",
+   "cechy": [
+    "zdalnie",
+    "na miejscu",
+    "sprzęt zastępczy w umowie"
+   ],
+   "branze": [
+    "gastro",
+    "handel"
+   ],
+   "autoryzacja": false,
+   "nowosc": false,
+   "slowa_kluczowe": "serwis pos terminal naprawa",
+   "odznaka": null,
+   "popularnosc": 40,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "srvkomp",
+   "nazwa": "Serwis komputerów dla firm",
+   "marka": "PRO-KOM",
+   "kategoria": "serwis",
+   "rodzaj": "usluga",
+   "zdjecie": null,
+   "korzysc": "Naprawy laptopów, komputerów i serwerów firmowych.",
+   "cechy": [
+    "u klienta",
+    "w serwisie",
+    "priorytet w umowie"
+   ],
+   "branze": [
+    "gastro",
+    "handel",
+    "noclegi",
+    "uslugi",
+    "szkoly",
+    "zdrowie"
+   ],
+   "autoryzacja": false,
+   "nowosc": false,
+   "slowa_kluczowe": "serwis komputer laptop naprawa",
+   "odznaka": null,
+   "popularnosc": 42,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "odzysk",
+   "nazwa": "Odzysk danych",
+   "marka": "PRO-KOM",
+   "kategoria": "serwis",
+   "rodzaj": "usluga",
+   "zdjecie": null,
+   "korzysc": "Dyski, NAS i serwery — diagnoza i odzysk danych firmowych.",
+   "cechy": [
+    "dyski",
+    "NAS",
+    "serwery"
+   ],
+   "branze": [
+    "gastro",
+    "handel",
+    "noclegi",
+    "uslugi",
+    "szkoly",
+    "zdrowie"
+   ],
+   "autoryzacja": false,
+   "nowosc": false,
+   "slowa_kluczowe": "odzysk danych dysk awaria",
+   "odznaka": null,
+   "popularnosc": 34,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  },
+  {
+   "slug": "dof",
+   "nazwa": "Zakupy z dofinansowania",
+   "marka": "PRO-KOM",
+   "kategoria": "dof",
+   "rodzaj": "usluga",
+   "zdjecie": "p-avtek-monitor-interaktywny.webp",
+   "korzysc": "Dostawa sprzętu i programów w projektach z dofinansowaniem — z dokumentami.",
+   "cechy": [
+    "szkoły i instytucje",
+    "kosztorys",
+    "dokumenty do rozliczenia"
+   ],
+   "branze": [
+    "szkoly",
+    "zdrowie",
+    "uslugi"
+   ],
+   "autoryzacja": false,
+   "nowosc": false,
+   "slowa_kluczowe": "dofinansowanie dotacja szkola gmina pup",
+   "odznaka": null,
+   "popularnosc": 44,
+   "parametry_kasy": null,
+   "typ_kasy": null,
+   "wyrozniony_na_glownej": false
+  }
+ ],
+ "kolejnosc_wyroznionych": [
+  "ergo",
+  "k10",
+  "pol",
+  "d3",
+  "gopos",
+  "nexo",
+  "tp",
+  "opieka",
+  "ksef",
+  "euro",
+  "eset",
+  "nas"
+ ],
+ "porownanie_kas_etykiety": {
+  "typ": "Typ",
+  "ekr": "Wyświetlacz",
+  "kl": "Klawiatura",
+  "plu": "Baza towarów (PLU)",
+  "dr": "Drukarka",
+  "lacz": "Łączność",
+  "waga": "Waga",
+  "dla": "Dla kogo"
+ },
+ "typy_kas": {
+  "mob": "mobilna / na baterii",
+  "mala": "mała, do lady",
+  "sys": "systemowa, do dużego sklepu",
+  "dot": "z ekranem dotykowym"
+ }
+}

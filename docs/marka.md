@@ -59,6 +59,9 @@ Ten sam odcień co kolor z księgi, przyciemniony do ≥ 4,5:1 na białym **i** 
 |---|---|---|
 | `--c-border` | `#E3E6DF` | obramowania kart i pól (1,5 px) — z briefu `strony/prokombiznes-design.md` |
 
+### Linie z własną wizualizacją (ADR-013, proponowana 17.10.2026)
+Linia z zaakceptowaną wizualizacją może mieć własne kolory neutralne (tła, tekst, ciemne bloki) i motyw ciemny — dziś Biznes (`docs/design/prokombiznes/tokens.css`). Kolor linii z księgi i znak bez zmian. Szczegóły i ograniczenia kontrastu: `docs/decyzje/ADR-013-wyglad-linii-z-wizualizacji.md`.
+
 ## Kroje pisma
 - **Archivo** — logo, nagłówki. **Manrope** — teksty. Licencja SIL OFL (bezpłatnie, także komercyjnie).
 - Hostowane **z naszego serwera** (`next/font/local` lub `next/font/google` w trybie self-host przy buildzie) — żadnych zapytań do Google Fonts z przeglądarki klienta (RODO).

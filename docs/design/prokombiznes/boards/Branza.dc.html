@@ -1,0 +1,1257 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Systemy dla gastronomii — GoPOS, Sunmi, Posnet — PRO-KOM Biznes</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&amp;family=Manrope:wght@400..800&amp;family=Caveat:wght@600..700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+.site{--bg:#FFFFFF;--bg2:#F3F5FA;--bg3:#E9EDF6;--ink:#0D1326;--ink2:#4A5470;--ink3:#6B7590;--line:#E2E6EF;--acc:#244FB0;--acc2:#4A7BE0;--accInk:#FFFFFF;--card:#FFFFFF;--glow:rgba(74,123,224,.22);--grid:rgba(36,79,176,.07);--shadow:0 30px 60px -30px rgba(13,19,38,.35);--pill:#FFFFFF;--hdr:rgba(255,255,255,.78);--dot:#45A02C;--dark:#0A1430;
+  background:var(--bg);color:var(--ink);font-family:'Manrope',system-ui,sans-serif;transition:background .5s ease,color .5s ease;overflow-x:hidden}
+.site.dark{--bg:#060A15;--bg2:#0B1222;--bg3:#111A30;--ink:#EEF2FB;--ink2:#A6B1C9;--ink3:#7C88A4;--line:#1B2440;--acc:#4A7BE0;--acc2:#8FB0F4;--accInk:#06102A;--card:#0C1427;--glow:rgba(74,123,224,.42);--grid:rgba(143,176,244,.07);--shadow:0 40px 80px -30px rgba(0,0,0,.8);--pill:#F4F6FB;--hdr:rgba(6,10,21,.72);--dot:#4FB034;--dark:#0A1430}
+.site a{color:inherit;text-decoration:none}
+.wrap{max-width:1280px;margin:0 auto;padding:0 32px}
+.disp{font-family:'Archivo',sans-serif;font-stretch:118%;font-weight:800;letter-spacing:-.025em}
+.h2{font-family:'Archivo',sans-serif;font-stretch:112%;font-weight:800;letter-spacing:-.02em;font-size:clamp(32px,3.8vw,52px);line-height:1.02;margin:0}
+.lead{font-size:clamp(17px,1.4vw,20px);line-height:1.6;color:var(--ink2);margin:0;max-width:62ch}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:0 26px;border-radius:14px;font-weight:800;font-size:16px;border:0;cursor:pointer;font-family:inherit;transition:transform .2s ease,box-shadow .2s ease,background .2s}
+.btn-p{background:var(--acc);color:var(--accInk);box-shadow:0 12px 30px -10px var(--glow)}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 18px 40px -12px var(--glow)}
+.btn-g{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line)}
+.btn-g:hover{box-shadow:inset 0 0 0 1.5px var(--acc)}
+.chip{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border-radius:999px;font-weight:700;font-size:15px;background:transparent;color:var(--ink2);border:1.5px solid var(--line);cursor:pointer;font-family:inherit;transition:all .2s}
+.chip:hover{color:var(--ink);border-color:var(--ink3)}
+.chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.navb{background:none;border:0;font:inherit;color:var(--ink2);font-weight:700;font-size:15px;padding:10px 4px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.navb:hover,.navb.on{color:var(--ink)}
+.iconb{width:44px;height:44px;border-radius:12px;border:1.5px solid var(--line);background:transparent;color:var(--ink);display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+.iconb:hover{border-color:var(--acc)}
+.logo-d{display:none}.site.dark .logo-l{display:none}.site.dark .logo-d{display:block}
+.pimg{filter:drop-shadow(0 24px 30px rgba(13,19,38,.22))}
+.site.dark .pimg{filter:drop-shadow(0 28px 40px rgba(0,0,0,.65)) drop-shadow(0 0 30px rgba(74,123,224,.18))}
+/* hero */
+.hero{position:relative;padding:64px 0 48px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(ellipse 80% 70% at 70% 40%,#000 20%,transparent 80%);-webkit-mask-image:radial-gradient(ellipse 80% 70% at 70% 40%,#000 20%,transparent 80%)}
+.hero-glow{position:absolute;width:900px;height:900px;right:-200px;top:-200px;border-radius:50%;background:radial-gradient(circle,var(--glow),transparent 62%);filter:blur(12px);animation:breathe 9s ease-in-out infinite;pointer-events:none}
+.in{opacity:0;animation:up .9s cubic-bezier(.2,.7,.2,1) forwards}
+.d1{animation-delay:.05s}.d2{animation-delay:.18s}.d3{animation-delay:.3s}.d4{animation-delay:.42s}.d5{animation-delay:.6s}
+.mosaic{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:150px;gap:14px;position:relative}
+.mo{position:relative;border-radius:22px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line),0 20px 40px -30px rgba(13,19,38,.35);display:flex;align-items:center;justify-content:center;padding:14px;overflow:hidden;opacity:0;animation:pop .8s cubic-bezier(.2,.7,.2,1) forwards;transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s}
+.mo:hover{transform:translateY(-5px);box-shadow:inset 0 0 0 1.5px var(--acc),0 30px 50px -30px var(--glow)}
+.mo img{max-width:84%;max-height:82%;object-fit:contain}
+.mo .lb{position:absolute;left:12px;bottom:10px;font-size:12px;font-weight:800;color:var(--ink2);background:var(--bg2);padding:4px 9px;border-radius:7px}
+.mo.big{grid-column:span 2;grid-row:span 2}
+.mo.tall{grid-row:span 2}
+.mo.acc{background:var(--dark)}
+.site.dark .mo.acc{background:linear-gradient(160deg,#16244A,#0B1222)}
+.mo.acc .lb{background:rgba(255,255,255,.1);color:#EEF2FB}
+.pill{display:inline-flex;align-items:center;gap:10px;font-size:14px;font-weight:700;color:var(--ink2)}
+.live{width:9px;height:9px;border-radius:50%;background:var(--dot);animation:ping 2.4s ease-out infinite}
+/* strip */
+.strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border-radius:28px;overflow:hidden;background:var(--dark);color:#EEF2FB}
+.site.dark .strip{background:linear-gradient(160deg,#16244A,#0B1222)}
+.strip > div{padding:30px 28px;display:flex;flex-direction:column;gap:10px;border-left:1px solid rgba(255,255,255,.08)}
+.strip > div:first-child{border-left:0}
+.strip .n{font-family:'Archivo',sans-serif;font-stretch:112%;font-weight:800;font-size:40px;line-height:1;letter-spacing:-.02em}
+.strip .t{color:#B8C3DD;font-size:14.5px;line-height:1.5}
+.lgw{display:inline-flex;align-items:center;justify-content:center;background:#FFFFFF;border-radius:10px;height:40px;padding:0 12px}
+.lgw img{max-height:22px;max-width:92px;object-fit:contain}
+/* marquee */
+.mq{display:flex;gap:16px;width:max-content;animation:mq 50s linear infinite}
+.mq2{animation-direction:reverse;animation-duration:58s}
+.mqbox:hover .mq{animation-play-state:paused}
+.lg{flex:none;width:190px;height:84px;border-radius:18px;background:var(--pill);display:flex;align-items:center;justify-content:center;box-shadow:inset 0 0 0 1px rgba(13,19,38,.06)}
+.lg img{max-width:128px;max-height:40px;object-fit:contain}
+/* explorer */
+.tabv{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;text-align:left;padding:18px 20px;border-radius:18px;border:0;background:transparent;color:var(--ink2);font-family:inherit;cursor:pointer;transition:background .25s,color .25s}
+.tabv:hover{background:var(--bg3);color:var(--ink)}
+.tabv.on{background:var(--card);color:var(--ink);box-shadow:var(--shadow),inset 0 0 0 1px var(--line)}
+.tabv .ic{width:44px;height:44px;border-radius:12px;background:var(--bg2);display:flex;align-items:center;justify-content:center;flex:none;color:var(--acc)}
+.tabv.on .ic{background:var(--acc);color:var(--accInk)}
+.sub{background:none;border:0;font:inherit;font-weight:800;font-size:14.5px;color:var(--ink3);padding:10px 14px;border-radius:999px;cursor:pointer;white-space:nowrap}
+.sub:hover{color:var(--ink);background:var(--bg2)}
+.sub.on{background:var(--ink);color:var(--bg)}
+.panel{animation:panel .55s cubic-bezier(.2,.7,.2,1)}
+.icard{display:flex;flex-direction:column;gap:10px;padding:16px;border-radius:18px;background:var(--bg2);transition:transform .25s,background .25s,box-shadow .25s;min-height:190px}
+.icard:hover{transform:translateY(-4px);background:var(--card);box-shadow:var(--shadow),inset 0 0 0 1px var(--line)}
+.ithumb{height:96px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:radial-gradient(ellipse at 50% 85%,var(--glow),transparent 70%)}
+.ithumb img{max-width:80%;max-height:86px;object-fit:contain}
+/* showcase */
+.show{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.tile{position:relative;overflow:hidden;border-radius:24px;background:var(--bg2);padding:22px;display:flex;flex-direction:column;gap:8px;min-height:280px;transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s}
+.tile:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+.tile .im{flex:1;display:flex;align-items:center;justify-content:center;min-height:130px}
+.tile .im img{max-width:88%;max-height:150px;object-fit:contain;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.tile:hover .im img{transform:scale(1.06) translateY(-4px)}
+.tile .tt{font-family:'Archivo',sans-serif;font-stretch:110%;font-weight:800;font-size:19px;letter-spacing:-.01em;margin:0}
+.tile .td{color:var(--ink3);font-size:13.5px;line-height:1.45;margin:0}
+.tile.big{grid-column:span 2;min-height:380px}
+.tile.big .tt{font-size:26px}
+.tile.big .td{font-size:15px;color:var(--ink2);max-width:40ch}
+.tile.dark{background:var(--dark);color:#EEF2FB}
+.site.dark .tile.dark{background:linear-gradient(160deg,#16244A,#0B1222)}
+.tile.dark .td{color:#B8C3DD}
+/* services */
+.svc{border-radius:24px;padding:26px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line);display:flex;flex-direction:column;gap:12px;transition:transform .3s,box-shadow .3s}
+.svc:hover{transform:translateY(-4px);box-shadow:var(--shadow),inset 0 0 0 1px var(--line)}
+.svc .ic{width:52px;height:52px;border-radius:14px;background:var(--bg2);display:flex;align-items:center;justify-content:center;color:var(--acc)}
+.svc b{font-family:'Archivo',sans-serif;font-stretch:110%;font-size:20px;letter-spacing:-.01em}
+.svc p{margin:0;color:var(--ink2);line-height:1.55;font-size:15px}
+.svc .lnk{margin-top:auto;font-weight:800;color:var(--acc);font-size:14.5px}
+/* ksef */
+.ksef{position:relative;overflow:hidden;border-radius:36px;background:var(--dark);color:#EEF2FB;padding:clamp(32px,5vw,72px)}
+.ksef:before{content:"";position:absolute;inset:-40%;background:conic-gradient(from 200deg,transparent 0deg,rgba(74,123,224,.35) 60deg,transparent 140deg);animation:spin 18s linear infinite}
+.ksef > *{position:relative}
+.big{font-family:'Archivo',sans-serif;font-stretch:125%;font-weight:900;font-size:clamp(96px,14vw,200px);line-height:.85;letter-spacing:-.04em;background:linear-gradient(180deg,#FFFFFF,#8FB0F4);-webkit-background-clip:text;background-clip:text;color:transparent}
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;position:relative}
+.track{position:absolute;left:0;right:0;top:27px;height:3px;background:var(--line);border-radius:2px;overflow:hidden}
+.track span{display:block;height:100%;width:100%;background:var(--acc);transform-origin:left;transform:scaleX(.25)}
+.sn{width:56px;height:56px;border-radius:50%;background:var(--card);box-shadow:inset 0 0 0 2px var(--acc);display:flex;align-items:center;justify-content:center;font-family:'Archivo',sans-serif;font-weight:800;font-size:20px;color:var(--acc);position:relative}
+/* form */
+.fbox{background:var(--card);border-radius:32px;box-shadow:var(--shadow),inset 0 0 0 1px var(--line);overflow:hidden;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}
+.fside{background:var(--dark);color:#EEF2FB;padding:clamp(28px,4vw,48px);display:flex;flex-direction:column;gap:22px}
+.site.dark .fside{background:linear-gradient(160deg,#16244A,#0B1222)}
+.fmain{padding:clamp(24px,3.5vw,44px);display:flex;flex-direction:column;gap:18px}
+.topic{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:14px;border:1.5px solid var(--line);background:transparent;color:var(--ink);font:inherit;font-weight:700;font-size:14.5px;cursor:pointer;text-align:left;transition:all .2s}
+.topic:hover{border-color:var(--ink3)}
+.topic.on{border-color:var(--acc);background:var(--bg2);box-shadow:inset 0 0 0 1px var(--acc)}
+.topic img{width:34px;height:30px;object-fit:contain}
+.fl{position:relative}
+.fl input,.fl textarea{width:100%;box-sizing:border-box;min-height:58px;border-radius:14px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);padding:24px 16px 8px;font:inherit;font-weight:600;font-size:16px;outline:none;transition:border-color .2s,box-shadow .2s}
+.fl textarea{min-height:110px;padding-top:28px;resize:vertical}
+.fl label{position:absolute;left:16px;top:10px;font-size:12px;font-weight:800;color:var(--ink3);letter-spacing:.02em}
+.fl input:focus,.fl textarea:focus{border-color:var(--acc);box-shadow:0 0 0 4px var(--glow)}
+:focus-visible{outline:3px solid var(--acc2);outline-offset:3px}
+/* mega */
+.mega{position:absolute;left:0;right:0;top:100%;background:var(--card);border-top:1px solid var(--line);box-shadow:0 40px 80px -30px rgba(0,0,0,.4);animation:drop .35s cubic-bezier(.2,.7,.2,1);z-index:50}
+.mcol a{display:block;padding:6px 0;color:var(--ink2);font-size:14.5px}
+.mcol a:hover{color:var(--acc)}
+@supports (animation-timeline: view()){
+  .rv{animation:rise linear both;animation-timeline:view();animation-range:entry 0% cover 26%}
+  .track span{animation:grow linear both;animation-timeline:view();animation-range:entry 20% cover 55%}
+}
+@keyframes up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes pop{from{opacity:0;transform:translateY(28px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes rise{from{opacity:0;transform:translateY(48px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes breathe{0%,100%{opacity:.75;transform:scale(1)}50%{opacity:1;transform:scale(1.06)}}
+@keyframes ping{0%{box-shadow:0 0 0 0 var(--dot)}70%{box-shadow:0 0 0 10px transparent}100%{box-shadow:0 0 0 0 transparent}}
+@keyframes mq{to{transform:translateX(-50%)}}
+@keyframes panel{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes drop{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion: reduce){*,*:before,*:after{animation:none !important;transition:none !important}.in,.mo{opacity:1}}
+.mbar{display:none}
+@media (max-width:1080px){.desk{display:none !important}.mob{display:inline-flex !important}.heroGrid{flex-direction:column}.mosaic{grid-auto-rows:120px}.show{grid-template-columns:repeat(2,minmax(0,1fr))}.tile.big{grid-column:span 2}.steps{grid-template-columns:repeat(2,minmax(0,1fr))}.track{display:none}.xgrid{grid-template-columns:1fr !important}.strip{grid-template-columns:repeat(2,minmax(0,1fr))}.strip > div:nth-child(3){border-left:0}.fbox{grid-template-columns:1fr}.g3{grid-template-columns:repeat(2,minmax(0,1fr)) !important}}
+@media (max-width:640px){.wrap{padding:0 18px}.hero{padding-top:32px}.mosaic{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:110px}.mo.big{grid-column:span 2}.show{grid-template-columns:1fr}.tile.big{grid-column:span 1}.steps{grid-template-columns:1fr}.strip{grid-template-columns:1fr}.strip > div{border-left:0;border-top:1px solid rgba(255,255,255,.08)}.g3{grid-template-columns:1fr !important}.itemsGrid{grid-template-columns:repeat(2,minmax(0,1fr)) !important}.topics{grid-template-columns:repeat(2,minmax(0,1fr)) !important}.mbar{display:grid;position:fixed;left:0;right:0;bottom:0;z-index:80;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:10px 12px 14px;background:var(--hdr);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line)}.lg{width:150px;height:68px}}
+
+
+/* v9 additions */
+.mapbox{position:relative;min-height:480px;border-radius:30px;overflow:hidden;background:radial-gradient(circle at 50% 54%,var(--glow),transparent 60%),linear-gradient(160deg,var(--bg2),var(--bg3));box-shadow:inset 0 0 0 1px var(--line)}
+.mapbox:before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:32px 32px}
+.mapsvg{position:absolute;inset:0;width:100%;height:100%}
+.mapsvg .mc{fill:none;stroke:var(--acc);stroke-opacity:.25;stroke-dasharray:4 6}
+.mapsvg .mr{stroke:var(--acc);stroke-opacity:.35;stroke-width:1.2}
+.mt{position:absolute;transform:translate(-50%,-50%);font-size:12.5px;font-weight:800;color:var(--ink2);background:var(--card);padding:5px 10px;border-radius:999px;box-shadow:inset 0 0 0 1px var(--line);white-space:nowrap}
+.mpin{position:absolute;left:50%;top:54%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:10px;z-index:2}
+.mpd{width:22px;height:22px;border-radius:50%;background:var(--acc);box-shadow:0 0 0 6px var(--glow),0 0 0 14px rgba(74,123,224,.12);animation:ping 2.4s ease-out infinite}
+.mpc{background:var(--dark);color:#EEF2FB;padding:10px 14px;border-radius:14px;text-align:center;display:flex;flex-direction:column;gap:2px;box-shadow:var(--shadow)}
+.mpc b{font-size:15px}.mpc span{font-size:12.5px;color:#C9D3EA}
+.mcap{position:absolute;left:18px;top:16px;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--acc)}
+.mbtns{position:absolute;left:16px;right:16px;bottom:16px;display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+.mapbtn{background:var(--acc);color:#FFFFFF !important;font-weight:800;font-size:14px;padding:11px 16px;border-radius:12px;box-shadow:var(--shadow)}
+.mapbtn.alt{background:var(--card);color:var(--ink) !important;box-shadow:var(--shadow),inset 0 0 0 1px var(--line)}
+.kdane{display:flex;flex-direction:column;gap:2px;padding:22px 24px}
+.krow{display:flex;flex-direction:column;gap:3px;padding:12px 0;border-bottom:1px solid var(--line)}
+.krow b{font-size:17px}.krow span:not(.eyebrow){font-size:13.5px;color:var(--ink3)}
+.krow .eyebrow{font-size:11.5px}
+.krow.kbig b{font-size:34px;line-height:1.05;color:var(--acc)}
+.hrs{display:grid;grid-template-columns:1fr auto;gap:4px 16px;font-size:15px}
+.hrs span{color:var(--ink2) !important;font-size:15px !important}
+
+.live.off{background:#C2410C;animation:none}.site.dark .live.off{background:#F97316}
+.eyebrow{font-weight:800;color:var(--acc);font-size:14px;letter-spacing:.04em;text-transform:uppercase}
+.h3{font-family:'Archivo',sans-serif;font-stretch:110%;font-weight:800;letter-spacing:-.015em;font-size:clamp(22px,2.2vw,30px);line-height:1.1;margin:0}
+.sec{padding:96px 0}
+.sec-tight{padding:56px 0}
+.card{background:var(--card);border-radius:26px;box-shadow:inset 0 0 0 1px var(--line);padding:26px}
+.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+/* plan hero */
+.plan{position:relative;border-radius:32px;background:var(--card);box-shadow:var(--shadow),inset 0 0 0 1px var(--line);overflow:hidden}
+.plan:before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:28px 28px;pointer-events:none}
+.plan-head{position:relative;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 18px 0;flex-wrap:wrap}
+.ptab{background:transparent;border:1.5px solid var(--line);color:var(--ink2);font:inherit;font-weight:800;font-size:13.5px;padding:9px 14px;border-radius:999px;cursor:pointer;transition:all .2s;white-space:nowrap}
+.ptab:hover{color:var(--ink);border-color:var(--ink3)}
+.ptab.on{background:var(--acc);border-color:var(--acc);color:var(--accInk)}
+.plan-stage{position:relative;width:100%;aspect-ratio:160/84}
+.plan-stage svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.pl-room{fill:var(--glow);fill-opacity:.35;stroke:var(--acc);stroke-width:.45;stroke-linejoin:round;stroke-dasharray:300;stroke-dashoffset:300;animation:draw 1.6s cubic-bezier(.3,.7,.2,1) forwards}
+.site.dark .pl-room{stroke:var(--acc2);fill-opacity:.22}
+.pl-lbl{font-family:'Archivo',sans-serif;font-weight:800;font-size:2.6px;fill:var(--ink2);letter-spacing:.08em;text-transform:uppercase;opacity:0;animation:fade .8s .9s forwards}
+.pl-furn{stroke:var(--ink3);stroke-width:.3;fill:none;opacity:0;animation:fade .8s 1s forwards}
+.pl-lead{stroke:var(--acc);stroke-width:.35;fill:none;stroke-dasharray:120;stroke-dashoffset:120;animation:draw 1.1s cubic-bezier(.3,.7,.2,1) forwards;opacity:.9}
+.site.dark .pl-lead{stroke:var(--acc2)}
+.pl-dot{position:absolute;width:14px;height:14px;border-radius:50%;background:var(--acc);box-shadow:0 0 0 4px var(--bg);transform:translate(-50%,-50%);animation:ping 2.6s ease-out infinite;z-index:3}
+.site.dark .pl-dot{background:var(--acc2)}
+.pl-card{position:absolute;box-sizing:border-box;width:21.5%;transform:translate(0,-50%);display:flex;align-items:center;gap:10px;padding:8px 10px 8px 8px;border-radius:16px;background:var(--bg);box-shadow:var(--shadow),inset 0 0 0 1px var(--line);transition:box-shadow .25s,transform .25s;z-index:4}
+.pl-card:hover{box-shadow:var(--shadow),inset 0 0 0 1.5px var(--acc);transform:translate(0,-50%) scale(1.03)}
+.pl-card .th{flex:none;width:52px;height:46px;display:flex;align-items:center;justify-content:center;border-radius:11px;background:var(--bg2)}
+.pl-card .th img{max-width:46px;max-height:40px;object-fit:contain}
+.pl-card b{display:block;font-size:13px;line-height:1.2}
+.pl-card span{display:block;font-size:11.5px;color:var(--ink3);line-height:1.25;margin-top:2px}
+.plan-foot{position:relative;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:6px 18px 16px;font-size:13.5px;color:var(--ink2)}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes fade{to{opacity:1}}
+/* proof band */
+.proof{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.proof > div{padding:26px 24px;border-radius:24px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line);display:flex;flex-direction:column;gap:8px}
+.proof .n{font-family:'Archivo',sans-serif;font-stretch:115%;font-weight:900;font-size:46px;line-height:1;letter-spacing:-.03em;color:var(--acc)}
+.proof .t{font-size:14.5px;line-height:1.5;color:var(--ink2)}
+.proof .lgrow{display:flex;gap:8px;flex-wrap:wrap}
+.proof .lgw{background:var(--bg2);box-shadow:inset 0 0 0 1px var(--line)}
+/* packages */
+.pk{border-radius:28px;padding:28px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line);display:flex;flex-direction:column;gap:16px;position:relative;overflow:hidden}
+.pk.hi{background:var(--dark);color:#EEF2FB}
+.site.dark .pk.hi{background:linear-gradient(160deg,#16244A,#0B1222)}
+.pk.hi .mut{color:#B8C3DD}.pk .mut{color:var(--ink2)}
+.pk ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px;font-size:14.5px;line-height:1.45}
+.pk li{display:flex;gap:10px;align-items:flex-start}
+.pk li svg{flex:none;margin-top:2px}
+.pk .sla{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pk .sla div{padding:10px 12px;border-radius:14px;background:var(--bg2);font-size:13px;line-height:1.3}
+.pk.hi .sla div{background:rgba(255,255,255,.08)}
+.pk .sla b{display:block;font-family:'Archivo',sans-serif;font-size:19px;letter-spacing:-.01em}
+/* faq */
+.faq{border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;list-style:none;padding:20px 0;display:flex;justify-content:space-between;gap:16px;align-items:center;font-weight:800;font-size:17px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary span.pl{flex:none;width:30px;height:30px;border-radius:50%;background:var(--bg2);display:inline-flex;align-items:center;justify-content:center;color:var(--acc);transition:transform .3s}
+.faq details[open] summary span.pl{transform:rotate(45deg)}
+.faq p{margin:0 0 20px;color:var(--ink2);line-height:1.6;max-width:70ch}
+/* checklist */
+.chk{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;counter-reset:c}
+.chk > div{padding:18px;border-radius:18px;background:rgba(255,255,255,.06);display:flex;flex-direction:column;gap:6px;counter-increment:c}
+.chk > div:before{content:counter(c,decimal-leading-zero);font-family:'Archivo',sans-parif;font-weight:800;color:#8FB0F4;font-size:13px;letter-spacing:.06em}
+.chk b{font-size:15.5px}.chk span{font-size:13.5px;color:#C9D3EA;line-height:1.45}
+/* fin */
+.fin{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.fin > div{padding:24px;border-radius:24px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line);display:flex;flex-direction:column;gap:8px}
+.fin .tag{align-self:flex-start;font-size:12px;font-weight:800;padding:5px 10px;border-radius:999px;background:var(--bg2);color:var(--acc)}
+.fin .tag.ok{background:rgba(69,160,44,.14);color:#2E7D1E}.site.dark .fin .tag.ok{color:#7ED46A}
+.fin b{font-family:'Archivo',sans-serif;font-stretch:110%;font-size:20px;letter-spacing:-.01em}
+.fin p{margin:0;color:var(--ink2);line-height:1.55;font-size:15px}
+.fin small{color:var(--ink3);font-size:12.5px}
+/* badges */
+.badge{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:12px;background:var(--bg2);font-size:13.5px;font-weight:700;color:var(--ink2)}
+/* breadcrumbs */
+.crumbs{display:flex;gap:8px;flex-wrap:wrap;font-size:13.5px;color:var(--ink3)}
+.crumbs a:hover{color:var(--ink)}
+/* post */
+.prose{font-size:17.5px;line-height:1.7;color:var(--ink2);max-width:70ch}
+.prose h2{font-family:'Archivo',sans-serif;font-stretch:110%;font-weight:800;letter-spacing:-.015em;font-size:28px;color:var(--ink);margin:36px 0 12px;line-height:1.1}
+.prose p{margin:0 0 18px}
+.prose ul{margin:0 0 18px;padding-left:22px}
+.prose li{margin-bottom:6px}
+.prose .callout{border-left:4px solid var(--acc);padding:14px 18px;border-radius:0 16px 16px 0;background:var(--bg2);margin:0 0 20px;color:var(--ink)}
+/* mobile extra */
+@media (max-width:1080px){.proof{grid-template-columns:repeat(2,minmax(0,1fr))}.fin{grid-template-columns:1fr}.chk{grid-template-columns:repeat(2,minmax(0,1fr))}.g4{grid-template-columns:repeat(2,minmax(0,1fr))}.pl-card{width:24%}.pl-card .th{width:40px;height:36px}.pl-card b{font-size:11.5px}.pl-card span{display:none}}
+@media (max-width:640px){.proof{grid-template-columns:1fr}.chk{grid-template-columns:1fr}.g2,.g4{grid-template-columns:1fr}.sec{padding:64px 0}.plan-stage{aspect-ratio:160/120}.pl-card{width:30%}}
+
+/* ===== v17 nawigacja ===== */
+.nxh{position:sticky;top:0;z-index:60;background:var(--hdr);backdrop-filter:saturate(180%) blur(16px);-webkit-backdrop-filter:saturate(180%) blur(16px);border-bottom:1px solid var(--line)}
+.nxw{height:76px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.nxn{display:flex;gap:22px;align-items:center}
+.nxn .navb{position:relative}
+.nxn .navb.on:after{content:'';position:absolute;left:4px;right:4px;bottom:2px;height:2.5px;border-radius:2px;background:var(--acc)}
+.nxp{display:inline-flex;align-items:center;gap:6px}
+.nxp i{width:6px;height:6px;border-radius:50%;background:#1F9D63;box-shadow:0 0 0 3px rgba(31,157,99,.18)}
+.nxr{display:flex;gap:8px;align-items:center}
+.nxs{display:inline-flex;align-items:center;gap:10px;height:44px;padding:0 10px 0 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--bg2);color:var(--ink3);font:inherit;font-weight:700;font-size:14px;cursor:pointer;min-width:190px;transition:border-color .2s,color .2s}
+.nxs:hover{border-color:var(--acc);color:var(--ink)}
+.nxs kbd{margin-left:auto;font:inherit;font-size:12px;font-weight:800;padding:2px 7px;border-radius:6px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line);color:var(--ink3)}
+.nxq{position:relative;display:inline-flex;align-items:center;gap:9px;height:46px;padding:0 18px 0 14px;border-radius:14px;border:0;background:var(--acc);color:var(--accInk);font:inherit;font-weight:800;font-size:15px;cursor:pointer;box-shadow:0 12px 30px -12px var(--glow);transition:transform .2s}
+.nxq:hover{transform:translateY(-2px)}
+.nxq .nxc{min-width:22px;height:22px;padding:0 6px;box-sizing:border-box;border-radius:999px;background:#FFFFFF;color:var(--acc);font-size:12.5px;font-weight:900;display:inline-flex;align-items:center;justify-content:center}
+.site.dark .nxq .nxc{background:#06102A;color:#8FB0F4}
+.nxq .nxc.a{animation:nxbump .5s cubic-bezier(.2,1.6,.4,1)}.nxq .nxc.b{animation:nxbump2 .5s cubic-bezier(.2,1.6,.4,1)}
+@keyframes nxbump{0%{transform:scale(1)}40%{transform:scale(1.45)}100%{transform:scale(1)}}
+@keyframes nxbump2{0%{transform:scale(1)}40%{transform:scale(1.45)}100%{transform:scale(1)}}
+.nxmega{position:absolute;left:0;right:0;top:100%;background:var(--card);border-top:1px solid var(--line);box-shadow:0 50px 90px -30px rgba(0,0,0,.45);animation:drop .35s cubic-bezier(.2,.7,.2,1);z-index:50;max-height:calc(100vh - 120px);overflow:auto}
+.nxmi{padding:26px 32px 0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr)) 290px;gap:26px}
+.nxtop{grid-column:1 / -1;display:flex;align-items:center;gap:14px;justify-content:space-between;flex-wrap:wrap}
+.nxtop .nxs{flex:1;max-width:560px;height:50px;background:var(--bg2)}
+.nxtop .nxtl{display:flex;gap:8px;flex-wrap:wrap;font-size:13px;color:var(--ink3);align-items:center}
+.nxtop .nxtl button{border:0;background:var(--bg2);color:var(--ink2);font:inherit;font-weight:700;font-size:13px;padding:7px 11px;border-radius:999px;cursor:pointer}
+.nxtop .nxtl button:hover{color:var(--acc)}
+.nxcol{display:flex;flex-direction:column;gap:2px}
+.nxcol .nxgh{display:flex;align-items:center;gap:10px;margin-bottom:10px;font-family:'Archivo',sans-serif;font-weight:800;font-size:15.5px;line-height:1.15;color:var(--ink)}
+.nxgi{flex:none;width:36px;height:36px;border-radius:11px;display:flex;align-items:center;justify-content:center;color:#FFFFFF;background:linear-gradient(145deg,var(--g1),var(--g2));box-shadow:0 10px 20px -12px var(--g1)}
+.nxcol a.nxit{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:7px 8px;margin:0 -8px;border-radius:9px;color:var(--ink2);font-size:14.5px;font-weight:600;transition:background .15s,color .15s}
+.nxcol a.nxit:hover{background:var(--bg2);color:var(--acc)}
+.nxcol a.nxit small{font-size:12px;font-weight:800;color:var(--ink3)}
+.nxcol a.nxit.st{color:var(--ink);font-weight:800}
+.nxcol a.nxit em{white-space:nowrap;flex:none;font-style:normal;font-size:10.5px;font-weight:900;letter-spacing:.04em;text-transform:uppercase;color:#1F9D63;background:rgba(31,157,99,.12);padding:3px 7px;border-radius:999px}
+.nxfeat{display:flex;flex-direction:column;gap:10px}
+.nxpc{position:relative;display:flex;flex-direction:column;gap:6px;padding:16px;border-radius:18px;background:var(--bg2);overflow:hidden;transition:transform .25s,box-shadow .25s}
+.nxpc:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.nxpc.dk{background:var(--dark);color:#EEF2FB}
+.site.dark .nxpc.dk{background:linear-gradient(160deg,#16244A,#0B1222)}
+.nxpc .nxlg{align-self:flex-start;background:#FFFFFF;border-radius:8px;padding:5px 9px;height:26px;display:flex;align-items:center}
+.nxpc .nxlg img{max-height:18px;max-width:84px;object-fit:contain}
+.nxpc b{font-size:15px;line-height:1.25}.nxpc span{font-size:12.5px;line-height:1.45;color:var(--ink3)}.nxpc.dk span{color:#B8C3DD}
+.nxpc img.nxpi{position:absolute;right:-4px;bottom:-6px;width:78px;opacity:.95}
+.nxpc > b,.nxpc > span:not(.nxau):not(.nxlg){max-width:calc(100% - 64px)}
+.nxpc .nxau{position:static !important;align-self:flex-start;order:-1}
+.nxpc .nxau{position:absolute;right:12px;top:12px;font-size:10px;font-weight:900;letter-spacing:.05em;text-transform:uppercase;color:#1F9D63;background:rgba(31,157,99,.14);padding:3px 7px;border-radius:999px}
+.nxpc.dk .nxau{color:#7FE0B0;background:rgba(70,199,139,.16)}
+.nxbot{grid-column:1 / -1;margin:8px -32px 0;padding:16px 32px;border-top:1px solid var(--line);background:var(--bg2);display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;font-size:14px}
+.nxbot a{font-weight:800}
+.nxbot .nxall{color:var(--acc);display:inline-flex;align-items:center;gap:8px}
+.nxbot .nxkr{display:inline-flex;align-items:center;gap:10px;color:var(--ink)}
+.nxbot .nxkr i{display:inline-flex;width:30px;height:30px;border-radius:9px;align-items:center;justify-content:center;background:var(--acc);color:#FFFFFF}
+.nxdd{position:absolute;top:100%;width:640px;background:var(--card);border-radius:0 0 24px 24px;box-shadow:0 40px 80px -30px rgba(0,0,0,.45),inset 0 0 0 1px var(--line);padding:18px;animation:drop .3s cubic-bezier(.2,.7,.2,1);z-index:50;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.nxbr{display:flex;flex-direction:column;gap:6px;padding:12px;border-radius:16px;background:var(--bg2);transition:transform .2s,box-shadow .2s}
+.nxbr:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.nxbr .nxbi{height:92px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:radial-gradient(ellipse at 50% 90%,var(--glow),transparent 70%)}
+.nxbr .nxbi img{max-height:82px;max-width:90%;object-fit:contain}
+.nxbr b{font-size:15px}.nxbr > span:not(.nxbi){font-size:12.5px;color:var(--ink3);line-height:1.4}
+.nxdd .nxbx{grid-column:1 / -1;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 14px;border-radius:14px;box-shadow:inset 0 0 0 1px var(--line);font-size:14px}
+.nxdd .nxbx a{font-weight:800;color:var(--acc)}
+/* wyszukiwarka */
+.nxsr{position:absolute;left:0;right:0;top:100%;background:var(--card);border-top:1px solid var(--line);box-shadow:0 50px 90px -30px rgba(0,0,0,.45);animation:drop .3s cubic-bezier(.2,.7,.2,1);z-index:55;max-height:calc(100vh - 120px);overflow:auto}
+.nxsri{padding:24px 32px 26px;display:flex;flex-direction:column;gap:18px}
+.nxsf{display:flex;align-items:center;gap:14px;height:62px;padding:0 10px 0 20px;border-radius:18px;background:var(--bg2);box-shadow:inset 0 0 0 2px var(--acc),0 0 0 6px var(--glow);color:var(--acc)}
+.nxsf input{flex:1;min-width:0;border:0;background:transparent;font:inherit;font-weight:700;font-size:20px;color:var(--ink);outline:none}
+.nxsf input::placeholder{color:var(--ink3);font-weight:600}
+.nxsf button{border:0;background:var(--card);color:var(--ink2);font:inherit;font-weight:800;font-size:13px;padding:8px 12px;border-radius:10px;cursor:pointer;box-shadow:inset 0 0 0 1px var(--line)}
+.nxchips{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px;color:var(--ink3);font-weight:700}
+.nxchips button{border:0;background:var(--bg2);color:var(--ink);font:inherit;font-weight:700;font-size:13.5px;padding:8px 13px;border-radius:999px;cursor:pointer;transition:background .15s,color .15s}
+.nxchips button:hover{background:var(--acc);color:#FFFFFF}
+.nxres{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:28px}
+.nxrh{font-size:12px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);margin-bottom:8px;display:flex;justify-content:space-between}
+.nxrp{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.nxri{display:flex;align-items:center;gap:12px;padding:8px;border-radius:14px;transition:background .15s}
+.nxri:hover{background:var(--bg2)}
+.nxth{flex:none;width:56px;height:48px;border-radius:11px;background:var(--bg2);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.nxth img{max-width:46px;max-height:40px;object-fit:contain}
+.nxth .nxti{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#FFFFFF;background:linear-gradient(145deg,var(--g1),var(--g2))}
+.nxri b{display:block;font-size:14.5px;line-height:1.25}
+.nxri small{display:block;font-size:12.5px;color:var(--ink3)}
+.nxri .nxra{margin-left:auto;flex:none;width:34px;height:34px;border-radius:10px;border:0;background:var(--bg2);color:var(--ink);display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+.nxri .nxra.on{background:rgba(31,157,99,.16);color:#1F9D63}
+.nxri .nxra:hover{background:var(--acc);color:#FFFFFF}
+.nxpl{display:flex;flex-direction:column;gap:4px}
+.nxpl a{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border-radius:12px;font-weight:700;font-size:14.5px;background:var(--bg2)}
+.nxpl a:hover{color:var(--acc)}
+.nxpl a small{color:var(--ink3);font-weight:700;font-size:12px}
+.nxnone{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center;padding:20px;border-radius:20px;background:var(--bg2)}
+.nxnone .nxni{width:58px;height:58px;border-radius:18px;background:var(--card);display:flex;align-items:center;justify-content:center;color:var(--acc)}
+.nxnone b{font-size:18px}
+.nxnone p{margin:4px 0 10px;color:var(--ink2);font-size:14.5px;line-height:1.5}
+.nxsfoot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding-top:14px;border-top:1px solid var(--line);font-size:13.5px;color:var(--ink3)}
+.nxsfoot a{font-weight:800;color:var(--acc)}
+/* szuflada listy zapytania */
+.kdrb{position:fixed;inset:0;background:rgba(6,10,21,.45);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);z-index:90;animation:fadeIn .25s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.kdr{position:fixed;top:0;right:0;bottom:0;width:440px;max-width:100vw;background:var(--card);z-index:91;display:flex;flex-direction:column;box-shadow:-40px 0 80px -30px rgba(0,0,0,.5);animation:kdrIn .4s cubic-bezier(.2,.8,.2,1)}
+@keyframes kdrIn{from{transform:translateX(100%)}to{transform:none}}
+.kdrh{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:22px 24px 16px;border-bottom:1px solid var(--line)}
+.kdrh b{font-family:'Archivo',sans-serif;font-stretch:110%;font-size:22px}
+.kdrh span{display:block;font-size:13px;color:var(--ink3);margin-top:2px}
+.kdrl{flex:1;overflow:auto;padding:12px 16px;display:flex;flex-direction:column;gap:8px}
+.kdri{display:grid;grid-template-columns:64px 1fr auto;gap:12px;align-items:center;padding:10px;border-radius:16px;background:var(--bg2)}
+.kdri .nxth{width:64px;height:56px;background:var(--card)}
+.kdri b{display:block;font-size:14.5px;line-height:1.25}
+.kdri small{display:block;font-size:12.5px;color:var(--ink3);margin-top:2px}
+.kqty{display:inline-flex;align-items:center;gap:2px;background:var(--card);border-radius:10px;box-shadow:inset 0 0 0 1px var(--line);margin-top:6px}
+.kqty button{width:30px;height:30px;border:0;background:transparent;color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;border-radius:9px}
+.kqty button:hover{background:var(--bg2);color:var(--acc)}
+.kqty .kqn{min-width:24px;text-align:center;font-weight:800;font-size:14px}
+.kdri .kdrx{align-self:flex-start;width:30px;height:30px;border:0;border-radius:9px;background:transparent;color:var(--ink3);cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
+.kdri .kdrx:hover{background:var(--card);color:#C2410C}
+.kdrs{padding:6px 4px 0}
+.kdrs .nxrh{margin:6px 4px 6px}
+.kdrf{padding:16px 20px 20px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:10px;background:var(--card)}
+.kdrf .kdrn{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.45;color:var(--ink2)}
+.kdrf .kdrn svg{flex:none;color:#1F9D63;margin-top:1px}
+.kdre{margin:auto;text-align:center;display:flex;flex-direction:column;gap:10px;align-items:center;padding:40px 20px;color:var(--ink2)}
+.kdre .kdrei{width:84px;height:84px;border-radius:26px;background:var(--bg2);display:flex;align-items:center;justify-content:center;color:var(--acc)}
+.kdre b{font-size:19px;color:var(--ink)}
+/* toast */
+.ktoast{position:fixed;left:50%;bottom:28px;z-index:95;transform:translate(-50%,140%);opacity:0;display:flex;align-items:center;gap:14px;padding:12px 12px 12px 16px;border-radius:18px;background:var(--dark);color:#EEF2FB;box-shadow:0 30px 60px -20px rgba(0,0,0,.55);font-size:14.5px;pointer-events:none;max-width:calc(100vw - 32px)}
+.site.dark .ktoast{background:#16244A}
+.ktoast i{flex:none;width:30px;height:30px;border-radius:50%;background:#1F9D63;display:inline-flex;align-items:center;justify-content:center}
+.ktoast b{font-weight:800}
+.ktoast button{pointer-events:auto;border:0;background:#FFFFFF;color:#0A1430;font:inherit;font-weight:800;font-size:13.5px;padding:9px 13px;border-radius:12px;cursor:pointer;white-space:nowrap}
+.ktoast.a{animation:ktA 3.6s cubic-bezier(.2,.8,.2,1) forwards}.ktoast.b{animation:ktB 3.6s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes ktA{0%{transform:translate(-50%,140%);opacity:0}10%,82%{transform:translate(-50%,0);opacity:1;pointer-events:auto}100%{transform:translate(-50%,140%);opacity:0}}
+@keyframes ktB{0%{transform:translate(-50%,140%);opacity:0}10%,82%{transform:translate(-50%,0);opacity:1;pointer-events:auto}100%{transform:translate(-50%,140%);opacity:0}}
+/* karta produktu w katalogu */
+.kc{position:relative;display:flex;flex-direction:column;border-radius:24px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line);overflow:hidden;transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s;animation:kcIn .5s cubic-bezier(.2,.7,.2,1) both}
+@keyframes kcIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.kc:hover{transform:translateY(-5px);box-shadow:var(--shadow),inset 0 0 0 1px var(--line)}
+.kci{position:relative;display:flex;align-items:center;justify-content:center;height:196px;background:radial-gradient(ellipse at 50% 92%,var(--glow),transparent 68%),var(--bg2);overflow:hidden}
+.kci img{max-width:76%;max-height:156px;object-fit:contain;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.kc:hover .kci img{transform:scale(1.07) translateY(-4px)}
+.kico{width:92px;height:92px;border-radius:28px;display:flex;align-items:center;justify-content:center;color:#FFFFFF;background:linear-gradient(145deg,var(--g1),var(--g2));box-shadow:0 22px 40px -18px var(--g1);transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.kc:hover .kico{transform:rotate(-6deg) scale(1.06)}
+.kbs{position:absolute;left:12px;top:12px;right:12px;display:flex;flex-wrap:wrap;gap:6px}
+.kb{font-size:11.5px;font-weight:800;padding:5px 9px;border-radius:999px;background:var(--card);color:var(--ink2);box-shadow:0 6px 14px -8px rgba(0,0,0,.35)}
+.kb.new{background:#1F9D63;color:#FFFFFF}.kb.hot{background:#F59E0B;color:#1A1200}.kb.auth{background:var(--acc);color:#FFFFFF}.kb.usl{background:var(--ink);color:var(--bg)}
+.kcb{padding:16px 18px 18px;display:flex;flex-direction:column;gap:8px;flex:1}
+.kbr{min-height:24px;display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:12px;font-weight:800;color:var(--ink3)}
+.kbr .lgp{display:inline-flex;align-items:center;background:#FFFFFF;border-radius:7px;padding:3px 7px;height:24px;box-sizing:border-box;box-shadow:inset 0 0 0 1px rgba(13,19,38,.08)}
+.kbr .lgp img{max-height:15px;max-width:76px;object-fit:contain}
+.kbr .lgt{font-size:11.5px;font-weight:900;letter-spacing:.05em;text-transform:uppercase;color:var(--ink2)}
+.kcn{font-family:'Archivo',sans-serif;font-stretch:106%;font-weight:800;font-size:18px;line-height:1.15;letter-spacing:-.01em;color:var(--ink)}
+.kcn:hover{color:var(--acc)}
+.kcs{margin:0;color:var(--ink2);font-size:14px;line-height:1.5}
+.ktg{display:flex;flex-wrap:wrap;gap:6px}
+.ktg > span{font-size:12px;font-weight:700;color:var(--ink2);background:var(--bg2);padding:5px 9px;border-radius:8px}
+.kcf{margin-top:auto;padding-top:10px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.kcl{font-weight:800;font-size:14px;color:var(--acc);display:inline-flex;align-items:center;gap:6px}
+.kadd{display:inline-flex;align-items:center;gap:7px;border:0;font:inherit;font-weight:800;font-size:13.5px;padding:10px 14px;border-radius:12px;background:var(--bg2);color:var(--ink);cursor:pointer;transition:background .2s,color .2s,transform .2s;white-space:nowrap}
+.kadd:hover{background:var(--acc);color:#FFFFFF}
+.kadd:active{transform:scale(.95)}
+.kadd .k1{display:inline-flex}.kadd .k2{display:none}
+.kadd.on{background:rgba(31,157,99,.14);color:#1A8A56}.site.dark .kadd.on{color:#46C78B}
+.kadd.on .k1{display:none}.kadd.on .k2{display:inline-flex}
+.kadd.on:hover{background:rgba(194,65,12,.12);color:#C2410C}
+input[type=search]::-webkit-search-cancel-button{-webkit-appearance:none;display:none}
+/* stopka i pasek mobilny */
+.mbar3{display:none}
+@media (max-width:1080px){.nxs.desk{display:none !important}.nxq .nxql{display:none}.nxq{padding:0 12px}.nxres{grid-template-columns:1fr}.nxrp{grid-template-columns:1fr}.nxmi{grid-template-columns:repeat(2,minmax(0,1fr))}.nxfeat{grid-column:1 / -1}}
+@media (max-width:640px){.mbar{display:none !important}.mbar3{display:grid;position:fixed;left:0;right:0;bottom:0;z-index:80;grid-template-columns:1fr 1fr 1.25fr;gap:8px;padding:10px 12px 14px;background:var(--hdr);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line)}.mbar3 .btn{min-height:50px;padding:0 10px;font-size:14.5px;gap:7px}.kdr{width:100vw}.nxsri{padding:16px 18px 20px}.nxsf input{font-size:17px}.ktoast{bottom:84px}.nxw{height:66px;gap:8px}.nxw .logo-l,.nxw .logo-d{height:30px !important}.nxr .iconb{width:40px;height:40px}.nxr .nxtm{display:none}.nxtb{display:none}.nxq{height:40px}}
+@media (max-width:1080px){.ftg{grid-template-columns:repeat(2,minmax(0,1fr)) !important}}@media (max-width:640px){.ftg{grid-template-columns:1fr !important}}
+
+.fx2{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);border-radius:36px;overflow:hidden;background:var(--card);box-shadow:0 40px 90px -40px rgba(13,19,38,.45),inset 0 0 0 1px var(--line)}
+.fx2s{position:relative;background:var(--dark);color:#EEF2FB;padding:clamp(26px,3.6vw,48px);display:flex;flex-direction:column;gap:20px;overflow:hidden}
+.site.dark .fx2s{background:linear-gradient(160deg,#16244A,#0B1222)}
+.fx2s:before{content:'';position:absolute;right:-30%;top:-30%;width:90%;height:90%;background:radial-gradient(circle,rgba(74,123,224,.45),transparent 62%)}
+.fx2s > *{position:relative}
+.fx2s h2{margin:0;font-family:'Archivo',sans-serif;font-stretch:112%;font-weight:800;font-size:clamp(28px,3vw,40px);line-height:1.04;letter-spacing:-.02em}
+.fx2s p{margin:0;color:#C9D3EA;line-height:1.6;font-size:16px}
+.fxcall{display:flex;align-items:center;gap:14px;padding:16px 18px;border-radius:20px;background:rgba(255,255,255,.08);box-shadow:inset 0 0 0 1px rgba(255,255,255,.1);transition:background .2s}
+.fxcall:hover{background:rgba(255,255,255,.12)}
+.fxcall .ci{width:46px;height:46px;border-radius:14px;background:linear-gradient(145deg,var(--acc),#4FA3F0);color:#FFFFFF;display:flex;align-items:center;justify-content:center;flex:none}
+.fxcall b{display:block;font-family:'Archivo',sans-serif;font-size:22px}
+.fxcall small{display:block;font-size:13px;color:#B8C3DD}
+.fxmini{display:flex;flex-direction:column;gap:10px;font-size:14.5px}
+.fxmini a,.fxmini > div{display:flex;align-items:center;gap:10px;color:#EEF2FB}
+.fxmini svg{color:#8FB0F4;flex:none}
+.fxpr{margin-top:auto;display:flex;flex-direction:column;gap:8px;padding-top:18px;border-top:1px solid rgba(255,255,255,.1)}
+.fxpr > div{display:flex;gap:10px;align-items:center;font-size:14px;color:#C9D3EA}
+.fxpr svg{color:#46C78B;flex:none}
+.fx2m{padding:clamp(24px,3.4vw,44px);display:flex;flex-direction:column;gap:20px}
+.fxprog{display:flex;align-items:center;gap:14px}
+.fxdots{display:flex;gap:8px;flex:1}
+.fxdots i{flex:1;height:6px;border-radius:6px;background:var(--bg2);overflow:hidden;position:relative}
+.fxdots i:before{content:'';position:absolute;inset:0;width:0;background:linear-gradient(90deg,var(--acc),#4FA3F0);transition:width .5s cubic-bezier(.2,.7,.2,1)}
+.fxdots i.on:before{width:100%}
+.fxprog span{font-size:13px;font-weight:800;color:var(--ink3);white-space:nowrap}
+.fxs{display:none;flex-direction:column;gap:16px}
+.fxs.on{display:flex;animation:fxA .45s cubic-bezier(.2,.7,.2,1) both}
+@keyframes fxA{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:none}}
+.fxs h3{margin:0;font-family:'Archivo',sans-serif;font-stretch:108%;font-size:clamp(22px,2.2vw,28px);line-height:1.15}
+.fxs .sub{margin:-8px 0 0;color:var(--ink3);font-size:14.5px}
+.fxt{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.fxt button{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:14px;border:0;border-radius:18px;background:var(--bg2);box-shadow:inset 0 0 0 1.5px transparent;font:inherit;font-weight:800;font-size:14px;line-height:1.25;color:var(--ink);text-align:left;cursor:pointer;transition:all .2s;min-height:104px}
+.fxt button:hover{box-shadow:inset 0 0 0 1.5px var(--ink3);transform:translateY(-2px)}
+.fxt button.on{background:var(--card);box-shadow:inset 0 0 0 2px var(--acc),0 12px 26px -16px var(--acc)}
+.fxt .ti{width:46px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:var(--card)}
+.fxt .ti img{max-width:80%;max-height:34px;object-fit:contain}
+.fxt .ck{position:absolute;right:10px;top:10px;width:22px;height:22px;border-radius:50%;box-shadow:inset 0 0 0 1.5px var(--line);display:flex;align-items:center;justify-content:center;color:transparent;transition:all .2s}
+.fxt button.on .ck{background:var(--acc);box-shadow:none;color:#FFFFFF}
+.fxchips{display:flex;flex-wrap:wrap;gap:8px}
+.fxchips button{border:0;font:inherit;font-weight:800;font-size:14px;padding:10px 14px;border-radius:999px;background:var(--bg2);color:var(--ink2);box-shadow:inset 0 0 0 1.5px transparent;cursor:pointer;transition:all .2s}
+.fxchips button:hover{color:var(--ink)}
+.fxchips button.on{background:var(--card);color:var(--acc);box-shadow:inset 0 0 0 2px var(--acc)}
+.fxf{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.fxin{position:relative}
+.fxin input,.fxin textarea{width:100%;box-sizing:border-box;border-radius:16px;border:0;box-shadow:inset 0 0 0 1.5px var(--line);background:var(--bg);color:var(--ink);padding:26px 16px 10px;font:inherit;font-weight:600;font-size:16px;outline:none;transition:box-shadow .2s}
+.fxin textarea{min-height:96px;resize:vertical}
+.fxin input:focus,.fxin textarea:focus{box-shadow:inset 0 0 0 2px var(--acc),0 0 0 5px var(--glow)}
+.fxin label{position:absolute;left:16px;top:10px;font-size:12px;font-weight:800;color:var(--ink3);letter-spacing:.02em}
+.fxnav{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:4px}
+.fxnav .bk{border:0;background:none;font:inherit;font-weight:800;font-size:15px;color:var(--ink3);cursor:pointer;padding:10px 0}
+.fxnav .bk:hover{color:var(--ink)}
+.fxsum{display:flex;flex-wrap:wrap;gap:6px;font-size:13px;color:var(--ink3);align-items:center}
+.fxsum b{font-weight:800;color:var(--ink);background:var(--bg2);padding:5px 10px;border-radius:999px}
+.fxcons{display:flex;gap:12px;align-items:flex-start;font-size:13px;line-height:1.5;color:var(--ink2)}
+.fxcons input{width:20px;height:20px;accent-color:var(--acc);margin-top:1px;flex:none}
+.fxok{align-items:center;text-align:center;padding:24px 0}
+.fxok .fxbig{width:96px;height:96px;border-radius:50%;background:linear-gradient(145deg,#1F9D63,#46C78B);color:#FFFFFF;display:flex;align-items:center;justify-content:center;box-shadow:0 20px 40px -16px #1F9D63;animation:pop .6s cubic-bezier(.2,1.4,.4,1) both}
+@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:none;opacity:1}}
+.fxok p{margin:0;color:var(--ink2);max-width:44ch;line-height:1.6}
+@media (max-width:1080px){.fx2{grid-template-columns:1fr}}
+@media (max-width:640px){.fxt{grid-template-columns:repeat(2,minmax(0,1fr))}.fxf{grid-template-columns:1fr}}
+
+/* ===== HERO 2 ===== */
+.hero2{position:relative;padding:40px 0 96px;overflow:hidden}
+.h2bg{position:absolute;inset:0;pointer-events:none}
+.h2grid{position:absolute;inset:0;background-image:radial-gradient(circle,var(--line) 1px,transparent 1.2px);background-size:26px 26px;mask-image:radial-gradient(ellipse at 70% 40%,#000 0%,transparent 70%);-webkit-mask-image:radial-gradient(ellipse at 70% 40%,#000 0%,transparent 70%);opacity:.9}
+.h2glow{position:absolute;border-radius:50%;filter:blur(80px);opacity:.55}
+.h2glow.g1{width:620px;height:620px;right:2%;top:-8%;background:radial-gradient(circle,rgba(74,123,224,.55),transparent 65%)}
+.h2glow.g2{width:420px;height:420px;left:-6%;bottom:-20%;background:radial-gradient(circle,rgba(127,211,255,.35),transparent 65%)}
+.h2wrap{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);gap:28px;align-items:center}
+.h2txt{display:flex;flex-direction:column;gap:24px}
+.h2txt h1{margin:0;font-size:clamp(40px,4.3vw,64px);line-height:.98;letter-spacing:-.025em}
+.grad{background:linear-gradient(100deg,var(--acc) 10%,#4FA3F0 55%,#7B6CF0 95%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.site.dark .grad{background:linear-gradient(100deg,#7FA6FF 10%,#7FD3FF 55%,#B3A6FF 95%);-webkit-background-clip:text;background-clip:text}
+.h2txt .lead{font-size:clamp(17px,1.35vw,19.5px);max-width:52ch}
+.h2cta{display:flex;flex-wrap:wrap;gap:12px}
+.h2cta .btn-p{color:#FFFFFF}
+.site.dark .h2cta .btn-p{color:#06102A}
+.h2trust{display:flex;flex-wrap:wrap;gap:10px 22px;padding-top:6px}
+.h2trust > div{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:700;color:var(--ink2)}
+.h2trust .ti{width:34px;height:34px;border-radius:11px;display:flex;align-items:center;justify-content:center;background:var(--card);color:var(--acc);box-shadow:inset 0 0 0 1px var(--line)}
+.h2vis{display:flex;flex-direction:column;align-items:center;gap:10px}
+/* ecosystem 2 */
+.eco2{position:relative;width:100%;max-width:640px;aspect-ratio:1;perspective:1400px}
+.e2tilt{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .4s cubic-bezier(.2,.7,.2,1)}
+.e2ring{position:absolute;border-radius:50%;pointer-events:none}
+.e2ring.r1{inset:3%;box-shadow:inset 0 0 0 1px var(--line);background:radial-gradient(circle,transparent 60%,var(--glow) 100%)}
+.e2ring.r2{inset:15%;border:1.5px dashed var(--line);animation:spinrev 60s linear infinite}
+.e2ring.r2 i{position:absolute;width:9px;height:9px;border-radius:50%;background:var(--acc);box-shadow:0 0 14px var(--acc);left:50%;top:-5px;margin-left:-4.5px}
+.e2ring.r2 i:nth-child(2){top:auto;bottom:-5px}
+.e2ring.r2 i:nth-child(3){left:-5px;top:50%;margin:-4.5px 0 0}
+.e2ring.r3{inset:31%;box-shadow:inset 0 0 0 1px var(--line),0 0 60px -10px var(--glow);background:radial-gradient(circle,var(--glow),transparent 70%)}
+.e2links{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.e2links line{stroke:var(--acc);stroke-width:1.6;stroke-dasharray:3 7;opacity:.35;animation:flow 1.2s linear infinite}
+.e2links line.on{opacity:1;stroke-width:2.6;stroke-dasharray:6 6}
+@keyframes flow{to{stroke-dashoffset:-20}}
+.e2pulse{position:absolute;inset:0;pointer-events:none}
+.e2pulse i{position:absolute;left:50%;top:50%;width:7px;height:7px;margin:-3.5px;border-radius:50%;background:#7FB2FF;box-shadow:0 0 12px 2px rgba(74,123,224,.8);opacity:0;animation:pin 3.6s cubic-bezier(.5,0,.6,1) infinite;animation-delay:var(--d)}
+@keyframes pin{0%{transform:rotate(var(--a)) translateX(285px) scale(.5);opacity:0}15%{opacity:1}85%{opacity:.9}100%{transform:rotate(var(--a)) translateX(92px) scale(1);opacity:0}}
+.eco2 .orbit{position:absolute;inset:0;animation:spin 120s linear infinite}
+.eco2:hover .orbit,.eco2:hover .keep,.eco2:hover .e2ring.r2{animation-play-state:paused}
+.eco2 .bub{--R:282px}
+.eco2 .bub .keep{animation-duration:120s}
+.eco2 .disc{width:74px;height:74px;margin:-37px 0 0 -37px;background:var(--card);box-shadow:0 14px 30px -14px rgba(13,19,38,.45),inset 0 0 0 1px var(--line)}
+.eco2 .dz{--R1:170px}
+.eco2 .dzi{left:-27px;top:-27px;width:54px;height:54px;background:var(--card);box-shadow:0 12px 26px -12px var(--acc),inset 0 0 0 1.5px var(--acc)}
+.eco2 .dz.on .dzi{background:linear-gradient(145deg,var(--acc),#4FA3F0);color:#FFFFFF;box-shadow:0 14px 30px -10px var(--acc)}
+.eco2 .dzl{top:32px}
+.e2core{position:absolute;left:50%;top:50%;width:33%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;z-index:3}
+.e2core:before{content:'';position:absolute;inset:-4px;border-radius:50%;background:conic-gradient(from 0deg,transparent 0deg,var(--acc) 90deg,#7FD3FF 150deg,transparent 220deg);animation:spin 5s linear infinite}
+.e2core:after{content:'';position:absolute;inset:-26px;border-radius:50%;background:radial-gradient(circle,var(--glow),transparent 70%);animation:breathe 4s ease-in-out infinite;z-index:-1}
+@keyframes breathe{0%,100%{transform:scale(.92);opacity:.7}50%{transform:scale(1.06);opacity:1}}
+.e2in{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 35% 28%,#22397A,#0A1430 70%);color:#EEF2FB;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:16px;box-sizing:border-box;box-shadow:inset 0 0 0 1px rgba(255,255,255,.1),0 30px 60px -20px rgba(10,20,48,.7)}
+.e2in .k{font:800 10.5px/1 'Archivo',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8FB0F4}
+.e2in .t{font-family:'Archivo',sans-serif;font-stretch:112%;font-weight:800;font-size:clamp(20px,2.1vw,30px);line-height:1;margin-top:8px}
+.e2claims{position:relative;height:34px;width:100%;margin-top:8px}
+.e2claims span{position:absolute;left:0;right:0;top:0;font-size:12px;line-height:1.35;color:#C9D3EA;opacity:0;animation:claim 12s infinite}
+.e2claims span:nth-child(2){animation-delay:3s}.e2claims span:nth-child(3){animation-delay:6s}.e2claims span:nth-child(4){animation-delay:9s}
+@keyframes claim{0%{opacity:0;transform:translateY(6px)}4%,22%{opacity:1;transform:none}26%,100%{opacity:0;transform:translateY(-6px)}}
+.e2sel{font-size:12px;line-height:1.35;color:#C9D3EA;margin-top:8px;max-width:20ch}
+.e2hint{font-size:13.5px;color:var(--ink3);display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.e2hint a{color:var(--acc);font-weight:800}
+@media (max-width:1080px){.h2wrap{grid-template-columns:1fr}.eco2{max-width:540px}.eco2 .bub{--R:236px}.eco2 .dz{--R1:142px}.eco2 .disc{width:62px;height:62px;margin:-31px 0 0 -31px}}
+@media (max-width:640px){.hero2{padding:24px 0 72px}.eco2{max-width:360px}.eco2 .bub{--R:160px}.eco2 .dz{--R1:96px}.eco2 .disc{width:46px;height:46px;margin:-23px 0 0 -23px}.eco2 .dzl{display:none}.eco2 .dzi{left:-20px;top:-20px;width:40px;height:40px}.e2in .t{font-size:17px}.e2claims span,.e2sel{font-size:10px}.e2in .k{font-size:9px}.e2pulse{display:none}}
+
+/* ===== INTENT ===== */
+.intent{position:relative;z-index:5;margin-top:-56px;padding-bottom:40px}
+.intg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.int{position:relative;display:flex;flex-direction:column;gap:14px;padding:20px;border-radius:24px;background:var(--card);box-shadow:0 20px 50px -30px rgba(13,19,38,.5),inset 0 0 0 1px var(--line);transition:transform .3s,box-shadow .3s;overflow:hidden}
+.int:before{content:'';position:absolute;inset:0;background:linear-gradient(150deg,var(--c1),var(--c2));opacity:0;transition:opacity .35s}
+.int > *{position:relative}
+.int:hover{transform:translateY(-6px);box-shadow:0 26px 60px -26px var(--c1)}
+.int:hover:before{opacity:.08}
+.int .ii{width:52px;height:52px;border-radius:16px;background:linear-gradient(145deg,var(--c1),var(--c2));color:#FFFFFF;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 22px -10px var(--c1)}
+.int b{font-family:'Archivo',sans-serif;font-stretch:106%;font-size:18.5px;line-height:1.15}
+.int small{font-size:14px;color:var(--ink2);line-height:1.45}
+.int .ia{position:absolute;right:18px;top:20px;width:34px;height:34px;border-radius:50%;background:var(--bg2);color:var(--ink2);display:flex;align-items:center;justify-content:center;transition:all .3s}
+.int:hover .ia{background:var(--c1);color:#FFFFFF;transform:translateX(3px)}
+.int .tag{position:absolute;right:18px;top:20px;font:800 12px/1 'Archivo',sans-serif;padding:7px 10px;border-radius:999px;background:var(--c1);color:#FFFFFF}
+@media (max-width:1080px){.intg{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.intg{grid-template-columns:1fr}.intent{margin-top:-40px}}
+
+/* ===== OPIEKA CENTRUM ===== */
+.oc{border-radius:36px;background:var(--dark);color:#EEF2FB;padding:clamp(28px,4vw,60px);display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(28px,4vw,60px);align-items:center;position:relative;overflow:hidden}
+.site.dark .oc{background:linear-gradient(160deg,#16244A,#0B1222)}
+.oc:before{content:'';position:absolute;right:-15%;top:-40%;width:80%;height:150%;background:radial-gradient(circle,rgba(74,123,224,.4),transparent 62%);pointer-events:none}
+.oc > *{position:relative}
+.ocl{display:flex;flex-direction:column;gap:22px}
+.ocpts{display:flex;flex-direction:column;gap:12px}
+.ocpts > div{display:flex;gap:14px;align-items:center;font-size:16px;font-weight:600}
+.ocpts .i{width:40px;height:40px;border-radius:12px;background:rgba(255,255,255,.08);color:#8FB0F4;display:flex;align-items:center;justify-content:center;flex:none}
+.ocp{background:var(--card);color:var(--ink);border-radius:26px;box-shadow:0 50px 100px -30px rgba(0,0,0,.65);overflow:hidden}
+.ocph{display:flex;align-items:center;gap:10px;padding:16px 20px;border-bottom:1px solid var(--line)}
+.ocph .lg{width:34px;height:34px;border-radius:10px;background:linear-gradient(145deg,var(--acc),#4FA3F0);color:#FFFFFF;display:flex;align-items:center;justify-content:center}
+.ocph b{font-size:15px}.ocph small{display:block;font-size:12px;color:var(--ink3);font-weight:600}
+.ocok{margin-left:auto;display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:800;padding:7px 12px;border-radius:999px;background:rgba(31,157,99,.12);color:#1F9D63}
+.ocok i{width:8px;height:8px;border-radius:50%;background:#1F9D63;box-shadow:0 0 0 0 rgba(31,157,99,.6);animation:okp 2s infinite}
+@keyframes okp{0%{box-shadow:0 0 0 0 rgba(31,157,99,.6)}70%{box-shadow:0 0 0 8px rgba(31,157,99,0)}100%{box-shadow:0 0 0 0 rgba(31,157,99,0)}}
+.ockpi{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding:16px 20px 6px}
+.ockpi > div{padding:12px 14px;border-radius:16px;background:var(--bg2)}
+.ockpi small{display:block;font-size:11.5px;color:var(--ink3);font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.ockpi b{display:block;font-family:'Archivo',sans-serif;font-size:20px;margin-top:4px}
+.ockpi .bar{height:5px;border-radius:5px;background:var(--line);margin-top:8px;overflow:hidden}
+.ockpi .bar i{display:block;height:100%;border-radius:5px;background:linear-gradient(90deg,#1F9D63,#46C78B);animation:barIn 1.6s .3s cubic-bezier(.2,.7,.2,1) both}
+@keyframes barIn{from{width:0}}
+.ocrows{display:flex;flex-direction:column;padding:8px 12px}
+.ocr{display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 8px;border-radius:12px}
+.ocr + .ocr{border-top:1px solid var(--line)}
+.ocr .ri{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.ocr.ok .ri{background:rgba(31,157,99,.12);color:#1F9D63}.ocr.pl .ri{background:var(--glow);color:var(--acc)}.ocr.wip .ri{background:rgba(234,122,26,.14);color:#D96F12}
+.ocr b{display:block;font-size:14px}.ocr small{display:block;font-size:12.5px;color:var(--ink3)}
+.ocr .st{font-size:11.5px;font-weight:800;padding:5px 9px;border-radius:999px;white-space:nowrap}
+.ocr.ok .st{background:rgba(31,157,99,.12);color:#1F9D63}.ocr.pl .st{background:var(--glow);color:var(--acc)}.ocr.wip .st{background:rgba(234,122,26,.14);color:#D96F12}
+.oclog{margin:6px 20px 0;padding:12px 14px;border-radius:16px;background:var(--dark);color:#EEF2FB;display:flex;flex-direction:column;gap:7px;min-height:92px}
+.site.dark .oclog{background:#0A1222}
+.oclog .lh{display:flex;align-items:center;gap:8px;font:800 11px/1 'Archivo',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#8FB0F4}
+.oclog .lh i{width:7px;height:7px;border-radius:50%;background:#F05A6E;animation:okp 1.6s infinite}
+.oce{display:flex;gap:10px;font-size:13px;line-height:1.35;color:#C9D3EA}
+.oce .tm{font-variant-numeric:tabular-nums;color:#8C98B6;flex:none}
+.oce.n0{color:#FFFFFF}
+.oce.a{animation:logA .5s both}.oce.b{animation:logB .5s both}
+@keyframes logA{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+@keyframes logB{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.ocft{padding:12px 20px 16px;font-size:12px;color:var(--ink3)}
+@media (max-width:1080px){.oc{grid-template-columns:1fr}}
+@media (max-width:640px){.ockpi{grid-template-columns:1fr}.ocr{grid-template-columns:30px minmax(0,1fr)}.ocr .st{display:none}}
+
+/* ===== TEST ===== */
+.qz{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(24px,4vw,56px);align-items:center}
+.qzl{display:flex;flex-direction:column;gap:18px}
+.qzb{display:flex;flex-wrap:wrap;gap:8px}
+.qzb > span{display:inline-flex;align-items:center;gap:7px;font-size:13.5px;font-weight:700;padding:8px 12px;border-radius:999px;background:var(--bg2);color:var(--ink2)}
+.qzc{position:relative;border-radius:30px;background:var(--card);box-shadow:var(--shadow),inset 0 0 0 1px var(--line);padding:clamp(22px,3vw,36px);min-height:0;display:flex;flex-direction:column;gap:18px;overflow:hidden}
+.qzc:before{content:'';position:absolute;right:-80px;top:-80px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,var(--glow),transparent 70%)}
+.qzc > *{position:relative}
+.qzp{display:flex;align-items:center;gap:14px;font-size:13.5px;font-weight:800;color:var(--ink3)}
+.qzp .bar{flex:1;height:8px;border-radius:8px;background:var(--bg2);overflow:hidden}
+.qzp .bar i{display:block;height:100%;border-radius:8px;background:linear-gradient(90deg,var(--acc),#4FA3F0);transition:width .5s cubic-bezier(.2,.7,.2,1)}
+.qzq{display:flex;gap:14px;align-items:flex-start}
+.qzq .qi{width:52px;height:52px;border-radius:16px;flex:none;background:linear-gradient(145deg,var(--acc),#4FA3F0);color:#FFFFFF;display:flex;align-items:center;justify-content:center}
+.qzq b{font-family:'Archivo',sans-serif;font-stretch:106%;font-size:clamp(20px,2vw,26px);line-height:1.2}
+.qzq small{display:block;margin-top:8px;font-size:14.5px;color:var(--ink2);line-height:1.5}
+.qza{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:8px}
+.qza button{border:0;font:inherit;font-weight:800;font-size:16px;padding:16px 10px;border-radius:16px;cursor:pointer;background:var(--bg2);color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line);transition:all .2s}
+.qza button:hover{transform:translateY(-2px);box-shadow:inset 0 0 0 2px var(--acc);color:var(--acc)}
+.qza button.y:hover{box-shadow:inset 0 0 0 2px #1F9D63;color:#1F9D63}
+.qza button.n:hover{box-shadow:inset 0 0 0 2px #D96F12;color:#D96F12}
+.qzback{align-self:flex-start;border:0;background:none;font:inherit;font-weight:700;font-size:14px;color:var(--ink3);cursor:pointer;padding:0}
+.qzq.a,.qzr.a{animation:qzA .45s cubic-bezier(.2,.7,.2,1) both}.qzq.b,.qzr.b{animation:qzB .45s cubic-bezier(.2,.7,.2,1) both}
+@keyframes qzA{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:none}}
+@keyframes qzB{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:none}}
+.qzr{display:flex;flex-direction:column;gap:16px}
+.qzs{display:flex;align-items:center;gap:20px}
+.qzring{--p:0;width:120px;height:120px;border-radius:50%;flex:none;background:conic-gradient(var(--qc) calc(var(--p) * 1%),var(--bg2) 0);display:flex;align-items:center;justify-content:center}
+.qzring > div{width:92px;height:92px;border-radius:50%;background:var(--card);display:flex;flex-direction:column;align-items:center;justify-content:center}
+.qzring b{font-family:'Archivo',sans-serif;font-size:30px;line-height:1}
+.qzring small{font-size:11px;color:var(--ink3);font-weight:700}
+.qzs h3{margin:0;font-family:'Archivo',sans-serif;font-size:24px;line-height:1.15}
+.qzs p{margin:6px 0 0;color:var(--ink2);font-size:15px;line-height:1.5}
+.qzrec{display:flex;flex-direction:column;gap:8px}
+.qzrec > div{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-radius:14px;background:var(--bg2);font-size:14.5px;line-height:1.45}
+.qzrec .ri{width:26px;height:26px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;background:rgba(234,122,26,.14);color:#D96F12}
+@media (max-width:1080px){.qz{grid-template-columns:1fr}}
+@media (max-width:640px){.qza{grid-template-columns:1fr}.qzs{flex-direction:column;align-items:flex-start}}
+
+/* ===== JEDEN 2 ===== */
+.j2{border-radius:36px;background:var(--dark);color:#EEF2FB;padding:clamp(28px,4vw,56px);display:flex;flex-direction:column;gap:30px;position:relative;overflow:hidden}
+.site.dark .j2{background:linear-gradient(160deg,#16244A,#0B1222)}
+.j2:before{content:'';position:absolute;left:-10%;bottom:-40%;width:60%;height:120%;background:radial-gradient(circle,rgba(74,123,224,.32),transparent 62%);pointer-events:none}
+.j2 > *{position:relative}
+.j2sw{display:inline-flex;gap:4px;padding:5px;border-radius:999px;background:rgba(255,255,255,.08);position:relative}
+.j2sw .knob{position:absolute;top:5px;bottom:5px;left:5px;width:calc(50% - 7px);border-radius:999px;background:#FFFFFF;transition:transform .55s cubic-bezier(.6,0,.2,1),background .4s}
+.j2sw.pro .knob{transform:translateX(calc(100% + 4px));background:var(--acc)}
+.j2sw button{position:relative;z-index:1;border:0;background:transparent;font:inherit;font-weight:800;font-size:15px;color:#B8C3DD;padding:11px 20px;border-radius:999px;cursor:pointer;min-width:200px;transition:color .4s}
+.j2sw button.on{color:#0A1430}
+.j2sw.pro button.on{color:#FFFFFF}
+.j2g{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:40px;align-items:center}
+.j2v{position:relative;width:100%;max-width:560px;aspect-ratio:1/.8;margin:0 auto}
+.j2bar{position:absolute;left:10%;width:80%;top:4%;height:30%;border-radius:28px;background:rgba(74,123,224,.16);box-shadow:inset 0 0 0 1.5px rgba(110,155,245,.55),0 0 60px -10px rgba(74,123,224,.6);opacity:0;transform:scale(.9);transition:opacity .6s .35s,transform .7s .35s cubic-bezier(.2,.7,.2,1)}
+.j2v.pro .j2bar{opacity:1;transform:none}
+.j2bar b{position:absolute;left:0;right:0;bottom:12px;text-align:center;font:800 15px/1 'Archivo',sans-serif;letter-spacing:.04em}
+.j2bar b i{font-style:normal;color:#8FB0F4;font-weight:700}
+.j2c{position:absolute;left:50%;top:66%;height:2px;transform-origin:0 50%;background:repeating-linear-gradient(90deg,#F08A7E 0 6px,transparent 6px 12px);transition:width .9s cubic-bezier(.6,0,.2,1),transform .9s cubic-bezier(.6,0,.2,1),background .5s;z-index:1}
+.j2v.pro .j2c{background:linear-gradient(90deg,#6E9BF5,#6E9BF5);height:3px}
+.j2n{position:absolute;width:0;height:0;z-index:2;transition:left .9s cubic-bezier(.6,0,.2,1),top .9s cubic-bezier(.6,0,.2,1)}
+.j2n .c{position:absolute;left:-30px;top:-30px;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#16233F;box-shadow:inset 0 0 0 1.5px rgba(240,138,126,.7);color:#F5B4AB;transition:all .6s}
+.j2v.pro .j2n .c{left:-24px;top:-24px;width:48px;height:48px;background:var(--acc);box-shadow:0 8px 20px -8px var(--acc);color:#FFFFFF}
+.j2n .l{position:absolute;left:50%;top:38px;transform:translateX(-50%);white-space:nowrap;text-align:center;font-size:12.5px;font-weight:800;line-height:1.3;transition:all .5s}
+.j2n .l .ls{display:block;font-weight:600;color:#F5B4AB;font-size:11.5px}
+.j2v.pro .j2n .l{top:30px;font-size:12px}
+.j2v.pro .j2n .l .ls{display:none}
+.j2me{position:absolute;left:50%;top:66%;width:132px;height:132px;margin:-66px 0 0 -66px;border-radius:50%;background:#FFFFFF;color:#0A1430;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;z-index:3;box-shadow:0 24px 60px -18px rgba(110,155,245,.85)}
+.j2me b{font:800 19px/1.05 'Archivo',sans-serif}
+.j2me .s{font-size:12px;font-weight:800;color:#4A5675;margin-top:5px}
+.j2v.pro .j2me{box-shadow:0 0 0 10px rgba(74,123,224,.18),0 24px 60px -18px rgba(110,155,245,.85)}
+.j2rows{display:flex;flex-direction:column;gap:12px}
+.j2r{display:grid;grid-template-columns:44px minmax(0,1fr);gap:16px;align-items:start;padding:18px 20px;border-radius:20px;background:rgba(255,255,255,.05);transition:background .4s}
+.j2r .ico{width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;transition:all .4s}
+.j2r.no .ico{background:rgba(240,138,126,.16);color:#F5B4AB}
+.j2r.ok .ico{background:var(--acc);color:#FFFFFF}
+.j2r .t{display:block;font-size:12.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+.j2r.no .t{color:#F5B4AB}.j2r.ok .t{color:#8FB0F4}
+.j2r p{margin:0;font-size:16.5px;line-height:1.45;color:#EEF2FB}
+.j2r.a{animation:jdA .5s both}.j2r.b{animation:jdB .5s both}
+.j2r:nth-child(2){animation-delay:.08s}.j2r:nth-child(3){animation-delay:.16s}
+.j2st{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.j2st > div{padding:18px 22px;border-radius:20px;background:rgba(255,255,255,.06);display:flex;align-items:center;gap:16px}
+.j2st b{font:800 44px/1 'Archivo',sans-serif;font-stretch:110%;min-width:1em;transition:color .5s}
+.j2.osobno .j2st b{color:#F5B4AB}.j2.pro .j2st b{color:#8FB0F4}
+.j2st .l{font-size:14.5px;color:#C9D3EA;line-height:1.35}
+@media (max-width:1080px){.j2g{grid-template-columns:1fr}.j2st{grid-template-columns:1fr}}
+@media (max-width:640px){.j2sw button{min-width:0;font-size:13px;padding:9px 12px}.j2n .l{font-size:10.5px}.j2me{width:96px;height:96px;margin:-48px 0 0 -48px}.j2me b{font-size:15px}.j2n .c{left:-22px;top:-22px;width:44px;height:44px}}
+
+/* ===== GOPOS 2 ===== */
+.gp{border-radius:36px;background:radial-gradient(ellipse at 85% 0%,rgba(74,123,224,.45),transparent 55%),radial-gradient(ellipse at 0% 100%,rgba(240,138,126,.18),transparent 50%),#0A1430;color:#EEF2FB;padding:clamp(28px,4vw,56px);display:flex;flex-direction:column;gap:36px;overflow:hidden;position:relative}
+.gptop{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;align-items:center}
+.gpimg{position:relative;display:flex;justify-content:center}
+.gpimg img{width:100%;max-width:560px;max-height:340px;object-fit:contain;filter:drop-shadow(0 40px 50px rgba(0,0,0,.55));animation:float 6s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.gpbad{display:flex;flex-wrap:wrap;gap:8px}
+.gpbad span{font-size:13px;font-weight:800;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.1);color:#EEF2FB}
+.gpf{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;padding-top:44px}
+.gptrack{position:absolute;left:12.5%;right:12.5%;top:102px;height:3px;border-radius:3px;background:rgba(255,255,255,.12)}
+.gptrack i{position:absolute;left:0;top:0;height:100%;border-radius:3px;background:linear-gradient(90deg,#6E9BF5,#7FD3FF);animation:gfill 9s cubic-bezier(.5,0,.5,1) infinite}
+@keyframes gfill{0%{width:0}8%{width:0}30%{width:33.3%}38%{width:33.3%}60%{width:66.6%}68%{width:66.6%}90%{width:100%}100%{width:100%}}
+.gpticket{position:absolute;top:0;left:12.5%;transform:translateX(-50%);padding:7px 10px;border-radius:10px;background:#FFFFFF;color:#0A1430;font:800 11.5px/1 'Archivo',sans-serif;box-shadow:0 10px 24px -8px rgba(0,0,0,.6);white-space:nowrap;animation:gride 9s cubic-bezier(.5,0,.5,1) infinite;z-index:3}
+@keyframes gride{0%,8%{left:12.5%}30%,38%{left:37.5%}60%,68%{left:62.5%}90%,100%{left:87.5%}}
+.gps{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px}
+.gps .im{width:116px;height:116px;border-radius:30px;background:rgba(255,255,255,.06);box-shadow:inset 0 0 0 1px rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;animation:gglow 9s infinite}
+.gps .im img{max-width:78%;max-height:78%;object-fit:contain}
+.gps:nth-child(4) .im{animation-delay:2.7s}.gps:nth-child(5) .im{animation-delay:5.4s}.gps:nth-child(6) .im{animation-delay:8.1s}
+@keyframes gglow{0%,11%{box-shadow:inset 0 0 0 2px #7FB2FF,0 0 40px -6px rgba(110,155,245,.9);background:rgba(110,155,245,.16)}17%,100%{box-shadow:inset 0 0 0 1px rgba(255,255,255,.1);background:rgba(255,255,255,.06)}}
+.gps .n{font:800 11.5px/1 'Archivo',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#8FB0F4}
+.gps b{font-size:16.5px}
+.gps small{font-size:13.5px;color:#B8C3DD;line-height:1.45;max-width:24ch}
+.gpcta{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding-top:22px;border-top:1px solid rgba(255,255,255,.1)}
+@media (max-width:1080px){.gptop{grid-template-columns:1fr}.gpf{grid-template-columns:repeat(2,minmax(0,1fr))}.gptrack,.gpticket{display:none}}
+
+/* ===== LUDZIE ===== */
+.lu{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.luc{position:relative;border-radius:26px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line);padding:22px;display:flex;flex-direction:column;gap:14px;overflow:hidden;transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s}
+.luc:before{content:'';position:absolute;left:0;right:0;top:0;height:104px;background:linear-gradient(140deg,var(--c1),var(--c2));opacity:.95}
+.luc:after{content:'';position:absolute;right:-30px;top:-40px;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,.14)}
+.luc > *{position:relative;z-index:1}
+.luc:hover{transform:translateY(-6px);box-shadow:0 28px 60px -28px var(--c1),inset 0 0 0 1px var(--line)}
+.luph{width:96px;height:96px;border-radius:50%;margin-top:28px;background:var(--card);box-shadow:0 0 0 5px var(--card),0 14px 30px -12px rgba(13,19,38,.4);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:var(--c1);font-size:10.5px;font-weight:800;text-align:center;line-height:1.2}
+.luph:before{content:'';width:30px;height:30px;border-radius:50%;background:currentColor;opacity:.2;margin-bottom:2px}
+.luc .ro{font:800 12px/1 'Archivo',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--c1)}
+.luc b{font-family:'Archivo',sans-serif;font-stretch:106%;font-size:20px;line-height:1.15}
+.luc p{margin:0;font-size:14.5px;color:var(--ink2);line-height:1.5}
+.luq{margin-top:auto;padding:12px 14px;border-radius:14px;background:var(--bg2);font-size:13.5px;line-height:1.45;color:var(--ink);font-style:italic}
+.lubar{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding:18px 22px;border-radius:24px;background:var(--bg2)}
+.lubar .also{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:14px;color:var(--ink2)}
+.lubar .also span{font-weight:700;padding:7px 12px;border-radius:999px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line);color:var(--ink)}
+@media (max-width:1080px){.lu{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.lu{grid-template-columns:1fr}}
+
+/* ===== STEPS 2 ===== */
+.s2{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.s2track{position:absolute;left:calc(12.5% - 10px);right:calc(12.5% - 10px);top:36px;height:4px;border-radius:4px;background:var(--line);overflow:hidden}
+.s2track i{display:block;height:100%;width:0;border-radius:4px;background:linear-gradient(90deg,var(--acc),#4FA3F0,#1F9D63);transition:width 2.4s cubic-bezier(.4,0,.2,1)}
+.s2.go .s2track i{width:100%}
+.s2c{position:relative;display:flex;flex-direction:column;gap:16px;align-items:stretch}
+.s2n{position:relative;flex:none;width:76px;height:76px;border-radius:24px;background:var(--card);box-shadow:0 14px 30px -16px rgba(13,19,38,.45),inset 0 0 0 1px var(--line);display:flex;align-items:center;justify-content:center;color:var(--acc);align-self:center;transition:all .6s}
+.s2n em{position:absolute;right:-8px;top:-8px;width:28px;height:28px;border-radius:50%;background:var(--acc);color:#FFFFFF;font:800 13px/28px 'Archivo',sans-serif;font-style:normal;text-align:center;box-shadow:0 0 0 4px var(--bg2)}
+.s2.go .s2c .s2n{background:linear-gradient(145deg,var(--acc),#4FA3F0);color:#FFFFFF}
+.s2.go .s2c:nth-child(3) .s2n{transition-delay:.6s}.s2.go .s2c:nth-child(4) .s2n{transition-delay:1.2s}.s2.go .s2c:nth-child(5) .s2n{transition-delay:1.8s;background:linear-gradient(145deg,#1F9D63,#46C78B)}
+.s2box{width:100%;box-sizing:border-box;border-radius:22px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line);padding:18px 20px;display:flex;flex-direction:column;gap:8px;flex:1}
+.s2box b{font-family:'Archivo',sans-serif;font-stretch:106%;font-size:20px}
+.s2box p{margin:0;font-size:14.5px;color:var(--ink2);line-height:1.55}
+.s2get{margin-top:auto;padding:10px 12px;border-radius:12px;background:var(--glow);font-size:13.5px;line-height:1.4;color:var(--ink)}
+.s2get em{display:block;font:800 11px/1.4 'Archivo',sans-serif;font-style:normal;letter-spacing:.1em;text-transform:uppercase;color:var(--acc)}
+.s2who{display:flex;align-items:center;gap:11px;padding-top:12px;margin-top:4px;border-top:1px dashed var(--line)}
+.s2ph{width:42px;height:42px;flex:none;border-radius:50%;background:linear-gradient(145deg,var(--c1),var(--c2));color:#FFFFFF;font:800 9.5px/1 'Archivo',sans-serif;letter-spacing:.06em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 3px var(--card),0 0 0 4.5px var(--c1)}
+.s2who b{display:block;font-family:inherit;font-stretch:100%;font-size:14.5px;line-height:1.2}
+.s2who small{display:block;font-size:12.5px;color:var(--ink3);line-height:1.35;margin-top:2px}
+.s2g{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.s2g span{display:inline-flex;align-items:center;gap:8px;font-size:14.5px;font-weight:800;padding:10px 16px;border-radius:999px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line)}
+.s2g svg{color:#1F9D63}
+@media (max-width:1080px){.s2{grid-template-columns:repeat(2,minmax(0,1fr))}.s2track{display:none}}
+@media (max-width:640px){.s2{grid-template-columns:1fr}}
+
+/* ===== REALIZACJE ===== */
+.rz{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.rzc{border-radius:26px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line);overflow:hidden;display:flex;flex-direction:column;transition:transform .3s,box-shadow .3s}
+.rzc:hover{transform:translateY(-5px);box-shadow:var(--shadow),inset 0 0 0 1px var(--line)}
+.rzv{position:relative;height:190px;background:linear-gradient(140deg,var(--c1),var(--c2));display:flex;align-items:center;justify-content:center;overflow:hidden}
+.rzv:after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 75% 20%,rgba(255,255,255,.28),transparent 55%)}
+.rzv img{position:relative;z-index:1;max-width:62%;max-height:78%;object-fit:contain;filter:drop-shadow(0 24px 30px rgba(0,0,0,.35))}
+.rzv .tg{position:absolute;left:14px;top:14px;z-index:2;font-size:12px;font-weight:800;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.92);color:#0A1430}
+.rzv .ph{position:absolute;right:14px;top:14px;z-index:2;font-size:11.5px;font-weight:800;padding:6px 10px;border-radius:999px;background:rgba(10,20,48,.55);color:#FFFFFF;backdrop-filter:blur(6px)}
+.rzb{padding:20px;display:flex;flex-direction:column;gap:12px}
+.rzb b{font-family:'Archivo',sans-serif;font-stretch:106%;font-size:19px;line-height:1.2}
+.rzl{display:grid;grid-template-columns:86px minmax(0,1fr);gap:6px 10px;font-size:14px;line-height:1.45}
+.rzl em{font-style:normal;font-weight:800;color:var(--ink3);font-size:12px;text-transform:uppercase;letter-spacing:.06em;padding-top:2px}
+.rzl span{color:var(--ink3);font-style:italic}
+.rzk{display:flex;gap:8px;flex-wrap:wrap}
+.rzk span{font-size:12.5px;font-weight:800;padding:6px 10px;border-radius:999px;background:var(--bg2);color:var(--ink2)}
+@media (max-width:1080px){.rz{grid-template-columns:1fr}}
+
+/* ===== FAKTY ===== */
+@property --n{syntax:'<integer>';inherits:false;initial-value:0}
+.fk2{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:16px;align-items:stretch}
+.fkg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.fkt{border-radius:24px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line);padding:22px;display:flex;flex-direction:column;gap:8px;position:relative;overflow:hidden}
+.fkt:after{content:'';position:absolute;right:-40px;bottom:-40px;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,var(--glow),transparent 70%)}
+.fkt .fnum{display:block;white-space:nowrap;font-family:'Archivo',sans-serif;font-stretch:115%;font-weight:800;font-size:clamp(44px,4.4vw,64px);line-height:1;letter-spacing:-.03em;color:var(--acc)}
+.cnt{animation:count 2.2s .3s cubic-bezier(.2,.7,.2,1) both;counter-reset:n var(--n)}
+.cnt:before{content:counter(n)}
+.c22{--to:22}.c100{--to:100}
+@keyframes count{from{--n:0}to{--n:var(--to)}}
+.fkt b{font-size:16px}.fkt span{font-size:14px;color:var(--ink2);line-height:1.45}
+.fkt .lgs{display:flex;gap:8px}
+.fkt .lgs span{background:#FFFFFF;border-radius:10px;padding:8px 10px;box-shadow:inset 0 0 0 1px var(--line);display:flex;align-items:center}
+.fkt .lgs img{height:22px;width:auto}
+.fkm{position:relative;border-radius:24px;background:var(--dark);color:#EEF2FB;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;padding:22px}
+.site.dark .fkm{background:linear-gradient(160deg,#16244A,#0B1222)}
+.fkm svg{position:relative;width:100%;height:auto;max-height:260px;margin:8px 0}
+.fkm .mc{fill:none;stroke:#6E9BF5;stroke-opacity:.3;stroke-dasharray:3 6}
+.fkm .mr{stroke:#6E9BF5;stroke-opacity:.35;stroke-width:1.2}
+.fkm .md{fill:#8FB0F4}
+.fkm .mt{font:700 12px 'Manrope',sans-serif;fill:#C9D3EA}
+.fkm .home circle{fill:#FFFFFF}.fkm .home .pr{fill:none;stroke:#FFFFFF;stroke-opacity:.6;animation:ring 2.4s ease-out infinite;transform-origin:center;transform-box:fill-box}
+@keyframes ring{from{transform:scale(1);opacity:.8}to{transform:scale(3.2);opacity:0}}
+.fkm .top,.fkm .bot{position:relative;z-index:1}
+.fkm .top b{font-family:'Archivo',sans-serif;font-size:20px}
+.fkm .top span{display:block;font-size:13.5px;color:#B8C3DD;margin-top:4px}
+@media (max-width:1080px){.fk2{grid-template-columns:1fr}}
+@media (max-width:640px){.fkg{grid-template-columns:1fr}}
+
+/* ===== FAQ 2 ===== */
+.fq{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(24px,4vw,64px);align-items:start}
+.fql{display:flex;flex-direction:column;gap:16px;position:sticky;top:96px}
+@media (max-width:1080px){.fq{grid-template-columns:1fr}.fql{position:static}}
+
+/* ===== FORM WIZARD (also used on subpages) ===== */
+</style>
+</helmet>
+<div class="{{ siteCls }}" style="min-height:100vh">
+
+  <div style="border-bottom:1px solid var(--line);font-size:13px;color:var(--ink3)" class="nxtb">
+    <div class="wrap" style="min-height:40px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 24px">
+      <nav aria-label="Linie PRO-KOM" style="display:flex;flex-wrap:wrap;gap:4px 22px">
+        <a href="Main.dc.html" style="color:var(--ink);font-weight:800;display:inline-flex;align-items:center;gap:8px"><span style="width:14px;height:4px;border-radius:2px;background:var(--acc)"></span>Biznes</a>
+        <a href="#">Instalacje</a><a href="#">Software</a><a href="#">Tech · naprawy</a><a href="#">Zakopane</a>
+      </nav>
+      <div style="display:flex;gap:18px;flex-wrap:wrap;align-items:center"><span class="pill" style="font-size:13px"><span class="{{ openDot }}"></span>{{ openLbl }}</span><a href="#szybkie" class="tbq"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H4z M8 20h8 M12 16v4 M10 9l2 2 4-4"></path></svg> Pomoc zdalna</a><a href="#szybkie" class="tbq"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 7a4 4 0 00-5.3 5.1L4 17.8 6.2 20l5.7-5.7A4 4 0 0017 9l-2.4 2.4-2-2L15 7z"></path></svg> Zgłoś awarię</a><a href="Aktualnosci.dc.html" class="tbq"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h9l4 4v14H6z M14 3v5h5 M9 13h7 M9 17h5"></path></svg> Aktualności</a><span style="color:var(--ink3)">Oferty i serwis:</span><a href="tel:+48889003889" style="color:var(--ink);font-weight:800;margin-left:-12px">889 003 889</a></div>
+    </div>
+  </div>
+
+  <header class="nxh">
+    <div class="wrap nxw">
+      <a href="Main.dc.html" aria-label="PRO-KOM Biznes — strona główna" style="display:block;flex:none"><img class="logo-l" src="./media/brand-prokom-biznes-jasne.svg" alt="PRO-KOM Biznes" style="height:38px;width:auto"><img class="logo-d" src="./media/brand-prokom-biznes-ciemne.svg" alt="PRO-KOM Biznes" style="height:38px;width:auto"></a>
+      <nav aria-label="Główna" class="desk nxn" style="position:relative"><button type="button" class="{{ megaBtnCls }}" onClick="{{ toggleMega }}" aria-expanded="{{ megaAria }}">Oferta<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="transition:transform .3s;transform:{{ megaRot }}"><path d="M6 9l6 6 6-6"></path></svg></button><a class="navb" href="Dzial.dc.html">Opieka IT</a><a class="navb" href="Gopos.dc.html"><span class="nxp"><i></i>GoPOS</span></a><a class="navb" href="Insert.dc.html"><span class="nxp"><i></i>InsERT</span></a><button type="button" class="{{ brBtnCls }} on" onClick="{{ toggleBr }}" aria-expanded="{{ brAria }}">Branże<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="transition:transform .3s;transform:{{ brRot }}"><path d="M6 9l6 6 6-6"></path></svg></button><a class="navb" href="OFirmie.dc.html">O firmie</a><a class="navb" href="Kontakt.dc.html">Kontakt</a>
+        <sc-if value="{{ brOpen }}" hint-placeholder-val="{{ false }}">
+          <div class="nxdd" style="left:200px">
+            <sc-for list="{{ brMenu }}" as="b" hint-placeholder-count="3"><a href="{{ b.href }}" class="nxbr" onClick="{{ b.go }}"><span class="nxbi"><img class="pimg" src="{{ b.img }}" alt=""></span><b>{{ b.n }}</b><span>{{ b.d }}</span></a></sc-for>
+            <div class="nxbx"><span>Biuro, szkoła, gabinet, warsztat? Opisz firmę w 60 sekund — dobierzemy zestaw.</span><a href="Kreator.dc.html">Kreator 60 s →</a></div>
+          </div>
+        </sc-if>
+      </nav>
+      <div class="nxr">
+        <button type="button" class="nxs desk" onClick="{{ openSearch }}" aria-label="Szukaj w ofercie"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 19a8 8 0 100-16 8 8 0 000 16z M21 21l-4.3-4.3"></path></svg><span>Szukaj w ofercie</span><kbd>/</kbd></button>
+        <button type="button" class="iconb mob" style="display:none" onClick="{{ openSearch }}" aria-label="Szukaj"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 19a8 8 0 100-16 8 8 0 000 16z M21 21l-4.3-4.3"></path></svg></button>
+        <button type="button" class="iconb nxtm" onClick="{{ toggleTheme }}" aria-label="{{ themeLabel }}">
+          <sc-if value="{{ dark }}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4.5"></circle><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"></path></svg></sc-if>
+          <sc-if value="{{ light }}" hint-placeholder-val="{{ true }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 019.5 4 8.5 8.5 0 1020 14.5z"></path></svg></sc-if>
+        </button>
+        <a href="{{ cartHref }}" class="nxq" onClick="{{ cartClick }}" aria-label="Lista zapytania"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11 M9 12h11 M9 18h11 M4.5 6h.01 M4.5 12h.01 M4.5 18h.01"></path></svg><span class="nxql">{{ cartLbl }}</span><sc-if value="{{ cartHas }}" hint-placeholder-val="{{ true }}"><span class="{{ cartBump }}">{{ cartN }}</span></sc-if></a>
+        <button type="button" class="iconb mob" style="display:none" onClick="{{ toggleMob }}" aria-label="Menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></button>
+      </div>
+    </div>
+
+    <sc-if value="{{ megaOpen }}" hint-placeholder-val="{{ false }}">
+      <div class="nxmega">
+        <div class="wrap nxmi">
+          <div class="nxtop"><button type="button" class="nxs" onClick="{{ openSearch }}"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 19a8 8 0 100-16 8 8 0 000 16z M21 21l-4.3-4.3"></path></svg><span>Szukaj w katalogu: kasa mobilna, Subiekt, terminal, laptop…</span><kbd>/</kbd></button><div class="nxtl"><span>Na skróty:</span><a href="Kategoria.dc.html" style="font-weight:800;color:var(--ink)">Kasy fiskalne</a>·<a href="Katalog.dc.html" style="font-weight:800;color:var(--ink)">Terminale</a>·<a href="Dzial.dc.html#przeglad" style="font-weight:800;color:var(--ink)">Bezpłatny przegląd IT</a>·<a href="Wpis.dc.html" style="font-weight:800;color:var(--ink)">KSeF 2027</a></div></div>
+          <sc-for list="{{ megaCols }}" as="g" hint-placeholder-count="5">
+            <div class="nxcol" style="{{ g.st }}"><a href="Katalog.dc.html" class="nxgh" onClick="{{ g.go }}"><span class="nxgi"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{ g.ic }}"></path></svg></span>{{ g.n }}</a>
+              <sc-for list="{{ g.items }}" as="it" hint-placeholder-count="6"><a href="{{ it.href }}" class="{{ it.cls }}" onClick="{{ it.go }}"><span>{{ it.n }}</span><sc-if value="{{ it.st }}" hint-placeholder-val="{{ false }}"><em>{{ it.em }}</em></sc-if><sc-if value="{{ it.hasC }}" hint-placeholder-val="{{ true }}"><small>{{ it.c }}</small></sc-if></a></sc-for>
+            </div>
+          </sc-for>
+          <div class="nxfeat">
+            <a href="Gopos.dc.html" class="nxpc dk"><span class="nxau">Autoryzowany partner</span><span class="nxlg"><img src="./media/logo-gopos.webp" alt="GoPOS"></span><b>GoPOS dla gastronomii</b><span>Wdrożenie, sprzęt, szkolenie w lokalu, serwis w sezonie.</span><img class="nxpi pimg" src="./media/p-gopos-zestaw.webp" alt=""></a>
+            <a href="Insert.dc.html" class="nxpc"><span class="nxau">Autoryzowany partner</span><span class="nxlg"><img src="./media/logo-insert.webp" alt="InsERT"></span><b>Subiekt i programy InsERT</b><span>Dobór, przeniesienie danych, KSeF, szkolenie.</span><img class="nxpi pimg" src="./media/p-insert-subiekt-nexo.webp" alt=""></a>
+          </div>
+          <div class="nxbot"><a href="Katalog.dc.html" class="nxall" onClick="{{ katAll }}">Cały katalog · 67 pozycji, 25 marek <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6"></path></svg></a><span style="color:var(--ink3)">Bez cen na stronie — wycenę dostajesz na piśmie, pod swoją firmę.</span><a href="Kreator.dc.html" class="nxkr"><i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21a8 8 0 100-16 8 8 0 000 16z M12 9v4l2.5 1.5 M10 2h4 M12 2v3"></path></svg></i>Nie wiesz, co wybrać? Dobierz zestaw w 60 s</a></div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ srchOpen }}" hint-placeholder-val="{{ false }}">
+      <div class="nxsr">
+        <div class="wrap nxsri">
+          <label class="nxsf"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 19a8 8 0 100-16 8 8 0 000 16z M21 21l-4.3-4.3"></path></svg><input id="gsq" type="search" value="{{ gq }}" onInput="{{ gqIn }}" placeholder="Czego szukasz? np. kasa na baterie, program do faktur, terminal" autocomplete="off" aria-label="Szukaj w ofercie"><button type="button" onClick="{{ openSearch }}">Esc</button></label>
+          <div class="nxchips"><span>{{ gHint }}</span><sc-for list="{{ gPop }}" as="c" hint-placeholder-count="7"><button type="button" onClick="{{ c.go }}">{{ c.t }}</button></sc-for></div>
+          <sc-if value="{{ gHas }}" hint-placeholder-val="{{ true }}">
+            <div class="nxres">
+              <div><div class="nxrh"><span>Produkty i usługi</span><span>{{ gCount }}</span></div>
+                <div class="nxrp"><sc-for list="{{ gRes }}" as="p" hint-placeholder-count="6"><div class="nxri"><a href="{{ p.href }}" class="nxth" style="{{ p.gst }}"><sc-if value="{{ p.hasImg }}" hint-placeholder-val="{{ true }}"><img src="{{ p.img }}" alt=""></sc-if><sc-if value="{{ p.noImg }}" hint-placeholder-val="{{ false }}"><span class="nxti"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="{{ p.ico }}"></path></svg></span></sc-if></a><a href="{{ p.href }}" style="min-width:0"><b>{{ p.n }}</b><small>{{ p.sub }}</small></a><button type="button" class="{{ p.raCls }}" onClick="{{ p.add }}" aria-label="Dodaj do zapytania"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14 M5 12h14"></path></svg></button></div></sc-for></div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:16px">
+                <div><div class="nxrh"><span>Kategorie</span></div><div class="nxpl"><sc-for list="{{ gCats }}" as="c" hint-placeholder-count="3"><a href="{{ c.href }}" onClick="{{ c.go }}">{{ c.n }}<small>{{ c.c }}</small></a></sc-for></div></div>
+                <div><div class="nxrh"><span>Strony i poradniki</span></div><div class="nxpl"><sc-for list="{{ gPages }}" as="c" hint-placeholder-count="3"><a href="{{ c.href }}">{{ c.n }}<small>{{ c.d }}</small></a></sc-for></div></div>
+              </div>
+            </div>
+          </sc-if>
+          <sc-if value="{{ gNone }}" hint-placeholder-val="{{ false }}">
+            <div class="nxnone"><span class="nxni"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 19a8 8 0 100-16 8 8 0 000 16z M21 21l-4.3-4.3"></path></svg></span><div><b>Nie mamy „{{ gq }}” w katalogu — ale pewnie załatwimy.</b><p>Katalog to nie wszystko, co dostarczamy. Napisz, czego szukasz: sprawdzimy u dystrybutorów i oddzwonimy w ciągu 60 minut w godzinach pracy.</p><div style="display:flex;gap:8px;flex-wrap:wrap"><a href="Zapytanie.dc.html" class="btn btn-p" style="min-height:46px;font-size:15px" onClick="{{ gAsk }}">Zapytaj o „{{ gq }}”</a><a href="https://wa.me/48889003889" class="btn btn-g" style="min-height:46px;font-size:15px" target="_blank" rel="noopener">Napisz na WhatsApp</a></div></div></div>
+          </sc-if>
+          <div class="nxsfoot"><span>Szukamy w produktach, usługach, kategoriach i poradnikach. Rozumiemy literówki i potoczne nazwy („kasa na baterie”).</span><a href="Katalog.dc.html" onClick="{{ gToKat }}">Wszystkie wyniki w katalogu →</a></div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ mobOpen }}" hint-placeholder-val="{{ false }}">
+      <div class="mega" style="padding:14px 18px 22px;max-height:calc(100vh - 80px);overflow:auto">
+        <button type="button" class="nxs" style="width:100%;margin-bottom:10px" onClick="{{ openSearch }}"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 19a8 8 0 100-16 8 8 0 000 16z M21 21l-4.3-4.3"></path></svg><span>Szukaj w ofercie</span></button>
+        <a href="Katalog.dc.html" onClick="{{ katAll }}" style="display:flex;justify-content:space-between;align-items:center;padding:15px 4px;border-bottom:1px solid var(--line);font-weight:800;font-size:17px">Oferta — cały katalog<span style="color:var(--ink3);font-weight:700;font-size:14px">67</span></a>
+        <sc-for list="{{ megaCols }}" as="g" hint-placeholder-count="5"><a href="Katalog.dc.html" onClick="{{ g.go }}" style="display:flex;align-items:center;gap:12px;padding:11px 4px;font-weight:700;font-size:15.5px;color:var(--ink2)"><span class="nxgi" style="{{ g.st }};width:30px;height:30px;border-radius:9px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="{{ g.ic }}"></path></svg></span>{{ g.n }}</a></sc-for>
+        <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:10px 0 6px"><a href="Dzial.dc.html" class="nxbr" style="padding:12px"><b>Opieka IT</b></a><a href="Gopos.dc.html" class="nxbr" style="padding:12px"><b>GoPOS</b><span>partner</span></a><a href="Insert.dc.html" class="nxbr" style="padding:12px"><b>InsERT</b><span>partner</span></a></div>
+        <a href="Branza.dc.html" style="display:block;padding:14px 4px;border-top:1px solid var(--line);font-weight:800">Branże</a><a href="OFirmie.dc.html" style="display:block;padding:12px 4px;font-weight:700">O firmie</a><a href="Aktualnosci.dc.html" style="display:block;padding:12px 4px;font-weight:700">Aktualności</a><a href="Kontakt.dc.html" style="display:block;padding:12px 4px;font-weight:700">Kontakt i dojazd</a><button type="button" onClick="{{ toggleTheme }}" style="display:flex;width:100%;justify-content:space-between;align-items:center;padding:12px 4px;border:0;border-top:1px solid var(--line);background:none;font:inherit;font-weight:700;color:var(--ink2);cursor:pointer">{{ themeLabel }}<span style="font-size:12px;color:var(--ink3)">jasny / ciemny</span></button>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px"><a href="tel:+48889003889" class="btn btn-p" style="min-height:50px">889 003 889</a><a href="https://wa.me/48889003889" class="btn btn-g" style="min-height:50px" target="_blank" rel="noopener">WhatsApp</a></div>
+      </div>
+    </sc-if>
+  </header>
+
+  <sc-if value="{{ cartOpen }}" hint-placeholder-val="{{ false }}">
+    <div class="kdrb" onClick="{{ toggleCart }}"></div>
+    <aside class="kdr" aria-label="Lista zapytania">
+      <div class="kdrh"><div><b>Twoje zapytanie</b><span>{{ cartSub }}</span></div><button type="button" class="iconb" onClick="{{ toggleCart }}" aria-label="Zamknij"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12 M18 6L6 18"></path></svg></button></div>
+      <div class="kdrl">
+        <sc-if value="{{ cartHas }}" hint-placeholder-val="{{ true }}">
+          <sc-for list="{{ cartItems }}" as="c" hint-placeholder-count="3"><div class="kdri"><a href="{{ c.href }}" class="nxth" style="{{ c.gst }}"><sc-if value="{{ c.hasImg }}" hint-placeholder-val="{{ true }}"><img src="{{ c.img }}" alt=""></sc-if><sc-if value="{{ c.noImg }}" hint-placeholder-val="{{ false }}"><span class="nxti"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="{{ c.ico }}"></path></svg></span></sc-if></a><div style="min-width:0"><b>{{ c.n }}</b><small>{{ c.sub }}</small><span class="kqty"><button type="button" onClick="{{ c.dec }}" aria-label="Mniej"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path></svg></button><span class="kqn">{{ c.q }}</span><button type="button" onClick="{{ c.inc }}" aria-label="Więcej"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14 M5 12h14"></path></svg></button></span></div><button type="button" class="kdrx" onClick="{{ c.rm }}" aria-label="Usuń"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12 M18 6L6 18"></path></svg></button></div></sc-for>
+          <div class="kdrs"><div class="nxrh"><span>Często dobierane razem</span></div><sc-for list="{{ cartSug }}" as="p" hint-placeholder-count="2"><div class="nxri"><a href="{{ p.href }}" class="nxth" style="{{ p.gst }}"><sc-if value="{{ p.hasImg }}" hint-placeholder-val="{{ true }}"><img src="{{ p.img }}" alt=""></sc-if><sc-if value="{{ p.noImg }}" hint-placeholder-val="{{ false }}"><span class="nxti"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="{{ p.ico }}"></path></svg></span></sc-if></a><a href="{{ p.href }}" style="min-width:0"><b>{{ p.n }}</b><small>{{ p.sub }}</small></a><button type="button" class="{{ p.raCls }}" onClick="{{ p.add }}" aria-label="Dodaj"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14 M5 12h14"></path></svg></button></div></sc-for></div>
+        </sc-if>
+        <sc-if value="{{ cartEmpty }}" hint-placeholder-val="{{ false }}">
+          <div class="kdre"><span class="kdrei"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11 M9 12h11 M9 18h11 M4.5 6h.01 M4.5 12h.01 M4.5 18h.01"></path></svg></span><b>Lista jest pusta</b><span style="font-size:14.5px;line-height:1.5;max-width:30ch">Dodawaj produkty i usługi przyciskiem „Do zapytania” — wyślesz je jednym formularzem, a wycenę dostaniesz na piśmie.</span><a href="Katalog.dc.html" class="btn btn-p" style="min-height:48px;font-size:15px">Przejdź do katalogu</a><a href="Kreator.dc.html" style="font-weight:800;color:var(--acc);font-size:14.5px">albo dobierz zestaw w 60 s →</a></div>
+        </sc-if>
+      </div>
+      <sc-if value="{{ cartHas }}" hint-placeholder-val="{{ true }}">
+        <div class="kdrf">
+          <div class="kdrn"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg><span>Bez cen na stronie: przygotujemy wycenę na piśmie, z wariantami. Oddzwonimy w ciągu 60 minut w godzinach pracy.</span></div>
+          <a href="Zapytanie.dc.html" class="btn btn-p" style="min-height:54px"><span>Przejdź do zapytania ({{ cartN }})</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6"></path></svg></a>
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:13.5px"><button type="button" onClick="{{ cartClear }}" style="border:0;background:none;font:inherit;font-weight:800;color:var(--ink3);cursor:pointer;padding:6px 0">Wyczyść listę</button><a href="tel:+48889003889" style="font-weight:800;color:var(--ink)">albo zadzwoń: 889 003 889</a></div>
+        </div>
+      </sc-if>
+    </aside>
+  </sc-if>
+  <div class="{{ toastCls }}" role="status"><i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color:#FFFFFF"><path d="M5 12l5 5L20 7"></path></svg></i><span>Dodano do zapytania: <b>{{ toastTxt }}</b></span><button type="button" onClick="{{ toggleCart }}">Zobacz listę ({{ cartN }})</button></div>
+
+
+  <section class="hero" style="padding:40px 0 48px">
+    <div class="hero-bg"></div><div class="hero-glow"></div>
+    <div class="wrap" style="position:relative;display:flex;flex-direction:column;gap:28px">
+      <nav class="crumbs" aria-label="Okruszki"><a href="Main.dc.html">Strona główna</a><span>/</span><a href="Branza.dc.html">Branże</a><span>/</span><span style="color:var(--ink)">Gastronomia</span></nav>
+      <div class="heroGrid" style="display:flex;gap:40px;align-items:center">
+        <div style="flex:1 1 520px;min-width:0;display:flex;flex-direction:column;gap:22px">
+          <span class="pill in d1"><span class="live"></span>Branże · Gastronomia</span>
+          <h1 class="disp in d2" style="margin:0;font-size:clamp(40px,5vw,72px);line-height:.96">Restauracja, która nie gubi zamówień. Nawet w sezonie.</h1>
+          <p class="lead in d3">GoPOS na sprzęcie Sunmi, drukarka fiskalna Posnet, terminal PolCard, ekran kuchenny i Wi-Fi dla gości — wdrożone z Twoim menu, z zespołem przeszkolonym na miejscu i serwisem, który dojeżdża z Rabki, a nie z Warszawy.</p>
+          <div class="in d4" style="display:flex;flex-wrap:wrap;gap:12px"><a href="Kreator.dc.html" onClick="{{ toKreator }}" class="btn btn-p">Przygotuj zapytanie dla lokalu<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a><a href="tel:+48889003889" class="btn btn-g">Zadzwoń: 889 003 889</a></div>
+          <div class="in d5" style="display:flex;gap:8px;flex-wrap:wrap"><span class="badge">GoPOS: 6000+ lokali</span><span class="badge">Resort Bania: +35% szybsza obsługa</span><span class="badge">Dowozy Wolt, Glovo, Pyszne</span><span class="badge">KSeF z systemu</span></div>
+        </div>
+        <div class="in d2" style="flex:1 1 480px;min-width:0;display:flex;align-items:center;justify-content:center;border-radius:32px;background:radial-gradient(ellipse at 50% 80%,var(--glow),transparent 65%);min-height:380px"><img class="pimg" src="./media/p-gopos-zestaw.webp" alt="Zestaw GoPOS na urządzeniach Sunmi i Posnet" style="max-width:92%;max-height:400px"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec-tight" style="background:var(--bg2)">
+    <div class="wrap" style="display:flex;flex-direction:column;gap:28px">
+      <div class="rv" style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap"><div style="display:flex;flex-direction:column;gap:10px"><span class="eyebrow">Zestaw dla gastronomii</span><h2 class="h2" style="max-width:20ch">Od lady po kuchnię. Wszystko ze sobą rozmawia.</h2></div><p class="lead" style="max-width:44ch">Każdy element ma własną stronę ze specyfikacją. Zestaw składamy pod lokal — kawiarnia nie potrzebuje tego, co restauracja na 120 miejsc.</p></div>
+      <div class="g3" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px"><sc-for list="{{ brList }}" as="p" hint-placeholder-count="9"><article class="kc" style="{{ p.dl }}">
+  <a href="{{ p.href }}" class="kci" style="{{ p.gst }}"><sc-if value="{{ p.hasImg }}" hint-placeholder-val="{{ true }}"><img class="pimg" src="{{ p.img }}" alt="{{ p.n }}"></sc-if><sc-if value="{{ p.noImg }}" hint-placeholder-val="{{ false }}"><span class="kico"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{ p.ico }}"></path></svg></span></sc-if><span class="kbs"><sc-for list="{{ p.badges }}" as="x" hint-placeholder-count="1"><span class="{{ x.c }}">{{ x.t }}</span></sc-for></span></a>
+  <div class="kcb">
+    <div class="kbr"><sc-if value="{{ p.hasLogo }}" hint-placeholder-val="{{ true }}"><span class="lgp"><img src="{{ p.logo }}" alt="{{ p.b }}"></span></sc-if><sc-if value="{{ p.noLogo }}" hint-placeholder-val="{{ false }}"><span class="lgt">{{ p.b }}</span></sc-if><span style="text-align:right">{{ p.cn }}</span></div>
+    <a href="{{ p.href }}" class="kcn">{{ p.n }}</a>
+    <p class="kcs">{{ p.s }}</p>
+    <div class="ktg"><sc-for list="{{ p.tags }}" as="t" hint-placeholder-count="3"><span>{{ t.t }}</span></sc-for></div>
+    <div class="kcf"><a href="{{ p.href }}" class="kcl">Szczegóły<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6"></path></svg></a><button type="button" class="{{ p.addCls }}" onClick="{{ p.add }}"><span class="k1" style="align-items:center;gap:6px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14 M5 12h14"></path></svg>Do zapytania</span><span class="k2" style="align-items:center;gap:6px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg>W zapytaniu</span></button></div>
+  </div>
+</article></sc-for></div><div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:6px"><span style="color:var(--ink2);font-size:15px">To 9 z <b>{{ brCnt }}</b> pozycji katalogu oznaczonych dla gastronomii.</span><a href="Katalog.dc.html" onClick="{{ brKat }}" class="btn btn-g" style="min-height:48px;font-size:15px">Wszystko dla gastronomii w katalogu →</a></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap" style="display:flex;flex-direction:column;gap:40px">
+      <div class="rv" style="display:flex;flex-direction:column;gap:10px;max-width:760px"><span class="eyebrow">Dzień w lokalu z GoPOS</span><h2 class="h2">Od otwarcia do raportu dobowego.</h2></div>
+      <div class="steps">
+        <div class="track"><span></span></div>
+        <div class="rv" style="display:flex;flex-direction:column;gap:14px"><div class="sn">11:00</div><b style="font-size:20px">Otwarcie</b><span style="color:var(--ink2);line-height:1.6">Kelnerzy logują się PIN-em na V3 MIX. Menu dnia włączasz z telefonu. Kiosk przy wejściu przyjmuje pierwsze zamówienia na wynos.</span></div>
+        <div class="rv" style="display:flex;flex-direction:column;gap:14px"><div class="sn">13:30</div><b style="font-size:20px">Szczyt</b><span style="color:var(--ink2);line-height:1.6">Zamówienie z sali trafia na ekran kuchenny, bony drukują się na barze. Dowozy z Wolt i Glovo wpadają do tej samej kolejki. Płatność kartą przy stoliku.</span></div>
+        <div class="rv" style="display:flex;flex-direction:column;gap:14px"><div class="sn">17:00</div><b style="font-size:20px">Awaria?</b><span style="color:var(--ink2);line-height:1.6">Internet padł — GoPOS pracuje offline, Posnet drukuje, terminal łączy się przez LTE. Dzwonisz do nas: zdalnie w kilka minut, serwisant z Rabki w sezonie też.</span></div>
+        <div class="rv" style="display:flex;flex-direction:column;gap:14px"><div class="sn">23:00</div><b style="font-size:20px">Zamknięcie</b><span style="color:var(--ink2);line-height:1.6">Raport dobowy, rozliczenie kelnerów, food cost i sprzedaż w telefonie właściciela. Faktury dla firm idą do KSeF z systemu.</span></div>
+      </div>
+    </div>
+  </section>
+  
+  <section id="jak-to-dziala" class="sec" style="padding-top:24px">
+    <div class="wrap">
+      <div class="gp rv">
+        <div class="gptop">
+          <div style="display:flex;flex-direction:column;gap:18px">
+            <span class="eyebrow" style="color:#8FB0F4">Gastronomia · wdrażamy GoPOS</span>
+            <h2 class="h2" style="font-size:clamp(30px,3.4vw,48px)">Restauracja, która nie gubi zamówień. Nawet w sezonie.</h2>
+            <p style="margin:0;color:#C9D3EA;font-size:17px;line-height:1.6;max-width:48ch">GoPOS na sprzęcie Sunmi, z drukarką fiskalną Posnet i terminalem PolCard. Wgrywamy Twoje menu, szkolimy zespół na miejscu i zostajemy na serwis — w Rabce, Zakopanem i na całym Podhalu.</p>
+            <div class="gpbad"><span>6000+ lokali w Polsce</span><span>4,5★ w Google · 300+ opinii</span><span>dowozy Wolt, Glovo, Pyszne</span></div>
+          </div>
+          <div class="gpimg"><img class="pimg" src="./media/p-gopos-zestaw.webp" alt="Zestaw GoPOS: stanowisko Sunmi, drukarka fiskalna i terminal"></div>
+        </div>
+        <div class="gpf"><div class="gptrack"><i></i></div><span class="gpticket">Stolik 4 · 2× pierogi</span><div class="gps"><span class="im"><img class="pimg" src="{{ gpImg.v3mix }}" alt=""></span><span class="n">1 · Sala</span><b>Zamówienie przy stoliku</b><small>Kelner przyjmuje zamówienie na terminalu Sunmi.</small></div><div class="gps"><span class="im"><img class="pimg" src="{{ gpImg.kds }}" alt=""></span><span class="n">2 · Kuchnia</span><b>Od razu na ekranie</b><small>Danie pojawia się na ekranie kuchni — bez karteczek.</small></div><div class="gps"><span class="im"><img class="pimg" src="{{ gpImg.pol }}" alt=""></span><span class="n">3 · Płatność</span><b>Karta albo BLIK</b><small>Rachunek zamykasz przy stoliku, także dzielony.</small></div><div class="gps"><span class="im"><img class="pimg" src="{{ gpImg.goposSet }}" alt=""></span><span class="n">4 · Raport</span><b>Sprzedaż w telefonie</b><small>Właściciel widzi utarg i food cost na bieżąco.</small></div></div>
+        <div class="gpcta"><span style="color:#C9D3EA;font-size:15px">Tak wygląda jedno zamówienie w Twoim lokalu — od sali do raportu.</span><div style="display:flex;gap:10px;flex-wrap:wrap"><a href="#kontakt" class="btn" style="background:#FFFFFF;color:#0A1430">Zestaw dla gastronomii</a><a href="Main.dc.html#plan" class="btn" style="color:#EEF2FB;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.25)">Plan restauracji</a></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec-tight">
+    <div class="wrap xgrid" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:start">
+      <div class="rv" style="display:flex;flex-direction:column;gap:16px;position:sticky;top:96px"><span class="eyebrow">Pytania właścicieli lokali</span><h2 class="h2">Zanim zdecydujesz</h2><div style="display:flex;flex-wrap:wrap;gap:8px"><span class="badge">Fiskalizacja w cenie</span><span class="badge">Szkolenie na miejscu</span><span class="badge">Serwis w sezonie</span><span class="badge">Terminal 0 zł na start</span></div></div>
+      <div class="rv"><div class="faq"><details><summary>Mam już kasę Posnet. Czy GoPOS z nią zadziała?<span class="pl">+</span></summary><p>Tak, jeśli to drukarka fiskalna (np. Thermal HX, Trio). Kasę z klawiaturą zwykle zastępujemy drukarką, bo system drukuje paragony sam. Sprawdzimy model i powiemy wprost.</p></details><details><summary>Ile trwa wdrożenie i czy lokal musi być zamknięty?<span class="pl">+</span></summary><p>Sprzęt konfigurujemy u siebie przed dostawą, potem montaż i szkolenie zespołu na miejscu. Termin ustalamy tak, żeby lokal nie musiał być zamknięty.</p></details><details><summary>Co z dowozami z Wolt, Glovo, Pyszne?<span class="pl">+</span></summary><p>GoPOS integruje się z platformami dostaw — zamówienia wpadają do tej samej kolejki co z sali, bez przepisywania z tabletu.</p></details><details><summary>Co, gdy w sezonie coś się zepsuje?<span class="pl">+</span></summary><p>Dzwonisz na 889 003 889. Najpierw pomagamy zdalnie, a gdy trzeba — przyjeżdża serwisant z Rabki. Zakres pomocy w sezonie i sprzęt zastępczy możemy zapisać w umowie opieki.</p></details><details><summary>Czy GoPOS to zakup licencji na zawsze?<span class="pl">+</span></summary><p>Nie — GoPOS działa w abonamencie miesięcznym (umowa z GoPOS), a sprzęt Sunmi i Posnet kupujesz u nas. Pierwsze 14 dni GoPOS jest bezpłatne.</p></details><details><summary>A KSeF w restauracji?<span class="pl">+</span></summary><p>Faktury dla firm wystawiasz z GoPOS prosto do KSeF — od 2027 r. nie wolno już wystawiać ich z kasy. Konfigurujemy to przy wdrożeniu, razem z certyfikatem i uprawnieniami dla księgowej.</p></details></div></div>
+    </div>
+  </section>
+
+  <section class="sec-tight" style="background:var(--bg2)">
+    <div class="wrap" style="display:flex;flex-direction:column;gap:20px">
+      <h2 class="h2 rv" style="font-size:clamp(26px,3vw,40px)">Inne branże</h2>
+      <div class="rv" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center"><a href="Branza.dc.html" class="chip on">Gastronomia</a><a href="Branza.dc.html" class="chip">Handel i sklepy</a><a href="Branza.dc.html" class="chip">Hotele i pensjonaty</a><span style="font-size:14px;color:var(--ink3);margin:0 6px">Wkrótce: biura i usługi, szkoły i instytucje, zdrowie i uzdrowiska ·</span><a href="Kreator.dc.html" style="font-weight:800;color:var(--acc)">Inna branża? Dobierz zestaw w 60 s →</a></div>
+    </div>
+  </section>
+  <section id="kontakt" style="padding:0 0 110px"><div class="wrap">
+      <div class="fx2 rv">
+        <div class="fx2s">
+          <span class="pill" style="align-self:flex-start;background:rgba(255,255,255,.08);color:#EEF2FB;box-shadow:none"><span class="{{ openDot }}"></span>{{ openLbl }}</span>
+          <h2>Powiedz, jaki masz lokal. Resztę dobierzemy.</h2>
+          <p>Ile miejsc, czy są dowozy, czy jest ogródek — i dostajesz zestaw na piśmie. Odpowiadamy najszybciej, jak to możliwe, pn–pt 9–17.</p>
+          <a href="tel:+48889003889" class="fxcall"><span class="ci"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"></path></svg></span><span><small>Wolisz porozmawiać?</small><b>889 003 889</b><small>oferty i serwis · pn–pt 9:00–17:00</small></span></a><a href="https://wa.me/48889003889" target="_blank" rel="noopener" class="fxwa"><span class="wi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 20.5l1.3-4.2A8.5 8.5 0 1112 20.5a8.4 8.4 0 01-4.2-1.1z M9 8.5c0 3.3 2.7 6.5 6.5 6.5l1-1.5-2-1-1 .8c-1-.4-2-1.4-2.4-2.4l.8-1-1-2z"></path></svg></span><span>Napisz na WhatsApp<small>889 003 889 · zdjęcie usterki też wyślesz</small></span></a>
+          <div class="fxmini"><a href="mailto:biuro@pro-kom.eu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18v12H3z M3 7l9 6 9-6"></path></svg>biuro@pro-kom.eu</a><div><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11z M12 12.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"></path></svg>ul. Orkana 16B, 34-700 Rabka-Zdrój</div><a href="tel:+48182676511"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"></path></svg>18 267 65 11 · stacjonarny</a></div>
+          <div class="fxpr"><div><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg>Oddzwaniamy w ciągu 60 minut (pn–pt 9–17)</div><div><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg>Wycena na piśmie, bez zobowiązań</div><div><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg>Bez spamu i newslettera</div></div>
+        </div>
+        <form class="fx2m" onSubmit="{{ onSubmit }}">
+          <div class="fxprog"><div class="fxdots"><i class="{{ fx.d1 }}"></i><i class="{{ fx.d2 }}"></i><i class="{{ fx.d3 }}"></i></div><span>{{ fx.lbl }}</span></div>
+          <div class="{{ fx.c1 }}">
+            <h3>Czego potrzebujesz?</h3><p class="sub">Zaznacz jedno lub kilka. Nie wiesz? Wybierz „Nie wiem — doradźcie”.</p>
+            <sc-if value="{{ fxCase.has }}" hint-placeholder-val="{{ false }}"><div class="fxcase"><span>Sprawa:</span><b>{{ fxCase.name }}</b><button type="button" onClick="{{ csClear }}" aria-label="Usuń wybraną sprawę">×</button></div></sc-if>
+            <div class="fxt"><sc-for list="{{ topics }}" as="t" hint-placeholder-count="9"><button type="button" class="{{ t.cls2 }}" onClick="{{ t.pick }}" aria-pressed="{{ t.on }}"><span class="ck"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg></span><span class="ti"><sc-if value="{{ t.hasImg }}" hint-placeholder-val="{{ true }}"><img src="{{ t.img }}" alt=""></sc-if><sc-if value="{{ t.noImg }}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.1 9a3 3 0 015.8 1c0 2-3 3-3 3 M12 17h.01 M12 21a9 9 0 100-18 9 9 0 000 18z"></path></svg></sc-if></span><span>{{ t.name }}</span></button></sc-for></div>
+            <div class="fxnav"><span class="fxsum">{{ fx.selInfo }}</span><button type="button" class="btn btn-p" onClick="{{ fx.next }}">Dalej<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6"></path></svg></button></div>
+          </div>
+          <div class="{{ fx.c2 }}">
+            <h3>Kilka słów o firmie</h3><p class="sub">Dzięki temu oddzwonimy z konkretną propozycją, a nie z pytaniami.</p>
+            <div class="fxchips"><sc-for list="{{ fxBiz }}" as="b" hint-placeholder-count="7"><button type="button" class="{{ b.cls }}" onClick="{{ b.pick }}">{{ b.n }}</button></sc-for></div>
+            <div class="fxf"><div class="fxin"><input type="text" id="fx-firm" autocomplete="organization" placeholder=" "><label for="fx-firm">Nazwa firmy (opcjonalnie)</label></div><div class="fxin"><input type="text" id="fx-city" placeholder=" "><label for="fx-city">Miejscowość</label></div></div>
+            <div class="fxin"><textarea id="fx-msg" placeholder=" "></textarea><label for="fx-msg">Co ma działać lepiej? (opcjonalnie)</label></div>
+            <div class="fxnav"><button type="button" class="bk" onClick="{{ fx.back }}">← Wstecz</button><button type="button" class="btn btn-p" onClick="{{ fx.next }}">Dalej<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6"></path></svg></button></div>
+          </div>
+          <div class="{{ fx.c3 }}">
+            <h3>Jak się z Tobą skontaktować?</h3><p class="sub">Wystarczy imię i telefon. Oddzwonimy w ciągu 60 minut w godzinach pracy.</p>
+            <div class="fxf"><div class="fxin"><input type="text" id="fx-name" autocomplete="name" placeholder=" "><label for="fx-name">Imię *</label></div><div class="fxin"><input type="tel" id="fx-tel" autocomplete="tel" placeholder=" "><label for="fx-tel">Telefon *</label></div></div>
+            <div class="fxin"><input type="email" id="fx-mail" autocomplete="email" placeholder=" "><label for="fx-mail">E-mail (opcjonalnie)</label></div>
+            <div style="display:flex;flex-direction:column;gap:8px"><b style="font-size:14px">Kiedy najlepiej zadzwonić?</b><div class="fxchips"><sc-for list="{{ fxTime }}" as="b" hint-placeholder-count="3"><button type="button" class="{{ b.cls }}" onClick="{{ b.pick }}">{{ b.n }}</button></sc-for></div></div>
+            <label class="fxcons"><input type="checkbox">Zgadzam się na przetwarzanie danych w celu odpowiedzi na zapytanie. Szczegóły w polityce prywatności.</label>
+            <div class="fxnav"><button type="button" class="bk" onClick="{{ fx.back }}">← Wstecz</button><button type="submit" class="btn btn-p">Wyślij — oddzwonimy<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6"></path></svg></button></div>
+          </div>
+          <div class="{{ fx.c4 }}">
+            <span class="fxbig"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg></span>
+            <h3>Dziękujemy! Zapytanie dotarło.</h3>
+            <p>Oddzwonimy w ciągu 60 minut w godzinach pracy (pn–pt 9:00–17:00). Temat: <b>{{ topicSummary }}</b>. Jeśli sprawa jest pilna — zadzwoń od razu: 889 003 889.</p>
+            <button type="button" class="btn btn-g" onClick="{{ fx.again }}">Wyślij kolejne zapytanie</button>
+          </div>
+        </form>
+      </div></div></section>
+
+  <footer style="background:#060A15;color:#A6B1C9;padding:72px 0 110px">
+    <div class="wrap" style="display:flex;flex-direction:column;gap:48px">
+      <div style="display:grid;grid-template-columns:minmax(0,1.4fr) repeat(4,minmax(0,1fr));gap:36px" class="ftg">
+        <div style="display:flex;flex-direction:column;gap:16px"><img src="./media/brand-prokom-biznes-ciemne.svg" alt="PRO-KOM Biznes" style="height:38px;width:auto;align-self:flex-start"><span style="max-width:36ch;line-height:1.6">Kasy fiskalne, systemy POS, terminale, programy, KSeF, komputery, sieć, kopie danych i opieka IT dla firm z Podhala i Małopolski. PRO-KOM Tadeusz Wójciak, Rabka-Zdrój, od 2004.</span>
+          <div style="display:flex;flex-direction:column;gap:6px;font-size:14px"><span><b style="color:#FFFFFF">PRO-KOM Tadeusz Wójciak</b></span><span>ul. Orkana 16B, 34-700 Rabka-Zdrój</span><span>pn–pt 9:00–17:00</span></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px"><span style="font-size:12px;font-weight:800;color:#7FE0B0;background:rgba(70,199,139,.12);padding:6px 10px;border-radius:999px">Autoryzowany partner GoPOS</span><span style="font-size:12px;font-weight:800;color:#7FE0B0;background:rgba(70,199,139,.12);padding:6px 10px;border-radius:999px">Autoryzowany partner InsERT</span><span style="font-size:12px;font-weight:800;color:#8FB0F4;background:rgba(74,123,224,.14);padding:6px 10px;border-radius:999px">Serwis Posnet i Elzab</span></div></div>
+        <div style="display:flex;flex-direction:column;gap:10px;font-size:15px"><b style="color:#FFFFFF">Oferta</b><a href="Katalog.dc.html">Cały katalog</a><a href="Kategoria.dc.html">Kasy fiskalne</a><a href="Katalog.dc.html">POS i terminale</a><a href="Katalog.dc.html">Komputery i serwery</a><a href="Katalog.dc.html">Bezpieczeństwo i podpis</a><a href="Katalog.dc.html">Serwis i przeglądy</a></div>
+        <div style="display:flex;flex-direction:column;gap:10px;font-size:15px"><b style="color:#FFFFFF">Najważniejsze</b><a href="Dzial.dc.html">Opieka IT</a><a href="Gopos.dc.html">GoPOS</a><a href="Insert.dc.html">InsERT</a><a href="Dzial.dc.html#przeglad">Bezpłatny przegląd IT</a><a href="Wpis.dc.html">KSeF 2027</a><a href="Kreator.dc.html" style="color:#FFFFFF;font-weight:800">Dobierz zestaw w 60 s →</a></div>
+        <div style="display:flex;flex-direction:column;gap:10px;font-size:15px"><b style="color:#FFFFFF">Branże i firma</b><a href="Branza.dc.html">Gastronomia</a><a href="Branza.dc.html">Handel i sklepy</a><a href="Branza.dc.html">Hotele i pensjonaty</a><a href="OFirmie.dc.html">O firmie</a><a href="Aktualnosci.dc.html">Aktualności</a><a href="#">Instalacje · Software · Tech · Zakopane</a></div>
+        <div style="display:flex;flex-direction:column;gap:10px;font-size:15px"><b style="color:#FFFFFF">Kontakt</b><span style="font-size:13px">Oferty i serwis</span><a href="tel:+48889003889" style="color:#FFFFFF;font-weight:800;font-size:18px;margin-top:-6px">889 003 889</a><a href="https://wa.me/48889003889" target="_blank" rel="noopener">WhatsApp: 889 003 889</a><a href="tel:+48182676511">18 267 65 11 · stacjonarny</a><a href="mailto:biuro@pro-kom.eu">biuro@pro-kom.eu</a><a href="Kontakt.dc.html" style="color:#FFFFFF;font-weight:800">Kontakt i dojazd →</a></div>
+      </div>
+      <div style="border-top:1px solid #1B2440;padding-top:22px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:13px"><span>© 2026 PRO-KOM Tadeusz Wójciak · NIP 7352511447 · Oferta skierowana do przedsiębiorców i instytucji · Logotypy należą do ich właścicieli</span><span style="display:flex;gap:18px"><a href="Mapa.dc.html">Mapa strony</a><a href="#">Polityka prywatności</a><a href="#">Cookies</a><a href="#">Dostępność</a></span></div>
+    </div>
+  </footer>
+  <div class="mbar"><a href="tel:+48889003889" class="btn btn-g" style="min-height:50px;background:var(--bg)">Zadzwoń</a><a href="Kontakt.dc.html" class="btn btn-p" style="min-height:50px">Zapytaj o ofertę</a></div>
+  <div class="mbar3"><a href="tel:+48889003889" class="btn btn-g" style="background:var(--bg)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"></path></svg> Zadzwoń</a><a href="https://wa.me/48889003889" class="btn btn-g" style="background:var(--bg)" target="_blank" rel="noopener"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 20.5l1.3-4.2A8.5 8.5 0 1112 20.5a8.4 8.4 0 01-4.2-1.1z M9 8.5c0 3.3 2.7 6.5 6.5 6.5l1-1.5-2-1-1 .8c-1-.4-2-1.4-2.4-2.4l.8-1-1-2z"></path></svg> WhatsApp</a><button type="button" class="btn btn-p" onClick="{{ toggleCart }}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11 M9 12h11 M9 18h11 M4.5 6h.01 M4.5 12h.01 M4.5 18h.01"></path></svg> Zapytanie <span class="nxc" style="background:#FFFFFF;color:var(--acc);border-radius:999px;padding:1px 8px;font-size:12.5px">{{ cartN }}</span></button></div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":6000}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    var prefersDark = false;
+    try { prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches; } catch (e) {}
+    try { var th = localStorage.getItem('pk-theme'); if (th) prefersDark = th === 'dark'; } catch (e) {}
+    var me = this; try { window.addEventListener('storage', function (ev) { if (ev.key === 'pk-theme') me.setState({ dark: ev.newValue === 'dark' }); }); } catch (e) {}
+    this.state = Object.assign({ dark: prefersDark, mega: false, mob: false, sent: false, topics: [], br: false, srch: false, gq: '', cartOpen: false, toast: '', toastK: 0, cart: (function () { var c = null; try { c = JSON.parse(localStorage.getItem('pk-cart') || 'null'); } catch (e) {} return c || [{ id: 'ergo', q: 1 }, { id: 'szuf', q: 1 }, { id: 'pol', q: 1 }]; })(),  }, {});
+    
+    try { window.addEventListener('storage', function (ev) { if (ev.key === 'pk-cart') { try { me.setState({ cart: JSON.parse(ev.newValue || '[]') }); } catch (e) {} } }); } catch (e) {}
+    try { document.addEventListener('keydown', function (ev) { var t = ev.target && ev.target.tagName; if (ev.key === '/' && t !== 'INPUT' && t !== 'TEXTAREA') { ev.preventDefault(); me.setState({ srch: true, mega: false, br: false }); setTimeout(function () { var el = document.getElementById('gsq'); if (el) el.focus(); }, 80); } if (ev.key === 'Escape') me.setState({ srch: false, mega: false, br: false, cartOpen: false, mob: false }); }); } catch (e) {}
+
+    
+  }
+  renderVals() {
+    var s = this.state, self = this;
+
+    var B = './media/';
+    var I = { d3: B + 'p-sunmi-d3-pro.webp', temo: B + 'p-posnet-temo.webp', trio: B + 'p-posnet-trio.webp', neo: B + 'p-posnet-neo.webp', k10: B + 'p-elzab-k10.webp', zeta: B + 'p-elzab-zeta.webp', hx: B + 'p-posnet-thermal-hx.webp', v3: B + 'p-sunmi-v3.webp', v3mix: B + 'p-sunmi-v3-mix.webp', aio: B + 'p-sunmi-all-in-one.webp', gopos: B + 'p-gopos-ekrany.webp', kds: B + 'p-sunmi-kds.webp', kiosk: B + 'p-sunmi-kiosk.webp', skaner: B + 'p-sunmi-skaner.webp', drukS: B + 'p-sunmi-drukarka-bonow.webp', szuf: B + 'p-szuflada-kasowa.webp', pol: B + 'p-terminal-polcard.webp', waga: B + 'p-waga.webp', vero: B + 'p-posnet-vero.webp', triotab: B + 'p-posnet-trio-triotab.webp', fawag: B + 'p-fawag-box.webp', laptop: B + 'p-lenovo-laptop.webp', tc: B + 'p-lenovo-thinkcentre.webp', mon: B + 'p-lenovo-monitor.webp', avtek: B + 'p-avtek-monitor-interaktywny.webp', proj: B + 'p-projektor.webp', eset: B + 'p-eset.webp', euro: B + 'p-eurocert-podpis.webp', nas: B + 'p-synology-nas.webp', ups: B + 'p-apc-ups.webp', mfp: B + 'p-konica-minolta-mfp.webp', kyo: B + 'p-kyocera-mfp.webp', ds: B + 'p-digital-signage.webp', ksef: B + 'p-ksef.webp', ubnt: B + 'p-ubiquiti-unifi.webp', m365: B + 'p-microsoft-365.webp', dell: B + 'p-dell-komputer.webp', tp: B + 'p-lenovo-thinkpad.webp', nexo: B + 'p-insert-subiekt-nexo.webp', s123: B + 'p-insert-subiekt-123.webp', nfh: B + 'p-nfhotel.webp', mini: B + 'p-elzab-mini.webp', goposSet: B + 'p-gopos-zestaw.webp', goposScr: B + 'p-gopos-ekran.webp', ergo: B + 'p-posnet-ergo.webp', mobile: B + 'p-posnet-mobile.webp', srvR: B + 'p-dell-poweredge-rack.webp', srvT: B + 'p-dell-poweredge-tower.webp', u7: B + 'p-ubiquiti-u7.webp', nec: B + 'p-sharp-nec-monitor.webp', goposEco: B + 'p-gopos-ekosystem.webp', fw: B + 'p-stormshield-firewall.webp', fwDev: B + 'p-stormshield-urzadzenie.webp', qnap: B + 'p-qnap-nas.webp', optima: B + 'p-comarch-optima.webp' };
+    I.ubnt = I.u7; I.proj = I.nec;
+    var IC = { shield: 'M12 3l7 3v5c0 4.6-3 8.6-7 10-4-1.4-7-5.4-7-10V6l7-3z M9 12l2 2 4-4', box: 'M4 8l8-4 8 4-8 4-8-4z M4 8v8l8 4 8-4V8 M12 12v8', pc: 'M4 5h16a1 1 0 011 1v9a1 1 0 01-1 1H4a1 1 0 01-1-1V6a1 1 0 011-1z M8 20h8 M12 16v4 M7 9h6 M7 12h4', wrench: 'M15 7a4 4 0 00-5.3 5.1L4 17.8 6.2 20l5.7-5.7A4 4 0 0017 9l-2.4 2.4-2-2L15 7z', card: 'M3 7h18v10H3z M3 10h18 M7 14h4', doc: 'M4 5h16v14H4z M4 9h16 M7 7h.01 M9.5 7h.01 M8 13l2 2-2 2 M12 17h4', wave: 'M4 12h3l2-5 4 10 3-7 2 2h2', rocket: 'M12 3c3 2 4.5 5.5 4.5 9.5l-1.5 3h-6l-1.5-3C7.5 8.5 9 5 12 3z M9 15l-3 3 M15 15l3 3 M12 10h.01 M10 21h4', server: 'M4 4h16v6H4z M4 14h16v6H4z M8 7h.01 M8 17h.01 M16 7h2 M16 17h2' };
+    var it = function (n, sub, img, icon) { return { n: n, s: sub, img: img || '', hasImg: !!img, noImg: !img, icon: icon || IC.box }; };
+    var D = [
+      { id: 'it', href: 'Dzial.dc.html', name: 'Opieka IT', hint: 'abonament, doradztwo, audyt', icon: IC.shield, img: I.tp, imgAlt: 'Laptop Lenovo ThinkPad', lead: 'Stała opieka informatyczna zamiast szukania „kogoś od komputerów”. Pomoc zdalna i na miejscu, monitoring, kopie i bezpieczeństwo — w jednej umowie, ze stałą opłatą.',
+        groups: [{ name: 'Wszystko', items: [it('Opieka informatyczna', 'stała opieka, czas reakcji zapisany w umowie', I.tp), it('Doradztwo IT', 'czego naprawdę potrzebujesz, zanim kupisz', '', IC.doc), it('Przegląd IT firmy', 'na start: sprzęt, sieć, kopie, bezpieczeństwo', I.tc), it('Pomoc zdalna', 'bezpieczne połączenie, problem rozwiązany od ręki', I.mon), it('Dobór i konfiguracja sprzętu', 'dostawa gotowego do pracy', I.tc), it('Szkolenia zespołu', 'kasy, programy, serwer, M365, phishing', '', IC.doc), it('Serwery i wirtualizacja', 'Dell PowerEdge, Windows Server — projekt, wdrożenie, szkolenie', I.srvT), it('Dofinansowania dla szkół i instytucji', 'kosztorys do wniosku, dostawa, dokumenty do rozliczenia', I.avtek)] }] },
+      { id: 'wdr', href: 'Main.dc.html#oferta', name: 'Wdrożenia', hint: 'programy, KSeF, serwery, sieć', icon: IC.rocket, img: I.ksef, imgAlt: 'KSeF', lead: 'Uruchamiamy systemy, na których stoi firma: programy z KSeF, Microsoft 365, serwery, sieć i kopie danych. Z przeniesieniem danych i szkoleniem zespołu.',
+        groups: [{ name: 'Wszystko', items: [it('KSeF w firmie', 'obowiązek dla najmniejszych od 1.01.2027', I.ksef), it('Programy sprzedażowe i ERP', 'Subiekt, Comarch ERP Optima, PC-Market, Streamsoft', I.nexo), it('Microsoft 365 i poczta', 'migracja bez przestoju', I.m365), it('Bezpieczeństwo IT', 'ESET, firewall Stormshield i Barracuda, uprawnienia', I.eset), it('Sieć firmowa Ubiquiti', 'Wi-Fi dla gości, kasy osobno', I.u7), it('Serwer w firmie', 'Dell PowerEdge, Windows Server, RDP', I.srvT), it('Kopie zapasowe', 'Synology, QNAP, StorageCraft — z testem odtworzenia', I.nas), it('Digital signage', 'Samsung MagicINFO', I.ds), it('Analiza obrazu', 'oprogramowanie do kamer', '', IC.wave)] }] },
+      { id: 'urz', href: 'Main.dc.html#oferta', name: 'Urządzenia', hint: 'kasy, POS, komputery, serwery, sieć', icon: IC.pc, img: I.d3, imgAlt: 'System POS Sunmi D3 PRO', lead: 'Kasy fiskalne, POS, terminale, komputery, serwery i sieć — dobrane do branży i skonfigurowane, zanim trafią do firmy. Podłączasz i pracujesz.',
+        groups: [
+          { name: 'Kasy i POS', items: [it('Kasy fiskalne', 'Posnet, Elzab, Fawag · ulga do 700 zł', I.ergo), it('Drukarki fiskalne', 'do programu i POS', I.hx), it('Stanowiska POS', 'Sunmi D3 PRO, Posnet Vero', I.d3), it('Kasoterminale i mobilne', 'Sunmi V3, V3 MIX, Posnet Mobile', I.v3mix), it('Terminale płatnicze', 'PolCard from Fiserv · 0 zł na start z Polskiej Bezgotówkowej', I.pol), it('Kioski samoobsługowe', 'Sunmi K2', I.kiosk), it('Ekrany kuchenne', 'Sunmi FLEX 3 KDS', I.kds), it('Wagi', 'z legalizacją', I.waga), it('Skanery, szuflady, drukarki bonów', 'akcesoria POS', I.szuf)] },
+          { name: 'Komputery i serwery', items: [it('Laptopy', 'Lenovo ThinkPad, ThinkBook, Dell', I.tp), it('Komputery stacjonarne', 'Lenovo ThinkCentre', I.tc), it('Monitory', 'Lenovo ThinkVision', I.mon), it('Serwery Dell PowerEdge', 'wieżowe T-series i rack R-series', I.srvT), it('NAS Synology i QNAP', 'serwer plików i kopie', I.qnap), it('Zasilanie awaryjne UPS', 'APC', I.ups), it('Drukarki wielofunkcyjne', 'Konica Minolta, Kyocera', I.mfp)] },
+          { name: 'Sieć i podpis', items: [it('Sieć i Wi-Fi Ubiquiti', 'UniFi dla firm', I.u7), it('Firewall', 'Stormshield, Barracuda', I.fw), it('Podpis kwalifikowany', 'EuroCert — karta, token, telefon', I.euro), it('Pieczęć kwalifikowana', 'dla firmy i KSeF', I.euro)] },
+          { name: 'Audio i wideo', items: [it('Monitory interaktywne', 'Avtek', I.avtek), it('Projektory', 'Sharp/NEC', I.nec), it('Ekrany reklamowe', 'Samsung, MagicINFO', I.ds)] }
+        ] },
+      { id: 'prog', href: 'Main.dc.html#oferta', name: 'Programy', hint: 'sprzedaż, gastronomia, hotel, biuro', icon: IC.doc, img: I.nexo, imgAlt: 'InsERT Subiekt nexo', lead: 'Autoryzowany partner InsERT. Subiekt, Comarch ERP Optima, PC-Market, GoPOS, NFHotel i Microsoft 365 — instalujemy, przenosimy dane, podłączamy do KSeF i uczymy zespół na Waszych danych.',
+        groups: [{ name: 'Wszystko', items: [it('GoPOS', 'gastronomia', I.goposSet), it('InsERT Subiekt nexo', 'autoryzowany partner InsERT', I.nexo), it('Comarch ERP Optima', 'księgowość, kadry, handel', I.optima), it('Insoft PC-Market', 'sklep spożywczy, sieci', I.trio), it('NFHotel', 'hotele i pensjonaty', I.nfh), it('Streamsoft', 'ERP dla produkcji i hurtowni', I.srvT), it('Microsoft 365', 'poczta, Office, Teams', I.m365), it('Licencje Microsoft', 'Windows, Office, Server, CAL', I.m365), it('ESET PROTECT', 'ochrona z jednej konsoli', I.eset), it('Samsung MagicINFO', 'treści na ekrany', I.ds)] }] },
+      { id: 'srv', href: 'Main.dc.html#oferta', name: 'Serwis i przeglądy', hint: 'kasy, POS, komputery, umowy', icon: IC.wrench, img: I.k10, imgAlt: 'Kasa fiskalna Elzab K10', lead: 'Autoryzowany serwis Posnet i Elzab: fiskalizacja, przeglądy co 2 lata i naprawy. Szybka pomoc przy POS, terminalach i komputerach firmowych.',
+        groups: [{ name: 'Wszystko', items: [it('Serwis kas i drukarek fiskalnych', 'przeglądy co 2 lata, naprawy, fiskalizacja', I.k10), it('Serwis POS i terminali', 'stanowiska Sunmi, Posnet', I.v3mix), it('Serwis komputerów dla firm', 'u klienta i w serwisie', I.tc), it('Umowy serwisowe', 'priorytet, przypomnienia o terminach', I.fawag), it('Odzysk danych', 'dyski i serwery firmowe', '', IC.box), it('Przypomnienia o przeglądach', 'kasy, licencje, podpis', '', IC.doc)] }] }
+    ];
+    D.forEach(function (d) { d.flat = []; d.groups.forEach(function (g) { d.flat = d.flat.concat(g.items); }); d.count = d.flat.length; d.top = d.flat.slice(0, 6); });
+    var hrefs = { it: 'Dzial.dc.html', wdr: 'Dzial.dc.html', urz: 'Pozycja.dc.html', prog: 'Produkt.dc.html', srv: 'Dzial.dc.html' }; D.forEach(function (d) { d.href = hrefs[d.id] || d.href; });
+    var OPEN = (function () { var n = new Date(), wd = n.getDay(), h = n.getHours() + n.getMinutes() / 60; var open = wd >= 1 && wd <= 5 && h >= 9 && h < 17; var nxt = (wd >= 1 && wd <= 4 && h >= 17) ? 'jutro o 9:00' : (wd >= 1 && wd <= 5 && h < 9) ? 'dziś o 9:00' : 'w poniedziałek o 9:00'; return open ? { l: 'Otwarte teraz · do 17:00', c: 'live' } : { l: 'Zamknięte · otwieramy ' + nxt, c: 'live off' }; })();
+    var L = function (id, alt) { return { src: B + id, alt: alt }; };
+    var logos = [L('logo-posnet.webp', 'Posnet'), L('logo-elzab.webp', 'Elzab'), L('logo-gopos.webp', 'GoPOS'), L('logo-sunmi.webp', 'Sunmi'), L('logo-insert.webp', 'InsERT'), L('logo-comarch.webp', 'Comarch'), L('logo-insoft.webp', 'Insoft'), L('logo-nfhotel.webp', 'NFHotel'), L('logo-polcard.webp', 'PolCard from Fiserv'), L('logo-ubiquiti.webp', 'Ubiquiti')];
+    var logosR = [L('logo-eset.webp', 'ESET'), L('logo-eurocert.webp', 'EuroCert'), L('logo-microsoft.webp', 'Microsoft'), L('logo-lenovo.webp', 'Lenovo'), L('logo-dell.webp', 'Dell'), L('logo-avtek.webp', 'Avtek'), L('logo-kyocera.webp', 'Kyocera'), L('logo-konica-minolta.webp', 'Konica Minolta'), L('logo-synology.webp', 'Synology'), L('logo-qnap.webp', 'QNAP'), L('logo-storagecraft.webp', 'StorageCraft'), L('logo-stormshield.webp', 'Stormshield'), L('logo-barracuda.webp', 'Barracuda'), L('logo-fawag.webp', 'Fawag'), L('logo-sharp-nec.webp', 'Sharp/NEC')];
+    var dbl = function (a) { return a.concat(a, a); };
+    var T = [{ id: 'kasa', name: 'Kasa fiskalna', img: I.temo }, { id: 'pos', name: 'System POS / GoPOS', img: I.d3 }, { id: 'term', name: 'Terminal płatniczy', img: I.pol }, { id: 'prog', name: 'Program dla firmy', img: I.nexo }, { id: 'ksef', name: 'KSeF', img: I.ksef }, { id: 'it', name: 'Opieka IT / komputery', img: I.tp }, { id: 'siec', name: 'Sieć, kopie, bezpieczeństwo', img: I.nas }, { id: 'podpis', name: 'Podpis kwalifikowany', img: I.euro }, { id: 'nie', name: 'Nie wiem — doradźcie', img: '' }];
+var CG = [{"id": "sprz", "n": "Kasy i sprzedaż", "ic": "store", "gr": "#244FB0,#4FA3F0"}, {"id": "biuro", "n": "Komputery i biuro", "ic": "monitor", "gr": "#0E7C86,#33C2B5"}, {"id": "prog", "n": "Oprogramowanie", "ic": "doc", "gr": "#6D3FD1,#A07BF0"}, {"id": "bezp", "n": "Bezpieczeństwo, sieć i podpis", "ic": "shield", "gr": "#1F7A4A,#46C78B"}, {"id": "usl", "n": "Serwis i usługi", "ic": "wrench", "gr": "#C2410C,#F59E0B"}];
+    var CT = [{"id": "kasy", "n": "Kasy fiskalne", "g": "sprz", "d": "Posnet, Elzab, Fawag — online, z fiskalizacją i szkoleniem"}, {"id": "druk", "n": "Drukarki fiskalne", "g": "sprz", "d": "do programu sprzedażowego i POS"}, {"id": "pos", "n": "Stanowiska POS", "g": "sprz", "d": "dotykowe all-in-one pod GoPOS i sklep"}, {"id": "mob", "n": "Kasoterminale i mobilne", "g": "sprz", "d": "kelner przy stoliku, sprzedaż w terenie"}, {"id": "term", "n": "Terminale płatnicze", "g": "sprz", "d": "PolCard from Fiserv, BLIK, zbliżeniowe"}, {"id": "kiosk", "n": "Kioski i ekrany kuchenne", "g": "sprz", "d": "samoobsługa i kuchnia bez papieru"}, {"id": "akc", "n": "Akcesoria POS i wagi", "g": "sprz", "d": "szuflady, skanery, drukarki bonów, wagi"}, {"id": "komp", "n": "Komputery i monitory", "g": "biuro", "d": "Lenovo, Dell — gotowe do pracy"}, {"id": "serw", "n": "Serwery, NAS i UPS", "g": "biuro", "d": "Dell PowerEdge, Synology, QNAP, APC"}, {"id": "mfp", "n": "Drukarki wielofunkcyjne", "g": "biuro", "d": "Konica Minolta, Kyocera"}, {"id": "av", "n": "Ekrany i projektory", "g": "biuro", "d": "monitory interaktywne, digital signage"}, {"id": "progs", "n": "Programy sprzedażowe i ERP", "g": "prog", "d": "InsERT, Comarch, Insoft"}, {"id": "progb", "n": "Programy branżowe", "g": "prog", "d": "GoPOS, NFHotel"}, {"id": "m365", "n": "Microsoft 365 i licencje", "g": "prog", "d": "poczta, Office, Teams, Windows"}, {"id": "siec", "n": "Sieć i Wi-Fi", "g": "bezp", "d": "Ubiquiti UniFi"}, {"id": "ochr", "n": "Antywirus i firewall", "g": "bezp", "d": "ESET, Stormshield"}, {"id": "podpis", "n": "Podpis i pieczęć kwalifikowana", "g": "bezp", "d": "EuroCert — do KSeF, ZUS, KRS"}, {"id": "it", "n": "Opieka IT i wdrożenia", "g": "usl", "d": "abonament, KSeF, programy, szkolenia"}, {"id": "serwis", "n": "Serwis i przeglądy", "g": "usl", "d": "autoryzowany serwis Posnet i Elzab"}, {"id": "dof", "n": "Dofinansowania", "g": "usl", "d": "zakupy w projektach z dofinansowaniem"}];
+    var BRZ = [{"id": "gastro", "n": "Gastronomia"}, {"id": "handel", "n": "Handel i sklepy"}, {"id": "noclegi", "n": "Hotele i pensjonaty"}, {"id": "uslugi", "n": "Biura i usługi"}, {"id": "szkoly", "n": "Szkoły i instytucje"}, {"id": "zdrowie", "n": "Zdrowie i uzdrowiska"}];
+    var LG = {"Posnet": "logo-posnet.webp", "Elzab": "logo-elzab.webp", "GoPOS": "logo-gopos.webp", "Sunmi": "logo-sunmi.webp", "InsERT": "logo-insert.webp", "Comarch": "logo-comarch.webp", "Insoft": "logo-insoft.webp", "NFHotel": "logo-nfhotel.webp", "PolCard": "logo-polcard.webp", "Ubiquiti": "logo-ubiquiti.webp", "ESET": "logo-eset.webp", "EuroCert": "logo-eurocert.webp", "Microsoft": "logo-microsoft.webp", "Lenovo": "logo-lenovo.webp", "Dell": "logo-dell.webp", "Avtek": "logo-avtek.webp", "Kyocera": "logo-kyocera.webp", "Konica Minolta": "logo-konica-minolta.webp", "Synology": "logo-synology.webp", "QNAP": "logo-qnap.webp", "StorageCraft": "logo-storagecraft.webp", "Stormshield": "logo-stormshield.webp", "Fawag": "logo-fawag.webp", "Sharp/NEC": "logo-sharp-nec.webp", "PRO-KOM": "brand-prokom-biznes-jasne.svg"};
+    var PR = [{"id": "ergo", "n": "Posnet Ergo Online", "b": "Posnet", "c": "kasy", "t": "urz", "img": "ergo", "s": "Mała kasa z modułem WiFi lub LTE i płatnością BLIK prosto na kasie.", "tags": ["Online", "WiFi / LTE", "0,6 kg"], "br": ["uslugi", "gastro", "handel"], "auth": true, "nw": false, "kw": "mobilna przenosna bateria fryzjer cukiernia food truck", "badge": "Ulga do 700 zł", "pop": 98}, {"id": "mobile", "n": "Posnet Mobile Online", "b": "Posnet", "c": "kasy", "t": "urz", "img": "mobile", "s": "Najmniejsza kasa online Posnet — mieści się w kieszeni.", "tags": ["Online", "WiFi / GPRS", "410 g"], "br": ["uslugi", "gastro"], "auth": true, "nw": false, "kw": "mobilna przenosna mechanik lekarz kieszen bilety", "badge": "", "pop": 80}, {"id": "neo", "n": "Posnet Neo Online", "b": "Posnet", "c": "kasy", "t": "urz", "img": "neo", "s": "Kasa systemowa do sklepu z dużą liczbą towarów i skanerem.", "tags": ["PLU 30 000", "2 wyświetlacze", "Ethernet"], "br": ["handel"], "auth": true, "nw": false, "kw": "systemowa supermarket delikatesy skaner", "badge": "", "pop": 70}, {"id": "k10", "n": "Elzab K10 Online", "b": "Elzab", "c": "kasy", "t": "urz", "img": "k10", "s": "Kasa z ekranem dotykowym 4,3\" i wymienną baterią, w 7 kolorach.", "tags": ["Dotyk 4,3\"", "WiFi / BT", "bateria"], "br": ["uslugi", "handel", "gastro"], "auth": true, "nw": false, "kw": "dotykowa mobilna przenosna kolorowa", "badge": "", "pop": 90}, {"id": "mini", "n": "Elzab Mini Online", "b": "Elzab", "c": "kasy", "t": "urz", "img": "mini", "s": "Mała kasa z Ethernetem w standardzie — do sklepu i usług.", "tags": ["PLU 10 000", "Ethernet", "0,9 kg"], "br": ["handel", "uslugi"], "auth": true, "nw": false, "kw": "mala sklep uslugi wypozyczalnia", "badge": "", "pop": 66}, {"id": "jota", "n": "Elzab Jota Online", "b": "Elzab", "c": "kasy", "t": "urz", "img": "", "s": "Kasa do sklepu spożywczego, mięsnego i cukierni — z akumulatorem.", "tags": ["PLU 20 000", "LAN", "akumulator"], "br": ["handel"], "auth": true, "nw": false, "kw": "srednia spozywczy miesny cukiernia", "badge": "", "pop": 50}, {"id": "lite", "n": "Fawag Lite Online", "b": "Fawag", "c": "kasy", "t": "urz", "img": "", "s": "Prosta kasa do małego sklepu, kwiaciarni i butiku.", "tags": ["PLU 2 000", "Ethernet", "1 kg"], "br": ["handel", "uslugi"], "auth": false, "nw": false, "kw": "mala kwiaciarnia butik tania prosta", "badge": "", "pop": 40}, {"id": "hx", "n": "Posnet Thermal HX Online", "b": "Posnet", "c": "druk", "t": "urz", "img": "hx", "s": "Drukarka fiskalna do dużego ruchu — papier 80 lub 57 mm, obcinacz.", "tags": ["47 linii/s", "Ethernet", "PLU 250 000"], "br": ["gastro", "handel", "noclegi"], "auth": true, "nw": false, "kw": "drukarka restauracja hotel siec hurtownia", "badge": "", "pop": 85}, {"id": "trio", "n": "Posnet Trio Online", "b": "Posnet", "c": "druk", "t": "urz", "img": "trio", "s": "Kompaktowa drukarka fiskalna z wymienną baterią. Dobry Wzór 2017.", "tags": ["30 linii/s", "USB / WiFi", "0,7 kg"], "br": ["handel", "gastro"], "auth": true, "nw": false, "kw": "drukarka butik piekarnia fast food", "badge": "", "pop": 75}, {"id": "temo", "n": "Posnet Temo Online", "b": "Posnet", "c": "druk", "t": "urz", "img": "temo", "s": "Mobilna drukarka fiskalna do pracy w terenie.", "tags": ["315 g", "bateria", "WiFi / BT opcja"], "br": ["uslugi"], "auth": true, "nw": false, "kw": "drukarka mobilna przenosna parking wypozyczalnia", "badge": "", "pop": 55}, {"id": "zeta", "n": "Elzab Zeta Online", "b": "Elzab", "c": "druk", "t": "urz", "img": "zeta", "s": "Kompaktowa drukarka z WiFi i Bluetooth na pokładzie.", "tags": ["PLU 500 000", "WiFi / BT", "0,9 kg"], "br": ["handel", "uslugi"], "auth": true, "nw": false, "kw": "drukarka kiosk stoisko e-commerce", "badge": "", "pop": 60}, {"id": "fbox", "n": "Fawag Box Online", "b": "Fawag", "c": "druk", "t": "urz", "img": "fawag", "s": "Kompaktowa drukarka fiskalna, rozumie protokoły Posnet i Thermal.", "tags": ["Ethernet", "USB", "1 kg"], "br": ["handel", "uslugi"], "auth": false, "nw": false, "kw": "drukarka salon warsztat drogeria", "badge": "", "pop": 45}, {"id": "d3", "n": "Sunmi D3 PRO", "b": "Sunmi", "c": "pos", "t": "urz", "img": "d3", "s": "Stanowisko POS 15,6\" na Androidzie — pod GoPOS i programy sklepowe.", "tags": ["15,6\" FHD", "Android 13", "ekran klienta opcja"], "br": ["gastro", "handel", "noclegi"], "auth": false, "nw": false, "kw": "pos dotykowy komputer kasowy restauracja", "badge": "", "pop": 88}, {"id": "vero", "n": "Posnet Vero", "b": "Posnet", "c": "pos", "t": "urz", "img": "vero", "s": "POS all-in-one 10,1\" z wbudowaną drukarką fiskalną.", "tags": ["10,1\" dotyk", "Android", "drukarka fiskalna"], "br": ["gastro", "handel", "uslugi"], "auth": true, "nw": false, "kw": "pos all in one tablet gopos", "badge": "", "pop": 72}, {"id": "triotab", "n": "Zestaw Trio Online + TrioTAB", "b": "Posnet", "c": "pos", "t": "urz", "img": "triotab", "s": "Drukarka Trio i tablet 10,1\" z wbudowanym skanerem 2D — gotowy POS.", "tags": ["Android 14", "skaner 2D", "980 g"], "br": ["gastro", "handel"], "auth": true, "nw": true, "kw": "pos tablet zestaw nowosc", "badge": "", "pop": 78}, {"id": "v3mix", "n": "Sunmi V3 MIX", "b": "Sunmi", "c": "mob", "t": "urz", "img": "v3mix", "s": "Tablet 10,1\" z drukarką, skanerem i NFC — kelner przy stoliku.", "tags": ["10,1\"", "drukarka 58/80 mm", "2 × SIM"], "br": ["gastro", "noclegi"], "auth": false, "nw": false, "kw": "kelner mobilny tablet drukarka", "badge": "", "pop": 74}, {"id": "v3", "n": "Sunmi V3", "b": "Sunmi", "c": "mob", "t": "urz", "img": "v3", "s": "Kieszonkowy terminal z drukarką 58 mm, 4G i GPS.", "tags": ["6,75\"", "4G", "GPS"], "br": ["gastro", "uslugi"], "auth": false, "nw": false, "kw": "mobilny kieszonkowy kelner dostawa", "badge": "", "pop": 52}, {"id": "pol", "n": "Terminal płatniczy PolCard", "b": "PolCard", "c": "term", "t": "urz", "img": "pol", "s": "Karty, BLIK, Apple Pay i Google Pay. Środki następnego dnia roboczego.", "tags": ["BLIK", "zbliżeniowe", "helpdesk 24/7"], "br": ["gastro", "handel", "noclegi", "uslugi", "szkoly", "zdrowie"], "auth": false, "nw": false, "kw": "terminal platnosci karta blik polska bezgotowkowa", "badge": "0 zł przez 12 mies.", "pop": 95}, {"id": "softpos", "n": "PolCard Go — terminal w telefonie", "b": "PolCard", "c": "term", "t": "urz", "img": "", "s": "Płatności kartą w telefonie z Androidem, bez osobnego terminala.", "tags": ["SoftPOS", "Android", "zbliżeniowe"], "br": ["uslugi", "gastro"], "auth": false, "nw": true, "kw": "terminal telefon softpos karta", "badge": "", "pop": 48}, {"id": "kiosk", "n": "Sunmi K2 — kiosk samoobsługowy", "b": "Sunmi", "c": "kiosk", "t": "urz", "img": "kiosk", "s": "Ekran 24\", drukarka i skaner — gość sam zamawia i płaci.", "tags": ["24\" FHD", "drukarka 80 mm", "NFC"], "br": ["gastro"], "auth": false, "nw": false, "kw": "kiosk samoobsluga zamawianie", "badge": "", "pop": 58}, {"id": "kds", "n": "Sunmi FLEX 3 KDS", "b": "Sunmi", "c": "kiosk", "t": "urz", "img": "kds", "s": "Ekran kuchenny IP55 — działa mokrymi dłońmi i w rękawiczkach.", "tags": ["IP55", "15,6–22\"", "VESA"], "br": ["gastro"], "auth": false, "nw": false, "kw": "kuchnia ekran kds zamowienia", "badge": "", "pop": 56}, {"id": "szuf", "n": "Szuflada Posnet SKL", "b": "Posnet", "c": "akc", "t": "urz", "img": "szuf", "s": "Szuflada na 8 przegród banknotów (PLN i EUR) i 9 monet.", "tags": ["8 + 9 przegród", "RJ12", "prowadnice kulkowe"], "br": ["handel", "gastro"], "auth": false, "nw": false, "kw": "szuflada kasowa pieniadze", "badge": "", "pop": 44}, {"id": "skaner", "n": "Skaner Sunmi 2D NS021", "b": "Sunmi", "c": "akc", "t": "urz", "img": "skaner", "s": "Czyta kody 1D, 2D i QR — także z ekranu telefonu.", "tags": ["1D / 2D / QR", "USB", "upadek 1,2 m"], "br": ["handel", "gastro"], "auth": false, "nw": false, "kw": "skaner czytnik kodow kreskowych", "badge": "", "pop": 46}, {"id": "druks", "n": "Drukarka bonów Sunmi NT311", "b": "Sunmi", "c": "akc", "t": "urz", "img": "drukS", "s": "Drukarka 80 mm do kuchni i baru, z drukiem z chmury.", "tags": ["250 mm/s", "WiFi / LAN / BT", "IP52"], "br": ["gastro"], "auth": false, "nw": false, "kw": "drukarka bonow kuchnia bar", "badge": "", "pop": 42}, {"id": "waga", "n": "Waga kontrolna Fawag WS-1", "b": "Fawag", "c": "akc", "t": "urz", "img": "", "s": "Waga 6/15 kg z dwoma wyświetlaczami, do sklepu i magazynu.", "tags": ["6 / 15 kg", "RS-232 / USB", "stal nierdzewna"], "br": ["handel", "gastro"], "auth": false, "nw": false, "kw": "waga wazenie", "badge": "", "pop": 30}, {"id": "tp", "n": "Lenovo ThinkPad E14 Gen 6", "b": "Lenovo", "c": "komp", "t": "urz", "img": "tp", "s": "Wytrzymały laptop 14\" z Core Ultra i normą MIL-STD-810H.", "tags": ["Core Ultra 5 / 7", "do 64 GB", "1,42 kg"], "br": ["uslugi", "szkoly", "zdrowie", "handel"], "auth": false, "nw": false, "kw": "laptop notebook komputer przenosny", "badge": "", "pop": 82}, {"id": "tb", "n": "Lenovo ThinkBook 14 Gen 6", "b": "Lenovo", "c": "komp", "t": "urz", "img": "laptop", "s": "Lekki laptop do biura z Thunderbolt 4.", "tags": ["Intel i5 / i7", "do 64 GB", "1,38 kg"], "br": ["uslugi", "szkoly"], "auth": false, "nw": false, "kw": "laptop notebook komputer", "badge": "", "pop": 64}, {"id": "tc", "n": "Lenovo ThinkCentre neo 30s Gen 5", "b": "Lenovo", "c": "komp", "t": "urz", "img": "tc", "s": "Mały komputer stacjonarny SFF z Windows 11 Pro.", "tags": ["SFF 8,2 l", "do 64 GB", "Win 11 Pro"], "br": ["uslugi", "handel", "szkoly", "zdrowie"], "auth": false, "nw": false, "kw": "komputer stacjonarny pc biuro", "badge": "", "pop": 60}, {"id": "mon", "n": "Lenovo ThinkVision S27i-30", "b": "Lenovo", "c": "komp", "t": "urz", "img": "mon", "s": "Monitor 27\" IPS 100 Hz z 3 latami gwarancji.", "tags": ["27\" FHD", "100 Hz", "2 × HDMI"], "br": ["uslugi", "szkoly"], "auth": false, "nw": false, "kw": "monitor ekran", "badge": "", "pop": 50}, {"id": "dell", "n": "Laptopy Dell dla firm", "b": "Dell", "c": "komp", "t": "urz", "img": "dell", "s": "Do biura i w teren — dobierzemy model do Twojej pracy.", "tags": ["Windows 11 Pro", "dobór modelu", "konfiguracja"], "br": ["uslugi"], "auth": false, "nw": false, "kw": "laptop notebook dell latitude", "badge": "", "pop": 40}, {"id": "srvt", "n": "Serwer Dell PowerEdge (wieża)", "b": "Dell", "c": "serw", "t": "urz", "img": "srvT", "s": "Serwer do biura bez serwerowni — pliki, domena, pulpit zdalny.", "tags": ["T-series", "Windows Server", "RDP"], "br": ["uslugi", "zdrowie", "szkoly", "noclegi"], "auth": false, "nw": false, "kw": "serwer domena windows server", "badge": "", "pop": 54}, {"id": "srvr", "n": "Serwer Dell PowerEdge (rack)", "b": "Dell", "c": "serw", "t": "urz", "img": "srvR", "s": "Do szafy rack — wirtualizacja i większe firmy.", "tags": ["R-series", "wirtualizacja", "rack 19\""], "br": ["uslugi"], "auth": false, "nw": false, "kw": "serwer rack wirtualizacja", "badge": "", "pop": 36}, {"id": "nas", "n": "Synology NAS", "b": "Synology", "c": "serw", "t": "urz", "img": "nas", "s": "Serwer plików i kopie zapasowe 3-2-1 w firmie.", "tags": ["kopie", "pliki", "nagrania"], "br": ["gastro", "handel", "noclegi", "uslugi", "szkoly", "zdrowie"], "auth": false, "nw": false, "kw": "nas backup kopia dysk sieciowy", "badge": "", "pop": 62}, {"id": "qnap", "n": "QNAP NAS", "b": "QNAP", "c": "serw", "t": "urz", "img": "qnap", "s": "Serwer plików i kopii dla biura i sklepu.", "tags": ["kopie", "pliki", "RAID"], "br": ["gastro", "handel", "noclegi", "uslugi", "szkoly", "zdrowie"], "auth": false, "nw": false, "kw": "nas backup kopia dysk sieciowy", "badge": "", "pop": 44}, {"id": "ups", "n": "Zasilanie awaryjne APC", "b": "APC", "c": "serw", "t": "urz", "img": "ups", "s": "UPS dla serwera, kas i sieci — praca przy zaniku prądu.", "tags": ["serwer", "kasy", "sieć"], "br": ["gastro", "handel", "noclegi", "uslugi", "szkoly", "zdrowie"], "auth": false, "nw": false, "kw": "ups zasilanie prad awaria", "badge": "", "pop": 38}, {"id": "mfp", "n": "Konica Minolta bizhub C251i", "b": "Konica Minolta", "c": "mfp", "t": "urz", "img": "mfp", "s": "Kolor A3, 25 str./min, skan do e-maila i OCR.", "tags": ["A3 kolor", "25 str./min", "ADF dual-scan"], "br": ["uslugi", "szkoly", "zdrowie"], "auth": false, "nw": false, "kw": "drukarka ksero skaner wielofunkcyjne", "badge": "", "pop": 46}, {"id": "kyo", "n": "Urządzenia wielofunkcyjne Kyocera", "b": "Kyocera", "c": "mfp", "t": "urz", "img": "kyo", "s": "Drukarki A4 i A3 do biura — druk, skan, faks.", "tags": ["A4 / A3", "kolor", "skan / faks"], "br": ["uslugi", "szkoly"], "auth": false, "nw": false, "kw": "drukarka ksero skaner wielofunkcyjne ecosys taskalfa", "badge": "", "pop": 40}, {"id": "avtek", "n": "Avtek TS 8 Lite G", "b": "Avtek", "c": "av", "t": "urz", "img": "avtek", "s": "Monitor interaktywny 4K, 65–98\", z Androidem — do sal i klas.", "tags": ["4K", "65–98\"", "Android"], "br": ["szkoly"], "auth": false, "nw": false, "kw": "monitor interaktywny tablica szkola", "badge": "", "pop": 48}, {"id": "nec", "n": "Projektory Sharp/NEC", "b": "Sharp/NEC", "c": "av", "t": "urz", "img": "nec", "s": "Projektory do sal szkoleniowych, konferencyjnych i klas.", "tags": ["sale szkoleniowe", "klasy", "dobór do sali"], "br": ["szkoly", "noclegi"], "auth": false, "nw": false, "kw": "projektor rzutnik", "badge": "", "pop": 30}, {"id": "ds", "n": "Ekrany reklamowe Samsung + MagicINFO", "b": "Samsung", "c": "av", "t": "urz", "img": "ds", "s": "Monitory reklamowe z treściami zmienianymi z jednego panelu.", "tags": ["digital signage", "MagicINFO", "harmonogram"], "br": ["handel", "gastro", "noclegi", "zdrowie"], "auth": false, "nw": false, "kw": "reklama ekran menu board digital signage", "badge": "", "pop": 42}, {"id": "nexo", "n": "InsERT Subiekt nexo", "b": "InsERT", "c": "progs", "t": "prog", "img": "nexo", "s": "Sprzedaż i magazyn dla sklepów, hurtowni i warsztatów — gotowy na KSeF.", "tags": ["KSeF", "wiele magazynów", "szkolenie"], "br": ["handel", "uslugi"], "auth": true, "nw": false, "kw": "program faktury magazyn sprzedaz subiekt", "badge": "", "pop": 92}, {"id": "s123", "n": "InsERT Subiekt 123", "b": "InsERT", "c": "progs", "t": "prog", "img": "s123", "s": "Sprzedaż i faktury w przeglądarce — dla najmniejszych firm.", "tags": ["w przeglądarce", "faktury", "KSeF"], "br": ["uslugi", "handel"], "auth": true, "nw": false, "kw": "program faktury online chmura subiekt", "badge": "", "pop": 60}, {"id": "gt", "n": "InsERT Subiekt GT", "b": "InsERT", "c": "progs", "t": "prog", "img": "", "s": "Sprawdzony program dla mikro i małych firm, które już na nim pracują.", "tags": ["mikro i małe firmy", "KSeF", "magazyn"], "br": ["handel", "uslugi"], "auth": true, "nw": false, "kw": "program faktury subiekt gt", "badge": "", "pop": 50}, {"id": "optima", "n": "Comarch ERP Optima", "b": "Comarch", "c": "progs", "t": "prog", "img": "optima", "s": "Księgowość, kadry i handel w jednym — dla firm i biur rachunkowych.", "tags": ["księgowość", "kadry", "handel"], "br": ["uslugi"], "auth": false, "nw": false, "kw": "program ksiegowosc kadry biuro rachunkowe faktury", "badge": "", "pop": 56}, {"id": "pcm", "n": "Insoft PC-Market 7", "b": "Insoft", "c": "progs", "t": "prog", "img": "", "s": "Program dla sklepu spożywczego i sieci 2–20 sklepów, z systemem kaucyjnym.", "tags": ["system kaucyjny", "KSeF", "etykiety"], "br": ["handel"], "auth": false, "nw": false, "kw": "program sklep spozywczy kaucja", "badge": "", "pop": 44}, {"id": "gopos", "n": "GoPOS", "b": "GoPOS", "c": "progb", "t": "prog", "img": "goposSet", "s": "System dla gastronomii: sala, kuchnia, dowozy i KSeF — w jednym.", "tags": ["6000+ lokali", "dowozy", "offline"], "br": ["gastro", "noclegi"], "auth": true, "nw": false, "kw": "restauracja gastronomia system pos kelner", "badge": "", "pop": 97}, {"id": "nfh", "n": "NFHotel", "b": "NFHotel", "c": "progb", "t": "prog", "img": "nfh", "s": "Recepcja, rezerwacje online i channel manager dla hoteli i pensjonatów.", "tags": ["Booking.com, Airbnb", "KSeF", "integracja GoPOS"], "br": ["noclegi"], "auth": false, "nw": false, "kw": "hotel pensjonat apartamenty rezerwacje", "badge": "", "pop": 58}, {"id": "m365", "n": "Microsoft 365 Business", "b": "Microsoft", "c": "m365", "t": "prog", "img": "m365", "s": "Poczta, Office, Teams i OneDrive — z migracją bez przestoju.", "tags": ["Basic / Standard / Premium", "Teams", "OneDrive 1 TB"], "br": ["gastro", "handel", "noclegi", "uslugi", "szkoly", "zdrowie"], "auth": false, "nw": false, "kw": "poczta office outlook teams email", "badge": "", "pop": 66}, {"id": "mslic", "n": "Licencje Microsoft", "b": "Microsoft", "c": "m365", "t": "prog", "img": "", "s": "Windows, Office, Windows Server i CAL — legalnie i z fakturą.", "tags": ["Windows", "Office", "Server i CAL"], "br": ["gastro", "handel", "noclegi", "uslugi", "szkoly", "zdrowie"], "auth": false, "nw": false, "kw": "licencja windows office server", "badge": "", "pop": 34}, {"id": "u7", "n": "Ubiquiti UniFi U7 Pro", "b": "Ubiquiti", "c": "siec", "t": "urz", "img": "u7", "s": "Punkt dostępowy Wi-Fi 7 — goście osobno, kasy osobno.", "tags": ["Wi-Fi 7", "UniFi", "PoE"], "br": ["gastro", "handel", "noclegi", "uslugi", "szkoly", "zdrowie"], "auth": false, "nw": false, "kw": "wifi internet siec router access point", "badge": "", "pop": 52}, {"id": "eset", "n": "ESET PROTECT", "b": "ESET", "c": "ochr", "t": "prog", "img": "eset", "s": "Ochrona komputerów i serwerów z jednej konsoli w chmurze.", "tags": ["Entry → Elite", "konsola w chmurze", "serwery"], "br": ["gastro", "handel", "noclegi", "uslugi", "szkoly", "zdrowie"], "auth": false, "nw": false, "kw": "antywirus wirus ochrona bezpieczenstwo", "badge": "", "pop": 68}, {"id": "fw", "n": "Firewall Stormshield", "b": "Stormshield", "c": "ochr", "t": "urz", "img": "fwDev", "s": "Bramka bezpieczeństwa sieci firmowej: VPN i filtrowanie ruchu.", "tags": ["VPN", "filtrowanie", "biura i placówki"], "br": ["uslugi", "zdrowie", "szkoly"], "auth": false, "nw": false, "kw": "firewall bezpieczenstwo vpn", "badge": "", "pop": 36}, {"id": "euro", "n": "Podpis kwalifikowany EuroCert", "b": "EuroCert", "c": "podpis", "t": "urz", "img": "euro", "s": "Karta, token albo podpis w telefonie — do KSeF, ZUS, KRS i przetargów.", "tags": ["karta / token / telefon", "ważny w UE", "KSeF"], "br": ["gastro", "handel", "noclegi", "uslugi", "szkoly", "zdrowie"], "auth": false, "nw": false, "kw": "podpis elektroniczny kwalifikowany", "badge": "", "pop": 76}, {"id": "piecz", "n": "Pieczęć kwalifikowana EuroCert", "b": "EuroCert", "c": "podpis", "t": "urz", "img": "euro", "s": "Elektroniczna pieczęć firmy — do KSeF i dokumentów automatycznych.", "tags": ["dla spółek", "KSeF", "eIDAS"], "br": ["uslugi", "handel"], "auth": false, "nw": false, "kw": "pieczec elektroniczna spolka", "badge": "", "pop": 38}, {"id": "opieka", "n": "Opieka informatyczna", "b": "PRO-KOM", "c": "it", "t": "usl", "img": "", "s": "Stała opieka nad komputerami, siecią, kopiami i kasami — w jednej umowie.", "tags": ["stała opłata", "czas reakcji w umowie", "monitoring"], "br": ["gastro", "handel", "noclegi", "uslugi", "szkoly", "zdrowie"], "auth": true, "nw": false, "kw": "opieka it informatyk outsourcing abonament", "badge": "", "pop": 94}, {"id": "przeglad", "n": "Bezpłatny przegląd IT", "b": "PRO-KOM", "c": "it", "t": "usl", "img": "", "s": "Sprawdzamy 8 obszarów i zostawiamy raport — bez zobowiązań.", "tags": ["raport", "8 obszarów", "u Ciebie w firmie"], "br": ["gastro", "handel", "noclegi", "uslugi", "szkoly", "zdrowie"], "auth": false, "nw": false, "kw": "audyt przeglad it bezplatny", "badge": "Bezpłatnie", "pop": 84}, {"id": "ksef", "n": "Wdrożenie KSeF w firmie", "b": "PRO-KOM", "c": "it", "t": "usl", "img": "ksef", "s": "Uprawnienia, certyfikat, program i kasy — gotowe przed 1.01.2027.", "tags": ["uprawnienia", "certyfikat", "program i kasy"], "br": ["gastro", "handel", "noclegi", "uslugi", "szkoly", "zdrowie"], "auth": false, "nw": false, "kw": "ksef faktury e-faktura", "badge": "", "pop": 91}, {"id": "wdrprog", "n": "Wdrożenie programu z przeniesieniem danych", "b": "PRO-KOM", "c": "it", "t": "usl", "img": "", "s": "Instalacja, przeniesienie kartotek i szkolenie na Twoich danych.", "tags": ["migracja danych", "konfiguracja", "szkolenie"], "br": ["gastro", "handel", "noclegi", "uslugi", "szkoly", "zdrowie"], "auth": false, "nw": false, "kw": "wdrozenie program migracja", "badge": "", "pop": 46}, {"id": "szkol", "n": "Szkolenia zespołu", "b": "PRO-KOM", "c": "it", "t": "usl", "img": "", "s": "Kasy, programy, Microsoft 365 i bezpieczeństwo — w Waszej firmie.", "tags": ["na Waszych danych", "nowi pracownicy", "phishing"], "br": ["gastro", "handel", "noclegi", "uslugi", "szkoly", "zdrowie"], "auth": false, "nw": false, "kw": "szkolenie kurs", "badge": "", "pop": 32}, {"id": "kopie", "n": "Kopie zapasowe z testem odtworzenia", "b": "PRO-KOM", "c": "it", "t": "usl", "img": "", "s": "Kopie 3-2-1 na NAS i poza firmą — sprawdzamy, że dane wracają.", "tags": ["3-2-1", "Synology / QNAP", "StorageCraft"], "br": ["gastro", "handel", "noclegi", "uslugi", "szkoly", "zdrowie"], "auth": false, "nw": false, "kw": "backup kopia zapasowa", "badge": "", "pop": 48}, {"id": "srvkas", "n": "Serwis kas i drukarek fiskalnych", "b": "PRO-KOM", "c": "serwis", "t": "usl", "img": "", "s": "Autoryzowany serwis Posnet i Elzab: fiskalizacja, naprawy, wymiany.", "tags": ["Posnet i Elzab", "fiskalizacja", "naprawy"], "br": ["handel", "gastro", "uslugi", "noclegi"], "auth": true, "nw": false, "kw": "serwis kasy naprawa fiskalizacja", "badge": "", "pop": 89}, {"id": "przkas", "n": "Przegląd kasy fiskalnej", "b": "PRO-KOM", "c": "serwis", "t": "usl", "img": "", "s": "Obowiązkowy co najmniej raz na 2 lata — przypomnimy o terminie.", "tags": ["co 2 lata", "przypomnienie", "u Ciebie lub w Rabce"], "br": ["handel", "gastro", "uslugi", "noclegi"], "auth": true, "nw": false, "kw": "przeglad kasy serwis termin", "badge": "", "pop": 86}, {"id": "zmiana", "n": "Przejęcie serwisu kasy", "b": "PRO-KOM", "c": "serwis", "t": "usl", "img": "", "s": "Przenieś serwis kasy do nas — formalności załatwiamy my.", "tags": ["formalności po naszej stronie", "bez przestoju", "Posnet i Elzab"], "br": ["handel", "gastro", "uslugi", "noclegi"], "auth": true, "nw": false, "kw": "zmiana serwisu kasy przejecie", "badge": "", "pop": 64}, {"id": "srvpos", "n": "Serwis POS i terminali", "b": "PRO-KOM", "c": "serwis", "t": "usl", "img": "", "s": "Stanowiska Sunmi, Posnet i terminale — zdalnie albo na miejscu.", "tags": ["zdalnie", "na miejscu", "sprzęt zastępczy w umowie"], "br": ["gastro", "handel"], "auth": false, "nw": false, "kw": "serwis pos terminal naprawa", "badge": "", "pop": 40}, {"id": "srvkomp", "n": "Serwis komputerów dla firm", "b": "PRO-KOM", "c": "serwis", "t": "usl", "img": "", "s": "Naprawy laptopów, komputerów i serwerów firmowych.", "tags": ["u klienta", "w serwisie", "priorytet w umowie"], "br": ["gastro", "handel", "noclegi", "uslugi", "szkoly", "zdrowie"], "auth": false, "nw": false, "kw": "serwis komputer laptop naprawa", "badge": "", "pop": 42}, {"id": "odzysk", "n": "Odzysk danych", "b": "PRO-KOM", "c": "serwis", "t": "usl", "img": "", "s": "Dyski, NAS i serwery — diagnoza i odzysk danych firmowych.", "tags": ["dyski", "NAS", "serwery"], "br": ["gastro", "handel", "noclegi", "uslugi", "szkoly", "zdrowie"], "auth": false, "nw": false, "kw": "odzysk danych dysk awaria", "badge": "", "pop": 34}, {"id": "dof", "n": "Zakupy z dofinansowania", "b": "PRO-KOM", "c": "dof", "t": "usl", "img": "avtek", "s": "Dostawa sprzętu i programów w projektach z dofinansowaniem — z dokumentami.", "tags": ["szkoły i instytucje", "kosztorys", "dokumenty do rozliczenia"], "br": ["szkoly", "zdrowie", "uslugi"], "auth": false, "nw": false, "kw": "dofinansowanie dotacja szkola gmina pup", "badge": "", "pop": 44}];
+    var CMP = {"ergo": {"typ": "mała / mobilna", "ekr": "2 × 192×64", "kl": "29, bryzgoszczelna", "plu": "4 000 (do 8 000)", "dr": "57 mm · 20 l/s", "lacz": "USB; moduł WiFi lub LTE", "waga": "0,6 kg", "dla": "fryzjerzy, cukiernie, food trucki"}, "mobile": {"typ": "mobilna", "ekr": "2 × LCD 2×16", "kl": "19 klawiszy", "plu": "4 000", "dr": "57 mm · 22 l/s", "lacz": "WiFi lub GPRS (SIM)", "waga": "410 g", "dla": "mechanicy, lekarze, food trucki"}, "neo": {"typ": "systemowa", "ekr": "2 × 192×64", "kl": "56 (26 programowalnych)", "plu": "30 000 (do 60 000)", "dr": "57 mm · 20 l/s", "lacz": "Ethernet, USB, 4×RS232", "waga": "4,3 kg", "dla": "supermarkety, delikatesy"}, "k10": {"typ": "mobilna, dotykowa", "ekr": "dotyk 4,3\" + klient 2×16", "kl": "50 na ekranie", "plu": "5 000", "dr": "57 mm · 21 l/s", "lacz": "2×USB, WiFi, BT; GSM opcja", "waga": "0,65 kg", "dla": "handel mobilny, usługi"}, "mini": {"typ": "mała", "ekr": "LCD 2×24 + LED klienta", "kl": "62 klawisze", "plu": "10 000", "dr": "57 mm · 15 l/s", "lacz": "Ethernet, 2×USB, 2×RS232", "waga": "0,9 kg", "dla": "małe sklepy, usługi"}, "jota": {"typ": "średnia", "ekr": "LCD 4×24", "kl": "34 (71 funkcji)", "plu": "20 000", "dr": "57 mm · rolka 80 m", "lacz": "LAN", "waga": "2,1 kg", "dla": "spożywcze, mięsne, cukiernie"}, "lite": {"typ": "mała", "ekr": "2 × LCD 2×16", "kl": "27 klawiszy", "plu": "2 000", "dr": "57 mm · 16 l/s", "lacz": "Ethernet, USB, 2×RS232", "waga": "1 kg", "dla": "małe sklepy, kwiaciarnie"}};
+    var KTYP = {"ergo": ["mob", "mala"], "mobile": ["mob"], "neo": ["sys"], "k10": ["mob", "dot"], "mini": ["mala"], "jota": ["sys"], "lite": ["mala"]};
+    var CIC = {"kasy": "M3 9l2-5h14l2 5 M3 9a2.25 2.25 0 004.5 0 2.25 2.25 0 004.5 0 2.25 2.25 0 004.5 0 2.25 2.25 0 004.5 0 M5 11v9h14v-9 M10 20v-5h4v5", "druk": "M3 9l2-5h14l2 5 M3 9a2.25 2.25 0 004.5 0 2.25 2.25 0 004.5 0 2.25 2.25 0 004.5 0 2.25 2.25 0 004.5 0 M5 11v9h14v-9 M10 20v-5h4v5", "pos": "M4 5h16v11H4z M8 20h8 M12 16v4 M7 12l3-3 2 2 4-4", "mob": "M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2", "term": "M4 7h15a1 1 0 011 1v10a1 1 0 01-1 1H4z M4 7V5h12 M16 13h.01", "kiosk": "M4 5h16v11H4z M8 20h8 M12 16v4 M7 12l3-3 2 2 4-4", "akc": "M3 9l2-5h14l2 5 M3 9a2.25 2.25 0 004.5 0 2.25 2.25 0 004.5 0 2.25 2.25 0 004.5 0 2.25 2.25 0 004.5 0 M5 11v9h14v-9 M10 20v-5h4v5", "komp": "M4 5h16v11H4z M8 20h8 M12 16v4 M7 12l3-3 2 2 4-4", "serw": "M4 4h16v6H4z M4 14h16v6H4z M8 7h.01 M8 17h.01", "mfp": "M6 3h9l4 4v14H6z M14 3v5h5 M9 13h7 M9 17h5", "av": "M4 5h16v11H4z M8 20h8 M12 16v4 M7 12l3-3 2 2 4-4", "progs": "M6 3h9l4 4v14H6z M14 3v5h5 M9 13h7 M9 17h5", "progb": "M6 3h9l4 4v14H6z M14 3v5h5 M9 13h7 M9 17h5", "m365": "M3 6h18v12H3z M3 7l9 6 9-6", "siec": "M12 21a9 9 0 100-18 9 9 0 000 18z M15.5 8.5l-2 5-5 2 2-5z", "ochr": "M12 3l7 3v5c0 4.6-3 8.6-7 10-4-1.4-7-5.4-7-10V6l7-3z M9 12l2 2 4-4", "podpis": "M6 3h9l4 4v14H6z M14 3v5h5 M9 13h7 M9 17h5", "it": "M12 3l7 3v5c0 4.6-3 8.6-7 10-4-1.4-7-5.4-7-10V6l7-3z M9 12l2 2 4-4", "serwis": "M15 7a4 4 0 00-5.3 5.1L4 17.8 6.2 20l5.7-5.7A4 4 0 0017 9l-2.4 2.4-2-2L15 7z", "dof": "M2 9l10-5 10 5-10 5L2 9z M6 11v5c2.5 2 9.5 2 12 0v-5"}; var GIC = {"sprz": "M3 9l2-5h14l2 5 M3 9a2.25 2.25 0 004.5 0 2.25 2.25 0 004.5 0 2.25 2.25 0 004.5 0 2.25 2.25 0 004.5 0 M5 11v9h14v-9 M10 20v-5h4v5", "biuro": "M4 5h16v11H4z M8 20h8 M12 16v4 M7 12l3-3 2 2 4-4", "prog": "M6 3h9l4 4v14H6z M14 3v5h5 M9 13h7 M9 17h5", "bezp": "M12 3l7 3v5c0 4.6-3 8.6-7 10-4-1.4-7-5.4-7-10V6l7-3z M9 12l2 2 4-4", "usl": "M15 7a4 4 0 00-5.3 5.1L4 17.8 6.2 20l5.7-5.7A4 4 0 0017 9l-2.4 2.4-2-2L15 7z"};
+
+    var PK = window.__pk17 || (window.__pk17 = (function () {
+      var NRM = function (t) { return String(t || '').toLowerCase().replace(/ł/g, 'l').normalize('NFD').replace(/[̀-ͯ]/g, ''); };
+      var CTM = {}, CGM = {}, BRM = {}, PRM = {};
+      CT.forEach(function (c) { CTM[c.id] = c; c.cnt = 0; }); CG.forEach(function (g) { CGM[g.id] = g; g.cnt = 0; }); BRZ.forEach(function (b) { BRM[b.id] = b.n; });
+      PR.forEach(function (p) { PRM[p.id] = p; var c = CTM[p.c]; p.cn = c.n; p.g = c.g; c.cnt++; CGM[p.g].cnt++;
+        p.hay = NRM([p.n, p.b, p.cn, CGM[p.g].n, p.tags.join(' '), p.s, p.kw, p.br.map(function (b) { return BRM[b]; }).join(' ')].join(' '));
+        p.nameN = NRM(p.n + ' ' + p.b); p.words = p.hay.split(/[^a-z0-9]+/).filter(function (w) { return w.length > 2; }); });
+      var SYN = { terminal: ['platnicz', 'polcard', 'softpos'], karta: ['terminal', 'platnicz'], karty: ['terminal', 'platnicz'], blik: ['terminal', 'blik'], laptop: ['laptop', 'notebook'], notebook: ['laptop'], komputer: ['komputer', 'laptop', 'thinkcentre'],
+        antywirus: ['eset'], wirus: ['eset'], wirusy: ['eset'], faktura: ['subiekt', 'ksef', 'optima', 'faktur'], faktury: ['subiekt', 'ksef', 'optima', 'faktur'], fakturowanie: ['subiekt', 'faktur'], ksiegowosc: ['optima', 'ksiegow'], ksiegowa: ['optima', 'ksiegow'],
+        restauracja: ['gastronomia', 'gopos'], restauracji: ['gastronomia', 'gopos'], kawiarnia: ['gastronomia', 'gopos'], pizzeria: ['gastronomia', 'gopos'], bar: ['gastronomia'], hotel: ['nfhotel', 'hotele'], pensjonat: ['nfhotel', 'hotele'], apartamenty: ['nfhotel'],
+        wifi: ['wi-fi', 'wifi', 'unifi'], internet: ['wifi', 'siec'], backup: ['kopie', 'nas'], kopia: ['kopie', 'nas'], kopie: ['kopie', 'nas'], podpis: ['podpis', 'eurocert'], bateria: ['mobil', 'bateri', 'akumulator'], baterie: ['mobil', 'bateri', 'akumulator'],
+        przenosna: ['mobil'], mobilna: ['mobil'], tania: ['mala', 'lite'], kasa: ['kas'], kasy: ['kas'], kase: ['kas'], sklep: ['handel', 'sklep'], sklepu: ['handel', 'sklep'], szkola: ['szkoly', 'interaktywny'], tablica: ['interaktywny'], prad: ['ups', 'zasilanie'], naprawa: ['serwis', 'napraw'],
+        office: ['microsoft', 'office'], poczta: ['microsoft', 'poczta'], mail: ['poczta', 'microsoft'], drukarka: ['drukark'], ksero: ['wielofunkcyjne'], skaner: ['skaner', 'wielofunkcyjne'], kody: ['skaner'], magazyn: ['magazyn', 'subiekt'], informatyk: ['opieka'], it: ['opieka', 'przeglad'] };
+      var STOP = { do: 1, dla: 1, na: 1, w: 1, z: 1, i: 1, oraz: 1, ze: 1, od: 1, a: 1, o: 1, the: 1, cos: 1, jakis: 1, jaki: 1, jakas: 1, potrzebuje: 1, chce: 1, szukam: 1, mi: 1, moja: 1, moj: 1, firmy: 1 };
+      var lev = function (a, b) { if (Math.abs(a.length - b.length) > 2) return 9; var m = a.length, n = b.length, d = []; for (var i = 0; i <= m; i++) { d[i] = [i]; } for (var j = 1; j <= n; j++) d[0][j] = j; for (i = 1; i <= m; i++) for (j = 1; j <= n; j++) { d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)); if (i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) d[i][j] = Math.min(d[i][j], d[i - 2][j - 2] + 1); } return d[m][n]; };
+      var tokMatch = function (p, tk) { if (p.hay.indexOf(tk) !== -1) return p.nameN.indexOf(tk) !== -1 ? 3 : 1; var sy = SYN[tk]; if (sy) { for (var i = 0; i < sy.length; i++) if (p.hay.indexOf(sy[i]) !== -1) return 1; }
+        if (tk.length >= 4) { var lim = tk.length >= 7 ? 2 : 1; for (var k = 0; k < p.words.length; k++) { var w = p.words[k]; if (lev(tk, w.slice(0, tk.length)) <= lim || lev(tk, w) <= lim) return 0.6; } } return 0; };
+      var search = function (q, list) { var toks = NRM(q).split(/[^a-z0-9]+/).filter(function (t) { return t && !STOP[t]; }); if (!toks.length) return null; var out = [];
+        (list || PR).forEach(function (p) { var sc = 0; for (var i = 0; i < toks.length; i++) { var m = tokMatch(p, toks[i]); if (!m) return; sc += m; } out.push({ p: p, sc: sc + p.pop / 200 }); });
+        out.sort(function (a, b) { return b.sc - a.sc; }); return out.map(function (o) { return o.p; }); };
+      var plW = function (k) { return k + (k === 1 ? ' wynik' : (k % 10 >= 2 && k % 10 <= 4 && (k % 100 < 10 || k % 100 >= 20) ? ' wyniki' : ' wyników')); };
+      return { NRM: NRM, CTM: CTM, CGM: CGM, BRM: BRM, PRM: PRM, search: search, plW: plW };
+    })());
+    var PRM = PK.PRM, CTM = PK.CTM, CGM = PK.CGM;
+    PR = PR.map(function (p) { return PRM[p.id]; }); CT = CT.map(function (c) { return CTM[c.id]; }); CG = CG.map(function (g) { return CGM[g.id]; });
+    var HREF = { ergo: 'Produkt.dc.html', gopos: 'Gopos.dc.html', nexo: 'Insert.dc.html', s123: 'Insert.dc.html', gt: 'Insert.dc.html', opieka: 'Dzial.dc.html', przeglad: 'Dzial.dc.html#przeglad', zmiana: 'Main.dc.html#szybkie', ksef: 'Wpis.dc.html' };
+    var hrefOf = function (p) { return HREF[p.id] || (p.c === 'kasy' ? 'Produkt.dc.html' : 'Produkt.dc.html'); };
+    var gst = function (g) { var gr = CGM[g].gr.split(','); return '--g1:' + gr[0] + ';--g2:' + gr[1]; };
+    var CART = (s.cart || []).filter(function (c) { return PRM[c.id]; });
+    var INC = {}; CART.forEach(function (c) { INC[c.id] = c.q; });
+    var cartSave = function (c, msg) { try { localStorage.setItem('pk-cart', JSON.stringify(c)); } catch (e) {} var o = { cart: c }; if (msg) { o.toast = msg; o.toastK = (self.state.toastK || 0) + 1; } self.setState(o); };
+    var cartToggle = function (id) { var c = (self.state.cart || []).slice(), i = -1; c.forEach(function (x, k) { if (x.id === id) i = k; }); if (i === -1) { c.push({ id: id, q: 1 }); cartSave(c, PRM[id].n); } else { c.splice(i, 1); cartSave(c, ''); } };
+    var cartAddOnly = function (id) { var c = (self.state.cart || []).slice(), i = -1; c.forEach(function (x, k) { if (x.id === id) i = k; }); if (i === -1) { c.push({ id: id, q: 1 }); cartSave(c, PRM[id].n); } };
+    var cartQ = function (id, d) { var c = (self.state.cart || []).map(function (x) { return { id: x.id, q: x.id === id ? Math.max(1, x.q + d) : x.q }; }); cartSave(c, ''); };
+    var cartRm = function (id) { cartSave((self.state.cart || []).filter(function (x) { return x.id !== id; }), ''); };
+    var badgesOf = function (p) { var b = []; if (p.t === 'usl') b.push({ t: 'Usługa', c: 'kb usl' }); if (p.nw) b.push({ t: 'Nowość', c: 'kb new' }); if (p.badge) b.push({ t: p.badge, c: 'kb hot' });
+      if (p.auth && b.length < 2) b.push({ t: p.t === 'prog' ? 'Autoryzowany partner' : (p.t === 'usl' ? 'Autoryzowany serwis' : 'Autoryzowany serwis'), c: 'kb auth' }); return b.slice(0, 2); };
+    var pv = function (p, k) { var on = !!INC[p.id]; return { id: p.id, n: p.n, b: p.b, href: hrefOf(p), img: p.img ? I[p.img] : '', hasImg: !!p.img, noImg: !p.img, ico: CIC[p.c], gst: gst(p.g), s: p.s, cn: p.cn,
+      sub: p.cn + (p.b && p.b !== 'PRO-KOM' ? ' · ' + p.b : ''), tags: p.tags.map(function (t) { return { t: t }; }), badges: badgesOf(p), hasLogo: !!LG[p.b], noLogo: !LG[p.b], logo: LG[p.b] ? B + LG[p.b] : '',
+      add: function () { cartToggle(p.id); }, addCls: on ? 'kadd on' : 'kadd', raCls: on ? 'nxra on' : 'nxra', isP: true, dl: 'animation-delay:' + Math.min(k || 0, 12) * 40 + 'ms' }; };
+
+
+    return {
+
+      siteCls: s.dark ? 'site dark' : 'site', dark: s.dark, light: !s.dark, themeLabel: s.dark ? 'Włącz jasny motyw' : 'Włącz ciemny motyw',
+      toggleTheme: function () { var v = !self.state.dark; try { localStorage.setItem('pk-theme', v ? 'dark' : 'light'); } catch (e) {} self.setState({ dark: v }); },
+      openLbl: OPEN.l, openDot: OPEN.c,
+      megaOpen: s.mega, megaBtnCls: s.mega ? 'navb on' : 'navb', megaAria: s.mega ? 'true' : 'false', megaRot: s.mega ? 'rotate(180deg)' : 'none',
+      toggleMega: function () { self.setState({ mega: !self.state.mega, mob: false }); },
+      mobOpen: s.mob, toggleMob: function () { self.setState({ mob: !self.state.mob, mega: false }); },
+      dzialy: D,
+
+      brOpen: !!s.br, brBtnCls: s.br ? 'navb on' : 'navb', brAria: s.br ? 'true' : 'false', brRot: s.br ? 'rotate(180deg)' : 'none',
+      toggleBr: function () { self.setState({ br: !self.state.br, mega: false, srch: false }); },
+      brMenu: [{ n: 'Gastronomia', d: 'restauracje, kawiarnie, bary — GoPOS, Sunmi, Posnet', img: I.goposSet, id: 'gastro' }, { n: 'Handel i sklepy', d: 'kasy, Subiekt, PC-Market, skanery, wagi', img: I.neo, id: 'handel' }, { n: 'Hotele i pensjonaty', d: 'NFHotel, Wi-Fi, recepcja, restauracja hotelowa', img: I.nfh, id: 'noclegi' }].map(function (b) { return { n: b.n, d: b.d, img: b.img, href: 'Branza.dc.html', go: function () { try { localStorage.setItem('pk-branza', b.id); } catch (e) {} } }; }),
+      srchOpen: !!s.srch, gq: s.gq || '',
+      openSearch: function () { var v = !self.state.srch; self.setState({ srch: v, mega: false, br: false, mob: false }); if (v) setTimeout(function () { var el = document.getElementById('gsq'); if (el) el.focus(); }, 80); },
+      gqIn: function (e) { self.setState({ gq: e.target.value }); },
+      gPop: ['kasa na baterie', 'terminal', 'Subiekt', 'KSeF', 'laptop', 'GoPOS', 'podpis', 'kopie zapasowe'].map(function (t) { return { t: t, go: function () { self.setState({ gq: t }); } }; }),
+      gHint: (s.gq || '').trim() ? 'Spróbuj też:' : 'Popularne:',
+      katAll: function () { try { localStorage.setItem('pk-kf', JSON.stringify({ q: '', g: '', c: '' })); } catch (e) {} },
+      megaCols: CG.map(function (g) { var items = CT.filter(function (c) { return c.g === g.id; }).map(function (c) { return { n: c.n, c: String(c.cnt), hasC: true, st: false, em: '', cls: 'nxit', href: c.id === 'kasy' ? 'Kategoria.dc.html' : 'Katalog.dc.html', go: function () { try { localStorage.setItem('pk-kf', JSON.stringify({ q: '', g: '', c: c.id })); } catch (e) {} } }; });
+        var star = function (n, href, em) { return { n: n, c: '', hasC: false, st: true, em: em, cls: 'nxit st', href: href, go: function () {} }; };
+        if (g.id === 'prog') items = [star('GoPOS', 'Gopos.dc.html', 'partner'), star('InsERT', 'Insert.dc.html', 'partner')].concat(items);
+        if (g.id === 'usl') items = [star('Opieka IT', 'Dzial.dc.html', 'abonament'), star('Przegląd IT', 'Dzial.dc.html#przeglad', '0 zł')].concat(items);
+        if (g.id === 'sprz') items[4].st = true, items[4].em = '0 zł', items[4].hasC = false;
+        return { n: g.n, ic: GIC[g.id], st: gst(g.id), items: items, go: function () { try { localStorage.setItem('pk-kf', JSON.stringify({ q: '', g: g.id, c: '' })); } catch (e) {} } }; }),
+      gRes: (function () { var r = PK.search(s.gq || ''); if (!r) r = ['ergo', 'pol', 'gopos', 'nexo', 'ksef', 'opieka'].map(function (id) { return PRM[id]; }); return r.slice(0, 6).map(pv); })(),
+      gCount: (function () { var r = PK.search(s.gq || ''); return r ? PK.plW(r.length) : 'najczęściej wybierane'; })(),
+      gCats: (function () { var q = PK.NRM(s.gq || '').trim(); var r = PK.search(s.gq || ''); var cs = {}; (r || []).forEach(function (p) { cs[p.c] = (cs[p.c] || 0) + 1; }); var ids = Object.keys(cs); if (!q) ids = ['kasy', 'term', 'progs', 'it'];
+        return ids.slice(0, 4).map(function (id) { var c = CTM[id]; return { n: c.n, c: (cs[id] ? cs[id] + ' z ' : '') + c.cnt, href: id === 'kasy' ? 'Kategoria.dc.html' : 'Katalog.dc.html', go: function () { try { localStorage.setItem('pk-kf', JSON.stringify({ q: '', g: '', c: id })); } catch (e) {} } }; }); })(),
+      gPages: (function () { var PG = [{ n: 'Opieka IT', d: 'abonament', href: 'Dzial.dc.html', k: 'opieka it informatyk outsourcing serwis komputer abonament' }, { n: 'GoPOS — partner', d: 'gastronomia', href: 'Gopos.dc.html', k: 'gopos restauracja gastronomia kelner kuchnia' }, { n: 'InsERT — partner', d: 'programy', href: 'Insert.dc.html', k: 'insert subiekt rachmistrz rewizor gratyfikant nexo faktury program' },
+        { n: 'KSeF od 1 stycznia 2027', d: 'poradnik', href: 'Wpis.dc.html', k: 'ksef faktury 2027 e-faktura przepisy' }, { n: 'Dobierz zestaw w 60 s', d: 'kreator', href: 'Kreator.dc.html', k: 'kreator zestaw nowa firma otwarcie lokal dobierz' }, { n: 'Kontakt i dojazd', d: 'Rabka-Zdrój', href: 'Kontakt.dc.html', k: 'kontakt adres telefon dojazd godziny mapa' }];
+        var q = PK.NRM(s.gq || '').trim(); if (!q) return PG.slice(0, 3); var t = q.split(/\s+/); var r = PG.filter(function (p) { return t.some(function (x) { return x.length > 2 && p.k.indexOf(x) !== -1; }); }); return (r.length ? r : PG.slice(0, 2)).slice(0, 3); })(),
+      gHas: !(PK.search(s.gq || '') && !PK.search(s.gq || '').length), gNone: !!(PK.search(s.gq || '') && !PK.search(s.gq || '').length),
+      gAsk: function () { try { localStorage.setItem('pk-ask', self.state.gq || ''); } catch (e) {} },
+      gToKat: function () { try { localStorage.setItem('pk-kf', JSON.stringify({ q: self.state.gq || '', g: '', c: '' })); } catch (e) {} },
+      cartHref: CART.length ? '#' : 'Kontakt.dc.html#kontakt', cartClick: function (e) { if (CART.length) { if (e && e.preventDefault) e.preventDefault(); self.setState({ cartOpen: !self.state.cartOpen, mega: false, br: false, srch: false }); } },
+      cartOpen: !!s.cartOpen, toggleCart: function () { self.setState({ cartOpen: !self.state.cartOpen, mega: false, br: false, srch: false }); },
+      cartN: String(CART.reduce(function (a, c) { return a + c.q; }, 0)), cartHas: CART.length > 0, cartEmpty: CART.length === 0,
+      cartLbl: CART.length ? 'Zapytanie' : 'Zapytaj o ofertę', cartBump: 'nxc ' + ((s.toastK || 0) % 2 ? 'a' : 'b'),
+      cartSub: CART.length ? CART.length + (CART.length === 1 ? ' pozycja' : (CART.length < 5 ? ' pozycje' : ' pozycji')) + ' · bez cen, wycena na piśmie' : 'nic jeszcze nie dodano',
+      cartItems: CART.map(function (c) { var p = PRM[c.id], v = pv(p); v.q = String(c.q); v.inc = function () { cartQ(p.id, 1); }; v.dec = function () { cartQ(p.id, -1); }; v.rm = function () { cartRm(p.id); }; return v; }),
+      cartSug: (function () { var SUG = { kasy: ['szuf', 'pol', 'przkas'], druk: ['szuf', 'skaner', 'nexo'], pos: ['gopos', 'druks', 'pol'], progb: ['d3', 'hx', 'kds'], progs: ['ksef', 'wdrprog', 'zeta'], komp: ['m365', 'eset', 'opieka'], serw: ['ups', 'kopie', 'opieka'], term: ['ergo', 'k10'] };
+        var out = []; CART.forEach(function (c) { (SUG[PRM[c.id].c] || ['opieka', 'ksef']).forEach(function (id) { if (!INC[id] && out.indexOf(id) === -1) out.push(id); }); }); if (!out.length) out = ['ksef', 'opieka']; return out.slice(0, 2).map(function (id) { return pv(PRM[id]); }); })(),
+      cartClear: function () { cartSave([], ''); },
+      toastCls: s.toastK ? ('ktoast ' + (s.toastK % 2 ? 'a' : 'b')) : 'ktoast', toastTxt: s.toast || '',
+
+      topics: T.map(function (t) { var on = s.topics.indexOf(t.id) !== -1; return { name: t.name, img: t.img, hasImg: !!t.img, on: on ? 'true' : 'false', cls: on ? 'topic on' : 'topic', cls2: on ? 'on' : '', noImg: !t.img, pick: function () { var c = self.state.topics.slice(); var k2 = c.indexOf(t.id); if (k2 === -1) c.push(t.id); else c.splice(k2, 1); self.setState({ topics: c }); } }; }),
+      topicSummary: (function () { var CN = { awaria: 'Zgłoszenie awarii', zmiana: 'Zmiana serwisu kasy', przeglad: 'Przypomnienie o przeglądzie kasy', sezon: 'Przygotowanie lokalu na sezon' }; var t = T.filter(function (t) { return s.topics.indexOf(t.id) !== -1; }).map(function (t) { return t.name; }).join(', '); var c = CN[s.fCase] || ''; return (c && t ? c + ' · ' + t : c || t) || 'ogólne'; })(),
+      sent: s.sent, notSent: !s.sent, onSubmit: function (e) { e.preventDefault(); self.setState({ sent: true }); },
+
+      fx: (function () { var st = s.sent ? 3 : (s.fStep || 0); var c = function (i) { return st === i ? 'fxs on' : 'fxs'; }; var d = function (i) { return st >= i ? 'on' : ''; }; var nsel = (s.topics || []).length;
+        return { c1: c(0), c2: c(1), c3: c(2), c4: s.sent ? 'fxs on fxok' : 'fxs', d1: d(0), d2: d(1), d3: d(2), lbl: s.sent ? 'Gotowe' : 'Krok ' + (st + 1) + ' z 3',
+          selInfo: nsel ? 'Wybrano: ' + nsel : 'Nic nie wybrano — możesz przejść dalej',
+          next: function () { self.setState({ fStep: Math.min(2, (self.state.fStep || 0) + 1) }); }, back: function () { self.setState({ fStep: Math.max(0, (self.state.fStep || 0) - 1) }); },
+          again: function () { self.setState({ sent: false, fStep: 0, topics: [], fCase: '' }); } }; })(),
+      fxCase: (function () { var N = { awaria: 'Zgłoszenie awarii', zmiana: 'Zmiana serwisu kasy na PRO-KOM', przeglad: 'Przypomnienie o przeglądzie kasy', sezon: 'Przygotowanie lokalu na sezon' }; return { has: !!N[s.fCase], name: N[s.fCase] || '' }; })(),
+      csClear: function () { self.setState({ fCase: '' }); },
+      csAwaria: function () { self.setState({ fCase: 'awaria', fStep: 0, sent: false }); },
+      csZmiana: function () { self.setState({ fCase: 'zmiana', fStep: 0, sent: false, topics: ['kasa'] }); },
+      csPrzeglad: function () { self.setState({ fCase: 'przeglad', fStep: 0, sent: false, topics: ['kasa'] }); },
+      csSezon: function () { self.setState({ fCase: 'sezon', fStep: 0, sent: false, topics: ['kasa', 'term'] }); },
+      fxBiz: ['Sklep', 'Gastronomia', 'Hotel / pensjonat', 'Biuro / usługi', 'Warsztat', 'Szkoła / instytucja', 'Inna'].map(function (b) { var on = s.fBiz === b; return { n: b, cls: on ? 'on' : '', pick: function () { self.setState({ fBiz: b }); } }; }),
+      fxTime: ['Rano', 'Po południu', 'Obojętnie'].map(function (b) { var on = (s.fTime || 'Obojętnie') === b; return { n: b, cls: on ? 'on' : '', pick: function () { self.setState({ fTime: b }); } }; }),
+
+            brList: ['gopos', 'd3', 'v3mix', 'kds', 'kiosk', 'hx', 'pol', 'druks', 'u7'].map(function (id, k) { return pv(PRM[id], k); }), brCnt: String(PR.filter(function (p) { return p.br.indexOf('gastro') !== -1; }).length), brKat: function () { try { localStorage.setItem('pk-kf', JSON.stringify({ q: '', g: '', c: '', r: 'gastro' })); } catch (e) {} },
+      toKreator: function () { try { localStorage.setItem('pk-branza', 'gastro'); } catch (e) {} }, gpImg: { v3mix: I.v3mix, kds: I.kds, pol: I.pol, goposSet: I.goposSet },
+    };
+
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,292 @@
+{
+ "kroki": [
+  "Firma",
+  "Skala",
+  "Potrzeby",
+  "Kontakt"
+ ],
+ "rodzaje_firm": [
+  {
+   "id": "sklep",
+   "nazwa": "Sklep",
+   "podpis": "spożywczy, odzieżowy, branżowy"
+  },
+  {
+   "id": "gastro",
+   "nazwa": "Gastronomia",
+   "podpis": "restauracja, bar, kawiarnia"
+  },
+  {
+   "id": "hotel",
+   "nazwa": "Pensjonat lub hotel",
+   "podpis": "apartamenty, domki, schronisko"
+  },
+  {
+   "id": "biuro",
+   "nazwa": "Biuro i usługi",
+   "podpis": "kancelaria, biuro rachunkowe"
+  },
+  {
+   "id": "warsztat",
+   "nazwa": "Warsztat lub serwis",
+   "podpis": "mechanik, zakład usługowy"
+  },
+  {
+   "id": "gabinet",
+   "nazwa": "Gabinet, beauty",
+   "podpis": "lekarz, fizjo, fryzjer, kosmetyka"
+  },
+  {
+   "id": "szkola",
+   "nazwa": "Szkoła lub instytucja",
+   "podpis": "szkoła, przedszkole, gmina"
+  },
+  {
+   "id": "produkcja",
+   "nazwa": "Produkcja, hurtownia",
+   "podpis": "zakład, magazyn, wysyłka"
+  },
+  {
+   "id": "truck",
+   "nazwa": "Food truck, stoisko",
+   "podpis": "handel mobilny, eventy"
+  },
+  {
+   "id": "inna",
+   "nazwa": "Inna firma",
+   "podpis": "opiszesz ją na końcu"
+  }
+ ],
+ "potrzeby": [
+  {
+   "id": "kasa",
+   "nazwa": "Kasa lub drukarka fiskalna",
+   "podpis": "z fiskalizacją i programowaniem"
+  },
+  {
+   "id": "pos",
+   "nazwa": "System POS",
+   "podpis": "sprzedaż, sala, kuchnia"
+  },
+  {
+   "id": "term",
+   "nazwa": "Terminal płatniczy",
+   "podpis": "karty, BLIK, telefon"
+  },
+  {
+   "id": "prog",
+   "nazwa": "Program sprzedaży i magazyn",
+   "podpis": "faktury, stany, cenniki"
+  },
+  {
+   "id": "hotel",
+   "nazwa": "System rezerwacji",
+   "podpis": "grafik pokoi, Booking.com"
+  },
+  {
+   "id": "ksef",
+   "nazwa": "KSeF",
+   "podpis": "certyfikat, uprawnienia, program"
+  },
+  {
+   "id": "komp",
+   "nazwa": "Komputery i laptopy",
+   "podpis": "gotowe do pracy w dniu dostawy"
+  },
+  {
+   "id": "siec",
+   "nazwa": "Sieć i Wi-Fi",
+   "podpis": "goście osobno od firmy"
+  },
+  {
+   "id": "kopie",
+   "nazwa": "Kopie danych",
+   "podpis": "automatyczne, z testem odtworzenia"
+  },
+  {
+   "id": "bezp",
+   "nazwa": "Ochrona komputerów",
+   "podpis": "ESET, firewall, aktualizacje"
+  },
+  {
+   "id": "av",
+   "nazwa": "Monitory i projektory",
+   "podpis": "sale, pracownie, konferencje"
+  },
+  {
+   "id": "opieka",
+   "nazwa": "Stała opieka IT",
+   "podpis": "monitoring, pomoc zdalna, serwis"
+  },
+  {
+   "id": "podpis",
+   "nazwa": "Podpis kwalifikowany",
+   "podpis": "KSeF, ZUS, umowy, przetargi"
+  }
+ ],
+ "domyslne_potrzeby": {
+  "sklep": [
+   "kasa",
+   "term",
+   "prog",
+   "ksef"
+  ],
+  "gastro": [
+   "pos",
+   "kasa",
+   "term",
+   "siec"
+  ],
+  "hotel": [
+   "hotel",
+   "kasa",
+   "term",
+   "siec",
+   "opieka"
+  ],
+  "biuro": [
+   "komp",
+   "kopie",
+   "bezp",
+   "opieka",
+   "ksef"
+  ],
+  "warsztat": [
+   "kasa",
+   "term",
+   "prog",
+   "komp"
+  ],
+  "gabinet": [
+   "kasa",
+   "term",
+   "komp",
+   "bezp",
+   "podpis"
+  ],
+  "szkola": [
+   "av",
+   "komp",
+   "siec",
+   "bezp",
+   "opieka"
+  ],
+  "produkcja": [
+   "prog",
+   "komp",
+   "siec",
+   "kopie",
+   "opieka"
+  ],
+  "truck": [
+   "kasa",
+   "term"
+  ],
+  "inna": [
+   "kasa",
+   "term",
+   "komp"
+  ]
+ },
+ "skala": {
+  "stanowiska_sprzedazy": [
+   "0",
+   "1",
+   "2",
+   "3",
+   "4+"
+  ],
+  "komputery": [
+   "0",
+   "1–3",
+   "4–10",
+   "11–30",
+   "30+"
+  ],
+  "lokal": {
+   "nowy": "Nowy lokal / nowa firma",
+   "dziala": "Firma już działa"
+  },
+  "kiedy": [
+   "Otwarcie lokalu",
+   "Przed sezonem",
+   "Jak najszybciej",
+   "Na spokojnie"
+  ]
+ },
+ "propozycja_dla_potrzeby": {
+  "kasa": {
+   "gastro": "hx",
+   "truck": "k10",
+   "hotel": "temo",
+   "sklep": "neo",
+   "*": "ergo"
+  },
+  "pos": {
+   "gastro": "gopos (GoPOS na Sunmi D3 PRO)",
+   "*": "d3"
+  },
+  "term": {
+   "*": "pol"
+  },
+  "prog": {
+   "biuro": "optima",
+   "sklep": "nexo (lub PC-Market)",
+   "*": "nexo"
+  },
+  "hotel": {
+   "*": "nfhotel"
+  },
+  "ksef": {
+   "*": "ksef"
+  },
+  "komp": {
+   "szkola": "thinkcentre",
+   "*": "thinkpad"
+  },
+  "siec": {
+   "*": "u7"
+  },
+  "kopie": {
+   "*": "nas"
+  },
+  "bezp": {
+   "*": "eset"
+  },
+  "av": {
+   "*": "avtek"
+  },
+  "opieka": {
+   "*": "opieka"
+  },
+  "podpis": {
+   "*": "euro"
+  }
+ },
+ "uwaga_propozycje": "Wartości to slugi z katalog.json albo opis — sprawdź w boards/Kreator.dc.html (funkcja PR). Docelowo reguły edytowalne w panelu.",
+ "uslugi_w_cenie": {
+  "kasa": "Fiskalizacja i programowanie",
+  "pos": "Wgranie menu (gastro) / Wgranie towarów",
+  "ksef": "Konfiguracja KSeF",
+  "komp|siec": "Konfiguracja przed dostawą",
+  "zawsze": [
+   "Szkolenie zespołu",
+   "Serwis z Rabki"
+  ]
+ },
+ "plakietki": [
+  {
+   "gdy": "kasa i nowy lokal",
+   "tekst": "Ulga do 700 zł na kasę online",
+   "status": "DO POTWIERDZENIA w ustawie"
+  },
+  {
+   "gdy": "term",
+   "tekst": "Terminal 0 zł przez 12 miesięcy (Polska Bezgotówkowa — dla firm spełniających warunki)"
+  },
+  {
+   "gdy": "ksef",
+   "tekst": "Gotowe na KSeF od 1.01.2027"
+  }
+ ]
+}

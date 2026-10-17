@@ -12,7 +12,7 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 | prokomsoftware.pl | 31.10 | ⏳ |
 
 ## W toku
-- **S6a w toku** — gałąź `feat/s6a-tokeny-marki` (PR 1 z 2; plan S6: PR 1 = tokeny/Tailwind/fonty/pliki znaku/komponenty bazowe, PR 2 `feat/s6b-szkielet-strony` = pasek marki, nagłówek, stopka, wygląd bloków S5, test axe). Zrobione: Tailwind 4.3.3 tylko na tokenach (`src/styles/tokens.css`, `src/app/(sites)/globals.css`, domyślna paleta wyłączona), `data-line` na `<html>` w `(sites)/layout.tsx`, `--accent-text` wyliczone i wpisane do `docs/marka.md`, fonty Archivo/Manrope przez `next/font/google` (self-host), pliki znaku i favicony per linia w `public/brand/`, komponenty `src/components/ui/` (Container, Section, Heading, Button, Link), testy kontrastu/tokenów/„bez gołych kolorów”. Na drugim komputerze: `pnpm install` (nowe zależności dev). **Następny krok:** `/przeglad` → `/pr` dla S6a; po scaleniu nowa gałąź `feat/s6b-szkielet-strony` z `develop`. Uwaga: do czasu S6b strony mają reset stylów Tailwinda (preflight) bez nowego szkieletu — wyglądają surowo, to oczekiwane.
+- **PR dokumentacji `docs/prokombiznes-wizualizacja`** — pakiet „prokombiznes z wizualizacji” (17.10) rozpakowany we właściwe miejsca: specyfikacja `docs/strony/prokombiznes.md` (zastępuje szkic), wzorzec `docs/design/prokombiznes/` (zrzuty, plansze, tokeny, `PRZEKAZANIE.md`), seed `seed/prokombiznes/`, ADR z pakietu jako **ADR-012** (w repo ADR-008 był zajęty) z listą rozbieżności z ADR-003/006, szkic **ADR-013** (neutralne kolory per linia, gradienty, tryb ciemny). **Następny krok:** Krystian akceptuje ADR-013 (3 pytania w sekcji „Do decyzji”), scalenie PR → S6b na gałęzi `feat/s6b-szkielet-strony` (już założona z `develop`, pusta) z tokenami wg ADR-013. S6a scalone (#27).
 
 ## Zrobione
 - 17.10.2026 — S5 scalone (#25): kolekcja `Pages` per tenant (płaskie adresy, `home` = `/`, slug unikalny w obrębie tenanta, szkice z autozapisem, publikacja z datą przez `schedulePublish` + `jobs.autoRun`, SEO strony), rejestr bloków z listą per linia (ADR-010; `filterOptions` odrzuca blok spoza listy przy zapisie, renderer go pomija), 6 bloków (Hero, Tekst z ograniczonym edytorem, Siatka usług, CTA, FAQ, Kontakt), odczyt stron z `unstable_cache` z tagami `tenant:<id>:…` i rewalidacją tylko tenanta (TTL 60 s), podgląd na żywo `/podglad/<id>` z podpisanym tokenem (bez draft mode), seed `home` + `kontakt`, nowa zależność `@payloadcms/live-preview-react`. Przegląd `recenzent`: stały token podglądu (iframe nie przeładowuje się przy autozapisie), testy odrzucenia bloku, edytor Tekstu bez uploadów/relacji/linków wewnętrznych i bez `javascript:`. Pasek promocji niecache'owany (trasy dynamiczne) — pomysł z S4 zamknięty. Testy: 182 Vitest, 21 e2e. CI zielone.
@@ -32,7 +32,8 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 1. S1 → S9 według `docs/zadania/fundament.md`, po kolei, każda sesja = jeden PR.
 2. Domeny (prokombiznes.pl, prokominstalacje.pl, prokomsoftware.pl) — zakup 16.10.
 3. VPS Seohost — zamówienie w tygodniu 19–23.10 → S10 (staging).
-4. Skrzynki `biznes@`, `instalacje@`, `software@pro-kom.eu` — założyć przed 26.10 (Krystian + szef, Thunderbird); dopisać do listy skrzynek przy migracji poczty do Seohost (ADR-002).
+4. Po fundamencie: budowa prokombiznes.pl wg `docs/strony/prokombiznes.md` §10 i planu sesji w `docs/design/prokombiznes/PRZEKAZANIE.md` §3 (termin 26.10 — w razie braku czasu tniemy od końca listy).
+5. Skrzynki `biznes@`, `instalacje@`, `software@pro-kom.eu` — założyć przed 26.10 (Krystian + szef, Thunderbird); dopisać do listy skrzynek przy migracji poczty do Seohost (ADR-002).
 
 ## Pomysły na później (poza zakresem bieżących sesji)
 - Z S6a (przegląd) → **decyzja przed S9:** `next/font/google` pobiera fonty przy buildzie — CI i build obrazu zależą od Google Fonts. Alternatywa: `next/font/local` z woff2 z paczki znaku (`04_zrodlo/fonty`, Archivo z osią `wdth`, latin + latin-ext) w repo.
@@ -66,6 +67,8 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 - Ochrona ostatniego admina (z przeglądu S2): hak `beforeChange`/`beforeDelete` w `Users` odrzuca zmianę roli lub usunięcie, gdy po niej nie zostałby żaden admin — przed dodaniem drugiego użytkownika-admina, najpóźniej przed produkcją 26.10.
 
 ## Otwarte pytania
+- **ADR-013 (proponowana, 17.10):** wygląd linii z wizualizacji — do przyjęcia; otwarte: fiolet w gradiencie H1, Caveat, zakres poświaty. **ADR-012 (proponowana):** katalog prokombiznes — rozbieżności z ADR-003/006 do uzgodnienia przed sesją kolekcji.
+- Fakty z wizualizacji do potwierdzenia z szefem przed publikacją: `docs/strony/prokombiznes.md` §13 (ulga 700 zł, parametry Elzab/Fawag, statusy partnerów, liczby GoPOS, przepisy KSeF); logo klientów tylko z pisemną zgodą.
 - **ADR-011 (proponowana, 17.10):** podgląd na żywo przez podpisany token zamiast draft mode Next i cron zadań Payload w procesie aplikacji — do przyjęcia przez Krystiana.
 - **16.10 (Krystian, przy zakupie):** domeny na firmę (abonent PRO-KOM) i konto rejestratora na firmowy e-mail z 2FA i autoodnawianiem (`docs/dns.md`).
 - Z jakiego adresu wychodzą maile z formularzy (domena nadawcy) — decyzja w S8.

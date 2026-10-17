@@ -1,6 +1,6 @@
 # prokombiznes.pl — brief wizualny (theme lock)
 
-- **Status:** szkic do akceptacji Krystiana · 15.10.2026
+- **Status:** szkic do akceptacji Krystiana · 15.10.2026 · **częściowo zastąpiony 17.10.2026** przez wizualizację `docs/design/prokombiznes/` i ADR-013 (kolory, gradienty, tryb ciemny). Odczucie, ruch, zakazy treściowe i dostępność obowiązują dalej.
 - **Do czego służy:** wejście dla `superpowers:brainstorming` i `frontend-design` w Claude Code. Opisuje *jak strona ma wyglądać i działać*; *co* jest na stronie (mapa, treści, zakres) — `docs/strony/prokombiznes.md`. Przy sprzeczności wygrywa specyfikacja, potem `docs/marka.md` i ADR-007.
 - **Kierunek pokazany na canvasie:** „prokombiznes.pl · kierunek wizualny” (Claude, 15.10) — strona główna, podstrona pozycji, kreator, telefon. Projekt strony głównej (jasny/ciemny, komputer i telefon): `prokombiznes-strona-glowna-projekt.pdf`.
 - **Zasada z poradnika Anthropic „Prompting for frontend aesthetics”:** bez wskazówek model zbiega do generycznego wyglądu („AI slop”). Dlatego poniżej każdy wymiar (typografia, kolor, tło, ruch) jest opisany osobno, z listą zakazów i **zamkniętym motywem** — nie interpretuj marki na nowo.
