@@ -1,0 +1,27 @@
+# Production stack (docker/compose.prod.yml, project `prokom-prod`). Rendered at start by the
+# nginx image: ${VAR} come from the proxy's environment, `$name` are nginx variables.
+
+server {
+  listen 80;
+  server_name ${PROD_SITE_HOSTS} ${PROD_PANEL_HOST};
+  include /etc/nginx/snippets/acme.conf;
+}
+
+server {
+  include /etc/nginx/snippets/tls.conf;
+  server_name ${PROD_SITE_HOSTS};
+  ssl_certificate /etc/letsencrypt/live/prokom-prod/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/prokom-prod/privkey.pem;
+  set $app prokom-prod-app-1:3000;
+  set $panel_origin https://${PROD_PANEL_HOST};
+  include /etc/nginx/snippets/site.conf;
+}
+
+server {
+  include /etc/nginx/snippets/tls.conf;
+  server_name ${PROD_PANEL_HOST};
+  ssl_certificate /etc/letsencrypt/live/prokom-prod/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/prokom-prod/privkey.pem;
+  set $app prokom-prod-app-1:3000;
+  include /etc/nginx/snippets/panel.conf;
+}
