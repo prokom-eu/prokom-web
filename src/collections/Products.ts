@@ -169,10 +169,7 @@ export const Products: CollectionConfig = {
                 { name: 'icon', label: 'Ikona', type: 'select', options: ICON_OPTIONS },
               ],
             },
-            {
-              ...includedField,
-              admin: { description: 'Puste = „W cenie” z kategorii głównej.' },
-            } as Field,
+            includedField('Puste = „W cenie” z kategorii głównej.'),
             faqArray,
             {
               name: 'fitsWith',

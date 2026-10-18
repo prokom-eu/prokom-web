@@ -1,6 +1,7 @@
 import { randomUUID } from 'node:crypto'
 
-import { expect, test } from '@playwright/test'
+import { expect, type Page, test } from '@playwright/test'
+import sharp from 'sharp'
 
 import { api, loginAsAdmin, site, tenantId } from './helpers'
 
@@ -15,6 +16,26 @@ const group = (tenant: number, slug: string) => ({
   gradientFrom: '#244FB0',
   gradientTo: '#4FA3F0',
 })
+
+/** Partner (upload collection) from inside the panel page: multipart `file` + `_payload`. */
+async function createPartner(page: Page, data: Record<string, unknown>) {
+  const png = await sharp({
+    create: { width: 320, height: 120, channels: 3, background: { r: 230, g: 230, b: 230 } },
+  })
+    .png()
+    .toBuffer()
+  return page.evaluate(
+    async ({ base64, name, data }) => {
+      const bytes = Uint8Array.from(atob(base64), (c) => c.charCodeAt(0))
+      const form = new FormData()
+      form.append('file', new File([bytes], name, { type: 'image/png' }))
+      form.append('_payload', JSON.stringify(data))
+      const response = await fetch('/api/partners', { method: 'POST', body: form })
+      return { status: response.status, json: (await response.json()) as Record<string, unknown> }
+    },
+    { base64: png.toString('base64'), name: `e2e-partner-${Date.now()}.png`, data },
+  )
+}
 
 test.describe('Biznes-only routes', () => {
   test('/zapytanie renders on the Biznes domain', async ({ page }) => {
@@ -113,6 +134,22 @@ test.describe('catalog data in the panel', () => {
       await context.close()
       await api(page, 'DELETE', `/api/users/${editorId}`)
       await api(page, 'DELETE', `/api/catalog-groups/${groupId}`)
+    }
+  })
+
+  test('partners without an address do not collide on the unique slug', async ({ page }) => {
+    await loginAsAdmin(page)
+    const created: number[] = []
+    try {
+      for (const name of ['Partner E2E bez adresu 1', 'Partner E2E bez adresu 2']) {
+        const result = await createPartner(page, { name, slug: '' })
+        expect(result.status).toBe(201)
+        const doc = result.json.doc as { id: number; slug?: string | null }
+        created.push(doc.id)
+        expect(doc.slug ?? null).toBeNull()
+      }
+    } finally {
+      for (const id of created) await api(page, 'DELETE', `/api/partners/${id}`)
     }
   })
 })

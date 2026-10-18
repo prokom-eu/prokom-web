@@ -451,14 +451,12 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   ALTER TABLE "_posts_v_rels" ADD CONSTRAINT "_posts_v_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."_posts_v"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "_posts_v_rels" ADD CONSTRAINT "_posts_v_rels_products_fk" FOREIGN KEY ("products_id") REFERENCES "public"."products"("id") ON DELETE cascade ON UPDATE no action;
   CREATE INDEX "catalog_groups_tenant_idx" ON "catalog_groups" USING btree ("tenant_id");
-  CREATE INDEX "catalog_groups_slug_idx" ON "catalog_groups" USING btree ("slug");
   CREATE INDEX "catalog_groups_updated_at_idx" ON "catalog_groups" USING btree ("updated_at");
   CREATE INDEX "catalog_groups_created_at_idx" ON "catalog_groups" USING btree ("created_at");
   CREATE UNIQUE INDEX "tenant_slug_1_idx" ON "catalog_groups" USING btree ("tenant_id","slug");
   CREATE INDEX "catalog_categories_faq_order_idx" ON "catalog_categories_faq" USING btree ("_order");
   CREATE INDEX "catalog_categories_faq_parent_id_idx" ON "catalog_categories_faq" USING btree ("_parent_id");
   CREATE INDEX "catalog_categories_tenant_idx" ON "catalog_categories" USING btree ("tenant_id");
-  CREATE INDEX "catalog_categories_slug_idx" ON "catalog_categories" USING btree ("slug");
   CREATE INDEX "catalog_categories_group_idx" ON "catalog_categories" USING btree ("group_id");
   CREATE INDEX "catalog_categories_hero_hero_image_idx" ON "catalog_categories" USING btree ("hero_image_id");
   CREATE INDEX "catalog_categories_updated_at_idx" ON "catalog_categories" USING btree ("updated_at");
@@ -472,7 +470,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "industries_faq_order_idx" ON "industries_faq" USING btree ("_order");
   CREATE INDEX "industries_faq_parent_id_idx" ON "industries_faq" USING btree ("_parent_id");
   CREATE INDEX "industries_tenant_idx" ON "industries" USING btree ("tenant_id");
-  CREATE INDEX "industries_slug_idx" ON "industries" USING btree ("slug");
   CREATE INDEX "industries_hero_hero_image_idx" ON "industries" USING btree ("hero_image_id");
   CREATE INDEX "industries_updated_at_idx" ON "industries" USING btree ("updated_at");
   CREATE INDEX "industries_created_at_idx" ON "industries" USING btree ("created_at");
@@ -494,7 +491,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "products_register_types_order_idx" ON "products_register_types" USING btree ("order");
   CREATE INDEX "products_register_types_parent_idx" ON "products_register_types" USING btree ("parent_id");
   CREATE INDEX "products_tenant_idx" ON "products" USING btree ("tenant_id");
-  CREATE INDEX "products_slug_idx" ON "products" USING btree ("slug");
   CREATE INDEX "products_brand_idx" ON "products" USING btree ("brand_id");
   CREATE INDEX "products_legacy_id_idx" ON "products" USING btree ("legacy_id");
   CREATE INDEX "products_updated_at_idx" ON "products" USING btree ("updated_at");
@@ -523,7 +519,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "_products_v_version_register_types_parent_idx" ON "_products_v_version_register_types" USING btree ("parent_id");
   CREATE INDEX "_products_v_parent_idx" ON "_products_v" USING btree ("parent_id");
   CREATE INDEX "_products_v_version_version_tenant_idx" ON "_products_v" USING btree ("version_tenant_id");
-  CREATE INDEX "_products_v_version_version_slug_idx" ON "_products_v" USING btree ("version_slug");
   CREATE INDEX "_products_v_version_version_brand_idx" ON "_products_v" USING btree ("version_brand_id");
   CREATE INDEX "_products_v_version_version_legacy_id_idx" ON "_products_v" USING btree ("version_legacy_id");
   CREATE INDEX "_products_v_version_version_updated_at_idx" ON "_products_v" USING btree ("version_updated_at");
@@ -544,7 +539,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "posts_sources_order_idx" ON "posts_sources" USING btree ("_order");
   CREATE INDEX "posts_sources_parent_id_idx" ON "posts_sources" USING btree ("_parent_id");
   CREATE INDEX "posts_tenant_idx" ON "posts" USING btree ("tenant_id");
-  CREATE INDEX "posts_slug_idx" ON "posts" USING btree ("slug");
   CREATE INDEX "posts_published_at_idx" ON "posts" USING btree ("published_at");
   CREATE INDEX "posts_cover_idx" ON "posts" USING btree ("cover_id");
   CREATE INDEX "posts_updated_at_idx" ON "posts" USING btree ("updated_at");
@@ -559,7 +553,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "_posts_v_version_sources_parent_id_idx" ON "_posts_v_version_sources" USING btree ("_parent_id");
   CREATE INDEX "_posts_v_parent_idx" ON "_posts_v" USING btree ("parent_id");
   CREATE INDEX "_posts_v_version_version_tenant_idx" ON "_posts_v" USING btree ("version_tenant_id");
-  CREATE INDEX "_posts_v_version_version_slug_idx" ON "_posts_v" USING btree ("version_slug");
   CREATE INDEX "_posts_v_version_version_published_at_idx" ON "_posts_v" USING btree ("version_published_at");
   CREATE INDEX "_posts_v_version_version_cover_idx" ON "_posts_v" USING btree ("version_cover_id");
   CREATE INDEX "_posts_v_version_version_updated_at_idx" ON "_posts_v" USING btree ("version_updated_at");

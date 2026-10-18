@@ -66,7 +66,7 @@ export const CatalogCategories: CollectionConfig = {
         imageField('image', 'Obraz'),
       ],
     },
-    includedField,
+    includedField(),
     faqArray,
     {
       name: 'frequentlyBoughtWith',

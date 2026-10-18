@@ -59,12 +59,6 @@ const validateDomains: ArrayField['validate'] = async (value, { id, req }) => {
   return true
 }
 
-/**
- * `cleanupAfterTenantDelete` is off (content must never vanish silently), so a tenant still
- * referenced by users would fail on a database constraint. Refuse with a readable message
- * instead; deactivating (`active` = false) is the normal way to take a site offline.
- * Tenant-scoped content would otherwise be orphaned (`ON DELETE set null`).
- */
 // Tenant-scoped content and what it is called in the refusal ("ma <label> (n)").
 const TENANT_CONTENT: readonly { collection: CollectionSlug; label: string }[] = [
   { collection: 'pages', label: 'podstrony' },
@@ -79,6 +73,12 @@ const TENANT_CONTENT: readonly { collection: CollectionSlug; label: string }[] =
 
 const refuse = (message: string) => new APIError(message, 400, null, true)
 
+/**
+ * `cleanupAfterTenantDelete` is off (content must never vanish silently), so a tenant still
+ * referenced by users would fail on a database constraint. Refuse with a readable message
+ * instead; deactivating (`active` = false) is the normal way to take a site offline.
+ * Tenant-scoped content would otherwise be orphaned (`ON DELETE set null`).
+ */
 const preventDeleteWhileInUse: CollectionBeforeDeleteHook = async ({ id, req }) => {
   const count = (collection: CollectionSlug, field = 'tenant') =>
     req.payload
@@ -103,7 +103,7 @@ const preventDeleteWhileInUse: CollectionBeforeDeleteHook = async ({ id, req }) 
         'Wyłącz ją polem „Aktywna” albo najpierw usuń jej ustawienia.',
     )
   }
-  TENANT_CONTENT.forEach(({ label }, index) => {
+  for (const [index, { label }] of TENANT_CONTENT.entries()) {
     const total = content[index] ?? 0
     if (total > 0) {
       throw refuse(
@@ -111,7 +111,7 @@ const preventDeleteWhileInUse: CollectionBeforeDeleteHook = async ({ id, req }) 
           `Wyłącz ją polem „Aktywna” albo najpierw usuń jej ${label}.`,
       )
     }
-  })
+  }
   if (inquiries > 0) {
     throw refuse(
       `Tej strony nie można usunąć: ma zapytania klientów (${inquiries}). ` +

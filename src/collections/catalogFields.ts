@@ -12,7 +12,8 @@ export function slugField(collection: CollectionSlug, example: string): Field {
     label: 'Adres',
     type: 'text',
     required: true,
-    index: true,
+    // No single-column index: every query also filters by tenant, and the unique
+    // `['tenant', 'slug']` index of each collection covers it.
     validate: tenantUniqueSlug(collection, {
       invalidMessage: `Tylko małe litery, cyfry i pojedyncze myślniki, np. „${example}”.`,
       takenMessage: (slug) => `Adres „${slug}” jest już zajęty na tej stronie.`,
@@ -51,11 +52,14 @@ export const faqArray: Field = {
 }
 
 /** „W cenie” — what the customer gets with the product or category. */
-export const includedField: Field = {
-  name: 'included',
-  label: 'W cenie',
-  type: 'text',
-  hasMany: true,
+export function includedField(description?: string): Field {
+  return {
+    name: 'included',
+    label: 'W cenie',
+    type: 'text',
+    hasMany: true,
+    ...(description && { admin: { description } }),
+  }
 }
 
 /** Images of the edited document's tenant only: the plugin narrows relationships, not uploads. */

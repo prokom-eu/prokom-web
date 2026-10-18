@@ -4914,21 +4914,6 @@
           "method": "btree",
           "with": {}
         },
-        "catalog_groups_slug_idx": {
-          "name": "catalog_groups_slug_idx",
-          "columns": [
-            {
-              "expression": "slug",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
         "catalog_groups_updated_at_idx": {
           "name": "catalog_groups_updated_at_idx",
           "columns": [
@@ -5187,21 +5172,6 @@
           "columns": [
             {
               "expression": "tenant_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "catalog_categories_slug_idx": {
-          "name": "catalog_categories_slug_idx",
-          "columns": [
-            {
-              "expression": "slug",
               "isExpression": false,
               "asc": true,
               "nulls": "last"
@@ -5711,21 +5681,6 @@
           "columns": [
             {
               "expression": "tenant_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "industries_slug_idx": {
-          "name": "industries_slug_idx",
-          "columns": [
-            {
-              "expression": "slug",
               "isExpression": false,
               "asc": true,
               "nulls": "last"
@@ -6671,21 +6626,6 @@
           "columns": [
             {
               "expression": "tenant_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "products_slug_idx": {
-          "name": "products_slug_idx",
-          "columns": [
-            {
-              "expression": "slug",
               "isExpression": false,
               "asc": true,
               "nulls": "last"
@@ -7905,21 +7845,6 @@
           "method": "btree",
           "with": {}
         },
-        "_products_v_version_version_slug_idx": {
-          "name": "_products_v_version_version_slug_idx",
-          "columns": [
-            {
-              "expression": "version_slug",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
         "_products_v_version_version_brand_idx": {
           "name": "_products_v_version_version_brand_idx",
           "columns": [
@@ -8585,21 +8510,6 @@
           "method": "btree",
           "with": {}
         },
-        "posts_slug_idx": {
-          "name": "posts_slug_idx",
-          "columns": [
-            {
-              "expression": "slug",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
         "posts_published_at_idx": {
           "name": "posts_published_at_idx",
           "columns": [
@@ -9081,21 +8991,6 @@
           "columns": [
             {
               "expression": "version_tenant_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "_posts_v_version_version_slug_idx": {
-          "name": "_posts_v_version_version_slug_idx",
-          "columns": [
-            {
-              "expression": "version_slug",
               "isExpression": false,
               "asc": true,
               "nulls": "last"
@@ -11426,6 +11321,6 @@
     "tables": {},
     "columns": {}
   },
-  "id": "83d96a1e-6bce-4588-a65e-ea699343faff",
+  "id": "277d68d6-718d-4c74-8339-7c06f61d12c5",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }

@@ -40,6 +40,9 @@ export const Partners: CollectionConfig = {
       label: 'Adres',
       type: 'text',
       unique: true,
+      // A cleared field arrives as '' — stored as NULL, so many logo-only partners can stay
+      // without an address (NULLs do not collide in the unique index, '' would).
+      hooks: { beforeValidate: [({ value }) => (value === '' ? null : value)] },
       validate: (value: unknown) =>
         !value || (typeof value === 'string' && isValidSlug(value))
           ? true
