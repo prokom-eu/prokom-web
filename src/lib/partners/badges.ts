@@ -1,0 +1,27 @@
+import type { Partner } from '@/payload-types'
+
+export type PartnerBadge = { label: string; kind: 'partner' | 'service' }
+
+const joinNames = (names: string[]) =>
+  names.length < 2 ? (names[0] ?? '') : `${names.slice(0, -1).join(', ')} i ${names.at(-1)}`
+
+/**
+ * Status badges of the footer (`Main` design): "Autoryzowany partner GoPOS" for each partner,
+ * one "Serwis Posnet i Elzab" for the authorized services. Only statuses confirmed in the
+ * panel ([SZEF], spec. §13) — a brand without a status gets no badge.
+ */
+export function partnerBadges(
+  partners: { name: string; status: Partner['partnerStatus'] }[],
+): PartnerBadge[] {
+  const partnerNames = partners.filter((p) => p.status === 'authorized-partner')
+  const services = partners.filter((p) => p.status === 'authorized-service').map((p) => p.name)
+  return [
+    ...partnerNames.map((p) => ({
+      label: `Autoryzowany partner ${p.name}`,
+      kind: 'partner' as const,
+    })),
+    ...(services.length
+      ? [{ label: `Serwis ${joinNames(services)}`, kind: 'service' as const }]
+      : []),
+  ]
+}

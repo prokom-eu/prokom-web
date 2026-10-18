@@ -104,15 +104,15 @@ Zawiera:
 - Wzór: `screens/Mobile-390-*` i `screens/KatalogM-390-light`.
 
 ### 3.4 Stopka (5 kolumn)
-- Zawartość:
-  - dane firmy i godziny;
-  - Oferta (5 grup);
-  - Usługi i partnerzy;
-  - Firma (O firmie, Aktualności, Kontakt, Mapa strony, Polityka prywatności, Cookies);
-  - miejscowości obsługi.
-- Odznaki partnerów (Posnet, Elzab, GoPOS, InsERT) z oficjalnymi logo.
-- Linki do pozostałych linii PRO-KOM.
-- Na dole: „PRO-KOM Tadeusz Wójciak”, NIP **[SZEF: podać]**, rok.
+Układ planszy `Main` (decyzja Krystiana 18.10.2026, B3b; wcześniejsza wersja tej sekcji miała kolumny „Usługi i partnerzy” i „Firma”):
+- Kolumny:
+  - opis linii, dane firmy z adresem i godzinami, **miejscowości obsługi** (z `SiteSettings`), odznaki statusów partnerów;
+  - Oferta: „Cały katalog” + grupy katalogu;
+  - Najważniejsze (linki z panelu: Opieka IT, GoPOS, InsERT, przegląd IT, KSeF, kreator);
+  - Branże i firma (linki z panelu: branże, O firmie, Aktualności, pozostałe linie PRO-KOM);
+  - Kontakt: numer główny, WhatsApp, telefony firmy, e-mail, „Kontakt i dojazd”.
+- Odznaki są **tekstowe** jak na planszy („Autoryzowany partner GoPOS”, „Serwis Posnet i Elzab”), tworzone ze statusów partnerów potwierdzonych w panelu [SZEF] — bez statusu nie ma odznaki.
+- Na dole: „© rok PRO-KOM Tadeusz Wójciak · NIP **[SZEF: podać]** · Oferta skierowana do przedsiębiorców i instytucji · Logotypy należą do ich właścicieli” oraz linki Mapa strony, Polityka prywatności, Cookies, Dostępność.
 
 ### 3.5 Motyw jasny / ciemny
 - Domyślnie wg `prefers-color-scheme`. Ręczny wybór zapisany w `localStorage` (`pk-theme`), synchronizowany między kartami.
@@ -528,6 +528,7 @@ Jeśli 26.10 jest zagrożone, **tniemy od końca listy etapu 1, nie jakość**. 
   - Jeśli `docs/marka.md` ma inne wartości tła i tekstu dla linii Biznes, zaktualizuj `marka.md` w tym samym PR i zaznacz to w opisie PR.
 - „Sklep dla firm” został zastąpiony katalogiem z listą zapytania. Sklep B2B z cenami to faza 2 (2027).
 - Podstrona „Dla Twojej firmy” → **Branże**.
+- Stopka (§3.4): układ planszy `Main` zamiast pierwotnej listy kolumn, odznaki tekstowe zamiast logo (decyzja 18.10.2026, B3b).
 - **Uwagi szefa z 16.10** (Asana „Biznes: wprowadzenie uwag szefa z wizualizacji”, wprowadzone w B0 18.10.2026; model: ADR-012 „Rozstrzygnięcia”):
   - nowa branża „Beauty i usługi” jako 7. branża „Wkrótce” (§2, §3.2, §6.7);
   - nowa kategoria „Maszyny vendingowe” (21.) w grupie „Kasy i sprzedaż”; produkty Elzab dopiero z danymi ze źródłem (§2, §7, §13);

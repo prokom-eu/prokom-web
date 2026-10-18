@@ -68,6 +68,8 @@ describe.each(cases)('$line, $mode theme', ({ line, mode }) => {
     expect(
       contrastRatio(hex('--accent-on-dark', s), hex('--surface-dark', s)),
     ).toBeGreaterThanOrEqual(4.5)
+    // Partner badges of the Biznes footer: green labels on the dark block.
+    expect(contrastRatio(hex('--ok', s), hex('--surface-dark', s))).toBeGreaterThanOrEqual(4.5)
   })
 
   // WCAG 1.4.11: status dots (open / closed, partner) carry meaning next to their text.

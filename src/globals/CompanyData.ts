@@ -135,7 +135,10 @@ export const CompanyData: GlobalConfig = {
             !value || (typeof value === 'string' && isValidSlug(value))
               ? true
               : 'Małe litery, cyfry i myślniki, np. „kasy-2026”.',
-          admin: { description: 'Zmień przy nowej kampanii, np. „kasy-2026”.' },
+          admin: {
+            description:
+              'Zmień przy nowej kampanii, np. „kasy-2026”. Bez id paska nie da się zamknąć.',
+          },
         },
         {
           name: 'href',

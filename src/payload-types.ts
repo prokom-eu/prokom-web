@@ -365,6 +365,28 @@ export interface SiteSetting {
           }[]
         | null;
     };
+    footer?: {
+      /**
+       * Np. Opieka IT, GoPOS, InsERT, KSeF 2027, kreator.
+       */
+      important?:
+        | {
+            label: string;
+            href: string;
+            id?: string | null;
+          }[]
+        | null;
+      /**
+       * Np. branże, O firmie, Aktualności, inne linie PRO-KOM.
+       */
+      company?:
+        | {
+            label: string;
+            href: string;
+            id?: string | null;
+          }[]
+        | null;
+    };
   };
   updatedAt: string;
   createdAt: string;
@@ -1548,6 +1570,24 @@ export interface SiteSettingsSelect<T extends boolean = true> {
                     id?: T;
                   };
             };
+        footer?:
+          | T
+          | {
+              important?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                    id?: T;
+                  };
+              company?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                    id?: T;
+                  };
+            };
       };
   updatedAt?: T;
   createdAt?: T;
@@ -2206,7 +2246,7 @@ export interface CompanyDatum {
      */
     lines?: ('prokom' | 'biznes' | 'instalacje' | 'software')[] | null;
     /**
-     * Zmień przy nowej kampanii, np. „kasy-2026”.
+     * Zmień przy nowej kampanii, np. „kasy-2026”. Bez id paska nie da się zamknąć.
      */
     campaignId?: string | null;
     href?: string | null;

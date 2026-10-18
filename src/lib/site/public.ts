@@ -5,6 +5,7 @@ import { tenantIdOf } from '../tenant/id'
 import type { Department } from './departments'
 import type { Line } from '../tenant/lines'
 import { toPublicNavigation, type PublicBiznesNavigation } from './navigation'
+import { isValidNavHref } from './link'
 import { isPromoActive } from './promo'
 
 type Link = { label: string; href: string }
@@ -57,6 +58,8 @@ export type PublicBiznesSettings = {
   showReviews: boolean
   showClientLogos: boolean
   navigation: PublicBiznesNavigation
+  /** Link columns of the footer (spec. §3.4). */
+  footer: { important: Link[]; company: Link[] }
 }
 
 function toPublicBiznes(group: SiteSetting['biznes'], tenantId: number): PublicBiznesSettings {
@@ -81,8 +84,16 @@ function toPublicBiznes(group: SiteSetting['biznes'], tenantId: number): PublicB
     showReviews: group?.showReviews ?? false,
     showClientLogos: group?.showClientLogos ?? false,
     navigation: toPublicNavigation(group?.navigation, tenantId),
+    footer: {
+      important: toValidLinks(group?.footer?.important),
+      company: toValidLinks(group?.footer?.company),
+    },
   }
 }
+
+/** Links read with `overrideAccess`: an `href` saved past the validation is dropped. */
+const toValidLinks = (rows: { label: string; href: string }[] | null | undefined): Link[] =>
+  toLinks(rows).filter(({ href }) => isValidNavHref(href))
 
 const toLinks = (rows: { label: string; href: string }[] | null | undefined): Link[] =>
   (rows ?? []).map(({ label, href }) => ({ label, href }))

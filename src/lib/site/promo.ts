@@ -1,4 +1,5 @@
 import type { Line } from '../tenant/lines'
+import { isValidSlug } from '../tenant/uniqueSlug'
 
 export type PromoBar = {
   text?: string | null
@@ -40,4 +41,21 @@ export function isValidPromoRange(
 ): boolean {
   if (!startsAt || !endsAt) return true
   return Date.parse(endsAt) > Date.parse(startsAt)
+}
+
+/** `localStorage` key of a closed seasonal bar; the value is its campaign id (spec. §3.6). */
+export const PROMO_CLOSED_KEY = 'pk-sz-closed'
+
+/** Attribute on `<html>` that hides the bar (`[data-promo-bar]` in globals.css). */
+export const PROMO_CLOSED_ATTRIBUTE = 'data-sz-closed'
+
+/**
+ * Inline script placed right before the bar: when the visitor closed this campaign, it marks
+ * `<html>` while the page is still being parsed, so the bar never flashes. A new campaign id
+ * shows the bar again. Only a slug id gets a script (it is written into JavaScript); without
+ * a valid id the bar cannot be closed.
+ */
+export function promoClosedScript(campaignId: string | null): string | null {
+  if (!campaignId || !isValidSlug(campaignId)) return null
+  return `(function(){try{if(localStorage.getItem("${PROMO_CLOSED_KEY}")==="${campaignId}")document.documentElement.setAttribute("${PROMO_CLOSED_ATTRIBUTE}","")}catch(e){}})()`
 }

@@ -18,6 +18,7 @@ import {
   skipMediaFile,
   type SeedCatalog,
 } from './map'
+import { FOOTER_LEGAL_LINKS, FOOTER_TEXT, footerData } from './footer'
 import { navigationData } from './navigation'
 
 /** Files of the design package, relative to the repo root (where `pnpm seed` runs). */
@@ -253,6 +254,52 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
       },
       ...local,
     })
+  }
+
+  // --- footer columns, the same way: only while the first column is empty ---
+  const footerMissing = Boolean(siteSettings && !siteSettings.biznes?.footer?.important?.length)
+  if (siteSettings) count('site-settings footer', footerMissing)
+  if (siteSettings && footerMissing) {
+    const activeIndustries = catalog.branze
+      .map((industry, index) => industryData(industry, index))
+      .filter((industry) => industry.active)
+    // Read again: the navigation update above may have changed the document.
+    const current = await payload.findByID({
+      collection: 'site-settings',
+      id: siteSettings.id,
+      ...local,
+    })
+    await payload.update({
+      collection: 'site-settings',
+      id: siteSettings.id,
+      data: {
+        footer: {
+          text: FOOTER_TEXT,
+          links: current.footer?.links?.length ? current.footer.links : FOOTER_LEGAL_LINKS,
+        },
+        biznes: { ...current.biznes, footer: footerData(activeIndustries) },
+      },
+      ...local,
+    })
+  }
+
+  // --- WhatsApp: the line's own (sample) number, spec. §1 "ten sam numer na WhatsApp" ---
+  if (siteSettings) {
+    const current = await payload.findByID({
+      collection: 'site-settings',
+      id: siteSettings.id,
+      ...local,
+    })
+    const whatsappMissing = !current.biznes?.whatsapp && Boolean(current.phone)
+    count('site-settings whatsapp', whatsappMissing)
+    if (whatsappMissing) {
+      await payload.update({
+        collection: 'site-settings',
+        id: siteSettings.id,
+        data: { biznes: { ...current.biznes, whatsapp: current.phone } },
+        ...local,
+      })
+    }
   }
 
   for (const [collection, { created, skipped }] of Object.entries(counters)) {

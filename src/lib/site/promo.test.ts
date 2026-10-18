@@ -1,6 +1,12 @@
 import { describe, expect, it } from 'vitest'
 
-import { isPromoActive, isValidPromoRange, isPromoForLine } from './promo'
+import {
+  isPromoActive,
+  isPromoForLine,
+  isValidPromoRange,
+  PROMO_CLOSED_KEY,
+  promoClosedScript,
+} from './promo'
 
 const now = new Date('2026-11-10T12:00:00Z')
 
@@ -55,4 +61,20 @@ describe('isValidPromoRange', () => {
     expect(isValidPromoRange('2026-11-30T00:00:00Z', '2026-11-01T00:00:00Z')).toBe(false)
     expect(isValidPromoRange('2026-11-01T00:00:00Z', '2026-11-01T00:00:00Z')).toBe(false)
   })
+})
+
+describe('promoClosedScript', () => {
+  it('hides the bar before paint when this campaign was closed', () => {
+    const script = promoClosedScript('kasy-2026')
+    expect(script).toContain(`localStorage.getItem("${PROMO_CLOSED_KEY}")==="kasy-2026"`)
+    expect(script).toContain('data-sz-closed')
+  })
+
+  // The id comes from the panel, read with `overrideAccess`: never trusted inside a script.
+  it.each([null, '', 'Kasy 2026', '"</script><script>alert(1)//'])(
+    'gives no script for id %j (the bar cannot be closed)',
+    (id) => {
+      expect(promoClosedScript(id)).toBeNull()
+    },
+  )
 })

@@ -125,6 +125,22 @@ describe('toPublicSiteSettings', () => {
         cards: [],
         industries: [],
       },
+      footer: { important: [], company: [] },
+    })
+  })
+
+  it('drops footer links with an invalid address', () => {
+    const withFooter: SiteSetting['biznes'] = {
+      footer: {
+        important: [
+          { label: 'Opieka IT', href: '/opieka-it' },
+          { label: 'Zły', href: 'javascript:alert(1)' },
+        ],
+      },
+    }
+    expect(toPublicSiteSettings({ ...base, biznes: withFooter }, 'biznes').biznes?.footer).toEqual({
+      important: [{ label: 'Opieka IT', href: '/opieka-it' }],
+      company: [],
     })
   })
 

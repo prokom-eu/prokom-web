@@ -10,6 +10,7 @@ import * as migration_20261017_165255_inquiry_form_block from './20261017_165255
 import * as migration_20261018_100954_biznes_catalog from './20261018_100954_biznes_catalog'
 import * as migration_20261018_111136_biznes_settings_inquiries from './20261018_111136_biznes_settings_inquiries'
 import * as migration_20261018_155714_biznes_navigation from './20261018_155714_biznes_navigation'
+import * as migration_20261018_171850_biznes_footer from './20261018_171850_biznes_footer'
 
 export const migrations = [
   {
@@ -71,5 +72,10 @@ export const migrations = [
     up: migration_20261018_155714_biznes_navigation.up,
     down: migration_20261018_155714_biznes_navigation.down,
     name: '20261018_155714_biznes_navigation',
+  },
+  {
+    up: migration_20261018_171850_biznes_footer.up,
+    down: migration_20261018_171850_biznes_footer.down,
+    name: '20261018_171850_biznes_footer',
   },
 ]

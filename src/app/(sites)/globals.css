@@ -61,6 +61,16 @@
   [data-surface='dark'] :focus-visible {
     outline-color: var(--accent-on-dark);
   }
+
+  /* Seasonal bar closed for its campaign (`lib/site/promo.ts`, spec. §3.6). */
+  html[data-sz-closed] [data-promo-bar] {
+    display: none;
+  }
+
+  /* The page under the full-screen phone menu does not scroll (`MobileMenu`). */
+  html:has(dialog:modal) {
+    overflow: hidden;
+  }
 }
 
 /* Output of the rich text editor (Text block) — only what its restricted toolbar can produce. */
