@@ -44,7 +44,7 @@ Zasada: jedna sesja = jedno zadanie = jedna gałąź = jeden PR. Kolejność odp
 | # | Zadanie | Gotowe, gdy |
 |---|---|---|
 | 1 | Tokeny, fonty, motyw jasny/ciemny, kontener, przyciski, karty, ikony | strona testowa z komponentami wygląda jak `screens/` |
-| 2 | Kolekcje Payload z ADR-012 + seed z `seed/prokombiznes/` | panel ma 67 produktów ze zdjęciami, 20 kategorii, 27 marek |
+| 2 | Kolekcje Payload z ADR-012 + seed z `seed/prokombiznes/` | panel ma 67 produktów ze zdjęciami, 20 kategorii (od B0: 21, ADR-012 rozstrzygnięcie 7), 27 marek |
 | 3 | Nagłówek, mega menu, Branże ▾, stopka, górny pasek, menu i dolny pasek na telefonie, pasek sezonowy | zgodne z `Main` i `Mobile` (01.jpg) |
 | 4 | Lista zapytania (store + szuflada + toast) i wyszukiwarka (`lib/search.ts` + testy) | kryteria 2 i 3 ze spec. §9 |
 | 5 | Katalog `/oferta` + karta produktu | kryterium 4, zgodne z `Katalog` i `KatalogM` |

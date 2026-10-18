@@ -1,6 +1,6 @@
 # ADR-011: Podgląd na żywo przez podpisany token i zadania Payload w procesie aplikacji
 
-- **Status:** proponowana
+- **Status:** przyjęta (18.10.2026, B0)
 - **Data:** 2026-10-17
 - **Decyduje:** Krystian
 

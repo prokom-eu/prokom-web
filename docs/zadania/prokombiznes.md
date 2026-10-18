@@ -30,7 +30,7 @@ Zasady jak w fundamencie:
 
 ---
 
-## 2. B0 — decyzje przed pierwszą linijką kodu (Krystian, ok. 1 h, niedziela 18.10)
+## 2. B0 — decyzje przed pierwszą linijką kodu (Krystian, ok. 1 h, niedziela 18.10) — ✅ wpisane 18.10 (ADR-012 „Rozstrzygnięcia”, spec. §11)
 
 Bez nich sesja B1 zbuduje model, który trzeba będzie przerabiać migracjami. Każdą decyzję wpisz w ADR-012 („Rozstrzygnięcia”) albo w spec. i zmień status ADR-012 na „przyjęta”.
 
@@ -56,7 +56,7 @@ Bez nich sesja B1 zbuduje model, który trzeba będzie przerabiać migracjami. K
 |---|---|---|
 | Nowa branża: beauty | 7. rekord `Industries` „Beauty i usługi” z `active=false` („Wkrótce”); w kreatorze już jest | +1 rekord w seedzie |
 | Nowa kategoria: maszyny vendingowe (Elzab) | 21. kategoria w grupie „Kasy i sprzedaż”, 1–2 produkty po sprawdzeniu oferty Elzab | +1 kategoria, +produkty (fakty ze źródłem) |
-| Połączyć „Branże” i „Dobierz rozwiązanie” | na stronie branży CTA „Przygotuj ofertę dla [branża]”, które otwiera kreator z wybranym rodzajem firmy (`/kreator?firma=gastronomia`); bez przeprojektowania | parametr w kreatorze (B10) |
+| Połączyć „Branże” i „Dobierz rozwiązanie” | na stronie branży CTA „Przygotuj ofertę dla [branża]”, które otwiera kreator z wybranym rodzajem firmy (`/kreator?firma=gastro` — wartość to rodzaj firmy z kreatora, nie slug branży; ADR-012 rozstrzygnięcie 8); bez przeprojektowania | parametr w kreatorze (B10) |
 | Kafelki „Oferta” i „Opieka IT” spójne | ten sam komponent karty w hero/kafelkach | B7 |
 | Oferta czytelniejsza, większa czcionka | mega menu i katalog: min. 15–16 px dla nazw kategorii, mniej elementów na kolumnę | B3, B5 |
 | Produkt w kilku branżach, widoczny tylko w nich | jest w modelu (`Products.industries`) | B1 |

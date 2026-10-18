@@ -192,32 +192,57 @@
    "grupa": "usl",
    "opis": "zakupy w projektach z dofinansowaniem",
    "kolejnosc": 19
+  },
+  {
+   "slug": "vend",
+   "nazwa": "Maszyny vendingowe",
+   "grupa": "sprz",
+   "opis": "",
+   "kolejnosc": 20
   }
  ],
  "branze": [
   {
    "slug": "gastro",
-   "nazwa": "Gastronomia"
+   "nazwa": "Gastronomia",
+   "aktywna": true,
+   "kreator": "gastro"
   },
   {
    "slug": "handel",
-   "nazwa": "Handel i sklepy"
+   "nazwa": "Handel i sklepy",
+   "aktywna": true,
+   "kreator": "sklep"
   },
   {
    "slug": "noclegi",
-   "nazwa": "Hotele i pensjonaty"
+   "nazwa": "Hotele i pensjonaty",
+   "aktywna": true,
+   "kreator": "hotel"
   },
   {
    "slug": "uslugi",
-   "nazwa": "Biura i usługi"
+   "nazwa": "Biura i usługi",
+   "aktywna": false,
+   "kreator": "biuro"
   },
   {
    "slug": "szkoly",
-   "nazwa": "Szkoły i instytucje"
+   "nazwa": "Szkoły i instytucje",
+   "aktywna": false,
+   "kreator": "szkola"
   },
   {
    "slug": "zdrowie",
-   "nazwa": "Zdrowie i uzdrowiska"
+   "nazwa": "Zdrowie i uzdrowiska",
+   "aktywna": false,
+   "kreator": "gabinet"
+  },
+  {
+   "slug": "beauty",
+   "nazwa": "Beauty i usługi",
+   "aktywna": false,
+   "kreator": "gabinet"
   }
  ],
  "marki": [
