@@ -1,3 +1,5 @@
+import type { Line } from '../tenant/lines'
+
 export type PromoBar = {
   text?: string | null
   startsAt?: string | null
@@ -21,6 +23,14 @@ export function isPromoActive(promo: PromoBar | null | undefined, now: Date): bo
   if (start !== undefined && time < start) return false
   if (end !== undefined && time > end) return false
   return true
+}
+
+/**
+ * `CompanyData` is one global for every domain, so a campaign names its lines; none = all
+ * lines (ADR-012, rozstrzygnięcie 3).
+ */
+export function isPromoForLine(lines: readonly Line[] | null | undefined, line: Line): boolean {
+  return !lines?.length || lines.includes(line)
 }
 
 /** `endsAt` must come after `startsAt` when both are set; otherwise the bar would never show. */

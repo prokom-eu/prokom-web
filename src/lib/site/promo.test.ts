@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { isPromoActive, isValidPromoRange } from './promo'
+import { isPromoActive, isValidPromoRange, isPromoForLine } from './promo'
 
 const now = new Date('2026-11-10T12:00:00Z')
 
@@ -26,6 +26,20 @@ describe('isPromoActive', () => {
 
   it('treats an unparsable date as inactive', () => {
     expect(isPromoActive({ text: 'x', startsAt: 'jutro' }, now)).toBe(false)
+  })
+})
+
+describe('isPromoForLine', () => {
+  it('shows on every line when no line is chosen', () => {
+    expect(isPromoForLine([], 'software')).toBe(true)
+    expect(isPromoForLine(null, 'instalacje')).toBe(true)
+  })
+
+  // ADR-012, rozstrzygnięcie 3: a Biznes campaign must not show on Instalacje or Software.
+  it('shows only on the chosen lines', () => {
+    expect(isPromoForLine(['biznes'], 'biznes')).toBe(true)
+    expect(isPromoForLine(['biznes'], 'instalacje')).toBe(false)
+    expect(isPromoForLine(['biznes', 'software'], 'software')).toBe(true)
   })
 })
 

@@ -2,6 +2,8 @@ import type { CompanyDatum, SiteSetting } from '@/payload-types'
 
 import { publicImage, type PublicImage } from '../media/public'
 import { tenantIdOf } from '../tenant/id'
+import type { Department } from './departments'
+import type { Line } from '../tenant/lines'
 import { isPromoActive } from './promo'
 
 type Link = { label: string; href: string }
@@ -19,7 +21,8 @@ export type PublicCompanyData = {
     city: string
     hours: { days: string[]; opens: string; closes: string }[]
   }[]
-  promo: { text: string; href: string | null } | null
+  /** `lines` empty = every line; the layout checks it (`isPromoForLine`). */
+  promo: { text: string; href: string | null; campaignId: string | null; lines: Line[] } | null
 }
 
 /** What the public site shows from one tenant's `SiteSettings`. */
@@ -29,6 +32,53 @@ export type PublicSiteSettings = {
   navigation: Link[]
   footer: { text: string | null; links: Link[] }
   seo: { titleTemplate: string | null; description: string | null; ogImage: PublicImage | null }
+  /** Data of the Biznes line; `null` on every other line (ADR-012, rozstrzygnięcie 2). */
+  biznes: PublicBiznesSettings | null
+}
+
+export type PublicBiznesSettings = {
+  contactChannels: {
+    department: Department
+    phone: string | null
+    email: string | null
+    hours: string | null
+    showInFooter: boolean
+  }[]
+  whatsapp: string | null
+  trustLine: string | null
+  serviceAreas: string[]
+  promises: {
+    callbackTime: string | null
+    itReview: string | null
+    includedWithRegister: string | null
+    serviceTakeover: string | null
+  }
+  showReviews: boolean
+  showClientLogos: boolean
+}
+
+function toPublicBiznes(group: SiteSetting['biznes']): PublicBiznesSettings {
+  const promises = group?.promises
+  return {
+    contactChannels: (group?.contactChannels ?? []).map((row) => ({
+      department: row.department,
+      phone: row.phone ?? null,
+      email: row.email ?? null,
+      hours: row.hours ?? null,
+      showInFooter: row.showInFooter ?? false,
+    })),
+    whatsapp: group?.whatsapp ?? null,
+    trustLine: group?.trustLine ?? null,
+    serviceAreas: group?.serviceAreas ?? [],
+    promises: {
+      callbackTime: promises?.callbackTime ?? null,
+      itReview: promises?.itReview ?? null,
+      includedWithRegister: promises?.includedWithRegister ?? null,
+      serviceTakeover: promises?.serviceTakeover ?? null,
+    },
+    showReviews: group?.showReviews ?? false,
+    showClientLogos: group?.showClientLogos ?? false,
+  }
 }
 
 const toLinks = (rows: { label: string; href: string }[] | null | undefined): Link[] =>
@@ -53,12 +103,21 @@ export function toPublicCompanyData(doc: CompanyDatum, now: Date): PublicCompany
     // `promo.text` is checked again only to narrow its type to `string`.
     promo:
       promo?.text && isPromoActive(promo, now)
-        ? { text: promo.text, href: promo.href ?? null }
+        ? {
+            text: promo.text,
+            href: promo.href ?? null,
+            campaignId: promo.campaignId ?? null,
+            lines: promo.lines ?? [],
+          }
         : null,
   }
 }
 
-export function toPublicSiteSettings(doc: SiteSetting): PublicSiteSettings {
+/**
+ * `line` is the line of the tenant that owns the document (`getSiteSettings` takes it from
+ * the populated tenant) — never `doc.line`, the panel's copy, which may be stale.
+ */
+export function toPublicSiteSettings(doc: SiteSetting, line: Line | null): PublicSiteSettings {
   const tenantId = tenantIdOf(doc.tenant)
   return {
     phone: doc.phone ?? null,
@@ -71,5 +130,6 @@ export function toPublicSiteSettings(doc: SiteSetting): PublicSiteSettings {
       // Populated when read with depth 1; only a public image of this tenant (`publicImage`).
       ogImage: tenantId === null ? null : publicImage(doc.seo?.ogImage, tenantId),
     },
+    biznes: line === 'biznes' ? toPublicBiznes(doc.biznes) : null,
   }
 }
