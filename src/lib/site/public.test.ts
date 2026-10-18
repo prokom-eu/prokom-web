@@ -117,6 +117,14 @@ describe('toPublicSiteSettings', () => {
       },
       showReviews: true,
       showClientLogos: false,
+      navigation: {
+        menu: [],
+        shortcuts: [],
+        columnLimit: 6,
+        highlights: [],
+        cards: [],
+        industries: [],
+      },
     })
   })
 

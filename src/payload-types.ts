@@ -299,6 +299,72 @@ export interface SiteSetting {
      * Tylko logo z pisemną zgodą (obrazy bez „Wymaga zgody”).
      */
     showClientLogos?: boolean | null;
+    /**
+     * Nagłówek: kolejność menu, mega menu Oferta i Branże ▾.
+     */
+    navigation?: {
+      /**
+       * Kolejność pozycji w nagłówku i w menu na telefonie.
+       */
+      menu?:
+        | {
+            type: 'link' | 'offer' | 'industries';
+            label: string;
+            /**
+             * Wymagany dla zwykłej pozycji.
+             */
+            href?: string | null;
+            partner?: boolean | null;
+            id?: string | null;
+          }[]
+        | null;
+      shortcuts?:
+        | {
+            label: string;
+            href: string;
+            id?: string | null;
+          }[]
+        | null;
+      /**
+       * Dalej link „Wszystkie w grupie →” (czytelność: mniej pozycji, nie mniejsza czcionka).
+       */
+      columnLimit?: number | null;
+      /**
+       * Np. GoPOS „partner” w Oprogramowaniu, Opieka IT „abonament”.
+       */
+      highlights?:
+        | {
+            group: number | CatalogGroup;
+            label: string;
+            href: string;
+            badge?: string | null;
+            id?: string | null;
+          }[]
+        | null;
+      cards?:
+        | {
+            title: string;
+            href: string;
+            badge?: string | null;
+            text?: string | null;
+            partner?: (number | null) | Partner;
+            image?: (number | null) | Media;
+            dark?: boolean | null;
+            id?: string | null;
+          }[]
+        | null;
+      /**
+       * Karty aktywnych branż; nieaktywne branże pojawiają się same pod spodem jako „Wkrótce”.
+       */
+      industries?:
+        | {
+            industry: number | Industry;
+            image?: (number | null) | Media;
+            description?: string | null;
+            id?: string | null;
+          }[]
+        | null;
+    };
   };
   updatedAt: string;
   createdAt: string;
@@ -362,175 +428,52 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "pages".
+ * via the `definition` "catalog-groups".
  */
-export interface Page {
+export interface CatalogGroup {
   id: number;
   tenant?: (number | null) | Tenant;
-  title: string;
+  name: string;
   /**
-   * Część adresu po domenie, np. „kontakt” → /kontakt. Strona główna: „home”.
+   * Część adresu, np. „sprzedaz”.
    */
   slug: string;
-  layout?:
-    | (
-        | HeroBlock
-        | RichTextBlock
-        | ServiceGridBlock
-        | CallToActionBlock
-        | FaqBlock
-        | ContactBlock
-        | PartnersBlock
-        | InquiryFormBlock
-      )[]
-    | null;
-  seo?: {
-    /**
-     * Puste = tytuł podstrony. Szablon z ustawień strony dopisze nazwę.
-     */
-    title?: string | null;
-    /**
-     * Puste = domyślny opis z ustawień strony.
-     */
-    description?: string | null;
-  };
+  icon:
+    | 'shield'
+    | 'cal'
+    | 'users'
+    | 'store'
+    | 'bolt'
+    | 'doc'
+    | 'life'
+    | 'arrow'
+    | 'check'
+    | 'phone'
+    | 'mail'
+    | 'pin'
+    | 'clock'
+    | 'monitor'
+    | 'remote'
+    | 'bell'
+    | 'wallet'
+    | 'chat'
+    | 'wrench'
+    | 'rocket'
+    | 'map'
+    | 'star'
+    | 'q'
+    | 'flash'
+    | 'grad'
+    | 'server'
+    | 'compass';
+  gradientFrom: string;
+  gradientTo: string;
+  /**
+   * Mniejsza liczba = wcześniej.
+   */
+  order?: number | null;
   updatedAt: string;
   createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "HeroBlock".
- */
-export interface HeroBlock {
-  heading: string;
-  lead?: string | null;
-  cta?: {
-    label?: string | null;
-    href?: string | null;
-  };
-  /**
-   * Opcjonalny; obok nagłówka na komputerze, pod nim na telefonie.
-   */
-  image?: (number | null) | Media;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'hero';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "RichTextBlock".
- */
-export interface RichTextBlock {
-  content: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'richText';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ServiceGridBlock".
- */
-export interface ServiceGridBlock {
-  heading?: string | null;
-  intro?: string | null;
-  items: {
-    title: string;
-    description?: string | null;
-    link?: {
-      label?: string | null;
-      href?: string | null;
-    };
-    id?: string | null;
-  }[];
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'serviceGrid';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CallToActionBlock".
- */
-export interface CallToActionBlock {
-  heading: string;
-  text?: string | null;
-  link: {
-    label: string;
-    href: string;
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'callToAction';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "FaqBlock".
- */
-export interface FaqBlock {
-  heading?: string | null;
-  items: {
-    question: string;
-    answer: string;
-    id?: string | null;
-  }[];
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'faq';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ContactBlock".
- */
-export interface ContactBlock {
-  heading?: string | null;
-  text?: string | null;
-  showLocations?: boolean | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'contact';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "PartnersBlock".
- */
-export interface PartnersBlock {
-  heading?: string | null;
-  lead?: string | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'partners';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "InquiryFormBlock".
- */
-export interface InquiryFormBlock {
-  /**
-   * Jeden formularz na stronę — linki „#formularz” prowadzą do niego.
-   */
-  heading?: string | null;
-  text?: string | null;
-  /**
-   * Opcjonalnie, np. „Kasy fiskalne” — trafia do tematu powiadomienia i do panelu.
-   */
-  category?: string | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'inquiryForm';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -574,82 +517,50 @@ export interface Partner {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "redirects".
+ * via the `definition` "industries".
  */
-export interface Redirect {
+export interface Industry {
   id: number;
   tenant?: (number | null) | Tenant;
-  /**
-   * Ścieżka, z której przekierować, np. /oferta/kasy.html.
-   */
-  from: string;
-  to: string;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * Zapytania z formularzy stron. Zmieniasz tylko status.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "inquiries".
- */
-export interface Inquiry {
-  id: number;
-  tenant?: (number | null) | Tenant;
-  status: 'new' | 'in_progress' | 'closed';
-  /**
-   * Np. PKB-2026-0042.
-   */
-  number?: string | null;
-  /**
-   * Od tej daty liczy się okres przechowywania zamkniętych zapytań.
-   */
-  statusChangedAt?: string | null;
-  line: 'prokom' | 'biznes' | 'instalacje' | 'software';
-  type: 'contact' | 'list' | 'wizard' | 'search';
-  category?: string | null;
   name: string;
-  company?: string | null;
-  nip?: string | null;
-  email?: string | null;
-  phone?: string | null;
-  message: string;
-  preferredContact?: ('phone' | 'email' | 'any') | null;
-  topics?: string[] | null;
   /**
-   * Np. „Przed sezonem”.
+   * Część adresu, np. „gastronomia”.
    */
-  deadline?: string | null;
-  items?:
+  slug: string;
+  /**
+   * Nieaktywna branża pokazuje się jako „Wkrótce”.
+   */
+  active?: boolean | null;
+  /**
+   * Przycisk „Przygotuj ofertę” otwiera kreator z tym rodzajem firmy.
+   */
+  wizardBusinessType?:
+    | ('sklep' | 'gastro' | 'hotel' | 'biuro' | 'warsztat' | 'gabinet' | 'szkola' | 'produkcja' | 'truck' | 'inna')
+    | null;
+  hero?: {
+    /**
+     * Puste = nazwa.
+     */
+    title?: string | null;
+    lead?: string | null;
+    image?: (number | null) | Media;
+  };
+  featuredProducts?: (number | Product)[] | null;
+  faq?:
     | {
-        product?: (number | null) | Product;
-        nameSnapshot: string;
-        quantity: number;
-        note?: string | null;
+        question: string;
+        answer: string;
         id?: string | null;
       }[]
     | null;
-  wizard?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  source: {
-    url: string;
-    utmSource?: string | null;
-    utmMedium?: string | null;
-    utmCampaign?: string | null;
+  /**
+   * Mniejsza liczba = wcześniej.
+   */
+  order?: number | null;
+  seo?: {
+    title?: string | null;
+    description?: string | null;
   };
-  consent: {
-    accepted: boolean;
-    clauseVersion: string;
-    acceptedAt: string;
-  };
-  marketingConsent?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -898,99 +809,254 @@ export interface CatalogCategory {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "catalog-groups".
+ * via the `definition` "pages".
  */
-export interface CatalogGroup {
+export interface Page {
   id: number;
   tenant?: (number | null) | Tenant;
-  name: string;
+  title: string;
   /**
-   * Część adresu, np. „sprzedaz”.
+   * Część adresu po domenie, np. „kontakt” → /kontakt. Strona główna: „home”.
    */
   slug: string;
-  icon:
-    | 'shield'
-    | 'cal'
-    | 'users'
-    | 'store'
-    | 'bolt'
-    | 'doc'
-    | 'life'
-    | 'arrow'
-    | 'check'
-    | 'phone'
-    | 'mail'
-    | 'pin'
-    | 'clock'
-    | 'monitor'
-    | 'remote'
-    | 'bell'
-    | 'wallet'
-    | 'chat'
-    | 'wrench'
-    | 'rocket'
-    | 'map'
-    | 'star'
-    | 'q'
-    | 'flash'
-    | 'grad'
-    | 'server'
-    | 'compass';
-  gradientFrom: string;
-  gradientTo: string;
+  layout?:
+    | (
+        | HeroBlock
+        | RichTextBlock
+        | ServiceGridBlock
+        | CallToActionBlock
+        | FaqBlock
+        | ContactBlock
+        | PartnersBlock
+        | InquiryFormBlock
+      )[]
+    | null;
+  seo?: {
+    /**
+     * Puste = tytuł podstrony. Szablon z ustawień strony dopisze nazwę.
+     */
+    title?: string | null;
+    /**
+     * Puste = domyślny opis z ustawień strony.
+     */
+    description?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroBlock".
+ */
+export interface HeroBlock {
+  heading: string;
+  lead?: string | null;
+  cta?: {
+    label?: string | null;
+    href?: string | null;
+  };
   /**
-   * Mniejsza liczba = wcześniej.
+   * Opcjonalny; obok nagłówka na komputerze, pod nim na telefonie.
    */
-  order?: number | null;
+  image?: (number | null) | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'hero';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RichTextBlock".
+ */
+export interface RichTextBlock {
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'richText';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServiceGridBlock".
+ */
+export interface ServiceGridBlock {
+  heading?: string | null;
+  intro?: string | null;
+  items: {
+    title: string;
+    description?: string | null;
+    link?: {
+      label?: string | null;
+      href?: string | null;
+    };
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'serviceGrid';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CallToActionBlock".
+ */
+export interface CallToActionBlock {
+  heading: string;
+  text?: string | null;
+  link: {
+    label: string;
+    href: string;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'callToAction';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FaqBlock".
+ */
+export interface FaqBlock {
+  heading?: string | null;
+  items: {
+    question: string;
+    answer: string;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'faq';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactBlock".
+ */
+export interface ContactBlock {
+  heading?: string | null;
+  text?: string | null;
+  showLocations?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'contact';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PartnersBlock".
+ */
+export interface PartnersBlock {
+  heading?: string | null;
+  lead?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'partners';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InquiryFormBlock".
+ */
+export interface InquiryFormBlock {
+  /**
+   * Jeden formularz na stronę — linki „#formularz” prowadzą do niego.
+   */
+  heading?: string | null;
+  text?: string | null;
+  /**
+   * Opcjonalnie, np. „Kasy fiskalne” — trafia do tematu powiadomienia i do panelu.
+   */
+  category?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'inquiryForm';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "redirects".
+ */
+export interface Redirect {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  /**
+   * Ścieżka, z której przekierować, np. /oferta/kasy.html.
+   */
+  from: string;
+  to: string;
   updatedAt: string;
   createdAt: string;
 }
 /**
+ * Zapytania z formularzy stron. Zmieniasz tylko status.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "industries".
+ * via the `definition` "inquiries".
  */
-export interface Industry {
+export interface Inquiry {
   id: number;
   tenant?: (number | null) | Tenant;
+  status: 'new' | 'in_progress' | 'closed';
+  /**
+   * Np. PKB-2026-0042.
+   */
+  number?: string | null;
+  /**
+   * Od tej daty liczy się okres przechowywania zamkniętych zapytań.
+   */
+  statusChangedAt?: string | null;
+  line: 'prokom' | 'biznes' | 'instalacje' | 'software';
+  type: 'contact' | 'list' | 'wizard' | 'search';
+  category?: string | null;
   name: string;
+  company?: string | null;
+  nip?: string | null;
+  email?: string | null;
+  phone?: string | null;
+  message: string;
+  preferredContact?: ('phone' | 'email' | 'any') | null;
+  topics?: string[] | null;
   /**
-   * Część adresu, np. „gastronomia”.
+   * Np. „Przed sezonem”.
    */
-  slug: string;
-  /**
-   * Nieaktywna branża pokazuje się jako „Wkrótce”.
-   */
-  active?: boolean | null;
-  /**
-   * Przycisk „Przygotuj ofertę” otwiera kreator z tym rodzajem firmy.
-   */
-  wizardBusinessType?:
-    | ('sklep' | 'gastro' | 'hotel' | 'biuro' | 'warsztat' | 'gabinet' | 'szkola' | 'produkcja' | 'truck' | 'inna')
-    | null;
-  hero?: {
-    /**
-     * Puste = nazwa.
-     */
-    title?: string | null;
-    lead?: string | null;
-    image?: (number | null) | Media;
-  };
-  featuredProducts?: (number | Product)[] | null;
-  faq?:
+  deadline?: string | null;
+  items?:
     | {
-        question: string;
-        answer: string;
+        product?: (number | null) | Product;
+        nameSnapshot: string;
+        quantity: number;
+        note?: string | null;
         id?: string | null;
       }[]
     | null;
-  /**
-   * Mniejsza liczba = wcześniej.
-   */
-  order?: number | null;
-  seo?: {
-    title?: string | null;
-    description?: string | null;
+  wizard?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  source: {
+    url: string;
+    utmSource?: string | null;
+    utmMedium?: string | null;
+    utmCampaign?: string | null;
   };
+  consent: {
+    accepted: boolean;
+    clauseVersion: string;
+    acceptedAt: string;
+  };
+  marketingConsent?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1432,6 +1498,56 @@ export interface SiteSettingsSelect<T extends boolean = true> {
             };
         showReviews?: T;
         showClientLogos?: T;
+        navigation?:
+          | T
+          | {
+              menu?:
+                | T
+                | {
+                    type?: T;
+                    label?: T;
+                    href?: T;
+                    partner?: T;
+                    id?: T;
+                  };
+              shortcuts?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                    id?: T;
+                  };
+              columnLimit?: T;
+              highlights?:
+                | T
+                | {
+                    group?: T;
+                    label?: T;
+                    href?: T;
+                    badge?: T;
+                    id?: T;
+                  };
+              cards?:
+                | T
+                | {
+                    title?: T;
+                    href?: T;
+                    badge?: T;
+                    text?: T;
+                    partner?: T;
+                    image?: T;
+                    dark?: T;
+                    id?: T;
+                  };
+              industries?:
+                | T
+                | {
+                    industry?: T;
+                    image?: T;
+                    description?: T;
+                    id?: T;
+                  };
+            };
       };
   updatedAt?: T;
   createdAt?: T;
