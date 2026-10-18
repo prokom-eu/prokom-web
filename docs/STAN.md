@@ -12,13 +12,14 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 | prokomsoftware.pl | 31.10 | ⏳ |
 
 ## W toku
-- **Brak zadania w toku — S9 zamknięte (18.10).**
-  - Gałąź: `develop` (aktualny, ostatni commit #42); ta aktualizacja STAN na `docs/stan-po-s9`.
-  - Zrobione w tej sesji: S9a (#39 — obraz, health, logi JSON, smoke, fonty lokalne), S9b-1 (#40 — Nginx, staging z hasłem), S9b-2 (#42 — kopie `age` + `rclone`, odtworzenie, runbook); plan Biznesu (#41).
-  - Niedokończone: nic w kodzie. Na drugim komputerze do testów kopii: `winget install FiloSottile.age Rclone.Rclone` (opcjonalnie).
-  - **Następny krok:** B0 — decyzje bez kodu wg `docs/zadania/prokombiznes.md` §2 (rozstrzygnięcia ADR-012 wpisać do ADR i zmienić jej status na „przyjęta”, przyjąć ADR-011, uwagi szefa i model kanałów kontaktu), potem `/zadanie B1`; w poniedziałek 19.10 rano zakup domen i VPS, potem `/zadanie S10` z `docs/runbook.md` §1.
+- **Budowa prokombiznes.pl wg `docs/zadania/prokombiznes.md` (B0–B11, produkcja 26.10).**
+  - Gałąź: `docs/prokombiznes-b0` (B0, PR do `develop`).
+  - Zrobione: B0 — ADR-012 i ADR-011 przyjęte, rozstrzygnięcia w ADR-012 (nazwy EN, bez nowych globali, `BiznesSettings`, `promoBar.campaignId`, strony specjalne jako `Pages`, strażnik tras katalogu, `contactChannels`, mapowanie branż i `wizardBusinessType`), uwagi szefa z 16.10 w spec. (§11), seed: branża „Beauty i usługi” (nieaktywna) i kategoria „Maszyny vendingowe” bez produktów.
+  - Niedokończone: produkty vendingowe Elzab i opis kategorii — `TODO(krystian)` (spec. §13 pkt 8, dane ze źródłem); kanały kontaktu działów od szefa (Asana, 20.10).
+  - **Następny krok:** po scaleniu B0 — `/zadanie B1` (model danych, prompt w planie procesu; plan B1 do przeglądu w czacie przed „ok”); w poniedziałek 19.10 rano zakup domen i VPS, potem `/zadanie S10` z `docs/runbook.md` §1.
 
 ## Zrobione
+- 18.10.2026 — B0 (dokumentacja, bez kodu): ADR-012 przyjęta z sekcją „Rozstrzygnięcia (18.10.2026)”, ADR-011 przyjęta, uwagi szefa z 16.10 w `docs/strony/prokombiznes.md`, `seed/prokombiznes/katalog.json` (7 branż z `aktywna` i `kreator`, 21 kategorii).
 - 18.10.2026 — S9b-2 scalone (#42), **S9 zamknięte**: `scripts/backup.sh` (`pg_dump -Fc` + media + manifest, `age`, `rclone`, daily/monthly/predeploy 14/93/30 dni), `scripts/restore.sh` (`--no-start` do cofnięcia z bazą, blokada złej bazy, potwierdzenie na prod/staging), `docs/runbook.md`, ADR-003 z retencją kopii. Przetestowane lokalnie: odtworzenie na czystym stosie (rekordy i media zgodne, smoke zielony) i cofnięcie 4B na tagach `old`/`new`. Przegląd `recenzent`, poprawki w tym samym PR.
 - 17.10.2026 — S9b-1 scalone (#40): Nginx jako osobny stos (`compose.proxy.yml`, sieć `prokom-proxy`), nagłówki i bazowe CSP, staging z hasłem i `noindex`, `compose.staging.yml` (`.env.staging` na sztywno), bazy `prokom_prod`/`prokom_staging`, `smoke.sh` przez TLS. Przegląd `recenzent`, poprawki w tym samym PR. Pakiet GHCR prywatny (ustawienia organizacji), pierwszy obraz z `develop` zbudowany.
 - 17.10.2026 — plan budowy prokombiznes.pl (#41): `docs/zadania/prokombiznes.md` (B0–B11).
@@ -106,9 +107,7 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 
 ## Otwarte pytania
 - **Cel kopii poza serwerem (S10):** dostawca inny niż Seohost (ADR-002) z dostępem przez `rclone` (S3 / SFTP / Backblaze itp.) — koszt i umowa do decyzji Krystiana i szefa przed 20.10.
-- **ADR-012 (proponowana):** katalog prokombiznes — rozbieżności z ADR-003/006 do uzgodnienia przed sesją kolekcji.
 - Fakty z wizualizacji do potwierdzenia z szefem przed publikacją: `docs/strony/prokombiznes.md` §13 (ulga 700 zł, parametry Elzab/Fawag, statusy partnerów, liczby GoPOS, przepisy KSeF); logo klientów tylko z pisemną zgodą.
-- **ADR-011 (proponowana, 17.10):** podgląd na żywo przez podpisany token zamiast draft mode Next i cron zadań Payload w procesie aplikacji — do przyjęcia przez Krystiana.
 - **16.10 (Krystian, przy zakupie):** domeny na firmę (abonent PRO-KOM) i konto rejestratora na firmowy e-mail z 2FA i autoodnawianiem (`docs/dns.md`).
 - Z jakiego adresu wychodzą maile z formularzy (domena nadawcy) — w kodzie `MAIL_FROM_ADDRESS` z env (S8a); wartość produkcyjną ustalić z SPF/DKIM w S10.
 - Okres retencji zapytań (domyślnie 24 miesiące, ADR-003) — potwierdzić przy polityce prywatności.

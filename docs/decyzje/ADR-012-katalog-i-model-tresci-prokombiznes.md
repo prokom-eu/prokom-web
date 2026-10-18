@@ -1,6 +1,6 @@
 # ADR-012: Katalog oferty i model treści prokombiznes.pl
 
-- **Status:** proponowana
+- **Status:** przyjęta (18.10.2026, z rozstrzygnięciami na końcu dokumentu — mają pierwszeństwo przed §1–§3)
 - **Data:** 2026-10-17
 - **Decyduje:** Krystian
 - **Pochodzenie:** pakiet „prokombiznes z wizualizacji” (17.10.2026), tam jako „ADR-008” — przenumerowany, bo ADR-008 w repo to dokumentacja bibliotek. Treść poniżej bez zmian merytorycznych; rozbieżności z przyjętymi ADR-ami — sekcja „Do uzgodnienia”.
@@ -22,9 +22,9 @@ Wszystkie kolekcje mają pole `tenant`; slugi są unikalne w obrębie tenanta.
 | Kolekcja | Pola (najważniejsze) | Uwagi |
 |---|---|---|
 | `catalog-groups` | `nazwa`, `slug`, `ikona` (select z zestawu ikon), `gradient` [2 kolory], `kolejnosc` | 5 rekordów |
-| `catalog-categories` | `nazwa`, `slug`, `grupa` → groups, `opis` (krótki), `hero` (blok), `wCenie` (lista), `faq` (relacja/array), `czestoDobierane` → products[], `seo`, `kolejnosc` | 20 rekordów |
+| `catalog-categories` | `nazwa`, `slug`, `grupa` → groups, `opis` (krótki), `hero` (blok), `wCenie` (lista), `faq` (relacja/array), `czestoDobierane` → products[], `seo`, `kolejnosc` | 21 rekordów (rozstrzygnięcie 7) |
 | `brands` | `nazwa`, `slug`, `logo` → media, `partner` (select: brak / autoryzowany serwis / autoryzowany partner), `opisStatusu` | 27 rekordów |
-| `industries` (Branże) | `nazwa`, `slug`, `aktywna` (bool; false = „Wkrótce”), `strona` (bloki), `polecane` → products[], `seo` | 6 rekordów, aktywne 3 |
+| `industries` (Branże) | `nazwa`, `slug`, `aktywna` (bool; false = „Wkrótce”), `strona` (bloki), `polecane` → products[], `seo` | 7 rekordów, aktywne 3 (rozstrzygnięcie 7) |
 | `products` | patrz §1.1 | 67 rekordów |
 | `posts` (Aktualności) | `tytul`, `slug`, `kategoria` (select), `lead`, `tresc` (rich text z blokami Ważne / Źródło / CTA), `zrodla` [{nazwa, url, dataWeryfikacji}], `powiazane` → products[], `okladka`, `publishedAt`, `updatedAt`, `seo` | wersje robocze + publikacja z datą |
 | `pages` | bloki (ADR-006) | strona główna, O firmie, Opieka IT, GoPOS, InsERT, Kontakt, prawne |
@@ -104,6 +104,7 @@ Wszystkie kolekcje mają pole `tenant`; slugi są unikalne w obrębie tenanta.
 | komp | komputery-monitory | ochr | antywirus-firewall |
 | podpis | podpis-kwalifikowany | it | opieka-it-wdrozenia |
 | serwis | serwis-przeglady | dof | dofinansowania |
+| vend | maszyny-vendingowe | | |
 
 - Produkty: slug z nazwy, np. `posnet-ergo-online`. Seed ma krótkie id (`ergo`); mapowanie zapisz w seedzie jako `legacyId`.
 
@@ -172,7 +173,71 @@ Wszystkie kolekcje mają pole `tenant`; slugi są unikalne w obrębie tenanta.
 ## Do uzgodnienia z przyjętymi ADR-ami (przed sesją kolekcji, zadanie #2 z `docs/design/prokombiznes/PRZEKAZANIE.md`)
 Do czasu rozstrzygnięcia obowiązują przyjęte ADR-y. Rozstrzygnięcie = poprawka tego ADR albo nowy ADR, nie zmiana kodu po cichu.
 - ~~**ADR-003 (skrzynka zapytań):** `POST /api/inquiries` + `InquirySink.save()` a `POST /api/inquiry` + `submitInquiry()`~~ — **rozstrzygnięte 17.10.2026 (S8a):** obowiązują nazwy z ADR-003 (`POST /api/inquiry`, `submitInquiry()` w `lib/inquiry`, kolekcja `Inquiries`); `InquirySink` = zależność `save` w `submitInquiryWith`. Pełne IP nie jest zapisywane wcale (limit liczy skrót IP w pamięci), więc „IP 90 dni” odpada. Pola z §3 spoza ADR-003 (`numer`, `typ`, `pozycje`, `kreator`, `tematy`, `termin`, preferowany kontakt) — dopisać migracją przy formularzach Biznesu (lista zapytania, kreator).
-- **ADR-006 (model treści v1):** `daneFirmy` = istniejący global `CompanyData` (S4) — pola specyficzne dla Biznesu (WhatsApp, współrzędne, miejscowości obsługi) dodać do `SiteSettings` albo `CompanyData`, nie tworzyć drugiego globalu. `pasekSezonowy` = istniejący pasek promocji w `CompanyData` (ma od–do). `nawigacja` = `SiteSettings.navigation`. „Globale na tenant” w Payload to kolekcje z jednym dokumentem na tenanta (jak `SiteSettings`), nie globale.
+- ~~**ADR-006 (model treści v1):** `daneFirmy` = istniejący global `CompanyData` (S4) — pola specyficzne dla Biznesu (WhatsApp, współrzędne, miejscowości obsługi) dodać do `SiteSettings` albo `CompanyData`, nie tworzyć drugiego globalu. `pasekSezonowy` = istniejący pasek promocji w `CompanyData` (ma od–do). `nawigacja` = `SiteSettings.navigation`. „Globale na tenant” w Payload to kolekcje z jednym dokumentem na tenanta (jak `SiteSettings`), nie globale.~~ — **rozstrzygnięte 18.10.2026 (B0):** rozstrzygnięcia 2 i 3.
 - ~~**ADR-006 / S7:** `media` i `brands` a `Partners`~~ — **rozstrzygnięte 17.10.2026 (S7a, uzupełnienie ADR-006):** `media` = kolekcja `Media` z polami `source` (= `zrodlo`) i `requiresConsent` (= `wymagaZgody`); `brands` = kolekcja `Partners` (jedna dla partnerów i marek), `partner` = `partnerStatus`, logo = plik rekordu. `products.marka` wskaże na `partners`.
-- **ADR-007 / ADR-013:** gradient grup (`catalog-groups.gradient`) i kolory — według ADR-013.
-- Nazwy pól po polsku (`nazwa`, `kolejnosc`) a dotychczasowy kod po angielsku (`name`, `order`) — CLAUDE.md: nazwy w kodzie po angielsku; etykiety w panelu po polsku.
+- ~~**ADR-007 / ADR-013:** gradient grup (`catalog-groups.gradient`) i kolory — według ADR-013.~~ — **rozstrzygnięte 18.10.2026 (B0):** gradient to dane rekordu `CatalogGroups` (2 kolory z seeda, edytowalne w panelu), wyświetlany wg ADR-013; to jedyny wyjątek od „kolory tylko z tokenów”, test „bez gołych kolorów” nadal obejmuje kod.
+- ~~Nazwy pól po polsku (`nazwa`, `kolejnosc`) a dotychczasowy kod po angielsku (`name`, `order`)~~ — **rozstrzygnięte 18.10.2026 (B0):** rozstrzygnięcie 1.
+
+## Rozstrzygnięcia (18.10.2026)
+
+Decyzje Krystiana z sesji B0 (na podstawie `docs/zadania/prokombiznes.md` §2). Obowiązują zamiast sprzecznych fragmentów §1–§3.
+
+1. **Nazwy w kodzie po angielsku, etykiety w panelu po polsku** (CLAUDE.md).
+   - Kolekcje: `CatalogGroups` (`catalog-groups`), `CatalogCategories` (`catalog-categories`), `Industries` (`industries`), `Products` (`products`), `Posts` (`posts`); marki = istniejące `Partners`, media = `Media`, zapytania = `Inquiries`.
+   - Pola tłumaczymy 1:1, np.:
+
+     | ADR (PL) | Kod (EN) | ADR (PL) | Kod (EN) |
+     |---|---|---|---|
+     | `nazwa` / `tytul` | `name` / `title` | `kolejnosc` | `order` |
+     | `grupa` | `group` | `opis` | `description` |
+     | `wCenie` | `included` | `czestoDobierane` | `frequentlyBoughtWith` |
+     | `aktywna` | `active` | `strona` | `layout` |
+     | `polecane` | `featuredProducts` | `rodzaj` | `kind` |
+     | `marka` | `brand` (→ `partners`) | `kategorie` | `categories` |
+     | `korzysc` | `benefit` | `cechy` | `features` |
+     | `branze` | `industries` | `slowaKluczowe` | `keywords` |
+     | `odznaka` | `badge` | `nowosc` | `isNew` |
+     | `autoryzacja` | `authorized` | `popularnosc` | `popularity` |
+     | `zdjecia` | `images` | `hotspoty` | `hotspots` |
+     | `moduly` | `modules` | `parametry` | `keyParams` |
+     | `specyfikacja` | `specs` | `pliki` | `files` |
+     | `pasujeDo` | `fitsWith` | `alternatywy` | `alternatives` |
+     | `typKasy` | `registerTypes` | `porownanie` | `comparison` |
+     | `kategoria` (wpisu) | `category` | `tresc` | `content` |
+     | `zrodla` | `sources` | `powiazane` | `relatedProducts` |
+     | `okladka` | `cover` | `numer` | `number` |
+     | `typ` | `type` | `pozycje` | `items` (`product`, `nameSnapshot`, `quantity`, `note`) |
+     | `kreator` | `wizard` | `tematy` / `termin` | `topics` / `deadline` |
+
+   - Dokładne nazwy pól ustala B1 według tej zasady; odstępstwa — w opisie PR B1.
+2. **Bez nowych globali** („globale na tenant” z §1.2):
+   - wspólne dane firmy (`daneFirmy`) → istniejący global `CompanyData`;
+   - dane linii (kanały kontaktu działów, WhatsApp, miejscowości obsługi, `obietnice` [SZEF], linia zaufania, flagi opinii i logo klientów, `nawigacja` mega menu) → `SiteSettings`, w grupach pól widocznych w panelu tylko dla linii biznes;
+   - `wyszukiwarka` i `kreator` → nowa kolekcja `BiznesSettings` (jeden dokument na tenanta, jak `SiteSettings`), żeby `SiteSettings` innych linii nie puchło.
+3. **Pasek sezonowy** (`pasekSezonowy`) = istniejący `CompanyData.promoBar` (ma od–do) + nowe pole `campaignId`; zamknięcie zapamiętane w `localStorage` jako `pk-sz-closed` = `campaignId`.
+4. **Strony specjalne** `/opieka-it`, `/gopos`, `/insert`, `/o-firmie`, `/kontakt` to `Pages` z blokami Biznesu (ADR-010). Logika (kalkulator przestoju, eksplorator modułów, dobór programu InsERT) w komponentach bloków; w panelu tylko treści i konfiguracja.
+5. **Trasy katalogu tylko na domenie Biznesu:** `/oferta`, `/oferta/[kategoria]`, `/produkt/[slug]`, `/branze/[branza]`, `/aktualnosci`, `/aktualnosci/[slug]`, `/kreator`, `/zapytanie`. Strażnik linii zwraca 404 na innych domenach; test izolacji jak w S3.
+6. **Kontakt działów:** w `SiteSettings` lista `contactChannels` — dział (opieka IT, kasy fiskalne, oprogramowanie, sprzęt, dofinansowania), telefon, e-mail, godziny, flaga „pokaż w stopce”.
+   - Strony działów i formularz z danym tematem biorą kanał działu; w nagłówku i górnym pasku jeden numer główny.
+   - Poziomy godzin z umów (standard 9–17, PRO 7–21, VIP 24/7) to treść `/opieka-it`, nie godziny otwarcia. Status „Otwarte teraz” liczony z godzin biura w `CompanyData`.
+   - B1 buduje pola; wartości wpisuje szef albo Krystian w panelu.
+7. **Uwagi szefa z 16.10** (szczegóły w spec. §11):
+   - `Industries`: 7 rekordów — nowa „Beauty i usługi” (`beauty`, `active=false`, „Wkrótce”); aktywne zostają gastronomia, handel, noclegi.
+   - `CatalogCategories`: 21 rekordów — nowa „Maszyny vendingowe” (`vend` → `maszyny-vendingowe`) w grupie sprzedaży. Produkty dopiero z danymi ze źródłem (strona producenta); do tego czasu kategoria bez produktów i bez opisu.
+   - Strona branży: CTA „Przygotuj ofertę dla [branża]” otwiera kreator z wybranym rodzajem firmy (rozstrzygnięcie 8).
+   - Kafelki „Oferta” i „Opieka IT” jednym komponentem; nazwy kategorii w mega menu i katalogu ≥ 15 px; referencje na stronie głównej za flagą widoczności (B3, B5, B7).
+8. **Branże: adresy i powiązanie z kreatorem.** Slugi w seedzie są skrótami; adres `/branze/[branza]` i filtr `?branza=` używają pełnych slugów:
+
+   | Seed | Slug | Rodzaj firmy w kreatorze (`wizardBusinessType`) |
+   |---|---|---|
+   | gastro | gastronomia | gastro |
+   | handel | handel | sklep |
+   | noclegi | noclegi | hotel |
+   | uslugi | biura-uslugi | biuro |
+   | szkoly | szkoly-instytucje | szkola |
+   | zdrowie | zdrowie-uzdrowiska | gabinet |
+   | beauty | beauty | gabinet |
+
+   - `Industries` dostaje pole `wizardBusinessType` (id z `rodzaje_firm` w `kreator.json`); w seedzie to pole `kreator` przy branży.
+   - CTA branży → `/kreator?firma=<wizardBusinessType>`; nieznana wartość `?firma=` jest ignorowana (krok 1 bez wyboru).
+9. **ADR-011** przyjęta (18.10.2026).

@@ -28,13 +28,13 @@ Strona ma zamieniać odwiedziny w **zapytanie albo telefon**. Klient w 5 sekund 
 |---|---|---|---|
 | `/` | Strona główna | `Main` (1440) + `Mobile` (390) | 1 |
 | `/oferta` | Katalog | `Katalog` + `KatalogM` (390) | 1 |
-| `/oferta/[kategoria]` | Kategoria (20 kategorii). Wariant rozszerzony dla `kasy-fiskalne` | `Kategoria` | 1 (porównywarka: 2) |
+| `/oferta/[kategoria]` | Kategoria (21 kategorii; „Maszyny vendingowe” bez produktów do czasu danych ze źródłem). Wariant rozszerzony dla `kasy-fiskalne` | `Kategoria` | 1 (porównywarka: 2) |
 | `/produkt/[slug]` | Produkt / usługa | `Produkt` | 1 |
 | `/zapytanie` | Lista zapytania + formularz | `Zapytanie` | 1 |
 | `/opieka-it` | Strona usługi flagowej | `Dzial` | 1 |
 | `/gopos` | Strona partnera flagowego | `Gopos` | 1 |
 | `/insert` | Strona partnera flagowego | `Insert` | 1 |
-| `/branze/[branza]` | Branża. Start: `gastronomia`, `handel`, `noclegi` | `Branza` (gastronomia) | 1 (3 branże), 2 (reszta) |
+| `/branze/[branza]` | Branża. Start: `gastronomia`, `handel`, `noclegi`; reszta (w tym `beauty`) „Wkrótce” — slugi wg ADR-012, rozstrzygnięcie 8 | `Branza` (gastronomia) | 1 (3 branże), 2 (reszta) |
 | `/kreator` | Kreator „Dobierz zestaw w 60 s” | `Kreator` | 1 |
 | `/o-firmie` | O firmie | `OFirmie` | 1 |
 | `/aktualnosci`, `/aktualnosci/[slug]` | Lista i wpis | `Aktualnosci`, `Wpis` | 1 |
@@ -59,7 +59,7 @@ Zawiera:
 - linki do linii PRO-KOM (Biznes aktywny; Instalacje, Software, Tech · naprawy, Zakopane jako linki zewnętrzne);
 - status godzin na żywo (zielona/pomarańczowa kropka);
 - linki Pomoc zdalna, Zgłoś awarię i Aktualności;
-- „Oferty i serwis: 889 003 889” jako `tel:`.
+- „Oferty i serwis: 889 003 889” jako `tel:` — jeden numer główny; telefony i e-maile działów są w `SiteSettings.contactChannels` (ADR-012, rozstrzygnięcie 6).
 
 ### 3.2 Nagłówek (sticky, półprzezroczysty z blur)
 - Elementy od lewej:
@@ -76,13 +76,14 @@ Zawiera:
 - Aktywna pozycja menu ma podkreślenie (kreska akcentu).
 - **Mega menu Oferta:**
   - 5 kolumn = 5 grup katalogu, każda z listą kategorii i liczbą pozycji;
+  - **czytelność (uwaga szefa 16.10):** nazwy kategorii min. 15 px, mniej elementów w kolumnie zamiast mniejszej czcionki;
   - w kolumnie Oprogramowanie na górze GoPOS i InsERT z etykietą „partner”;
   - w kolumnie Serwis i usługi na górze Opieka IT („abonament”) i Przegląd IT („0 zł”);
   - po prawej karty GoPOS i InsERT;
   - na dole pasek: „Cała oferta (67)”, kreator, telefon.
   - Kliknięcie kategorii prowadzi do `/oferta/[kategoria]`, kliknięcie grupy do `/oferta?grupa=…`.
   - Zamykanie: Esc, klik poza menu, zmiana trasy.
-- **Branże ▾:** 3 karty ze zdjęciem (Gastronomia, Handel i sklepy, Hotele i pensjonaty), a pod nimi „Wkrótce: …”.
+- **Branże ▾:** 3 karty ze zdjęciem (Gastronomia, Handel i sklepy, Hotele i pensjonaty), a pod nimi „Wkrótce: …” (branże z `active=false`, w tym „Beauty i usługi”).
 - **Wyszukiwarka (nakładka):**
   - otwiera ją klik w pole albo klawisz `/`, zamyka Esc;
   - wyniki na żywo: do 6 produktów, a obok kategorie z liczbą trafień i strony (GoPOS, InsERT, Opieka IT, KSeF, Kreator, Kontakt);
@@ -133,6 +134,8 @@ Zawiera:
 
 Wzór: `boards/Main.dc.html`, `screens/Main-1440-*` (9 stron), telefon: `Mobile`. Teksty bierz z planszy; są uzgodnione. Każda sekcja to blok Payload (ADR-006), więc szef może zmieniać treść bez kodu.
 
+Uwaga szefa 16.10: kafelki „Oferta” i „Opieka IT” (karty działów w hero, kafelkach i kartach grup) mają wyglądać spójnie — jeden komponent karty.
+
 1. **Hero** `#start`
    - Elementy:
      - H1 „Kasy, komputery i opieka IT. Jeden telefon do wszystkiego.”;
@@ -172,6 +175,7 @@ Wzór: `boards/Main.dc.html`, `screens/Main-1440-*` (9 stron), telefon: `Mobile`
 8. **Dla kogo pracujemy** `#referencje`: 6 rodzajów firm, opinie, logo klientów.
    - **[SZEF: 2 opinie Google 1:1 z linkiem do źródła, 4–6 logo klientów tylko za pisemną zgodą]**.
    - Do czasu zgód sekcja pokazuje rodzaje firm bez logo; flaga w panelu.
+   - Uwaga szefa 16.10: referencje i polecenia od razu na starcie — opinie i logo klientów mają osobne flagi widoczności w `SiteSettings` (włączane po zgodach).
 9. **Fakty** `#fakty`: liczby, słowo właściciela z podpisem (font Caveat) **[SZEF: treść cytatu]**, 9 miejscowości.
 10. **Ostatnio u nas:** 3 ostatnie wpisy z Aktualności.
 11. **FAQ** `#faq`: 6 pytań, `<details>` + JSON-LD `FAQPage`.
@@ -215,6 +219,7 @@ Wzór: `Katalog`, `KatalogM`, `screens/Katalog-1440-*`, `screens/KatalogM-390-li
   - maks. 2 odznaki (Usługa, Nowość, odznaka marketingowa, Autoryzowany serwis/partner);
   - logo marki, kategoria;
   - nazwa, korzyść w 1 zdaniu, 3 cechy jako tagi;
+  - czytelność (uwaga szefa 16.10): nazwa produktu i nazwy w filtrach min. 15 px, bez zmiany układu planszy;
   - „Szczegóły →” i przycisk **„+ Do zapytania”**, który po dodaniu zmienia się w „✓ W zapytaniu” i działa jako przełącznik.
   - Gdy produkt nie ma zdjęcia: ikona kategorii na gradiencie grupy.
 - **Karty promocyjne wplecione w siatkę:** kreator (po 5. pozycji) i partner (GoPOS/InsERT wg filtra). Na ciemnych kartach nagłówki zawsze białe.
@@ -340,7 +345,8 @@ Sekcje:
 - „Jak to działa”.
 - Polecane produkty z katalogu: relacja do produktów i link „Zobacz wszystko dla gastronomii” → `/oferta?branza=gastronomia`.
 - FAQ.
-- Inne branże: 3 aktywne i „Wkrótce” dla reszty.
+- CTA „Przygotuj ofertę dla [branża]” → `/kreator?firma=<rodzaj firmy>` (uwaga szefa 16.10: połączyć Branże z doborem; rodzaj firmy z pola branży `wizardBusinessType`, ADR-012 rozstrzygnięcie 8). Bez przeprojektowania strony.
+- Inne branże: 3 aktywne i „Wkrótce” dla reszty (7 branż, w tym „Beauty i usługi”).
 - Kontakt.
 
 Na start gastronomia, handel i noclegi. Treści handlu i noclegów piszemy wg wzoru gastronomii.
@@ -349,7 +355,7 @@ Na start gastronomia, handel i noclegi. Treści handlu i noclegów piszemy wg wz
 Wzór: `Kreator`; dane w `seed/prokombiznes/kreator.json`.
 
 - **4 kroki z paskiem postępu:**
-  1. Firma: 10 rodzajów firm.
+  1. Firma: 10 rodzajów firm. Parametr `?firma=<id>` (id z `rodzaje_firm`) zaznacza rodzaj od razu; nieznany id jest ignorowany.
   2. Skala: stanowiska sprzedaży, komputery, nowy lokal / działa.
   3. Potrzeby: 13 potrzeb; domyślne zaznaczenia zależą od rodzaju firmy.
   4. Kontakt: termin, imię, telefon lub e-mail, zgoda.
@@ -386,7 +392,7 @@ Wzór: `Kreator`; dane w `seed/prokombiznes/kreator.json`.
   - JSON-LD `Article`;
   - **każdy fakt prawny ze źródłem (link do aktu, MF, podatki.gov.pl) i datą weryfikacji**.
 - **Kontakt** (`Kontakt`):
-  - karty: telefon, WhatsApp, e-mail, adres;
+  - karty: telefon, WhatsApp, e-mail, adres oraz kanały działów z `SiteSettings.contactChannels` (dział, telefon, e-mail, godziny);
   - mapa jako statyczny obraz z linkiem do Map Google — bez osadzania iframe Google przed zgodą cookies;
   - godziny;
   - formularz;
@@ -398,7 +404,7 @@ Wzór: `Kreator`; dane w `seed/prokombiznes/kreator.json`.
 
 - **Teksty:** z plansz (uzgodnione). Przy przenoszeniu nie poprawiaj stylu; zmieniasz tylko punkty **[SZEF]**.
 - **Katalog:** `seed/prokombiznes/katalog.json`:
-  - 67 pozycji, 25 marek, 20 kategorii, 5 grup, 6 branż;
+  - 67 pozycji, 25 marek, 21 kategorii (w tym „Maszyny vendingowe” bez produktów), 5 grup, 7 branż (w tym „Beauty i usługi”, nieaktywna);
   - źródło: `biznes-produkty-fakty.md`, stan 15.10.2026;
   - parametry Elzab i Fawag do sprawdzenia u producentów.
 - **Media:** `docs/design/prokombiznes/boards/media/` i opis w `seed/prokombiznes/media.json`.
@@ -522,6 +528,14 @@ Jeśli 26.10 jest zagrożone, **tniemy od końca listy etapu 1, nie jakość**. 
   - Jeśli `docs/marka.md` ma inne wartości tła i tekstu dla linii Biznes, zaktualizuj `marka.md` w tym samym PR i zaznacz to w opisie PR.
 - „Sklep dla firm” został zastąpiony katalogiem z listą zapytania. Sklep B2B z cenami to faza 2 (2027).
 - Podstrona „Dla Twojej firmy” → **Branże**.
+- **Uwagi szefa z 16.10** (Asana „Biznes: wprowadzenie uwag szefa z wizualizacji”, wprowadzone w B0 18.10.2026; model: ADR-012 „Rozstrzygnięcia”):
+  - nowa branża „Beauty i usługi” jako 7. branża „Wkrótce” (§2, §3.2, §6.7);
+  - nowa kategoria „Maszyny vendingowe” (21.) w grupie „Kasy i sprzedaż”; produkty Elzab dopiero z danymi ze źródłem (§2, §7, §13);
+  - Branże połączone z doborem: CTA „Przygotuj ofertę dla …” → `/kreator?firma=…` (§6.7, §6.8);
+  - kafelki „Oferta” i „Opieka IT” jednym komponentem (§4);
+  - czytelniejsza oferta: min. 15 px dla nazw w mega menu, na kartach i w filtrach (§3.2, §5.3);
+  - referencje i polecenia od razu, za flagami widoczności (§4, sekcja 8);
+  - kanały kontaktu działów w `SiteSettings`, w nagłówku jeden numer (§3.1, §6.9).
 
 ## 12. Poza zakresem
 - Ceny, koszyk z płatnością, konta klientów, Strefa Klienta.
@@ -545,3 +559,5 @@ Zbiorczo, wszystkie edytowalne w panelu:
 5. Opinie (2 z Google), logo klientów (zgody), cytat właściciela, zdjęcia ludzi czy ikony ról.
 6. 12 produktów wyróżnionych wg faktycznej sprzedaży.
 7. Rozważyć zdanie „orientacyjną wycenę podamy w pierwszej rozmowie”.
+8. Maszyny vendingowe: 1–2 produkty Elzab i krótki opis kategorii — **TODO(krystian):** dane ze strony producenta (źródło + data weryfikacji); do tego czasu kategoria pusta.
+9. Kanały kontaktu działów: telefon, e-mail i godziny każdego działu (Asana, termin 20.10).

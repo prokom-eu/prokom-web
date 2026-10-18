@@ -30,7 +30,7 @@ Zasady jak w fundamencie:
 
 ---
 
-## 2. B0 — decyzje przed pierwszą linijką kodu (Krystian, ok. 1 h, niedziela 18.10)
+## 2. B0 — decyzje przed pierwszą linijką kodu (Krystian, ok. 1 h, niedziela 18.10) — ✅ wpisane 18.10 (ADR-012 „Rozstrzygnięcia”, spec. §11)
 
 Bez nich sesja B1 zbuduje model, który trzeba będzie przerabiać migracjami. Każdą decyzję wpisz w ADR-012 („Rozstrzygnięcia”) albo w spec. i zmień status ADR-012 na „przyjęta”.
 
