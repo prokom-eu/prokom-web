@@ -88,6 +88,9 @@ test.describe('inquiry inbox (ADR-003)', () => {
     const { json: tenants } = await api(page, 'GET', '/api/tenants?where[slug][equals]=biznes')
     expect(record?.tenant).toBe((tenants.docs as { id: number }[])[0]?.id)
     const id = record?.id as number
+    // B1b: the server numbers every inquiry (PKB = Biznes) and the form sends the contact type.
+    expect(record).toMatchObject({ type: 'contact' })
+    expect(record?.number).toMatch(new RegExp(`^PKB-\\d{4}-${String(id).padStart(4, '0')}$`))
 
     try {
       // Notification to the line inbox (seed: biznes@example.test), customer as Reply-To.

@@ -8,6 +8,7 @@ import {
   toPublicCompanyData,
   toPublicSiteSettings,
 } from './public'
+import { isLine } from '../tenant/lines'
 
 /** Shared company data (all domains). Deduplicated per request by React `cache`. */
 export const getCompanyData = cache(async (): Promise<PublicCompanyData | null> => {
@@ -32,11 +33,14 @@ export const getSiteSettings = cache(
       collection: 'site-settings',
       where: { tenant: { equals: tenantId } },
       limit: 1,
-      // 1: the OG image comes populated (`toPublicSiteSettings` keeps only a public one).
+      // 1: the OG image comes populated (`toPublicSiteSettings` keeps only a public one),
+      // and so does the tenant, whose line decides what the site may show.
       depth: 1,
       overrideAccess: true,
     })
     const [doc] = docs
-    return doc ? toPublicSiteSettings(doc) : null
+    if (!doc) return null
+    const line = typeof doc.tenant === 'object' && isLine(doc.tenant?.line) ? doc.tenant.line : null
+    return toPublicSiteSettings(doc, line)
   },
 )

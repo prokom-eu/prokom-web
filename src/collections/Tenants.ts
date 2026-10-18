@@ -69,6 +69,7 @@ const TENANT_CONTENT: readonly { collection: CollectionSlug; label: string }[] =
   { collection: 'industries', label: 'branże' },
   { collection: 'products', label: 'produkty' },
   { collection: 'posts', label: 'wpisy' },
+  { collection: 'biznes-settings', label: 'ustawienia Biznesu' },
 ]
 
 const refuse = (message: string) => new APIError(message, 400, null, true)

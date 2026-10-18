@@ -11,6 +11,7 @@ import { ogImages } from '@/lib/pages/metadata'
 import { organizationJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
 import { robotsMeta } from '@/lib/seo/robots'
 import { getCompanyData, getSiteSettings } from '@/lib/site/data'
+import { isPromoForLine } from '@/lib/site/promo'
 import { isValidTitleTemplate } from '@/lib/site/title'
 
 import { requestOrigin, requireTenant } from './tenant'
@@ -71,7 +72,9 @@ export default async function TenantLayout({ children, params }: Props) {
         Przejdź do treści
       </a>
       <BrandBar line={tenant.line} phone={settings?.phone ?? null} />
-      {company?.promo && <PromoBar promo={company.promo} />}
+      {company?.promo && isPromoForLine(company.promo.lines, tenant.line) && (
+        <PromoBar promo={company.promo} />
+      )}
       <SiteHeader tenant={tenant} settings={settings} />
       <main id="tresc">{children}</main>
       <SiteFooter line={tenant.line} name={tenant.name} company={company} settings={settings} />

@@ -1,16 +1,26 @@
 import type {
+  CollectionAfterChangeHook,
   CollectionAfterDeleteHook,
   CollectionBeforeChangeHook,
   CollectionConfig,
 } from 'payload'
 
 import { adminOnly } from '../lib/auth/access'
+import { inquiryNumber } from '../lib/inquiry/number'
 import { INQUIRY_STATUSES, nextStatusChangedAt } from '../lib/inquiry/status'
-import { LINES } from '../lib/tenant/lines'
+import { isLine, LINES } from '../lib/tenant/lines'
 
 // Everything but `status` is what the customer sent: nobody edits it, not even an admin.
 // Field access strips such values from API updates; `readOnly` only greys out the panel.
 const locked = { update: () => false }
+
+// ADR-012 §3; the forms of the Biznes line send them from B8, the contact form today.
+const INQUIRY_TYPES = [
+  { label: 'Kontakt', value: 'contact' },
+  { label: 'Lista zapytania', value: 'list' },
+  { label: 'Kreator', value: 'wizard' },
+  { label: 'Zapytaj o frazę', value: 'search' },
+] as const
 
 const trackStatusChange: CollectionBeforeChangeHook = ({ data, operation, originalDoc }) => {
   if (operation !== 'create' && operation !== 'update') return data
@@ -24,6 +34,24 @@ const trackStatusChange: CollectionBeforeChangeHook = ({ data, operation, origin
       now: new Date(),
     }),
   }
+}
+
+/**
+ * Number from the id (`lib/inquiry/number`), so it is set right after the insert, in the same
+ * transaction (`req`). Any way of creating an inquiry gets one, not only the form.
+ */
+const assignNumber: CollectionAfterChangeHook = async ({ doc, operation, req }) => {
+  if (operation !== 'create' || doc.number || !isLine(doc.line)) return doc
+  const number = inquiryNumber({ id: doc.id, line: doc.line, createdAt: doc.createdAt })
+  return req.payload.update({
+    collection: 'inquiries',
+    id: doc.id,
+    data: { number },
+    depth: 0,
+    // The field is locked for everyone; the server sets it once.
+    overrideAccess: true,
+    req,
+  })
 }
 
 /** Right-to-erasure trail (ADR-003): who deleted which record and when, never its content. */
@@ -53,7 +81,7 @@ export const Inquiries: CollectionConfig = {
   labels: { singular: 'Zapytanie', plural: 'Zapytania' },
   admin: {
     useAsTitle: 'name',
-    defaultColumns: ['createdAt', 'name', 'line', 'category', 'status'],
+    defaultColumns: ['number', 'createdAt', 'name', 'line', 'type', 'status'],
     group: 'Zapytania',
     description: 'Zapytania z formularzy stron. Zmieniasz tylko status.',
   },
@@ -67,6 +95,7 @@ export const Inquiries: CollectionConfig = {
   },
   hooks: {
     beforeChange: [trackStatusChange],
+    afterChange: [assignNumber],
     afterDelete: [recordDeletion],
   },
   fields: [
@@ -79,6 +108,14 @@ export const Inquiries: CollectionConfig = {
       index: true,
       options: [...INQUIRY_STATUSES],
       admin: { position: 'sidebar' },
+    },
+    {
+      name: 'number',
+      label: 'Numer',
+      type: 'text',
+      unique: true,
+      access: locked,
+      admin: { readOnly: true, position: 'sidebar', description: 'Np. PKB-2026-0042.' },
     },
     {
       name: 'statusChangedAt',
@@ -100,6 +137,17 @@ export const Inquiries: CollectionConfig = {
       required: true,
       index: true,
       options: [...LINES],
+      access: locked,
+      admin: { readOnly: true, position: 'sidebar' },
+    },
+    {
+      name: 'type',
+      label: 'Rodzaj',
+      type: 'select',
+      required: true,
+      defaultValue: 'contact',
+      index: true,
+      options: [...INQUIRY_TYPES],
       access: locked,
       admin: { readOnly: true, position: 'sidebar' },
     },
@@ -127,6 +175,54 @@ export const Inquiries: CollectionConfig = {
       label: 'Wiadomość',
       type: 'textarea',
       required: true,
+      access: locked,
+      admin: { readOnly: true },
+    },
+    {
+      name: 'preferredContact',
+      label: 'Preferowany kontakt',
+      type: 'select',
+      options: [
+        { label: 'Telefon', value: 'phone' },
+        { label: 'E-mail', value: 'email' },
+        { label: 'Obojętnie', value: 'any' },
+      ],
+      access: locked,
+      admin: { readOnly: true },
+    },
+    {
+      name: 'topics',
+      label: 'Tematy',
+      type: 'text',
+      hasMany: true,
+      access: locked,
+      admin: { readOnly: true },
+    },
+    {
+      name: 'deadline',
+      label: 'Termin',
+      type: 'text',
+      access: locked,
+      admin: { readOnly: true, description: 'Np. „Przed sezonem”.' },
+    },
+    {
+      // Snapshot of the inquiry list (spec. §8.1): the name stays even if the product changes.
+      name: 'items',
+      label: 'Pozycje',
+      type: 'array',
+      access: locked,
+      admin: { readOnly: true },
+      fields: [
+        { name: 'product', label: 'Produkt', type: 'relationship', relationTo: 'products' },
+        { name: 'nameSnapshot', label: 'Nazwa', type: 'text', required: true },
+        { name: 'quantity', label: 'Ilość', type: 'number', required: true, min: 1 },
+        { name: 'note', label: 'Uwaga', type: 'textarea' },
+      ],
+    },
+    {
+      name: 'wizard',
+      label: 'Odpowiedzi z kreatora',
+      type: 'json',
       access: locked,
       admin: { readOnly: true },
     },

@@ -7,6 +7,7 @@ import { buildConfig } from 'payload'
 import sharp from 'sharp'
 import { fileURLToPath } from 'url'
 
+import { BiznesSettings } from './collections/BiznesSettings'
 import { CatalogCategories } from './collections/CatalogCategories'
 import { CatalogGroups } from './collections/CatalogGroups'
 import { Industries } from './collections/Industries'
@@ -57,6 +58,7 @@ export default buildConfig({
     Industries,
     Products,
     Posts,
+    BiznesSettings,
   ],
   globals: [CompanyData],
   editor: lexicalEditor(),
@@ -132,6 +134,8 @@ export default buildConfig({
         industries: {},
         products: {},
         posts: {},
+        // One document per tenant, Biznes only (`BiznesSettings` hook).
+        'biznes-settings': { isGlobal: true },
       },
       // Deleting a tenant must never silently delete its content.
       cleanupAfterTenantDelete: false,

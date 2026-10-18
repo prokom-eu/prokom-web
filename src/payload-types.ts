@@ -81,6 +81,7 @@ export interface Config {
     industries: Industry;
     products: Product;
     posts: Post;
+    'biznes-settings': BiznesSetting;
     'payload-kv': PayloadKv;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
@@ -103,6 +104,7 @@ export interface Config {
     industries: IndustriesSelect<false> | IndustriesSelect<true>;
     products: ProductsSelect<false> | ProductsSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
+    'biznes-settings': BiznesSettingsSelect<false> | BiznesSettingsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -218,12 +220,15 @@ export interface Tenant {
   createdAt: string;
 }
 /**
+ * Pola linii Biznes pojawiają się w ustawieniach Biznesu po pierwszym zapisie.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "site-settings".
  */
 export interface SiteSetting {
   id: number;
   tenant?: (number | null) | Tenant;
+  line?: ('prokom' | 'biznes' | 'instalacje' | 'software') | null;
   phone?: string | null;
   email?: string | null;
   navigation?:
@@ -256,6 +261,44 @@ export interface SiteSetting {
      * Pokazuje się przy linku na Facebooku czy w komunikatorach (1200×630).
      */
     ogImage?: (number | null) | Media;
+  };
+  biznes?: {
+    /**
+     * W nagłówku zostaje jeden numer główny (telefon linii wyżej).
+     */
+    contactChannels?:
+      | {
+          department: 'it-care' | 'fiscal' | 'software' | 'hardware' | 'funding';
+          phone?: string | null;
+          email?: string | null;
+          hours?: string | null;
+          showInFooter?: boolean | null;
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Numer z kierunkowym, np. +48 889 003 889.
+     */
+    whatsapp?: string | null;
+    /**
+     * [SZEF] np. „Serwis Posnet i Elzab · partner GoPOS i InsERT”.
+     */
+    trustLine?: string | null;
+    serviceAreas?: string[] | null;
+    /**
+     * Tylko prawdziwe obietnice; pusta = niewidoczna na stronie.
+     */
+    promises?: {
+      callbackTime?: string | null;
+      itReview?: string | null;
+      includedWithRegister?: string | null;
+      serviceTakeover?: string | null;
+    };
+    showReviews?: boolean | null;
+    /**
+     * Tylko logo z pisemną zgodą (obrazy bez „Wymaga zgody”).
+     */
+    showClientLogos?: boolean | null;
   };
   updatedAt: string;
   createdAt: string;
@@ -555,10 +598,15 @@ export interface Inquiry {
   tenant?: (number | null) | Tenant;
   status: 'new' | 'in_progress' | 'closed';
   /**
+   * Np. PKB-2026-0042.
+   */
+  number?: string | null;
+  /**
    * Od tej daty liczy się okres przechowywania zamkniętych zapytań.
    */
   statusChangedAt?: string | null;
   line: 'prokom' | 'biznes' | 'instalacje' | 'software';
+  type: 'contact' | 'list' | 'wizard' | 'search';
   category?: string | null;
   name: string;
   company?: string | null;
@@ -566,6 +614,30 @@ export interface Inquiry {
   email?: string | null;
   phone?: string | null;
   message: string;
+  preferredContact?: ('phone' | 'email' | 'any') | null;
+  topics?: string[] | null;
+  /**
+   * Np. „Przed sezonem”.
+   */
+  deadline?: string | null;
+  items?:
+    | {
+        product?: (number | null) | Product;
+        nameSnapshot: string;
+        quantity: number;
+        note?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  wizard?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   source: {
     url: string;
     utmSource?: string | null;
@@ -578,145 +650,6 @@ export interface Inquiry {
     acceptedAt: string;
   };
   marketingConsent?: boolean | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "inquiry-deletions".
- */
-export interface InquiryDeletion {
-  id: number;
-  inquiryId: number;
-  reason: 'request' | 'retention';
-  deletedBy?: (number | null) | User;
-  deletedByEmail?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "catalog-groups".
- */
-export interface CatalogGroup {
-  id: number;
-  tenant?: (number | null) | Tenant;
-  name: string;
-  /**
-   * Część adresu, np. „sprzedaz”.
-   */
-  slug: string;
-  icon:
-    | 'shield'
-    | 'cal'
-    | 'users'
-    | 'store'
-    | 'bolt'
-    | 'doc'
-    | 'life'
-    | 'arrow'
-    | 'check'
-    | 'phone'
-    | 'mail'
-    | 'pin'
-    | 'clock'
-    | 'monitor'
-    | 'remote'
-    | 'bell'
-    | 'wallet'
-    | 'chat'
-    | 'wrench'
-    | 'rocket'
-    | 'map'
-    | 'star'
-    | 'q'
-    | 'flash'
-    | 'grad'
-    | 'server'
-    | 'compass';
-  gradientFrom: string;
-  gradientTo: string;
-  /**
-   * Mniejsza liczba = wcześniej.
-   */
-  order?: number | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "catalog-categories".
- */
-export interface CatalogCategory {
-  id: number;
-  tenant?: (number | null) | Tenant;
-  name: string;
-  /**
-   * Część adresu, np. „kasy-fiskalne”.
-   */
-  slug: string;
-  group: number | CatalogGroup;
-  icon?:
-    | (
-        | 'shield'
-        | 'cal'
-        | 'users'
-        | 'store'
-        | 'bolt'
-        | 'doc'
-        | 'life'
-        | 'arrow'
-        | 'check'
-        | 'phone'
-        | 'mail'
-        | 'pin'
-        | 'clock'
-        | 'monitor'
-        | 'remote'
-        | 'bell'
-        | 'wallet'
-        | 'chat'
-        | 'wrench'
-        | 'rocket'
-        | 'map'
-        | 'star'
-        | 'q'
-        | 'flash'
-        | 'grad'
-        | 'server'
-        | 'compass'
-      )
-    | null;
-  /**
-   * Jedno zdanie pod nazwą w menu i na kafelku.
-   */
-  description?: string | null;
-  hero?: {
-    /**
-     * Puste = nazwa.
-     */
-    title?: string | null;
-    lead?: string | null;
-    highlights?: string[] | null;
-    image?: (number | null) | Media;
-  };
-  included?: string[] | null;
-  faq?:
-    | {
-        question: string;
-        answer: string;
-        id?: string | null;
-      }[]
-    | null;
-  frequentlyBoughtWith?: (number | Product)[] | null;
-  /**
-   * Mniejsza liczba = wcześniej.
-   */
-  order?: number | null;
-  seo?: {
-    title?: string | null;
-    description?: string | null;
-  };
   updatedAt: string;
   createdAt: string;
 }
@@ -888,6 +821,132 @@ export interface Product {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "catalog-categories".
+ */
+export interface CatalogCategory {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  name: string;
+  /**
+   * Część adresu, np. „kasy-fiskalne”.
+   */
+  slug: string;
+  group: number | CatalogGroup;
+  icon?:
+    | (
+        | 'shield'
+        | 'cal'
+        | 'users'
+        | 'store'
+        | 'bolt'
+        | 'doc'
+        | 'life'
+        | 'arrow'
+        | 'check'
+        | 'phone'
+        | 'mail'
+        | 'pin'
+        | 'clock'
+        | 'monitor'
+        | 'remote'
+        | 'bell'
+        | 'wallet'
+        | 'chat'
+        | 'wrench'
+        | 'rocket'
+        | 'map'
+        | 'star'
+        | 'q'
+        | 'flash'
+        | 'grad'
+        | 'server'
+        | 'compass'
+      )
+    | null;
+  /**
+   * Jedno zdanie pod nazwą w menu i na kafelku.
+   */
+  description?: string | null;
+  hero?: {
+    /**
+     * Puste = nazwa.
+     */
+    title?: string | null;
+    lead?: string | null;
+    highlights?: string[] | null;
+    image?: (number | null) | Media;
+  };
+  included?: string[] | null;
+  faq?:
+    | {
+        question: string;
+        answer: string;
+        id?: string | null;
+      }[]
+    | null;
+  frequentlyBoughtWith?: (number | Product)[] | null;
+  /**
+   * Mniejsza liczba = wcześniej.
+   */
+  order?: number | null;
+  seo?: {
+    title?: string | null;
+    description?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "catalog-groups".
+ */
+export interface CatalogGroup {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  name: string;
+  /**
+   * Część adresu, np. „sprzedaz”.
+   */
+  slug: string;
+  icon:
+    | 'shield'
+    | 'cal'
+    | 'users'
+    | 'store'
+    | 'bolt'
+    | 'doc'
+    | 'life'
+    | 'arrow'
+    | 'check'
+    | 'phone'
+    | 'mail'
+    | 'pin'
+    | 'clock'
+    | 'monitor'
+    | 'remote'
+    | 'bell'
+    | 'wallet'
+    | 'chat'
+    | 'wrench'
+    | 'rocket'
+    | 'map'
+    | 'star'
+    | 'q'
+    | 'flash'
+    | 'grad'
+    | 'server'
+    | 'compass';
+  gradientFrom: string;
+  gradientTo: string;
+  /**
+   * Mniejsza liczba = wcześniej.
+   */
+  order?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "industries".
  */
 export interface Industry {
@@ -932,6 +991,19 @@ export interface Industry {
     title?: string | null;
     description?: string | null;
   };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "inquiry-deletions".
+ */
+export interface InquiryDeletion {
+  id: number;
+  inquiryId: number;
+  reason: 'request' | 'retention';
+  deletedBy?: (number | null) | User;
+  deletedByEmail?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -985,6 +1057,42 @@ export interface Post {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "biznes-settings".
+ */
+export interface BiznesSetting {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  search?: {
+    /**
+     * Fraza klienta → słowa, które też szukamy (bez polskich znaków).
+     */
+    synonyms?:
+      | {
+          phrase: string;
+          expansions: string[];
+          id?: string | null;
+        }[]
+      | null;
+    stopWords?: string[] | null;
+    popular?: string[] | null;
+  };
+  /**
+   * Rodzaje firm, potrzeby, propozycje i plakietki kreatora (/kreator). Zmieniaj ostrożnie — zapis sprawdza, czy reguły się zgadzają.
+   */
+  wizard?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1166,6 +1274,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'posts';
         value: number | Post;
+      } | null)
+    | ({
+        relationTo: 'biznes-settings';
+        value: number | BiznesSetting;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -1265,6 +1377,7 @@ export interface TenantsSelect<T extends boolean = true> {
  */
 export interface SiteSettingsSelect<T extends boolean = true> {
   tenant?: T;
+  line?: T;
   phone?: T;
   email?: T;
   navigation?:
@@ -1292,6 +1405,33 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         titleTemplate?: T;
         description?: T;
         ogImage?: T;
+      };
+  biznes?:
+    | T
+    | {
+        contactChannels?:
+          | T
+          | {
+              department?: T;
+              phone?: T;
+              email?: T;
+              hours?: T;
+              showInFooter?: T;
+              id?: T;
+            };
+        whatsapp?: T;
+        trustLine?: T;
+        serviceAreas?: T;
+        promises?:
+          | T
+          | {
+              callbackTime?: T;
+              itReview?: T;
+              includedWithRegister?: T;
+              serviceTakeover?: T;
+            };
+        showReviews?: T;
+        showClientLogos?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -1549,8 +1689,10 @@ export interface RedirectsSelect<T extends boolean = true> {
 export interface InquiriesSelect<T extends boolean = true> {
   tenant?: T;
   status?: T;
+  number?: T;
   statusChangedAt?: T;
   line?: T;
+  type?: T;
   category?: T;
   name?: T;
   company?: T;
@@ -1558,6 +1700,19 @@ export interface InquiriesSelect<T extends boolean = true> {
   email?: T;
   phone?: T;
   message?: T;
+  preferredContact?: T;
+  topics?: T;
+  deadline?: T;
+  items?:
+    | T
+    | {
+        product?: T;
+        nameSnapshot?: T;
+        quantity?: T;
+        note?: T;
+        id?: T;
+      };
+  wizard?: T;
   source?:
     | T
     | {
@@ -1800,6 +1955,29 @@ export interface PostsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "biznes-settings_select".
+ */
+export interface BiznesSettingsSelect<T extends boolean = true> {
+  tenant?: T;
+  search?:
+    | T
+    | {
+        synonyms?:
+          | T
+          | {
+              phrase?: T;
+              expansions?: T;
+              id?: T;
+            };
+        stopWords?: T;
+        popular?: T;
+      };
+  wizard?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv_select".
  */
 export interface PayloadKvSelect<T extends boolean = true> {
@@ -1903,10 +2081,18 @@ export interface CompanyDatum {
     id?: string | null;
   }[];
   /**
-   * Widoczny na wszystkich stronach, gdy ma tekst i trwa okres od–do.
+   * Widoczny na wybranych stronach, gdy ma tekst i trwa okres od–do.
    */
   promoBar?: {
     text?: string | null;
+    /**
+     * Puste = na wszystkich stronach.
+     */
+    lines?: ('prokom' | 'biznes' | 'instalacje' | 'software')[] | null;
+    /**
+     * Zmień przy nowej kampanii, np. „kasy-2026”.
+     */
+    campaignId?: string | null;
     href?: string | null;
     startsAt?: string | null;
     endsAt?: string | null;
@@ -1968,6 +2154,8 @@ export interface CompanyDataSelect<T extends boolean = true> {
     | T
     | {
         text?: T;
+        lines?: T;
+        campaignId?: T;
         href?: T;
         startsAt?: T;
         endsAt?: T;

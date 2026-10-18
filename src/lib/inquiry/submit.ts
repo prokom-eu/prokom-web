@@ -92,6 +92,8 @@ export async function submitInquiryWith(
       tenant: tenant.id,
       line: tenant.line,
       status: 'new',
+      // The only form so far (S8b); the Biznes list and wizard forms send their type from B8.
+      type: 'contact',
       category: input.category,
       name: input.name,
       company: input.company,
