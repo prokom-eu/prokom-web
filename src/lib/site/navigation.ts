@@ -26,6 +26,14 @@ export function menuItemHrefError(type: MenuItemType, href: string | null | unde
   return isValidNavHref(href) ? null : 'Ścieżka (/kontakt), adres https://, mailto: albo tel:.'
 }
 
+/** Oferta ▾ and Branże ▾ at most once each: two would render two panels with one `id`. */
+export function duplicateDropdownError(types: MenuItemType[]): string | null {
+  const dropdowns = types.filter((type) => type !== 'link')
+  return new Set(dropdowns).size === dropdowns.length
+    ? null
+    : 'Oferta ▾ i Branże ▾ mogą być w menu najwyżej raz.'
+}
+
 type Link = { label: string; href: string }
 
 export type PublicBiznesNavigation = {
@@ -82,11 +90,13 @@ export function toPublicNavigation(
   const own = (record: { tenant?: unknown } | null): boolean =>
     record !== null && tenantIdOf(record.tenant) === tenantId
   return {
-    menu: (navigation?.menu ?? []).flatMap(({ type, label, href, partner }) =>
-      menuItemHrefError(type, href) === null
+    menu: (navigation?.menu ?? []).flatMap(({ type, label, href, partner }, i, all) => {
+      // Only the first dropdown of a kind, whatever was saved past the panel's validation.
+      const repeated = type !== 'link' && all.findIndex((item) => item.type === type) !== i
+      return !repeated && menuItemHrefError(type, href) === null
         ? [{ type, label, href: href || null, partner: partner ?? false }]
-        : [],
-    ),
+        : []
+    }),
     shortcuts: (navigation?.shortcuts ?? []).map(({ label, href }) => ({ label, href })),
     columnLimit: navigation?.columnLimit ?? DEFAULT_COLUMN_LIMIT,
     highlights: (navigation?.highlights ?? []).flatMap(({ group, label, href, badge }) => {
@@ -120,4 +130,21 @@ export function toPublicNavigation(
         : []
     }),
   }
+}
+
+/**
+ * The menu as the header can show it: until the catalog or the industries have content (e.g.
+ * staging before the import), Oferta ▾ becomes a plain link to the catalog and an empty
+ * Branże ▾ disappears — never an empty panel.
+ */
+export function withoutEmptyDropdowns(
+  menu: PublicBiznesNavigation['menu'],
+  content: { offer: boolean; industries: boolean },
+): PublicBiznesNavigation['menu'] {
+  return menu.flatMap((item) => {
+    if (item.type === 'offer' && !content.offer) {
+      return [{ ...item, type: 'link' as const, href: item.href ?? '/oferta' }]
+    }
+    return item.type === 'industries' && !content.industries ? [] : [item]
+  })
 }

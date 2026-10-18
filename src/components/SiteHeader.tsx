@@ -6,11 +6,9 @@ import { NavLinks } from './NavLinks'
 import { SiteLogo } from './SiteLogo'
 import { ThemeToggle } from './ThemeToggle'
 import { Container } from './ui/Container'
+import { ICON_BUTTON } from './ui/iconButton'
 
 type Props = { tenant: SiteTenant; settings: PublicSiteSettings | null }
-
-export const ICON_BUTTON =
-  'inline-flex size-11 items-center justify-center rounded-xl border border-border text-ink hover:bg-surface-2'
 
 /**
  * Sticky header: the line's logo (negative version in the dark theme), the main navigation from

@@ -3,6 +3,7 @@ import type { Field } from 'payload'
 import { isValidNavHref } from '../lib/site/link'
 import {
   DEFAULT_COLUMN_LIMIT,
+  duplicateDropdownError,
   MENU_ITEM_TYPES,
   menuItemHrefError,
   type MenuItemType,
@@ -39,6 +40,12 @@ export const biznesNavigation: Field = {
       type: 'array',
       maxRows: 10,
       admin: { description: 'Kolejność pozycji w nagłówku i w menu na telefonie.' },
+      validate: (rows: unknown) =>
+        duplicateDropdownError(
+          (Array.isArray(rows) ? rows : []).map(
+            (row: { type?: MenuItemType }) => row.type ?? 'link',
+          ),
+        ) ?? true,
       fields: [
         {
           type: 'row',

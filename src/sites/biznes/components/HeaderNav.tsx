@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { type ReactNode, useEffect, useId, useRef, useState } from 'react'
 
@@ -42,7 +43,7 @@ function Chevron({ open }: { open: boolean }) {
  * Desktop menu of the Biznes header (spec. §3.2) in the order set in the panel. Oferta ▾ and
  * Branże ▾ are disclosure buttons (`aria-expanded`), not ARIA menus: their panels hold plain
  * links reached with Tab. A panel closes on Esc (focus back on its button), a click outside,
- * focus leaving it and a route change. Without JavaScript the panels stay closed; their pages
+ * focus moving out of it and a route change (links are `next/link`, so the layout stays). Without JavaScript the panels stay closed; their pages
  * are linked from the footer and the catalog.
  */
 export function HeaderNav({ menu, panels }: Props) {
@@ -85,8 +86,8 @@ export function HeaderNav({ menu, panels }: Props) {
             const current = pathOf(item.href) === pathname
             return (
               <li key={i}>
-                <a
-                  href={item.href ?? undefined}
+                <Link
+                  href={item.href ?? '/'}
                   aria-current={current ? 'page' : undefined}
                   className={cx(ITEM, current ? 'after:bg-accent' : 'hover:after:bg-border')}
                 >
@@ -95,7 +96,7 @@ export function HeaderNav({ menu, panels }: Props) {
                   )}
                   {item.label}
                   {item.partner && <span className="sr-only">(partner)</span>}
-                </a>
+                </Link>
               </li>
             )
           }
@@ -108,10 +109,12 @@ export function HeaderNav({ menu, panels }: Props) {
             <li
               key={i}
               onBlur={(event) => {
-                // Focus left the button and its panel (Tab past the last link): close it.
-                if (expanded && !event.currentTarget.contains(event.relatedTarget as Node | null)) {
-                  setOpen(null)
-                }
+                // Focus moved to an element outside the button and its panel (Tab past the
+                // last link): close it. A click on the panel's background leaves no target
+                // (`relatedTarget` = null) and must not close it; clicks outside are handled
+                // by `pointerdown` above.
+                const next = event.relatedTarget
+                if (expanded && next && !event.currentTarget.contains(next)) setOpen(null)
               }}
             >
               <button

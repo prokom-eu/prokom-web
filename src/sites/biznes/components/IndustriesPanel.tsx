@@ -19,7 +19,7 @@ export function IndustriesPanel({ industries, soon }: Props) {
     <Container>
       <div className="mx-auto grid max-w-2xl gap-2.5 rounded-b-3xl border border-t-0 border-border bg-card p-4 shadow-2xl sm:grid-cols-3">
         {industries.map((industry) => (
-          <a
+          <Link
             key={industry.slug}
             href={`/branze/${industry.slug}`}
             className="flex flex-col gap-1.5 rounded-2xl bg-surface-2 p-3 transition-transform hover:-translate-y-0.5"
@@ -37,7 +37,7 @@ export function IndustriesPanel({ industries, soon }: Props) {
             {industry.description && (
               <span className="text-[0.8rem] leading-snug text-ink-2">{industry.description}</span>
             )}
-          </a>
+          </Link>
         ))}
         {soon.length > 0 && (
           <p className="text-sm text-ink-2 sm:col-span-full">

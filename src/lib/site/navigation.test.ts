@@ -2,7 +2,13 @@ import { describe, expect, it } from 'vitest'
 
 import type { CatalogGroup, Industry, Partner, SiteSetting } from '@/payload-types'
 
-import { menuItemHrefError, toPublicNavigation } from './navigation'
+import {
+  duplicateDropdownError,
+  menuItemHrefError,
+  type PublicBiznesNavigation,
+  toPublicNavigation,
+  withoutEmptyDropdowns,
+} from './navigation'
 
 describe('menuItemHrefError', () => {
   it('requires a valid link for a plain menu item', () => {
@@ -95,5 +101,54 @@ describe('toPublicNavigation', () => {
   it('leaves inactive industries out of the cards (they show as "Wkrótce")', () => {
     const navigation: Navigation = { industries: [{ industry: industry('beauty', OWN, false) }] }
     expect(toPublicNavigation(navigation, OWN).industries).toEqual([])
+  })
+})
+
+describe('duplicateDropdownError', () => {
+  it('allows each dropdown once and any number of links', () => {
+    expect(duplicateDropdownError(['offer', 'link', 'industries', 'link'])).toBeNull()
+  })
+
+  it('rejects a second Oferta ▾ or Branże ▾', () => {
+    expect(duplicateDropdownError(['offer', 'link', 'offer'])).not.toBeNull()
+    expect(duplicateDropdownError(['industries', 'industries'])).not.toBeNull()
+  })
+})
+
+describe('toPublicNavigation — duplicates', () => {
+  // Read with `overrideAccess`: data saved past the validation must not render twice.
+  it('keeps only the first dropdown of each kind', () => {
+    const navigation: Navigation = {
+      menu: [
+        { type: 'offer', label: 'Oferta' },
+        { type: 'offer', label: 'Oferta 2' },
+        { type: 'industries', label: 'Branże' },
+        { type: 'industries', label: 'Branże 2' },
+      ],
+    }
+    expect(toPublicNavigation(navigation, OWN).menu.map((item) => item.label)).toEqual([
+      'Oferta',
+      'Branże',
+    ])
+  })
+})
+
+describe('withoutEmptyDropdowns', () => {
+  const menu: PublicBiznesNavigation['menu'] = [
+    { type: 'offer', label: 'Oferta', href: null, partner: false },
+    { type: 'industries', label: 'Branże', href: null, partner: false },
+    { type: 'link', label: 'Kontakt', href: '/kontakt', partner: false },
+  ]
+
+  it('keeps dropdowns that have content', () => {
+    expect(withoutEmptyDropdowns(menu, { offer: true, industries: true })).toEqual(menu)
+  })
+
+  // Empty catalog or no industries yet (e.g. staging before the import).
+  it('turns an empty Oferta ▾ into a link and drops an empty Branże ▾', () => {
+    expect(withoutEmptyDropdowns(menu, { offer: false, industries: false })).toEqual([
+      { type: 'link', label: 'Oferta', href: '/oferta', partner: false },
+      { type: 'link', label: 'Kontakt', href: '/kontakt', partner: false },
+    ])
   })
 })

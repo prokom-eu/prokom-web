@@ -36,9 +36,9 @@ export function MegaMenuPanel({ menu, shortcuts, cards }: Props) {
             {shortcuts.map((link, i) => (
               <span key={link.href} className="inline-flex items-center gap-2">
                 {i > 0 && <span aria-hidden="true">·</span>}
-                <a href={link.href} className="font-extrabold text-ink hover:underline">
+                <Link href={link.href} className="font-extrabold text-ink hover:underline">
                   {link.label}
-                </a>
+                </Link>
               </span>
             ))}
           </p>
@@ -47,7 +47,7 @@ export function MegaMenuPanel({ menu, shortcuts, cards }: Props) {
         <div className="grid grid-cols-2 gap-6 md:grid-cols-3 xl:col-span-5 xl:grid-cols-5">
           {menu.columns.map((column) => (
             <section key={column.slug} aria-labelledby={`mega-${column.slug}`}>
-              <a
+              <Link
                 id={`mega-${column.slug}`}
                 href={column.href}
                 className="mb-2 flex items-center gap-2.5 font-display text-[0.97rem] font-extrabold leading-tight text-ink hover:underline"
@@ -63,11 +63,11 @@ export function MegaMenuPanel({ menu, shortcuts, cards }: Props) {
                   <Icon name={column.icon} className="size-[18px]" strokeWidth={2} />
                 </span>
                 {column.name}
-              </a>
+              </Link>
               <ul>
                 {column.items.map((item) => (
                   <li key={item.href + item.label}>
-                    <a
+                    <Link
                       href={item.href}
                       className={cx(
                         'flex min-h-10 items-center justify-between gap-2 rounded-lg px-2 py-1.5 text-[0.94rem] leading-snug hover:bg-surface-2',
@@ -81,7 +81,7 @@ export function MegaMenuPanel({ menu, shortcuts, cards }: Props) {
                         </em>
                       ) : (
                         item.count !== undefined && (
-                          <small className="text-xs font-bold text-ink-3">
+                          <small className="text-xs font-bold text-ink-2">
                             {item.count}
                             <span className="sr-only">
                               {' '}
@@ -90,19 +90,19 @@ export function MegaMenuPanel({ menu, shortcuts, cards }: Props) {
                           </small>
                         )
                       )}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
               {column.more && (
-                <a
+                <Link
                   href={column.more.href}
                   aria-label={`Wszystkie w grupie: ${column.name}`}
                   className="mt-1 inline-flex min-h-10 items-center gap-1 px-2 text-sm font-extrabold text-accent-text hover:underline"
                 >
                   Wszystkie w grupie
                   <Icon name="arrow" className="size-4" strokeWidth={2.4} />
-                </a>
+                </Link>
               )}
             </section>
           ))}
@@ -111,7 +111,7 @@ export function MegaMenuPanel({ menu, shortcuts, cards }: Props) {
         {cards.length > 0 && (
           <div className="hidden gap-3 xl:flex xl:flex-col">
             {cards.map((card) => (
-              <a
+              <Link
                 key={card.href}
                 href={card.href}
                 data-surface={card.dark ? 'dark' : undefined}
@@ -155,7 +155,7 @@ export function MegaMenuPanel({ menu, shortcuts, cards }: Props) {
                     className="absolute -bottom-1.5 -right-1 w-20"
                   />
                 )}
-              </a>
+              </Link>
             ))}
           </div>
         )}
@@ -169,6 +169,8 @@ export function MegaMenuPanel({ menu, shortcuts, cards }: Props) {
             {brands} {plural(brands, ['marka', 'marki', 'marek'])}
             <Icon name="arrow" className="size-4" strokeWidth={2.4} />
           </Link>
+          {/* TODO(krystian): spec. §3.2 lists the phone in this bar, the `Main` design has none —
+              confirm with the boss which one wins. */}
           <span className="text-ink-2">
             Bez cen na stronie — wycenę dostajesz na piśmie, pod swoją firmę.
           </span>

@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 import { Container } from '@/components/ui/Container'
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
@@ -60,13 +62,13 @@ export function TopBar({ phone, hours }: Props) {
           <ul className="flex flex-wrap items-center gap-x-5">
             {QUICK_LINKS.map((link) => (
               <li key={link.label}>
-                <a
+                <Link
                   href={link.href}
                   className="inline-flex min-h-7 items-center gap-1.5 font-semibold text-accent-text hover:underline"
                 >
                   <Icon name={link.icon} className="size-4" strokeWidth={2} />
                   {link.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>

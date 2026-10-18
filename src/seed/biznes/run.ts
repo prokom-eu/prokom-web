@@ -231,8 +231,11 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     limit: 1,
     ...local,
   })
+  if (!siteSettings) {
+    log('site-settings navigation: skipped — no settings of the tenant yet, run `pnpm seed`.')
+  }
   const navigationMissing = Boolean(siteSettings && !siteSettings.biznes?.navigation?.menu?.length)
-  count('site-settings navigation', navigationMissing)
+  if (siteSettings) count('site-settings navigation', navigationMissing)
   if (siteSettings && navigationMissing) {
     await payload.update({
       collection: 'site-settings',

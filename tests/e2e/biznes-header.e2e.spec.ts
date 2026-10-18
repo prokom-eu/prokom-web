@@ -56,10 +56,13 @@ test.describe('Biznes header', () => {
     await expect(panel.getByRole('link', { name: /^Cały katalog · \d+ pozycj/ })).toBeVisible()
   })
 
-  test('closes on a click outside', async ({ page }) => {
+  test('stays open on a click inside the panel, closes on a click outside', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
     const button = mainNav(page).getByRole('button', { name: 'Oferta' })
     await button.click()
+    // Plain text of the panel: focus leaves the button without a new target.
+    await page.getByText('Bez cen na stronie').click()
+    await expect(button).toHaveAttribute('aria-expanded', 'true')
     // Bottom of the window, below the panel.
     await page.mouse.click(10, (page.viewportSize()?.height ?? 720) - 10)
     await expect(button).toHaveAttribute('aria-expanded', 'false')

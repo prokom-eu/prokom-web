@@ -1,11 +1,11 @@
 import Link from 'next/link'
 
-import { ICON_BUTTON } from '@/components/SiteHeader'
 import { SiteLogo } from '@/components/SiteLogo'
 import { ThemeToggle } from '@/components/ThemeToggle'
 import { Container } from '@/components/ui/Container'
+import { ICON_BUTTON } from '@/components/ui/iconButton'
 import type { MegaMenu } from '@/lib/catalog/menu'
-import type { PublicBiznesNavigation } from '@/lib/site/navigation'
+import { type PublicBiznesNavigation, withoutEmptyDropdowns } from '@/lib/site/navigation'
 import type { SiteTenant } from '@/lib/tenant/byHost'
 
 import { HeaderNav } from './HeaderNav'
@@ -26,7 +26,11 @@ type Props = {
  * Below 1024 px a plain `<details>` menu stands in until the full-screen menu of B3b.
  */
 export function BiznesHeader({ tenant, navigation, menu, soonIndustries }: Props) {
-  const flatLinks = navigation.menu.flatMap((item) =>
+  const items = withoutEmptyDropdowns(navigation.menu, {
+    offer: menu.columns.length > 0,
+    industries: navigation.industries.length > 0 || soonIndustries.length > 0,
+  })
+  const flatLinks = items.flatMap((item) =>
     item.type === 'industries'
       ? navigation.industries.map((industry) => ({
           label: industry.name,
@@ -43,21 +47,24 @@ export function BiznesHeader({ tenant, navigation, menu, soonIndustries }: Props
         {/* 30 px on phones, as in the `Mobile` design. */}
         <SiteLogo tenant={tenant} className="h-[30px] w-auto sm:h-9" />
 
-        <HeaderNav
-          menu={navigation.menu}
-          panels={{
-            offer: (
-              <MegaMenuPanel
-                menu={menu}
-                shortcuts={navigation.shortcuts}
-                cards={navigation.cards}
-              />
-            ),
-            industries: (
-              <IndustriesPanel industries={navigation.industries} soon={soonIndustries} />
-            ),
-          }}
-        />
+        {/* Nothing to show until the navigation is filled in the panel (no empty `<nav>`). */}
+        {items.length > 0 && (
+          <HeaderNav
+            menu={items}
+            panels={{
+              offer: (
+                <MegaMenuPanel
+                  menu={menu}
+                  shortcuts={navigation.shortcuts}
+                  cards={navigation.cards}
+                />
+              ),
+              industries: (
+                <IndustriesPanel industries={navigation.industries} soon={soonIndustries} />
+              ),
+            }}
+          />
+        )}
 
         <div className="flex items-center gap-2">
           <Link
@@ -92,39 +99,41 @@ export function BiznesHeader({ tenant, navigation, menu, soonIndustries }: Props
             </svg>
             <span className="sr-only sm:not-sr-only">Zapytanie</span>
           </Link>
-          <details className="relative lg:hidden">
-            <summary
-              className={`${ICON_BUTTON} cursor-pointer list-none [&::-webkit-details-marker]:hidden`}
-            >
-              <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
-                <path
-                  d="M4 7h16M4 12h16M4 17h16"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.9"
-                  strokeLinecap="round"
-                />
-              </svg>
-              <span className="sr-only">Menu</span>
-            </summary>
-            <nav
-              aria-label="Menu"
-              className="absolute right-0 top-full mt-2 w-64 rounded-2xl border border-border bg-card p-3 shadow-lg"
-            >
-              <ul className="flex flex-col gap-1">
-                {flatLinks.map((link) => (
-                  <li key={link.href + link.label}>
-                    <a
-                      href={link.href}
-                      className="flex min-h-11 items-center px-2 font-semibold text-ink"
-                    >
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          </details>
+          {flatLinks.length > 0 && (
+            <details className="relative lg:hidden">
+              <summary
+                className={`${ICON_BUTTON} cursor-pointer list-none [&::-webkit-details-marker]:hidden`}
+              >
+                <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+                  <path
+                    d="M4 7h16M4 12h16M4 17h16"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.9"
+                    strokeLinecap="round"
+                  />
+                </svg>
+                <span className="sr-only">Menu</span>
+              </summary>
+              <nav
+                aria-label="Menu"
+                className="absolute right-0 top-full mt-2 w-64 rounded-2xl border border-border bg-card p-3 shadow-lg"
+              >
+                <ul className="flex flex-col gap-1">
+                  {flatLinks.map((link) => (
+                    <li key={link.href + link.label}>
+                      <Link
+                        href={link.href}
+                        className="flex min-h-11 items-center px-2 font-semibold text-ink"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </details>
+          )}
         </div>
       </Container>
     </header>
