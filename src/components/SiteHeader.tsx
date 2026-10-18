@@ -1,18 +1,15 @@
-import Image from 'next/image'
-import Link from 'next/link'
-
-import { brandAsset, HORIZONTAL_LOGO_SIZE as LOGO } from '@/lib/brand/lines'
 import { hasDarkTheme } from '@/lib/brand/theme'
 import type { PublicSiteSettings } from '@/lib/site/public'
 import type { SiteTenant } from '@/lib/tenant/byHost'
 
 import { NavLinks } from './NavLinks'
+import { SiteLogo } from './SiteLogo'
 import { ThemeToggle } from './ThemeToggle'
 import { Container } from './ui/Container'
 
 type Props = { tenant: SiteTenant; settings: PublicSiteSettings | null }
 
-const ICON_BUTTON =
+export const ICON_BUTTON =
   'inline-flex size-11 items-center justify-center rounded-xl border border-border text-ink hover:bg-surface-2'
 
 /**
@@ -23,26 +20,10 @@ const ICON_BUTTON =
 export function SiteHeader({ tenant, settings }: Props) {
   const dark = hasDarkTheme(tenant.line)
   const links = settings?.navigation ?? []
-  const alt = `${tenant.name} — strona główna`
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-surface/85 backdrop-blur-md">
       <Container className="flex min-h-[76px] items-center justify-between gap-4">
-        <Link href="/" className="shrink-0">
-          <Image
-            src={brandAsset(tenant.line, 'poziome_kolor.svg')}
-            alt={alt}
-            {...LOGO}
-            className={dark ? 'theme-light-only h-9 w-auto' : 'h-9 w-auto'}
-          />
-          {dark && (
-            <Image
-              src={brandAsset(tenant.line, 'poziome_negatyw.svg')}
-              alt={alt}
-              {...LOGO}
-              className="theme-dark-only h-9 w-auto"
-            />
-          )}
-        </Link>
+        <SiteLogo tenant={tenant} />
 
         <div className="flex items-center gap-2">
           {links.length > 0 && (

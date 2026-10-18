@@ -28,6 +28,9 @@
   --color-border-input: var(--border-input);
   --color-glow: var(--glow);
   --color-grid: var(--grid);
+  --color-ok: var(--ok);
+  --color-ok-text: var(--ok-text);
+  --color-warn: var(--warn);
   --color-white: var(--c-white);
 
   --font-*: initial;
