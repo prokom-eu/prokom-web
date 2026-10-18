@@ -28,7 +28,7 @@ Strona ma zamieniać odwiedziny w **zapytanie albo telefon**. Klient w 5 sekund 
 |---|---|---|---|
 | `/` | Strona główna | `Main` (1440) + `Mobile` (390) | 1 |
 | `/oferta` | Katalog | `Katalog` + `KatalogM` (390) | 1 |
-| `/oferta/[kategoria]` | Kategoria (21 kategorii; „Maszyny vendingowe” bez produktów do czasu danych ze źródłem). Wariant rozszerzony dla `kasy-fiskalne` | `Kategoria` | 1 (porównywarka: 2) |
+| `/oferta/[kategoria]` | Kategoria (21 kategorii; „Maszyny vendingowe” bez produktów do czasu danych ze źródłem — kategoria bez produktów jest ukryta i daje 404, ADR-012 rozstrzygnięcie 7). Wariant rozszerzony dla `kasy-fiskalne` | `Kategoria` | 1 (porównywarka: 2) |
 | `/produkt/[slug]` | Produkt / usługa | `Produkt` | 1 |
 | `/zapytanie` | Lista zapytania + formularz | `Zapytanie` | 1 |
 | `/opieka-it` | Strona usługi flagowej | `Dzial` | 1 |
@@ -76,7 +76,7 @@ Zawiera:
 - Aktywna pozycja menu ma podkreślenie (kreska akcentu).
 - **Mega menu Oferta:**
   - 5 kolumn = 5 grup katalogu, każda z listą kategorii i liczbą pozycji;
-  - **czytelność (uwaga szefa 16.10):** nazwy kategorii min. 15 px, mniej elementów w kolumnie zamiast mniejszej czcionki;
+  - **czytelność (uwaga szefa 16.10):** nazwy kategorii min. 15 px, mniej elementów w kolumnie zamiast mniejszej czcionki — kolumna „Kasy i sprzedaż” ma 8 kategorii z vendingiem, więc B3 proponuje limit pozycji w kolumnie i link „Wszystkie w grupie →” (`/oferta?grupa=…`); kategorie bez produktów nie są pokazywane;
   - w kolumnie Oprogramowanie na górze GoPOS i InsERT z etykietą „partner”;
   - w kolumnie Serwis i usługi na górze Opieka IT („abonament”) i Przegląd IT („0 zł”);
   - po prawej karty GoPOS i InsERT;
@@ -237,7 +237,7 @@ Mega menu, kafle grup na głównej i karty branż ustawiają filtr przez URL (`/
 ### 6.1 Kategoria `/oferta/[kategoria]` (wzór: kasy fiskalne)
 Wzór: `Kategoria`, `screens/Kategoria-1440-light`.
 
-Szablon ogólny dla wszystkich 20 kategorii:
+Szablon ogólny dla wszystkich 21 kategorii (kategoria bez opublikowanych produktów → 404, ADR-012 rozstrzygnięcie 7):
 - hero kategorii (H1, lead, 3 zalety);
 - siatka produktów z filtrem marek;
 - „W cenie” (co dostaje klient);
@@ -404,7 +404,7 @@ Wzór: `Kreator`; dane w `seed/prokombiznes/kreator.json`.
 
 - **Teksty:** z plansz (uzgodnione). Przy przenoszeniu nie poprawiaj stylu; zmieniasz tylko punkty **[SZEF]**.
 - **Katalog:** `seed/prokombiznes/katalog.json`:
-  - 67 pozycji, 25 marek, 21 kategorii (w tym „Maszyny vendingowe” bez produktów), 5 grup, 7 branż (w tym „Beauty i usługi”, nieaktywna);
+  - 67 pozycji, 27 marek w seedzie (26 z produktami; liczby na stronie zawsze z bazy), 21 kategorii (w tym „Maszyny vendingowe” bez produktów), 5 grup, 7 branż (w tym „Beauty i usługi”, nieaktywna);
   - źródło: `biznes-produkty-fakty.md`, stan 15.10.2026;
   - parametry Elzab i Fawag do sprawdzenia u producentów.
 - **Media:** `docs/design/prokombiznes/boards/media/` i opis w `seed/prokombiznes/media.json`.
@@ -561,3 +561,4 @@ Zbiorczo, wszystkie edytowalne w panelu:
 7. Rozważyć zdanie „orientacyjną wycenę podamy w pierwszej rozmowie”.
 8. Maszyny vendingowe: 1–2 produkty Elzab i krótki opis kategorii — **TODO(krystian):** dane ze strony producenta (źródło + data weryfikacji); do tego czasu kategoria pusta.
 9. Kanały kontaktu działów: telefon, e-mail i godziny każdego działu (Asana, termin 20.10).
+10. Nazwy branż „Wkrótce”: „Beauty i usługi” obok „Biura i usługi” — potwierdzić, że się nie mylą w menu.

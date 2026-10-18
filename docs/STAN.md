@@ -16,7 +16,7 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
   - Gałąź: `docs/prokombiznes-b0` (B0, PR do `develop`).
   - Zrobione: B0 — ADR-012 i ADR-011 przyjęte, rozstrzygnięcia w ADR-012 (nazwy EN, bez nowych globali, `BiznesSettings`, `promoBar.campaignId`, strony specjalne jako `Pages`, strażnik tras katalogu, `contactChannels`, mapowanie branż i `wizardBusinessType`), uwagi szefa z 16.10 w spec. (§11), seed: branża „Beauty i usługi” (nieaktywna) i kategoria „Maszyny vendingowe” bez produktów.
   - Niedokończone: produkty vendingowe Elzab i opis kategorii — `TODO(krystian)` (spec. §13 pkt 8, dane ze źródłem); kanały kontaktu działów od szefa (Asana, 20.10).
-  - **Następny krok:** po scaleniu B0 — `/zadanie B1` (model danych, prompt w planie procesu; plan B1 do przeglądu w czacie przed „ok”); w poniedziałek 19.10 rano zakup domen i VPS, potem `/zadanie S10` z `docs/runbook.md` §1.
+  - **Następny krok:** po scaleniu B0 — `/zadanie B1` (model danych, prompt w planie procesu + z przeglądu B0: `promoBar.lines`, `BiznesSettings` tylko dla tenanta biznes; plan B1 do przeglądu w czacie przed „ok”); w poniedziałek 19.10 rano zakup domen i VPS, potem `/zadanie S10` z `docs/runbook.md` §1.
 
 ## Zrobione
 - 18.10.2026 — B0 (dokumentacja, bez kodu): ADR-012 przyjęta z sekcją „Rozstrzygnięcia (18.10.2026)”, ADR-011 przyjęta, uwagi szefa z 16.10 w `docs/strony/prokombiznes.md`, `seed/prokombiznes/katalog.json` (7 branż z `aktywna` i `kreator`, 21 kategorii).

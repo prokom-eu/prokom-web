@@ -3,12 +3,12 @@
 - **Status:** przyjęta (18.10.2026, z rozstrzygnięciami na końcu dokumentu — mają pierwszeństwo przed §1–§3)
 - **Data:** 2026-10-17
 - **Decyduje:** Krystian
-- **Pochodzenie:** pakiet „prokombiznes z wizualizacji” (17.10.2026), tam jako „ADR-008” — przenumerowany, bo ADR-008 w repo to dokumentacja bibliotek. Treść poniżej bez zmian merytorycznych; rozbieżności z przyjętymi ADR-ami — sekcja „Do uzgodnienia”.
+- **Pochodzenie:** pakiet „prokombiznes z wizualizacji” (17.10.2026), tam jako „ADR-008” — przenumerowany, bo ADR-008 w repo to dokumentacja bibliotek. Treść poniżej bez zmian merytorycznych poza miejscami oznaczonymi „rozstrzygnięcie N” (18.10.2026); rozbieżności z przyjętymi ADR-ami — sekcja „Do uzgodnienia”.
 
 - **Kontekst:**
   - prokombiznes.pl ma katalog ok. 70 pozycji bez cen, z filtrami, wyszukiwarką i listą zapytania.
   - Treść edytuje szef i zespół w Payload (ADR-005, ADR-006). Multi-tenant: każda kolekcja ma pole `tenant`.
-  - Skrzynka zapytań: ADR-003, decyzja otwarta.
+  - Skrzynka zapytań: ADR-003 (przyjęta; nazwy API rozstrzygnięte w S8a — sekcja „Do uzgodnienia”).
 - **Decyzja (skrót):**
   - katalog jako kolekcje Payload;
   - wyszukiwanie i filtrowanie po stronie klienta na indeksie JSON;
@@ -213,8 +213,10 @@ Decyzje Krystiana z sesji B0 (na podstawie `docs/zadania/prokombiznes.md` §2). 
 2. **Bez nowych globali** („globale na tenant” z §1.2):
    - wspólne dane firmy (`daneFirmy`) → istniejący global `CompanyData`;
    - dane linii (kanały kontaktu działów, WhatsApp, miejscowości obsługi, `obietnice` [SZEF], linia zaufania, flagi opinii i logo klientów, `nawigacja` mega menu) → `SiteSettings`, w grupach pól widocznych w panelu tylko dla linii biznes;
-   - `wyszukiwarka` i `kreator` → nowa kolekcja `BiznesSettings` (jeden dokument na tenanta, jak `SiteSettings`), żeby `SiteSettings` innych linii nie puchło.
-3. **Pasek sezonowy** (`pasekSezonowy`) = istniejący `CompanyData.promoBar` (ma od–do) + nowe pole `campaignId`; zamknięcie zapamiętane w `localStorage` jako `pk-sz-closed` = `campaignId`.
+   - `wyszukiwarka` i `kreator` → nowa kolekcja `BiznesSettings` (jeden dokument na tenanta, jak `SiteSettings`), żeby `SiteSettings` innych linii nie puchło. Dokument może mieć tylko tenant linii biznes (walidacja i dostęp w B1).
+3. **Pasek sezonowy** (`pasekSezonowy`) = istniejący `CompanyData.promoBar` (ma od–do) + nowe pola:
+   - `campaignId` — zamknięcie zapamiętane w `localStorage` jako `pk-sz-closed` = `campaignId`;
+   - `lines` (wielokrotny wybór linii; puste = wszystkie linie) — `CompanyData` jest jednym globalem dla wszystkich domen, więc bez tego kampania Biznesu (np. kasy przed sezonem) pokazałaby się też na Instalacjach i Software. Layout renderuje pasek tylko dla linii z listy (B1: pole + migracja + test; dziś pasek idzie na każdą domenę).
 4. **Strony specjalne** `/opieka-it`, `/gopos`, `/insert`, `/o-firmie`, `/kontakt` to `Pages` z blokami Biznesu (ADR-010). Logika (kalkulator przestoju, eksplorator modułów, dobór programu InsERT) w komponentach bloków; w panelu tylko treści i konfiguracja.
 5. **Trasy katalogu tylko na domenie Biznesu:** `/oferta`, `/oferta/[kategoria]`, `/produkt/[slug]`, `/branze/[branza]`, `/aktualnosci`, `/aktualnosci/[slug]`, `/kreator`, `/zapytanie`. Strażnik linii zwraca 404 na innych domenach; test izolacji jak w S3.
 6. **Kontakt działów:** w `SiteSettings` lista `contactChannels` — dział (opieka IT, kasy fiskalne, oprogramowanie, sprzęt, dofinansowania), telefon, e-mail, godziny, flaga „pokaż w stopce”.
@@ -223,7 +225,8 @@ Decyzje Krystiana z sesji B0 (na podstawie `docs/zadania/prokombiznes.md` §2). 
    - B1 buduje pola; wartości wpisuje szef albo Krystian w panelu.
 7. **Uwagi szefa z 16.10** (szczegóły w spec. §11):
    - `Industries`: 7 rekordów — nowa „Beauty i usługi” (`beauty`, `active=false`, „Wkrótce”); aktywne zostają gastronomia, handel, noclegi.
-   - `CatalogCategories`: 21 rekordów — nowa „Maszyny vendingowe” (`vend` → `maszyny-vendingowe`) w grupie sprzedaży. Produkty dopiero z danymi ze źródłem (strona producenta); do tego czasu kategoria bez produktów i bez opisu.
+   - `CatalogCategories`: 21 rekordów — nowa „Maszyny vendingowe” (`vend` → `maszyny-vendingowe`) w grupie sprzedaży. Produkty dopiero z danymi ze źródłem (strona producenta); do tego czasu kategoria bez produktów i bez opisu (pusty `opis` w seedzie importer B2 traktuje jak brak pola).
+   - **Pusta kategoria jest niewidoczna:** kategoria bez opublikowanych produktów nie pojawia się w mega menu, filtrach, kaflach ani w `sitemap.xml`, a `/oferta/[kategoria]` zwraca 404 — do czasu pierwszego produktu. Dotyczy każdej kategorii, nie tylko vendingu (B3, B5, B10, B11).
    - Strona branży: CTA „Przygotuj ofertę dla [branża]” otwiera kreator z wybranym rodzajem firmy (rozstrzygnięcie 8).
    - Kafelki „Oferta” i „Opieka IT” jednym komponentem; nazwy kategorii w mega menu i katalogu ≥ 15 px; referencje na stronie głównej za flagą widoczności (B3, B5, B7).
 8. **Branże: adresy i powiązanie z kreatorem.** Slugi w seedzie są skrótami; adres `/branze/[branza]` i filtr `?branza=` używają pełnych slugów:
