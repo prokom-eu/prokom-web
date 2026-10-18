@@ -18,6 +18,7 @@ import {
   skipMediaFile,
   type SeedCatalog,
 } from './map'
+import { navigationData } from './navigation'
 
 /** Files of the design package, relative to the repo root (where `pnpm seed` runs). */
 const MEDIA_DIR = path.join('docs', 'design', 'prokombiznes', 'boards', 'media')
@@ -216,6 +217,39 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
         tenant: tenant.id,
         search: searchData(search),
         wizard: wizardSchema.parse(wizardFromSeed(kreator)),
+      },
+      ...local,
+    })
+  }
+
+  // --- header navigation in the site settings (created by `pnpm seed`), only while empty ---
+  const {
+    docs: [siteSettings],
+  } = await payload.find({
+    collection: 'site-settings',
+    where: { tenant: { equals: tenant.id } },
+    limit: 1,
+    ...local,
+  })
+  if (!siteSettings) {
+    log('site-settings navigation: skipped — no settings of the tenant yet, run `pnpm seed`.')
+  }
+  const navigationMissing = Boolean(siteSettings && !siteSettings.biznes?.navigation?.menu?.length)
+  if (siteSettings) count('site-settings navigation', navigationMissing)
+  if (siteSettings && navigationMissing) {
+    await payload.update({
+      collection: 'site-settings',
+      id: siteSettings.id,
+      data: {
+        biznes: {
+          ...siteSettings.biznes,
+          navigation: navigationData({
+            group: (slug) => groupIds.get(slug),
+            industry: (slug) => industryIds.get(slug),
+            partner: (name) => brandIds.get(name),
+            image: (file) => imageIds.get(file),
+          }),
+        },
       },
       ...local,
     })

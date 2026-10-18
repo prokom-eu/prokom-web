@@ -35,6 +35,8 @@ const TEXT_ON_SURFACES: Array<[string, string[]]> = [
   ['--ink-3', ['--surface', '--card']],
   // ADR-013: small accent text not on surface-3 (dark Biznes: 4.28).
   ['--accent-text', ['--surface', '--surface-2', '--card']],
+  // Small green labels ("partner", "0 zł") of the Biznes header.
+  ['--ok-text', ['--surface', '--surface-2', '--card']],
 ]
 
 const cases = LINE_VALUES.flatMap((line) =>
@@ -66,6 +68,18 @@ describe.each(cases)('$line, $mode theme', ({ line, mode }) => {
     expect(
       contrastRatio(hex('--accent-on-dark', s), hex('--surface-dark', s)),
     ).toBeGreaterThanOrEqual(4.5)
+  })
+
+  // WCAG 1.4.11: status dots (open / closed, partner) carry meaning next to their text.
+  it('status dots reach 3:1 on the surfaces they sit on', () => {
+    for (const dot of ['--ok', '--warn']) {
+      for (const surface of ['--surface', '--surface-2', '--card']) {
+        expect(
+          contrastRatio(hex(dot, s), hex(surface, s)),
+          `${dot} on ${surface}`,
+        ).toBeGreaterThanOrEqual(3)
+      }
+    }
   })
 
   // WCAG 1.4.11: a form field must be visible against the field and what surrounds it.

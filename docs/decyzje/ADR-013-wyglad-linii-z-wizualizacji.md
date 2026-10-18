@@ -46,6 +46,7 @@
 - **Gradient H1:** `--acc → --acc2`, **bez fioletu** — fiolet to kolor linii Software, kolory linii się nie mieszają.
 - **Podpis właściciela:** **SVG** (ścieżka z `aria-label`/`alt`), bez kroju Caveat — marka zostaje przy dwóch krojach (Archivo, Manrope).
 - **Poświata i siatka tła** (`--glow`, `--grid`): **jak w wizualizacji** — wszędzie tam, gdzie używają ich plansze (hero, ciemne karty, produkty w motywie ciemnym), wyłącznie przez tokeny. Punkt 4 decyzji („tylko w wyznaczonych miejscach”) rozumiemy jako: miejsca z plansz `docs/design/prokombiznes/boards/`.
+- **Kolory statusu (B3a, 18.10.2026):** `--ok` (kropki „otwarte”, „partner”), `--ok-text` (małe zielone etykiety, np. „partner”, „0 zł”) i `--warn` (kropka „zamknięte”) — wartości z wizualizacji (`#1F9D63`, `#C2410C`; w ciemnym motywie `#46C78B`, `#F97316`). Zieleń wizualizacji ma jako tekst tylko ok. 3,3:1, więc `--ok-text` w jasnym motywie jest przyciemniona (`#15724A`). Test: kropki ≥ 3:1, `--ok-text` ≥ 4,5:1 na `--surface`, `--surface-2`, `--card` w obu motywach.
 
 ## Konsekwencje
 - S6b (szkielet strony) dostaje tokeny neutralne per linia i mechanizm motywu ciemnego; wygląd ogólny dla wszystkich domen, wartości Biznesu z wizualizacji. Komponenty używają `--surface*`, `--ink*`, `--accent*`, nigdy wartości.

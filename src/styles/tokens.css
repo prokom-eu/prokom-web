@@ -10,6 +10,7 @@
  *   --surface, --surface-2, --surface-3, --card, --surface-dark (dark rhythm blocks)
  *   --ink, --ink-2, --ink-3 (text, secondary, tertiary), --border, --glow, --grid
  *   --border-input (form fields, ≥ 3:1 on every surface — WCAG 1.4.11; `--border` is decorative)
+ *   --ok, --warn (status dots: open / partner, closed; ≥ 3:1), --ok-text (small green labels)
  * Contrast is checked by `tokens.test.ts` and `themes.test.ts`.
  */
 
@@ -69,6 +70,13 @@
   /* Biznes — dark rhythm blocks, the same in both themes. */
   --c-biznes-navy: #0a1430;
 
+  /* Status colours of the Biznes visualisation (dots); `-text` is darkened for 4.5:1. */
+  --c-ok: #1f9d63;
+  --c-ok-text: #15724a;
+  --c-warn: #c2410c;
+  --c-ok-night: #46c78b;
+  --c-warn-night: #f97316;
+
   /* No `data-line` (unknown domain, 404): the main PRO-KOM line. */
   --accent: var(--c-prokom);
   --accent-on-dark: var(--c-prokom-on-dark);
@@ -89,6 +97,9 @@
   --border-input: var(--c-input-border);
   --glow: transparent;
   --grid: transparent;
+  --ok: var(--c-ok);
+  --ok-text: var(--c-ok-text);
+  --warn: var(--c-warn);
 }
 
 [data-line='prokom'] {
@@ -152,6 +163,9 @@
   --border-input: var(--c-biznes-night-ink-3);
   --glow: var(--c-biznes-night-glow);
   --grid: var(--c-biznes-night-grid);
+  --ok: var(--c-ok-night);
+  --ok-text: var(--c-ok-night);
+  --warn: var(--c-warn-night);
 }
 
 /* …or by the system when there is no choice. Keep in sync with the rule above (tested). */
@@ -175,5 +189,8 @@
     --border-input: var(--c-biznes-night-ink-3);
     --glow: var(--c-biznes-night-glow);
     --grid: var(--c-biznes-night-grid);
+    --ok: var(--c-ok-night);
+    --ok-text: var(--c-ok-night);
+    --warn: var(--c-warn-night);
   }
 }

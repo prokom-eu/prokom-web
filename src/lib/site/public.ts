@@ -4,6 +4,7 @@ import { publicImage, type PublicImage } from '../media/public'
 import { tenantIdOf } from '../tenant/id'
 import type { Department } from './departments'
 import type { Line } from '../tenant/lines'
+import { toPublicNavigation, type PublicBiznesNavigation } from './navigation'
 import { isPromoActive } from './promo'
 
 type Link = { label: string; href: string }
@@ -55,9 +56,10 @@ export type PublicBiznesSettings = {
   }
   showReviews: boolean
   showClientLogos: boolean
+  navigation: PublicBiznesNavigation
 }
 
-function toPublicBiznes(group: SiteSetting['biznes']): PublicBiznesSettings {
+function toPublicBiznes(group: SiteSetting['biznes'], tenantId: number): PublicBiznesSettings {
   const promises = group?.promises
   return {
     contactChannels: (group?.contactChannels ?? []).map((row) => ({
@@ -78,6 +80,7 @@ function toPublicBiznes(group: SiteSetting['biznes']): PublicBiznesSettings {
     },
     showReviews: group?.showReviews ?? false,
     showClientLogos: group?.showClientLogos ?? false,
+    navigation: toPublicNavigation(group?.navigation, tenantId),
   }
 }
 
@@ -130,6 +133,6 @@ export function toPublicSiteSettings(doc: SiteSetting, line: Line | null): Publi
       // Populated when read with depth 1; only a public image of this tenant (`publicImage`).
       ogImage: tenantId === null ? null : publicImage(doc.seo?.ogImage, tenantId),
     },
-    biznes: line === 'biznes' ? toPublicBiznes(doc.biznes) : null,
+    biznes: line === 'biznes' && tenantId !== null ? toPublicBiznes(doc.biznes, tenantId) : null,
   }
 }

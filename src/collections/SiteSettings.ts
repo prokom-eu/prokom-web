@@ -8,6 +8,7 @@ import { isValidTitleTemplate } from '../lib/site/title'
 import { tenantIdOf } from '../lib/tenant/id'
 import { LINES } from '../lib/tenant/lines'
 import { lineOfTenant } from '../lib/tenant/lineOf'
+import { biznesNavigation } from './biznesNavigation'
 
 const linkFields: Field[] = [
   { name: 'label', label: 'Etykieta', type: 'text', required: true },
@@ -151,6 +152,7 @@ const biznesGroup: Field = {
         },
       ],
     },
+    biznesNavigation,
   ],
 }
 
