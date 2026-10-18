@@ -116,6 +116,7 @@ export function BiznesHeader({ tenant, navigation, menu, soonIndustries, contact
                   items={items}
                   menu={menu}
                   industries={navigation.industries}
+                  soonIndustries={soonIndustries}
                   phone={contact.phone}
                   whatsapp={contact.whatsapp}
                 />

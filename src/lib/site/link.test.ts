@@ -51,6 +51,11 @@ describe('toWhatsAppHref', () => {
     expect(toWhatsAppHref('889 003 889')).toBe('https://wa.me/48889003889')
   })
 
+  // "00" is the dialling prefix, not part of the number wa.me expects.
+  it('drops a leading 00', () => {
+    expect(toWhatsAppHref('0048 889 003 889')).toBe('https://wa.me/48889003889')
+  })
+
   it('returns null without a usable number', () => {
     expect(toWhatsAppHref('brak')).toBeNull()
     expect(toWhatsAppHref('12 34')).toBeNull()

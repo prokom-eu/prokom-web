@@ -10,6 +10,8 @@ type Props = {
   items: PublicBiznesNavigation['menu']
   menu: MegaMenu
   industries: PublicBiznesNavigation['industries']
+  /** Names of inactive industries — "Wkrótce", as under Branże ▾ on a desktop. */
+  soonIndustries: string[]
   /** `tel:` and wa.me links of the line; `null` hides the button. */
   phone: { label: string; href: string } | null
   whatsapp: string | null
@@ -43,7 +45,14 @@ function Chevron() {
  * into groups → categories (native `<details>`), Branże into industries, the theme switch,
  * phone and WhatsApp. Rendered on the server inside `MobileMenu`.
  */
-export function MobileMenuContent({ items, menu, industries, phone, whatsapp }: Props) {
+export function MobileMenuContent({
+  items,
+  menu,
+  industries,
+  soonIndustries,
+  phone,
+  whatsapp,
+}: Props) {
   return (
     <>
       <ul className="divide-y divide-border">
@@ -127,6 +136,11 @@ export function MobileMenuContent({ items, menu, industries, phone, whatsapp }: 
                       </li>
                     ))}
                   </ul>
+                  {soonIndustries.length > 0 && (
+                    <p className="mb-3 ml-1 text-sm text-ink-2">
+                      <b className="text-ink">Wkrótce:</b> {soonIndustries.join(', ')}
+                    </p>
+                  )}
                 </details>
               </li>
             )

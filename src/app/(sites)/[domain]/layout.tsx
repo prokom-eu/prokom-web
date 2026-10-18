@@ -108,6 +108,7 @@ export default async function TenantLayout({ children, params }: Props) {
             biznes={settings.biznes}
             menu={biznes.header.menu}
             badges={biznes.badges}
+            contact={biznes.header.contact}
           />
           <MobileBar
             tel={biznes.header.contact.phone?.href ?? null}

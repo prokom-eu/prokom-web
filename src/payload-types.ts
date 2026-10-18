@@ -2246,7 +2246,7 @@ export interface CompanyDatum {
      */
     lines?: ('prokom' | 'biznes' | 'instalacje' | 'software')[] | null;
     /**
-     * Zmień przy nowej kampanii, np. „kasy-2026”.
+     * Zmień przy nowej kampanii, np. „kasy-2026”. Bez id paska nie da się zamknąć.
      */
     campaignId?: string | null;
     href?: string | null;

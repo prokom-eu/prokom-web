@@ -3,10 +3,11 @@ import Link from 'next/link'
 
 import { LocationAddress } from '@/components/ContactDetails'
 import { Container } from '@/components/ui/Container'
+import { cx } from '@/components/ui/cx'
 import { brandAsset, HORIZONTAL_LOGO_SIZE } from '@/lib/brand/lines'
 import type { MegaMenu } from '@/lib/catalog/menu'
 import type { PartnerBadge } from '@/lib/partners/badges'
-import { toTelHref, toWhatsAppHref } from '@/lib/site/link'
+import { toTelHref } from '@/lib/site/link'
 import type { PublicCompanyData, PublicSiteSettings } from '@/lib/site/public'
 
 type Props = {
@@ -16,6 +17,8 @@ type Props = {
   biznes: NonNullable<PublicSiteSettings['biznes']>
   menu: MegaMenu
   badges: PartnerBadge[]
+  /** Main number and WhatsApp link, computed once in the layout (as for the header). */
+  contact: { phone: { label: string; href: string } | null; whatsapp: string | null }
 }
 
 const HEADING = 'mb-1 font-display font-extrabold text-white'
@@ -45,10 +48,12 @@ function LinkColumn({ title, links }: { title: string; links: { label: string; h
  * Najważniejsze and Branże i firma (panel); Kontakt. Bottom row: copyright, NIP, legal links.
  * Extra bottom padding on phones keeps the last line above the sticky bar (`MobileBar`).
  */
-export function BiznesFooter({ name, company, settings, biznes, menu, badges }: Props) {
+export function BiznesFooter({ name, company, settings, biznes, menu, badges, contact }: Props) {
   const main = company?.locations[0]
-  const tel = settings.phone ? toTelHref(settings.phone) : null
-  const whatsapp = biznes.whatsapp ? toWhatsAppHref(biznes.whatsapp) : null
+  // `CompanyData` phones are shared by all lines and may repeat the main number shown above.
+  const otherPhones = (company?.phones ?? []).filter(
+    (phone) => !contact.phone || toTelHref(phone.number) !== contact.phone.href,
+  )
   return (
     <footer data-surface="dark" className="mt-16 bg-surface-dark text-[0.94rem] text-white/80">
       <Container
@@ -75,11 +80,15 @@ export function BiznesFooter({ name, company, settings, biznes, menu, badges }: 
             </p>
           )}
           {badges.length > 0 && (
-            <ul className="flex flex-col items-start gap-2">
+            <ul className="flex flex-wrap items-start gap-2">
               {badges.map((badge) => (
                 <li
                   key={badge.label}
-                  className="rounded-full bg-white/10 px-2.5 py-1 text-xs font-extrabold text-white"
+                  // As in the design: partners green, services in the line's colour.
+                  className={cx(
+                    'rounded-full bg-white/10 px-2.5 py-1 text-xs font-extrabold',
+                    badge.kind === 'partner' ? 'text-ok' : 'text-accent-on-dark',
+                  )}
                 >
                   {badge.label}
                 </li>
@@ -106,23 +115,26 @@ export function BiznesFooter({ name, company, settings, biznes, menu, badges }: 
             {settings.phone && (
               <li className="mt-1">
                 <span className="block text-sm">Oferty i serwis</span>
-                {tel ? (
-                  <a href={tel} className="text-lg font-extrabold text-white hover:underline">
-                    {settings.phone}
+                {contact.phone ? (
+                  <a
+                    href={contact.phone.href}
+                    className="text-lg font-extrabold text-white hover:underline"
+                  >
+                    {contact.phone.label}
                   </a>
                 ) : (
                   <span className="text-lg font-extrabold text-white">{settings.phone}</span>
                 )}
               </li>
             )}
-            {biznes.whatsapp && whatsapp && (
+            {biznes.whatsapp && contact.whatsapp && (
               <li>
-                <a href={whatsapp} target="_blank" rel="noopener" className={LINK}>
+                <a href={contact.whatsapp} target="_blank" rel="noopener" className={LINK}>
                   WhatsApp: {biznes.whatsapp}
                 </a>
               </li>
             )}
-            {company?.phones.map((phone, i) => {
+            {otherPhones.map((phone, i) => {
               const href = toTelHref(phone.number)
               const text = phone.label ? `${phone.number} · ${phone.label}` : phone.number
               return (
@@ -167,7 +179,7 @@ export function BiznesFooter({ name, company, settings, biznes, menu, badges }: 
             <nav aria-label="Informacje prawne">
               <ul className="flex flex-wrap gap-x-4">
                 {settings.footer.links.map((link) => (
-                  <li key={link.href}>
+                  <li key={link.href + link.label}>
                     <Link href={link.href} className={LINK}>
                       {link.label}
                     </Link>

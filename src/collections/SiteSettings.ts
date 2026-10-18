@@ -3,7 +3,7 @@ import type { CollectionBeforeChangeHook, CollectionConfig, Field } from 'payloa
 import { adminOnly } from '../lib/auth/access'
 import { tenantImageFilter } from '../lib/media/access'
 import { DEPARTMENTS } from '../lib/site/departments'
-import { isValidNavHref } from '../lib/site/link'
+import { isValidNavHref, toWhatsAppHref } from '../lib/site/link'
 import { isValidTitleTemplate } from '../lib/site/title'
 import { tenantIdOf } from '../lib/tenant/id'
 import { LINES } from '../lib/tenant/lines'
@@ -102,6 +102,10 @@ const biznesGroup: Field = {
           name: 'whatsapp',
           label: 'WhatsApp',
           type: 'text',
+          validate: (value: unknown) =>
+            !value || (typeof value === 'string' && toWhatsAppHref(value) !== null)
+              ? true
+              : 'Numer telefonu, np. +48 889 003 889.',
           admin: { description: 'Numer z kierunkowym, np. +48 889 003 889.' },
         },
         {

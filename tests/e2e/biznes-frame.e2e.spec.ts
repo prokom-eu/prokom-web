@@ -46,6 +46,10 @@ test.describe('Biznes on a phone', () => {
     await page.goto(site('biznes.localhost'))
     const bar = page.getByRole('navigation', { name: 'Szybki kontakt' })
     await expect(bar.getByRole('link', { name: 'Zadzwoń' })).toHaveAttribute('href', /^tel:/)
+    await expect(bar.getByRole('link', { name: 'WhatsApp' })).toHaveAttribute(
+      'href',
+      /^https:\/\/wa\.me\/\d{11,}$/,
+    )
     await expect(bar.getByRole('link', { name: 'Zapytanie' })).toHaveAttribute('href', '/zapytanie')
   })
 
