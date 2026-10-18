@@ -2,6 +2,7 @@ import type { CollectionConfig, Field } from 'payload'
 
 import { restrictedRichTextEditor } from '../blocks/RichText/config'
 import { adminOnly } from '../lib/auth/access'
+import { catalogRevalidationHooks } from '../lib/catalog/revalidate'
 import { ICON_OPTIONS, PRODUCT_KINDS, REGISTER_TYPES } from '../lib/catalog/options'
 import {
   brandFilter,
@@ -54,6 +55,7 @@ export const Products: CollectionConfig = {
     delete: adminOnly,
   },
   versions: { drafts: true, maxPerDoc: 20 },
+  hooks: catalogRevalidationHooks,
   indexes: [{ fields: ['tenant', 'slug'], unique: true }],
   fields: [
     slugField('products', 'posnet-ergo-online'),

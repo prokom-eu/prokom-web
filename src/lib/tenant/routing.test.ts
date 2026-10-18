@@ -141,6 +141,33 @@ describe('decideRoute — site domains', () => {
     }
   })
 
+  it('lets the catalog index through on site domains (its handler checks the line)', () => {
+    for (const method of ['GET', 'HEAD']) {
+      expect(
+        decideRoute({
+          host: 'biznes.localhost',
+          pathname: '/api/catalog-index',
+          method,
+          panelHost,
+        }),
+      ).toEqual({ type: 'next' })
+    }
+  })
+
+  it('keeps the rest of the catalog index path closed on site domains', () => {
+    expect(
+      decideRoute({
+        host: 'biznes.localhost',
+        pathname: '/api/catalog-index',
+        method: 'POST',
+        panelHost,
+      }),
+    ).toEqual(SITE_404)
+    for (const pathname of ['/api/catalog-index/', '/api/catalog-index/x', '/api/catalog']) {
+      expect(route('biznes.localhost', pathname)).toEqual(SITE_404)
+    }
+  })
+
   it.each(['/robots.txt', '/sitemap.xml'])('rewrites %s to the domain segment', (pathname) => {
     expect(route('software.localhost:3000', pathname)).toEqual({
       type: 'rewrite',

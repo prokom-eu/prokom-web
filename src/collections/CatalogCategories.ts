@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
 import { adminOnly } from '../lib/auth/access'
+import { catalogRevalidationHooks } from '../lib/catalog/revalidate'
 import { ICON_OPTIONS } from '../lib/catalog/options'
 import {
   faqArray,
@@ -30,6 +31,7 @@ export const CatalogCategories: CollectionConfig = {
     update: ({ req: { user } }) => Boolean(user),
     delete: adminOnly,
   },
+  hooks: catalogRevalidationHooks,
   indexes: [{ fields: ['tenant', 'slug'], unique: true }],
   fields: [
     { name: 'name', label: 'Nazwa', type: 'text', required: true },

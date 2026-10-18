@@ -24,6 +24,7 @@
     "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
     "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
     "seed": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/index.ts",
+    "seed:biznes": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/biznes/index.ts",
     "prepare": "husky"
   },
   "dependencies": {

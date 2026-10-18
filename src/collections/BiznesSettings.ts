@@ -2,6 +2,7 @@ import { APIError } from 'payload'
 import type { CollectionBeforeValidateHook, CollectionConfig } from 'payload'
 
 import { adminOnly } from '../lib/auth/access'
+import { catalogRevalidationHooks } from '../lib/catalog/revalidate'
 import { validateWizard } from '../lib/catalog/wizard'
 import { tenantIdOf } from '../lib/tenant/id'
 import { lineOfTenant } from '../lib/tenant/lineOf'
@@ -30,7 +31,7 @@ export const BiznesSettings: CollectionConfig = {
     update: ({ req: { user } }) => Boolean(user),
     delete: adminOnly,
   },
-  hooks: { beforeValidate: [onlyBiznesTenant] },
+  hooks: { beforeValidate: [onlyBiznesTenant], ...catalogRevalidationHooks },
   fields: [
     {
       name: 'search',

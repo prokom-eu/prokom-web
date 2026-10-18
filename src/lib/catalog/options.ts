@@ -34,6 +34,12 @@ export const ICON_NAMES = [
   'compass',
 ] as const
 
+export type IconName = (typeof ICON_NAMES)[number]
+
+export function isIconName(value: unknown): value is IconName {
+  return typeof value === 'string' && (ICON_NAMES as readonly string[]).includes(value)
+}
+
 export const ICON_OPTIONS = ICON_NAMES.map((name) => ({ label: name, value: name }))
 
 export const PRODUCT_KINDS = [
