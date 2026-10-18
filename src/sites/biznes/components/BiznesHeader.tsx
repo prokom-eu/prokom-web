@@ -11,6 +11,8 @@ import type { SiteTenant } from '@/lib/tenant/byHost'
 import { HeaderNav } from './HeaderNav'
 import { IndustriesPanel } from './IndustriesPanel'
 import { MegaMenuPanel } from './MegaMenuPanel'
+import { MobileMenu } from './MobileMenu'
+import { MobileMenuContent } from './MobileMenuContent'
 
 type Props = {
   tenant: SiteTenant
@@ -18,26 +20,20 @@ type Props = {
   menu: MegaMenu
   /** Names of inactive industries, shown as "Wkrótce" under Branże ▾. */
   soonIndustries: string[]
+  /** Main phone (`tel:`) and WhatsApp (wa.me) of the line, for the phone menu. */
+  contact: { phone: { label: string; href: string } | null; whatsapp: string | null }
 }
 
 /**
  * Sticky, translucent header of the Biznes line (spec. §3.2). Search and the inquiry counter
  * come with B4: until then the search field leads to the catalog and "Zapytanie" to its page.
- * Below 1024 px a plain `<details>` menu stands in until the full-screen menu of B3b.
+ * Below 1024 px the full-screen menu (`MobileMenu`) replaces the desktop navigation.
  */
-export function BiznesHeader({ tenant, navigation, menu, soonIndustries }: Props) {
+export function BiznesHeader({ tenant, navigation, menu, soonIndustries, contact }: Props) {
   const items = withoutEmptyDropdowns(navigation.menu, {
     offer: menu.columns.length > 0,
     industries: navigation.industries.length > 0 || soonIndustries.length > 0,
   })
-  const flatLinks = items.flatMap((item) =>
-    item.type === 'industries'
-      ? navigation.industries.map((industry) => ({
-          label: industry.name,
-          href: `/branze/${industry.slug}`,
-        }))
-      : [{ label: item.label, href: item.href ?? '/oferta' }],
-  )
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-surface/85 backdrop-blur-md backdrop-saturate-150">
       <Container
@@ -82,8 +78,22 @@ export function BiznesHeader({ tenant, navigation, menu, soonIndustries }: Props
             </svg>
             Szukaj w ofercie
           </Link>
-          {/* TODO(B3b): on phones into the full-screen menu (spec. §3.3). */}
-          <ThemeToggle className={ICON_BUTTON} />
+          <Link href="/oferta" className={`${ICON_BUTTON} xl:hidden`}>
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+              <path
+                d="M11 18a7 7 0 100-14 7 7 0 000 14z M20 20l-4.3-4.3"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+            </svg>
+            <span className="sr-only">Szukaj w ofercie</span>
+          </Link>
+          {/* On phones the switch lives in the menu (spec. §3.3). */}
+          <div className="hidden sm:block">
+            <ThemeToggle className={ICON_BUTTON} />
+          </div>
           <Link
             href="/zapytanie"
             className="inline-flex h-11 items-center gap-2 rounded-xl bg-accent-text px-3.5 font-extrabold sm:px-4 text-accent-ink shadow-lg shadow-glow transition-transform hover:-translate-y-0.5"
@@ -99,40 +109,18 @@ export function BiznesHeader({ tenant, navigation, menu, soonIndustries }: Props
             </svg>
             <span className="sr-only sm:not-sr-only">Zapytanie</span>
           </Link>
-          {flatLinks.length > 0 && (
-            <details className="relative lg:hidden">
-              <summary
-                className={`${ICON_BUTTON} cursor-pointer list-none [&::-webkit-details-marker]:hidden`}
-              >
-                <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
-                  <path
-                    d="M4 7h16M4 12h16M4 17h16"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.9"
-                    strokeLinecap="round"
-                  />
-                </svg>
-                <span className="sr-only">Menu</span>
-              </summary>
-              <nav
-                aria-label="Menu"
-                className="absolute right-0 top-full mt-2 w-64 rounded-2xl border border-border bg-card p-3 shadow-lg"
-              >
-                <ul className="flex flex-col gap-1">
-                  {flatLinks.map((link) => (
-                    <li key={link.href + link.label}>
-                      <Link
-                        href={link.href}
-                        className="flex min-h-11 items-center px-2 font-semibold text-ink"
-                      >
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-            </details>
+          {items.length > 0 && (
+            <div className="lg:hidden">
+              <MobileMenu>
+                <MobileMenuContent
+                  items={items}
+                  menu={menu}
+                  industries={navigation.industries}
+                  phone={contact.phone}
+                  whatsapp={contact.whatsapp}
+                />
+              </MobileMenu>
+            </div>
           )}
         </div>
       </Container>

@@ -17,7 +17,8 @@ test.describe('Biznes data stays on the Biznes line', () => {
 
     try {
       await page.goto(site('biznes.localhost'))
-      await expect(page.getByRole('complementary', { name: 'Promocja' })).toHaveText(text)
+      // Contains, not equals: the bar also has its close button (B3b).
+      await expect(page.getByRole('complementary', { name: 'Promocja' })).toContainText(text)
       for (const host of ['instalacje.localhost', 'software.localhost']) {
         await page.goto(site(host))
         await expect(page.locator('body')).not.toContainText(text)

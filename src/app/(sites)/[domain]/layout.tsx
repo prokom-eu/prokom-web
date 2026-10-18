@@ -9,15 +9,20 @@ import { brandIcons } from '@/lib/brand/lines'
 import { getCatalogIndex } from '@/lib/catalog/data'
 import { megaMenu } from '@/lib/catalog/menu'
 import { getEnv } from '@/lib/env'
+import { partnerBadges } from '@/lib/partners/badges'
+import { getPartnerStatuses } from '@/lib/partners/data'
 import { ogImages } from '@/lib/pages/metadata'
 import { organizationJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
 import { robotsMeta } from '@/lib/seo/robots'
 import { getCompanyData, getSiteSettings } from '@/lib/site/data'
+import { toTelHref, toWhatsAppHref } from '@/lib/site/link'
 import type { PublicSiteSettings } from '@/lib/site/public'
 import { isPromoForLine } from '@/lib/site/promo'
 import { isValidTitleTemplate } from '@/lib/site/title'
 import type { SiteTenant } from '@/lib/tenant/byHost'
+import { BiznesFooter } from '@/sites/biznes/components/BiznesFooter'
 import { BiznesHeader } from '@/sites/biznes/components/BiznesHeader'
+import { MobileBar } from '@/sites/biznes/components/MobileBar'
 import { TopBar } from '@/sites/biznes/components/TopBar'
 
 import { requestOrigin, requireTenant } from './tenant'
@@ -54,7 +59,7 @@ export default async function TenantLayout({ children, params }: Props) {
     getSiteSettings(tenant.id),
     requestOrigin(),
   ])
-  const biznes = settings?.biznes ? await biznesHeaderData(tenant, settings.biznes) : null
+  const biznes = settings?.biznes ? await biznesFrameData(tenant, settings, settings.biznes) : null
   const jsonLd =
     company &&
     organizationJsonLd({
@@ -87,28 +92,60 @@ export default async function TenantLayout({ children, params }: Props) {
         <PromoBar promo={company.promo} />
       )}
       {biznes ? (
-        <BiznesHeader tenant={tenant} {...biznes} />
+        <BiznesHeader tenant={tenant} {...biznes.header} />
       ) : (
         <SiteHeader tenant={tenant} settings={settings} />
       )}
-      <main id="tresc">{children}</main>
-      <SiteFooter line={tenant.line} name={tenant.name} company={company} settings={settings} />
+      <main id="tresc" tabIndex={-1} className="outline-none">
+        {children}
+      </main>
+      {biznes && settings?.biznes ? (
+        <>
+          <BiznesFooter
+            name={tenant.name}
+            company={company}
+            settings={settings}
+            biznes={settings.biznes}
+            menu={biznes.header.menu}
+            badges={biznes.badges}
+          />
+          <MobileBar
+            tel={biznes.header.contact.phone?.href ?? null}
+            whatsapp={biznes.header.contact.whatsapp}
+          />
+        </>
+      ) : (
+        <SiteFooter line={tenant.line} name={tenant.name} company={company} settings={settings} />
+      )}
     </>
   )
 }
 
 /**
- * Header data of the Biznes line (B3): the mega menu comes from the cached catalog index, which
- * already hides empty categories (ADR-012, rozstrzygnięcie 7).
+ * Data of the Biznes frame (B3): the mega menu comes from the cached catalog index, which
+ * already hides empty categories (ADR-012, rozstrzygnięcie 7); the footer badges from the
+ * partner statuses confirmed in the panel.
  */
-async function biznesHeaderData(
+async function biznesFrameData(
   tenant: SiteTenant,
-  { navigation }: NonNullable<PublicSiteSettings['biznes']>,
+  settings: PublicSiteSettings,
+  { navigation, whatsapp }: NonNullable<PublicSiteSettings['biznes']>,
 ) {
-  const index = await getCatalogIndex(tenant.id)
+  const [index, partners] = await Promise.all([
+    getCatalogIndex(tenant.id),
+    getPartnerStatuses(tenant.id),
+  ])
+  const tel = settings.phone ? toTelHref(settings.phone) : null
   return {
-    navigation,
-    menu: megaMenu(index, navigation),
-    soonIndustries: index.industries.filter((industry) => !industry.active).map((i) => i.name),
+    header: {
+      navigation,
+      menu: megaMenu(index, navigation),
+      soonIndustries: index.industries.filter((industry) => !industry.active).map((i) => i.name),
+      contact: {
+        phone: settings.phone && tel ? { label: settings.phone, href: tel } : null,
+        whatsapp: whatsapp ? toWhatsAppHref(whatsapp) : null,
+      },
+    },
+    badges: partnerBadges(partners),
   }
 }
