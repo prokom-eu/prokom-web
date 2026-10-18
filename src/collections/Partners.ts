@@ -5,6 +5,7 @@ import { adminOnly } from '../lib/auth/access'
 import { getEnv } from '../lib/env'
 import { createPublicReadAccess, publicPartnerWhere } from '../lib/media/access'
 import { isValidNavHref } from '../lib/site/link'
+import { isValidSlug } from '../lib/tenant/uniqueSlug'
 import { IMAGE_MIME_TYPES } from './Media'
 
 /**
@@ -32,6 +33,19 @@ export const Partners: CollectionConfig = {
   },
   fields: [
     { name: 'name', label: 'Nazwa', type: 'text', required: true },
+    {
+      // Address of the brand page in the Biznes catalog (`/oferta?marka=…`, ADR-012). Unique
+      // across sites, as the collection is shared; optional, so logo-only partners need none.
+      name: 'slug',
+      label: 'Adres',
+      type: 'text',
+      unique: true,
+      validate: (value: unknown) =>
+        !value || (typeof value === 'string' && isValidSlug(value))
+          ? true
+          : 'Tylko małe litery, cyfry i pojedyncze myślniki, np. „posnet”.',
+      admin: { position: 'sidebar', description: 'Np. „posnet”. Potrzebny markom z katalogu.' },
+    },
     {
       // Not `url`: upload collections already have `url` (the file's address).
       name: 'website',

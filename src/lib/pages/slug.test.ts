@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { HOME_SLUG, isValidPageSlug, pagePath, slugFromSegment } from './slug'
+import { HOME_SLUG, isValidPageSlug, pagePath, RESERVED_PAGE_SLUGS, slugFromSegment } from './slug'
 
 describe('isValidPageSlug', () => {
   it.each(['home', 'kontakt', 'serwis-drukarek', 'oferta2'])('accepts %s', (slug) => {
@@ -13,6 +13,11 @@ describe('isValidPageSlug', () => {
       expect(isValidPageSlug(slug)).toBe(false)
     },
   )
+
+  // A static route wins over `[slug]` on every domain (Biznes catalog, ADR-012).
+  it.each(RESERVED_PAGE_SLUGS)('rejects the route path %s', (slug) => {
+    expect(isValidPageSlug(slug)).toBe(false)
+  })
 })
 
 describe('pagePath', () => {
