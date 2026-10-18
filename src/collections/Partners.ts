@@ -2,6 +2,7 @@ import path from 'path'
 import type { CollectionConfig } from 'payload'
 
 import { adminOnly } from '../lib/auth/access'
+import { catalogRevalidationHooks } from '../lib/catalog/revalidate'
 import { getEnv } from '../lib/env'
 import { createPublicReadAccess, publicPartnerWhere } from '../lib/media/access'
 import { isValidNavHref } from '../lib/site/link'
@@ -24,9 +25,14 @@ export const Partners: CollectionConfig = {
     update: ({ req: { user } }) => Boolean(user),
     delete: adminOnly,
   },
+  // Brands of the catalog: their name, address and status are in the index of their sites.
+  hooks: catalogRevalidationHooks,
   upload: {
     staticDir: path.resolve(getEnv().MEDIA_DIR, 'partners'),
     mimeTypes: IMAGE_MIME_TYPES,
+    // A catalog brand may have no official logo yet (APC, Samsung, PRO-KOM services); the
+    // logo wall (`getPartners`) skips records without a file.
+    filesRequiredOnCreate: false,
     imageSizes: [
       { name: 'logo', width: 320, formatOptions: { format: 'webp', options: { quality: 85 } } },
     ],

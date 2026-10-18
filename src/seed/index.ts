@@ -6,6 +6,7 @@ import { getPayload } from 'payload'
 
 import config from '../payload.config'
 import { assertSeedAllowed, parseSeedEnv } from './config'
+import { seedBiznesCatalog } from './biznes/run'
 import { sampleImage } from './media'
 import {
   SAMPLE_COMPANY,
@@ -203,6 +204,9 @@ try {
     })
     payload.logger.info('Seed: sample company data set.')
   }
+
+  // Catalog of the Biznes site (B2); also `pnpm seed:biznes` on its own.
+  await seedBiznesCatalog(payload)
 } finally {
   await payload.destroy()
 }

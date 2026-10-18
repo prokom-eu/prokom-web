@@ -1,0 +1,39 @@
+import type { IconName } from '../../lib/catalog/options'
+
+/**
+ * Paths of the line icons from the design (`seed/prokombiznes/ikony.json`): viewBox 24, no fill,
+ * round caps. A missing icon is drawn in the same style (or taken from Lucide) and added here
+ * and to `ICON_NAMES` — the test keeps both in sync with the seed package.
+ */
+export const ICON_PATHS: Record<IconName, string> = {
+  shield: 'M12 3l7 3v5c0 4.6-3 8.6-7 10-4-1.4-7-5.4-7-10V6l7-3z M9 12l2 2 4-4',
+  cal: 'M4 6h16v14H4z M4 10h16 M8 3v4 M16 3v4',
+  users:
+    'M9 11a4 4 0 100-8 4 4 0 000 8z M2 21v-1a6 6 0 016-6h2a6 6 0 016 6v1 M16 3.5a4 4 0 010 7.5 M22 21v-1a6 6 0 00-4-5.6',
+  store:
+    'M3 9l2-5h14l2 5 M3 9a2.25 2.25 0 004.5 0 2.25 2.25 0 004.5 0 2.25 2.25 0 004.5 0 2.25 2.25 0 004.5 0 M5 11v9h14v-9 M10 20v-5h4v5',
+  bolt: 'M13 2L4 14h7l-1 8 9-12h-7z',
+  doc: 'M6 3h9l4 4v14H6z M14 3v5h5 M9 13h7 M9 17h5',
+  life: 'M12 21a9 9 0 100-18 9 9 0 000 18z M12 16a4 4 0 100-8 4 4 0 000 8z M5.6 5.6l3.6 3.6 M14.8 14.8l3.6 3.6 M18.4 5.6l-3.6 3.6 M9.2 14.8l-3.6 3.6',
+  arrow: 'M5 12h14 M13 6l6 6-6 6',
+  check: 'M5 12l5 5L20 7',
+  phone: 'M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2',
+  mail: 'M3 6h18v12H3z M3 7l9 6 9-6',
+  pin: 'M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11z M12 12.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z',
+  clock: 'M12 21a9 9 0 100-18 9 9 0 000 18z M12 7v5l3 2',
+  monitor: 'M4 5h16v11H4z M8 20h8 M12 16v4 M7 12l3-3 2 2 4-4',
+  remote: 'M4 5h16v11H4z M8 20h8 M12 16v4 M10 9l2 2 4-4',
+  bell: 'M6 16V11a6 6 0 0112 0v5l2 2H4z M10 21h4',
+  wallet: 'M4 7h15a1 1 0 011 1v10a1 1 0 01-1 1H4z M4 7V5h12 M16 13h.01',
+  chat: 'M4 5h16v11H9l-5 4z',
+  wrench: 'M15 7a4 4 0 00-5.3 5.1L4 17.8 6.2 20l5.7-5.7A4 4 0 0017 9l-2.4 2.4-2-2L15 7z',
+  rocket:
+    'M12 3c3 2 4.5 5.5 4.5 9.5l-1.5 3h-6l-1.5-3C7.5 8.5 9 5 12 3z M9 15l-3 3 M15 15l3 3 M12 10h.01 M10 21h4',
+  map: 'M3 5l6-2 6 2 6-2v16l-6 2-6-2-6 2z M9 3v16 M15 5v16',
+  star: 'M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z',
+  q: 'M9.1 9a3 3 0 015.8 1c0 2-3 3-3 3 M12 17h.01 M12 21a9 9 0 100-18 9 9 0 000 18z',
+  flash: 'M12 21a9 9 0 100-18 9 9 0 000 18z M12 7v5 M12 16h.01',
+  grad: 'M2 9l10-5 10 5-10 5L2 9z M6 11v5c2.5 2 9.5 2 12 0v-5',
+  server: 'M4 4h16v6H4z M4 14h16v6H4z M8 7h.01 M8 17h.01',
+  compass: 'M12 21a9 9 0 100-18 9 9 0 000 18z M15.5 8.5l-2 5-5 2 2-5z',
+}

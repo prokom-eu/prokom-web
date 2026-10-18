@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
 import { adminOnly } from '../lib/auth/access'
+import { catalogRevalidationHooks } from '../lib/catalog/revalidate'
 import { WIZARD_BUSINESS_TYPES } from '../lib/catalog/options'
 import { faqArray, imageField, orderField, seoGroup, slugField } from './catalogFields'
 
@@ -23,6 +24,7 @@ export const Industries: CollectionConfig = {
     update: ({ req: { user } }) => Boolean(user),
     delete: adminOnly,
   },
+  hooks: catalogRevalidationHooks,
   indexes: [{ fields: ['tenant', 'slug'], unique: true }],
   fields: [
     { name: 'name', label: 'Nazwa', type: 'text', required: true },
