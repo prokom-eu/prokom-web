@@ -35,3 +35,24 @@ export const getPartners = cache(async (tenantId: number): Promise<PublicPartner
   }
   return partners
 })
+
+/**
+ * Partners of one tenant with a confirmed status ([SZEF]), logo or not — for the footer badges
+ * (`partnerBadges`). Tenant filter mandatory, as above.
+ */
+export const getPartnerStatuses = cache(async (tenantId: number) => {
+  const payload = await getPayload({ config })
+  const { docs } = await payload.find({
+    collection: 'partners',
+    where: {
+      and: [{ tenants: { in: [tenantId] } }, { partnerStatus: { not_equals: 'none' } }],
+    },
+    sort: 'order',
+    limit: 100,
+    depth: 0,
+    select: { name: true, partnerStatus: true },
+    // Server-side read; only the name and the status leave here.
+    overrideAccess: true,
+  })
+  return docs.map((doc) => ({ name: doc.name, status: doc.partnerStatus }))
+})

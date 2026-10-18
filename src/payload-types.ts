@@ -365,6 +365,28 @@ export interface SiteSetting {
           }[]
         | null;
     };
+    footer?: {
+      /**
+       * Np. Opieka IT, GoPOS, InsERT, KSeF 2027, kreator.
+       */
+      important?:
+        | {
+            label: string;
+            href: string;
+            id?: string | null;
+          }[]
+        | null;
+      /**
+       * Np. branże, O firmie, Aktualności, inne linie PRO-KOM.
+       */
+      company?:
+        | {
+            label: string;
+            href: string;
+            id?: string | null;
+          }[]
+        | null;
+    };
   };
   updatedAt: string;
   createdAt: string;
@@ -1545,6 +1567,24 @@ export interface SiteSettingsSelect<T extends boolean = true> {
                     industry?: T;
                     image?: T;
                     description?: T;
+                    id?: T;
+                  };
+            };
+        footer?:
+          | T
+          | {
+              important?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                    id?: T;
+                  };
+              company?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
                     id?: T;
                   };
             };

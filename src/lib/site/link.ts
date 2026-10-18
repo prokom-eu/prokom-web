@@ -22,3 +22,13 @@ export function toTelHref(phone: string): string | null {
   if (!digits) return null
   return `tel:${trimmed.startsWith('+') ? '+' : ''}${digits}`
 }
+
+/**
+ * `https://wa.me/<number>` for the WhatsApp number from the panel. wa.me needs the country
+ * code without `+`; a bare 9-digit Polish number gets `48`. Anything shorter → `null`.
+ */
+export function toWhatsAppHref(phone: string): string | null {
+  const digits = phone.replace(/\D/g, '')
+  if (digits.length === 9) return `https://wa.me/48${digits}`
+  return digits.length >= 10 ? `https://wa.me/${digits}` : null
+}
