@@ -2,7 +2,6 @@ import type {
   CollectionAfterChangeHook,
   CollectionAfterDeleteHook,
   CollectionConfig,
-  TextFieldSingleValidation,
 } from 'payload'
 
 import { ALL_BLOCKS, blocksFilterOptions } from '../blocks/registry'
@@ -11,29 +10,14 @@ import { revalidatePageTags } from '../lib/pages/revalidate'
 import { HOME_SLUG, isValidPageSlug } from '../lib/pages/slug'
 import { tagsToRevalidate } from '../lib/pages/tags'
 import { pagePreviewUrl } from '../lib/preview/url'
-import { tenantIdOf } from '../lib/tenant/id'
+import { tenantUniqueSlug } from '../lib/tenant/uniqueSlug'
 
 /** The slug is unique per tenant: database index below + a readable message here. */
-const validateSlug: TextFieldSingleValidation = async (value, { id, data, req }) => {
-  if (typeof value !== 'string' || !isValidPageSlug(value)) {
-    return 'Tylko małe litery, cyfry i pojedyncze myślniki, np. „kontakt”.'
-  }
-  const tenantId = tenantIdOf((data as { tenant?: unknown }).tenant)
-  if (tenantId === null) return true // the plugin's tenant field reports the missing tenant
-  const { totalDocs } = await req.payload.count({
-    collection: 'pages',
-    where: {
-      and: [
-        { tenant: { equals: tenantId } },
-        { slug: { equals: value } },
-        ...(id !== undefined ? [{ id: { not_equals: id } }] : []),
-      ],
-    },
-    overrideAccess: true,
-    req,
-  })
-  return totalDocs > 0 ? `Ta strona ma już podstronę o adresie „${value}”.` : true
-}
+const validateSlug = tenantUniqueSlug('pages', {
+  isValid: isValidPageSlug,
+  invalidMessage: 'Tylko małe litery, cyfry i pojedyncze myślniki, np. „kontakt”.',
+  takenMessage: (slug) => `Ta strona ma już podstronę o adresie „${slug}”.`,
+})
 
 const revalidateAfterChange: CollectionAfterChangeHook = ({ doc, previousDoc, req }) => {
   revalidatePageTags(tagsToRevalidate(doc, previousDoc), req.payload)

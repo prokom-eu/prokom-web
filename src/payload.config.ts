@@ -7,11 +7,16 @@ import { buildConfig } from 'payload'
 import sharp from 'sharp'
 import { fileURLToPath } from 'url'
 
+import { CatalogCategories } from './collections/CatalogCategories'
+import { CatalogGroups } from './collections/CatalogGroups'
+import { Industries } from './collections/Industries'
 import { Inquiries } from './collections/Inquiries'
 import { InquiryDeletions } from './collections/InquiryDeletions'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Partners } from './collections/Partners'
+import { Posts } from './collections/Posts'
+import { Products } from './collections/Products'
 import { Redirects } from './collections/Redirects'
 import { SiteSettings } from './collections/SiteSettings'
 import { Tenants } from './collections/Tenants'
@@ -34,7 +39,8 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  // New collections go after `Pages`: inserting earlier renumbers Payload's index names (S5).
+  // New collections go at the end: Payload names compound indexes after their columns only
+  // (`tenant_slug_idx`, then `tenant_slug_1_idx`, …), so inserting earlier renumbers them (S5).
   collections: [
     Users,
     Tenants,
@@ -45,6 +51,12 @@ export default buildConfig({
     Redirects,
     Inquiries,
     InquiryDeletions,
+    // Biznes catalog (ADR-012).
+    CatalogGroups,
+    CatalogCategories,
+    Industries,
+    Products,
+    Posts,
   ],
   globals: [CompanyData],
   editor: lexicalEditor(),
@@ -115,6 +127,11 @@ export default buildConfig({
         inquiries: { tenantFieldOverrides: { access: { update: () => false } } },
         // One settings document per tenant (unique tenant field).
         'site-settings': { isGlobal: true },
+        'catalog-groups': {},
+        'catalog-categories': {},
+        industries: {},
+        products: {},
+        posts: {},
       },
       // Deleting a tenant must never silently delete its content.
       cleanupAfterTenantDelete: false,

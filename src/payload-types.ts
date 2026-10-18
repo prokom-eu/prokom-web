@@ -76,6 +76,11 @@ export interface Config {
     redirects: Redirect;
     inquiries: Inquiry;
     'inquiry-deletions': InquiryDeletion;
+    'catalog-groups': CatalogGroup;
+    'catalog-categories': CatalogCategory;
+    industries: Industry;
+    products: Product;
+    posts: Post;
     'payload-kv': PayloadKv;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
@@ -93,6 +98,11 @@ export interface Config {
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     inquiries: InquiriesSelect<false> | InquiriesSelect<true>;
     'inquiry-deletions': InquiryDeletionsSelect<false> | InquiryDeletionsSelect<true>;
+    'catalog-groups': CatalogGroupsSelect<false> | CatalogGroupsSelect<true>;
+    'catalog-categories': CatalogCategoriesSelect<false> | CatalogCategoriesSelect<true>;
+    industries: IndustriesSelect<false> | IndustriesSelect<true>;
+    products: ProductsSelect<false> | ProductsSelect<true>;
+    posts: PostsSelect<false> | PostsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -486,6 +496,10 @@ export interface InquiryFormBlock {
 export interface Partner {
   id: number;
   name: string;
+  /**
+   * Np. „posnet”. Potrzebny markom z katalogu.
+   */
+  slug?: string | null;
   website?: string | null;
   partnerStatus: 'none' | 'authorized-service' | 'authorized-partner';
   tenants?: (number | Tenant)[] | null;
@@ -579,6 +593,398 @@ export interface InquiryDeletion {
   deletedByEmail?: string | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "catalog-groups".
+ */
+export interface CatalogGroup {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  name: string;
+  /**
+   * Część adresu, np. „sprzedaz”.
+   */
+  slug: string;
+  icon:
+    | 'shield'
+    | 'cal'
+    | 'users'
+    | 'store'
+    | 'bolt'
+    | 'doc'
+    | 'life'
+    | 'arrow'
+    | 'check'
+    | 'phone'
+    | 'mail'
+    | 'pin'
+    | 'clock'
+    | 'monitor'
+    | 'remote'
+    | 'bell'
+    | 'wallet'
+    | 'chat'
+    | 'wrench'
+    | 'rocket'
+    | 'map'
+    | 'star'
+    | 'q'
+    | 'flash'
+    | 'grad'
+    | 'server'
+    | 'compass';
+  gradientFrom: string;
+  gradientTo: string;
+  /**
+   * Mniejsza liczba = wcześniej.
+   */
+  order?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "catalog-categories".
+ */
+export interface CatalogCategory {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  name: string;
+  /**
+   * Część adresu, np. „kasy-fiskalne”.
+   */
+  slug: string;
+  group: number | CatalogGroup;
+  icon?:
+    | (
+        | 'shield'
+        | 'cal'
+        | 'users'
+        | 'store'
+        | 'bolt'
+        | 'doc'
+        | 'life'
+        | 'arrow'
+        | 'check'
+        | 'phone'
+        | 'mail'
+        | 'pin'
+        | 'clock'
+        | 'monitor'
+        | 'remote'
+        | 'bell'
+        | 'wallet'
+        | 'chat'
+        | 'wrench'
+        | 'rocket'
+        | 'map'
+        | 'star'
+        | 'q'
+        | 'flash'
+        | 'grad'
+        | 'server'
+        | 'compass'
+      )
+    | null;
+  /**
+   * Jedno zdanie pod nazwą w menu i na kafelku.
+   */
+  description?: string | null;
+  hero?: {
+    /**
+     * Puste = nazwa.
+     */
+    title?: string | null;
+    lead?: string | null;
+    highlights?: string[] | null;
+    image?: (number | null) | Media;
+  };
+  included?: string[] | null;
+  faq?:
+    | {
+        question: string;
+        answer: string;
+        id?: string | null;
+      }[]
+    | null;
+  frequentlyBoughtWith?: (number | Product)[] | null;
+  /**
+   * Mniejsza liczba = wcześniej.
+   */
+  order?: number | null;
+  seo?: {
+    title?: string | null;
+    description?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products".
+ */
+export interface Product {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  /**
+   * Część adresu, np. „posnet-ergo-online”.
+   */
+  slug: string;
+  name: string;
+  kind: 'device' | 'software' | 'service';
+  /**
+   * Partnerzy widoczni na tej stronie.
+   */
+  brand?: (number | null) | Partner;
+  /**
+   * Pierwsza jest główna (okruszki, „Podobne”).
+   */
+  categories: (number | CatalogCategory)[];
+  /**
+   * Produkt pokazuje się tylko w tych branżach.
+   */
+  industries?: (number | Industry)[] | null;
+  /**
+   * Jedno zdanie na karcie produktu.
+   */
+  benefit?: string | null;
+  features?: string[] | null;
+  /**
+   * Krótki tekst na karcie, np. „Nowość 2026”. Bez cen.
+   */
+  badge?: string | null;
+  /**
+   * Dla wyszukiwarki, niewidoczne na stronie.
+   */
+  keywords?: string | null;
+  images?: (number | Media)[] | null;
+  keyParams?:
+    | {
+        label: string;
+        value: string;
+        id?: string | null;
+      }[]
+    | null;
+  specs?:
+    | {
+        group?: string | null;
+        label: string;
+        value: string;
+        id?: string | null;
+      }[]
+    | null;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  hotspots?:
+    | {
+        /**
+         * 0–100 % szerokości/wysokości zdjęcia.
+         */
+        x: number;
+        /**
+         * 0–100 % szerokości/wysokości zdjęcia.
+         */
+        y: number;
+        title: string;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  modules?:
+    | {
+        name: string;
+        description?: string | null;
+        icon?:
+          | (
+              | 'shield'
+              | 'cal'
+              | 'users'
+              | 'store'
+              | 'bolt'
+              | 'doc'
+              | 'life'
+              | 'arrow'
+              | 'check'
+              | 'phone'
+              | 'mail'
+              | 'pin'
+              | 'clock'
+              | 'monitor'
+              | 'remote'
+              | 'bell'
+              | 'wallet'
+              | 'chat'
+              | 'wrench'
+              | 'rocket'
+              | 'map'
+              | 'star'
+              | 'q'
+              | 'flash'
+              | 'grad'
+              | 'server'
+              | 'compass'
+            )
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Puste = „W cenie” z kategorii głównej.
+   */
+  included?: string[] | null;
+  faq?:
+    | {
+        question: string;
+        answer: string;
+        id?: string | null;
+      }[]
+    | null;
+  fitsWith?: (number | Product)[] | null;
+  alternatives?: (number | Product)[] | null;
+  registerTypes?: ('mobile' | 'small' | 'system' | 'touch')[] | null;
+  comparison?: {
+    type?: string | null;
+    display?: string | null;
+    keyboard?: string | null;
+    plu?: string | null;
+    printer?: string | null;
+    connectivity?: string | null;
+    weight?: string | null;
+    audience?: string | null;
+  };
+  seo?: {
+    title?: string | null;
+    description?: string | null;
+  };
+  isNew?: boolean | null;
+  /**
+   * Etykieta zależy od statusu marki (serwis / partner) i rodzaju.
+   */
+  authorized?: boolean | null;
+  /**
+   * 0–100: kolejność „Popularne” i wyszukiwarka.
+   */
+  popularity?: number | null;
+  featured?: boolean | null;
+  featuredOrder?: number | null;
+  legacyId?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "industries".
+ */
+export interface Industry {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  name: string;
+  /**
+   * Część adresu, np. „gastronomia”.
+   */
+  slug: string;
+  /**
+   * Nieaktywna branża pokazuje się jako „Wkrótce”.
+   */
+  active?: boolean | null;
+  /**
+   * Przycisk „Przygotuj ofertę” otwiera kreator z tym rodzajem firmy.
+   */
+  wizardBusinessType?:
+    | ('sklep' | 'gastro' | 'hotel' | 'biuro' | 'warsztat' | 'gabinet' | 'szkola' | 'produkcja' | 'truck' | 'inna')
+    | null;
+  hero?: {
+    /**
+     * Puste = nazwa.
+     */
+    title?: string | null;
+    lead?: string | null;
+    image?: (number | null) | Media;
+  };
+  featuredProducts?: (number | Product)[] | null;
+  faq?:
+    | {
+        question: string;
+        answer: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Mniejsza liczba = wcześniej.
+   */
+  order?: number | null;
+  seo?: {
+    title?: string | null;
+    description?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts".
+ */
+export interface Post {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  title: string;
+  /**
+   * Część adresu, np. „ksef-2026-co-musisz-wiedziec”.
+   */
+  slug: string;
+  category: 'ksef' | 'kasy' | 'terminale' | 'dofinansowania' | 'programy';
+  publishedAt?: string | null;
+  lead?: string | null;
+  cover?: (number | null) | Media;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  /**
+   * Każdy fakt prawny: link do aktu, MF, podatki.gov.pl.
+   */
+  sources?:
+    | {
+        name: string;
+        url: string;
+        verifiedAt: string;
+        id?: string | null;
+      }[]
+    | null;
+  relatedProducts?: (number | Product)[] | null;
+  seo?: {
+    title?: string | null;
+    description?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -740,6 +1146,26 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'inquiry-deletions';
         value: number | InquiryDeletion;
+      } | null)
+    | ({
+        relationTo: 'catalog-groups';
+        value: number | CatalogGroup;
+      } | null)
+    | ({
+        relationTo: 'catalog-categories';
+        value: number | CatalogCategory;
+      } | null)
+    | ({
+        relationTo: 'industries';
+        value: number | Industry;
+      } | null)
+    | ({
+        relationTo: 'products';
+        value: number | Product;
+      } | null)
+    | ({
+        relationTo: 'posts';
+        value: number | Post;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -1074,6 +1500,7 @@ export interface MediaSelect<T extends boolean = true> {
  */
 export interface PartnersSelect<T extends boolean = true> {
   name?: T;
+  slug?: T;
   website?: T;
   partnerStatus?: T;
   tenants?: T;
@@ -1161,6 +1588,215 @@ export interface InquiryDeletionsSelect<T extends boolean = true> {
   deletedByEmail?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "catalog-groups_select".
+ */
+export interface CatalogGroupsSelect<T extends boolean = true> {
+  tenant?: T;
+  name?: T;
+  slug?: T;
+  icon?: T;
+  gradientFrom?: T;
+  gradientTo?: T;
+  order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "catalog-categories_select".
+ */
+export interface CatalogCategoriesSelect<T extends boolean = true> {
+  tenant?: T;
+  name?: T;
+  slug?: T;
+  group?: T;
+  icon?: T;
+  description?: T;
+  hero?:
+    | T
+    | {
+        title?: T;
+        lead?: T;
+        highlights?: T;
+        image?: T;
+      };
+  included?: T;
+  faq?:
+    | T
+    | {
+        question?: T;
+        answer?: T;
+        id?: T;
+      };
+  frequentlyBoughtWith?: T;
+  order?: T;
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "industries_select".
+ */
+export interface IndustriesSelect<T extends boolean = true> {
+  tenant?: T;
+  name?: T;
+  slug?: T;
+  active?: T;
+  wizardBusinessType?: T;
+  hero?:
+    | T
+    | {
+        title?: T;
+        lead?: T;
+        image?: T;
+      };
+  featuredProducts?: T;
+  faq?:
+    | T
+    | {
+        question?: T;
+        answer?: T;
+        id?: T;
+      };
+  order?: T;
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products_select".
+ */
+export interface ProductsSelect<T extends boolean = true> {
+  tenant?: T;
+  slug?: T;
+  name?: T;
+  kind?: T;
+  brand?: T;
+  categories?: T;
+  industries?: T;
+  benefit?: T;
+  features?: T;
+  badge?: T;
+  keywords?: T;
+  images?: T;
+  keyParams?:
+    | T
+    | {
+        label?: T;
+        value?: T;
+        id?: T;
+      };
+  specs?:
+    | T
+    | {
+        group?: T;
+        label?: T;
+        value?: T;
+        id?: T;
+      };
+  description?: T;
+  hotspots?:
+    | T
+    | {
+        x?: T;
+        y?: T;
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  modules?:
+    | T
+    | {
+        name?: T;
+        description?: T;
+        icon?: T;
+        id?: T;
+      };
+  included?: T;
+  faq?:
+    | T
+    | {
+        question?: T;
+        answer?: T;
+        id?: T;
+      };
+  fitsWith?: T;
+  alternatives?: T;
+  registerTypes?: T;
+  comparison?:
+    | T
+    | {
+        type?: T;
+        display?: T;
+        keyboard?: T;
+        plu?: T;
+        printer?: T;
+        connectivity?: T;
+        weight?: T;
+        audience?: T;
+      };
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  isNew?: T;
+  authorized?: T;
+  popularity?: T;
+  featured?: T;
+  featuredOrder?: T;
+  legacyId?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts_select".
+ */
+export interface PostsSelect<T extends boolean = true> {
+  tenant?: T;
+  title?: T;
+  slug?: T;
+  category?: T;
+  publishedAt?: T;
+  lead?: T;
+  cover?: T;
+  content?: T;
+  sources?:
+    | T
+    | {
+        name?: T;
+        url?: T;
+        verifiedAt?: T;
+        id?: T;
+      };
+  relatedProducts?: T;
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1378,10 +2014,15 @@ export interface TaskSchedulePublish {
   input: {
     type?: ('publish' | 'unpublish') | null;
     locale?: string | null;
-    doc?: {
-      relationTo: 'pages';
-      value: number | Page;
-    } | null;
+    doc?:
+      | ({
+          relationTo: 'pages';
+          value: number | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: number | Post;
+        } | null);
     global?: string | null;
     user?: {
       relationTo: 'users';

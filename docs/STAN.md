@@ -12,11 +12,17 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 | prokomsoftware.pl | 31.10 | ⏳ |
 
 ## W toku
-- **Budowa prokombiznes.pl wg `docs/zadania/prokombiznes.md` (B0–B11, produkcja 26.10).**
-  - Gałąź: `docs/prokombiznes-b0` (B0, PR do `develop`).
-  - Zrobione: B0 — ADR-012 i ADR-011 przyjęte, rozstrzygnięcia w ADR-012 (nazwy EN, bez nowych globali, `BiznesSettings`, `promoBar.campaignId`, strony specjalne jako `Pages`, strażnik tras katalogu, `contactChannels`, mapowanie branż i `wizardBusinessType`), uwagi szefa z 16.10 w spec. (§11), seed: branża „Beauty i usługi” (nieaktywna) i kategoria „Maszyny vendingowe” bez produktów.
-  - Niedokończone: produkty vendingowe Elzab i opis kategorii — `TODO(krystian)` (spec. §13 pkt 8, dane ze źródłem); kanały kontaktu działów od szefa (Asana, 20.10).
-  - **Następny krok:** po scaleniu B0 — `/zadanie B1` (model danych, prompt w planie procesu + z przeglądu B0: `promoBar.lines`, `BiznesSettings` tylko dla tenanta biznes; plan B1 do przeglądu w czacie przed „ok”); w poniedziałek 19.10 rano zakup domen i VPS, potem `/zadanie S10` z `docs/runbook.md` §1.
+- **Budowa prokombiznes.pl wg `docs/zadania/prokombiznes.md` (B0–B11, produkcja 26.10).** B1 podzielone na dwa PR (diff > 400 linii): B1a — katalog, B1b — ustawienia i zapytania.
+  - Gałąź: `feat/biznes-b1a-catalog` (B1a, PR do `develop`); B0 scalone (#44).
+  - Zrobione (B1a): kolekcje `CatalogGroups`, `CatalogCategories`, `Industries`, `Products` (wersje robocze), `Posts` (wersje robocze + publikacja z datą) — per tenant, slug unikalny w obrębie tenanta (`lib/tenant/uniqueSlug.ts`, wspólny z `Pages`); `Partners.slug` (unikalny, opcjonalny, pusty = NULL); grupa tras `(sites)/[domain]/(biznes)` ze strażnikiem linii (`requireLine`) i zaślepką `/zapytanie` (`noindex`, do zastąpienia w B8); zastrzeżone slugi `Pages` dla tras katalogu; blokada usunięcia tenanta obejmuje katalog; migracja `20261018_100954_biznes_catalog` (`up → down → up` sprawdzone). Przegląd `recenzent`, poprawki w tym samym PR.
+  - Odstępstwa od ADR-012 / planu B1 (opisane w PR):
+    - **indeksy z prefiksem — nie da się:** Payload 3.90 nie nadaje nazw indeksom złożonym (`CompoundIndex = { fields, unique }`, nazwa z kolumn: `tenant_slug_1_idx` … `_5_idx`). Zasada: nowe kolekcje tylko na końcu `collections` w `payload.config.ts` (także `BiznesSettings` w B1b);
+    - `Products.files` (karty katalogowe PDF) pominięte — `Media` przyjmuje tylko obrazy; osobna kolekcja dokumentów przy B6 albo w etapie 2;
+    - `Industries` bez pola bloków (`strona`): jeden szablon z polami (spec. §6.7) — hero, polecane, FAQ teraz, sekcje „od lady po kuchnię”, oś dnia, „jak to działa” w B10 (migracja dodająca pola);
+    - zakładka „Kasy fiskalne” w `Products` widoczna zawsze (warunek po slugu kategorii niemożliwy synchronicznie w panelu);
+    - `CatalogCategories.hero` to grupa pól, nie blok; `seo` to grupa `title`/`description` jak w `Pages` (bez wtyczki SEO).
+  - **Następny krok:** po scaleniu B1a — B1b na gałęzi `feat/biznes-b1b-settings-inquiries` od `develop` (plan: `SiteSettings` z ukrytym `line` i grupą „Biznes” — `contactChannels`, WhatsApp, miejscowości, obietnice, flagi opinii/logo, mega menu; kolekcja `BiznesSettings` `isGlobal` tylko dla linii biznes; `CompanyData.promoBar.campaignId` + `lines` z filtrem i testem; `Inquiries`: `number`, `type`, `items[]`, `wizard`, `topics`, `deadline`, `preferredContact`). Pon. 19.10 rano zakup domen i VPS, potem `/zadanie S10`.
+  - Niedokończone: produkty vendingowe Elzab i opis kategorii — `TODO(krystian)` (spec. §13 pkt 8); kanały kontaktu działów od szefa (Asana, 20.10).
 
 ## Zrobione
 - 18.10.2026 — B0 (dokumentacja, bez kodu): ADR-012 przyjęta z sekcją „Rozstrzygnięcia (18.10.2026)”, ADR-011 przyjęta, uwagi szefa z 16.10 w `docs/strony/prokombiznes.md`, `seed/prokombiznes/katalog.json` (7 branż z `aktywna` i `kreator`, 21 kategorii).
@@ -53,6 +59,8 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 4. Skrzynki `biznes@`, `instalacje@`, `software@pro-kom.eu` — założyć przed 26.10 (Krystian + szef, Thunderbird); dopisać do listy skrzynek przy migracji poczty do Seohost (ADR-002).
 
 ## Pomysły na później (poza zakresem bieżących sesji)
+- Z B1a (przegląd) → B11: `Posts.publishedAt` nie jest wymagane, a od niego zależy sortowanie i JSON-LD `Article` — przy wpisach ustawić domyślnie „teraz” przy publikacji (hook) albo `required`.
+- Z B1a: karty katalogowe PDF produktów (`pliki` z ADR-012) — `Media` przyjmuje tylko obrazy; osobna kolekcja dokumentów (PDF, per tenant, publiczna tylko na swojej domenie) przy B6 albo w etapie 2.
 - Z S8b (przegląd) → S9/S10, checklista wdrożenia: strona `/polityka-prywatnosci` na każdej domenie i treści z `TODO(krystian)` w `src/lib/inquiry/consent.ts` — link przy zgodzie RODO nie może prowadzić do 404 na produkcji.
 - Z S8b (przegląd): dwa bloki Formularz na jednej stronie dają zdublowane `id="formularz"` — dziś tylko opis w panelu; walidacja w `Pages`, jeśli się zdarzy.
 - Z S8b → strona Biznes: pola formularza ze spec. §8.4 (`typ`, tematy-chipy, lista zapytania, kreator) i wygląd pól z wzorca (etykiety pływające) — przy formularzach Biznesu, z migracją `Inquiries` (ADR-012).
@@ -61,12 +69,12 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 - Z S8a (przegląd): token formularza można użyć wiele razy przez 24 h, a potwierdzenie idzie na dowolny wpisany adres — ogranicza to tylko limit IP; obserwować po starcie (reputacja domeny nadawcy).
 - Z #35: hak przed commitem (lint-staged → `prettier --check`) nie mieści ok. 90 ścieżek w jednym wywołaniu w Windows („The command line is too long”) — przy dużych commitach dzielić je albo zawęzić wzorzec Prettiera w lint-staged do plików tekstowych.
 - Z S7b (przegląd): dwa bloki FAQ na jednej stronie dają dwa obiekty `FAQPage` (Google oczekuje jednego) — gdy się pojawią, zbierać pytania na poziomie strony (`RenderBlocks`).
-- Z S7b (przegląd): nazwy indeksów złożonych bez prefiksu kolekcji (`tenant_from_idx`, `tenant_slug_idx`) są globalne w schemacie — przy kolejnej kolekcji z tymi samymi polami kolizja; sprawdzić, czy Payload pozwala nadać nazwę.
+- ~~Z S7b (przegląd): nazwy indeksów złożonych bez prefiksu kolekcji~~ — sprawdzone w B1a: Payload 3.90 nie pozwala nadać nazwy (kolizje numeruje `_1`, `_2`…); zasada „nowe kolekcje na końcu `collections`” w `payload.config.ts`.
 - Z S7b: przekierowania dopasowują samą ścieżkę (bez `?…`) i zapytanie gubią — stare adresy pro-kom.eu z parametrami (np. `index.php?id=5`) obsłużyć przy migracji huba (grudzień).
 - Z S7b: w dev Next ostrzega „Encountered a script tag while rendering React component” (skrypt motywu i JSON-LD) — wzorzec z dokumentacji Next, bez wpływu na działanie; obserwować przy aktualizacjach Next.
 - Z S7a: AVIF dla obrazów — dziś tylko WebP z Payload (optymalizator Next odpada: jego wewnętrzne żądanie nie ma `Host`). Wrócić, gdy Lighthouse wskaże obrazy.
 - Z S7a: zmiana obrazu (np. `alt`) nie unieważnia cache strony — strona pokaże ją po TTL 60 s. Akceptowalne; przy potrzebie hook `afterChange` w `Media` → tagi stron tenanta.
-- Z S7a: `Partners` bez `slug` — dodać przy stronach marek w katalogu Biznesu (ADR-012), z migracją.
+- ~~Z S7a: `Partners` bez `slug`~~ — zrobione w B1a.
 - Z S7a: logo partnerów w SVG — dziś odrzucane (XSS na domenie strony); jeśli oficjalne pliki są tylko w SVG, konwersja do PNG/WebP przy wgraniu albo sanityzacja.
 - Z S6b-2 → zadanie #3 Biznesu (`docs/design/prokombiznes/PRZEKAZANIE.md`): mega menu Oferta, Branże ▾, wyszukiwarka, szuflada i licznik zapytania, dolny pasek na telefonie, status godzin na żywo w górnym pasku, pasek sezonowy z zamykaniem (`pk-sz-closed`), kolumny stopki Oferta i miejscowości, nagłówek półprzezroczysty wg wzorca (76 px jest, blur jest); przełącznik motywu na telefonie przenieść z nagłówka do menu pełnoekranowego (spec. §3.3 — dziś w nagłówku, bo menu pełnoekranowego jeszcze nie ma).
 - Z S6b-2: seed `kontakt` ma tytuł strony „Kontakt” i blok Kontakt z nagłówkiem „Kontakt” — na stronie dwa razy to samo (h1 + h2); przy treściach docelowych dać blokowi inny nagłówek albo pierwszy blok Hero.

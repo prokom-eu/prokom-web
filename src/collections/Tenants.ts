@@ -1,5 +1,11 @@
 import { APIError } from 'payload'
-import type { ArrayField, CollectionBeforeDeleteHook, CollectionConfig, FieldHook } from 'payload'
+import type {
+  ArrayField,
+  CollectionBeforeDeleteHook,
+  CollectionConfig,
+  CollectionSlug,
+  FieldHook,
+} from 'payload'
 
 import { adminOnly } from '../lib/auth/access'
 import { clearRedirectCache } from '../lib/redirects/byHost'
@@ -53,6 +59,20 @@ const validateDomains: ArrayField['validate'] = async (value, { id, req }) => {
   return true
 }
 
+// Tenant-scoped content and what it is called in the refusal ("ma <label> (n)").
+const TENANT_CONTENT: readonly { collection: CollectionSlug; label: string }[] = [
+  { collection: 'pages', label: 'podstrony' },
+  { collection: 'media', label: 'obrazy' },
+  { collection: 'redirects', label: 'przekierowania' },
+  { collection: 'catalog-groups', label: 'grupy katalogu' },
+  { collection: 'catalog-categories', label: 'kategorie katalogu' },
+  { collection: 'industries', label: 'branże' },
+  { collection: 'products', label: 'produkty' },
+  { collection: 'posts', label: 'wpisy' },
+]
+
+const refuse = (message: string) => new APIError(message, 400, null, true)
+
 /**
  * `cleanupAfterTenantDelete` is off (content must never vanish silently), so a tenant still
  * referenced by users would fail on a database constraint. Refuse with a readable message
@@ -60,96 +80,42 @@ const validateDomains: ArrayField['validate'] = async (value, { id, req }) => {
  * Tenant-scoped content would otherwise be orphaned (`ON DELETE set null`).
  */
 const preventDeleteWhileInUse: CollectionBeforeDeleteHook = async ({ id, req }) => {
-  const [users, settings, pages, media, redirects, inquiries] = await Promise.all([
-    req.payload.count({
-      collection: 'users',
-      where: { 'tenants.tenant': { equals: id } },
-      overrideAccess: true,
-      req,
-    }),
-    req.payload.count({
-      collection: 'site-settings',
-      where: { tenant: { equals: id } },
-      overrideAccess: true,
-      req,
-    }),
-    req.payload.count({
-      collection: 'pages',
-      where: { tenant: { equals: id } },
-      overrideAccess: true,
-      req,
-    }),
-    req.payload.count({
-      collection: 'media',
-      where: { tenant: { equals: id } },
-      overrideAccess: true,
-      req,
-    }),
-    req.payload.count({
-      collection: 'redirects',
-      where: { tenant: { equals: id } },
-      overrideAccess: true,
-      req,
-    }),
-    req.payload.count({
-      collection: 'inquiries',
-      where: { tenant: { equals: id } },
-      overrideAccess: true,
-      req,
-    }),
+  const count = (collection: CollectionSlug, field = 'tenant') =>
+    req.payload
+      .count({ collection, where: { [field]: { equals: id } }, overrideAccess: true, req })
+      .then(({ totalDocs }) => totalDocs)
+
+  const [users, settings, inquiries, ...content] = await Promise.all([
+    count('users', 'tenants.tenant'),
+    count('site-settings'),
+    count('inquiries'),
+    ...TENANT_CONTENT.map(({ collection }) => count(collection)),
   ])
-  if (users.totalDocs > 0) {
-    throw new APIError(
-      `Tej strony nie można usunąć: ma przypisanych użytkowników (${users.totalDocs}). ` +
+  if (users > 0) {
+    throw refuse(
+      `Tej strony nie można usunąć: ma przypisanych użytkowników (${users}). ` +
         'Najpierw ich odepnij albo wyłącz stronę polem „Aktywna”.',
-      400,
-      null,
-      true,
     )
   }
-  if (settings.totalDocs > 0) {
-    throw new APIError(
+  if (settings > 0) {
+    throw refuse(
       'Tej strony nie można usunąć: ma zapisane ustawienia strony. ' +
         'Wyłącz ją polem „Aktywna” albo najpierw usuń jej ustawienia.',
-      400,
-      null,
-      true,
     )
   }
-  if (pages.totalDocs > 0) {
-    throw new APIError(
-      `Tej strony nie można usunąć: ma podstrony (${pages.totalDocs}). ` +
-        'Wyłącz ją polem „Aktywna” albo najpierw usuń jej podstrony.',
-      400,
-      null,
-      true,
-    )
+  for (const [index, { label }] of TENANT_CONTENT.entries()) {
+    const total = content[index] ?? 0
+    if (total > 0) {
+      throw refuse(
+        `Tej strony nie można usunąć: ma ${label} (${total}). ` +
+          `Wyłącz ją polem „Aktywna” albo najpierw usuń jej ${label}.`,
+      )
+    }
   }
-  if (media.totalDocs > 0) {
-    throw new APIError(
-      `Tej strony nie można usunąć: ma obrazy (${media.totalDocs}). ` +
-        'Wyłącz ją polem „Aktywna” albo najpierw usuń jej obrazy.',
-      400,
-      null,
-      true,
-    )
-  }
-  if (redirects.totalDocs > 0) {
-    throw new APIError(
-      `Tej strony nie można usunąć: ma przekierowania (${redirects.totalDocs}). ` +
-        'Wyłącz ją polem „Aktywna” albo najpierw usuń jej przekierowania.',
-      400,
-      null,
-      true,
-    )
-  }
-  if (inquiries.totalDocs > 0) {
-    throw new APIError(
-      `Tej strony nie można usunąć: ma zapytania klientów (${inquiries.totalDocs}). ` +
+  if (inquiries > 0) {
+    throw refuse(
+      `Tej strony nie można usunąć: ma zapytania klientów (${inquiries}). ` +
         'Wyłącz ją polem „Aktywna”.',
-      400,
-      null,
-      true,
     )
   }
 }

@@ -5,6 +5,7 @@ import { getEnv } from '@/lib/env'
 import { siteOrigin } from '@/lib/seo/origin'
 import { getTenantByHost, type SiteTenant } from '@/lib/tenant/byHost'
 import { normalizeHost } from '@/lib/tenant/host'
+import type { Line } from '@/lib/tenant/lines'
 
 /**
  * Tenant for the `[domain]` segment, which `proxy.ts` fills with the request host.
@@ -16,6 +17,19 @@ import { normalizeHost } from '@/lib/tenant/host'
 export async function requireTenant(params: Promise<{ domain: string }>): Promise<SiteTenant> {
   const tenant = await findTenant(params)
   if (!tenant) notFound()
+  return tenant
+}
+
+/**
+ * Tenant of a route that exists for one line only (Biznes catalog, ADR-012 rozstrzygnięcie 5):
+ * on any other line's domain the route answers 404, as if it did not exist.
+ */
+export async function requireLine(
+  params: Promise<{ domain: string }>,
+  line: Line,
+): Promise<SiteTenant> {
+  const tenant = await requireTenant(params)
+  if (tenant.line !== line) notFound()
   return tenant
 }
 

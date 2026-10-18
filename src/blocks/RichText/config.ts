@@ -38,7 +38,28 @@ const withUrlValidation = (field: FieldAffectingData): FieldAffectingData =>
  * until S7, and they could embed any collection), internal links (they need `internalDocToHref`,
  * otherwise they render as `#`), checklists, code, alignment and indents (look comes from
  * the brand, S6). Headings from h2: the page's h1 is the hero or the page title.
+ * Shared by other long texts of the sites (product description, post content).
  */
+export const restrictedRichTextEditor = lexicalEditor({
+  features: [
+    ParagraphFeature(),
+    HeadingFeature({ enabledHeadingSizes: ['h2', 'h3', 'h4'] }),
+    BoldFeature(),
+    ItalicFeature(),
+    UnderlineFeature(),
+    StrikethroughFeature(),
+    UnorderedListFeature(),
+    OrderedListFeature(),
+    BlockquoteFeature(),
+    HorizontalRuleFeature(),
+    LinkFeature({
+      enabledCollections: [],
+      fields: ({ defaultFields }) => defaultFields.map(withUrlValidation),
+    }),
+    InlineToolbarFeature(),
+  ],
+})
+
 export const RichTextBlock: Block = {
   slug: 'richText',
   interfaceName: 'RichTextBlock',
@@ -49,25 +70,7 @@ export const RichTextBlock: Block = {
       label: 'Treść',
       type: 'richText',
       required: true,
-      editor: lexicalEditor({
-        features: [
-          ParagraphFeature(),
-          HeadingFeature({ enabledHeadingSizes: ['h2', 'h3', 'h4'] }),
-          BoldFeature(),
-          ItalicFeature(),
-          UnderlineFeature(),
-          StrikethroughFeature(),
-          UnorderedListFeature(),
-          OrderedListFeature(),
-          BlockquoteFeature(),
-          HorizontalRuleFeature(),
-          LinkFeature({
-            enabledCollections: [],
-            fields: ({ defaultFields }) => defaultFields.map(withUrlValidation),
-          }),
-          InlineToolbarFeature(),
-        ],
-      }),
+      editor: restrictedRichTextEditor,
     },
   ],
 }

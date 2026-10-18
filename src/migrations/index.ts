@@ -7,6 +7,7 @@ import * as migration_20261017_130141_redirects from './20261017_130141_redirect
 import * as migration_20261017_144826_inquiries from './20261017_144826_inquiries'
 import * as migration_20261017_145754_inquiry_retention_job from './20261017_145754_inquiry_retention_job'
 import * as migration_20261017_165255_inquiry_form_block from './20261017_165255_inquiry_form_block'
+import * as migration_20261018_100954_biznes_catalog from './20261018_100954_biznes_catalog'
 
 export const migrations = [
   {
@@ -53,5 +54,10 @@ export const migrations = [
     up: migration_20261017_165255_inquiry_form_block.up,
     down: migration_20261017_165255_inquiry_form_block.down,
     name: '20261017_165255_inquiry_form_block',
+  },
+  {
+    up: migration_20261018_100954_biznes_catalog.up,
+    down: migration_20261018_100954_biznes_catalog.down,
+    name: '20261018_100954_biznes_catalog',
   },
 ]
