@@ -123,11 +123,12 @@ const optional = (value: string | null | undefined) => (value?.trim() ? value.tr
 
 export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
   const { tenantId } = source
-  const groupSlugById = new Map(source.groups.map((group) => [group.id, group.slug]))
-  const groupSlugOf = (category: CatalogCategory) => {
+  const groupById = new Map(source.groups.map((group) => [group.id, group]))
+  const groupOf = (category: CatalogCategory) => {
     const group = category.group
-    return typeof group === 'number' ? groupSlugById.get(group) : group?.slug
+    return typeof group === 'number' ? groupById.get(group) : group
   }
+  const groupSlugOf = (category: CatalogCategory) => groupOf(category)?.slug
 
   const ownTenant = (record: { tenant?: unknown }) => tenantIdOf(record.tenant) === tenantId
   const brands = new Map<string, CatalogIndex['brands'][number]>()
@@ -151,6 +152,7 @@ export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
         product.name,
         brand?.name,
         ...categories.map((category) => category.name),
+        main && groupOf(main)?.name,
         ...features,
         benefit,
         badge,
