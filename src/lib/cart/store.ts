@@ -15,8 +15,11 @@ const EMPTY: Cart = []
 const listeners = new Set<() => void>()
 let snapshot: { raw: string | null; cart: Cart } = { raw: null, cart: EMPTY }
 let memory: string | null = null
+/** Set when a write failed (storage full, Safari private mode): `memory` is the list since. */
+let inMemory = false
 
 function readRaw(): string | null {
+  if (inMemory) return memory
   try {
     return window.localStorage.getItem(CART_KEY)
   } catch {
@@ -57,6 +60,7 @@ function write(cart: Cart) {
     window.localStorage.setItem(CART_KEY, raw)
   } catch {
     // No storage: `memory` keeps the list until the page is left.
+    inMemory = true
   }
   notify()
 }

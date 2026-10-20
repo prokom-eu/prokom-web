@@ -128,6 +128,14 @@ describe('suggestFor (Często dobierane)', () => {
     expect(popularity).toEqual([...popularity].sort((a, b) => b - a))
   })
 
+  it('a product without a group does not pull in every other product without one', () => {
+    const noGroup: CatalogIndex = {
+      ...index,
+      products: index.products.map((p): IndexProduct => ({ ...p, group: null })),
+    }
+    expect(suggestFor([item('posnet-ergo-online')], noGroup)).toEqual([])
+  })
+
   it('puts the products of "Skompletuj stanowisko" first and skips what is on the list', () => {
     const terminal = product('terminal-platniczy-polcard')
     const ksef = product('wdrozenie-ksef-w-firmie')

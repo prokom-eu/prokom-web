@@ -62,24 +62,33 @@ test.describe('Biznes inquiry list', () => {
     await openDrawer(page)
 
     const ergo = drawer(page).getByRole('listitem').filter({ hasText: 'Posnet Ergo Online' })
-    await expect(ergo.getByRole('button', { name: 'mniej' })).toBeDisabled()
+    await expect(ergo.getByRole('button', { name: 'mniej' })).toHaveAttribute(
+      'aria-disabled',
+      'true',
+    )
     await ergo.getByRole('button', { name: 'więcej' }).click()
     await expect(ergo.getByText('2 szt.')).toBeVisible()
 
-    // "Często dobierane razem": the first suggestion lands on the list, the toast says so.
+    // "Często dobierane razem" from the keyboard: the suggestion moves onto the list, its row
+    // (and the focused button) disappears — focus goes to the drawer's title.
+    const title = drawer(page).getByRole('heading', { name: 'Twoje zapytanie' })
     const suggestions = drawer(page).getByRole('region', { name: 'Często dobierane razem' })
     await suggestions
       .getByRole('button', { name: /^Dodaj do zapytania: / })
       .first()
-      .click()
-    await expect(page.getByRole('status').getByText('Dodano do zapytania:')).toBeVisible()
+      .focus()
+    await page.keyboard.press('Enter')
     await expect(cartButton(page)).toHaveAccessibleName('Zapytanie 2 pozycje')
+    await expect(title).toBeFocused()
+    // No toast under the drawer's backdrop: the list itself shows the new position.
+    await expect(page.getByText('Dodano do zapytania:')).toHaveCount(0)
     await expect(
       drawer(page).getByRole('link', { name: 'Przejdź do zapytania (2)' }),
     ).toHaveAttribute('href', '/zapytanie')
 
     await ergo.getByRole('button', { name: 'Usuń: Posnet Ergo Online' }).click()
     await expect(cartButton(page)).toHaveAccessibleName('Zapytanie 1 pozycja')
+    await expect(title).toBeFocused()
 
     await page.keyboard.press('Escape')
     await expect(drawer(page)).toBeHidden()

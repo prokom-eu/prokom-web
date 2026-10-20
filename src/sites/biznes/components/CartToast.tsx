@@ -10,14 +10,23 @@ const SHOW_MS = 2500
 
 /**
  * "Dodano do zapytania: <name>" after an item lands on the list (spec. §3.2), with a way to the
- * drawer. A status region: screen readers announce it without moving focus. Above the phone's
+ * drawer — when added from the page (catalog card, product), not from inside a modal. A status region: screen readers announce it without moving focus. Above the phone's
  * bottom bar.
  */
 export function CartToast() {
   const [added, setAdded] = useState<{ name: string; key: number } | null>(null)
   const count = cartCount(useCart())
 
-  useEffect(() => onCartAdded(({ name }) => setAdded({ name, key: Date.now() })), [])
+  useEffect(
+    () =>
+      onCartAdded(({ name }) => {
+        // Under an open modal (search, drawer) the toast would sit behind its backdrop: there
+        // the ✓ switch and the list itself already show what happened.
+        if (document.querySelector('dialog[open]')) return
+        setAdded({ name, key: Date.now() })
+      }),
+    [],
+  )
 
   useEffect(() => {
     if (!added) return

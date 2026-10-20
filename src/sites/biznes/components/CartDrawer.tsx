@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation'
 import { useEffect, useId, useMemo, useRef, useState } from 'react'
 
 import { ICON_BUTTON } from '@/components/ui/iconButton'
-import { cartCount, suggestFor } from '@/lib/cart/cart'
+import { cartCount, MAX_QTY, suggestFor } from '@/lib/cart/cart'
 import { cartActions, onCartOpen, useCart } from '@/lib/cart/store'
 import { useCatalogIndex } from '@/lib/catalog/useCatalogIndex'
 import { plural } from '@/lib/plural'
@@ -19,7 +19,7 @@ type Props = {
 }
 
 const QTY_BUTTON =
-  'inline-flex size-9 items-center justify-center rounded-lg text-lg font-bold text-ink hover:bg-surface-3 disabled:opacity-40'
+  'inline-flex size-9 items-center justify-center rounded-lg text-lg font-bold text-ink hover:bg-surface-3 aria-disabled:opacity-40 aria-disabled:hover:bg-transparent'
 
 /**
  * Inquiry drawer from the right (spec. §3.2): the list with − / + and removal, "Często
@@ -36,6 +36,10 @@ export function CartDrawer({ phone }: Props) {
   const catalog = useCatalogIndex(open)
   const index = catalog.index
   const titleId = useId()
+  const heading = useRef<HTMLHeadingElement>(null)
+  // A removed row (or a suggestion that moved onto the list) takes its focused button with it:
+  // focus goes to the title, and the count below it is announced (keyboard, spec. §9 pkt 7).
+  const focusTitle = () => heading.current?.focus()
 
   useEffect(
     () =>
@@ -85,10 +89,15 @@ export function CartDrawer({ phone }: Props) {
     >
       <div className="flex items-center justify-between gap-3 border-b border-border px-6 pb-4 pt-5">
         <div>
-          <h2 id={titleId} className="font-display text-xl font-extrabold">
+          <h2
+            ref={heading}
+            id={titleId}
+            tabIndex={-1}
+            className="font-display text-xl font-extrabold outline-none"
+          >
             Twoje zapytanie
           </h2>
-          <p className="text-sm text-ink-3">
+          <p className="text-sm text-ink-3" aria-live="polite">
             {count > 0
               ? `${count} ${plural(count, ['pozycja', 'pozycje', 'pozycji'])} · bez cen, wycena na piśmie`
               : 'bez cen, wycena na piśmie'}
@@ -159,8 +168,9 @@ export function CartDrawer({ phone }: Props) {
                       >
                         <button
                           type="button"
-                          onClick={() => cartActions.changeQty(item.id, -1)}
-                          disabled={item.q <= 1}
+                          // aria-disabled, not disabled: a disabled button would drop focus.
+                          aria-disabled={item.q <= 1}
+                          onClick={() => item.q > 1 && cartActions.changeQty(item.id, -1)}
                           className={QTY_BUTTON}
                         >
                           −<span className="sr-only"> mniej</span>
@@ -171,7 +181,8 @@ export function CartDrawer({ phone }: Props) {
                         </span>
                         <button
                           type="button"
-                          onClick={() => cartActions.changeQty(item.id, 1)}
+                          aria-disabled={item.q >= MAX_QTY}
+                          onClick={() => item.q < MAX_QTY && cartActions.changeQty(item.id, 1)}
                           className={QTY_BUTTON}
                         >
                           +<span className="sr-only"> więcej</span>
@@ -180,7 +191,10 @@ export function CartDrawer({ phone }: Props) {
                     </div>
                     <button
                       type="button"
-                      onClick={() => cartActions.remove(item.id)}
+                      onClick={() => {
+                        cartActions.remove(item.id)
+                        focusTitle()
+                      }}
                       className="inline-flex size-9 items-center justify-center self-start rounded-lg text-ink-3 hover:text-ink"
                     >
                       <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
@@ -222,7 +236,11 @@ export function CartDrawer({ phone }: Props) {
                           </small>
                         </span>
                       </Link>
-                      <AddToCartButton slug={product.slug} name={product.name} />
+                      <AddToCartButton
+                        slug={product.slug}
+                        name={product.name}
+                        onToggle={focusTitle}
+                      />
                     </li>
                   ))}
                 </ul>

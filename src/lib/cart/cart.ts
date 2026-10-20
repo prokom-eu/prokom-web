@@ -105,10 +105,12 @@ export function suggestFor(cart: Cart, index: CatalogIndex, limit = 2): IndexPro
 
   for (const product of listed) for (const slug of product.fits ?? []) push(bySlug.get(slug))
 
-  const groups = new Set(listed.map((product) => product.group))
+  const groups = new Set(listed.map((product) => product.group).filter((g) => g !== null))
   const categories = new Set(listed.flatMap((product) => product.categories))
   const sameGroup = index.products
-    .filter((p) => groups.has(p.group) && !categories.has(p.categories[0] ?? ''))
+    .filter(
+      (p) => p.group !== null && groups.has(p.group) && !categories.has(p.categories[0] ?? ''),
+    )
     .sort((a, b) => b.popularity - a.popularity)
   for (const product of sameGroup) push(product)
   return out

@@ -58,7 +58,9 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 
 ## Pomysły na później (poza zakresem bieżących sesji)
 - Z B4b → B8: strona `/zapytanie` (uwagi do pozycji przez `cartActions.setNote`, wysłanie pozycji z `pk-cart`, czyszczenie listy po wysłaniu) i `/kontakt#formularz` (link z pustej szuflady) — do tego czasu oba adresy dają 404.
-- Z B4b: toast „Dodano do zapytania” po dodaniu z nakładki wyszukiwarki jest pod jej tłem (modal), widać go dopiero po zamknięciu — stan przycisku ✓ w wynikach daje informację od razu. Jeśli przeszkadza: toast jako `popover` w warstwie górnej.
+- Z B4b (przegląd): toast „Dodano do zapytania” nie pokazuje się przy otwartej nakładce (wyszukiwarka, szuflada) — tam informację daje przełącznik ✓ i sama lista. Test e2e toastu dojdzie w B5 (dodawanie z kart katalogu, poza modalem).
+- Z B4b (przegląd) → B8: limity listy (50 pozycji, 999 szt., 500 znaków uwagi — `lib/cart/cart.ts`) powtórzyć w schemacie Zod `/api/inquiry`. Przy pełnej liście (50) dodanie po cichu nic nie robi — komunikat, jeśli kiedyś będzie potrzebny.
+- Z B4b (przegląd): indeks katalogu pobiera `fitsWith` z pełnymi dokumentami produktów (`depth: 1`), choć potrzebny jest tylko `slug` i `tenant` — przy większym katalogu ograniczyć (`populate`, sprawdzić API zainstalowanego Payload).
 - Z B4b: plansza ma ręczną mapę „Często dobierane razem” (kasy → szuflada, terminal, przegląd kasy…). W kodzie bierze się z pola „Skompletuj stanowisko” produktów — szef albo Krystian może je wypełnić w panelu (seed go nie ustawia).
 - Z B4a → B5: „Wszystkie wyniki w katalogu →” prowadzi do `/oferta?szukaj=<fraza>` — katalog ma czytać frazę z tego parametru (`TODO(krystian)` w `SearchOverlay`).
 - Z B4a → B8: „Zapytaj o X” prowadzi do `/zapytanie?fraza=<X>` — formularz ma wstawić frazę do wiadomości.
