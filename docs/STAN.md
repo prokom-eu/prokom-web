@@ -13,9 +13,9 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 
 ## W toku
 - **Budowa prokombiznes.pl wg `docs/zadania/prokombiznes.md` (B0–B11, produkcja 26.10).**
-  - Gałąź: `feat/biznes-b4a-wyszukiwarka` (B4a; PR do otwarcia). B0–B3b scalone (#45, #46, #47, #49, #50). B4 podzielone (decyzja 20.10): **B4a** — `lib/search.ts` (port `__pk17`: tokeny, stop-słowa, synonimy, Damerau-Levenshtein, punktacja) z testami na frazach z §9 i seedzie, nakładka wyszukiwarki (`/`, Esc, strzałki, „Zapytaj o X” → `/zapytanie?fraza=`), indeks pobierany przy pierwszym otwarciu (`useCatalogIndex`), nazwa grupy w `hay`; **B4b** — store `pk-cart`, szuflada, toast, liczniki w nagłówku i dolnym pasku.
+  - Gałąź: `feat/biznes-b4b-lista-zapytania` (B4b; PR do otwarcia). B0–B4a scalone (#45, #46, #47, #49, #50, #52); szybsze CI (#53); pakiet prokomsoftware w #54. **B4b:** `lib/cart` (format `pk-cart`, akcje, limity 50 pozycji / 999 szt. / 500 znaków uwagi, czyszczenie nieznanych produktów, „Często dobierane”: najpierw „Skompletuj stanowisko” (`fitsWith` → `fits` w indeksie), potem ta sama grupa, inna kategoria, po popularności), store na `useSyncExternalStore` (wspólny dla kart przeglądarki), przycisk „Zapytanie” z licznikiem w nagłówku i dolnym pasku, szuflada (`<dialog>`), toast, „Dodaj do zapytania” przy wynikach wyszukiwarki.
   - Niedokończone: `TODO(krystian)`: zdjęcia 17 produktów bez zdjęcia w paczce albo decyzja „usługi tylko z ikoną” (B5/B6), produkty vendingowe Elzab i opis kategorii (spec. §13 pkt 8), kanały kontaktu działów i obietnice od szefa (Asana, 20.10) — wpisywane w panelu.
-  - **Następny krok:** `/przeglad` i `/pr` (B4a), po scaleniu `feat/biznes-b4b-lista-zapytania` od `develop` (plan B4b: `cart.ts` + testy, store na `useSyncExternalStore`, `CartButton`/`CartDrawer`/`CartToast`, e2e). Na drugim komputerze: `pnpm payload migrate && pnpm seed:biznes` (dopisuje ustawienia wyszukiwarki, gdy ich nie ma).
+  - **Następny krok:** `/przeglad` i `/pr` (B4b), po scaleniu `/zadanie B5` (katalog `/oferta`: ma czytać `?szukaj=` z wyszukiwarki i używać `AddToCartButton` / `cartActions` na kartach).
 
 ## Zrobione
 - 18.10.2026 — B3b scalone (#50): menu pełnoekranowe na `<dialog>` (Oferta grupy → kategorie, Branże, przełącznik motywu, telefon, WhatsApp) i dolny pasek na telefonie, stopka 5 kolumn wg planszy (miejscowości obsługi w 1. kolumnie; `SiteSettings.biznes.footer` + migracja `biznes_footer` + seed; odznaki ze statusów `Partners`), pasek sezonowy zamykany per kampania (`pk-sz-closed`).
@@ -57,7 +57,9 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 4. Skrzynki `biznes@`, `instalacje@`, `software@pro-kom.eu` — założyć przed 26.10 (Krystian + szef, Thunderbird); dopisać do listy skrzynek przy migracji poczty do Seohost (ADR-002).
 
 ## Pomysły na później (poza zakresem bieżących sesji)
-- Z B4a → B4b: „Zapytanie” jest jeszcze linkiem do `/zapytanie` bez licznika; przy wynikach wyszukiwarki plansza ma przycisk „Dodaj do zapytania” — dodać razem ze store `pk-cart`.
+- Z B4b → B8: strona `/zapytanie` (uwagi do pozycji przez `cartActions.setNote`, wysłanie pozycji z `pk-cart`, czyszczenie listy po wysłaniu) i `/kontakt#formularz` (link z pustej szuflady) — do tego czasu oba adresy dają 404.
+- Z B4b: toast „Dodano do zapytania” po dodaniu z nakładki wyszukiwarki jest pod jej tłem (modal), widać go dopiero po zamknięciu — stan przycisku ✓ w wynikach daje informację od razu. Jeśli przeszkadza: toast jako `popover` w warstwie górnej.
+- Z B4b: plansza ma ręczną mapę „Często dobierane razem” (kasy → szuflada, terminal, przegląd kasy…). W kodzie bierze się z pola „Skompletuj stanowisko” produktów — szef albo Krystian może je wypełnić w panelu (seed go nie ustawia).
 - Z B4a → B5: „Wszystkie wyniki w katalogu →” prowadzi do `/oferta?szukaj=<fraza>` — katalog ma czytać frazę z tego parametru (`TODO(krystian)` w `SearchOverlay`).
 - Z B4a → B8: „Zapytaj o X” prowadzi do `/zapytanie?fraza=<X>` — formularz ma wstawić frazę do wiadomości.
 - Z B4a: „wifi” daje na górze kasy z modułem WiFi (wyżej popularność), a Ubiquiti dalej — zgodnie z punktacją spec. §8.2; jeśli szefowi to przeszkadza, trafienie w nazwę kategorii mogłoby ważyć więcej (zmiana spec.).

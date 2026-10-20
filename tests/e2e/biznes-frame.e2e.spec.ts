@@ -42,7 +42,7 @@ test.describe('Biznes on a phone', () => {
     await expect(page.getByRole('dialog', { name: 'Menu' })).toBeHidden()
   })
 
-  test('the bottom bar calls and leads to the inquiry', async ({ page }) => {
+  test('the bottom bar calls and opens the inquiry list', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
     const bar = page.getByRole('navigation', { name: 'Szybki kontakt' })
     await expect(bar.getByRole('link', { name: 'Zadzwoń' })).toHaveAttribute('href', /^tel:/)
@@ -50,7 +50,11 @@ test.describe('Biznes on a phone', () => {
       'href',
       /^https:\/\/wa\.me\/\d{11,}$/,
     )
-    await expect(bar.getByRole('link', { name: 'Zapytanie' })).toHaveAttribute('href', '/zapytanie')
+    // B4b: "Zapytanie" opens the inquiry drawer (biznes-cart.e2e.spec.ts).
+    await expect(bar.getByRole('button', { name: /^Zapytanie/ })).toHaveAttribute(
+      'aria-haspopup',
+      'dialog',
+    )
   })
 
   for (const colorScheme of ['light', 'dark'] as const) {
