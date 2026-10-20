@@ -103,6 +103,7 @@ export function SearchOverlay({ whatsapp }: Props) {
       <button
         type="button"
         aria-haspopup="dialog"
+        aria-keyshortcuts="/"
         onClick={show}
         className="hidden h-11 items-center gap-2.5 whitespace-nowrap rounded-xl border border-border bg-surface-2 px-3.5 text-sm font-semibold text-ink-2 hover:text-ink xl:inline-flex"
       >
@@ -130,9 +131,18 @@ export function SearchOverlay({ whatsapp }: Props) {
         aria-labelledby={headingId}
         onClose={() => setOpen(false)}
         onClick={(event) => {
-          // A click on the backdrop lands on the dialog itself; a followed link closes it too.
-          const target = event.target as Element
-          if (target === dialog.current || target.closest('a')) dialog.current?.close()
+          const box = dialog.current?.getBoundingClientRect()
+          // The backdrop: a click outside the dialog box (the empty inside of it stays open).
+          const outside =
+            box &&
+            (event.clientX < box.left ||
+              event.clientX > box.right ||
+              event.clientY < box.top ||
+              event.clientY > box.bottom)
+          // A followed link closes it too — not one opened in a new tab.
+          const newTab = event.ctrlKey || event.metaKey || event.shiftKey || event.button !== 0
+          const link = !newTab && (event.target as Element).closest('a')
+          if (outside || link) dialog.current?.close()
         }}
         className="fixed inset-x-0 top-0 m-0 max-h-dvh w-full max-sm:h-dvh max-w-none overflow-y-auto border-b border-border bg-card p-0 text-ink shadow-2xl backdrop:bg-surface-dark/60"
       >
@@ -176,7 +186,11 @@ export function SearchOverlay({ whatsapp }: Props) {
             <SearchResults
               index={catalog.index}
               query={query}
-              onPick={setQuery}
+              onPick={(phrase) => {
+                setQuery(phrase)
+                // Keep typing after a "Popularne" chip.
+                input.current?.focus()
+              }}
               whatsapp={whatsapp}
             />
           ) : catalog.status === 'error' ? (
@@ -228,6 +242,7 @@ function moveFocus(event: KeyboardEvent<HTMLElement>) {
 }
 
 function SearchResults({ index, query, onPick, whatsapp }: ResultsProps) {
+  const ids = useId()
   const prepared = useMemo(() => prepareSearch(index), [index])
   const deferred = useDeferredValue(query)
   const results = useMemo(() => searchProducts(prepared, deferred), [prepared, deferred])
@@ -270,8 +285,8 @@ function SearchResults({ index, query, onPick, whatsapp }: ResultsProps) {
         <NothingFound query={trimmed} whatsapp={whatsapp} />
       ) : (
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
-          <section aria-labelledby="search-products">
-            <h3 id="search-products" className={HEADING}>
+          <section aria-labelledby={`${ids}-products`}>
+            <h3 id={`${ids}-products`} className={HEADING}>
               <span>Produkty i usługi</span>
               <span>{results ? resultsLabel(results.length) : 'najczęściej wybierane'}</span>
             </h3>
@@ -285,8 +300,8 @@ function SearchResults({ index, query, onPick, whatsapp }: ResultsProps) {
           </section>
           <div className="flex flex-col gap-4">
             {categories.length > 0 && (
-              <section aria-labelledby="search-categories">
-                <h3 id="search-categories" className={HEADING}>
+              <section aria-labelledby={`${ids}-categories`}>
+                <h3 id={`${ids}-categories`} className={HEADING}>
                   Kategorie
                 </h3>
                 <ul className="flex flex-col gap-1">
@@ -304,8 +319,8 @@ function SearchResults({ index, query, onPick, whatsapp }: ResultsProps) {
               </section>
             )}
             {pages.length > 0 && (
-              <section aria-labelledby="search-pages">
-                <h3 id="search-pages" className={HEADING}>
+              <section aria-labelledby={`${ids}-pages`}>
+                <h3 id={`${ids}-pages`} className={HEADING}>
                   Strony i poradniki
                 </h3>
                 <ul className="flex flex-col gap-1">

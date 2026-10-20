@@ -41,7 +41,7 @@ test.describe('Biznes search', () => {
     await expect(overlay(page)).toBeHidden()
   })
 
-  test('"/" typed in a form field does not open it', async ({ page }) => {
+  test('"/" can be typed in the search field', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
     await openWithSlash(page)
     await field(page).fill('a/b')
@@ -74,6 +74,19 @@ test.describe('Biznes search', () => {
     ).toBeVisible()
     const width = await page.evaluate(() => document.documentElement.scrollWidth)
     expect(width).toBeLessThanOrEqual(360)
+  })
+
+  test('closes on the backdrop, not on the empty inside', async ({ page }) => {
+    await page.goto(site('biznes.localhost'))
+    await openWithSlash(page)
+    await field(page).fill('subiekt')
+    const box = (await overlay(page).boundingBox())!
+    // Empty margin of the dialog, left of the content column.
+    await page.mouse.click(box.x + 4, box.y + box.height - 4)
+    await expect(overlay(page)).toBeVisible()
+    // The backdrop below the dialog.
+    await page.mouse.click(box.x + box.width / 2, box.y + box.height + 40)
+    await expect(overlay(page)).toBeHidden()
   })
 
   for (const colorScheme of ['light', 'dark'] as const) {

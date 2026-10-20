@@ -84,7 +84,7 @@ describe('searchProducts on the seed catalog (spec. §9 pkt 2)', () => {
   })
 
   it('„ksef” finds products for KSeF', () => {
-    expect((slugs('ksef') ?? []).length).toBeGreaterThan(0)
+    expect(top('ksef').map(nameOf)).toContain('Wdrożenie KSeF w firmie')
   })
 
   it('every token must match (AND)', () => {
