@@ -106,6 +106,15 @@ describe('buildCatalogIndex tenant isolation of relations', () => {
     expect(index.products[0]!.hay).not.toContain('marka')
   })
 
+  it('lists "Skompletuj stanowisko" of this tenant only, and only when set', () => {
+    const fit = (slug: string, tenant: number) => ({ id: 40 + tenant, slug, tenant }) as Product
+    const [product] = build({
+      fitsWith: [fit('obca', OTHER_TENANT), fit('swoja', TENANT)],
+    }).products
+    expect(product!.fits).toEqual(['swoja'])
+    expect(build({}).products[0]).not.toHaveProperty('fits')
+  })
+
   it('keeps a brand shown on this site', () => {
     expect(build({ brand: brand([OTHER_TENANT, TENANT]) }).products[0]!.brand).toBe('marka')
   })

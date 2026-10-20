@@ -37,6 +37,8 @@ export type IndexProduct = {
   /** Group of the main category. */
   group: string | null
   industries: string[]
+  /** "Skompletuj stanowisko" (`fitsWith`): slugs of products that go with this one. */
+  fits?: string[]
   benefit?: string
   features: string[]
   badge?: string
@@ -75,6 +77,7 @@ export type IndexedProductDoc = Pick<
   | 'brand'
   | 'categories'
   | 'industries'
+  | 'fitsWith'
   | 'benefit'
   | 'features'
   | 'badge'
@@ -142,6 +145,9 @@ export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
     }
     const categories = docs(product.categories).filter(ownTenant)
     const industries = docs(product.industries).filter(ownTenant)
+    const fits = docs(product.fitsWith)
+      .filter(ownTenant)
+      .map((fit) => fit.slug)
     const main = categories[0]
     const benefit = optional(product.benefit)
     const badge = optional(product.badge)
@@ -170,6 +176,7 @@ export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
       categories: categories.map((category) => category.slug),
       group: (main && groupSlugOf(main)) ?? null,
       industries: industries.map((industry) => industry.slug),
+      ...(fits.length > 0 && { fits }),
       ...(benefit && { benefit }),
       features,
       ...(badge && { badge }),

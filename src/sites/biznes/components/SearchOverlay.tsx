@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import {
@@ -14,7 +13,6 @@ import {
   useState,
 } from 'react'
 
-import { Icon } from '@/components/ui/Icon'
 import { ICON_BUTTON } from '@/components/ui/iconButton'
 import type { CatalogIndex, IndexProduct } from '@/lib/catalog/catalogIndex'
 import { useCatalogIndex } from '@/lib/catalog/useCatalogIndex'
@@ -25,6 +23,9 @@ import {
   resultsLabel,
   searchProducts,
 } from '@/lib/search'
+
+import { AddToCartButton } from './AddToCartButton'
+import { ProductThumb, productSubtitle } from './ProductThumb'
 
 const MAX_PRODUCTS = 6
 const MAX_CATEGORIES = 4
@@ -134,6 +135,7 @@ export function SearchOverlay({ whatsapp }: Props) {
           const box = dialog.current?.getBoundingClientRect()
           // The backdrop: a click outside the dialog box (the empty inside of it stays open).
           const outside =
+            event.target === dialog.current &&
             box &&
             (event.clientX < box.left ||
               event.clientX > box.right ||
@@ -362,54 +364,22 @@ const ROW =
   'flex items-center justify-between gap-3 rounded-xl px-3 py-2.5 font-bold text-ink-2 hover:bg-surface-2 hover:text-ink focus-visible:bg-surface-2'
 
 function ProductResult({ product, index }: { product: IndexProduct; index: CatalogIndex }) {
-  const category = index.categories.find((c) => c.slug === product.categories[0])
-  const group = index.groups.find((g) => g.slug === product.group)
-  const brand = index.brands.find((b) => b.slug === product.brand)
-  const sub = [category?.name, brand?.name].filter(Boolean).join(' · ')
+  const sub = productSubtitle(product, index)
   return (
-    <Link
-      href={`/produkt/${product.slug}`}
-      data-result
-      className="flex items-center gap-3 rounded-2xl p-2 hover:bg-surface-2 focus-visible:bg-surface-2"
-    >
-      <span
-        className="flex h-14 w-16 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-surface-2"
-        aria-hidden="true"
+    <div className="flex items-center gap-2 rounded-2xl p-2 hover:bg-surface-2">
+      <Link
+        href={`/produkt/${product.slug}`}
+        data-result
+        className="flex min-w-0 flex-1 items-center gap-3 rounded-xl"
       >
-        {product.image ? (
-          <Image
-            src={product.image.url}
-            // The name next to it says what it is.
-            alt=""
-            width={product.image.width}
-            height={product.image.height}
-            unoptimized
-            className="max-h-full w-auto object-contain"
-          />
-        ) : (
-          <span
-            className="flex size-9 items-center justify-center rounded-lg text-white"
-            style={
-              group
-                ? {
-                    backgroundImage: `linear-gradient(145deg, ${group.gradient[0]}, ${group.gradient[1]})`,
-                  }
-                : undefined
-            }
-          >
-            <Icon
-              name={category?.icon ?? group?.icon ?? 'store'}
-              className="size-[18px]"
-              strokeWidth={2}
-            />
-          </span>
-        )}
-      </span>
-      <span className="min-w-0">
-        <b className="block truncate text-[0.95rem] font-extrabold text-ink">{product.name}</b>
-        {sub && <small className="block truncate text-sm text-ink-3">{sub}</small>}
-      </span>
-    </Link>
+        <ProductThumb product={product} index={index} />
+        <span className="min-w-0">
+          <b className="block truncate text-[0.95rem] font-extrabold text-ink">{product.name}</b>
+          {sub && <small className="block truncate text-sm text-ink-3">{sub}</small>}
+        </span>
+      </Link>
+      <AddToCartButton slug={product.slug} name={product.name} />
+    </div>
   )
 }
 

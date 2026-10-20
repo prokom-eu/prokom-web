@@ -39,6 +39,7 @@ export const getCatalogIndex = (tenantId: number): Promise<CatalogIndex> =>
             brand: true,
             categories: true,
             industries: true,
+            fitsWith: true,
             benefit: true,
             features: true,
             badge: true,

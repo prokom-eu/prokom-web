@@ -1,6 +1,6 @@
-import Link from 'next/link'
-
 import { Icon } from '@/components/ui/Icon'
+
+import { CartButton } from './CartButton'
 
 type Props = {
   /** `tel:` link of the main number; `null` hides the button. */
@@ -12,8 +12,8 @@ const BUTTON =
   'inline-flex min-h-[50px] items-center justify-center gap-1.5 rounded-xl px-2.5 text-[0.9rem] font-extrabold'
 
 /**
- * Sticky bottom bar on phones (spec. §3.3): call, WhatsApp, inquiry list. The inquiry counter
- * comes with B4. The footer leaves room for it at the bottom (`BiznesFooter`).
+ * Sticky bottom bar on phones (spec. §3.3): call, WhatsApp, inquiry list with its counter.
+ * The footer leaves room for it at the bottom (`BiznesFooter`).
  */
 export function MobileBar({ tel, whatsapp }: Props) {
   return (
@@ -38,18 +38,10 @@ export function MobileBar({ tel, whatsapp }: Props) {
           WhatsApp
         </a>
       ) : null}
-      <Link href="/zapytanie" className={`${BUTTON} flex-[1.25] bg-accent-text text-accent-ink`}>
-        <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true">
-          <path
-            d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.2"
-            strokeLinecap="round"
-          />
-        </svg>
-        Zapytanie
-      </Link>
+      <CartButton
+        iconSize={17}
+        className={`${BUTTON} flex-[1.25] bg-accent-text text-accent-ink`}
+      />
     </nav>
   )
 }
