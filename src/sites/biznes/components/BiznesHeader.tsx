@@ -13,6 +13,7 @@ import { IndustriesPanel } from './IndustriesPanel'
 import { MegaMenuPanel } from './MegaMenuPanel'
 import { MobileMenu } from './MobileMenu'
 import { MobileMenuContent } from './MobileMenuContent'
+import { SearchOverlay } from './SearchOverlay'
 
 type Props = {
   tenant: SiteTenant
@@ -25,8 +26,8 @@ type Props = {
 }
 
 /**
- * Sticky, translucent header of the Biznes line (spec. §3.2). Search and the inquiry counter
- * come with B4: until then the search field leads to the catalog and "Zapytanie" to its page.
+ * Sticky, translucent header of the Biznes line (spec. §3.2) with the catalog search
+ * (`SearchOverlay`). The inquiry counter comes with B4b: until then "Zapytanie" is a link.
  * Below 1024 px the full-screen menu (`MobileMenu`) replaces the desktop navigation.
  */
 export function BiznesHeader({ tenant, navigation, menu, soonIndustries, contact }: Props) {
@@ -63,33 +64,7 @@ export function BiznesHeader({ tenant, navigation, menu, soonIndustries, contact
         )}
 
         <div className="flex items-center gap-2">
-          <Link
-            href="/oferta"
-            className="hidden h-11 items-center gap-2.5 whitespace-nowrap rounded-xl border border-border bg-surface-2 px-3.5 text-sm font-semibold text-ink-2 hover:text-ink xl:inline-flex"
-          >
-            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
-              <path
-                d="M11 18a7 7 0 100-14 7 7 0 000 14z M20 20l-4.3-4.3"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-              />
-            </svg>
-            Szukaj w ofercie
-          </Link>
-          <Link href="/oferta" className={`${ICON_BUTTON} xl:hidden`}>
-            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
-              <path
-                d="M11 18a7 7 0 100-14 7 7 0 000 14z M20 20l-4.3-4.3"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-              />
-            </svg>
-            <span className="sr-only">Szukaj w ofercie</span>
-          </Link>
+          <SearchOverlay whatsapp={contact.whatsapp} />
           {/* On phones the switch lives in the menu (spec. §3.3). */}
           <div className="hidden sm:block">
             <ThemeToggle className={ICON_BUTTON} />
