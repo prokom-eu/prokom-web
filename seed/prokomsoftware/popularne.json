@@ -1,0 +1,73 @@
+{
+ "_info": "12 kart sekcji „12 rzeczy” na stronie głównej, w tej kolejności. Pozycje 11–12 to karty ogólne (filtr obszaru).",
+ "order": [
+  "strona-wizytowka",
+  "strona-firmowa-z-panelem",
+  "rozbudowana-strona-firmowa",
+  "landing-page",
+  "strona-dla-restauracji-lub-baru",
+  "strona-dla-hotelu-lub-pensjonatu",
+  "crm-dla-malej-i-sredniej-firmy",
+  "z-excela-do-systemu",
+  "system-zlecen-i-grafik-ekip",
+  "czas-pracy-i-rozliczenia",
+  {
+   "genericCard": "Aplikacja na telefon",
+   "area": "aplikacje",
+   "lead": "iOS i Android z jednego kodu albo z przeglądarki, bez sklepu. Dla pracowników albo klientów.",
+   "features": [
+    "Działa bez zasięgu, wysyła, gdy wróci sieć",
+    "Zdjęcia, podpisy, powiadomienia push",
+    "Panel biura w cenie"
+   ],
+   "variants": [
+    "Dla pracowników w terenie",
+    "Dla klientów: rezerwacje, zamówienia",
+    "Do programu, który już masz"
+   ],
+   "tag": "iOS · ANDROID",
+   "order": 11,
+   "href": "/rozwiazania?kategoria=aplikacje"
+  },
+  {
+   "genericCard": "Automatyzacje",
+   "area": "automatyzacje",
+   "lead": "Powtarzalna robota robi się sama. Łączymy programy, które już masz, i dokładamy AI tam, gdzie oszczędza czas.",
+   "features": [
+    "Twoje programy zostają",
+    "Dziennik: co, kiedy, do kogo poszło",
+    "Ty zatwierdzasz, gdy trzeba"
+   ],
+   "variants": [
+    "Powiadomienia SMS i e-mail",
+    "Faktury bez przepisywania (np. Subiekt)",
+    "Asystent AI do zapytań PL/EN/DE"
+   ],
+   "tag": "SAMO SIĘ ROBI",
+   "order": 12,
+   "href": "/rozwiazania?kategoria=automatyzacje"
+  }
+ ],
+ "tabs": [
+  [
+   "all",
+   "Wszystko"
+  ],
+  [
+   "www",
+   "Strony"
+  ],
+  [
+   "sys",
+   "Systemy"
+  ],
+  [
+   "app",
+   "Aplikacje"
+  ],
+  [
+   "auto",
+   "Automatyzacje"
+  ]
+ ]
+}

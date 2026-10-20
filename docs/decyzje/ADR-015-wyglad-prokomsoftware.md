@@ -1,0 +1,58 @@
+# ADR-015: Wygląd prokomsoftware.pl z wizualizacji — kolory, motyw ciemny, gradient
+
+- **Status:** proponowana (18.10.2026) — do przyjęcia w SW0
+- **Data:** 2026-10-18
+- **Decyduje:** Krystian
+- **Rozszerza:** ADR-013 (mechanizm tokenów neutralnych per linia i motywu ciemnego). **Doprecyzowuje dla Software** pkt 3 (kolor interfejsu może być ciemniejszą pochodną koloru linii; znak bez zmian) i pkt 4 (lista miejsc z gradientem — niżej). Po przyjęciu dopisać odsyłacz w ADR-013.
+
+## Kontekst
+- 18.10.2026 Krystian zaakceptował wizualizację prokomsoftware.pl (`docs/design/prokomsoftware/`, wartości w `tokens.css`).
+- Wizualizacja używa neutralnych kolorów z `docs/marka.md` (grafit `#121613`, papier `#F4F5F1`, biel) i fioletu linii. Ma motyw ciemny (domyślny w planszach) i jasny.
+- Różnice względem repo:
+  1. **Akcent w jasnym motywie:** wizualizacja `#6E45D4` (przyciski) i `#5B33C4` (tekst w akcencie). Repo: `--c-software` `#8B61E3` (księga) i `--c-software-text` `#7E58CD`.
+  2. **Gradient H1** kończy się błękitem `#7FD3FF`, a druga poświata (`--glow2`) jest niebieskawa. ADR-013 (rozstrz. „Gradient H1”): kolory linii się nie mieszają; błękit to Biznes.
+  3. **Fraunces** w makietach podglądów (udawane strony pensjonatu i restauracji).
+  4. Nowe tokeny, których repo nie ma: `--card-2`, `--ink-soft`, `--accent-soft`, `--accent-line`, `--stage`, `--chip`, `--glow-2`, `--dot`, `--header-bg`, `--shadow`.
+
+## Kontrast (policzone 18.10.2026)
+| Para | Wynik |
+|---|---|
+| biały na `#8B61E3` (księga) | **4,27** — za mało dla napisu przycisku 16 px (AA 4,5) |
+| biały na `#7E58CD` (`--c-software-text`) | 5,04 |
+| biały na `#6E45D4` (wizualizacja) | 6,06 |
+| `#5B33C4` na papierze `#F4F5F1` / na `#ECEEE8` / na `#E3E6DF` | 7,06 / 6,61 / 6,13 |
+| `#7E58CD` na papierze | 4,60 |
+| `#121613` na `#9670EE` (ciemny przycisk) | 5,09 |
+| `#B39BF5` na `#121613` / na `#1A1F1B` | 7,76 / 7,11 |
+
+Wyjątki do pilnowania testem są w README wzorca (sekcja „Kontrast”).
+
+## Opcje dla akcentu w jasnym motywie
+| Opcja | Zalety | Wady |
+|---|---|---|
+| A. Księga: `--accent` `#8B61E3`, `--accent-text` `#7E58CD`, przyciski na `#7E58CD` | zgodność z księgą 1:1 | przycisk jaśniejszy i mniej nasycony niż na wizualizacji; dwa odcienie fioletu obok siebie |
+| **B. Wizualizacja: `--accent` `#6E45D4`, `--accent-text` `#5B33C4`** (jak `tokens.css`) | wygląda jak zaakceptowany wzorzec, najlepszy kontrast; znak i logo dalej w `#8B61E3` z `public/brand/` | odejście od księgi w kolorze interfejsu (nie znaku) — wpis w `docs/marka.md` |
+| C. Mieszana: `--accent` `#8B61E3` dla ikon i gradientów, przyciski i tekst `#6E45D4` / `#5B33C4` | księga widoczna w ikonach | trzeci odcień, więcej tokenów, trudniej utrzymać |
+
+**Rekomendacja: B.** ADR-013 pkt 3 mówi „kolory linii i znak bez zmian” — znak (pliki w `public/brand/`) zostaje w kolorze księgi. Kolor interfejsu to pochodna ciemniejsza, tak jak `--c-<linia>-text` już dziś jest pochodną (S6a). W motywie ciemnym wizualizacja używa `#9670EE` = `--c-software-on-dark` z księgi — bez zmian.
+
+## Decyzja (proponowana)
+1. Tokeny Software 1:1 z `docs/design/prokomsoftware/tokens.css` w `src/styles/tokens.css` (`--c-software-light-*`, `--c-software-night-*`) i zmienne semantyczne w `[data-line='software']` i `[data-line='software'][data-theme='dark']` (+ `prefers-color-scheme`).
+2. Akcent jasny: opcja **B**. `docs/marka.md`: dopisek „interfejs prokomsoftware.pl: `#6E45D4` / `#5B33C4` (ADR-015); znak bez zmian”.
+3. **Gradient H1:** `--accent-text → --accent-2 → --accent` (bez `#7FD3FF`). `--glow-2` fioletowa (`tokens.css`, komentarz „rekomendacja”). Wygląd do porównania ze zrzutem `Main-1440-*/01.jpg` — różnica ma być minimalna.
+4. Nowe tokeny semantyczne (lista w kontekście) dochodzą do mechanizmu ADR-013 dla wszystkich linii z wartościami domyślnymi (dla linii bez wizualizacji: `--card-2` = `--surface-2`, `--accent-soft` = przezroczysty akcent 10%, itd.), żeby komponenty nie znały linii.
+5. `software` w `DARK_THEME_LINES`. Domyślnie preferencja systemu.
+6. Makiety podglądów: zamiast Fraunces systemowy szeryf (`Georgia, 'Times New Roman', serif`). Marka zostaje przy dwóch krojach.
+7. **Gradienty — lista dozwolonych miejsc** (ADR-013 pkt 4 dla Software):
+   - fragment H1 z klasą `.grad` na 5 stronach z plansz: główna, `/rozwiazania`, strona rozwiązania, strona branży, `/kontakt` (`--grad-h1`);
+   - kafle ikon 8 obszarów (`obszary.json` → `gradient`) i karty rozwiązań (`cardGradient`) — wielobarwne, bo rozróżniają obszary, tak jak gradienty grup katalogu Biznesu (tam też jest fiolet). Tylko tło ikony/kafla, nigdy tekst. Lista par kolorów jako tokeny `--grad-area-<key>`; **[SW0]** zostawić wielobarwne (rekomendacja) albo zamienić na odcienie fioletu;
+   - poświaty `--glow`, `--glow-2` i siatka `--grid` w hero, kontakcie i ciemnych kartach — jak w planszach.
+8. **Napis na przycisku w akcencie zawsze `--accent-ink`.** W planszach reguła `.pk a{color:inherit}` przebija `.btn-p`, więc linki-przyciski w jasnym motywie mają ciemny napis na fiolecie (ok. 3:1; widać na `Main-1440-light/01.jpg`: „Bezpłatna wycena”, „Dobierz rozwiązanie”). To błąd planszy — w kodzie biały napis; przy porównaniu zrzutów to **oczekiwana różnica**.
+9. Test kontrastu (`themes.test.ts`) obejmuje pary Software z README wzorca, łącznie z wyjątkami (`--warn`, `--ok` tylko jako kropki na `surface-3` / `stage` / `accent-soft`).
+
+## Konsekwencje
+- SW1 = tokeny + motyw + test kontrastu, bez zmian w komponentach Biznesu.
+- Oczekiwane różnice przy porównaniu zrzutów w PR: gradient H1 bez błękitnej końcówki, biały napis na przyciskach-linkach w jasnym motywie.
+
+## Rozstrzygnięcia (SW0)
+_Do uzupełnienia przez Krystiana w SW0: opcja akcentu, gradient H1, `--glow-2`, gradienty obszarów, Fraunces._

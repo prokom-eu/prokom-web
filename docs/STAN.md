@@ -9,6 +9,7 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 | prokombiznes.pl — specyfikacja i wzorzec wyglądu | 17.10 | ✅ `strony/prokombiznes.md`, `design/prokombiznes/` (#28) |
 | prokombiznes.pl — wdrożenie | 26.10 | ⏳ |
 | prokominstalacje.pl | 29.10 | ⏳ |
+| prokomsoftware.pl — specyfikacja i wzorzec wyglądu | 18.10 | ✅ `strony/prokomsoftware.md`, `design/prokomsoftware/`, ADR-014, ADR-015, `seed/prokomsoftware/` |
 | prokomsoftware.pl | 31.10 | ⏳ |
 
 ## W toku
@@ -55,6 +56,7 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 2. Domeny (prokombiznes.pl, prokominstalacje.pl, prokomsoftware.pl) i VPS Seohost — zakup i zamówienie w poniedziałek 19.10 rano → S10 (serwer, DNS, certyfikaty, staging, kopie, monitoring) 20–21.10 wg `docs/runbook.md` §1.
 3. S10: wybrać cel kopii poza serwerem (inny dostawca niż Seohost, ADR-002, dostęp przez `rclone`) i token GHCR `read:packages` dla serwera.
 4. Skrzynki `biznes@`, `instalacje@`, `software@pro-kom.eu` — założyć przed 26.10 (Krystian + szef, Thunderbird); dopisać do listy skrzynek przy migracji poczty do Seohost (ADR-002).
+5. prokomsoftware.pl: SW0 (decyzje z `docs/zadania/prokomsoftware.md` §2) → SW1–SW12 wg planu, po dowiezieniu Biznesu.
 
 ## Pomysły na później (poza zakresem bieżących sesji)
 - Z B4a → B4b: „Zapytanie” jest jeszcze linkiem do `/zapytanie` bez licznika; przy wynikach wyszukiwarki plansza ma przycisk „Dodaj do zapytania” — dodać razem ze store `pk-cart`.

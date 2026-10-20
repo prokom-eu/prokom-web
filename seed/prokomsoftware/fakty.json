@@ -1,0 +1,27 @@
+{
+  "_info": "Wartości [SZEF] i inne placeholdery używane w tekstach plansz i seedów. Trafiają do SiteSettings.software.facts (klucz → wartość). Renderer podmienia [KLUCZ] w tekstach; tekst z nierozwiązanym placeholderem na produkcji nie jest wyświetlany (ADR-014 §1.4). Wszystkie wartości = null do decyzji (spec. §13).",
+  "facts": {
+    "OD": null,
+    "TERMIN": null,
+    "KWOTA": null,
+    "X": null,
+    "Y": null,
+    "CZAS ODPOWIEDZI": null,
+    "CZAS": null,
+    "TELEFON SOFTWARE": null,
+    "E-MAIL SOFTWARE": null,
+    "GODZINY": null,
+    "DNI": null,
+    "TYGODNIE": null,
+    "ZALICZKA": null,
+    "ZASADY PŁATNOŚCI": null,
+    "MIESIĄC": null,
+    "DATA": null,
+    "WYNIK": null,
+    "WIEK": null,
+    "ADRES": null,
+    "ADRES SALONU W ZAKOPANEM": null,
+    "IMIĘ I NAZWISKO": null,
+    "PRZYCHÓD": null
+  }
+}

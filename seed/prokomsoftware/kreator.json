@@ -1,0 +1,1013 @@
+{
+  "_info": "Reguły kreatora „Dobierz rozwiązanie · 60 s” jako dane (nie if-y w komponentach). Logika doboru: docs/strony/prokomsoftware.md §6.3. Ikony: klucze z ikony.json.",
+  "steps": [
+    "Potrzeba",
+    "Szczegóły",
+    "Zakres",
+    "Opis",
+    "Wynik"
+  ],
+  "needs": {
+    "firm": {
+      "n": "Strona firmowa",
+      "d": "Pokazuje firmę i ofertę. Treści zmieniasz sam.",
+      "ic": "M3 5h18v14H3zM3 9h18M7 7h.01M10 7h.01",
+      "row": 0,
+      "pv": "www",
+      "q": "Jaka to firma?",
+      "h": "Dopasujemy wygląd i treści do branży.",
+      "o": [
+        {
+          "id": "nocleg",
+          "n": "Pensjonat, hotel, apartamenty",
+          "ic": "M3 18V8M3 14h18v4M21 18v-6a3 3 0 0 0-3-3h-7v5M7 11h.01"
+        },
+        {
+          "id": "gastro",
+          "n": "Restauracja, bar, kawiarnia",
+          "ic": "M5 3v8a3 3 0 0 0 6 0V3M8 11v10M17 3c-2 0-3 2-3 5s1 4 3 4v9"
+        },
+        {
+          "id": "bud",
+          "n": "Budowlanka i remonty",
+          "ic": "M3 21h18M5 21V10l7-6 7 6v11M9 21v-5h6v5"
+        },
+        {
+          "id": "turyst",
+          "n": "Turystyka i atrakcje",
+          "ic": "M3 20l6-10 4 6 3-4 5 8z"
+        },
+        {
+          "id": "uroda",
+          "n": "Uroda i zdrowie",
+          "ic": "M12 21s-8-5-8-11a5 5 0 0 1 8-3.5A5 5 0 0 1 20 10c0 6-8 11-8 11z"
+        },
+        {
+          "id": "moto",
+          "n": "Warsztat i motoryzacja",
+          "ic": "M5 16l1.5-5h11l1.5 5M4 16h16v3H4zM7 19v2M17 19v2M7.5 13.5h.01M16.5 13.5h.01"
+        },
+        {
+          "id": "handel",
+          "n": "Sklep i handel",
+          "ic": "M5 8h14l-1 12H6zM9 8a3 3 0 0 1 6 0"
+        },
+        {
+          "id": "biuro",
+          "n": "Biuro i usługi dla firm",
+          "ic": "M4 7h16v13H4zM9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M4 12h16"
+        },
+        {
+          "id": "prod",
+          "n": "Produkcja i rzemiosło",
+          "ic": "M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"
+        },
+        {
+          "id": "inna",
+          "n": "Inna firma",
+          "ic": "M3 7l9-4 9 4v10l-9 4-9-4zM3 7l9 4 9-4M12 11v10"
+        }
+      ]
+    },
+    "rozb": {
+      "n": "Rozbudowana strona",
+      "d": "Wiele podstron, blog, języki, rezerwacje.",
+      "ic": "M4 4h16v16H4zM4 10h16M4 15h16M10 4v16",
+      "row": 0,
+      "pv": "www",
+      "q": "Co ma umieć?",
+      "h": "Zaznacz wszystko, co pasuje.",
+      "multi": true,
+      "o": [
+        {
+          "id": "blog",
+          "n": "Wiele podstron i blog",
+          "ic": "M6 2h9l5 5v15H6zM14 2v6h6M9 14h6M9 18h4"
+        },
+        {
+          "id": "jez",
+          "n": "Kilka języków",
+          "ic": "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"
+        },
+        {
+          "id": "rez",
+          "n": "Rezerwacje lub zamówienia",
+          "ic": "M4 5h16v16H4zM4 10h16M9 3v4M15 3v4"
+        },
+        {
+          "id": "kat",
+          "n": "Katalog produktów",
+          "ic": "M5 8h14l-1 12H6zM9 8a3 3 0 0 1 6 0"
+        },
+        {
+          "id": "strefa",
+          "n": "Strefa klienta",
+          "ic": "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"
+        }
+      ]
+    },
+    "wiz": {
+      "n": "Wizytówka",
+      "d": "Jedna strona: kim jesteś, telefon, mapa.",
+      "ic": "M3 6h18v12H3zM7 10h5M7 14h8",
+      "row": 0,
+      "pv": "www",
+      "q": "Jaka to firma?",
+      "h": "Branża zmienia wygląd i przykładowe treści.",
+      "o": [
+        {
+          "id": "nocleg",
+          "n": "Pensjonat, hotel, apartamenty",
+          "ic": "M3 18V8M3 14h18v4M21 18v-6a3 3 0 0 0-3-3h-7v5M7 11h.01"
+        },
+        {
+          "id": "gastro",
+          "n": "Restauracja, bar, kawiarnia",
+          "ic": "M5 3v8a3 3 0 0 0 6 0V3M8 11v10M17 3c-2 0-3 2-3 5s1 4 3 4v9"
+        },
+        {
+          "id": "bud",
+          "n": "Budowlanka i remonty",
+          "ic": "M3 21h18M5 21V10l7-6 7 6v11M9 21v-5h6v5"
+        },
+        {
+          "id": "turyst",
+          "n": "Turystyka i atrakcje",
+          "ic": "M3 20l6-10 4 6 3-4 5 8z"
+        },
+        {
+          "id": "uroda",
+          "n": "Uroda i zdrowie",
+          "ic": "M12 21s-8-5-8-11a5 5 0 0 1 8-3.5A5 5 0 0 1 20 10c0 6-8 11-8 11z"
+        },
+        {
+          "id": "moto",
+          "n": "Warsztat i motoryzacja",
+          "ic": "M5 16l1.5-5h11l1.5 5M4 16h16v3H4zM7 19v2M17 19v2M7.5 13.5h.01M16.5 13.5h.01"
+        },
+        {
+          "id": "handel",
+          "n": "Sklep i handel",
+          "ic": "M5 8h14l-1 12H6zM9 8a3 3 0 0 1 6 0"
+        },
+        {
+          "id": "biuro",
+          "n": "Biuro i usługi dla firm",
+          "ic": "M4 7h16v13H4zM9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M4 12h16"
+        },
+        {
+          "id": "prod",
+          "n": "Produkcja i rzemiosło",
+          "ic": "M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"
+        },
+        {
+          "id": "inna",
+          "n": "Inna firma",
+          "ic": "M3 7l9-4 9 4v10l-9 4-9-4zM3 7l9 4 9-4M12 11v10"
+        }
+      ],
+      "noSize": true
+    },
+    "land": {
+      "n": "Landing page",
+      "d": "Jedna usługa albo kampania, z formularzem.",
+      "ic": "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM12 11a1 1 0 1 0 0 2 1 1 0 0 0 0-2z",
+      "row": 0,
+      "pv": "www",
+      "q": "Do czego ma służyć?",
+      "h": "Jedna strona, jeden cel.",
+      "o": [
+        {
+          "id": "usl",
+          "n": "Jedna usługa",
+          "ic": "M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"
+        },
+        {
+          "id": "kamp",
+          "n": "Kampania reklamowa",
+          "ic": "M3 11l15-6v14L3 13zM7 12v6"
+        },
+        {
+          "id": "event",
+          "n": "Wydarzenie lub promocja",
+          "ic": "M4 5h16v16H4zM4 10h16M9 3v4M15 3v4"
+        },
+        {
+          "id": "zapis",
+          "n": "Nabór lub zapisy",
+          "ic": "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"
+        }
+      ],
+      "noSize": true
+    },
+    "odsw": {
+      "n": "Odświeżenie obecnej strony",
+      "d": "Masz stronę, ale jest stara i nic nie daje.",
+      "ic": "M21 12a9 9 0 1 1-2.6-6.4M21 3v6h-6",
+      "row": 1,
+      "pv": "odsw",
+      "q": "Co jest nie tak?",
+      "h": "Zaznacz wszystko, co pasuje.",
+      "multi": true,
+      "o": [
+        {
+          "id": "wolna",
+          "n": "Wolno się ładuje",
+          "ic": "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 7v5l3 2"
+        },
+        {
+          "id": "tel",
+          "n": "Źle wygląda na telefonie",
+          "ic": "M8 2h8a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zM11 18h2"
+        },
+        {
+          "id": "google",
+          "n": "Nikt jej nie znajduje",
+          "ic": "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM12 11a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"
+        },
+        {
+          "id": "zmiany",
+          "n": "Nie da się nic zmienić",
+          "ic": "M15 7a4 4 0 1 1-3.9 5H3v3h3v3h3v-3h2.1A4 4 0 0 1 15 7z"
+        },
+        {
+          "id": "wyglad",
+          "n": "Wygląda staro",
+          "ic": "M3 5h18v14H3zM3 9h18M7 7h.01M10 7h.01"
+        }
+      ]
+    },
+    "prog": {
+      "n": "Program dla firmy",
+      "d": "Zlecenia, klienci, godziny, zgłoszenia.",
+      "ic": "M3 4h18v16H3zM3 9h18M9 9v11",
+      "row": 1,
+      "pv": "sys",
+      "q": "Co dziś najbardziej przeszkadza?",
+      "h": "Wybierz jedno. Resztę omówimy.",
+      "o": [
+        {
+          "id": "zlec",
+          "n": "Zlecenia na kartkach i SMS-ach",
+          "ic": "M6 2h9l5 5v15H6zM14 2v6h6M9 14h6M9 18h4"
+        },
+        {
+          "id": "klienci",
+          "n": "Klienci w zeszycie",
+          "ic": "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"
+        },
+        {
+          "id": "godz",
+          "n": "Godziny pracy na kartkach",
+          "ic": "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 7v5l3 2"
+        },
+        {
+          "id": "zgl",
+          "n": "Zgłoszenia i naprawy",
+          "ic": "M4 7h16v4a2 2 0 0 0 0 4v4H4v-4a2 2 0 0 0 0-4zM10 7v12"
+        },
+        {
+          "id": "excel",
+          "n": "Wszystko w Excelu",
+          "ic": "M4 4h16v16H4zM4 10h16M4 15h16M10 4v16"
+        }
+      ]
+    },
+    "app": {
+      "n": "Aplikacja na telefon",
+      "d": "Dla ekipy w terenie albo dla klientów.",
+      "ic": "M8 2h8a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zM11 18h2",
+      "row": 1,
+      "pv": "app",
+      "q": "Dla kogo?",
+      "h": "iPhone i Android z jednego kodu.",
+      "o": [
+        {
+          "id": "ekipa",
+          "n": "Dla pracowników w terenie",
+          "ic": "M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"
+        },
+        {
+          "id": "klienci",
+          "n": "Dla klientów",
+          "ic": "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"
+        }
+      ]
+    },
+    "auto": {
+      "n": "Automatyzacje",
+      "d": "SMS-y, faktury, raporty robią się same.",
+      "ic": "M13 2L4 14h7l-1 8 9-12h-7z",
+      "row": 1,
+      "pv": "auto",
+      "q": "Co ma się robić samo?",
+      "h": "Zaznacz wszystko, co pasuje.",
+      "multi": true,
+      "o": [
+        {
+          "id": "sms",
+          "n": "Przypomnienia SMS i e-mail",
+          "ic": "M6 8a6 6 0 1 1 12 0c0 7 3 8 3 8H3s3-1 3-8M10 21h4"
+        },
+        {
+          "id": "fv",
+          "n": "Faktury i dokumenty",
+          "ic": "M6 2h9l5 5v15H6zM14 2v6h6M9 14h6M9 18h4"
+        },
+        {
+          "id": "rap",
+          "n": "Raporty dla szefa",
+          "ic": "M4 20V10M10 20V4M16 20v-7M22 20H2"
+        },
+        {
+          "id": "ai",
+          "n": "Odpowiedzi na zapytania",
+          "ic": "M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"
+        }
+      ]
+    }
+  },
+  "results": {
+    "pensjonat": {
+      "n": "Strona dla pensjonatu lub hotelu",
+      "kind": "Strona",
+      "pv": "rez",
+      "g": [
+        "Pokoje, galeria i okolica w kilku językach",
+        "Zapytanie o termin albo rezerwacja online, bez prowizji portali",
+        "Panel: sam zmieniasz ceny, zdjęcia i dostępność"
+      ],
+      "nd": [
+        "Logo",
+        "Zdjęcia",
+        "Teksty o firmie",
+        "Domena"
+      ]
+    },
+    "restauracja": {
+      "n": "Strona dla restauracji lub baru",
+      "kind": "Strona",
+      "pv": "www",
+      "g": [
+        "Menu w panelu: zmieniasz je sam, bez PDF-ów",
+        "Rezerwacja stolika i godziny w sezonie",
+        "Mapa, dojazd i telefon jednym kliknięciem"
+      ],
+      "nd": [
+        "Logo",
+        "Zdjęcia",
+        "Teksty o firmie",
+        "Domena"
+      ]
+    },
+    "firmowa": {
+      "n": "Strona firmowa z panelem",
+      "kind": "Strona",
+      "pv": "www",
+      "g": [
+        "Oferta, realizacje, opinie i formularz prosto do Ciebie",
+        "Panel po polsku: treści zmieniasz sam",
+        "Szybka, na telefon, przygotowana pod Google i AI"
+      ],
+      "nd": [
+        "Logo",
+        "Zdjęcia",
+        "Teksty o firmie",
+        "Domena"
+      ]
+    },
+    "rozbudowana": {
+      "n": "Rozbudowana strona firmowa",
+      "kind": "Strona",
+      "pv": "www",
+      "g": [
+        "Wiele podstron, blog i aktualności",
+        "Języki, katalog albo rezerwacje: to, co zaznaczysz",
+        "Panel z osobnymi kontami dla kilku osób"
+      ],
+      "nd": [
+        "Logo",
+        "Zdjęcia",
+        "Teksty o firmie",
+        "Domena"
+      ]
+    },
+    "wizytowka": {
+      "n": "Strona wizytówka",
+      "kind": "Strona",
+      "pv": "www",
+      "g": [
+        "Jedna strona: kim jesteś, co robisz, jak dojechać",
+        "Telefon i mapa jednym kliknięciem",
+        "Najszybszy start w Google"
+      ],
+      "nd": [
+        "Logo",
+        "Zdjęcia",
+        "Teksty o firmie",
+        "Domena"
+      ]
+    },
+    "landing": {
+      "n": "Landing page",
+      "kind": "Strona",
+      "pv": "www",
+      "g": [
+        "Jedna strona pod jedną usługę albo kampanię",
+        "Formularz i telefon w każdym miejscu strony",
+        "Widzisz, ile osób zostawiło kontakt"
+      ],
+      "nd": [
+        "Opis usługi lub promocji",
+        "Zdjęcia",
+        "Logo"
+      ]
+    },
+    "przebudowa": {
+      "n": "Przebudowa starej strony",
+      "kind": "Strona",
+      "pv": "www",
+      "g": [
+        "Nowa, szybka strona z Twoimi treściami",
+        "Przekierowania: bez utraty pozycji w Google",
+        "Panel, w którym wreszcie sam coś zmienisz"
+      ],
+      "nd": [
+        "Adres obecnej strony",
+        "Dostęp do starej strony, jeśli masz",
+        "Nowe zdjęcia, jeśli są"
+      ]
+    },
+    "zlecenia": {
+      "n": "System zleceń i grafik ekip",
+      "kind": "System",
+      "pv": "sys",
+      "g": [
+        "Kto, gdzie i kiedy: grafik dla ekip",
+        "Status zlecenia dla klienta, SMS „w drodze”",
+        "Protokoły i zdjęcia prosto z telefonu"
+      ],
+      "nd": [
+        "15 min rozmowy o tym, jak pracujecie",
+        "Przykładowe dokumenty albo Excel",
+        "Lista osób, które będą korzystać"
+      ]
+    },
+    "crm": {
+      "n": "CRM dla małej i średniej firmy",
+      "kind": "System",
+      "pv": "sys",
+      "g": [
+        "Klienci, zapytania i oferty w jednym miejscu",
+        "Przypomnienia, do kogo zadzwonić",
+        "Cała historia kontaktu z każdym klientem"
+      ],
+      "nd": [
+        "15 min rozmowy o tym, jak pracujecie",
+        "Przykładowe dokumenty albo Excel",
+        "Lista osób, które będą korzystać"
+      ]
+    },
+    "czas": {
+      "n": "Czas pracy i rozliczenia",
+      "kind": "System",
+      "pv": "sys",
+      "g": [
+        "Godziny z telefonu pracownika, nie z kartek",
+        "Rozliczenie miesiąca robi się samo",
+        "Eksport dla księgowej"
+      ],
+      "nd": [
+        "15 min rozmowy o tym, jak pracujecie",
+        "Przykładowe dokumenty albo Excel",
+        "Lista osób, które będą korzystać"
+      ]
+    },
+    "serwis": {
+      "n": "System serwisu i zgłoszeń",
+      "kind": "System",
+      "pv": "sys",
+      "g": [
+        "Przyjęcie, status i historia każdej naprawy",
+        "SMS „gotowe” do klienta",
+        "Klient sam sprawdza status, jak w prokomserwis.pl"
+      ],
+      "nd": [
+        "15 min rozmowy o tym, jak pracujecie",
+        "Przykładowe dokumenty albo Excel",
+        "Lista osób, które będą korzystać"
+      ]
+    },
+    "excel": {
+      "n": "Z Excela do systemu",
+      "kind": "System",
+      "pv": "sys",
+      "g": [
+        "Arkusze zamienione w prosty panel",
+        "Dane przeniesione, duplikaty usunięte",
+        "Kilka osób naraz, bez nadpisywania"
+      ],
+      "nd": [
+        "15 min rozmowy o tym, jak pracujecie",
+        "Przykładowe dokumenty albo Excel",
+        "Lista osób, które będą korzystać"
+      ]
+    },
+    "rozbudowa": {
+      "n": "Rozbudowa programu i połączenia",
+      "kind": "System",
+      "pv": "sys",
+      "g": [
+        "Dokładamy brakujący moduł, nie piszemy od nowa",
+        "Łączymy programy, żeby nic nie przepisywać",
+        "Działa obok tego, co już masz"
+      ],
+      "nd": [
+        "Nazwa programu, którego używacie",
+        "Opis, czego brakuje",
+        "Dostęp testowy, jeśli jest"
+      ]
+    },
+    "app": {
+      "n": "Aplikacja na telefon",
+      "kind": "Aplikacja",
+      "pv": "app",
+      "g": [
+        "iPhone i Android z jednego kodu",
+        "Te same dane co w systemie i na stronie",
+        "Powiadomienia prosto na telefon"
+      ],
+      "nd": [
+        "Opis, co ma robić",
+        "Kto będzie z niej korzystał",
+        "Konta w App Store i Google Play (pomożemy założyć)"
+      ]
+    },
+    "auto": {
+      "n": "Automatyzacje",
+      "kind": "Automatyzacja",
+      "pv": "auto",
+      "g": [
+        "Powtarzalna robota robi się sama",
+        "Łączymy programy, które już masz",
+        "Mniej przepisywania, mniej pomyłek"
+      ],
+      "nd": [
+        "Lista programów, których używasz",
+        "Co dziś robisz ręcznie"
+      ]
+    },
+    "opieka": {
+      "n": "Opieka i przejęcie po poprzedniku",
+      "kind": "Opieka",
+      "pv": "www",
+      "g": [
+        "Odzyskujemy dostępy i robimy kopię",
+        "Naprawiamy to, co nie działa",
+        "Stała opieka: aktualizacje, monitoring, czas reakcji na piśmie"
+      ],
+      "nd": [
+        "Adres strony lub nazwa programu",
+        "Dostępy, jeśli masz",
+        "Krótki opis problemu"
+      ],
+      "month": true
+    },
+    "own": {
+      "n": "Rozmowa i propozycja na piśmie",
+      "kind": "Doradztwo",
+      "pv": "www",
+      "g": [
+        "Czytamy Twój opis i dzwonimy z pytaniami",
+        "Proponujemy 1–2 rozwiązania z ceną",
+        "Bez zobowiązań"
+      ],
+      "nd": [
+        "Krótki opis problemu"
+      ],
+      "free": true
+    }
+  },
+  "sizes": [
+    {
+      "id": "start",
+      "n": "Na start",
+      "d": "Najważniejsze, szybko"
+    },
+    {
+      "id": "std",
+      "n": "Standard",
+      "d": "Najczęściej wybierane"
+    },
+    {
+      "id": "full",
+      "n": "Pełna wersja",
+      "d": "Z dodatkami"
+    }
+  ],
+  "whens": [
+    {
+      "id": "asap",
+      "n": "Jak najszybciej"
+    },
+    {
+      "id": "zima",
+      "n": "Przed sezonem zimowym"
+    },
+    {
+      "id": "lato",
+      "n": "Przed latem"
+    },
+    {
+      "id": "brak",
+      "n": "Bez pośpiechu"
+    }
+  ],
+  "phrases": [
+    "mało telefonów z internetu",
+    "chcę sam zmieniać ceny",
+    "goście pytają o wolne terminy",
+    "za dużo przepisywania",
+    "przed sezonem zimowym"
+  ],
+  "contactPrefs": [
+    {
+      "id": "tel",
+      "n": "Telefon",
+      "inquiryValue": "phone"
+    },
+    {
+      "id": "mail",
+      "n": "E-mail",
+      "inquiryValue": "email"
+    },
+    {
+      "id": "salon",
+      "n": "Spotkanie w salonie",
+      "inquiryValue": "meeting"
+    },
+    {
+      "id": "online",
+      "n": "Online",
+      "inquiryValue": "online"
+    }
+  ],
+  "needsChecklist": {
+    "site": [
+      "Logo",
+      "Zdjęcia",
+      "Teksty o firmie",
+      "Domena"
+    ],
+    "system": [
+      "15 min rozmowy o tym, jak pracujecie",
+      "Przykładowe dokumenty albo Excel",
+      "Lista osób, które będą korzystać"
+    ]
+  },
+  "previewBrands": {
+    "nocleg": [
+      "Twój Pensjonat",
+      "Cisza, widok na Tatry",
+      "Pokoje z widokiem · śniadania",
+      "Sprawdź termin",
+      "twojpensjonat.pl",
+      [
+        "Pokoje",
+        "Galeria",
+        "Okolica"
+      ]
+    ],
+    "gastro": [
+      "Twoja Restauracja",
+      "Kuchnia regionalna",
+      "Menu dnia · rezerwacja stolika",
+      "Zarezerwuj stolik",
+      "twojarestauracja.pl",
+      [
+        "Menu",
+        "Rezerwacja",
+        "Dojazd"
+      ]
+    ],
+    "bud": [
+      "Twoja Firma",
+      "Remonty i wykończenia",
+      "Rabka-Zdrój i okolice",
+      "Bezpłatna wycena",
+      "twojafirma.pl",
+      [
+        "Oferta",
+        "Realizacje",
+        "Opinie"
+      ]
+    ],
+    "turyst": [
+      "Twoja Wypożyczalnia",
+      "Narty, rowery, atrakcje",
+      "Rezerwacja online · PL · EN",
+      "Zarezerwuj",
+      "twojawypozyczalnia.pl",
+      [
+        "Oferta",
+        "Cennik",
+        "Dojazd"
+      ]
+    ],
+    "uroda": [
+      "Twój Salon",
+      "Zadbaj o siebie",
+      "Fryzjer · kosmetyka · masaż",
+      "Umów wizytę",
+      "twojsalon.pl",
+      [
+        "Usługi",
+        "Cennik",
+        "Zespół"
+      ]
+    ],
+    "moto": [
+      "Twój Warsztat",
+      "Serwis i naprawy",
+      "Mechanika · opony · diagnostyka",
+      "Umów naprawę",
+      "twojwarsztat.pl",
+      [
+        "Usługi",
+        "Cennik",
+        "Dojazd"
+      ]
+    ],
+    "handel": [
+      "Twój Sklep",
+      "Wszystko na miejscu",
+      "Oferta · promocje · godziny",
+      "Zobacz ofertę",
+      "twojsklep.pl",
+      [
+        "Oferta",
+        "Promocje",
+        "Kontakt"
+      ]
+    ],
+    "biuro": [
+      "Twoje Biuro",
+      "Księgowość bez stresu",
+      "Dla firm z Podhala",
+      "Umów rozmowę",
+      "twojebiuro.pl",
+      [
+        "Usługi",
+        "Zespół",
+        "Kontakt"
+      ]
+    ],
+    "prod": [
+      "Twoja Pracownia",
+      "Robione na miejscu",
+      "Drewno · metal · na zamówienie",
+      "Zapytaj o wycenę",
+      "twojapracownia.pl",
+      [
+        "Wyroby",
+        "Realizacje",
+        "Kontakt"
+      ]
+    ],
+    "inna": [
+      "Twoja Firma",
+      "Twoja oferta, prosto",
+      "Konkretnie i na telefon",
+      "Zadzwoń",
+      "twojafirma.pl",
+      [
+        "Oferta",
+        "O nas",
+        "Opinie"
+      ]
+    ],
+    "land": [
+      "Twoja Usługa",
+      "Jedna usługa, jeden cel",
+      "Zostaw numer, oddzwonimy",
+      "Zostaw kontakt",
+      "twojausluga.pl",
+      []
+    ]
+  },
+  "rebuildIssues": {
+    "wolna": [
+      "ładuje się długo",
+      "< 2,5 s"
+    ],
+    "tel": [
+      "rozjeżdża się na telefonie",
+      "wygodna na telefonie"
+    ],
+    "google": [
+      "nikt jej nie znajduje",
+      "gotowa pod Google i AI"
+    ],
+    "zmiany": [
+      "nie da się nic zmienić",
+      "panel po polsku"
+    ],
+    "wyglad": [
+      "wygląda staro",
+      "nowoczesny wygląd"
+    ]
+  },
+  "systemViews": {
+    "zlec": {
+      "side": [
+        "Pulpit",
+        "Zlecenia",
+        "Ekipy",
+        "Klienci"
+      ],
+      "a": 1,
+      "t": "Zlecenia · ten tydzień",
+      "v": "kan"
+    },
+    "klienci": {
+      "side": [
+        "Pulpit",
+        "Klienci",
+        "Oferty",
+        "Zadania"
+      ],
+      "a": 1,
+      "t": "Klienci · do kontaktu",
+      "v": "list",
+      "l": [
+        [
+          "Hotel Pod Lasem",
+          "oferta wysłana",
+          "zadzwoń dziś",
+          "w"
+        ],
+        [
+          "Kowalski Bud",
+          "zapytanie",
+          "nowe",
+          "n"
+        ],
+        [
+          "Pensjonat Halny",
+          "stały klient",
+          "OK",
+          "o"
+        ]
+      ]
+    },
+    "godz": {
+      "side": [
+        "Pulpit",
+        "Czas pracy",
+        "Pracownicy",
+        "Raporty"
+      ],
+      "a": 1,
+      "t": "Czas pracy · ten miesiąc",
+      "v": "bars"
+    },
+    "zgl": {
+      "side": [
+        "Pulpit",
+        "Zgłoszenia",
+        "Klienci",
+        "Magazyn"
+      ],
+      "a": 1,
+      "t": "Zgłoszenia · w toku",
+      "v": "list",
+      "l": [
+        [
+          "#2041 · Laptop",
+          "Nowak",
+          "diagnoza",
+          "w"
+        ],
+        [
+          "#2040 · Drukarka",
+          "Lis",
+          "czeka na część",
+          "n"
+        ],
+        [
+          "#2038 · Telefon",
+          "Kowalska",
+          "gotowe · SMS",
+          "o"
+        ]
+      ]
+    },
+    "excel": {
+      "side": [
+        "Pulpit",
+        "Klienci",
+        "Zlecenia",
+        "Import"
+      ],
+      "a": 3,
+      "t": "Z Excela do panelu",
+      "v": "xls"
+    }
+  },
+  "automationActions": {
+    "sms": "SMS do klienta",
+    "fv": "Faktura w programie",
+    "rap": "Raport dla szefa",
+    "ai": "Odpowiedź na zapytanie, PL · EN · DE"
+  },
+  "mapping": {
+    "firm": {
+      "nocleg": "pensjonat",
+      "gastro": "restauracja",
+      "*": "firmowa"
+    },
+    "rozb": "rozbudowana",
+    "wiz": "wizytowka",
+    "land": "landing",
+    "odsw": "przebudowa",
+    "app": "app",
+    "auto": "auto",
+    "prog": {
+      "zlec": "zlecenia",
+      "klienci": "crm",
+      "godz": "czas",
+      "zgl": "serwis",
+      "excel": "excel",
+      "*": "zlecenia"
+    },
+    "own": "own"
+  },
+  "resultToSolutionSlug": {
+    "pensjonat": "strona-dla-hotelu-lub-pensjonatu",
+    "restauracja": "strona-dla-restauracji-lub-baru",
+    "firmowa": "strona-firmowa-z-panelem",
+    "rozbudowana": "rozbudowana-strona-firmowa",
+    "wizytowka": "strona-wizytowka",
+    "landing": "landing-page",
+    "przebudowa": "przebudowa-starej-strony",
+    "zlecenia": "system-zlecen-i-grafik-ekip",
+    "crm": "crm-dla-malej-i-sredniej-firmy",
+    "czas": "czas-pracy-i-rozliczenia",
+    "serwis": "system-serwisu-i-zgloszen",
+    "excel": "z-excela-do-systemu",
+    "app": "aplikacja-dla-ekip-w-terenie",
+    "auto": "powiadomienia-sms-i-e-mail",
+    "opieka": "opieka-nad-strona-i-systemem",
+    "own": null,
+    "rozbudowa": "aplikacja-do-programu-ktory-masz"
+  },
+  "icons": {
+    "site": "M3 5h18v14H3zM3 9h18M7 7h.01M10 7h.01",
+    "grid": "M4 4h16v16H4zM4 10h16M4 15h16M10 4v16",
+    "card": "M3 6h18v12H3zM7 10h5M7 14h8",
+    "target": "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM12 11a1 1 0 1 0 0 2 1 1 0 0 0 0-2z",
+    "refresh": "M21 12a9 9 0 1 1-2.6-6.4M21 3v6h-6",
+    "panel": "M3 4h18v16H3zM3 9h18M9 9v11",
+    "plug": "M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4",
+    "phone": "M8 2h8a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zM11 18h2",
+    "bolt": "M13 2L4 14h7l-1 8 9-12h-7z",
+    "life": "M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM5 5l4 4M15 15l4 4M19 5l-4 4M9 15l-4 4",
+    "bed": "M3 18V8M3 14h18v4M21 18v-6a3 3 0 0 0-3-3h-7v5M7 11h.01",
+    "food": "M5 3v8a3 3 0 0 0 6 0V3M8 11v10M17 3c-2 0-3 2-3 5s1 4 3 4v9",
+    "wrench": "M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z",
+    "box": "M3 7l9-4 9 4v10l-9 4-9-4zM3 7l9 4 9-4M12 11v10",
+    "doc": "M6 2h9l5 5v15H6zM14 2v6h6M9 14h6M9 18h4",
+    "globe": "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18",
+    "cal": "M4 5h16v16H4zM4 10h16M9 3v4M15 3v4",
+    "bag": "M5 8h14l-1 12H6zM9 8a3 3 0 0 1 6 0",
+    "users": "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z",
+    "clock": "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 7v5l3 2",
+    "ticket": "M4 7h16v4a2 2 0 0 0 0 4v4H4v-4a2 2 0 0 0 0-4zM10 7v12",
+    "chart": "M4 20V10M10 20V4M16 20v-7M22 20H2",
+    "chat": "M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z",
+    "bell": "M6 8a6 6 0 1 1 12 0c0 7 3 8 3 8H3s3-1 3-8M10 21h4",
+    "x": "M6 6l12 12M18 6L6 18",
+    "key": "M15 7a4 4 0 1 1-3.9 5H3v3h3v3h3v-3h2.1A4 4 0 0 1 15 7z",
+    "shield": "M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z",
+    "mega": "M3 11l15-6v14L3 13zM7 12v6",
+    "home": "M3 21h18M5 21V10l7-6 7 6v11M9 21v-5h6v5",
+    "mount": "M3 20l6-10 4 6 3-4 5 8z",
+    "heart": "M12 21s-8-5-8-11a5 5 0 0 1 8-3.5A5 5 0 0 1 20 10c0 6-8 11-8 11z",
+    "car": "M5 16l1.5-5h11l1.5 5M4 16h16v3H4zM7 19v2M17 19v2M7.5 13.5h.01M16.5 13.5h.01",
+    "brief": "M4 7h16v13H4zM9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M4 12h16"
+  },
+  "whenNotes": {
+    "asap": "Zaczynamy od rozmowy jeszcze w tym tygodniu. Dokładny termin dostaniesz na piśmie.",
+    "zimaBig": "Przed sezonem zimowym zdążymy z wersją na start. Resztę dołożymy po sezonie, bez przestoju.",
+    "zimaSmall": "Przed sezonem zimowym zdążymy, jeśli zaczniemy do [DATA].",
+    "lato": "Przed latem zdążymy spokojnie, z czasem na poprawki.",
+    "brak": "Termin ustalimy razem i zapiszemy w umowie.",
+    "default": "Termin potwierdzimy na piśmie po krótkiej rozmowie.",
+    "_rule": "zimaBig, gdy rozmiar = full albo potrzeba to program/aplikacja; inaczej zimaSmall (logika z planszy Kreator: zmienna big)."
+  },
+  "priceDisplay": {
+    "_info": "Cena w wyniku: Solutions.prices[rozmiar] (netto); null → tekst fallback.",
+    "template": "od {cena} zł netto",
+    "fallback": "Cena po krótkiej rozmowie, na piśmie"
+  }
+}
