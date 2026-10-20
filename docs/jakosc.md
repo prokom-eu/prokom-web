@@ -3,7 +3,7 @@
 Zadanie jest skończone, gdy:
 
 ## Kod
-- [ ] `pnpm lint`, `typecheck`, `test`, `build`, gitleaks — zielone lokalnie i w CI.
+- [ ] Lokalnie: `pnpm lint`, `typecheck`, `test` i e2e zmienionego obszaru (`pnpm test:e2e tests/e2e/<plik>`). W CI: pełne e2e, `build`, gitleaks — CI blokuje scalenie. `build` lokalnie tylko przy zmianie konfiguracji Next/Payload, zależności, `proxy.ts`, migracji albo Dockera.
 - [ ] Brak `any`, brak `console.log`, brak martwego kodu.
 - [ ] Każde zapytanie do Payload filtruje po tenancie; test izolacji tenantów zielony.
 - [ ] Zmiana schematu bazy ma migrację w repo.

@@ -25,7 +25,9 @@ export default defineConfig({
   },
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
   webServer: {
-    command: 'pnpm dev',
+    // CI (`E2E_SERVER=start`) tests the production build made just before — several times
+    // faster than `next dev` compiling every route on first visit. Locally `pnpm dev` stays.
+    command: process.env.E2E_SERVER === 'start' ? 'pnpm start' : 'pnpm dev',
     // Waits for the port: Node.js does not resolve *.localhost on every system, and every
     // non-panel URL answers 404, which Playwright does not count as "ready".
     port: 3000,

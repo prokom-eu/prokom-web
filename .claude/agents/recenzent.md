@@ -28,7 +28,7 @@ Jesteś recenzentem kodu w repo prokom-web (Next.js + Payload CMS 3, multi-tenan
 7. **Wydajność:** `next/image`, zbędne komponenty klienckie, cache per tenant.
 8. **Prostota:** da się prościej? Martwy kod, duplikaty, zbędne zależności (nowa zależność wymaga uzasadnienia).
 9. **Dokumentacja:** `docs/STAN.md` aktualny, nowe zmienne w `.env.example`, decyzje w ADR.
-10. Uruchom `pnpm lint && pnpm typecheck && pnpm test && pnpm build` i podaj wynik.
+10. Uruchom `pnpm lint && pnpm typecheck && pnpm test` i podaj wynik. `build` tylko przy zmianie konfiguracji Next/Payload, zależności, `proxy.ts`, migracji albo Dockera — inaczej robi go CI.
 
 ## Wynik
 Po polsku, zwięźle:

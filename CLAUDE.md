@@ -70,7 +70,7 @@ Krystian pracuje na komputerze w firmie i w domu. **Jedynym kanałem synchroniza
 - Dane osobowe (e-mail, telefon, imię, treść zapytania) nigdy w logach, komunikatach błędów ani Sentry. Logi: logger z `lib/` (JSON, `tenant`, `requestId`), nie `console.log`.
 
 ## Definition of Done
-- `lint`, `typecheck`, `test`, `build` zielone lokalnie i w CI.
+- `lint`, `typecheck`, `test` i e2e zmienionego obszaru zielone lokalnie; pełne e2e i `build` — w CI (CI blokuje scalenie). `build` lokalnie tylko przy zmianie konfiguracji Next/Payload, zależności, `proxy.ts`, migracji albo Dockera.
 - Telefon 360 px i komputer; Lighthouse ≥ 90 dla zmienionych stron.
 - Zgodne ze specyfikacją / zakresem sesji; `docs/STAN.md` zaktualizowany.
 - Pełna lista: `docs/jakosc.md`.
@@ -95,6 +95,7 @@ Krystian pracuje na komputerze w firmie i w domu. **Jedynym kanałem synchroniza
 - **Krystian ma rozumieć każdą linię, którą commituje.** Przy nieoczywistej decyzji (wzorzec, biblioteka, kompromis) dodaj 1–2 zdania „dlaczego tak” — w odpowiedzi, nie w komentarzach do kodu.
 - **Jedna rzecz naraz.** Pomysł spoza zakresu sesji → wpis w `docs/STAN.md` → „Pomysły na później”, nie implementujesz go „przy okazji”.
 - **Małe kroki:** plan → test → kod → `lint/typecheck/test` → pokazanie diffu. Gdy zmiana rośnie powyżej ~400 linii diffu, zaproponuj podział na osobne PR.
+- **`/przeglad` (subagent `recenzent`)** przed PR z kodem: zawsze przy logice biznesowej, tenantach, formularzach, dostępie, migracjach albo diffie powyżej ~100 linii. Drobne zmiany (dokumentacja, kilka linii bez logiki) — bez recenzenta.
 - Gdy nie jesteś pewien API biblioteki — sprawdź dokumentację zainstalowanej wersji albo powiedz, że nie wiesz. Nie zgaduj.
 
 ## Komendy projektu

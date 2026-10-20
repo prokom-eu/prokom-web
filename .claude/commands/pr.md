@@ -8,7 +8,7 @@ Przygotowujemy pull request z bieżącej gałęzi do `develop`.
    - bieżąca gałąź nie jest `main` ani `develop`;
    - brak niezacommitowanych zmian (`git status`) — jeśli są, zaproponuj commit;
    - gałąź jest wypchnięta (`git status` / `git log origin/<gałąź>..HEAD`);
-   - jeśli to zadanie z kodem: `pnpm lint && pnpm typecheck && pnpm test && pnpm build` przechodzą — podaj wynik.
+   - jeśli to zadanie z kodem: `pnpm lint && pnpm typecheck && pnpm test` i e2e zmienionego obszaru przechodzą — podaj wynik. Pełne e2e i `build` robi CI; `build` lokalnie tylko przy zmianie konfiguracji Next/Payload, zależności, `proxy.ts`, migracji albo Dockera.
 2. **Zbierz kontekst:** `git log develop..HEAD --oneline`, `git diff develop...HEAD --stat`, przejrzyj diff, `docs/STAN.md` („W toku”), sesję w `docs/zadania/fundament.md` albo specyfikację strony.
 3. **Tytuł** — Conventional Commits, po polsku, max ~70 znaków, opisuje efekt całej gałęzi (nie ostatni commit, nigdy „wip”):
    - `feat(zakres): …` nowa funkcja · `fix(zakres): …` poprawka · `chore: …` konfiguracja/narzędzia · `docs: …` dokumentacja · `refactor: …` · `test: …`
