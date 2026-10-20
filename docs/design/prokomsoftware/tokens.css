@@ -1,0 +1,129 @@
+/*
+ * prokomsoftware.pl — tokeny z wizualizacji (stan 18.10.2026)
+ * Źródło: docs/design/prokomsoftware/boards/Main.dc.html (klasa .pk i .pk[data-theme="light"]).
+ *
+ * JAK UŻYWAĆ (SW1):
+ *  - Wartości przenieś 1:1 do src/styles/tokens.css jako --c-software-light-* / --c-software-night-*
+ *    i ustaw zmienne semantyczne w [data-line='software'] oraz [data-line='software'][data-theme='dark']
+ *    (+ wariant prefers-color-scheme, tak jak dla Biznesu).
+ *  - Komponenty używają tylko zmiennych semantycznych (lewa kolumna mapy niżej), nigdy wartości.
+ *  - 'software' dopisz do DARK_THEME_LINES (src/lib/brand/theme.ts).
+ *  - Rozstrzygnięcia SW0 (ADR-015): kolor akcentu w jasnym motywie, końcówka gradientu H1, --glow-2.
+ *    Wartości oznaczone [SW0] mogą się zmienić po decyzji.
+ *
+ * MAPA NAZW: wizualizacja → repo
+ *   --bg          → --surface          tło strony
+ *   --bg2         → --surface-2        sekcje naprzemienne
+ *   --bg3         → --surface-3        pola, wyróżnienia
+ *   --card        → --card             karty
+ *   --card2       → --card-2      NOWY drugi poziom karty (wnętrza paneli)
+ *   --line        → --border           obramowania dekoracyjne
+ *   --text        → --ink              tekst główny
+ *   --soft        → --ink-soft    NOWY tekst półmocny (pogrubienia w opisach, etykiety w panelach)
+ *   --muted       → --ink-2 i --ink-3  tekst opisowy i etykiety (Software ma jeden odcień)
+ *   --accent      → --accent           CTA, aktywne, ikony
+ *   --accent2     → --accent-2         drugi akcent: gradienty, hover
+ *   --accentText  → --accent-text      tekst w kolorze akcentu (eyebrow, linki, liczby)
+ *   --accentInk   → --accent-ink       napis na przycisku w akcencie
+ *   --accentSoft  → --accent-soft  NOWY tło chipów, plakietek, kafli aktywnych
+ *   --accentLine  → --accent-line  NOWY obramowanie elementów aktywnych
+ *   --stage       → --stage        NOWY tło „sceny” podglądów (mock ekranów)
+ *   --chip        → --chip         NOWY tło chipów neutralnych
+ *   --dark        → --surface-dark     ciemne bloki rytmu (kontakt, CTA)
+ *   --ok / --warn → --ok / --warn      statusy (kropki) — patrz ograniczenia kontrastu
+ *   --glow        → --glow             poświata hero i CTA
+ *   --glow2       → --glow-2       NOWY druga poświata [SW0: dziś niebieskawa]
+ *   --grid        → --grid             siatka tła hero
+ *   --dot         → --dot          NOWY kropkowane tło sekcji
+ *   --hdr         → --header-bg    NOWY tło nagłówka (z blur 14px)
+ *   --shadow      → --shadow       NOWY cień kart wyniesionych
+ *   (brak)      → --border-input       pola formularzy, ≥ 3:1 (WCAG 1.4.11) — wartości niżej
+ *   (brak)      → --ok-text            małe zielone etykiety — wartości niżej
+ */
+
+:root {
+  /* ===== JASNY ===== */
+  --c-software-light-surface: #f4f5f1;
+  --c-software-light-surface-2: #eceee8;
+  --c-software-light-surface-3: #e3e6df;
+  --c-software-light-card: #ffffff;
+  --c-software-light-card-2: #f7f8f5;
+  --c-software-light-border: #dcdfd8;
+  --c-software-light-ink: #121613;
+  --c-software-light-ink-soft: #2e342f;
+  --c-software-light-ink-2: #4f5650;
+  --c-software-light-ink-3: #4f5650; /* = ink-2: Software ma jeden odcień tekstu opisowego */
+  --c-software-light-border-input: #767c74; /* = --c-input-border z repo: 3,91 na surface, 3,39 na surface-3 */
+  --c-software-light-ok-text: #256a18; /* małe zielone etykiety: ≥ 5,28 na wszystkich jasnych tłach */
+  --c-software-light-accent: #6e45d4; /* [SW0] księga: #8b61e3 (biały na nim 4,27 — za mało na napis przycisku) */
+  --c-software-light-accent-2: #a24bd8;
+  --c-software-light-accent-text: #5b33c4; /* [SW0] repo dziś: --c-software-text #7e58cd */
+  --c-software-light-accent-ink: #ffffff;
+  --c-software-light-accent-soft: #ece7fb;
+  --c-software-light-accent-line: #cfc2f5;
+  --c-software-light-stage: #e9e3fa;
+  --c-software-light-chip: #e8eae5;
+  --c-software-light-surface-dark: #171226;
+  --c-software-light-ok: #2e7a1e;
+  --c-software-light-warn: #a86a00;
+  --c-software-light-glow: rgba(110, 69, 212, 0.26);
+  --c-software-light-glow-2: rgba(40, 150, 200, 0.14); /* [SW0] rekomendacja: rgba(162, 75, 216, 0.14) */
+  --c-software-light-grid: rgba(110, 69, 212, 0.09);
+  --c-software-light-dot: rgba(18, 22, 19, 0.09);
+  --c-software-light-header-bg: rgba(244, 245, 241, 0.8);
+  --c-software-light-shadow: 0 36px 80px -30px rgba(40, 30, 80, 0.35);
+
+  /* ===== CIEMNY ===== */
+  --c-software-night-surface: #121613;
+  --c-software-night-surface-2: #161a17;
+  --c-software-night-surface-3: #1c211d;
+  --c-software-night-card: #1a1f1b;
+  --c-software-night-card-2: #20261f;
+  --c-software-night-border: #2a302b;
+  --c-software-night-ink: #f4f5f1;
+  --c-software-night-ink-soft: #d9ddd8;
+  --c-software-night-ink-2: #b5bbb5;
+  --c-software-night-ink-3: #b5bbb5;
+  --c-software-night-border-input: #7a817b; /* 4,57 na surface, 3,87 na card-2 */
+  --c-software-night-ok-text: #7bd36a; /* = ok, ≥ 8,3 na ciemnych tłach */
+  --c-software-night-accent: #9670ee; /* = --c-software-on-dark z księgi */
+  --c-software-night-accent-2: #c9a9ff;
+  --c-software-night-accent-text: #b39bf5;
+  --c-software-night-accent-ink: #121613;
+  --c-software-night-accent-soft: #241e36;
+  --c-software-night-accent-line: #4a3c74;
+  --c-software-night-stage: #1e1a2b;
+  --c-software-night-chip: #232823;
+  --c-software-night-surface-dark: #0e0b18;
+  --c-software-night-ok: #7bd36a;
+  --c-software-night-warn: #f2b84b;
+  --c-software-night-glow: rgba(150, 112, 238, 0.42);
+  --c-software-night-glow-2: rgba(80, 180, 220, 0.22); /* [SW0] rekomendacja: rgba(201, 169, 255, 0.2) */
+  --c-software-night-grid: rgba(179, 155, 245, 0.09);
+  --c-software-night-dot: rgba(244, 245, 241, 0.08);
+  --c-software-night-header-bg: rgba(18, 22, 19, 0.78);
+  --c-software-night-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.8);
+
+  /* ===== GRADIENTY (tylko w miejscach z plansz, ADR-013 pkt 4) ===== */
+  /* H1 (fragment z klasą .grad): accent-text → accent-2 → [SW0] #7FD3FF (niebieski) albo accent */
+  --grad-h1: linear-gradient(100deg, var(--accent-text) 5%, var(--accent-2) 55%, #7fd3ff 110%);
+  /* Ikony 8 obszarów — seed/prokomsoftware/obszary.json → items[].gradient (wartości tam). */
+
+  /* ===== TYPOGRAFIA ===== */
+  --font-display: 'Archivo', system-ui, sans-serif; /* oś wdth wymagana */
+  --font-text: 'Manrope', system-ui, sans-serif;
+  --display-stretch-h1: 122%; /* .disp, waga 900 */
+  --display-stretch-h2: 115%; /* .h2, waga 900 */
+  --display-tracking: -0.025em;
+
+  /* ===== MIARY ===== */
+  --wrap: 1280px;
+  --wrap-pad: 32px; /* ≤ 640 px: 18px */
+  --sec-y: 96px;
+  --radius-btn: 16px;
+  --btn-h: 56px; /* ≤ 640 px: 52px, pełna szerokość */
+  --radius-card: 22px; /* duże panele: 28–36px */
+  --radius-chip: 999px;
+  --header-h: 76px;
+  /* Breakpointy: 1400 (szyna po lewej chowa się), 1080 (tablet: 1 kolumna), 640 (telefon) */
+}

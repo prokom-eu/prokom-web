@@ -1,0 +1,157 @@
+{
+  "_info": "Strony /miejscowosci/<slug> (kolekcja Cities, ADR-014). Na start aktywna tylko Rabka-Zdrój (treść z boards/Miasto.dc.html). Pozostałe: active=false, treść do napisania w czacie — każda unikalna (spec. §6.9).",
+  "items": [
+    {
+      "slug": "rabka-zdroj",
+      "name": "Rabka-Zdrój",
+      "locative": "z Rabki-Zdroju",
+      "active": true,
+      "hero": {
+        "eyebrow": "Rabka-Zdrój · strony, systemy, aplikacje",
+        "title": "Strony i systemy dla firm",
+        "titleAccent": "z Rabki-Zdroju.",
+        "lead": "Salon mamy przy ul. Orkana 16B. Spotkasz się z nami na miejscu, pokażesz, jak pracujesz, a my pokażemy, jak to może wyglądać, zanim zapłacisz.",
+        "ctas": [
+          [
+            "Dobierz rozwiązanie · 60 s",
+            "/dobierz"
+          ],
+          [
+            "Umów spotkanie w salonie",
+            "/kontakt"
+          ]
+        ],
+        "badges": [
+          [
+            "PRO-KOM · ul. Orkana 16B",
+            "Salon na miejscu"
+          ],
+          [
+            "przyjdź z laptopem i pomysłem",
+            "Spotkanie u Ciebie · Rabka i okolice"
+          ]
+        ]
+      },
+      "whoTitle": "Dla kogo pracujemy najczęściej.",
+      "whoLead": "Rabka-Zdrój to uzdrowisko i turystyka, ale też usługi i handel dla mieszkańców. Każda z tych firm potrzebuje czegoś innego.",
+      "who": [
+        {
+          "name": "Pensjonaty i domy wczasowe",
+          "text": "Goście szukają z telefonu, często wieczorem. Strona z wolnymi terminami odbiera telefony za Ciebie.",
+          "cta": "Strona dla pensjonatu →",
+          "solution": "strona-dla-hotelu-lub-pensjonatu"
+        },
+        {
+          "name": "Gastronomia",
+          "text": "Menu w panelu zamiast PDF-a, godziny w sezonie i rezerwacja stolika.",
+          "cta": "Strona dla restauracji →",
+          "solution": "strona-dla-restauracji-lub-baru"
+        },
+        {
+          "name": "Usługi i rzemiosło",
+          "text": "Remonty, instalacje, warsztaty: system zleceń i grafik zamiast kartek.",
+          "cta": "System zleceń →",
+          "solution": "system-zlecen-i-grafik-ekip"
+        },
+        {
+          "name": "Handel",
+          "text": "Strona z ofertą i godzinami albo katalog produktów z zapytaniem.",
+          "cta": "Strona firmowa →",
+          "solution": "strona-firmowa-z-panelem"
+        }
+      ],
+      "localTitle": "Blisko, czyli prościej.",
+      "local": [
+        [
+          "Spotkanie w 10 minut",
+          "Salon w centrum Rabki. Wpadasz bez umawiania się na wideorozmowy."
+        ],
+        [
+          "Znamy sezon",
+          "Wiemy, kiedy w Rabce jest ruch, więc zmiany robimy wtedy, kiedy nie przeszkadzają."
+        ],
+        [
+          "Opieka na miejscu",
+          "Kopie, aktualizacje i szybka reakcja. A jak trzeba, przyjedziemy."
+        ]
+      ],
+      "faq": [
+        {
+          "q": "Czy przyjedziecie do mnie?",
+          "a": "Tak. W Rabce i okolicy przyjeżdżamy na spotkanie, a do salonu przy ul. Orkana 16B możesz przyjść sam."
+        },
+        {
+          "q": "Czy strona będzie widoczna na frazę „Rabka-Zdrój”?",
+          "a": "Ustawiamy wszystko, co od nas zależy: adres, dane firmy, opisy i wizytówkę Google spójne ze stroną. Pozycji nie gwarantuje nikt uczciwy."
+        },
+        {
+          "q": "Robicie strony w kilku językach dla gości?",
+          "a": "Tak. Najczęściej polski, angielski i niemiecki, a treści zmieniasz w jednym panelu."
+        },
+        {
+          "q": "Ile kosztuje strona w Rabce?",
+          "a": "Tyle samo co gdzie indziej: cena „od” jest w cenniku, a dokładna na piśmie po rozmowie."
+        }
+      ],
+      "nearby": [
+        "Rabka-Zdrój",
+        "Zakopane",
+        "Nowy Targ",
+        "Mszana Dolna",
+        "Limanowa",
+        "Nowy Sącz",
+        "Raba Wyżna",
+        "Chabówka",
+        "Skomielna Biała"
+      ],
+      "cta": {
+        "title": "Wpadnij do salonu przy Orkana 16B.",
+        "text": "Pokaż, jak dziś pracujesz. Wyjdziesz z pomysłem, ceną i terminem. Bez zobowiązań.",
+        "buttons": [
+          [
+            "Umów spotkanie",
+            "/kontakt"
+          ],
+          [
+            "Dobierz rozwiązanie",
+            "/dobierz"
+          ]
+        ]
+      },
+      "seo": {
+        "title": "Strony internetowe Rabka-Zdrój | PRO-KOM Software",
+        "description": null
+      }
+    },
+    {
+      "slug": "zakopane",
+      "name": "Zakopane",
+      "locative": "z Zakopanego",
+      "active": false
+    },
+    {
+      "slug": "nowy-targ",
+      "name": "Nowy Targ",
+      "locative": "z Nowego Targu",
+      "active": false
+    },
+    {
+      "slug": "mszana-dolna",
+      "name": "Mszana Dolna",
+      "locative": "z Mszany Dolnej",
+      "active": false
+    },
+    {
+      "slug": "limanowa",
+      "name": "Limanowa",
+      "locative": "z Limanowej",
+      "active": false
+    },
+    {
+      "slug": "nowy-sacz",
+      "name": "Nowy Sącz",
+      "locative": "z Nowego Sącza",
+      "active": false
+    }
+  ]
+}

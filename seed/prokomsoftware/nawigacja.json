@@ -1,0 +1,259 @@
+{
+  "_info": "Nagłówek i stopka Software (plansza Main, stany/01-03). Trafia do SiteSettings.software.navigation i .footer (ADR-014 §1.3). Odnośniki do /cennik prowadzą do /kontakt, dopóki strona /cennik jest w szkicu (spec. §6.4).",
+  "header": [
+    {
+      "label": "Oferta",
+      "mega": true
+    },
+    {
+      "label": "Kreator",
+      "badge": "60 s",
+      "href": "/dobierz",
+      "homeHref": "#dobierz",
+      "pill": true
+    },
+    {
+      "label": "Darmowy audyt",
+      "href": "/audyt"
+    },
+    {
+      "label": "O firmie",
+      "href": "/o-firmie"
+    },
+    {
+      "label": "Aktualności",
+      "href": "/aktualnosci"
+    },
+    {
+      "label": "Kontakt",
+      "href": "/kontakt"
+    }
+  ],
+  "headerRight": {
+    "themeToggle": true,
+    "projectDrawer": true,
+    "cta": {
+      "label": "Bezpłatna wycena",
+      "href": "/kontakt",
+      "homeHref": "#kontakt"
+    }
+  },
+  "mega": {
+    "columns": [
+      {
+        "title": "Strony internetowe",
+        "links": [
+          [
+            "Strona wizytówka",
+            "/rozwiazania/strona-wizytowka"
+          ],
+          [
+            "Strona firmowa",
+            "/rozwiazania/strona-firmowa-z-panelem"
+          ],
+          [
+            "Rozbudowana strona",
+            "/rozwiazania/rozbudowana-strona-firmowa"
+          ],
+          [
+            "Landing page",
+            "/rozwiazania/landing-page"
+          ],
+          [
+            "Strona dla restauracji lub baru",
+            "/rozwiazania/strona-dla-restauracji-lub-baru"
+          ],
+          [
+            "Strona dla hotelu lub pensjonatu",
+            "/rozwiazania/strona-dla-hotelu-lub-pensjonatu"
+          ]
+        ]
+      },
+      {
+        "title": "Systemy dla firm",
+        "links": [
+          [
+            "CRM dla małej i średniej firmy",
+            "/rozwiazania/crm-dla-malej-i-sredniej-firmy"
+          ],
+          [
+            "Z Excela do systemu",
+            "/rozwiazania/z-excela-do-systemu"
+          ],
+          [
+            "System zleceń i grafik pracy",
+            "/rozwiazania/system-zlecen-i-grafik-ekip"
+          ],
+          [
+            "Czas pracy i rozliczenia",
+            "/rozwiazania/czas-pracy-i-rozliczenia"
+          ]
+        ]
+      },
+      {
+        "title": "Aplikacje i automatyzacje",
+        "links": [
+          [
+            "Aplikacja na telefon",
+            "/rozwiazania?kategoria=aplikacje"
+          ],
+          [
+            "Automatyzacje",
+            "/rozwiazania?kategoria=automatyzacje"
+          ]
+        ]
+      },
+      {
+        "title": "Po wdrożeniu",
+        "links": [
+          [
+            "Opieka, kopie i aktualizacje",
+            "/rozwiazania/opieka-nad-strona-i-systemem"
+          ],
+          [
+            "Cennik",
+            "/cennik"
+          ],
+          [
+            "Darmowy audyt strony",
+            "/audyt"
+          ]
+        ]
+      }
+    ],
+    "card": {
+      "eyebrow": "Pełna oferta",
+      "title": "30 rozwiązań dla firm z Podhala i nie tylko",
+      "text": "Strony, systemy, aplikacje i automatyzacje. Każde z podglądem na żywo.",
+      "cta": [
+        "Zobacz pełną ofertę →",
+        "/rozwiazania"
+      ],
+      "links": [
+        [
+          "Nie wiesz, co wybrać? Dobierz rozwiązanie w 60 sekund →",
+          "/dobierz"
+        ],
+        [
+          "Strona, sprzęt i serwis w jednej firmie →",
+          "/jedna-firma"
+        ]
+      ]
+    }
+  },
+  "mobileMenu": [
+    [
+      "Kreator · dobierz w 60 s",
+      "/dobierz"
+    ],
+    [
+      "Pełna oferta",
+      "/rozwiazania"
+    ],
+    [
+      "Darmowy audyt",
+      "/audyt"
+    ],
+    [
+      "O firmie",
+      "/o-firmie"
+    ],
+    [
+      "Aktualności",
+      "/aktualnosci"
+    ],
+    [
+      "Kontakt",
+      "/kontakt"
+    ]
+  ],
+  "mobileMenuFooter": {
+    "cta": [
+      "Bezpłatna wycena",
+      "/kontakt"
+    ],
+    "phone": "[TELEFON SOFTWARE]"
+  },
+  "projectDrawer": {
+    "title": "Twój projekt",
+    "empty": "Na razie pusto. Klikaj „Chcę takie u siebie” przy rozwiązaniach, a tu zbierze się lista. Wycenimy całość naraz.",
+    "send": "Wyślij do bezpłatnej wyceny →",
+    "clear": "Wyczyść listę",
+    "_uwaga": "Karty mają przycisk „+ Do projektu” / „✓ W projekcie”, a pusty stan mówi o „Chcę takie u siebie” — do ujednolicenia (spec. §13)."
+  },
+  "footer": {
+    "about": "Strony, systemy, aplikacje i automatyzacje dla firm. Linia firmy PRO-KOM Tadeusz Wójciak.",
+    "columns": [
+      {
+        "title": "Usługi",
+        "links": [
+          [
+            "Strony internetowe",
+            "/rozwiazania?kategoria=strony"
+          ],
+          [
+            "Systemy i panele",
+            "/rozwiazania?kategoria=systemy"
+          ],
+          [
+            "Aplikacje mobilne",
+            "/rozwiazania?kategoria=aplikacje"
+          ],
+          [
+            "Automatyzacje i AI",
+            "/rozwiazania?kategoria=automatyzacje"
+          ],
+          [
+            "Opieka i audyty",
+            "/rozwiazania?kategoria=opieka"
+          ]
+        ]
+      },
+      {
+        "title": "Firma",
+        "links": [
+          [
+            "O firmie",
+            "/o-firmie"
+          ],
+          [
+            "Jedna firma do wszystkiego",
+            "/jedna-firma"
+          ],
+          [
+            "Realizacje",
+            "/#realizacje"
+          ],
+          [
+            "Aktualności",
+            "/aktualnosci"
+          ],
+          [
+            "Cennik",
+            "/cennik"
+          ],
+          [
+            "Darmowy audyt",
+            "/audyt"
+          ],
+          [
+            "Rabka-Zdrój",
+            "/miejscowosci/rabka-zdroj"
+          ]
+        ]
+      },
+      {
+        "title": "Kontakt",
+        "lines": [
+          "[TELEFON SOFTWARE]",
+          "[E-MAIL SOFTWARE]",
+          "Rabka-Zdrój · Zakopane · zdalnie w całej Polsce"
+        ]
+      }
+    ],
+    "crossLink": [
+      "Szukasz sprzętu, kas albo KSeF? PRO-KOM Biznes →",
+      "https://prokombiznes.pl"
+    ]
+  }
+}

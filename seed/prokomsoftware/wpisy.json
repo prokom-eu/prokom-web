@@ -1,0 +1,90 @@
+{
+  "_info": "Posts (tenant software). Treść z boards/Wpis.dc.html. Liczby sprawdzić ponownie w dniu publikacji i wpisać sources[].verifiedAt (spec. §13). Bloki porównania i liczb — w edytorze jako zwykłe akapity/listy albo osobne bloki wpisu.",
+  "items": [
+    {
+      "slug": "wordpress-czy-strona-od-zera",
+      "title": "WordPress czy strona pisana od zera? Uczciwe porównanie dla małej firmy",
+      "category": "Poradnik",
+      "readingMinutes": 8,
+      "publishedAt": null,
+      "lead": "WordPress to nie zło. Ale firma bez informatyka płaci za niego inaczej, niż myśli. Sprawdzamy, kiedy ma sens, a kiedy lepiej zrobić stronę od podstaw.",
+      "listLead": "Kiedy WordPress ma sens, a kiedy kosztuje więcej, niż się wydaje. Z danymi W3Techs i Patchstack.",
+      "tldr": "Jeśli masz bloga albo ktoś regularnie aktualizuje Twoją stronę, WordPress wystarczy. Jeśli to strona firmy, której nikt na co dzień nie pilnuje, większość ryzyka siedzi we wtyczkach i zaległych aktualizacjach.",
+      "sections": [
+        {
+          "h2": "Ile stron to WordPress",
+          "p": "WordPress jest najpopularniejszym systemem do stron na świecie. To jego siła: dużo gotowych motywów i wtyczek. I jednocześnie powód, dla którego automatyczne ataki celują właśnie w niego.",
+          "stats": [
+            [
+              "39,6%",
+              "wszystkich stron internetowych działa na WordPressie"
+            ],
+            [
+              "58,4%",
+              "stron, które używają jakiegokolwiek systemu CMS"
+            ],
+            [
+              "1. miejsce",
+              "wśród systemów do stron na świecie"
+            ]
+          ]
+        },
+        {
+          "h2": "Skąd biorą się luki",
+          "p": "Sam rdzeń WordPressa jest dobrze pilnowany. Problem to dodatki od tysięcy różnych autorów. Typowa strona firmy ma ich kilkanaście, a każdy trzeba aktualizować.",
+          "stats": [
+            [
+              "7 966",
+              "nowych luk w ekosystemie WordPress w 2024 r."
+            ],
+            [
+              "96%",
+              "z nich było we wtyczkach, 4% w motywach"
+            ],
+            [
+              "33%",
+              "nie miało poprawki w dniu, w którym stały się publiczne"
+            ]
+          ]
+        },
+        {
+          "h2": "Kiedy WordPress ma sens",
+          "p": "Gdy prowadzisz bloga, budżet jest bardzo mały, a ktoś regularnie robi aktualizacje i kopie. Wtedy gotowy system oszczędza czas i pieniądze na starcie."
+        },
+        {
+          "h2": "Kiedy lepiej strona od podstaw",
+          "compare": [
+            [
+              "Strona z kreatora",
+              "Motyw i kilkanaście wtyczek. Każda ładuje swój kod i wymaga aktualizacji. Bez opieki z czasem robi się wolna albo podatna na ataki."
+            ],
+            [
+              "Strona pisana pod firmę",
+              "Jeden kod, bez obcych wtyczek. Panel tylko z tym, co zmieniasz. Kopie i aktualizacje robi wykonawca w opiece."
+            ]
+          ],
+          "p": "Strona pisana od podstaw kosztuje zwykle więcej na starcie, ale mniej w utrzymaniu i nerwach. Najlepiej sprawdzić to na konkretnej stronie: zrób darmowy audyt."
+        }
+      ],
+      "sources": [
+        {
+          "name": "W3Techs, „Usage statistics of content management systems” i „WordPress”",
+          "url": "https://w3techs.com/technologies/overview/content_management",
+          "note": "stan na 17.10.2026",
+          "verifiedAt": null
+        },
+        {
+          "name": "Patchstack, „State of WordPress Security in 2025” (dane za 2024 r.)",
+          "url": null,
+          "verifiedAt": null,
+          "note": "TODO(krystian): link do raportu Patchstack przy sprawdzaniu liczb"
+        }
+      ],
+      "relatedSolutions": [
+        "przebudowa-starej-strony",
+        "strona-firmowa-z-panelem",
+        "audyt-strony-lub-programu"
+      ]
+    }
+  ]
+}
