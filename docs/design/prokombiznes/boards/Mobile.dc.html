@@ -134,7 +134,7 @@ body{margin:0}
 .mcol a{display:block;padding:6px 0;color:var(--ink2);font-size:14.5px}
 .mcol a:hover{color:var(--acc)}
 @supports (animation-timeline: view()){
-  .rv{animation:rise linear both;animation-timeline:view();animation-range:entry 0% cover 26%}
+  .rv{animation:none}
   .track span{animation:grow linear both;animation-timeline:view();animation-range:entry 20% cover 55%}
 }
 @keyframes up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
@@ -269,7 +269,9 @@ body{margin:0}
 /* ===== v17 nawigacja ===== */
 .nxh{position:sticky;top:0;z-index:60;background:var(--hdr);backdrop-filter:saturate(180%) blur(16px);-webkit-backdrop-filter:saturate(180%) blur(16px);border-bottom:1px solid var(--line)}
 .nxw{height:76px;display:flex;align-items:center;justify-content:space-between;gap:18px}
-.nxn{display:flex;gap:22px;align-items:center}
+.nxn{display:flex;gap:26px;align-items:center}
+.nxn .navb,.nxn a{white-space:nowrap}
+.nxsi{color:var(--ink)}
 .nxn .navb{position:relative}
 .nxn .navb.on:after{content:'';position:absolute;left:4px;right:4px;bottom:2px;height:2.5px;border-radius:2px;background:var(--acc)}
 .nxp{display:inline-flex;align-items:center;gap:6px}
@@ -659,10 +661,14 @@ input[type=search]::-webkit-search-cancel-button{-webkit-appearance:none;display
 .kg.any{background:var(--acc);color:#FFFFFF;box-shadow:none}
 .kg.any .kgi{background:rgba(255,255,255,.2);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.35)}
 .kg.any:hover{box-shadow:var(--shadow)}
+.kg.more{background:var(--card);color:var(--acc);box-shadow:inset 0 0 0 1.5px var(--acc)}
+.kg.more .kgi{background:var(--acc);box-shadow:none}
+.kg.more small,.kg.more small span{color:var(--ink2) !important;opacity:1 !important}
+.kg.more b,.kg.more b span{color:var(--acc) !important}
 .kg.any small{color:rgba(255,255,255,.82)}
 @media (max-width:1180px){.kgrid{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media (max-width:1080px){.kgrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media (max-width:640px){.kgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.kg{min-height:0;padding:14px}.kg small{display:none}}
+@media (max-width:640px){.kgrid:not(.all) .kg.x{display:none}.kgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.kg{min-height:0;padding:14px}.kg small{display:none}}
 
 /* ---- Jeden partner ---- */
 .jd{border-radius:36px;background:var(--dark);color:#EEF2FB;padding:clamp(28px,4vw,56px);display:flex;flex-direction:column;gap:32px;position:relative;overflow:hidden}
@@ -1720,7 +1726,7 @@ section[id]{scroll-margin-top:96px}
 .qsh{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
 .qsh b{font-family:'Archivo',sans-serif;font-stretch:108%;font-size:clamp(22px,2.2vw,28px);line-height:1.1}
 .qsh span{font-size:15px;color:var(--ink2)}
-.qsg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.qsg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
 .qsc{position:relative;display:flex;flex-direction:column;gap:10px;padding:20px;border-radius:24px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line);text-align:left;font:inherit;color:var(--ink);cursor:pointer;border:0;text-decoration:none;transition:transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s;overflow:hidden}
 .qsc:hover{transform:translateY(-4px);box-shadow:inset 0 0 0 1.5px var(--c),0 24px 44px -28px var(--c)}
 .qsc .ic{width:48px;height:48px;border-radius:15px;display:flex;align-items:center;justify-content:center;color:#FFFFFF;background:linear-gradient(145deg,var(--c),var(--c2));box-shadow:0 12px 24px -12px var(--c)}
@@ -1979,6 +1985,259 @@ section[id]{scroll-margin-top:96px}
 .twn2 a{font-weight:800;color:var(--acc)}
 @media (max-width:1080px){.kpg{grid-template-columns:repeat(3,minmax(0,1fr))}.kpp{grid-template-columns:1fr}.kpr{grid-template-columns:repeat(3,minmax(0,1fr))}.dk{grid-template-columns:repeat(3,minmax(0,1fr))}.dkq{grid-template-columns:1fr}}
 @media (max-width:640px){.kpg{grid-template-columns:repeat(2,minmax(0,1fr))}.kpr{grid-template-columns:repeat(2,minmax(0,1fr))}.dk{grid-template-columns:repeat(2,minmax(0,1fr))}.kppc{grid-template-columns:1fr}.kppc .im{height:110px}}
+
+/* ===== v26: oferta (reszta strony jak v17) ===== */
+.kpp3 .kppc:before{display:none}
+.kppc .au{text-transform:none;letter-spacing:0}
+
+/* ===== oferta: dwie sekcje ===== */
+.kp26{display:flex;flex-direction:column;gap:40px}
+.kp26 .kpsub{margin-top:16px;display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
+.kp26 .kpsub h3{margin:0;font-family:'Archivo',sans-serif;font-stretch:110%;font-weight:800;font-size:clamp(22px,2.2vw,28px);letter-spacing:-.015em;line-height:1.1}
+.kp26 .kpsub span{font-size:15.5px;color:var(--ink3)}
+.kphd{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.kphd > div{display:flex;flex-direction:column;gap:12px}
+.kphd p{margin:0;font-size:clamp(16.5px,1.3vw,18.5px);line-height:1.6;color:var(--ink2);max-width:56ch}
+.kpall{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:15.5px;color:var(--ink);padding:13px 18px;border-radius:14px;box-shadow:inset 0 0 0 1.5px var(--line);white-space:nowrap;transition:box-shadow .2s,color .2s}
+.kpall:hover{box-shadow:inset 0 0 0 1.5px var(--acc);color:var(--acc)}
+/* działy — karty z witryną produktów */
+.kpg26{gap:16px}
+.kpc26{position:relative;padding:8px;gap:0;border-radius:26px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line);transition:box-shadow .3s,transform .3s}
+.kpc26:hover{transform:translateY(-3px);box-shadow:inset 0 0 0 1.5px var(--g1),0 26px 50px -30px rgba(13,19,38,.45)}
+.kdim{position:relative;height:150px;border-radius:19px;overflow:hidden;background:radial-gradient(120% 90% at 20% 100%,color-mix(in srgb,var(--g1) 16%,transparent),transparent 70%),linear-gradient(160deg,color-mix(in srgb,var(--g2) 10%,var(--bg2)),var(--bg2))}
+.site.dark .kdim{background:radial-gradient(120% 90% at 20% 100%,color-mix(in srgb,var(--g1) 30%,transparent),transparent 70%),linear-gradient(160deg,color-mix(in srgb,var(--g2) 14%,#0B1222),#0B1222)}
+.kdim img{position:absolute;object-fit:contain;transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+.kdim img.a{left:8%;bottom:10px;height:108px;max-width:60%;z-index:2}
+.kdim img.b{right:7%;top:16px;height:84px;max-width:44%;z-index:1}
+.kpc26:hover .kdim img.a{transform:translateY(-4px) scale(1.03)}
+.kpc26:hover .kdim img.b{transform:translateY(-2px)}
+.kdst{position:absolute;left:14px;right:14px;top:22px;display:flex;flex-direction:column;gap:6px}
+.kdst span{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:11px;background:var(--card);box-shadow:0 8px 18px -12px rgba(13,19,38,.35),inset 0 0 0 1px var(--line);font-size:12.5px;font-weight:800;color:var(--ink)}
+.kdst span i{width:7px;height:7px;border-radius:50%;background:#1F9D63;flex:none}
+.kdst span i.a{background:#E39A16}
+.kdst span em{margin-left:auto;font-style:normal;font-weight:600;color:var(--ink3);font-size:11.5px}
+.kpc26 .kdb{display:flex;flex-direction:column;gap:10px;padding:0 14px 12px;flex:1}
+.kpc26 .nxgi{position:relative;z-index:3;display:flex;flex:none;align-self:flex-start;width:46px;height:46px;border-radius:14px;margin:-23px 0 12px 14px;box-shadow:0 0 0 4px var(--card),0 10px 20px -10px var(--g1);color:#FFFFFF !important}
+.kpc26 span.sc-interp{font-size:inherit !important;color:inherit !important;line-height:inherit !important;font-weight:inherit !important}
+.kpc26 b{font-family:'Archivo',sans-serif;font-stretch:108%;font-weight:800;font-size:18px;line-height:1.2;color:var(--ink);min-height:2.4em;display:flex;align-items:flex-start}
+.kpc26 .kdb > span{font-size:14.5px;line-height:1.5;color:var(--ink2);margin-top:-4px}
+.kpc26 ul{list-style:none;margin:2px 0 0;padding:10px 0 0;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:0;flex:1}
+.kpc26 li a{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:14.5px;font-weight:700;color:var(--ink);padding:6px 0;line-height:1.3;transition:color .2s}
+.kpc26 li a:hover{color:var(--acc)}
+.kpc26 li a em{font-style:normal;font-weight:700;font-size:12px;color:var(--ink3);background:var(--bg2);border-radius:7px;padding:2px 7px;min-width:22px;text-align:center}
+.kpc26 .all{display:flex;justify-content:space-between;align-items:center;gap:6px;font-size:14px;font-weight:800;color:var(--acc);padding:12px 14px;margin:4px 0 0;border-radius:14px;background:var(--bg2);transition:background .2s,color .2s}
+.kpc26 .all:hover{background:var(--acc);color:#FFFFFF}
+.site.dark .kpc26 .all:hover{color:#06102A}
+/* karty flagowe: jeden komponent */
+.kpp3{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.kpp3 .kppc{grid-template-columns:1fr;grid-template-rows:auto 1fr;gap:0;padding:0;align-items:stretch;background:#0A1430}
+.site.dark .kpp3 .kppc{background:#0E1830;box-shadow:inset 0 0 0 1px rgba(143,176,244,.14)}
+.kpp3 .kppc .im{order:-1;height:180px;padding:18px 24px 0}
+.kpp3 .kppc .im img{max-height:150px}
+.kpp3 .kppc .tx{padding:18px 26px 26px;gap:10px}
+.site .kppc b{color:#FFFFFF}
+.kpp3 .kppc .tx span{font-size:15px}
+.kpp3 .kppc .hdr{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%}
+.kppc .au{display:inline-flex;align-items:center;gap:6px;font-size:13px !important;font-weight:800;padding:5px 10px}
+.kpmon{width:100%;max-width:290px;align-self:center;display:flex;flex-direction:column;gap:6px}
+.kpmon .r{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.07);box-shadow:inset 0 0 0 1px rgba(255,255,255,.09);font-size:13.5px;font-weight:700;color:#EEF2FB}
+.kpmon .r i{width:8px;height:8px;border-radius:50%;background:#46C78B;flex:none}
+.kpmon .r i.a{background:#F2B544}
+.kpmon .r em{margin-left:auto;font-style:normal;font-weight:600;font-size:12.5px;color:#B8C3DD}
+/* najczęściej wybierane */
+.kpr4{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.kpr4 .kc{border-radius:22px}
+.kpr4 .kci{height:180px}.kpr4 .kci img{max-height:148px}
+.kpr4 .kcb{padding:16px 18px 18px;gap:8px}
+.kpr4 .kcn{font-size:17px}
+.kpr4 .kcs{display:-webkit-box !important;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:14.5px;line-height:1.5;margin:0}
+.kpr4 .kcf{flex-direction:row;align-items:center;justify-content:space-between}.kpr4 .kcl{display:inline-flex}
+.kpr4 .kadd{padding:10px 14px;font-size:13.5px}
+.kpr4 .kb{font-size:11.5px;padding:5px 9px}
+/* CTA niższe */
+.kpx26 .kpxa,.kpx26 .kpxk{min-height:0;padding:30px 32px;align-items:center}
+.kpx26 .kpxm{grid-auto-rows:62px}
+.kpx26 .kpxt b{font-size:clamp(20px,1.9vw,25px)}
+.kpx26 .kpxb{margin-top:8px}
+.kpx26 .kpxr{display:none}
+@media (max-width:1080px){.kpp3{grid-template-columns:1fr}.kpp3 .kppc{grid-template-columns:240px minmax(0,1fr);grid-template-rows:auto}.kpp3 .kppc .im{order:0;height:auto;padding:20px}.kpr4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){
+  .kp26{gap:28px}.kp26 .kpsub{margin-top:8px}
+  .kpg26{grid-template-columns:1fr;gap:8px}
+  .kpc26{display:grid;grid-template-columns:48px minmax(0,1fr);align-items:center;gap:2px 14px;padding:14px 16px;border-radius:20px}
+  .kdim{display:none}
+  .kpc26 .nxgi{grid-row:1/3;margin:0;width:48px;height:48px;box-shadow:none}
+  .kpc26 .kdb{padding:0;gap:4px;grid-column:2}
+  .kpc26 b{min-height:0;font-size:16.5px}
+  .kpc26 .kdb > span,.kpc26 ul{display:none}
+  .kpc26 .all{grid-column:2;background:none;padding:0;margin:0;font-size:13px;justify-content:flex-start}.kpc26 .all .w{display:none}
+  .kpp3 .kppc{grid-template-columns:1fr}.kpp3 .kppc .im{order:-1;height:150px;padding:16px 16px 0}.kpp3 .kppc .tx{padding:16px 20px 22px}
+  .kpr4{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin:0 -18px;padding:2px 18px 10px;scrollbar-width:none}
+  .kpr4::-webkit-scrollbar{display:none}
+  .kpr4 .kc{flex:0 0 78%;scroll-snap-align:start}
+  .kpx26 .kpxa,.kpx26 .kpxk{padding:24px 22px}
+}
+
+/* v19: hero — akcent bez gradientu, bez poświat, bez pigułki 60 s */
+.hero2 .grad{background:none;-webkit-background-clip:border-box;background-clip:border-box;color:var(--acc);-webkit-text-fill-color:currentColor}
+.site.dark .hero2 .grad{color:#8FB0F4}
+.h2glow{display:none}
+.h2kr .tm em{display:none}
+
+/* Pięć firm czy jedna — wersja krótsza (telefon bez zmian) */
+.j4{gap:0}
+.j4st{display:none}
+.j4g{row-gap:22px}
+.j4head{gap:14px}
+.j4hint{display:none}
+.j4stage{padding:0;align-self:center}
+.j4rows{gap:8px;align-self:start}
+.j4r{padding:11px 14px;gap:12px;grid-template-columns:40px minmax(0,1fr);border-radius:16px;align-items:center}
+.j4r .ico{width:40px;height:40px;border-radius:12px}
+.j4r .t{margin-bottom:3px}
+.j4r .tx p{font-size:14.5px;line-height:1.45;margin:0}
+.j4rows .j4cta{border-top:0;padding-top:10px;justify-content:flex-start}
+.j4rows .j4cta p{display:none}
+@media (max-width:1080px){.j4rows{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.j4rows .j4cta{grid-column:1/-1}}
+@media (max-width:640px){
+  .j4ph{zoom:.86}
+  .j4r{grid-template-columns:1fr;gap:8px;padding:12px;align-items:start}
+  .j4r .tx{display:none}
+  .j4r .t{margin:0;font-size:13.5px;line-height:1.25}
+  .j4r .t i{display:none}
+  .j4rows .j4cta > div{width:100%}.j4rows .j4cta .btn{flex:1 1 100%;justify-content:center;text-align:center}
+}
+
+/* ===== fakty v26: jedna zwarta karta ===== */
+.fk26{margin-top:4px}
+.fkc{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:0;align-items:stretch;border-radius:28px;background:linear-gradient(135deg,#0F1D44,#0A1430 60%);color:#EEF2FB;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(143,176,244,.14)}
+.fkc > div{padding:28px 30px}
+.fkc > div + div{border-left:1px solid rgba(255,255,255,.09)}
+.fks{display:flex;gap:28px;align-items:center}
+.fks div{display:flex;flex-direction:column;gap:6px}
+.site .fks b{font-family:'Archivo',sans-serif;font-stretch:115%;font-weight:800;font-size:38px;line-height:1;color:#FFFFFF;letter-spacing:-.02em}
+.fks span{font-size:13px;line-height:1.35;color:#A6B1C9}
+.fkr{display:flex;flex-direction:column;gap:10px;justify-content:center}
+.fkr .r{display:flex;align-items:center;gap:10px;color:#EEF2FB;min-width:0}
+.fkr .r i{width:32px;height:32px;flex:none;border-radius:10px;display:flex;align-items:center;justify-content:center;background:rgba(143,176,244,.14);color:#8FB0F4}
+.site .fkr b{font-size:15px;font-weight:800;color:#FFFFFF;white-space:nowrap}
+.site .fkr .fkph b{font-family:'Archivo',sans-serif;font-stretch:110%;font-size:19px}
+.fkr a.r:hover b{color:#8FB0F4}
+.fkr .st{gap:8px}.fkr .st small{font-size:13.5px;font-weight:700;color:#B8C3DD}
+.fkr .live{width:8px;height:8px;margin:0 12px 0 12px;flex:none}
+.fka{display:flex;flex-direction:column;gap:12px;justify-content:center}
+.fkal{font-size:12.5px;font-weight:800;color:#8FB0F4}
+.fklgs{display:grid;grid-template-columns:repeat(4,auto);gap:8px}
+.fklgs span{height:40px;padding:0 12px;border-radius:11px;background:#FFFFFF;display:flex;align-items:center;justify-content:center}
+.fklgs img{max-height:20px;max-width:78px;width:auto;object-fit:contain}
+.fkat{font-size:13px;line-height:1.45;color:#A6B1C9;max-width:34ch}
+.fkat a{color:#FFFFFF;font-weight:800;display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+@media (max-width:1180px){.fkc{grid-template-columns:1fr 1fr}.fka{grid-column:1/-1;border-left:0 !important;border-top:1px solid rgba(255,255,255,.09);flex-direction:row;flex-wrap:wrap;align-items:center;gap:12px 20px}}
+@media (max-width:640px){.fkc{grid-template-columns:1fr;border-radius:24px}.fkc > div{padding:22px 20px}.fkc > div + div{border-left:0;border-top:1px solid rgba(255,255,255,.09)}.fks{gap:18px;justify-content:space-between}.site .fks b{font-size:30px}.fkr{grid-template-columns:1fr}.fklgs{grid-template-columns:repeat(2,1fr)}}
+/* aktualności */
+.nw26h{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:18px}
+.nw26h b{font-family:'Archivo',sans-serif;font-stretch:110%;font-weight:800;font-size:clamp(22px,2.2vw,28px);letter-spacing:-.015em}
+.nw26h a{font-weight:800;font-size:15px;color:var(--acc);display:inline-flex;align-items:center;gap:7px}
+.nw26{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.nw26c{display:flex;flex-direction:column;gap:14px;padding:24px;border-radius:22px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line);transition:box-shadow .25s,transform .25s;min-height:190px}
+.nw26c:hover{transform:translateY(-3px);box-shadow:inset 0 0 0 1.5px var(--acc),var(--shadow)}
+.nw26c .m{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700;color:var(--ink3)}
+.nw26c .m em{font-style:normal;color:var(--acc);background:var(--bg2);padding:4px 9px;border-radius:8px}
+.nw26c b{font-family:'Archivo',sans-serif;font-stretch:104%;font-weight:800;font-size:19px;line-height:1.3;color:var(--ink);flex:1}
+.nw26c .go{display:inline-flex;align-items:center;gap:7px;font-weight:800;font-size:14.5px;color:var(--acc)}
+@media (max-width:1080px){.fkc{grid-template-columns:1fr}.fka{grid-template-columns:repeat(2,minmax(0,1fr))}.nw26{grid-template-columns:1fr}.nw26c{min-height:0}}
+@media (max-width:640px){.fkc{padding:24px 20px;border-radius:26px}.fks div{padding:16px 10px 16px 0}.fks div + div{padding-left:12px}.fks span{font-size:12.5px}.fkr{grid-template-columns:1fr}.fkb .btn{flex:1 1 100%;justify-content:center}.fka{grid-template-columns:1fr 1fr;gap:10px}.fkx{padding:16px}.fkx .fklg img{max-height:26px;max-width:110px}.fkx .ds{font-size:13px}.nw26h{flex-direction:column;gap:6px}}
+
+/* ===== FAQ v26 ===== */
+.fq26{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:clamp(28px,4vw,72px);align-items:start}
+.fq26l{display:flex;flex-direction:column;gap:16px;position:sticky;top:110px}
+.fq26c{margin-top:8px;display:flex;flex-direction:column;gap:12px;padding:20px;border-radius:22px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line),0 24px 50px -36px rgba(13,19,38,.4);max-width:380px}
+.fq26c .h{display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:700;color:var(--ink2)}
+.fq26c .h .live{width:8px;height:8px;margin:0}
+.site .fq26p{color:#FFFFFF;justify-content:center;font-size:17px;gap:10px}
+.fq26c .ln{display:flex;gap:16px;flex-wrap:wrap}
+.fq26c .ln a{display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:800;color:var(--ink)}
+.fq26c .ln a:hover{color:var(--acc)}
+.fq26c .ln svg{color:var(--acc)}
+.fq26r{display:flex;flex-direction:column;gap:10px}
+.fq26r details{border-radius:18px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line);transition:box-shadow .25s}
+.fq26r details:hover{box-shadow:inset 0 0 0 1px var(--acc2)}
+.fq26r details[open]{box-shadow:inset 0 0 0 1.5px var(--acc),0 20px 44px -30px rgba(13,19,38,.45)}
+.fq26r summary{list-style:none;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:16px;padding:18px 20px 18px 22px;cursor:pointer}
+.fq26r summary::-webkit-details-marker{display:none}
+.fq26r .n{font:800 13px/1 'Archivo',sans-serif;font-stretch:112%;color:var(--acc);min-width:22px}
+.fq26r .q{font-size:16.5px;font-weight:800;line-height:1.35;color:var(--ink)}
+.fq26r .pl{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--bg2);color:var(--ink);transition:transform .3s,background .3s,color .3s}
+.fq26r details[open] .pl{transform:rotate(45deg);background:var(--acc);color:#FFFFFF}
+.fq26r details p{margin:0;padding:0 24px 22px 60px;font-size:15.5px;line-height:1.65;color:var(--ink2);max-width:68ch}
+@media (max-width:1080px){.fq26{grid-template-columns:1fr}.fq26l{position:static}}
+@media (max-width:640px){.fq26r summary{padding:16px;gap:12px}.fq26r .q{font-size:15.5px}.fq26r details p{padding:0 16px 18px 50px;font-size:15px}.fq26c{max-width:none}}
+
+/* ===== formularz v26 ===== */
+.cf26{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);border-radius:32px;overflow:hidden;background:var(--card);box-shadow:inset 0 0 0 1px var(--line),0 40px 90px -50px rgba(13,19,38,.45)}
+.cf26s{position:relative;padding:clamp(28px,3.4vw,48px);background:linear-gradient(150deg,#16244A,#0A1430 60%);color:#EEF2FB;display:flex;flex-direction:column;gap:20px}
+.cf26s .h{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:700;color:#B8C3DD}
+.cf26s .h .live{width:8px;height:8px;margin:0}
+.site .cf26s h2{margin:0;font-family:'Archivo',sans-serif;font-stretch:112%;font-weight:800;font-size:clamp(28px,2.7vw,38px);line-height:1.08;letter-spacing:-.02em;color:#FFFFFF}
+.cf26s p{margin:0;font-size:16px;line-height:1.6;color:#C9D3EA;max-width:44ch}
+.cf26k{display:flex;flex-direction:column;gap:8px}
+.cf26k a{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:16px;background:rgba(255,255,255,.05);box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);color:#EEF2FB;transition:background .2s}
+.cf26k a:hover{background:rgba(255,255,255,.1)}
+.cf26k i{width:38px;height:38px;flex:none;border-radius:11px;display:flex;align-items:center;justify-content:center;background:rgba(143,176,244,.16);color:#8FB0F4}
+.cf26k span{display:flex;flex-direction:column;gap:1px}
+.cf26k small{font-size:12.5px;color:#A6B1C9}
+.site .cf26k b{font-size:16px;font-weight:800;color:#FFFFFF}
+.cf26s ul{list-style:none;margin:auto 0 0;padding:16px 0 0;border-top:1px solid rgba(255,255,255,.1);display:flex;flex-direction:column;gap:8px}
+.cf26s li{display:flex;align-items:center;gap:10px;font-size:14.5px;color:#DCE4F5}
+.cf26s li svg{color:#46C78B;flex:none}
+.cf26f{padding:clamp(26px,3.2vw,44px);display:flex;flex-direction:column;gap:18px}
+.cf26f > sc-if{display:contents}
+.cf26g{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 16px}
+.cf26f .f{display:flex;flex-direction:column;gap:7px}
+.cf26f .f > span{font-size:14px;font-weight:800;color:var(--ink)}
+.cf26f .f em{font-style:normal;font-weight:600;color:var(--ink3)}
+.cf26f input[type=text],.cf26f input[type=tel],.cf26f input[type=email],.cf26f textarea{width:100%;box-sizing:border-box;font:inherit;font-size:15.5px;color:var(--ink);background:var(--bg2);border:0;border-radius:14px;padding:14px 16px;box-shadow:inset 0 0 0 1.5px transparent;transition:box-shadow .2s,background .2s;outline:none;resize:vertical}
+.cf26f input::placeholder,.cf26f textarea::placeholder{color:var(--ink3)}
+.cf26f input:focus,.cf26f textarea:focus{background:var(--card);box-shadow:inset 0 0 0 1.5px var(--acc),0 0 0 4px rgba(36,79,176,.12)}
+.cf26t{display:flex;flex-wrap:wrap;gap:8px}
+.cft{display:inline-flex;align-items:center;gap:7px;min-height:42px;padding:0 14px;border-radius:999px;border:0;background:var(--bg2);color:var(--ink);font:inherit;font-size:14.5px;font-weight:700;cursor:pointer;box-shadow:inset 0 0 0 1.5px transparent;transition:all .2s}
+.cft svg{display:none}
+.cft:hover{box-shadow:inset 0 0 0 1.5px var(--line)}
+.cft.on{background:rgba(36,79,176,.1);color:var(--acc);box-shadow:inset 0 0 0 1.5px var(--acc)}
+.site.dark .cft.on{background:rgba(143,176,244,.14);color:#8FB0F4}
+.cft.on svg{display:block}
+.cf26b{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-top:4px}
+.cf26z{display:flex;align-items:flex-start;gap:10px;font-size:13.5px;line-height:1.45;color:var(--ink2);max-width:36ch}
+.cf26z input{width:18px;height:18px;margin:1px 0 0;accent-color:var(--acc);flex:none}
+.cf26z a{color:var(--acc);font-weight:700}
+.site .cf26go{color:#FFFFFF;min-height:54px;padding:0 26px;font-size:16px}
+.cf26ok{display:flex;flex-direction:column;align-items:flex-start;gap:14px;justify-content:center;min-height:420px}
+.cf26ok .i{width:64px;height:64px;border-radius:20px;display:flex;align-items:center;justify-content:center;background:rgba(31,157,99,.12);color:#1F9D63}
+.cf26ok b{font-family:'Archivo',sans-serif;font-stretch:110%;font-weight:800;font-size:28px;color:var(--ink)}
+.cf26ok p{margin:0;font-size:16px;line-height:1.6;color:var(--ink2);max-width:46ch}
+@media (max-width:1080px){.cf26{grid-template-columns:1fr}}
+@media (max-width:640px){.cf26{border-radius:26px}.cf26g{grid-template-columns:1fr}.cf26b{flex-direction:column;align-items:stretch}.cf26go{width:100%;justify-content:center}.cft{font-size:14px;min-height:40px;padding:0 12px}}
+
+/* formularz — dopracowanie */
+.cf26f{gap:20px;padding:clamp(28px,3.4vw,48px)}
+.cf26h{display:flex;flex-direction:column;gap:6px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.cf26h b{font-family:'Archivo',sans-serif;font-stretch:110%;font-weight:800;font-size:22px;color:var(--ink)}
+.cf26h span{font-size:14px;color:var(--ink3)}
+.cf26g{gap:16px 18px}
+.cf26f .cfin{position:relative;display:block;font-weight:500;font-size:15.5px}
+.cf26f input,.cf26f textarea{font-weight:500 !important}
+.cf26f .cfin svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--ink3);pointer-events:none;transition:color .2s}
+.cf26f .cfin input{padding-left:46px !important}
+.cf26f .cfin:focus-within svg{color:var(--acc)}
+.cf26f input[type=text],.cf26f input[type=tel],.cf26f input[type=email],.cf26f textarea{background:var(--card);box-shadow:inset 0 0 0 1.5px var(--line);min-height:54px;border-radius:14px}
+.cf26f input:hover,.cf26f textarea:hover{box-shadow:inset 0 0 0 1.5px var(--ink3)}
+.cf26f input:focus,.cf26f textarea:focus{box-shadow:inset 0 0 0 1.5px var(--acc),0 0 0 4px rgba(36,79,176,.12)}
+.cf26f textarea{min-height:130px;line-height:1.55}
+.site .cf26go{min-height:56px;padding:0 30px;font-size:16.5px;box-shadow:0 16px 34px -14px rgba(36,79,176,.6)}
+.cf26n{display:flex;gap:8px 22px;flex-wrap:wrap;font-size:13.5px;font-weight:700;color:var(--ink2)}
+.cf26n span{display:inline-flex;align-items:center;gap:7px}.cf26n svg{color:#1F9D63}
+.cf26a{margin-top:auto;padding-top:16px;border-top:1px solid rgba(255,255,255,.1);font-size:14px;color:#B8C3DD}
+@media (max-width:640px){.cf26n{flex-direction:column;gap:8px}}
 </style>
 </helmet>
 <div class="{{ siteCls }}" style="min-height:100vh">
@@ -2046,24 +2305,17 @@ section[id]{scroll-margin-top:96px}
         <a href="Main.dc.html" style="color:var(--ink);font-weight:800;display:inline-flex;align-items:center;gap:8px"><span style="width:14px;height:4px;border-radius:2px;background:var(--acc)"></span>Biznes</a>
         <a href="#">Instalacje</a><a href="#">Software</a><a href="#">Tech · naprawy</a><a href="#">Zakopane</a>
       </nav>
-      <div style="display:flex;gap:18px;flex-wrap:wrap;align-items:center"><span class="pill" style="font-size:13px"><span class="{{ openDot }}"></span>{{ openLbl }}</span><a href="#szybkie" class="tbq"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H4z M8 20h8 M12 16v4 M10 9l2 2 4-4"></path></svg> Pomoc zdalna</a><a href="#szybkie" class="tbq"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 7a4 4 0 00-5.3 5.1L4 17.8 6.2 20l5.7-5.7A4 4 0 0017 9l-2.4 2.4-2-2L15 7z"></path></svg> Zgłoś awarię</a><a href="Aktualnosci.dc.html" class="tbq"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h9l4 4v14H6z M14 3v5h5 M9 13h7 M9 17h5"></path></svg> Aktualności</a><span style="color:var(--ink3)">Oferty i serwis:</span><a href="tel:+48889003889" style="color:var(--ink);font-weight:800;margin-left:-12px">889 003 889</a></div>
+      <div style="display:flex;gap:18px;flex-wrap:wrap;align-items:center"><span class="pill" style="font-size:13px"><span class="{{ openDot }}"></span>{{ openLbl }}</span><a href="#kontakt" class="tbq"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 7a4 4 0 00-5.3 5.1L4 17.8 6.2 20l5.7-5.7A4 4 0 0017 9l-2.4 2.4-2-2L15 7z"></path></svg> Zgłoś awarię</a><a href="Aktualnosci.dc.html" class="tbq"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h9l4 4v14H6z M14 3v5h5 M9 13h7 M9 17h5"></path></svg> Aktualności</a><span style="color:var(--ink3)">Oferty i serwis:</span><a href="tel:+48889003889" style="color:var(--ink);font-weight:800;margin-left:-12px">889 003 889</a></div>
     </div>
   </div>
 
   <header class="nxh">
     <div class="wrap nxw">
       <a href="Main.dc.html" aria-label="PRO-KOM Biznes — strona główna" style="display:block;flex:none"><img class="logo-l" src="./media/brand-prokom-biznes-jasne.svg" alt="PRO-KOM Biznes" style="height:38px;width:auto"><img class="logo-d" src="./media/brand-prokom-biznes-ciemne.svg" alt="PRO-KOM Biznes" style="height:38px;width:auto"></a>
-      <nav aria-label="Główna" class="desk nxn" style="position:relative"><button type="button" class="{{ megaBtnCls }}" onClick="{{ toggleMega }}" aria-expanded="{{ megaAria }}">Oferta<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="transition:transform .3s;transform:{{ megaRot }}"><path d="M6 9l6 6 6-6"></path></svg></button><a class="navb" href="Dzial.dc.html">Opieka IT</a><a class="navb" href="Gopos.dc.html"><span class="nxp"><i></i>GoPOS</span></a><a class="navb" href="Insert.dc.html"><span class="nxp"><i></i>InsERT</span></a><button type="button" class="{{ brBtnCls }}" onClick="{{ toggleBr }}" aria-expanded="{{ brAria }}">Branże<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="transition:transform .3s;transform:{{ brRot }}"><path d="M6 9l6 6 6-6"></path></svg></button><a class="navb" href="OFirmie.dc.html">O firmie</a><a class="navb" href="Kontakt.dc.html">Kontakt</a>
-        <sc-if value="{{ brOpen }}" hint-placeholder-val="{{ false }}">
-          <div class="nxdd" style="left:200px">
-            <sc-for list="{{ brMenu }}" as="b" hint-placeholder-count="3"><a href="{{ b.href }}" class="nxbr" onClick="{{ b.go }}"><span class="nxbi"><img class="pimg" src="{{ b.img }}" alt=""></span><b>{{ b.n }}</b><span>{{ b.d }}</span></a></sc-for>
-            <div class="nxbx"><span>Biuro, szkoła, gabinet, warsztat? Opisz firmę w 60 sekund — dobierzemy zestaw.</span><a href="Kreator.dc.html">Kreator 60 s →</a></div>
-          </div>
-        </sc-if>
+      <nav aria-label="Główna" class="desk nxn" style="position:relative"><button type="button" class="{{ megaBtnCls }}" onClick="{{ toggleMega }}" aria-expanded="{{ megaAria }}">Oferta<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="transition:transform .3s;transform:{{ megaRot }}"><path d="M6 9l6 6 6-6"></path></svg></button><a class="navb" href="Dzial.dc.html">Opieka IT</a><a class="navb" href="Gopos.dc.html"><span class="nxp"><i></i>GoPOS</span></a><a class="navb" href="Insert.dc.html"><span class="nxp"><i></i>InsERT</span></a><a class="navb" href="OFirmie.dc.html">O firmie</a><a class="navb" href="Kontakt.dc.html">Kontakt</a>
       </nav>
       <div class="nxr">
-        <button type="button" class="nxs desk" onClick="{{ openSearch }}" aria-label="Szukaj w ofercie"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 19a8 8 0 100-16 8 8 0 000 16z M21 21l-4.3-4.3"></path></svg><span>Szukaj w ofercie</span><kbd>/</kbd></button>
-        <button type="button" class="iconb mob" style="display:none" onClick="{{ openSearch }}" aria-label="Szukaj"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 19a8 8 0 100-16 8 8 0 000 16z M21 21l-4.3-4.3"></path></svg></button>
+        <button type="button" class="iconb nxsi" onClick="{{ openSearch }}" aria-label="Szukaj w ofercie (skrót /)" title="Szukaj w ofercie · skrót /"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 19a8 8 0 100-16 8 8 0 000 16z M21 21l-4.3-4.3"></path></svg></button>
         <button type="button" class="iconb nxtm" onClick="{{ toggleTheme }}" aria-label="{{ themeLabel }}">
           <sc-if value="{{ dark }}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4.5"></circle><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"></path></svg></sc-if>
           <sc-if value="{{ light }}" hint-placeholder-val="{{ true }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 019.5 4 8.5 8.5 0 1020 14.5z"></path></svg></sc-if>
@@ -2086,7 +2338,7 @@ section[id]{scroll-margin-top:96px}
             <a href="Gopos.dc.html" class="nxpc dk"><span class="nxau">Autoryzowany partner</span><span class="nxlg"><img src="./media/logo-gopos.webp" alt="GoPOS"></span><b>GoPOS dla gastronomii</b><span>Wdrożenie, sprzęt, szkolenie w lokalu, serwis w sezonie.</span><img class="nxpi pimg" src="./media/p-gopos-zestaw.webp" alt=""></a>
             <a href="Insert.dc.html" class="nxpc"><span class="nxau">Autoryzowany partner</span><span class="nxlg"><img src="./media/logo-insert.webp" alt="InsERT"></span><b>Subiekt i programy InsERT</b><span>Dobór, przeniesienie danych, KSeF, szkolenie.</span><img class="nxpi pimg" src="./media/p-insert-subiekt-nexo.webp" alt=""></a>
           </div>
-          <div class="nxbot"><a href="Katalog.dc.html" class="nxall" onClick="{{ katAll }}">Cały katalog · 67 pozycji, 25 marek <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6"></path></svg></a><span style="color:var(--ink3)">Bez cen na stronie — wycenę dostajesz na piśmie, pod swoją firmę.</span><a href="Kreator.dc.html" class="nxkr"><i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21a8 8 0 100-16 8 8 0 000 16z M12 9v4l2.5 1.5 M10 2h4 M12 2v3"></path></svg></i>Nie wiesz, co wybrać? Dobierz zestaw w 60 s</a></div>
+          <div class="nxbot"><a href="Katalog.dc.html" class="nxall" onClick="{{ katAll }}">Cały katalog · 67 pozycji, 25 marek <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6"></path></svg></a><a href="Branza.dc.html" class="nxall">Rozwiązania dla branż: gastronomia, handel, hotele <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6"></path></svg></a><a href="Kreator.dc.html" class="nxkr"><i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21a8 8 0 100-16 8 8 0 000 16z M12 9v4l2.5 1.5 M10 2h4 M12 2v3"></path></svg></i>Nie wiesz, co wybrać? Dobierz zestaw w 60 s</a></div>
         </div>
       </div>
     </sc-if>
@@ -2121,7 +2373,7 @@ section[id]{scroll-margin-top:96px}
         <a href="Katalog.dc.html" onClick="{{ katAll }}" style="display:flex;justify-content:space-between;align-items:center;padding:15px 4px;border-bottom:1px solid var(--line);font-weight:800;font-size:17px">Oferta — cały katalog<span style="color:var(--ink3);font-weight:700;font-size:14px">67</span></a>
         <sc-for list="{{ megaCols }}" as="g" hint-placeholder-count="5"><a href="Katalog.dc.html" onClick="{{ g.go }}" style="display:flex;align-items:center;gap:12px;padding:11px 4px;font-weight:700;font-size:15.5px;color:var(--ink2)"><span class="nxgi" style="{{ g.st }};width:30px;height:30px;border-radius:9px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="{{ g.ic }}"></path></svg></span>{{ g.n }}</a></sc-for>
         <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:10px 0 6px"><a href="Dzial.dc.html" class="nxbr" style="padding:12px"><b>Opieka IT</b></a><a href="Gopos.dc.html" class="nxbr" style="padding:12px"><b>GoPOS</b><span>partner</span></a><a href="Insert.dc.html" class="nxbr" style="padding:12px"><b>InsERT</b><span>partner</span></a></div>
-        <a href="Branza.dc.html" style="display:block;padding:14px 4px;border-top:1px solid var(--line);font-weight:800">Branże</a><a href="OFirmie.dc.html" style="display:block;padding:12px 4px;font-weight:700">O firmie</a><a href="Aktualnosci.dc.html" style="display:block;padding:12px 4px;font-weight:700">Aktualności</a><a href="Kontakt.dc.html" style="display:block;padding:12px 4px;font-weight:700">Kontakt i dojazd</a><button type="button" onClick="{{ toggleTheme }}" style="display:flex;width:100%;justify-content:space-between;align-items:center;padding:12px 4px;border:0;border-top:1px solid var(--line);background:none;font:inherit;font-weight:700;color:var(--ink2);cursor:pointer">{{ themeLabel }}<span style="font-size:12px;color:var(--ink3)">jasny / ciemny</span></button>
+        <a href="OFirmie.dc.html" style="display:block;padding:14px 4px 12px;border-top:1px solid var(--line);font-weight:700">O firmie</a><a href="Aktualnosci.dc.html" style="display:block;padding:12px 4px;font-weight:700">Aktualności</a><a href="Kontakt.dc.html" style="display:block;padding:12px 4px;font-weight:700">Kontakt i dojazd</a><button type="button" onClick="{{ toggleTheme }}" style="display:flex;width:100%;justify-content:space-between;align-items:center;padding:12px 4px;border:0;border-top:1px solid var(--line);background:none;font:inherit;font-weight:700;color:var(--ink2);cursor:pointer">{{ themeLabel }}<span style="font-size:12px;color:var(--ink3)">jasny / ciemny</span></button>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px"><a href="tel:+48889003889" class="btn btn-p" style="min-height:50px">889 003 889</a><a href="https://wa.me/48889003889" class="btn btn-g" style="min-height:50px" target="_blank" rel="noopener">WhatsApp</a></div>
       </div>
     </sc-if>
@@ -2158,7 +2410,7 @@ section[id]{scroll-margin-top:96px}
       <div class="h2txt">
         <span class="pill in d1" style="align-self:flex-start"><span class="live"></span>Rabka-Zdrój · Podhale · Małopolska</span>
         <h1 class="disp in d2">Kasy, komputery i opieka IT. <span class="grad">Jeden telefon do&nbsp;wszystkiego.</span></h1>
-        <p class="lead in d3">Dobieramy, wdrażamy i serwisujemy wszystko, na czym pracuje Twoja firma — od kasy fiskalnej po serwer. Jeden partner z Rabki zamiast pięciu firm i infolinii.</p>
+        <p class="lead in d3">Dobieramy, wdrażamy i serwisujemy wszystko, na czym pracuje Twoja firma: od kasy fiskalnej po serwer. Jeden partner z Rabki zamiast kilku firm i infolinii.</p>
         <div class="h2cta in d4"><a href="Kreator.dc.html" class="btn btn-p h2kr"><span class="tm"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21a8 8 0 100-16 8 8 0 000 16z M12 9v4l2.5 1.5 M10 2h4 M12 2v3"></path></svg><em>60 s</em></span>Dobierz zestaw w 60 sekund<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6"></path></svg></a><a href="tel:+48889003889" class="btn btn-g"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"></path></svg>889 003 889</a></div>
         <div class="h2cb in d5"><i></i>Oddzwaniamy w ciągu <b>60 minut</b> w godzinach pracy</div><div class="h2trust in d5"><div><span class="ti"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.6-3 8.6-7 10-4-1.4-7-5.4-7-10V6l7-3z M9 12l2 2 4-4"></path></svg></span>Serwis Posnet i Elzab · partner GoPOS i InsERT</div><div><span class="ti"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16v14H4z M4 10h16 M8 3v4 M16 3v4"></path></svg></span>Na Podhalu od 2004</div><div><span class="ti"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11a4 4 0 100-8 4 4 0 000 8z M2 21v-1a6 6 0 016-6h2a6 6 0 016 6v1 M16 3.5a4 4 0 010 7.5 M22 21v-1a6 6 0 00-4-5.6"></path></svg></span>100+ firm pod stałą opieką</div></div>
       </div>
@@ -2191,16 +2443,19 @@ section[id]{scroll-margin-top:96px}
     </div>
   </section>
 
-  <section id="oferta" class="sec" style="padding-top:64px">
-    <div class="wrap kp">
-      <div class="rv" style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap"><div style="display:flex;flex-direction:column;gap:10px"><span class="eyebrow">Oferta · katalog w pigułce</span><h2 class="h2" style="max-width:20ch">Wszystko dla firmy, w pięciu działach.</h2></div><p class="lead" style="max-width:46ch">67 produktów i usług od 25 marek. Bez cen na stronie: dodajesz do zapytania, a wycenę dostajesz na piśmie, pod swoją firmę.</p></div>
-      <div class="kpg rv"><sc-for list="{{ kpGroups }}" as="g" hint-placeholder-count="5"><a href="Katalog.dc.html" class="kpc" onClick="{{ g.go }}"><span class="nxgi" style="{{ g.st }}"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="{{ g.ic }}"></path></svg></span><b>{{ g.n }}</b><span>{{ g.d }}</span><small>{{ g.c }} <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6"></path></svg></small></a></sc-for></div>
-      <div class="kpp rv">
-        <a href="Gopos.dc.html" class="kppc g"><span class="tx"><span class="au"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg> Autoryzowany partner</span><span class="nxlg"><img src="./media/logo-gopos.webp" alt="GoPOS"></span><b>GoPOS dla gastronomii</b><span>Sala, kuchnia, dowozy i KSeF. Sprzęt Sunmi i Posnet, szkolenie w lokalu, serwis w sezonie.</span><span class="lnk">Poznaj GoPOS z PRO-KOM <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6"></path></svg></span></span><span class="im"><img class="pimg" src="./media/p-gopos-zestaw.webp" alt=""></span></a>
-        <a href="Insert.dc.html" class="kppc"><span class="tx"><span class="au"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg> Autoryzowany partner</span><span class="nxlg"><img src="./media/logo-insert.webp" alt="InsERT"></span><b>Subiekt i programy InsERT</b><span>Dobór programu, przeniesienie danych, połączenie z kasą i KSeF, szkolenie na Twoich dokumentach.</span><span class="lnk">Który Subiekt dla mnie? <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6"></path></svg></span></span><span class="im"><img class="pimg" src="./media/p-insert-subiekt-nexo.webp" alt=""></span></a>
-      </div>
-      <div class="kph rv"><div><span class="eyebrow">Najczęściej wybierane</span><h3>Dwanaście pozycji, o które firmy pytają najczęściej.</h3></div><a href="Katalog.dc.html" class="kcl" style="font-size:15px" onClick="{{ kpAll }}">Cały katalog · 67 pozycji <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6"></path></svg></a></div>
-      <div class="kpr rv"><sc-for list="{{ kpTop }}" as="p" hint-placeholder-count="12"><article class="kc" style="{{ p.dl }}">
+  <section id="oferta" class="sec">
+    <div class="wrap kp26">
+      <div class="kphd rv"><div><span class="eyebrow">Oferta</span><h2 class="h2" style="max-width:20ch">Wszystko dla firmy, w pięciu działach.</h2><p>67 produktów i usług od 25 marek. Cen nie ma na stronie: dodajesz pozycje do zapytania, a wycenę dostajesz na piśmie, pod swoją firmę.</p></div><a href="Katalog.dc.html" class="kpall" onClick="{{ kpAll }}">Cały katalog · 67 pozycji <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6"></path></svg></a></div>
+      <div class="kpg kpg26 rv"><sc-for list="{{ kp26g }}" as="g" hint-placeholder-count="5"><div class="kpc kpc26" style="{{ g.st }}"><span class="kdim"><sc-for list="{{ g.imgs }}" as="m" hint-placeholder-count="2"><img class="{{ m.c }}" src="{{ m.src }}" alt=""></sc-for><sc-if value="{{ g.usl }}" hint-placeholder-val="{{ false }}"><span class="kdst"><span><i></i>Opieka IT<em>aktywna</em></span><span><i class="a"></i>Przegląd kasy<em>za 43 dni</em></span></span></sc-if></span><span class="nxgi" style="{{ g.st }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="{{ g.ic }}"></path></svg></span><div class="kdb"><b>{{ g.n }}</b><span>{{ g.d }}</span><ul><sc-for list="{{ g.cats }}" as="c" hint-placeholder-count="3"><li><a href="{{ c.href }}" onClick="{{ c.go }}">{{ c.n }}<em>{{ c.c }}</em></a></li></sc-for></ul></div><a href="Katalog.dc.html" class="all" onClick="{{ g.go }}"><span class="c">{{ g.c }}</span><span class="w">Cały dział <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6"></path></svg></span></a></div></sc-for></div>
+      <div class="kpsub rv"><h3>Systemy, które wdrażamy od początku do końca</h3><span>Dwa autoryzowane partnerstwa i nasza usługa opieki IT</span></div>
+      <div class="kpp kpp3 rv"><a href="Gopos.dc.html" class="kppc"><span class="tx"><span class="hdr"><span class="nxlg"><img src="./media/logo-gopos.webp" alt="GoPOS"></span><span class="au"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg> Autoryzowany partner</span></span><b>GoPOS dla gastronomii</b><span>Jeden system na salę, kuchnię i dowozy. Sprzęt Sunmi i Posnet, szkolenie w lokalu i serwis w sezonie.</span><span class="lnk">Poznaj GoPOS z PRO-KOM <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6"></path></svg></span></span><span class="im"><img class="pimg" src="./media/p-gopos-zestaw.webp" alt=""></span></a><a href="Insert.dc.html" class="kppc"><span class="tx"><span class="hdr"><span class="nxlg"><img src="./media/logo-insert.webp" alt="InsERT"></span><span class="au"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg> Autoryzowany partner</span></span><b>Subiekt i programy InsERT</b><span>Dobieramy program, przenosimy dane i łączymy go z kasą i KSeF. Szkolimy na Twoich dokumentach.</span><span class="lnk">Który Subiekt dla mnie? <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6"></path></svg></span></span><span class="im"><img class="pimg" src="./media/p-insert-subiekt-nexo.webp" alt=""></span></a><a href="Dzial.dc.html" class="kppc"><span class="tx"><span class="hdr"><span class="nxlg"><img src="./media/brand-prokom-biznes-jasne.svg" alt="PRO-KOM Biznes"></span><span class="au"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg> Usługa PRO-KOM</span></span><b>Opieka IT w abonamencie</b><span>Informatyk na telefon w stałej opłacie: monitoring, kopie, aktualizacje i serwis. Zaczynamy od bezpłatnego przeglądu.</span><span class="lnk">Umów bezpłatny przegląd IT <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6"></path></svg></span></span><span class="im"><span class="kpmon" aria-hidden="true"><span class="r"><i></i>Kopia danych z nocy<em>sprawdzona</em></span><span class="r"><i></i>Aktualizacje na 4 komputerach<em>gotowe</em></span><span class="r"><i class="a"></i>Przegląd kasy fiskalnej<em>za 43 dni</em></span></span></span></a></div>
+    </div>
+  </section>
+
+  <section id="wybierane" class="sec" style="background:var(--bg2)">
+    <div class="wrap kp26">
+      <div class="kphd rv"><div><span class="eyebrow">Najczęściej wybierane</span><h2 class="h2" style="max-width:22ch">Osiem pozycji, o które firmy pytają najczęściej.</h2><p>Każdą dodasz do zapytania jednym kliknięciem. Resztę oferty znajdziesz w katalogu.</p></div><a href="Katalog.dc.html" class="kpall" onClick="{{ kpAll }}">Cały katalog · 67 pozycji <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6"></path></svg></a></div>
+      <div class="kpr kpr4 rv"><sc-for list="{{ kp26top }}" as="p" hint-placeholder-count="8"><article class="kc" style="{{ p.dl }}">
   <a href="{{ p.href }}" class="kci" style="{{ p.gst }}"><sc-if value="{{ p.hasImg }}" hint-placeholder-val="{{ true }}"><img class="pimg" src="{{ p.img }}" alt="{{ p.n }}"></sc-if><sc-if value="{{ p.noImg }}" hint-placeholder-val="{{ false }}"><span class="kico"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{ p.ico }}"></path></svg></span></sc-if><span class="kbs"><sc-for list="{{ p.badges }}" as="x" hint-placeholder-count="1"><span class="{{ x.c }}">{{ x.t }}</span></sc-for></span></a>
   <div class="kcb">
     <div class="kbr"><sc-if value="{{ p.hasLogo }}" hint-placeholder-val="{{ true }}"><span class="lgp"><img src="{{ p.logo }}" alt="{{ p.b }}"></span></sc-if><sc-if value="{{ p.noLogo }}" hint-placeholder-val="{{ false }}"><span class="lgt">{{ p.b }}</span></sc-if><span style="text-align:right">{{ p.cn }}</span></div>
@@ -2210,14 +2465,14 @@ section[id]{scroll-margin-top:96px}
     <div class="kcf"><a href="{{ p.href }}" class="kcl">Szczegóły<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6"></path></svg></a><button type="button" class="{{ p.addCls }}" onClick="{{ p.add }}"><span class="k1" style="align-items:center;gap:6px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14 M5 12h14"></path></svg>Do zapytania</span><span class="k2" style="align-items:center;gap:6px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg>W zapytaniu</span></button></div>
   </div>
 </article></sc-for></div>
-      <div class="kpx rv">
+      <div class="kpx kpx26 rv" style="margin-top:16px">
         <a href="Katalog.dc.html" class="kpxa" onClick="{{ kpAll }}">
-          <div class="kpxt"><span class="eyebrow" style="color:#8FB0F4">Cała oferta</span><b>Zobacz wszystko, co sprzedajemy, wdrażamy i serwisujemy.</b><span>Filtry po dziale, marce i branży. Dodajesz do zapytania, my wyceniamy na piśmie.</span><div class="kpxn"><span><i>67</i>pozycji</span><span><i>25</i>marek</span><span><i>20</i>kategorii</span></div><span class="btn kpxb">Poznaj całą ofertę <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6"></path></svg></span></div>
+          <div class="kpxt"><span class="eyebrow" style="color:#8FB0F4">Cała oferta</span><b>Zobacz wszystko, co sprzedajemy, wdrażamy i serwisujemy.</b><span>Filtry po dziale, marce i branży. Dodajesz do zapytania, a my wyceniamy na piśmie.</span><span class="btn kpxb">Poznaj całą ofertę <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6"></path></svg></span></div>
           <div class="kpxm"><sc-for list="{{ kpMos }}" as="m" hint-placeholder-count="7"><span class="{{ m.cls }}"><img class="pimg" src="{{ m.img }}" alt=""></span></sc-for></div>
         </a>
         <a href="Kreator.dc.html" class="kpxk">
-          <div class="kpxt"><span class="eyebrow" style="color:#7FE0B0">Nie wiesz, od czego zacząć?</span><b>Odpowiedz na 4 pytania. Dobierzemy zestaw pod Twoją firmę.</b><span>Branża, skala, potrzeby, kontakt. Zestaw trafia prosto do zapytania. Bez rejestracji.</span><span class="btn kpxb"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21a8 8 0 100-16 8 8 0 000 16z M12 9v4l2.5 1.5 M10 2h4 M12 2v3"></path></svg> Dobierz zestaw w 60 sekund <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6"></path></svg></span></div>
-          <div class="kpxs"><div class="kpxr"><i><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21a8 8 0 100-16 8 8 0 000 16z M12 9v4l2.5 1.5 M10 2h4 M12 2v3"></path></svg></i><b>60 s</b></div><div class="kpxl"><span class="on"><i>1</i>Branża<em>gastronomia</em></span><span class="on"><i>2</i>Skala<em>2 kasy · 3 komputery</em></span><span class="cur"><i>3</i>Potrzeby<em>dowozy, Wi-Fi, KSeF</em></span><span><i>4</i>Kontakt<em>imię i telefon</em></span></div><div class="kpxo">Twój zestaw: <b>GoPOS · Sunmi D3 PRO · Posnet HX · terminal · Wi-Fi</b></div></div>
+          <div class="kpxt"><span class="eyebrow" style="color:#7FE0B0">Nie wiesz, od czego zacząć?</span><b>Odpowiedz na 4 pytania. Dobierzemy zestaw pod Twoją firmę.</b><span>Rodzaj firmy, skala, potrzeby i kontakt. Zestaw trafia do nas jako zapytanie, bez rejestracji.</span><span class="btn kpxb">Dobierz zestaw w 60 sekund <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6"></path></svg></span></div>
+          <div class="kpxs"><div class="kpxl"><span class="on"><i>1</i>Branża<em>gastronomia</em></span><span class="on"><i>2</i>Skala<em>2 kasy · 3 komputery</em></span><span class="cur"><i>3</i>Potrzeby<em>dowozy, Wi-Fi, KSeF</em></span><span><i>4</i>Kontakt<em>imię i telefon</em></span></div><div class="kpxo">Twój zestaw: <b>GoPOS · Sunmi D3 PRO · Posnet HX · terminal · Wi-Fi</b></div></div>
         </a>
       </div>
     </div>
@@ -2291,7 +2546,7 @@ section[id]{scroll-margin-top:96px}
 
       <div class="kgbox rv">
         <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap"><div style="display:flex;flex-direction:column;gap:6px"><b style="font-family:'Archivo',sans-serif;font-stretch:108%;font-size:clamp(22px,2.2vw,28px);line-height:1.1">Nie widzisz swojej branży? Obsługujemy każdą firmę.</b><span style="color:var(--ink2);font-size:15.5px">Kilka przykładów i to, od czego zwykle zaczynamy. Każdą firmę dobieramy indywidualnie.</span></div><a href="Kreator.dc.html" class="btn btn-g" style="min-height:44px;font-size:14.5px">Opisz swoją firmę</a></div>
-        <div class="kgrid"><sc-for list="{{ kogo }}" as="kg" hint-placeholder-count="20"><a href="{{ kg.href }}" class="{{ kg.cls }}" style="--c1:{{ kg.c1 }};--c2:{{ kg.c2 }}"><span class="kgi"><svg width="32" height="32" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="position:relative;z-index:1"><path d="{{ kg.f }}" fill="rgba(255,255,255,.32)" stroke="none"></path><path d="{{ kg.ic }}" fill="none" stroke="#FFFFFF" stroke-width="1.8"></path></svg></span><b>{{ kg.n }}</b><small>{{ kg.s }}</small></a></sc-for></div>
+        <div class="{{ kgCls }}" id="branze-wszystkie"><sc-for list="{{ kogo }}" as="kg" hint-placeholder-count="10"><a href="{{ kg.href }}" onClick="{{ kg.go }}" class="{{ kg.cls }}" style="--c1:{{ kg.c1 }};--c2:{{ kg.c2 }}"><span class="kgi"><svg width="32" height="32" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="position:relative;z-index:1"><path d="{{ kg.f }}" fill="rgba(255,255,255,.32)" stroke="none"></path><path d="{{ kg.ic }}" fill="none" stroke="#FFFFFF" stroke-width="1.8"></path></svg></span><b>{{ kg.n }}</b><small>{{ kg.s }}</small></a></sc-for></div>
       </div>
 
       <a href="#kontakt" class="dof rv">
@@ -2344,14 +2599,14 @@ section[id]{scroll-margin-top:96px}
               </div>
             </div></div>
           </div>
-          <div class="j4rows"><div class="j4r"><span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4 M12 17h.01 M10.3 3.9L2 18a2 2 0 001.7 3h16.6a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"></path></svg></span><div><span class="t">Coś przestaje działać<i><span class="ia">osobno</span><span class="ib">z PRO-KOM</span></i></span><div class="tx"><p class="a">Każda firma sprawdza tylko swój kawałek. Ty dzwonisz po kolei i szukasz winnego.</p><p class="b">Jeden telefon. Sprawdzamy całość, bo znamy całość — szukamy przyczyny, nie winnego.</p></div></div></div><div class="j4r"><span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16v14H4z M4 10h16 M8 3v4 M16 3v4"></path></svg></span><div><span class="t">Terminy i przepisy<i><span class="ia">osobno</span><span class="ib">z PRO-KOM</span></i></span><div class="tx"><p class="a">Przegląd kasy, licencje, podpis, KSeF — każdy termin pilnujesz sam.</p><p class="b">Pilnujemy terminów za Ciebie i przypominamy, zanim będzie za późno.</p></div></div></div><div class="j4r"><span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11a4 4 0 100-8 4 4 0 000 8z M2 21v-1a6 6 0 016-6h2a6 6 0 016 6v1 M19 8v6 M16 11h6"></path></svg></span><div><span class="t">Nowy pracownik<i><span class="ia">osobno</span><span class="ib">z PRO-KOM</span></i></span><div class="tx"><p class="a">Komputer z jednego miejsca, poczta z drugiego, program z trzeciego.</p><p class="b">Stanowisko gotowe od pierwszego dnia: komputer, poczta, program, uprawnienia.</p></div></div></div><div class="j4r"><span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8l8-4 8 4-8 4-8-4z M4 8v8l8 4 8-4V8 M12 12v8"></path></svg></span><div><span class="t">Zakupy sprzętu<i><span class="ia">osobno</span><span class="ib">z PRO-KOM</span></i></span><div class="tx"><p class="a">Kupujesz, a potem szukasz kogoś, kto to podłączy i ustawi.</p><p class="b">Dobieramy, konfigurujemy przed dostawą i zostajemy na serwis.</p></div></div></div></div>
+          <div class="j4rows"><div class="j4r"><span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4 M12 17h.01 M10.3 3.9L2 18a2 2 0 001.7 3h16.6a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"></path></svg></span><div><span class="t">Coś przestaje działać<i><span class="ia">osobno</span><span class="ib">z PRO-KOM</span></i></span><div class="tx"><p class="a">Każda firma sprawdza tylko swój kawałek. Ty dzwonisz po kolei i szukasz winnego.</p><p class="b">Jeden telefon. Sprawdzamy całość, bo znamy całość — szukamy przyczyny, nie winnego.</p></div></div></div><div class="j4r"><span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16v14H4z M4 10h16 M8 3v4 M16 3v4"></path></svg></span><div><span class="t">Terminy i przepisy<i><span class="ia">osobno</span><span class="ib">z PRO-KOM</span></i></span><div class="tx"><p class="a">Przegląd kasy, licencje, podpis, KSeF — każdy termin pilnujesz sam.</p><p class="b">Pilnujemy terminów za Ciebie i przypominamy, zanim będzie za późno.</p></div></div></div><div class="j4r"><span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11a4 4 0 100-8 4 4 0 000 8z M2 21v-1a6 6 0 016-6h2a6 6 0 016 6v1 M19 8v6 M16 11h6"></path></svg></span><div><span class="t">Nowy pracownik<i><span class="ia">osobno</span><span class="ib">z PRO-KOM</span></i></span><div class="tx"><p class="a">Komputer z jednego miejsca, poczta z drugiego, program z trzeciego.</p><p class="b">Stanowisko gotowe od pierwszego dnia: komputer, poczta, program, uprawnienia.</p></div></div></div><div class="j4r"><span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8l8-4 8 4-8 4-8-4z M4 8v8l8 4 8-4V8 M12 12v8"></path></svg></span><div><span class="t">Zakupy sprzętu<i><span class="ia">osobno</span><span class="ib">z PRO-KOM</span></i></span><div class="tx"><p class="a">Kupujesz, a potem szukasz kogoś, kto to podłączy i ustawi.</p><p class="b">Dobieramy, konfigurujemy przed dostawą i zostajemy na serwis.</p></div></div></div><div class="j4cta"><p>Kasy, komputery, programy, sieć i serwis z jednej ręki. <b>Jeden numer, jeden opiekun</b> — od sklepu i restauracji po biuro, szkołę i zakład.</p><div style="display:flex;gap:10px;flex-wrap:wrap"><a href="#kontakt" class="btn" style="background:#FFFFFF;color:#0A1430">Chcę jeden numer do wszystkiego</a><a href="tel:+48889003889" class="btn" style="color:#EEF2FB;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.25)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"></path></svg> 889 003 889</a></div></div></div>
         </div>
         <div class="j4st">
           <div><span class="l">Numery do spraw IT</span><span class="v"><span class="a"><b>6</b></span><span class="b"><s>6</s><span class="ar">→</span><b>1</b></span></span></div>
           <div><span class="l">Firmy do koordynowania</span><span class="v"><span class="a"><b>6</b></span><span class="b"><s>6</s><span class="ar">→</span><b>1</b></span></span></div>
           <div><span class="l">Kto zna całą firmę</span><span class="v"><span class="a"><b class="w">nikt</b></span><span class="b"><b class="w">Twój opiekun</b></span></span></div>
         </div>
-        <div class="j4cta"><p>Kasy, komputery, programy, sieć i serwis z jednej ręki. <b>Jeden numer, jeden opiekun</b> — od sklepu i restauracji po biuro, szkołę i zakład.</p><div style="display:flex;gap:10px;flex-wrap:wrap"><a href="#kontakt" class="btn" style="background:#FFFFFF;color:#0A1430">Chcę jeden numer do wszystkiego</a><a href="tel:+48889003889" class="btn" style="color:#EEF2FB;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.25)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"></path></svg> 889 003 889</a></div></div>
+        
       </div>
     </div>
   </section>
@@ -2382,92 +2637,89 @@ section[id]{scroll-margin-top:96px}
         </div>
       </div>
 
-      <div class="fk2">
-        <div class="fkg">
-          <div class="fkt rv"><span class="fnum">22 lata</span><b>na Podhalu, od 2004 roku</b><span>Ten sam właściciel, ten sam adres w Rabce i ten sam numer telefonu.</span></div>
-          <div class="fkt rv"><span class="fnum">100+</span><b>firm pod stałą opieką</b><span>Sklepy, restauracje, pensjonaty, szkoły, urzędy, gabinety i zakłady.</span></div>
-          <div class="fkt rv"><div class="lgs"><span><img src="./media/logo-posnet.webp" alt="Posnet"></span><span><img src="./media/logo-elzab.webp" alt="Elzab"></span><span><img src="./media/logo-insert.webp" alt="InsERT"></span></div><b>Autoryzacje Posnet, Elzab i InsERT</b><span>Serwis kas zgodnie z przepisami i wdrożenia Subiekta prosto od autoryzowanego partnera — nie przez pośrednika.</span></div>
-          <div class="fkt rv"><span class="fnum" style="font-size:clamp(34px,3.2vw,46px)">889 003 889</span><b>jeden numer do ofert i serwisu</b><span>pn–pt 9:00–17:00 · ul. Orkana 16B, Rabka-Zdrój</span></div>
-        </div>
-        <div class="fkm rv">
-          
-          <div class="top"><b>Serwisant z Rabki, nie z infolinii</b><span>Dojeżdżamy na całe Podhale i Małopolskę</span></div><svg viewBox="40 20 360 340" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><circle cx="200" cy="200" r="60" class="mc"/><circle cx="200" cy="200" r="115" class="mc"/><circle cx="200" cy="200" r="170" class="mc"/><line x1="200" y1="200" x2="190" y2="40" class="mr"/><circle cx="190" cy="40" r="4" class="md"/><text x="198" y="44" class="mt">Kraków</text><line x1="200" y1="200" x2="236" y2="92" class="mr"/><circle cx="236" cy="92" r="4" class="md"/><text x="244" y="96" class="mt">Myślenice</text><line x1="200" y1="200" x2="108" y2="168" class="mr"/><circle cx="108" cy="168" r="4" class="md"/><text x="116" y="172" class="mt">Jordanów</text><line x1="200" y1="200" x2="282" y2="160" class="mr"/><circle cx="282" cy="160" r="4" class="md"/><text x="290" y="164" class="mt">Mszana Dolna</text><line x1="200" y1="200" x2="336" y2="128" class="mr"/><circle cx="336" cy="128" r="4" class="md"/><text x="344" y="132" class="mt">Limanowa</text><line x1="200" y1="200" x2="236" y2="262" class="mr"/><circle cx="236" cy="262" r="4" class="md"/><text x="244" y="266" class="mt">Nowy Targ</text><line x1="200" y1="200" x2="196" y2="330" class="mr"/><circle cx="196" cy="330" r="4" class="md"/><text x="204" y="334" class="mt">Zakopane</text><line x1="200" y1="200" x2="340" y2="232" class="mr"/><circle cx="340" cy="232" r="4" class="md"/><text x="348" y="236" class="mt">Nowy Sącz</text><g class="home"><circle cx="200" cy="200" r="9" class="pr"/><circle cx="200" cy="200" r="7"/></g></svg>
-          <div class="bot"><a href="Kontakt.dc.html" class="btn" style="background:#FFFFFF;color:#0A1430;min-height:46px;font-size:15px">Kontakt i dojazd</a></div>
+
+      <div class="fk26 rv">
+        <div class="fkc">
+          <div class="fks">
+            <div><b>100+</b><span>firm pod<br>stałą opieką</span></div>
+            <div><b>4</b><span>autoryzacje<br>i partnerstwa</span></div>
+          </div>
+          <div class="fkr">
+            <a href="tel:+48889003889" class="r fkph"><i><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"></path></svg></i><b>889 003 889</b></a>
+            <a href="mailto:biznes@pro-kom.eu" class="r"><i><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18v12H3z M3 7l9 6 9-6"></path></svg></i><b>biznes@pro-kom.eu</b></a>
+            <a href="https://www.google.com/maps/dir/?api=1&amp;destination=ul.+Orkana+16B,+34-700+Rabka-Zdr%C3%B3j" target="_blank" rel="noopener" class="r"><i><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11z M12 12.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"></path></svg></i><b>ul. Orkana 16B, Rabka-Zdrój</b></a>
+            <div class="r st"><span class="{{ openDot }}"></span><small>pn–pt 9:00–17:00 · {{ openLbl }}</small></div>
+          </div>
+          <div class="fka">
+            <span class="fkal">Autoryzowany serwis i partner</span>
+            <div class="fklgs"><span title="Posnet · Autoryzowany serwis"><img src="./media/logo-posnet.webp" alt="Posnet"></span><span title="Elzab · Autoryzowany serwis"><img src="./media/logo-elzab.webp" alt="Elzab"></span><span title="InsERT · Autoryzowany partner"><img src="./media/logo-insert.webp" alt="InsERT"></span><span title="GoPOS · Autoryzowany partner"><img src="./media/logo-gopos.webp" alt="GoPOS"></span></div>
+            <span class="fkat">Dojeżdżamy do firm na całym Podhalu i w Małopolsce. <a href="Kontakt.dc.html">Kontakt i dojazd <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6"></path></svg></a></span>
+          </div>
         </div>
       </div>
-      <div class="twn2 rv"><b>Dojeżdżamy do firm w całej Małopolsce:</b><span>Rabka-Zdrój</span><span>Nowy Targ</span><span>Zakopane</span><span>Jordanów</span><span>Mszana Dolna</span><span>Limanowa</span><span>Myślenice</span><span>Nowy Sącz</span><span>Kraków</span><a href="Kontakt.dc.html">pełna lista miejscowości i dojazd →</a></div>
 
     </div>
   </section>
 
-  <section style="padding:0 0 72px">
+  <section style="padding:8px 0 96px">
     <div class="wrap">
-      <div class="nwb rv" aria-label="Ostatnio u nas">
-        <span class="nwl"><i></i>Ostatnio u nas</span>
-        <div class="nws"><sc-for list="{{ nw.items }}" as="n" hint-placeholder-count="3"><a href="Wpis.dc.html" class="{{ n.cls }}"><span class="th"><img src="{{ n.img }}" alt=""></span><span style="min-width:0"><small><em>{{ n.cat }}</em>{{ n.date }}</small><b>{{ n.t }}</b></span></a></sc-for></div>
-        <div class="nwr"><div class="nwd"><sc-for list="{{ nw.dots }}" as="d" hint-placeholder-count="3"><button type="button" class="{{ d.cls }}" onClick="{{ d.pick }}" aria-label="{{ d.lbl }}"></button></sc-for></div><a href="Aktualnosci.dc.html">Wszystkie aktualności <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6"></path></svg></a></div>
-      </div>
+      <div class="nw26h rv"><b>Ostatnio w Aktualnościach</b><a href="Aktualnosci.dc.html">Wszystkie aktualności <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6"></path></svg></a></div>
+      <div class="nw26 rv"><a href="Wpis.dc.html" class="nw26c"><span class="m"><em>KSeF i przepisy</em>14.10.2026</span><b>KSeF od 1 stycznia 2027: 6 rzeczy, które mała firma musi zrobić do grudnia</b><span class="go">Czytaj <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6"></path></svg></span></a><a href="Wpis.dc.html" class="nw26c"><span class="m"><em>KSeF i przepisy</em>09.10.2026</span><b>Kary KSeF odroczone do końca 2027? Co naprawdę się zmienia, a co zostaje</b><span class="go">Czytaj <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6"></path></svg></span></a><a href="Wpis.dc.html" class="nw26c"><span class="m"><em>Terminale</em>07.10.2026</span><b>Terminal za 0 zł z Polskiej Bezgotówkowej: kto dostanie i na jak długo</b><span class="go">Czytaj <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6"></path></svg></span></a></div>
     </div>
   </section>
 
   <section id="faq" class="sec" style="background:var(--bg2)">
-    <div class="wrap fq">
-      <div class="fql rv"><span class="eyebrow">Pytania i odpowiedzi</span><h2 class="h2">Zanim zadzwonisz</h2><p class="lead">Najczęstsze pytania od firm z Podhala. Nie ma tu Twojego? Zadzwoń — odpowiemy od ręki.</p><a href="tel:+48889003889" class="btn btn-p" style="align-self:flex-start">Zadzwoń: 889 003 889</a></div>
-      <div class="rv"><div class="faq"><details><summary>Czy obsługujecie firmy spoza Rabki?<span class="pl">+</span></summary><p>Tak. Dojeżdżamy na całe Podhale i Małopolskę: Nowy Targ, Zakopane, Jordanów, Mszana Dolna, Limanowa, Myślenice, Nowy Sącz i Kraków. Wiele spraw rozwiązujemy też zdalnie.</p></details><details><summary>Ile kosztuje opieka informatyczna?<span class="pl">+</span></summary><p>Zależy od liczby stanowisk, serwera i zakresu. Zaczynamy od bezpłatnego przeglądu IT, a potem dostajesz ofertę na piśmie ze stałą miesięczną opłatą — bez niespodzianek na fakturze.</p></details><details><summary>Czy pomożecie przygotować firmę do KSeF?<span class="pl">+</span></summary><p>Tak. Sprawdzimy program do faktur, nadamy uprawnienia księgowej, przygotujemy certyfikat i procedurę awaryjną — przed obowiązkowym terminem 1 stycznia 2027 r. dla najmniejszych firm.</p></details><details><summary>Co, gdy coś przestanie działać?<span class="pl">+</span></summary><p>Dzwonisz na 889 003 889 w godzinach pracy (pn–pt 9–17). Najpierw pomagamy zdalnie, a gdy trzeba — przyjeżdża serwisant z Rabki. Klienci z umową opieki mają czas reakcji zapisany w umowie.</p></details><details><summary>Czy przejmujecie serwis kasy od innej firmy?<span class="pl">+</span></summary><p>Tak. Wystarczy telefon na 889 003 889 albo formularz „Zmień serwis kasy”. Formalności i termin najbliższego przeglądu bierzemy na siebie — jesteśmy autoryzowanym serwisem Posnet i Elzab.</p></details><details><summary>Jestem księgową / prowadzę biuro rachunkowe — jak możemy współpracować?<span class="pl">+</span></summary><p>Pomagamy Twoim klientom przejść na KSeF: program do faktur, certyfikat i uprawnienia dla biura. Zadzwoń na 889 003 889 — ustalimy, jak najprościej przekazywać nam sprawy klientów.</p></details></div></div>
+    <div class="wrap fq26">
+      <div class="fq26l rv">
+        <span class="eyebrow">Pytania i odpowiedzi</span>
+        <h2 class="h2">Zanim zadzwonisz</h2>
+        <p class="lead">Najczęstsze pytania od firm z Podhala. Nie ma tu Twojego pytania? Zadzwoń albo napisz, odpowiemy od ręki.</p>
+        <div class="fq26c">
+          <span class="h"><span class="{{ openDot }}"></span>{{ openLbl }}</span>
+          <a href="tel:+48889003889" class="btn btn-p fq26p"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"></path></svg> 889 003 889</a>
+          <div class="ln"><a href="https://wa.me/48889003889" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 20.5l1.3-4.2A8.5 8.5 0 1112 20.5a8.4 8.4 0 01-4.2-1.1z"></path></svg> WhatsApp</a><a href="mailto:biznes@pro-kom.eu"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18v12H3z M3 7l9 6 9-6"></path></svg> biznes@pro-kom.eu</a></div>
+        </div>
+      </div>
+      <div class="fq26r rv"><details open><summary><span class="n">01</span><span class="q">Czy obsługujecie firmy spoza Rabki?</span><span class="pl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14 M5 12h14"></path></svg></span></summary><p>Tak. Dojeżdżamy na całe Podhale i Małopolskę: Nowy Targ, Zakopane, Jordanów, Mszana Dolna, Limanowa, Myślenice, Nowy Sącz i Kraków.</p></details><details><summary><span class="n">02</span><span class="q">Ile kosztuje opieka informatyczna?</span><span class="pl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14 M5 12h14"></path></svg></span></summary><p>Zależy od liczby stanowisk, serwera i zakresu. Zaczynamy od bezpłatnego przeglądu IT, a potem dostajesz ofertę na piśmie ze stałą miesięczną opłatą — bez niespodzianek na fakturze.</p></details><details><summary><span class="n">03</span><span class="q">Czy pomożecie przygotować firmę do KSeF?</span><span class="pl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14 M5 12h14"></path></svg></span></summary><p>Tak. Sprawdzimy program do faktur, nadamy uprawnienia księgowej, przygotujemy certyfikat i procedurę awaryjną — przed obowiązkowym terminem 1 stycznia 2027 r. dla najmniejszych firm.</p></details><details><summary><span class="n">04</span><span class="q">Co, gdy coś przestanie działać?</span><span class="pl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14 M5 12h14"></path></svg></span></summary><p>Dzwonisz na 889 003 889 w godzinach pracy (pn–pt 9–17). Ustalamy przyczynę i naprawiamy, a gdy trzeba, przyjeżdża serwisant z Rabki. Klienci z umową opieki mają czas reakcji zapisany w umowie.</p></details><details><summary><span class="n">05</span><span class="q">Czy przejmujecie serwis kasy od innej firmy?</span><span class="pl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14 M5 12h14"></path></svg></span></summary><p>Tak. Wystarczy telefon na 889 003 889 albo formularz „Zmień serwis kasy”. Formalności i termin najbliższego przeglądu bierzemy na siebie — jesteśmy autoryzowanym serwisem Posnet i Elzab.</p></details><details><summary><span class="n">06</span><span class="q">Jestem księgową / prowadzę biuro rachunkowe — jak możemy współpracować?</span><span class="pl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14 M5 12h14"></path></svg></span></summary><p>Pomagamy Twoim klientom przejść na KSeF: program do faktur, certyfikat i uprawnienia dla biura. Zadzwoń na 889 003 889 — ustalimy, jak najprościej przekazywać nam sprawy klientów.</p></details></div>
     </div>
   </section>
 
   <section id="kontakt" class="sec" style="padding-bottom:110px">
     <div class="wrap">
-      <div class="qs rv" id="szybkie">
-        <div class="qsh"><b>Masz konkretną sprawę? Wybierz — załatwimy ją szybciej.</b><span style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">Formularz poniżej ustawi się sam. Oddzwaniamy w ciągu 60 minut w godzinach pracy. <a href="https://wa.me/48889003889" target="_blank" rel="noopener" class="qswa"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 20.5l1.3-4.2A8.5 8.5 0 1112 20.5a8.4 8.4 0 01-4.2-1.1z M9 8.5c0 3.3 2.7 6.5 6.5 6.5l1-1.5-2-1-1 .8c-1-.4-2-1.4-2.4-2.4l.8-1-1-2z"></path></svg> Napisz na WhatsApp</a></span></div>
-        <div class="qsg">
-          <button type="button" class="qsc" style="--c:#E0482F;--c2:#F5866A" onClick="{{ csAwaria }}"><span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 7a4 4 0 00-5.3 5.1L4 17.8 6.2 20l5.7-5.7A4 4 0 0017 9l-2.4 2.4-2-2L15 7z"></path></svg></span><b>Zgłoś awarię</b><small>Kasa, terminal, komputer albo sieć. Najpierw pomagamy zdalnie, a gdy trzeba — przyjeżdżamy.</small><span class="go">Zgłaszam <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6"></path></svg></span></button>
-          <button type="button" class="qsc" style="--c:#244FB0;--c2:#4FA3F0" onClick="{{ csZmiana }}"><span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h11l-3-3 M17 17H6l3 3"></path></svg></span><b>Zmień serwis kasy</b><small>Przejmiemy przeglądy Twojej kasy Posnet lub Elzab. Formalności po naszej stronie.</small><span class="go">Przenoszę serwis <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6"></path></svg></span></button>
-          <button type="button" class="qsc" style="--c:#D9822B;--c2:#F2B04F" onClick="{{ csPrzeglad }}"><span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z M10 21h4"></path></svg></span><b>Przypomnij o przeglądzie</b><small>Podaj datę ostatniego przeglądu kasy — zadzwonimy, zanim minie termin.</small><span class="go">Ustaw przypomnienie <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6"></path></svg></span></button>
-          <div class="qsc rem" style="--c:#1F9D63;--c2:#46C78B"><span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H4z M8 20h8 M12 16v4 M10 9l2 2 4-4"></path></svg></span><b>Pomoc zdalna</b><small>Pobierz program, podaj nam numer z ekranu — połączymy się z Twoim komputerem.</small><span class="dl"><a href="https://anydesk.com/pl/downloads" target="_blank" rel="noopener">AnyDesk ↓</a><a href="https://www.teamviewer.com/pl/download/" target="_blank" rel="noopener">TeamViewer ↓</a></span></div>
+      <div class="cf26 rv">
+        <div class="cf26s">
+          <span class="h"><span class="{{ openDot }}"></span>{{ openLbl }}</span>
+          <h2>Napisz, czego potrzebujesz.<br>Odezwiemy się szybko.</h2>
+          <p>Jedna wiadomość wystarczy. Oddzwonimy w ciągu 60 minut w godzinach pracy, a wycenę przygotujemy na piśmie.</p>
+          <div class="cf26k">
+            <a href="tel:+48889003889"><i><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"></path></svg></i><span><small>Telefon</small><b>889 003 889</b></span></a>
+            <a href="https://wa.me/48889003889" target="_blank" rel="noopener"><i><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 20.5l1.3-4.2A8.5 8.5 0 1112 20.5a8.4 8.4 0 01-4.2-1.1z"></path></svg></i><span><small>WhatsApp</small><b>889 003 889</b></span></a>
+            <a href="mailto:biznes@pro-kom.eu"><i><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18v12H3z M3 7l9 6 9-6"></path></svg></i><span><small>E-mail</small><b>biznes@pro-kom.eu</b></span></a>
+          </div>
+          <div class="cf26a">ul. Orkana 16B, Rabka-Zdrój · pn–pt 9:00–17:00</div>
+        </div>
+        <div class="cf26f">
+          <sc-if value="{{ cfOpen }}" hint-placeholder-val="{{ true }}">
+            <div class="cf26h"><b>Formularz zapytania</b><span>Pola z gwiazdką są wymagane. Resztę dopiszemy razem przez telefon.</span></div>
+            <div class="cf26g">
+              <label class="f"><span>Imię *</span><span class="cfin"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 12a4 4 0 100-8 4 4 0 000 8z M4 21a8 8 0 0116 0"></path></svg><input type="text" placeholder="np. Anna" autocomplete="given-name"></span></label>
+              <label class="f"><span>Telefon *</span><span class="cfin"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"></path></svg><input type="tel" placeholder="600 100 200" autocomplete="tel"></span></label>
+              <label class="f"><span>Firma</span><span class="cfin"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V5a1 1 0 011-1h9a1 1 0 011 1v16 M15 9h4a1 1 0 011 1v11 M8 8h3 M8 12h3 M8 16h3"></path></svg><input type="text" placeholder="nazwa firmy" autocomplete="organization"></span></label>
+              <label class="f"><span>E-mail</span><span class="cfin"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18v12H3z M3 7l9 6 9-6"></path></svg><input type="email" placeholder="adres@firma.pl" autocomplete="email"></span></label>
+            </div>
+            <label class="f"><span>W czym możemy pomóc? *</span><textarea rows="5" placeholder="Opisz krótko, czego potrzebujesz albo co się dzieje. Np. „Otwieramy kawiarnię w grudniu, potrzebujemy kasy i terminala”."></textarea></label>
+            <div class="cf26b">
+              <label class="cf26z"><input type="checkbox" checked><span>Zgadzam się na kontakt w sprawie zapytania. <a href="#">Polityka prywatności</a></span></label>
+              <button type="button" class="btn btn-p cf26go" onClick="{{ cfSend }}">Wyślij zapytanie <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6"></path></svg></button>
+            </div>
+            <div class="cf26n"><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg>Odpowiedź w 60 min</span><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg>Wycena na piśmie</span><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg>Bez zobowiązań</span></div>
+          </sc-if>
+          <sc-if value="{{ cfDone }}" hint-placeholder-val="{{ false }}">
+            <div class="cf26ok"><span class="i"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg></span><b>Dziękujemy, zapytanie wysłane.</b><p>Oddzwonimy w ciągu 60 minut w godzinach pracy. Poza godzinami pracy odezwiemy się następnego dnia roboczego rano.</p><button type="button" class="btn btn-g" onClick="{{ cfAgain }}">Wyślij kolejne</button></div>
+          </sc-if>
         </div>
       </div>
-      <div class="fx2 rv">
-        <div class="fx2s">
-          <span class="pill" style="align-self:flex-start;background:rgba(255,255,255,.08);color:#EEF2FB;box-shadow:none"><span class="{{ openDot }}"></span>{{ openLbl }}</span>
-          <h2>Powiedz, czego potrzebujesz. Resztą zajmiemy się my.</h2>
-          <p>Trzy krótkie kroki i gotowe. Oddzwonimy w ciągu 60 minut w godzinach pracy — z konkretną propozycją, bez zobowiązań.</p>
-          <a href="tel:+48889003889" class="fxcall"><span class="ci"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"></path></svg></span><span><small>Wolisz porozmawiać?</small><b>889 003 889</b><small>oferty i serwis · pn–pt 9:00–17:00</small></span></a><a href="https://wa.me/48889003889" target="_blank" rel="noopener" class="fxwa"><span class="wi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 20.5l1.3-4.2A8.5 8.5 0 1112 20.5a8.4 8.4 0 01-4.2-1.1z M9 8.5c0 3.3 2.7 6.5 6.5 6.5l1-1.5-2-1-1 .8c-1-.4-2-1.4-2.4-2.4l.8-1-1-2z"></path></svg></span><span>Napisz na WhatsApp<small>889 003 889 · zdjęcie usterki też wyślesz</small></span></a>
-          <div class="fxmini"><a href="mailto:biuro@pro-kom.eu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18v12H3z M3 7l9 6 9-6"></path></svg>biuro@pro-kom.eu</a><div><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11z M12 12.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"></path></svg>ul. Orkana 16B, 34-700 Rabka-Zdrój</div><a href="tel:+48182676511"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"></path></svg>18 267 65 11 · stacjonarny</a></div>
-          <div class="fxpr"><div><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg>Oddzwaniamy w ciągu 60 minut (pn–pt 9–17)</div><div><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg>Wycena na piśmie, bez zobowiązań</div><div><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg>Bez spamu i newslettera</div></div>
-        </div>
-        <form class="fx2m" onSubmit="{{ onSubmit }}">
-          <div class="fxprog"><div class="fxdots"><i class="{{ fx.d1 }}"></i><i class="{{ fx.d2 }}"></i><i class="{{ fx.d3 }}"></i></div><span>{{ fx.lbl }}</span></div>
-          <div class="{{ fx.c1 }}">
-            <h3>Czego potrzebujesz?</h3><p class="sub">Zaznacz jedno lub kilka. Nie wiesz? Wybierz „Nie wiem — doradźcie”.</p>
-            <sc-if value="{{ fxCase.has }}" hint-placeholder-val="{{ false }}"><div class="fxcase"><span>Sprawa:</span><b>{{ fxCase.name }}</b><button type="button" onClick="{{ csClear }}" aria-label="Usuń wybraną sprawę">×</button></div></sc-if>
-            <div class="fxt"><sc-for list="{{ topics }}" as="t" hint-placeholder-count="9"><button type="button" class="{{ t.cls2 }}" onClick="{{ t.pick }}" aria-pressed="{{ t.on }}"><span class="ck"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg></span><span class="ti"><sc-if value="{{ t.hasImg }}" hint-placeholder-val="{{ true }}"><img src="{{ t.img }}" alt=""></sc-if><sc-if value="{{ t.noImg }}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.1 9a3 3 0 015.8 1c0 2-3 3-3 3 M12 17h.01 M12 21a9 9 0 100-18 9 9 0 000 18z"></path></svg></sc-if></span><span>{{ t.name }}</span></button></sc-for></div>
-            <div class="fxnav"><span class="fxsum">{{ fx.selInfo }}</span><button type="button" class="btn btn-p" onClick="{{ fx.next }}">Dalej<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6"></path></svg></button></div>
-          </div>
-          <div class="{{ fx.c2 }}">
-            <h3>Kilka słów o firmie</h3><p class="sub">Dzięki temu oddzwonimy z konkretną propozycją, a nie z pytaniami.</p>
-            <div class="fxchips"><sc-for list="{{ fxBiz }}" as="b" hint-placeholder-count="7"><button type="button" class="{{ b.cls }}" onClick="{{ b.pick }}">{{ b.n }}</button></sc-for></div>
-            <div class="fxf"><div class="fxin"><input type="text" id="fx-firm" autocomplete="organization" placeholder=" "><label for="fx-firm">Nazwa firmy (opcjonalnie)</label></div><div class="fxin"><input type="text" id="fx-city" placeholder=" "><label for="fx-city">Miejscowość</label></div></div>
-            <div class="fxin"><textarea id="fx-msg" placeholder=" "></textarea><label for="fx-msg">Co ma działać lepiej? (opcjonalnie)</label></div>
-            <div class="fxnav"><button type="button" class="bk" onClick="{{ fx.back }}">← Wstecz</button><button type="button" class="btn btn-p" onClick="{{ fx.next }}">Dalej<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6"></path></svg></button></div>
-          </div>
-          <div class="{{ fx.c3 }}">
-            <h3>Jak się z Tobą skontaktować?</h3><p class="sub">Wystarczy imię i telefon. Oddzwonimy w ciągu 60 minut w godzinach pracy.</p>
-            <div class="fxf"><div class="fxin"><input type="text" id="fx-name" autocomplete="name" placeholder=" "><label for="fx-name">Imię *</label></div><div class="fxin"><input type="tel" id="fx-tel" autocomplete="tel" placeholder=" "><label for="fx-tel">Telefon *</label></div></div>
-            <div class="fxin"><input type="email" id="fx-mail" autocomplete="email" placeholder=" "><label for="fx-mail">E-mail (opcjonalnie)</label></div>
-            <div style="display:flex;flex-direction:column;gap:8px"><b style="font-size:14px">Kiedy najlepiej zadzwonić?</b><div class="fxchips"><sc-for list="{{ fxTime }}" as="b" hint-placeholder-count="3"><button type="button" class="{{ b.cls }}" onClick="{{ b.pick }}">{{ b.n }}</button></sc-for></div></div>
-            <label class="fxcons"><input type="checkbox">Zgadzam się na przetwarzanie danych w celu odpowiedzi na zapytanie. Szczegóły w polityce prywatności.</label>
-            <div class="fxnav"><button type="button" class="bk" onClick="{{ fx.back }}">← Wstecz</button><button type="submit" class="btn btn-p">Wyślij — oddzwonimy<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6"></path></svg></button></div>
-          </div>
-          <div class="{{ fx.c4 }}">
-            <span class="fxbig"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg></span>
-            <h3>Dziękujemy! Zapytanie dotarło.</h3>
-            <p>Oddzwonimy w ciągu 60 minut w godzinach pracy (pn–pt 9:00–17:00). Temat: <b>{{ topicSummary }}</b>. Jeśli sprawa jest pilna — zadzwoń od razu: 889 003 889.</p>
-            <button type="button" class="btn btn-g" onClick="{{ fx.again }}">Wyślij kolejne zapytanie</button>
-          </div>
-        </form>
-      </div></div>
+    </div>
   </section>
 
   <footer style="background:#060A15;color:#A6B1C9;padding:72px 0 110px">
@@ -2734,7 +2986,14 @@ var CG = [{"id": "sprz", "n": "Kasy i sprzedaż", "ic": "store", "gr": "#244FB0,
     var KC = {"cart": ["#1F9D63", "#46C78B"], "shirt": ["#DB3F78", "#F27BA6"], "stall": ["#EA7A1A", "#F7AE52"], "fork": ["#E0482F", "#F5866A"], "truckF": ["#D99500", "#F2C437"], "bed": ["#5145CD", "#8B84F2"], "car": ["#3F4C63", "#7A8AA6"], "scis": ["#9B45E8", "#C688FA"], "factory": ["#2563A8", "#5B97D6"], "boxes": ["#A9661C", "#D49A46"], "truck": ["#0B8F9C", "#38C1CC"], "calc": ["#0E8A64", "#35B88E"], "scale": ["#1E3A8A", "#4565CF"], "bag": ["#C42E7C", "#EB68AC"], "cross": ["#D62842", "#F25C70"], "pill": ["#0E9E7B", "#3FCBA3"], "cap": ["#2563EB", "#5B8DF6"], "gov": ["#6531D1", "#9867F2"], "fuel": ["#E3560B", "#F98B4C"], "plus": ["#FFFFFF", "#FFFFFF"]};
     var KIR = {}; Object.keys(KI).forEach(function (k) { KIR[KI[k]] = k; });
     var kg = function (n, sub, ic, cls, href) { var key = KIR[ic] || 'plus', c = KC[key] || ['#244FB0', '#4A7BE0']; return { n: n, s: sub, ic: ic, f: KF[key] || '', c1: c[0], c2: c[1], cls: cls || 'kg', href: href || 'Branza.dc.html' }; };
-    var kogo = [kg('Sklep spożywczy', 'kasa, waga, PC-Market', KI.cart), kg('Sklep odzieżowy i branżowy', 'kasa, skaner, Subiekt', KI.shirt), kg('Stragan, handel obwoźny', 'kasa mobilna, terminal', KI.stall), kg('Restauracja, bar, kawiarnia', 'GoPOS, ekran kuchenny, terminal', KI.fork), kg('Food truck', 'kasoterminal Sunmi, GoPOS', KI.truckF), kg('Pensjonat, hotel, apartamenty', 'NFHotel, kasa, Wi-Fi', KI.bed), kg('Mechanik i serwis', 'kasa, Subiekt, Wi-Fi w hali', KI.car), kg('Fryzjer, kosmetyka, beauty', 'kasa dla usług, terminal', KI.scis), kg('Zakład produkcyjny', 'serwer, ERP, sieć', KI.factory), kg('Hurtownia', 'program magazynowy, terminale', KI.boxes), kg('Firma transportowa', 'laptopy, Microsoft 365, podpis', KI.truck), kg('Biuro rachunkowe', 'KSeF, podpis, kopie', KI.calc), kg('Kancelaria', 'Microsoft 365, podpis, ESET', KI.scale), kg('Sklep internetowy', 'Subiekt, KSeF, drukarka fiskalna', KI.bag), kg('Gabinet, przychodnia', 'kasa, ESET, kopie danych', KI.cross), kg('Apteka', 'komputery, sieć, UPS', KI.pill), kg('Szkoła, przedszkole', 'monitory Avtek, pracownia', KI.cap), kg('Gmina, urząd, biblioteka', 'podpis, ESET, kopie', KI.gov), kg('Stacja paliw, myjnia', 'terminal, sieć, UPS', KI.fuel), kg('Każda inna firma', 'opisz ją — dobierzemy', KI.plus, 'kg any', 'Kreator.dc.html')];
+    var kgAll = !!s.kgAll;
+    var KGT = [kg('Sklep spożywczy', 'kasa, waga, PC-Market', KI.cart), kg('Sklep odzieżowy i branżowy', 'kasa, skaner, Subiekt', KI.shirt), kg('Restauracja, bar, kawiarnia', 'GoPOS, ekran kuchenny, terminal', KI.fork), kg('Pensjonat, hotel, apartamenty', 'NFHotel, kasa, Wi-Fi', KI.bed), kg('Fryzjer, kosmetyka, beauty', 'kasa dla usług, terminal', KI.scis), kg('Gmina, urząd, biblioteka', 'podpis, ESET, kopie', KI.gov), kg('Biuro rachunkowe', 'KSeF, podpis, kopie', KI.calc), kg('Gabinet, przychodnia', 'kasa, ESET, kopie danych', KI.cross), kg('Szkoła, przedszkole', 'monitory Avtek, pracownia', KI.cap)];
+    var KGR = [kg('Mechanik i serwis', 'kasa, Subiekt, Wi-Fi w hali', KI.car), kg('Stragan, handel obwoźny', 'kasa mobilna, terminal', KI.stall), kg('Food truck', 'kasoterminal Sunmi, GoPOS', KI.truckF), kg('Zakład produkcyjny', 'serwer, ERP, sieć', KI.factory), kg('Hurtownia', 'program magazynowy, terminale', KI.boxes), kg('Firma transportowa', 'laptopy, Microsoft 365, podpis', KI.truck), kg('Kancelaria', 'Microsoft 365, podpis, ESET', KI.scale), kg('Sklep internetowy', 'Subiekt, KSeF, drukarka fiskalna', KI.bag), kg('Apteka', 'komputery, sieć, UPS', KI.pill), kg('Stacja paliw, myjnia', 'terminal, sieć, UPS', KI.fuel)];
+    KGT.forEach(function (x, i) { if (i >= 5) x.cls = 'kg x'; });
+    var kgAny = kg('Każda inna firma', 'opisz ją — dobierzemy', KI.plus, 'kg any', 'Kreator.dc.html');
+    var kgMore = { n: 'Pokaż wszystkie branże', s: 'jeszcze 10 i każda inna firma', ic: 'M4 6h16 M4 12h16 M4 18h10 M19 15v6 M16 18h6', f: '', c1: '#FFFFFF', c2: '#FFFFFF', cls: 'kg any more', href: '#branze-wszystkie', go: function (e) { try { e.preventDefault(); } catch (er) {} self.setState({ kgAll: true }); } };
+    var kogo = (kgAll ? KGT.concat(KGR, [kgAny]) : KGT.concat([kgMore])).map(function (x) { if (!x.go) x.go = function () {}; return x; });
+    var kgCls = kgAll ? 'kgrid all' : 'kgrid';
 
     var pro = s.jd === 1;
     var JN = [
@@ -2964,6 +3223,16 @@ var CG = [{"id": "sprz", "n": "Kasy i sprzedaż", "ic": "store", "gr": "#244FB0,
       cartClear: function () { cartSave([], ''); },
       toastCls: s.toastK ? ('ktoast ' + (s.toastK % 2 ? 'a' : 'b')) : 'ktoast', toastTxt: s.toast || '',
 
+      cfOpen: !s.cfSent, cfDone: !!s.cfSent,
+      cfTopics: ["Kasa lub drukarka fiskalna", "System POS / GoPOS", "Terminal płatniczy", "Program i KSeF", "Komputery i sieć", "Opieka IT", "Serwis lub awaria", "Coś innego"].map(function (n) { var on = (s.cfT || []).indexOf(n) !== -1; return { n: n, on: on ? 'true' : 'false', cls: on ? 'cft on' : 'cft', pick: function () { var a = (self.state.cfT || []).slice(), k = a.indexOf(n); if (k === -1) a.push(n); else a.splice(k, 1); self.setState({ cfT: a }); } }; }),
+      cfSend: function () { self.setState({ cfSent: true }); }, cfAgain: function () { self.setState({ cfSent: false, cfT: [] }); },
+
+      kp26g: CG.map(function (g) { var cats = CT.filter(function (c) { return c.g === g.id; }).sort(function (a, b) { return b.cnt - a.cnt; }).slice(0, 3);
+        return { n: g.n, d: KPD[g.id], c: g.cnt + ' pozycji', ic: GIC[g.id], st: gst(g.id), go: function () { try { localStorage.setItem('pk-kf', JSON.stringify({ q: '', g: g.id, c: '' })); } catch (e) {} },
+          imgs: (({ sprz: ['ergo', 'd3'], biuro: ['tp', 'srvT'], prog: ['nexo', 'goposScr'], bezp: ['u7', 'eset'], usl: [] })[g.id] || []).map(function (k, i) { return { src: I[k], c: i ? 'pimg b' : 'pimg a' }; }), usl: g.id === 'usl',
+          cats: cats.map(function (c) { return { n: c.n, c: String(c.cnt), href: c.id === 'kasy' ? 'Kategoria.dc.html' : 'Katalog.dc.html', go: function () { try { localStorage.setItem('pk-kf', JSON.stringify({ q: '', g: '', c: c.id })); } catch (e) {} } }; }) }; }),
+      kp26top: ["ergo", "k10", "pol", "d3", "hx", "tp", "euro", "nas"].map(function (id, k) { return pv(PRM[id], k); }),
+
       rzImg: { ds: I.ds, avtek: I.avtek, nec: I.nec }, gpImg: { v3mix: I.v3mix, kds: I.kds, pol: I.pol, goposSet: I.goposSet },
       ecoTotal: ecoTotal, ecoMove: ecoMove, ecoLeave: ecoLeave, ecoNone: !s.eco, ecoSome: !!s.eco, ocLog: ocLog, qz: qz, j2: j2, j2PickA: j2PickA, j2PickB: j2PickB, s2cls: s2cls,
       j4: j4, j4A: j4A, j4B: j4B, j4Move: j4Move, j4Leave: j4Leave,
@@ -2978,7 +3247,7 @@ var CG = [{"id": "sprz", "n": "Kasy i sprzedaż", "ic": "store", "gr": "#244FB0,
       kpMos: [['ergo', ''], ['d3', 'w'], ['tp', 't'], ['pol', ''], ['nexo', ''], ['u7', ''], ['nas', '']].map(function (x, i) { return { img: I[x[0]], cls: x[1] }; }),
       kpAll: function () { try { localStorage.setItem('pk-kf', JSON.stringify({ q: '', g: '', c: '' })); } catch (e) {} },
  toKreator: function () { try { localStorage.setItem('pk-branza', KMAP[sc.id] || ''); } catch (e) {} },
-      sc: scOut, sTabs: sTabs, rooms: rooms, furn: furn, spots: spots, kogo: kogo, bubs: bubs, dzn: dzn, core: core, spotList: spotList,
+      sc: scOut, sTabs: sTabs, rooms: rooms, furn: furn, spots: spots, kogo: kogo, kgCls: kgCls, bubs: bubs, dzn: dzn, core: core, spotList: spotList,
       tabs: tabs, activeList: active, jd: jd, jdPickA: jd.pickA, jdPickB: jd.pickB, hdc: hdc, hdChips: hdChips, hdSteps: hdSteps, sTabs2: sTabs2, rooms2: rooms2, furn2: furn2, marks: marks, pop: pop, rail: rail, stageCls: stageCls, fpc: fpc, fpCount: String(marks.length), bTabs: bTabs, bActive: BR.filter(function (b) { return b.id === s.branza; }),
       logos2: logos.concat(logosR, logos, logosR), logos2r: dbl(logosR), ksefDays: String(days),
 

@@ -43,9 +43,10 @@
 6. **Tailwind** dalej zna tylko tokeny (S6a); nowe tokeny dochodzą do `@theme`, wartości tylko w `src/styles/tokens.css`.
 
 ## Rozstrzygnięcia (Krystian, 17.10.2026)
-- **Gradient H1:** `--acc → --acc2`, **bez fioletu** — fiolet to kolor linii Software, kolory linii się nie mieszają.
+- **Gradient H1:** `--acc → --acc2`, **bez fioletu** — fiolet to kolor linii Software, kolory linii się nie mieszają. *Zastąpione 20.10.2026 (v20) — niżej.*
 - **Podpis właściciela:** **SVG** (ścieżka z `aria-label`/`alt`), bez kroju Caveat — marka zostaje przy dwóch krojach (Archivo, Manrope).
 - **Poświata i siatka tła** (`--glow`, `--grid`): **jak w wizualizacji** — wszędzie tam, gdzie używają ich plansze (hero, ciemne karty, produkty w motywie ciemnym), wyłącznie przez tokeny. Punkt 4 decyzji („tylko w wyznaczonych miejscach”) rozumiemy jako: miejsca z plansz `docs/design/prokombiznes/boards/`.
+- **H1 bez gradientu, bez poświat w hero (v20, Krystian 20.10.2026; `docs/design/prokombiznes/ZMIANY-v20.md` §2.1):** druga część H1 strony głównej („Jeden telefon do wszystkiego.”) ma jednolity kolor akcentu — w kodzie `--accent-text` w jasnym motywie (`#244FB0`) i `#8FB0F4` w ciemnym (`--accent-2` Biznesu). Rozmyte poświaty w tle hero usunięte; siatka kropek (`--grid`) i koło działów zostają. Gradienty zostają tylko na kafelkach ikon grup katalogu (`catalog-groups.gradient`) i w witrynach kart działów. Osobnego tokenu gradientu H1 w `tokens.css` nie było, więc nie ma czego usuwać. `--glow` zostaje dla ciemnych kart i produktów w motywie ciemnym, jak w planszach.
 - **Kolory statusu (B3a, 18.10.2026):** `--ok` (kropki „otwarte”, „partner”), `--ok-text` (małe zielone etykiety, np. „partner”, „0 zł”) i `--warn` (kropka „zamknięte”) — wartości z wizualizacji (`#1F9D63`, `#C2410C`; w ciemnym motywie `#46C78B`, `#F97316`). Zieleń wizualizacji ma jako tekst tylko ok. 3,3:1, więc `--ok-text` w jasnym motywie jest przyciemniona (`#15724A`). Test: kropki ≥ 3:1, `--ok-text` ≥ 4,5:1 na `--surface`, `--surface-2`, `--card` w obu motywach.
 
 ## Konsekwencje

@@ -143,7 +143,7 @@ describe('products', () => {
     })
   })
 
-  it('features the 12 products in the package order', () => {
+  it('features the products of the package order (8 since v20)', () => {
     const featured = catalog.produkty
       .map((p) => productData(p, catalog, files, anyRefs))
       .filter((p) => p.featured)

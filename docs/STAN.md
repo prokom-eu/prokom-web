@@ -14,10 +14,10 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 
 ## W toku
 - **Budowa prokombiznes.pl wg `docs/zadania/prokombiznes.md` (B0–B11, produkcja 26.10).**
-  - Gałąź: brak w toku — B0–B4b scalone (#45, #46, #47, #49, #50, #52, #55). B5 zaczyna się od świeżego `develop` na `feat/biznes-b5…` (prawdopodobnie podział B5a/B5b jak przy B3/B4).
+  - Gałąź: `docs/prokombiznes-v20` (D1 — wizualizacja v20 w dokumentach, PR). B0–B4b scalone (#45, #46, #47, #49, #50, #52, #55). B3c i B5 zaczynają się od świeżego `develop` po scaleniu D1.
   - Zrobione w sesji 20.10: B4a wyszukiwarka (#52), B4b lista zapytania (#55), szybsze CI ~4 min (#53), pakiet prokomsoftware (#54).
   - Niedokończone: `TODO(krystian)`: zdjęcia 17 produktów bez zdjęcia w paczce albo decyzja „usługi tylko z ikoną” (B5/B6), produkty vendingowe Elzab i opis kategorii (spec. §13 pkt 8), kanały kontaktu działów i obietnice od szefa (Asana, 20.10) — wpisywane w panelu.
-  - **Następny krok:** `/zadanie B5` — katalog `/oferta` wg spec. §5 i ADR-012 §2.2: filtry w URL z licznikami fasetowymi (także `?szukaj=` z wyszukiwarki), sortowanie, siatka/lista, „Pokaż kolejne” + `?strona=`, karty z `AddToCartButton` (`src/sites/biznes/components/`), pusty wynik, arkusz filtrów na telefonie, `noindex` + `canonical`; dane z `useCatalogIndex` / `GET /api/catalog-index`. Na drugim komputerze najpierw `pnpm payload migrate && pnpm seed:biznes`.
+  - **Następny krok:** `/zadanie B3c` — poprawka nagłówka wg wizualizacji v20 (`docs/design/prokombiznes/ZMIANY-v20.md` §1.1–1.2, prompt w `PRZEKAZANIE-v20.md`; D1 z dokumentami v20 w PR `docs/prokombiznes-v20`). Potem `/zadanie B5` — katalog `/oferta` wg spec. §5 i ADR-012 §2.2: filtry w URL z licznikami fasetowymi (także `?szukaj=` z wyszukiwarki), sortowanie, siatka/lista, „Pokaż kolejne” + `?strona=`, karty z `AddToCartButton` (`src/sites/biznes/components/`), pusty wynik, arkusz filtrów na telefonie, `noindex` + `canonical`; dane z `useCatalogIndex` / `GET /api/catalog-index`. Na drugim komputerze najpierw `pnpm payload migrate && pnpm seed:biznes`.
 
 ## Zrobione
 - 20.10.2026 — B4b scalone (#55): lista zapytania `pk-cart` (`lib/cart`: odczyt, akcje, limity 50/999/500, czyszczenie nieznanych produktów, „Często dobierane”: „Skompletuj stanowisko” → `fits` w indeksie, potem ta sama grupa), store na `useSyncExternalStore` wspólny dla kart, „Zapytanie” z licznikiem w nagłówku i dolnym pasku, szuflada `<dialog>`, toast, +/✓ przy wynikach wyszukiwarki; poprawki po przeglądzie (fokus po akcjach klawiaturą, toast nie pod modalem, zapis bez `localStorage`). E2E `biznes-cart` 8 testów.
@@ -64,6 +64,8 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 5. prokomsoftware.pl: SW0 (decyzje z `docs/zadania/prokomsoftware.md` §2) → SW1–SW12 wg planu, po dowiezieniu Biznesu.
 
 ## Pomysły na później (poza zakresem bieżących sesji)
+- Z D1 (v20) → B7: `pnpm seed:biznes` tworzy produkty tylko raz (idempotentny po `legacyId`), więc baza zasiana przed v20 ma dalej 12 wyróżnionych. W B7 dodać do seeda aktualizację `featured`/`featuredOrder` z `kolejnosc_wyroznionych` albo poprawić je ręcznie w panelu (lokalnie, staging).
+- Z D1 (v20) → B7: siatka branż na stronie głównej — decyzja modelu danych (ADR-012 rozstrzygnięcie 11, rekomendacja: lista w bloku sekcji, `Industries` bez zmian).
 - Z B4b → B8: strona `/zapytanie` (uwagi do pozycji przez `cartActions.setNote`, wysłanie pozycji z `pk-cart`, czyszczenie listy po wysłaniu) i `/kontakt#formularz` (link z pustej szuflady) — do tego czasu oba adresy dają 404.
 - Z B4b (przegląd): toast „Dodano do zapytania” nie pokazuje się przy otwartej nakładce (wyszukiwarka, szuflada) — tam informację daje przełącznik ✓ i sama lista. Test e2e toastu dojdzie w B5 (dodawanie z kart katalogu, poza modalem).
 - Z B4b (przegląd) → B8: limity listy (50 pozycji, 999 szt., 500 znaków uwagi — `lib/cart/cart.ts`) powtórzyć w schemacie Zod `/api/inquiry`. Przy pełnej liście (50) dodanie po cichu nic nie robi — komunikat, jeśli kiedyś będzie potrzebny.
