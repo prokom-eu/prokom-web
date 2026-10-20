@@ -22,8 +22,57 @@ env:
   NEXT_TELEMETRY_DISABLED: '1'
 
 jobs:
-  quality:
-    name: lint · typecheck · test · build · e2e
+  # Fast feedback (~1.5 min): most mistakes show up here, next to the slower e2e job.
+  checks:
+    name: lint · typecheck · test
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      DATABASE_URL: postgresql://prokom:prokom@127.0.0.1:5432/prokom_web
+      PANEL_HOST: panel.localhost
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+
+      # pnpm in the exact version from package.json "packageManager".
+      - name: Enable pnpm (Corepack)
+        run: |
+          corepack enable
+          pnpm --version
+          echo "PNPM_STORE=$(pnpm store path --silent)" >> "$GITHUB_ENV"
+
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ${{ env.PNPM_STORE }}
+          key: pnpm-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: pnpm-${{ runner.os }}-
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      # Throwaway secret generated per run, so no secret-looking value lives in the repo.
+      - name: Test-only environment
+        run: |
+          echo "PAYLOAD_SECRET=$(openssl rand -hex 32)" >> "$GITHUB_ENV"
+          echo "SEED_ADMIN_PASSWORD=$(openssl rand -hex 16)" >> "$GITHUB_ENV"
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Format check
+        run: pnpm format:check
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Unit tests
+        run: pnpm test
+
+  e2e:
+    name: build · e2e
     runs-on: ubuntu-24.04
     timeout-minutes: 25
 
@@ -86,18 +135,6 @@ jobs:
           echo "PAYLOAD_SECRET=$(openssl rand -hex 32)" >> "$GITHUB_ENV"
           echo "SEED_ADMIN_PASSWORD=$(openssl rand -hex 16)" >> "$GITHUB_ENV"
 
-      - name: Lint
-        run: pnpm lint
-
-      - name: Format check
-        run: pnpm format:check
-
-      - name: Typecheck
-        run: pnpm typecheck
-
-      - name: Unit tests
-        run: pnpm test
-
       # ADR-009: push is disabled, so the empty CI database gets its schema from migrations only.
       - name: Migrate database
         run: pnpm payload migrate
@@ -106,11 +143,31 @@ jobs:
       - name: Seed database
         run: pnpm seed
 
+      # Next's build cache: unchanged modules are not compiled again. Restored from the newest
+      # run when the sources changed (the usual case); a stale cache only costs a full build.
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .next/cache
+          key: next-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ hashFiles('src/**', 'next.config.ts') }}
+          restore-keys: next-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
+
       - name: Build
         run: pnpm build
 
+      # Chromium of the pinned Playwright version; system libraries are installed every time.
+      - id: playwright-cache
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+
       - name: Install Playwright (Chromium only)
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: pnpm exec playwright install --with-deps chromium
+
+      - name: Install Playwright system dependencies
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: pnpm exec playwright install-deps chromium
 
       # On the build above (`pnpm start`, playwright.config.ts): no route compiling on first visit.
       - name: E2E tests
