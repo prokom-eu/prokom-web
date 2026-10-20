@@ -47,7 +47,7 @@ Wszystkie kolekcje mają pole `tenant`; slugi są unikalne w obrębie tenanta.
   - `nowosc` (bool);
   - `autoryzacja` (bool) — etykieta zależy od `marka.partner` i `rodzaj`;
   - `popularnosc` (0–100);
-  - `featured` (bool) + `featuredOrder` — 12 na stronie głównej.
+  - `featured` (bool) + `featuredOrder` — 8 na stronie głównej (v20; wcześniej 12, rozstrzygnięcie 10).
 - **Strona produktu:**
   - `zdjecia` → media[];
   - `hotspoty` [{x%, y%, tytul, opis}];
@@ -244,3 +244,15 @@ Decyzje Krystiana z sesji B0 (na podstawie `docs/zadania/prokombiznes.md` §2). 
    - `Industries` dostaje pole `wizardBusinessType` (id z `rodzaje_firm` w `kreator.json`); w seedzie to pole `kreator` przy branży.
    - CTA branży → `/kreator?firma=<wizardBusinessType>`; nieznana wartość `?firma=` jest ignorowana (krok 1 bez wyboru).
 9. **ADR-011** przyjęta (18.10.2026).
+
+## Rozstrzygnięcia v20 (20.10.2026)
+
+Wizualizacja v20 (`docs/design/prokombiznes/ZMIANY-v20.md` §4 pkt 3), sesja D1. Pola dodaje sesja, która ich potrzebuje (B7), z migracją.
+
+10. **Strona główna — dane sekcji „Oferta” i „Najczęściej wybierane”:**
+    - `CatalogGroups.showcase` — witryna karty działu: do 2 zdjęć (relacje do `Media`, większe i mniejsze) **albo** tryb „statusy” z 2 krótkimi wierszami tekstu (Serwis i usługi: „Opieka IT · aktywna”, „Przegląd kasy · za 43 dni”). Na start zdjęcia: sprzedaż `ergo`+`d3`, biuro `tp`+`srvT`, oprogramowanie `nexo`+`goposScr`, bezpieczeństwo `u7`+`eset`.
+    - `Products.featured` + `featuredOrder` — **8 pozycji** (było 12): `ergo, k10, pol, d3, hx, tp, euro, nas` (seed: `kolejnosc_wyroznionych`). **[SZEF]** lista wg sprzedaży.
+11. **Siatka branż na stronie głównej („Nie widzisz swojej branży?”) — do decyzji w B7. TODO(krystian):**
+    - `ZMIANY-v20.md` proponuje `Industries.homeOrder` + `homeVisible` (9 widocznych). Siatka ma jednak **19 kafli** („Gmina, urząd, biblioteka”, „Food truck”, „Apteka”…), każdy z podpisem i ikoną, a `Industries` ma 7 rekordów, z czego 3 aktywne (strony `/branze/*`). Pola na `Industries` wymagałyby 12 nowych rekordów bez własnych stron.
+    - **Rekomendacja:** lista kafli w danych bloku sekcji „Plan Twojej firmy” (ADR-006): `name`, `subtitle`, `icon`, `visibleFirst` (9 pierwszych), opcjonalnie `industry` → `Industries` (link do `/branze/…`, gdy branża ma stronę), inaczej link do kreatora. Kolejność = kolejność w tablicy, edytowalna w panelu. `Industries` bez zmian.
+

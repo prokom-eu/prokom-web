@@ -1,6 +1,7 @@
 # prokombiznes.pl — specyfikacja strony
 
 - **Status:** zakres i wygląd uzgodnione przez Krystiana 17.10.2026 na podstawie wizualizacji (17 plansz). Akceptacja szefa: Asana. Punkty oznaczone **[SZEF]** wymagają potwierdzenia przed publikacją, ale **nie blokują budowy**: buduj z tekstem z wizualizacji, a pole ma być edytowalne w panelu.
+- **Wizualizacja v20 (20.10.2026):** nagłówek, górny pasek, strona główna i formularz kontaktowy według `docs/design/prokombiznes/ZMIANY-v20.md` — wniesione do §1, §3.1, §3.2, §4 i §8.4 (sesja D1). Zrzuty i plansze w repo są w wersji v20.
 - **Wygląd:** `docs/design/prokombiznes/` (plansze, zrzuty, tokeny, CSS). **Model treści:** `docs/decyzje/ADR-012-katalog-i-model-tresci-prokombiznes.md`. **Dane startowe:** `seed/prokombiznes/`.
 - **Stos:** ADR-005 (Next.js + Payload 3, TS strict). Strony z bloków: ADR-006. Marka i fonty: ADR-007, `docs/marka.md`. Skrzynka zapytań: ADR-003.
 - **Kolejność ważności przy sprzeczności:** ta specyfikacja → plansze wizualizacji → ADR-y → wcześniejsze briefy wizualne (brief z 15.10 jest zastąpiony przez wizualizację, patrz §11).
@@ -16,7 +17,7 @@ Strona ma zamieniać odwiedziny w **zapytanie albo telefon**. Klient w 5 sekund 
 - **Dane kontaktowe** (wyłącznie z globala w panelu, nigdy na sztywno w komponentach):
   - telefon główny 889 003 889, ten sam numer na WhatsApp;
   - telefon stacjonarny 18 267 65 11;
-  - e-mail biuro@pro-kom.eu;
+  - e-mail linii Biznes **biznes@pro-kom.eu** (pole w `SiteSettings`, v20) — na stronie głównej w karcie faktów, w karcie kontaktu przy FAQ i w formularzu; stopka bierze adres z tego samego pola (plansza pokazuje jeszcze biuro@pro-kom.eu — zmiana przez panel);
   - adres ul. Orkana 16B, 34-700 Rabka-Zdrój.
 - **Godziny:** wizualizacja zakłada pn–pt 9:00–17:00 **[SZEF: potwierdzić; czy sobota?]**. Godziny są w globalu i z nich liczy się status „Otwarte teraz / Zamknięte · otwieramy …”.
 - Liczby i obietnice tylko prawdziwe. Każda obietnica oznaczona **[SZEF]** jest polem w panelu, nie stałą w kodzie.
@@ -58,7 +59,7 @@ Wygląd: `screens/*/01.jpg` i `css/_wspolny.css`.
 Zawiera:
 - linki do linii PRO-KOM (Biznes aktywny; Instalacje, Software, Tech · naprawy, Zakopane jako linki zewnętrzne);
 - status godzin na żywo (zielona/pomarańczowa kropka);
-- linki Pomoc zdalna, Zgłoś awarię i Aktualności;
+- linki Zgłoś awarię (na stronie głównej do `#kontakt`, na innych stronach `/kontakt`) i Aktualności — **bez „Pomoc zdalna”** (v20: pomoc zdalna występuje tylko na `/opieka-it`);
 - „Oferty i serwis: 889 003 889” jako `tel:` — jeden numer główny; telefony i e-maile działów są w `SiteSettings.contactChannels` (ADR-012, rozstrzygnięcie 6).
 
 ### 3.2 Nagłówek (sticky, półprzezroczysty z blur)
@@ -67,12 +68,13 @@ Zawiera:
   - **Oferta ▾** (mega menu);
   - Opieka IT;
   - GoPOS i InsERT, każdy z zieloną kropką „partner”;
-  - **Branże ▾**;
   - O firmie;
   - Kontakt;
-  - pole „Szukaj w ofercie” ze skrótem `/`;
+  - **lupa** — przycisk 44×44 jak przełącznik motywu, `aria-label` „Szukaj w ofercie (skrót /)”; klik albo `/` otwiera nakładkę wyszukiwarki (szerokie pole „Szukaj w ofercie” usunięte w v20);
   - przełącznik motywu;
   - przycisk **Zapytanie** z licznikiem pozycji.
+- **v20:** „Branże ▾” usunięte z menu (desktop i telefon) razem z rozwijaną listą; „Aktualności” nie ma w menu głównym (zostają w górnym pasku i w stopce). Strony `/branze/*` zostają — prowadzą do nich link na dole mega menu, kafle branż na stronie głównej i stopka.
+- Pozycje menu nigdy się nie łamią (`white-space: nowrap`), odstęp 26 px. Poniżej 1080 px menu pełnoekranowe. Rząd mieści się bez poziomego przewijania przy 1100, 1280 i 1440 px (test Playwright: `scrollWidth === innerWidth`).
 - Aktywna pozycja menu ma podkreślenie (kreska akcentu).
 - **Mega menu Oferta:**
   - 5 kolumn = 5 grup katalogu, każda z listą kategorii i liczbą pozycji;
@@ -80,12 +82,11 @@ Zawiera:
   - w kolumnie Oprogramowanie na górze GoPOS i InsERT z etykietą „partner”;
   - w kolumnie Serwis i usługi na górze Opieka IT („abonament”) i Przegląd IT („0 zł”);
   - po prawej karty GoPOS i InsERT;
-  - na dole pasek: „Cała oferta (67)”, kreator, telefon.
+  - na dole pasek: „Cała oferta (67)”, kreator, telefon oraz link „Rozwiązania dla branż: gastronomia, handel, hotele →” (v20, do `/branze/gastronomia`).
   - Kliknięcie kategorii prowadzi do `/oferta/[kategoria]`, kliknięcie grupy do `/oferta?grupa=…`.
   - Zamykanie: Esc, klik poza menu, zmiana trasy.
-- **Branże ▾:** 3 karty ze zdjęciem (Gastronomia, Handel i sklepy, Hotele i pensjonaty), a pod nimi „Wkrótce: …” (branże z `active=false`, w tym „Beauty i usługi”).
 - **Wyszukiwarka (nakładka):**
-  - otwiera ją klik w pole albo klawisz `/`, zamyka Esc;
+  - otwiera ją klik w lupę albo klawisz `/`, zamyka Esc;
   - wyniki na żywo: do 6 produktów, a obok kategorie z liczbą trafień i strony (GoPOS, InsERT, Opieka IT, KSeF, Kreator, Kontakt);
   - przy pustym polu: „Popularne” i najczęściej wybierane;
   - brak wyniku: „Nie znaleźliśmy „X”. **Zapytaj o X**” — przycisk przenosi frazę do formularza zapytania.
@@ -98,7 +99,7 @@ Zawiera:
 
 ### 3.3 Telefon (≤ 640 px)
 - **Nagłówek:** logo, lupa, przycisk zapytania z licznikiem, hamburger.
-- **Menu pełnoekranowe:** wszystkie pozycje, w tym rozwijana Oferta (grupy → kategorie), przełącznik motywu, telefon i WhatsApp.
+- **Menu pełnoekranowe:** wszystkie pozycje menu głównego (§3.2, bez „Branże” od v20), w tym rozwijana Oferta (grupy → kategorie), przełącznik motywu, telefon i WhatsApp.
 - **Dolny pasek przyklejony:** Zadzwoń (`tel:`), WhatsApp (`https://wa.me/48889003889`), Zapytanie (licznik).
 - Górny pasek i przełącznik motywu w nagłówku są ukryte.
 - Wzór: `screens/Mobile-390-*` i `screens/KatalogM-390-light`.
@@ -130,21 +131,38 @@ Układ planszy `Main` (decyzja Krystiana 18.10.2026, B3b; wcześniejsza wersja t
 - Aktywna ikona zmienia się wg przewijania (IntersectionObserver).
 - Na telefonie jej nie ma.
 
-## 4. Strona główna `/` — kolejność sekcji (zatwierdzona 17.10)
+## 4. Strona główna `/` — kolejność sekcji (v20, zatwierdzona 20.10)
 
-Wzór: `boards/Main.dc.html`, `screens/Main-1440-*` (9 stron), telefon: `Mobile`. Teksty bierz z planszy; są uzgodnione. Każda sekcja to blok Payload (ADR-006), więc szef może zmieniać treść bez kodu.
+Wzór: `boards/Main.dc.html`, `screens/Main-1440-light/01–09.jpg`, `Main-1440-dark/*`, telefon: `Mobile-390-light/*`, `Mobile-390-dark/*`. Teksty bierz z planszy; są uzgodnione. Szczegóły wyglądu sekcji: `docs/design/prokombiznes/ZMIANY-v20.md` §2. Każda sekcja to blok Payload (ADR-006), więc szef może zmieniać treść bez kodu. Charakter wyglądu z v17 bez zmian: granat, karty, koło działów w hero, kolorowe ikony działów, szyna sekcji ≥ 1400 px.
 
 Uwaga szefa 16.10: kafelki „Oferta” i „Opieka IT” (karty działów w hero, kafelkach i kartach grup) mają wyglądać spójnie — jeden komponent karty.
 
+| # | Sekcja | Kotwica | Tło |
+|---|---|---|---|
+| 1 | Hero | `#start` | jasne |
+| 2 | 4 kafelki potrzeb | — | jasne |
+| 3 | Marki (pasek) | — | jasne |
+| 4 | Oferta | `#oferta` | białe |
+| 5 | Najczęściej wybierane | `#wybierane` | `--bg2` |
+| 6 | Plan Twojej firmy + branże + dofinansowania | `#plan` | jasne |
+| 7 | Jak pracujemy | `#jak-pracujemy` | jasne |
+| 8 | Pięć firm czy jedna | `#jeden` | granat |
+| 9 | Dla kogo pracujemy | `#referencje` | `--bg2` |
+| 10 | Fakty: słowo właściciela + karta faktów | `#fakty` | jasne |
+| 11 | Ostatnio w Aktualnościach | — | jasne |
+| 12 | FAQ | `#faq` | `--bg2` |
+| 13 | Formularz kontaktowy | `#kontakt` | jasne |
+
 1. **Hero** `#start`
    - Elementy:
-     - H1 „Kasy, komputery i opieka IT. Jeden telefon do wszystkiego.”;
-     - lead;
-     - CTA „Dobierz zestaw w 60 sekund” (→ `/kreator`) i telefon;
+     - H1 „Kasy, komputery i opieka IT. Jeden telefon do wszystkiego.” — druga część jednolitym kolorem akcentu (`--acc`, w ciemnym motywie `#8FB0F4`), **bez gradientu** (ADR-013);
+     - lead: „Dobieramy, wdrażamy i serwisujemy wszystko, na czym pracuje Twoja firma: od kasy fiskalnej po serwer. Jeden partner z Rabki zamiast kilku firm i infolinii.”;
+     - CTA „Dobierz zestaw w 60 sekund” (→ `/kreator`, bez pigułki „60 s” w przycisku) i telefon;
      - „Oddzwaniamy w ciągu 60 minut w godzinach pracy” **[SZEF]**;
      - linia zaufania „Serwis Posnet i Elzab · partner GoPOS i InsERT” **[SZEF: dokładna nazwa statusów]**;
      - „Na Podhalu od 2004”;
      - „100+ firm pod stałą opieką”.
+   - Bez rozmytych poświat w tle; siatka kropek zostaje.
    - Po prawej **koło 5 działów**:
      - działy = 5 grup katalogu, w środku aktywna grupa z liczbą pozycji;
      - wokół miniatury produktów;
@@ -154,40 +172,73 @@ Uwaga szefa 16.10: kafelki „Oferta” i „Opieka IT” (karty działów w her
 2. **4 kafelki potrzeb:**
    - Otwieram firmę lub lokal, z plakietkami „700 zł zwrotu za kasę online” **[SZEF: ulga — potwierdzić w ustawie]** i „0 zł terminal przez 12 mies.”;
    - Coś przestało działać;
-   - KSeF od 1 stycznia 2027, z licznikiem dni do 1.01.2027;
+   - KSeF, z licznikiem dni **[SZEF: treść kafla do korekty — §13]**;
    - Stała opieka IT, z plakietką „0 zł przegląd”.
    - Każdy kafelek prowadzi do właściwej strony.
 3. **Marki:** jeden rząd logo w pasku przewijanym (marquee), pauza na hover, `prefers-reduced-motion` = statyczny rząd.
-4. **Oferta · katalog w pigułce** `#oferta`
-   - H2 „Wszystko dla firmy, w pięciu działach.” i licznik „67 produktów i usług od 25 marek” (liczby z bazy, nie stałe).
-   - 5 kart grup.
-   - 2 duże karty partnerów GoPOS i InsERT z etykietą „Autoryzowany partner”.
-   - „Najczęściej wybierane”: 12 produktów w **2 rzędach** (flaga `featured` + kolejność w panelu; startowa lista w `seed/…/katalog.json` → `kolejnosc_wyroznionych`) **[SZEF: wg faktycznej sprzedaży]**.
-   - Na końcu dwie duże karty CTA:
-     - **„Poznaj całą ofertę”**: mozaika miniatur i przycisk → `/oferta`;
-     - **„Dobierz zestaw w 60 s”**: podgląd kroków kreatora → `/kreator`.
-5. **Plan Twojej firmy** `#plan`
-   - Interaktywny rzut lokalu: rodzaj firmy (zakładki), punkty na planie, karta szczegółu.
-   - Pod spodem pasek dofinansowań.
-   - Etap 1: wersja uproszczona (zakładki + statyczne punkty z opisem). Etap 2: pełna interakcja jak na planszy.
-6. **Jak pracujemy** `#jak-pracujemy`: 4 kroki z kreską postępu.
-7. **Pięć firm czy jedna** `#jeden`: porównanie „5 numerów do spraw IT” vs „jeden PRO-KOM”.
-8. **Dla kogo pracujemy** `#referencje`: 6 rodzajów firm, opinie, logo klientów.
+4. **Oferta** `#oferta`
+   - Etykieta „Oferta”, H2 „Wszystko dla firmy, w pięciu działach.”, lead „67 produktów i usług od 25 marek. Cen nie ma na stronie: dodajesz pozycje do zapytania, a wycenę dostajesz na piśmie, pod swoją firmę.” (liczby z bazy), po prawej przycisk obrysowany „Cały katalog · 67 pozycji →”.
+   - **5 kart działów** (5 kolumn, odstęp 16 px):
+     - **witryna** 150 px w kolorze działu z 2 zdjęciami produktów (`CatalogGroups.showcase`, ADR-012); Serwis i usługi zamiast zdjęć ma 2 białe paski statusu („● Opieka IT · aktywna”, „● Przegląd kasy · za 43 dni”);
+     - ikona działu 46×46 zachodząca na dolną krawędź witryny;
+     - nazwa i opis;
+     - 3 największe kategorie działu jako linki z liczbą pozycji (z bazy, malejąco);
+     - pasek „25 pozycji · Cały dział →” (po najechaniu wypełnia się akcentem).
+     - Telefon: każdy dział to jeden wiersz (ikona 48 px, nazwa, liczba pozycji).
+   - Podtytuł „Systemy, które wdrażamy od początku do końca” · „Dwa autoryzowane partnerstwa i nasza usługa opieki IT”.
+   - **3 jednakowe karty flagowe** (jeden komponent, granat `#0A1430`, nagłówki zawsze białe): GoPOS, InsERT, Opieka IT (zamiast obrazu mini panel 3 statusów). Teksty i linki: `ZMIANY-v20.md` §2.2. Na telefonie i tablecie jedna pod drugą.
+5. **Najczęściej wybierane** `#wybierane`
+   - Etykieta, H2 „Osiem pozycji, o które firmy pytają najczęściej.”, lead „Każdą dodasz do zapytania jednym kliknięciem. Resztę oferty znajdziesz w katalogu.”, przycisk „Cały katalog · 67 pozycji →”.
+   - **8 produktów, 4 w rzędzie** — karta katalogu jak na `/oferta`, ale bez tagów: zdjęcie, logo marki, nazwa, jedno zdanie korzyści (max 2 linie), max 1 odznaka, „Szczegóły →” i „+ Do zapytania”.
+   - Lista startowa `ergo, k10, pol, d3, hx, tp, euro, nas` (flaga `featured` + `featuredOrder`; seed: `kolejnosc_wyroznionych`) **[SZEF: wg faktycznej sprzedaży]**.
+   - Telefon: poziomo przewijany pasek (scroll-snap, karta 78% szerokości).
+   - Pod produktami 2 niższe karty CTA (bez licznika 67/25/20 i bez ikony zegara):
+     - **„Cała oferta”** (granat, mozaika miniatur, „Poznaj całą ofertę”) → `/oferta`;
+     - **kreator** (ciemna zieleń, podgląd 4 kroków, „Dobierz zestaw w 60 sekund”) → `/kreator`.
+6. **Plan Twojej firmy** `#plan`
+   - Interaktywny rzut lokalu: rodzaj firmy (zakładki), punkty na planie, karta szczegółu. Etap 1: wersja uproszczona (zakładki + statyczne punkty z opisem). Etap 2: pełna interakcja jak na planszy.
+   - **Siatka branż** „Nie widzisz swojej branży? Obsługujemy każdą firmę.”: 9 branż i dziesiąty kafel „Pokaż wszystkie branże · jeszcze 10 i każda inna firma”; klik rozwija na miejscu resztę i kafel „Każda inna firma” (→ kreator). Telefon: 5 branż + ten kafel.
+     - Widoczne, w kolejności: Sklep spożywczy · Sklep odzieżowy i branżowy · Restauracja, bar, kawiarnia · Pensjonat, hotel, apartamenty · Fryzjer, kosmetyka, beauty · Gmina, urząd, biblioteka · Biuro rachunkowe · Gabinet, przychodnia · Szkoła, przedszkole.
+     - Po rozwinięciu: Stragan, handel obwoźny · Food truck · Mechanik i serwis · Zakład produkcyjny · Hurtownia · Firma transportowa · Kancelaria · Sklep internetowy · Apteka · Stacja paliw, myjnia · Każda inna firma.
+     - Kolejność i widoczność to dane w panelu (ADR-012), nie kod.
+   - Pod spodem pasek dofinansowań. Szerokość sekcji jak reszta strony (kontener 1280 px).
+7. **Jak pracujemy** `#jak-pracujemy`: 4 kroki z kreską postępu.
+8. **Pięć firm czy jedna** `#jeden` (wersja krótsza):
+   - telefon z animacją kontaktów, przełącznik „Osobne firmy / Jeden partner: PRO-KOM” i dymki — bez zmian;
+   - bez paska liczb 6 → 1 i bez zdania podsumowania; przyciski „Chcę jeden numer do wszystkiego” i telefon w lewej kolumnie pod wierszami;
+   - telefon (390 px): wiersze jako siatka 2×2 z samymi tytułami, telefon pomniejszony do ok. 86%, przyciski na pełną szerokość.
+9. **Dla kogo pracujemy** `#referencje`: 6 rodzajów firm, opinie, logo klientów.
    - **[SZEF: 2 opinie Google 1:1 z linkiem do źródła, 4–6 logo klientów tylko za pisemną zgodą]**.
    - Do czasu zgód sekcja pokazuje rodzaje firm bez logo; flaga w panelu.
    - Uwaga szefa 16.10: referencje i polecenia od razu na starcie — opinie i logo klientów mają osobne flagi widoczności w `SiteSettings` (włączane po zgodach).
-9. **Fakty** `#fakty`: liczby, słowo właściciela z podpisem (font Caveat) **[SZEF: treść cytatu]**, 9 miejscowości.
-10. **Ostatnio u nas:** 3 ostatnie wpisy z Aktualności.
-11. **FAQ** `#faq`: 6 pytań, `<details>` + JSON-LD `FAQPage`.
-12. **Szybkie sprawy + formularz** `#kontakt`
-    - Kafle szybkich spraw: awaria, przeniesienie serwisu kasy, przegląd kasy, KSeF.
-    - Formularz kontaktowy (§8.4).
+10. **Fakty** `#fakty`
+    - Karta „Słowo od właściciela” z podpisem (font Caveat) **[SZEF: treść cytatu; zdjęcie czy ikona — placeholder zdjęcia tylko za flagą]**.
+    - Pod nią jedna niska granatowa **karta faktów** (3 kolumny):
+      - liczby „100+ / firm pod stałą opieką” i „4 / autoryzacje i partnerstwa” (bez „2004”, który jest w karcie właściciela);
+      - kontakt: telefon (`tel:`), biznes@pro-kom.eu (`mailto:`), adres z linkiem do trasy w Mapach Google, godziny ze statusem na żywo;
+      - autoryzacje: 4 logo (Posnet, Elzab, InsERT, GoPOS), „Dojeżdżamy do firm na całym Podhalu i w Małopolsce.” + „Kontakt i dojazd →”.
+    - Tablet: 2 kolumny, autoryzacje pod spodem; telefon: jedna kolumna, logo 2×2.
+    - Wszystkie dane z `CompanyData` / `SiteSettings` i `Partners`, nic na sztywno.
+11. **Ostatnio w Aktualnościach:** nagłówek + „Wszystkie aktualności →”, 3 karty z 3 ostatnich wpisów `Posts` (kategoria, data, tytuł, „Czytaj →”). Mniej wpisów = tyle kart; 0 = sekcja ukryta.
+12. **FAQ** `#faq`
+    - Lewa kolumna (sticky): H2 „Zanim zadzwonisz”, lead, mała biała karta kontaktu (status godzin, przycisk z telefonem, WhatsApp i biznes@pro-kom.eu).
+    - Prawa kolumna: każde pytanie to osobna biała karta z numerem 01–06 i okrągłym przyciskiem „+” (po otwarciu „×”); pierwsze pytanie otwarte na start.
+    - 6 pytań, `<details>/<summary>` + JSON-LD `FAQPage`; odpowiedź „Co, gdy coś przestanie działać?” bez pracy zdalnej.
+13. **Formularz kontaktowy** `#kontakt`: jeden ekran, bez kroków i bez tematów (§8.4). Lewa strona granatowa (status godzin, H2 „Napisz, czego potrzebujesz. Odezwiemy się szybko.”, 3 kafle: telefon, WhatsApp, e-mail), prawa biała z formularzem. Szczegóły wyglądu: `ZMIANY-v20.md` §2.9.
+
+**Usunięte w v20 (nie przywracać):**
+- sekcja „Masz konkretną sprawę? Wybierz — załatwimy ją szybciej” (szybkie sprawy: awaria, serwis kasy, przegląd, pomoc zdalna);
+- stary blok faktów z dużymi kaflami i mapą okolicy;
+- przewijany pasek „Ostatnio u nas”;
+- pomoc zdalna na stronie głównej i w nagłówku (zostaje tylko na `/opieka-it`).
 
 **Przeniesione z głównej (nie przywracać):**
 - bezpłatny przegląd IT i kalkulator przestoju → `/opieka-it`;
-- pasek „Przenieś serwis kasy” → Szybkie sprawy i kategoria kas;
+- pasek „Przenieś serwis kasy” → kategoria kas;
 - pełna lista miejscowości → stopka i Kontakt;
 - stare realizacje AV z lat 2016–17 → wracają dopiero po świeżych zdjęciach i zgodach.
+
+**Przyciski:** przycisk główny będący linkiem ma zawsze tekst w kolorze `--accInk` (biały w jasnym motywie). Plansze `Main` (plan firmy), `Dzial`, `Produkt`, `Insert`, `Kategoria` mają tu błąd (ciemny tekst na niebieskim) — to nie wzorzec; axe ma to wyłapać.
 
 ## 5. Katalog `/oferta`
 
@@ -450,7 +501,16 @@ Wzór: `Kreator`; dane w `seed/prokombiznes/kreator.json`.
 ### 8.4 Formularze
 Trzy formularze: kontakt, zapytanie z listą, kreator. Wszystkie idą do jednego endpointu z polem `typ`.
 
-- **Pola wspólne:**
+- **Formularz kontaktowy (v20)** — strona główna `#kontakt` i `/kontakt`, ten sam komponent; jeden ekran, **bez kroków i bez chipów z tematami**:
+  - **Imię \***, **Telefon \*** (siatka 2×2 z polami Firma i E-mail);
+  - Firma (opcjonalnie);
+  - E-mail (opcjonalnie; gdy podany — sprawdzany format);
+  - **„W czym możemy pomóc?” \*** (textarea, placeholder z przykładem);
+  - zgoda RODO z linkiem do polityki;
+  - ukryte: źródło (adres strony), UTM.
+  - Typ zgłoszenia `kontakt`. Po wysłaniu ekran „Dziękujemy, zapytanie wysłane.” z przyciskiem „Wyślij kolejne”. Wygląd: `ZMIANY-v20.md` §2.9.
+  - Pole „tematy” zostaje w modelu `Inquiries` (używa go np. „Zapytaj o X”), ale ten formularz go nie wysyła.
+- **Zapytanie z listą (`/zapytanie`) i kreator** — bez zmian w v20:
   - imię;
   - firma (opcjonalnie);
   - telefon **lub** e-mail (co najmniej jedno);
@@ -537,6 +597,12 @@ Jeśli 26.10 jest zagrożone, **tniemy od końca listy etapu 1, nie jakość**. 
   - czytelniejsza oferta: min. 15 px dla nazw w mega menu, na kartach i w filtrach (§3.2, §5.3);
   - referencje i polecenia od razu, za flagami widoczności (§4, sekcja 8);
   - kanały kontaktu działów w `SiteSettings`, w nagłówku jeden numer (§3.1, §6.9).
+- **v20 (20.10.2026)** — wizualizacja Claude Design wersja 111, zatwierdzona przez Krystiana; zmiany: `docs/design/prokombiznes/ZMIANY-v20.md`, wniesione w D1:
+  - nagłówek bez „Branże ▾”, wyszukiwarka jako lupa, menu bez łamania; górny pasek bez „Pomoc zdalna” (§3.1, §3.2);
+  - pomoc zdalna tylko na `/opieka-it`; e-mail linii Biznes biznes@pro-kom.eu z `SiteSettings` (§1);
+  - strona główna: 13 sekcji, nowe „Oferta” i „Najczęściej wybierane” (8 pozycji zamiast 12), krótsza „Pięć firm czy jedna”, karta faktów, 3 karty Aktualności, FAQ w kartach; usunięte „Masz konkretną sprawę?”, stary blok faktów i pasek „Ostatnio u nas” (§4);
+  - H1 hero bez gradientu, bez poświat (ADR-013);
+  - formularz kontaktowy w jednym ekranie, bez tematów (§8.4).
 
 ## 12. Poza zakresem
 - Ceny, koszyk z płatnością, konta klientów, Strefa Klienta.
@@ -558,8 +624,10 @@ Zbiorczo, wszystkie edytowalne w panelu:
 3. Dokładna nazwa statusów: GoPOS i InsERT (skany certyfikatów), serwis Posnet i Elzab.
 4. Ulga 700 zł: potwierdzić w ustawie; dodać link do źródła.
 5. Opinie (2 z Google), logo klientów (zgody), cytat właściciela, zdjęcia ludzi czy ikony ról.
-6. 12 produktów wyróżnionych wg faktycznej sprzedaży.
+6. 8 produktów wyróżnionych wg faktycznej sprzedaży (v20; start: `ergo, k10, pol, d3, hx, tp, euro, nas`).
 7. Rozważyć zdanie „orientacyjną wycenę podamy w pierwszej rozmowie”.
 8. Maszyny vendingowe: 1–2 produkty Elzab i krótki opis kategorii — **TODO(krystian):** dane ze strony producenta (źródło + data weryfikacji); do tego czasu kategoria pusta.
 9. Kanały kontaktu działów: telefon, e-mail i godziny każdego działu (Asana, termin 20.10).
-10. Nazwy branż „Wkrótce”: „Beauty i usługi” obok „Biura i usługi” — potwierdzić, że się nie mylą w menu.
+10. Nazwy branż „Wkrótce”: „Beauty i usługi” obok „Biura i usługi” — potwierdzić, że się nie mylą (od v20 bez menu „Branże ▾”: na stronach branż i w stopce).
+11. Kafel KSeF na stronie głównej (v20): tekst „KSeF od 1 stycznia 2027” jest nieścisły — od 1.04.2026 obowiązek mają wszyscy, do końca 2026 r. trwają tylko wyjątki dla faktur z kas i firm do 10 000 zł miesięcznie (MF, pytania i odpowiedzi KSeF 2.0). Korekta treści w panelu przed publikacją.
+12. Słowo właściciela: zdjęcie czy ikona (v20 — placeholder zdjęcia tylko za flagą).

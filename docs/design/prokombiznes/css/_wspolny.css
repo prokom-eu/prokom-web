@@ -1,4 +1,4 @@
-/* Style wspólne dla wszystkich plansz (nagłówek, mega menu, stopka, karty, przyciski, tokeny). Referencja wyglądu. */
+/* Style wspólne dla wszystkich plansz. Referencja wyglądu. */
 body{margin:0}
 .site{--bg:#FFFFFF;--bg2:#F3F5FA;--bg3:#E9EDF6;--ink:#0D1326;--ink2:#4A5470;--ink3:#6B7590;--line:#E2E6EF;--acc:#244FB0;--acc2:#4A7BE0;--accInk:#FFFFFF;--card:#FFFFFF;--glow:rgba(74,123,224,.22);--grid:rgba(36,79,176,.07);--shadow:0 30px 60px -30px rgba(13,19,38,.35);--pill:#FFFFFF;--hdr:rgba(255,255,255,.78);--dot:#45A02C;--dark:#0A1430;
   background:var(--bg);color:var(--ink);font-family:'Manrope',system-ui,sans-serif;transition:background .5s ease,color .5s ease;overflow-x:hidden}
@@ -122,7 +122,7 @@ body{margin:0}
 .mcol a{display:block;padding:6px 0;color:var(--ink2);font-size:14.5px}
 .mcol a:hover{color:var(--acc)}
 @supports (animation-timeline: view()){
-  .rv{animation:rise linear both;animation-timeline:view();animation-range:entry 0% cover 26%}
+  .rv{animation:none}
   .track span{animation:grow linear both;animation-timeline:view();animation-range:entry 20% cover 55%}
 }
 @keyframes up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
@@ -253,7 +253,9 @@ body{margin:0}
 /* ===== v17 nawigacja ===== */
 .nxh{position:sticky;top:0;z-index:60;background:var(--hdr);backdrop-filter:saturate(180%) blur(16px);-webkit-backdrop-filter:saturate(180%) blur(16px);border-bottom:1px solid var(--line)}
 .nxw{height:76px;display:flex;align-items:center;justify-content:space-between;gap:18px}
-.nxn{display:flex;gap:22px;align-items:center}
+.nxn{display:flex;gap:26px;align-items:center}
+.nxn .navb,.nxn a{white-space:nowrap}
+.nxsi{color:var(--ink)}
 .nxn .navb{position:relative}
 .nxn .navb.on:after{content:'';position:absolute;left:4px;right:4px;bottom:2px;height:2.5px;border-radius:2px;background:var(--acc)}
 .nxp{display:inline-flex;align-items:center;gap:6px}

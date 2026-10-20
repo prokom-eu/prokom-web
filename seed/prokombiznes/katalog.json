@@ -669,7 +669,7 @@
    "popularnosc": 85,
    "parametry_kasy": null,
    "typ_kasy": null,
-   "wyrozniony_na_glownej": false
+   "wyrozniony_na_glownej": true
   },
   {
    "slug": "trio",
@@ -1547,7 +1547,7 @@
    "popularnosc": 92,
    "parametry_kasy": null,
    "typ_kasy": null,
-   "wyrozniony_na_glownej": true
+   "wyrozniony_na_glownej": false
   },
   {
    "slug": "s123",
@@ -1675,7 +1675,7 @@
    "popularnosc": 97,
    "parametry_kasy": null,
    "typ_kasy": null,
-   "wyrozniony_na_glownej": true
+   "wyrozniony_na_glownej": false
   },
   {
    "slug": "nfh",
@@ -1820,7 +1820,7 @@
    "popularnosc": 68,
    "parametry_kasy": null,
    "typ_kasy": null,
-   "wyrozniony_na_glownej": true
+   "wyrozniony_na_glownej": false
   },
   {
    "slug": "fw",
@@ -1933,7 +1933,7 @@
    "popularnosc": 94,
    "parametry_kasy": null,
    "typ_kasy": null,
-   "wyrozniony_na_glownej": true
+   "wyrozniony_na_glownej": false
   },
   {
    "slug": "przeglad",
@@ -1993,7 +1993,7 @@
    "popularnosc": 91,
    "parametry_kasy": null,
    "typ_kasy": null,
-   "wyrozniony_na_glownej": true
+   "wyrozniony_na_glownej": false
   },
   {
    "slug": "wdrprog",
@@ -2288,13 +2288,9 @@
   "k10",
   "pol",
   "d3",
-  "gopos",
-  "nexo",
+  "hx",
   "tp",
-  "opieka",
-  "ksef",
   "euro",
-  "eset",
   "nas"
  ],
  "porownanie_kas_etykiety": {
