@@ -112,9 +112,11 @@ jobs:
       - name: Install Playwright (Chromium only)
         run: pnpm exec playwright install --with-deps chromium
 
-      # Uses `pnpm dev` (playwright.config.ts) on the migrated database.
+      # On the build above (`pnpm start`, playwright.config.ts): no route compiling on first visit.
       - name: E2E tests
         run: pnpm test:e2e
+        env:
+          E2E_SERVER: start
 
       - name: Upload Playwright report
         if: failure()

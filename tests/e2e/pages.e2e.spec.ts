@@ -160,9 +160,23 @@ test.describe('live preview', () => {
       response = await page.goto(site('instalacje.localhost', `/podglad/${id}?token=${token}`))
       expect(response?.status()).toBe(404)
       expect(await page.content()).not.toContain('Podgląd E2E')
+    } finally {
+      await page.goto('/admin/login')
+      expect((await api(page, 'DELETE', `/api/pages/${id}`)).status).toBe(200)
+    }
+  })
 
-      // In the panel: typing autosaves the draft and the iframe refreshes itself — same URL,
-      // no reload (`RefreshRouteOnSave`; the token stays stable within its time bucket).
+  test('refreshes in the panel as the draft is typed', async ({ page }) => {
+    // The panel links the preview to the tenant's domain for this NODE_ENV: the seed has only
+    // local ones, so on the production build (CI, `E2E_SERVER=start`) there is no preview.
+    test.skip(process.env.E2E_SERVER === 'start', 'needs `next dev` (local tenant domains)')
+    await loginAsAdmin(page)
+    const biznes = await tenantId(page, 'biznes')
+    const id = await createPage(page, biznes, uniqueSlug(), 'Podgląd E2E')
+
+    try {
+      // Typing autosaves the draft and the iframe refreshes itself — same URL, no reload
+      // (`RefreshRouteOnSave`; the token stays stable within its time bucket).
       await page.goto(`/admin/collections/pages/${id}`)
       await openLivePreview(page)
       const frame = page.frameLocator('iframe')
