@@ -24,6 +24,8 @@ type Props = {
   onChange: (change: Partial<CatalogState>) => void
   onClear: () => void
   activeCount: number
+  /** The „Filtry” heading; the phone sheet has its own title. */
+  heading?: boolean
 }
 
 const LEGEND = 'mb-2 text-xs font-extrabold uppercase tracking-[0.08em] text-ink-3'
@@ -44,7 +46,15 @@ function toggle(list: string[], value: string): string[] {
 }
 
 /** Filters of the catalog (spec. §5.2): native radios and checkboxes, counts per facet. */
-export function CatalogFilters({ index, state, facets, onChange, onClear, activeCount }: Props) {
+export function CatalogFilters({
+  index,
+  state,
+  facets,
+  onChange,
+  onClear,
+  activeCount,
+  heading = true,
+}: Props) {
   const id = useId()
   const [allBrands, setAllBrands] = useState(false)
 
@@ -78,8 +88,8 @@ export function CatalogFilters({ index, state, facets, onChange, onClear, active
 
   return (
     <div className="flex flex-col">
-      <div className="flex items-center justify-between gap-3 pb-3">
-        <h2 className="font-display text-lg font-extrabold">Filtry</h2>
+      <div className="flex min-h-9 items-center justify-between gap-3 pb-3">
+        {heading ? <h2 className="font-display text-lg font-extrabold">Filtry</h2> : <span />}
         {activeCount > 0 && (
           <button
             type="button"

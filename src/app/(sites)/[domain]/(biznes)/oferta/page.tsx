@@ -16,6 +16,7 @@ import { plural } from '@/lib/plural'
 import { robotsMeta } from '@/lib/seo/robots'
 import { getSiteSettings } from '@/lib/site/data'
 import { Catalog } from '@/sites/biznes/components/catalog/Catalog'
+import { HowInquiryWorks } from '@/sites/biznes/components/HowInquiryWorks'
 
 import { requireLine } from '../../tenant'
 
@@ -145,6 +146,7 @@ export default async function CatalogPage({ params }: Props) {
         </div>
       </div>
       <Catalog index={index} />
+      <HowInquiryWorks callbackTime={callback} />
     </>
   )
 }

@@ -202,22 +202,105 @@ test.describe('Biznes catalog /oferta', () => {
     })
   }
 
+  test('promo cards: the wizard after the 5th card, GoPOS and InsERT after the 11th (B5b)', async ({
+    page,
+  }) => {
+    await page.goto(oferta())
+    const items = page.locator('ul[data-catalog-grid] > li')
+    await expect(items.nth(5)).toContainText('Nie wiesz, co wybrać?')
+    await expect(items.nth(5).getByRole('link', { name: 'Dobierz w 60 sekund' })).toHaveAttribute(
+      'href',
+      '/kreator',
+    )
+    await expect(items.nth(12).getByRole('link', { name: /Poznaj GoPOS/ })).toHaveAttribute(
+      'href',
+      '/gopos',
+    )
+    await expect(items.nth(12).getByRole('link', { name: /Który Subiekt/ })).toHaveAttribute(
+      'href',
+      '/insert',
+    )
+    // The seed confirms no partner status ([SZEF]): no „Autoryzowany partner” on the card.
+    await expect(items.nth(12)).not.toContainText('Autoryzowany partner')
+
+    // A search shows only what was asked for.
+    await page.goto(oferta('?szukaj=kasa'))
+    await expect(cards(page).first()).toBeVisible()
+    await expect(page.getByRole('link', { name: 'Dobierz w 60 sekund' })).toHaveCount(0)
+  })
+
+  test('the list view is a switch in the URL and survives a refresh (B5b)', async ({ page }) => {
+    await page.goto(oferta())
+    const list = page.getByRole('group', { name: 'Widok' }).getByRole('button', { name: 'Lista' })
+    await clickUntilUrl(page, () => list.click(), /widok=lista/)
+    await expect(list).toHaveAttribute('aria-pressed', 'true')
+    await page.reload()
+    await expect(
+      page.getByRole('group', { name: 'Widok' }).getByRole('button', { name: 'Lista' }),
+    ).toHaveAttribute('aria-pressed', 'true')
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', /\/oferta$/)
+  })
+
+  test('an empty result suggests three products (B5b)', async ({ page }) => {
+    await page.goto(oferta('?szukaj=zzzbrak'))
+    const suggestions = page.getByText('Może chodziło o:').locator('xpath=..').getByRole('listitem')
+    await expect(suggestions).toHaveCount(3)
+    await expect(page.getByRole('button', { name: /^Dodaj do zapytania:/ })).toHaveCount(3)
+  })
+
+  test('„Jedna lista, jeden formularz” under the list, no call-back time without the panel', async ({
+    page,
+  }) => {
+    await page.goto(oferta())
+    const how = page.getByRole('region', {
+      name: 'Jedna lista, jeden formularz, wycena na piśmie.',
+    })
+    await expect(how.getByRole('listitem')).toHaveCount(3)
+    // The seed sets no call-back promise ([SZEF]): the neutral step 3, no „60 minut”.
+    await expect(how).toContainText('Oddzwaniamy z wyceną')
+    await expect(how).not.toContainText('60 minut')
+  })
+
   test.describe('phone (360 px)', () => {
     test.use({ viewport: { width: 360, height: 740 } })
 
-    test('no horizontal scroll; filters open from a button', async ({ page }) => {
+    test('no horizontal scroll; filters in a sheet from the bottom (B5b)', async ({ page }) => {
       await page.goto(oferta())
       const overflow = await page.evaluate(
         () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
       )
       expect(overflow).toBe(0)
       await expect(filters(page)).toBeHidden()
+
       const open = page.getByRole('button', { name: 'Filtry', exact: true })
+      const sheet = page.getByRole('dialog', { name: 'Filtry' })
       await expect(async () => {
         await open.click()
-        await expect(filters(page)).toBeVisible({ timeout: 1000 })
+        await expect(sheet).toBeVisible({ timeout: 1000 })
       }).toPass()
-      await expect(open).toHaveAttribute('aria-expanded', 'true')
+
+      // A choice applies at once; the button says how many it shows and closes the sheet.
+      await sheet.getByRole('radio', { name: /^Usługi/ }).check()
+      await expect(page).toHaveURL(/rodzaj=uslugi/)
+      await sheet.getByRole('button', { name: 'Pokaż 13 pozycji' }).click()
+      await expect(sheet).toBeHidden()
+      await expect(count(page)).toHaveText('13 pozycji')
+      await expect(page.getByRole('button', { name: 'Filtry (1)', exact: true })).toBeVisible()
+
+      // „Wyczyść” inside the sheet disappears with the filters: focus stays in the sheet.
+      await page.getByRole('button', { name: 'Filtry (1)', exact: true }).click()
+      await sheet.getByRole('button', { name: 'Wyczyść (1)' }).click()
+      await expect(page).not.toHaveURL(/rodzaj=/)
+      await expect(sheet.getByText('Filtry', { exact: true })).toBeFocused()
+      await page.keyboard.press('Escape')
+
+      // Esc closes it and focus goes back to the button.
+      const reopen = page.getByRole('button', { name: 'Filtry', exact: true })
+      await reopen.click()
+      await expect(sheet).toBeVisible()
+      await page.keyboard.press('Escape')
+      await expect(sheet).toBeHidden()
+      await expect(reopen).toBeFocused()
     })
   })
 })

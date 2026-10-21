@@ -1,6 +1,5 @@
 'use client'
 
-import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 
@@ -18,13 +17,17 @@ import {
   updateState,
   type CatalogState,
 } from '@/lib/catalog/filters'
+import { catalogSlots, emptySuggestions, PARTNERS } from '@/lib/catalog/listing'
 import { primeCatalogIndex } from '@/lib/catalog/useCatalogIndex'
 import { plural } from '@/lib/plural'
 import { prepareSearch } from '@/lib/search'
 
 import { SearchIcon } from '../SearchIcon'
 import { CatalogFilters } from './CatalogFilters'
+import { EmptyResult } from './EmptyResult'
+import { FilterSheet } from './FilterSheet'
 import { ProductCard } from './ProductCard'
+import { PartnersCard, WizardCard } from './PromoCards'
 
 /** The URL follows the search box after a short pause, not on every key. */
 const QUERY_DELAY_MS = 300
@@ -67,10 +70,10 @@ export function Catalog({ index }: { index: CatalogIndex }) {
   )
   const chips = activeFilters(view, index)
 
-  const [filtersOpen, setFiltersOpen] = useState(false)
   const countRef = useRef<HTMLParagraphElement>(null)
   const listRef = useRef<HTMLUListElement>(null)
   const focusCard = useRef<number | null>(null)
+  const sheetTitle = useRef<HTMLSpanElement>(null)
 
   const write = (next: CatalogState, mode: 'push' | 'replace' = 'push') => {
     const href = catalogHref(next)
@@ -104,6 +107,34 @@ export function Catalog({ index }: { index: CatalogIndex }) {
     setDraft(next.query)
     countRef.current?.focus()
   }
+
+  const activeCount = chips.filter((chip) => chip.key !== 'query').length
+  /**
+   * „Wyczyść (N)” disappears with the filters it cleared. In the sheet focus goes to its
+   * title — the count is outside the modal, where focus cannot go.
+   */
+  const clearPanel = (inSheet: boolean) => {
+    const next = clearFilters(view, { keepQuery: true })
+    if (!inSheet) return changeAndFocusCount(next)
+    write(next)
+    sheetTitle.current?.focus()
+  }
+  const filters = (inSheet: boolean) => (
+    <CatalogFilters
+      index={index}
+      state={view}
+      facets={facets}
+      onChange={change}
+      onClear={() => clearPanel(inSheet)}
+      activeCount={activeCount}
+      heading={!inSheet}
+    />
+  )
+  const partners = PARTNERS.map((partner) => partner.slug).filter((slug) =>
+    index.brands.some((brand) => brand.slug === slug),
+  )
+  const slots = catalogSlots(visible, view, partners)
+  const list = view.view === 'list'
 
   const more = results.length - visible.length
   const next = updateState(view, { page: view.page + 1 })
@@ -222,40 +253,14 @@ export function Catalog({ index }: { index: CatalogIndex }) {
       </div>
 
       <div className="mx-auto grid w-full max-w-7xl items-start gap-7 px-4 pb-16 pt-6 sm:px-6 lg:grid-cols-[280px_minmax(0,1fr)] lg:px-8">
-        <button
-          type="button"
-          aria-expanded={filtersOpen}
-          aria-controls="catalog-filters"
-          onClick={() => setFiltersOpen((open) => !open)}
-          className="inline-flex min-h-11 items-center gap-2 justify-self-start rounded-xl bg-ink px-4 text-sm font-extrabold text-surface lg:hidden"
-        >
-          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
-            <path
-              d="M4 5h16l-6 8v6l-4-2v-4z"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.2"
-              strokeLinejoin="round"
-            />
-          </svg>
-          Filtry{chips.length > 0 && ` (${chips.length})`}
-        </button>
+        <FilterSheet activeCount={activeCount} resultCount={results.length} titleRef={sheetTitle}>
+          {filters(true)}
+        </FilterSheet>
         <aside
-          id="catalog-filters"
           aria-label="Filtry katalogu"
-          className={cx(
-            'lg:sticky lg:top-24 lg:block lg:max-h-[calc(100vh-110px)] lg:overflow-y-auto lg:pr-1.5',
-            !filtersOpen && 'hidden',
-          )}
+          className="hidden lg:sticky lg:top-24 lg:block lg:max-h-[calc(100vh-110px)] lg:overflow-y-auto lg:pr-1.5"
         >
-          <CatalogFilters
-            index={index}
-            state={view}
-            facets={facets}
-            onChange={change}
-            onClear={() => changeAndFocusCount(clearFilters(view, { keepQuery: true }))}
-            activeCount={chips.filter((chip) => chip.key !== 'query').length}
-          />
+          {filters(false)}
         </aside>
 
         <section aria-labelledby="catalog-results" className="min-w-0">
@@ -330,40 +335,92 @@ export function Catalog({ index }: { index: CatalogIndex }) {
                 </button>
               ))}
             </div>
+            <div
+              role="group"
+              aria-label="Widok"
+              className="hidden gap-0.5 rounded-[13px] bg-surface-2 p-1 sm:inline-flex"
+            >
+              {(
+                [
+                  {
+                    value: 'grid',
+                    label: 'Siatka',
+                    icon: 'M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z',
+                  },
+                  { value: 'list', label: 'Lista', icon: 'M4 5h16v5H4zM4 14h16v5H4z' },
+                ] as const
+              ).map((option) => (
+                <button
+                  key={option.value}
+                  type="button"
+                  aria-pressed={view.view === option.value}
+                  aria-label={option.label}
+                  onClick={() => change({ view: option.value })}
+                  className={cx(
+                    'inline-flex min-h-9 min-w-10 items-center justify-center rounded-[10px]',
+                    view.view === option.value
+                      ? 'bg-card text-ink shadow-sm'
+                      : 'text-ink-2 hover:text-ink',
+                  )}
+                >
+                  <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+                    <path
+                      d={option.icon}
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.2"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
+              ))}
+            </div>
           </div>
 
           {results.length === 0 ? (
-            <div className="rounded-3xl bg-surface-2 p-6 sm:p-10">
-              <p className="font-display text-xl font-extrabold sm:text-2xl">
-                {view.query
-                  ? `Nie mamy „${view.query}” w katalogu — zapytaj, często mamy więcej niż na stronie.`
-                  : 'Żadna pozycja nie spełnia wszystkich filtrów.'}
-              </p>
-              <div className="mt-5 flex flex-wrap gap-2.5">
-                {view.query && (
-                  <Link
-                    href={`/zapytanie?fraza=${encodeURIComponent(view.query)}`}
-                    className="inline-flex min-h-11 items-center rounded-xl bg-accent-text px-5 font-bold text-accent-ink hover:bg-ink hover:text-surface"
-                  >
-                    Zapytaj o „{view.query}”
-                  </Link>
-                )}
-                <button
-                  type="button"
-                  onClick={() => changeAndFocusCount(clearFilters(view))}
-                  className="inline-flex min-h-11 items-center rounded-xl border-2 border-accent-text px-5 font-bold text-accent-text hover:bg-card"
-                >
-                  Wyczyść filtry
-                </button>
-              </div>
-            </div>
+            <EmptyResult
+              query={view.query}
+              suggestions={emptySuggestions(index, search, view.query)}
+              index={index}
+              onClear={() => changeAndFocusCount(clearFilters(view))}
+            />
           ) : (
-            <ul ref={listRef} className="grid grid-cols-2 gap-2.5 sm:gap-3.5 xl:grid-cols-3">
-              {visible.map((product, position) => (
-                <li key={product.slug} className="flex">
-                  <ProductCard product={product} index={index} position={position} />
-                </li>
-              ))}
+            <ul
+              ref={listRef}
+              data-catalog-grid
+              className={cx(
+                'grid gap-2.5 sm:gap-3.5',
+                list ? 'grid-cols-1' : 'grid-cols-2 xl:grid-cols-3',
+              )}
+            >
+              {slots.map((slot) =>
+                slot.type === 'product' ? (
+                  <li key={slot.product.slug} className="flex">
+                    <ProductCard
+                      product={slot.product}
+                      index={index}
+                      position={slot.position}
+                      layout={view.view}
+                    />
+                  </li>
+                ) : slot.type === 'wizard' ? (
+                  <li key="wizard" className={cx('flex', list ? '' : 'max-sm:col-span-2')}>
+                    <WizardCard index={index} />
+                  </li>
+                ) : (
+                  <li
+                    key="partners"
+                    className={cx(
+                      'flex',
+                      // Two partners take two columns; one fits a single column from 1280 px.
+                      !list &&
+                        (slot.partners.length > 1 ? 'col-span-2' : 'col-span-2 xl:col-span-1'),
+                    )}
+                  >
+                    <PartnersCard partners={slot.partners} index={index} />
+                  </li>
+                ),
+              )}
             </ul>
           )}
 
