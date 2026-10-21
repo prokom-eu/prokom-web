@@ -246,7 +246,6 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
           ...siteSettings.biznes,
           navigation: navigationData({
             group: (slug) => groupIds.get(slug),
-            industry: (slug) => industryIds.get(slug),
             partner: (name) => brandIds.get(name),
             image: (file) => imageIds.get(file),
           }),

@@ -9,9 +9,6 @@ import type { PublicBiznesNavigation } from '@/lib/site/navigation'
 type Props = {
   items: PublicBiznesNavigation['menu']
   menu: MegaMenu
-  industries: PublicBiznesNavigation['industries']
-  /** Names of inactive industries — "Wkrótce", as under Branże ▾ on a desktop. */
-  soonIndustries: string[]
   /** `tel:` and wa.me links of the line; `null` hides the button. */
   phone: { label: string; href: string } | null
   whatsapp: string | null
@@ -42,17 +39,10 @@ function Chevron() {
 
 /**
  * Content of the phone menu (spec. §3.3): every menu item in the panel's order, Oferta folded
- * into groups → categories (native `<details>`), Branże into industries, the theme switch,
- * phone and WhatsApp. Rendered on the server inside `MobileMenu`.
+ * into groups → categories (native `<details>`), the theme switch, phone and WhatsApp. No
+ * Branże since v20 (B3c). Rendered on the server inside `MobileMenu`.
  */
-export function MobileMenuContent({
-  items,
-  menu,
-  industries,
-  soonIndustries,
-  phone,
-  whatsapp,
-}: Props) {
+export function MobileMenuContent({ items, menu, phone, whatsapp }: Props) {
   return (
     <>
       <ul className="divide-y divide-border">
@@ -113,35 +103,6 @@ export function MobileMenuContent({
                     </li>
                   ))}
                 </ul>
-              </li>
-            )
-          }
-          if (item.type === 'industries') {
-            return (
-              <li key={i}>
-                <details className="group">
-                  <summary className={SUMMARY}>
-                    {item.label}
-                    <Chevron />
-                  </summary>
-                  <ul className="mb-2 ml-1">
-                    {industries.map((industry) => (
-                      <li key={industry.slug}>
-                        <Link
-                          href={`/branze/${industry.slug}`}
-                          className="flex min-h-11 items-center text-ink-2"
-                        >
-                          {industry.name}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                  {soonIndustries.length > 0 && (
-                    <p className="mb-3 ml-1 text-sm text-ink-2">
-                      <b className="text-ink">Wkrótce:</b> {soonIndustries.join(', ')}
-                    </p>
-                  )}
-                </details>
               </li>
             )
           }

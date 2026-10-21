@@ -16,16 +16,16 @@ type Props = {
   hours: OpeningHours | null
 }
 
-// Quick help is a section of the home page (spec. §4); news is its own page.
+// v20: no remote help here (it lives on `/opieka-it` only). "Zgłoś awarię" leads to the
+// contact page until the home page has its form section (`#kontakt`, B7).
 const QUICK_LINKS: { label: string; href: string; icon: IconName }[] = [
-  { label: 'Pomoc zdalna', href: '/#szybkie', icon: 'remote' },
-  { label: 'Zgłoś awarię', href: '/#szybkie', icon: 'wrench' },
+  { label: 'Zgłoś awarię', href: '/kontakt', icon: 'wrench' },
   { label: 'Aktualności', href: '/aktualnosci', icon: 'doc' },
 ]
 
 /**
  * Top bar of the Biznes line (spec. §3.1): the PRO-KOM lines, the live opening status, quick
- * help links and the one main phone number. Hidden on phones — the bottom bar takes over.
+ * links and the one main phone number. Hidden on phones — the bottom bar takes over.
  */
 export function TopBar({ phone, hours }: Props) {
   const tel = phone ? toTelHref(phone) : null

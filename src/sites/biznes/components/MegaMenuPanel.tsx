@@ -12,6 +12,8 @@ type Props = {
   menu: MegaMenu
   shortcuts: PublicBiznesNavigation['shortcuts']
   cards: PublicBiznesNavigation['cards']
+  /** Slug of the first active industry; `null` hides "Rozwiązania dla branż". */
+  industry: string | null
 }
 
 /**
@@ -19,7 +21,7 @@ type Props = {
  * the partner cards on the right and the bar with the whole catalog and the wizard. Category
  * names ≥ 15 px (the boss's remark of 16.10) — a long group gets "Wszystkie w grupie →".
  */
-export function MegaMenuPanel({ menu, shortcuts, cards }: Props) {
+export function MegaMenuPanel({ menu, shortcuts, cards, industry }: Props) {
   const { products, brands } = menu.total
   return (
     <div className="max-h-[calc(100vh-7.5rem)] overflow-auto border-t border-border bg-card shadow-2xl">
@@ -171,6 +173,16 @@ export function MegaMenuPanel({ menu, shortcuts, cards }: Props) {
           <Link href="/kreator" className="font-extrabold text-ink hover:underline">
             Nie wiesz, co wybrać? Dobierz zestaw w 60 s
           </Link>
+          {/* v20: Branże ▾ left the menu — the industry pages are reached from here. */}
+          {industry && (
+            <Link
+              href={`/branze/${industry}`}
+              className="inline-flex items-center gap-1.5 font-extrabold text-accent-text hover:underline"
+            >
+              Rozwiązania dla branż: gastronomia, handel, hotele
+              <Icon name="arrow" className="size-4" strokeWidth={2.4} />
+            </Link>
+          )}
         </div>
       </Container>
     </div>

@@ -32,7 +32,7 @@ export const biznesNavigation: Field = {
   name: 'navigation',
   label: 'Nawigacja',
   type: 'group',
-  admin: { description: 'Nagłówek: kolejność menu, mega menu Oferta i Branże ▾.' },
+  admin: { description: 'Nagłówek: kolejność menu i mega menu Oferta.' },
   fields: [
     {
       name: 'menu',
@@ -152,32 +152,6 @@ export const biznesNavigation: Field = {
             { name: 'dark', label: 'Ciemna karta', type: 'checkbox', defaultValue: false },
           ],
         },
-      ],
-    },
-    {
-      name: 'industries',
-      label: 'Branże ▾',
-      type: 'array',
-      maxRows: 4,
-      admin: {
-        description:
-          'Karty aktywnych branż; nieaktywne branże pojawiają się same pod spodem jako „Wkrótce”.',
-      },
-      fields: [
-        {
-          type: 'row',
-          fields: [
-            {
-              name: 'industry',
-              label: 'Branża',
-              type: 'relationship',
-              relationTo: 'industries',
-              required: true,
-            },
-            imageField('image', 'Obraz'),
-          ],
-        },
-        { name: 'description', label: 'Opis', type: 'text' },
       ],
     },
   ],

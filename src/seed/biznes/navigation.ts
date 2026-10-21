@@ -5,8 +5,6 @@ type Navigation = NonNullable<NonNullable<SiteSetting['biznes']>['navigation']>
 type Refs = {
   /** Seed slug of a group (`sprz`, `prog`…) → id. */
   group: (slug: string) => number | undefined
-  /** Seed slug of an industry (`gastro`…) → id. */
-  industry: (slug: string) => number | undefined
   /** Brand name (`GoPOS`) → partner id. */
   partner: (name: string) => number | undefined
   /** File name of the design package → media id. */
@@ -20,12 +18,11 @@ function ref(lookup: (key: string) => number | undefined, key: string, kind: str
 }
 
 /**
- * Header navigation of the design (`boards/Main.dc.html`: menu, mega menu, Branże ▾), the
+ * Header navigation of the design (`boards/Main.dc.html` v20: menu and mega menu), the
  * texts 1:1. Editable in the panel afterwards; the seed writes it only when the menu is empty.
  */
 export function navigationData(refs: Refs): Navigation {
   const group = (slug: string) => ref(refs.group, slug, 'group')
-  const industry = (slug: string) => ref(refs.industry, slug, 'industry')
   const image = (file: string) => refs.image(file) ?? null
   return {
     menu: [
@@ -33,7 +30,6 @@ export function navigationData(refs: Refs): Navigation {
       { type: 'link', label: 'Opieka IT', href: '/opieka-it' },
       { type: 'link', label: 'GoPOS', href: '/gopos', partner: true },
       { type: 'link', label: 'InsERT', href: '/insert', partner: true },
-      { type: 'industries', label: 'Branże' },
       { type: 'link', label: 'O firmie', href: '/o-firmie' },
       { type: 'link', label: 'Kontakt', href: '/kontakt' },
     ],
@@ -68,23 +64,6 @@ export function navigationData(refs: Refs): Navigation {
         badge: 'Autoryzowany partner',
         partner: refs.partner('InsERT') ?? null,
         image: image('p-insert-subiekt-nexo.webp'),
-      },
-    ],
-    industries: [
-      {
-        industry: industry('gastro'),
-        description: 'restauracje, kawiarnie, bary — GoPOS, Sunmi, Posnet',
-        image: image('p-gopos-zestaw.webp'),
-      },
-      {
-        industry: industry('handel'),
-        description: 'kasy, Subiekt, PC-Market, skanery, wagi',
-        image: image('p-posnet-neo.webp'),
-      },
-      {
-        industry: industry('noclegi'),
-        description: 'NFHotel, Wi-Fi, recepcja, restauracja hotelowa',
-        image: image('p-nfhotel.webp'),
       },
     ],
   }
