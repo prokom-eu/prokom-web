@@ -26,6 +26,7 @@ import {
 
 import { AddToCartButton } from './AddToCartButton'
 import { ProductThumb, productSubtitle } from './ProductThumb'
+import { SearchIcon } from './SearchIcon'
 
 const MAX_PRODUCTS = 6
 const MAX_CATEGORIES = 4
@@ -34,20 +35,6 @@ const MAX_PAGES = 3
 type Props = {
   /** wa.me link of the line; `null` hides "Napisz na WhatsApp" when nothing is found. */
   whatsapp: string | null
-}
-
-function SearchIcon({ size }: { size: number }) {
-  return (
-    <svg viewBox="0 0 24 24" width={size} height={size} aria-hidden="true">
-      <path
-        d="M11 18a7 7 0 100-14 7 7 0 000 14z M20 20l-4.3-4.3"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-    </svg>
-  )
 }
 
 /** Typing into a field (or with a modifier) never opens the search on "/". */
@@ -332,7 +319,6 @@ function SearchResults({ index, query, onPick, whatsapp }: ResultsProps) {
           nazwy („kasa na baterie”).
         </span>
         <Link
-          // TODO(krystian): B5 reads the phrase from `?szukaj=` (catalog filters in the URL).
           href={trimmed ? `/oferta?szukaj=${encodeURIComponent(trimmed)}` : '/oferta'}
           data-result
           className="font-extrabold text-accent-text hover:underline"

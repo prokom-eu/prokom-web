@@ -9,7 +9,7 @@ import type {
 } from '@/payload-types'
 
 import { publicImage } from '../media/public'
-import { pickSource } from '../media/sizes'
+import { imageSources, pickSource } from '../media/sizes'
 import { tenantIdOf } from '../tenant/id'
 import { HOME_SLUG } from '../pages/slug'
 import type { IconName } from './options'
@@ -24,7 +24,13 @@ import { normalizeText } from './normalize'
 /** Card width × 2 for sharp screens: one file per product keeps the index small. */
 const CARD_IMAGE_WIDTH = 480
 
+/** Brand logos are ~20 px high on cards and filters: the small `logo` size is enough. */
+const LOGO_WIDTH = 240
+
 export type IndexImage = { url: string; alt: string; width: number; height: number }
+
+/** A brand logo; its `alt` is the brand name, next to it in the index. */
+export type IndexLogo = Omit<IndexImage, 'alt'>
 
 export type IndexProduct = {
   slug: string
@@ -55,8 +61,8 @@ export type IndexProduct = {
 
 export type CatalogIndex = {
   products: IndexProduct[]
-  /** Brands of the listed products. */
-  brands: { slug: string; name: string; status: Partner['partnerStatus'] }[]
+  /** Brands of the listed products; `logo` only when the record has a file. */
+  brands: { slug: string; name: string; status: Partner['partnerStatus']; logo?: IndexLogo }[]
   /** Only categories with published products (rozstrzygnięcie 7); `count` = such products. */
   categories: { slug: string; name: string; group: string; icon?: IconName; count: number }[]
   /** Only groups with a listed category. */
@@ -122,6 +128,12 @@ function cardImage(images: Product['images'], tenantId: number): IndexImage | un
   return undefined
 }
 
+function brandLogo(brand: Partner): IndexLogo | undefined {
+  const sources = imageSources(brand)
+  if (!brand.width || !brand.height || sources.length === 0) return undefined
+  return { url: pickSource(sources, LOGO_WIDTH), width: brand.width, height: brand.height }
+}
+
 const optional = (value: string | null | undefined) => (value?.trim() ? value.trim() : undefined)
 
 export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
@@ -141,7 +153,13 @@ export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
     const listedBrand = doc(product.brand)
     const brand = listedBrand?.tenants?.some((t) => tenantIdOf(t) === tenantId) ? listedBrand : null
     if (brand?.slug) {
-      brands.set(brand.slug, { slug: brand.slug, name: brand.name, status: brand.partnerStatus })
+      const logo = brandLogo(brand)
+      brands.set(brand.slug, {
+        slug: brand.slug,
+        name: brand.name,
+        status: brand.partnerStatus,
+        ...(logo && { logo }),
+      })
     }
     const categories = docs(product.categories).filter(ownTenant)
     const industries = docs(product.industries).filter(ownTenant)
