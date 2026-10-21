@@ -20,13 +20,16 @@ type Props = {
   index: CatalogIndex
   /** Position in the list: „Pokaż kolejne” moves focus to the first new card. */
   position: number
+  /** `list` (`?widok=lista`): picture on the left from 640 px up, as in the board's list view. */
+  layout?: 'grid' | 'list'
 }
 
 /**
  * Card of the catalog (spec. §5.3): picture, up to 2 badges, brand, main category, name,
  * benefit, 3 features, „Szczegóły →” and „+ Do zapytania”. No prices — there are none.
  */
-export function ProductCard({ product, index, position }: Props) {
+export function ProductCard({ product, index, position, layout = 'grid' }: Props) {
+  const list = layout === 'list'
   const href = productHref(product.slug)
   const brand = index.brands.find((item) => item.slug === product.brand)
   const category = index.categories.find((item) => item.slug === product.categories[0])
@@ -36,9 +39,18 @@ export function ProductCard({ product, index, position }: Props) {
   return (
     <article
       data-card={position}
-      className="group/card relative flex flex-col overflow-hidden rounded-[18px] bg-card shadow-[inset_0_0_0_1px_var(--border)] transition-[translate,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_24px_48px_-28px_var(--glow),inset_0_0_0_1px_var(--border)] motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:rounded-3xl"
+      className={cx(
+        list && 'sm:flex-row',
+        'group/card relative flex w-full flex-col overflow-hidden rounded-[18px] bg-card shadow-[inset_0_0_0_1px_var(--border)] transition-[translate,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_24px_48px_-28px_var(--glow),inset_0_0_0_1px_var(--border)] motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:rounded-3xl',
+      )}
     >
-      <div className="relative flex h-32 items-center justify-center overflow-hidden bg-surface-2 bg-[radial-gradient(ellipse_at_50%_92%,var(--glow),transparent_68%)] sm:h-[196px]">
+      <div
+        className={cx(
+          'relative flex h-32 items-center justify-center overflow-hidden bg-surface-2 bg-[radial-gradient(ellipse_at_50%_92%,var(--glow),transparent_68%)]',
+          // `cx` only joins classes: each size is set once, never overridden.
+          list ? 'sm:h-auto sm:min-h-[180px] sm:w-60 sm:shrink-0' : 'sm:h-[196px]',
+        )}
+      >
         {product.image ? (
           <Image
             src={product.image.url}
@@ -82,7 +94,12 @@ export function ProductCard({ product, index, position }: Props) {
         )}
       </div>
 
-      <div className="flex flex-1 flex-col gap-2 p-3 sm:px-[18px] sm:pb-[18px] sm:pt-4">
+      <div
+        className={cx(
+          'flex min-w-0 flex-1 flex-col gap-2 p-3',
+          list ? 'sm:px-[22px] sm:py-[18px]' : 'sm:px-[18px] sm:pb-[18px] sm:pt-4',
+        )}
+      >
         <div className="flex min-h-6 items-center justify-between gap-2 text-xs font-extrabold text-ink-3">
           {brand?.logo ? (
             <span className="inline-flex h-6 shrink-0 items-center rounded-md bg-white px-1.5 shadow-[inset_0_0_0_1px_var(--border)]">
@@ -110,7 +127,9 @@ export function ProductCard({ product, index, position }: Props) {
           </Link>
         </h3>
         {product.benefit && (
-          <p className="hidden text-sm leading-normal text-ink-2 sm:block">{product.benefit}</p>
+          <p className="hidden max-w-[70ch] text-sm leading-normal text-ink-2 sm:block">
+            {product.benefit}
+          </p>
         )}
         {product.features.length > 0 && (
           <ul className="hidden flex-wrap gap-1.5 sm:flex">
