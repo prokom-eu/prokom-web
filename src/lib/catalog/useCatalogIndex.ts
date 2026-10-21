@@ -28,10 +28,12 @@ export function loadCatalogIndex(): Promise<CatalogIndex> {
 
 /**
  * Hands over an index the page already has (`/oferta` renders from it on the server), so the
- * search and the inquiry drawer of that page do not fetch it again.
+ * search and the inquiry drawer of that page do not fetch it again. Browser only: on the server
+ * this module is shared by every request, and a stored index would make the next page render
+ * differently than in the browser (hydration error).
  */
 export function primeCatalogIndex(index: CatalogIndex) {
-  if (loaded) return
+  if (typeof window === 'undefined' || loaded) return
   loaded = index
   pending = Promise.resolve(index)
 }

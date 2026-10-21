@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
@@ -41,8 +41,9 @@ export function Catalog({ index }: { index: CatalogIndex }) {
   const searchParams = useSearchParams()
   const state = useMemo(() => parseCatalogState(searchParams, index), [searchParams, index])
   const search = useMemo(() => prepareSearch(index), [index])
-  // Before the header's effects run: the search and the drawer reuse this index (idempotent).
-  primeCatalogIndex(index)
+  // A layout effect runs before the header's effects: the search and the drawer reuse this
+  // index instead of fetching it. Not in render — that also runs on the server.
+  useLayoutEffect(() => primeCatalogIndex(index), [index])
 
   // The box shows what is typed at once; the URL catches up after a pause.
   const [draft, setDraft] = useState(state.query)
