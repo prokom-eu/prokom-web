@@ -11,6 +11,7 @@ import * as migration_20261018_100954_biznes_catalog from './20261018_100954_biz
 import * as migration_20261018_111136_biznes_settings_inquiries from './20261018_111136_biznes_settings_inquiries'
 import * as migration_20261018_155714_biznes_navigation from './20261018_155714_biznes_navigation'
 import * as migration_20261018_171850_biznes_footer from './20261018_171850_biznes_footer'
+import * as migration_20261021_185642_biznes_navigation_without_industries from './20261021_185642_biznes_navigation_without_industries'
 
 export const migrations = [
   {
@@ -77,5 +78,10 @@ export const migrations = [
     up: migration_20261018_171850_biznes_footer.up,
     down: migration_20261018_171850_biznes_footer.down,
     name: '20261018_171850_biznes_footer',
+  },
+  {
+    up: migration_20261021_185642_biznes_navigation_without_industries.up,
+    down: migration_20261021_185642_biznes_navigation_without_industries.down,
+    name: '20261021_185642_biznes_navigation_without_industries',
   },
 ]

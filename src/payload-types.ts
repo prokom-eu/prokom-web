@@ -300,7 +300,7 @@ export interface SiteSetting {
      */
     showClientLogos?: boolean | null;
     /**
-     * Nagłówek: kolejność menu, mega menu Oferta i Branże ▾.
+     * Nagłówek: kolejność menu i mega menu Oferta.
      */
     navigation?: {
       /**
@@ -308,7 +308,7 @@ export interface SiteSetting {
        */
       menu?:
         | {
-            type: 'link' | 'offer' | 'industries';
+            type: 'link' | 'offer';
             label: string;
             /**
              * Wymagany dla zwykłej pozycji.
@@ -350,17 +350,6 @@ export interface SiteSetting {
             partner?: (number | null) | Partner;
             image?: (number | null) | Media;
             dark?: boolean | null;
-            id?: string | null;
-          }[]
-        | null;
-      /**
-       * Karty aktywnych branż; nieaktywne branże pojawiają się same pod spodem jako „Wkrótce”.
-       */
-      industries?:
-        | {
-            industry: number | Industry;
-            image?: (number | null) | Media;
-            description?: string | null;
             id?: string | null;
           }[]
         | null;
@@ -536,298 +525,6 @@ export interface Partner {
       filename?: string | null;
     };
   };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "industries".
- */
-export interface Industry {
-  id: number;
-  tenant?: (number | null) | Tenant;
-  name: string;
-  /**
-   * Część adresu, np. „gastronomia”.
-   */
-  slug: string;
-  /**
-   * Nieaktywna branża pokazuje się jako „Wkrótce”.
-   */
-  active?: boolean | null;
-  /**
-   * Przycisk „Przygotuj ofertę” otwiera kreator z tym rodzajem firmy.
-   */
-  wizardBusinessType?:
-    | ('sklep' | 'gastro' | 'hotel' | 'biuro' | 'warsztat' | 'gabinet' | 'szkola' | 'produkcja' | 'truck' | 'inna')
-    | null;
-  hero?: {
-    /**
-     * Puste = nazwa.
-     */
-    title?: string | null;
-    lead?: string | null;
-    image?: (number | null) | Media;
-  };
-  featuredProducts?: (number | Product)[] | null;
-  faq?:
-    | {
-        question: string;
-        answer: string;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Mniejsza liczba = wcześniej.
-   */
-  order?: number | null;
-  seo?: {
-    title?: string | null;
-    description?: string | null;
-  };
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "products".
- */
-export interface Product {
-  id: number;
-  tenant?: (number | null) | Tenant;
-  /**
-   * Część adresu, np. „posnet-ergo-online”.
-   */
-  slug: string;
-  name: string;
-  kind: 'device' | 'software' | 'service';
-  /**
-   * Partnerzy widoczni na tej stronie.
-   */
-  brand?: (number | null) | Partner;
-  /**
-   * Pierwsza jest główna (okruszki, „Podobne”).
-   */
-  categories: (number | CatalogCategory)[];
-  /**
-   * Produkt pokazuje się tylko w tych branżach.
-   */
-  industries?: (number | Industry)[] | null;
-  /**
-   * Jedno zdanie na karcie produktu.
-   */
-  benefit?: string | null;
-  features?: string[] | null;
-  /**
-   * Krótki tekst na karcie, np. „Nowość 2026”. Bez cen.
-   */
-  badge?: string | null;
-  /**
-   * Dla wyszukiwarki, niewidoczne na stronie.
-   */
-  keywords?: string | null;
-  images?: (number | Media)[] | null;
-  keyParams?:
-    | {
-        label: string;
-        value: string;
-        id?: string | null;
-      }[]
-    | null;
-  specs?:
-    | {
-        group?: string | null;
-        label: string;
-        value: string;
-        id?: string | null;
-      }[]
-    | null;
-  description?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  hotspots?:
-    | {
-        /**
-         * 0–100 % szerokości/wysokości zdjęcia.
-         */
-        x: number;
-        /**
-         * 0–100 % szerokości/wysokości zdjęcia.
-         */
-        y: number;
-        title: string;
-        description?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  modules?:
-    | {
-        name: string;
-        description?: string | null;
-        icon?:
-          | (
-              | 'shield'
-              | 'cal'
-              | 'users'
-              | 'store'
-              | 'bolt'
-              | 'doc'
-              | 'life'
-              | 'arrow'
-              | 'check'
-              | 'phone'
-              | 'mail'
-              | 'pin'
-              | 'clock'
-              | 'monitor'
-              | 'remote'
-              | 'bell'
-              | 'wallet'
-              | 'chat'
-              | 'wrench'
-              | 'rocket'
-              | 'map'
-              | 'star'
-              | 'q'
-              | 'flash'
-              | 'grad'
-              | 'server'
-              | 'compass'
-            )
-          | null;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Puste = „W cenie” z kategorii głównej.
-   */
-  included?: string[] | null;
-  faq?:
-    | {
-        question: string;
-        answer: string;
-        id?: string | null;
-      }[]
-    | null;
-  fitsWith?: (number | Product)[] | null;
-  alternatives?: (number | Product)[] | null;
-  registerTypes?: ('mobile' | 'small' | 'system' | 'touch')[] | null;
-  comparison?: {
-    type?: string | null;
-    display?: string | null;
-    keyboard?: string | null;
-    plu?: string | null;
-    printer?: string | null;
-    connectivity?: string | null;
-    weight?: string | null;
-    audience?: string | null;
-  };
-  seo?: {
-    title?: string | null;
-    description?: string | null;
-  };
-  isNew?: boolean | null;
-  /**
-   * Etykieta zależy od statusu marki (serwis / partner) i rodzaju.
-   */
-  authorized?: boolean | null;
-  /**
-   * 0–100: kolejność „Popularne” i wyszukiwarka.
-   */
-  popularity?: number | null;
-  featured?: boolean | null;
-  featuredOrder?: number | null;
-  legacyId?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "catalog-categories".
- */
-export interface CatalogCategory {
-  id: number;
-  tenant?: (number | null) | Tenant;
-  name: string;
-  /**
-   * Część adresu, np. „kasy-fiskalne”.
-   */
-  slug: string;
-  group: number | CatalogGroup;
-  icon?:
-    | (
-        | 'shield'
-        | 'cal'
-        | 'users'
-        | 'store'
-        | 'bolt'
-        | 'doc'
-        | 'life'
-        | 'arrow'
-        | 'check'
-        | 'phone'
-        | 'mail'
-        | 'pin'
-        | 'clock'
-        | 'monitor'
-        | 'remote'
-        | 'bell'
-        | 'wallet'
-        | 'chat'
-        | 'wrench'
-        | 'rocket'
-        | 'map'
-        | 'star'
-        | 'q'
-        | 'flash'
-        | 'grad'
-        | 'server'
-        | 'compass'
-      )
-    | null;
-  /**
-   * Jedno zdanie pod nazwą w menu i na kafelku.
-   */
-  description?: string | null;
-  hero?: {
-    /**
-     * Puste = nazwa.
-     */
-    title?: string | null;
-    lead?: string | null;
-    highlights?: string[] | null;
-    image?: (number | null) | Media;
-  };
-  included?: string[] | null;
-  faq?:
-    | {
-        question: string;
-        answer: string;
-        id?: string | null;
-      }[]
-    | null;
-  frequentlyBoughtWith?: (number | Product)[] | null;
-  /**
-   * Mniejsza liczba = wcześniej.
-   */
-  order?: number | null;
-  seo?: {
-    title?: string | null;
-    description?: string | null;
-  };
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1079,6 +776,298 @@ export interface Inquiry {
     acceptedAt: string;
   };
   marketingConsent?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products".
+ */
+export interface Product {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  /**
+   * Część adresu, np. „posnet-ergo-online”.
+   */
+  slug: string;
+  name: string;
+  kind: 'device' | 'software' | 'service';
+  /**
+   * Partnerzy widoczni na tej stronie.
+   */
+  brand?: (number | null) | Partner;
+  /**
+   * Pierwsza jest główna (okruszki, „Podobne”).
+   */
+  categories: (number | CatalogCategory)[];
+  /**
+   * Produkt pokazuje się tylko w tych branżach.
+   */
+  industries?: (number | Industry)[] | null;
+  /**
+   * Jedno zdanie na karcie produktu.
+   */
+  benefit?: string | null;
+  features?: string[] | null;
+  /**
+   * Krótki tekst na karcie, np. „Nowość 2026”. Bez cen.
+   */
+  badge?: string | null;
+  /**
+   * Dla wyszukiwarki, niewidoczne na stronie.
+   */
+  keywords?: string | null;
+  images?: (number | Media)[] | null;
+  keyParams?:
+    | {
+        label: string;
+        value: string;
+        id?: string | null;
+      }[]
+    | null;
+  specs?:
+    | {
+        group?: string | null;
+        label: string;
+        value: string;
+        id?: string | null;
+      }[]
+    | null;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  hotspots?:
+    | {
+        /**
+         * 0–100 % szerokości/wysokości zdjęcia.
+         */
+        x: number;
+        /**
+         * 0–100 % szerokości/wysokości zdjęcia.
+         */
+        y: number;
+        title: string;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  modules?:
+    | {
+        name: string;
+        description?: string | null;
+        icon?:
+          | (
+              | 'shield'
+              | 'cal'
+              | 'users'
+              | 'store'
+              | 'bolt'
+              | 'doc'
+              | 'life'
+              | 'arrow'
+              | 'check'
+              | 'phone'
+              | 'mail'
+              | 'pin'
+              | 'clock'
+              | 'monitor'
+              | 'remote'
+              | 'bell'
+              | 'wallet'
+              | 'chat'
+              | 'wrench'
+              | 'rocket'
+              | 'map'
+              | 'star'
+              | 'q'
+              | 'flash'
+              | 'grad'
+              | 'server'
+              | 'compass'
+            )
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Puste = „W cenie” z kategorii głównej.
+   */
+  included?: string[] | null;
+  faq?:
+    | {
+        question: string;
+        answer: string;
+        id?: string | null;
+      }[]
+    | null;
+  fitsWith?: (number | Product)[] | null;
+  alternatives?: (number | Product)[] | null;
+  registerTypes?: ('mobile' | 'small' | 'system' | 'touch')[] | null;
+  comparison?: {
+    type?: string | null;
+    display?: string | null;
+    keyboard?: string | null;
+    plu?: string | null;
+    printer?: string | null;
+    connectivity?: string | null;
+    weight?: string | null;
+    audience?: string | null;
+  };
+  seo?: {
+    title?: string | null;
+    description?: string | null;
+  };
+  isNew?: boolean | null;
+  /**
+   * Etykieta zależy od statusu marki (serwis / partner) i rodzaju.
+   */
+  authorized?: boolean | null;
+  /**
+   * 0–100: kolejność „Popularne” i wyszukiwarka.
+   */
+  popularity?: number | null;
+  featured?: boolean | null;
+  featuredOrder?: number | null;
+  legacyId?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "catalog-categories".
+ */
+export interface CatalogCategory {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  name: string;
+  /**
+   * Część adresu, np. „kasy-fiskalne”.
+   */
+  slug: string;
+  group: number | CatalogGroup;
+  icon?:
+    | (
+        | 'shield'
+        | 'cal'
+        | 'users'
+        | 'store'
+        | 'bolt'
+        | 'doc'
+        | 'life'
+        | 'arrow'
+        | 'check'
+        | 'phone'
+        | 'mail'
+        | 'pin'
+        | 'clock'
+        | 'monitor'
+        | 'remote'
+        | 'bell'
+        | 'wallet'
+        | 'chat'
+        | 'wrench'
+        | 'rocket'
+        | 'map'
+        | 'star'
+        | 'q'
+        | 'flash'
+        | 'grad'
+        | 'server'
+        | 'compass'
+      )
+    | null;
+  /**
+   * Jedno zdanie pod nazwą w menu i na kafelku.
+   */
+  description?: string | null;
+  hero?: {
+    /**
+     * Puste = nazwa.
+     */
+    title?: string | null;
+    lead?: string | null;
+    highlights?: string[] | null;
+    image?: (number | null) | Media;
+  };
+  included?: string[] | null;
+  faq?:
+    | {
+        question: string;
+        answer: string;
+        id?: string | null;
+      }[]
+    | null;
+  frequentlyBoughtWith?: (number | Product)[] | null;
+  /**
+   * Mniejsza liczba = wcześniej.
+   */
+  order?: number | null;
+  seo?: {
+    title?: string | null;
+    description?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "industries".
+ */
+export interface Industry {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  name: string;
+  /**
+   * Część adresu, np. „gastronomia”.
+   */
+  slug: string;
+  /**
+   * Nieaktywna branża pokazuje się jako „Wkrótce”.
+   */
+  active?: boolean | null;
+  /**
+   * Przycisk „Przygotuj ofertę” otwiera kreator z tym rodzajem firmy.
+   */
+  wizardBusinessType?:
+    | ('sklep' | 'gastro' | 'hotel' | 'biuro' | 'warsztat' | 'gabinet' | 'szkola' | 'produkcja' | 'truck' | 'inna')
+    | null;
+  hero?: {
+    /**
+     * Puste = nazwa.
+     */
+    title?: string | null;
+    lead?: string | null;
+    image?: (number | null) | Media;
+  };
+  featuredProducts?: (number | Product)[] | null;
+  faq?:
+    | {
+        question: string;
+        answer: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Mniejsza liczba = wcześniej.
+   */
+  order?: number | null;
+  seo?: {
+    title?: string | null;
+    description?: string | null;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -1559,14 +1548,6 @@ export interface SiteSettingsSelect<T extends boolean = true> {
                     partner?: T;
                     image?: T;
                     dark?: T;
-                    id?: T;
-                  };
-              industries?:
-                | T
-                | {
-                    industry?: T;
-                    image?: T;
-                    description?: T;
                     id?: T;
                   };
             };

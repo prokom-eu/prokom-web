@@ -10,7 +10,7 @@ import type { PublicBiznesNavigation } from '@/lib/site/navigation'
 type Props = {
   menu: PublicBiznesNavigation['menu']
   /** Panels of the dropdowns, rendered on the server. */
-  panels: { offer: ReactNode; industries: ReactNode }
+  panels: { offer: ReactNode }
 }
 
 const ITEM =
@@ -40,17 +40,18 @@ function Chevron({ open }: { open: boolean }) {
 }
 
 /**
- * Desktop menu of the Biznes header (spec. §3.2) in the order set in the panel. Oferta ▾ and
- * Branże ▾ are disclosure buttons (`aria-expanded`), not ARIA menus: their panels hold plain
- * links reached with Tab. A panel closes on Esc (focus back on its button), a click outside,
- * focus moving out of it and a route change (links are `next/link`, so the layout stays). Without JavaScript the panels stay closed; their pages
- * are linked from the footer and the catalog.
+ * Desktop menu of the Biznes header (spec. §3.2, v20) in the order set in the panel, from
+ * 1080 px. Oferta ▾ is a disclosure button (`aria-expanded`), not an ARIA menu: its panel holds
+ * plain links reached with Tab. The panel closes on Esc (focus back on its button), a click
+ * outside, focus moving out of it and a route change (links are `next/link`, so the layout
+ * stays). Without JavaScript the panel stays closed; the catalog is linked from the footer.
+ * Items never wrap (`whitespace-nowrap` in `ITEM`).
  */
 export function HeaderNav({ menu, panels }: Props) {
   const pathname = usePathname()
-  const [open, setOpen] = useState<'offer' | 'industries' | null>(null)
+  const [open, setOpen] = useState<'offer' | null>(null)
   const navRef = useRef<HTMLElement>(null)
-  const buttons = useRef<Partial<Record<'offer' | 'industries', HTMLButtonElement | null>>>({})
+  const buttons = useRef<Partial<Record<'offer', HTMLButtonElement | null>>>({})
   const id = useId()
 
   // A link inside a panel changes the route: the panel must not stay open over the new page.
@@ -79,8 +80,8 @@ export function HeaderNav({ menu, panels }: Props) {
   }, [open])
 
   return (
-    <nav ref={navRef} aria-label="Główna" className="hidden lg:block">
-      <ul className="flex items-center gap-4 xl:gap-5">
+    <nav ref={navRef} aria-label="Główna" className="hidden min-[1080px]:block">
+      <ul className="flex items-center gap-[26px]">
         {menu.map((item, i) => {
           if (item.type === 'link') {
             const current = pathOf(item.href) === pathname
@@ -103,8 +104,8 @@ export function HeaderNav({ menu, panels }: Props) {
           const kind = item.type
           const expanded = open === kind
           const panelId = `${id}-${kind}`
-          // The item is "current" on its pages: the catalog or an industry.
-          const current = pathname.startsWith(kind === 'offer' ? '/oferta' : '/branze')
+          // The item is "current" on the catalog pages.
+          const current = pathname.startsWith('/oferta')
           return (
             <li
               key={i}

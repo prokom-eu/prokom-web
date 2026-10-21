@@ -64,8 +64,8 @@ function isTyping(event: globalThis.KeyboardEvent) {
 }
 
 /**
- * Search of the catalog (spec. §3.2, §8.2): the field in the header (a magnifier below 1280 px)
- * and "/" open a modal `<dialog>` — the browser keeps focus inside, closes it on Esc and
+ * Search of the catalog (spec. §3.2, §8.2): the magnifier in the header and "/" open a modal
+ * `<dialog>` — the browser keeps focus inside, closes it on Esc and
  * returns focus. The catalog index is fetched on the first opening, then matched on the client.
  */
 export function SearchOverlay({ whatsapp }: Props) {
@@ -101,30 +101,16 @@ export function SearchOverlay({ whatsapp }: Props) {
 
   return (
     <>
+      {/* v20: one magnifier at every width, the size of the theme switch (spec. §3.2). */}
       <button
         type="button"
         aria-haspopup="dialog"
         aria-keyshortcuts="/"
+        aria-label="Szukaj w ofercie (skrót /)"
         onClick={show}
-        className="hidden h-11 items-center gap-2.5 whitespace-nowrap rounded-xl border border-border bg-surface-2 px-3.5 text-sm font-semibold text-ink-2 hover:text-ink xl:inline-flex"
-      >
-        <SearchIcon size={18} />
-        Szukaj w ofercie
-        <kbd
-          aria-hidden="true"
-          className="ml-1 rounded-md border border-border bg-card px-1.5 font-sans text-xs text-ink-3"
-        >
-          /
-        </kbd>
-      </button>
-      <button
-        type="button"
-        aria-haspopup="dialog"
-        onClick={show}
-        className={`${ICON_BUTTON} xl:hidden`}
+        className={ICON_BUTTON}
       >
         <SearchIcon size={20} />
-        <span className="sr-only">Szukaj w ofercie</span>
       </button>
 
       <dialog

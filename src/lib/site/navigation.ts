@@ -7,31 +7,30 @@ import { isValidNavHref } from './link'
 
 /**
  * Header navigation of the Biznes line (`nawigacja`, ADR-012; spec. §3.2): the order of the
- * menu, the content of the Oferta mega menu and of Branże ▾. Kept in `SiteSettings.biznes`.
+ * menu and the content of the Oferta mega menu. Kept in `SiteSettings.biznes`. Branże ▾ is gone
+ * since v20 (B3c): the industry pages are reached from the mega menu, the home page and footer.
  */
 
 export const MENU_ITEM_TYPES = [
   { label: 'Link', value: 'link' },
   { label: 'Oferta ▾ (mega menu)', value: 'offer' },
-  { label: 'Branże ▾', value: 'industries' },
 ] as const
 
 export type MenuItemType = (typeof MENU_ITEM_TYPES)[number]['value']
 
 export const DEFAULT_COLUMN_LIMIT = 6
 
-/** A plain link needs a valid `href`; the dropdowns may have one (their page) but need not. */
+/** A plain link needs a valid `href`; Oferta ▾ may have one (its page) but need not. */
 export function menuItemHrefError(type: MenuItemType, href: string | null | undefined) {
   if (!href) return type === 'link' ? 'Link jest wymagany dla zwykłej pozycji.' : null
   return isValidNavHref(href) ? null : 'Ścieżka (/kontakt), adres https://, mailto: albo tel:.'
 }
 
-/** Oferta ▾ and Branże ▾ at most once each: two would render two panels with one `id`. */
+/** Oferta ▾ at most once: two would render two panels with one `id`. */
 export function duplicateDropdownError(types: MenuItemType[]): string | null {
-  const dropdowns = types.filter((type) => type !== 'link')
-  return new Set(dropdowns).size === dropdowns.length
-    ? null
-    : 'Oferta ▾ i Branże ▾ mogą być w menu najwyżej raz.'
+  return types.filter((type) => type === 'offer').length > 1
+    ? 'Oferta ▾ może być w menu najwyżej raz.'
+    : null
 }
 
 type Link = { label: string; href: string }
@@ -51,12 +50,6 @@ export type PublicBiznesNavigation = {
     badge: string | null
     dark: boolean
     logo: PublicImage | null
-    image: PublicImage | null
-  }[]
-  industries: {
-    slug: string
-    name: string
-    description: string | null
     image: PublicImage | null
   }[]
 }
@@ -80,7 +73,7 @@ function partnerLogo(value: number | Partner | null | undefined, tenantId: numbe
 
 /**
  * The public shape of the navigation. Read with `overrideAccess`, so every relation is
- * re-checked against the tenant here (as `buildCatalogIndex` does): a group, an industry or an
+ * re-checked against the tenant here (as `buildCatalogIndex` does): a group, a partner or an
  * image of another site never reaches the header, whatever the panel allowed.
  */
 export function toPublicNavigation(
@@ -91,7 +84,7 @@ export function toPublicNavigation(
     record !== null && tenantIdOf(record.tenant) === tenantId
   return {
     menu: (navigation?.menu ?? []).flatMap(({ type, label, href, partner }, i, all) => {
-      // Only the first dropdown of a kind, whatever was saved past the panel's validation.
+      // Only the first Oferta ▾, whatever was saved past the panel's validation.
       const repeated = type !== 'link' && all.findIndex((item) => item.type === type) !== i
       return !repeated && menuItemHrefError(type, href) === null
         ? [{ type, label, href: href || null, partner: partner ?? false }]
@@ -116,35 +109,20 @@ export function toPublicNavigation(
         image: publicImage(image, tenantId),
       }),
     ),
-    industries: (navigation?.industries ?? []).flatMap(({ industry, description, image }) => {
-      const record = doc(industry)
-      return own(record) && record?.slug && record.active
-        ? [
-            {
-              slug: record.slug,
-              name: record.name,
-              description: text(description),
-              image: publicImage(image, tenantId),
-            },
-          ]
-        : []
-    }),
   }
 }
 
 /**
- * The menu as the header can show it: until the catalog or the industries have content (e.g.
- * staging before the import), Oferta ▾ becomes a plain link to the catalog and an empty
- * Branże ▾ disappears — never an empty panel.
+ * The menu as the header can show it: until the catalog has content (e.g. staging before the
+ * import), Oferta ▾ becomes a plain link to the catalog — never an empty panel.
  */
 export function withoutEmptyDropdowns(
   menu: PublicBiznesNavigation['menu'],
-  content: { offer: boolean; industries: boolean },
+  content: { offer: boolean },
 ): PublicBiznesNavigation['menu'] {
-  return menu.flatMap((item) => {
-    if (item.type === 'offer' && !content.offer) {
-      return [{ ...item, type: 'link' as const, href: item.href ?? '/oferta' }]
-    }
-    return item.type === 'industries' && !content.industries ? [] : [item]
-  })
+  return menu.map((item) =>
+    item.type === 'offer' && !content.offer
+      ? { ...item, type: 'link' as const, href: item.href ?? '/oferta' }
+      : item,
+  )
 }

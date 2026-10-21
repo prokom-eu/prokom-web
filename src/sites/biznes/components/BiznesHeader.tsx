@@ -10,7 +10,6 @@ import { CartButton } from './CartButton'
 import { CartDrawer } from './CartDrawer'
 import { CartToast } from './CartToast'
 import { HeaderNav } from './HeaderNav'
-import { IndustriesPanel } from './IndustriesPanel'
 import { MegaMenuPanel } from './MegaMenuPanel'
 import { MobileMenu } from './MobileMenu'
 import { MobileMenuContent } from './MobileMenuContent'
@@ -20,8 +19,6 @@ type Props = {
   tenant: SiteTenant
   navigation: PublicBiznesNavigation
   menu: MegaMenu
-  /** Names of inactive industries, shown as "Wkrótce" under Branże ▾. */
-  soonIndustries: string[]
   /** Main phone (`tel:`) and WhatsApp (wa.me) of the line, for the phone menu. */
   contact: { phone: { label: string; href: string } | null; whatsapp: string | null }
 }
@@ -29,13 +26,10 @@ type Props = {
 /**
  * Sticky, translucent header of the Biznes line (spec. §3.2) with the catalog search
  * (`SearchOverlay`) and the inquiry list ("Zapytanie" with its counter, drawer and toast).
- * Below 1024 px the full-screen menu (`MobileMenu`) replaces the desktop navigation.
+ * Below 1080 px the full-screen menu (`MobileMenu`) replaces the desktop navigation (v20).
  */
-export function BiznesHeader({ tenant, navigation, menu, soonIndustries, contact }: Props) {
-  const items = withoutEmptyDropdowns(navigation.menu, {
-    offer: menu.columns.length > 0,
-    industries: navigation.industries.length > 0 || soonIndustries.length > 0,
-  })
+export function BiznesHeader({ tenant, navigation, menu, contact }: Props) {
+  const items = withoutEmptyDropdowns(navigation.menu, { offer: menu.columns.length > 0 })
   return (
     <>
       <header className="sticky top-0 z-40 border-b border-border bg-surface/85 backdrop-blur-md backdrop-saturate-150">
@@ -58,9 +52,6 @@ export function BiznesHeader({ tenant, navigation, menu, soonIndustries, contact
                     cards={navigation.cards}
                   />
                 ),
-                industries: (
-                  <IndustriesPanel industries={navigation.industries} soon={soonIndustries} />
-                ),
               }}
             />
           )}
@@ -77,13 +68,11 @@ export function BiznesHeader({ tenant, navigation, menu, soonIndustries, contact
               className="inline-flex h-11 items-center gap-2 rounded-xl bg-accent-text px-3.5 font-extrabold text-accent-ink shadow-lg shadow-glow transition-transform hover:-translate-y-0.5 sm:px-4"
             />
             {items.length > 0 && (
-              <div className="lg:hidden">
+              <div className="min-[1080px]:hidden">
                 <MobileMenu>
                   <MobileMenuContent
                     items={items}
                     menu={menu}
-                    industries={navigation.industries}
-                    soonIndustries={soonIndustries}
                     phone={contact.phone}
                     whatsapp={contact.whatsapp}
                   />

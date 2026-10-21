@@ -123,7 +123,6 @@ describe('toPublicSiteSettings', () => {
         columnLimit: 6,
         highlights: [],
         cards: [],
-        industries: [],
       },
       footer: { important: [], company: [] },
     })

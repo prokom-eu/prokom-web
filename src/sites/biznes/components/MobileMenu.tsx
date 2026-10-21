@@ -5,11 +5,11 @@ import { type ReactNode, useEffect, useRef } from 'react'
 
 import { ICON_BUTTON } from '@/components/ui/iconButton'
 
-/** Tailwind's `lg`, where `BiznesHeader` shows the desktop navigation instead. */
-const DESKTOP_QUERY = '(min-width: 1024px)'
+/** Where `BiznesHeader` shows the desktop navigation instead (spec. §3.2, v20). */
+const DESKTOP_QUERY = '(min-width: 1080px)'
 
 /**
- * Full-screen menu below 1024 px (spec. §3.3) on a native modal `<dialog>`: the browser keeps
+ * Full-screen menu below 1080 px (spec. §3.3) on a native modal `<dialog>`: the browser keeps
  * focus inside, closes it on Esc and returns focus to the hamburger. It also closes when a
  * link inside is followed (route change), so it never stays open over the next page.
  */
@@ -21,7 +21,7 @@ export function MobileMenu({ children }: { children: ReactNode }) {
     dialog.current?.close()
   }, [pathname])
 
-  // Past 1024 px the desktop navigation takes over and this menu is hidden (`lg:hidden`); an
+  // Past 1080 px the desktop navigation takes over and this menu is hidden (`min-[1080px]:hidden`); an
   // open modal would leave the page inert with no way out on a touch screen (tablet rotated).
   useEffect(() => {
     const desktop = window.matchMedia(DESKTOP_QUERY)

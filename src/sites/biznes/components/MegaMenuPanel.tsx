@@ -171,6 +171,13 @@ export function MegaMenuPanel({ menu, shortcuts, cards }: Props) {
           <Link href="/kreator" className="font-extrabold text-ink hover:underline">
             Nie wiesz, co wybrać? Dobierz zestaw w 60 s
           </Link>
+          {/* v20: Branże ▾ left the menu — the industry pages are reached from here. */}
+          <Link
+            href="/branze/gastronomia"
+            className="font-extrabold text-accent-text hover:underline"
+          >
+            Rozwiązania dla branż: gastronomia, handel, hotele →
+          </Link>
         </div>
       </Container>
     </div>

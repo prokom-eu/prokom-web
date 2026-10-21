@@ -141,7 +141,6 @@ async function biznesFrameData(
     header: {
       navigation,
       menu: megaMenu(index, navigation),
-      soonIndustries: index.industries.filter((industry) => !industry.active).map((i) => i.name),
       contact: {
         phone: settings.phone && tel ? { label: settings.phone, href: tel } : null,
         whatsapp: whatsapp ? toWhatsAppHref(whatsapp) : null,
