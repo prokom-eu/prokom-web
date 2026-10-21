@@ -21,8 +21,9 @@ export function MobileMenu({ children }: { children: ReactNode }) {
     dialog.current?.close()
   }, [pathname])
 
-  // Past 1080 px the desktop navigation takes over and this menu is hidden (`min-[1080px]:hidden`); an
-  // open modal would leave the page inert with no way out on a touch screen (tablet rotated).
+  // Past 1080 px the desktop navigation takes over and this menu is hidden
+  // (`min-[1080px]:hidden`); an open modal would leave the page inert with no way out on a
+  // touch screen (tablet rotated).
   useEffect(() => {
     const desktop = window.matchMedia(DESKTOP_QUERY)
     const onChange = () => {

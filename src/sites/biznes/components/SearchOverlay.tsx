@@ -65,8 +65,8 @@ function isTyping(event: globalThis.KeyboardEvent) {
 
 /**
  * Search of the catalog (spec. §3.2, §8.2): the magnifier in the header and "/" open a modal
- * `<dialog>` — the browser keeps focus inside, closes it on Esc and
- * returns focus. The catalog index is fetched on the first opening, then matched on the client.
+ * `<dialog>` — the browser keeps focus inside, closes it on Esc and returns focus. The catalog
+ * index is fetched on the first opening, then matched on the client.
  */
 export function SearchOverlay({ whatsapp }: Props) {
   const dialog = useRef<HTMLDialogElement>(null)

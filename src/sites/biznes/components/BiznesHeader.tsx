@@ -19,6 +19,8 @@ type Props = {
   tenant: SiteTenant
   navigation: PublicBiznesNavigation
   menu: MegaMenu
+  /** Slug of the first active industry, for "Rozwiązania dla branż" in the mega menu. */
+  industrySlug: string | null
   /** Main phone (`tel:`) and WhatsApp (wa.me) of the line, for the phone menu. */
   contact: { phone: { label: string; href: string } | null; whatsapp: string | null }
 }
@@ -28,7 +30,7 @@ type Props = {
  * (`SearchOverlay`) and the inquiry list ("Zapytanie" with its counter, drawer and toast).
  * Below 1080 px the full-screen menu (`MobileMenu`) replaces the desktop navigation (v20).
  */
-export function BiznesHeader({ tenant, navigation, menu, contact }: Props) {
+export function BiznesHeader({ tenant, navigation, menu, industrySlug, contact }: Props) {
   const items = withoutEmptyDropdowns(navigation.menu, { offer: menu.columns.length > 0 })
   return (
     <>
@@ -50,6 +52,7 @@ export function BiznesHeader({ tenant, navigation, menu, contact }: Props) {
                     menu={menu}
                     shortcuts={navigation.shortcuts}
                     cards={navigation.cards}
+                    industry={industrySlug}
                   />
                 ),
               }}

@@ -141,6 +141,8 @@ async function biznesFrameData(
     header: {
       navigation,
       menu: megaMenu(index, navigation),
+      // v20: Branże ▾ is gone; the mega menu links the first active industry page.
+      industrySlug: index.industries.find((industry) => industry.active)?.slug ?? null,
       contact: {
         phone: settings.phone && tel ? { label: settings.phone, href: tel } : null,
         whatsapp: whatsapp ? toWhatsAppHref(whatsapp) : null,

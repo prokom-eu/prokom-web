@@ -82,18 +82,14 @@ test.describe('Biznes header', () => {
     await expect(mainNav(page).getByRole('button', { name: 'Branże' })).toHaveCount(0)
     await mainNav(page).getByRole('button', { name: 'Oferta' }).click()
     await expect(
-      page.getByRole('link', { name: 'Rozwiązania dla branż: gastronomia, handel, hotele →' }),
+      page.getByRole('link', { name: 'Rozwiązania dla branż: gastronomia, handel, hotele' }),
     ).toHaveAttribute('href', '/branze/gastronomia')
   })
 
-  test('top bar: no remote help, "Zgłoś awarię" leads to the contact form', async ({ page }) => {
+  // "Zgłoś awarię" → `#kontakt` on the home page once its form section exists (B7).
+  test('top bar: no remote help, "Zgłoś awarię" leads to the contact page', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
     await expect(page.getByRole('link', { name: 'Pomoc zdalna' })).toHaveCount(0)
-    await expect(page.getByRole('link', { name: 'Zgłoś awarię' })).toHaveAttribute(
-      'href',
-      '#kontakt',
-    )
-    await page.goto(site('biznes.localhost', '/kontakt'))
     await expect(page.getByRole('link', { name: 'Zgłoś awarię' })).toHaveAttribute(
       'href',
       '/kontakt',
