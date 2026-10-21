@@ -31,6 +31,8 @@
   --color-ok: var(--ok);
   --color-ok-text: var(--ok-text);
   --color-warn: var(--warn);
+  --color-promo: var(--promo);
+  --color-promo-ink: var(--promo-ink);
   --color-white: var(--c-white);
 
   --font-*: initial;

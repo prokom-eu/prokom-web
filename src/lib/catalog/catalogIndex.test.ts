@@ -118,6 +118,22 @@ describe('buildCatalogIndex tenant isolation of relations', () => {
   it('keeps a brand shown on this site', () => {
     expect(build({ brand: brand([OTHER_TENANT, TENANT]) }).products[0]!.brand).toBe('marka')
   })
+
+  it('gives a brand its small logo file, and none without a file', () => {
+    const withLogo = {
+      ...brand([TENANT]),
+      url: '/api/partners/file/marka.png',
+      width: 800,
+      height: 200,
+      sizes: { logo: { url: '/api/partners/file/marka-320x80.webp', width: 320, height: 80 } },
+    } as Partner
+    expect(build({ brand: withLogo }).brands[0]!.logo).toEqual({
+      url: '/api/partners/file/marka-320x80.webp',
+      width: 800,
+      height: 200,
+    })
+    expect(build({ brand: brand([TENANT]) }).brands[0]).not.toHaveProperty('logo')
+  })
 })
 
 describe('buildCatalogIndex images', () => {

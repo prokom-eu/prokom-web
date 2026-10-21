@@ -84,6 +84,24 @@ describe.each(cases)('$line, $mode theme', ({ line, mode }) => {
     }
   })
 
+  // Badges and the inquiry switch of the Biznes catalog cards (`ProductCard`): small bold labels, 4.5:1.
+  it('card badge labels reach 4.5:1 on their badges', () => {
+    const pairs: [string, string][] = [
+      ['--surface', '--ok-text'],
+      ['--promo-ink', '--promo'],
+      ['--surface', '--ink'],
+      ['--accent-ink', '--accent-text'],
+      // „W zapytaniu” on hover: remove from the list.
+      ['--warn', '--surface-2'],
+    ]
+    for (const [text, badge] of pairs) {
+      expect(
+        contrastRatio(hex(text, s), hex(badge, s)),
+        `${text} on ${badge}`,
+      ).toBeGreaterThanOrEqual(4.5)
+    }
+  })
+
   // WCAG 1.4.11: a form field must be visible against the field and what surrounds it.
   // `--border` (~1.25:1) is decorative only (ADR-013 point 5).
   it('form field border reaches 3:1 on every surface', () => {

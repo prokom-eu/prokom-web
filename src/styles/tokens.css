@@ -11,6 +11,7 @@
  *   --ink, --ink-2, --ink-3 (text, secondary, tertiary), --border, --glow, --grid
  *   --border-input (form fields, ≥ 3:1 on every surface — WCAG 1.4.11; `--border` is decorative)
  *   --ok, --warn (status dots: open / partner, closed; ≥ 3:1), --ok-text (small green labels)
+ *   --promo, --promo-ink (marketing badge of catalog cards and its label)
  * Contrast is checked by `tokens.test.ts` and `themes.test.ts`.
  */
 
@@ -76,6 +77,12 @@
   --c-warn: #c2410c;
   --c-ok-night: #46c78b;
   --c-warn-night: #f97316;
+
+  /* Marketing badge of the Biznes catalog cards ("Ulga do 700 zł"), the same in both themes. */
+  --c-promo: #f59e0b;
+  --c-promo-ink: #1a1200;
+  --promo: var(--c-promo);
+  --promo-ink: var(--c-promo-ink);
 
   /* No `data-line` (unknown domain, 404): the main PRO-KOM line. */
   --accent: var(--c-prokom);
