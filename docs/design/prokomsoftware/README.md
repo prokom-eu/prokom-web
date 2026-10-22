@@ -59,9 +59,9 @@ Pełna lista i mapa nazw: `tokens.css`. Najważniejsze:
 | `--ink-soft` | `#2E342F` | `#D9DDD8` | tekst półmocny |
 | `--ink-2` = `--ink-3` | `#4F5650` | `#B5BBB5` | tekst opisowy, etykiety |
 | `--border` | `#DCDFD8` | `#2A302B` | obramowania dekoracyjne |
-| `--accent` | `#6E45D4` [SW0] | `#9670EE` | CTA, aktywne, ikony |
+| `--accent` | `#6E45D4` (ADR-015) | `#9670EE` | CTA, aktywne, ikony |
 | `--accent-2` | `#A24BD8` | `#C9A9FF` | gradienty, hover |
-| `--accent-text` | `#5B33C4` [SW0] | `#B39BF5` | eyebrow, linki, liczby |
+| `--accent-text` | `#5B33C4` (ADR-015; też `--c-software-text`) | `#B39BF5` | eyebrow, linki, liczby |
 | `--accent-ink` | `#FFFFFF` | `#121613` | napis na przycisku w akcencie |
 | `--accent-soft` / `--accent-line` | `#ECE7FB` / `#CFC2F5` | `#241E36` / `#4A3C74` | chipy i kafle aktywne / ich obramowanie |
 | `--stage` | `#E9E3FA` | `#1E1A2B` | tło podglądów (mock ekranów) |
@@ -88,12 +88,12 @@ Wszystkie pary tekst/tło z plansz mają ≥ 4,5:1, z wyjątkami poniżej. Test 
   - H1 (`.disp`): waga 900, `font-stretch: 122%`, `letter-spacing: -.025em`, `clamp(42px, 5.2vw, 72px)`, interlinia .98.
   - H2 (`.h2`): 900, `font-stretch: 115%`, `-.02em`, `clamp(32px, 3.8vw, 54px)`, 1.02.
   - Mniejsze tytuły kart: 800–900, `font-stretch` 108–118%.
-  - Fragment H1 (`.grad`) na 5 stronach (główna, katalog, rozwiązanie, branża, kontakt) ma gradient `--accent-text → --accent-2 → #7FD3FF`. **[SW0] rekomendacja: bez niebieskiej końcówki** (ADR-013: kolory linii się nie mieszają, a błękit kojarzy się z Biznesem). Lista miejsc z gradientem: ADR-015 pkt 7.
+  - Fragment H1 (`.grad`) na 5 stronach (główna, katalog, rozwiązanie, branża, kontakt) ma w planszach gradient `--accent-text → --accent-2 → #7FD3FF`. **W kodzie bez niebieskiej końcówki:** `--accent-text → --accent-2 → --accent` (ADR-015, rozstrz. 2). Lista miejsc z gradientem: ADR-015 pkt 7.
 - **Manrope:** tekst.
   - lead: `clamp(17px, 1.4vw, 20px)`, interlinia 1.6, kolor `--ink-2`, max 62ch;
   - treść 15–17 px; przyciski i etykiety 700–800.
 - **Eyebrow** nad sekcją: Manrope 800, wersaliki, 13,5 px, tracking .1em, kolor `--accent-text`.
-- **Fraunces** występuje tylko w mockach podglądów (udawane strony klientów: pensjonat, restauracja). **[SW0] rekomendacja:** w kodzie zamiast niego systemowy szeryf (`Georgia, serif`) — bez trzeciego pobieranego kroju.
+- **Fraunces** występuje tylko w mockach podglądów (udawane strony klientów: pensjonat, restauracja). **W kodzie** zamiast niego systemowy szeryf (`Georgia, 'Times New Roman', serif`) — bez trzeciego pobieranego kroju (ADR-015, rozstrz. 5).
 - Fonty self-hosted (ADR-007), jak na Biznesie (`next/font/local`).
 
 ## Komponenty i miary
@@ -115,13 +115,13 @@ Wszystkie pary tekst/tło z plansz mają ≥ 4,5:1, z wyjątkami poniżej. Test 
 - przy `prefers-reduced-motion: reduce` wszystko wyłączone (plansze tak robią — kopiuj tę regułę).
 
 ## Na co uważać (z doświadczeń przy wizualizacji)
-- **Oczekiwane różnice przy porównaniu zrzutów:** (1) gradient H1 bez błękitnej końcówki (ADR-015); (2) przyciski-linki w jasnym motywie mają w planszach ciemny napis na fiolecie (błąd planszy: `.pk a{color:inherit}` przebija `.btn-p`) — w kodzie zawsze `--accent-ink` (biały).
+- **Oczekiwane różnice przy porównaniu zrzutów** (pełna lista: ADR-015, rozstrz. 8)**:** (1) gradient H1 bez błękitnej końcówki (ADR-015); (2) przyciski-linki w jasnym motywie mają w planszach ciemny napis na fiolecie (błąd planszy: `.pk a{color:inherit}` przebija `.btn-p`) — w kodzie zawsze `--accent-ink` (biały).
 - **Dwa podziały oferty:** katalog ma **5 kategorii** (`Solutions.category`), strona główna **8 obszarów** (`SolutionAreas`, grupowanie marketingowe z chipami). Nie liczymy obszarów z kategorii (ADR-014 §1.2).
 - **Strona główna to jedna responsywna strona.** Zrzuty `Main-390-*` pokazują wygląd przy 390 px (ok. 28 400 px wysokości — długo; nie dokładaj sekcji).
 - **Style interpolacji:** w planszach tekst z danych siedzi w `<span class="sc-interp">`, dlatego wszystkie elementy mają jawne klasy. W Reakcie nie używaj selektorów typu `.x span`.
 - **Kreator:** kolumny wyniku muszą mieć równą wysokość (podgląd rośnie do wysokości lewej kolumny). Kafle potrzeby: 4 w rzędzie na desktopie, 2 na telefonie.
 - **Jasny motyw:** numery w zakończonych krokach kreatora były białe na białym — w kodzie test kontrastu dla stanów `done`.
 - **Na telefonie:** strzałki w kaflach oferty są ukryte (nachodziły na tekst), „Jak robimy” w jednej kolumnie.
-- **`localStorage` tylko dla:** `pk-theme` (motyw), `pk-project` + `pk-project-n` (lista „Twój projekt”). Filtry katalogu i parametry kreatora **tylko w URL**.
+- **`localStorage` tylko dla:** `pk-theme` (motyw), `pk-project` (lista „Twój projekt” jako `{ id, name }` — jeden klucz zamiast `pk-project` + `pk-project-n` z plansz; ADR-014, rozstrz. 9). Filtry katalogu i parametry kreatora **tylko w URL**.
 - **Placeholdery** w nawiasach kwadratowych (`[OD]`, `[TERMIN]`, `[X]`, `[WYNIK]`, `[CZAS]`, `[DATA]`, `[IMIĘ I NAZWISKO]`) to pola w panelu — nie wpisuj w kod żadnych liczb w ich miejsce. Lista: spec. §13.
 - **Nazw konkurencji nie ma na stronie** (porównanie: „freelancer” i „agencja z dużego miasta”). Tak zostaje.

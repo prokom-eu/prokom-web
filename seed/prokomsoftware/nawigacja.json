@@ -172,14 +172,13 @@
       "Bezpłatna wycena",
       "/kontakt"
     ],
-    "phone": "[TELEFON SOFTWARE]"
+    "phone": null
   },
   "projectDrawer": {
     "title": "Twój projekt",
-    "empty": "Na razie pusto. Klikaj „Chcę takie u siebie” przy rozwiązaniach, a tu zbierze się lista. Wycenimy całość naraz.",
+    "empty": "Na razie pusto. Klikaj „+ Do projektu” przy rozwiązaniach, a tu zbierze się lista. Wycenimy całość naraz.",
     "send": "Wyślij do bezpłatnej wyceny →",
-    "clear": "Wyczyść listę",
-    "_uwaga": "Karty mają przycisk „+ Do projektu” / „✓ W projekcie”, a pusty stan mówi o „Chcę takie u siebie” — do ujednolicenia (spec. §13)."
+    "clear": "Wyczyść listę"
   },
   "footer": {
     "about": "Strony, systemy, aplikacje i automatyzacje dla firm. Linia firmy PRO-KOM Tadeusz Wójciak.",
@@ -245,8 +244,6 @@
       {
         "title": "Kontakt",
         "lines": [
-          "[TELEFON SOFTWARE]",
-          "[E-MAIL SOFTWARE]",
           "Rabka-Zdrój · Zakopane · zdalnie w całej Polsce"
         ]
       }

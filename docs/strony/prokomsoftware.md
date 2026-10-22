@@ -48,6 +48,9 @@ Zasady adresów:
 
 ## 3. Elementy wspólne (każda podstrona)
 
+### 3.0 Pasek górny (wszystkie zrzuty, nad nagłówkiem)
+Istniejący `BrandBar` (SW0, D15): po lewej „Linia firmy PRO-KOM · od 2004 r. · Rabka-Zdrój i Zakopane”, po prawej linki do innych linii (PRO-KOM Biznes, Instalacje) i telefon linii z `SiteSettings.phone`. Link „Tech” ukryty, dopóki linia Tech nie ma strony.
+
 ### 3.1 Nagłówek (plansza `Main`, stan `stany/01-menu-oferta.jpg`)
 Kolejność od lewej: znak PRO-KOM Software → **Oferta ▾** → pigułka **Kreator 60 s** → **Darmowy audyt** → **O firmie** → **Aktualności** → **Kontakt** | po prawej: przełącznik motywu → **Twój projekt** (z licznikiem) → przycisk **Bezpłatna wycena**.
 - **Oferta ▾ (mega menu):** 4 kolumny, 12 pozycji:
@@ -58,19 +61,19 @@ Kolejność od lewej: znak PRO-KOM Software → **Oferta ▾** → pigułka **Kr
   - karta „30 rozwiązań” → `/rozwiazania`.
   Dane menu w `SiteSettings.software.navigation` (wzorzec `SiteSettings.biznes` z B3a; seed `nawigacja.json`), nie na sztywno.
 - **Kreator 60 s:** na stronie głównej przewija do `#dobierz`, na podstronach prowadzi do `/dobierz`.
-- **Twój projekt ▾** (`stany/02-twoj-projekt.jpg`): lista rozwiązań dodanych z kart (przycisk „+ Do projektu” → „✓ W projekcie”; toast „Dodano do Twojego projektu” z linkiem „Zobacz projekt →”). Każda pozycja: nazwa, ×. Na dole: „Wyślij do bezpłatnej wyceny →” → `/kontakt?projekt=1` (formularz z pozycjami, typ `list`) i „Wyczyść listę”. Pusta lista: tekst z `nawigacja.json` → `projectDrawer.empty` (do ujednolicenia z nazwą przycisku — §13). Stan w `localStorage`: `pk-project` (lista slugów), `pk-project-n` (nazwy do wyświetlenia bez zapytania do API). Synchronizacja między kartami przez zdarzenie `storage`.
+- **Twój projekt ▾** (`stany/02-twoj-projekt.jpg`): lista rozwiązań dodanych z kart (przycisk „+ Do projektu” → „✓ W projekcie”; toast „Dodano do Twojego projektu” z linkiem „Zobacz projekt →”). Każda pozycja: nazwa, ×. Na dole: „Wyślij do bezpłatnej wyceny →” → `/kontakt?projekt=1` (formularz z pozycjami, typ `list`) i „Wyczyść listę”. Pusta lista: tekst z `nawigacja.json` → `projectDrawer.empty` (ujednolicony do „+ Do projektu”, §13 pkt 20). Stan w `localStorage`: jeden klucz `pk-project` z listą `{ id, name }` (nazwy bez zapytania do API; ADR-014 rozstrz. 9). Synchronizacja między kartami przez zdarzenie `storage`.
 - **Bezpłatna wycena:** → `#kontakt` na stronie głównej, `/kontakt` na podstronach.
 - Przyklejony, tło `--header-bg` z rozmyciem.
 
 ### 3.2 Telefon (`stany/03-menu-telefon.jpg`, zrzuty `*-390-*`)
-- Menu pełnoekranowe na `<dialog>` (jak Biznes B3b), pozycje jak na `stany/03-menu-telefon.jpg`: Kreator · dobierz w 60 s, Pełna oferta (zwykły link do `/rozwiazania`), Darmowy audyt, O firmie, Aktualności, Kontakt, przycisk „Bezpłatna wycena”, [TELEFON SOFTWARE].
+- Menu pełnoekranowe na `<dialog>` (jak Biznes B3b), pozycje jak na `stany/03-menu-telefon.jpg`: Kreator · dobierz w 60 s, Pełna oferta (zwykły link do `/rozwiazania`), Darmowy audyt, O firmie, Aktualności, Kontakt, przycisk „Bezpłatna wycena”, telefon linii (`SiteSettings.phone`).
 - Przełącznik motywu i Twój projekt zostają w nagłówku. Bez dolnego paska (plansza go nie ma).
 
 ### 3.3 Szyna sekcji (tylko strona główna, ≥ 1401 px)
 Pionowa nawigacja po lewej z kropkami i nazwami sekcji: start, oferta, popularne, podglądy, proces, dobierz, technologie, jak-robimy, porównanie, realizacje, faq, kontakt. Aktywna sekcja z `IntersectionObserver`. Poniżej 1400 px ukryta.
 
 ### 3.4 Stopka
-4 kolumny: opis linii („Strony, systemy, aplikacje i automatyzacje dla firm. Linia firmy PRO-KOM Tadeusz Wójciak.”) · Usługi (5 obszarów) · Firma (O firmie, Jedna firma do wszystkiego, Realizacje → `/#realizacje` do czasu etapu 2, Aktualności, Cennik, Darmowy audyt, Rabka-Zdrój) · Kontakt ([TELEFON SOFTWARE], [E-MAIL SOFTWARE], „Rabka-Zdrój · Zakopane · zdalnie w całej Polsce”).
+4 kolumny: opis linii („Strony, systemy, aplikacje i automatyzacje dla firm. Linia firmy PRO-KOM Tadeusz Wójciak.”) · Usługi (5 obszarów) · Firma (O firmie, Jedna firma do wszystkiego, Realizacje → `/#realizacje` do czasu etapu 2, Aktualności, Cennik, Darmowy audyt, Rabka-Zdrój) · Kontakt (telefon i e-mail linii z `SiteSettings.phone` / `SiteSettings.email`, „Rabka-Zdrój · Zakopane · zdalnie w całej Polsce”).
 Pasek dolny: dane firmy z `CompanyData` (PRO-KOM Tadeusz Wójciak · ul. Orkana 16B, 34-700 Rabka-Zdrój · NIP 7352511447), link „Szukasz sprzętu, kas albo KSeF? PRO-KOM Biznes →”, polityka prywatności, mapa strony.
 
 ### 3.5 Motyw
@@ -135,24 +138,24 @@ Jeden komponent w dwóch miejscach. Reguły to **dane** (`kreator.json` → `Sof
    - wiersz „Odświeżenie, program, aplikacja”: Odświeżenie obecnej strony (`odsw`), Program dla firmy (`prog`), Aplikacja (`app`), Automatyzacje (`auto`);
    - pod spodem: „Opisz po swojemu” (`own`) — przechodzi od razu do kroku Opis.
 2. **Szczegóły** — pytanie zależne od potrzeby (`needs[x].q`, opcje `o`): np. „Jaka to firma?” (10 rodzajów firm), dla programu „Co dziś najbardziej przeszkadza?” (zlecenia, klienci, czas pracy, zgłoszenia, Excel), dla odświeżenia: co dziś nie działa (`rebuildIssues`).
-3. **Zakres** — rozmiar (Na start / Standard / Pełna wersja), „mam już stronę” + pole adresu (dla odświeżenia), opcjonalny plik (tylko dla programów: Excel albo dokument; limity §7.3), „na kiedy” (Jak najszybciej / Przed sezonem zimowym / Przed latem / Bez pośpiechu).
+3. **Zakres** — rozmiar (Na start / Standard / Pełna wersja), „mam już stronę” + pole adresu (dla odświeżenia), dla programów zdanie „Plik możesz dosłać mailem po kontakcie” (bez pola pliku — §7.3), „na kiedy” (Jak najszybciej / Przed sezonem zimowym / Przed latem / Bez pośpiechu).
 4. **Opis** — pole tekstowe + gotowe frazy do kliknięcia (`phrases`).
 5. **Wynik** — dwie kolumny o **równej wysokości**:
    - lewa: rekomendowane rozwiązanie (`mapping` → `results` → `resultToSolutionSlug`), przełącznik rozmiaru, cena „od” dla rozmiaru (`Solutions.prices[rozmiar]`, puste → `priceDisplay.fallback`) i termin, notka do „na kiedy” (`whenNotes`), „Co będzie potrzebne” (checklista `needsChecklist`), „Twoje potrzeby”, „Twój wybór”;
-   - prawa: podgląd projektu (rośnie do wysokości lewej kolumny; marka podglądu z `previewBrands` dla rodzaju firmy, widoki systemu z `systemViews`, akcje automatyzacji z `automationActions`) + „Chcesz wycenę na piśmie?”: sposób kontaktu (Telefon / E-mail / Spotkanie w salonie / Online), pole kontaktu, zgoda, „Wyślij”;
+   - prawa: podgląd projektu (rośnie do wysokości lewej kolumny; marka podglądu z `previewBrands` dla rodzaju firmy, widoki systemu z `systemViews`, akcje automatyzacji z `automationActions`) + „Chcesz wycenę na piśmie?”: sposób kontaktu (Telefon / E-mail / Spotkanie w salonie / Online), **„Imię”**, pole kontaktu, **checkbox zgody** (oba spoza planszy — SW0, ADR-014 rozstrz. 6), „Wyślij”;
    - po wysłaniu: stan „Wysłane” z numerem zgłoszenia.
 - **Stan początkowy podglądu:** „Tu zobaczysz swój projekt” z 4 pływającymi mini-kartami (wyłączone przy `prefers-reduced-motion`).
-- **Wysyłka:** `submitInquiry()` z `type: 'wizard'`, `wizard` = pełny stan (potrzeba, szczegóły, rozmiar, kiedy, opis, wynik), `preferredContact` (mapowanie `contactPrefs[].inquiryValue`), `url` (jeśli podany), plik (jeśli dodany).
+- **Wysyłka:** `submitInquiry()` z `type: 'wizard'`, `wizard` = pełny stan (potrzeba, szczegóły, rozmiar, kiedy, opis, wynik), `preferredContact` (mapowanie `contactPrefs[].inquiryValue`), `url` (jeśli podany); `message` składa serwer z podsumowania kreatora.
 - **Parametry URL:** `?potrzeba=` i `?firma=` ustawiają kroki 1–2 (używają ich strony branż).
 - Mapowanie potrzeba → wynik (z `kreator.json`): `firm` + nocleg → strona dla pensjonatu; `firm` + gastro → restauracja; `firm` + inne → firmowa; `rozb` → rozbudowana; `wiz` → wizytówka; `land` → landing; `odsw` → przebudowa; `prog` + zlecenia/klienci/czas/zgłoszenia/Excel → odpowiedni system; `app` → aplikacja; `auto` → automatyzacje; `own` → bez rekomendacji, tylko formularz.
 
 ### 6.4 Cennik `/cennik` (plansza `Cennik`)
 H1 „Ceny bez gwiazdek. Na piśmie.” → cennik rozwiązań z zakładkami obszarów (te same dane co katalog) → opieka po wdrożeniu: 3 poziomy (Podstawowa, Standard „Polecamy”, Systemy) z [OD] zł/mies., czasem reakcji [X] h i zakresem → „Tego nie dopłacasz” (SEO i AI, panel i szkolenie, wersja testowa co tydzień, własność kodu i danych, dokumentacja, szybkość w protokole) → FAQ o cenach → CTA kreator/kontakt.
-Wartości poziomów opieki = [SZEF]. Do decyzji szefa cennik **nie jest publikowany** (strona w szkicu), a `/cennik` przekierowuje (302) na `/kontakt` — wtedy wszystkie linki (mega menu, stopka, kafel Opieka, FAQ) działają bez zmian w kodzie.
+Wartości poziomów opieki = [SZEF]; są polami bloku cennika (nie faktami). **Cennik publikujemy od startu** (SW0, D11): rozwiązania bez ceny pokazują „cena po rozmowie” (zasada 1), a tabela poziomów opieki jest ukryta, dopóki szef nie poda wartości. Bez przekierowania 302.
 
 ### 6.5 Darmowy audyt `/audyt` (plansza `Audyt`)
-H1 „Sprawdzimy Twoją stronę. Za darmo.” → pole adresu + e-mail/telefon + zgoda → stan „Przyjęte. Raport dla {adres} wyślemy w ciągu [CZAS].” → przykład raportu (5 obszarów: szybkość, telefon, Google i AI, bezpieczeństwo, dostępność) → „Co sprawdzamy” (5 kart) → „Trzy kroki. Zero zobowiązań.” → FAQ → CTA „Wolisz od razu nową stronę?”.
-- Wysyłka: `type: 'audit'`, pole `auditUrl` (walidacja: http/https, domena), bez pobierania tej strony przez serwer (audyt robi człowiek; automatyzacja = etap 2).
+H1 „Sprawdzimy Twoją stronę. Za darmo.” → pole adresu + **„Imię”** + e-mail/telefon + **checkbox zgody** (imię i checkbox spoza planszy — SW0, ADR-014 rozstrz. 6) → stan „Przyjęte. Raport dla {adres} wyślemy w ciągu [CZAS].” → przykład raportu (5 obszarów: szybkość, telefon, Google i AI, bezpieczeństwo, dostępność) → „Co sprawdzamy” (5 kart) → „Trzy kroki. Zero zobowiązań.” → FAQ → CTA „Wolisz od razu nową stronę?”.
+- Wysyłka: `type: 'audit'`, pole `auditUrl` (walidacja: http/https, domena), `message` składa serwer („Audyt strony: <adres>”), bez pobierania tej strony przez serwer (audyt robi człowiek; automatyzacja = etap 2).
 - Zdanie o dostępności: „Od 28.06.2025 część usług cyfrowych musi to spełniać” — sprawdzić brzmienie z ustawą o zapewnianiu spełniania wymagań dostępności (§13).
 
 ### 6.6 O firmie `/o-firmie` (plansza `ONas`)
@@ -186,8 +189,8 @@ Polityka prywatności (wspólna treść z Biznesem, `TODO(krystian)` z S8b), map
 |---|---|---|---|---|
 | Kontakt (główna, `/kontakt`) | temat (Strona, System lub panel, Aplikacja mobilna, Rozbudowa, Opieka lub ratunek, Audyt), opis, imię i firma, e-mail albo telefon, zgoda | `contact` (`topics`) | `Inquiries`, linia `software` | `software@pro-kom.eu` (+ kopia szefa — §13) |
 | Twój projekt (`/kontakt?projekt=1`) | jak wyżej + pozycje (nazwy i slugi rozwiązań) | `list` (`items[]` z `nameSnapshot`, opcjonalnie relacja `solution`) | jw. | jw. |
-| Kreator | stan kreatora, opis, sposób kontaktu, kontakt, zgoda, opcjonalnie plik i adres strony | `wizard` | jw. | jw. |
-| Audyt | adres strony, e-mail albo telefon, zgoda | `audit` (nowy) | jw. | jw. |
+| Kreator | stan kreatora, opis, sposób kontaktu, imię, kontakt, zgoda, opcjonalnie adres strony | `wizard` | jw. | jw. |
+| Audyt | adres strony, imię, e-mail albo telefon, zgoda | `audit` (nowy) | jw. | jw. |
 
 ### 7.1 Zasady wspólne
 - Wszystko przez `submitInquiry()` i `POST /api/inquiry` (ADR-003): honeypot, podpisany token, limit, maile, retencja. Numer `PKS-RRRR-NNNN` (jest od B1b).
@@ -198,15 +201,14 @@ Polityka prywatności (wspólna treść z Biznesem, `TODO(krystian)` z S8b), map
 ### 7.2 Ekrany sukcesu
 „Dziękujemy, mamy to. Zgłoszenie PKS-RRRR-NNNN. Odezwiemy się w ciągu [CZAS ODPOWIEDZI].” + „Wyślij kolejne”. Kreator: stan „Wysłane” w prawej kolumnie wyniku.
 
-### 7.3 Plik w kreatorze (opcjonalny, tylko „Program dla firmy”)
-- Typy: `.xlsx`, `.xls`, `.csv`, `.pdf`, `.docx`; maks. 10 MB; 1 plik.
-- Prywatny magazyn (nie publiczne `Media`): kolekcja `InquiryFiles` (ADR-014 §3), dostęp tylko admin, usuwany razem ze zgłoszeniem (retencja ADR-003).
-- Jeśli to opóźnia etap 1: **plik wypada**, w kreatorze zostaje zdanie „Plik możesz dosłać mailem po kontakcie”. To pierwsza rzecz do cięcia.
+### 7.3 Plik w kreatorze — poza etapem 1 (SW0, D7)
+- W etapie 1 **nie ma pola pliku**; przy „Program dla firmy” kreator mówi: „Plik możesz dosłać mailem po kontakcie”.
+- Powód: prywatny magazyn plików (`InquiryFiles`, ADR-014 §3.2) to nowy katalog poza `Media`, kopie, retencja i testy. Wraca jako osobne zadanie, jeśli zgłoszenia o programy będą tego wymagać (wtedy: `.xlsx`, `.xls`, `.csv`, `.pdf`, `.docx`, maks. 10 MB, 1 plik, dostęp tylko admin).
 
 ## 8. Zachowania techniczne
 
 ### 8.1 „Twój projekt”
-Store jak `pk-cart` z Biznesu (`useSyncExternalStore`), osobne klucze `pk-project`, `pk-project-n`. Toast „Dodano do projektu” z akcją „Zobacz”. Maks. 30 pozycji.
+Wspólny `createListStore(key, parse)` wydzielony ze store'u `pk-cart` Biznesu (`useSyncExternalStore`), jeden klucz `pk-project` z `{ id, name }` (ADR-014 rozstrz. 9). Toast „Dodano do projektu” z akcją „Zobacz”. Maks. 30 pozycji.
 
 ### 8.2 Wyszukiwarka katalogu
 `lib/search.ts` (Biznes B4) z indeksem `GET /api/solutions-index` (tylko domena Software, tag `solutions`, < 30 KB gzip). Synonimy startowe w `SoftwareSettings.search` (np. „excel” → z Excela do systemu; „grafik” → zlecenia, czas pracy; „rezerwacje” → hotel, rezerwacje online).
@@ -270,7 +272,7 @@ Budżet jak w S10 (Lighthouse CI). Animacje tylko `transform`/`opacity`. Makiety
 2. Poziomy opieki: nazwy, ceny miesięczne, czas reakcji (`[X] h`), zakres.
 3. Zasady płatności po etapach (`[ZASADY PŁATNOŚCI]`, `[ZALICZKA]`).
 4. Czas odpowiedzi na zgłoszenie (`[CZAS ODPOWIEDZI]`) i na audyt (`[CZAS]`).
-5. Telefon, e-mail i godziny linii Software (`[TELEFON SOFTWARE]`, `[E-MAIL SOFTWARE]`, `[GODZINY]`).
+5. Telefon, e-mail i godziny linii Software (`SiteSettings.phone`, `SiteSettings.email`, `[GODZINY]`).
 6. Adres salonu w Zakopanem.
 7. Osoba z obsługi klienta na stronie O firmie (imię, nazwisko, zdjęcie — zgoda).
 8. Kto dostaje kopię powiadomień o zgłoszeniach Software.
@@ -288,11 +290,11 @@ Budżet jak w S10 (Lighthouse CI). Animacje tylko `transform`/`opacity`. Makiety
 16. Nazwy linii PRO-KOM („Serwis” vs „Tech”) na `/o-firmie` i `/jedna-firma` — zgodnie z `docs/marka.md`.
 17. „100+ klientów biznesowych” i „od 2004 r.” — potwierdzone przez szefa (są w danych firmy).
 
-**Klucze faktów:** wszystkie placeholdery z tekstów są w `seed/prokomsoftware/fakty.json` (wartość = null). Uzupełnienie = wpis w panelu (`SiteSettings.software.facts`).
+**Klucze faktów:** wszystkie placeholdery z tekstów są w `seed/prokomsoftware/fakty.json` (wartość = null); jeden klucz = jedna wartość w całej stronie (ADR-014 rozstrz. 4: `[CZAS PIERWSZEGO ETAPU]`, `[OPIEKA OD]`; `{termin}` w tekstach rozwiązania = jego `leadTime`). Telefon i e-mail linii nie są faktami — `SiteSettings.phone` / `email`. Uzupełnienie = wpis w panelu (`SiteSettings.software.facts`).
 
-**Poprawki tekstów z plansz (do decyzji Krystiana w SW0 — reguła 7 mówi „bez zmian”, więc tylko po decyzji):**
+**Poprawki tekstów z plansz — przyjęte w SW0 (22.10.2026, D13), wszystkie wg propozycji.** W kodzie obowiązuje tekst po poprawce; teksty z seeda poprawione w SW0, pozostałe (hero, eyebrow podglądów) przenosi sesja, która buduje sekcję. Przy porównaniu zrzutów to oczekiwane różnice:
 18. Hero: „zdalnie cała Polska” → „zdalnie w całej Polsce”.
-19. Eyebrow podglądów: „tego nie ma nikt na Podhalu” — nie do sprawdzenia (zasada 5); proponuję „Podglądy na żywo · zanim zapłacisz”.
-20. Pusta szuflada „Twój projekt” mówi o przycisku „Chcę takie u siebie”, a karty mają „+ Do projektu” — ujednolicić na „+ Do projektu”.
-21. FAQ rozwiązania: „Najstarszy użytkownik naszego systemu serwisowego ma [WIEK] lat” — tylko z prawdziwą wartością albo usunąć zdanie.
-22. Realizacje: opis prokombiznes.pl wspomina „porównywarkę” — porównywarka kas jest w listopadowym etapie Biznesu; poprawić, jeśli jej nie będzie przy publikacji Software.
+19. Eyebrow podglądów: „tego nie ma nikt na Podhalu” (nie do sprawdzenia, zasada 5) → „Podglądy na żywo · zanim zapłacisz”.
+20. Pusta szuflada „Twój projekt”: „Chcę takie u siebie” → „+ Do projektu” (jak na kartach).
+21. FAQ rozwiązania: zdanie „Najstarszy użytkownik naszego systemu serwisowego ma [WIEK] lat” usunięte.
+22. Realizacje: opis prokombiznes.pl bez „porównywarki” (listopadowy etap Biznesu) i bez liczby produktów, która się zmienia (katalog v2): „Katalog sprzętu i programów z wyszukiwarką, filtrami i listą zapytań ofertowych.”

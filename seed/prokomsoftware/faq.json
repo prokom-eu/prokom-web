@@ -2,7 +2,7 @@
  "homeFaq": [
   {
    "q": "Ile to kosztuje, także co miesiąc?",
-   "a": "Każde rozwiązanie ma cenę „od”, a dokładną kwotę za stały zakres dostajesz na piśmie po krótkiej rozmowie. Utrzymanie: serwer w Polsce, kopie i aktualizacje od [OD] zł miesięcznie. Bez opieki płacisz tylko za serwer i domenę."
+   "a": "Każde rozwiązanie ma cenę „od”, a dokładną kwotę za stały zakres dostajesz na piśmie po krótkiej rozmowie. Utrzymanie: serwer w Polsce, kopie i aktualizacje od [OPIEKA OD] zł miesięcznie. Bez opieki płacisz tylko za serwer i domenę."
   },
   {
    "q": "Ile to trwa?",
@@ -32,7 +32,7 @@
   },
   {
    "q": "Czy pracownicy to ogarną?",
-   "a": "Ekran ma trzy przyciski. Szkolimy ekipy na ich własnych zleceniach, godzina wystarcza. Najstarszy użytkownik naszego systemu serwisowego ma [WIEK] lat."
+   "a": "Ekran ma trzy przyciski. Szkolimy ekipy na ich własnych zleceniach, godzina wystarcza."
   },
   {
    "q": "Musi być w App Store?",
@@ -44,7 +44,7 @@
   },
   {
    "q": "Ile to kosztuje i kiedy płacę?",
-   "a": "Cena „od” jest wyżej, dokładna na piśmie po jednej rozmowie. Płacisz po odbiorze każdego etapu, pierwszy pracuje po [TERMIN]."
+   "a": "Cena „od” jest wyżej, dokładna na piśmie po jednej rozmowie. Płacisz po odbiorze każdego etapu, pierwszy pracuje po [CZAS PIERWSZEGO ETAPU]."
   }
  ]
 }

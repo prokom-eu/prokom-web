@@ -1,6 +1,6 @@
 # ADR-015: Wygląd prokomsoftware.pl z wizualizacji — kolory, motyw ciemny, gradient
 
-- **Status:** proponowana (18.10.2026) — do przyjęcia w SW0
+- **Status:** przyjęta (22.10.2026, SW0) — rozstrzygnięcia na końcu
 - **Data:** 2026-10-18
 - **Decyduje:** Krystian
 - **Rozszerza:** ADR-013 (mechanizm tokenów neutralnych per linia i motywu ciemnego). **Doprecyzowuje dla Software** pkt 3 (kolor interfejsu może być ciemniejszą pochodną koloru linii; znak bez zmian) i pkt 4 (lista miejsc z gradientem — niżej). Po przyjęciu dopisać odsyłacz w ADR-013.
@@ -54,5 +54,12 @@ Wyjątki do pilnowania testem są w README wzorca (sekcja „Kontrast”).
 - SW1 = tokeny + motyw + test kontrastu, bez zmian w komponentach Biznesu.
 - Oczekiwane różnice przy porównaniu zrzutów w PR: gradient H1 bez błękitnej końcówki, biały napis na przyciskach-linkach w jasnym motywie.
 
-## Rozstrzygnięcia (SW0)
-_Do uzupełnienia przez Krystiana w SW0: opcja akcentu, gradient H1, `--glow-2`, gradienty obszarów, Fraunces._
+## Rozstrzygnięcia (SW0, Krystian 22.10.2026)
+1. **Akcent w jasnym motywie: opcja B** (D1). `--accent` `#6E45D4` (biały napis 6,06), `--accent-text` `#5B33C4` (7,73 na białym, 7,06 na papierze). Do tego **`--c-software-text` = `#5B33C4`** zamiast `#7E58CD` — jeden odcień tekstu Software na wszystkich stronach (dziś token używa tylko test). Znak i pliki `public/brand/` bez zmian (`#8B61E3`). Ciemny motyw: `#9670EE` / `#B39BF5` jak w `tokens.css`.
+2. **Gradient H1 bez błękitu** (D2): `--grad-h1` = `--accent-text → --accent-2 → --accent`, tylko na 5 stronach z pkt 7.
+3. **`--glow-2` fioletowa** (D3), jak rekomendacja w `tokens.css`.
+4. **Gradienty 8 obszarów, kafli intencji i kart rozwiązań zostają wielobarwne** (D4) — wyłącznie jako tło kafla ikony lub miniatury karty, nigdy tekst ani przycisk; pary kolorów jako tokeny `--grad-area-<key>` (wartości z `obszary.json`), tak jak gradienty grup katalogu Biznesu.
+5. **Fraunces → `Georgia, 'Times New Roman', serif`** w makietach podglądów (D5). Marka zostaje przy dwóch krojach.
+6. Pkt 8 decyzji (biały napis na przyciskach-linkach) i pkt 9 (test kontrastu z wyjątkami z README) bez zmian.
+7. **Ikony:** wspólny zestaw z Biznesem, przy kolizji nazw rysunek Biznesu (ADR-014, rozstrz. 8) — oczekiwana różnica przy porównaniu zrzutów.
+8. **Oczekiwane różnice przy porównaniu zrzutów** (pełna lista): gradient H1 bez błękitnej końcówki; biały napis na przyciskach-linkach w jasnym motywie; rysunki 11 ikon; pole „Imię” i checkbox zgody w wyniku kreatora i na `/audyt` (ADR-014, rozstrz. 6); brak pola pliku w kreatorze; poprawione teksty ze spec. §13 pkt 18–22.
