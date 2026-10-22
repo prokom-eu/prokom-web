@@ -25,7 +25,7 @@ export type SeedCategory = {
   kolejnosc: number
 }
 export type SeedIndustry = { slug: string; nazwa: string; aktywna: boolean; kreator: string }
-export type SeedBrand = { nazwa: string; slug: string }
+export type SeedBrand = { nazwa: string; slug: string; logo?: string | null }
 export type SeedProduct = {
   slug: string
   nazwa: string
@@ -44,6 +44,18 @@ export type SeedProduct = {
   parametry_kasy?: Record<string, string> | null
   typ_kasy?: string[] | null
   wyrozniony_na_glownej?: boolean | null
+  // katalog v2 (ZMIANY-katalog-v2 §2)
+  podkategoria?: string | null
+  galeria?: string[] | null
+  warianty?: string[] | null
+  zrodla?: {
+    strona_producenta?: string[] | null
+    karty_pdf?: string[] | null
+    sprawdzono?: string | null
+  } | null
+  partia?: number | null
+  status_tresci?: string | null
+  id_z_arkusza?: string[] | null
 }
 export type SeedCatalog = {
   grupy: SeedGroup[]
@@ -54,6 +66,8 @@ export type SeedCatalog = {
   kolejnosc_wyroznionych: string[]
 }
 export type SeedMediaFile = { plik: string; rola: string; klucz: string; wymagaZgody: boolean }
+/** `seed/prokombiznes/media-produkty-v2.json`: product galleries of katalog v2. */
+export type SeedGalleryFile = { plik: string; rola: string; produkt: string; zrodlo: string }
 export type SeedSearch = {
   synonimy: Record<string, string[]>
   stop_slowa: string[]
@@ -77,11 +91,13 @@ export const CATEGORY_SLUGS: Record<string, string> = {
   mob: 'kasoterminale-mobilne',
   term: 'terminale-platnicze',
   kiosk: 'kioski-ekrany-kuchenne',
-  akc: 'akcesoria-pos-wagi',
+  akc: 'akcesoria-pos',
+  wagi: 'wagi-sklepowe',
+  kody: 'skanery-kolektory-etykiety',
   komp: 'komputery-monitory',
   podpis: 'podpis-kwalifikowany',
   serwis: 'serwis-przeglady',
-  vend: 'maszyny-vendingowe',
+  vend: 'automaty-vendingowe',
   serw: 'serwery-nas-ups',
   mfp: 'drukarki-wielofunkcyjne',
   av: 'ekrany-projektory',
@@ -92,6 +108,15 @@ export const CATEGORY_SLUGS: Record<string, string> = {
   ochr: 'antywirus-firewall',
   it: 'opieka-it-wdrozenia',
   dof: 'dofinansowania',
+}
+
+/**
+ * Addresses a category had before katalog v2 (22.10.2026), so the import finds it in a local
+ * database seeded earlier and renames it instead of adding a second one.
+ */
+export const PREVIOUS_CATEGORY_SLUGS: Record<string, string[]> = {
+  'akcesoria-pos': ['akcesoria-pos-wagi'],
+  'automaty-vendingowe': ['maszyny-vendingowe'],
 }
 
 export const INDUSTRY_SLUGS: Record<string, string> = {
@@ -109,6 +134,13 @@ const KINDS: Record<string, Product['kind']> = {
   program: 'software',
   usluga: 'service',
 }
+
+const CONTENT_STATUSES: Record<string, Product['contentStatus']> = {
+  gotowe: 'ready',
+  'do-sprawdzenia': 'needs-review',
+}
+
+const BATCHES: Record<string, NonNullable<Product['batch']>> = { 0: '0', 1: '1', 2: '2' }
 
 const REGISTER_TYPES: Record<string, NonNullable<Product['registerTypes']>[number]> = {
   mob: 'mobile',
@@ -205,10 +237,17 @@ function ref(lookup: (key: string) => number | undefined, key: string, what: str
 }
 
 /**
- * Image files of a product: its `zdjecie`, then other product files of the package keyed by
- * the product's short id (e.g. the scale `waga`, the second Stormshield photo).
+ * Image files of a product. Katalog v2: its `galeria` (`produkty/<slug>/…`, the first is the
+ * card photo). A product without a gallery (services) keeps the design files: its `zdjecie`,
+ * then other product files keyed by the short id (e.g. the second Stormshield photo).
  */
 export function productImageFiles(product: SeedProduct, files: SeedMediaFile[]): string[] {
+  if (product.galeria?.length) return [...new Set(product.galeria)]
+  return designImageFiles(product, files)
+}
+
+/** Files of the design package (`media.json`) that belong to a product. */
+function designImageFiles(product: SeedProduct, files: SeedMediaFile[]): string[] {
   const keyed = files
     .filter((file) => file.rola === 'produkt' && file.klucz === product.slug)
     .map((file) => file.plik)
@@ -221,40 +260,112 @@ export function productData(
   files: SeedMediaFile[],
   refs: ProductRefs,
 ) {
-  const comparison = product.parametry_kasy
-    ? Object.fromEntries(
-        Object.entries(product.parametry_kasy).map(([key, value]) => [
-          mapped(COMPARISON_KEYS, key, 'register parameter'),
-          value,
-        ]),
-      )
-    : undefined
+  // Every key, empty ones as null: an update clears parameters the package dropped.
+  const comparison = Object.fromEntries([
+    ...Object.values(COMPARISON_KEYS).map((key) => [key, null] as const),
+    ...Object.entries(product.parametry_kasy ?? {}).map(
+      ([key, value]) => [mapped(COMPARISON_KEYS, key, 'register parameter'), value] as const,
+    ),
+  ])
   const featuredIndex = catalog.kolejnosc_wyroznionych.indexOf(product.slug)
   const featured = Boolean(product.wyrozniony_na_glownej)
   const images = productImageFiles(product, files).map((file) => ref(refs.image, file, 'image'))
+  const sources = product.zrodla
+  // Seed-owned fields are always written (null = none), so an update clears what the package
+  // dropped. Panel-only fields (description, specs, hotspots, FAQ…) are not in this object.
   return {
     name: product.nazwa,
     slug: slugFromName(product.nazwa),
-    legacyId: product.slug,
+    legacyIds: productLegacyIds(product),
     kind: mapped(KINDS, product.rodzaj, 'product kind'),
     brand: ref(refs.brand, product.marka, 'brand'),
     categories: [ref(refs.category, product.kategoria, 'category')],
+    subcategory: text(product.podkategoria) ?? null,
     industries: (product.branze ?? []).map((slug) => ref(refs.industry, slug, 'industry')),
-    ...(text(product.korzysc) && { benefit: text(product.korzysc) }),
+    benefit: text(product.korzysc) ?? null,
     features: product.cechy ?? [],
-    ...(text(product.odznaka) && { badge: text(product.odznaka) }),
-    ...(text(product.slowa_kluczowe) && { keywords: text(product.slowa_kluczowe) }),
-    ...(images.length > 0 && { images }),
+    badge: text(product.odznaka) ?? null,
+    keywords: text(product.slowa_kluczowe) ?? null,
+    images,
+    variants: product.warianty ?? [],
+    sources: {
+      productPages: [...new Set(sources?.strona_producenta ?? [])],
+      datasheets: [...new Set(sources?.karty_pdf ?? [])],
+      checkedAt: seedDate(sources?.sprawdzono),
+    },
+    contentStatus: product.status_tresci
+      ? mapped(CONTENT_STATUSES, product.status_tresci, 'content status')
+      : 'ready',
+    batch: product.partia == null ? null : mapped(BATCHES, String(product.partia), 'batch'),
     isNew: Boolean(product.nowosc),
     authorized: Boolean(product.autoryzacja),
     popularity: product.popularnosc ?? 50,
     registerTypes: (product.typ_kasy ?? []).map((type) =>
       mapped(REGISTER_TYPES, type, 'register type'),
     ),
-    ...(comparison && { comparison }),
+    comparison,
     featured,
-    ...(featured && featuredIndex >= 0 && { featuredOrder: featuredIndex }),
+    featuredOrder: featured && featuredIndex >= 0 ? featuredIndex : null,
   }
+}
+
+/** A date of the package (`2026-10-23`) as Payload returns it, so a re-run sees no change. */
+function seedDate(value: string | null | undefined): string | null {
+  if (!value) return null
+  const date = new Date(value)
+  if (Number.isNaN(date.getTime())) throw new Error(`Seed: invalid date "${value}".`)
+  return date.toISOString()
+}
+
+/**
+ * Data to update an existing product with. Fields a person sets after checking the content
+ * (`contentStatus`, `sources.checkedAt`) only move forward from the package — „Gotowe” or a
+ * check date replace the stored value, while „Do sprawdzenia” or no date never undo what
+ * was set in the panel. Everything else comes from the package.
+ */
+export function productUpdateData(
+  data: ReturnType<typeof productData>,
+  stored: Pick<Product, 'contentStatus' | 'sources'>,
+): ReturnType<typeof productData> {
+  return {
+    ...data,
+    contentStatus: data.contentStatus === 'ready' ? 'ready' : stored.contentStatus,
+    sources: {
+      ...data.sources,
+      checkedAt: data.sources.checkedAt ?? stored.sources?.checkedAt ?? null,
+    },
+  }
+}
+
+/** Keys the import finds a product by: the seed short id, then the ids of the source sheet. */
+export function productLegacyIds(product: SeedProduct): string[] {
+  return [...new Set([product.slug, ...(product.id_z_arkusza ?? [])])]
+}
+
+/**
+ * Whether a stored document already has these values (depth 0: relations are ids). Empty
+ * values (null, undefined) are equal, and keys the data does not set are ignored — so the
+ * import updates a record only when the package changed it, without new versions every run.
+ */
+export function hasSameValues(stored: object, data: object): boolean {
+  const record = stored as Record<string, unknown>
+  return Object.entries(data).every(
+    ([key, value]) => JSON.stringify(comparable(record[key])) === JSON.stringify(comparable(value)),
+  )
+}
+
+function comparable(value: unknown): unknown {
+  if (value === null || value === undefined) return undefined
+  if (Array.isArray(value)) return value.map(comparable)
+  if (typeof value === 'object') {
+    return Object.fromEntries(
+      Object.entries(value)
+        .map(([key, item]) => [key, comparable(item)] as const)
+        .filter(([, item]) => item !== undefined)
+        .sort(([a], [b]) => a.localeCompare(b)),
+    )
+  }
+  return value
 }
 
 // --- media ---
@@ -294,6 +405,14 @@ const ALT_BY_FILE: Record<string, string> = {
   'p-ubiquiti-unifi.webp': 'Ubiquiti UniFi',
   'p-projektor.webp': 'Projektor',
   'p-sunmi-all-in-one.webp': 'Sunmi — komputer POS all-in-one',
+  // Card photos of v20 replaced by katalog v2 galleries (still used by the home page and menu).
+  'p-stormshield-urzadzenie.webp': 'Firewall Stormshield',
+  'p-dell-poweredge-rack.webp': 'Serwer Dell PowerEdge (rack)',
+  'p-dell-poweredge-tower.webp': 'Serwer Dell PowerEdge (wieża)',
+  'p-lenovo-laptop.webp': 'Lenovo ThinkBook 14 Gen 6',
+  'p-gopos-zestaw.webp': 'Zestaw GoPOS',
+  'p-fawag-box.webp': 'Fawag Box Online',
+  'p-sunmi-drukarka-bonow.webp': 'Drukarka bonów Sunmi NT311',
 }
 
 /**
@@ -305,7 +424,7 @@ const ALT_BY_FILE: Record<string, string> = {
 export function mediaData(file: SeedMediaFile, products: SeedProduct[]) {
   const product =
     file.rola === 'produkt'
-      ? products.find((item) => productImageFiles(item, [file]).includes(file.plik))
+      ? products.find((item) => designImageFiles(item, [file]).includes(file.plik))
       : undefined
   const alt =
     ALT_BY_FILE[file.plik] ??
@@ -316,6 +435,44 @@ export function mediaData(file: SeedMediaFile, products: SeedProduct[]) {
     source: `${file.rola} — plik z wizualizacji (17.10.2026), prawo użycia do potwierdzenia`,
     requiresConsent: file.wymagaZgody,
   }
+}
+
+/** File name Payload stores for a gallery file (`produkty/jota/jota-01.webp` → `jota-01.webp`). */
+export function galleryFileName(file: string): string {
+  return file.slice(file.lastIndexOf('/') + 1)
+}
+
+/**
+ * `Media` fields of a katalog v2 gallery file: `alt` = product name (with the photo number
+ * after the first), `source` = where the file came from (`zrodlo`).
+ * TODO(krystian): confirm the right to use producers' photos before production.
+ */
+export function galleryMediaData(file: SeedGalleryFile, products: SeedProduct[]) {
+  const product = products.find((item) => item.slug === file.produkt)
+  if (!product) throw new Error(`Seed: gallery file "${file.plik}" of unknown product.`)
+  const position = (product.galeria ?? []).indexOf(file.plik) + 1
+  return {
+    alt: position > 1 ? `${product.nazwa} — zdjęcie ${position}` : product.nazwa,
+    source: `${file.zrodlo} — katalog v2 (22.10.2026), prawo użycia do potwierdzenia`,
+    requiresConsent: false,
+  }
+}
+
+/**
+ * Logo file of a brand: from the design package (`media.json`, role `logo marki`), otherwise
+ * the katalog v2 file in `seed/prokombiznes/media/`. No SVG — `Partners` takes only bitmaps,
+ * so such a brand shows its name as text.
+ */
+export function brandLogoFile(
+  brand: SeedBrand,
+  designFiles: SeedMediaFile[],
+): { from: 'design' | 'seed'; file: string } | null {
+  const design = designFiles.find(
+    (file) => file.rola === 'logo marki' && file.klucz === brand.nazwa,
+  )
+  if (design) return { from: 'design', file: design.plik }
+  if (brand.logo && !brand.logo.endsWith('.svg')) return { from: 'seed', file: brand.logo }
+  return null
 }
 
 // --- settings ---

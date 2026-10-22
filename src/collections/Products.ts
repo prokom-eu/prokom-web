@@ -3,7 +3,14 @@ import type { CollectionConfig, Field } from 'payload'
 import { restrictedRichTextEditor } from '../blocks/RichText/config'
 import { adminOnly } from '../lib/auth/access'
 import { catalogRevalidationHooks } from '../lib/catalog/revalidate'
-import { ICON_OPTIONS, PRODUCT_KINDS, REGISTER_TYPES } from '../lib/catalog/options'
+import {
+  CONTENT_BATCHES,
+  CONTENT_STATUSES,
+  ICON_OPTIONS,
+  PRODUCT_KINDS,
+  REGISTER_TYPES,
+} from '../lib/catalog/options'
+import { validateHttpUrls } from '../lib/catalog/sources'
 import {
   brandFilter,
   faqArray,
@@ -45,7 +52,7 @@ export const Products: CollectionConfig = {
   labels: { singular: 'Produkt', plural: 'Produkty' },
   admin: {
     useAsTitle: 'name',
-    defaultColumns: ['name', 'brand', 'categories', '_status', 'updatedAt'],
+    defaultColumns: ['name', 'brand', 'categories', 'contentStatus', '_status', 'updatedAt'],
     group: 'Katalog',
   },
   access: {
@@ -98,6 +105,15 @@ export const Products: CollectionConfig = {
               admin: { description: 'Pierwsza jest główna (okruszki, „Podobne”).' },
             },
             {
+              name: 'subcategory',
+              label: 'Podkategoria',
+              type: 'text',
+              admin: {
+                description:
+                  'Filtr wewnątrz kategorii (np. „Szuflady kasowe”). Ta sama pisownia w całej kategorii.',
+              },
+            },
+            {
               name: 'industries',
               label: 'Branże',
               type: 'relationship',
@@ -126,7 +142,19 @@ export const Products: CollectionConfig = {
               type: 'textarea',
               admin: { description: 'Dla wyszukiwarki, niewidoczne na stronie.' },
             },
-            imageField('images', 'Zdjęcia', true),
+            imageField(
+              'images',
+              'Zdjęcia',
+              true,
+              'Galeria w tej kolejności; pierwsze jest główne (karta).',
+            ),
+            {
+              name: 'variants',
+              label: 'Warianty',
+              type: 'text',
+              hasMany: true,
+              admin: { description: 'Wersje jednej karty, np. „BT/WiFi”, „różowy”.' },
+            },
           ],
         },
         {
@@ -186,6 +214,35 @@ export const Products: CollectionConfig = {
               type: 'relationship',
               relationTo: 'products',
               hasMany: true,
+            },
+            {
+              name: 'sources',
+              label: 'Źródła',
+              type: 'group',
+              admin: { description: 'Parametry tylko ze strony producenta (spec. §5).' },
+              fields: [
+                {
+                  name: 'productPages',
+                  label: 'Strony producenta',
+                  type: 'text',
+                  hasMany: true,
+                  validate: validateHttpUrls,
+                },
+                {
+                  name: 'datasheets',
+                  label: 'Karty katalogowe (PDF)',
+                  type: 'text',
+                  hasMany: true,
+                  validate: validateHttpUrls,
+                  admin: { description: 'Linki do producenta — zakładka „Dokumenty”.' },
+                },
+                {
+                  name: 'checkedAt',
+                  label: 'Parametry sprawdzone',
+                  type: 'date',
+                  admin: { description: 'Wypełnia człowiek po sprawdzeniu u producenta.' },
+                },
+              ],
             },
           ],
         },
@@ -260,11 +317,31 @@ export const Products: CollectionConfig = {
       admin: { position: 'sidebar', condition: (data) => Boolean(data?.featured) },
     },
     {
-      // Short id of the seed package (`ergo`), so the B2 import is idempotent.
-      name: 'legacyId',
+      name: 'contentStatus',
+      label: 'Treść',
+      type: 'select',
+      required: true,
+      defaultValue: 'ready',
+      options: [...CONTENT_STATUSES],
+      admin: {
+        position: 'sidebar',
+        description: '„Do sprawdzenia” = opis tymczasowy. Na stronie bez różnicy.',
+      },
+    },
+    {
+      name: 'batch',
+      label: 'Partia treści',
+      type: 'select',
+      options: [...CONTENT_BATCHES],
+      admin: { position: 'sidebar', description: 'Tylko do planowania — widoczne są wszystkie.' },
+    },
+    {
+      // Seed short id (`ergo`) first, then the ids of the source sheet: the import finds the
+      // product by any of them, so `pnpm seed:biznes` stays idempotent.
+      name: 'legacyIds',
       label: 'Id z importu',
       type: 'text',
-      index: true,
+      hasMany: true,
       admin: { position: 'sidebar', readOnly: true },
     },
   ],

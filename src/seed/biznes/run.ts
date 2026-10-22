@@ -5,15 +5,23 @@ import icons from '../../../seed/prokombiznes/ikony.json'
 import katalog from '../../../seed/prokombiznes/katalog.json'
 import kreator from '../../../seed/prokombiznes/kreator.json'
 import media from '../../../seed/prokombiznes/media.json'
+import gallery from '../../../seed/prokombiznes/media-produkty-v2.json'
 import search from '../../../seed/prokombiznes/wyszukiwarka.json'
 import { wizardFromSeed, wizardSchema } from '../../lib/catalog/wizard'
 import {
+  brandLogoFile,
   categoryData,
+  galleryFileName,
+  galleryMediaData,
+  hasSameValues,
   groupData,
   industryData,
   isImportedFileName,
   mediaData,
+  PREVIOUS_CATEGORY_SLUGS,
   productData,
+  productLegacyIds,
+  productUpdateData,
   searchData,
   skipMediaFile,
   type SeedCatalog,
@@ -23,6 +31,8 @@ import { navigationData } from './navigation'
 
 /** Files of the design package, relative to the repo root (where `pnpm seed` runs). */
 const MEDIA_DIR = path.join('docs', 'design', 'prokombiznes', 'boards', 'media')
+/** Katalog v2 files: product galleries (`produkty/<slug>/`) and the logos of new brands. */
+const SEED_MEDIA_DIR = path.join('seed', 'prokombiznes', 'media')
 const BIZNES_TENANT_SLUG = 'biznes'
 
 /**
@@ -31,12 +41,17 @@ const BIZNES_TENANT_SLUG = 'biznes'
  */
 export const SEED_CONTEXT = { seed: true } as const
 
-type Counter = { created: number; skipped: number }
+type Counter = { created: number; updated: number; skipped: number }
 
 /**
  * Imports the Biznes catalog from `seed/prokombiznes/` into the local database (B2, local only).
- * Idempotent: a record found by its key (slug in the tenant, `legacyId`, file name) is left as
- * it is — edits made in the panel survive another `pnpm seed`.
+ * Idempotent: a record is found by its key (slug in the tenant, `legacyIds`, file name).
+ * Groups, industries, brands, images and settings are then left as they are.
+ * Categories and products (katalog v2): every field the package provides wins over an edit made
+ * in the panel (name, benefit, badge, images…) — the record is updated when it differs from the
+ * package, and only then (no new version on a re-run). Fields the package does not provide
+ * (descriptions, specs, hotspots, FAQ…) are never touched. The content status and check date
+ * only move forward (`productUpdateData`).
  */
 export async function seedBiznesCatalog(payload: Payload): Promise<void> {
   const catalog: SeedCatalog = katalog
@@ -55,9 +70,9 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
   const inTenant = (where: Where): Where => ({ and: [{ tenant: { equals: tenant.id } }, where] })
 
   const counters: Record<string, Counter> = {}
-  const count = (name: string, created: boolean) => {
-    const counter = (counters[name] ??= { created: 0, skipped: 0 })
-    counter[created ? 'created' : 'skipped'] += 1
+  const count = (name: string, result: boolean | 'updated') => {
+    const counter = (counters[name] ??= { created: 0, updated: 0, skipped: 0 })
+    counter[result === 'updated' ? 'updated' : result ? 'created' : 'skipped'] += 1
   }
 
   // Each step: find by key → keep, otherwise create. Returns the id either way.
@@ -94,16 +109,38 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     const groupId = groupIds.get(category.grupa)
     if (groupId === undefined) throw new Error(`Seed (Biznes): unknown group "${category.grupa}".`)
     const data = categoryData(category, groupId, icons.kategoria_ikona)
-    categoryIds.set(
-      category.slug,
-      await ensure('catalog-categories', { slug: { equals: data.slug } }, () =>
-        payload.create({
+    const slugs = [data.slug, ...(PREVIOUS_CATEGORY_SLUGS[data.slug] ?? [])]
+    const {
+      docs: [existing],
+    } = await payload.find({
+      collection: 'catalog-categories',
+      where: inTenant({ slug: { in: slugs } }),
+      limit: 1,
+      ...local,
+    })
+    // Fields the package does not set (hero, FAQ…) are left out of `data`, so they survive.
+    const full = { ...data, description: data.description ?? null }
+    if (!existing) {
+      const created = await payload.create({
+        collection: 'catalog-categories',
+        data: { ...full, tenant: tenant.id },
+        ...local,
+      })
+      count('catalog-categories', true)
+      categoryIds.set(category.slug, created.id)
+    } else {
+      const same = hasSameValues(existing, full)
+      if (!same) {
+        await payload.update({
           collection: 'catalog-categories',
-          data: { ...data, tenant: tenant.id },
+          id: existing.id,
+          data: full,
           ...local,
-        }),
-      ),
-    )
+        })
+      }
+      count('catalog-categories', same ? false : 'updated')
+      categoryIds.set(category.slug, existing.id)
+    }
   }
 
   const industryIds = new Map<string, number>()
@@ -149,6 +186,31 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     imageIds.set(file.plik, id)
   }
 
+  // --- katalog v2 galleries: one query for the stored names, then create what is missing ---
+  const { docs: storedMedia } = await payload.find({
+    collection: 'media',
+    where: { tenant: { equals: tenant.id } },
+    pagination: false,
+    select: { filename: true },
+    ...local,
+  })
+  for (const file of gallery.pliki) {
+    const name = galleryFileName(file.plik)
+    const existing = storedMedia.find((doc) => isImportedFileName(doc.filename, name))
+    count('media (katalog v2)', !existing)
+    const id = existing
+      ? existing.id
+      : (
+          await payload.create({
+            collection: 'media',
+            data: { ...galleryMediaData(file, catalog.produkty), tenant: tenant.id },
+            filePath: path.resolve(SEED_MEDIA_DIR, file.plik),
+            ...local,
+          })
+        ).id
+    imageIds.set(file.plik, id)
+  }
+
   // --- brands: shared `Partners`, shown on the Biznes site; a brand without a logo has no file ---
   const brandIds = new Map<string, number>()
   for (const [index, brand] of catalog.marki.entries()) {
@@ -165,9 +227,7 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
       brandIds.set(brand.nazwa, existing.id)
       continue
     }
-    const logo = media.pliki.find(
-      (file) => file.rola === 'logo marki' && file.klucz === brand.nazwa,
-    )
+    const logo = brandLogoFile(brand, media.pliki)
     const created = await payload.create({
       collection: 'partners',
       data: {
@@ -178,30 +238,52 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
         tenants: [tenant.id],
         order: index,
       },
-      ...(logo && { filePath: path.resolve(MEDIA_DIR, logo.plik) }),
+      ...(logo && {
+        filePath: path.resolve(logo.from === 'design' ? MEDIA_DIR : SEED_MEDIA_DIR, logo.file),
+      }),
       ...local,
     })
     brandIds.set(brand.nazwa, created.id)
   }
 
-  // --- products, published (local data for B3–B10) ---
+  // --- products, published; found by the short id or a sheet id, updated only on change ---
   for (const product of catalog.produkty) {
-    await ensure('products', { legacyId: { equals: product.slug } }, () =>
-      payload.create({
+    const data = productData(product, catalog, media.pliki, {
+      brand: (name) => brandIds.get(name),
+      category: (slug) => categoryIds.get(slug),
+      industry: (slug) => industryIds.get(slug),
+      image: (file) => imageIds.get(file),
+    })
+    const { docs: found } = await payload.find({
+      collection: 'products',
+      where: inTenant({ legacyIds: { in: productLegacyIds(product) } }),
+      limit: 2,
+      ...local,
+    })
+    if (found.length > 1) {
+      throw new Error(`Seed (Biznes): product "${product.slug}" matches ${found.length} records.`)
+    }
+    const [existing] = found
+    if (!existing) {
+      await payload.create({
         collection: 'products',
-        data: {
-          ...productData(product, catalog, media.pliki, {
-            brand: (name) => brandIds.get(name),
-            category: (slug) => categoryIds.get(slug),
-            industry: (slug) => industryIds.get(slug),
-            image: (file) => imageIds.get(file),
-          }),
-          tenant: tenant.id,
-          _status: 'published',
-        },
+        data: { ...data, tenant: tenant.id, _status: 'published' },
         ...local,
-      }),
-    )
+      })
+      count('products', true)
+      continue
+    }
+    const update = productUpdateData(data, existing)
+    const same = existing._status === 'published' && hasSameValues(existing, update)
+    if (!same) {
+      await payload.update({
+        collection: 'products',
+        id: existing.id,
+        data: { ...update, _status: 'published' },
+        ...local,
+      })
+    }
+    count('products', same ? false : 'updated')
   }
 
   // --- search and wizard settings: one document per tenant ---
@@ -301,7 +383,7 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     }
   }
 
-  for (const [collection, { created, skipped }] of Object.entries(counters)) {
-    log(`${collection}: ${created} created, ${skipped} already there.`)
+  for (const [collection, { created, updated, skipped }] of Object.entries(counters)) {
+    log(`${collection}: ${created} created, ${updated} updated, ${skipped} unchanged.`)
   }
 }

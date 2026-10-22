@@ -11,9 +11,12 @@ import type {
 import icons from '../../../seed/prokombiznes/ikony.json'
 import katalog from '../../../seed/prokombiznes/katalog.json'
 import media from '../../../seed/prokombiznes/media.json'
+import gallery from '../../../seed/prokombiznes/media-produkty-v2.json'
 import search from '../../../seed/prokombiznes/wyszukiwarka.json'
 import {
   categoryData,
+  galleryFileName,
+  galleryMediaData,
   groupData,
   industryData,
   mediaData,
@@ -84,11 +87,22 @@ export function sourceFromSeed(): CatalogSource {
       } as Partner,
     ]),
   )
-  const images = new Map(
-    media.pliki
+  const images = new Map([
+    ...media.pliki
       .filter((file) => !skipMediaFile(file))
-      .map((file) => [file.plik, image(nextId++, file.plik, mediaData(file, catalog.produkty))]),
-  )
+      .map(
+        (file) =>
+          [file.plik, image(nextId++, file.plik, mediaData(file, catalog.produkty))] as const,
+      ),
+    ...gallery.pliki.map(
+      (file) =>
+        [
+          file.plik,
+          image(nextId++, galleryFileName(file.plik), galleryMediaData(file, catalog.produkty)),
+        ] as const,
+    ),
+  ])
+  const imageById = new Map([...images.values()].map((item) => [item.id, item]))
   const products = catalog.produkty.map((product) => {
     const data = productData(product, catalog, media.pliki, {
       brand: (name) => brands.get(name)?.id,
@@ -102,7 +116,7 @@ export function sourceFromSeed(): CatalogSource {
       brand: brands.get(product.marka),
       categories: [categoryBySeed.get(product.kategoria)],
       industries: (product.branze ?? []).map((slug) => industryBySeed.get(slug)),
-      images: product.zdjecie ? [images.get(product.zdjecie)] : [],
+      images: data.images.map((id) => imageById.get(id)),
     }
   })
   return {

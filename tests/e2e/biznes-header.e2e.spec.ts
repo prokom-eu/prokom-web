@@ -38,7 +38,7 @@ test.describe('Biznes header', () => {
     await expect(button).toBeFocused()
   })
 
-  test('the mega menu lists only categories with products and links them', async ({ page }) => {
+  test('the mega menu lists categories up to the column limit and links them', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
     await mainNav(page).getByRole('button', { name: 'Oferta' }).click()
     const panel = page.locator('[id$="-offer"]')
@@ -51,8 +51,12 @@ test.describe('Biznes header', () => {
       'href',
       '/oferta/kasy-fiskalne',
     )
-    // ADR-012, rozstrzygnięcie 7: the vending category has no products yet.
-    await expect(panel.getByText('Maszyny vendingowe')).toHaveCount(0)
+    // Katalog v2: 10 sales categories, the column limit from the panel (seed: 6) — the rest,
+    // e.g. „Automaty vendingowe”, is behind „Wszystkie w grupie” (lib/catalog/menu.ts).
+    await expect(panel.getByText('Automaty vendingowe')).toHaveCount(0)
+    await expect(
+      panel.getByRole('link', { name: 'Wszystkie w grupie: Kasy i sprzedaż' }),
+    ).toHaveAttribute('href', '/oferta?grupa=sprzedaz')
     await expect(panel.getByRole('link', { name: /^Cały katalog · \d+ pozycj/ })).toBeVisible()
   })
 

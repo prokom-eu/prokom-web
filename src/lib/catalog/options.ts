@@ -56,6 +56,19 @@ export const REGISTER_TYPES = [
   { label: 'Z ekranem dotykowym', value: 'touch' },
 ] as const
 
+/** `status_tresci` in the seed (katalog v2): a temporary description from the source sheet. */
+export const CONTENT_STATUSES = [
+  { label: 'Gotowe', value: 'ready' },
+  { label: 'Do sprawdzenia', value: 'needs-review' },
+] as const
+
+/** `partia` in the seed (katalog v2): content planning only — every batch is in the catalog. */
+export const CONTENT_BATCHES = [
+  { label: 'Na start', value: '0' },
+  { label: 'Partia 1', value: '1' },
+  { label: 'Partia 2', value: '2' },
+] as const
+
 /** `rodzaje_firm[].id` in `seed/prokombiznes/kreator.json` (ADR-012, rozstrzygnięcie 8). */
 export const WIZARD_BUSINESS_TYPES = [
   { label: 'Sklep', value: 'sklep' },

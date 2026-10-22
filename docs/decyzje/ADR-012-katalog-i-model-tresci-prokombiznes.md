@@ -100,13 +100,14 @@ Wszystkie kolekcje mają pole `tenant`; slugi są unikalne w obrębie tenanta.
 | mob | kasoterminale-mobilne | progs | programy-sprzedazowe-erp |
 | term | terminale-platnicze | progb | programy-branzowe |
 | kiosk | kioski-ekrany-kuchenne | m365 | microsoft-365-licencje |
-| akc | akcesoria-pos-wagi | siec | siec-wifi |
+| akc | akcesoria-pos | siec | siec-wifi |
 | komp | komputery-monitory | ochr | antywirus-firewall |
 | podpis | podpis-kwalifikowany | it | opieka-it-wdrozenia |
 | serwis | serwis-przeglady | dof | dofinansowania |
-| vend | maszyny-vendingowe | | |
+| vend | automaty-vendingowe | wagi | wagi-sklepowe |
+| kody | skanery-kolektory-etykiety | | |
 
-- Produkty: slug z nazwy, np. `posnet-ergo-online`. Seed ma krótkie id (`ergo`); mapowanie zapisz w seedzie jako `legacyId`.
+- Produkty: slug z nazwy, np. `posnet-ergo-online`. Seed ma krótkie id (`ergo`); import zapisuje je w `legacyIds` (od katalogu v2 — rozstrzygnięcie 12).
 
 ### 2.2 Strony filtrowane
 - Indeksowane są tylko `/oferta`, `/oferta/[kategoria]` i `/branze/[branza]`.
@@ -256,3 +257,16 @@ Wizualizacja v20 (`docs/design/prokombiznes/ZMIANY-v20.md` §4 pkt 3), sesja D1.
     - `ZMIANY-v20.md` proponuje `Industries.homeOrder` + `homeVisible` (9 widocznych). Siatka ma jednak **19 kafli** („Gmina, urząd, biblioteka”, „Food truck”, „Apteka”…), każdy z podpisem i ikoną, a `Industries` ma 7 rekordów, z czego 3 aktywne (strony `/branze/*`). Pola na `Industries` wymagałyby 12 nowych rekordów bez własnych stron.
     - **Rekomendacja:** lista kafli w danych bloku sekcji „Plan Twojej firmy” (ADR-006): `name`, `subtitle`, `icon`, `visibleFirst` (9 pierwszych), opcjonalnie `industry` → `Industries` (link do `/branze/…`, gdy branża ma stronę), inaczej link do kreatora. Kolejność = kolejność w tablicy, edytowalna w panelu. `Industries` bez zmian.
 
+## Rozstrzygnięcia 22.10 — katalog v2 (22.10.2026)
+
+Łatka `docs/design/prokombiznes/ZMIANY-katalog-v2.md`, sesja K1. Od tej chwili źródłem prawdy jest ten ADR i spec. §5, §7.
+
+12. **Katalog v2 — dane i model:**
+    - **225 pozycji** (212 produktów + 13 usług), **23 kategorie**, 32 marki (nowe: Honeywell, Godex, Dibal, Zebra, SATO).
+    - Nowe kategorie w grupie `sprz`: `wagi` → `wagi-sklepowe`, `kody` → `skanery-kolektory-etykiety`. `akc` → „Akcesoria POS” (`akcesoria-pos`, było `akcesoria-pos-wagi`), `vend` → „Automaty vendingowe” (`automaty-vendingowe`, było `maszyny-vendingowe`; ma 1 produkt). Adresy zmienione przed produkcją, więc bez przekierowań; seed rozpoznaje stare adresy w lokalnej bazie (`PREVIOUS_CATEGORY_SLUGS`).
+    - `Products` — nowe pola: `subcategory` (tekst; chip wewnątrz `akc` i `kody`), `variants` (lista tekstów), `sources` (grupa: `productPages[]`, `datasheets[]` — tylko linki http(s), `checkedAt` — wypełnia człowiek), `contentStatus` (`ready` / `needs-review` = „Gotowe” / „Do sprawdzenia”, filtr w panelu, na stronie bez różnicy), `batch` (`0` / `1` / `2` — tylko planowanie treści, widoczne wszystkie), `legacyIds` (krótkie id z seeda, potem id z arkusza; zastępuje `legacyId`, migracja przenosi wartości).
+    - **Galeria = istniejące `images`** (wiele, kolejność zachowana, pierwsze = zdjęcie karty), bez osobnego pola `gallery` — jedno pole zamiast dwóch o tym samym znaczeniu; karty i indeks już czytają `images`.
+    - **Seed aktualizuje** kategorie i produkty: pola, które dostarcza paczka (nazwa, korzyść, odznaka, kategoria, zdjęcia, linki źródeł…), **wygrywają z edycją w panelu**; rekord jest zapisywany tylko wtedy, gdy różni się od paczki (bez nowej wersji przy kolejnym uruchomieniu). Pól, których paczka nie ma (opis, specyfikacja, punkty na zdjęciu, FAQ, „Skompletuj stanowisko”), seed nie dotyka. `contentStatus` i `sources.checkedAt` ustawia człowiek — z paczki przechodzą tylko „w przód” („Gotowe”, data sprawdzenia), nigdy nie cofają wartości z panelu. Tylko lokalnie (seed na produkcji zablokowany).
+    - Zdjęcia: `seed/prokombiznes/media/produkty/<slug>/` (567 plików, WebP, kwadrat do 1200 px), źródło każdego w `Media.source` (`media-produkty-v2.json` → `zrodlo`). Prawo użycia materiałów producentów do potwierdzenia przed produkcją. Usługi bez galerii zostają przy plikach z wizualizacji.
+    - Loga Honeywell i Zebra są tylko w SVG, którego `Partners` nie przyjmuje — marka pokazuje nazwę tekstem. TODO(krystian): wersja bitmapowa logo od producenta.
+    - Indeks wyszukiwarki z 225 pozycjami: 24 KB gzip (limit 50 KB) — `korzysc` bez skracania.

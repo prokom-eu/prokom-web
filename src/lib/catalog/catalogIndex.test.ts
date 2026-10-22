@@ -12,8 +12,8 @@ const OTHER_TENANT = 2
 describe('buildCatalogIndex on the seed package', () => {
   const index = buildCatalogIndex(sourceFromSeed())
 
-  it('lists all 67 products', () => {
-    expect(index.products).toHaveLength(67)
+  it('lists all 225 products', () => {
+    expect(index.products).toHaveLength(225)
   })
 
   it('stays under 50 KB gzip (B2 acceptance)', () => {
@@ -34,7 +34,7 @@ describe('buildCatalogIndex on the seed package', () => {
       featuredOrder: 0,
       registerTypes: ['mobile', 'small'],
       image: {
-        url: '/api/media/file/p-posnet-ergo-480x360.webp',
+        url: '/api/media/file/ergo-01-480x360.webp',
         alt: 'Posnet Ergo Online',
       },
     })
@@ -47,17 +47,18 @@ describe('buildCatalogIndex on the seed package', () => {
 
   it('hides empty categories and counts the others', () => {
     const slugs = index.categories.map((category) => category.slug)
-    expect(slugs).toHaveLength(20)
-    expect(slugs).not.toContain('maszyny-vendingowe')
+    // Katalog v2: every one of the 23 categories has products (vending: 1).
+    expect(slugs).toHaveLength(23)
+    expect(slugs).toContain('automaty-vendingowe')
     const total = index.categories.reduce((sum, category) => sum + category.count, 0)
-    expect(total).toBe(67)
+    expect(total).toBe(225)
     expect(index.groups).toHaveLength(5)
     expect(index.groups[0]).toMatchObject({ slug: 'sprzedaz', gradient: ['#244FB0', '#4FA3F0'] })
   })
 
   it('lists brands of the products, industries, pages but home, and search settings', () => {
-    // 27 brands in the package, 26 with products (spec. §7).
-    expect(index.brands).toHaveLength(26)
+    // 32 brands in the package, 31 with products (StorageCraft has none in katalog v2).
+    expect(index.brands).toHaveLength(31)
     expect(index.industries.filter((industry) => industry.active)).toHaveLength(3)
     expect(index.pages).toEqual([{ slug: 'opieka-it', title: 'Opieka IT' }])
     expect(index.search.synonyms.notebook).toEqual(['laptop'])
