@@ -45,10 +45,10 @@ describe('THEME_STORAGE_KEY', () => {
 })
 
 describe('hasDarkTheme', () => {
-  it('is true only for lines with a dark design (ADR-013)', () => {
+  it('is true only for lines with a dark design (ADR-013, ADR-015)', () => {
     expect(hasDarkTheme('biznes')).toBe(true)
+    expect(hasDarkTheme('software')).toBe(true)
     expect(hasDarkTheme('instalacje')).toBe(false)
-    expect(hasDarkTheme('software')).toBe(false)
     expect(hasDarkTheme('prokom')).toBe(false)
   })
 })

@@ -22,8 +22,9 @@ Dwie strony powstają równolegle, każda we własnym folderze (git worktree) �
 - **Następny krok:** PR `chore/praca-rownolegla`, po scaleniu w tym folderze `git switch -c feat/biznes-b6a-produkt origin/develop` i B6a wg planu B6 (strona produktu `/produkt/[slug]`: dane z filtrem tenanta, galeria, boks sticky, zakładki, JSON-LD `Product` bez `offers` + `BreadcrumbList`, sitemap; B6b: alternatywy, „Skompletuj stanowisko”, podobne).
 
 ### prokomsoftware.pl — folder `prokom-web`
-- Gałąź: `docs/prokomsoftware-sw0` — SW0 (dokumenty, decyzje D1–D18) w PR #64 do `develop`.
-- **Następny krok:** scalenie #64, potem `/zadanie SW1` (tokeny i motyw wg ADR-015, rozstrzygnięcia) — SW1 nie dotyka Biznesu. SW2 dopiero po scaleniu B11 (`docs/zadania/prokomsoftware.md` §3).
+- Gałąź: `feat/software-sw1-tokeny` — SW1: paleta Software w `src/styles/tokens.css` (jasna i ciemna 1:1 z wzorca, `--c-software-text` `#5B33C4`, `--grad-h1` bez błękitu, `--grad-area-<key>`), nowe tokeny semantyczne z wartościami domyślnymi dla innych linii (`--card-2`, `--ink-soft`, `--accent-soft`, `--accent-line`, `--stage`, `--chip`, `--glow-2`, `--dot`, `--header-bg`, `--shadow`) i w `@theme`, `software` w `DARK_THEME_LINES`. Testy kontrastu: blok Software (panele, chipy, sceny, przycisk), sprawdzenia `--ok` na ciemnym bloku i `--warn` jako tekst tylko dla Biznesu. Biznes, Instalacje i hub: wszystkie dotychczasowe tokeny bez zmian (porównanie rozwiązanych wartości przed/po, oba motywy).
+- Sprawdzone w przeglądarce (z poprawką `pnpm dev` z #66): software.localhost w jasnym i ciemnym motywie ma wartości z palety, przełącznik zapisuje `pk-theme`, znak przechodzi w negatyw. E2e `a11y`: axe sprawdza też ciemny motyw Software, test przełącznika obejmuje Biznes i Software. Przegląd `recenzent`, poprawki w tym samym PR (`--shadow: 0 0 #0000` zamiast `none`, domyślny `--grad-h1`, test kropek `--ok`/`--warn` na polach, scenach i chipach, komentarze po angielsku).
+- **Następny krok:** scalenie #66 i PR SW1; potem SW2 dopiero po scaleniu B11 (`docs/zadania/prokomsoftware.md` §3).
 
 ## Zrobione
 ### prokombiznes.pl
@@ -83,6 +84,8 @@ Dwie strony powstają równolegle, każda we własnym folderze (git worktree) �
 7. **B11:** `/aktualnosci` budować od razu jako trasę wspólną dla linii, poza `(biznes)` (ADR-012 rozstrz. 5, zmiana 22.10; dopisek w `docs/zadania/prokombiznes.md`).
 
 ## Pomysły na później (poza zakresem bieżących sesji)
+- Z SW1 → SW2: gradienty 8 obszarów są dziś w dwóch miejscach — tokeny `--grad-area-<key>` w `tokens.css` i `seed/prokomsoftware/obszary.json` → `gradient` (trafi do `SolutionAreas`). W SW2 jedno źródło: komponent bierze token po `key`, a pole `gradient` w kolekcji odpada (rekomendacja), albo odwrotnie.
+- Z SW1 → SW4: wspólny `Button` (`src/components/ui/Button.tsx`) ma tło `--accent-text`, więc na Software wychodzi `#5B33C4` (jasny) / `#B39BF5` (ciemny) zamiast `--accent` z planszy (`#6E45D4` / `#9670EE`). Przyciski Software (`--accent` + `--accent-ink`) w SW4 — oczekiwana różnica przy zrzutach szkieletu do tego czasu.
 - Przed B11: `/aktualnosci` jako trasa wspólna dla linii (ADR-014 §2) — zmiana ADR-012 rozstrz. 5 wpisana w SW0 (22.10); do zrobienia w kodzie w B11.
 - Z SW0 → SW12: ADR-016 — analityka Umami (nowy kontener, bez ciasteczek); od tego zależy zdanie „0 banerów cookies” na prokomsoftware.pl.
 - Z SW0: plik w kreatorze Software (`InquiryFiles`, prywatny magazyn) — wraca jako osobne zadanie, jeśli zgłoszenia o programy będą go wymagać.
