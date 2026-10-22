@@ -1,15 +1,13 @@
 import { expect, test } from '@playwright/test'
 
+import { site } from './helpers'
+
 // Matches src/seed/tenants.ts (run `pnpm seed` before the e2e tests).
 const TENANTS = [
   { host: 'biznes.localhost', name: 'PRO-KOM Biznes' },
   { host: 'instalacje.localhost', name: 'PRO-KOM Instalacje' },
   { host: 'software.localhost', name: 'PRO-KOM Software' },
 ]
-
-// Always through the browser: Chromium resolves *.localhost itself, while Node.js (used by
-// Playwright's `request`) does not on every system.
-const site = (host: string, path = '/') => `http://${host}:3000${path}`
 
 test.describe('tenant isolation', () => {
   for (const tenant of TENANTS) {
