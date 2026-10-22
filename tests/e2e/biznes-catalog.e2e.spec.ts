@@ -51,6 +51,8 @@ test.describe('Biznes catalog /oferta', () => {
     const panel = filters(page)
     // A brand tile is a label with the logo: clicked like a user would, not the hidden box.
     await clickUntilUrl(page, () => panel.locator('label[title="Posnet"]').click(), /marka=posnet/)
+    // The facets follow the URL a moment later: wait for them before reading a count.
+    await expect(panel.getByRole('checkbox', { name: /^Posnet/ })).toBeChecked()
 
     // The facet of a category says how many the click will show.
     const kasy = panel.getByRole('checkbox', { name: /^Kasy fiskalne/ })
@@ -58,8 +60,11 @@ test.describe('Biznes catalog /oferta', () => {
       (await kasy.locator('xpath=..').locator('span').last().textContent())?.trim(),
     )
     expect(expected).toBeGreaterThan(0)
-    await kasy.check()
+    // Not `check()`: the box follows the URL a moment after the click (Next 16.4 router),
+    // and `check()` reads its state at once.
+    await kasy.click()
     await expect(page).toHaveURL(/kategoria=kasy-fiskalne/)
+    await expect(kasy).toBeChecked()
     await expect(count(page)).toContainText(String(expected))
     await expect(cards(page)).toHaveCount(expected)
 
@@ -102,8 +107,11 @@ test.describe('Biznes catalog /oferta', () => {
     await expect(count(page)).toHaveText('159 pozycji')
     await page.getByRole('button', { name: 'A–Z' }).click()
     await expect(page).toHaveURL(/sortuj=a-z/)
-    const names = await cards(page).locator('h3').allTextContents()
-    expect(names).toEqual([...names].sort((a, b) => a.localeCompare(b, 'pl')))
+    // The list follows the URL a moment later: retry until it is sorted.
+    await expect(async () => {
+      const names = await cards(page).locator('h3').allTextContents()
+      expect(names).toEqual([...names].sort((a, b) => a.localeCompare(b, 'pl')))
+    }).toPass()
   })
 
   test('reads the phrase of the search (?szukaj=) and asks when nothing matches', async ({
@@ -280,8 +288,10 @@ test.describe('Biznes catalog /oferta', () => {
       }).toPass()
 
       // A choice applies at once; the button says how many it shows and closes the sheet.
-      await sheet.getByRole('radio', { name: /^Usługi/ }).check()
+      const uslugi = sheet.getByRole('radio', { name: /^Usługi/ })
+      await uslugi.click()
       await expect(page).toHaveURL(/rodzaj=uslugi/)
+      await expect(uslugi).toBeChecked()
       await sheet.getByRole('button', { name: 'Pokaż 13 pozycji' }).click()
       await expect(sheet).toBeHidden()
       await expect(count(page)).toHaveText('13 pozycji')
