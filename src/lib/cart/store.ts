@@ -108,6 +108,13 @@ export const cartActions = {
     write(cart)
     announce(id, name)
   },
+  /** „Dodaj wszystko”: one write and one toast with `name` (e.g. „3 pozycje ze stanowiska”). */
+  addMany(ids: readonly string[], name: (added: number) => string) {
+    const { cart, added } = list.addAll(getSnapshot(), ids)
+    if (added.length === 0) return
+    write(cart)
+    announce(added[0]!, name(added.length))
+  },
   changeQty: (id: string, delta: number) => write(list.changeQty(getSnapshot(), id, delta)),
   remove: (id: string) => write(list.remove(getSnapshot(), id)),
   setNote: (id: string, note: string) => write(list.setNote(getSnapshot(), id, note)),
