@@ -86,12 +86,17 @@
   --c-software-light-ink: #121613;
   --c-software-light-ink-soft: #2e342f;
   --c-software-light-ink-2: #4f5650;
-  --c-software-light-ink-3: #4f5650; /* = ink-2: Software ma jeden odcień tekstu opisowego */
-  --c-software-light-border-input: #767c74; /* = --c-input-border z repo: 3,91 na surface, 3,39 na surface-3 */
-  --c-software-light-ok-text: #256a18; /* małe zielone etykiety: ≥ 5,28 na wszystkich jasnych tłach */
-  --c-software-light-accent: #6e45d4; /* ADR-015: księga #8b61e3 ma z białym tylko 4,27 — za mało na napis przycisku */
+  /* = ink-2: Software has one shade of secondary text. */
+  --c-software-light-ink-3: #4f5650;
+  /* = --c-input-border: 3.91 on surface, 3.39 on surface-3. */
+  --c-software-light-border-input: #767c74;
+  /* Small green labels: ≥ 5.28 on every light surface. */
+  --c-software-light-ok-text: #256a18;
+  /* ADR-015: white on the brand book's #8b61e3 is only 4.27, too little for a button label. */
+  --c-software-light-accent: #6e45d4;
   --c-software-light-accent-2: #a24bd8;
-  --c-software-light-accent-text: #5b33c4; /* ADR-015: też --c-software-text (wcześniej #7e58cd) */
+  /* ADR-015: also --c-software-text (was #7e58cd). */
+  --c-software-light-accent-text: #5b33c4;
   --c-software-light-accent-ink: #ffffff;
   --c-software-light-accent-soft: #ece7fb;
   --c-software-light-accent-line: #cfc2f5;
@@ -101,12 +106,8 @@
   --c-software-light-ok: #2e7a1e;
   --c-software-light-warn: #a86a00;
   --c-software-light-glow: rgba(110, 69, 212, 0.26);
-  --c-software-light-glow-2: rgba(
-    162,
-    75,
-    216,
-    0.14
-  ); /* ADR-015: fioletowa (plansza: rgba(40, 150, 200, 0.14)) */
+  /* ADR-015: violet (the boards: a light blue rgba(40, 150, 200, 0.14)). */
+  --c-software-light-glow-2: rgba(162, 75, 216, 0.14);
   --c-software-light-grid: rgba(110, 69, 212, 0.09);
   --c-software-light-dot: rgba(18, 22, 19, 0.09);
   --c-software-light-header-bg: rgba(244, 245, 241, 0.8);
@@ -122,9 +123,12 @@
   --c-software-night-ink-soft: #d9ddd8;
   --c-software-night-ink-2: #b5bbb5;
   --c-software-night-ink-3: #b5bbb5;
-  --c-software-night-border-input: #7a817b; /* 4,57 na surface, 3,87 na card-2 */
-  --c-software-night-ok-text: #7bd36a; /* = ok, ≥ 8,3 na ciemnych tłach */
-  --c-software-night-accent: #9670ee; /* = --c-software-on-dark z księgi */
+  /* 4.57 on surface, 3.87 on card-2. */
+  --c-software-night-border-input: #7a817b;
+  /* = ok: ≥ 8.3 on every dark surface. */
+  --c-software-night-ok-text: #7bd36a;
+  /* = --c-software-on-dark of the brand book. */
+  --c-software-night-accent: #9670ee;
   --c-software-night-accent-2: #c9a9ff;
   --c-software-night-accent-text: #b39bf5;
   --c-software-night-accent-ink: #121613;
@@ -136,12 +140,8 @@
   --c-software-night-ok: #7bd36a;
   --c-software-night-warn: #f2b84b;
   --c-software-night-glow: rgba(150, 112, 238, 0.42);
-  --c-software-night-glow-2: rgba(
-    201,
-    169,
-    255,
-    0.2
-  ); /* ADR-015: fioletowa (plansza: rgba(80, 180, 220, 0.22)) */
+  /* ADR-015: violet (the boards: a light blue rgba(80, 180, 220, 0.22)). */
+  --c-software-night-glow-2: rgba(201, 169, 255, 0.2);
   --c-software-night-grid: rgba(179, 155, 245, 0.09);
   --c-software-night-dot: rgba(244, 245, 241, 0.08);
   --c-software-night-header-bg: rgba(18, 22, 19, 0.78);
@@ -195,7 +195,11 @@
   --glow-2: transparent;
   --dot: transparent;
   --header-bg: var(--surface);
-  --shadow: none;
+  /* Not `none`: Tailwind puts it at the end of a box-shadow list with the ring shadows, where
+     `none` would drop the whole declaration. */
+  --shadow: 0 0 #0000;
+  /* Plain accent text where a line has no gradient H1 (text clipped to the background stays visible). */
+  --grad-h1: linear-gradient(var(--accent-text), var(--accent-text));
 }
 
 [data-line='prokom'] {

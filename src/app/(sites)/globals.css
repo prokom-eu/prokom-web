@@ -49,7 +49,7 @@
   --font-sans: var(--font-manrope-latin), var(--font-manrope-latin-ext), system-ui, sans-serif;
   --font-display: var(--font-archivo-latin), var(--font-archivo-latin-ext), system-ui, sans-serif;
 
-  /* Raised cards of Software's visualisation (`shadow-raised`); `none` on other lines. */
+  /* Raised cards of Software's visualisation (`shadow-raised`); no shadow on other lines. */
   --shadow-raised: var(--shadow);
 }
 

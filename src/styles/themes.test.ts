@@ -160,6 +160,18 @@ describe.each(cases.filter(({ line }) => line === 'software'))(
       expect(contrastRatio(hex('--accent-ink', s), hex('--accent', s))).toBeGreaterThanOrEqual(4.5)
     })
 
+    // ADR-015 point 9: status dots also sit on fields, preview stages and active chips.
+    it('status dots reach 3:1 on fields, stages and active chips', () => {
+      for (const dot of ['--ok', '--warn']) {
+        for (const surface of ['--surface-3', '--stage', '--accent-soft']) {
+          expect(
+            contrastRatio(hex(dot, s), hex(surface, s)),
+            `${dot} on ${surface}`,
+          ).toBeGreaterThanOrEqual(3)
+        }
+      }
+    })
+
     it('form field border reaches 3:1 on the second card level', () => {
       expect(contrastRatio(hex('--border-input', s), hex('--card-2', s))).toBeGreaterThanOrEqual(3)
     })
