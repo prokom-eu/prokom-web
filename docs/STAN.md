@@ -89,6 +89,10 @@ Dwie strony powstają równolegle, każda we własnym folderze (git worktree) �
 7. **B11:** `/aktualnosci` budować od razu jako trasę wspólną dla linii, poza `(biznes)` (ADR-012 rozstrz. 5, zmiana 22.10; dopisek w `docs/zadania/prokombiznes.md`).
 
 ## Pomysły na później (poza zakresem bieżących sesji)
+- Z B6b (przegląd): pełna lista zapytania (50 pozycji) — „+ Do zapytania” i „Dodaj wszystko do zapytania” nic nie robią i nic nie mówią; komunikat w stylu toastu „Lista ma już 50 pozycji” dla obu (`lib/cart/store.ts`).
+- Z B6b (przegląd): `ProductKit` w całości kliencki — wydzielić do klienta sam przycisk „Dodaj wszystko” (`AddAllButton`), resztę sekcji renderować na serwerze.
+- Z B6b (przegląd): nagłówki H2 sekcji strony produktu (`ProductAlternatives`, `ProductKit`, `SimilarProducts`) powtarzają te same klasy — wariant rozmiaru w `components/ui/Heading` zgodny z planszą i użycie go na stronie produktu.
+- Z B6b (przegląd): `getProductView` (`depth: 1` bez `select`) pobiera pełne dokumenty `alternatives`/`fitsWith`, a widok bierze tylko `slug` — ograniczyć przez `populate`/`select` (wynik i tak w cache).
 - Z SW1 → SW2: gradienty 8 obszarów są dziś w dwóch miejscach — tokeny `--grad-area-<key>` w `tokens.css` i `seed/prokomsoftware/obszary.json` → `gradient` (trafi do `SolutionAreas`). W SW2 jedno źródło: komponent bierze token po `key`, a pole `gradient` w kolekcji odpada (rekomendacja), albo odwrotnie.
 - Z SW1 → SW4: wspólny `Button` (`src/components/ui/Button.tsx`) ma tło `--accent-text`, więc na Software wychodzi `#5B33C4` (jasny) / `#B39BF5` (ciemny) zamiast `--accent` z planszy (`#6E45D4` / `#9670EE`). Przyciski Software (`--accent` + `--accent-ink`) w SW4 — oczekiwana różnica przy zrzutach szkieletu do tego czasu.
 - Przed B11: `/aktualnosci` jako trasa wspólna dla linii (ADR-014 §2) — zmiana ADR-012 rozstrz. 5 wpisana w SW0 (22.10); do zrobienia w kodzie w B11.

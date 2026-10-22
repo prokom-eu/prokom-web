@@ -182,8 +182,13 @@ test.describe('Biznes product page', () => {
           kit.getByRole('button', { name: 'W zapytaniu: Szuflada Posnet SKL' }),
         ).toBeVisible({ timeout: 1000 })
       }).toPass()
-      await kit.getByRole('button', { name: 'Dodaj wszystko do zapytania' }).click()
-      await expect(kit.getByRole('button', { name: 'Wszystko na liście' })).toBeDisabled()
+      const addAll = kit.getByRole('button', { name: 'Dodaj wszystko do zapytania' })
+      await addAll.focus()
+      await page.keyboard.press('Enter')
+      const done = kit.getByRole('button', { name: 'Wszystko na liście' })
+      await expect(done).toHaveAttribute('aria-disabled', 'true')
+      // Focus stays on the button for keyboard and screen reader users.
+      await expect(done).toBeFocused()
       await expect(
         page.getByRole('banner').getByRole('button', { name: /^Zapytanie/ }),
       ).toHaveAccessibleName('Zapytanie 2 pozycje')

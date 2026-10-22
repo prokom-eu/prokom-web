@@ -1,8 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
-import { productBadges, productHref } from '@/lib/catalog/card'
-import type { IndexProduct } from '@/lib/catalog/catalogIndex'
+import { cardFallback, productBadges, productHref } from '@/lib/catalog/card'
 import { getCatalogIndex, getProductView } from '@/lib/catalog/data'
 import { CATALOG_PATH, catalogHref, DEFAULT_STATE } from '@/lib/catalog/filters'
 import { alternativeProducts, kitProducts, similarProducts } from '@/lib/catalog/related'
@@ -78,7 +77,6 @@ export default async function ProductPage({ params }: Props) {
   // Badges and the picture without a photo are the card's (catalog index), so both agree.
   const listed = index.products.find((item) => item.slug === product.slug)
   const category = index.categories.find((item) => item.slug === product.category?.slug)
-  const group = index.groups.find((item) => item.slug === (listed?.group ?? category?.group))
   const badges = listed ? productBadges(listed, index.brands) : []
 
   const phone = settings?.phone ?? null
@@ -124,20 +122,12 @@ export default async function ProductPage({ params }: Props) {
   ]
 
   // Sections under the content (B6b): only this site's published products (catalog index).
-  const iconOf = (item: IndexProduct) => {
-    const itemCategory = index.categories.find((entry) => entry.slug === item.categories[0])
-    const itemGroup = index.groups.find((entry) => entry.slug === item.group)
-    return {
-      icon: itemCategory?.icon ?? itemGroup?.icon ?? ('store' as const),
-      gradient: itemGroup?.gradient ?? null,
-    }
-  }
   const kit: KitItem[] = kitProducts(index, product.slug).map((item) => ({
     slug: item.slug,
     name: item.name,
     benefit: item.benefit ?? null,
     image: item.image ?? null,
-    ...iconOf(item),
+    ...cardFallback(item, index),
   }))
   const alternatives = alternativeProducts(index, product.slug, product.alternatives)
   const similar = similarProducts(index, product.slug)
@@ -161,10 +151,7 @@ export default async function ProductPage({ params }: Props) {
               hotspots={product.hotspots}
               modules={product.modules}
               badges={badges}
-              fallback={{
-                icon: category?.icon ?? group?.icon ?? 'store',
-                gradient: group?.gradient ?? null,
-              }}
+              fallback={listed ? cardFallback(listed, index) : { icon: 'store', gradient: null }}
             />
             <ProductBox
               product={product}

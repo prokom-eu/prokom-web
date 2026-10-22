@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
-import { productBadges, productHref, type BadgeTone } from '@/lib/catalog/card'
+import { cardFallback, productBadges, productHref, type BadgeTone } from '@/lib/catalog/card'
 import type { CatalogIndex, IndexProduct } from '@/lib/catalog/catalogIndex'
 
 import { AddToCartButton } from '../AddToCartButton'
@@ -33,7 +33,7 @@ export function ProductCard({ product, index, position, layout = 'grid' }: Props
   const href = productHref(product.slug)
   const brand = index.brands.find((item) => item.slug === product.brand)
   const category = index.categories.find((item) => item.slug === product.categories[0])
-  const group = index.groups.find((item) => item.slug === product.group)
+  const fallback = cardFallback(product, index)
   const badges = productBadges(product, index.brands)
 
   return (
@@ -65,14 +65,14 @@ export function ProductCard({ product, index, position, layout = 'grid' }: Props
             aria-hidden="true"
             className="flex size-[62px] items-center justify-center rounded-[20px] text-white sm:size-[92px] sm:rounded-[28px]"
             style={
-              group
+              fallback.gradient
                 ? {
-                    backgroundImage: `linear-gradient(145deg, ${group.gradient[0]}, ${group.gradient[1]})`,
+                    backgroundImage: `linear-gradient(145deg, ${fallback.gradient[0]}, ${fallback.gradient[1]})`,
                   }
                 : undefined
             }
           >
-            <Icon name={category?.icon ?? group?.icon ?? 'store'} className="size-7 sm:size-10" />
+            <Icon name={fallback.icon} className="size-7 sm:size-10" />
           </span>
         )}
         {badges.length > 0 && (

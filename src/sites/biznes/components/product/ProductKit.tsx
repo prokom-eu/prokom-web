@@ -44,14 +44,16 @@ export function ProductKit({ items }: { items: KitItem[] }) {
         </h2>
         <button
           type="button"
-          disabled={allListed}
-          onClick={() =>
+          // `aria-disabled`, not `disabled`: the button keeps focus after the click (WCAG 2.4.3).
+          aria-disabled={allListed}
+          onClick={() => {
+            if (allListed) return
             cartActions.addMany(
               items.map((item) => item.slug),
               added,
             )
-          }
-          className="inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-2xl bg-card px-5 font-extrabold text-ink shadow-[inset_0_0_0_1px_var(--border)] hover:shadow-[inset_0_0_0_1px_var(--ink-3)] disabled:text-ok-text disabled:hover:shadow-[inset_0_0_0_1px_var(--border)]"
+          }}
+          className="inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-2xl bg-card px-5 font-extrabold text-ink shadow-[inset_0_0_0_1px_var(--border)] hover:shadow-[inset_0_0_0_1px_var(--ink-3)] aria-disabled:cursor-default aria-disabled:text-ok-text aria-disabled:hover:shadow-[inset_0_0_0_1px_var(--border)]"
         >
           <Icon name={allListed ? 'check' : 'arrow'} className="size-4" strokeWidth={2.4} />
           {allListed ? 'Wszystko na liście' : 'Dodaj wszystko do zapytania'}
