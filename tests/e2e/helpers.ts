@@ -2,7 +2,9 @@ import { expect, type Page } from '@playwright/test'
 
 // Always through the browser: Chromium resolves *.localhost itself, while Node.js (used by
 // Playwright's `request`) does not on every system.
-export const site = (host: string, path = '/') => `http://${host}:3000${path}`
+// Port from `playwright.config.ts` (`PORT` of this working folder).
+export const site = (host: string, path = '/') =>
+  `http://${host}:${process.env.PORT ?? 3000}${path}`
 
 export type ApiResult = { status: number; json: Record<string, unknown> }
 

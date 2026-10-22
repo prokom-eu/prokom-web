@@ -42,7 +42,7 @@ seed/<strona>/             # dane startowe strony z pakietu (JSON 1:1, poza Pret
 ```
 
 ## Lokalnie
-- Domeny dev: `biznes.localhost:3000`, `instalacje.localhost:3000`, `software.localhost:3000`, panel: `panel.localhost:3000/admin` (`PANEL_HOST=panel.localhost` w `.env`). Sam `localhost:3000` to nieznana domena → 404.
+- Domeny dev: `biznes.localhost:3000`, `instalacje.localhost:3000`, `software.localhost:3000`, panel: `panel.localhost:3000/admin` (`PANEL_HOST=panel.localhost` w `.env`). Sam `localhost:3000` to nieznana domena → 404. Port to `PORT` z `.env` folderu (drugi folder: 3001) — `pnpm dev` i Playwright biorą go stamtąd.
 - `docker compose -f docker/compose.dev.yml up -d` — PostgreSQL (na hoście port **54320**, bo 5432/5433 bywają zajęte przez natywny PostgreSQL) + Mailpit (SMTP `localhost:1025`, podgląd maili: `localhost:8025`).
 - Komendy: `pnpm dev`, `pnpm build`, `pnpm start`, `pnpm lint`, `pnpm typecheck`, `pnpm format` / `pnpm format:check`, `pnpm test` (Vitest, `src/**/*.test.ts`), `pnpm test:e2e` (Playwright, `tests/e2e`, wymaga działającej bazy po `pnpm seed`; testy edytujące treść logują się adminem z `SEED_ADMIN_*` — Playwright sam wczytuje `.env`), `pnpm generate:types`, `pnpm generate:importmap`, `pnpm payload migrate:create <nazwa>`, `pnpm payload migrate`, `docker build -t prokom-web:local .`, `bash scripts/smoke.sh <adres> [domeny…]` (S9a: obraz i smoke test, `docs/wdrozenia.md`), `scripts/backup.sh` / `scripts/restore.sh` (S9b-2: kopie na serwerze — procedury w `docs/runbook.md`), `pnpm seed` (tylko lokalnie; admin z `SEED_ADMIN_EMAIL` / `SEED_ADMIN_PASSWORD`, na produkcji zablokowany; na końcu importuje katalog Biznesu), `pnpm seed:biznes` (sam katalog Biznesu z `seed/prokombiznes/` + obrazy z `docs/design/prokombiznes/boards/media/` i galerie z `seed/prokombiznes/media/`, idempotentny: pola z paczki wygrywają z edycją w panelu, rekord zapisywany tylko przy różnicy; status treści i data sprawdzenia tylko „w przód”). Zmiana schematu: `docs/sposob-pracy.md` → „Zmiana schematu bazy”.
 - pnpm: wersja z `packageManager` (11.x). Wywołuj `pnpm` bezpośrednio — sam przełącza się na przypiętą wersję. Nie używaj `corepack pnpm`: psuje `webServer` w Playwright.
@@ -55,6 +55,7 @@ Krystian pracuje na jednym komputerze. **GitHub to kopia kodu i jedyna droga na 
 - Nie zakładaj, że lokalna baza ma jakieś dane — dane testowe tylko z `pnpm seed` (powtarzalny, idempotentny). Każda migracja w repo, bo CI, staging i produkcja odtwarzają bazę z migracji.
 - Żadnych ścieżek bezwzględnych (`D:\...`, `C:\Users\...`) w kodzie, skryptach ani dokumentacji — tylko ścieżki względne do katalogu repo.
 - Nowa zmienna środowiskowa → `.env.example` z opisem (Krystian przenosi wartości przez menedżer haseł).
+- **Dwie strony równolegle = dwa foldery (git worktree)**, każdy z własną gałęzią, `PORT` i bazą (`docs/sposob-pracy.md` → „Dwie strony równolegle”). Pracujesz tylko w folderze swojej sesji: nie przełączasz go na gałąź drugiej strony, nie otwierasz `develop`, nowe gałęzie zakładasz od `origin/develop`. W `docs/STAN.md` edytujesz tylko podsekcję swojej strony.
 
 ## Zasady kodu
 - TypeScript strict, bez `any` (wyjątek z komentarzem dla typów z zewnętrznych bibliotek).
@@ -110,7 +111,7 @@ Krystian pracuje na jednym komputerze. **GitHub to kopia kodu i jedyna droga na 
 - frontend-design: stosuj przy każdym UI, ALE marka jest zamknięta: kolory, kroje i znak
   wyłącznie wg docs/marka.md, ADR-007 i docs/strony/<domena>-design.md. Przy sprzeczności wygrywa marka.
 - Superpowers: używamy brainstorming, writing-plans, systematic-debugging,
-  verification-before-completion. NIE używamy worktree, subagent-driven-development,
+  verification-before-completion. NIE używamy skilla worktree (foldery stron zakładamy wg `docs/sposob-pracy.md`), subagent-driven-development,
   finishing-a-development-branch — obowiązuje nasz flow (/zadanie → plan → PR, /przeglad).
   TDD wg docs/jakosc.md i fundament.md (od S2 dla logiki), nie dla szkieletu z szablonu.
 - Przy sprzeczności skilla z tym plikiem albo ze specyfikacją wygrywa ten plik i specyfikacja.

@@ -49,8 +49,36 @@ Skrypt: robi commit `wip: …` na gałęzi zadania i wypycha go na GitHub; spraw
 ### Zasady
 1. **Na koniec dnia praca jest na GitHubie** (kopia na wypadek awarii dysku). Commity `wip:` na gałęzi zadania są OK — przy squash merge sklejają się w jeden.
 2. **Jedno zadanie = jedna gałąź = jeden PR.**
-3. Zadanie skończone → w Claude Code `/przeglad`, potem `/pr` (gotowy tytuł i opis, PR zakładany przez `gh`) → zielone CI → **Squash and merge** → `.\scripts\start.ps1` (wraca na aktualny `develop`). Tytuł PR zostaje w historii `develop` — nigdy „wip”.
+3. Zadanie skończone → w Claude Code `/przeglad`, potem `/pr` (gotowy tytuł i opis, PR zakładany przez `gh`) → zielone CI → **Squash and merge** → `.\scripts\start.ps1` (pobiera nowy `develop`) → następne zadanie: `git switch -c <typ>/<opis> origin/develop`. Tytuł PR zostaje w historii `develop` — nigdy „wip”.
 4. Konflikt albo „coś się rozjechało” → nie kombinuję z `--force`; `git status`, zrzut ekranu i pytanie w czacie.
+
+## Dwie strony równolegle (git worktree)
+Gdy dwie strony powstają w tym samym czasie, każda ma **własny folder** z własną gałęzią, portem i bazą. Repo jest jedno (wspólna historia, jeden `git fetch`), ale sesje Claude Code nie przełączają sobie nawzajem gałęzi ani plików.
+
+| Folder (obok siebie w `repos\`) | Strona | `PORT` | Baza w `DATABASE_URL` |
+|---|---|---|---|
+| `prokom-web-biznes` (worktree) | prokombiznes.pl | 3000 | `prokom_web` |
+| `prokom-web` (główny) | prokomsoftware.pl | 3001 | `prokom_web_software` |
+
+**Dlaczego osobna baza:** każda gałąź dodaje własne migracje. Na wspólnej bazie Payload trafiłby na migrację, której jego gałąź nie zna, albo na tabele niezgodne z kodem. Kontener PostgreSQL jest jeden (stała nazwa projektu w `docker/compose.dev.yml`), baz w nim dwie.
+**Dlaczego osobny port:** `next dev` bez ustalonego portu przy zajętym 3000 sam przeskakuje na 3001, a e2e z `reuseExistingServer` testowałyby wtedy serwer drugiej strony. `pnpm dev` i Playwright biorą `PORT` z `.env`, więc każdy folder ma swój port na stałe.
+
+### Założenie folderu (jednorazowo)
+1. W głównym folderze: `git worktree add ..\prokom-web-biznes -b <typ>/<opis> origin/develop`, potem `git -C ..\prokom-web-biznes branch --unset-upstream` (żeby `git push` nie celował w `develop`).
+2. `.env` w nowym folderze: kopia `.env` z głównego. W każdym folderze `PORT` i `DATABASE_URL` wg tabeli (wartości w menedżerze haseł).
+3. Folder przejmujący istniejącą bazę dostaje też jej pliki: `Copy-Item ..\prokom-web\media . -Recurse` (`media\` nie jest w gicie, a baza wskazuje na te pliki).
+4. `.\scripts\start.ps1` w każdym folderze: zależności (`pnpm install`, pliki dzielone przez magazyn pnpm), brakującą bazę zakłada sam, migracje. W folderze z nową bazą potem `pnpm seed`.
+5. Claude Code: osobna sesja w każdym folderze. Podgląd w aplikacji: konfiguracja `dev` (3000) albo `dev-3001` z `.claude/launch.json`.
+
+### Zasady
+1. **Jedna strona = jeden folder.** W folderze nie przełączaj się na gałąź drugiej strony.
+2. **`develop` nie jest otwarty w żadnym folderze** — git nie pozwala na tę samą gałąź w dwóch folderach. Nowe gałęzie zakładasz od `origin/develop`; `start.ps1` aktualizuje lokalny `develop` bez przełączania.
+3. **`docs/STAN.md`:** każda sesja edytuje tylko podsekcję swojej strony („W toku”, „Zrobione”). Konflikt w innych sekcjach (np. „Pomysły na później”) → zostaw obie wersje.
+4. **Wspólne pliki** (`CLAUDE.md`, ADR, `tokens.css`, `payload.config.ts`, kolekcje) → kto scala drugi, robi `git merge origin/develop` na swojej gałęzi, rozwiązuje konflikty i przepuszcza testy.
+5. **Migracje:** po scaleniu cudzej migracji `git merge origin/develop` i `pnpm payload migrate`, zanim utworzysz własną — migawka `.json` musi znać schemat drugiej gałęzi. Gdy obie gałęzie mają już migracje, ta scalana druga tworzy swoją na nowo.
+6. **Panel:** ciasteczko logowania nie rozróżnia portów — zalogowanie w `panel.localhost:3001` wylogowuje z `:3000`.
+7. **Koniec dnia:** `.\scripts\koniec.ps1` w każdym folderze z pracą w toku.
+8. Folder niepotrzebny (praca znów nad jedną stroną): `git worktree remove ..\prokom-web-biznes`.
 
 ### Zmiana schematu bazy (ADR-009)
 `push` jest wyłączony (`push: false` w `src/payload.config.ts`) — Payload sam nie zmienia tabel. Schemat zmienia się tylko przez migracje w `src/migrations/`:
