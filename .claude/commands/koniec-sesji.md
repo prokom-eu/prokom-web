@@ -8,7 +8,7 @@ Kończymy sesję.
    - `Gałąź:` nazwa gałęzi,
    - `Zrobione w tej sesji:` 1–3 punkty,
    - `Niedokończone:` co jest w połowie (pliki, testy, które jeszcze nie przechodzą),
-   - `Następny krok:` jedno konkretne zdanie — tak, żeby nowa sesja na **drugim komputerze** (firma/dom) ruszyła bez pytań. Historia tej sesji nie przejdzie na drugi komputer — liczy się tylko to, co zapiszesz.
+   - `Następny krok:` jedno konkretne zdanie — tak, żeby **następna sesja** ruszyła bez pytań. Następna sesja nie zna historii tej — liczy się tylko to, co zapiszesz.
 2. Jeśli zapadła decyzja architektoniczna — zaproponuj ADR w `docs/decyzje/` (szablon ADR-000).
 3. Jeśli zmieniły się komendy, zmienne środowiskowe albo struktura — zaktualizuj `CLAUDE.md` i `.env.example`.
 4. Daj mi krótkie podsumowanie (3–6 linijek): co zrobione, co dalej, czego potrzebuję — nadaje się na komentarz w Asanie.
