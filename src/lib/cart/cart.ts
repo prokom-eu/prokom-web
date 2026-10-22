@@ -57,6 +57,21 @@ export function addOnly(cart: Cart, id: string): Cart {
   return has(cart, id) || cart.length >= MAX_ITEMS ? cart : [...cart, { id, q: 1 }]
 }
 
+/**
+ * „Dodaj wszystko do zapytania” (spec. §6.2): adds the missing ones in order, up to the item
+ * limit; listed ones keep their quantity and note. `added` = what was really added.
+ */
+export function addAll(cart: Cart, ids: readonly string[]): { cart: Cart; added: string[] } {
+  let next = cart
+  const added: string[] = []
+  for (const id of ids) {
+    const after = addOnly(next, id)
+    if (after !== next) added.push(id)
+    next = after
+  }
+  return { cart: next, added }
+}
+
 export function changeQty(cart: Cart, id: string, delta: number): Cart {
   return cart.map((item) => (item.id === id ? { ...item, q: clampQty(item.q + delta) } : item))
 }

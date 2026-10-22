@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
-import type { IndexProduct } from './catalogIndex'
-import { productBadges } from './card'
+import type { CatalogIndex, IndexProduct } from './catalogIndex'
+import { cardFallback, productBadges } from './card'
 
 const product = (overrides: Partial<IndexProduct>): IndexProduct => ({
   slug: 'p',
@@ -55,5 +55,32 @@ describe('productBadges (spec. §5.3, at most 2)', () => {
       'Autoryzowany serwis',
     ])
     expect(labels({ authorized: true, isNew: true, kind: 'service' })).toEqual(['Usługa', 'Nowość'])
+  })
+})
+
+describe('cardFallback', () => {
+  const index = {
+    categories: [
+      { slug: 'kasy', name: 'Kasy', group: 'sprzedaz', icon: 'store', count: 1 },
+      { slug: 'uslugi', name: 'Usługi', group: 'serwis', count: 1 },
+    ],
+    groups: [
+      { slug: 'sprzedaz', name: 'Sprzedaż', icon: 'wallet', gradient: ['#111111', '#222222'] },
+      { slug: 'serwis', name: 'Serwis', icon: 'wrench', gradient: ['#333333', '#444444'] },
+    ],
+  } as unknown as CatalogIndex
+
+  it('takes the main category icon and the group gradient', () => {
+    expect(cardFallback(product({ categories: ['kasy'], group: 'sprzedaz' }), index)).toEqual({
+      icon: 'store',
+      gradient: ['#111111', '#222222'],
+    })
+  })
+
+  it('falls back to the group icon, then to the store icon without a gradient', () => {
+    expect(cardFallback(product({ categories: ['uslugi'], group: 'serwis' }), index).icon).toBe(
+      'wrench',
+    )
+    expect(cardFallback(product({}), index)).toEqual({ icon: 'store', gradient: null })
   })
 })

@@ -57,6 +57,16 @@ describe('buildProductView tenant isolation', () => {
     expect(view.brand).toBeNull()
   })
 
+  it('lists alternatives of this tenant only, as slugs', () => {
+    const alternative = (slug: string, tenant: number) =>
+      ({ id: 50 + tenant, slug, tenant }) as unknown as Product
+    expect(
+      build({ alternatives: [alternative('obca', OTHER_TENANT), alternative('neo', TENANT), 7] })
+        .alternatives,
+    ).toEqual(['neo'])
+    expect(build().alternatives).toEqual([])
+  })
+
   it('keeps a brand shown on this site', () => {
     expect(build({ brand: brand([OTHER_TENANT, TENANT]) }).brand).toMatchObject({
       slug: 'marka',

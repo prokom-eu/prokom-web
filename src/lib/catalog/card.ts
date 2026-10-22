@@ -1,4 +1,5 @@
 import type { CatalogIndex, IndexProduct } from './catalogIndex'
+import type { IconName } from './options'
 
 export type BadgeTone = 'service' | 'new' | 'promo' | 'authorized'
 
@@ -34,3 +35,16 @@ export function productBadges(
 
 /** Address of a product page (B6). */
 export const productHref = (slug: string) => `/produkt/${encodeURIComponent(slug)}`
+
+/**
+ * Picture of a product without a photo (catalog card, product gallery, „Skompletuj”): the icon
+ * of its main category, else of its group, on the group's gradient.
+ */
+export function cardFallback(
+  product: IndexProduct,
+  index: Pick<CatalogIndex, 'categories' | 'groups'>,
+): { icon: IconName; gradient: [string, string] | null } {
+  const category = index.categories.find((item) => item.slug === product.categories[0])
+  const group = index.groups.find((item) => item.slug === product.group)
+  return { icon: category?.icon ?? group?.icon ?? 'store', gradient: group?.gradient ?? null }
+}
