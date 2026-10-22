@@ -1,6 +1,6 @@
-# Sposób pracy — dwa komputery (firma + dom)
+# Sposób pracy — jeden komputer
 
-Krystian pracuje nad projektem na komputerze w firmie (Rabka) i w domu, także wieczorami i w weekendy. Cel: na każdym komputerze w każdej chwili jest **to samo**, bez ręcznego kopiowania i bez „to zostało na tamtym komputerze”.
+Krystian pracuje nad projektem na jednym komputerze (od 22.10.2026; wcześniej firma + dom). GitHub jest kopią kodu i jedyną drogą na serwer, dlatego praca w toku trafia tam na koniec dnia — awaria dysku nie zabiera więcej niż jednego dnia pracy.
 
 ## Zasada główna
 Każdy rodzaj rzeczy ma **jedno** miejsce i **jeden** kanał synchronizacji. Niczego nie kopiujemy ręcznie (pendrive, mail do siebie).
@@ -12,12 +12,12 @@ Każdy rodzaj rzeczy ma **jedno** miejsce i **jeden** kanał synchronizacji. Nic
 | Kod i dokumentacja techniczna (`CLAUDE.md`, `docs/`, ADR, `STAN.md`) | GitHub `prokom-eu/prokom-web` | **git**: `pull` na start, `push` na koniec |
 | Pliki nie-kodowe: `marka`, `materialy`, `notatki` | dysk w chmurze | automatycznie (aplikacja dysku) |
 | Hasła, wartości `.env`, kody odzyskiwania 2FA | menedżer haseł | automatycznie |
-| Lokalna baza i media testowe | Docker na każdym komputerze | **nie synchronizujemy** — odtwarza je `pnpm seed` |
+| Lokalna baza i media testowe | Docker na komputerze | **nie kopiujemy** — odtwarza je `pnpm seed` |
 | Dane produkcyjne (zapytania klientów) | tylko serwer | nigdy nie kopiujemy na komputery (RODO) |
 
-**Historia sesji Claude Code jest lokalna** (zostaje na komputerze, na którym pracowałem). Ciągłość między komputerami niesie `docs/STAN.md` — `/koniec-sesji` zapisuje tam dokładny następny krok, a nowa sesja na drugim komputerze zaczyna od jego przeczytania.
+**Nowa sesja Claude Code nie zna historii poprzedniej.** Ciągłość niesie `docs/STAN.md` — `/koniec-sesji` zapisuje tam dokładny następny krok, a następna sesja zaczyna od jego przeczytania.
 
-## Układ folderów (identyczny na obu komputerach)
+## Układ folderów
 ```
 D:\PRO-KOM\            (albo C:\PRO-KOM\, jeśli nie ma dysku D:)
 ├─ repos\              ← TYLKO git. NIGDY w folderze synchronizowanym chmurą.
@@ -35,7 +35,7 @@ D:\PRO-KOM\            (albo C:\PRO-KOM\, jeśli nie ma dysku D:)
 cd D:\PRO-KOM\repos\prokom-web
 .\scripts\start.ps1
 ```
-Skrypt: pobiera zmiany z GitHuba (`develop` i bieżącą gałąź), ostrzega o niezacommitowanych zmianach, uruchamia lokalną bazę w Dockerze, instaluje zależności i uruchamia migracje, jeśli na drugim komputerze doszły nowe.
+Skrypt: pobiera zmiany z GitHuba (`develop` i bieżącą gałąź), ostrzega o niezacommitowanych zmianach, uruchamia lokalną bazę w Dockerze, instaluje zależności i uruchamia migracje, jeśli doszły nowe (np. po scaleniu PR).
 Potem Claude Code: nowa sesja, „przeczytaj docs/STAN.md, kontynuujemy”, albo `/zadanie S<n>` przy nowej sesji fundamentu.
 
 ### Koniec pracy — ZAWSZE, także w połowie zadania
@@ -47,8 +47,8 @@ Potem Claude Code: nowa sesja, „przeczytaj docs/STAN.md, kontynuujemy”, albo
 Skrypt: robi commit `wip: …` na gałęzi zadania i wypycha go na GitHub; sprawdza, czy na żadnej gałęzi nie zostały niewypchnięte commity. Na `main` / `develop` nic nie commituje (tam tylko przez PR).
 
 ### Zasady
-1. **Nigdy nie wychodzę od komputera z niewypchniętą pracą.** Commity `wip:` na gałęzi zadania są OK — przy squash merge sklejają się w jeden.
-2. **Jedno zadanie = jedna gałąź**, kontynuowana na obu komputerach. Na drugim komputerze: `git switch <ta-sama-gałąź>` (skrypt start robi `pull`).
+1. **Na koniec dnia praca jest na GitHubie** (kopia na wypadek awarii dysku). Commity `wip:` na gałęzi zadania są OK — przy squash merge sklejają się w jeden.
+2. **Jedno zadanie = jedna gałąź = jeden PR.**
 3. Zadanie skończone → w Claude Code `/przeglad`, potem `/pr` (gotowy tytuł i opis, PR zakładany przez `gh`) → zielone CI → **Squash and merge** → `.\scripts\start.ps1` (wraca na aktualny `develop`). Tytuł PR zostaje w historii `develop` — nigdy „wip”.
 4. Konflikt albo „coś się rozjechało” → nie kombinuję z `--force`; `git status`, zrzut ekranu i pytanie w czacie.
 
@@ -56,10 +56,10 @@ Skrypt: robi commit `wip: …` na gałęzi zadania i wypycha go na GitHub; spraw
 `push` jest wyłączony (`push: false` w `src/payload.config.ts`) — Payload sam nie zmienia tabel. Schemat zmienia się tylko przez migracje w `src/migrations/`:
 1. Zmieniam kolekcję/pole → `pnpm payload migrate:create <krotka-nazwa>` (powstaje plik `.ts` + migawka `.json`).
 2. `pnpm payload migrate` → sprawdzam w panelu → `pnpm generate:types` → commit migracji razem ze zmianą kolekcji.
-3. Drugi komputer dostaje migrację z GitHuba, `scripts\start.ps1` uruchamia `migrate`. CI migruje pustą bazę przed buildem.
+3. Po `pull` `scripts\start.ps1` uruchamia `migrate`. CI migruje pustą bazę przed buildem; staging i produkcja migrują przy starcie (`prodMigrations`).
 4. Dane testowe: `pnpm seed` (admin z `SEED_ADMIN_EMAIL` / `SEED_ADMIN_PASSWORD`; na produkcji seed odmawia działania).
 
-## Konfiguracja nowego komputera (jednorazowo, ok. 15 min)
+## Konfiguracja komputera (jednorazowo, ok. 15 min — np. po reinstalacji albo wymianie sprzętu)
 Wszystko robi `scripts/setup-komputera.ps1` (można uruchamiać wielokrotnie — pomija to, co już jest).
 
 1. **Zwykłe** okno PowerShell (NIE „Administrator”). Na nowym komputerze, gdzie repo jeszcze nie ma: pobierz `scripts/setup-komputera.ps1` z GitHuba (repo → plik → „Download raw file”) i uruchom:
@@ -73,7 +73,7 @@ Wszystko robi `scripts/setup-komputera.ps1` (można uruchamiać wielokrotnie —
    - dopisuje do profilu PowerShell 7: fnm + Starship;
    - ustawia globalnie gita: `pull.ff only`, `fetch.prune`, `push.autoSetupRemote`, `rerere`, `core.autocrlf false`, czytelniejsze konflikty (`merge.conflictstyle zdiff3`) i diffy (`diff.algorithm histogram`, `diff.colorMoved`), `rebase.autoStash`, gałęzie od najnowszych (`branch.sort`), diff w edytorze opisu commita (`commit.verbose`), aliasy `git lg` i `git st`, imię i e-mail;
    - loguje `gh` (HTTPS, przez przeglądarkę), klonuje repo do `D:\PRO-KOM\repos\prokom-web`, dodaje `safe.directory`;
-   - **podpisywanie commitów kluczem SSH:** tworzy klucz `~/.ssh/id_ed25519_signing` (osobny na każdym komputerze, bez hasła — służy tylko do podpisu), włącza `commit.gpgsign`, dodaje klucz na GitHub jako *Signing key* (raz poprosi w przeglądarce o zgodę `admin:ssh_signing_key`). Efekt: commity na GitHubie mają znaczek **Verified**; squash merge robi GitHub i podpisuje go sam.
+   - **podpisywanie commitów kluczem SSH:** tworzy klucz `~/.ssh/id_ed25519_signing` (osobny dla komputera, bez hasła — służy tylko do podpisu), włącza `commit.gpgsign`, dodaje klucz na GitHub jako *Signing key* (raz poprosi w przeglądarce o zgodę `admin:ssh_signing_key`). Efekt: commity na GitHubie mają znaczek **Verified**; squash merge robi GitHub i podpisuje go sam.
 3. Ręcznie (skrypt przypomina na końcu):
    - Windows Terminal → Ctrl+, → Uruchamianie → Profil domyślny: „PowerShell” (czarna ikona, nie „Windows PowerShell”); Profile → PowerShell → Katalog startowy = folder repo; „Uruchom jako Administrator” = wyłączone;
    - Docker Desktop — pierwsze uruchomienie (WSL 2);
@@ -95,9 +95,9 @@ Wszystko robi `scripts/setup-komputera.ps1` (można uruchamiać wielokrotnie —
 7. **Narzędzia zamrożone do 26.10:** nowe pomysły na narzędzia i automaty → „Pomysły na później”. Najpierw dowozimy strony.
 
 ## Bezpieczeństwo
-- Konto GitHub i menedżer haseł z 2FA na obu komputerach. **Kody odzyskiwania 2FA** (GitHub, rejestrator domen, Seohost, menedżer haseł) zapisane w menedżerze haseł — zgubiony telefon nie może oznaczać utraty konta.
+- Konto GitHub i menedżer haseł z 2FA. **Kody odzyskiwania 2FA** (GitHub, rejestrator domen, Seohost, menedżer haseł) zapisane w menedżerze haseł — zgubiony telefon nie może oznaczać utraty konta.
 - Domeny i konta dostawców (rejestrator, Seohost) na dane i e-mail firmy, nie prywatne — `docs/dns.md`.
-- Komputer domowy: szyfrowanie dysku (BitLocker / szyfrowanie urządzenia), hasło do konta Windows, blokada ekranu.
+- Komputer: szyfrowanie dysku (BitLocker / szyfrowanie urządzenia), hasło do konta Windows, blokada ekranu.
 - `.env` nigdy w gicie (pilnuje `.gitignore`, gitleaks w haku przed commitem i w CI); wartości przenoszę tylko przez menedżer haseł.
 - Na komputery nie ściągamy kopii baz produkcyjnych ani danych klientów — praca na `pnpm seed` i stagingu.
 
@@ -109,11 +109,10 @@ Wszystko robi `scripts/setup-komputera.ps1` (można uruchamiać wielokrotnie —
 | w terminalu pojawia się `>>` | wkleiłeś kilka linii naraz — wklejaj po jednej komendzie |
 | `start.ps1`: „masz niezacommitowane zmiany” | sprawdź `git status`; jeśli to Twoja praca — `.\scripts\koniec.ps1 "opis"` i ponownie start |
 | `git pull` odmawia (rozjechana historia) | nie używaj `--force`; `git status` + `git log --oneline -5` → pytanie w czacie |
-| Na drugim komputerze brakuje danych w panelu | normalne — lokalna baza jest per komputer; `pnpm seed` |
+| Brakuje danych w panelu (np. po odtworzeniu bazy) | normalne — lokalnej bazy nie kopiujemy; `pnpm seed` |
 | Błąd migracji po `pull` | `pnpm payload migrate`; jeśli dalej błąd — lokalnie można odtworzyć bazę od zera (`docker compose ... down -v`, `up -d`, `migrate`, `seed`) |
 | Commit bez znaczka **Verified** na GitHubie | `git config user.email` ≠ e-mail zweryfikowany na GitHubie albo klucz nie dodany jako *Signing key* (GitHub → Settings → SSH and GPG keys) → uruchom ponownie `.\scripts\setup-komputera.ps1` |
 | `error: ... ssh-keygen` / `failed to write commit object` przy commicie | brak klienta OpenSSH: Ustawienia → System → Funkcje opcjonalne → „Klient OpenSSH” → zainstaluj; nie wyłączaj podpisywania |
 | Commit zablokowany: „gitleaks is not installed” albo `pnpm: command not found` (np. commit z VS Code) | hak nie widzi programów w PATH: zainstaluj gitleaks (`winget install --id Gitleaks.Gitleaks`), zamknij i otwórz ponownie terminal/VS Code; w razie wątpliwości commituj z terminala PowerShell 7 |
 | Commit zablokowany: „leaks found” | gitleaks znalazł sekret w zmianach (plik i linia w komunikacie) — usuń go z pliku, przenieś do `.env`; nie omijaj haka (`--no-verify`) |
 | Commit zablokowany przez Prettier/ESLint | `pnpm format` (i poprawki ESLint), przejrzyj zmiany, `git add` i commit ponownie |
-| Zapomniałem wypchnąć pracę z drugiego komputera | nie zaczynaj tej samej gałęzi od nowa — dokończ na tamtym komputerze albo zacznij inną sesję/zadanie |

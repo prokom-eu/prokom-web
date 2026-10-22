@@ -5,7 +5,7 @@ argument-hint: <sesja fundamentu, np. S1, albo opis zadania>
 
 Zaczynamy zadanie: **$ARGUMENTS**
 
-0. Sprawdź `git status` i `git fetch`; jeśli gałąź jest za `origin` albo są niezacommitowane zmiany — powiedz mi i poczekaj (rozwiązanie: `.\scripts\start.ps1`). Pracuję na dwóch komputerach.
+0. Sprawdź `git status` i `git fetch`; jeśli gałąź jest za `origin` albo są niezacommitowane zmiany — powiedz mi i poczekaj (rozwiązanie: `.\scripts\start.ps1`).
 1. Przeczytaj `docs/STAN.md` (zwłaszcza „W toku” → „Następny krok”). Jeśli to sesja fundamentu — jej opis w `docs/zadania/fundament.md`. Jeśli strona — specyfikację w `docs/strony/`. Sprawdź powiązane ADR w `docs/decyzje/`.
 2. Gdy zadanie dotyczy API Payload / Next.js — sprawdź dokumentację zainstalowanej wersji, nie pisz z pamięci.
 3. Napisz krótko (max 15 linijek):

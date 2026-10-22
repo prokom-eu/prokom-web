@@ -46,5 +46,5 @@ if ($ahead) {
     Write-Host "Wypchnij je:  git switch <galaz>; git push" -ForegroundColor Yellow
 } else {
     Write-Host ""
-    Write-Host "Wszystko jest na GitHubie. Na drugim komputerze zacznij od: .\scripts\start.ps1" -ForegroundColor Green
+    Write-Host "Wszystko jest na GitHubie. Nastepnym razem zacznij od: .\scripts\start.ps1" -ForegroundColor Green
 }
