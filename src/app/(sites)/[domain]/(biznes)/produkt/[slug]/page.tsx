@@ -2,8 +2,10 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 import { productBadges, productHref } from '@/lib/catalog/card'
+import type { IndexProduct } from '@/lib/catalog/catalogIndex'
 import { getCatalogIndex, getProductView } from '@/lib/catalog/data'
 import { CATALOG_PATH, catalogHref, DEFAULT_STATE } from '@/lib/catalog/filters'
+import { alternativeProducts, kitProducts, similarProducts } from '@/lib/catalog/related'
 import { getEnv } from '@/lib/env'
 import { pickSource } from '@/lib/media/sizes'
 import { ogImages } from '@/lib/pages/metadata'
@@ -15,7 +17,11 @@ import { isValidSlug } from '@/lib/tenant/uniqueSlug'
 import { Breadcrumbs, type Crumb } from '@/sites/biznes/components/Breadcrumbs'
 import { ProductBox } from '@/sites/biznes/components/product/ProductBox'
 import { ProductDetails } from '@/sites/biznes/components/product/ProductDetails'
+import { ProductAlternatives } from '@/sites/biznes/components/product/ProductAlternatives'
 import { ProductGallery } from '@/sites/biznes/components/product/ProductGallery'
+import { ProductKit, type KitItem } from '@/sites/biznes/components/product/ProductKit'
+import { SimilarProducts } from '@/sites/biznes/components/product/SimilarProducts'
+import { HowInquiryWorks } from '@/sites/biznes/components/HowInquiryWorks'
 
 import { requestOrigin, requireLine } from '../../../tenant'
 
@@ -56,7 +62,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-/** Product page `/produkt/[slug]` (spec. §6.2, B6a); sections under the content come in B6b. */
+/**
+ * Product page `/produkt/[slug]` (spec. §6.2): gallery and box (B6a), then tabs, alternatives,
+ * „Skompletuj stanowisko”, „Podobne” and how the inquiry works (B6b).
+ */
 export default async function ProductPage({ params }: Props) {
   const { tenant, product } = await load(params)
   if (!product) notFound()
@@ -80,20 +89,18 @@ export default async function ProductPage({ params }: Props) {
     whatsapp: whatsapp ? toWhatsAppHref(whatsapp) : null,
   }
 
+  // TODO(krystian): B10 — link `/oferta/<kategoria>` (an indexed category page) in the
+  // breadcrumbs, their JSON-LD and „Podobne” instead of the filtered catalog view.
+  const categoryHref = product.category
+    ? catalogHref({ ...DEFAULT_STATE, categories: [product.category.slug] })
+    : null
+
   // `indexed: false`: linked for people, named only in JSON-LD (its page has `noindex`).
   const crumbs: (Crumb & { indexed?: false })[] = [
     { name: 'Strona główna', href: '/' },
     { name: 'Oferta', href: CATALOG_PATH },
-    ...(product.category
-      ? [
-          {
-            name: product.category.name,
-            // TODO(krystian): B10 — link `/oferta/<kategoria>` (an indexed category page) here
-            // and in JSON-LD instead of the filtered catalog view.
-            href: catalogHref({ ...DEFAULT_STATE, categories: [product.category.slug] }),
-            indexed: false as const,
-          },
-        ]
+    ...(product.category && categoryHref
+      ? [{ name: product.category.name, href: categoryHref, indexed: false as const }]
       : []),
     { name: product.name, href: productHref(product.slug) },
   ]
@@ -115,6 +122,25 @@ export default async function ProductPage({ params }: Props) {
       })),
     ),
   ]
+
+  // Sections under the content (B6b): only this site's published products (catalog index).
+  const iconOf = (item: IndexProduct) => {
+    const itemCategory = index.categories.find((entry) => entry.slug === item.categories[0])
+    const itemGroup = index.groups.find((entry) => entry.slug === item.group)
+    return {
+      icon: itemCategory?.icon ?? itemGroup?.icon ?? ('store' as const),
+      gradient: itemGroup?.gradient ?? null,
+    }
+  }
+  const kit: KitItem[] = kitProducts(index, product.slug).map((item) => ({
+    slug: item.slug,
+    name: item.name,
+    benefit: item.benefit ?? null,
+    image: item.image ?? null,
+    ...iconOf(item),
+  }))
+  const alternatives = alternativeProducts(index, product.slug, product.alternatives)
+  const similar = similarProducts(index, product.slug)
 
   return (
     <>
@@ -148,11 +174,23 @@ export default async function ProductPage({ params }: Props) {
           </div>
         </div>
       </div>
-      {product.tabs.length > 0 && (
-        <div className="mx-auto w-full max-w-7xl px-4 pb-16 sm:px-6 sm:pb-24 lg:px-8">
-          <ProductDetails product={product} />
-        </div>
-      )}
+      <div className="mx-auto flex w-full max-w-7xl flex-col gap-14 px-4 pb-16 sm:gap-20 sm:px-6 sm:pb-24 lg:px-8">
+        {product.tabs.length > 0 && <ProductDetails product={product} />}
+        {alternatives.length > 0 && <ProductAlternatives products={alternatives} />}
+        {kit.length > 0 && <ProductKit items={kit} />}
+        {similar.length > 0 && (
+          <SimilarProducts
+            products={similar}
+            index={index}
+            category={
+              category && categoryHref
+                ? { name: category.name, count: category.count, href: categoryHref }
+                : null
+            }
+          />
+        )}
+      </div>
+      <HowInquiryWorks callbackTime={settings?.biznes?.promises.callbackTime ?? null} />
     </>
   )
 }

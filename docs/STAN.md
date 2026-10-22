@@ -16,10 +16,10 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 Dwie strony powstają równolegle, każda we własnym folderze (git worktree) — `docs/sposob-pracy.md` → „Dwie strony równolegle”. Każda sesja edytuje tylko podsekcję swojej strony.
 
 ### prokombiznes.pl — folder `prokom-web-biznes`
-- **Budowa wg `docs/zadania/prokombiznes.md` (B0–B11, produkcja 26.10).** B0–B5b, B3c, D1, K1 scalone (#45–#62).
-- Gałąź: `feat/biznes-b6a-produkt` (B6a: strona produktu `/produkt/[slug]` — `lib/catalog/product.ts` `buildProductView` z filtrem tenanta relacji i zdjęć, `getProductView`, galeria z punktami i modułami, boks sticky, zakładki Opis/Specyfikacja/Dokumenty/Pytania tylko z treścią, okruszki wspólne z `/oferta`, JSON-LD `Product` bez `offers` + `BreadcrumbList`, sitemap Biznesu z `/oferta` i produktami; e2e `biznes-product`).
+- **Budowa wg `docs/zadania/prokombiznes.md` (B0–B11, produkcja 26.10).** B0–B5b, B3c, D1, K1, B6a scalone (#45–#69).
+- Gałąź: `feat/biznes-b6b-sekcje-produktu` (B6b: pod treścią produktu „Kiedy wybrać coś innego?” z `alternatives`, „Skompletuj stanowisko” z `fitsWith` i „Dodaj wszystko do zapytania” (`cartActions.addMany`: jeden zapis, jeden komunikat, limit 50), „Podobne” — 4 z kategorii głównej, `HowInquiryWorks`; wszystko z indeksu katalogu, więc tylko opublikowane produkty tej domeny — `lib/catalog/related.ts`).
 - Niedokończone: `TODO(krystian)`: prawo użycia zdjęć producentów (`Media.source`), loga Honeywell i Zebra w bitmapie, 11 usług i PolCard Go bez zdjęć (decyzja „usługi tylko z ikoną” w B6), kanały kontaktu działów i obietnice od szefa (Asana, 20.10) — wpisywane w panelu.
-- **Następny krok:** poprawki po przeglądzie B6a, `/pr` B6a; potem `feat/biznes-b6b-sekcje-produktu` od `origin/develop`: „Kiedy wybrać inną?” (`alternatives`), „Skompletuj stanowisko” (`fits` + „Dodaj wszystko do zapytania” → `cartActions.addMany`), „Podobne” (4 z kategorii głównej), `HowInquiryWorks`. Seed nie wypełnia opisu, specyfikacji, keyParams, hotspotów, FAQ ani relacji — strony pokazują się w wersji minimalnej, pełna po wpisaniu treści w panelu.
+- **Następny krok:** `/przeglad` i `/pr` B6b; potem `/zadanie B7` — strona główna wg v20. Seed nie ustawia `fitsWith` ani `alternatives` — te sekcje pojawią się po wpisaniu relacji w panelu (e2e ustawia je przez API).
 
 ### prokomsoftware.pl — folder `prokom-web`
 - **Budowa wg `docs/zadania/prokomsoftware.md`.** SW0 (#64) i SW1 (#67) scalone; pauza na Biznes (produkcja 26.10), potem SW2a.
@@ -31,6 +31,7 @@ Dwie strony powstają równolegle, każda we własnym folderze (git worktree) �
 
 ## Zrobione
 ### prokombiznes.pl
+- 22.10.2026 — B6a scalone (#69): strona produktu `/produkt/[slug]` — `buildProductView` (relacje i zdjęcia tylko tego tenanta), galeria z punktami tylko nad publicznym pierwszym zdjęciem, boks sticky, zakładki z treścią (Opis/Specyfikacja/Dokumenty/Pytania), JSON-LD `Product` bez `offers` + `BreadcrumbList` (kategoria bez adresu do B10), sitemap Biznesu z `/oferta` i produktami; e2e `biznes-product`. Przegląd `recenzent`, poprawki w tym samym PR.
 - 22.10.2026 — K1 scalone (#62): `Products`: `subcategory`, `variants`, `sources` (linki http(s), `checkedAt`), `contentStatus`, `batch`, `legacyIds` zamiast `legacyId` (migracje `katalog_v2` + `katalog_v2_legacy_ids`, up → down → up sprawdzone); galeria = `images`; kategorie `wagi-sklepowe`, `skanery-kolektory-etykiety`, `akcesoria-pos`, `automaty-vendingowe`; `seed:biznes`: 225 pozycji, 32 marki, 23 kategorie, 567 zdjęć galerii, aktualizacja tylko przy zmianie (drugie uruchomienie: 0 created / 0 updated); indeks 24 KB gzip. Poprawki danych łatki: przywrócone branże z `aktywna`/`kreator` i „Beauty” (łatka je zgubiła), podkategorie `druks` i `szuf`. Seed aktualizuje też `featured`/`featuredOrder` (8 wyróżnionych z v20 w starej bazie). Przegląd `recenzent`, poprawki w tym samym PR: `contentStatus` i `checkedAt` z paczki tylko „w przód”, data w formacie Payload, `comparison` zawsze zapisywane, test wyszukiwarki zamiast `it.fails` (błąd → B4c), test e2e mega menu.
 
 ### prokomsoftware.pl

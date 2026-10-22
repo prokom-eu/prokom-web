@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest'
 import { buildCatalogIndex, type CatalogIndex, type IndexProduct } from '../catalog/catalogIndex'
 import { sourceFromSeed } from '../catalog/seedSource.fixture'
 import {
+  addAll,
   addOnly,
   type CartItem,
   cartCount,
@@ -153,5 +154,29 @@ describe('suggestFor (Często dobierane)', () => {
     expect(suggested[0]).toBe(ksef.slug)
     expect(suggested).not.toContain(terminal.slug)
     expect(suggested).not.toContain('posnet-ergo-online')
+  })
+})
+
+describe('addAll', () => {
+  it('adds the missing ones in order, keeps quantities and notes of the listed ones', () => {
+    const cart: CartItem[] = [{ id: 'szuflada', q: 2, uwaga: 'czarna' }]
+    expect(addAll(cart, ['szuflada', 'terminal', 'przeglad', 'terminal'])).toEqual({
+      cart: [
+        { id: 'szuflada', q: 2, uwaga: 'czarna' },
+        { id: 'terminal', q: 1 },
+        { id: 'przeglad', q: 1 },
+      ],
+      added: ['terminal', 'przeglad'],
+    })
+  })
+
+  it('stops at the item limit and returns the same list when nothing is added', () => {
+    const full = Array.from({ length: MAX_ITEMS }, (_, i) => ({ id: `p${i}`, q: 1 }))
+    const result = addAll(full, ['nowy'])
+    expect(result.cart).toBe(full)
+    expect(result.added).toEqual([])
+
+    const almost = full.slice(1)
+    expect(addAll(almost, ['a', 'b']).added).toEqual(['a'])
   })
 })

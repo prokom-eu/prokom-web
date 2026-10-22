@@ -38,6 +38,11 @@ export type ProductView = {
   included: string[]
   faq: { question: string; answer: string }[]
   variants: string[]
+  /**
+   * „Kiedy wybrać coś innego?” (`alternatives`): slugs of this tenant's products; the page keeps
+   * only those in the catalog index (published).
+   */
+  alternatives: string[]
   documents: { datasheets: string[]; productPages: string[] }
   tabs: ProductTab[]
   seo: { title: string | null; description: string | null }
@@ -149,6 +154,9 @@ export function buildProductView(product: Product, tenantId: number): ProductVie
     included: ownIncluded.length > 0 ? ownIncluded : unique(main?.included),
     faq,
     variants: unique(product.variants),
+    alternatives: docs<Product>(product.alternatives)
+      .filter(ownTenant)
+      .map(({ slug }) => slug),
     documents,
     tabs,
     seo: { title: text(product.seo?.title), description: text(product.seo?.description) },
