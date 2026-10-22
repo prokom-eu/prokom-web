@@ -205,19 +205,36 @@ jobs:
         if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: pnpm exec playwright install chromium
 
-      # apt usually takes ~12 s but sometimes hangs on the Ubuntu mirror for 8–12 min. apt's own
-      # timeouts end most hangs; a try that still runs over 2 minutes is killed and repeated (at
-      # most 3). A killed apt may leave its lock or dpkg half-done: wait for the lock, finish dpkg.
+      # System libraries for Chromium come from apt. The Ubuntu mirror is sometimes very slow
+      # (8–12 min instead of ~12 s), so the downloaded .deb files are cached: apt keeps them in
+      # ~/apt-archives (its own directory, so the runner's clean-up does not delete them) and
+      # installs from disk next time. Killing a slow apt does not help — it keeps the dpkg lock.
+      - id: apt-cache
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/apt-archives
+          key: apt-playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: apt-playwright-${{ runner.os }}-
+
       - name: Install Playwright system dependencies
+        timeout-minutes: 15
         run: |
-          echo 'Acquire::Retries "3"; Acquire::http::Timeout "30"; DPkg::Lock::Timeout "60";' \
+          mkdir -p ~/apt-archives/partial
+          printf '%s\n' \
+            "Dir::Cache::Archives \"$HOME/apt-archives\";" \
+            'APT::Keep-Downloaded-Packages "true";' \
+            'Acquire::Retries "3";' \
             | sudo tee /etc/apt/apt.conf.d/99ci >/dev/null
-          for try in 1 2 3; do
-            if timeout -k 10 120 pnpm exec playwright install-deps chromium; then exit 0; fi
-            echo "::warning::playwright install-deps: try $try failed or timed out"
-            sudo dpkg --configure -a || true
-          done
-          exit 1
+          pnpm exec playwright install-deps chromium
+          # apt wrote the files as root; the cache step reads them as the runner user.
+          sudo rm -rf ~/apt-archives/partial ~/apt-archives/lock
+          sudo chown -R "$(id -u):$(id -g)" ~/apt-archives
+
+      - if: steps.apt-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/apt-archives
+          key: apt-playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
 
       # On the build above (`pnpm start`, playwright.config.ts): no route compiling on first visit.
       - name: E2E tests
