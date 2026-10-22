@@ -128,6 +128,16 @@ describe('buildProductView content', () => {
     ])
   })
 
+  it('drops hotspots when the first photo of the panel is not public (they were set on it)', () => {
+    const hotspots = [{ x: 10, y: 20, title: 'Moduł WiFi', description: null }]
+    const view = build({
+      hotspots,
+      images: [image(1, 'a.webp', { requiresConsent: true }), image(2, 'b.webp')],
+    })
+    expect(view.images).toHaveLength(1)
+    expect(view.hotspots).toEqual([])
+  })
+
   it('looks the same whatever the content status', () => {
     const view = build({ contentStatus: 'needs-review' })
     expect(view).toEqual(build({ contentStatus: 'ready' }))

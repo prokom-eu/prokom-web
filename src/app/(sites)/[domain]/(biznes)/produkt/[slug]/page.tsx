@@ -80,14 +80,18 @@ export default async function ProductPage({ params }: Props) {
     whatsapp: whatsapp ? toWhatsAppHref(whatsapp) : null,
   }
 
-  const crumbs: Crumb[] = [
+  // `indexed: false`: linked for people, named only in JSON-LD (its page has `noindex`).
+  const crumbs: (Crumb & { indexed?: false })[] = [
     { name: 'Strona główna', href: '/' },
     { name: 'Oferta', href: CATALOG_PATH },
     ...(product.category
       ? [
           {
             name: product.category.name,
+            // TODO(krystian): B10 — link `/oferta/<kategoria>` (an indexed category page) here
+            // and in JSON-LD instead of the filtered catalog view.
             href: catalogHref({ ...DEFAULT_STATE, categories: [product.category.slug] }),
+            indexed: false as const,
           },
         ]
       : []),
@@ -104,7 +108,12 @@ export default async function ProductPage({ params }: Props) {
         (image) => origin + pickSource(image.sources, JSON_LD_IMAGE_WIDTH),
       ),
     }),
-    breadcrumbJsonLd(crumbs.map(({ name, href }) => ({ name, url: origin + href }))),
+    breadcrumbJsonLd(
+      crumbs.map(({ name, href, indexed }) => ({
+        name,
+        url: indexed === false ? null : origin + href,
+      })),
+    ),
   ]
 
   return (

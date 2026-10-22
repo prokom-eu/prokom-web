@@ -127,6 +127,7 @@ export function ProductBox({ product, contact, callbackTime }: Props) {
               <a href={contact.whatsapp} target="_blank" rel="noopener" className={CONTACT_LINK}>
                 <Icon name="chat" className="size-4" strokeWidth={2.1} />
                 WhatsApp
+                <span className="sr-only"> (otwiera się w nowej karcie)</span>
               </a>
             )}
           </div>

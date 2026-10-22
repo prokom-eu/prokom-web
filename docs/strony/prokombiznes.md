@@ -320,7 +320,7 @@ Wzór: `Produkt` (Posnet Ergo Online), zrzuty jasny i ciemny.
   - telefon i WhatsApp;
   - „W PRO-KOM w cenie” (lista usług) **[SZEF: „kasa w cenie z fiskalizacją, programowaniem i szkoleniem”]**;
   - „Bez cen — wycenę przygotujemy na piśmie”.
-- **Zakładki:** Opis · Specyfikacja · Do pobrania · Pytania. Treść ze sterowanego bloku rich text; specyfikacja jako tabela par klucz–wartość.
+- **Zakładki:** Opis · Specyfikacja · Dokumenty · Pytania. Treść ze sterowanego bloku rich text; specyfikacja jako tabela par klucz–wartość. „Dokumenty” (zamiast „Do pobrania” z planszy, `ZMIANY-katalog-v2.md` §4): karty PDF i strony producenta (`sources`), otwierane u producenta. Widoczne są tylko zakładki z treścią; jedna zakładka = zwykła sekcja z nagłówkiem.
 - „Kiedy wybrać inną kasę?”: linki do alternatyw.
 - „Skompletuj stanowisko jednym kliknięciem”: 4–5 akcesoriów (relacja `pasujeDo`) i przycisk „Dodaj wszystko do zapytania”.
 - „Podobne”: 4 produkty z tej samej kategorii.

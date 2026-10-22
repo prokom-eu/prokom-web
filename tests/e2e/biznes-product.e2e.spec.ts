@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test } from '@playwright/test'
 
-import { site } from './helpers'
+import { api, loginAsAdmin, site, tenantId } from './helpers'
 
 // B6a: product page `/produkt/[slug]` (spec. §6.2). Catalog from `pnpm seed`.
 const WCAG = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']
@@ -34,7 +34,14 @@ test.describe('Biznes product page', () => {
       brand: { '@type': 'Brand', name: 'Posnet' },
     })
     expect(JSON.stringify(product)).not.toMatch(/offers|price/i)
-    expect(data.some((item) => item['@type'] === 'BreadcrumbList')).toBe(true)
+    const breadcrumbs = data.find((item) => item['@type'] === 'BreadcrumbList')
+    // The category view has `noindex`: named, not linked, until B10 adds the category page.
+    expect(breadcrumbs?.itemListElement).toEqual([
+      expect.objectContaining({ position: 1, item: site('biznes.localhost', '/') }),
+      expect.objectContaining({ position: 2, item: site('biznes.localhost', '/oferta') }),
+      { '@type': 'ListItem', position: 3, name: 'Kasy fiskalne' },
+      expect.objectContaining({ position: 4, item: site('biznes.localhost', ERGO) }),
+    ])
   })
 
   test('switches photos and the inquiry switch updates the counter', async ({ page }) => {
@@ -83,6 +90,36 @@ test.describe('Biznes product page', () => {
     ]) {
       const response = await page.goto(url)
       expect(response?.status(), url).toBe(404)
+    }
+  })
+
+  test('a draft product has no page and is not in the sitemap', async ({ page }) => {
+    await loginAsAdmin(page)
+    const biznes = await tenantId(page, 'biznes')
+    const { json } = await api(
+      page,
+      'GET',
+      `/api/catalog-categories?where[slug][equals]=kasy-fiskalne&where[tenant][equals]=${biznes}&depth=0`,
+    )
+    const [category] = json.docs as { id: number }[]
+    const slug = `e2e-szkic-produktu-${Date.now()}`
+    const created = await api(page, 'POST', '/api/products?draft=true', {
+      tenant: biznes,
+      slug,
+      name: 'Szkic produktu',
+      kind: 'device',
+      categories: [category!.id],
+      _status: 'draft',
+    })
+    expect(created.status).toBe(201)
+    try {
+      const response = await page.goto(site('biznes.localhost', `/produkt/${slug}`))
+      expect(response?.status()).toBe(404)
+      const sitemap = await page.goto(site('biznes.localhost', '/sitemap.xml'))
+      expect(await sitemap?.text()).not.toContain(slug)
+    } finally {
+      await page.goto('/admin/login')
+      await api(page, 'DELETE', `/api/products/${(created.json.doc as { id: number }).id}`)
     }
   })
 

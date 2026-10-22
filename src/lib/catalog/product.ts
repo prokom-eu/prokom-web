@@ -28,7 +28,7 @@ export type ProductView = {
   subcategory: string | null
   industries: { slug: string; name: string }[]
   images: PublicImage[]
-  /** Points over the first image, in % of its size; empty without an image. */
+  /** Points over the first image, in % of its size; empty when that image is not public. */
   hotspots: { x: number; y: number; title: string; description: string | null }[]
   modules: { name: string; description: string | null; icon: IconName | null }[]
   keyParams: LabelValue[]
@@ -129,15 +129,15 @@ export function buildProductView(product: Product, tenantId: number): ProductVie
       .filter(ownTenant)
       .map(({ slug, name }) => ({ slug, name })),
     images,
-    hotspots:
-      images.length > 0
-        ? (product.hotspots ?? []).map(({ x, y, title, description }) => ({
-            x,
-            y,
-            title,
-            description: text(description),
-          }))
-        : [],
+    // Points are set in % of the panel's first photo: shown only while that one is public.
+    hotspots: publicImage(product.images?.[0], tenantId)
+      ? (product.hotspots ?? []).map(({ x, y, title, description }) => ({
+          x,
+          y,
+          title,
+          description: text(description),
+        }))
+      : [],
     modules: (product.modules ?? []).map(({ name, description, icon }) => ({
       name,
       description: text(description),

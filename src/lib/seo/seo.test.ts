@@ -220,6 +220,12 @@ describe('breadcrumbJsonLd', () => {
       ],
     })
   })
+
+  it('leaves out the address of an item that has no indexable page', () => {
+    expect(breadcrumbJsonLd([{ name: 'Kasy fiskalne', url: null }]).itemListElement).toEqual([
+      { '@type': 'ListItem', position: 1, name: 'Kasy fiskalne' },
+    ])
+  })
 })
 
 describe('serializeJsonLd', () => {

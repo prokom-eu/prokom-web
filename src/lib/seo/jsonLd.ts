@@ -104,8 +104,11 @@ export function productJsonLd({ name, description, url, brand, category, images 
   }
 }
 
-/** `BreadcrumbList` from the visible breadcrumbs, with absolute addresses. */
-export function breadcrumbJsonLd(items: readonly { name: string; url: string }[]) {
+/**
+ * `BreadcrumbList` from the visible breadcrumbs, with absolute addresses. `url: null` → the item
+ * has no `item`: its page is not indexed (a filtered catalog view), so it is named, not linked.
+ */
+export function breadcrumbJsonLd(items: readonly { name: string; url: string | null }[]) {
   return {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -113,7 +116,7 @@ export function breadcrumbJsonLd(items: readonly { name: string; url: string }[]
       '@type': 'ListItem',
       position: index + 1,
       name,
-      item: url,
+      ...(url && { item: url }),
     })),
   }
 }
