@@ -13,13 +13,24 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 | prokomsoftware.pl | 31.10 | ⏳ |
 
 ## W toku
-- **Budowa prokombiznes.pl wg `docs/zadania/prokombiznes.md` (B0–B11, produkcja 26.10).**
-  - Gałąź: `feat/katalog-v2` (K1 — katalog v2: dane i model, PR #62 do `develop`). B0–B5b, B3c i D1 scalone (#45–#60); dokumentacja „jeden komputer” scalona (#61).
-  - Zrobione w sesji 22.10: K1 — `Products`: `subcategory`, `variants`, `sources` (linki http(s), `checkedAt`), `contentStatus`, `batch`, `legacyIds` zamiast `legacyId` (migracje `katalog_v2` + `katalog_v2_legacy_ids`, up → down → up sprawdzone); galeria = `images`; kategorie `wagi-sklepowe`, `skanery-kolektory-etykiety`, `akcesoria-pos`, `automaty-vendingowe`; `seed:biznes`: 225 pozycji, 32 marki, 23 kategorie, 567 zdjęć galerii, aktualizacja tylko przy zmianie (drugie uruchomienie: 0 created / 0 updated); indeks 24 KB gzip. Poprawki danych łatki: przywrócone branże z `aktywna`/`kreator` i „Beauty” (łatka je zgubiła), podkategorie `druks` i `szuf`. Seed aktualizuje też `featured`/`featuredOrder` (8 wyróżnionych z v20 w starej bazie). Przegląd `recenzent`, poprawki w tym samym PR: `contentStatus` i `checkedAt` z paczki tylko „w przód”, data w formacie Payload, `comparison` zawsze zapisywane, test wyszukiwarki zamiast `it.fails` (błąd → B4c), test e2e mega menu.
-  - Niedokończone: `TODO(krystian)`: prawo użycia zdjęć producentów (`Media.source`), loga Honeywell i Zebra w bitmapie, 11 usług i PolCard Go bez zdjęć (decyzja „usługi tylko z ikoną” w B6), kanały kontaktu działów i obietnice od szefa (Asana, 20.10) — wpisywane w panelu.
-  - **Następny krok:** zielone CI i scalenie #62 (K1), potem `/zadanie B6` — strona produktu `/produkt/[slug]` wg spec. §6.2 i `ZMIANY-katalog-v2.md` §4: galeria z `images`, lista `variants`, zakładka „Dokumenty” z `sources.datasheets`, boks sticky, zakładki, „Skompletuj stanowisko”, alternatywy, podobne, JSON-LD `Product` bez `offers` + `BreadcrumbList`, `HowInquiryWorks`. Po pobraniu K1: `pnpm payload migrate && pnpm seed:biznes`.
+Dwie strony powstają równolegle, każda we własnym folderze (git worktree) — `docs/sposob-pracy.md` → „Dwie strony równolegle”. Każda sesja edytuje tylko podsekcję swojej strony.
+
+### prokombiznes.pl — folder `prokom-web-biznes`
+- **Budowa wg `docs/zadania/prokombiznes.md` (B0–B11, produkcja 26.10).** B0–B5b, B3c, D1, K1 scalone (#45–#62).
+- Gałąź: `chore/praca-rownolegla` (praca równoległa: worktree, `PORT` i baza per folder, `start.ps1` bez `git switch develop`).
+- Niedokończone: `TODO(krystian)`: prawo użycia zdjęć producentów (`Media.source`), loga Honeywell i Zebra w bitmapie, 11 usług i PolCard Go bez zdjęć (decyzja „usługi tylko z ikoną” w B6), kanały kontaktu działów i obietnice od szefa (Asana, 20.10) — wpisywane w panelu.
+- **Następny krok:** PR `chore/praca-rownolegla`, po scaleniu w tym folderze `git switch -c feat/biznes-b6a-produkt origin/develop` i B6a wg planu B6 (strona produktu `/produkt/[slug]`: dane z filtrem tenanta, galeria, boks sticky, zakładki, JSON-LD `Product` bez `offers` + `BreadcrumbList`, sitemap; B6b: alternatywy, „Skompletuj stanowisko”, podobne).
+
+### prokomsoftware.pl — folder `prokom-web`
+- Gałąź: `docs/prokomsoftware-sw0` (SW0 w toku). Wpis uzupełni `/koniec-sesji` tej sesji.
 
 ## Zrobione
+### prokombiznes.pl
+- 22.10.2026 — K1 scalone (#62): `Products`: `subcategory`, `variants`, `sources` (linki http(s), `checkedAt`), `contentStatus`, `batch`, `legacyIds` zamiast `legacyId` (migracje `katalog_v2` + `katalog_v2_legacy_ids`, up → down → up sprawdzone); galeria = `images`; kategorie `wagi-sklepowe`, `skanery-kolektory-etykiety`, `akcesoria-pos`, `automaty-vendingowe`; `seed:biznes`: 225 pozycji, 32 marki, 23 kategorie, 567 zdjęć galerii, aktualizacja tylko przy zmianie (drugie uruchomienie: 0 created / 0 updated); indeks 24 KB gzip. Poprawki danych łatki: przywrócone branże z `aktywna`/`kreator` i „Beauty” (łatka je zgubiła), podkategorie `druks` i `szuf`. Seed aktualizuje też `featured`/`featuredOrder` (8 wyróżnionych z v20 w starej bazie). Przegląd `recenzent`, poprawki w tym samym PR: `contentStatus` i `checkedAt` z paczki tylko „w przód”, data w formacie Payload, `comparison` zawsze zapisywane, test wyszukiwarki zamiast `it.fails` (błąd → B4c), test e2e mega menu.
+
+### prokomsoftware.pl
+
+### Do 22.10.2026 (wspólne)
 - 21.10.2026 — B5a scalone (#59): katalog `/oferta` — stan widoku tylko w URL (`lib/catalog/filters.ts`: filtry, liczniki fasetowe, sortowanie, 12 na stronę, SEO wg ADR-012 §2.2 z canonical stron poza zakresem do ostatniej), pierwszy widok renderowany przez serwer, wyspa `Catalog` (`history.pushState`), filtry na desktopie, karty z „+ Do zapytania”, „Pokaż kolejne” jako link `?strona=N+1`, logo marek w indeksie, token `--promo`. Przegląd `recenzent`, poprawki w tym samym PR. Po pierwszym CI poprawka: `primeCatalogIndex` tylko w przeglądarce (na serwerze zmienna modułu psuła hydratację następnej strony). Testy: 774 Vitest, e2e `biznes-catalog` 15.
 - 21.10.2026 — D1 scalone (#57): wizualizacja v20 (plansze, zrzuty, css, `ZMIANY-v20.md`, `PRZEKAZANIE-v20.md`) wniesiona do spec. §1, §3.1–3.2, §4, §8.4, §11, §13, ADR-012 (rozstrz. 10–11), ADR-013 (H1 bez gradientu), seed (8 wyróżnionych), planu (B3c, B7, B8).
 - 20.10.2026 — B4b scalone (#55): lista zapytania `pk-cart` (`lib/cart`: odczyt, akcje, limity 50/999/500, czyszczenie nieznanych produktów, „Często dobierane”: „Skompletuj stanowisko” → `fits` w indeksie, potem ta sama grupa), store na `useSyncExternalStore` wspólny dla kart, „Zapytanie” z licznikiem w nagłówku i dolnym pasku, szuflada `<dialog>`, toast, +/✓ przy wynikach wyszukiwarki; poprawki po przeglądzie (fokus po akcjach klawiaturą, toast nie pod modalem, zapis bez `localStorage`). E2E `biznes-cart` 8 testów.

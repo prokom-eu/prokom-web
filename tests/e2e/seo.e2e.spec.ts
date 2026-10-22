@@ -11,7 +11,7 @@ const HOSTS = ['biznes.localhost', 'instalacje.localhost', 'software.localhost']
 test.describe('robots and sitemap', () => {
   for (const host of HOSTS) {
     test(`${host} serves its own robots.txt and sitemap.xml`, async ({ page }) => {
-      const origin = `http://${host}:3000`
+      const origin = site(host, '')
 
       let response = await page.goto(site(host, '/robots.txt'))
       expect(response?.status()).toBe(200)
@@ -57,11 +57,11 @@ test.describe('page metadata', () => {
     await page.goto(site('biznes.localhost', '/kontakt'))
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
       'href',
-      'http://biznes.localhost:3000/kontakt',
+      site('biznes.localhost', '/kontakt'),
     )
     await expect(page.locator('meta[property="og:url"]')).toHaveAttribute(
       'content',
-      'http://biznes.localhost:3000/kontakt',
+      site('biznes.localhost', '/kontakt'),
     )
     // Not staging: no noindex.
     await expect(page.locator('meta[name="robots"]')).toHaveCount(0)
@@ -105,7 +105,7 @@ test.describe('redirects', () => {
       // Chromium may add its own internal 307 hop before the request; ours is the 301.
       expect(redirected).toContainEqual({
         status: 301,
-        location: 'http://biznes.localhost:3000/kontakt',
+        location: site('biznes.localhost', '/kontakt'),
         cache: 'public, max-age=86400',
       })
       expect(new URL(page.url()).pathname).toBe('/kontakt')
