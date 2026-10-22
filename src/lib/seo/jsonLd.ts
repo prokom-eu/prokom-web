@@ -76,6 +76,48 @@ export function faqJsonLd(items: readonly { question: string; answer: string }[]
   }
 }
 
+type ProductInput = {
+  name: string
+  description: string | null
+  /** Absolute address of the product page. */
+  url: string
+  brand: string | null
+  category: string | null
+  /** Absolute image addresses, the main one first. */
+  images: readonly string[]
+}
+
+/**
+ * `Product` of the product page — never with `offers`: the catalog has no prices (spec. §6.2,
+ * spec. §1). Missing fields are left out rather than sent empty.
+ */
+export function productJsonLd({ name, description, url, brand, category, images }: ProductInput) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name,
+    ...(description && { description }),
+    url,
+    ...(brand && { brand: { '@type': 'Brand', name: brand } }),
+    ...(category && { category }),
+    ...(images.length > 0 && { image: [...images] }),
+  }
+}
+
+/** `BreadcrumbList` from the visible breadcrumbs, with absolute addresses. */
+export function breadcrumbJsonLd(items: readonly { name: string; url: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map(({ name, url }, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name,
+      item: url,
+    })),
+  }
+}
+
 /** JSON for `<script type="application/ld+json">`; `<` escaped so text cannot end the tag (Next docs). */
 export function serializeJsonLd(data: unknown): string {
   return JSON.stringify(data).replace(/</g, '\\u003c')

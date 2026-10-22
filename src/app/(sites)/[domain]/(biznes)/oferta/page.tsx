@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import type { Metadata } from 'next'
 
 import { Heading } from '@/components/ui/Heading'
@@ -15,6 +14,7 @@ import { ogImages } from '@/lib/pages/metadata'
 import { plural } from '@/lib/plural'
 import { robotsMeta } from '@/lib/seo/robots'
 import { getSiteSettings } from '@/lib/site/data'
+import { Breadcrumbs } from '@/sites/biznes/components/Breadcrumbs'
 import { Catalog } from '@/sites/biznes/components/catalog/Catalog'
 import { HowInquiryWorks } from '@/sites/biznes/components/HowInquiryWorks'
 
@@ -92,21 +92,12 @@ export default async function CatalogPage({ params }: Props) {
     <>
       <div className="relative overflow-hidden bg-[radial-gradient(ellipse_at_85%_0%,var(--glow),transparent_55%)]">
         <div className="mx-auto w-full max-w-7xl px-4 pb-6 pt-5 sm:px-6 sm:pt-9 lg:px-8">
-          <nav aria-label="Okruszki" className="text-sm text-ink-3">
-            <ol className="flex flex-wrap gap-2">
-              <li>
-                <Link href="/" className="hover:text-ink hover:underline">
-                  Strona główna
-                </Link>
-              </li>
-              <li aria-hidden="true">/</li>
-              <li>
-                <Link href={CATALOG_PATH} aria-current="page" className="text-ink">
-                  Oferta
-                </Link>
-              </li>
-            </ol>
-          </nav>
+          <Breadcrumbs
+            items={[
+              { name: 'Strona główna', href: '/' },
+              { name: 'Oferta', href: CATALOG_PATH },
+            ]}
+          />
           <div className="mt-5 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-3xl">
               <p className="flex items-center gap-2 text-sm font-bold text-ink-2">

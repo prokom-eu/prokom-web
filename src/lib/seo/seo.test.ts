@@ -1,6 +1,12 @@
 import { describe, expect, it } from 'vitest'
 
-import { faqJsonLd, organizationJsonLd, serializeJsonLd } from './jsonLd'
+import {
+  breadcrumbJsonLd,
+  faqJsonLd,
+  organizationJsonLd,
+  productJsonLd,
+  serializeJsonLd,
+} from './jsonLd'
 import { robotsMeta, robotsTxt } from './robots'
 import { siteOrigin } from './origin'
 import { sitemapXml } from './sitemap'
@@ -44,6 +50,24 @@ describe('sitemapXml', () => {
     expect(xml).toContain('<loc>https://prokombiznes.pl/kontakt</loc>')
     expect(xml).toContain('<lastmod>2026-10-17T10:00:00.000Z</lastmod>')
     expect(xml.startsWith('<?xml version="1.0" encoding="UTF-8"?>')).toBe(true)
+  })
+
+  it('lists extra paths (catalog, products) after the pages', () => {
+    const xml = sitemapXml(
+      'https://prokombiznes.pl',
+      [{ slug: 'home', updatedAt: null }],
+      [
+        { path: '/oferta', updatedAt: null },
+        { path: '/produkt/posnet-ergo-online', updatedAt: '2026-10-22T09:00:00.000Z' },
+      ],
+    )
+    const locs = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1])
+    expect(locs).toEqual([
+      'https://prokombiznes.pl/',
+      'https://prokombiznes.pl/oferta',
+      'https://prokombiznes.pl/produkt/posnet-ergo-online',
+    ])
+    expect(xml).toContain('<lastmod>2026-10-22T09:00:00.000Z</lastmod>')
   })
 
   it('escapes XML special characters', () => {
@@ -126,6 +150,73 @@ describe('faqJsonLd', () => {
       '@type': 'FAQPage',
       mainEntity: [
         { '@type': 'Question', name: 'Czy?', acceptedAnswer: { '@type': 'Answer', text: 'Tak.' } },
+      ],
+    })
+  })
+})
+
+describe('productJsonLd', () => {
+  const input = {
+    name: 'Posnet Ergo Online',
+    description: 'Mała kasa, która jeździ z Tobą.',
+    url: 'https://prokombiznes.pl/produkt/posnet-ergo-online',
+    brand: 'Posnet',
+    category: 'Kasy fiskalne',
+    images: ['https://prokombiznes.pl/api/media/file/ergo-01.webp'],
+  }
+
+  it('describes the product with brand and images', () => {
+    expect(productJsonLd(input)).toEqual({
+      '@context': 'https://schema.org',
+      '@type': 'Product',
+      name: 'Posnet Ergo Online',
+      description: 'Mała kasa, która jeździ z Tobą.',
+      url: 'https://prokombiznes.pl/produkt/posnet-ergo-online',
+      brand: { '@type': 'Brand', name: 'Posnet' },
+      category: 'Kasy fiskalne',
+      image: ['https://prokombiznes.pl/api/media/file/ergo-01.webp'],
+    })
+  })
+
+  it('never has offers — there are no prices (spec. §6.2)', () => {
+    expect(JSON.stringify(productJsonLd(input))).not.toMatch(/offers|price/i)
+  })
+
+  it('leaves out what is missing', () => {
+    expect(
+      productJsonLd({ ...input, description: null, brand: null, category: null, images: [] }),
+    ).toEqual({
+      '@context': 'https://schema.org',
+      '@type': 'Product',
+      name: 'Posnet Ergo Online',
+      url: 'https://prokombiznes.pl/produkt/posnet-ergo-online',
+    })
+  })
+})
+
+describe('breadcrumbJsonLd', () => {
+  it('numbers the items from 1', () => {
+    expect(
+      breadcrumbJsonLd([
+        { name: 'Strona główna', url: 'https://prokombiznes.pl/' },
+        { name: 'Oferta', url: 'https://prokombiznes.pl/oferta' },
+      ]),
+    ).toEqual({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Strona główna',
+          item: 'https://prokombiznes.pl/',
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Oferta',
+          item: 'https://prokombiznes.pl/oferta',
+        },
       ],
     })
   })

@@ -128,7 +128,8 @@ function cardImage(images: Product['images'], tenantId: number): IndexImage | un
   return undefined
 }
 
-function brandLogo(brand: Partner): IndexLogo | undefined {
+/** Small logo of a brand (cards, filters, the product box); none without a file. */
+export function brandLogo(brand: Partner): IndexLogo | undefined {
   const sources = imageSources(brand)
   if (!brand.width || !brand.height || sources.length === 0) return undefined
   return { url: pickSource(sources, LOGO_WIDTH), width: brand.width, height: brand.height }

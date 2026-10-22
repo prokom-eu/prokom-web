@@ -17,9 +17,9 @@ Dwie strony powstają równolegle, każda we własnym folderze (git worktree) �
 
 ### prokombiznes.pl — folder `prokom-web-biznes`
 - **Budowa wg `docs/zadania/prokombiznes.md` (B0–B11, produkcja 26.10).** B0–B5b, B3c, D1, K1 scalone (#45–#62).
-- Gałąź: `chore/praca-rownolegla` (praca równoległa: worktree, `PORT` i baza per folder, `start.ps1` bez `git switch develop`).
+- Gałąź: `feat/biznes-b6a-produkt` (B6a: strona produktu `/produkt/[slug]` — `lib/catalog/product.ts` `buildProductView` z filtrem tenanta relacji i zdjęć, `getProductView`, galeria z punktami i modułami, boks sticky, zakładki Opis/Specyfikacja/Dokumenty/Pytania tylko z treścią, okruszki wspólne z `/oferta`, JSON-LD `Product` bez `offers` + `BreadcrumbList`, sitemap Biznesu z `/oferta` i produktami; e2e `biznes-product`).
 - Niedokończone: `TODO(krystian)`: prawo użycia zdjęć producentów (`Media.source`), loga Honeywell i Zebra w bitmapie, 11 usług i PolCard Go bez zdjęć (decyzja „usługi tylko z ikoną” w B6), kanały kontaktu działów i obietnice od szefa (Asana, 20.10) — wpisywane w panelu.
-- **Następny krok:** PR `chore/praca-rownolegla`, po scaleniu w tym folderze `git switch -c feat/biznes-b6a-produkt origin/develop` i B6a wg planu B6 (strona produktu `/produkt/[slug]`: dane z filtrem tenanta, galeria, boks sticky, zakładki, JSON-LD `Product` bez `offers` + `BreadcrumbList`, sitemap; B6b: alternatywy, „Skompletuj stanowisko”, podobne).
+- **Następny krok:** po scaleniu `fix/pnpm-dev-env` → `git merge origin/develop` na B6a, `/przeglad`, `/pr` B6a; potem `feat/biznes-b6b-sekcje-produktu` od `origin/develop`: „Kiedy wybrać inną?” (`alternatives`), „Skompletuj stanowisko” (`fits` + „Dodaj wszystko do zapytania” → `cartActions.addMany`), „Podobne” (4 z kategorii głównej), `HowInquiryWorks`. Seed nie wypełnia opisu, specyfikacji, keyParams, hotspotów, FAQ ani relacji — strony pokazują się w wersji minimalnej, pełna po wpisaniu treści w panelu.
 
 ### prokomsoftware.pl — folder `prokom-web`
 - Gałąź: `docs/prokomsoftware-sw0` — SW0 (dokumenty, decyzje D1–D18) w PR #64 do `develop`.
