@@ -12,6 +12,10 @@
  *   --border-input (form fields, ≥ 3:1 on every surface — WCAG 1.4.11; `--border` is decorative)
  *   --ok, --warn (status dots: open / partner, closed; ≥ 3:1), --ok-text (small green labels)
  *   --promo, --promo-ink (marketing badge of catalog cards and its label)
+ *   --card-2 (second card level), --ink-soft, --accent-soft / --accent-line (active chips and
+ *   their border), --stage (preview mock-ups), --chip, --glow-2, --dot, --header-bg, --shadow —
+ *   Software's visualisation (ADR-015); other lines get neutral defaults below.
+ *   --c-software-light-* / --c-software-night-*  Software palette (docs/design/prokomsoftware)
  * Contrast is checked by `tokens.test.ts` and `themes.test.ts`.
  */
 
@@ -30,7 +34,7 @@
 
   --c-software: #8b61e3;
   --c-software-on-dark: #9670ee;
-  --c-software-text: #7e58cd;
+  --c-software-text: #5b33c4; /* ADR-015: the interface text shade (was #7e58cd) */
 
   --c-tech: #d13a2e;
   --c-tech-on-dark: #e2483a;
@@ -71,6 +75,78 @@
   /* Biznes — dark rhythm blocks, the same in both themes. */
   --c-biznes-navy: #0a1430;
 
+  /* Software — values 1:1 from docs/design/prokomsoftware/tokens.css (ADR-015). */
+  /* Software — light theme of the visualisation. */
+  --c-software-light-surface: #f4f5f1;
+  --c-software-light-surface-2: #eceee8;
+  --c-software-light-surface-3: #e3e6df;
+  --c-software-light-card: #ffffff;
+  --c-software-light-card-2: #f7f8f5;
+  --c-software-light-border: #dcdfd8;
+  --c-software-light-ink: #121613;
+  --c-software-light-ink-soft: #2e342f;
+  --c-software-light-ink-2: #4f5650;
+  --c-software-light-ink-3: #4f5650; /* = ink-2: Software ma jeden odcień tekstu opisowego */
+  --c-software-light-border-input: #767c74; /* = --c-input-border z repo: 3,91 na surface, 3,39 na surface-3 */
+  --c-software-light-ok-text: #256a18; /* małe zielone etykiety: ≥ 5,28 na wszystkich jasnych tłach */
+  --c-software-light-accent: #6e45d4; /* ADR-015: księga #8b61e3 ma z białym tylko 4,27 — za mało na napis przycisku */
+  --c-software-light-accent-2: #a24bd8;
+  --c-software-light-accent-text: #5b33c4; /* ADR-015: też --c-software-text (wcześniej #7e58cd) */
+  --c-software-light-accent-ink: #ffffff;
+  --c-software-light-accent-soft: #ece7fb;
+  --c-software-light-accent-line: #cfc2f5;
+  --c-software-light-stage: #e9e3fa;
+  --c-software-light-chip: #e8eae5;
+  --c-software-light-surface-dark: #171226;
+  --c-software-light-ok: #2e7a1e;
+  --c-software-light-warn: #a86a00;
+  --c-software-light-glow: rgba(110, 69, 212, 0.26);
+  --c-software-light-glow-2: rgba(
+    162,
+    75,
+    216,
+    0.14
+  ); /* ADR-015: fioletowa (plansza: rgba(40, 150, 200, 0.14)) */
+  --c-software-light-grid: rgba(110, 69, 212, 0.09);
+  --c-software-light-dot: rgba(18, 22, 19, 0.09);
+  --c-software-light-header-bg: rgba(244, 245, 241, 0.8);
+  --c-software-light-shadow: 0 36px 80px -30px rgba(40, 30, 80, 0.35);
+  /* Software — dark theme of the visualisation. */
+  --c-software-night-surface: #121613;
+  --c-software-night-surface-2: #161a17;
+  --c-software-night-surface-3: #1c211d;
+  --c-software-night-card: #1a1f1b;
+  --c-software-night-card-2: #20261f;
+  --c-software-night-border: #2a302b;
+  --c-software-night-ink: #f4f5f1;
+  --c-software-night-ink-soft: #d9ddd8;
+  --c-software-night-ink-2: #b5bbb5;
+  --c-software-night-ink-3: #b5bbb5;
+  --c-software-night-border-input: #7a817b; /* 4,57 na surface, 3,87 na card-2 */
+  --c-software-night-ok-text: #7bd36a; /* = ok, ≥ 8,3 na ciemnych tłach */
+  --c-software-night-accent: #9670ee; /* = --c-software-on-dark z księgi */
+  --c-software-night-accent-2: #c9a9ff;
+  --c-software-night-accent-text: #b39bf5;
+  --c-software-night-accent-ink: #121613;
+  --c-software-night-accent-soft: #241e36;
+  --c-software-night-accent-line: #4a3c74;
+  --c-software-night-stage: #1e1a2b;
+  --c-software-night-chip: #232823;
+  --c-software-night-surface-dark: #0e0b18;
+  --c-software-night-ok: #7bd36a;
+  --c-software-night-warn: #f2b84b;
+  --c-software-night-glow: rgba(150, 112, 238, 0.42);
+  --c-software-night-glow-2: rgba(
+    201,
+    169,
+    255,
+    0.2
+  ); /* ADR-015: fioletowa (plansza: rgba(80, 180, 220, 0.22)) */
+  --c-software-night-grid: rgba(179, 155, 245, 0.09);
+  --c-software-night-dot: rgba(244, 245, 241, 0.08);
+  --c-software-night-header-bg: rgba(18, 22, 19, 0.78);
+  --c-software-night-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.8);
+
   /* Status colours of the Biznes visualisation (dots); `-text` is darkened for 4.5:1. */
   --c-ok: #1f9d63;
   --c-ok-text: #15724a;
@@ -107,6 +183,19 @@
   --ok: var(--c-ok);
   --ok-text: var(--c-ok-text);
   --warn: var(--c-warn);
+
+  /* Tokens from Software's visualisation (ADR-015) with neutral defaults, so components never
+     ask which line they are on. Declared on <html> with `data-line`, so `var()` sees the line. */
+  --card-2: var(--surface-2);
+  --ink-soft: var(--ink);
+  --accent-soft: color-mix(in srgb, var(--accent) 10%, var(--surface));
+  --accent-line: color-mix(in srgb, var(--accent) 35%, var(--surface));
+  --stage: var(--surface-2);
+  --chip: var(--surface-2);
+  --glow-2: transparent;
+  --dot: transparent;
+  --header-bg: var(--surface);
+  --shadow: none;
 }
 
 [data-line='prokom'] {
@@ -144,10 +233,53 @@
 }
 
 [data-line='software'] {
-  --accent: var(--c-software);
+  --accent: var(--c-software-light-accent);
   --accent-on-dark: var(--c-software-on-dark);
   --accent-text: var(--c-software-text);
-  --accent-2: var(--c-software);
+  --surface: var(--c-software-light-surface);
+  --surface-2: var(--c-software-light-surface-2);
+  --surface-3: var(--c-software-light-surface-3);
+  --card: var(--c-software-light-card);
+  --card-2: var(--c-software-light-card-2);
+  --ink: var(--c-software-light-ink);
+  --ink-soft: var(--c-software-light-ink-soft);
+  --ink-2: var(--c-software-light-ink-2);
+  --ink-3: var(--c-software-light-ink-3);
+  --border: var(--c-software-light-border);
+  --border-input: var(--c-software-light-border-input);
+  --accent-2: var(--c-software-light-accent-2);
+  --accent-ink: var(--c-software-light-accent-ink);
+  --accent-soft: var(--c-software-light-accent-soft);
+  --accent-line: var(--c-software-light-accent-line);
+  --stage: var(--c-software-light-stage);
+  --chip: var(--c-software-light-chip);
+  --surface-dark: var(--c-software-light-surface-dark);
+  --ok: var(--c-software-light-ok);
+  --ok-text: var(--c-software-light-ok-text);
+  --warn: var(--c-software-light-warn);
+  --glow: var(--c-software-light-glow);
+  --glow-2: var(--c-software-light-glow-2);
+  --grid: var(--c-software-light-grid);
+  --dot: var(--c-software-light-dot);
+  --header-bg: var(--c-software-light-header-bg);
+  --shadow: var(--c-software-light-shadow);
+
+  /* ADR-015: H1 fragment on 5 pages, without the light blue of the boards. */
+  --grad-h1: linear-gradient(
+    100deg,
+    var(--accent-text) 5%,
+    var(--accent-2) 55%,
+    var(--accent) 110%
+  );
+  /* Icon tiles of the 8 areas (seed/prokomsoftware/obszary.json), only behind white icons. */
+  --grad-area-www: linear-gradient(135deg, #6e45d4, #a24bd8);
+  --grad-area-sys: linear-gradient(135deg, #1f6f8b, #2e9a76);
+  --grad-area-app: linear-gradient(135deg, #3a7bd5, #6e45d4);
+  --grad-area-cal: linear-gradient(135deg, #e8955a, #c2577a);
+  --grad-area-plug: linear-gradient(135deg, #24324a, #5e74a6);
+  --grad-area-auto: linear-gradient(135deg, #b7791f, #e8955a);
+  --grad-area-care: linear-gradient(135deg, #2e8a1e, #4fb3a0);
+  --grad-area-aud: linear-gradient(135deg, #b9506f, #e59a7e);
 }
 
 /* Dark theme — chosen by the visitor (`data-theme`, see lib/brand/theme.ts)… */
@@ -175,7 +307,41 @@
   --warn: var(--c-warn-night);
 }
 
-/* …or by the system when there is no choice. Keep in sync with the rule above (tested). */
+[data-line='software'][data-theme='dark'] {
+  color-scheme: dark;
+  --accent: var(--c-software-night-accent);
+  --accent-on-dark: var(--c-software-night-accent-2);
+  --accent-text: var(--c-software-night-accent-text);
+  --surface: var(--c-software-night-surface);
+  --surface-2: var(--c-software-night-surface-2);
+  --surface-3: var(--c-software-night-surface-3);
+  --card: var(--c-software-night-card);
+  --card-2: var(--c-software-night-card-2);
+  --ink: var(--c-software-night-ink);
+  --ink-soft: var(--c-software-night-ink-soft);
+  --ink-2: var(--c-software-night-ink-2);
+  --ink-3: var(--c-software-night-ink-3);
+  --border: var(--c-software-night-border);
+  --border-input: var(--c-software-night-border-input);
+  --accent-2: var(--c-software-night-accent-2);
+  --accent-ink: var(--c-software-night-accent-ink);
+  --accent-soft: var(--c-software-night-accent-soft);
+  --accent-line: var(--c-software-night-accent-line);
+  --stage: var(--c-software-night-stage);
+  --chip: var(--c-software-night-chip);
+  --surface-dark: var(--c-software-night-surface-dark);
+  --ok: var(--c-software-night-ok);
+  --ok-text: var(--c-software-night-ok-text);
+  --warn: var(--c-software-night-warn);
+  --glow: var(--c-software-night-glow);
+  --glow-2: var(--c-software-night-glow-2);
+  --grid: var(--c-software-night-grid);
+  --dot: var(--c-software-night-dot);
+  --header-bg: var(--c-software-night-header-bg);
+  --shadow: var(--c-software-night-shadow);
+}
+
+/* …or by the system when there is no choice. Keep in sync with the rules above (tested). */
 @media (prefers-color-scheme: dark) {
   [data-line='biznes']:not([data-theme='light']) {
     color-scheme: dark;
@@ -199,5 +365,39 @@
     --ok: var(--c-ok-night);
     --ok-text: var(--c-ok-night);
     --warn: var(--c-warn-night);
+  }
+
+  [data-line='software']:not([data-theme='light']) {
+    color-scheme: dark;
+    --accent: var(--c-software-night-accent);
+    --accent-on-dark: var(--c-software-night-accent-2);
+    --accent-text: var(--c-software-night-accent-text);
+    --surface: var(--c-software-night-surface);
+    --surface-2: var(--c-software-night-surface-2);
+    --surface-3: var(--c-software-night-surface-3);
+    --card: var(--c-software-night-card);
+    --card-2: var(--c-software-night-card-2);
+    --ink: var(--c-software-night-ink);
+    --ink-soft: var(--c-software-night-ink-soft);
+    --ink-2: var(--c-software-night-ink-2);
+    --ink-3: var(--c-software-night-ink-3);
+    --border: var(--c-software-night-border);
+    --border-input: var(--c-software-night-border-input);
+    --accent-2: var(--c-software-night-accent-2);
+    --accent-ink: var(--c-software-night-accent-ink);
+    --accent-soft: var(--c-software-night-accent-soft);
+    --accent-line: var(--c-software-night-accent-line);
+    --stage: var(--c-software-night-stage);
+    --chip: var(--c-software-night-chip);
+    --surface-dark: var(--c-software-night-surface-dark);
+    --ok: var(--c-software-night-ok);
+    --ok-text: var(--c-software-night-ok-text);
+    --warn: var(--c-software-night-warn);
+    --glow: var(--c-software-night-glow);
+    --glow-2: var(--c-software-night-glow-2);
+    --grid: var(--c-software-night-grid);
+    --dot: var(--c-software-night-dot);
+    --header-bg: var(--c-software-night-header-bg);
+    --shadow: var(--c-software-night-shadow);
   }
 }

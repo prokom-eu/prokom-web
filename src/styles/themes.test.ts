@@ -68,8 +68,6 @@ describe.each(cases)('$line, $mode theme', ({ line, mode }) => {
     expect(
       contrastRatio(hex('--accent-on-dark', s), hex('--surface-dark', s)),
     ).toBeGreaterThanOrEqual(4.5)
-    // Partner badges of the Biznes footer: green labels on the dark block.
-    expect(contrastRatio(hex('--ok', s), hex('--surface-dark', s))).toBeGreaterThanOrEqual(4.5)
   })
 
   // WCAG 1.4.11: status dots (open / closed, partner) carry meaning next to their text.
@@ -91,8 +89,6 @@ describe.each(cases)('$line, $mode theme', ({ line, mode }) => {
       ['--promo-ink', '--promo'],
       ['--surface', '--ink'],
       ['--accent-ink', '--accent-text'],
-      // „W zapytaniu” on hover: remove from the list.
-      ['--warn', '--surface-2'],
     ]
     for (const [text, badge] of pairs) {
       expect(
@@ -122,6 +118,53 @@ describe.each(cases)('$line, $mode theme', ({ line, mode }) => {
     expect(contrastRatio(hex('--accent-2', s), hex('--surface', s))).toBeGreaterThanOrEqual(3)
   })
 })
+
+// Pairs used only by Biznes components. Software shows `--ok` and `--warn` as dots only
+// (docs/design/prokomsoftware/README.md, „Kontrast”), so its light values do not need 4.5:1 here.
+describe.each(cases.filter(({ line }) => line === 'biznes'))(
+  'Biznes components, $mode theme',
+  ({ line, mode }) => {
+    const s = scope(line, mode)
+
+    it('green partner labels of the footer reach 4.5:1 on the dark block', () => {
+      expect(contrastRatio(hex('--ok', s), hex('--surface-dark', s))).toBeGreaterThanOrEqual(4.5)
+    })
+
+    it('„W zapytaniu” label (remove on hover) reaches 4.5:1 on its badge', () => {
+      expect(contrastRatio(hex('--warn', s), hex('--surface-2', s))).toBeGreaterThanOrEqual(4.5)
+    })
+  },
+)
+
+// ADR-015 and the contrast table of docs/design/prokomsoftware/README.md: text on the second card
+// level, active chips and preview stages; the button label on the accent button.
+describe.each(cases.filter(({ line }) => line === 'software'))(
+  'Software surfaces, $mode theme',
+  ({ line, mode }) => {
+    const s = scope(line, mode)
+    const panels = ['--card-2', '--accent-soft', '--stage', '--chip']
+
+    it.each(['--ink', '--ink-soft', '--ink-2', '--accent-text', '--ok-text'])(
+      '%s reaches 4.5:1 on panels, chips and stages',
+      (text) => {
+        for (const surface of panels) {
+          expect(
+            contrastRatio(hex(text, s), hex(surface, s)),
+            `${text} on ${surface}`,
+          ).toBeGreaterThanOrEqual(4.5)
+        }
+      },
+    )
+
+    it('button label reaches 4.5:1 on the accent button', () => {
+      expect(contrastRatio(hex('--accent-ink', s), hex('--accent', s))).toBeGreaterThanOrEqual(4.5)
+    })
+
+    it('form field border reaches 3:1 on the second card level', () => {
+      expect(contrastRatio(hex('--border-input', s), hex('--card-2', s))).toBeGreaterThanOrEqual(3)
+    })
+  },
+)
 
 describe('dark theme definitions', () => {
   it.each([...LINE_VALUES])('%s: dark rules exist only for lines with a dark design', (line) => {

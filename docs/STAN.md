@@ -22,8 +22,9 @@ Dwie strony powstają równolegle, każda we własnym folderze (git worktree) �
 - **Następny krok:** PR `chore/praca-rownolegla`, po scaleniu w tym folderze `git switch -c feat/biznes-b6a-produkt origin/develop` i B6a wg planu B6 (strona produktu `/produkt/[slug]`: dane z filtrem tenanta, galeria, boks sticky, zakładki, JSON-LD `Product` bez `offers` + `BreadcrumbList`, sitemap; B6b: alternatywy, „Skompletuj stanowisko”, podobne).
 
 ### prokomsoftware.pl — folder `prokom-web`
-- Gałąź: `docs/prokomsoftware-sw0` — SW0 (dokumenty, decyzje D1–D18) w PR #64 do `develop`.
-- **Następny krok:** scalenie #64, potem `/zadanie SW1` (tokeny i motyw wg ADR-015, rozstrzygnięcia) — SW1 nie dotyka Biznesu. SW2 dopiero po scaleniu B11 (`docs/zadania/prokomsoftware.md` §3).
+- Gałąź: `feat/software-sw1-tokeny` — SW1: paleta Software w `src/styles/tokens.css` (jasna i ciemna 1:1 z wzorca, `--c-software-text` `#5B33C4`, `--grad-h1` bez błękitu, `--grad-area-<key>`), nowe tokeny semantyczne z wartościami domyślnymi dla innych linii (`--card-2`, `--ink-soft`, `--accent-soft`, `--accent-line`, `--stage`, `--chip`, `--glow-2`, `--dot`, `--header-bg`, `--shadow`) i w `@theme`, `software` w `DARK_THEME_LINES`. Testy kontrastu: blok Software (panele, chipy, sceny, przycisk), sprawdzenia `--ok` na ciemnym bloku i `--warn` jako tekst tylko dla Biznesu. Biznes, Instalacje i hub: wszystkie dotychczasowe tokeny bez zmian (porównanie rozwiązanych wartości przed/po, oba motywy).
+- Niedokończone: podgląd w przeglądarce — `pnpm dev` pada od #63 (`node --env-file-if-exists=.env` → Next 16 przenosi flagę do `NODE_OPTIONS` procesu potomnego, Node jej tam nie przyjmuje); osobna poprawka.
+- **Następny krok:** poprawka `pnpm dev`, potem podgląd SW1 (software.localhost:3001, oba motywy) i `/pr`. Potem SW2 dopiero po scaleniu B11 (`docs/zadania/prokomsoftware.md` §3).
 
 ## Zrobione
 ### prokombiznes.pl
