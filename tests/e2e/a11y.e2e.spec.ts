@@ -3,12 +3,12 @@ import { expect, test, type Page } from '@playwright/test'
 
 import { site } from './helpers'
 
-// ADR-007 / ADR-013: every line passes axe (WCAG 2.1 A/AA) in each of its themes, the layout
+// ADR-007 / ADR-013 / ADR-015: every line passes axe (WCAG 2.1 A/AA) in each of its themes, the layout
 // holds at 360 px and the dark theme switch works. Seed pages: `home` and `kontakt`.
 const SITES = [
   { host: 'biznes.localhost', line: 'biznes', dark: true },
   { host: 'instalacje.localhost', line: 'instalacje', dark: false },
-  { host: 'software.localhost', line: 'software', dark: false },
+  { host: 'software.localhost', line: 'software', dark: true },
 ]
 const PATHS = ['/', '/kontakt']
 const WCAG = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']
@@ -66,23 +66,25 @@ test.describe('phone width (360 px)', () => {
 })
 
 test.describe('dark theme switch', () => {
-  test('toggles, is announced and survives a reload (Biznes)', async ({ page }) => {
-    await page.emulateMedia({ colorScheme: 'light' })
-    await page.goto(site('biznes.localhost'))
-    const toggle = page.getByRole('button', { name: 'Tryb ciemny' })
-    await expect(toggle).toHaveAttribute('aria-pressed', 'false')
+  for (const { host } of SITES.filter(({ dark }) => dark)) {
+    test(`toggles, is announced and survives a reload (${host})`, async ({ page }) => {
+      await page.emulateMedia({ colorScheme: 'light' })
+      await page.goto(site(host))
+      const toggle = page.getByRole('button', { name: 'Tryb ciemny' })
+      await expect(toggle).toHaveAttribute('aria-pressed', 'false')
 
-    await toggle.click()
-    await expect(toggle).toHaveAttribute('aria-pressed', 'true')
-    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
+      await toggle.click()
+      await expect(toggle).toHaveAttribute('aria-pressed', 'true')
+      await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
 
-    await page.reload()
-    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
-    await expect(page.getByRole('button', { name: 'Tryb ciemny' })).toHaveAttribute(
-      'aria-pressed',
-      'true',
-    )
-  })
+      await page.reload()
+      await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
+      await expect(page.getByRole('button', { name: 'Tryb ciemny' })).toHaveAttribute(
+        'aria-pressed',
+        'true',
+      )
+    })
+  }
 
   test('is not offered on lines without a dark design', async ({ page }) => {
     await page.goto(site('instalacje.localhost'))

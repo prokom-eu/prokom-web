@@ -50,7 +50,9 @@ describe('brand colours (docs/marka.md)', () => {
 
 describe('data-line → --accent* (ADR-007)', () => {
   const accents = (line: string) => ({
-    '--accent': `var(--c-${line})`,
+    // ADR-015: Software's interface accent is a darker shade of its brand colour (white on the
+    // brand book's #8B61E3 is only 4.27:1); the mark keeps the brand colour.
+    '--accent': line === 'software' ? 'var(--c-software-light-accent)' : `var(--c-${line})`,
     '--accent-on-dark': `var(--c-${line}-on-dark)`,
     '--accent-text': `var(--c-${line}-text)`,
   })

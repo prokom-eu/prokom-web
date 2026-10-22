@@ -1,7 +1,7 @@
 import type { Line } from '@/lib/tenant/lines'
 
 /** Lines with a designed dark theme (ADR-013); `tokens.css` defines dark values only for them. */
-export const DARK_THEME_LINES: readonly Line[] = ['biznes']
+export const DARK_THEME_LINES: readonly Line[] = ['biznes', 'software']
 
 export function hasDarkTheme(line: Line): boolean {
   return DARK_THEME_LINES.includes(line)

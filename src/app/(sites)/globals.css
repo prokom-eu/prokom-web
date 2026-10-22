@@ -20,14 +20,23 @@
   --color-surface-2: var(--surface-2);
   --color-surface-3: var(--surface-3);
   --color-card: var(--card);
+  --color-card-2: var(--card-2);
   --color-surface-dark: var(--surface-dark);
   --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
   --color-ink-2: var(--ink-2);
   --color-ink-3: var(--ink-3);
   --color-border: var(--border);
   --color-border-input: var(--border-input);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-line: var(--accent-line);
+  --color-stage: var(--stage);
+  --color-chip: var(--chip);
+  --color-header-bg: var(--header-bg);
   --color-glow: var(--glow);
+  --color-glow-2: var(--glow-2);
   --color-grid: var(--grid);
+  --color-dot: var(--dot);
   --color-ok: var(--ok);
   --color-ok-text: var(--ok-text);
   --color-warn: var(--warn);
@@ -39,6 +48,9 @@
   /* Subset chains (see fonts.ts): basic Latin first, then Polish and other Latin letters. */
   --font-sans: var(--font-manrope-latin), var(--font-manrope-latin-ext), system-ui, sans-serif;
   --font-display: var(--font-archivo-latin), var(--font-archivo-latin-ext), system-ui, sans-serif;
+
+  /* Raised cards of Software's visualisation (`shadow-raised`); no shadow on other lines. */
+  --shadow-raised: var(--shadow);
 }
 
 @layer base {
