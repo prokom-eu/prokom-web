@@ -8,8 +8,8 @@
  *    (+ wariant prefers-color-scheme, tak jak dla Biznesu).
  *  - Komponenty używają tylko zmiennych semantycznych (lewa kolumna mapy niżej), nigdy wartości.
  *  - 'software' dopisz do DARK_THEME_LINES (src/lib/brand/theme.ts).
- *  - Rozstrzygnięcia SW0 (ADR-015): kolor akcentu w jasnym motywie, końcówka gradientu H1, --glow-2.
- *    Wartości oznaczone [SW0] mogą się zmienić po decyzji.
+ *  - Rozstrzygnięcia SW0 (ADR-015, 22.10.2026) są już wpisane: akcent B, --glow-2 fioletowa, H1 bez błękitu.
+ *    Plansze (.dc.html) mają stare wartości — przy porównaniu zrzutów to oczekiwane różnice.
  *
  * MAPA NAZW: wizualizacja → repo
  *   --bg          → --surface          tło strony
@@ -55,9 +55,9 @@
   --c-software-light-ink-3: #4f5650; /* = ink-2: Software ma jeden odcień tekstu opisowego */
   --c-software-light-border-input: #767c74; /* = --c-input-border z repo: 3,91 na surface, 3,39 na surface-3 */
   --c-software-light-ok-text: #256a18; /* małe zielone etykiety: ≥ 5,28 na wszystkich jasnych tłach */
-  --c-software-light-accent: #6e45d4; /* [SW0] księga: #8b61e3 (biały na nim 4,27 — za mało na napis przycisku) */
+  --c-software-light-accent: #6e45d4; /* ADR-015: księga #8b61e3 ma z białym tylko 4,27 — za mało na napis przycisku */
   --c-software-light-accent-2: #a24bd8;
-  --c-software-light-accent-text: #5b33c4; /* [SW0] repo dziś: --c-software-text #7e58cd */
+  --c-software-light-accent-text: #5b33c4; /* ADR-015: też --c-software-text (wcześniej #7e58cd) */
   --c-software-light-accent-ink: #ffffff;
   --c-software-light-accent-soft: #ece7fb;
   --c-software-light-accent-line: #cfc2f5;
@@ -67,7 +67,7 @@
   --c-software-light-ok: #2e7a1e;
   --c-software-light-warn: #a86a00;
   --c-software-light-glow: rgba(110, 69, 212, 0.26);
-  --c-software-light-glow-2: rgba(40, 150, 200, 0.14); /* [SW0] rekomendacja: rgba(162, 75, 216, 0.14) */
+  --c-software-light-glow-2: rgba(162, 75, 216, 0.14); /* ADR-015: fioletowa (plansza: rgba(40, 150, 200, 0.14)) */
   --c-software-light-grid: rgba(110, 69, 212, 0.09);
   --c-software-light-dot: rgba(18, 22, 19, 0.09);
   --c-software-light-header-bg: rgba(244, 245, 241, 0.8);
@@ -98,15 +98,15 @@
   --c-software-night-ok: #7bd36a;
   --c-software-night-warn: #f2b84b;
   --c-software-night-glow: rgba(150, 112, 238, 0.42);
-  --c-software-night-glow-2: rgba(80, 180, 220, 0.22); /* [SW0] rekomendacja: rgba(201, 169, 255, 0.2) */
+  --c-software-night-glow-2: rgba(201, 169, 255, 0.2); /* ADR-015: fioletowa (plansza: rgba(80, 180, 220, 0.22)) */
   --c-software-night-grid: rgba(179, 155, 245, 0.09);
   --c-software-night-dot: rgba(244, 245, 241, 0.08);
   --c-software-night-header-bg: rgba(18, 22, 19, 0.78);
   --c-software-night-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.8);
 
   /* ===== GRADIENTY (tylko w miejscach z plansz, ADR-013 pkt 4) ===== */
-  /* H1 (fragment z klasą .grad): accent-text → accent-2 → [SW0] #7FD3FF (niebieski) albo accent */
-  --grad-h1: linear-gradient(100deg, var(--accent-text) 5%, var(--accent-2) 55%, #7fd3ff 110%);
+  /* H1 (fragment z klasą .grad): accent-text → accent-2 → accent (ADR-015; plansza kończy się #7FD3FF) */
+  --grad-h1: linear-gradient(100deg, var(--accent-text) 5%, var(--accent-2) 55%, var(--accent) 110%);
   /* Ikony 8 obszarów — seed/prokomsoftware/obszary.json → items[].gradient (wartości tam). */
 
   /* ===== TYPOGRAFIA ===== */

@@ -28,3 +28,4 @@ Wybieramy **B**, ponieważ różnice między stronami są głównie w blokach i 
 - Nowy blok dla jednej linii = komponent w `src/sites/<linia>/blocks` + wpis w rejestrze + migracja (każdy blok to tabele w PostgreSQL). Usunięcie bloku z listy nie kasuje treści, ale strona z takim blokiem nie zapisze się, dopóki edytor go nie usunie.
 - Nie modelujemy z góry Instalacji, Software ani huba — ich bloki powstają z ich specyfikacjami.
 - Wracamy do decyzji, gdy: liczba bloków przekroczy ~30 i panel stanie się nieczytelny, albo któraś linia będzie potrzebować innego modelu stron niż `Pages` (wtedy nowy ADR, nie zmiana po cichu).
+- **Software (22.10.2026):** żeby nie przekroczyć progu, sekcje strony głównej Software o stałej kolejności i tekstach są komponentami wstawianymi jednym blokiem, a ich teksty leżą w `SoftwareSettings` (ADR-014, rozstrz. 7). Model `Pages` bez zmian.

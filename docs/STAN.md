@@ -22,13 +22,15 @@ Dwie strony powstają równolegle, każda we własnym folderze (git worktree) �
 - **Następny krok:** PR `chore/praca-rownolegla`, po scaleniu w tym folderze `git switch -c feat/biznes-b6a-produkt origin/develop` i B6a wg planu B6 (strona produktu `/produkt/[slug]`: dane z filtrem tenanta, galeria, boks sticky, zakładki, JSON-LD `Product` bez `offers` + `BreadcrumbList`, sitemap; B6b: alternatywy, „Skompletuj stanowisko”, podobne).
 
 ### prokomsoftware.pl — folder `prokom-web`
-- Gałąź: `docs/prokomsoftware-sw0` (SW0 w toku). Wpis uzupełni `/koniec-sesji` tej sesji.
+- Gałąź: `docs/prokomsoftware-sw0` — SW0 (dokumenty, decyzje D1–D18) w PR #64 do `develop`.
+- **Następny krok:** scalenie #64, potem `/zadanie SW1` (tokeny i motyw wg ADR-015, rozstrzygnięcia) — SW1 nie dotyka Biznesu. SW2 dopiero po scaleniu B11 (`docs/zadania/prokomsoftware.md` §3).
 
 ## Zrobione
 ### prokombiznes.pl
 - 22.10.2026 — K1 scalone (#62): `Products`: `subcategory`, `variants`, `sources` (linki http(s), `checkedAt`), `contentStatus`, `batch`, `legacyIds` zamiast `legacyId` (migracje `katalog_v2` + `katalog_v2_legacy_ids`, up → down → up sprawdzone); galeria = `images`; kategorie `wagi-sklepowe`, `skanery-kolektory-etykiety`, `akcesoria-pos`, `automaty-vendingowe`; `seed:biznes`: 225 pozycji, 32 marki, 23 kategorie, 567 zdjęć galerii, aktualizacja tylko przy zmianie (drugie uruchomienie: 0 created / 0 updated); indeks 24 KB gzip. Poprawki danych łatki: przywrócone branże z `aktywna`/`kreator` i „Beauty” (łatka je zgubiła), podkategorie `druks` i `szuf`. Seed aktualizuje też `featured`/`featuredOrder` (8 wyróżnionych z v20 w starej bazie). Przegląd `recenzent`, poprawki w tym samym PR: `contentStatus` i `checkedAt` z paczki tylko „w przód”, data w formacie Payload, `comparison` zawsze zapisywane, test wyszukiwarki zamiast `it.fails` (błąd → B4c), test e2e mega menu.
 
 ### prokomsoftware.pl
+- 22.10.2026 — SW0 prokomsoftware.pl (dokumenty, bez kodu): przegląd pakietu względem kodu i ADR-ów, decyzje D1–D18 wg rekomendacji w „Rozstrzygnięciach” ADR-014 i ADR-015 (oba przyjęte). Najważniejsze: akcent `#6E45D4` / `#5B33C4` (też `--c-software-text`), H1 bez błękitu; branże jako grupa w `Industries` z ukrytym `line`; bez pliku w kreatorze; jednoznaczne klucze faktów (`[CZAS PIERWSZEGO ETAPU]`, `[OPIEKA OD]`, `{termin}` = `leadTime` rozwiązania), telefon i e-mail z `SiteSettings`; „Imię” + zgoda w kreatorze i audycie; ≤ 10 bloków Software (sekcje głównej jako komponenty, teksty w `SoftwareSettings.home`); jeden zestaw ikon; `pk-project` z `{ id, name }` i `createListStore`; `/cennik` publikowany z „cena po rozmowie”; `/aktualnosci` wspólna (ADR-012 rozstrz. 5, dopisek do B11). Nowa kolejność sesji: SW1 → SW2 (po B11) → SW3 → SW4 → SW9 → SW7 → SW5 → SW6 → SW8a/b → SW10 → SW11a/b → SW12. Zaktualizowane: spec. (§3.0 pasek górny, §6.3–6.5, §7, §8.1, §13), plan SW, README i `tokens.css` wzorca, `marka.md`, seed (klucze faktów, teksty §13 pkt 20–22).
 
 ### Do 22.10.2026 (wspólne)
 - 21.10.2026 — B5a scalone (#59): katalog `/oferta` — stan widoku tylko w URL (`lib/catalog/filters.ts`: filtry, liczniki fasetowe, sortowanie, 12 na stronę, SEO wg ADR-012 §2.2 z canonical stron poza zakresem do ostatniej), pierwszy widok renderowany przez serwer, wyspa `Catalog` (`history.pushState`), filtry na desktopie, karty z „+ Do zapytania”, „Pokaż kolejne” jako link `?strona=N+1`, logo marek w indeksie, token `--promo`. Przegląd `recenzent`, poprawki w tym samym PR. Po pierwszym CI poprawka: `primeCatalogIndex` tylko w przeglądarce (na serwerze zmienna modułu psuła hydratację następnej strony). Testy: 774 Vitest, e2e `biznes-catalog` 15.
@@ -75,9 +77,13 @@ Dwie strony powstają równolegle, każda we własnym folderze (git worktree) �
 3. S10: wybrać cel kopii poza serwerem (inny dostawca niż Seohost, ADR-002, dostęp przez `rclone`) i token GHCR `read:packages` dla serwera.
 4. Skrzynki `biznes@`, `instalacje@`, `software@pro-kom.eu` — założyć przed 26.10 (Krystian + szef, Thunderbird); dopisać do listy skrzynek przy migracji poczty do Seohost (ADR-002).
 5. **B4c przed 26.10:** wyszukiwarka na 225 pozycjach — „kasa” stawia skanery przed kasami w licznikach kategorii (`docs/zadania/prokombiznes.md`, znalezione w K1).
-6. prokomsoftware.pl: SW0 (decyzje z `docs/zadania/prokomsoftware.md` §2) → SW1–SW12 wg planu, po dowiezieniu Biznesu.
+6. prokomsoftware.pl: SW0 zrobione (22.10) → SW1 (tokeny; może pójść między sesjami Biznesu) → SW2 dopiero po scaleniu B11 → dalej wg kolejności w `docs/zadania/prokomsoftware.md` §3. Termin i kolejność Software vs Instalacje — decyzja szefa (Asana).
+7. **B11:** `/aktualnosci` budować od razu jako trasę wspólną dla linii, poza `(biznes)` (ADR-012 rozstrz. 5, zmiana 22.10; dopisek w `docs/zadania/prokombiznes.md`).
 
 ## Pomysły na później (poza zakresem bieżących sesji)
+- Przed B11: `/aktualnosci` jako trasa wspólna dla linii (ADR-014 §2) — zmiana ADR-012 rozstrz. 5 wpisana w SW0 (22.10); do zrobienia w kodzie w B11.
+- Z SW0 → SW12: ADR-016 — analityka Umami (nowy kontener, bez ciasteczek); od tego zależy zdanie „0 banerów cookies” na prokomsoftware.pl.
+- Z SW0: plik w kreatorze Software (`InquiryFiles`, prywatny magazyn) — wraca jako osobne zadanie, jeśli zgłoszenia o programy będą go wymagać.
 - Z K1 (przegląd) → panel / szef: mega menu pokazuje w kolumnie tyle kategorii, ile `SiteSettings` → nawigacja → „Limit pozycji w kolumnie” (seed: 6, maks. 12), resztę chowa pod „Wszystkie w grupie”. „Kasy i sprzedaż” ma od v2 **10 kategorii** — Akcesoria, Wagi, Skanery (74 pozycje!) i Automaty vendingowe nie są widoczne w menu. Decyzja: podnieść limit do 10 albo zmienić kolejność kategorii w panelu (`order`) — **[SZEF]** które kategorie mają być w menu.
 - Z K1 → B5/B6 (wygląd): zdjęcia katalogu v2 mają białe tło — w ciemnym motywie karta ma jasny kwadrat (plansza: zdjęcie „na jasnym tle z cieniem”, spec. §5.3). Sprawdzić z planszą `Katalog` ciemną; ewentualnie jasne tło pod zdjęciem w obu motywach.
 - Z K1 → B5: chip podkategorii w `akc` i `kody` (`Products.subcategory`) — dane są, UI do dołożenia w katalogu (`ZMIANY-katalog-v2.md` §4).

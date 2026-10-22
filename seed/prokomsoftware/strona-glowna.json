@@ -44,7 +44,7 @@
       "p": "Budujemy etapami. Co tydzień dostajesz link do wersji testowej: klikasz, zgłaszasz uwagi, my poprawiamy. Pierwszy etap zaczyna pracować, zanim skończymy ostatni.",
       "get": [
         "Wersję testową co tydzień",
-        "Pierwszy etap działający po [TERMIN]",
+        "Pierwszy etap działający po [CZAS PIERWSZEGO ETAPU]",
         "Listę zmian po każdym tygodniu"
       ],
       "you": [
@@ -86,7 +86,7 @@
       "you": [
         "Nic. Ewentualnie pomysł na kolejny moduł"
       ],
-      "pay": "Płacisz: od [OD] zł / mies.",
+      "pay": "Płacisz: od [OPIEKA OD] zł / mies.",
       "payd": "Trzy poziomy opieki. Możesz zrezygnować, kod i dane zostają Twoje."
     }
   ],
@@ -397,7 +397,7 @@
       {
         "name": "prokombiznes.pl",
         "status": "w budowie",
-        "text": "Katalog 67 produktów z wyszukiwarką, filtrami, porównywarką i listą zapytań ofertowych.",
+        "text": "Katalog sprzętu i programów z wyszukiwarką, filtrami i listą zapytań ofertowych.",
         "url": "https://prokombiznes.pl"
       }
     ],
@@ -419,7 +419,7 @@
         "l": "banerów cookies na tej stronie. Analityka bez śledzenia Twoich klientów."
       }
     ],
-    "_info": "Sekcja #realizacje. Statystyka „0 banerów cookies” prawdziwa tylko przy analityce bez ciasteczek (spec. §1 pkt 6). [WYNIK] = zmierzony wynik produkcji. „porównywarka” w opisie prokombiznes.pl — porównywarka kas jest w etapie listopadowym Biznesu; poprawić opis, jeśli nie powstanie."
+    "_info": "Sekcja #realizacje. Statystyka „0 banerów cookies” prawdziwa tylko przy analityce bez ciasteczek (spec. §1 pkt 6). [WYNIK] = zmierzony wynik produkcji. Opis prokombiznes.pl bez „porównywarki” i liczby produktów (SW0, spec. §13 pkt 22)."
   },
   "_info": "Treści sekcji strony głównej. process = 5 etapów sekcji #proces (ST w Main.dc.html; etap 3 nazywa się „Budowa”). processShort = wersja skrócona (inne miejsca); etap 3 ujednolicony do „Budowa”. guarantees = #zasady, compare = #porownanie, livePreviews = #podglady, heroModules = makieta hero, showcase = #realizacje. Gdzie w Payload: pola bloków sw* (ADR-014 §2). Placeholdery w tekstach rozwiązuje SiteSettings.software.facts."
 }

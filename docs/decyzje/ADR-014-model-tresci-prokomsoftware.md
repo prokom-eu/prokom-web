@@ -1,6 +1,6 @@
 # ADR-014: Model treści prokomsoftware.pl — rozwiązania, obszary, kreator, branże, miejscowości
 
-- **Status:** proponowana (18.10.2026) — do przyjęcia w SW0, rozstrzygnięcia dopisać na końcu
+- **Status:** przyjęta (22.10.2026, SW0) — rozstrzygnięcia na końcu obowiązują zamiast sprzecznych fragmentów §1–§5
 - **Data:** 2026-10-18
 - **Decyduje:** Krystian
 - **Kontekst:**
@@ -104,5 +104,32 @@ Store jak `pk-cart` (B4), klucze `pk-project` (identyfikatory: slug albo `build-
 - **Miejscowości jako `Pages`** — potrzebne pola strukturalne i reguła aktywności.
 - **Osobna kolekcja `SoftwareIndustries`** — dwie kolekcje o tej samej roli; wybrana grupa pól w `Industries` (do potwierdzenia w SW0).
 
-## Rozstrzygnięcia (SW0)
-_Do uzupełnienia przez Krystiana w SW0._
+## Rozstrzygnięcia (SW0, Krystian 22.10.2026)
+
+Decyzje z przeglądu SW0 (numery D6–D18 jak w przeglądzie). Obowiązują zamiast sprzecznych fragmentów §1–§5.
+
+1. **Branże Software = grupa pól w `Industries`** (D6), bez osobnej kolekcji.
+   - `Industries` dostaje ukryte pole `line` i hook kopiujący linię tenanta — ten sam wzorzec co `SiteSettings` (`copyTenantLine`), bo `admin.condition` widzi tylko bieżący dokument.
+   - Wspólne pola zostają wspólne: `name`, `slug`, `active`, `hero` (istniejące — grupa `software` **nie** ma własnego `hero`), `faq`, `order`, `seo`.
+   - Pola Biznesu (`wizardBusinessType`, `featuredProducts`) ukryte dla linii `software`; grupa `software` (`group`, `problems[]`, `moduleMap[]`, `offline[]`, `topSolutions[]`, `wizardFirm`) ukryta dla `biznes`.
+   - Seed ma test spójności: `group` należy do 8 grup katalogu, `wizardFirm` do rodzajów firm z `kreator.json`.
+2. **`Posts`:** ten sam ukryty `line` z hookiem; `relatedProducts` tylko dla Biznesu, `relatedSolutions` tylko dla Software. Kategorie Software (`poradnik`, `nowosci`, `realizacje`) dochodzą do wspólnego enumu `POST_CATEGORIES`; walidacja zapisu odrzuca kategorię innej linii.
+3. **Bez pliku w kreatorze w etapie 1** (D7). `InquiryFiles` (§3.2) wypada; w kreatorze zdanie „Plik możesz dosłać mailem po kontakcie”. Wraca jako osobne zadanie, jeśli zgłoszenia o programy będą tego wymagać.
+4. **Placeholdery** (D8, doprecyzowanie §1.4):
+   - `facts` + `fillFacts` zostają, ale **jeden klucz = jedna wartość w całej stronie**. Klucze wieloznaczne zastąpione: `[TERMIN]` w procesie i FAQ → `[CZAS PIERWSZEGO ETAPU]`; `[OD]` w procesie i FAQ → `[OPIEKA OD]`. Klucze `OD`, `TERMIN`, `X`, `Y` usunięte z `fakty.json`.
+   - W tekstach rozwiązania `{termin}` oznacza **`leadTime` tego rozwiązania** (np. cecha „Gotowa w {termin}”). Pusty `leadTime` → cecha nie jest renderowana na produkcji (jak nierozwiązany fakt).
+   - „Szybkość: było [X], jest [Y]” (toast przebudowy) → „Szybkość: mierzona przed i po przebudowie”.
+   - Telefon i e-mail linii tylko z istniejących `SiteSettings.phone` / `SiteSettings.email` (klucze `TELEFON SOFTWARE`, `E-MAIL SOFTWARE` usunięte z `fakty.json`).
+   - Ceny i czasy reakcji 3 poziomów opieki to pola bloku cennika, nie fakty.
+5. **Jedno źródło ceny i terminu** (§1.1): przechowujemy tylko `prices` (`start`/`std`/`full`) i `leadTimes`. `priceFrom` i `leadTime` są **liczone** (najniższa podana cena; termin rozmiaru `start`, a gdy pusty — pierwszy podany), nie zapisywane. Seed mapuje dotychczasowe `priceFrom`/`leadTime` na `start`.
+6. **Formularze kreatora i audytu** (D9): na obu dochodzi pole „Imię” i checkbox zgody (wersja klauzuli z `consent.ts`) — oczekiwana różnica względem plansz. `name` i `message` zostają wymagane (ADR-003 bez zmian); `message` dla `audit` i `wizard` składa serwer z danych (adres strony / podsumowanie kreatora). `Inquiries.items.quantity` dla linii `software` = 1 (pole zostaje wymagane). Pola `type`, `items`, `wizard`, `topics`, `preferredContact` w `inquiryInputSchema` dokłada B8 Biznesu — SW2 rozszerza je, nie pisze od nowa.
+7. **Bloki — mniej niż w §2** (D10, doprecyzowanie ADR-010 dla Software): blok tylko tam, gdzie szef zmienia treść albo kolejność. **Cel: ≤ 10 bloków Software.**
+   - Bloki: `swHero` (z makietą modułów i kaflami intencji), `swPricing` (cennik rozwiązań + poziomy opieki), `swAuditForm`, `swContact`, `swTeam`, `swLines`, `swSteps`; FAQ, CTA i tekst — istniejące bloki wspólne z wyglądem Software.
+   - Sekcje z logiką i stałą kolejnością (spec. §4: obszary, 12 rzeczy, podglądy, proces, kreator, technologie, jak robimy, porównanie, zasady, realizacje) to **komponenty** wstawiane jednym blokiem `swHomeSection` (pole `section`: select z listy sekcji). Ich teksty są w `SoftwareSettings.home` (JSON + Zod, jak kreator; wartości startowe z `strona-glowna.json`, `technologie.json`, `popularne.json`), listy z kolekcji.
+   - Dlaczego: sekcje mają ustaloną kolejność i teksty zmieniane tylko decyzją Krystiana (spec. §1 pkt 7) — 23 bloki dałyby dziesiątki tabel i przekroczyły próg ~30 bloków z ADR-010 bez korzyści dla szefa.
+8. **Ikony** (D14): jeden zestaw dla wszystkich linii (`ICON_NAMES`, `src/components/ui/icons.ts`). 27 nowych nazw z `seed/prokomsoftware/ikony.json` dochodzi do enumu (migracja). Przy 11 nazwach z innym rysunkiem w obu seedach (phone, cal, chat, clock, doc, shield, users, grad, wrench, life, bell) zostaje rysunek Biznesu — oczekiwana różnica przy porównaniu zrzutów.
+9. **„Twój projekt”** (D17, zmienia §5): jeden klucz `localStorage` `pk-project` z listą `{ id, name }` (bez `pk-project-n`). Wspólny `createListStore(key, parse)` wydzielony z `lib/cart/store.ts` (subskrypcja, `storage`, zapas w pamięci, zdarzenia toastu i szuflady), z testami obu linii; operacje listy Biznesu (ilości, uwagi) zostają w `lib/cart/cart.ts`.
+10. **Wyszukiwarka** (§4): `prepareSearch`/`searchProducts` z `lib/search.ts` uogólnione do elementów `{ name, hay, popularity? }` w SW3/SW9, z testami obu linii.
+11. **`/aktualnosci` — trasa wspólna** (D12, §2): zbudowana w B11 Biznesu poza grupą `(biznes)` (ADR-012 rozstrz. 5 zmienione 22.10.2026); SW11 dokłada wygląd Software.
+12. **Ramka strony per linia:** `src/app/(sites)/[domain]/layout.tsx` wybiera dziś ramkę po `settings.biznes`. SW4 wydziela ramkę linii (`src/sites/<linia>/Frame.tsx` albo równoważny podział) zamiast kolejnych warunków.
+13. **Kolejność sesji** (D18): SW2 dopiero po scaleniu B11 (wspólne `Inquiries`, `Industries`, `Posts` i migracje). Pełna kolejność: `docs/zadania/prokomsoftware.md` §3.

@@ -1,5 +1,5 @@
 {
-  "_info": "30 rozwiązań z planszy Katalog (źródło: docs/design/prokomsoftware/boards/Katalog.dc.html, tablica D). category = jedna z 5 kategorii katalogu (strony, systemy, aplikacje, automatyzacje, opieka) — filtr /rozwiazania. To NIE jest 8 obszarów ze strony głównej (obszary.json). priceFrom / prices / leadTime(s) = null do decyzji szefa (ADR-014 §1.1). Placeholdery w tekstach ([TERMIN], [X], [Y]) rozwiązuje SiteSettings.software.facts (ADR-014 §1.4).",
+  "_info": "30 rozwiązań z planszy Katalog (źródło: docs/design/prokomsoftware/boards/Katalog.dc.html, tablica D). category = jedna z 5 kategorii katalogu (strony, systemy, aplikacje, automatyzacje, opieka) — filtr /rozwiazania. To NIE jest 8 obszarów ze strony głównej (obszary.json). priceFrom / prices / leadTime(s) = null do decyzji szefa (ADR-014 §1.1). W kodzie zapisujemy tylko prices i leadTimes; priceFrom/leadTime z tego pliku seed mapuje na rozmiar start (ADR-014 rozstrz. 5). {termin} w cechach = leadTime tego rozwiązania (ADR-014 rozstrz. 4).",
   "situations": {
     "Z": "Zaczynam od zera",
     "R": "Mam program, brakuje mu czegoś",
@@ -171,7 +171,7 @@
       "features": [
         "1 strona, 5 sekcji",
         "Mapa, telefon, formularz",
-        "Gotowa w [TERMIN]"
+        "Gotowa w {termin}"
       ],
       "forWhom": "jednoosobowe firmy, rzemiosło, start",
       "situations": [
@@ -196,7 +196,7 @@
       "featuredFeatures": [
         "1 strona, 5 sekcji",
         "Mapa, telefon, formularz",
-        "Gotowa w [TERMIN]"
+        "Gotowa w {termin}"
       ],
       "featuredTag": "1 STRONA",
       "category": "strony",
@@ -238,7 +238,7 @@
         "edukacja-i-organizacje"
       ],
       "hasLivePreview": false,
-      "toast": "Szybkość: było [X], jest [Y]",
+      "toast": "Szybkość: mierzona przed i po przebudowie",
       "keywords": "stara strona wolna wordpress przebudowa odswiezenie zhakowana",
       "priceFrom": null,
       "leadTime": null,

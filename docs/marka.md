@@ -47,10 +47,11 @@ Ten sam odcień co kolor z księgi, przyciemniony do ≥ 4,5:1 na białym **i** 
 | PRO-KOM | `#45A02C` | `#367E23` | 5,04 | 4,60 |
 | Biznes | `#244FB0` | `#244FB0` (bez zmian) | 7,45 | 6,80 |
 | Instalacje | `#0093B3` | `#007994` | 5,04 | 4,61 |
-| Software | `#8B61E3` | `#7E58CD` | 5,04 | 4,60 |
+| Software | `#8B61E3` | `#5B33C4` (ADR-015, 22.10.2026; wcześniej `#7E58CD`) | 7,73 | 7,06 |
 | Tech | `#D13A2E` | `#CB382D` | 5,07 | 4,63 |
 | Zakopane | `#DD8600` | `#9F6000` | 5,06 | 4,62 |
 
+- **Interfejs prokomsoftware.pl (ADR-015):** przyciski `#6E45D4` (biały napis 6,06:1), tekst w akcencie `#5B33C4`. To kolor interfejsu, nie znaku — znak i pliki w `public/brand/` zostają w `#8B61E3` z księgi (biały na `#8B61E3` ma tylko 4,27:1, za mało na napis przycisku).
 - Kolory „na ciemne tło” mają ≥ 4,5:1 na grafitowym (Biznes 4,52 i Tech 4,54 — na granicy, ale OK), więc nadają się do linków w ciemnych sekcjach i stopce.
 - ⚠️ **Zakopane:** bursztyn z księgi ma 2,81:1 na białym — nie spełnia nawet progu 3:1 dla dużych elementów. Gdy powstanie strona Zakopanego, także duże nagłówki w kolorze linii muszą używać `--accent-text`.
 
