@@ -801,6 +801,10 @@ export interface Product {
    */
   categories: (number | CatalogCategory)[];
   /**
+   * Filtr wewnątrz kategorii (np. „Szuflady kasowe”). Ta sama pisownia w całej kategorii.
+   */
+  subcategory?: string | null;
+  /**
    * Produkt pokazuje się tylko w tych branżach.
    */
   industries?: (number | Industry)[] | null;
@@ -817,7 +821,14 @@ export interface Product {
    * Dla wyszukiwarki, niewidoczne na stronie.
    */
   keywords?: string | null;
+  /**
+   * Galeria w tej kolejności; pierwsze jest główne (karta).
+   */
   images?: (number | Media)[] | null;
+  /**
+   * Wersje jednej karty, np. „BT/WiFi”, „różowy”.
+   */
+  variants?: string[] | null;
   keyParams?:
     | {
         label: string;
@@ -914,6 +925,20 @@ export interface Product {
     | null;
   fitsWith?: (number | Product)[] | null;
   alternatives?: (number | Product)[] | null;
+  /**
+   * Parametry tylko ze strony producenta (spec. §5).
+   */
+  sources?: {
+    productPages?: string[] | null;
+    /**
+     * Linki do producenta — zakładka „Dokumenty”.
+     */
+    datasheets?: string[] | null;
+    /**
+     * Wypełnia człowiek po sprawdzeniu u producenta.
+     */
+    checkedAt?: string | null;
+  };
   registerTypes?: ('mobile' | 'small' | 'system' | 'touch')[] | null;
   comparison?: {
     type?: string | null;
@@ -940,7 +965,15 @@ export interface Product {
   popularity?: number | null;
   featured?: boolean | null;
   featuredOrder?: number | null;
-  legacyId?: string | null;
+  /**
+   * „Do sprawdzenia” = opis tymczasowy. Na stronie bez różnicy.
+   */
+  contentStatus: 'ready' | 'needs-review';
+  /**
+   * Tylko do planowania — widoczne są wszystkie.
+   */
+  batch?: ('0' | '1' | '2') | null;
+  legacyIds?: string[] | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -1980,12 +2013,14 @@ export interface ProductsSelect<T extends boolean = true> {
   kind?: T;
   brand?: T;
   categories?: T;
+  subcategory?: T;
   industries?: T;
   benefit?: T;
   features?: T;
   badge?: T;
   keywords?: T;
   images?: T;
+  variants?: T;
   keyParams?:
     | T
     | {
@@ -2029,6 +2064,13 @@ export interface ProductsSelect<T extends boolean = true> {
       };
   fitsWith?: T;
   alternatives?: T;
+  sources?:
+    | T
+    | {
+        productPages?: T;
+        datasheets?: T;
+        checkedAt?: T;
+      };
   registerTypes?: T;
   comparison?:
     | T
@@ -2053,7 +2095,9 @@ export interface ProductsSelect<T extends boolean = true> {
   popularity?: T;
   featured?: T;
   featuredOrder?: T;
-  legacyId?: T;
+  contentStatus?: T;
+  batch?: T;
+  legacyIds?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;

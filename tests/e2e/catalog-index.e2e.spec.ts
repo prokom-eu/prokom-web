@@ -29,10 +29,18 @@ async function readIndex(page: Page): Promise<CatalogIndex> {
 test.describe('catalog index', () => {
   test('lists the seeded catalog on the Biznes domain', async ({ page }) => {
     const index = await readIndex(page)
-    expect(index.products.length).toBeGreaterThanOrEqual(67)
-    expect(index.products.map((product) => product.slug)).toContain('posnet-ergo-online')
-    // Empty categories are hidden (rozstrzygnięcie 7): no vending products yet.
-    expect(index.categories.map((category) => category.slug)).not.toContain('maszyny-vendingowe')
+    expect(index.products.length).toBeGreaterThanOrEqual(225)
+    const jota = index.products.find((product) => product.slug === 'elzab-jota-online')
+    // Katalog v2: the first gallery photo is the card photo.
+    expect(jota?.image?.url).toMatch(/jota-01/)
+    // Katalog v2: 23 categories, all with products (vending: 1).
+    expect(index.categories.map((category) => category.slug)).toEqual(
+      expect.arrayContaining([
+        'wagi-sklepowe',
+        'skanery-kolektory-etykiety',
+        'automaty-vendingowe',
+      ]),
+    )
     // B2 acceptance: the whole index under 50 KB gzip.
     expect(gzipSync(JSON.stringify(index)).length).toBeLessThan(50 * 1024)
   })

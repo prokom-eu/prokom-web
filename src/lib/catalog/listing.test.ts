@@ -52,11 +52,11 @@ describe('catalogSlots (promo cards in the grid, as in the Katalog board)', () =
     expect(partnersOf('komputery-biuro')).toEqual([])
   })
 
-  it('ends a shorter list with the partner card (software: 9 positions)', () => {
-    expect(kinds(slots({ group: 'oprogramowanie' }))).toEqual([
+  it('ends a shorter list with the partner card (InsERT in software: 8 positions)', () => {
+    expect(kinds(slots({ group: 'oprogramowanie', brands: ['insert'] }))).toEqual([
       ...Array(5).fill('product'),
       'wizard',
-      ...Array(4).fill('product'),
+      ...Array(3).fill('product'),
       'partners',
     ])
   })
@@ -67,14 +67,11 @@ describe('catalogSlots (promo cards in the grid, as in the Katalog board)', () =
   })
 
   it('needs enough products: no promo card in a list shorter than 5', () => {
-    const list = slots({ brands: ['elzab'] })
+    const list = slots({ brands: ['fawag'] })
     expect(list.length).toBeLessThan(5)
     expect(kinds(list).every((kind) => kind === 'product')).toBe(true)
-    // Exactly 5: the wizard closes the list, no partner card.
-    expect(kinds(slots({ group: 'bezpieczenstwo-siec' }))).toEqual([
-      ...Array(5).fill('product'),
-      'wizard',
-    ])
+    // Exactly 5 (Lenovo): the wizard closes the list, no partner card.
+    expect(kinds(slots({ brands: ['lenovo'] }))).toEqual([...Array(5).fill('product'), 'wizard'])
   })
 })
 

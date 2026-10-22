@@ -128,25 +128,25 @@ describe('updateState', () => {
 })
 
 describe('runCatalog on the seed package', () => {
-  it('lists all 67 products by popularity without filters', () => {
+  it('lists all 225 products by popularity without filters', () => {
     const { results } = run({})
-    expect(results).toHaveLength(67)
+    expect(results).toHaveLength(225)
     const popularity = results.map((product) => product.popularity)
     expect(popularity).toEqual([...popularity].sort((a, b) => b - a))
   })
 
-  it('counts kinds and groups as the design (Katalog 01.jpg)', () => {
+  it('counts kinds and groups of katalog v2 (ZMIANY-katalog-v2 §1)', () => {
     const { facets } = run({})
-    expect(facets.kinds).toEqual({ all: 67, device: 44, software: 10, service: 13 })
+    expect(facets.kinds).toEqual({ all: 225, device: 186, software: 26, service: 13 })
     expect(facets.groups).toEqual({
-      all: 67,
-      sprzedaz: 25,
-      'komputery-biuro': 15,
-      oprogramowanie: 9,
-      'bezpieczenstwo-siec': 5,
+      all: 225,
+      sprzedaz: 159,
+      'komputery-biuro': 16,
+      oprogramowanie: 25,
+      'bezpieczenstwo-siec': 12,
       'serwis-uslugi': 13,
     })
-    expect(facets.categories['kasy-fiskalne']).toBe(7)
+    expect(facets.categories['kasy-fiskalne']).toBe(11)
   })
 
   it('combines filters: AND between groups, OR inside one', () => {
@@ -189,8 +189,8 @@ describe('runCatalog on the seed package', () => {
 
   it('counts group tiles as their click shows them: without the categories it clears', () => {
     const { facets } = run({ categories: ['kasy-fiskalne'] })
-    expect(facets.groups['komputery-biuro']).toBe(15)
-    expect(facets.groups.all).toBe(67)
+    expect(facets.groups['komputery-biuro']).toBe(16)
+    expect(facets.groups.all).toBe(225)
     // Other filters still apply.
     expect(run({ brands: ['posnet'] }).facets.groups.all).toBe(
       run({ brands: ['posnet'] }).results.length,
@@ -199,7 +199,7 @@ describe('runCatalog on the seed package', () => {
 
   it('takes the group of the main category', () => {
     const { results } = run({ group: 'sprzedaz' })
-    expect(results).toHaveLength(25)
+    expect(results).toHaveLength(159)
     expect(results.every((p) => p.group === 'sprzedaz')).toBe(true)
   })
 
@@ -222,7 +222,7 @@ describe('runCatalog on the seed package', () => {
   it('shows pages cumulatively: page N = the first N × 12', () => {
     expect(run({}).visible).toHaveLength(CATALOG_PAGE_SIZE)
     expect(run({ page: 2 }).visible).toHaveLength(2 * CATALOG_PAGE_SIZE)
-    expect(run({ page: 99 }).visible).toHaveLength(67)
+    expect(run({ page: 99 }).visible).toHaveLength(225)
     expect(run({ page: 2 }).visible).toEqual(run({}).results.slice(0, 24))
   })
 })

@@ -5,7 +5,7 @@ import { site } from './helpers'
 
 // B5a: catalog `/oferta` — filters in the URL with facet counts, sort, „Pokaż kolejne”,
 // cards with „+ Do zapytania”, SEO of filtered views (spec. §5, §8.3, §9 pkt 4; ADR-012 §2.2).
-// Catalog from `pnpm seed`: 67 products.
+// Catalog from `pnpm seed`: 225 products (katalog v2).
 const WCAG = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']
 const oferta = (query = '') => site('biznes.localhost', `/oferta${query}`)
 
@@ -23,12 +23,12 @@ async function clickUntilUrl(page: Page, click: () => Promise<void>, url: RegExp
 }
 
 test.describe('Biznes catalog /oferta', () => {
-  test('renders 12 of 67 positions on the server', async ({ page }) => {
+  test('renders 12 of 225 positions on the server', async ({ page }) => {
     await page.route('**/*.js', (route) => route.abort())
     const response = await page.goto(oferta())
     expect(response?.status()).toBe(200)
     await expect(page.locator('h1')).toContainText('Wszystko dla firmy.')
-    await expect(count(page)).toHaveText('67 pozycji')
+    await expect(count(page)).toHaveText('225 pozycji')
     await expect(cards(page)).toHaveCount(12)
     // Without JavaScript „Pokaż kolejne” is a plain link to the next page (spec. §5.3).
     await expect(page.getByRole('link', { name: /Pokaż kolejne/ })).toHaveAttribute(
@@ -89,7 +89,7 @@ test.describe('Biznes catalog /oferta', () => {
     await expect(count(page)).toBeFocused()
     await chips.getByRole('button', { name: 'Wyczyść wszystko' }).click()
     await expect(page).toHaveURL(/\/oferta$/)
-    await expect(count(page)).toHaveText('67 pozycji')
+    await expect(count(page)).toHaveText('225 pozycji')
   })
 
   test('group tiles and sort write the URL', async ({ page }) => {
@@ -99,7 +99,7 @@ test.describe('Biznes catalog /oferta', () => {
       () => page.getByRole('button', { name: /^Kasy i sprzedaż/ }).click(),
       /grupa=sprzedaz/,
     )
-    await expect(count(page)).toHaveText('25 pozycji')
+    await expect(count(page)).toHaveText('159 pozycji')
     await page.getByRole('button', { name: 'A–Z' }).click()
     await expect(page).toHaveURL(/sortuj=a-z/)
     const names = await cards(page).locator('h3').allTextContents()
@@ -139,7 +139,7 @@ test.describe('Biznes catalog /oferta', () => {
     await clickUntilUrl(page, () => more.click(), /strona=2/)
     await expect(cards(page)).toHaveCount(24)
     await expect(cards(page).nth(12).locator('h3 a')).toBeFocused()
-    await expect(page.getByText('Widzisz 24 z 67')).toBeVisible()
+    await expect(page.getByText('Widzisz 24 z 225')).toBeVisible()
   })
 
   test('„+ Do zapytania” on a card switches, shows the toast and counts', async ({ page }) => {
@@ -182,7 +182,7 @@ test.describe('Biznes catalog /oferta', () => {
     await page.goto(oferta('?strona=999'))
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
       'href',
-      /\/oferta\?strona=6$/,
+      /\/oferta\?strona=19$/,
     )
   })
 

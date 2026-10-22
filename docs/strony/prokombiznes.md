@@ -29,7 +29,7 @@ Strona ma zamieniać odwiedziny w **zapytanie albo telefon**. Klient w 5 sekund 
 |---|---|---|---|
 | `/` | Strona główna | `Main` (1440) + `Mobile` (390) | 1 |
 | `/oferta` | Katalog | `Katalog` + `KatalogM` (390) | 1 |
-| `/oferta/[kategoria]` | Kategoria (21 kategorii; „Maszyny vendingowe” bez produktów do czasu danych ze źródłem — kategoria bez produktów jest ukryta i daje 404, ADR-012 rozstrzygnięcie 7). Wariant rozszerzony dla `kasy-fiskalne` | `Kategoria` | 1 (porównywarka: 2) |
+| `/oferta/[kategoria]` | Kategoria (23 kategorie od katalogu v2, ADR-012 rozstrzygnięcie 12; kategoria bez produktów jest ukryta i daje 404, rozstrzygnięcie 7). Wariant rozszerzony dla `kasy-fiskalne` | `Kategoria` | 1 (porównywarka: 2) |
 | `/produkt/[slug]` | Produkt / usługa | `Produkt` | 1 |
 | `/zapytanie` | Lista zapytania + formularz | `Zapytanie` | 1 |
 | `/opieka-it` | Strona usługi flagowej | `Dzial` | 1 |
@@ -248,13 +248,13 @@ Wzór: `Katalog`, `KatalogM`, `screens/Katalog-1440-*`, `screens/KatalogM-390-li
 - Okruszki, eyebrow „Katalog PRO-KOM Biznes · bez cen, wycena na piśmie”.
 - H1 „Wszystko dla firmy. W jednym miejscu.”, lead.
 - Duże pole wyszukiwania i chipy „Popularne”.
-- Statystyki: 67 produktów i usług, 25 marek, 2 autoryzowane partnerstwa, 60 min oddzwonienia.
+- Statystyki: liczba produktów i usług (225), liczba marek, autoryzowane partnerstwa, 60 min oddzwonienia — liczby zawsze z bazy.
 - Kafle grup: „Wszystko” + 5 grup z liczbą pozycji.
 
 ### 5.2 Filtry (lewa kolumna, sticky)
 - **Rodzaj:** Wszystko / Urządzenia / Oprogramowanie / Usługi (radio, z licznikami).
-- **Kategoria:** pogrupowana wg 5 grup, checkboxy, liczniki.
-- **Marka:** logo w siatce, multi-select.
+- **Kategoria:** pogrupowana wg 5 grup, checkboxy, liczniki. W `akc` i `kody` dodatkowo chipy podkategorii (`Products.subcategory`, np. „Szuflady kasowe”, „Skanery kodów”) — `ZMIANY-katalog-v2.md` §4.
+- **Marka:** logo w siatce, multi-select; „Pokaż wszystkie marki (N)”.
 - **Branża:** chipy, multi-select.
 - **Przełączniki:** „Autoryzowany serwis/partner”, „Nowości”.
 - Liczniki przeliczają się wg pozostałych filtrów (faceting). Zero wyników = pozycja wyszarzona, ale klikalna.
@@ -455,10 +455,12 @@ Wzór: `Kreator`; dane w `seed/prokombiznes/kreator.json`.
 
 - **Teksty:** z plansz (uzgodnione). Przy przenoszeniu nie poprawiaj stylu; zmieniasz tylko punkty **[SZEF]**.
 - **Katalog:** `seed/prokombiznes/katalog.json`:
-  - 67 pozycji, 27 marek w seedzie (26 z produktami; liczby na stronie zawsze z bazy), 21 kategorii (w tym „Maszyny vendingowe” bez produktów), 5 grup, 7 branż (w tym „Beauty i usługi”, nieaktywna);
-  - źródło: `biznes-produkty-fakty.md`, stan 15.10.2026;
-  - parametry Elzab i Fawag do sprawdzenia u producentów.
-- **Media:** `docs/design/prokombiznes/boards/media/` i opis w `seed/prokombiznes/media.json`.
+  - **katalog v2 (22.10.2026):** 225 pozycji (212 produktów + 13 usług), 32 marki (31 z produktami; liczby na stronie zawsze z bazy), 23 kategorie (nowe: „Wagi sklepowe”, „Skanery, kolektory i etykiety”; „Akcesoria POS” bez wag; „Automaty vendingowe” z 1 produktem), 5 grup, 7 branż (w tym „Beauty i usługi”, nieaktywna);
+  - podkategorie (chipy) w `akc` i `kody`; warianty na jednej karcie; linki do stron i kart PDF producenta (`sources`);
+  - opisy pozycji z partii 1 i 2 są tymczasowe (z arkusza, `contentStatus` „Do sprawdzenia”); docelowe opisy i parametry przychodzą partiami z czatu „Treści · katalog Biznes”;
+  - parametry tylko ze strony producenta (link w `sources`), z datą sprawdzenia; bez źródła pole puste;
+  - zmiany i decyzje o asortymencie: `docs/design/prokombiznes/ZMIANY-katalog-v2.md`; model: ADR-012 rozstrzygnięcie 12.
+- **Media:** `docs/design/prokombiznes/boards/media/` i opis w `seed/prokombiznes/media.json`; galerie produktów katalogu v2 w `seed/prokombiznes/media/produkty/` (opis i źródło każdego pliku: `media-produkty-v2.json`).
   - Seed wgrywa je do kolekcji Media w Payload.
   - Logo klientów **nie** idą na produkcję bez zgody (flaga `wymagaZgody`).
 - **Znak PRO-KOM:** docelowo pliki z `public/brand/` (paczka `PRO-KOM_znak_2026-10`). Pliki `brand-*` w mediach to tylko podgląd z wizualizacji.
@@ -591,7 +593,7 @@ Jeśli 26.10 jest zagrożone, **tniemy od końca listy etapu 1, nie jakość**. 
 - Stopka (§3.4): układ planszy `Main` zamiast pierwotnej listy kolumn, odznaki tekstowe zamiast logo (decyzja 18.10.2026, B3b).
 - **Uwagi szefa z 16.10** (Asana „Biznes: wprowadzenie uwag szefa z wizualizacji”, wprowadzone w B0 18.10.2026; model: ADR-012 „Rozstrzygnięcia”):
   - nowa branża „Beauty i usługi” jako 7. branża „Wkrótce” (§2, §3.2, §6.7);
-  - nowa kategoria „Maszyny vendingowe” (21.) w grupie „Kasy i sprzedaż”; produkty Elzab dopiero z danymi ze źródłem (§2, §7, §13);
+  - nowa kategoria „Maszyny vendingowe” (21.) w grupie „Kasy i sprzedaż”; produkty Elzab dopiero z danymi ze źródłem (§2, §7, §13) — od katalogu v2 (22.10) „Automaty vendingowe” (`automaty-vendingowe`) z 1 produktem;
   - Branże połączone z doborem: CTA „Przygotuj ofertę dla …” → `/kreator?firma=…` (§6.7, §6.8);
   - kafelki „Oferta” i „Opieka IT” jednym komponentem (§4);
   - czytelniejsza oferta: min. 15 px dla nazw w mega menu, na kartach i w filtrach (§3.2, §5.3);
@@ -626,7 +628,7 @@ Zbiorczo, wszystkie edytowalne w panelu:
 5. Opinie (2 z Google), logo klientów (zgody), cytat właściciela, zdjęcia ludzi czy ikony ról.
 6. 8 produktów wyróżnionych wg faktycznej sprzedaży (v20; start: `ergo, k10, pol, d3, hx, tp, euro, nas`).
 7. Rozważyć zdanie „orientacyjną wycenę podamy w pierwszej rozmowie”.
-8. Maszyny vendingowe: 1–2 produkty Elzab i krótki opis kategorii — **TODO(krystian):** dane ze strony producenta (źródło + data weryfikacji); do tego czasu kategoria pusta.
+8. Automaty vendingowe (było: Maszyny vendingowe): katalog v2 ma 1 produkt (Elzab KW3, opis „Do sprawdzenia”, źródło `fiskalizujemyvending.pl`) i opis kategorii „fiskalizacja automatów” — **TODO(krystian):** sprawdzić parametry u producenta (`sources.checkedAt`), potwierdzić opis.
 9. Kanały kontaktu działów: telefon, e-mail i godziny każdego działu (Asana, termin 20.10).
 10. Nazwy branż „Wkrótce”: „Beauty i usługi” obok „Biura i usługi” — potwierdzić, że się nie mylą (od v20 bez menu „Branże ▾”: na stronach branż i w stopce).
 11. Kafel KSeF na stronie głównej (v20): tekst „KSeF od 1 stycznia 2027” jest nieścisły — od 1.04.2026 obowiązek mają wszyscy, do końca 2026 r. trwają tylko wyjątki dla faktur z kas i firm do 10 000 zł miesięcznie (MF, pytania i odpowiedzi KSeF 2.0). Korekta treści w panelu przed publikacją.

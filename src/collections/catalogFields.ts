@@ -63,7 +63,12 @@ export function includedField(description?: string): Field {
 }
 
 /** Images of the edited document's tenant only: the plugin narrows relationships, not uploads. */
-export function imageField(name: string, label: string, hasMany = false): Field {
+export function imageField(
+  name: string,
+  label: string,
+  hasMany = false,
+  description?: string,
+): Field {
   return hasMany
     ? {
         name,
@@ -72,6 +77,7 @@ export function imageField(name: string, label: string, hasMany = false): Field 
         relationTo: 'media',
         hasMany: true,
         filterOptions: tenantImageFilter,
+        ...(description && { admin: { description } }),
       }
     : { name, label, type: 'upload', relationTo: 'media', filterOptions: tenantImageFilter }
 }

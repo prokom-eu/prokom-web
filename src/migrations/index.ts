@@ -12,6 +12,8 @@ import * as migration_20261018_111136_biznes_settings_inquiries from './20261018
 import * as migration_20261018_155714_biznes_navigation from './20261018_155714_biznes_navigation'
 import * as migration_20261018_171850_biznes_footer from './20261018_171850_biznes_footer'
 import * as migration_20261021_185642_biznes_navigation_without_industries from './20261021_185642_biznes_navigation_without_industries'
+import * as migration_20261022_183911_katalog_v2 from './20261022_183911_katalog_v2'
+import * as migration_20261022_183948_katalog_v2_legacy_ids from './20261022_183948_katalog_v2_legacy_ids'
 
 export const migrations = [
   {
@@ -83,5 +85,15 @@ export const migrations = [
     up: migration_20261021_185642_biznes_navigation_without_industries.up,
     down: migration_20261021_185642_biznes_navigation_without_industries.down,
     name: '20261021_185642_biznes_navigation_without_industries',
+  },
+  {
+    up: migration_20261022_183911_katalog_v2.up,
+    down: migration_20261022_183911_katalog_v2.down,
+    name: '20261022_183911_katalog_v2',
+  },
+  {
+    up: migration_20261022_183948_katalog_v2_legacy_ids.up,
+    down: migration_20261022_183948_katalog_v2_legacy_ids.down,
+    name: '20261022_183948_katalog_v2_legacy_ids',
   },
 ]

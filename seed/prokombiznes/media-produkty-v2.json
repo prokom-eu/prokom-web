@@ -1,0 +1,3974 @@
+{
+ "uwaga": "Zdjęcia produktów z katalogu v2. Źródło każdego pliku w polu „zrodlo”. Przed publikacją potwierdzić prawo użycia (materiały partnerskie).",
+ "pliki": [
+  {
+   "plik": "produkty/jota/jota-01.webp",
+   "rola": "produkt",
+   "produkt": "jota",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/01-kasy-fiskalne/elzab/elzab-jota-online_01.png",
+   "oryginal_px": "300x242"
+  },
+  {
+   "plik": "produkty/jota/jota-02.webp",
+   "rola": "produkt",
+   "produkt": "jota",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/01-kasy-fiskalne/elzab/elzab-jota-online_02.png",
+   "oryginal_px": "300x240"
+  },
+  {
+   "plik": "produkty/jota/jota-03.webp",
+   "rola": "produkt",
+   "produkt": "jota",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/01-kasy-fiskalne/elzab/elzab-jota-online_03.png",
+   "oryginal_px": "300x277"
+  },
+  {
+   "plik": "produkty/k10/k10-01.webp",
+   "rola": "produkt",
+   "produkt": "k10",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/01-kasy-fiskalne/elzab/elzab-k10-online-bt-gprs_01.jpg",
+   "oryginal_px": "300x275"
+  },
+  {
+   "plik": "produkty/k10/k10-02.webp",
+   "rola": "produkt",
+   "produkt": "k10",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/01-kasy-fiskalne/elzab/elzab-k10-online-bt-gprs_02.jpg",
+   "oryginal_px": "279x300"
+  },
+  {
+   "plik": "produkty/k10/k10-03.webp",
+   "rola": "produkt",
+   "produkt": "k10",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/01-kasy-fiskalne/elzab/elzab-k10-online-bt-gprs_03.jpg",
+   "oryginal_px": "300x252"
+  },
+  {
+   "plik": "produkty/k10/k10-04.webp",
+   "rola": "produkt",
+   "produkt": "k10",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/01-kasy-fiskalne/elzab/elzab-k10-online-bt-wifi-rozowy-bialy_01.jpg",
+   "oryginal_px": "300x240"
+  },
+  {
+   "plik": "produkty/k10/k10-05.webp",
+   "rola": "produkt",
+   "produkt": "k10",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/01-kasy-fiskalne/elzab/elzab-k10-online-bt-wifi_01.png",
+   "oryginal_px": "300x274"
+  },
+  {
+   "plik": "produkty/k10/k10-06.webp",
+   "rola": "produkt",
+   "produkt": "k10",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/01-kasy-fiskalne/elzab/elzab-k10-online-bt-wifi_02.jpg",
+   "oryginal_px": "300x274"
+  },
+  {
+   "plik": "produkty/k10/k10-07.webp",
+   "rola": "produkt",
+   "produkt": "k10",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/01-kasy-fiskalne/elzab/elzab-k10-online-bt-wifi_03.jpg",
+   "oryginal_px": "278x300"
+  },
+  {
+   "plik": "produkty/k10/k10-08.webp",
+   "rola": "produkt",
+   "produkt": "k10",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/01-kasy-fiskalne/elzab/elzab-k10-online-bt-wifi-rozowy-bialy_02.jpg",
+   "oryginal_px": "300x296"
+  },
+  {
+   "plik": "produkty/mini/mini-01.webp",
+   "rola": "produkt",
+   "produkt": "mini",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/01-kasy-fiskalne/elzab/elzab-mini-online_01.png",
+   "oryginal_px": "300x226"
+  },
+  {
+   "plik": "produkty/mini/mini-02.webp",
+   "rola": "produkt",
+   "produkt": "mini",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/01-kasy-fiskalne/elzab/elzab-mini-online_02.png",
+   "oryginal_px": "300x285"
+  },
+  {
+   "plik": "produkty/mini/mini-03.webp",
+   "rola": "produkt",
+   "produkt": "mini",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/01-kasy-fiskalne/elzab/elzab-mini-online_03.png",
+   "oryginal_px": "300x214"
+  },
+  {
+   "plik": "produkty/lite/lite-01.webp",
+   "rola": "produkt",
+   "produkt": "lite",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/01-kasy-fiskalne/fawag/fawag-lite-online_01.jpg",
+   "oryginal_px": "1200x900"
+  },
+  {
+   "plik": "produkty/lite/lite-02.webp",
+   "rola": "produkt",
+   "produkt": "lite",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/01-kasy-fiskalne/fawag/fawag-lite-online_02.jpg",
+   "oryginal_px": "1200x900"
+  },
+  {
+   "plik": "produkty/lite/lite-03.webp",
+   "rola": "produkt",
+   "produkt": "lite",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/01-kasy-fiskalne/fawag/fawag-lite-online_03.jpg",
+   "oryginal_px": "1200x900"
+  },
+  {
+   "plik": "produkty/ergo/ergo-01.webp",
+   "rola": "produkt",
+   "produkt": "ergo",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/01-kasy-fiskalne/posnet/posnet-ergo-online_01.jpg",
+   "oryginal_px": "2217x3576"
+  },
+  {
+   "plik": "produkty/ergo/ergo-02.webp",
+   "rola": "produkt",
+   "produkt": "ergo",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/01-kasy-fiskalne/posnet/posnet-ergo-online_02.jpg",
+   "oryginal_px": "2217x3576"
+  },
+  {
+   "plik": "produkty/mobile/mobile-01.webp",
+   "rola": "produkt",
+   "produkt": "mobile",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/01-kasy-fiskalne/posnet/posnet-mobile-online_02.png",
+   "oryginal_px": "600x600"
+  },
+  {
+   "plik": "produkty/mobile/mobile-02.webp",
+   "rola": "produkt",
+   "produkt": "mobile",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/01-kasy-fiskalne/posnet/posnet-mobile-online_03.png",
+   "oryginal_px": "1920x1080"
+  },
+  {
+   "plik": "produkty/mobile/mobile-03.webp",
+   "rola": "produkt",
+   "produkt": "mobile",
+   "zrodlo": "wizualizacja v20 (p-posnet-mobile.webp)",
+   "oryginal_px": "551x462"
+  },
+  {
+   "plik": "produkty/neo/neo-01.webp",
+   "rola": "produkt",
+   "produkt": "neo",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/01-kasy-fiskalne/posnet/posnet-neo-online_01.jpg",
+   "oryginal_px": "2000x1500"
+  },
+  {
+   "plik": "produkty/neo/neo-02.webp",
+   "rola": "produkt",
+   "produkt": "neo",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/01-kasy-fiskalne/posnet/posnet-neo-online_02.png",
+   "oryginal_px": "2000x1500"
+  },
+  {
+   "plik": "produkty/neo/neo-03.webp",
+   "rola": "produkt",
+   "produkt": "neo",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/01-kasy-fiskalne/posnet/posnet-neo-online_03.png",
+   "oryginal_px": "2000x1500"
+  },
+  {
+   "plik": "produkty/k1/k1-01.webp",
+   "rola": "produkt",
+   "produkt": "k1",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/01-kasy-fiskalne/elzab/elzab-k1-slim-online-bt-gprs_01.png",
+   "oryginal_px": "300x274"
+  },
+  {
+   "plik": "produkty/k1/k1-02.webp",
+   "rola": "produkt",
+   "produkt": "k1",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/01-kasy-fiskalne/elzab/elzab-k1-slim-online-bt-gprs_02.png",
+   "oryginal_px": "300x243"
+  },
+  {
+   "plik": "produkty/k1/k1-03.webp",
+   "rola": "produkt",
+   "produkt": "k1",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/01-kasy-fiskalne/elzab/elzab-k1-slim-online-bt-gprs_03.jpg",
+   "oryginal_px": "300x240"
+  },
+  {
+   "plik": "produkty/minilt/minilt-01.webp",
+   "rola": "produkt",
+   "produkt": "minilt",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/01-kasy-fiskalne/elzab/elzab-mini-lt-online-bt-wifi_01.png",
+   "oryginal_px": "300x226"
+  },
+  {
+   "plik": "produkty/minilt/minilt-02.webp",
+   "rola": "produkt",
+   "produkt": "minilt",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/01-kasy-fiskalne/elzab/elzab-mini-lt-online-bt-wifi_02.png",
+   "oryginal_px": "300x223"
+  },
+  {
+   "plik": "produkty/minilt/minilt-03.webp",
+   "rola": "produkt",
+   "produkt": "minilt",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/01-kasy-fiskalne/elzab/elzab-mini-lt-online-bt-wifi_03.png",
+   "oryginal_px": "300x285"
+  },
+  {
+   "plik": "produkty/bingo/bingo-01.webp",
+   "rola": "produkt",
+   "produkt": "bingo",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/01-kasy-fiskalne/posnet/posnet-bingo-max2_02.jpg",
+   "oryginal_px": "2290x1725"
+  },
+  {
+   "plik": "produkty/bingo/bingo-02.webp",
+   "rola": "produkt",
+   "produkt": "bingo",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/01-kasy-fiskalne/posnet/posnet-bingo-max2_03.jpg",
+   "oryginal_px": "2290x1725"
+  },
+  {
+   "plik": "produkty/mobile2/mobile2-01.webp",
+   "rola": "produkt",
+   "produkt": "mobile2",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/01-kasy-fiskalne/posnet/posnet-mobile2_01.png",
+   "oryginal_px": "1600x1080"
+  },
+  {
+   "plik": "produkty/mobile2/mobile2-02.webp",
+   "rola": "produkt",
+   "produkt": "mobile2",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/01-kasy-fiskalne/posnet/posnet-mobile-2-strona-lewa.webp",
+   "oryginal_px": "960x960"
+  },
+  {
+   "plik": "produkty/mobile2/mobile2-03.webp",
+   "rola": "produkt",
+   "produkt": "mobile2",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/01-kasy-fiskalne/posnet/posnet-mobile2_03.png",
+   "oryginal_px": "1600x1080"
+  },
+  {
+   "plik": "produkty/zeta/zeta-01.webp",
+   "rola": "produkt",
+   "produkt": "zeta",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/02-drukarki-fiskalne/elzab/elzab-drukarka-sklepowa-zeta-online-czarna_01.png",
+   "oryginal_px": "300x282"
+  },
+  {
+   "plik": "produkty/zeta/zeta-02.webp",
+   "rola": "produkt",
+   "produkt": "zeta",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/02-drukarki-fiskalne/elzab/elzab-drukarka-sklepowa-zeta-online-czarna_02.png",
+   "oryginal_px": "300x282"
+  },
+  {
+   "plik": "produkty/zeta/zeta-03.webp",
+   "rola": "produkt",
+   "produkt": "zeta",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/02-drukarki-fiskalne/elzab/elzab-drukarka-sklepowa-zeta-online-czarna_03.png",
+   "oryginal_px": "198x300"
+  },
+  {
+   "plik": "produkty/fbox/fbox-01.webp",
+   "rola": "produkt",
+   "produkt": "fbox",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/02-drukarki-fiskalne/fawag/fawag-box_01.jpg",
+   "oryginal_px": "2362x2309"
+  },
+  {
+   "plik": "produkty/fbox/fbox-02.webp",
+   "rola": "produkt",
+   "produkt": "fbox",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/02-drukarki-fiskalne/fawag/fawag-box_02.jpg",
+   "oryginal_px": "2362x2309"
+  },
+  {
+   "plik": "produkty/fbox/fbox-03.webp",
+   "rola": "produkt",
+   "produkt": "fbox",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/02-drukarki-fiskalne/fawag/fawag-box_03.jpg",
+   "oryginal_px": "2362x2309"
+  },
+  {
+   "plik": "produkty/temo/temo-01.webp",
+   "rola": "produkt",
+   "produkt": "temo",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/02-drukarki-fiskalne/posnet/posnet-temo-online_01.png",
+   "oryginal_px": "1772x1416"
+  },
+  {
+   "plik": "produkty/temo/temo-02.webp",
+   "rola": "produkt",
+   "produkt": "temo",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/02-drukarki-fiskalne/posnet/posnet-temo-online_02.png",
+   "oryginal_px": "2480x1826"
+  },
+  {
+   "plik": "produkty/temo/temo-03.webp",
+   "rola": "produkt",
+   "produkt": "temo",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/02-drukarki-fiskalne/posnet/posnet-temo-online_03.png",
+   "oryginal_px": "3132x2430"
+  },
+  {
+   "plik": "produkty/hx/hx-01.webp",
+   "rola": "produkt",
+   "produkt": "hx",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/02-drukarki-fiskalne/posnet/posnet-thermal-hx-online_01.png",
+   "oryginal_px": "2560x1706"
+  },
+  {
+   "plik": "produkty/hx/hx-02.webp",
+   "rola": "produkt",
+   "produkt": "hx",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/02-drukarki-fiskalne/posnet/thermalhx.png",
+   "oryginal_px": "2560x1707"
+  },
+  {
+   "plik": "produkty/hx/hx-03.webp",
+   "rola": "produkt",
+   "produkt": "hx",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/02-drukarki-fiskalne/posnet/posnet-thermal-hx-online_02.png",
+   "oryginal_px": "2560x1707"
+  },
+  {
+   "plik": "produkty/hx/hx-04.webp",
+   "rola": "produkt",
+   "produkt": "hx",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/02-drukarki-fiskalne/posnet/posnet-thermal-hx-online_03.png",
+   "oryginal_px": "2560x1707"
+  },
+  {
+   "plik": "produkty/trio/trio-01.webp",
+   "rola": "produkt",
+   "produkt": "trio",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/02-drukarki-fiskalne/posnet/posnet-trio-online_01.jpg",
+   "oryginal_px": "1200x900"
+  },
+  {
+   "plik": "produkty/trio/trio-02.webp",
+   "rola": "produkt",
+   "produkt": "trio",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/02-drukarki-fiskalne/posnet/posnet-trio-online_02.jpg",
+   "oryginal_px": "1200x900"
+  },
+  {
+   "plik": "produkty/trio/trio-03.webp",
+   "rola": "produkt",
+   "produkt": "trio",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/02-drukarki-fiskalne/posnet/posnet-trio-online_03.jpg",
+   "oryginal_px": "1200x900"
+  },
+  {
+   "plik": "produkty/trio/trio-04.webp",
+   "rola": "produkt",
+   "produkt": "trio",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/02-drukarki-fiskalne/posnet/online-drukarka-trio-posnet-01.png",
+   "oryginal_px": "1200x900"
+  },
+  {
+   "plik": "produkty/cube/cube-01.webp",
+   "rola": "produkt",
+   "produkt": "cube",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/02-drukarki-fiskalne/elzab/elzab-cube-online-r_01.jpg",
+   "oryginal_px": "289x300"
+  },
+  {
+   "plik": "produkty/cube/cube-02.webp",
+   "rola": "produkt",
+   "produkt": "cube",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/02-drukarki-fiskalne/elzab/elzab-cube-online-r_02.jpg",
+   "oryginal_px": "299x300"
+  },
+  {
+   "plik": "produkty/cube/cube-03.webp",
+   "rola": "produkt",
+   "produkt": "cube",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/02-drukarki-fiskalne/elzab/elzab-cube-online-r_03.jpg",
+   "oryginal_px": "299x300"
+  },
+  {
+   "plik": "produkty/mera/mera-01.webp",
+   "rola": "produkt",
+   "produkt": "mera",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/01-kasy-fiskalne/elzab/mera1.png",
+   "oryginal_px": "698x1000"
+  },
+  {
+   "plik": "produkty/mera/mera-02.webp",
+   "rola": "produkt",
+   "produkt": "mera",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/01-kasy-fiskalne/elzab/drukarka-fiskalna-elzab-mera-f_1987.jpg",
+   "oryginal_px": "2199x1760"
+  },
+  {
+   "plik": "produkty/mera/mera-03.webp",
+   "rola": "produkt",
+   "produkt": "mera",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/02-drukarki-fiskalne/elzab/elzab-drukarka-fiskalna-mera-online-lan_01.png",
+   "oryginal_px": "209x300"
+  },
+  {
+   "plik": "produkty/mera/mera-04.webp",
+   "rola": "produkt",
+   "produkt": "mera",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/02-drukarki-fiskalne/elzab/elzab-drukarka-fiskalna-mera-online-lan_02.png",
+   "oryginal_px": "224x300"
+  },
+  {
+   "plik": "produkty/mera/mera-05.webp",
+   "rola": "produkt",
+   "produkt": "mera",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/02-drukarki-fiskalne/elzab/elzab-drukarka-fiskalna-mera-online-lan_03.png",
+   "oryginal_px": "149x300"
+  },
+  {
+   "plik": "produkty/hd/hd-01.webp",
+   "rola": "produkt",
+   "produkt": "hd",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/02-drukarki-fiskalne/posnet/posnet-thermal-hd-online_03.png",
+   "oryginal_px": "600x600"
+  },
+  {
+   "plik": "produkty/hd/hd-02.webp",
+   "rola": "produkt",
+   "produkt": "hd",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/02-drukarki-fiskalne/posnet/posnet-thermal-hd-online_01.jpg",
+   "oryginal_px": "1200x900"
+  },
+  {
+   "plik": "produkty/hd/hd-03.webp",
+   "rola": "produkt",
+   "produkt": "hd",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/02-drukarki-fiskalne/posnet/posnet-thermal-hd-online_02.jpg",
+   "oryginal_px": "1200x900"
+  },
+  {
+   "plik": "produkty/xl2/xl2-01.webp",
+   "rola": "produkt",
+   "produkt": "xl2",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/02-drukarki-fiskalne/posnet/posnet-thermal-xl-2-online-001-duzy-201.png",
+   "oryginal_px": "1080x1080"
+  },
+  {
+   "plik": "produkty/xl2/xl2-02.webp",
+   "rola": "produkt",
+   "produkt": "xl2",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/02-drukarki-fiskalne/posnet/posnet-thermal-xl2-a_01.jpg",
+   "oryginal_px": "2048x1367"
+  },
+  {
+   "plik": "produkty/xl2/xl2-03.webp",
+   "rola": "produkt",
+   "produkt": "xl2",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/02-drukarki-fiskalne/posnet/thermal-xl2-online-201-5.png",
+   "oryginal_px": "600x600"
+  },
+  {
+   "plik": "produkty/xl2/xl2-04.webp",
+   "rola": "produkt",
+   "produkt": "xl2",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/02-drukarki-fiskalne/posnet/THERMALXLCOVER_7324058878.webp",
+   "oryginal_px": "1140x908"
+  },
+  {
+   "plik": "produkty/xl2/xl2-05.webp",
+   "rola": "produkt",
+   "produkt": "xl2",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/02-drukarki-fiskalne/posnet/posnet-thermal-xl2-online-2”-3”_03.jpg",
+   "oryginal_px": "2048x1365"
+  },
+  {
+   "plik": "produkty/xl2/xl2-06.webp",
+   "rola": "produkt",
+   "produkt": "xl2",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/02-drukarki-fiskalne/posnet/posnet-thermal-xl2-a_03.png",
+   "oryginal_px": "1080x1080"
+  },
+  {
+   "plik": "produkty/elzab-drukarka-stacji-paliw-df-6-online/elzab-drukarka-stacji-paliw-df-6-online-01.webp",
+   "rola": "produkt",
+   "produkt": "elzab-drukarka-stacji-paliw-df-6-online",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/02-drukarki-fiskalne/elzab/elzab-drukarka-stacji-paliw-df-6-online_01.jpg",
+   "oryginal_px": "272x300"
+  },
+  {
+   "plik": "produkty/vero/vero-01.webp",
+   "rola": "produkt",
+   "produkt": "vero",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/04-stanowiska-pos/posnet/posnet-vero_01.png",
+   "oryginal_px": "1920x1920"
+  },
+  {
+   "plik": "produkty/vero/vero-02.webp",
+   "rola": "produkt",
+   "produkt": "vero",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/04-stanowiska-pos/posnet/posnet-vero_02.png",
+   "oryginal_px": "1920x1440"
+  },
+  {
+   "plik": "produkty/vero/vero-03.webp",
+   "rola": "produkt",
+   "produkt": "vero",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/01-kasy-fiskalne/posnet/vero-pt7-1080i.png",
+   "oryginal_px": "1920x1440"
+  },
+  {
+   "plik": "produkty/d3/d3-01.webp",
+   "rola": "produkt",
+   "produkt": "d3",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/03-kasoterminale/sunmi/D3-PRO-with-UI.png",
+   "oryginal_px": "3000x3000"
+  },
+  {
+   "plik": "produkty/d3/d3-02.webp",
+   "rola": "produkt",
+   "produkt": "d3",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/04-stanowiska-pos/sunmi/cover_d3_pro_v2_0a3f9a5aca.webp",
+   "oryginal_px": "1080x860"
+  },
+  {
+   "plik": "produkty/d3/d3-03.webp",
+   "rola": "produkt",
+   "produkt": "d3",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/04-stanowiska-pos/sunmi/sunmi-d3-pro-android_02.png",
+   "oryginal_px": "1500x1004"
+  },
+  {
+   "plik": "produkty/d3/d3-04.webp",
+   "rola": "produkt",
+   "produkt": "d3",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/03-kasoterminale/sunmi/sunmi-home-3.jpg",
+   "oryginal_px": "916x688"
+  },
+  {
+   "plik": "produkty/triotab/triotab-01.webp",
+   "rola": "produkt",
+   "produkt": "triotab",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/02-drukarki-fiskalne/posnet/triotab-z-trio-render-izo315-s950.png",
+   "oryginal_px": "950x713"
+  },
+  {
+   "plik": "produkty/triotab/triotab-02.webp",
+   "rola": "produkt",
+   "produkt": "triotab",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/04-stanowiska-pos/posnet/posnet-triotab_01.png",
+   "oryginal_px": "600x600"
+  },
+  {
+   "plik": "produkty/triotab/triotab-03.webp",
+   "rola": "produkt",
+   "produkt": "triotab",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/04-stanowiska-pos/posnet/posnet-triotab_02.png",
+   "oryginal_px": "950x713"
+  },
+  {
+   "plik": "produkty/d2s/d2s-01.webp",
+   "rola": "produkt",
+   "produkt": "d2s",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/03-kasoterminale/sunmi/d2slite.png",
+   "oryginal_px": "1000x985"
+  },
+  {
+   "plik": "produkty/d2s/d2s-02.webp",
+   "rola": "produkt",
+   "produkt": "d2s",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/03-kasoterminale/sunmi/SUNMI_COVER_d2s.webp",
+   "oryginal_px": "1140x908"
+  },
+  {
+   "plik": "produkty/d2s/d2s-03.webp",
+   "rola": "produkt",
+   "produkt": "d2s",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/04-stanowiska-pos/sunmi/sunmi-pos-d2s-lite-156’’-gen-ii_01.png",
+   "oryginal_px": "300x295"
+  },
+  {
+   "plik": "produkty/d2s/d2s-04.webp",
+   "rola": "produkt",
+   "produkt": "d2s",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/04-stanowiska-pos/sunmi/sunmi-pos-d2s-lite-156’’-gen-ii_02.png",
+   "oryginal_px": "300x277"
+  },
+  {
+   "plik": "produkty/t2s/t2s-01.webp",
+   "rola": "produkt",
+   "produkt": "t2s",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/04-stanowiska-pos/sunmi/sunmi-pos-t2s-lite-156’’_01.jpg",
+   "oryginal_px": "285x300"
+  },
+  {
+   "plik": "produkty/t2s/t2s-02.webp",
+   "rola": "produkt",
+   "produkt": "t2s",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/04-stanowiska-pos/sunmi/sunmi-pos-t2s-lite-156’’-10’’_01.jpg",
+   "oryginal_px": "264x300"
+  },
+  {
+   "plik": "produkty/t2s/t2s-03.webp",
+   "rola": "produkt",
+   "produkt": "t2s",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/04-stanowiska-pos/sunmi/sunmi-pos-t2s-lite-156’’_02.jpg",
+   "oryginal_px": "250x300"
+  },
+  {
+   "plik": "produkty/t2s/t2s-04.webp",
+   "rola": "produkt",
+   "produkt": "t2s",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/04-stanowiska-pos/sunmi/sunmi-pos-t2s-lite-156’’-10’’_02.jpg",
+   "oryginal_px": "250x300"
+  },
+  {
+   "plik": "produkty/v3/v3-01.webp",
+   "rola": "produkt",
+   "produkt": "v3",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/03-kasoterminale/sunmi/SUN_V3_black_silver_montage_front_back_shop.png",
+   "oryginal_px": "1600x1600"
+  },
+  {
+   "plik": "produkty/v3/v3-02.webp",
+   "rola": "produkt",
+   "produkt": "v3",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/03-kasoterminale/sunmi/sunmi-v3-przenosny-terminal-dotykowy-67-wbudowana-drukarka.webp",
+   "oryginal_px": "1080x1080"
+  },
+  {
+   "plik": "produkty/v3/v3-03.webp",
+   "rola": "produkt",
+   "produkt": "v3",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/03-kasoterminale/sunmi/sunmi_v3_cover_productstructured_f629535b94.webp",
+   "oryginal_px": "1140x908"
+  },
+  {
+   "plik": "produkty/v3/v3-04.webp",
+   "rola": "produkt",
+   "produkt": "v3",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/03-kasoterminale/sunmi/sunmi-terminal-v3-ss1104-3-32gb-4g_01.png",
+   "oryginal_px": "123x300"
+  },
+  {
+   "plik": "produkty/v3mix/v3mix-01.webp",
+   "rola": "produkt",
+   "produkt": "v3mix",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/04-stanowiska-pos/sunmi/sunmi-v3-mix-mobilny-terminal-dotykowy-101-z-wbudowana-drukarka.webp",
+   "oryginal_px": "1080x1080"
+  },
+  {
+   "plik": "produkty/v3mix/v3mix-02.webp",
+   "rola": "produkt",
+   "produkt": "v3mix",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/04-stanowiska-pos/sunmi/sumi_v3mix_cover_productstructured_4a03f972df.webp",
+   "oryginal_px": "1140x908"
+  },
+  {
+   "plik": "produkty/k2pay/k2pay-01.webp",
+   "rola": "produkt",
+   "produkt": "k2pay",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/03-kasoterminale/elzab/elzab-kasoterminal-k2-pay-online_02.png",
+   "oryginal_px": "300x244"
+  },
+  {
+   "plik": "produkty/k2pay/k2pay-02.webp",
+   "rola": "produkt",
+   "produkt": "k2pay",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/03-kasoterminale/elzab/elzab-kasoterminal-k2-pay-online_03.png",
+   "oryginal_px": "148x300"
+  },
+  {
+   "plik": "produkty/k2pay/k2pay-03.webp",
+   "rola": "produkt",
+   "produkt": "k2pay",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/03-kasoterminale/elzab/elzab-kasoterminal-k2-pay-online_01.jpg",
+   "oryginal_px": "266x300"
+  },
+  {
+   "plik": "produkty/t10/t10-01.webp",
+   "rola": "produkt",
+   "produkt": "t10",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/03-kasoterminale/elzab/elzab-t10-online-elzapp-pos_02.png",
+   "oryginal_px": "300x270"
+  },
+  {
+   "plik": "produkty/t10/t10-02.webp",
+   "rola": "produkt",
+   "produkt": "t10",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/03-kasoterminale/elzab/elzab-t10-online-elzapp-pos_03.png",
+   "oryginal_px": "300x166"
+  },
+  {
+   "plik": "produkty/t10/t10-03.webp",
+   "rola": "produkt",
+   "produkt": "t10",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/03-kasoterminale/elzab/elzab-t10-online-elzapp-pos_01.jpg",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/t10/t10-04.webp",
+   "rola": "produkt",
+   "produkt": "t10",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/03-kasoterminale/elzab/elzab-t10-online-elzapp-sklep_01.png",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/evo/evo-01.webp",
+   "rola": "produkt",
+   "produkt": "evo",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/03-kasoterminale/posnet/posnet-evo_01.jpg",
+   "oryginal_px": "1920x1920"
+  },
+  {
+   "plik": "produkty/evo/evo-02.webp",
+   "rola": "produkt",
+   "produkt": "evo",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/01-kasy-fiskalne/posnet/evo-3.jpg",
+   "oryginal_px": "2560x2240"
+  },
+  {
+   "plik": "produkty/evo/evo-03.webp",
+   "rola": "produkt",
+   "produkt": "evo",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/03-kasoterminale/posnet/posnet-evo_02.jpg",
+   "oryginal_px": "2560x2240"
+  },
+  {
+   "plik": "produkty/evo/evo-04.webp",
+   "rola": "produkt",
+   "produkt": "evo",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/03-kasoterminale/posnet/posnet-evo_03.jpg",
+   "oryginal_px": "2560x2240"
+  },
+  {
+   "plik": "produkty/pospay2/pospay2-01.webp",
+   "rola": "produkt",
+   "produkt": "pospay2",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/03-kasoterminale/posnet/posnet-pospay2-online_01.png",
+   "oryginal_px": "600x600"
+  },
+  {
+   "plik": "produkty/pospay2/pospay2-02.webp",
+   "rola": "produkt",
+   "produkt": "pospay2",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/01-kasy-fiskalne/posnet/pospy2.png",
+   "oryginal_px": "600x600"
+  },
+  {
+   "plik": "produkty/pospay2/pospay2-03.webp",
+   "rola": "produkt",
+   "produkt": "pospay2",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/03-kasoterminale/posnet/posnet-pospay2-online_02.png",
+   "oryginal_px": "1618x1080"
+  },
+  {
+   "plik": "produkty/pospay2/pospay2-04.webp",
+   "rola": "produkt",
+   "produkt": "pospay2",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/03-kasoterminale/posnet/posnet-pospay2-online_03.png",
+   "oryginal_px": "1618x1080"
+  },
+  {
+   "plik": "produkty/pospay2/pospay2-05.webp",
+   "rola": "produkt",
+   "produkt": "pospay2",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/03-kasoterminale/posnet/posnet-pospay2-online-ipos_01.png",
+   "oryginal_px": "600x600"
+  },
+  {
+   "plik": "produkty/pospay2/pospay2-06.webp",
+   "rola": "produkt",
+   "produkt": "pospay2",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/03-kasoterminale/posnet/posnet-pospay2-online-ipos_02.jpg",
+   "oryginal_px": "1181x738"
+  },
+  {
+   "plik": "produkty/pospay2/pospay2-07.webp",
+   "rola": "produkt",
+   "produkt": "pospay2",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/03-kasoterminale/posnet/posnet-pospay2-online-ipos_03.jpg",
+   "oryginal_px": "886x738"
+  },
+  {
+   "plik": "produkty/v2s/v2s-01.webp",
+   "rola": "produkt",
+   "produkt": "v2s",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/03-kasoterminale/sunmi/sunmi-terminal-v2s-57mm-3-32gb-nfc-gms_01.png",
+   "oryginal_px": "300x213"
+  },
+  {
+   "plik": "produkty/v2s/v2s-02.webp",
+   "rola": "produkt",
+   "produkt": "v2s",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/03-kasoterminale/sunmi/sunmi-terminal-v2s-57mm-3-32gb-nfc-gms_02.jpg",
+   "oryginal_px": "127x300"
+  },
+  {
+   "plik": "produkty/posnet-bileterka-e-podroznik/posnet-bileterka-e-podroznik-01.webp",
+   "rola": "produkt",
+   "produkt": "posnet-bileterka-e-podroznik",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/03-kasoterminale/posnet/posnet-bileterka-e-podroznik_01.png",
+   "oryginal_px": "600x600"
+  },
+  {
+   "plik": "produkty/pol/pol-01.webp",
+   "rola": "produkt",
+   "produkt": "pol",
+   "zrodlo": "Materialy-prokombiznes/terminal-platniczy-polcard-mov_2288.jpg",
+   "oryginal_px": "936x1404"
+  },
+  {
+   "plik": "produkty/pol/pol-02.webp",
+   "rola": "produkt",
+   "produkt": "pol",
+   "zrodlo": "Materialy-prokombiznes/terminal-platniczy-polcard-mov_2293.jpg",
+   "oryginal_px": "2000x1775"
+  },
+  {
+   "plik": "produkty/pol/pol-03.webp",
+   "rola": "produkt",
+   "produkt": "pol",
+   "zrodlo": "Materialy-prokombiznes/terminal-platniczy-ingenico-move-3500-full-4.png",
+   "oryginal_px": "1080x1294"
+  },
+  {
+   "plik": "produkty/pol/pol-04.webp",
+   "rola": "produkt",
+   "produkt": "pol",
+   "zrodlo": "Materialy-prokombiznes/ingenico-dx-8000-1.jpg",
+   "oryginal_px": "1200x1200"
+  },
+  {
+   "plik": "produkty/pol/pol-05.webp",
+   "rola": "produkt",
+   "produkt": "pol",
+   "zrodlo": "Materialy-prokombiznes/ingenico-dx-4000-portable-2.jpg",
+   "oryginal_px": "1200x1200"
+  },
+  {
+   "plik": "produkty/pol/pol-06.webp",
+   "rola": "produkt",
+   "produkt": "pol",
+   "zrodlo": "Materialy-prokombiznes/zestaw-ingenico-desk-3200-pinpad-desk-1500.png",
+   "oryginal_px": "850x850"
+  },
+  {
+   "plik": "produkty/kds/kds-01.webp",
+   "rola": "produkt",
+   "produkt": "kds",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/05-kioski-ekrany-kuchenne/sumni/kds_sunmi_flex3_structured_data_56abd847b8.webp",
+   "oryginal_px": "1932x1520"
+  },
+  {
+   "plik": "produkty/kds/kds-02.webp",
+   "rola": "produkt",
+   "produkt": "kds",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/05-kioski-ekrany-kuchenne/sumni/Terminal-POS-SUNMI-FLEX-3-Moduly.jpg",
+   "oryginal_px": "1106x874"
+  },
+  {
+   "plik": "produkty/kds/kds-03.webp",
+   "rola": "produkt",
+   "produkt": "kds",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/05-kioski-ekrany-kuchenne/sumni/kiosk_sunmi_flex_structured_data_4a3ff602b6.webp",
+   "oryginal_px": "3864x3040"
+  },
+  {
+   "plik": "produkty/kiosk/kiosk-01.webp",
+   "rola": "produkt",
+   "produkt": "kiosk",
+   "zrodlo": "wizualizacja v20 (p-sunmi-kiosk.webp)",
+   "oryginal_px": "836x1188"
+  },
+  {
+   "plik": "produkty/elzkiosk/elzkiosk-01.webp",
+   "rola": "produkt",
+   "produkt": "elzkiosk",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/05-kioski-ekrany-kuchenne/elzab/elzab-kasa-samoobslugowa-online_01.jpg",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/elzkiosk/elzkiosk-02.webp",
+   "rola": "produkt",
+   "produkt": "elzkiosk",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/05-kioski-ekrany-kuchenne/elzab/elzab-kasa-samoobslugowa-online_02.jpg",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/druks/druks-01.webp",
+   "rola": "produkt",
+   "produkt": "druks",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/02-drukarki-fiskalne/drukarka-bonowa-80mm-sunmi-clo_2537.jpg",
+   "oryginal_px": "1600x1600"
+  },
+  {
+   "plik": "produkty/szuf/szuf-01.webp",
+   "rola": "produkt",
+   "produkt": "szuf",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/posnet/posnet-skl_01.png",
+   "oryginal_px": "600x600"
+  },
+  {
+   "plik": "produkty/szuf/szuf-02.webp",
+   "rola": "produkt",
+   "produkt": "szuf",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/posnet/posnet-skl_02.jpg",
+   "oryginal_px": "1200x900"
+  },
+  {
+   "plik": "produkty/elzab-drukarka-paragonowa-elz-max-rs-usb-lan-wif/elzab-drukarka-paragonowa-elz-max-rs-usb-lan-wif-01.webp",
+   "rola": "produkt",
+   "produkt": "elzab-drukarka-paragonowa-elz-max-rs-usb-lan-wif",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-drukarka-paragonowa-elz-max-rs-usb-lan-wifi_01.png",
+   "oryginal_px": "300x264"
+  },
+  {
+   "plik": "produkty/elzab-drukarka-paragonowa-elz-max-rs-usb-lan-wif/elzab-drukarka-paragonowa-elz-max-rs-usb-lan-wif-02.webp",
+   "rola": "produkt",
+   "produkt": "elzab-drukarka-paragonowa-elz-max-rs-usb-lan-wif",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-drukarka-paragonowa-elz-max-rs-usb-lan-wifi_02.png",
+   "oryginal_px": "237x300"
+  },
+  {
+   "plik": "produkty/elzab-drukarka-paragonowa-elz-rp332a/elzab-drukarka-paragonowa-elz-rp332a-01.webp",
+   "rola": "produkt",
+   "produkt": "elzab-drukarka-paragonowa-elz-rp332a",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-drukarka-paragonowa-elz-rp332a_01.jpg",
+   "oryginal_px": "300x266"
+  },
+  {
+   "plik": "produkty/elzab-drukarka-paragonowa-elz-rp332a/elzab-drukarka-paragonowa-elz-rp332a-02.webp",
+   "rola": "produkt",
+   "produkt": "elzab-drukarka-paragonowa-elz-rp332a",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-drukarka-paragonowa-elz-rp332a_02.jpg",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/elzab-drukarka-paragonowa-elz-rpp02b/elzab-drukarka-paragonowa-elz-rpp02b-01.webp",
+   "rola": "produkt",
+   "produkt": "elzab-drukarka-paragonowa-elz-rpp02b",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-drukarka-paragonowa-elz-rpp02b_01.png",
+   "oryginal_px": "294x300"
+  },
+  {
+   "plik": "produkty/elzab-drukarka-paragonowa-elz-rpp02b/elzab-drukarka-paragonowa-elz-rpp02b-02.webp",
+   "rola": "produkt",
+   "produkt": "elzab-drukarka-paragonowa-elz-rpp02b",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-drukarka-paragonowa-elz-rpp02b_02.png",
+   "oryginal_px": "242x300"
+  },
+  {
+   "plik": "produkty/elzab-konwerter-usb-rs232/elzab-konwerter-usb-rs232-01.webp",
+   "rola": "produkt",
+   "produkt": "elzab-konwerter-usb-rs232",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-konwerter-usb-rs232_01.jpg",
+   "oryginal_px": "300x278"
+  },
+  {
+   "plik": "produkty/elzab-modul-wifi-do-drukarki-d10/elzab-modul-wifi-do-drukarki-d10-01.webp",
+   "rola": "produkt",
+   "produkt": "elzab-modul-wifi-do-drukarki-d10",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-modul-wifi-do-drukarki-d10_01.jpg",
+   "oryginal_px": "300x212"
+  },
+  {
+   "plik": "produkty/elzab-modul-zasilania-mzas-do-sieci-lan/elzab-modul-zasilania-mzas-do-sieci-lan-01.webp",
+   "rola": "produkt",
+   "produkt": "elzab-modul-zasilania-mzas-do-sieci-lan",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-modul-zasilania-mzas-do-sieci-lan_01.jpg",
+   "oryginal_px": "300x214"
+  },
+  {
+   "plik": "produkty/elzab-nakladki-na-klawiature/elzab-nakladki-na-klawiature-01.webp",
+   "rola": "produkt",
+   "produkt": "elzab-nakladki-na-klawiature",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-nakladka-na-klawiature-delta_01.jpg",
+   "oryginal_px": "300x192"
+  },
+  {
+   "plik": "produkty/elzab-stojak-ramie-i-uchwyty/elzab-stojak-ramie-i-uchwyty-01.webp",
+   "rola": "produkt",
+   "produkt": "elzab-stojak-ramie-i-uchwyty",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-ramie-stojaka_01.jpg",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/elzab-stojak-ramie-i-uchwyty/elzab-stojak-ramie-i-uchwyty-02.webp",
+   "rola": "produkt",
+   "produkt": "elzab-stojak-ramie-i-uchwyty",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-ramie-stojaka_02.jpg",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/elzab-stojak-ramie-i-uchwyty/elzab-stojak-ramie-i-uchwyty-03.webp",
+   "rola": "produkt",
+   "produkt": "elzab-stojak-ramie-i-uchwyty",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-stojak_01.jpg",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/elzab-stojak-ramie-i-uchwyty/elzab-stojak-ramie-i-uchwyty-04.webp",
+   "rola": "produkt",
+   "produkt": "elzab-stojak-ramie-i-uchwyty",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-stojak_02.jpg",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/elzab-stojak-ramie-i-uchwyty/elzab-stojak-ramie-i-uchwyty-05.webp",
+   "rola": "produkt",
+   "produkt": "elzab-stojak-ramie-i-uchwyty",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-stojak-poprzednia-wersja_01.jpg",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/elzab-stojak-ramie-i-uchwyty/elzab-stojak-ramie-i-uchwyty-06.webp",
+   "rola": "produkt",
+   "produkt": "elzab-stojak-ramie-i-uchwyty",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-stojak-poprzednia-wersja_02.jpg",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/elzab-stojak-ramie-i-uchwyty/elzab-stojak-ramie-i-uchwyty-07.webp",
+   "rola": "produkt",
+   "produkt": "elzab-stojak-ramie-i-uchwyty",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-stopa-stojaka_01.jpg",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/elzab-stojak-ramie-i-uchwyty/elzab-stojak-ramie-i-uchwyty-08.webp",
+   "rola": "produkt",
+   "produkt": "elzab-stojak-ramie-i-uchwyty",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-uchwyty_01.jpg",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/elzab-torby-i-etui-na-kasy/elzab-torby-i-etui-na-kasy-01.webp",
+   "rola": "produkt",
+   "produkt": "elzab-torby-i-etui-na-kasy",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-etui-skorzane-k10-d10_01.png",
+   "oryginal_px": "225x300"
+  },
+  {
+   "plik": "produkty/elzab-torby-i-etui-na-kasy/elzab-torby-i-etui-na-kasy-02.webp",
+   "rola": "produkt",
+   "produkt": "elzab-torby-i-etui-na-kasy",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-etui-skorzane-k10-d10_02.png",
+   "oryginal_px": "300x225"
+  },
+  {
+   "plik": "produkty/elzab-torby-i-etui-na-kasy/elzab-torby-i-etui-na-kasy-03.webp",
+   "rola": "produkt",
+   "produkt": "elzab-torby-i-etui-na-kasy",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-torba-na-kase-k10_01.jpg",
+   "oryginal_px": "300x225"
+  },
+  {
+   "plik": "produkty/elzab-torby-i-etui-na-kasy/elzab-torby-i-etui-na-kasy-04.webp",
+   "rola": "produkt",
+   "produkt": "elzab-torby-i-etui-na-kasy",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-torba-na-kase-mini_01.jpg",
+   "oryginal_px": "300x241"
+  },
+  {
+   "plik": "produkty/elzab-torby-i-etui-na-kasy/elzab-torby-i-etui-na-kasy-05.webp",
+   "rola": "produkt",
+   "produkt": "elzab-torby-i-etui-na-kasy",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-torba-na-kase-mini_02.jpg",
+   "oryginal_px": "300x246"
+  },
+  {
+   "plik": "produkty/posnet-modulowy-system-montazu/posnet-modulowy-system-montazu-01.webp",
+   "rola": "produkt",
+   "produkt": "posnet-modulowy-system-montazu",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/posnet/posnet-modulowy-system-montazu_01.png",
+   "oryginal_px": "600x600"
+  },
+  {
+   "plik": "produkty/posnet-klawiatura-bb10s-rs-usb/posnet-klawiatura-bb10s-rs-usb-01.webp",
+   "rola": "produkt",
+   "produkt": "posnet-klawiatura-bb10s-rs-usb",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/posnet/posnet-bb10s_01.png",
+   "oryginal_px": "600x600"
+  },
+  {
+   "plik": "produkty/posnet-klawiatura-bb10s-rs-usb/posnet-klawiatura-bb10s-rs-usb-02.webp",
+   "rola": "produkt",
+   "produkt": "posnet-klawiatura-bb10s-rs-usb",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/posnet/posnet-bb10s_02.jpg",
+   "oryginal_px": "950x631"
+  },
+  {
+   "plik": "produkty/posnet-klawiatura-bb10s-rs-usb/posnet-klawiatura-bb10s-rs-usb-03.webp",
+   "rola": "produkt",
+   "produkt": "posnet-klawiatura-bb10s-rs-usb",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/posnet/posnet-bb10s-usb_01.png",
+   "oryginal_px": "600x600"
+  },
+  {
+   "plik": "produkty/posnet-klawiatura-bb10s-rs-usb/posnet-klawiatura-bb10s-rs-usb-04.webp",
+   "rola": "produkt",
+   "produkt": "posnet-klawiatura-bb10s-rs-usb",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/posnet/posnet-bb10s-usb_02.png",
+   "oryginal_px": "1500x1002"
+  },
+  {
+   "plik": "produkty/posnet-moduly-wi-fi-bluetooth-do-temo/posnet-moduly-wi-fi-bluetooth-do-temo-01.webp",
+   "rola": "produkt",
+   "produkt": "posnet-moduly-wi-fi-bluetooth-do-temo",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/posnet/posnet-modul-bluetooth-temo-ej_01.png",
+   "oryginal_px": "600x600"
+  },
+  {
+   "plik": "produkty/posnet-moduly-wi-fi-bluetooth-do-temo/posnet-moduly-wi-fi-bluetooth-do-temo-02.webp",
+   "rola": "produkt",
+   "produkt": "posnet-moduly-wi-fi-bluetooth-do-temo",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/posnet/posnet-modul-wi-fi-bluetooth-temo-online_01.png",
+   "oryginal_px": "600x600"
+  },
+  {
+   "plik": "produkty/posnet-moduly-rozszerzen-do-ergo/posnet-moduly-rozszerzen-do-ergo-01.webp",
+   "rola": "produkt",
+   "produkt": "posnet-moduly-rozszerzen-do-ergo",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/posnet/posnet-modul-rozszerzenia-i-ergo_01.png",
+   "oryginal_px": "600x600"
+  },
+  {
+   "plik": "produkty/posnet-moduly-rozszerzen-do-ergo/posnet-moduly-rozszerzen-do-ergo-02.webp",
+   "rola": "produkt",
+   "produkt": "posnet-moduly-rozszerzen-do-ergo",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/posnet/posnet-modul-rozszerzenia-iii-ergo_01.png",
+   "oryginal_px": "696x600"
+  },
+  {
+   "plik": "produkty/posnet-moduly-rozszerzen-do-trio/posnet-moduly-rozszerzen-do-trio-01.webp",
+   "rola": "produkt",
+   "produkt": "posnet-moduly-rozszerzen-do-trio",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/posnet/posnet-modul-rozszerzenia-i-trio_01.png",
+   "oryginal_px": "600x600"
+  },
+  {
+   "plik": "produkty/posnet-moduly-rozszerzen-do-trio/posnet-moduly-rozszerzen-do-trio-02.webp",
+   "rola": "produkt",
+   "produkt": "posnet-moduly-rozszerzen-do-trio",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/posnet/posnet-modul-rozszerzenia-ii-trio_01.png",
+   "oryginal_px": "600x600"
+  },
+  {
+   "plik": "produkty/posnet-smycze-do-mobile-2-pospay/posnet-smycze-do-mobile-2-pospay-01.webp",
+   "rola": "produkt",
+   "produkt": "posnet-smycze-do-mobile-2-pospay",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/posnet/posnet-dluga-smycz-do-mobile2-pospay_01.png",
+   "oryginal_px": "1080x1018"
+  },
+  {
+   "plik": "produkty/posnet-smycze-do-mobile-2-pospay/posnet-smycze-do-mobile-2-pospay-02.webp",
+   "rola": "produkt",
+   "produkt": "posnet-smycze-do-mobile-2-pospay",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/posnet/posnet-dluga-smycz-do-mobile2-pospay_02.png",
+   "oryginal_px": "1080x1018"
+  },
+  {
+   "plik": "produkty/posnet-smycze-do-mobile-2-pospay/posnet-smycze-do-mobile-2-pospay-03.webp",
+   "rola": "produkt",
+   "produkt": "posnet-smycze-do-mobile-2-pospay",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/posnet/posnet-krotka-smycz-do-mobile2-pospay_01.png",
+   "oryginal_px": "3652x2214"
+  },
+  {
+   "plik": "produkty/posnet-smycze-do-mobile-2-pospay/posnet-smycze-do-mobile-2-pospay-04.webp",
+   "rola": "produkt",
+   "produkt": "posnet-smycze-do-mobile-2-pospay",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/posnet/posnet-krotka-smycz-do-mobile2-pospay_02.png",
+   "oryginal_px": "3628x2760"
+  },
+  {
+   "plik": "produkty/elzab-zewnetrzny-wyswietlacz-klienta/elzab-zewnetrzny-wyswietlacz-klienta-01.webp",
+   "rola": "produkt",
+   "produkt": "elzab-zewnetrzny-wyswietlacz-klienta",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-zewnetrzny-wyswietlacz-klienta_01.jpg",
+   "oryginal_px": "300x200"
+  },
+  {
+   "plik": "produkty/elzab-zewnetrzny-wyswietlacz-klienta/elzab-zewnetrzny-wyswietlacz-klienta-02.webp",
+   "rola": "produkt",
+   "produkt": "elzab-zewnetrzny-wyswietlacz-klienta",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-zewnetrzny-wyswietlacz-klienta_02.jpg",
+   "oryginal_px": "300x200"
+  },
+  {
+   "plik": "produkty/elzab-sprawdzarki-cen-llt-lwt-lft-2d/elzab-sprawdzarki-cen-llt-lwt-lft-2d-01.webp",
+   "rola": "produkt",
+   "produkt": "elzab-sprawdzarki-cen-llt-lwt-lft-2d",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-sprawdzarka-cen-llt_01.jpg",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/elzab-sprawdzarki-cen-llt-lwt-lft-2d/elzab-sprawdzarki-cen-llt-lwt-lft-2d-02.webp",
+   "rola": "produkt",
+   "produkt": "elzab-sprawdzarki-cen-llt-lwt-lft-2d",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-sprawdzarka-cen-lwt_01.jpg",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/elzab-sprawdzarki-cen-llt-lwt-lft-2d/elzab-sprawdzarki-cen-llt-lwt-lft-2d-03.webp",
+   "rola": "produkt",
+   "produkt": "elzab-sprawdzarki-cen-llt-lwt-lft-2d",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-sprawdzarka-lft-2d_01.jpg",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/elzab-sprawdzarki-cen-llt-lwt-lft-2d/elzab-sprawdzarki-cen-llt-lwt-lft-2d-04.webp",
+   "rola": "produkt",
+   "produkt": "elzab-sprawdzarki-cen-llt-lwt-lft-2d",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-sprawdzarka-lft-2d_02.jpg",
+   "oryginal_px": "236x300"
+  },
+  {
+   "plik": "produkty/posnet-veri-basic/posnet-veri-basic-01.webp",
+   "rola": "produkt",
+   "produkt": "posnet-veri-basic",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/posnet/posnet-veri-basic_01.png",
+   "oryginal_px": "600x600"
+  },
+  {
+   "plik": "produkty/posnet-werion/posnet-werion-01.webp",
+   "rola": "produkt",
+   "produkt": "posnet-werion",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/posnet/posnet-werion_01.png",
+   "oryginal_px": "600x600"
+  },
+  {
+   "plik": "produkty/posnet-wyswietlacz-pos/posnet-wyswietlacz-pos-01.webp",
+   "rola": "produkt",
+   "produkt": "posnet-wyswietlacz-pos",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/posnet/posnet-wyswietlacz-pos_01.png",
+   "oryginal_px": "600x600"
+  },
+  {
+   "plik": "produkty/posnet-wyswietlacz-pos/posnet-wyswietlacz-pos-02.webp",
+   "rola": "produkt",
+   "produkt": "posnet-wyswietlacz-pos",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/posnet/posnet-wyswietlacz-pos_02.jpg",
+   "oryginal_px": "950x533"
+  },
+  {
+   "plik": "produkty/elzab-adapter-szuflady/elzab-adapter-szuflady-01.webp",
+   "rola": "produkt",
+   "produkt": "elzab-adapter-szuflady",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-adapter-szuflady_01.jpg",
+   "oryginal_px": "300x218"
+  },
+  {
+   "plik": "produkty/elzab-przejsciowka-szuflady-gamma-z-interfejsem/elzab-przejsciowka-szuflady-gamma-z-interfejsem-01.webp",
+   "rola": "produkt",
+   "produkt": "elzab-przejsciowka-szuflady-gamma-z-interfejsem",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-przejsciowka-szuflady-gamma-z-interfejsem-mini-jack_01.jpg",
+   "oryginal_px": "193x300"
+  },
+  {
+   "plik": "produkty/elzab-szuflada-flip-top-elz-ft460/elzab-szuflada-flip-top-elz-ft460-01.webp",
+   "rola": "produkt",
+   "produkt": "elzab-szuflada-flip-top-elz-ft460",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-szuflada-flip-top-elz-ft460_01.jpg",
+   "oryginal_px": "300x204"
+  },
+  {
+   "plik": "produkty/elzab-szuflada-flip-top-elz-ft460/elzab-szuflada-flip-top-elz-ft460-02.webp",
+   "rola": "produkt",
+   "produkt": "elzab-szuflada-flip-top-elz-ft460",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-szuflada-flip-top-elz-ft460_02.jpg",
+   "oryginal_px": "300x209"
+  },
+  {
+   "plik": "produkty/elzab-szuflada-aktywna-elz-350-elz-410/elzab-szuflada-aktywna-elz-350-elz-410-01.webp",
+   "rola": "produkt",
+   "produkt": "elzab-szuflada-aktywna-elz-350-elz-410",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-szuflada-aktywna-duza-elz-410_01.jpg",
+   "oryginal_px": "300x217"
+  },
+  {
+   "plik": "produkty/elzab-szuflada-aktywna-elz-350-elz-410/elzab-szuflada-aktywna-elz-350-elz-410-02.webp",
+   "rola": "produkt",
+   "produkt": "elzab-szuflada-aktywna-elz-350-elz-410",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-szuflada-aktywna-duza-elz-410_02.jpg",
+   "oryginal_px": "300x179"
+  },
+  {
+   "plik": "produkty/elzab-szuflada-aktywna-elz-350-elz-410/elzab-szuflada-aktywna-elz-350-elz-410-03.webp",
+   "rola": "produkt",
+   "produkt": "elzab-szuflada-aktywna-elz-350-elz-410",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-szuflada-aktywna-srednia-elz-350_01.jpg",
+   "oryginal_px": "300x185"
+  },
+  {
+   "plik": "produkty/elzab-szuflada-aktywna-elz-350-elz-410/elzab-szuflada-aktywna-elz-350-elz-410-04.webp",
+   "rola": "produkt",
+   "produkt": "elzab-szuflada-aktywna-elz-350-elz-410",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-szuflada-aktywna-srednia-elz-350_02.jpg",
+   "oryginal_px": "300x185"
+  },
+  {
+   "plik": "produkty/elzab-szuflada-kasowa-elz-240-elz-350-rj-pro/elzab-szuflada-kasowa-elz-240-elz-350-rj-pro-01.webp",
+   "rola": "produkt",
+   "produkt": "elzab-szuflada-kasowa-elz-240-elz-350-rj-pro",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-szuflada-kasowa-mala-rj-grafit-elz-240_01.jpg",
+   "oryginal_px": "300x135"
+  },
+  {
+   "plik": "produkty/elzab-szuflada-kasowa-elz-240-elz-350-rj-pro/elzab-szuflada-kasowa-elz-240-elz-350-rj-pro-02.webp",
+   "rola": "produkt",
+   "produkt": "elzab-szuflada-kasowa-elz-240-elz-350-rj-pro",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-szuflada-kasowa-mala-rj-grafit-elz-240_02.jpg",
+   "oryginal_px": "300x163"
+  },
+  {
+   "plik": "produkty/elzab-szuflada-kasowa-elz-240-elz-350-rj-pro/elzab-szuflada-kasowa-elz-240-elz-350-rj-pro-03.webp",
+   "rola": "produkt",
+   "produkt": "elzab-szuflada-kasowa-elz-240-elz-350-rj-pro",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-szuflada-kasowa-srednia-rj-graf-elz-350_01.jpg",
+   "oryginal_px": "300x185"
+  },
+  {
+   "plik": "produkty/elzab-szuflada-kasowa-elz-240-elz-350-rj-pro/elzab-szuflada-kasowa-elz-240-elz-350-rj-pro-04.webp",
+   "rola": "produkt",
+   "produkt": "elzab-szuflada-kasowa-elz-240-elz-350-rj-pro",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-szuflada-kasowa-srednia-rj-graf-elz-350_02.jpg",
+   "oryginal_px": "300x185"
+  },
+  {
+   "plik": "produkty/elzab-szuflada-kasowa-elz-240-elz-350-rj-pro/elzab-szuflada-kasowa-elz-240-elz-350-rj-pro-05.webp",
+   "rola": "produkt",
+   "produkt": "elzab-szuflada-kasowa-elz-240-elz-350-rj-pro",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-szuflada-kasowa-srednia-rj-grafit-elz-350-pro_01.jpg",
+   "oryginal_px": "300x200"
+  },
+  {
+   "plik": "produkty/elzab-szuflada-kasowa-elz-240-elz-350-rj-pro/elzab-szuflada-kasowa-elz-240-elz-350-rj-pro-06.webp",
+   "rola": "produkt",
+   "produkt": "elzab-szuflada-kasowa-elz-240-elz-350-rj-pro",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-szuflada-kasowa-srednia-rj-grafit-elz-350-pro_02.jpg",
+   "oryginal_px": "300x200"
+  },
+  {
+   "plik": "produkty/elzab-szuflada-kasowa-duza-elz-410-rj-pro/elzab-szuflada-kasowa-duza-elz-410-rj-pro-01.webp",
+   "rola": "produkt",
+   "produkt": "elzab-szuflada-kasowa-duza-elz-410-rj-pro",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-szuflada-kasowa-duza-rj-grafit-elz-410_01.jpg",
+   "oryginal_px": "300x217"
+  },
+  {
+   "plik": "produkty/elzab-szuflada-kasowa-duza-elz-410-rj-pro/elzab-szuflada-kasowa-duza-elz-410-rj-pro-02.webp",
+   "rola": "produkt",
+   "produkt": "elzab-szuflada-kasowa-duza-elz-410-rj-pro",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-szuflada-kasowa-duza-rj-grafit-elz-410_02.jpg",
+   "oryginal_px": "300x179"
+  },
+  {
+   "plik": "produkty/elzab-szuflada-kasowa-duza-elz-410-rj-pro/elzab-szuflada-kasowa-duza-elz-410-rj-pro-03.webp",
+   "rola": "produkt",
+   "produkt": "elzab-szuflada-kasowa-duza-elz-410-rj-pro",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-szuflada-kasowa-duza-rj-grafit-elz-410-pro_01.jpg",
+   "oryginal_px": "300x217"
+  },
+  {
+   "plik": "produkty/elzab-szuflada-kasowa-duza-elz-410-rj-pro/elzab-szuflada-kasowa-duza-elz-410-rj-pro-04.webp",
+   "rola": "produkt",
+   "produkt": "elzab-szuflada-kasowa-duza-elz-410-rj-pro",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-szuflada-kasowa-duza-rj-grafit-elz-410-pro_02.jpg",
+   "oryginal_px": "300x200"
+  },
+  {
+   "plik": "produkty/posnet-szuflada-flip-top-ft460/posnet-szuflada-flip-top-ft460-01.webp",
+   "rola": "produkt",
+   "produkt": "posnet-szuflada-flip-top-ft460",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/posnet/posnet-szuflada-flip-top-ft460_01.jpg",
+   "oryginal_px": "2208x1474"
+  },
+  {
+   "plik": "produkty/posnet-szuflada-flip-top-ft460/posnet-szuflada-flip-top-ft460-02.webp",
+   "rola": "produkt",
+   "produkt": "posnet-szuflada-flip-top-ft460",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/posnet/posnet-szuflada-flip-top-ft460_02.jpg",
+   "oryginal_px": "2208x1474"
+  },
+  {
+   "plik": "produkty/posnet-szuflada-mk330-mk350/posnet-szuflada-mk330-mk350-01.webp",
+   "rola": "produkt",
+   "produkt": "posnet-szuflada-mk330-mk350",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/posnet/posnet-szuflada-mk330_01.png",
+   "oryginal_px": "1816x1194"
+  },
+  {
+   "plik": "produkty/posnet-szuflada-mk330-mk350/posnet-szuflada-mk330-mk350-02.webp",
+   "rola": "produkt",
+   "produkt": "posnet-szuflada-mk330-mk350",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/posnet/posnet-szuflada-mk330_02.jpg",
+   "oryginal_px": "2208x1474"
+  },
+  {
+   "plik": "produkty/posnet-szuflada-mk330-mk350/posnet-szuflada-mk330-mk350-03.webp",
+   "rola": "produkt",
+   "produkt": "posnet-szuflada-mk330-mk350",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/posnet/posnet-szuflada-mk350_01.png",
+   "oryginal_px": "600x600"
+  },
+  {
+   "plik": "produkty/posnet-szuflada-mk330-mk350/posnet-szuflada-mk330-mk350-04.webp",
+   "rola": "produkt",
+   "produkt": "posnet-szuflada-mk330-mk350",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/posnet/posnet-szuflada-mk350_02.jpg",
+   "oryginal_px": "950x534"
+  },
+  {
+   "plik": "produkty/waga/waga-01.webp",
+   "rola": "produkt",
+   "produkt": "waga",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/fawag/fawag-ws-1_01.png",
+   "oryginal_px": "600x600"
+  },
+  {
+   "plik": "produkty/waga/waga-02.webp",
+   "rola": "produkt",
+   "produkt": "waga",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/fawag/fawag-ws-1_02.jpg",
+   "oryginal_px": "1200x900"
+  },
+  {
+   "plik": "produkty/dibal-d-545-s-545/dibal-d-545-s-545-01.webp",
+   "rola": "produkt",
+   "produkt": "dibal-d-545-s-545",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/dibal/dibal-d-545db_01.png",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/dibal-d-545-s-545/dibal-d-545-s-545-02.webp",
+   "rola": "produkt",
+   "produkt": "dibal-d-545-s-545",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/dibal/dibal-d-545h_01.png",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/dibal-d-545-s-545/dibal-d-545-s-545-03.webp",
+   "rola": "produkt",
+   "produkt": "dibal-d-545-s-545",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/dibal/dibal-d-545s_01.png",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/dibal-d-545-s-545/dibal-d-545-s-545-04.webp",
+   "rola": "produkt",
+   "produkt": "dibal-d-545-s-545",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/dibal/dibal-d-545ss_01.png",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/dibal-d-545-s-545/dibal-d-545-s-545-05.webp",
+   "rola": "produkt",
+   "produkt": "dibal-d-545-s-545",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/dibal/dibal-d-545t_01.png",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/dibal-d-545-s-545/dibal-d-545-s-545-06.webp",
+   "rola": "produkt",
+   "produkt": "dibal-d-545-s-545",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/dibal/dibal-waga-s-545-db_01.jpg",
+   "oryginal_px": "230x300"
+  },
+  {
+   "plik": "produkty/dibal-d-955/dibal-d-955-01.webp",
+   "rola": "produkt",
+   "produkt": "dibal-d-955",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/dibal/dibal-waga-d-955db-121'-121'_01.jpg",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/dibal-d-955/dibal-d-955-02.webp",
+   "rola": "produkt",
+   "produkt": "dibal-d-955",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/dibal/dibal-waga-d-955db-121'-7'_01.jpg",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/dibal-d-955/dibal-d-955-03.webp",
+   "rola": "produkt",
+   "produkt": "dibal-d-955",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/dibal/dibal-waga-d-955s_01.jpg",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/dibal-d-955/dibal-d-955-04.webp",
+   "rola": "produkt",
+   "produkt": "dibal-d-955",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/dibal/dibal-waga-d-955t_01.jpg",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/dibal-dmi-610/dibal-dmi-610-01.webp",
+   "rola": "produkt",
+   "produkt": "dibal-dmi-610",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/dibal/dibal-dmi-610-abs_01.png",
+   "oryginal_px": "300x262"
+  },
+  {
+   "plik": "produkty/dibal-dmi-610/dibal-dmi-610-02.webp",
+   "rola": "produkt",
+   "produkt": "dibal-dmi-610",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/dibal/dibal-dmi-610-inox_01.png",
+   "oryginal_px": "300x278"
+  },
+  {
+   "plik": "produkty/dibal-dmi-610/dibal-dmi-610-03.webp",
+   "rola": "produkt",
+   "produkt": "dibal-dmi-610",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/dibal/dibal-waga-pomostowa-dmi-610-60kg_01.jpg",
+   "oryginal_px": "145x300"
+  },
+  {
+   "plik": "produkty/dibal-m-525/dibal-m-525-01.webp",
+   "rola": "produkt",
+   "produkt": "dibal-m-525",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/dibal/dibal-waga-m-525a-t_01.jpg",
+   "oryginal_px": "255x300"
+  },
+  {
+   "plik": "produkty/dibal-m-525/dibal-m-525-02.webp",
+   "rola": "produkt",
+   "produkt": "dibal-m-525",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/dibal/dibal-waga-m-525s-a_01.jpg",
+   "oryginal_px": "300x207"
+  },
+  {
+   "plik": "produkty/dibal-pi-100/dibal-pi-100-01.webp",
+   "rola": "produkt",
+   "produkt": "dibal-pi-100",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/dibal/dibal-waga-pi-100s-rs_01.png",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/dibal-pi-100/dibal-pi-100-02.webp",
+   "rola": "produkt",
+   "produkt": "dibal-pi-100",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/dibal/dibal-waga-pi-100t-rs_01.png",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/dibal-spc/dibal-spc-01.webp",
+   "rola": "produkt",
+   "produkt": "dibal-spc",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/dibal/dibal-spc-s-rs_01.jpg",
+   "oryginal_px": "300x211"
+  },
+  {
+   "plik": "produkty/dibal-spc/dibal-spc-02.webp",
+   "rola": "produkt",
+   "produkt": "dibal-spc",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/dibal/dibal-spc-t-rs_01.jpg",
+   "oryginal_px": "183x300"
+  },
+  {
+   "plik": "produkty/dibal-spc/dibal-spc-03.webp",
+   "rola": "produkt",
+   "produkt": "dibal-spc",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/dibal/dibal-waga-spc-s_01.jpg",
+   "oryginal_px": "300x211"
+  },
+  {
+   "plik": "produkty/dibal-spc/dibal-spc-04.webp",
+   "rola": "produkt",
+   "produkt": "dibal-spc",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/dibal/dibal-waga-spc-t_01.jpg",
+   "oryginal_px": "183x300"
+  },
+  {
+   "plik": "produkty/dibal-vc-pvc-ps-wagi-kontrolne/dibal-vc-pvc-ps-wagi-kontrolne-01.webp",
+   "rola": "produkt",
+   "produkt": "dibal-vc-pvc-ps-wagi-kontrolne",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/dibal/dibal-vc-50_01.jpg",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/dibal-vc-pvc-ps-wagi-kontrolne/dibal-vc-pvc-ps-wagi-kontrolne-02.webp",
+   "rola": "produkt",
+   "produkt": "dibal-vc-pvc-ps-wagi-kontrolne",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/dibal/dibal-vc-80-inox_01.jpg",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/dibal-vc-pvc-ps-wagi-kontrolne/dibal-vc-pvc-ps-wagi-kontrolne-03.webp",
+   "rola": "produkt",
+   "produkt": "dibal-vc-pvc-ps-wagi-kontrolne",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/dibal/dibal-waga-ps-50_01.jpg",
+   "oryginal_px": "300x211"
+  },
+  {
+   "plik": "produkty/dibal-vc-pvc-ps-wagi-kontrolne/dibal-vc-pvc-ps-wagi-kontrolne-04.webp",
+   "rola": "produkt",
+   "produkt": "dibal-vc-pvc-ps-wagi-kontrolne",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/dibal/dibal-waga-ps-50_02.jpg",
+   "oryginal_px": "300x211"
+  },
+  {
+   "plik": "produkty/dibal-vc-pvc-ps-wagi-kontrolne/dibal-vc-pvc-ps-wagi-kontrolne-05.webp",
+   "rola": "produkt",
+   "produkt": "dibal-vc-pvc-ps-wagi-kontrolne",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/dibal/dibal-waga-pvc-50_01.jpg",
+   "oryginal_px": "149x300"
+  },
+  {
+   "plik": "produkty/dibal-w-025/dibal-w-025-01.webp",
+   "rola": "produkt",
+   "produkt": "dibal-w-025",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/dibal/dibal-waga-w-025-t_01.jpg",
+   "oryginal_px": "274x300"
+  },
+  {
+   "plik": "produkty/dibal-w-025/dibal-w-025-02.webp",
+   "rola": "produkt",
+   "produkt": "dibal-w-025",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/dibal/dibal-waga-w-025s_01.jpg",
+   "oryginal_px": "300x166"
+  },
+  {
+   "plik": "produkty/dibal-waga-g-325/dibal-waga-g-325-01.webp",
+   "rola": "produkt",
+   "produkt": "dibal-waga-g-325",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/dibal/dibal-waga-g-325_01.jpg",
+   "oryginal_px": "300x299"
+  },
+  {
+   "plik": "produkty/elzab-waga-neptun-2/elzab-waga-neptun-2-01.webp",
+   "rola": "produkt",
+   "produkt": "elzab-waga-neptun-2",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-waga-neptun-2_01.jpg",
+   "oryginal_px": "300x242"
+  },
+  {
+   "plik": "produkty/elzab-waga-prima-2/elzab-waga-prima-2-01.webp",
+   "rola": "produkt",
+   "produkt": "elzab-waga-prima-2",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-waga-prima-2_01.jpg",
+   "oryginal_px": "300x122"
+  },
+  {
+   "plik": "produkty/elzab-waga-prima-2/elzab-waga-prima-2-02.webp",
+   "rola": "produkt",
+   "produkt": "elzab-waga-prima-2",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-waga-prima-2_02.jpg",
+   "oryginal_px": "300x122"
+  },
+  {
+   "plik": "produkty/elzab-waga-saturn-2-2m/elzab-waga-saturn-2-2m-01.webp",
+   "rola": "produkt",
+   "produkt": "elzab-waga-saturn-2-2m",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-waga-saturn-2-_01.jpg",
+   "oryginal_px": "300x266"
+  },
+  {
+   "plik": "produkty/elzab-waga-saturn-2-2m/elzab-waga-saturn-2-2m-02.webp",
+   "rola": "produkt",
+   "produkt": "elzab-waga-saturn-2-2m",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-waga-saturn-2-_02.jpg",
+   "oryginal_px": "300x199"
+  },
+  {
+   "plik": "produkty/elzab-waga-saturn-2-2m/elzab-waga-saturn-2-2m-03.webp",
+   "rola": "produkt",
+   "produkt": "elzab-waga-saturn-2-2m",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-waga-saturn-2m-kosz-montazowy_01.jpg",
+   "oryginal_px": "300x282"
+  },
+  {
+   "plik": "produkty/elzab-wago-skaner-neptun-2-mgl-9550i-9900i/elzab-wago-skaner-neptun-2-mgl-9550i-9900i-01.webp",
+   "rola": "produkt",
+   "produkt": "elzab-wago-skaner-neptun-2-mgl-9550i-9900i",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-wago-skaner-neptun-2-mgl-9550i_01.jpg",
+   "oryginal_px": "300x214"
+  },
+  {
+   "plik": "produkty/elzab-wago-skaner-neptun-2-mgl-9550i-9900i/elzab-wago-skaner-neptun-2-mgl-9550i-9900i-02.webp",
+   "rola": "produkt",
+   "produkt": "elzab-wago-skaner-neptun-2-mgl-9550i-9900i",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-wago-skaner-neptun-2-mgl-9550i_02.jpg",
+   "oryginal_px": "300x229"
+  },
+  {
+   "plik": "produkty/elzab-wago-skaner-neptun-2-mgl-9550i-9900i/elzab-wago-skaner-neptun-2-mgl-9550i-9900i-03.webp",
+   "rola": "produkt",
+   "produkt": "elzab-wago-skaner-neptun-2-mgl-9550i-9900i",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-wago-skaner-neptun-2-mgl-9900i_01.jpg",
+   "oryginal_px": "300x212"
+  },
+  {
+   "plik": "produkty/elzab-wago-skaner-neptun-2-mgl-9550i-9900i/elzab-wago-skaner-neptun-2-mgl-9550i-9900i-04.webp",
+   "rola": "produkt",
+   "produkt": "elzab-wago-skaner-neptun-2-mgl-9550i-9900i",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-wago-skaner-neptun-2-mgl-9900i_02.jpg",
+   "oryginal_px": "270x300"
+  },
+  {
+   "plik": "produkty/elzab-wago-skaner-saturn-2-mgl-3510-3550/elzab-wago-skaner-saturn-2-mgl-3510-3550-01.webp",
+   "rola": "produkt",
+   "produkt": "elzab-wago-skaner-saturn-2-mgl-3510-3550",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-wago-skaner-saturn-2-mgl-3510-2d_01.jpg",
+   "oryginal_px": "278x300"
+  },
+  {
+   "plik": "produkty/elzab-wago-skaner-saturn-2-mgl-3510-3550/elzab-wago-skaner-saturn-2-mgl-3510-3550-02.webp",
+   "rola": "produkt",
+   "produkt": "elzab-wago-skaner-saturn-2-mgl-3510-3550",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-wago-skaner-saturn-2-mgl-3550-2d_01.jpg",
+   "oryginal_px": "278x300"
+  },
+  {
+   "plik": "produkty/skaner/skaner-01.webp",
+   "rola": "produkt",
+   "produkt": "skaner",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/sunmi/sunmi-czytnik-kodow-2d_01.png",
+   "oryginal_px": "300x216"
+  },
+  {
+   "plik": "produkty/skaner/skaner-02.webp",
+   "rola": "produkt",
+   "produkt": "skaner",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/sunmi/sunmi-czytnik-kodow-2d_02.png",
+   "oryginal_px": "300x245"
+  },
+  {
+   "plik": "produkty/godex-dt2x-dt4x-dt200/godex-dt2x-dt4x-dt200-01.webp",
+   "rola": "produkt",
+   "produkt": "godex-dt2x-dt4x-dt200",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/godex/godex-drukarka-etykiet-dt2x_01.png",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/godex-dt2x-dt4x-dt200/godex-dt2x-dt4x-dt200-02.webp",
+   "rola": "produkt",
+   "produkt": "godex-dt2x-dt4x-dt200",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/godex/godex-drukarka-etykiet-dt2x_02.png",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/godex-dt2x-dt4x-dt200/godex-dt2x-dt4x-dt200-03.webp",
+   "rola": "produkt",
+   "produkt": "godex-dt2x-dt4x-dt200",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/godex/godex-drukarka-etykiet-dt4x_01.png",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/godex-dt2x-dt4x-dt200/godex-dt2x-dt4x-dt200-04.webp",
+   "rola": "produkt",
+   "produkt": "godex-dt2x-dt4x-dt200",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/godex/godex-dt200_01.png",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/godex-dt2x-dt4x-dt200/godex-dt2x-dt4x-dt200-05.webp",
+   "rola": "produkt",
+   "produkt": "godex-dt2x-dt4x-dt200",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/godex/godex-dt200_02.png",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/godex-drukarka-etykiet-ez6200-plus/godex-drukarka-etykiet-ez6200-plus-01.webp",
+   "rola": "produkt",
+   "produkt": "godex-drukarka-etykiet-ez6200-plus",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/godex/godex-drukarka-etykiet-ez6200-plus_01.jpg",
+   "oryginal_px": "300x242"
+  },
+  {
+   "plik": "produkty/godex-drukarka-etykiet-rt863i/godex-drukarka-etykiet-rt863i-01.webp",
+   "rola": "produkt",
+   "produkt": "godex-drukarka-etykiet-rt863i",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/godex/godex-drukarka-etykiet-rt863i_01.jpg",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/godex-drukarka-etykiet-rt863i/godex-drukarka-etykiet-rt863i-02.webp",
+   "rola": "produkt",
+   "produkt": "godex-drukarka-etykiet-rt863i",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/godex/godex-drukarka-etykiet-rt863i_02.jpg",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/godex-ez2250i-ez2350i/godex-ez2250i-ez2350i-01.webp",
+   "rola": "produkt",
+   "produkt": "godex-ez2250i-ez2350i",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/godex/godex-drukarka-etykiet-ez2250i_01.jpg",
+   "oryginal_px": "300x297"
+  },
+  {
+   "plik": "produkty/godex-g500-g530/godex-g500-g530-01.webp",
+   "rola": "produkt",
+   "produkt": "godex-g500-g530",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/godex/godex-drukarka-etykiet-g500_01.jpg",
+   "oryginal_px": "300x285"
+  },
+  {
+   "plik": "produkty/godex-g500-g530/godex-g500-g530-02.webp",
+   "rola": "produkt",
+   "produkt": "godex-g500-g530",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/godex/godex-drukarka-etykiet-g500_02.png",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/godex-ge300-ge330/godex-ge300-ge330-01.webp",
+   "rola": "produkt",
+   "produkt": "godex-ge300-ge330",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/godex/godex-drukarka-etykiet-ge300_01.png",
+   "oryginal_px": "292x300"
+  },
+  {
+   "plik": "produkty/godex-ge300-ge330/godex-ge300-ge330-02.webp",
+   "rola": "produkt",
+   "produkt": "godex-ge300-ge330",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/godex/godex-drukarka-etykiet-ge300_02.png",
+   "oryginal_px": "243x300"
+  },
+  {
+   "plik": "produkty/godex-gx4200i-gx4300i-gx4600i/godex-gx4200i-gx4300i-gx4600i-01.webp",
+   "rola": "produkt",
+   "produkt": "godex-gx4200i-gx4300i-gx4600i",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/godex/godex-druketyk-gx4200i-ues-4intt-203dpi_01.png",
+   "oryginal_px": "300x289"
+  },
+  {
+   "plik": "produkty/godex-gx4200i-gx4300i-gx4600i/godex-gx4200i-gx4300i-gx4600i-02.webp",
+   "rola": "produkt",
+   "produkt": "godex-gx4200i-gx4300i-gx4600i",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/godex/godex-druketyk-gx4200i-ues-4intt-203dpi_02.png",
+   "oryginal_px": "266x300"
+  },
+  {
+   "plik": "produkty/godex-mx30-mx30i/godex-mx30-mx30i-01.webp",
+   "rola": "produkt",
+   "produkt": "godex-mx30-mx30i",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/godex/godex-drukarka-etykiet-mx30_01.jpg",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/godex-mx30-mx30i/godex-mx30-mx30i-02.webp",
+   "rola": "produkt",
+   "produkt": "godex-mx30-mx30i",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/godex/godex-drukarka-etykiet-mx30i_01.jpg",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/godex-przemyslowa-drukarka-kodow-kreskowych-hd83/godex-przemyslowa-drukarka-kodow-kreskowych-hd83-01.webp",
+   "rola": "produkt",
+   "produkt": "godex-przemyslowa-drukarka-kodow-kreskowych-hd83",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/godex/godex-przemyslowa-drukarka-kodow-kreskowych-hd830i_01.png",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/godex-rt200-rt200i/godex-rt200-rt200i-01.webp",
+   "rola": "produkt",
+   "produkt": "godex-rt200-rt200i",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/godex/godex-drukarka-etykiet-rt200_01.jpg",
+   "oryginal_px": "279x300"
+  },
+  {
+   "plik": "produkty/godex-rt200-rt200i/godex-rt200-rt200i-02.webp",
+   "rola": "produkt",
+   "produkt": "godex-rt200-rt200i",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/godex/godex-drukarka-etykiet-rt200_02.jpg",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/godex-rt200-rt200i/godex-rt200-rt200i-03.webp",
+   "rola": "produkt",
+   "produkt": "godex-rt200-rt200i",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/godex/godex-drukarka-etykiet-rt200i_01.jpg",
+   "oryginal_px": "279x300"
+  },
+  {
+   "plik": "produkty/godex-rt200-rt200i/godex-rt200-rt200i-04.webp",
+   "rola": "produkt",
+   "produkt": "godex-rt200-rt200i",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/godex/godex-drukarka-etykiet-rt200i_02.jpg",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/godex-rt200-rt200i/godex-rt200-rt200i-05.webp",
+   "rola": "produkt",
+   "produkt": "godex-rt200-rt200i",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/godex/godex-rt200i-—-wariant-medyczny-do-opasek_01.jpg",
+   "oryginal_px": "300x298"
+  },
+  {
+   "plik": "produkty/godex-rt200-rt200i/godex-rt200-rt200i-06.webp",
+   "rola": "produkt",
+   "produkt": "godex-rt200-rt200i",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/godex/godex-rt200i-—-wariant-medyczny-do-opasek_02.jpg",
+   "oryginal_px": "225x300"
+  },
+  {
+   "plik": "produkty/godex-rt230-rt230i/godex-rt230-rt230i-01.webp",
+   "rola": "produkt",
+   "produkt": "godex-rt230-rt230i",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/godex/godex-drukarka-etykiet-rt230_01.jpg",
+   "oryginal_px": "279x300"
+  },
+  {
+   "plik": "produkty/godex-rt230-rt230i/godex-rt230-rt230i-02.webp",
+   "rola": "produkt",
+   "produkt": "godex-rt230-rt230i",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/godex/godex-drukarka-etykiet-rt230_02.jpg",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/godex-rt230-rt230i/godex-rt230-rt230i-03.webp",
+   "rola": "produkt",
+   "produkt": "godex-rt230-rt230i",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/godex/godex-drukarka-etykiet-rt230i_01.jpg",
+   "oryginal_px": "279x300"
+  },
+  {
+   "plik": "produkty/godex-rt230-rt230i/godex-rt230-rt230i-04.webp",
+   "rola": "produkt",
+   "produkt": "godex-rt230-rt230i",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/godex/godex-drukarka-etykiet-rt230i_02.jpg",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/godex-rt700-rt700i/godex-rt700-rt700i-01.webp",
+   "rola": "produkt",
+   "produkt": "godex-rt700-rt700i",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/godex/godex-drukarka-etykiet-rt700_01.jpg",
+   "oryginal_px": "296x300"
+  },
+  {
+   "plik": "produkty/godex-rt700-rt700i/godex-rt700-rt700i-02.webp",
+   "rola": "produkt",
+   "produkt": "godex-rt700-rt700i",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/godex/godex-drukarka-etykiet-rt700_02.jpg",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/godex-rt700-rt700i/godex-rt700-rt700i-03.webp",
+   "rola": "produkt",
+   "produkt": "godex-rt700-rt700i",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/godex/godex-drukarka-etykiet-rt700i_01.jpg",
+   "oryginal_px": "289x300"
+  },
+  {
+   "plik": "produkty/godex-rt700-rt700i/godex-rt700-rt700i-04.webp",
+   "rola": "produkt",
+   "produkt": "godex-rt700-rt700i",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/godex/godex-drukarka-etykiet-rt700i_02.jpg",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/godex-rt730-rt730i/godex-rt730-rt730i-01.webp",
+   "rola": "produkt",
+   "produkt": "godex-rt730-rt730i",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/godex/godex-drukarka-etykiet-rt730_01.jpg",
+   "oryginal_px": "296x300"
+  },
+  {
+   "plik": "produkty/godex-rt730-rt730i/godex-rt730-rt730i-02.webp",
+   "rola": "produkt",
+   "produkt": "godex-rt730-rt730i",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/godex/godex-drukarka-etykiet-rt730_02.jpg",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/godex-rt730-rt730i/godex-rt730-rt730i-03.webp",
+   "rola": "produkt",
+   "produkt": "godex-rt730-rt730i",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/godex/godex-drukarka-etykiet-rt730i_01.jpg",
+   "oryginal_px": "289x300"
+  },
+  {
+   "plik": "produkty/godex-rt730-rt730i/godex-rt730-rt730i-04.webp",
+   "rola": "produkt",
+   "produkt": "godex-rt730-rt730i",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/godex/godex-drukarka-etykiet-rt730i_02.jpg",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/godex-zx1200i-zx1300i-zx1600i/godex-zx1200i-zx1300i-zx1600i-01.webp",
+   "rola": "produkt",
+   "produkt": "godex-zx1200i-zx1300i-zx1600i",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/godex/godex-drukarka-etykiet-zx1200i_01.jpg",
+   "oryginal_px": "300x294"
+  },
+  {
+   "plik": "produkty/godex-zx1200i-zx1300i-zx1600i/godex-zx1200i-zx1300i-zx1600i-02.webp",
+   "rola": "produkt",
+   "produkt": "godex-zx1200i-zx1300i-zx1600i",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/godex/godex-drukarka-etykiet-zx1300i_01.jpg",
+   "oryginal_px": "295x300"
+  },
+  {
+   "plik": "produkty/godex-zx420i-zx430i/godex-zx420i-zx430i-01.webp",
+   "rola": "produkt",
+   "produkt": "godex-zx420i-zx430i",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/godex/godex-drukarka-etykiet-zx430i_01.png",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/godex-zx420i-zx430i/godex-zx420i-zx430i-02.webp",
+   "rola": "produkt",
+   "produkt": "godex-zx420i-zx430i",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/godex/godex-drukarka-etykiet-zx430i_02.png",
+   "oryginal_px": "288x300"
+  },
+  {
+   "plik": "produkty/godex-zx420i-zx430i/godex-zx420i-zx430i-03.webp",
+   "rola": "produkt",
+   "produkt": "godex-zx420i-zx430i",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/godex/godex-przemyslowa-drukarka-etykiet-zx420i_02.png",
+   "oryginal_px": "288x300"
+  },
+  {
+   "plik": "produkty/godex-nawijaki-odwijak-i-obcinarka/godex-nawijaki-odwijak-i-obcinarka-01.webp",
+   "rola": "produkt",
+   "produkt": "godex-nawijaki-odwijak-i-obcinarka",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/godex/godex-nawijak-etykiet-t10_01.jpg",
+   "oryginal_px": "295x300"
+  },
+  {
+   "plik": "produkty/godex-nawijaki-odwijak-i-obcinarka/godex-nawijaki-odwijak-i-obcinarka-02.webp",
+   "rola": "produkt",
+   "produkt": "godex-nawijaki-odwijak-i-obcinarka",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/godex/godex-nawijak-etykiet-t20_01.png",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/godex-nawijaki-odwijak-i-obcinarka/godex-nawijaki-odwijak-i-obcinarka-03.webp",
+   "rola": "produkt",
+   "produkt": "godex-nawijaki-odwijak-i-obcinarka",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/godex/godex-obcinarka-cs100-zx_01.jpg",
+   "oryginal_px": "300x156"
+  },
+  {
+   "plik": "produkty/godex-nawijaki-odwijak-i-obcinarka/godex-nawijaki-odwijak-i-obcinarka-04.webp",
+   "rola": "produkt",
+   "produkt": "godex-nawijaki-odwijak-i-obcinarka",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/godex/godex-odwijak-zewnetrzy-do-drukarek_01.png",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/godex-nawijaki-odwijak-i-obcinarka/godex-nawijaki-odwijak-i-obcinarka-05.webp",
+   "rola": "produkt",
+   "produkt": "godex-nawijaki-odwijak-i-obcinarka",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/godex/godex-odwijak-zewnetrzy-do-drukarek_02.jpg",
+   "oryginal_px": "300x261"
+  },
+  {
+   "plik": "produkty/honeywell-lnx3/honeywell-lnx3-01.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-lnx3",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-lnx3_01.jpg",
+   "oryginal_px": "867x576"
+  },
+  {
+   "plik": "produkty/honeywell-lnx3/honeywell-lnx3-02.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-lnx3",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-lnx3_02.jpg",
+   "oryginal_px": "840x576"
+  },
+  {
+   "plik": "produkty/honeywell-mpd31d/honeywell-mpd31d-01.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-mpd31d",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-mpd31d_01.jpg",
+   "oryginal_px": "867x576"
+  },
+  {
+   "plik": "produkty/honeywell-mpd31d/honeywell-mpd31d-02.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-mpd31d",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-mpd31d_02.jpg",
+   "oryginal_px": "835x576"
+  },
+  {
+   "plik": "produkty/honeywell-pc41e-d/honeywell-pc41e-d-01.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-pc41e-d",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-pc41e-d_01.jpg",
+   "oryginal_px": "767x576"
+  },
+  {
+   "plik": "produkty/honeywell-pc41e-d/honeywell-pc41e-d-02.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-pc41e-d",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-pc41e-d_02.jpg",
+   "oryginal_px": "767x576"
+  },
+  {
+   "plik": "produkty/honeywell-pc42e-d-pc42e-t/honeywell-pc42e-d-pc42e-t-01.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-pc42e-d-pc42e-t",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-pc42e-d_01.jpg",
+   "oryginal_px": "767x576"
+  },
+  {
+   "plik": "produkty/honeywell-pc42e-d-pc42e-t/honeywell-pc42e-d-pc42e-t-02.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-pc42e-d-pc42e-t",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-pc42e-d_02.jpg",
+   "oryginal_px": "767x576"
+  },
+  {
+   "plik": "produkty/honeywell-pc42e-d-pc42e-t/honeywell-pc42e-d-pc42e-t-03.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-pc42e-d-pc42e-t",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-pc42e-t_01.jpg",
+   "oryginal_px": "867x867"
+  },
+  {
+   "plik": "produkty/honeywell-pc42e-d-pc42e-t/honeywell-pc42e-d-pc42e-t-04.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-pc42e-d-pc42e-t",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-pc42e-t_02.jpg",
+   "oryginal_px": "345x345"
+  },
+  {
+   "plik": "produkty/honeywell-pc45d-pc45t/honeywell-pc45d-pc45t-01.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-pc45d-pc45t",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-pc45d_01.jpg",
+   "oryginal_px": "867x576"
+  },
+  {
+   "plik": "produkty/honeywell-pc45d-pc45t/honeywell-pc45d-pc45t-02.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-pc45d-pc45t",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-pc45d_02.jpg",
+   "oryginal_px": "867x576"
+  },
+  {
+   "plik": "produkty/honeywell-pc45d-pc45t/honeywell-pc45d-pc45t-03.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-pc45d-pc45t",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-pc45d-dla-sluzby-zdrowia_01.jpg",
+   "oryginal_px": "867x576"
+  },
+  {
+   "plik": "produkty/honeywell-pc45d-pc45t/honeywell-pc45d-pc45t-04.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-pc45d-pc45t",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-pc45d-dla-sluzby-zdrowia_02.jpg",
+   "oryginal_px": "867x576"
+  },
+  {
+   "plik": "produkty/honeywell-pc45d-pc45t/honeywell-pc45d-pc45t-05.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-pc45d-pc45t",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-pc45t_01.jpg",
+   "oryginal_px": "576x576"
+  },
+  {
+   "plik": "produkty/honeywell-pc45d-pc45t/honeywell-pc45d-pc45t-06.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-pc45d-pc45t",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-pc45t_02.jpg",
+   "oryginal_px": "867x576"
+  },
+  {
+   "plik": "produkty/honeywell-pd45s/honeywell-pd45s-01.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-pd45s",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-pd45s_01.jpg",
+   "oryginal_px": "600x600"
+  },
+  {
+   "plik": "produkty/honeywell-pd45s/honeywell-pd45s-02.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-pd45s",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-pd45s_02.jpg",
+   "oryginal_px": "600x600"
+  },
+  {
+   "plik": "produkty/honeywell-pm45/honeywell-pm45-01.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-pm45",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-pm45_01.jpg",
+   "oryginal_px": "5472x3648"
+  },
+  {
+   "plik": "produkty/honeywell-pm45/honeywell-pm45-02.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-pm45",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-pm45_02.jpg",
+   "oryginal_px": "5472x3648"
+  },
+  {
+   "plik": "produkty/honeywell-pm65/honeywell-pm65-01.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-pm65",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-pm65_01.jpg",
+   "oryginal_px": "7008x4672"
+  },
+  {
+   "plik": "produkty/honeywell-pm65/honeywell-pm65-02.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-pm65",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-pm65_02.jpg",
+   "oryginal_px": "7008x4672"
+  },
+  {
+   "plik": "produkty/honeywell-px45/honeywell-px45-01.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-px45",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-px45_01.png",
+   "oryginal_px": "867x576"
+  },
+  {
+   "plik": "produkty/honeywell-px45/honeywell-px45-02.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-px45",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-px45_02.png",
+   "oryginal_px": "867x576"
+  },
+  {
+   "plik": "produkty/honeywell-px65/honeywell-px65-01.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-px65",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-px65_01.png",
+   "oryginal_px": "867x576"
+  },
+  {
+   "plik": "produkty/honeywell-px65/honeywell-px65-02.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-px65",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-px65_02.png",
+   "oryginal_px": "867x576"
+  },
+  {
+   "plik": "produkty/honeywell-px940-ze-zintegrowana-weryfikacja-etyk/honeywell-px940-ze-zintegrowana-weryfikacja-etyk-01.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-px940-ze-zintegrowana-weryfikacja-etyk",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-px940-ze-zintegrowana-weryfikacja-etykiet_01.jpg",
+   "oryginal_px": "3136x3312"
+  },
+  {
+   "plik": "produkty/honeywell-px940-ze-zintegrowana-weryfikacja-etyk/honeywell-px940-ze-zintegrowana-weryfikacja-etyk-02.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-px940-ze-zintegrowana-weryfikacja-etyk",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-px940-ze-zintegrowana-weryfikacja-etykiet_02.jpg",
+   "oryginal_px": "534x728"
+  },
+  {
+   "plik": "produkty/honeywell-rp/honeywell-rp-01.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-rp",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-rp_01.png",
+   "oryginal_px": "1200x797"
+  },
+  {
+   "plik": "produkty/honeywell-rp/honeywell-rp-02.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-rp",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-rp_02.png",
+   "oryginal_px": "1200x797"
+  },
+  {
+   "plik": "produkty/sato-metkownice-judo-kendo/sato-metkownice-judo-kendo-01.webp",
+   "rola": "produkt",
+   "produkt": "sato-metkownice-judo-kendo",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/sato/sato-judo-26_01.jpg",
+   "oryginal_px": "300x280"
+  },
+  {
+   "plik": "produkty/sato-metkownice-judo-kendo/sato-metkownice-judo-kendo-02.webp",
+   "rola": "produkt",
+   "produkt": "sato-metkownice-judo-kendo",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/sato/sato-judo-26_02.jpg",
+   "oryginal_px": "300x223"
+  },
+  {
+   "plik": "produkty/sato-metkownice-judo-kendo/sato-metkownice-judo-kendo-03.webp",
+   "rola": "produkt",
+   "produkt": "sato-metkownice-judo-kendo",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/sato/sato-kendo-26_01.jpg",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/zebra-drukarka-biurkowa-zd230/zebra-drukarka-biurkowa-zd230-01.webp",
+   "rola": "produkt",
+   "produkt": "zebra-drukarka-biurkowa-zd230",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/zebra/zebra-drukarka-biurkowa-zd230_01.jpg",
+   "oryginal_px": "300x275"
+  },
+  {
+   "plik": "produkty/zebra-drukarka-biurkowa-zd230/zebra-drukarka-biurkowa-zd230-02.webp",
+   "rola": "produkt",
+   "produkt": "zebra-drukarka-biurkowa-zd230",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/zebra/zebra-drukarka-biurkowa-zd230_02.jpg",
+   "oryginal_px": "300x286"
+  },
+  {
+   "plik": "produkty/zebra-drukarka-etykiet-zd421/zebra-drukarka-etykiet-zd421-01.webp",
+   "rola": "produkt",
+   "produkt": "zebra-drukarka-etykiet-zd421",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/zebra/zebra-drukarka-etykiet-zd421_01.jpg",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/zebra-drukarka-etykiet-zd421/zebra-drukarka-etykiet-zd421-02.webp",
+   "rola": "produkt",
+   "produkt": "zebra-drukarka-etykiet-zd421",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/zebra/zebra-drukarka-etykiet-zd421_02.jpg",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/zebra-drukarka-kart-plastikowych-zxp-series-7/zebra-drukarka-kart-plastikowych-zxp-series-7-01.webp",
+   "rola": "produkt",
+   "produkt": "zebra-drukarka-kart-plastikowych-zxp-series-7",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/zebra/zebra-drukarka-kart-plastikowych-zxp-series-7_01.jpg",
+   "oryginal_px": "300x148"
+  },
+  {
+   "plik": "produkty/zebra-zc100-zc300/zebra-zc100-zc300-01.webp",
+   "rola": "produkt",
+   "produkt": "zebra-zc100-zc300",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/zebra/zebra-zc100_01.jpg",
+   "oryginal_px": "3600x2400"
+  },
+  {
+   "plik": "produkty/zebra-zc100-zc300/zebra-zc100-zc300-02.webp",
+   "rola": "produkt",
+   "produkt": "zebra-zc100-zc300",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/zebra/zebra-zc100_02.jpg",
+   "oryginal_px": "3600x2400"
+  },
+  {
+   "plik": "produkty/zebra-zc100-zc300/zebra-zc100-zc300-03.webp",
+   "rola": "produkt",
+   "produkt": "zebra-zc100-zc300",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/zebra/zebra-zc300_01.jpg",
+   "oryginal_px": "3600x2400"
+  },
+  {
+   "plik": "produkty/zebra-zc100-zc300/zebra-zc100-zc300-04.webp",
+   "rola": "produkt",
+   "produkt": "zebra-zc100-zc300",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/zebra/zebra-zc300_02.jpg",
+   "oryginal_px": "3600x2400"
+  },
+  {
+   "plik": "produkty/honeywell-ck62/honeywell-ck62-01.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-ck62",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-ck62_01.png",
+   "oryginal_px": "576x576"
+  },
+  {
+   "plik": "produkty/honeywell-ck62/honeywell-ck62-02.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-ck62",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-ck62_02.png",
+   "oryginal_px": "576x576"
+  },
+  {
+   "plik": "produkty/honeywell-ck65/honeywell-ck65-01.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-ck65",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-ck65_01.jpg",
+   "oryginal_px": "452x254"
+  },
+  {
+   "plik": "produkty/honeywell-ck65/honeywell-ck65-02.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-ck65",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-ck65_02.webp",
+   "oryginal_px": "1366x683"
+  },
+  {
+   "plik": "produkty/honeywell-ck67/honeywell-ck67-01.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-ck67",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-ck67_01.png",
+   "oryginal_px": "950x950"
+  },
+  {
+   "plik": "produkty/honeywell-ck67/honeywell-ck67-02.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-ck67",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-ck67_02.png",
+   "oryginal_px": "798x798"
+  },
+  {
+   "plik": "produkty/honeywell-ct30-xp/honeywell-ct30-xp-01.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-ct30-xp",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-ct30-xp_01.jpg",
+   "oryginal_px": "1824x3421"
+  },
+  {
+   "plik": "produkty/honeywell-ct30-xp/honeywell-ct30-xp-02.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-ct30-xp",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-ct30-xp_02.jpg",
+   "oryginal_px": "2077x4085"
+  },
+  {
+   "plik": "produkty/honeywell-ct32/honeywell-ct32-01.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-ct32",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-ct32_01.jpg",
+   "oryginal_px": "576x576"
+  },
+  {
+   "plik": "produkty/honeywell-ct32/honeywell-ct32-02.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-ct32",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-ct32_02.jpg",
+   "oryginal_px": "576x576"
+  },
+  {
+   "plik": "produkty/honeywell-ct37/honeywell-ct37-01.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-ct37",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-ct37_01.png",
+   "oryginal_px": "1100x1100"
+  },
+  {
+   "plik": "produkty/honeywell-ct37/honeywell-ct37-02.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-ct37",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-ct37_02.jpg",
+   "oryginal_px": "576x576"
+  },
+  {
+   "plik": "produkty/honeywell-ct45/honeywell-ct45-01.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-ct45",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-ct45_01.jpg",
+   "oryginal_px": "600x600"
+  },
+  {
+   "plik": "produkty/honeywell-ct45/honeywell-ct45-02.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-ct45",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-ct45_02.jpg",
+   "oryginal_px": "600x600"
+  },
+  {
+   "plik": "produkty/honeywell-ct70/honeywell-ct70-01.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-ct70",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-ct70_01.png",
+   "oryginal_px": "576x576"
+  },
+  {
+   "plik": "produkty/honeywell-ct70/honeywell-ct70-02.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-ct70",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-ct70_02.png",
+   "oryginal_px": "576x576"
+  },
+  {
+   "plik": "produkty/honeywell-rt10a-rt10w/honeywell-rt10a-rt10w-01.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-rt10a-rt10w",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-rt10a_01.jpg",
+   "oryginal_px": "600x600"
+  },
+  {
+   "plik": "produkty/honeywell-rt10a-rt10w/honeywell-rt10a-rt10w-02.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-rt10a-rt10w",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-rt10a_02.jpg",
+   "oryginal_px": "600x600"
+  },
+  {
+   "plik": "produkty/honeywell-scanpal-eda10a/honeywell-scanpal-eda10a-01.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-scanpal-eda10a",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-scanpal-eda10a_01.jpg",
+   "oryginal_px": "924x576"
+  },
+  {
+   "plik": "produkty/honeywell-scanpal-eda10a/honeywell-scanpal-eda10a-02.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-scanpal-eda10a",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-scanpal-eda10a_02.jpg",
+   "oryginal_px": "924x576"
+  },
+  {
+   "plik": "produkty/honeywell-scanpal-eda52/honeywell-scanpal-eda52-01.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-scanpal-eda52",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-scanpal-eda52_01.jpg",
+   "oryginal_px": "1200x797"
+  },
+  {
+   "plik": "produkty/honeywell-scanpal-eda52/honeywell-scanpal-eda52-02.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-scanpal-eda52",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-scanpal-eda52_02.jpg",
+   "oryginal_px": "1200x797"
+  },
+  {
+   "plik": "produkty/honeywell-scanpal-eda56/honeywell-scanpal-eda56-01.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-scanpal-eda56",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-scanpal-eda56_01.jpg",
+   "oryginal_px": "1200x798"
+  },
+  {
+   "plik": "produkty/honeywell-scanpal-eda56/honeywell-scanpal-eda56-02.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-scanpal-eda56",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-scanpal-eda56_02.jpg",
+   "oryginal_px": "1200x798"
+  },
+  {
+   "plik": "produkty/honeywell-scanpal-eda57/honeywell-scanpal-eda57-01.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-scanpal-eda57",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-scanpal-eda57_01.jpg",
+   "oryginal_px": "867x576"
+  },
+  {
+   "plik": "produkty/honeywell-scanpal-eda57/honeywell-scanpal-eda57-02.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-scanpal-eda57",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-scanpal-eda57_02.jpg",
+   "oryginal_px": "867x576"
+  },
+  {
+   "plik": "produkty/honeywell-scanpal-eda61k/honeywell-scanpal-eda61k-01.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-scanpal-eda61k",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-scanpal-eda61k_01.png",
+   "oryginal_px": "600x622"
+  },
+  {
+   "plik": "produkty/honeywell-scanpal-eda61k/honeywell-scanpal-eda61k-02.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-scanpal-eda61k",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-scanpal-eda61k_02.png",
+   "oryginal_px": "600x622"
+  },
+  {
+   "plik": "produkty/honeywell-thor-vm1a/honeywell-thor-vm1a-01.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-thor-vm1a",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-thor-vm1a_01.png",
+   "oryginal_px": "1366x797"
+  },
+  {
+   "plik": "produkty/honeywell-thor-vm1a/honeywell-thor-vm1a-02.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-thor-vm1a",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-thor-vm1a_02.png",
+   "oryginal_px": "1366x797"
+  },
+  {
+   "plik": "produkty/honeywell-thor-vm3/honeywell-thor-vm3-01.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-thor-vm3",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-thor-vm3_01.jpg",
+   "oryginal_px": "1200x798"
+  },
+  {
+   "plik": "produkty/honeywell-thor-vm3/honeywell-thor-vm3-02.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-thor-vm3",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-thor-vm3_02.jpg",
+   "oryginal_px": "900x900"
+  },
+  {
+   "plik": "produkty/sunmi-l2s-pro-l2ks/sunmi-l2s-pro-l2ks-01.webp",
+   "rola": "produkt",
+   "produkt": "sunmi-l2s-pro-l2ks",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/sunmi/sunmi-terminal-mobilny-l2ks_01.png",
+   "oryginal_px": "123x300"
+  },
+  {
+   "plik": "produkty/sunmi-l2s-pro-l2ks/sunmi-l2s-pro-l2ks-02.webp",
+   "rola": "produkt",
+   "produkt": "sunmi-l2s-pro-l2ks",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/sunmi/sunmi-terminal-mobilny-l2s-pro_01.png",
+   "oryginal_px": "145x300"
+  },
+  {
+   "plik": "produkty/sunmi-l2s-pro-l2ks/sunmi-l2s-pro-l2ks-03.webp",
+   "rola": "produkt",
+   "produkt": "sunmi-l2s-pro-l2ks",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/sunmi/sunmi-terminal-mobilny-l2s-pro_02.png",
+   "oryginal_px": "145x300"
+  },
+  {
+   "plik": "produkty/sunmi-l3/sunmi-l3-01.webp",
+   "rola": "produkt",
+   "produkt": "sunmi-l3",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/sunmi/sunmi-l3_01.png",
+   "oryginal_px": "142x300"
+  },
+  {
+   "plik": "produkty/sunmi-l3/sunmi-l3-02.webp",
+   "rola": "produkt",
+   "produkt": "sunmi-l3",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/sunmi/sunmi-l3_02.png",
+   "oryginal_px": "142x300"
+  },
+  {
+   "plik": "produkty/zebra-tc22-tc27/zebra-tc22-tc27-01.webp",
+   "rola": "produkt",
+   "produkt": "zebra-tc22-tc27",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/zebra/zebra-tc22_01.jpg",
+   "oryginal_px": "266x300"
+  },
+  {
+   "plik": "produkty/zebra-tc22-tc27/zebra-tc22-tc27-02.webp",
+   "rola": "produkt",
+   "produkt": "zebra-tc22-tc27",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/zebra/zebra-tc22_02.jpg",
+   "oryginal_px": "201x300"
+  },
+  {
+   "plik": "produkty/elzab-czytnik-kodow-bs80-2d-usb-kit-z-podstawka/elzab-czytnik-kodow-bs80-2d-usb-kit-z-podstawka-01.webp",
+   "rola": "produkt",
+   "produkt": "elzab-czytnik-kodow-bs80-2d-usb-kit-z-podstawka",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-czytnik-kodow-bs80-2d-usb-kit-z-podstawka_01.jpg",
+   "oryginal_px": "221x300"
+  },
+  {
+   "plik": "produkty/fawagscan/fawagscan-01.webp",
+   "rola": "produkt",
+   "produkt": "fawagscan",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/fawag/fawagscan_01.png",
+   "oryginal_px": "2560x1920"
+  },
+  {
+   "plik": "produkty/fawagscan/fawagscan-02.webp",
+   "rola": "produkt",
+   "produkt": "fawagscan",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/fawag/fawagscan_02.png",
+   "oryginal_px": "2560x1920"
+  },
+  {
+   "plik": "produkty/honeywell-8680i/honeywell-8680i-01.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-8680i",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-8680i_01.jpg",
+   "oryginal_px": "867x576"
+  },
+  {
+   "plik": "produkty/honeywell-8680i/honeywell-8680i-02.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-8680i",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-8680i_02.jpg",
+   "oryginal_px": "867x576"
+  },
+  {
+   "plik": "produkty/honeywell-genesis-xp-7680/honeywell-genesis-xp-7680-01.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-genesis-xp-7680",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-genesis-xp-7680_01.png",
+   "oryginal_px": "600x398"
+  },
+  {
+   "plik": "produkty/honeywell-granit-ultra-2100i-2105i/honeywell-granit-ultra-2100i-2105i-01.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-granit-ultra-2100i-2105i",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-granit-ultra-2100isr_01.png",
+   "oryginal_px": "1635x1635"
+  },
+  {
+   "plik": "produkty/honeywell-granit-ultra-2100i-2105i/honeywell-granit-ultra-2100i-2105i-02.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-granit-ultra-2100i-2105i",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-granit-ultra-2100ixr_01.jpg",
+   "oryginal_px": "917x917"
+  },
+  {
+   "plik": "produkty/honeywell-granit-ultra-2100i-2105i/honeywell-granit-ultra-2100i-2105i-03.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-granit-ultra-2100i-2105i",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-granit-ultra-2105isr_01.png",
+   "oryginal_px": "576x576"
+  },
+  {
+   "plik": "produkty/honeywell-granit-ultra-2100i-2105i/honeywell-granit-ultra-2100i-2105i-04.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-granit-ultra-2100i-2105i",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-granit-ultra-2105ixr_01.png",
+   "oryginal_px": "576x576"
+  },
+  {
+   "plik": "produkty/honeywell-granit-xp-1990i-1991i/honeywell-granit-xp-1990i-1991i-01.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-granit-xp-1990i-1991i",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-granit-xp-1990isr_01.jpg",
+   "oryginal_px": "1200x798"
+  },
+  {
+   "plik": "produkty/honeywell-granit-xp-1990i-1991i/honeywell-granit-xp-1990i-1991i-02.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-granit-xp-1990i-1991i",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-granit-xp-1990isr_02.jpg",
+   "oryginal_px": "1200x798"
+  },
+  {
+   "plik": "produkty/honeywell-granit-xp-1990i-1991i/honeywell-granit-xp-1990i-1991i-03.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-granit-xp-1990i-1991i",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-granit-xp-1990ixr_01.jpg",
+   "oryginal_px": "1200x798"
+  },
+  {
+   "plik": "produkty/honeywell-granit-xp-1990i-1991i/honeywell-granit-xp-1990i-1991i-04.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-granit-xp-1990i-1991i",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-granit-xp-1991isr_01.jpg",
+   "oryginal_px": "1200x798"
+  },
+  {
+   "plik": "produkty/honeywell-granit-xp-1990i-1991i/honeywell-granit-xp-1990i-1991i-05.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-granit-xp-1990i-1991i",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-granit-xp-1991isr_02.jpg",
+   "oryginal_px": "1200x798"
+  },
+  {
+   "plik": "produkty/honeywell-granit-xp-1990i-1991i/honeywell-granit-xp-1990i-1991i-06.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-granit-xp-1990i-1991i",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-granit-xp-1991ixr_02.jpg",
+   "oryginal_px": "1200x798"
+  },
+  {
+   "plik": "produkty/honeywell-hf680/honeywell-hf680-01.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-hf680",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-hf680_01.png",
+   "oryginal_px": "600x600"
+  },
+  {
+   "plik": "produkty/honeywell-hf810-hf811/honeywell-hf810-hf811-01.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-hf810-hf811",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-hf810_01.jpg",
+   "oryginal_px": "2232x3120"
+  },
+  {
+   "plik": "produkty/honeywell-hf810-hf811/honeywell-hf810-hf811-02.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-hf810-hf811",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-hf810_02.jpg",
+   "oryginal_px": "2342x3227"
+  },
+  {
+   "plik": "produkty/honeywell-orbit-7190/honeywell-orbit-7190-01.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-orbit-7190",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-orbit-7190_01.jpg",
+   "oryginal_px": "1200x797"
+  },
+  {
+   "plik": "produkty/honeywell-orbit-7190/honeywell-orbit-7190-02.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-orbit-7190",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-orbit-7190_02.jpg",
+   "oryginal_px": "1200x797"
+  },
+  {
+   "plik": "produkty/honeywell-quantumt-3580/honeywell-quantumt-3580-01.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-quantumt-3580",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-quantumt-3580_01.jpg",
+   "oryginal_px": "1200x797"
+  },
+  {
+   "plik": "produkty/honeywell-quantumt-3580/honeywell-quantumt-3580-02.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-quantumt-3580",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-quantumt-3580_02.jpg",
+   "oryginal_px": "1200x797"
+  },
+  {
+   "plik": "produkty/honeywell-solaris-xp-7990g/honeywell-solaris-xp-7990g-01.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-solaris-xp-7990g",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-solaris-xp-7990g_01.jpg",
+   "oryginal_px": "3632x3200"
+  },
+  {
+   "plik": "produkty/honeywell-solaris-xp-7990g/honeywell-solaris-xp-7990g-02.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-solaris-xp-7990g",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-solaris-xp-7990g_02.jpg",
+   "oryginal_px": "3786x3120"
+  },
+  {
+   "plik": "produkty/honeywell-voyager-1200g-1202g/honeywell-voyager-1200g-1202g-01.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-voyager-1200g-1202g",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-voyager-1200g_01.jpg",
+   "oryginal_px": "1200x797"
+  },
+  {
+   "plik": "produkty/honeywell-voyager-1200g-1202g/honeywell-voyager-1200g-1202g-02.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-voyager-1200g-1202g",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-voyager-1200g_02.jpg",
+   "oryginal_px": "1200x797"
+  },
+  {
+   "plik": "produkty/honeywell-voyager-1200g-1202g/honeywell-voyager-1200g-1202g-03.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-voyager-1200g-1202g",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-voyager-1202g_01.jpg",
+   "oryginal_px": "1200x797"
+  },
+  {
+   "plik": "produkty/honeywell-voyager-1200g-1202g/honeywell-voyager-1200g-1202g-04.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-voyager-1200g-1202g",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-voyager-1202g_02.jpg",
+   "oryginal_px": "1200x797"
+  },
+  {
+   "plik": "produkty/honeywell-voyager-1250g/honeywell-voyager-1250g-01.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-voyager-1250g",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-voyager-1250g_01.jpg",
+   "oryginal_px": "1200x797"
+  },
+  {
+   "plik": "produkty/honeywell-voyager-1250g/honeywell-voyager-1250g-02.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-voyager-1250g",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-voyager-1250g_02.jpg",
+   "oryginal_px": "1200x797"
+  },
+  {
+   "plik": "produkty/honeywell-voyager-1350g/honeywell-voyager-1350g-01.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-voyager-1350g",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-voyager-1350g_01.jpg",
+   "oryginal_px": "1992x3510"
+  },
+  {
+   "plik": "produkty/honeywell-voyager-1350g/honeywell-voyager-1350g-02.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-voyager-1350g",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-voyager-1350g_02.jpg",
+   "oryginal_px": "4356x2694"
+  },
+  {
+   "plik": "produkty/honeywell-voyager-1470g-1472g/honeywell-voyager-1470g-1472g-01.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-voyager-1470g-1472g",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-voyager-1470g_01.png",
+   "oryginal_px": "1000x1000"
+  },
+  {
+   "plik": "produkty/honeywell-voyager-1470g-1472g/honeywell-voyager-1470g-1472g-02.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-voyager-1470g-1472g",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-voyager-1470g_02.png",
+   "oryginal_px": "778x672"
+  },
+  {
+   "plik": "produkty/honeywell-voyager-1470g-1472g/honeywell-voyager-1470g-1472g-03.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-voyager-1470g-1472g",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-voyager-1472g_01.jpg",
+   "oryginal_px": "1200x797"
+  },
+  {
+   "plik": "produkty/honeywell-voyager-1470g-1472g/honeywell-voyager-1470g-1472g-04.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-voyager-1470g-1472g",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-voyager-1472g_02.jpg",
+   "oryginal_px": "1200x797"
+  },
+  {
+   "plik": "produkty/honeywell-voyager-1602g/honeywell-voyager-1602g-01.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-voyager-1602g",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-voyager-1602g_01.jpg",
+   "oryginal_px": "1200x797"
+  },
+  {
+   "plik": "produkty/honeywell-voyager-1602g/honeywell-voyager-1602g-02.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-voyager-1602g",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-voyager-1602g_02.jpg",
+   "oryginal_px": "1200x797"
+  },
+  {
+   "plik": "produkty/honeywell-voyager-xp-1400g/honeywell-voyager-xp-1400g-01.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-voyager-xp-1400g",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-voyager-xp-1400g_01.png",
+   "oryginal_px": "768x576"
+  },
+  {
+   "plik": "produkty/honeywell-voyager-xp-1400g/honeywell-voyager-xp-1400g-02.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-voyager-xp-1400g",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-voyager-xp-1400g_02.png",
+   "oryginal_px": "768x576"
+  },
+  {
+   "plik": "produkty/honeywell-vuqest-3320g/honeywell-vuqest-3320g-01.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-vuqest-3320g",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-vuqest-3320g_01.jpg",
+   "oryginal_px": "900x900"
+  },
+  {
+   "plik": "produkty/honeywell-vuqest-3320g/honeywell-vuqest-3320g-02.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-vuqest-3320g",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-vuqest-3320g_02.jpg",
+   "oryginal_px": "900x900"
+  },
+  {
+   "plik": "produkty/honeywell-xenon-xp-1950g-1952g/honeywell-xenon-xp-1950g-1952g-01.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-xenon-xp-1950g-1952g",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-xenon-performance-xp-1950g_01.jpg",
+   "oryginal_px": "800x800"
+  },
+  {
+   "plik": "produkty/honeywell-xenon-xp-1950g-1952g/honeywell-xenon-xp-1950g-1952g-02.webp",
+   "rola": "produkt",
+   "produkt": "honeywell-xenon-xp-1950g-1952g",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/honeywell/honeywell-xenon-performance-xp-1950g_02.png",
+   "oryginal_px": "600x600"
+  },
+  {
+   "plik": "produkty/sunmi-blink-blink-2/sunmi-blink-blink-2-01.webp",
+   "rola": "produkt",
+   "produkt": "sunmi-blink-blink-2",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/sunmi/sunmi-blink-2_01.png",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/sunmi-blink-blink-2/sunmi-blink-blink-2-02.webp",
+   "rola": "produkt",
+   "produkt": "sunmi-blink-blink-2",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/sunmi/sunmi-blink-2_02.png",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/sunmi-blink-blink-2/sunmi-blink-blink-2-03.webp",
+   "rola": "produkt",
+   "produkt": "sunmi-blink-blink-2",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/sunmi/sunmi-czytnik-kodow-blink_01.jpg",
+   "oryginal_px": "300x237"
+  },
+  {
+   "plik": "produkty/sunmi-blink-blink-2/sunmi-blink-blink-2-04.webp",
+   "rola": "produkt",
+   "produkt": "sunmi-blink-blink-2",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/sunmi/sunmi-czytnik-kodow-blink_02.jpg",
+   "oryginal_px": "235x300"
+  },
+  {
+   "plik": "produkty/zebra-ds2208-ds2278/zebra-ds2208-ds2278-01.webp",
+   "rola": "produkt",
+   "produkt": "zebra-ds2208-ds2278",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/zebra/zebra-czytnik-kodow-kreskowych-ds2208_01.png",
+   "oryginal_px": "300x225"
+  },
+  {
+   "plik": "produkty/zebra-ds2208-ds2278/zebra-ds2208-ds2278-02.webp",
+   "rola": "produkt",
+   "produkt": "zebra-ds2208-ds2278",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/zebra/zebra-czytnik-kodow-kreskowych-ds2278_01.png",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/zebra-ds2208-ds2278/zebra-ds2208-ds2278-03.webp",
+   "rola": "produkt",
+   "produkt": "zebra-ds2208-ds2278",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/zebra/zebra-czytnik-kodow-kreskowych-ds2278_02.jpg",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/elzab-kw3/elzab-kw3-01.webp",
+   "rola": "produkt",
+   "produkt": "elzab-kw3",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/08-maszyny-vendingowe/elzab/elzab-kw3_01.png",
+   "oryginal_px": "193x245"
+  },
+  {
+   "plik": "produkty/dell/dell-01.webp",
+   "rola": "produkt",
+   "produkt": "dell",
+   "zrodlo": "wizualizacja v20 (p-dell-komputer.webp)",
+   "oryginal_px": "625x484"
+  },
+  {
+   "plik": "produkty/tb/tb-01.webp",
+   "rola": "produkt",
+   "produkt": "tb",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/11-komputery-monitory/lenovo/lenovo-thinkbook-14-gen-8-14″-intel_01.png",
+   "oryginal_px": "584x584"
+  },
+  {
+   "plik": "produkty/tb/tb-02.webp",
+   "rola": "produkt",
+   "produkt": "tb",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/11-komputery-monitory/lenovo/b5u76w9ji0ln7k0gx1qblidzsos4mi273305.avif",
+   "oryginal_px": "584x584"
+  },
+  {
+   "plik": "produkty/tc/tc-01.webp",
+   "rola": "produkt",
+   "produkt": "tc",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/11-komputery-monitory/lenovo/fee_786_587_png.webp",
+   "oryginal_px": "786x587"
+  },
+  {
+   "plik": "produkty/tc/tc-02.webp",
+   "rola": "produkt",
+   "produkt": "tc",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/11-komputery-monitory/lenovo/i-lenovo-thinkcentre-neo-50t-g5-i5-16gb-1tb-win11-12ud000ypb.webp",
+   "oryginal_px": "1055x1677"
+  },
+  {
+   "plik": "produkty/tc/tc-03.webp",
+   "rola": "produkt",
+   "produkt": "tc",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/11-komputery-monitory/lenovo/51UFZO5wUiL._AC_UF1000,1000_QL80_.jpg",
+   "oryginal_px": "603x1000"
+  },
+  {
+   "plik": "produkty/tp/tp-01.webp",
+   "rola": "produkt",
+   "produkt": "tp",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/11-komputery-monitory/lenovo/lenovo-thinkpad-t14s-gen-6-14″-amd_01.png",
+   "oryginal_px": "584x584"
+  },
+  {
+   "plik": "produkty/tp/tp-02.webp",
+   "rola": "produkt",
+   "produkt": "tp",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/11-komputery-monitory/lenovo/gokh70kas61uo5ns1u4pbssmv91wyk820254.avif",
+   "oryginal_px": "584x584"
+  },
+  {
+   "plik": "produkty/mon/mon-01.webp",
+   "rola": "produkt",
+   "produkt": "mon",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/11-komputery-monitory/lenovo/lenovo-thinkvision-p24qd-40_01.png",
+   "oryginal_px": "584x469"
+  },
+  {
+   "plik": "produkty/aio/aio-01.webp",
+   "rola": "produkt",
+   "produkt": "aio",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/11-komputery-monitory/lenovo/Komputer-All-in-One-LENOVO-ThinkCentre-neo-50a-24-Gen-5-1.jpg",
+   "oryginal_px": "1620x1351"
+  },
+  {
+   "plik": "produkty/aio/aio-02.webp",
+   "rola": "produkt",
+   "produkt": "aio",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/11-komputery-monitory/lenovo/small_neo-50a-24-Gen-5.png",
+   "oryginal_px": "307x307"
+  },
+  {
+   "plik": "produkty/qnap/qnap-01.webp",
+   "rola": "produkt",
+   "produkt": "qnap",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/12-serwery-nas-ups/qnap/qnap-ts-464_01.png",
+   "oryginal_px": "1000x625"
+  },
+  {
+   "plik": "produkty/qnap/qnap-02.webp",
+   "rola": "produkt",
+   "produkt": "qnap",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/12-serwery-nas-ups/qnap/qnap-ts-262a_01.png",
+   "oryginal_px": "1000x625"
+  },
+  {
+   "plik": "produkty/qnap/qnap-03.webp",
+   "rola": "produkt",
+   "produkt": "qnap",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/12-serwery-nas-ups/qnap/serwer-nas-qnap-ts-253e-8g-4-png-800x800.png",
+   "oryginal_px": "800x450"
+  },
+  {
+   "plik": "produkty/qnap/qnap-04.webp",
+   "rola": "produkt",
+   "produkt": "qnap",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/12-serwery-nas-ups/qnap/serwer-nas-qnap-ts-453e-8g-png-720x.png",
+   "oryginal_px": "720x405"
+  },
+  {
+   "plik": "produkty/srvr/srvr-01.webp",
+   "rola": "produkt",
+   "produkt": "srvr",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/12-serwery-nas-ups/dell/dell-poweredge-r360_01.jpg",
+   "oryginal_px": "500x500"
+  },
+  {
+   "plik": "produkty/srvr/srvr-02.webp",
+   "rola": "produkt",
+   "produkt": "srvr",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/12-serwery-nas-ups/dell/dell-poweredge-r250-prawy-bok.webp",
+   "oryginal_px": "1300x700"
+  },
+  {
+   "plik": "produkty/srvt/srvt-01.webp",
+   "rola": "produkt",
+   "produkt": "srvt",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/12-serwery-nas-ups/dell/6731522_0_i1064.jpg",
+   "oryginal_px": "780x1064"
+  },
+  {
+   "plik": "produkty/srvt/srvt-02.webp",
+   "rola": "produkt",
+   "produkt": "srvt",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/12-serwery-nas-ups/dell/97d045b8deea17c7bbd8792a0085b6836e21e2c0_1734757__normalized_image1.webp",
+   "oryginal_px": "1200x1200"
+  },
+  {
+   "plik": "produkty/nas/nas-01.webp",
+   "rola": "produkt",
+   "produkt": "nas",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/12-serwery-nas-ups/synology/synology-ds224-_01.png",
+   "oryginal_px": "668x400"
+  },
+  {
+   "plik": "produkty/nas/nas-02.webp",
+   "rola": "produkt",
+   "produkt": "nas",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/12-serwery-nas-ups/synology/synology-ds225-_01.png",
+   "oryginal_px": "363x370"
+  },
+  {
+   "plik": "produkty/nas/nas-03.webp",
+   "rola": "produkt",
+   "produkt": "nas",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/12-serwery-nas-ups/synology/synology-ds223_01.png",
+   "oryginal_px": "295x400"
+  },
+  {
+   "plik": "produkty/nas/nas-04.webp",
+   "rola": "produkt",
+   "produkt": "nas",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/12-serwery-nas-ups/synology/14907805_0_i1064.jpg",
+   "oryginal_px": "999x1024"
+  },
+  {
+   "plik": "produkty/nas/nas-05.webp",
+   "rola": "produkt",
+   "produkt": "nas",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/12-serwery-nas-ups/synology/synology-ds224-_02.jpg",
+   "oryginal_px": "1200x628"
+  },
+  {
+   "plik": "produkty/nas/nas-06.webp",
+   "rola": "produkt",
+   "produkt": "nas",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/12-serwery-nas-ups/synology/synology-ds225-_02.jpg",
+   "oryginal_px": "1200x628"
+  },
+  {
+   "plik": "produkty/nas/nas-07.webp",
+   "rola": "produkt",
+   "produkt": "nas",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/12-serwery-nas-ups/synology/synology-ds223_02.jpg",
+   "oryginal_px": "1200x628"
+  },
+  {
+   "plik": "produkty/ups/ups-01.webp",
+   "rola": "produkt",
+   "produkt": "ups",
+   "zrodlo": "wizualizacja v20 (p-apc-ups.webp)",
+   "oryginal_px": "1188x548"
+  },
+  {
+   "plik": "produkty/mfp/mfp-01.webp",
+   "rola": "produkt",
+   "produkt": "mfp",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/13-drukarki-wielofunkcyjne/konica-minolta/konica-minolta-bizhub-c301i_01.webp",
+   "oryginal_px": "3840x3606"
+  },
+  {
+   "plik": "produkty/mfp/mfp-02.webp",
+   "rola": "produkt",
+   "produkt": "mfp",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/13-drukarki-wielofunkcyjne/konica-minolta/konica-minolta-bizhub-c451i_01.webp",
+   "oryginal_px": "3840x3293"
+  },
+  {
+   "plik": "produkty/mfp/mfp-03.webp",
+   "rola": "produkt",
+   "produkt": "mfp",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/13-drukarki-wielofunkcyjne/konica-minolta/konica-minolta-bizhub-c551i_01.webp",
+   "oryginal_px": "3840x3293"
+  },
+  {
+   "plik": "produkty/mfp/mfp-04.webp",
+   "rola": "produkt",
+   "produkt": "mfp",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/13-drukarki-wielofunkcyjne/konica-minolta/konica-minolta-bizhub-c301i_02.webp",
+   "oryginal_px": "3840x4310"
+  },
+  {
+   "plik": "produkty/mfp/mfp-05.webp",
+   "rola": "produkt",
+   "produkt": "mfp",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/13-drukarki-wielofunkcyjne/konica-minolta/konica-minolta-bizhub-c451i_02.webp",
+   "oryginal_px": "3840x5127"
+  },
+  {
+   "plik": "produkty/mfp/mfp-06.webp",
+   "rola": "produkt",
+   "produkt": "mfp",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/13-drukarki-wielofunkcyjne/konica-minolta/konica-minolta-bizhub-c551i_02.webp",
+   "oryginal_px": "3840x4502"
+  },
+  {
+   "plik": "produkty/kyo/kyo-01.webp",
+   "rola": "produkt",
+   "produkt": "kyo",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/13-drukarki-wielofunkcyjne/kyo/mfp-540x540-angled-ecosysM8124cidn.png",
+   "oryginal_px": "540x540"
+  },
+  {
+   "plik": "produkty/kyo/kyo-02.webp",
+   "rola": "produkt",
+   "produkt": "kyo",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/13-drukarki-wielofunkcyjne/kyo/1537.webp",
+   "oryginal_px": "540x540"
+  },
+  {
+   "plik": "produkty/kyo/kyo-03.webp",
+   "rola": "produkt",
+   "produkt": "kyo",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/13-drukarki-wielofunkcyjne/kyo/kyocera2552.jpg",
+   "oryginal_px": "1227x1041"
+  },
+  {
+   "plik": "produkty/avtek/avtek-01.webp",
+   "rola": "produkt",
+   "produkt": "avtek",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/14-ekrany-projektory/avtek/i-monitor-interaktywny-avtek-touchscreen-8-lite-g-65.webp",
+   "oryginal_px": "1000x600"
+  },
+  {
+   "plik": "produkty/avtek/avtek-02.webp",
+   "rola": "produkt",
+   "produkt": "avtek",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/14-ekrany-projektory/avtek/images.jpeg",
+   "oryginal_px": "575x347"
+  },
+  {
+   "plik": "produkty/ds/ds-01.webp",
+   "rola": "produkt",
+   "produkt": "ds",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/14-ekrany-projektory/samsung/samsung-smart-signage-qhc-75-lh75qhcebgcxen_01.jpg",
+   "oryginal_px": "684x547"
+  },
+  {
+   "plik": "produkty/ds/ds-02.webp",
+   "rola": "produkt",
+   "produkt": "ds",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/14-ekrany-projektory/samsung/samsung-smart-signage-qbc-55-lh55qbcebgcxen_01.jpg",
+   "oryginal_px": "684x547"
+  },
+  {
+   "plik": "produkty/ds/ds-03.webp",
+   "rola": "produkt",
+   "produkt": "ds",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/14-ekrany-projektory/samsung/samsung-smart-signage-qmc-32-lh32qmcepgcxen_01.jpg",
+   "oryginal_px": "684x547"
+  },
+  {
+   "plik": "produkty/ds/ds-04.webp",
+   "rola": "produkt",
+   "produkt": "ds",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/14-ekrany-projektory/samsung/samsung-smart-signage-qhc-75-lh75qhcebgcxen_02.png",
+   "oryginal_px": "1920x1280"
+  },
+  {
+   "plik": "produkty/ds/ds-05.webp",
+   "rola": "produkt",
+   "produkt": "ds",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/14-ekrany-projektory/samsung/samsung-smart-signage-qbc-55-lh55qbcebgcxen_02.png",
+   "oryginal_px": "1920x1280"
+  },
+  {
+   "plik": "produkty/ds/ds-06.webp",
+   "rola": "produkt",
+   "produkt": "ds",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/14-ekrany-projektory/samsung/samsung-smart-signage-qmc-32-lh32qmcepgcxen_02.png",
+   "oryginal_px": "1920x1280"
+  },
+  {
+   "plik": "produkty/ds/ds-07.webp",
+   "rola": "produkt",
+   "produkt": "ds",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/14-ekrany-projektory/samsung/samsung-smart-signage-qhc-98-lh98qhcebgcxen_01.jpg",
+   "oryginal_px": "684x547"
+  },
+  {
+   "plik": "produkty/ds/ds-08.webp",
+   "rola": "produkt",
+   "produkt": "ds",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/14-ekrany-projektory/samsung/samsung-smart-signage-qhc-98-lh98qhcebgcxen_02.png",
+   "oryginal_px": "1920x1280"
+  },
+  {
+   "plik": "produkty/nec/nec-01.webp",
+   "rola": "produkt",
+   "produkt": "nec",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/14-ekrany-projektory/sharp/sharp-e501u_01.jpg",
+   "oryginal_px": "640x480"
+  },
+  {
+   "plik": "produkty/nec/nec-02.webp",
+   "rola": "produkt",
+   "produkt": "nec",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/14-ekrany-projektory/sharp/sharp-p701u_01.jpg",
+   "oryginal_px": "640x480"
+  },
+  {
+   "plik": "produkty/nec/nec-03.webp",
+   "rola": "produkt",
+   "produkt": "nec",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/14-ekrany-projektory/sharp/sharp-a175u_01.jpg",
+   "oryginal_px": "640x480"
+  },
+  {
+   "plik": "produkty/nec/nec-04.webp",
+   "rola": "produkt",
+   "produkt": "nec",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/14-ekrany-projektory/sharp/sharp-e501u_02.jpg",
+   "oryginal_px": "640x480"
+  },
+  {
+   "plik": "produkty/nec/nec-05.webp",
+   "rola": "produkt",
+   "produkt": "nec",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/14-ekrany-projektory/sharp/sharp-p701u_02.jpg",
+   "oryginal_px": "640x480"
+  },
+  {
+   "plik": "produkty/nec/nec-06.webp",
+   "rola": "produkt",
+   "produkt": "nec",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/14-ekrany-projektory/sharp/sharp-a175u_02.jpg",
+   "oryginal_px": "640x480"
+  },
+  {
+   "plik": "produkty/nec/nec-07.webp",
+   "rola": "produkt",
+   "produkt": "nec",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/14-ekrany-projektory/sharp/sharp-v801u_01.jpg",
+   "oryginal_px": "640x480"
+  },
+  {
+   "plik": "produkty/nec/nec-08.webp",
+   "rola": "produkt",
+   "produkt": "nec",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/14-ekrany-projektory/sharp/sharp-v801u_02.jpg",
+   "oryginal_px": "640x480"
+  },
+  {
+   "plik": "produkty/optima/optima-01.webp",
+   "rola": "produkt",
+   "produkt": "optima",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/09-programy-erp/comarch/images.jpeg",
+   "oryginal_px": "553x554"
+  },
+  {
+   "plik": "produkty/optima/optima-02.webp",
+   "rola": "produkt",
+   "produkt": "optima",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/09-programy-erp/comarch/comarch-optima_2.jpg",
+   "oryginal_px": "1919x1041"
+  },
+  {
+   "plik": "produkty/s123/s123-01.webp",
+   "rola": "produkt",
+   "produkt": "s123",
+   "zrodlo": "wizualizacja v20 (p-insert-subiekt-123.webp)",
+   "oryginal_px": "912x1188"
+  },
+  {
+   "plik": "produkty/gt/gt-01.webp",
+   "rola": "produkt",
+   "produkt": "gt",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/09-programy-erp/insert/insert-subiekt-gt_01.png",
+   "oryginal_px": "430x435"
+  },
+  {
+   "plik": "produkty/nexo/nexo-01.webp",
+   "rola": "produkt",
+   "produkt": "nexo",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/09-programy-erp/insert/insert-subiekt-nexo_01.png",
+   "oryginal_px": "430x435"
+  },
+  {
+   "plik": "produkty/nexo/nexo-02.webp",
+   "rola": "produkt",
+   "produkt": "nexo",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/09-programy-erp/insert/insert-subiekt-nexo-pro_01.png",
+   "oryginal_px": "430x435"
+  },
+  {
+   "plik": "produkty/pcm/pcm-01.webp",
+   "rola": "produkt",
+   "produkt": "pcm",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/10-programy-branzowe/insoft/insoft-pc-market-7_01.png",
+   "oryginal_px": "257x300"
+  },
+  {
+   "plik": "produkty/pcm/pcm-02.webp",
+   "rola": "produkt",
+   "produkt": "pcm",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/09-programy-erp/insoft/0.jpeg",
+   "oryginal_px": "263x389"
+  },
+  {
+   "plik": "produkty/pcm/pcm-03.webp",
+   "rola": "produkt",
+   "produkt": "pcm",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/10-programy-branzowe/insoft/insoft-pc-market-lite_01.jpg",
+   "oryginal_px": "239x300"
+  },
+  {
+   "plik": "produkty/biuro/biuro-01.webp",
+   "rola": "produkt",
+   "produkt": "biuro",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/09-programy-erp/insert/insert-biuro-nexo_01.png",
+   "oryginal_px": "430x435"
+  },
+  {
+   "plik": "produkty/gestor/gestor-01.webp",
+   "rola": "produkt",
+   "produkt": "gestor",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/09-programy-erp/insert/insert-gestor-nexo_01.png",
+   "oryginal_px": "430x435"
+  },
+  {
+   "plik": "produkty/gestor/gestor-02.webp",
+   "rola": "produkt",
+   "produkt": "gestor",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/09-programy-erp/insert/insert-gestor-nexo-pro_01.png",
+   "oryginal_px": "430x435"
+  },
+  {
+   "plik": "produkty/gestor/gestor-03.webp",
+   "rola": "produkt",
+   "produkt": "gestor",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/09-programy-erp/insert/insert-gestor-gt_01.png",
+   "oryginal_px": "430x435"
+  },
+  {
+   "plik": "produkty/gratyfikant/gratyfikant-01.webp",
+   "rola": "produkt",
+   "produkt": "gratyfikant",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/09-programy-erp/insert/insert-gratyfikant-nexo_01.png",
+   "oryginal_px": "430x435"
+  },
+  {
+   "plik": "produkty/gratyfikant/gratyfikant-02.webp",
+   "rola": "produkt",
+   "produkt": "gratyfikant",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/09-programy-erp/insert/insert-gratyfikant-nexo-pro_01.png",
+   "oryginal_px": "430x435"
+  },
+  {
+   "plik": "produkty/gratyfikant/gratyfikant-03.webp",
+   "rola": "produkt",
+   "produkt": "gratyfikant",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/09-programy-erp/insert/insert-gratyfikant-gt_01.png",
+   "oryginal_px": "430x435"
+  },
+  {
+   "plik": "produkty/rachmistrz/rachmistrz-01.webp",
+   "rola": "produkt",
+   "produkt": "rachmistrz",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/09-programy-erp/insert/insert-rachmistrz-nexo_01.png",
+   "oryginal_px": "430x435"
+  },
+  {
+   "plik": "produkty/rachmistrz/rachmistrz-02.webp",
+   "rola": "produkt",
+   "produkt": "rachmistrz",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/09-programy-erp/insert/insert-rachmistrz-nexo-pro_01.png",
+   "oryginal_px": "430x435"
+  },
+  {
+   "plik": "produkty/rachmistrz/rachmistrz-03.webp",
+   "rola": "produkt",
+   "produkt": "rachmistrz",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/09-programy-erp/insert/insert-rachmistrz-gt_01.png",
+   "oryginal_px": "430x435"
+  },
+  {
+   "plik": "produkty/rewizor/rewizor-01.webp",
+   "rola": "produkt",
+   "produkt": "rewizor",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/09-programy-erp/insert/insert-rewizor-nexo_01.png",
+   "oryginal_px": "430x435"
+  },
+  {
+   "plik": "produkty/rewizor/rewizor-02.webp",
+   "rola": "produkt",
+   "produkt": "rewizor",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/09-programy-erp/insert/insert-rewizor-nexo-pro_01.png",
+   "oryginal_px": "430x435"
+  },
+  {
+   "plik": "produkty/rewizor/rewizor-03.webp",
+   "rola": "produkt",
+   "produkt": "rewizor",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/09-programy-erp/insert/insert-rewizor-gt_01.png",
+   "oryginal_px": "430x435"
+  },
+  {
+   "plik": "produkty/minimarket/minimarket-01.webp",
+   "rola": "produkt",
+   "produkt": "minimarket",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/10-programy-branzowe/insoft/insoft-mini-market_01.png",
+   "oryginal_px": "270x300"
+  },
+  {
+   "plik": "produkty/minimarket/minimarket-02.webp",
+   "rola": "produkt",
+   "produkt": "minimarket",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/09-programy-erp/insoft/0 (2).jpeg",
+   "oryginal_px": "312x401"
+  },
+  {
+   "plik": "produkty/pcpos/pcpos-01.webp",
+   "rola": "produkt",
+   "produkt": "pcpos",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/10-programy-branzowe/insoft/insoft-pc-pos-7_01.png",
+   "oryginal_px": "277x300"
+  },
+  {
+   "plik": "produkty/pcpos/pcpos-02.webp",
+   "rola": "produkt",
+   "produkt": "pcpos",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/09-programy-erp/insoft/0 (1).jpeg",
+   "oryginal_px": "263x391"
+  },
+  {
+   "plik": "produkty/gopos/gopos-01.webp",
+   "rola": "produkt",
+   "produkt": "gopos",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/09-programy-erp/gopos/gopos-master.jpg",
+   "oryginal_px": "2319x2319"
+  },
+  {
+   "plik": "produkty/gopos/gopos-02.webp",
+   "rola": "produkt",
+   "produkt": "gopos",
+   "zrodlo": "wizualizacja v20 (p-gopos-zestaw.webp)",
+   "oryginal_px": "925x718"
+  },
+  {
+   "plik": "produkty/nfh/nfh-01.webp",
+   "rola": "produkt",
+   "produkt": "nfh",
+   "zrodlo": "wizualizacja v20 (p-nfhotel.webp)",
+   "oryginal_px": "800x1000"
+  },
+  {
+   "plik": "produkty/emenu/emenu-01.webp",
+   "rola": "produkt",
+   "produkt": "emenu",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/09-programy-erp/gopos/gopos-e-menu.jpg",
+   "oryginal_px": "2319x2319"
+  },
+  {
+   "plik": "produkty/gohub/gohub-01.webp",
+   "rola": "produkt",
+   "produkt": "gohub",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/09-programy-erp/gopos/gopos-hub.jpg",
+   "oryginal_px": "2319x2319"
+  },
+  {
+   "plik": "produkty/gohub/gohub-02.webp",
+   "rola": "produkt",
+   "produkt": "gohub",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/10-programy-branzowe/gopos/gopos-gohub_01.webp",
+   "oryginal_px": "1956x1418"
+  },
+  {
+   "plik": "produkty/gokiosk/gokiosk-01.webp",
+   "rola": "produkt",
+   "produkt": "gokiosk",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/09-programy-erp/gopos/gopos-kiosk.jpg",
+   "oryginal_px": "2319x2319"
+  },
+  {
+   "plik": "produkty/gokiosk/gokiosk-02.webp",
+   "rola": "produkt",
+   "produkt": "gokiosk",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/10-programy-branzowe/gopos/gopos-gokiosk_01.webp",
+   "oryginal_px": "1140x908"
+  },
+  {
+   "plik": "produkty/gokiosk/gokiosk-03.webp",
+   "rola": "produkt",
+   "produkt": "gokiosk",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/10-programy-branzowe/gopos/gopos-gokiosk_02.webp",
+   "oryginal_px": "1200x1200"
+  },
+  {
+   "plik": "produkty/goorder/goorder-01.webp",
+   "rola": "produkt",
+   "produkt": "goorder",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/09-programy-erp/gopos/gopos-goorder.jpg",
+   "oryginal_px": "2319x2319"
+  },
+  {
+   "plik": "produkty/goorder/goorder-02.webp",
+   "rola": "produkt",
+   "produkt": "goorder",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/10-programy-branzowe/gopos/gopos-goorder_01.webp",
+   "oryginal_px": "1252x908"
+  },
+  {
+   "plik": "produkty/goorder/goorder-03.webp",
+   "rola": "produkt",
+   "produkt": "goorder",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/10-programy-branzowe/gopos/gopos-goorder_02.webp",
+   "oryginal_px": "960x623"
+  },
+  {
+   "plik": "produkty/gostock/gostock-01.webp",
+   "rola": "produkt",
+   "produkt": "gostock",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/09-programy-erp/gopos/gopos-gostock.jpg",
+   "oryginal_px": "2319x2319"
+  },
+  {
+   "plik": "produkty/gokds/gokds-01.webp",
+   "rola": "produkt",
+   "produkt": "gokds",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/09-programy-erp/gopos/gopos-kds.jpg",
+   "oryginal_px": "2319x2319"
+  },
+  {
+   "plik": "produkty/gokds/gokds-02.webp",
+   "rola": "produkt",
+   "produkt": "gokds",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/10-programy-branzowe/gopos/gopos-kds_01.webp",
+   "oryginal_px": "430x320"
+  },
+  {
+   "plik": "produkty/numerki/numerki-01.webp",
+   "rola": "produkt",
+   "produkt": "numerki",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/09-programy-erp/gopos/gopos-numerki.jpg",
+   "oryginal_px": "2319x2319"
+  },
+  {
+   "plik": "produkty/numerki/numerki-02.webp",
+   "rola": "produkt",
+   "produkt": "numerki",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/10-programy-branzowe/gopos/gopos-numerkowy_01.webp",
+   "oryginal_px": "2472x1794"
+  },
+  {
+   "plik": "produkty/pcgastro/pcgastro-01.webp",
+   "rola": "produkt",
+   "produkt": "pcgastro",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/10-programy-branzowe/insoft/insoft-pc-gastronom-standard_01.jpg",
+   "oryginal_px": "266x300"
+  },
+  {
+   "plik": "produkty/pcgastro/pcgastro-02.webp",
+   "rola": "produkt",
+   "produkt": "pcgastro",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/09-programy-erp/insoft/pc-gastronom.png",
+   "oryginal_px": "250x381"
+  },
+  {
+   "plik": "produkty/elzab-elzapp-mag-program-dla-sklepu-i-magazynu/elzab-elzapp-mag-program-dla-sklepu-i-magazynu-01.webp",
+   "rola": "produkt",
+   "produkt": "elzab-elzapp-mag-program-dla-sklepu-i-magazynu",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/06-akcesoria-pos-wagi/elzab/elzab-elzapp-mag-oprogramowanie-dedykowane-dla-sklepow-oraz-obslugi-magazynu_01.png",
+   "oryginal_px": "300x300"
+  },
+  {
+   "plik": "produkty/mslic/mslic-01.webp",
+   "rola": "produkt",
+   "produkt": "mslic",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/12-serwery-nas-ups/dell/Windows-Server-2025-Standard.webp",
+   "oryginal_px": "800x800"
+  },
+  {
+   "plik": "produkty/m365/m365-01.webp",
+   "rola": "produkt",
+   "produkt": "m365",
+   "zrodlo": "wizualizacja v20 (p-microsoft-365.webp)",
+   "oryginal_px": "783x864"
+  },
+  {
+   "plik": "produkty/u7/u7-01.webp",
+   "rola": "produkt",
+   "produkt": "u7",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/15-siec-wifi/ubiquiti/ubiquiti-access-point-u7-pro_01.png",
+   "oryginal_px": "1501x1501"
+  },
+  {
+   "plik": "produkty/u7/u7-02.webp",
+   "rola": "produkt",
+   "produkt": "u7",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/15-siec-wifi/ubiquiti/ubiquiti-access-point-u7-pro_02.png",
+   "oryginal_px": "1500x1500"
+  },
+  {
+   "plik": "produkty/u7/u7-03.webp",
+   "rola": "produkt",
+   "produkt": "u7",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/15-siec-wifi/ubiquiti/ubiquiti-access-point-u7-pro_03.png",
+   "oryginal_px": "1500x1500"
+  },
+  {
+   "plik": "produkty/ucgmax/ucgmax-01.webp",
+   "rola": "produkt",
+   "produkt": "ucgmax",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/15-siec-wifi/ubiquiti/ubiquiti-cloud-gateway-max_01.png",
+   "oryginal_px": "3000x3000"
+  },
+  {
+   "plik": "produkty/ucgmax/ucgmax-02.webp",
+   "rola": "produkt",
+   "produkt": "ucgmax",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/15-siec-wifi/ubiquiti/ubiquiti-cloud-gateway-max_02.png",
+   "oryginal_px": "3000x3000"
+  },
+  {
+   "plik": "produkty/ucgmax/ucgmax-03.webp",
+   "rola": "produkt",
+   "produkt": "ucgmax",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/15-siec-wifi/ubiquiti/ubiquiti-cloud-gateway-max_03.png",
+   "oryginal_px": "3000x3000"
+  },
+  {
+   "plik": "produkty/udmse/udmse-01.webp",
+   "rola": "produkt",
+   "produkt": "udmse",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/15-siec-wifi/ubiquiti/ubiquiti-dream-machine-special-edition_01.png",
+   "oryginal_px": "3000x3000"
+  },
+  {
+   "plik": "produkty/udmse/udmse-02.webp",
+   "rola": "produkt",
+   "produkt": "udmse",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/15-siec-wifi/ubiquiti/ubiquiti-dream-machine-special-edition_02.png",
+   "oryginal_px": "3000x3000"
+  },
+  {
+   "plik": "produkty/udmse/udmse-03.webp",
+   "rola": "produkt",
+   "produkt": "udmse",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/15-siec-wifi/ubiquiti/ubiquiti-dream-machine-special-edition_03.png",
+   "oryginal_px": "3000x3000"
+  },
+  {
+   "plik": "produkty/udr7/udr7-01.webp",
+   "rola": "produkt",
+   "produkt": "udr7",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/15-siec-wifi/ubiquiti/UDR7.jpg",
+   "oryginal_px": "381x492"
+  },
+  {
+   "plik": "produkty/usw24/usw24-01.webp",
+   "rola": "produkt",
+   "produkt": "usw24",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/15-siec-wifi/ubiquiti/ubiquiti-switch-pro-24-poe_01.png",
+   "oryginal_px": "3000x3000"
+  },
+  {
+   "plik": "produkty/usw24/usw24-02.webp",
+   "rola": "produkt",
+   "produkt": "usw24",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/15-siec-wifi/ubiquiti/ubiquiti-switch-pro-24-poe_02.png",
+   "oryginal_px": "3000x3000"
+  },
+  {
+   "plik": "produkty/usw24/usw24-03.webp",
+   "rola": "produkt",
+   "produkt": "usw24",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/15-siec-wifi/ubiquiti/ubiquiti-switch-pro-24-poe_03.png",
+   "oryginal_px": "3000x3000"
+  },
+  {
+   "plik": "produkty/usw24max/usw24max-01.webp",
+   "rola": "produkt",
+   "produkt": "usw24max",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/15-siec-wifi/ubiquiti/ubiquiti-switch-pro-max-24-poe_01.png",
+   "oryginal_px": "3000x3000"
+  },
+  {
+   "plik": "produkty/usw24max/usw24max-02.webp",
+   "rola": "produkt",
+   "produkt": "usw24max",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/15-siec-wifi/ubiquiti/ubiquiti-switch-pro-max-24-poe_02.png",
+   "oryginal_px": "3000x3000"
+  },
+  {
+   "plik": "produkty/usw24max/usw24max-03.webp",
+   "rola": "produkt",
+   "produkt": "usw24max",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/15-siec-wifi/ubiquiti/ubiquiti-switch-pro-max-24-poe_03.png",
+   "oryginal_px": "3000x3000"
+  },
+  {
+   "plik": "produkty/ux/ux-01.webp",
+   "rola": "produkt",
+   "produkt": "ux",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/15-siec-wifi/ubiquiti/ubiquiti_unifi_express_ux_3b232d86fda2c.png",
+   "oryginal_px": "1089x811"
+  },
+  {
+   "plik": "produkty/u7max/u7max-01.webp",
+   "rola": "produkt",
+   "produkt": "u7max",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/15-siec-wifi/ubiquiti/ubiquiti-access-point-u7-pro-max_02.png",
+   "oryginal_px": "1500x1500"
+  },
+  {
+   "plik": "produkty/u7max/u7max-02.webp",
+   "rola": "produkt",
+   "produkt": "u7max",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/15-siec-wifi/ubiquiti/ubiquiti-access-point-u7-pro-max_03.png",
+   "oryginal_px": "1500x1500"
+  },
+  {
+   "plik": "produkty/eset/eset-01.webp",
+   "rola": "produkt",
+   "produkt": "eset",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/16-antywirus-firewall/eset/EP_ADV.png",
+   "oryginal_px": "375x375"
+  },
+  {
+   "plik": "produkty/eset/eset-02.webp",
+   "rola": "produkt",
+   "produkt": "eset",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/16-antywirus-firewall/eset/EP_ENTRY.png",
+   "oryginal_px": "375x375"
+  },
+  {
+   "plik": "produkty/eset/eset-03.webp",
+   "rola": "produkt",
+   "produkt": "eset",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/16-antywirus-firewall/eset/EP_COMP.png",
+   "oryginal_px": "375x375"
+  },
+  {
+   "plik": "produkty/eset/eset-04.webp",
+   "rola": "produkt",
+   "produkt": "eset",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/16-antywirus-firewall/eset/EP_ELITE.png",
+   "oryginal_px": "375x375"
+  },
+  {
+   "plik": "produkty/eset/eset-05.webp",
+   "rola": "produkt",
+   "produkt": "eset",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/16-antywirus-firewall/eset/EP_ENTE.png",
+   "oryginal_px": "375x375"
+  },
+  {
+   "plik": "produkty/eset/eset-06.webp",
+   "rola": "produkt",
+   "produkt": "eset",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/16-antywirus-firewall/eset/EP_MAIL_P.png",
+   "oryginal_px": "375x375"
+  },
+  {
+   "plik": "produkty/fw/fw-01.webp",
+   "rola": "produkt",
+   "produkt": "fw",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/16-antywirus-firewall/stormshield/stormshield-sn170_01.jpg",
+   "oryginal_px": "1024x576"
+  },
+  {
+   "plik": "produkty/fw/fw-02.webp",
+   "rola": "produkt",
+   "produkt": "fw",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/16-antywirus-firewall/stormshield/stormshield-sn220_01.jpg",
+   "oryginal_px": "1024x576"
+  },
+  {
+   "plik": "produkty/fw/fw-03.webp",
+   "rola": "produkt",
+   "produkt": "fw",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/16-antywirus-firewall/stormshield/stormshield-sn520_01.jpg",
+   "oryginal_px": "1024x576"
+  },
+  {
+   "plik": "produkty/fw/fw-04.webp",
+   "rola": "produkt",
+   "produkt": "fw",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/16-antywirus-firewall/stormshield/stormshield-sn720_01.jpg",
+   "oryginal_px": "1024x576"
+  },
+  {
+   "plik": "produkty/fw/fw-05.webp",
+   "rola": "produkt",
+   "produkt": "fw",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/16-antywirus-firewall/stormshield/stormshield-sn170_02.jpg",
+   "oryginal_px": "1024x576"
+  },
+  {
+   "plik": "produkty/fw/fw-06.webp",
+   "rola": "produkt",
+   "produkt": "fw",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/16-antywirus-firewall/stormshield/stormshield-sn220_02.jpg",
+   "oryginal_px": "1024x576"
+  },
+  {
+   "plik": "produkty/fw/fw-07.webp",
+   "rola": "produkt",
+   "produkt": "fw",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/16-antywirus-firewall/stormshield/stormshield-sn520_02.jpg",
+   "oryginal_px": "1024x576"
+  },
+  {
+   "plik": "produkty/fw/fw-08.webp",
+   "rola": "produkt",
+   "produkt": "fw",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/16-antywirus-firewall/stormshield/stormshield-sn720_02.jpg",
+   "oryginal_px": "1024x576"
+  },
+  {
+   "plik": "produkty/piecz/piecz-01.webp",
+   "rola": "produkt",
+   "produkt": "piecz",
+   "zrodlo": "wizualizacja v20 (p-eurocert-podpis.webp)",
+   "oryginal_px": "370x497"
+  },
+  {
+   "plik": "produkty/euro/euro-01.webp",
+   "rola": "produkt",
+   "produkt": "euro",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/17-podpis-pieczec/eurocert/eurocert-kwalifikowany-podpis-elektroniczny_01.png",
+   "oryginal_px": "500x375"
+  },
+  {
+   "plik": "produkty/euro/euro-02.webp",
+   "rola": "produkt",
+   "produkt": "euro",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/17-podpis-pieczec/eurocert/eurocert-kwalifikowany-podpis-elektroniczny_02.png",
+   "oryginal_px": "500x358"
+  },
+  {
+   "plik": "produkty/euro/euro-03.webp",
+   "rola": "produkt",
+   "produkt": "euro",
+   "zrodlo": "Materialy-prokombiznes/zdjecia/17-podpis-pieczec/eurocert/eurocert-chmurowy-podpis-kwalifikowany-ecsigner_01.png",
+   "oryginal_px": "370x500"
+  }
+ ]
+}
