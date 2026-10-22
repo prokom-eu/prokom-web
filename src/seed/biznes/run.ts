@@ -8,10 +8,13 @@ import media from '../../../seed/prokombiznes/media.json'
 import gallery from '../../../seed/prokombiznes/media-produkty-v2.json'
 import search from '../../../seed/prokombiznes/wyszukiwarka.json'
 import { wizardFromSeed, wizardSchema } from '../../lib/catalog/wizard'
+import { mapConcurrent } from '../concurrency'
+import { parseGalleryLimit } from '../config'
 import {
   brandLogoFile,
   categoryData,
   galleryFileName,
+  galleryFilesToImport,
   galleryMediaData,
   hasSameValues,
   groupData,
@@ -34,6 +37,8 @@ const MEDIA_DIR = path.join('docs', 'design', 'prokombiznes', 'boards', 'media')
 /** Katalog v2 files: product galleries (`produkty/<slug>/`) and the logos of new brands. */
 const SEED_MEDIA_DIR = path.join('seed', 'prokombiznes', 'media')
 const BIZNES_TENANT_SLUG = 'biznes'
+/** Gallery photos uploaded at once: resizing (sharp) is the slow part and uses several cores. */
+const GALLERY_UPLOADS_AT_ONCE = 4
 
 /**
  * The seed writes outside a Next.js request, where the catalog cache cannot be revalidated;
@@ -55,6 +60,7 @@ type Counter = { created: number; updated: number; skipped: number }
  */
 export async function seedBiznesCatalog(payload: Payload): Promise<void> {
   const catalog: SeedCatalog = katalog
+  const galleryLimit = parseGalleryLimit(process.env.SEED_GALLERY_LIMIT)
   const log = (message: string) => payload.logger.info(`Seed (Biznes): ${message}`)
   const local = { overrideAccess: true, context: SEED_CONTEXT, depth: 0 } as const
 
@@ -194,22 +200,28 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     select: { filename: true },
     ...local,
   })
-  for (const file of gallery.pliki) {
-    const name = galleryFileName(file.plik)
-    const existing = storedMedia.find((doc) => isImportedFileName(doc.filename, name))
-    count('media (katalog v2)', !existing)
-    const id = existing
-      ? existing.id
-      : (
-          await payload.create({
-            collection: 'media',
-            data: { ...galleryMediaData(file, catalog.produkty), tenant: tenant.id },
-            filePath: path.resolve(SEED_MEDIA_DIR, file.plik),
-            ...local,
-          })
-        ).id
-    imageIds.set(file.plik, id)
-  }
+  const wantedGallery = galleryFilesToImport(catalog.produkty, gallery.pliki, galleryLimit)
+  if (galleryLimit !== null) log(`gallery limited to ${galleryLimit} photos per product`)
+  await mapConcurrent(
+    gallery.pliki.filter((file) => wantedGallery.has(file.plik)),
+    GALLERY_UPLOADS_AT_ONCE,
+    async (file) => {
+      const name = galleryFileName(file.plik)
+      const existing = storedMedia.find((doc) => isImportedFileName(doc.filename, name))
+      count('media (katalog v2)', !existing)
+      const id = existing
+        ? existing.id
+        : (
+            await payload.create({
+              collection: 'media',
+              data: { ...galleryMediaData(file, catalog.produkty), tenant: tenant.id },
+              filePath: path.resolve(SEED_MEDIA_DIR, file.plik),
+              ...local,
+            })
+          ).id
+      imageIds.set(file.plik, id)
+    },
+  )
 
   // --- brands: shared `Partners`, shown on the Biznes site; a brand without a logo has no file ---
   const brandIds = new Map<string, number>()
@@ -248,12 +260,18 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
 
   // --- products, published; found by the short id or a sheet id, updated only on change ---
   for (const product of catalog.produkty) {
-    const data = productData(product, catalog, media.pliki, {
-      brand: (name) => brandIds.get(name),
-      category: (slug) => categoryIds.get(slug),
-      industry: (slug) => industryIds.get(slug),
-      image: (file) => imageIds.get(file),
-    })
+    const data = productData(
+      product,
+      catalog,
+      media.pliki,
+      {
+        brand: (name) => brandIds.get(name),
+        category: (slug) => categoryIds.get(slug),
+        industry: (slug) => industryIds.get(slug),
+        image: (file) => imageIds.get(file),
+      },
+      galleryLimit,
+    )
     const { docs: found } = await payload.find({
       collection: 'products',
       where: inTenant({ legacyIds: { in: productLegacyIds(product) } }),

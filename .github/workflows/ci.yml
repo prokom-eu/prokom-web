@@ -22,6 +22,42 @@ env:
   NEXT_TELEMETRY_DISABLED: '1'
 
 jobs:
+  # Does the PR touch anything besides documentation? A docs-only PR skips build · e2e; pushes to
+  # develop/main always run everything. `docs/design/` is not documentation here: the seed reads
+  # its images. `seed/prokomsoftware/` is not read by code until SW3 — remove it from DOCS_ONLY
+  # then (docs/zadania/prokomsoftware.md, SW3).
+  changes:
+    name: changes
+    runs-on: ubuntu-24.04
+    timeout-minutes: 2
+    outputs:
+      code: ${{ steps.diff.outputs.code }}
+    steps:
+      # The PR's merge commit and its first parent (the current base) are enough for the diff.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 2
+
+      - id: diff
+        env:
+          DOCS_ONLY: '^(docs/|\.claude/|seed/prokomsoftware/)|\.md$'
+          ALWAYS_CODE: '^docs/design/'
+        run: |
+          if [ "${{ github.event_name }}" != "pull_request" ]; then
+            echo "code=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          # --no-renames: a file moved from src/ to docs/ also lists its old path.
+          files=$(git diff --no-renames --name-only HEAD^1 HEAD)
+          echo "$files"
+          if [ -n "$files" ] && ! echo "$files" | grep -Ev "$DOCS_ONLY" >/dev/null \
+            && ! echo "$files" | grep -E "$ALWAYS_CODE" >/dev/null; then
+            echo "Only documentation changed: build · e2e skipped."
+            echo "code=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "code=true" >> "$GITHUB_OUTPUT"
+          fi
+
   # Fast feedback (~1.5 min): most mistakes show up here, next to the slower e2e job.
   checks:
     name: lint · typecheck · test
@@ -73,6 +109,8 @@ jobs:
 
   e2e:
     name: build · e2e
+    needs: changes
+    if: needs.changes.outputs.code == 'true'
     runs-on: ubuntu-24.04
     timeout-minutes: 25
 
@@ -105,6 +143,8 @@ jobs:
       SMTP_HOST: 127.0.0.1
       SMTP_PORT: '1025'
       MAIL_FROM_ADDRESS: formularz@example.test
+      # At most 2 gallery photos per product (384 of 567): e2e needs the first, B6 thumbnails a second.
+      SEED_GALLERY_LIMIT: '2'
 
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -163,11 +203,38 @@ jobs:
 
       - name: Install Playwright (Chromium only)
         if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: pnpm exec playwright install --with-deps chromium
+        run: pnpm exec playwright install chromium
+
+      # System libraries for Chromium come from apt. The Ubuntu mirror is sometimes very slow
+      # (8–12 min instead of ~12 s), so the downloaded .deb files are cached: apt keeps them in
+      # ~/apt-archives (its own directory, so the runner's clean-up does not delete them) and
+      # installs from disk next time. Killing a slow apt does not help — it keeps the dpkg lock.
+      - id: apt-cache
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/apt-archives
+          key: apt-playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: apt-playwright-${{ runner.os }}-
 
       - name: Install Playwright system dependencies
-        if: steps.playwright-cache.outputs.cache-hit == 'true'
-        run: pnpm exec playwright install-deps chromium
+        timeout-minutes: 15
+        run: |
+          mkdir -p ~/apt-archives/partial
+          printf '%s\n' \
+            "Dir::Cache::Archives \"$HOME/apt-archives\";" \
+            'APT::Keep-Downloaded-Packages "true";' \
+            'Acquire::Retries "3";' \
+            | sudo tee /etc/apt/apt.conf.d/99ci >/dev/null
+          pnpm exec playwright install-deps chromium
+          # apt wrote the files as root; the cache step reads them as the runner user.
+          sudo rm -rf ~/apt-archives/partial ~/apt-archives/lock
+          sudo chown -R "$(id -u):$(id -g)" ~/apt-archives
+
+      - if: steps.apt-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/apt-archives
+          key: apt-playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
 
       # On the build above (`pnpm start`, playwright.config.ts): no route compiling on first visit.
       - name: E2E tests
