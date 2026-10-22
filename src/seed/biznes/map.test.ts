@@ -11,6 +11,7 @@ import {
   CATEGORY_SLUGS,
   categoryData,
   galleryFileName,
+  galleryFilesToImport,
   galleryMediaData,
   hasSameValues,
   groupData,
@@ -312,6 +313,32 @@ describe('productUpdateData (fields a person sets only move forward)', () => {
     // A service without a gallery keeps its design file.
     expect(productImageFiles(product('ksef'), files)).toContain('p-ksef.webp')
     expect(productImageFiles(product('opieka'), files)).toEqual([])
+  })
+
+  it('keeps only the first photos of a gallery with a limit (SEED_GALLERY_LIMIT in CI)', () => {
+    const product = (slug: string) => catalog.produkty.find((p) => p.slug === slug)!
+    expect(productImageFiles(product('tp'), files, 1)).toEqual(['produkty/tp/tp-01.webp'])
+    expect(productImageFiles(product('tp'), files, 2)).toHaveLength(2)
+    // Design files of a service are not a gallery: the limit does not touch them.
+    expect(productImageFiles(product('ksef'), files, 1)).toContain('p-ksef.webp')
+  })
+})
+
+describe('galleryFilesToImport', () => {
+  const all = new Set(gallery.pliki.map((file) => file.plik))
+
+  it('without a limit imports every gallery photo', () => {
+    expect(galleryFilesToImport(catalog.produkty, gallery.pliki, null)).toEqual(all)
+  })
+
+  it('with a limit imports at most that many photos per product, always the card photo', () => {
+    const wanted = galleryFilesToImport(catalog.produkty, gallery.pliki, 2)
+    expect(wanted.size).toBeLessThan(all.size)
+    for (const product of catalog.produkty) {
+      const kept = (product.galeria ?? []).filter((file) => wanted.has(file))
+      expect(kept).toEqual([...new Set(product.galeria ?? [])].slice(0, 2))
+    }
+    for (const file of wanted) expect(all.has(file)).toBe(true)
   })
 })
 

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { assertSeedAllowed, parseSeedEnv } from './config'
+import { assertSeedAllowed, parseGalleryLimit, parseSeedEnv } from './config'
 
 describe('assertSeedAllowed', () => {
   it('blocks seeding in production', () => {
@@ -36,5 +36,20 @@ describe('parseSeedEnv', () => {
     expect(message).toMatch(/SEED_ADMIN_PASSWORD/)
     expect(message).not.toContain(secret)
     expect(message).not.toContain('not-an-email')
+  })
+})
+
+describe('parseGalleryLimit', () => {
+  it('imports the whole gallery when the variable is unset or empty', () => {
+    expect(parseGalleryLimit(undefined)).toBeNull()
+    expect(parseGalleryLimit('')).toBeNull()
+  })
+
+  it('reads a positive whole number', () => {
+    expect(parseGalleryLimit('2')).toBe(2)
+  })
+
+  it.each(['0', '-1', '1.5', 'dwa'])('rejects %s, naming only the variable', (value) => {
+    expect(() => parseGalleryLimit(value)).toThrow(/SEED_GALLERY_LIMIT/)
   })
 })

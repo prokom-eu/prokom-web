@@ -30,3 +30,17 @@ export function parseSeedEnv(source: Record<string, string | undefined>): SeedCo
     adminPassword: result.data.SEED_ADMIN_PASSWORD,
   }
 }
+
+/**
+ * `SEED_GALLERY_LIMIT`: at most this many katalog v2 gallery photos per product (CI sets 2 —
+ * every photo is resized three times, which is most of the seed's time). Unset = whole gallery.
+ */
+export function parseGalleryLimit(value: string | undefined): number | null {
+  if (value === undefined || value === '') return null
+  if (!/^[1-9]\d*$/.test(value)) {
+    throw new Error(
+      'Invalid seed variable SEED_GALLERY_LIMIT: a whole number from 1 (see .env.example).',
+    )
+  }
+  return Number(value)
+}

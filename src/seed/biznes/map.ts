@@ -241,9 +241,24 @@ function ref(lookup: (key: string) => number | undefined, key: string, what: str
  * card photo). A product without a gallery (services) keeps the design files: its `zdjecie`,
  * then other product files keyed by the short id (e.g. the second Stormshield photo).
  */
-export function productImageFiles(product: SeedProduct, files: SeedMediaFile[]): string[] {
-  if (product.galeria?.length) return [...new Set(product.galeria)]
+export function productImageFiles(
+  product: SeedProduct,
+  files: SeedMediaFile[],
+  galleryLimit: number | null = null,
+): string[] {
+  if (product.galeria?.length)
+    return [...new Set(product.galeria)].slice(0, galleryLimit ?? undefined)
   return designImageFiles(product, files)
+}
+
+/** Gallery photos the seed imports: every one, or the first `limit` of each product (CI). */
+export function galleryFilesToImport(
+  products: Pick<SeedProduct, 'galeria'>[],
+  galleryFiles: { plik: string }[],
+  limit: number | null,
+): Set<string> {
+  if (limit === null) return new Set(galleryFiles.map((file) => file.plik))
+  return new Set(products.flatMap((product) => [...new Set(product.galeria ?? [])].slice(0, limit)))
 }
 
 /** Files of the design package (`media.json`) that belong to a product. */
@@ -259,6 +274,7 @@ export function productData(
   catalog: Pick<SeedCatalog, 'kolejnosc_wyroznionych'>,
   files: SeedMediaFile[],
   refs: ProductRefs,
+  galleryLimit: number | null = null,
 ) {
   // Every key, empty ones as null: an update clears parameters the package dropped.
   const comparison = Object.fromEntries([
@@ -269,7 +285,9 @@ export function productData(
   ])
   const featuredIndex = catalog.kolejnosc_wyroznionych.indexOf(product.slug)
   const featured = Boolean(product.wyrozniony_na_glownej)
-  const images = productImageFiles(product, files).map((file) => ref(refs.image, file, 'image'))
+  const images = productImageFiles(product, files, galleryLimit).map((file) =>
+    ref(refs.image, file, 'image'),
+  )
   const sources = product.zrodla
   // Seed-owned fields are always written (null = none), so an update clears what the package
   // dropped. Panel-only fields (description, specs, hotspots, FAQ…) are not in this object.
