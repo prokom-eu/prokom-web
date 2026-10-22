@@ -9,9 +9,10 @@ type Props = {
   className?: string
   /**
    * `icon`: square "+ / ✓" (search results, suggestions);
-   * `label`: "+ Do zapytania" / "✓ W zapytaniu" of the catalog cards (spec. §5.3).
+   * `label`: "+ Do zapytania" / "✓ W zapytaniu" of the catalog cards (spec. §5.3);
+   * `primary`: the big switch of the product box, "Dodaj do zapytania" / "✓ Na liście" (§6.2).
    */
-  variant?: 'icon' | 'label'
+  variant?: 'icon' | 'label' | 'primary'
   /** After the switch, e.g. to move focus when this button leaves the page. */
   onToggle?: () => void
 }
@@ -40,6 +41,28 @@ export function AddToCartButton({ slug, name, className, variant = 'icon', onTog
   const toggle = () => {
     cartActions.toggle(slug, name)
     onToggle?.()
+  }
+
+  if (variant === 'primary') {
+    const label = on ? 'Na liście' : 'Dodaj do zapytania'
+    return (
+      <button
+        type="button"
+        aria-pressed={on}
+        aria-label={`${label}: ${name}`}
+        onClick={toggle}
+        className={cx(
+          'inline-flex min-h-[52px] items-center justify-center gap-2 rounded-2xl px-5 font-display text-base font-extrabold transition-colors font-stretch-106%',
+          on
+            ? 'bg-surface-2 text-ok-text shadow-[inset_0_0_0_1px_var(--border)] hover:text-warn'
+            : 'bg-accent-text text-accent-ink hover:bg-ink hover:text-surface',
+          className,
+        )}
+      >
+        <Mark on={on} size={18} stroke={2.6} />
+        {label}
+      </button>
+    )
   }
 
   if (variant === 'label') {
