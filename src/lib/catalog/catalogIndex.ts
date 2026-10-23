@@ -66,7 +66,14 @@ export type CatalogIndex = {
   /** Only categories with published products (rozstrzygnięcie 7); `count` = such products. */
   categories: { slug: string; name: string; group: string; icon?: IconName; count: number }[]
   /** Only groups with a listed category. */
-  groups: { slug: string; name: string; icon: IconName; gradient: [string, string] }[]
+  groups: {
+    slug: string
+    name: string
+    icon: IconName
+    gradient: [string, string]
+    /** Short list of what the department sells (home page wheel and cards). */
+    description?: string
+  }[]
   industries: { slug: string; name: string; active: boolean }[]
   /** Published pages of the site but home (the special pages: `/opieka-it`, `/gopos`, …). */
   pages: { slug: string; title: string }[]
@@ -240,6 +247,7 @@ export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
         name: group.name,
         icon: group.icon,
         gradient: [group.gradientFrom, group.gradientTo],
+        ...(optional(group.description) ? { description: optional(group.description) } : {}),
       })),
     industries: source.industries.map((industry) => ({
       slug: industry.slug,

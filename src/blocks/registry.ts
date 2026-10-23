@@ -2,6 +2,8 @@ import type { Block, BlocksField, PayloadRequest } from 'payload'
 
 import { tenantIdOf } from '../lib/tenant/id'
 import { isLine, type Line } from '../lib/tenant/lines'
+import { BzHeroBlock } from '../sites/biznes/blocks/BzHero/config'
+import { BzNeedsBlock } from '../sites/biznes/blocks/BzNeeds/config'
 import { CallToActionBlock } from './CallToAction/config'
 import { ContactBlock } from './Contact/config'
 import { FaqBlock } from './Faq/config'
@@ -11,11 +13,8 @@ import { PartnersBlock } from './Partners/config'
 import { RichTextBlock } from './RichText/config'
 import { ServiceGridBlock } from './ServiceGrid/config'
 
-/**
- * Every block a page may contain (ADR-010). A block of one line only lives in
- * `src/sites/<line>/blocks/` and is listed here too. Each block means new tables → migration.
- */
-export const ALL_BLOCKS: Block[] = [
+/** Blocks every line may use (S5); each line gives them its own look where needed. */
+export const GENERIC_BLOCKS: Block[] = [
   HeroBlock,
   RichTextBlock,
   ServiceGridBlock,
@@ -26,16 +25,30 @@ export const ALL_BLOCKS: Block[] = [
   InquiryFormBlock,
 ]
 
-export const BLOCK_SLUGS: readonly string[] = ALL_BLOCKS.map((block) => block.slug)
+/** Sections of the Biznes home page (B7, spec. §4) — `src/sites/biznes/blocks/`. */
+export const BIZNES_BLOCKS: Block[] = [BzHeroBlock, BzNeedsBlock]
+
+/**
+ * Every block a page may contain (ADR-010). A block of one line only lives in
+ * `src/sites/<line>/blocks/` and is listed here too. Each block means new tables → migration;
+ * new blocks go at the end, so the existing tables keep their names.
+ */
+export const ALL_BLOCKS: Block[] = [...GENERIC_BLOCKS, ...BIZNES_BLOCKS]
+
+const slugsOf = (blocks: Block[]): readonly string[] => blocks.map((block) => block.slug)
+
+export const GENERIC_BLOCK_SLUGS = slugsOf(GENERIC_BLOCKS)
+export const BIZNES_BLOCK_SLUGS = slugsOf(BIZNES_BLOCKS)
+export const BLOCK_SLUGS = slugsOf(ALL_BLOCKS)
 
 export type AllowedBlocks = Readonly<Record<Line, readonly string[]>>
 
-/** Blocks allowed per line. At the start (S5) every line has all generic blocks. */
+/** Blocks allowed per line: the generic ones everywhere, a line's own only on that line. */
 export const ALLOWED_BLOCKS: AllowedBlocks = {
-  prokom: BLOCK_SLUGS,
-  biznes: BLOCK_SLUGS,
-  instalacje: BLOCK_SLUGS,
-  software: BLOCK_SLUGS,
+  prokom: GENERIC_BLOCK_SLUGS,
+  biznes: [...GENERIC_BLOCK_SLUGS, ...BIZNES_BLOCK_SLUGS],
+  instalacje: GENERIC_BLOCK_SLUGS,
+  software: GENERIC_BLOCK_SLUGS,
 }
 
 export function allowedBlockSlugs(

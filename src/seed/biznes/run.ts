@@ -30,6 +30,7 @@ import {
   type SeedCatalog,
 } from './map'
 import { FOOTER_LEGAL_LINKS, FOOTER_TEXT, footerData } from './footer'
+import { seedBiznesHome } from './home'
 import { navigationData } from './navigation'
 
 /** Files of the design package, relative to the repo root (where `pnpm seed` runs). */
@@ -400,6 +401,11 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
       })
     }
   }
+
+  // --- home page (B7): sections, group descriptions, the hero's [SZEF] settings ---
+  await seedBiznesHome(payload, tenant.id, groupIds, (name, changed) =>
+    count(name, changed ? 'updated' : false),
+  )
 
   for (const [collection, { created, updated, skipped }] of Object.entries(counters)) {
     log(`${collection}: ${created} created, ${updated} updated, ${skipped} unchanged.`)

@@ -3,10 +3,11 @@ import { expect, test } from '@playwright/test'
 import { site } from './helpers'
 
 // Matches src/seed/tenants.ts (run `pnpm seed` before the e2e tests).
+// The Biznes home page has its own hero (B7, `seedBiznesHome`); the others the sample one.
 const TENANTS = [
-  { host: 'biznes.localhost', name: 'PRO-KOM Biznes' },
-  { host: 'instalacje.localhost', name: 'PRO-KOM Instalacje' },
-  { host: 'software.localhost', name: 'PRO-KOM Software' },
+  { host: 'biznes.localhost', name: 'PRO-KOM Biznes', h1: /^Kasy, komputery i opieka IT\./ },
+  { host: 'instalacje.localhost', name: 'PRO-KOM Instalacje', h1: 'PRO-KOM Instalacje' },
+  { host: 'software.localhost', name: 'PRO-KOM Software', h1: 'PRO-KOM Software' },
 ]
 
 test.describe('tenant isolation', () => {
@@ -14,7 +15,7 @@ test.describe('tenant isolation', () => {
     test(`${tenant.host} shows only its own tenant`, async ({ page }) => {
       const response = await page.goto(site(tenant.host))
       expect(response?.status()).toBe(200)
-      await expect(page.locator('h1')).toHaveText(tenant.name)
+      await expect(page.locator('h1')).toHaveText(tenant.h1)
       await expect(page).toHaveTitle(tenant.name)
 
       const html = await page.content()

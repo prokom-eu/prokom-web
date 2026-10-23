@@ -43,6 +43,20 @@
   --color-promo: var(--promo);
   --color-promo-ink: var(--promo-ink);
   --color-white: var(--c-white);
+  --color-h1-accent: var(--h1-accent);
+  /* Biznes only (need tiles of the home page); undefined elsewhere. */
+  --color-tone-green: var(--tone-green);
+  --color-tone-green-2: var(--tone-green-2);
+  --color-tone-red: var(--tone-red);
+  --color-tone-red-2: var(--tone-red-2);
+  --color-tone-blue: var(--tone-blue);
+  --color-tone-blue-2: var(--tone-blue-2);
+  --color-tone-violet: var(--tone-violet);
+  --color-tone-violet-2: var(--tone-violet-2);
+  --color-tone-green-tag: var(--tone-green-tag);
+  --color-tone-red-tag: var(--tone-red-tag);
+  --color-tone-blue-tag: var(--tone-blue-tag);
+  --color-tone-violet-tag: var(--tone-violet-tag);
 
   --font-*: initial;
   /* Subset chains (see fonts.ts): basic Latin first, then Polish and other Latin letters. */
@@ -51,6 +65,17 @@
 
   /* Raised cards of Software's visualisation (`shadow-raised`); no shadow on other lines. */
   --shadow-raised: var(--shadow);
+}
+
+/* Brand marquee of the Biznes home page (`BrandMarquee`): the list is rendered twice. */
+@theme {
+  --animate-marquee: marquee 50s linear infinite;
+
+  @keyframes marquee {
+    to {
+      translate: -50% 0;
+    }
+  }
 }
 
 @layer base {

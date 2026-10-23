@@ -132,7 +132,11 @@ const biznesGroup: Field = {
           name: 'callbackTime',
           label: 'Czas oddzwonienia',
           type: 'text',
-          admin: { placeholder: 'np. Oddzwonimy w 60 minut' },
+          admin: {
+            placeholder: 'np. Oddzwaniamy w ciągu 60 minut',
+            description:
+              'Krótko, bez „w godzinach pracy” — strona główna dopisuje to sama, w katalogu to tytuł kroku.',
+          },
         },
         text('itReview', 'Przegląd IT'),
         text('includedWithRegister', 'W cenie kasy'),
