@@ -26,6 +26,7 @@ test.describe('Biznes home page', () => {
   })
 
   test('the department wheel shows the picked department with its count', async ({ page }) => {
+    await page.clock.install()
     await page.goto(site('biznes.localhost'))
     const departments = page.getByRole('list', { name: 'Działy oferty' }).getByRole('button')
     await expect(departments).toHaveCount(5)
@@ -41,7 +42,8 @@ test.describe('Biznes home page', () => {
     await software.click()
     await expect(software).toHaveAttribute('aria-pressed', 'false')
     await expect(core).toContainText('Twoja firma')
-    await page.waitForTimeout(4500)
+    await page.mouse.move(0, 0)
+    await page.clock.runFor(9000)
     await expect(core).toContainText('Twoja firma')
   })
 
@@ -214,5 +216,101 @@ test.describe('Biznes blocks on other lines', () => {
     const created = result.json.doc as { id?: number } | undefined
     if (created?.id) await api(page, 'DELETE', `/api/pages/${created.id}`)
     expect(result.status).toBe(400)
+  })
+})
+
+// B7c: „Plan Twojej firmy”, „Jak pracujemy”, „Pięć firm czy jedna” (spec. §4 pkt 6–8).
+test.describe('Biznes home page: plan, steps, one partner', () => {
+  test('plan: tabs switch the scene, from the keyboard too', async ({ page }) => {
+    await page.goto(site('biznes.localhost'))
+    const plan = page.locator('#plan')
+    const tabs = plan.getByRole('tab')
+    await expect(tabs).toHaveCount(8)
+    await expect(tabs.first()).toHaveAttribute('aria-selected', 'true')
+    const panel = plan.getByRole('tabpanel')
+    await expect(panel.getByRole('heading', { level: 3 })).toHaveText('Sklep spożywczy')
+    await expect(panel.getByRole('listitem')).toHaveCount(12)
+
+    await tabs.nth(1).click()
+    await expect(panel.getByRole('heading', { level: 3 })).toHaveText('Restauracja')
+    await page.keyboard.press('ArrowRight')
+    await expect(tabs.nth(2)).toBeFocused()
+    await expect(tabs.nth(2)).toHaveAttribute('aria-selected', 'true')
+    await expect(
+      panel.getByRole('link', { name: 'Przygotuj zapytanie: Pensjonat' }),
+    ).toHaveAttribute('href', '/kreator')
+  })
+
+  test('industries: nine tiles, the rest unfolds in place', async ({ page }) => {
+    await page.goto(site('biznes.localhost'))
+    const grid = page.locator('#plan').getByRole('list').filter({ hasText: 'Sklep spożywczy' })
+    const tiles = grid.getByRole('link')
+    await expect(tiles).toHaveCount(9)
+    await expect(tiles.filter({ hasText: 'Gmina, urząd, biblioteka' })).toBeVisible()
+    await expect(tiles.filter({ hasText: 'Restauracja, bar, kawiarnia' })).toHaveAttribute(
+      'href',
+      '/branze/gastronomia',
+    )
+    await grid.getByRole('button', { name: /Pokaż wszystkie branże/ }).click()
+    await expect(tiles).toHaveCount(20)
+    // First of the rest in the order of ZMIANY-v20 §2.4.
+    await expect(tiles.filter({ hasText: 'Stragan, handel obwoźny' })).toBeFocused()
+    await expect(tiles.filter({ hasText: 'Każda inna firma' })).toHaveAttribute('href', '/kreator')
+  })
+
+  test('steps and guarantees', async ({ page }) => {
+    await page.goto(site('biznes.localhost'))
+    const steps = page.locator('#jak-pracujemy')
+    await expect(steps.getByRole('heading', { level: 3 })).toHaveText([
+      'Krok 1: Rozmowa',
+      'Krok 2: Oferta',
+      'Krok 3: Wdrożenie',
+      'Krok 4: Opieka',
+    ])
+    await expect(steps).toContainText('Wycena bez zobowiązań')
+  })
+
+  test('one partner: the switch changes rows and phone, and stops switching by itself', async ({
+    page,
+  }) => {
+    // A fake clock instead of waiting 6.5 s for real (Playwright `page.clock`).
+    await page.clock.install()
+    await page.goto(site('biznes.localhost'))
+    const section = page.locator('#jeden')
+    const one = section.getByRole('button', { name: 'Jeden partner: PRO-KOM' })
+    const separate = section.getByRole('button', { name: 'Osobne firmy' })
+    // Untouched, it flips by itself.
+    await expect(separate).toHaveAttribute('aria-pressed', 'true')
+    await page.clock.runFor(7000)
+    await expect(one).toHaveAttribute('aria-pressed', 'true')
+
+    await separate.click()
+    await expect(separate).toHaveAttribute('aria-pressed', 'true')
+    await expect(section).toContainText('Serwis drukarek')
+    await one.click()
+    await expect(one).toHaveAttribute('aria-pressed', 'true')
+    await expect(section).toContainText('Pilnujemy za Ciebie')
+    await expect(section).toContainText('Jeden telefon. Sprawdzamy całość')
+    // After a click it stays where the visitor put it.
+    await page.mouse.move(0, 0)
+    await page.clock.runFor(14000)
+    await expect(one).toHaveAttribute('aria-pressed', 'true')
+    // Short version (ZMIANY-v20 §2.5): no 6 → 1 bar.
+    await expect(section).not.toContainText('Firmy do koordynowania')
+  })
+
+  test.describe('on a phone', () => {
+    test.use({ viewport: { width: 390, height: 844 } })
+
+    test('five industries and the unfold tile, rows as titles only', async ({ page }) => {
+      await page.goto(site('biznes.localhost'))
+      const grid = page.locator('#plan').getByRole('list').filter({ hasText: 'Sklep spożywczy' })
+      await expect(grid.getByRole('link').filter({ visible: true })).toHaveCount(5)
+      await expect(grid.getByRole('button', { name: /Pokaż wszystkie branże/ })).toBeVisible()
+      await expect(
+        page.locator('#jeden').getByText('Jeden telefon. Sprawdzamy całość'),
+      ).toBeHidden()
+      expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390)
+    })
   })
 })

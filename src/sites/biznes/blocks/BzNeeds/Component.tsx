@@ -5,6 +5,7 @@ import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
 import type { BzNeedsBlock as BzNeedsBlockData } from '@/payload-types'
 
+import { TONE_ICON } from '../../components/home/tones'
 import { DaysUntil } from './DaysUntil'
 
 type Tone = BzNeedsBlockData['items'][number]['tone']
@@ -12,22 +13,22 @@ type Tone = BzNeedsBlockData['items'][number]['tone']
 // Whole class names, so Tailwind finds them (tokens: `--tone-*`, Biznes only).
 const TONE: Record<Tone, { icon: string; tag: string; arrow: string }> = {
   green: {
-    icon: 'from-tone-green to-tone-green-2 shadow-[0_12px_22px_-10px_var(--tone-green)]',
+    icon: TONE_ICON.green,
     tag: 'bg-tone-green-tag',
     arrow: 'group-hover/need:bg-tone-green',
   },
   red: {
-    icon: 'from-tone-red to-tone-red-2 shadow-[0_12px_22px_-10px_var(--tone-red)]',
+    icon: TONE_ICON.red,
     tag: 'bg-tone-red-tag',
     arrow: 'group-hover/need:bg-tone-red',
   },
   blue: {
-    icon: 'from-tone-blue to-tone-blue-2 shadow-[0_12px_22px_-10px_var(--tone-blue)]',
+    icon: TONE_ICON.blue,
     tag: 'bg-tone-blue-tag',
     arrow: 'group-hover/need:bg-tone-blue',
   },
   violet: {
-    icon: 'from-tone-violet to-tone-violet-2 shadow-[0_12px_22px_-10px_var(--tone-violet)]',
+    icon: TONE_ICON.violet,
     tag: 'bg-tone-violet-tag',
     arrow: 'group-hover/need:bg-tone-violet',
   },

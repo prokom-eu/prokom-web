@@ -3,6 +3,7 @@ import type { Payload } from 'payload'
 import type { ShowcaseStatus } from '../../lib/catalog/catalogIndex'
 import { HOME_SLUG } from '../../lib/pages/slug'
 import type { Page } from '../../payload-types'
+import { planBlocks } from './homePlan'
 
 /**
  * Start content of the Biznes home page (B7, spec. §4 v20). Texts 1:1 from
@@ -16,9 +17,15 @@ type HomeBlock = NonNullable<Page['layout']>[number]
 export type HomeRefs = {
   image: (file: string) => number | undefined
   brand: (name: string) => number | undefined
+  /** By the industry's slug in the seed package (`gastro`, `handel`, …). */
+  industry: (seedSlug: string) => number | undefined
 }
 
-const NO_REFS: HomeRefs = { image: () => undefined, brand: () => undefined }
+const NO_REFS: HomeRefs = {
+  image: () => undefined,
+  brand: () => undefined,
+  industry: () => undefined,
+}
 
 /**
  * Top of the department cards (`CatalogGroups.showcase`, ZMIANY-v20 §2.2): product pictures of
@@ -189,6 +196,7 @@ export function biznesHomeLayout(refs: HomeRefs = NO_REFS): HomeBlock[] {
         summary: 'GoPOS · Sunmi D3 PRO · Posnet HX · terminal · Wi-Fi',
       },
     },
+    ...planBlocks(refs.industry),
   ]
 }
 

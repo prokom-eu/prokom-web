@@ -574,6 +574,9 @@ export interface Page {
         | BzNeedsBlock
         | BzOfferBlock
         | BzFeaturedBlock
+        | BzPlanBlock
+        | BzStepsBlock
+        | BzOnePartnerBlock
       )[]
     | null;
   seo?: {
@@ -957,82 +960,193 @@ export interface BzFeaturedBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "redirects".
+ * via the `definition` "BzPlanBlock".
  */
-export interface Redirect {
-  id: number;
-  tenant?: (number | null) | Tenant;
+export interface BzPlanBlock {
+  eyebrow?: string | null;
   /**
-   * Ścieżka, z której przekierować, np. /oferta/kasy.html.
+   * Sekcja ma kotwicę #plan — ten blok wstaw na stronie tylko raz.
    */
-  from: string;
-  to: string;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * Zapytania z formularzy stron. Zmieniasz tylko status.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "inquiries".
- */
-export interface Inquiry {
-  id: number;
-  tenant?: (number | null) | Tenant;
-  status: 'new' | 'in_progress' | 'closed';
+  heading: string;
+  lead?: string | null;
   /**
-   * Np. PKB-2026-0042.
+   * Np. „z jednej ręki · rzut poglądowy” — liczba dochodzi sama.
    */
-  number?: string | null;
-  /**
-   * Od tej daty liczy się okres przechowywania zamkniętych zapytań.
-   */
-  statusChangedAt?: string | null;
-  line: 'prokom' | 'biznes' | 'instalacje' | 'software';
-  type: 'contact' | 'list' | 'wizard' | 'search';
-  category?: string | null;
-  name: string;
-  company?: string | null;
-  nip?: string | null;
-  email?: string | null;
-  phone?: string | null;
-  message: string;
-  preferredContact?: ('phone' | 'email' | 'any') | null;
-  topics?: string[] | null;
-  /**
-   * Np. „Przed sezonem”.
-   */
-  deadline?: string | null;
-  items?:
+  sceneNote?: string | null;
+  moreLabel?: string | null;
+  inquiryLabel?: string | null;
+  scenes: {
+    tab: string;
+    icon:
+      | 'shield'
+      | 'cal'
+      | 'users'
+      | 'store'
+      | 'bolt'
+      | 'doc'
+      | 'life'
+      | 'arrow'
+      | 'check'
+      | 'phone'
+      | 'mail'
+      | 'pin'
+      | 'clock'
+      | 'monitor'
+      | 'remote'
+      | 'bell'
+      | 'wallet'
+      | 'chat'
+      | 'wrench'
+      | 'rocket'
+      | 'map'
+      | 'star'
+      | 'q'
+      | 'flash'
+      | 'grad'
+      | 'server'
+      | 'compass';
+    title: string;
+    lead?: string | null;
+    moreHref?: string | null;
+    inquiryHref: string;
+    points?:
+      | {
+          name: string;
+          note?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    id?: string | null;
+  }[];
+  promises?:
     | {
-        product?: (number | null) | Product;
-        nameSnapshot: string;
-        quantity: number;
-        note?: string | null;
+        title: string;
+        text?: string | null;
         id?: string | null;
       }[]
     | null;
-  wizard?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
+  industries?: {
+    heading?: string | null;
+    lead?: string | null;
+    button?: {
+      label?: string | null;
+      href?: string | null;
+    };
+    moreLabel?: string | null;
+    /**
+     * Np. „jeszcze 10 i każda inna firma”.
+     */
+    moreNote?: string | null;
+    tiles?:
+      | {
+          name: string;
+          note?: string | null;
+          icon:
+            | 'shield'
+            | 'cal'
+            | 'users'
+            | 'store'
+            | 'bolt'
+            | 'doc'
+            | 'life'
+            | 'arrow'
+            | 'check'
+            | 'phone'
+            | 'mail'
+            | 'pin'
+            | 'clock'
+            | 'monitor'
+            | 'remote'
+            | 'bell'
+            | 'wallet'
+            | 'chat'
+            | 'wrench'
+            | 'rocket'
+            | 'map'
+            | 'star'
+            | 'q'
+            | 'flash'
+            | 'grad'
+            | 'server'
+            | 'compass';
+          tone: 'green' | 'red' | 'blue' | 'violet';
+          /**
+           * Na komputerze 9 widocznych, na telefonie pierwsze 5.
+           */
+          visibleFirst?: boolean | null;
+          /**
+           * Pusta = kafel prowadzi do kreatora.
+           */
+          industry?: (number | null) | Industry;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  funding?: {
+    label?: string | null;
+    heading?: string | null;
+    text?: string | null;
+    chips?:
+      | {
+          text: string;
+          id?: string | null;
+        }[]
+      | null;
+    button?: {
+      label?: string | null;
+      href?: string | null;
+    };
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bzPlan';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "industries".
+ */
+export interface Industry {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  name: string;
+  /**
+   * Część adresu, np. „gastronomia”.
+   */
+  slug: string;
+  /**
+   * Nieaktywna branża pokazuje się jako „Wkrótce”.
+   */
+  active?: boolean | null;
+  /**
+   * Przycisk „Przygotuj ofertę” otwiera kreator z tym rodzajem firmy.
+   */
+  wizardBusinessType?:
+    | ('sklep' | 'gastro' | 'hotel' | 'biuro' | 'warsztat' | 'gabinet' | 'szkola' | 'produkcja' | 'truck' | 'inna')
     | null;
-  source: {
-    url: string;
-    utmSource?: string | null;
-    utmMedium?: string | null;
-    utmCampaign?: string | null;
+  hero?: {
+    /**
+     * Puste = nazwa.
+     */
+    title?: string | null;
+    lead?: string | null;
+    image?: (number | null) | Media;
   };
-  consent: {
-    accepted: boolean;
-    clauseVersion: string;
-    acceptedAt: string;
+  featuredProducts?: (number | Product)[] | null;
+  faq?:
+    | {
+        question: string;
+        answer: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Mniejsza liczba = wcześniej.
+   */
+  order?: number | null;
+  seo?: {
+    title?: string | null;
+    description?: string | null;
   };
-  marketingConsent?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1314,50 +1428,239 @@ export interface CatalogCategory {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "industries".
+ * via the `definition` "BzStepsBlock".
  */
-export interface Industry {
-  id: number;
-  tenant?: (number | null) | Tenant;
-  name: string;
+export interface BzStepsBlock {
+  eyebrow?: string | null;
   /**
-   * Część adresu, np. „gastronomia”.
+   * Sekcja ma kotwicę #jak-pracujemy — ten blok wstaw na stronie tylko raz.
    */
-  slug: string;
-  /**
-   * Nieaktywna branża pokazuje się jako „Wkrótce”.
-   */
-  active?: boolean | null;
-  /**
-   * Przycisk „Przygotuj ofertę” otwiera kreator z tym rodzajem firmy.
-   */
-  wizardBusinessType?:
-    | ('sklep' | 'gastro' | 'hotel' | 'biuro' | 'warsztat' | 'gabinet' | 'szkola' | 'produkcja' | 'truck' | 'inna')
-    | null;
-  hero?: {
-    /**
-     * Puste = nazwa.
-     */
-    title?: string | null;
-    lead?: string | null;
-    image?: (number | null) | Media;
-  };
-  featuredProducts?: (number | Product)[] | null;
-  faq?:
+  heading: string;
+  lead?: string | null;
+  getsLabel?: string | null;
+  steps: {
+    title: string;
+    icon:
+      | 'shield'
+      | 'cal'
+      | 'users'
+      | 'store'
+      | 'bolt'
+      | 'doc'
+      | 'life'
+      | 'arrow'
+      | 'check'
+      | 'phone'
+      | 'mail'
+      | 'pin'
+      | 'clock'
+      | 'monitor'
+      | 'remote'
+      | 'bell'
+      | 'wallet'
+      | 'chat'
+      | 'wrench'
+      | 'rocket'
+      | 'map'
+      | 'star'
+      | 'q'
+      | 'flash'
+      | 'grad'
+      | 'server'
+      | 'compass';
+    text: string;
+    gets?: string | null;
+    role?: string | null;
+    roleNote?: string | null;
+    id?: string | null;
+  }[];
+  guarantees?:
     | {
-        question: string;
-        answer: string;
+        text: string;
         id?: string | null;
       }[]
     | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bzSteps';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzOnePartnerBlock".
+ */
+export interface BzOnePartnerBlock {
+  eyebrowA?: string | null;
+  eyebrowB?: string | null;
   /**
-   * Mniejsza liczba = wcześniej.
+   * Sekcja ma kotwicę #jeden — ten blok wstaw na stronie tylko raz.
    */
-  order?: number | null;
-  seo?: {
-    title?: string | null;
-    description?: string | null;
+  heading: string;
+  headingAccent?: string | null;
+  lead?: string | null;
+  separateLabel: string;
+  oneLabel: string;
+  separateTag?: string | null;
+  oneTag?: string | null;
+  rows?:
+    | {
+        label: string;
+        icon:
+          | 'shield'
+          | 'cal'
+          | 'users'
+          | 'store'
+          | 'bolt'
+          | 'doc'
+          | 'life'
+          | 'arrow'
+          | 'check'
+          | 'phone'
+          | 'mail'
+          | 'pin'
+          | 'clock'
+          | 'monitor'
+          | 'remote'
+          | 'bell'
+          | 'wallet'
+          | 'chat'
+          | 'wrench'
+          | 'rocket'
+          | 'map'
+          | 'star'
+          | 'q'
+          | 'flash'
+          | 'grad'
+          | 'server'
+          | 'compass';
+        separate: string;
+        one: string;
+        id?: string | null;
+      }[]
+    | null;
+  cta: {
+    label: string;
+    href: string;
   };
+  phone?: {
+    groupLabel?: string | null;
+    proNote?: string | null;
+    watchLabel?: string | null;
+    contacts?:
+      | {
+          name: string;
+          note?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    chips?:
+      | {
+          text: string;
+          id?: string | null;
+        }[]
+      | null;
+    watch?:
+      | {
+          label: string;
+          value: string;
+          tone: 'ok' | 'accent' | 'warn';
+          id?: string | null;
+        }[]
+      | null;
+  };
+  separateBubbles?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  oneBubbles?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bzOnePartner';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "redirects".
+ */
+export interface Redirect {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  /**
+   * Ścieżka, z której przekierować, np. /oferta/kasy.html.
+   */
+  from: string;
+  to: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Zapytania z formularzy stron. Zmieniasz tylko status.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "inquiries".
+ */
+export interface Inquiry {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  status: 'new' | 'in_progress' | 'closed';
+  /**
+   * Np. PKB-2026-0042.
+   */
+  number?: string | null;
+  /**
+   * Od tej daty liczy się okres przechowywania zamkniętych zapytań.
+   */
+  statusChangedAt?: string | null;
+  line: 'prokom' | 'biznes' | 'instalacje' | 'software';
+  type: 'contact' | 'list' | 'wizard' | 'search';
+  category?: string | null;
+  name: string;
+  company?: string | null;
+  nip?: string | null;
+  email?: string | null;
+  phone?: string | null;
+  message: string;
+  preferredContact?: ('phone' | 'email' | 'any') | null;
+  topics?: string[] | null;
+  /**
+   * Np. „Przed sezonem”.
+   */
+  deadline?: string | null;
+  items?:
+    | {
+        product?: (number | null) | Product;
+        nameSnapshot: string;
+        quantity: number;
+        note?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  wizard?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  source: {
+    url: string;
+    utmSource?: string | null;
+    utmMedium?: string | null;
+    utmCampaign?: string | null;
+  };
+  consent: {
+    accepted: boolean;
+    clauseVersion: string;
+    acceptedAt: string;
+  };
+  marketingConsent?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1886,6 +2189,9 @@ export interface PagesSelect<T extends boolean = true> {
         bzNeeds?: T | BzNeedsBlockSelect<T>;
         bzOffer?: T | BzOfferBlockSelect<T>;
         bzFeatured?: T | BzFeaturedBlockSelect<T>;
+        bzPlan?: T | BzPlanBlockSelect<T>;
+        bzSteps?: T | BzStepsBlockSelect<T>;
+        bzOnePartner?: T | BzOnePartnerBlockSelect<T>;
       };
   seo?:
     | T
@@ -2148,6 +2454,190 @@ export interface BzFeaturedBlockSelect<T extends boolean = true> {
             };
         summaryLabel?: T;
         summary?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzPlanBlock_select".
+ */
+export interface BzPlanBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  lead?: T;
+  sceneNote?: T;
+  moreLabel?: T;
+  inquiryLabel?: T;
+  scenes?:
+    | T
+    | {
+        tab?: T;
+        icon?: T;
+        title?: T;
+        lead?: T;
+        moreHref?: T;
+        inquiryHref?: T;
+        points?:
+          | T
+          | {
+              name?: T;
+              note?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  promises?:
+    | T
+    | {
+        title?: T;
+        text?: T;
+        id?: T;
+      };
+  industries?:
+    | T
+    | {
+        heading?: T;
+        lead?: T;
+        button?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+            };
+        moreLabel?: T;
+        moreNote?: T;
+        tiles?:
+          | T
+          | {
+              name?: T;
+              note?: T;
+              icon?: T;
+              tone?: T;
+              visibleFirst?: T;
+              industry?: T;
+              id?: T;
+            };
+      };
+  funding?:
+    | T
+    | {
+        label?: T;
+        heading?: T;
+        text?: T;
+        chips?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
+        button?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+            };
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzStepsBlock_select".
+ */
+export interface BzStepsBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  lead?: T;
+  getsLabel?: T;
+  steps?:
+    | T
+    | {
+        title?: T;
+        icon?: T;
+        text?: T;
+        gets?: T;
+        role?: T;
+        roleNote?: T;
+        id?: T;
+      };
+  guarantees?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzOnePartnerBlock_select".
+ */
+export interface BzOnePartnerBlockSelect<T extends boolean = true> {
+  eyebrowA?: T;
+  eyebrowB?: T;
+  heading?: T;
+  headingAccent?: T;
+  lead?: T;
+  separateLabel?: T;
+  oneLabel?: T;
+  separateTag?: T;
+  oneTag?: T;
+  rows?:
+    | T
+    | {
+        label?: T;
+        icon?: T;
+        separate?: T;
+        one?: T;
+        id?: T;
+      };
+  cta?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  phone?:
+    | T
+    | {
+        groupLabel?: T;
+        proNote?: T;
+        watchLabel?: T;
+        contacts?:
+          | T
+          | {
+              name?: T;
+              note?: T;
+              id?: T;
+            };
+        chips?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
+        watch?:
+          | T
+          | {
+              label?: T;
+              value?: T;
+              tone?: T;
+              id?: T;
+            };
+      };
+  separateBubbles?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  oneBubbles?:
+    | T
+    | {
+        text?: T;
+        id?: T;
       };
   id?: T;
   blockName?: T;
