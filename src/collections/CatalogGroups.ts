@@ -35,6 +35,16 @@ export const CatalogGroups: CollectionConfig = {
     slugField('catalog-groups', 'sprzedaz'),
     { name: 'icon', label: 'Ikona', type: 'select', required: true, options: ICON_OPTIONS },
     {
+      name: 'description',
+      label: 'Opis',
+      type: 'text',
+      maxLength: 90,
+      admin: {
+        description:
+          'Krótka lista tego, co jest w dziale, np. „kasy, drukarki fiskalne, POS, terminale”. Strona główna: koło działów i karty Oferty.',
+      },
+    },
+    {
       type: 'row',
       fields: [
         gradientStop('gradientFrom', 'Gradient — od'),

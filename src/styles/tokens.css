@@ -74,6 +74,18 @@
   --c-biznes-night-grid: rgba(143, 176, 244, 0.07);
   /* Biznes — dark rhythm blocks, the same in both themes. */
   --c-biznes-navy: #0a1430;
+  /* Need tiles of the home page (icon squares, tags), from boards/Main.dc.html. */
+  --c-biznes-tone-green: #1f9d63;
+  --c-biznes-tone-green-2: #46c78b;
+  --c-biznes-tone-red: #e0482f;
+  --c-biznes-tone-red-2: #f5866a;
+  --c-biznes-tone-blue: #2563eb;
+  --c-biznes-tone-blue-2: #5b8df6;
+  --c-biznes-tone-violet: #7b4fe0;
+  --c-biznes-tone-violet-2: #a98bf5;
+  /* Darker green and red under the white corner tags (≥ 4.5:1; the tile colours give 3.5 and 4.2). */
+  --c-biznes-tone-green-tag: #15724a;
+  --c-biznes-tone-red-tag: #c43a22;
 
   /* Software — values 1:1 from docs/design/prokomsoftware/tokens.css (ADR-015). */
   /* Software — light theme of the visualisation. */
@@ -200,6 +212,8 @@
   --shadow: 0 0 #0000;
   /* Plain accent text where a line has no gradient H1 (text clipped to the background stays visible). */
   --grad-h1: linear-gradient(var(--accent-text), var(--accent-text));
+  /* Accent part of a plain (non-gradient) H1 — Biznes hero (ADR-013, v20). */
+  --h1-accent: var(--accent-text);
 }
 
 [data-line='prokom'] {
@@ -227,6 +241,18 @@
   --border-input: var(--c-biznes-light-ink-3);
   --glow: var(--c-biznes-light-glow);
   --grid: var(--c-biznes-light-grid);
+  --tone-green: var(--c-biznes-tone-green);
+  --tone-green-2: var(--c-biznes-tone-green-2);
+  --tone-red: var(--c-biznes-tone-red);
+  --tone-red-2: var(--c-biznes-tone-red-2);
+  --tone-blue: var(--c-biznes-tone-blue);
+  --tone-blue-2: var(--c-biznes-tone-blue-2);
+  --tone-violet: var(--c-biznes-tone-violet);
+  --tone-violet-2: var(--c-biznes-tone-violet-2);
+  --tone-green-tag: var(--c-biznes-tone-green-tag);
+  --tone-red-tag: var(--c-biznes-tone-red-tag);
+  --tone-blue-tag: var(--c-biznes-tone-blue);
+  --tone-violet-tag: var(--c-biznes-tone-violet);
 }
 
 [data-line='instalacje'] {
@@ -309,6 +335,7 @@
   --ok: var(--c-ok-night);
   --ok-text: var(--c-ok-night);
   --warn: var(--c-warn-night);
+  --h1-accent: var(--c-biznes-night-accent-2);
 }
 
 [data-line='software'][data-theme='dark'] {
@@ -369,6 +396,7 @@
     --ok: var(--c-ok-night);
     --ok-text: var(--c-ok-night);
     --warn: var(--c-warn-night);
+    --h1-accent: var(--c-biznes-night-accent-2);
   }
 
   [data-line='software']:not([data-theme='light']) {

@@ -289,6 +289,9 @@ export interface SiteSetting {
      * Tylko prawdziwe obietnice; pusta = niewidoczna na stronie.
      */
     promises?: {
+      /**
+       * Krótko, bez „w godzinach pracy” — strona główna dopisuje to sama, w katalogu to tytuł kroku.
+       */
       callbackTime?: string | null;
       itReview?: string | null;
       includedWithRegister?: string | null;
@@ -477,6 +480,10 @@ export interface CatalogGroup {
     | 'grad'
     | 'server'
     | 'compass';
+  /**
+   * Krótka lista tego, co jest w dziale, np. „kasy, drukarki fiskalne, POS, terminale”. Strona główna: koło działów i karty Oferty.
+   */
+  description?: string | null;
   gradientFrom: string;
   gradientTo: string;
   /**
@@ -548,6 +555,8 @@ export interface Page {
         | ContactBlock
         | PartnersBlock
         | InquiryFormBlock
+        | BzHeroBlock
+        | BzNeedsBlock
       )[]
     | null;
   seo?: {
@@ -675,6 +684,9 @@ export interface ContactBlock {
  */
 export interface PartnersBlock {
   heading?: string | null;
+  /**
+   * Na Biznesie (pasek marek) to krótka podpowiedź obok nagłówka, np. „Najedź, żeby zatrzymać”.
+   */
   lead?: string | null;
   id?: string | null;
   blockName?: string | null;
@@ -697,6 +709,129 @@ export interface InquiryFormBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'inquiryForm';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzHeroBlock".
+ */
+export interface BzHeroBlock {
+  pill?: string | null;
+  heading: string;
+  headingAccent?: string | null;
+  lead?: string | null;
+  cta: {
+    label: string;
+    href: string;
+  };
+  /**
+   * Numer z Ustawień strony.
+   */
+  showPhone?: boolean | null;
+  /**
+   * Pierwszy punkt to zawsze „Linia zaufania” z Ustawień strony (Biznes), gdy jest wpisana.
+   */
+  trustItems?:
+    | {
+        icon:
+          | 'shield'
+          | 'cal'
+          | 'users'
+          | 'store'
+          | 'bolt'
+          | 'doc'
+          | 'life'
+          | 'arrow'
+          | 'check'
+          | 'phone'
+          | 'mail'
+          | 'pin'
+          | 'clock'
+          | 'monitor'
+          | 'remote'
+          | 'bell'
+          | 'wallet'
+          | 'chat'
+          | 'wrench'
+          | 'rocket'
+          | 'map'
+          | 'star'
+          | 'q'
+          | 'flash'
+          | 'grad'
+          | 'server'
+          | 'compass';
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  wheelHint?: string | null;
+  /**
+   * Prowadzi do sekcji „Plan Twojej firmy” na tej stronie.
+   */
+  planLinkLabel?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bzHero';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzNeedsBlock".
+ */
+export interface BzNeedsBlock {
+  items: {
+    title: string;
+    icon:
+      | 'shield'
+      | 'cal'
+      | 'users'
+      | 'store'
+      | 'bolt'
+      | 'doc'
+      | 'life'
+      | 'arrow'
+      | 'check'
+      | 'phone'
+      | 'mail'
+      | 'pin'
+      | 'clock'
+      | 'monitor'
+      | 'remote'
+      | 'bell'
+      | 'wallet'
+      | 'chat'
+      | 'wrench'
+      | 'rocket'
+      | 'map'
+      | 'star'
+      | 'q'
+      | 'flash'
+      | 'grad'
+      | 'server'
+      | 'compass';
+    tone: 'green' | 'red' | 'blue' | 'violet';
+    text: string;
+    href: string;
+    /**
+     * Np. „0 zł przegląd”. Pusty = strzałka.
+     */
+    tag?: string | null;
+    /**
+     * Do tego dnia zamiast znacznika jest „N dni” (liczone w przeglądarce); potem wraca znacznik albo strzałka.
+     */
+    countdownTo?: string | null;
+    badges?:
+      | {
+          value: string;
+          text: string;
+          tone: 'promo' | 'accent';
+          id?: string | null;
+        }[]
+      | null;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bzNeeds';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1625,6 +1760,8 @@ export interface PagesSelect<T extends boolean = true> {
         contact?: T | ContactBlockSelect<T>;
         partners?: T | PartnersBlockSelect<T>;
         inquiryForm?: T | InquiryFormBlockSelect<T>;
+        bzHero?: T | BzHeroBlockSelect<T>;
+        bzNeeds?: T | BzNeedsBlockSelect<T>;
       };
   seo?:
     | T
@@ -1746,6 +1883,62 @@ export interface InquiryFormBlockSelect<T extends boolean = true> {
   heading?: T;
   text?: T;
   category?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzHeroBlock_select".
+ */
+export interface BzHeroBlockSelect<T extends boolean = true> {
+  pill?: T;
+  heading?: T;
+  headingAccent?: T;
+  lead?: T;
+  cta?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  showPhone?: T;
+  trustItems?:
+    | T
+    | {
+        icon?: T;
+        text?: T;
+        id?: T;
+      };
+  wheelHint?: T;
+  planLinkLabel?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzNeedsBlock_select".
+ */
+export interface BzNeedsBlockSelect<T extends boolean = true> {
+  items?:
+    | T
+    | {
+        title?: T;
+        icon?: T;
+        tone?: T;
+        text?: T;
+        href?: T;
+        tag?: T;
+        countdownTo?: T;
+        badges?:
+          | T
+          | {
+              value?: T;
+              text?: T;
+              tone?: T;
+              id?: T;
+            };
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }
@@ -1923,6 +2116,7 @@ export interface CatalogGroupsSelect<T extends boolean = true> {
   name?: T;
   slug?: T;
   icon?: T;
+  description?: T;
   gradientFrom?: T;
   gradientTo?: T;
   order?: T;

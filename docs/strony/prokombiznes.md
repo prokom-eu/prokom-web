@@ -168,7 +168,7 @@ Uwaga szefa 16.10: kafelki „Oferta” i „Opieka IT” (karty działów w her
      - wokół miniatury produktów;
      - autoprzełączanie co kilka sekund, kliknięcie wybiera dział;
      - link „Zobacz plan Twojej firmy ↓”.
-   - Na telefonie koło zastępuje lista grup.
+   - Na telefonie to samo koło, pomniejszone, z samymi ikonami działów (nazwy dla czytników ekranu) — jak na zrzutach `Mobile-390-*` v20 (decyzja Krystiana 23.10, B7a).
 2. **4 kafelki potrzeb:**
    - Otwieram firmę lub lokal, z plakietkami „700 zł zwrotu za kasę online” **[SZEF: ulga — potwierdzić w ustawie]** i „0 zł terminal przez 12 mies.”;
    - Coś przestało działać;

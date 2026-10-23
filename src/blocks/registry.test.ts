@@ -3,8 +3,10 @@ import { describe, expect, it } from 'vitest'
 import {
   ALLOWED_BLOCKS,
   allowedBlockSlugs,
+  BIZNES_BLOCK_SLUGS,
   BLOCK_SLUGS,
   createBlocksFilter,
+  GENERIC_BLOCK_SLUGS,
   isBlockAllowed,
   renderableBlocks,
 } from './registry'
@@ -17,10 +19,22 @@ const restricted = {
 } as const
 
 describe('block registry', () => {
-  it('starts with every generic block allowed on every line (ADR-010)', () => {
+  it('allows every generic block on every line (ADR-010)', () => {
     for (const slugs of Object.values(ALLOWED_BLOCKS)) {
-      expect([...slugs].sort()).toEqual([...BLOCK_SLUGS].sort())
+      expect(slugs).toEqual(expect.arrayContaining([...GENERIC_BLOCK_SLUGS]))
     }
+  })
+
+  it('allows the Biznes blocks on the Biznes line only', () => {
+    expect(BIZNES_BLOCK_SLUGS.length).toBeGreaterThan(0)
+    expect([...ALLOWED_BLOCKS.biznes].sort()).toEqual([...BLOCK_SLUGS].sort())
+    for (const line of ['prokom', 'instalacje', 'software'] as const) {
+      for (const slug of BIZNES_BLOCK_SLUGS) expect(isBlockAllowed(line, slug)).toBe(false)
+    }
+  })
+
+  it('has unique block slugs', () => {
+    expect(new Set(BLOCK_SLUGS).size).toBe(BLOCK_SLUGS.length)
   })
 
   it('lists only the blocks allowed for a line', () => {

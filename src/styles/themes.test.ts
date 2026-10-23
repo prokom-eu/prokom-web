@@ -37,6 +37,8 @@ const TEXT_ON_SURFACES: Array<[string, string[]]> = [
   ['--accent-text', ['--surface', '--surface-2', '--card']],
   // Small green labels ("partner", "0 zł") of the Biznes header.
   ['--ok-text', ['--surface', '--surface-2', '--card']],
+  // Accent part of the plain H1 (Biznes hero, v20) — large text, but kept at 4.5:1.
+  ['--h1-accent', ['--surface', '--surface-2']],
 ]
 
 const cases = LINE_VALUES.flatMap((line) =>
@@ -190,6 +192,17 @@ describe('dark theme definitions', () => {
     '%s: the system preference gives the same values as an explicit choice',
     (line) => {
       expect(rule(mediaSelector(line), darkMediaBlock())).toEqual(rule(darkSelector(line)))
+    },
+  )
+})
+
+// Tags of the Biznes need tiles ("73 dni", "0 zł przegląd"): white text on the tile colour.
+describe('Biznes need tile tags', () => {
+  const s = scope('biznes', 'light')
+  it.each(['--tone-green-tag', '--tone-red-tag', '--tone-blue-tag', '--tone-violet-tag'])(
+    'white reaches 4.5:1 on %s',
+    (tone) => {
+      expect(contrastRatio(hex('--c-white', s), hex(tone, s))).toBeGreaterThanOrEqual(4.5)
     },
   )
 })
