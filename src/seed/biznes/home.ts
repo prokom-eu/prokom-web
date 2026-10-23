@@ -20,11 +20,12 @@ export const GROUP_DESCRIPTIONS: Record<string, string> = {
   usl: 'opieka IT, KSeF, serwis kas, przeglądy, dofinansowania',
 }
 
-/** [SZEF] fields of `SiteSettings.biznes` the hero shows; filled only while empty. */
-export const HOME_SETTINGS = {
-  trustLine: 'Serwis Posnet i Elzab · partner GoPOS i InsERT',
-  callbackTime: 'Oddzwaniamy w ciągu 60 minut',
-}
+/**
+ * [SZEF] trust line of the hero (`SiteSettings.biznes.trustLine`), filled only while empty.
+ * The call-back promise is not seeded: a promise shows only once entered in the panel
+ * (`SiteSettings` → „Obietnice”; e2e `biznes-catalog` checks the fallback without it).
+ */
+export const HOME_TRUST_LINE = 'Serwis Posnet i Elzab · partner GoPOS i InsERT'
 
 export function biznesHomeLayout(): HomeBlock[] {
   return [
@@ -126,7 +127,7 @@ export function mergeHomeLayout<T extends { blockType: string }>(
 type Report = (name: string, changed: boolean) => void
 const local = { overrideAccess: true, context: { seed: true }, depth: 0 } as const
 
-/** Home page, group descriptions and the hero's [SZEF] settings of the Biznes tenant. */
+/** Home page, group descriptions and the hero's trust line of the Biznes tenant. */
 export async function seedBiznesHome(
   payload: Payload,
   tenantId: number,
@@ -153,23 +154,13 @@ export async function seedBiznesHome(
     ...local,
   })
   if (settings) {
-    const trustLine = settings.biznes?.trustLine || HOME_SETTINGS.trustLine
-    const callbackTime = settings.biznes?.promises?.callbackTime || HOME_SETTINGS.callbackTime
-    const missing =
-      trustLine !== settings.biznes?.trustLine ||
-      callbackTime !== settings.biznes?.promises?.callbackTime
-    report('site-settings hero', missing)
+    const missing = !settings.biznes?.trustLine
+    report('site-settings trust line', missing)
     if (missing) {
       await payload.update({
         collection: 'site-settings',
         id: settings.id,
-        data: {
-          biznes: {
-            ...settings.biznes,
-            trustLine,
-            promises: { ...settings.biznes?.promises, callbackTime },
-          },
-        },
+        data: { biznes: { ...settings.biznes, trustLine: HOME_TRUST_LINE } },
         ...local,
       })
     }
