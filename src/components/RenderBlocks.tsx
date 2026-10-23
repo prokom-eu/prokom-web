@@ -15,6 +15,9 @@ import { BzFeaturedBlock } from '@/sites/biznes/blocks/BzFeatured/Component'
 import { BzHeroBlock } from '@/sites/biznes/blocks/BzHero/Component'
 import { BzNeedsBlock } from '@/sites/biznes/blocks/BzNeeds/Component'
 import { BzOfferBlock } from '@/sites/biznes/blocks/BzOffer/Component'
+import { BzOnePartnerBlock } from '@/sites/biznes/blocks/BzOnePartner/Component'
+import { BzPlanBlock } from '@/sites/biznes/blocks/BzPlan/Component'
+import { BzStepsBlock } from '@/sites/biznes/blocks/BzSteps/Component'
 import { BrandMarquee } from '@/sites/biznes/components/home/BrandMarquee'
 
 type Props = { page: PublicPage; tenant: SiteTenant }
@@ -71,6 +74,12 @@ export function RenderBlocks({ page, tenant }: Props) {
             return <BzOfferBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzFeatured':
             return <BzFeaturedBlock key={key} block={block} tenantId={tenant.id} />
+          case 'bzPlan':
+            return <BzPlanBlock key={key} block={block} tenantId={tenant.id} />
+          case 'bzSteps':
+            return <BzStepsBlock key={key} block={block} />
+          case 'bzOnePartner':
+            return <BzOnePartnerBlock key={key} block={block} tenantId={tenant.id} />
         }
       })}
     </>

@@ -407,7 +407,11 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     payload,
     tenant.id,
     groupIds,
-    { image: (file) => imageIds.get(file), brand: (name) => brandIds.get(name) },
+    {
+      image: (file) => imageIds.get(file),
+      brand: (name) => brandIds.get(name),
+      industry: (slug) => industryIds.get(slug),
+    },
     (name, changed) => count(name, changed ? 'updated' : false),
   )
 

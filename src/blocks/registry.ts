@@ -6,6 +6,9 @@ import { BzFeaturedBlock } from '../sites/biznes/blocks/BzFeatured/config'
 import { BzHeroBlock } from '../sites/biznes/blocks/BzHero/config'
 import { BzNeedsBlock } from '../sites/biznes/blocks/BzNeeds/config'
 import { BzOfferBlock } from '../sites/biznes/blocks/BzOffer/config'
+import { BzOnePartnerBlock } from '../sites/biznes/blocks/BzOnePartner/config'
+import { BzPlanBlock } from '../sites/biznes/blocks/BzPlan/config'
+import { BzStepsBlock } from '../sites/biznes/blocks/BzSteps/config'
 import { CallToActionBlock } from './CallToAction/config'
 import { ContactBlock } from './Contact/config'
 import { FaqBlock } from './Faq/config'
@@ -28,7 +31,15 @@ export const GENERIC_BLOCKS: Block[] = [
 ]
 
 /** Sections of the Biznes home page (B7, spec. §4) — `src/sites/biznes/blocks/`. */
-export const BIZNES_BLOCKS: Block[] = [BzHeroBlock, BzNeedsBlock, BzOfferBlock, BzFeaturedBlock]
+export const BIZNES_BLOCKS: Block[] = [
+  BzHeroBlock,
+  BzNeedsBlock,
+  BzOfferBlock,
+  BzFeaturedBlock,
+  BzPlanBlock,
+  BzStepsBlock,
+  BzOnePartnerBlock,
+]
 
 /**
  * Every block a page may contain (ADR-010). A block of one line only lives in

@@ -254,9 +254,10 @@ Wizualizacja v20 (`docs/design/prokombiznes/ZMIANY-v20.md` §4 pkt 3), sesja D1.
 10. **Strona główna — dane sekcji „Oferta” i „Najczęściej wybierane”:**
     - `CatalogGroups.showcase` — witryna karty działu: do 2 zdjęć (relacje do `Media`, większe i mniejsze) **albo** tryb „statusy” z 2 krótkimi wierszami tekstu (Serwis i usługi: „Opieka IT · aktywna”, „Przegląd kasy · za 43 dni”). Na start zdjęcia: sprzedaż `ergo`+`d3`, biuro `tp`+`srvT`, oprogramowanie `nexo`+`goposScr`, bezpieczeństwo `u7`+`eset`.
     - `Products.featured` + `featuredOrder` — **8 pozycji** (było 12): `ergo, k10, pol, d3, hx, tp, euro, nas` (seed: `kolejnosc_wyroznionych`). **[SZEF]** lista wg sprzedaży.
-11. **Siatka branż na stronie głównej („Nie widzisz swojej branży?”) — do decyzji w B7. TODO(krystian):**
+11. **Siatka branż na stronie głównej („Nie widzisz swojej branży?”) — przyjęte 23.10.2026 w B7c (rekomendacja poniżej):**
     - `ZMIANY-v20.md` proponuje `Industries.homeOrder` + `homeVisible` (9 widocznych). Siatka ma jednak **19 kafli** („Gmina, urząd, biblioteka”, „Food truck”, „Apteka”…), każdy z podpisem i ikoną, a `Industries` ma 7 rekordów, z czego 3 aktywne (strony `/branze/*`). Pola na `Industries` wymagałyby 12 nowych rekordów bez własnych stron.
     - **Rekomendacja:** lista kafli w danych bloku sekcji „Plan Twojej firmy” (ADR-006): `name`, `subtitle`, `icon`, `visibleFirst` (9 pierwszych), opcjonalnie `industry` → `Industries` (link do `/branze/…`, gdy branża ma stronę), inaczej link do kreatora. Kolejność = kolejność w tablicy, edytowalna w panelu. `Industries` bez zmian.
+    - **Wdrożenie (B7c):** blok `bzPlan` → `industries.tiles[]`: `name`, `note` (podpis), `icon`, `tone`, `visibleFirst` (maks. 9, walidacja w panelu), `industry` → `Industries` tylko tego tenanta. Link do `/branze/…` tylko dla **aktywnej** branży (nieaktywna = „Wkrótce”, bez własnej strony), inaczej kreator (`src/sites/biznes/blocks/BzPlan/tiles.ts`).
 
 ## Rozstrzygnięcia 22.10 — katalog v2 (22.10.2026)
 
