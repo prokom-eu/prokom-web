@@ -22,19 +22,28 @@ type Props = {
   position: number
   /** `list` (`?widok=lista`): picture on the left from 640 px up, as in the board's list view. */
   layout?: 'grid' | 'list'
+  /** `home` („Najczęściej wybierane”, spec. §4 pkt 5): one badge, no category and no tags. */
+  variant?: 'catalog' | 'home'
 }
 
 /**
  * Card of the catalog (spec. §5.3): picture, up to 2 badges, brand, main category, name,
  * benefit, 3 features, „Szczegóły →” and „+ Do zapytania”. No prices — there are none.
  */
-export function ProductCard({ product, index, position, layout = 'grid' }: Props) {
+export function ProductCard({
+  product,
+  index,
+  position,
+  layout = 'grid',
+  variant = 'catalog',
+}: Props) {
   const list = layout === 'list'
+  const home = variant === 'home'
   const href = productHref(product.slug)
   const brand = index.brands.find((item) => item.slug === product.brand)
   const category = index.categories.find((item) => item.slug === product.categories[0])
   const fallback = cardFallback(product, index)
-  const badges = productBadges(product, index.brands)
+  const badges = productBadges(product, index.brands).slice(0, home ? 1 : undefined)
 
   return (
     <article
@@ -46,7 +55,9 @@ export function ProductCard({ product, index, position, layout = 'grid' }: Props
     >
       <div
         className={cx(
-          'relative flex h-32 items-center justify-center overflow-hidden bg-surface-2 bg-[radial-gradient(ellipse_at_50%_92%,var(--glow),transparent_68%)]',
+          'relative flex items-center justify-center overflow-hidden bg-surface-2 bg-[radial-gradient(ellipse_at_50%_92%,var(--glow),transparent_68%)]',
+          // Home strip on a phone: wide cards (78%) with the board's 180 px picture.
+          home ? 'h-[180px]' : 'h-32',
           // `cx` only joins classes: each size is set once, never overridden.
           list ? 'sm:h-auto sm:min-h-[180px] sm:w-60 sm:shrink-0' : 'sm:h-[196px]',
         )}
@@ -58,7 +69,10 @@ export function ProductCard({ product, index, position, layout = 'grid' }: Props
             width={product.image.width}
             height={product.image.height}
             unoptimized
-            className="max-h-[104px] w-auto max-w-[76%] object-contain drop-shadow-[0_24px_30px_var(--glow)] sm:max-h-[156px]"
+            className={cx(
+              'w-auto max-w-[76%] object-contain drop-shadow-[0_24px_30px_var(--glow)]',
+              home ? 'max-h-[140px] sm:max-h-[156px]' : 'max-h-[104px] sm:max-h-[156px]',
+            )}
           />
         ) : (
           <span
@@ -119,7 +133,9 @@ export function ProductCard({ product, index, position, layout = 'grid' }: Props
           ) : (
             <span />
           )}
-          {category && <span className="hidden text-right sm:inline">{category.name}</span>}
+          {category && !home && (
+            <span className="hidden text-right sm:inline">{category.name}</span>
+          )}
         </div>
         <h3 className="font-display text-[0.95rem] font-extrabold leading-tight tracking-[-0.01em] font-stretch-106% sm:text-lg">
           <Link href={href} className="text-ink hover:text-accent-text">
@@ -127,11 +143,16 @@ export function ProductCard({ product, index, position, layout = 'grid' }: Props
           </Link>
         </h3>
         {product.benefit && (
-          <p className="hidden max-w-[70ch] text-sm leading-normal text-ink-2 sm:block">
+          <p
+            className={cx(
+              'max-w-[70ch] text-sm leading-normal text-ink-2',
+              home ? 'line-clamp-2' : 'hidden sm:block',
+            )}
+          >
             {product.benefit}
           </p>
         )}
-        {product.features.length > 0 && (
+        {!home && product.features.length > 0 && (
           <ul className="hidden flex-wrap gap-1.5 sm:flex">
             {product.features.slice(0, 3).map((feature) => (
               <li
@@ -147,7 +168,10 @@ export function ProductCard({ product, index, position, layout = 'grid' }: Props
           <Link
             href={href}
             aria-label={`Szczegóły: ${product.name}`}
-            className="hidden min-h-11 items-center gap-1.5 text-sm font-extrabold text-accent-text hover:underline sm:inline-flex"
+            className={cx(
+              'min-h-11 items-center gap-1.5 text-sm font-extrabold text-accent-text hover:underline',
+              home ? 'inline-flex' : 'hidden sm:inline-flex',
+            )}
           >
             Szczegóły
             <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
@@ -165,7 +189,7 @@ export function ProductCard({ product, index, position, layout = 'grid' }: Props
             slug={product.slug}
             name={product.name}
             variant="label"
-            className="w-full sm:w-auto"
+            className={home ? undefined : 'w-full sm:w-auto'}
           />
         </div>
       </div>

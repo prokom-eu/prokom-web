@@ -15,6 +15,7 @@ import * as migration_20261021_185642_biznes_navigation_without_industries from 
 import * as migration_20261022_183911_katalog_v2 from './20261022_183911_katalog_v2'
 import * as migration_20261022_183948_katalog_v2_legacy_ids from './20261022_183948_katalog_v2_legacy_ids'
 import * as migration_20261023_185812_biznes_home_hero from './20261023_185812_biznes_home_hero'
+import * as migration_20261023_210238_biznes_home_offer from './20261023_210238_biznes_home_offer'
 
 export const migrations = [
   {
@@ -101,5 +102,10 @@ export const migrations = [
     up: migration_20261023_185812_biznes_home_hero.up,
     down: migration_20261023_185812_biznes_home_hero.down,
     name: '20261023_185812_biznes_home_hero',
+  },
+  {
+    up: migration_20261023_210238_biznes_home_offer.up,
+    down: migration_20261023_210238_biznes_home_offer.down,
+    name: '20261023_210238_biznes_home_offer',
   },
 ]

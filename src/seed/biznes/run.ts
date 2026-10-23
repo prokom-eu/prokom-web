@@ -402,9 +402,13 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     }
   }
 
-  // --- home page (B7): sections, group descriptions, the hero's [SZEF] settings ---
-  await seedBiznesHome(payload, tenant.id, groupIds, (name, changed) =>
-    count(name, changed ? 'updated' : false),
+  // --- home page (B7): sections, department cards, the hero's trust line ---
+  await seedBiznesHome(
+    payload,
+    tenant.id,
+    groupIds,
+    { image: (file) => imageIds.get(file), brand: (name) => brandIds.get(name) },
+    (name, changed) => count(name, changed ? 'updated' : false),
   )
 
   for (const [collection, { created, updated, skipped }] of Object.entries(counters)) {

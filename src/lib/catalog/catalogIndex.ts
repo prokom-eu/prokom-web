@@ -59,6 +59,10 @@ export type IndexProduct = {
   hay: string
 }
 
+export type ShowcaseStatus = { label: string; value: string; tone: 'ok' | 'warn' }
+
+export type GroupShowcase = { images: IndexImage[]; statuses: ShowcaseStatus[] }
+
 export type CatalogIndex = {
   products: IndexProduct[]
   /** Brands of the listed products; `logo` only when the record has a file. */
@@ -73,6 +77,8 @@ export type CatalogIndex = {
     gradient: [string, string]
     /** Short list of what the department sells (home page wheel and cards). */
     description?: string
+    /** Top of the department card on the home page: pictures or status rows. */
+    showcase?: GroupShowcase
   }[]
   industries: { slug: string; name: string; active: boolean }[]
   /** Published pages of the site but home (the special pages: `/opieka-it`, `/gopos`, …). */
@@ -124,15 +130,34 @@ function docs<T extends object>(values: (number | T)[] | null | undefined): T[] 
 const doc = <T extends object>(value: number | T | null | undefined): T | null =>
   typeof value === 'object' && value !== null ? value : null
 
-function cardImage(images: Product['images'], tenantId: number): IndexImage | undefined {
-  for (const value of images ?? []) {
+/** Public images of this tenant from a relation, as small card files. */
+function indexImages(
+  values: readonly unknown[] | null | undefined,
+  tenantId: number,
+): IndexImage[] {
+  return (values ?? []).flatMap((value) => {
     const image = publicImage(value, tenantId)
-    if (image) {
-      const { alt, width, height, sources } = image
-      return { url: pickSource(sources, CARD_IMAGE_WIDTH), alt, width, height }
-    }
+    if (!image) return []
+    const { alt, width, height, sources } = image
+    return [{ url: pickSource(sources, CARD_IMAGE_WIDTH), alt, width, height }]
+  })
+}
+
+function cardImage(images: Product['images'], tenantId: number): IndexImage | undefined {
+  return indexImages(images, tenantId)[0]
+}
+
+/** `CatalogGroups.showcase`: up to 2 pictures, or the status rows; nothing when empty. */
+function groupShowcase(group: CatalogGroup, tenantId: number): GroupShowcase | undefined {
+  const showcase = group.showcase
+  const statuses = showcase?.mode === 'statuses'
+  const result: GroupShowcase = {
+    images: statuses ? [] : indexImages(showcase?.images, tenantId).slice(0, 2),
+    statuses: statuses
+      ? (showcase?.statuses ?? []).map(({ label, value, tone }) => ({ label, value, tone }))
+      : [],
   }
-  return undefined
+  return result.images.length > 0 || result.statuses.length > 0 ? result : undefined
 }
 
 /** Small logo of a brand (cards, filters, the product box); none without a file. */
@@ -242,13 +267,18 @@ export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
     categories,
     groups: source.groups
       .filter((group) => usedGroups.has(group.slug))
-      .map((group) => ({
-        slug: group.slug,
-        name: group.name,
-        icon: group.icon,
-        gradient: [group.gradientFrom, group.gradientTo],
-        ...(optional(group.description) ? { description: optional(group.description) } : {}),
-      })),
+      .map((group) => {
+        const description = optional(group.description)
+        const showcase = groupShowcase(group, source.tenantId)
+        return {
+          slug: group.slug,
+          name: group.name,
+          icon: group.icon,
+          gradient: [group.gradientFrom, group.gradientTo] as [string, string],
+          ...(description && { description }),
+          ...(showcase && { showcase }),
+        }
+      }),
     industries: source.industries.map((industry) => ({
       slug: industry.slug,
       name: industry.name,

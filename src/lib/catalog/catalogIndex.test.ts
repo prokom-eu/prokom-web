@@ -172,3 +172,60 @@ describe('buildCatalogIndex images', () => {
     ).toBe('/api/media/file/b-480x360.webp')
   })
 })
+
+describe('buildCatalogIndex group showcase (home page offer cards)', () => {
+  const category = { id: 11, slug: 'kasy', name: 'Kasy', group: 5, tenant: TENANT }
+  const product = {
+    id: 1,
+    slug: 'p',
+    name: 'P',
+    kind: 'device',
+    categories: [category],
+  } as unknown as Product
+  const build = (showcase: unknown) =>
+    buildCatalogIndex({
+      tenantId: TENANT,
+      products: [product],
+      categories: [category] as unknown as CatalogCategory[],
+      groups: [
+        {
+          id: 5,
+          slug: 'sprzedaz',
+          name: 'Kasy i sprzedaż',
+          icon: 'store',
+          gradientFrom: '#244FB0',
+          gradientTo: '#4FA3F0',
+          showcase,
+        },
+      ] as unknown as Parameters<typeof buildCatalogIndex>[0]['groups'],
+      industries: [],
+      pages: [],
+      settings: null,
+    }).groups[0]
+
+  it('gives up to two public pictures of this tenant', () => {
+    const own = image(1, 'ergo.webp')
+    const foreign = image(2, 'obce.webp', { tenant: OTHER_TENANT })
+    const consent = image(3, 'zgoda.webp', { requiresConsent: true })
+    const group = build({ mode: 'images', images: [foreign, own, consent] })
+    expect(group?.showcase?.images.map((picture) => picture.alt)).toEqual(['Obraz ergo.webp'])
+    expect(group?.showcase?.statuses).toEqual([])
+  })
+
+  it('gives the status rows in the status mode', () => {
+    const group = build({
+      mode: 'statuses',
+      images: [image(1, 'ergo.webp')],
+      statuses: [{ label: 'Opieka IT', value: 'aktywna', tone: 'ok' }],
+    })
+    expect(group?.showcase).toEqual({
+      images: [],
+      statuses: [{ label: 'Opieka IT', value: 'aktywna', tone: 'ok' }],
+    })
+  })
+
+  it('has no showcase when nothing is set', () => {
+    expect(build(undefined)).not.toHaveProperty('showcase')
+    expect(build({ mode: 'images', images: [] })).not.toHaveProperty('showcase')
+  })
+})

@@ -11,8 +11,10 @@ import { Heading } from '@/components/ui/Heading'
 import { Section } from '@/components/ui/Section'
 import type { PublicPage } from '@/lib/pages/data'
 import type { SiteTenant } from '@/lib/tenant/byHost'
+import { BzFeaturedBlock } from '@/sites/biznes/blocks/BzFeatured/Component'
 import { BzHeroBlock } from '@/sites/biznes/blocks/BzHero/Component'
 import { BzNeedsBlock } from '@/sites/biznes/blocks/BzNeeds/Component'
+import { BzOfferBlock } from '@/sites/biznes/blocks/BzOffer/Component'
 import { BrandMarquee } from '@/sites/biznes/components/home/BrandMarquee'
 
 type Props = { page: PublicPage; tenant: SiteTenant }
@@ -65,6 +67,10 @@ export function RenderBlocks({ page, tenant }: Props) {
             return <BzHeroBlock key={key} block={block} isFirst={i === 0} tenantId={tenant.id} />
           case 'bzNeeds':
             return <BzNeedsBlock key={key} block={block} />
+          case 'bzOffer':
+            return <BzOfferBlock key={key} block={block} tenantId={tenant.id} />
+          case 'bzFeatured':
+            return <BzFeaturedBlock key={key} block={block} tenantId={tenant.id} />
         }
       })}
     </>

@@ -103,6 +103,101 @@ test.describe('Biznes home page', () => {
   })
 })
 
+// B7b: „Oferta” and „Najczęściej wybierane” (spec. §4 pkt 4–5, ZMIANY-v20 §2.2–2.3).
+test.describe('Biznes home page: offer and featured', () => {
+  test('offer: lead with catalog numbers, five departments with their top categories', async ({
+    page,
+  }) => {
+    await page.goto(site('biznes.localhost'))
+    const offer = page.getByRole('region', { name: 'Wszystko dla firmy, w pięciu działach.' })
+    await expect(offer).toContainText(/\d+ produktów i usług od \d+ marek\./)
+    await expect(offer).not.toContainText('{produkty}')
+    await expect(offer.getByRole('link', { name: /Cały katalog · \d+ pozycj/ })).toHaveAttribute(
+      'href',
+      '/oferta',
+    )
+    const departments = offer
+      .getByRole('article')
+      .filter({ has: page.getByRole('heading', { level: 3 }) })
+    await expect(departments.filter({ hasText: 'Cały dział' })).toHaveCount(5)
+    const sales = departments.filter({ hasText: 'Kasy i sprzedaż' })
+    await expect(sales.getByRole('link', { name: /Cały dział/ })).toHaveAttribute(
+      'href',
+      '/oferta?grupa=sprzedaz',
+    )
+    await expect(sales.locator('a[href^="/oferta/"]')).toHaveCount(3)
+    // Services show status rows instead of pictures.
+    await expect(departments.filter({ hasText: 'Serwis i usługi' })).toContainText('Opieka IT')
+  })
+
+  test('offer: three system cards with partner logos and links', async ({ page }) => {
+    await page.goto(site('biznes.localhost'))
+    const offer = page.locator('#oferta')
+    const systems = offer.getByRole('heading', { level: 4 })
+    await expect(systems).toHaveText([
+      'GoPOS dla gastronomii',
+      'Subiekt i programy InsERT',
+      'Opieka IT w abonamencie',
+    ])
+    await expect(offer.getByRole('link', { name: 'Poznaj GoPOS z PRO-KOM' })).toHaveAttribute(
+      'href',
+      '/gopos',
+    )
+    await expect(offer.locator('img[src*="logo-gopos"]')).toHaveAttribute('alt', 'GoPOS')
+    await expect(offer.getByRole('img', { name: 'PRO-KOM Biznes' })).toBeVisible()
+    // Partner badges come only from statuses confirmed in the panel (seed: none) — [SZEF].
+    await expect(offer).not.toContainText('Autoryzowany partner')
+    await expect(offer).toContainText('Usługa PRO-KOM')
+  })
+
+  test('featured: eight products, one badge at most, added to the inquiry', async ({ page }) => {
+    await page.goto(site('biznes.localhost'))
+    const featured = page.locator('#wybierane')
+    const cards = featured.locator('[data-card]')
+    await expect(cards).toHaveCount(8)
+    for (const card of await cards.all()) {
+      expect(await card.locator('ul li').count()).toBeLessThanOrEqual(1)
+    }
+    const first = cards.first()
+    const add = first.getByRole('button', { name: /Do zapytania|W zapytaniu/ })
+    const before = await add.getAttribute('aria-pressed')
+    await add.click()
+    await expect(add).not.toHaveAttribute('aria-pressed', before ?? '')
+    await add.click()
+  })
+
+  test('featured: the whole offer and the wizard cards', async ({ page }) => {
+    await page.goto(site('biznes.localhost'))
+    const featured = page.locator('#wybierane')
+    await expect(featured.getByRole('link', { name: 'Poznaj całą ofertę' })).toHaveAttribute(
+      'href',
+      '/oferta',
+    )
+    await expect(
+      featured.getByRole('link', { name: 'Dobierz zestaw w 60 sekund' }),
+    ).toHaveAttribute('href', '/kreator')
+    await expect(featured).toContainText('Potrzeby')
+  })
+
+  test.describe('on a phone', () => {
+    test.use({ viewport: { width: 390, height: 844 } })
+
+    test('departments are rows and the products a horizontal strip', async ({ page }) => {
+      await page.goto(site('biznes.localhost'))
+      const rows = page.locator('#oferta ul').first().getByRole('link')
+      await expect(rows).toHaveCount(5)
+      await expect(rows.first()).toContainText(/\d+ pozycj/)
+      const strip = page.locator('#wybierane ul').first()
+      const { scrollWidth, clientWidth } = await strip.evaluate((el) => ({
+        scrollWidth: el.scrollWidth,
+        clientWidth: el.clientWidth,
+      }))
+      expect(scrollWidth).toBeGreaterThan(clientWidth)
+      expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390)
+    })
+  })
+})
+
 test.describe('Biznes blocks on other lines', () => {
   // Without `?draft=true`: Payload does not validate drafts (known since S5), the renderer
   // skips such a block anyway (`renderableBlocks`).
