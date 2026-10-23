@@ -20,7 +20,8 @@ export type MegaMenu = {
   total: { products: number; brands: number }
 }
 
-const groupHref = (slug: string) => `/oferta?grupa=${encodeURIComponent(slug)}`
+/** Catalog filtered to one group (mega menu, home page department cards). */
+export const groupHref = (slug: string) => `/oferta?grupa=${encodeURIComponent(slug)}`
 
 /**
  * Columns of the Oferta mega menu (spec. §3.2): one per group of the catalog index, which

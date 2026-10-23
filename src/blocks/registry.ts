@@ -2,8 +2,10 @@ import type { Block, BlocksField, PayloadRequest } from 'payload'
 
 import { tenantIdOf } from '../lib/tenant/id'
 import { isLine, type Line } from '../lib/tenant/lines'
+import { BzFeaturedBlock } from '../sites/biznes/blocks/BzFeatured/config'
 import { BzHeroBlock } from '../sites/biznes/blocks/BzHero/config'
 import { BzNeedsBlock } from '../sites/biznes/blocks/BzNeeds/config'
+import { BzOfferBlock } from '../sites/biznes/blocks/BzOffer/config'
 import { CallToActionBlock } from './CallToAction/config'
 import { ContactBlock } from './Contact/config'
 import { FaqBlock } from './Faq/config'
@@ -26,7 +28,7 @@ export const GENERIC_BLOCKS: Block[] = [
 ]
 
 /** Sections of the Biznes home page (B7, spec. §4) — `src/sites/biznes/blocks/`. */
-export const BIZNES_BLOCKS: Block[] = [BzHeroBlock, BzNeedsBlock]
+export const BIZNES_BLOCKS: Block[] = [BzHeroBlock, BzNeedsBlock, BzOfferBlock, BzFeaturedBlock]
 
 /**
  * Every block a page may contain (ADR-010). A block of one line only lives in

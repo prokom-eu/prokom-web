@@ -1,4 +1,4 @@
-import type { CatalogIndex, IndexImage } from './catalogIndex'
+import type { CatalogIndex, GroupShowcase, IndexImage } from './catalogIndex'
 import type { IconName } from './options'
 
 export type GroupSummary = {
@@ -7,6 +7,7 @@ export type GroupSummary = {
   icon: IconName
   gradient: [string, string]
   description?: string
+  showcase?: GroupShowcase
   /** Products whose main category is in the group. */
   count: number
   topCategories: { slug: string; name: string; count: number }[]
@@ -40,6 +41,7 @@ export function groupSummaries(
       icon: group.icon,
       gradient: group.gradient,
       ...(group.description ? { description: group.description } : {}),
+      ...(group.showcase ? { showcase: group.showcase } : {}),
       count: products.length,
       topCategories: index.categories
         .filter((category) => category.group === group.slug)

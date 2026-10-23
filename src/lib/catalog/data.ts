@@ -68,6 +68,8 @@ export const getCatalogIndex = (tenantId: number): Promise<CatalogIndex> =>
           limit: MAX_RECORDS,
           sort: 'order',
           ...read,
+          // 1: the showcase pictures come populated (checked by `publicImage`).
+          depth: 1,
         }),
         payload.find({
           collection: 'industries',

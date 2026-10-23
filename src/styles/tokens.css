@@ -86,6 +86,8 @@
   /* Darker green and red under the white corner tags (≥ 4.5:1; the tile colours give 3.5 and 4.2). */
   --c-biznes-tone-green-tag: #15724a;
   --c-biznes-tone-red-tag: #c43a22;
+  /* Wizard card of the home page (dark green, into navy), board `Main` `.kpxk`. */
+  --c-biznes-wizard: #0f3d2a;
 
   /* Software — values 1:1 from docs/design/prokomsoftware/tokens.css (ADR-015). */
   /* Software — light theme of the visualisation. */
@@ -253,6 +255,7 @@
   --tone-red-tag: var(--c-biznes-tone-red-tag);
   --tone-blue-tag: var(--c-biznes-tone-blue);
   --tone-violet-tag: var(--c-biznes-tone-violet);
+  --wizard: var(--c-biznes-wizard);
 }
 
 [data-line='instalacje'] {

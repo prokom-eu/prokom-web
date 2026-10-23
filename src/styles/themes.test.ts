@@ -206,3 +206,15 @@ describe('Biznes need tile tags', () => {
     },
   )
 })
+
+// Wizard card of the Biznes home page: white text and the green label on dark green, navy step
+// numbers on the green dots — in both themes.
+describe.each(['light', 'dark'] as const)('Biznes wizard card, %s theme', (mode) => {
+  const s = scope('biznes', mode)
+  it.each(['--c-white', '--tone-green-2'])('%s reaches 4.5:1 on --wizard', (text) => {
+    expect(contrastRatio(hex(text, s), hex('--wizard', s))).toBeGreaterThanOrEqual(4.5)
+  })
+  it('step numbers reach 4.5:1 on the green dot', () => {
+    expect(contrastRatio(hex('--surface-dark', s), hex('--ok', s))).toBeGreaterThanOrEqual(4.5)
+  })
+})

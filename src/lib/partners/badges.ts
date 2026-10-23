@@ -25,3 +25,13 @@ export function partnerBadges(
       : []),
   ]
 }
+
+/**
+ * Badge of one partner card (home page systems, B7b): the status confirmed in the panel
+ * ([SZEF]), never a free text — `none` or no status → no badge.
+ */
+export function partnerStatusLabel(status: Partner['partnerStatus'] | null | undefined) {
+  if (status === 'authorized-partner') return 'Autoryzowany partner'
+  if (status === 'authorized-service') return 'Autoryzowany serwis'
+  return null
+}

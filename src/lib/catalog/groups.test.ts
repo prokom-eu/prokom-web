@@ -24,6 +24,7 @@ const index = {
       icon: 'wrench',
       gradient: ['#C2410C', '#F59E0B'],
       description: 'opieka IT, KSeF, serwis kas',
+      showcase: { images: [], statuses: [{ label: 'Opieka IT', value: 'aktywna', tone: 'ok' }] },
     },
   ],
   categories: [
@@ -76,5 +77,10 @@ describe('groupSummaries', () => {
 
   it('has no description when the group has none', () => {
     expect(groupSummaries(index)[0]?.description).toBeUndefined()
+  })
+
+  it('passes the showcase of the department card on', () => {
+    expect(groupSummaries(index)[1]?.showcase?.statuses[0]?.value).toBe('aktywna')
+    expect(groupSummaries(index)[0]).not.toHaveProperty('showcase')
   })
 })

@@ -57,6 +57,7 @@
   --color-tone-red-tag: var(--tone-red-tag);
   --color-tone-blue-tag: var(--tone-blue-tag);
   --color-tone-violet-tag: var(--tone-violet-tag);
+  --color-wizard: var(--wizard);
 
   --font-*: initial;
   /* Subset chains (see fonts.ts): basic Latin first, then Polish and other Latin letters. */

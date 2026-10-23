@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { partnerBadges } from './badges'
+import { partnerBadges, partnerStatusLabel } from './badges'
 
 describe('partnerBadges', () => {
   it('names each authorized partner and joins the authorized services', () => {
@@ -32,5 +32,14 @@ describe('partnerBadges', () => {
   // Statuses are [SZEF] facts set in the panel; the seed sets none.
   it('shows nothing without confirmed statuses', () => {
     expect(partnerBadges([{ name: 'Posnet', status: 'none' }])).toEqual([])
+  })
+})
+
+describe('partnerStatusLabel', () => {
+  it('names only a status confirmed in the panel', () => {
+    expect(partnerStatusLabel('authorized-partner')).toBe('Autoryzowany partner')
+    expect(partnerStatusLabel('authorized-service')).toBe('Autoryzowany serwis')
+    expect(partnerStatusLabel('none')).toBeNull()
+    expect(partnerStatusLabel(null)).toBeNull()
   })
 })

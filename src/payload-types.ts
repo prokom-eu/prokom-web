@@ -487,6 +487,21 @@ export interface CatalogGroup {
   gradientFrom: string;
   gradientTo: string;
   /**
+   * Górna część karty działu w sekcji Oferta: 2 zdjęcia albo 2 paski statusu.
+   */
+  showcase?: {
+    mode?: ('images' | 'statuses') | null;
+    images?: (number | Media)[] | null;
+    statuses?:
+      | {
+          label: string;
+          value: string;
+          tone: 'ok' | 'warn';
+          id?: string | null;
+        }[]
+      | null;
+  };
+  /**
    * Mniejsza liczba = wcześniej.
    */
   order?: number | null;
@@ -557,6 +572,8 @@ export interface Page {
         | InquiryFormBlock
         | BzHeroBlock
         | BzNeedsBlock
+        | BzOfferBlock
+        | BzFeaturedBlock
       )[]
     | null;
   seo?: {
@@ -832,6 +849,111 @@ export interface BzNeedsBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'bzNeeds';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzOfferBlock".
+ */
+export interface BzOfferBlock {
+  eyebrow?: string | null;
+  /**
+   * Sekcja ma kotwicę #oferta — ten blok wstaw na stronie tylko raz.
+   */
+  heading: string;
+  /**
+   * {produkty} i {marki} zamieniają się na liczby z katalogu.
+   */
+  lead?: string | null;
+  /**
+   * Np. „Cały katalog” — liczba pozycji dochodzi sama. Pusty = bez przycisku.
+   */
+  catalogLabel?: string | null;
+  systemsHeading?: string | null;
+  systemsNote?: string | null;
+  systems?:
+    | {
+        /**
+         * Plakietka to status partnera z kolekcji Partnerzy ([SZEF]); bez statusu — bez plakietki. Puste = znak PRO-KOM Biznes.
+         */
+        partner?: (number | null) | Partner;
+        /**
+         * Np. „Usługa PRO-KOM”.
+         */
+        badge?: string | null;
+        title: string;
+        text: string;
+        link: {
+          label: string;
+          href: string;
+        };
+        mode?: ('image' | 'statuses') | null;
+        image?: (number | null) | Media;
+        statuses?:
+          | {
+              label: string;
+              value: string;
+              tone: 'ok' | 'warn';
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bzOffer';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzFeaturedBlock".
+ */
+export interface BzFeaturedBlock {
+  eyebrow?: string | null;
+  /**
+   * Sekcja ma kotwicę #wybierane — ten blok wstaw na stronie tylko raz.
+   */
+  heading: string;
+  lead?: string | null;
+  /**
+   * Np. „Cały katalog” — liczba pozycji dochodzi sama. Pusty = bez przycisku.
+   */
+  catalogLabel?: string | null;
+  /**
+   * Miniatury mozaiki biorą się z działów katalogu.
+   */
+  offerCard: {
+    eyebrow?: string | null;
+    heading: string;
+    text?: string | null;
+    button: {
+      label: string;
+      href: string;
+    };
+  };
+  wizardCard: {
+    eyebrow?: string | null;
+    heading: string;
+    text?: string | null;
+    button: {
+      label: string;
+      href: string;
+    };
+    /**
+     * Trzeci krok jest wyróżniony („w trakcie”).
+     */
+    steps?:
+      | {
+          label: string;
+          value: string;
+          id?: string | null;
+        }[]
+      | null;
+    summaryLabel?: string | null;
+    summary?: string | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bzFeatured';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1762,6 +1884,8 @@ export interface PagesSelect<T extends boolean = true> {
         inquiryForm?: T | InquiryFormBlockSelect<T>;
         bzHero?: T | BzHeroBlockSelect<T>;
         bzNeeds?: T | BzNeedsBlockSelect<T>;
+        bzOffer?: T | BzOfferBlockSelect<T>;
+        bzFeatured?: T | BzFeaturedBlockSelect<T>;
       };
   seo?:
     | T
@@ -1944,6 +2068,92 @@ export interface BzNeedsBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzOfferBlock_select".
+ */
+export interface BzOfferBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  lead?: T;
+  catalogLabel?: T;
+  systemsHeading?: T;
+  systemsNote?: T;
+  systems?:
+    | T
+    | {
+        partner?: T;
+        badge?: T;
+        title?: T;
+        text?: T;
+        link?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+            };
+        mode?: T;
+        image?: T;
+        statuses?:
+          | T
+          | {
+              label?: T;
+              value?: T;
+              tone?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzFeaturedBlock_select".
+ */
+export interface BzFeaturedBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  lead?: T;
+  catalogLabel?: T;
+  offerCard?:
+    | T
+    | {
+        eyebrow?: T;
+        heading?: T;
+        text?: T;
+        button?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+            };
+      };
+  wizardCard?:
+    | T
+    | {
+        eyebrow?: T;
+        heading?: T;
+        text?: T;
+        button?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+            };
+        steps?:
+          | T
+          | {
+              label?: T;
+              value?: T;
+              id?: T;
+            };
+        summaryLabel?: T;
+        summary?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
@@ -2119,6 +2329,20 @@ export interface CatalogGroupsSelect<T extends boolean = true> {
   description?: T;
   gradientFrom?: T;
   gradientTo?: T;
+  showcase?:
+    | T
+    | {
+        mode?: T;
+        images?: T;
+        statuses?:
+          | T
+          | {
+              label?: T;
+              value?: T;
+              tone?: T;
+              id?: T;
+            };
+      };
   order?: T;
   updatedAt?: T;
   createdAt?: T;
