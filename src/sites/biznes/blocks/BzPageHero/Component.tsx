@@ -4,6 +4,7 @@ import type { BzPageHeroBlock as BzPageHeroBlockData } from '@/payload-types'
 import { Breadcrumbs, type Crumb } from '../../components/Breadcrumbs'
 import { hasLink, PageLink } from '../../components/PageLink'
 import { PhotoHero } from './PhotoHero'
+import { ScreenHero } from './ScreenHero'
 
 type Props = {
   block: BzPageHeroBlockData
@@ -27,6 +28,9 @@ export function BzPageHeroBlock({ block, isFirst, page, tenantId }: Props) {
   ]
   if (block.variant === 'photo') {
     return <PhotoHero block={block} isFirst={isFirst} crumbs={crumbs} tenantId={tenantId} />
+  }
+  if (block.variant === 'screen') {
+    return <ScreenHero block={block} isFirst={isFirst} crumbs={crumbs} tenantId={tenantId} />
   }
   const card = block.variant === 'card' ? block.card : null
   const steps = card?.steps ?? []

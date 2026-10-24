@@ -80,6 +80,32 @@ export const BzCardsBlock: Block = {
             },
           ],
         },
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'monogram',
+              label: 'Skrót zamiast ikony',
+              type: 'text',
+              maxLength: 3,
+              admin: { description: 'Np. „Rw” dla Rewizora — kafel z literami zamiast ikony.' },
+            },
+            {
+              name: 'monogramTone',
+              label: 'Kolor kafla ze skrótem',
+              type: 'select',
+              defaultValue: 'blue',
+              options: [
+                { label: 'Niebieski', value: 'blue' },
+                { label: 'Zielony', value: 'green' },
+                { label: 'Fioletowy', value: 'violet' },
+                { label: 'Czerwony', value: 'red' },
+                { label: 'Granatowy', value: 'dark' },
+              ],
+              admin: { condition: (_, sibling) => Boolean(sibling?.monogram) },
+            },
+          ],
+        },
         { name: 'text', label: 'Opis', type: 'textarea', required: true, maxLength: 300 },
         linkGroup('link', 'Link pod opisem'),
       ],

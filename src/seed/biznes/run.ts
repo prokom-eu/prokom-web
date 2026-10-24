@@ -32,6 +32,7 @@ import {
 import { FOOTER_LEGAL_LINKS, FOOTER_TEXT, footerData } from './footer'
 import { SERVICE_AREAS, seedBiznesContact } from './contact'
 import { seedBiznesGopos } from './gopos'
+import { seedBiznesInsert } from './insert'
 import { seedBiznesOpiekaIt } from './opiekaIt'
 import { seedBiznesHome } from './home'
 import { navigationData } from './navigation'
@@ -450,16 +451,14 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
   await seedBiznesOpiekaIt(payload, tenant.id, (name, changed) =>
     count(name, changed ? 'updated' : false),
   )
-  await seedBiznesGopos(
-    payload,
-    tenant.id,
-    {
-      image: (file) => imageIds.get(file),
-      brand: (name) => brandIds.get(name),
-      product: (shortId) => productIds.get(shortId),
-    },
-    (name, changed) => count(name, changed ? 'updated' : false),
-  )
+  const pageRefs = {
+    image: (file: string) => imageIds.get(file),
+    brand: (name: string) => brandIds.get(name),
+    product: (shortId: string) => productIds.get(shortId),
+  }
+  const pageReport = (name: string, changed: boolean) => count(name, changed ? 'updated' : false)
+  await seedBiznesGopos(payload, tenant.id, pageRefs, pageReport)
+  await seedBiznesInsert(payload, tenant.id, pageRefs, pageReport)
 
   for (const [collection, { created, updated, skipped }] of Object.entries(counters)) {
     log(`${collection}: ${created} created, ${updated} updated, ${skipped} unchanged.`)

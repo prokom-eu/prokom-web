@@ -10,9 +10,10 @@ type Props = {
   /**
    * `icon`: square "+ / ✓" (search results, suggestions);
    * `label`: "+ Do zapytania" / "✓ W zapytaniu" of the catalog cards (spec. §5.3);
-   * `primary`: the big switch of the product box, "Dodaj do zapytania" / "✓ Na liście" (§6.2).
+   * `primary`: the big switch of the product box, "Dodaj do zapytania" / "✓ Na liście" (§6.2);
+   * `onDark`: the same on a navy panel, "Dodaj do zapytania" / "✓ W zapytaniu" (/insert picker).
    */
-  variant?: 'icon' | 'label' | 'primary'
+  variant?: 'icon' | 'label' | 'primary' | 'onDark'
   /** After the switch, e.g. to move focus when this button leaves the page. */
   onToggle?: () => void
 }
@@ -60,6 +61,29 @@ export function AddToCartButton({ slug, name, className, variant = 'icon', onTog
         )}
       >
         <Mark on={on} size={18} stroke={2.6} />
+        {label}
+      </button>
+    )
+  }
+
+  if (variant === 'onDark') {
+    const label = on ? 'W zapytaniu' : 'Dodaj do zapytania'
+    return (
+      <button
+        type="button"
+        aria-pressed={on}
+        aria-label={`${label}: ${name}`}
+        onClick={toggle}
+        className={cx(
+          'inline-flex min-h-[52px] items-center justify-center gap-2.5 rounded-2xl px-6 font-extrabold transition-colors',
+          // Light surfaces in both themes: the panel is navy at day and at night.
+          on
+            ? 'bg-ok-text text-surface hover:bg-white hover:text-surface-dark'
+            : 'bg-white text-surface-dark hover:bg-white/85',
+          className,
+        )}
+      >
+        <Mark on={on} size={16} stroke={2.6} />
         {label}
       </button>
     )

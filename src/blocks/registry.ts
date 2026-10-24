@@ -15,6 +15,8 @@ import { BzPlanBlock } from '../sites/biznes/blocks/BzPlan/config'
 import { BzQuickCardsBlock } from '../sites/biznes/blocks/BzQuickCards/config'
 import { BzReferencesBlock } from '../sites/biznes/blocks/BzReferences/config'
 import { BzStepsBlock } from '../sites/biznes/blocks/BzSteps/config'
+import { BzKsefBlock } from '../sites/biznes/blocks/BzKsef/config'
+import { BzProgramPickerBlock } from '../sites/biznes/blocks/BzProgramPicker/config'
 import { BzKitsBlock } from '../sites/biznes/blocks/BzKits/config'
 import { BzModulesBlock } from '../sites/biznes/blocks/BzModules/config'
 import { BzOrderFlowBlock } from '../sites/biznes/blocks/BzOrderFlow/config'
@@ -71,6 +73,8 @@ export const BIZNES_BLOCKS: Block[] = [
   BzKitsBlock,
   BzTimelineBlock,
   BzPanelsBlock,
+  BzProgramPickerBlock,
+  BzKsefBlock,
 ]
 
 /**
