@@ -56,6 +56,15 @@ Kontrakt `POST /api/inquiry` rozszerzony o formularze prokombiznes.pl (ADR-012 �
 - **Odpowiedź 201** zwraca `{ ok, number }`: numer zgłoszenia (np. `PKB-2026-0042`) do ekranu sukcesu.
 - **Maile:** w temacie numer zgłoszenia i rodzaj formularza (poza kontaktem). W powiadomieniu pozycje (ilość × nazwa — uwaga), odpowiedzi kreatora i nowe pola. Potwierdzenie dla klienta ma numer i nazwy pozycji, ale nie zawiera uwag ani wiadomości (adres może nie należeć do nadawcy).
 
+## Kreator (uzupełnienie 2026-10-24, B10c)
+Zmienia dwie reguły z uzupełnienia B8 dla typu `wizard` (spec. §6.8, decyzja Krystiana 24.10.2026):
+- **Odpowiedzi, nie wynik:** przeglądarka wysyła w `wizard` tylko odpowiedzi (rodzaj firmy, skala, lokal, potrzeby, „Na kiedy?”). Serwer sprawdza je z regułami kreatora tego tenanta (`BiznesSettings.wizard`), liczy zestaw tą samą funkcją co podgląd (`lib/catalog/wizardKit.ts`) i zapisuje:
+  - `items` — opublikowane produkty tenanta z zestawu, z ilością (np. kasa × liczba stanowisk);
+  - `wizard` — podsumowanie po polsku („Rodzaj firmy: …”, „Zestaw: …”, „W cenie: …”);
+  - `deadline` — „Na kiedy?”.
+  Odpowiedzi spoza reguł albo tenant bez reguł → 400 `invalid` z polem `wizard`. `wizard` w innych typach jest odrzucane (jak `items` poza listą).
+- **Telefon:** na linii Biznes wymagany we wszystkich typach, także `wizard` (plansza Kreator: Imię \*, Telefon \*).
+
 ## Konsekwencje
 - Styczeń 2027: `submitInquiry()` zapisuje do API PRO-KOM System; jednorazowy skrypt migruje istniejące rekordy. Formularze bez zmian.
 - Zasada „Payload tylko treści” ma świadomy, czasowy wyjątek — kolekcja `Inquiries` zostanie usunięta po migracji.

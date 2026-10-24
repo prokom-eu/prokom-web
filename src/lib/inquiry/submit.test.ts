@@ -1,8 +1,18 @@
 import { describe, expect, it, vi } from 'vitest'
 
+import kreator from '../../../seed/prokombiznes/kreator.json'
+import { wizardFromSeed, wizardSchema } from '../catalog/wizard'
 import { CONSENT_CLAUSE } from './consent'
 import { createRateLimiter, FORM_MIN_FILL_MS, issueFormToken } from './spam'
 import { submitInquiryWith, type SubmitDeps } from './submit'
+
+// Wizard rules of tenant 1: the register is Posnet Ergo, the terminal a product not published.
+const rules = wizardSchema.parse(
+  wizardFromSeed(
+    kreator,
+    (id) => ({ ergo: 'posnet-ergo-online', pol: 'terminal-platniczy-polcard' })[id],
+  ),
+)
 
 const secret = 's'.repeat(32)
 const now = Date.UTC(2026, 9, 17, 12)
@@ -39,6 +49,7 @@ function deps(overrides: Partial<SubmitDeps> = {}): SubmitDeps {
           ].filter((product) => slugs.includes(product.slug))
         : [],
     ),
+    findWizard: vi.fn(async (tenantId: number) => (tenantId === 1 ? rules : null)),
     sendEmail: vi.fn(async () => undefined),
     panelUrl: (id: number) => `http://panel.localhost:3000/admin/collections/inquiries/${id}`,
     log: { info: vi.fn(), warn: vi.fn(), error: vi.fn() },
@@ -326,6 +337,63 @@ describe('submitInquiry (ADR-003)', () => {
     })
     expect(await submitInquiryWith(software, { ...request, body: noPhone })).toMatchObject({
       ok: true,
+    })
+  })
+
+  describe('wizard (B10c)', () => {
+    const answers = {
+      businessType: 'warsztat',
+      salesPoints: '2',
+      computers: '1–3',
+      premises: 'dziala',
+      needs: ['kasa', 'term'],
+      when: 'Przed sezonem',
+    }
+    const wizardBody = { ...body, type: 'wizard', message: undefined, wizard: answers }
+
+    it('computes the kit from the rules: published products of this tenant, per sales point', async () => {
+      const d = deps()
+      expect(await submitInquiryWith(d, { ...request, body: wizardBody })).toMatchObject({
+        ok: true,
+      })
+      expect(d.findProducts).toHaveBeenCalledWith(1, [
+        'posnet-ergo-online',
+        'terminal-platniczy-polcard',
+      ])
+      expect(d.save).toHaveBeenCalledWith(
+        expect.objectContaining({
+          type: 'wizard',
+          items: [{ product: 7, nameSnapshot: 'Posnet Ergo Online', quantity: 2 }],
+          deadline: 'Przed sezonem',
+          wizard: expect.objectContaining({
+            'Rodzaj firmy': 'Warsztat lub serwis',
+            Zestaw: ['2 × Posnet Ergo Online', 'Terminal płatniczy'],
+          }),
+        }),
+      )
+      const notification = vi.mocked(d.sendEmail).mock.calls[0]?.[0]
+      expect(notification?.text).toContain('2 × Posnet Ergo Online')
+    })
+
+    it('rejects answers outside the rules, or a site without rules, and saves nothing', async () => {
+      for (const [d, wizard] of [
+        [deps(), { ...answers, needs: ['kasa', 'teleport'] }],
+        [deps(), { ...answers, businessType: 'kosmos' }],
+        [deps({ findWizard: vi.fn(async () => null) }), answers],
+      ] as const) {
+        expect(await submitInquiryWith(d, { ...request, body: { ...wizardBody, wizard } })).toEqual(
+          { ok: false, error: 'invalid', fields: ['wizard'] },
+        )
+        expect(d.save).not.toHaveBeenCalled()
+      }
+    })
+
+    it('answers „unavailable” when the rules cannot be read', async () => {
+      const d = deps({ findWizard: vi.fn(async () => Promise.reject(new Error('db down'))) })
+      expect(await submitInquiryWith(d, { ...request, body: wizardBody })).toEqual({
+        ok: false,
+        error: 'unavailable',
+      })
     })
   })
 })

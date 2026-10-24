@@ -179,11 +179,15 @@ describe('parseInquiryInput — types of the Biznes forms (B8)', () => {
     expect(errorsOf({ ...list, preferredContact: 'email' }, 'biznes')).toEqual([])
   })
 
+  it('accepts wizard answers in the wizard only (B10c)', () => {
+    expect(errorsOf({ ...valid, wizard: { firma: 'gastro' } })).toContain('wizard')
+  })
+
   it('accepts items on a list only', () => {
     expect(errorsOf({ ...valid, items: [item] })).toContain('items')
   })
 
-  it('requires the phone on every Biznes form but the wizard (v20, plansza Zapytanie)', () => {
+  it('requires the phone on every Biznes form, the wizard too (v20, plansze Zapytanie, Kreator)', () => {
     expect(
       errorsOf({ ...valid, type: 'search', topics: ['wifi'], phone: undefined }, 'biznes'),
     ).toContain('phone')
@@ -192,7 +196,7 @@ describe('parseInquiryInput — types of the Biznes forms (B8)', () => {
         { ...valid, type: 'wizard', wizard: { firma: 'gastro' }, phone: undefined },
         'biznes',
       ),
-    ).toEqual([])
+    ).toContain('phone')
     expect(errorsOf({ ...valid, phone: undefined }, 'biznes')).toContain('phone')
     expect(errorsOf({ ...list, phone: undefined, email: 'jan@example.test' }, 'biznes')).toContain(
       'phone',

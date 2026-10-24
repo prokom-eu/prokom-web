@@ -14,6 +14,7 @@ import { tenantIdOf } from '../tenant/id'
 import { HOME_SLUG } from '../pages/slug'
 import type { IconName } from './options'
 import { normalizeText } from './normalize'
+import { wizardSchema } from './wizard'
 
 /**
  * The catalog index (`GET /api/catalog-index`, ADR-012 §2.4): everything the search (B4) and
@@ -119,8 +120,11 @@ export type CatalogSource = {
   groups: CatalogGroup[]
   industries: Industry[]
   pages: Pick<Page, 'slug' | 'title'>[]
-  settings: Pick<BiznesSetting, 'search'> | null
+  settings: Pick<BiznesSetting, 'search' | 'wizard'> | null
 }
+
+/** The wizard is a route, not a page from blocks: listed in the search while it has rules. */
+export const WIZARD_PAGE = { slug: 'kreator', title: 'Dobierz zestaw w 60 s — kreator' }
 
 /** Populated documents of a relation; ids (unpopulated or not readable) are left out. */
 function docs<T extends object>(values: (number | T)[] | null | undefined): T[] {
@@ -284,9 +288,12 @@ export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
       name: industry.name,
       active: Boolean(industry.active),
     })),
-    pages: source.pages
-      .filter(({ slug }) => slug !== HOME_SLUG)
-      .map(({ slug, title }) => ({ slug, title })),
+    pages: [
+      ...source.pages
+        .filter(({ slug }) => slug !== HOME_SLUG)
+        .map(({ slug, title }) => ({ slug, title })),
+      ...(wizardSchema.safeParse(source.settings?.wizard).success ? [WIZARD_PAGE] : []),
+    ],
     search: {
       synonyms: Object.fromEntries(
         (search?.synonyms ?? []).map(({ phrase, expansions }) => [phrase, expansions]),

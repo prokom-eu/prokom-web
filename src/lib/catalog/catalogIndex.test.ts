@@ -2,10 +2,19 @@ import { gzipSync } from 'node:zlib'
 
 import { describe, expect, it } from 'vitest'
 
-import type { CatalogCategory, Industry, Media, Partner, Product } from '@/payload-types'
+import kreator from '../../../seed/prokombiznes/kreator.json'
+import type {
+  BiznesSetting,
+  CatalogCategory,
+  Industry,
+  Media,
+  Partner,
+  Product,
+} from '@/payload-types'
 
-import { buildCatalogIndex } from './catalogIndex'
+import { buildCatalogIndex, WIZARD_PAGE } from './catalogIndex'
 import { image, sourceFromSeed, TENANT } from './seedSource.fixture'
+import { wizardFromSeed } from './wizard'
 
 const OTHER_TENANT = 2
 
@@ -63,6 +72,19 @@ describe('buildCatalogIndex on the seed package', () => {
     expect(index.pages).toEqual([{ slug: 'opieka-it', title: 'Opieka IT' }])
     expect(index.search.synonyms.notebook).toEqual(['laptop'])
     expect(index.search.popular).toContain('KSeF')
+  })
+
+  it('lists the wizard among the pages while it has valid rules (B10c)', () => {
+    const source = sourceFromSeed()
+    const rules = wizardFromSeed(kreator, (id) =>
+      id === 'ergo' ? 'posnet-ergo-online' : undefined,
+    )
+    const withWizard = buildCatalogIndex({
+      ...source,
+      settings: { search: source.settings!.search, wizard: rules as BiznesSetting['wizard'] },
+    })
+    expect(withWizard.pages).toContainEqual(WIZARD_PAGE)
+    expect(index.pages).not.toContainEqual(WIZARD_PAGE)
   })
 
   it('carries no price field', () => {

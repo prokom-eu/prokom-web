@@ -7,6 +7,8 @@ import { pagesTag } from '../pages/tags'
 import { buildCatalogIndex, type CatalogIndex } from './catalogIndex'
 import { buildCategoryView, type CategoryView } from './category'
 import { buildIndustryView, type IndustryView } from './industry'
+import type { Wizard } from './wizard'
+import { readWizardRules } from './wizardRules'
 import { buildProductView, type ProductView } from './product'
 import { catalogTag } from './tags'
 
@@ -188,6 +190,17 @@ export const getIndustryView = (tenantId: number, slug: string): Promise<Industr
       return industry ? buildIndustryView(industry, tenantId) : null
     },
     ['industry-view', String(tenantId), slug],
+    { tags: [catalogTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
+  )()
+
+/**
+ * Valid wizard rules of the tenant (`BiznesSettings.wizard`) for `/kreator` — or `null` (none
+ * saved yet, or of an older format). Cached under the catalog tag (`BiznesSettings` hooks).
+ */
+export const getWizardRules = (tenantId: number): Promise<Wizard | null> =>
+  unstable_cache(
+    async () => readWizardRules(await getPayload({ config }), tenantId),
+    ['wizard-rules', String(tenantId)],
     { tags: [catalogTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
   )()
 

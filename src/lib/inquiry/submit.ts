@@ -1,5 +1,7 @@
 import type { Inquiry } from '@/payload-types'
 
+import type { Wizard } from '../catalog/wizard'
+import { buildKit, parseWizardAnswers, proposedSlugs, wizardSummary } from '../catalog/wizardKit'
 import { errorFields, log } from '../log'
 import { normalizeHost } from '../tenant/host'
 import type { Line } from '../tenant/lines'
@@ -39,6 +41,8 @@ export type SubmitDeps = {
   findTenant: (host: string) => Promise<InquiryTenant | null>
   /** Published products of this tenant with these slugs (tenant isolation, ADR-012 §3). */
   findProducts: (tenantId: number, slugs: string[]) => Promise<InquiryProduct[]>
+  /** Valid wizard rules of this tenant (`BiznesSettings.wizard`), or `null` without them. */
+  findWizard: (tenantId: number) => Promise<Wizard | null>
   /** Returns the record after the hooks, so with the number (`Inquiries.assignNumber`). */
   save: (data: NewInquiry) => Promise<{ id: number; number?: string | null }>
   sendEmail: (email: Email) => Promise<unknown>
@@ -80,6 +84,33 @@ function matchItems(items: InquiryInput['items'], products: InquiryProduct[]): S
       },
     ]
   })
+}
+
+/**
+ * The wizard's answers as an inquiry: the kit's products of this tenant as items (with the
+ * quantity per sales point) and the answers named for people — or `null` when the answers do
+ * not fit the rules of this site (or it has none).
+ */
+async function composeWizard(
+  deps: SubmitDeps,
+  tenantId: number,
+  input: unknown,
+): Promise<{ items: SavedItem[]; summary: Record<string, unknown>; when?: string } | null> {
+  const rules = await deps.findWizard(tenantId)
+  const answers = rules ? parseWizardAnswers(rules, input) : null
+  if (!rules || !answers) return null
+  // Which products the rules propose, then only the published ones of this tenant.
+  const proposed = proposedSlugs(rules, answers)
+  const products = proposed.length > 0 ? await deps.findProducts(tenantId, proposed) : []
+  const bySlug = new Map(products.map((product) => [product.slug, product]))
+  const kit = buildKit(rules, answers, (slug) => bySlug.get(slug))
+  const items = kit.items.flatMap((item) => {
+    const product = item.slug ? bySlug.get(item.slug) : undefined
+    return product
+      ? [{ product: product.id, nameSnapshot: product.name, quantity: item.quantity }]
+      : []
+  })
+  return { items, summary: wizardSummary(rules, answers, kit), when: answers.when }
 }
 
 /** The one place that accepts an inquiry (ADR-003); see `submitInquiry`. */
@@ -131,6 +162,24 @@ export async function submitInquiryWith(
     }
   }
 
+  // The wizard sends its answers only: they are checked against this site's rules and the kit
+  // is computed here, from published products of this tenant (B10c) — never taken as sent.
+  let wizard = input.wizard
+  let deadline = input.deadline
+  if (input.type === 'wizard') {
+    let composed: { items: SavedItem[]; summary: Record<string, unknown>; when?: string } | null
+    try {
+      composed = await composeWizard(deps, tenant.id, input.wizard)
+    } catch (error) {
+      deps.log.error({ tenant: tenant.id, ...errorFields(error) }, 'Inquiry wizard lookup failed')
+      return { ok: false, error: 'unavailable' }
+    }
+    if (!composed) return { ok: false, error: 'invalid', fields: ['wizard'] }
+    items = composed.items
+    wizard = composed.summary
+    deadline = composed.when ?? deadline
+  }
+
   if (!deps.limiter.hit(rateLimitKey(ip ?? 'unknown', deps.secret))) {
     deps.log.warn({ tenant: tenant.id }, 'Inquiry rate-limited')
     return { ok: false, error: 'rate_limited' }
@@ -153,10 +202,10 @@ export async function submitInquiryWith(
       city: input.city,
       message: input.message,
       preferredContact: input.preferredContact,
-      deadline: input.deadline,
+      deadline,
       topics: input.topics,
       items,
-      wizard: input.wizard,
+      wizard,
       source: input.source,
       consent: { ...input.consent, acceptedAt },
       marketingConsent: input.marketingConsent,
@@ -172,6 +221,8 @@ export async function submitInquiryWith(
   // The record is the source of truth: a failed e-mail is logged, the customer still gets 201.
   const forEmail: InquiryForEmail = {
     ...input,
+    deadline,
+    wizard,
     id,
     number,
     line: tenant.line,
@@ -275,6 +326,10 @@ export async function submitInquiry(
           overrideAccess: true,
         })
         return docs.map(({ id, slug, name }) => ({ id, slug, name }))
+      },
+      findWizard: async (tenantId) => {
+        const { readWizardRules } = await import('../catalog/wizardRules')
+        return readWizardRules(payload, tenantId)
       },
       save: (data) =>
         payload.create({ collection: 'inquiries', data, depth: 0, overrideAccess: true }),

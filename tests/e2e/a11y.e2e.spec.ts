@@ -5,13 +5,20 @@ import { site } from './helpers'
 
 // ADR-007 / ADR-013 / ADR-015: every line passes axe (WCAG 2.1 A/AA) in each of its themes, the layout
 // holds at 360 px and the dark theme switch works. Seed pages: `home` and `kontakt` (and the Biznes
-// subpages from blocks, B9; the category page, B10a; an industry page, B10b).
+// subpages from blocks, B9; the category page, B10a; an industry page, B10b; the wizard, B10c).
 const SITES: { host: string; line: string; dark: boolean; extra?: string[] }[] = [
   {
     host: 'biznes.localhost',
     line: 'biznes',
     dark: true,
-    extra: ['/opieka-it', '/gopos', '/insert', '/oferta/kasy-fiskalne', '/branze/gastronomia'],
+    extra: [
+      '/opieka-it',
+      '/gopos',
+      '/insert',
+      '/oferta/kasy-fiskalne',
+      '/branze/gastronomia',
+      '/kreator',
+    ],
   },
   { host: 'instalacje.localhost', line: 'instalacje', dark: false },
   { host: 'software.localhost', line: 'software', dark: true },

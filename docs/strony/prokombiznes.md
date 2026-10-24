@@ -434,6 +434,14 @@ Wzór: `Kreator`; dane w `seed/prokombiznes/kreator.json`.
   - Etap 2: przycisk „Dodaj zestaw do listy zapytania”.
 - Reguły doboru są danymi (JSON / global w panelu), nie `if`-ami w komponentach.
 
+Wdrożenie B10c (decyzje Krystiana 24.10.2026):
+- krok 4 jak na planszy: Imię \*, Telefon \*, Miejscowość, „Na kiedy?” i zgoda (bez e-maila); zgłoszenie typu `wizard`;
+- zestaw liczy serwer z reguł `BiznesSettings.wizard` i odpowiedzi (przeglądarka wysyła tylko odpowiedzi); produkty trafiają do zgłoszenia jako pozycje z ilościami, odpowiedzi — jako podsumowanie po polsku;
+- propozycje w regułach to adresy produktów katalogu; produkt nieopublikowany = sama potrzeba, bez zdjęcia;
+- „Dodaj zestaw do listy zapytania” już w etapie 1 (po 1 sztuce każdej pozycji);
+- plakietki tylko ze źródłem przy fakcie (700 zł: art. 111 ust. 4 ustawy o VAT); „Terminal 0 zł” do czasu warunków programu pominięta, KSeF bez daty;
+- zwykły nagłówek i stopka strony; `noindex` jak `/zapytanie`.
+
 ### 6.9 O firmie, Aktualności, Wpis, Kontakt
 - **O firmie** (`OFirmie`):
   - hero „22 lata na Podhalu…” **[SZEF: liczba lat liczona od 2004, automatycznie]**;
@@ -527,7 +535,7 @@ Trzy formularze: kontakt, zapytanie z listą, kreator. Wszystkie idą do jednego
   - Typ zgłoszenia `kontakt`. Po wysłaniu ekran „Dziękujemy, zapytanie wysłane.” z przyciskiem „Wyślij kolejne”. Wygląd: `ZMIANY-v20.md` §2.9.
   - Pole „tematy” zostaje w modelu `Inquiries` (używa go np. „Zapytaj o X”), ale ten formularz go nie wysyła.
 - **Zapytanie z listą (`/zapytanie`)** — pola według §6.3 (plansza `Zapytanie`, decyzja 24.10.2026): **imię \***, **telefon \*** (oddzwaniamy), wiadomość opcjonalna (uwagi do listy), pozycje z ilościami i uwagami; ukryte: źródło (adres strony), UTM. „Zapytaj o X” z wyszukiwarki (`/zapytanie?fraza=X`) przy pustej liście wysyła typ `search` z frazą w tematach.
-- **Kreator** — pola ustala B10; do tego czasu serwer wymaga imienia i telefonu lub e-maila.
+- **Kreator** (B10c, §6.8): Imię \*, Telefon \*, Miejscowość, „Na kiedy?”, opcjonalna wiadomość i zgoda; zestaw liczy serwer z reguł (ADR-003, uzupełnienie B10c).
 - Reguły pól i typy zgłoszeń: ADR-003, uzupełnienie 24.10.2026.
 - **Ochrona:** honeypot, limit zgłoszeń z IP, walidacja Zod na serwerze. Bez CAPTCHA na start.
 - **Po wysłaniu:**
