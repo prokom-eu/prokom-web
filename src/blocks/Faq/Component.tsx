@@ -12,7 +12,13 @@ export function FaqBlock({ block }: { block: FaqBlockData }) {
         dangerouslySetInnerHTML={{ __html: serializeJsonLd(faqJsonLd(block.items)) }}
       />
       <div className="max-w-3xl">
+        {block.eyebrow && (
+          <p className="mb-3 text-sm font-bold tracking-[0.08em] text-accent-text uppercase">
+            {block.eyebrow}
+          </p>
+        )}
         {block.heading && <Heading level={2}>{block.heading}</Heading>}
+        {block.lead && <p className="mt-4 text-lg leading-relaxed text-ink-2">{block.lead}</p>}
         <div className="mt-8 divide-y divide-border border-y border-border">
           {block.items.map((item, i) => (
             <details key={item.id ?? i} className="group">

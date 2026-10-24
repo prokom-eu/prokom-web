@@ -2,12 +2,16 @@ import type { Block, BlocksField, PayloadRequest } from 'payload'
 
 import { tenantIdOf } from '../lib/tenant/id'
 import { isLine, type Line } from '../lib/tenant/lines'
+import { BzContactBlock } from '../sites/biznes/blocks/BzContact/config'
+import { BzFactsBlock } from '../sites/biznes/blocks/BzFacts/config'
 import { BzFeaturedBlock } from '../sites/biznes/blocks/BzFeatured/config'
 import { BzHeroBlock } from '../sites/biznes/blocks/BzHero/config'
 import { BzNeedsBlock } from '../sites/biznes/blocks/BzNeeds/config'
+import { BzNewsBlock } from '../sites/biznes/blocks/BzNews/config'
 import { BzOfferBlock } from '../sites/biznes/blocks/BzOffer/config'
 import { BzOnePartnerBlock } from '../sites/biznes/blocks/BzOnePartner/config'
 import { BzPlanBlock } from '../sites/biznes/blocks/BzPlan/config'
+import { BzReferencesBlock } from '../sites/biznes/blocks/BzReferences/config'
 import { BzStepsBlock } from '../sites/biznes/blocks/BzSteps/config'
 import { CallToActionBlock } from './CallToAction/config'
 import { ContactBlock } from './Contact/config'
@@ -39,6 +43,10 @@ export const BIZNES_BLOCKS: Block[] = [
   BzPlanBlock,
   BzStepsBlock,
   BzOnePartnerBlock,
+  BzReferencesBlock,
+  BzFactsBlock,
+  BzNewsBlock,
+  BzContactBlock,
 ]
 
 /**

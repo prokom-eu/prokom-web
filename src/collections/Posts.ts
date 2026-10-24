@@ -1,9 +1,26 @@
-import type { CollectionConfig } from 'payload'
+import type {
+  CollectionAfterChangeHook,
+  CollectionAfterDeleteHook,
+  CollectionConfig,
+} from 'payload'
 
 import { restrictedRichTextEditor } from '../blocks/RichText/config'
 import { adminOnly } from '../lib/auth/access'
 import { POST_CATEGORIES } from '../lib/catalog/options'
+import { revalidatePageTags } from '../lib/pages/revalidate'
+import { postsTagsOf } from '../lib/posts/tags'
 import { imageField, seoGroup, slugField } from './catalogFields'
+
+// The home page shows the latest posts (B7d): a change is visible at once, not after the TTL.
+const revalidateAfterChange: CollectionAfterChangeHook = ({ doc, previousDoc, req }) => {
+  revalidatePageTags(postsTagsOf(doc, previousDoc), req.payload)
+  return doc
+}
+
+const revalidateAfterDelete: CollectionAfterDeleteHook = ({ doc, req }) => {
+  revalidatePageTags(postsTagsOf(doc), req.payload)
+  return doc
+}
 
 /**
  * News (Aktualności, ADR-012 §1). Every legal fact needs a source with a verification date
@@ -29,6 +46,7 @@ export const Posts: CollectionConfig = {
     drafts: { schedulePublish: true },
     maxPerDoc: 20,
   },
+  hooks: { afterChange: [revalidateAfterChange], afterDelete: [revalidateAfterDelete] },
   indexes: [{ fields: ['tenant', 'slug'], unique: true }],
   fields: [
     { name: 'title', label: 'Tytuł', type: 'text', required: true },

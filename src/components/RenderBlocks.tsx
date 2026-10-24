@@ -11,14 +11,19 @@ import { Heading } from '@/components/ui/Heading'
 import { Section } from '@/components/ui/Section'
 import type { PublicPage } from '@/lib/pages/data'
 import type { SiteTenant } from '@/lib/tenant/byHost'
+import { BzContactBlock } from '@/sites/biznes/blocks/BzContact/Component'
+import { BzFactsBlock } from '@/sites/biznes/blocks/BzFacts/Component'
 import { BzFeaturedBlock } from '@/sites/biznes/blocks/BzFeatured/Component'
 import { BzHeroBlock } from '@/sites/biznes/blocks/BzHero/Component'
 import { BzNeedsBlock } from '@/sites/biznes/blocks/BzNeeds/Component'
+import { BzNewsBlock } from '@/sites/biznes/blocks/BzNews/Component'
 import { BzOfferBlock } from '@/sites/biznes/blocks/BzOffer/Component'
 import { BzOnePartnerBlock } from '@/sites/biznes/blocks/BzOnePartner/Component'
 import { BzPlanBlock } from '@/sites/biznes/blocks/BzPlan/Component'
+import { BzReferencesBlock } from '@/sites/biznes/blocks/BzReferences/Component'
 import { BzStepsBlock } from '@/sites/biznes/blocks/BzSteps/Component'
 import { BrandMarquee } from '@/sites/biznes/components/home/BrandMarquee'
+import { FaqBiznes } from '@/sites/biznes/components/home/FaqBiznes'
 
 type Props = { page: PublicPage; tenant: SiteTenant }
 
@@ -29,7 +34,8 @@ const HERO_BLOCKS = new Set(['hero', 'bzHero'])
  * Page body from blocks. A block not allowed for the tenant's line is skipped (ADR-010), so
  * removing a block from a line's list hides it at once, before editors clean up the pages.
  * Without a hero as the first block, the page title is the h1. Shared blocks may look different
- * per line (ADR-014 rozstrz. 7): on Biznes, Partners is the brands bar.
+ * per line (ADR-014 rozstrz. 7): on Biznes, Partners is the brands bar and FAQ the cards with
+ * a contact column.
  */
 export function RenderBlocks({ page, tenant }: Props) {
   const blocks = renderableBlocks(tenant.line, page.layout)
@@ -55,7 +61,11 @@ export function RenderBlocks({ page, tenant }: Props) {
           case 'callToAction':
             return <CallToActionBlock key={key} block={block} />
           case 'faq':
-            return <FaqBlock key={key} block={block} />
+            return biznes ? (
+              <FaqBiznes key={key} block={block} tenantId={tenant.id} />
+            ) : (
+              <FaqBlock key={key} block={block} />
+            )
           case 'contact':
             return <ContactBlock key={key} block={block} tenantId={tenant.id} />
           case 'partners':
@@ -80,6 +90,14 @@ export function RenderBlocks({ page, tenant }: Props) {
             return <BzStepsBlock key={key} block={block} />
           case 'bzOnePartner':
             return <BzOnePartnerBlock key={key} block={block} tenantId={tenant.id} />
+          case 'bzReferences':
+            return <BzReferencesBlock key={key} block={block} tenantId={tenant.id} />
+          case 'bzFacts':
+            return <BzFactsBlock key={key} block={block} tenantId={tenant.id} />
+          case 'bzNews':
+            return <BzNewsBlock key={key} block={block} tenantId={tenant.id} />
+          case 'bzContact':
+            return <BzContactBlock key={key} block={block} tenantId={tenant.id} />
         }
       })}
     </>

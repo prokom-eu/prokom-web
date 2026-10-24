@@ -577,6 +577,10 @@ export interface Page {
         | BzPlanBlock
         | BzStepsBlock
         | BzOnePartnerBlock
+        | BzReferencesBlock
+        | BzFactsBlock
+        | BzNewsBlock
+        | BzContactBlock
       )[]
     | null;
   seo?: {
@@ -676,7 +680,9 @@ export interface CallToActionBlock {
  * via the `definition` "FaqBlock".
  */
 export interface FaqBlock {
+  eyebrow?: string | null;
   heading?: string | null;
+  lead?: string | null;
   items: {
     question: string;
     answer: string;
@@ -1585,6 +1591,152 @@ export interface BzOnePartnerBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzReferencesBlock".
+ */
+export interface BzReferencesBlock {
+  eyebrow?: string | null;
+  /**
+   * Sekcja ma kotwicę #referencje — ten blok wstaw na stronie tylko raz.
+   */
+  heading: string;
+  lead?: string | null;
+  kinds?:
+    | {
+        title: string;
+        icon:
+          | 'shield'
+          | 'cal'
+          | 'users'
+          | 'store'
+          | 'bolt'
+          | 'doc'
+          | 'life'
+          | 'arrow'
+          | 'check'
+          | 'phone'
+          | 'mail'
+          | 'pin'
+          | 'clock'
+          | 'monitor'
+          | 'remote'
+          | 'bell'
+          | 'wallet'
+          | 'chat'
+          | 'wrench'
+          | 'rocket'
+          | 'map'
+          | 'star'
+          | 'q'
+          | 'flash'
+          | 'grad'
+          | 'server'
+          | 'compass';
+        examples?: string | null;
+        solutions?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Tylko prawdziwe opinie, 1:1, ze źródłem i datą. [SZEF] zgody i wybór.
+   */
+  reviews?:
+    | {
+        quote: string;
+        author: string;
+        source?: string | null;
+        url?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Tylko logo z pisemną zgodą klienta (obraz bez „Wymaga zgody”).
+   */
+  logos?: (number | Media)[] | null;
+  note?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bzReferences';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzFactsBlock".
+ */
+export interface BzFactsBlock {
+  eyebrow?: string | null;
+  /**
+   * Sekcja ma kotwicę #fakty — ten blok wstaw na stronie tylko raz.
+   */
+  heading: string;
+  owner: {
+    label?: string | null;
+    quote: string;
+    /**
+     * Dokładnie ten tekst z cytatu dostaje kolor akcentu.
+     */
+    highlight?: string | null;
+    name: string;
+    role?: string | null;
+    year?: string | null;
+    yearText?: string | null;
+    /**
+     * ZMIANY-v20 §2.6: zastępstwo zdjęcia tylko za flagą; wyłączone = kafel z ikoną.
+     */
+    photoPlaceholder?: boolean | null;
+  };
+  stats?:
+    | {
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  authorizationsLabel?: string | null;
+  authorizations?: (number | Partner)[] | null;
+  areaText?: string | null;
+  contactLink?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bzFacts';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzNewsBlock".
+ */
+export interface BzNewsBlock {
+  heading: string;
+  allLabel?: string | null;
+  readLabel?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bzNews';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzContactBlock".
+ */
+export interface BzContactBlock {
+  /**
+   * Sekcja ma kotwicę #kontakt (link „Zgłoś awarię”) — ten blok wstaw na stronie tylko raz.
+   */
+  heading: string;
+  lead?: string | null;
+  formHeading?: string | null;
+  formNote?: string | null;
+  promises?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bzContact';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -2192,6 +2344,10 @@ export interface PagesSelect<T extends boolean = true> {
         bzPlan?: T | BzPlanBlockSelect<T>;
         bzSteps?: T | BzStepsBlockSelect<T>;
         bzOnePartner?: T | BzOnePartnerBlockSelect<T>;
+        bzReferences?: T | BzReferencesBlockSelect<T>;
+        bzFacts?: T | BzFactsBlockSelect<T>;
+        bzNews?: T | BzNewsBlockSelect<T>;
+        bzContact?: T | BzContactBlockSelect<T>;
       };
   seo?:
     | T
@@ -2273,7 +2429,9 @@ export interface CallToActionBlockSelect<T extends boolean = true> {
  * via the `definition` "FaqBlock_select".
  */
 export interface FaqBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
   heading?: T;
+  lead?: T;
   items?:
     | T
     | {
@@ -2634,6 +2792,104 @@ export interface BzOnePartnerBlockSelect<T extends boolean = true> {
         id?: T;
       };
   oneBubbles?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzReferencesBlock_select".
+ */
+export interface BzReferencesBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  lead?: T;
+  kinds?:
+    | T
+    | {
+        title?: T;
+        icon?: T;
+        examples?: T;
+        solutions?: T;
+        id?: T;
+      };
+  reviews?:
+    | T
+    | {
+        quote?: T;
+        author?: T;
+        source?: T;
+        url?: T;
+        id?: T;
+      };
+  logos?: T;
+  note?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzFactsBlock_select".
+ */
+export interface BzFactsBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  owner?:
+    | T
+    | {
+        label?: T;
+        quote?: T;
+        highlight?: T;
+        name?: T;
+        role?: T;
+        year?: T;
+        yearText?: T;
+        photoPlaceholder?: T;
+      };
+  stats?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  authorizationsLabel?: T;
+  authorizations?: T;
+  areaText?: T;
+  contactLink?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzNewsBlock_select".
+ */
+export interface BzNewsBlockSelect<T extends boolean = true> {
+  heading?: T;
+  allLabel?: T;
+  readLabel?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzContactBlock_select".
+ */
+export interface BzContactBlockSelect<T extends boolean = true> {
+  heading?: T;
+  lead?: T;
+  formHeading?: T;
+  formNote?: T;
+  promises?:
     | T
     | {
         text?: T;
