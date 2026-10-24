@@ -15,6 +15,11 @@ import { BzPlanBlock } from '../sites/biznes/blocks/BzPlan/config'
 import { BzQuickCardsBlock } from '../sites/biznes/blocks/BzQuickCards/config'
 import { BzReferencesBlock } from '../sites/biznes/blocks/BzReferences/config'
 import { BzStepsBlock } from '../sites/biznes/blocks/BzSteps/config'
+import { BzAuditBlock } from '../sites/biznes/blocks/BzAudit/config'
+import { BzCardsBlock } from '../sites/biznes/blocks/BzCards/config'
+import { BzDowntimeCalcBlock } from '../sites/biznes/blocks/BzDowntimeCalc/config'
+import { BzMonitoringBlock } from '../sites/biznes/blocks/BzMonitoring/config'
+import { BzPageHeroBlock } from '../sites/biznes/blocks/BzPageHero/config'
 import { CallToActionBlock } from './CallToAction/config'
 import { ContactBlock } from './Contact/config'
 import { FaqBlock } from './Faq/config'
@@ -36,7 +41,7 @@ export const GENERIC_BLOCKS: Block[] = [
   InquiryFormBlock,
 ]
 
-/** Sections of the Biznes pages (B7 home, B8c contact) — `src/sites/biznes/blocks/`. */
+/** Sections of the Biznes pages (B7 home, B8c contact, B9 subpages) — `src/sites/biznes/blocks/`. */
 export const BIZNES_BLOCKS: Block[] = [
   BzHeroBlock,
   BzNeedsBlock,
@@ -51,6 +56,11 @@ export const BIZNES_BLOCKS: Block[] = [
   BzContactBlock,
   BzContactInfoBlock,
   BzQuickCardsBlock,
+  BzPageHeroBlock,
+  BzCardsBlock,
+  BzMonitoringBlock,
+  BzDowntimeCalcBlock,
+  BzAuditBlock,
 ]
 
 /**

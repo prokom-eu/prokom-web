@@ -31,6 +31,7 @@ import {
 } from './map'
 import { FOOTER_LEGAL_LINKS, FOOTER_TEXT, footerData } from './footer'
 import { SERVICE_AREAS, seedBiznesContact } from './contact'
+import { seedBiznesOpiekaIt } from './opiekaIt'
 import { seedBiznesHome } from './home'
 import { navigationData } from './navigation'
 
@@ -437,6 +438,11 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
 
   // --- contact page (B8c): Biznes blocks instead of the sample ---
   await seedBiznesContact(payload, tenant.id, (name, changed) =>
+    count(name, changed ? 'updated' : false),
+  )
+
+  // --- subpages from Biznes blocks (B9) ---
+  await seedBiznesOpiekaIt(payload, tenant.id, (name, changed) =>
     count(name, changed ? 'updated' : false),
   )
 

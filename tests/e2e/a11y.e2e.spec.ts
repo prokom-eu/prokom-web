@@ -4,9 +4,10 @@ import { expect, test, type Page } from '@playwright/test'
 import { site } from './helpers'
 
 // ADR-007 / ADR-013 / ADR-015: every line passes axe (WCAG 2.1 A/AA) in each of its themes, the layout
-// holds at 360 px and the dark theme switch works. Seed pages: `home` and `kontakt`.
-const SITES = [
-  { host: 'biznes.localhost', line: 'biznes', dark: true },
+// holds at 360 px and the dark theme switch works. Seed pages: `home` and `kontakt` (and the Biznes
+// subpages from blocks, B9).
+const SITES: { host: string; line: string; dark: boolean; extra?: string[] }[] = [
+  { host: 'biznes.localhost', line: 'biznes', dark: true, extra: ['/opieka-it'] },
   { host: 'instalacje.localhost', line: 'instalacje', dark: false },
   { host: 'software.localhost', line: 'software', dark: true },
 ]
@@ -20,8 +21,8 @@ async function expectNoViolations(page: Page) {
 }
 
 test.describe('accessibility (axe)', () => {
-  for (const { host, line, dark } of SITES) {
-    for (const path of PATHS) {
+  for (const { host, line, dark, extra = [] } of SITES) {
+    for (const path of [...PATHS, ...extra]) {
       for (const colorScheme of dark ? (['light', 'dark'] as const) : (['light'] as const)) {
         test(`${host}${path} — ${colorScheme}`, async ({ page }) => {
           await page.emulateMedia({ colorScheme })
@@ -52,8 +53,8 @@ test.describe('line colours', () => {
 test.describe('phone width (360 px)', () => {
   test.use({ viewport: { width: 360, height: 740 } })
 
-  for (const { host } of SITES) {
-    for (const path of PATHS) {
+  for (const { host, extra = [] } of SITES) {
+    for (const path of [...PATHS, ...extra]) {
       test(`${host}${path} has no horizontal scroll`, async ({ page }) => {
         await page.goto(site(host, path))
         const overflow = await page.evaluate(

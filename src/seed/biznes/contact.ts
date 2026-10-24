@@ -1,9 +1,8 @@
 import type { Payload } from 'payload'
 
-import type { Page } from '../../payload-types'
-import { mergeHomeLayout } from './home'
+import { type PageBlock, upsertBiznesPage } from './page'
 
-type ContactBlock = NonNullable<Page['layout']>[number]
+type ContactBlock = PageBlock
 
 export const CONTACT_SLUG = 'kontakt'
 
@@ -112,51 +111,22 @@ export function biznesContactLayout(): ContactBlock[] {
 }
 
 type Report = (name: string, changed: boolean) => void
-const local = { overrideAccess: true, context: { seed: true }, depth: 0 } as const
 
 /**
  * `/kontakt` of the Biznes tenant: the sample page (generic blocks only) is replaced, a page
- * edited in the panel only gets the block types it lacks (`mergeHomeLayout`).
+ * edited in the panel only gets the block types it lacks (`upsertBiznesPage`).
  */
 export async function seedBiznesContact(
   payload: Payload,
   tenantId: number,
   report: Report,
 ): Promise<void> {
-  const {
-    docs: [page],
-  } = await payload.find({
-    collection: 'pages',
-    where: { and: [{ tenant: { equals: tenantId } }, { slug: { equals: CONTACT_SLUG } }] },
-    limit: 1,
-    ...local,
-  })
-  const seed = biznesContactLayout()
-  if (!page) {
-    await payload.create({
-      collection: 'pages',
-      data: {
-        title: 'Kontakt',
-        // TODO(krystian): [SZEF] opis strony (SEO → Opis) — bez niego /kontakt ma opis strony
-        // głównej z Ustawień; treść do panelu, seed jej nie wymyśla (jak strona główna).
-        slug: CONTACT_SLUG,
-        layout: seed,
-        tenant: tenantId,
-        _status: 'published',
-      },
-      ...local,
-    })
-    report('pages kontakt', true)
-    return
-  }
-  const layout = mergeHomeLayout(page.layout, seed)
-  report('pages kontakt', layout !== null)
-  if (layout) {
-    await payload.update({
-      collection: 'pages',
-      id: page.id,
-      data: { layout, _status: 'published' },
-      ...local,
-    })
-  }
+  // TODO(krystian): [SZEF] opis strony (SEO → Opis) — bez niego /kontakt ma opis strony
+  // głównej z Ustawień; treść do panelu, seed jej nie wymyśla (jak strona główna).
+  await upsertBiznesPage(
+    payload,
+    tenantId,
+    { slug: CONTACT_SLUG, title: 'Kontakt', layout: biznesContactLayout() },
+    report,
+  )
 }

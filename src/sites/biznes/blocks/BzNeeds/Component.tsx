@@ -6,7 +6,7 @@ import { Icon } from '@/components/ui/Icon'
 import type { BzNeedsBlock as BzNeedsBlockData } from '@/payload-types'
 
 import { TONE_ICON } from '../../components/home/tones'
-import { DaysUntil } from './DaysUntil'
+import { DaysUntil } from '../../components/DaysUntil'
 
 type Tone = BzNeedsBlockData['items'][number]['tone']
 

@@ -583,6 +583,11 @@ export interface Page {
         | BzContactBlock
         | BzContactInfoBlock
         | BzQuickCardsBlock
+        | BzPageHeroBlock
+        | BzCardsBlock
+        | BzMonitoringBlock
+        | BzDowntimeCalcBlock
+        | BzAuditBlock
       )[]
     | null;
   seo?: {
@@ -1786,6 +1791,373 @@ export interface BzQuickCardsBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzPageHeroBlock".
+ */
+export interface BzPageHeroBlock {
+  /**
+   * Wstaw ten blok tylko raz, jako pierwszy — jego nagłówek to H1, a nad nim są okruszki.
+   */
+  pill?: string | null;
+  heading: string;
+  headingAccent?: string | null;
+  lead?: string | null;
+  primary: {
+    label: string;
+    href: string;
+  };
+  secondary?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  chips?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  parent?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  variant: 'card';
+  card?: {
+    eyebrow?: string | null;
+    title?: string | null;
+    steps?:
+      | {
+          title: string;
+          text: string;
+          id?: string | null;
+        }[]
+      | null;
+    button?: {
+      label?: string | null;
+      href?: string | null;
+    };
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bzPageHero';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzCardsBlock".
+ */
+export interface BzCardsBlock {
+  eyebrow?: string | null;
+  heading: string;
+  lead?: string | null;
+  surface: 'default' | 'muted';
+  columns: '3' | '4';
+  cards: {
+    title: string;
+    /**
+     * Pusta = karta bez ikony.
+     */
+    icon?:
+      | (
+          | 'shield'
+          | 'cal'
+          | 'users'
+          | 'store'
+          | 'bolt'
+          | 'doc'
+          | 'life'
+          | 'arrow'
+          | 'check'
+          | 'phone'
+          | 'mail'
+          | 'pin'
+          | 'clock'
+          | 'monitor'
+          | 'remote'
+          | 'bell'
+          | 'wallet'
+          | 'chat'
+          | 'wrench'
+          | 'rocket'
+          | 'map'
+          | 'star'
+          | 'q'
+          | 'flash'
+          | 'grad'
+          | 'server'
+          | 'compass'
+        )
+      | null;
+    text: string;
+    link?: {
+      label?: string | null;
+      href?: string | null;
+    };
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bzCards';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzMonitoringBlock".
+ */
+export interface BzMonitoringBlock {
+  eyebrow?: string | null;
+  heading: string;
+  text?: string | null;
+  points?:
+    | {
+        text: string;
+        icon:
+          | 'shield'
+          | 'cal'
+          | 'users'
+          | 'store'
+          | 'bolt'
+          | 'doc'
+          | 'life'
+          | 'arrow'
+          | 'check'
+          | 'phone'
+          | 'mail'
+          | 'pin'
+          | 'clock'
+          | 'monitor'
+          | 'remote'
+          | 'bell'
+          | 'wallet'
+          | 'chat'
+          | 'wrench'
+          | 'rocket'
+          | 'map'
+          | 'star'
+          | 'q'
+          | 'flash'
+          | 'grad'
+          | 'server'
+          | 'compass';
+        id?: string | null;
+      }[]
+    | null;
+  primary?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  secondary?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  panel: {
+    title: string;
+    subtitle?: string | null;
+    status?: string | null;
+    kpis?:
+      | {
+          label: string;
+          value: string;
+          id?: string | null;
+        }[]
+      | null;
+    rows?:
+      | {
+          title: string;
+          detail?: string | null;
+          icon:
+            | 'shield'
+            | 'cal'
+            | 'users'
+            | 'store'
+            | 'bolt'
+            | 'doc'
+            | 'life'
+            | 'arrow'
+            | 'check'
+            | 'phone'
+            | 'mail'
+            | 'pin'
+            | 'clock'
+            | 'monitor'
+            | 'remote'
+            | 'bell'
+            | 'wallet'
+            | 'chat'
+            | 'wrench'
+            | 'rocket'
+            | 'map'
+            | 'star'
+            | 'q'
+            | 'flash'
+            | 'grad'
+            | 'server'
+            | 'compass';
+          state: 'ok' | 'planned' | 'wip';
+          stateLabel: string;
+          id?: string | null;
+        }[]
+      | null;
+    logLabel?: string | null;
+    log?:
+      | {
+          time: string;
+          text: string;
+          id?: string | null;
+        }[]
+      | null;
+    note?: string | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bzMonitoring';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzDowntimeCalcBlock".
+ */
+export interface BzDowntimeCalcBlock {
+  eyebrow?: string | null;
+  heading: string;
+  kicker?: string | null;
+  title: string;
+  text?: string | null;
+  revenueLabel: string;
+  hoursLabel: string;
+  outageLabel: string;
+  resultKicker?: string | null;
+  cta?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  note?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bzDowntimeCalc';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzAuditBlock".
+ */
+export interface BzAuditBlock {
+  /**
+   * Np. „0 zł”. Sekcja ma kotwicę #przeglad — blok tylko raz na stronie.
+   */
+  badgeValue?: string | null;
+  badgeLabel?: string | null;
+  heading: string;
+  headingAccent?: string | null;
+  /**
+   * Fragment między **gwiazdkami** będzie pogrubiony.
+   */
+  lead?: string | null;
+  needs?:
+    | {
+        title: string;
+        icon:
+          | 'shield'
+          | 'cal'
+          | 'users'
+          | 'store'
+          | 'bolt'
+          | 'doc'
+          | 'life'
+          | 'arrow'
+          | 'check'
+          | 'phone'
+          | 'mail'
+          | 'pin'
+          | 'clock'
+          | 'monitor'
+          | 'remote'
+          | 'bell'
+          | 'wallet'
+          | 'chat'
+          | 'wrench'
+          | 'rocket'
+          | 'map'
+          | 'star'
+          | 'q'
+          | 'flash'
+          | 'grad'
+          | 'server'
+          | 'compass';
+        text: string;
+        /**
+         * Do tego dnia w rogu jest „N dni” (liczone w przeglądarce).
+         */
+        countdownTo?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  steps?:
+    | {
+        title: string;
+        text?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  cta: {
+    label: string;
+    href: string;
+  };
+  showPhone?: boolean | null;
+  guarantees?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  report: {
+    tag?: string | null;
+    title: string;
+    subtitle?: string | null;
+    rows?:
+      | {
+          title: string;
+          detail?: string | null;
+          icon:
+            | 'shield'
+            | 'cal'
+            | 'users'
+            | 'store'
+            | 'bolt'
+            | 'doc'
+            | 'life'
+            | 'arrow'
+            | 'check'
+            | 'phone'
+            | 'mail'
+            | 'pin'
+            | 'clock'
+            | 'monitor'
+            | 'remote'
+            | 'bell'
+            | 'wallet'
+            | 'chat'
+            | 'wrench'
+            | 'rocket'
+            | 'map'
+            | 'star'
+            | 'q'
+            | 'flash'
+            | 'grad'
+            | 'server'
+            | 'compass';
+          state: 'urgent' | 'fix' | 'watch' | 'term' | 'ok';
+          stateLabel: string;
+          id?: string | null;
+        }[]
+      | null;
+    planTitle?: string | null;
+    planNote?: string | null;
+    signature?: string | null;
+    stamp?: string | null;
+    floatValue?: string | null;
+    floatText?: string | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bzAudit';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -2400,6 +2772,11 @@ export interface PagesSelect<T extends boolean = true> {
         bzContact?: T | BzContactBlockSelect<T>;
         bzContactInfo?: T | BzContactInfoBlockSelect<T>;
         bzQuickCards?: T | BzQuickCardsBlockSelect<T>;
+        bzPageHero?: T | BzPageHeroBlockSelect<T>;
+        bzCards?: T | BzCardsBlockSelect<T>;
+        bzMonitoring?: T | BzMonitoringBlockSelect<T>;
+        bzDowntimeCalc?: T | BzDowntimeCalcBlockSelect<T>;
+        bzAudit?: T | BzAuditBlockSelect<T>;
       };
   seo?:
     | T
@@ -2978,6 +3355,241 @@ export interface BzQuickCardsBlockSelect<T extends boolean = true> {
         linkLabel?: T;
         href?: T;
         id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzPageHeroBlock_select".
+ */
+export interface BzPageHeroBlockSelect<T extends boolean = true> {
+  pill?: T;
+  heading?: T;
+  headingAccent?: T;
+  lead?: T;
+  primary?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  secondary?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  chips?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  parent?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  variant?: T;
+  card?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+        steps?:
+          | T
+          | {
+              title?: T;
+              text?: T;
+              id?: T;
+            };
+        button?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+            };
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzCardsBlock_select".
+ */
+export interface BzCardsBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  lead?: T;
+  surface?: T;
+  columns?: T;
+  cards?:
+    | T
+    | {
+        title?: T;
+        icon?: T;
+        text?: T;
+        link?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzMonitoringBlock_select".
+ */
+export interface BzMonitoringBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  text?: T;
+  points?:
+    | T
+    | {
+        text?: T;
+        icon?: T;
+        id?: T;
+      };
+  primary?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  secondary?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  panel?:
+    | T
+    | {
+        title?: T;
+        subtitle?: T;
+        status?: T;
+        kpis?:
+          | T
+          | {
+              label?: T;
+              value?: T;
+              id?: T;
+            };
+        rows?:
+          | T
+          | {
+              title?: T;
+              detail?: T;
+              icon?: T;
+              state?: T;
+              stateLabel?: T;
+              id?: T;
+            };
+        logLabel?: T;
+        log?:
+          | T
+          | {
+              time?: T;
+              text?: T;
+              id?: T;
+            };
+        note?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzDowntimeCalcBlock_select".
+ */
+export interface BzDowntimeCalcBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  kicker?: T;
+  title?: T;
+  text?: T;
+  revenueLabel?: T;
+  hoursLabel?: T;
+  outageLabel?: T;
+  resultKicker?: T;
+  cta?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  note?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzAuditBlock_select".
+ */
+export interface BzAuditBlockSelect<T extends boolean = true> {
+  badgeValue?: T;
+  badgeLabel?: T;
+  heading?: T;
+  headingAccent?: T;
+  lead?: T;
+  needs?:
+    | T
+    | {
+        title?: T;
+        icon?: T;
+        text?: T;
+        countdownTo?: T;
+        id?: T;
+      };
+  steps?:
+    | T
+    | {
+        title?: T;
+        text?: T;
+        id?: T;
+      };
+  cta?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  showPhone?: T;
+  guarantees?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  report?:
+    | T
+    | {
+        tag?: T;
+        title?: T;
+        subtitle?: T;
+        rows?:
+          | T
+          | {
+              title?: T;
+              detail?: T;
+              icon?: T;
+              state?: T;
+              stateLabel?: T;
+              id?: T;
+            };
+        planTitle?: T;
+        planNote?: T;
+        signature?: T;
+        stamp?: T;
+        floatValue?: T;
+        floatText?: T;
       };
   id?: T;
   blockName?: T;

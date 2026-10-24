@@ -10,7 +10,8 @@
  *   --surface, --surface-2, --surface-3, --card, --surface-dark (dark rhythm blocks)
  *   --ink, --ink-2, --ink-3 (text, secondary, tertiary), --border, --glow, --grid
  *   --border-input (form fields, ≥ 3:1 on every surface — WCAG 1.4.11; `--border` is decorative)
- *   --ok, --warn (status dots: open / partner, closed; ≥ 3:1), --ok-text (small green labels)
+ *   --ok, --warn (status dots: open / partner, closed; ≥ 3:1; on Biznes `--warn` is also small
+ *   orange text on cards and `surface-2`, ≥ 4.5:1 — themes.test.ts), --ok-text (small green labels)
  *   --promo, --promo-ink (marketing badge of catalog cards and its label)
  *   --card-2 (second card level), --ink-soft, --accent-soft / --accent-line (active chips and
  *   their border), --stage (preview mock-ups), --chip, --glow-2, --dot, --header-bg, --shadow —

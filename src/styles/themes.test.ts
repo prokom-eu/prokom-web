@@ -135,6 +135,10 @@ describe.each(cases.filter(({ line }) => line === 'biznes'))(
     it('„W zapytaniu” label (remove on hover) reaches 4.5:1 on its badge', () => {
       expect(contrastRatio(hex('--warn', s), hex('--surface-2', s))).toBeGreaterThanOrEqual(4.5)
     })
+
+    it('orange label of the downtime calculator reaches 4.5:1 on its card', () => {
+      expect(contrastRatio(hex('--warn', s), hex('--card', s))).toBeGreaterThanOrEqual(4.5)
+    })
   },
 )
 
