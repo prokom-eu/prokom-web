@@ -307,6 +307,14 @@ Rozszerzenia tylko dla kas fiskalnych:
   - **Etap 2.**
 - „Trzy rzeczy, które warto wiedzieć przed zakupem” (przepisy: kasy online, ulga, przeglądy). **[SZEF + źródła: każdy przepis z linkiem do aktu prawnego]**.
 
+Wdrożenie B10a (decyzje Krystiana 24.10.2026):
+- teksty sekcji w kategorii (zakładka „Strona kategorii — sekcje”); puste pola = ogólne teksty z nazwą kategorii;
+- „W cenie” jako karty (ikona, tytuł, opis); bez kart — karty z samych pozycji listy „W cenie”;
+- karta przepisu pokazuje się tylko z nazwą przepisu i linkiem do niego;
+- dobór kas pokazuje się, gdy co najmniej 2 produkty kategorii mają typ kasy (decydują dane, nie adres); stan doboru i marki tylko w przeglądarce, strona ma jeden adres;
+- „Często dobierane” = kafle kategorii polecanych produktów (z licznikiem pozycji);
+- kontakt to formularz v20 (jak w katalogu), nie 3-krokowy z planszy.
+
 ### 6.2 Produkt `/produkt/[slug]`
 Wzór: `Produkt` (Posnet Ergo Online), zrzuty jasny i ciemny.
 

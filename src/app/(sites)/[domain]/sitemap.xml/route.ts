@@ -1,7 +1,8 @@
 import { headers } from 'next/headers'
 
 import { productHref } from '@/lib/catalog/card'
-import { getPublishedProductList } from '@/lib/catalog/data'
+import { categoryHref } from '@/lib/catalog/category'
+import { getCatalogIndex, getPublishedProductList } from '@/lib/catalog/data'
 import { CATALOG_PATH } from '@/lib/catalog/filters'
 import { getEnv } from '@/lib/env'
 import { getPublishedPageList } from '@/lib/pages/data'
@@ -14,7 +15,8 @@ type Context = { params: Promise<{ domain: string }> }
 
 /**
  * `sitemap.xml` of one domain: only its tenant's published pages, and on Biznes the catalog
- * with its published products (filtered views are not listed — `noindex`). Empty on staging.
+ * with its listed categories and published products (filtered views are not listed —
+ * `noindex`). Empty on staging.
  */
 export async function GET(_request: Request, { params }: Context) {
   const siteEnv = getEnv().SITE_ENV
@@ -23,13 +25,16 @@ export async function GET(_request: Request, { params }: Context) {
   if (!tenant || !origin) return new Response('Not Found', { status: 404 })
   if (siteEnv === 'staging') return xmlResponse(sitemapXml(origin, []))
   const catalog = tenant.line === 'biznes'
-  const [pages, products] = await Promise.all([
+  const [pages, products, index] = await Promise.all([
     getPublishedPageList(tenant.id),
     catalog ? getPublishedProductList(tenant.id) : [],
+    catalog ? getCatalogIndex(tenant.id) : null,
   ])
   const paths = catalog
     ? [
         { path: CATALOG_PATH },
+        // Only categories with published products (rozstrzygnięcie 7): the index lists those.
+        ...(index?.categories ?? []).map(({ slug }) => ({ path: categoryHref(slug) })),
         ...products.map(({ slug, updatedAt }) => ({ path: productHref(slug), updatedAt })),
       ]
     : []

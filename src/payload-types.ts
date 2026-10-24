@@ -1434,7 +1434,95 @@ export interface CatalogCategory {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Na stronie kategorii jako kafle kategorii tych produktów.
+   */
   frequentlyBoughtWith?: (number | Product)[] | null;
+  includedSection?: {
+    eyebrow?: string | null;
+    title?: string | null;
+    /**
+     * Puste = karty z samych pozycji listy „W cenie”.
+     */
+    cards?:
+      | {
+          icon?:
+            | (
+                | 'shield'
+                | 'cal'
+                | 'users'
+                | 'store'
+                | 'bolt'
+                | 'doc'
+                | 'life'
+                | 'arrow'
+                | 'check'
+                | 'phone'
+                | 'mail'
+                | 'pin'
+                | 'clock'
+                | 'monitor'
+                | 'remote'
+                | 'bell'
+                | 'wallet'
+                | 'chat'
+                | 'wrench'
+                | 'rocket'
+                | 'map'
+                | 'star'
+                | 'q'
+                | 'flash'
+                | 'grad'
+                | 'server'
+                | 'compass'
+              )
+            | null;
+          title: string;
+          text?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  facts?: {
+    eyebrow?: string | null;
+    title?: string | null;
+    /**
+     * Fakt prawny tylko ze źródłem: karta bez nazwy przepisu i linku do niego nie pokazuje się na stronie.
+     */
+    items?:
+      | {
+          value: string;
+          title: string;
+          text: string;
+          /**
+           * Np. „Art. 111 ust. 4 ustawy o VAT · sprawdzono …”.
+           */
+          source?: string | null;
+          sourceUrl?: string | null;
+          link?: {
+            label?: string | null;
+            href?: string | null;
+          };
+          id?: string | null;
+        }[]
+      | null;
+  };
+  faqIntro?: {
+    eyebrow?: string | null;
+    title?: string | null;
+    lead?: string | null;
+  };
+  /**
+   * Wypełnia ostatni rząd siatki produktów.
+   */
+  help?: {
+    title?: string | null;
+    text?: string | null;
+  };
+  contact?: {
+    heading?: string | null;
+    lead?: string | null;
+  };
   /**
    * Mniejsza liczba = wcześniej.
    */
@@ -4396,6 +4484,61 @@ export interface CatalogCategoriesSelect<T extends boolean = true> {
         id?: T;
       };
   frequentlyBoughtWith?: T;
+  includedSection?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+        cards?:
+          | T
+          | {
+              icon?: T;
+              title?: T;
+              text?: T;
+              id?: T;
+            };
+      };
+  facts?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+        items?:
+          | T
+          | {
+              value?: T;
+              title?: T;
+              text?: T;
+              source?: T;
+              sourceUrl?: T;
+              link?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                  };
+              id?: T;
+            };
+      };
+  faqIntro?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+        lead?: T;
+      };
+  help?:
+    | T
+    | {
+        title?: T;
+        text?: T;
+      };
+  contact?:
+    | T
+    | {
+        heading?: T;
+        lead?: T;
+      };
   order?: T;
   seo?:
     | T

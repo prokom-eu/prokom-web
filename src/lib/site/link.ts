@@ -15,6 +15,11 @@ export function isValidNavHref(href: string): boolean {
   }
 }
 
+/** An external `https://` address only (sources, partner sites opened in a new tab). */
+export function isHttpsUrl(href: string): boolean {
+  return href.startsWith('https://') && isValidNavHref(href)
+}
+
 /** `tel:` link for a phone number as typed by the editor, e.g. `+48 18 267-70 00`. */
 export function toTelHref(phone: string): string | null {
   const trimmed = phone.trim()

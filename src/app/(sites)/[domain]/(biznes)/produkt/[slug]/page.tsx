@@ -3,7 +3,8 @@ import { notFound } from 'next/navigation'
 
 import { cardFallback, productBadges, productHref } from '@/lib/catalog/card'
 import { getCatalogIndex, getProductView } from '@/lib/catalog/data'
-import { CATALOG_PATH, catalogHref, DEFAULT_STATE } from '@/lib/catalog/filters'
+import { categoryHref } from '@/lib/catalog/category'
+import { CATALOG_PATH } from '@/lib/catalog/filters'
 import { alternativeProducts, kitProducts, similarProducts } from '@/lib/catalog/related'
 import { getEnv } from '@/lib/env'
 import { pickSource } from '@/lib/media/sizes'
@@ -87,19 +88,13 @@ export default async function ProductPage({ params }: Props) {
     whatsapp: whatsapp ? toWhatsAppHref(whatsapp) : null,
   }
 
-  // TODO(krystian): B10 — link `/oferta/<kategoria>` (an indexed category page) in the
-  // breadcrumbs, their JSON-LD and „Podobne” instead of the filtered catalog view.
-  const categoryHref = product.category
-    ? catalogHref({ ...DEFAULT_STATE, categories: [product.category.slug] })
-    : null
+  // The category page exists only for a listed category (rozstrzygnięcie 7).
+  const categoryLink = category ? categoryHref(category.slug) : null
 
-  // `indexed: false`: linked for people, named only in JSON-LD (its page has `noindex`).
-  const crumbs: (Crumb & { indexed?: false })[] = [
+  const crumbs: Crumb[] = [
     { name: 'Strona główna', href: '/' },
     { name: 'Oferta', href: CATALOG_PATH },
-    ...(product.category && categoryHref
-      ? [{ name: product.category.name, href: categoryHref, indexed: false as const }]
-      : []),
+    ...(category && categoryLink ? [{ name: category.name, href: categoryLink }] : []),
     { name: product.name, href: productHref(product.slug) },
   ]
   const jsonLd = [
@@ -113,12 +108,7 @@ export default async function ProductPage({ params }: Props) {
         (image) => origin + pickSource(image.sources, JSON_LD_IMAGE_WIDTH),
       ),
     }),
-    breadcrumbJsonLd(
-      crumbs.map(({ name, href, indexed }) => ({
-        name,
-        url: indexed === false ? null : origin + href,
-      })),
-    ),
+    breadcrumbJsonLd(crumbs.map(({ name, href }) => ({ name, url: origin + href }))),
   ]
 
   // Sections under the content (B6b): only this site's published products (catalog index).
@@ -170,8 +160,8 @@ export default async function ProductPage({ params }: Props) {
             products={similar}
             index={index}
             category={
-              category && categoryHref
-                ? { name: category.name, count: category.count, href: categoryHref }
+              category && categoryLink
+                ? { name: category.name, count: category.count, href: categoryLink }
                 : null
             }
           />
