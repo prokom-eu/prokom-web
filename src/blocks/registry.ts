@@ -15,6 +15,11 @@ import { BzPlanBlock } from '../sites/biznes/blocks/BzPlan/config'
 import { BzQuickCardsBlock } from '../sites/biznes/blocks/BzQuickCards/config'
 import { BzReferencesBlock } from '../sites/biznes/blocks/BzReferences/config'
 import { BzStepsBlock } from '../sites/biznes/blocks/BzSteps/config'
+import { BzKitsBlock } from '../sites/biznes/blocks/BzKits/config'
+import { BzModulesBlock } from '../sites/biznes/blocks/BzModules/config'
+import { BzOrderFlowBlock } from '../sites/biznes/blocks/BzOrderFlow/config'
+import { BzPanelsBlock } from '../sites/biznes/blocks/BzPanels/config'
+import { BzTimelineBlock } from '../sites/biznes/blocks/BzTimeline/config'
 import { BzAuditBlock } from '../sites/biznes/blocks/BzAudit/config'
 import { BzCardsBlock } from '../sites/biznes/blocks/BzCards/config'
 import { BzDowntimeCalcBlock } from '../sites/biznes/blocks/BzDowntimeCalc/config'
@@ -61,6 +66,11 @@ export const BIZNES_BLOCKS: Block[] = [
   BzMonitoringBlock,
   BzDowntimeCalcBlock,
   BzAuditBlock,
+  BzModulesBlock,
+  BzOrderFlowBlock,
+  BzKitsBlock,
+  BzTimelineBlock,
+  BzPanelsBlock,
 ]
 
 /**

@@ -137,6 +137,7 @@ export function biznesOpiekaItLayout(): PageBlock[] {
       heading: 'Nie „informatyk od awarii”. Opieka, która zapobiega awariom.',
       surface: 'muted',
       columns: '4',
+      tone: 'accent',
       // TODO(krystian): [SZEF] obietnice: „Monitoring 24/7” przy pomocy pn–pt 9–17,
       // „Autoryzowany serwis Posnet i Elzab”, „Backup 3-2-1 na Synology”.
       cards: [
@@ -361,6 +362,7 @@ export function biznesOpiekaItLayout(): PageBlock[] {
       heading: 'Doradztwo, serwery, szkolenia',
       surface: 'muted',
       columns: '3',
+      tone: 'accent',
       cards: [
         {
           title: 'Doradztwo IT i dobór sprzętu',

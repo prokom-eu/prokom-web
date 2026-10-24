@@ -588,6 +588,11 @@ export interface Page {
         | BzMonitoringBlock
         | BzDowntimeCalcBlock
         | BzAuditBlock
+        | BzModulesBlock
+        | BzOrderFlowBlock
+        | BzKitsBlock
+        | BzTimelineBlock
+        | BzPanelsBlock
       )[]
     | null;
   seo?: {
@@ -1819,7 +1824,7 @@ export interface BzPageHeroBlock {
     label?: string | null;
     href?: string | null;
   };
-  variant: 'card';
+  variant: 'card' | 'photo';
   card?: {
     eyebrow?: string | null;
     title?: string | null;
@@ -1835,6 +1840,24 @@ export interface BzPageHeroBlock {
       href?: string | null;
     };
   };
+  photo?: {
+    image?: (number | null) | Media;
+    /**
+     * Logo partnera, a obok status z kolekcji Partnerzy ([SZEF]); bez statusu — bez plakietki.
+     */
+    partner?: (number | null) | Partner;
+    /**
+     * Każda liczba partnera tylko ze źródłem (plan Biznesu §4); bez źródła jej nie wpisuj.
+     */
+    stats?:
+      | {
+          value: string;
+          label: string;
+          source: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
   id?: string | null;
   blockName?: string | null;
   blockType: 'bzPageHero';
@@ -1849,6 +1872,10 @@ export interface BzCardsBlock {
   lead?: string | null;
   surface: 'default' | 'muted';
   columns: '3' | '4';
+  /**
+   * Etykieta nad nagłówkiem i ikony kart.
+   */
+  tone: 'accent' | 'green';
   cards: {
     title: string;
     /**
@@ -2155,6 +2182,171 @@ export interface BzAuditBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'bzAudit';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzModulesBlock".
+ */
+export interface BzModulesBlock {
+  eyebrow?: string | null;
+  heading: string;
+  modules: {
+    name: string;
+    subtitle?: string | null;
+    icon:
+      | 'shield'
+      | 'cal'
+      | 'users'
+      | 'store'
+      | 'bolt'
+      | 'doc'
+      | 'life'
+      | 'arrow'
+      | 'check'
+      | 'phone'
+      | 'mail'
+      | 'pin'
+      | 'clock'
+      | 'monitor'
+      | 'remote'
+      | 'bell'
+      | 'wallet'
+      | 'chat'
+      | 'wrench'
+      | 'rocket'
+      | 'map'
+      | 'star'
+      | 'q'
+      | 'flash'
+      | 'grad'
+      | 'server'
+      | 'compass';
+    description: string;
+    points?:
+      | {
+          text: string;
+          id?: string | null;
+        }[]
+      | null;
+    image?: (number | null) | Media;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bzModules';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzOrderFlowBlock".
+ */
+export interface BzOrderFlowBlock {
+  eyebrow?: string | null;
+  /**
+   * Sekcja ma kotwicę #jak-to-dziala — blok tylko raz na stronie.
+   */
+  heading: string;
+  lead?: string | null;
+  /**
+   * Liczby partnera tylko ze źródłem w treści (plan Biznesu §4).
+   */
+  badges?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  image?: (number | null) | Media;
+  ticket?: string | null;
+  steps?:
+    | {
+        label?: string | null;
+        title: string;
+        text?: string | null;
+        image?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  note?: string | null;
+  primary?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  secondary?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bzOrderFlow';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzKitsBlock".
+ */
+export interface BzKitsBlock {
+  eyebrow?: string | null;
+  /**
+   * Sekcja ma kotwicę #zestawy — blok tylko raz na stronie.
+   */
+  heading: string;
+  lead?: string | null;
+  kits: {
+    name: string;
+    /**
+     * Np. „Polecany na start” — zestaw z ramką.
+     */
+    tag?: string | null;
+    description: string;
+    images?: (number | Media)[] | null;
+    /**
+     * Pokazywane są tylko opublikowane produkty tej strony; przycisk dodaje je wszystkie do zapytania.
+     */
+    products: (number | Product)[];
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bzKits';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzTimelineBlock".
+ */
+export interface BzTimelineBlock {
+  eyebrow?: string | null;
+  heading: string;
+  steps: {
+    title: string;
+    text?: string | null;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bzTimeline';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzPanelsBlock".
+ */
+export interface BzPanelsBlock {
+  panels: {
+    eyebrow?: string | null;
+    title: string;
+    style: 'light' | 'dark';
+    text: string;
+    primary?: {
+      label?: string | null;
+      href?: string | null;
+    };
+    secondary?: {
+      label?: string | null;
+      href?: string | null;
+    };
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bzPanels';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2777,6 +2969,11 @@ export interface PagesSelect<T extends boolean = true> {
         bzMonitoring?: T | BzMonitoringBlockSelect<T>;
         bzDowntimeCalc?: T | BzDowntimeCalcBlockSelect<T>;
         bzAudit?: T | BzAuditBlockSelect<T>;
+        bzModules?: T | BzModulesBlockSelect<T>;
+        bzOrderFlow?: T | BzOrderFlowBlockSelect<T>;
+        bzKits?: T | BzKitsBlockSelect<T>;
+        bzTimeline?: T | BzTimelineBlockSelect<T>;
+        bzPanels?: T | BzPanelsBlockSelect<T>;
       };
   seo?:
     | T
@@ -3412,6 +3609,20 @@ export interface BzPageHeroBlockSelect<T extends boolean = true> {
               href?: T;
             };
       };
+  photo?:
+    | T
+    | {
+        image?: T;
+        partner?: T;
+        stats?:
+          | T
+          | {
+              value?: T;
+              label?: T;
+              source?: T;
+              id?: T;
+            };
+      };
   id?: T;
   blockName?: T;
 }
@@ -3425,6 +3636,7 @@ export interface BzCardsBlockSelect<T extends boolean = true> {
   lead?: T;
   surface?: T;
   columns?: T;
+  tone?: T;
   cards?:
     | T
     | {
@@ -3590,6 +3802,140 @@ export interface BzAuditBlockSelect<T extends boolean = true> {
         stamp?: T;
         floatValue?: T;
         floatText?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzModulesBlock_select".
+ */
+export interface BzModulesBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  modules?:
+    | T
+    | {
+        name?: T;
+        subtitle?: T;
+        icon?: T;
+        description?: T;
+        points?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
+        image?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzOrderFlowBlock_select".
+ */
+export interface BzOrderFlowBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  lead?: T;
+  badges?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  image?: T;
+  ticket?: T;
+  steps?:
+    | T
+    | {
+        label?: T;
+        title?: T;
+        text?: T;
+        image?: T;
+        id?: T;
+      };
+  note?: T;
+  primary?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  secondary?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzKitsBlock_select".
+ */
+export interface BzKitsBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  lead?: T;
+  kits?:
+    | T
+    | {
+        name?: T;
+        tag?: T;
+        description?: T;
+        images?: T;
+        products?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzTimelineBlock_select".
+ */
+export interface BzTimelineBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  steps?:
+    | T
+    | {
+        title?: T;
+        text?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzPanelsBlock_select".
+ */
+export interface BzPanelsBlockSelect<T extends boolean = true> {
+  panels?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+        style?: T;
+        text?: T;
+        primary?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+            };
+        secondary?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+            };
+        id?: T;
       };
   id?: T;
   blockName?: T;

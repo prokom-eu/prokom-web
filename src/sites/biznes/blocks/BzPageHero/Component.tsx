@@ -3,26 +3,31 @@ import type { BzPageHeroBlock as BzPageHeroBlockData } from '@/payload-types'
 
 import { Breadcrumbs, type Crumb } from '../../components/Breadcrumbs'
 import { hasLink, PageLink } from '../../components/PageLink'
+import { PhotoHero } from './PhotoHero'
 
 type Props = {
   block: BzPageHeroBlockData
   /** First block: it carries the page's H1 and the breadcrumbs. */
   isFirst: boolean
   page: { title: string; slug: string }
+  tenantId: number
 }
 
 /**
  * Hero of a Biznes subpage (spec. §6.4 pkt 1, plansza Dzial): breadcrumbs, the label with a dot,
  * H1 with a plain accent part (ADR-013), lead, two buttons and chips; on the right the dark
- * „Jak to działa” card with numbered points.
+ * „Jak to działa” card with numbered points — or, as `photo` (GoPOS), the navy hero over a photo.
  */
-export function BzPageHeroBlock({ block, isFirst, page }: Props) {
+export function BzPageHeroBlock({ block, isFirst, page, tenantId }: Props) {
   const Title = isFirst ? 'h1' : 'h2'
   const crumbs: Crumb[] = [
     { name: 'Strona główna', href: '/' },
     ...(hasLink(block.parent) ? [{ name: block.parent.label, href: block.parent.href }] : []),
     { name: page.title, href: `/${page.slug}` },
   ]
+  if (block.variant === 'photo') {
+    return <PhotoHero block={block} isFirst={isFirst} crumbs={crumbs} tenantId={tenantId} />
+  }
   const card = block.variant === 'card' ? block.card : null
   const steps = card?.steps ?? []
 

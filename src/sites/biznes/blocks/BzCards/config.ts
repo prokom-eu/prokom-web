@@ -45,6 +45,18 @@ export const BzCardsBlock: Block = {
             { label: '4', value: '4' },
           ],
         },
+        {
+          name: 'tone',
+          label: 'Kolor akcentu',
+          type: 'select',
+          required: true,
+          defaultValue: 'accent',
+          options: [
+            { label: 'Niebieski (Biznes)', value: 'accent' },
+            { label: 'Zielony (GoPOS)', value: 'green' },
+          ],
+          admin: { description: 'Etykieta nad nagłówkiem i ikony kart.' },
+        },
       ],
     },
     {

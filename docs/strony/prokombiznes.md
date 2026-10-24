@@ -360,17 +360,15 @@ Sekcje, w kolejności:
 8. Kontakt z nagłówkiem „Zacznijmy od bezpłatnego przeglądu IT.”
 
 ### 6.5 GoPOS `/gopos`
-Wzór: `Gopos`.
-
-Sekcje:
-1. Hero ze zdjęciem lokalu i etykietą „Autoryzowany partner GoPOS” **[SZEF: nazwa statusu]**.
-2. Statystyki — **każda liczba ze źródłem GoPOS albo usunąć**.
+Wzór: `Gopos`. Sekcje wg planszy (B9b, decyzje Krystiana 24.10):
+1. Hero ze zdjęciem lokalu, logo GoPOS i plakietką „Autoryzowany partner GoPOS” **[SZEF: nazwa statusu]** — plakietka to status z kolekcji Partnerzy (bez statusu — bez plakietki).
+2. Statystyki w pasku hero — **każda liczba ze źródłem GoPOS (pole „źródło” w panelu) albo nie ma jej na stronie**; na start pas jest pusty.
 3. „Program to połowa sukcesu…”: 4 karty usług.
-4. **Eksplorator modułów:** lista po lewej, podgląd ekranu po prawej.
-5. „Jak to działa”.
-6. **3 zestawy:** bar, restauracja, sezonowy — bez cen; „Dodaj zestaw do zapytania” dodaje komplet pozycji.
+4. **Eksplorator modułów:** lista po lewej, podgląd ekranu po prawej (8 modułów z planszy; CRM, Room Service, Menu Board i Multilokalizacja do dopisania w panelu, gdy będą teksty).
+5. „Jak to działa”: jedno zamówienie w 4 krokach.
+6. **3 zestawy z planszy:** kawiarnia/food truck, restauracja („Polecany na start”), fast food/samoobsługa — bez cen; pozycje to produkty katalogu; „Dodaj zestaw do zapytania” dodaje komplet pozycji.
 7. Kroki od prezentacji do pierwszego sezonu.
-8. Migracja z innego systemu.
+8. Migracja z innego systemu i GoPOS + NFHotel (dwa panele).
 9. FAQ.
 10. Kontakt „Umówmy prezentację”.
 

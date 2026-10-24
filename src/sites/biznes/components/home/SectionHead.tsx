@@ -10,18 +10,29 @@ type Props = {
   lead?: string | null
   /** Outlined link on the right (e.g. „Cały katalog · 225 pozycji”). */
   action?: { label: ReactNode; href: string } | null
+  /** Colour of the label; the accent by default (GoPOS sections: `text-ok-text`). */
+  eyebrowClassName?: string
 }
 
 /**
  * Head of a home page section (board `Main`): small accent label, large H2, lead and an
  * optional outlined link on the right. The H2 has `id` for the section's `aria-labelledby`.
  */
-export function SectionHead({ id, eyebrow, heading, lead, action }: Props) {
+export function SectionHead({
+  id,
+  eyebrow,
+  heading,
+  lead,
+  action,
+  eyebrowClassName = 'text-accent-text',
+}: Props) {
   return (
     <div className="flex flex-wrap items-end justify-between gap-x-10 gap-y-6">
       <div className="max-w-[46rem]">
         {eyebrow && (
-          <p className="mb-3 text-[13px] font-extrabold tracking-[0.08em] text-accent-text uppercase">
+          <p
+            className={`mb-3 text-[13px] font-extrabold tracking-[0.08em] uppercase ${eyebrowClassName}`}
+          >
             {eyebrow}
           </p>
         )}

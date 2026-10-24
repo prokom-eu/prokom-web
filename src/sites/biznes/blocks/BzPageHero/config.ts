@@ -1,12 +1,14 @@
 import type { Block } from 'payload'
 
 import { linkGroup } from '../../../../blocks/fields'
+import { tenantImageFilter } from '../../../../lib/media/access'
+import { tenantIdOf } from '../../../../lib/tenant/id'
 
 /**
  * Hero of a Biznes subpage (spec. §6.4–6.6, plansze Dzial, Gopos, Insert): breadcrumbs, a label
  * with a dot, H1 with an optional accent part, lead, two buttons, chips and — per variant — the
- * right side. B9a: the dark „Jak to działa” card; the photo (GoPOS) and screen (InsERT) variants
- * come with their pages.
+ * right side: the dark „Jak to działa” card (B9a, Opieka IT) or a photo behind a navy hero with the
+ * partner's logo and status and sourced figures (B9b, GoPOS); the screen variant (InsERT) in B9c.
  */
 export const BzPageHeroBlock: Block = {
   slug: 'bzPageHero',
@@ -52,7 +54,10 @@ export const BzPageHeroBlock: Block = {
       type: 'select',
       required: true,
       defaultValue: 'card',
-      options: [{ label: 'Karta „Jak to działa”', value: 'card' }],
+      options: [
+        { label: 'Karta „Jak to działa”', value: 'card' },
+        { label: 'Zdjęcie w tle i liczby (ciemny)', value: 'photo' },
+      ],
     },
     {
       name: 'card',
@@ -78,6 +83,62 @@ export const BzPageHeroBlock: Block = {
           ],
         },
         linkGroup('button', 'Przycisk karty'),
+      ],
+    },
+    {
+      name: 'photo',
+      label: 'Zdjęcie i liczby',
+      type: 'group',
+      admin: { condition: (_, siblingData) => siblingData?.variant === 'photo' },
+      fields: [
+        {
+          name: 'image',
+          label: 'Zdjęcie w tle',
+          type: 'upload',
+          relationTo: 'media',
+          filterOptions: tenantImageFilter,
+        },
+        {
+          name: 'partner',
+          label: 'Partner (logo i status)',
+          type: 'relationship',
+          relationTo: 'partners',
+          // Only partners shown on this site; the page is checked again when rendered.
+          filterOptions: ({ data }) => {
+            const tenant = tenantIdOf(data?.tenant)
+            return tenant === null ? false : { tenants: { in: [tenant] } }
+          },
+          admin: {
+            description:
+              'Logo partnera, a obok status z kolekcji Partnerzy ([SZEF]); bez statusu — bez plakietki.',
+          },
+        },
+        {
+          name: 'stats',
+          label: 'Liczby',
+          type: 'array',
+          maxRows: 4,
+          admin: {
+            description:
+              'Każda liczba partnera tylko ze źródłem (plan Biznesu §4); bez źródła jej nie wpisuj.',
+          },
+          fields: [
+            {
+              type: 'row',
+              fields: [
+                { name: 'value', label: 'Liczba', type: 'text', required: true, maxLength: 12 },
+                { name: 'label', label: 'Opis', type: 'text', required: true, maxLength: 60 },
+              ],
+            },
+            {
+              name: 'source',
+              label: 'Źródło (link albo opis, nie jest wyświetlane)',
+              type: 'text',
+              required: true,
+              maxLength: 300,
+            },
+          ],
+        },
       ],
     },
   ],

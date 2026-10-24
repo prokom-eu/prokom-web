@@ -31,6 +31,7 @@ import {
 } from './map'
 import { FOOTER_LEGAL_LINKS, FOOTER_TEXT, footerData } from './footer'
 import { SERVICE_AREAS, seedBiznesContact } from './contact'
+import { seedBiznesGopos } from './gopos'
 import { seedBiznesOpiekaIt } from './opiekaIt'
 import { seedBiznesHome } from './home'
 import { navigationData } from './navigation'
@@ -262,6 +263,8 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
   }
 
   // --- products, published; found by the short id or a sheet id, updated only on change ---
+  // Ids by the package's short id (`d3`, `gopos`), for blocks that list products (B9b kits).
+  const productIds = new Map<string, number>()
   for (const product of catalog.produkty) {
     const data = productData(
       product,
@@ -286,14 +289,16 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     }
     const [existing] = found
     if (!existing) {
-      await payload.create({
+      const created = await payload.create({
         collection: 'products',
         data: { ...data, tenant: tenant.id, _status: 'published' },
         ...local,
       })
+      productIds.set(product.slug, created.id)
       count('products', true)
       continue
     }
+    productIds.set(product.slug, existing.id)
     const update = productUpdateData(data, existing)
     const same = existing._status === 'published' && hasSameValues(existing, update)
     if (!same) {
@@ -444,6 +449,16 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
   // --- subpages from Biznes blocks (B9) ---
   await seedBiznesOpiekaIt(payload, tenant.id, (name, changed) =>
     count(name, changed ? 'updated' : false),
+  )
+  await seedBiznesGopos(
+    payload,
+    tenant.id,
+    {
+      image: (file) => imageIds.get(file),
+      brand: (name) => brandIds.get(name),
+      product: (shortId) => productIds.get(shortId),
+    },
+    (name, changed) => count(name, changed ? 'updated' : false),
   )
 
   for (const [collection, { created, updated, skipped }] of Object.entries(counters)) {
