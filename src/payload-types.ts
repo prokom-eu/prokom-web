@@ -1138,7 +1138,7 @@ export interface Industry {
    */
   active?: boolean | null;
   /**
-   * Przycisk „Przygotuj ofertę” otwiera kreator z tym rodzajem firmy.
+   * Przycisk w nagłówku strony branży otwiera kreator z tym rodzajem firmy.
    */
   wizardBusinessType?:
     | ('sklep' | 'gastro' | 'hotel' | 'biuro' | 'warsztat' | 'gabinet' | 'szkola' | 'produkcja' | 'truck' | 'inna')
@@ -1155,7 +1155,7 @@ export interface Industry {
      */
     chips?: string[] | null;
     /**
-     * Puste = „Przygotuj ofertę dla [branża]”.
+     * Puste = „Przygotuj zapytanie”.
      */
     ctaLabel?: string | null;
   };
