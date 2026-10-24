@@ -56,7 +56,10 @@ export type IndexProduct = {
   /** Set for the products of the home page, in their order. */
   featuredOrder?: number
   image?: IndexImage
-  /** Normalized text the search matches against (spec. §8.2). */
+  /**
+   * Normalized text the search matches against (spec. §8.2). Without the group name: the
+   * search reads it from `groups`, with a lower weight (`lib/search.ts`).
+   */
   hay: string
 }
 
@@ -213,7 +216,6 @@ export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
         product.name,
         brand?.name,
         ...categories.map((category) => category.name),
-        main && groupOf(main)?.name,
         ...features,
         benefit,
         badge,

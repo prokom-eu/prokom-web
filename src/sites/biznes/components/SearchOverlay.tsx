@@ -225,7 +225,7 @@ function SearchResults({ index, query, onPick, whatsapp }: ResultsProps) {
 
   const products = results ?? [...index.products].sort((a, b) => b.popularity - a.popularity)
   const categories = results
-    ? matchCategories(index, results).slice(0, MAX_CATEGORIES)
+    ? matchCategories(index, prepared, results, deferred).slice(0, MAX_CATEGORIES)
     : [...index.categories]
         .sort((a, b) => b.count - a.count)
         .slice(0, MAX_CATEGORIES)
