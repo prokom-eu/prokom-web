@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { buildCatalogIndex } from './catalog/catalogIndex'
+import { buildCatalogIndex, type CatalogIndex, type IndexProduct } from './catalog/catalogIndex'
 import { sourceFromSeed } from './catalog/seedSource.fixture'
 import {
   damerauLevenshtein,
@@ -146,6 +146,44 @@ describe('matchCategories and matchPages', () => {
     const firstGroupOnly = results.findIndex((product) => !ownHit(product.slug))
     expect(firstGroupOnly).toBeGreaterThan(0)
     expect(results.slice(firstGroupOnly).every((product) => !ownHit(product.slug))).toBe(true)
+  })
+
+  it('keeps a group-only hit below a typo even at the edges of popularity (0–100)', () => {
+    const product = (slug: string, hay: string, popularity: number): IndexProduct => ({
+      slug,
+      name: slug,
+      brand: null,
+      kind: 'device',
+      categories: [],
+      group: 'sprzedaz',
+      industries: [],
+      features: [],
+      isNew: false,
+      authorized: false,
+      popularity,
+      registerTypes: [],
+      hay,
+    })
+    const synthetic: CatalogIndex = {
+      // Catalog order puts the group-only product first: a tie would keep it there.
+      products: [product('skaner', 'skaner kodow', 100), product('kasza', 'kasza', 0)],
+      brands: [],
+      categories: [],
+      groups: [
+        {
+          slug: 'sprzedaz',
+          name: 'Kasy i sprzedaż',
+          icon: 'store',
+          gradient: ['#000000', '#ffffff'],
+        },
+      ],
+      industries: [],
+      pages: [],
+      search: { synonyms: {}, stopWords: [], popular: [] },
+    }
+    const found = searchProducts(prepareSearch(synthetic), 'kasa')?.map((p) => p.slug)
+    // „kasza” is a typo of „kasa” in the product itself; „skaner” hits only „Kasy” of the group.
+    expect(found).toEqual(['kasza', 'skaner'])
   })
 
   it('still finds the products of a group by its name', () => {

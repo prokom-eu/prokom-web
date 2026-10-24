@@ -510,7 +510,9 @@ Wdrożenie B10c (decyzje Krystiana 24.10.2026):
   - w reszcie opisu = 1;
   - przez synonim = 1;
   - literówka = 0,6;
+  - tylko w nazwie grupy (dokładnie, przez synonim albo z literówką) = 0,05 — także przy popularności 100 niżej niż jakiekolwiek trafienie w sam produkt (B4c, 24.10.2026: „kasa” nie może stawiać skanerów z grupy „Kasy i sprzedaż” na równi z kasami);
   - dodatkowo `popularnosc/200`.
+- **Kategorie w wynikach (nakładka):** najpierw te, których nazwa trafia więcej tokenów frazy (te same reguły: dokładnie, synonim, literówka), potem te z większą liczbą trafień; przy remisie kolejność katalogu. Przykład: „kasa” → Kasy fiskalne przed Skanerami, kolektorami i etykietami.
 - **Literówki:** Damerau-Levenshtein, i to zarówno na całym słowie, jak i na prefiksie tej samej długości.
   - Dla tokenów 4–6 znaków limit 1, dla 7+ znaków limit 2.
   - Przykład: „kasa fiskalan” → kasy fiskalne.

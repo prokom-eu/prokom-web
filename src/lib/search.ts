@@ -6,7 +6,7 @@ import { plural } from './plural'
  * Search of the Biznes catalog (spec. §8.2), on the client over the catalog index. A port of
  * `__pk17` from `docs/design/prokombiznes/boards/Main.dc.html`: every token must match, a hit
  * in the name or brand weighs 3, elsewhere 1, through a synonym 1, a typo 0.6, plus
- * `popularity / 200`. A hit only in the group name weighs 0.1 (B4c): „kasa” must not lift every
+ * `popularity / 200`. A hit only in the group name weighs 0.05 (B4c): „kasa” must not lift every
  * scanner of „Kasy i sprzedaż” to the level of a cash register.
  */
 
@@ -14,8 +14,11 @@ const NAME_HIT = 3
 const HAY_HIT = 1
 const SYNONYM_HIT = 1
 const TYPO_HIT = 0.6
-/** Below any hit in the product itself, popularity included (it adds at most 0.5). */
-const GROUP_HIT = 0.1
+/**
+ * Below any hit in the product itself, popularity included: popularity is 0–100, so it adds
+ * at most 0.5, and 0.05 + 0.5 stays under a typo (0.6).
+ */
+const GROUP_HIT = 0.05
 
 /** Words shorter than this are not compared for typos (spec. §8.2: from 4 characters). */
 const TYPO_MIN_TOKEN = 4
