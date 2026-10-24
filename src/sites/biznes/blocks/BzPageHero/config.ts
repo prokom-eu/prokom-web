@@ -1,6 +1,7 @@
 import type { Block } from 'payload'
 
 import { linkGroup } from '../../../../blocks/fields'
+import { ICON_OPTIONS } from '../../../../lib/catalog/options'
 import { tenantImageFilter } from '../../../../lib/media/access'
 import { tenantIdOf } from '../../../../lib/tenant/id'
 
@@ -8,7 +9,8 @@ import { tenantIdOf } from '../../../../lib/tenant/id'
  * Hero of a Biznes subpage (spec. §6.4–6.6, plansze Dzial, Gopos, Insert): breadcrumbs, a label
  * with a dot, H1 with an optional accent part, lead, two buttons, chips and — per variant — the
  * right side: the dark „Jak to działa” card (B9a, Opieka IT) or a photo behind a navy hero with the
- * partner's logo and status and sourced figures (B9b, GoPOS); the screen variant (InsERT) in B9c.
+ * partner's logo and status and sourced figures (B9b, GoPOS), or a program screen in a laptop frame
+ * with its box and two floating notes (B9c, InsERT).
  */
 export const BzPageHeroBlock: Block = {
   slug: 'bzPageHero',
@@ -57,6 +59,7 @@ export const BzPageHeroBlock: Block = {
       options: [
         { label: 'Karta „Jak to działa”', value: 'card' },
         { label: 'Zdjęcie w tle i liczby (ciemny)', value: 'photo' },
+        { label: 'Zrzut programu i pudełko', value: 'screen' },
       ],
     },
     {
@@ -136,6 +139,70 @@ export const BzPageHeroBlock: Block = {
               type: 'text',
               required: true,
               maxLength: 300,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'screen',
+      label: 'Zrzut programu',
+      type: 'group',
+      admin: { condition: (_, siblingData) => siblingData?.variant === 'screen' },
+      fields: [
+        {
+          name: 'partner',
+          label: 'Partner (logo i status)',
+          type: 'relationship',
+          relationTo: 'partners',
+          // Only partners shown on this site; the page is checked again when rendered.
+          filterOptions: ({ data }) => {
+            const tenant = tenantIdOf(data?.tenant)
+            return tenant === null ? false : { tenants: { in: [tenant] } }
+          },
+          admin: {
+            description:
+              'Logo partnera, a obok status z kolekcji Partnerzy ([SZEF]); bez statusu — bez plakietki.',
+          },
+        },
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'screenImage',
+              label: 'Zrzut ekranu (tylko z materiałów producenta)',
+              type: 'upload',
+              relationTo: 'media',
+              filterOptions: tenantImageFilter,
+            },
+            {
+              name: 'boxImage',
+              label: 'Pudełko programu',
+              type: 'upload',
+              relationTo: 'media',
+              filterOptions: tenantImageFilter,
+            },
+          ],
+        },
+        {
+          name: 'notes',
+          label: 'Pływające notki',
+          type: 'array',
+          maxRows: 2,
+          fields: [
+            {
+              type: 'row',
+              fields: [
+                { name: 'title', label: 'Tytuł', type: 'text', required: true, maxLength: 30 },
+                { name: 'text', label: 'Podpis', type: 'text', maxLength: 40 },
+                {
+                  name: 'icon',
+                  label: 'Ikona',
+                  type: 'select',
+                  required: true,
+                  options: ICON_OPTIONS,
+                },
+              ],
             },
           ],
         },

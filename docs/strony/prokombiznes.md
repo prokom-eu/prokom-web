@@ -373,18 +373,16 @@ Wzór: `Gopos`. Sekcje wg planszy (B9b, decyzje Krystiana 24.10):
 10. Kontakt „Umówmy prezentację”.
 
 ### 6.6 InsERT `/insert`
-Wzór: `Insert`.
-
-Sekcje:
-1. Hero „Subiekt dobrany do firmy. I podłączony do KSeF.” z zrzutem programu.
-2. **Dobór programu:** checkboxy cech firmy wybierają rekomendowany program (Subiekt 123 / nexo / GT itd.).
-3. Rodzina programów: sprzedaż, księgowość, kadry.
-4. KSeF z licznikiem dni.
+Wzór: `Insert`. Sekcje wg planszy (B9c, decyzja Krystiana 24.10):
+1. Hero „Subiekt dobrany do firmy. I podłączony do KSeF.” ze zrzutem programu w ramce laptopa, pudełkiem i dwiema notkami; logo InsERT i plakietka statusu partnera z kolekcji Partnerzy (bez statusu — bez plakietki).
+2. **Dobór programu** `#dobor`: 4 kafle jednokrotnego wyboru (cecha firmy → jeden program: Subiekt 123 / nexo / nexo PRO / GT), na start nexo; pod spodem rekomendacja z punktami i przełącznikiem „Dodaj do zapytania” (nexo PRO dodaje Subiekta nexo — osobnego produktu nie ma) i pasek programów.
+3. Rodzina programów: sprzedaż, księgowość, kadry (kafle ze skrótami).
+4. KSeF z licznikiem dni `#ksef` (liczony w przeglądarce) i listą rzeczy do przygotowania; przycisk do wpisu KSeF po B11.
 5. Usługi wdrożeniowe.
 6. FAQ.
 7. Kontakt.
 
-**[SZEF: nazwa statusu partnera]**. Zrzuty ekranu programu tylko z materiałów InsERT.
+**[SZEF: nazwa statusu partnera]**. Zrzuty ekranu programu tylko z materiałów InsERT (na start zaślepki z planszy).
 
 ### 6.7 Branża `/branze/[branza]`
 Wzór: `Branza` (gastronomia). Jeden szablon dla wszystkich branż; treść z kolekcji Branże.

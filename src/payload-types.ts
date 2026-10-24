@@ -593,6 +593,8 @@ export interface Page {
         | BzKitsBlock
         | BzTimelineBlock
         | BzPanelsBlock
+        | BzProgramPickerBlock
+        | BzKsefBlock
       )[]
     | null;
   seo?: {
@@ -1824,7 +1826,7 @@ export interface BzPageHeroBlock {
     label?: string | null;
     href?: string | null;
   };
-  variant: 'card' | 'photo';
+  variant: 'card' | 'photo' | 'screen';
   card?: {
     eyebrow?: string | null;
     title?: string | null;
@@ -1854,6 +1856,49 @@ export interface BzPageHeroBlock {
           value: string;
           label: string;
           source: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  screen?: {
+    /**
+     * Logo partnera, a obok status z kolekcji Partnerzy ([SZEF]); bez statusu — bez plakietki.
+     */
+    partner?: (number | null) | Partner;
+    screenImage?: (number | null) | Media;
+    boxImage?: (number | null) | Media;
+    notes?:
+      | {
+          title: string;
+          text?: string | null;
+          icon:
+            | 'shield'
+            | 'cal'
+            | 'users'
+            | 'store'
+            | 'bolt'
+            | 'doc'
+            | 'life'
+            | 'arrow'
+            | 'check'
+            | 'phone'
+            | 'mail'
+            | 'pin'
+            | 'clock'
+            | 'monitor'
+            | 'remote'
+            | 'bell'
+            | 'wallet'
+            | 'chat'
+            | 'wrench'
+            | 'rocket'
+            | 'map'
+            | 'star'
+            | 'q'
+            | 'flash'
+            | 'grad'
+            | 'server'
+            | 'compass';
           id?: string | null;
         }[]
       | null;
@@ -1912,6 +1957,11 @@ export interface BzCardsBlock {
           | 'compass'
         )
       | null;
+    /**
+     * Np. „Rw” dla Rewizora — kafel z literami zamiast ikony.
+     */
+    monogram?: string | null;
+    monogramTone?: ('blue' | 'green' | 'violet' | 'red' | 'dark') | null;
     text: string;
     link?: {
       label?: string | null;
@@ -2347,6 +2397,105 @@ export interface BzPanelsBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'bzPanels';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzProgramPickerBlock".
+ */
+export interface BzProgramPickerBlock {
+  eyebrow?: string | null;
+  /**
+   * Sekcja ma kotwicę #dobor — blok tylko raz na stronie.
+   */
+  heading: string;
+  lead?: string | null;
+  resultLabel?: string | null;
+  initial?: number | null;
+  talk?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  options: {
+    trait: string;
+    icon:
+      | 'shield'
+      | 'cal'
+      | 'users'
+      | 'store'
+      | 'bolt'
+      | 'doc'
+      | 'life'
+      | 'arrow'
+      | 'check'
+      | 'phone'
+      | 'mail'
+      | 'pin'
+      | 'clock'
+      | 'monitor'
+      | 'remote'
+      | 'bell'
+      | 'wallet'
+      | 'chat'
+      | 'wrench'
+      | 'rocket'
+      | 'map'
+      | 'star'
+      | 'q'
+      | 'flash'
+      | 'grad'
+      | 'server'
+      | 'compass';
+    traitText?: string | null;
+    program: string;
+    caption?: string | null;
+    description: string;
+    points?:
+      | {
+          text: string;
+          id?: string | null;
+        }[]
+      | null;
+    screenImage?: (number | null) | Media;
+    boxImage?: (number | null) | Media;
+    /**
+     * Opublikowany produkt tej strony; pusty = bez przycisku „Dodaj do zapytania”.
+     */
+    product?: (number | null) | Product;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bzProgramPicker';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzKsefBlock".
+ */
+export interface BzKsefBlock {
+  /**
+   * Sekcja ma kotwicę #ksef — blok tylko raz na stronie.
+   */
+  eyebrow?: string | null;
+  date: string;
+  /**
+   * Np. „dni do 1 stycznia 2027”.
+   */
+  dateLabel: string;
+  text?: string | null;
+  link?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  checklist?:
+    | {
+        title: string;
+        text?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bzKsef';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2974,6 +3123,8 @@ export interface PagesSelect<T extends boolean = true> {
         bzKits?: T | BzKitsBlockSelect<T>;
         bzTimeline?: T | BzTimelineBlockSelect<T>;
         bzPanels?: T | BzPanelsBlockSelect<T>;
+        bzProgramPicker?: T | BzProgramPickerBlockSelect<T>;
+        bzKsef?: T | BzKsefBlockSelect<T>;
       };
   seo?:
     | T
@@ -3623,6 +3774,21 @@ export interface BzPageHeroBlockSelect<T extends boolean = true> {
               id?: T;
             };
       };
+  screen?:
+    | T
+    | {
+        partner?: T;
+        screenImage?: T;
+        boxImage?: T;
+        notes?:
+          | T
+          | {
+              title?: T;
+              text?: T;
+              icon?: T;
+              id?: T;
+            };
+      };
   id?: T;
   blockName?: T;
 }
@@ -3642,6 +3808,8 @@ export interface BzCardsBlockSelect<T extends boolean = true> {
     | {
         title?: T;
         icon?: T;
+        monogram?: T;
+        monogramTone?: T;
         text?: T;
         link?:
           | T
@@ -3935,6 +4103,70 @@ export interface BzPanelsBlockSelect<T extends boolean = true> {
               label?: T;
               href?: T;
             };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzProgramPickerBlock_select".
+ */
+export interface BzProgramPickerBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  lead?: T;
+  resultLabel?: T;
+  initial?: T;
+  talk?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  options?:
+    | T
+    | {
+        trait?: T;
+        icon?: T;
+        traitText?: T;
+        program?: T;
+        caption?: T;
+        description?: T;
+        points?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
+        screenImage?: T;
+        boxImage?: T;
+        product?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzKsefBlock_select".
+ */
+export interface BzKsefBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  date?: T;
+  dateLabel?: T;
+  text?: T;
+  link?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  checklist?:
+    | T
+    | {
+        title?: T;
+        text?: T;
         id?: T;
       };
   id?: T;

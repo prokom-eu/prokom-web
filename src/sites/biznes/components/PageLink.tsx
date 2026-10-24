@@ -17,7 +17,8 @@ const KIND: Record<PageLinkKind, string> = {
     'bg-accent-text text-accent-ink shadow-[0_14px_30px_-14px_var(--accent-text)] hover:bg-ink hover:text-surface',
   outline:
     'bg-card text-ink shadow-[inset_0_0_0_1.5px_var(--border)] hover:shadow-[inset_0_0_0_1.5px_var(--ink-3)]',
-  light: 'bg-white text-surface-dark hover:bg-accent-soft',
+  // Hover stays light in both themes (`accent-soft` is dark at night — navy on navy).
+  light: 'bg-white text-surface-dark hover:bg-white/85',
   outlineDark: 'text-white ring-[1.5px] ring-white/35 ring-inset hover:bg-white/10',
   ok: 'bg-ok-text text-surface shadow-[0_14px_30px_-14px_var(--ok)] hover:bg-ink hover:text-surface',
 }

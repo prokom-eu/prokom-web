@@ -7,7 +7,12 @@ import { site } from './helpers'
 // holds at 360 px and the dark theme switch works. Seed pages: `home` and `kontakt` (and the Biznes
 // subpages from blocks, B9).
 const SITES: { host: string; line: string; dark: boolean; extra?: string[] }[] = [
-  { host: 'biznes.localhost', line: 'biznes', dark: true, extra: ['/opieka-it', '/gopos'] },
+  {
+    host: 'biznes.localhost',
+    line: 'biznes',
+    dark: true,
+    extra: ['/opieka-it', '/gopos', '/insert'],
+  },
   { host: 'instalacje.localhost', line: 'instalacje', dark: false },
   { host: 'software.localhost', line: 'software', dark: true },
 ]

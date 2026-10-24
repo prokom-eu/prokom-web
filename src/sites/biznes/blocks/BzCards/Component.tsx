@@ -9,6 +9,17 @@ import { SectionHead } from '../../components/home/SectionHead'
 import { TONE_ICON } from '../../components/home/tones'
 import { hasLink } from '../../components/PageLink'
 
+type MonogramTone = NonNullable<BzCardsBlockData['cards'][number]['monogramTone']>
+
+// Whole class names, so Tailwind finds them (tone tokens of the Biznes tiles).
+const MONOGRAM: Record<MonogramTone, string> = {
+  blue: cx('bg-linear-145', TONE_ICON.blue),
+  green: cx('bg-linear-145', TONE_ICON.green),
+  violet: cx('bg-linear-145', TONE_ICON.violet),
+  red: cx('bg-linear-145', TONE_ICON.red),
+  dark: 'bg-surface-dark',
+}
+
 /**
  * Cards of a Biznes subpage (plansze Dzial, Gopos, Insert): section head, then three or four
  * cards in a row with an optional icon and a link under the text.
@@ -40,18 +51,30 @@ export function BzCardsBlock({ block }: { block: BzCardsBlockData }) {
               key={card.id ?? i}
               className="flex flex-col gap-2.5 rounded-[24px] bg-card p-6 shadow-[inset_0_0_0_1px_var(--border)] sm:p-7"
             >
-              {card.icon && (
+              {card.monogram ? (
                 <span
                   aria-hidden="true"
                   className={cx(
-                    'mb-2 flex size-11 items-center justify-center rounded-xl',
-                    green
-                      ? cx('bg-linear-145 text-white', TONE_ICON.green)
-                      : 'bg-surface-2 text-accent-text',
+                    'mb-2 flex size-12 items-center justify-center rounded-xl font-display text-lg font-extrabold text-white',
+                    MONOGRAM[card.monogramTone ?? 'blue'],
                   )}
                 >
-                  <Icon name={card.icon} strokeWidth={2.2} className="size-5" />
+                  {card.monogram}
                 </span>
+              ) : (
+                card.icon && (
+                  <span
+                    aria-hidden="true"
+                    className={cx(
+                      'mb-2 flex size-11 items-center justify-center rounded-xl',
+                      green
+                        ? cx('bg-linear-145 text-white', TONE_ICON.green)
+                        : 'bg-surface-2 text-accent-text',
+                    )}
+                  >
+                    <Icon name={card.icon} strokeWidth={2.2} className="size-5" />
+                  </span>
+                )
               )}
               <h3 className="font-display text-[1.25rem] leading-tight font-extrabold text-ink">
                 {card.title}
