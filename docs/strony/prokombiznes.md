@@ -329,7 +329,7 @@ Wzór: `Produkt` (Posnet Ergo Online), zrzuty jasny i ciemny.
 ### 6.3 Lista zapytania `/zapytanie`
 Wzór: `Zapytanie`.
 
-- **Lewa kolumna:** pozycje z miniaturą, ilością −/+, **uwagą do pozycji** (rozwijane pole „Dodaj uwagę, np. kolor, model, termin”), usuwaniem. Poniżej „Często dobierane do Twojej listy”.
+- **Lewa kolumna:** pozycje z miniaturą, ilością −/+, **uwagą do pozycji** (rozwijane pole „Dodaj uwagę, np. kolor, model, termin”), usuwaniem. Poniżej „Często dobierane razem” (tekst planszy).
 - **Prawa kolumna:** formularz „Dane do kontaktu” według planszy `Zapytanie` (decyzja Krystiana 24.10.2026, B8; zastępuje wcześniejsze „rodzaj firmy” i inne nazwy terminów):
   - **Imię \***, **Telefon \***, Firma / NIP, Miejscowość, E-mail (na wycenę, opcjonalnie);
   - „Jak się skontaktować?”: Telefon / WhatsApp / E-mail;
@@ -339,7 +339,8 @@ Wzór: `Zapytanie`.
   - ekran sukcesu z osią czasu „Teraz → do 60 min telefon → wycena na piśmie” **[SZEF: 60 min]**;
   - numer zapytania;
   - lista jest czyszczona.
-- Pusta lista: zachęta i przyciski „Przeglądaj ofertę” / „Dobierz w kreatorze”.
+- Pusta lista: zachęta i przyciski „Przejdź do katalogu” / „Dobierz zestaw w 60 s”; formularz obok zostaje („albo po prostu napisz w formularzu obok”) i wysyła zwykły kontakt z wymaganą wiadomością.
+- „Zapytaj o X” (`?fraza=`): ramka „Szukałeś: „X” — dopiszemy to do zapytania” z przyciskiem usunięcia; fraza idzie w tematach zgłoszenia (przy pustej liście typ `search`).
 - Na planszy jest też podgląd skrzynki admina („Tak zapytanie trafia do skrzynki PRO-KOM”). To wzór widoku w panelu (ADR-003 / ADR-012), **nie sekcja strony publicznej**.
 
 ### 6.4 Opieka IT `/opieka-it`

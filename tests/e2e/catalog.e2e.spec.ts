@@ -41,14 +41,14 @@ test.describe('Biznes-only routes', () => {
   test('/zapytanie renders on the Biznes domain', async ({ page }) => {
     const response = await page.goto(site('biznes.localhost', '/zapytanie'))
     expect(response?.status()).toBe(200)
-    await expect(page.locator('h1')).toHaveText('Lista zapytania')
+    await expect(page.locator('h1')).toHaveText('Twoje zapytanie')
   })
 
   for (const host of ['instalacje.localhost', 'software.localhost']) {
     test(`/zapytanie on ${host} → 404`, async ({ page }) => {
       const response = await page.goto(site(host, '/zapytanie'))
       expect(response?.status()).toBe(404)
-      await expect(page.locator('h1')).not.toHaveText('Lista zapytania')
+      await expect(page.locator('h1')).not.toHaveText('Twoje zapytanie')
     })
   }
 })

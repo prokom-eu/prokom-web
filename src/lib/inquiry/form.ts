@@ -130,17 +130,20 @@ const RELOAD = 'Formularz jest nieaktualny. Odśwież stronę i wyślij go ponow
 const FALLBACK =
   'Nie udało się wysłać zapytania. Spróbuj za chwilę albo zadzwoń do nas — numer jest w stopce.'
 
-export type Outcome =
+export type Outcome<F extends string = FieldName> =
   | { kind: 'sent'; number: string | null }
-  | { kind: 'invalid'; fields: Partial<Record<FieldName, string>>; formError?: string }
+  | { kind: 'invalid'; fields: Partial<Record<F, string>>; formError?: string }
   | { kind: 'error'; message: string }
 
-/** Turns the endpoint's answer into what the form shows. */
-export function readOutcome(
+/**
+ * Turns the endpoint's answer into what the form shows. `messages` names the fields of the
+ * form; a field the server reports but the form does not know becomes a general error.
+ */
+export function readOutcome<F extends string = FieldName>(
   status: number,
   json: unknown,
-  messages: FieldMessages = FIELD_MESSAGES,
-): Outcome {
+  messages: Record<F, string> = FIELD_MESSAGES as Record<F, string>,
+): Outcome<F> {
   const body = (typeof json === 'object' && json !== null ? json : {}) as {
     error?: unknown
     fields?: unknown
@@ -154,12 +157,12 @@ export function readOutcome(
   }
   if (status === 400 && body.error === 'rejected') return { kind: 'error', message: RELOAD }
   if (status === 400 && body.error === 'invalid' && Array.isArray(body.fields)) {
-    const fields: Partial<Record<FieldName, string>> = {}
+    const fields: Partial<Record<F, string>> = {}
     let formError: string | undefined
     for (const path of body.fields as string[]) {
       if (path === 'consent.clauseVersion') formError = RELOAD
-      const field = path.split('.')[0] as FieldName
-      if (field in messages && path !== 'consent.clauseVersion') {
+      const field = path.split('.')[0] as F
+      if (Object.hasOwn(messages, field) && path !== 'consent.clauseVersion') {
         fields[field] = messages[field]
       } else if (!formError) {
         formError = FALLBACK
