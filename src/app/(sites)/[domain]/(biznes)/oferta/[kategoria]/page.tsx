@@ -22,6 +22,7 @@ import { getSiteSettings } from '@/lib/site/data'
 import { toTelHref } from '@/lib/site/link'
 import { isValidSlug } from '@/lib/tenant/uniqueSlug'
 import type { Crumb } from '@/sites/biznes/components/Breadcrumbs'
+import { CatalogContactPanel } from '@/sites/biznes/components/catalog/CatalogContactPanel'
 import { CategoryGrid } from '@/sites/biznes/components/category/CategoryGrid'
 import { CategoryHero } from '@/sites/biznes/components/category/CategoryHero'
 import {
@@ -29,7 +30,6 @@ import {
   CategoryFacts,
   IncludedCards,
 } from '@/sites/biznes/components/category/CategorySections'
-import { ContactPanel } from '@/sites/biznes/components/forms/ContactPanel'
 import { FaqBiznes } from '@/sites/biznes/components/home/FaqBiznes'
 import { HowInquiryWorks } from '@/sites/biznes/components/HowInquiryWorks'
 
@@ -167,24 +167,12 @@ export default async function CategoryPage({ params }: Props) {
         />
       )}
       <HowInquiryWorks callbackTime={callback} />
-      <ContactPanel
+      <CatalogContactPanel
         tenantId={tenant.id}
         id="kontakt"
         heading={category.contact.heading}
-        lead={[category.contact.lead, callback && `${callback} w godzinach pracy.`]
-          .filter(Boolean)
-          .join(' ')}
-        formHeading="Formularz zapytania"
-        formNote="Pola z gwiazdką są wymagane. Resztę dopiszemy razem przez telefon."
-        // Like the catalog's form; the call-back time only from the panel [SZEF].
-        promises={[callback, 'Wycena na piśmie', 'Bez zobowiązań'].filter(
-          (promise): promise is string => Boolean(promise),
-        )}
-        successText={
-          callback
-            ? `${callback} w godzinach pracy. Poza godzinami pracy odezwiemy się następnego dnia roboczego rano.`
-            : null
-        }
+        lead={category.contact.lead}
+        callbackTime={callback}
       />
     </>
   )

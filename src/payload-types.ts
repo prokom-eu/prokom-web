@@ -1150,7 +1150,18 @@ export interface Industry {
     title?: string | null;
     lead?: string | null;
     image?: (number | null) | Media;
+    /**
+     * Liczby i opinie tylko ze źródłem (plan Biznesu §4).
+     */
+    chips?: string[] | null;
+    /**
+     * Puste = „Przygotuj ofertę dla [branża]”.
+     */
+    ctaLabel?: string | null;
   };
+  /**
+   * Siatka „Zestaw dla branży” — w tej kolejności.
+   */
   featuredProducts?: (number | Product)[] | null;
   faq?:
     | {
@@ -1159,6 +1170,72 @@ export interface Industry {
         id?: string | null;
       }[]
     | null;
+  productsSection?: {
+    eyebrow?: string | null;
+    title?: string | null;
+    lead?: string | null;
+  };
+  day?: {
+    eyebrow?: string | null;
+    heading?: string | null;
+    steps?:
+      | {
+          /**
+           * Np. „11:00” w kółku zamiast numeru kroku.
+           */
+          label?: string | null;
+          title: string;
+          text?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  flow?: {
+    eyebrow?: string | null;
+    /**
+     * Sekcja ma kotwicę #jak-to-dziala — blok tylko raz na stronie.
+     */
+    heading?: string | null;
+    lead?: string | null;
+    /**
+     * Liczby partnera tylko ze źródłem w treści (plan Biznesu §4).
+     */
+    badges?:
+      | {
+          text: string;
+          id?: string | null;
+        }[]
+      | null;
+    image?: (number | null) | Media;
+    ticket?: string | null;
+    steps?:
+      | {
+          label?: string | null;
+          title: string;
+          text?: string | null;
+          image?: (number | null) | Media;
+          id?: string | null;
+        }[]
+      | null;
+    note?: string | null;
+    primary?: {
+      label?: string | null;
+      href?: string | null;
+    };
+    secondary?: {
+      label?: string | null;
+      href?: string | null;
+    };
+  };
+  faqIntro?: {
+    eyebrow?: string | null;
+    title?: string | null;
+    lead?: string | null;
+  };
+  contact?: {
+    heading?: string | null;
+    lead?: string | null;
+  };
   /**
    * Mniejsza liczba = wcześniej.
    */
@@ -2454,6 +2531,10 @@ export interface BzTimelineBlock {
   eyebrow?: string | null;
   heading: string;
   steps: {
+    /**
+     * Np. „11:00” w kółku zamiast numeru kroku.
+     */
+    label?: string | null;
     title: string;
     text?: string | null;
     id?: string | null;
@@ -4160,6 +4241,7 @@ export interface BzTimelineBlockSelect<T extends boolean = true> {
   steps?:
     | T
     | {
+        label?: T;
         title?: T;
         text?: T;
         id?: T;
@@ -4565,6 +4647,8 @@ export interface IndustriesSelect<T extends boolean = true> {
         title?: T;
         lead?: T;
         image?: T;
+        chips?: T;
+        ctaLabel?: T;
       };
   featuredProducts?: T;
   faq?:
@@ -4573,6 +4657,77 @@ export interface IndustriesSelect<T extends boolean = true> {
         question?: T;
         answer?: T;
         id?: T;
+      };
+  productsSection?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+        lead?: T;
+      };
+  day?:
+    | T
+    | {
+        eyebrow?: T;
+        heading?: T;
+        steps?:
+          | T
+          | {
+              label?: T;
+              title?: T;
+              text?: T;
+              id?: T;
+            };
+      };
+  flow?:
+    | T
+    | {
+        eyebrow?: T;
+        heading?: T;
+        lead?: T;
+        badges?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
+        image?: T;
+        ticket?: T;
+        steps?:
+          | T
+          | {
+              label?: T;
+              title?: T;
+              text?: T;
+              image?: T;
+              id?: T;
+            };
+        note?: T;
+        primary?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+            };
+        secondary?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+            };
+      };
+  faqIntro?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+        lead?: T;
+      };
+  contact?:
+    | T
+    | {
+        heading?: T;
+        lead?: T;
       };
   order?: T;
   seo?:

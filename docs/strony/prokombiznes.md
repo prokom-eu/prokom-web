@@ -408,6 +408,14 @@ Sekcje:
 
 Na start gastronomia, handel i noclegi. Treści handlu i noclegów piszemy wg wzoru gastronomii.
 
+Wdrożenie B10b (decyzje Krystiana 24.10.2026):
+- stały szablon z pól branży (zakładka „Strona branży — sekcje”), nie z bloków; sekcja bez nagłówka nie pokazuje się;
+- kolejność wg planszy: hero → zestaw (polecane produkty) → dzień w lokalu → jak to działa → FAQ → inne branże → kontakt;
+- „Od lady po kuchnię” to siatka kart polecanych produktów (jak na planszy), z liczbą pozycji branży w katalogu i linkiem do `/oferta?branza=…`;
+- okruszek „Branże” prowadzi do siatki branż na stronie głównej (`/#plan`); strony z listą branż nie ma;
+- przycisk do kreatora: etykieta z panelu (gastronomia: „Przygotuj zapytanie dla lokalu” z planszy), puste pole = „Przygotuj zapytanie”;
+- handel i noclegi — szkic tekstów do akceptacji szefa; kontakt to formularz v20.
+
 ### 6.8 Kreator `/kreator`
 Wzór: `Kreator`; dane w `seed/prokombiznes/kreator.json`.
 

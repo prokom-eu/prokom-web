@@ -1,4 +1,4 @@
-import type { CollectionConfig, Field } from 'payload'
+import type { CollectionConfig } from 'payload'
 
 import { linkGroup } from '../blocks/fields'
 import { adminOnly } from '../lib/auth/access'
@@ -10,18 +10,10 @@ import {
   imageField,
   includedField,
   orderField,
+  sectionHeading,
   seoGroup,
   slugField,
 } from './catalogFields'
-
-/** Eyebrow and H2 of a category page section. */
-const sectionHeading: Field = {
-  type: 'row',
-  fields: [
-    { name: 'eyebrow', label: 'Nadtytuł', type: 'text', maxLength: 60 },
-    { name: 'title', label: 'Nagłówek', type: 'text', maxLength: 90 },
-  ],
-}
 
 /**
  * Categories of the catalog, each in one group (ADR-012 §1). A category without published

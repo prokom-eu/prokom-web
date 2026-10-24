@@ -24,6 +24,7 @@ import * as migration_20261024_141819_biznes_opieka_it from './20261024_141819_b
 import * as migration_20261024_152505_biznes_gopos from './20261024_152505_biznes_gopos'
 import * as migration_20261024_160632_biznes_insert from './20261024_160632_biznes_insert'
 import * as migration_20261024_165155_biznes_category from './20261024_165155_biznes_category'
+import * as migration_20261024_180841_biznes_industries from './20261024_180841_biznes_industries'
 
 export const migrations = [
   {
@@ -155,5 +156,10 @@ export const migrations = [
     up: migration_20261024_165155_biznes_category.up,
     down: migration_20261024_165155_biznes_category.down,
     name: '20261024_165155_biznes_category',
+  },
+  {
+    up: migration_20261024_180841_biznes_industries.up,
+    down: migration_20261024_180841_biznes_industries.down,
+    name: '20261024_180841_biznes_industries',
   },
 ]

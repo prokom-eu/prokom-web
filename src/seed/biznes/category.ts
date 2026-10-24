@@ -1,6 +1,7 @@
 import type { Payload } from 'payload'
 
 import type { CatalogCategory } from '../../payload-types'
+import { isBlank, missingFields } from './fill'
 
 type Report = (name: string, changed: boolean) => void
 
@@ -137,30 +138,9 @@ export const CASH_REGISTERS_CONTENT: Content = {
   },
 }
 
-const blank = (value: unknown) =>
-  value === null ||
-  value === undefined ||
-  (typeof value === 'string' && value.trim() === '') ||
-  (Array.isArray(value) && value.length === 0)
-
-/** Fields of `seed` the record has empty; nested groups field by field. */
-function missing(current: unknown, seed: object): Record<string, unknown> {
-  const now = (current ?? {}) as Record<string, unknown>
-  const patch: Record<string, unknown> = {}
-  for (const [key, value] of Object.entries(seed)) {
-    if (value && typeof value === 'object' && !Array.isArray(value)) {
-      const nested = missing(now[key], value)
-      if (Object.keys(nested).length > 0) patch[key] = { ...(now[key] as object), ...nested }
-    } else if (blank(now[key])) {
-      patch[key] = value
-    }
-  }
-  return patch
-}
-
 /**
  * Content of the cash register category (B10a): only fields still empty are filled, so texts
- * edited in the panel stay — a field emptied on purpose comes back on the next (local) seed. Products of „często dobierane” by their short id in the package.
+ * edited in the panel stay (`missingFields`). Products of „często dobierane” by their short id in the package.
  */
 export async function seedBiznesCategoryContent(
   payload: Payload,
@@ -179,8 +159,8 @@ export async function seedBiznesCategoryContent(
   if (!category) return
   const boughtWith = BOUGHT_WITH.map(product).filter((id): id is number => id !== undefined)
   const patch: Partial<CatalogCategory> = {
-    ...(missing(category, CASH_REGISTERS_CONTENT) as Partial<CatalogCategory>),
-    ...(blank(category.frequentlyBoughtWith) && boughtWith.length > 0
+    ...(missingFields(category, CASH_REGISTERS_CONTENT) as Partial<CatalogCategory>),
+    ...(isBlank(category.frequentlyBoughtWith) && boughtWith.length > 0
       ? { frequentlyBoughtWith: boughtWith }
       : {}),
   }
