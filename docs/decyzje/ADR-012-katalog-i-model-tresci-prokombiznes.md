@@ -272,3 +272,12 @@ Wizualizacja v20 (`docs/design/prokombiznes/ZMIANY-v20.md` §4 pkt 3), sesja D1.
     - Zdjęcia: `seed/prokombiznes/media/produkty/<slug>/` (567 plików, WebP, kwadrat do 1200 px), źródło każdego w `Media.source` (`media-produkty-v2.json` → `zrodlo`). Prawo użycia materiałów producentów do potwierdzenia przed produkcją. Usługi bez galerii zostają przy plikach z wizualizacji.
     - Loga Honeywell i Zebra są tylko w SVG, którego `Partners` nie przyjmuje — marka pokazuje nazwę tekstem. TODO(krystian): wersja bitmapowa logo od producenta.
     - Indeks wyszukiwarki z 225 pozycjami: 24 KB gzip (limit 50 KB) — `korzysc` bez skracania.
+
+## Rozstrzygnięcia B10 (24.10.2026)
+
+Decyzje Krystiana z sesji B10 (kategoria, branże, kreator). Obowiązują zamiast sprzecznych fragmentów §1–§3.
+
+13. **Strony kategorii, branż i kreator — model treści:**
+    - `CatalogCategories`: sekcje strony jako pola (karty „W cenie” `includedSection.cards`, „Przepisy w pigułce” `facts.items` — karta tylko z nazwą przepisu i linkiem `https://`, nagłówek FAQ, karta pomocy, kontakt). Produkty strony = każdy opublikowany produkt z tą kategorią (jak liczniki menu), nie tylko z kategorią główną.
+    - `Industries`: **pola zamiast bloków** (§1 przewidywał `strona` jako bloki). Strona branży to stały szablon (spec. §6.7 „jeden szablon”); sekcje „Dzień w lokalu” i „Jak to działa” używają pól bloków `bzTimeline` i `bzOrderFlow` (te same komponenty co na `/gopos`), „Inne branże” i siatka polecanych liczą się z danych. Bloki wymagałyby przeróbki `RenderBlocks` (adresy okruszków z `/<slug>`) bez zysku dla redaktora.
+    - `BiznesSettings.wizard` (kreator): reguły jako dane — propozycje to slugi produktów katalogu, warunki plakietek i usług w cenie oraz mnożnik „N ×” w danych (schemat `lib/catalog/wizard.ts`). Zestaw liczy serwer z odpowiedzi klienta i reguł tenanta; produkty trafiają do `Inquiries.items` z ilościami (ADR-003, uzupełnienie B10c).
