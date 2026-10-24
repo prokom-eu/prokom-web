@@ -330,10 +330,11 @@ Wzór: `Produkt` (Posnet Ergo Online), zrzuty jasny i ciemny.
 Wzór: `Zapytanie`.
 
 - **Lewa kolumna:** pozycje z miniaturą, ilością −/+, **uwagą do pozycji** (rozwijane pole „Dodaj uwagę, np. kolor, model, termin”), usuwaniem. Poniżej „Często dobierane do Twojej listy”.
-- **Prawa kolumna:** formularz zapytania (§8.4) z dodatkowymi polami:
-  - rodzaj firmy;
-  - termin („Na otwarcie lokalu / przed sezonem / jak najszybciej / na spokojnie”);
-  - preferowany kontakt (telefon / e-mail / WhatsApp).
+- **Prawa kolumna:** formularz „Dane do kontaktu” według planszy `Zapytanie` (decyzja Krystiana 24.10.2026, B8; zastępuje wcześniejsze „rodzaj firmy” i inne nazwy terminów):
+  - **Imię \***, **Telefon \***, Firma / NIP, Miejscowość, E-mail (na wycenę, opcjonalnie);
+  - „Jak się skontaktować?”: Telefon / WhatsApp / E-mail;
+  - „Na kiedy?”: Pilne / W tym miesiącu / Przed sezonem / Bez pośpiechu;
+  - uwagi (opcjonalnie), zgoda RODO, przycisk „Wyślij zapytanie (n pozycji)”.
 - **Po wysłaniu:**
   - ekran sukcesu z osią czasu „Teraz → do 60 min telefon → wycena na piśmie” **[SZEF: 60 min]**;
   - numer zapytania;
@@ -512,14 +513,9 @@ Trzy formularze: kontakt, zapytanie z listą, kreator. Wszystkie idą do jednego
   - ukryte: źródło (adres strony), UTM.
   - Typ zgłoszenia `kontakt`. Po wysłaniu ekran „Dziękujemy, zapytanie wysłane.” z przyciskiem „Wyślij kolejne”. Wygląd: `ZMIANY-v20.md` §2.9.
   - Pole „tematy” zostaje w modelu `Inquiries` (używa go np. „Zapytaj o X”), ale ten formularz go nie wysyła.
-- **Zapytanie z listą (`/zapytanie`) i kreator** — bez zmian w v20:
-  - imię;
-  - firma (opcjonalnie);
-  - telefon **lub** e-mail (co najmniej jedno);
-  - wiadomość;
-  - tematy (chipy);
-  - zgoda RODO z linkiem do polityki;
-  - ukryte: źródło (adres strony), UTM.
+- **Zapytanie z listą (`/zapytanie`)** — pola według §6.3 (plansza `Zapytanie`, decyzja 24.10.2026): **imię \***, **telefon \*** (oddzwaniamy), wiadomość opcjonalna (uwagi do listy), pozycje z ilościami i uwagami; ukryte: źródło (adres strony), UTM. „Zapytaj o X” z wyszukiwarki (`/zapytanie?fraza=X`) przy pustej liście wysyła typ `search` z frazą w tematach.
+- **Kreator** — pola ustala B10; do tego czasu serwer wymaga imienia i telefonu lub e-maila.
+- Reguły pól i typy zgłoszeń: ADR-003, uzupełnienie 24.10.2026.
 - **Ochrona:** honeypot, limit zgłoszeń z IP, walidacja Zod na serwerze. Bez CAPTCHA na start.
 - **Po wysłaniu:**
   - zapis w skrzynce (ADR-003);

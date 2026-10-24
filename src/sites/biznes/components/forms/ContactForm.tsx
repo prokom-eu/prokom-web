@@ -1,0 +1,305 @@
+'use client'
+
+import { useId, useRef, useState, type FormEvent } from 'react'
+
+import { Icon } from '@/components/ui/Icon'
+import { TextLink } from '@/components/ui/TextLink'
+import {
+  CONSENT_CLAUSE,
+  PRIVACY_POLICY_LINK_TEXT,
+  PRIVACY_POLICY_PATH,
+} from '@/lib/inquiry/consent'
+import {
+  BIZNES_FIELD_MESSAGES,
+  buildInquiryBody,
+  checkRequired,
+  linkInText,
+  readOutcome,
+  type FieldName,
+  type FormValues,
+} from '@/lib/inquiry/form'
+import { HONEYPOT_FIELD } from '@/lib/inquiry/honeypot'
+
+import { AreaField, ConsentField, IconField } from './fields'
+
+type Props = {
+  /** Signed "form shown at" token, issued by the server on render (`lib/inquiry/spam`). */
+  formToken: string
+  heading?: string | null
+  note?: string | null
+  /** Short promises under the button [SZEF], e.g. „Wycena na piśmie”. */
+  promises?: string[]
+  /** Under „Dziękujemy, zapytanie wysłane.” — the response time [SZEF]. */
+  successText?: string | null
+}
+
+type Status =
+  { kind: 'idle' } | { kind: 'sending' } | { kind: 'sent' } | { kind: 'failed'; message?: string }
+
+const RULES = { phoneRequired: true, messages: BIZNES_FIELD_MESSAGES }
+const FIELD_ORDER: FieldName[] = ['name', 'phone', 'company', 'email', 'message', 'consent']
+const consentClause = linkInText(CONSENT_CLAUSE.text, PRIVACY_POLICY_LINK_TEXT)
+const FALLBACK_SUCCESS = 'Odezwiemy się najszybciej, jak to możliwe.'
+
+function readValues(form: HTMLFormElement): FormValues {
+  const data = new FormData(form)
+  const text = (name: string) => String(data.get(name) ?? '')
+  return {
+    name: text('name'),
+    company: text('company'),
+    nip: '',
+    email: text('email'),
+    phone: text('phone'),
+    message: text('message'),
+    consent: data.get('consent') === 'on',
+    marketingConsent: false,
+    website: text(HONEYPOT_FIELD),
+  }
+}
+
+/**
+ * Contact form of the Biznes line, one screen, no topics (ZMIANY-v20 §2.9): home page
+ * `#kontakt`, `/kontakt` and under the catalog. Sends a `contact` inquiry to `POST /api/inquiry`;
+ * the server checks the same required fields (phone on the Biznes line).
+ */
+export function ContactForm({ formToken, heading, note, promises = [], successText }: Props) {
+  const id = useId()
+  const fieldId = (name: string) => `${id}-${name}`
+  const [errors, setErrors] = useState<Partial<Record<FieldName, string>>>({})
+  const [status, setStatus] = useState<Status>({ kind: 'idle' })
+  // A new key gives an empty form after „Wyślij kolejne”.
+  const [round, setRound] = useState(0)
+  const statusRef = useRef<HTMLDivElement>(null)
+
+  function focusStatus() {
+    // After React renders the message, move the focus there so screen readers announce it.
+    requestAnimationFrame(() => statusRef.current?.focus())
+  }
+
+  function showErrors(fields: Partial<Record<FieldName, string>>, form: HTMLFormElement) {
+    setErrors(fields)
+    const first = FIELD_ORDER.find((name) => fields[name])
+    if (first) form.querySelector<HTMLElement>(`#${CSS.escape(fieldId(first))}`)?.focus()
+  }
+
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    const form = event.currentTarget
+    const values = readValues(form)
+    const missing = checkRequired(values, RULES)
+    if (Object.keys(missing).length > 0) {
+      setStatus({ kind: 'idle' })
+      showErrors(missing, form)
+      return
+    }
+
+    setErrors({})
+    setStatus({ kind: 'sending' })
+    let outcome
+    try {
+      const response = await fetch('/api/inquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(
+          buildInquiryBody(values, { href: window.location.href, formToken, type: 'contact' }),
+        ),
+      })
+      outcome = readOutcome(
+        response.status,
+        await response.json().catch(() => null),
+        RULES.messages,
+      )
+    } catch {
+      outcome = readOutcome(0, null)
+    }
+
+    if (outcome.kind === 'sent') {
+      setStatus({ kind: 'sent' })
+      focusStatus()
+    } else if (outcome.kind === 'invalid') {
+      const failed: Status = outcome.formError
+        ? { kind: 'failed', message: outcome.formError }
+        : { kind: 'idle' }
+      setStatus(failed)
+      if (Object.keys(outcome.fields).length > 0) {
+        showErrors(outcome.fields, form)
+      } else {
+        setErrors({})
+        focusStatus()
+      }
+    } else {
+      setStatus({ kind: 'failed', message: outcome.message })
+      focusStatus()
+    }
+  }
+
+  if (status.kind === 'sent') {
+    return (
+      <div
+        ref={statusRef}
+        tabIndex={-1}
+        role="status"
+        className="flex min-h-[420px] flex-col items-start justify-center gap-3.5"
+      >
+        <span
+          aria-hidden="true"
+          className="flex size-16 items-center justify-center rounded-[20px] bg-ok/15 text-ok-text"
+        >
+          <Icon name="check" strokeWidth={2.6} className="size-8" />
+        </span>
+        <p className="font-display text-[28px] leading-tight font-extrabold text-ink">
+          Dziękujemy, zapytanie wysłane.
+        </p>
+        <p className="max-w-[46ch] leading-relaxed text-ink-2">{successText || FALLBACK_SUCCESS}</p>
+        <button
+          type="button"
+          onClick={() => {
+            setStatus({ kind: 'idle' })
+            setRound((value) => value + 1)
+            // The button disappears with the success screen: keep the focus in the form.
+            requestAnimationFrame(() => document.getElementById(fieldId('name'))?.focus())
+          }}
+          className="inline-flex min-h-11 items-center rounded-xl border-[1.5px] border-border-input px-5 font-bold text-ink hover:border-ink"
+        >
+          Wyślij kolejne
+        </button>
+      </div>
+    )
+  }
+
+  const sending = status.kind === 'sending'
+  return (
+    <div className="flex flex-col gap-[18px]">
+      {(heading || note) && (
+        <div className="border-b border-border pb-4">
+          {heading && (
+            <h3 className="font-display text-[clamp(1.4rem,2vw,1.6rem)] leading-tight font-extrabold">
+              {heading}
+            </h3>
+          )}
+          {note && <p className="mt-1.5 text-sm text-ink-2">{note}</p>}
+        </div>
+      )}
+      <form
+        key={round}
+        noValidate
+        onSubmit={onSubmit}
+        aria-busy={sending}
+        className="relative flex flex-col gap-[18px]"
+      >
+        <noscript>
+          <p className="font-bold text-ink">
+            Formularz wymaga włączonego JavaScriptu. Zadzwoń albo napisz do nas — dane są obok.
+          </p>
+        </noscript>
+        {status.kind === 'failed' && status.message && (
+          // Announced through the focus it receives; `role="alert"` would read it twice.
+          <div ref={statusRef} tabIndex={-1}>
+            <p className="rounded-xl border-[3px] border-border-input bg-card p-4 font-bold text-ink">
+              {status.message}
+            </p>
+          </div>
+        )}
+        <div className="grid gap-x-4 gap-y-3.5 sm:grid-cols-2">
+          <IconField
+            id={fieldId('name')}
+            name="name"
+            label="Imię"
+            icon="users"
+            placeholder="np. Anna"
+            autoComplete="given-name"
+            maxLength={120}
+            required
+            error={errors.name}
+          />
+          <IconField
+            id={fieldId('phone')}
+            name="phone"
+            type="tel"
+            label="Telefon"
+            icon="phone"
+            placeholder="600 100 200"
+            autoComplete="tel"
+            maxLength={30}
+            required
+            error={errors.phone}
+          />
+          <IconField
+            id={fieldId('company')}
+            name="company"
+            label="Firma"
+            icon="store"
+            placeholder="nazwa firmy"
+            autoComplete="organization"
+            maxLength={200}
+            error={errors.company}
+          />
+          <IconField
+            id={fieldId('email')}
+            name="email"
+            type="email"
+            label="E-mail"
+            icon="mail"
+            placeholder="adres@firma.pl"
+            autoComplete="email"
+            maxLength={254}
+            error={errors.email}
+          />
+        </div>
+        <AreaField
+          id={fieldId('message')}
+          name="message"
+          label="W czym możemy pomóc?"
+          placeholder="Opisz krótko, czego potrzebujesz albo co się dzieje. Np. „Otwieramy kawiarnię w grudniu, potrzebujemy kasy i terminala”."
+          maxLength={5000}
+          required
+          error={errors.message}
+        />
+        {/* Honeypot: off-screen and out of the tab order, so only bots fill it in. */}
+        <div aria-hidden="true" className="absolute -left-[10000px] size-px overflow-hidden">
+          <label htmlFor={fieldId(HONEYPOT_FIELD)}>Strona internetowa</label>
+          <input
+            id={fieldId(HONEYPOT_FIELD)}
+            name={HONEYPOT_FIELD}
+            tabIndex={-1}
+            autoComplete="off"
+          />
+        </div>
+        <div className="mt-1 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <ConsentField id={fieldId('consent')} error={errors.consent} className="sm:max-w-[40ch]">
+            {consentClause ? (
+              <>
+                {consentClause.before}
+                <TextLink href={PRIVACY_POLICY_PATH}>{consentClause.link}</TextLink>
+                {consentClause.after}
+              </>
+            ) : (
+              <>
+                {CONSENT_CLAUSE.text}{' '}
+                <TextLink href={PRIVACY_POLICY_PATH}>Polityka prywatności</TextLink>
+              </>
+            )}
+          </ConsentField>
+          <button
+            type="submit"
+            disabled={sending}
+            className="inline-flex min-h-14 shrink-0 items-center justify-center gap-2 rounded-xl bg-accent-text px-[26px] text-base font-bold text-accent-ink shadow-[0_18px_30px_-16px_var(--glow)] hover:bg-ink hover:text-surface disabled:opacity-70"
+          >
+            {sending ? 'Wysyłanie…' : 'Wyślij zapytanie'}
+            {!sending && <Icon name="arrow" strokeWidth={2.4} className="size-4" />}
+          </button>
+        </div>
+        {promises.length > 0 && (
+          <ul className="flex flex-wrap gap-x-5 gap-y-2 text-sm font-bold text-ink">
+            {promises.map((promise) => (
+              <li key={promise} className="inline-flex items-center gap-1.5">
+                <Icon name="check" strokeWidth={2.4} className="size-4 text-ok-text" />
+                {promise}
+              </li>
+            ))}
+          </ul>
+        )}
+      </form>
+    </div>
+  )
+}

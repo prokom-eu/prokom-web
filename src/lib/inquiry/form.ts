@@ -1,5 +1,6 @@
 import { CONSENT_CLAUSE } from './consent'
 import { HONEYPOT_FIELD } from './honeypot'
+import type { InquiryType } from './types'
 
 // Browser side of the inquiry form: what the form sends to `POST /api/inquiry` and how it reads
 // the answer. No Zod here — the server validates (ADR-003) and the form shows its verdict.
@@ -18,6 +19,8 @@ export type FormValues = {
 }
 
 export type FieldName = 'name' | 'company' | 'nip' | 'email' | 'phone' | 'message' | 'consent'
+
+export type FieldMessages = Record<FieldName, string>
 
 type Source = { url: string; utmSource?: string; utmMedium?: string; utmCampaign?: string }
 
@@ -56,9 +59,16 @@ export function sourceFromHref(href: string): Source {
 
 export function buildInquiryBody(
   values: FormValues,
-  { href, formToken, category }: { href: string; formToken: string; category?: string | null },
+  {
+    href,
+    formToken,
+    category,
+    type,
+  }: { href: string; formToken: string; category?: string | null; type?: InquiryType },
 ) {
   return {
+    // Without a type the server takes `contact` (the generic form of every line).
+    ...(type ? { type } : {}),
     ...(category ? { category } : {}),
     source: sourceFromHref(href),
     name: values.name,
@@ -74,7 +84,7 @@ export function buildInquiryBody(
   }
 }
 
-const FIELD_MESSAGES: Record<FieldName, string> = {
+export const FIELD_MESSAGES: FieldMessages = {
   name: 'Podaj imię i nazwisko.',
   company: 'Nazwa firmy jest za długa.',
   nip: 'Sprawdź NIP — powinien mieć 10 cyfr.',
@@ -85,16 +95,34 @@ const FIELD_MESSAGES: Record<FieldName, string> = {
   consent: 'Zaznacz zgodę, abyśmy mogli odpowiedzieć.',
 }
 
+/** Biznes forms ask for a phone and an optional e-mail (ZMIANY-v20 §2.9, plansza Zapytanie). */
+export const BIZNES_FIELD_MESSAGES: FieldMessages = {
+  ...FIELD_MESSAGES,
+  name: 'Podaj imię.',
+  email: 'Sprawdź adres e-mail albo zostaw to pole puste.',
+  phone: 'Podaj numer telefonu, np. 600 100 200.',
+}
+
+/** Rules of one form: the Biznes line requires a phone (the server checks the same). */
+export type FormRules = { phoneRequired?: boolean; messages?: FieldMessages }
+
 /**
  * Required fields only — the browser's quick check before a request. Formats (e-mail, NIP,
  * phone) stay with the server, so there is one set of rules.
  */
-export function checkRequired(values: FormValues): Partial<Record<FieldName, string>> {
+export function checkRequired(
+  values: FormValues,
+  { phoneRequired = false, messages = FIELD_MESSAGES }: FormRules = {},
+): Partial<Record<FieldName, string>> {
   const errors: Partial<Record<FieldName, string>> = {}
-  if (!values.name.trim()) errors.name = FIELD_MESSAGES.name
-  if (!values.email.trim() && !values.phone.trim()) errors.email = FIELD_MESSAGES.email
-  if (!values.message.trim()) errors.message = FIELD_MESSAGES.message
-  if (!values.consent) errors.consent = FIELD_MESSAGES.consent
+  if (!values.name.trim()) errors.name = messages.name
+  if (phoneRequired) {
+    if (!values.phone.trim()) errors.phone = messages.phone
+  } else if (!values.email.trim() && !values.phone.trim()) {
+    errors.email = messages.email
+  }
+  if (!values.message.trim()) errors.message = messages.message
+  if (!values.consent) errors.consent = messages.consent
   return errors
 }
 
@@ -103,17 +131,24 @@ const FALLBACK =
   'Nie udało się wysłać zapytania. Spróbuj za chwilę albo zadzwoń do nas — numer jest w stopce.'
 
 export type Outcome =
-  | { kind: 'sent' }
+  | { kind: 'sent'; number: string | null }
   | { kind: 'invalid'; fields: Partial<Record<FieldName, string>>; formError?: string }
   | { kind: 'error'; message: string }
 
 /** Turns the endpoint's answer into what the form shows. */
-export function readOutcome(status: number, json: unknown): Outcome {
+export function readOutcome(
+  status: number,
+  json: unknown,
+  messages: FieldMessages = FIELD_MESSAGES,
+): Outcome {
   const body = (typeof json === 'object' && json !== null ? json : {}) as {
     error?: unknown
     fields?: unknown
+    number?: unknown
   }
-  if (status === 201) return { kind: 'sent' }
+  if (status === 201) {
+    return { kind: 'sent', number: typeof body.number === 'string' ? body.number : null }
+  }
   if (status === 429) {
     return { kind: 'error', message: 'Wysłano już kilka zapytań. Spróbuj za kilka minut.' }
   }
@@ -124,8 +159,8 @@ export function readOutcome(status: number, json: unknown): Outcome {
     for (const path of body.fields as string[]) {
       if (path === 'consent.clauseVersion') formError = RELOAD
       const field = path.split('.')[0] as FieldName
-      if (field in FIELD_MESSAGES && path !== 'consent.clauseVersion') {
-        fields[field] = FIELD_MESSAGES[field]
+      if (field in messages && path !== 'consent.clauseVersion') {
+        fields[field] = messages[field]
       } else if (!formError) {
         formError = FALLBACK
       }

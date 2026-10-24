@@ -80,7 +80,10 @@ test.describe('inquiry inbox (ADR-003)', () => {
     const marker = `E2E-${Date.now()}`
     await page.goto(site('biznes.localhost', '/kontakt'))
     const sent = await post(page, inquiry(marker, { tenant: 3, line: 'software' }), randomIp())
-    expect(sent).toEqual({ status: 201, json: { ok: true } })
+    expect(sent).toEqual({
+      status: 201,
+      json: { ok: true, number: expect.stringMatching(/^PKB-\d{4}-\d{4,}$/) },
+    })
 
     await loginAsAdmin(page)
     const [record] = await findInquiries(page, marker)
@@ -91,6 +94,8 @@ test.describe('inquiry inbox (ADR-003)', () => {
     // B1b: the server numbers every inquiry (PKB = Biznes) and the form sends the contact type.
     expect(record).toMatchObject({ type: 'contact' })
     expect(record?.number).toMatch(new RegExp(`^PKB-\\d{4}-${String(id).padStart(4, '0')}$`))
+    // B8: the customer gets the same number on the success screen.
+    expect(sent.json.number).toBe(record?.number)
 
     try {
       // Notification to the line inbox (seed: biznes@example.test), customer as Reply-To.
@@ -99,7 +104,7 @@ test.describe('inquiry inbox (ADR-003)', () => {
         .toEqual(
           expect.arrayContaining([
             expect.objectContaining({
-              Subject: `Zapytanie #${id} — Biznes — ${marker}`,
+              Subject: `Zapytanie ${String(record?.number)} — Biznes — ${marker}`,
               To: [expect.objectContaining({ Address: 'biznes@example.test' })],
               ReplyTo: [
                 expect.objectContaining({ Address: `${marker.toLowerCase()}@example.test` }),
@@ -155,6 +160,97 @@ test.describe('inquiry inbox (ADR-003)', () => {
         deletedByEmail: process.env.SEED_ADMIN_EMAIL,
       }),
     ])
+  })
+
+  test('an inquiry list keeps only products of its site and e-mails the full list (B8)', async ({
+    page,
+    request,
+  }) => {
+    const marker = `E2E-LIST-${Date.now()}`
+    await page.goto(site('biznes.localhost', '/oferta'))
+    const products = await page.evaluate(async () => {
+      const response = await fetch('/api/catalog-index')
+      const index = (await response.json()) as { products: { slug: string; name: string }[] }
+      return index.products.slice(0, 2)
+    })
+    expect(products).toHaveLength(2)
+    const [first, second] = products as [
+      { slug: string; name: string },
+      { slug: string; name: string },
+    ]
+
+    const sent = await post(
+      page,
+      inquiry(marker, {
+        type: 'list',
+        message: '',
+        city: 'Nowy Targ',
+        deadline: 'Przed sezonem',
+        preferredContact: 'whatsapp',
+        items: [
+          { slug: first.slug, quantity: 2, note: `Uwaga ${marker}` },
+          // Not a product of this site: dropped, never saved under a made-up name.
+          { slug: 'produkt-innej-strony', quantity: 1 },
+          { slug: second.slug, quantity: 1 },
+        ],
+      }),
+      randomIp(),
+    )
+    expect(sent.status).toBe(201)
+
+    await loginAsAdmin(page)
+    const [record] = await findInquiries(page, marker)
+    const id = record?.id as number
+    try {
+      expect(record).toMatchObject({
+        type: 'list',
+        city: 'Nowy Targ',
+        deadline: 'Przed sezonem',
+        preferredContact: 'whatsapp',
+        items: [
+          expect.objectContaining({
+            nameSnapshot: first.name,
+            quantity: 2,
+            note: `Uwaga ${marker}`,
+          }),
+          expect.objectContaining({ nameSnapshot: second.name, quantity: 1 }),
+        ],
+      })
+      expect(record?.items).toHaveLength(2)
+
+      const subject = `Zapytanie ${String(record?.number)} — Biznes — Lista zapytania — ${marker}`
+      await expect
+        .poll(async () => (await mails(request, marker)).map((mail) => mail.Subject), {
+          timeout: 15_000,
+        })
+        .toContain(subject)
+      const [notification] = (await mails(request, marker)).filter((m) => m.Subject === subject)
+      const message = await request.get(`${MAILPIT}/message/${notification?.ID}`)
+      const text = ((await message.json()) as { Text: string }).Text
+      expect(text).toContain(`- 2 × ${first.name} — uwaga: Uwaga ${marker}`)
+      expect(text).toContain(`- 1 × ${second.name}`)
+      expect(text).not.toContain('produkt-innej-strony')
+    } finally {
+      expect((await api(page, 'DELETE', `/api/inquiries/${id}`)).status).toBe(200)
+    }
+  })
+
+  test('a list with products of another site only is rejected (B8)', async ({ page }) => {
+    const marker = `E2E-FOREIGN-${Date.now()}`
+    // The slug comes from the Biznes catalog; on Software it is nobody's product.
+    await page.goto(site('biznes.localhost', '/oferta'))
+    const slug = await page.evaluate(async () => {
+      const index = (await (await fetch('/api/catalog-index')).json()) as {
+        products: { slug: string }[]
+      }
+      return index.products[0]?.slug
+    })
+    await page.goto(site('software.localhost'))
+    const foreign = inquiry(marker, { type: 'list', items: [{ slug, quantity: 1 }] })
+    expect(await post(page, foreign, randomIp())).toEqual({
+      status: 400,
+      json: { error: 'invalid', fields: ['items'] },
+    })
   })
 
   test('spam is rejected and nothing is saved', async ({ page }) => {

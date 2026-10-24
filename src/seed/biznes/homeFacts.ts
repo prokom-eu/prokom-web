@@ -145,14 +145,15 @@ export function factsBlocks(brand: (name: string) => number | undefined): HomeBl
       heading: 'Napisz, czego potrzebujesz. Odezwiemy się szybko.',
       lead: 'Jedna wiadomość wystarczy. Oddzwonimy w ciągu 60 minut w godzinach pracy, a wycenę przygotujemy na piśmie.',
       formHeading: 'Formularz zapytania',
-      // TODO(krystian): B8 — dopisek z planszy („Pola z gwiazdką są wymagane. Resztę dopiszemy
-      // razem przez telefon.”) wraca z formularzem v20; formularz S8b oznacza pola opcjonalne.
+      formNote: 'Pola z gwiazdką są wymagane. Resztę dopiszemy razem przez telefon.',
       // TODO(krystian): [SZEF] obietnica „60 min” — ta sama co w Ustawieniach strony (spec. §13).
       promises: [
         { text: 'Odpowiedź w 60 min' },
         { text: 'Wycena na piśmie' },
         { text: 'Bez zobowiązań' },
       ],
+      successText:
+        'Oddzwonimy w ciągu 60 minut w godzinach pracy. Poza godzinami pracy odezwiemy się następnego dnia roboczego rano.',
     },
   ]
 }
