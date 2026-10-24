@@ -43,28 +43,27 @@ test.describe('Biznes data stays on the Biznes line', () => {
     const refused = await api(page, 'POST', '/api/biznes-settings', { tenant: instalacje, search })
     expect(refused.status).toBe(400)
 
-    // The seed creates none; one made in the panel is removed, so the test always checks
-    // the same path (one document per tenant). Not restored: there is no content to keep yet.
+    // The seed's document (search, wizard rules — B10c) stays: other specs and the wizard need
+    // it. One is created only when missing, and then removed again.
     const { json: existing } = await api(
       page,
       'GET',
       `/api/biznes-settings?where[tenant][equals]=${biznes}&depth=0`,
     )
-    for (const doc of existing.docs as { id: number }[]) {
-      expect((await api(page, 'DELETE', `/api/biznes-settings/${doc.id}`)).status).toBe(200)
-    }
-
-    const created = await api(page, 'POST', '/api/biznes-settings', { tenant: biznes, search })
-    expect(created.status).toBe(201)
-    const id = (created.json.doc as { id: number }).id
+    const [current] = existing.docs as { id: number }[]
+    const created = current
+      ? null
+      : await api(page, 'POST', '/api/biznes-settings', { tenant: biznes, search })
+    if (created) expect(created.status).toBe(201)
+    const id = current?.id ?? (created?.json.doc as { id: number }).id
     try {
-      // An invalid wizard is rejected with a readable message.
+      // An invalid wizard is rejected with a readable message; the document stays as it was.
       const invalid = await api(page, 'PATCH', `/api/biznes-settings/${id}`, {
         wizard: { steps: [] },
       })
       expect(invalid.status).toBe(400)
     } finally {
-      await api(page, 'DELETE', `/api/biznes-settings/${id}`)
+      if (created) await api(page, 'DELETE', `/api/biznes-settings/${id}`)
     }
   })
 

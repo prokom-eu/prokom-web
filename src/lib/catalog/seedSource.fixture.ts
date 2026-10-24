@@ -129,6 +129,6 @@ export function sourceFromSeed(): CatalogSource {
       { slug: 'home', title: 'Strona główna' },
       { slug: 'opieka-it', title: 'Opieka IT' },
     ],
-    settings: { search: searchData(search) } as Pick<BiznesSetting, 'search'>,
+    settings: { search: searchData(search) } as Pick<BiznesSetting, 'search' | 'wizard'>,
   }
 }

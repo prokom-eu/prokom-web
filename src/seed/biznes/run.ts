@@ -27,6 +27,7 @@ import {
   productUpdateData,
   searchData,
   skipMediaFile,
+  slugFromName,
   type SeedCatalog,
 } from './map'
 import { FOOTER_LEGAL_LINKS, FOOTER_TEXT, footerData } from './footer'
@@ -321,17 +322,38 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     where: { tenant: { equals: tenant.id } },
     overrideAccess: true,
   })
+  // Wizard proposals name products by their slug in the catalog (B10c).
+  const productSlugs = new Map(
+    catalog.produkty.map((product) => [product.slug, slugFromName(product.nazwa)]),
+  )
+  const wizard = wizardSchema.parse(wizardFromSeed(kreator, (shortId) => productSlugs.get(shortId)))
   count('biznes-settings', settingsCount === 0)
   if (settingsCount === 0) {
     await payload.create({
       collection: 'biznes-settings',
-      data: {
-        tenant: tenant.id,
-        search: searchData(search),
-        wizard: wizardSchema.parse(wizardFromSeed(kreator)),
-      },
+      data: { tenant: tenant.id, search: searchData(search), wizard },
       ...local,
     })
+  } else {
+    // Rules of an older format (before B10c) are replaced; valid ones belong to the panel.
+    const {
+      docs: [settings],
+    } = await payload.find({
+      collection: 'biznes-settings',
+      where: { tenant: { equals: tenant.id } },
+      limit: 1,
+      ...local,
+    })
+    const outdated = settings && !wizardSchema.safeParse(settings.wizard).success
+    count('biznes-settings wizard', outdated ? 'updated' : false)
+    if (settings && outdated) {
+      await payload.update({
+        collection: 'biznes-settings',
+        id: settings.id,
+        data: { wizard },
+        ...local,
+      })
+    }
   }
 
   // --- header navigation in the site settings (created by `pnpm seed`), only while empty ---
