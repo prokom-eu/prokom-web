@@ -42,6 +42,19 @@ Docelowo zapytania żyją w PRO-KOM System (Django, styczeń 2027). Pierwsza str
 - Powiadomienie ma ułatwiać pracę w programie pocztowym: `Reply-To` = e-mail klienta (gdy podany), temat z linią i kategorią, w treści wszystkie pola formularza i link do rekordu w panelu.
 - Skrzynki powstają dziś u obecnego dostawcy poczty pro-kom.eu — muszą wejść do listy skrzynek przy migracji poczty do Seohost (ADR-002).
 
+## Typy formularzy i reguły pól (uzupełnienie 2026-10-24, B8)
+Kontrakt `POST /api/inquiry` rozszerzony o formularze prokombiznes.pl (ADR-012 §3, spec. §8.4). Pola i reguły są w `lib/inquiry/schema.ts` (Zod) i przechodzą 1:1 do modelu `Inquiry` w PRO-KOM System.
+- **Nowe pola:**
+  - `type`: `contact` (domyślny, więc formularze innych linii działają bez zmian) / `list` (lista zapytania) / `wizard` (kreator) / `search` („Zapytaj o X”);
+  - `items[]`: `{ slug, quantity ≤ 999, note ≤ 500 }`, maks. 50 pozycji, tylko w typie `list`. Serwer dopasowuje slugi do opublikowanych produktów **tego tenanta** i zapisuje `{ product, nameSnapshot }` z bazy. Nieznane slugi pomija. Lista bez żadnej znanej pozycji jest odrzucana;
+  - `city` (Miejscowość), `preferredContact` (`phone` / `whatsapp` / `email`; dawne „Obojętnie” usunięte), `deadline`, `topics[]` (fraza „Zapytaj o X”), `wizard` (JSON odpowiedzi, ≤ 8 tys. znaków).
+- **Wymagalność:**
+  - zawsze `name` i zgoda;
+  - `message` — dla `contact` i `search` (dla `list` to opcjonalne uwagi);
+  - telefon — na linii Biznes we wszystkich typach poza `wizard` (ZMIANY-v20 §2.9, plansza Zapytanie, decyzja Krystiana 24.10.2026); na pozostałych liniach nadal „e-mail lub telefon”. Linię bierze serwer z tenanta, nigdy z treści żądania.
+- **Odpowiedź 201** zwraca `{ ok, number }`: numer zgłoszenia (np. `PKB-2026-0042`) do ekranu sukcesu.
+- **Maile:** w temacie numer zgłoszenia i rodzaj formularza (poza kontaktem). W powiadomieniu pozycje (ilość × nazwa — uwaga), odpowiedzi kreatora i nowe pola. Potwierdzenie dla klienta ma numer i nazwy pozycji, ale nie zawiera uwag ani wiadomości (adres może nie należeć do nadawcy).
+
 ## Konsekwencje
 - Styczeń 2027: `submitInquiry()` zapisuje do API PRO-KOM System; jednorazowy skrypt migruje istniejące rekordy. Formularze bez zmian.
 - Zasada „Payload tylko treści” ma świadomy, czasowy wyjątek — kolekcja `Inquiries` zostanie usunięta po migracji.

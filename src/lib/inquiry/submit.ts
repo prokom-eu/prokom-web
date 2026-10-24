@@ -3,8 +3,14 @@ import type { Inquiry } from '@/payload-types'
 import { errorFields, log } from '../log'
 import { normalizeHost } from '../tenant/host'
 import type { Line } from '../tenant/lines'
-import { confirmationEmail, notificationEmail, type Email, type InquiryForEmail } from './emails'
-import { inquiryFieldErrors, parseInquiryInput } from './schema'
+import {
+  confirmationEmail,
+  notificationEmail,
+  type Email,
+  type InquiryForEmail,
+  type ItemForEmail,
+} from './emails'
+import { inquiryFieldErrors, parseInquiryInput, type InquiryInput } from './schema'
 import {
   checkFormToken,
   createRateLimiter,
@@ -14,7 +20,7 @@ import {
 } from './spam'
 
 export type SubmitResult =
-  | { ok: true; id: number }
+  | { ok: true; id: number; number: string | null }
   | { ok: false; error: 'unknown_host' | 'spam' | 'rate_limited' | 'unavailable' }
   | { ok: false; error: 'invalid'; fields: string[] }
 
@@ -22,13 +28,19 @@ type InquiryTenant = { id: number; name: string; line: Line; notificationEmail?:
 
 type NewInquiry = Omit<Inquiry, 'id' | 'createdAt' | 'updatedAt' | 'statusChangedAt'>
 
+/** A published product of the tenant, as far as an inquiry needs it. */
+export type InquiryProduct = { id: number; slug: string; name: string }
+
 /** Everything `submitInquiry` touches outside itself — injected, so the logic is unit-tested. */
 export type SubmitDeps = {
   secret: string
   now: () => number
   limiter: { hit: (key: string) => boolean }
   findTenant: (host: string) => Promise<InquiryTenant | null>
-  save: (data: NewInquiry) => Promise<{ id: number }>
+  /** Published products of this tenant with these slugs (tenant isolation, ADR-012 §3). */
+  findProducts: (tenantId: number, slugs: string[]) => Promise<InquiryProduct[]>
+  /** Returns the record after the hooks, so with the number (`Inquiries.assignNumber`). */
+  save: (data: NewInquiry) => Promise<{ id: number; number?: string | null }>
   sendEmail: (email: Email) => Promise<unknown>
   panelUrl: (id: number) => string
   // Structured fields only: ids, tenant, `errorFields()` of a caught error — never form data
@@ -46,6 +58,28 @@ export type SubmitRequest = {
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value)
+}
+
+type SavedItem = { product: number; nameSnapshot: string; quantity: number; note?: string }
+
+/**
+ * The list items as products of this tenant, in the customer's order. The name is taken from
+ * the database, never from the browser; a slug of another site or a removed product is dropped.
+ */
+function matchItems(items: InquiryInput['items'], products: InquiryProduct[]): SavedItem[] {
+  const bySlug = new Map(products.map((product) => [product.slug, product]))
+  return items.flatMap((item) => {
+    const product = bySlug.get(item.slug)
+    if (!product) return []
+    return [
+      {
+        product: product.id,
+        nameSnapshot: product.name,
+        quantity: item.quantity,
+        ...(item.note ? { note: item.note } : {}),
+      },
+    ]
+  })
 }
 
 /** The one place that accepts an inquiry (ADR-003); see `submitInquiry`. */
@@ -75,32 +109,54 @@ export async function submitInquiryWith(
 
   // Validation first: invalid attempts save nothing, so they do not use up the limit of
   // a person correcting the form; the limit guards what costs — records and e-mails.
-  const parsed = parseInquiryInput(body)
+  const parsed = parseInquiryInput(body, tenant.line)
   if (!parsed.success) {
     return { ok: false, error: 'invalid', fields: inquiryFieldErrors(parsed.error) }
   }
+  const input = parsed.data
+
+  // Like validation, before the limit: a stale list (products removed meanwhile) is the
+  // customer's to fix, not an attempt that counts.
+  let items: SavedItem[] = []
+  if (input.items.length > 0) {
+    try {
+      const slugs = input.items.map((item) => item.slug)
+      items = matchItems(input.items, await deps.findProducts(tenant.id, slugs))
+    } catch (error) {
+      deps.log.error({ tenant: tenant.id, ...errorFields(error) }, 'Inquiry products lookup failed')
+      return { ok: false, error: 'unavailable' }
+    }
+    if (input.type === 'list' && items.length === 0) {
+      return { ok: false, error: 'invalid', fields: ['items'] }
+    }
+  }
+
   if (!deps.limiter.hit(rateLimitKey(ip ?? 'unknown', deps.secret))) {
     deps.log.warn({ tenant: tenant.id }, 'Inquiry rate-limited')
     return { ok: false, error: 'rate_limited' }
   }
-  const input = parsed.data
   const acceptedAt = new Date(now).toISOString()
 
-  let saved: { id: number }
+  let saved: { id: number; number?: string | null }
   try {
     saved = await deps.save({
       tenant: tenant.id,
       line: tenant.line,
       status: 'new',
-      // The only form so far (S8b); the Biznes list and wizard forms send their type from B8.
-      type: 'contact',
+      type: input.type,
       category: input.category,
       name: input.name,
       company: input.company,
       nip: input.nip,
       email: input.email,
       phone: input.phone,
+      city: input.city,
       message: input.message,
+      preferredContact: input.preferredContact,
+      deadline: input.deadline,
+      topics: input.topics,
+      items,
+      wizard: input.wizard,
       source: input.source,
       consent: { ...input.consent, acceptedAt },
       marketingConsent: input.marketingConsent,
@@ -110,14 +166,21 @@ export async function submitInquiryWith(
     return { ok: false, error: 'unavailable' }
   }
   const { id } = saved
+  const number = saved.number ?? null
   deps.log.info({ tenant: tenant.id, inquiry: id }, 'Inquiry saved')
 
   // The record is the source of truth: a failed e-mail is logged, the customer still gets 201.
   const forEmail: InquiryForEmail = {
     ...input,
     id,
+    number,
     line: tenant.line,
     tenantName: tenant.name,
+    items: items.map((item): ItemForEmail => ({
+      name: item.nameSnapshot,
+      quantity: item.quantity,
+      note: item.note,
+    })),
     consent: { clauseVersion: input.consent.clauseVersion, acceptedAt },
   }
   const emails: { kind: string; email: Email }[] = []
@@ -145,7 +208,7 @@ export async function submitInquiryWith(
     }
   })
 
-  return { ok: true, id }
+  return { ok: true, id, number }
 }
 
 // One limiter per process, shared across bundles like the tenant cache (`lib/tenant/byHost`).
@@ -193,6 +256,25 @@ export async function submitInquiry(
           overrideAccess: true,
         })
         return { ...tenant, notificationEmail }
+      },
+      findProducts: async (tenantId, slugs) => {
+        const { docs } = await payload.find({
+          collection: 'products',
+          where: {
+            and: [
+              { tenant: { equals: tenantId } },
+              { slug: { in: slugs } },
+              { _status: { equals: 'published' } },
+            ],
+          },
+          draft: false,
+          depth: 0,
+          limit: slugs.length,
+          pagination: false,
+          select: { slug: true, name: true },
+          overrideAccess: true,
+        })
+        return docs.map(({ id, slug, name }) => ({ id, slug, name }))
       },
       save: (data) =>
         payload.create({ collection: 'inquiries', data, depth: 0, overrideAccess: true }),

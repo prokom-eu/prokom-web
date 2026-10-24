@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import { CONSENT_CLAUSE } from './consent'
+import type { Line } from '../tenant/lines'
 import { inquiryFieldErrors, parseInquiryInput } from './schema'
 
 const valid = {
@@ -11,8 +12,8 @@ const valid = {
   consent: { accepted: true, clauseVersion: CONSENT_CLAUSE.version },
 }
 
-function errorsOf(input: unknown): string[] {
-  const result = parseInquiryInput(input)
+function errorsOf(input: unknown, line?: Line): string[] {
+  const result = parseInquiryInput(input, line)
   return result.success ? [] : inquiryFieldErrors(result.error)
 }
 
@@ -94,5 +95,104 @@ describe('parseInquiryInput (ADR-003)', () => {
     if (!result.success) {
       expect(JSON.stringify(inquiryFieldErrors(result.error))).not.toContain('secret-person')
     }
+  })
+})
+
+describe('parseInquiryInput — types of the Biznes forms (B8)', () => {
+  const item = { slug: 'posnet-ergo-online', quantity: 2, note: 'Czarna' }
+  const list = { ...valid, type: 'list', phone: '600100200', message: '', items: [item] }
+
+  it('defaults the type to contact, so the forms of other lines keep working', () => {
+    expect(parseInquiryInput(valid).data?.type).toBe('contact')
+  })
+
+  it('accepts a list with items, deadline, preferred contact and city; message optional', () => {
+    const result = parseInquiryInput(
+      { ...list, deadline: 'Przed sezonem', preferredContact: 'whatsapp', city: 'Nowy Targ' },
+      'biznes',
+    )
+    expect(result.success).toBe(true)
+    expect(result.data).toMatchObject({
+      type: 'list',
+      items: [item],
+      deadline: 'Przed sezonem',
+      preferredContact: 'whatsapp',
+      city: 'Nowy Targ',
+    })
+    expect(result.data?.message).toBeUndefined()
+  })
+
+  it('requires at least one item on a list, and unique ones', () => {
+    expect(errorsOf({ ...list, items: [] })).toContain('items')
+    expect(errorsOf({ ...list, items: [item, item] })).toContain('items')
+  })
+
+  it('repeats the limits of the inquiry list (lib/cart)', () => {
+    const many = Array.from({ length: 51 }, (_, i) => ({ slug: `p-${i}`, quantity: 1 }))
+    expect(errorsOf({ ...list, items: many })).toContain('items')
+    expect(errorsOf({ ...list, items: [{ ...item, quantity: 1000 }] })).toContain(
+      'items.0.quantity',
+    )
+    expect(errorsOf({ ...list, items: [{ ...item, quantity: 0 }] })).toContain('items.0.quantity')
+    expect(errorsOf({ ...list, items: [{ ...item, note: 'x'.repeat(501) }] })).toContain(
+      'items.0.note',
+    )
+    expect(errorsOf({ ...list, items: [{ ...item, slug: '../admin' }] })).toContain('items.0.slug')
+  })
+
+  it.each([
+    ['deadline', { deadline: 'x'.repeat(101) }],
+    ['city', { city: 'x'.repeat(101) }],
+    ['preferredContact', { preferredContact: 'fax' }],
+    ['topics', { topics: Array.from({ length: 11 }, (_, i) => `t${i}`) }],
+    ['topics.0', { topics: ['x'.repeat(101)] }],
+    ['type', { type: 'order' }],
+  ])('rejects an invalid %s', (field, patch) => {
+    expect(errorsOf({ ...list, ...patch })).toContain(field)
+  })
+
+  it('requires the message for contact and search, not for a list', () => {
+    expect(errorsOf({ ...valid, message: '' })).toContain('message')
+    expect(errorsOf({ ...valid, type: 'search', topics: ['wifi'], message: '' })).toContain(
+      'message',
+    )
+    expect(errorsOf({ ...list, message: '' })).toEqual([])
+  })
+
+  it('requires the phrase of „Zapytaj o X” on a search inquiry', () => {
+    expect(errorsOf({ ...valid, type: 'search' })).toContain('topics')
+    expect(parseInquiryInput({ ...valid, type: 'search', topics: ['wifi'] }).success).toBe(true)
+  })
+
+  it('requires the wizard answers on a wizard inquiry, up to 8 KB', () => {
+    expect(errorsOf({ ...valid, type: 'wizard' })).toContain('wizard')
+    expect(
+      parseInquiryInput({ ...valid, type: 'wizard', wizard: { firma: 'gastro' } }).success,
+    ).toBe(true)
+    expect(
+      errorsOf({ ...valid, type: 'wizard', wizard: { note: 'x'.repeat(8 * 1024) } }),
+    ).toContain('wizard')
+  })
+
+  it('accepts items on a list only', () => {
+    expect(errorsOf({ ...valid, items: [item] })).toContain('items')
+  })
+
+  it('requires the phone on every Biznes form but the wizard (v20, plansza Zapytanie)', () => {
+    expect(
+      errorsOf({ ...valid, type: 'search', topics: ['wifi'], phone: undefined }, 'biznes'),
+    ).toContain('phone')
+    expect(
+      errorsOf(
+        { ...valid, type: 'wizard', wizard: { firma: 'gastro' }, phone: undefined },
+        'biznes',
+      ),
+    ).toEqual([])
+    expect(errorsOf({ ...valid, phone: undefined }, 'biznes')).toContain('phone')
+    expect(errorsOf({ ...list, phone: undefined, email: 'jan@example.test' }, 'biznes')).toContain(
+      'phone',
+    )
+    // Other lines keep „e-mail or phone”.
+    expect(errorsOf({ ...valid, phone: undefined }, 'software')).toEqual([])
   })
 })

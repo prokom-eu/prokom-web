@@ -1,8 +1,9 @@
 import { submitInquiry } from '@/lib/inquiry/submit'
 import { REQUEST_ID_HEADER, requestIdFrom } from '@/lib/requestId'
 
-// Far above any honest inquiry (message ≤ 5000 characters); larger bodies are not parsed.
-const MAX_BODY_BYTES = 32 * 1024
+// Above any honest inquiry: a full list (50 items, notes ≤ 500 characters, up to 2 bytes each
+// in UTF-8), message ≤ 5000 characters and wizard answers ≤ 8 KB. Larger bodies are not parsed.
+const MAX_BODY_BYTES = 96 * 1024
 
 const json = (body: unknown, status: number) => Response.json(body, { status })
 
@@ -44,7 +45,8 @@ export async function POST(request: Request) {
     { host: request.headers.get('host'), ip: clientIp(request), body },
     { requestId: requestIdFrom(request.headers.get(REQUEST_ID_HEADER)) },
   )
-  if (result.ok) return json({ ok: true }, 201)
+  // The number is what the customer quotes on the phone (success screen of `/zapytanie`).
+  if (result.ok) return json({ ok: true, number: result.number }, 201)
   switch (result.error) {
     case 'unknown_host':
       return json({ error: 'not_found' }, 404)

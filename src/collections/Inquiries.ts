@@ -8,19 +8,12 @@ import type {
 import { adminOnly } from '../lib/auth/access'
 import { inquiryNumber } from '../lib/inquiry/number'
 import { INQUIRY_STATUSES, nextStatusChangedAt } from '../lib/inquiry/status'
+import { INQUIRY_TYPE_LABELS, PREFERRED_CONTACT_LABELS, selectOptions } from '../lib/inquiry/types'
 import { isLine, LINES } from '../lib/tenant/lines'
 
 // Everything but `status` is what the customer sent: nobody edits it, not even an admin.
 // Field access strips such values from API updates; `readOnly` only greys out the panel.
 const locked = { update: () => false }
-
-// ADR-012 §3; the forms of the Biznes line send them from B8, the contact form today.
-const INQUIRY_TYPES = [
-  { label: 'Kontakt', value: 'contact' },
-  { label: 'Lista zapytania', value: 'list' },
-  { label: 'Kreator', value: 'wizard' },
-  { label: 'Zapytaj o frazę', value: 'search' },
-] as const
 
 const trackStatusChange: CollectionBeforeChangeHook = ({ data, operation, originalDoc }) => {
   if (operation !== 'create' && operation !== 'update') return data
@@ -147,7 +140,7 @@ export const Inquiries: CollectionConfig = {
       required: true,
       defaultValue: 'contact',
       index: true,
-      options: [...INQUIRY_TYPES],
+      options: selectOptions(INQUIRY_TYPE_LABELS),
       access: locked,
       admin: { readOnly: true, position: 'sidebar' },
     },
@@ -171,10 +164,18 @@ export const Inquiries: CollectionConfig = {
     { name: 'email', label: 'E-mail', type: 'email', access: locked, admin: { readOnly: true } },
     { name: 'phone', label: 'Telefon', type: 'text', access: locked, admin: { readOnly: true } },
     {
+      name: 'city',
+      label: 'Miejscowość',
+      type: 'text',
+      access: locked,
+      admin: { readOnly: true },
+    },
+    {
+      // Required by the contact and „Zapytaj o X” forms (`lib/inquiry/schema`); optional
+      // notes on the inquiry list.
       name: 'message',
       label: 'Wiadomość',
       type: 'textarea',
-      required: true,
       access: locked,
       admin: { readOnly: true },
     },
@@ -182,11 +183,7 @@ export const Inquiries: CollectionConfig = {
       name: 'preferredContact',
       label: 'Preferowany kontakt',
       type: 'select',
-      options: [
-        { label: 'Telefon', value: 'phone' },
-        { label: 'E-mail', value: 'email' },
-        { label: 'Obojętnie', value: 'any' },
-      ],
+      options: selectOptions(PREFERRED_CONTACT_LABELS),
       access: locked,
       admin: { readOnly: true },
     },

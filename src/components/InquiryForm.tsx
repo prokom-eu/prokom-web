@@ -12,11 +12,14 @@ import {
   PRIVACY_POLICY_PATH,
 } from '@/lib/inquiry/consent'
 import {
+  BIZNES_FIELD_MESSAGES,
   buildInquiryBody,
   checkRequired,
+  FIELD_MESSAGES,
   linkInText,
   readOutcome,
   type FieldName,
+  type FormRules,
   type FormValues,
 } from '@/lib/inquiry/form'
 import { HONEYPOT_FIELD } from '@/lib/inquiry/honeypot'
@@ -26,6 +29,8 @@ type Props = {
   formToken: string
   /** Inquiry category set by the editor on the block, e.g. „Kasy fiskalne”. */
   category?: string | null
+  /** The Biznes line calls back: the server requires a phone there (`lib/inquiry/schema`). */
+  phoneRequired?: boolean
 }
 
 type Status =
@@ -35,6 +40,16 @@ type Status =
   | { kind: 'failed'; message?: string }
 
 const consentClause = linkInText(CONSENT_CLAUSE.text, PRIVACY_POLICY_LINK_TEXT)
+
+// With a required phone the e-mail is optional, so both messages say so.
+const PHONE_REQUIRED: FormRules = {
+  phoneRequired: true,
+  messages: {
+    ...FIELD_MESSAGES,
+    email: BIZNES_FIELD_MESSAGES.email,
+    phone: BIZNES_FIELD_MESSAGES.phone,
+  },
+}
 
 // Order of the fields on screen: the first invalid one gets the focus.
 const FIELD_ORDER: FieldName[] = ['name', 'company', 'email', 'phone', 'nip', 'message', 'consent']
@@ -60,7 +75,8 @@ function readValues(form: HTMLFormElement): FormValues {
  * server's verdict next to the fields. Required fields are checked here first, formats only
  * on the server — one set of rules.
  */
-export function InquiryForm({ formToken, category }: Props) {
+export function InquiryForm({ formToken, category, phoneRequired = false }: Props) {
+  const rules: FormRules = phoneRequired ? PHONE_REQUIRED : {}
   const id = useId()
   const fieldId = (name: string) => `${id}-${name}`
   const [errors, setErrors] = useState<Partial<Record<FieldName, string>>>({})
@@ -83,7 +99,7 @@ export function InquiryForm({ formToken, category }: Props) {
     event.preventDefault()
     const form = event.currentTarget
     const values = readValues(form)
-    const missing = checkRequired(values)
+    const missing = checkRequired(values, rules)
     if (Object.keys(missing).length > 0) {
       setStatus({ kind: 'idle' })
       showErrors(missing, form)
@@ -101,7 +117,11 @@ export function InquiryForm({ formToken, category }: Props) {
           buildInquiryBody(values, { href: window.location.href, formToken, category }),
         ),
       })
-      outcome = readOutcome(response.status, await response.json().catch(() => null))
+      outcome = readOutcome(
+        response.status,
+        await response.json().catch(() => null),
+        rules.messages,
+      )
     } catch {
       outcome = readOutcome(0, null)
     }
@@ -189,7 +209,7 @@ export function InquiryForm({ formToken, category }: Props) {
         name="email"
         type="email"
         label="E-mail"
-        note="(albo telefon)"
+        note={phoneRequired ? '(opcjonalnie)' : '(albo telefon)'}
         autoComplete="email"
         maxLength={254}
         error={errors.email}
@@ -199,7 +219,7 @@ export function InquiryForm({ formToken, category }: Props) {
         name="phone"
         type="tel"
         label="Telefon"
-        note="(albo e-mail)"
+        {...(phoneRequired ? { required: true } : { note: '(albo e-mail)' })}
         autoComplete="tel"
         maxLength={30}
         error={errors.phone}

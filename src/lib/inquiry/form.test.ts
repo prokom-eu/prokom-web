@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import { CONSENT_CLAUSE, PRIVACY_POLICY_LINK_TEXT } from './consent'
 import {
+  BIZNES_FIELD_MESSAGES,
   buildInquiryBody,
   checkRequired,
   linkInText,
@@ -81,7 +82,17 @@ describe('buildInquiryBody', () => {
 
 describe('readOutcome', () => {
   it('reads a saved inquiry', () => {
-    expect(readOutcome(201, { ok: true })).toEqual({ kind: 'sent' })
+    expect(readOutcome(201, { ok: true, number: 'PKB-2026-0042' })).toEqual({
+      kind: 'sent',
+      number: 'PKB-2026-0042',
+    })
+    expect(readOutcome(201, { ok: true })).toEqual({ kind: 'sent', number: null })
+  })
+
+  it('uses the messages of the form when given', () => {
+    expect(
+      readOutcome(400, { error: 'invalid', fields: ['phone'] }, BIZNES_FIELD_MESSAGES),
+    ).toEqual({ kind: 'invalid', fields: { phone: BIZNES_FIELD_MESSAGES.phone } })
   })
 
   it('maps invalid fields to messages next to the fields', () => {
@@ -158,5 +169,34 @@ describe('checkRequired (instant feedback before sending)', () => {
 
   it('accepts a phone instead of an e-mail', () => {
     expect(checkRequired({ ...values, email: '', phone: '600100200' })).toEqual({})
+  })
+})
+
+describe('Biznes contact form v20 (ZMIANY-v20 §2.9)', () => {
+  const biznes = { ...values, email: '', phone: '600 100 200' }
+  const rules = { phoneRequired: true, messages: BIZNES_FIELD_MESSAGES }
+
+  it('requires name, phone, message and consent; the e-mail is optional', () => {
+    expect(checkRequired(biznes, rules)).toEqual({})
+    const errors = checkRequired(
+      { ...biznes, name: '', phone: ' ', message: '', consent: false, email: 'jan@example.test' },
+      rules,
+    )
+    expect(errors).toEqual({
+      name: BIZNES_FIELD_MESSAGES.name,
+      phone: BIZNES_FIELD_MESSAGES.phone,
+      message: BIZNES_FIELD_MESSAGES.message,
+      consent: BIZNES_FIELD_MESSAGES.consent,
+    })
+  })
+
+  it('sends a contact inquiry the server accepts on the Biznes line', () => {
+    const body = buildInquiryBody(biznes, {
+      href: 'https://prokombiznes.pl/#kontakt',
+      formToken: 't',
+      type: 'contact',
+    })
+    expect(body.type).toBe('contact')
+    expect(parseInquiryInput(body, 'biznes').success).toBe(true)
   })
 })

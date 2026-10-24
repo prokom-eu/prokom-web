@@ -1731,6 +1731,10 @@ export interface BzContactBlock {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Pod „Dziękujemy, zapytanie wysłane.” — obietnica czasu odpowiedzi.
+   */
+  successText?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'bzContact';
@@ -1776,8 +1780,9 @@ export interface Inquiry {
   nip?: string | null;
   email?: string | null;
   phone?: string | null;
-  message: string;
-  preferredContact?: ('phone' | 'email' | 'any') | null;
+  city?: string | null;
+  message?: string | null;
+  preferredContact?: ('phone' | 'whatsapp' | 'email') | null;
   topics?: string[] | null;
   /**
    * Np. „Przed sezonem”.
@@ -2895,6 +2900,7 @@ export interface BzContactBlockSelect<T extends boolean = true> {
         text?: T;
         id?: T;
       };
+  successText?: T;
   id?: T;
   blockName?: T;
 }
@@ -3018,6 +3024,7 @@ export interface InquiriesSelect<T extends boolean = true> {
   nip?: T;
   email?: T;
   phone?: T;
+  city?: T;
   message?: T;
   preferredContact?: T;
   topics?: T;

@@ -16,6 +16,7 @@ import { robotsMeta } from '@/lib/seo/robots'
 import { getSiteSettings } from '@/lib/site/data'
 import { Breadcrumbs } from '@/sites/biznes/components/Breadcrumbs'
 import { Catalog } from '@/sites/biznes/components/catalog/Catalog'
+import { ContactPanel } from '@/sites/biznes/components/forms/ContactPanel'
 import { HowInquiryWorks } from '@/sites/biznes/components/HowInquiryWorks'
 
 import { requireLine } from '../../tenant'
@@ -138,6 +139,28 @@ export default async function CatalogPage({ params }: Props) {
       </div>
       <Catalog index={index} />
       <HowInquiryWorks callbackTime={callback} />
+      <ContactPanel
+        tenantId={tenant.id}
+        id="szukasz"
+        heading="Szukasz czegoś, czego nie ma w katalogu?"
+        lead={[
+          'Napisz albo zadzwoń — pracujemy z dystrybutorami i dobierzemy sprzęt lub program pod Twoją firmę.',
+          callback && `${callback} w godzinach pracy.`,
+        ]
+          .filter(Boolean)
+          .join(' ')}
+        formHeading="Formularz zapytania"
+        formNote="Pola z gwiazdką są wymagane. Resztę dopiszemy razem przez telefon."
+        // Like the home page form; the call-back time only from the panel [SZEF].
+        promises={[callback, 'Wycena na piśmie', 'Bez zobowiązań'].filter(
+          (promise): promise is string => Boolean(promise),
+        )}
+        successText={
+          callback
+            ? `${callback} w godzinach pracy. Poza godzinami pracy odezwiemy się następnego dnia roboczego rano.`
+            : null
+        }
+      />
     </>
   )
 }

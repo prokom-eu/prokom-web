@@ -11,7 +11,14 @@ import type { InquiryFormBlock as InquiryFormBlockData } from '@/payload-types'
  * Form section; `#formularz` is the anchor other pages link to (`/kontakt#formularz`).
  * The token carries the render time (minimum fill time), so this never comes from a cache.
  */
-export async function InquiryFormBlock({ block }: { block: InquiryFormBlockData }) {
+export async function InquiryFormBlock({
+  block,
+  phoneRequired = false,
+}: {
+  block: InquiryFormBlockData
+  /** Biznes line: the phone is required (`lib/inquiry/schema`). */
+  phoneRequired?: boolean
+}) {
   await connection()
   const formToken = issueFormToken(getEnv().PAYLOAD_SECRET)
   return (
@@ -20,7 +27,11 @@ export async function InquiryFormBlock({ block }: { block: InquiryFormBlockData 
         {block.heading && <Heading level={2}>{block.heading}</Heading>}
         {block.text && <p className="mt-4 text-lg leading-relaxed text-ink-2">{block.text}</p>}
         <div className="mt-8">
-          <InquiryForm formToken={formToken} category={block.category} />
+          <InquiryForm
+            formToken={formToken}
+            category={block.category}
+            phoneRequired={phoneRequired}
+          />
         </div>
       </div>
     </Section>
