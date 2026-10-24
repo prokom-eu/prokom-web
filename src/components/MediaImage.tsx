@@ -11,7 +11,10 @@ type Props = {
   sizes: string
   /** Above the fold (first hero): load at once, high priority (`priority` is deprecated in Next 16). */
   eager?: boolean
-  /** Load at once but without high priority (e.g. logos that move into view in a marquee). */
+  /**
+   * Load at once with low priority and no preload (e.g. logos that move into view in a marquee).
+   * Not for images visible on arrival: `low` also stops the browser from raising their priority.
+   */
   noLazy?: boolean
   className?: string
 }
@@ -36,7 +39,9 @@ export function MediaImage({ image, sizes, eager = false, noLazy = false, classN
       height={image.height}
       sizes={sizes}
       loading={eager || noLazy ? 'eager' : 'lazy'}
-      fetchPriority={eager ? 'high' : undefined}
+      // `low` also stops React from adding a `<link rel="preload">` for a non-lazy image: the first
+      // ten would go in `<head>` before the stylesheet (the marquee has ~30 logos).
+      fetchPriority={eager ? 'high' : noLazy ? 'low' : undefined}
       className={className}
     />
   )
