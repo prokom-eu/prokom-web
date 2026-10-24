@@ -252,8 +252,7 @@ export function biznesGoposLayout(refs: GoposRefs = NO_REFS): PageBlock[] {
       ],
       note: 'Tak wygląda jedno zamówienie w Twoim lokalu — od sali do raportu.',
       primary: { label: 'Zobacz zestawy', href: '/gopos#zestawy' },
-      // TODO(krystian): po B10 → /branze/gastronomia (dziś strona branży daje 404).
-      secondary: { label: 'Branża: gastronomia', href: '/oferta?branza=gastronomia' },
+      secondary: { label: 'Branża: gastronomia', href: '/branze/gastronomia' },
     },
     {
       blockType: 'bzKits',
@@ -310,8 +309,7 @@ export function biznesGoposLayout(refs: GoposRefs = NO_REFS): PageBlock[] {
           title: 'GoPOS + NFHotel',
           style: 'light',
           text: 'GoPOS i NFHotel mają integrację. Wdrażamy oba systemy — recepcję i restaurację — z jednym zespołem i jednym telefonem do serwisu.',
-          // TODO(krystian): po B10 → /branze/gastronomia (dziś strona branży daje 404).
-          primary: { label: 'Branża: gastronomia', href: '/oferta?branza=gastronomia' },
+          primary: { label: 'Branża: gastronomia', href: '/branze/gastronomia' },
           secondary: { label: 'NFHotel w katalogu', href: '/produkt/nfhotel' },
         },
       ],

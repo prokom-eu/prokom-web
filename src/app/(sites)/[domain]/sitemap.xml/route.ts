@@ -3,6 +3,7 @@ import { headers } from 'next/headers'
 import { productHref } from '@/lib/catalog/card'
 import { categoryHref } from '@/lib/catalog/category'
 import { getCatalogIndex, getPublishedProductList } from '@/lib/catalog/data'
+import { industryHref } from '@/lib/catalog/industry'
 import { CATALOG_PATH } from '@/lib/catalog/filters'
 import { getEnv } from '@/lib/env'
 import { getPublishedPageList } from '@/lib/pages/data'
@@ -15,7 +16,7 @@ type Context = { params: Promise<{ domain: string }> }
 
 /**
  * `sitemap.xml` of one domain: only its tenant's published pages, and on Biznes the catalog
- * with its listed categories and published products (filtered views are not listed —
+ * with its listed categories, active industries and published products (filtered views are not listed —
  * `noindex`). Empty on staging.
  */
 export async function GET(_request: Request, { params }: Context) {
@@ -35,6 +36,10 @@ export async function GET(_request: Request, { params }: Context) {
         { path: CATALOG_PATH },
         // Only categories with published products (rozstrzygnięcie 7): the index lists those.
         ...(index?.categories ?? []).map(({ slug }) => ({ path: categoryHref(slug) })),
+        // Active industries only: „Wkrótce” has no page (ADR-012 rozstrz. 7).
+        ...(index?.industries ?? [])
+          .filter(({ active }) => active)
+          .map(({ slug }) => ({ path: industryHref(slug) })),
         ...products.map(({ slug, updatedAt }) => ({ path: productHref(slug), updatedAt })),
       ]
     : []

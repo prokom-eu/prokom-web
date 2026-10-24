@@ -3,11 +3,22 @@ import type { CollectionConfig } from 'payload'
 import { adminOnly } from '../lib/auth/access'
 import { catalogRevalidationHooks } from '../lib/catalog/revalidate'
 import { WIZARD_BUSINESS_TYPES } from '../lib/catalog/options'
-import { faqArray, imageField, orderField, seoGroup, slugField } from './catalogFields'
+import { BzOrderFlowBlock } from '../sites/biznes/blocks/BzOrderFlow/config'
+import { BzTimelineBlock } from '../sites/biznes/blocks/BzTimeline/config'
+import {
+  faqArray,
+  imageField,
+  optionalFields,
+  orderField,
+  sectionHeading,
+  seoGroup,
+  slugField,
+} from './catalogFields'
 
 /**
- * Industries (Branże, ADR-012 §1). One page template for all (spec. §6.7); its sections
- * beyond hero and FAQ come with B10. Inactive = „Wkrótce”: listed, without its own page.
+ * Industries (Branże, ADR-012 §1). One page template for all (spec. §6.7, B10b): fields, not
+ * blocks — the sections are fixed; „Dzień w lokalu” and „Jak to działa” reuse the fields of the
+ * `bzTimeline` and `bzOrderFlow` blocks. Inactive = „Wkrótce”: listed, without its own page.
  */
 export const Industries: CollectionConfig = {
   slug: 'industries',
@@ -46,7 +57,7 @@ export const Industries: CollectionConfig = {
       options: [...WIZARD_BUSINESS_TYPES],
       admin: {
         position: 'sidebar',
-        description: 'Przycisk „Przygotuj ofertę” otwiera kreator z tym rodzajem firmy.',
+        description: 'Przycisk w nagłówku strony branży otwiera kreator z tym rodzajem firmy.',
       },
     },
     {
@@ -62,6 +73,21 @@ export const Industries: CollectionConfig = {
         },
         { name: 'lead', label: 'Wstęp', type: 'textarea' },
         imageField('image', 'Obraz'),
+        {
+          name: 'chips',
+          label: 'Plakietki pod przyciskami',
+          type: 'text',
+          hasMany: true,
+          maxRows: 4,
+          admin: { description: 'Liczby i opinie tylko ze źródłem (plan Biznesu §4).' },
+        },
+        {
+          name: 'ctaLabel',
+          label: 'Przycisk do kreatora',
+          type: 'text',
+          maxLength: 40,
+          admin: { description: 'Puste = „Przygotuj zapytanie”.' },
+        },
       ],
     },
     {
@@ -70,8 +96,59 @@ export const Industries: CollectionConfig = {
       type: 'relationship',
       relationTo: 'products',
       hasMany: true,
+      admin: { description: 'Siatka „Zestaw dla branży” — w tej kolejności.' },
     },
     faqArray,
+    {
+      type: 'collapsible',
+      label: 'Strona branży — sekcje',
+      admin: {
+        initCollapsed: true,
+        description:
+          '„Dzień w lokalu” (min. 2 kroki) i „Jak to działa” pokazują się tylko z nagłówkiem; puste nagłówki pozostałych sekcji = ogólne teksty.',
+      },
+      fields: [
+        {
+          name: 'productsSection',
+          label: 'Zestaw dla branży (nad polecanymi produktami)',
+          type: 'group',
+          fields: [
+            sectionHeading,
+            { name: 'lead', label: 'Wstęp', type: 'textarea', maxLength: 300 },
+          ],
+        },
+        {
+          name: 'day',
+          label: 'Dzień w lokalu (oś z godzinami)',
+          type: 'group',
+          fields: optionalFields(BzTimelineBlock.fields),
+        },
+        {
+          name: 'flow',
+          label: 'Jak to działa (granatowa karta)',
+          type: 'group',
+          fields: optionalFields(BzOrderFlowBlock.fields),
+        },
+        {
+          name: 'faqIntro',
+          label: 'Nagłówek pytań',
+          type: 'group',
+          fields: [
+            sectionHeading,
+            { name: 'lead', label: 'Wstęp', type: 'textarea', maxLength: 400 },
+          ],
+        },
+        {
+          name: 'contact',
+          label: 'Kontakt',
+          type: 'group',
+          fields: [
+            { name: 'heading', label: 'Nagłówek', type: 'text', maxLength: 90 },
+            { name: 'lead', label: 'Wstęp', type: 'textarea', maxLength: 300 },
+          ],
+        },
+      ],
+    },
     orderField,
     seoGroup,
   ],

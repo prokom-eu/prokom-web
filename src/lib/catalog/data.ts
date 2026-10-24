@@ -6,6 +6,7 @@ import { PAGE_CACHE_SECONDS } from '../pages/data'
 import { pagesTag } from '../pages/tags'
 import { buildCatalogIndex, type CatalogIndex } from './catalogIndex'
 import { buildCategoryView, type CategoryView } from './category'
+import { buildIndustryView, type IndustryView } from './industry'
 import { buildProductView, type ProductView } from './product'
 import { catalogTag } from './tags'
 
@@ -156,6 +157,37 @@ export const getCategoryView = (tenantId: number, slug: string): Promise<Categor
       return category ? buildCategoryView(category, tenantId) : null
     },
     ['category-view', String(tenantId), slug],
+    { tags: [catalogTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
+  )()
+
+/**
+ * One active industry of the tenant for `/branze/[branza]`, as `IndustryView` — or `null`
+ * (unknown, inactive „Wkrótce” or another site's slug → 404). Cached under the catalog tag.
+ */
+export const getIndustryView = (tenantId: number, slug: string): Promise<IndustryView | null> =>
+  unstable_cache(
+    async () => {
+      const payload = await getPayload({ config })
+      const { docs } = await payload.find({
+        collection: 'industries',
+        where: {
+          and: [
+            { tenant: { equals: tenantId } },
+            { slug: { equals: slug } },
+            { active: { equals: true } },
+          ],
+        },
+        limit: 1,
+        // 1: pictures come populated (re-checked in the views); of the featured products only
+        // the slug and tenant — the page takes the rest from the index.
+        depth: 1,
+        populate: { products: { slug: true, tenant: true } },
+        overrideAccess: true,
+      })
+      const industry = docs[0]
+      return industry ? buildIndustryView(industry, tenantId) : null
+    },
+    ['industry-view', String(tenantId), slug],
     { tags: [catalogTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
   )()
 

@@ -22,6 +22,31 @@ export function slugField(collection: CollectionSlug, example: string): Field {
   }
 }
 
+/**
+ * Fields of a block reused as a group of a collection (B10b: sections of an industry page): the
+ * section is optional, so its top-level `required` goes. `minRows` stays — Payload checks it only
+ * when the array has rows. Nested field objects stay shared with the block: fine, as sanitizing
+ * adds the array row `id` only when it is missing.
+ */
+export function optionalFields(fields: Field[]): Field[] {
+  return fields.map((field) => {
+    if (field.type === 'row' || field.type === 'collapsible') {
+      return { ...field, fields: optionalFields(field.fields) }
+    }
+    const { required: _required, ...rest } = field as Field & { required?: boolean }
+    return rest as Field
+  })
+}
+
+/** Eyebrow and H2 of a catalog page section (category, industry). */
+export const sectionHeading: Field = {
+  type: 'row',
+  fields: [
+    { name: 'eyebrow', label: 'Nadtytuł', type: 'text', maxLength: 60 },
+    { name: 'title', label: 'Nagłówek', type: 'text', maxLength: 90 },
+  ],
+}
+
 export const orderField: Field = {
   name: 'order',
   label: 'Kolejność',
