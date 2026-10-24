@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { isValidNavHref, toTelHref, toWhatsAppHref } from './link'
+import { isValidNavHref, toDirectionsHref, toMapsHref, toTelHref, toWhatsAppHref } from './link'
 
 describe('isValidNavHref', () => {
   it.each([
@@ -59,5 +59,16 @@ describe('toWhatsAppHref', () => {
   it('returns null without a usable number', () => {
     expect(toWhatsAppHref('brak')).toBeNull()
     expect(toWhatsAppHref('12 34')).toBeNull()
+  })
+})
+
+describe('Google Maps links (no embedded map before cookie consent, spec. §6.9)', () => {
+  it('opens the address or the route to it', () => {
+    expect(toMapsHref('ul. Orkana 16B, Rabka-Zdrój')).toBe(
+      'https://www.google.com/maps/search/?api=1&query=ul.%20Orkana%2016B%2C%20Rabka-Zdr%C3%B3j',
+    )
+    expect(toDirectionsHref('ul. Orkana 16B, Rabka-Zdrój')).toBe(
+      'https://www.google.com/maps/dir/?api=1&destination=ul.%20Orkana%2016B%2C%20Rabka-Zdr%C3%B3j',
+    )
   })
 })

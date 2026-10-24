@@ -3,6 +3,7 @@ import type { Block, BlocksField, PayloadRequest } from 'payload'
 import { tenantIdOf } from '../lib/tenant/id'
 import { isLine, type Line } from '../lib/tenant/lines'
 import { BzContactBlock } from '../sites/biznes/blocks/BzContact/config'
+import { BzContactInfoBlock } from '../sites/biznes/blocks/BzContactInfo/config'
 import { BzFactsBlock } from '../sites/biznes/blocks/BzFacts/config'
 import { BzFeaturedBlock } from '../sites/biznes/blocks/BzFeatured/config'
 import { BzHeroBlock } from '../sites/biznes/blocks/BzHero/config'
@@ -11,6 +12,7 @@ import { BzNewsBlock } from '../sites/biznes/blocks/BzNews/config'
 import { BzOfferBlock } from '../sites/biznes/blocks/BzOffer/config'
 import { BzOnePartnerBlock } from '../sites/biznes/blocks/BzOnePartner/config'
 import { BzPlanBlock } from '../sites/biznes/blocks/BzPlan/config'
+import { BzQuickCardsBlock } from '../sites/biznes/blocks/BzQuickCards/config'
 import { BzReferencesBlock } from '../sites/biznes/blocks/BzReferences/config'
 import { BzStepsBlock } from '../sites/biznes/blocks/BzSteps/config'
 import { CallToActionBlock } from './CallToAction/config'
@@ -34,7 +36,7 @@ export const GENERIC_BLOCKS: Block[] = [
   InquiryFormBlock,
 ]
 
-/** Sections of the Biznes home page (B7, spec. §4) — `src/sites/biznes/blocks/`. */
+/** Sections of the Biznes pages (B7 home, B8c contact) — `src/sites/biznes/blocks/`. */
 export const BIZNES_BLOCKS: Block[] = [
   BzHeroBlock,
   BzNeedsBlock,
@@ -47,6 +49,8 @@ export const BIZNES_BLOCKS: Block[] = [
   BzFactsBlock,
   BzNewsBlock,
   BzContactBlock,
+  BzContactInfoBlock,
+  BzQuickCardsBlock,
 ]
 
 /**

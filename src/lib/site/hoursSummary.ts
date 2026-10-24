@@ -11,11 +11,25 @@ const SHORT: Record<(typeof ORDER)[number], string> = {
   sun: 'nd',
 }
 
+const LONG: Record<(typeof ORDER)[number], string> = {
+  mon: 'poniedziałek',
+  tue: 'wtorek',
+  wed: 'środa',
+  thu: 'czwartek',
+  fri: 'piątek',
+  sat: 'sobota',
+  sun: 'niedziela',
+}
+
 /** "09:00" → "9:00", as in the design. */
 const display = (time: string) => time.replace(/^0(?=\d:)/, '')
 
 /** Days of one row as ranges of consecutive days: ['mon'…'fri'] → "pn–pt". */
-function dayRanges(days: string[]): string {
+function dayRanges(
+  days: string[],
+  names: Record<(typeof ORDER)[number], string> = SHORT,
+  dash = '–',
+): string {
   const indexes = ORDER.flatMap((day, i) => (days.includes(day) ? [i] : []))
   const ranges: [number, number][] = []
   for (const i of indexes) {
@@ -25,7 +39,7 @@ function dayRanges(days: string[]): string {
   }
   return ranges
     .map(([from, to]) =>
-      from === to ? SHORT[ORDER[from]!] : `${SHORT[ORDER[from]!]}–${SHORT[ORDER[to]!]}`,
+      from === to ? names[ORDER[from]!] : `${names[ORDER[from]!]}${dash}${names[ORDER[to]!]}`,
     )
     .join(', ')
 }
@@ -38,4 +52,20 @@ export function hoursSummary(hours: OpeningHours): string {
   return hours
     .map((row) => `${dayRanges(row.days)} ${display(row.opens)}–${display(row.closes)}`)
     .join(' · ')
+}
+
+/**
+ * Opening hours as the table of the board `Kontakt`: open rows with full day names, then one
+ * „nieczynne” row with the remaining days and holidays. „święta” comes from the board, not
+ * from the panel — TODO(krystian): [SZEF] potwierdzić (czy zawsze nieczynne w święta).
+ */
+export function hoursTable(hours: OpeningHours): { days: string; time: string }[] {
+  if (hours.length === 0) return []
+  const rows = hours.map((row) => ({
+    days: dayRanges(row.days, LONG, ' – '),
+    time: `${display(row.opens)} – ${display(row.closes)}`,
+  }))
+  const open = new Set(hours.flatMap((row) => row.days))
+  const closed = ORDER.filter((day) => !open.has(day)).map((day) => LONG[day])
+  return [...rows, { days: [...closed, 'święta'].join(', '), time: 'nieczynne' }]
 }

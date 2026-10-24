@@ -12,6 +12,8 @@ import { Section } from '@/components/ui/Section'
 import type { PublicPage } from '@/lib/pages/data'
 import type { SiteTenant } from '@/lib/tenant/byHost'
 import { BzContactBlock } from '@/sites/biznes/blocks/BzContact/Component'
+import { BzContactInfoBlock } from '@/sites/biznes/blocks/BzContactInfo/Component'
+import { BzQuickCardsBlock } from '@/sites/biznes/blocks/BzQuickCards/Component'
 import { BzFactsBlock } from '@/sites/biznes/blocks/BzFacts/Component'
 import { BzFeaturedBlock } from '@/sites/biznes/blocks/BzFeatured/Component'
 import { BzHeroBlock } from '@/sites/biznes/blocks/BzHero/Component'
@@ -27,8 +29,8 @@ import { FaqBiznes } from '@/sites/biznes/components/home/FaqBiznes'
 
 type Props = { page: PublicPage; tenant: SiteTenant }
 
-/** Blocks that carry the page's h1 when they come first. */
-const HERO_BLOCKS = new Set(['hero', 'bzHero'])
+// Blocks that carry the page's H1 when they come first (otherwise the title is the H1).
+const HERO_BLOCKS = new Set(['hero', 'bzHero', 'bzContactInfo'])
 
 /**
  * Page body from blocks. A block not allowed for the tenant's line is skipped (ADR-010), so
@@ -98,6 +100,12 @@ export function RenderBlocks({ page, tenant }: Props) {
             return <BzNewsBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzContact':
             return <BzContactBlock key={key} block={block} tenantId={tenant.id} />
+          case 'bzContactInfo':
+            return (
+              <BzContactInfoBlock key={key} block={block} isFirst={i === 0} tenantId={tenant.id} />
+            )
+          case 'bzQuickCards':
+            return <BzQuickCardsBlock key={key} block={block} />
         }
       })}
     </>

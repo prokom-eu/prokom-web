@@ -7,6 +7,7 @@ import { getPayload } from 'payload'
 import config from '../payload.config'
 import { assertSeedAllowed, parseSeedEnv } from './config'
 import { HOME_SLUG } from '../lib/pages/slug'
+import { CONTACT_SLUG } from './biznes/contact'
 import { seedBiznesCatalog } from './biznes/run'
 import { sampleImage } from './media'
 import {
@@ -132,8 +133,11 @@ try {
     }
 
     for (const page of samplePages(tenant, imageDoc.id)) {
-      // The Biznes home page has its own sections (B7): `seedBiznesHome` below.
-      if (tenant.line === 'biznes' && page.slug === HOME_SLUG) continue
+      // The Biznes home and contact pages have their own sections (B7, B8c): seeded with the
+      // Biznes catalog below.
+      if (tenant.line === 'biznes' && (page.slug === HOME_SLUG || page.slug === CONTACT_SLUG)) {
+        continue
+      }
       const {
         docs: [existingPage],
       } = await payload.find({

@@ -33,3 +33,13 @@ export function toWhatsAppHref(phone: string): string | null {
   if (digits.length === 9) return `https://wa.me/48${digits}`
   return digits.length >= 10 ? `https://wa.me/${digits}` : null
 }
+
+/** The address in Google Maps — a link, not an embedded map (no third party before consent). */
+export function toMapsHref(address: string): string {
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`
+}
+
+/** Route to the address in Google Maps. */
+export function toDirectionsHref(address: string): string {
+  return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(address)}`
+}

@@ -581,6 +581,8 @@ export interface Page {
         | BzFactsBlock
         | BzNewsBlock
         | BzContactBlock
+        | BzContactInfoBlock
+        | BzQuickCardsBlock
       )[]
     | null;
   seo?: {
@@ -1741,6 +1743,49 @@ export interface BzContactBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzContactInfoBlock".
+ */
+export interface BzContactInfoBlock {
+  /**
+   * Wstaw ten blok na stronie tylko raz, jako pierwszy — jego nagłówek to H1.
+   */
+  heading: string;
+  lead?: string | null;
+  /**
+   * Np. „Dojeżdżamy na całe Podhale i Małopolskę”.
+   */
+  areaLabel?: string | null;
+  /**
+   * Po godzinach, np. „kasy, komputery, programy, awarie”.
+   */
+  phoneNote?: string | null;
+  emailNote?: string | null;
+  addressNote?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bzContactInfo';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzQuickCardsBlock".
+ */
+export interface BzQuickCardsBlock {
+  cards: {
+    title: string;
+    text: string;
+    linkLabel: string;
+    /**
+     * Np. /kontakt#kontakt — formularz na tej stronie.
+     */
+    href: string;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bzQuickCards';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -2353,6 +2398,8 @@ export interface PagesSelect<T extends boolean = true> {
         bzFacts?: T | BzFactsBlockSelect<T>;
         bzNews?: T | BzNewsBlockSelect<T>;
         bzContact?: T | BzContactBlockSelect<T>;
+        bzContactInfo?: T | BzContactInfoBlockSelect<T>;
+        bzQuickCards?: T | BzQuickCardsBlockSelect<T>;
       };
   seo?:
     | T
@@ -2901,6 +2948,37 @@ export interface BzContactBlockSelect<T extends boolean = true> {
         id?: T;
       };
   successText?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzContactInfoBlock_select".
+ */
+export interface BzContactInfoBlockSelect<T extends boolean = true> {
+  heading?: T;
+  lead?: T;
+  areaLabel?: T;
+  phoneNote?: T;
+  emailNote?: T;
+  addressNote?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzQuickCardsBlock_select".
+ */
+export interface BzQuickCardsBlockSelect<T extends boolean = true> {
+  cards?:
+    | T
+    | {
+        title?: T;
+        text?: T;
+        linkLabel?: T;
+        href?: T;
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }

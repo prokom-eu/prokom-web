@@ -19,6 +19,7 @@ import * as migration_20261023_210238_biznes_home_offer from './20261023_210238_
 import * as migration_20261023_213656_biznes_home_plan from './20261023_213656_biznes_home_plan'
 import * as migration_20261023_224942_biznes_home_facts from './20261023_224942_biznes_home_facts'
 import * as migration_20261024_102614_inquiries_b8 from './20261024_102614_inquiries_b8'
+import * as migration_20261024_125547_biznes_contact from './20261024_125547_biznes_contact'
 
 export const migrations = [
   {
@@ -125,5 +126,10 @@ export const migrations = [
     up: migration_20261024_102614_inquiries_b8.up,
     down: migration_20261024_102614_inquiries_b8.down,
     name: '20261024_102614_inquiries_b8',
+  },
+  {
+    up: migration_20261024_125547_biznes_contact.up,
+    down: migration_20261024_125547_biznes_contact.down,
+    name: '20261024_125547_biznes_contact',
   },
 ]
