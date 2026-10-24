@@ -50,7 +50,8 @@ Kontrakt `POST /api/inquiry` rozszerzony o formularze prokombiznes.pl (ADR-012 �
   - `city` (Miejscowość), `preferredContact` (`phone` / `whatsapp` / `email`; dawne „Obojętnie” usunięte), `deadline`, `topics[]` (fraza „Zapytaj o X”), `wizard` (JSON odpowiedzi, ≤ 8 tys. znaków).
 - **Wymagalność:**
   - zawsze `name` i zgoda;
-  - `message` — dla `contact` i `search` (dla `list` to opcjonalne uwagi);
+  - `message` — tylko dla `contact`; w `list` i `search` to opcjonalne uwagi (treść niosą pozycje albo fraza, plansza Zapytanie);
+  - e-mail — gdy `preferredContact` = `email` (bez adresu biuro nie ma jak odpisać);
   - telefon — na linii Biznes we wszystkich typach poza `wizard` (ZMIANY-v20 §2.9, plansza Zapytanie, decyzja Krystiana 24.10.2026); na pozostałych liniach nadal „e-mail lub telefon”. Linię bierze serwer z tenanta, nigdy z treści żądania.
 - **Odpowiedź 201** zwraca `{ ok, number }`: numer zgłoszenia (np. `PKB-2026-0042`) do ekranu sukcesu.
 - **Maile:** w temacie numer zgłoszenia i rodzaj formularza (poza kontaktem). W powiadomieniu pozycje (ilość × nazwa — uwaga), odpowiedzi kreatora i nowe pola. Potwierdzenie dla klienta ma numer i nazwy pozycji, ale nie zawiera uwag ani wiadomości (adres może nie należeć do nadawcy).

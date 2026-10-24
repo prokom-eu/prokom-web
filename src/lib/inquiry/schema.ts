@@ -81,14 +81,18 @@ function inquirySchemaFor(line: Line | undefined) {
     const issue = (path: string, message: string) =>
       ctx.addIssue({ code: 'custom', path: [path], message })
 
-    if ((data.type === 'contact' || data.type === 'search') && data.message === undefined) {
-      issue('message', 'message required')
-    }
+    // The phrase of „Zapytaj o X” and the list items say what is needed; a contact must.
+    if (data.type === 'contact' && data.message === undefined) issue('message', 'message required')
     if (data.type === 'list' && data.items.length === 0) issue('items', 'items required')
     // Items belong to the list only; elsewhere they would be saved without anyone asking.
     if (data.type !== 'list' && data.items.length > 0) issue('items', 'items only on a list')
     if (data.type === 'search' && data.topics.length === 0) issue('topics', 'phrase required')
     if (data.type === 'wizard' && data.wizard === undefined) issue('wizard', 'answers required')
+
+    // „Jak się skontaktować? E-mail” needs an address to write to.
+    if (data.preferredContact === 'email' && data.email === undefined) {
+      issue('email', 'e-mail required for e-mail contact')
+    }
 
     // Biznes calls back (ZMIANY-v20 §2.9, plansza Zapytanie): every form requires a phone —
     // except the wizard, whose fields are decided in B10.

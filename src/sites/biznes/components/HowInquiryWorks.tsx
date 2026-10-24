@@ -19,8 +19,8 @@ export function HowInquiryWorks({ callbackTime }: Props) {
     },
     {
       title: 'Wyślij listę',
-      // Not „Imię i telefon wystarczą” of the board: the form also asks for a message (§8.4).
-      text: 'Imię i telefon lub e-mail — możesz dopisać uwagi do każdej pozycji.',
+      // True since B8b: the list form asks for a name and a phone, notes are optional.
+      text: 'Imię i telefon wystarczą. Możesz dopisać uwagi do każdej pozycji.',
     },
     {
       title: callbackTime?.trim() || CALLBACK_FALLBACK,

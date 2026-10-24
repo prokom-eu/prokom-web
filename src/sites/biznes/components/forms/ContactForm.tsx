@@ -39,6 +39,8 @@ type Status =
 const RULES = { phoneRequired: true, messages: BIZNES_FIELD_MESSAGES }
 const FIELD_ORDER: FieldName[] = ['name', 'phone', 'company', 'email', 'message', 'consent']
 const consentClause = linkInText(CONSENT_CLAUSE.text, PRIVACY_POLICY_LINK_TEXT)
+// A stable function: an inline ref would run again on every render and steal the focus.
+const focusOnMount = (node: HTMLElement | null) => node?.focus()
 const FALLBACK_SUCCESS = 'Odezwiemy się najszybciej, jak to możliwe.'
 
 function readValues(form: HTMLFormElement): FormValues {
@@ -114,8 +116,8 @@ export function ContactForm({ formToken, heading, note, promises = [], successTe
     }
 
     if (outcome.kind === 'sent') {
+      // The success screen focuses itself when it mounts (ref below), not on a timer.
       setStatus({ kind: 'sent' })
-      focusStatus()
     } else if (outcome.kind === 'invalid') {
       const failed: Status = outcome.formError
         ? { kind: 'failed', message: outcome.formError }
@@ -136,7 +138,7 @@ export function ContactForm({ formToken, heading, note, promises = [], successTe
   if (status.kind === 'sent') {
     return (
       <div
-        ref={statusRef}
+        ref={focusOnMount}
         tabIndex={-1}
         role="status"
         className="flex min-h-[420px] flex-col items-start justify-center gap-3.5"

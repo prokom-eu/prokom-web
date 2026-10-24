@@ -151,11 +151,9 @@ describe('parseInquiryInput — types of the Biznes forms (B8)', () => {
     expect(errorsOf({ ...list, ...patch })).toContain(field)
   })
 
-  it('requires the message for contact and search, not for a list', () => {
+  it('requires the message for a contact only (the phrase or the list says the rest)', () => {
     expect(errorsOf({ ...valid, message: '' })).toContain('message')
-    expect(errorsOf({ ...valid, type: 'search', topics: ['wifi'], message: '' })).toContain(
-      'message',
-    )
+    expect(errorsOf({ ...valid, type: 'search', topics: ['wifi'], message: '' })).toEqual([])
     expect(errorsOf({ ...list, message: '' })).toEqual([])
   })
 
@@ -172,6 +170,13 @@ describe('parseInquiryInput — types of the Biznes forms (B8)', () => {
     expect(
       errorsOf({ ...valid, type: 'wizard', wizard: { note: 'x'.repeat(8 * 1024) } }),
     ).toContain('wizard')
+  })
+
+  it('requires the e-mail when the customer chooses to be contacted by e-mail', () => {
+    expect(errorsOf({ ...list, email: undefined, preferredContact: 'email' }, 'biznes')).toEqual([
+      'email',
+    ])
+    expect(errorsOf({ ...list, preferredContact: 'email' }, 'biznes')).toEqual([])
   })
 
   it('accepts items on a list only', () => {
