@@ -5,7 +5,8 @@ import { FORM_MIN_FILL_MS } from '../../src/lib/inquiry/spam'
 import { api, loginAsAdmin, site } from './helpers'
 
 // S8b acceptance: the form on a site page → record in the panel → e-mail in Mailpit, with
-// readable errors. Seed: the `kontakt` page of every line has the form block. Records made
+// readable errors. Seed: the `kontakt` page of every line but Biznes (its own form since B8c,
+// `biznes-contact`) has the form block. Records made
 // here are deleted at the end. axe and 360 px of `/kontakt` (with the form) are in a11y.e2e.
 
 const MAILPIT = 'http://localhost:8025/api/v1'
@@ -31,13 +32,12 @@ test.describe('inquiry form (S8b)', () => {
   }) => {
     const marker = `E2E Formularz ${Date.now()}`
     await asNewVisitor(page)
-    await page.goto(site('biznes.localhost', '/kontakt?utm_source=e2e#formularz'))
+    // B8c: Biznes has its own contact form; the generic one stays on the other lines.
+    await page.goto(site('instalacje.localhost', '/kontakt?utm_source=e2e#formularz'))
 
     const form = page.locator('#formularz')
     await form.getByLabel('Imię i nazwisko').fill(marker)
     await form.getByLabel(/^E-mail/).fill('formularz-e2e@example.test')
-    // B8: the Biznes line calls back, so the form asks for the phone (checked below).
-    await form.getByLabel(/^Telefon/).fill('600 100 200')
     await form.getByLabel('NIP').fill('526-000-12-46')
     await form.getByLabel('W czym możemy pomóc?').fill('Test formularza.')
     await form.getByLabel(/Wyrażam zgodę/).check()
@@ -57,10 +57,10 @@ test.describe('inquiry form (S8b)', () => {
     const [record] = json.docs as Record<string, unknown>[]
     expect(record, 'the inquiry is in the panel').toBeDefined()
     expect(record).toMatchObject({
-      line: 'biznes',
+      line: 'instalacje',
       nip: '5260001246',
       marketingConsent: false,
-      source: { url: site('biznes.localhost', '/kontakt'), utmSource: 'e2e' },
+      source: { url: site('instalacje.localhost', '/kontakt'), utmSource: 'e2e' },
     })
     try {
       await expect
@@ -76,7 +76,7 @@ test.describe('inquiry form (S8b)', () => {
 
   test('missing fields are explained next to them, accessibly', async ({ page }) => {
     await asNewVisitor(page)
-    await page.goto(site('biznes.localhost', '/kontakt'))
+    await page.goto(site('instalacje.localhost', '/kontakt'))
     const form = page.locator('#formularz')
     await form.getByRole('button', { name: 'Wyślij zapytanie' }).click()
 
@@ -84,11 +84,7 @@ test.describe('inquiry form (S8b)', () => {
     await expect(name).toBeFocused()
     await expect(name).toHaveAttribute('aria-invalid', 'true')
     await expect(name).toHaveAccessibleDescription(/Podaj imię i nazwisko/)
-    // B8: on the Biznes line the phone is required and the e-mail optional.
-    const phone = form.getByLabel(/^Telefon/)
-    await expect(phone).toHaveAttribute('required', '')
-    await expect(phone).toHaveAccessibleDescription(/numer telefonu/)
-    await expect(form.getByLabel(/^E-mail/)).not.toHaveAttribute('aria-invalid', 'true')
+    await expect(form.getByLabel(/^E-mail/)).toHaveAccessibleDescription(/e-mail albo telefon/)
     await expect(form.getByLabel(/Wyrażam zgodę/)).toHaveAttribute('aria-invalid', 'true')
     await expect(form.getByText('Napisz, w czym możemy pomóc')).toBeVisible()
 

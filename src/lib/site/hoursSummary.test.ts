@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { hoursSummary } from './hoursSummary'
+import { hoursSummary, hoursTable } from './hoursSummary'
 
 describe('hoursSummary', () => {
   it('joins consecutive days into a range, as in the design', () => {
@@ -28,5 +28,30 @@ describe('hoursSummary', () => {
 
   it('is empty without hours', () => {
     expect(hoursSummary([])).toBe('')
+  })
+})
+
+describe('hoursTable (Kontakt)', () => {
+  it('lists the open days in full, then the closed days with holidays', () => {
+    expect(
+      hoursTable([{ days: ['mon', 'tue', 'wed', 'thu', 'fri'], opens: '09:00', closes: '17:00' }]),
+    ).toEqual([
+      { days: 'poniedziałek – piątek', time: '9:00 – 17:00' },
+      { days: 'sobota, niedziela, święta', time: 'nieczynne' },
+    ])
+  })
+
+  it('handles a Saturday row and no hours at all', () => {
+    expect(
+      hoursTable([
+        { days: ['mon', 'tue', 'wed', 'thu', 'fri'], opens: '08:00', closes: '16:00' },
+        { days: ['sat'], opens: '09:00', closes: '13:00' },
+      ]),
+    ).toEqual([
+      { days: 'poniedziałek – piątek', time: '8:00 – 16:00' },
+      { days: 'sobota', time: '9:00 – 13:00' },
+      { days: 'niedziela, święta', time: 'nieczynne' },
+    ])
+    expect(hoursTable([])).toEqual([])
   })
 })

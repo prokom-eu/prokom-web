@@ -6,7 +6,7 @@ import { Icon } from '@/components/ui/Icon'
 import { brandLogo } from '@/lib/catalog/catalogIndex'
 import { getCompanyData, getSiteSettings } from '@/lib/site/data'
 import { hoursSummary } from '@/lib/site/hoursSummary'
-import { toTelHref } from '@/lib/site/link'
+import { toDirectionsHref, toTelHref } from '@/lib/site/link'
 import { tenantIdOf } from '@/lib/tenant/id'
 import type { BzFactsBlock as BzFactsBlockData, Partner } from '@/payload-types'
 
@@ -38,9 +38,6 @@ function authorizations(values: BzFactsBlockData['authorizations'], tenantId: nu
     return logo ? [{ id: partner.id, name: partner.name, logo }] : []
   })
 }
-
-const directions = (address: string) =>
-  `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(address)}`
 
 /**
  * „PRO-KOM w faktach” (spec. §4 pkt 10, ZMIANY-v20 §2.6): the owner's word (photo placeholder
@@ -171,7 +168,7 @@ export async function BzFactsBlock({ block, tenantId }: Props) {
             {address && (
               <li>
                 <a
-                  href={directions(address)}
+                  href={toDirectionsHref(address)}
                   rel="noopener"
                   target="_blank"
                   className="flex items-center gap-3 font-bold hover:underline"

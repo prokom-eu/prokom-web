@@ -131,7 +131,7 @@ export function CartDrawer({ phone }: Props) {
             >
               Przeglądaj ofertę
             </Link>
-            <Link href="/kontakt#formularz" className="font-extrabold text-accent-text">
+            <Link href="/kontakt#kontakt" className="font-extrabold text-accent-text">
               albo napisz do nas →
             </Link>
           </div>

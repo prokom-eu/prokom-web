@@ -135,7 +135,7 @@ test.describe('Biznes inquiry list', () => {
     )
     await expect(drawer(page).getByRole('link', { name: /napisz do nas/ })).toHaveAttribute(
       'href',
-      '/kontakt#formularz',
+      '/kontakt#kontakt',
     )
   })
 

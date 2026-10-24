@@ -30,6 +30,7 @@ import {
   type SeedCatalog,
 } from './map'
 import { FOOTER_LEGAL_LINKS, FOOTER_TEXT, footerData } from './footer'
+import { SERVICE_AREAS, seedBiznesContact } from './contact'
 import { seedBiznesHome } from './home'
 import { navigationData } from './navigation'
 
@@ -402,6 +403,25 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     }
   }
 
+  // --- towns served (B8c): the footer and /kontakt list them ---
+  if (siteSettings) {
+    const current = await payload.findByID({
+      collection: 'site-settings',
+      id: siteSettings.id,
+      ...local,
+    })
+    const areasMissing = !current.biznes?.serviceAreas?.length
+    count('site-settings service areas', areasMissing)
+    if (areasMissing) {
+      await payload.update({
+        collection: 'site-settings',
+        id: siteSettings.id,
+        data: { biznes: { ...current.biznes, serviceAreas: SERVICE_AREAS } },
+        ...local,
+      })
+    }
+  }
+
   // --- home page (B7): sections, department cards, the hero's trust line ---
   await seedBiznesHome(
     payload,
@@ -413,6 +433,11 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
       industry: (slug) => industryIds.get(slug),
     },
     (name, changed) => count(name, changed ? 'updated' : false),
+  )
+
+  // --- contact page (B8c): Biznes blocks instead of the sample ---
+  await seedBiznesContact(payload, tenant.id, (name, changed) =>
+    count(name, changed ? 'updated' : false),
   )
 
   for (const [collection, { created, updated, skipped }] of Object.entries(counters)) {
