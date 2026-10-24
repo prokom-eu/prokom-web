@@ -13,9 +13,9 @@ import { groupSummaries, type GroupSummary } from '@/lib/catalog/groups'
 import { groupHref } from '@/lib/catalog/menu'
 import { publicImage } from '@/lib/media/public'
 import { partnerStatusLabel } from '@/lib/partners/badges'
+import { shownPartner } from '@/lib/partners/shown'
 import { plural } from '@/lib/plural'
-import { tenantIdOf } from '@/lib/tenant/id'
-import type { BzOfferBlock as BzOfferBlockData, Partner } from '@/payload-types'
+import type { BzOfferBlock as BzOfferBlockData } from '@/payload-types'
 
 import { SectionHead } from '../../components/home/SectionHead'
 
@@ -179,20 +179,12 @@ function DepartmentRow({ group }: { group: GroupSummary }) {
 
 type System = NonNullable<BzOfferBlockData['systems']>[number]
 
-function partnerOf(system: System, tenantId: number): Partner | null {
-  const partner = system.partner
-  if (!partner || typeof partner !== 'object') return null
-  // `Partners` is shared between lines: only a partner shown on this site.
-  const shown = (partner.tenants ?? []).some((tenant) => tenantIdOf(tenant) === tenantId)
-  return shown ? partner : null
-}
-
 type SystemCardProps = { system: System; tenantId: number; headingLevel: 'h3' | 'h4' }
 
 function SystemCard({ system, tenantId, headingLevel: Title }: SystemCardProps) {
   const statuses = system.mode === 'statuses' ? (system.statuses ?? []) : []
   const image = system.mode === 'statuses' ? null : publicImage(system.image, tenantId)
-  const partner = partnerOf(system, tenantId)
+  const partner = shownPartner(system.partner, tenantId)
   const logo = partner ? brandLogo(partner) : undefined
   // With a partner the badge is its status confirmed in the panel ([SZEF]), never free text.
   const badge = system.partner ? partnerStatusLabel(partner?.partnerStatus) : system.badge

@@ -22,13 +22,18 @@ import { BzQuickCardsBlock } from '@/sites/biznes/blocks/BzQuickCards/Component'
 import { BzFactsBlock } from '@/sites/biznes/blocks/BzFacts/Component'
 import { BzFeaturedBlock } from '@/sites/biznes/blocks/BzFeatured/Component'
 import { BzHeroBlock } from '@/sites/biznes/blocks/BzHero/Component'
+import { BzKitsBlock } from '@/sites/biznes/blocks/BzKits/Component'
+import { BzModulesBlock } from '@/sites/biznes/blocks/BzModules/Component'
 import { BzNeedsBlock } from '@/sites/biznes/blocks/BzNeeds/Component'
 import { BzNewsBlock } from '@/sites/biznes/blocks/BzNews/Component'
 import { BzOfferBlock } from '@/sites/biznes/blocks/BzOffer/Component'
 import { BzOnePartnerBlock } from '@/sites/biznes/blocks/BzOnePartner/Component'
+import { BzOrderFlowBlock } from '@/sites/biznes/blocks/BzOrderFlow/Component'
+import { BzPanelsBlock } from '@/sites/biznes/blocks/BzPanels/Component'
 import { BzPlanBlock } from '@/sites/biznes/blocks/BzPlan/Component'
 import { BzReferencesBlock } from '@/sites/biznes/blocks/BzReferences/Component'
 import { BzStepsBlock } from '@/sites/biznes/blocks/BzSteps/Component'
+import { BzTimelineBlock } from '@/sites/biznes/blocks/BzTimeline/Component'
 import { BrandMarquee } from '@/sites/biznes/components/home/BrandMarquee'
 import { FaqBiznes } from '@/sites/biznes/components/home/FaqBiznes'
 
@@ -112,7 +117,15 @@ export function RenderBlocks({ page, tenant }: Props) {
           case 'bzQuickCards':
             return <BzQuickCardsBlock key={key} block={block} />
           case 'bzPageHero':
-            return <BzPageHeroBlock key={key} block={block} isFirst={i === 0} page={page} />
+            return (
+              <BzPageHeroBlock
+                key={key}
+                block={block}
+                isFirst={i === 0}
+                page={page}
+                tenantId={tenant.id}
+              />
+            )
           case 'bzCards':
             return <BzCardsBlock key={key} block={block} />
           case 'bzMonitoring':
@@ -121,6 +134,16 @@ export function RenderBlocks({ page, tenant }: Props) {
             return <BzDowntimeCalcBlock key={key} block={block} />
           case 'bzAudit':
             return <BzAuditBlock key={key} block={block} tenantId={tenant.id} />
+          case 'bzModules':
+            return <BzModulesBlock key={key} block={block} tenantId={tenant.id} />
+          case 'bzOrderFlow':
+            return <BzOrderFlowBlock key={key} block={block} tenantId={tenant.id} />
+          case 'bzKits':
+            return <BzKitsBlock key={key} block={block} tenantId={tenant.id} />
+          case 'bzTimeline':
+            return <BzTimelineBlock key={key} block={block} />
+          case 'bzPanels':
+            return <BzPanelsBlock key={key} block={block} />
         }
       })}
     </>

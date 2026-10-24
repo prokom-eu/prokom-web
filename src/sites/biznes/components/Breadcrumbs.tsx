@@ -3,10 +3,16 @@ import { Fragment } from 'react'
 
 export type Crumb = { name: string; href: string }
 
-/** Breadcrumbs of the Biznes pages; the last item is the current page. */
-export function Breadcrumbs({ items }: { items: readonly Crumb[] }) {
+/** Breadcrumbs of the Biznes pages; the last item is the current page. `onDark`: on a navy hero. */
+export function Breadcrumbs({
+  items,
+  onDark = false,
+}: {
+  items: readonly Crumb[]
+  onDark?: boolean
+}) {
   return (
-    <nav aria-label="Okruszki" className="text-sm text-ink-3">
+    <nav aria-label="Okruszki" className={onDark ? 'text-sm text-white/75' : 'text-sm text-ink-3'}>
       <ol className="flex flex-wrap gap-2">
         {items.map((item, position) => {
           const current = position === items.length - 1
@@ -17,7 +23,15 @@ export function Breadcrumbs({ items }: { items: readonly Crumb[] }) {
                 <Link
                   href={item.href}
                   aria-current={current ? 'page' : undefined}
-                  className={current ? 'text-ink' : 'hover:text-ink hover:underline'}
+                  className={
+                    current
+                      ? onDark
+                        ? 'text-white'
+                        : 'text-ink'
+                      : onDark
+                        ? 'hover:text-white hover:underline'
+                        : 'hover:text-ink hover:underline'
+                  }
                 >
                   {item.name}
                 </Link>

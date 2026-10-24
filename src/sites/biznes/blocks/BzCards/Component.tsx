@@ -6,6 +6,7 @@ import { Icon } from '@/components/ui/Icon'
 import type { BzCardsBlock as BzCardsBlockData } from '@/payload-types'
 
 import { SectionHead } from '../../components/home/SectionHead'
+import { TONE_ICON } from '../../components/home/tones'
 import { hasLink } from '../../components/PageLink'
 
 /**
@@ -14,6 +15,7 @@ import { hasLink } from '../../components/PageLink'
  */
 export function BzCardsBlock({ block }: { block: BzCardsBlockData }) {
   const headingId = `karty-${block.id ?? 'sekcja'}-h`
+  const green = block.tone === 'green'
   return (
     <section
       aria-labelledby={headingId}
@@ -25,6 +27,7 @@ export function BzCardsBlock({ block }: { block: BzCardsBlockData }) {
           eyebrow={block.eyebrow}
           heading={block.heading}
           lead={block.lead}
+          eyebrowClassName={green ? 'text-ok-text' : undefined}
         />
         <ul
           className={cx(
@@ -40,7 +43,12 @@ export function BzCardsBlock({ block }: { block: BzCardsBlockData }) {
               {card.icon && (
                 <span
                   aria-hidden="true"
-                  className="mb-2 flex size-11 items-center justify-center rounded-xl bg-surface-2 text-accent-text"
+                  className={cx(
+                    'mb-2 flex size-11 items-center justify-center rounded-xl',
+                    green
+                      ? cx('bg-linear-145 text-white', TONE_ICON.green)
+                      : 'bg-surface-2 text-accent-text',
+                  )}
                 >
                   <Icon name={card.icon} strokeWidth={2.2} className="size-5" />
                 </span>

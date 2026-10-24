@@ -1,6 +1,6 @@
 import config from '@payload-config'
 import { unstable_cache } from 'next/cache'
-import { getPayload } from 'payload'
+import { getPayload, type PopulateType } from 'payload'
 import { cache } from 'react'
 
 import type { Page } from '@/payload-types'
@@ -15,6 +15,12 @@ import { pageTag, pagesTag } from './tags'
 export const PAGE_CACHE_SECONDS = 60
 
 /** What the public site renders from a page. */
+/**
+ * Fields of related documents the blocks read. Products (kits, B9b) need only the slug — the rest
+ * comes from the catalog index; whole documents would bloat the cached page (2 MB per entry).
+ */
+const BLOCK_POPULATE: PopulateType = { products: { slug: true } }
+
 export type PublicPage = Pick<Page, 'id' | 'title' | 'slug' | 'layout' | 'seo'>
 
 const toPublicPage = ({ id, title, slug, layout, seo }: Page): PublicPage => ({
@@ -48,6 +54,7 @@ export const getPublishedPage = cache(
           limit: 1,
           // 1: images in blocks come populated; `publicImage` re-checks tenant and consent.
           depth: 1,
+          populate: BLOCK_POPULATE,
           // Server-side read; drafts never leave here (`draft: false` + status filter).
           overrideAccess: true,
         })
@@ -95,6 +102,7 @@ export async function getDraftPage(id: number, tenantId: number): Promise<Public
     draft: true,
     limit: 1,
     depth: 1,
+    populate: BLOCK_POPULATE,
     overrideAccess: true,
   })
   const [doc] = docs
