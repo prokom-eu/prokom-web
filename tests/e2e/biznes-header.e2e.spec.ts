@@ -12,7 +12,10 @@ const mainNav = (page: Page) => page.getByRole('navigation', { name: 'Główna' 
 test.describe('Biznes header', () => {
   test('top bar shows the opening status and the main phone number', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
-    await expect(page.getByText(/^(Otwarte teraz · do|Zamknięte · otwieramy) /)).toBeVisible()
+    // The home page shows the status in its sections too (B7d); the top bar comes first.
+    await expect(
+      page.getByText(/^(Otwarte teraz · do|Zamknięte · otwieramy) /).first(),
+    ).toBeVisible()
     await expect(page.getByText('Oferty i serwis:').getByRole('link')).toHaveAttribute(
       'href',
       /^tel:\+?\d+$/,
@@ -90,10 +93,23 @@ test.describe('Biznes header', () => {
     ).toHaveAttribute('href', '/branze/gastronomia')
   })
 
-  // "Zgłoś awarię" → `#kontakt` on the home page once its form section exists (B7).
-  test('top bar: no remote help, "Zgłoś awarię" leads to the contact page', async ({ page }) => {
+  // ZMIANY-v20 §1.1: "Zgłoś awarię" → `#kontakt` on the home page (B7d), `/kontakt` elsewhere.
+  test('top bar: no remote help, "Zgłoś awarię" leads to the form or the contact page', async ({
+    page,
+  }) => {
     await page.goto(site('biznes.localhost'))
     await expect(page.getByRole('link', { name: 'Pomoc zdalna' })).toHaveCount(0)
+    const report = page.getByRole('link', { name: 'Zgłoś awarię' })
+    await expect(report).toHaveAttribute('href', '#kontakt')
+    await expect(page.locator('#kontakt')).toBeAttached()
+    // Client-side navigation (no reload): the top bar stays mounted and must follow the route.
+    await mainNav(page).getByRole('link', { name: 'Kontakt' }).click()
+    await expect(page).toHaveURL(/\/kontakt$/)
+    await expect(page.getByRole('link', { name: 'Zgłoś awarię' })).toHaveAttribute(
+      'href',
+      '/kontakt',
+    )
+    await page.goto(site('biznes.localhost', '/oferta'))
     await expect(page.getByRole('link', { name: 'Zgłoś awarię' })).toHaveAttribute(
       'href',
       '/kontakt',

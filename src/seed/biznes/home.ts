@@ -3,6 +3,7 @@ import type { Payload } from 'payload'
 import type { ShowcaseStatus } from '../../lib/catalog/catalogIndex'
 import { HOME_SLUG } from '../../lib/pages/slug'
 import type { Page } from '../../payload-types'
+import { factsBlocks } from './homeFacts'
 import { planBlocks } from './homePlan'
 
 /**
@@ -197,6 +198,7 @@ export function biznesHomeLayout(refs: HomeRefs = NO_REFS): HomeBlock[] {
       },
     },
     ...planBlocks(refs.industry),
+    ...factsBlocks(refs.brand),
   ]
 }
 
@@ -303,6 +305,8 @@ export async function seedBiznesHome(
       collection: 'pages',
       data: {
         title: 'Strona główna',
+        // TODO(krystian): meta description strony głównej (SEO → Opis) — Lighthouse SEO 92 bez
+        // niej (B7d); treść do panelu, seed jej nie wymyśla.
         slug: HOME_SLUG,
         layout: seed,
         tenant: tenantId,

@@ -314,3 +314,129 @@ test.describe('Biznes home page: plan, steps, one partner', () => {
     })
   })
 })
+
+// B7d: „Dla kogo”, „Fakty”, „Ostatnio w Aktualnościach”, FAQ, `#kontakt`, the section rail
+// (spec. §3.7, §4 pkt 9–13).
+test.describe('Biznes home page: references, facts, news, FAQ, contact', () => {
+  test('references: six kinds; reviews and logos stay hidden without the settings', async ({
+    page,
+  }) => {
+    await page.goto(site('biznes.localhost'))
+    const section = page.locator('#referencje')
+    await expect(section.getByRole('heading', { level: 3 })).toHaveCount(6)
+    // Seed: „Pokaż opinie klientów” off, so the real review is not shown either.
+    await expect(section).not.toContainText('Smołecka')
+    await expect(section).toContainText('Logotypy klientów pojawią się')
+    await expect(section).not.toContainText('Miejsce na opinię')
+  })
+
+  test('facts: owner quote, contact from the settings, authorization logos', async ({ page }) => {
+    await page.goto(site('biznes.localhost'))
+    const facts = page.locator('#fakty')
+    await expect(facts.locator('blockquote')).toContainText('u klienta po prostu działało')
+    await expect(facts).not.toContainText('Zdjęcie właściciela')
+    await expect(facts.locator('a[href^="tel:"]').first()).toBeVisible()
+    await expect(facts.locator('a[href^="mailto:"]')).toBeVisible()
+    await expect(facts.locator('a[href^="https://www.google.com/maps/dir/"]')).toHaveAttribute(
+      'target',
+      '_blank',
+    )
+    for (const name of ['Posnet', 'Elzab', 'InsERT', 'GoPOS']) {
+      await expect(facts.getByRole('img', { name, exact: true })).toBeVisible()
+    }
+  })
+
+  test('FAQ: numbered cards, the first open, FAQPage data', async ({ page }) => {
+    await page.goto(site('biznes.localhost'))
+    const faq = page.locator('#faq')
+    const items = faq.locator('details')
+    await expect(items).toHaveCount(6)
+    await expect(items.first()).toHaveAttribute('open', '')
+    await expect(items.nth(1)).not.toHaveAttribute('open', '')
+    await items.nth(1).locator('summary').click()
+    await expect(items.nth(1)).toHaveAttribute('open', '')
+    const jsonLd = await faq.locator('script[type="application/ld+json"]').textContent()
+    expect(JSON.parse(jsonLd ?? '{}')['@type']).toBe('FAQPage')
+  })
+
+  test('contact: the panel channels and a working form at #kontakt', async ({ page }) => {
+    await page.goto(site('biznes.localhost', '/#kontakt'))
+    const contact = page.locator('#kontakt')
+    await expect(contact.getByRole('heading', { level: 2 })).toHaveText(
+      'Napisz, czego potrzebujesz. Odezwiemy się szybko.',
+    )
+    await expect(contact.locator('a[href^="tel:"]')).toBeVisible()
+    await expect(contact.locator('form')).toBeVisible()
+    await expect(contact).toContainText('Wycena na piśmie')
+  })
+
+  test('section rail: anchors of the sections, the current one marked', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await page.goto(site('biznes.localhost'))
+    const rail = page.getByRole('navigation', { name: 'Na tej stronie' })
+    await expect(rail.getByRole('link')).toHaveCount(9)
+    await rail.getByRole('link', { name: 'Fakty' }).click()
+    await expect(page).toHaveURL(/#fakty$/)
+    await expect(rail.getByRole('link', { name: 'Fakty' })).toHaveAttribute('aria-current', 'true')
+  })
+
+  test('news: the latest posts of this site only', async ({ page }) => {
+    await loginAsAdmin(page)
+    const biznes = await tenantId(page, 'biznes')
+    const software = await tenantId(page, 'software')
+    const stamp = Date.now()
+    const create = (tenant: number, title: string, slug: string, publishedAt = new Date()) =>
+      api(page, 'POST', '/api/posts', {
+        tenant,
+        title,
+        slug,
+        category: 'ksef',
+        publishedAt: publishedAt.toISOString(),
+        content: {
+          root: {
+            type: 'root',
+            version: 1,
+            children: [
+              {
+                type: 'paragraph',
+                version: 1,
+                children: [{ type: 'text', text: 'E2E', version: 1 }],
+              },
+            ],
+          },
+        },
+        _status: 'published',
+      })
+    const own = await create(biznes, `E2E wpis Biznesu ${stamp}`, `e2e-${biznes}-${stamp}`)
+    const foreign = await create(software, `E2E wpis Software ${stamp}`, `e2e-sw-${stamp}`)
+    // Dated in the future: published, but not yet on the home page.
+    const future = await create(
+      biznes,
+      `E2E wpis z przyszłości ${stamp}`,
+      `e2e-future-${stamp}`,
+      new Date(Date.now() + 7 * 86_400_000),
+    )
+    try {
+      expect(own.status).toBe(201)
+      // Without the foreign post the isolation check below would prove nothing.
+      expect(foreign.status).toBe(201)
+      expect(future.status).toBe(201)
+      // `Posts` hooks mark the posts cache stale at once; a short retry covers the dev server.
+      await expect(async () => {
+        await page.goto(site('biznes.localhost'))
+        await expect(page.getByText(`E2E wpis Biznesu ${stamp}`)).toBeVisible({ timeout: 1000 })
+      }).toPass({ timeout: 20_000, intervals: [2000] })
+      await expect(page.getByText(`E2E wpis Software ${stamp}`)).toHaveCount(0)
+      await expect(page.getByText(`E2E wpis z przyszłości ${stamp}`)).toHaveCount(0)
+      await expect(
+        page.getByRole('link', { name: `E2E wpis Biznesu ${stamp}`, exact: true }),
+      ).toHaveAttribute('href', `/aktualnosci/e2e-${biznes}-${stamp}`)
+    } finally {
+      await page.goto('/admin/login')
+      for (const result of [own, foreign, future]) {
+        const id = (result.json.doc as { id?: number } | undefined)?.id
+        if (id) await api(page, 'DELETE', `/api/posts/${id}`)
+      }
+    }
+  })
+})

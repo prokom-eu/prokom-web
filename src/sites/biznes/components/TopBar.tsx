@@ -8,6 +8,7 @@ import { BRAND_LINKS } from '@/lib/brand/lines'
 import { openingStatus, type OpeningHours } from '@/lib/site/hours'
 import { toTelHref } from '@/lib/site/link'
 
+import { HomeAwareLink } from './HomeAwareLink'
 import { HoursStatus } from './HoursStatus'
 
 type Props = {
@@ -17,9 +18,10 @@ type Props = {
 }
 
 // v20: no remote help here (it lives on `/opieka-it` only). "Zgłoś awarię" leads to the
-// contact page until the home page has its form section (`#kontakt`, B7).
-const QUICK_LINKS: { label: string; href: string; icon: IconName }[] = [
-  { label: 'Zgłoś awarię', href: '/kontakt', icon: 'wrench' },
+// form section on the home page (`#kontakt`, B7d) and to the contact page elsewhere.
+/** `homeHref`: where the link leads on the home page itself (ZMIANY-v20 §1.1). */
+const QUICK_LINKS: { label: string; href: string; homeHref?: string; icon: IconName }[] = [
+  { label: 'Zgłoś awarię', href: '/kontakt', homeHref: '#kontakt', icon: 'wrench' },
   { label: 'Aktualności', href: '/aktualnosci', icon: 'doc' },
 ]
 
@@ -60,17 +62,29 @@ export function TopBar({ phone, hours }: Props) {
         <div className="flex flex-wrap items-center gap-x-6 gap-y-1 pb-2">
           {hours && status && <HoursStatus hours={hours} initial={status} />}
           <ul className="flex flex-wrap items-center gap-x-5">
-            {QUICK_LINKS.map((link) => (
-              <li key={link.label}>
-                <Link
-                  href={link.href}
-                  className="inline-flex min-h-7 items-center gap-1.5 font-semibold text-accent-text hover:underline"
-                >
+            {QUICK_LINKS.map((link) => {
+              const className =
+                'inline-flex min-h-7 items-center gap-1.5 font-semibold text-accent-text hover:underline'
+              const content = (
+                <>
                   <Icon name={link.icon} className="size-4" strokeWidth={2} />
                   {link.label}
-                </Link>
-              </li>
-            ))}
+                </>
+              )
+              return (
+                <li key={link.label}>
+                  {link.homeHref ? (
+                    <HomeAwareLink href={link.href} homeHref={link.homeHref} className={className}>
+                      {content}
+                    </HomeAwareLink>
+                  ) : (
+                    <Link href={link.href} className={className}>
+                      {content}
+                    </Link>
+                  )}
+                </li>
+              )
+            })}
           </ul>
           {phone && (
             <p>

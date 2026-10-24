@@ -5,7 +5,14 @@ export const FaqBlock: Block = {
   interfaceName: 'FaqBlock',
   labels: { singular: 'FAQ', plural: 'FAQ' },
   fields: [
-    { name: 'heading', label: 'Nagłówek', type: 'text', defaultValue: 'Najczęstsze pytania' },
+    {
+      type: 'row',
+      fields: [
+        { name: 'eyebrow', label: 'Etykieta (opcjonalnie)', type: 'text' },
+        { name: 'heading', label: 'Nagłówek', type: 'text', defaultValue: 'Najczęstsze pytania' },
+      ],
+    },
+    { name: 'lead', label: 'Wstęp (opcjonalnie)', type: 'textarea', maxLength: 300 },
     {
       name: 'items',
       label: 'Pytania',

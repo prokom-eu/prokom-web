@@ -21,6 +21,8 @@ export function SiteLogo({
         src={brandAsset(tenant.line, 'poziome_kolor.svg')}
         alt={alt}
         {...LOGO}
+        // Always at the top of the page: often the LCP element, never lazy (Lighthouse, B7d).
+        loading="eager"
         className={dark ? `theme-light-only ${className}` : className}
       />
       {dark && (
@@ -28,6 +30,7 @@ export function SiteLogo({
           src={brandAsset(tenant.line, 'poziome_negatyw.svg')}
           alt={alt}
           {...LOGO}
+          loading="eager"
           className={`theme-dark-only ${className}`}
         />
       )}
