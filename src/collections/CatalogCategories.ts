@@ -1,8 +1,10 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig, Field } from 'payload'
 
+import { linkGroup } from '../blocks/fields'
 import { adminOnly } from '../lib/auth/access'
 import { catalogRevalidationHooks } from '../lib/catalog/revalidate'
 import { ICON_OPTIONS } from '../lib/catalog/options'
+import { isHttpsUrl } from '../lib/site/link'
 import {
   faqArray,
   imageField,
@@ -11,6 +13,15 @@ import {
   seoGroup,
   slugField,
 } from './catalogFields'
+
+/** Eyebrow and H2 of a category page section. */
+const sectionHeading: Field = {
+  type: 'row',
+  fields: [
+    { name: 'eyebrow', label: 'Nadtytuł', type: 'text', maxLength: 60 },
+    { name: 'title', label: 'Nagłówek', type: 'text', maxLength: 90 },
+  ],
+}
 
 /**
  * Categories of the catalog, each in one group (ADR-012 §1). A category without published
@@ -76,6 +87,120 @@ export const CatalogCategories: CollectionConfig = {
       type: 'relationship',
       relationTo: 'products',
       hasMany: true,
+      admin: { description: 'Na stronie kategorii jako kafle kategorii tych produktów.' },
+    },
+    {
+      type: 'collapsible',
+      label: 'Strona kategorii — sekcje',
+      admin: {
+        initCollapsed: true,
+        description: 'Puste pola = ogólne teksty z nazwą kategorii.',
+      },
+      fields: [
+        {
+          name: 'includedSection',
+          label: 'Sekcja „W cenie”',
+          type: 'group',
+          fields: [
+            sectionHeading,
+            {
+              name: 'cards',
+              label: 'Karty',
+              type: 'array',
+              maxRows: 9,
+              admin: { description: 'Puste = karty z samych pozycji listy „W cenie”.' },
+              fields: [
+                {
+                  type: 'row',
+                  fields: [
+                    { name: 'icon', label: 'Ikona', type: 'select', options: ICON_OPTIONS },
+                    { name: 'title', label: 'Tytuł', type: 'text', required: true, maxLength: 60 },
+                  ],
+                },
+                { name: 'text', label: 'Opis', type: 'textarea', maxLength: 200 },
+              ],
+            },
+          ],
+        },
+        {
+          name: 'facts',
+          label: 'Przepisy w pigułce',
+          type: 'group',
+          fields: [
+            sectionHeading,
+            {
+              name: 'items',
+              label: 'Karty',
+              type: 'array',
+              maxRows: 3,
+              admin: {
+                description:
+                  'Fakt prawny tylko ze źródłem: karta bez nazwy przepisu i linku do niego nie pokazuje się na stronie.',
+              },
+              fields: [
+                {
+                  type: 'row',
+                  fields: [
+                    { name: 'value', label: 'Liczba', type: 'text', required: true, maxLength: 12 },
+                    { name: 'title', label: 'Tytuł', type: 'text', required: true, maxLength: 80 },
+                  ],
+                },
+                { name: 'text', label: 'Opis', type: 'textarea', required: true, maxLength: 300 },
+                {
+                  type: 'row',
+                  fields: [
+                    {
+                      name: 'source',
+                      label: 'Źródło (wyświetlane)',
+                      type: 'text',
+                      maxLength: 120,
+                      admin: { description: 'Np. „Art. 111 ust. 4 ustawy o VAT · sprawdzono …”.' },
+                    },
+                    {
+                      name: 'sourceUrl',
+                      label: 'Link do przepisu',
+                      type: 'text',
+                      validate: (value: unknown) =>
+                        !value || (typeof value === 'string' && isHttpsUrl(value))
+                          ? true
+                          : 'Adres https://, np. https://isap.sejm.gov.pl/….',
+                    },
+                  ],
+                },
+                linkGroup('link', 'Link pod kartą (opcjonalnie)'),
+              ],
+            },
+          ],
+        },
+        {
+          name: 'faqIntro',
+          label: 'Nagłówek pytań',
+          type: 'group',
+          fields: [
+            sectionHeading,
+            { name: 'lead', label: 'Wstęp', type: 'textarea', maxLength: 400 },
+          ],
+        },
+        {
+          name: 'help',
+          label: 'Karta „Nie wiesz, którą wybrać?”',
+          type: 'group',
+          admin: { description: 'Wypełnia ostatni rząd siatki produktów.' },
+          fields: [
+            { name: 'title', label: 'Tytuł', type: 'text', maxLength: 90 },
+            { name: 'text', label: 'Tekst', type: 'textarea', maxLength: 200 },
+          ],
+        },
+        {
+          name: 'contact',
+          label: 'Kontakt',
+          type: 'group',
+          fields: [
+            { name: 'heading', label: 'Nagłówek', type: 'text', maxLength: 90 },
+            { name: 'lead', label: 'Wstęp', type: 'textarea', maxLength: 300 },
+          ],
+        },
+      ],
     },
     orderField,
     seoGroup,

@@ -30,6 +30,7 @@ import {
   type SeedCatalog,
 } from './map'
 import { FOOTER_LEGAL_LINKS, FOOTER_TEXT, footerData } from './footer'
+import { seedBiznesCategoryContent } from './category'
 import { SERVICE_AREAS, seedBiznesContact } from './contact'
 import { seedBiznesGopos } from './gopos'
 import { seedBiznesInsert } from './insert'
@@ -459,6 +460,9 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
   const pageReport = (name: string, changed: boolean) => count(name, changed ? 'updated' : false)
   await seedBiznesGopos(payload, tenant.id, pageRefs, pageReport)
   await seedBiznesInsert(payload, tenant.id, pageRefs, pageReport)
+
+  // --- category page content (B10a): the cash registers from the board ---
+  await seedBiznesCategoryContent(payload, tenant.id, pageRefs.product, pageReport)
 
   for (const [collection, { created, updated, skipped }] of Object.entries(counters)) {
     log(`${collection}: ${created} created, ${updated} updated, ${skipped} unchanged.`)

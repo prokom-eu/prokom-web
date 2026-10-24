@@ -19,7 +19,7 @@ test.describe('Biznes product page', () => {
     const crumbs = page.getByRole('navigation', { name: 'Okruszki' })
     await expect(crumbs.getByRole('link', { name: 'Kasy fiskalne' })).toHaveAttribute(
       'href',
-      '/oferta?kategoria=kasy-fiskalne',
+      '/oferta/kasy-fiskalne',
     )
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
       'href',
@@ -35,11 +35,15 @@ test.describe('Biznes product page', () => {
     })
     expect(JSON.stringify(product)).not.toMatch(/offers|price/i)
     const breadcrumbs = data.find((item) => item['@type'] === 'BreadcrumbList')
-    // The category view has `noindex`: named, not linked, until B10 adds the category page.
+    // B10a: the category has its own indexed page.
     expect(breadcrumbs?.itemListElement).toEqual([
       expect.objectContaining({ position: 1, item: site('biznes.localhost', '/') }),
       expect.objectContaining({ position: 2, item: site('biznes.localhost', '/oferta') }),
-      { '@type': 'ListItem', position: 3, name: 'Kasy fiskalne' },
+      expect.objectContaining({
+        position: 3,
+        name: 'Kasy fiskalne',
+        item: site('biznes.localhost', '/oferta/kasy-fiskalne'),
+      }),
       expect.objectContaining({ position: 4, item: site('biznes.localhost', ERGO) }),
     ])
   })
@@ -130,7 +134,7 @@ test.describe('Biznes product page', () => {
     await expect(similar.getByRole('heading', { name: 'Posnet Ergo Online' })).toHaveCount(0)
     await expect(similar.getByRole('link', { name: /^Wszystkie: Kasy fiskalne/ })).toHaveAttribute(
       'href',
-      '/oferta?kategoria=kasy-fiskalne',
+      '/oferta/kasy-fiskalne',
     )
     await expect(page.getByRole('heading', { name: /Jedna lista, jeden formularz/ })).toBeVisible()
   })

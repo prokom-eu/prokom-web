@@ -1,4 +1,5 @@
 import type { PublicBiznesNavigation } from '../site/navigation'
+import { categoryHref } from './category'
 import type { CatalogIndex } from './catalogIndex'
 import type { IconName } from './options'
 
@@ -39,7 +40,7 @@ export function megaMenu(
       .map(({ label, href: link, badge }) => ({ label, href: link, ...(badge && { badge }) }))
     const categories: MegaMenuItem[] = index.categories
       .filter((category) => category.group === group.slug)
-      .map(({ name, slug, count }) => ({ label: name, href: `/oferta/${slug}`, count }))
+      .map(({ name, slug, count }) => ({ label: name, href: categoryHref(slug), count }))
     const room = Math.max(navigation.columnLimit - highlights.length, 0)
     const hidden = Math.max(categories.length - room, 0)
     return {

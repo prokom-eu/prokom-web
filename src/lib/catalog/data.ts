@@ -5,6 +5,7 @@ import { getPayload } from 'payload'
 import { PAGE_CACHE_SECONDS } from '../pages/data'
 import { pagesTag } from '../pages/tags'
 import { buildCatalogIndex, type CatalogIndex } from './catalogIndex'
+import { buildCategoryView, type CategoryView } from './category'
 import { buildProductView, type ProductView } from './product'
 import { catalogTag } from './tags'
 
@@ -130,6 +131,31 @@ export const getProductView = (tenantId: number, slug: string): Promise<ProductV
       return product ? buildProductView(product, tenantId) : null
     },
     ['product-view', String(tenantId), slug],
+    { tags: [catalogTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
+  )()
+
+/**
+ * One category of the tenant for `/oferta/[kategoria]`, as `CategoryView` — or `null`. The page
+ * asks only for slugs listed in the index (categories with published products, rozstrz. 7).
+ */
+export const getCategoryView = (tenantId: number, slug: string): Promise<CategoryView | null> =>
+  unstable_cache(
+    async () => {
+      const payload = await getPayload({ config })
+      const { docs } = await payload.find({
+        collection: 'catalog-categories',
+        where: { and: [{ tenant: { equals: tenantId } }, { slug: { equals: slug } }] },
+        limit: 1,
+        // 1: the hero picture comes populated (re-checked in the view); of the related
+        // products only the slug and tenant — the page takes the rest from the index.
+        depth: 1,
+        populate: { products: { slug: true, tenant: true } },
+        overrideAccess: true,
+      })
+      const category = docs[0]
+      return category ? buildCategoryView(category, tenantId) : null
+    },
+    ['category-view', String(tenantId), slug],
     { tags: [catalogTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
   )()
 
