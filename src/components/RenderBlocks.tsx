@@ -11,8 +11,13 @@ import { Heading } from '@/components/ui/Heading'
 import { Section } from '@/components/ui/Section'
 import type { PublicPage } from '@/lib/pages/data'
 import type { SiteTenant } from '@/lib/tenant/byHost'
+import { BzAuditBlock } from '@/sites/biznes/blocks/BzAudit/Component'
+import { BzCardsBlock } from '@/sites/biznes/blocks/BzCards/Component'
 import { BzContactBlock } from '@/sites/biznes/blocks/BzContact/Component'
 import { BzContactInfoBlock } from '@/sites/biznes/blocks/BzContactInfo/Component'
+import { BzDowntimeCalcBlock } from '@/sites/biznes/blocks/BzDowntimeCalc/Component'
+import { BzMonitoringBlock } from '@/sites/biznes/blocks/BzMonitoring/Component'
+import { BzPageHeroBlock } from '@/sites/biznes/blocks/BzPageHero/Component'
 import { BzQuickCardsBlock } from '@/sites/biznes/blocks/BzQuickCards/Component'
 import { BzFactsBlock } from '@/sites/biznes/blocks/BzFacts/Component'
 import { BzFeaturedBlock } from '@/sites/biznes/blocks/BzFeatured/Component'
@@ -30,7 +35,7 @@ import { FaqBiznes } from '@/sites/biznes/components/home/FaqBiznes'
 type Props = { page: PublicPage; tenant: SiteTenant }
 
 // Blocks that carry the page's H1 when they come first (otherwise the title is the H1).
-const HERO_BLOCKS = new Set(['hero', 'bzHero', 'bzContactInfo'])
+const HERO_BLOCKS = new Set(['hero', 'bzHero', 'bzContactInfo', 'bzPageHero'])
 
 /**
  * Page body from blocks. A block not allowed for the tenant's line is skipped (ADR-010), so
@@ -106,6 +111,16 @@ export function RenderBlocks({ page, tenant }: Props) {
             )
           case 'bzQuickCards':
             return <BzQuickCardsBlock key={key} block={block} />
+          case 'bzPageHero':
+            return <BzPageHeroBlock key={key} block={block} isFirst={i === 0} page={page} />
+          case 'bzCards':
+            return <BzCardsBlock key={key} block={block} />
+          case 'bzMonitoring':
+            return <BzMonitoringBlock key={key} block={block} />
+          case 'bzDowntimeCalc':
+            return <BzDowntimeCalcBlock key={key} block={block} />
+          case 'bzAudit':
+            return <BzAuditBlock key={key} block={block} tenantId={tenant.id} />
         }
       })}
     </>

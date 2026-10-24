@@ -79,6 +79,41 @@
   }
 }
 
+/* Sample report of the free IT audit (`BzAudit`, /opieka-it): scan line, status pills, stamp. */
+@theme {
+  --animate-audit-scan: audit-scan 3.4s ease-in-out 0.2s both;
+  --animate-audit-pop: audit-pop 0.45s ease-out both;
+  --animate-audit-stamp: audit-stamp 0.4s ease-out 3.7s both;
+
+  @keyframes audit-scan {
+    from {
+      translate: 0 -100%;
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    to {
+      translate: 0 900%;
+      opacity: 0;
+    }
+  }
+
+  @keyframes audit-pop {
+    from {
+      scale: 0.6;
+      opacity: 0;
+    }
+  }
+
+  @keyframes audit-stamp {
+    from {
+      scale: 1.8;
+      opacity: 0;
+    }
+  }
+}
+
 @layer base {
   html {
     background-color: var(--surface);
