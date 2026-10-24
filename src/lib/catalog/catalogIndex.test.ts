@@ -49,7 +49,8 @@ describe('buildCatalogIndex on the seed package', () => {
     })
     expect(ergo.hay).toContain('posnet ergo online')
     expect(ergo.hay).toContain('kasy fiskalne')
-    expect(ergo.hay).toContain('kasy i sprzedaz')
+    // The group name is matched apart, with a lower weight (`lib/search.ts`).
+    expect(ergo.hay).not.toContain('kasy i sprzedaz')
     expect(ergo.hay).toContain('food truck')
     expect(ergo.hay).not.toMatch(/[A-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]/)
   })

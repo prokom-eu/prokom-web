@@ -78,9 +78,9 @@ describe('searchProducts on the seed catalog (spec. §9 pkt 2)', () => {
     const results = searchProducts(prepared, 'wifi') ?? []
     expect(results.map((product) => product.name)).toContain('Ubiquiti UniFi U7 Pro')
     // Registers with a Wi-Fi module rank above it on popularity; the category shows next to them.
-    expect(matchCategories(index, results).map((category) => category.slug)).toContain(
-      categoryOf('ubiquiti-unifi-u7-pro'),
-    )
+    expect(
+      matchCategories(index, prepared, results, 'wifi').map((category) => category.slug),
+    ).toContain(categoryOf('ubiquiti-unifi-u7-pro'))
   })
 
   it('„ksef” finds products for KSeF', () => {
@@ -109,30 +109,48 @@ describe('searchProducts on the seed catalog (spec. §9 pkt 2)', () => {
 describe('matchCategories and matchPages', () => {
   it('counts the hits of a query by category, most first', () => {
     const results = searchProducts(prepared, 'kasa') ?? []
-    const categories = matchCategories(index, results)
+    const categories = matchCategories(index, prepared, results, 'kasa')
     expect(categories[0]!.hits).toBeGreaterThan(0)
-    expect(categories.map((category) => category.hits)).toEqual(
-      categories.map((category) => category.hits).sort((a, b) => b - a),
-    )
     const total = categories.reduce((sum, category) => sum + category.hits, 0)
     expect(total).toBeGreaterThanOrEqual(results.length)
   })
 
-  // KNOWN BUG since katalog v2 (docs/zadania/prokombiznes.md → B4c, before production): the
-  // group name is in every product's `hay`, so „kasa” hits all 159 products of „Kasy
-  // i sprzedaż” and scanners come before cash registers. This test pins today's behaviour —
-  // when B4c fixes the search, it fails: change it to expect 'kasy-fiskalne' first.
-  it('KNOWN BUG: „kasa” puts scanners before cash registers (B4c)', () => {
+  it('„kasa” puts cash registers first, not the scanners of the same group (B4c)', () => {
     const results = searchProducts(prepared, 'kasa') ?? []
+    // Products hit only through the group name „Kasy i sprzedaż” stay in, at the end.
     expect(results).toHaveLength(168)
-    expect(matchCategories(index, results)[0]).toMatchObject({
-      slug: 'skanery-kolektory-etykiety',
+    expect(matchCategories(index, prepared, results, 'kasa')[0]).toMatchObject({
+      slug: 'kasy-fiskalne',
     })
-    // The top results are cash registers all the same.
     expect(results.slice(0, 2).map((product) => product.name)).toEqual([
       'Elzab kasa samoobsługowa Online',
       'Posnet Ergo Online',
     ])
+  })
+
+  it('a category whose name matches the phrase comes before bigger ones', () => {
+    const categories = (query: string) =>
+      matchCategories(index, prepared, searchProducts(prepared, query) ?? [], query).map(
+        (category) => category.slug,
+      )
+    // Label printers (scanners and labels) outnumber fiscal printers in the results.
+    expect(categories('drukarka')[0]).toBe('drukarki-fiskalne')
+    expect(categories('waga')[0]).toBe('wagi-sklepowe')
+    // No category name holds „wifi”: the hit count decides.
+    expect(categories('wifi')[0]).toBe('siec-wifi')
+  })
+
+  it('ranks a hit only in the group name below any hit in the product itself', () => {
+    const results = searchProducts(prepared, 'kasa') ?? []
+    const ownHit = (slug: string) => productOf(slug)!.hay.includes('kas')
+    const firstGroupOnly = results.findIndex((product) => !ownHit(product.slug))
+    expect(firstGroupOnly).toBeGreaterThan(0)
+    expect(results.slice(firstGroupOnly).every((product) => !ownHit(product.slug))).toBe(true)
+  })
+
+  it('still finds the products of a group by its name', () => {
+    const results = searchProducts(prepared, 'sprzedaż') ?? []
+    expect(results.map((product) => product.categories[0])).toContain('skanery-kolektory-etykiety')
   })
 
   it('finds pages by title, accent-insensitive, every token', () => {

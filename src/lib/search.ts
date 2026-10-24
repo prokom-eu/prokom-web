@@ -6,18 +6,32 @@ import { plural } from './plural'
  * Search of the Biznes catalog (spec. §8.2), on the client over the catalog index. A port of
  * `__pk17` from `docs/design/prokombiznes/boards/Main.dc.html`: every token must match, a hit
  * in the name or brand weighs 3, elsewhere 1, through a synonym 1, a typo 0.6, plus
- * `popularity / 200`.
+ * `popularity / 200`. A hit only in the group name weighs 0.1 (B4c): „kasa” must not lift every
+ * scanner of „Kasy i sprzedaż” to the level of a cash register.
  */
 
 const NAME_HIT = 3
 const HAY_HIT = 1
 const SYNONYM_HIT = 1
 const TYPO_HIT = 0.6
+/** Below any hit in the product itself, popularity included (it adds at most 0.5). */
+const GROUP_HIT = 0.1
 
 /** Words shorter than this are not compared for typos (spec. §8.2: from 4 characters). */
 const TYPO_MIN_TOKEN = 4
 
-type SearchProduct = { product: IndexProduct; name: string; words: string[] }
+/** Normalized text with its words, compared for typos. */
+type SearchText = { text: string; words: string[] }
+
+type SearchProduct = {
+  product: IndexProduct
+  /** Name and brand: a hit there weighs the most. */
+  name: string
+  own: SearchText
+  group: SearchText | null
+}
+
+type TextHit = 'exact' | 'synonym' | 'typo'
 
 export type PreparedSearch = {
   products: SearchProduct[]
@@ -57,13 +71,17 @@ export function tokenize(query: string, stopWords: Set<string>): string[] {
 /** Work done once per index: normalized names, words for typos, normalized settings. */
 export function prepareSearch(index: CatalogIndex): PreparedSearch {
   const brandNames = new Map(index.brands.map((brand) => [brand.slug, brand.name]))
+  const groups = new Map(
+    index.groups.map((group) => [group.slug, searchText(normalizeText(group.name))]),
+  )
   return {
     products: index.products.map((product) => ({
       product,
       name: normalizeText(
         `${product.name} ${(product.brand && brandNames.get(product.brand)) ?? ''}`,
       ),
-      words: product.hay.split(/[^a-z0-9]+/).filter((word) => word.length > 2),
+      own: searchText(product.hay),
+      group: (product.group ? groups.get(product.group) : undefined) ?? null,
     })),
     synonyms: new Map(
       Object.entries(index.search.synonyms).map(([phrase, expansions]) => [
@@ -79,22 +97,43 @@ function typoLimit(token: string): number {
   return token.length >= 7 ? 2 : 1
 }
 
-function tokenScore(entry: SearchProduct, token: string, synonyms: Map<string, string[]>): number {
-  const { hay } = entry.product
-  if (hay.includes(token)) return entry.name.includes(token) ? NAME_HIT : HAY_HIT
-  if (synonyms.get(token)?.some((expansion) => hay.includes(expansion))) return SYNONYM_HIT
+function searchText(text: string): SearchText {
+  return { text, words: text.split(/[^a-z0-9]+/).filter((word) => word.length > 2) }
+}
+
+/** How a token hits a text: as is, through a synonym, with a typo — or not at all. */
+function textHit(
+  { text, words }: SearchText,
+  token: string,
+  synonyms: Map<string, string[]>,
+): TextHit | null {
+  if (text.includes(token)) return 'exact'
+  if (synonyms.get(token)?.some((expansion) => text.includes(expansion))) return 'synonym'
   if (token.length >= TYPO_MIN_TOKEN) {
     const limit = typoLimit(token)
-    for (const word of entry.words) {
+    for (const word of words) {
       if (
         damerauLevenshtein(token, word.slice(0, token.length)) <= limit ||
         damerauLevenshtein(token, word) <= limit
       ) {
-        return TYPO_HIT
+        return 'typo'
       }
     }
   }
-  return 0
+  return null
+}
+
+function tokenScore(entry: SearchProduct, token: string, synonyms: Map<string, string[]>): number {
+  switch (textHit(entry.own, token, synonyms)) {
+    case 'exact':
+      return entry.name.includes(token) ? NAME_HIT : HAY_HIT
+    case 'synonym':
+      return SYNONYM_HIT
+    case 'typo':
+      return TYPO_HIT
+    case null:
+      return entry.group && textHit(entry.group, token, synonyms) ? GROUP_HIT : 0
+  }
 }
 
 /** Products matching every token, best first; `null` when the query has no tokens. */
@@ -119,19 +158,34 @@ export function searchProducts(prepared: PreparedSearch, query: string): IndexPr
   return scored.sort((a, b) => b.score - a.score).map(({ product }) => product)
 }
 
-/** Categories of the results with the number of hits in each, most first. */
+/**
+ * Categories of the results with the number of hits in each. A category whose name holds more
+ * tokens of the query comes first („kasa” → „Kasy fiskalne” before 74 scanners), then the one
+ * with more hits; ties keep the catalog order.
+ */
 export function matchCategories(
   index: CatalogIndex,
+  prepared: PreparedSearch,
   results: IndexProduct[],
+  query: string,
 ): (CatalogIndex['categories'][number] & { hits: number })[] {
   const hits = new Map<string, number>()
   for (const product of results) {
     for (const slug of new Set(product.categories)) hits.set(slug, (hits.get(slug) ?? 0) + 1)
   }
+  const tokens = tokenize(query, prepared.stopWords)
+  const nameHits = (name: string) => {
+    const text = searchText(normalizeText(name))
+    return tokens.filter((token) => textHit(text, token, prepared.synonyms)).length
+  }
   return index.categories
     .filter((category) => hits.has(category.slug))
-    .map((category) => ({ ...category, hits: hits.get(category.slug)! }))
-    .sort((a, b) => b.hits - a.hits)
+    .map((category) => ({
+      category: { ...category, hits: hits.get(category.slug)! },
+      nameHits: nameHits(category.name),
+    }))
+    .sort((a, b) => b.nameHits - a.nameHits || b.category.hits - a.category.hits)
+    .map(({ category }) => category)
 }
 
 /** Pages of the site whose title holds every token of the query. */
