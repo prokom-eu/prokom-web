@@ -156,3 +156,12 @@ Wizualizacja v20 (`docs/design/prokomsoftware/ZMIANY-v20.md` §8 — dziś histo
     - `/dziekujemy` — trasa w grupie `(software)` (strażnik linii, `noindex`, poza sitemap), teksty w `SoftwareSettings.thanks` (JSON + Zod), numer z `?nr=`. Nie `Pages`, bo `Pages` nie ma dziś przełącznika `noindex` per strona — osobna trasa jest prostsza niż nowe pole dla jednej strony. Slug `dziekujemy` dochodzi do `RESERVED_PAGE_SLUGS`.
     - 404 — `not-found.tsx` w ramce linii; dla Software treść z planszy `NieZnaleziono` (6 kafli popularnych miejsc) w `SoftwareSettings.notFound` (JSON + Zod), wyszukiwarka z indeksu §4.
 12. **Formularze** (spec. §7.2): kontakt, „Twój projekt” i audyt po wysłaniu przechodzą na `/dziekujemy?nr=…`; kreator pokazuje sukces na miejscu (decyzja SWD1 D4). Pola „Imię” i zgoda — bez zmian (rozstrz. SW0 6; od v20 są też w planszach).
+
+## Doprecyzowania SW2a (Krystian, 25.10.2026)
+
+Wynikły przy budowie kolekcji (SW2a-1). Obowiązują zamiast sprzecznych fragmentów §1.
+1. **`SolutionAreas` bez pola `gradient`** (zmienia §1.2): kolor kafla bierze komponent z tokenu `--grad-area-<key>` (ADR-015 rozstrz. 4) — jedno źródło koloru. Seed nie importuje `obszary.json` → `gradient`.
+2. **Cena obszaru** (doprecyzowuje rozstrz. v20 3): `priceLabel` wygrywa z `priceFrom` (np. „od 149 zł / mies.”); pusty `priceLabel` → „od {cena} zł” z `priceFrom`; oba puste → `priceDisplay.fallback` („Zapytaj o wycenę”).
+3. **Tło miniatury karty** (`Solutions.cardGradient`): select z kluczami `peach` / `sand` / `sage`, kolory jako tokeny `--grad-card-<key>` razem z kartą (SW9); seed (SW3) mapuje wartości CSS z `rozwiazania.json` na klucze.
+4. **Aktywna miejscowość tylko z treścią** (§1.5): zapis `active=true` wymaga tytułu i wstępu nagłówka.
+5. **`Solutions.page`** (§1.1) dochodzi w SW10 razem ze stroną rozwiązania — kształt pól z planszy `Rozwiazanie`, nie z góry.

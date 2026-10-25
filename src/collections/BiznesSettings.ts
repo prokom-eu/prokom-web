@@ -1,22 +1,16 @@
-import { APIError } from 'payload'
-import type { CollectionBeforeValidateHook, CollectionConfig } from 'payload'
+import type { CollectionConfig } from 'payload'
 
 import { linkGroup } from '../blocks/fields'
 import { adminOnly } from '../lib/auth/access'
 import { catalogRevalidationHooks } from '../lib/catalog/revalidate'
 import { validateWizard } from '../lib/catalog/wizard'
-import { tenantIdOf } from '../lib/tenant/id'
-import { lineOfTenant } from '../lib/tenant/lineOf'
+import { onlyLineTenant } from '../lib/tenant/onlyLine'
 
 /** Only a tenant of the Biznes line may have these settings (ADR-012, rozstrzygnięcie 2). */
-const onlyBiznesTenant: CollectionBeforeValidateHook = async ({ data, originalDoc, req }) => {
-  const tenantId = tenantIdOf(data?.tenant ?? originalDoc?.tenant)
-  if (tenantId === null) return data // the plugin's tenant field reports the missing tenant
-  if ((await lineOfTenant(tenantId, req)) !== 'biznes') {
-    throw new APIError('Ustawienia Biznesu mają tylko strony linii Biznes.', 400, null, true)
-  }
-  return data
-}
+const onlyBiznesTenant = onlyLineTenant(
+  'biznes',
+  'Ustawienia Biznesu mają tylko strony linii Biznes.',
+)
 
 /**
  * Search, news and wizard configuration of the Biznes site — one document per tenant (plugin

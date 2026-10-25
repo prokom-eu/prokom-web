@@ -82,6 +82,9 @@ export interface Config {
     products: Product;
     posts: Post;
     'biznes-settings': BiznesSetting;
+    solutions: Solution;
+    'solution-areas': SolutionArea;
+    cities: City;
     'payload-kv': PayloadKv;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
@@ -105,6 +108,9 @@ export interface Config {
     products: ProductsSelect<false> | ProductsSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
     'biznes-settings': BiznesSettingsSelect<false> | BiznesSettingsSelect<true>;
+    solutions: SolutionsSelect<false> | SolutionsSelect<true>;
+    'solution-areas': SolutionAreasSelect<false> | SolutionAreasSelect<true>;
+    cities: CitiesSelect<false> | CitiesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -2997,6 +3003,262 @@ export interface BiznesSetting {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "solutions".
+ */
+export interface Solution {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  /**
+   * Część adresu, np. „strona-firmowa-z-panelem”.
+   */
+  slug: string;
+  legacyId?: number | null;
+  name: string;
+  /**
+   * Filtr katalogu i zakładka cennika.
+   */
+  category: 'strony' | 'systemy' | 'aplikacje' | 'automatyzacje' | 'opieka';
+  /**
+   * Np. „Strona”, „System”.
+   */
+  label?: string | null;
+  /**
+   * Np. „PANEL TREŚCI”.
+   */
+  tag?: string | null;
+  lead?: string | null;
+  /**
+   * Trzy krótkie cechy na karcie. {termin} = termin tego rozwiązania.
+   */
+  features?: string[] | null;
+  forWhom?: string | null;
+  situations?: ('Z' | 'R' | 'P')[] | null;
+  industryGroups?:
+    | (
+        | 'budowlanka-i-ekipy'
+        | 'noclegi'
+        | 'turystyka-i-wydarzenia'
+        | 'gastronomia'
+        | 'zdrowie-i-uroda'
+        | 'uslugi-i-transport'
+        | 'handel-i-producenci'
+        | 'edukacja-i-organizacje'
+      )[]
+    | null;
+  /**
+   * Po spacji; polskie znaki niepotrzebne.
+   */
+  keywords?: string | null;
+  hasLivePreview?: boolean | null;
+  /**
+   * Np. „Nowe zapytanie z formularza”.
+   */
+  toast?: string | null;
+  /**
+   * Puste = karta bez miniatury.
+   */
+  cardGradient?: ('peach' | 'sand' | 'sage') | null;
+  prices?: {
+    start?: number | null;
+    std?: number | null;
+    full?: number | null;
+  };
+  /**
+   * Np. „2 tygodnie”, „4–5 tygodni”.
+   */
+  leadTimes?: {
+    start?: string | null;
+    std?: string | null;
+    full?: string | null;
+  };
+  /**
+   * Linia pod ceną, np. „Na start = jeden moduł na gotowym fundamencie, do 5 użytkowników”.
+   */
+  priceNote?: string | null;
+  featured?: {
+    name?: string | null;
+    tag?: string | null;
+    lead?: string | null;
+    features?: string[] | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "solution-areas".
+ */
+export interface SolutionArea {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  name: string;
+  /**
+   * Wybiera kolor kafla i ilustrację.
+   */
+  key: 'www' | 'sys' | 'app' | 'cal' | 'plug' | 'auto' | 'care' | 'aud';
+  icon?:
+    | (
+        | 'shield'
+        | 'cal'
+        | 'users'
+        | 'store'
+        | 'bolt'
+        | 'doc'
+        | 'life'
+        | 'arrow'
+        | 'check'
+        | 'phone'
+        | 'mail'
+        | 'pin'
+        | 'clock'
+        | 'monitor'
+        | 'remote'
+        | 'bell'
+        | 'wallet'
+        | 'chat'
+        | 'wrench'
+        | 'rocket'
+        | 'map'
+        | 'star'
+        | 'q'
+        | 'flash'
+        | 'grad'
+        | 'server'
+        | 'compass'
+      )
+    | null;
+  short?: string | null;
+  description?: string | null;
+  gain?: string | null;
+  /**
+   * Tekst, nie licznik, np. „7 rozwiązań”, „3 poziomy”.
+   */
+  countLabel?: string | null;
+  priceFrom?: number | null;
+  /**
+   * Wygrywa z liczbą, np. „od 149 zł / mies.”. Pusty = „od {cena} zł” z ceny obok; oba puste = „Zapytaj o wycenę”.
+   */
+  priceLabel?: string | null;
+  /**
+   * Pozycja bez rozwiązania nie jest linkiem (np. PWA).
+   */
+  chips?:
+    | {
+        label: string;
+        solution?: (number | null) | Solution;
+        id?: string | null;
+      }[]
+    | null;
+  cta?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  /**
+   * Mniejsza liczba = wcześniej.
+   */
+  order?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "cities".
+ */
+export interface City {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  name: string;
+  /**
+   * Np. „z Rabki-Zdroju”.
+   */
+  locative?: string | null;
+  /**
+   * Część adresu, np. „rabka-zdroj”.
+   */
+  slug: string;
+  /**
+   * Tylko z własną, unikalną treścią. Nieaktywna = brak strony i wpisu w mapie.
+   */
+  active?: boolean | null;
+  hero?: {
+    eyebrow?: string | null;
+    title?: string | null;
+    titleAccent?: string | null;
+    lead?: string | null;
+    ctas?:
+      | {
+          link: {
+            label: string;
+            href: string;
+          };
+          id?: string | null;
+        }[]
+      | null;
+    badges?:
+      | {
+          title: string;
+          text?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  who?: {
+    title?: string | null;
+    lead?: string | null;
+    items?:
+      | {
+          name: string;
+          text?: string | null;
+          cta?: string | null;
+          solution?: (number | null) | Solution;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  local?: {
+    title?: string | null;
+    items?:
+      | {
+          title: string;
+          text?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  faq?:
+    | {
+        question: string;
+        answer: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Miejscowości w okolicy (sam tekst).
+   */
+  nearby?: string[] | null;
+  cta?: {
+    title?: string | null;
+    text?: string | null;
+    buttons?:
+      | {
+          link: {
+            label: string;
+            href: string;
+          };
+          id?: string | null;
+        }[]
+      | null;
+  };
+  seo?: {
+    title?: string | null;
+    description?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -3179,6 +3441,18 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'biznes-settings';
         value: number | BiznesSetting;
+      } | null)
+    | ({
+        relationTo: 'solutions';
+        value: number | Solution;
+      } | null)
+    | ({
+        relationTo: 'solution-areas';
+        value: number | SolutionArea;
+      } | null)
+    | ({
+        relationTo: 'cities';
+        value: number | City;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -5162,6 +5436,183 @@ export interface BiznesSettingsSelect<T extends boolean = true> {
             };
       };
   wizard?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "solutions_select".
+ */
+export interface SolutionsSelect<T extends boolean = true> {
+  tenant?: T;
+  slug?: T;
+  legacyId?: T;
+  name?: T;
+  category?: T;
+  label?: T;
+  tag?: T;
+  lead?: T;
+  features?: T;
+  forWhom?: T;
+  situations?: T;
+  industryGroups?: T;
+  keywords?: T;
+  hasLivePreview?: T;
+  toast?: T;
+  cardGradient?: T;
+  prices?:
+    | T
+    | {
+        start?: T;
+        std?: T;
+        full?: T;
+      };
+  leadTimes?:
+    | T
+    | {
+        start?: T;
+        std?: T;
+        full?: T;
+      };
+  priceNote?: T;
+  featured?:
+    | T
+    | {
+        name?: T;
+        tag?: T;
+        lead?: T;
+        features?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "solution-areas_select".
+ */
+export interface SolutionAreasSelect<T extends boolean = true> {
+  tenant?: T;
+  name?: T;
+  key?: T;
+  icon?: T;
+  short?: T;
+  description?: T;
+  gain?: T;
+  countLabel?: T;
+  priceFrom?: T;
+  priceLabel?: T;
+  chips?:
+    | T
+    | {
+        label?: T;
+        solution?: T;
+        id?: T;
+      };
+  cta?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "cities_select".
+ */
+export interface CitiesSelect<T extends boolean = true> {
+  tenant?: T;
+  name?: T;
+  locative?: T;
+  slug?: T;
+  active?: T;
+  hero?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+        titleAccent?: T;
+        lead?: T;
+        ctas?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                  };
+              id?: T;
+            };
+        badges?:
+          | T
+          | {
+              title?: T;
+              text?: T;
+              id?: T;
+            };
+      };
+  who?:
+    | T
+    | {
+        title?: T;
+        lead?: T;
+        items?:
+          | T
+          | {
+              name?: T;
+              text?: T;
+              cta?: T;
+              solution?: T;
+              id?: T;
+            };
+      };
+  local?:
+    | T
+    | {
+        title?: T;
+        items?:
+          | T
+          | {
+              title?: T;
+              text?: T;
+              id?: T;
+            };
+      };
+  faq?:
+    | T
+    | {
+        question?: T;
+        answer?: T;
+        id?: T;
+      };
+  nearby?: T;
+  cta?:
+    | T
+    | {
+        title?: T;
+        text?: T;
+        buttons?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                  };
+              id?: T;
+            };
+      };
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
