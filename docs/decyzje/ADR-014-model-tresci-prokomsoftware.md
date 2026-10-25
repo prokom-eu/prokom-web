@@ -1,6 +1,6 @@
 # ADR-014: Model treści prokomsoftware.pl — rozwiązania, obszary, kreator, branże, miejscowości
 
-- **Status:** przyjęta (22.10.2026, SW0) — rozstrzygnięcia na końcu obowiązują zamiast sprzecznych fragmentów §1–§5
+- **Status:** przyjęta (22.10.2026, SW0); uzupełniona o wizualizację v20 (25.10.2026, SWD1) — rozstrzygnięcia na końcu (SW0, potem v20) obowiązują zamiast sprzecznych fragmentów §1–§5
 - **Data:** 2026-10-18
 - **Decyduje:** Krystian
 - **Kontekst:**
@@ -14,7 +14,7 @@
 
 | Element | Nowy? | Zawartość | Seed (`seed/prokomsoftware/`) |
 |---|---|---|---|
-| `Solutions` | nowa | 30 rozwiązań (§1.1) | `rozwiazania.json` |
+| `Solutions` | nowa | 29 rozwiązań (§1.1; v20 — „Rezerwacje online na stronie” usunięte, rozstrz. v20 2) | `rozwiazania.json` |
 | `SolutionAreas` | nowa | 8 obszarów strony głównej (§1.2) | `obszary.json` |
 | `Cities` | nowa | strony miejscowości (§1.5) | `miejscowosci.json` |
 | `SiteSettings.software` | nowa grupa pól (widoczna tylko dla linii `software`, wzorzec B1b) | nawigacja i mega menu, stopka, menu na telefonie, teksty szuflady „Twój projekt”, kanały kontaktu Software, obietnice, **fakty [SZEF]** (§1.4) | `nawigacja.json`, `fakty.json` |
@@ -132,4 +132,27 @@ Decyzje z przeglądu SW0 (numery D6–D18 jak w przeglądzie). Obowiązują zami
 10. **Wyszukiwarka** (§4): `prepareSearch`/`searchProducts` z `lib/search.ts` uogólnione do elementów `{ name, hay, popularity? }` w SW3/SW9, z testami obu linii.
 11. **`/aktualnosci` — trasa wspólna** (D12, §2): zbudowana w B11 Biznesu poza grupą `(biznes)` (ADR-012 rozstrz. 5 zmienione 22.10.2026); SW11 dokłada wygląd Software.
 12. **Ramka strony per linia:** `src/app/(sites)/[domain]/layout.tsx` wybiera dziś ramkę po `settings.biznes`. SW4 wydziela ramkę linii (`src/sites/<linia>/Frame.tsx` albo równoważny podział) zamiast kolejnych warunków.
-13. **Kolejność sesji** (D18): SW2 dopiero po scaleniu B11 (wspólne `Inquiries`, `Industries`, `Posts` i migracje). Pełna kolejność: `docs/zadania/prokomsoftware.md` §3.
+13. **Kolejność sesji** (D18; zmienione 22.10 i w SWD1 25.10): SW2 podzielone. **SW2a** — tylko nowe elementy Software (`Solutions`, `SolutionAreas`, `Cities`, `SoftwareSettings`, grupa `SiteSettings.software` + `fillFacts`, strażnik `(software)`, `RESERVED_PAGE_SLUGS`) — nie czeka na Biznes. **SW2b** — rozszerzenia kolekcji wspólnych z Biznesem (`Inquiries`, grupa Software w `Industries`, `Posts.relatedSolutions`); B8, B10 i B11 są scalone (25.10), więc SW2b nie jest już zablokowane. Kolejność: SW2a → SW3 → SW4 → SW9 → SW2b → SW7 → SW5 → SW6 → SW8a/b → SW10 → SW11a/b → SW12 (`docs/zadania/prokomsoftware.md` §3).
+
+## Rozstrzygnięcia v20 (SWD1, Krystian 25.10.2026)
+
+Wizualizacja v20 (`docs/design/prokomsoftware/ZMIANY-v20.md` §8 — dziś historia) dokłada pola i zmienia kilka reguł. Obowiązują zamiast sprzecznych fragmentów §1–§5 i rozstrzygnięć SW0. Nazwy pól jak w seedzie v20 (JSON 1:1).
+
+1. **Ceny w seedzie są wypełnione** (decyzja Krystiana 25.10; przed publikacją akceptacja szefa). Reguły bez zmian: przechowujemy `prices` i `leadTimes`, `priceFrom`/`leadTime` liczone (rozstrz. SW0 5); w seedzie tylko informacyjnie.
+   - **Pusta cena → „Zapytaj o wycenę”, pusty termin → „po krótkiej rozmowie”** (`SoftwareSettings.wizard.priceDisplay.fallback` / `termFallback`; zastępuje „Cena po krótkiej rozmowie, na piśmie” z §1.1). Jeden tekst dla każdej pustej ceny (decyzja SWD1 D1) — bez osobnej reguły „celowo puste”. Ceny aplikacji (3) i automatyzacji (5) są celowo puste.
+   - `priceDisplay`: wybrany rozmiar → cena bez „od” (`template`), rozmiar niewybrany → cena „Na start” z „od” (`templateFrom`), opieka → `monthTemplate` („od {cena} zł / mies.”). Cena `0` to cena (audyt „szybki 0 zł”), nie brak ceny.
+   - `Solutions.priceNote` (już w §1.1) — linia zakresu przy cenie (np. systemy „Na start = jeden moduł na gotowym fundamencie, do 5 użytkowników, bez integracji”; opieka: ceny miesięczne).
+2. **Rozwiązania usunięte z oferty:** `rozwiazania.json` → `removed` (dziś „Rezerwacje online na stronie”, 25.10) — **seed je pomija**: nie trafiają do bazy, indeksu wyszukiwarki ani sitemap. **Bez nowego statusu** w `Solutions` (rekord, który już jest w bazie lokalnej, usuwa się ręcznie w panelu). Test seeda: żaden `legacyId`/`slug` z `removed` nie jest w bazie ani w indeksie.
+3. **`SolutionAreas.priceLabel`** (tekst, opcjonalny) obok `priceFrom` — „zapytaj o wycenę” w kaflach obszarów i w arkuszu menu, gdy obszar nie ma ceny.
+4. **`SiteSettings.software.navigation`** (JSON jak `nawigacja.json`, schemat Zod; wzorzec `SiteSettings.biznes` z B3a): `header`, `headerRight`, `mega` (z rzędem „Dla branż” i kartą bez liczby), `footer` (z „Dla branż” i linkami prawnymi), **`headerMobile`** (nagłówek ≤ 1080 px: znak + „Wycena”), **`tabBar`** (5 pozycji dolnego paska), **`mobileMenu`** i **`mobileMenuFooter`** (arkusz menu), **`projectPill`** i **`projectDrawer`** („Twój projekt” — pigułka i arkusz/szuflada). Spec. §3.
+5. **`SiteSettings.software.facts`** — `fakty.json` wypełnione 25.10; nowe klucze `TELEFON ZAKOPANE`, `OKRES PRZECHOWYWANIA`, `DATA AKTUALIZACJI`. Telefon i e-mail linii nadal tylko z `SiteSettings.phone` / `email` (rozstrz. SW0 4) — `[TELEFON SOFTWARE]` i `[E-MAIL SOFTWARE]` w planszach to te pola, nie fakty.
+6. **`SoftwareSettings.home`** (JSON + Zod, rozstrz. SW0 7) dostaje `whyNotWordpress` (eyebrow, tytuł, lead, fakty ze źródłem, tabela porównania, CTA) i `proceduralMock` (makieta wyceny w procesie). **`homeOrder` nie jest polem** (decyzja SWD1 D2): kolejność sekcji = kolejność bloków strony `home` w `Pages` (rozstrz. SW0 7); `homeOrder` z seeda służy tylko seedowi do ułożenia bloków i szynie sekcji. Lista sekcji `swHomeSection` po v20: obszary, 12 rzeczy, podglądy, proces, kreator, **bez-wordpressa**, zasady, realizacje oraz — na `/o-firmie` — technologie, jak robimy, porównanie (te same komponenty, inna strona).
+7. **`SoftwareSettings.wizard`** dostaje `scopeNotes` (linia zakresu pod ceną wyniku), `mobile` (teksty przycisku podglądu), `badges`, `send` (`fields`, `consent`, `errors`, `success`) i nowy kształt `priceDisplay` (pkt 1). Schemat Zod w `lib/software/wizard.ts` sprawdzany na `kreator.json` v20.
+8. **`Industries` — FAQ branży we wspólnym polu `faq`** (decyzja SWD1 D3; rozstrz. SW0 1 — `faq` jest wspólne), nie w nowym `software.faq`; seed mapuje `branze.json` → `budowlanka.faq` na `faq` (4 pytania, JSON-LD `FAQPage`). Grupa `software` dostaje **`wizardTitle`** (tytuł sekcji „Złóż system…”, np. „W 60 sekund.”).
+9. **`Cities.faq`** — bez zmian (§1.5 już je ma); odpowiedzi mogą zawierać ceny przez `{cena:<slug>}`.
+10. **`{cena:<slug>}` w tekstach** (`Industries`, `Cities`, `SoftwareSettings.home`) = cena „od” rozwiązania o tym slugu (liczona jak `priceFrom`). Pusta cena albo nieznany slug → zdanie z tokenem nie jest renderowane na produkcji (jak nierozwiązany fakt, §1.4; na stagingu widać token). Test: podmiana, pusta cena, zły slug.
+11. **Strony prawne i systemowe** (spec. §2, §6.11):
+    - `/polityka-prywatnosci` — strona tenanta `software` w `Pages` (jak B11b Biznesu, `src/seed/biznes/legal.ts`), treść z planszy `Polityka` jako projekt; seed tylko lokalnie.
+    - `/dziekujemy` — trasa w grupie `(software)` (strażnik linii, `noindex`, poza sitemap), teksty w `SoftwareSettings.thanks` (JSON + Zod), numer z `?nr=`. Nie `Pages`, bo `Pages` nie ma dziś przełącznika `noindex` per strona — osobna trasa jest prostsza niż nowe pole dla jednej strony. Slug `dziekujemy` dochodzi do `RESERVED_PAGE_SLUGS`.
+    - 404 — `not-found.tsx` w ramce linii; dla Software treść z planszy `NieZnaleziono` (6 kafli popularnych miejsc) w `SoftwareSettings.notFound` (JSON + Zod), wyszukiwarka z indeksu §4.
+12. **Formularze** (spec. §7.2): kontakt, „Twój projekt” i audyt po wysłaniu przechodzą na `/dziekujemy?nr=…`; kreator pokazuje sukces na miejscu (decyzja SWD1 D4). Pola „Imię” i zgoda — bez zmian (rozstrz. SW0 6; od v20 są też w planszach).

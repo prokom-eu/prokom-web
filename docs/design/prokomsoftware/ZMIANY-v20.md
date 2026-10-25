@@ -1,5 +1,7 @@
 # prokomsoftware.pl — zmiany w wizualizacji v20 (25.10.2026)
 
+> **Historia.** Wniesione do `docs/strony/prokomsoftware.md`, ADR-014, ADR-015 i `docs/zadania/prokomsoftware.md` w SWD1 (25.10.2026). Źródłem prawdy jest spec.; przy rozbieżności z tym plikiem wygrywa spec. i rozstrzygnięcia v20 w ADR-ach (np. FAQ branży we wspólnym `Industries.faq`, `homeOrder` tylko w seedzie, pusta cena = „Zapytaj o wycenę”).
+
 Źródło: audyt całej strony (25.10.2026), decyzje Krystiana z tego dnia (ceny, „wszystko z audytu”, telefon „jak aplikacja”) i prośba o sekcję „Dlaczego nie WordPress i PHP” na wzór pro-kom.eu. **Do czasu sesji SWD1 ten plik ma pierwszeństwo przed `docs/strony/prokomsoftware.md` §2–§4, §6–§8 i §13.** Wzorzec: plansze `boards/`, zrzuty `screens/`, stany `stany/` (wszystko odświeżone w v20).
 
 ## 1. Nawigacja na telefonie i tablecie (≤ 1080 px) — nowa
