@@ -1,0 +1,3931 @@
+{
+ "zestawy": [
+  {
+   "slug": "zestaw-sklep-kasa-start",
+   "nazwa": "Mały sklep — kasa z szufladą i czytnikiem kodów",
+   "seria": "sklep",
+   "poziom": "Mały",
+   "branza": "handel",
+   "branze": [
+    "handel",
+    "biura-uslugi",
+    "beauty"
+   ],
+   "dla_kogo": "Mały sklep, kiosk, butik albo punkt usług z jednym stanowiskiem i asortymentem do ok. 10 000 towarów, bez wagi i bez komputera przy kasie.",
+   "korzysc": "Kasa, szuflada i czytnik kodów, które działają razem od pierwszego dnia sprzedaży.",
+   "opis": [
+    "To podstawowe stanowisko kasowe dla małego sklepu i punktu usług. Towar kasujesz czytnikiem kodów zamiast wpisywać go z klawiatury, kasa po zamknięciu paragonu sama otwiera szufladę, a płatność kartą przyjmujesz na terminalu obok.",
+    "Sercem zestawu jest kasa Elzab Mini ONLINE: mieści 10 000 towarów i 33 kasjerów, ma osobne gniazdo szuflady i port USB na czytnik kodów, a akumulator pozwala dokończyć sprzedaż przy zaniku prądu. Czytnik Elzab BS80 2D czyta kody z opakowań i z ekranu telefonu (kupony, karty lojalnościowe), a na podstawce skanuje automatycznie. Szuflada pochodzi od tego samego producenta co kasa.",
+    "Dostajesz urządzenia połączone, kasę zgłoszoną i zaprogramowaną oraz krótkie szkolenie z obsługi. Jeśli w sklepie nie ma internetu, wybierasz wersję kasy z modemem GPRS i kartą SIM. Wagę możesz dołożyć później — kasa ma na nią złącze."
+   ],
+   "elementy": [
+    {
+     "slug": "mini",
+     "rola": "kasa fiskalna online",
+     "ilosc": 1,
+     "wariant_sugerowany": "Elzab Mini ONLINE (LAN); bez internetu w lokalu — Mini LAN/BT/GPRS",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "elzab-szuflada-kasowa-elz-240-elz-350-rj-pro",
+     "rola": "szuflada kasowa",
+     "ilosc": 1,
+     "wariant_sugerowany": "ELZ-350; kabel dobierzemy do kasy",
+     "obowiazkowy": true,
+     "do_potwierdzenia": "Napięcie sterowania szuflady w Mini ONLINE i typ kabla (RJ standard albo „typ Alfa” dla Mini) — karta szuflady podaje kabel do „Alfa, Mini, Mini E”, ale nie nazywa wprost Mini ONLINE."
+    },
+    {
+     "slug": "elzab-czytnik-kodow-bs80-2d-usb-kit-z-podstawka",
+     "rola": "czytnik kodów 2D z podstawką",
+     "ilosc": 1,
+     "wariant_sugerowany": "BS80 2D USB KIT",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "pol",
+     "rola": "terminal płatniczy",
+     "ilosc": 1,
+     "wariant_sugerowany": "Ingenico Desk 3200 + PIN-pad Desk 1500 albo przenośny Move 2500 — terminal działa samodzielnie (kwotę wpisujesz na terminalu)",
+     "obowiazkowy": false,
+     "do_potwierdzenia": "Przekazywanie kwoty z Mini ONLINE do terminala PolCard — karta kasy podaje tylko „terminal płatniczy”; bez integracji terminal działa samodzielnie."
+    }
+   ],
+   "zamienniki": [
+    {
+     "zamiast": "mini",
+     "mozna": "bingo",
+     "kiedy": "Gdy chcesz przyjmować BLIK bezpośrednio na kasie albo potrzebujesz bazy 30 000–60 000 towarów; wtedy szuflada Posnet MK330/MK350 i czytnik FAWAGscan."
+    },
+    {
+     "zamiast": "mini",
+     "mozna": "minilt",
+     "kiedy": "Gdy kasa ma łączyć się z internetem przez Wi-Fi zamiast kabla LAN i wystarczy 10 kasjerów."
+    },
+    {
+     "zamiast": "elzab-czytnik-kodow-bs80-2d-usb-kit-z-podstawka",
+     "mozna": "zebra-ds2208-ds2278",
+     "kiedy": "Gdy zależy Ci na dłuższej gwarancji producenta (DS2208 — 5 lat) albo na czytniku bez kabla (DS2278)."
+    },
+    {
+     "zamiast": "elzab-szuflada-kasowa-elz-240-elz-350-rj-pro",
+     "mozna": "elzab-szuflada-flip-top-elz-ft460",
+     "kiedy": "Gdy przy kasie nie ma miejsca na szufladę wysuwaną do przodu (montaż w blacie; sterowanie 24 V — sprawdzić z kasą)."
+    }
+   ],
+   "uslugi": [
+    "srvkas",
+    "szkol",
+    "przkas"
+   ],
+   "uslugi_po_akceptacji_szefa": [],
+   "dlaczego_tak": [
+    "Mini ONLINE ma 10 000 towarów, 33 kasjerów, złącze szuflady RJ12 i USB-A na czytnik kodów i wagę — to wszystko, czego potrzebuje mały sklep.",
+    "Czytnik BS80 2D łączy się przez USB i odczytuje kody QR także z ekranu telefonu; podstawka jest w zestawie.",
+    "Szuflady ELZ-240/ELZ-350 to ten sam producent co kasa — Elzab oferuje do nich kable także do kas Mini.",
+    "Akumulator Li-Ion i wersja z modemem GPRS pozwalają sprzedawać przy zaniku prądu albo bez internetu w lokalu.",
+    "Kasa obsługuje e-paragony i usługi czasowe, więc nadaje się też do wypożyczalni czy punktu usług."
+   ],
+   "uwagi_wewnetrzne": [
+    "Potwierdzić u Elzab napięcie wyjścia szuflady w Mini ONLINE i właściwy kabel (RJ / typ Alfa).",
+    "Integracja terminala PolCard z Mini ONLINE — sprawdzić listę terminali Elzab; inaczej terminal samodzielny.",
+    "Przy zamówieniu wybrać wersję łączności z CRK (LAN / LAN+BT/WiFi / LAN/BT/GPRS).",
+    "QA 25.10: w publicznym wariancie szuflady zostawiono tylko ELZ-350 („kabel dobierzemy do kasy”) do czasu potwierdzenia napięcia wyjścia szuflady w Mini ONLINE (ELZ-240 = 24 V)."
+   ],
+   "faq": [
+    {
+     "q": "Czy później podłączę wagę?",
+     "a": "Tak. Mini ONLINE ma złącze USB, do którego producent przewiduje podłączenie wagi."
+    },
+    {
+     "q": "Co, jeśli w sklepie nie ma internetu?",
+     "a": "Wybierz wersję Mini LAN/BT/GPRS — ma fabrycznie modem z kartą SIM i wysyła dane do CRK bez internetu w lokalu."
+    },
+    {
+     "q": "Czy czytnik odczyta kod z telefonu klienta?",
+     "a": "Tak, BS80 2D czyta kody 2D, w tym QR, wyświetlane na ekranie telefonu."
+    },
+    {
+     "q": "Czy terminal płatniczy jest konieczny?",
+     "a": "Nie. Zestaw działa bez niego; terminal dokładasz, gdy chcesz przyjmować karty i BLIK na terminalu."
+    }
+   ],
+   "kolejnosc": 1,
+   "status": "do-sprawdzenia"
+  },
+  {
+   "slug": "zestaw-sklep-spozywczy-kasa-waga",
+   "nazwa": "Sklep spożywczy — kasa z wagą przy ladzie",
+   "seria": "sklep-spozywczy",
+   "poziom": "Mały",
+   "branza": "handel",
+   "branze": [
+    "handel"
+   ],
+   "dla_kogo": "Sklep spożywczy, warzywniak, piekarnia lub sklep mięsny z jedną kasą, w którym część towaru sprzedajesz na wagę.",
+   "korzysc": "Waga sama przekazuje masę do kasy, a kasa liczy należność — bez przepisywania wyniku.",
+   "opis": [
+    "W sklepie spożywczym najwięcej pomyłek bierze się z ręcznego przepisywania wagi i ceny. W tym zestawie waga jest połączona z kasą: kładziesz towar, kasa pobiera masę i sama liczy kwotę na paragonie. Towary z kodem kasujesz czytnikiem, gotówka trafia do szuflady otwieranej przez kasę.",
+    "Zestaw jest zbudowany na urządzeniach jednej rodziny Posnet: kasa Posnet Bingo Max2 ONLINE (35 kasjerów, baza 10 000 towarów z opcją 30 000 lub 60 000, BLIK na kasie), waga Fawag WS-1 z wbudowanym protokołem kas POSNET i dwoma wyświetlaczami, szuflada Posnet MK350 oraz czytnik FAWAGscan, który według producenta współpracuje z każdym urządzeniem fiskalnym i wytrzymuje upadki z 3 m.",
+    "Dostajesz urządzenia połączone i skonfigurowane, kasę zgłoszoną i zaprogramowaną oraz szkolenie z obsługi. Pamiętaj, że waga używana do sprzedaży na wagę musi mieć ważną legalizację — przypilnujemy, żeby egzemplarz miał komplet dokumentów."
+   ],
+   "elementy": [
+    {
+     "slug": "bingo",
+     "rola": "kasa fiskalna online",
+     "ilosc": 1,
+     "wariant_sugerowany": "Bingo Max2 z WiFi, baza 30 000 PLU; bez internetu w lokalu — wersja z modemem LTE",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "waga",
+     "rola": "waga sklepowa do kasy",
+     "ilosc": 1,
+     "wariant_sugerowany": "WS-1 6/15 kg w wersji legalizowanej; na stoisko bez gniazdka — z akumulatorem",
+     "obowiazkowy": true,
+     "do_potwierdzenia": "Dostępność zakresów innych niż 6/15 kg (strona produktu Posnet podaje tylko 6/15 kg)."
+    },
+    {
+     "slug": "posnet-szuflada-mk330-mk350",
+     "rola": "szuflada kasowa",
+     "ilosc": 1,
+     "wariant_sugerowany": "MK350, sterowanie 6 V",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "fawagscan",
+     "rola": "czytnik kodów 2D z podstawką",
+     "ilosc": 1,
+     "wariant_sugerowany": "FAWAGscan z podstawką (w zestawie)",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "pol",
+     "rola": "terminal płatniczy",
+     "ilosc": 1,
+     "wariant_sugerowany": "Ingenico Desk 3200 + PIN-pad Desk 1500 — terminal działa samodzielnie (kwotę wpisujesz na terminalu)",
+     "obowiazkowy": false,
+     "do_potwierdzenia": "Integracja kwoty Bingo Max2 ↔ terminal PolCard — Posnet wymienia dla Bingo terminal Netpay; bez integracji terminal działa samodzielnie."
+    }
+   ],
+   "zamienniki": [
+    {
+     "zamiast": "bingo",
+     "mozna": "jota",
+     "kiedy": "Gdy wolisz kasę Elzab z mechaniczną klawiaturą i 33 kasjerami; wtedy waga Elzab Prima 2, szuflada Elzab ELZ-350 i czytnik BS80 2D."
+    },
+    {
+     "zamiast": "bingo",
+     "mozna": "neo",
+     "kiedy": "Gdy za ladą zmienia się kilku kasjerów, masz 30 000–60 000 towarów albo chcesz szalkę ważącą zintegrowaną z kasą."
+    },
+    {
+     "zamiast": "waga",
+     "mozna": "dibal-waga-g-325",
+     "kiedy": "Gdy waga ma też sama pokazywać cenę i należność albo pracować na targu (G-325 B z akumulatorem do ok. 120 h)."
+    },
+    {
+     "zamiast": "posnet-szuflada-mk330-mk350",
+     "mozna": "szuf",
+     "kiedy": "Gdy przy kasie jest dużo gotówki — Posnet SKL ma 8 przegród na banknoty."
+    }
+   ],
+   "uslugi": [
+    "srvkas",
+    "szkol",
+    "przkas"
+   ],
+   "uslugi_po_akceptacji_szefa": [],
+   "dlaczego_tak": [
+    "Waga WS-1 ma wbudowany protokół kas POSNET oraz porty RS-232 i USB, a Bingo Max2 ma 3 porty RS232, USB i obsługę wagi lub szalki.",
+    "Szuflada MK350 6 V — Posnet przeznacza ją do urządzeń POSNET, a Bingo steruje szufladami 6–24 V.",
+    "FAWAGscan ma interfejsy USB i RS-232, czyta kody z ekranu telefonu i według producenta współpracuje z każdym urządzeniem fiskalnym.",
+    "Bingo Max2 przyjmuje BLIK bez terminala, ma akumulator AGM i wersję z modemem LTE na lokal bez internetu.",
+    "WS-1 ma dwa wyświetlacze (sprzedawca i klient), dużą szalkę 352 × 265 mm i opcjonalny akumulator na ok. 8 h."
+   ],
+   "uwagi_wewnetrzne": [
+    "Legalizacja wagi — zamawiać egzemplarz z ważną legalizacją; numer zatwierdzenia typu WS-1 nie znaleziony (uwaga w karcie).",
+    "Netpay (terminal polecany przez Posnet) nie jest w katalogu; integracja z PolCard do sprawdzenia u Posnet.",
+    "Przy SKL: impuls 5–12 V mieści się w zakresie sterowania Bingo (6–24 V) — ustawić napięcie przy instalacji.",
+    "Zamiennik G-325: protokół wagi do kasy Bingo do potwierdzenia (przeniesione z pola publicznego).",
+    "WS-1: zamawiać egzemplarz w wersji legalizowanej — dostępność potwierdzić u Posnet."
+   ],
+   "faq": [
+    {
+     "q": "Czy waga musi być legalizowana?",
+     "a": "Tak, waga używana do sprzedaży na wagę musi mieć ważną legalizację. Instrukcja WS-1 podaje klasę dokładności III."
+    },
+    {
+     "q": "Czy kasa sama policzy cenę towaru na wagę?",
+     "a": "Tak. Waga przesyła masę do kasy, a kasa mnoży ją przez cenę z bazy towarów."
+    },
+    {
+     "q": "Czy przyjmę BLIK bez terminala?",
+     "a": "Tak, Posnet podaje płatności BLIK bezpośrednio na kasie Bingo Max2."
+    },
+    {
+     "q": "Co, jeśli zabraknie prądu?",
+     "a": "Kasa ma akumulator AGM, a do wagi WS-1 można dokupić akumulator na ok. 8 godzin pracy."
+    }
+   ],
+   "kolejnosc": 2,
+   "status": "do-sprawdzenia"
+  },
+  {
+   "slug": "zestaw-sklep-spozywczy-program-waga-etykiet",
+   "nazwa": "Sklep spożywczy — kasa, program magazynowy i waga etykietująca",
+   "seria": "sklep-spozywczy",
+   "poziom": "Średni",
+   "branza": "handel",
+   "branze": [
+    "handel"
+   ],
+   "dla_kogo": "Sklep osiedlowy lub delikatesy z ladą mięsną albo serową i komputerem na zapleczu, na którym prowadzisz dostawy, ceny i etykiety półkowe.",
+   "korzysc": "Cenę zmieniasz raz w programie, a trafia ona na kasę i na wagę etykietującą przy ladzie.",
+   "opis": [
+    "Gdy sklep ma kilka tysięcy towarów, dostawy kilka razy w tygodniu i ladę z wędlinami czy serami, ręczne pilnowanie cen na kasie, wadze i półce przestaje działać. W tym zestawie centrum jest program Insoft PC-Market 7 na komputerze na zapleczu: przyjmujesz w nim dostawy, ustalasz ceny i marże, a zmiany trafiają na kasę i wagę etykietującą.",
+    "Kasa Elzab Jota ONLINE ma mechaniczną klawiaturę, bazę 20 000 towarów i gniazda na wagę, szufladę i czytnik — Elzab podaje jej współpracę z PC-Market. Przy kasie stoi waga Elzab Prima 2, która wysyła masę do kasy. Przy ladzie pracuje waga etykietująca Dibal W-025: waży, liczy należność i drukuje etykietę ze składem i alergenami, a ceny pobiera z programu przez sieć. UPS chroni komputer z bazą przed nagłym wyłączeniem.",
+    "Dostajesz zainstalowany i skonfigurowany program z przeniesionymi danymi (w zakresie eksportu ze starego programu), połączone urządzenia, zgłoszoną kasę i szkolenie zespołu na Twoich danych. Faktury z programu wyślesz do KSeF. PC-Market wymaga serwera bazy danych MS SQL lub MariaDB — dobieramy go przy wycenie."
+   ],
+   "elementy": [
+    {
+     "slug": "jota",
+     "rola": "kasa fiskalna online",
+     "ilosc": 1,
+     "wariant_sugerowany": "Jota ONLINE (LAN)",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "elzab-waga-prima-2",
+     "rola": "waga przy kasie",
+     "ilosc": 1,
+     "wariant_sugerowany": "Prima 2 6/15 kg + zasilacz (zamawiany osobno)",
+     "obowiazkowy": true,
+     "do_potwierdzenia": "Tabela konfiguracji Elzab z Jotą dotyczy starszych kas — potwierdzić dla Jota ONLINE."
+    },
+    {
+     "slug": "dibal-w-025",
+     "rola": "waga etykietująca przy ladzie",
+     "ilosc": 1,
+     "wariant_sugerowany": "W-025T z wysięgnikiem",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "pcm",
+     "rola": "program sklepowy (magazyn, ceny, KSeF)",
+     "ilosc": 1,
+     "wariant_sugerowany": "PC-Market 7 z aktywną subskrypcją",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "lenovo-thinkcentre-neo-50s-55s",
+     "rola": "komputer na zaplecze (baza programu)",
+     "ilosc": 1,
+     "wariant_sugerowany": "neo 50s Gen 6, 16 GB RAM, SSD",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "dell-pro-e-monitor",
+     "rola": "monitor",
+     "ilosc": 1,
+     "wariant_sugerowany": "Dell Pro 24 E2426H",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "microsoft-windows-11-pro",
+     "rola": "system operacyjny",
+     "ilosc": 1,
+     "wariant_sugerowany": "Windows 11 Pro 64-bit (jeśli komputer nie ma go fabrycznie)",
+     "obowiazkowy": false
+    },
+    {
+     "slug": "elzab-szuflada-kasowa-elz-240-elz-350-rj-pro",
+     "rola": "szuflada kasowa",
+     "ilosc": 1,
+     "wariant_sugerowany": "ELZ-350 PRO",
+     "obowiazkowy": true,
+     "do_potwierdzenia": "Napięcie sterowania szuflady w Jocie (szuflada: 12 V na stronie, 12/24 V w poradniku Elzab)."
+    },
+    {
+     "slug": "elzab-czytnik-kodow-bs80-2d-usb-kit-z-podstawka",
+     "rola": "czytnik kodów 2D z podstawką",
+     "ilosc": 1,
+     "wariant_sugerowany": "BS80 2D USB KIT",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "apc-back-ups",
+     "rola": "zasilacz awaryjny dla komputera i routera",
+     "ilosc": 1,
+     "wariant_sugerowany": "BXR750MI-GR",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "godex-dt2x-dt4x-dt200",
+     "rola": "drukarka etykiet półkowych",
+     "ilosc": 1,
+     "wariant_sugerowany": "DT2x (54 mm, bez taśmy)",
+     "obowiazkowy": false,
+     "do_potwierdzenia": "Sterownik / współpraca z PC-Market — karta PC-Market wymienia drukarki etykiet ogólnie."
+    },
+    {
+     "slug": "pol",
+     "rola": "terminal płatniczy",
+     "ilosc": 1,
+     "wariant_sugerowany": "Desk 3200 + PIN-pad Desk 1500 — terminal działa samodzielnie (kwotę wpisujesz na terminalu)",
+     "obowiazkowy": false,
+     "do_potwierdzenia": "Integracja z kasą Jota — karta kasy podaje „terminal płatniczy” bez operatora."
+    }
+   ],
+   "zamienniki": [
+    {
+     "zamiast": "pcm",
+     "mozna": "gt",
+     "kiedy": "Gdy firma lub biuro rachunkowe pracuje na programach InsERT — Elzab podaje współpracę Joty z Subiektem GT, a waga W-025 współpracuje z Subiektem."
+    },
+    {
+     "zamiast": "dibal-w-025",
+     "mozna": "dibal-d-545-s-545",
+     "kiedy": "Gdy chcesz wyświetlaczy graficznych, wersji z drukarką w szufladzie (D-545DB) albo Wi-Fi."
+    },
+    {
+     "zamiast": "dibal-w-025",
+     "mozna": "dibal-d-955",
+     "kiedy": "Gdy przy ladzie ma być ekran dotykowy obsługi i kolorowy ekran klienta ze zdjęciami towarów."
+    },
+    {
+     "zamiast": "lenovo-thinkcentre-neo-50s-55s",
+     "mozna": "dell-pro-tower-slim",
+     "kiedy": "Gdy wolisz komputer Dell; w typowych konfiguracjach 3 lata ProSupport."
+    },
+    {
+     "zamiast": "elzab-waga-prima-2",
+     "mozna": "waga",
+     "kiedy": "Gdy waga przy kasie ma mieć wyświetlacz dla klienta i akumulator — Fawag WS-1 ma wbudowany protokół ELZAB."
+    }
+   ],
+   "uslugi": [
+    "wdrprog",
+    "srvkas",
+    "szkol",
+    "ksef",
+    "przkas"
+   ],
+   "uslugi_po_akceptacji_szefa": [
+    "kopie",
+    "opieka"
+   ],
+   "dlaczego_tak": [
+    "Elzab podaje współpracę kasy Jota z PC-Market, a wagi Dibal W-025 też współpracują z PC-Market, więc ceny i towary idą z jednego programu.",
+    "W-025 drukuje etykiety ze składem i alergenami (tekst do 3072 znaków, zgodność z rozporządzeniem UE 1169/2011) i pracuje w sieci Ethernet.",
+    "PC-Market przyjmuje dostawy z dokumentu elektronicznego, drukuje etykiety półkowe przy nowej dostawie, rozlicza system kaucyjny i obsługuje KSeF.",
+    "PC-Market wymaga Windows 64-bit, procesora 2 GHz i 8 GB RAM; neo 50s ma do 64 GB RAM i miejsce na dysk 3,5\" — zapas na bazę.",
+    "UPS BXR z AVR i 4 gniazdami Schuko podtrzymuje komputer z bazą i router; kasa ma własny akumulator."
+   ],
+   "uwagi_wewnetrzne": [
+    "PC-Market wymaga serwera bazy MS SQL lub MariaDB (producent odradza darmowe silniki Microsoft) — licencji SQL nie ma w katalogu; ustalić przy wycenie.",
+    "Prima 2 ↔ Jota ONLINE — potwierdzić w aktualnej tabeli konfiguracji Elzab.",
+    "KSeF w PC-Market od wersji 7.9.131.154 i przy aktywnej subskrypcji."
+   ],
+   "faq": [
+    {
+     "q": "Czy waga etykietująca pobierze ceny z programu?",
+     "a": "Tak. Wagi Dibal W-025 współpracują z programem PC-Market; waga łączy się przez sieć Ethernet."
+    },
+    {
+     "q": "Czy kasa dostanie ceny z komputera?",
+     "a": "Tak, Elzab podaje współpracę kasy Jota z PC-Market — zmiany cen wysyłasz z programu na kasę."
+    },
+    {
+     "q": "Czy program rozliczy system kaucyjny?",
+     "a": "Tak, PC-Market obsługuje sprzedaż i przyjmowanie opakowań kaucyjnych."
+    },
+    {
+     "q": "Czy wyślę faktury do KSeF?",
+     "a": "Tak, PC-Market obsługuje KSeF od wersji 7.9.131.154 przy aktywnej subskrypcji."
+    }
+   ],
+   "kolejnosc": 3,
+   "status": "do-sprawdzenia"
+  },
+  {
+   "slug": "zestaw-sklep-spozywczy-market-pos",
+   "nazwa": "Market — stanowiska POS, wagi w sieci i samoobsługa klienta",
+   "seria": "sklep-spozywczy",
+   "poziom": "Duży",
+   "branza": "handel",
+   "branze": [
+    "handel"
+   ],
+   "dla_kogo": "Market lub supermarket z 2–4 kasami, działami ważenia (mięso, sery, warzywa) i serwerem z programem sklepowym na zapleczu.",
+   "korzysc": "Kasy POS, wagi etykietujące i sprawdzarki cen korzystają z jednej bazy towarów i cen.",
+   "opis": [
+    "W markecie liczy się szybka kasa, spójne ceny na każdym urządzeniu i jak najmniej kolejek przy wadze. Ten zestaw łączy stanowiska POS z programem Insoft PC-POS, serwer z PC-Market 7 na zapleczu, wagi etykietujące Dibal na działach, samoobsługową wagę dla klientów i sprawdzarki cen w sali sprzedaży.",
+    "Każda kasa to komputer All-in-One z ekranem dotykowym, drukarka fiskalna Posnet Thermal HD z obcinaczem i papierem 80 mm, szuflada SKL polecana przez Posnet do tej drukarki, czytnik Zebra DS2208 i waga kalkulacyjna Dibal G-325. PC-POS pracuje na lokalnej bazie, więc przy zerwanym połączeniu z serwerem kasa dalej sprzedaje i dosyła dane po jego powrocie. Wagi D-545 i sprawdzarki Elzab mają PC-Market na liście zgodnych programów, a waga D-545SS pozwala klientom samym zważyć owoce i warzywa.",
+    "Dostajesz wdrożenie programu z przeniesieniem danych, połączone i zaprogramowane urządzenia, zgłoszone drukarki fiskalne i szkolenie kasjerów. Serwer jest podłączony do UPS, który przy długim zaniku prądu zamyka go automatycznie. PC-Market wymaga serwera bazy danych MS SQL lub MariaDB — dobieramy go przy wycenie."
+   ],
+   "elementy": [
+    {
+     "slug": "pcpos",
+     "rola": "program kasowy POS",
+     "ilosc": "wg stanowisk",
+     "wariant_sugerowany": "PC-POS Premium (kilka stanowisk)",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "pcm",
+     "rola": "program sklepowy z serwerem kasowym",
+     "ilosc": 1,
+     "wariant_sugerowany": "PC-Market 7 + serwer kasowy",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "dell-pro-tower-slim",
+     "rola": "serwer bazy / komputer zaplecza",
+     "ilosc": 1,
+     "wariant_sugerowany": "Pro Tower, 16 GB RAM, SSD",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "dell-pro-e-monitor",
+     "rola": "monitor do zaplecza",
+     "ilosc": 1,
+     "wariant_sugerowany": "Dell Pro 24 E2426H",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "lenovo-thinkcentre-neo-50a-55a",
+     "rola": "komputer POS z ekranem dotykowym",
+     "ilosc": "wg stanowisk",
+     "wariant_sugerowany": "neo 50a 24, ekran dotykowy",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "hd",
+     "rola": "drukarka fiskalna online",
+     "ilosc": "wg stanowisk",
+     "wariant_sugerowany": "Thermal HD ONLINE, papier 80 mm, wyświetlacz wolnostojący",
+     "obowiazkowy": true,
+     "do_potwierdzenia": "Model drukarki na aktualnej liście zgodności Insoft (PC-POS wymienia markę Posnet, karta: „model online z aktualnej listy zgodności Insoft”)."
+    },
+    {
+     "slug": "szuf",
+     "rola": "szuflada kasowa",
+     "ilosc": "wg stanowisk",
+     "wariant_sugerowany": "Posnet SKL",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "zebra-ds2208-ds2278",
+     "rola": "czytnik kodów 2D",
+     "ilosc": "wg stanowisk",
+     "wariant_sugerowany": "DS2208 USB",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "dibal-waga-g-325",
+     "rola": "waga przy kasie",
+     "ilosc": "wg stanowisk",
+     "wariant_sugerowany": "G-325 6/15 kg",
+     "obowiazkowy": true,
+     "do_potwierdzenia": "Protokół / sterownik OPOS do PC-POS — karta G-325: 40 protokołów + OPOS, karta PC-POS: „wagi” bez modeli."
+    },
+    {
+     "slug": "dibal-d-545-s-545",
+     "rola": "waga etykietująca na dziale",
+     "ilosc": "wg działów",
+     "wariant_sugerowany": "D-545DB (lada mięsna, serowa)",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "dibal-d-545-s-545",
+     "rola": "waga samoobsługowa dla klientów",
+     "ilosc": 1,
+     "wariant_sugerowany": "D-545SS przy warzywach i owocach",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "elzab-sprawdzarki-cen-llt-lwt-lft-2d",
+     "rola": "sprawdzarka cen w sali",
+     "ilosc": "2–4",
+     "wariant_sugerowany": "LFT 2D",
+     "obowiazkowy": false,
+     "do_potwierdzenia": "Zasilanie przez PoE/MZAS — moduł MZAS i zasilacz PoE nie są w katalogu."
+    },
+    {
+     "slug": "pol",
+     "rola": "terminal płatniczy",
+     "ilosc": "wg stanowisk",
+     "wariant_sugerowany": "Desk 3200 + PIN-pad Desk 1500 — terminal działa samodzielnie (kwotę wpisujesz na terminalu)",
+     "obowiazkowy": true,
+     "do_potwierdzenia": "Integracja kwoty PC-POS ↔ terminal PolCard (karta PC-POS: „karty płatnicze”, bez operatora)."
+    },
+    {
+     "slug": "apc-smart-ups-wieza",
+     "rola": "UPS serwera z automatycznym zamykaniem",
+     "ilosc": 1,
+     "wariant_sugerowany": "SMC1000IC",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "apc-back-ups",
+     "rola": "UPS przy stanowisku kasowym",
+     "ilosc": "wg stanowisk",
+     "wariant_sugerowany": "BXR750MI-GR",
+     "obowiazkowy": false
+    },
+    {
+     "slug": "microsoft-windows-11-pro",
+     "rola": "system operacyjny",
+     "ilosc": "wg komputerów",
+     "wariant_sugerowany": "Windows 11 Pro 64-bit",
+     "obowiazkowy": false
+    },
+    {
+     "slug": "eset",
+     "rola": "ochrona komputerów i serwera",
+     "ilosc": 1,
+     "wariant_sugerowany": "PROTECT Entry, 5+ stanowisk",
+     "obowiazkowy": false
+    }
+   ],
+   "zamienniki": [
+    {
+     "zamiast": "hd",
+     "mozna": "xl2",
+     "kiedy": "Gdy drukarka ma łączyć się przez Wi-Fi albo przenosić skaner i wagę przez tunelowanie portów COM."
+    },
+    {
+     "zamiast": "dibal-waga-g-325",
+     "mozna": "elzab-waga-prima-2",
+     "kiedy": "Gdy wolisz wagę niekalkulacyjną z programowalnym protokołem RS-232/USB (cenę liczy POS)."
+    },
+    {
+     "zamiast": "lenovo-thinkcentre-neo-50a-55a",
+     "mozna": "dell-pro-aio",
+     "kiedy": "Gdy wolisz Dell Pro 24 All-in-One w wersji dotykowej."
+    },
+    {
+     "zamiast": "pcpos",
+     "mozna": "minimarket",
+     "kiedy": "Gdy masz kilka sklepów zarządzanych z centrali — Mini-Market w sklepie, PC-Market w centrali."
+    },
+    {
+     "zamiast": "dibal-d-545-s-545",
+     "mozna": "dibal-d-955",
+     "kiedy": "Gdy na dziale ma być ekran dotykowy i kolorowy ekran klienta ze zdjęciami."
+    }
+   ],
+   "uslugi": [
+    "wdrprog",
+    "srvkas",
+    "szkol",
+    "ksef",
+    "przkas"
+   ],
+   "uslugi_po_akceptacji_szefa": [
+    "opieka",
+    "kopie"
+   ],
+   "dlaczego_tak": [
+    "PC-POS pracuje na lokalnej bazie i po utracie łączności z serwerem dalej sprzedaje, a dane wysyła po powrocie połączenia.",
+    "Wagi Dibal D-545 i sprawdzarki cen Elzab mają PC-Market na liście zgodnych programów — ceny na wadze i sprawdzarce są takie jak w systemie.",
+    "Thermal HD ma ceramiczny obcinacz, 47 linii/s i rolkę 100 m, a Posnet poleca do niej szufladę SKL.",
+    "D-545SS to wersja samoobsługowa — klient sam waży towar i drukuje etykietę, co skraca kolejkę przy dziale.",
+    "Smart-UPS SMC1000IC daje czystą sinusoidę i zamyka serwer przez PowerChute Serial Shutdown."
+   ],
+   "uwagi_wewnetrzne": [
+    "Thermal HD i G-325 — sprawdzić na liście zgodności Insoft przed wyceną.",
+    "Licencja serwera SQL (MS SQL lub MariaDB) dla PC-Market — nie ma w katalogu.",
+    "Kas samoobsługowych (PC-POS SCO) nie ma w katalogu jako sprzętu — przy zapytaniu dobór indywidualny.",
+    "Sprawdzarki: zasilacz PoE / moduł MZAS zamawiane osobno (niespójność napięć w karcie — potwierdzić).",
+    "Zamiennik drukarki: model do potwierdzenia na liście zgodności Insoft (przeniesione z pola publicznego)."
+   ],
+   "faq": [
+    {
+     "q": "Co się stanie, gdy padnie sieć albo serwer?",
+     "a": "PC-POS przełącza się na lokalną bazę i sprzedaje dalej, a dane wysyła na serwer po powrocie połączenia."
+    },
+    {
+     "q": "Czy klient może sam zważyć owoce?",
+     "a": "Tak, waga Dibal D-545SS jest samoobsługowa: klient waży towar i drukuje etykietę, z którą idzie do kasy."
+    },
+    {
+     "q": "Czy sprawdzarka pokaże aktualną cenę?",
+     "a": "Tak, sprawdzarki Elzab pobierają cenę z programu przez sieć w chwili skanowania; Elzab wymienia PC-Market wśród zgodnych programów."
+    },
+    {
+     "q": "Czy można dodać kasę samoobsługową?",
+     "a": "Insoft ma program PC-POS SCO do kas samoobsługowych; sprzęt do takiego stanowiska dobieramy indywidualnie."
+    }
+   ],
+   "kolejnosc": 4,
+   "status": "do-sprawdzenia"
+  },
+  {
+   "slug": "zestaw-sklep-etykiety-inwentaryzacja",
+   "nazwa": "Sklep z magazynem — etykiety z kodem i inwentaryzacja kolektorem",
+   "seria": "sklep-magazyn",
+   "poziom": "Standard",
+   "branza": "handel",
+   "branze": [
+    "handel",
+    "magazyn-produkcja"
+   ],
+   "dla_kogo": "Sklep branżowy, hurtownia lub sklep z zapleczem, który sam oznacza towar kodami i kilka razy w roku robi remanent.",
+   "korzysc": "Drukujesz etykiety z kodem, a dostawy i remanent robisz kolektorem zamiast na kartce.",
+   "opis": [
+    "Towar bez kodu albo z nieczytelnym kodem, ręczne liczenie na remanencie i przepisywanie dostaw z faktur zabierają godziny. Ten zestaw dokłada do sklepu drukarkę etykiet i kolektor danych: oznaczasz towar własnymi etykietami z kodem, a dostawy i inwentaryzację robisz, skanując towar na półce.",
+    "Na kolektorze Sunmi L2s Pro działa aplikacja Elzab elzAPP MAG, która współpracuje bezpośrednio z programem PC-Market: przyjęcia, wydania, przesunięcia, inwentaryzacja pełna i częściowa oraz sprawdzanie ceny na półce. Drukarka Zebra ZD421 w wersji termotransferowej drukuje trwałe etykiety z kodem kreskowym, a PC-Market sam przygotowuje etykiety półkowe przy nowej dostawie.",
+    "Dostajesz zainstalowany program, skonfigurowany kolektor z aplikacją, podłączoną drukarkę i szkolenie z przyjęcia dostawy i remanentu. Licencja elzAPP MAG jest jednorazowa. PC-Market wymaga serwera bazy danych MS SQL lub MariaDB — dobieramy go przy wycenie."
+   ],
+   "elementy": [
+    {
+     "slug": "pcm",
+     "rola": "program sklepowy i magazynowy",
+     "ilosc": 1,
+     "wariant_sugerowany": "PC-Market 7",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "sunmi-l2s-pro-l2ks",
+     "rola": "kolektor danych",
+     "ilosc": "1–2",
+     "wariant_sugerowany": "L2s Pro 4/64 GB",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "elzab-elzapp-mag-program-dla-sklepu-i-magazynu",
+     "rola": "aplikacja magazynowa na kolektor",
+     "ilosc": "wg kolektorów",
+     "wariant_sugerowany": "licencja podstawowa + moduł weryfikacji i drukowania etykiet",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "zebra-drukarka-etykiet-zd421",
+     "rola": "drukarka etykiet z kodem",
+     "ilosc": 1,
+     "wariant_sugerowany": "ZD421t (termotransfer)",
+     "obowiazkowy": true,
+     "do_potwierdzenia": "Współpraca z PC-Market (karta PC-Market: „drukarki etykiet” bez modeli) i z modułem etykiet elzAPP MAG."
+    },
+    {
+     "slug": "lenovo-thinkcentre-neo-50s-55s",
+     "rola": "komputer (baza programu i serwer elzAPP)",
+     "ilosc": 1,
+     "wariant_sugerowany": "neo 50s Gen 6, 16 GB RAM",
+     "obowiazkowy": true,
+     "do_potwierdzenia": "elzAPP MAG – Serwer: producent podaje Windows 7 i 10 — zgodność z Windows 11 do potwierdzenia."
+    },
+    {
+     "slug": "dell-pro-e-monitor",
+     "rola": "monitor",
+     "ilosc": 1,
+     "wariant_sugerowany": "Dell Pro 24 E2426H",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "apc-back-ups",
+     "rola": "zasilacz awaryjny komputera",
+     "ilosc": 1,
+     "wariant_sugerowany": "BXR750MI-GR",
+     "obowiazkowy": true
+    }
+   ],
+   "zamienniki": [
+    {
+     "zamiast": "zebra-drukarka-etykiet-zd421",
+     "mozna": "godex-g500-g530",
+     "kiedy": "Gdy drukujesz dużo etykiet magazynowych — taśma 300 m, Ethernet w standardzie."
+    },
+    {
+     "zamiast": "zebra-drukarka-etykiet-zd421",
+     "mozna": "godex-dt2x-dt4x-dt200",
+     "kiedy": "Gdy etykiety są krótkotrwałe (ceny, paczki) i nie potrzebujesz taśmy barwiącej."
+    },
+    {
+     "zamiast": "sunmi-l2s-pro-l2ks",
+     "mozna": "zebra-tc22-tc27",
+     "kiedy": "Gdy kolektor ma pracować w trudnych warunkach lub w trasie (TC27 z 5G/4G); Elzab wymienia TC22 dla elzAPP MAG."
+    },
+    {
+     "zamiast": "sunmi-l2s-pro-l2ks",
+     "mozna": "sunmi-l3",
+     "kiedy": "Gdy chcesz większy ekran 6,75\" i 4G; Elzab wymienia L3 dla elzAPP MAG."
+    },
+    {
+     "zamiast": "pcm",
+     "mozna": "gt",
+     "kiedy": "Gdy pracujesz na Subiekcie GT — elzAPP MAG współpracuje z innymi programami przez plik CSV."
+    }
+   ],
+   "uslugi": [
+    "wdrprog",
+    "szkol",
+    "ksef"
+   ],
+   "uslugi_po_akceptacji_szefa": [
+    "kopie"
+   ],
+   "dlaczego_tak": [
+    "elzAPP MAG współpracuje bezpośrednio z PC-Market, a Elzab wymienia jako urządzenia m.in. Sunmi L2s Pro, L3 i Zebra TC22.",
+    "Aplikacja obsługuje przyjęcia, wydania, przesunięcia, inwentaryzację pełną i częściową oraz sprawdzarkę cen; licencja jest jednorazowa.",
+    "PC-Market przyjmuje dostawy i remanent kolektorem i drukuje etykiety półkowe przy nowej dostawie.",
+    "ZD421t drukuje termotransferowo (trwałe etykiety), w 203 lub 300 dpi, z modułami Ethernet albo Wi-Fi.",
+    "L2s Pro to Android 12 ze skanerem 2D — spełnia wymaganie elzAPP MAG (Android 6.0 lub nowszy)."
+   ],
+   "uwagi_wewnetrzne": [
+    "elzAPP MAG – Serwer: Windows 11 do potwierdzenia u Elzab.",
+    "Drukarka do druku z kolektora (moduł etykiet) — Elzab nie wymienia modeli; potwierdzić z ZD421.",
+    "Rozbieżność IP L2s Pro (Sunmi IP68 / Elzab IP65) — nie podawać IP w ofercie."
+   ],
+   "faq": [
+    {
+     "q": "Czy kolektor połączy się z moim programem?",
+     "a": "elzAPP MAG współpracuje bezpośrednio z PC-Market, Jantar RMS, Cegid i WinShop, a z innymi programami przez plik CSV."
+    },
+    {
+     "q": "Czy wydrukuję etykietę prosto z kolektora?",
+     "a": "Tak, z modułem weryfikacji produktów i drukowania etykiet — bezprzewodowo na drukarce przenośnej lub biurkowej."
+    },
+    {
+     "q": "Czy aplikacja ma abonament?",
+     "a": "Nie, Elzab podaje opłatę jednorazową za licencję i moduły."
+    },
+    {
+     "q": "Jakie etykiety wybrać?",
+     "a": "Na towar, który długo leży lub jest narażony na ścieranie — termotransferowe (ZD421t). Na ceny i paczki wystarczą termiczne bez taśmy."
+    }
+   ],
+   "kolejnosc": 5,
+   "status": "do-sprawdzenia"
+  },
+  {
+   "slug": "zestaw-gastro-foodtruck",
+   "nazwa": "Food truck i punkt sezonowy — jedno urządzenie do sprzedaży i płatności",
+   "seria": "gastronomia-lada",
+   "poziom": "Mały",
+   "branza": "gastronomia",
+   "branze": [
+    "gastronomia"
+   ],
+   "dla_kogo": "Food truck, budka przy szlaku albo stoku, ogródek lub stoisko na imprezie — jedno stanowisko, mało miejsca, praca w sezonie.",
+   "korzysc": "Sprzedaż w GoPOS, paragon fiskalny i płatność kartą zbliżeniowo na jednym urządzeniu.",
+   "opis": [
+    "W food trucku i punkcie sezonowym nie ma miejsca na kasę, drukarkę fiskalną i osobny terminal. Ten zestaw zastępuje je jednym urządzeniem Sunmi z systemem GoPOS: na nim przyjmujesz zamówienie, drukujesz paragon i przyjmujesz płatność kartą, telefonem lub zegarkiem.",
+    "Paragon wystawia wirtualna kasa fiskalna GoPOS — fiskalizacja odbywa się zdalnie przez internet, bez wizyty serwisanta. Gdy zniknie zasięg, sprzedajesz dalej, a dane wysyłają się po powrocie połączenia. Po sezonie kasę wirtualną można wstrzymać bez abonamentu i wznowić bez ponownej fiskalizacji. Płatności przyjmuje aplikacja SoftPOS w tym samym urządzeniu (potrzebna umowa z operatorem płatności).",
+    "Dostajesz skonfigurowane urządzenie z menu, fiskalizację kasy wirtualnej i szkolenie. Wyniki sprzedaży widzisz w telefonie w aplikacji GoPOS Now. Do fiskalizacji i wysyłki danych potrzebny jest internet — hotspot z telefonu albo router LTE, który dobieramy osobno. Jeśli wolisz klasyczną kasę mobilną, ten sam punkt obsłużysz kasą Posnet Mobile2 z terminalem."
+   ],
+   "elementy": [
+    {
+     "slug": "gopos-all-in-one",
+     "rola": "terminal z wirtualną kasą fiskalną i SoftPOS",
+     "ilosc": 1,
+     "wariant_sugerowany": "Sunmi V3 Mix (stojak, ekran 10,1\") lub Sunmi V3 (w ręku)",
+     "obowiazkowy": true,
+     "do_potwierdzenia": "Karta ma status do-sprawdzenia: łączność 4G/SIM niepotwierdzona, szerokość druku V3/V3 Mix niepodana, opłaty SoftPOS nieznane."
+    },
+    {
+     "slug": "gopos",
+     "rola": "system sprzedaży (licencja)",
+     "ilosc": 1,
+     "wariant_sugerowany": "GoPOS Basic + wirtualna kasa fiskalna + SoftPOS",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "pol",
+     "rola": "terminal płatniczy (opcjonalnie)",
+     "ilosc": 1,
+     "wariant_sugerowany": "Move 2500 (sieć komórkowa) — gdy wolisz osobny terminal zamiast płatności w aplikacji SoftPOS na urządzeniu",
+     "obowiazkowy": false
+    }
+   ],
+   "zamienniki": [
+    {
+     "zamiast": "gopos-all-in-one",
+     "mozna": "mobile2",
+     "kiedy": "Gdy wolisz klasyczną kasę mobilną bez abonamentu programu: Posnet Mobile2 z LTE ma wbudowany skaner 2D i BLIK na kasie; kartę przyjmiesz na terminalu Move 2500."
+    },
+    {
+     "zamiast": "gopos-all-in-one",
+     "mozna": "k10",
+     "kiedy": "Gdy pracujesz na mrozie i w rękawiczkach — Elzab K10 BT/GPRS testowano w słońcu i na mrozie."
+    },
+    {
+     "zamiast": "pol",
+     "mozna": "softpos",
+     "kiedy": "Gdy płatności mają iść na telefonie z Androidem i NFC (PolCard Go) zamiast terminala."
+    }
+   ],
+   "uslugi": [
+    "wdrprog",
+    "szkol",
+    "srvpos"
+   ],
+   "uslugi_po_akceptacji_szefa": [],
+   "dlaczego_tak": [
+    "Wirtualna kasa fiskalna GoPOS jest fiskalizowana zdalnie, bez wizyty w urzędzie i serwisanta.",
+    "Sprzedaż działa bez zasięgu — dane wysyłają się do repozytorium po odzyskaniu połączenia.",
+    "Kasę wirtualną można wstrzymać po sezonie bez abonamentu i wznowić bez ponownej fiskalizacji — ważne na Podhalu przy sezonowej pracy.",
+    "Płatności zbliżeniowe przyjmuje SoftPOS w tym samym urządzeniu przez NFC — nie potrzebujesz osobnego terminala.",
+    "GoPOS Basic nie ma limitu zamówień, a raporty widzisz w telefonie."
+   ],
+   "uwagi_wewnetrzne": [
+    "Karta gopos-all-in-one ma status do-sprawdzenia — przed publikacją zestawu wyjaśnić z GoPOS: 4G/SIM, szerokość druku, opłata SoftPOS i prowizja operatora.",
+    "Internet w food trucku: hotspot z telefonu albo router LTE (routera LTE nie ma w katalogu).",
+    "1 klucz kasy wirtualnej = 1 urządzenie.",
+    "QA 25.10: SoftPOS w urządzeniu jest podstawową metodą płatności; terminal PolCard zostaje jako opcja. Router LTE opisany w treści publicznej jako dobierany osobno (brak w katalogu)."
+   ],
+   "faq": [
+    {
+     "q": "Czy muszę mieć internet?",
+     "a": "Do fiskalizacji tak. Potem sprzedaż działa także bez zasięgu — dane wysyłają się po powrocie połączenia."
+    },
+    {
+     "q": "Co z kasą zimą, gdy nie pracuję?",
+     "a": "Kasę wirtualną można czasowo wstrzymać — wtedy nie płacisz za nią abonamentu, a po wznowieniu nie trzeba jej ponownie fiskalizować."
+    },
+    {
+     "q": "Czy przyjmę płatność kartą bez terminala?",
+     "a": "Tak, przez aplikację SoftPOS w urządzeniu (NFC). Potrzebna jest umowa z operatorem płatności."
+    },
+    {
+     "q": "Czy potrzebuję serwisanta do fiskalizacji?",
+     "a": "Nie. Według GoPOS fiskalizacja kasy wirtualnej odbywa się zdalnie; potrzebne są dane firmy i kod urzędu skarbowego."
+    }
+   ],
+   "kolejnosc": 6,
+   "status": "do-sprawdzenia"
+  },
+  {
+   "slug": "zestaw-kawiarnia-lada",
+   "nazwa": "Kawiarnia — stanowisko przy ladzie z GoPOS i drukarką fiskalną",
+   "seria": "gastronomia-lada",
+   "poziom": "Średni",
+   "branza": "gastronomia",
+   "branze": [
+    "gastronomia"
+   ],
+   "dla_kogo": "Kawiarnia, cukiernia, lodziarnia lub bar kawowy z jedną ladą i 1–3 osobami obsługi.",
+   "korzysc": "Zamówienie klikasz na dużym ekranie, paragon drukuje się sam, a wyniki widzisz w telefonie.",
+   "opis": [
+    "Przy ladzie w kawiarni liczy się szybkie wybieranie produktów, zestawy typu kawa + ciastko i porządek w gotówce. Ten zestaw to stanowisko z ekranem dotykowym 15,6\" i systemem GoPOS, drukarka fiskalna Elzab Zeta ONLINE, szuflada i terminal płatniczy.",
+    "GoPOS działa na terminalu Sunmi D3 PRO, który producent systemu poleca, i obsługuje drukarkę fiskalną Elzab Zeta. Zeta jest mała, ma Wi-Fi i Bluetooth, drukuje faktury, a szufladę aktywną Elzab podłączasz bezpośrednio do niej. Przy chwilowym braku internetu sprzedaż trwa dalej, a faktury wyślesz do KSeF z terminala lub przeglądarki. Opcjonalnie dokładasz e-menu z kodem QR i program lojalnościowy GoCRM.",
+    "Dostajesz skonfigurowane stanowisko z menu i zestawami, zgłoszoną drukarkę fiskalną i szkolenie zespołu. Raporty sprzedaży, produktów i pracowników sprawdzasz na bieżąco w telefonie."
+   ],
+   "elementy": [
+    {
+     "slug": "d3",
+     "rola": "terminal POS z ekranem dotykowym",
+     "ilosc": 1,
+     "wariant_sugerowany": "D3 PRO; z ekranem klienta, gdy chcesz pokazywać zamówienie i promocje",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "gopos",
+     "rola": "system sprzedaży (licencja)",
+     "ilosc": 1,
+     "wariant_sugerowany": "GoPOS Basic",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "zeta",
+     "rola": "drukarka fiskalna online",
+     "ilosc": 1,
+     "wariant_sugerowany": "Zeta ONLINE",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "elzab-szuflada-aktywna-elz-350-elz-410",
+     "rola": "szuflada kasowa (aktywna)",
+     "ilosc": 1,
+     "wariant_sugerowany": "ELZ-350 aktywna",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "pol",
+     "rola": "terminal płatniczy",
+     "ilosc": 1,
+     "wariant_sugerowany": "Move 3500 albo Desk 3200 — terminal działa samodzielnie (bez przesyłania kwoty z GoPOS, kwotę wpisujesz na terminalu)",
+     "obowiazkowy": true,
+     "do_potwierdzenia": "Integracja z GoPOS — GoPOS rozlicza terminale przez eService (polecane Ingenico Lane 3000, PAX); terminal PolCard działa wtedy samodzielnie."
+    },
+    {
+     "slug": "ux",
+     "rola": "router z Wi-Fi",
+     "ilosc": 1,
+     "wariant_sugerowany": "UniFi Express",
+     "obowiazkowy": false
+    },
+    {
+     "slug": "apc-back-ups",
+     "rola": "zasilacz awaryjny stanowiska",
+     "ilosc": 1,
+     "wariant_sugerowany": "BXR750MI-GR",
+     "obowiazkowy": false
+    },
+    {
+     "slug": "emenu",
+     "rola": "menu z kodem QR",
+     "ilosc": 1,
+     "wariant_sugerowany": "E-Menu do przeglądania",
+     "obowiazkowy": false
+    },
+    {
+     "slug": "gopos-gocrm",
+     "rola": "program lojalnościowy",
+     "ilosc": 1,
+     "wariant_sugerowany": "GoCRM Basic",
+     "obowiazkowy": false
+    },
+    {
+     "slug": "sunmi-blink-blink-2",
+     "rola": "czytnik kodów QR dla klienta",
+     "ilosc": 1,
+     "wariant_sugerowany": "Blink 2",
+     "obowiazkowy": false,
+     "do_potwierdzenia": "Współpraca Blink 2 z GoPOS/GoCRM — GoCRM poleca „skaner kodów 2D przy kasie”, bez modelu."
+    }
+   ],
+   "zamienniki": [
+    {
+     "zamiast": "d3",
+     "mozna": "vero",
+     "kiedy": "Gdy wolisz jedno urządzenie z wbudowaną drukarką fiskalną — Posnet Vero działa z aplikacją GoPOS; wtedy Zeta nie jest potrzebna."
+    },
+    {
+     "zamiast": "zeta",
+     "mozna": "trio",
+     "kiedy": "Gdy wolisz drukarkę Posnet z wymiennym akumulatorem — GoPOS obsługuje Posnet Trio; szuflada Posnet 5 V lub 6–24 V z modułem."
+    },
+    {
+     "zamiast": "d3",
+     "mozna": "v3mix",
+     "kiedy": "Gdy chcesz tablet z drukarką, który zdejmiesz z podstawy i podejdziesz do stolika."
+    },
+    {
+     "zamiast": "pol",
+     "mozna": "softpos",
+     "kiedy": "Gdy płatności mają iść na telefonie z Androidem (PolCard Go)."
+    }
+   ],
+   "uslugi": [
+    "wdrprog",
+    "srvkas",
+    "szkol",
+    "srvpos",
+    "ksef"
+   ],
+   "uslugi_po_akceptacji_szefa": [],
+   "dlaczego_tak": [
+    "GoPOS poleca terminal Sunmi D3 Pro i obsługuje drukarki fiskalne online Elzab Zeta.",
+    "Elzab przeznacza szuflady aktywne ELZ-350/ELZ-410 do drukarki Zeta — wpinasz je do gniazda zasilania drukarki.",
+    "Zeta ma Wi-Fi i Bluetooth w standardzie, bazę 500 000 towarów i drukuje faktury VAT.",
+    "D3 PRO ma ekran 15,6\" Full HD i chłodzenie pasywne (cicha praca przy ladzie); Posnet podaje 3 lata gwarancji producenta.",
+    "GoPOS sprzedaje przy chwilowym braku internetu i wysyła faktury do KSeF z terminala."
+   ],
+   "uwagi_wewnetrzne": [
+    "Terminal PolCard nie jest na liście integracji GoPOS (eService) — w ofercie pisać: terminal samodzielny lub terminal eService poza katalogiem.",
+    "D3 PRO bez usług Google — aplikacje przez platformę Sunmi (GoPOS jest tam dostępny wg rekomendacji GoPOS).",
+    "Blink 2 + GoCRM — potwierdzić z GoPOS."
+   ],
+   "faq": [
+    {
+     "q": "Czy kasa działa bez internetu?",
+     "a": "Tak, GoPOS sprzedaje przy chwilowym braku internetu, a dane synchronizuje po powrocie połączenia."
+    },
+    {
+     "q": "Czy wystawię fakturę do KSeF?",
+     "a": "Tak, z terminala albo z przeglądarki; dane firmy pobiorą się z GUS po NIP."
+    },
+    {
+     "q": "Czy terminal płatniczy połączy się z GoPOS?",
+     "a": "GoPOS przesyła kwotę do terminali rozliczanych przez eService. Terminal PolCard z zestawu działa samodzielnie — kwotę wpisuje kasjer."
+    },
+    {
+     "q": "Czy gość zobaczy menu na telefonie?",
+     "a": "Tak, z modułem E-Menu: skanuje kod QR na stoliku i ogląda menu ze zdjęciami i alergenami."
+    }
+   ],
+   "kolejnosc": 7,
+   "status": "do-sprawdzenia"
+  },
+  {
+   "slug": "zestaw-restauracja-bistro",
+   "nazwa": "Bistro i pizzeria — kasa GoPOS z ekranem kuchennym",
+   "seria": "restauracja",
+   "poziom": "Średni",
+   "branza": "gastronomia",
+   "branze": [
+    "gastronomia"
+   ],
+   "dla_kogo": "Bistro, pizzeria, bar z kuchnią lub mała restauracja do ok. 20 stolików, z jedną kuchnią.",
+   "korzysc": "Zamówienia z kasy i od kelnera trafiają od razu na ekran w kuchni, bez papierowych bonów.",
+   "opis": [
+    "W bistro najwięcej czasu ucieka między salą a kuchnią: zgubione bony, nieczytelne dopiski, wołanie kucharza. W tym zestawie zamówienie przyjęte przy kasie albo przy stoliku od razu pojawia się na ekranie kuchennym, kucharz zmienia jego status, a kelner dostaje sygnał, gdy danie jest gotowe.",
+    "Kasa to terminal Sunmi D3 PRO z GoPOS i drukarka fiskalna Posnet Thermal HD z obcinaczem i papierem 80 mm, do której Posnet poleca szufladę SKL. Na kuchni wisi ekran Sunmi FLEX 3 KDS 22\" z programem GoKDS — ekran o szczelności IP55, który działa mokrymi dłońmi i w rękawiczkach. Zamówienia przy stoliku przyjmiesz na przenośnym Sunmi V3 (Mobilny Kelner), a płatność kartą na terminalu przenośnym. Sieć w lokalu daje router Omada z zasilaniem PoE i punkty Wi-Fi na suficie.",
+    "Dostajesz stanowisko z ułożonym menu i planem sali, podłączony ekran kuchenny, zgłoszoną drukarkę fiskalną, sieć Wi-Fi i szkolenie zespołu. Przy osobnym barze albo więcej niż 20 stolikach przechodzisz na GoPOS Pro."
+   ],
+   "elementy": [
+    {
+     "slug": "d3",
+     "rola": "terminal POS z ekranem dotykowym",
+     "ilosc": 1,
+     "wariant_sugerowany": "D3 PRO",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "gopos",
+     "rola": "system sprzedaży (licencja)",
+     "ilosc": 1,
+     "wariant_sugerowany": "GoPOS Basic (do 20 stolików, 1 kierunek rozchodu)",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "hd",
+     "rola": "drukarka fiskalna online",
+     "ilosc": 1,
+     "wariant_sugerowany": "Thermal HD ONLINE, papier 80 mm",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "szuf",
+     "rola": "szuflada kasowa",
+     "ilosc": 1,
+     "wariant_sugerowany": "Posnet SKL",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "gokds",
+     "rola": "program ekranu kuchennego",
+     "ilosc": 1,
+     "wariant_sugerowany": "GoKDS — 1 stanowisko",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "kds",
+     "rola": "ekran kuchenny",
+     "ilosc": 1,
+     "wariant_sugerowany": "FLEX 3 KDS 22\" na zasilaczu",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "v3",
+     "rola": "terminal kelnerski (Mobilny Kelner)",
+     "ilosc": "1–2",
+     "wariant_sugerowany": "Sunmi V3 3/32 GB, 4G",
+     "obowiazkowy": false
+    },
+    {
+     "slug": "pol",
+     "rola": "terminal płatniczy przy stoliku",
+     "ilosc": 1,
+     "wariant_sugerowany": "Move 3500 — terminal działa samodzielnie (bez przesyłania kwoty z GoPOS, kwotę wpisujesz na terminalu)",
+     "obowiazkowy": true,
+     "do_potwierdzenia": "Integracja z GoPOS (eService) — terminal PolCard pracuje samodzielnie."
+    },
+    {
+     "slug": "omada-routery",
+     "rola": "router z PoE i kontrolerem sieci",
+     "ilosc": 1,
+     "wariant_sugerowany": "ER7212PC",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "omada-ap-sufitowe",
+     "rola": "punkt Wi-Fi na sali",
+     "ilosc": "1–2",
+     "wariant_sugerowany": "EAP650",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "apc-back-ups",
+     "rola": "zasilacz awaryjny kasy i routera",
+     "ilosc": 1,
+     "wariant_sugerowany": "BXR950MI-GR",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "gostock",
+     "rola": "magazyn i food cost",
+     "ilosc": 1,
+     "wariant_sugerowany": "GoStock Basic",
+     "obowiazkowy": false
+    }
+   ],
+   "zamienniki": [
+    {
+     "zamiast": "hd",
+     "mozna": "zeta",
+     "kiedy": "Gdy lada jest bardzo mała — wtedy szuflada aktywna Elzab ELZ-350."
+    },
+    {
+     "zamiast": "hd",
+     "mozna": "cube",
+     "kiedy": "Gdy chcesz kolorowy ekran klienta z grafikami i bardzo szybki wydruk 80 mm — GoPOS obsługuje Elzab Cube."
+    },
+    {
+     "zamiast": "omada-routery",
+     "mozna": "udr7",
+     "kiedy": "Gdy lokal ma do ok. 160 m² i wystarczy jedno urządzenie z Wi-Fi 7 (UniFi Dream Router 7)."
+    },
+    {
+     "zamiast": "gopos",
+     "mozna": "pcgastro",
+     "kiedy": "Gdy wolisz program instalowany na komputerze z Windows — Insoft PC-Gastronom obsługuje drukarki kuchenne i KDS."
+    }
+   ],
+   "uslugi": [
+    "wdrprog",
+    "srvkas",
+    "szkol",
+    "srvpos",
+    "ksef"
+   ],
+   "uslugi_po_akceptacji_szefa": [
+    "opieka"
+   ],
+   "dlaczego_tak": [
+    "GoKDS: producent poleca ekran Sunmi Flex 3 22\", a FLEX 3 KDS ma IP55 i dotyk działający mokrymi dłońmi.",
+    "GoPOS obsługuje Posnet Thermal HD; HD ma ceramiczny obcinacz i papier 80 mm, a Posnet poleca do niej szufladę SKL.",
+    "GoPOS Basic ma limit 20 stolików i jednego kierunku rozchodu — wystarcza dla jednej kuchni; przy barze potrzebny jest Pro.",
+    "ER7212PC łączy router, 8 portów PoE+ (110 W) i kontroler; EAP650 pobiera do 13,5 W, więc punkty Wi-Fi mieszczą się w budżecie mocy.",
+    "Sunmi V3 to polecany przez GoPOS terminal kelnerski z 4G i drukarką 58 mm."
+   ],
+   "uwagi_wewnetrzne": [
+    "FLEX 3 KDS z zasilaniem PoE wymaga modułu 60 W — ER7212PC (PoE+ do 30 W/port) go nie zasili; ekran na zasilaczu.",
+    "Terminal PolCard poza integracją GoPOS.",
+    "Drukarki bonowej na bar nie dobieramy w tym poziomie — ELZ-MAX/Sunmi NT311 z GoPOS do potwierdzenia."
+   ],
+   "faq": [
+    {
+     "q": "Czy kucharz obsłuży ekran w rękawiczkach?",
+     "a": "Tak, ekran FLEX 3 KDS reaguje na mokre dłonie, rękawiczki i resztki oleju; ma szczelność IP55."
+    },
+    {
+     "q": "Czy kelner przyjmie zamówienie przy stoliku?",
+     "a": "Tak, na terminalu Sunmi V3 z modułem Mobilny Kelner — zamówienie od razu idzie na kuchnię."
+    },
+    {
+     "q": "Kiedy potrzebuję GoPOS Pro?",
+     "a": "Gdy masz więcej niż 20 stolików, osobny bar albo kilka kierunków rozchodu (np. kuchnia i pizza)."
+    },
+    {
+     "q": "Czy goście dostaną Wi-Fi?",
+     "a": "Tak, punkty Omada nadają osobną sieć dla gości, oddzieloną od kasy i terminali."
+    }
+   ],
+   "kolejnosc": 8,
+   "status": "do-sprawdzenia"
+  },
+  {
+   "slug": "zestaw-restauracja-sala-ogrodek",
+   "nazwa": "Restauracja z salą, barem, ogródkiem i dowozem",
+   "seria": "restauracja",
+   "poziom": "Duży",
+   "branza": "gastronomia",
+   "branze": [
+    "gastronomia",
+    "noclegi"
+   ],
+   "dla_kogo": "Restauracja z salą i barem, kilkoma kelnerami, ogródkiem w sezonie i zamówieniami z portali dostaw.",
+   "korzysc": "Sala, bar, kuchnia, ogródek i dowozy w jednym GoPOS — bez osobnych tabletów z portali.",
+   "opis": [
+    "W większej restauracji zamówienia płyną z kilku stron naraz: od kelnerów na sali i w ogródku, z baru, z portali dostaw i z własnego sklepu online. Ten zestaw zbiera je w jednym systemie GoPOS Pro i rozsyła na dwa ekrany: kuchnię i bar lub wydawkę.",
+    "Bar i sala mają własne stanowiska Sunmi D3 PRO z drukarkami fiskalnymi Posnet Thermal HD i szufladami SKL. Kelnerzy przyjmują zamówienia i płatności przy stolikach na terminalach Sunmi V3 i terminalach przenośnych. GoHub ściąga zamówienia z Pyszne.pl, Glovo, Uber Eats, Wolt i Bolt Food, a menu i ceny na wszystkich portalach zmieniasz z jednego panelu. Sieć opiera się na Omada: router, kontroler, przełącznik PoE, punkty Wi-Fi na sali i punkt zewnętrzny IP67 w ogródku, odporny na mróz do −30 °C.",
+    "Dostajesz wdrożenie GoPOS z menu, planem sali i kierunkami rozchodu, podłączone ekrany kuchenne, zgłoszone drukarki fiskalne, sieć dla gości oddzieloną od kas oraz szkolenie zespołu. Opcjonalnie dochodzi magazyn GoStock z recepturami i food cost oraz własny sklep GoOrder."
+   ],
+   "elementy": [
+    {
+     "slug": "gopos",
+     "rola": "system sprzedaży (licencja)",
+     "ilosc": 1,
+     "wariant_sugerowany": "GoPOS Pro + stanowiska dodatkowe",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "d3",
+     "rola": "terminal POS (bar i sala)",
+     "ilosc": 2,
+     "wariant_sugerowany": "D3 PRO, przy sali z ekranem klienta",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "hd",
+     "rola": "drukarka fiskalna online",
+     "ilosc": 2,
+     "wariant_sugerowany": "Thermal HD ONLINE, papier 80 mm",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "szuf",
+     "rola": "szuflada kasowa",
+     "ilosc": 2,
+     "wariant_sugerowany": "Posnet SKL",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "v3",
+     "rola": "terminal kelnerski (Mobilny Kelner)",
+     "ilosc": "3–4",
+     "wariant_sugerowany": "Sunmi V3",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "gokds",
+     "rola": "program ekranu kuchennego",
+     "ilosc": 2,
+     "wariant_sugerowany": "GoKDS — kuchnia i bar/wydawka",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "kds",
+     "rola": "ekran kuchenny",
+     "ilosc": 2,
+     "wariant_sugerowany": "FLEX 3 KDS 22\" na zasilaczu — na kuchnię i na bar lub wydawkę",
+     "obowiazkowy": true,
+     "do_potwierdzenia": "GoKDS wymienia Sunmi Flex 3 22\" — wersję 15,6\" potwierdzić z GoPOS."
+    },
+    {
+     "slug": "gohub",
+     "rola": "zamówienia z portali dostaw",
+     "ilosc": 1,
+     "wariant_sugerowany": "GoHub Pro",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "goorder",
+     "rola": "własny sklep online i zamówienia do stolika",
+     "ilosc": 1,
+     "wariant_sugerowany": "GoOrder Pro",
+     "obowiazkowy": false
+    },
+    {
+     "slug": "gostock",
+     "rola": "magazyn, receptury i food cost",
+     "ilosc": 1,
+     "wariant_sugerowany": "GoStock Basic + podmagazyny kuchnia i bar",
+     "obowiazkowy": false
+    },
+    {
+     "slug": "pol",
+     "rola": "terminal płatniczy przy stoliku",
+     "ilosc": "2–3",
+     "wariant_sugerowany": "Move 3500 — terminal działa samodzielnie (bez przesyłania kwoty z GoPOS, kwotę wpisujesz na terminalu)",
+     "obowiazkowy": true,
+     "do_potwierdzenia": "Integracja z GoPOS (eService) — terminal PolCard pracuje samodzielnie."
+    },
+    {
+     "slug": "omada-routery",
+     "rola": "router z dwoma łączami internetu",
+     "ilosc": 1,
+     "wariant_sugerowany": "ER707-M2 albo ER7206",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "omada-kontrolery",
+     "rola": "kontroler sieci",
+     "ilosc": 1,
+     "wariant_sugerowany": "OC220",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "omada-switche-poe",
+     "rola": "przełącznik PoE",
+     "ilosc": 1,
+     "wariant_sugerowany": "SG2210MP (8× PoE+, 150 W)",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "omada-ap-sufitowe",
+     "rola": "punkty Wi-Fi na sali",
+     "ilosc": "2–3",
+     "wariant_sugerowany": "EAP650 lub EAP723",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "omada-ap-scienne-zewnetrzne",
+     "rola": "punkt Wi-Fi w ogródku",
+     "ilosc": 1,
+     "wariant_sugerowany": "EAP650-Outdoor",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "apc-back-ups-pro",
+     "rola": "zasilacz awaryjny sieci",
+     "ilosc": 1,
+     "wariant_sugerowany": "BR1600SI",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "apc-back-ups",
+     "rola": "zasilacz awaryjny stanowiska kasowego",
+     "ilosc": 2,
+     "wariant_sugerowany": "BXR950MI-GR",
+     "obowiazkowy": false
+    }
+   ],
+   "zamienniki": [
+    {
+     "zamiast": "hd",
+     "mozna": "cube",
+     "kiedy": "Gdy przy barze ma być kolorowy ekran klienta z grafikami — GoPOS obsługuje Elzab Cube."
+    },
+    {
+     "zamiast": "omada-switche-poe",
+     "mozna": "usw24max",
+     "kiedy": "Gdy wolisz całą sieć UniFi (wtedy UCG-Max i punkty U7 Pro; punktu zewnętrznego UniFi nie ma w katalogu)."
+    },
+    {
+     "zamiast": "d3",
+     "mozna": "t2s",
+     "kiedy": "Gdy chcesz terminal 15,6\" z czytnikiem NFC kart lojalnościowych (Android 9)."
+    }
+   ],
+   "uslugi": [
+    "wdrprog",
+    "srvkas",
+    "szkol",
+    "srvpos",
+    "ksef"
+   ],
+   "uslugi_po_akceptacji_szefa": [
+    "opieka"
+   ],
+   "dlaczego_tak": [
+    "GoPOS Pro nie ma limitów pracowników, stolików ani kierunków rozchodu, więc obsłuży kuchnię, bar i ogródek osobno.",
+    "GoHub obsługuje Uber Eats, Glovo, Pyszne.pl, Wolt i Bolt Food oraz zlecanie kurierów Wolt Drive i Stava z ekranu POS.",
+    "GoKDS pozwala ustawić osobne ekrany dla kuchni i baru oraz powiadamia kelnera o gotowym daniu.",
+    "SG2210MP ma budżet 150 W: punkty EAP650 (13,5 W) i EAP723 (18,6 W) oraz kontroler OC220 zasilany z PoE mieszczą się z zapasem.",
+    "EAP650-Outdoor ma obudowę IP67 i pracuje od −30 do 70 °C; zasilacz PoE jest w zestawie."
+   ],
+   "uwagi_wewnetrzne": [
+    "FLEX 3 KDS 15,6\" nie jest wymieniony na liście GoKDS.",
+    "Umowy z portalami dostaw zawiera klient; prowizje portali poza GoPOS.",
+    "Terminal PolCard poza integracją GoPOS.",
+    "BR1600SI ma gniazda IEC C13 — doliczyć kable lub przejściówki.",
+    "QA 25.10: KDS na bar zmieniony z 15,6\" na 22\" (tylko 22\" jest na liście GoKDS), oba na zasilaczu (PoE 60 W poza zasięgiem routera/switcha).",
+    "Zamiennik terminala 15,6\": zgodność z GoPOS do potwierdzenia (przeniesione z pola publicznego)."
+   ],
+   "faq": [
+    {
+     "q": "Czy zamówienia z Pyszne.pl i Glovo wpadną do kasy?",
+     "a": "Tak, z modułem GoHub zamówienia z portali trafiają do GoPOS i na ekran kuchenny, bez osobnych tabletów."
+    },
+    {
+     "q": "Czy kuchnia i bar mogą mieć osobne ekrany?",
+     "a": "Tak, GoKDS pozwala ustawić osobne ekrany dla kuchni i baru albo kilka kierunków na jednym monitorze."
+    },
+    {
+     "q": "Czy Wi-Fi będzie działać w ogródku?",
+     "a": "Tak, punkt EAP650-Outdoor ma obudowę IP67 i pracuje od −30 do 70 °C."
+    },
+    {
+     "q": "Czy policzę food cost dań?",
+     "a": "Tak, z modułem GoStock — po powiązaniu dań z recepturami każda sprzedaż zdejmuje składniki ze stanu."
+    }
+   ],
+   "kolejnosc": 9,
+   "status": "do-sprawdzenia"
+  },
+  {
+   "slug": "zestaw-bar-kiosk-numerki",
+   "nazwa": "Bar szybkiej obsługi — kiosk samoobsługowy, ekran kuchenny i numerki",
+   "seria": "bar-szybkiej-obslugi",
+   "poziom": "Standard",
+   "branza": "gastronomia",
+   "branze": [
+    "gastronomia"
+   ],
+   "dla_kogo": "Bar z burgerami lub kebabem, bistro przy stoku albo lokal w strefie gastronomicznej, gdzie w szczycie tworzy się kolejka do kasy.",
+   "korzysc": "Goście zamawiają w kiosku, kuchnia widzi zamówienie na ekranie, a gotowy numer pojawia się na sali.",
+   "opis": [
+    "W szczycie, np. po zjeździe ze stoku, jedna kasa nie nadąża. Ten zestaw dokłada kiosk, w którym gość sam przegląda menu, dodaje składniki i zamawia, a zamówienie trafia automatycznie do GoPOS i na ekran kuchenny. Gdy danie jest gotowe, numer zamówienia przechodzi na ekranie na sali do gotowych.",
+    "Przy ladzie zostaje klasyczne stanowisko: terminal Sunmi D3 PRO z GoPOS, drukarka fiskalna Posnet Thermal HD i szuflada SKL. Kiosk Sunmi K2 ma ekran 23,8\", drukarkę 80 mm z obcinaczem i skaner kodów z telefonu. Kuchnia pracuje na ekranie Sunmi FLEX 3 KDS 22\" z GoKDS, a numery wyświetla ekran Samsung na sali z modułem System numerkowy.",
+    "Dostajesz skonfigurowane menu w kiosku i na kasie, ekran kuchenny, ekran z numerkami i szkolenie zespołu. Sposób płatności kartą w kiosku i wydruku paragonu fiskalnego dla zamówień z kiosku ustalamy przed wyceną."
+   ],
+   "elementy": [
+    {
+     "slug": "gopos",
+     "rola": "system sprzedaży (licencja)",
+     "ilosc": 1,
+     "wariant_sugerowany": "GoPOS Pro",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "gokiosk",
+     "rola": "program kiosku samoobsługowego",
+     "ilosc": 1,
+     "wariant_sugerowany": "GoKiosk — 1 stanowisko",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "kiosk",
+     "rola": "kiosk samoobsługowy",
+     "ilosc": 1,
+     "wariant_sugerowany": "Sunmi K2 Restaurant, konfiguracja 1 (Android 13), wersja podłogowa",
+     "obowiazkowy": true,
+     "do_potwierdzenia": "K2 nie jest na liście kiosków GoKiosk (iMin Crane, Sunmi Flex 3, M4B JOY M); do ustalenia z GoPOS: działanie GoKiosk na K2, płatność kartą (terminal Sunmi serii P — brak w katalogu — albo SoftPOS) i paragon fiskalny dla zamówień z kiosku."
+    },
+    {
+     "slug": "d3",
+     "rola": "terminal POS przy ladzie",
+     "ilosc": 1,
+     "wariant_sugerowany": "D3 PRO",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "hd",
+     "rola": "drukarka fiskalna online",
+     "ilosc": 1,
+     "wariant_sugerowany": "Thermal HD ONLINE, papier 80 mm",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "szuf",
+     "rola": "szuflada kasowa",
+     "ilosc": 1,
+     "wariant_sugerowany": "Posnet SKL",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "gokds",
+     "rola": "program ekranu kuchennego",
+     "ilosc": 1,
+     "wariant_sugerowany": "GoKDS",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "kds",
+     "rola": "ekran kuchenny",
+     "ilosc": 1,
+     "wariant_sugerowany": "FLEX 3 KDS 22\"",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "numerki",
+     "rola": "system numerków zamówień",
+     "ilosc": 1,
+     "wariant_sugerowany": "1 ekran na sali",
+     "obowiazkowy": true,
+     "do_potwierdzenia": "Karta do-sprawdzenia: producent nie podaje, na jakim urządzeniu działa wyświetlanie numerków."
+    },
+    {
+     "slug": "samsung-qbc",
+     "rola": "ekran z numerkami na sali",
+     "ilosc": 1,
+     "wariant_sugerowany": "QB43C lub QB55C",
+     "obowiazkowy": true,
+     "do_potwierdzenia": "Czy aplikacja numerków GoPOS działa na Samsung Tizen, czy wymaga przystawki/boxa — do ustalenia z GoPOS."
+    },
+    {
+     "slug": "pol",
+     "rola": "terminal płatniczy przy ladzie",
+     "ilosc": 1,
+     "wariant_sugerowany": "Desk 3200 + PIN-pad Desk 1500 — terminal działa samodzielnie (bez przesyłania kwoty z GoPOS, kwotę wpisujesz na terminalu)",
+     "obowiazkowy": true,
+     "do_potwierdzenia": "Integracja z GoPOS (eService) — terminal PolCard pracuje samodzielnie."
+    },
+    {
+     "slug": "omada-routery",
+     "rola": "router z PoE i kontrolerem",
+     "ilosc": 1,
+     "wariant_sugerowany": "ER7212PC",
+     "obowiazkowy": false
+    }
+   ],
+   "zamienniki": [
+    {
+     "zamiast": "samsung-qbc",
+     "mozna": "samsung-qmc",
+     "kiedy": "Gdy ekran ma pracować dłużej niż 16 h dziennie (QMC 24/7)."
+    },
+    {
+     "zamiast": "hd",
+     "mozna": "zeta",
+     "kiedy": "Gdy lada jest mała; wtedy szuflada aktywna Elzab."
+    }
+   ],
+   "uslugi": [
+    "wdrprog",
+    "srvkas",
+    "szkol",
+    "srvpos"
+   ],
+   "uslugi_po_akceptacji_szefa": [],
+   "dlaczego_tak": [
+    "GoKiosk wysyła zamówienia automatycznie do kasy GoPOS i na ekran GoKDS, a numer zamówienia może pojawić się na ekranie systemu numerkowego.",
+    "W systemie numerkowym status „gotowe” zmienia kucharz na ekranie GoKDS — numer sam przechodzi na sali do gotowych.",
+    "Sunmi K2 ma ekran 23,8\" Full HD, drukarkę 80 mm z obcinaczem, skaner kodów z telefonu i gigabitowy LAN.",
+    "Kasa przy ladzie zostaje na sprawdzonym zestawie GoPOS + Thermal HD + SKL.",
+    "Samsung QBC ma wbudowany odtwarzacz, 4K i pracę 16/7, więc nie potrzebuje komputera przy ekranie."
+   ],
+   "uwagi_wewnetrzne": [
+    "Zestaw wymaga decyzji GoPOS co do kiosku K2 — bez tego nie publikować albo pokazać jako „kiosk dobieramy po konsultacji”.",
+    "Brak w katalogu kiosków z listy GoKiosk (iMin Crane 21,5\", Sunmi Flex 3 22\"/27\" z drukarką fiskalną) — rozważyć dodanie.",
+    "Brak terminala Sunmi serii P do K2.",
+    "Karta numerki ma status do-sprawdzenia.",
+    "Usunięte z opisu publicznego (QA 25.10): „kiosk K2 nie jest na liście kiosków polecanych przez GoPOS” — K2 nie występuje na liście sprzętu GoKiosk (gopos.pl/gokiosk); zestaw nadal wymaga decyzji przed publikacją."
+   ],
+   "faq": [
+    {
+     "q": "Czy gość zapłaci kartą w kiosku?",
+     "a": "Sposób płatności w kiosku (terminal w uchwycie kiosku albo płatność zbliżeniowa przez NFC) ustalamy przed wyceną razem z GoPOS."
+    },
+    {
+     "q": "Skąd kuchnia wie o zamówieniu z kiosku?",
+     "a": "Zamówienie z kiosku trafia automatycznie do GoPOS i na ekran kuchenny GoKDS."
+    },
+    {
+     "q": "Jak gość dowie się, że danie jest gotowe?",
+     "a": "Numer zamówienia wyświetla się na ekranie na sali; gdy kucharz oznaczy danie jako gotowe, numer przechodzi do gotowych."
+    },
+    {
+     "q": "Czy kasa przy ladzie zostaje?",
+     "a": "Tak, część gości woli zamówić u obsługi — stanowisko przy ladzie działa równolegle z kioskiem."
+    }
+   ],
+   "kolejnosc": 10,
+   "status": "do-sprawdzenia"
+  },
+  {
+   "slug": "zestaw-noclegi-kwatera",
+   "nazwa": "Kwatera i apartamenty — rezerwacje z portali, paragon i Wi-Fi dla gości",
+   "seria": "noclegi",
+   "poziom": "Mały",
+   "branza": "noclegi",
+   "branze": [
+    "noclegi"
+   ],
+   "dla_kogo": "Kwatera, kilka apartamentów lub domków na wynajem, prowadzone przez właściciela, często z telefonu.",
+   "korzysc": "Rezerwacje z Booking.com i Airbnb w jednym grafiku, paragon z kasy i Wi-Fi w każdym apartamencie.",
+   "opis": [
+    "Przy kilku apartamentach najczęstszy kłopot to podwójna rezerwacja z dwóch portali, ręczne liczenie opłaty miejscowej i goście dzwoniący, że Wi-Fi nie sięga do sypialni. Ten zestaw porządkuje te trzy sprawy.",
+    "Program NFHotel w chmurze pokazuje wszystkie rezerwacje na jednym grafiku, a channel manager sam aktualizuje dostępność na Booking.com, Airbnb, w grupie Expedia i na Noclegi.pl. Program liczy opłatę miejscową, przygotowuje raporty do Travelhost i wysyła faktury do KSeF; obsłużysz go z komputera albo z aplikacji w telefonie. Paragony wystawiasz na lekkiej kasie Posnet Ergo ONLINE z akumulatorem, która obsługuje opłaty dobowe i przedpłaty oraz BLIK bez terminala. Kasa pracuje osobno — NFHotel drukuje paragony na drukarkach fiskalnych, więc sprzedaż wprowadzasz na kasie samodzielnie. Wi-Fi w każdym apartamencie daje mała konsola UniFi Express, a kolejne łączysz w sieć mesh.",
+    "Dostajesz skonfigurowany program z połączonymi portalami, zgłoszoną kasę i Wi-Fi z osobną siecią dla gości. Liczba pokoi nie zmienia abonamentu NFHotel, a producent daje 14 dni testu pełnej wersji."
+   ],
+   "elementy": [
+    {
+     "slug": "nfh",
+     "rola": "program do rezerwacji i obsługi gości",
+     "ilosc": 1,
+     "wariant_sugerowany": "NFHotel PMS Plus + Channel Manager (+ Apartments Manager przy apartamentach)",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "ergo",
+     "rola": "kasa fiskalna online",
+     "ilosc": 1,
+     "wariant_sugerowany": "Ergo ONLINE z WiFi (moduł II); bez internetu — z LTE (moduł III)",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "ux",
+     "rola": "router i Wi-Fi w apartamencie",
+     "ilosc": "1 na apartament lub piętro",
+     "wariant_sugerowany": "UniFi Express (jako brama, kolejne jako mesh)",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "softpos",
+     "rola": "płatność kartą na telefonie",
+     "ilosc": 1,
+     "wariant_sugerowany": "PolCard Go (Android z NFC)",
+     "obowiazkowy": false
+    }
+   ],
+   "zamienniki": [
+    {
+     "zamiast": "ergo",
+     "mozna": "bingo",
+     "kiedy": "Gdy kasa stoi na stałe w recepcji i chcesz większej bazy towarów; Bingo też przyjmuje BLIK na kasie."
+    },
+    {
+     "zamiast": "softpos",
+     "mozna": "pol",
+     "kiedy": "Gdy chcesz terminal z preautoryzacją (np. kaucja) — Ingenico Move 2500 lub Desk 3200."
+    },
+    {
+     "zamiast": "ux",
+     "mozna": "omada-ap-scienne-zewnetrzne",
+     "kiedy": "Gdy w apartamentach jest okablowanie — punkt EAP615-Wall w miejscu gniazdka (potrzebny przełącznik PoE i kontroler Omada)."
+    }
+   ],
+   "uslugi": [
+    "wdrprog",
+    "srvkas",
+    "szkol",
+    "ksef",
+    "przkas"
+   ],
+   "uslugi_po_akceptacji_szefa": [],
+   "dlaczego_tak": [
+    "Channel manager NFHotel synchronizuje Booking.com, grupę Expedia, Airbnb i Noclegi.pl — jeden grafik zamiast kilku kalendarzy.",
+    "NFHotel nalicza opłatę miejscową, przygotowuje raporty do Travelhost i wysyła faktury do KSeF.",
+    "Ergo ONLINE waży 0,6 kg, ma akumulator, rozlicza opłaty dobowe i przedpłaty i przyjmuje BLIK bez terminala.",
+    "UniFi Express daje Wi-Fi 6 na ok. 140 m², działa jako router z zaporą albo punkt mesh i zasila się przez USB-C.",
+    "W NFHotel liczba pokoi nie zmienia abonamentu, a jedno konto obsłuży wiele obiektów."
+   ],
+   "uwagi_wewnetrzne": [
+    "Kasa Ergo pracuje niezależnie od NFHotel (program drukuje na drukarkach fiskalnych, nie na kasach) — w ofercie nie obiecywać integracji.",
+    "UX jako brama zarządza tylko 4 urządzeniami UniFi — przy więcej niż 4 apartamentach brama UDR7.",
+    "PolCard Go nie wystawia paragonu — paragon z kasy."
+   ],
+   "faq": [
+    {
+     "q": "Czy NFHotel połączy się z Booking.com i Airbnb?",
+     "a": "Tak, channel manager synchronizuje dostępność z Booking.com, grupą Expedia, Airbnb i Noclegi.pl."
+    },
+    {
+     "q": "Czy program policzy opłatę miejscową?",
+     "a": "Tak, nalicza ją automatycznie i przygotowuje raporty do Travelhost."
+    },
+    {
+     "q": "Czy kasa działa bez internetu w domku?",
+     "a": "Tak, w wersji Ergo ONLINE z modułem LTE i kartą SIM."
+    },
+    {
+     "q": "Czy mogę przyjąć płatność kartą bez terminala?",
+     "a": "Tak, aplikacją PolCard Go na telefonie z Androidem i NFC; paragon wystawiasz na kasie."
+    }
+   ],
+   "kolejnosc": 11,
+   "status": "gotowe"
+  },
+  {
+   "slug": "zestaw-noclegi-pensjonat",
+   "nazwa": "Pensjonat — recepcja z programem hotelowym i Wi-Fi w każdym pokoju",
+   "seria": "noclegi",
+   "poziom": "Średni",
+   "branza": "noclegi",
+   "branze": [
+    "noclegi",
+    "zdrowie-uzdrowiska"
+   ],
+   "dla_kogo": "Pensjonat lub mały hotel na 8–24 pokoje z recepcją, sprzedażą przez portale i tarasem albo ogrodem.",
+   "korzysc": "Grafik, meldunek, faktury i paragony z jednego programu, a w każdym pokoju własny punkt Wi-Fi.",
+   "opis": [
+    "W pensjonacie recepcja żongluje grafikiem, portalami, meldunkiem, fakturami i opłatą miejscową, a goście oceniają obiekt także po Wi-Fi w pokoju. Ten zestaw daje recepcji jeden program i komputer, a pokojom — punkt Wi-Fi w miejscu gniazdka sieciowego.",
+    "NFHotel prowadzi grafik, meldunek z kartą gościa i zgodami RODO, faktury z wysyłką do KSeF i opłatę miejscową, a paragony drukuje na drukarkach fiskalnych Elzab i Posnet. Na recepcji stoi komputer All-in-One, drukarka fiskalna Elzab Zeta ONLINE i terminal płatniczy z preautoryzacją. Sieć to TP-Link Omada: router, kontroler, przełącznik PoE w szafie i punkt EAP615-Wall w każdym pokoju — z trzema gniazdami LAN od spodu na telewizor czy telefon. Na taras dokładasz punkt zewnętrzny IP67.",
+    "Dostajesz program z połączonymi portalami i silnikiem rezerwacji na Twojej stronie, skonfigurowaną recepcję, zgłoszoną drukarkę fiskalną, sieć z osobnym Wi-Fi dla gości i szkolenie. Całą sieć widzisz w jednym panelu i aplikacji Omada. Szafę sieciową i okablowanie wyceniamy osobno, jako prace instalacyjne."
+   ],
+   "elementy": [
+    {
+     "slug": "nfh",
+     "rola": "program hotelowy",
+     "ilosc": 1,
+     "wariant_sugerowany": "NFHotel PMS Plus + Channel Manager + Booking Engine",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "lenovo-thinkcentre-neo-50a-55a",
+     "rola": "komputer recepcji",
+     "ilosc": 1,
+     "wariant_sugerowany": "neo 50a 24",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "zeta",
+     "rola": "drukarka fiskalna online",
+     "ilosc": 1,
+     "wariant_sugerowany": "Zeta ONLINE",
+     "obowiazkowy": true,
+     "do_potwierdzenia": "NFHotel podaje drukarki Elzab (także online) bez modeli — potwierdzić Zetę z NFHotel."
+    },
+    {
+     "slug": "elzab-szuflada-aktywna-elz-350-elz-410",
+     "rola": "szuflada na gotówkę",
+     "ilosc": 1,
+     "wariant_sugerowany": "ELZ-350 aktywna",
+     "obowiazkowy": false
+    },
+    {
+     "slug": "pol",
+     "rola": "terminal płatniczy z preautoryzacją",
+     "ilosc": 1,
+     "wariant_sugerowany": "Desk 3200 albo Axium DX 8000",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "omada-routery",
+     "rola": "router z zapasowym łączem",
+     "ilosc": 1,
+     "wariant_sugerowany": "ER605",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "omada-kontrolery",
+     "rola": "kontroler sieci",
+     "ilosc": 1,
+     "wariant_sugerowany": "OC220",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "omada-switche-poe",
+     "rola": "przełącznik PoE do szafy",
+     "ilosc": 1,
+     "wariant_sugerowany": "SG3428MP (24× PoE+, 384 W)",
+     "obowiazkowy": true,
+     "do_potwierdzenia": "Pobór mocy EAP615-Wall nie jest podany w karcie — budżet PoE przyjęto z zapasem (384 W / 24 porty)."
+    },
+    {
+     "slug": "omada-ap-scienne-zewnetrzne",
+     "rola": "punkt Wi-Fi w pokoju",
+     "ilosc": "1 na pokój",
+     "wariant_sugerowany": "EAP615-Wall",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "omada-ap-scienne-zewnetrzne",
+     "rola": "punkt Wi-Fi na tarasie",
+     "ilosc": 1,
+     "wariant_sugerowany": "EAP650-Outdoor",
+     "obowiazkowy": false
+    },
+    {
+     "slug": "omada-ap-sufitowe",
+     "rola": "punkt Wi-Fi na korytarzu i w recepcji",
+     "ilosc": "1–2",
+     "wariant_sugerowany": "EAP650",
+     "obowiazkowy": false
+    },
+    {
+     "slug": "apc-smart-ups-rack",
+     "rola": "UPS do szafy sieciowej",
+     "ilosc": 1,
+     "wariant_sugerowany": "SMC1500I-2UC",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "kyocera-ecosys-ma4000x-fx-wifx",
+     "rola": "urządzenie wielofunkcyjne na recepcję",
+     "ilosc": 1,
+     "wariant_sugerowany": "MA4000wifx",
+     "obowiazkowy": false
+    }
+   ],
+   "zamienniki": [
+    {
+     "zamiast": "zeta",
+     "mozna": "temo",
+     "kiedy": "Gdy wolisz drukarkę Posnet — NFHotel obsługuje drukarki Posnet; model dobierzemy przy wycenie."
+    },
+    {
+     "zamiast": "omada-ap-scienne-zewnetrzne",
+     "mozna": "u7",
+     "kiedy": "Gdy wolisz UniFi i wystarczą punkty sufitowe na korytarzach (wtedy cała sieć UniFi: UCG-Max i USW-Pro-Max-24-PoE)."
+    }
+   ],
+   "uslugi": [
+    "wdrprog",
+    "srvkas",
+    "szkol",
+    "ksef",
+    "przkas"
+   ],
+   "uslugi_po_akceptacji_szefa": [
+    "opieka",
+    "przeglad"
+   ],
+   "dlaczego_tak": [
+    "NFHotel drukuje paragony na drukarkach fiskalnych Elzab i Posnet (także online), wysyła faktury do KSeF i nalicza opłatę miejscową.",
+    "EAP615-Wall montujesz w miejscu gniazdka; ma 3 gniazda LAN na telewizor lub telefon i obsługuje ponad 120 klientów.",
+    "Kontroler OC220 zasilisz z przełącznika PoE (802.3af) i obsłuży do 100 punktów i 20 przełączników; daje stronę logowania dla gości.",
+    "SG3428MP ma 24 porty PoE+ i budżet 384 W — zapas dla punktu w każdym pokoju.",
+    "Terminal z preautoryzacją przydaje się przy kaucji za pobyt; PolCard podaje preautoryzację zależnie od modelu."
+   ],
+   "uwagi_wewnetrzne": [
+    "Pobór EAP615-Wall do potwierdzenia — przy SG2428P policzyć budżet.",
+    "Szafa rack, okablowanie i montaż — brak w katalogu, wycena instalacyjna osobno.",
+    "Zeta z NFHotel — potwierdzić model (NFHotel podaje marki).",
+    "Przy mniejszej liczbie pokoi wariant SG2428P (250 W) — dopiero po potwierdzeniu poboru EAP615-Wall."
+   ],
+   "faq": [
+    {
+     "q": "Czy w każdym pokoju trzeba mieć punkt Wi-Fi?",
+     "a": "Nie zawsze, ale w budynkach z grubymi ścianami punkt EAP615-Wall w pokoju daje stabilny sygnał; producent podaje dla niego zasięg ok. 50 m², czyli mniej więcej jeden pokój."
+    },
+    {
+     "q": "Czy goście dostaną osobne Wi-Fi?",
+     "a": "Tak, sieć dla gości jest odizolowana od recepcji i kasy, a kontroler może włączyć stronę logowania."
+    },
+    {
+     "q": "Czy program wystawi paragon?",
+     "a": "Tak, NFHotel drukuje paragony na drukarkach fiskalnych Elzab i Posnet (także online)."
+    },
+    {
+     "q": "Czy przyjmę kaucję kartą?",
+     "a": "Tak, terminal PolCard obsługuje preautoryzację zależnie od modelu."
+    }
+   ],
+   "kolejnosc": 12,
+   "status": "do-sprawdzenia"
+  },
+  {
+   "slug": "zestaw-noclegi-hotel-restauracja",
+   "nazwa": "Hotel z restauracją — recepcja, rachunek na pokój, sieć i ekrany",
+   "seria": "noclegi",
+   "poziom": "Duży",
+   "branza": "noclegi",
+   "branze": [
+    "noclegi",
+    "gastronomia",
+    "zdrowie-uzdrowiska"
+   ],
+   "dla_kogo": "Hotel lub duży pensjonat z restauracją albo barem, kilkudziesięcioma pokojami i salą konferencyjną lub strefą spa.",
+   "korzysc": "Rachunek z restauracji dopisujesz do pokoju w NFHotel, a sieć i ekrany obsługujesz centralnie.",
+   "opis": [
+    "W hotelu z restauracją największe straty czasu to przepisywanie rachunków z baru na pokój, osobne sieci w każdej części budynku i informacje dla gości drukowane co tydzień od nowa. Ten zestaw łączy recepcję z restauracją, stawia jedną zarządzaną sieć i dodaje ekrany informacyjne.",
+    "Recepcja pracuje w NFHotel, restauracja i bar — w GoPOS Pro z integracją hotelową: zamówienie z restauracji, baru czy room service dopisujesz do rachunku pokoju, a w NFHotel widać sumę i szczegóły płatności. Kuchnia ma ekran GoKDS, kelnerzy terminale Sunmi V3. Sieć opiera się na UniFi Dream Machine SE (router, zapora IDS/IPS, 8 portów PoE, rejestrator kamer UniFi) i przełączniku z portami 2,5 Gb/s dla punktów Wi-Fi 7 U7 Pro. Na recepcji pracuje całodobowy ekran Samsung QMC, a szafę podtrzymuje UPS rack.",
+    "Dostajesz wdrożenie obu programów z połączeniem hotel–restauracja, skonfigurowane stanowiska, zgłoszone drukarki fiskalne, sieć z wydzielonymi sieciami dla gości, recepcji, kas i monitoringu oraz szkolenie zespołu. Szafę sieciową i okablowanie wyceniamy osobno, jako prace instalacyjne. Gość może zamawiać z pokoju przez kod QR, gdy dołożysz Room Service."
+   ],
+   "elementy": [
+    {
+     "slug": "nfh",
+     "rola": "program hotelowy",
+     "ilosc": 1,
+     "wariant_sugerowany": "NFHotel PMS Pro + Channel Manager + Booking Engine",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "lenovo-thinkcentre-neo-50a-55a",
+     "rola": "komputer recepcji",
+     "ilosc": 2,
+     "wariant_sugerowany": "neo 50a 24",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "gopos",
+     "rola": "system sprzedaży restauracji i baru",
+     "ilosc": 1,
+     "wariant_sugerowany": "GoPOS Pro",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "gopos-hotel",
+     "rola": "integracja kasy z systemem hotelowym",
+     "ilosc": 1,
+     "wariant_sugerowany": "Integracja hotelowa (+ Room Service w GoOrder)",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "d3",
+     "rola": "terminal POS (bar / restauracja)",
+     "ilosc": "1–2",
+     "wariant_sugerowany": "D3 PRO",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "hd",
+     "rola": "drukarka fiskalna online",
+     "ilosc": "1–2",
+     "wariant_sugerowany": "Thermal HD ONLINE, papier 80 mm",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "szuf",
+     "rola": "szuflada kasowa",
+     "ilosc": "1–2",
+     "wariant_sugerowany": "Posnet SKL",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "v3",
+     "rola": "terminal kelnerski",
+     "ilosc": "2–3",
+     "wariant_sugerowany": "Sunmi V3",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "gokds",
+     "rola": "program ekranu kuchennego",
+     "ilosc": 1,
+     "wariant_sugerowany": "GoKDS",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "kds",
+     "rola": "ekran kuchenny",
+     "ilosc": 1,
+     "wariant_sugerowany": "FLEX 3 KDS 22\"",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "pol",
+     "rola": "terminale płatnicze",
+     "ilosc": 2,
+     "wariant_sugerowany": "Axium DX 8000 na recepcji (preautoryzacja), Move 3500 w restauracji — terminale działają samodzielnie (bez przesyłania kwoty z GoPOS)",
+     "obowiazkowy": true,
+     "do_potwierdzenia": "Integracja z GoPOS (eService) — terminal PolCard w restauracji pracuje samodzielnie."
+    },
+    {
+     "slug": "udmse",
+     "rola": "router, zapora i PoE w szafie",
+     "ilosc": 1,
+     "wariant_sugerowany": "UDM-SE",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "usw24max",
+     "rola": "przełącznik PoE z portami 2,5 Gb/s",
+     "ilosc": 1,
+     "wariant_sugerowany": "USW-Pro-Max-24-PoE",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "u7",
+     "rola": "punkty Wi-Fi 7",
+     "ilosc": "wg projektu (korytarze, restauracja, sala)",
+     "wariant_sugerowany": "U7 Pro",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "apc-smart-ups-rack",
+     "rola": "UPS do szafy sieciowej",
+     "ilosc": 1,
+     "wariant_sugerowany": "SMT2200RMI2UC",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "samsung-qmc",
+     "rola": "ekran informacyjny 24/7 na recepcji",
+     "ilosc": 1,
+     "wariant_sugerowany": "QM55C",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "samsung-qbc",
+     "rola": "ekran z menu w restauracji",
+     "ilosc": 1,
+     "wariant_sugerowany": "QB55C",
+     "obowiazkowy": false
+    },
+    {
+     "slug": "synology-diskstation-plus-2-4",
+     "rola": "NAS na kopie",
+     "ilosc": 1,
+     "wariant_sugerowany": "DS925+",
+     "obowiazkowy": false
+    },
+    {
+     "slug": "synology-dyski-rozszerzenia",
+     "rola": "dyski do NAS",
+     "ilosc": 4,
+     "wariant_sugerowany": "HAT3300 lub HAT3310 (z listy zgodności), pojemność wg danych",
+     "obowiazkowy": false,
+     "do_potwierdzenia": "Karta ma status do-sprawdzenia. Dodane w QA 25.10 — NAS sprzedawany jest bez dysków."
+    }
+   ],
+   "zamienniki": [
+    {
+     "zamiast": "hd",
+     "mozna": "mera",
+     "kiedy": "Gdy przy barze ma być drukarka z obrotowym kolorowym ekranem klienta — GoPOS obsługuje Elzab Mera."
+    },
+    {
+     "zamiast": "u7",
+     "mozna": "u7max",
+     "kiedy": "W sali konferencyjnej lub weselnej, gdzie naraz łączy się ponad 300 urządzeń."
+    },
+    {
+     "zamiast": "u7",
+     "mozna": "omada-ap-scienne-zewnetrzne",
+     "kiedy": "Gdy każdy pokój ma mieć punkt naścienny — wtedy cała sieć w Omada (punktów naściennych UniFi nie ma w katalogu)."
+    }
+   ],
+   "uslugi": [
+    "wdrprog",
+    "srvkas",
+    "szkol",
+    "srvpos",
+    "ksef",
+    "przkas"
+   ],
+   "uslugi_po_akceptacji_szefa": [
+    "opieka",
+    "kopie"
+   ],
+   "dlaczego_tak": [
+    "GoPOS wymienia integrację z NfHotel, a NFHotel — z GoPOS (rachunek z restauracji na pokój).",
+    "Room Service: gość skanuje kod QR w pokoju, zamawia z telefonu, a zamówienie trafia na GoKDS.",
+    "UDM-SE ma zaporę IDS/IPS do 3,5 Gb/s, 8 portów PoE (180 W), ponad 1000 użytkowników i kieszeń na dysk do nagrań kamer.",
+    "USW-Pro-Max-24-PoE ma 8 portów 2,5 Gb/s i 400 W PoE — U7 Pro pobiera maks. 21 W, więc kilkanaście punktów mieści się w budżecie.",
+    "SMT2200RMI2UC (1980 W, rack 2U) podtrzyma UDM-SE, przełącznik i NAS; QMC pracuje 24/7 z jasnością 500 nit."
+   ],
+   "uwagi_wewnetrzne": [
+    "Kamer IP nie ma w katalogu — UDM-SE nagrywa tylko kamery UniFi Protect.",
+    "Szafa rack, okablowanie, projekt rozmieszczenia punktów — wycena instalacyjna osobno.",
+    "Room Service wymaga GoOrder.",
+    "SMT2200RMI2UC: głębokość 683 mm — sprawdzić szafę.",
+    "QA 25.10: dodano dyski do NAS (opcjonalne jak NAS); z roli NAS usunięto „nagrania kamer” (kamer nie ma w katalogu)."
+   ],
+   "faq": [
+    {
+     "q": "Czy rachunek z baru przejdzie na pokój gościa?",
+     "a": "Tak, integracja hotelowa GoPOS dopisuje zamówienia do rachunku pokoju w NFHotel."
+    },
+    {
+     "q": "Czy gość zamówi jedzenie z pokoju?",
+     "a": "Tak, z dodatkiem Room Service: skanuje kod QR w pokoju, zamawia z telefonu bez aplikacji i płaci online albo na pokój."
+    },
+    {
+     "q": "Czy sieć gości będzie oddzielona od recepcji i kas?",
+     "a": "Tak, sieć dzielimy na osobne części (VLAN), a przełącznik ma routing między nimi."
+    },
+    {
+     "q": "Czy ekran na recepcji może działać całą dobę?",
+     "a": "Tak, Samsung QMC jest przeznaczony do pracy 24/7."
+    }
+   ],
+   "kolejnosc": 13,
+   "status": "do-sprawdzenia"
+  },
+  {
+   "slug": "zestaw-biuro-3-5",
+   "nazwa": "Biuro 3–5 osób — laptopy, druk, wspólne pliki i poczta firmowa",
+   "seria": "biuro",
+   "poziom": "Średni",
+   "branza": "biura-uslugi",
+   "branze": [
+    "biura-uslugi",
+    "zdrowie-uzdrowiska",
+    "szkoly-instytucje"
+   ],
+   "dla_kogo": "Biuro, kancelaria, agencja lub firma usługowa z 3–5 pracownikami, którzy pracują w biurze i czasem z domu.",
+   "korzysc": "Laptop podłączasz jednym kablem, pliki są na NAS z kopią, a poczta i Office w Microsoft 365.",
+   "opis": [
+    "W małym biurze typowy obraz to pliki rozrzucone po laptopach, drukarka „domowa” i poczta na prywatnych kontach. Ten zestaw porządkuje stanowiska, druk, wspólne pliki, kopie, pocztę i ochronę komputerów — w skali 3–5 osób, bez serwera.",
+    "Każdy pracuje na laptopie Lenovo ThinkBook 14 z gniazdem RJ-45 i USB-C. Na biurku stoi monitor Dell Pro P z hubem USB-C: jeden kabel daje obraz, sieć, porty USB i ładowanie laptopa (do 100 W, laptop ma zasilacz 65 W). Druk, skan dwustronny i kopie robi Kyocera ECOSYS MA4000wifx z Wi-Fi. Wspólne foldery i automatyczne kopie komputerów trzyma NAS Synology DS225+ podłączony do UPS. Internet, Wi-Fi 7 i zaporę daje UniFi Dream Router 7. Poczta we własnej domenie, Teams, OneDrive i Office to Microsoft 365 Business Standard, a komputery chroni ESET PROTECT z jedną konsolą.",
+    "Dostajesz przygotowane stanowiska z kontami Microsoft 365, skonfigurowany NAS z kopiami, podłączone urządzenia i szkolenie zespołu. Pamiętaj: dyski w NAS połączone w RAID to nie jest kopia zapasowa — najważniejsze dane warto mieć też poza biurem."
+   ],
+   "elementy": [
+    {
+     "slug": "lenovo-thinkbook-14-g8-g9",
+     "rola": "laptop pracownika",
+     "ilosc": "wg stanowisk",
+     "wariant_sugerowany": "ThinkBook 14 G9, 16 GB RAM, SSD 512 GB",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "dell-pro-usb-c-hub",
+     "rola": "monitor z hubem USB-C (stacja dokująca)",
+     "ilosc": "wg stanowisk",
+     "wariant_sugerowany": "Dell Pro P 24 P2426HE",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "kyocera-ecosys-ma4000x-fx-wifx",
+     "rola": "urządzenie wielofunkcyjne A4",
+     "ilosc": 1,
+     "wariant_sugerowany": "MA4000wifx",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "synology-diskstation-plus-2-4",
+     "rola": "NAS na wspólne pliki i kopie komputerów",
+     "ilosc": 1,
+     "wariant_sugerowany": "DS225+",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "synology-dyski-rozszerzenia",
+     "rola": "dyski do NAS",
+     "ilosc": 2,
+     "wariant_sugerowany": "HAT3300 4 TB lub 6 TB (z listy zgodności)",
+     "obowiazkowy": true,
+     "do_potwierdzenia": "Karta ma status do-sprawdzenia (niespójne dane dystrybutora)."
+    },
+    {
+     "slug": "udr7",
+     "rola": "router z Wi-Fi 7 i zaporą",
+     "ilosc": 1,
+     "wariant_sugerowany": "UniFi Dream Router 7",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "apc-back-ups",
+     "rola": "zasilacz awaryjny NAS i routera",
+     "ilosc": 1,
+     "wariant_sugerowany": "BXR750MI-GR",
+     "obowiazkowy": true,
+     "do_potwierdzenia": "Automatyczne zamknięcie NAS Synology po sygnale z UPS przez USB — zgodność nieopisana w kartach."
+    },
+    {
+     "slug": "microsoft-365-business",
+     "rola": "poczta, Office i pliki w chmurze",
+     "ilosc": "wg osób",
+     "wariant_sugerowany": "Business Standard",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "eset",
+     "rola": "ochrona komputerów",
+     "ilosc": 1,
+     "wariant_sugerowany": "PROTECT Entry (lub Advanced przy laptopach z danymi klientów), 5 stanowisk",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "microsoft-windows-11-pro",
+     "rola": "system operacyjny",
+     "ilosc": "wg laptopów",
+     "wariant_sugerowany": "Windows 11 Pro (jeśli konfiguracja laptopa go nie ma)",
+     "obowiazkowy": false
+    }
+   ],
+   "zamienniki": [
+    {
+     "zamiast": "lenovo-thinkbook-14-g8-g9",
+     "mozna": "dell-pro-14-16",
+     "kiedy": "Gdy chcesz laptopy Dell z Windows 11 Pro, Thunderbolt i opcjonalnym modemem WWAN (Pro 3)."
+    },
+    {
+     "zamiast": "kyocera-ecosys-ma4000x-fx-wifx",
+     "mozna": "konica-minolta-bizhub-4051i",
+     "kiedy": "Gdy biuro dużo skanuje i drukuje — podajnik 80 kartek, panel 10,1\", faks w standardzie."
+    },
+    {
+     "zamiast": "synology-diskstation-plus-2-4",
+     "mozna": "qnap-nas-2-4",
+     "kiedy": "Gdy wolisz QNAP (np. TS-264 z 2× 2,5 GbE i HDMI)."
+    },
+    {
+     "zamiast": "udr7",
+     "mozna": "omada-routery",
+     "kiedy": "Gdy wolisz TP-Link Omada — ER7212PC z punktami EAP650."
+    }
+   ],
+   "uslugi": [
+    "szkol"
+   ],
+   "uslugi_po_akceptacji_szefa": [
+    "opieka",
+    "kopie",
+    "przeglad"
+   ],
+   "dlaczego_tak": [
+    "Monitor Dell P2426HE przesyła przez USB-C obraz, dane i do 100 W zasilania, a ThinkBook 14 ma zasilacz USB-C 65 W — jeden kabel na biurku.",
+    "MA4000wifx drukuje dwustronnie do 40 str./min, skanuje obie strony za jednym przejściem (DualScan) i ma Wi-Fi Direct oraz Universal Print.",
+    "DS225+ robi automatyczne kopie wszystkich komputerów programem Active Backup for Business i ma port 2,5 GbE.",
+    "Microsoft 365 Business Standard daje Office na 5 komputerach, 5 tabletach i 5 telefonach każdego użytkownika oraz 1 TB OneDrive.",
+    "ESET PROTECT ma konsolę w chmurze bez serwera; pakiety Entry/Advanced kupuje się od 5 stanowisk."
+   ],
+   "uwagi_wewnetrzne": [
+    "Dyski Synology — karta do-sprawdzenia; ceny dysków niespójne u dystrybutora.",
+    "UPS ↔ NAS: potwierdzić obsługę APC przez USB w DSM (nie ma w kartach).",
+    "Kopia poza biurem (chmura / dysk USB) — brak pozycji w katalogu.",
+    "ESET: minimum 5 stanowisk — przy 3 laptopach licencja na 5 (zapas na NAS/telefony)."
+   ],
+   "faq": [
+    {
+     "q": "Czy laptop naładuję przez monitor?",
+     "a": "Tak, monitor Dell P2426HE daje przez USB-C do 100 W, a ThinkBook 14 ładuje się z zasilacza 65 W USB-C."
+    },
+    {
+     "q": "Czy NAS to kopia zapasowa?",
+     "a": "NAS robi kopie komputerów, ale same dyski w RAID nie chronią przed skasowaniem pliku czy wirusem — najważniejsze dane warto kopiować też poza biuro."
+    },
+    {
+     "q": "Czy mogę pracować z domu?",
+     "a": "Tak, pliki są w OneDrive i na NAS z dostępem zdalnym, a router UDR7 ma VPN do bezpiecznego łączenia z biurem."
+    },
+    {
+     "q": "Ile licencji ESET potrzebuję?",
+     "a": "Pakiety ESET PROTECT Entry i Advanced kupuje się od 5 stanowisk, liczonych na urządzenia."
+    }
+   ],
+   "kolejnosc": 14,
+   "status": "do-sprawdzenia"
+  },
+  {
+   "slug": "zestaw-biuro-6-12",
+   "nazwa": "Biuro 6–12 osób — zapora, serwer plików z kopią i zarządzane laptopy",
+   "seria": "biuro",
+   "poziom": "Duży",
+   "branza": "biura-uslugi",
+   "branze": [
+    "biura-uslugi",
+    "zdrowie-uzdrowiska",
+    "szkoly-instytucje"
+   ],
+   "dla_kogo": "Firma z kilkunastoma stanowiskami, pracą zdalną przez VPN i danymi klientów lub pacjentów, które trzeba chronić (RODO).",
+   "korzysc": "Zapora z VPN, NAS z kopiami, UPS z automatycznym zamykaniem i laptopy pod kontrolą w M365.",
+   "opis": [
+    "Przy kilkunastu osobach biuro potrzebuje już porządnej zapory, sieci Wi-Fi zarządzanej z jednego miejsca, serwera plików z kopiami i kontroli nad laptopami, które wychodzą z firmy. Ten zestaw daje to bez dużego serwera i bez własnego informatyka na etacie.",
+    "Na styku z internetem stoi zapora Stormshield z ochroną przed atakami (IPS), antywirusem ruchu, filtrem stron i VPN dla pracy zdalnej. Za nią przełącznik PoE Omada zasila punkty Wi-Fi na suficie, a całą sieć widać w kontrolerze OC220. Pliki i kopie komputerów trzyma NAS Synology DS925+ na 4 dyski z pamięcią ECC, podłączony z przełącznikiem i zaporą do Smart-UPS, który przy długim zaniku prądu zamyka urządzenia. Laptopy Dell Pro 14 z monitorami USB-C zarządzasz w Microsoft 365 Business Premium (Intune), a ochronę komputerów daje Microsoft Defender dla Firm z tego planu. ESET PROTECT Advanced (z szyfrowaniem dysków) to opcja zamiast Defendera, gdy wolisz jedną konsolę ESET.",
+    "Dostajesz zaprojektowaną i skonfigurowaną sieć z wydzielonymi częściami dla pracowników i gości, wdrożone kopie, przygotowane laptopy z kontami i szkolenie z bezpieczeństwa dla zespołu."
+   ],
+   "elementy": [
+    {
+     "slug": "dell-pro-14-16",
+     "rola": "laptop pracownika",
+     "ilosc": "wg stanowisk",
+     "wariant_sugerowany": "Dell Pro 14 PC14250, 16 GB RAM, Windows 11 Pro",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "dell-pro-usb-c-hub",
+     "rola": "monitor z hubem USB-C",
+     "ilosc": "wg stanowisk",
+     "wariant_sugerowany": "Dell Pro 24 Plus P2425E lub Pro P 24 P2426HE",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "konica-minolta-bizhub-c3321i",
+     "rola": "urządzenie wielofunkcyjne kolorowe",
+     "ilosc": 1,
+     "wariant_sugerowany": "bizhub C3321i",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "fw",
+     "rola": "zapora sieciowa z VPN",
+     "ilosc": 1,
+     "wariant_sugerowany": "Stormshield SN220 (przy mniejszym łączu SN170) + licencja ochrony",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "omada-switche-poe",
+     "rola": "przełącznik PoE",
+     "ilosc": 1,
+     "wariant_sugerowany": "SG2210MP (8× PoE+, 150 W) lub SG3210XHP-M2 (2,5 Gb/s)",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "omada-kontrolery",
+     "rola": "kontroler sieci Wi-Fi",
+     "ilosc": 1,
+     "wariant_sugerowany": "OC220",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "omada-ap-sufitowe",
+     "rola": "punkty Wi-Fi na suficie",
+     "ilosc": "2–3",
+     "wariant_sugerowany": "EAP650 lub EAP723",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "synology-diskstation-plus-2-4",
+     "rola": "NAS na pliki i kopie",
+     "ilosc": 1,
+     "wariant_sugerowany": "DS925+",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "synology-dyski-rozszerzenia",
+     "rola": "dyski do NAS",
+     "ilosc": 4,
+     "wariant_sugerowany": "HAT3310 8 TB lub większe",
+     "obowiazkowy": true,
+     "do_potwierdzenia": "Karta ma status do-sprawdzenia."
+    },
+    {
+     "slug": "apc-smart-ups-wieza",
+     "rola": "UPS z automatycznym zamykaniem",
+     "ilosc": 1,
+     "wariant_sugerowany": "SMC1500IC",
+     "obowiazkowy": true,
+     "do_potwierdzenia": "Zamykanie NAS Synology sygnałem z UPS — zgodność nieopisana w kartach."
+    },
+    {
+     "slug": "microsoft-365-business",
+     "rola": "poczta, Office i zarządzanie laptopami",
+     "ilosc": "wg osób",
+     "wariant_sugerowany": "Business Premium (zawiera Microsoft Defender dla Firm — ochronę komputerów)",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "eset",
+     "rola": "ochrona komputerów z szyfrowaniem dysków (opcja)",
+     "ilosc": 1,
+     "wariant_sugerowany": "PROTECT Advanced — zamiast Defendera z Business Premium, gdy wolisz konsolę ESET; przy Premium nie potrzebujesz obu",
+     "obowiazkowy": false
+    }
+   ],
+   "zamienniki": [
+    {
+     "zamiast": "konica-minolta-bizhub-c3321i",
+     "mozna": "konica-minolta-bizhub-4051i",
+     "kiedy": "Gdy wystarczy druk czarno-biały, a liczy się szybki skan dwustronny (podajnik 80 kartek)."
+    },
+    {
+     "zamiast": "dell-pro-14-16",
+     "mozna": "lenovo-thinkpad-t14-gen7",
+     "kiedy": "Gdy wolisz laptopy Lenovo ThinkPad do całodziennej pracy."
+    },
+    {
+     "zamiast": "omada-switche-poe",
+     "mozna": "usw24max",
+     "kiedy": "Gdy wolisz sieć UniFi — wtedy konsola UCG-Max i punkty U7 Pro."
+    },
+    {
+     "zamiast": "synology-diskstation-plus-2-4",
+     "mozna": "qnap-nas-2-4",
+     "kiedy": "Gdy wolisz QNAP TS-464 lub TS-473A (gniazdo PCIe na kartę 10 GbE)."
+    }
+   ],
+   "uslugi": [
+    "szkol"
+   ],
+   "uslugi_po_akceptacji_szefa": [
+    "opieka",
+    "kopie",
+    "przeglad"
+   ],
+   "dlaczego_tak": [
+    "Stormshield blokuje ataki (IPS), skanuje ruch antywirusem, filtruje strony i łączy pracowników przez VPN IPsec i SSL; SN220 można później podnieść do SN320 samą licencją.",
+    "OC220 zarządza punktami Wi-Fi i przełącznikami Omada (do 100 punktów, 20 przełączników) i zasila się z PoE.",
+    "SG2210MP ma budżet 150 W — punkty EAP650 (13,5 W) / EAP723 (18,6 W) i kontroler mieszczą się z zapasem.",
+    "ESET PROTECT Advanced dokłada pełne szyfrowanie dysków laptopów i odtwarzanie plików po ataku ransomware — to opcja dla firm, które wolą konsolę ESET zamiast Defendera.",
+    "Microsoft 365 Business Premium ma Intune i Microsoft Defender dla Firm; Smart-UPS SMC1500IC daje czystą sinusoidę i PowerChute Serial Shutdown."
+   ],
+   "uwagi_wewnetrzne": [
+    "Pakiet licencji Stormshield ustalić z dystrybutorem (nazw pakietów brak w karcie).",
+    "Stormshield jako brama + Omada bez routera Omada: portal gości działa przez kontroler OC220 (karta EAP: portal wymaga kontrolera) — sprawdzić konfigurację VLAN.",
+    "Dyski Synology — karta do-sprawdzenia; UPS ↔ DSM — potwierdzić.",
+    "QA 25.10: ESET zmieniony na opcjonalny — Business Premium zawiera Microsoft Defender dla Firm (karta M365), żeby klient nie płacił za dwie ochrony."
+   ],
+   "faq": [
+    {
+     "q": "Czy pracownicy połączą się zdalnie z biurem?",
+     "a": "Tak, przez VPN IPsec lub SSL na zaporze Stormshield (SN220: do 300 klientów SSL VPN)."
+    },
+    {
+     "q": "Co, jeśli zginie laptop z danymi klientów?",
+     "a": "Microsoft 365 Business Premium pozwala zarządzać urządzeniem zdalnie (Intune); pełne szyfrowanie dysków laptopów daje też opcjonalny ESET PROTECT Advanced."
+    },
+    {
+     "q": "Czy NAS sam się wyłączy przy zaniku prądu?",
+     "a": "Smart-UPS ma zamykanie systemu przez PowerChute; współpracę z konkretnym NAS konfigurujemy przy wdrożeniu."
+    },
+    {
+     "q": "Czy antywirus na zaporze działa bez dodatkowej licencji?",
+     "a": "Zakres ochrony (antywirus, filtrowanie stron) zależy od wykupionej licencji Stormshield — dobieramy ją przy wycenie."
+    }
+   ],
+   "kolejnosc": 15,
+   "status": "do-sprawdzenia"
+  },
+  {
+   "slug": "zestaw-biuro-rachunkowe",
+   "nazwa": "Biuro rachunkowe — programy InsERT, KSeF, podpis kwalifikowany i kopie",
+   "seria": "biuro-rachunkowe",
+   "poziom": "Standard",
+   "branza": "biura-uslugi",
+   "branze": [
+    "biura-uslugi"
+   ],
+   "dla_kogo": "Biuro rachunkowe lub doradca podatkowy z 2–6 stanowiskami, prowadzący KPiR, ryczałt lub pełną księgowość klientów.",
+   "korzysc": "Deklaracje i JPK dla wielu firm naraz, e-faktury z KSeF w programie i bazy klientów z kopią na NAS.",
+   "opis": [
+    "W biurze rachunkowym najwięcej czasu zabierają czynności powtarzane dla każdego klienta osobno: otwieranie okresów, deklaracje, JPK, pobieranie faktur. Od KSeF dochodzi pobieranie e-faktur i uprawnienia. Ten zestaw daje programy do pracy zbiorczej, sprzęt do skanowania dokumentów i zabezpieczenie danych klientów.",
+    "InsERT Biuro nexo zbiera klientów, umowy i zadania cykliczne oraz przygotowuje i wysyła deklaracje i JPK_VAT dla wielu firm naraz. Księgi prowadzisz w Rachmistrzu nexo PRO dla biur (KPiR i ryczałt), a pełną księgowość w Rewizorze; Rachmistrz sam pobiera e-faktury zakupowe z KSeF. Obsługę KSeF w programach InsERT opłacasz InsPunktami z Portfela biura. Każda osoba podpisująca ma kwalifikowany podpis EuroCert (ZUS Płatnik, JPK, e-deklaracje, KSeF). Dokumenty od klientów skanuje bizhub 4051i z podajnikiem dwustronnym na 80 kartek, a bazy i skany trzyma NAS Synology podłączony do Smart-UPS.",
+    "Dostajesz zainstalowane programy z przeniesionymi danymi, skonfigurowany dostęp do KSeF, wydane podpisy, kopie baz na NAS i szkolenie. Komputery chroni ESET PROTECT Advanced z szyfrowaniem dysków."
+   ],
+   "elementy": [
+    {
+     "slug": "biuro",
+     "rola": "program do zarządzania biurem",
+     "ilosc": 1,
+     "wariant_sugerowany": "InsERT Biuro nexo",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "rachmistrz",
+     "rola": "KPiR i ryczałt dla klientów",
+     "ilosc": 1,
+     "wariant_sugerowany": "Rachmistrz nexo PRO dla biur (20 podmiotów + bloki po 50)",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "rewizor",
+     "rola": "pełna księgowość",
+     "ilosc": 1,
+     "wariant_sugerowany": "Rewizor nexo PRO dla biur",
+     "obowiazkowy": false
+    },
+    {
+     "slug": "gratyfikant",
+     "rola": "kadry i płace",
+     "ilosc": 1,
+     "wariant_sugerowany": "Gratyfikant nexo PRO",
+     "obowiazkowy": false
+    },
+    {
+     "slug": "insert-inspunkty-ksef",
+     "rola": "opłaty za KSeF w programach InsERT",
+     "ilosc": 1,
+     "wariant_sugerowany": "paczka dobrana do liczby faktur klientów",
+     "obowiazkowy": true,
+     "do_potwierdzenia": "Karta ma status do-sprawdzenia (zachowanie programu przy zerowym saldzie, zasady dla linii GT)."
+    },
+    {
+     "slug": "euro",
+     "rola": "kwalifikowany podpis elektroniczny",
+     "ilosc": "1 na osobę podpisującą",
+     "wariant_sugerowany": "zestaw Token albo ECSigner",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "lenovo-thinkcentre-neo-50s-55s",
+     "rola": "komputer stanowiska",
+     "ilosc": "wg stanowisk",
+     "wariant_sugerowany": "neo 50s Gen 6, 16 GB RAM, SSD",
+     "obowiazkowy": true,
+     "do_potwierdzenia": "Wymagania sprzętowe podane w kartach dla Subiekta nexo (4 rdzenie, 8 GB RAM, SSD) — dla Rachmistrza/Rewizora nieweryfikowane osobno."
+    },
+    {
+     "slug": "lenovo-thinkvision-t",
+     "rola": "dwa monitory na stanowisko",
+     "ilosc": "2 na stanowisko",
+     "wariant_sugerowany": "T24-40 lub T27-40",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "konica-minolta-bizhub-4051i",
+     "rola": "urządzenie wielofunkcyjne do skanowania dokumentów",
+     "ilosc": 1,
+     "wariant_sugerowany": "bizhub 4051i",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "synology-diskstation-plus-2-4",
+     "rola": "NAS na bazy, skany i kopie",
+     "ilosc": 1,
+     "wariant_sugerowany": "DS425+ lub DS925+",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "synology-dyski-rozszerzenia",
+     "rola": "dyski do NAS",
+     "ilosc": "2–4",
+     "wariant_sugerowany": "HAT3300 / HAT3310",
+     "obowiazkowy": true,
+     "do_potwierdzenia": "Karta ma status do-sprawdzenia."
+    },
+    {
+     "slug": "apc-smart-ups-wieza",
+     "rola": "UPS z automatycznym zamykaniem",
+     "ilosc": 1,
+     "wariant_sugerowany": "SMC1000IC",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "eset",
+     "rola": "ochrona komputerów z szyfrowaniem dysków",
+     "ilosc": 1,
+     "wariant_sugerowany": "PROTECT Advanced",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "microsoft-windows-11-pro",
+     "rola": "system operacyjny",
+     "ilosc": "wg komputerów",
+     "wariant_sugerowany": "Windows 11 Pro",
+     "obowiazkowy": false
+    },
+    {
+     "slug": "fw",
+     "rola": "zapora sieciowa",
+     "ilosc": 1,
+     "wariant_sugerowany": "Stormshield SN170",
+     "obowiazkowy": false
+    },
+    {
+     "slug": "piecz",
+     "rola": "kwalifikowana pieczęć elektroniczna",
+     "ilosc": 1,
+     "wariant_sugerowany": "dla biura w formie spółki",
+     "obowiazkowy": false
+    }
+   ],
+   "zamienniki": [
+    {
+     "zamiast": "rachmistrz",
+     "mozna": "optima",
+     "kiedy": "Gdy biuro pracuje na Comarch ERP Optima (moduły księgowe, także w chmurze Comarch)."
+    },
+    {
+     "zamiast": "lenovo-thinkcentre-neo-50s-55s",
+     "mozna": "dell-pro-tower-slim",
+     "kiedy": "Gdy wolisz komputery Dell; w typowych konfiguracjach 3 lata ProSupport."
+    },
+    {
+     "zamiast": "konica-minolta-bizhub-4051i",
+     "mozna": "kyocera-ecosys-ma5500ifx-ma6000ifx",
+     "kiedy": "Gdy wolisz urządzenie Kyocera o większej wydajności."
+    }
+   ],
+   "uslugi": [
+    "wdrprog",
+    "ksef",
+    "szkol"
+   ],
+   "uslugi_po_akceptacji_szefa": [
+    "kopie",
+    "opieka"
+   ],
+   "dlaczego_tak": [
+    "Biuro nexo robi operacje zbiorcze: deklaracje, JPK_VAT z podpisem i UPO, wydruki ksiąg i otwieranie okresów dla wielu firm naraz.",
+    "Rachmistrz pobiera e-faktury z KSeF automatycznie i dopasowuje kontrahenta po NIP; Portfel biura dostaje 400 InsPunktów na start.",
+    "Podpis EuroCert służy do ZUS Płatnik, e-deklaracji i JPK oraz logowania do KSeF przy nadanych uprawnieniach.",
+    "bizhub 4051i skanuje obie strony w jednym przebiegu (do 90 obrazów/min) z podajnika na 80 kartek.",
+    "Smart-UPS SMC1000IC daje czystą sinusoidę i zamykanie przez PowerChute; ESET Advanced szyfruje dyski."
+   ],
+   "uwagi_wewnetrzne": [
+    "InsPunkty — karta do-sprawdzenia.",
+    "Przy promocji InsERT (do 31.10.2026) sprawdzić ceny przed wyceną.",
+    "Pieczęć tylko dla podmiotów niebędących osobami fizycznymi.",
+    "UPS ↔ NAS Synology — potwierdzić."
+   ],
+   "faq": [
+    {
+     "q": "Czy wyślę JPK dla wszystkich klientów naraz?",
+     "a": "Tak, Biuro nexo przygotowuje i wysyła JPK_VAT seryjnie, z podpisem i odbiorem UPO."
+    },
+    {
+     "q": "Kto płaci za KSeF w Subiekcie 123 moich klientów?",
+     "a": "Gdy biuro udostępnia klientom Subiekt 123, obsługę KSeF w tych licencjach opłaca z Portfela biura InsPunktami."
+    },
+    {
+     "q": "Czy mogę zamiast InsERT pracować w Optimie?",
+     "a": "Tak, Comarch ERP Optima ma moduły księgowe dla biur i wersję w chmurze — zestaw dobieramy wtedy pod Optimę."
+    },
+    {
+     "q": "Jaki podpis wybrać?",
+     "a": "Na laptopa wygodny jest zestaw Token (czytnik USB z kartą SIM), bez czytnika — podpis w chmurze ECSigner."
+    }
+   ],
+   "kolejnosc": 16,
+   "status": "do-sprawdzenia"
+  },
+  {
+   "slug": "zestaw-gabinet",
+   "nazwa": "Gabinet i salon — komputer, druk, kasa z terminalem i podpis elektroniczny",
+   "seria": "gabinet",
+   "poziom": "Standard",
+   "branza": "zdrowie-uzdrowiska",
+   "branze": [
+    "zdrowie-uzdrowiska",
+    "beauty",
+    "biura-uslugi"
+   ],
+   "dla_kogo": "Gabinet lekarski, fizjoterapii lub stomatologiczny, salon kosmetyczny albo fryzjerski z recepcją obsługiwaną przez 1–2 osoby.",
+   "korzysc": "Komputer, drukarka, kasa i terminal na małym blacie recepcji — plus podpis do ZUS i KSeF.",
+   "opis": [
+    "Na recepcji gabinetu czy salonu jest mało miejsca, a trzeba obsłużyć rejestrację, wydruki, paragony, płatności kartą i dokumenty dla urzędów. Ten zestaw mieści się na jednym blacie i nie wymaga informatyka na miejscu.",
+    "Komputer Lenovo ThinkCentre neo 50a to All-in-One: ekran, kamera 5 Mpix, mikrofony i głośniki w jednej obudowie, z jednym kablem zasilania. Drukuje, kopiuje i skanuje dwustronnie Kyocera ECOSYS MA4000. Paragony wystawiasz na dotykowej kasie Elzab K10 ONLINE z Wi-Fi, którą obsłużysz palcem jak telefon, a płatność kartą przyjmujesz na terminalu PolCard. Kwalifikowany podpis EuroCert pozwala podpisywać dokumenty do ZUS, JPK i logować się do KSeF. Komputer chroni ESET Small Business Security.",
+    "Dostajesz skonfigurowany komputer, podłączoną drukarkę, zgłoszoną i zaprogramowaną kasę, terminal oraz podpis i szkolenie z obsługi. Program do rejestracji pacjentów lub klientów dobierasz osobno — zestaw jest pod niego przygotowany."
+   ],
+   "elementy": [
+    {
+     "slug": "lenovo-thinkcentre-neo-50a-55a",
+     "rola": "komputer recepcji All-in-One",
+     "ilosc": 1,
+     "wariant_sugerowany": "neo 50a 24",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "kyocera-ecosys-ma4000x-fx-wifx",
+     "rola": "urządzenie wielofunkcyjne A4",
+     "ilosc": 1,
+     "wariant_sugerowany": "MA4000x (lub MA4000wifx z Wi-Fi)",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "k10",
+     "rola": "kasa fiskalna online z ekranem dotykowym",
+     "ilosc": 1,
+     "wariant_sugerowany": "K10 ONLINE BT/WiFi (w salonie beauty np. różowo-biała EX)",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "elzab-szuflada-aktywna-elz-350-elz-410",
+     "rola": "szuflada na gotówkę",
+     "ilosc": 1,
+     "wariant_sugerowany": "ELZ-350 aktywna",
+     "obowiazkowy": false
+    },
+    {
+     "slug": "pol",
+     "rola": "terminal płatniczy",
+     "ilosc": 1,
+     "wariant_sugerowany": "Desk 3200 albo Move 2500 — terminal działa samodzielnie (kwotę wpisujesz na terminalu)",
+     "obowiazkowy": true,
+     "do_potwierdzenia": "Integracja kwoty K10 ↔ terminal PolCard — karta kasy podaje „terminal płatniczy” bez operatora."
+    },
+    {
+     "slug": "euro",
+     "rola": "kwalifikowany podpis elektroniczny",
+     "ilosc": 1,
+     "wariant_sugerowany": "zestaw Token albo ECSigner",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "eset",
+     "rola": "ochrona komputera",
+     "ilosc": 1,
+     "wariant_sugerowany": "Small Business Security (1–4 urządzenia)",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "microsoft-365-business",
+     "rola": "poczta firmowa i Office",
+     "ilosc": "wg osób",
+     "wariant_sugerowany": "Business Basic lub Standard",
+     "obowiazkowy": false
+    }
+   ],
+   "zamienniki": [
+    {
+     "zamiast": "k10",
+     "mozna": "temo",
+     "kiedy": "Gdy paragony i faktury mają iść z komputera: drukarka fiskalna Posnet Temo z programem Subiekt 123 (moduł Fiskalizacja obsługuje drukarki Posnet)."
+    },
+    {
+     "zamiast": "pol",
+     "mozna": "softpos",
+     "kiedy": "Gdy płatności kartą są rzadkie — PolCard Go na telefonie z Androidem i NFC."
+    },
+    {
+     "zamiast": "lenovo-thinkcentre-neo-50a-55a",
+     "mozna": "dell-pro-aio",
+     "kiedy": "Gdy wolisz Dell Pro 24 All-in-One z wysuwaną kamerą."
+    },
+    {
+     "zamiast": "k10",
+     "mozna": "k1",
+     "kiedy": "Gdy przyjmujesz też u klienta w domu — kieszonkowa Elzab K1 Slim (bez szuflady)."
+    }
+   ],
+   "uslugi": [
+    "srvkas",
+    "szkol",
+    "przkas",
+    "ksef"
+   ],
+   "uslugi_po_akceptacji_szefa": [
+    "opieka"
+   ],
+   "dlaczego_tak": [
+    "neo 50a ma ekran 24\", kamerę 5 Mpix z zasłonką, mikrofony i głośniki w jednej obudowie — porządek na małej recepcji.",
+    "K10 ONLINE ma ekran dotykowy 4,3\", 5 000 towarów, e-paragony, tryb usług czasowych i współpracuje z terminalem płatniczym.",
+    "Elzab przeznacza szuflady aktywne ELZ-350/410 do kasy K10 — wpinasz je do gniazda zasilania kasy.",
+    "Podpis EuroCert działa w ZUS Płatnik, e-deklaracjach i JPK, a przy uprawnieniach — do logowania w KSeF.",
+    "ESET Small Business Security chroni urządzenia bez konsoli — dla gabinetu z 1–4 komputerami."
+   ],
+   "uwagi_wewnetrzne": [
+    "Brak w katalogu programów gabinetowych (rejestracja, dokumentacja medyczna) — zaznaczyć w ofercie.",
+    "K10 ↔ PolCard — sprawdzić listę terminali Elzab.",
+    "Zamiennik Subiekt 123 + Temo: Subiekt 123 podaje tylko marki drukarek.",
+    "Zamiennik Temo + Subiekt 123: model drukarki do potwierdzenia (przeniesione z pola publicznego)."
+   ],
+   "faq": [
+    {
+     "q": "Czy kasa zmieści się na małej recepcji?",
+     "a": "Tak, K10 ma 190 × 95 mm i waży 0,65 kg; ma akumulator, więc nie musi stać przy gniazdku."
+    },
+    {
+     "q": "Czy mogę mieć szufladę na gotówkę?",
+     "a": "Tak, szufladę aktywną Elzab ELZ-350 podłączasz do kasy K10."
+    },
+    {
+     "q": "Do czego przyda się podpis kwalifikowany?",
+     "a": "Do podpisywania dokumentów w ZUS Płatnik, e-deklaracji i JPK oraz do logowania w KSeF, jeśli masz nadane uprawnienia."
+    },
+    {
+     "q": "Czy zestaw obejmuje program do rejestracji pacjentów?",
+     "a": "Nie, program dziedzinowy dobierasz osobno; komputer jest pod niego przygotowany."
+    }
+   ],
+   "kolejnosc": 17,
+   "status": "do-sprawdzenia"
+  },
+  {
+   "slug": "zestaw-szkola-sala-interaktywna",
+   "nazwa": "Sala lekcyjna — monitor interaktywny i laptop nauczyciela",
+   "seria": "szkola",
+   "poziom": "Sala lekcyjna",
+   "branza": "szkoly-instytucje",
+   "branze": [
+    "szkoly-instytucje",
+    "biura-uslugi",
+    "noclegi"
+   ],
+   "dla_kogo": "Klasa, pracownia lub sala szkoleniowa, w której tablica kredowa i projektor z lampą mają ustąpić ekranowi dotykowemu.",
+   "korzysc": "Piszesz po ekranie jak po tablicy i pokazujesz obraz z laptopa lub telefonu bez kabli.",
+   "opis": [
+    "Projektor z lampą wymaga zaciemniania sali i wymiany lamp, a tablica kredowa nie zapisuje notatek. Monitor interaktywny łączy tablicę, ekran i komputer: nauczyciel pisze po nim pisakiem lub palcem, otwiera prezentacje i filmy, a notatki zapisuje.",
+    "Avtek TouchScreen 8 Lite G ma rozdzielczość 4K, Androida 14 z certyfikatem Google EDLA (pełny dostęp do Sklepu Play), 32 punkty dotyku i pracę 24/7. Bezprzewodowo podłączysz do 8 laptopów lub telefonów i pokażesz do 4 obrazów naraz. Do ekranu jest uchwyt ścienny, dwa pisaki i pilot, a w slocie OPS można zamontować komputer z Windows. Laptop nauczyciela Lenovo ThinkBook 14 z HDMI 2.1 i Wi-Fi 6/7 służy do przygotowania lekcji i jako źródło obrazu.",
+    "Dostajesz zamontowany i skonfigurowany ekran, przygotowany laptop i szkolenie dla nauczycieli. Przy zakupie z dofinansowania przygotowujemy kosztorys i dokumenty do rozliczenia."
+   ],
+   "elementy": [
+    {
+     "slug": "avtek",
+     "rola": "monitor interaktywny",
+     "ilosc": 1,
+     "wariant_sugerowany": "TS 8 Lite G 75\" (w małej sali 65\")",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "lenovo-thinkbook-14-g8-g9",
+     "rola": "laptop nauczyciela",
+     "ilosc": 1,
+     "wariant_sugerowany": "ThinkBook 14 G9, 16 GB RAM",
+     "obowiazkowy": true
+    }
+   ],
+   "zamienniki": [
+    {
+     "zamiast": "avtek",
+     "mozna": "samsung-waf",
+     "kiedy": "Gdy sala służy też do spotkań online — Samsung WAFX-P ma kamerę 48 MP, mikrofon do 10 m i głośniki; praca 12/7."
+    },
+    {
+     "zamiast": "avtek",
+     "mozna": "sharp-nec-projektory-sala",
+     "kiedy": "Gdy w sali zostaje tablica lub ekran i liczy się budżet — projektor laserowy PE506UL bez wymiany lamp; ekran i uchwyt dobieramy osobno."
+    },
+    {
+     "zamiast": "lenovo-thinkbook-14-g8-g9",
+     "mozna": "lenovo-thinkpad-l14-gen7-l16-gen3",
+     "kiedy": "Gdy szkoła woli serię ThinkPad do intensywnej pracy."
+    }
+   ],
+   "uslugi": [
+    "szkol"
+   ],
+   "uslugi_po_akceptacji_szefa": [],
+   "powiazane": [
+    "dof"
+   ],
+   "dlaczego_tak": [
+    "Avtek ma Androida 14 z certyfikatem Google EDLA — aplikacje ze Sklepu Play działają bez podłączonego komputera.",
+    "Do 8 urządzeń łączy się bezprzewodowo, a na ekranie widać do 4 obrazów naraz — uczniowie pokazują swoje prace z tabletów.",
+    "Slot OPS pozwala później dołożyć komputer z Windows wsuwany w ekran; uchwyt ścienny jest w zestawie.",
+    "Praca 24/7 i 2 głośniki po 20 W z mikrofonem — ekran zastępuje też nagłośnienie małej sali.",
+    "ThinkBook 14 ma HDMI 2.1 (4K 60 Hz) do podłączenia kablem, gdy sieć w szkole zawodzi."
+   ],
+   "uwagi_wewnetrzne": [
+    "Brak w katalogu: komputer OPS, statyw mobilny, ekran projekcyjny i uchwyt do projektora.",
+    "Waga wersji 86\" niepotwierdzona — przy montażu sprawdzić ścianę.",
+    "Licencjonowanie M365 dla szkół (Education) inne niż Business — w katalogu tylko plany Business.",
+    "QA 25.10: usunięto element microsoft-365-business — szkoły licencjonuje się planami Microsoft 365 Education, a karta M365 w katalogu opisuje tylko plany Business (dobór Education przy wycenie, poza katalogiem)."
+   ],
+   "faq": [
+    {
+     "q": "Czy ekran działa bez komputera?",
+     "a": "Tak, ma Androida 14 z dostępem do Sklepu Play; komputer podłączasz, gdy potrzebujesz programów z Windows."
+    },
+    {
+     "q": "Ilu uczniów może pokazać obraz naraz?",
+     "a": "Do 8 urządzeń łączy się bezprzewodowo, a ekran wyświetla do 4 obrazów jednocześnie."
+    },
+    {
+     "q": "Czy mogę zamiast ekranu kupić projektor?",
+     "a": "Tak, np. laserowy Sharp/NEC PE506UL — nie wymaga wymiany lamp; ekran i uchwyt dobieramy osobno."
+    },
+    {
+     "q": "Czy pomożecie przy dofinansowaniu?",
+     "a": "Przygotowujemy dobór, kosztorys, dostawę, instalację i dokumenty do rozliczenia zakupu."
+    }
+   ],
+   "kolejnosc": 18,
+   "status": "gotowe"
+  },
+  {
+   "slug": "zestaw-szkola-siec",
+   "nazwa": "Szkoła — Wi-Fi w całym budynku, serwer plików i zasilanie awaryjne",
+   "seria": "szkola",
+   "poziom": "Budynek",
+   "branza": "szkoly-instytucje",
+   "branze": [
+    "szkoly-instytucje"
+   ],
+   "dla_kogo": "Szkoła podstawowa, przedszkole lub urząd z kilkunastoma salami, pokojem nauczycielskim i sekretariatem.",
+   "korzysc": "Wi-Fi w każdej sali, osobne sieci dla uczniów i sekretariatu oraz jeden panel do zarządzania.",
+   "opis": [
+    "W szkole Wi-Fi często składa się z kilku domowych routerów, a dziennik elektroniczny i sekretariat dzielą sieć z uczniami. Ten zestaw daje jedną zarządzaną sieć dla całego budynku, serwer plików z kopią i zasilanie awaryjne szafy.",
+    "Centrum sieci to UniFi Dream Machine SE w szafie: router, zapora z wykrywaniem i blokowaniem ataków, 8 portów PoE i rejestrator kamer UniFi. Przełącznik USW-Pro-Max-24-PoE zasila do 16 punktów Wi-Fi 7 U7 Pro po kablu (każdy do 21 W, budżet przełącznika 400 W) i ma porty 2,5 Gb/s, żeby punkty pracowały z pełną szybkością. Sieć dzielimy na części dla uczniów, nauczycieli, sekretariatu i monitoringu. Pliki i kopie komputerów sekretariatu trzyma NAS Synology DS925+, a całą szafę podtrzymuje UPS rack APC.",
+    "Dostajesz projekt rozmieszczenia punktów, skonfigurowaną sieć, NAS z kopiami i szkolenie dla osoby odpowiedzialnej za IT. Szafę sieciową i okablowanie wyceniamy osobno, jako prace instalacyjne. Przy zakupie z dofinansowania przygotowujemy kosztorys i dokumenty."
+   ],
+   "elementy": [
+    {
+     "slug": "udmse",
+     "rola": "router, zapora i rejestrator w szafie",
+     "ilosc": 1,
+     "wariant_sugerowany": "UDM-SE",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "usw24max",
+     "rola": "przełącznik PoE z portami 2,5 Gb/s",
+     "ilosc": 1,
+     "wariant_sugerowany": "USW-Pro-Max-24-PoE",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "u7",
+     "rola": "punkty Wi-Fi 7 w salach i na korytarzach",
+     "ilosc": "1 na 1–2 sale (do 16 na przełącznik)",
+     "wariant_sugerowany": "U7 Pro",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "synology-diskstation-plus-2-4",
+     "rola": "NAS na pliki i kopie",
+     "ilosc": 1,
+     "wariant_sugerowany": "DS925+",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "synology-dyski-rozszerzenia",
+     "rola": "dyski do NAS",
+     "ilosc": 4,
+     "wariant_sugerowany": "HAT3310 lub HAT5300",
+     "obowiazkowy": true,
+     "do_potwierdzenia": "Karta ma status do-sprawdzenia."
+    },
+    {
+     "slug": "apc-smart-ups-rack",
+     "rola": "UPS do szafy sieciowej",
+     "ilosc": 1,
+     "wariant_sugerowany": "SMT1500RMI2UC (szafa 4-słupkowa); przy większej szafie SMT2200RMI2UC",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "eset",
+     "rola": "ochrona komputerów sekretariatu i pracowni",
+     "ilosc": 1,
+     "wariant_sugerowany": "PROTECT Entry/Advanced, wg liczby komputerów",
+     "obowiazkowy": false
+    },
+    {
+     "slug": "fw",
+     "rola": "zapora z filtrowaniem stron",
+     "ilosc": 1,
+     "wariant_sugerowany": "Stormshield SN220",
+     "obowiazkowy": false
+    }
+   ],
+   "zamienniki": [
+    {
+     "zamiast": "u7",
+     "mozna": "u7max",
+     "kiedy": "W auli, sali gimnastycznej lub pracowni, gdzie naraz łączy się ponad 300 urządzeń."
+    },
+    {
+     "zamiast": "udmse",
+     "mozna": "ucgmax",
+     "kiedy": "W mniejszym budynku bez potrzeby PoE w routerze (UCG-Max nie ma PoE ani Wi-Fi)."
+    },
+    {
+     "zamiast": "synology-diskstation-plus-2-4",
+     "mozna": "synology-rackstation",
+     "kiedy": "Gdy NAS ma być montowany w szafie rack."
+    }
+   ],
+   "uslugi": [
+    "szkol"
+   ],
+   "uslugi_po_akceptacji_szefa": [
+    "opieka",
+    "kopie",
+    "przeglad"
+   ],
+   "powiazane": [
+    "dof"
+   ],
+   "dlaczego_tak": [
+    "UDM-SE ma zaporę IDS/IPS do 3,5 Gb/s, obsługuje ponad 1000 użytkowników i zarządza ponad 100 urządzeniami UniFi.",
+    "USW-Pro-Max-24-PoE: 400 W PoE i porty 2,5 Gb/s; 16 punktów U7 Pro × 21 W = 336 W — mieści się w budżecie.",
+    "U7 Pro obsługuje ponad 300 urządzeń na ok. 140 m², ma sieć dla gości z izolacją i płynne przechodzenie między punktami.",
+    "Przełącznik ma routing między sieciami VLAN — uczniowie, nauczyciele i sekretariat są w osobnych częściach sieci.",
+    "SMT1500RMI2UC (1000 W, rack 2U) podtrzyma UDM-SE, przełącznik i NAS; SMT ma 3 lata gwarancji producenta na urządzenie."
+   ],
+   "uwagi_wewnetrzne": [
+    "SMT1500RMI2UC nie wspiera montażu dwusłupkowego — potrzebna szafa 4-słupkowa (uwaga w karcie).",
+    "Szafa, okablowanie i montaż punktów — wycena instalacyjna osobno.",
+    "Kamer UniFi Protect nie ma w katalogu."
+   ],
+   "faq": [
+    {
+     "q": "Ile punktów Wi-Fi potrzeba?",
+     "a": "Zwykle jeden punkt na 1–2 sale; dokładną liczbę ustalamy po obejrzeniu budynku, bo ściany i stropy mocno zmieniają zasięg."
+    },
+    {
+     "q": "Czy uczniowie będą w osobnej sieci niż sekretariat?",
+     "a": "Tak, sieć dzielimy na części (VLAN) dla uczniów, nauczycieli, sekretariatu i monitoringu."
+    },
+    {
+     "q": "Czy punkty Wi-Fi potrzebują gniazdek?",
+     "a": "Nie, punkty U7 Pro zasila kabel sieciowy z przełącznika PoE."
+    },
+    {
+     "q": "Czy sieć zadziała przy zaniku prądu?",
+     "a": "Szafa jest podłączona do UPS, który podtrzymuje router, przełącznik i NAS przez czas zależny od obciążenia."
+    }
+   ],
+   "kolejnosc": 19,
+   "status": "do-sprawdzenia"
+  },
+  {
+   "slug": "zestaw-wifi-unifi",
+   "nazwa": "Wi-Fi dla gości i firmy — UniFi w małym lokalu",
+   "seria": "wifi-firma",
+   "poziom": "UniFi",
+   "branza": "gastronomia",
+   "branze": [
+    "gastronomia",
+    "handel",
+    "noclegi",
+    "biura-uslugi",
+    "zdrowie-uzdrowiska",
+    "beauty"
+   ],
+   "dla_kogo": "Kawiarnia, sklep, gabinet lub małe biuro do ok. 160 m², gdzie goście mają mieć Wi-Fi, a kasa i terminal osobną sieć.",
+   "korzysc": "Jedno urządzenie daje internet, Wi-Fi 7 i zaporę, a goście i kasa są w osobnych sieciach.",
+   "opis": [
+    "W małym lokalu Wi-Fi zwykle daje router od operatora, do którego podłączona jest też kasa, terminal i komputer z księgowością. Gdy gość „zapcha” sieć albo złapie wirusa, cierpi sprzedaż. Ten zestaw rozdziela ruch i daje Wi-Fi, którym zarządzasz z aplikacji w telefonie.",
+    "UniFi Dream Router 7 łączy router, zaporę z wykrywaniem i blokowaniem ataków, Wi-Fi 7 na trzech pasmach i konsolę do zarządzania siecią. Pokrywa ok. 160 m² i obsługuje ponad 300 użytkowników, ma VPN do zdalnego dostępu i przyjmuje do 4 łączy internetowych, więc zapasowe łącze przejmie ruch, gdy główne padnie. Do drugiego pomieszczenia dokładasz UniFi Express jako punkt mesh, bez ciągnięcia kabla.",
+    "Dostajesz skonfigurowaną sieć z osobnym Wi-Fi dla gości i dla firmy, dostęp do podglądu w aplikacji UniFi i krótkie szkolenie. Router zarządza ponad 30 urządzeniami UniFi, więc gdy lokal się rozrośnie, dołożysz kolejne punkty."
+   ],
+   "elementy": [
+    {
+     "slug": "udr7",
+     "rola": "router z Wi-Fi 7, zaporą i konsolą UniFi",
+     "ilosc": 1,
+     "wariant_sugerowany": "UniFi Dream Router 7",
+     "obowiazkowy": true,
+     "do_potwierdzenia": "Strona logowania gości i izolacja na wbudowanym Wi-Fi UDR7 — funkcje opisane w karcie U7 Pro jako funkcje UniFi Network; potwierdzić dla UDR7."
+    },
+    {
+     "slug": "ux",
+     "rola": "punkt mesh w drugim pomieszczeniu",
+     "ilosc": "0–2",
+     "wariant_sugerowany": "UniFi Express (tryb punktu dostępowego)",
+     "obowiazkowy": false
+    },
+    {
+     "slug": "apc-back-ups",
+     "rola": "zasilacz awaryjny routera i modemu",
+     "ilosc": 1,
+     "wariant_sugerowany": "BXR750MI-GR",
+     "obowiazkowy": false
+    }
+   ],
+   "zamienniki": [
+    {
+     "zamiast": "udr7",
+     "mozna": "ucgmax",
+     "kiedy": "W obiekcie większym niż ok. 160 m²: UCG-Max z przełącznikiem USW-Pro-Max-24-PoE i punktami U7 Pro."
+    },
+    {
+     "zamiast": "udr7",
+     "mozna": "ux",
+     "kiedy": "W bardzo małym punkcie do ok. 50 użytkowników — sam UniFi Express jako router z Wi-Fi 6."
+    },
+    {
+     "zamiast": "udr7",
+     "mozna": "omada-routery",
+     "kiedy": "Gdy wolisz TP-Link Omada — ER7212PC z punktami EAP650 i hotspotem na vouchery."
+    }
+   ],
+   "uslugi": [
+    "szkol"
+   ],
+   "uslugi_po_akceptacji_szefa": [
+    "opieka",
+    "przeglad"
+   ],
+   "dlaczego_tak": [
+    "UDR7 ma Wi-Fi 7 na 2,4, 5 i 6 GHz, zasięg ok. 160 m² i ponad 300 użytkowników.",
+    "Zapora IDS/IPS działa do 2,3 Gb/s, a VPN pozwala bezpiecznie łączyć się z firmą z domu.",
+    "Do routera podłączysz do 4 łączy internetowych — zapasowe łącze utrzyma terminal i kasę online.",
+    "UniFi Express działa jako punkt mesh i zasila się z USB-C — rozszerzysz zasięg bez kabla.",
+    "UDR7 zarządza ponad 30 urządzeniami UniFi i nagrywa kamery UniFi Protect na kartę microSD 64 GB z zestawu."
+   ],
+   "uwagi_wewnetrzne": [
+    "UDR7 ma 1 port PoE 15,4 W — nie zasili U7 Pro (PoE+ do 21 W); rozbudowa wymaga przełącznika PoE+.",
+    "W katalogu brak małego przełącznika PoE UniFi (jest tylko 24-portowy) — rozważyć dodanie.",
+    "Portal gości na UDR7 — potwierdzić."
+   ],
+   "faq": [
+    {
+     "q": "Czy Wi-Fi gości będzie oddzielone od kasy?",
+     "a": "Tak, ustawiamy osobną sieć dla gości i osobną dla urządzeń firmy."
+    },
+    {
+     "q": "Co, jeśli padnie internet?",
+     "a": "Do UDR7 podłączysz zapasowe łącze — router przełączy na nie ruch."
+    },
+    {
+     "q": "Czy Wi-Fi sięgnie do drugiej sali?",
+     "a": "Jeśli nie, dokładamy UniFi Express jako punkt mesh, bez ciągnięcia kabla."
+    },
+    {
+     "q": "Czy zobaczę sieć w telefonie?",
+     "a": "Tak, siecią UniFi zarządzasz w aplikacji, także zdalnie."
+    }
+   ],
+   "kolejnosc": 20,
+   "status": "do-sprawdzenia"
+  },
+  {
+   "slug": "zestaw-wifi-omada",
+   "nazwa": "Wi-Fi dla gości i firmy — TP-Link Omada z hotspotem na vouchery",
+   "seria": "wifi-firma",
+   "poziom": "Omada",
+   "branza": "gastronomia",
+   "branze": [
+    "gastronomia",
+    "handel",
+    "noclegi",
+    "biura-uslugi",
+    "zdrowie-uzdrowiska"
+   ],
+   "dla_kogo": "Restauracja z ogródkiem, sklep lub mały pensjonat, gdzie potrzeba kilku punktów Wi-Fi i logowania gości przez voucher.",
+   "korzysc": "Router z PoE zasila punkty Wi-Fi kablem sieciowym, a goście logują się przez voucher na stronie lokalu.",
+   "opis": [
+    "Gdy jeden router nie wystarcza, a punkty Wi-Fi trzeba rozmieścić na sali, zapleczu i tarasie, liczy się zasilanie po kablu sieciowym i jedno miejsce do zarządzania. Ten zestaw opiera się na routerze TP-Link Omada ER7212PC, który łączy w jednym urządzeniu router, przełącznik PoE i kontroler sieci.",
+    "ER7212PC ma 8 portów PoE+ z budżetem 110 W i wbudowany kontroler dla 24 urządzeń Omada. Punkty EAP650 pobierają do 13,5 W, więc kilka z nich zasilisz z routera bez osobnych zasilaczy. Router przyjmuje dwa łącza internetowe i przełącza ruch na zapasowe, gdy główne padnie. Hotspot pozwala logować gości hasłem, voucherem lub SMS-em, a sieć gości jest odizolowana od kasy i terminala. Na taras dokładasz punkt zewnętrzny IP67.",
+    "Dostajesz zamontowane i skonfigurowane punkty, stronę logowania gości i podgląd całej sieci w aplikacji Omada. Przy więcej niż 8 punktach przechodzisz na osobny router, kontroler i przełącznik Omada."
+   ],
+   "elementy": [
+    {
+     "slug": "omada-routery",
+     "rola": "router z PoE i kontrolerem",
+     "ilosc": 1,
+     "wariant_sugerowany": "ER7212PC",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "omada-ap-sufitowe",
+     "rola": "punkty Wi-Fi na suficie",
+     "ilosc": "2–6",
+     "wariant_sugerowany": "EAP650 (Wi-Fi 6) lub EAP723 (Wi-Fi 7)",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "omada-ap-scienne-zewnetrzne",
+     "rola": "punkt Wi-Fi na tarasie lub w ogródku",
+     "ilosc": 1,
+     "wariant_sugerowany": "EAP650-Outdoor",
+     "obowiazkowy": false
+    },
+    {
+     "slug": "apc-back-ups",
+     "rola": "zasilacz awaryjny routera",
+     "ilosc": 1,
+     "wariant_sugerowany": "BXR750MI-GR",
+     "obowiazkowy": false
+    }
+   ],
+   "zamienniki": [
+    {
+     "zamiast": "omada-routery",
+     "mozna": "omada-switche-poe",
+     "kiedy": "Przy więcej niż 8 punktach: router ER605, kontroler OC220 i przełącznik SG2428P lub SG3428MP."
+    },
+    {
+     "zamiast": "omada-ap-sufitowe",
+     "mozna": "omada-ap-scienne-zewnetrzne",
+     "kiedy": "W pokojach pensjonatu — punkt naścienny EAP615-Wall w miejscu gniazdka."
+    },
+    {
+     "zamiast": "omada-routery",
+     "mozna": "udr7",
+     "kiedy": "Gdy wolisz UniFi i lokal ma do ok. 160 m²."
+    }
+   ],
+   "uslugi": [
+    "szkol"
+   ],
+   "uslugi_po_akceptacji_szefa": [
+    "opieka",
+    "przeglad"
+   ],
+   "dlaczego_tak": [
+    "ER7212PC łączy router, 8 portów PoE+ (110 W) i kontroler dla 24 urządzeń Omada — jedno urządzenie zamiast trzech.",
+    "EAP650 pobiera do 13,5 W: 6 punktów to ok. 81 W, z zapasem w budżecie 110 W.",
+    "Hotspot routera obsługuje logowanie hasłem, voucherem, SMS-em i RADIUS; strona logowania wymaga kontrolera, który jest wbudowany.",
+    "Dwa łącza internetowe z przełączaniem awaryjnym — kasa i terminal działają, gdy główne łącze padnie.",
+    "EAP650-Outdoor ma IP67 i pracuje od −30 do 70 °C, z zasilaczem PoE w zestawie."
+   ],
+   "uwagi_wewnetrzne": [
+    "Kontroler wbudowany w ER7212PC obsługuje maks. 24 urządzenia (2 bramy + 22 przełączniki lub punkty).",
+    "Okablowanie i montaż — wycena instalacyjna osobno."
+   ],
+   "faq": [
+    {
+     "q": "Czy goście mogą logować się voucherem?",
+     "a": "Tak, hotspot obsługuje logowanie hasłem, voucherem, SMS-em lub przez RADIUS."
+    },
+    {
+     "q": "Czy punkty Wi-Fi potrzebują gniazdek?",
+     "a": "Nie, zasila je kabel sieciowy z portów PoE+ routera ER7212PC."
+    },
+    {
+     "q": "Ile punktów podłączę?",
+     "a": "Router ma 8 portów PoE+ i budżet 110 W; przy większej liczbie punktów dokładamy przełącznik PoE i osobny kontroler."
+    },
+    {
+     "q": "Czy Wi-Fi zadziała na tarasie zimą?",
+     "a": "Punkt EAP650-Outdoor ma obudowę IP67 i pracuje od −30 do 70 °C."
+    }
+   ],
+   "kolejnosc": 21,
+   "status": "gotowe"
+  },
+  {
+   "slug": "zestaw-kopie-zapasowe",
+   "nazwa": "Kopie zapasowe w firmie — NAS z dyskami i zasilanie awaryjne",
+   "seria": "kopie",
+   "poziom": "Standard",
+   "branza": "biura-uslugi",
+   "branze": [
+    "biura-uslugi",
+    "handel",
+    "gastronomia",
+    "noclegi",
+    "zdrowie-uzdrowiska",
+    "beauty",
+    "szkoly-instytucje"
+   ],
+   "dla_kogo": "Firma z bazą programu sprzedażowego, księgowego lub hotelowego, dokumentami i kilkoma komputerami — od sklepu po biuro.",
+   "korzysc": "Komputery i bazy programów kopiują się same na NAS, a zasilacz awaryjny chroni go przy zaniku prądu.",
+   "opis": [
+    "Awaria dysku, kradzież laptopa, zalanie zaplecza albo wirus szyfrujący pliki mogą oznaczać utratę faktur, bazy towarów czy rezerwacji. Ten zestaw daje urządzenie, które samo robi kopie komputerów i baz programów, oraz zasilanie awaryjne, które chroni je przy zaniku prądu.",
+    "NAS Synology DS225+ robi automatyczne kopie komputerów programem Active Backup for Business i trzyma wspólne foldery firmy. Dwa dyski pracują jako lustro, więc awaria jednego nie kasuje danych. Zasilacz awaryjny APC podtrzymuje NAS i router przy zaniku prądu. Dobra praktyka to zasada 3-2-1: trzy kopie, dwa nośniki, jedna poza firmą. Kopia poza firmą to osobny element, który dobieramy przy wycenie.",
+    "Dostajesz dobrany i zamontowany NAS, ustawione kopie najważniejszych danych i krótką instrukcję, co robić po awarii. Pamiętaj: RAID to nie kopia zapasowa — nie chroni przed skasowaniem pliku, wirusem, pożarem ani kradzieżą."
+   ],
+   "elementy": [
+    {
+     "slug": "synology-diskstation-plus-2-4",
+     "rola": "NAS na kopie i wspólne pliki",
+     "ilosc": 1,
+     "wariant_sugerowany": "DS225+ (2 dyski); więcej danych — DS425+ (4 dyski)",
+     "obowiazkowy": true
+    },
+    {
+     "slug": "synology-dyski-rozszerzenia",
+     "rola": "dyski do NAS",
+     "ilosc": 2,
+     "wariant_sugerowany": "HAT3300 4 TB lub 6 TB (z listy zgodności)",
+     "obowiazkowy": true,
+     "do_potwierdzenia": "Karta ma status do-sprawdzenia."
+    },
+    {
+     "slug": "apc-back-ups",
+     "rola": "zasilacz awaryjny NAS i routera",
+     "ilosc": 1,
+     "wariant_sugerowany": "BXR750MI-GR",
+     "obowiazkowy": true,
+     "do_potwierdzenia": "Automatyczne zamknięcie NAS Synology po sygnale z UPS przez USB — zgodność nieopisana w kartach."
+    }
+   ],
+   "zamienniki": [
+    {
+     "zamiast": "synology-diskstation-plus-2-4",
+     "mozna": "qnap-nas-2-4",
+     "kiedy": "Gdy wolisz QNAP (kopie programem NetBak / HDP PC Agent); dyski z listy zgodności QNAP."
+    },
+    {
+     "zamiast": "synology-diskstation-plus-2-4",
+     "mozna": "synology-diskstation-value-j",
+     "kiedy": "Gdy kopiujesz tylko kilka komputerów i wystarczy prostszy DS223 (1 GbE, 2 lata gwarancji)."
+    },
+    {
+     "zamiast": "apc-back-ups",
+     "mozna": "apc-smart-ups-wieza",
+     "kiedy": "Gdy NAS stoi z serwerem — Smart-UPS z czystą sinusoidą i PowerChute Serial Shutdown."
+    }
+   ],
+   "uslugi": [
+    "szkol"
+   ],
+   "uslugi_po_akceptacji_szefa": [
+    "kopie",
+    "przeglad",
+    "opieka"
+   ],
+   "dlaczego_tak": [
+    "DS225+ robi automatyczne kopie wszystkich komputerów programem Active Backup for Business.",
+    "Dwa dyski w lustrze chronią przed awarią jednego dysku, a producent wprost zaznacza, że RAID nie zastępuje kopii.",
+    "NAS w firmie to pierwszy, lokalny element zasady 3-2-1; kopię poza firmą dobieramy jako osobny element.",
+    "BXR750MI-GR ma 410 W, AVR i 4 gniazda Schuko — NAS (ok. 17 W) i router podtrzyma z dużym zapasem.",
+    "DS225+ ma port 2,5 GbE i 3 lata gwarancji producenta z możliwością przedłużenia."
+   ],
+   "uwagi_wewnetrzne": [
+    "Usługa „kopie” ma status do-akceptacji-szefa — w zestawie jako usługa po akceptacji.",
+    "Kopia poza firmą: chmura producenta NAS lub druga lokalizacja — brak pozycji w katalogu; przy zasobach PRO-KOM umowa powierzenia (RODO).",
+    "Dyski Synology — karta do-sprawdzenia; UPS ↔ DSM — potwierdzić.",
+    "QA 25.10: z nazwy, opisu, dlaczego_tak i FAQ usunięto obietnicę testu odtworzenia (realizuje ją usługa „kopie”, która czeka na akceptację szefa). Kopia poza firmą opisana ogólnie — karta Synology nie wymienia Synology C2."
+   ],
+   "faq": [
+    {
+     "q": "Czy wystarczy dysk USB przy komputerze?",
+     "a": "To lepsze niż nic, ale dysk podłączony na stałe może zostać zaszyfrowany albo zniszczony razem z komputerem. Dlatego jedna kopia powinna być poza firmą."
+    },
+    {
+     "q": "Czy NAS wystarczy jako jedyna kopia?",
+     "a": "Nie. NAS w firmie to kopia lokalna. Zgodnie z zasadą 3-2-1 jedna kopia powinna być poza firmą — to osobny element, który dobieramy przy wycenie."
+    },
+    {
+     "q": "Czy NAS sam się wyłączy przy zaniku prądu?",
+     "a": "UPS ma port USB do sygnalizacji; automatyczne zamykanie NAS konfigurujemy i sprawdzamy przy wdrożeniu."
+    },
+    {
+     "q": "Co kopiować?",
+     "a": "Przede wszystkim bazy programów sprzedażowych i księgowych, dokumenty i pocztę. Listę ustalamy przy wdrożeniu."
+    }
+   ],
+   "kolejnosc": 22,
+   "status": "do-sprawdzenia"
+  },
+  {
+   "slug": "zestaw-ekran-menu-witryna",
+   "nazwa": "Ekran z menu, cennikiem lub ofertą — w lokalu i w witrynie",
+   "seria": "ekrany",
+   "poziom": "Standard",
+   "branza": "gastronomia",
+   "branze": [
+    "gastronomia",
+    "handel",
+    "noclegi",
+    "zdrowie-uzdrowiska",
+    "beauty",
+    "szkoly-instytucje"
+   ],
+   "dla_kogo": "Kawiarnia, restauracja, sklep, pensjonat lub gabinet, który chce pokazywać menu, promocje albo ofertę bez ciągłego drukowania.",
+   "korzysc": "Menu, cennik i promocje zmieniasz zdalnie, a ekran sam przełącza treści o ustalonej godzinie.",
+   "opis": [
+    "Drukowane menu i plakaty z promocjami szybko się dezaktualizują, a zwykły telewizor nie jest projektowany do pracy przez cały dzień. Ten zestaw to ekrany Samsung Smart Signage z wbudowanym odtwarzaczem: treści trafiają na nie przez sieć, bez komputera obok.",
+    "W lokalu pracuje Samsung QBC 4K — do 16 godzin dziennie, poziomo albo pionowo (np. jako menu przy kasie). Treści na wielu ekranach, także w różnych lokalach, zmieniasz zdalnie przez oprogramowanie Samsung VXT CMS albo MagicINFO i ustawiasz harmonogram, np. menu śniadaniowe rano i obiadowe po południu. Jeśli ekran ma stać w witrynie od strony ulicy, dobieramy model o wysokiej jasności z serii OMB (3000–4000 nit), widoczny także w słońcu.",
+    "Dostajesz zamontowane ekrany, skonfigurowane oprogramowanie do zarządzania treścią i szkolenie z jego obsługi. Licencję oprogramowania (Samsung VXT CMS lub MagicINFO) dobieramy osobno, przy wycenie. Treści (menu, grafiki promocji) możesz przygotować sam albo zlecić osobno."
+   ],
+   "elementy": [
+    {
+     "slug": "samsung-qbc",
+     "rola": "ekran informacyjny w lokalu",
+     "ilosc": "1–2",
+     "wariant_sugerowany": "QB55C (w pionie przy kasie QB43C)",
+     "obowiazkowy": true,
+     "do_potwierdzenia": "Strony QBC promują VXT CMS; zgodność z MagicINFO (wersja odtwarzacza, licencja) potwierdzić u dystrybutora."
+    },
+    {
+     "slug": "samsung-om",
+     "rola": "ekran do witryny",
+     "ilosc": 1,
+     "wariant_sugerowany": "OM55B (4K, 3000 nit) albo OM55N-S (4000 nit) od strony słońca",
+     "obowiazkowy": false,
+     "do_potwierdzenia": "Karta ma status do-sprawdzenia: Tizen 5.0, możliwe wycofanie, OM46B bez potwierdzenia u Samsunga."
+    },
+    {
+     "slug": "ux",
+     "rola": "Wi-Fi dla ekranów",
+     "ilosc": 1,
+     "wariant_sugerowany": "UniFi Express",
+     "obowiazkowy": false
+    }
+   ],
+   "zamienniki": [
+    {
+     "zamiast": "samsung-qbc",
+     "mozna": "samsung-qmc",
+     "kiedy": "Gdy ekran ma pracować całą dobę (recepcja hotelu) albo potrzebujesz małego ekranu dotykowego QM32C-T."
+    },
+    {
+     "zamiast": "samsung-qbc",
+     "mozna": "samsung-qhc",
+     "kiedy": "Gdy ekran stoi w mocno oświetlonym wnętrzu lub przy przeszklonym wejściu (700 nit, 24/7)."
+    }
+   ],
+   "uslugi": [
+    "szkol"
+   ],
+   "uslugi_po_akceptacji_szefa": [],
+   "dlaczego_tak": [
+    "QBC ma wbudowany odtwarzacz Tizen, Wi-Fi i LAN — nie potrzebuje komputera przy ekranie.",
+    "Producent podaje pracę 16/7 i obudowę 28,5 mm z równą ramką; ekran powiesisz poziomo lub pionowo.",
+    "Przez VXT CMS albo MagicINFO zmieniasz treści na wielu ekranach zdalnie i ustawiasz harmonogram.",
+    "Do witryny seria OMB/OMN-S ma 3000–4000 nit, ochronę przed pyłem IP5X i wbudowany odtwarzacz MagicINFO.",
+    "Przy pracy całodobowej lub w jasnym wnętrzu przechodzisz na QMC (24/7, 500 nit) albo QHC (700 nit)."
+   ],
+   "uwagi_wewnetrzne": [
+    "Licencje VXT CMS / MagicINFO i uchwyty ścienne/stojaki nie są w katalogu — dopisać przy wycenie.",
+    "MagicINFO na QBC/QMC/QHC — potwierdzić (karty promują VXT).",
+    "samsung-om — karta do-sprawdzenia; przed publikacją zestawu zdecydować, czy pokazywać opcję witryny."
+   ],
+   "faq": [
+    {
+     "q": "Czy potrzebuję komputera przy ekranie?",
+     "a": "Nie, ekrany Samsung mają wbudowany odtwarzacz i pobierają treści przez sieć."
+    },
+    {
+     "q": "Czy zwykły telewizor nie wystarczy?",
+     "a": "Ekrany QBC są projektowane do pracy do 16 godzin dziennie; do pracy całodobowej służy seria QMC."
+    },
+    {
+     "q": "Czy zmienię menu z telefonu albo z domu?",
+     "a": "Treściami zarządzasz zdalnie przez oprogramowanie Samsung (VXT CMS lub MagicINFO, licencje osobno)."
+    },
+    {
+     "q": "Czy ekran w witrynie będzie widoczny w słońcu?",
+     "a": "Do witryn służą ekrany OMB/OMN-S o jasności 3000–4000 nit; zwykłe ekrany wewnętrzne mają 350–700 nit."
+    }
+   ],
+   "kolejnosc": 23,
+   "status": "do-sprawdzenia"
+  }
+ ],
+ "sprawdzone_zgodnosci": [
+  {
+   "zestaw": "zestaw-sklep-kasa-start",
+   "para": "Elzab Mini ONLINE ↔ czytnik BS80 2D (USB)",
+   "zrodlo_w_karcie": "mini: „Złącza = … USB-A (czytnik, waga, pendrive, hub, PINPad)”; BS80: „Interfejs = USB”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-sklep-kasa-start",
+   "para": "Elzab Mini ONLINE ↔ szuflada ELZ-240/350 (RJ)",
+   "zrodlo_w_karcie": "mini: „szuflada RJ12”; szuflada: „Akcesoria = … kabel typ Alfa (Alfa, Mini, Mini E)”; napięcie Mini nieopisane",
+   "status": "do_potwierdzenia"
+  },
+  {
+   "zestaw": "zestaw-sklep-kasa-start",
+   "para": "Elzab Mini ONLINE ↔ terminal PolCard",
+   "zrodlo_w_karcie": "mini: „Współpraca = … terminal płatniczy” (bez nazwy operatora)",
+   "status": "do_potwierdzenia"
+  },
+  {
+   "zestaw": "zestaw-sklep-spozywczy-kasa-waga",
+   "para": "Posnet Bingo Max2 ↔ waga Fawag WS-1",
+   "zrodlo_w_karcie": "waga: „Protokoły kas = POSNET, ELZAB …”, „2 × RS-232 (RJ45), USB”; bingo: „Współpraca = … waga i szalka zintegrowana”, „3 × RS232, USB”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-sklep-spozywczy-kasa-waga",
+   "para": "Posnet Bingo Max2 ↔ szuflada MK350 6 V",
+   "zrodlo_w_karcie": "bingo: „szuflada 6–24 V”; MK350: „6 V lub 24 V”, „urządzenia fiskalne POSNET”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-sklep-spozywczy-kasa-waga",
+   "para": "Posnet Bingo Max2 ↔ FAWAGscan",
+   "zrodlo_w_karcie": "fawagscan: „współpracuje z dowolnym urządzeniem fiskalnym; interfejsy USB, USB-COM i RS-232”; bingo: „skaner USB/RS”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-sklep-spozywczy-kasa-waga",
+   "para": "Posnet Bingo Max2 ↔ terminal PolCard",
+   "zrodlo_w_karcie": "bingo: „terminal płatniczy (Netpay)” — PolCard niewymieniony",
+   "status": "do_potwierdzenia"
+  },
+  {
+   "zestaw": "zestaw-sklep-spozywczy-program-waga-etykiet",
+   "para": "Elzab Jota ONLINE ↔ PC-Market",
+   "zrodlo_w_karcie": "jota (opis): „Elzab podaje współpracę m.in. z programami Subiekt GT / nexo, PC-Market, Comarch ERP Optima i Wapro Mag”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-sklep-spozywczy-program-waga-etykiet",
+   "para": "Dibal W-025 ↔ PC-Market",
+   "zrodlo_w_karcie": "dibal-w-025: „Elzab wymienia współpracę m.in. z KC Firma, Subiekt, Small Business, WF-MAG i PC-Market”; „Ethernet (TCP/IP)”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-sklep-spozywczy-program-waga-etykiet",
+   "para": "Elzab Jota ↔ waga Prima 2",
+   "zrodlo_w_karcie": "prima-2: „Elzab publikuje tabelę konfiguracji z kasami ELZAB (m.in. Mini, Jota, Alfa, Delta)” + uwaga: „dla kas ONLINE potwierdzić”",
+   "status": "do_potwierdzenia"
+  },
+  {
+   "zestaw": "zestaw-sklep-spozywczy-program-waga-etykiet",
+   "para": "Elzab Jota ↔ szuflada ELZ-350 PRO",
+   "zrodlo_w_karcie": "jota: „szuflada RJ12”; szuflada: „12 V (poradnik Elzab: 12/24 V)”",
+   "status": "do_potwierdzenia"
+  },
+  {
+   "zestaw": "zestaw-sklep-spozywczy-program-waga-etykiet",
+   "para": "PC-Market ↔ komputer neo 50s",
+   "zrodlo_w_karcie": "pcm: „Windows 11/10 64-bit, 2 GHz, 8 GB RAM”; neo 50s: „DDR5 maks. 64 GB”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-sklep-spozywczy-program-waga-etykiet",
+   "para": "Godex DT2x ↔ PC-Market",
+   "zrodlo_w_karcie": "pcm: „Urządzenia = … drukarki etykiet” (bez modeli)",
+   "status": "do_potwierdzenia"
+  },
+  {
+   "zestaw": "zestaw-sklep-spozywczy-market-pos",
+   "para": "Posnet Thermal HD ↔ szuflada SKL",
+   "zrodlo_w_karcie": "hd: „Steruje szufladami 6–24 V — Posnet poleca SKL, MK330 i MK350”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-sklep-spozywczy-market-pos",
+   "para": "Dibal D-545 / D-545SS ↔ PC-Market",
+   "zrodlo_w_karcie": "dibal-d-545: „Elzab wymienia współpracę m.in. z … PC-Market i Magnat”; „Ethernet (TCP/IP)”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-sklep-spozywczy-market-pos",
+   "para": "Sprawdzarki Elzab ↔ PC-Market",
+   "zrodlo_w_karcie": "sprawdzarki: „Zgodne programy (wg Elzab) = Comarch ERP Optima, …, Subiekt GT / nexo, PC-Market …”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-sklep-spozywczy-market-pos",
+   "para": "PC-POS ↔ PC-Market",
+   "zrodlo_w_karcie": "pcpos: „Współpraca = PC-Market (magazyn, faktury do paragonów), serwer kasowy”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-sklep-spozywczy-market-pos",
+   "para": "PC-POS ↔ Posnet Thermal HD",
+   "zrodlo_w_karcie": "pcpos: „drukarki fiskalne (m.in. Elzab, Posnet, …)” + „przy wycenie dobieramy model online z aktualnej listy zgodności Insoft”",
+   "status": "do_potwierdzenia"
+  },
+  {
+   "zestaw": "zestaw-sklep-spozywczy-market-pos",
+   "para": "PC-POS ↔ waga Dibal G-325",
+   "zrodlo_w_karcie": "g-325: „RS-232 …; do 100 protokołów; sterownik OPOS”; pcpos: „wagi”",
+   "status": "do_potwierdzenia"
+  },
+  {
+   "zestaw": "zestaw-sklep-spozywczy-market-pos",
+   "para": "PC-POS ↔ ekran dotykowy neo 50a",
+   "zrodlo_w_karcie": "pcpos: „obsługa ekranów dotykowych”; neo 50a: „opcjonalnie dotykowy (10 punktów)”; pcpos: „2 GHz, 8 GB RAM”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-sklep-spozywczy-market-pos",
+   "para": "Serwer ↔ Smart-UPS SMC1000IC",
+   "zrodlo_w_karcie": "apc-smart-ups-wieza: „zamykanie systemu przez PowerChute Serial Shutdown”, „600 W”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-sklep-etykiety-inwentaryzacja",
+   "para": "elzAPP MAG ↔ PC-Market",
+   "zrodlo_w_karcie": "elzapp: „Współpracuje bezpośrednio z PC-Market, Jantar RMS, Cegid i WinShop”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-sklep-etykiety-inwentaryzacja",
+   "para": "elzAPP MAG ↔ Sunmi L2s Pro",
+   "zrodlo_w_karcie": "elzapp FAQ: „Na kolektorach i urządzeniach z Androidem 6.0 lub nowszym, np. Sunmi L2s Pro, L3 lub Zebra TC22”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-sklep-etykiety-inwentaryzacja",
+   "para": "PC-Market ↔ kolektor",
+   "zrodlo_w_karcie": "pcm: „Dostawy … przyjęcie i remanent kolektorem”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-sklep-etykiety-inwentaryzacja",
+   "para": "elzAPP MAG Serwer ↔ Windows 11",
+   "zrodlo_w_karcie": "elzapp: „elzAPP MAG – Serwer na Windows 7 lub Windows 10”",
+   "status": "do_potwierdzenia"
+  },
+  {
+   "zestaw": "zestaw-sklep-etykiety-inwentaryzacja",
+   "para": "Zebra ZD421 ↔ PC-Market / elzAPP",
+   "zrodlo_w_karcie": "pcm: „drukarki etykiet”; elzapp: „drukarkach przenośnych i biurkowych” — bez modeli",
+   "status": "do_potwierdzenia"
+  },
+  {
+   "zestaw": "zestaw-gastro-foodtruck",
+   "para": "GoPOS ↔ GoPOS All in One (Sunmi V3 / V3 Mix)",
+   "zrodlo_w_karcie": "gopos-all-in-one: „Na każdym działa system GoPOS”; gopos: „polecane: … Sunmi V3 / V3 Mix”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-gastro-foodtruck",
+   "para": "Wirtualna kasa fiskalna ↔ urządzenie",
+   "zrodlo_w_karcie": "gopos-all-in-one: „jeden klucz to jedna kasa na jednym urządzeniu”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-gastro-foodtruck",
+   "para": "GoPOS All in One — łączność komórkowa",
+   "zrodlo_w_karcie": "gopos-all-in-one (uwagi): „łączność komórkowa 4G/karta SIM … nie potwierdzają, więc nie wpisano”",
+   "status": "do_potwierdzenia"
+  },
+  {
+   "zestaw": "zestaw-kawiarnia-lada",
+   "para": "GoPOS ↔ Sunmi D3 PRO",
+   "zrodlo_w_karcie": "gopos: „Urządzenia = … polecane: Sunmi D3 Pro …”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-kawiarnia-lada",
+   "para": "GoPOS ↔ Elzab Zeta ONLINE",
+   "zrodlo_w_karcie": "gopos: „Drukarki fiskalne = online: … Elzab (Cube, Mera, Zeta, T10); połączenie USB, LAN lub Bluetooth”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-kawiarnia-lada",
+   "para": "Elzab Zeta ↔ szuflada aktywna ELZ-350",
+   "zrodlo_w_karcie": "szuflada aktywna: „kasa ELZAB K10, drukarki ELZAB Zeta i D10 (wg poradnika Elzab)”; zeta: „szuflada aktywna (złącze zasilania)”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-kawiarnia-lada",
+   "para": "GoPOS ↔ terminal PolCard",
+   "zrodlo_w_karcie": "gopos: „terminal płatniczy przez eService (polecane Ingenico Lane 3000, PAX A35/A920)”",
+   "status": "do_potwierdzenia"
+  },
+  {
+   "zestaw": "zestaw-kawiarnia-lada",
+   "para": "GoPOS ↔ Posnet Vero (zamiennik)",
+   "zrodlo_w_karcie": "vero: „Aplikacje = iPOS, Netis mKasNet, GoPOS”; gopos: „polecane: … Posnet Vero”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-restauracja-bistro",
+   "para": "GoPOS ↔ Posnet Thermal HD",
+   "zrodlo_w_karcie": "gopos: „Drukarki fiskalne = online: Posnet (Thermal XL, Thermal HD, Trio, Temo, Vero)”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-restauracja-bistro",
+   "para": "Posnet Thermal HD ↔ szuflada SKL",
+   "zrodlo_w_karcie": "hd: „Posnet poleca SKL, MK330 i MK350”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-restauracja-bistro",
+   "para": "GoKDS ↔ Sunmi FLEX 3 KDS 22\"",
+   "zrodlo_w_karcie": "gokds: „Polecane ekrany = … Sunmi Flex 3 22\" (Android 13)”; kds: „15,6\", 18,5\" lub 22\"”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-restauracja-bistro",
+   "para": "GoPOS ↔ Sunmi V3 (Mobilny Kelner)",
+   "zrodlo_w_karcie": "gopos: „polecane: … Sunmi V3 / V3 Mix”; „Mobilny Kelner na terminalu przy stoliku”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-restauracja-bistro",
+   "para": "Omada ER7212PC ↔ EAP650 (budżet PoE)",
+   "zrodlo_w_karcie": "routery: „8 portów PoE+, budżet 110 W”; ap-sufitowe: „EAP650: 13,5 W”, „PoE 802.3at”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-restauracja-bistro",
+   "para": "ER7212PC ↔ portal gości",
+   "zrodlo_w_karcie": "routery: „Wbudowany kontroler = tylko ER7212PC”; ap-sufitowe: „portal wymaga kontrolera Omada”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-restauracja-bistro",
+   "para": "FLEX 3 KDS ↔ PoE z ER7212PC",
+   "zrodlo_w_karcie": "kds: „moduł PoE (60 W)”; routery: „PoE+ (do 30 W)” — nie zasili, ekran na zasilaczu",
+   "status": "do_potwierdzenia"
+  },
+  {
+   "zestaw": "zestaw-restauracja-sala-ogrodek",
+   "para": "GoPOS ↔ Posnet Thermal HD",
+   "zrodlo_w_karcie": "gopos: „Posnet (Thermal XL, Thermal HD, …)”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-restauracja-sala-ogrodek",
+   "para": "GoHub ↔ GoPOS / GoKDS",
+   "zrodlo_w_karcie": "gohub: „automatycznie do GoPOS i na ekran kuchenny KDS”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-restauracja-sala-ogrodek",
+   "para": "Omada SG2210MP ↔ EAP650 / EAP723 / OC220",
+   "zrodlo_w_karcie": "switche: „SG2210MP: 150 W”, „802.3af/at”; ap: „EAP650: 13,5 W; EAP723: 18,6 W”; kontrolery: „OC220: PoE 802.3af”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-restauracja-sala-ogrodek",
+   "para": "Router ER707-M2 ↔ kontroler OC220",
+   "zrodlo_w_karcie": "routery: „Do ER605, ER707-M2 i ER7206 dobierz kontroler OC200/OC220 lub chmurę”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-restauracja-sala-ogrodek",
+   "para": "GoKDS ↔ FLEX 3 KDS 15,6\"",
+   "zrodlo_w_karcie": "gokds: polecany tylko „Sunmi Flex 3 22\"”",
+   "status": "do_potwierdzenia"
+  },
+  {
+   "zestaw": "zestaw-bar-kiosk-numerki",
+   "para": "GoKiosk ↔ GoPOS / GoKDS / numerki",
+   "zrodlo_w_karcie": "gokiosk: „Zamówienie trafia automatycznie do kasy GoPOS i na ekran kuchenny, a numer zamówienia może pojawić się na ekranie systemu numerkowego”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-bar-kiosk-numerki",
+   "para": "GoKiosk ↔ Sunmi K2",
+   "zrodlo_w_karcie": "gokiosk: „Polecane kioski = iMin Crane 21,5\" …; Sunmi Flex 3 22\" i 27\" …; M4B JOY M …” — K2 niewymieniony; k2: „Paragon fiskalny wymaga drukarki fiskalnej zgodnej z programem”",
+   "status": "do_potwierdzenia"
+  },
+  {
+   "zestaw": "zestaw-bar-kiosk-numerki",
+   "para": "Sunmi K2 ↔ płatność kartą",
+   "zrodlo_w_karcie": "kiosk: „Płatności kartą wymagają dołączenia terminala Sunmi serii P w uchwycie albo SoftPOS przez NFC”",
+   "status": "do_potwierdzenia"
+  },
+  {
+   "zestaw": "zestaw-bar-kiosk-numerki",
+   "para": "System numerkowy ↔ ekran Samsung QBC",
+   "zrodlo_w_karcie": "numerki: „Ekran = kupowany osobno; producent nie podaje wymagań”",
+   "status": "do_potwierdzenia"
+  },
+  {
+   "zestaw": "zestaw-bar-kiosk-numerki",
+   "para": "GoPOS ↔ Thermal HD ↔ SKL",
+   "zrodlo_w_karcie": "gopos: „Posnet (… Thermal HD …)”; hd: „Posnet poleca SKL”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-noclegi-kwatera",
+   "para": "NFHotel ↔ portale (Booking, Airbnb, Noclegi.pl)",
+   "zrodlo_w_karcie": "nfh: „Channel manager = Booking.com, grupa Expedia, Airbnb, Noclegi.pl”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-noclegi-kwatera",
+   "para": "UniFi Express ↔ UniFi Express (mesh)",
+   "zrodlo_w_karcie": "ux: „Tryb pracy = router (brama) lub punkt dostępowy / mesh”; „Zarządzane urządzenia UniFi = do 4”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-noclegi-kwatera",
+   "para": "NFHotel ↔ kasa Posnet Ergo",
+   "zrodlo_w_karcie": "nfh: „Drukarki fiskalne = Posnet, …, Elzab” — kasy nie wymienione; Ergo pracuje samodzielnie",
+   "status": "do_potwierdzenia"
+  },
+  {
+   "zestaw": "zestaw-noclegi-pensjonat",
+   "para": "NFHotel ↔ Elzab Zeta ONLINE",
+   "zrodlo_w_karcie": "nfh: „Drukarki fiskalne = Posnet, …, Elzab (także online)” — bez modeli",
+   "status": "do_potwierdzenia"
+  },
+  {
+   "zestaw": "zestaw-noclegi-pensjonat",
+   "para": "Zeta ↔ szuflada aktywna",
+   "zrodlo_w_karcie": "szuflada aktywna: „drukarki ELZAB Zeta i D10”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-noclegi-pensjonat",
+   "para": "SG3428MP ↔ OC220 / EAP615-Wall / EAP650",
+   "zrodlo_w_karcie": "switche: „SG3428MP: 384 W”, „802.3af/at”; kontrolery: „OC220: PoE 802.3af”; naścienne: „EAP615-Wall: PoE 802.3af/at”; sufitowe: „EAP650: 13,5 W”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-noclegi-pensjonat",
+   "para": "EAP615-Wall — pobór mocy",
+   "zrodlo_w_karcie": "naścienne: pobór niepodany (tylko „PoE out do 13 W”)",
+   "status": "do_potwierdzenia"
+  },
+  {
+   "zestaw": "zestaw-noclegi-pensjonat",
+   "para": "ER605 ↔ kontroler OC220",
+   "zrodlo_w_karcie": "routery: „Do ER605 … dobierz kontroler OC200/OC220 lub chmurę”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-noclegi-pensjonat",
+   "para": "Szafa: SG3428MP ↔ Smart-UPS SMC1500I-2UC",
+   "zrodlo_w_karcie": "ups rack: „900 W”, „4× IEC C13”, „montaż dwusłupkowy wspierany” (SMC); switch: maks. budżet PoE 384 W",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-noclegi-hotel-restauracja",
+   "para": "GoPOS ↔ NFHotel (rachunek na pokój)",
+   "zrodlo_w_karcie": "gopos-hotel: „Systemy hotelowe = NfHotel, KWHotel, …”; nfh: „Integracje = GoPOS”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-noclegi-hotel-restauracja",
+   "para": "Room Service ↔ GoKDS",
+   "zrodlo_w_karcie": "gopos-hotel: „zamówienie trafia na ekran kuchenny GoKDS”; „Room Service wymaga GoOrder”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-noclegi-hotel-restauracja",
+   "para": "USW-Pro-Max-24-PoE ↔ U7 Pro",
+   "zrodlo_w_karcie": "usw24max: „8 × 2,5 GbE (PoE++)”, „400 W”; u7: „PoE+, maks. 21 W”, „1/2,5 GbE”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-noclegi-hotel-restauracja",
+   "para": "UDM-SE ↔ USW / U7 (zarządzanie)",
+   "zrodlo_w_karcie": "udmse: „Zarządza ponad 100 urządzeniami UniFi”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-noclegi-hotel-restauracja",
+   "para": "Szafa ↔ SMT2200RMI2UC",
+   "zrodlo_w_karcie": "ups rack: „2200 VA/1980 W”, „8× IEC C13 + 1× IEC C19”; udmse: „maks. 50 W bez PoE”, usw24max: „maks. 450 W z PoE”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-noclegi-hotel-restauracja",
+   "para": "GoPOS ↔ Thermal HD ↔ SKL",
+   "zrodlo_w_karcie": "gopos: „Posnet (… Thermal HD …)”; hd: „Posnet poleca SKL”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-biuro-3-5",
+   "para": "Laptop ThinkBook 14 ↔ monitor Dell P2426HE (USB-C)",
+   "zrodlo_w_karcie": "dell-pro-usb-c-hub: „obraz (DisplayPort Alt Mode), dane 5 Gb/s i zasilanie do 100 W (P2426HE …)”; thinkbook: „2× USB-C … z ładowaniem i wyjściem obrazu”, „Zasilacz = USB-C 65 W”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-biuro-3-5",
+   "para": "UPS BXR750 ↔ NAS + router",
+   "zrodlo_w_karcie": "bxr: „750 VA/410 W, 4× Schuko”; synology: „ok. 17 W (DS225+)”; udr7: „maks. 26 W (bez PoE)”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-biuro-3-5",
+   "para": "NAS Synology ↔ UPS APC (zamykanie przez USB)",
+   "zrodlo_w_karcie": "bxr: „port USB; PowerChute Serial Shutdown” — współpraca z DSM nieopisana",
+   "status": "do_potwierdzenia"
+  },
+  {
+   "zestaw": "zestaw-biuro-3-5",
+   "para": "NAS DS225+ ↔ dyski HAT3300",
+   "zrodlo_w_karcie": "dyski: „Dyski Plus (HAT33xx) …”; synology: „gwarancja pełnego działania tylko z dyskami z listy zgodności” — karta dysków do-sprawdzenia",
+   "status": "do_potwierdzenia"
+  },
+  {
+   "zestaw": "zestaw-biuro-6-12",
+   "para": "Dell Pro 14 ↔ monitor Dell z hubem USB-C",
+   "zrodlo_w_karcie": "dell-pro-14-16: „USB-C 10 Gb/s (DisplayPort, ładowanie)”, „zasilacz 65 W”; hub: „zasilanie … do 90 W (seria Pro Plus)”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-biuro-6-12",
+   "para": "SG2210MP ↔ EAP650 / EAP723 / OC220",
+   "zrodlo_w_karcie": "switche: „150 W”; ap: „13,5 W / 18,6 W”; kontrolery: „OC220: PoE 802.3af”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-biuro-6-12",
+   "para": "OC220 ↔ punkty i przełączniki Omada (bez routera Omada)",
+   "zrodlo_w_karcie": "kontrolery: „do 100 punktów dostępowych, 20 przełączników i 10 routerów Omada”; ap: „portal wymaga kontrolera Omada”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-biuro-6-12",
+   "para": "Smart-UPS SMC1500IC ↔ NAS + zapora + przełącznik",
+   "zrodlo_w_karcie": "ups: „1500 VA/900 W”, „8× IEC C13”, „PowerChute Serial Shutdown”; switche: maks. PoE 150 W; synology: „ok. 38 W (DS925+)”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-biuro-6-12",
+   "para": "NAS Synology ↔ Smart-UPS (zamykanie)",
+   "zrodlo_w_karcie": "brak opisu w kartach",
+   "status": "do_potwierdzenia"
+  },
+  {
+   "zestaw": "zestaw-biuro-rachunkowe",
+   "para": "Biuro nexo ↔ Rachmistrz / Rewizor / Gratyfikant",
+   "zrodlo_w_karcie": "biuro: „Współpraca = Rachmistrz, Rewizor, Gratyfikant (nexo lub GT)”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-biuro-rachunkowe",
+   "para": "Rachmistrz ↔ KSeF ↔ InsPunkty",
+   "zrodlo_w_karcie": "rachmistrz: „każde pobranie e-faktury z KSeF kosztuje 1 InsPunkt”; inspunkty: „Programy = Subiekt, Rachmistrz, Rewizor”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-biuro-rachunkowe",
+   "para": "Podpis EuroCert ↔ KSeF / Płatnik / JPK",
+   "zrodlo_w_karcie": "euro: „Zastosowania = ZUS Płatnik, e-KRS, e-deklaracje i JPK, ePUAP, … logowanie do KSeF”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-biuro-rachunkowe",
+   "para": "Programy InsERT nexo ↔ komputer",
+   "zrodlo_w_karcie": "nexo: „procesor x64 min. 4 rdzenie, RAM min. 8 GB, zalecany dysk SSD” (dla Subiekta nexo)",
+   "status": "do_potwierdzenia"
+  },
+  {
+   "zestaw": "zestaw-gabinet",
+   "para": "Elzab K10 ↔ szuflada aktywna ELZ-350",
+   "zrodlo_w_karcie": "szuflada aktywna: „kasa ELZAB K10, drukarki ELZAB Zeta i D10”; k10: „szuflada przez złącze zasilania (adapter)”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-gabinet",
+   "para": "Elzab K10 ↔ terminal PolCard",
+   "zrodlo_w_karcie": "k10: „Współpraca = terminal płatniczy” (bez operatora)",
+   "status": "do_potwierdzenia"
+  },
+  {
+   "zestaw": "zestaw-gabinet",
+   "para": "Subiekt 123 ↔ Posnet Temo (zamiennik)",
+   "zrodlo_w_karcie": "s123: „fiskalizacja (drukarki fiskalne m.in. Elzab, …, Posnet, Upos)” — bez modeli",
+   "status": "do_potwierdzenia"
+  },
+  {
+   "zestaw": "zestaw-szkola-sala-interaktywna",
+   "para": "Avtek ↔ laptop (HDMI / bezprzewodowo)",
+   "zrodlo_w_karcie": "avtek: „Złącza = 3× HDMI …”, „Bezprzewodowo podłączysz do 8 laptopów lub telefonów”; thinkbook: „HDMI 2.1 (4K 60 Hz)”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-szkola-sala-interaktywna",
+   "para": "Avtek ↔ komputer OPS",
+   "zrodlo_w_karcie": "avtek: „Slot OPS = tak” — komputera OPS brak w katalogu",
+   "status": "do_potwierdzenia"
+  },
+  {
+   "zestaw": "zestaw-szkola-siec",
+   "para": "USW-Pro-Max-24-PoE ↔ U7 Pro (16 szt.)",
+   "zrodlo_w_karcie": "usw24max: „Budżet PoE = 400 W”, „8 × 2,5 GbE (PoE++)”; u7: „PoE+, maks. 21 W” → 336 W",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-szkola-siec",
+   "para": "UDM-SE ↔ USW / U7",
+   "zrodlo_w_karcie": "udmse: „Zarządza ponad 100 urządzeniami UniFi”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-szkola-siec",
+   "para": "Szafa ↔ SMT1500RMI2UC",
+   "zrodlo_w_karcie": "ups rack: „1500 VA/1000 W”; udmse: „maks. 50 W bez PoE”; usw24max: „maks. 450 W z PoE”; synology: „ok. 38 W (DS925+)”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-wifi-unifi",
+   "para": "UDR7 ↔ UniFi Express (mesh)",
+   "zrodlo_w_karcie": "ux: „może działać jako punkt dostępowy lub w trybie mesh”; udr7: „Zarządzane urządzenia UniFi = ponad 30”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-wifi-unifi",
+   "para": "UDR7 PoE ↔ U7 Pro",
+   "zrodlo_w_karcie": "udr7: „1 z PoE 15,4 W”; u7: „PoE+, maks. 21 W” — nie zasili",
+   "status": "do_potwierdzenia"
+  },
+  {
+   "zestaw": "zestaw-wifi-unifi",
+   "para": "UDR7 ↔ portal gości",
+   "zrodlo_w_karcie": "u7: „Funkcje dla gości = portal logowania …” (UniFi Network); karta UDR7 tego nie wymienia",
+   "status": "do_potwierdzenia"
+  },
+  {
+   "zestaw": "zestaw-wifi-omada",
+   "para": "ER7212PC ↔ EAP650 (6 szt.)",
+   "zrodlo_w_karcie": "routery: „8 portów PoE+, budżet 110 W”; ap: „EAP650: 13,5 W”, „PoE 802.3at”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-wifi-omada",
+   "para": "ER7212PC ↔ portal gości",
+   "zrodlo_w_karcie": "routery: „ER7212PC ma kontroler w środku”; ap: „portal wymaga kontrolera Omada”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-wifi-omada",
+   "para": "ER7212PC ↔ EAP650-Outdoor",
+   "zrodlo_w_karcie": "zewnętrzne: „PoE 802.3at lub pasywne 48 V (adapter w zestawie)”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-kopie-zapasowe",
+   "para": "BXR750MI-GR ↔ NAS DS225+ + router",
+   "zrodlo_w_karcie": "bxr: „750 VA/410 W, 4× Schuko”; synology: „ok. 17 W (DS225+)”",
+   "status": "potwierdzona"
+  },
+  {
+   "zestaw": "zestaw-kopie-zapasowe",
+   "para": "NAS ↔ UPS (zamykanie przez USB)",
+   "zrodlo_w_karcie": "bxr: „port USB; zgodność z PowerChute Serial Shutdown” — DSM nieopisany",
+   "status": "do_potwierdzenia"
+  },
+  {
+   "zestaw": "zestaw-kopie-zapasowe",
+   "para": "DS225+ ↔ dyski HAT3300",
+   "zrodlo_w_karcie": "synology: „pełne działanie tylko z dyskami z listy zgodności”; karta dysków do-sprawdzenia",
+   "status": "do_potwierdzenia"
+  },
+  {
+   "zestaw": "zestaw-ekran-menu-witryna",
+   "para": "Samsung QBC ↔ VXT CMS / MagicINFO",
+   "zrodlo_w_karcie": "qbc: „Strony produktów QBC promują Samsung VXT CMS … i NIE wymieniają MagicINFO wprost”",
+   "status": "do_potwierdzenia"
+  },
+  {
+   "zestaw": "zestaw-ekran-menu-witryna",
+   "para": "Samsung OMB ↔ MagicINFO",
+   "zrodlo_w_karcie": "om: „Tizen 5.0 z wbudowanym odtwarzaczem MagicINFO (OMB, OMN-S)”",
+   "status": "potwierdzona"
+  }
+ ]
+}

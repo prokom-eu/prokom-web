@@ -1,0 +1,723 @@
+{
+ "wersja": "K3",
+ "sprawdzono": "2026-10-25",
+ "zasady": "Współrzędne punktów = układ v20 (FPS w boards/Main.dc.html). Treść okienka punktu pobierana z katalogu (nazwa, korzysc, cechy, 1. zdjęcie) — bez osobnych opisów (PINFO z v20 usunąć: zawierał obietnice i ceny). Klik „Dodaj do zapytania” dodaje slug i dodatkowe.",
+ "sceny": {
+  "sklep": {
+   "zestawy": [
+    "zestaw-sklep-kasa-start",
+    "zestaw-sklep-spozywczy-kasa-waga",
+    "zestaw-sklep-spozywczy-program-waga-etykiet",
+    "zestaw-sklep-spozywczy-market-pos"
+   ],
+   "punkty": [
+    {
+     "x": 560,
+     "y": 520,
+     "slug": "udr7",
+     "etykieta": "Router Wi-Fi UniFi",
+     "opis": "osobna sieć dla kasy i dla gości",
+     "dodatkowe": []
+    },
+    {
+     "x": 880,
+     "y": 762,
+     "slug": "samsung-qhc",
+     "etykieta": "Ekran przy wejściu",
+     "opis": "promocje i nowości widoczne od progu",
+     "dodatkowe": []
+    },
+    {
+     "x": 330,
+     "y": 600,
+     "slug": "szuf",
+     "etykieta": "Szuflada Posnet SKL",
+     "opis": "otwiera się po zamknięciu paragonu",
+     "dodatkowe": []
+    },
+    {
+     "x": 435,
+     "y": 655,
+     "slug": "ergo",
+     "etykieta": "Posnet Ergo Online",
+     "opis": "kasa dla sklepu i usług",
+     "dodatkowe": []
+    },
+    {
+     "x": 540,
+     "y": 600,
+     "slug": "skaner",
+     "etykieta": "Skaner 2D Sunmi",
+     "opis": "kody z opakowań i z telefonu",
+     "dodatkowe": []
+    },
+    {
+     "x": 645,
+     "y": 655,
+     "slug": "pol",
+     "etykieta": "Terminal PolCard",
+     "opis": "karty, BLIK i płatności telefonem",
+     "dodatkowe": []
+    },
+    {
+     "x": 745,
+     "y": 600,
+     "slug": "waga",
+     "etykieta": "Waga Fawag WS-1",
+     "opis": "klasa III, połączenie z kasą",
+     "dodatkowe": []
+    },
+    {
+     "x": 1185,
+     "y": 560,
+     "slug": "pcm",
+     "etykieta": "Insoft PC-Market 7",
+     "opis": "sprzedaż, magazyn, zamówienia",
+     "dodatkowe": []
+    },
+    {
+     "x": 1300,
+     "y": 690,
+     "slug": "eset",
+     "etykieta": "ESET PROTECT",
+     "opis": "ochrona komputerów",
+     "dodatkowe": []
+    },
+    {
+     "x": 1360,
+     "y": 560,
+     "slug": "synology-diskstation-plus-2-4",
+     "etykieta": "Synology NAS",
+     "opis": "kopie danych co noc",
+     "dodatkowe": []
+    },
+    {
+     "x": 1510,
+     "y": 575,
+     "slug": "dell-poweredge-t160-t360",
+     "etykieta": "Serwer Dell PowerEdge",
+     "opis": "program sklepowy i dane",
+     "dodatkowe": []
+    },
+    {
+     "x": 1440,
+     "y": 700,
+     "slug": "apc-smart-ups-wieza",
+     "etykieta": "UPS APC Smart-UPS",
+     "opis": "czas na zapis danych przy zaniku prądu",
+     "dodatkowe": []
+    }
+   ]
+  },
+  "gastro": {
+   "zestawy": [
+    "zestaw-kawiarnia-lada",
+    "zestaw-restauracja-bistro",
+    "zestaw-restauracja-sala-ogrodek",
+    "zestaw-bar-kiosk-numerki"
+   ],
+   "punkty": [
+    {
+     "x": 400,
+     "y": 255,
+     "slug": "omada-ap-sufitowe",
+     "etykieta": "Wi-Fi TP-Link Omada",
+     "opis": "osobna sieć dla gości i dla kasy",
+     "dodatkowe": [
+      "omada-routery"
+     ]
+    },
+    {
+     "x": 470,
+     "y": 470,
+     "slug": "v3",
+     "etykieta": "Sunmi V3",
+     "opis": "kelner zamawia przy stoliku",
+     "dodatkowe": []
+    },
+    {
+     "x": 800,
+     "y": 115,
+     "slug": "d3",
+     "etykieta": "Sunmi D3 PRO z GoPOS",
+     "opis": "główne stanowisko sprzedaży",
+     "dodatkowe": [
+      "gopos"
+     ]
+    },
+    {
+     "x": 755,
+     "y": 230,
+     "slug": "hd",
+     "etykieta": "Posnet Thermal HD",
+     "opis": "drukarka fiskalna, współpracuje z GoPOS",
+     "dodatkowe": []
+    },
+    {
+     "x": 755,
+     "y": 345,
+     "slug": "pol",
+     "etykieta": "Terminal PolCard",
+     "opis": "płatność przy stoliku",
+     "dodatkowe": []
+    },
+    {
+     "x": 1030,
+     "y": 255,
+     "slug": "kds",
+     "etykieta": "Ekran kuchenny Sunmi FLEX 3",
+     "opis": "zamówienia prosto na kuchnię",
+     "dodatkowe": [
+      "gokds"
+     ]
+    },
+    {
+     "x": 1410,
+     "y": 600,
+     "slug": "synology-diskstation-plus-2-4",
+     "etykieta": "Synology NAS",
+     "opis": "kopie danych i nagrania z kamer",
+     "dodatkowe": []
+    },
+    {
+     "x": 1460,
+     "y": 720,
+     "slug": "apc-back-ups-pro",
+     "etykieta": "UPS APC Back-UPS Pro",
+     "opis": "kasa i router przy zaniku prądu",
+     "dodatkowe": []
+    }
+   ]
+  },
+  "hotel": {
+   "zestawy": [
+    "zestaw-noclegi-kwatera",
+    "zestaw-noclegi-pensjonat",
+    "zestaw-noclegi-hotel-restauracja"
+   ],
+   "punkty": [
+    {
+     "x": 200,
+     "y": 135,
+     "slug": "nfh",
+     "etykieta": "NFHotel",
+     "opis": "rezerwacje i recepcja",
+     "dodatkowe": []
+    },
+    {
+     "x": 300,
+     "y": 150,
+     "slug": "temo",
+     "etykieta": "Posnet Temo Online",
+     "opis": "drukarka fiskalna na recepcji",
+     "dodatkowe": []
+    },
+    {
+     "x": 400,
+     "y": 135,
+     "slug": "pol",
+     "etykieta": "Terminal PolCard",
+     "opis": "karty i BLIK",
+     "dodatkowe": []
+    },
+    {
+     "x": 470,
+     "y": 330,
+     "slug": "samsung-qmc",
+     "etykieta": "Ekran w lobby",
+     "opis": "atrakcje, pogoda, oferta",
+     "dodatkowe": []
+    },
+    {
+     "x": 510,
+     "y": 690,
+     "slug": "gopos-hotel",
+     "etykieta": "GoPOS w restauracji",
+     "opis": "rachunek na pokój",
+     "dodatkowe": [
+      "gopos"
+     ]
+    },
+    {
+     "x": 1100,
+     "y": 380,
+     "slug": "u7",
+     "etykieta": "Wi-Fi UniFi U7 Pro",
+     "opis": "osobno goście i recepcja",
+     "dodatkowe": [
+      "udmse"
+     ]
+    },
+    {
+     "x": 1365,
+     "y": 560,
+     "slug": "synology-diskstation-plus-2-4",
+     "etykieta": "Synology NAS",
+     "opis": "kopie danych",
+     "dodatkowe": []
+    },
+    {
+     "x": 1525,
+     "y": 610,
+     "slug": "dell-poweredge-t160-t360",
+     "etykieta": "Serwer Dell PowerEdge",
+     "opis": "pliki recepcji i biura",
+     "dodatkowe": []
+    },
+    {
+     "x": 1450,
+     "y": 735,
+     "slug": "euro",
+     "etykieta": "Podpis kwalifikowany",
+     "opis": "umowy i deklaracje online",
+     "dodatkowe": []
+    }
+   ]
+  },
+  "biuro": {
+   "zestawy": [
+    "zestaw-biuro-3-5",
+    "zestaw-biuro-6-12",
+    "zestaw-biuro-rachunkowe",
+    "zestaw-kopie-zapasowe"
+   ],
+   "punkty": [
+    {
+     "x": 200,
+     "y": 120,
+     "slug": "lenovo-thinkcentre-neo-50s-55s",
+     "etykieta": "Lenovo ThinkCentre neo",
+     "opis": "stanowiska pracy",
+     "dodatkowe": []
+    },
+    {
+     "x": 480,
+     "y": 120,
+     "slug": "lenovo-thinkvision-t",
+     "etykieta": "Monitor ThinkVision T",
+     "opis": "ergonomia i regulacja",
+     "dodatkowe": []
+    },
+    {
+     "x": 760,
+     "y": 330,
+     "slug": "microsoft-365-business",
+     "etykieta": "Microsoft 365",
+     "opis": "poczta, Teams, pliki",
+     "dodatkowe": []
+    },
+    {
+     "x": 300,
+     "y": 400,
+     "slug": "eset",
+     "etykieta": "ESET PROTECT",
+     "opis": "wszystkie stanowiska",
+     "dodatkowe": []
+    },
+    {
+     "x": 815,
+     "y": 600,
+     "slug": "konica-minolta-bizhub-c301i",
+     "etykieta": "Konica Minolta bizhub C301i",
+     "opis": "kolor A3, skan do e-maila",
+     "dodatkowe": []
+    },
+    {
+     "x": 1240,
+     "y": 60,
+     "slug": "avtek-ts-9-lite-g",
+     "etykieta": "Monitor interaktywny Avtek",
+     "opis": "sala konferencyjna",
+     "dodatkowe": []
+    },
+    {
+     "x": 960,
+     "y": 510,
+     "slug": "dell-poweredge-t160-t360",
+     "etykieta": "Serwer Dell PowerEdge",
+     "opis": "Windows Server, pliki, praca zdalna",
+     "dodatkowe": [
+      "microsoft-windows-server-cal"
+     ]
+    },
+    {
+     "x": 1060,
+     "y": 600,
+     "slug": "synology-diskstation-plus-2-4",
+     "etykieta": "Synology NAS",
+     "opis": "kopie co noc",
+     "dodatkowe": []
+    },
+    {
+     "x": 995,
+     "y": 720,
+     "slug": "apc-smart-ups-wieza",
+     "etykieta": "UPS APC Smart-UPS",
+     "opis": "serwer przy zaniku prądu",
+     "dodatkowe": []
+    },
+    {
+     "x": 1390,
+     "y": 500,
+     "slug": "euro",
+     "etykieta": "Podpis kwalifikowany",
+     "opis": "umowy, KSeF, przetargi",
+     "dodatkowe": []
+    },
+    {
+     "x": 1110,
+     "y": 480,
+     "slug": "fw",
+     "etykieta": "Firewall Stormshield",
+     "opis": "brama sieci, VPN dla pracowników",
+     "dodatkowe": []
+    },
+    {
+     "x": 480,
+     "y": 330,
+     "slug": "optima",
+     "etykieta": "Comarch ERP Optima",
+     "opis": "księgowość, kadry, faktury",
+     "dodatkowe": []
+    }
+   ]
+  },
+  "szkola": {
+   "zestawy": [
+    "zestaw-szkola-sala-interaktywna",
+    "zestaw-szkola-siec"
+   ],
+   "punkty": [
+    {
+     "x": 430,
+     "y": 80,
+     "slug": "avtek",
+     "etykieta": "Avtek TouchScreen 8 Lite G",
+     "opis": "monitor interaktywny w klasie",
+     "dodatkowe": []
+    },
+    {
+     "x": 430,
+     "y": 470,
+     "slug": "sharp-nec-projektory-sala",
+     "etykieta": "Projektor Sharp/NEC",
+     "opis": "sala lekcyjna i aula",
+     "dodatkowe": []
+    },
+    {
+     "x": 250,
+     "y": 470,
+     "slug": "lenovo-thinkbook-14-g8-g9",
+     "etykieta": "Laptop dla nauczyciela",
+     "opis": "Lenovo ThinkBook 14",
+     "dodatkowe": []
+    },
+    {
+     "x": 695,
+     "y": 330,
+     "slug": "u7",
+     "etykieta": "Wi-Fi UniFi U7 Pro",
+     "opis": "cały budynek",
+     "dodatkowe": [
+      "udmse",
+      "usw24max"
+     ]
+    },
+    {
+     "x": 695,
+     "y": 560,
+     "slug": "samsung-qbc",
+     "etykieta": "Ekran informacyjny",
+     "opis": "plan lekcji, komunikaty",
+     "dodatkowe": []
+    },
+    {
+     "x": 985,
+     "y": 150,
+     "slug": "lenovo-thinkcentre-neo-50s-55s",
+     "etykieta": "Lenovo ThinkCentre neo",
+     "opis": "pracownia komputerowa",
+     "dodatkowe": []
+    },
+    {
+     "x": 1235,
+     "y": 280,
+     "slug": "eset",
+     "etykieta": "ESET PROTECT",
+     "opis": "ochrona stanowisk",
+     "dodatkowe": []
+    },
+    {
+     "x": 1040,
+     "y": 560,
+     "slug": "kyocera-ecosys-ma4000x-fx-wifx",
+     "etykieta": "Kyocera ECOSYS",
+     "opis": "sekretariat",
+     "dodatkowe": []
+    },
+    {
+     "x": 1470,
+     "y": 700,
+     "slug": "dell-poweredge-t160-t360",
+     "etykieta": "Serwer Dell PowerEdge",
+     "opis": "pliki i kopie szkoły",
+     "dodatkowe": []
+    }
+   ]
+  },
+  "gabinet": {
+   "zestawy": [
+    "zestaw-gabinet"
+   ],
+   "punkty": [
+    {
+     "x": 200,
+     "y": 135,
+     "slug": "neo",
+     "etykieta": "Posnet Neo Online",
+     "opis": "kasa dla usług",
+     "dodatkowe": []
+    },
+    {
+     "x": 310,
+     "y": 150,
+     "slug": "pol",
+     "etykieta": "Terminal PolCard",
+     "opis": "karty i BLIK",
+     "dodatkowe": []
+    },
+    {
+     "x": 420,
+     "y": 135,
+     "slug": "dell-pro-essential-14-15",
+     "etykieta": "Laptop Dell Pro Essential",
+     "opis": "grafik i dokumentacja w gabinecie",
+     "dodatkowe": []
+    },
+    {
+     "x": 130,
+     "y": 470,
+     "slug": "lenovo-thinkcentre-neo-50a-55a",
+     "etykieta": "Komputer All-in-One",
+     "opis": "rejestracja pacjentów",
+     "dodatkowe": []
+    },
+    {
+     "x": 685,
+     "y": 420,
+     "slug": "udr7",
+     "etykieta": "Router Wi-Fi UniFi",
+     "opis": "osobno pacjenci i gabinety",
+     "dodatkowe": []
+    },
+    {
+     "x": 1035,
+     "y": 110,
+     "slug": "eset",
+     "etykieta": "ESET PROTECT",
+     "opis": "ochrona danych pacjentów",
+     "dodatkowe": []
+    },
+    {
+     "x": 1450,
+     "y": 110,
+     "slug": "euro",
+     "etykieta": "Podpis kwalifikowany",
+     "opis": "e-dokumenty i deklaracje",
+     "dodatkowe": []
+    },
+    {
+     "x": 1520,
+     "y": 620,
+     "slug": "synology-diskstation-plus-2-4",
+     "etykieta": "Synology NAS",
+     "opis": "kopie z szyfrowaniem",
+     "dodatkowe": []
+    }
+   ]
+  },
+  "warsztat": {
+   "zestawy": [
+    "zestaw-biuro-3-5",
+    "zestaw-kopie-zapasowe",
+    "zestaw-wifi-omada"
+   ],
+   "punkty": [
+    {
+     "x": 180,
+     "y": 150,
+     "slug": "ergo",
+     "etykieta": "Posnet Ergo Online",
+     "opis": "kasa, usługi i części",
+     "dodatkowe": []
+    },
+    {
+     "x": 280,
+     "y": 140,
+     "slug": "pol",
+     "etykieta": "Terminal PolCard",
+     "opis": "karty i BLIK",
+     "dodatkowe": []
+    },
+    {
+     "x": 400,
+     "y": 150,
+     "slug": "gt",
+     "etykieta": "InsERT Subiekt GT",
+     "opis": "części, magazyn, faktury",
+     "dodatkowe": []
+    },
+    {
+     "x": 460,
+     "y": 300,
+     "slug": "dell-poweredge-t160-t360",
+     "etykieta": "Serwer Dell PowerEdge",
+     "opis": "baza i kopie",
+     "dodatkowe": []
+    },
+    {
+     "x": 470,
+     "y": 620,
+     "slug": "samsung-qbc",
+     "etykieta": "Ekran w poczekalni",
+     "opis": "oferta i informacje dla klientów",
+     "dodatkowe": []
+    },
+    {
+     "x": 1060,
+     "y": 470,
+     "slug": "omada-ap-scienne-zewnetrzne",
+     "etykieta": "Wi-Fi TP-Link Omada",
+     "opis": "zasięg w hali i na placu",
+     "dodatkowe": [
+      "omada-routery"
+     ]
+    },
+    {
+     "x": 1465,
+     "y": 95,
+     "slug": "lenovo-thinkpad-e14-gen8-e16-gen4",
+     "etykieta": "Laptop Lenovo ThinkPad",
+     "opis": "diagnostyka i katalogi części",
+     "dodatkowe": []
+    },
+    {
+     "x": 1450,
+     "y": 690,
+     "slug": "kyocera-ecosys-ma4000x-fx-wifx",
+     "etykieta": "Kyocera ECOSYS",
+     "opis": "protokoły i faktury",
+     "dodatkowe": []
+    },
+    {
+     "x": 360,
+     "y": 340,
+     "slug": "qnap-nas-2-4",
+     "etykieta": "QNAP NAS",
+     "opis": "kopie i zdjęcia napraw",
+     "dodatkowe": []
+    }
+   ]
+  },
+  "produkcja": {
+   "zestawy": [
+    "zestaw-sklep-etykiety-inwentaryzacja",
+    "zestaw-biuro-6-12",
+    "zestaw-kopie-zapasowe"
+   ],
+   "punkty": [
+    {
+     "x": 120,
+     "y": 110,
+     "slug": "gt",
+     "etykieta": "InsERT Subiekt GT",
+     "opis": "magazyn, zamówienia, faktury",
+     "dodatkowe": []
+    },
+    {
+     "x": 270,
+     "y": 110,
+     "slug": "lenovo-thinkcentre-neo-50s-55s",
+     "etykieta": "Lenovo ThinkCentre neo",
+     "opis": "stanowiska biurowe",
+     "dodatkowe": []
+    },
+    {
+     "x": 420,
+     "y": 270,
+     "slug": "eset",
+     "etykieta": "ESET PROTECT",
+     "opis": "wszystkie stanowiska",
+     "dodatkowe": []
+    },
+    {
+     "x": 75,
+     "y": 415,
+     "slug": "dell-poweredge-t560",
+     "etykieta": "Serwer Dell PowerEdge T560",
+     "opis": "Windows Server, dane firmy",
+     "dodatkowe": []
+    },
+    {
+     "x": 205,
+     "y": 495,
+     "slug": "apc-smart-ups-online",
+     "etykieta": "UPS APC Smart-UPS On-Line",
+     "opis": "serwer chroniony przed zanikami",
+     "dodatkowe": []
+    },
+    {
+     "x": 210,
+     "y": 395,
+     "slug": "fw",
+     "etykieta": "Firewall Stormshield",
+     "opis": "biuro, hala i kamery w osobnych strefach",
+     "dodatkowe": []
+    },
+    {
+     "x": 160,
+     "y": 640,
+     "slug": "zebra-ds2208-ds2278",
+     "etykieta": "Skaner Zebra",
+     "opis": "wysyłka i przyjęcia",
+     "dodatkowe": []
+    },
+    {
+     "x": 950,
+     "y": 180,
+     "slug": "sunmi-l2s-pro-l2ks",
+     "etykieta": "Terminal mobilny Sunmi",
+     "opis": "remanent i przyjęcia",
+     "dodatkowe": []
+    },
+    {
+     "x": 1040,
+     "y": 610,
+     "slug": "omada-ap-sufitowe",
+     "etykieta": "Wi-Fi TP-Link Omada",
+     "opis": "hala i magazyn",
+     "dodatkowe": [
+      "omada-switche-poe"
+     ]
+    },
+    {
+     "x": 1480,
+     "y": 740,
+     "slug": "samsung-qmc",
+     "etykieta": "Ekran w hali",
+     "opis": "plan produkcji, komunikaty BHP",
+     "dodatkowe": []
+    },
+    {
+     "x": 600,
+     "y": 640,
+     "slug": "godex-g500-g530",
+     "etykieta": "Drukarka etykiet Godex",
+     "opis": "etykiety wysyłkowe i magazynowe",
+     "dodatkowe": []
+    }
+   ]
+  }
+ },
+ "do_potwierdzenia": []
+}

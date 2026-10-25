@@ -1,0 +1,860 @@
+{
+ "seria_karty": {
+  "tp": "ThinkPad T i X13",
+  "lenovo-thinkbook-14-g8-g9": "ThinkBook",
+  "lenovo-thinkbook-16-g8-g9": "ThinkBook",
+  "lenovo-thinkpad-e14-gen8-e16-gen4": "ThinkPad E i L",
+  "lenovo-thinkpad-l14-gen7-l16-gen3": "ThinkPad E i L",
+  "lenovo-thinkpad-x13-gen7": "ThinkPad T i X13",
+  "lenovo-thinkpad-t14-gen7": "ThinkPad T i X13",
+  "lenovo-thinkpad-t16-gen5": "ThinkPad T i X13",
+  "lenovo-thinkpad-p14s-p16s-gen7": "ThinkPad P",
+  "lenovo-thinkpad-p16-gen3": "ThinkPad P",
+  "lenovo-thinkpad-x1-carbon-gen14": "ThinkPad X1 i X9",
+  "lenovo-thinkpad-x1-2in1-gen11": "ThinkPad 2-in-1",
+  "lenovo-v15": "Lenovo V",
+  "lenovo-v17": "Lenovo V",
+  "lenovo-ideapad-slim-3-15": "IdeaPad",
+  "lenovo-ideapad-slim-3-16-17": "IdeaPad",
+  "lenovo-ideapad-slim-5-16": "IdeaPad",
+  "lenovo-yoga-7-2w1": "Yoga",
+  "lenovo-yoga-slim-7": "Yoga",
+  "lenovo-yoga-9-2w1": "Yoga",
+  "lenovo-yoga-pro": "Yoga",
+  "lenovo-thinkcentre-neo-50t": "ThinkCentre neo",
+  "lenovo-thinkcentre-neo-50s-55s": "ThinkCentre neo",
+  "lenovo-thinkcentre-neo-30s": "ThinkCentre neo",
+  "lenovo-thinkcentre-neo-50q-55q": "ThinkCentre neo",
+  "lenovo-thinkcentre-neo-50a-55a": "ThinkCentre neo",
+  "lenovo-thinkvision-e": "ThinkVision E",
+  "lenovo-thinkvision-t": "ThinkVision T",
+  "lenovo-thinkvision-p-24-27": "ThinkVision P",
+  "lenovo-thinkvision-p-32-49-ultrawide": "ThinkVision P",
+  "dell-14": "Dell",
+  "dell-16": "Dell",
+  "dell-pro-essential-14-15": "Dell Pro Essential",
+  "dell-pro-14-16": "Dell Pro",
+  "dell-pro-precision-5": "Dell Pro Precision",
+  "dell-xps-13-14": "XPS",
+  "dell-xps-16": "XPS",
+  "dell-pro-e-monitor": "Dell Pro E",
+  "dell-pro-monitor": "Dell Pro P i Plus",
+  "dell-pro-usb-c-hub": "Dell Pro P i Plus",
+  "dell-ultrasharp": "UltraSharp",
+  "dell-monitor-wideokonferencje": "Monitory z kamerą",
+  "dell-poweredge-t160-t360": "PowerEdge T",
+  "dell-poweredge-t560": "PowerEdge T",
+  "dell-poweredge-r360": "PowerEdge R",
+  "dell-poweredge-r660-r570": "PowerEdge R",
+  "dell-poweredge-r760xs": "PowerEdge R",
+  "dell-poweredge-r7625": "PowerEdge R",
+  "dell-pro-tower-slim": "Dell Pro Desktop",
+  "dell-pro-tower-slim-essential": "Dell Pro Desktop",
+  "dell-pro-micro": "Dell Pro Desktop",
+  "dell-pro-aio": "Dell Pro All-in-One",
+  "lenovo-thinkpad-x9-aura-edition": "ThinkPad X1 i X9",
+  "lenovo-thinkpad-p1-gen-9": "ThinkPad P",
+  "lenovo-thinkpad-t14s-2-in-1-gen-2": "ThinkPad 2-in-1",
+  "lenovo-thinkpad-l13-2-in-1-gen-6": "ThinkPad 2-in-1",
+  "lenovo-thinkpad-x13-detachable-gen-1": "ThinkPad 2-in-1",
+  "lenovo-thinkbook-14-2-in-1-g6": "ThinkBook",
+  "lenovo-thinkbook-16p-g6": "ThinkBook",
+  "lenovo-thinkcentre-m70t-m70s-m75s-gen-6": "ThinkCentre M",
+  "lenovo-thinkcentre-m-tiny-gen-6": "ThinkCentre M",
+  "lenovo-thinkcentre-m70a-m90a-gen-6": "ThinkCentre M",
+  "lenovo-thinkstation-p3-tiny-ultra-gen-2": "ThinkStation",
+  "lenovo-thinkstation-p3-tower-gen-2-p4": "ThinkStation",
+  "lenovo-thinkvision-m-przenosne": "ThinkVision M",
+  "lenovo-thinksmart-core-gen-2": "ThinkSmart",
+  "dell-pro-14-premium": "Dell Pro",
+  "dell-pro-7": "Dell Pro",
+  "dell-pro-5": "Dell Pro",
+  "dell-pro-rugged": "Dell Pro Rugged",
+  "dell-pro-precision-7": "Dell Pro Precision",
+  "dell-pro-max-plus": "Dell Pro Precision",
+  "dell-pro-max-desktop": "Dell Pro Precision",
+  "dell-plus-monitory": "Dell Plus",
+  "dell-ultrasharp-oled-6k": "UltraSharp",
+  "dell-stacje-dokujace": "Stacje dokujące",
+  "dell-wideokonferencje": "Wideokonferencje",
+  "dell-poweredge-r260": "PowerEdge R"
+ },
+ "salony": {
+  "Lenovo": {
+   "segs": [
+    {
+     "id": "laptopy",
+     "n": "Laptopy",
+     "ic": "M4 5h16v10H4z M2 19h20",
+     "series": [
+      {
+       "n": "ThinkBook",
+       "dla": "Małe i średnie firmy: biuro, księgowość, handlowcy w terenie.",
+       "wyr": "Nowoczesna obudowa, komplet złączy, RAM do rozbudowy w wielu modelach.",
+       "klasa": "Biznes",
+       "img": "lenovo-thinkbook-14-g8-g9",
+       "prods": [
+        "lenovo-thinkbook-14-g8-g9",
+        "lenovo-thinkbook-16-g8-g9",
+        "lenovo-thinkbook-14-2-in-1-g6",
+        "lenovo-thinkbook-16p-g6"
+       ]
+      },
+      {
+       "n": "ThinkPad E i L",
+       "dla": "Firmy, które chcą ThinkPada do codziennej pracy biurowej.",
+       "wyr": "Klawiatura ThinkPad, wytrzymała obudowa, łatwy serwis.",
+       "klasa": "Biznes",
+       "img": "lenovo-thinkpad-e14-gen8-e16-gen4",
+       "prods": [
+        "lenovo-thinkpad-e14-gen8-e16-gen4",
+        "lenovo-thinkpad-l14-gen7-l16-gen3"
+       ]
+      },
+      {
+       "n": "ThinkPad T i X13",
+       "dla": "Praca na laptopie cały dzień — w biurze i w drodze.",
+       "wyr": "Lekkie 13–16\", wersje Intel i AMD, zarządzanie dla działu IT.",
+       "klasa": "Biznes+",
+       "img": "lenovo-thinkpad-t14-gen7",
+       "prods": [
+        "lenovo-thinkpad-t14-gen7",
+        "lenovo-thinkpad-t16-gen5",
+        "lenovo-thinkpad-x13-gen7",
+        "tp"
+       ]
+      },
+      {
+       "n": "ThinkPad X1 i X9",
+       "dla": "Szef, kadra zarządzająca, częste podróże.",
+       "wyr": "Najlżejsze ThinkPady, ekrany OLED, materiały premium.",
+       "klasa": "Premium",
+       "img": "lenovo-thinkpad-x1-carbon-gen14",
+       "prods": [
+        "lenovo-thinkpad-x1-carbon-gen14",
+        "lenovo-thinkpad-x9-aura-edition"
+       ]
+      },
+      {
+       "n": "ThinkPad 2-in-1",
+       "dla": "Notatki odręczne, prezentacje, podpisy na ekranie.",
+       "wyr": "Ekran dotykowy z piórem, tryb tabletu.",
+       "klasa": "Biznes+",
+       "img": "lenovo-thinkpad-x1-2in1-gen11",
+       "prods": [
+        "lenovo-thinkpad-x1-2in1-gen11",
+        "lenovo-thinkpad-l13-2-in-1-gen-6",
+        "lenovo-thinkpad-t14s-2-in-1-gen-2",
+        "lenovo-thinkpad-x13-detachable-gen-1"
+       ]
+      },
+      {
+       "n": "ThinkPad P",
+       "dla": "Projektanci, architekci, CAD i grafika.",
+       "wyr": "Mobilne stacje robocze z profesjonalnymi kartami graficznymi.",
+       "klasa": "Pro",
+       "img": "lenovo-thinkpad-p16-gen3",
+       "prods": [
+        "lenovo-thinkpad-p14s-p16s-gen7",
+        "lenovo-thinkpad-p16-gen3",
+        "lenovo-thinkpad-p1-gen-9"
+       ]
+      },
+      {
+       "n": "Lenovo V",
+       "dla": "Recepcja, sekretariat, proste zadania biurowe.",
+       "wyr": "Prosty laptop do biura z Windows 11 Pro.",
+       "klasa": "Podstawowa",
+       "img": "lenovo-v15",
+       "prods": [
+        "lenovo-v15",
+        "lenovo-v17"
+       ]
+      },
+      {
+       "n": "IdeaPad",
+       "dla": "Codzienna praca w biurze i w domu.",
+       "wyr": "Smukłe obudowy, duży wybór ekranów 15–17\".",
+       "klasa": "Podstawowa",
+       "img": "lenovo-ideapad-slim-3-15",
+       "prods": [
+        "lenovo-ideapad-slim-3-15",
+        "lenovo-ideapad-slim-3-16-17",
+        "lenovo-ideapad-slim-5-16"
+       ]
+      },
+      {
+       "n": "Yoga",
+       "dla": "Twórcy, marketing, osoby ceniące design.",
+       "wyr": "Smukłe i 2w1, jasne ekrany, wersje Pro do grafiki.",
+       "klasa": "Premium",
+       "img": "lenovo-yoga-7-2w1",
+       "prods": [
+        "lenovo-yoga-7-2w1",
+        "lenovo-yoga-9-2w1",
+        "lenovo-yoga-pro",
+        "lenovo-yoga-slim-7"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "komputery",
+     "n": "Komputery",
+     "ic": "M6 3h12v14H6z M9 21h6 M12 17v4",
+     "series": [
+      {
+       "n": "ThinkCentre neo",
+       "dla": "Biuro, recepcja, sklep, szkoła.",
+       "wyr": "Tower, mała obudowa, Tiny za monitorem i All-in-One.",
+       "klasa": "Biznes",
+       "img": "lenovo-thinkcentre-neo-50s-55s",
+       "prods": [
+        "lenovo-thinkcentre-neo-30s",
+        "lenovo-thinkcentre-neo-50a-55a",
+        "lenovo-thinkcentre-neo-50q-55q",
+        "lenovo-thinkcentre-neo-50s-55s",
+        "lenovo-thinkcentre-neo-50t"
+       ]
+      },
+      {
+       "n": "ThinkCentre M",
+       "dla": "Firmy z wieloma stanowiskami i działem IT.",
+       "wyr": "Komputery do floty: zarządzanie zdalne, długie wsparcie modeli.",
+       "klasa": "Biznes+",
+       "img": "lenovo-thinkcentre-m-tiny-gen-6",
+       "prods": [
+        "lenovo-thinkcentre-m-tiny-gen-6",
+        "lenovo-thinkcentre-m70a-m90a-gen-6",
+        "lenovo-thinkcentre-m70t-m70s-m75s-gen-6"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "stacje-robocze",
+     "n": "Stacje robocze",
+     "ic": "M4 4h16v12H4z M8 20h8 M9 9l2 2 4-4",
+     "series": [
+      {
+       "n": "ThinkStation",
+       "dla": "CAD, BIM, wizualizacje, montaż wideo.",
+       "wyr": "Certyfikowane pod programy inżynierskie, mocne karty graficzne.",
+       "klasa": "Pro",
+       "img": "lenovo-thinkstation-p3-tiny-ultra-gen-2",
+       "prods": [
+        "lenovo-thinkstation-p3-tiny-ultra-gen-2",
+        "lenovo-thinkstation-p3-tower-gen-2-p4"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "monitory",
+     "n": "Monitory",
+     "ic": "M3 4h18v12H3z M8 20h8 M12 16v4",
+     "series": [
+      {
+       "n": "ThinkVision E",
+       "dla": "Stanowiska biurowe i szkoła.",
+       "wyr": "Proste monitory z regulacją, Full HD i QHD.",
+       "klasa": "Podstawowa",
+       "img": "lenovo-thinkvision-e",
+       "prods": [
+        "lenovo-thinkvision-e"
+       ]
+      },
+      {
+       "n": "ThinkVision T",
+       "dla": "Biuro z laptopami — jeden kabel USB-C.",
+       "wyr": "Regulacja wysokości, USB-C z zasilaniem, hub.",
+       "klasa": "Biznes",
+       "img": "lenovo-thinkvision-t",
+       "prods": [
+        "lenovo-thinkvision-t"
+       ]
+      },
+      {
+       "n": "ThinkVision P",
+       "dla": "Grafika, księgowość na wielu oknach, projektanci.",
+       "wyr": "Wierne kolory, 4K, ultrapanoramiczne do 49\".",
+       "klasa": "Pro",
+       "img": "lenovo-thinkvision-p-24-27",
+       "prods": [
+        "lenovo-thinkvision-p-24-27",
+        "lenovo-thinkvision-p-32-49-ultrawide"
+       ]
+      },
+      {
+       "n": "ThinkVision M",
+       "dla": "Praca w podróży — drugi ekran w torbie.",
+       "wyr": "Przenośne monitory zasilane z USB-C.",
+       "klasa": "Biznes",
+       "img": "lenovo-thinkvision-m-przenosne",
+       "prods": [
+        "lenovo-thinkvision-m-przenosne"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "wideokonferencje",
+     "n": "Sale spotkań",
+     "ic": "M3 7h12v10H3z M15 11l6-3v8l-6-3",
+     "series": [
+      {
+       "n": "ThinkSmart",
+       "dla": "Sale konferencyjne z Teams lub Zoom.",
+       "wyr": "Komputery i kamery do sal spotkań.",
+       "klasa": "Biznes+",
+       "img": "lenovo-thinksmart-core-gen-2",
+       "prods": [
+        "lenovo-thinksmart-core-gen-2"
+       ]
+      }
+     ]
+    }
+   ],
+   "wiz": [
+    {
+     "q": "Gdzie najczęściej pracujesz?",
+     "o": [
+      {
+       "t": "W biurze",
+       "k": "biuro"
+      },
+      {
+       "t": "W terenie i w podróży",
+       "k": "teren"
+      },
+      {
+       "t": "Biuro i dom",
+       "k": "dom"
+      }
+     ]
+    },
+    {
+     "q": "Co robisz na laptopie?",
+     "o": [
+      {
+       "t": "Programy biurowe",
+       "k": "office"
+      },
+      {
+       "t": "Grafika, CAD, zdjęcia",
+       "k": "cad"
+      },
+      {
+       "t": "Notatki odręczne, prezentacje",
+       "k": "pen"
+      }
+     ]
+    },
+    {
+     "q": "Co jest najważniejsze?",
+     "o": [
+      {
+       "t": "Wytrzymałość i serwis",
+       "k": "tough"
+      },
+      {
+       "t": "Lekkość",
+       "k": "light"
+      },
+      {
+       "t": "Duży ekran",
+       "k": "big"
+      }
+     ]
+    }
+   ],
+   "wizRules": [
+    {
+     "when": [
+      "cad"
+     ],
+     "ser": "ThinkPad P",
+     "why": "Do programów graficznych i CAD potrzebujesz mocnej karty graficznej i certyfikatów producentów oprogramowania — to mobilne stacje robocze.",
+     "p": [
+      "lenovo-thinkpad-p14s-p16s-gen7",
+      "lenovo-thinkpad-p16-gen3"
+     ]
+    },
+    {
+     "when": [
+      "pen"
+     ],
+     "ser": "ThinkPad 2-in-1",
+     "why": "Ekran dotykowy z piórem i tryb tabletu: notatki odręczne, podpisy, prezentacje u klienta.",
+     "p": [
+      "lenovo-thinkpad-x1-2in1-gen11",
+      "lenovo-thinkpad-t14s-2-in-1-gen-2"
+     ]
+    },
+    {
+     "when": [
+      "teren",
+      "light"
+     ],
+     "ser": "ThinkPad X1 i T14s",
+     "why": "Lekkie ThinkPady na cały dzień w drodze — mało ważą, długo pracują na baterii.",
+     "p": [
+      "lenovo-thinkpad-x1-carbon-gen14",
+      "tp"
+     ]
+    },
+    {
+     "when": [
+      "big"
+     ],
+     "ser": "ThinkBook 16 / ThinkPad E16",
+     "why": "Ekran 16\" z klawiaturą numeryczną — wygodnie przy tabelach, fakturach i kilku oknach.",
+     "p": [
+      "lenovo-thinkbook-16-g8-g9",
+      "lenovo-thinkpad-e14-gen8-e16-gen4"
+     ]
+    },
+    {
+     "when": [
+      "tough"
+     ],
+     "ser": "ThinkPad T",
+     "why": "Seria do całodziennej pracy, z wytrzymałą obudową i serwisem — dobry wybór dla firmy na lata.",
+     "p": [
+      "lenovo-thinkpad-t14-gen7",
+      "lenovo-thinkpad-t16-gen5"
+     ]
+    },
+    {
+     "when": [],
+     "ser": "ThinkBook",
+     "why": "Uniwersalny laptop do biura i księgowości: komplet złączy, RAM do rozbudowy, matowy ekran.",
+     "p": [
+      "lenovo-thinkbook-14-g8-g9",
+      "lenovo-thinkpad-e14-gen8-e16-gen4"
+     ]
+    }
+   ],
+   "svc": [
+    {
+     "ic": "M4 4h16v12H4z M8 20h8 M9 9l2 2 4-4",
+     "t": "Gotowy do pracy",
+     "d": "Windows, konta, poczta i programy ustawione przed dostawą."
+    },
+    {
+     "ic": "M4 7h16 M4 12h10 M4 17h7 M17 14l3 3-3 3",
+     "t": "Przeniesienie danych",
+     "d": "Pliki, poczta i ustawienia ze starego komputera — bez Twojej pracy."
+    },
+    {
+     "ic": "M9 12l2 2 4-4 M12 3l7 3v5c0 4.6-3 8.6-7 10-4-1.4-7-5.4-7-10V6l7-3z",
+     "t": "Gwarancja producenta",
+     "d": "Zgłoszenia gwarancyjne prowadzimy za Ciebie, także w wersjach z naprawą u klienta."
+    },
+    {
+     "ic": "M3 4h18v12H3z M8 20h8",
+     "t": "Całe stanowisko",
+     "d": "Monitor, stacja dokująca, klawiatura i mysz dobrane do laptopa."
+    },
+    {
+     "ic": "M4 4h7v7H4z M13 4h7v7h-7z M4 13h7v7H4z M13 13h7v7h-7z",
+     "t": "Licencje z jednego miejsca",
+     "d": "Microsoft 365, Windows, ESET — na jednej fakturze."
+    },
+    {
+     "ic": "M12 21s-7-6-7-11a7 7 0 1114 0c0 5-7 11-7 11z M12 12a2 2 0 100-4 2 2 0 000 4z",
+     "t": "Serwis na miejscu",
+     "d": "Rabka-Zdrój, Zakopane i cała Małopolska."
+    }
+   ],
+   "wizTitle": "Który Lenovo dla Ciebie?",
+   "h1": "Lenovo dla firm — od ThinkBooka po stację roboczą.",
+   "lead": "Laptopy ThinkPad i ThinkBook, komputery ThinkCentre, stacje robocze ThinkStation i monitory ThinkVision. Dobieramy, konfigurujemy i serwisujemy na miejscu.",
+   "hero": [
+    "lenovo-thinkpad-x1-carbon-gen14",
+    "lenovo-thinkcentre-neo-50a-55a",
+    "lenovo-thinkvision-t"
+   ],
+   "cmpTitle": "Która seria Lenovo dla Ciebie?"
+  },
+  "Dell": {
+   "segs": [
+    {
+     "id": "laptopy",
+     "n": "Laptopy",
+     "ic": "M4 5h16v10H4z M2 19h20",
+     "series": [
+      {
+       "n": "Dell Pro",
+       "dla": "Firmy: biuro, księgowość, handlowcy.",
+       "wyr": "Biznesowe 14\" i 16\", zarządzanie i ochrona dla działu IT.",
+       "klasa": "Biznes",
+       "img": "dell-pro-14-16",
+       "prods": [
+        "dell-pro-14-16",
+        "dell-pro-14-premium",
+        "dell-pro-5",
+        "dell-pro-7"
+       ]
+      },
+      {
+       "n": "Dell Pro Essential",
+       "dla": "Podstawowa praca biurowa w firmie.",
+       "wyr": "Prosty laptop biznesowy z Windows 11 Pro.",
+       "klasa": "Podstawowa",
+       "img": "dell-pro-essential-14-15",
+       "prods": [
+        "dell-pro-essential-14-15"
+       ]
+      },
+      {
+       "n": "Dell",
+       "dla": "Codzienna praca w biurze i w domu.",
+       "wyr": "Laptopy 14\" i 16\" do typowych zadań.",
+       "klasa": "Podstawowa",
+       "img": "dell-14",
+       "prods": [
+        "dell-14",
+        "dell-16"
+       ]
+      },
+      {
+       "n": "XPS",
+       "dla": "Szef, twórcy, osoby ceniące design.",
+       "wyr": "Smukłe obudowy premium, jasne ekrany.",
+       "klasa": "Premium",
+       "img": "dell-xps-13-14",
+       "prods": [
+        "dell-xps-13-14",
+        "dell-xps-16"
+       ]
+      },
+      {
+       "n": "Dell Pro Precision",
+       "dla": "CAD, grafika, analiza danych.",
+       "wyr": "Mobilne stacje robocze z mocnymi kartami graficznymi.",
+       "klasa": "Pro",
+       "img": "dell-pro-precision-5",
+       "prods": [
+        "dell-pro-precision-5"
+       ]
+      },
+      {
+       "n": "Dell Pro Rugged",
+       "dla": "Budowy, teren, praca w trudnych warunkach.",
+       "wyr": "Wzmocnione obudowy odporne na upadki, pył i wodę.",
+       "klasa": "Pro",
+       "img": "dell-pro-rugged",
+       "prods": [
+        "dell-pro-rugged"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "komputery",
+     "n": "Komputery",
+     "ic": "M6 3h12v14H6z M9 21h6 M12 17v4",
+     "series": [
+      {
+       "n": "Dell Pro Desktop",
+       "dla": "Biuro, recepcja, magazyn.",
+       "wyr": "Tower, Slim i Micro — od podstawowych po wydajne.",
+       "klasa": "Biznes",
+       "img": "dell-pro-tower-slim",
+       "prods": [
+        "dell-pro-micro",
+        "dell-pro-tower-slim",
+        "dell-pro-tower-slim-essential"
+       ]
+      },
+      {
+       "n": "Dell Pro All-in-One",
+       "dla": "Recepcja i stanowiska bez plątaniny kabli.",
+       "wyr": "Komputer w monitorze 24\".",
+       "klasa": "Biznes",
+       "img": "dell-pro-aio",
+       "prods": [
+        "dell-pro-aio"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "stacje-robocze",
+     "n": "Stacje robocze",
+     "ic": "M4 4h16v12H4z M8 20h8 M9 9l2 2 4-4",
+     "series": [
+      {
+       "n": "Dell Pro Max",
+       "dla": "CAD, BIM, wizualizacje.",
+       "wyr": "Stacje robocze tower i micro do programów inżynierskich.",
+       "klasa": "Pro",
+       "img": "dell-pro-max-desktop",
+       "prods": [
+        "dell-pro-max-desktop",
+        "dell-pro-max-plus",
+        "dell-pro-precision-7"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "monitory",
+     "n": "Monitory",
+     "ic": "M3 4h18v12H3z M8 20h8 M12 16v4",
+     "series": [
+      {
+       "n": "Dell Pro E",
+       "dla": "Stanowiska biurowe.",
+       "wyr": "Podstawowe monitory z regulacją.",
+       "klasa": "Podstawowa",
+       "img": "dell-pro-e-monitor",
+       "prods": [
+        "dell-pro-e-monitor"
+       ]
+      },
+      {
+       "n": "Dell Pro P i Plus",
+       "dla": "Biuro z laptopami.",
+       "wyr": "Regulacja, wersje z hubem USB-C.",
+       "klasa": "Biznes",
+       "img": "dell-pro-monitor",
+       "prods": [
+        "dell-pro-monitor",
+        "dell-pro-usb-c-hub"
+       ]
+      },
+      {
+       "n": "UltraSharp",
+       "dla": "Grafika, projektanci, wiele okien.",
+       "wyr": "Wierne kolory, 4K, Thunderbolt i duże przekątne.",
+       "klasa": "Premium",
+       "img": "dell-ultrasharp",
+       "prods": [
+        "dell-ultrasharp",
+        "dell-ultrasharp-oled-6k"
+       ]
+      },
+      {
+       "n": "Monitory z kamerą",
+       "dla": "Spotkania online z biurka.",
+       "wyr": "Wbudowana kamera i mikrofony.",
+       "klasa": "Biznes",
+       "img": "dell-monitor-wideokonferencje",
+       "prods": [
+        "dell-monitor-wideokonferencje"
+       ]
+      },
+      {
+       "n": "Dell Plus",
+       "dla": "Recepcja, dom, małe biuro.",
+       "wyr": "Smukłe monitory z głośnikami, Full HD i QHD.",
+       "klasa": "Podstawowa",
+       "img": "dell-plus-monitory",
+       "prods": [
+        "dell-plus-monitory"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "akcesoria",
+     "n": "Akcesoria",
+     "ic": "M5 14h14v5H5z M9 14V9h6v5 M12 9V5",
+     "series": [
+      {
+       "n": "Stacje dokujące",
+       "dla": "Laptop przy biurku — jeden kabel do monitora, sieci i ładowania.",
+       "wyr": "Stacje USB-C i Thunderbolt do laptopów Dell i innych marek.",
+       "klasa": "Biznes",
+       "img": "dell-stacje-dokujace",
+       "prods": [
+        "dell-stacje-dokujace"
+       ]
+      },
+      {
+       "n": "Wideokonferencje",
+       "dla": "Spotkania online z biurka lub małej sali.",
+       "wyr": "Kamery internetowe i zestaw głośnomówiący Dell.",
+       "klasa": "Biznes",
+       "img": "dell-wideokonferencje",
+       "prods": [
+        "dell-wideokonferencje"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "serwery",
+     "n": "Serwery",
+     "ic": "M4 4h16v6H4z M4 14h16v6H4z M8 7h.01 M8 17h.01",
+     "series": [
+      {
+       "n": "PowerEdge T",
+       "dla": "Serwer w biurze, bez szafy.",
+       "wyr": "Obudowy wieżowe: od małego serwera plików po wydajny.",
+       "klasa": "Biznes",
+       "img": "dell-poweredge-t160-t360",
+       "prods": [
+        "dell-poweredge-t160-t360",
+        "dell-poweredge-t560"
+       ]
+      },
+      {
+       "n": "PowerEdge R",
+       "dla": "Serwerownia z szafą rack.",
+       "wyr": "Serwery do szafy 19\" — 1U i 2U.",
+       "klasa": "Pro",
+       "img": "dell-poweredge-r360",
+       "prods": [
+        "dell-poweredge-r360",
+        "dell-poweredge-r660-r570",
+        "dell-poweredge-r760xs",
+        "dell-poweredge-r7625",
+        "dell-poweredge-r260"
+       ]
+      }
+     ]
+    }
+   ],
+   "wiz": [
+    {
+     "q": "Gdzie najczęściej pracujesz?",
+     "o": [
+      {
+       "t": "W biurze",
+       "k": "biuro"
+      },
+      {
+       "t": "W terenie i w podróży",
+       "k": "teren"
+      },
+      {
+       "t": "Biuro i dom",
+       "k": "dom"
+      }
+     ]
+    },
+    {
+     "q": "Co robisz na laptopie?",
+     "o": [
+      {
+       "t": "Programy biurowe",
+       "k": "office"
+      },
+      {
+       "t": "Grafika, CAD, zdjęcia",
+       "k": "cad"
+      },
+      {
+       "t": "Notatki odręczne, prezentacje",
+       "k": "pen"
+      }
+     ]
+    },
+    {
+     "q": "Co jest najważniejsze?",
+     "o": [
+      {
+       "t": "Wytrzymałość i serwis",
+       "k": "tough"
+      },
+      {
+       "t": "Lekkość",
+       "k": "light"
+      },
+      {
+       "t": "Duży ekran",
+       "k": "big"
+      }
+     ]
+    }
+   ],
+   "wizRules": [
+    {
+     "when": [
+      "cad"
+     ],
+     "ser": "Dell Pro Precision",
+     "why": "Mobilne stacje robocze do CAD i grafiki — mocne karty graficzne i certyfikaty programów.",
+     "p": [
+      "dell-pro-precision-5"
+     ]
+    },
+    {
+     "when": [
+      "light"
+     ],
+     "ser": "XPS / Dell Pro 14",
+     "why": "Lekkie i smukłe — do pracy w drodze.",
+     "p": [
+      "dell-xps-13-14",
+      "dell-pro-14-16"
+     ]
+    },
+    {
+     "when": [
+      "big"
+     ],
+     "ser": "Dell Pro 16 / Dell 16",
+     "why": "Duży ekran do tabel i kilku okien.",
+     "p": [
+      "dell-pro-14-16",
+      "dell-16"
+     ]
+    },
+    {
+     "when": [],
+     "ser": "Dell Pro",
+     "why": "Biznesowy laptop do biura i księgowości, z zarządzaniem dla działu IT.",
+     "p": [
+      "dell-pro-14-16",
+      "dell-pro-essential-14-15"
+     ]
+    }
+   ],
+   "svc": [
+    {
+     "ic": "M4 4h16v12H4z M8 20h8 M9 9l2 2 4-4",
+     "t": "Gotowy do pracy",
+     "d": "Windows, konta, poczta i programy ustawione przed dostawą."
+    },
+    {
+     "ic": "M4 7h16 M4 12h10 M4 17h7 M17 14l3 3-3 3",
+     "t": "Przeniesienie danych",
+     "d": "Pliki, poczta i ustawienia ze starego komputera — bez Twojej pracy."
+    },
+    {
+     "ic": "M9 12l2 2 4-4 M12 3l7 3v5c0 4.6-3 8.6-7 10-4-1.4-7-5.4-7-10V6l7-3z",
+     "t": "Gwarancja producenta",
+     "d": "Zgłoszenia gwarancyjne prowadzimy za Ciebie, także w wersjach z naprawą u klienta."
+    },
+    {
+     "ic": "M3 4h18v12H3z M8 20h8",
+     "t": "Całe stanowisko",
+     "d": "Monitor, stacja dokująca, klawiatura i mysz dobrane do laptopa."
+    },
+    {
+     "ic": "M4 4h7v7H4z M13 4h7v7h-7z M4 13h7v7H4z M13 13h7v7h-7z",
+     "t": "Licencje z jednego miejsca",
+     "d": "Microsoft 365, Windows, ESET — na jednej fakturze."
+    },
+    {
+     "ic": "M12 21s-7-6-7-11a7 7 0 1114 0c0 5-7 11-7 11z M12 12a2 2 0 100-4 2 2 0 000 4z",
+     "t": "Serwis na miejscu",
+     "d": "Rabka-Zdrój, Zakopane i cała Małopolska."
+    }
+   ],
+   "wizTitle": "Który Dell dla Ciebie?",
+   "h1": "Dell dla firm — laptopy, komputery, monitory i serwery.",
+   "lead": "Dell Pro do biura, XPS dla wymagających, stacje robocze do CAD, monitory UltraSharp i serwery PowerEdge — z konfiguracją i serwisem na miejscu.",
+   "hero": [
+    "dell-xps-13-14",
+    "dell-pro-aio",
+    "dell-ultrasharp"
+   ],
+   "cmpTitle": "Która seria Dell dla Ciebie?"
+  }
+ }
+}

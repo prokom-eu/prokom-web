@@ -1,0 +1,150 @@
+{
+ "opis": "Podział 6 kart wielomodelowych (decyzja v124, AUDYT: K31-ZMIANY §13). Treść nowych kart bierzemy z karty źródłowej: parametry z prefiksem modelu („Pro 7: …; Pro 9: …”) dzielimy, wspólne kopiujemy; opis i FAQ przepisujemy pod jeden model. Źródła producenta zostają. Stara karta → 301 na pierwszą nową. Nowe karty startują ze statusem do-sprawdzenia (noindex) do akceptacji Krystiana.",
+ "karty": [
+  {
+   "z": "dell-pro-7",
+   "powod": "inna forma: laptop klasyczny i 2 w 1 (obracany ekran) — klient szuka jednego albo drugiego",
+   "redirect_301": "dell-pro-7-13-14",
+   "nowe": [
+    {
+     "slug": "dell-pro-7-13-14",
+     "nazwa": "Dell Pro 7 13 / 14 (P713260 / P714260)",
+     "warianty": [
+      "Dell Pro 7 13 (P713260 Intel / P713265 AMD)",
+      "Dell Pro 7 14 (P714260 / P714265)"
+     ],
+     "klucz_modelu": "P71[34]"
+    },
+    {
+     "slug": "dell-pro-7-2w1",
+     "nazwa": "Dell Pro 7 2 w 1 13 / 14 (P703260 / P704260)",
+     "warianty": [
+      "Dell Pro 7 13 2 w 1 (P703260 / P703265)",
+      "Dell Pro 7 14 2 w 1 (P704260 / P704265)"
+     ],
+     "klucz_modelu": "P70[34]|2 w 1|2-in-1"
+    }
+   ]
+  },
+  {
+   "z": "lenovo-yoga-pro",
+   "powod": "dwie różne klasy (Pro 7 i Pro 9): inny ekran, moc karty, waga i zasilacz",
+   "redirect_301": "lenovo-yoga-pro-7-15",
+   "nowe": [
+    {
+     "slug": "lenovo-yoga-pro-7-15",
+     "nazwa": "Lenovo Yoga Pro 7 15 (Gen 11)",
+     "warianty": [
+      "Yoga Pro 7 15IPH11"
+     ],
+     "klucz_modelu": "Pro 7"
+    },
+    {
+     "slug": "lenovo-yoga-pro-9-16",
+     "nazwa": "Lenovo Yoga Pro 9 16 (Gen 11)",
+     "warianty": [
+      "Yoga Pro 9 16IPH11"
+     ],
+     "klucz_modelu": "Pro 9"
+    }
+   ]
+  },
+  {
+   "z": "lenovo-thinkstation-p3-tower-gen-2-p4",
+   "powod": "P4 to wyższa klasa stacji roboczej (inna platforma i rozbudowa) — inny klient i budżet",
+   "redirect_301": "lenovo-thinkstation-p3-tower-gen-2",
+   "nowe": [
+    {
+     "slug": "lenovo-thinkstation-p3-tower-gen-2",
+     "nazwa": "Lenovo ThinkStation P3 Tower Gen 2",
+     "warianty": [
+      "P3 Tower Gen 2 (Intel)"
+     ],
+     "klucz_modelu": "P3"
+    },
+    {
+     "slug": "lenovo-thinkstation-p4",
+     "nazwa": "Lenovo ThinkStation P4",
+     "warianty": [
+      "P4 (AMD)"
+     ],
+     "klucz_modelu": "P4"
+    }
+   ]
+  },
+  {
+   "z": "dell-ultrasharp-oled-6k",
+   "powod": "dwa niezwiązane monitory (32\" OLED do grafiki i 52\" 6K zamiast dwóch ekranów) — wspólna tylko seria",
+   "redirect_301": "dell-ultrasharp-32-qd-oled-u3226q",
+   "nowe": [
+    {
+     "slug": "dell-ultrasharp-32-qd-oled-u3226q",
+     "nazwa": "Dell UltraSharp 32 4K QD-OLED (U3226Q)",
+     "warianty": [
+      "UltraSharp 32 4K QD-OLED (U3226Q)"
+     ],
+     "klucz_modelu": "U3226Q"
+    },
+    {
+     "slug": "dell-ultrasharp-52-6k-u5226kw",
+     "nazwa": "Dell UltraSharp 52 6K (U5226KW)",
+     "warianty": [
+      "UltraSharp 52 Thunderbolt Hub (U5226KW)"
+     ],
+     "klucz_modelu": "U5226KW"
+    }
+   ]
+  },
+  {
+   "z": "avtek-ts-9-mate-g",
+   "powod": "w jednej karcie dwie generacje (9 i 8.1)",
+   "redirect_301": "avtek-ts-9-mate-g",
+   "nowe": [
+    {
+     "slug": "avtek-ts-9-mate-g",
+     "nazwa": "Avtek TouchScreen 9 Mate G (65\", 75\", 86\")",
+     "warianty": [
+      "TS 9 Mate G 65",
+      "TS 9 Mate G 75",
+      "TS 9 Mate G 86"
+     ],
+     "klucz_modelu": "TS 9|9 Mate"
+    },
+    {
+     "slug": "avtek-ts-8-1-mate-g-65",
+     "nazwa": "Avtek TouchScreen 8.1 Mate G 65 — poprzednia generacja (osobna karta albo usunąć)",
+     "warianty": [
+      "TS 8.1 Mate G 65"
+     ],
+     "klucz_modelu": "8\\.1"
+    }
+   ]
+  },
+  {
+   "z": "synology-dyski-rozszerzenia",
+   "powod": "dwa różne typy produktu (dyski i obudowy)",
+   "redirect_301": "synology-dyski-hat",
+   "nowe": [
+    {
+     "slug": "synology-dyski-hat",
+     "nazwa": "Synology dyski HDD HAT3300 / HAT5300 / HAS5300",
+     "warianty": [
+      "HAT3300 (4, 6 TB)",
+      "HAT3310 / HAT3320 (8–20 TB)",
+      "HAT5300 / HAT5310 / HAT5320 (4–24 TB)",
+      "HAS5300 / HAS5310 (12–20 TB)"
+     ],
+     "klucz_modelu": "HA[TS]"
+    },
+    {
+     "slug": "synology-obudowy-rozszerzajace",
+     "nazwa": "Synology obudowy rozszerzające DX525 / RX426 / RX418",
+     "warianty": [
+      "DX525 / RX426 / RX418 / DX517"
+     ],
+     "klucz_modelu": "DX|RX"
+    }
+   ]
+  }
+ ]
+}

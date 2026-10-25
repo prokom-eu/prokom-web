@@ -40,3 +40,6 @@ next-env.d.ts
 *.tsbuildinfo
 blob-report/
 playwright/.cache/
+
+# Internal files from handoff packages (prices, reviews) never go to the repo
+*WEWNETRZNE*
