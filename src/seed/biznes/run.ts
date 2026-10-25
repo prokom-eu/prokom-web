@@ -34,6 +34,7 @@ import { FOOTER_LEGAL_LINKS, FOOTER_TEXT, footerData } from './footer'
 import { seedBiznesCategoryContent } from './category'
 import { seedBiznesIndustries } from './industries'
 import { seedBiznesNews } from './posts'
+import { seedBiznesLegal } from './legal'
 import { SERVICE_AREAS, seedBiznesContact } from './contact'
 import { seedBiznesGopos } from './gopos'
 import { seedBiznesInsert } from './insert'
@@ -493,6 +494,9 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
 
   // --- news (B11): the KSeF post from the board and the KSeF panel of the list ---
   await seedBiznesNews(payload, tenant.id, pageRefs, pageReport)
+
+  // --- legal pages (B11b): privacy policy, cookies, accessibility (drafts to approve) ---
+  await seedBiznesLegal(payload, tenant.id, pageReport)
 
   for (const [collection, { created, updated, skipped }] of Object.entries(counters)) {
     log(`${collection}: ${created} created, ${updated} updated, ${skipped} unchanged.`)

@@ -3,6 +3,7 @@ import type { Payload } from 'payload'
 import type { BiznesSetting, Post } from '../../payload-types'
 import { postHref } from '../../lib/posts/list'
 import { missingFields } from './fill'
+import { h2, p, richText } from './lexical'
 
 type Report = (name: string, changed: boolean) => void
 type Refs = {
@@ -11,35 +12,6 @@ type Refs = {
 }
 
 const local = { overrideAccess: true, context: { seed: true }, depth: 0 } as const
-
-// --- Lexical JSON, only the nodes the post editor allows (`restrictedRichTextEditor`) ---
-
-const textNode = (text: string) => ({
-  type: 'text',
-  text,
-  format: 0,
-  detail: 0,
-  mode: 'normal',
-  style: '',
-  version: 1,
-})
-
-const element = (type: string, children: object[], extra: object = {}) => ({
-  type,
-  children,
-  direction: 'ltr' as const,
-  format: '' as const,
-  indent: 0,
-  version: 1,
-  ...extra,
-})
-
-const h2 = (text: string) => element('heading', [textNode(text)], { tag: 'h2' })
-const p = (text: string) => element('paragraph', [textNode(text)], { textFormat: 0 })
-
-function richText(children: object[]): Post['content'] {
-  return { root: element('root', children) } as unknown as Post['content']
-}
 
 export const KSEF_POST_SLUG = 'ksef-od-1-stycznia-2027'
 
@@ -65,7 +37,7 @@ function ksefPost(refs: Refs) {
     ...(cover !== undefined && { cover }),
     summary:
       'do końca 2026 r. nie ma kar za błędy w KSeF (MF zapowiedziało projekt przedłużenia do końca 2027 — projekt, nie prawo). Ale terminy wystawiania faktur, numer KSeF w przelewach i koniec faktur z kasy w B2B od 1.01.2027 zostają.',
-    content: richText([
+    content: richText<Post['content']>([
       h2('1. Uwierzytelnienie — kto i czym się loguje'),
       p(
         'Jednoosobowa działalność: Profil Zaufany, podpis kwalifikowany albo (od 1.04.2026) login.gov — mObywatel, bank, e-Dowód. Spółka: kwalifikowana pieczęć elektroniczna z NIP albo osoba uprawniona swoim podpisem w kontekście NIP spółki. Podpis bez NIP/PESEL wymaga zgłoszenia odcisku w ZAW-FA.',

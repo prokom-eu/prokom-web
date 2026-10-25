@@ -10,6 +10,7 @@ import { ServiceGridBlock } from '@/blocks/ServiceGrid/Component'
 import { Heading } from '@/components/ui/Heading'
 import { Section } from '@/components/ui/Section'
 import type { PublicPage } from '@/lib/pages/data'
+import { HOME_SLUG, pagePath } from '@/lib/pages/slug'
 import type { SiteTenant } from '@/lib/tenant/byHost'
 import { BzAuditBlock } from '@/sites/biznes/blocks/BzAudit/Component'
 import { BzCardsBlock } from '@/sites/biznes/blocks/BzCards/Component'
@@ -36,6 +37,7 @@ import { BzProgramPickerBlock } from '@/sites/biznes/blocks/BzProgramPicker/Comp
 import { BzReferencesBlock } from '@/sites/biznes/blocks/BzReferences/Component'
 import { BzStepsBlock } from '@/sites/biznes/blocks/BzSteps/Component'
 import { BzTimelineBlock } from '@/sites/biznes/blocks/BzTimeline/Component'
+import { Breadcrumbs } from '@/sites/biznes/components/Breadcrumbs'
 import { BrandMarquee } from '@/sites/biznes/components/home/BrandMarquee'
 import { FaqBiznes } from '@/sites/biznes/components/home/FaqBiznes'
 
@@ -58,6 +60,17 @@ export function RenderBlocks({ page, tenant }: Props) {
     <>
       {!HERO_BLOCKS.has(blocks[0]?.blockType ?? '') && (
         <Section className="pb-0 sm:pb-0">
+          {/* Biznes subpages open with breadcrumbs, like every other Biznes page (B11b). */}
+          {biznes && page.slug !== HOME_SLUG && (
+            <div className="mb-6">
+              <Breadcrumbs
+                items={[
+                  { name: 'Strona główna', href: '/' },
+                  { name: page.title, href: pagePath(page.slug) },
+                ]}
+              />
+            </div>
+          )}
           <Heading level={1} size="xl">
             {page.title}
           </Heading>

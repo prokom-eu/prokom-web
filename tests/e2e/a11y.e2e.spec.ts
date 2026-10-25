@@ -20,6 +20,8 @@ const SITES: { host: string; line: string; dark: boolean; extra?: string[] }[] =
       '/kreator',
       '/aktualnosci',
       '/aktualnosci/ksef-od-1-stycznia-2027',
+      '/polityka-prywatnosci',
+      '/mapa-strony',
     ],
   },
   { host: 'instalacje.localhost', line: 'instalacje', dark: false },

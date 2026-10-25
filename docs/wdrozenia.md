@@ -22,7 +22,7 @@
 - **Migracje** uruchamia sama aplikacja przy starcie (`prodMigrations` w `payload.config.ts`, tylko `NODE_ENV=production`) — wdrożenie jest gotowe, gdy `/api/health` odpowiada 200. Przed wdrożeniem produkcji: `pg_dump` (skrypt w S9b).
 - `/api/health` odpowiada na każdym hoście (200 / 503, bez danych). Każda odpowiedź ma `X-Request-Id` (przyjęty z Nginx `$request_id` albo nowy) — ten sam identyfikator jest w logach.
 - Logi: JSON na stdout (`level`, `time`, `msg`, `tenant`, `requestId`) — `lib/log.ts` i logger Payload w produkcji. Odczyt: `docker compose -f docker/compose.prod.yml logs app`.
-- Smoke test: `PANEL_HOST=<domena panelu> bash scripts/smoke.sh http://127.0.0.1:3000 <domena> …` (Host w nagłówku; bez domen — trzy lokalne `*.localhost`, panel domyślnie `panel.localhost`).
+- Smoke test: `PANEL_HOST=<domena panelu> bash scripts/smoke.sh http://127.0.0.1:3000 <domena> …` (Host w nagłówku; bez domen — trzy lokalne `*.localhost`, panel domyślnie `panel.localhost`). Sprawdza na każdej domenie `/`, `sitemap.xml`, `robots.txt`, `/mapa-strony` i 404 dla `/admin`; domena z „biznes” w nazwie musi dać 200 na `/oferta`, `/zapytanie`, `/aktualnosci`, pozostałe — 404 (strażnik linii). Tylko trasy działające bez treści z panelu, bo błąd smoke cofa wdrożenie.
 
 ## Nginx i staging (S9b-1)
 Trzy stosy Docker Compose na jednym serwerze, połączone siecią `prokom-proxy`:
