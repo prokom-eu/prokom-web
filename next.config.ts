@@ -12,6 +12,9 @@ const nextConfig: NextConfig = {
   // No `AGENTS.md` from `next dev` run by an AI agent (e2e, preview): the same rule already lives
   // in `CLAUDE.md` and ADR-008, and the generated file left the tree dirty for `scripts/start.ps1`.
   agentRules: false,
+  // `next build` type-checks only what the image ships: tests, fixtures and the seed import
+  // `seed/*.json`, which `.dockerignore` leaves out. `pnpm typecheck` still checks everything.
+  typescript: { tsconfigPath: 'tsconfig.build.json' },
   webpack: (webpackConfig) => {
     webpackConfig.resolve.extensionAlias = {
       '.cjs': ['.cts', '.cjs'],

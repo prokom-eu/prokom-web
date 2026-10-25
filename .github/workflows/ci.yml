@@ -104,6 +104,16 @@ jobs:
       - name: Typecheck
         run: pnpm typecheck
 
+      # The image is built without seed/, docs/ and tests/ (.dockerignore), and `next build` there
+      # type-checks with tsconfig.build.json. Same check here, so a file of the image that imports
+      # one of those folders fails the PR, not the image build after the merge.
+      - name: Typecheck as in the image
+        run: |
+          mkdir -p "$RUNNER_TEMP/outside-image"
+          mv seed docs tests "$RUNNER_TEMP/outside-image/"
+          pnpm exec tsc -p tsconfig.build.json --noEmit
+          mv "$RUNNER_TEMP/outside-image/"* .
+
       - name: Unit tests
         run: pnpm test
 
