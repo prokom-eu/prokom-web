@@ -1,0 +1,675 @@
+{
+ "gopos": {
+  "mods": [
+   {
+    "s": "gopos",
+    "core": true,
+    "ic": "M3 7h18v10H3z M3 10h18 M7 14h4",
+    "hw": [
+     "Stanowisko Sunmi D3 PRO",
+     "Drukarka fiskalna Posnet Thermal HD",
+     "Terminal PolCard"
+    ],
+    "n": "GoPOS — sprzedaż, sala, raporty",
+    "d": "Prowadzisz sprzedaż, salę, kuchnię i dowozy w jednym systemie, a wyniki sprawdzasz w telefonie."
+   },
+   {
+    "s": "gokds",
+    "core": false,
+    "ic": "M3 4h18v12H3z M7 8h4 M7 12h7",
+    "hw": [
+     "Ekran kuchenny Sunmi FLEX 3"
+    ],
+    "n": "KDS",
+    "d": "Zamówienia z sali i dowozu od razu na ekranie w kuchni, a kelner dostaje sygnał, gdy danie jest gotowe."
+   },
+   {
+    "s": "emenu",
+    "core": false,
+    "ic": "M4 4h6v6H4z M14 4h6v6h-6z M4 14h6v6H4z M14 14h2v2h-2z M18 18h2v2h-2z",
+    "hw": [
+     "Kody QR na stoliki"
+    ],
+    "n": "E-Menu",
+    "d": "Gość skanuje kod QR na stoliku, ogląda menu ze zdjęciami i alergenami, a w wersji z zamawianiem zamawia sam."
+   },
+   {
+    "s": "gohub",
+    "core": false,
+    "ic": "M4 12h4l2-6 4 12 2-6h4",
+    "hw": [],
+    "n": "GoHub",
+    "d": "Zamówienia z Pyszne.pl, Glovo, Uber Eats, Wolt i Bolt Food trafiają do jednego systemu GoPOS."
+   },
+   {
+    "s": "goorder",
+    "core": false,
+    "ic": "M7 18a5 5 0 01-.6-10A6 6 0 0118 9a4 4 0 01-1 9z",
+    "hw": [],
+    "n": "GoOrder",
+    "d": "Własny sklep online lokalu: zamówienia z dowozem, na wynos i do stolika trafiają prosto do kasy GoPOS."
+   },
+   {
+    "s": "gostock",
+    "core": false,
+    "ic": "M3 7l9-4 9 4-9 4-9-4z M3 7v10l9 4 9-4V7",
+    "hw": [],
+    "n": "GoStock",
+    "d": "Magazyn połączony ze sprzedażą: stany, receptury i food cost liczą się same po każdym rachunku."
+   },
+   {
+    "s": "gokiosk",
+    "core": false,
+    "ic": "M7 3h10v14H7z M10 21h4 M12 17v4",
+    "hw": [
+     "Kiosk samoobsługowy"
+    ],
+    "n": "GoKiosk",
+    "d": "Goście sami zamawiają i płacą na ekranie, a zamówienie od razu trafia do kasy i na kuchnię."
+   },
+   {
+    "s": "gopos-gocrm",
+    "core": false,
+    "ic": "M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z",
+    "hw": [],
+    "n": "GoCRM",
+    "d": "Zbierasz stałych gości: punkty, cashback, vouchery i kody rabatowe działają w lokalu i w zamówieniach online."
+   },
+   {
+    "s": "gopos-hotel",
+    "core": false,
+    "ic": "M3 21V7l9-4 9 4v14 M9 21v-6h6v6",
+    "hw": [],
+    "n": "Dla restauracji hotelowej",
+    "d": "Rachunek z restauracji, baru czy room service dopiszesz do pokoju gościa w systemie hotelowym."
+   },
+   {
+    "s": "numerki",
+    "core": false,
+    "ic": "M4 9h16 M4 15h16 M10 3L8 21 M16 3l-2 18",
+    "hw": [
+     "Ekran numerków na sali"
+    ],
+    "n": "System numerkowy",
+    "d": "Goście widzą na ekranie numer swojego zamówienia i wiedzą, kiedy je odebrać."
+   }
+  ],
+  "flow": [
+   {
+    "k": "Sala",
+    "s": "v3mix",
+    "t": "Zamówienie przy stoliku",
+    "d": "Kelner przyjmuje zamówienie na terminalu Sunmi."
+   },
+   {
+    "k": "Kuchnia",
+    "s": "kds",
+    "t": "Od razu na ekranie",
+    "d": "Danie pojawia się na ekranie kuchni — bez papierowych bonów."
+   },
+   {
+    "k": "Płatność",
+    "s": "pol",
+    "t": "Karta albo BLIK",
+    "d": "Rachunek zamykasz przy stoliku na terminalu płatniczym."
+   },
+   {
+    "k": "Raport",
+    "s": "d3",
+    "t": "Utarg w telefonie",
+    "d": "Właściciel widzi sprzedaż na bieżąco w aplikacji GoPOS Now."
+   }
+  ],
+  "devs": [
+   "d3",
+   "v3mix",
+   "v3",
+   "gopos-all-in-one",
+   "kds",
+   "druks",
+   "hd",
+   "pol"
+  ],
+  "zes": [
+   "zestaw-gastro-foodtruck",
+   "zestaw-kawiarnia-lada",
+   "zestaw-restauracja-bistro"
+  ],
+  "steps": [
+   [
+    "Prezentacja u Ciebie",
+    "Pokazujemy GoPOS na sprzęcie w Twoim lokalu — z kilkoma Twoimi daniami na ekranie."
+   ],
+   [
+    "Konfiguracja u nas",
+    "Menu, stoliki, drukarki bonów i konta kelnerów ustawiamy przed dostawą."
+   ],
+   [
+    "Montaż i fiskalizacja",
+    "Sprzęt, drukarka fiskalna, terminal i Wi-Fi — w terminie, który nie zatrzymuje lokalu."
+   ],
+   [
+    "Szkolenie zespołu",
+    "Kelnerzy, kuchnia i właściciel uczą się na Waszym menu."
+   ],
+   [
+    "Wsparcie w sezonie",
+    "Pomoc zdalna i serwisant z Rabki-Zdroju na Podhalu."
+   ]
+  ],
+  "faq": [
+   {
+    "q": "GoPOS to zakup czy abonament?",
+    "a": "GoPOS działa w abonamencie (umowa z GoPOS): pakiet Basic albo Pro i wybrane moduły. Sprzęt — stanowiska Sunmi, drukarkę fiskalną, terminal — kupujesz u nas, a my wdrażamy całość."
+   },
+   {
+    "q": "Co, jeśli padnie internet w szczycie?",
+    "a": "GoPOS pracuje także offline: sprzedajesz dalej, a dane zsynchronizują się, gdy wróci połączenie."
+   },
+   {
+    "q": "Czy wystawię fakturę do KSeF?",
+    "a": "Tak — GoPOS wystawia faktury, które trafiają do KSeF. Przy wdrożeniu ustawimy uprawnienia i przetestujemy wysyłkę."
+   },
+   {
+    "q": "Mam zamówienia z Pyszne.pl, Glovo, Wolt…",
+    "a": "Moduł GoHub zbiera zamówienia z Pyszne.pl, Glovo, Uber Eats, Wolt i Bolt Food w jednym systemie — bez kilku tabletów na ladzie."
+   },
+   {
+    "q": "Mam już inny system. Jak przejść?",
+    "a": "Przygotowujemy GoPOS równolegle: menu, stoliki, drukarki. Stary system wyłączamy dopiero wtedy, gdy nowy działa — najlepiej poza sezonem."
+   }
+  ],
+  "vids": [
+   {
+    "id": "PuYZKDfoCio",
+    "t": "GoPOS All in One dla gastronomii – POS, kasa fiskalna i terminal płatniczy w jednym urządzeniu!",
+    "k": "GoPOS - Nowoczesne systemy sprzedażowe"
+   },
+   {
+    "id": "tDnGgNq10WM",
+    "t": "GoPOS - Kompleksowy ekosystem All in One w Viral Kebab",
+    "k": "GoPOS - Nowoczesne systemy sprzedażowe"
+   },
+   {
+    "id": "PhbJSCNlrUg",
+    "t": "Elektroniczne QR Code Menu - Nowoczesna karta dań",
+    "k": "GoPOS - Nowoczesne systemy sprzedażowe"
+   },
+   {
+    "id": "fkhZtyH6ar0",
+    "t": "GoKDS w akcji! Tak działa kuchnia w restauracji Salvia",
+    "k": "GoPOS - Nowoczesne systemy sprzedażowe"
+   },
+   {
+    "id": "fx2vPzcxOjQ",
+    "t": "Gostock w praktyce: efektywne zarządzanie magazynem w restauracji Kultova",
+    "k": "GoPOS - Nowoczesne systemy sprzedażowe"
+   }
+  ],
+  "hero": {
+   "h1a": "Sala, kuchnia i dowozy.",
+   "h1b": "Jeden system.",
+   "lead": "Wdrażamy GoPOS w restauracjach, kawiarniach, food truckach i hotelach. Dobieramy sprzęt, wgrywamy Twoje menu, fiskalizujemy drukarkę i szkolimy zespół w lokalu.",
+   "proof": [
+    {
+     "ic": "M5 12.5l4 4 10-10",
+     "t": "Działa offline",
+     "d": "sprzedajesz dalej, gdy padnie internet"
+    },
+    {
+     "ic": "M3 7h11v9H3z M14 10h4l3 3v3h-7 M7 19a2 2 0 100-4 2 2 0 000 4z M17 19a2 2 0 100-4 2 2 0 000 4z",
+     "t": "Dowozy w jednym miejscu",
+     "d": "Pyszne.pl, Glovo, Uber Eats, Wolt i Bolt Food w GoHub"
+    },
+    {
+     "ic": "M7 3h7l5 5v13H7z M14 3v5h5 M10 13h6 M10 17h6",
+     "t": "Faktury do KSeF",
+     "d": "wystawiasz prosto z systemu"
+    },
+    {
+     "ic": "M8 3h8v18H8z M11 18h2",
+     "t": "Utarg w telefonie",
+     "d": "na bieżąco w aplikacji GoPOS Now"
+    }
+   ],
+   "stage": [
+    {
+     "s": "kds",
+     "k": "Kuchnia",
+     "pos": "right:0;top:19%;width:44%;height:42%",
+     "lab": "right:3%;top:57%"
+    },
+    {
+     "s": "d3",
+     "k": "Kasa i raporty",
+     "pos": "left:13%;top:12%;width:60%;height:66%",
+     "lab": "left:33%;top:4%"
+    },
+    {
+     "s": "v3mix",
+     "k": "Sala",
+     "pos": "left:0;bottom:2%;width:30%;height:38%",
+     "lab": "left:2%;bottom:41%"
+    },
+    {
+     "s": "pol",
+     "k": "Płatność",
+     "pos": "right:3%;bottom:0;width:22%;height:33%",
+     "lab": "right:27%;bottom:5%"
+    }
+   ],
+   "stageM": [
+    {
+     "s": "kds",
+     "k": "Kuchnia",
+     "pos": "right:0;top:16%;width:46%;height:42%"
+    },
+    {
+     "s": "d3",
+     "k": "Kasa i raporty",
+     "pos": "left:11%;top:6%;width:64%;height:72%"
+    },
+    {
+     "s": "v3mix",
+     "k": "Sala",
+     "pos": "left:0;bottom:0;width:34%;height:44%"
+    },
+    {
+     "s": "pol",
+     "k": "Płatność",
+     "pos": "right:3%;bottom:0;width:25%;height:38%"
+    }
+   ],
+   "leadM": "Dobieramy sprzęt, wgrywamy Twoje menu, fiskalizujemy drukarkę i szkolimy zespół w lokalu.",
+   "flowDev": {
+    "v3mix": 0,
+    "kds": 1,
+    "pol": 2,
+    "d3": 3
+   }
+  }
+ },
+ "insert": {
+  "orb": [
+   {
+    "n": "Rachmistrz",
+    "d": "KPiR i ryczałt",
+    "cx": 250,
+    "cy": 60
+   },
+   {
+    "n": "Rewizor",
+    "d": "pełna księgowość",
+    "cx": 402,
+    "cy": 140
+   },
+   {
+    "n": "Gratyfikant",
+    "d": "kadry i płace",
+    "cx": 402,
+    "cy": 300
+   },
+   {
+    "n": "Gestor",
+    "d": "CRM i zlecenia",
+    "cx": 250,
+    "cy": 380
+   },
+   {
+    "n": "Biuro",
+    "d": "biura rachunkowe",
+    "cx": 98,
+    "cy": 300
+   },
+   {
+    "n": "Subiekt 123",
+    "d": "w przeglądarce",
+    "cx": 98,
+    "cy": 140
+   }
+  ],
+  "q": [
+   {
+    "q": "Gdzie chcesz pracować?",
+    "o": [
+     {
+      "t": "Na komputerach w firmie",
+      "k": "desk"
+     },
+     {
+      "t": "W przeglądarce, bez instalacji",
+      "k": "web"
+     }
+    ]
+   },
+   {
+    "q": "Ile masz magazynów lub oddziałów?",
+    "o": [
+     {
+      "t": "Jeden",
+      "k": "one"
+     },
+     {
+      "t": "Kilka",
+      "k": "multi"
+     }
+    ]
+   },
+   {
+    "q": "Pracujesz już na Subiekcie GT?",
+    "o": [
+     {
+      "t": "Nie / nowa firma",
+      "k": "new"
+     },
+     {
+      "t": "Tak",
+      "k": "gt"
+     }
+    ]
+   }
+  ],
+  "rules": [
+   {
+    "when": [
+     "web"
+    ],
+    "s": "s123",
+    "why": "Faktury i KSeF z przeglądarki — logujesz się z dowolnego komputera, nic nie instalujesz. Dobre dla małej firmy usługowej i handlowej."
+   },
+   {
+    "when": [
+     "multi"
+    ],
+    "s": "nexo",
+    "why": "Kilka magazynów, oddziały i uprawnienia pracowników — to zadanie dla linii nexo (w wersji PRO dla większych firm)."
+   },
+   {
+    "when": [
+     "gt"
+    ],
+    "s": "gt",
+    "why": "Jeśli GT działa i znasz go — możesz zostać. GT obsługuje KSeF, a licencja obejmuje 3 stanowiska."
+   },
+   {
+    "when": [],
+    "s": "nexo",
+    "why": "Nową firmę stawiamy od razu na nexo — nowoczesny program z KSeF, który rośnie razem z firmą."
+   }
+  ],
+  "cmpH": [
+   "Subiekt 123",
+   "Subiekt GT",
+   "Subiekt nexo / nexo PRO"
+  ],
+  "cmp": [
+   {
+    "k": "Gdzie działa",
+    "v": [
+     "w przeglądarce, dane w chmurze InsERT",
+     "na komputerach w firmie",
+     "na komputerach w firmie"
+    ]
+   },
+   {
+    "k": "Stanowiska",
+    "v": [
+     "logujesz się z dowolnego komputera",
+     "licencja na 3 stanowiska",
+     "licencja na 1 albo 3 stanowiska"
+    ]
+   },
+   {
+    "k": "Magazyn",
+    "v": [
+     "moduł magazyn",
+     "sprzedaż i magazyn, 10 poziomów cen",
+     "wiele magazynów; PRO — oddziały i uprawnienia"
+    ]
+   },
+   {
+    "k": "KSeF",
+    "v": [
+     "tak — bez InsPunktów",
+     "tak",
+     "tak"
+    ]
+   },
+   {
+    "k": "Dla kogo",
+    "v": [
+     "mała firma usługowa lub handlowa",
+     "firmy, które znają GT i chcą przy nim zostać",
+     "sklep, hurtownia, warsztat — firma, która rośnie"
+    ]
+   }
+  ],
+  "fam": [
+   {
+    "s": "s123",
+    "g": "Sprzedaż · w przeglądarce"
+   },
+   {
+    "s": "gt",
+    "g": "Sprzedaż i magazyn"
+   },
+   {
+    "s": "nexo",
+    "g": "Sprzedaż i magazyn"
+   },
+   {
+    "s": "rachmistrz",
+    "g": "Księgowość uproszczona"
+   },
+   {
+    "s": "rewizor",
+    "g": "Pełna księgowość"
+   },
+   {
+    "s": "gratyfikant",
+    "g": "Kadry i płace"
+   },
+   {
+    "s": "gestor",
+    "g": "CRM"
+   },
+   {
+    "s": "biuro",
+    "g": "Biura rachunkowe"
+   },
+   {
+    "s": "insert-inspunkty-ksef",
+    "g": "Opłaty za KSeF"
+   }
+  ],
+  "ksefLead": "KSeF obowiązuje już większość firm. Najmniejsi i faktury z kas mają czas do końca 2026 roku. Program InsERT jest gotowy — trzeba jeszcze przygotować firmę.",
+  "kt": [
+   {
+    "d": "1 lutego 2026",
+    "t": "Największe firmy",
+    "s": "Wystawianie faktur w KSeF; od tego dnia wszystkie firmy odbierają faktury przez KSeF."
+   },
+   {
+    "d": "1 kwietnia 2026",
+    "t": "Pozostałe firmy",
+    "s": "Obowiązek wystawiania faktur w KSeF."
+   },
+   {
+    "d": "1 stycznia 2027",
+    "t": "Koniec okresu przejściowego",
+    "s": "Do KSeF przechodzą najmniejsi (faktury do 10 000 zł brutto miesięcznie) i faktury z kas fiskalnych."
+   }
+  ],
+  "ksefSrc": "Źródło: ksef.podatki.gov.pl · stan na 25.10.2026",
+  "chk": [
+   [
+    "Uwierzytelnienie firmy",
+    "profil zaufany, podpis lub pieczęć — dobierzemy"
+   ],
+   [
+    "Uprawnienia dla księgowej",
+    "kto wystawia, kto odbiera faktury"
+   ],
+   [
+    "Certyfikat KSeF",
+    "także do pracy offline"
+   ],
+   [
+    "Konfiguracja w programie",
+    "Subiekt, Rachmistrz, Rewizor"
+   ],
+   [
+    "Test na Twoich fakturach",
+    "zanim zrobi się na poważnie"
+   ],
+   [
+    "Procedura awaryjna",
+    "co robić, gdy nie ma internetu"
+   ]
+  ],
+  "tiles": [
+   {
+    "ic": "M4 4h7v7H4z M13 4h7v7h-7z M4 13h7v7H4z M13 13h7v7h-7z",
+    "t": "Instalacja i konfiguracja",
+    "d": "Program, stanowiska, użytkownicy i uprawnienia — gotowe do pracy pierwszego dnia."
+   },
+   {
+    "ic": "M4 7h16 M4 12h10 M4 17h7 M17 14l3 3-3 3",
+    "t": "Przeniesienie danych",
+    "d": "Kartoteki towarów i kontrahentów z innego programu albo z Excela."
+   },
+   {
+    "ic": "M3 7h18v10H3z M3 10h18 M7 14h4",
+    "t": "Kasa i drukarka fiskalna",
+    "d": "Łączymy Subiekta z drukarką fiskalną Posnet lub Elzab i skanerem kodów."
+   },
+   {
+    "ic": "M16 20v-2a4 4 0 00-8 0v2 M12 10a3 3 0 100-6 3 3 0 000 6z M20 20v-2a3 3 0 00-2-2.8 M4 20v-2a3 3 0 012-2.8",
+    "t": "Szkolenie na Twoich danych",
+    "d": "Uczymy na Waszych towarach i dokumentach, nie na przykładach z instrukcji."
+   },
+   {
+    "ic": "M4 4v6h6 M20 20v-6h-6 M5 15a8 8 0 0014 3 M19 9A8 8 0 005 6",
+    "t": "Aktualizacje i odnowienia",
+    "d": "Pilnujemy terminów pakietów aktualizacji — zmiany przepisów nie zaskoczą programu."
+   },
+   {
+    "ic": "M4 5h16v11H4z M8 20h8 M12 16v4",
+    "t": "Pomoc zdalna",
+    "d": "Problem z dokumentem lub wydrukiem? Łączymy się zdalnie."
+   }
+  ],
+  "faq": [
+   {
+    "q": "Subiekt GT czy nexo — co wybrać?",
+    "a": "Jeśli pracujesz na GT i wszystko działa — możesz zostać, GT obsługuje KSeF. Nową firmę albo firmę, która rośnie (więcej magazynów, stanowisk, integracji), stawiamy od razu na nexo."
+   },
+   {
+    "q": "Czy przeniesiecie dane z mojego obecnego programu?",
+    "a": "Tak — kartoteki towarów i kontrahentów przenosimy z innego programu albo z Excela. Zakres ustalamy przed wdrożeniem."
+   },
+   {
+    "q": "Czy Subiekt będzie współpracował z moją drukarką fiskalną?",
+    "a": "Subiekt współpracuje z drukarkami fiskalnymi, m.in. Posnet i Elzab. Sprawdzimy model Twojego urządzenia."
+   },
+   {
+    "q": "Ile kosztuje KSeF w programach InsERT?",
+    "a": "Operacje KSeF w Subiekcie, Rachmistrzu i Rewizorze rozlicza się InsPunktami z Portfela InsERT: 1 InsPunkt = wysłanie albo pobranie jednej e-faktury. Subiekt 123 obsługuje KSeF bez InsPunktów."
+   },
+   {
+    "q": "Pracuję z biurem rachunkowym. Czy to ma znaczenie?",
+    "a": "Tak — ustawimy program tak, żeby biuro dostawało dane w wygodnej formie, i nadamy księgowej uprawnienia w KSeF."
+   }
+  ],
+  "vids": [
+   {
+    "id": "eXCwNJWDZVI",
+    "t": "Subiekt nexo - system handlowo magazynowy",
+    "k": "InsERT nexo"
+   },
+   {
+    "id": "d1aqCdGfs40",
+    "t": "Jak wygenerować certyfikat KSeF i wczytać go w InsERT GT",
+    "k": "Wideoporady InsERT"
+   },
+   {
+    "id": "K5xk7fpWwfw",
+    "t": "InsERT mobile - aplikacja mobilna",
+    "k": "InsERT nexo"
+   },
+   {
+    "id": "SJhhH7P5c0Y",
+    "t": "Rewizor nexo - nowoczesny system finansowo-księgowy do sprawnego prowadzenia ksiąg rachunkowych",
+    "k": "InsERT nexo"
+   },
+   {
+    "id": "r1orwu7L9iA",
+    "t": "Gratyfikant nexo - system kadrowo płacowy",
+    "k": "InsERT nexo"
+   }
+  ],
+  "insp": {
+   "lead": "Od 1 kwietnia 2026 każde wysłanie e-faktury do KSeF i każde pobranie e-faktury z KSeF w Subiekcie, Rachmistrzu i Rewizorze to 1 InsPunkt z Portfela InsERT. Część punktów dostajesz w Abonamencie.",
+   "steps": [
+    [
+     "Abonament jest aktywny",
+     "Portfel InsERT włącza się sam. Z każdym kupionym Abonamentem do Subiekta, Rachmistrza lub Rewizora dostajesz 100 InsPunktów."
+    ],
+    [
+     "Program pracuje z KSeF",
+     "Wysyła Twoje faktury sprzedaży i pobiera faktury zakupu. Każda taka operacja to 1 InsPunkt."
+    ],
+    [
+     "Widzisz saldo",
+     "Stan Portfela sprawdzisz w programie albo w Koncie InsERT."
+    ],
+    [
+     "Dokupujesz paczkę",
+     "U nas, z poziomu programu albo w Koncie InsERT. Każde doładowanie przedłuża ważność Portfela o rok."
+    ],
+    [
+     "Przedłużasz Abonament",
+     "Z kolejnym Abonamentem do Portfela trafia kolejne 100 InsPunktów."
+    ]
+   ],
+   "presets": [
+    [
+     "Mała firma usługowa",
+     15,
+     10
+    ],
+    [
+     "Sklep",
+     40,
+     30
+    ],
+    [
+     "Hurtownia",
+     250,
+     120
+    ]
+   ],
+   "def": [
+    40,
+    30
+   ],
+   "pula": 100,
+   "notes": [
+    [
+     "Subiekt 123",
+     "kupiony przez firmę nie korzysta z InsPunktów — KSeF działa w nim w ramach limitu dokumentów licencji."
+    ],
+    [
+     "Biuro rachunkowe",
+     "ma własny Portfel. Z niego opłaca KSeF w licencjach Subiekta 123, które udostępnia klientom."
+    ],
+    [
+     "To nie opłata państwowa",
+     "KSeF prowadzi Ministerstwo Finansów. InsPunkty to opłata InsERT za obsługę KSeF prosto w programie."
+    ]
+   ],
+   "src": "Źródło: insert.com.pl — „InsPunkty a KSeF” · stan na 25.10.2026"
+  },
+  "ksefSprawdzic": "Przed publikacją: brzmienie i daty z ksef.podatki.gov.pl (pole „sprawdzono” w panelu)."
+ }
+}

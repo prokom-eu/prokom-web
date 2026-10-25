@@ -1,0 +1,2493 @@
+{
+ "opis": "Pochodzenie zdjęć K3 (domeny producentów/dystrybutorów, z których pobrano oryginały 25.10.2026). Obróbka: wycięte tło, kwadrat, WebP. Media.source = pierwsza domena.",
+ "zdjecia": {
+  "adobe-acrobat-pro-teams": {
+   "pliki": [
+    "adobe-acrobat-pro-teams-01.webp",
+    "adobe-acrobat-pro-teams-02.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://delkom.pl"
+   ]
+  },
+  "apc-back-ups-pro": {
+   "pliki": [
+    "apc-back-ups-pro-01.webp",
+    "apc-back-ups-pro-02.webp",
+    "apc-back-ups-pro-03.webp",
+    "apc-back-ups-pro-04.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://delkom.pl"
+   ]
+  },
+  "apc-smart-ups-online": {
+   "pliki": [
+    "apc-smart-ups-online-01.webp",
+    "apc-smart-ups-online-02.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://delkom.pl"
+   ]
+  },
+  "apc-smart-ups-rack": {
+   "pliki": [
+    "apc-smart-ups-rack-01.webp",
+    "apc-smart-ups-rack-02.webp",
+    "apc-smart-ups-rack-03.webp",
+    "apc-smart-ups-rack-04.webp",
+    "apc-smart-ups-rack-05.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://delkom.pl"
+   ]
+  },
+  "apc-smart-ups-wieza": {
+   "pliki": [
+    "apc-smart-ups-wieza-01.webp",
+    "apc-smart-ups-wieza-02.webp",
+    "apc-smart-ups-wieza-03.webp",
+    "apc-smart-ups-wieza-04.webp",
+    "apc-smart-ups-wieza-05.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://delkom.pl"
+   ]
+  },
+  "avtek": {
+   "pliki": [
+    "avtek-01.webp",
+    "avtek-02.webp",
+    "avtek-03.webp",
+    "avtek-04.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://backend.vidis.pl"
+   ]
+  },
+  "avtek-akcesoria-monitory": {
+   "pliki": [
+    "avtek-akcesoria-monitory-01.webp",
+    "avtek-akcesoria-monitory-02.webp",
+    "avtek-akcesoria-monitory-03.webp",
+    "avtek-akcesoria-monitory-04.webp",
+    "avtek-akcesoria-monitory-05.webp",
+    "avtek-akcesoria-monitory-06.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://backend.vidis.pl"
+   ]
+  },
+  "avtek-ops": {
+   "pliki": [
+    "avtek-ops-01.webp",
+    "avtek-ops-02.webp",
+    "avtek-ops-03.webp",
+    "avtek-ops-04.webp",
+    "avtek-ops-05.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://backend.vidis.pl"
+   ]
+  },
+  "avtek-ts-7-1-lite": {
+   "pliki": [
+    "avtek-ts-7-1-lite-01.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://backend.vidis.pl"
+   ]
+  },
+  "avtek-ts-8-1-easy": {
+   "pliki": [
+    "avtek-ts-8-1-easy-01.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://backend.vidis.pl"
+   ]
+  },
+  "avtek-ts-8-connect": {
+   "pliki": [
+    "avtek-ts-8-connect-01.webp",
+    "avtek-ts-8-connect-02.webp",
+    "avtek-ts-8-connect-03.webp",
+    "avtek-ts-8-connect-04.webp",
+    "avtek-ts-8-connect-05.webp",
+    "avtek-ts-8-connect-06.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://backend.vidis.pl"
+   ]
+  },
+  "avtek-ts-9-lite-g": {
+   "pliki": [
+    "avtek-ts-9-lite-g-01.webp",
+    "avtek-ts-9-lite-g-02.webp",
+    "avtek-ts-9-lite-g-03.webp",
+    "avtek-ts-9-lite-g-04.webp",
+    "avtek-ts-9-lite-g-05.webp",
+    "avtek-ts-9-lite-g-06.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://backend.vidis.pl"
+   ]
+  },
+  "avtek-ts-9-mate-g": {
+   "pliki": [
+    "avtek-ts-9-mate-g-01.webp",
+    "avtek-ts-9-mate-g-02.webp",
+    "avtek-ts-9-mate-g-03.webp",
+    "avtek-ts-9-mate-g-04.webp",
+    "avtek-ts-9-mate-g-05.webp",
+    "avtek-ts-9-mate-g-06.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://backend.vidis.pl"
+   ]
+  },
+  "bingo": {
+   "pliki": [
+    "bingo-01.webp",
+    "bingo-02.webp",
+    "bingo-03.webp",
+    "bingo-04.webp",
+    "bingo-05.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.posnet.com.pl"
+   ]
+  },
+  "biuro": {
+   "pliki": [
+    "biuro-01.webp",
+    "biuro-02.webp",
+    "biuro-03.webp",
+    "biuro-04.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.insert.com.pl"
+   ]
+  },
+  "cube": {
+   "pliki": [
+    "cube-01.webp",
+    "cube-02.webp",
+    "cube-03.webp",
+    "cube-04.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.elzab.com.pl"
+   ]
+  },
+  "d3": {
+   "pliki": [
+    "d3-01.webp",
+    "d3-02.webp",
+    "d3-03.webp",
+    "d3-04.webp",
+    "d3-05.webp",
+    "d3-06.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.posnet.com.pl"
+   ]
+  },
+  "dell-14": {
+   "pliki": [
+    "dell-14-01.webp",
+    "dell-14-02.webp",
+    "dell-14-03.webp",
+    "dell-14-04.webp",
+    "dell-14-05.webp",
+    "dell-14-06.webp",
+    "dell-14-07.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://dellowo.pl"
+   ]
+  },
+  "dell-16": {
+   "pliki": [
+    "dell-16-01.webp",
+    "dell-16-02.webp",
+    "dell-16-03.webp",
+    "dell-16-04.webp",
+    "dell-16-05.webp",
+    "dell-16-06.webp",
+    "dell-16-07.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://dellowo.pl"
+   ]
+  },
+  "dell-monitor-wideokonferencje": {
+   "pliki": [
+    "dell-monitor-wideokonferencje-01.webp",
+    "dell-monitor-wideokonferencje-02.webp",
+    "dell-monitor-wideokonferencje-03.webp",
+    "dell-monitor-wideokonferencje-04.webp",
+    "dell-monitor-wideokonferencje-05.webp",
+    "dell-monitor-wideokonferencje-06.webp",
+    "dell-monitor-wideokonferencje-07.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://dellowo.pl"
+   ]
+  },
+  "dell-poweredge-r360": {
+   "pliki": [
+    "dell-poweredge-r360-01.webp",
+    "dell-poweredge-r360-02.webp",
+    "dell-poweredge-r360-03.webp",
+    "dell-poweredge-r360-04.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://dellowo.pl"
+   ]
+  },
+  "dell-poweredge-r660-r570": {
+   "pliki": [
+    "dell-poweredge-r660-r570-01.webp",
+    "dell-poweredge-r660-r570-02.webp",
+    "dell-poweredge-r660-r570-03.webp",
+    "dell-poweredge-r660-r570-04.webp",
+    "dell-poweredge-r660-r570-05.webp",
+    "dell-poweredge-r660-r570-06.webp",
+    "dell-poweredge-r660-r570-07.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://dellowo.pl"
+   ]
+  },
+  "dell-poweredge-r760xs": {
+   "pliki": [
+    "dell-poweredge-r760xs-01.webp",
+    "dell-poweredge-r760xs-02.webp",
+    "dell-poweredge-r760xs-03.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://dellowo.pl"
+   ]
+  },
+  "dell-poweredge-r7625": {
+   "pliki": [
+    "dell-poweredge-r7625-01.webp",
+    "dell-poweredge-r7625-02.webp",
+    "dell-poweredge-r7625-03.webp",
+    "dell-poweredge-r7625-04.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://dellowo.pl"
+   ]
+  },
+  "dell-poweredge-t160-t360": {
+   "pliki": [
+    "dell-poweredge-t160-t360-01.webp",
+    "dell-poweredge-t160-t360-02.webp",
+    "dell-poweredge-t160-t360-03.webp",
+    "dell-poweredge-t160-t360-04.webp",
+    "dell-poweredge-t160-t360-05.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://dellowo.pl"
+   ]
+  },
+  "dell-poweredge-t560": {
+   "pliki": [
+    "dell-poweredge-t560-01.webp",
+    "dell-poweredge-t560-02.webp",
+    "dell-poweredge-t560-03.webp",
+    "dell-poweredge-t560-04.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://dellowo.pl"
+   ]
+  },
+  "dell-pro-14-16": {
+   "pliki": [
+    "dell-pro-14-16-01.webp",
+    "dell-pro-14-16-02.webp",
+    "dell-pro-14-16-03.webp",
+    "dell-pro-14-16-04.webp",
+    "dell-pro-14-16-05.webp",
+    "dell-pro-14-16-06.webp",
+    "dell-pro-14-16-07.webp",
+    "dell-pro-14-16-08.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://dellowo.pl"
+   ]
+  },
+  "dell-pro-aio": {
+   "pliki": [
+    "dell-pro-aio-01.webp",
+    "dell-pro-aio-02.webp",
+    "dell-pro-aio-03.webp",
+    "dell-pro-aio-04.webp",
+    "dell-pro-aio-05.webp",
+    "dell-pro-aio-06.webp",
+    "dell-pro-aio-07.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://dellowo.pl"
+   ]
+  },
+  "dell-pro-e-monitor": {
+   "pliki": [
+    "dell-pro-e-monitor-01.webp",
+    "dell-pro-e-monitor-02.webp",
+    "dell-pro-e-monitor-03.webp",
+    "dell-pro-e-monitor-04.webp",
+    "dell-pro-e-monitor-05.webp",
+    "dell-pro-e-monitor-06.webp",
+    "dell-pro-e-monitor-07.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://dellowo.pl"
+   ]
+  },
+  "dell-pro-essential-14-15": {
+   "pliki": [
+    "dell-pro-essential-14-15-01.webp",
+    "dell-pro-essential-14-15-02.webp",
+    "dell-pro-essential-14-15-03.webp",
+    "dell-pro-essential-14-15-04.webp",
+    "dell-pro-essential-14-15-05.webp",
+    "dell-pro-essential-14-15-06.webp",
+    "dell-pro-essential-14-15-07.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://dellowo.pl"
+   ]
+  },
+  "dell-pro-micro": {
+   "pliki": [
+    "dell-pro-micro-01.webp",
+    "dell-pro-micro-02.webp",
+    "dell-pro-micro-03.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://dellowo.pl"
+   ]
+  },
+  "dell-pro-monitor": {
+   "pliki": [
+    "dell-pro-monitor-01.webp",
+    "dell-pro-monitor-02.webp",
+    "dell-pro-monitor-03.webp",
+    "dell-pro-monitor-04.webp",
+    "dell-pro-monitor-05.webp",
+    "dell-pro-monitor-06.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://dellowo.pl"
+   ]
+  },
+  "dell-pro-precision-5": {
+   "pliki": [
+    "dell-pro-precision-5-01.webp",
+    "dell-pro-precision-5-02.webp",
+    "dell-pro-precision-5-03.webp",
+    "dell-pro-precision-5-04.webp",
+    "dell-pro-precision-5-05.webp",
+    "dell-pro-precision-5-06.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://dellowo.pl"
+   ]
+  },
+  "dell-pro-tower-slim": {
+   "pliki": [
+    "dell-pro-tower-slim-01.webp",
+    "dell-pro-tower-slim-02.webp",
+    "dell-pro-tower-slim-03.webp",
+    "dell-pro-tower-slim-04.webp",
+    "dell-pro-tower-slim-05.webp",
+    "dell-pro-tower-slim-06.webp",
+    "dell-pro-tower-slim-07.webp",
+    "dell-pro-tower-slim-08.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://dellowo.pl"
+   ]
+  },
+  "dell-pro-tower-slim-essential": {
+   "pliki": [
+    "dell-pro-tower-slim-essential-01.webp",
+    "dell-pro-tower-slim-essential-02.webp",
+    "dell-pro-tower-slim-essential-03.webp",
+    "dell-pro-tower-slim-essential-04.webp",
+    "dell-pro-tower-slim-essential-05.webp",
+    "dell-pro-tower-slim-essential-06.webp",
+    "dell-pro-tower-slim-essential-07.webp",
+    "dell-pro-tower-slim-essential-08.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://dellowo.pl"
+   ]
+  },
+  "dell-pro-usb-c-hub": {
+   "pliki": [
+    "dell-pro-usb-c-hub-01.webp",
+    "dell-pro-usb-c-hub-02.webp",
+    "dell-pro-usb-c-hub-03.webp",
+    "dell-pro-usb-c-hub-04.webp",
+    "dell-pro-usb-c-hub-05.webp",
+    "dell-pro-usb-c-hub-06.webp",
+    "dell-pro-usb-c-hub-07.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://dellowo.pl"
+   ]
+  },
+  "dell-ultrasharp": {
+   "pliki": [
+    "dell-ultrasharp-01.webp",
+    "dell-ultrasharp-02.webp",
+    "dell-ultrasharp-03.webp",
+    "dell-ultrasharp-04.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://dellowo.pl"
+   ]
+  },
+  "dell-xps-13-14": {
+   "pliki": [
+    "dell-xps-13-14-01.webp",
+    "dell-xps-13-14-02.webp",
+    "dell-xps-13-14-03.webp",
+    "dell-xps-13-14-04.webp",
+    "dell-xps-13-14-05.webp",
+    "dell-xps-13-14-06.webp",
+    "dell-xps-13-14-07.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://dellowo.pl"
+   ]
+  },
+  "dell-xps-16": {
+   "pliki": [
+    "dell-xps-16-01.webp",
+    "dell-xps-16-02.webp",
+    "dell-xps-16-03.webp",
+    "dell-xps-16-04.webp",
+    "dell-xps-16-05.webp",
+    "dell-xps-16-06.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://dellowo.pl"
+   ]
+  },
+  "dibal-d-545-s-545": {
+   "pliki": [
+    "dibal-d-545-s-545-01.webp",
+    "dibal-d-545-s-545-02.webp",
+    "dibal-d-545-s-545-03.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.dibal.com"
+   ]
+  },
+  "dibal-d-955": {
+   "pliki": [
+    "dibal-d-955-01.webp",
+    "dibal-d-955-02.webp",
+    "dibal-d-955-03.webp",
+    "dibal-d-955-04.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.dibal.com",
+    "https://www.elzab.com.pl"
+   ]
+  },
+  "dibal-dmi-610": {
+   "pliki": [
+    "dibal-dmi-610-01.webp",
+    "dibal-dmi-610-02.webp",
+    "dibal-dmi-610-03.webp",
+    "dibal-dmi-610-04.webp",
+    "dibal-dmi-610-05.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.dibal.com",
+    "https://www.elzab.com.pl"
+   ]
+  },
+  "dibal-spc": {
+   "pliki": [
+    "dibal-spc-01.webp",
+    "dibal-spc-02.webp",
+    "dibal-spc-03.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.dibal.com",
+    "https://www.elzab.com.pl"
+   ]
+  },
+  "dibal-w-025": {
+   "pliki": [
+    "dibal-w-025-01.webp",
+    "dibal-w-025-02.webp",
+    "dibal-w-025-03.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.dibal.com",
+    "https://www.elzab.com.pl"
+   ]
+  },
+  "dibal-waga-g-325": {
+   "pliki": [
+    "dibal-waga-g-325-01.webp",
+    "dibal-waga-g-325-02.webp",
+    "dibal-waga-g-325-03.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.dibal.com",
+    "https://www.elzab.com.pl"
+   ]
+  },
+  "druks": {
+   "pliki": [
+    "druks-01.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://file.cdn.sunmi.com"
+   ]
+  },
+  "elzab-czytnik-kodow-bs80-2d-usb-kit-z-podstawka": {
+   "pliki": [
+    "elzab-czytnik-kodow-bs80-2d-usb-kit-z-podstawka-01.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.elzab.com.pl"
+   ]
+  },
+  "elzab-drukarka-paragonowa-elz-max-rs-usb-lan-wif": {
+   "pliki": [
+    "elzab-drukarka-paragonowa-elz-max-rs-usb-lan-wif-01.webp",
+    "elzab-drukarka-paragonowa-elz-max-rs-usb-lan-wif-02.webp",
+    "elzab-drukarka-paragonowa-elz-max-rs-usb-lan-wif-03.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.elzab.com.pl"
+   ]
+  },
+  "elzab-drukarka-paragonowa-elz-rp332a": {
+   "pliki": [
+    "elzab-drukarka-paragonowa-elz-rp332a-01.webp",
+    "elzab-drukarka-paragonowa-elz-rp332a-02.webp",
+    "elzab-drukarka-paragonowa-elz-rp332a-03.webp",
+    "elzab-drukarka-paragonowa-elz-rp332a-04.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.elzab.com.pl"
+   ]
+  },
+  "elzab-drukarka-paragonowa-elz-rpp02b": {
+   "pliki": [
+    "elzab-drukarka-paragonowa-elz-rpp02b-01.webp",
+    "elzab-drukarka-paragonowa-elz-rpp02b-02.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.elzab.com.pl"
+   ]
+  },
+  "elzab-elzapp-mag-program-dla-sklepu-i-magazynu": {
+   "pliki": [
+    "elzab-elzapp-mag-program-dla-sklepu-i-magazynu-01.webp",
+    "elzab-elzapp-mag-program-dla-sklepu-i-magazynu-02.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.elzab.com.pl"
+   ]
+  },
+  "elzab-sprawdzarki-cen-llt-lwt-lft-2d": {
+   "pliki": [
+    "elzab-sprawdzarki-cen-llt-lwt-lft-2d-01.webp",
+    "elzab-sprawdzarki-cen-llt-lwt-lft-2d-02.webp",
+    "elzab-sprawdzarki-cen-llt-lwt-lft-2d-03.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.elzab.com.pl"
+   ]
+  },
+  "elzab-szuflada-aktywna-elz-350-elz-410": {
+   "pliki": [
+    "elzab-szuflada-aktywna-elz-350-elz-410-01.webp",
+    "elzab-szuflada-aktywna-elz-350-elz-410-02.webp",
+    "elzab-szuflada-aktywna-elz-350-elz-410-03.webp",
+    "elzab-szuflada-aktywna-elz-350-elz-410-04.webp",
+    "elzab-szuflada-aktywna-elz-350-elz-410-05.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.elzab.com.pl"
+   ]
+  },
+  "elzab-szuflada-flip-top-elz-ft460": {
+   "pliki": [
+    "elzab-szuflada-flip-top-elz-ft460-01.webp",
+    "elzab-szuflada-flip-top-elz-ft460-02.webp",
+    "elzab-szuflada-flip-top-elz-ft460-03.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.elzab.com.pl"
+   ]
+  },
+  "elzab-szuflada-kasowa-duza-elz-410-rj-pro": {
+   "pliki": [
+    "elzab-szuflada-kasowa-duza-elz-410-rj-pro-01.webp",
+    "elzab-szuflada-kasowa-duza-elz-410-rj-pro-02.webp",
+    "elzab-szuflada-kasowa-duza-elz-410-rj-pro-03.webp",
+    "elzab-szuflada-kasowa-duza-elz-410-rj-pro-04.webp",
+    "elzab-szuflada-kasowa-duza-elz-410-rj-pro-05.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.elzab.com.pl"
+   ]
+  },
+  "elzab-szuflada-kasowa-elz-240-elz-350-rj-pro": {
+   "pliki": [
+    "elzab-szuflada-kasowa-elz-240-elz-350-rj-pro-01.webp",
+    "elzab-szuflada-kasowa-elz-240-elz-350-rj-pro-02.webp",
+    "elzab-szuflada-kasowa-elz-240-elz-350-rj-pro-03.webp",
+    "elzab-szuflada-kasowa-elz-240-elz-350-rj-pro-04.webp",
+    "elzab-szuflada-kasowa-elz-240-elz-350-rj-pro-05.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.elzab.com.pl"
+   ]
+  },
+  "elzab-waga-neptun-2": {
+   "pliki": [
+    "elzab-waga-neptun-2-01.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.elzab.com.pl"
+   ]
+  },
+  "elzab-waga-prima-2": {
+   "pliki": [
+    "elzab-waga-prima-2-01.webp",
+    "elzab-waga-prima-2-02.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.elzab.com.pl"
+   ]
+  },
+  "elzab-wago-skaner-neptun-2-mgl-9550i-9900i": {
+   "pliki": [
+    "elzab-wago-skaner-neptun-2-mgl-9550i-9900i-01.webp",
+    "elzab-wago-skaner-neptun-2-mgl-9550i-9900i-02.webp",
+    "elzab-wago-skaner-neptun-2-mgl-9550i-9900i-03.webp",
+    "elzab-wago-skaner-neptun-2-mgl-9550i-9900i-04.webp",
+    "elzab-wago-skaner-neptun-2-mgl-9550i-9900i-05.webp",
+    "elzab-wago-skaner-neptun-2-mgl-9550i-9900i-06.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.elzab.com.pl"
+   ]
+  },
+  "elzab-zewnetrzny-wyswietlacz-klienta": {
+   "pliki": [
+    "elzab-zewnetrzny-wyswietlacz-klienta-01.webp",
+    "elzab-zewnetrzny-wyswietlacz-klienta-02.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.elzab.com.pl"
+   ]
+  },
+  "emenu": {
+   "pliki": [
+    "emenu-01.webp",
+    "emenu-02.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://api.gopos.pl"
+   ]
+  },
+  "ergo": {
+   "pliki": [
+    "ergo-01.webp",
+    "ergo-02.webp",
+    "ergo-03.webp",
+    "ergo-04.webp",
+    "ergo-05.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.posnet.com.pl"
+   ]
+  },
+  "eset": {
+   "pliki": [
+    "eset-01.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://sklep.eset.pl"
+   ]
+  },
+  "euro": {
+   "pliki": [
+    "euro-01.webp",
+    "euro-02.webp",
+    "euro-03.webp",
+    "euro-04.webp",
+    "euro-05.webp",
+    "euro-06.webp",
+    "euro-07.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://sklep.eurocert.pl"
+   ]
+  },
+  "evo": {
+   "pliki": [
+    "evo-01.webp",
+    "evo-02.webp",
+    "evo-03.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.posnet.com.pl"
+   ]
+  },
+  "fawagscan": {
+   "pliki": [
+    "fawagscan-01.webp",
+    "fawagscan-02.webp",
+    "fawagscan-03.webp",
+    "fawagscan-04.webp",
+    "fawagscan-05.webp",
+    "fawagscan-06.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.posnet.com.pl"
+   ]
+  },
+  "fbox": {
+   "pliki": [
+    "fbox-01.webp",
+    "fbox-02.webp",
+    "fbox-03.webp",
+    "fbox-04.webp",
+    "fbox-05.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.posnet.com.pl"
+   ]
+  },
+  "fw": {
+   "pliki": [
+    "fw-01.webp",
+    "fw-02.webp",
+    "fw-03.webp",
+    "fw-04.webp",
+    "fw-05.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.stormshield.com"
+   ]
+  },
+  "gestor": {
+   "pliki": [
+    "gestor-01.webp",
+    "gestor-02.webp",
+    "gestor-03.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.insert.com.pl"
+   ]
+  },
+  "godex-dt2x-dt4x-dt200": {
+   "pliki": [
+    "godex-dt2x-dt4x-dt200-01.webp",
+    "godex-dt2x-dt4x-dt200-02.webp",
+    "godex-dt2x-dt4x-dt200-03.webp",
+    "godex-dt2x-dt4x-dt200-04.webp",
+    "godex-dt2x-dt4x-dt200-05.webp",
+    "godex-dt2x-dt4x-dt200-06.webp",
+    "godex-dt2x-dt4x-dt200-07.webp",
+    "godex-dt2x-dt4x-dt200-08.webp",
+    "godex-dt2x-dt4x-dt200-09.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://godex.s3-accelerate.amazonaws.com",
+    "https://www.elzab.com.pl"
+   ]
+  },
+  "godex-ez2250i-ez2350i": {
+   "pliki": [
+    "godex-ez2250i-ez2350i-01.webp",
+    "godex-ez2250i-ez2350i-02.webp",
+    "godex-ez2250i-ez2350i-03.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://godex.s3-accelerate.amazonaws.com"
+   ]
+  },
+  "godex-g500-g530": {
+   "pliki": [
+    "godex-g500-g530-01.webp",
+    "godex-g500-g530-02.webp",
+    "godex-g500-g530-03.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://godex.s3-accelerate.amazonaws.com",
+    "https://www.elzab.com.pl"
+   ]
+  },
+  "godex-ge300-ge330": {
+   "pliki": [
+    "godex-ge300-ge330-01.webp",
+    "godex-ge300-ge330-02.webp",
+    "godex-ge300-ge330-03.webp",
+    "godex-ge300-ge330-04.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://godex.s3-accelerate.amazonaws.com"
+   ]
+  },
+  "godex-gx4200i-gx4300i-gx4600i": {
+   "pliki": [
+    "godex-gx4200i-gx4300i-gx4600i-01.webp",
+    "godex-gx4200i-gx4300i-gx4600i-02.webp",
+    "godex-gx4200i-gx4300i-gx4600i-03.webp",
+    "godex-gx4200i-gx4300i-gx4600i-04.webp",
+    "godex-gx4200i-gx4300i-gx4600i-05.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://godex.s3-accelerate.amazonaws.com"
+   ]
+  },
+  "godex-rt200-rt200i": {
+   "pliki": [
+    "godex-rt200-rt200i-01.webp",
+    "godex-rt200-rt200i-02.webp",
+    "godex-rt200-rt200i-03.webp",
+    "godex-rt200-rt200i-04.webp",
+    "godex-rt200-rt200i-05.webp",
+    "godex-rt200-rt200i-06.webp",
+    "godex-rt200-rt200i-07.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://godex.s3-accelerate.amazonaws.com"
+   ]
+  },
+  "godex-rt230-rt230i": {
+   "pliki": [
+    "godex-rt230-rt230i-01.webp",
+    "godex-rt230-rt230i-02.webp",
+    "godex-rt230-rt230i-03.webp",
+    "godex-rt230-rt230i-04.webp",
+    "godex-rt230-rt230i-05.webp",
+    "godex-rt230-rt230i-06.webp",
+    "godex-rt230-rt230i-07.webp",
+    "godex-rt230-rt230i-08.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://godex.s3-accelerate.amazonaws.com",
+    "https://www.elzab.com.pl"
+   ]
+  },
+  "gohub": {
+   "pliki": [
+    "gohub-01.webp",
+    "gohub-02.webp",
+    "gohub-03.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://api.gopos.pl"
+   ]
+  },
+  "gokds": {
+   "pliki": [
+    "gokds-01.webp",
+    "gokds-02.webp",
+    "gokds-03.webp",
+    "gokds-04.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://api.gopos.pl"
+   ]
+  },
+  "gokiosk": {
+   "pliki": [
+    "gokiosk-01.webp",
+    "gokiosk-02.webp",
+    "gokiosk-03.webp",
+    "gokiosk-04.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://api.gopos.pl"
+   ]
+  },
+  "goorder": {
+   "pliki": [
+    "goorder-01.webp",
+    "goorder-02.webp",
+    "goorder-03.webp",
+    "goorder-04.webp",
+    "goorder-05.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://api.gopos.pl"
+   ]
+  },
+  "gopos": {
+   "pliki": [
+    "gopos-01.webp",
+    "gopos-02.webp",
+    "gopos-03.webp",
+    "gopos-04.webp",
+    "gopos-05.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://api.gopos.pl"
+   ]
+  },
+  "gopos-all-in-one": {
+   "pliki": [
+    "gopos-all-in-one-01.webp",
+    "gopos-all-in-one-02.webp",
+    "gopos-all-in-one-03.webp",
+    "gopos-all-in-one-04.webp",
+    "gopos-all-in-one-05.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://api.gopos.pl"
+   ]
+  },
+  "gopos-gocrm": {
+   "pliki": [
+    "gopos-gocrm-01.webp",
+    "gopos-gocrm-02.webp",
+    "gopos-gocrm-03.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://api.gopos.pl"
+   ]
+  },
+  "gopos-hotel": {
+   "pliki": [
+    "gopos-hotel-01.webp",
+    "gopos-hotel-02.webp",
+    "gopos-hotel-03.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://api.gopos.pl"
+   ]
+  },
+  "gostock": {
+   "pliki": [
+    "gostock-01.webp",
+    "gostock-02.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://api.gopos.pl"
+   ]
+  },
+  "gratyfikant": {
+   "pliki": [
+    "gratyfikant-01.webp",
+    "gratyfikant-02.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.insert.com.pl"
+   ]
+  },
+  "gt": {
+   "pliki": [
+    "gt-01.webp",
+    "gt-02.webp",
+    "gt-03.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.insert.com.pl"
+   ]
+  },
+  "hd": {
+   "pliki": [
+    "hd-01.webp",
+    "hd-02.webp",
+    "hd-03.webp",
+    "hd-04.webp",
+    "hd-05.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.posnet.com.pl"
+   ]
+  },
+  "hx": {
+   "pliki": [
+    "hx-01.webp",
+    "hx-02.webp",
+    "hx-03.webp",
+    "hx-04.webp",
+    "hx-05.webp",
+    "hx-06.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.posnet.com.pl"
+   ]
+  },
+  "insert-inspunkty-ksef": {
+   "pliki": [
+    "insert-inspunkty-ksef-01.webp",
+    "insert-inspunkty-ksef-02.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.insert.com.pl"
+   ]
+  },
+  "k1": {
+   "pliki": [
+    "k1-01.webp",
+    "k1-02.webp",
+    "k1-03.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.elzab.com.pl"
+   ]
+  },
+  "k10": {
+   "pliki": [
+    "k10-01.webp",
+    "k10-02.webp",
+    "k10-03.webp",
+    "k10-04.webp",
+    "k10-05.webp",
+    "k10-06.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.elzab.com.pl"
+   ]
+  },
+  "k2pay": {
+   "pliki": [
+    "k2pay-01.webp",
+    "k2pay-02.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.elzab.com.pl"
+   ]
+  },
+  "kds": {
+   "pliki": [
+    "kds-01.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://file.cdn.sunmi.com"
+   ]
+  },
+  "konica-minolta-bizhub-4051i": {
+   "pliki": [
+    "konica-minolta-bizhub-4051i-01.webp"
+   ],
+   "zrodlo_domeny": [
+    "(paczka K2 — zrodla w media-produkty K2)"
+   ]
+  },
+  "konica-minolta-bizhub-4221i": {
+   "pliki": [
+    "konica-minolta-bizhub-4221i-01.webp"
+   ],
+   "zrodlo_domeny": [
+    "(paczka K2 — zrodla w media-produkty K2)"
+   ]
+  },
+  "konica-minolta-bizhub-5021i": {
+   "pliki": [
+    "konica-minolta-bizhub-5021i-01.webp"
+   ],
+   "zrodlo_domeny": [
+    "(paczka K2 — zrodla w media-produkty K2)"
+   ]
+  },
+  "konica-minolta-bizhub-c251i": {
+   "pliki": [
+    "konica-minolta-bizhub-c251i-01.webp"
+   ],
+   "zrodlo_domeny": [
+    "(paczka K2 — zrodla w media-produkty K2)"
+   ]
+  },
+  "konica-minolta-bizhub-c268i": {
+   "pliki": [
+    "konica-minolta-bizhub-c268i-01.webp"
+   ],
+   "zrodlo_domeny": [
+    "(paczka K2 — zrodla w media-produkty K2)"
+   ]
+  },
+  "konica-minolta-bizhub-c301i": {
+   "pliki": [
+    "konica-minolta-bizhub-c301i-01.webp"
+   ],
+   "zrodlo_domeny": [
+    "(paczka K2 — zrodla w media-produkty K2)"
+   ]
+  },
+  "konica-minolta-bizhub-c3301i": {
+   "pliki": [
+    "konica-minolta-bizhub-c3301i-01.webp"
+   ],
+   "zrodlo_domeny": [
+    "(paczka K2 — zrodla w media-produkty K2)"
+   ]
+  },
+  "konica-minolta-bizhub-c3321i": {
+   "pliki": [
+    "konica-minolta-bizhub-c3321i-01.webp",
+    "konica-minolta-bizhub-c3321i-02.webp"
+   ],
+   "zrodlo_domeny": [
+    "(paczka K2 — zrodla w media-produkty K2)"
+   ]
+  },
+  "konica-minolta-bizhub-c3351i": {
+   "pliki": [
+    "konica-minolta-bizhub-c3351i-01.webp"
+   ],
+   "zrodlo_domeny": [
+    "(paczka K2 — zrodla w media-produkty K2)"
+   ]
+  },
+  "kyocera-ecosys-ma3500cix-cifx-ma4000cix": {
+   "pliki": [
+    "kyocera-ecosys-ma3500cix-cifx-ma4000cix-01.webp",
+    "kyocera-ecosys-ma3500cix-cifx-ma4000cix-02.webp",
+    "kyocera-ecosys-ma3500cix-cifx-ma4000cix-03.webp"
+   ],
+   "zrodlo_domeny": [
+    "(paczka K2 — zrodla w media-produkty K2)"
+   ]
+  },
+  "kyocera-ecosys-ma4000x-fx-wifx": {
+   "pliki": [
+    "kyocera-ecosys-ma4000x-fx-wifx-01.webp",
+    "kyocera-ecosys-ma4000x-fx-wifx-02.webp",
+    "kyocera-ecosys-ma4000x-fx-wifx-03.webp"
+   ],
+   "zrodlo_domeny": [
+    "(paczka K2 — zrodla w media-produkty K2)"
+   ]
+  },
+  "kyocera-ecosys-ma4500x-fx-ifx": {
+   "pliki": [
+    "kyocera-ecosys-ma4500x-fx-ifx-01.webp",
+    "kyocera-ecosys-ma4500x-fx-ifx-02.webp"
+   ],
+   "zrodlo_domeny": [
+    "(paczka K2 — zrodla w media-produkty K2)"
+   ]
+  },
+  "kyocera-ecosys-ma5500ifx-ma6000ifx": {
+   "pliki": [
+    "kyocera-ecosys-ma5500ifx-ma6000ifx-01.webp",
+    "kyocera-ecosys-ma5500ifx-ma6000ifx-02.webp"
+   ],
+   "zrodlo_domeny": [
+    "(paczka K2 — zrodla w media-produkty K2)"
+   ]
+  },
+  "kyocera-taskalfa-ma3500ci-ma4500ci": {
+   "pliki": [
+    "kyocera-taskalfa-ma3500ci-ma4500ci-01.webp"
+   ],
+   "zrodlo_domeny": [
+    "(paczka K2 — zrodla w media-produkty K2)"
+   ]
+  },
+  "lenovo-ideapad-slim-3-15": {
+   "pliki": [
+    "lenovo-ideapad-slim-3-15-01.webp",
+    "lenovo-ideapad-slim-3-15-02.webp",
+    "lenovo-ideapad-slim-3-15-03.webp",
+    "lenovo-ideapad-slim-3-15-04.webp",
+    "lenovo-ideapad-slim-3-15-05.webp",
+    "lenovo-ideapad-slim-3-15-06.webp",
+    "lenovo-ideapad-slim-3-15-07.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://elenovo.pl"
+   ]
+  },
+  "lenovo-ideapad-slim-3-16-17": {
+   "pliki": [
+    "lenovo-ideapad-slim-3-16-17-01.webp",
+    "lenovo-ideapad-slim-3-16-17-02.webp",
+    "lenovo-ideapad-slim-3-16-17-03.webp",
+    "lenovo-ideapad-slim-3-16-17-04.webp",
+    "lenovo-ideapad-slim-3-16-17-05.webp",
+    "lenovo-ideapad-slim-3-16-17-06.webp",
+    "lenovo-ideapad-slim-3-16-17-07.webp",
+    "lenovo-ideapad-slim-3-16-17-08.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://elenovo.pl"
+   ]
+  },
+  "lenovo-ideapad-slim-5-16": {
+   "pliki": [
+    "lenovo-ideapad-slim-5-16-01.webp",
+    "lenovo-ideapad-slim-5-16-02.webp",
+    "lenovo-ideapad-slim-5-16-03.webp",
+    "lenovo-ideapad-slim-5-16-04.webp",
+    "lenovo-ideapad-slim-5-16-05.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://elenovo.pl"
+   ]
+  },
+  "lenovo-thinkbook-14-g8-g9": {
+   "pliki": [
+    "lenovo-thinkbook-14-g8-g9-01.webp",
+    "lenovo-thinkbook-14-g8-g9-02.webp",
+    "lenovo-thinkbook-14-g8-g9-03.webp",
+    "lenovo-thinkbook-14-g8-g9-04.webp",
+    "lenovo-thinkbook-14-g8-g9-05.webp",
+    "lenovo-thinkbook-14-g8-g9-06.webp",
+    "lenovo-thinkbook-14-g8-g9-07.webp",
+    "lenovo-thinkbook-14-g8-g9-08.webp",
+    "lenovo-thinkbook-14-g8-g9-09.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://elenovo.pl"
+   ]
+  },
+  "lenovo-thinkbook-16-g8-g9": {
+   "pliki": [
+    "lenovo-thinkbook-16-g8-g9-01.webp",
+    "lenovo-thinkbook-16-g8-g9-02.webp",
+    "lenovo-thinkbook-16-g8-g9-03.webp",
+    "lenovo-thinkbook-16-g8-g9-04.webp",
+    "lenovo-thinkbook-16-g8-g9-05.webp",
+    "lenovo-thinkbook-16-g8-g9-06.webp",
+    "lenovo-thinkbook-16-g8-g9-07.webp",
+    "lenovo-thinkbook-16-g8-g9-08.webp",
+    "lenovo-thinkbook-16-g8-g9-09.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://elenovo.pl"
+   ]
+  },
+  "lenovo-thinkcentre-neo-30s": {
+   "pliki": [
+    "lenovo-thinkcentre-neo-30s-01.webp",
+    "lenovo-thinkcentre-neo-30s-02.webp",
+    "lenovo-thinkcentre-neo-30s-03.webp",
+    "lenovo-thinkcentre-neo-30s-04.webp",
+    "lenovo-thinkcentre-neo-30s-05.webp",
+    "lenovo-thinkcentre-neo-30s-06.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://elenovo.pl"
+   ]
+  },
+  "lenovo-thinkcentre-neo-50a-55a": {
+   "pliki": [
+    "lenovo-thinkcentre-neo-50a-55a-01.webp",
+    "lenovo-thinkcentre-neo-50a-55a-02.webp",
+    "lenovo-thinkcentre-neo-50a-55a-03.webp",
+    "lenovo-thinkcentre-neo-50a-55a-04.webp",
+    "lenovo-thinkcentre-neo-50a-55a-05.webp",
+    "lenovo-thinkcentre-neo-50a-55a-06.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://elenovo.pl"
+   ]
+  },
+  "lenovo-thinkcentre-neo-50q-55q": {
+   "pliki": [
+    "lenovo-thinkcentre-neo-50q-55q-01.webp",
+    "lenovo-thinkcentre-neo-50q-55q-02.webp",
+    "lenovo-thinkcentre-neo-50q-55q-03.webp",
+    "lenovo-thinkcentre-neo-50q-55q-04.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://elenovo.pl"
+   ]
+  },
+  "lenovo-thinkcentre-neo-50s-55s": {
+   "pliki": [
+    "lenovo-thinkcentre-neo-50s-55s-01.webp",
+    "lenovo-thinkcentre-neo-50s-55s-02.webp",
+    "lenovo-thinkcentre-neo-50s-55s-03.webp",
+    "lenovo-thinkcentre-neo-50s-55s-04.webp",
+    "lenovo-thinkcentre-neo-50s-55s-05.webp",
+    "lenovo-thinkcentre-neo-50s-55s-06.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://elenovo.pl"
+   ]
+  },
+  "lenovo-thinkcentre-neo-50t": {
+   "pliki": [
+    "lenovo-thinkcentre-neo-50t-01.webp",
+    "lenovo-thinkcentre-neo-50t-02.webp",
+    "lenovo-thinkcentre-neo-50t-03.webp",
+    "lenovo-thinkcentre-neo-50t-04.webp",
+    "lenovo-thinkcentre-neo-50t-05.webp",
+    "lenovo-thinkcentre-neo-50t-06.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://elenovo.pl"
+   ]
+  },
+  "lenovo-thinkpad-e14-gen8-e16-gen4": {
+   "pliki": [
+    "lenovo-thinkpad-e14-gen8-e16-gen4-01.webp",
+    "lenovo-thinkpad-e14-gen8-e16-gen4-02.webp",
+    "lenovo-thinkpad-e14-gen8-e16-gen4-03.webp",
+    "lenovo-thinkpad-e14-gen8-e16-gen4-04.webp",
+    "lenovo-thinkpad-e14-gen8-e16-gen4-05.webp",
+    "lenovo-thinkpad-e14-gen8-e16-gen4-06.webp",
+    "lenovo-thinkpad-e14-gen8-e16-gen4-07.webp",
+    "lenovo-thinkpad-e14-gen8-e16-gen4-08.webp",
+    "lenovo-thinkpad-e14-gen8-e16-gen4-09.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://elenovo.pl"
+   ]
+  },
+  "lenovo-thinkpad-l14-gen7-l16-gen3": {
+   "pliki": [
+    "lenovo-thinkpad-l14-gen7-l16-gen3-01.webp",
+    "lenovo-thinkpad-l14-gen7-l16-gen3-02.webp",
+    "lenovo-thinkpad-l14-gen7-l16-gen3-03.webp",
+    "lenovo-thinkpad-l14-gen7-l16-gen3-04.webp",
+    "lenovo-thinkpad-l14-gen7-l16-gen3-05.webp",
+    "lenovo-thinkpad-l14-gen7-l16-gen3-06.webp",
+    "lenovo-thinkpad-l14-gen7-l16-gen3-07.webp",
+    "lenovo-thinkpad-l14-gen7-l16-gen3-08.webp",
+    "lenovo-thinkpad-l14-gen7-l16-gen3-09.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://elenovo.pl"
+   ]
+  },
+  "lenovo-thinkpad-p14s-p16s-gen7": {
+   "pliki": [
+    "lenovo-thinkpad-p14s-p16s-gen7-01.webp",
+    "lenovo-thinkpad-p14s-p16s-gen7-02.webp",
+    "lenovo-thinkpad-p14s-p16s-gen7-03.webp",
+    "lenovo-thinkpad-p14s-p16s-gen7-04.webp",
+    "lenovo-thinkpad-p14s-p16s-gen7-05.webp",
+    "lenovo-thinkpad-p14s-p16s-gen7-06.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://elenovo.pl"
+   ]
+  },
+  "lenovo-thinkpad-p16-gen3": {
+   "pliki": [
+    "lenovo-thinkpad-p16-gen3-01.webp",
+    "lenovo-thinkpad-p16-gen3-02.webp",
+    "lenovo-thinkpad-p16-gen3-03.webp",
+    "lenovo-thinkpad-p16-gen3-04.webp",
+    "lenovo-thinkpad-p16-gen3-05.webp",
+    "lenovo-thinkpad-p16-gen3-06.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://elenovo.pl"
+   ]
+  },
+  "lenovo-thinkpad-t14-gen7": {
+   "pliki": [
+    "lenovo-thinkpad-t14-gen7-01.webp",
+    "lenovo-thinkpad-t14-gen7-02.webp",
+    "lenovo-thinkpad-t14-gen7-03.webp",
+    "lenovo-thinkpad-t14-gen7-04.webp",
+    "lenovo-thinkpad-t14-gen7-05.webp",
+    "lenovo-thinkpad-t14-gen7-06.webp",
+    "lenovo-thinkpad-t14-gen7-07.webp",
+    "lenovo-thinkpad-t14-gen7-08.webp",
+    "lenovo-thinkpad-t14-gen7-09.webp",
+    "lenovo-thinkpad-t14-gen7-10.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://elenovo.pl"
+   ]
+  },
+  "lenovo-thinkpad-t16-gen5": {
+   "pliki": [
+    "lenovo-thinkpad-t16-gen5-01.webp",
+    "lenovo-thinkpad-t16-gen5-02.webp",
+    "lenovo-thinkpad-t16-gen5-03.webp",
+    "lenovo-thinkpad-t16-gen5-04.webp",
+    "lenovo-thinkpad-t16-gen5-05.webp",
+    "lenovo-thinkpad-t16-gen5-06.webp",
+    "lenovo-thinkpad-t16-gen5-07.webp",
+    "lenovo-thinkpad-t16-gen5-08.webp",
+    "lenovo-thinkpad-t16-gen5-09.webp",
+    "lenovo-thinkpad-t16-gen5-10.webp",
+    "lenovo-thinkpad-t16-gen5-11.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://elenovo.pl"
+   ]
+  },
+  "lenovo-thinkpad-x1-2in1-gen11": {
+   "pliki": [
+    "lenovo-thinkpad-x1-2in1-gen11-01.webp",
+    "lenovo-thinkpad-x1-2in1-gen11-02.webp",
+    "lenovo-thinkpad-x1-2in1-gen11-03.webp",
+    "lenovo-thinkpad-x1-2in1-gen11-04.webp",
+    "lenovo-thinkpad-x1-2in1-gen11-05.webp",
+    "lenovo-thinkpad-x1-2in1-gen11-06.webp",
+    "lenovo-thinkpad-x1-2in1-gen11-07.webp",
+    "lenovo-thinkpad-x1-2in1-gen11-08.webp",
+    "lenovo-thinkpad-x1-2in1-gen11-09.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://elenovo.pl"
+   ]
+  },
+  "lenovo-thinkpad-x1-carbon-gen14": {
+   "pliki": [
+    "lenovo-thinkpad-x1-carbon-gen14-01.webp",
+    "lenovo-thinkpad-x1-carbon-gen14-02.webp",
+    "lenovo-thinkpad-x1-carbon-gen14-03.webp",
+    "lenovo-thinkpad-x1-carbon-gen14-04.webp",
+    "lenovo-thinkpad-x1-carbon-gen14-05.webp",
+    "lenovo-thinkpad-x1-carbon-gen14-06.webp",
+    "lenovo-thinkpad-x1-carbon-gen14-07.webp",
+    "lenovo-thinkpad-x1-carbon-gen14-08.webp",
+    "lenovo-thinkpad-x1-carbon-gen14-09.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://elenovo.pl"
+   ]
+  },
+  "lenovo-thinkpad-x13-gen7": {
+   "pliki": [
+    "lenovo-thinkpad-x13-gen7-01.webp",
+    "lenovo-thinkpad-x13-gen7-02.webp",
+    "lenovo-thinkpad-x13-gen7-03.webp",
+    "lenovo-thinkpad-x13-gen7-04.webp",
+    "lenovo-thinkpad-x13-gen7-05.webp",
+    "lenovo-thinkpad-x13-gen7-06.webp",
+    "lenovo-thinkpad-x13-gen7-07.webp",
+    "lenovo-thinkpad-x13-gen7-08.webp",
+    "lenovo-thinkpad-x13-gen7-09.webp",
+    "lenovo-thinkpad-x13-gen7-10.webp",
+    "lenovo-thinkpad-x13-gen7-11.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://elenovo.pl"
+   ]
+  },
+  "lenovo-thinkvision-e": {
+   "pliki": [
+    "lenovo-thinkvision-e-01.webp",
+    "lenovo-thinkvision-e-02.webp",
+    "lenovo-thinkvision-e-03.webp",
+    "lenovo-thinkvision-e-04.webp",
+    "lenovo-thinkvision-e-05.webp",
+    "lenovo-thinkvision-e-06.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://elenovo.pl"
+   ]
+  },
+  "lenovo-thinkvision-p-24-27": {
+   "pliki": [
+    "lenovo-thinkvision-p-24-27-01.webp",
+    "lenovo-thinkvision-p-24-27-02.webp",
+    "lenovo-thinkvision-p-24-27-03.webp",
+    "lenovo-thinkvision-p-24-27-04.webp",
+    "lenovo-thinkvision-p-24-27-05.webp",
+    "lenovo-thinkvision-p-24-27-06.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://elenovo.pl"
+   ]
+  },
+  "lenovo-thinkvision-p-32-49-ultrawide": {
+   "pliki": [
+    "lenovo-thinkvision-p-32-49-ultrawide-01.webp",
+    "lenovo-thinkvision-p-32-49-ultrawide-02.webp",
+    "lenovo-thinkvision-p-32-49-ultrawide-03.webp",
+    "lenovo-thinkvision-p-32-49-ultrawide-04.webp",
+    "lenovo-thinkvision-p-32-49-ultrawide-05.webp",
+    "lenovo-thinkvision-p-32-49-ultrawide-06.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://elenovo.pl"
+   ]
+  },
+  "lenovo-thinkvision-t": {
+   "pliki": [
+    "lenovo-thinkvision-t-01.webp",
+    "lenovo-thinkvision-t-02.webp",
+    "lenovo-thinkvision-t-03.webp",
+    "lenovo-thinkvision-t-04.webp",
+    "lenovo-thinkvision-t-05.webp",
+    "lenovo-thinkvision-t-06.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://elenovo.pl"
+   ]
+  },
+  "lenovo-v15": {
+   "pliki": [
+    "lenovo-v15-01.webp",
+    "lenovo-v15-02.webp",
+    "lenovo-v15-03.webp",
+    "lenovo-v15-04.webp",
+    "lenovo-v15-05.webp",
+    "lenovo-v15-06.webp",
+    "lenovo-v15-07.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://elenovo.pl"
+   ]
+  },
+  "lenovo-v17": {
+   "pliki": [
+    "lenovo-v17-01.webp",
+    "lenovo-v17-02.webp",
+    "lenovo-v17-03.webp",
+    "lenovo-v17-04.webp",
+    "lenovo-v17-05.webp",
+    "lenovo-v17-06.webp",
+    "lenovo-v17-07.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://elenovo.pl"
+   ]
+  },
+  "lenovo-yoga-7-2w1": {
+   "pliki": [
+    "lenovo-yoga-7-2w1-01.webp",
+    "lenovo-yoga-7-2w1-02.webp",
+    "lenovo-yoga-7-2w1-03.webp",
+    "lenovo-yoga-7-2w1-04.webp",
+    "lenovo-yoga-7-2w1-05.webp",
+    "lenovo-yoga-7-2w1-06.webp",
+    "lenovo-yoga-7-2w1-07.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://elenovo.pl"
+   ]
+  },
+  "lenovo-yoga-9-2w1": {
+   "pliki": [
+    "lenovo-yoga-9-2w1-01.webp",
+    "lenovo-yoga-9-2w1-02.webp",
+    "lenovo-yoga-9-2w1-03.webp",
+    "lenovo-yoga-9-2w1-04.webp",
+    "lenovo-yoga-9-2w1-05.webp",
+    "lenovo-yoga-9-2w1-06.webp",
+    "lenovo-yoga-9-2w1-07.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://elenovo.pl"
+   ]
+  },
+  "lenovo-yoga-pro": {
+   "pliki": [
+    "lenovo-yoga-pro-01.webp",
+    "lenovo-yoga-pro-02.webp",
+    "lenovo-yoga-pro-03.webp",
+    "lenovo-yoga-pro-04.webp",
+    "lenovo-yoga-pro-05.webp",
+    "lenovo-yoga-pro-06.webp",
+    "lenovo-yoga-pro-07.webp",
+    "lenovo-yoga-pro-08.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://elenovo.pl"
+   ]
+  },
+  "lenovo-yoga-slim-7": {
+   "pliki": [
+    "lenovo-yoga-slim-7-01.webp",
+    "lenovo-yoga-slim-7-02.webp",
+    "lenovo-yoga-slim-7-03.webp",
+    "lenovo-yoga-slim-7-04.webp",
+    "lenovo-yoga-slim-7-05.webp",
+    "lenovo-yoga-slim-7-06.webp",
+    "lenovo-yoga-slim-7-07.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://elenovo.pl"
+   ]
+  },
+  "lite": {
+   "pliki": [
+    "lite-01.webp",
+    "lite-02.webp",
+    "lite-03.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.posnet.com.pl"
+   ]
+  },
+  "mera": {
+   "pliki": [
+    "mera-01.webp",
+    "mera-02.webp",
+    "mera-03.webp",
+    "mera-04.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.elzab.com.pl"
+   ]
+  },
+  "microsoft-365-business": {
+   "pliki": [
+    "microsoft-365-business-01.webp",
+    "microsoft-365-business-02.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://delkom.pl"
+   ]
+  },
+  "microsoft-office-2024": {
+   "pliki": [
+    "microsoft-office-2024-01.webp",
+    "microsoft-office-2024-02.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://delkom.pl"
+   ]
+  },
+  "microsoft-windows-11-pro": {
+   "pliki": [
+    "microsoft-windows-11-pro-01.webp",
+    "microsoft-windows-11-pro-02.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://delkom.pl"
+   ]
+  },
+  "microsoft-windows-server-cal": {
+   "pliki": [
+    "microsoft-windows-server-cal-01.webp",
+    "microsoft-windows-server-cal-02.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://delkom.pl"
+   ]
+  },
+  "mini": {
+   "pliki": [
+    "mini-01.webp",
+    "mini-02.webp",
+    "mini-03.webp",
+    "mini-04.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.elzab.com.pl"
+   ]
+  },
+  "minilt": {
+   "pliki": [
+    "minilt-01.webp",
+    "minilt-02.webp",
+    "minilt-03.webp",
+    "minilt-04.webp",
+    "minilt-05.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.elzab.com.pl"
+   ]
+  },
+  "minimarket": {
+   "pliki": [
+    "minimarket-01.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.insoft.com.pl"
+   ]
+  },
+  "mobile": {
+   "pliki": [
+    "mobile-01.webp",
+    "mobile-02.webp",
+    "mobile-03.webp",
+    "mobile-04.webp",
+    "mobile-05.webp",
+    "mobile-06.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.posnet.com.pl"
+   ]
+  },
+  "mobile2": {
+   "pliki": [
+    "mobile2-01.webp",
+    "mobile2-02.webp",
+    "mobile2-03.webp",
+    "mobile2-04.webp",
+    "mobile2-05.webp",
+    "mobile2-06.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.posnet.com.pl"
+   ]
+  },
+  "neo": {
+   "pliki": [
+    "neo-01.webp",
+    "neo-02.webp",
+    "neo-03.webp",
+    "neo-04.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.posnet.com.pl"
+   ]
+  },
+  "nexo": {
+   "pliki": [
+    "nexo-01.webp",
+    "nexo-02.webp",
+    "nexo-03.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.insert.com.pl"
+   ]
+  },
+  "nfh": {
+   "pliki": [
+    "nfh-01.webp",
+    "nfh-02.webp",
+    "nfh-03.webp",
+    "nfh-04.webp",
+    "nfh-05.webp",
+    "nfh-06.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://nfhotel.pl"
+   ]
+  },
+  "numerki": {
+   "pliki": [
+    "numerki-01.webp",
+    "numerki-02.webp",
+    "numerki-03.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://api.gopos.pl"
+   ]
+  },
+  "omada-ap-scienne-zewnetrzne": {
+   "pliki": [
+    "omada-ap-scienne-zewnetrzne-01.webp",
+    "omada-ap-scienne-zewnetrzne-02.webp",
+    "omada-ap-scienne-zewnetrzne-03.webp",
+    "omada-ap-scienne-zewnetrzne-04.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://static.tp-link.com"
+   ]
+  },
+  "omada-ap-sufitowe": {
+   "pliki": [
+    "omada-ap-sufitowe-01.webp",
+    "omada-ap-sufitowe-02.webp",
+    "omada-ap-sufitowe-03.webp",
+    "omada-ap-sufitowe-04.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://static.tp-link.com"
+   ]
+  },
+  "omada-kontrolery": {
+   "pliki": [
+    "omada-kontrolery-01.webp",
+    "omada-kontrolery-02.webp",
+    "omada-kontrolery-03.webp",
+    "omada-kontrolery-04.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://static.tp-link.com"
+   ]
+  },
+  "omada-routery": {
+   "pliki": [
+    "omada-routery-01.webp",
+    "omada-routery-02.webp",
+    "omada-routery-03.webp",
+    "omada-routery-04.webp",
+    "omada-routery-05.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://static.tp-link.com"
+   ]
+  },
+  "omada-switche-poe": {
+   "pliki": [
+    "omada-switche-poe-01.webp",
+    "omada-switche-poe-02.webp",
+    "omada-switche-poe-03.webp",
+    "omada-switche-poe-04.webp",
+    "omada-switche-poe-05.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://static.tp-link.com"
+   ]
+  },
+  "optima": {
+   "pliki": [
+    "optima-01.webp",
+    "optima-02.webp",
+    "optima-03.webp",
+    "optima-04.webp",
+    "optima-05.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.comarch.pl"
+   ]
+  },
+  "pcgastro": {
+   "pliki": [
+    "pcgastro-01.webp",
+    "pcgastro-02.webp",
+    "pcgastro-03.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.insoft.com.pl"
+   ]
+  },
+  "pcm": {
+   "pliki": [
+    "pcm-01.webp",
+    "pcm-02.webp",
+    "pcm-03.webp",
+    "pcm-04.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.insoft.com.pl"
+   ]
+  },
+  "pcpos": {
+   "pliki": [
+    "pcpos-01.webp",
+    "pcpos-02.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.insoft.com.pl"
+   ]
+  },
+  "piecz": {
+   "pliki": [
+    "piecz-01.webp",
+    "piecz-02.webp",
+    "piecz-03.webp",
+    "piecz-04.webp",
+    "piecz-05.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://sklep.eurocert.pl"
+   ]
+  },
+  "posnet-klawiatura-bb10s-rs-usb": {
+   "pliki": [
+    "posnet-klawiatura-bb10s-rs-usb-01.webp",
+    "posnet-klawiatura-bb10s-rs-usb-02.webp",
+    "posnet-klawiatura-bb10s-rs-usb-03.webp",
+    "posnet-klawiatura-bb10s-rs-usb-04.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.posnet.com.pl"
+   ]
+  },
+  "posnet-szuflada-flip-top-ft460": {
+   "pliki": [
+    "posnet-szuflada-flip-top-ft460-01.webp",
+    "posnet-szuflada-flip-top-ft460-02.webp",
+    "posnet-szuflada-flip-top-ft460-03.webp",
+    "posnet-szuflada-flip-top-ft460-04.webp",
+    "posnet-szuflada-flip-top-ft460-05.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.posnet.com.pl"
+   ]
+  },
+  "posnet-szuflada-mk330-mk350": {
+   "pliki": [
+    "posnet-szuflada-mk330-mk350-01.webp",
+    "posnet-szuflada-mk330-mk350-02.webp",
+    "posnet-szuflada-mk330-mk350-03.webp",
+    "posnet-szuflada-mk330-mk350-04.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.posnet.com.pl"
+   ]
+  },
+  "posnet-thermal-xl2-a-online": {
+   "pliki": [
+    "posnet-thermal-xl2-a-online-01.webp",
+    "posnet-thermal-xl2-a-online-02.webp",
+    "posnet-thermal-xl2-a-online-03.webp",
+    "posnet-thermal-xl2-a-online-04.webp",
+    "posnet-thermal-xl2-a-online-05.webp",
+    "posnet-thermal-xl2-a-online-06.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.posnet.com.pl"
+   ]
+  },
+  "posnet-thermal-xl2-b-online": {
+   "pliki": [
+    "posnet-thermal-xl2-b-online-01.webp",
+    "posnet-thermal-xl2-b-online-02.webp",
+    "posnet-thermal-xl2-b-online-03.webp",
+    "posnet-thermal-xl2-b-online-04.webp",
+    "posnet-thermal-xl2-b-online-05.webp",
+    "posnet-thermal-xl2-b-online-06.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.posnet.com.pl"
+   ]
+  },
+  "posnet-wyswietlacz-pos": {
+   "pliki": [
+    "posnet-wyswietlacz-pos-01.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.posnet.com.pl"
+   ]
+  },
+  "pospay2": {
+   "pliki": [
+    "pospay2-01.webp",
+    "pospay2-02.webp",
+    "pospay2-03.webp",
+    "pospay2-04.webp",
+    "pospay2-05.webp",
+    "pospay2-06.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.posnet.com.pl"
+   ]
+  },
+  "qnap-nas-2-4": {
+   "pliki": [
+    "qnap-nas-2-4-01.webp",
+    "qnap-nas-2-4-02.webp",
+    "qnap-nas-2-4-03.webp",
+    "qnap-nas-2-4-04.webp",
+    "qnap-nas-2-4-05.webp",
+    "qnap-nas-2-4-06.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://sklepqnap.pl"
+   ]
+  },
+  "qnap-nas-5-8": {
+   "pliki": [
+    "qnap-nas-5-8-01.webp",
+    "qnap-nas-5-8-02.webp",
+    "qnap-nas-5-8-03.webp",
+    "qnap-nas-5-8-04.webp",
+    "qnap-nas-5-8-05.webp",
+    "qnap-nas-5-8-06.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://sklepqnap.pl"
+   ]
+  },
+  "qnap-nas-rack": {
+   "pliki": [
+    "qnap-nas-rack-01.webp",
+    "qnap-nas-rack-02.webp",
+    "qnap-nas-rack-03.webp",
+    "qnap-nas-rack-04.webp",
+    "qnap-nas-rack-05.webp",
+    "qnap-nas-rack-06.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://sklepqnap.pl"
+   ]
+  },
+  "rachmistrz": {
+   "pliki": [
+    "rachmistrz-01.webp",
+    "rachmistrz-02.webp",
+    "rachmistrz-03.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.insert.com.pl"
+   ]
+  },
+  "rewizor": {
+   "pliki": [
+    "rewizor-01.webp",
+    "rewizor-02.webp",
+    "rewizor-03.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.insert.com.pl"
+   ]
+  },
+  "samsung-om": {
+   "pliki": [
+    "samsung-om-01.webp",
+    "samsung-om-02.webp",
+    "samsung-om-03.webp",
+    "samsung-om-04.webp",
+    "samsung-om-05.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://delkom.pl"
+   ]
+  },
+  "samsung-qbc": {
+   "pliki": [
+    "samsung-qbc-01.webp",
+    "samsung-qbc-02.webp",
+    "samsung-qbc-03.webp",
+    "samsung-qbc-04.webp",
+    "samsung-qbc-05.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://delkom.pl"
+   ]
+  },
+  "samsung-qhc": {
+   "pliki": [
+    "samsung-qhc-01.webp",
+    "samsung-qhc-02.webp",
+    "samsung-qhc-03.webp",
+    "samsung-qhc-04.webp",
+    "samsung-qhc-05.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://delkom.pl"
+   ]
+  },
+  "samsung-qmc": {
+   "pliki": [
+    "samsung-qmc-01.webp",
+    "samsung-qmc-02.webp",
+    "samsung-qmc-03.webp",
+    "samsung-qmc-04.webp",
+    "samsung-qmc-05.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://delkom.pl"
+   ]
+  },
+  "samsung-waf": {
+   "pliki": [
+    "samsung-waf-01.webp",
+    "samsung-waf-02.webp",
+    "samsung-waf-03.webp",
+    "samsung-waf-04.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://delkom.pl"
+   ]
+  },
+  "sharp-nec-instalacyjne": {
+   "pliki": [
+    "sharp-nec-instalacyjne-01.webp",
+    "sharp-nec-instalacyjne-02.webp",
+    "sharp-nec-instalacyjne-03.webp",
+    "sharp-nec-instalacyjne-04.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://sharp24.pl"
+   ]
+  },
+  "sharp-nec-projektory-laser": {
+   "pliki": [
+    "sharp-nec-projektory-laser-01.webp",
+    "sharp-nec-projektory-laser-02.webp",
+    "sharp-nec-projektory-laser-03.webp",
+    "sharp-nec-projektory-laser-04.webp",
+    "sharp-nec-projektory-laser-05.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://sharp24.pl"
+   ]
+  },
+  "sharp-nec-projektory-sala": {
+   "pliki": [
+    "sharp-nec-projektory-sala-01.webp",
+    "sharp-nec-projektory-sala-02.webp",
+    "sharp-nec-projektory-sala-03.webp",
+    "sharp-nec-projektory-sala-04.webp",
+    "sharp-nec-projektory-sala-05.webp",
+    "sharp-nec-projektory-sala-06.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://sharp24.pl"
+   ]
+  },
+  "skaner": {
+   "pliki": [
+    "skaner-01.webp",
+    "skaner-02.webp",
+    "skaner-03.webp",
+    "skaner-04.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.elzab.com.pl"
+   ]
+  },
+  "softpos": {
+   "pliki": [
+    "polcard-go-01.webp"
+   ],
+   "zrodlo_domeny": [
+    "zdjęcie od PRO-KOM (materiały PolCard)"
+   ]
+  },
+  "sunmi-blink-blink-2": {
+   "pliki": [
+    "sunmi-blink-blink-2-01.webp",
+    "sunmi-blink-blink-2-02.webp",
+    "sunmi-blink-blink-2-03.webp",
+    "sunmi-blink-blink-2-04.webp",
+    "sunmi-blink-blink-2-05.webp",
+    "sunmi-blink-blink-2-06.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://file.cdn.sunmi.com",
+    "https://www.elzab.com.pl"
+   ]
+  },
+  "sunmi-l2s-pro-l2ks": {
+   "pliki": [
+    "sunmi-l2s-pro-l2ks-01.webp",
+    "sunmi-l2s-pro-l2ks-02.webp",
+    "sunmi-l2s-pro-l2ks-03.webp",
+    "sunmi-l2s-pro-l2ks-04.webp",
+    "sunmi-l2s-pro-l2ks-05.webp",
+    "sunmi-l2s-pro-l2ks-06.webp",
+    "sunmi-l2s-pro-l2ks-07.webp",
+    "sunmi-l2s-pro-l2ks-08.webp",
+    "sunmi-l2s-pro-l2ks-09.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://file.cdn.sunmi.com",
+    "https://www.elzab.com.pl"
+   ]
+  },
+  "sunmi-l3": {
+   "pliki": [
+    "sunmi-l3-01.webp",
+    "sunmi-l3-02.webp",
+    "sunmi-l3-03.webp",
+    "sunmi-l3-04.webp",
+    "sunmi-l3-05.webp",
+    "sunmi-l3-06.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://file.cdn.sunmi.com",
+    "https://www.elzab.com.pl"
+   ]
+  },
+  "synology-diskstation-plus-2-4": {
+   "pliki": [
+    "synology-diskstation-plus-2-4-01.webp",
+    "synology-diskstation-plus-2-4-02.webp",
+    "synology-diskstation-plus-2-4-03.webp",
+    "synology-diskstation-plus-2-4-04.webp",
+    "synology-diskstation-plus-2-4-05.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://gfx3.senetic.com"
+   ]
+  },
+  "synology-diskstation-plus-5-8": {
+   "pliki": [
+    "synology-diskstation-plus-5-8-01.webp",
+    "synology-diskstation-plus-5-8-02.webp",
+    "synology-diskstation-plus-5-8-03.webp",
+    "synology-diskstation-plus-5-8-04.webp",
+    "synology-diskstation-plus-5-8-05.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://gfx3.senetic.com"
+   ]
+  },
+  "synology-diskstation-value-j": {
+   "pliki": [
+    "synology-diskstation-value-j-01.webp",
+    "synology-diskstation-value-j-02.webp",
+    "synology-diskstation-value-j-03.webp",
+    "synology-diskstation-value-j-04.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://gfx3.senetic.com"
+   ]
+  },
+  "synology-dyski-rozszerzenia": {
+   "pliki": [
+    "synology-dyski-rozszerzenia-01.webp",
+    "synology-dyski-rozszerzenia-02.webp",
+    "synology-dyski-rozszerzenia-03.webp",
+    "synology-dyski-rozszerzenia-04.webp",
+    "synology-dyski-rozszerzenia-05.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://gfx3.senetic.com"
+   ]
+  },
+  "synology-rackstation": {
+   "pliki": [
+    "synology-rackstation-01.webp",
+    "synology-rackstation-02.webp",
+    "synology-rackstation-03.webp",
+    "synology-rackstation-04.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://gfx3.senetic.com"
+   ]
+  },
+  "szuf": {
+   "pliki": [
+    "szuf-01.webp",
+    "szuf-02.webp",
+    "szuf-03.webp",
+    "szuf-04.webp",
+    "szuf-05.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.posnet.com.pl"
+   ]
+  },
+  "t10": {
+   "pliki": [
+    "t10-01.webp",
+    "t10-02.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.elzab.com.pl"
+   ]
+  },
+  "temo": {
+   "pliki": [
+    "temo-01.webp",
+    "temo-02.webp",
+    "temo-03.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.posnet.com.pl"
+   ]
+  },
+  "tp": {
+   "pliki": [
+    "tp-01.webp",
+    "tp-02.webp",
+    "tp-03.webp",
+    "tp-04.webp",
+    "tp-05.webp",
+    "tp-06.webp",
+    "tp-07.webp",
+    "tp-08.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://elenovo.pl"
+   ]
+  },
+  "trio": {
+   "pliki": [
+    "trio-01.webp",
+    "trio-02.webp",
+    "trio-03.webp",
+    "trio-04.webp",
+    "trio-05.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.posnet.com.pl"
+   ]
+  },
+  "triotab": {
+   "pliki": [
+    "triotab-01.webp",
+    "triotab-02.webp",
+    "triotab-03.webp",
+    "triotab-04.webp",
+    "triotab-05.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.posnet.com.pl"
+   ]
+  },
+  "u7": {
+   "pliki": [
+    "u7-01.webp",
+    "u7-02.webp",
+    "u7-03.webp",
+    "u7-04.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://cdn.ecomm.ui.com"
+   ]
+  },
+  "u7max": {
+   "pliki": [
+    "u7max-01.webp",
+    "u7max-02.webp",
+    "u7max-03.webp",
+    "u7max-04.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://cdn.ecomm.ui.com"
+   ]
+  },
+  "ucgmax": {
+   "pliki": [
+    "ucgmax-01.webp",
+    "ucgmax-02.webp",
+    "ucgmax-03.webp",
+    "ucgmax-04.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://cdn.ecomm.ui.com"
+   ]
+  },
+  "udmse": {
+   "pliki": [
+    "udmse-01.webp",
+    "udmse-02.webp",
+    "udmse-03.webp",
+    "udmse-04.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://cdn.ecomm.ui.com"
+   ]
+  },
+  "udr7": {
+   "pliki": [
+    "udr7-01.webp",
+    "udr7-02.webp",
+    "udr7-03.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://cdn.ecomm.ui.com"
+   ]
+  },
+  "usw24": {
+   "pliki": [
+    "usw24-01.webp",
+    "usw24-02.webp",
+    "usw24-03.webp",
+    "usw24-04.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://cdn.ecomm.ui.com"
+   ]
+  },
+  "usw24max": {
+   "pliki": [
+    "usw24max-01.webp",
+    "usw24max-02.webp",
+    "usw24max-03.webp",
+    "usw24max-04.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://cdn.ecomm.ui.com"
+   ]
+  },
+  "ux": {
+   "pliki": [
+    "ux-01.webp",
+    "ux-02.webp",
+    "ux-03.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://cdn.ecomm.ui.com"
+   ]
+  },
+  "v3": {
+   "pliki": [
+    "v3-01.webp",
+    "v3-02.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://file.cdn.sunmi.com"
+   ]
+  },
+  "v3mix": {
+   "pliki": [
+    "v3mix-01.webp",
+    "v3mix-02.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://file.cdn.sunmi.com"
+   ]
+  },
+  "vero": {
+   "pliki": [
+    "vero-01.webp",
+    "vero-02.webp",
+    "vero-03.webp",
+    "vero-04.webp",
+    "vero-05.webp",
+    "vero-06.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.posnet.com.pl"
+   ]
+  },
+  "waga": {
+   "pliki": [
+    "waga-01.webp",
+    "waga-02.webp",
+    "waga-03.webp",
+    "waga-04.webp",
+    "waga-05.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.posnet.com.pl"
+   ]
+  },
+  "xl2": {
+   "pliki": [
+    "xl2-01.webp",
+    "xl2-02.webp",
+    "xl2-03.webp",
+    "xl2-04.webp",
+    "xl2-05.webp",
+    "xl2-06.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.posnet.com.pl"
+   ]
+  },
+  "zebra-tc22-tc27": {
+   "pliki": [
+    "zebra-tc22-tc27-01.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.elzab.com.pl"
+   ]
+  },
+  "zebra-zc100-zc300": {
+   "pliki": [
+    "zebra-zc100-zc300-01.webp",
+    "zebra-zc100-zc300-02.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.posnet.com.pl"
+   ]
+  },
+  "zeta": {
+   "pliki": [
+    "zeta-01.webp",
+    "zeta-02.webp",
+    "zeta-03.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.elzab.com.pl"
+   ]
+  },
+  "apc-back-ups": {
+   "pliki": [
+    "apc-back-ups-01.webp",
+    "apc-back-ups-02.webp",
+    "apc-back-ups-03.webp",
+    "apc-back-ups-04.webp",
+    "apc-back-ups-05.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://download.se.com"
+   ]
+  }
+ }
+}

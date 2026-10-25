@@ -1,0 +1,21 @@
+[
+ {
+  "slug": "lenovo-thinkpad-p1-gen-9",
+  "nazwa": "Lenovo ThinkPad P1 Gen 9",
+  "marka": "Lenovo",
+  "zrodla_zdjec": [
+   "https://psref.lenovo.com/Product/ThinkPad%20Workstations/ThinkPad_P1_Gen_9",
+   "https://psref.lenovo.com/detail/ThinkPad_P1_Gen_9?M=21UE0002PG"
+  ],
+  "uwagi": "elenovo.pl 25.10: brak P1 Gen 9 (tylko starsze generacje) — pobrać z PSREF/lenovo.com."
+ },
+ {
+  "slug": "lenovo-thinkpad-t14s-2-in-1-gen-2",
+  "nazwa": "Lenovo ThinkPad T14s 2-in-1 Gen 2",
+  "marka": "Lenovo",
+  "zrodla_zdjec": [
+   "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_T14s_2_in_1_Gen_2"
+  ],
+  "uwagi": "elenovo.pl 25.10: tylko Gen 1 — nie użyte (inna generacja); pobrać z PSREF/lenovo.com."
+ }
+]
