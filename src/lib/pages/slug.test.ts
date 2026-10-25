@@ -1,3 +1,6 @@
+import { readdirSync } from 'node:fs'
+import path from 'node:path'
+
 import { describe, expect, it } from 'vitest'
 
 import { HOME_SLUG, isValidPageSlug, pagePath, RESERVED_PAGE_SLUGS, slugFromSegment } from './slug'
@@ -18,6 +21,35 @@ describe('isValidPageSlug', () => {
   it.each(RESERVED_PAGE_SLUGS)('rejects the route path %s', (slug) => {
     expect(isValidPageSlug(slug)).toBe(false)
   })
+})
+
+/** Static route segments under `[domain]`, also inside route groups like `(biznes)`. */
+function routeSegments(): string[] {
+  const root = path.join(__dirname, '../../app/(sites)/[domain]')
+  const dirs = (dir: string) =>
+    readdirSync(dir, { withFileTypes: true })
+      .filter((entry) => entry.isDirectory())
+      .map((entry) => entry.name)
+  return dirs(root).flatMap((name) =>
+    name.startsWith('(') ? dirs(path.join(root, name)) : name.startsWith('[') ? [] : [name],
+  )
+}
+
+describe('RESERVED_PAGE_SLUGS', () => {
+  it.each(routeSegments().filter((name) => !name.includes('.')))(
+    'covers the route /%s',
+    (segment) => {
+      expect(RESERVED_PAGE_SLUGS).toContain(segment)
+    },
+  )
+
+  // Software routes (ADR-014 §2, v20 pkt 11): reserved before their pages exist (SW9–SW11).
+  it.each(['rozwiazania', 'dobierz', 'dla-branz', 'miejscowosci', 'dziekujemy'])(
+    'reserves the Software path %s',
+    (slug) => {
+      expect(RESERVED_PAGE_SLUGS).toContain(slug)
+    },
+  )
 })
 
 describe('pagePath', () => {

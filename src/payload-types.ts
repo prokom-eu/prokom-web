@@ -85,6 +85,7 @@ export interface Config {
     solutions: Solution;
     'solution-areas': SolutionArea;
     cities: City;
+    'software-settings': SoftwareSetting;
     'payload-kv': PayloadKv;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
@@ -111,6 +112,7 @@ export interface Config {
     solutions: SolutionsSelect<false> | SolutionsSelect<true>;
     'solution-areas': SolutionAreasSelect<false> | SolutionAreasSelect<true>;
     cities: CitiesSelect<false> | CitiesSelect<true>;
+    'software-settings': SoftwareSettingsSelect<false> | SoftwareSettingsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -226,7 +228,7 @@ export interface Tenant {
   createdAt: string;
 }
 /**
- * Pola linii Biznes pojawiają się w ustawieniach Biznesu po pierwszym zapisie.
+ * Pola linii Biznes i Software pojawiają się w ustawieniach tej linii po pierwszym zapisie.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "site-settings".
@@ -385,6 +387,30 @@ export interface SiteSetting {
           }[]
         | null;
     };
+  };
+  software?: {
+    /**
+     * Nagłówek, mega menu, stopka, dolny pasek i menu na telefonie, „Twój projekt”. Linki jako [etykieta, adres]. Zapis sprawdza kształt — zmieniaj ostrożnie.
+     */
+    navigation?:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
+    /**
+     * Wartości wstawiane w teksty w miejsce [KLUCZ], np. CZAS ODPOWIEDZI → „1 dnia roboczego”. Pusta wartość = zdanie z tym kluczem nie pokazuje się na stronie.
+     */
+    facts?:
+      | {
+          key: string;
+          value?: string | null;
+          id?: string | null;
+        }[]
+      | null;
   };
   updatedAt: string;
   createdAt: string;
@@ -3259,6 +3285,78 @@ export interface City {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "software-settings".
+ */
+export interface SoftwareSetting {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  search?: {
+    /**
+     * Fraza klienta → słowa, które też szukamy (bez polskich znaków).
+     */
+    synonyms?:
+      | {
+          phrase: string;
+          expansions: string[];
+          id?: string | null;
+        }[]
+      | null;
+    stopWords?: string[] | null;
+    popular?: string[] | null;
+  };
+  /**
+   * Potrzeby, pytania, wyniki i teksty kreatora (/dobierz). Ceny wyników biorą się z Rozwiązań (resultToSolutionSlug). Zapis sprawdza kształt i adresy rozwiązań.
+   */
+  wizard?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
+   * Proces, zasady, porównania, podglądy, realizacje, „Dlaczego nie WordPress”, technologie i „12 rzeczy”. Kolejność sekcji = kolejność bloków na stronie.
+   */
+  home?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
+   * Teksty /dziekujemy — strona po wysłaniu formularza.
+   */
+  thanks?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
+   * Teksty strony „nie znaleziono”. Ceny w podpisach kafli wpisuje się ręcznie — pilnuj ich przy zmianie cennika.
+   */
+  notFound?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -3453,6 +3551,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'cities';
         value: number | City;
+      } | null)
+    | ({
+        relationTo: 'software-settings';
+        value: number | SoftwareSetting;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -3666,6 +3768,18 @@ export interface SiteSettingsSelect<T extends boolean = true> {
                     href?: T;
                     id?: T;
                   };
+            };
+      };
+  software?:
+    | T
+    | {
+        navigation?: T;
+        facts?:
+          | T
+          | {
+              key?: T;
+              value?: T;
+              id?: T;
             };
       };
   updatedAt?: T;
@@ -5613,6 +5727,32 @@ export interface CitiesSelect<T extends boolean = true> {
         title?: T;
         description?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "software-settings_select".
+ */
+export interface SoftwareSettingsSelect<T extends boolean = true> {
+  tenant?: T;
+  search?:
+    | T
+    | {
+        synonyms?:
+          | T
+          | {
+              phrase?: T;
+              expansions?: T;
+              id?: T;
+            };
+        stopWords?: T;
+        popular?: T;
+      };
+  wizard?: T;
+  home?: T;
+  thanks?: T;
+  notFound?: T;
   updatedAt?: T;
   createdAt?: T;
 }
