@@ -1,20 +1,11 @@
 import { describe, expect, it } from 'vitest'
 
-import popularne from '../../../seed/prokomsoftware/popularne.json'
-import rozwiazania from '../../../seed/prokomsoftware/rozwiazania.json'
 import stronaGlowna from '../../../seed/prokomsoftware/strona-glowna.json'
-import technologie from '../../../seed/prokomsoftware/technologie.json'
+import { softwareSettingsData, solutionsToImport } from '../../seed/software/map'
 import { homeSchema, homeSolutionSlugs, validateHome } from './home'
 
-/** What the seed (SW3) stores: the start page texts without `homeOrder` (decision D2). */
-function seedHome() {
-  const { homeOrder: _order, ...texts } = structuredClone(stronaGlowna)
-  return {
-    ...texts,
-    technologies: structuredClone(technologie.layers),
-    popular: { order: structuredClone(popularne.order), tabs: structuredClone(popularne.tabs) },
-  }
-}
+/** What the seed stores (SW3): the start page texts without `homeOrder` (decision D2). */
+const seedHome = () => softwareSettingsData().home
 
 describe('Software home texts schema', () => {
   it('accepts the seed package (v20)', () => {
@@ -22,7 +13,7 @@ describe('Software home texts schema', () => {
   })
 
   it('points the 12 cards only to solutions of the package', () => {
-    const slugs = new Set(rozwiazania.items.map((item) => item.slug))
+    const slugs = new Set(solutionsToImport().map((item) => item.slug))
     const cards = homeSolutionSlugs(homeSchema.parse(seedHome()))
     expect(cards).toHaveLength(10)
     for (const slug of cards) expect(slugs.has(slug), slug).toBe(true)

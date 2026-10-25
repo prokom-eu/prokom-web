@@ -24,8 +24,7 @@ env:
 jobs:
   # Does the PR touch anything besides documentation? A docs-only PR skips build · e2e; pushes to
   # develop/main always run everything. `docs/design/` is not documentation here: the seed reads
-  # its images. `seed/prokomsoftware/` is not read by code until SW3 — remove it from DOCS_ONLY
-  # then (docs/zadania/prokomsoftware.md, SW3).
+  # its images.
   changes:
     name: changes
     runs-on: ubuntu-24.04
@@ -40,7 +39,7 @@ jobs:
 
       - id: diff
         env:
-          DOCS_ONLY: '^(docs/|\.claude/|seed/prokomsoftware/)|\.md$'
+          DOCS_ONLY: '^(docs/|\.claude/)|\.md$'
           ALWAYS_CODE: '^docs/design/'
         run: |
           if [ "${{ github.event_name }}" != "pull_request" ]; then

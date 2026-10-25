@@ -9,6 +9,7 @@ import { assertSeedAllowed, parseSeedEnv } from './config'
 import { HOME_SLUG } from '../lib/pages/slug'
 import { CONTACT_SLUG } from './biznes/contact'
 import { seedBiznesCatalog } from './biznes/run'
+import { seedSoftware } from './software/run'
 import { sampleImage } from './media'
 import {
   SAMPLE_COMPANY,
@@ -214,6 +215,8 @@ try {
 
   // Catalog of the Biznes site (B2); also `pnpm seed:biznes` on its own.
   await seedBiznesCatalog(payload)
+  // Solutions, areas, cities and settings of the Software site (SW3); also `pnpm seed:software`.
+  await seedSoftware(payload)
 } finally {
   await payload.destroy()
 }

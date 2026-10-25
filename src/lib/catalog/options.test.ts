@@ -3,11 +3,13 @@ import { describe, expect, it } from 'vitest'
 import icons from '../../../seed/prokombiznes/ikony.json'
 import katalog from '../../../seed/prokombiznes/katalog.json'
 import kreator from '../../../seed/prokombiznes/kreator.json'
+import softwareIcons from '../../../seed/prokomsoftware/ikony.json'
 import { ICON_NAMES, isHexColor, REGISTER_TYPES, WIZARD_BUSINESS_TYPES } from './options'
 
 describe('catalog options match the seed package', () => {
-  it('has every icon of the set', () => {
-    expect([...ICON_NAMES].sort()).toEqual(Object.keys(icons.ikony).sort())
+  it('has every icon of both sets (one set for all lines, ADR-014 rozstrz. 8)', () => {
+    const names = new Set([...Object.keys(icons.ikony), ...Object.keys(softwareIcons.icons)])
+    expect([...ICON_NAMES].sort()).toEqual([...names].sort())
   })
 
   it('has every business type of the wizard', () => {

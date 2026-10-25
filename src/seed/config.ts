@@ -9,6 +9,12 @@ export function assertSeedAllowed(nodeEnv: string | undefined): void {
   }
 }
 
+/**
+ * The seed writes outside a Next.js request, where no cache can be revalidated; hooks see this
+ * flag and skip it (the caches expire on their own, `lib/catalog/data`). Every line's import.
+ */
+export const SEED_CONTEXT = { seed: true } as const
+
 const seedEnvSchema = z.object({
   SEED_ADMIN_EMAIL: z.email(),
   SEED_ADMIN_PASSWORD: z.string().min(PASSWORD_MIN_LENGTH),
