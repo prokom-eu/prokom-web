@@ -595,6 +595,9 @@ export interface Page {
         | BzPanelsBlock
         | BzProgramPickerBlock
         | BzKsefBlock
+        | BzLinesBlock
+        | BzBrandsBlock
+        | BzLocationBlock
       )[]
     | null;
   seo?: {
@@ -1970,8 +1973,15 @@ export interface BzPageHeroBlock {
    * Wstaw ten blok tylko raz, jako pierwszy — jego nagłówek to H1, a nad nim są okruszki.
    */
   pill?: string | null;
+  /**
+   * {lata} zamienia się na liczbę lat od roku założenia, np. „22 lata”.
+   */
   heading: string;
   headingAccent?: string | null;
+  /**
+   * Np. 2004 — w nagłówku „{lata}” → „22 lata”, co roku samo.
+   */
+  sinceYear?: number | null;
   lead?: string | null;
   primary: {
     label: string;
@@ -1991,7 +2001,17 @@ export interface BzPageHeroBlock {
     label?: string | null;
     href?: string | null;
   };
-  variant: 'card' | 'photo' | 'screen';
+  variant: 'card' | 'photo' | 'screen' | 'stats';
+  /**
+   * Fakty o firmie [SZEF] — liczby tylko takie, które da się potwierdzić.
+   */
+  figures?:
+    | {
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
   card?: {
     eyebrow?: string | null;
     title?: string | null;
@@ -2665,6 +2685,64 @@ export interface BzKsefBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'bzKsef';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzLinesBlock".
+ */
+export interface BzLinesBlock {
+  eyebrow?: string | null;
+  heading: string;
+  lead?: string | null;
+  lines: {
+    name: string;
+    title: string;
+    text?: string | null;
+    link?: {
+      label?: string | null;
+      href?: string | null;
+    };
+    current?: boolean | null;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bzLines';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzBrandsBlock".
+ */
+export interface BzBrandsBlock {
+  eyebrow?: string | null;
+  heading: string;
+  /**
+   * Np. autoryzacje i „Logotypy należą do ich właścicieli”. Statusy partnerów tylko potwierdzone [SZEF].
+   */
+  note?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bzBrands';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzLocationBlock".
+ */
+export interface BzLocationBlock {
+  eyebrow?: string | null;
+  /**
+   * Puste = adres z Danych firmy, np. „Rabka-Zdrój, ul. Orkana 16B”.
+   */
+  heading?: string | null;
+  lead?: string | null;
+  areaLabel?: string | null;
+  /**
+   * Np. „oferty i serwis”.
+   */
+  phoneNote?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bzLocation';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3363,6 +3441,9 @@ export interface PagesSelect<T extends boolean = true> {
         bzPanels?: T | BzPanelsBlockSelect<T>;
         bzProgramPicker?: T | BzProgramPickerBlockSelect<T>;
         bzKsef?: T | BzKsefBlockSelect<T>;
+        bzLines?: T | BzLinesBlockSelect<T>;
+        bzBrands?: T | BzBrandsBlockSelect<T>;
+        bzLocation?: T | BzLocationBlockSelect<T>;
       };
   seo?:
     | T
@@ -3953,6 +4034,7 @@ export interface BzPageHeroBlockSelect<T extends boolean = true> {
   pill?: T;
   heading?: T;
   headingAccent?: T;
+  sinceYear?: T;
   lead?: T;
   primary?:
     | T
@@ -3979,6 +4061,13 @@ export interface BzPageHeroBlockSelect<T extends boolean = true> {
         href?: T;
       };
   variant?: T;
+  figures?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
   card?:
     | T
     | {
@@ -4408,6 +4497,56 @@ export interface BzKsefBlockSelect<T extends boolean = true> {
         text?: T;
         id?: T;
       };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzLinesBlock_select".
+ */
+export interface BzLinesBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  lead?: T;
+  lines?:
+    | T
+    | {
+        name?: T;
+        title?: T;
+        text?: T;
+        link?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+            };
+        current?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzBrandsBlock_select".
+ */
+export interface BzBrandsBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  note?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzLocationBlock_select".
+ */
+export interface BzLocationBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  lead?: T;
+  areaLabel?: T;
+  phoneNote?: T;
   id?: T;
   blockName?: T;
 }

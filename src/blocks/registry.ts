@@ -27,6 +27,9 @@ import { BzCardsBlock } from '../sites/biznes/blocks/BzCards/config'
 import { BzDowntimeCalcBlock } from '../sites/biznes/blocks/BzDowntimeCalc/config'
 import { BzMonitoringBlock } from '../sites/biznes/blocks/BzMonitoring/config'
 import { BzPageHeroBlock } from '../sites/biznes/blocks/BzPageHero/config'
+import { BzLinesBlock } from '../sites/biznes/blocks/BzLines/config'
+import { BzBrandsBlock } from '../sites/biznes/blocks/BzBrands/config'
+import { BzLocationBlock } from '../sites/biznes/blocks/BzLocation/config'
 import { CallToActionBlock } from './CallToAction/config'
 import { ContactBlock } from './Contact/config'
 import { FaqBlock } from './Faq/config'
@@ -48,7 +51,7 @@ export const GENERIC_BLOCKS: Block[] = [
   InquiryFormBlock,
 ]
 
-/** Sections of the Biznes pages (B7 home, B8c contact, B9 subpages) — `src/sites/biznes/blocks/`. */
+/** Sections of the Biznes pages (B7 home, B8c contact, B9 subpages, B11c about) — `src/sites/biznes/blocks/`. */
 export const BIZNES_BLOCKS: Block[] = [
   BzHeroBlock,
   BzNeedsBlock,
@@ -75,6 +78,10 @@ export const BIZNES_BLOCKS: Block[] = [
   BzPanelsBlock,
   BzProgramPickerBlock,
   BzKsefBlock,
+  // B11c: /o-firmie
+  BzLinesBlock,
+  BzBrandsBlock,
+  BzLocationBlock,
 ]
 
 /**

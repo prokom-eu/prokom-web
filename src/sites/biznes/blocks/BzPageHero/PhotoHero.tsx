@@ -1,3 +1,4 @@
+import { withYears } from '@/lib/biznes/years'
 import Image from 'next/image'
 
 import { MediaImage } from '@/components/MediaImage'
@@ -83,7 +84,7 @@ export function PhotoHero({ block, isFirst, crumbs, tenantId }: Props) {
             </div>
           )}
           <Title className="font-display text-[clamp(2.6rem,5.6vw,5.1rem)] leading-[0.95] font-extrabold tracking-[-0.025em] font-stretch-112%">
-            {block.heading}
+            {withYears(block.heading, block.sinceYear, new Date())}
             {block.headingAccent && (
               <>
                 {' '}
