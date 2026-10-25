@@ -1,6 +1,6 @@
 # prokomsoftware.pl — wzorzec wyglądu
 
-Wizualizację całej strony przygotował i zaakceptował Krystian 18.10.2026 („cała strona v3”), a 25.10.2026 przebudował ją po audycie: **v20 — telefon jak aplikacja, ceny, nowa kolejność strony głównej, sekcja „Dlaczego nie WordPress i PHP”, strony prawne (16 plansz)**. Co się zmieniło: `ZMIANY-v20.md` (do sesji SWD1 ma pierwszeństwo przed spec.), prompty: `PRZEKAZANIE-v20.md`. To **cel wizualny**. Pozostałe dokumenty:
+Wizualizację całej strony przygotował i zaakceptował Krystian 18.10.2026 („cała strona v3”), a 25.10.2026 przebudował ją po audycie: **v20 — telefon jak aplikacja, ceny, nowa kolejność strony głównej, sekcja „Dlaczego nie WordPress i PHP”, strony prawne (16 plansz)**. Co się zmieniło: `ZMIANY-v20.md` — **wniesione do spec., ADR-014/015 i planu w SWD1 (25.10.2026); dziś tylko historia, źródłem prawdy jest spec.**; prompty: `PRZEKAZANIE-v20.md`. To **cel wizualny**. Pozostałe dokumenty:
 - zakres i zachowania: `docs/strony/prokomsoftware.md`;
 - model danych: `docs/decyzje/ADR-014-model-tresci-prokomsoftware.md`;
 - kolory i motyw: `docs/decyzje/ADR-015-wyglad-prokomsoftware.md`;
@@ -15,7 +15,7 @@ Wizualizację całej strony przygotował i zaakceptował Krystian 18.10.2026 (�
 | `boards/*.dc.html` + `support.js` | Plansze źródłowe: HTML, CSS i logika podglądu | Dokładne teksty, klasy, kolejność, wartości CSS. Szukaj po nagłówku sekcji. |
 | `boards/index.html` | Spis plansz | `npx serve docs/design/prokomsoftware/boards` → `index.html`. Działają: mega menu, Twój projekt, 8 obszarów, filtry 12 rzeczy, podglądy, proces, kreator, katalog z filtrami i wyszukiwarką, motyw. |
 | `tokens.css` | Kolory jasne i ciemne z mapą nazw na tokeny repo, fonty, miary (bez zmian w v20 — plik zostaje w repo, nie ma go w łatce) | Przeniesione w SW1. v20 nie dodaje kolorów. |
-| `seed/prokomsoftware/*.json` (w katalogu głównym repo) | Treści wyciągnięte z plansz (15 plików): rozwiązania, obszary, 12 rzeczy, kreator, branże, miejscowości, wpisy, nawigacja, wyszukiwarka, fakty [SZEF], FAQ, technologie, sekcje strony głównej, demo aplikacji, ikony. Każdy plik ma `_info` z opisem. | Seed w SW3. Teksty uzgodnione — nie piszemy od nowa. |
+| `seed/prokomsoftware/*.json` (w katalogu głównym repo) | Treści wyciągnięte z plansz (15 plików): rozwiązania, obszary, 12 rzeczy, kreator, branże, miejscowości, wpisy, nawigacja, wyszukiwarka, fakty [SZEF], FAQ, technologie, sekcje strony głównej, demo aplikacji, ikony. Każdy plik ma `_info` z opisem. | Seed w SW3 (branże i wpis w SW2b). Teksty uzgodnione — nie piszemy od nowa. |
 
 ### Plansze
 
@@ -118,7 +118,7 @@ Wszystkie pary tekst/tło z plansz mają ≥ 4,5:1, z wyjątkami poniżej. Test 
 - przy `prefers-reduced-motion: reduce` wszystko wyłączone (plansze tak robią — kopiuj tę regułę).
 
 ## Na co uważać (z doświadczeń przy wizualizacji)
-- **Oczekiwane różnice przy porównaniu zrzutów** (pełna lista: ADR-015, rozstrz. 8)**:** (1) gradient H1 bez błękitnej końcówki (ADR-015) — plansze v20 nadal mają końcówkę `#7FD3FF`, w kodzie jej nie ma. (Od v20 przyciski-linki mają biały napis także w planszach — dawna różnica (2) zniknęła.)
+- **Oczekiwane różnice przy porównaniu zrzutów** (pełna lista: ADR-015, rozstrz. 8)**:** (1) gradient H1 bez błękitnej końcówki (ADR-015) — plansze v20 nadal mają końcówkę `#7FD3FF`, w kodzie jej nie ma; (2) kontrast w warstwie mobilnej i bloku „Czasem powiemy” — napis i ikona na gradiencie akcentu w `--accent-ink`, akcent pigułki „Twój projekt”, gradient bloku z palety (ADR-015, rozstrz. v20 pkt 3–5). (Od v20 przyciski-linki mają biały napis także w planszach — dawna różnica o ciemnym napisie zniknęła.)
 - **Dwa podziały oferty:** katalog ma **5 kategorii** (`Solutions.category`), strona główna **8 obszarów** (`SolutionAreas`, grupowanie marketingowe z chipami). Nie liczymy obszarów z kategorii (ADR-014 §1.2).
 - **Strona główna to jedna responsywna strona.** Zrzuty `Main-390-*` pokazują wygląd przy 390 px (od v20 ok. 15 600 px wysokości — nie dokładaj sekcji).
 - **Style interpolacji:** w planszach tekst z danych siedzi w `<span class="sc-interp">`, dlatego wszystkie elementy mają jawne klasy. W Reakcie nie używaj selektorów typu `.x span`.

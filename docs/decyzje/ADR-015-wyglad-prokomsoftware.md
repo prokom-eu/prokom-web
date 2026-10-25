@@ -1,6 +1,6 @@
 # ADR-015: Wygląd prokomsoftware.pl z wizualizacji — kolory, motyw ciemny, gradient
 
-- **Status:** przyjęta (22.10.2026, SW0) — rozstrzygnięcia na końcu
+- **Status:** przyjęta (22.10.2026, SW0); uzupełniona o wizualizację v20 (25.10.2026, SWD1) — rozstrzygnięcia na końcu
 - **Data:** 2026-10-18
 - **Decyduje:** Krystian
 - **Rozszerza:** ADR-013 (mechanizm tokenów neutralnych per linia i motywu ciemnego). **Doprecyzowuje dla Software** pkt 3 (kolor interfejsu może być ciemniejszą pochodną koloru linii; znak bez zmian) i pkt 4 (lista miejsc z gradientem — niżej). Po przyjęciu dopisać odsyłacz w ADR-013.
@@ -47,12 +47,12 @@ Wyjątki do pilnowania testem są w README wzorca (sekcja „Kontrast”).
    - fragment H1 z klasą `.grad` na 5 stronach z plansz: główna, `/rozwiazania`, strona rozwiązania, strona branży, `/kontakt` (`--grad-h1`);
    - kafle ikon 8 obszarów (`obszary.json` → `gradient`) i karty rozwiązań (`cardGradient`) — wielobarwne, bo rozróżniają obszary, tak jak gradienty grup katalogu Biznesu (tam też jest fiolet). Tylko tło ikony/kafla, nigdy tekst. Lista par kolorów jako tokeny `--grad-area-<key>`; **[SW0]** zostawić wielobarwne (rekomendacja) albo zamienić na odcienie fioletu;
    - poświaty `--glow`, `--glow-2` i siatka `--grid` w hero, kontakcie i ciemnych kartach — jak w planszach.
-8. **Napis na przycisku w akcencie zawsze `--accent-ink`.** W planszach reguła `.pk a{color:inherit}` przebija `.btn-p`, więc linki-przyciski w jasnym motywie mają ciemny napis na fiolecie (ok. 3:1; widać na `Main-1440-light/01.jpg`: „Bezpłatna wycena”, „Dobierz rozwiązanie”). To błąd planszy — w kodzie biały napis; przy porównaniu zrzutów to **oczekiwana różnica**.
+8. **Napis na przycisku w akcencie zawsze `--accent-ink`.** (Do v19 reguła `.pk a{color:inherit}` w planszach dawała linkom-przyciskom ciemny napis na fiolecie. **W v20 plansze mają biały napis** — dla przycisków to już nie jest różnica; wyjątki w rozstrz. v20.)
 9. Test kontrastu (`themes.test.ts`) obejmuje pary Software z README wzorca, łącznie z wyjątkami (`--warn`, `--ok` tylko jako kropki na `surface-3` / `stage` / `accent-soft`).
 
 ## Konsekwencje
 - SW1 = tokeny + motyw + test kontrastu, bez zmian w komponentach Biznesu.
-- Oczekiwane różnice przy porównaniu zrzutów w PR: gradient H1 bez błękitnej końcówki, biały napis na przyciskach-linkach w jasnym motywie.
+- Oczekiwane różnice przy porównaniu zrzutów w PR: pełna lista w rozstrz. 8 (z poprawką v20).
 
 ## Rozstrzygnięcia (SW0, Krystian 22.10.2026)
 1. **Akcent w jasnym motywie: opcja B** (D1). `--accent` `#6E45D4` (biały napis 6,06), `--accent-text` `#5B33C4` (7,73 na białym, 7,06 na papierze). Do tego **`--c-software-text` = `#5B33C4`** zamiast `#7E58CD` — jeden odcień tekstu Software na wszystkich stronach (dziś token używa tylko test). Znak i pliki `public/brand/` bez zmian (`#8B61E3`). Ciemny motyw: `#9670EE` / `#B39BF5` jak w `tokens.css`.
@@ -62,4 +62,12 @@ Wyjątki do pilnowania testem są w README wzorca (sekcja „Kontrast”).
 5. **Fraunces → `Georgia, 'Times New Roman', serif`** w makietach podglądów (D5). Marka zostaje przy dwóch krojach.
 6. Pkt 8 decyzji (biały napis na przyciskach-linkach) i pkt 9 (test kontrastu z wyjątkami z README) bez zmian.
 7. **Ikony:** wspólny zestaw z Biznesem, przy kolizji nazw rysunek Biznesu (ADR-014, rozstrz. 8) — oczekiwana różnica przy porównaniu zrzutów.
-8. **Oczekiwane różnice przy porównaniu zrzutów** (pełna lista): gradient H1 bez błękitnej końcówki; biały napis na przyciskach-linkach w jasnym motywie; rysunki 11 ikon; pole „Imię” i checkbox zgody w wyniku kreatora i na `/audyt` (ADR-014, rozstrz. 6); brak pola pliku w kreatorze; poprawione teksty ze spec. §13 pkt 18–22.
+8. **Oczekiwane różnice przy porównaniu zrzutów** (pełna lista, po v20): gradient H1 bez błękitnej końcówki (plansze v20 nadal mają `#7FD3FF`); rysunki 11 ikon; brak pola pliku w kreatorze; poprawione teksty ze spec. §13 pkt 18–22; różnice z rozstrz. v20 pkt 3–5 niżej. (Biały napis na przyciskach-linkach oraz pole „Imię” i checkbox zgody nie są już różnicą — v20 ma je w planszach.)
+
+## Rozstrzygnięcia v20 (SWD1, Krystian 25.10.2026)
+1. **Pkt 8 decyzji bez „oczekiwanej różnicy” dla przycisków-linków** — w v20 plansze mają biały napis. Zasada `--accent-ink` na akcencie zostaje.
+2. **Warstwa mobilna (dolny pasek, arkusze, pigułka „Twój projekt”) — tylko istniejące tokeny, bez nowych kolorów:** pasek `--header-bg` + rozmycie, obrys `--border`; etykiety `--ink-2`, aktywna `--accent-text` + kreska `--accent`; arkusze `--surface` / `--card` / `--chip` / `--accent-soft`; przyciemnienie tła arkusza — przezroczysta czerń (jak tło `<dialog>` w B3b), nie token koloru. v20 nie dodaje kolorów do `tokens.css`.
+3. **Nowe miejsca z gradientem** (dopisane do listy z pkt 7): okrągły przycisk **Kreator** w dolnym pasku i karta **„Dobierz rozwiązanie”** w arkuszu menu — gradient `--accent → --accent-2` (jak plansza). Napis i ikona na tym gradiencie: **`--accent-ink`** (jasny: biały; ciemny: grafit). Oczekiwane różnice: w ciemnym motywie plansza ma białą ikonę Kreatora na jasnym gradiencie (`stany/82b`, ok. 2–3,6:1 — za mało), a w jasnym karta w menu ma ciemny napis na fiolecie (`stany/80`, ok. 3:1).
+4. **Pigułka „Twój projekt”** ma odwrócone kolory (tło `--ink`, tekst `--surface`). Akcent „Zobacz →” z planszy (`--accent-2` na odwróconym tle) ma za mały kontrast w obu motywach (ok. 3,9:1 w jasnym, ok. 1,8:1 w ciemnym) — w kodzie `--accent-text` **przeciwnego motywu** z istniejącej palety (`--c-software-night-accent-text` w jasnym, `--c-software-light-accent-text` w ciemnym; ≥ 7:1). Oczekiwana różnica.
+5. **Blok „Czasem powiemy: nie budujcie”** (zasady): plansza ma gradient z wartości spoza tokenów (`#7E3FC4`, `#8B4ACB`). W kodzie gradient z istniejącej palety: `--c-software-light-accent-text → --c-software-light-accent` w obu motywach, biały napis (≥ 6:1). Różnica odcienia minimalna.
+6. **Test kontrastu** (`themes.test.ts`, SW4) dostaje pary z pkt 3–5 (napis/ikona na gradiencie akcentu w obu motywach, akcent pigułki, napis bloku „Czasem powiemy”).
