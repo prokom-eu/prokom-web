@@ -27,6 +27,7 @@ import * as migration_20261024_165155_biznes_category from './20261024_165155_bi
 import * as migration_20261024_180841_biznes_industries from './20261024_180841_biznes_industries'
 import * as migration_20261025_082957_biznes_news from './20261025_082957_biznes_news'
 import * as migration_20261025_095823_biznes_about from './20261025_095823_biznes_about'
+import * as migration_20261025_195545_software_collections from './20261025_195545_software_collections'
 
 export const migrations = [
   {
@@ -173,5 +174,10 @@ export const migrations = [
     up: migration_20261025_095823_biznes_about.up,
     down: migration_20261025_095823_biznes_about.down,
     name: '20261025_095823_biznes_about',
+  },
+  {
+    up: migration_20261025_195545_software_collections.up,
+    down: migration_20261025_195545_software_collections.down,
+    name: '20261025_195545_software_collections',
   },
 ]

@@ -10,6 +10,7 @@ import { fileURLToPath } from 'url'
 import { BiznesSettings } from './collections/BiznesSettings'
 import { CatalogCategories } from './collections/CatalogCategories'
 import { CatalogGroups } from './collections/CatalogGroups'
+import { Cities } from './collections/Cities'
 import { Industries } from './collections/Industries'
 import { Inquiries } from './collections/Inquiries'
 import { InquiryDeletions } from './collections/InquiryDeletions'
@@ -20,6 +21,8 @@ import { Posts } from './collections/Posts'
 import { Products } from './collections/Products'
 import { Redirects } from './collections/Redirects'
 import { SiteSettings } from './collections/SiteSettings'
+import { SolutionAreas } from './collections/SolutionAreas'
+import { Solutions } from './collections/Solutions'
 import { Tenants } from './collections/Tenants'
 import { Users } from './collections/Users'
 import { CompanyData } from './globals/CompanyData'
@@ -59,6 +62,10 @@ export default buildConfig({
     Products,
     Posts,
     BiznesSettings,
+    // Software (ADR-014).
+    Solutions,
+    SolutionAreas,
+    Cities,
   ],
   globals: [CompanyData],
   editor: lexicalEditor(),
@@ -136,6 +143,9 @@ export default buildConfig({
         posts: {},
         // One document per tenant, Biznes only (`BiznesSettings` hook).
         'biznes-settings': { isGlobal: true },
+        solutions: {},
+        'solution-areas': {},
+        cities: {},
       },
       // Deleting a tenant must never silently delete its content.
       cleanupAfterTenantDelete: false,
