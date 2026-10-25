@@ -1287,20 +1287,324 @@ body{margin:0}
 @media (prefers-reduced-motion: reduce){*,*:before,*:after{animation:none !important;transition:none !important}.in{opacity:1}.ph.off,.ext.off{opacity:0}}
 @media (max-width:1080px){.hwrap{flex-direction:column}.intg{grid-template-columns:repeat(2,minmax(0,1fr))}.bento{grid-template-columns:repeat(2,minmax(0,1fr))}.tile.tall{grid-row:span 1}.flow,.cg{grid-template-columns:1fr}.steps{grid-template-columns:repeat(2,minmax(0,1fr))}.track{display:none}.strip{grid-template-columns:repeat(2,minmax(0,1fr))}.strip > div:nth-child(3){border-left:0}.fbox{grid-template-columns:1fr}.pstage{height:auto;min-height:560px}}
 @media (max-width:640px){.wrap{padding:0 18px}.intg,.bento{grid-template-columns:1fr}.tile.wide{grid-column:span 1}.steps{grid-template-columns:1fr}.strip{grid-template-columns:1fr}.strip > div{border-left:0;border-top:1px solid rgba(255,255,255,.08)}.lap{width:360px}.b3d{height:420px}.bring{display:none}}
+
+
+/* =====================================================================
+   v20 · warstwa mobilna (25.10.2026)
+   Nawigacja jak w aplikacji: kompaktowy nagłówek, dolny pasek z kreatorem,
+   menu i „Twój projekt” jako arkusze od dołu. Sekcje przebudowane na telefon.
+   ===================================================================== */
+.tbar,.msh,.pjsh,.pjpill,.mobq{display:none}
+/* Przyklejony nagłówek: overflow-x:clip zamiast hidden (hidden robi z .pk kontener przewijania i psuje sticky) */
+.pk{overflow-x:clip !important;overflow-y:visible !important}
+.pk a.btn-p,.pk a.btn-p:visited{color:var(--accentInk)}
+.pk .btn,.pk input,.pk textarea,.pk select{box-sizing:border-box}
+.pjw.empty{display:none}
+.megab{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.megab a{padding:6px 10px;border-radius:999px;font-size:12.5px;font-weight:800;background:var(--chip);color:var(--soft)}
+.megab a:hover{background:var(--accentSoft);color:var(--accentText)}
+.megabk{font-size:11.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+.nobr{white-space:nowrap}
+/* Blok „Czasem powiemy”: czytelny kontrast w obu motywach */
+.saynot{background:linear-gradient(135deg,#5B33C4,#7E3FC4) !important;color:#FFFFFF !important}
+.pk[data-theme="light"] .saynot{background:linear-gradient(135deg,#6E45D4,#8B4ACB) !important}
+/* Nieaktywne przyciski: widoczne, ale jasno nieaktywne */
+.btn[aria-disabled="true"],.btn.off,.dzsend.off{opacity:1 !important;background:var(--chip) !important;color:var(--muted) !important;box-shadow:inset 0 0 0 1.5px var(--line) !important;cursor:not-allowed}
+/* Zgoda: duże pole wyboru */
+.pk input[type="checkbox"]{width:22px;height:22px;accent-color:var(--accent);flex:none;margin:0}
+.cbx{display:flex;gap:12px;align-items:flex-start;font-size:14px;line-height:1.45;color:var(--muted);cursor:pointer}
+.cbx a{color:var(--accentText);font-weight:700}
+/* Stany formularzy */
+.ferr{display:flex;gap:8px;align-items:flex-start;padding:10px 12px;border-radius:12px;background:rgba(220,80,60,.1);color:#B4321F;font-size:13.5px;font-weight:700}
+.pk[data-theme="dark"] .ferr{color:#FF9C8A;background:rgba(255,120,100,.12)}
+.fin.bad{box-shadow:inset 0 0 0 2px #D0452F !important}
+.fok{display:flex;flex-direction:column;gap:14px;padding:22px;border-radius:22px;background:var(--accentSoft);box-shadow:inset 0 0 0 1px var(--accentLine)}
+.fok h3{margin:0;font-family:Archivo,sans-serif;font-stretch:112%;font-weight:900;font-size:24px;line-height:1.1}
+.fokn{display:grid;gap:10px;counter-reset:fk}
+.fokn > span{display:flex;gap:12px;align-items:flex-start;font-size:14.5px;line-height:1.45}
+.fokn > span:before{counter-increment:fk;content:counter(fk);flex:none;width:26px;height:26px;border-radius:50%;background:var(--accent);color:var(--accentInk);font-weight:900;font-size:13px;display:inline-flex;align-items:center;justify-content:center}
+/* Ciemny motyw: makiety nie świecą na biało */
+.pk[data-theme="dark"] .prdoc{background:#1E2320;color:#E9ECE7;box-shadow:0 30px 60px -30px rgba(0,0,0,.9),inset 0 0 0 1px #2E352F}
+.pk[data-theme="dark"] .prdoc .prdr{border-color:#2E352F}
+.pk[data-theme="dark"] .prdl,.pk[data-theme="dark"] .prdoc b{color:#F4F5F1}
+.pk[data-theme="dark"] .dzbody{background:#171C19;color:#E9ECE7}
+.pk[data-theme="dark"] .tile .art{filter:brightness(.82) saturate(1.05)}
+.pk[data-theme="dark"] .mk{filter:brightness(.86)}
+
+@media (max-width:1080px){
+  .topb{display:none !important}
+  .hdr .mobb,.hdr .iconb,.hdr .pjw,.hdr .mnav{display:none !important}
+  .hdrw{padding-top:10px;padding-bottom:10px;min-height:44px}
+  .mobq{display:inline-flex;min-height:42px;padding:0 16px;font-size:14px;border-radius:13px;gap:8px}
+  .srail{display:none !important}
+  /* dolny pasek */
+  .tbar{display:grid;position:fixed;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:70;grid-template-columns:repeat(5,minmax(0,1fr));align-items:center;height:68px;padding:0 4px;border-radius:24px;background:var(--hdr);-webkit-backdrop-filter:blur(22px) saturate(1.6);backdrop-filter:blur(22px) saturate(1.6);box-shadow:inset 0 0 0 1px var(--line),0 22px 44px -20px rgba(0,0,0,.55)}
+  .tbi{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;height:68px;padding:0;font:inherit;font-size:12px;font-weight:800;letter-spacing:.01em;color:var(--muted);background:none;border:0;cursor:pointer;text-decoration:none;-webkit-tap-highlight-color:transparent}
+  .tbi svg{width:23px;height:23px}
+  .tbi:active{transform:scale(.94)}
+  .pk[data-page="start"] .tbi[data-k="start"],.pk[data-page="oferta"] .tbi[data-k="oferta"],.pk[data-page="kontakt"] .tbi[data-k="kontakt"],.pk[data-page="kreator"] .tbi[data-k="kreator"]{color:var(--accentText)}
+  .pk[data-page="start"] .tbi[data-k="start"]:before,.pk[data-page="oferta"] .tbi[data-k="oferta"]:before,.pk[data-page="kontakt"] .tbi[data-k="kontakt"]:before{content:'';position:absolute;top:6px;width:20px;height:3px;border-radius:3px;background:var(--accent)}
+  .tbk{gap:5px}
+  .tbkc{width:56px;height:56px;margin-top:-30px;border-radius:19px;display:flex;align-items:center;justify-content:center;color:#FFFFFF;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 14px 28px -8px var(--glow),0 0 0 5px var(--bg)}
+  .tbkc svg{width:25px;height:25px}
+  .tbkl{color:var(--text)}
+  /* pigułka projektu */
+  .pjpill{display:flex;position:fixed;left:50%;transform:translateX(-50%);bottom:calc(90px + env(safe-area-inset-bottom,0px));z-index:69;align-items:center;gap:10px;height:46px;padding:0 8px 0 10px;border:0;border-radius:999px;background:var(--text);color:var(--bg);font:inherit;font-size:14px;font-weight:800;box-shadow:0 16px 34px -14px rgba(0,0,0,.6);cursor:pointer;white-space:nowrap}
+  .pjpill i{width:30px;height:30px;border-radius:50%;background:var(--accent);color:#FFFFFF;display:inline-flex;align-items:center;justify-content:center}
+  .pjpill b{min-width:24px;height:24px;padding:0 7px;border-radius:999px;background:var(--bg);color:var(--text);display:inline-flex;align-items:center;justify-content:center;font-size:13px}
+  .pjpill em{font-style:normal;color:var(--accent2);padding-right:8px}
+  .toast{bottom:calc(146px + env(safe-area-inset-bottom,0px));width:calc(100% - 28px);max-width:420px;justify-content:flex-start}
+  footer{padding-bottom:96px}
+  /* arkusze (menu i projekt) */
+  .msh,.pjsh{display:flex;position:fixed;inset:0;z-index:100;flex-direction:column;justify-content:flex-end}
+  .mshbg{position:absolute;inset:0;background:rgba(8,6,16,.52);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);animation:mshf .25s ease both}
+  .mshp{position:relative;display:flex;flex-direction:column;gap:14px;background:var(--bg);border-radius:30px 30px 0 0;max-height:92vh;overflow-y:auto;overscroll-behavior:contain;padding:8px 18px calc(26px + env(safe-area-inset-bottom,0px));box-shadow:0 -24px 60px -20px rgba(0,0,0,.5),inset 0 1px 0 var(--line);animation:mshu .34s cubic-bezier(.2,.85,.2,1) both}
+  .mshp > *{flex:none}
+  .mshg{display:block;width:44px;height:5px;border-radius:5px;background:var(--line);margin:4px auto 2px}
+  .mshtop{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .mshtop b{font-family:Archivo,sans-serif;font-stretch:115%;font-weight:900;font-size:26px;letter-spacing:-.02em}
+  .mshx{width:42px;height:42px;border-radius:14px;border:0;background:var(--chip);color:var(--text);display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+  .mshs{display:flex;align-items:center;gap:12px;min-height:52px;padding:0 16px;border-radius:16px;background:var(--card);box-shadow:inset 0 0 0 1.5px var(--line);color:var(--muted);font-size:15px;font-weight:600}
+  .mshs svg{color:var(--accentText);flex:none}
+  .mshk{display:flex;align-items:center;gap:14px;padding:16px;border-radius:22px;color:#FFFFFF;background:radial-gradient(ellipse at 100% 0%,rgba(255,255,255,.25),transparent 55%),linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 18px 36px -18px var(--glow)}
+  .mshki{flex:none;width:48px;height:48px;border-radius:16px;background:rgba(255,255,255,.18);display:inline-flex;align-items:center;justify-content:center}
+  .mshk b{display:block;font-family:Archivo,sans-serif;font-stretch:112%;font-weight:900;font-size:19px;line-height:1.1}
+  .mshk small{display:block;margin-top:3px;font-size:13px;opacity:.9;font-weight:600}
+  .mshk em{margin-left:auto;font-style:normal;font-size:22px;font-weight:900}
+  .mshl{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:6px 2px -4px}
+  .msht{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .mtile{display:flex;flex-direction:column;gap:10px;padding:14px;border-radius:20px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line);min-height:118px}
+  .mtile i{width:42px;height:42px;border-radius:14px;color:#FFFFFF;display:inline-flex;align-items:center;justify-content:center}
+  .mtile b{font-size:15.5px;line-height:1.2}
+  .mtile small{margin-top:auto;font-size:13px;font-weight:800;color:var(--accentText)}
+  .mshrows{display:flex;flex-direction:column;border-radius:20px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line);overflow:hidden}
+  .mshrows a{display:flex;align-items:center;gap:12px;min-height:54px;padding:0 16px;font-size:16px;font-weight:800;border-top:1px solid var(--line)}
+  .mshrows a:first-child{border-top:0}
+  .mshrows a em{margin-left:auto;font-style:normal;color:var(--muted);font-size:20px}
+  .mshb{padding:3px 8px;border-radius:999px;background:var(--accentSoft);color:var(--accentText);font-size:12px;font-weight:900}
+  .mshth{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:6px 2px}
+  .mshth > span{font-weight:800;font-size:15px}
+  .seg{display:inline-flex;padding:4px;border-radius:14px;background:var(--chip)}
+  .seg button{display:inline-flex;align-items:center;gap:6px;min-height:38px;padding:0 14px;border:0;border-radius:11px;background:transparent;color:var(--muted);font:inherit;font-size:14px;font-weight:800;cursor:pointer}
+  .seg button.on{background:var(--card);color:var(--text);box-shadow:0 4px 12px -6px rgba(0,0,0,.35)}
+  .mshc{display:grid;gap:8px}
+  .mshc .btn{min-height:52px;gap:10px}
+  .mshc small{text-align:center;color:var(--muted);font-size:12.5px;margin-top:4px}
+  .pjshl{display:flex;flex-direction:column;gap:8px}
+  @keyframes mshu{from{transform:translateY(100%)}to{transform:none}}
+  @keyframes mshf{from{opacity:0}to{opacity:1}}
+}
+
+@media (max-width:640px){
+  .pk{font-size:15.5px}
+  .sec{padding:60px 0}
+  .h2{font-size:31px !important;line-height:1.05}
+  .lead{font-size:16px;line-height:1.55}
+  .eye{font-size:12px}
+  .btn{min-height:52px}
+  /* skrolowane rzędy (chipy, karuzele) */
+  .hscroll,.oxl,.ptabs,.prtl,.mobrow{scrollbar-width:none}
+  .hscroll::-webkit-scrollbar,.oxl::-webkit-scrollbar,.ptabs::-webkit-scrollbar,.prtl::-webkit-scrollbar,.pop::-webkit-scrollbar,.mobrow::-webkit-scrollbar{display:none}
+  .swipe{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--muted)}
+  .swipe:after{content:'';flex:1;height:1px;background:var(--line)}
+  /* HERO */
+  .hero{padding-top:18px !important}
+  .htxt h1{font-size:36px !important;line-height:1.02 !important}
+  .htxt .lead{font-size:16px}
+  .htxt .btn{width:100%}
+  .trust{display:flex !important;flex-wrap:nowrap !important;overflow-x:auto;gap:8px !important;margin:0 -18px;padding:0 18px 4px;scrollbar-width:none}
+  .hwrap{align-items:stretch !important}
+  .htxt,.hvis{min-width:0 !important;width:100% !important;flex-basis:auto !important}
+  .trust{max-width:100%}
+  .trust > div{flex:none;display:inline-flex !important;align-items:center;gap:8px;white-space:nowrap;padding:7px 12px 7px 8px;border-radius:999px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line);font-size:13px;font-weight:700}
+  .prw,.prw > *,.prl{min-width:0 !important}
+  .prw{grid-template-columns:minmax(0,1fr) !important}
+  .bchips{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;margin:6px -18px 0;padding:2px 18px 6px;scrollbar-width:none}
+  .bchips::-webkit-scrollbar{display:none}
+  .bch{flex:none}
+  .bsum{flex-wrap:wrap}
+  /* 4 kafle intencji */
+  .intg{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:10px !important}
+  .intg .int{padding:14px !important;gap:10px;border-radius:20px}
+  .intg .int small,.intg .int .ia{display:none}
+  .intg .int b{font-size:15px;line-height:1.25}
+  .intg .int .ii{width:40px;height:40px;border-radius:13px}
+  /* 8 obszarów: chipy w poziomie + panel */
+  .ox{padding:18px !important;border-radius:28px;gap:16px}
+  .oxh .lead{display:none}
+  .oxl{display:flex !important;flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x mandatory;gap:8px !important;margin:0 -18px;padding:2px 18px 6px}
+  .oxk{flex:0 0 auto !important;flex-direction:row !important;align-items:center !important;gap:10px !important;min-height:52px !important;padding:7px 16px 7px 7px !important;border-radius:999px !important;scroll-snap-align:start}
+  .oxk .oxi{width:38px !important;height:38px !important;border-radius:999px}
+  .oxk .oxc,.oxk .oxs2{display:none}
+  .oxn .oxt{font-size:14px !important;white-space:nowrap}
+  .oxk .oxbar{display:none}
+  .oxs{height:180px !important}
+  .oxb{padding:18px !important}
+  .oxf{flex-direction:column;align-items:stretch !important;gap:12px}
+  .oxf .btn{flex:1}
+  /* 12 rzeczy: karuzela */
+  .ptabs{display:flex !important;flex-wrap:nowrap !important;overflow-x:auto;width:auto !important;max-width:none !important;margin:0 -18px;border-radius:0 !important;background:transparent !important;box-shadow:none !important;padding:2px 18px 4px !important;gap:8px !important}
+  .ptabs > *{flex:none}
+  .pop{display:flex !important;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px !important;margin:0 -18px;padding:4px 18px 14px;align-items:stretch !important;scrollbar-width:none}
+  .popc{flex:0 0 84% !important;scroll-snap-align:start;align-self:stretch !important;grid-column:auto !important}
+  .popc.open{flex-basis:88% !important}
+  .pcx{padding:16px !important}
+  .pcxa{grid-template-columns:1fr !important;gap:8px}
+  /* podglądy na żywo: laptop na całą szerokość, bez pustego tła */
+  .pv .ptabs{margin-top:4px}
+  .pstage{min-height:0 !important}
+  .pscen{gap:8px}
+  .pinfo{padding:16px !important;gap:12px}
+  .pinfo .btn{width:100%}
+  /* proces: etapy w poziomie */
+  .prtl{display:flex !important;overflow-x:auto;gap:8px !important;margin:0 -18px;padding:2px 18px 6px !important;grid-template-columns:none !important}
+  .prtl > button{flex:0 0 auto;min-width:118px}
+  .prtrack{display:none !important}
+  .prtxt h3{font-size:24px !important}
+  .prgrid{grid-template-columns:1fr !important}
+  .prvis{min-height:0 !important;padding:22px 14px !important}
+  .prdoc{width:100%;max-width:300px;transform:none}
+  .prstamp{top:auto;bottom:44px;right:12px}
+  /* zasady: zwarta siatka */
+  .gcard{padding:14px !important;gap:12px}
+  .saynot{padding:22px !important}
+  .saynot span:first-child{font-size:30px !important}
+  /* realizacje: karuzela */
+  .rlz{display:flex !important;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px !important;margin:0 -18px;padding:2px 18px 12px;scrollbar-width:none}
+  .rlz::-webkit-scrollbar{display:none}
+  .rlz > *{flex:0 0 86%;scroll-snap-align:start}
+  .strip{grid-template-columns:repeat(2,minmax(0,1fr)) !important;border-radius:22px}
+  .strip > div{padding:18px 16px !important;border-left:0 !important;border-top:1px solid rgba(255,255,255,.08)}
+  .strip > div:nth-child(-n+2){border-top:0}
+  .strip > div:nth-child(2n){border-left:1px solid rgba(255,255,255,.08) !important}
+  .strip .n{font-size:30px !important}
+  .strip .t{font-size:12.5px;line-height:1.4}
+  /* FAQ: jedna kolumna */
+  .faqg{grid-template-columns:1fr !important;gap:18px !important}
+  .fq button{min-height:56px;padding:14px 16px;font-size:15.5px}
+  /* kontakt */
+  .fbox{border-radius:26px}
+  .fside,.fmain{padding:22px 18px !important}
+  .fmain .btn{width:100%}
+  .topic{min-height:48px}
+  /* stopka: dwie kolumny linków */
+  footer .wrap{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:22px 16px !important;padding-top:36px !important}
+  footer .wrap > div:first-child,footer .wrap > div:last-child{grid-column:1 / -1}
+  footer .wrap a{padding:3px 0}
+  .prshot{display:none !important}
+  .gcard span[style*="flex-direction: column"] > span{font-size:13.5px}
+}
+
+.dzst.skip{text-decoration:none !important;opacity:.45}
+.dzst.skip i{background:transparent !important;box-shadow:inset 0 0 0 1.5px var(--line)}
+.dzpvb{display:none}
+.dzsrow2{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:8px}
+.dzscope{display:flex;gap:8px;align-items:flex-start;padding:10px 12px;border-radius:12px;background:var(--chip);font-size:13.5px;font-weight:700;color:var(--soft)}
+.dzsend .btn{min-height:52px}
+@media (max-width:640px){
+  .pstage{transform:scale(var(--pvs,1)) translateX(var(--pvx,0px)) !important;height:calc(560px * var(--pvs,1)) !important}
+  .pstage .pk-float,.pstage .fc{display:none !important}
+  .dz{padding:16px !important;border-radius:26px !important;gap:18px !important}
+  .dz *{min-width:0}
+  .dzg,.dzg.dzfin{grid-template-columns:minmax(0,1fr) !important;gap:14px !important}
+  .dzh .lead{font-size:15px}
+  .dzbadges{flex-wrap:nowrap;overflow-x:auto;margin:0 -16px;padding:0 16px 2px;scrollbar-width:none}
+  .dzbadges span{flex:none;white-space:nowrap}
+  .dztop{position:sticky;top:64px;z-index:5;margin:0 -16px;padding:8px 16px;background:var(--hdr);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+  .dzst{min-height:40px}
+  .dzst i{width:28px;height:28px;font-size:13px}
+  .dzq{font-size:24px !important}
+  .dztiles{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:8px !important}
+  .dzt{min-height:104px !important;padding:12px !important;gap:8px !important;border-radius:16px}
+  .dzt b{font-size:14.5px;line-height:1.25}
+  .dzown{padding:14px !important}
+  .dznext{position:sticky;bottom:calc(88px + env(safe-area-inset-bottom,0px));z-index:6;margin:6px -16px -16px;padding:12px 16px;background:var(--hdr);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1px solid var(--line)}
+  .dznext .btn{flex:1}
+  .dzr{display:flex;flex-direction:column;gap:12px}
+  .dzpvb{display:flex;align-items:center;gap:10px;width:100%;min-height:50px;padding:0 16px;border:0;border-radius:16px;background:var(--chip);color:var(--text);font:inherit;font-size:15px;font-weight:800;cursor:pointer;order:2}
+  .dzpvb em{margin-left:auto;font-style:normal;font-size:20px;color:var(--accentText)}
+  .dzr .dzscr{display:none;order:3}
+  .dzr.pvon .dzscr{display:flex}
+  .dzr .dzsend,.dzr .fok{order:1}
+  .dzsrow2{grid-template-columns:1fr}
+  .dzseg{gap:6px}
+  .dzpr{grid-template-columns:1fr 1fr !important}
+}
+
+/* v20 · Dlaczego nie WordPress i PHP */
+.wp{display:flex;flex-direction:column;gap:22px;border-radius:36px;padding:clamp(22px,4vw,52px);background:radial-gradient(ellipse at 0% 0%,rgba(150,112,238,.16),transparent 50%),var(--card);box-shadow:inset 0 0 0 1px var(--line)}
+.pk[data-theme="light"] .wp{background:radial-gradient(ellipse at 0% 0%,rgba(110,69,212,.07),transparent 50%),#FFFFFF;box-shadow:0 0 0 1px var(--line),0 40px 80px -50px rgba(40,30,80,.3)}
+.wph{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.wpf{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.wpc{display:flex;flex-direction:column;gap:8px;padding:20px;border-radius:22px;background:var(--bg2);box-shadow:inset 0 0 0 1px var(--line)}
+.wpc.on{background:linear-gradient(135deg,#5B33C4,#7E3FC4);color:#FFFFFF;box-shadow:0 24px 50px -28px var(--glow)}
+.wpn{font-family:Archivo,sans-serif;font-stretch:118%;font-weight:900;font-size:44px;line-height:1;letter-spacing:-.02em;color:var(--accentText)}
+.wpc.on .wpn{color:#FFFFFF}
+.wpc span{font-size:15px;line-height:1.5;font-weight:600}
+.wpc small{margin-top:auto;font-size:12px;color:var(--muted)}
+.wpc.on small{color:rgba(255,255,255,.75)}
+.wpt{display:flex;flex-direction:column;border-radius:22px;overflow:hidden;box-shadow:inset 0 0 0 1px var(--line)}
+.wpr{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:center;padding:14px 20px;border-top:1px solid var(--line);font-size:15px}
+.wpr:first-child{border-top:0}
+.wph2{background:var(--bg2);font-size:12.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.wph2 .wpb{color:var(--accentText)}
+.wpk{font-size:15px}
+.wpa,.wpb{display:flex;gap:10px;align-items:flex-start;line-height:1.45}
+.wpa{color:var(--muted)}
+.wpb{font-weight:700}
+.wpa i,.wpb i{flex:none;width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;margin-top:1px}
+.wpa i{background:rgba(220,80,60,.14);color:#C2412D}
+.pk[data-theme="dark"] .wpa i{color:#FF9C8A}
+.wpb i{background:var(--ok);color:var(--bg)}
+.wpcta{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;padding:20px 22px;border-radius:22px;background:var(--accentSoft);box-shadow:inset 0 0 0 1px var(--accentLine)}
+.wpcta b{display:block;font-size:18px;margin-bottom:4px}
+.wpcta span{color:var(--soft);font-size:15px;line-height:1.5}
+.wpbtn{display:flex;gap:8px;flex-wrap:wrap}
+.wplink{align-self:flex-start;color:var(--accentText);font-weight:800;font-size:15px}
+@media (max-width:1080px){.wpf{grid-template-columns:1fr}}
+@media (max-width:640px){
+  .wp{padding:18px;border-radius:28px;gap:16px;overflow:hidden}
+  .wpf{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;margin:0 -18px;padding:2px 18px 8px;scrollbar-width:none}
+  .wpf::-webkit-scrollbar{display:none}
+  .wpc{flex:0 0 78%;scroll-snap-align:start;padding:16px}
+  .wpn{font-size:36px}
+  .wph2{display:none}
+  .wpr{grid-template-columns:1fr;gap:6px;padding:14px 16px}
+  .wpk{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  .wpcta{padding:16px}
+  .wpbtn{width:100%;flex-direction:column}
+  .wpbtn .btn{width:100%}
+}
+
+/* v20 · ramka na prawdziwe zdjęcie (do sesji zdjęciowej) */
+.photo{position:relative;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;min-height:220px;padding:16px;border-radius:24px;overflow:hidden;color:#FFFFFF;background:radial-gradient(ellipse at 20% 10%,rgba(255,255,255,.18),transparent 55%),linear-gradient(160deg,#2A2440,#5B33C4 120%);box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
+.photo:before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(255,255,255,.035) 0 14px,transparent 14px 28px)}
+.photo > *{position:relative}
+.photo .phi{position:absolute;top:16px;left:16px;width:40px;height:40px;border-radius:13px;background:rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center}
+.photo b{font-size:16px;line-height:1.25}
+.photo small{font-size:12px;opacity:.75;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+
+/* v20 · cele dotyku linków w stopce i okruszkach (≥ 44 px wysokości wiersza na telefonie) */
+@media (max-width:1080px){
+  footer a{display:inline-flex;align-items:center;min-height:40px}
+  footer .wrap > div{gap:2px !important}
+  .crumbs a,.bcr a,nav[aria-label="Ścieżka"] a,nav[aria-label="Okruszki"] a{display:inline-flex;align-items:center;min-height:40px}
+}
+.fokn > span > em{font-style:normal;display:block}
 </style>
 </helmet>
-<div class="pk" data-theme="{{theme}}" style="min-height: 14500px">
+<div class="pk" data-theme="{{theme}}" data-page="start" style="min-height: 11800px">
 
   <div class="topb" style="background: var(--bg2); border-bottom: 1px solid var(--line); font-size: 13px">
     <div class="wrap" style="padding-top: 8px; padding-bottom: 8px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 20px; color: var(--muted)">
       <span>Linia firmy PRO-KOM · od 2004 r. · Rabka-Zdrój i Zakopane</span>
-      <span style="display: flex; flex-wrap: wrap; gap: 16px"><a href="#" style="color: var(--muted)">PRO-KOM Biznes</a><a href="#" style="color: var(--muted)">Instalacje</a><a href="#" style="color: var(--muted)">Tech</a><span style="color: var(--soft); font-weight: 700">[TELEFON SOFTWARE]</span></span>
+      <span style="display: flex; flex-wrap: wrap; gap: 16px"><a href="https://prokombiznes.pl" style="color: var(--muted)">PRO-KOM Biznes</a><a href="https://prokominstalacje.pl" style="color: var(--muted)">Instalacje</a><a href="https://prokomserwis.pl" style="color: var(--muted)">Tech</a><span style="color: var(--soft); font-weight: 700">[TELEFON SOFTWARE]</span></span>
     </div>
   </div>
 
   <header class="hdr">
     <div class="wrap hdrw">
-      <a href="#" aria-label="PRO-KOM Software, strona główna" style="display: flex; flex-direction: column">
+      <a href="#start" aria-label="PRO-KOM Software, strona główna" style="display: flex; flex-direction: column">
         <span style="font-family: Archivo, sans-serif; font-stretch: 118%; font-weight: 800; font-size: 24px; line-height: 1">PRO<span style="color: var(--accent)">-</span>KOM</span>
         <span style="display: flex; align-items: center; gap: 6px; margin-top: 4px"><span style="flex: 1; height: 3px; background: var(--accent); min-width: 40px"></span><span style="font-family: Archivo, sans-serif; font-stretch: 118%; font-weight: 700; font-size: 10px; letter-spacing: 0.18em">SOFTWARE</span></span>
       </a>
@@ -1319,9 +1623,10 @@ body{margin:0}
                 <a href="Cennik.dc.html">Opieka, kopie i aktualizacje</a><a href="Cennik.dc.html">Cennik</a><a href="Audyt.dc.html">Darmowy audyt strony</a></div>
               <div class="megap">
                 <span class="megak">Pełna oferta</span>
-                <b>30 rozwiązań dla firm z Podhala i nie tylko</b>
+                <b>Strony, systemy i aplikacje dla firm z Podhala i nie tylko</b>
                 <span>Strony, systemy, aplikacje i automatyzacje. Każde z podglądem na żywo.</span>
                 <a href="Katalog.dc.html" class="btn btn-p" style="min-height: 46px; font-size: 14.5px; align-self: flex-start">Zobacz pełną ofertę →</a>
+                <span class="megabk">Dla branż</span><div class="megab"><a href="Branza.dc.html">Budowlanka i ekipy</a><a href="Branza.dc.html">Pensjonaty i hotele</a><a href="Branza.dc.html">Gastronomia</a><a href="Branza.dc.html">Warsztaty i serwisy</a><a href="Branza.dc.html">Gabinety</a><a href="Branza.dc.html">Wszystkie →</a></div>
                 <a href="#dobierz" class="megal">Nie wiesz, co wybrać? Dobierz rozwiązanie w 60 sekund →</a><a href="Wszystko.dc.html" class="megal" style="color: var(--muted)">Strona, sprzęt i serwis w jednej firmie →</a>
               </div>
             </div>
@@ -1334,7 +1639,7 @@ body{margin:0}
           <sc-if value="{{isDark}}" hint-placeholder-val="{{ true }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg></sc-if>
           <sc-if value="{{isLight}}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg></sc-if>
         </button>
-        <div class="pjw">
+        <div class="{{pjwCls}}">
           <button type="button" class="{{projBtn}}" onClick="{{projToggle}}" aria-expanded="{{projExp}}" aria-label="Twój projekt"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16v13H4zM9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M4 12h16"></path></svg><span class="pjl">Twój projekt</span><span class="pjn">{{project}}</span></button>
           <sc-if value="{{projOn}}" hint-placeholder-val="{{ false }}"><div class="pjp pk-pop" role="dialog" aria-label="Twój projekt">
             <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px"><b style="font-family: Archivo, sans-serif; font-stretch: 112%; font-size: 18px">Twój projekt</b><button type="button" class="pjx" onClick="{{projClose}}" aria-label="Zamknij"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></div>
@@ -1345,11 +1650,49 @@ body{margin:0}
           </div></sc-if>
         </div>
         <a href="Kontakt.dc.html" class="btn btn-p desk" style="min-height: 44px; padding: 0 18px; font-size: 14px">Bezpłatna wycena</a>
+        <a href="#kontakt" class="btn btn-p mobq">Wycena</a>
         <button type="button" class="iconb mobb" onClick="{{toggleMenu}}" aria-label="Menu" aria-expanded="{{menuOpen}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></button>
       </div>
     </div>
-    <sc-if value="{{menuOn}}" hint-placeholder-val="{{ false }}"><nav class="mnav pk-pop" aria-label="Menu"><a href="#dobierz" onClick="{{closeMenu}}">Kreator · dobierz w 60 s</a><a href="Katalog.dc.html">Pełna oferta</a><a href="Audyt.dc.html">Darmowy audyt</a><a href="ONas.dc.html">O firmie</a><a href="Aktualnosci.dc.html">Aktualności</a><a href="Kontakt.dc.html">Kontakt</a><a href="Kontakt.dc.html" class="btn btn-p" style="margin-top: 8px">Bezpłatna wycena</a><a href="Kontakt.dc.html" class="btn btn-g" style="margin-top: 4px">[TELEFON SOFTWARE]</a></nav></sc-if>
   </header>
+
+  <nav class="tbar" aria-label="Nawigacja na telefonie">
+    <a href="#start" class="tbi" data-k="start"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7M5 10v10h14V10M10 20v-6h4v6"></path></svg><span>Start</span></a>
+    <a href="Katalog.dc.html" class="tbi" data-k="oferta"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"></path></svg><span>Oferta</span></a>
+    <a href="#dobierz" class="tbi tbk" data-k="kreator" aria-label="Kreator: dobierz rozwiązanie w 60 sekund"><span class="tbkc"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 4V2M15 16v-2M8 9h2M20 9h2M17.8 11.8L19 13M17.8 6.2L19 5M3 21l9-9M12.2 6.2L11 5"></path></svg></span><span class="tbkl">Kreator</span></a>
+    <a href="#kontakt" class="tbi" data-k="kontakt"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path></svg><span>Kontakt</span></a>
+    <button type="button" class="tbi" data-k="menu" onClick="{{toggleMenu}}" aria-expanded="{{menuOpen}}" aria-label="Menu"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"></path></svg><span>Menu</span></button>
+  </nav>
+  <sc-if value="{{projHas}}" hint-placeholder-val="{{ false }}"><button type="button" class="pjpill" onClick="{{projToggle}}" aria-label="Twój projekt"><i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16v13H4zM9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M4 12h16"></path></svg></i>Twój projekt<b>{{project}}</b><em>Zobacz →</em></button></sc-if>
+
+  <sc-if value="{{menuOn}}" hint-placeholder-val="{{ false }}"><div class="msh" role="dialog" aria-modal="true" aria-label="Menu">
+    <div class="mshbg" onClick="{{closeMenu}}"></div>
+    <div class="mshp">
+      <span class="mshg" aria-hidden="true"></span>
+      <div class="mshtop"><b>Menu</b><button type="button" class="mshx" onClick="{{closeMenu}}" aria-label="Zamknij menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></div>
+      <a href="Katalog.dc.html" class="mshs"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM20 20l-4-4"></path></svg><span>Czego szukasz? np. zlecenia, pensjonat</span></a>
+      <a href="#dobierz" class="mshk" onClick="{{closeMenu}}"><span class="mshki"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 4V2M15 16v-2M8 9h2M20 9h2M17.8 11.8L19 13M17.8 6.2L19 5M3 21l9-9M12.2 6.2L11 5"></path></svg></span><span><b>Dobierz rozwiązanie</b><small>5 krótkich kroków · 60 s · cena od razu</small></span><em>→</em></a>
+      <span class="mshl">Oferta</span>
+      <div class="msht"><a href="Katalog.dc.html" class="mtile"><i style="background: linear-gradient(135deg, #6E45D4, #A24BD8)"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h18v14H3zM3 9h18M7 7h.01M10 7h.01"></path></svg></i><b>Strony internetowe</b><small>od 999 zł</small></a><a href="Katalog.dc.html" class="mtile"><i style="background: linear-gradient(135deg, #1F6F8B, #2E9A76)"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h18v16H3zM3 9h18M9 9v11"></path></svg></i><b>Systemy i panele</b><small>od 2 990 zł</small></a><a href="Katalog.dc.html" class="mtile"><i style="background: linear-gradient(135deg, #3A7BD5, #6E45D4)"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2h8a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zM11 18h2"></path></svg></i><b>Aplikacje mobilne</b><small>zapytaj o wycenę</small></a><a href="Katalog.dc.html" class="mtile"><i style="background: linear-gradient(135deg, #B7791F, #E8955A)"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L4 14h7l-1 8 9-12h-7z"></path></svg></i><b>Automatyzacje i AI</b><small>zapytaj o wycenę</small></a></div>
+      <div class="mshrows"><a href="Katalog.dc.html">Pełna oferta<em>›</em></a><a href="Branza.dc.html">Dla branż<em>›</em></a><a href="Cennik.dc.html">Cennik<em>›</em></a><a href="Audyt.dc.html">Darmowy audyt strony<span class="mshb">0 zł</span><em>›</em></a></div>
+      <span class="mshl">Firma</span>
+      <div class="mshrows"><a href="ONas.dc.html">O firmie<em>›</em></a><a href="Wszystko.dc.html">Jedna firma do wszystkiego<em>›</em></a><a href="Aktualnosci.dc.html">Aktualności i poradnik<em>›</em></a><a href="Kontakt.dc.html">Kontakt<em>›</em></a></div>
+      <div class="mshth"><span>Wygląd strony</span><div class="seg" role="group" aria-label="Motyw"><button type="button" class="{{thLCls}}" onClick="{{setLight}}" aria-pressed="{{thLOn}}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2"></path></svg>Jasny</button><button type="button" class="{{thDCls}}" onClick="{{setDark}}" aria-pressed="{{thDOn}}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg>Ciemny</button></div></div>
+      <div class="mshc"><a href="Kontakt.dc.html" class="btn btn-p">Bezpłatna wycena →</a><a href="Kontakt.dc.html" class="btn btn-g"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"></path></svg>[TELEFON SOFTWARE]</a><small>PRO-KOM · ul. Orkana 16B, Rabka-Zdrój · od 2004 r.</small></div>
+    </div>
+  </div></sc-if>
+
+  <sc-if value="{{projOn}}" hint-placeholder-val="{{ false }}"><div class="pjsh" role="dialog" aria-modal="true" aria-label="Twój projekt">
+    <div class="mshbg" onClick="{{projClose}}"></div>
+    <div class="mshp">
+      <span class="mshg" aria-hidden="true"></span>
+      <div class="mshtop"><b>Twój projekt</b><button type="button" class="mshx" onClick="{{projClose}}" aria-label="Zamknij"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></div>
+      <sc-if value="{{projEmpty}}" hint-placeholder-val="{{ true }}"><div class="pje"><span class="pjei"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></span><span>Na razie pusto. Klikaj <b>„+ Do projektu”</b> przy rozwiązaniach, a tu zbierze się lista. Wycenimy całość naraz.</span></div></sc-if>
+      <sc-if value="{{projHas}}" hint-placeholder-val="{{ false }}"><div class="pjshl"><sc-for list="{{projItems}}" as="p" hint-placeholder-count="2"><div class="pji"><i><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg></i><span>{{p.n}}</span><button type="button" onClick="{{p.rm}}" aria-label="Usuń">×</button></div></sc-for></div>
+        <a href="Kontakt.dc.html" class="btn btn-p" style="min-height: 52px">Wyślij do bezpłatnej wyceny →</a>
+        <button type="button" class="pjc" onClick="{{projClear}}">Wyczyść listę</button></sc-if>
+    </div>
+  </div></sc-if>
 
   <nav class="{{rail.cls}}" style="transform: translateY({{rail.y}}px)" aria-label="Sekcje strony głównej">
     <span class="srh">Na tej stronie</span>
@@ -1363,11 +1706,11 @@ body{margin:0}
     <div class="hgrid" aria-hidden="true"></div><div class="hglow g1" aria-hidden="true"></div><div class="hglow g2" aria-hidden="true"></div>
     <div class="wrap hwrap">
       <div class="htxt">
-        <span class="pill in d1"><span class="live"></span>Rabka-Zdrój · Podhale · zdalnie cała Polska</span>
+        <span class="pill in d1"><span class="live"></span>Rabka-Zdrój · Podhale · zdalnie w całej Polsce</span>
         <h1 class="disp in d2" style="margin: 0; font-size: clamp(42px, 5.2vw, 72px); line-height: .98">Strony, systemy i aplikacje <span class="grad">szyte pod Twoją firmę.</span></h1>
         <p class="lead in d3">Opisujesz, jak pracuje Twoja firma. My pokazujemy, jak będzie wyglądać Twoja strona, system albo aplikacja, zanim zapłacisz. Potem cena i termin na piśmie. Firma z Rabki, od 2004 r.</p>
         <div class="in d4" style="display: flex; flex-wrap: wrap; gap: 10px"><a href="#dobierz" class="btn btn-p"><span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 9px; border-radius: 8px; background: rgba(0,0,0,.18); font-size: 12px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 21a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM12 9v4l2.5 1.5M10 2h4"></path></svg>60 s</span>Dobierz rozwiązanie<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a><a href="#podglady" class="btn btn-g">Zobacz podglądy na żywo</a></div>
-        <div class="cb in d5"><i></i>Odpowiadamy w ciągu <b>[CZAS ODPOWIEDZI]</b> w godzinach pracy</div>
+        <div class="cb in d5"><i></i>Odpowiadamy w ciągu <b>1 dnia roboczego</b></div>
         <div class="trust in d5">
           <div><span class="ti"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h18v12H3zM8 20h8M12 16v4"></path></svg></span>Podgląd przed zakupem</div>
           <div><span class="ti"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h16v11H4zM8 10V7a4 4 0 0 1 8 0v3"></path></svg></span>Kod i dane należą do Ciebie</div>
@@ -1396,7 +1739,7 @@ body{margin:0}
                     <sc-if value="{{bApp}}" hint-placeholder-val="{{ true }}"><div class="w"><b>Ekipy w terenie</b><div class="row"><span>Ekipa Marka · Poddasze</span><span class="tg" style="background: #DFF3DA; color: #2E7A1E">na miejscu</span></div><div class="row"><span>Ekipa Piotra · Kuchnia</span><span class="tg" style="background: #E3E7F3; color: #2457D6">w drodze</span></div></div></sc-if>
                     <sc-if value="{{bFv}}" hint-placeholder-val="{{ false }}"><div class="w"><b>Do faktury</b><div class="row"><span>Łazienka #128</span><span class="tg" style="background: #DFF3DA; color: #2E7A1E">wysłana</span></div><div class="row"><span>Schody #127</span><span class="tg" style="background: #FFF1D6; color: #8A5A00">czeka</span></div></div></sc-if>
                     <sc-if value="{{bSms}}" hint-placeholder-val="{{ false }}"><div class="w"><b>Powiadomienia</b><span style="color: #56605A">SMS do klienta: „Ekipa będzie jutro 8:00”</span><span style="color: #2E7A1E; font-weight: 800">wysłano · 09:12</span></div></sc-if>
-                    <sc-if value="{{bRap}}" hint-placeholder-val="{{ false }}"><div class="w"><b>Raport tygodnia</b><span style="font-family: Archivo, sans-serif; font-weight: 900; font-size: 18px; color: #17201B">[PRZYCHÓD]</span><span style="color: #56605A">14 zleceń · 3 opóźnione</span></div></sc-if>
+                    <sc-if value="{{bRap}}" hint-placeholder-val="{{ false }}"><div class="w"><b>Raport tygodnia</b><span style="font-family: Archivo, sans-serif; font-weight: 900; font-size: 18px; color: #17201B">48 200 zł</span><span style="color: #56605A">14 zleceń · 3 opóźnione</span></div></sc-if>
                     <sc-if value="{{bAi}}" hint-placeholder-val="{{ false }}"><div class="w" style="background: #ECE7FB; border-color: #CFC2F5"><b style="color: #5B33C4">Asystent AI</b><span>Streścił 3 zapytania i przygotował odpowiedzi. Ty zatwierdzasz.</span></div></sc-if>
                   </div>
                 </div>
@@ -1438,7 +1781,7 @@ body{margin:0}
   <section id="oferta" class="sec" style="padding-top: 48px">
     <div class="wrap"><div class="ox">
       <div class="oxh">
-        <div style="display: flex; flex-direction: column; gap: 10px; max-width: 680px"><span class="eye">Oferta · 8 obszarów, 30 rozwiązań</span><h2 class="h2">Wszystko dla firmy, w ośmiu obszarach.</h2></div>
+        <div style="display: flex; flex-direction: column; gap: 10px; max-width: 680px"><span class="eye">Oferta · 8 obszarów</span><h2 class="h2">Wszystko dla firmy, w ośmiu obszarach.</h2></div>
         <p class="lead" style="max-width: 40ch">Kliknij obszar i zobacz, co w nim robimy, co zyskujesz i od ilu to kosztuje.</p>
       </div>
       <div class="oxg">
@@ -1469,7 +1812,7 @@ body{margin:0}
   <!-- POPULARNE -->
   <section id="popularne" class="sec" style="padding-top: 0">
     <div class="wrap" style="display: flex; flex-direction: column; gap: 24px">
-      <div class="rv" style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap"><div style="display: flex; flex-direction: column; gap: 10px"><span class="eye">Najczęściej zamawiane</span><h2 class="h2" style="max-width: 18ch">12 rzeczy, po które firmy przychodzą najczęściej.</h2></div><p class="lead" style="max-width: 46ch">Każda z ceną „od”, terminem i tym, co dokładnie dostajesz. Kliknij kartę, żeby ją rozwinąć. Nie ma Twojej? Pełna oferta ma 30 rozwiązań.</p></div>
+      <div class="rv" style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap"><div style="display: flex; flex-direction: column; gap: 10px"><span class="eye">Najczęściej zamawiane</span><h2 class="h2" style="max-width: 18ch">12 rzeczy, po które firmy przychodzą najczęściej.</h2></div><p class="lead" style="max-width: 46ch">Każda z ceną „od”, terminem i tym, co dokładnie dostajesz. Kliknij kartę, żeby ją rozwinąć. Nie ma Twojej? W pełnej ofercie jest ich więcej.</p></div>
       <div class="rv" style="display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap">
         <div class="ptabs" role="tablist" aria-label="Rodzaj"><sc-for list="{{popTabs}}" as="t" hint-placeholder-count="5"><button type="button" role="tab" aria-selected="{{t.on}}" class="{{t.cls}}" onClick="{{t.pick}}">{{t.n}}<span class="pcnt">{{t.c}}</span></button></sc-for></div>
         <span style="font-size: 13.5px; font-weight: 700; color: var(--muted)">{{popLabel}}</span>
@@ -1489,7 +1832,7 @@ body{margin:0}
               <b class="popn">{{p.n}}</b>
               <span class="popd">{{p.d}}</span>
               <sc-if value="{{p.hasVar}}" hint-placeholder-val="{{ false }}"><div class="popvars" style="display: flex; flex-wrap: wrap; gap: 5px"><sc-for list="{{p.vars}}" as="v" hint-placeholder-count="3"><span style="font-size: 11.5px; font-weight: 700; padding: 4px 8px; border-radius: 7px; background: var(--chip); color: var(--soft)">{{v}}</span></sc-for></div></sc-if>
-              <span class="popp"><span><small>od</small> [OD] <small>zł netto</small></span><span style="color: var(--muted); font-size: 12.5px; font-weight: 700">{{p.tm}}</span></span>
+              <span class="popp"><span><small>{{p.pre}}</small> {{p.pr}} <small>{{p.post}}</small></span><span style="color: var(--muted); font-size: 12.5px; font-weight: 700">{{p.tm}}</span></span>
               </div>
             </button>
             <sc-if value="{{p.open}}" hint-placeholder-val="{{ false }}">
@@ -1504,14 +1847,14 @@ body{margin:0}
           </div>
         </sc-for>
       </div>
-      <div class="rv pcx"><div class="pcxl"><span class="pcxk">A gdy już masz stronę lub system</span><div class="pcxa"><a href="Cennik.dc.html"><i><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"></path></svg></i><span><b>Opieka i rozwój</b><small>od [OD] zł / mies.</small></span></a><a href="Kontakt.dc.html"><i><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM5 5l4 4M15 15l4 4M19 5l-4 4M9 15l-4 4"></path></svg></i><span><b>Przejęcie po kimś, kto zniknął</b><small>odzyskamy dostępy i dane</small></span></a><a href="Audyt.dc.html"><i><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM20 20l-4-4"></path></svg></i><span><b>Darmowy audyt strony</b><small>wynik na piśmie</small></span></a></div></div><a href="Katalog.dc.html" class="btn btn-p pcxb">Pełna oferta: 30 rozwiązań →</a></div>
+      <div class="rv pcx"><div class="pcxl"><span class="pcxk">A gdy już masz stronę lub system</span><div class="pcxa"><a href="Cennik.dc.html"><i><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"></path></svg></i><span><b>Opieka i rozwój</b><small>od 149 zł / mies.</small></span></a><a href="Kontakt.dc.html"><i><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM5 5l4 4M15 15l4 4M19 5l-4 4M9 15l-4 4"></path></svg></i><span><b>Przejęcie po kimś, kto zniknął</b><small>odzyskamy dostępy i dane</small></span></a><a href="Audyt.dc.html"><i><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM20 20l-4-4"></path></svg></i><span><b>Darmowy audyt strony</b><small>wynik na piśmie</small></span></a></div></div><a href="Katalog.dc.html" class="btn btn-p pcxb">Pełna oferta →</a></div>
     </div>
   </section>
 
   <!-- PODGLADY -->
   <section id="podglady" style="padding: 0 0 96px">
     <div class="wrap" style="display: flex; flex-direction: column; gap: 22px">
-      <div class="rv" style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap"><div style="display: flex; flex-direction: column; gap: 10px"><span class="eye">Podglądy na żywo · tego nie ma nikt na Podhalu</span><h2 class="h2" style="max-width: 20ch">Zobacz, jak to będzie wyglądać. Zanim zapłacisz.</h2></div><p class="lead" style="max-width: 46ch">To nie są obrazki. Laptop pokazuje Twoje biuro, telefon pokazuje Twojego pracownika albo klienta, a oba ekrany żyją razem. Wybierz rodzaj rozwiązania.</p></div>
+      <div class="rv" style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap"><div style="display: flex; flex-direction: column; gap: 10px"><span class="eye">Podglądy na żywo · zanim zapłacisz</span><h2 class="h2" style="max-width: 20ch">Zobacz, jak to będzie wyglądać. Zanim zapłacisz.</h2></div><p class="lead" style="max-width: 46ch">To nie są obrazki. Laptop pokazuje Twoje biuro, telefon pokazuje Twojego pracownika albo klienta, a oba ekrany żyją razem. Wybierz rodzaj rozwiązania.</p></div>
       <div class="pv rv" onMouseMove="{{pvMove}}" onMouseLeave="{{pvLeave}}">
         <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap">
           <div class="ptabs" role="tablist" aria-label="Rodzaj rozwiązania"><sc-for list="{{heroTabs}}" as="t" hint-placeholder-count="5"><button type="button" role="tab" aria-selected="{{t.selected}}" class="{{t.cls}}" onClick="{{t.pick}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{t.icon}}"></path></svg>{{t.label}}<i class="pvp" style="{{t.bar}}"></i></button></sc-for></div>
@@ -1771,10 +2114,10 @@ body{margin:0}
             </div>
             <div class="prvis dots" aria-hidden="true">
               <sc-if value="{{st.v1}}" hint-placeholder-val="{{ true }}"><div class="prv1"><div class="bub l"><span>Mamy 3 ekipy, zlecenia idą SMS-em, protokoły na kartkach…</span></div><div class="bub r"><span>Pokażę, jak to może wyglądać. Macie program do faktur?</span></div><div class="bub l"><span>Tak, Subiekt.</span></div><div class="bub r"><span>Zostaje. Podepniemy go.</span></div><span class="prcap">rozmowa · 30 min · u Was albo online</span></div></sc-if>
-              <sc-if value="{{st.v2}}" hint-placeholder-val="{{ false }}"><div class="prdoc"><div class="prdh"><span class="prdl">PRO<i>-</i>KOM Software</span><span>Wycena nr PKS-2026-[NR]</span></div><b>System zleceń + aplikacja ekip</b><div class="prdr"><span>Etap 1 · zlecenia i grafik</span><span>[KWOTA]</span></div><div class="prdr"><span>Etap 2 · aplikacja ekip</span><span>[KWOTA]</span></div><div class="prdr"><span>Połączenie z Subiektem</span><span>[KWOTA]</span></div><div class="prdr t"><span>Razem, stała cena za zakres</span><span>[KWOTA] netto</span></div><div class="prdf"><span>Termin: [TERMIN]</span><span>Ważna 30 dni</span></div><span class="prstamp">NA PIŚMIE</span></div><div class="prshot"><div class="mk"><div class="mkb"><i></i><i></i><i></i></div><div class="mkh"></div><div class="mkr"><span style="width: 70%"></span><span style="width: 45%"></span></div></div><span class="prcap" style="position: static">szkic Twojego systemu, za darmo</span></div></sc-if>
+              <sc-if value="{{st.v2}}" hint-placeholder-val="{{ false }}"><div class="prdoc"><div class="prdh"><span class="prdl">PRO<i>-</i>KOM Software</span><span>Wycena nr PKS-2026-0142</span></div><b>System zleceń + czas pracy</b><div class="prdr"><span>Etap 1 · zlecenia i grafik</span><span>5 990 zł</span></div><div class="prdr"><span>Etap 2 · czas pracy ekip</span><span>2 990 zł</span></div><div class="prdr"><span>Połączenie z Subiektem</span><span>po sprawdzeniu programu</span></div><div class="prdr t"><span>Razem etapy 1–2, stała cena</span><span>8 980 zł netto</span></div><div class="prdf"><span>Termin: 10 tygodni</span><span>Ważna 30 dni</span></div><span class="prstamp">NA PIŚMIE</span></div><div class="prshot"><div class="mk"><div class="mkb"><i></i><i></i><i></i></div><div class="mkh"></div><div class="mkr"><span style="width: 70%"></span><span style="width: 45%"></span></div></div><span class="prcap" style="position: static">szkic Twojego systemu, za darmo</span></div></sc-if>
               <sc-if value="{{st.v3}}" hint-placeholder-val="{{ false }}"><div class="prv3"><div class="prweek"><sc-for list="{{weeks}}" as="w" hint-placeholder-count="6"><span class="{{w.cls}}"><b>{{w.n}}</b><i style="{{w.bar}}"></i><span>{{w.t}}</span></span></sc-for></div><div class="prlap"><div class="prlb"><span class="prtag"><i></i>wersja testowa · tydzień {{wk}}</span><div class="mk sys" style="position: static; height: 120px"><div class="mks"><span class="on"></span><span></span><span></span><span></span></div><div class="mkm"><div class="mkk"><span></span><span class="a"></span><span></span></div><div class="mkl"><span></span><span></span><span class="hl"></span></div></div></div></div></div><span class="prcap">klikasz, zgłaszasz uwagi, my poprawiamy</span></div></sc-if>
               <sc-if value="{{st.v4}}" hint-placeholder-val="{{ false }}"><div class="prv4"><div class="prchk"><span class="on"><i>✓</i>Dane przeniesione z Excela</span><span class="on"><i>✓</i>Konta dla 7 pracowników</span><span class="on"><i>✓</i>Szkolenie w biurze · 1,5 h</span><span class="on"><i>✓</i>Instrukcja na 2 strony</span><span class="go"><i></i>Start: poniedziałek 7:00</span></div><span class="prcap">uruchomienie bez zatrzymywania firmy</span></div></sc-if>
-              <sc-if value="{{st.v5}}" hint-placeholder-val="{{ false }}"><div class="prv5"><div class="prmon"><span><b>Kopia zapasowa</b><i class="ok"></i>dziś 03:00</span><span><b>Aktualizacje</b><i class="ok"></i>w piątek</span><span><b>Monitoring</b><i class="ok pulse"></i>działa · 100%</span><span><b>Czas reakcji</b><i class="ok"></i>[CZAS] na piśmie</span></div><div class="prgrow"><span>Rok 1 · system zleceń</span><span>Rok 2 · + aplikacja ekip</span><span>Rok 3 · + panel klienta</span></div><span class="prcap">rośnie razem z firmą, bez pisania od nowa</span></div></sc-if>
+              <sc-if value="{{st.v5}}" hint-placeholder-val="{{ false }}"><div class="prv5"><div class="prmon"><span><b>Kopia zapasowa</b><i class="ok"></i>dziś 03:00</span><span><b>Aktualizacje</b><i class="ok"></i>w piątek</span><span><b>Monitoring</b><i class="ok pulse"></i>działa · 100%</span><span><b>Czas reakcji</b><i class="ok"></i>8 h na piśmie</span></div><div class="prgrow"><span>Rok 1 · system zleceń</span><span>Rok 2 · + aplikacja ekip</span><span>Rok 3 · + panel klienta</span></div><span class="prcap">rośnie razem z firmą, bez pisania od nowa</span></div></sc-if>
             </div>
           </div>
         </div>
@@ -1787,7 +2130,7 @@ body{margin:0}
     <div class="wrap"><div class="dz">
       <div class="dzh">
         <div style="display: flex; flex-direction: column; gap: 10px; max-width: 700px"><span class="eye">Dobierz rozwiązanie · 60 sekund</span><h2 class="h2">Kliknij kilka razy. Zobacz, co dla Ciebie zbudujemy.</h2></div>
-        <div style="display: flex; flex-direction: column; gap: 12px; align-items: flex-start"><p class="lead" style="max-width: 44ch; margin: 0">Bez formularzy na start. Telefon albo e-mail podajesz na końcu i tylko wtedy, gdy chcesz wycenę na piśmie.</p><div class="dzbadges"><span><i>3</i>kliknięcia</span><span><i>●</i>podgląd na żywo</span><span><i>✓</i>wycena na piśmie</span></div></div>
+        <div style="display: flex; flex-direction: column; gap: 12px; align-items: flex-start"><p class="lead" style="max-width: 44ch; margin: 0">Bez formularzy na start. Telefon albo e-mail podajesz na końcu i tylko wtedy, gdy chcesz wycenę na piśmie.</p><div class="dzbadges"><span><i>5</i>krótkich kroków</span><span><i>●</i>podgląd na żywo</span><span><i>✓</i>wycena na piśmie</span></div></div>
       </div>
 
       <div class="{{dz.gCls}}">
@@ -1849,6 +2192,7 @@ body{margin:0}
               <sc-if value="{{dz.isRebuild}}" hint-placeholder-val="{{ false }}"><span class="dzplus">+ przebudowa starej strony, bez utraty pozycji w Google</span></sc-if>
               <sc-if value="{{dz.hasSize}}" hint-placeholder-val="{{ true }}"><div class="dzseg sm"><sc-for list="{{dz.sizes}}" as="x" hint-placeholder-count="3"><button type="button" class="{{x.cls}}" onClick="{{x.pick}}"><b>{{x.n}}</b></button></sc-for></div></sc-if>
               <div class="dzpr"><span class="dzpv"><small>Cena</small><b>{{dz.price}}</b></span><span class="dzpv"><small>Termin</small><b>{{dz.term}}</b></span></div>
+              <sc-if value="{{dz.hasScope}}" hint-placeholder-val="{{ false }}"><span class="dzscope">{{dz.scope}}</span></sc-if>
               <span class="dzwhen">{{dz.whenNote}}</span>
               <div class="dzneedb"><span class="dzsl">Co będzie potrzebne od Ciebie</span><div class="dzneed"><sc-for list="{{dz.needs}}" as="x" hint-placeholder-count="4"><button type="button" class="{{x.cls}}" onClick="{{x.pick}}"><i></i>{{x.n}}</button></sc-for></div><span class="dznote">Kliknij, co już masz. Czegoś brakuje? Pomożemy: teksty, zdjęcia, domena.</span></div>
               <sc-if value="{{dz.hasDesc}}" hint-placeholder-val="{{ false }}"><div class="dzdesc"><span class="dzsl">Twoje potrzeby</span><span class="dzdq">„{{dz.desc}}”</span></div></sc-if>
@@ -1857,7 +2201,8 @@ body{margin:0}
           </sc-if>
         </div>
 
-        <div class="dzr">
+        <div class="{{dz.rCls}}">
+          <button type="button" class="dzpvb" onClick="{{dz.pvT}}" aria-expanded="{{dz.pvOnS}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h18v12H3zM8 20h8M12 16v4"></path></svg>{{dz.pvLabel}}<em>{{dz.pvSign}}</em></button>
           <div class="dzscr" aria-hidden="true">
             <div class="dzbar"><i></i><i></i><i></i><span>{{dz.pvUrl}}</span></div>
             <div class="dzbody">
@@ -1868,7 +2213,7 @@ body{margin:0}
                   <div class="dzwh"><b>{{dz.heroT}}</b><span>{{dz.heroS}}</span><em>{{dz.cta}}</em></div>
                   <sc-if value="{{dz.fRez}}" hint-placeholder-val="{{ false }}"><div class="dzcal pk-pop"><span><small>Przyjazd</small>12 sty</span><span><small>Wyjazd</small>15 sty</span><span><small>Goście</small>2 osoby</span><em>Sprawdź termin</em></div></sc-if>
                   <sc-if value="{{dz.fForm}}" hint-placeholder-val="{{ false }}"><div class="dzform pk-pop"><span>Imię</span><span>Telefon</span><em>{{dz.formCta}}</em></div></sc-if>
-                  <sc-if value="{{dz.fMap}}" hint-placeholder-val="{{ false }}"><div class="dzmap pk-pop"><span><b>Zadzwoń</b>[TELEFON]</span><span><b>Godziny</b>pn–pt 8–16</span><i></i></div></sc-if>
+                  <sc-if value="{{dz.fMap}}" hint-placeholder-val="{{ false }}"><div class="dzmap pk-pop"><span><b>Zadzwoń</b>123 456 789</span><span><b>Godziny</b>pn–pt 8–16</span><i></i></div></sc-if>
                   <sc-if value="{{dz.fCards}}" hint-placeholder-val="{{ true }}"><div class="dzwc"><sc-for list="{{dz.cards}}" as="c" hint-placeholder-count="3"><span class="dzcd"><i></i><b>{{c}}</b></span></sc-for></div></sc-if>
                   <sc-if value="{{dz.fKat}}" hint-placeholder-val="{{ false }}"><div class="dzkat pk-pop"><span></span><span></span><span></span><span></span></div></sc-if>
                   <sc-if value="{{dz.fBlog}}" hint-placeholder-val="{{ false }}"><div class="dzblog pk-pop"><span><b>Poradnik</b>Jak wybrać…</span><span><b>Aktualności</b>Nowość w ofercie</span></div></sc-if>
@@ -1911,105 +2256,47 @@ body{margin:0}
                 <b class="dzsh">Chcesz wycenę na piśmie?</b>
                 <span class="dzsl">Jak wolisz rozmawiać?</span>
                 <div class="dzchips"><sc-for list="{{dz.prefs}}" as="x" hint-placeholder-count="4"><button type="button" class="{{x.cls}}" onClick="{{x.pick}}">{{x.n}}</button></sc-for></div>
-                <div class="dzsrow"><input class="dzin" type="text" placeholder="Telefon albo e-mail" value="{{dz.contact}}" onInput="{{dz.onContact}}"><button type="button" class="{{dz.sendCls}}" onClick="{{dz.send}}">Wyślij mi wycenę na piśmie</button></div>
-                <span class="dznote">Odpowiadamy w ciągu [CZAS ODPOWIEDZI]. Dane wykorzystamy tylko do tej wyceny. <a href="#">Polityka prywatności</a>.</span>
+                <div class="dzsrow2"><input class="dzin" type="text" placeholder="Imię" value="{{dz.name}}" onInput="{{dz.onName}}" aria-label="Imię"><input class="{{dz.inCls}}" type="text" placeholder="Telefon albo e-mail" value="{{dz.contact}}" onInput="{{dz.onContact}}" aria-label="Telefon albo e-mail"></div>
+                <label class="cbx"><input type="checkbox" checked="{{dz.ok}}" onChange="{{dz.toggleOk}}"><span>Zgadzam się na kontakt w sprawie tej wyceny. Szczegóły w <a href="Polityka.dc.html">polityce prywatności</a>.</span></label>
+                <sc-if value="{{dz.err}}" hint-placeholder-val="{{ false }}"><div class="ferr" role="alert">{{dz.errT}}</div></sc-if>
+                <button type="button" class="{{dz.sendCls}}" onClick="{{dz.send}}" style="width: 100%">Wyślij mi wycenę na piśmie →</button>
+                <span class="dznote">Odpowiadamy w ciągu 1 dnia roboczego. Dane tylko do tej wyceny, bez newslettera.</span>
               </div>
             </sc-if>
-            <sc-if value="{{dz.sent}}" hint-placeholder-val="{{ false }}"><div class="dzok pk-pop"><i><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg></i><span><b>Gotowe. Wycena jest w drodze.</b>Odezwiemy się w ciągu [CZAS ODPOWIEDZI]: {{dz.prefT}}. Masz pytanie wcześniej? [TELEFON SOFTWARE]</span></div></sc-if>
+            <sc-if value="{{dz.sent}}" hint-placeholder-val="{{ false }}"><div class="fok pk-pop" role="status">
+              <span class="dzk" style="align-self: flex-start">Wysłane · PKS-2026-0144</span>
+              <h3>Gotowe. Wycena jest w drodze.</h3>
+              <div class="fokn"><span><em>W ciągu 1 dnia roboczego {{dz.prefT}} i dopytamy o szczegóły.</em></span><span>Dostaniesz szkic do klikania i wycenę na piśmie: zakres, cenę i termin.</span><span>Decydujesz Ty. Wycena jest ważna 30 dni, bez zobowiązań.</span></div>
+              <span class="dznote">Kopia zgłoszenia przyjdzie na Twój e-mail, jeśli go podałeś. Pilne? [TELEFON SOFTWARE]</span>
+            </div></sc-if>
           </sc-if>
         </div>
       </div>
     </div></div>
   </section>
 
-  <!-- TECHNOLOGIE -->
-  <section id="technologie" class="sec" style="padding-top: 0">
-    <div class="wrap"><div class="tx">
-      <div class="txh">
-        <div style="display: flex; flex-direction: column; gap: 10px; max-width: 640px"><span class="eye">Z czego budujemy i co z tego masz</span><h2 class="h2">Twój system, warstwa po warstwie.</h2></div>
-        <p class="lead" style="max-width: 40ch">Nazw nie musisz znać. Kliknij warstwę i zobacz, co z niej masz.</p>
+  <!-- BEZ WORDPRESSA -->
+  <section id="bez-wordpressa" class="sec">
+    <div class="wrap"><div class="wp rv">
+      <div class="wph">
+        <div style="display: flex; flex-direction: column; gap: 10px; max-width: 720px"><span class="eye">Dlaczego nie WordPress i PHP</span><h2 class="h2">Bez wtyczek do łatania. Bez nocnych aktualizacji.</h2></div>
+        <p class="lead" style="max-width: 46ch">WordPress to dobre narzędzie do bloga. Strona firmy, której nikt na co dzień nie pilnuje, płaci za niego bezpieczeństwem i szybkością. Dlatego piszemy strony od podstaw, bez PHP.</p>
       </div>
-      <div class="txtabs" role="tablist" aria-label="Warstwy systemu"><sc-for list="{{txL}}" as="l" hint-placeholder-count="6"><button type="button" role="tab" aria-selected="{{l.on}}" class="{{l.cls}}" onClick="{{l.pick}}"><span class="txi"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{l.ic}}"></path></svg></span><span class="txpn"><b class="txn">{{l.n}}</b><small class="txt2">{{l.tt}}</small></span><sc-if value="{{l.run}}" hint-placeholder-val="{{ false }}"><i class="txbar"></i></sc-if></button></sc-for></div>
-      <div class="txc pk-pop">
-        <div class="txc1"><span class="txdi"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{tx.ic}}"></path></svg></span><h3 class="h3" style="font-size: 26px">{{tx.n}}</h3><span class="txsub">{{tx.s}}</span><div class="txchips"><sc-for list="{{tx.t}}" as="x" hint-placeholder-count="3"><span class="txchip">{{x}}</span></sc-for></div></div>
-        <div class="txc2"><span class="txk">Co zyskujesz</span><b class="txgain">{{tx.gain}}</b><span class="txwhy"><b>Dlaczego tak:</b> {{tx.why}}</span></div>
-        <div class="txc3"><sc-for list="{{tx.m}}" as="m" hint-placeholder-count="3"><span class="txmi"><b class="txmv">{{m.v}}</b><span class="txml">{{m.l}}</span></span></sc-for><small class="txsrc">{{tx.proof}}</small></div>
+      <div class="wpf">
+        <div class="wpc"><b class="wpn">7 966</b><span>nowych luk w WordPressie i wtyczkach w 2024 r. To ok. 22 dziennie, 96% we wtyczkach.</span><small>Źródło: Patchstack, „State of WordPress Security in 2025”</small></div>
+        <div class="wpc"><b class="wpn">72 h</b><span>na zgłoszenie wycieku danych klientów do UODO. Za brak zgłoszenia grozi kara do 10 mln euro albo 2% rocznego obrotu.</span><small>Źródło: RODO, art. 33 i art. 83 ust. 4</small></div>
+        <div class="wpc on"><b class="wpn">0</b><span>wtyczek do aktualizacji na naszych stronach. Jeden kod, który znamy w całości.</span><small>Next.js, TypeScript, panel Payload</small></div>
       </div>
+      <div class="wpt" role="table" aria-label="WordPress z wtyczkami a strona od PRO-KOM">
+        <div class="wpr wph2" role="row"><span></span><span class="wpa">WordPress z wtyczkami</span><span class="wpb">Strona od PRO-KOM</span></div>
+        <div class="wpr"><b class="wpk">Szybkość</b><span class="wpa"><i><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></i>motyw i kilkanaście wtyczek ładuje się przy każdym wejściu</span><span class="wpb"><i><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg></i>strona czeka gotowa, treść w mniej niż 2,5 s</span></div><div class="wpr"><b class="wpk">Bezpieczeństwo</b><span class="wpa"><i><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></i>każda wtyczka to inny autor i inna luka</span><span class="wpb"><i><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg></i>jeden kod, bez PHP i bez wtyczek</span></div><div class="wpr"><b class="wpk">Aktualizacje</b><span class="wpa"><i><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></i>ktoś musi je robić co tydzień</span><span class="wpb"><i><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg></i>robimy je my, w opiece</span></div><div class="wpr"><b class="wpk">Wygląd</b><span class="wpa"><i><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></i>gotowy szablon, jak u setek innych firm</span><span class="wpb"><i><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg></i>projekt pod Twoją firmę</span></div><div class="wpr"><b class="wpk">Google i AI</b><span class="wpa"><i><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></i>zależy od wtyczek i ich ustawień</span><span class="wpb"><i><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg></i>w cenie: dane firmy, opisy, szybkość</span></div><div class="wpr"><b class="wpk">Zmiana treści</b><span class="wpa"><i><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></i>rozbudowany panel z setką opcji</span><span class="wpb"><i><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg></i>panel po polsku, tylko Twoje pola</span></div>
+      </div>
+      <div class="wpcta">
+        <div><b>Masz stronę na WordPressie?</b><span>Przeniesiemy treści, zdjęcia i adresy, bez utraty pozycji w Google. Starą instalację usuwamy z serwera po odbiorze.</span></div>
+        <div class="wpbtn"><a href="Audyt.dc.html" class="btn btn-g">Sprawdź swoją stronę za darmo</a><a href="Katalog.dc.html" class="btn btn-p">Przebudowa od 1 499 zł →</a></div>
+      </div>
+      <a href="Wpis.dc.html" class="wplink">Uczciwe porównanie: kiedy WordPress ma sens, a kiedy nie →</a>
     </div></div>
-  </section>
-
-  <!-- JAK ROBIMY -->
-  <section id="jak-robimy" class="sec" style="padding-top: 0">
-    <div class="wrap"><div class="jx">
-      <div class="jxh">
-        <span class="jxe">Jak robimy strony i systemy</span>
-        <h2 class="h2" style="color: var(--jt)">Nie składamy z gotowych klocków. <em style="font-style: normal; color: var(--jacc)">Piszemy pod Twoją firmę.</em></h2>
-        <p class="lead" style="color: var(--jm)">Większość stron w Polsce powstaje z gotowego szablonu i kilkunastu wtyczek. Działa, dopóki ktoś to pilnuje. My piszemy stronę od podstaw, dlatego dostajesz trzy rzeczy, które da się zmierzyć.</p>
-      </div>
-
-      <div class="jxg">
-        <div class="jxc">
-          <div class="jxv" aria-hidden="true"><svg viewBox="0 0 200 120" style="width: 78%; height: auto"><path d="M20 110A80 80 0 0 1 180 110" fill="none" style="stroke: var(--jpl)" stroke-width="14" stroke-linecap="round"></path><path d="M20 110A80 80 0 0 1 180 110" fill="none" style="stroke: var(--jgrn)" stroke-width="14" stroke-linecap="round" stroke-dasharray="251" class="jrgauge"></path><line x1="100" y1="110" x2="100" y2="40" style="stroke: var(--jt)" stroke-width="4" stroke-linecap="round" class="jrneedle"></line><circle cx="100" cy="110" r="8" style="fill: var(--jt)"></circle></svg><span class="jxb">&lt; 2,5 s</span></div>
-          <span class="jxn">Szybka</span>
-          <span class="jxt">Klient widzi stronę w mniej niż 2,5 sekundy, także na telefonie i na słabym zasięgu. Tyle wynosi próg, który mierzy Google.</span>
-          <span class="jxgain"><i><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg></i><span><small>Zyskujesz</small>Klient nie czeka i nie ucieka do konkurencji, zanim zobaczy ofertę.</span></span>
-        </div>
-        <div class="jxc">
-          <div class="jxv" aria-hidden="true"><div class="jrshield"><svg width="70" height="70" viewBox="0 0 24 24" fill="none" style="stroke: var(--jacc)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"></path><path d="M8.5 12l2.5 2.5 4.5-5"></path></svg><span class="jrtick jxtk t1">kopia · 03:00</span><span class="jrtick jxtk t2">aktualizacje</span><span class="jrtick jxtk t3">monitoring</span></div><span class="jxb">0 wtyczek</span></div>
-          <span class="jxn">Bezpieczna</span>
-          <span class="jxt">Nie ma obcych wtyczek, które trzeba co tydzień łatać. Kopie, aktualizacje i pilnowanie robimy my, Ty prowadzisz firmę.</span>
-          <span class="jxgain"><i><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg></i><span><small>Zyskujesz</small>Spokój. Żadnych telefonów „strona nie działa” w środku sezonu.</span></span>
-        </div>
-        <div class="jxc">
-          <div class="jxv" aria-hidden="true"><div class="jrg">
-            <div class="jrgq"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#6B7590" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM20 20l-4-4"></path></svg>remont łazienki Rabka</div>
-            <div class="jrgr on"><span class="u">twojafirma.pl</span><b>Remonty łazienek · Rabka-Zdrój</b><span class="tg"><i>szybka</i><i>na telefon</i><i>czytelna dla AI</i></span></div>
-            <div class="jrgr jxgr"><span class="u">portal-ogloszen.pl</span><b>Remonty – ogłoszenia</b></div>
-          </div></div>
-          <span class="jxn">Widoczna w Google i AI</span>
-          <span class="jxt">Szybkość, wygoda na telefonie i dobrze opisana treść. Tak stronę czytają Google i asystenci AI, jak ChatGPT. W cenie każdego projektu, nie w osobnym pakiecie.</span>
-          <span class="jxgain"><i><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg></i><span><small>Zyskujesz</small>Klientów z Google, a nie tylko z polecenia.</span></span>
-        </div>
-      </div>
-
-      <div class="jxvs">
-        <div class="jxvsh"><span class="jxe">Dlaczego nie WordPress i podobne kreatory</span><span style="font-size: 15px; color: var(--jm)">To nie są złe narzędzia dla bloga czy hobby. Dla firmy, która nie ma informatyka na etacie, to ciągła praca i ryzyko.</span></div>
-        <div class="jrvsg">
-          <div class="jxside them">
-            <span class="jxst">Typowa strona z kreatora</span>
-            <div class="jxstk"><span>Twoja treść</span><span class="wp">Kreator stron</span><span class="wp">Motyw od firmy X</span><span class="wp">Formularz · wtyczka 1</span><span class="wp">SEO · wtyczka 2</span><span class="wp">Galeria · wtyczka 3</span><span class="wp">Cache · wtyczka 4</span><span class="wp">Kopie · wtyczka 5</span><span class="more">+ kilkanaście kolejnych, każda od innego autora</span></div>
-            <ul class="jxl"><li>każda wtyczka ładuje swój kod na każdej podstronie</li><li>każda wymaga aktualizacji, a aktualizacja potrafi coś zepsuć</li><li>bez opieki po roku strona jest wolna albo zhakowana</li></ul>
-          </div>
-          <div class="jrvsmid" aria-hidden="true"><span class="jxvs0">vs</span></div>
-          <div class="jxside us">
-            <span class="jxst">Strona od PRO-KOM</span>
-            <div class="jxstk us"><span>Twoja treść</span><span class="g">Jeden kod, napisany pod Twoją firmę</span><span class="g">Panel tylko z tym, co zmieniasz</span><span class="g">Kopie, aktualizacje, monitoring: nasza robota</span></div>
-            <div class="jxus3"><span><b>1</b>kod, napisany<br>pod Ciebie</span><span><b>0</b>wtyczek<br>do łatania</span><span><b>1</b>firma, która<br>za to odpowiada</span></div>
-            <ul class="jxl ok"><li>przeglądarka dostaje gotową stronę, bez zbędnego kodu</li><li>nie ma czego łatać co tydzień</li><li>jedna firma odpowiada za całość, na piśmie</li></ul>
-          </div>
-        </div>
-        <div class="jxfacts">
-          <div><span class="jxfn">39,6%</span><span>wszystkich stron na świecie to WordPress. Największy cel dla automatycznych ataków.<small>W3Techs, 17.10.2026</small></span></div>
-          <div><span class="jxfn">7 966</span><span>nowych luk w ekosystemie WordPress w 2024 r., z czego 96% we wtyczkach.<small>Patchstack, 2025</small></span></div>
-          <div><span class="jxfn">33%</span><span>tych luk nie miało poprawki w dniu, w którym stały się publiczne.<small>Patchstack, 2025</small></span></div>
-        </div>
-      </div>
-      <span style="font-size: 12px; color: var(--jm); opacity: .8">Źródła: W3Techs, „Usage statistics of WordPress” (17.10.2026) · Patchstack, „State of WordPress Security in 2025” · Google Search Central, „Core Web Vitals” i „Page experience”. Wynik szybkości każdej oddanej strony zapisujemy w protokole odbioru. Nasz: [WYNIK].</span>
-    </div></div>
-  </section>
-
-  <!-- PORÓWNANIE -->
-  <section id="porownanie" class="sec" style="padding-top: 0">
-    <div class="wrap" style="display: flex; flex-direction: column; gap: 24px">
-      <div class="rv" style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap">
-        <div style="display: flex; flex-direction: column; gap: 10px"><span class="eye">Dlaczego my</span><h2 class="h2" style="max-width: 20ch">Freelancer, agencja czy PRO-KOM?</h2></div>
-        <div class="{{cswCls}} vsw" role="tablist" aria-label="Porównaj z"><span class="knob"></span><button type="button" role="tab" aria-selected="{{cmpA}}" onClick="{{cmpPickA}}">vs freelancer</button><button type="button" role="tab" aria-selected="{{cmpB}}" onClick="{{cmpPickB}}">vs agencja z miasta</button></div>
-      </div>
-      <div class="vsg rv">
-        <div class="vsh"><span></span><span>{{cmpThem}}</span><span class="us">PRO-KOM Software</span></div>
-        <sc-for list="{{cmpRows}}" as="r" hint-placeholder-count="6"><div class="vsr"><b>{{r.q}}</b><span class="th"><i>{{r.ti}}</i>{{r.them}}</span><span class="us"><i><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg></i>{{r.us}}</span></div></sc-for>
-      </div>
-    </div>
   </section>
 
   <!-- GWARANCJE -->
@@ -2019,7 +2306,7 @@ body{margin:0}
         <div style="display: flex; flex-direction: column; gap: 10px"><span class="eye">Na piśmie, nie na słowo</span><h2 class="h2">Zasady, których się trzymamy.</h2></div>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px"><sc-for list="{{guarantees}}" as="g" hint-placeholder-count="6"><div class="gcard"><span class="gi"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{g.icon}}"></path></svg></span><span style="display: flex; flex-direction: column; gap: 4px"><b style="font-size: 16px">{{g.title}}</b><span style="font-size: 14px; color: var(--muted)">{{g.text}}</span></span></div></sc-for></div>
       </div>
-      <div style="flex: 1 1 320px; min-width: 0; padding: 32px; border-radius: 28px; background: var(--accent); color: var(--accentInk); display: flex; flex-direction: column; gap: 14px; justify-content: flex-end; box-shadow: 0 30px 60px -30px var(--glow)">
+      <div class="saynot" style="flex: 1 1 320px; min-width: 0; padding: 32px; border-radius: 28px; background: var(--accent); color: var(--accentInk); display: flex; flex-direction: column; gap: 14px; justify-content: flex-end; box-shadow: 0 30px 60px -30px var(--glow)">
         <span style="font-family: Archivo, sans-serif; font-stretch: 125%; font-weight: 900; font-size: 40px; line-height: 1">Czasem powiemy: nie budujcie.</span>
         <span style="font-size: 16px; opacity: .92">Jeśli gotowy program za kilkadziesiąt złotych miesięcznie rozwiąże Twój problem, powiemy Ci to wprost i pomożemy go wybrać. Budujemy tylko wtedy, gdy to się opłaca Tobie.</span>
       </div>
@@ -2030,18 +2317,18 @@ body{margin:0}
   <section id="realizacje" style="padding: 0 0 96px">
     <div class="wrap" style="display: flex; flex-direction: column; gap: 28px">
       <div class="rv" style="display: flex; flex-direction: column; gap: 10px; max-width: 760px"><span class="eye">Realizacje</span><h2 class="h2">Najpierw zbudowaliśmy to dla siebie.</h2><p class="lead">Na tych systemach na co dzień pracuje PRO-KOM: sklepy, serwis i biuro. Możesz je otworzyć i sprawdzić.</p></div>
-      <div class="rv" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px">
-        <a href="#" class="tile" style="padding: 0">
+      <div class="rv rlz" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px">
+        <a href="https://prokomserwis.pl" class="tile" style="padding: 0" rel="noopener">
           <div class="art" aria-hidden="true" style="height: 200px; background: linear-gradient(160deg, var(--stage), var(--bg2)); padding: 22px 22px 0; box-sizing: border-box; overflow: hidden"><div style="height: 100%; border-radius: 12px 12px 0 0; background: #F4F6F2; color: #17201B; display: flex; overflow: hidden; box-shadow: 0 -10px 40px -20px rgba(0,0,0,.6)"><div style="width: 84px; flex: none; background: #111613; color: #C9CFC9; padding: 10px 6px; display: flex; flex-direction: column; gap: 3px; font-size: 8px; font-weight: 700"><span style="display: flex; align-items: center; gap: 4px; color: #FFF; margin: 0 2px 6px"><i style="width: 10px; height: 10px; border-radius: 3px; background: #9670EE"></i>Serwis</span><span style="padding: 4px 6px; border-radius: 5px; background: #2A2340; color: #FFF">Naprawy</span><span style="padding: 4px 6px">Klienci</span><span style="padding: 4px 6px">Magazyn</span><span style="padding: 4px 6px">Raporty</span></div><div style="flex: 1; padding: 10px; display: flex; flex-direction: column; gap: 6px; font-size: 8.5px; min-width: 0"><div style="display: flex; justify-content: space-between; font-weight: 800; font-size: 10px"><span>Naprawy w toku · 12</span><span style="color: #2E7A1E">na żywo</span></div><span style="display: flex; justify-content: space-between; padding: 6px 8px; border-radius: 6px; background: #FFF; border: 1px solid #E1E5DF"><span>#2041 · Laptop HP · Nowak</span><span style="padding: 1px 6px; border-radius: 999px; background: #FFF1D6; color: #8A5A00; font-weight: 800">diagnoza</span></span><span style="display: flex; justify-content: space-between; padding: 6px 8px; border-radius: 6px; background: #FFF; border: 1px solid #E1E5DF"><span>#2040 · Drukarka Epson · Lis</span><span style="padding: 1px 6px; border-radius: 999px; background: #E3E7F3; color: #2457D6; font-weight: 800">czeka na część</span></span><span style="display: flex; justify-content: space-between; padding: 6px 8px; border-radius: 6px; background: #FFF; border: 2px solid #2E7A1E"><span>#2038 · Telefon · Kowalska</span><span style="padding: 1px 6px; border-radius: 999px; background: #DFF3DA; color: #2E7A1E; font-weight: 800">gotowe · SMS wysłany</span></span></div></div></div>
           <div style="padding: 20px 24px 24px; display: flex; flex-direction: column; gap: 8px"><span style="display: flex; justify-content: space-between; align-items: center"><b style="font-size: 18px">prokomserwis.pl</b><span style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 800; color: var(--ok)"><span style="width: 8px; height: 8px; border-radius: 50%; background: var(--ok)"></span>działa</span></span><span style="color: var(--muted); font-size: 15px">System serwisu: przyjęcia napraw, status dla klienta, SMS o gotowości, panel pracowników.</span></div>
         </a>
-        <a href="#" class="tile" style="padding: 0">
+        <a href="https://pro-kom.eu" class="tile" style="padding: 0" rel="noopener">
           <div class="art" aria-hidden="true" style="height: 200px; background: linear-gradient(160deg, var(--stage), var(--bg2)); padding: 22px 22px 0; box-sizing: border-box; overflow: hidden"><div style="height: 100%; border-radius: 12px 12px 0 0; background: #FFFFFF; color: #121613; overflow: hidden; box-shadow: 0 -10px 40px -20px rgba(0,0,0,.6)"><div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; border-bottom: 1px solid #ECEEE8; font-size: 8px; font-weight: 800"><span>PRO<span style="color: #6E45D4">-</span>KOM</span><span style="display: flex; gap: 8px; color: #4F5650">Biznes · Instalacje · Software · Serwis</span></div><div style="padding: 14px 12px; display: flex; gap: 12px"><div style="flex: 1; display: flex; flex-direction: column; gap: 6px"><span style="font-family: Archivo, sans-serif; font-weight: 900; font-size: 15px; line-height: 1.05">Technologia dla firm na Podhalu. Od 2004 r.</span><span style="font-size: 8px; color: #4F5650">Kasy, komputery, sieci, monitoring, oprogramowanie.</span><span style="display: flex; gap: 4px"><span style="padding: 4px 8px; border-radius: 5px; background: #121613; color: #FFF; font-size: 7.5px; font-weight: 800">Zadzwoń</span><span style="padding: 4px 8px; border-radius: 5px; border: 1px solid #DCDFD8; font-size: 7.5px; font-weight: 800">Nasze linie</span></span></div><div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; width: 110px"><span style="height: 34px; border-radius: 6px; background: #ECE7FB"></span><span style="height: 34px; border-radius: 6px; background: #E9EDE6"></span><span style="height: 34px; border-radius: 6px; background: #E3E7F3"></span><span style="height: 34px; border-radius: 6px; background: #FFF1D6"></span></div></div></div></div>
           <div style="padding: 20px 24px 24px; display: flex; flex-direction: column; gap: 8px"><span style="display: flex; justify-content: space-between; align-items: center"><b style="font-size: 18px">pro-kom.eu</b><span style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 800; color: var(--ok)"><span style="width: 8px; height: 8px; border-radius: 50%; background: var(--ok)"></span>działa</span></span><span style="color: var(--muted); font-size: 15px">Strona firmy przeniesiona ze starego systemu na nowoczesny, z prostym panelem treści dla pracowników.</span></div>
         </a>
-        <a href="#" class="tile" style="padding: 0">
+        <a href="https://prokombiznes.pl" class="tile" style="padding: 0" rel="noopener">
           <div class="art" aria-hidden="true" style="height: 200px; background: linear-gradient(160deg, var(--stage), var(--bg2)); padding: 22px 22px 0; box-sizing: border-box; overflow: hidden"><div style="height: 100%; border-radius: 12px 12px 0 0; background: #F3F5FA; color: #0D1326; display: flex; gap: 8px; padding: 10px; box-sizing: border-box; overflow: hidden; box-shadow: 0 -10px 40px -20px rgba(0,0,0,.6)"><div style="width: 70px; flex: none; display: flex; flex-direction: column; gap: 5px; font-size: 7.5px; font-weight: 700; color: #4A5470"><b style="font-size: 8px; color: #0D1326">Filtry</b><span style="display: flex; align-items: center; gap: 4px"><i style="width: 8px; height: 8px; border-radius: 2px; background: #244FB0"></i>Kasy fiskalne</span><span style="display: flex; align-items: center; gap: 4px"><i style="width: 8px; height: 8px; border-radius: 2px; border: 1px solid #C9D0E0"></i>Terminale</span><span style="display: flex; align-items: center; gap: 4px"><i style="width: 8px; height: 8px; border-radius: 2px; border: 1px solid #C9D0E0"></i>Komputery</span><span style="display: flex; align-items: center; gap: 4px"><i style="width: 8px; height: 8px; border-radius: 2px; border: 1px solid #C9D0E0"></i>Sieci</span></div><div style="flex: 1; display: flex; flex-direction: column; gap: 6px; min-width: 0"><span style="height: 18px; border-radius: 5px; background: #FFF; border: 1px solid #E2E6EF; display: flex; align-items: center; padding: 0 6px; font-size: 7.5px; color: #6B7590">Szukaj: kasa online do gastronomii</span><div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px"><span style="height: 58px; border-radius: 6px; background: #FFF; border: 1px solid #E2E6EF; display: flex; flex-direction: column; justify-content: flex-end; padding: 5px; font-size: 7px; font-weight: 800">Posnet Ergo<span style="color: #244FB0">+ zapytaj</span></span><span style="height: 58px; border-radius: 6px; background: #FFF; border: 1px solid #E2E6EF; display: flex; flex-direction: column; justify-content: flex-end; padding: 5px; font-size: 7px; font-weight: 800">Elzab K10<span style="color: #244FB0">+ zapytaj</span></span><span style="height: 58px; border-radius: 6px; background: #FFF; border: 1px solid #E2E6EF; display: flex; flex-direction: column; justify-content: flex-end; padding: 5px; font-size: 7px; font-weight: 800">Sunmi V2<span style="color: #244FB0">+ zapytaj</span></span></div></div></div></div>
-          <div style="padding: 20px 24px 24px; display: flex; flex-direction: column; gap: 8px"><span style="display: flex; justify-content: space-between; align-items: center"><b style="font-size: 18px">prokombiznes.pl</b><span style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 800; color: var(--warn)"><span style="width: 8px; height: 8px; border-radius: 50%; background: var(--warn)"></span>w budowie</span></span><span style="color: var(--muted); font-size: 15px">Katalog 67 produktów z wyszukiwarką, filtrami, porównywarką i listą zapytań ofertowych.</span></div>
+          <div style="padding: 20px 24px 24px; display: flex; flex-direction: column; gap: 8px"><span style="display: flex; justify-content: space-between; align-items: center"><b style="font-size: 18px">prokombiznes.pl</b><span style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 800; color: var(--warn)"><span style="width: 8px; height: 8px; border-radius: 50%; background: var(--warn)"></span>w budowie</span></span><span style="color: var(--muted); font-size: 15px">Katalog sprzętu i programów z wyszukiwarką, filtrami i listą zapytań ofertowych.</span></div>
         </a>
       </div>
       <div class="strip rv">
@@ -2055,7 +2342,7 @@ body{margin:0}
 
   <!-- FAQ -->
   <section id="faq" class="sec" style="background: var(--bg2); border-top: 1px solid var(--line)">
-    <div class="wrap" style="display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 40px">
+    <div class="wrap faqg" style="display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 40px">
       <div class="rv" style="display: flex; flex-direction: column; gap: 10px"><span class="eye">Zanim napiszesz</span><h2 class="h2">Pytania, które słyszymy najczęściej</h2><p class="lead">Nie ma Twojego? <a href="#kontakt" style="color: var(--accentText); font-weight: 700">Zadaj je w formularzu</a>, odpowiadamy konkretnie.</p></div>
       <div class="rv" style="display: flex; flex-direction: column; gap: 10px"><sc-for list="{{faq}}" as="f" hint-placeholder-count="6"><div class="fq"><button onClick="{{f.toggle}}" aria-expanded="{{f.expanded}}">{{f.q}}<span aria-hidden="true" style="color: var(--accentText); font-size: 22px">{{f.sign}}</span></button><sc-if value="{{f.open}}" hint-placeholder-val="{{ false }}"><p class="pk-pop" style="margin: 0; padding: 0 20px 18px; color: var(--muted); font-size: 15px">{{f.a}}</p></sc-if></div></sc-for></div>
     </div>
@@ -2070,12 +2357,11 @@ body{margin:0}
           <span style="font-family: Archivo, sans-serif; font-stretch: 118%; font-weight: 900; font-size: 30px; line-height: 1.05">Najpierw zobaczysz, potem zapłacisz.</span>
           <span style="color: #C9CAD6; font-size: 15.5px; line-height: 1.6">Po krótkiej rozmowie dostajesz: szkic rozwiązania, zakres, cenę i termin. Wszystko na piśmie. Bez zobowiązań.</span>
           <div style="display: flex; flex-direction: column; gap: 10px; font-size: 15px">
-            <span style="display: flex; gap: 10px; align-items: center"><i style="width: 10px; height: 10px; border-radius: 50%; background: #7BD36A"></i>Odpowiadamy w ciągu [CZAS ODPOWIEDZI]</span>
+            <span style="display: flex; gap: 10px; align-items: center"><i style="width: 10px; height: 10px; border-radius: 50%; background: #7BD36A"></i>Odpowiadamy w ciągu 1 dnia roboczego</span>
             <span style="display: flex; gap: 10px; align-items: center"><i style="width: 10px; height: 10px; border-radius: 50%; background: #7BD36A"></i>Spotkanie w Rabce, Zakopanem, u Ciebie albo online</span>
-            <span style="display: flex; gap: 10px; align-items: center"><i style="width: 10px; height: 10px; border-radius: 50%; background: #7BD36A"></i>Najbliższy wolny termin: [MIESIĄC]</span>
           </div>
           <a href="Audyt.dc.html" class="kaud"><b>Masz już stronę?</b><span>Zrób darmowy audyt: szybkość, telefon, Google i AI. Wynik na piśmie.</span><em>→</em></a>
-          <div style="margin-top: auto; display: flex; flex-direction: column; gap: 4px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.12)"><span style="font-size: 12px; font-weight: 800; letter-spacing: .08em; color: #C9A9FF">TELEFON</span><b style="font-size: 24px">[TELEFON SOFTWARE]</b><span style="font-size: 13px; color: #C9CAD6">[GODZINY] · [E-MAIL SOFTWARE]</span></div>
+          <div style="margin-top: auto; display: flex; flex-direction: column; gap: 4px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.12)"><span style="font-size: 12px; font-weight: 800; letter-spacing: .08em; color: #C9A9FF">TELEFON</span><b style="font-size: 24px">[TELEFON SOFTWARE]</b><span style="font-size: 13px; color: #C9CAD6">pn–pt 9:00–17:00 · [E-MAIL SOFTWARE]</span></div>
         </div>
         <div class="fmain">
           <sc-if value="{{notSent}}" hint-placeholder-val="{{ true }}">
@@ -2083,14 +2369,15 @@ body{margin:0}
             <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px"><sc-for list="{{topics}}" as="t" hint-placeholder-count="6"><button type="button" class="{{t.cls}}" aria-pressed="{{t.on}}" onClick="{{t.pick}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{t.icon}}"></path></svg>{{t.label}}</button></sc-for></div>
             <div class="fl"><label for="f-d">Opisz krótko, po swojemu</label><textarea id="f-d" placeholder="np. Mamy 3 ekipy, zlecenia idą SMS-em, a protokoły piszemy na kartkach…"></textarea></div>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px"><div class="fl"><label for="f-n">Imię i firma</label><input id="f-n" placeholder="Anna, Twoja Firma"></div><div class="fl"><label for="f-c">E-mail albo telefon</label><input id="f-c" placeholder="jak mamy się odezwać?"></div></div>
-            <label style="display: flex; gap: 10px; font-size: 13px; color: var(--muted)"><input type="checkbox" checked="{{consent}}" onChange="{{toggleConsent}}" style="width: 20px; height: 20px">Zgadzam się na kontakt w tej sprawie. Szczegóły w <a href="#" style="color: var(--accentText); font-weight: 700">polityce prywatności</a>.</label>
+            <label class="cbx"><input type="checkbox" checked="{{consent}}" onChange="{{toggleConsent}}"><span>Zgadzam się na kontakt w tej sprawie. Szczegóły w <a href="Polityka.dc.html">polityce prywatności</a>.</span></label>
+            <sc-if value="{{ferr}}" hint-placeholder-val="{{ false }}"><div class="ferr" role="alert">Zaznacz zgodę na kontakt, żebyśmy mogli odpowiedzieć.</div></sc-if>
             <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap"><span style="font-size: 13px; color: var(--muted)">Wolisz kliknąć niż pisać? <a href="#dobierz" style="color: var(--accentText); font-weight: 700">Dobierz rozwiązanie w 60 sekund</a></span><button onClick="{{send}}" class="btn btn-p">Wyślij<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button></div>
           </sc-if>
           <sc-if value="{{sent}}" hint-placeholder-val="{{ false }}">
             <div class="pk-pop" role="status" style="display: flex; flex-direction: column; gap: 12px; padding: 20px 0">
               <span style="width: 60px; height: 60px; border-radius: 50%; background: #45A02C; display: flex; align-items: center; justify-content: center"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg></span>
               <span style="font-family: Archivo, sans-serif; font-weight: 900; font-size: 32px">Dziękujemy, mamy to.</span>
-              <span style="color: var(--soft)">Zgłoszenie PKS-2026-[NR]. Odezwiemy się w ciągu [CZAS ODPOWIEDZI].</span>
+              <span style="color: var(--soft)">Zgłoszenie PKS-2026-0143. Odezwiemy się w ciągu 1 dnia roboczego.</span>
               <button onClick="{{reset}}" class="btn btn-g" style="align-self: flex-start; min-height: 44px">Wyślij kolejne</button>
             </div>
           </sc-if>
@@ -2103,26 +2390,26 @@ body{margin:0}
     <div class="wrap" style="padding-top: 48px; padding-bottom: 28px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 28px; font-size: 14px">
       <div style="display: flex; flex-direction: column; gap: 10px"><span style="font-family: Archivo, sans-serif; font-stretch: 118%; font-weight: 800; font-size: 22px">PRO<span style="color: var(--accent)">-</span>KOM <span style="font-size: 12px; letter-spacing: 0.16em">SOFTWARE</span></span><span style="color: var(--muted)">Strony, systemy, aplikacje i automatyzacje dla firm. Linia firmy PRO-KOM Tadeusz Wójciak.</span></div>
       <div style="display: flex; flex-direction: column; gap: 8px; color: var(--muted)"><b style="color: var(--text)">Usługi</b><a href="Katalog.dc.html">Strony internetowe</a><a href="Katalog.dc.html">Systemy i panele</a><a href="Katalog.dc.html">Aplikacje mobilne</a><a href="Katalog.dc.html">Automatyzacje i AI</a><a href="Katalog.dc.html">Opieka i audyty</a></div>
-      <div style="display: flex; flex-direction: column; gap: 8px; color: var(--muted)"><b style="color: var(--text)">Firma</b><a href="ONas.dc.html">O firmie</a><a href="Wszystko.dc.html">Jedna firma do wszystkiego</a><a href="#realizacje">Realizacje</a><a href="Aktualnosci.dc.html">Aktualności</a><a href="Cennik.dc.html">Cennik</a><a href="Audyt.dc.html">Darmowy audyt</a><a href="Miasto.dc.html">Rabka-Zdrój</a><a href="Kontakt.dc.html">Kontakt</a></div>
+      <div style="display: flex; flex-direction: column; gap: 8px; color: var(--muted)"><b style="color: var(--text)">Firma</b><a href="ONas.dc.html">O firmie</a><a href="Wszystko.dc.html">Jedna firma do wszystkiego</a><a href="#realizacje">Realizacje</a><a href="Aktualnosci.dc.html">Aktualności</a><a href="Branza.dc.html">Dla branż</a><a href="Cennik.dc.html">Cennik</a><a href="Audyt.dc.html">Darmowy audyt</a><a href="Miasto.dc.html">Rabka-Zdrój</a><a href="Kontakt.dc.html">Kontakt</a></div>
       <div style="display: flex; flex-direction: column; gap: 8px; color: var(--muted)"><b style="color: var(--text)">Kontakt</b><span>[TELEFON SOFTWARE]</span><span>[E-MAIL SOFTWARE]</span><span>Rabka-Zdrój · Zakopane · zdalnie w całej Polsce</span></div>
     </div>
-    <div class="wrap" style="padding-top: 18px; padding-bottom: 28px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; font-size: 13px; color: var(--muted)"><span>PRO-KOM Tadeusz Wójciak · ul. Orkana 16B, 34-700 Rabka-Zdrój · NIP 7352511447</span><span>Szukasz sprzętu, kas albo KSeF? <a href="#" style="color: var(--accentText); font-weight: 700">PRO-KOM Biznes →</a></span><span><a href="#">Polityka prywatności</a></span></div>
+    <div class="wrap" style="padding-top: 18px; padding-bottom: 28px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; font-size: 13px; color: var(--muted)"><span>PRO-KOM Tadeusz Wójciak · ul. Orkana 16B, 34-700 Rabka-Zdrój · NIP 7352511447</span><span>Szukasz sprzętu, kas albo KSeF? <a href="https://prokombiznes.pl" style="color: var(--accentText); font-weight: 700">PRO-KOM Biznes →</a></span><span><a href="Polityka.dc.html">Polityka prywatności</a></span></div>
   </footer>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["dark","light"],"default":"dark"},"$preview":{"width":1440,"height":14500}}'>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["dark","light"],"default":"dark"},"$preview":{"width":1440,"height":12500}}'>
 class Component extends DCLogic {
   constructor(props) {
     super(props);
     var theme = null;
     try { var th = localStorage.getItem('pk-theme'); if (th === 'dark' || th === 'light') theme = th; } catch (e) {}
     var added0 = []; try { added0 = JSON.parse(localStorage.getItem('pk-project') || '[]'); } catch (e) {}
-    this.state = { theme: theme, added: added0, bm: ['www', 'zlec', 'app'], bTouched: false, show: 'www', showTouched: false, showTick: 0, txI: 0, txTouched: false, oxI: 0, oxT: false, dzS: 0, dzMax: 0, dzNeed: '', dzSub: [], dzSize: 'std', dzHave: '', dzWhen: '', dzUrl: '', dzFile: '', dzDesc: '', dzMam: [], dzPref: 'tel', dzContact: '', dzSent: false, dzShared: false, dzOwn: false, cmp: 'a', cmpTouched: false, dh: 0, dTouched: false, query: '', group: -1, pop: -1, openFaq: 0, ofTab: 0, stk: 'www', menuOpen: false, popTab: 'all', popOpen: -1, stI: 1, stTouched: false, wk: 2, pfMods: 4, pfLang: false, pfStore: false, pfData: false, pfInt: true, kSit: 'R', kMods: ['www', 'zlec', 'app'], kHave: [], topic: 'system', consent: false, sent: false, toast: '', navAct: 'start', visTop: 0, visBot: 900, railFx: false };
+    this.state = { theme: theme, added: added0, bm: ['www', 'zlec', 'app'], bTouched: false, show: 'www', showTouched: false, showTick: 0, txI: 0, txTouched: false, oxI: 0, oxT: false, dzS: 0, dzMax: 0, dzNeed: '', dzSub: [], dzSize: 'std', dzHave: '', dzWhen: '', dzUrl: '', dzFile: '', dzDesc: '', dzMam: [], dzPref: 'tel', dzContact: '', dzSent: false, dzShared: false, dzOwn: false, dzName: '', dzOk: false, dzErr: false, dzPv: false, cmp: 'a', cmpTouched: false, dh: 0, dTouched: false, query: '', group: -1, pop: -1, openFaq: 0, ofTab: 0, stk: 'www', menuOpen: false, popTab: 'all', popOpen: -1, stI: 1, stTouched: false, wk: 2, pfMods: 4, pfLang: false, pfStore: false, pfData: false, pfInt: true, kSit: 'R', kMods: ['www', 'zlec', 'app'], kHave: [], topic: 'system', consent: false, sent: false, toast: '', navAct: 'start', visTop: 0, visBot: 900, railFx: false };
     var self = this;
     setTimeout(function () { try {
       var de = document.documentElement, fx = (window.innerHeight || 0) < 3000 && de.scrollHeight > (window.innerHeight || 0) + 40;
       var STEP = 100, H = Math.max(de.scrollHeight, document.body.scrollHeight, 12600), vis = {};
-      var IDS = ['start', 'oferta', 'popularne', 'podglady', 'proces', 'dobierz', 'technologie', 'jak-robimy', 'porownanie', 'realizacje', 'faq', 'kontakt'];
+      var IDS = ['start', 'oferta', 'popularne', 'podglady', 'proces', 'dobierz', 'bez-wordpressa', 'realizacje', 'faq', 'kontakt'];
       var box = document.createElement('div'); box.setAttribute('aria-hidden', 'true'); box.style.cssText = 'position:absolute;left:0;top:0;width:1px;height:0;pointer-events:none;visibility:hidden';
       document.body.appendChild(box);
       var upd = function () { var ks = Object.keys(vis).map(Number); if (!ks.length) return; var a = Math.min.apply(null, ks) * STEP, b = (Math.max.apply(null, ks) + 1) * STEP, c = a + (b - a) * 0.4, act = IDS[0], sy = window.scrollY || 0;
@@ -2134,7 +2421,7 @@ class Component extends DCLogic {
     } catch (e) {} }, 500);
     var fit = function () { try {
       var de = document.documentElement;
-      var pv = document.querySelector('.pvwrap'); if (pv) { var w = pv.getBoundingClientRect().width; de.style.setProperty('--pvs', String(Math.min(1, w / 1180))); }
+      var pv = document.querySelector('.pvwrap'); if (pv) { var w = pv.getBoundingClientRect().width; var mob = w < 700; de.style.setProperty('--pvs', String(Math.min(1, mob ? w / 900 : w / 1180))); de.style.setProperty('--pvx', mob ? '-82px' : '0px'); }
       var hv = document.querySelector('.hvis'); if (hv) { var w2 = hv.getBoundingClientRect().width; de.style.setProperty('--bs', String(Math.min(1, w2 / 680))); }
     } catch (e) {} };
     setTimeout(fit, 300); setTimeout(fit, 1200); try { window.addEventListener('resize', fit); } catch (e) {}
@@ -2195,48 +2482,48 @@ class Component extends DCLogic {
     // ---------- oferta explorer
     const OF = [
       { n: 'Strony internetowe', d: 'wizytówka, firmowa, pensjonat, lokal', ic: P.site, h: 'Strona, która zbiera zapytania, a nie kurz', p: 'Każda: szybka na telefonie, przygotowana pod Google, z panelem, w którym sam zmieniasz treści. Dostępność cyfrowa zgodnie z przepisami od 2025 r.', items: [
-        { id: 1, n: 'Strona wizytówka', d: 'Jedna strona z ofertą, mapą i kontaktem. Dla firmy, która chce być w Google i mieć gdzie odesłać klienta.', f: ['1 strona, 5 sekcji', 'Mapa i telefon', 'Gotowa w [TERMIN]'], ic: P.site, pv: false, tm: '[TERMIN]', href: 'Katalog.dc.html', cta: 'Szczegóły' },
-        { id: 2, n: 'Strona firmowa', d: 'Oferta, realizacje, opinie, aktualności. Panel do samodzielnej edycji i formularz, który trafia prosto do Ciebie.', f: ['Do 10 podstron', 'Panel treści', 'Formularz do biura'], ic: P.grid, pv: true, tm: '[TERMIN]', href: 'Katalog.dc.html', cta: 'Zobacz podgląd' },
-        { id: 3, n: 'Strona dla hoteli i pensjonatów', d: 'Pokoje, terminy, zapytanie o rezerwację w PL/EN/DE. Gość pisze do Ciebie, nie przez portal z prowizją.', f: ['3 języki', 'Zapytanie o termin', 'Powiadomienie na telefon'], ic: P.bed, pv: true, tm: '[TERMIN]', href: 'Katalog.dc.html', cta: 'Zobacz podgląd' },
-        { id: 4, n: 'Strona dla gastronomii', d: 'Menu, które zmieniasz sam, rezerwacja stolika, dowozy, godziny w sezonie. Bez PDF-ów z kartą z zeszłego roku.', f: ['Menu w panelu', 'Rezerwacja stolika', 'Google Maps i opinie'], ic: P.food, pv: false, tm: '[TERMIN]', href: 'Katalog.dc.html', cta: 'Szczegóły' },
-        { id: 5, n: 'Sklep internetowy', d: 'Dla lokalnej firmy: produkty, płatności, dostawy, odbiór w sklepie. Połączony z Twoim magazynem, gdy trzeba.', f: ['Płatności online', 'Odbiór osobisty', 'Faktury automatycznie'], ic: P.cash, pv: false, tm: '[TERMIN]', href: 'Katalog.dc.html', cta: 'Szczegóły' },
-        { id: 6, n: 'Przebudowa starej strony', d: 'Przenosimy treści i pozycje w Google, wyrzucamy to, co wolne i niebezpieczne. Stary adres działa dalej.', f: ['Bez utraty pozycji', 'Przeniesienie treści', 'Szybsza o [X]'], ic: P.refresh, pv: false, tm: '[TERMIN]', href: 'Katalog.dc.html', cta: 'Szczegóły' }
+        { id: 1, n: 'Strona wizytówka', d: 'Jedna strona z ofertą, mapą i kontaktem. Dla firmy, która chce być w Google i mieć gdzie odesłać klienta.', f: ['1 strona, 5 sekcji', 'Mapa i telefon', 'Gotowa w tydzień'], ic: P.site, pv: false, tm: '', href: 'Katalog.dc.html', cta: 'Szczegóły' },
+        { id: 2, n: 'Strona firmowa', d: 'Oferta, realizacje, opinie, aktualności. Panel do samodzielnej edycji i formularz, który trafia prosto do Ciebie.', f: ['Do 10 podstron', 'Panel treści', 'Formularz do biura'], ic: P.grid, pv: true, tm: '', href: 'Katalog.dc.html', cta: 'Zobacz podgląd' },
+        { id: 3, n: 'Strona dla hoteli i pensjonatów', d: 'Pokoje, terminy, zapytanie o rezerwację w PL/EN/DE. Gość pisze do Ciebie, nie przez portal z prowizją.', f: ['3 języki', 'Zapytanie o termin', 'Powiadomienie na telefon'], ic: P.bed, pv: true, tm: '', href: 'Katalog.dc.html', cta: 'Zobacz podgląd' },
+        { id: 4, n: 'Strona dla gastronomii', d: 'Menu, które zmieniasz sam, rezerwacja stolika, dowozy, godziny w sezonie. Bez PDF-ów z kartą z zeszłego roku.', f: ['Menu w panelu', 'Rezerwacja stolika', 'Google Maps i opinie'], ic: P.food, pv: false, tm: '', href: 'Katalog.dc.html', cta: 'Szczegóły' },
+        { id: 5, n: 'Sklep internetowy', d: 'Dla lokalnej firmy: produkty, płatności, dostawy, odbiór w sklepie. Połączony z Twoim magazynem, gdy trzeba.', f: ['Płatności online', 'Odbiór osobisty', 'Faktury automatycznie'], ic: P.cash, pv: false, tm: '', href: 'Katalog.dc.html', cta: 'Szczegóły' },
+        { id: 6, n: 'Przebudowa starej strony', d: 'Przenosimy treści i pozycje w Google, wyrzucamy to, co wolne i niebezpieczne. Stary adres działa dalej.', f: ['Bez utraty pozycji', 'Przeniesienie treści', 'Szybsza i bezpieczniejsza'], ic: P.refresh, pv: false, tm: '', href: 'Katalog.dc.html', cta: 'Szczegóły' }
       ] },
       { n: 'Systemy dla firmy', d: 'zlecenia, CRM, czas pracy, serwis', ic: P.panel, h: 'Cała firma w jednym panelu', p: 'Budowane pod to, jak naprawdę pracujecie. Nie wyrzucasz programów, za które płacisz: łączymy je albo dokładamy brakujący kawałek.', items: [
-        { id: 10, n: 'System zleceń i grafik', d: 'Kto, gdzie, kiedy i z czym. Zlecenia, kalendarz ekip, materiały, status dla klienta. Koniec z SMS-ami o 21:40.', f: ['Kalendarz ekip', 'Status dla klienta', 'Protokoły'], ic: P.cal, pv: true, tm: '[TERMIN]', href: 'Katalog.dc.html', cta: 'Zobacz podgląd' },
-        { id: 11, n: 'CRM dla małej firmy', d: 'Klienci, zapytania, oferty i co dalej. Prosty, bo ma być używany, nie podziwiany. Przypomina, do kogo zadzwonić.', f: ['Klienci i historia', 'Oferty i follow-up', 'Przypomnienia'], ic: P.users, pv: false, tm: '[TERMIN]', href: 'Katalog.dc.html', cta: 'Szczegóły' },
-        { id: 12, n: 'Czas pracy i rozliczenia', d: 'Godziny z telefonu pracownika, nie z kartek. Rozliczenie na koniec miesiąca robi się samo.', f: ['Start/stop w telefonie', 'Rozliczenie miesiąca', 'Eksport do kadr'], ic: P.clock, pv: true, tm: '[TERMIN]', href: 'Katalog.dc.html', cta: 'Zobacz podgląd' },
-        { id: 13, n: 'System zgłoszeń i serwisu', d: 'Przyjęcie, status, koszt, odbiór. Klient sam sprawdza status i nie dzwoni. Jak nasz prokomserwis.pl.', f: ['Śledzenie dla klienta', 'SMS o gotowości', 'Historia napraw'], ic: P.ticket, pv: true, tm: '[TERMIN]', href: 'Katalog.dc.html', cta: 'Zobacz podgląd' },
-        { id: 14, n: 'Z Excela do systemu', d: 'Arkusze zamieniamy w panel, przenosimy dane, usuwamy duplikaty. Nikt już nie nadpisze „FINAL_v7(2)”.', f: ['Przeniesienie danych', 'Uprawnienia', 'Historia zmian'], ic: P.grid, pv: true, tm: '[TERMIN]', href: 'Katalog.dc.html', cta: 'Zobacz podgląd' },
-        { id: 15, n: 'Magazyn i zamówienia', d: 'Stany, przyjęcia, wydania na zlecenia, zamówienia do hurtowni. Z czytnikiem kodów albo telefonem.', f: ['Stany na żywo', 'Kody kreskowe', 'Zamówienia'], ic: P.box, pv: false, tm: '[TERMIN]', href: 'Katalog.dc.html', cta: 'Szczegóły' }
+        { id: 10, n: 'System zleceń i grafik', d: 'Kto, gdzie, kiedy i z czym. Zlecenia, kalendarz ekip, materiały, status dla klienta. Koniec z SMS-ami o 21:40.', f: ['Kalendarz ekip', 'Status dla klienta', 'Protokoły'], ic: P.cal, pv: true, tm: '', href: 'Katalog.dc.html', cta: 'Zobacz podgląd' },
+        { id: 11, n: 'CRM dla małej firmy', d: 'Klienci, zapytania, oferty i co dalej. Prosty, bo ma być używany, nie podziwiany. Przypomina, do kogo zadzwonić.', f: ['Klienci i historia', 'Oferty i follow-up', 'Przypomnienia'], ic: P.users, pv: false, tm: '', href: 'Katalog.dc.html', cta: 'Szczegóły' },
+        { id: 12, n: 'Czas pracy i rozliczenia', d: 'Godziny z telefonu pracownika, nie z kartek. Rozliczenie na koniec miesiąca robi się samo.', f: ['Start/stop w telefonie', 'Rozliczenie miesiąca', 'Eksport do kadr'], ic: P.clock, pv: true, tm: '', href: 'Katalog.dc.html', cta: 'Zobacz podgląd' },
+        { id: 13, n: 'System zgłoszeń i serwisu', d: 'Przyjęcie, status, koszt, odbiór. Klient sam sprawdza status i nie dzwoni. Jak nasz prokomserwis.pl.', f: ['Śledzenie dla klienta', 'SMS o gotowości', 'Historia napraw'], ic: P.ticket, pv: true, tm: '', href: 'Katalog.dc.html', cta: 'Zobacz podgląd' },
+        { id: 14, n: 'Z Excela do systemu', d: 'Arkusze zamieniamy w panel, przenosimy dane, usuwamy duplikaty. Nikt już nie nadpisze „FINAL_v7(2)”.', f: ['Przeniesienie danych', 'Uprawnienia', 'Historia zmian'], ic: P.grid, pv: true, tm: '', href: 'Katalog.dc.html', cta: 'Zobacz podgląd' },
+        { id: 15, n: 'Magazyn i zamówienia', d: 'Stany, przyjęcia, wydania na zlecenia, zamówienia do hurtowni. Z czytnikiem kodów albo telefonem.', f: ['Stany na żywo', 'Kody kreskowe', 'Zamówienia'], ic: P.box, pv: false, tm: '', href: 'Katalog.dc.html', cta: 'Szczegóły' }
       ] },
       { n: 'Aplikacje mobilne', d: 'iOS i Android z jednego kodu', ic: P.phone, h: 'Aplikacja w kieszeni pracownika albo klienta', p: 'Jeden kod, dwa systemy. Albo aplikacja otwierana z przeglądarki, bez sklepów i bez czekania na akceptację. Działa bez zasięgu.', items: [
-        { id: 20, n: 'Aplikacja dla ekip w terenie', d: 'Zlecenia, zdjęcia, lista zadań, podpis klienta. Bez zasięgu zapisuje i wysyła, gdy wróci sieć. Biuro widzi na żywo.', f: ['Działa bez zasięgu', 'Podpis klienta', 'Panel biura'], ic: P.phone, pv: true, tm: '[TERMIN]', href: 'Rozwiazanie.dc.html', cta: 'Zobacz podgląd' },
-        { id: 21, n: 'Aplikacja dla klientów', d: 'Rezerwacje, zamówienia, status zlecenia, program lojalnościowy. Twoja marka na ekranie klienta.', f: ['Powiadomienia push', 'Rezerwacje', 'Konto klienta'], ic: P.users, pv: false, tm: '[TERMIN]', href: 'Katalog.dc.html', cta: 'Szczegóły' },
-        { id: 22, n: 'Aplikacja do programu, który masz', d: 'Twój system nie ma aplikacji? Dorobimy ją: dla pracowników albo klientów, na danych z Twojego programu.', f: ['Łączy się z Twoim systemem', 'Tylko to, co potrzebne', 'Bez wymiany programu'], ic: P.plug, pv: false, tm: '[TERMIN]', href: 'Katalog.dc.html', cta: 'Szczegóły' },
-        { id: 23, n: 'Aplikacja z przeglądarki (PWA)', d: 'Instaluje się z linku, bez sklepów. Tańsza i szybsza w zmianach. Dla większości firm w zupełności wystarczy.', f: ['Bez App Store', 'Ikona na ekranie', 'Aktualizacje od ręki'], ic: P.globe, pv: true, tm: '[TERMIN]', href: 'Rozwiazanie.dc.html', cta: 'Zobacz podgląd' }
+        { id: 20, n: 'Aplikacja dla ekip w terenie', d: 'Zlecenia, zdjęcia, lista zadań, podpis klienta. Bez zasięgu zapisuje i wysyła, gdy wróci sieć. Biuro widzi na żywo.', f: ['Działa bez zasięgu', 'Podpis klienta', 'Panel biura'], ic: P.phone, pv: true, tm: '', href: 'Rozwiazanie.dc.html', cta: 'Zobacz podgląd' },
+        { id: 21, n: 'Aplikacja dla klientów', d: 'Rezerwacje, zamówienia, status zlecenia, program lojalnościowy. Twoja marka na ekranie klienta.', f: ['Powiadomienia push', 'Rezerwacje', 'Konto klienta'], ic: P.users, pv: false, tm: '', href: 'Katalog.dc.html', cta: 'Szczegóły' },
+        { id: 22, n: 'Aplikacja do programu, który masz', d: 'Twój system nie ma aplikacji? Dorobimy ją: dla pracowników albo klientów, na danych z Twojego programu.', f: ['Łączy się z Twoim systemem', 'Tylko to, co potrzebne', 'Bez wymiany programu'], ic: P.plug, pv: false, tm: '', href: 'Katalog.dc.html', cta: 'Szczegóły' },
+        { id: 23, n: 'Aplikacja z przeglądarki (PWA)', d: 'Instaluje się z linku, bez sklepów. Tańsza i szybsza w zmianach. Dla większości firm w zupełności wystarczy.', f: ['Bez App Store', 'Ikona na ekranie', 'Aktualizacje od ręki'], ic: P.globe, pv: true, tm: '', href: 'Rozwiazanie.dc.html', cta: 'Zobacz podgląd' }
       ] },
       { n: 'Automatyzacje i AI', d: 'SMS, maile, raporty, asystent', ic: P.bolt, h: 'Powtarzalna robota robi się sama', p: 'Łączymy programy, których już używasz, i dokładamy asystenta AI tam, gdzie naprawdę oszczędza czas. Ty zatwierdzasz, on pisze.', items: [
-        { id: 30, n: 'Połączenie programów', d: 'Faktury, kalendarz, sklep, CRM: dane płyną same między programami. Koniec z przepisywaniem.', f: ['Bez przepisywania', 'Twoje programy zostają', 'Dziennik zdarzeń'], ic: P.plug, pv: false, tm: '[TERMIN]', href: 'Katalog.dc.html', cta: 'Szczegóły' },
-        { id: 31, n: 'Powiadomienia SMS i e-mail', d: 'Potwierdzenie terminu, „ekipa w drodze”, „gotowe do odbioru”, przypomnienie o płatności. Automatycznie.', f: ['Szablony po polsku', 'Wysyłka sama', 'Odpowiedzi do biura'], ic: P.chat, pv: false, tm: '[TERMIN]', href: 'Katalog.dc.html', cta: 'Szczegóły' },
-        { id: 32, n: 'Asystent AI dla klientów', d: 'Odpowiada na pytania ze strony i maila w kilku językach, streszcza zapytania, proponuje odpowiedź. Ty klikasz „wyślij”.', f: ['PL/EN/DE', 'Ty zatwierdzasz', 'Uczy się Twojej oferty'], ic: P.bolt, pv: true, tm: '[TERMIN]', href: 'Katalog.dc.html', cta: 'Zobacz podgląd' },
-        { id: 33, n: 'Raporty dla szefa', d: 'Co tydzień o 7:00: przychód, zlecenia, opóźnienia, kto ile. Na telefon, bez dzwonienia po ludziach.', f: ['Pulpit właściciela', 'Raport w poniedziałek', 'Alerty'], ic: P.chart, pv: false, tm: '[TERMIN]', href: 'Katalog.dc.html', cta: 'Szczegóły' }
+        { id: 30, n: 'Połączenie programów', d: 'Faktury, kalendarz, sklep, CRM: dane płyną same między programami. Koniec z przepisywaniem.', f: ['Bez przepisywania', 'Twoje programy zostają', 'Dziennik zdarzeń'], ic: P.plug, pv: false, tm: '', href: 'Katalog.dc.html', cta: 'Szczegóły' },
+        { id: 31, n: 'Powiadomienia SMS i e-mail', d: 'Potwierdzenie terminu, „ekipa w drodze”, „gotowe do odbioru”, przypomnienie o płatności. Automatycznie.', f: ['Szablony po polsku', 'Wysyłka sama', 'Odpowiedzi do biura'], ic: P.chat, pv: false, tm: '', href: 'Katalog.dc.html', cta: 'Szczegóły' },
+        { id: 32, n: 'Asystent AI dla klientów', d: 'Odpowiada na pytania ze strony i maila w kilku językach, streszcza zapytania, proponuje odpowiedź. Ty klikasz „wyślij”.', f: ['PL/EN/DE', 'Ty zatwierdzasz', 'Uczy się Twojej oferty'], ic: P.bolt, pv: true, tm: '', href: 'Katalog.dc.html', cta: 'Zobacz podgląd' },
+        { id: 33, n: 'Raporty dla szefa', d: 'Co tydzień o 7:00: przychód, zlecenia, opóźnienia, kto ile. Na telefon, bez dzwonienia po ludziach.', f: ['Pulpit właściciela', 'Raport w poniedziałek', 'Alerty'], ic: P.chart, pv: false, tm: '', href: 'Katalog.dc.html', cta: 'Szczegóły' }
       ] },
       { n: 'Opieka i ratunek', d: 'kopie, monitoring, przejęcie, audyt', ic: P.shield, h: 'Żeby to działało także za rok', p: 'Kopie, aktualizacje, monitoring i czas reakcji na piśmie. A gdy ktoś Cię zostawił z porzuconą stroną: przejmujemy, naprawiamy, oddajemy dostępy.', items: [
-        { id: 40, n: 'Opieka miesięczna', d: 'Trzy poziomy. Kopie codziennie, aktualizacje, monitoring, który często widzi problem przed Tobą, i czas reakcji w umowie.', f: ['Czas reakcji na piśmie', 'Kopie codziennie', 'Raport co miesiąc'], ic: P.shield, pv: false, tm: 'od [OD] zł/mies.', href: 'Katalog.dc.html', cta: 'Poziomy opieki' },
+        { id: 40, n: 'Opieka miesięczna', d: 'Trzy poziomy. Kopie codziennie, aktualizacje, monitoring, który często widzi problem przed Tobą, i czas reakcji w umowie.', f: ['Czas reakcji na piśmie', 'Kopie codziennie', 'Raport co miesiąc'], ic: P.shield, pv: false, tm: 'od 149 zł/mies.', href: 'Katalog.dc.html', cta: 'Poziomy opieki' },
         { id: 41, n: 'Przejęcie porzuconej strony lub aplikacji', d: 'Informatyk zniknął, nie masz dostępów, coś nie działa. Odzyskujemy, zabezpieczamy, dokumentujemy, oddajemy Ci klucze.', f: ['Odzyskanie dostępów', 'Zabezpieczenie', 'Dokumentacja'], ic: P.lifebuoy, pv: false, tm: 'od ręki', href: 'Katalog.dc.html', cta: 'Szczegóły' },
-        { id: 42, n: 'Audyt strony lub programu', d: 'Szybkość, Google, bezpieczeństwo, dostępność. Uczciwie: co poprawić, co zostawić, czego nie budować.', f: ['Szybki audyt za darmo', 'Pełny z raportem', 'Lista do zrobienia'], ic: P.search, pv: false, tm: '[TERMIN]', href: 'Kontakt.dc.html', cta: 'Zamów audyt' },
-        { id: 43, n: 'Dostępność cyfrowa (EAA)', d: 'Od 28.06.2025 część firm musi mieć dostępne strony i sklepy. Sprawdzamy i poprawiamy, zanim ktoś to zgłosi.', f: ['Sprawdzenie', 'Poprawki', 'Deklaracja'], ic: P.check, pv: false, tm: '[TERMIN]', href: 'Katalog.dc.html', cta: 'Szczegóły' }
+        { id: 42, n: 'Audyt strony lub programu', d: 'Szybkość, Google, bezpieczeństwo, dostępność. Uczciwie: co poprawić, co zostawić, czego nie budować.', f: ['Szybki audyt za darmo', 'Pełny z raportem', 'Lista do zrobienia'], ic: P.search, pv: false, tm: '', href: 'Kontakt.dc.html', cta: 'Zamów audyt' },
+        { id: 43, n: 'Dostępność cyfrowa (EAA)', d: 'Od 28.06.2025 część firm musi mieć dostępne strony i sklepy. Sprawdzamy i poprawiamy, zanim ktoś to zgłosi.', f: ['Sprawdzenie', 'Poprawki', 'Deklaracja'], ic: P.check, pv: false, tm: '', href: 'Katalog.dc.html', cta: 'Szczegóły' }
       ] }
     ];
     const ofTotal = OF.reduce((a, t) => a + t.items.length, 0);
     const ofTabs = OF.map((t, i) => ({ n: t.n, d: t.d, ic: t.ic, c: t.items.length + (t.items.length < 5 ? ' usługi' : ' usług'), on: st.ofTab === i ? 'true' : 'false', cls: 'tabv' + (st.ofTab === i ? ' on' : ''), pick: () => self.setState({ ofTab: i }) }));
     const ofTab = OF[st.ofTab];
-    const ofItems = ofTab.items.map((o) => ({ n: o.n, d: o.d, f: o.f, ic: o.ic, pv: o.pv, pr: '[OD]', tm: o.tm, href: o.href, cta: o.cta, add: add('of-' + o.id, o.n), addT: isAdded('of-' + o.id) ? '✓ W projekcie' : '+ Do projektu' }));
+    const ofItems = ofTab.items.map((o) => ({ n: o.n, d: o.d, f: o.f, ic: o.ic, pv: o.pv, pr: '', tm: o.tm, href: o.href, cta: o.cta, add: add('of-' + o.id, o.n), addT: isAdded('of-' + o.id) ? '✓ W projekcie' : '+ Do projektu' }));
 
     // ---------- previews
     const H = {
-      www: { label: 'Strona', icon: P.site, tag: 'Strony internetowe', title: 'Strona, która zbiera zapytania, a nie kurz', text: 'Szybka, czytelna na telefonie i przygotowana pod Google. Treści zmieniasz sam w prostym panelu.', href: 'Katalog.dc.html', a: 'Nowe zapytanie z formularza', as: 'remont łazienki · przed chwilą', b: 'Wersja na telefon', bs: 'gotowa od pierwszego dnia', steps: [['Klient wchodzi z Google', 'na telefonie, w 1,5 sekundy strona jest gotowa'], ['Wypełnia „Umów wycenę”', 'dwa pola, bez zakładania konta'], ['Ty dostajesz SMS i mail', 'z numerem, opisem i zdjęciem, jeśli dodał']] },
+      www: { label: 'Strona', icon: P.site, tag: 'Strony internetowe', title: 'Strona, która zbiera zapytania, a nie kurz', text: 'Szybka, czytelna na telefonie i przygotowana pod Google. Treści zmieniasz sam w prostym panelu.', href: 'Katalog.dc.html', a: 'Nowe zapytanie z formularza', as: 'remont łazienki · przed chwilą', b: 'Wersja na telefon', bs: 'gotowa od pierwszego dnia', steps: [['Klient wchodzi z Google', 'na telefonie, treść w mniej niż 2,5 s'], ['Wypełnia „Umów wycenę”', 'dwa pola, bez zakładania konta'], ['Ty dostajesz SMS i mail', 'z numerem, opisem i zdjęciem, jeśli dodał']] },
       rez: { label: 'Rezerwacje', icon: P.cal, tag: 'Sklepy i rezerwacje', title: 'Rezerwacje i zamówienia prosto do Ciebie', text: 'Kalendarz, płatności online i kilka języków. Klient rezerwuje sam, a Ty dostajesz powiadomienie na telefon.', href: 'Katalog.dc.html', a: 'Nowa rezerwacja', as: 'zaliczka opłacona online', b: 'PL · EN · DE', bs: 'goście piszą w swoim języku', steps: [['Gość sprawdza termin', 'kalendarz pokazuje tylko wolne pokoje'], ['Płaci zaliczkę online', 'BLIK albo karta, w swoim języku'], ['Ty potwierdzasz jednym dotknięciem', 'z telefonu, w drodze na zakupy']] },
       sys: { label: 'System firmowy', icon: P.panel, tag: 'Systemy i panele', title: 'Cała firma w jednym panelu', text: 'Zlecenia, kalendarz, klienci, magazyn i raporty. Zbudowane pod to, jak pracujecie, a nie odwrotnie.', href: 'Katalog.dc.html', a: 'Zlecenie przypisane', as: 'ekipa Marka · jutro 8:00', b: 'Raport tygodniowy', bs: 'gotowy w poniedziałek rano', steps: [['Rano: pulpit', 'co dziś, kto gdzie, co czeka na fakturę'], ['Jedno kliknięcie: zlecenie do ekipy', 'termin, adres, materiały, klient dostaje SMS'], ['Wieczorem: nic do przepisania', 'wszystko już jest w systemie']] },
       app: { label: 'Aplikacja mobilna', icon: P.phone, tag: 'Aplikacje mobilne', title: 'Aplikacja w kieszeni każdego pracownika', text: 'iOS i Android z jednego kodu. Działa bez zasięgu, robi zdjęcia, zbiera podpisy i od razu aktualizuje biuro.', href: 'Rozwiazanie.dc.html', a: 'Działa bez zasięgu', as: 'wyśle się, gdy wróci sieć', b: 'Podpis klienta zapisany', bs: 'protokół już w biurze', steps: [['Ekipa otwiera zlecenie', 'adres, lista zadań, zdjęcia „przed”'], ['Odhacza, fotografuje, klient podpisuje', 'na telefonie, także bez zasięgu'], ['Biuro ma protokół w sekundę', 'i może od razu wystawić fakturę']] },
@@ -2251,23 +2538,25 @@ class Component extends DCLogic {
 
     // ---------- popularne
     const POPD = [
-      { id: 4, tag: '1 STRONA', k: 'www', kat: 'Strona', n: 'Strona wizytówka', d: 'Jedna strona: oferta, mapa, telefon. Najszybszy start w Google.', f: ['1 strona, 5 sekcji', 'Mapa, telefon, formularz', 'Gotowa w [TERMIN]'], who: 'jednoosobowe firmy, rzemiosło, start', tm: '[TERMIN]', pv: false, toast: 'Telefon ze strony · 3 min temu', href: 'Katalog.dc.html', cta: 'Szczegóły' },
-      { id: 1, tag: 'PANEL TREŚCI', k: 'www', kat: 'Strona', n: 'Strona firmowa', d: 'Oferta, realizacje, opinie, formularz prosto do Ciebie. Treści zmieniasz sam.', f: ['Do 10 podstron, panel treści', 'Formularz trafia na mail i SMS', 'Przygotowana pod Google i AI'], who: 'każda firma usługowa, handlowa, produkcyjna', tm: '[TERMIN]', pv: true, toast: 'Nowe zapytanie z formularza', href: 'Katalog.dc.html', cta: 'Zobacz podgląd' },
-      { id: 6, tag: 'WIELE PODSTRON', k: 'www', kat: 'Strona', n: 'Rozbudowana strona', d: 'Wiele podstron, blog lub poradnik, kilka języków, katalog ofert, strefa klienta.', f: ['Katalog ofert z filtrami', 'Blog lub poradnik pod Google', 'Strefa klienta z logowaniem'], who: 'firmy z szeroką ofertą, producenci, B2B', tm: '[TERMIN]', pv: true, toast: 'Zapytanie z katalogu · 3 produkty', href: 'Katalog.dc.html', cta: 'Zobacz podgląd' },
-      { id: 7, tag: '1 CEL · POMIAR', k: 'www', kat: 'Strona', n: 'Landing page', d: 'Jedna strona pod jedną usługę albo kampanię. Z formularzem i pomiarem, co działa.', f: ['Jedna usługa, jeden cel', 'Formularz lub telefon', 'Pomiar skuteczności reklam'], who: 'kampanie Google i Facebook, sezonowe oferty', tm: '[TERMIN]', pv: false, toast: '12 zapytań z kampanii', href: 'Katalog.dc.html', cta: 'Szczegóły' },
-      { id: 3, tag: 'MENU + STOLIK', k: 'www', kat: 'Strona', n: 'Strona dla restauracji lub baru', d: 'Menu w panelu, rezerwacja stolika, dowozy, godziny w sezonie. Bez PDF-ów z zeszłego roku.', f: ['Menu zmieniasz sam w 2 minuty', 'Rezerwacja stolika i dowozy', 'Google Maps, opinie, sezonowe godziny'], who: 'restauracje, bary, kawiarnie, catering', tm: '[TERMIN]', pv: false, toast: 'Rezerwacja stolika · 19:00 · 4 os.', href: 'Katalog.dc.html', cta: 'Szczegóły', hue: 'background: linear-gradient(135deg, #D8C3A8, #A38363)' },
-      { id: 2, tag: 'PL · EN · DE', k: 'www', kat: 'Strona', n: 'Strona dla hotelu lub pensjonatu', d: 'PL/EN/DE, pokoje, zapytanie o termin. Gość pisze do Ciebie, nie przez portal z prowizją.', f: ['3 języki, pokoje, galeria', 'Zapytanie o termin, zaliczka online', 'Połączenie z kalendarzami portali (opcja)'], who: 'pensjonaty, hotele, apartamenty, domki', tm: '[TERMIN]', pv: true, toast: 'Nowa rezerwacja · 12–15 sty', href: 'Katalog.dc.html', cta: 'Zobacz podgląd', hue: 'background: linear-gradient(135deg, #F3B07C, #F7D9B5)' },
-      { id: 9, tag: 'KLIENCI · OFERTY', k: 'sys', kat: 'System', n: 'CRM dla małej i średniej firmy', d: 'Klienci, zapytania, oferty i co dalej. Przypomina, do kogo zadzwonić.', f: ['Klienci i cała historia', 'Oferty i przypomnienia', 'Raport: skąd przychodzą klienci'], who: 'usługi, handel, B2B, biura', tm: '[TERMIN]', pv: false, toast: 'Przypomnienie: zadzwoń do Nowaka', href: 'Katalog.dc.html', cta: 'Szczegóły' },
-      { id: 12, tag: 'KONIEC Z FINAL_v7', k: 'sys', kat: 'System', n: 'Z Excela do systemu', d: 'Arkusze zamieniamy w panel, dane przenosimy, duplikaty usuwamy.', f: ['Przeniesienie danych z arkuszy', 'Uprawnienia: kto co widzi', 'Historia zmian, nikt nic nie nadpisze'], who: 'każda firma, która żyje w plikach „FINAL_v7”', tm: '[TERMIN]', pv: true, toast: 'Zaimportowano 1 240 wierszy', href: 'Katalog.dc.html', cta: 'Zobacz podgląd' },
-      { id: 8, tag: 'EKIPY · STATUS', k: 'sys', kat: 'System', n: 'System zleceń i grafik pracy', d: 'Kto, gdzie, kiedy i z czym. Status dla klienta. Koniec z SMS-ami o 21:40.', f: ['Kalendarz ekip i materiały', 'Status dla klienta, SMS sam', 'Protokoły i zdjęcia przy zleceniu'], who: 'budowlanka, instalatorzy, serwisy, sprzątanie', tm: '[TERMIN]', pv: true, toast: 'Ekipa Marka · zakończone', href: 'Katalog.dc.html', cta: 'Zobacz podgląd' },
-      { id: 10, tag: 'START / STOP', k: 'sys', kat: 'System', n: 'Czas pracy i rozliczenia', d: 'Godziny z telefonu pracownika, nie z kartek. Rozliczenie miesiąca robi się samo.', f: ['Start/stop w telefonie', 'Rozliczenie miesiąca automatycznie', 'Eksport do kadr i księgowej'], who: 'firmy z pracownikami w terenie i na zmiany', tm: '[TERMIN]', pv: true, toast: 'Marek · 8 h 20 min · dziś', href: 'Katalog.dc.html', cta: 'Zobacz podgląd' },
-      { id: 13, tag: 'iOS · ANDROID', k: 'app', kat: 'Aplikacja', n: 'Aplikacja na telefon', d: 'iOS i Android z jednego kodu albo z przeglądarki, bez sklepu. Dla pracowników albo klientów.', f: ['Działa bez zasięgu, wysyła, gdy wróci sieć', 'Zdjęcia, podpisy, powiadomienia push', 'Panel biura w cenie'], vars: ['Dla pracowników w terenie', 'Dla klientów: rezerwacje, zamówienia', 'Do programu, który już masz'], who: 'ekipy w terenie, pensjonaty, gastronomia, serwisy', tm: '[TERMIN]', pv: true, toast: 'Podpis klienta zapisany', href: 'Rozwiazanie.dc.html', cta: 'Zobacz podgląd' },
-      { id: 14, tag: 'SAMO SIĘ ROBI', k: 'auto', kat: 'Automatyzacja', n: 'Automatyzacje', d: 'Powtarzalna robota robi się sama. Łączymy programy, które już masz, i dokładamy AI tam, gdzie oszczędza czas.', f: ['Twoje programy zostają', 'Dziennik: co, kiedy, do kogo poszło', 'Ty zatwierdzasz, gdy trzeba'], vars: ['Powiadomienia SMS i e-mail', 'Faktury bez przepisywania (np. Subiekt)', 'Asystent AI do zapytań PL/EN/DE'], who: 'każda firma, która przepisuje dane między programami', tm: '[TERMIN]', pv: true, toast: 'Faktura przekazana do programu', href: 'Katalog.dc.html', cta: 'Zobacz podgląd' }
+      { id: 4, tag: '1 STRONA', k: 'www', kat: 'Strona', n: 'Strona wizytówka', d: 'Jedna strona: oferta, mapa, telefon. Najszybszy start w Google.', f: ['1 strona, 5 sekcji', 'Mapa, telefon, formularz', 'Gotowa w tydzień'], who: 'jednoosobowe firmy, rzemiosło, start', tm: '', pv: false, toast: 'Telefon ze strony · 3 min temu', href: 'Katalog.dc.html', cta: 'Szczegóły' },
+      { id: 1, tag: 'PANEL TREŚCI', k: 'www', kat: 'Strona', n: 'Strona firmowa', d: 'Oferta, realizacje, opinie, formularz prosto do Ciebie. Treści zmieniasz sam.', f: ['Do 10 podstron, panel treści', 'Formularz trafia na mail i SMS', 'Przygotowana pod Google i AI'], who: 'każda firma usługowa, handlowa, produkcyjna', tm: '', pv: true, toast: 'Nowe zapytanie z formularza', href: 'Katalog.dc.html', cta: 'Zobacz podgląd' },
+      { id: 6, tag: 'WIELE PODSTRON', k: 'www', kat: 'Strona', n: 'Rozbudowana strona', d: 'Wiele podstron, blog lub poradnik, kilka języków, katalog ofert, strefa klienta.', f: ['Katalog ofert z filtrami', 'Blog lub poradnik pod Google', 'Strefa klienta z logowaniem'], who: 'firmy z szeroką ofertą, producenci, B2B', tm: '', pv: true, toast: 'Zapytanie z katalogu · 3 produkty', href: 'Katalog.dc.html', cta: 'Zobacz podgląd' },
+      { id: 7, tag: '1 CEL · POMIAR', k: 'www', kat: 'Strona', n: 'Landing page', d: 'Jedna strona pod jedną usługę albo kampanię. Z formularzem i pomiarem, co działa.', f: ['Jedna usługa, jeden cel', 'Formularz lub telefon', 'Pomiar skuteczności reklam'], who: 'kampanie Google i Facebook, sezonowe oferty', tm: '', pv: false, toast: '12 zapytań z kampanii', href: 'Katalog.dc.html', cta: 'Szczegóły' },
+      { id: 3, tag: 'MENU + STOLIK', k: 'www', kat: 'Strona', n: 'Strona dla restauracji lub baru', d: 'Menu w panelu, rezerwacja stolika, dowozy, godziny w sezonie. Bez PDF-ów z zeszłego roku.', f: ['Menu zmieniasz sam w 2 minuty', 'Rezerwacja stolika i dowozy', 'Google Maps, opinie, sezonowe godziny'], who: 'restauracje, bary, kawiarnie, catering', tm: '', pv: false, toast: 'Rezerwacja stolika · 19:00 · 4 os.', href: 'Katalog.dc.html', cta: 'Szczegóły', hue: 'background: linear-gradient(135deg, #D8C3A8, #A38363)' },
+      { id: 2, tag: 'PL · EN · DE', k: 'www', kat: 'Strona', n: 'Strona dla hotelu lub pensjonatu', d: 'PL/EN/DE, pokoje, zapytanie o termin. Gość pisze do Ciebie, nie przez portal z prowizją.', f: ['3 języki, pokoje, galeria', 'Zapytanie o termin (zaliczka online w Pełnej)', 'Połączenie z kalendarzami portali (opcja)'], who: 'pensjonaty, hotele, apartamenty, domki', tm: '', pv: true, toast: 'Nowa rezerwacja · 12–15 sty', href: 'Katalog.dc.html', cta: 'Zobacz podgląd', hue: 'background: linear-gradient(135deg, #F3B07C, #F7D9B5)' },
+      { id: 9, tag: 'KLIENCI · OFERTY', k: 'sys', kat: 'System', n: 'CRM dla małej i średniej firmy', d: 'Klienci, zapytania, oferty i co dalej. Przypomina, do kogo zadzwonić.', f: ['Klienci i cała historia', 'Oferty i przypomnienia', 'Raport: skąd przychodzą klienci'], who: 'usługi, handel, B2B, biura', tm: '', pv: false, toast: 'Przypomnienie: zadzwoń do Nowaka', href: 'Katalog.dc.html', cta: 'Szczegóły' },
+      { id: 12, tag: 'KONIEC Z FINAL_v7', k: 'sys', kat: 'System', n: 'Z Excela do systemu', d: 'Arkusze zamieniamy w panel, dane przenosimy, duplikaty usuwamy.', f: ['Przeniesienie danych z arkuszy', 'Uprawnienia: kto co widzi', 'Historia zmian, nikt nic nie nadpisze'], who: 'każda firma, która żyje w plikach „FINAL_v7”', tm: '', pv: true, toast: 'Zaimportowano 1 240 wierszy', href: 'Katalog.dc.html', cta: 'Zobacz podgląd' },
+      { id: 8, tag: 'EKIPY · STATUS', k: 'sys', kat: 'System', n: 'System zleceń i grafik pracy', d: 'Kto, gdzie, kiedy i z czym. Status dla klienta. Koniec z SMS-ami o 21:40.', f: ['Kalendarz ekip i materiały', 'Status dla klienta, SMS sam', 'Protokoły i zdjęcia przy zleceniu'], who: 'budowlanka, instalatorzy, serwisy, sprzątanie', tm: '', pv: true, toast: 'Ekipa Marka · zakończone', href: 'Katalog.dc.html', cta: 'Zobacz podgląd' },
+      { id: 10, tag: 'START / STOP', k: 'sys', kat: 'System', n: 'Czas pracy i rozliczenia', d: 'Godziny z telefonu pracownika, nie z kartek. Rozliczenie miesiąca robi się samo.', f: ['Start/stop w telefonie', 'Rozliczenie miesiąca automatycznie', 'Eksport do kadr i księgowej'], who: 'firmy z pracownikami w terenie i na zmiany', tm: '', pv: true, toast: 'Marek · 8 h 20 min · dziś', href: 'Katalog.dc.html', cta: 'Zobacz podgląd' },
+      { id: 13, tag: 'iOS · ANDROID', k: 'app', kat: 'Aplikacja', n: 'Aplikacja na telefon', d: 'iOS i Android z jednego kodu albo z przeglądarki, bez sklepu. Dla pracowników albo klientów.', f: ['Działa bez zasięgu, wysyła, gdy wróci sieć', 'Zdjęcia, podpisy, powiadomienia push', 'Panel biura w cenie'], vars: ['Dla pracowników w terenie', 'Dla klientów: rezerwacje, zamówienia', 'Do programu, który już masz'], who: 'ekipy w terenie, pensjonaty, gastronomia, serwisy', tm: '', pv: true, toast: 'Podpis klienta zapisany', href: 'Rozwiazanie.dc.html', cta: 'Zobacz podgląd' },
+      { id: 14, tag: 'SAMO SIĘ ROBI', k: 'auto', kat: 'Automatyzacja', n: 'Automatyzacje', d: 'Powtarzalna robota robi się sama. Łączymy programy, które już masz, i dokładamy AI tam, gdzie oszczędza czas.', f: ['Twoje programy zostają', 'Dziennik: co, kiedy, do kogo poszło', 'Ty zatwierdzasz, gdy trzeba'], vars: ['Powiadomienia SMS i e-mail', 'Faktury bez przepisywania (np. Subiekt)', 'Asystent AI do zapytań PL/EN/DE'], who: 'każda firma, która przepisuje dane między programami', tm: '', pv: true, toast: 'Faktura przekazana do programu', href: 'Katalog.dc.html', cta: 'Zobacz podgląd' }
     ];
     const PT = [['all', 'Wszystko'], ['www', 'Strony'], ['sys', 'Systemy'], ['app', 'Aplikacje'], ['auto', 'Automatyzacje']];
     const popTabs = PT.map((t) => { const c = t[0] === 'all' ? POPD.length : POPD.filter((p) => p.k === t[0]).length; return { n: t[1], c: String(c), on: st.popTab === t[0] ? 'true' : 'false', cls: 'ptab' + (st.popTab === t[0] ? ' on' : ''), pick: () => self.setState({ popTab: t[0], popOpen: -1 }) }; });
+    const POPPR = { 4: [999, '1 tydzień'], 1: [2490, '2 tygodnie'], 6: [6990, '5 tygodni'], 7: [1299, '1–2 tygodnie'], 3: [1999, '2 tygodnie'], 2: [1999, '2 tygodnie'], 9: [3490, '3 tygodnie'], 12: [2990, '2–3 tygodnie'], 8: [3490, '3 tygodnie'], 10: [2990, '2–3 tygodnie'] };
+    const zlP = (v) => String(v).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
     const popItems = POPD.map((p) => { const vis = st.popTab === 'all' || p.k === st.popTab; const open = st.popOpen === p.id; return {
-      n: p.n, d: p.d, kat: p.kat, tag: p.tag, f: p.f, who: p.who, tm: p.tm, pv: !!p.pv, toast: p.toast, href: p.href, cta: p.cta, hue: p.hue || '', vars: p.vars || [], hasVar: !!p.vars,
+      n: p.n, d: p.d, kat: p.kat, tag: p.tag, f: p.f, who: p.who, tm: POPPR[p.id] ? 'od ' + POPPR[p.id][1] : 'termin po rozmowie', pre: POPPR[p.id] ? 'od' : '', pr: POPPR[p.id] ? zlP(POPPR[p.id][0]) : 'Zapytaj o wycenę', post: POPPR[p.id] ? 'zł netto' : '', pv: !!p.pv, toast: p.toast, href: p.href, cta: p.cta, hue: p.hue || '', vars: p.vars || [], hasVar: !!p.vars,
       cls: 'popc' + (open ? ' open' : '') + (vis ? '' : ' hid') + '', exp: open ? 'true' : 'false', sceneCls: 'scene ' + p.k,
       sWww: p.k === 'www', sSys: p.k === 'sys', sApp: p.k === 'app', sAuto: p.k === 'auto',
       pick: () => self.setState({ popOpen: open ? -1 : p.id }), add: add('pop-' + p.id, p.n), addT: isAdded('pop-' + p.id) ? '✓ W projekcie' : '+ Do projektu' }; });
@@ -2289,10 +2578,10 @@ class Component extends DCLogic {
     // ---------- proces
     const ST = [
       { num: '01', n: 'Rozmowa', t: '30 min', h: 'Opowiadasz, jak pracuje firma. My słuchamy.', p: 'U Ciebie w firmie, w Rabce, Zakopanem albo online. Nie musisz nic przygotowywać ani znać nazw technologii. Pytamy o to, co boli, i o programy, które już masz.', get: ['Jasną odpowiedź: budować czy kupić gotowe', 'Listę programów, które zostają', 'Termin, kiedy dostaniesz szkic i wycenę'], you: ['Godzina czasu', 'Szczerość o tym, co nie działa'], pay: 'Płacisz: 0 zł', payd: 'Rozmowa i szkic są bezpłatne i bez zobowiązań.' },
-      { num: '02', n: 'Podgląd i wycena', t: '[DNI] dni', h: 'Zobaczysz, jak to będzie wyglądać. Zanim zapłacisz.', p: 'Dostajesz szkic rozwiązania do klikania i wycenę na piśmie: zakres, stała cena, etapy, termin. Zmiany spoza zakresu tylko po Twojej zgodzie.', get: ['Szkic systemu do klikania', 'Wycenę na piśmie, ważną 30 dni', 'Plan etapów z terminami'], you: ['Uwagi do szkicu', 'Decyzję: start albo nie'], pay: 'Płacisz: [ZALICZKA] po podpisaniu', payd: 'Reszta dopiero po odbiorze kolejnych etapów. [ZASADY PŁATNOŚCI]' },
-      { num: '03', n: 'Budowa', t: '[TYGODNIE] tyg.', h: 'Co tydzień klikasz nową wersję. Nie czytasz raportów.', p: 'Budujemy etapami. Co tydzień dostajesz link do wersji testowej: klikasz, zgłaszasz uwagi, my poprawiamy. Pierwszy etap zaczyna pracować, zanim skończymy ostatni.', get: ['Wersję testową co tydzień', 'Pierwszy etap działający po [TERMIN]', 'Listę zmian po każdym tygodniu'], you: ['15 minut tygodniowo na kliknięcie', 'Treści i zdjęcia, jeśli masz własne'], pay: 'Płacisz: po odbiorze każdego etapu', payd: 'Etap odbierasz, gdy działa u Ciebie. Wtedy faktura.' },
+      { num: '02', n: 'Podgląd i wycena', t: '5–7 dni', h: 'Zobaczysz, jak to będzie wyglądać. Zanim zapłacisz.', p: 'Dostajesz szkic rozwiązania do klikania i wycenę na piśmie: zakres, stała cena, etapy, termin. Zmiany spoza zakresu tylko po Twojej zgodzie.', get: ['Szkic systemu do klikania', 'Wycenę na piśmie, ważną 30 dni', 'Plan etapów z terminami'], you: ['Uwagi do szkicu', 'Decyzję: start albo nie'], pay: 'Płacisz: 30% po podpisaniu', payd: 'Reszta dopiero po odbiorze. Przy stronach 70% po odbiorze, przy systemach raty po każdym etapie. Faktura VAT, przelew 7 dni.' },
+      { num: '03', n: 'Budowa', t: '1–14 tyg.', h: 'Co tydzień klikasz nową wersję. Nie czytasz raportów.', p: 'Budujemy etapami. Co tydzień dostajesz link do wersji testowej: klikasz, zgłaszasz uwagi, my poprawiamy. Pierwszy etap zaczyna pracować, zanim skończymy ostatni.', get: ['Wersję testową co tydzień', 'Pierwszy etap działający po 3–4 tygodniach', 'Listę zmian po każdym tygodniu'], you: ['15 minut tygodniowo na kliknięcie', 'Treści i zdjęcia, jeśli masz własne'], pay: 'Płacisz: po odbiorze każdego etapu', payd: 'Etap odbierasz, gdy działa u Ciebie. Wtedy faktura.' },
       { num: '04', n: 'Wdrożenie', t: '1–2 dni', h: 'Uruchomienie bez zatrzymywania firmy.', p: 'Przenosimy dane, zakładamy konta, szkolimy ludzi na ich własnych zleceniach. Start w poniedziałek rano, a stary sposób działa równolegle, dopóki nie powiesz „wyłączamy”.', get: ['Dane przeniesione i sprawdzone', 'Szkolenie w biurze i krótką instrukcję', 'Dostępy, domenę i kod na Twoje konto'], you: ['Półtorej godziny zespołu na szkolenie', 'Decyzję o dniu startu'], pay: 'Płacisz: ostatnią część po odbiorze', payd: 'Protokół odbioru z pomiarem szybkości i listą tego, co działa.' },
-      { num: '05', n: 'Opieka', t: 'co miesiąc', h: 'Działa także za rok. I rośnie z firmą.', p: 'Kopie codziennie, aktualizacje, monitoring, który często widzi problem przed Tobą, i czas reakcji zapisany w umowie. Gdy firma rośnie, dokładamy kolejny moduł na tym samym fundamencie.', get: ['Kopie, aktualizacje, monitoring', 'Czas reakcji na piśmie', 'Raport co miesiąc i eksport Twoich danych'], you: ['Nic. Ewentualnie pomysł na kolejny moduł'], pay: 'Płacisz: od [OD] zł / mies.', payd: 'Trzy poziomy opieki. Możesz zrezygnować, kod i dane zostają Twoje.' }
+      { num: '05', n: 'Opieka', t: 'co miesiąc', h: 'Działa także za rok. I rośnie z firmą.', p: 'Kopie codziennie, aktualizacje, monitoring, który często widzi problem przed Tobą, i czas reakcji zapisany w umowie. Gdy firma rośnie, dokładamy kolejny moduł na tym samym fundamencie.', get: ['Kopie, aktualizacje, monitoring', 'Czas reakcji na piśmie', 'Raport co miesiąc od poziomu Standard'], you: ['Nic. Ewentualnie pomysł na kolejny moduł'], pay: 'Płacisz: od 149 zł / mies.', payd: 'Trzy poziomy opieki. Możesz zrezygnować, kod i dane zostają Twoje.' }
     ];
     const stI = st.stI;
     const stTabs = ST.map((x, i) => ({ num: x.num, n: x.n, t: x.t, on: i === stI ? 'true' : 'false', cls: 'prtab' + (i === stI ? ' on' : i < stI ? ' done' : ''), pick: () => self.setState({ stI: i, stTouched: true }) }));
@@ -2315,7 +2604,7 @@ class Component extends DCLogic {
     const stk = STK.map((t) => ({ n: t.n, ic: t.ic, on: st.stk === t.k ? 'true' : 'false', cls: 'ptab' + (st.stk === t.k ? ' on' : ''), st: '', pick: () => self.setState({ stk: t.k }) }));
     const stkCur = STK.find((t) => t.k === st.stk) || STK[0];
     // ---------- simple kreator (home)
-    const KM2 = [['www', 'Strona', 'firmowa, pensjonatu, lokalu', P.site], ['rez', 'Rezerwacje online', 'kalendarz, zaliczki, SMS', P.cal], ['zlec', 'Zlecenia i grafik', 'ekipy, terminy, status', P.panel], ['crm', 'Klienci i oferty (CRM)', 'historia, przypomnienia', P.users], ['czas', 'Czas pracy', 'start/stop, rozliczenie', P.clock], ['app', 'Aplikacja na telefon', 'dla ekip albo klientów', P.phone], ['sms', 'SMS i e-mail same', 'potwierdzenia, „gotowe”', P.chat], ['fv', 'Faktury bez przepisywania', 'do Twojego programu', P.doc]];
+    const KM2 = [['www', 'Strona', 'firmowa, pensjonatu, lokalu', P.site], ['zlec', 'Zlecenia i grafik', 'ekipy, terminy, status', P.panel], ['crm', 'Klienci i oferty (CRM)', 'historia, przypomnienia', P.users], ['czas', 'Czas pracy', 'start/stop, rozliczenie', P.clock], ['app', 'Aplikacja na telefon', 'dla ekip albo klientów', P.phone], ['sms', 'SMS i e-mail same', 'potwierdzenia, „gotowe”', P.chat], ['fv', 'Faktury bez przepisywania', 'do Twojego programu', P.doc]];
     // ---------- kreator scene
     const KS = [['Z', 'Zaczynam od zera', 'nowa strona, system lub aplikacja', 'M12 5v14M5 12h14'], ['R', 'Mam program, brakuje mu czegoś', 'dobudujemy to, czego nie ma', P.plug], ['P', 'Mam kilka programów', 'połączymy je w jedno', 'M4 7h6v4H4zM14 7h6v4h-6zM9 17h6v4H9zM7 11v3h10v-3M12 14v3']];
     const kSit = KS.map((k) => ({ n: k[1], d: k[2], ic: k[3], on: st.kSit === k[0] ? 'true' : 'false', cls: 'krsb' + (st.kSit === k[0] ? ' on' : ''), pick: () => self.setState({ kSit: k[0] }) }));
@@ -2361,7 +2650,6 @@ class Component extends DCLogic {
       { id: 14, t: 'Z Excela do systemu', tag: 'System', d: 'Arkusze w panel, dane przeniesione, bez duplikatów.', ic: P.grid, pv: true, kw: 'excel arkusz plik tabela nadpisal final wersja duplikaty baza', br: 'bud usl han gas noc edu' },
       { id: 15, t: 'Magazyn i zamówienia', tag: 'System', d: 'Stany na żywo, kody kreskowe, zamówienia.', ic: P.box, kw: 'magazyn stany towar zamowienia hurtownia kody kreskowe inwentaryzacja', br: 'han bud' },
       { id: 16, t: 'Panel dla pracowników do Twojego systemu', tag: 'Rozbudowa', d: 'Dodatek do programu, który już masz.', ic: P.plug, kw: 'brakuje program funkcja dodatek dorobic modul istniejacy mam system rozbudowa', br: 'noc gas usl han' },
-      { id: 17, t: 'Rezerwacje online', tag: 'Rezerwacje', d: 'Kalendarz, płatności, przypomnienia SMS.', ic: P.cal, pv: true, kw: 'rezerwacje online kalendarz termin wizyta zapis wolne terminy zaliczka', br: 'zdr tur gas noc usl' },
       { id: 20, t: 'Aplikacja dla ekip w terenie', tag: 'Aplikacja', d: 'Bez zasięgu, zdjęcia, podpis klienta, panel biura.', ic: P.phone, pv: true, kw: 'aplikacja mobilna telefon ekipa teren monter budowa protokol zdjecia podpis zasieg android ios', br: 'bud usl' },
       { id: 21, t: 'Aplikacja dla klientów', tag: 'Aplikacja', d: 'Rezerwacje, zamówienia, status, lojalność.', ic: P.users, kw: 'aplikacja klienci lojalnosc push zamowienia marka sklep', br: 'gas han zdr tur' },
       { id: 23, t: 'Landing page', tag: 'Strona', d: 'Jedna strona pod jedną usługę albo kampanię.', ic: P.bolt, kw: 'landing page kampania reklama google ads facebook jedna strona promocja sezon', br: 'bud usl gas han noc tur zdr edu' },
@@ -2412,8 +2700,8 @@ class Component extends DCLogic {
         gain: 'Płacisz za jedną aplikację, nie za dwie. Każdą zmianę robimy raz, dla obu telefonów.', why: 'jeden kod działa na iPhonie i Androidzie, na tych samych danych co system.',
         m: [{ v: '1', l: 'kod na iPhone i Androida' }, { v: '2', l: 'sklepy: App Store, Google Play' }, { v: 'push', l: 'powiadomienia na telefon' }], proof: 'Aplikacja i strona widzą te same dane.' },
       { n: 'Dane', s: 'Gdzie leżą Twoje dane', t: ['PostgreSQL'], ic: 'M12 3c4.4 0 8 1.3 8 3s-3.6 3-8 3-8-1.3-8-3 3.6-3 8-3zM4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3',
-        gain: 'Dane są Twoje. Eksport dostajesz co miesiąc, a odchodząc zabierasz wszystko.', why: 'darmowa, otwarta baza rozwijana od prawie 40 lat. Bez licencji i bez uzależnienia od dostawcy.',
-        m: [{ v: '~40', l: 'lat rozwoju, open source' }, { v: '0 zł', l: 'za licencję bazy' }, { v: 'co miesiąc', l: 'eksport Twoich danych' }], proof: 'Źródło: postgresql.org/about.' },
+        gain: 'Dane są Twoje. Eksport dostajesz na każde żądanie, a odchodząc zabierasz wszystko.', why: 'darmowa, otwarta baza rozwijana od prawie 40 lat. Bez licencji i bez uzależnienia od dostawcy.',
+        m: [{ v: '~40', l: 'lat rozwoju, open source' }, { v: '0 zł', l: 'za licencję bazy' }, { v: 'na żądanie', l: 'eksport Twoich danych' }], proof: 'Źródło: postgresql.org/about.' },
       { n: 'Serwer', s: 'Gdzie to wszystko stoi', t: ['Docker', 'VPS w Polsce'], ic: 'M3 4h18v6H3zM3 14h18v6H3zM7 7h.01M7 17h.01',
         gain: 'Dane klientów zostają w kraju. Zmiana serwera albo firmy bez przepisywania. Nie jesteś zakładnikiem.', why: 'Docker pakuje całość w gotowe paczki, które działają na każdym serwerze.',
         m: [{ v: 'PL', l: 'serwer i dane w Polsce' }, { v: 'co noc', l: 'kopia zapasowa' }, { v: '1 paczka', l: 'przenosiny bez przepisywania' }], proof: 'Kopie, aktualizacje i monitoring robimy my.' }
@@ -2433,7 +2721,11 @@ class Component extends DCLogic {
       projToggle: () => self.setState({ projOpen: !self.state.projOpen, megaOpen: false }), projClose: () => self.setState({ projOpen: false }),
       projEmpty: st.added.length === 0, projHas: st.added.length > 0,
       projItems: st.added.map((id) => ({ n: pjName(id), rm: () => pjSet(self.state.added.filter((x) => x !== id)) })),
-      projClear: () => pjSet([])
+      projClear: () => pjSet([]),
+      pjwCls: 'pjw' + (st.added.length ? '' : ' empty'),
+      thLCls: theme === 'light' ? 'on' : '', thDCls: theme === 'dark' ? 'on' : '', thLOn: theme === 'light' ? 'true' : 'false', thDOn: theme === 'dark' ? 'true' : 'false',
+      setLight: () => { try { localStorage.setItem('pk-theme', 'light'); } catch (e) {} self.setState({ theme: 'light' }); },
+      setDark: () => { try { localStorage.setItem('pk-theme', 'dark'); } catch (e) {} self.setState({ theme: 'dark' }); },
     };
     const dz = (() => {
       const S = st.dzS || 0, sub = st.dzSub || [], need = st.dzNeed, own = !!st.dzOwn;
@@ -2495,9 +2787,16 @@ class Component extends DCLogic {
       const urlMode = need === 'odsw' || need === 'help';
       const szN = (SZ.find((x) => x.id === st.dzSize) || SZ[1]).n, whN = (W.find((x) => x.id === st.dzWhen) || {}).n;
       const big = need === 'prog' || need === 'app' || need === 'rozb' || st.dzSize === 'full';
-      const whenNote = { asap: 'Zaczynamy od rozmowy jeszcze w tym tygodniu. Dokładny termin dostaniesz na piśmie.', zima: big ? 'Przed sezonem zimowym zdążymy z wersją na start. Resztę dołożymy po sezonie, bez przestoju.' : 'Przed sezonem zimowym zdążymy, jeśli zaczniemy do [DATA].', lato: 'Przed latem zdążymy spokojnie, z czasem na poprawki.', brak: 'Termin ustalimy razem i zapiszemy w umowie.' }[st.dzWhen] || 'Termin potwierdzimy na piśmie po krótkiej rozmowie.';
-      const price = r.free ? 'Bezpłatnie' : r.month ? 'od [OD] zł / mies.' : hasSize ? '[CENA · ' + szN.toLowerCase() + '] zł netto' : 'od [OD] zł netto';
-      const term = r.free ? 'Odpowiedź w ciągu [CZAS ODPOWIEDZI]' : '[TERMIN]';
+      const whenNote = { asap: 'Zaczynamy od rozmowy jeszcze w tym tygodniu. Dokładny termin dostaniesz na piśmie.', zima: big ? 'Przed sezonem zimowym zdążymy z wersją na start. Resztę dołożymy po sezonie, bez przestoju.' : 'Przed sezonem zimowym zdążymy, jeśli zaczniemy do 30 listopada.', lato: 'Przed latem zdążymy spokojnie, z czasem na poprawki.', brak: 'Termin ustalimy razem i zapiszemy w umowie.' }[st.dzWhen] || 'Termin potwierdzimy na piśmie po krótkiej rozmowie.';
+      const PRC = { wizytowka: [999, 1490, 2490], landing: [1299, 1990, 2590], firmowa: [2490, 3390, 5490], przebudowa: [1499, 2490, 2990], restauracja: [1999, 2990, 4490], pensjonat: [1999, 2990, 4490], rozbudowana: [6990, 9990, 14990],
+        excel: [2990, 4990, 8990], czas: [2990, 4990, 7990], zlecenia: [3490, 5990, 9990], crm: [3490, 5990, 9990], serwis: [3490, 5990, 9990] };
+      const TRM = { wizytowka: ['1 tydzień', '1–2 tygodnie', '2 tygodnie'], landing: ['1–2 tygodnie', '2 tygodnie', '3 tygodnie'], firmowa: ['2 tygodnie', '3 tygodnie', '4–5 tygodni'], przebudowa: ['2 tygodnie', '3 tygodnie', '4 tygodnie'], restauracja: ['2 tygodnie', '3 tygodnie', '4–5 tygodni'], pensjonat: ['2 tygodnie', '3 tygodnie', '4–5 tygodni'], rozbudowana: ['5 tygodni', '6–8 tygodni', '8–10 tygodni'],
+        excel: ['2–3 tygodnie', '5 tygodni', '8 tygodni'], czas: ['2–3 tygodnie', '5 tygodni', '8 tygodni'], zlecenia: ['3 tygodnie', '6 tygodni', '10 tygodni'], crm: ['3 tygodnie', '6 tygodni', '10 tygodni'], serwis: ['3 tygodnie', '6 tygodni', '10 tygodni'] };
+      const szI = st.dzSize === 'start' ? 0 : st.dzSize === 'full' ? 2 : 1;
+      const zl = (v) => String(v).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+      const price = r.free ? 'Bezpłatnie' : r.month ? 'od 149 zł / mies.' : PRC[rk] ? (hasSize ? zl(PRC[rk][szI]) + ' zł netto' : 'od ' + zl(PRC[rk][0]) + ' zł netto') : 'Zapytaj o wycenę';
+      const term = r.free ? 'Odpowiedź w ciągu 1 dnia roboczego' : TRM[rk] ? (hasSize ? TRM[rk][szI] : 'od ' + TRM[rk][0]) : 'po krótkiej rozmowie';
+      const scope = r.kind === 'System' && szI === 0 ? 'Na start: jeden moduł na gotowym fundamencie, do 5 użytkowników, bez integracji.' : rk === 'przebudowa' && szI === 0 ? 'Na start: przebudowa strony do 3 podstron.' : rk === 'pensjonat' && szI < 2 ? 'Zapytanie o termin w cenie. Rezerwacja z zaliczką online w Pełnej wersji.' : '';
       const subN = nd ? nd.o.filter((o) => sub.includes(o.id)).map((o) => o.n) : [];
       // podgląd
       const pv = !need && !own ? 'idle' : own ? 'idle' : nd.pv;
@@ -2531,7 +2830,7 @@ class Component extends DCLogic {
         s0: S === 0, s1: S === 1, s2: S === 2, s3: S === 3, s4: S === 4, canBack: S > 0,
         back: () => go(own && S === 3 ? 0 : S - 1),
         steps: STEPS.map((n, i) => ({ n, i: String(i + 1), cur: i === S ? 'step' : 'false', cls: 'dzst' + (i === S ? ' on' : i <= (st.dzMax || 0) ? ' done' : '') + (own && (i === 1 || i === 2) ? ' skip' : ''), go: () => { if (i <= (self.state.dzMax || 0) && !(own && (i === 1 || i === 2))) go(i); } })),
-        rows: [{ n: 'Nowa strona internetowa', items: [] }, { n: 'Odświeżenie, program, aplikacja', items: [] }].map((rw, ri) => ({ n: rw.n, items: Object.keys(N).filter((k) => N[k].row === ri).map((k) => ({ n: N[k].n, d: N[k].d, ic: N[k].ic, cls: 'dzt' + (need === k ? ' on' : ''), pick: () => { set({ dzNeed: k, dzSub: [], dzOwn: false, dzHave: '', dzUrl: '', dzFile: '', dzS: 1, dzMax: 1 }); } })) })),
+        rows: [{ n: 'Nowa strona internetowa', items: [] }, { n: 'Odświeżenie, program, aplikacja', items: [] }].map((rw, ri) => ({ n: rw.n, items: Object.keys(N).filter((k) => N[k].row === ri).map((k) => ({ n: N[k].n, d: N[k].d, ic: N[k].ic, cls: 'dzt' + (need === k ? ' on' : ''), pick: () => { set({ dzNeed: k, dzSub: [], dzOwn: false, dzHave: '', dzUrl: '', dzFile: '', dzDesc: self.state.dzNeed === k ? self.state.dzDesc : '', dzS: 1, dzMax: 1 }); } })) })),
         goOwn: () => set({ dzOwn: true, dzNeed: '', dzSub: [], dzS: 3, dzMax: 3 }),
         q2: nd ? nd.q : '', q2h: nd ? nd.h : '', multi: !!(nd && nd.multi), optsCls: 'dzopts' + (nd && nd.o.length > 6 ? ' many' : ''),
         opts: nd ? nd.o.map((o) => ({ n: o.n, ic: o.ic, on: sub.includes(o.id) ? 'true' : 'false', cls: 'dzo' + (sub.includes(o.id) ? ' on' : '') + (nd.multi ? ' m' : ''), pick: () => { if (nd.multi) { const cur = self.state.dzSub || []; set({ dzSub: cur.includes(o.id) ? cur.filter((x) => x !== o.id) : cur.concat([o.id]) }); } else { set({ dzSub: [o.id] }); go(2); } } })) : [],
@@ -2556,7 +2855,9 @@ class Component extends DCLogic {
         share: () => { try { navigator.clipboard.writeText(String(location.href).split('#')[0] + '#dobierz'); } catch (e) {} self.setState({ dzShared: true }); }, shareT: st.dzShared ? 'Link skopiowany' : 'Link dla wspólnika',
         prefs: PREF.map((x) => ({ n: x.n, cls: 'dzchip' + (st.dzPref === x.id ? ' on' : ''), pick: () => self.setState({ dzPref: x.id }) })), prefT: { tel: 'zadzwonimy', mail: 'napiszemy', salon: 'umówimy spotkanie w salonie', online: 'umówimy rozmowę online' }[st.dzPref] || 'zadzwonimy',
         contact: st.dzContact, onContact: (e) => self.setState({ dzContact: e.target.value }),
-        sendCls: 'btn btn-p' + ((st.dzContact || '').trim().length < 5 ? ' off' : ''), send: () => { if ((self.state.dzContact || '').trim().length >= 5) self.setState({ dzSent: true }); },
+        sendCls: 'btn btn-p' + ((st.dzContact || '').trim().length < 5 || !st.dzOk ? ' off' : ''), send: () => { const c0 = (self.state.dzContact || '').trim(); if (c0.length < 5 || !self.state.dzOk) self.setState({ dzErr: true }); else self.setState({ dzSent: true, dzErr: false }); },
+        name: st.dzName || '', onName: (e) => self.setState({ dzName: e.target.value }), ok: !!st.dzOk, toggleOk: () => self.setState({ dzOk: !self.state.dzOk, dzErr: false }), err: !!st.dzErr, errT: (st.dzContact || '').trim().length < 5 ? 'Podaj telefon albo e-mail, żebyśmy mogli wysłać wycenę.' : 'Zaznacz zgodę na kontakt w sprawie wyceny.', inCls: 'dzin' + (st.dzErr && (st.dzContact || '').trim().length < 5 ? ' fin bad' : ''),
+        rCls: 'dzr' + (st.dzPv ? ' pvon' : ''), pvT: () => self.setState({ dzPv: !self.state.dzPv }), pvOnS: st.dzPv ? 'true' : 'false', pvLabel: st.dzPv ? 'Ukryj podgląd projektu' : 'Pokaż podgląd projektu', pvSign: st.dzPv ? '−' : '+', hasScope: !!scope, scope,
         notSent: !st.dzSent, sent: !!st.dzSent,
         pvIdle: pv === 'idle', pvWww: pv === 'www', pvOdsw: pv === 'odsw', pvSys: pv === 'sys', pvApp: pv === 'app', pvAuto: pv === 'auto', pvHelp: pv === 'help',
         pvUrl: pv === 'idle' ? 'twój-projekt' : pv === 'www' ? BRD[4] : pv === 'odsw' ? 'twojafirma.pl · przed i po' : pv === 'sys' ? 'panel.twojafirma.pl' : pv === 'app' ? 'Aplikacja · iPhone i Android' : pv === 'auto' ? 'Automatyzacje · działa w tle' : 'Opieka · przed i po przejęciu',
@@ -2579,13 +2880,13 @@ class Component extends DCLogic {
       };
     })();
     const OXD = [
-      { n: 'Strony internetowe', s: 'Firmowe, dla noclegów, lokali, landing page', c: '7 rozwiązań', ic: 'M3 5h18v14H3zM3 9h18M7 7h.01M10 7h.01', h: ['#6E45D4', '#A24BD8'], v: 'www', d: 'Firmowe, dla noclegów i gastronomii, wizytówki i landing page. Szybkie, wygodne na telefonie, z panelem po polsku.', g: 'Klient znajduje Cię w Google i od razu dzwoni albo pisze.', sol: ['Wizytówka', 'Strona firmowa', 'Rozbudowana strona', 'Landing page', 'Dla restauracji', 'Dla hotelu lub pensjonatu', 'Przebudowa starej'], p: 'od [OD] zł', href: 'Katalog.dc.html', cta: 'Zobacz strony' },
-      { n: 'Systemy i panele', s: 'Zlecenia, CRM, czas pracy, Excel', c: '8 rozwiązań', ic: 'M3 4h18v16H3zM3 9h18M9 9v11', h: ['#1F6F8B', '#2E9A76'], v: 'sys', d: 'Zlecenia, grafik, klienci, czas pracy i rozliczenia. Zbudowane pod to, jak naprawdę pracujecie.', g: 'Jedna baza zamiast kartek, SMS-ów i pięciu Exceli.', sol: ['Zlecenia i grafik pracy', 'CRM', 'Czas pracy', 'Serwis i zgłoszenia', 'Z Excela do systemu', 'Magazyn'], p: 'od [OD] zł', href: 'Katalog.dc.html', cta: 'Zobacz systemy' },
-      { n: 'Aplikacje mobilne', s: 'Dla ekip w terenie i dla klientów', c: '4 rozwiązania', ic: 'M8 2h8a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zM11 18h2', h: ['#3A7BD5', '#6E45D4'], v: 'app', d: 'iPhone i Android z jednego kodu albo aplikacja z przeglądarki. Dla ekip w terenie albo dla Twoich klientów.', g: 'Ekipa ma zlecenia w kieszeni, a biuro widzi wszystko od razu.', sol: ['Dla ekip w terenie', 'Dla klientów', 'Z przeglądarki (PWA)', 'Do Twojego programu'], p: 'od [OD] zł', href: 'Katalog.dc.html', cta: 'Zobacz aplikacje' },
-      { n: 'Sklepy i rezerwacje', s: 'Rezerwacje, zamówienia, płatności', c: '3 rozwiązania', ic: 'M4 5h16v16H4zM4 10h16M9 3v4M15 3v4', h: ['#E8955A', '#C2577A'], v: 'cal', d: 'Rezerwacje online, zamówienia i płatności. Klient rezerwuje sam, o każdej porze.', g: 'Mniej telefonów, więcej rezerwacji bezpośrednio u Ciebie.', sol: ['Rezerwacje online', 'Sklep internetowy', 'Zamówienia i płatności'], p: 'od [OD] zł', href: 'Katalog.dc.html', cta: 'Zobacz rozwiązania' },
-      { n: 'Rozbudowa i połączenia', s: 'Dobudujemy, czego brakuje', c: '4 rozwiązania', ic: 'M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4', h: ['#24324A', '#5E74A6'], v: 'plug', d: 'Masz już program? Dobudujemy brakujący moduł albo połączymy go z resztą. Także system kupiony gdzie indziej.', g: 'Nie wyrzucasz tego, za co już zapłaciłeś.', sol: ['Panel do Twojego programu', 'Dodatek do CRM', 'Połączenie programów', 'Moduł do systemu'], p: 'od [OD] zł', href: 'Katalog.dc.html', cta: 'Zobacz rozwiązania' },
-      { n: 'Automatyzacje i AI', s: 'SMS-y, raporty, asystent AI', c: '3 rozwiązania', ic: 'M13 2L4 14h7l-1 8 9-12h-7z', h: ['#B7791F', '#E8955A'], v: 'auto', d: 'SMS-y, maile, faktury i raporty robią się same. Asystent AI odpowiada na zapytania w kilku językach.', g: 'Godziny przepisywania tygodniowo wracają do Ciebie.', sol: ['SMS-y i e-maile', 'Raporty dla szefa', 'Asystent AI na zapytania'], p: 'od [OD] zł', href: 'Katalog.dc.html', cta: 'Zobacz automatyzacje' },
-      { n: 'Opieka i rozwój', s: 'Kopie, aktualizacje, przejęcie', c: '3 poziomy', ic: 'M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z', h: ['#2E8A1E', '#4FB3A0'], v: 'care', d: 'Kopie, aktualizacje, monitoring i nowe funkcje. Także przejęcie strony albo programu po kimś, kto zniknął.', g: 'Spokój: ktoś pilnuje, zanim coś się zepsuje.', sol: ['Opieka podstawowa', 'Standard z monitoringiem', 'Opieka nad systemem', 'Przejęcie po kimś'], p: 'od [OD] zł / mies.', href: 'Cennik.dc.html', cta: 'Zobacz poziomy opieki' },
+      { n: 'Strony internetowe', s: 'Firmowe, dla noclegów, lokali, landing page', c: '7 rozwiązań', ic: 'M3 5h18v14H3zM3 9h18M7 7h.01M10 7h.01', h: ['#6E45D4', '#A24BD8'], v: 'www', d: 'Firmowe, dla noclegów i gastronomii, wizytówki i landing page. Szybkie, wygodne na telefonie, z panelem po polsku.', g: 'Klient znajduje Cię w Google i od razu dzwoni albo pisze.', sol: ['Wizytówka', 'Strona firmowa', 'Rozbudowana strona', 'Landing page', 'Dla restauracji', 'Dla hotelu lub pensjonatu', 'Przebudowa starej'], p: 'od 999 zł', href: 'Katalog.dc.html', cta: 'Zobacz strony' },
+      { n: 'Systemy i panele', s: 'Zlecenia, CRM, czas pracy, Excel', c: '8 rozwiązań', ic: 'M3 4h18v16H3zM3 9h18M9 9v11', h: ['#1F6F8B', '#2E9A76'], v: 'sys', d: 'Zlecenia, grafik, klienci, czas pracy i rozliczenia. Zbudowane pod to, jak naprawdę pracujecie.', g: 'Jedna baza zamiast kartek, SMS-ów i pięciu Exceli.', sol: ['Zlecenia i grafik pracy', 'CRM', 'Czas pracy', 'Serwis i zgłoszenia', 'Z Excela do systemu', 'Magazyn'], p: 'od 2 990 zł', href: 'Katalog.dc.html', cta: 'Zobacz systemy' },
+      { n: 'Aplikacje mobilne', s: 'Dla ekip w terenie i dla klientów', c: '4 rozwiązania', ic: 'M8 2h8a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zM11 18h2', h: ['#3A7BD5', '#6E45D4'], v: 'app', d: 'iPhone i Android z jednego kodu albo aplikacja z przeglądarki. Dla ekip w terenie albo dla Twoich klientów.', g: 'Ekipa ma zlecenia w kieszeni, a biuro widzi wszystko od razu.', sol: ['Dla ekip w terenie', 'Dla klientów', 'Z przeglądarki (PWA)', 'Do Twojego programu'], p: 'Zapytaj o wycenę', href: 'Katalog.dc.html', cta: 'Zobacz aplikacje' },
+      { n: 'Sklepy i rezerwacje', s: 'Rezerwacje, zamówienia, płatności', c: '3 rozwiązania', ic: 'M4 5h16v16H4zM4 10h16M9 3v4M15 3v4', h: ['#E8955A', '#C2577A'], v: 'cal', d: 'Sklep internetowy, rezerwacja stolika i zapytania o termin dla pensjonatów (zaliczka online w wersji Pełnej). Klient zamawia i rezerwuje sam, o każdej porze.', g: 'Mniej telefonów, więcej rezerwacji bezpośrednio u Ciebie.', sol: ['Sklep internetowy', 'Rezerwacja stolika', 'Zapytania o termin dla pensjonatu'], p: 'od 1 999 zł', href: 'Katalog.dc.html', cta: 'Zobacz rozwiązania' },
+      { n: 'Rozbudowa i połączenia', s: 'Dobudujemy, czego brakuje', c: '4 rozwiązania', ic: 'M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4', h: ['#24324A', '#5E74A6'], v: 'plug', d: 'Masz już program? Dobudujemy brakujący moduł albo połączymy go z resztą. Także system kupiony gdzie indziej.', g: 'Nie wyrzucasz tego, za co już zapłaciłeś.', sol: ['Panel do Twojego programu', 'Dodatek do CRM', 'Połączenie programów', 'Moduł do systemu'], p: 'Zapytaj o wycenę', href: 'Katalog.dc.html', cta: 'Zobacz rozwiązania' },
+      { n: 'Automatyzacje i AI', s: 'SMS-y, raporty, asystent AI', c: '3 rozwiązania', ic: 'M13 2L4 14h7l-1 8 9-12h-7z', h: ['#B7791F', '#E8955A'], v: 'auto', d: 'SMS-y, maile, faktury i raporty robią się same. Asystent AI odpowiada na zapytania w kilku językach.', g: 'Godziny przepisywania tygodniowo wracają do Ciebie.', sol: ['SMS-y i e-maile', 'Raporty dla szefa', 'Asystent AI na zapytania'], p: 'Zapytaj o wycenę', href: 'Katalog.dc.html', cta: 'Zobacz automatyzacje' },
+      { n: 'Opieka i rozwój', s: 'Kopie, aktualizacje, przejęcie', c: '3 poziomy', ic: 'M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z', h: ['#2E8A1E', '#4FB3A0'], v: 'care', d: 'Kopie, aktualizacje, monitoring i nowe funkcje. Także przejęcie strony albo programu po kimś, kto zniknął.', g: 'Spokój: ktoś pilnuje, zanim coś się zepsuje.', sol: ['Opieka podstawowa', 'Standard z monitoringiem', 'Opieka nad systemem', 'Przejęcie po kimś'], p: 'od 149 zł / mies.', href: 'Cennik.dc.html', cta: 'Zobacz poziomy opieki' },
       { n: 'Audyty i doradztwo', s: 'Sprawdzimy i powiemy uczciwie', c: 'szybki audyt za darmo', ic: 'M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM20 20l-4-4', h: ['#B9506F', '#E59A7E'], v: 'aud', d: 'Sprawdzimy stronę albo program i uczciwie powiemy, co poprawić. Czasem odpowiedź brzmi: nic nie budujcie.', g: 'Wiesz, na czym stoisz, zanim wydasz złotówkę.', sol: ['Szybki audyt strony', 'Pełny audyt z raportem', 'Dostępność', 'Doradztwo przy wyborze'], p: 'szybki audyt za darmo', href: 'Audyt.dc.html', cta: 'Zamów darmowy audyt' }
     ];
     const oxI = st.oxI || 0, oxo = OXD[oxI];
@@ -2593,7 +2894,7 @@ class Component extends DCLogic {
     const ox = { n: oxo.n, c: oxo.c, d: oxo.d, g: oxo.g, sol: oxo.sol, p: oxo.p, href: oxo.href, cta: oxo.cta, bg: 'background: radial-gradient(ellipse at 20% 0%, rgba(255,255,255,.28), transparent 55%), linear-gradient(135deg, ' + oxo.h[0] + ', ' + oxo.h[1] + ')',
       vWww: oxo.v === 'www', vSys: oxo.v === 'sys', vApp: oxo.v === 'app', vCal: oxo.v === 'cal', vPlug: oxo.v === 'plug', vAuto: oxo.v === 'auto', vCare: oxo.v === 'care', vAud: oxo.v === 'aud' };
     const RAILI = [
-      { id: 'start', n: 'Start', ic: 'M3 11l9-7 9 7M5 10v10h14V10M10 20v-6h4v6' }, { id: 'oferta', n: 'Oferta', ic: 'M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z' }, { id: 'popularne', n: 'Najczęściej zamawiane', ic: 'M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z' }, { id: 'podglady', n: 'Podglądy na żywo', ic: 'M3 4h18v12H3zM8 20h8M12 16v4' }, { id: 'proces', n: 'Jak pracujemy i cena', ic: P.cash }, { id: 'dobierz', n: 'Dobierz rozwiązanie', ic: 'M15 4V2M15 16v-2M8 9h2M20 9h2M17.8 11.8L19 13M17.8 6.2L19 5M3 21l9-9M12.2 6.2L11 5' }, { id: 'technologie', n: 'Z czego budujemy', ic: 'M12 3l9 5-9 5-9-5 9-5zM3 13l9 5 9-5M3 17l9 5 9-5' }, { id: 'jak-robimy', n: 'Jak robimy strony', ic: 'M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z' }, { id: 'porownanie', n: 'Dlaczego my', ic: 'M9 6l-6 6 6 6M15 6l6 6-6 6' }, { id: 'realizacje', n: 'Realizacje', ic: 'M4 5h16v14H4zM4 15l4-4 4 4 3-3 5 5' }, { id: 'faq', n: 'Pytania', ic: 'M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3M12 17h.01M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z' }, { id: 'kontakt', n: 'Kontakt', ic: P.chat }
+      { id: 'start', n: 'Start', ic: 'M3 11l9-7 9 7M5 10v10h14V10M10 20v-6h4v6' }, { id: 'oferta', n: 'Oferta', ic: 'M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z' }, { id: 'popularne', n: 'Najczęściej zamawiane', ic: 'M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z' }, { id: 'podglady', n: 'Podglądy na żywo', ic: 'M3 4h18v12H3zM8 20h8M12 16v4' }, { id: 'proces', n: 'Jak pracujemy i cena', ic: P.cash }, { id: 'dobierz', n: 'Dobierz rozwiązanie', ic: 'M15 4V2M15 16v-2M8 9h2M20 9h2M17.8 11.8L19 13M17.8 6.2L19 5M3 21l9-9M12.2 6.2L11 5' }, { id: 'bez-wordpressa', n: 'Dlaczego nie WordPress', ic: 'M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z' }, { id: 'realizacje', n: 'Realizacje', ic: 'M4 5h16v14H4zM4 15l4-4 4 4 3-3 5 5' }, { id: 'faq', n: 'Pytania', ic: 'M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3M12 17h.01M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z' }, { id: 'kontakt', n: 'Kontakt', ic: P.chat }
     ];
     let actI = 0; RAILI.forEach((r, i) => { if (r.id === st.navAct) actI = i; });
     const vT = st.visTop || 0, vB = st.visBot || 900, railH = 40 + RAILI.length * 44 + 14;
@@ -2605,7 +2906,7 @@ class Component extends DCLogic {
       { title: 'Wersja testowa co tydzień', text: 'Widzisz postęp na własne oczy, a nie w raporcie.', icon: 'M3 4h18v12H3zM8 20h8M12 16v4' },
       { title: 'Kod i dostępy są Twoje', text: 'Domena, serwer, panel i kod należą do Twojej firmy.', icon: 'M4 10h16v11H4zM8 10V7a4 4 0 0 1 8 0v3' },
       { title: 'Bez uwiązania', text: 'Dokumentacja pozwala przekazać projekt komuś innemu. Zostajesz, bo chcesz.', icon: 'M9 6l-6 6 6 6M15 6l6 6-6 6' },
-      { title: 'Dane zawsze u Ciebie', text: 'Co miesiąc automatyczny eksport Twoich danych.', icon: 'M12 3v12M7 10l5 5 5-5M4 21h16' },
+      { title: 'Dane zawsze u Ciebie', text: 'Eksport Twoich danych na każde żądanie, w Opiece Systemy co miesiąc.', icon: 'M12 3v12M7 10l5 5 5-5M4 21h16' },
       { title: 'Czas reakcji na piśmie', text: 'W opiece wiesz, kiedy odpowiemy i kiedy naprawimy.', icon: P.clock }
     ];
     const process = [
@@ -2616,11 +2917,11 @@ class Component extends DCLogic {
       { num: '05', title: 'Opieka', text: 'Kopie, aktualizacje, poprawki i rozwój.' }
     ];
     const faqDefs = [
-      ['Ile to kosztuje, także co miesiąc?', 'Każde rozwiązanie ma cenę „od”, a dokładną kwotę za stały zakres dostajesz na piśmie po krótkiej rozmowie. Utrzymanie: serwer w Polsce, kopie i aktualizacje od [OD] zł miesięcznie. Bez opieki płacisz tylko za serwer i domenę.'],
+      ['Ile to kosztuje, także co miesiąc?', 'Każde rozwiązanie ma cenę „od”, a dokładną kwotę za stały zakres dostajesz na piśmie po krótkiej rozmowie. Utrzymanie: serwer w Polsce, kopie i aktualizacje od 149 zł miesięcznie. Bez opieki płacisz tylko za serwer i domenę.'],
       ['Ile to trwa?', 'Termin podajemy na piśmie przy wycenie. Wersję testową oglądasz co tydzień, więc widzisz postęp, a nie tylko termin końcowy.'],
       ['Czy sam zmienię treści?', 'Tak. Dostajesz panel po polsku, tylko z polami, które naprawdę zmieniasz: ceny, zdjęcia, godziny, aktualności. Przy odbiorze pokazujemy go na Twoich treściach.'],
       ['Czy będzie widoczna w Google i w ChatGPT?', 'Robimy wszystko, co od nas zależy, w cenie każdego projektu: szybkość, dane strukturalne, czytelna treść, spójne dane firmy. Miejsca w wynikach uczciwie nie gwarantuje nikt.'],
-      ['Czyja jest domena, kod i dane?', 'Twoje. Domena, serwer, kod, panel i dostępy należą do Twojej firmy, a eksport danych dostajesz co miesiąc. Projekt może przejąć każdy, nie tylko my.'],
+      ['Czyja jest domena, kod i dane?', 'Twoje. Domena, serwer, kod, panel i dostępy należą do Twojej firmy, a eksport danych dostajesz na każde żądanie. Projekt może przejąć każdy, nie tylko my.'],
       ['Mam już stronę albo program. Co z nim?', 'Zaczynamy od darmowego audytu. Często wystarczy dobudować brakującą część albo połączyć programy. Przebudowę proponujemy tylko wtedy, gdy naprawdę się opłaca.']
     ];
     const faq = faqDefs.map((f, i) => { const open = st.openFaq === i; return { q: f[0], a: f[1], open, expanded: open ? 'true' : 'false', sign: open ? '−' : '+', toggle: () => self.setState({ openFaq: open ? -1 : i }) }; });
@@ -2649,7 +2950,7 @@ class Component extends DCLogic {
       stk, stkCur, kSteps, kSit, kMods, kHave, kTiles, kExt, kEmpty: kn === 0, kCount, kVerdict, kVerdD, kVerdCls: 'krverd' + (kn === 0 ? ' soft' : ''), kLevel, kStages, kBriefMods, kBriefTitle, kBriefSit, kHasHave: extHave.length > 0, kBriefHave: extHave.join(', '),
       query: st.query, hasQ: !!st.query, onQuery: (e) => self.setState({ query: e.target.value }), clearQ: () => self.setState({ query: '' }), popular, groups, results, resultsLabel: label, resultsCount: String(resultsCount), moreResults: resultsCount > 4, noResults, hasGroup: gKey !== '', groupName: gKey ? G[st.group][0] : '',
       guarantees, process, faq,
-      topics, consent: st.consent, toggleConsent: () => self.setState({ consent: !st.consent }), sent: st.sent, notSent: !st.sent, send: () => self.setState({ sent: true }), reset: () => self.setState({ sent: false })
+      topics, consent: st.consent, toggleConsent: () => self.setState({ consent: !st.consent, ferr: false }), ferr: !!st.ferr, sent: st.sent, notSent: !st.sent, send: () => { if (!self.state.consent) self.setState({ ferr: true }); else self.setState({ sent: true, ferr: false }); }, reset: () => self.setState({ sent: false })
     };
   }
 }

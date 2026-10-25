@@ -123,7 +123,7 @@
     ],
     "card": {
       "eyebrow": "Pełna oferta",
-      "title": "30 rozwiązań dla firm z Podhala i nie tylko",
+      "title": "Strony, systemy i aplikacje dla firm z Podhala i nie tylko",
       "text": "Strony, systemy, aplikacje i automatyzacje. Każde z podglądem na żywo.",
       "cta": [
         "Zobacz pełną ofertę →",
@@ -139,34 +139,105 @@
           "/jedna-firma"
         ]
       ]
+    },
+    "branze": {
+      "label": "Dla branż",
+      "links": [
+        [
+          "Budowlanka i ekipy",
+          "/dla-branz/budownictwo-i-wykonczenia"
+        ],
+        [
+          "Pensjonaty i hotele",
+          "/dla-branz/pensjonaty-i-apartamenty"
+        ],
+        [
+          "Gastronomia",
+          "/dla-branz/gastronomia"
+        ],
+        [
+          "Warsztaty i serwisy",
+          "/dla-branz/warsztaty-i-serwisy"
+        ],
+        [
+          "Gabinety",
+          "/dla-branz/gabinety-i-rehabilitacja"
+        ],
+        [
+          "Wszystkie →",
+          "/dla-branz"
+        ]
+      ]
     }
   },
-  "mobileMenu": [
-    [
-      "Kreator · dobierz w 60 s",
+  "mobileMenu": {
+    "_info": "v20: menu jako arkusz od dołu: wyszukiwarka, karta kreatora, 4 kafle oferty z ceną „od”, listy, przełącznik motywu, kontakt.",
+    "search": "Czego szukasz? np. zlecenia, pensjonat",
+    "kreator": [
+      "Dobierz rozwiązanie",
+      "5 krótkich kroków · 60 s · cena od razu",
       "/dobierz"
     ],
-    [
-      "Pełna oferta",
-      "/rozwiazania"
+    "tiles": [
+      [
+        "Strony internetowe",
+        "od 999 zł",
+        "/rozwiazania?kategoria=strony"
+      ],
+      [
+        "Systemy i panele",
+        "od 2 990 zł",
+        "/rozwiazania?kategoria=systemy"
+      ],
+      [
+        "Aplikacje mobilne",
+        "zapytaj o wycenę",
+        "/rozwiazania?kategoria=aplikacje"
+      ],
+      [
+        "Automatyzacje i AI",
+        "zapytaj o wycenę",
+        "/rozwiazania?kategoria=automatyzacje"
+      ]
     ],
-    [
-      "Darmowy audyt",
-      "/audyt"
+    "offer": [
+      [
+        "Pełna oferta",
+        "/rozwiazania"
+      ],
+      [
+        "Dla branż",
+        "/dla-branz"
+      ],
+      [
+        "Cennik",
+        "/cennik"
+      ],
+      [
+        "Darmowy audyt strony",
+        "/audyt",
+        "0 zł"
+      ]
     ],
-    [
-      "O firmie",
-      "/o-firmie"
-    ],
-    [
-      "Aktualności",
-      "/aktualnosci"
-    ],
-    [
-      "Kontakt",
-      "/kontakt"
+    "company": [
+      [
+        "O firmie",
+        "/o-firmie"
+      ],
+      [
+        "Jedna firma do wszystkiego",
+        "/jedna-firma"
+      ],
+      [
+        "Aktualności i poradnik",
+        "/aktualnosci"
+      ],
+      [
+        "Kontakt",
+        "/kontakt"
+      ]
     ]
-  ],
+  },
   "mobileMenuFooter": {
     "cta": [
       "Bezpłatna wycena",
@@ -228,6 +299,10 @@
             "/aktualnosci"
           ],
           [
+            "Dla branż",
+            "/dla-branz"
+          ],
+          [
             "Cennik",
             "/cennik"
           ],
@@ -251,6 +326,49 @@
     "crossLink": [
       "Szukasz sprzętu, kas albo KSeF? PRO-KOM Biznes →",
       "https://prokombiznes.pl"
+    ],
+    "legal": [
+      [
+        "Polityka prywatności",
+        "/polityka-prywatnosci"
+      ],
+      [
+        "Mapa strony",
+        "/mapa-strony"
+      ]
     ]
-  }
+  },
+  "tabBar": {
+    "_info": "v20: dolny pasek na telefonie i tablecie (≤ 1080 px). Środkowy przycisk = kreator.",
+    "items": [
+      [
+        "Start",
+        "/"
+      ],
+      [
+        "Oferta",
+        "/rozwiazania"
+      ],
+      [
+        "Kreator",
+        "/dobierz"
+      ],
+      [
+        "Kontakt",
+        "/kontakt"
+      ],
+      [
+        "Menu",
+        "#menu"
+      ]
+    ]
+  },
+  "headerMobile": {
+    "cta": [
+      "Wycena",
+      "/kontakt"
+    ],
+    "_info": "Na telefonie w nagłówku tylko logo i „Wycena”; motyw w menu, projekt jako pigułka nad dolnym paskiem (gdy lista nie jest pusta)."
+  },
+  "projectPill": "Twój projekt · {n} · Zobacz →"
 }

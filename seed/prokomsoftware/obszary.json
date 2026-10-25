@@ -1,5 +1,5 @@
 {
-  "_info": "8 obszarów strony głównej (sekcja #oferta) — grupowanie marketingowe, NIE kategorie katalogu. countLabel to tekst redakcyjny (np. „3 poziomy”), nie licznik z bazy. chips[].solution = slug z rozwiazania.json albo null (chip bez linku). priceFrom = null do decyzji szefa. href docelowo /rozwiazania?kategoria=… (ADR-014 §1).",
+  "_info": "8 obszarów strony głównej (sekcja #oferta) — grupowanie marketingowe, NIE kategorie katalogu. countLabel to tekst redakcyjny (np. „3 poziomy”), nie licznik z bazy. chips[].solution = slug z rozwiazania.json albo null (chip bez linku). priceFrom = null do decyzji szefa. href docelowo /rozwiazania?kategoria=… (ADR-014 §1). 25.10.2026: priceFrom wpisane wg cennika; chip „Rezerwacje online” zastąpiony (rozwiązanie usunięte).",
   "items": [
     {
       "name": "Strony internetowe",
@@ -47,7 +47,8 @@
           "solution": "przebudowa-starej-strony"
         }
       ],
-      "priceFrom": null
+      "priceFrom": 999,
+      "priceLabel": "od 999 zł"
     },
     {
       "name": "Systemy i panele",
@@ -91,7 +92,8 @@
           "solution": "magazyn-i-zamowienia"
         }
       ],
-      "priceFrom": null
+      "priceFrom": 2990,
+      "priceLabel": "od 2 990 zł"
     },
     {
       "name": "Aplikacje mobilne",
@@ -127,7 +129,8 @@
           "solution": "aplikacja-do-programu-ktory-masz"
         }
       ],
-      "priceFrom": null
+      "priceFrom": null,
+      "priceLabel": "Zapytaj o wycenę"
     },
     {
       "name": "Sklepy i rezerwacje",
@@ -139,7 +142,7 @@
         "#C2577A"
       ],
       "scene": "cal",
-      "description": "Rezerwacje online, zamówienia i płatności. Klient rezerwuje sam, o każdej porze.",
+      "description": "Sklep internetowy, rezerwacja stolika i zapytania o termin dla pensjonatów (zaliczka online w wersji Pełnej). Klient zamawia i rezerwuje sam, o każdej porze.",
       "gain": "Mniej telefonów, więcej rezerwacji bezpośrednio u Ciebie.",
       "href": "/rozwiazania?kategoria=strony",
       "cta": "Zobacz rozwiązania",
@@ -147,19 +150,20 @@
       "order": 4,
       "chips": [
         {
-          "label": "Rezerwacje online",
-          "solution": "rezerwacje-online-na-stronie"
-        },
-        {
           "label": "Sklep internetowy",
           "solution": "sklep-internetowy"
         },
         {
-          "label": "Zamówienia i płatności",
-          "solution": null
+          "label": "Rezerwacja stolika",
+          "solution": "strona-dla-restauracji-lub-baru"
+        },
+        {
+          "label": "Zapytania o termin dla pensjonatu",
+          "solution": "strona-dla-hotelu-lub-pensjonatu"
         }
       ],
-      "priceFrom": null
+      "priceFrom": 1999,
+      "priceLabel": "od 1 999 zł"
     },
     {
       "name": "Rozbudowa i połączenia",
@@ -195,7 +199,8 @@
           "solution": null
         }
       ],
-      "priceFrom": null
+      "priceFrom": null,
+      "priceLabel": "Zapytaj o wycenę"
     },
     {
       "name": "Automatyzacje i AI",
@@ -227,7 +232,8 @@
           "solution": "asystent-ai-do-zapytan"
         }
       ],
-      "priceFrom": null
+      "priceFrom": null,
+      "priceLabel": "Zapytaj o wycenę"
     },
     {
       "name": "Opieka i rozwój",
@@ -263,7 +269,8 @@
           "solution": "przejecie-po-innym-wykonawcy"
         }
       ],
-      "priceFrom": null
+      "priceFrom": 149,
+      "priceLabel": "od 149 zł / mies."
     },
     {
       "name": "Audyty i doradztwo",
@@ -299,7 +306,8 @@
           "solution": null
         }
       ],
-      "priceFrom": "szybki audyt za darmo"
+      "priceFrom": 0,
+      "priceLabel": "szybki audyt za darmo"
     }
   ]
 }

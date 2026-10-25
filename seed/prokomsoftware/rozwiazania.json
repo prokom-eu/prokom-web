@@ -1,5 +1,5 @@
 {
-  "_info": "30 rozwiązań z planszy Katalog (źródło: docs/design/prokomsoftware/boards/Katalog.dc.html, tablica D). category = jedna z 5 kategorii katalogu (strony, systemy, aplikacje, automatyzacje, opieka) — filtr /rozwiazania. To NIE jest 8 obszarów ze strony głównej (obszary.json). priceFrom / prices / leadTime(s) = null do decyzji szefa (ADR-014 §1.1). W kodzie zapisujemy tylko prices i leadTimes; priceFrom/leadTime z tego pliku seed mapuje na rozmiar start (ADR-014 rozstrz. 5). {termin} w cechach = leadTime tego rozwiązania (ADR-014 rozstrz. 4).",
+  "_info": "Rozwiązania z planszy Katalog (29 + 1 usunięte, patrz removed). Ceny netto zaakceptowane przez Krystiana 25.10.2026 (claude/software-cennik.md), przed publikacją akceptacja szefa. prices/leadTimes = rozmiary kreatora (start/std/full); priceFrom/leadTime = start. Aplikacje i automatyzacje: null → na stronie „Zapytaj o wycenę”. Opieka: ceny miesięczne (priceNote). Audyt: start = 0 zł (szybki audyt za darmo). category = 5 kategorii katalogu (strony, systemy, aplikacje, automatyzacje, opieka).",
   "situations": {
     "Z": "Zaczynam od zera",
     "R": "Mam program, brakuje mu czegoś",
@@ -41,8 +41,8 @@
       "hasLivePreview": true,
       "toast": "Nowe zapytanie z formularza",
       "keywords": "strona firmowa www oferta realizacje",
-      "priceFrom": null,
-      "leadTime": null,
+      "priceFrom": 2490,
+      "leadTime": "2 tygodnie",
       "cardGradient": null,
       "featuredOrder": 2,
       "featuredName": "Strona firmowa",
@@ -55,15 +55,16 @@
       "featuredTag": "PANEL TREŚCI",
       "category": "strony",
       "prices": {
-        "start": null,
-        "std": null,
-        "full": null
+        "start": 2490,
+        "std": 3390,
+        "full": 5490
       },
       "leadTimes": {
-        "start": null,
-        "std": null,
-        "full": null
-      }
+        "start": "2 tygodnie",
+        "std": "3 tygodnie",
+        "full": "4–5 tygodni"
+      },
+      "priceNote": null
     },
     {
       "legacyId": 2,
@@ -74,7 +75,7 @@
       "lead": "Pokoje, zapytanie o termin, trzy języki. Gość pisze do Ciebie, nie przez portal z prowizją.",
       "features": [
         "3 języki, pokoje, galeria",
-        "Zapytanie o termin, zaliczka online",
+        "Zapytanie o termin (zaliczka online w Pełnej)",
         "Połączenie z kalendarzami portali (opcja)"
       ],
       "forWhom": "pensjonaty, hotele, apartamenty, domki",
@@ -89,29 +90,30 @@
       "hasLivePreview": true,
       "toast": "Nowa rezerwacja · 12–15 sty",
       "keywords": "pensjonat hotel noclegi gosc portal booking prowizja apartament",
-      "priceFrom": null,
-      "leadTime": null,
+      "priceFrom": 1999,
+      "leadTime": "2 tygodnie",
       "cardGradient": "135deg, #F3B07C, #F7D9B5",
       "featuredOrder": 6,
       "featuredName": "Strona dla hotelu lub pensjonatu",
       "featuredLead": "PL/EN/DE, pokoje, zapytanie o termin. Gość pisze do Ciebie, nie przez portal z prowizją.",
       "featuredFeatures": [
         "3 języki, pokoje, galeria",
-        "Zapytanie o termin, zaliczka online",
+        "Zapytanie o termin (zaliczka online w Pełnej)",
         "Połączenie z kalendarzami portali (opcja)"
       ],
       "featuredTag": "PL · EN · DE",
       "category": "strony",
       "prices": {
-        "start": null,
-        "std": null,
-        "full": null
+        "start": 1999,
+        "std": 2990,
+        "full": 4490
       },
       "leadTimes": {
-        "start": null,
-        "std": null,
-        "full": null
-      }
+        "start": "2 tygodnie",
+        "std": "3 tygodnie",
+        "full": "4–5 tygodni"
+      },
+      "priceNote": "Zapytanie o termin w cenie. Rezerwacja z zaliczką online w Pełnej wersji."
     },
     {
       "legacyId": 3,
@@ -137,8 +139,8 @@
       "hasLivePreview": false,
       "toast": "Rezerwacja stolika · 19:00",
       "keywords": "restauracja bar menu stolik dowoz kawiarnia catering gastronomia",
-      "priceFrom": null,
-      "leadTime": null,
+      "priceFrom": 1999,
+      "leadTime": "2 tygodnie",
       "cardGradient": "135deg, #D8C3A8, #A38363",
       "featuredOrder": 5,
       "featuredName": "Strona dla restauracji lub baru",
@@ -151,15 +153,16 @@
       "featuredTag": "MENU + STOLIK",
       "category": "strony",
       "prices": {
-        "start": null,
-        "std": null,
-        "full": null
+        "start": 1999,
+        "std": 2990,
+        "full": 4490
       },
       "leadTimes": {
-        "start": null,
-        "std": null,
-        "full": null
-      }
+        "start": "2 tygodnie",
+        "std": "3 tygodnie",
+        "full": "4–5 tygodni"
+      },
+      "priceNote": null
     },
     {
       "legacyId": 4,
@@ -187,8 +190,8 @@
       "hasLivePreview": false,
       "toast": "Telefon ze strony · 3 min temu",
       "keywords": "wizytowka prosta mala strona",
-      "priceFrom": null,
-      "leadTime": null,
+      "priceFrom": 999,
+      "leadTime": "1 tydzień",
       "cardGradient": null,
       "featuredOrder": 1,
       "featuredName": "Strona wizytówka",
@@ -201,15 +204,16 @@
       "featuredTag": "1 STRONA",
       "category": "strony",
       "prices": {
-        "start": null,
-        "std": null,
-        "full": null
+        "start": 999,
+        "std": 1490,
+        "full": 2490
       },
       "leadTimes": {
-        "start": null,
-        "std": null,
-        "full": null
-      }
+        "start": "1 tydzień",
+        "std": "1–2 tygodnie",
+        "full": "2 tygodnie"
+      },
+      "priceNote": null
     },
     {
       "legacyId": 5,
@@ -240,20 +244,21 @@
       "hasLivePreview": false,
       "toast": "Szybkość: mierzona przed i po przebudowie",
       "keywords": "stara strona wolna wordpress przebudowa odswiezenie zhakowana",
-      "priceFrom": null,
-      "leadTime": null,
+      "priceFrom": 1499,
+      "leadTime": "2 tygodnie",
       "cardGradient": null,
       "category": "strony",
       "prices": {
-        "start": null,
-        "std": null,
-        "full": null
+        "start": 1499,
+        "std": 2490,
+        "full": 2990
       },
       "leadTimes": {
-        "start": null,
-        "std": null,
-        "full": null
-      }
+        "start": "2 tygodnie",
+        "std": "3 tygodnie",
+        "full": "4 tygodnie"
+      },
+      "priceNote": "Na start: przebudowa strony do 3 podstron."
     },
     {
       "legacyId": 6,
@@ -282,8 +287,8 @@
       "hasLivePreview": true,
       "toast": "Zapytanie z katalogu · 3 produkty",
       "keywords": "rozbudowana duza podstrony blog katalog strefa klienta jezyki",
-      "priceFrom": null,
-      "leadTime": null,
+      "priceFrom": 6990,
+      "leadTime": "5 tygodni",
       "cardGradient": null,
       "featuredOrder": 3,
       "featuredName": "Rozbudowana strona",
@@ -296,15 +301,16 @@
       "featuredTag": "WIELE PODSTRON",
       "category": "strony",
       "prices": {
-        "start": null,
-        "std": null,
-        "full": null
+        "start": 6990,
+        "std": 9990,
+        "full": 14990
       },
       "leadTimes": {
-        "start": null,
-        "std": null,
-        "full": null
-      }
+        "start": "5 tygodni",
+        "std": "6–8 tygodni",
+        "full": "8–10 tygodni"
+      },
+      "priceNote": null
     },
     {
       "legacyId": 7,
@@ -335,8 +341,8 @@
       "hasLivePreview": false,
       "toast": "12 zapytań z kampanii",
       "keywords": "landing kampania reklama google ads facebook promocja",
-      "priceFrom": null,
-      "leadTime": null,
+      "priceFrom": 1299,
+      "leadTime": "1–2 tygodnie",
       "cardGradient": null,
       "featuredOrder": 4,
       "featuredName": "Landing page",
@@ -349,15 +355,16 @@
       "featuredTag": "1 CEL · POMIAR",
       "category": "strony",
       "prices": {
-        "start": null,
-        "std": null,
-        "full": null
+        "start": 1299,
+        "std": 1990,
+        "full": 2590
       },
       "leadTimes": {
-        "start": null,
-        "std": null,
-        "full": null
-      }
+        "start": "1–2 tygodnie",
+        "std": "2 tygodnie",
+        "full": "3 tygodnie"
+      },
+      "priceNote": null
     },
     {
       "legacyId": 8,
@@ -382,62 +389,21 @@
       "hasLivePreview": false,
       "toast": "Nowe zamówienie · 3 produkty",
       "keywords": "sklep internetowy sprzedaz online zamowienia koszyk platnosci",
-      "priceFrom": null,
-      "leadTime": null,
+      "priceFrom": 8990,
+      "leadTime": "5–6 tygodni",
       "cardGradient": "135deg, #BFD9CF, #7FA898",
       "category": "strony",
       "prices": {
-        "start": null,
-        "std": null,
-        "full": null
+        "start": 8990,
+        "std": 12990,
+        "full": 18990
       },
       "leadTimes": {
-        "start": null,
-        "std": null,
-        "full": null
-      }
-    },
-    {
-      "legacyId": 9,
-      "slug": "rezerwacje-online-na-stronie",
-      "name": "Rezerwacje online na stronie",
-      "label": "Strona",
-      "tag": "ONLINE",
-      "lead": "Kalendarz wizyt, zajęć, sal lub sprzętu. Zaliczka online, przypomnienia SMS.",
-      "features": [
-        "Kalendarz tylko wolnych terminów",
-        "Zaliczka BLIK lub kartą",
-        "Przypomnienie SMS dzień przed"
-      ],
-      "forWhom": "gabinety, szkoły narciarskie, wypożyczalnie, sale",
-      "situations": [
-        "Z",
-        "R"
-      ],
-      "industryGroups": [
-        "zdrowie-i-uroda",
-        "turystyka-i-wydarzenia",
-        "gastronomia",
-        "noclegi",
-        "uslugi-i-transport"
-      ],
-      "hasLivePreview": true,
-      "toast": "Nowa rezerwacja · sobota 10:00",
-      "keywords": "rezerwacje online kalendarz wizyta zapis termin zaliczka",
-      "priceFrom": null,
-      "leadTime": null,
-      "cardGradient": null,
-      "category": "strony",
-      "prices": {
-        "start": null,
-        "std": null,
-        "full": null
+        "start": "5–6 tygodni",
+        "std": "7–8 tygodni",
+        "full": "10–12 tygodni"
       },
-      "leadTimes": {
-        "start": null,
-        "std": null,
-        "full": null
-      }
+      "priceNote": null
     },
     {
       "legacyId": 10,
@@ -464,8 +430,8 @@
       "hasLivePreview": true,
       "toast": "Ekipa Marka · zakończone",
       "keywords": "zlecenia grafik kalendarz ekipy kartki sms harmonogram",
-      "priceFrom": null,
-      "leadTime": null,
+      "priceFrom": 3490,
+      "leadTime": "3 tygodnie",
       "cardGradient": null,
       "featuredOrder": 9,
       "featuredName": "System zleceń i grafik pracy",
@@ -478,15 +444,16 @@
       "featuredTag": "EKIPY · STATUS",
       "category": "systemy",
       "prices": {
-        "start": null,
-        "std": null,
-        "full": null
+        "start": 3490,
+        "std": 5990,
+        "full": 9990
       },
       "leadTimes": {
-        "start": null,
-        "std": null,
-        "full": null
-      }
+        "start": "3 tygodnie",
+        "std": "6 tygodni",
+        "full": "10 tygodni"
+      },
+      "priceNote": "Na start: jeden moduł na gotowym fundamencie, do 5 użytkowników, bez integracji."
     },
     {
       "legacyId": 11,
@@ -515,8 +482,8 @@
       "hasLivePreview": false,
       "toast": "Przypomnienie: zadzwoń do Nowaka",
       "keywords": "crm klienci baza kontakty oferty zapytania sprzedaz lejek",
-      "priceFrom": null,
-      "leadTime": null,
+      "priceFrom": 3490,
+      "leadTime": "3 tygodnie",
       "cardGradient": null,
       "featuredOrder": 7,
       "featuredName": "CRM dla małej i średniej firmy",
@@ -529,15 +496,16 @@
       "featuredTag": "KLIENCI · OFERTY",
       "category": "systemy",
       "prices": {
-        "start": null,
-        "std": null,
-        "full": null
+        "start": 3490,
+        "std": 5990,
+        "full": 9990
       },
       "leadTimes": {
-        "start": null,
-        "std": null,
-        "full": null
-      }
+        "start": "3 tygodnie",
+        "std": "6 tygodni",
+        "full": "10 tygodni"
+      },
+      "priceNote": "Na start: jeden moduł na gotowym fundamencie, do 5 użytkowników, bez integracji."
     },
     {
       "legacyId": 12,
@@ -565,8 +533,8 @@
       "hasLivePreview": true,
       "toast": "Marek · 8 h 20 min · dziś",
       "keywords": "czas pracy godziny ewidencja rozliczenie wyplata nadgodziny",
-      "priceFrom": null,
-      "leadTime": null,
+      "priceFrom": 2990,
+      "leadTime": "2–3 tygodnie",
       "cardGradient": null,
       "featuredOrder": 10,
       "featuredName": "Czas pracy i rozliczenia",
@@ -579,15 +547,16 @@
       "featuredTag": "START / STOP",
       "category": "systemy",
       "prices": {
-        "start": null,
-        "std": null,
-        "full": null
+        "start": 2990,
+        "std": 4990,
+        "full": 7990
       },
       "leadTimes": {
-        "start": null,
-        "std": null,
-        "full": null
-      }
+        "start": "2–3 tygodnie",
+        "std": "5 tygodni",
+        "full": "8 tygodni"
+      },
+      "priceNote": "Na start: jeden moduł na gotowym fundamencie, do 5 użytkowników, bez integracji."
     },
     {
       "legacyId": 13,
@@ -613,20 +582,21 @@
       "hasLivePreview": true,
       "toast": "#2038 gotowe · SMS wysłany",
       "keywords": "serwis naprawa zgloszenia status reklamacja warsztat",
-      "priceFrom": null,
-      "leadTime": null,
+      "priceFrom": 3490,
+      "leadTime": "3 tygodnie",
       "cardGradient": null,
       "category": "systemy",
       "prices": {
-        "start": null,
-        "std": null,
-        "full": null
+        "start": 3490,
+        "std": 5990,
+        "full": 9990
       },
       "leadTimes": {
-        "start": null,
-        "std": null,
-        "full": null
-      }
+        "start": "3 tygodnie",
+        "std": "6 tygodni",
+        "full": "10 tygodni"
+      },
+      "priceNote": "Na start: jeden moduł na gotowym fundamencie, do 5 użytkowników, bez integracji."
     },
     {
       "legacyId": 14,
@@ -656,8 +626,8 @@
       "hasLivePreview": true,
       "toast": "Zaimportowano 1 240 wierszy",
       "keywords": "excel arkusz plik tabela nadpisal duplikaty",
-      "priceFrom": null,
-      "leadTime": null,
+      "priceFrom": 2990,
+      "leadTime": "2–3 tygodnie",
       "cardGradient": null,
       "featuredOrder": 8,
       "featuredName": "Z Excela do systemu",
@@ -670,15 +640,16 @@
       "featuredTag": "KONIEC Z FINAL_v7",
       "category": "systemy",
       "prices": {
-        "start": null,
-        "std": null,
-        "full": null
+        "start": 2990,
+        "std": 4990,
+        "full": 8990
       },
       "leadTimes": {
-        "start": null,
-        "std": null,
-        "full": null
-      }
+        "start": "2–3 tygodnie",
+        "std": "5 tygodni",
+        "full": "8 tygodni"
+      },
+      "priceNote": "Na start: jeden moduł na gotowym fundamencie, do 5 użytkowników, bez integracji."
     },
     {
       "legacyId": 15,
@@ -704,20 +675,21 @@
       "hasLivePreview": false,
       "toast": "Stan minimalny: zamów płytki",
       "keywords": "magazyn stany towar zamowienia hurtownia kody kreskowe",
-      "priceFrom": null,
-      "leadTime": null,
+      "priceFrom": 3490,
+      "leadTime": "3 tygodnie",
       "cardGradient": null,
       "category": "systemy",
       "prices": {
-        "start": null,
-        "std": null,
-        "full": null
+        "start": 3490,
+        "std": 6490,
+        "full": 11990
       },
       "leadTimes": {
-        "start": null,
-        "std": null,
-        "full": null
-      }
+        "start": "3 tygodnie",
+        "std": "7 tygodni",
+        "full": "12 tygodni"
+      },
+      "priceNote": "Na start: jeden moduł na gotowym fundamencie, do 5 użytkowników, bez integracji."
     },
     {
       "legacyId": 16,
@@ -744,20 +716,21 @@
       "hasLivePreview": false,
       "toast": "Klient otworzył ofertę · 2 min temu",
       "keywords": "wycena oferta pdf cennik kosztorys",
-      "priceFrom": null,
-      "leadTime": null,
+      "priceFrom": 2990,
+      "leadTime": "2 tygodnie",
       "cardGradient": null,
       "category": "systemy",
       "prices": {
-        "start": null,
-        "std": null,
-        "full": null
+        "start": 2990,
+        "std": 4490,
+        "full": 6990
       },
       "leadTimes": {
-        "start": null,
-        "std": null,
-        "full": null
-      }
+        "start": "2 tygodnie",
+        "std": "4 tygodnie",
+        "full": "6 tygodni"
+      },
+      "priceNote": "Na start: jeden moduł na gotowym fundamencie, do 5 użytkowników, bez integracji."
     },
     {
       "legacyId": 17,
@@ -784,20 +757,21 @@
       "hasLivePreview": false,
       "toast": "Klient pobrał fakturę",
       "keywords": "panel klienta portal b2b logowanie faktury dokumenty",
-      "priceFrom": null,
-      "leadTime": null,
+      "priceFrom": 3490,
+      "leadTime": "3–4 tygodnie",
       "cardGradient": null,
       "category": "systemy",
       "prices": {
-        "start": null,
-        "std": null,
-        "full": null
+        "start": 3490,
+        "std": 7990,
+        "full": 14990
       },
       "leadTimes": {
-        "start": null,
-        "std": null,
-        "full": null
-      }
+        "start": "3–4 tygodnie",
+        "std": "8 tygodni",
+        "full": "14 tygodni"
+      },
+      "priceNote": "Na start: jeden moduł na gotowym fundamencie, do 5 użytkowników, bez integracji."
     },
     {
       "legacyId": 18,
@@ -824,20 +798,21 @@
       "hasLivePreview": false,
       "toast": "Grupa 10:00 · 6/8 zapisanych",
       "keywords": "instruktor grafik zajecia szkola narciarska fitness kurs zapisy",
-      "priceFrom": null,
-      "leadTime": null,
+      "priceFrom": 3490,
+      "leadTime": "3 tygodnie",
       "cardGradient": null,
       "category": "systemy",
       "prices": {
-        "start": null,
-        "std": null,
-        "full": null
+        "start": 3490,
+        "std": 5490,
+        "full": 8990
       },
       "leadTimes": {
-        "start": null,
-        "std": null,
-        "full": null
-      }
+        "start": "3 tygodnie",
+        "std": "6 tygodni",
+        "full": "9 tygodni"
+      },
+      "priceNote": "Na start: jeden moduł na gotowym fundamencie, do 5 użytkowników, bez integracji."
     },
     {
       "legacyId": 19,
@@ -864,20 +839,21 @@
       "hasLivePreview": false,
       "toast": "Zaliczka wpłacona · wesele 14.06",
       "keywords": "sala wesele impreza event kalendarz zaliczka",
-      "priceFrom": null,
-      "leadTime": null,
+      "priceFrom": 2990,
+      "leadTime": "2–3 tygodnie",
       "cardGradient": null,
       "category": "systemy",
       "prices": {
-        "start": null,
-        "std": null,
-        "full": null
+        "start": 2990,
+        "std": 4990,
+        "full": 7990
       },
       "leadTimes": {
-        "start": null,
-        "std": null,
-        "full": null
-      }
+        "start": "2–3 tygodnie",
+        "std": "5 tygodni",
+        "full": "8 tygodni"
+      },
+      "priceNote": "Na start: jeden moduł na gotowym fundamencie, do 5 użytkowników, bez integracji."
     },
     {
       "legacyId": 20,
@@ -916,7 +892,8 @@
         "start": null,
         "std": null,
         "full": null
-      }
+      },
+      "priceNote": "Zapytaj o wycenę"
     },
     {
       "legacyId": 21,
@@ -957,7 +934,8 @@
         "start": null,
         "std": null,
         "full": null
-      }
+      },
+      "priceNote": "Zapytaj o wycenę"
     },
     {
       "legacyId": 22,
@@ -998,7 +976,8 @@
         "start": null,
         "std": null,
         "full": null
-      }
+      },
+      "priceNote": "Zapytaj o wycenę"
     },
     {
       "legacyId": 23,
@@ -1040,7 +1019,8 @@
         "start": null,
         "std": null,
         "full": null
-      }
+      },
+      "priceNote": "Zapytaj o wycenę"
     },
     {
       "legacyId": 24,
@@ -1082,7 +1062,8 @@
         "start": null,
         "std": null,
         "full": null
-      }
+      },
+      "priceNote": "Zapytaj o wycenę"
     },
     {
       "legacyId": 25,
@@ -1123,7 +1104,8 @@
         "start": null,
         "std": null,
         "full": null
-      }
+      },
+      "priceNote": "Zapytaj o wycenę"
     },
     {
       "legacyId": 26,
@@ -1164,7 +1146,8 @@
         "start": null,
         "std": null,
         "full": null
-      }
+      },
+      "priceNote": "Zapytaj o wycenę"
     },
     {
       "legacyId": 27,
@@ -1205,7 +1188,8 @@
         "start": null,
         "std": null,
         "full": null
-      }
+      },
+      "priceNote": "Zapytaj o wycenę"
     },
     {
       "legacyId": 28,
@@ -1217,7 +1201,7 @@
       "features": [
         "Czas reakcji w umowie",
         "Kopie codziennie, monitoring",
-        "Raport co miesiąc, eksport danych"
+        "Raport co miesiąc od poziomu Standard"
       ],
       "forWhom": "każdy, kto ma stronę albo system",
       "situations": [
@@ -1238,20 +1222,21 @@
       "hasLivePreview": false,
       "toast": "Kopia zapasowa · dziś 03:00",
       "keywords": "opieka utrzymanie kopie backup aktualizacje monitoring hosting abonament",
-      "priceFrom": null,
+      "priceFrom": 149,
       "leadTime": null,
       "cardGradient": null,
       "category": "opieka",
       "prices": {
-        "start": null,
-        "std": null,
-        "full": null
+        "start": 149,
+        "std": 299,
+        "full": 790
       },
       "leadTimes": {
         "start": null,
         "std": null,
         "full": null
-      }
+      },
+      "priceNote": "Cena miesięczna: Podstawowa 149, Standard 299, Systemy 790 zł/mies."
     },
     {
       "legacyId": 29,
@@ -1282,20 +1267,21 @@
       "hasLivePreview": false,
       "toast": "Dostępy odzyskane · zabezpieczone",
       "keywords": "informatyk zniknal porzucona dostepy haslo ratunek przejecie",
-      "priceFrom": null,
-      "leadTime": null,
+      "priceFrom": 990,
+      "leadTime": "2–3 dni",
       "cardGradient": null,
       "category": "opieka",
       "prices": {
-        "start": null,
-        "std": null,
-        "full": null
+        "start": 990,
+        "std": 1990,
+        "full": 3990
       },
       "leadTimes": {
-        "start": null,
-        "std": null,
-        "full": null
-      }
+        "start": "2–3 dni",
+        "std": "1 tydzień",
+        "full": "2 tygodnie"
+      },
+      "priceNote": "Jednorazowo."
     },
     {
       "legacyId": 30,
@@ -1326,20 +1312,29 @@
       "hasLivePreview": false,
       "toast": "Wynik: 3 rzeczy do poprawy",
       "keywords": "audyt sprawdzic ocena szybkosc seo bezpieczenstwo dostepnosc eaa wcag",
-      "priceFrom": null,
-      "leadTime": null,
+      "priceFrom": 0,
+      "leadTime": "2 dni robocze",
       "cardGradient": null,
       "category": "opieka",
       "prices": {
-        "start": null,
-        "std": null,
-        "full": null
+        "start": 0,
+        "std": 990,
+        "full": 1990
       },
       "leadTimes": {
-        "start": null,
-        "std": null,
-        "full": null
-      }
+        "start": "2 dni robocze",
+        "std": "1 tydzień",
+        "full": "2 tygodnie"
+      },
+      "priceNote": "Szybki audyt za darmo. Pełny audyt odliczamy od projektu zamówionego w ciągu 60 dni."
+    }
+  ],
+  "removed": [
+    {
+      "legacyId": 9,
+      "slug": "rezerwacje-online-na-stronie",
+      "name": "Rezerwacje online na stronie",
+      "reason": "usunięte z oferty 25.10.2026 (decyzja Krystiana); rezerwacje zostają w Pełnej wersji strony dla pensjonatu i w „Zapytaj o wycenę”"
     }
   ]
 }

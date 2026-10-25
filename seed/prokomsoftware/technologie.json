@@ -1,162 +1,162 @@
 {
- "layers": [
-  {
-   "n": "Strona",
-   "s": "To, co widzi Twój klient",
-   "t": [
-    "Next.js",
-    "TypeScript"
-   ],
-   "ic": "M3 4h18v12H3zM8 20h8M12 16v4",
-   "gain": "Klient nie czeka i nie ucieka do konkurencji. Google lepiej ocenia szybkie strony.",
-   "why": "strona czeka gotowa na serwerze, nic nie składa się w locie z wtyczek.",
-   "m": [
+  "layers": [
     {
-     "v": "< 2,5 s",
-     "l": "próg Google: treść na ekranie"
+      "n": "Strona",
+      "s": "To, co widzi Twój klient",
+      "t": [
+        "Next.js",
+        "TypeScript"
+      ],
+      "ic": "M3 4h18v12H3zM8 20h8M12 16v4",
+      "gain": "Klient nie czeka i nie ucieka do konkurencji. Google lepiej ocenia szybkie strony.",
+      "why": "strona czeka gotowa na serwerze, nic nie składa się w locie z wtyczek.",
+      "m": [
+        {
+          "v": "< 2,5 s",
+          "l": "próg Google: treść na ekranie"
+        },
+        {
+          "v": "< 200 ms",
+          "l": "próg Google: reakcja na klik"
+        },
+        {
+          "v": "[WYNIK]",
+          "l": "nasz wynik w PageSpeed"
+        }
+      ],
+      "proof": "Progi: Google, Core Web Vitals."
     },
     {
-     "v": "< 200 ms",
-     "l": "próg Google: reakcja na klik"
+      "n": "Panel",
+      "s": "Gdzie sam zmieniasz treść",
+      "t": [
+        "Payload CMS"
+      ],
+      "ic": "M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6",
+      "gain": "Ceny, zdjęcia i godziny zmieniasz sam. Bez dzwonienia do informatyka i bez faktury za poprawkę.",
+      "why": "panel po polsku, tylko z polami, które naprawdę zmieniasz.",
+      "m": [
+        {
+          "v": "PL",
+          "l": "cały panel po polsku"
+        },
+        {
+          "v": "konta",
+          "l": "osobne dla pracowników"
+        },
+        {
+          "v": "historia",
+          "l": "każdą zmianę da się cofnąć"
+        }
+      ],
+      "proof": "Pokaz panelu na Twoich treściach przy odbiorze."
     },
     {
-     "v": "[WYNIK]",
-     "l": "nasz wynik w PageSpeed"
+      "n": "System",
+      "s": "Co pracuje w tle",
+      "t": [
+        "Python",
+        "Django",
+        "REST API",
+        "FastAPI",
+        "Celery",
+        "Redis"
+      ],
+      "ic": "M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1",
+      "gain": "SMS-y, przypomnienia, raporty i kopie robią się same, także w nocy. Jedna baza zamiast kilku Exceli.",
+      "why": "sprawdzone narzędzia do danych i uprawnień, zadania w tle i API do innych programów.",
+      "m": [
+        {
+          "v": "24/7",
+          "l": "zadania w tle, bez klikania"
+        },
+        {
+          "v": "API",
+          "l": "łączy się z innymi programami"
+        },
+        {
+          "v": "1",
+          "l": "baza zamiast kilku Exceli"
+        }
+      ],
+      "proof": "Na Django działa nasz prokomserwis.pl."
+    },
+    {
+      "n": "Aplikacja",
+      "s": "W telefonie ekipy i klientów",
+      "t": [
+        "React Native",
+        "Expo"
+      ],
+      "ic": "M8 2h8a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zM11 18h2",
+      "gain": "Płacisz za jedną aplikację, nie za dwie. Każdą zmianę robimy raz, dla obu telefonów.",
+      "why": "jeden kod działa na iPhonie i Androidzie, na tych samych danych co system.",
+      "m": [
+        {
+          "v": "1",
+          "l": "kod na iPhone i Androida"
+        },
+        {
+          "v": "2",
+          "l": "sklepy: App Store, Google Play"
+        },
+        {
+          "v": "push",
+          "l": "powiadomienia na telefon"
+        }
+      ],
+      "proof": "Aplikacja i strona widzą te same dane."
+    },
+    {
+      "n": "Dane",
+      "s": "Gdzie leżą Twoje dane",
+      "t": [
+        "PostgreSQL"
+      ],
+      "ic": "M12 3c4.4 0 8 1.3 8 3s-3.6 3-8 3-8-1.3-8-3 3.6-3 8-3zM4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3",
+      "gain": "Dane są Twoje. Eksport dostajesz na każde żądanie, a odchodząc zabierasz wszystko.",
+      "why": "darmowa, otwarta baza rozwijana od prawie 40 lat. Bez licencji i bez uzależnienia od dostawcy.",
+      "m": [
+        {
+          "v": "~40",
+          "l": "lat rozwoju, open source"
+        },
+        {
+          "v": "0 zł",
+          "l": "za licencję bazy"
+        },
+        {
+          "v": "na żądanie",
+          "l": "eksport Twoich danych"
+        }
+      ],
+      "proof": "Źródło: postgresql.org/about."
+    },
+    {
+      "n": "Serwer",
+      "s": "Gdzie to wszystko stoi",
+      "t": [
+        "Docker",
+        "VPS w Polsce"
+      ],
+      "ic": "M3 4h18v6H3zM3 14h18v6H3zM7 7h.01M7 17h.01",
+      "gain": "Dane klientów zostają w kraju. Zmiana serwera albo firmy bez przepisywania. Nie jesteś zakładnikiem.",
+      "why": "Docker pakuje całość w gotowe paczki, które działają na każdym serwerze.",
+      "m": [
+        {
+          "v": "PL",
+          "l": "serwer i dane w Polsce"
+        },
+        {
+          "v": "co noc",
+          "l": "kopia zapasowa"
+        },
+        {
+          "v": "1 paczka",
+          "l": "przenosiny bez przepisywania"
+        }
+      ],
+      "proof": "Kopie, aktualizacje i monitoring robimy my."
     }
-   ],
-   "proof": "Progi: Google, Core Web Vitals."
-  },
-  {
-   "n": "Panel",
-   "s": "Gdzie sam zmieniasz treść",
-   "t": [
-    "Payload CMS"
-   ],
-   "ic": "M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6",
-   "gain": "Ceny, zdjęcia i godziny zmieniasz sam. Bez dzwonienia do informatyka i bez faktury za poprawkę.",
-   "why": "panel po polsku, tylko z polami, które naprawdę zmieniasz.",
-   "m": [
-    {
-     "v": "PL",
-     "l": "cały panel po polsku"
-    },
-    {
-     "v": "konta",
-     "l": "osobne dla pracowników"
-    },
-    {
-     "v": "historia",
-     "l": "każdą zmianę da się cofnąć"
-    }
-   ],
-   "proof": "Pokaz panelu na Twoich treściach przy odbiorze."
-  },
-  {
-   "n": "System",
-   "s": "Co pracuje w tle",
-   "t": [
-    "Python",
-    "Django",
-    "REST API",
-    "FastAPI",
-    "Celery",
-    "Redis"
-   ],
-   "ic": "M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1",
-   "gain": "SMS-y, przypomnienia, raporty i kopie robią się same, także w nocy. Jedna baza zamiast kilku Exceli.",
-   "why": "sprawdzone narzędzia do danych i uprawnień, zadania w tle i API do innych programów.",
-   "m": [
-    {
-     "v": "24/7",
-     "l": "zadania w tle, bez klikania"
-    },
-    {
-     "v": "API",
-     "l": "łączy się z innymi programami"
-    },
-    {
-     "v": "1",
-     "l": "baza zamiast kilku Exceli"
-    }
-   ],
-   "proof": "Na Django działa nasz prokomserwis.pl."
-  },
-  {
-   "n": "Aplikacja",
-   "s": "W telefonie ekipy i klientów",
-   "t": [
-    "React Native",
-    "Expo"
-   ],
-   "ic": "M8 2h8a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zM11 18h2",
-   "gain": "Płacisz za jedną aplikację, nie za dwie. Każdą zmianę robimy raz, dla obu telefonów.",
-   "why": "jeden kod działa na iPhonie i Androidzie, na tych samych danych co system.",
-   "m": [
-    {
-     "v": "1",
-     "l": "kod na iPhone i Androida"
-    },
-    {
-     "v": "2",
-     "l": "sklepy: App Store, Google Play"
-    },
-    {
-     "v": "push",
-     "l": "powiadomienia na telefon"
-    }
-   ],
-   "proof": "Aplikacja i strona widzą te same dane."
-  },
-  {
-   "n": "Dane",
-   "s": "Gdzie leżą Twoje dane",
-   "t": [
-    "PostgreSQL"
-   ],
-   "ic": "M12 3c4.4 0 8 1.3 8 3s-3.6 3-8 3-8-1.3-8-3 3.6-3 8-3zM4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3",
-   "gain": "Dane są Twoje. Eksport dostajesz co miesiąc, a odchodząc zabierasz wszystko.",
-   "why": "darmowa, otwarta baza rozwijana od prawie 40 lat. Bez licencji i bez uzależnienia od dostawcy.",
-   "m": [
-    {
-     "v": "~40",
-     "l": "lat rozwoju, open source"
-    },
-    {
-     "v": "0 zł",
-     "l": "za licencję bazy"
-    },
-    {
-     "v": "co miesiąc",
-     "l": "eksport Twoich danych"
-    }
-   ],
-   "proof": "Źródło: postgresql.org/about."
-  },
-  {
-   "n": "Serwer",
-   "s": "Gdzie to wszystko stoi",
-   "t": [
-    "Docker",
-    "VPS w Polsce"
-   ],
-   "ic": "M3 4h18v6H3zM3 14h18v6H3zM7 7h.01M7 17h.01",
-   "gain": "Dane klientów zostają w kraju. Zmiana serwera albo firmy bez przepisywania. Nie jesteś zakładnikiem.",
-   "why": "Docker pakuje całość w gotowe paczki, które działają na każdym serwerze.",
-   "m": [
-    {
-     "v": "PL",
-     "l": "serwer i dane w Polsce"
-    },
-    {
-     "v": "co noc",
-     "l": "kopia zapasowa"
-    },
-    {
-     "v": "1 paczka",
-     "l": "przenosiny bez przepisywania"
-    }
-   ],
-   "proof": "Kopie, aktualizacje i monitoring robimy my."
-  }
- ]
+  ]
 }

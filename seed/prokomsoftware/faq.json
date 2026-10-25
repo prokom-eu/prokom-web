@@ -1,50 +1,50 @@
 {
- "homeFaq": [
-  {
-   "q": "Ile to kosztuje, także co miesiąc?",
-   "a": "Każde rozwiązanie ma cenę „od”, a dokładną kwotę za stały zakres dostajesz na piśmie po krótkiej rozmowie. Utrzymanie: serwer w Polsce, kopie i aktualizacje od [OPIEKA OD] zł miesięcznie. Bez opieki płacisz tylko za serwer i domenę."
-  },
-  {
-   "q": "Ile to trwa?",
-   "a": "Termin podajemy na piśmie przy wycenie. Wersję testową oglądasz co tydzień, więc widzisz postęp, a nie tylko termin końcowy."
-  },
-  {
-   "q": "Czy sam zmienię treści?",
-   "a": "Tak. Dostajesz panel po polsku, tylko z polami, które naprawdę zmieniasz: ceny, zdjęcia, godziny, aktualności. Przy odbiorze pokazujemy go na Twoich treściach."
-  },
-  {
-   "q": "Czy będzie widoczna w Google i w ChatGPT?",
-   "a": "Robimy wszystko, co od nas zależy, w cenie każdego projektu: szybkość, dane strukturalne, czytelna treść, spójne dane firmy. Miejsca w wynikach uczciwie nie gwarantuje nikt."
-  },
-  {
-   "q": "Czyja jest domena, kod i dane?",
-   "a": "Twoje. Domena, serwer, kod, panel i dostępy należą do Twojej firmy, a eksport danych dostajesz co miesiąc. Projekt może przejąć każdy, nie tylko my."
-  },
-  {
-   "q": "Mam już stronę albo program. Co z nim?",
-   "a": "Zaczynamy od darmowego audytu. Często wystarczy dobudować brakującą część albo połączyć programy. Przebudowę proponujemy tylko wtedy, gdy naprawdę się opłaca."
-  }
- ],
- "solutionAppFaq": [
-  {
-   "q": "Co, gdy na budowie nie ma zasięgu?",
-   "a": "Aplikacja zapisuje wszystko w telefonie: zadania, zdjęcia, podpis. Gdy wróci sieć, wysyła sama. Pracownik nie musi nic robić."
-  },
-  {
-   "q": "Czy pracownicy to ogarną?",
-   "a": "Ekran ma trzy przyciski. Szkolimy ekipy na ich własnych zleceniach, godzina wystarcza."
-  },
-  {
-   "q": "Musi być w App Store?",
-   "a": "Nie. Wersja z przeglądarki instaluje się z linku i działa bez zasięgu. Sklepy mają sens, gdy chcesz aplikację dla klientów albo głębszego dostępu do telefonu."
-  },
-  {
-   "q": "A jak mam już program do zleceń?",
-   "a": "Zostaje. Dorabiamy aplikację na jego danych albo łączymy oba. Nie wymieniasz tego, za co już płacisz."
-  },
-  {
-   "q": "Ile to kosztuje i kiedy płacę?",
-   "a": "Cena „od” jest wyżej, dokładna na piśmie po jednej rozmowie. Płacisz po odbiorze każdego etapu, pierwszy pracuje po [CZAS PIERWSZEGO ETAPU]."
-  }
- ]
+  "homeFaq": [
+    {
+      "q": "Ile to kosztuje, także co miesiąc?",
+      "a": "Każde rozwiązanie ma cenę „od”, a dokładną kwotę za stały zakres dostajesz na piśmie po krótkiej rozmowie. Utrzymanie: serwer w Polsce, kopie i aktualizacje od [OPIEKA OD] zł miesięcznie. Bez opieki płacisz tylko za serwer i domenę."
+    },
+    {
+      "q": "Ile to trwa?",
+      "a": "Termin podajemy na piśmie przy wycenie. Wersję testową oglądasz co tydzień, więc widzisz postęp, a nie tylko termin końcowy."
+    },
+    {
+      "q": "Czy sam zmienię treści?",
+      "a": "Tak. Dostajesz panel po polsku, tylko z polami, które naprawdę zmieniasz: ceny, zdjęcia, godziny, aktualności. Przy odbiorze pokazujemy go na Twoich treściach."
+    },
+    {
+      "q": "Czy będzie widoczna w Google i w ChatGPT?",
+      "a": "Robimy wszystko, co od nas zależy, w cenie każdego projektu: szybkość, dane strukturalne, czytelna treść, spójne dane firmy. Miejsca w wynikach uczciwie nie gwarantuje nikt."
+    },
+    {
+      "q": "Czyja jest domena, kod i dane?",
+      "a": "Twoje. Domena, serwer, kod, panel i dostępy należą do Twojej firmy, a eksport danych dostajesz na każde żądanie. Projekt może przejąć każdy, nie tylko my."
+    },
+    {
+      "q": "Mam już stronę albo program. Co z nim?",
+      "a": "Zaczynamy od darmowego audytu. Często wystarczy dobudować brakującą część albo połączyć programy. Przebudowę proponujemy tylko wtedy, gdy naprawdę się opłaca."
+    }
+  ],
+  "solutionAppFaq": [
+    {
+      "q": "Co, gdy na budowie nie ma zasięgu?",
+      "a": "Aplikacja zapisuje wszystko w telefonie: zadania, zdjęcia, podpis. Gdy wróci sieć, wysyła sama. Pracownik nie musi nic robić."
+    },
+    {
+      "q": "Czy pracownicy to ogarną?",
+      "a": "Ekran ma trzy przyciski. Szkolimy ekipy na ich własnych zleceniach, godzina wystarcza."
+    },
+    {
+      "q": "Musi być w App Store?",
+      "a": "Nie. Wersja z przeglądarki instaluje się z linku i działa bez zasięgu. Sklepy mają sens, gdy chcesz aplikację dla klientów albo głębszego dostępu do telefonu."
+    },
+    {
+      "q": "A jak mam już program do zleceń?",
+      "a": "Zostaje. Dorabiamy aplikację na jego danych albo łączymy oba. Nie wymieniasz tego, za co już płacisz."
+    },
+    {
+      "q": "Ile to kosztuje i kiedy płacę?",
+      "a": "Cena „od” jest wyżej, dokładna na piśmie po jednej rozmowie. Płacisz po odbiorze każdego etapu, pierwszy pracuje po [CZAS PIERWSZEGO ETAPU]."
+    }
+  ]
 }

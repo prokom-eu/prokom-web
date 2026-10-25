@@ -1006,8 +1006,48 @@
     "_rule": "zimaBig, gdy rozmiar = full albo potrzeba to program/aplikacja; inaczej zimaSmall (logika z planszy Kreator: zmienna big)."
   },
   "priceDisplay": {
-    "_info": "Cena w wyniku: Solutions.prices[rozmiar] (netto); null → tekst fallback.",
-    "template": "od {cena} zł netto",
-    "fallback": "Cena po krótkiej rozmowie, na piśmie"
+    "_info": "Cena w wyniku: wybrany rozmiar → Solutions.prices[rozmiar] bez „od” (template); rozmiar niewybrany → cena Na start z „od” (templateFrom); null → fallback.",
+    "template": "{cena} zł netto",
+    "templateFrom": "od {cena} zł netto",
+    "fallback": "Zapytaj o wycenę",
+    "termFallback": "po krótkiej rozmowie",
+    "monthTemplate": "od {cena} zł / mies."
+  },
+  "scopeNotes": {
+    "_info": "Krótka linia pod ceną w wyniku kreatora (zależy od wyniku i rozmiaru).",
+    "systemStart": "Na start: jeden moduł na gotowym fundamencie, do 5 użytkowników, bez integracji.",
+    "przebudowaStart": "Na start: przebudowa strony do 3 podstron.",
+    "pensjonatStartStd": "Zapytanie o termin w cenie. Rezerwacja z zaliczką online w Pełnej wersji."
+  },
+  "mobile": {
+    "_info": "v20: na telefonie podgląd projektu zwinięty pod przyciskiem „Pokaż podgląd projektu”, formularz wyceny w głównej kolumnie, przycisk „Dalej” przyklejony nad dolnym paskiem.",
+    "previewToggle": [
+      "Pokaż podgląd projektu",
+      "Ukryj podgląd projektu"
+    ]
+  },
+  "badges": [
+    "5 krótkich kroków",
+    "podgląd na żywo",
+    "wycena na piśmie"
+  ],
+  "send": {
+    "fields": [
+      "Imię",
+      "Telefon albo e-mail"
+    ],
+    "consent": "Zgadzam się na kontakt w sprawie tej wyceny. Szczegóły w polityce prywatności.",
+    "errors": {
+      "contact": "Podaj telefon albo e-mail, żebyśmy mogli wysłać wycenę.",
+      "consent": "Zaznacz zgodę na kontakt w sprawie wyceny."
+    },
+    "success": {
+      "title": "Gotowe. Wycena jest w drodze.",
+      "steps": [
+        "W ciągu 1 dnia roboczego {kontakt} i dopytamy o szczegóły.",
+        "Dostaniesz szkic do klikania i wycenę na piśmie: zakres, cenę i termin.",
+        "Decydujesz Ty. Wycena jest ważna 30 dni, bez zobowiązań."
+      ]
+    }
   }
 }
