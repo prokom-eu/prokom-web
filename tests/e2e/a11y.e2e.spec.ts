@@ -18,6 +18,8 @@ const SITES: { host: string; line: string; dark: boolean; extra?: string[] }[] =
       '/oferta/kasy-fiskalne',
       '/branze/gastronomia',
       '/kreator',
+      '/aktualnosci',
+      '/aktualnosci/ksef-od-1-stycznia-2027',
     ],
   },
   { host: 'instalacje.localhost', line: 'instalacje', dark: false },

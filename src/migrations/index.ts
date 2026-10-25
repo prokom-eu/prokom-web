@@ -25,6 +25,7 @@ import * as migration_20261024_152505_biznes_gopos from './20261024_152505_bizne
 import * as migration_20261024_160632_biznes_insert from './20261024_160632_biznes_insert'
 import * as migration_20261024_165155_biznes_category from './20261024_165155_biznes_category'
 import * as migration_20261024_180841_biznes_industries from './20261024_180841_biznes_industries'
+import * as migration_20261025_082957_biznes_news from './20261025_082957_biznes_news'
 
 export const migrations = [
   {
@@ -161,5 +162,10 @@ export const migrations = [
     up: migration_20261024_180841_biznes_industries.up,
     down: migration_20261024_180841_biznes_industries.down,
     name: '20261024_180841_biznes_industries',
+  },
+  {
+    up: migration_20261025_082957_biznes_news.up,
+    down: migration_20261025_082957_biznes_news.down,
+    name: '20261025_082957_biznes_news',
   },
 ]

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { postCards } from './cards'
+import { postCards, postListCards } from './cards'
 
 const post = (slug: string, extra: Record<string, unknown> = {}) => ({
   slug,
@@ -43,5 +43,37 @@ describe('postCards', () => {
       date: null,
       dateTime: null,
     })
+  })
+})
+
+describe('postListCards', () => {
+  const image = (tenant: number, extra: Record<string, unknown> = {}) => ({
+    alt: 'Logo KSeF',
+    url: '/api/media/file/ksef.webp',
+    width: 400,
+    height: 300,
+    tenant,
+    requiresConsent: false,
+    ...extra,
+  })
+
+  it('adds the lead and a public cover of the same tenant', () => {
+    const [item] = postListCards([post('a', { lead: '  Wstęp  ', cover: image(1) })], 1)
+    expect(item?.lead).toBe('Wstęp')
+    expect(item?.cover?.alt).toBe('Logo KSeF')
+  })
+
+  it('drops covers of another tenant or needing consent, and empty leads', () => {
+    const items = postListCards(
+      [
+        post('obca', { cover: image(2), lead: ' ' }),
+        post('zgoda', { cover: image(1, { requiresConsent: true }) }),
+      ],
+      1,
+    )
+    expect(items.map(({ cover, lead }) => ({ cover, lead }))).toEqual([
+      { cover: null, lead: null },
+      { cover: null, lead: null },
+    ])
   })
 })

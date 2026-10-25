@@ -104,6 +104,49 @@ export function productJsonLd({ name, description, url, brand, category, images 
   }
 }
 
+type ArticleInput = {
+  headline: string
+  description: string | null
+  /** Absolute address of the post. */
+  url: string
+  /** Origin of the site: author and publisher point at its `Organization` node. */
+  origin: string
+  datePublished: string | null
+  dateModified: string | null
+  /** Absolute image addresses. */
+  images: readonly string[]
+}
+
+/**
+ * `Article` of a news post (spec. §6.9). Author and publisher are the line's `Organization`
+ * from the layout (`#organization`), so the company data stay in one place.
+ */
+export function articleJsonLd({
+  headline,
+  description,
+  url,
+  origin,
+  datePublished,
+  dateModified,
+  images,
+}: ArticleInput) {
+  const organization = { '@id': `${origin}/#organization` }
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline,
+    ...(description && { description }),
+    url,
+    mainEntityOfPage: url,
+    inLanguage: 'pl-PL',
+    ...(datePublished && { datePublished }),
+    ...(dateModified && { dateModified }),
+    author: organization,
+    publisher: organization,
+    ...(images.length > 0 && { image: [...images] }),
+  }
+}
+
 /**
  * `BreadcrumbList` from the visible breadcrumbs, with absolute addresses. `url: null` → the item
  * has no `item`: its page is not indexed (a filtered catalog view), so it is named, not linked.

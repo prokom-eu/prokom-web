@@ -1,5 +1,6 @@
-import { POST_CATEGORIES } from '../catalog/options'
+import { publicImage, type PublicImage } from '../media/public'
 import { tenantIdOf } from '../tenant/id'
+import { categoryLabel, postHref } from './list'
 
 export type PostCard = {
   slug: string
@@ -12,6 +13,9 @@ export type PostCard = {
   dateTime: string | null
 }
 
+/** Card of the news list: the home card plus the lead and the cover. */
+export type PostListCard = PostCard & { lead: string | null; cover: PublicImage | null }
+
 type PostLike = {
   slug: string
   title: string
@@ -20,6 +24,8 @@ type PostLike = {
   publishedAt?: string | null
 }
 
+type PostListLike = PostLike & { lead?: string | null; cover?: unknown }
+
 const DATE = new Intl.DateTimeFormat('pl-PL', {
   timeZone: 'Europe/Warsaw',
   day: '2-digit',
@@ -27,26 +33,43 @@ const DATE = new Intl.DateTimeFormat('pl-PL', {
   year: 'numeric',
 })
 
-const categoryLabel = (value: string | null | undefined) =>
-  POST_CATEGORIES.find((category) => category.value === value)?.label ?? null
+/** A date from the panel as "14.10.2026" in Polish time plus its ISO form, or `null`. */
+export function postDate(
+  value: string | null | undefined,
+): { date: string; dateTime: string } | null {
+  const parsed = value ? new Date(value) : null
+  if (!parsed || Number.isNaN(parsed.getTime())) return null
+  return { date: DATE.format(parsed), dateTime: parsed.toISOString() }
+}
+
+const ownPosts = <T extends PostLike>(posts: readonly T[], tenantId: number) =>
+  posts.filter((post) => tenantIdOf(post.tenant) === tenantId)
+
+const card = (post: PostLike): PostCard => {
+  const published = postDate(post.publishedAt)
+  return {
+    slug: post.slug,
+    title: post.title,
+    href: postHref(post.slug),
+    category: categoryLabel(post.category),
+    date: published?.date ?? null,
+    dateTime: published?.dateTime ?? null,
+  }
+}
 
 /**
  * Cards of the latest posts (home page „Ostatnio w Aktualnościach”, spec. §4 pkt 11). Posts of
  * another tenant are dropped here too, whatever the query did.
  */
 export function postCards(posts: readonly PostLike[], tenantId: number): PostCard[] {
-  return posts
-    .filter((post) => tenantIdOf(post.tenant) === tenantId)
-    .map((post) => {
-      const published = post.publishedAt ? new Date(post.publishedAt) : null
-      const valid = published && !Number.isNaN(published.getTime()) ? published : null
-      return {
-        slug: post.slug,
-        title: post.title,
-        href: `/aktualnosci/${encodeURIComponent(post.slug)}`,
-        category: categoryLabel(post.category),
-        date: valid ? DATE.format(valid) : null,
-        dateTime: valid ? valid.toISOString() : null,
-      }
-    })
+  return ownPosts(posts, tenantId).map(card)
+}
+
+/** Cards of `/aktualnosci` and „Czytaj też”: same checks, the cover only when public. */
+export function postListCards(posts: readonly PostListLike[], tenantId: number): PostListCard[] {
+  return ownPosts(posts, tenantId).map((post) => ({
+    ...card(post),
+    lead: post.lead?.trim() || null,
+    cover: publicImage(post.cover, tenantId),
+  }))
 }

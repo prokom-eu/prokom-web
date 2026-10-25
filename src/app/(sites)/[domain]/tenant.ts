@@ -2,6 +2,7 @@ import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
 
 import { getEnv } from '@/lib/env'
+import { hasNews } from '@/lib/posts/list'
 import { siteOrigin } from '@/lib/seo/origin'
 import { getTenantByHost, type SiteTenant } from '@/lib/tenant/byHost'
 import { normalizeHost } from '@/lib/tenant/host'
@@ -30,6 +31,16 @@ export async function requireLine(
 ): Promise<SiteTenant> {
   const tenant = await requireTenant(params)
   if (tenant.line !== line) notFound()
+  return tenant
+}
+
+/**
+ * Tenant of `/aktualnosci` — one route for all lines (ADR-012 rozstrz. 5, change 22.10.2026):
+ * on a line without news (`lib/posts/list` → `NEWS_LINES`) it answers 404.
+ */
+export async function requireNewsTenant(params: Promise<{ domain: string }>): Promise<SiteTenant> {
+  const tenant = await requireTenant(params)
+  if (!hasNews(tenant.line)) notFound()
   return tenant
 }
 
