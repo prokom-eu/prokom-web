@@ -3,13 +3,15 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
 
 import icons from '../../../seed/prokombiznes/ikony.json'
+import softwareIcons from '../../../seed/prokomsoftware/ikony.json'
 import { ICON_NAMES, isIconName } from '../../lib/catalog/options'
 import { Icon } from './Icon'
 import { ICON_PATHS } from './icons'
 
 describe('icon set', () => {
-  it('has exactly the paths of the seed package', () => {
-    expect(ICON_PATHS).toEqual(icons.ikony)
+  it('has exactly the paths of the seed packages, Biznes drawings winning on shared names', () => {
+    // 14 names are in both packages; 11 of them are drawn differently — Biznes stays (ADR-014 rozstrz. 8).
+    expect(ICON_PATHS).toEqual({ ...softwareIcons.icons, ...icons.ikony })
   })
 
   it('has a path for every icon name', () => {

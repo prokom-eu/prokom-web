@@ -3,7 +3,10 @@
  * value needs a migration — fine for lists that change with the design, not with the content.
  */
 
-/** Line icons of the design (`seed/prokombiznes/ikony.json`, rendered by `Icon` in B2). */
+/**
+ * Line icons of the design, one set for every line (ADR-014 rozstrz. 8): Biznes
+ * (`seed/prokombiznes/ikony.json`, B2) and Software (`seed/prokomsoftware/ikony.json`, SW3).
+ */
 export const ICON_NAMES = [
   'shield',
   'cal',
@@ -32,6 +35,34 @@ export const ICON_NAMES = [
   'grad',
   'server',
   'compass',
+  // Software (`seed/prokomsoftware/ikony.json`, SW3).
+  'panel',
+  'site',
+  'grid',
+  'plug',
+  'ticket',
+  'lifebuoy',
+  'chart',
+  'sign',
+  'cash',
+  'search',
+  'x',
+  'bed',
+  'food',
+  'refresh',
+  'globe',
+  'box',
+  'car',
+  'home',
+  'mountain',
+  'heart',
+  'bag',
+  'card',
+  'target',
+  'key',
+  'mega',
+  'mount',
+  'brief',
 ] as const
 
 export type IconName = (typeof ICON_NAMES)[number]

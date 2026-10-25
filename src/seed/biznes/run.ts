@@ -9,14 +9,13 @@ import gallery from '../../../seed/prokombiznes/media-produkty-v2.json'
 import search from '../../../seed/prokombiznes/wyszukiwarka.json'
 import { wizardFromSeed, wizardSchema } from '../../lib/catalog/wizard'
 import { mapConcurrent } from '../concurrency'
-import { parseGalleryLimit } from '../config'
+import { parseGalleryLimit, SEED_CONTEXT } from '../config'
 import {
   brandLogoFile,
   categoryData,
   galleryFileName,
   galleryFilesToImport,
   galleryMediaData,
-  hasSameValues,
   groupData,
   industryData,
   isImportedFileName,
@@ -30,6 +29,7 @@ import {
   slugFromName,
   type SeedCatalog,
 } from './map'
+import { hasSameValues } from '../compare'
 import { FOOTER_LEGAL_LINKS, FOOTER_TEXT, footerData } from './footer'
 import { seedBiznesCategoryContent } from './category'
 import { seedBiznesIndustries } from './industries'
@@ -50,12 +50,6 @@ const SEED_MEDIA_DIR = path.join('seed', 'prokombiznes', 'media')
 const BIZNES_TENANT_SLUG = 'biznes'
 /** Gallery photos uploaded at once: resizing (sharp) is the slow part and uses several cores. */
 const GALLERY_UPLOADS_AT_ONCE = 4
-
-/**
- * The seed writes outside a Next.js request, where the catalog cache cannot be revalidated;
- * hooks see this flag and skip it (the cache expires on its own, `lib/catalog/data`).
- */
-export const SEED_CONTEXT = { seed: true } as const
 
 type Counter = { created: number; updated: number; skipped: number }
 

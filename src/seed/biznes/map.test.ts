@@ -13,7 +13,6 @@ import {
   galleryFileName,
   galleryFilesToImport,
   galleryMediaData,
-  hasSameValues,
   groupData,
   industryData,
   isImportedFileName,
@@ -29,6 +28,7 @@ import {
   type ProductRefs,
   type SeedCatalog,
 } from './map'
+import { hasSameValues } from '../compare'
 
 const catalog: SeedCatalog = katalog
 const files = media.pliki

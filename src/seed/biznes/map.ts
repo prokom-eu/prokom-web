@@ -360,32 +360,6 @@ export function productLegacyIds(product: SeedProduct): string[] {
   return [...new Set([product.slug, ...(product.id_z_arkusza ?? [])])]
 }
 
-/**
- * Whether a stored document already has these values (depth 0: relations are ids). Empty
- * values (null, undefined) are equal, and keys the data does not set are ignored — so the
- * import updates a record only when the package changed it, without new versions every run.
- */
-export function hasSameValues(stored: object, data: object): boolean {
-  const record = stored as Record<string, unknown>
-  return Object.entries(data).every(
-    ([key, value]) => JSON.stringify(comparable(record[key])) === JSON.stringify(comparable(value)),
-  )
-}
-
-function comparable(value: unknown): unknown {
-  if (value === null || value === undefined) return undefined
-  if (Array.isArray(value)) return value.map(comparable)
-  if (typeof value === 'object') {
-    return Object.fromEntries(
-      Object.entries(value)
-        .map(([key, item]) => [key, comparable(item)] as const)
-        .filter(([, item]) => item !== undefined)
-        .sort(([a], [b]) => a.localeCompare(b)),
-    )
-  }
-  return value
-}
-
 // --- media ---
 
 /** Files of the package that are not images of the site. */
