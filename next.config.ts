@@ -9,6 +9,9 @@ const dirname = path.dirname(__filename)
 const nextConfig: NextConfig = {
   // Docker image (ADR-004): `.next/standalone` holds the server and only the traced node_modules.
   output: 'standalone',
+  // No `AGENTS.md` from `next dev` run by an AI agent (e2e, preview): the same rule already lives
+  // in `CLAUDE.md` and ADR-008, and the generated file left the tree dirty for `scripts/start.ps1`.
+  agentRules: false,
   webpack: (webpackConfig) => {
     webpackConfig.resolve.extensionAlias = {
       '.cjs': ['.cts', '.cjs'],
