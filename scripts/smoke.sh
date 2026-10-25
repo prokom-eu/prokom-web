@@ -5,7 +5,10 @@
 #   scripts/smoke.sh https://127.0.0.1 prokombiznes.pl …         # through Nginx on the server
 # Every request goes to the address of <base-url>, but for the site's domain (curl --connect-to):
 # the right `Host` and TLS name (SNI), before DNS and behind Nginx alike.
-# Without hosts: the three local dev domains. Optional environment:
+# Without hosts: the three local dev domains. A host with „biznes” in its name is the Biznes site:
+# its catalog and news routes must answer 200, on every other host 404 (route guards, B11b).
+# Only routes that work without content entered in the panel — a failed smoke test rolls the
+# deploy back (S10). Optional environment:
 #   PANEL_HOST       panel domain (default panel.localhost)
 #   SMOKE_AUTH       user:password for a server behind basic auth (staging)
 #   SMOKE_INSECURE=1 accept a self-signed certificate (local test of Nginx)
@@ -55,8 +58,15 @@ check 200 "$panel" /admin/login
 for host in "${hosts[@]}"; do
   check 200 "$host" /
   check 200 "$host" /sitemap.xml
+  check 200 "$host" /robots.txt
+  check 200 "$host" /mapa-strony
   # The panel answers only on PANEL_HOST; a site domain must not expose it.
   check 404 "$host" /admin
+  # Biznes routes: 200 on Biznes, 404 elsewhere (`/aktualnosci` — until Software adds its news).
+  if [[ "$host" == *biznes* ]]; then expected=200; else expected=404; fi
+  for path in /oferta /zapytanie /aktualnosci; do
+    check "$expected" "$host" "$path"
+  done
 done
 
 if [ "$failures" -gt 0 ]; then

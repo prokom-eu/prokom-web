@@ -66,9 +66,9 @@ export const getPublishedPage = cache(
     )(),
 )
 
-export type PublishedPageEntry = Pick<Page, 'slug' | 'updatedAt'>
+export type PublishedPageEntry = Pick<Page, 'slug' | 'title' | 'updatedAt'>
 
-/** Published pages of one tenant for its sitemap; cached under `pagesTag` like the pages. */
+/** Published pages of one tenant for its sitemaps; cached under `pagesTag` like the pages. */
 export const getPublishedPageList = cache((tenantId: number): Promise<PublishedPageEntry[]> =>
   unstable_cache(
     async () => {
@@ -80,10 +80,10 @@ export const getPublishedPageList = cache((tenantId: number): Promise<PublishedP
         limit: 1000,
         depth: 0,
         sort: 'slug',
-        select: { slug: true, updatedAt: true },
+        select: { slug: true, title: true, updatedAt: true },
         overrideAccess: true,
       })
-      return docs.map(({ slug, updatedAt }) => ({ slug, updatedAt }))
+      return docs.map(({ slug, title, updatedAt }) => ({ slug, title, updatedAt }))
     },
     ['published-page-list', String(tenantId)],
     { tags: [pagesTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },

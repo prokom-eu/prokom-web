@@ -1,4 +1,7 @@
+import { postHref } from '../../lib/posts/list'
 import type { SiteSetting } from '@/payload-types'
+
+import { KSEF_POST_SLUG } from './posts'
 
 type Footer = NonNullable<NonNullable<SiteSetting['biznes']>['footer']>
 type Link = { label: string; href: string }
@@ -12,7 +15,6 @@ export const FOOTER_LEGAL_LINKS: Link[] = [
   { label: 'Mapa strony', href: '/mapa-strony' },
   { label: 'Polityka prywatności', href: '/polityka-prywatnosci' },
   { label: 'Cookies', href: '/cookies' },
-  // TODO(krystian): accessibility statement page — not in spec. §2 yet.
   { label: 'Dostępność', href: '/dostepnosc' },
 ]
 
@@ -27,8 +29,7 @@ export function footerData(industries: { slug: string; name: string }[]): Footer
       { label: 'GoPOS', href: '/gopos' },
       { label: 'InsERT', href: '/insert' },
       { label: 'Bezpłatny przegląd IT', href: '/opieka-it#przeglad' },
-      // TODO(krystian): address of the KSeF post once it exists (B11).
-      { label: 'KSeF 2027', href: '/aktualnosci' },
+      { label: 'KSeF 2027', href: postHref(KSEF_POST_SLUG) },
       { label: 'Dobierz zestaw w 60 s →', href: '/kreator' },
     ],
     company: [

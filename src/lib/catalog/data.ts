@@ -204,10 +204,10 @@ export const getWizardRules = (tenantId: number): Promise<Wizard | null> =>
     { tags: [catalogTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
   )()
 
-/** Published products of the tenant for `sitemap.xml`: slug and last change only. */
+/** Published products of the tenant for the site maps: slug, name and last change only. */
 export const getPublishedProductList = (
   tenantId: number,
-): Promise<{ slug: string; updatedAt: string }[]> =>
+): Promise<{ slug: string; name: string; updatedAt: string }[]> =>
   unstable_cache(
     async () => {
       const payload = await getPayload({ config })
@@ -218,10 +218,10 @@ export const getPublishedProductList = (
         limit: MAX_PRODUCTS,
         depth: 0,
         sort: 'slug',
-        select: { slug: true, updatedAt: true },
+        select: { slug: true, name: true, updatedAt: true },
         overrideAccess: true,
       })
-      return docs.map(({ slug, updatedAt }) => ({ slug, updatedAt }))
+      return docs.map(({ slug, name, updatedAt }) => ({ slug, name, updatedAt }))
     },
     ['published-product-list', String(tenantId)],
     { tags: [catalogTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },

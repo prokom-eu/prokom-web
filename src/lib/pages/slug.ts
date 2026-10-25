@@ -4,9 +4,9 @@ import { isValidSlug } from '../tenant/uniqueSlug'
 export const HOME_SLUG = 'home'
 
 /**
- * Paths taken by routes of the `[domain]` segment: live preview and the Biznes catalog
- * (ADR-012, rozstrzygnięcie 5). A static route wins over `[slug]` on every domain — on other
- * lines it answers 404 — so a page with such a slug could never be shown on any site.
+ * Paths taken by routes of the `[domain]` segment: live preview, the Biznes catalog (ADR-012,
+ * rozstrzygnięcie 5), the news and the HTML site map. A static route wins over `[slug]` on every
+ * domain — on other lines it answers 404 — so a page with such a slug could never be shown.
  */
 export const RESERVED_PAGE_SLUGS: readonly string[] = [
   'podglad',
@@ -16,6 +16,7 @@ export const RESERVED_PAGE_SLUGS: readonly string[] = [
   'aktualnosci',
   'kreator',
   'zapytanie',
+  'mapa-strony',
 ]
 
 export function isValidPageSlug(slug: string): boolean {
