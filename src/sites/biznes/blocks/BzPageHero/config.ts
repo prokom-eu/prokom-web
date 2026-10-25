@@ -10,7 +10,7 @@ import { tenantIdOf } from '../../../../lib/tenant/id'
  * with a dot, H1 with an optional accent part, lead, two buttons, chips and — per variant — the
  * right side: the dark „Jak to działa” card (B9a, Opieka IT) or a photo behind a navy hero with the
  * partner's logo and status and sourced figures (B9b, GoPOS), or a program screen in a laptop frame
- * with its box and two floating notes (B9c, InsERT).
+ * with its box and two floating notes (B9c, InsERT), or four figures in cards (B11c, O firmie).
  */
 export const BzPageHeroBlock: Block = {
   slug: 'bzPageHero',
@@ -30,7 +30,16 @@ export const BzPageHeroBlock: Block = {
     {
       type: 'row',
       fields: [
-        { name: 'heading', label: 'Nagłówek (H1)', type: 'text', required: true, maxLength: 120 },
+        {
+          name: 'heading',
+          label: 'Nagłówek (H1)',
+          type: 'text',
+          required: true,
+          maxLength: 120,
+          admin: {
+            description: '{lata} zamienia się na liczbę lat od roku założenia, np. „22 lata”.',
+          },
+        },
         {
           name: 'headingAccent',
           label: 'Druga część nagłówka w kolorze',
@@ -38,6 +47,14 @@ export const BzPageHeroBlock: Block = {
           maxLength: 80,
         },
       ],
+    },
+    {
+      name: 'sinceYear',
+      label: 'Rok założenia (dla {lata})',
+      type: 'number',
+      min: 1900,
+      max: 2100,
+      admin: { description: 'Np. 2004 — w nagłówku „{lata}” → „22 lata”, co roku samo.' },
     },
     { name: 'lead', label: 'Wstęp', type: 'textarea', maxLength: 400 },
     linkGroup('primary', 'Przycisk główny', true),
@@ -60,6 +77,26 @@ export const BzPageHeroBlock: Block = {
         { label: 'Karta „Jak to działa”', value: 'card' },
         { label: 'Zdjęcie w tle i liczby (ciemny)', value: 'photo' },
         { label: 'Zrzut programu i pudełko', value: 'screen' },
+        { label: 'Liczby w kartach (O firmie)', value: 'stats' },
+      ],
+    },
+    {
+      name: 'figures',
+      label: 'Liczby w kartach',
+      type: 'array',
+      maxRows: 4,
+      admin: {
+        condition: (_, siblingData) => siblingData?.variant === 'stats',
+        description: 'Fakty o firmie [SZEF] — liczby tylko takie, które da się potwierdzić.',
+      },
+      fields: [
+        {
+          type: 'row',
+          fields: [
+            { name: 'value', label: 'Liczba', type: 'text', required: true, maxLength: 12 },
+            { name: 'label', label: 'Opis', type: 'text', required: true, maxLength: 80 },
+          ],
+        },
       ],
     },
     {

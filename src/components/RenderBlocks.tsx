@@ -19,6 +19,9 @@ import { BzContactInfoBlock } from '@/sites/biznes/blocks/BzContactInfo/Componen
 import { BzDowntimeCalcBlock } from '@/sites/biznes/blocks/BzDowntimeCalc/Component'
 import { BzMonitoringBlock } from '@/sites/biznes/blocks/BzMonitoring/Component'
 import { BzPageHeroBlock } from '@/sites/biznes/blocks/BzPageHero/Component'
+import { BzLinesBlock } from '@/sites/biznes/blocks/BzLines/Component'
+import { BzBrandsBlock } from '@/sites/biznes/blocks/BzBrands/Component'
+import { BzLocationBlock } from '@/sites/biznes/blocks/BzLocation/Component'
 import { BzQuickCardsBlock } from '@/sites/biznes/blocks/BzQuickCards/Component'
 import { BzFactsBlock } from '@/sites/biznes/blocks/BzFacts/Component'
 import { BzFeaturedBlock } from '@/sites/biznes/blocks/BzFeatured/Component'
@@ -131,6 +134,12 @@ export function RenderBlocks({ page, tenant }: Props) {
             )
           case 'bzQuickCards':
             return <BzQuickCardsBlock key={key} block={block} />
+          case 'bzLines':
+            return <BzLinesBlock key={key} block={block} />
+          case 'bzBrands':
+            return <BzBrandsBlock key={key} block={block} tenantId={tenant.id} />
+          case 'bzLocation':
+            return <BzLocationBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzPageHero':
             return (
               <BzPageHeroBlock
