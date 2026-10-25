@@ -1,6 +1,6 @@
 # prokomsoftware.pl — wzorzec wyglądu
 
-Wizualizację całej strony przygotował i zaakceptował Krystian 18.10.2026 („cała strona v3”: strona główna i 12 podstron — 13 plansz). To **cel wizualny**. Pozostałe dokumenty:
+Wizualizację całej strony przygotował i zaakceptował Krystian 18.10.2026 („cała strona v3”), a 25.10.2026 przebudował ją po audycie: **v20 — telefon jak aplikacja, ceny, nowa kolejność strony głównej, sekcja „Dlaczego nie WordPress i PHP”, strony prawne (16 plansz)**. Co się zmieniło: `ZMIANY-v20.md` (do sesji SWD1 ma pierwszeństwo przed spec.), prompty: `PRZEKAZANIE-v20.md`. To **cel wizualny**. Pozostałe dokumenty:
 - zakres i zachowania: `docs/strony/prokomsoftware.md`;
 - model danych: `docs/decyzje/ADR-014-model-tresci-prokomsoftware.md`;
 - kolory i motyw: `docs/decyzje/ADR-015-wyglad-prokomsoftware.md`;
@@ -11,29 +11,32 @@ Wizualizację całej strony przygotował i zaakceptował Krystian 18.10.2026 (�
 | Folder / plik | Co to jest | Jak używać |
 |---|---|---|
 | `screens/<Plansza>-<szerokość>-<motyw>/NN.jpg` | Zrzuty pełnych stron pocięte na kawałki po 1600 px (telefon 1400 px). Dla każdej planszy: 1440 jasny, 1440 ciemny, 390 jasny; strona główna także 390 ciemny. | **Pierwsze źródło wyglądu.** Czytaj kolejne kawałki przy budowie danej sekcji. |
-| `stany/NN-*.jpg` | 50 zrzutów stanów interaktywnych: menu, Twój projekt, 8 obszarów, 12 rzeczy, podglądy, proces, kreator (3 ścieżki krok po kroku + „opisz po swojemu” + wynik w ciemnym), technologie, porównanie | Wzorzec zachowania tam, gdzie zrzut pełnej strony pokazuje tylko stan początkowy. |
+| `stany/NN-*.jpg` | 77 zrzutów stanów (v20): 01 mega menu, 02 Twój projekt, 10 8 obszarów, 20–21 12 rzeczy, 30 podglądy, 40 proces, 50–52 kreator (3 ścieżki krok po kroku z błędem formularza i wysłaniem), 53 „opisz po swojemu”, 54 wynik w ciemnym, 55 wynik „Zapytaj o wycenę”, 60 technologie i 70 porównanie (na `/o-firmie`), 75–76 „Dlaczego nie WordPress”, 77 błąd zgody w kontakcie; **telefon (390 px, @2x):** 80 menu (arkusz), 81 Twój projekt (pigułka i arkusz), 82 dolny pasek (także aktywna „Oferta” w ciemnym), 83 hero, 84 obszary, 85 12 rzeczy, 86 bez WordPressa, 87 kreator krok po kroku (start, krok 2, wynik, podgląd, błąd, wysłane), 88 katalog i arkusz filtrów, 89 rozwiązanie, cennik, kontakt | Wzorzec zachowania tam, gdzie zrzut pełnej strony pokazuje tylko stan początkowy. |
 | `boards/*.dc.html` + `support.js` | Plansze źródłowe: HTML, CSS i logika podglądu | Dokładne teksty, klasy, kolejność, wartości CSS. Szukaj po nagłówku sekcji. |
 | `boards/index.html` | Spis plansz | `npx serve docs/design/prokomsoftware/boards` → `index.html`. Działają: mega menu, Twój projekt, 8 obszarów, filtry 12 rzeczy, podglądy, proces, kreator, katalog z filtrami i wyszukiwarką, motyw. |
-| `tokens.css` | Kolory jasne i ciemne z mapą nazw na tokeny repo, fonty, miary | **Wartości kopiuj 1:1** do `src/styles/tokens.css` (SW1). |
+| `tokens.css` | Kolory jasne i ciemne z mapą nazw na tokeny repo, fonty, miary (bez zmian w v20 — plik zostaje w repo, nie ma go w łatce) | Przeniesione w SW1. v20 nie dodaje kolorów. |
 | `seed/prokomsoftware/*.json` (w katalogu głównym repo) | Treści wyciągnięte z plansz (15 plików): rozwiązania, obszary, 12 rzeczy, kreator, branże, miejscowości, wpisy, nawigacja, wyszukiwarka, fakty [SZEF], FAQ, technologie, sekcje strony głównej, demo aplikacji, ikony. Każdy plik ma `_info` z opisem. | Seed w SW3. Teksty uzgodnione — nie piszemy od nowa. |
 
 ### Plansze
 
 | Plansza | Adres w Next.js | Co pokazuje |
 |---|---|---|
-| `Main` | `/` | strona główna (desktop; telefon = te same plansze w zrzutach 390) |
-| `Katalog` | `/rozwiazania` | pełna oferta: 30 rozwiązań, filtry, wyszukiwarka |
+| `Main` | `/` | strona główna (desktop; telefon = te same plansze w zrzutach 390 i stanach 80–89) |
+| `Katalog` | `/rozwiazania` | pełna oferta: 29 rozwiązań z cenami, filtry, wyszukiwarka, arkusz filtrów na telefonie |
 | `Rozwiazanie` | `/rozwiazania/[slug]` | wzór: aplikacja dla ekip w terenie (z klikalnym demo telefonu) |
 | `Branza` | `/dla-branz/[branza]` | wzór: budownictwo, wykończenia, instalatorzy, ekipy |
 | `Kreator` | `/dobierz` | kreator „Dobierz rozwiązanie · 60 s” jako osobna strona |
 | `Cennik` | `/cennik` | ceny „od”, poziomy opieki, „w cenie każdego projektu” |
 | `Audyt` | `/audyt` | darmowy audyt strony (lead magnet) |
-| `ONas` | `/o-firmie` | O firmie |
+| `ONas` | `/o-firmie` | O firmie + (od v20) jak robimy, technologie, porównanie |
 | `Wszystko` | `/jedna-firma` | „Jedna firma do wszystkiego” — 5 linii PRO-KOM |
 | `Aktualnosci` | `/aktualnosci` | aktualności i poradnik (blog) |
 | `Wpis` | `/aktualnosci/[slug]` | wzór wpisu: „WordPress czy strona pisana od zera?” |
 | `Miasto` | `/miejscowosci/[miasto]` | wzór: Rabka-Zdrój |
 | `Kontakt` | `/kontakt` | kontakt i brief |
+| `Polityka` | `/polityka-prywatnosci` | polityka prywatności — **projekt do sprawdzenia przez szefa/prawnika** |
+| `NieZnaleziono` | 404 | strona błędu z wyszukiwarką |
+| `Dziekujemy` | `/dziekujemy` | po wysłaniu formularza (`noindex`, konwersja) |
 
 Odnośniki w planszach prowadzą do plików `.dc.html` — w kodzie zamień je na adresy z tabeli.
 
@@ -41,7 +44,7 @@ Odnośniki w planszach prowadzą do plików `.dc.html` — w kodzie zamień je n
 To format wizualizacji, nie Reacta:
 - `{{ … }}` to wiązania danych;
 - `<sc-for>` i `<sc-if>` to pętle i warunki;
-- logika jest w klasie `DCLogic` w `<script>`, a dane w tablicach (np. `OXD` — 8 obszarów, `POPD` — 12 rzeczy, `ST` — proces, `CMP` — porównanie, `H` — podglądy; w `Katalog` tablica `D` — 30 rozwiązań).
+- logika jest w klasie `DCLogic` w `<script>`, a dane w tablicach (np. `OXD` — 8 obszarów, `POPD` — 12 rzeczy, `ST` — proces, `CMP` — porównanie, `H` — podglądy; w `Katalog` tablica `D` — 29 rozwiązań).
 
 Używaj ich do odczytu treści i zachowań. **Nie przenoś tej architektury do Next.js.**
 
@@ -115,13 +118,21 @@ Wszystkie pary tekst/tło z plansz mają ≥ 4,5:1, z wyjątkami poniżej. Test 
 - przy `prefers-reduced-motion: reduce` wszystko wyłączone (plansze tak robią — kopiuj tę regułę).
 
 ## Na co uważać (z doświadczeń przy wizualizacji)
-- **Oczekiwane różnice przy porównaniu zrzutów** (pełna lista: ADR-015, rozstrz. 8)**:** (1) gradient H1 bez błękitnej końcówki (ADR-015); (2) przyciski-linki w jasnym motywie mają w planszach ciemny napis na fiolecie (błąd planszy: `.pk a{color:inherit}` przebija `.btn-p`) — w kodzie zawsze `--accent-ink` (biały).
+- **Oczekiwane różnice przy porównaniu zrzutów** (pełna lista: ADR-015, rozstrz. 8)**:** (1) gradient H1 bez błękitnej końcówki (ADR-015) — plansze v20 nadal mają końcówkę `#7FD3FF`, w kodzie jej nie ma. (Od v20 przyciski-linki mają biały napis także w planszach — dawna różnica (2) zniknęła.)
 - **Dwa podziały oferty:** katalog ma **5 kategorii** (`Solutions.category`), strona główna **8 obszarów** (`SolutionAreas`, grupowanie marketingowe z chipami). Nie liczymy obszarów z kategorii (ADR-014 §1.2).
-- **Strona główna to jedna responsywna strona.** Zrzuty `Main-390-*` pokazują wygląd przy 390 px (ok. 28 400 px wysokości — długo; nie dokładaj sekcji).
+- **Strona główna to jedna responsywna strona.** Zrzuty `Main-390-*` pokazują wygląd przy 390 px (od v20 ok. 15 600 px wysokości — nie dokładaj sekcji).
 - **Style interpolacji:** w planszach tekst z danych siedzi w `<span class="sc-interp">`, dlatego wszystkie elementy mają jawne klasy. W Reakcie nie używaj selektorów typu `.x span`.
 - **Kreator:** kolumny wyniku muszą mieć równą wysokość (podgląd rośnie do wysokości lewej kolumny). Kafle potrzeby: 4 w rzędzie na desktopie, 2 na telefonie.
 - **Jasny motyw:** numery w zakończonych krokach kreatora były białe na białym — w kodzie test kontrastu dla stanów `done`.
 - **Na telefonie:** strzałki w kaflach oferty są ukryte (nachodziły na tekst), „Jak robimy” w jednej kolumnie.
 - **`localStorage` tylko dla:** `pk-theme` (motyw), `pk-project` (lista „Twój projekt” jako `{ id, name }` — jeden klucz zamiast `pk-project` + `pk-project-n` z plansz; ADR-014, rozstrz. 9). Filtry katalogu i parametry kreatora **tylko w URL**.
-- **Placeholdery** w nawiasach kwadratowych (`[OD]`, `[TERMIN]`, `[X]`, `[WYNIK]`, `[CZAS]`, `[DATA]`, `[IMIĘ I NAZWISKO]`) to pola w panelu — nie wpisuj w kod żadnych liczb w ich miejsce. Lista: spec. §13.
+- **Placeholdery** w nawiasach kwadratowych (od v20 zostają: `[TELEFON SOFTWARE]`, `[E-MAIL SOFTWARE]`, `[ADRES SALONU W ZAKOPANEM]`, `[TELEFON ZAKOPANE]`, `[OKRES PRZECHOWYWANIA]`, `[DATA AKTUALIZACJI]`, `[WYNIK]`, `[IMIĘ I NAZWISKO]`; ceny i terminy są w seed) to pola w panelu — nie wpisuj w kod żadnych liczb w ich miejsce. Lista: spec. §13.
 - **Nazw konkurencji nie ma na stronie** (porównanie: „freelancer” i „agencja z dużego miasta”). Tak zostaje.
+
+
+## Telefon (v20) — zasady wspólne dla wszystkich stron
+Warstwa mobilna to jedna sekcja CSS na końcu każdej planszy (`v20 · warstwa mobilna`). W kodzie: komponenty, nie kopia CSS.
+- **≤ 1080 px:** nagłówek kompaktowy (znak + „Wycena”), znika pasek linii, ikony i szyna sekcji; **dolny pasek** (`.tbar`) przyklejony z marginesem, rozmycie tła, `env(safe-area-inset-bottom)`, 5 pozycji, środkowy Kreator wyniesiony; **arkusze** od dołu (`.msh` menu, `.pjsh` Twój projekt) — w kodzie `<dialog>` z focus trap i Esc, zamknięcie tapnięciem w tło; treść strony ma dolny odstęp pod pasek.
+- **≤ 640 px:** jedna kolumna, przyciski na całą szerokość, przewijane rzędy ze `scroll-snap` zamiast siatek (pigułki obszarów, filtry, etapy procesu, karuzele kart 84% szerokości z podglądem następnej), liczby w siatce 2×2, FAQ w jednej kolumnie, stopka w dwóch kolumnach.
+- **Nagłówek przyklejony** (`position: sticky`) na każdej stronie: kontener strony z `overflow-x: clip`, nie `hidden` (hidden psuje sticky).
+- Kryteria przed PR: brak poziomego przewijania przy 390 i 360 px, nic nie wystaje poza ekran, cele dotyku ≥ 44 px (wyjątek: linki w zdaniu), tekst ≥ 12 px (wyjątek: miniatury w makietach), elementy przyklejone nie zasłaniają przycisków.

@@ -1003,7 +1003,7 @@ body{margin:0}
 .pcxa span{display:flex;flex-direction:column;gap:1px;min-width:0}.pcxa b{font-size:14.5px;line-height:1.2}.pcxa small{font-size:12.5px;color:var(--muted)}
 .pcxb{min-height:58px;padding:0 26px;font-size:16px}
 @media (max-width:1080px){.pcxa{grid-template-columns:1fr}.pcxb{width:100%}}
-@media (max-width:640px){.oxn .oxs2{display:none}.oxl{grid-auto-rows:auto}}
+@media (max-width:640px){.oxn .oxs2{display:none}.oxl{grid-auto-rows:auto}.oxk{align-items:flex-start;padding:14px}.oxk:after{display:none}.oxk .oxi{width:44px;height:44px}.oxs{height:210px}}
 /* dobierz rozwiązanie */
 .dz{display:flex;flex-direction:column;gap:28px;border-radius:36px;padding:clamp(22px,4vw,56px);position:relative;overflow:hidden;background:radial-gradient(ellipse at 100% 0%,rgba(150,112,238,.2),transparent 50%),radial-gradient(ellipse at 0% 100%,var(--glow2),transparent 45%),var(--card);box-shadow:inset 0 0 0 1px var(--line)}
 .pk[data-theme="light"] .dz{background:radial-gradient(ellipse at 100% 0%,rgba(110,69,212,.08),transparent 50%),radial-gradient(ellipse at 0% 100%,rgba(40,150,200,.06),transparent 45%),#FFFFFF;box-shadow:0 0 0 1px var(--line),0 40px 80px -50px rgba(40,30,80,.3)}
@@ -1288,13 +1288,317 @@ body{margin:0}
 @media (max-width:1080px){.hwrap{flex-direction:column}.intg{grid-template-columns:repeat(2,minmax(0,1fr))}.bento{grid-template-columns:repeat(2,minmax(0,1fr))}.tile.tall{grid-row:span 1}.flow,.cg{grid-template-columns:1fr}.steps{grid-template-columns:repeat(2,minmax(0,1fr))}.track{display:none}.strip{grid-template-columns:repeat(2,minmax(0,1fr))}.strip > div:nth-child(3){border-left:0}.fbox{grid-template-columns:1fr}.pstage{height:auto;min-height:560px}}
 @media (max-width:640px){.wrap{padding:0 18px}.intg,.bento{grid-template-columns:1fr}.tile.wide{grid-column:span 1}.steps{grid-template-columns:1fr}.strip{grid-template-columns:1fr}.strip > div{border-left:0;border-top:1px solid rgba(255,255,255,.08)}.lap{width:360px}.b3d{height:420px}.bring{display:none}}
 
+
+/* =====================================================================
+   v20 · warstwa mobilna (25.10.2026)
+   Nawigacja jak w aplikacji: kompaktowy nagłówek, dolny pasek z kreatorem,
+   menu i „Twój projekt” jako arkusze od dołu. Sekcje przebudowane na telefon.
+   ===================================================================== */
+.tbar,.msh,.pjsh,.pjpill,.mobq{display:none}
+/* Przyklejony nagłówek: overflow-x:clip zamiast hidden (hidden robi z .pk kontener przewijania i psuje sticky) */
+.pk{overflow-x:clip !important;overflow-y:visible !important}
+.pk a.btn-p,.pk a.btn-p:visited{color:var(--accentInk)}
+.pk .btn,.pk input,.pk textarea,.pk select{box-sizing:border-box}
+.pjw.empty{display:none}
+.megab{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.megab a{padding:6px 10px;border-radius:999px;font-size:12.5px;font-weight:800;background:var(--chip);color:var(--soft)}
+.megab a:hover{background:var(--accentSoft);color:var(--accentText)}
+.megabk{font-size:11.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+.nobr{white-space:nowrap}
+/* Blok „Czasem powiemy”: czytelny kontrast w obu motywach */
+.saynot{background:linear-gradient(135deg,#5B33C4,#7E3FC4) !important;color:#FFFFFF !important}
+.pk[data-theme="light"] .saynot{background:linear-gradient(135deg,#6E45D4,#8B4ACB) !important}
+/* Nieaktywne przyciski: widoczne, ale jasno nieaktywne */
+.btn[aria-disabled="true"],.btn.off,.dzsend.off{opacity:1 !important;background:var(--chip) !important;color:var(--muted) !important;box-shadow:inset 0 0 0 1.5px var(--line) !important;cursor:not-allowed}
+/* Zgoda: duże pole wyboru */
+.pk input[type="checkbox"]{width:22px;height:22px;accent-color:var(--accent);flex:none;margin:0}
+.cbx{display:flex;gap:12px;align-items:flex-start;font-size:14px;line-height:1.45;color:var(--muted);cursor:pointer}
+.cbx a{color:var(--accentText);font-weight:700}
+/* Stany formularzy */
+.ferr{display:flex;gap:8px;align-items:flex-start;padding:10px 12px;border-radius:12px;background:rgba(220,80,60,.1);color:#B4321F;font-size:13.5px;font-weight:700}
+.pk[data-theme="dark"] .ferr{color:#FF9C8A;background:rgba(255,120,100,.12)}
+.fin.bad{box-shadow:inset 0 0 0 2px #D0452F !important}
+.fok{display:flex;flex-direction:column;gap:14px;padding:22px;border-radius:22px;background:var(--accentSoft);box-shadow:inset 0 0 0 1px var(--accentLine)}
+.fok h3{margin:0;font-family:Archivo,sans-serif;font-stretch:112%;font-weight:900;font-size:24px;line-height:1.1}
+.fokn{display:grid;gap:10px;counter-reset:fk}
+.fokn > span{display:flex;gap:12px;align-items:flex-start;font-size:14.5px;line-height:1.45}
+.fokn > span:before{counter-increment:fk;content:counter(fk);flex:none;width:26px;height:26px;border-radius:50%;background:var(--accent);color:var(--accentInk);font-weight:900;font-size:13px;display:inline-flex;align-items:center;justify-content:center}
+/* Ciemny motyw: makiety nie świecą na biało */
+.pk[data-theme="dark"] .prdoc{background:#1E2320;color:#E9ECE7;box-shadow:0 30px 60px -30px rgba(0,0,0,.9),inset 0 0 0 1px #2E352F}
+.pk[data-theme="dark"] .prdoc .prdr{border-color:#2E352F}
+.pk[data-theme="dark"] .prdl,.pk[data-theme="dark"] .prdoc b{color:#F4F5F1}
+.pk[data-theme="dark"] .dzbody{background:#171C19;color:#E9ECE7}
+.pk[data-theme="dark"] .tile .art{filter:brightness(.82) saturate(1.05)}
+.pk[data-theme="dark"] .mk{filter:brightness(.86)}
+
+@media (max-width:1080px){
+  .topb{display:none !important}
+  .hdr .mobb,.hdr .iconb,.hdr .pjw,.hdr .mnav{display:none !important}
+  .hdrw{padding-top:10px;padding-bottom:10px;min-height:44px}
+  .mobq{display:inline-flex;min-height:42px;padding:0 16px;font-size:14px;border-radius:13px;gap:8px}
+  .srail{display:none !important}
+  /* dolny pasek */
+  .tbar{display:grid;position:fixed;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:70;grid-template-columns:repeat(5,minmax(0,1fr));align-items:center;height:68px;padding:0 4px;border-radius:24px;background:var(--hdr);-webkit-backdrop-filter:blur(22px) saturate(1.6);backdrop-filter:blur(22px) saturate(1.6);box-shadow:inset 0 0 0 1px var(--line),0 22px 44px -20px rgba(0,0,0,.55)}
+  .tbi{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;height:68px;padding:0;font:inherit;font-size:12px;font-weight:800;letter-spacing:.01em;color:var(--muted);background:none;border:0;cursor:pointer;text-decoration:none;-webkit-tap-highlight-color:transparent}
+  .tbi svg{width:23px;height:23px}
+  .tbi:active{transform:scale(.94)}
+  .pk[data-page="start"] .tbi[data-k="start"],.pk[data-page="oferta"] .tbi[data-k="oferta"],.pk[data-page="kontakt"] .tbi[data-k="kontakt"],.pk[data-page="kreator"] .tbi[data-k="kreator"]{color:var(--accentText)}
+  .pk[data-page="start"] .tbi[data-k="start"]:before,.pk[data-page="oferta"] .tbi[data-k="oferta"]:before,.pk[data-page="kontakt"] .tbi[data-k="kontakt"]:before{content:'';position:absolute;top:6px;width:20px;height:3px;border-radius:3px;background:var(--accent)}
+  .tbk{gap:5px}
+  .tbkc{width:56px;height:56px;margin-top:-30px;border-radius:19px;display:flex;align-items:center;justify-content:center;color:#FFFFFF;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 14px 28px -8px var(--glow),0 0 0 5px var(--bg)}
+  .tbkc svg{width:25px;height:25px}
+  .tbkl{color:var(--text)}
+  /* pigułka projektu */
+  .pjpill{display:flex;position:fixed;left:50%;transform:translateX(-50%);bottom:calc(90px + env(safe-area-inset-bottom,0px));z-index:69;align-items:center;gap:10px;height:46px;padding:0 8px 0 10px;border:0;border-radius:999px;background:var(--text);color:var(--bg);font:inherit;font-size:14px;font-weight:800;box-shadow:0 16px 34px -14px rgba(0,0,0,.6);cursor:pointer;white-space:nowrap}
+  .pjpill i{width:30px;height:30px;border-radius:50%;background:var(--accent);color:#FFFFFF;display:inline-flex;align-items:center;justify-content:center}
+  .pjpill b{min-width:24px;height:24px;padding:0 7px;border-radius:999px;background:var(--bg);color:var(--text);display:inline-flex;align-items:center;justify-content:center;font-size:13px}
+  .pjpill em{font-style:normal;color:var(--accent2);padding-right:8px}
+  .toast{bottom:calc(146px + env(safe-area-inset-bottom,0px));width:calc(100% - 28px);max-width:420px;justify-content:flex-start}
+  footer{padding-bottom:96px}
+  /* arkusze (menu i projekt) */
+  .msh,.pjsh{display:flex;position:fixed;inset:0;z-index:100;flex-direction:column;justify-content:flex-end}
+  .mshbg{position:absolute;inset:0;background:rgba(8,6,16,.52);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);animation:mshf .25s ease both}
+  .mshp{position:relative;display:flex;flex-direction:column;gap:14px;background:var(--bg);border-radius:30px 30px 0 0;max-height:92vh;overflow-y:auto;overscroll-behavior:contain;padding:8px 18px calc(26px + env(safe-area-inset-bottom,0px));box-shadow:0 -24px 60px -20px rgba(0,0,0,.5),inset 0 1px 0 var(--line);animation:mshu .34s cubic-bezier(.2,.85,.2,1) both}
+  .mshp > *{flex:none}
+  .mshg{display:block;width:44px;height:5px;border-radius:5px;background:var(--line);margin:4px auto 2px}
+  .mshtop{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .mshtop b{font-family:Archivo,sans-serif;font-stretch:115%;font-weight:900;font-size:26px;letter-spacing:-.02em}
+  .mshx{width:42px;height:42px;border-radius:14px;border:0;background:var(--chip);color:var(--text);display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+  .mshs{display:flex;align-items:center;gap:12px;min-height:52px;padding:0 16px;border-radius:16px;background:var(--card);box-shadow:inset 0 0 0 1.5px var(--line);color:var(--muted);font-size:15px;font-weight:600}
+  .mshs svg{color:var(--accentText);flex:none}
+  .mshk{display:flex;align-items:center;gap:14px;padding:16px;border-radius:22px;color:#FFFFFF;background:radial-gradient(ellipse at 100% 0%,rgba(255,255,255,.25),transparent 55%),linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 18px 36px -18px var(--glow)}
+  .mshki{flex:none;width:48px;height:48px;border-radius:16px;background:rgba(255,255,255,.18);display:inline-flex;align-items:center;justify-content:center}
+  .mshk b{display:block;font-family:Archivo,sans-serif;font-stretch:112%;font-weight:900;font-size:19px;line-height:1.1}
+  .mshk small{display:block;margin-top:3px;font-size:13px;opacity:.9;font-weight:600}
+  .mshk em{margin-left:auto;font-style:normal;font-size:22px;font-weight:900}
+  .mshl{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:6px 2px -4px}
+  .msht{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .mtile{display:flex;flex-direction:column;gap:10px;padding:14px;border-radius:20px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line);min-height:118px}
+  .mtile i{width:42px;height:42px;border-radius:14px;color:#FFFFFF;display:inline-flex;align-items:center;justify-content:center}
+  .mtile b{font-size:15.5px;line-height:1.2}
+  .mtile small{margin-top:auto;font-size:13px;font-weight:800;color:var(--accentText)}
+  .mshrows{display:flex;flex-direction:column;border-radius:20px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line);overflow:hidden}
+  .mshrows a{display:flex;align-items:center;gap:12px;min-height:54px;padding:0 16px;font-size:16px;font-weight:800;border-top:1px solid var(--line)}
+  .mshrows a:first-child{border-top:0}
+  .mshrows a em{margin-left:auto;font-style:normal;color:var(--muted);font-size:20px}
+  .mshb{padding:3px 8px;border-radius:999px;background:var(--accentSoft);color:var(--accentText);font-size:12px;font-weight:900}
+  .mshth{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:6px 2px}
+  .mshth > span{font-weight:800;font-size:15px}
+  .seg{display:inline-flex;padding:4px;border-radius:14px;background:var(--chip)}
+  .seg button{display:inline-flex;align-items:center;gap:6px;min-height:38px;padding:0 14px;border:0;border-radius:11px;background:transparent;color:var(--muted);font:inherit;font-size:14px;font-weight:800;cursor:pointer}
+  .seg button.on{background:var(--card);color:var(--text);box-shadow:0 4px 12px -6px rgba(0,0,0,.35)}
+  .mshc{display:grid;gap:8px}
+  .mshc .btn{min-height:52px;gap:10px}
+  .mshc small{text-align:center;color:var(--muted);font-size:12.5px;margin-top:4px}
+  .pjshl{display:flex;flex-direction:column;gap:8px}
+  @keyframes mshu{from{transform:translateY(100%)}to{transform:none}}
+  @keyframes mshf{from{opacity:0}to{opacity:1}}
+}
+
+@media (max-width:640px){
+  .pk{font-size:15.5px}
+  .sec{padding:60px 0}
+  .h2{font-size:31px !important;line-height:1.05}
+  .lead{font-size:16px;line-height:1.55}
+  .eye{font-size:12px}
+  .btn{min-height:52px}
+  /* skrolowane rzędy (chipy, karuzele) */
+  .hscroll,.oxl,.ptabs,.prtl,.mobrow{scrollbar-width:none}
+  .hscroll::-webkit-scrollbar,.oxl::-webkit-scrollbar,.ptabs::-webkit-scrollbar,.prtl::-webkit-scrollbar,.pop::-webkit-scrollbar,.mobrow::-webkit-scrollbar{display:none}
+  .swipe{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--muted)}
+  .swipe:after{content:'';flex:1;height:1px;background:var(--line)}
+  /* HERO */
+  .hero{padding-top:18px !important}
+  .htxt h1{font-size:36px !important;line-height:1.02 !important}
+  .htxt .lead{font-size:16px}
+  .htxt .btn{width:100%}
+  .trust{display:flex !important;flex-wrap:nowrap !important;overflow-x:auto;gap:8px !important;margin:0 -18px;padding:0 18px 4px;scrollbar-width:none}
+  .hwrap{align-items:stretch !important}
+  .htxt,.hvis{min-width:0 !important;width:100% !important;flex-basis:auto !important}
+  .trust{max-width:100%}
+  .trust > div{flex:none;display:inline-flex !important;align-items:center;gap:8px;white-space:nowrap;padding:7px 12px 7px 8px;border-radius:999px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line);font-size:13px;font-weight:700}
+  .prw,.prw > *,.prl{min-width:0 !important}
+  .prw{grid-template-columns:minmax(0,1fr) !important}
+  .bchips{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;margin:6px -18px 0;padding:2px 18px 6px;scrollbar-width:none}
+  .bchips::-webkit-scrollbar{display:none}
+  .bch{flex:none}
+  .bsum{flex-wrap:wrap}
+  /* 4 kafle intencji */
+  .intg{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:10px !important}
+  .intg .int{padding:14px !important;gap:10px;border-radius:20px}
+  .intg .int small,.intg .int .ia{display:none}
+  .intg .int b{font-size:15px;line-height:1.25}
+  .intg .int .ii{width:40px;height:40px;border-radius:13px}
+  /* 8 obszarów: chipy w poziomie + panel */
+  .ox{padding:18px !important;border-radius:28px;gap:16px}
+  .oxh .lead{display:none}
+  .oxl{display:flex !important;flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x mandatory;gap:8px !important;margin:0 -18px;padding:2px 18px 6px}
+  .oxk{flex:0 0 auto !important;flex-direction:row !important;align-items:center !important;gap:10px !important;min-height:52px !important;padding:7px 16px 7px 7px !important;border-radius:999px !important;scroll-snap-align:start}
+  .oxk .oxi{width:38px !important;height:38px !important;border-radius:999px}
+  .oxk .oxc,.oxk .oxs2{display:none}
+  .oxn .oxt{font-size:14px !important;white-space:nowrap}
+  .oxk .oxbar{display:none}
+  .oxs{height:180px !important}
+  .oxb{padding:18px !important}
+  .oxf{flex-direction:column;align-items:stretch !important;gap:12px}
+  .oxf .btn{flex:1}
+  /* 12 rzeczy: karuzela */
+  .ptabs{display:flex !important;flex-wrap:nowrap !important;overflow-x:auto;width:auto !important;max-width:none !important;margin:0 -18px;border-radius:0 !important;background:transparent !important;box-shadow:none !important;padding:2px 18px 4px !important;gap:8px !important}
+  .ptabs > *{flex:none}
+  .pop{display:flex !important;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px !important;margin:0 -18px;padding:4px 18px 14px;align-items:stretch !important;scrollbar-width:none}
+  .popc{flex:0 0 84% !important;scroll-snap-align:start;align-self:stretch !important;grid-column:auto !important}
+  .popc.open{flex-basis:88% !important}
+  .pcx{padding:16px !important}
+  .pcxa{grid-template-columns:1fr !important;gap:8px}
+  /* podglądy na żywo: laptop na całą szerokość, bez pustego tła */
+  .pv .ptabs{margin-top:4px}
+  .pstage{min-height:0 !important}
+  .pscen{gap:8px}
+  .pinfo{padding:16px !important;gap:12px}
+  .pinfo .btn{width:100%}
+  /* proces: etapy w poziomie */
+  .prtl{display:flex !important;overflow-x:auto;gap:8px !important;margin:0 -18px;padding:2px 18px 6px !important;grid-template-columns:none !important}
+  .prtl > button{flex:0 0 auto;min-width:118px}
+  .prtrack{display:none !important}
+  .prtxt h3{font-size:24px !important}
+  .prgrid{grid-template-columns:1fr !important}
+  .prvis{min-height:0 !important;padding:22px 14px !important}
+  .prdoc{width:100%;max-width:300px;transform:none}
+  .prstamp{top:auto;bottom:44px;right:12px}
+  /* zasady: zwarta siatka */
+  .gcard{padding:14px !important;gap:12px}
+  .saynot{padding:22px !important}
+  .saynot span:first-child{font-size:30px !important}
+  /* realizacje: karuzela */
+  .rlz{display:flex !important;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px !important;margin:0 -18px;padding:2px 18px 12px;scrollbar-width:none}
+  .rlz::-webkit-scrollbar{display:none}
+  .rlz > *{flex:0 0 86%;scroll-snap-align:start}
+  .strip{grid-template-columns:repeat(2,minmax(0,1fr)) !important;border-radius:22px}
+  .strip > div{padding:18px 16px !important;border-left:0 !important;border-top:1px solid rgba(255,255,255,.08)}
+  .strip > div:nth-child(-n+2){border-top:0}
+  .strip > div:nth-child(2n){border-left:1px solid rgba(255,255,255,.08) !important}
+  .strip .n{font-size:30px !important}
+  .strip .t{font-size:12.5px;line-height:1.4}
+  /* FAQ: jedna kolumna */
+  .faqg{grid-template-columns:1fr !important;gap:18px !important}
+  .fq button{min-height:56px;padding:14px 16px;font-size:15.5px}
+  /* kontakt */
+  .fbox{border-radius:26px}
+  .fside,.fmain{padding:22px 18px !important}
+  .fmain .btn{width:100%}
+  .topic{min-height:48px}
+  /* stopka: dwie kolumny linków */
+  footer .wrap{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:22px 16px !important;padding-top:36px !important}
+  footer .wrap > div:first-child,footer .wrap > div:last-child{grid-column:1 / -1}
+  footer .wrap a{padding:3px 0}
+  .prshot{display:none !important}
+  .gcard span[style*="flex-direction: column"] > span{font-size:13.5px}
+}
+
+.dzst.skip{text-decoration:none !important;opacity:.45}
+.dzst.skip i{background:transparent !important;box-shadow:inset 0 0 0 1.5px var(--line)}
+.dzpvb{display:none}
+.dzsrow2{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:8px}
+.dzscope{display:flex;gap:8px;align-items:flex-start;padding:10px 12px;border-radius:12px;background:var(--chip);font-size:13.5px;font-weight:700;color:var(--soft)}
+.dzsend .btn{min-height:52px}
+@media (max-width:640px){
+  .pstage{transform:scale(var(--pvs,1)) translateX(var(--pvx,0px)) !important;height:calc(560px * var(--pvs,1)) !important}
+  .pstage .pk-float,.pstage .fc{display:none !important}
+  .dz{padding:16px !important;border-radius:26px !important;gap:18px !important}
+  .dz *{min-width:0}
+  .dzg,.dzg.dzfin{grid-template-columns:minmax(0,1fr) !important;gap:14px !important}
+  .dzh .lead{font-size:15px}
+  .dzbadges{flex-wrap:nowrap;overflow-x:auto;margin:0 -16px;padding:0 16px 2px;scrollbar-width:none}
+  .dzbadges span{flex:none;white-space:nowrap}
+  .dztop{position:sticky;top:64px;z-index:5;margin:0 -16px;padding:8px 16px;background:var(--hdr);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+  .dzst{min-height:40px}
+  .dzst i{width:28px;height:28px;font-size:13px}
+  .dzq{font-size:24px !important}
+  .dztiles{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:8px !important}
+  .dzt{min-height:104px !important;padding:12px !important;gap:8px !important;border-radius:16px}
+  .dzt b{font-size:14.5px;line-height:1.25}
+  .dzown{padding:14px !important}
+  .dznext{position:sticky;bottom:calc(88px + env(safe-area-inset-bottom,0px));z-index:6;margin:6px -16px -16px;padding:12px 16px;background:var(--hdr);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1px solid var(--line)}
+  .dznext .btn{flex:1}
+  .dzr{display:flex;flex-direction:column;gap:12px}
+  .dzpvb{display:flex;align-items:center;gap:10px;width:100%;min-height:50px;padding:0 16px;border:0;border-radius:16px;background:var(--chip);color:var(--text);font:inherit;font-size:15px;font-weight:800;cursor:pointer;order:2}
+  .dzpvb em{margin-left:auto;font-style:normal;font-size:20px;color:var(--accentText)}
+  .dzr .dzscr{display:none;order:3}
+  .dzr.pvon .dzscr{display:flex}
+  .dzr .dzsend,.dzr .fok{order:1}
+  .dzsrow2{grid-template-columns:1fr}
+  .dzseg{gap:6px}
+  .dzpr{grid-template-columns:1fr 1fr !important}
+}
+
+/* v20 · Dlaczego nie WordPress i PHP */
+.wp{display:flex;flex-direction:column;gap:22px;border-radius:36px;padding:clamp(22px,4vw,52px);background:radial-gradient(ellipse at 0% 0%,rgba(150,112,238,.16),transparent 50%),var(--card);box-shadow:inset 0 0 0 1px var(--line)}
+.pk[data-theme="light"] .wp{background:radial-gradient(ellipse at 0% 0%,rgba(110,69,212,.07),transparent 50%),#FFFFFF;box-shadow:0 0 0 1px var(--line),0 40px 80px -50px rgba(40,30,80,.3)}
+.wph{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.wpf{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.wpc{display:flex;flex-direction:column;gap:8px;padding:20px;border-radius:22px;background:var(--bg2);box-shadow:inset 0 0 0 1px var(--line)}
+.wpc.on{background:linear-gradient(135deg,#5B33C4,#7E3FC4);color:#FFFFFF;box-shadow:0 24px 50px -28px var(--glow)}
+.wpn{font-family:Archivo,sans-serif;font-stretch:118%;font-weight:900;font-size:44px;line-height:1;letter-spacing:-.02em;color:var(--accentText)}
+.wpc.on .wpn{color:#FFFFFF}
+.wpc span{font-size:15px;line-height:1.5;font-weight:600}
+.wpc small{margin-top:auto;font-size:12px;color:var(--muted)}
+.wpc.on small{color:rgba(255,255,255,.75)}
+.wpt{display:flex;flex-direction:column;border-radius:22px;overflow:hidden;box-shadow:inset 0 0 0 1px var(--line)}
+.wpr{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:center;padding:14px 20px;border-top:1px solid var(--line);font-size:15px}
+.wpr:first-child{border-top:0}
+.wph2{background:var(--bg2);font-size:12.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.wph2 .wpb{color:var(--accentText)}
+.wpk{font-size:15px}
+.wpa,.wpb{display:flex;gap:10px;align-items:flex-start;line-height:1.45}
+.wpa{color:var(--muted)}
+.wpb{font-weight:700}
+.wpa i,.wpb i{flex:none;width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;margin-top:1px}
+.wpa i{background:rgba(220,80,60,.14);color:#C2412D}
+.pk[data-theme="dark"] .wpa i{color:#FF9C8A}
+.wpb i{background:var(--ok);color:var(--bg)}
+.wpcta{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;padding:20px 22px;border-radius:22px;background:var(--accentSoft);box-shadow:inset 0 0 0 1px var(--accentLine)}
+.wpcta b{display:block;font-size:18px;margin-bottom:4px}
+.wpcta span{color:var(--soft);font-size:15px;line-height:1.5}
+.wpbtn{display:flex;gap:8px;flex-wrap:wrap}
+.wplink{align-self:flex-start;color:var(--accentText);font-weight:800;font-size:15px}
+@media (max-width:1080px){.wpf{grid-template-columns:1fr}}
+@media (max-width:640px){
+  .wp{padding:18px;border-radius:28px;gap:16px;overflow:hidden}
+  .wpf{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;margin:0 -18px;padding:2px 18px 8px;scrollbar-width:none}
+  .wpf::-webkit-scrollbar{display:none}
+  .wpc{flex:0 0 78%;scroll-snap-align:start;padding:16px}
+  .wpn{font-size:36px}
+  .wph2{display:none}
+  .wpr{grid-template-columns:1fr;gap:6px;padding:14px 16px}
+  .wpk{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  .wpcta{padding:16px}
+  .wpbtn{width:100%;flex-direction:column}
+  .wpbtn .btn{width:100%}
+}
+
+/* v20 · ramka na prawdziwe zdjęcie (do sesji zdjęciowej) */
+.photo{position:relative;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;min-height:220px;padding:16px;border-radius:24px;overflow:hidden;color:#FFFFFF;background:radial-gradient(ellipse at 20% 10%,rgba(255,255,255,.18),transparent 55%),linear-gradient(160deg,#2A2440,#5B33C4 120%);box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
+.photo:before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(255,255,255,.035) 0 14px,transparent 14px 28px)}
+.photo > *{position:relative}
+.photo .phi{position:absolute;top:16px;left:16px;width:40px;height:40px;border-radius:13px;background:rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center}
+.photo b{font-size:16px;line-height:1.25}
+.photo small{font-size:12px;opacity:.75;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+
+/* v20 · cele dotyku linków w stopce i okruszkach (≥ 44 px wysokości wiersza na telefonie) */
+@media (max-width:1080px){
+  footer a{display:inline-flex;align-items:center;min-height:40px}
+  footer .wrap > div{gap:2px !important}
+  .crumbs a,.bcr a,nav[aria-label="Ścieżka"] a,nav[aria-label="Okruszki"] a{display:inline-flex;align-items:center;min-height:40px}
+}
+.fokn > span > em{font-style:normal;display:block}
+
 </style>
 </helmet>
-<div class="pk" data-theme="{{theme}}" style="min-height: 2200px">
+<div class="pk" data-theme="{{theme}}" data-page="kreator" style="min-height: 2200px">
   <div class="topb" style="background: var(--bg2); border-bottom: 1px solid var(--line); font-size: 13px">
     <div class="wrap" style="padding-top: 8px; padding-bottom: 8px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 20px; color: var(--muted)">
       <span>Linia firmy PRO-KOM · od 2004 r. · Rabka-Zdrój i Zakopane</span>
-      <span style="display: flex; flex-wrap: wrap; gap: 16px"><a href="#" style="color: var(--muted)">PRO-KOM Biznes</a><a href="#" style="color: var(--muted)">Instalacje</a><a href="#" style="color: var(--muted)">Tech</a><span style="color: var(--soft); font-weight: 700">[TELEFON SOFTWARE]</span></span>
+      <span style="display: flex; flex-wrap: wrap; gap: 16px"><a href="https://prokombiznes.pl" style="color: var(--muted)">PRO-KOM Biznes</a><a href="https://prokominstalacje.pl" style="color: var(--muted)">Instalacje</a><a href="https://prokomserwis.pl" style="color: var(--muted)">Tech</a><span style="color: var(--soft); font-weight: 700">[TELEFON SOFTWARE]</span></span>
     </div>
   </div>
 
@@ -1319,22 +1623,23 @@ body{margin:0}
                 <a href="Cennik.dc.html">Opieka, kopie i aktualizacje</a><a href="Cennik.dc.html">Cennik</a><a href="Audyt.dc.html">Darmowy audyt strony</a></div>
               <div class="megap">
                 <span class="megak">Pełna oferta</span>
-                <b>30 rozwiązań dla firm z Podhala i nie tylko</b>
+                <b>Strony, systemy i aplikacje dla firm z Podhala i nie tylko</b>
                 <span>Strony, systemy, aplikacje i automatyzacje. Każde z podglądem na żywo.</span>
                 <a href="Katalog.dc.html" class="btn btn-p" style="min-height: 46px; font-size: 14.5px; align-self: flex-start">Zobacz pełną ofertę →</a>
-                <a href="Main.dc.html#dobierz" class="megal">Nie wiesz, co wybrać? Dobierz rozwiązanie w 60 sekund →</a><a href="Wszystko.dc.html" class="megal" style="color: var(--muted)">Strona, sprzęt i serwis w jednej firmie →</a>
+                <span class="megabk">Dla branż</span><div class="megab"><a href="Branza.dc.html">Budowlanka i ekipy</a><a href="Branza.dc.html">Pensjonaty i hotele</a><a href="Branza.dc.html">Gastronomia</a><a href="Branza.dc.html">Warsztaty i serwisy</a><a href="Branza.dc.html">Gabinety</a><a href="Branza.dc.html">Wszystkie →</a></div>
+                <a href="Kreator.dc.html" class="megal">Nie wiesz, co wybrać? Dobierz rozwiązanie w 60 sekund →</a><a href="Wszystko.dc.html" class="megal" style="color: var(--muted)">Strona, sprzęt i serwis w jednej firmie →</a>
               </div>
             </div>
           </div></sc-if>
         </div>
-        <a href="Main.dc.html#dobierz" class="navk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 4V2M15 16v-2M8 9h2M20 9h2M17.8 11.8L19 13M17.8 6.2L19 5M3 21l9-9M12.2 6.2L11 5"></path></svg>Kreator<em>60 s</em></a><a href="Audyt.dc.html">Darmowy audyt</a><a href="ONas.dc.html">O firmie</a><a href="Aktualnosci.dc.html">Aktualności</a><a href="Kontakt.dc.html">Kontakt</a>
+        <a href="Kreator.dc.html" class="navk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 4V2M15 16v-2M8 9h2M20 9h2M17.8 11.8L19 13M17.8 6.2L19 5M3 21l9-9M12.2 6.2L11 5"></path></svg>Kreator<em>60 s</em></a><a href="Audyt.dc.html">Darmowy audyt</a><a href="ONas.dc.html">O firmie</a><a href="Aktualnosci.dc.html">Aktualności</a><a href="Kontakt.dc.html">Kontakt</a>
       </nav>
       <div class="hdra">
         <button class="iconb" onClick="{{toggleTheme}}" aria-label="{{themeLabel}}" title="{{themeLabel}}">
           <sc-if value="{{isDark}}" hint-placeholder-val="{{ true }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg></sc-if>
           <sc-if value="{{isLight}}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg></sc-if>
         </button>
-        <div class="pjw">
+        <div class="{{pjwCls}}">
           <button type="button" class="{{projBtn}}" onClick="{{projToggle}}" aria-expanded="{{projExp}}" aria-label="Twój projekt"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16v13H4zM9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M4 12h16"></path></svg><span class="pjl">Twój projekt</span><span class="pjn">{{project}}</span></button>
           <sc-if value="{{projOn}}" hint-placeholder-val="{{ false }}"><div class="pjp pk-pop" role="dialog" aria-label="Twój projekt">
             <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px"><b style="font-family: Archivo, sans-serif; font-stretch: 112%; font-size: 18px">Twój projekt</b><button type="button" class="pjx" onClick="{{projClose}}" aria-label="Zamknij"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></div>
@@ -1345,11 +1650,49 @@ body{margin:0}
           </div></sc-if>
         </div>
         <a href="Kontakt.dc.html" class="btn btn-p desk" style="min-height: 44px; padding: 0 18px; font-size: 14px">Bezpłatna wycena</a>
+        <a href="Kontakt.dc.html" class="btn btn-p mobq">Wycena</a>
         <button type="button" class="iconb mobb" onClick="{{toggleMenu}}" aria-label="Menu" aria-expanded="{{menuOpen}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></button>
       </div>
     </div>
-    <sc-if value="{{menuOn}}" hint-placeholder-val="{{ false }}"><nav class="mnav pk-pop" aria-label="Menu"><a href="Main.dc.html#dobierz" onClick="{{closeMenu}}">Kreator · dobierz w 60 s</a><a href="Katalog.dc.html">Pełna oferta</a><a href="Audyt.dc.html">Darmowy audyt</a><a href="ONas.dc.html">O firmie</a><a href="Aktualnosci.dc.html">Aktualności</a><a href="Kontakt.dc.html">Kontakt</a><a href="Kontakt.dc.html" class="btn btn-p" style="margin-top: 8px">Bezpłatna wycena</a><a href="Kontakt.dc.html" class="btn btn-g" style="margin-top: 4px">[TELEFON SOFTWARE]</a></nav></sc-if>
   </header>
+
+  <nav class="tbar" aria-label="Nawigacja na telefonie">
+    <a href="Main.dc.html" class="tbi" data-k="start"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7M5 10v10h14V10M10 20v-6h4v6"></path></svg><span>Start</span></a>
+    <a href="Katalog.dc.html" class="tbi" data-k="oferta"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"></path></svg><span>Oferta</span></a>
+    <a href="Kreator.dc.html" class="tbi tbk" data-k="kreator" aria-label="Kreator: dobierz rozwiązanie w 60 sekund"><span class="tbkc"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 4V2M15 16v-2M8 9h2M20 9h2M17.8 11.8L19 13M17.8 6.2L19 5M3 21l9-9M12.2 6.2L11 5"></path></svg></span><span class="tbkl">Kreator</span></a>
+    <a href="Kontakt.dc.html" class="tbi" data-k="kontakt"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path></svg><span>Kontakt</span></a>
+    <button type="button" class="tbi" data-k="menu" onClick="{{toggleMenu}}" aria-expanded="{{menuOpen}}" aria-label="Menu"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"></path></svg><span>Menu</span></button>
+  </nav>
+  <sc-if value="{{projHas}}" hint-placeholder-val="{{ false }}"><button type="button" class="pjpill" onClick="{{projToggle}}" aria-label="Twój projekt"><i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16v13H4zM9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M4 12h16"></path></svg></i>Twój projekt<b>{{project}}</b><em>Zobacz →</em></button></sc-if>
+
+  <sc-if value="{{menuOn}}" hint-placeholder-val="{{ false }}"><div class="msh" role="dialog" aria-modal="true" aria-label="Menu">
+    <div class="mshbg" onClick="{{closeMenu}}"></div>
+    <div class="mshp">
+      <span class="mshg" aria-hidden="true"></span>
+      <div class="mshtop"><b>Menu</b><button type="button" class="mshx" onClick="{{closeMenu}}" aria-label="Zamknij menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></div>
+      <a href="Katalog.dc.html" class="mshs"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM20 20l-4-4"></path></svg><span>Czego szukasz? np. zlecenia, pensjonat</span></a>
+      <a href="Kreator.dc.html" class="mshk" onClick="{{closeMenu}}"><span class="mshki"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 4V2M15 16v-2M8 9h2M20 9h2M17.8 11.8L19 13M17.8 6.2L19 5M3 21l9-9M12.2 6.2L11 5"></path></svg></span><span><b>Dobierz rozwiązanie</b><small>5 krótkich kroków · 60 s · cena od razu</small></span><em>→</em></a>
+      <span class="mshl">Oferta</span>
+      <div class="msht"><a href="Katalog.dc.html" class="mtile"><i style="background: linear-gradient(135deg, #6E45D4, #A24BD8)"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h18v14H3zM3 9h18M7 7h.01M10 7h.01"></path></svg></i><b>Strony internetowe</b><small>od 999 zł</small></a><a href="Katalog.dc.html" class="mtile"><i style="background: linear-gradient(135deg, #1F6F8B, #2E9A76)"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h18v16H3zM3 9h18M9 9v11"></path></svg></i><b>Systemy i panele</b><small>od 2 990 zł</small></a><a href="Katalog.dc.html" class="mtile"><i style="background: linear-gradient(135deg, #3A7BD5, #6E45D4)"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2h8a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zM11 18h2"></path></svg></i><b>Aplikacje mobilne</b><small>zapytaj o wycenę</small></a><a href="Katalog.dc.html" class="mtile"><i style="background: linear-gradient(135deg, #B7791F, #E8955A)"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L4 14h7l-1 8 9-12h-7z"></path></svg></i><b>Automatyzacje i AI</b><small>zapytaj o wycenę</small></a></div>
+      <div class="mshrows"><a href="Katalog.dc.html">Pełna oferta<em>›</em></a><a href="Branza.dc.html">Dla branż<em>›</em></a><a href="Cennik.dc.html">Cennik<em>›</em></a><a href="Audyt.dc.html">Darmowy audyt strony<span class="mshb">0 zł</span><em>›</em></a></div>
+      <span class="mshl">Firma</span>
+      <div class="mshrows"><a href="ONas.dc.html">O firmie<em>›</em></a><a href="Wszystko.dc.html">Jedna firma do wszystkiego<em>›</em></a><a href="Aktualnosci.dc.html">Aktualności i poradnik<em>›</em></a><a href="Kontakt.dc.html">Kontakt<em>›</em></a></div>
+      <div class="mshth"><span>Wygląd strony</span><div class="seg" role="group" aria-label="Motyw"><button type="button" class="{{thLCls}}" onClick="{{setLight}}" aria-pressed="{{thLOn}}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2"></path></svg>Jasny</button><button type="button" class="{{thDCls}}" onClick="{{setDark}}" aria-pressed="{{thDOn}}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg>Ciemny</button></div></div>
+      <div class="mshc"><a href="Kontakt.dc.html" class="btn btn-p">Bezpłatna wycena →</a><a href="Kontakt.dc.html" class="btn btn-g"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"></path></svg>[TELEFON SOFTWARE]</a><small>PRO-KOM · ul. Orkana 16B, Rabka-Zdrój · od 2004 r.</small></div>
+    </div>
+  </div></sc-if>
+
+  <sc-if value="{{projOn}}" hint-placeholder-val="{{ false }}"><div class="pjsh" role="dialog" aria-modal="true" aria-label="Twój projekt">
+    <div class="mshbg" onClick="{{projClose}}"></div>
+    <div class="mshp">
+      <span class="mshg" aria-hidden="true"></span>
+      <div class="mshtop"><b>Twój projekt</b><button type="button" class="mshx" onClick="{{projClose}}" aria-label="Zamknij"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></div>
+      <sc-if value="{{projEmpty}}" hint-placeholder-val="{{ true }}"><div class="pje"><span class="pjei"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></span><span>Na razie pusto. Klikaj <b>„+ Do projektu”</b> przy rozwiązaniach, a tu zbierze się lista. Wycenimy całość naraz.</span></div></sc-if>
+      <sc-if value="{{projHas}}" hint-placeholder-val="{{ false }}"><div class="pjshl"><sc-for list="{{projItems}}" as="p" hint-placeholder-count="2"><div class="pji"><i><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg></i><span>{{p.n}}</span><button type="button" onClick="{{p.rm}}" aria-label="Usuń">×</button></div></sc-for></div>
+        <a href="Kontakt.dc.html" class="btn btn-p" style="min-height: 52px">Wyślij do bezpłatnej wyceny →</a>
+        <button type="button" class="pjc" onClick="{{projClear}}">Wyczyść listę</button></sc-if>
+    </div>
+  </div></sc-if>
 
   <sc-if value="{{toastOn}}" hint-placeholder-val="{{ false }}"><div class="toast" role="status"><i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg></i>{{toast}}<a href="Kreator.dc.html">Zobacz projekt →</a></div></sc-if>
 
@@ -1359,7 +1702,7 @@ body{margin:0}
     <div class="wrap"><div class="dz">
       <div class="dzh">
         <div style="display: flex; flex-direction: column; gap: 10px; max-width: 700px"><span class="eye">Dobierz rozwiązanie · 60 sekund</span><h2 class="h2">Kliknij kilka razy. Zobacz, co dla Ciebie zbudujemy.</h2></div>
-        <div style="display: flex; flex-direction: column; gap: 12px; align-items: flex-start"><p class="lead" style="max-width: 44ch; margin: 0">Bez formularzy na start. Telefon albo e-mail podajesz na końcu i tylko wtedy, gdy chcesz wycenę na piśmie.</p><div class="dzbadges"><span><i>3</i>kliknięcia</span><span><i>●</i>podgląd na żywo</span><span><i>✓</i>wycena na piśmie</span></div></div>
+        <div style="display: flex; flex-direction: column; gap: 12px; align-items: flex-start"><p class="lead" style="max-width: 44ch; margin: 0">Bez formularzy na start. Telefon albo e-mail podajesz na końcu i tylko wtedy, gdy chcesz wycenę na piśmie.</p><div class="dzbadges"><span><i>5</i>krótkich kroków</span><span><i>●</i>podgląd na żywo</span><span><i>✓</i>wycena na piśmie</span></div></div>
       </div>
 
       <div class="{{dz.gCls}}">
@@ -1421,6 +1764,7 @@ body{margin:0}
               <sc-if value="{{dz.isRebuild}}" hint-placeholder-val="{{ false }}"><span class="dzplus">+ przebudowa starej strony, bez utraty pozycji w Google</span></sc-if>
               <sc-if value="{{dz.hasSize}}" hint-placeholder-val="{{ true }}"><div class="dzseg sm"><sc-for list="{{dz.sizes}}" as="x" hint-placeholder-count="3"><button type="button" class="{{x.cls}}" onClick="{{x.pick}}"><b>{{x.n}}</b></button></sc-for></div></sc-if>
               <div class="dzpr"><span class="dzpv"><small>Cena</small><b>{{dz.price}}</b></span><span class="dzpv"><small>Termin</small><b>{{dz.term}}</b></span></div>
+              <sc-if value="{{dz.hasScope}}" hint-placeholder-val="{{ false }}"><span class="dzscope">{{dz.scope}}</span></sc-if>
               <span class="dzwhen">{{dz.whenNote}}</span>
               <div class="dzneedb"><span class="dzsl">Co będzie potrzebne od Ciebie</span><div class="dzneed"><sc-for list="{{dz.needs}}" as="x" hint-placeholder-count="4"><button type="button" class="{{x.cls}}" onClick="{{x.pick}}"><i></i>{{x.n}}</button></sc-for></div><span class="dznote">Kliknij, co już masz. Czegoś brakuje? Pomożemy: teksty, zdjęcia, domena.</span></div>
               <sc-if value="{{dz.hasDesc}}" hint-placeholder-val="{{ false }}"><div class="dzdesc"><span class="dzsl">Twoje potrzeby</span><span class="dzdq">„{{dz.desc}}”</span></div></sc-if>
@@ -1429,7 +1773,8 @@ body{margin:0}
           </sc-if>
         </div>
 
-        <div class="dzr">
+        <div class="{{dz.rCls}}">
+          <button type="button" class="dzpvb" onClick="{{dz.pvT}}" aria-expanded="{{dz.pvOnS}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h18v12H3zM8 20h8M12 16v4"></path></svg>{{dz.pvLabel}}<em>{{dz.pvSign}}</em></button>
           <div class="dzscr" aria-hidden="true">
             <div class="dzbar"><i></i><i></i><i></i><span>{{dz.pvUrl}}</span></div>
             <div class="dzbody">
@@ -1440,7 +1785,7 @@ body{margin:0}
                   <div class="dzwh"><b>{{dz.heroT}}</b><span>{{dz.heroS}}</span><em>{{dz.cta}}</em></div>
                   <sc-if value="{{dz.fRez}}" hint-placeholder-val="{{ false }}"><div class="dzcal pk-pop"><span><small>Przyjazd</small>12 sty</span><span><small>Wyjazd</small>15 sty</span><span><small>Goście</small>2 osoby</span><em>Sprawdź termin</em></div></sc-if>
                   <sc-if value="{{dz.fForm}}" hint-placeholder-val="{{ false }}"><div class="dzform pk-pop"><span>Imię</span><span>Telefon</span><em>{{dz.formCta}}</em></div></sc-if>
-                  <sc-if value="{{dz.fMap}}" hint-placeholder-val="{{ false }}"><div class="dzmap pk-pop"><span><b>Zadzwoń</b>[TELEFON]</span><span><b>Godziny</b>pn–pt 8–16</span><i></i></div></sc-if>
+                  <sc-if value="{{dz.fMap}}" hint-placeholder-val="{{ false }}"><div class="dzmap pk-pop"><span><b>Zadzwoń</b>123 456 789</span><span><b>Godziny</b>pn–pt 8–16</span><i></i></div></sc-if>
                   <sc-if value="{{dz.fCards}}" hint-placeholder-val="{{ true }}"><div class="dzwc"><sc-for list="{{dz.cards}}" as="c" hint-placeholder-count="3"><span class="dzcd"><i></i><b>{{c}}</b></span></sc-for></div></sc-if>
                   <sc-if value="{{dz.fKat}}" hint-placeholder-val="{{ false }}"><div class="dzkat pk-pop"><span></span><span></span><span></span><span></span></div></sc-if>
                   <sc-if value="{{dz.fBlog}}" hint-placeholder-val="{{ false }}"><div class="dzblog pk-pop"><span><b>Poradnik</b>Jak wybrać…</span><span><b>Aktualności</b>Nowość w ofercie</span></div></sc-if>
@@ -1483,11 +1828,19 @@ body{margin:0}
                 <b class="dzsh">Chcesz wycenę na piśmie?</b>
                 <span class="dzsl">Jak wolisz rozmawiać?</span>
                 <div class="dzchips"><sc-for list="{{dz.prefs}}" as="x" hint-placeholder-count="4"><button type="button" class="{{x.cls}}" onClick="{{x.pick}}">{{x.n}}</button></sc-for></div>
-                <div class="dzsrow"><input class="dzin" type="text" placeholder="Telefon albo e-mail" value="{{dz.contact}}" onInput="{{dz.onContact}}"><button type="button" class="{{dz.sendCls}}" onClick="{{dz.send}}">Wyślij mi wycenę na piśmie</button></div>
-                <span class="dznote">Odpowiadamy w ciągu [CZAS ODPOWIEDZI]. Dane wykorzystamy tylko do tej wyceny. <a href="#">Polityka prywatności</a>.</span>
+                <div class="dzsrow2"><input class="dzin" type="text" placeholder="Imię" value="{{dz.name}}" onInput="{{dz.onName}}" aria-label="Imię"><input class="{{dz.inCls}}" type="text" placeholder="Telefon albo e-mail" value="{{dz.contact}}" onInput="{{dz.onContact}}" aria-label="Telefon albo e-mail"></div>
+                <label class="cbx"><input type="checkbox" checked="{{dz.ok}}" onChange="{{dz.toggleOk}}"><span>Zgadzam się na kontakt w sprawie tej wyceny. Szczegóły w <a href="Polityka.dc.html">polityce prywatności</a>.</span></label>
+                <sc-if value="{{dz.err}}" hint-placeholder-val="{{ false }}"><div class="ferr" role="alert">{{dz.errT}}</div></sc-if>
+                <button type="button" class="{{dz.sendCls}}" onClick="{{dz.send}}" style="width: 100%">Wyślij mi wycenę na piśmie →</button>
+                <span class="dznote">Odpowiadamy w ciągu 1 dnia roboczego. Dane tylko do tej wyceny, bez newslettera.</span>
               </div>
             </sc-if>
-            <sc-if value="{{dz.sent}}" hint-placeholder-val="{{ false }}"><div class="dzok pk-pop"><i><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg></i><span><b>Gotowe. Wycena jest w drodze.</b>Odezwiemy się w ciągu [CZAS ODPOWIEDZI]: {{dz.prefT}}. Masz pytanie wcześniej? [TELEFON SOFTWARE]</span></div></sc-if>
+            <sc-if value="{{dz.sent}}" hint-placeholder-val="{{ false }}"><div class="fok pk-pop" role="status">
+              <span class="dzk" style="align-self: flex-start">Wysłane · PKS-2026-0144</span>
+              <h3>Gotowe. Wycena jest w drodze.</h3>
+              <div class="fokn"><span><em>W ciągu 1 dnia roboczego {{dz.prefT}} i dopytamy o szczegóły.</em></span><span>Dostaniesz szkic do klikania i wycenę na piśmie: zakres, cenę i termin.</span><span>Decydujesz Ty. Wycena jest ważna 30 dni, bez zobowiązań.</span></div>
+              <span class="dznote">Kopia zgłoszenia przyjdzie na Twój e-mail, jeśli go podałeś. Pilne? [TELEFON SOFTWARE]</span>
+            </div></sc-if>
           </sc-if>
         </div>
       </div>
@@ -1498,10 +1851,10 @@ body{margin:0}
     <div class="wrap" style="padding-top: 48px; padding-bottom: 28px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 28px; font-size: 14px">
       <div style="display: flex; flex-direction: column; gap: 10px"><span style="font-family: Archivo, sans-serif; font-stretch: 118%; font-weight: 800; font-size: 22px">PRO<span style="color: var(--accent)">-</span>KOM <span style="font-size: 12px; letter-spacing: 0.16em">SOFTWARE</span></span><span style="color: var(--muted)">Strony, systemy, aplikacje i automatyzacje dla firm. Linia firmy PRO-KOM Tadeusz Wójciak.</span></div>
       <div style="display: flex; flex-direction: column; gap: 8px; color: var(--muted)"><b style="color: var(--text)">Usługi</b><a href="Katalog.dc.html">Strony internetowe</a><a href="Katalog.dc.html">Systemy i panele</a><a href="Katalog.dc.html">Aplikacje mobilne</a><a href="Katalog.dc.html">Automatyzacje i AI</a><a href="Katalog.dc.html">Opieka i audyty</a></div>
-      <div style="display: flex; flex-direction: column; gap: 8px; color: var(--muted)"><b style="color: var(--text)">Firma</b><a href="ONas.dc.html">O firmie</a><a href="Wszystko.dc.html">Jedna firma do wszystkiego</a><a href="#realizacje">Realizacje</a><a href="Aktualnosci.dc.html">Aktualności</a><a href="Cennik.dc.html">Cennik</a><a href="Audyt.dc.html">Darmowy audyt</a><a href="Miasto.dc.html">Rabka-Zdrój</a><a href="Kontakt.dc.html">Kontakt</a></div>
+      <div style="display: flex; flex-direction: column; gap: 8px; color: var(--muted)"><b style="color: var(--text)">Firma</b><a href="ONas.dc.html">O firmie</a><a href="Wszystko.dc.html">Jedna firma do wszystkiego</a><a href="Main.dc.html#realizacje">Realizacje</a><a href="Aktualnosci.dc.html">Aktualności</a><a href="Branza.dc.html">Dla branż</a><a href="Cennik.dc.html">Cennik</a><a href="Audyt.dc.html">Darmowy audyt</a><a href="Miasto.dc.html">Rabka-Zdrój</a><a href="Kontakt.dc.html">Kontakt</a></div>
       <div style="display: flex; flex-direction: column; gap: 8px; color: var(--muted)"><b style="color: var(--text)">Kontakt</b><span>[TELEFON SOFTWARE]</span><span>[E-MAIL SOFTWARE]</span><span>Rabka-Zdrój · Zakopane · zdalnie w całej Polsce</span></div>
     </div>
-    <div class="wrap" style="padding-top: 18px; padding-bottom: 28px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; font-size: 13px; color: var(--muted)"><span>PRO-KOM Tadeusz Wójciak · ul. Orkana 16B, 34-700 Rabka-Zdrój · NIP 7352511447</span><span>Szukasz sprzętu, kas albo KSeF? <a href="#" style="color: var(--accentText); font-weight: 700">PRO-KOM Biznes →</a></span><span><a href="#">Polityka prywatności</a></span></div>
+    <div class="wrap" style="padding-top: 18px; padding-bottom: 28px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; font-size: 13px; color: var(--muted)"><span>PRO-KOM Tadeusz Wójciak · ul. Orkana 16B, 34-700 Rabka-Zdrój · NIP 7352511447</span><span>Szukasz sprzętu, kas albo KSeF? <a href="https://prokombiznes.pl" style="color: var(--accentText); font-weight: 700">PRO-KOM Biznes →</a></span><span><a href="Polityka.dc.html">Polityka prywatności</a></span></div>
   </footer>
 </div>
 </x-dc>
@@ -1536,7 +1889,11 @@ class Component extends DCLogic {
       projToggle: () => self.setState({ projOpen: !self.state.projOpen, megaOpen: false }), projClose: () => self.setState({ projOpen: false }),
       projEmpty: st.added.length === 0, projHas: st.added.length > 0,
       projItems: st.added.map((id) => ({ n: pjName(id), rm: () => pjSet(self.state.added.filter((x) => x !== id)) })),
-      projClear: () => pjSet([])
+      projClear: () => pjSet([]),
+      pjwCls: 'pjw' + (st.added.length ? '' : ' empty'),
+      thLCls: theme === 'light' ? 'on' : '', thDCls: theme === 'dark' ? 'on' : '', thLOn: theme === 'light' ? 'true' : 'false', thDOn: theme === 'dark' ? 'true' : 'false',
+      setLight: () => { try { localStorage.setItem('pk-theme', 'light'); } catch (e) {} self.setState({ theme: 'light' }); },
+      setDark: () => { try { localStorage.setItem('pk-theme', 'dark'); } catch (e) {} self.setState({ theme: 'dark' }); },
     };
     const base = {
       theme, isDark: theme === 'dark', isLight: theme === 'light',
@@ -1549,7 +1906,7 @@ class Component extends DCLogic {
     return Object.assign(base, this.pageVals({ st, self, theme, isAdded, add }));
   }
 
-  initialState() { return { dzS: 0, dzMax: 0, dzNeed: '', dzSub: [], dzSize: 'std', dzHave: '', dzWhen: '', dzUrl: '', dzFile: '', dzDesc: '', dzMam: [], dzPref: 'tel', dzContact: '', dzSent: false, dzShared: false, dzOwn: false, show: 'www', showTouched: false }; }
+  initialState() { return { dzS: 0, dzMax: 0, dzNeed: '', dzSub: [], dzSize: 'std', dzHave: '', dzWhen: '', dzUrl: '', dzFile: '', dzDesc: '', dzMam: [], dzPref: 'tel', dzContact: '', dzSent: false, dzShared: false, dzOwn: false, dzName: '', dzOk: false, dzErr: false, dzPv: false, show: 'www', showTouched: false }; }
   pageVals({ st, self, theme, isAdded, add }) {
     const dz = (() => {
       const S = st.dzS || 0, sub = st.dzSub || [], need = st.dzNeed, own = !!st.dzOwn;
@@ -1611,9 +1968,16 @@ class Component extends DCLogic {
       const urlMode = need === 'odsw' || need === 'help';
       const szN = (SZ.find((x) => x.id === st.dzSize) || SZ[1]).n, whN = (W.find((x) => x.id === st.dzWhen) || {}).n;
       const big = need === 'prog' || need === 'app' || need === 'rozb' || st.dzSize === 'full';
-      const whenNote = { asap: 'Zaczynamy od rozmowy jeszcze w tym tygodniu. Dokładny termin dostaniesz na piśmie.', zima: big ? 'Przed sezonem zimowym zdążymy z wersją na start. Resztę dołożymy po sezonie, bez przestoju.' : 'Przed sezonem zimowym zdążymy, jeśli zaczniemy do [DATA].', lato: 'Przed latem zdążymy spokojnie, z czasem na poprawki.', brak: 'Termin ustalimy razem i zapiszemy w umowie.' }[st.dzWhen] || 'Termin potwierdzimy na piśmie po krótkiej rozmowie.';
-      const price = r.free ? 'Bezpłatnie' : r.month ? 'od [OD] zł / mies.' : hasSize ? '[CENA · ' + szN.toLowerCase() + '] zł netto' : 'od [OD] zł netto';
-      const term = r.free ? 'Odpowiedź w ciągu [CZAS ODPOWIEDZI]' : '[TERMIN]';
+      const whenNote = { asap: 'Zaczynamy od rozmowy jeszcze w tym tygodniu. Dokładny termin dostaniesz na piśmie.', zima: big ? 'Przed sezonem zimowym zdążymy z wersją na start. Resztę dołożymy po sezonie, bez przestoju.' : 'Przed sezonem zimowym zdążymy, jeśli zaczniemy do 30 listopada.', lato: 'Przed latem zdążymy spokojnie, z czasem na poprawki.', brak: 'Termin ustalimy razem i zapiszemy w umowie.' }[st.dzWhen] || 'Termin potwierdzimy na piśmie po krótkiej rozmowie.';
+      const PRC = { wizytowka: [999, 1490, 2490], landing: [1299, 1990, 2590], firmowa: [2490, 3390, 5490], przebudowa: [1499, 2490, 2990], restauracja: [1999, 2990, 4490], pensjonat: [1999, 2990, 4490], rozbudowana: [6990, 9990, 14990],
+        excel: [2990, 4990, 8990], czas: [2990, 4990, 7990], zlecenia: [3490, 5990, 9990], crm: [3490, 5990, 9990], serwis: [3490, 5990, 9990] };
+      const TRM = { wizytowka: ['1 tydzień', '1–2 tygodnie', '2 tygodnie'], landing: ['1–2 tygodnie', '2 tygodnie', '3 tygodnie'], firmowa: ['2 tygodnie', '3 tygodnie', '4–5 tygodni'], przebudowa: ['2 tygodnie', '3 tygodnie', '4 tygodnie'], restauracja: ['2 tygodnie', '3 tygodnie', '4–5 tygodni'], pensjonat: ['2 tygodnie', '3 tygodnie', '4–5 tygodni'], rozbudowana: ['5 tygodni', '6–8 tygodni', '8–10 tygodni'],
+        excel: ['2–3 tygodnie', '5 tygodni', '8 tygodni'], czas: ['2–3 tygodnie', '5 tygodni', '8 tygodni'], zlecenia: ['3 tygodnie', '6 tygodni', '10 tygodni'], crm: ['3 tygodnie', '6 tygodni', '10 tygodni'], serwis: ['3 tygodnie', '6 tygodni', '10 tygodni'] };
+      const szI = st.dzSize === 'start' ? 0 : st.dzSize === 'full' ? 2 : 1;
+      const zl = (v) => String(v).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+      const price = r.free ? 'Bezpłatnie' : r.month ? 'od 149 zł / mies.' : PRC[rk] ? (hasSize ? zl(PRC[rk][szI]) + ' zł netto' : 'od ' + zl(PRC[rk][0]) + ' zł netto') : 'Zapytaj o wycenę';
+      const term = r.free ? 'Odpowiedź w ciągu 1 dnia roboczego' : TRM[rk] ? (hasSize ? TRM[rk][szI] : 'od ' + TRM[rk][0]) : 'po krótkiej rozmowie';
+      const scope = r.kind === 'System' && szI === 0 ? 'Na start: jeden moduł na gotowym fundamencie, do 5 użytkowników, bez integracji.' : rk === 'przebudowa' && szI === 0 ? 'Na start: przebudowa strony do 3 podstron.' : rk === 'pensjonat' && szI < 2 ? 'Zapytanie o termin w cenie. Rezerwacja z zaliczką online w Pełnej wersji.' : '';
       const subN = nd ? nd.o.filter((o) => sub.includes(o.id)).map((o) => o.n) : [];
       // podgląd
       const pv = !need && !own ? 'idle' : own ? 'idle' : nd.pv;
@@ -1647,7 +2011,7 @@ class Component extends DCLogic {
         s0: S === 0, s1: S === 1, s2: S === 2, s3: S === 3, s4: S === 4, canBack: S > 0,
         back: () => go(own && S === 3 ? 0 : S - 1),
         steps: STEPS.map((n, i) => ({ n, i: String(i + 1), cur: i === S ? 'step' : 'false', cls: 'dzst' + (i === S ? ' on' : i <= (st.dzMax || 0) ? ' done' : '') + (own && (i === 1 || i === 2) ? ' skip' : ''), go: () => { if (i <= (self.state.dzMax || 0) && !(own && (i === 1 || i === 2))) go(i); } })),
-        rows: [{ n: 'Nowa strona internetowa', items: [] }, { n: 'Odświeżenie, program, aplikacja', items: [] }].map((rw, ri) => ({ n: rw.n, items: Object.keys(N).filter((k) => N[k].row === ri).map((k) => ({ n: N[k].n, d: N[k].d, ic: N[k].ic, cls: 'dzt' + (need === k ? ' on' : ''), pick: () => { set({ dzNeed: k, dzSub: [], dzOwn: false, dzHave: '', dzUrl: '', dzFile: '', dzS: 1, dzMax: 1 }); } })) })),
+        rows: [{ n: 'Nowa strona internetowa', items: [] }, { n: 'Odświeżenie, program, aplikacja', items: [] }].map((rw, ri) => ({ n: rw.n, items: Object.keys(N).filter((k) => N[k].row === ri).map((k) => ({ n: N[k].n, d: N[k].d, ic: N[k].ic, cls: 'dzt' + (need === k ? ' on' : ''), pick: () => { set({ dzNeed: k, dzSub: [], dzOwn: false, dzHave: '', dzUrl: '', dzFile: '', dzDesc: self.state.dzNeed === k ? self.state.dzDesc : '', dzS: 1, dzMax: 1 }); } })) })),
         goOwn: () => set({ dzOwn: true, dzNeed: '', dzSub: [], dzS: 3, dzMax: 3 }),
         q2: nd ? nd.q : '', q2h: nd ? nd.h : '', multi: !!(nd && nd.multi), optsCls: 'dzopts' + (nd && nd.o.length > 6 ? ' many' : ''),
         opts: nd ? nd.o.map((o) => ({ n: o.n, ic: o.ic, on: sub.includes(o.id) ? 'true' : 'false', cls: 'dzo' + (sub.includes(o.id) ? ' on' : '') + (nd.multi ? ' m' : ''), pick: () => { if (nd.multi) { const cur = self.state.dzSub || []; set({ dzSub: cur.includes(o.id) ? cur.filter((x) => x !== o.id) : cur.concat([o.id]) }); } else { set({ dzSub: [o.id] }); go(2); } } })) : [],
@@ -1672,7 +2036,9 @@ class Component extends DCLogic {
         share: () => { try { navigator.clipboard.writeText(String(location.href).split('#')[0] + '#dobierz'); } catch (e) {} self.setState({ dzShared: true }); }, shareT: st.dzShared ? 'Link skopiowany' : 'Link dla wspólnika',
         prefs: PREF.map((x) => ({ n: x.n, cls: 'dzchip' + (st.dzPref === x.id ? ' on' : ''), pick: () => self.setState({ dzPref: x.id }) })), prefT: { tel: 'zadzwonimy', mail: 'napiszemy', salon: 'umówimy spotkanie w salonie', online: 'umówimy rozmowę online' }[st.dzPref] || 'zadzwonimy',
         contact: st.dzContact, onContact: (e) => self.setState({ dzContact: e.target.value }),
-        sendCls: 'btn btn-p' + ((st.dzContact || '').trim().length < 5 ? ' off' : ''), send: () => { if ((self.state.dzContact || '').trim().length >= 5) self.setState({ dzSent: true }); },
+        sendCls: 'btn btn-p' + ((st.dzContact || '').trim().length < 5 || !st.dzOk ? ' off' : ''), send: () => { const c0 = (self.state.dzContact || '').trim(); if (c0.length < 5 || !self.state.dzOk) self.setState({ dzErr: true }); else self.setState({ dzSent: true, dzErr: false }); },
+        name: st.dzName || '', onName: (e) => self.setState({ dzName: e.target.value }), ok: !!st.dzOk, toggleOk: () => self.setState({ dzOk: !self.state.dzOk, dzErr: false }), err: !!st.dzErr, errT: (st.dzContact || '').trim().length < 5 ? 'Podaj telefon albo e-mail, żebyśmy mogli wysłać wycenę.' : 'Zaznacz zgodę na kontakt w sprawie wyceny.', inCls: 'dzin' + (st.dzErr && (st.dzContact || '').trim().length < 5 ? ' fin bad' : ''),
+        rCls: 'dzr' + (st.dzPv ? ' pvon' : ''), pvT: () => self.setState({ dzPv: !self.state.dzPv }), pvOnS: st.dzPv ? 'true' : 'false', pvLabel: st.dzPv ? 'Ukryj podgląd projektu' : 'Pokaż podgląd projektu', pvSign: st.dzPv ? '−' : '+', hasScope: !!scope, scope,
         notSent: !st.dzSent, sent: !!st.dzSent,
         pvIdle: pv === 'idle', pvWww: pv === 'www', pvOdsw: pv === 'odsw', pvSys: pv === 'sys', pvApp: pv === 'app', pvAuto: pv === 'auto', pvHelp: pv === 'help',
         pvUrl: pv === 'idle' ? 'twój-projekt' : pv === 'www' ? BRD[4] : pv === 'odsw' ? 'twojafirma.pl · przed i po' : pv === 'sys' ? 'panel.twojafirma.pl' : pv === 'app' ? 'Aplikacja · iPhone i Android' : pv === 'auto' ? 'Automatyzacje · działa w tle' : 'Opieka · przed i po przejęciu',

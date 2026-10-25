@@ -81,7 +81,7 @@
       "get": [
         "Kopie, aktualizacje, monitoring",
         "Czas reakcji na piśmie",
-        "Raport co miesiąc i eksport Twoich danych"
+        "Raport co miesiąc od poziomu Standard"
       ],
       "you": [
         "Nic. Ewentualnie pomysł na kolejny moduł"
@@ -140,7 +140,7 @@
     },
     {
       "title": "Dane zawsze u Ciebie",
-      "text": "Co miesiąc automatyczny eksport Twoich danych.",
+      "text": "Eksport Twoich danych na każde żądanie, w Opiece Systemy co miesiąc.",
       "icon": "M12 3v12M7 10l5 5 5-5M4 21h16"
     },
     {
@@ -261,7 +261,7 @@
       "steps": [
         [
           "Klient wchodzi z Google",
-          "na telefonie, w 1,5 sekundy strona jest gotowa"
+          "na telefonie, strona gotowa w mniej niż 2,5 sekundy"
         ],
         [
           "Wypełnia „Umów wycenę”",
@@ -421,5 +421,129 @@
     ],
     "_info": "Sekcja #realizacje. Statystyka „0 banerów cookies” prawdziwa tylko przy analityce bez ciasteczek (spec. §1 pkt 6). [WYNIK] = zmierzony wynik produkcji. Opis prokombiznes.pl bez „porównywarki” i liczby produktów (SW0, spec. §13 pkt 22)."
   },
-  "_info": "Treści sekcji strony głównej. process = 5 etapów sekcji #proces (ST w Main.dc.html; etap 3 nazywa się „Budowa”). processShort = wersja skrócona (inne miejsca); etap 3 ujednolicony do „Budowa”. guarantees = #zasady, compare = #porownanie, livePreviews = #podglady, heroModules = makieta hero, showcase = #realizacje. Gdzie w Payload: pola bloków sw* (ADR-014 §2). Placeholdery w tekstach rozwiązuje SiteSettings.software.facts."
+  "_info": "Treści sekcji strony głównej. process = 5 etapów sekcji #proces (ST w Main.dc.html; etap 3 nazywa się „Budowa”). processShort = wersja skrócona (inne miejsca); etap 3 ujednolicony do „Budowa”. guarantees = #zasady, compare = #porownanie, livePreviews = #podglady, heroModules = makieta hero, showcase = #realizacje. Gdzie w Payload: pola bloków sw* (ADR-014 §2). Placeholdery w tekstach rozwiązuje SiteSettings.software.facts.",
+  "whyNotWordpress": {
+    "_info": "v20 (25.10.2026, prośba Krystiana; treść na podstawie pro-kom.eu/tworzenie-stron-internetowych). Sekcja między kreatorem a zasadami. Fakty ze źródłem.",
+    "eyebrow": "Dlaczego nie WordPress i PHP",
+    "title": "Bez wtyczek do łatania. Bez nocnych aktualizacji.",
+    "lead": "WordPress to dobre narzędzie do bloga. Strona firmy, której nikt na co dzień nie pilnuje, płaci za niego bezpieczeństwem i szybkością. Dlatego piszemy strony od podstaw, bez PHP.",
+    "facts": [
+      {
+        "v": "7 966",
+        "t": "nowych luk w WordPressie i wtyczkach w 2024 r. To ok. 22 dziennie, 96% we wtyczkach.",
+        "src": "Patchstack, „State of WordPress Security in 2025”"
+      },
+      {
+        "v": "72 h",
+        "t": "na zgłoszenie wycieku danych klientów do UODO. Za brak zgłoszenia grozi kara do 10 mln euro albo 2% rocznego obrotu.",
+        "src": "RODO, art. 33 i art. 83 ust. 4"
+      },
+      {
+        "v": "0",
+        "t": "wtyczek do aktualizacji na naszych stronach. Jeden kod, który znamy w całości.",
+        "src": "Next.js, TypeScript, panel Payload"
+      }
+    ],
+    "compare": {
+      "columns": [
+        "",
+        "WordPress z wtyczkami",
+        "Strona od PRO-KOM"
+      ],
+      "rows": [
+        [
+          "Szybkość",
+          "motyw i kilkanaście wtyczek ładuje się przy każdym wejściu",
+          "strona czeka gotowa, treść w mniej niż 2,5 s"
+        ],
+        [
+          "Bezpieczeństwo",
+          "każda wtyczka to inny autor i inna luka",
+          "jeden kod, bez PHP i bez wtyczek"
+        ],
+        [
+          "Aktualizacje",
+          "ktoś musi je robić co tydzień",
+          "robimy je my, w opiece"
+        ],
+        [
+          "Wygląd",
+          "gotowy szablon, jak u setek innych firm",
+          "projekt pod Twoją firmę"
+        ],
+        [
+          "Google i AI",
+          "zależy od wtyczek i ich ustawień",
+          "w cenie: dane firmy, opisy, szybkość"
+        ],
+        [
+          "Zmiana treści",
+          "rozbudowany panel z setką opcji",
+          "panel po polsku, tylko Twoje pola"
+        ]
+      ]
+    },
+    "cta": {
+      "title": "Masz stronę na WordPressie?",
+      "text": "Przeniesiemy treści, zdjęcia i adresy, bez utraty pozycji w Google. Starą instalację usuwamy z serwera po odbiorze.",
+      "buttons": [
+        [
+          "Sprawdź swoją stronę za darmo",
+          "/audyt"
+        ],
+        [
+          "Przebudowa od 1 499 zł →",
+          "/rozwiazania/przebudowa-starej-strony"
+        ]
+      ],
+      "link": [
+        "Uczciwe porównanie: kiedy WordPress ma sens, a kiedy nie →",
+        "/aktualnosci/wordpress-czy-strona-od-zera"
+      ]
+    }
+  },
+  "homeOrder": {
+    "_info": "v20 (25.10.2026): kolejność sekcji strony głównej. Technologie, „Jak robimy” i porównanie przeniesione na /o-firmie.",
+    "order": [
+      "hero",
+      "intents",
+      "areas",
+      "popular",
+      "livePreviews",
+      "process",
+      "wizard",
+      "whyNotWordpress",
+      "guarantees",
+      "showcase",
+      "faq",
+      "contact"
+    ],
+    "movedToAbout": [
+      "technologies",
+      "howWeBuild",
+      "compare"
+    ]
+  },
+  "proceduralMock": {
+    "_info": "Makieta wyceny w sekcji procesu (przykład, wyraźnie fikcyjny klient). Kwoty z cennika (System zleceń Standard 5 990, Czas pracy Na start 2 990); połączenie z programem bez ceny publicznej (automatyzacje = „Zapytaj o wycenę”).",
+    "number": "PKS-2026-0142",
+    "title": "System zleceń + czas pracy",
+    "rows": [
+      [
+        "Etap 1 · zlecenia i grafik",
+        "5 990 zł"
+      ],
+      [
+        "Etap 2 · czas pracy ekip",
+        "2 990 zł"
+      ],
+      [
+        "Połączenie z Subiektem",
+        "po sprawdzeniu programu"
+      ]
+    ],
+    "total": "8 980 zł netto (etapy 1–2)",
+    "term": "10 tygodni",
+    "totalLabel": "Razem etapy 1–2, stała cena"
+  }
 }

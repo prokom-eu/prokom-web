@@ -262,7 +262,26 @@
         "hasLivePreview": true,
         "solution": "strona-firmowa-z-panelem"
       }
-    ]
+    ],
+    "faq": [
+      {
+        "q": "Czy aplikacja działa bez zasięgu?",
+        "a": "Tak. Zadania, zdjęcia i podpis klienta zapisują się w telefonie i wysyłają same, gdy wróci sieć. Biuro widzi czas zdarzenia na budowie, nie czas wysyłki."
+      },
+      {
+        "q": "Czy pracownicy w terenie sobie poradzą?",
+        "a": "Aplikacja pokazuje tylko to, co potrzebne na dziś: adres, zadania, zdjęcia i podpis. Szkolimy ekipy na ich własnych zleceniach, a wersję testową sprawdzacie co tydzień."
+      },
+      {
+        "q": "Czy muszę zmienić program do faktur?",
+        "a": "Nie. Zakończone zlecenie może trafiać do programu, którego już używasz. Takie połączenie wyceniamy po krótkiej rozmowie, bo zależy od programu."
+      },
+      {
+        "q": "Ile to kosztuje i od czego zacząć?",
+        "a": "System zleceń i grafik ekip zaczyna się od {cena:system-zlecen-i-grafik-ekip} netto: jeden moduł na gotowym fundamencie, do 5 użytkowników. Najczęściej zaczynamy od zleceń, a aplikację i czas pracy dokładamy w kolejnych etapach. Płacisz po odbiorze każdego etapu."
+      }
+    ],
+    "wizardTitle": "Złóż system dla swojej firmy. W 60 sekund."
   },
   "pagesAtStart": [
     {
@@ -362,5 +381,5 @@
       "content": null
     }
   ],
-  "_info": "Branże Software. groups = 8 grup filtra katalogu. pagesAtStart = 12 stron /dla-branz/<slug>; active=true tylko z gotową treścią (na start: budownictwo-i-wykonczenia ← budowlanka, wzór: boards/Branza.dc.html). wizardFirm = id rodzaju firmy w kreatorze (null = bez parametru; nazwy grup i przypisania do potwierdzenia przy pisaniu treści w czacie). budowlanka.solutions[].solution = slug z rozwiazania.json."
+  "_info": "Branże Software. groups = 8 grup filtra katalogu. pagesAtStart = 12 stron /dla-branz/<slug>; active=true tylko z gotową treścią (na start: budownictwo-i-wykonczenia ← budowlanka, wzór: boards/Branza.dc.html). wizardFirm = id rodzaju firmy w kreatorze (null = bez parametru; nazwy grup i przypisania do potwierdzenia przy pisaniu treści w czacie). budowlanka.solutions[].solution = slug z rozwiazania.json. v20 (25.10): budowlanka.faq = 4 pytania z planszy Branza (JSON-LD FAQPage); {cena:<slug>} = priceFrom rozwiązania sformatowane „3 490 zł” (brak ceny → „cena po rozmowie”). Kwoty na kartach rozwiązań i w makiecie wyceny branży brane z Solutions.prices — nie wpisywać ręcznie. wizardTitle = nagłówek sekcji kreatora (jedna obietnica: 60 s)."
 }
