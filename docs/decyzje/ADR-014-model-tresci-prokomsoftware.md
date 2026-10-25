@@ -159,9 +159,13 @@ Wizualizacja v20 (`docs/design/prokomsoftware/ZMIANY-v20.md` §8 — dziś histo
 
 ## Doprecyzowania SW2a (Krystian, 25.10.2026)
 
-Wynikły przy budowie kolekcji (SW2a-1). Obowiązują zamiast sprzecznych fragmentów §1.
+Wynikły przy budowie kolekcji (SW2a-1, pkt 1–5) i ustawień (SW2a-2, pkt 6–9). Obowiązują zamiast sprzecznych fragmentów §1.
 1. **`SolutionAreas` bez pola `gradient`** (zmienia §1.2): kolor kafla bierze komponent z tokenu `--grad-area-<key>` (ADR-015 rozstrz. 4) — jedno źródło koloru. Seed nie importuje `obszary.json` → `gradient`.
 2. **Cena obszaru** (doprecyzowuje rozstrz. v20 3): `priceLabel` wygrywa z `priceFrom` (np. „od 149 zł / mies.”); pusty `priceLabel` → „od {cena} zł” z `priceFrom`; oba puste → `priceDisplay.fallback` („Zapytaj o wycenę”).
 3. **Tło miniatury karty** (`Solutions.cardGradient`): select z kluczami `peach` / `sand` / `sage`, kolory jako tokeny `--grad-card-<key>` razem z kartą (SW9); seed (SW3) mapuje wartości CSS z `rozwiazania.json` na klucze.
 4. **Aktywna miejscowość tylko z treścią** (§1.5): zapis `active=true` wymaga tytułu i wstępu nagłówka.
 5. **`Solutions.page`** (§1.1) dochodzi w SW10 razem ze stroną rozwiązania — kształt pól z planszy `Rozwiazanie`, nie z góry.
+6. **Ustawienia JSON 1:1 z seedem** (SW2a-2): `SiteSettings.software.navigation`, `SoftwareSettings.wizard` i `home` mają kształt plików pakietu (krótkie klucze kreatora, linki jako `[etykieta, adres]`), więc seed (SW3) wgrywa je bez przepisywania. Obiekty są ścisłe — nieznany klucz to błąd zapisu, nie cicha utrata danych; `_info` dozwolone. Linki nawigacji przyjmują też kotwice strony (`#kontakt`, `#menu`). `home` = `strona-glowna.json` bez `homeOrder` + `technologie.json` → `technologies` + `popularne.json` → `popular`. Zapis `wizard` i `home` sprawdza, czy rozwiązania o podanych adresach istnieją w tenancie.
+7. **Bez pól `promises` w `SiteSettings.software`** (zmienia §1, tabela): obietnice Software to zdania z faktami (`[CZAS ODPOWIEDZI]`, `[MIESIĄC]`) w tekstach bloków (kontakt — SW8b); liczby są w `facts`. Osobne pola dojdą, jeśli plansza pokaże obietnicę bez miejsca w bloku. „Kanały kontaktu Software” z tabeli §1 to `SiteSettings.phone` / `email` linii (rozstrz. SW0 4) — bez osobnych pól. Funkcja z §1.4 nazywa się w kodzie `fillText(text, context)` (`lib/software/facts.ts`): poza faktami podmienia `{termin}` i `{cena:<slug>}`.
+8. **Ikony w JSON kreatora i `home` to ścieżki SVG** (jak w pakiecie), sprawdzane wąskim zestawem znaków. Rozstrz. SW0 8 (jeden zestaw `ICON_NAMES`) dotyczy pól wyboru ikony w kolekcjach; czy kreator przejdzie na nazwy z `ICON_NAMES` — decyzja w SW7 razem z komponentem.
+9. **`thanks` i `notFound`** mają kształt z plansz `Dziekujemy` i `NieZnaleziono` (pakiet nie ma dla nich JSON); treść startową wgrywa seed (SW3), wygląd — SW11b. `/dziekujemy` bez zapisanych tekstów odpowiada 404. Ceny w podpisach kafli 404 są tekstem z panelu (opis pola przypomina o cenniku).

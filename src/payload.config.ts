@@ -21,6 +21,7 @@ import { Posts } from './collections/Posts'
 import { Products } from './collections/Products'
 import { Redirects } from './collections/Redirects'
 import { SiteSettings } from './collections/SiteSettings'
+import { SoftwareSettings } from './collections/SoftwareSettings'
 import { SolutionAreas } from './collections/SolutionAreas'
 import { Solutions } from './collections/Solutions'
 import { Tenants } from './collections/Tenants'
@@ -66,6 +67,7 @@ export default buildConfig({
     Solutions,
     SolutionAreas,
     Cities,
+    SoftwareSettings,
   ],
   globals: [CompanyData],
   editor: lexicalEditor(),
@@ -146,6 +148,8 @@ export default buildConfig({
         solutions: {},
         'solution-areas': {},
         cities: {},
+        // One document per tenant, Software only (`SoftwareSettings` hook).
+        'software-settings': { isGlobal: true },
       },
       // Deleting a tenant must never silently delete its content.
       cleanupAfterTenantDelete: false,

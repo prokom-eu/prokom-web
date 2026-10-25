@@ -5,6 +5,7 @@ import { adminOnly } from '../lib/auth/access'
 import { catalogRevalidationHooks } from '../lib/catalog/revalidate'
 import { validateWizard } from '../lib/catalog/wizard'
 import { onlyLineTenant } from '../lib/tenant/onlyLine'
+import { searchGroup } from './searchGroup'
 
 /** Only a tenant of the Biznes line may have these settings (ADR-012, rozstrzygnięcie 2). */
 const onlyBiznesTenant = onlyLineTenant(
@@ -28,42 +29,7 @@ export const BiznesSettings: CollectionConfig = {
   },
   hooks: { beforeValidate: [onlyBiznesTenant], ...catalogRevalidationHooks },
   fields: [
-    {
-      name: 'search',
-      label: 'Wyszukiwarka',
-      type: 'group',
-      fields: [
-        {
-          name: 'synonyms',
-          label: 'Synonimy',
-          type: 'array',
-          admin: { description: 'Fraza klienta → słowa, które też szukamy (bez polskich znaków).' },
-          fields: [
-            {
-              type: 'row',
-              fields: [
-                { name: 'phrase', label: 'Fraza', type: 'text', required: true },
-                {
-                  name: 'expansions',
-                  label: 'Szukaj też',
-                  type: 'text',
-                  hasMany: true,
-                  required: true,
-                },
-              ],
-            },
-          ],
-        },
-        { name: 'stopWords', label: 'Pomijane słowa', type: 'text', hasMany: true },
-        {
-          name: 'popular',
-          label: 'Popularne wyszukiwania',
-          type: 'text',
-          hasMany: true,
-          maxRows: 12,
-        },
-      ],
-    },
+    searchGroup,
     {
       name: 'news',
       label: 'Aktualności',

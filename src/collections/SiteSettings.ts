@@ -6,6 +6,8 @@ import { DEPARTMENTS } from '../lib/site/departments'
 import { isValidNavHref, toWhatsAppHref } from '../lib/site/link'
 import { isValidTitleTemplate } from '../lib/site/title'
 import { tenantIdOf } from '../lib/tenant/id'
+import { FACT_KEY } from '../lib/software/facts'
+import { validateNavigation } from '../lib/software/navigation'
 import { LINES } from '../lib/tenant/lines'
 import { lineOfTenant } from '../lib/tenant/lineOf'
 import { biznesFooter } from './biznesFooter'
@@ -27,7 +29,7 @@ const linkFields: Field[] = [
 
 /**
  * Copy of the tenant's line for the panel only: `admin.condition` is synchronous and sees just
- * this document, so it shows the Biznes fields from here. Set on every save. The public site
+ * this document, so it shows the fields of the line (Biznes, Software) from here. Set on every save. The public site
  * never trusts it — it uses the tenant's own line (`getSiteSettings`).
  */
 const copyTenantLine: CollectionBeforeChangeHook = async ({ data, originalDoc, req }) => {
@@ -166,6 +168,65 @@ const biznesGroup: Field = {
   ],
 }
 
+const isSoftware = (data: { line?: unknown } | undefined) => data?.line === 'software'
+
+/**
+ * Data of the Software line (ADR-014 §1.4, rozstrz. v20 4–5). Shown in the panel only for
+ * Software. Phone and e-mail stay the line's fields above (rozstrz. SW0 4).
+ */
+const softwareGroup: Field = {
+  name: 'software',
+  label: 'Software',
+  type: 'group',
+  admin: { condition: (data) => isSoftware(data) },
+  fields: [
+    {
+      name: 'navigation',
+      label: 'Nawigacja (JSON)',
+      type: 'json',
+      validate: validateNavigation,
+      admin: {
+        description:
+          'Nagłówek, mega menu, stopka, dolny pasek i menu na telefonie, „Twój projekt”. Linki jako [etykieta, adres]. Zapis sprawdza kształt — zmieniaj ostrożnie.',
+      },
+    },
+    {
+      name: 'facts',
+      label: 'Fakty [SZEF]',
+      type: 'array',
+      admin: {
+        description:
+          'Wartości wstawiane w teksty w miejsce [KLUCZ], np. CZAS ODPOWIEDZI → „1 dnia roboczego”. Pusta wartość = zdanie z tym kluczem nie pokazuje się na stronie.',
+      },
+      validate: (rows: unknown) => {
+        const keys = (Array.isArray(rows) ? rows : []).map((row: { key?: string }) =>
+          row.key?.trim(),
+        )
+        const twice = keys.find((value, index) => value && keys.indexOf(value) !== index)
+        return twice ? `Klucz „${twice}” jest dwa razy.` : true
+      },
+      fields: [
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'key',
+              label: 'Klucz',
+              type: 'text',
+              required: true,
+              validate: (value: unknown) =>
+                typeof value === 'string' && FACT_KEY.test(value.trim())
+                  ? true
+                  : 'Wielkie litery bez nawiasów, np. CZAS ODPOWIEDZI.',
+            },
+            { name: 'value', label: 'Wartość', type: 'text' },
+          ],
+        },
+      ],
+    },
+  ],
+}
+
 /**
  * Settings of one site (line). Exactly one document per tenant: the multi-tenant plugin runs
  * this collection with `isGlobal: true`, which makes the tenant field unique.
@@ -174,7 +235,8 @@ export const SiteSettings: CollectionConfig = {
   slug: 'site-settings',
   labels: { singular: 'Ustawienia strony', plural: 'Ustawienia stron' },
   admin: {
-    description: 'Pola linii Biznes pojawiają się w ustawieniach Biznesu po pierwszym zapisie.',
+    description:
+      'Pola linii Biznes i Software pojawiają się w ustawieniach tej linii po pierwszym zapisie.',
   },
   // The plugin limits editors to their own tenants; deleting settings is an admin decision.
   access: {
@@ -245,5 +307,6 @@ export const SiteSettings: CollectionConfig = {
       ],
     },
     biznesGroup,
+    softwareGroup,
   ],
 }
