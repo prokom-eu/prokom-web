@@ -2774,9 +2774,16 @@ export interface Post {
    */
   slug: string;
   category: 'ksef' | 'kasy' | 'terminale' | 'dofinansowania' | 'programy';
+  /**
+   * Puste przy publikacji → dzisiejsza data.
+   */
   publishedAt?: string | null;
   lead?: string | null;
   cover?: (number | null) | Media;
+  /**
+   * Ramka nad treścią: najważniejsze w 2–3 zdaniach.
+   */
+  summary?: string | null;
   content: {
     root: {
       type: string;
@@ -2804,6 +2811,35 @@ export interface Post {
       }[]
     | null;
   relatedProducts?: (number | Product)[] | null;
+  /**
+   * Karta z przyciskiem i licznik dni obok treści (puste = bez nich).
+   */
+  aside?: {
+    cta?: {
+      eyebrow?: string | null;
+      title?: string | null;
+      text?: string | null;
+      link?: {
+        label?: string | null;
+        href?: string | null;
+      };
+    };
+    countdown?: {
+      /**
+       * Np. „Ile dni do 1.01.2027”.
+       */
+      label?: string | null;
+      date?: string | null;
+      caption?: string | null;
+    };
+  };
+  /**
+   * Puste = tekst jak na liście Aktualności.
+   */
+  contact?: {
+    heading?: string | null;
+    lead?: string | null;
+  };
   seo?: {
     title?: string | null;
     description?: string | null;
@@ -2832,6 +2868,39 @@ export interface BiznesSetting {
       | null;
     stopWords?: string[] | null;
     popular?: string[] | null;
+  };
+  news?: {
+    /**
+     * Licznik dni, tekst i kroki (plansza Aktualności). Bez daty i podpisu panel się nie pokazuje. Fakty prawne tylko ze źródłem — w notce albo we wpisie, do którego prowadzi przycisk.
+     */
+    ksef?: {
+      eyebrow?: string | null;
+      date?: string | null;
+      /**
+       * Np. „dni do 1 stycznia 2027”.
+       */
+      dateLabel?: string | null;
+      text?: string | null;
+      link?: {
+        label?: string | null;
+        href?: string | null;
+      };
+      secondaryLink?: {
+        label?: string | null;
+        href?: string | null;
+      };
+      steps?:
+        | {
+            title: string;
+            text?: string | null;
+            id?: string | null;
+          }[]
+        | null;
+      /**
+       * Stan prawny i data sprawdzenia, np. „stan na 15.10.2026”.
+       */
+      note?: string | null;
+    };
   };
   /**
    * Rodzaje firm, potrzeby, propozycje i plakietki kreatora (/kreator). Zmieniaj ostrożnie — zapis sprawdza, czy reguły się zgadzają.
@@ -4851,6 +4920,7 @@ export interface PostsSelect<T extends boolean = true> {
   publishedAt?: T;
   lead?: T;
   cover?: T;
+  summary?: T;
   content?: T;
   sources?:
     | T
@@ -4861,6 +4931,36 @@ export interface PostsSelect<T extends boolean = true> {
         id?: T;
       };
   relatedProducts?: T;
+  aside?:
+    | T
+    | {
+        cta?:
+          | T
+          | {
+              eyebrow?: T;
+              title?: T;
+              text?: T;
+              link?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                  };
+            };
+        countdown?:
+          | T
+          | {
+              label?: T;
+              date?: T;
+              caption?: T;
+            };
+      };
+  contact?:
+    | T
+    | {
+        heading?: T;
+        lead?: T;
+      };
   seo?:
     | T
     | {
@@ -4889,6 +4989,38 @@ export interface BiznesSettingsSelect<T extends boolean = true> {
             };
         stopWords?: T;
         popular?: T;
+      };
+  news?:
+    | T
+    | {
+        ksef?:
+          | T
+          | {
+              eyebrow?: T;
+              date?: T;
+              dateLabel?: T;
+              text?: T;
+              link?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                  };
+              secondaryLink?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                  };
+              steps?:
+                | T
+                | {
+                    title?: T;
+                    text?: T;
+                    id?: T;
+                  };
+              note?: T;
+            };
       };
   wizard?: T;
   updatedAt?: T;

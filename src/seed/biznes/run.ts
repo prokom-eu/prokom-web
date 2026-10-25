@@ -33,6 +33,7 @@ import {
 import { FOOTER_LEGAL_LINKS, FOOTER_TEXT, footerData } from './footer'
 import { seedBiznesCategoryContent } from './category'
 import { seedBiznesIndustries } from './industries'
+import { seedBiznesNews } from './posts'
 import { SERVICE_AREAS, seedBiznesContact } from './contact'
 import { seedBiznesGopos } from './gopos'
 import { seedBiznesInsert } from './insert'
@@ -489,6 +490,9 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
 
   // --- industry pages (B10b): gastronomia from the board, drafts of handel and noclegi ---
   await seedBiznesIndustries(payload, tenant.id, pageRefs, pageReport)
+
+  // --- news (B11): the KSeF post from the board and the KSeF panel of the list ---
+  await seedBiznesNews(payload, tenant.id, pageRefs, pageReport)
 
   for (const [collection, { created, updated, skipped }] of Object.entries(counters)) {
     log(`${collection}: ${created} created, ${updated} updated, ${skipped} unchanged.`)

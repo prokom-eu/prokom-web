@@ -198,6 +198,22 @@
     padding-left: 1em;
     color: var(--ink-2);
   }
+
+  /* A news post (board `Wpis`): grey body, display-font headings with the brand's width. */
+  .post-text {
+    color: var(--ink-2);
+  }
+
+  .post-text :is(h2, h3, h4, strong) {
+    color: var(--ink);
+  }
+
+  .post-text h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 2.4vw, 1.875rem);
+    font-stretch: 112%;
+    letter-spacing: -0.01em;
+  }
 }
 
 /*

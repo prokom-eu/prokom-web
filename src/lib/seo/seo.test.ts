@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import {
+  articleJsonLd,
   breadcrumbJsonLd,
   faqJsonLd,
   organizationJsonLd,
@@ -231,5 +232,49 @@ describe('breadcrumbJsonLd', () => {
 describe('serializeJsonLd', () => {
   it('cannot close the script tag', () => {
     expect(serializeJsonLd({ text: '</script><script>alert(1)</script>' })).not.toContain('<')
+  })
+})
+
+describe('articleJsonLd', () => {
+  it('describes the post with the line as author and publisher', () => {
+    expect(
+      articleJsonLd({
+        headline: 'KSeF od 1 stycznia 2027',
+        description: 'Checklista',
+        url: 'https://prokombiznes.pl/aktualnosci/ksef',
+        origin: 'https://prokombiznes.pl',
+        datePublished: '2026-10-14T00:00:00.000Z',
+        dateModified: '2026-10-20T00:00:00.000Z',
+        images: ['https://prokombiznes.pl/api/media/file/ksef.webp'],
+      }),
+    ).toEqual({
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: 'KSeF od 1 stycznia 2027',
+      description: 'Checklista',
+      url: 'https://prokombiznes.pl/aktualnosci/ksef',
+      mainEntityOfPage: 'https://prokombiznes.pl/aktualnosci/ksef',
+      inLanguage: 'pl-PL',
+      datePublished: '2026-10-14T00:00:00.000Z',
+      dateModified: '2026-10-20T00:00:00.000Z',
+      author: { '@id': 'https://prokombiznes.pl/#organization' },
+      publisher: { '@id': 'https://prokombiznes.pl/#organization' },
+      image: ['https://prokombiznes.pl/api/media/file/ksef.webp'],
+    })
+  })
+
+  it('leaves out what the post does not have', () => {
+    const data = articleJsonLd({
+      headline: 'A',
+      description: null,
+      url: 'https://x.pl/aktualnosci/a',
+      origin: 'https://x.pl',
+      datePublished: null,
+      dateModified: null,
+      images: [],
+    })
+    expect(data).not.toHaveProperty('description')
+    expect(data).not.toHaveProperty('datePublished')
+    expect(data).not.toHaveProperty('image')
   })
 })
