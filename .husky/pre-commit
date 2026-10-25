@@ -9,4 +9,6 @@ fi
 gitleaks git --pre-commit --staged --redact --no-banner --verbose || exit 1
 
 # 2. Formatting and lint on staged files (no auto-fix: what you reviewed is what you commit).
-pnpm exec lint-staged
+# --max-arg-length: split long file lists below the Windows cmd limit (8191 chars).
+# lint-staged's default (8191) ignores the .CMD shim overhead, so big commits failed.
+pnpm exec lint-staged --max-arg-length 7000
