@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { validateHttpUrls } from './sources'
+import { validateHttpsUrls, validateHttpUrls } from './sources'
 
 describe('validateHttpUrls (Products.sources)', () => {
   it('accepts no value and http(s) links', () => {
@@ -24,5 +24,14 @@ describe('validateHttpUrls (Products.sources)', () => {
   it('rejects links with spaces or backslashes', () => {
     expect(validateHttpUrls(['https://example.com/a b.pdf'])).not.toBe(true)
     expect(validateHttpUrls(['https://example.com\\@evil.com'])).not.toBe(true)
+  })
+})
+
+describe('validateHttpsUrls (Partners.brandPage.sources)', () => {
+  it('accepts no value and https links only, like the source of a brand fact', () => {
+    expect(validateHttpsUrls(undefined)).toBe(true)
+    expect(validateHttpsUrls(['https://www.posnet.com.pl/o-nas'])).toBe(true)
+    expect(validateHttpsUrls(['http://www.posnet.com.pl/o-nas'])).not.toBe(true)
+    expect(validateHttpsUrls(['https://example.com/a b'])).not.toBe(true)
   })
 })

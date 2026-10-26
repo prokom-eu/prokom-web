@@ -30,6 +30,7 @@ import * as migration_20261025_095823_biznes_about from './20261025_095823_bizne
 import * as migration_20261025_195545_software_collections from './20261025_195545_software_collections'
 import * as migration_20261025_205234_software_settings from './20261025_205234_software_settings'
 import * as migration_20261025_220015_software_icons from './20261025_220015_software_icons'
+import * as migration_20261026_202214_k3_model from './20261026_202214_k3_model'
 
 export const migrations = [
   {
@@ -191,5 +192,10 @@ export const migrations = [
     up: migration_20261025_220015_software_icons.up,
     down: migration_20261025_220015_software_icons.down,
     name: '20261025_220015_software_icons',
+  },
+  {
+    up: migration_20261026_202214_k3_model.up,
+    down: migration_20261026_202214_k3_model.down,
+    name: '20261026_202214_k3_model',
   },
 ]

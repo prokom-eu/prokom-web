@@ -166,6 +166,8 @@ describe('products', () => {
     const jota = catalog.produkty.find((p) => p.slug === 'jota')!
     const data = productData(jota, catalog, files, anyRefs)
     expect(data.variants).toHaveLength(3)
+    // Versions are rows {name, difference} since K3a; katalog v2 has the name only.
+    expect(data.variants[0]).toEqual({ name: expect.any(String) })
     expect(data.sources.productPages).toHaveLength(3)
     // The same PDF for all three variants → one link.
     expect(data.sources.datasheets).toEqual([

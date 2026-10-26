@@ -11,9 +11,17 @@ export type ProductTab = 'opis' | 'specyfikacja' | 'dokumenty' | 'pytania'
 type LabelValue = { label: string; value: string }
 
 /**
+ * Whether search engines may index the product and the site maps list it. A card „Do
+ * sprawdzenia” stays visible but out of Google and the maps (K3a, spec. §5, ADR-012 rozstrz. 15).
+ */
+export function isIndexableProduct(product: Pick<Product, 'contentStatus'>): boolean {
+  return product.contentStatus !== 'needs-review'
+}
+
+/**
  * What the product page renders (`/produkt/[slug]`): only public, own-tenant data and never a
- * price (there is none in the model). `contentStatus` is left out on purpose — a product
- * „Do sprawdzenia” looks the same (ZMIANY-katalog-v2 §4).
+ * price (there is none in the model). `contentStatus` itself stays out — a product „Do
+ * sprawdzenia” looks the same, only `indexable` differs.
  */
 export type ProductView = {
   slug: string
@@ -37,7 +45,8 @@ export type ProductView = {
   /** „W PRO-KOM w cenie”: the product's own list, else its main category's. */
   included: string[]
   faq: { question: string; answer: string }[]
-  variants: string[]
+  /** Versions of one card („Jota ONLINE BT/WiFi”) with what differs, once per name. */
+  variants: { name: string; difference: string | null }[]
   /**
    * „Kiedy wybrać coś innego?” (`alternatives`): slugs of this tenant's products; the page keeps
    * only those in the catalog index (published).
@@ -46,6 +55,7 @@ export type ProductView = {
   documents: { datasheets: string[]; productPages: string[] }
   tabs: ProductTab[]
   seo: { title: string | null; description: string | null }
+  indexable: boolean
 }
 
 const docs = <T extends object>(values: (number | T)[] | null | undefined): T[] =>
@@ -71,6 +81,16 @@ const nodeHasContent = (node: EditorNode): boolean =>
 export function hasRichText(value: unknown): boolean {
   const root = (value as { root?: EditorNode } | null | undefined)?.root
   return Boolean(root && nodeHasContent(root))
+}
+
+function uniqueVariants(rows: Product['variants']): ProductView['variants'] {
+  const seen = new Set<string>()
+  return (rows ?? []).flatMap(({ name, difference }) => {
+    const label = name.trim()
+    if (!label || seen.has(label)) return []
+    seen.add(label)
+    return [{ name: label, difference: text(difference) }]
+  })
 }
 
 function groupSpecs(rows: Product['specs']): ProductView['specs'] {
@@ -153,12 +173,13 @@ export function buildProductView(product: Product, tenantId: number): ProductVie
     description,
     included: ownIncluded.length > 0 ? ownIncluded : unique(main?.included),
     faq,
-    variants: unique(product.variants),
+    variants: uniqueVariants(product.variants),
     alternatives: docs<Product>(product.alternatives)
       .filter(ownTenant)
       .map(({ slug }) => slug),
     documents,
     tabs,
     seo: { title: text(product.seo?.title), description: text(product.seo?.description) },
+    indexable: isIndexableProduct(product),
   }
 }

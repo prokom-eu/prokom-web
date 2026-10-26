@@ -305,7 +305,8 @@ export function productData(
     badge: text(product.odznaka) ?? null,
     keywords: text(product.slowa_kluczowe) ?? null,
     images,
-    variants: product.warianty ?? [],
+    // Katalog v2 gives model names only; the difference comes with K3 (K3a-2).
+    variants: [...new Set(product.warianty ?? [])].map((name) => ({ name })),
     sources: {
       productPages: [...new Set(sources?.strona_producenta ?? [])],
       datasheets: [...new Set(sources?.karty_pdf ?? [])],

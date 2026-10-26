@@ -12,3 +12,11 @@ export function robotsTxt(siteEnv: Env['SITE_ENV'], origin: string): string {
 export function robotsMeta(siteEnv: Env['SITE_ENV']): Metadata['robots'] {
   return siteEnv === 'staging' ? { index: false, follow: false } : undefined
 }
+
+/**
+ * `robots` of a page that may be kept out of the index (a filtered view, a card „Do
+ * sprawdzenia”): staging stays shut whatever the page, elsewhere links are still followed.
+ */
+export function pageRobots(siteEnv: Env['SITE_ENV'], indexable: boolean): Metadata['robots'] {
+  return robotsMeta(siteEnv) ?? (indexable ? undefined : { index: false, follow: true })
+}
