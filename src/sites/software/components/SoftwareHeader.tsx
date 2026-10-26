@@ -60,6 +60,7 @@ export function SoftwareHeader({ tenant, navigation }: Props) {
           href={mobileHref}
           homeHref="#kontakt"
           className={`${CTA} min-[1081px]:hidden`}
+          data-project-fallback
         >
           {mobileLabel}
         </HomeAwareLink>

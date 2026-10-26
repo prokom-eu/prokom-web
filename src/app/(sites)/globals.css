@@ -45,6 +45,7 @@
   --color-white: var(--c-white);
   --color-h1-accent: var(--h1-accent);
   --color-button: var(--button-bg);
+  --color-pill-accent: var(--pill-accent);
   /* Biznes only (need tiles of the home page); undefined elsewhere. */
   --color-tone-green: var(--tone-green);
   --color-tone-green-2: var(--tone-green-2);

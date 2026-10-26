@@ -36,3 +36,12 @@ export function ChevronIcon({ open, className = 'size-4' }: Props & { open: bool
     </svg>
   )
 }
+
+/** „Menu” of the bottom bar. */
+export function MenuIcon({ className = 'size-6' }: Props) {
+  return (
+    <svg {...SVG} strokeWidth={2} className={className}>
+      <path d="M4 7h16M4 12h16M4 17h10" />
+    </svg>
+  )
+}
