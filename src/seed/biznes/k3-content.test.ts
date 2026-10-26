@@ -3,6 +3,9 @@ import { describe, expect, it } from 'vitest'
 import k3Catalog from '../../../seed/prokombiznes/k3/katalog-k3.json'
 import k3Dictionaries from '../../../seed/prokombiznes/k3/slowniki-k3.json'
 import k3Bundles from '../../../seed/prokombiznes/k3/zestawy.json'
+import k31SplitContent from '../../../seed/prokombiznes/k31/karty-podzial-tresci.json'
+import k31NewCards from '../../../seed/prokombiznes/k31/katalog-k31-nowe.json'
+import k31Supplements from '../../../seed/prokombiznes/k31/tresci-uzupelnienia-k31.json'
 import { forbiddenContent } from '../../lib/catalog/contentRules'
 
 /**
@@ -48,6 +51,21 @@ describe('K3 content rules (K3-KATALOG §10)', () => {
         texts(omit(brand, ['uwagi', 'zrodla', 'logo_url', 'strona_producenta']), brand.slug),
       ),
     ]
+    expect(violations(items)).toEqual([])
+  })
+
+  it('has none in the K3.1 cards, supplements and split cards (K31a)', () => {
+    const internal = ['uwagi', 'zrodla', 'slug_seed', 'status', 'zdjecia_zrodlo']
+    const items = [
+      ...k31NewCards.produkty.flatMap((card) => texts(omit(card, internal), card.slug_seed)),
+      ...Object.entries(k31Supplements.karty).flatMap(([slug, supplement]) =>
+        texts(omit(supplement, ['zrodla_dodaj']), slug),
+      ),
+      ...k31SplitContent.karty.flatMap((card) =>
+        texts(omit(card, ['uwagi', 'zrodla', 'zdjecia', 'slug', 'z']), card.slug),
+      ),
+    ]
+    expect(items.length).toBeGreaterThan(3000)
     expect(violations(items)).toEqual([])
   })
 

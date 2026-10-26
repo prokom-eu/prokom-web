@@ -22,6 +22,82 @@ export function validateHttpsUrls(value: string[] | null | undefined): true | st
   return true
 }
 
+/**
+ * Producers' sites a source link may point to on the page (K31-ZMIANY §4 pkt 9, ADR-012
+ * rozstrz. 19): the domain itself or its subdomain. Shops, resellers and distributors stay in
+ * the panel only. The package list ends with "m.in." — the rest are producers of cards in the
+ * catalog (Avtek, InsERT's Subiekt 123, Insoft, Comarch, Stormshield, SATO, Rice Lake, Adobe…).
+ */
+const PRODUCER_DOMAINS = [
+  'lenovo.com',
+  'dell.com',
+  'delltechnologies.com',
+  'posnet.com.pl',
+  'elzab.com.pl',
+  'sunmi.com',
+  'gopos.pl',
+  'insert.com.pl',
+  'subiekt123.pl',
+  'ui.com',
+  'synology.com',
+  'qnap.com',
+  'apc.com',
+  'se.com',
+  'microsoft.com',
+  'eset.com',
+  'sharpdisplays.eu',
+  'sharpnecdisplays.eu',
+  'konicaminolta.pl',
+  'konicaminolta.eu',
+  'kyoceradocumentsolutions.pl',
+  'kyoceradocumentsolutions.eu',
+  'samsung.com',
+  'tp-link.com',
+  'omadanetworks.com',
+  'eurocert.pl',
+  'zebra.com',
+  'godexintl.com',
+  'dibal.com',
+  // Every government site (KSeF, ISAP, ministries): official sources of the regulations.
+  'gov.pl',
+  'avtek.pl',
+  'insoft.com.pl',
+  'comarch.pl',
+  'stormshield.com',
+  'nfhotel.pl',
+  'satoeurope.com',
+  'ricelake.com',
+  'adobe.com',
+]
+
+/** Paths of pages with prices (`K31-ZMIANY` §4 pkt 9): shown only when nothing else is left. */
+const PRICE_PATH = /pricing|cennik|\/price|\/ceny/i
+
+const isPricePage = (link: string) => PRICE_PATH.test(new URL(link).pathname)
+
+export function isProducerSource(link: string): boolean {
+  if (!isHttpUrl(link)) return false
+  const host = new URL(link).hostname.toLowerCase()
+  return PRODUCER_DOMAINS.some((domain) => host === domain || host.endsWith(`.${domain}`))
+}
+
+/**
+ * Source links the page shows: producers' sites only, price pages only when no other link is
+ * left. The record keeps every link — the filter works at render (ADR-012 rozstrz. 19).
+ */
+export function publicSources<T extends Record<string, string[]>>(lists: T): T {
+  const allowed = Object.entries(lists).map(
+    ([key, links]) => [key, links.filter(isProducerSource)] as const,
+  )
+  const hasOther = allowed.some(([, links]) => links.some((link) => !isPricePage(link)))
+  return Object.fromEntries(
+    allowed.map(([key, links]) => [
+      key,
+      hasOther ? links.filter((link) => !isPricePage(link)) : links,
+    ]),
+  ) as T
+}
+
 function isHttpUrl(link: string): boolean {
   if (/[\s\\]/.test(link)) return false
   try {

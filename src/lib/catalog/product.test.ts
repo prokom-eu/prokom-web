@@ -92,13 +92,17 @@ describe('buildProductView content', () => {
   it('removes repeated datasheets and product pages (the seed repeats one PDF per variant)', () => {
     const view = build({
       sources: {
-        datasheets: ['https://x.pl/a.pdf', 'https://x.pl/a.pdf', 'https://x.pl/b.pdf'],
-        productPages: ['https://x.pl/p', 'https://x.pl/p'],
+        datasheets: [
+          'https://www.posnet.com.pl/a.pdf',
+          'https://www.posnet.com.pl/a.pdf',
+          'https://www.posnet.com.pl/b.pdf',
+        ],
+        productPages: ['https://www.posnet.com.pl/p', 'https://www.posnet.com.pl/p'],
       },
     })
     expect(view.documents).toEqual({
-      datasheets: ['https://x.pl/a.pdf', 'https://x.pl/b.pdf'],
-      productPages: ['https://x.pl/p'],
+      datasheets: ['https://www.posnet.com.pl/a.pdf', 'https://www.posnet.com.pl/b.pdf'],
+      productPages: ['https://www.posnet.com.pl/p'],
     })
   })
 
@@ -197,14 +201,16 @@ describe('buildProductView tabs', () => {
       build({
         description: paragraph('Kasa na co dzień.') as unknown as Product['description'],
         specs: [{ group: null, label: 'Waga', value: '0,6 kg' }],
-        sources: { datasheets: ['https://x.pl/a.pdf'] },
+        sources: { datasheets: ['https://www.posnet.com.pl/a.pdf'] },
         faq: [{ question: 'Czy?', answer: 'Tak.' }],
       }).tabs,
     ).toEqual(['opis', 'specyfikacja', 'dokumenty', 'pytania'])
   })
 
   it('counts product pages alone as documents', () => {
-    expect(build({ sources: { productPages: ['https://x.pl/p'] } }).tabs).toEqual(['dokumenty'])
+    expect(build({ sources: { productPages: ['https://www.posnet.com.pl/p'] } }).tabs).toEqual([
+      'dokumenty',
+    ])
   })
 
   it('treats an empty editor as no description', () => {
