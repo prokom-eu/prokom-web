@@ -10,7 +10,7 @@ import { getEnv } from '@/lib/env'
 import { pickSource } from '@/lib/media/sizes'
 import { ogImages } from '@/lib/pages/metadata'
 import { breadcrumbJsonLd, productJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
-import { robotsMeta } from '@/lib/seo/robots'
+import { pageRobots } from '@/lib/seo/robots'
 import { getSiteSettings } from '@/lib/site/data'
 import { toTelHref, toWhatsAppHref } from '@/lib/site/link'
 import { isValidSlug } from '@/lib/tenant/uniqueSlug'
@@ -49,7 +49,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title,
     description,
     alternates: { canonical },
-    robots: robotsMeta(getEnv().SITE_ENV),
+    // A card „Do sprawdzenia” is shown, but kept out of the index (K3a).
+    robots: pageRobots(getEnv().SITE_ENV, product.indexable),
     openGraph: {
       type: 'website',
       locale: 'pl_PL',

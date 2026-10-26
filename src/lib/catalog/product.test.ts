@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import type { CatalogCategory, Industry, Partner, Product } from '@/payload-types'
 
-import { buildProductView, hasRichText } from './product'
+import { buildProductView, hasRichText, isIndexableProduct } from './product'
 import { image, TENANT } from './seedSource.fixture'
 
 const OTHER_TENANT = 2
@@ -148,14 +148,45 @@ describe('buildProductView content', () => {
     expect(view.hotspots).toEqual([])
   })
 
-  it('looks the same whatever the content status', () => {
-    const view = build({ contentStatus: 'needs-review' })
-    expect(view).toEqual(build({ contentStatus: 'ready' }))
-    expect(view).not.toHaveProperty('contentStatus')
+  it('marks a product „Do sprawdzenia” as not indexable, otherwise looks the same (K3a)', () => {
+    const review = build({ contentStatus: 'needs-review' })
+    const ready = build({ contentStatus: 'ready' })
+    expect(review.indexable).toBe(false)
+    expect(ready.indexable).toBe(true)
+    expect({ ...review, indexable: true }).toEqual(ready)
+    expect(review).not.toHaveProperty('contentStatus')
+  })
+
+  it('lists versions with their difference, once per name, without empty ones (K3)', () => {
+    expect(
+      build({
+        variants: [
+          { name: ' Jota ONLINE ', difference: 'kabel LAN' },
+          { name: 'Jota ONLINE', difference: 'powtórka' },
+          { name: 'Jota BT/WiFi', difference: ' ' },
+          { name: ' ', difference: 'bez nazwy' },
+        ],
+      }).variants,
+    ).toEqual([
+      { name: 'Jota ONLINE', difference: 'kabel LAN' },
+      { name: 'Jota BT/WiFi', difference: null },
+    ])
+    expect(build().variants).toEqual([])
   })
 
   it('carries no price field', () => {
     expect(JSON.stringify(build())).not.toMatch(/"(price|cena|offers)"/i)
+  })
+
+  it('never carries internal fields of the import (K3: notes, distributor pages)', () => {
+    const view = build({
+      internalNotes: 'Notatka dla zespołu',
+      sources: { distributorPages: ['https://sklep.example/jota'] },
+    })
+    const json = JSON.stringify(view)
+    expect(json).not.toContain('Notatka dla zespołu')
+    expect(json).not.toContain('sklep.example')
+    expect(view).not.toHaveProperty('internalNotes')
   })
 })
 
@@ -191,5 +222,12 @@ describe('hasRichText', () => {
     expect(hasRichText({ root: { type: 'root', children: [{ type: 'horizontalrule' }] } })).toBe(
       true,
     )
+  })
+})
+
+describe('isIndexableProduct', () => {
+  it('keeps a product „Do sprawdzenia” out of search engines and site maps (K3a)', () => {
+    expect(isIndexableProduct({ contentStatus: 'ready' })).toBe(true)
+    expect(isIndexableProduct({ contentStatus: 'needs-review' })).toBe(false)
   })
 })

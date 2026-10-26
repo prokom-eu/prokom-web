@@ -1,11 +1,13 @@
 import path from 'path'
 import type { CollectionConfig } from 'payload'
 
+import { restrictedRichTextEditor } from '../blocks/RichText/config'
 import { adminOnly } from '../lib/auth/access'
 import { catalogRevalidationHooks } from '../lib/catalog/revalidate'
+import { validateHttpsUrls } from '../lib/catalog/sources'
 import { getEnv } from '../lib/env'
 import { createPublicReadAccess, publicPartnerWhere } from '../lib/media/access'
-import { isValidNavHref } from '../lib/site/link'
+import { isHttpsUrl, isValidNavHref } from '../lib/site/link'
 import { isValidSlug } from '../lib/tenant/uniqueSlug'
 import { IMAGE_MIME_TYPES } from './Media'
 
@@ -91,6 +93,67 @@ export const Partners: CollectionConfig = {
       type: 'number',
       defaultValue: 0,
       admin: { description: 'Mniejsza liczba = wcześniej.' },
+    },
+    {
+      // Brand page of the Biznes catalog (`/marki/[slug]`, K3, ADR-012 rozstrz. 15). Shared
+      // like the record: the page renders only on the Biznes line.
+      name: 'brandPage',
+      label: 'Strona marki',
+      type: 'group',
+      admin: { description: 'Strona marki w katalogu Biznesu (/marki/…).' },
+      fields: [
+        {
+          name: 'hasPage',
+          label: 'Ma stronę marki',
+          type: 'checkbox',
+          defaultValue: false,
+        },
+        { name: 'country', label: 'Kraj pochodzenia', type: 'text' },
+        {
+          name: 'shortDescription',
+          label: 'Opis krótki',
+          type: 'textarea',
+          maxLength: 200,
+          admin: { description: 'Jedno zdanie pod nazwą marki.' },
+        },
+        {
+          name: 'description',
+          label: 'Opis',
+          type: 'richText',
+          editor: restrictedRichTextEditor,
+        },
+        {
+          name: 'facts',
+          label: 'Fakty',
+          type: 'array',
+          fields: [
+            {
+              type: 'row',
+              fields: [
+                { name: 'label', label: 'Etykieta', type: 'text', required: true },
+                { name: 'value', label: 'Wartość', type: 'text', required: true },
+              ],
+            },
+            {
+              name: 'sourceUrl',
+              label: 'Źródło',
+              type: 'text',
+              validate: (value: unknown) =>
+                !value || (typeof value === 'string' && isHttpsUrl(value))
+                  ? true
+                  : 'Adres https:// strony, z której pochodzi fakt.',
+            },
+          ],
+        },
+        { name: 'productLines', label: 'Linie produktów', type: 'text', hasMany: true },
+        {
+          name: 'sources',
+          label: 'Źródła',
+          type: 'text',
+          hasMany: true,
+          validate: validateHttpsUrls,
+        },
+      ],
     },
   ],
 }

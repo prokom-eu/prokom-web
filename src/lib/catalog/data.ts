@@ -9,7 +9,7 @@ import { buildCategoryView, type CategoryView } from './category'
 import { buildIndustryView, type IndustryView } from './industry'
 import type { Wizard } from './wizard'
 import { readWizardRules } from './wizardRules'
-import { buildProductView, type ProductView } from './product'
+import { buildProductView, isIndexableProduct, type ProductView } from './product'
 import { catalogTag } from './tags'
 
 /** Far above the catalog of stage 1 (~70); past ~500 the index is reconsidered (ADR-012 §2.4). */
@@ -204,7 +204,10 @@ export const getWizardRules = (tenantId: number): Promise<Wizard | null> =>
     { tags: [catalogTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
   )()
 
-/** Published products of the tenant for the site maps: slug, name and last change only. */
+/**
+ * Published products of the tenant for the site maps: slug, name and last change only. Cards „Do
+ * sprawdzenia” are left out — they are `noindex` (K3a, `isIndexableProduct`).
+ */
 export const getPublishedProductList = (
   tenantId: number,
 ): Promise<{ slug: string; name: string; updatedAt: string }[]> =>
@@ -218,10 +221,12 @@ export const getPublishedProductList = (
         limit: MAX_PRODUCTS,
         depth: 0,
         sort: 'slug',
-        select: { slug: true, name: true, updatedAt: true },
+        select: { slug: true, name: true, updatedAt: true, contentStatus: true },
         overrideAccess: true,
       })
-      return docs.map(({ slug, name, updatedAt }) => ({ slug, name, updatedAt }))
+      return docs
+        .filter(isIndexableProduct)
+        .map(({ slug, name, updatedAt }) => ({ slug, name, updatedAt }))
     },
     ['published-product-list', String(tenantId)],
     { tags: [catalogTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },

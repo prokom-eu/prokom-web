@@ -585,6 +585,42 @@ export interface Partner {
    * Mniejsza liczba = wcześniej.
    */
   order?: number | null;
+  /**
+   * Strona marki w katalogu Biznesu (/marki/…).
+   */
+  brandPage?: {
+    hasPage?: boolean | null;
+    country?: string | null;
+    /**
+     * Jedno zdanie pod nazwą marki.
+     */
+    shortDescription?: string | null;
+    description?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    facts?:
+      | {
+          label: string;
+          value: string;
+          sourceUrl?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    productLines?: string[] | null;
+    sources?: string[] | null;
+  };
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -1429,6 +1465,10 @@ export interface Product {
    */
   slug: string;
   name: string;
+  /**
+   * Krótko pod nazwą, np. „Kasa średnia online do sklepu”.
+   */
+  subtitle?: string | null;
   kind: 'device' | 'software' | 'service';
   /**
    * Partnerzy widoczni na tej stronie.
@@ -1464,9 +1504,15 @@ export interface Product {
    */
   images?: (number | Media)[] | null;
   /**
-   * Wersje jednej karty, np. „BT/WiFi”, „różowy”.
+   * Wersje jednej karty, np. „Jota ONLINE BT/WiFi”, i czym się różnią.
    */
-  variants?: string[] | null;
+  variants?:
+    | {
+        name: string;
+        difference?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   keyParams?:
     | {
         label: string;
@@ -1581,10 +1627,48 @@ export interface Product {
    * Puste = „W cenie” z kategorii głównej.
    */
   included?: string[] | null;
+  /**
+   * Opcje producenta do wyboru przed zapytaniem (K3) — to nie koszyk i nie liczy ceny.
+   */
+  configurator?: {
+    description?: string | null;
+    options?:
+      | {
+          name: string;
+          values?: string[] | null;
+          note?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    popular?:
+      | {
+          name: string;
+          configuration: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
   faq?:
     | {
         question: string;
         answer: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Nazwy rzeczy, np. „szuflada kasowa” — strona dopasuje do nich karty katalogu.
+   */
+  suggestions?: string[] | null;
+  /**
+   * Tylko karta opieki IT — na stronie dopiero po akceptacji szefa.
+   */
+  packages?:
+    | {
+        name: string;
+        audience?: string | null;
+        inSubscription?: string[] | null;
+        outsideSubscription?: string[] | null;
+        rules?: string[] | null;
         id?: string | null;
       }[]
     | null;
@@ -1599,6 +1683,10 @@ export interface Product {
      * Linki do producenta — zakładka „Dokumenty”.
      */
     datasheets?: string[] | null;
+    /**
+     * Tylko do sprawdzania w panelu — sklepów i dystrybutorów nie pokazujemy na stronie.
+     */
+    distributorPages?: string[] | null;
     /**
      * Wypełnia człowiek po sprawdzeniu u producenta.
      */
@@ -1631,9 +1719,13 @@ export interface Product {
   featured?: boolean | null;
   featuredOrder?: number | null;
   /**
-   * „Do sprawdzenia” = opis tymczasowy. Na stronie bez różnicy.
+   * „Do sprawdzenia” = widoczna, ale bez indeksowania w Google i poza mapą strony.
    */
   contentStatus: 'ready' | 'needs-review';
+  /**
+   * Z importu i dla zespołu — nigdy na stronie.
+   */
+  internalNotes?: string | null;
   /**
    * Tylko do planowania — widoczne są wszystkie.
    */
@@ -1718,6 +1810,16 @@ export interface CatalogCategory {
    * Jedno zdanie pod nazwą w menu i na kafelku.
    */
   description?: string | null;
+  /**
+   * Kolejność chipów. Nazwa jak w polu „Podkategoria” produktu; adres tylko dla podkategorii z własną stroną.
+   */
+  subcategories?:
+    | {
+        name: string;
+        slug?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   hero?: {
     /**
      * Puste = nazwa.
@@ -5544,6 +5646,24 @@ export interface PartnersSelect<T extends boolean = true> {
   partnerStatus?: T;
   tenants?: T;
   order?: T;
+  brandPage?:
+    | T
+    | {
+        hasPage?: T;
+        country?: T;
+        shortDescription?: T;
+        description?: T;
+        facts?:
+          | T
+          | {
+              label?: T;
+              value?: T;
+              sourceUrl?: T;
+              id?: T;
+            };
+        productLines?: T;
+        sources?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -5685,6 +5805,13 @@ export interface CatalogCategoriesSelect<T extends boolean = true> {
   group?: T;
   icon?: T;
   description?: T;
+  subcategories?:
+    | T
+    | {
+        name?: T;
+        slug?: T;
+        id?: T;
+      };
   hero?:
     | T
     | {
@@ -5883,6 +6010,7 @@ export interface ProductsSelect<T extends boolean = true> {
   tenant?: T;
   slug?: T;
   name?: T;
+  subtitle?: T;
   kind?: T;
   brand?: T;
   categories?: T;
@@ -5893,7 +6021,13 @@ export interface ProductsSelect<T extends boolean = true> {
   badge?: T;
   keywords?: T;
   images?: T;
-  variants?: T;
+  variants?:
+    | T
+    | {
+        name?: T;
+        difference?: T;
+        id?: T;
+      };
   keyParams?:
     | T
     | {
@@ -5928,11 +6062,42 @@ export interface ProductsSelect<T extends boolean = true> {
         id?: T;
       };
   included?: T;
+  configurator?:
+    | T
+    | {
+        description?: T;
+        options?:
+          | T
+          | {
+              name?: T;
+              values?: T;
+              note?: T;
+              id?: T;
+            };
+        popular?:
+          | T
+          | {
+              name?: T;
+              configuration?: T;
+              id?: T;
+            };
+      };
   faq?:
     | T
     | {
         question?: T;
         answer?: T;
+        id?: T;
+      };
+  suggestions?: T;
+  packages?:
+    | T
+    | {
+        name?: T;
+        audience?: T;
+        inSubscription?: T;
+        outsideSubscription?: T;
+        rules?: T;
         id?: T;
       };
   fitsWith?: T;
@@ -5942,6 +6107,7 @@ export interface ProductsSelect<T extends boolean = true> {
     | {
         productPages?: T;
         datasheets?: T;
+        distributorPages?: T;
         checkedAt?: T;
       };
   registerTypes?: T;
@@ -5969,6 +6135,7 @@ export interface ProductsSelect<T extends boolean = true> {
   featured?: T;
   featuredOrder?: T;
   contentStatus?: T;
+  internalNotes?: T;
   batch?: T;
   legacyIds?: T;
   updatedAt?: T;

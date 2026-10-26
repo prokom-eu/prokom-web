@@ -104,9 +104,14 @@ export function ProductBox({ product, contact, callbackTime }: Props) {
           <h2 className="font-bold text-ink-3">Wersje</h2>
           <ul className="flex flex-col gap-1">
             {product.variants.map((variant) => (
-              <li key={variant} className="flex gap-2 text-ink-2">
+              <li key={variant.name} className="flex gap-2 text-ink-2">
                 <span aria-hidden="true" className="mt-2 size-1.5 shrink-0 rounded-full bg-ink-3" />
-                {variant}
+                <span>
+                  {variant.name}
+                  {variant.difference && (
+                    <span className="text-ink-3"> — {variant.difference}</span>
+                  )}
+                </span>
               </li>
             ))}
           </ul>

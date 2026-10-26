@@ -74,6 +74,12 @@ export const Products: CollectionConfig = {
           fields: [
             { name: 'name', label: 'Nazwa', type: 'text', required: true },
             {
+              name: 'subtitle',
+              label: 'Podtytuł',
+              type: 'text',
+              admin: { description: 'Krótko pod nazwą, np. „Kasa średnia online do sklepu”.' },
+            },
+            {
               type: 'row',
               fields: [
                 {
@@ -150,10 +156,15 @@ export const Products: CollectionConfig = {
             ),
             {
               name: 'variants',
-              label: 'Warianty',
-              type: 'text',
-              hasMany: true,
-              admin: { description: 'Wersje jednej karty, np. „BT/WiFi”, „różowy”.' },
+              label: 'Wersje',
+              type: 'array',
+              admin: {
+                description: 'Wersje jednej karty, np. „Jota ONLINE BT/WiFi”, i czym się różnią.',
+              },
+              fields: [
+                { name: 'name', label: 'Model', type: 'text', required: true },
+                { name: 'difference', label: 'Czym się różni', type: 'textarea' },
+              ],
             },
           ],
         },
@@ -200,7 +211,73 @@ export const Products: CollectionConfig = {
               ],
             },
             includedField('Puste = „W cenie” z kategorii głównej.'),
+            {
+              name: 'configurator',
+              label: 'Wybór wersji',
+              type: 'group',
+              admin: {
+                description:
+                  'Opcje producenta do wyboru przed zapytaniem (K3) — to nie koszyk i nie liczy ceny.',
+              },
+              fields: [
+                { name: 'description', label: 'Opis (jedno zdanie)', type: 'textarea' },
+                {
+                  name: 'options',
+                  label: 'Opcje',
+                  type: 'array',
+                  fields: [
+                    { name: 'name', label: 'Nazwa', type: 'text', required: true },
+                    { name: 'values', label: 'Wartości', type: 'text', hasMany: true },
+                    { name: 'note', label: 'Uwaga producenta', type: 'textarea' },
+                  ],
+                },
+                {
+                  name: 'popular',
+                  label: 'Najczęściej wybierane',
+                  type: 'array',
+                  fields: [
+                    { name: 'name', label: 'Nazwa', type: 'text', required: true },
+                    {
+                      name: 'configuration',
+                      label: 'Konfiguracja',
+                      type: 'textarea',
+                      required: true,
+                    },
+                  ],
+                },
+              ],
+            },
             faqArray,
+            {
+              name: 'suggestions',
+              label: 'Do tego zwykle dobierają',
+              type: 'text',
+              hasMany: true,
+              admin: {
+                description:
+                  'Nazwy rzeczy, np. „szuflada kasowa” — strona dopasuje do nich karty katalogu.',
+              },
+            },
+            {
+              name: 'packages',
+              label: 'Pakiety abonamentu',
+              type: 'array',
+              admin: {
+                description: 'Tylko karta opieki IT — na stronie dopiero po akceptacji szefa.',
+              },
+              fields: [
+                { name: 'name', label: 'Nazwa', type: 'text', required: true },
+                { name: 'audience', label: 'Dla kogo', type: 'textarea' },
+                { name: 'inSubscription', label: 'W abonamencie', type: 'text', hasMany: true },
+                {
+                  name: 'outsideSubscription',
+                  label: 'Poza abonamentem',
+                  type: 'text',
+                  hasMany: true,
+                },
+                { name: 'rules', label: 'Zasady', type: 'text', hasMany: true },
+              ],
+            },
             {
               name: 'fitsWith',
               label: 'Skompletuj stanowisko',
@@ -235,6 +312,17 @@ export const Products: CollectionConfig = {
                   hasMany: true,
                   validate: validateHttpUrls,
                   admin: { description: 'Linki do producenta — zakładka „Dokumenty”.' },
+                },
+                {
+                  name: 'distributorPages',
+                  label: 'Strony dystrybutorów',
+                  type: 'text',
+                  hasMany: true,
+                  validate: validateHttpUrls,
+                  admin: {
+                    description:
+                      'Tylko do sprawdzania w panelu — sklepów i dystrybutorów nie pokazujemy na stronie.',
+                  },
                 },
                 {
                   name: 'checkedAt',
@@ -325,7 +413,17 @@ export const Products: CollectionConfig = {
       options: [...CONTENT_STATUSES],
       admin: {
         position: 'sidebar',
-        description: '„Do sprawdzenia” = opis tymczasowy. Na stronie bez różnicy.',
+        description:
+          '„Do sprawdzenia” = widoczna, ale bez indeksowania w Google i poza mapą strony.',
+      },
+    },
+    {
+      name: 'internalNotes',
+      label: 'Notatki wewnętrzne',
+      type: 'textarea',
+      admin: {
+        position: 'sidebar',
+        description: 'Z importu i dla zespołu — nigdy na stronie.',
       },
     },
     {

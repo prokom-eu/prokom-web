@@ -4,7 +4,9 @@ import { linkGroup } from '../blocks/fields'
 import { adminOnly } from '../lib/auth/access'
 import { catalogRevalidationHooks } from '../lib/catalog/revalidate'
 import { ICON_OPTIONS } from '../lib/catalog/options'
+import { validateSubcategories, type SubcategoryRow } from '../lib/catalog/subcategories'
 import { isHttpsUrl } from '../lib/site/link'
+import { isValidSlug } from '../lib/tenant/uniqueSlug'
 import {
   faqArray,
   imageField,
@@ -54,6 +56,36 @@ export const CatalogCategories: CollectionConfig = {
       type: 'textarea',
       maxLength: 200,
       admin: { description: 'Jedno zdanie pod nazwą w menu i na kafelku.' },
+    },
+    {
+      // K3 (ADR-012 rozstrz. 15): chips inside the category; a subcategory with a slug also
+      // gets its own address `/oferta/<kategoria>/<slug>` (K3b′).
+      name: 'subcategories',
+      label: 'Podkategorie',
+      type: 'array',
+      validate: (rows: unknown) =>
+        validateSubcategories(Array.isArray(rows) ? (rows as SubcategoryRow[]) : null),
+      admin: {
+        description:
+          'Kolejność chipów. Nazwa jak w polu „Podkategoria” produktu; adres tylko dla podkategorii z własną stroną.',
+      },
+      fields: [
+        {
+          type: 'row',
+          fields: [
+            { name: 'name', label: 'Nazwa', type: 'text', required: true },
+            {
+              name: 'slug',
+              label: 'Adres',
+              type: 'text',
+              validate: (value: unknown) =>
+                !value || (typeof value === 'string' && isValidSlug(value))
+                  ? true
+                  : 'Tylko małe litery, cyfry i pojedyncze myślniki, np. „laptopy”.',
+            },
+          ],
+        },
+      ],
     },
     {
       name: 'hero',

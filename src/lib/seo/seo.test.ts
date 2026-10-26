@@ -8,7 +8,7 @@ import {
   productJsonLd,
   serializeJsonLd,
 } from './jsonLd'
-import { robotsMeta, robotsTxt } from './robots'
+import { pageRobots, robotsMeta, robotsTxt } from './robots'
 import { siteOrigin } from './origin'
 import { sitemapXml } from './sitemap'
 
@@ -38,6 +38,13 @@ describe('robots', () => {
       'User-agent: *\nDisallow: /\n',
     )
     expect(robotsMeta('staging')).toEqual({ index: false, follow: false })
+  })
+
+  it('keeps a page out of the index but lets links be followed, staging still shut', () => {
+    expect(pageRobots('production', true)).toBeUndefined()
+    expect(pageRobots('production', false)).toEqual({ index: false, follow: true })
+    expect(pageRobots('staging', true)).toEqual({ index: false, follow: false })
+    expect(pageRobots('staging', false)).toEqual({ index: false, follow: false })
   })
 })
 

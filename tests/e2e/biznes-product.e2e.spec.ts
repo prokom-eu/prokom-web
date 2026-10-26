@@ -207,6 +207,28 @@ test.describe('Biznes product page', () => {
     }
   })
 
+  test('a card „Do sprawdzenia” has a page, but noindex and no place in the site maps (K3a)', async ({
+    page,
+  }) => {
+    // Katalog v2: Elzab K1 Slim is „do-sprawdzenia”, Posnet Ergo „gotowe”.
+    const review = '/produkt/elzab-k1-slim-online'
+    const response = await page.goto(site('biznes.localhost', review))
+    expect(response?.status()).toBe(200)
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/)
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /follow/)
+
+    await page.goto(site('biznes.localhost', ERGO))
+    await expect(page.locator('meta[name="robots"]')).toHaveCount(0)
+
+    const sitemap = await page.goto(site('biznes.localhost', '/sitemap.xml'))
+    const xml = (await sitemap?.text()) ?? ''
+    expect(xml).toContain(site('biznes.localhost', ERGO))
+    expect(xml).not.toContain(review)
+    await page.goto(site('biznes.localhost', '/mapa-strony'))
+    await expect(page.locator(`a[href="${review}"]`)).toHaveCount(0)
+    await expect(page.locator(`a[href="${ERGO}"]`)).toHaveCount(1)
+  })
+
   test('the Biznes sitemap lists the catalog and products, other sites do not', async ({
     page,
   }) => {
