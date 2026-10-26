@@ -9,6 +9,7 @@ import {
   SOLUTION_SIZES,
   type SolutionSize,
 } from '../lib/software/options'
+import { solutionsRevalidationHooks } from '../lib/software/revalidate'
 import { onlyLineTenant } from '../lib/tenant/onlyLine'
 import { slugField } from './catalogFields'
 
@@ -65,6 +66,8 @@ export const Solutions: CollectionConfig = {
   versions: { drafts: true, maxPerDoc: 20 },
   hooks: {
     beforeValidate: [onlyLineTenant('software', 'Rozwiązania mają tylko strony linii Software.')],
+    // The public solutions index (`/api/solutions-index`) follows a published change at once.
+    ...solutionsRevalidationHooks,
   },
   indexes: [
     { fields: ['tenant', 'slug'], unique: true },

@@ -9,6 +9,7 @@ import {
   wizardSolutionSlugs,
 } from '../lib/software/wizard'
 import { tenantIdOf } from '../lib/tenant/id'
+import { solutionsRevalidationHooks } from '../lib/software/revalidate'
 import { onlyLineTenant } from '../lib/tenant/onlyLine'
 import { searchGroup } from './searchGroup'
 
@@ -74,6 +75,8 @@ export const SoftwareSettings: CollectionConfig = {
     beforeValidate: [
       onlyLineTenant('software', 'Ustawienia Software mają tylko strony linii Software.'),
     ],
+    // The search settings are part of the solutions index.
+    ...solutionsRevalidationHooks,
   },
   fields: [
     searchGroup,

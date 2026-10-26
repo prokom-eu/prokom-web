@@ -31,6 +31,9 @@ const INQUIRY_PATH = '/api/inquiry'
 // Catalog index of the Biznes site (ADR-012 §2.4): a Next route handler outside Payload, read
 // only; the handler answers 404 on domains of other lines.
 const CATALOG_INDEX_PATH = '/api/catalog-index'
+// Solutions index of the Software site (ADR-014 §4): the same kind of handler, read only; it
+// answers 404 on domains of other lines.
+const SOLUTIONS_INDEX_PATH = '/api/solutions-index'
 // Liveness of the app and its database (S9): Docker, the smoke test and monitoring call it by
 // IP or any domain, so it answers on every host. Read only, returns no data.
 const HEALTH_PATH = '/api/health'
@@ -45,7 +48,7 @@ function startsWithSegment(pathname: string, prefix: string): boolean {
  * Decides what the proxy does with a request (ADR-006):
  * - panel domain: only the admin panel and the Payload API,
  * - any other domain: never the admin or the API (only uploaded image files, inquiries, the
- *   catalog index and the health check); pages are rewritten to
+ *   catalog and solutions indexes and the health check); pages are rewritten to
  *   `/<host>/<path>`, where the `[domain]` layout resolves the tenant (unknown → 404).
  */
 export function decideRoute({
@@ -69,6 +72,7 @@ export function decideRoute({
   if (UPLOAD_FILE.test(pathname) && READ_METHODS.includes(method)) return { type: 'next' }
   if (pathname === INQUIRY_PATH && method === 'POST') return { type: 'next' }
   if (pathname === CATALOG_INDEX_PATH && READ_METHODS.includes(method)) return { type: 'next' }
+  if (pathname === SOLUTIONS_INDEX_PATH && READ_METHODS.includes(method)) return { type: 'next' }
   if (panelOnly) return { type: 'notFoundPage', pathname: `/${host}/${NOT_FOUND_SEGMENT}` }
   if (PUBLIC_PREFIXES.some((prefix) => pathname.startsWith(`${prefix}/`))) return { type: 'next' }
   return { type: 'rewrite', pathname: pathname === '/' ? `/${host}` : `/${host}${pathname}` }
