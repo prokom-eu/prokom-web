@@ -40,7 +40,7 @@ export function ProductGallery({ name, images, hotspots, modules, badges, fallba
   const current = hotspots[point]
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex min-w-0 flex-col gap-3">
       <div className="relative isolate overflow-hidden rounded-[26px] bg-surface-2 bg-[radial-gradient(ellipse_at_50%_70%,var(--glow),transparent_68%)] shadow-[inset_0_0_0_1px_var(--border)] sm:rounded-[32px]">
         <div className="relative flex min-h-[300px] items-center justify-center px-6 pb-6 pt-14 sm:min-h-[480px] sm:px-10 sm:pb-10">
           {image ? (
