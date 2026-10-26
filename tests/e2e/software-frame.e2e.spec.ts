@@ -135,21 +135,26 @@ test.describe('Software header', () => {
     await expect(projectButton(other)).toContainText('1')
   })
 
-  // Manrope is wider than the board's font: the full row must still fit from 1081 px up.
-  for (const width of [1081, 1280, 1440]) {
+  // Manrope is wider than the board's font: the full row must still fit from 1081 px up, with
+  // room to spare — fonts render a few pixels wider on Linux (CI) than on Windows.
+  for (const width of [1081, 1280, 1359, 1360, 1440]) {
     test(`the full header fits its container at ${width} px`, async ({ page }) => {
       await page.setViewportSize({ width, height: 800 })
       await page.goto(site(HOST, SUBPAGE))
       await setProject(page, TWO)
       await page.reload()
       await expect(projectButton(page)).toBeVisible()
-      const overflow = await page.locator('header').evaluate((header) => {
+      // Free space of the row: its inner width minus its items and the gaps between them.
+      const free = await page.locator('header').evaluate((header) => {
         const row = header.firstElementChild as HTMLElement
-        const right =
-          row.getBoundingClientRect().right - parseFloat(getComputedStyle(row).paddingRight)
-        return Math.max(...[...row.children].map((el) => el.getBoundingClientRect().right)) - right
+        const style = getComputedStyle(row)
+        const inner =
+          row.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight)
+        const items = [...row.children].filter((el) => getComputedStyle(el).display !== 'none')
+        const used = items.reduce((sum, el) => sum + el.getBoundingClientRect().width, 0)
+        return inner - used - parseFloat(style.columnGap) * (items.length - 1)
       })
-      expect(overflow).toBeLessThanOrEqual(0.5)
+      expect(free).toBeGreaterThanOrEqual(8)
       expect(await page.evaluate(() => document.scrollingElement!.scrollWidth)).toBe(width)
     })
   }

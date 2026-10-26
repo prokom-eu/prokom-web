@@ -114,7 +114,7 @@ export function ProjectMenu({ texts }: Props) {
         aria-controls={panelId}
         onClick={() => setOpen(!open)}
         title={texts.title}
-        className="inline-flex min-h-11 items-center gap-2 whitespace-nowrap rounded-xl border border-accent-line bg-accent-soft px-3 text-[15px] font-bold text-ink min-[1360px]:px-3.5"
+        className="inline-flex min-h-11 items-center gap-1.5 whitespace-nowrap rounded-xl border border-accent-line bg-accent-soft px-2.5 text-[15px] font-bold text-ink min-[1360px]:gap-2 min-[1360px]:px-3.5"
       >
         <Icon name="brief" className="size-[18px]" />
         {/* The board's label does not fit the row with Manrope (wider than the board's font)

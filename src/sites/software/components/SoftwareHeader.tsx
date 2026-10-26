@@ -15,7 +15,7 @@ import { SwMegaMenu } from './SwMegaMenu'
 type Props = { tenant: SiteTenant; navigation: SoftwareNavigation }
 
 const CTA =
-  'inline-flex min-h-11 items-center whitespace-nowrap rounded-xl bg-button px-3.5 text-sm font-bold text-accent-ink shadow-raised min-[1360px]:px-5 min-[1360px]:text-[15px]'
+  'inline-flex min-h-11 items-center whitespace-nowrap rounded-xl bg-button px-3 text-sm font-bold text-accent-ink shadow-raised min-[1360px]:px-5 min-[1360px]:text-[15px]'
 
 /**
  * Sticky header of the Software line (spec. §3.1–3.2): logo, the menu in the panel's order,
@@ -30,13 +30,13 @@ export function SoftwareHeader({ tenant, navigation }: Props) {
     <header className="sticky top-0 z-40 border-b border-border bg-header-bg backdrop-blur-md backdrop-saturate-150">
       <Container
         wide
-        className="flex min-h-[66px] items-center justify-between gap-3 sm:min-h-[76px]"
+        className="flex min-h-[66px] items-center justify-between gap-2 sm:min-h-[76px] min-[1360px]:gap-3"
       >
         <SiteLogo tenant={tenant} className="h-[30px] w-auto min-[1081px]:h-7 min-[1360px]:h-9" />
 
         <SwHeaderNav items={header} mega={<SwMegaMenu mega={mega} />} />
 
-        <div className="hidden items-center gap-2 min-[1081px]:flex min-[1360px]:gap-2.5">
+        <div className="hidden items-center gap-1.5 min-[1081px]:flex min-[1360px]:gap-2.5">
           {headerRight.themeToggle && <ThemeToggle className={ICON_BUTTON} />}
           {headerRight.projectDrawer && <ProjectMenu texts={projectDrawer} />}
           {headerRight.cta.homeHref ? (
