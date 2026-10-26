@@ -1,5 +1,7 @@
 # prokombiznes.pl — zmiany wizualizacji v20 (20.10.2026)
 
+> **Częściowo zastąpione przez K3 i K3.1 (25.10.2026)** — plan firmy, GoPOS, InsERT, O firmie, Kontakt, stopka i telefon wg `K31-ZMIANY.md` i `MOBILE-APLIKACJA.md`; pozostałe części v20 obowiązują. Kolejność ważności: `INDEKS.md`.
+
 - **Status:** zatwierdzone przez Krystiana 20.10.2026 (wizualizacja Claude Design, wersja 111).
 - **Pierwszeństwo:** ten plik ma pierwszeństwo przed `docs/strony/prokombiznes.md` §3–§4 i §8.4 oraz przed starymi zrzutami, dopóki spec. nie zostanie zaktualizowana. Sesja D1 (niżej) wnosi te zmiany do spec. i ADR-013.
 - **Wzorzec:** zrzuty `screens/*` i plansze `boards/*` w tym pakiecie są już w wersji v20. Główna różnica dotyczy strony głównej (`Main`, `Mobile`). Na pozostałych planszach zmienił się tylko nagłówek i górny pasek.
