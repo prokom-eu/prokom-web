@@ -4,7 +4,7 @@ import { tenantIdOf } from '../tenant/id'
 export const catalogTag = (tenantId: number) => `tenant:${tenantId}:catalog`
 
 /** A changed catalog document: tenant-scoped (`tenant`) or a shared brand (`tenants`). */
-type CatalogDocState = {
+export type CatalogDocState = {
   tenant?: unknown
   tenants?: unknown[] | null
   /** Only collections with drafts (products) have it. */
@@ -18,15 +18,26 @@ function tenantsOf(doc: CatalogDocState | undefined): number[] {
 }
 
 /**
+ * Tenants whose public index a change touches: the tenants before and after, and for a document
+ * with drafts only when its public version may have changed — saving a draft changes nothing on
+ * the site. Shared by the indexes of every line (`lib/software/tags.ts`).
+ */
+export function tenantsToRevalidate(
+  doc: CatalogDocState,
+  previous: CatalogDocState | undefined,
+): number[] {
+  const hasDrafts = doc._status !== undefined || previous?._status !== undefined
+  if (hasDrafts && doc._status !== 'published' && previous?._status !== 'published') return []
+  return [...new Set([...tenantsOf(doc), ...tenantsOf(previous)])]
+}
+
+/**
  * Index tags to refresh after a change of a product, category, group, industry, brand or the
- * search settings: only for the tenants involved (before and after), and for a product only
- * when its public version may have changed — saving a draft changes nothing on the site.
+ * search settings (`tenantsToRevalidate`).
  */
 export function catalogTagsToRevalidate(
   doc: CatalogDocState,
   previous: CatalogDocState | undefined,
 ): string[] {
-  const hasDrafts = doc._status !== undefined || previous?._status !== undefined
-  if (hasDrafts && doc._status !== 'published' && previous?._status !== 'published') return []
-  return [...new Set([...tenantsOf(doc), ...tenantsOf(previous)])].map(catalogTag)
+  return tenantsToRevalidate(doc, previous).map(catalogTag)
 }

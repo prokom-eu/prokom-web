@@ -168,6 +168,33 @@ describe('decideRoute — site domains', () => {
     }
   })
 
+  it('lets the solutions index through on site domains, read only (its handler checks the line)', () => {
+    for (const method of ['GET', 'HEAD']) {
+      expect(
+        decideRoute({
+          host: 'software.localhost',
+          pathname: '/api/solutions-index',
+          method,
+          panelHost,
+        }),
+      ).toEqual({ type: 'next' })
+    }
+    expect(
+      decideRoute({
+        host: 'software.localhost',
+        pathname: '/api/solutions-index',
+        method: 'POST',
+        panelHost,
+      }),
+    ).toEqual({ type: 'notFoundPage', pathname: '/software.localhost/_404' })
+    for (const pathname of ['/api/solutions-index/', '/api/solutions-index/x', '/api/solutions']) {
+      expect(route('software.localhost', pathname)).toEqual({
+        type: 'notFoundPage',
+        pathname: '/software.localhost/_404',
+      })
+    }
+  })
+
   it.each(['/robots.txt', '/sitemap.xml'])('rewrites %s to the domain segment', (pathname) => {
     expect(route('software.localhost:3000', pathname)).toEqual({
       type: 'rewrite',

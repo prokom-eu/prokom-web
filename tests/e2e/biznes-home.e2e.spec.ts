@@ -281,8 +281,12 @@ test.describe('Biznes home page: plan, steps, one partner', () => {
     const separate = section.getByRole('button', { name: 'Osobne firmy' })
     // Untouched, it flips by itself.
     await expect(separate).toHaveAttribute('aria-pressed', 'true')
-    await page.clock.runFor(7000)
-    await expect(one).toHaveAttribute('aria-pressed', 'true')
+    // In small steps: on a slow build (CI) one 7 s jump can pass before the island hydrates and
+    // starts its timer, which then never fires.
+    await expect(async () => {
+      await page.clock.runFor(1000)
+      await expect(one).toHaveAttribute('aria-pressed', 'true', { timeout: 100 })
+    }).toPass({ timeout: 20_000 })
 
     await separate.click()
     await expect(separate).toHaveAttribute('aria-pressed', 'true')

@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
+import rozwiazania from '../../seed/prokomsoftware/rozwiazania.json'
 import { buildCatalogIndex, type CatalogIndex, type IndexProduct } from './catalog/catalogIndex'
 import { sourceFromSeed } from './catalog/seedSource.fixture'
 import {
@@ -11,6 +12,9 @@ import {
   searchProducts,
   tokenize,
 } from './search'
+import { prepareSolutionSearch, searchSolutions } from './software/search'
+import { buildSolutionsIndex } from './software/solutionsIndex'
+import { solutionsSourceFromSeed } from './software/solutionsIndex.fixture'
 
 const index = buildCatalogIndex(sourceFromSeed())
 const prepared = prepareSearch(index)
@@ -211,5 +215,45 @@ describe('resultsLabel', () => {
     [0, '0 wyników'],
   ])('%i → %s', (count, label) => {
     expect(resultsLabel(count)).toBe(label)
+  })
+})
+
+describe('the same engine on the Software solutions (ADR-014 rozstrz. SW0 10)', () => {
+  const solutions = buildSolutionsIndex(solutionsSourceFromSeed())
+  const preparedSolutions = prepareSolutionSearch(solutions)
+  const found = (query: string) =>
+    searchSolutions(preparedSolutions, query)?.map((solution) => solution.slug) ?? null
+
+  it('returns null for an empty query and nothing for nonsense', () => {
+    expect(found('  ')).toBeNull()
+    expect(found('dla mojej firmy')).toBeNull()
+    expect(found('zxqvbn')).toEqual([])
+  })
+
+  it('puts a name hit first', () => {
+    expect(found('excel')?.[0]).toBe('z-excela-do-systemu')
+    expect(found('crm')?.[0]).toBe('crm-dla-malej-i-sredniej-firmy')
+    const sites = found('strona')!.slice(0, 4)
+    for (const slug of sites) expect(slug).toMatch(/^strona-/)
+  })
+
+  it('finds through a synonym of the Software settings, below a name hit', () => {
+    // The guest-house card never says „rezerwacje”: the synonym → „pensjonat”, „booking” finds it.
+    const hotel = solutions.solutions.find((s) => s.slug === 'strona-dla-hotelu-lub-pensjonatu')!
+    expect(hotel.hay).not.toContain('rezerwacje')
+    const results = found('rezerwacje')!
+    expect(results).toContain('strona-dla-hotelu-lub-pensjonatu')
+    expect(results[0]).toBe('grafik-i-rezerwacje-zajec')
+  })
+
+  it('forgives a typo', () => {
+    expect(found('pensjnoat')?.[0]).toBe('strona-dla-hotelu-lub-pensjonatu')
+  })
+
+  it('never finds a solution removed from the offer (ADR-014 v20 pkt 2)', () => {
+    const removed = new Set(rozwiazania.removed.map((item) => item.slug))
+    for (const query of ['rezerwacje online', 'rezerwacje', 'strona']) {
+      for (const slug of found(query) ?? []) expect(removed.has(slug), query).toBe(false)
+    }
   })
 })

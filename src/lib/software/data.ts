@@ -1,9 +1,14 @@
 import config from '@payload-config'
+import { unstable_cache } from 'next/cache'
 import { getPayload } from 'payload'
 import { cache } from 'react'
 
+import { log } from '../log'
+import { PAGE_CACHE_SECONDS } from '../pages/data'
 import { factsMap } from './facts'
 import { thanksSchema, type SoftwareThanks } from './pages'
+import { buildSolutionsIndex, type SolutionsIndex } from './solutionsIndex'
+import { solutionsTag } from './tags'
 
 /**
  * Facts [SZEF] of one Software tenant (`SiteSettings.software.facts`) — the tenant filter is
@@ -42,3 +47,71 @@ export async function getSoftwareThanks(tenantId: number): Promise<SoftwareThank
   const parsed = thanksSchema.safeParse(docs[0]?.thanks)
   return parsed.success ? parsed.data : null
 }
+
+/** Far above the 29 solutions of the package; the catalog is one page without paging. */
+const MAX_SOLUTIONS = 200
+
+/**
+ * Solutions index of one Software tenant (ADR-014 §4), cached under `tenant:<id>:solutions`
+ * (hooks of `Solutions` and `SoftwareSettings`) with the pages' TTL as a safety net. Only
+ * published solutions of this tenant; drafts never leave here. Call it only for a tenant of the
+ * Software line (the route checks the line).
+ */
+export const getSolutionsIndex = (tenantId: number): Promise<SolutionsIndex> =>
+  unstable_cache(
+    async () => {
+      const payload = await getPayload({ config })
+      const read = { overrideAccess: true, depth: 0 } as const
+      const inTenant = { tenant: { equals: tenantId } }
+      const [solutions, settings] = await Promise.all([
+        payload.find({
+          collection: 'solutions',
+          where: { and: [inTenant, { _status: { equals: 'published' } }] },
+          draft: false,
+          limit: MAX_SOLUTIONS,
+          // The order of the package (the seed creates them in it); later ones at the end. The
+          // serial id, not `createdAt`: two records of one seed run may share a millisecond.
+          sort: 'id',
+          select: {
+            slug: true,
+            name: true,
+            category: true,
+            label: true,
+            tag: true,
+            lead: true,
+            features: true,
+            forWhom: true,
+            situations: true,
+            industryGroups: true,
+            keywords: true,
+            hasLivePreview: true,
+            toast: true,
+            cardGradient: true,
+            prices: true,
+            leadTimes: true,
+            priceNote: true,
+          },
+          ...read,
+        }),
+        payload.find({
+          collection: 'software-settings',
+          where: inTenant,
+          limit: 1,
+          select: { search: true },
+          ...read,
+        }),
+      ])
+      if (solutions.totalDocs > MAX_SOLUTIONS) {
+        log.warn(
+          { tenant: tenantId, total: solutions.totalDocs, limit: MAX_SOLUTIONS },
+          'Solutions index cut at its limit',
+        )
+      }
+      return buildSolutionsIndex({
+        solutions: solutions.docs,
+        search: settings.docs[0]?.search,
+      })
+    },
+    ['solutions-index', String(tenantId)],
+    { tags: [solutionsTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
+  )()
