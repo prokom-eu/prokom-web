@@ -11,7 +11,9 @@ const HOSTS = ['biznes.localhost', 'instalacje.localhost', 'software.localhost']
 const uniquePhone = () => `+48 000 ${String(Date.now()).slice(-6)}`
 
 test.describe('company data and site settings', () => {
-  test('a CompanyData phone change shows on all three domains', async ({ page }) => {
+  test('a CompanyData phone change shows on every domain that lists the company phones', async ({
+    page,
+  }) => {
     await loginAsAdmin(page)
     const { json: original } = await api(page, 'GET', '/api/globals/company-data?depth=0')
     const phones = original.phones as { number: string }[]
@@ -25,7 +27,9 @@ test.describe('company data and site settings', () => {
     expect(updated.status).toBe(200)
 
     try {
-      for (const host of HOSTS) {
+      // Software's footer lists the line's own phone only (spec. §3.4); its company data
+      // (name, address, NIP) is checked in software-frame.e2e.spec.ts.
+      for (const host of HOSTS.filter((h) => h !== 'software.localhost')) {
         await page.goto(site(host))
         await expect(page.locator('footer')).toContainText(phone)
       }

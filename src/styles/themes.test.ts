@@ -63,6 +63,7 @@ describe.each(cases)('$line, $mode theme', ({ line, mode }) => {
     expect(contrastRatio(hex('--accent-ink', s), hex('--accent-text', s))).toBeGreaterThanOrEqual(
       4.5,
     )
+    expect(contrastRatio(hex('--accent-ink', s), hex('--button-bg', s))).toBeGreaterThanOrEqual(4.5)
   })
 
   it('text and links reach 4.5:1 on dark blocks', () => {
@@ -181,8 +182,31 @@ describe.each(cases.filter(({ line }) => line === 'software'))(
     it('form field border reaches 3:1 on the second card level', () => {
       expect(contrastRatio(hex('--border-input', s), hex('--card-2', s))).toBeGreaterThanOrEqual(3)
     })
+
+    // ADR-015 v20 pkt 3: the Kreator button of the bottom bar and the „Dobierz rozwiązanie” card
+    // use the gradient --accent → --accent-2 with --accent-ink on it — both ends must hold.
+    it('label on the accent gradient reaches 4.5:1 at both ends', () => {
+      for (const end of ['--accent', '--accent-2']) {
+        expect(
+          contrastRatio(hex('--accent-ink', s), hex(end, s)),
+          `--accent-ink on ${end}`,
+        ).toBeGreaterThanOrEqual(4.5)
+      }
+    })
   },
 )
+
+// ADR-015 v20 pkt 5: the „Czasem powiemy: nie budujcie” block keeps the light palette's
+// gradient in both themes, with a white label.
+it('Software: white on the „Czasem powiemy” gradient reaches 4.5:1 at both ends', () => {
+  const s = scope('software', 'light')
+  for (const end of ['--c-software-light-accent-text', '--c-software-light-accent']) {
+    expect(
+      contrastRatio(hex('--c-white', s), hex(end, s)),
+      `white on ${end}`,
+    ).toBeGreaterThanOrEqual(4.5)
+  }
+})
 
 describe('dark theme definitions', () => {
   it.each([...LINE_VALUES])('%s: dark rules exist only for lines with a dark design', (line) => {

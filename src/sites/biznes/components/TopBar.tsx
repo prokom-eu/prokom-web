@@ -1,5 +1,6 @@
 import Link from 'next/link'
 
+import { HomeAwareLink } from '@/components/HomeAwareLink'
 import { Container } from '@/components/ui/Container'
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
@@ -8,7 +9,6 @@ import { BRAND_LINKS } from '@/lib/brand/lines'
 import { openingStatus, type OpeningHours } from '@/lib/site/hours'
 import { toTelHref } from '@/lib/site/link'
 
-import { HomeAwareLink } from './HomeAwareLink'
 import { HoursStatus } from './HoursStatus'
 
 type Props = {

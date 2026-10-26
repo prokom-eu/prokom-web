@@ -1,6 +1,7 @@
 import type { CompanyDatum, SiteSetting } from '@/payload-types'
 
 import { publicImage, type PublicImage } from '../media/public'
+import { navigationSchema, type SoftwareNavigation } from '../software/navigation'
 import { tenantIdOf } from '../tenant/id'
 import type { Department } from './departments'
 import type { Line } from '../tenant/lines'
@@ -36,6 +37,19 @@ export type PublicSiteSettings = {
   seo: { titleTemplate: string | null; description: string | null; ogImage: PublicImage | null }
   /** Data of the Biznes line; `null` on every other line (ADR-012, rozstrzygnięcie 2). */
   biznes: PublicBiznesSettings | null
+  /** Data of the Software line; `null` on every other line (like `biznes`). */
+  software: PublicSoftwareSettings | null
+}
+
+export type PublicSoftwareSettings = {
+  /** `null` when empty or saved past the validation — the frame then falls back to the generic one. */
+  navigation: SoftwareNavigation | null
+}
+
+function toPublicSoftware(group: SiteSetting['software']): PublicSoftwareSettings {
+  // Read with `overrideAccess`: checked again, so a JSON saved past `validate` never renders.
+  const navigation = navigationSchema.safeParse(group?.navigation)
+  return { navigation: navigation.success ? navigation.data : null }
 }
 
 export type PublicBiznesSettings = {
@@ -145,5 +159,6 @@ export function toPublicSiteSettings(doc: SiteSetting, line: Line | null): Publi
       ogImage: tenantId === null ? null : publicImage(doc.seo?.ogImage, tenantId),
     },
     biznes: line === 'biznes' && tenantId !== null ? toPublicBiznes(doc.biznes, tenantId) : null,
+    software: line === 'software' ? toPublicSoftware(doc.software) : null,
   }
 }

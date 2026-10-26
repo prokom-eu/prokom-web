@@ -2,9 +2,10 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useSyncExternalStore, type ReactNode } from 'react'
+import { type ComponentProps, useSyncExternalStore } from 'react'
 
-type Props = { href: string; homeHref: string; className?: string; children: ReactNode }
+/** Other attributes (`aria-current`, `data-*`) pass to the link. */
+type Props = Omit<ComponentProps<typeof Link>, 'href'> & { href: string; homeHref: string }
 
 const noop = () => () => {}
 
@@ -15,16 +16,12 @@ const noop = () => () => {}
  * the server and hydration render the plain address, then the router's pathname decides — it
  * changes in the same render as a client-side navigation, unlike `window.location`.
  */
-export function HomeAwareLink({ href, homeHref, className, children }: Props) {
+export function HomeAwareLink({ href, homeHref, ...rest }: Props) {
   const pathname = usePathname()
   const hydrated = useSyncExternalStore(
     noop,
     () => true,
     () => false,
   )
-  return (
-    <Link href={hydrated && pathname === '/' ? homeHref : href} className={className}>
-      {children}
-    </Link>
-  )
+  return <Link href={hydrated && pathname === '/' ? homeHref : href} {...rest} />
 }
