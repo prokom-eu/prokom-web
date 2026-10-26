@@ -183,6 +183,17 @@ describe.each(cases.filter(({ line }) => line === 'software'))(
       expect(contrastRatio(hex('--border-input', s), hex('--card-2', s))).toBeGreaterThanOrEqual(3)
     })
 
+    // ADR-015 v20 pkt 4: the „Twój projekt” pill is inverted (--ink background, --surface
+    // text); its „Zobacz →” accent is the other theme's text accent.
+    it('pill text and accent reach 4.5:1 on the inverted pill', () => {
+      for (const text of ['--surface', '--pill-accent']) {
+        expect(
+          contrastRatio(hex(text, s), hex('--ink', s)),
+          `${text} on --ink`,
+        ).toBeGreaterThanOrEqual(4.5)
+      }
+    })
+
     // ADR-015 v20 pkt 3: the Kreator button of the bottom bar and the „Dobierz rozwiązanie” card
     // use the gradient --accent → --accent-2 with --accent-ink on it — both ends must hold.
     it('label on the accent gradient reaches 4.5:1 at both ends', () => {

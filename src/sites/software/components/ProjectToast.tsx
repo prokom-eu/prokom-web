@@ -11,7 +11,8 @@ const SHOW_MS = 2500
 /**
  * „Dodano do Twojego projektu” after „+ Do projektu” on a card (spec. §3.1), with „Zobacz
  * projekt →” opening the list (`canOpen`: the header has the list, `headerRight.projectDrawer`).
- * A status region: announced without moving focus.
+ * A status region: announced without moving focus. On the phone above the bottom bar and the
+ * project pill.
  */
 export function ProjectToast({ canOpen }: { canOpen: boolean }) {
   const [added, setAdded] = useState<{ name: string; key: number } | null>(null)
@@ -35,7 +36,7 @@ export function ProjectToast({ canOpen }: { canOpen: boolean }) {
   return (
     <div
       role="status"
-      className="pointer-events-none fixed inset-x-0 bottom-7 z-50 flex justify-center px-4"
+      className="pointer-events-none fixed inset-x-0 bottom-[calc(148px+env(safe-area-inset-bottom))] z-50 flex justify-center px-4 min-[1081px]:bottom-7"
     >
       {added && (
         <div

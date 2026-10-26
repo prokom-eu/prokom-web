@@ -219,6 +219,8 @@
   --h1-accent: var(--accent-text);
   /* Background of the primary button: the text accent; Software uses its button accent. */
   --button-bg: var(--accent-text);
+  /* Accent on the inverted pill (--ink background): plain pill text where a line has no pill. */
+  --pill-accent: var(--surface);
 }
 
 [data-line='prokom'] {
@@ -301,6 +303,9 @@
   --shadow: var(--c-software-light-shadow);
   /* Boards: buttons on --accent with --accent-ink (SW4); follows the theme with --accent. */
   --button-bg: var(--accent);
+  /* ADR-015 v20 pkt 4: „Zobacz →” on the inverted „Twój projekt” pill — the other theme's text
+     accent (the board's --accent-2 has too little contrast there). */
+  --pill-accent: var(--c-software-night-accent-text);
 
   /* ADR-015: H1 fragment on 5 pages, without the light blue of the boards. */
   --grad-h1: linear-gradient(
@@ -377,6 +382,7 @@
   --grid: var(--c-software-night-grid);
   --dot: var(--c-software-night-dot);
   --header-bg: var(--c-software-night-header-bg);
+  --pill-accent: var(--c-software-light-accent-text);
   --shadow: var(--c-software-night-shadow);
 }
 
@@ -438,6 +444,7 @@
     --grid: var(--c-software-night-grid);
     --dot: var(--c-software-night-dot);
     --header-bg: var(--c-software-night-header-bg);
+    --pill-accent: var(--c-software-light-accent-text);
     --shadow: var(--c-software-night-shadow);
   }
 }

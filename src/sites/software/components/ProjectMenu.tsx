@@ -1,38 +1,31 @@
 'use client'
 
-import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useId, useRef, useState } from 'react'
 
 import { Icon } from '@/components/ui/Icon'
 import { plural } from '@/lib/plural'
-import { onProjectOpen, projectActions, useProject } from '@/lib/software/projectStore'
 import type { SoftwareNavigation } from '@/lib/software/navigation'
+import { onProjectOpen, useProject } from '@/lib/software/projectStore'
+
+import { focusProjectFallback, isDesktop } from './layer'
+import { ProjectList } from './ProjectList'
 
 type Props = { texts: SoftwareNavigation['projectDrawer'] }
-
-/** The inquiry form takes the list from the browser (`?projekt=1`, spec. §3.1). */
-const SEND_HREF = '/kontakt?projekt=1'
-
-/** Where focus goes when the panel closes with an empty list (the button is gone then). */
-const PROJECT_FOCUS_FALLBACK = 'data-project-fallback'
 
 /** After closing: back on the button — or, with the button gone (empty list), next to it. */
 function focusAfterClose(button: HTMLButtonElement | null, hasItems: boolean) {
   if (hasItems) button?.focus()
-  else document.querySelector<HTMLElement>(`[${PROJECT_FOCUS_FALLBACK}]`)?.focus()
+  else focusProjectFallback()
 }
-
-/** Focus to restore after the list changed under it: a removed row or a cleared list. */
-type PendingFocus = { row: number } | 'heading'
 
 /**
  * „Twój projekt ▾” of the desktop header (spec. §3.1, `stany/02-twoj-projekt.jpg`): shown only
  * while the list has items. A disclosure button with a panel below it — Esc (focus back), ×, a
  * click outside, focus leaving it and a route change close it; the toast's „Zobacz projekt”
- * opens it. Focus never falls to the page: after „Usuń” it moves to the next row's „Usuń” (or
- * the heading), after „Wyczyść listę” to the heading; the panel stays with the empty text, and
- * closing it then moves focus to the element marked `data-project-fallback` („Bezpłatna wycena”).
+ * opens it on the desktop (the phone opens its sheet). The contents and their focus rules are
+ * `ProjectList`; emptied, the panel stays with the empty text, and closing it then moves focus
+ * to the element marked `data-project-fallback` („Bezpłatna wycena”).
  */
 export function ProjectMenu({ texts }: Props) {
   const project = useProject()
@@ -41,8 +34,6 @@ export function ProjectMenu({ texts }: Props) {
   const rootRef = useRef<HTMLDivElement>(null)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const headingRef = useRef<HTMLHeadingElement>(null)
-  const listRef = useRef<HTMLUListElement>(null)
-  const pendingFocus = useRef<PendingFocus | null>(null)
   const panelId = useId()
 
   // A link in the panel („Wyślij…”) or next to it changes the route: close over the new page.
@@ -58,19 +49,10 @@ export function ProjectMenu({ texts }: Props) {
     focusAfterClose(buttonRef.current, hasItems)
   }
 
-  // After the list changed under the focused control (remove, clear), focus its successor.
-  useEffect(() => {
-    const pending = pendingFocus.current
-    if (!pending) return
-    pendingFocus.current = null
-    const rows = listRef.current?.querySelectorAll<HTMLButtonElement>('button') ?? []
-    const target = pending === 'heading' ? null : rows[Math.min(pending.row, rows.length - 1)]
-    ;(target ?? headingRef.current)?.focus()
-  }, [project])
-
   useEffect(
     () =>
       onProjectOpen(() => {
+        if (!isDesktop()) return
         setOpen(true)
         buttonRef.current?.focus()
       }),
@@ -152,56 +134,7 @@ export function ProjectMenu({ texts }: Props) {
           </button>
         </div>
 
-        {project.length === 0 ? (
-          <p className="mt-3 text-ink-2">{texts.empty}</p>
-        ) : (
-          <>
-            <ul ref={listRef} className="mt-3 space-y-2">
-              {project.map((item, row) => (
-                <li
-                  key={item.id}
-                  className="flex items-center gap-3 rounded-xl bg-surface-2 py-1 pl-3 pr-1"
-                >
-                  <span
-                    aria-hidden="true"
-                    className="inline-flex size-[22px] shrink-0 items-center justify-center rounded-full bg-ok text-white"
-                  >
-                    <Icon name="check" strokeWidth={3} className="size-3" />
-                  </span>
-                  <span className="min-w-0 flex-1 font-bold">{item.name}</span>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      pendingFocus.current = { row }
-                      projectActions.remove(item.id)
-                    }}
-                    className="inline-flex size-11 shrink-0 items-center justify-center rounded-lg text-ink-2 hover:text-ink"
-                  >
-                    <Icon name="x" strokeWidth={2.2} className="size-4" />
-                    <span className="sr-only">Usuń: {item.name}</span>
-                  </button>
-                </li>
-              ))}
-            </ul>
-            <Link
-              href={SEND_HREF}
-              onClick={() => setOpen(false)}
-              className="mt-4 flex min-h-12 items-center justify-center rounded-xl bg-button px-5 font-bold text-accent-ink"
-            >
-              {texts.send}
-            </Link>
-            <button
-              type="button"
-              onClick={() => {
-                pendingFocus.current = 'heading'
-                projectActions.clear()
-              }}
-              className="mx-auto mt-2 flex min-h-11 items-center px-3 text-sm font-bold text-ink-2 underline underline-offset-4 hover:text-ink"
-            >
-              {texts.clear}
-            </button>
-          </>
-        )}
+        <ProjectList texts={texts} headingRef={headingRef} onSend={() => setOpen(false)} />
       </div>
     </div>
   )
