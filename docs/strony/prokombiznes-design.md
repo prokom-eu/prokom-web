@@ -1,6 +1,11 @@
 # prokombiznes.pl — brief wizualny (theme lock)
 
 - **Status:** szkic do akceptacji Krystiana · 15.10.2026 · **częściowo zastąpiony 17.10.2026** przez wizualizację `docs/design/prokombiznes/` i ADR-013 (kolory, gradienty, tryb ciemny). Odczucie, ruch, zakazy treściowe i dostępność obowiązują dalej.
+- **Uzupełnienie K3.1 (26.10.2026, KD)** — ma pierwszeństwo przed punktami niżej (źródło: `docs/design/prokombiznes/K31-ZMIANY.md` §3, `MOBILE-APLIKACJA.md`; spec. §3.3, §3.8):
+  - **kafel produktu (§7):** zamiast tła Papier — jedno tło „studio” (`<ProductStage>`: gradient radialny, „blat”, miękki cień, zdjęcie `contain` 74–80% pola) we wszystkich miejscach ze zdjęciem produktu; siatki i kropki pod zdjęciami usunięte; kolory studio jako tokeny w `src/styles/tokens.css` (K31b);
+  - **poświaty (§10 „tła z poświatą”):** dozwolone tylko na ciemnych kartach hero na telefonie (dwie miękkie poświaty zamiast siatki, wzorzec `k31/screens/App-Start-390`) i w hero GoPOS 2.0 (ciepła poświata sceny); jasne tła stron bez poświat jak dotąd;
+  - **telefon (§9, §8 pkt 10):** obowiązuje „telefon jak aplikacja” z `MOBILE-APLIKACJA.md` (dolny pasek 5 zakładek, arkusze, przyklejone akcje) zamiast stałego paska „Zadzwoń / Zapytaj o ofertę”;
+  - **ikony:** dalej własny zestaw z ADR-012 §4 (nie Lucide) — wyróżniki produktu dobierane słownikiem słów kluczowych z tego zestawu.
 - **Do czego służy:** wejście dla `superpowers:brainstorming` i `frontend-design` w Claude Code. Opisuje *jak strona ma wyglądać i działać*; *co* jest na stronie (mapa, treści, zakres) — `docs/strony/prokombiznes.md`. Przy sprzeczności wygrywa specyfikacja, potem `docs/marka.md` i ADR-007.
 - **Kierunek pokazany na canvasie:** „prokombiznes.pl · kierunek wizualny” (Claude, 15.10) — strona główna, podstrona pozycji, kreator, telefon. Projekt strony głównej (jasny/ciemny, komputer i telefon): `prokombiznes-strona-glowna-projekt.pdf`.
 - **Zasada z poradnika Anthropic „Prompting for frontend aesthetics”:** bez wskazówek model zbiega do generycznego wyglądu („AI slop”). Dlatego poniżej każdy wymiar (typografia, kolor, tło, ruch) jest opisany osobno, z listą zakazów i **zamkniętym motywem** — nie interpretuj marki na nowo.

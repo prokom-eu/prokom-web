@@ -1,5 +1,7 @@
 # Katalog v2 — jak wgrać i polecenie dla Claude Code (22.10.2026)
 
+> **Zastąpione przez K3 (25.10.2026) — patrz `PRZEKAZANIE-K3.md`.** Sesja K1 z tego pliku jest zrobiona (#62); kolejne sesje: `docs/zadania/prokombiznes.md` §6.
+
 ## Kolejność
 1. Kończysz bieżącą sesję normalnie (`/przeglad` → `/pr` → merge).
 2. Łatka v20 i **D1** (jeśli jeszcze nie zrobione) — bez zmian.

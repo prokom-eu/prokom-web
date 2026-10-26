@@ -116,6 +116,11 @@ Krystian pracuje na jednym komputerze. **GitHub to kopia kodu i jedyna droga na 
   TDD wg docs/jakosc.md i fundament.md (od S2 dla logiki), nie dla szkieletu z szablonu.
 - Przy sprzeczności skilla z tym plikiem albo ze specyfikacją wygrywa ten plik i specyfikacja.
 
+## prokombiznes.pl
+- Wzorzec: `docs/design/prokombiznes/INDEKS.md` (kolejność ważności dokumentów); decyzje repo (adresy `/oferta/…`, model per tenant) — ADR-012 „Rozstrzygnięcia K3 i K3.1”, plan sesji — `docs/zadania/prokombiznes.md` §6.
+- Telefon = osobny układ jak aplikacja (`MOBILE-APLIKACJA.md`), jego §4 to Definition of Done każdej sesji z UI.
+- Zero cen, tylko Rabka, biznes@pro-kom.eu.
+
 <!-- BEGIN:nextjs-agent-rules -->
 
 # This is NOT the Next.js you know

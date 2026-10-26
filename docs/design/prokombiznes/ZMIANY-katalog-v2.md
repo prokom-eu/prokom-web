@@ -1,5 +1,7 @@
 # Katalog v2 — zmiany w danych i modelu (22.10.2026)
 
+> **Zastąpione przez K3 (25.10.2026) — patrz `PRZEKAZANIE-K3.md` i `K3-KATALOG.md`** (katalog 243 karty + K3.1; wniesione do spec. i ADR-012 w KD, 26.10). Treść poniżej zostaje jako historia.
+
 Ten plik ma pierwszeństwo przed `docs/strony/prokombiznes.md` §5 (katalog) i ADR-012 w sprawach kategorii, liczby produktów i zdjęć — do czasu sesji K1, która wpisze zmiany do spec. i ADR.
 
 Wizualizacja: artefakt „prokombiznes.pl · projekt”, **wersja 112** (plansze `Katalog`, `KatalogM`, `Kategoria` — reszta bez zmian względem v20).

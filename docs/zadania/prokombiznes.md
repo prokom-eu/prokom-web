@@ -1,5 +1,6 @@
-# prokombiznes.pl — plan budowy (sesje B0–B11)
+# prokombiznes.pl — plan budowy (sesje B0–B11, potem K3/K3.1)
 
+- **Aktualizacja 26.10.2026 (KD):** B0–B11 zbudowane i scalone (#45–#100). Przed produkcją dochodzą sesje K3/K3.1 — **§6** (ścieżka skrócona z `docs/design/prokombiznes/START-TUTAJ.md` §3). Sekcje §1–§5 to historia etapu 1.
 - **Stan na:** 17.10.2026, wieczór. Fundament S1–S8, S9a (#39) i S9b-1 (#40) scalone; zostaje S9b-2 (kopie, runbook) i S10 (serwer).
 - **Termin:** produkcja 26.10.2026; wersja testowa na demo 23.10.
 - **Źródła prawdy (w tej kolejności):** `docs/strony/prokombiznes.md` (spec) → `docs/design/prokombiznes/` (zrzuty i plansze) → ADR-012 i ADR-013 → pozostałe ADR-y.
@@ -170,3 +171,56 @@ Zasady: §4 planu. Plan maks. 15 linii, czekaj na „ok”.
    - ochrona ostatniego admina (pomysł z S2 — przed produkcją);
    - panel po polsku (`i18n`) — opcjonalnie, ale szef będzie z niego korzystał.
 8. **Po starcie:** Search Console, sitemap, Profil Firmy w Google (zadanie w Asanie na 21.10).
+
+---
+
+## 6. Etap K3/K3.1 — sesje przed produkcją (od 26.10.2026)
+
+Źródła: `docs/design/prokombiznes/INDEKS.md` (kolejność ważności: `MOBILE-APLIKACJA.md` → `K31-ZMIANY.md` → `K3-KATALOG.md` → `ZMIANY-v20.md` → spec.), spec. `docs/strony/prokombiznes.md` (streszczenie K3/K3.1 i decyzje repo), ADR-012 „Rozstrzygnięcia K3 i K3.1” (rozstrz. 14–21), ADR-016 (filmy). Gotowe prompty: `PRZEKAZANIE-K3.md` §5, `K3-KATALOG.md` §11, `PRZEKAZANIE-K31.md` §4, `AUDYT-PRODUKCJA.md` §9 — wklejasz je **z dopiskami z §6.2**.
+
+**Zastąpione (nie budujemy):** K2 (import treści katalogu v2) — zastąpione przez K3 (nie było importowane); B7b z `AUDYT-B11.md` §9 — zastąpione przez K3; **B7b (K3)** z `K3-KATALOG.md` §11 — zastąpione przez **K31d**; strona produktu w wersji K3 (`K3b`) — budowana od razu jako produkt 2.0 w K31b, a reszta K3b jako **K3b′**.
+
+### 6.1 Sesje (ścieżka skrócona)
+
+| # | Sesja | Prompt | Zakres | Gotowe, gdy (+ wspólne kryteria §6.3) |
+|---|---|---|---|---|
+| 1 | ~~**W**~~ — wgranie K3 + K3.1 | `PRZEKAZANIE-K3.md` §5 W-K3 + `PRZEKAZANIE-K31.md` §4 W-K31 | paczki w `docs/` i `seed/`, bez kodu | ✅ #110 (25.10) |
+| 2 | ~~**KD**~~ — dokumenty K3 + K3.1 | „KD” + „KD31” | spec., ADR-012, ADR-016, ten plan, CLAUDE.md, STAN | ✅ ten PR (26.10) |
+| 3 | **F1** — poprawki po audycie B11 | `AUDYT-B11.md` | **TODO(krystian): status nieustalony** — pliku `AUDYT-B11.md` nie ma w repo, w historii brak F1. Przed K3a: zrobione / odpuszczone / wgrać plik i dopisać zakres. Z F1 wiemy tylko tyle, co cytują paczki: `noindex` dla kart „do sprawdzenia” i liczniki z bazy (F1 pkt 6) — jeśli F1 odpada, te dwie rzeczy robią K3a i K31d | — |
+| 4 | **K3a** — model i import K3 | `K3-KATALOG.md` §11 „K3a” | pola `Products`/`Partners`/`CatalogCategories` (ADR-012 rozstrz. 15), migracja, `seed:biznes` z `seed/prokombiznes/k3/`, 301 dla usuniętych i zastąpionych, karty `do-akceptacji-szefa` nieopublikowane, `noindex` dla `do-sprawdzenia`, test „zero cen” + zakazane marki | panel: 243 karty (3 nieopublikowane); import 2× = te same liczby; stary adres produktu → 301 (test); raport bez dopasowania; zrzuty katalogu 1440/390 |
+| 5 | **K31a** — import K3.1 | `PRZEKAZANIE-K31.md` §4 „K31a” | 26 kart + 91 zdjęć, `series`, `videos` (+ zadanie oEmbed, ADR-016), dane salonów w `Partners`, treści GoPOS/InsERT/O firmie/Kontakt do bloków stron (nie globali), `FloorPlans` (12 scen, bez zestawów — te w K3c), podział 6 kart (+ 301), uzupełnienia treści, `featured` z `strona-glowna-k31.json`, filtr dozwolonych domen źródeł | 269 kart / 266 widocznych przed podziałem; po podziale +11 `do-sprawdzenia` i 5 × 301 (raport); 24 nowe karty z galerią; Lenovo 44 i Dell 34 — każda w jednej serii; 12 scen / 186 punktów, 0 punktów bez karty; liczba produktów z filmem zgodna z raportem (122); każda widoczna karta ≥ 3 FAQ; import 2× = te same liczby |
+| 6 | **K31b** — produkt 2.0, studio, stopka | `PRZEKAZANIE-K31.md` §4 „K31b” + dopisek „to jest pierwsza wersja strony produktu po K3 — zbuduj ją od razu wg K31-ZMIANY §4; K3-KATALOG §5 (Wybierz wersję, FAQ, W zestawach) jest w niej zawarty” | spec. §6.2, §3.8, §3.4, §6.13; akapit o YouTube w `/cookies` (seed `legal.ts`); nazwa sekcji zamiast „W PRO-KOM w cenie” | ThinkBook 14 G8/G9, Posnet Ergo, ThinkPad X9 (galeria), ThinkPad P1 Gen 9 (zastępnik) zgodne z `k31/screens/Web-Produkt-*`; nigdzie siatki za zdjęciem; 0 pustych `<img>`; zero żądań do YouTube przed „▶” (test sieci); e2e: wersja → dodaj → notatka w zapytaniu i w mailu (Mailpit); stopka jak `Web-*-1440` |
+| 7 | **K3b′** — marki, kategorie, wyszukiwarka | `K3-KATALOG.md` §11 „K3b” + dopisek „bez strony produktu (jest z K31b)” | `/marki/[slug]` (szablon), podkategorie (chipy + adresy `/oferta/{kategoria}/{podkategoria}`), mega menu z podkategoriami, wyszukiwarka z markami i aliasami (< 50 KB gzip), sitemap; nazwa sekcji „W cenie” w kategorii | 2 marki zgodne z `k3/screens/Web-Marka*`; „laptop” daje laptopy; podkategorie komputerów mają własne adresy z canonical; JSON-LD `Brand` bez błędów |
+| 8 | **K31c** — salony Lenovo i Dell | `PRZEKAZANIE-K31.md` §4 „K31c” | salon na `/marki/lenovo`, `/marki/dell`; kategoria komputerów z filtrem serii (`?seria=`) | dział Akcesoria i seria Dell Plus; klik w serię filtruje; dobór w 3 pytaniach: 3 kombinacje → oczekiwane serie (test jednostkowy reguł); zrzuty zgodne z `Web-Marka-*`, `Web-Kategoria-1440` |
+| 9 | **K3c** — gotowe zestawy | `K3-KATALOG.md` §11 „K3c” | `Bundles` + import, `/zestawy`, `/zestawy/[slug]`, „W zestawach” na produkcie, sekcja na stronach branż, zestawy w wyniku kreatora, „Gotowe zestawy” w menu, **relacja `FloorPlans.bundles` + import zestawów scen** (ADR-012 konsekwencje) | `/zestawy` i 2 zestawy zgodne ze wzorcem; „Zapytaj o ten zestaw” na `zestaw-kawiarnia-lada` dodaje 5 obowiązkowych pozycji (+ zaznaczone opcjonalne) z notatką; `ItemList` bez błędów; test „zero cen” zielony |
+| 10 | **K31d** — Plan Twojej firmy 2.0 | `PRZEKAZANIE-K31.md` §4 „K31d” | spec. §6.12; komponent na `/plan-firmy` i na głównej (zamiast planu z B7c); „Najczęściej wybierane” na studio; liczniki z bazy | 12 scen = 186 punktów, każdy z kartą i zdjęciem; popup: film po lewej (iframe dopiero po kliknięciu), Esc/strzałki, focus trap; telefon: arkusz z filmem; stary plan v20 zniknął; „Najczęściej wybierane” = 8 pozycji z panelu; e2e: punkt → film → dodaj |
+| 11 | **K31e** — GoPOS, InsERT, O firmie, Kontakt 2.0 | `PRZEKAZANIE-K31.md` §4 „K31e” | spec. §6.5, §6.6, §6.9 — bloki stron (nie globale); przy dużym zakresie O firmie i Kontakt jako **K31f** | hero GoPOS jak wzorzec; pakiet z 3 modułami → 3 pozycje; klik „Kuchnia” podświetla KDS; InsPunkty 40 + 30 → 70 / 840; „Który Subiekt”: 3 kombinacje → 123 / GT / nexo; formularz kontaktu zapisuje zgłoszenie; `/o-firmie`, `/kontakt` jak wzorzec — tylko Rabka i biznes@ |
+| 12 | **M1** — telefon jak aplikacja | `K3-KATALOG.md` §11 „M1” + dopisek z `PRZEKAZANIE-K31.md` §4 | `MOBILE-APLIKACJA.md` w całości (ma pierwszeństwo przed promptem): szkielet, arkusze, 29 ekranów | 390 px vs `k31/screens/App-*` (i `k3/screens/App-*`) w obu motywach; dolny pasek, menu i filtry jako arkusze (gest w dół), przyklejone CTA; 0 poziomego przewijania przy 360/390/414 na każdej trasie; Lighthouse mobile ≥ 90; e2e: produkt → wersja → dodaj → zapytanie → wyślij |
+| 13 | **PROD** — gotowość produkcyjna | `AUDYT-PRODUKCJA.md` §9 „PROD” — **po odjęciu tego, co już jest** (niżej) | status i opiekun zapytań (`Inquiries.status`, `owner`); analityka bez cookies (**najpierw ADR** — Umami to nowy kontener); nagłówki bezpieczeństwa (CSP z `frame-src` youtube-nocookie, ADR-016), `robots` bez `/admin` i `/api`; mega menu (Plan, Salony), szyna „Realizacje” → „Dla kogo”, ukryty przegląd IT (stopka, mega menu, plakietka „0 zł”); **kreator: wynik = gotowy zestaw**; opcjonalnie manifest PWA | e2e: wysłane zapytanie → mail w Mailpit + rekord „nowe”; brak skryptu analityki bez env; nagłówki w odpowiedzi; zrzuty mega menu i stopki |
+| 14 | **Staging** | `AUDYT-PRODUKCJA.md` §9 (lista kontrolna), `/wdrozenie staging` | formularze i maile na prawdziwym SMTP (migracja poczty 30.10), Lighthouse, oEmbed filmów, tryb ciemny, Android + iPhone; przeniesienie treści (STAN „W toku” → „Produkcja”) | zapytanie dochodzi na biznes@ i do Krystiana; Lighthouse telefon ≥ 90 (główna, katalog, produkt, plan, GoPOS); akceptacja szefa w Asanie → `/wdrozenie produkcja` |
+
+**Już zrobione z listy PROD** (`AUDYT-PRODUKCJA.md` pisze, że brak — stan repo 26.10): strony `/polityka-prywatnosci`, `/cookies`, `/dostepnosc` i `/mapa-strony` (B11b, #99 — treści prawne to projekty do akceptacji); zgoda RODO z wersją klauzuli przy formularzach (S8b); honeypot, minimalny czas i limit zgłoszeń z IP (S8a); mail do biura i potwierdzenie dla klienta (S8/B8a). PROD sprawdza je, nie buduje drugi raz; klauzula informacyjna pod formularzem — porównać z `consent.ts` i dopisać tylko brakujące.
+
+**Kolejność cięcia przy braku czasu** (`AUDYT-PRODUKCJA.md` §10 — od końca, nie jakość): 1) K31c (do czasu salonu — szablon marki z K3b′); 2) K31e (GoPOS/InsERT, O firmie i Kontakt zostają z etapu 1); 3) kreator i branże poza gastronomią → listopad. **Bez cięć:** K3a, K31a, K31b, K3b′, K3c, K31d, M1, PROD. Decyzja szefa: kolejność Biznes vs Gaming do 20.11 (**TODO(krystian)**).
+
+### 6.2 Dopiski do każdego promptu z paczek
+Paczki piszą nazwami swoich plansz. Do promptu sesji dopisz:
+```
+Decyzje repo (ADR-012 „Rozstrzygnięcia K3 i K3.1”, spec. §2) wygrywają z nazwami z paczki:
+- adresy: /oferta/{slug kategorii}/{slug podkategorii}, nie /katalog/{kod}/…; kody K3 → slugi przez CATEGORY_SLUGS;
+- marki = kolekcja Partners (nie Brands); „globale” GoposPage/InsertPage/AboutPage/ContactPage = strony Pages z blokami Biznesu; Company = CompanyData + SiteSettings; HomePage.featured = Products.featured + featuredOrder; Products.aliases = Products.keywords; Bundles i FloorPlans = kolekcje z tenantem;
+- notatki (wersja, zestaw, plan, pakiet) = uwaga pozycji listy zapytania;
+- filmy wg ADR-016.
+Wzorzec: k31/screens/<plik> (gdzie K3.1 nic nie zmienia — k3/screens/), wartości i stany: k31/boards/ albo k3/boards/<plik>.dc.html (podgląd: PRZEKAZANIE-K3 §4). Teksty i odstępy z planszy; dane z bazy.
+Najpierw sprawdź, co już jest w kodzie (B0–B11) — nie buduj drugi raz.
+```
+
+### 6.3 Wspólne kryteria „Gotowe” (każda sesja z UI)
+- **Telefon wg `MOBILE-APLIKACJA.md` §4:** 0 poziomego przewijania przy 360/390/414 px (test Playwright na zmienionych trasach), cele dotykowe ≥ 44 px, zrzut 390 zgodny z `App-*` — telefon jest częścią zakresu sesji, nie poprawką na koniec (M1 dokłada szkielet aplikacji i ekrany, których nie dotknęła żadna sesja).
+- Zrzuty Playwright 1440 i 390 px w obu motywach porównane z `k31/screens/` (potem `k3/screens/`, `screens/` v20); w opisie PR lista różnic.
+- axe bez błędów; test „zero cen” i zakazane marki zielone; dane z bazy, nic na sztywno; pola wewnętrzne paczek nigdy na stronie.
+- `/przeglad` (recenzent), `/koniec-sesji`, `/pr`; jedna sesja = jedna gałąź (od `origin/develop`) = jeden PR; plan maks. 15 linii przed kodem.
+- Dane w seedzie wyglądają źle → raport w PR, poprawka przez seed/panel, nie na sztywno w kodzie. Pomysł spoza zakresu → STAN „Pomysły na później”.
+
+### 6.4 Poza kodem (równolegle)
+Listy: `START-TUTAJ.md` §5, `PRZEKAZANIE-K3.md` §6, `PRZEKAZANIE-K31.md` §5, `AUDYT-PRODUKCJA.md` §5 i §11; arkusze `K3-przeglad.xlsx`, `K31-przeglad.xlsx` (u Krystiana, poza repo). Zbiorczo w spec. §13 pkt 13–20.

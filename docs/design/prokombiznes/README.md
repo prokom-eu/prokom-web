@@ -2,6 +2,8 @@
 
 Wizualizacja całej strony przygotowana i zaakceptowana przez Krystiana 17.10.2026. To **cel wizualny**. Zakres i zachowania są w `docs/strony/prokombiznes.md`, a model danych w `docs/decyzje/ADR-012-katalog-i-model-tresci-prokombiznes.md`.
 
+> **Od K3 i K3.1 (25.10.2026) zacznij od `INDEKS.md`** — spis materiałów i kolejność ważności (`MOBILE-APLIKACJA.md` → `K31-ZMIANY.md` → `K3-KATALOG.md` → `ZMIANY-v20.md` → spec.). Nowy wzorzec: `k31/screens/`, `k31/boards/` oraz `k3/screens/`, `k3/boards/` (tam, gdzie K3.1 nic nie zmienia). Tabela niżej opisuje wzorzec v17/v20 (`screens/`, `boards/`) — dla planu firmy, GoPOS, InsERT, O firmie, Kontaktu, stopki i telefonu to historia.
+
 ## Co jest w tym folderze
 
 | Folder / plik | Co to jest | Jak używać |
