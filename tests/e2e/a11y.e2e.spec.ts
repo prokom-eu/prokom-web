@@ -47,7 +47,9 @@ test.describe('accessibility (axe)', () => {
     for (const path of [...PATHS, ...extra]) {
       for (const colorScheme of dark ? (['light', 'dark'] as const) : (['light'] as const)) {
         test(`${host}${path} — ${colorScheme}`, async ({ page }) => {
-          await page.emulateMedia({ colorScheme })
+          // Reduced motion: axe measures contrast of the final state, not of an element
+          // fading in (`motion-safe:` entrance animations, e.g. the /opieka-it audit badges).
+          await page.emulateMedia({ colorScheme, reducedMotion: 'reduce' })
           await page.goto(site(host, path))
           await expect(page.locator('html')).toHaveAttribute('data-line', line)
           await expectNoViolations(page)
