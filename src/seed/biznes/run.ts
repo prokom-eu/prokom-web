@@ -1,8 +1,13 @@
+import { readFile } from 'fs/promises'
 import path from 'path'
 import type { Payload, Where } from 'payload'
 
 import icons from '../../../seed/prokombiznes/ikony.json'
 import katalog from '../../../seed/prokombiznes/katalog.json'
+import k3Catalog from '../../../seed/prokombiznes/k3/katalog-k3.json'
+import k3Dictionaries from '../../../seed/prokombiznes/k3/slowniki-k3.json'
+import k3Media from '../../../seed/prokombiznes/k3/media-k3.json'
+import k3Removed from '../../../seed/prokombiznes/k3/usuniete.json'
 import kreator from '../../../seed/prokombiznes/kreator.json'
 import media from '../../../seed/prokombiznes/media.json'
 import gallery from '../../../seed/prokombiznes/media-produkty-v2.json'
@@ -11,22 +16,36 @@ import { wizardFromSeed, wizardSchema } from '../../lib/catalog/wizard'
 import { mapConcurrent } from '../concurrency'
 import { parseGalleryLimit, SEED_CONTEXT } from '../config'
 import {
+  allowedBadge,
+  k3CategoryData,
+  k3CreateFields,
+  k3GalleryFile,
+  k3GalleryMediaData,
+  k3ImageKeys,
+  k3PartnerData,
+  k3ProductData,
+  k3PublishStatus,
+  k3Retired,
+  matchCards,
+  REPLACED_PRODUCTS,
+  SKIPPED_INDUSTRIES,
+  type K3Card,
+  type K3Dictionaries,
+  type K3RemovedCard,
+  type K3Gallery,
+} from './k3'
+import {
   brandLogoFile,
-  categoryData,
   galleryFileName,
-  galleryFilesToImport,
   galleryMediaData,
   groupData,
   industryData,
   isImportedFileName,
   mediaData,
   PREVIOUS_CATEGORY_SLUGS,
-  productData,
-  productLegacyIds,
   productUpdateData,
   searchData,
   skipMediaFile,
-  slugFromName,
   type SeedCatalog,
 } from './map'
 import { hasSameValues } from '../compare'
@@ -54,17 +73,26 @@ const GALLERY_UPLOADS_AT_ONCE = 4
 type Counter = { created: number; updated: number; skipped: number }
 
 /**
- * Imports the Biznes catalog from `seed/prokombiznes/` into the local database (B2, local only).
+ * Imports the Biznes catalog into the local database (B2, local only). Products, categories and
+ * brand pages come from the K3 package (`seed/prokombiznes/k3/`, K3-KATALOG §4); katalog v2
+ * (`katalog.json`) still gives groups' order, industries, design images and what K3 lacks.
  * Idempotent: a record is found by its key (slug in the tenant, `legacyIds`, file name).
- * Groups, industries, brands, images and settings are then left as they are.
- * Categories and products (katalog v2): every field the package provides wins over an edit made
- * in the panel (name, benefit, badge, images…) — the record is updated when it differs from the
- * package, and only then (no new version on a re-run). Fields the package does not provide
- * (descriptions, specs, hotspots, FAQ…) are never touched. The content status and check date
- * only move forward (`productUpdateData`).
+ * Groups, industries, images and settings are then left as they are.
+ * Categories, brand pages and products: every field K3 provides wins over an edit made in the
+ * panel — the record is updated when it differs, and only then (no new version on a re-run).
+ * Panel fields K3 lacks (kind, popularity, badge, register type…) are written on create only.
+ * The content status and check date only move forward (`productUpdateData`). Removed and
+ * replaced cards are hidden (draft) with a 301 rule; nothing is deleted.
  */
 export async function seedBiznesCatalog(payload: Payload): Promise<void> {
   const catalog: SeedCatalog = katalog
+  const dictionaries: K3Dictionaries = k3Dictionaries
+  const cards: K3Card[] = k3Catalog.produkty
+  const removed: K3RemovedCard[] = k3Removed.produkty
+  const k3Gallery: K3Gallery = k3Media.zdjecia
+  const matches = matchCards(cards, catalog.produkty)
+  const report: Record<string, string[]> = {}
+  const note = (what: string, item: string) => (report[what] ??= []).push(item)
   const galleryLimit = parseGalleryLimit(process.env.SEED_GALLERY_LIMIT)
   const log = (message: string) => payload.logger.info(`Seed (Biznes): ${message}`)
   const local = { overrideAccess: true, context: SEED_CONTEXT, depth: 0 } as const
@@ -101,7 +129,7 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
 
   // --- groups, categories, industries ---
   const groupIds = new Map<string, number>()
-  for (const group of catalog.grupy) {
+  for (const group of dictionaries.grupy) {
     const data = groupData(group)
     groupIds.set(
       group.slug,
@@ -116,10 +144,10 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
   }
 
   const categoryIds = new Map<string, number>()
-  for (const category of catalog.kategorie) {
+  for (const category of dictionaries.kategorie) {
     const groupId = groupIds.get(category.grupa)
     if (groupId === undefined) throw new Error(`Seed (Biznes): unknown group "${category.grupa}".`)
-    const data = categoryData(category, groupId, icons.kategoria_ikona)
+    const data = k3CategoryData(category, groupId, icons.kategoria_ikona)
     const slugs = [data.slug, ...(PREVIOUS_CATEGORY_SLUGS[data.slug] ?? [])]
     const {
       docs: [existing],
@@ -157,16 +185,16 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
   const industryIds = new Map<string, number>()
   for (const [index, industry] of catalog.branze.entries()) {
     const data = industryData(industry, index)
-    industryIds.set(
-      industry.slug,
-      await ensure('industries', { slug: { equals: data.slug } }, () =>
-        payload.create({
-          collection: 'industries',
-          data: { ...data, tenant: tenant.id },
-          ...local,
-        }),
-      ),
+    const id = await ensure('industries', { slug: { equals: data.slug } }, () =>
+      payload.create({
+        collection: 'industries',
+        data: { ...data, tenant: tenant.id },
+        ...local,
+      }),
     )
+    // Page seeds use the short slug of katalog v2, K3 cards the address.
+    industryIds.set(industry.slug, id)
+    industryIds.set(data.slug, id)
   }
 
   // --- images of the site (brand logos go to partners below) ---
@@ -197,7 +225,14 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     imageIds.set(file.plik, id)
   }
 
-  // --- katalog v2 galleries: one query for the stored names, then create what is missing ---
+  // --- galleries: K3 photos (uploaded as `k3-<file>`), else katalog v2 or design files ---
+  const imageKeys = new Map(
+    cards.map((card) => [
+      card.slug_seed,
+      k3ImageKeys(card, k3Gallery, matches.get(card.slug_seed), media.pliki, galleryLimit),
+    ]),
+  )
+  if (galleryLimit !== null) log(`gallery limited to ${galleryLimit} photos per product`)
   const { docs: storedMedia } = await payload.find({
     collection: 'media',
     where: { tenant: { equals: tenant.id } },
@@ -205,112 +240,293 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     select: { filename: true },
     ...local,
   })
-  const wantedGallery = galleryFilesToImport(catalog.produkty, gallery.pliki, galleryLimit)
-  if (galleryLimit !== null) log(`gallery limited to ${galleryLimit} photos per product`)
+  const storedId = (name: string) =>
+    storedMedia.find((doc) => isImportedFileName(doc.filename, name))?.id
+
+  // Katalog v2 gallery files still used by a card without K3 photos.
+  const wantedV2 = new Set([...imageKeys.values()].flat())
   await mapConcurrent(
-    gallery.pliki.filter((file) => wantedGallery.has(file.plik)),
+    gallery.pliki.filter((file) => wantedV2.has(file.plik)),
     GALLERY_UPLOADS_AT_ONCE,
     async (file) => {
-      const name = galleryFileName(file.plik)
-      const existing = storedMedia.find((doc) => isImportedFileName(doc.filename, name))
-      count('media (katalog v2)', !existing)
-      const id = existing
-        ? existing.id
-        : (
-            await payload.create({
-              collection: 'media',
-              data: { ...galleryMediaData(file, catalog.produkty), tenant: tenant.id },
-              filePath: path.resolve(SEED_MEDIA_DIR, file.plik),
-              ...local,
-            })
-          ).id
+      const existing = storedId(galleryFileName(file.plik))
+      count('media (katalog v2)', existing === undefined)
+      const id =
+        existing ??
+        (
+          await payload.create({
+            collection: 'media',
+            data: { ...galleryMediaData(file, catalog.produkty), tenant: tenant.id },
+            filePath: path.resolve(SEED_MEDIA_DIR, file.plik),
+            ...local,
+          })
+        ).id
       imageIds.set(file.plik, id)
     },
   )
 
-  // --- brands: shared `Partners`, shown on the Biznes site; a brand without a logo has no file ---
+  const k3Photos = cards.flatMap((card) =>
+    (imageKeys.get(card.slug_seed) ?? []).flatMap((key) => {
+      const file = k3GalleryFile(key)
+      return file ? [{ card, key, ...file }] : []
+    }),
+  )
+  await mapConcurrent(
+    k3Photos,
+    GALLERY_UPLOADS_AT_ONCE,
+    async ({ card, key, filePath, uploadName }) => {
+      const existing = storedId(uploadName)
+      count('media (K3)', existing === undefined)
+      if (existing !== undefined) {
+        imageIds.set(key, existing)
+        return
+      }
+      const data = await readFile(path.resolve(filePath))
+      const created = await payload.create({
+        collection: 'media',
+        data: { ...k3GalleryMediaData(card, key, k3Gallery), tenant: tenant.id },
+        file: { data, mimetype: 'image/webp', name: uploadName, size: data.length },
+        ...local,
+      })
+      imageIds.set(key, created.id)
+    },
+  )
+
+  // --- brands: shared `Partners`; K3 fills the brand page (`brandPage`, K3-KATALOG §6) ---
   const brandIds = new Map<string, number>()
-  for (const [index, brand] of catalog.marki.entries()) {
-    const {
-      docs: [existing],
-    } = await payload.find({
-      collection: 'partners',
-      where: { slug: { equals: brand.slug } },
-      limit: 1,
-      ...local,
-    })
-    count('partners', !existing)
-    if (existing) {
-      brandIds.set(brand.nazwa, existing.id)
+  const findPartner = async (slug: string) =>
+    (
+      await payload.find({
+        collection: 'partners',
+        where: { slug: { equals: slug } },
+        limit: 1,
+        ...local,
+      })
+    ).docs[0]
+  for (const [index, brand] of dictionaries.marki.entries()) {
+    const existing = await findPartner(brand.slug)
+    const { brandPage, website } = k3PartnerData(brand)
+    if (!existing) {
+      // No products and no page (Ingenico: a paragraph on the PolCard page) — no record.
+      if (!brand.strona_marki) {
+        note('marki bez rekordu', brand.slug)
+        continue
+      }
+      const v2Brand = catalog.marki.find((item) => item.slug === brand.slug)
+      const logo = v2Brand ? brandLogoFile(v2Brand, media.pliki) : null
+      const created = await payload.create({
+        collection: 'partners',
+        data: {
+          name: brand.marka,
+          slug: brand.slug,
+          website,
+          // Statuses (authorized service / partner) are [SZEF] facts, set in the panel.
+          partnerStatus: 'none',
+          tenants: [tenant.id],
+          order: index,
+          brandPage,
+        },
+        ...(logo && {
+          filePath: path.resolve(logo.from === 'design' ? MEDIA_DIR : SEED_MEDIA_DIR, logo.file),
+        }),
+        ...local,
+      })
+      count('partners', true)
+      brandIds.set(brand.marka, created.id)
       continue
     }
-    const logo = brandLogoFile(brand, media.pliki)
-    const created = await payload.create({
-      collection: 'partners',
-      data: {
-        name: brand.nazwa,
-        slug: brand.slug,
-        // Statuses (authorized service / partner) are [SZEF] facts, set in the panel.
-        partnerStatus: 'none',
-        tenants: [tenant.id],
-        order: index,
-      },
-      ...(logo && {
-        filePath: path.resolve(logo.from === 'design' ? MEDIA_DIR : SEED_MEDIA_DIR, logo.file),
-      }),
-      ...local,
-    })
-    brandIds.set(brand.nazwa, created.id)
+    const shownOn = (existing.tenants ?? []).map((item) =>
+      typeof item === 'number' ? item : item.id,
+    )
+    if (!shownOn.includes(tenant.id)) {
+      // A shared record of another line: a product saves only with a brand shown on Biznes.
+      throw new Error(
+        `Seed (Biznes): partner "${brand.slug}" is not on the Biznes line — add it in the panel.`,
+      )
+    }
+    brandIds.set(brand.marka, existing.id)
+    // The producer's site only while empty: the brand bar links there until K3b′.
+    const update = { brandPage, ...(!existing.website && website ? { website } : {}) }
+    const same = hasSameValues(existing, update)
+    if (!same) {
+      await payload.update({ collection: 'partners', id: existing.id, data: update, ...local })
+    }
+    count('partners', same ? false : 'updated')
+  }
+  // Page seeds name brands of katalog v2 (the same names as in K3).
+  for (const brand of catalog.marki) {
+    if (brandIds.has(brand.nazwa)) continue
+    const existing = await findPartner(brand.slug)
+    if (existing) brandIds.set(brand.nazwa, existing.id)
   }
 
-  // --- products, published; found by the short id or a sheet id, updated only on change ---
-  // Ids by the package's short id (`d3`, `gopos`), for blocks that list products (B9b kits).
+  // --- products from K3: found by `legacyIds` (K3 ids + those of the katalog v2 product) ---
+  // Ids by every key (short id, sheet id, slug_seed), for blocks that list products (B9b kits).
   const productIds = new Map<string, number>()
-  for (const product of catalog.produkty) {
-    const data = productData(
-      product,
-      catalog,
-      media.pliki,
+  const slugByKey = new Map<string, string>()
+  const k3Keys = new Set<string>()
+  // Paired cards first: the XL2 record gives up the sheet ids of XL2 A and B before those
+  // cards look for a record by them.
+  const paired = (card: K3Card) => (matches.has(card.slug_seed) ? 0 : 1)
+  for (const card of [...cards].sort((a, b) => paired(a) - paired(b))) {
+    const v2 = matches.get(card.slug_seed)
+    const data = k3ProductData(
+      card,
+      v2,
+      dictionaries,
       {
         brand: (name) => brandIds.get(name),
-        category: (slug) => categoryIds.get(slug),
+        category: (code) => categoryIds.get(code),
         industry: (slug) => industryIds.get(slug),
-        image: (file) => imageIds.get(file),
+        image: (key) => imageIds.get(key),
       },
-      galleryLimit,
+      imageKeys.get(card.slug_seed) ?? [],
     )
+    const status = k3PublishStatus(card)
+    if (card.branze.some((slug) => SKIPPED_INDUSTRIES.has(slug))) {
+      note('branża pominięta (magazyn-produkcja)', card.slug_seed)
+    }
     const { docs: found } = await payload.find({
       collection: 'products',
-      where: inTenant({ legacyIds: { in: productLegacyIds(product) } }),
+      where: inTenant({ legacyIds: { in: data.legacyIds } }),
       limit: 2,
       ...local,
     })
     if (found.length > 1) {
-      throw new Error(`Seed (Biznes): product "${product.slug}" matches ${found.length} records.`)
+      throw new Error(`Seed (Biznes): card "${card.slug_seed}" matches ${found.length} records.`)
     }
     const [existing] = found
+    let id: number
     if (!existing) {
       const created = await payload.create({
         collection: 'products',
-        data: { ...data, tenant: tenant.id, _status: 'published' },
+        data: {
+          ...data,
+          ...k3CreateFields(card, v2, dictionaries),
+          tenant: tenant.id,
+          _status: status,
+        },
         ...local,
       })
-      productIds.set(product.slug, created.id)
+      id = created.id
       count('products', true)
-      continue
+    } else {
+      id = existing.id
+      const priceBadge = Boolean(existing.badge) && !allowedBadge(existing.badge)
+      const update = {
+        ...productUpdateData(data, existing),
+        // A card waiting for the boss is a draft „Do sprawdzenia” (ADR-012 rozstrz. 15).
+        ...(status === 'draft' ? { contentStatus: data.contentStatus } : {}),
+        // A katalog v2 badge with a price goes (K3-KATALOG §10); other badges are the panel's.
+        ...(priceBadge ? { badge: null } : {}),
+      }
+      if (update.contentStatus !== data.contentStatus) {
+        note('status K3 nie zastosowany', card.slug_seed)
+      }
+      if (priceBadge) note('odznaka z ceną usunięta', card.slug_seed)
+      const same = existing._status === status && hasSameValues(existing, update)
+      if (!same) {
+        await payload.update({
+          collection: 'products',
+          id: existing.id,
+          data: { ...update, _status: status },
+          ...local,
+        })
+      }
+      count('products', same ? false : 'updated')
     }
-    productIds.set(product.slug, existing.id)
-    const update = productUpdateData(data, existing)
-    const same = existing._status === 'published' && hasSameValues(existing, update)
-    if (!same) {
-      await payload.update({
+    for (const key of data.legacyIds) {
+      productIds.set(key, id)
+      slugByKey.set(key, data.slug)
+      k3Keys.add(key)
+    }
+  }
+
+  // Page seeds may name a replaced product (`nas` on the noclegi page): its successor stands in.
+  for (const [shortId, target] of Object.entries(REPLACED_PRODUCTS)) {
+    if (!('product' in target) || productIds.has(shortId)) continue
+    const id = productIds.get(target.product)
+    const slug = slugByKey.get(target.product)
+    if (id !== undefined) productIds.set(shortId, id)
+    if (slug !== undefined) slugByKey.set(shortId, slug)
+  }
+
+  // --- removed and replaced cards: hidden (draft, records stay), old address → 301 ---
+  const retired = k3Retired(cards, removed, catalog.produkty)
+  for (const item of retired) {
+    if (item.unpublish) {
+      const {
+        docs: [record],
+      } = await payload.find({
         collection: 'products',
+        where: inTenant({ legacyIds: { in: item.legacyIds } }),
+        limit: 1,
+        ...local,
+      })
+      const hide = record?._status === 'published'
+      count('products hidden', hide)
+      if (record && hide) {
+        await payload.update({
+          collection: 'products',
+          id: record.id,
+          data: { _status: 'draft' },
+          ...local,
+        })
+      }
+    }
+    const {
+      docs: [rule],
+    } = await payload.find({
+      collection: 'redirects',
+      where: inTenant({ from: { equals: item.from } }),
+      limit: 1,
+      ...local,
+    })
+    count('redirects', !rule)
+    if (!rule) {
+      await payload.create({
+        collection: 'redirects',
+        data: { from: item.from, to: item.to, tenant: tenant.id },
+        ...local,
+      })
+    } else if (rule.to !== item.to) {
+      // A rule changed in the panel stays; the report shows it.
+      note('301 zmienione w panelu', `${item.from} → ${rule.to}`)
+    }
+  }
+
+  // Brands PRO-KOM no longer sells (Honeywell, StorageCraft): off the Biznes line, record kept.
+  // After hiding their products: a product saves only with a brand shown on its line.
+  for (const slug of dictionaries.marki_usuniete) {
+    const existing = await findPartner(slug)
+    const tenants = (existing?.tenants ?? []).map((item) =>
+      typeof item === 'number' ? item : item.id,
+    )
+    const shown = tenants.includes(tenant.id)
+    count('partners hidden', shown)
+    if (existing && shown) {
+      await payload.update({
+        collection: 'partners',
         id: existing.id,
-        data: { ...update, _status: 'published' },
+        data: { tenants: tenants.filter((id) => id !== tenant.id) },
         ...local,
       })
     }
-    count('products', same ? false : 'updated')
+  }
+  // --- report: products of the tenant that neither K3 nor the retired list knows (§4 pkt 2) ---
+  const retiredKeys = new Set(retired.flatMap((item) => item.legacyIds))
+  const { docs: allProducts } = await payload.find({
+    collection: 'products',
+    where: { tenant: { equals: tenant.id } },
+    pagination: false,
+    select: { slug: true, legacyIds: true },
+    ...local,
+  })
+  for (const product of allProducts) {
+    const keys = product.legacyIds ?? []
+    if (!keys.some((key) => k3Keys.has(key) || retiredKeys.has(key))) {
+      note('bez dopasowania', product.slug)
+    }
   }
 
   // --- search and wizard settings: one document per tenant ---
@@ -320,10 +536,7 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     overrideAccess: true,
   })
   // Wizard proposals name products by their slug in the catalog (B10c).
-  const productSlugs = new Map(
-    catalog.produkty.map((product) => [product.slug, slugFromName(product.nazwa)]),
-  )
-  const wizard = wizardSchema.parse(wizardFromSeed(kreator, (shortId) => productSlugs.get(shortId)))
+  const wizard = wizardSchema.parse(wizardFromSeed(kreator, (shortId) => slugByKey.get(shortId)))
   count('biznes-settings', settingsCount === 0)
   if (settingsCount === 0) {
     await payload.create({
@@ -498,5 +711,8 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
 
   for (const [collection, { created, updated, skipped }] of Object.entries(counters)) {
     log(`${collection}: ${created} created, ${updated} updated, ${skipped} unchanged.`)
+  }
+  for (const [what, items] of Object.entries(report)) {
+    log(`report — ${what} (${items.length}): ${items.join(', ')}`)
   }
 }

@@ -75,7 +75,7 @@ export function ProductTabs({ panels }: { panels: TabPanel[] }) {
               'min-h-11 shrink-0 rounded-xl px-4 font-extrabold transition-colors',
               active === position
                 ? 'bg-card text-ink shadow-[0_6px_16px_-10px_var(--glow)]'
-                : 'text-ink-3 hover:text-ink',
+                : 'text-ink-2 hover:text-ink',
             )}
           >
             {panel.label}
