@@ -19,6 +19,7 @@ import {
   k3GalleryMediaData,
   k3ImageKeys,
   k3PartnerData,
+  k3BrandNeedsRecord,
   k3ProductData,
   k3PublishStatus,
   k3Retired,
@@ -466,6 +467,18 @@ describe('k3CategoryData and k3PartnerData (dictionaries)', () => {
       subcategories: expect.arrayContaining([{ name: 'Skanery kodów', slug: null }]),
     })
     expect(k3CategoryData(category('kasy'), 7, icons.kategoria_ikona).subcategories).toEqual([])
+  })
+
+  it('creates a brand record for a page or a card, never for neither (Ingenico)', () => {
+    const brand = (slug: string) => dictionaries.marki.find((item) => item.slug === slug)!
+    // PRO-KOM has no page, but 13 cards (services): a fresh database needs the record.
+    expect(k3BrandNeedsRecord(brand('pro-kom'), cards)).toBe(true)
+    expect(k3BrandNeedsRecord(brand('posnet'), cards)).toBe(true)
+    expect(k3BrandNeedsRecord(brand('ingenico'), cards)).toBe(false)
+    const used = new Set(cards.map((item) => item.marka))
+    for (const item of dictionaries.marki.filter((b) => used.has(b.marka))) {
+      expect(k3BrandNeedsRecord(item, cards)).toBe(true)
+    }
   })
 
   it('fills the brand page from the dictionary (31 brands have one)', () => {

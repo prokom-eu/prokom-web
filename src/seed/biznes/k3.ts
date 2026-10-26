@@ -490,6 +490,14 @@ export function k3CategoryData(
   }
 }
 
+/** A brand gets a record when it has a page or a card (Ingenico has neither: no record). */
+export function k3BrandNeedsRecord(
+  brand: Pick<K3Brand, 'marka' | 'strona_marki'>,
+  cards: Pick<K3Card, 'marka'>[],
+): boolean {
+  return brand.strona_marki || cards.some((card) => card.marka === brand.marka)
+}
+
 /** Brand page of a partner (`Partners.brandPage`) and the producer's site for `website`. */
 export function k3PartnerData(brand: K3Brand) {
   const brandPage: NonNullable<Partner['brandPage']> = {

@@ -23,6 +23,7 @@ import {
   k3GalleryMediaData,
   k3ImageKeys,
   k3PartnerData,
+  k3BrandNeedsRecord,
   k3ProductData,
   k3PublishStatus,
   k3Retired,
@@ -308,7 +309,7 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     const { brandPage, website } = k3PartnerData(brand)
     if (!existing) {
       // No products and no page (Ingenico: a paragraph on the PolCard page) — no record.
-      if (!brand.strona_marki) {
+      if (!k3BrandNeedsRecord(brand, cards)) {
         note('marki bez rekordu', brand.slug)
         continue
       }
