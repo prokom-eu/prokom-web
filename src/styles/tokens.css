@@ -217,6 +217,8 @@
   --grad-h1: linear-gradient(var(--accent-text), var(--accent-text));
   /* Accent part of a plain (non-gradient) H1 — Biznes hero (ADR-013, v20). */
   --h1-accent: var(--accent-text);
+  /* Background of the primary button: the text accent; Software uses its button accent. */
+  --button-bg: var(--accent-text);
 }
 
 [data-line='prokom'] {
@@ -297,6 +299,8 @@
   --dot: var(--c-software-light-dot);
   --header-bg: var(--c-software-light-header-bg);
   --shadow: var(--c-software-light-shadow);
+  /* Boards: buttons on --accent with --accent-ink (SW4); follows the theme with --accent. */
+  --button-bg: var(--accent);
 
   /* ADR-015: H1 fragment on 5 pages, without the light blue of the boards. */
   --grad-h1: linear-gradient(

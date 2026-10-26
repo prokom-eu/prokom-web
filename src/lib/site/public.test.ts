@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import type { CompanyDatum, SiteSetting } from '@/payload-types'
 
+import nawigacja from '../../../seed/prokomsoftware/nawigacja.json'
 import { toPublicCompanyData, toPublicSiteSettings } from './public'
 
 const company: CompanyDatum = {
@@ -81,6 +82,7 @@ describe('toPublicSiteSettings', () => {
       footer: { text: null, links: [] },
       seo: { titleTemplate: null, description: null, ogImage: null },
       biznes: null,
+      software: null,
     })
   })
 
@@ -159,5 +161,34 @@ describe('toPublicSiteSettings', () => {
       toPublicSiteSettings({ ...base, line: 'software', biznes }, 'biznes').biznes,
     ).not.toBeNull()
     expect(toPublicSiteSettings({ ...base, line: 'biznes', biznes }, 'software').biznes).toBeNull()
+  })
+})
+
+describe('toPublicSiteSettings — Software', () => {
+  const base = { id: 9, tenant: 3, updatedAt: '', createdAt: '' }
+  const software: SiteSetting['software'] = { navigation: nawigacja }
+
+  it('maps the navigation on the Software line', () => {
+    expect(
+      toPublicSiteSettings({ ...base, software }, 'software').software?.navigation?.tabBar.items,
+    ).toHaveLength(5)
+  })
+
+  // Like the Biznes group (ADR-012, rozstrzygnięcie 2): never on another line's domain.
+  it.each(['biznes', 'instalacje', 'prokom', null] as const)(
+    'drops the Software data on line %s',
+    (line) => {
+      expect(toPublicSiteSettings({ ...base, software }, line).software).toBeNull()
+    },
+  )
+
+  it('has no navigation when it is empty or was saved past the validation', () => {
+    const broken = { ...nawigacja, tabBar: { items: [] } }
+    expect(toPublicSiteSettings({ ...base, software: {} }, 'software').software).toEqual({
+      navigation: null,
+    })
+    expect(
+      toPublicSiteSettings({ ...base, software: { navigation: broken } }, 'software').software,
+    ).toEqual({ navigation: null })
   })
 })

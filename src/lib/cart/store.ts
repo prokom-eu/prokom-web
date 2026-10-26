@@ -1,127 +1,51 @@
 'use client'
 
-import { useSyncExternalStore } from 'react'
-
+import { createListStore } from '../list/store'
 import * as list from './cart'
 import { CART_KEY, type Cart, parseCart } from './cart'
 
 /**
- * The inquiry list in the browser (spec. §8.1): `localStorage` `pk-cart`, shared by all tabs
- * through the `storage` event, read with `useSyncExternalStore` (no state library). Without
- * storage (private mode, blocked site data) the list lives in memory for the page view.
+ * The inquiry list in the browser (spec. §8.1): `localStorage` `pk-cart` on the shared list
+ * store (`lib/list/store.ts` — tabs, memory fallback, toast and drawer events). The item
+ * operations (quantities, notes) stay in `./cart`.
  */
 
-const EMPTY: Cart = []
-const listeners = new Set<() => void>()
-let snapshot: { raw: string | null; cart: Cart } = { raw: null, cart: EMPTY }
-let memory: string | null = null
-/** Set when a write failed (storage full, Safari private mode): `memory` is the list since. */
-let inMemory = false
+const store = createListStore(CART_KEY, parseCart)
+const get: () => Cart = store.get
 
-function readRaw(): string | null {
-  if (inMemory) return memory
-  try {
-    return window.localStorage.getItem(CART_KEY)
-  } catch {
-    return memory
-  }
-}
-
-function getSnapshot(): Cart {
-  const raw = readRaw()
-  // Same text → same array: React re-renders only when the list really changed.
-  if (raw !== snapshot.raw) snapshot = { raw, cart: raw ? parseCart(raw) : EMPTY }
-  return snapshot.cart
-}
-
-const getServerSnapshot = () => EMPTY
-
-function notify() {
-  for (const listener of listeners) listener()
-}
-
-function onStorage(event: StorageEvent) {
-  if (event.key === CART_KEY || event.key === null) notify()
-}
-
-function subscribe(listener: () => void) {
-  listeners.add(listener)
-  if (listeners.size === 1) window.addEventListener('storage', onStorage)
-  return () => {
-    listeners.delete(listener)
-    if (listeners.size === 0) window.removeEventListener('storage', onStorage)
-  }
-}
-
-function write(cart: Cart) {
-  const raw = JSON.stringify(cart)
-  memory = raw
-  try {
-    window.localStorage.setItem(CART_KEY, raw)
-  } catch {
-    // No storage: `memory` keeps the list until the page is left.
-    inMemory = true
-  }
-  notify()
-}
-
-/** The list; empty on the server and in the first render (no hydration mismatch). */
-export function useCart(): Cart {
-  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
-}
-
-// --- events for the toast and the drawer (one of each per page, in the header) ---
-
-type Added = { id: string; name: string }
-const addedListeners = new Set<(added: Added) => void>()
-const openListeners = new Set<() => void>()
-
-function on<T>(set: Set<T>, listener: T) {
-  set.add(listener)
-  return () => {
-    set.delete(listener)
-  }
-}
-
-export const onCartAdded = (listener: (added: Added) => void) => on(addedListeners, listener)
-export const onCartOpen = (listener: () => void) => on(openListeners, listener)
-
-export function openCartDrawer() {
-  for (const listener of openListeners) listener()
-}
-
-function announce(id: string, name: string) {
-  for (const listener of addedListeners) listener({ id, name })
-}
+export const useCart: () => Cart = store.useList
+export const onCartAdded = store.onAdded
+export const onCartOpen = store.onOpen
+export const openCartDrawer = store.open
 
 /** Changes of the list; `name` is shown in the "Dodano do zapytania" toast. */
 export const cartActions = {
   toggle(id: string, name: string) {
-    const { cart, added } = list.toggle(getSnapshot(), id)
-    write(cart)
-    if (added) announce(id, name)
+    const { cart, added } = list.toggle(get(), id)
+    store.write(cart)
+    if (added) store.announce(id, name)
   },
   add(id: string, name: string) {
-    const before = getSnapshot()
+    const before = get()
     const cart = list.addOnly(before, id)
     if (cart === before) return
-    write(cart)
-    announce(id, name)
+    store.write(cart)
+    store.announce(id, name)
   },
   /** „Dodaj wszystko”: one write and one toast with `name` (e.g. „3 pozycje ze stanowiska”). */
   addMany(ids: readonly string[], name: (added: number) => string) {
-    const { cart, added } = list.addAll(getSnapshot(), ids)
+    const { cart, added } = list.addAll(get(), ids)
     if (added.length === 0) return
-    write(cart)
-    announce(added[0]!, name(added.length))
+    store.write(cart)
+    store.announce(added[0]!, name(added.length))
   },
-  changeQty: (id: string, delta: number) => write(list.changeQty(getSnapshot(), id, delta)),
-  remove: (id: string) => write(list.remove(getSnapshot(), id)),
-  setNote: (id: string, note: string) => write(list.setNote(getSnapshot(), id, note)),
-  clear: () => write(EMPTY),
+  changeQty: (id: string, delta: number) => store.write(list.changeQty(get(), id, delta)),
+  remove: (id: string) => store.write(list.remove(get(), id)),
+  setNote: (id: string, note: string) => store.write(list.setNote(get(), id, note)),
+  clear: () => store.write([]),
   prune(known: ReadonlySet<string>) {
-    const before = getSnapshot()
+    const before = get()
     const cart = list.prune(before, known)
-    if (cart !== before) write(cart)
+    if (cart !== before) store.write(cart)
   },
 }
