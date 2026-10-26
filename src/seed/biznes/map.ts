@@ -269,13 +269,11 @@ function designImageFiles(product: SeedProduct, files: SeedMediaFile[]): string[
   return [...new Set([...(product.zdjecie ? [product.zdjecie] : []), ...keyed])]
 }
 
-export function productData(
-  product: SeedProduct,
-  catalog: Pick<SeedCatalog, 'kolejnosc_wyroznionych'>,
-  files: SeedMediaFile[],
-  refs: ProductRefs,
-  galleryLimit: number | null = null,
-) {
+/**
+ * Fields of katalog v2 that K3 does not have (kind, badge, keywords, flags, register data). Since
+ * K3 they belong to the panel: the K3 import (`k3.ts`) writes them only when it creates a card.
+ */
+export function productPanelFields(product: SeedProduct) {
   // Every key, empty ones as null: an update clears parameters the package dropped.
   const comparison = Object.fromEntries([
     ...Object.values(COMPARISON_KEYS).map((key) => [key, null] as const),
@@ -283,6 +281,28 @@ export function productData(
       ([key, value]) => [mapped(COMPARISON_KEYS, key, 'register parameter'), value] as const,
     ),
   ])
+  return {
+    kind: mapped(KINDS, product.rodzaj, 'product kind'),
+    badge: text(product.odznaka) ?? null,
+    keywords: text(product.slowa_kluczowe) ?? null,
+    batch: product.partia == null ? null : mapped(BATCHES, String(product.partia), 'batch'),
+    isNew: Boolean(product.nowosc),
+    authorized: Boolean(product.autoryzacja),
+    popularity: product.popularnosc ?? 50,
+    registerTypes: (product.typ_kasy ?? []).map((type) =>
+      mapped(REGISTER_TYPES, type, 'register type'),
+    ),
+    comparison,
+  }
+}
+
+export function productData(
+  product: SeedProduct,
+  catalog: Pick<SeedCatalog, 'kolejnosc_wyroznionych'>,
+  files: SeedMediaFile[],
+  refs: ProductRefs,
+  galleryLimit: number | null = null,
+) {
   const featuredIndex = catalog.kolejnosc_wyroznionych.indexOf(product.slug)
   const featured = Boolean(product.wyrozniony_na_glownej)
   const images = productImageFiles(product, files, galleryLimit).map((file) =>
@@ -295,15 +315,12 @@ export function productData(
     name: product.nazwa,
     slug: slugFromName(product.nazwa),
     legacyIds: productLegacyIds(product),
-    kind: mapped(KINDS, product.rodzaj, 'product kind'),
     brand: ref(refs.brand, product.marka, 'brand'),
     categories: [ref(refs.category, product.kategoria, 'category')],
     subcategory: text(product.podkategoria) ?? null,
     industries: (product.branze ?? []).map((slug) => ref(refs.industry, slug, 'industry')),
     benefit: text(product.korzysc) ?? null,
     features: product.cechy ?? [],
-    badge: text(product.odznaka) ?? null,
-    keywords: text(product.slowa_kluczowe) ?? null,
     images,
     // Katalog v2 gives model names only; the difference comes with K3 (K3a-2).
     variants: [...new Set(product.warianty ?? [])].map((name) => ({ name })),
@@ -315,21 +332,14 @@ export function productData(
     contentStatus: product.status_tresci
       ? mapped(CONTENT_STATUSES, product.status_tresci, 'content status')
       : 'ready',
-    batch: product.partia == null ? null : mapped(BATCHES, String(product.partia), 'batch'),
-    isNew: Boolean(product.nowosc),
-    authorized: Boolean(product.autoryzacja),
-    popularity: product.popularnosc ?? 50,
-    registerTypes: (product.typ_kasy ?? []).map((type) =>
-      mapped(REGISTER_TYPES, type, 'register type'),
-    ),
-    comparison,
+    ...productPanelFields(product),
     featured,
     featuredOrder: featured && featuredIndex >= 0 ? featuredIndex : null,
   }
 }
 
 /** A date of the package (`2026-10-23`) as Payload returns it, so a re-run sees no change. */
-function seedDate(value: string | null | undefined): string | null {
+export function seedDate(value: string | null | undefined): string | null {
   if (!value) return null
   const date = new Date(value)
   if (Number.isNaN(date.getTime())) throw new Error(`Seed: invalid date "${value}".`)
@@ -342,10 +352,9 @@ function seedDate(value: string | null | undefined): string | null {
  * check date replace the stored value, while „Do sprawdzenia” or no date never undo what
  * was set in the panel. Everything else comes from the package.
  */
-export function productUpdateData(
-  data: ReturnType<typeof productData>,
-  stored: Pick<Product, 'contentStatus' | 'sources'>,
-): ReturnType<typeof productData> {
+export function productUpdateData<
+  T extends { contentStatus: Product['contentStatus']; sources: { checkedAt: string | null } },
+>(data: T, stored: Pick<Product, 'contentStatus' | 'sources'>): T {
   return {
     ...data,
     contentStatus: data.contentStatus === 'ready' ? 'ready' : stored.contentStatus,

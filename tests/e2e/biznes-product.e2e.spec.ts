@@ -180,10 +180,10 @@ test.describe('Biznes product page', () => {
       // One added by hand first: „Dodaj wszystko” adds only the missing one.
       await expect(async () => {
         await kit
-          .getByRole('button', { name: 'Do zapytania: Szuflada Posnet SKL' })
+          .getByRole('button', { name: 'Do zapytania: Szuflada kasowa Posnet SKL' })
           .click({ timeout: 1000 })
         await expect(
-          kit.getByRole('button', { name: 'W zapytaniu: Szuflada Posnet SKL' }),
+          kit.getByRole('button', { name: 'W zapytaniu: Szuflada kasowa Posnet SKL' }),
         ).toBeVisible({ timeout: 1000 })
       }).toPass()
       const addAll = kit.getByRole('button', { name: 'Dodaj wszystko do zapytania' })
@@ -210,8 +210,8 @@ test.describe('Biznes product page', () => {
   test('a card „Do sprawdzenia” has a page, but noindex and no place in the site maps (K3a)', async ({
     page,
   }) => {
-    // Katalog v2: Elzab K1 Slim is „do-sprawdzenia”, Posnet Ergo „gotowe”.
-    const review = '/produkt/elzab-k1-slim-online'
+    // K3 (K3a-2): Samsung OM is „do-sprawdzenia”, Posnet Ergo „gotowe”.
+    const review = '/produkt/samsung-om'
     const response = await page.goto(site('biznes.localhost', review))
     expect(response?.status()).toBe(200)
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/)

@@ -5,7 +5,7 @@ import { site } from './helpers'
 
 // B5a: catalog `/oferta` — filters in the URL with facet counts, sort, „Pokaż kolejne”,
 // cards with „+ Do zapytania”, SEO of filtered views (spec. §5, §8.3, §9 pkt 4; ADR-012 §2.2).
-// Catalog from `pnpm seed`: 225 products (katalog v2).
+// Catalog from `pnpm seed`: 240 published cards (K3, K3a-2).
 const WCAG = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']
 const oferta = (query = '') => site('biznes.localhost', `/oferta${query}`)
 
@@ -23,12 +23,12 @@ async function clickUntilUrl(page: Page, click: () => Promise<void>, url: RegExp
 }
 
 test.describe('Biznes catalog /oferta', () => {
-  test('renders 12 of 225 positions on the server', async ({ page }) => {
+  test('renders 12 of 240 positions on the server', async ({ page }) => {
     await page.route('**/*.js', (route) => route.abort())
     const response = await page.goto(oferta())
     expect(response?.status()).toBe(200)
     await expect(page.locator('h1')).toContainText('Wszystko dla firmy.')
-    await expect(count(page)).toHaveText('225 pozycji')
+    await expect(count(page)).toHaveText('240 pozycji')
     await expect(cards(page)).toHaveCount(12)
     // Without JavaScript „Pokaż kolejne” is a plain link to the next page (spec. §5.3).
     await expect(page.getByRole('link', { name: /Pokaż kolejne/ })).toHaveAttribute(
@@ -94,7 +94,7 @@ test.describe('Biznes catalog /oferta', () => {
     await expect(count(page)).toBeFocused()
     await chips.getByRole('button', { name: 'Wyczyść wszystko' }).click()
     await expect(page).toHaveURL(/\/oferta$/)
-    await expect(count(page)).toHaveText('225 pozycji')
+    await expect(count(page)).toHaveText('240 pozycji')
   })
 
   test('group tiles and sort write the URL', async ({ page }) => {
@@ -104,7 +104,7 @@ test.describe('Biznes catalog /oferta', () => {
       () => page.getByRole('button', { name: /^Kasy i sprzedaż/ }).click(),
       /grupa=sprzedaz/,
     )
-    await expect(count(page)).toHaveText('159 pozycji')
+    await expect(count(page)).toHaveText('87 pozycji')
     await page.getByRole('button', { name: 'A–Z' }).click()
     await expect(page).toHaveURL(/sortuj=a-z/)
     // The list follows the URL a moment later: retry until it is sorted.
@@ -136,7 +136,12 @@ test.describe('Biznes catalog /oferta', () => {
       await box.fill('kasa fiskalan')
       await expect(page).toHaveURL(/szukaj=kasa\+fiskalan/, { timeout: 1500 })
     }).toPass()
-    await expect(cards(page).first()).toContainText(/Online/)
+    // K3 has a UPS named „… kasa i komputer”, ahead of the registers (search tuning: K3b′).
+    await expect(cards(page).locator('h3').nth(2)).toBeVisible()
+    const top = await cards(page)
+      .locator('h3')
+      .evaluateAll((h) => h.slice(0, 3).map((item) => item.textContent ?? ''))
+    expect(top.some((name) => /Online/.test(name))).toBe(true)
   })
 
   test('„Pokaż kolejne” adds 12, writes ?strona=2 and moves focus to the first new card', async ({
@@ -147,7 +152,7 @@ test.describe('Biznes catalog /oferta', () => {
     await clickUntilUrl(page, () => more.click(), /strona=2/)
     await expect(cards(page)).toHaveCount(24)
     await expect(cards(page).nth(12).locator('h3 a')).toBeFocused()
-    await expect(page.getByText('Widzisz 24 z 225')).toBeVisible()
+    await expect(page.getByText('Widzisz 24 z 240')).toBeVisible()
   })
 
   test('„+ Do zapytania” on a card switches, shows the toast and counts', async ({ page }) => {
@@ -190,7 +195,7 @@ test.describe('Biznes catalog /oferta', () => {
     await page.goto(oferta('?strona=999'))
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
       'href',
-      /\/oferta\?strona=19$/,
+      /\/oferta\?strona=20$/,
     )
   })
 
@@ -292,9 +297,9 @@ test.describe('Biznes catalog /oferta', () => {
       await uslugi.click()
       await expect(page).toHaveURL(/rodzaj=uslugi/)
       await expect(uslugi).toBeChecked()
-      await sheet.getByRole('button', { name: 'Pokaż 13 pozycji' }).click()
+      await sheet.getByRole('button', { name: 'Pokaż 10 pozycji' }).click()
       await expect(sheet).toBeHidden()
-      await expect(count(page)).toHaveText('13 pozycji')
+      await expect(count(page)).toHaveText('10 pozycji')
       await expect(page.getByRole('button', { name: 'Filtry (1)', exact: true })).toBeVisible()
 
       // „Wyczyść” inside the sheet disappears with the filters: focus stays in the sheet.
