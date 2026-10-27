@@ -116,10 +116,12 @@ jobs:
       - name: Unit tests
         run: pnpm test
 
-  # E2E in 4 parallel shards (`playwright --shard`), each with its own database and server, so
-  # the tests that edit content never meet. About 3 min instead of 8–9 with one runner.
+  # E2E in 6 parallel shards (`playwright --shard`), each with its own database and server, so
+  # the tests that edit content never meet. Tests are split one by one (fullyParallel in CI),
+  # so the shards take about the same time. More shards barely help: each one has ~45 s of
+  # fixed set-up (containers, install, build).
   e2e:
-    name: e2e (${{ matrix.shard }}/4)
+    name: e2e (${{ matrix.shard }}/6)
     needs: changes
     if: needs.changes.outputs.code == 'true'
     runs-on: ubuntu-24.04
@@ -127,7 +129,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        shard: [1, 2, 3, 4]
+        shard: [1, 2, 3, 4, 5, 6]
 
     # Database for the build and Playwright (same version as docker/compose.dev.yml).
     services:
@@ -184,6 +186,40 @@ jobs:
       - name: Install
         run: pnpm install --frozen-lockfile
 
+      # Chromium of the pinned Playwright version; system libraries are installed every time.
+      - id: playwright-cache
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+
+      - name: Install Playwright (Chromium only)
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: pnpm exec playwright install chromium
+
+      # System libraries for Chromium come from apt. The Ubuntu mirror is sometimes very slow
+      # (8–12 min instead of ~12 s), so the downloaded .deb files are cached: apt keeps them in
+      # ~/apt-archives (its own directory, so the runner's clean-up does not delete them) and
+      # installs from disk next time. Killing a slow apt does not help — it keeps the dpkg lock.
+      - id: apt-cache
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/apt-archives
+          key: apt-playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: apt-playwright-${{ runner.os }}-
+
+      # apt runs in the background while the database and the build are prepared; the
+      # "Wait for…" step below collects its result. Its log and exit code go to ~/apt-deps.*.
+      - name: Start Playwright system dependencies (background)
+        run: |
+          mkdir -p ~/apt-archives/partial
+          printf '%s\n' \
+            "Dir::Cache::Archives \"$HOME/apt-archives\";" \
+            'APT::Keep-Downloaded-Packages "true";' \
+            'Acquire::Retries "3";' \
+            | sudo tee /etc/apt/apt.conf.d/99ci >/dev/null
+          nohup bash -c 'pnpm exec playwright install-deps chromium > ~/apt-deps.log 2>&1; echo $? > ~/apt-deps.exit' >/dev/null 2>&1 &
+
       # The seeded database and its media are cached: the seed takes ~2 min and depends only on
       # these inputs. A pull request restores the snapshot when they did not change; a push to
       # develop/main always seeds fresh and saves it, so a seed bug a stale snapshot could hide
@@ -214,8 +250,9 @@ jobs:
           tar -xf ~/seed-snapshot/media.tar
 
       # ADR-009: push is disabled, so the empty CI database gets its schema from migrations only.
-      # After a restore it finds nothing to do.
+      # Skipped after a restore: the snapshot key covers src/migrations, so it is up to date.
       - name: Migrate database
+        if: steps.snapshot-cache.outputs.cache-hit != 'true'
         run: pnpm payload migrate
 
       # Tenants biznes / instalacje / software on *.localhost — the e2e tests depend on them.
@@ -249,38 +286,12 @@ jobs:
       - name: Build
         run: pnpm build
 
-      # Chromium of the pinned Playwright version; system libraries are installed every time.
-      - id: playwright-cache
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-        with:
-          path: ~/.cache/ms-playwright
-          key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
-
-      - name: Install Playwright (Chromium only)
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: pnpm exec playwright install chromium
-
-      # System libraries for Chromium come from apt. The Ubuntu mirror is sometimes very slow
-      # (8–12 min instead of ~12 s), so the downloaded .deb files are cached: apt keeps them in
-      # ~/apt-archives (its own directory, so the runner's clean-up does not delete them) and
-      # installs from disk next time. Killing a slow apt does not help — it keeps the dpkg lock.
-      - id: apt-cache
-        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-        with:
-          path: ~/apt-archives
-          key: apt-playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
-          restore-keys: apt-playwright-${{ runner.os }}-
-
-      - name: Install Playwright system dependencies
+      - name: Wait for Playwright system dependencies
         timeout-minutes: 15
         run: |
-          mkdir -p ~/apt-archives/partial
-          printf '%s\n' \
-            "Dir::Cache::Archives \"$HOME/apt-archives\";" \
-            'APT::Keep-Downloaded-Packages "true";' \
-            'Acquire::Retries "3";' \
-            | sudo tee /etc/apt/apt.conf.d/99ci >/dev/null
-          pnpm exec playwright install-deps chromium
+          until [ -f ~/apt-deps.exit ]; do sleep 2; done
+          cat ~/apt-deps.log
+          [ "$(cat ~/apt-deps.exit)" = 0 ]
           # apt wrote the files as root; the cache step reads them as the runner user.
           sudo rm -rf ~/apt-archives/partial ~/apt-archives/lock
           sudo chown -R "$(id -u):$(id -g)" ~/apt-archives
@@ -292,8 +303,8 @@ jobs:
           key: apt-playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
 
       # On the build above (`pnpm start`, playwright.config.ts): no route compiling on first visit.
-      - name: E2E tests (shard ${{ matrix.shard }}/4)
-        run: pnpm test:e2e --shard=${{ matrix.shard }}/4
+      - name: E2E tests (shard ${{ matrix.shard }}/6)
+        run: pnpm test:e2e --shard=${{ matrix.shard }}/6
         env:
           E2E_SERVER: start
 
