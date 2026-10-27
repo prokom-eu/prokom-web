@@ -15,6 +15,7 @@ import { isIconName } from '../../lib/catalog/options'
 import type { City, Industry, Post, Solution, SolutionArea } from '../../payload-types'
 import { h2, p, richText, ul } from '../biznes/lexical'
 import { SOFTWARE_NOT_FOUND, SOFTWARE_THANKS } from './pages'
+import { wizardSeed } from './wizardExtras'
 
 /**
  * Pure mapping of the Software package (`seed/prokomsoftware/`, v20) to the shapes of the
@@ -403,7 +404,7 @@ export function softwareSettingsData() {
       stopWords: wyszukiwarka.stopWords,
       popular: wyszukiwarka.popular,
     },
-    wizard: structuredClone(kreator),
+    wizard: wizardSeed(kreator),
     home: {
       ...homeTexts,
       technologies: structuredClone(technologie.layers),

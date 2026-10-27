@@ -2,18 +2,27 @@ import { describe, expect, it } from 'vitest'
 
 import kreator from '../../../seed/prokomsoftware/kreator.json'
 import rozwiazania from '../../../seed/prokomsoftware/rozwiazania.json'
+import { isPreSw7Wizard, wizardSeed } from '../../seed/software/wizardExtras'
 import { softwareWizardSchema, validateSoftwareWizard, wizardSolutionSlugs } from './wizard'
 
-type Seed = typeof kreator & Record<string, unknown>
-const clone = () => structuredClone(kreator) as Seed
+const seed = wizardSeed(kreator)
+type Seed = typeof seed & Record<string, unknown>
+const clone = () => structuredClone(seed) as Seed
 
 describe('Software wizard schema', () => {
-  it('accepts the seed package (v20)', () => {
-    expect(softwareWizardSchema.safeParse(kreator).error?.issues).toBeUndefined()
+  it('accepts the seed value: the package (v20) with the SW7 rules', () => {
+    expect(softwareWizardSchema.safeParse(seed).error?.issues).toBeUndefined()
+  })
+
+  it('rejects the package alone: its rules lived in the board script', () => {
+    expect(validateSoftwareWizard(kreator)).toMatch(/Reguły kreatora/)
+    expect(isPreSw7Wizard(kreator)).toBe(true)
+    expect(isPreSw7Wizard(seed)).toBe(false)
+    expect(isPreSw7Wizard(null)).toBe(false)
   })
 
   it('prices results only with solutions of the package, never removed ones', () => {
-    const wizard = softwareWizardSchema.parse(kreator)
+    const wizard = softwareWizardSchema.parse(seed)
     const slugs = new Set(rozwiazania.items.map((item) => item.slug))
     const removed = new Set(rozwiazania.removed.map((item) => item.slug))
     for (const slug of wizardSolutionSlugs(wizard)) {
@@ -63,5 +72,38 @@ describe('Software wizard schema', () => {
     const value = clone()
     value.contactPrefs = [{ id: 'fax', n: 'Faks', inquiryValue: 'fax' }] as never
     expect(validateSoftwareWizard(value)).toMatch(/contactPrefs\.0\.inquiryValue/)
+  })
+
+  it('rejects a scope rule with a note missing in scopeNotes', () => {
+    const value = clone()
+    value.scopeRules = [{ when: [{ sizes: ['start'] }], note: 'nie-ma' }] as never
+    expect(validateSoftwareWizard(value)).toMatch(/scopeRules.0.note/)
+  })
+
+  it('rejects conditions naming an unknown need or result', () => {
+    const need = clone()
+    need.bigWhen = [{ needs: ['nie-ma'] }]
+    expect(validateSoftwareWizard(need)).toMatch(/bigWhen.0.needs/)
+    const result = clone()
+    result.scopeRules = [{ when: [{ results: ['nie-ma'] }], note: 'systemStart' }] as never
+    expect(validateSoftwareWizard(result)).toMatch(/scopeRules.0.when.0.results/)
+  })
+
+  it('rejects a need pointing to an unknown set of chips', () => {
+    const value = clone()
+    value.needs = { ...value.needs, firm: { ...value.needs.firm, have: 'nie-ma' } } as never
+    expect(validateSoftwareWizard(value)).toMatch(/needs.firm.have/)
+  })
+
+  it('needs a contact verb for the success steps', () => {
+    const value = clone()
+    value.contactPrefs = [{ id: 'tel', n: 'Telefon', inquiryValue: 'phone' }] as never
+    expect(validateSoftwareWizard(value)).toMatch(/contactPrefs.0.verb/)
+  })
+
+  it('keeps {nr} in the sent label', () => {
+    const value = clone()
+    value.send = { ...value.send, sentLabel: 'Wysłane' }
+    expect(validateSoftwareWizard(value)).toMatch(/send.sentLabel/)
   })
 })

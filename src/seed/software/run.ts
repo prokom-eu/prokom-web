@@ -17,6 +17,7 @@ import {
   solutionData,
   solutionsToImport,
 } from './map'
+import { isPreSw7Wizard } from './wizardExtras'
 
 const SOFTWARE_TENANT_SLUG = 'software'
 
@@ -246,6 +247,8 @@ export async function seedSoftware(payload: Payload): Promise<void> {
     const missing: Partial<typeof fields> = Object.fromEntries(
       Object.entries(jsonFields).filter(([key]) => {
         const value = softwareSettings[key as keyof typeof jsonFields]
+        // A wizard saved before SW7 lacks its rules: replaced, like Biznes rules of an old shape.
+        if (key === 'wizard' && isPreSw7Wizard(value)) return true
         return value === null || value === undefined
       }),
     )
