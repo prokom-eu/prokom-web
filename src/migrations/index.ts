@@ -33,6 +33,7 @@ import * as migration_20261025_220015_software_icons from './20261025_220015_sof
 import * as migration_20261026_202214_k3_model from './20261026_202214_k3_model'
 import * as migration_20261026_223643_k31_catalog from './20261026_223643_k31_catalog'
 import * as migration_20261027_205737_solutions_price_monthly from './20261027_205737_solutions_price_monthly'
+import * as migration_20261027_213113_k31_showroom_plans from './20261027_213113_k31_showroom_plans'
 
 export const migrations = [
   {
@@ -209,5 +210,10 @@ export const migrations = [
     up: migration_20261027_205737_solutions_price_monthly.up,
     down: migration_20261027_205737_solutions_price_monthly.down,
     name: '20261027_205737_solutions_price_monthly',
+  },
+  {
+    up: migration_20261027_213113_k31_showroom_plans.up,
+    down: migration_20261027_213113_k31_showroom_plans.down,
+    name: '20261027_213113_k31_showroom_plans',
   },
 ]

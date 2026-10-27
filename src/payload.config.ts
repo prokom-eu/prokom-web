@@ -11,6 +11,7 @@ import { BiznesSettings } from './collections/BiznesSettings'
 import { CatalogCategories } from './collections/CatalogCategories'
 import { CatalogGroups } from './collections/CatalogGroups'
 import { Cities } from './collections/Cities'
+import { FloorPlans } from './collections/FloorPlans'
 import { Industries } from './collections/Industries'
 import { Inquiries } from './collections/Inquiries'
 import { InquiryDeletions } from './collections/InquiryDeletions'
@@ -29,6 +30,7 @@ import { Users } from './collections/Users'
 import { CompanyData } from './globals/CompanyData'
 import { adminOnlyField, isAdmin } from './lib/auth/access'
 import { getEnv } from './lib/env'
+import { videoAvailabilityTask } from './lib/catalog/videoTask'
 import { inquiryRetentionTask } from './lib/inquiry/retention'
 import { migrations } from './migrations'
 import type { Config } from './payload-types'
@@ -68,6 +70,8 @@ export default buildConfig({
     SolutionAreas,
     Cities,
     SoftwareSettings,
+    // Biznes K3.1 (ADR-012 rozstrz. 15). Last, so the unique-index names of the others stay.
+    FloorPlans,
   ],
   globals: [CompanyData],
   editor: lexicalEditor(),
@@ -93,9 +97,11 @@ export default buildConfig({
   jobs: {
     // Runs scheduled publishes (`Pages` → "Zaplanuj publikację") inside the app process, every
     // minute. Fine for our long-running container; not for serverless (Payload docs).
-    // The same runner schedules tasks with a `schedule` in this queue (inquiry retention, daily).
+    // The same runner schedules tasks with a `schedule` in this queue (inquiry retention, daily;
+    // film check, weekly).
     autoRun: [{ cron: '* * * * *', queue: 'default' }],
-    tasks: [inquiryRetentionTask],
+    // Weekly film check (ADR-016).
+    tasks: [inquiryRetentionTask, videoAvailabilityTask],
   },
   secret: env.PAYLOAD_SECRET,
   // Production: Payload's own lines (migrations, jobs, errors) in the same JSON shape as
@@ -141,6 +147,7 @@ export default buildConfig({
         'catalog-groups': {},
         'catalog-categories': {},
         industries: {},
+        'floor-plans': {},
         products: {},
         posts: {},
         // One document per tenant, Biznes only (`BiznesSettings` hook).

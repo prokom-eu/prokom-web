@@ -32,7 +32,17 @@ import {
   type K3RemovedCard,
 } from './k3'
 import { k31Dictionaries, k31ProductFields, k31Retired, type K31Card } from './k31'
-import { k31Featured, k31Series, k31Videos, loadK31Catalog } from './k31Data'
+import {
+  K31_DIR,
+  k31Featured,
+  k31Scenes,
+  k31Series,
+  k31SeriesVideos,
+  k31Showrooms,
+  k31Videos,
+  loadK31Catalog,
+} from './k31Data'
+import { cardsOf, floorPlanData, seriesMismatches, showroomData } from './k31Plans'
 import {
   brandLogoFile,
   galleryFileName,
@@ -527,6 +537,69 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
       })
     }
   }
+  // --- K3.1 showrooms (Lenovo, Dell) and floor plans, after the cards they link to ---
+  const cardsFor = cardsOf(k31)
+  const productId = (slug: string) => productIds.get(slug)
+  for (const [brand, showroom] of Object.entries(k31Showrooms)) {
+    const partnerId = brandIds.get(brand)
+    if (partnerId === undefined) throw new Error(`Seed (Biznes): partner "${brand}" missing.`)
+    const existing = await payload.findByID({ collection: 'partners', id: partnerId, ...local })
+    const data = showroomData(
+      brand,
+      showroom,
+      k31SeriesVideos[brand] ?? {},
+      cardsFor,
+      productId,
+      existing.showroom,
+    )
+    for (const item of seriesMismatches(showroom, k31Series))
+      note('seria karty ≠ seria salonu', item)
+    const same = hasSameValues(existing.showroom, data)
+    if (!same) {
+      await payload.update({
+        collection: 'partners',
+        id: partnerId,
+        data: { showroom: data },
+        ...local,
+      })
+    }
+    count('partners showroom', same ? false : 'updated')
+  }
+  const hiddenCards = new Set(
+    cards.filter((card) => k3PublishStatus(card) === 'draft').map((card) => card.slug_seed),
+  )
+  let planPoints = 0
+  for (const [index, scene] of k31Scenes.entries()) {
+    const svg = await readFile(path.join(K31_DIR, scene.svg), 'utf8')
+    const data = floorPlanData(scene, index, svg, cardsFor, productId)
+    planPoints += data.points.length
+    for (const point of scene.punkty) {
+      if (cardsFor(point.slug).some((slug) => hiddenCards.has(slug))) {
+        note('punkt planu z ukrytą kartą', `${scene.id}: ${point.slug}`)
+      }
+    }
+    const {
+      docs: [existing],
+    } = await payload.find({
+      collection: 'floor-plans',
+      where: inTenant({ slug: { equals: data.slug } }),
+      limit: 1,
+      ...local,
+    })
+    count('floor-plans', !existing)
+    if (!existing) {
+      await payload.create({
+        collection: 'floor-plans',
+        data: { ...data, tenant: tenant.id },
+        ...local,
+      })
+    } else if (!hasSameValues(existing, data)) {
+      await payload.update({ collection: 'floor-plans', id: existing.id, data, ...local })
+      count('floor-plans changed', 'updated')
+    }
+  }
+  log(`floor plans (K3.1): ${k31Scenes.length} scenes, ${planPoints} points`)
+
   // --- report: products of the tenant that neither K3 nor the retired list knows (§4 pkt 2) ---
   const retiredKeys = new Set(retired.flatMap((item) => item.legacyIds))
   const { docs: allProducts } = await payload.find({
