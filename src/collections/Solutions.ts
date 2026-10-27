@@ -184,6 +184,26 @@ export const Solutions: CollectionConfig = {
               fields: [sizeRow('number')],
             },
             {
+              name: 'priceMonthly',
+              label: 'Cena miesięczna',
+              type: 'checkbox',
+              defaultValue: false,
+              admin: {
+                description:
+                  'Np. opieka: ceny to kwoty za miesiąc — na karcie „od 149 zł / mies.” (wzór z Ustawień Software → Kreator).',
+              },
+            },
+            {
+              name: 'sizeNames',
+              label: 'Nazwy wersji',
+              type: 'group',
+              admin: {
+                description:
+                  'Puste = „Na start”, „Standard”, „Pełna”. Np. opieka: „Podstawowa”, „Standard”, „Systemy”.',
+              },
+              fields: [sizeRow('text')],
+            },
+            {
               name: 'leadTimes',
               label: 'Terminy',
               type: 'group',

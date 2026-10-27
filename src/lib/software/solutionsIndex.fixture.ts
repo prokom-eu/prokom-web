@@ -6,5 +6,6 @@ export function solutionsSourceFromSeed(): SolutionsSource {
   return {
     solutions: solutionsToImport().map(solutionData),
     search: softwareSettingsData().search,
+    priceDisplay: softwareSettingsData().wizard.priceDisplay,
   }
 }

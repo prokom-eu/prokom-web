@@ -70,6 +70,13 @@
   --shadow-raised: var(--shadow);
 }
 
+/* Gradient fragment of an H1 (ADR-015 pkt 7: 5 Software pages); plain accent text on other lines. */
+@utility text-grad-h1 {
+  background-image: var(--grad-h1);
+  background-clip: text;
+  color: transparent;
+}
+
 /* Brand marquee of the Biznes home page (`BrandMarquee`): the list is rendered twice. */
 @theme {
   --animate-marquee: marquee 50s linear infinite;

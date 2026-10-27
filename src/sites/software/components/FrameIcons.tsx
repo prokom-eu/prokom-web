@@ -45,3 +45,12 @@ export function MenuIcon({ className = 'size-6' }: Props) {
     </svg>
   )
 }
+
+/** A mobile device — „Aplikacje” of the catalog (the shared set's `phone` is a handset). */
+export function DeviceIcon({ className = 'size-5' }: Props) {
+  return (
+    <svg {...SVG} strokeWidth={1.9} className={className}>
+      <path d="M8 2h8a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zM11 18h2" />
+    </svg>
+  )
+}

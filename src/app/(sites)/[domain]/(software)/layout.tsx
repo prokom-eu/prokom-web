@@ -5,7 +5,7 @@ import { requireLine } from '../tenant'
 type Props = { children: React.ReactNode; params: Promise<{ domain: string }> }
 
 /**
- * Routes of the Software line (`/dziekujemy`, later `/rozwiazania`, `/dobierz`, …, ADR-014 §2):
+ * Routes of the Software line (`/dziekujemy`, `/rozwiazania`, later `/dobierz`, …, ADR-014 §2):
  * 404 on the domains of other lines. Their addresses are reserved page slugs (`lib/pages/slug`),
  * because these static routes win over `[slug]` on every domain.
  */

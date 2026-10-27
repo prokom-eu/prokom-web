@@ -323,6 +323,11 @@
   --grad-area-auto: linear-gradient(135deg, #b7791f, #e8955a);
   --grad-area-care: linear-gradient(135deg, #2e8a1e, #4fb3a0);
   --grad-area-aud: linear-gradient(135deg, #b9506f, #e59a7e);
+  /* Card gradients of solutions (`Solutions.cardGradient`, seed `rozwiazania.json`), only as the
+     colour of the card's scene — never behind text (ADR-015 rozstrz. 4). */
+  --grad-card-peach: linear-gradient(135deg, #f3b07c, #f7d9b5);
+  --grad-card-sand: linear-gradient(135deg, #d8c3a8, #a38363);
+  --grad-card-sage: linear-gradient(135deg, #bfd9cf, #7fa898);
 }
 
 /* Dark theme — chosen by the visitor (`data-theme`, see lib/brand/theme.ts)… */

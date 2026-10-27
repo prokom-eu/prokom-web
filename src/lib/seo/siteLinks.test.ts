@@ -83,6 +83,21 @@ describe('buildSiteMap', () => {
   })
 })
 
+describe('buildSiteMap — Software', () => {
+  it('lists the catalog of solutions, never its filtered views (SW9)', () => {
+    const map = buildSiteMap({ pages, catalog: null, news: null, solutions: true })
+    const section = map.find(({ id }) => id === 'rozwiazania')
+    expect(section?.links).toEqual([{ href: '/rozwiazania', label: 'Pełna oferta' }])
+    expect(siteMapPaths(map)).toContainEqual({ path: '/rozwiazania' })
+  })
+
+  it('has no such section elsewhere', () => {
+    expect(buildSiteMap({ pages, catalog: null, news: null }).map(({ id }) => id)).not.toContain(
+      'rozwiazania',
+    )
+  })
+})
+
 describe('siteMapPaths', () => {
   it('flattens the map for sitemap.xml, each address once, with its date', () => {
     const map = buildSiteMap({ pages, catalog: null, news: { posts: [] } })

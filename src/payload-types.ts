@@ -3727,6 +3727,18 @@ export interface Solution {
     full?: number | null;
   };
   /**
+   * Np. opieka: ceny to kwoty za miesiąc — na karcie „od 149 zł / mies.” (wzór z Ustawień Software → Kreator).
+   */
+  priceMonthly?: boolean | null;
+  /**
+   * Puste = „Na start”, „Standard”, „Pełna”. Np. opieka: „Podstawowa”, „Standard”, „Systemy”.
+   */
+  sizeNames?: {
+    start?: string | null;
+    std?: string | null;
+    full?: string | null;
+  };
+  /**
    * Np. „2 tygodnie”, „4–5 tygodni”.
    */
   leadTimes?: {
@@ -6317,6 +6329,14 @@ export interface SolutionsSelect<T extends boolean = true> {
   toast?: T;
   cardGradient?: T;
   prices?:
+    | T
+    | {
+        start?: T;
+        std?: T;
+        full?: T;
+      };
+  priceMonthly?: T;
+  sizeNames?:
     | T
     | {
         start?: T;

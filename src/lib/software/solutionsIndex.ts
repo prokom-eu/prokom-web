@@ -3,6 +3,7 @@ import type { SoftwareSetting, Solution } from '@/payload-types'
 import { normalizeText } from '../catalog/normalize'
 import { INDUSTRY_GROUPS, SITUATIONS, SOLUTION_CATEGORIES, type SolutionCategory } from './options'
 import { leadTimeOf, priceFromOf } from './price'
+import { type PriceDisplay, priceDisplaySchema } from './wizard'
 
 /**
  * Index of the Software solutions for the catalog, the menu sheet and the 404 search (ADR-014
@@ -31,6 +32,10 @@ export type IndexSolution = {
   prices: Sizes<number>
   leadTimes: Sizes<string>
   priceNote?: string
+  /** Prices are per month (care): shown with `priceDisplay.monthTemplate`. */
+  priceMonthly: boolean
+  /** Names of the versions; a missing one is „Na start” / „Standard” / „Pełna”. */
+  sizeNames: Sizes<string>
   /** Lowest price given (`0` = free); `null` → „Zapytaj o wycenę” (ADR-014 rozstrz. SW0 5). */
   priceFrom: number | null
   /** Term of the `start` size, else the first given; `null` → „po krótkiej rozmowie”. */
@@ -46,6 +51,20 @@ export type SolutionsIndex = {
   industryGroups: { slug: string; name: string }[]
   situations: { slug: string; name: string }[]
   search: { synonyms: Record<string, string[]>; stopWords: string[]; popular: string[] }
+  /** Price templates of the wizard settings (one way prices read on the whole site). */
+  priceDisplay: PriceDisplay
+}
+
+/**
+ * Templates of the package (`kreator.json` → `priceDisplay`), used when the settings are not
+ * saved yet or no longer match the schema — the catalog still shows prices.
+ */
+export const DEFAULT_PRICE_DISPLAY: PriceDisplay = {
+  template: '{cena} zł netto',
+  templateFrom: 'od {cena} zł netto',
+  fallback: 'Zapytaj o wycenę',
+  termFallback: 'po krótkiej rozmowie',
+  monthTemplate: 'od {cena} zł / mies.',
 }
 
 /** Fields of a solution the index reads (the `select` of `getSolutionsIndex`). */
@@ -68,12 +87,16 @@ export type IndexedSolutionDoc = Pick<
   | 'prices'
   | 'leadTimes'
   | 'priceNote'
+  | 'priceMonthly'
+  | 'sizeNames'
 >
 
 export type SolutionsSource = {
   /** Published solutions of one tenant, in catalog order. */
   solutions: IndexedSolutionDoc[]
   search: SoftwareSetting['search'] | null | undefined
+  /** `SoftwareSettings.wizard.priceDisplay` as stored (checked here). */
+  priceDisplay: unknown
 }
 
 const text = (value: string | null | undefined): string | undefined => value?.trim() || undefined
@@ -106,6 +129,14 @@ function indexSolution(doc: IndexedSolutionDoc): IndexSolution {
     prices: sizes(doc.prices),
     leadTimes: sizes(doc.leadTimes),
     priceNote: text(doc.priceNote),
+    priceMonthly: Boolean(doc.priceMonthly),
+    sizeNames: sizes(
+      doc.sizeNames && {
+        start: text(doc.sizeNames.start),
+        std: text(doc.sizeNames.std),
+        full: text(doc.sizeNames.full),
+      },
+    ),
     priceFrom: priceFromOf(doc.prices),
     leadTime: leadTimeOf(doc.leadTimes),
     hay: normalizeText(
@@ -136,5 +167,6 @@ export function buildSolutionsIndex(source: SolutionsSource): SolutionsIndex {
       stopWords: source.search?.stopWords ?? [],
       popular: source.search?.popular ?? [],
     },
+    priceDisplay: priceDisplaySchema.safeParse(source.priceDisplay).data ?? DEFAULT_PRICE_DISPLAY,
   }
 }

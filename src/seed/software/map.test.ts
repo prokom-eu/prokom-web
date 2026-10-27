@@ -63,6 +63,19 @@ describe('solutionData', () => {
     expect(data).not.toHaveProperty('leadTime')
   })
 
+  // The package has no such fields: the care levels are only in its price note (SW9).
+  it('marks the care prices as monthly with the levels of the package', () => {
+    const care = rozwiazania.items.find((item) => item.slug === 'opieka-nad-strona-i-systemem')!
+    expect(solutionData(care)).toMatchObject({
+      priceMonthly: true,
+      sizeNames: { start: 'Podstawowa', std: 'Standard', full: 'Systemy' },
+    })
+    expect(solutionData(site)).toMatchObject({
+      priceMonthly: false,
+      sizeNames: { start: null, std: null, full: null },
+    })
+  })
+
   it('maps the card fields and the „12 rzeczy” card', () => {
     const data = solutionData(site)
     expect(data).toMatchObject({

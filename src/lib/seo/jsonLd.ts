@@ -164,6 +164,35 @@ export function breadcrumbJsonLd(items: readonly { name: string; url: string | n
   }
 }
 
+/** A list of services with their pages (the Software catalog, spec. §5). */
+export function serviceListJsonLd({
+  name,
+  provider,
+  items,
+}: {
+  name: string
+  provider: string
+  items: readonly { name: string; description: string | undefined; url: string }[]
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name,
+    numberOfItems: items.length,
+    itemListElement: items.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      item: {
+        '@type': 'Service',
+        name: item.name,
+        ...(item.description && { description: item.description }),
+        url: item.url,
+        provider: { '@type': 'Organization', name: provider },
+      },
+    })),
+  }
+}
+
 /** JSON for `<script type="application/ld+json">`; `<` escaped so text cannot end the tag (Next docs). */
 export function serializeJsonLd(data: unknown): string {
   return JSON.stringify(data).replace(/</g, '\\u003c')
