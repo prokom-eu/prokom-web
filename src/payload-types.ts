@@ -86,6 +86,7 @@ export interface Config {
     'solution-areas': SolutionArea;
     cities: City;
     'software-settings': SoftwareSetting;
+    'floor-plans': FloorPlan;
     'payload-kv': PayloadKv;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
@@ -113,6 +114,7 @@ export interface Config {
     'solution-areas': SolutionAreasSelect<false> | SolutionAreasSelect<true>;
     cities: CitiesSelect<false> | CitiesSelect<true>;
     'software-settings': SoftwareSettingsSelect<false> | SoftwareSettingsSelect<true>;
+    'floor-plans': FloorPlansSelect<false> | FloorPlansSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -139,6 +141,7 @@ export interface Config {
   jobs: {
     tasks: {
       inquiryRetention: TaskInquiryRetention;
+      videoAvailability: TaskVideoAvailability;
       schedulePublish: TaskSchedulePublish;
       inline: {
         input: unknown;
@@ -621,6 +624,91 @@ export interface Partner {
     productLines?: string[] | null;
     sources?: string[] | null;
   };
+  /**
+   * Salon na stronie marki (Lenovo, Dell): działy, serie, dobór w 3 pytaniach. Pusty = strona marki bez salonu. Produkty tylko ze stron, na których marka jest widoczna — przed zdjęciem marki ze strony usuń jej produkty z salonu.
+   */
+  showroom?: {
+    h1?: string | null;
+    lead?: string | null;
+    /**
+     * Zdjęcia w nagłówku salonu.
+     */
+    heroProducts?: (number | Product)[] | null;
+    compareTitle?: string | null;
+    wizardTitle?: string | null;
+    segments?:
+      | {
+          name: string;
+          key: string;
+          iconPath?: string | null;
+          series?:
+            | {
+                /**
+                 * Ta sama pisownia co „Seria” w produktach.
+                 */
+                name: string;
+                tier?: string | null;
+                audience?: string | null;
+                highlight?: string | null;
+                imageProduct?: (number | null) | Product;
+                products?: (number | Product)[] | null;
+                id?: string | null;
+              }[]
+            | null;
+          id?: string | null;
+        }[]
+      | null;
+    wizard?:
+      | {
+          question: string;
+          options?:
+            | {
+                label: string;
+                /**
+                 * Używany w regułach, np. „teren”.
+                 */
+                key: string;
+                id?: string | null;
+              }[]
+            | null;
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Pierwsza reguła, której wszystkie klucze pasują do odpowiedzi, wygrywa.
+     */
+    wizardRules?:
+      | {
+          when?: string[] | null;
+          series: string;
+          why: string;
+          products?: (number | Product)[] | null;
+          id?: string | null;
+        }[]
+      | null;
+    services?:
+      | {
+          title: string;
+          iconPath?: string | null;
+          description: string;
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Tylko z oficjalnych kanałów producenta (ADR-016). Film „nieaktywny” znika ze strony — ustawia go też cotygodniowe sprawdzenie YouTube.
+     */
+    videos?:
+      | {
+          series: string;
+          youtubeId: string;
+          active?: boolean | null;
+          title: string;
+          channel?: string | null;
+          lang?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -642,6 +730,665 @@ export interface Partner {
       filename?: string | null;
     };
   };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products".
+ */
+export interface Product {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  /**
+   * Część adresu, np. „posnet-ergo-online”.
+   */
+  slug: string;
+  name: string;
+  /**
+   * Nagłówek karty z wieloma modelami, gdy pełna nazwa jest dłuższa niż 62 znaki (K31-ZMIANY §13.5).
+   */
+  shortName?: string | null;
+  /**
+   * Krótko pod nazwą, np. „Kasa średnia online do sklepu”.
+   */
+  subtitle?: string | null;
+  kind: 'device' | 'software' | 'service';
+  /**
+   * Partnerzy widoczni na tej stronie.
+   */
+  brand?: (number | null) | Partner;
+  /**
+   * Pierwsza jest główna (okruszki, „Podobne”).
+   */
+  categories: (number | CatalogCategory)[];
+  /**
+   * Filtr wewnątrz kategorii (np. „Szuflady kasowe”). Ta sama pisownia w całej kategorii.
+   */
+  subcategory?: string | null;
+  /**
+   * Seria w salonie marki (Lenovo, Dell), np. „ThinkPad T”. Ta sama pisownia co w serii salonu.
+   */
+  series?: string | null;
+  /**
+   * Produkt pokazuje się tylko w tych branżach.
+   */
+  industries?: (number | Industry)[] | null;
+  /**
+   * Jedno zdanie na karcie produktu.
+   */
+  benefit?: string | null;
+  features?: string[] | null;
+  /**
+   * Krótki tekst na karcie, np. „Nowość 2026”. Bez cen.
+   */
+  badge?: string | null;
+  /**
+   * Dla wyszukiwarki, niewidoczne na stronie.
+   */
+  keywords?: string | null;
+  /**
+   * Galeria w tej kolejności; pierwsze jest główne (karta).
+   */
+  images?: (number | Media)[] | null;
+  /**
+   * Wersje jednej karty, np. „Jota ONLINE BT/WiFi”, i czym się różnią.
+   */
+  variants?:
+    | {
+        name: string;
+        difference?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  keyParams?:
+    | {
+        label: string;
+        value: string;
+        id?: string | null;
+      }[]
+    | null;
+  specs?:
+    | {
+        group?: string | null;
+        label: string;
+        value: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Tylko z oficjalnych kanałów producentów (ADR-016). Film „nieaktywny” znika ze strony — ustawia go też cotygodniowe sprawdzenie YouTube.
+   */
+  videos?:
+    | {
+        youtubeId: string;
+        match: 'model' | 'series' | 'brand';
+        active?: boolean | null;
+        title: string;
+        channel?: string | null;
+        lang?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  hotspots?:
+    | {
+        /**
+         * 0–100 % szerokości/wysokości zdjęcia.
+         */
+        x: number;
+        /**
+         * 0–100 % szerokości/wysokości zdjęcia.
+         */
+        y: number;
+        title: string;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  modules?:
+    | {
+        name: string;
+        description?: string | null;
+        icon?:
+          | (
+              | 'shield'
+              | 'cal'
+              | 'users'
+              | 'store'
+              | 'bolt'
+              | 'doc'
+              | 'life'
+              | 'arrow'
+              | 'check'
+              | 'phone'
+              | 'mail'
+              | 'pin'
+              | 'clock'
+              | 'monitor'
+              | 'remote'
+              | 'bell'
+              | 'wallet'
+              | 'chat'
+              | 'wrench'
+              | 'rocket'
+              | 'map'
+              | 'star'
+              | 'q'
+              | 'flash'
+              | 'grad'
+              | 'server'
+              | 'compass'
+              | 'panel'
+              | 'site'
+              | 'grid'
+              | 'plug'
+              | 'ticket'
+              | 'lifebuoy'
+              | 'chart'
+              | 'sign'
+              | 'cash'
+              | 'search'
+              | 'x'
+              | 'bed'
+              | 'food'
+              | 'refresh'
+              | 'globe'
+              | 'box'
+              | 'car'
+              | 'home'
+              | 'mountain'
+              | 'heart'
+              | 'bag'
+              | 'card'
+              | 'target'
+              | 'key'
+              | 'mega'
+              | 'mount'
+              | 'brief'
+            )
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Puste = „W cenie” z kategorii głównej.
+   */
+  included?: string[] | null;
+  /**
+   * Opcje producenta do wyboru przed zapytaniem (K3) — to nie koszyk i nie liczy ceny.
+   */
+  configurator?: {
+    description?: string | null;
+    options?:
+      | {
+          name: string;
+          values?: string[] | null;
+          note?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    popular?:
+      | {
+          name: string;
+          configuration: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  faq?:
+    | {
+        question: string;
+        answer: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Nazwy rzeczy, np. „szuflada kasowa” — strona dopasuje do nich karty katalogu.
+   */
+  suggestions?: string[] | null;
+  /**
+   * Tylko karta opieki IT — na stronie dopiero po akceptacji szefa.
+   */
+  packages?:
+    | {
+        name: string;
+        audience?: string | null;
+        inSubscription?: string[] | null;
+        outsideSubscription?: string[] | null;
+        rules?: string[] | null;
+        id?: string | null;
+      }[]
+    | null;
+  fitsWith?: (number | Product)[] | null;
+  alternatives?: (number | Product)[] | null;
+  /**
+   * Parametry tylko ze strony producenta (spec. §5).
+   */
+  sources?: {
+    productPages?: string[] | null;
+    /**
+     * Linki do producenta — zakładka „Dokumenty”.
+     */
+    datasheets?: string[] | null;
+    /**
+     * Tylko do sprawdzania w panelu — sklepów i dystrybutorów nie pokazujemy na stronie.
+     */
+    distributorPages?: string[] | null;
+    /**
+     * Wypełnia człowiek po sprawdzeniu u producenta.
+     */
+    checkedAt?: string | null;
+  };
+  registerTypes?: ('mobile' | 'small' | 'system' | 'touch')[] | null;
+  comparison?: {
+    type?: string | null;
+    display?: string | null;
+    keyboard?: string | null;
+    plu?: string | null;
+    printer?: string | null;
+    connectivity?: string | null;
+    weight?: string | null;
+    audience?: string | null;
+  };
+  seo?: {
+    title?: string | null;
+    description?: string | null;
+  };
+  isNew?: boolean | null;
+  /**
+   * Etykieta zależy od statusu marki (serwis / partner) i rodzaju.
+   */
+  authorized?: boolean | null;
+  /**
+   * 0–100: kolejność „Popularne” i wyszukiwarka.
+   */
+  popularity?: number | null;
+  featured?: boolean | null;
+  featuredOrder?: number | null;
+  /**
+   * „Do sprawdzenia” = widoczna, ale bez indeksowania w Google i poza mapą strony.
+   */
+  contentStatus: 'ready' | 'needs-review';
+  /**
+   * Z importu i dla zespołu — nigdy na stronie.
+   */
+  internalNotes?: string | null;
+  /**
+   * Tylko do planowania — widoczne są wszystkie.
+   */
+  batch?: ('0' | '1' | '2') | null;
+  legacyIds?: string[] | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "catalog-categories".
+ */
+export interface CatalogCategory {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  name: string;
+  /**
+   * Część adresu, np. „kasy-fiskalne”.
+   */
+  slug: string;
+  group: number | CatalogGroup;
+  icon?:
+    | (
+        | 'shield'
+        | 'cal'
+        | 'users'
+        | 'store'
+        | 'bolt'
+        | 'doc'
+        | 'life'
+        | 'arrow'
+        | 'check'
+        | 'phone'
+        | 'mail'
+        | 'pin'
+        | 'clock'
+        | 'monitor'
+        | 'remote'
+        | 'bell'
+        | 'wallet'
+        | 'chat'
+        | 'wrench'
+        | 'rocket'
+        | 'map'
+        | 'star'
+        | 'q'
+        | 'flash'
+        | 'grad'
+        | 'server'
+        | 'compass'
+        | 'panel'
+        | 'site'
+        | 'grid'
+        | 'plug'
+        | 'ticket'
+        | 'lifebuoy'
+        | 'chart'
+        | 'sign'
+        | 'cash'
+        | 'search'
+        | 'x'
+        | 'bed'
+        | 'food'
+        | 'refresh'
+        | 'globe'
+        | 'box'
+        | 'car'
+        | 'home'
+        | 'mountain'
+        | 'heart'
+        | 'bag'
+        | 'card'
+        | 'target'
+        | 'key'
+        | 'mega'
+        | 'mount'
+        | 'brief'
+      )
+    | null;
+  /**
+   * Jedno zdanie pod nazwą w menu i na kafelku.
+   */
+  description?: string | null;
+  /**
+   * Kolejność chipów. Nazwa jak w polu „Podkategoria” produktu; adres tylko dla podkategorii z własną stroną.
+   */
+  subcategories?:
+    | {
+        name: string;
+        slug?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  hero?: {
+    /**
+     * Puste = nazwa.
+     */
+    title?: string | null;
+    lead?: string | null;
+    highlights?: string[] | null;
+    image?: (number | null) | Media;
+  };
+  included?: string[] | null;
+  faq?:
+    | {
+        question: string;
+        answer: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Na stronie kategorii jako kafle kategorii tych produktów.
+   */
+  frequentlyBoughtWith?: (number | Product)[] | null;
+  includedSection?: {
+    eyebrow?: string | null;
+    title?: string | null;
+    /**
+     * Puste = karty z samych pozycji listy „W cenie”.
+     */
+    cards?:
+      | {
+          icon?:
+            | (
+                | 'shield'
+                | 'cal'
+                | 'users'
+                | 'store'
+                | 'bolt'
+                | 'doc'
+                | 'life'
+                | 'arrow'
+                | 'check'
+                | 'phone'
+                | 'mail'
+                | 'pin'
+                | 'clock'
+                | 'monitor'
+                | 'remote'
+                | 'bell'
+                | 'wallet'
+                | 'chat'
+                | 'wrench'
+                | 'rocket'
+                | 'map'
+                | 'star'
+                | 'q'
+                | 'flash'
+                | 'grad'
+                | 'server'
+                | 'compass'
+                | 'panel'
+                | 'site'
+                | 'grid'
+                | 'plug'
+                | 'ticket'
+                | 'lifebuoy'
+                | 'chart'
+                | 'sign'
+                | 'cash'
+                | 'search'
+                | 'x'
+                | 'bed'
+                | 'food'
+                | 'refresh'
+                | 'globe'
+                | 'box'
+                | 'car'
+                | 'home'
+                | 'mountain'
+                | 'heart'
+                | 'bag'
+                | 'card'
+                | 'target'
+                | 'key'
+                | 'mega'
+                | 'mount'
+                | 'brief'
+              )
+            | null;
+          title: string;
+          text?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  facts?: {
+    eyebrow?: string | null;
+    title?: string | null;
+    /**
+     * Fakt prawny tylko ze źródłem: karta bez nazwy przepisu i linku do niego nie pokazuje się na stronie.
+     */
+    items?:
+      | {
+          value: string;
+          title: string;
+          text: string;
+          /**
+           * Np. „Art. 111 ust. 4 ustawy o VAT · sprawdzono …”.
+           */
+          source?: string | null;
+          sourceUrl?: string | null;
+          link?: {
+            label?: string | null;
+            href?: string | null;
+          };
+          id?: string | null;
+        }[]
+      | null;
+  };
+  faqIntro?: {
+    eyebrow?: string | null;
+    title?: string | null;
+    lead?: string | null;
+  };
+  /**
+   * Wypełnia ostatni rząd siatki produktów.
+   */
+  help?: {
+    title?: string | null;
+    text?: string | null;
+  };
+  contact?: {
+    heading?: string | null;
+    lead?: string | null;
+  };
+  /**
+   * Mniejsza liczba = wcześniej.
+   */
+  order?: number | null;
+  seo?: {
+    title?: string | null;
+    description?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "industries".
+ */
+export interface Industry {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  name: string;
+  /**
+   * Część adresu, np. „gastronomia”.
+   */
+  slug: string;
+  /**
+   * Nieaktywna branża pokazuje się jako „Wkrótce”.
+   */
+  active?: boolean | null;
+  /**
+   * Przycisk w nagłówku strony branży otwiera kreator z tym rodzajem firmy.
+   */
+  wizardBusinessType?:
+    | ('sklep' | 'gastro' | 'hotel' | 'biuro' | 'warsztat' | 'gabinet' | 'szkola' | 'produkcja' | 'truck' | 'inna')
+    | null;
+  hero?: {
+    /**
+     * Puste = nazwa.
+     */
+    title?: string | null;
+    lead?: string | null;
+    image?: (number | null) | Media;
+    /**
+     * Liczby i opinie tylko ze źródłem (plan Biznesu §4).
+     */
+    chips?: string[] | null;
+    /**
+     * Puste = „Przygotuj zapytanie”.
+     */
+    ctaLabel?: string | null;
+  };
+  /**
+   * Siatka „Zestaw dla branży” — w tej kolejności.
+   */
+  featuredProducts?: (number | Product)[] | null;
+  faq?:
+    | {
+        question: string;
+        answer: string;
+        id?: string | null;
+      }[]
+    | null;
+  productsSection?: {
+    eyebrow?: string | null;
+    title?: string | null;
+    lead?: string | null;
+  };
+  day?: {
+    eyebrow?: string | null;
+    heading?: string | null;
+    steps?:
+      | {
+          /**
+           * Np. „11:00” w kółku zamiast numeru kroku.
+           */
+          label?: string | null;
+          title: string;
+          text?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  flow?: {
+    eyebrow?: string | null;
+    /**
+     * Sekcja ma kotwicę #jak-to-dziala — blok tylko raz na stronie.
+     */
+    heading?: string | null;
+    lead?: string | null;
+    /**
+     * Liczby partnera tylko ze źródłem w treści (plan Biznesu §4).
+     */
+    badges?:
+      | {
+          text: string;
+          id?: string | null;
+        }[]
+      | null;
+    image?: (number | null) | Media;
+    ticket?: string | null;
+    steps?:
+      | {
+          label?: string | null;
+          title: string;
+          text?: string | null;
+          image?: (number | null) | Media;
+          id?: string | null;
+        }[]
+      | null;
+    note?: string | null;
+    primary?: {
+      label?: string | null;
+      href?: string | null;
+    };
+    secondary?: {
+      label?: string | null;
+      href?: string | null;
+    };
+  };
+  faqIntro?: {
+    eyebrow?: string | null;
+    title?: string | null;
+    lead?: string | null;
+  };
+  contact?: {
+    heading?: string | null;
+    lead?: string | null;
+  };
+  /**
+   * Mniejsza liczba = wcześniej.
+   */
+  order?: number | null;
+  seo?: {
+    title?: string | null;
+    description?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1326,665 +2073,6 @@ export interface BzPlanBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'bzPlan';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "industries".
- */
-export interface Industry {
-  id: number;
-  tenant?: (number | null) | Tenant;
-  name: string;
-  /**
-   * Część adresu, np. „gastronomia”.
-   */
-  slug: string;
-  /**
-   * Nieaktywna branża pokazuje się jako „Wkrótce”.
-   */
-  active?: boolean | null;
-  /**
-   * Przycisk w nagłówku strony branży otwiera kreator z tym rodzajem firmy.
-   */
-  wizardBusinessType?:
-    | ('sklep' | 'gastro' | 'hotel' | 'biuro' | 'warsztat' | 'gabinet' | 'szkola' | 'produkcja' | 'truck' | 'inna')
-    | null;
-  hero?: {
-    /**
-     * Puste = nazwa.
-     */
-    title?: string | null;
-    lead?: string | null;
-    image?: (number | null) | Media;
-    /**
-     * Liczby i opinie tylko ze źródłem (plan Biznesu §4).
-     */
-    chips?: string[] | null;
-    /**
-     * Puste = „Przygotuj zapytanie”.
-     */
-    ctaLabel?: string | null;
-  };
-  /**
-   * Siatka „Zestaw dla branży” — w tej kolejności.
-   */
-  featuredProducts?: (number | Product)[] | null;
-  faq?:
-    | {
-        question: string;
-        answer: string;
-        id?: string | null;
-      }[]
-    | null;
-  productsSection?: {
-    eyebrow?: string | null;
-    title?: string | null;
-    lead?: string | null;
-  };
-  day?: {
-    eyebrow?: string | null;
-    heading?: string | null;
-    steps?:
-      | {
-          /**
-           * Np. „11:00” w kółku zamiast numeru kroku.
-           */
-          label?: string | null;
-          title: string;
-          text?: string | null;
-          id?: string | null;
-        }[]
-      | null;
-  };
-  flow?: {
-    eyebrow?: string | null;
-    /**
-     * Sekcja ma kotwicę #jak-to-dziala — blok tylko raz na stronie.
-     */
-    heading?: string | null;
-    lead?: string | null;
-    /**
-     * Liczby partnera tylko ze źródłem w treści (plan Biznesu §4).
-     */
-    badges?:
-      | {
-          text: string;
-          id?: string | null;
-        }[]
-      | null;
-    image?: (number | null) | Media;
-    ticket?: string | null;
-    steps?:
-      | {
-          label?: string | null;
-          title: string;
-          text?: string | null;
-          image?: (number | null) | Media;
-          id?: string | null;
-        }[]
-      | null;
-    note?: string | null;
-    primary?: {
-      label?: string | null;
-      href?: string | null;
-    };
-    secondary?: {
-      label?: string | null;
-      href?: string | null;
-    };
-  };
-  faqIntro?: {
-    eyebrow?: string | null;
-    title?: string | null;
-    lead?: string | null;
-  };
-  contact?: {
-    heading?: string | null;
-    lead?: string | null;
-  };
-  /**
-   * Mniejsza liczba = wcześniej.
-   */
-  order?: number | null;
-  seo?: {
-    title?: string | null;
-    description?: string | null;
-  };
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "products".
- */
-export interface Product {
-  id: number;
-  tenant?: (number | null) | Tenant;
-  /**
-   * Część adresu, np. „posnet-ergo-online”.
-   */
-  slug: string;
-  name: string;
-  /**
-   * Nagłówek karty z wieloma modelami, gdy pełna nazwa jest dłuższa niż 62 znaki (K31-ZMIANY §13.5).
-   */
-  shortName?: string | null;
-  /**
-   * Krótko pod nazwą, np. „Kasa średnia online do sklepu”.
-   */
-  subtitle?: string | null;
-  kind: 'device' | 'software' | 'service';
-  /**
-   * Partnerzy widoczni na tej stronie.
-   */
-  brand?: (number | null) | Partner;
-  /**
-   * Pierwsza jest główna (okruszki, „Podobne”).
-   */
-  categories: (number | CatalogCategory)[];
-  /**
-   * Filtr wewnątrz kategorii (np. „Szuflady kasowe”). Ta sama pisownia w całej kategorii.
-   */
-  subcategory?: string | null;
-  /**
-   * Seria w salonie marki (Lenovo, Dell), np. „ThinkPad T”. Ta sama pisownia co w serii salonu.
-   */
-  series?: string | null;
-  /**
-   * Produkt pokazuje się tylko w tych branżach.
-   */
-  industries?: (number | Industry)[] | null;
-  /**
-   * Jedno zdanie na karcie produktu.
-   */
-  benefit?: string | null;
-  features?: string[] | null;
-  /**
-   * Krótki tekst na karcie, np. „Nowość 2026”. Bez cen.
-   */
-  badge?: string | null;
-  /**
-   * Dla wyszukiwarki, niewidoczne na stronie.
-   */
-  keywords?: string | null;
-  /**
-   * Galeria w tej kolejności; pierwsze jest główne (karta).
-   */
-  images?: (number | Media)[] | null;
-  /**
-   * Wersje jednej karty, np. „Jota ONLINE BT/WiFi”, i czym się różnią.
-   */
-  variants?:
-    | {
-        name: string;
-        difference?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  keyParams?:
-    | {
-        label: string;
-        value: string;
-        id?: string | null;
-      }[]
-    | null;
-  specs?:
-    | {
-        group?: string | null;
-        label: string;
-        value: string;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Tylko z oficjalnych kanałów producentów (ADR-016). Film „nieaktywny” znika ze strony — ustawia go też cotygodniowe sprawdzenie YouTube.
-   */
-  videos?:
-    | {
-        youtubeId: string;
-        match: 'model' | 'series' | 'brand';
-        active?: boolean | null;
-        title: string;
-        channel?: string | null;
-        lang?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  description?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  hotspots?:
-    | {
-        /**
-         * 0–100 % szerokości/wysokości zdjęcia.
-         */
-        x: number;
-        /**
-         * 0–100 % szerokości/wysokości zdjęcia.
-         */
-        y: number;
-        title: string;
-        description?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  modules?:
-    | {
-        name: string;
-        description?: string | null;
-        icon?:
-          | (
-              | 'shield'
-              | 'cal'
-              | 'users'
-              | 'store'
-              | 'bolt'
-              | 'doc'
-              | 'life'
-              | 'arrow'
-              | 'check'
-              | 'phone'
-              | 'mail'
-              | 'pin'
-              | 'clock'
-              | 'monitor'
-              | 'remote'
-              | 'bell'
-              | 'wallet'
-              | 'chat'
-              | 'wrench'
-              | 'rocket'
-              | 'map'
-              | 'star'
-              | 'q'
-              | 'flash'
-              | 'grad'
-              | 'server'
-              | 'compass'
-              | 'panel'
-              | 'site'
-              | 'grid'
-              | 'plug'
-              | 'ticket'
-              | 'lifebuoy'
-              | 'chart'
-              | 'sign'
-              | 'cash'
-              | 'search'
-              | 'x'
-              | 'bed'
-              | 'food'
-              | 'refresh'
-              | 'globe'
-              | 'box'
-              | 'car'
-              | 'home'
-              | 'mountain'
-              | 'heart'
-              | 'bag'
-              | 'card'
-              | 'target'
-              | 'key'
-              | 'mega'
-              | 'mount'
-              | 'brief'
-            )
-          | null;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Puste = „W cenie” z kategorii głównej.
-   */
-  included?: string[] | null;
-  /**
-   * Opcje producenta do wyboru przed zapytaniem (K3) — to nie koszyk i nie liczy ceny.
-   */
-  configurator?: {
-    description?: string | null;
-    options?:
-      | {
-          name: string;
-          values?: string[] | null;
-          note?: string | null;
-          id?: string | null;
-        }[]
-      | null;
-    popular?:
-      | {
-          name: string;
-          configuration: string;
-          id?: string | null;
-        }[]
-      | null;
-  };
-  faq?:
-    | {
-        question: string;
-        answer: string;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Nazwy rzeczy, np. „szuflada kasowa” — strona dopasuje do nich karty katalogu.
-   */
-  suggestions?: string[] | null;
-  /**
-   * Tylko karta opieki IT — na stronie dopiero po akceptacji szefa.
-   */
-  packages?:
-    | {
-        name: string;
-        audience?: string | null;
-        inSubscription?: string[] | null;
-        outsideSubscription?: string[] | null;
-        rules?: string[] | null;
-        id?: string | null;
-      }[]
-    | null;
-  fitsWith?: (number | Product)[] | null;
-  alternatives?: (number | Product)[] | null;
-  /**
-   * Parametry tylko ze strony producenta (spec. §5).
-   */
-  sources?: {
-    productPages?: string[] | null;
-    /**
-     * Linki do producenta — zakładka „Dokumenty”.
-     */
-    datasheets?: string[] | null;
-    /**
-     * Tylko do sprawdzania w panelu — sklepów i dystrybutorów nie pokazujemy na stronie.
-     */
-    distributorPages?: string[] | null;
-    /**
-     * Wypełnia człowiek po sprawdzeniu u producenta.
-     */
-    checkedAt?: string | null;
-  };
-  registerTypes?: ('mobile' | 'small' | 'system' | 'touch')[] | null;
-  comparison?: {
-    type?: string | null;
-    display?: string | null;
-    keyboard?: string | null;
-    plu?: string | null;
-    printer?: string | null;
-    connectivity?: string | null;
-    weight?: string | null;
-    audience?: string | null;
-  };
-  seo?: {
-    title?: string | null;
-    description?: string | null;
-  };
-  isNew?: boolean | null;
-  /**
-   * Etykieta zależy od statusu marki (serwis / partner) i rodzaju.
-   */
-  authorized?: boolean | null;
-  /**
-   * 0–100: kolejność „Popularne” i wyszukiwarka.
-   */
-  popularity?: number | null;
-  featured?: boolean | null;
-  featuredOrder?: number | null;
-  /**
-   * „Do sprawdzenia” = widoczna, ale bez indeksowania w Google i poza mapą strony.
-   */
-  contentStatus: 'ready' | 'needs-review';
-  /**
-   * Z importu i dla zespołu — nigdy na stronie.
-   */
-  internalNotes?: string | null;
-  /**
-   * Tylko do planowania — widoczne są wszystkie.
-   */
-  batch?: ('0' | '1' | '2') | null;
-  legacyIds?: string[] | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "catalog-categories".
- */
-export interface CatalogCategory {
-  id: number;
-  tenant?: (number | null) | Tenant;
-  name: string;
-  /**
-   * Część adresu, np. „kasy-fiskalne”.
-   */
-  slug: string;
-  group: number | CatalogGroup;
-  icon?:
-    | (
-        | 'shield'
-        | 'cal'
-        | 'users'
-        | 'store'
-        | 'bolt'
-        | 'doc'
-        | 'life'
-        | 'arrow'
-        | 'check'
-        | 'phone'
-        | 'mail'
-        | 'pin'
-        | 'clock'
-        | 'monitor'
-        | 'remote'
-        | 'bell'
-        | 'wallet'
-        | 'chat'
-        | 'wrench'
-        | 'rocket'
-        | 'map'
-        | 'star'
-        | 'q'
-        | 'flash'
-        | 'grad'
-        | 'server'
-        | 'compass'
-        | 'panel'
-        | 'site'
-        | 'grid'
-        | 'plug'
-        | 'ticket'
-        | 'lifebuoy'
-        | 'chart'
-        | 'sign'
-        | 'cash'
-        | 'search'
-        | 'x'
-        | 'bed'
-        | 'food'
-        | 'refresh'
-        | 'globe'
-        | 'box'
-        | 'car'
-        | 'home'
-        | 'mountain'
-        | 'heart'
-        | 'bag'
-        | 'card'
-        | 'target'
-        | 'key'
-        | 'mega'
-        | 'mount'
-        | 'brief'
-      )
-    | null;
-  /**
-   * Jedno zdanie pod nazwą w menu i na kafelku.
-   */
-  description?: string | null;
-  /**
-   * Kolejność chipów. Nazwa jak w polu „Podkategoria” produktu; adres tylko dla podkategorii z własną stroną.
-   */
-  subcategories?:
-    | {
-        name: string;
-        slug?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  hero?: {
-    /**
-     * Puste = nazwa.
-     */
-    title?: string | null;
-    lead?: string | null;
-    highlights?: string[] | null;
-    image?: (number | null) | Media;
-  };
-  included?: string[] | null;
-  faq?:
-    | {
-        question: string;
-        answer: string;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Na stronie kategorii jako kafle kategorii tych produktów.
-   */
-  frequentlyBoughtWith?: (number | Product)[] | null;
-  includedSection?: {
-    eyebrow?: string | null;
-    title?: string | null;
-    /**
-     * Puste = karty z samych pozycji listy „W cenie”.
-     */
-    cards?:
-      | {
-          icon?:
-            | (
-                | 'shield'
-                | 'cal'
-                | 'users'
-                | 'store'
-                | 'bolt'
-                | 'doc'
-                | 'life'
-                | 'arrow'
-                | 'check'
-                | 'phone'
-                | 'mail'
-                | 'pin'
-                | 'clock'
-                | 'monitor'
-                | 'remote'
-                | 'bell'
-                | 'wallet'
-                | 'chat'
-                | 'wrench'
-                | 'rocket'
-                | 'map'
-                | 'star'
-                | 'q'
-                | 'flash'
-                | 'grad'
-                | 'server'
-                | 'compass'
-                | 'panel'
-                | 'site'
-                | 'grid'
-                | 'plug'
-                | 'ticket'
-                | 'lifebuoy'
-                | 'chart'
-                | 'sign'
-                | 'cash'
-                | 'search'
-                | 'x'
-                | 'bed'
-                | 'food'
-                | 'refresh'
-                | 'globe'
-                | 'box'
-                | 'car'
-                | 'home'
-                | 'mountain'
-                | 'heart'
-                | 'bag'
-                | 'card'
-                | 'target'
-                | 'key'
-                | 'mega'
-                | 'mount'
-                | 'brief'
-              )
-            | null;
-          title: string;
-          text?: string | null;
-          id?: string | null;
-        }[]
-      | null;
-  };
-  facts?: {
-    eyebrow?: string | null;
-    title?: string | null;
-    /**
-     * Fakt prawny tylko ze źródłem: karta bez nazwy przepisu i linku do niego nie pokazuje się na stronie.
-     */
-    items?:
-      | {
-          value: string;
-          title: string;
-          text: string;
-          /**
-           * Np. „Art. 111 ust. 4 ustawy o VAT · sprawdzono …”.
-           */
-          source?: string | null;
-          sourceUrl?: string | null;
-          link?: {
-            label?: string | null;
-            href?: string | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-  };
-  faqIntro?: {
-    eyebrow?: string | null;
-    title?: string | null;
-    lead?: string | null;
-  };
-  /**
-   * Wypełnia ostatni rząd siatki produktów.
-   */
-  help?: {
-    title?: string | null;
-    text?: string | null;
-  };
-  contact?: {
-    heading?: string | null;
-    lead?: string | null;
-  };
-  /**
-   * Mniejsza liczba = wcześniej.
-   */
-  order?: number | null;
-  seo?: {
-    title?: string | null;
-    description?: string | null;
-  };
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -4033,6 +4121,52 @@ export interface SoftwareSetting {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "floor-plans".
+ */
+export interface FloorPlan {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  name: string;
+  title: string;
+  /**
+   * Część adresu, np. „sklep”.
+   */
+  slug: string;
+  /**
+   * Mniejsza liczba = wcześniej.
+   */
+  order?: number | null;
+  lead?: string | null;
+  /**
+   * Atrybut „d” ikony 24×24, np. „M3 9l2-5h14l2 5”.
+   */
+  iconPath?: string | null;
+  /**
+   * Punkty (x, y) liczą się w tym układzie.
+   */
+  viewBox: string;
+  /**
+   * Kod SVG rzutu, od „<svg” do „</svg>”. Wygląd z klas CSS strony — bez stylów i skryptów w pliku.
+   */
+  svg: string;
+  points?:
+    | {
+        x: number;
+        y: number;
+        /**
+         * Punkt bez produktu nie pokazuje się na planie.
+         */
+        product?: (number | null) | Product;
+        label: string;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -4100,7 +4234,7 @@ export interface PayloadJob {
     | {
         executedAt: string;
         completedAt: string;
-        taskSlug: 'inline' | 'inquiryRetention' | 'schedulePublish';
+        taskSlug: 'inline' | 'inquiryRetention' | 'videoAvailability' | 'schedulePublish';
         taskID: string;
         input?:
           | {
@@ -4133,7 +4267,7 @@ export interface PayloadJob {
         id?: string | null;
       }[]
     | null;
-  taskSlug?: ('inline' | 'inquiryRetention' | 'schedulePublish') | null;
+  taskSlug?: ('inline' | 'inquiryRetention' | 'videoAvailability' | 'schedulePublish') | null;
   queue?: string | null;
   waitUntil?: string | null;
   processing?: boolean | null;
@@ -4231,6 +4365,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'software-settings';
         value: number | SoftwareSetting;
+      } | null)
+    | ({
+        relationTo: 'floor-plans';
+        value: number | FloorPlan;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -5698,6 +5836,75 @@ export interface PartnersSelect<T extends boolean = true> {
         productLines?: T;
         sources?: T;
       };
+  showroom?:
+    | T
+    | {
+        h1?: T;
+        lead?: T;
+        heroProducts?: T;
+        compareTitle?: T;
+        wizardTitle?: T;
+        segments?:
+          | T
+          | {
+              name?: T;
+              key?: T;
+              iconPath?: T;
+              series?:
+                | T
+                | {
+                    name?: T;
+                    tier?: T;
+                    audience?: T;
+                    highlight?: T;
+                    imageProduct?: T;
+                    products?: T;
+                    id?: T;
+                  };
+              id?: T;
+            };
+        wizard?:
+          | T
+          | {
+              question?: T;
+              options?:
+                | T
+                | {
+                    label?: T;
+                    key?: T;
+                    id?: T;
+                  };
+              id?: T;
+            };
+        wizardRules?:
+          | T
+          | {
+              when?: T;
+              series?: T;
+              why?: T;
+              products?: T;
+              id?: T;
+            };
+        services?:
+          | T
+          | {
+              title?: T;
+              iconPath?: T;
+              description?: T;
+              id?: T;
+            };
+        videos?:
+          | T
+          | {
+              series?: T;
+              youtubeId?: T;
+              active?: T;
+              title?: T;
+              channel?: T;
+              lang?: T;
+              id?: T;
+            };
+      };
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -6520,6 +6727,33 @@ export interface SoftwareSettingsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "floor-plans_select".
+ */
+export interface FloorPlansSelect<T extends boolean = true> {
+  tenant?: T;
+  name?: T;
+  title?: T;
+  slug?: T;
+  order?: T;
+  lead?: T;
+  iconPath?: T;
+  viewBox?: T;
+  svg?: T;
+  points?:
+    | T
+    | {
+        x?: T;
+        y?: T;
+        product?: T;
+        label?: T;
+        description?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv_select".
  */
 export interface PayloadKvSelect<T extends boolean = true> {
@@ -6734,6 +6968,19 @@ export interface TaskInquiryRetention {
   input?: unknown;
   output: {
     deleted: number;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TaskVideoAvailability".
+ */
+export interface TaskVideoAvailability {
+  input?: unknown;
+  output: {
+    checked: number;
+    switchedOff: number;
+    manual: number;
+    unknown: number;
   };
 }
 /**
