@@ -4,9 +4,7 @@ import type { Payload, Where } from 'payload'
 
 import icons from '../../../seed/prokombiznes/ikony.json'
 import katalog from '../../../seed/prokombiznes/katalog.json'
-import k3Catalog from '../../../seed/prokombiznes/k3/katalog-k3.json'
 import k3Dictionaries from '../../../seed/prokombiznes/k3/slowniki-k3.json'
-import k3Media from '../../../seed/prokombiznes/k3/media-k3.json'
 import k3Removed from '../../../seed/prokombiznes/k3/usuniete.json'
 import kreator from '../../../seed/prokombiznes/kreator.json'
 import media from '../../../seed/prokombiznes/media.json'
@@ -30,11 +28,11 @@ import {
   matchCards,
   REPLACED_PRODUCTS,
   SKIPPED_INDUSTRIES,
-  type K3Card,
   type K3Dictionaries,
   type K3RemovedCard,
-  type K3Gallery,
 } from './k3'
+import { k31Dictionaries, k31ProductFields, k31Retired, type K31Card } from './k31'
+import { k31Featured, k31Series, k31Videos, loadK31Catalog } from './k31Data'
 import {
   brandLogoFile,
   galleryFileName,
@@ -75,7 +73,8 @@ type Counter = { created: number; updated: number; skipped: number }
 
 /**
  * Imports the Biznes catalog into the local database (B2, local only). Products, categories and
- * brand pages come from the K3 package (`seed/prokombiznes/k3/`, K3-KATALOG §4); katalog v2
+ * brand pages come from the K3 package (`seed/prokombiznes/k3/`, K3-KATALOG §4) with K3.1 on
+ * top (`k31.ts`: new cards, series, films, supplements, split cards, homepage list); katalog v2
  * (`katalog.json`) still gives groups' order, industries, design images and what K3 lacks.
  * Idempotent: a record is found by its key (slug in the tenant, `legacyIds`, file name).
  * Groups, industries, images and settings are then left as they are.
@@ -87,10 +86,10 @@ type Counter = { created: number; updated: number; skipped: number }
  */
 export async function seedBiznesCatalog(payload: Payload): Promise<void> {
   const catalog: SeedCatalog = katalog
-  const dictionaries: K3Dictionaries = k3Dictionaries
-  const cards: K3Card[] = k3Catalog.produkty
+  const dictionaries: K3Dictionaries = k31Dictionaries(k3Dictionaries, k31Featured)
+  const { catalog: k31, gallery: k3Gallery } = loadK31Catalog()
+  const cards = k31.cards
   const removed: K3RemovedCard[] = k3Removed.produkty
-  const k3Gallery: K3Gallery = k3Media.zdjecia
   const matches = matchCards(cards, catalog.produkty)
   const report: Record<string, string[]> = {}
   const note = (what: string, item: string) => (report[what] ??= []).push(item)
@@ -368,7 +367,8 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
   const k3Keys = new Set<string>()
   // Paired cards first: the XL2 record gives up the sheet ids of XL2 A and B before those
   // cards look for a record by them.
-  const paired = (card: K3Card) => (matches.has(card.slug_seed) ? 0 : 1)
+  let withFilms = 0
+  const paired = (card: K31Card) => (matches.has(card.slug_seed) ? 0 : 1)
   for (const card of [...cards].sort((a, b) => paired(a) - paired(b))) {
     const v2 = matches.get(card.slug_seed)
     const data = k3ProductData(
@@ -397,12 +397,19 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
       throw new Error(`Seed (Biznes): card "${card.slug_seed}" matches ${found.length} records.`)
     }
     const [existing] = found
+    const fields = k31ProductFields(card, k31Series, k31Videos, existing)
+    if (fields.videos.length) withFilms += 1
+    if ((card.marka === 'Lenovo' || card.marka === 'Dell') && !fields.series) {
+      note('Lenovo/Dell bez serii', card.slug_seed)
+    }
+    if (card.zrodlo_podzialu) note('karty z podziału (do sprawdzenia)', card.slug_seed)
     let id: number
     if (!existing) {
       const created = await payload.create({
         collection: 'products',
         data: {
           ...data,
+          ...fields,
           ...k3CreateFields(card, v2, dictionaries),
           tenant: tenant.id,
           _status: status,
@@ -416,6 +423,7 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
       const priceBadge = Boolean(existing.badge) && !allowedBadge(existing.badge)
       const update = {
         ...productUpdateData(data, existing),
+        ...fields,
         // A card waiting for the boss is a draft „Do sprawdzenia” (ADR-012 rozstrz. 15).
         ...(status === 'draft' ? { contentStatus: data.contentStatus } : {}),
         // A katalog v2 badge with a price goes (K3-KATALOG §10); other badges are the panel's.
@@ -443,6 +451,8 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     }
   }
 
+  log(`products with films (K3.1): ${withFilms}`)
+
   // Page seeds may name a replaced product (`nas` on the noclegi page): its successor stands in.
   for (const [shortId, target] of Object.entries(REPLACED_PRODUCTS)) {
     if (!('product' in target) || productIds.has(shortId)) continue
@@ -453,7 +463,10 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
   }
 
   // --- removed and replaced cards: hidden (draft, records stay), old address → 301 ---
-  const retired = k3Retired(cards, removed, catalog.produkty)
+  const retired = [
+    ...k3Retired(cards, removed, catalog.produkty),
+    ...k31Retired(k31, catalog.produkty),
+  ]
   for (const item of retired) {
     if (item.unpublish) {
       const {

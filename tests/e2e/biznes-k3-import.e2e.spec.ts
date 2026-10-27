@@ -52,6 +52,32 @@ test.describe('Biznes catalog after the K3 import', () => {
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, follow')
   })
 
+  test('shows a new K3.1 card (K31a)', async ({ page }) => {
+    const response = await page.goto(site('biznes.localhost', '/produkt/dell-pro-14-premium'))
+    expect(response?.status()).toBe(200)
+    await expect(page.getByRole('heading', { level: 1 })).toContainText('Dell Pro 14 Premium')
+  })
+
+  test('sends a split multi-model card to its first new card, „Do sprawdzenia” (301)', async ({
+    page,
+  }) => {
+    const { first, final } = await firstHop(page, '/produkt/lenovo-yoga-pro')
+    expect(first?.status()).toBe(301)
+    expect(final?.url()).toBe(site('biznes.localhost', '/produkt/lenovo-yoga-pro-7-15'))
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+      'Lenovo Yoga Pro 7 15 (Gen 11)',
+    )
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, follow')
+  })
+
+  test('links only producers among the sources, never a shop (K31-ZMIANY §4.9)', async ({
+    page,
+  }) => {
+    await page.goto(site('biznes.localhost', '/produkt/lenovo-yoga-pro-7-15'))
+    await expect(page.locator('a[href*="psref.lenovo.com"]')).not.toHaveCount(0)
+    await expect(page.locator('a[href*="elenovo.pl"]')).toHaveCount(0)
+  })
+
   test('shows no price and no banned brand on catalog pages (K3-KATALOG §10)', async ({ page }) => {
     // „W cenie” is still a section name of the category and product pages — renamed in K3b′
     // and K31b; the K3 data itself is checked for it in `k3-content.test.ts`.

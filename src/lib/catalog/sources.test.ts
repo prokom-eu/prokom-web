@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { validateHttpsUrls, validateHttpUrls } from './sources'
+import { isProducerSource, publicSources, validateHttpsUrls, validateHttpUrls } from './sources'
 
 describe('validateHttpUrls (Products.sources)', () => {
   it('accepts no value and http(s) links', () => {
@@ -33,5 +33,34 @@ describe('validateHttpsUrls (Partners.brandPage.sources)', () => {
     expect(validateHttpsUrls(['https://www.posnet.com.pl/o-nas'])).toBe(true)
     expect(validateHttpsUrls(['http://www.posnet.com.pl/o-nas'])).not.toBe(true)
     expect(validateHttpsUrls(['https://example.com/a b'])).not.toBe(true)
+  })
+})
+
+describe('publicSources (K31-ZMIANY §4 pkt 9, ADR-012 rozstrz. 19)', () => {
+  it('shows producers and their subdomains, never shops or distributors', () => {
+    expect(isProducerSource('https://psref.lenovo.com/Product/ThinkPad_X9')).toBe(true)
+    expect(isProducerSource('https://www.dell.com/pl-pl/shop')).toBe(true)
+    expect(isProducerSource('https://ksef.podatki.gov.pl/')).toBe(true)
+    expect(isProducerSource('https://elenovo.pl/kategoria/seria-yoga-pro-7/')).toBe(false)
+    expect(isProducerSource('https://www.senetic.pl/category/synology-hdd-30243/')).toBe(false)
+    expect(isProducerSource('https://backend.vidis.pl/api/media/karta.pdf')).toBe(false)
+    expect(isProducerSource('https://notdell.com/')).toBe(false)
+    expect(isProducerSource('nie-adres')).toBe(false)
+  })
+
+  it('drops price pages while another producer link is left', () => {
+    expect(
+      publicSources({
+        datasheets: ['https://www.gopos.pl/karta.pdf'],
+        productPages: ['https://www.gopos.pl/cennik', 'https://sklep.pl/a'],
+      }),
+    ).toEqual({ datasheets: ['https://www.gopos.pl/karta.pdf'], productPages: [] })
+    // Only the path counts: a word in the query is not a price page.
+    expect(publicSources({ productPages: ['https://www.gopos.pl/?ref=cennik'] })).toEqual({
+      productPages: ['https://www.gopos.pl/?ref=cennik'],
+    })
+    expect(publicSources({ productPages: ['https://www.gopos.pl/cennik'] })).toEqual({
+      productPages: ['https://www.gopos.pl/cennik'],
+    })
   })
 })

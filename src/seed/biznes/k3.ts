@@ -92,8 +92,19 @@ export type K3Dictionaries = {
   marki_usuniete: string[]
   kolejnosc_wyroznionych: string[]
 }
-/** `media-k3.json` → `zdjecia`: photos of a card (in order) and the domains they came from. */
-export type K3Gallery = Record<string, { pliki: string[]; zrodlo_domeny: string[] }>
+/**
+ * `media-k3.json` → `zdjecia`: photos of a card (in order) and the domains they came from.
+ * K3.1 (`k31.ts`) adds its photos with `pakiet: 'k31'`, and split cards point to the folder of
+ * the card they came from (`katalog`).
+ */
+export type K3GalleryEntry = {
+  pliki: string[]
+  zrodlo_domeny: string[]
+  pakiet?: GalleryPackage
+  katalog?: string
+}
+export type K3Gallery = Record<string, K3GalleryEntry>
+type GalleryPackage = 'k3' | 'k31'
 
 // --- rules of the import ---
 
@@ -218,7 +229,7 @@ export type K3Refs = {
 }
 
 /** Address: a katalog v2 product keeps its own (§4 pkt 2), a new or replaced one takes `slug_seed`. */
-function productSlug(card: K3Card, v2: SeedProduct | undefined): string {
+export function productSlug(card: Pick<K3Card, 'slug_seed'>, v2: SeedProduct | undefined): string {
   return v2 && !REPLACED_PRODUCTS[v2.slug] ? slugFromName(v2.nazwa) : card.slug_seed
 }
 
@@ -237,9 +248,13 @@ export function k3SubcategoryName(
 
 const SOURCE_FIELDS: Record<string, 'productPages' | 'datasheets' | 'distributorPages'> = {
   producent: 'productPages',
+  // K3.1: the producer's page (Polish or global) and its spec sheet.
+  'strona-producenta': 'productPages',
+  'strona-producenta-pl': 'productPages',
   przepisy: 'productPages',
   ministerstwo: 'productPages',
   'karta-pdf': 'datasheets',
+  specyfikacja: 'datasheets',
   // Shops and distributors: kept for the panel, never shown (ADR-012 rozstrz. 15).
   dystrybutor: 'distributorPages',
 }
@@ -373,7 +388,7 @@ export type RetiredProduct = {
   to: string
   /** False for a record that lives on as its K3 family (moved, not hidden). */
   unpublish: boolean
-  reason: 'usunięta' | 'zastąpiona'
+  reason: 'usunięta' | 'zastąpiona' | 'podzielona'
 }
 
 /** 301 rules and records to hide: removed cards → their category, replaced ones → successor. */
@@ -422,7 +437,12 @@ export function k3Retired(
 
 // --- galleries (§4 pkt 5) ---
 
-const K3_KEY = 'k3:'
+/** Photo folders of the packages, relative to the repo root. */
+const GALLERY_DIRS: Record<GalleryPackage, string> = {
+  k3: K3_MEDIA_DIR,
+  k31: path.join('seed', 'prokombiznes', 'k31', 'media'),
+}
+const PACKAGE_KEY = /^(k3|k31):/
 
 /** Image keys of a card: its K3 photos, else the katalog v2 gallery or design files as today. */
 export function k3ImageKeys(
@@ -432,24 +452,31 @@ export function k3ImageKeys(
   designFiles: SeedMediaFile[],
   limit: number | null,
 ): string[] {
-  const photos = gallery[card.slug_seed]?.pliki
-  if (photos?.length) {
-    return unique(photos)
+  const entry = gallery[card.slug_seed]
+  if (entry?.pliki.length) {
+    const prefix = `${entry.pakiet ?? 'k3'}:${entry.katalog ?? card.slug_seed}/`
+    return unique(entry.pliki)
       .slice(0, limit ?? undefined)
-      .map((file) => `${K3_KEY}${card.slug_seed}/${file}`)
+      .map((file) => `${prefix}${file}`)
   }
   return v2 ? productImageFiles(v2, designFiles, limit) : []
 }
 
 /**
- * File of a K3 image key and the name to upload it under: `k3-` in front, because 272 photo
- * names of K3 are already taken by katalog v2 files with other pictures. `null` for other keys.
+ * File of a package image key and the name to upload it under: `k3-` / `k31-` in front,
+ * because 272 photo names of K3 are already taken by katalog v2 files with other pictures.
+ * `null` for other keys.
  */
 export function k3GalleryFile(key: string): { filePath: string; uploadName: string } | null {
-  if (!key.startsWith(K3_KEY)) return null
-  const [slug, file] = key.slice(K3_KEY.length).split('/') as [string, string]
+  const match = PACKAGE_KEY.exec(key)
+  if (!match) return null
+  const pakiet = match[1] as GalleryPackage
+  const [slug, file] = key.slice(match[0].length).split('/') as [string, string]
   if (!file.endsWith('.webp')) throw new Error(`Seed (K3): photo "${key}" is not WebP.`)
-  return { filePath: path.join(K3_MEDIA_DIR, 'produkty', slug, file), uploadName: `k3-${file}` }
+  return {
+    filePath: path.join(GALLERY_DIRS[pakiet], 'produkty', slug, file),
+    uploadName: `${pakiet}-${file}`,
+  }
 }
 
 /**
@@ -465,9 +492,10 @@ export function k3GalleryMediaData(
   const file = key.slice(key.lastIndexOf('/') + 1)
   const position = (entry?.pliki ?? []).indexOf(file) + 1
   if (!entry || position === 0) throw new Error(`Seed (K3): photo "${key}" not in the gallery.`)
+  const pack = entry.pakiet === 'k31' ? 'K3.1' : 'K3'
   return {
     alt: `${card.nazwa} — zdjęcie ${position}`,
-    source: `${entry.zrodlo_domeny[0] ?? 'źródło nieznane'} — paczka K3 (25.10.2026), prawo użycia do potwierdzenia`,
+    source: `${entry.zrodlo_domeny[0] ?? 'źródło nieznane'} — paczka ${pack} (25.10.2026), prawo użycia do potwierdzenia`,
     requiresConsent: false,
   }
 }

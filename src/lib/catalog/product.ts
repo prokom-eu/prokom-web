@@ -4,6 +4,7 @@ import { publicImage, type PublicImage } from '../media/public'
 import { tenantIdOf } from '../tenant/id'
 import { brandLogo, type IndexLogo } from './catalogIndex'
 import type { IconName } from './options'
+import { publicSources } from './sources'
 
 /** Tabs of the product page in the order of the board `Produkt` (spec. §6.2). */
 export type ProductTab = 'opis' | 'specyfikacja' | 'dokumenty' | 'pytania'
@@ -121,10 +122,10 @@ export function buildProductView(product: Product, tenantId: number): ProductVie
   const description = hasRichText(product.description) ? product.description : null
   const specs = groupSpecs(product.specs)
   const faq = (product.faq ?? []).map(({ question, answer }) => ({ question, answer }))
-  const documents = {
+  const documents = publicSources({
     datasheets: unique(product.sources?.datasheets),
     productPages: unique(product.sources?.productPages),
-  }
+  })
   const ownIncluded = unique(product.included)
 
   const tabs: ProductTab[] = []

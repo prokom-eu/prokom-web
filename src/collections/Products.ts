@@ -11,6 +11,7 @@ import {
   REGISTER_TYPES,
 } from '../lib/catalog/options'
 import { validateHttpUrls } from '../lib/catalog/sources'
+import { VIDEO_MATCHES, validateYoutubeId } from '../lib/catalog/videos'
 import {
   brandFilter,
   faqArray,
@@ -74,6 +75,15 @@ export const Products: CollectionConfig = {
           fields: [
             { name: 'name', label: 'Nazwa', type: 'text', required: true },
             {
+              name: 'shortName',
+              label: 'Nazwa krótka',
+              type: 'text',
+              admin: {
+                description:
+                  'Nagłówek karty z wieloma modelami, gdy pełna nazwa jest dłuższa niż 62 znaki (K31-ZMIANY §13.5).',
+              },
+            },
+            {
               name: 'subtitle',
               label: 'Podtytuł',
               type: 'text',
@@ -117,6 +127,15 @@ export const Products: CollectionConfig = {
               admin: {
                 description:
                   'Filtr wewnątrz kategorii (np. „Szuflady kasowe”). Ta sama pisownia w całej kategorii.',
+              },
+            },
+            {
+              name: 'series',
+              label: 'Seria',
+              type: 'text',
+              admin: {
+                description:
+                  'Seria w salonie marki (Lenovo, Dell), np. „ThinkPad T”. Ta sama pisownia co w serii salonu.',
               },
             },
             {
@@ -183,6 +202,46 @@ export const Products: CollectionConfig = {
               label: 'Specyfikacja',
               type: 'array',
               fields: [{ name: 'group', label: 'Grupa', type: 'text' }, ...labelValue],
+            },
+            {
+              name: 'videos',
+              label: 'Filmy',
+              type: 'array',
+              admin: {
+                description:
+                  'Tylko z oficjalnych kanałów producentów (ADR-016). Film „nieaktywny” znika ze strony — ustawia go też cotygodniowe sprawdzenie YouTube.',
+              },
+              fields: [
+                {
+                  type: 'row',
+                  fields: [
+                    {
+                      name: 'youtubeId',
+                      label: 'Identyfikator YouTube',
+                      type: 'text',
+                      required: true,
+                      validate: validateYoutubeId,
+                    },
+                    {
+                      name: 'match',
+                      label: 'Pokazuje',
+                      type: 'select',
+                      required: true,
+                      defaultValue: 'model',
+                      options: [...VIDEO_MATCHES],
+                    },
+                    { name: 'active', label: 'Aktywny', type: 'checkbox', defaultValue: true },
+                  ],
+                },
+                { name: 'title', label: 'Tytuł', type: 'text', required: true },
+                {
+                  type: 'row',
+                  fields: [
+                    { name: 'channel', label: 'Kanał', type: 'text' },
+                    { name: 'lang', label: 'Język', type: 'text', admin: { width: '20%' } },
+                  ],
+                },
+              ],
             },
             {
               name: 'description',

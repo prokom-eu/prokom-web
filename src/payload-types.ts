@@ -1466,6 +1466,10 @@ export interface Product {
   slug: string;
   name: string;
   /**
+   * Nagłówek karty z wieloma modelami, gdy pełna nazwa jest dłuższa niż 62 znaki (K31-ZMIANY §13.5).
+   */
+  shortName?: string | null;
+  /**
    * Krótko pod nazwą, np. „Kasa średnia online do sklepu”.
    */
   subtitle?: string | null;
@@ -1482,6 +1486,10 @@ export interface Product {
    * Filtr wewnątrz kategorii (np. „Szuflady kasowe”). Ta sama pisownia w całej kategorii.
    */
   subcategory?: string | null;
+  /**
+   * Seria w salonie marki (Lenovo, Dell), np. „ThinkPad T”. Ta sama pisownia co w serii salonu.
+   */
+  series?: string | null;
   /**
    * Produkt pokazuje się tylko w tych branżach.
    */
@@ -1525,6 +1533,20 @@ export interface Product {
         group?: string | null;
         label: string;
         value: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Tylko z oficjalnych kanałów producentów (ADR-016). Film „nieaktywny” znika ze strony — ustawia go też cotygodniowe sprawdzenie YouTube.
+   */
+  videos?:
+    | {
+        youtubeId: string;
+        match: 'model' | 'series' | 'brand';
+        active?: boolean | null;
+        title: string;
+        channel?: string | null;
+        lang?: string | null;
         id?: string | null;
       }[]
     | null;
@@ -6010,11 +6032,13 @@ export interface ProductsSelect<T extends boolean = true> {
   tenant?: T;
   slug?: T;
   name?: T;
+  shortName?: T;
   subtitle?: T;
   kind?: T;
   brand?: T;
   categories?: T;
   subcategory?: T;
+  series?: T;
   industries?: T;
   benefit?: T;
   features?: T;
@@ -6041,6 +6065,17 @@ export interface ProductsSelect<T extends boolean = true> {
         group?: T;
         label?: T;
         value?: T;
+        id?: T;
+      };
+  videos?:
+    | T
+    | {
+        youtubeId?: T;
+        match?: T;
+        active?: T;
+        title?: T;
+        channel?: T;
+        lang?: T;
         id?: T;
       };
   description?: T;
