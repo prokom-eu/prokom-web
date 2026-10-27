@@ -1,0 +1,400 @@
+{
+ "k": "dom",
+ "page": "SegDom",
+ "h": "#7BD36A",
+ "dla": "domu",
+ "title": "Alarm i kamery dla domu i domku letniskowego — Podhale | PRO-KOM",
+ "desc": "Alarm z czujkami zalania, mrozu i czadu, kamery bez widoku na sąsiadów, wideodomofon i smart home Ampio. Dla domu i domku letniskowego na Podhalu.",
+ "sceneT": "Przekrój domu z garażem",
+ "hero": {
+  "crumb": "Dom i domek letniskowy",
+  "eye": "Instalacje dla domu i domku letniskowego · Rabka-Zdrój, Zakopane, Podhale",
+  "h1a": "Wiesz, co dzieje się w domu,",
+  "h1b": "nawet gdy jesteś 400 km dalej.",
+  "lead": "Alarm, który powie o otwartych drzwiach, wycieku wody, spadku temperatury i braku prądu. Kamery na własną posesję, wideodomofon w telefonie, brama na kod dla sąsiada i dom, który nagrzeje się przed Twoim przyjazdem.",
+  "kv": [
+   [
+    "ok. 60%",
+    "szkód mieszkaniowych to zalania (Compensa)"
+   ],
+   [
+    "24 mies.",
+    "gwarancji na montaż"
+   ],
+   [
+    "do 24 h",
+    "odpowiedź na zgłoszenie w dni robocze"
+   ]
+  ],
+  "tags": [
+   "Alarm z czujkami mrozu i zalania",
+   "Kamery bez widoku na sąsiadów",
+   "Wideodomofon",
+   "Smart home Ampio"
+  ]
+ },
+ "hs": [
+  {
+   "d": "Czujki otwarcia na drzwiach i oknach oraz czujki ruchu odporne na zwierzęta, ustawione tak, żeby nie patrzyły na schody i grzejniki."
+  },
+  {
+   "d": "Czujka zalania pod kotłem, pralką i zmywarką. W domu Ampio może sama zamknąć zawór wody, zanim woda zaleje dom."
+  },
+  {
+   "d": "Czujka dymu i czujka czadu przy kominku. Powiadomienie przyjdzie na telefon także wtedy, gdy nikogo nie ma w domu."
+  },
+  {
+   "d": "Czujnik temperatury ostrzeże, gdy w pustym domu spadnie poniżej kilku stopni. Ampio trzyma temperaturę dyżurną i nagrzeje dom przed przyjazdem."
+  },
+  {
+   "d": "Kamera na furtkę i ogród, z maską na drogę i działkę sąsiada. Mikrofon domyślnie wyłączony."
+  },
+  {
+   "d": "Kamera podjazdu i garażu z detekcją ludzi i aut. Daszek i montaż pod okapem, żeby śnieg nie zasypywał obiektywu."
+  },
+  {
+   "d": "Widzisz, kto stoi przy furtce, i rozmawiasz z nim z telefonu z dowolnego miejsca."
+  },
+  {
+   "d": "Sąsiad, który odśnieża, dostaje kod ważny w wybrane dni. Bramę otwierasz z aplikacji po rozmowie przez wideodomofon."
+  },
+  {
+   "d": "Router z łączem zapasowym LTE i zasilanie awaryjne. Alarm z komunikatorem GSM powiadomi Cię nawet bez internetu."
+  },
+  {
+   "d": "Antena ustawiona miernikiem i zamocowana z zapasem na halny, z uziemieniem masztu."
+  },
+  {
+   "d": "Ładowarka w garażu dobrana do przyłącza, montowana przy okazji instalacji."
+  }
+ ],
+ "pr": {
+  "eye": "Co słyszymy od właścicieli domów",
+  "h": "Sześć rzeczy, które martwią właściciela",
+  "ha": "pustego domu.",
+  "lead": "W domu letniskowym najcenniejsza jest wiedza na czas. Dlatego zaczynamy od czujek zalania, mrozu i prądu, a dopiero potem dokładamy kamery."
+ },
+ "prob": [
+  {
+   "q": "„Pękła rura, a byłem w Warszawie”",
+   "d": "Awaria pieca albo brak prądu w mroźną noc, a właściciel dowiaduje się przy następnym przyjeździe.",
+   "fix": "Czujniki temperatury, zalania i zaniku zasilania z powiadomieniem na telefon, a w domu Ampio zawór odcinający wodę.",
+   "s": "alarm",
+   "ic": "drop"
+  },
+  {
+   "q": "„Alarm wył przez kota”",
+   "d": "Czujka ruchu łapie kota albo zasłonę przy grzejniku. Po trzecim razie alarm zostaje wyłączony.",
+   "fix": "Czujki odporne na zwierzęta, przemyślane rozmieszczenie albo ochrona drzwi i okien zamiast czujek ruchu.",
+   "s": "alarm",
+   "ic": "bell"
+  },
+  {
+   "q": "„Kamera wysyła setki powiadomień”",
+   "d": "Śnieg, szron i płatki w świetle podczerwieni zimą wywołują ruch co chwilę.",
+   "fix": "Detekcja ludzi i aut zamiast każdego ruchu, montaż pod okapem i daszek na kamerze.",
+   "s": "kam",
+   "ic": "snow"
+  },
+  {
+   "q": "„Po burzy dom jest ślepy”",
+   "d": "Po burzy nie działa router, rejestrator albo brama, a nikt tego nie widzi do przyjazdu.",
+   "fix": "Ograniczniki przepięć na liniach z zewnątrz i zasilanie awaryjne dla routera i rejestratora.",
+   "s": "wifi",
+   "ic": "storm"
+  },
+  {
+   "q": "„Klucz leży pod wycieraczką”",
+   "d": "Sąsiad odśnieża, hydraulik serwisuje piec, rodzina przyjeżdża bez kluczy.",
+   "fix": "Kod do furtki ważny w wybrane dni, otwieranie z aplikacji i osobny kod alarmu z historią użycia.",
+   "s": "kd",
+   "ic": "key"
+  },
+  {
+   "q": "„Mamy kominek, boimy się czadu”",
+   "d": "Kominek i piec na paliwo stałe to na Podhalu standard, a sezon grzewczy trwa długo.",
+   "fix": "Czujka czadu i dymu przy kominku, wpięta w powiadomienia na telefon.",
+   "s": "alarm",
+   "ic": "fire"
+  }
+ ],
+ "day": {
+  "eye": "Rok w domku letniskowym",
+  "h": "Od wyjazdu w październiku do ferii w lutym.",
+  "lead": "Tak pracują instalacje w domu, który przez część roku stoi pusty.",
+  "items": [
+   {
+    "tm": "Październik",
+    "n": "Wyjazd po sezonie",
+    "d": "Jeden przycisk włącza tryb nieobecności: alarm się uzbraja, ogrzewanie przechodzi na temperaturę dyżurną, gniazda się wyłączają.",
+    "s": [
+     "smart",
+     "alarm"
+    ],
+    "ic": "door"
+   },
+   {
+    "tm": "Listopad",
+    "n": "Burza i zanik prądu",
+    "d": "Zasilanie awaryjne trzyma router i rejestrator, a alarm wysyła powiadomienie o zaniku prądu. Ograniczniki chronią sprzęt przed przepięciem.",
+    "s": [
+     "wifi",
+     "alarm"
+    ],
+    "ic": "storm"
+   },
+   {
+    "tm": "Grudzień",
+    "n": "Mróz −20°C",
+    "d": "Czujnik zgłasza spadek temperatury w kotłowni. Dzwonisz do sąsiada, zanim zamarznie rura.",
+    "s": [
+     "alarm",
+     "smart"
+    ],
+    "ic": "snow"
+   },
+   {
+    "tm": "Styczeń",
+    "n": "Sąsiad odśnieża",
+    "d": "Sąsiad wpisuje swój kod przy furtce. Widzisz w aplikacji, kiedy wszedł, a kamera podjazdu pokazuje odśnieżony wjazd.",
+    "s": [
+     "kd",
+     "kam"
+    ],
+    "ic": "key"
+   },
+   {
+    "tm": "Luty, piątek",
+    "n": "Przyjazd na ferie",
+    "d": "W czwartek włączasz ogrzewanie z telefonu. W piątek brama otwiera się z aplikacji, a w domu jest już ciepło.",
+    "s": [
+     "smart",
+     "kd"
+    ],
+    "ic": "home"
+   },
+   {
+    "tm": "Noc w ferie",
+    "n": "Ktoś przy furtce",
+    "d": "Kamera rozpoznaje człowieka przy furtce i wysyła zdjęcie. Rozmawiasz przez wideodomofon i widzisz, że to kurier z pomyloną paczką.",
+    "s": [
+     "kam",
+     "alarm"
+    ],
+    "ic": "eye"
+   }
+  ]
+ },
+ "law": {
+  "h": "Kamery przy domu, czujki dymu i wynajem. Co mówią przepisy.",
+  "lead": "Dom ma mniej obowiązków niż firma, ale kilka zasad warto znać, zwłaszcza gdy kamera widzi drogę albo domek wynajmujesz turystom.",
+  "items": [
+   {
+    "who": "Właściciel",
+    "a": "art. 2 ust. 2 lit. c RODO",
+    "t": "Kamera tylko na swoją posesję",
+    "d": "RODO nie dotyczy czysto domowego monitoringu. Gdy kamera obejmuje drogę albo działkę sąsiada, wyłączenie przestaje działać (wyrok TSUE C-212/13). Dlatego maskujemy wszystko poza Twoją posesją."
+   },
+   {
+    "who": "Właściciel",
+    "a": "kara UODO, 07.2026",
+    "t": "Pierwsza kara dla osoby prywatnej",
+    "d": "UODO ukarał właściciela domu kwotą 26 711 zł za kamery nagrywające posesje sąsiadów, drogę i dźwięk przez całą dobę."
+   },
+   {
+    "who": "Instalator",
+    "a": "UODO, DS.523.703.2024",
+    "t": "Mikrofon w kamerze wyłączony",
+    "d": "Funkcje kamery, które nie są potrzebne, np. nagrywanie dźwięku, powinny być wyłączone. Tak ustawiamy kamery od razu przy montażu."
+   },
+   {
+    "who": "Właściciel",
+    "a": "§ 28a rozp. ppoż.",
+    "t": "Czujka dymu: 2030 albo już teraz",
+    "d": "Przepis mówi o „lokalu mieszkalnym”: w już użytkowanych czujka dymu będzie obowiązkowa od 1.01.2030, w nowych obowiązuje już teraz. W domkach na wynajem obowiązuje od 30.06.2026. Przy kominku lub kotle z otwartą komorą spalania wymagana jest też czujka czadu. Przepis nie mówi wprost, czy obejmuje dom jednorodzinny."
+   },
+   {
+    "who": "Właściciel",
+    "a": "ustawa o usługach hotelarskich",
+    "t": "Domek na wynajem to usługa hotelarska",
+    "d": "Domek wynajmowany turystom podlega ustawie o usługach hotelarskich. 8.10.2026 Sejm uchwalił ustawę o Centralnym Wykazie Turystycznych Obiektów Noclegowych z numerem obiektu w ofertach. Na dzień 26.10.2026 ustawa jest w Senacie, więc szczegóły mogą się zmienić."
+   },
+   {
+    "who": "Razem",
+    "a": "OWU ubezpieczyciela",
+    "t": "Alarm nie zastąpi zabezpieczeń wymaganych w polisie",
+    "d": "Część ubezpieczycieli (np. TUZ) wymaga w domkach letniskowych rolet i zamków z atestem, a alarmu nie wymienia. Sprawdź warunki polisy. Alarm da Ci wiedzę o zdarzeniu na czas, ale nie zastąpi wymaganych zabezpieczeń."
+   }
+  ]
+ },
+ "gory": {
+  "h": "Mróz, śnieg, burze i słaby internet.",
+  "items": [
+   {
+    "ic": "snow",
+    "t": "Pusty dom od października",
+    "d": "Domki stoją puste po sezonie i po feriach. Wtedy najcenniejsze są czujniki temperatury, zalania i prądu."
+   },
+   {
+    "ic": "fire",
+    "t": "43 ofiary czadu w Polsce w 2024 r.",
+    "d": "Tyle osób zabił czad, a pożary w budynkach mieszkalnych 269 osób, według danych MSWiA podanych przez gminę Rabka-Zdrój. Kominek i piec to na Podhalu standard, a sezon grzewczy trwa długo."
+   },
+   {
+    "ic": "wifi",
+    "t": "Internet na jednej kresce",
+    "d": "Router LTE z anteną zewnętrzną albo łącze satelitarne jako zapas. Alarm z komunikatorem GSM działa także bez internetu."
+   },
+   {
+    "ic": "storm",
+    "t": "Burze nad Tatrami",
+    "d": "Ograniczniki przepięć na liniach wchodzących do budynku i zasilanie awaryjne dla routera i rejestratora."
+   }
+  ]
+ },
+ "realH": "Domy, w których pracowaliśmy.",
+ "real": [
+  {
+   "t": "Dom prywatny",
+   "m": "Ponice · dom jednorodzinny",
+   "d": "Instalacja RTV-SAT."
+  }
+ ],
+ "prep": [
+  "Rzut albo szkic domu z garażem i kotłownią",
+  "Zdjęcia furtki, bramy, wejścia i miejsc na kamery",
+  "Internet: operator, technologia, gdzie stoi router",
+  "Rodzaj kotła, czy jest kominek, gdzie są zawory",
+  "Kto ma mieć dostęp: domownicy, sąsiad, serwisant",
+  "Co już jest: alarm, kamery, domofon, antena",
+  "Marka napędu bramy (zdjęcie naklejki)"
+ ],
+ "pkgH": "Od „wiem, co się dzieje” po dom, który pilnuje się sam.",
+ "pkgs": [
+  {
+   "n": "Wiem, co się dzieje",
+   "d": "Dom całoroczny albo mały domek.",
+   "ic": "bell",
+   "f": [
+    "Alarm bezprzewodowy z czujkami otwarcia i ruchu",
+    "Czujka zalania i czujka dymu",
+    "Powiadomienia w aplikacji i GSM",
+    "Wideodomofon przy furtce",
+    "Router z zasilaniem awaryjnym"
+   ],
+   "pr": "od [CENA] zł"
+  },
+  {
+   "n": "Dom pod kontrolą",
+   "d": "Domek letniskowy albo duża działka.",
+   "ic": "eye",
+   "hot": true,
+   "f": [
+    "Wszystko z zestawu Wiem, co się dzieje",
+    "2–4 kamery z rejestratorem, bez widoku na sąsiadów",
+    "Czujniki temperatury i czujka czadu",
+    "Brama i furtka z telefonu, kody dla sąsiada",
+    "Łącze zapasowe LTE"
+   ],
+   "pr": "od [CENA] zł"
+  },
+  {
+   "n": "Dom pilnuje się sam",
+   "d": "Nowy dom przed tynkami albo dom na wynajem.",
+   "ic": "home",
+   "f": [
+    "Wszystko z zestawu Dom pod kontrolą",
+    "Smart home Ampio z trybem nieobecności",
+    "Zawór odcinający wodę przy zalaniu",
+    "Nagrzanie domu przed przyjazdem",
+    "Sieć kablowa i Wi-Fi w całym domu"
+   ],
+   "pr": "od [CENA] zł"
+  }
+ ],
+ "faqH": "Pytania właścicieli domów.",
+ "faq": [
+  [
+   "Czy alarm w domku letniskowym ma sens, skoro i tak jestem daleko?",
+   "Tak, bo najważniejsza jest wiedza na czas: o otwartych drzwiach, wycieku wody, spadku temperatury albo braku prądu. Wtedy dzwonisz do sąsiada albo do nas, a nie dowiadujesz się po dwóch tygodniach. Jeśli chcesz patrolu, łączymy alarm z agencją ochrony."
+  ],
+  [
+   "Mój dom nie ma internetu. Czy to zadziała?",
+   "Alarm z komunikatorem GSM wyśle powiadomienie bez internetu. Kamery z podglądem potrzebują łącza, więc proponujemy router LTE z anteną zewnętrzną, a tam, gdzie LTE nie sięga, łącze satelitarne. Zasięg sprawdzamy na miejscu."
+  ],
+  [
+   "Czy kamera może obejmować drogę albo działkę sąsiada?",
+   "Nie powinna. Ustawiamy kadr na Twoją posesję i zasłaniamy w obrazie resztę. Dlaczego to ważne, piszemy w sekcji „Przepisy” wyżej."
+  ],
+  [
+   "Kot albo pies uruchomi alarm?",
+   "Stosujemy czujki odporne na zwierzęta do określonej wagi i rozmieszczamy je tak, żeby nie patrzyły na schody ani grzejniki. Gdy zwierzę dużo skacze, proponujemy ochronę drzwi i okien zamiast czujek ruchu."
+  ],
+  [
+   "Co się stanie podczas burzy albo przy braku prądu?",
+   "Centrala alarmu ma akumulator, a router i rejestrator zasilanie awaryjne. Linie z zewnątrz zabezpieczamy ogranicznikami przepięć, a o zaniku prądu dostajesz powiadomienie. Przepięcia nie da się wykluczyć całkiem, ale można mocno ograniczyć jego skutki."
+  ],
+  [
+   "Czy czujka dymu jest obowiązkowa w domu?",
+   "W domku na wynajem tak, a w domu, w którym mieszkasz, warto ją mieć niezależnie od terminów. Daty i szczegóły są w sekcji „Przepisy”. Dobieramy czujki zgodne z normą, które wysyłają powiadomienie na telefon."
+  ],
+  [
+   "Czy mogę wpuścić sąsiada albo serwisanta bez dawania klucza?",
+   "Tak. Kod do furtki ważny w wybrane dni, otwarcie z aplikacji po rozmowie przez wideodomofon albo osobny kod do alarmu, którego użycie widzisz. Po wizycie kod wyłączasz."
+  ],
+  [
+   "Od czego zależy cena i czy mogę zacząć od samego alarmu?",
+   "Cena zależy od wielkości domu, liczby wejść i okien, liczby kamer, tego, czy da się poprowadzić kable, i od internetu na miejscu. Możesz zacząć od alarmu z czujkami zalania i mrozu, a kamery czy smart home dołożyć później. Planujemy to od razu z myślą o rozbudowie. Wycenę dostajesz na piśmie po wizji lokalnej."
+  ]
+ ],
+ "rel": [
+  "alarm",
+  "kam",
+  "smart",
+  "kd",
+  "wifi",
+  "ant"
+ ],
+ "anc": [
+  [
+   "problemy",
+   "Problemy"
+  ],
+  [
+   "rok",
+   "Rok w domku"
+  ],
+  [
+   "przepisy",
+   "Przepisy"
+  ],
+  [
+   "gory",
+   "Podhale"
+  ],
+  [
+   "pakiety",
+   "Zestawy"
+  ],
+  [
+   "przygotuj",
+   "Przed wizytą"
+  ],
+  [
+   "faq",
+   "Pytania"
+  ]
+ ],
+ "cta": [
+  "Dom i domek letniskowy",
+  "Przyjedziemy, obejdziemy dom i powiemy, od czego zacząć.",
+  "Wizja lokalna, wycena na piśmie, montaż z uporządkowanymi kablami, szkolenie z aplikacji, a na życzenie przegląd przed zimą."
+ ],
+ "fold": [
+  "problemy:900",
+  "rok",
+  "przepisy",
+  "gory",
+  "faq"
+ ]
+}

@@ -42,7 +42,7 @@ seed/<strona>/             # dane startowe strony z pakietu (JSON 1:1, poza Pret
 ```
 
 ## Lokalnie
-- Domeny dev: `biznes.localhost:3000`, `instalacje.localhost:3000`, `software.localhost:3000`, panel: `panel.localhost:3000/admin` (`PANEL_HOST=panel.localhost` w `.env`). Sam `localhost:3000` to nieznana domena → 404. Port to `PORT` z `.env` folderu (drugi folder: 3001) — `pnpm dev` i Playwright biorą go stamtąd.
+- Domeny dev: `biznes.localhost:3000`, `instalacje.localhost:3002` (folder prokom-instal), `software.localhost:3000`, panel: `panel.localhost:3000/admin` (`PANEL_HOST=panel.localhost` w `.env`). Sam `localhost:3000` to nieznana domena → 404. Port to `PORT` z `.env` folderu (drugi folder: 3001) — `pnpm dev` i Playwright biorą go stamtąd.
 - `docker compose -f docker/compose.dev.yml up -d` — PostgreSQL (na hoście port **54320**, bo 5432/5433 bywają zajęte przez natywny PostgreSQL) + Mailpit (SMTP `localhost:1025`, podgląd maili: `localhost:8025`).
 - Komendy: `pnpm dev`, `pnpm build`, `pnpm start`, `pnpm lint`, `pnpm typecheck`, `pnpm format` / `pnpm format:check`, `pnpm test` (Vitest, `src/**/*.test.ts`), `pnpm test:e2e` (Playwright, `tests/e2e`, wymaga działającej bazy po `pnpm seed`; testy edytujące treść logują się adminem z `SEED_ADMIN_*` — Playwright sam wczytuje `.env`), `pnpm generate:types`, `pnpm generate:importmap`, `pnpm payload migrate:create <nazwa>`, `pnpm payload migrate`, `docker build -t prokom-web:local .`, `bash scripts/smoke.sh <adres> [domeny…]` (S9a: obraz i smoke test, `docs/wdrozenia.md`), `scripts/backup.sh` / `scripts/restore.sh` (S9b-2: kopie na serwerze — procedury w `docs/runbook.md`), `pnpm seed` (tylko lokalnie; admin z `SEED_ADMIN_EMAIL` / `SEED_ADMIN_PASSWORD`, na produkcji zablokowany; na końcu importuje katalog Biznesu), `pnpm seed:biznes` (sam katalog Biznesu z `seed/prokombiznes/` + obrazy z `docs/design/prokombiznes/boards/media/` i galerie z `seed/prokombiznes/media/`, idempotentny: pola z paczki wygrywają z edycją w panelu, rekord zapisywany tylko przy różnicy; status treści i data sprawdzenia tylko „w przód”). Zmiana schematu: `docs/sposob-pracy.md` → „Zmiana schematu bazy”.
 - pnpm: wersja z `packageManager` (11.x). Wywołuj `pnpm` bezpośrednio — sam przełącza się na przypiętą wersję. Nie używaj `corepack pnpm`: psuje `webServer` w Playwright.
@@ -130,3 +130,11 @@ This version has breaking changes — APIs, conventions, and file structure may 
 This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
 <!-- END:nextjs-agent-rules -->
+
+## Linia Instalacje (prokominstalacje.pl) — worktree `prokom-instal`
+
+Jeśli pracujesz w folderze `prokom-instal` albo na gałęzi `inst/*`:
+- Najpierw przeczytaj `docs/stan/STAN-instalacje.md`, potem `docs/zadania/prokominstalacje.md` (rytuał i prompty), `docs/strony/prokominstalacje.md` (spec, §2 = decyzje nie do zmiany) i ADR-I001 w `docs/decyzje/` (worktree, `PORT=3002`, baza `prokom_web_instalacje`, strefa wspólna, migracje).
+- Wzorzec wyglądu = `docs/design/prokominstalacje/` (prototyp v4.0 + `MOBILE-APLIKACJA.md`, `KOMPONENTY.md`, `MAPA-STRON.md`). Każda sekcja z UI: `narzedzia/porownaj.mjs` w 1440 i 390, jasny i ciemny, przed PR.
+- Pliki strefy wspólnej (ADR-I001 §3) zmieniasz tylko w osobnym małym PR `inst/wsp-*`. Stan sesji zapisujesz w `docs/stan/STAN-instalacje.md` (`/inst-koniec`), nie w `docs/STAN.md`.
+- Na stronie Instalacji: zero cen sprzętu, zero list źródeł, „24 h” tylko jako odpowiedź na zgłoszenie, gwarancja 24 mies. na montaż.

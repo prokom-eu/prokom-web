@@ -14,6 +14,7 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 
 ## W toku
 Dwie strony powstają równolegle, każda we własnym folderze (git worktree) — `docs/sposob-pracy.md` → „Dwie strony równolegle”. Każda sesja edytuje tylko podsekcję swojej strony.
+Instalacje: stan w docs/stan/STAN-instalacje.md (worktree prokom-instal, gałęzie inst/*)
 
 ### prokombiznes.pl — folder `prokom-web-biznes`
 - **Budowa wg `docs/zadania/prokombiznes.md`.** **Etap 1 zbudowany:** B0–B11 (z B3c, B4c, D1, K1) scalone (#45–#100); wydajność stron #81. **Od 25.10 przed produkcją dochodzi etap K3/K3.1** (pełna oferta, zestawy, marki i salony, produkt 2.0, Plan 2.0 z filmami, GoPOS/InsERT/O firmie/Kontakt 2.0, telefon jak aplikacja) — ścieżka skrócona z `docs/design/prokombiznes/START-TUTAJ.md` §3, plan sesji z kryteriami: `docs/zadania/prokombiznes.md` §6. Paczki wgrane (#110), dokumenty — KD (ten PR).

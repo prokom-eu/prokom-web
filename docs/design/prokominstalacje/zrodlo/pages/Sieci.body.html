@@ -1,0 +1,161 @@
+<!--@pheroA-->
+          <div class="ill" role="region" aria-label="Mapa zasięgu Wi-Fi w pensjonacie przed i po modernizacji">
+            <div class="illbar">
+              <div class="seg" role="group" aria-label="Wariant sieci"><sc-for list="{{wf.modes}}" as="m" hint-placeholder-count="2"><button type="button" class="{{m.cls}}" aria-pressed="{{m.on}}" onClick="{{m.pick}}"><!--i:m.ic:15-->{{m.n}}</button></sc-for></div>
+              <span class="tag {{wf.tagCls}}">{{wf.tag}}</span>
+            </div>
+            <svg class="fp wfp" viewBox="0 0 640 360" aria-hidden="true">
+              <defs>
+                <radialGradient id="whg"><stop offset="0" stop-color="#7BD36A" stop-opacity=".75"></stop><stop offset=".45" stop-color="#12B6D8" stop-opacity=".45"></stop><stop offset=".75" stop-color="#F2B84B" stop-opacity=".25"></stop><stop offset="1" stop-color="#F07A6A" stop-opacity="0"></stop></radialGradient>
+                <clipPath id="wclip"><rect x="20" y="20" width="600" height="320" rx="6"></rect></clipPath>
+              </defs>
+              <rect x="20" y="20" width="600" height="320" rx="6" class="room"></rect>
+              <g clip-path="url(#wclip)"><sc-for list="{{wf.heat}}" as="h" hint-placeholder-count="3"><circle class="heat" cx="{{h.x}}" cy="{{h.y}}" r="{{h.r}}" fill="url(#whg)"></circle></sc-for></g>
+              <sc-for list="{{wf.rooms}}" as="r" hint-placeholder-count="10"><rect class="{{r.cls}}" x="{{r.x}}" y="{{r.y}}" width="{{r.w}}" height="{{r.h}}"></rect><foreignObject x="{{r.tx}}" y="{{r.ty}}" width="300" height="24" class="fo fo-l"><div xmlns="http://www.w3.org/1999/xhtml" class="fot">{{r.n}}</div></foreignObject><foreignObject x="{{r.tx}}" y="{{r.qy}}" width="300" height="24" class="fo fo-l"><div xmlns="http://www.w3.org/1999/xhtml" class="fot {{r.qc}}">{{r.q}}</div></foreignObject></sc-for>
+              <sc-for list="{{wf.devs}}" as="d" hint-placeholder-count="8"><g class="{{d.cls}}" style="{{d.st}}"><circle cx="{{d.x}}" cy="{{d.y}}" r="11" class="wdc"></circle><path d="{{d.ic}}" transform="{{d.tr}}" class="wdi"></path></g></sc-for>
+              <sc-for list="{{wf.aps}}" as="a" hint-placeholder-count="3"><g class="wap"><circle cx="{{a.x}}" cy="{{a.y}}" r="22" class="wapr"></circle><circle cx="{{a.x}}" cy="{{a.y}}" r="13" class="wapc"></circle><foreignObject x="{{a.x}}" y="{{a.ty}}" width="300" height="24" class="fo fo-c"><div xmlns="http://www.w3.org/1999/xhtml" class="fot wapt2">{{a.n}}</div></foreignObject></g></sc-for>
+            </svg>
+            <div class="wvl">
+              <span class="mut" style="font-size: 12.5px; font-weight: 800">Podział sieci:</span>
+              <sc-for list="{{wf.vl}}" as="v" hint-placeholder-count="4"><button type="button" class="{{v.cls}}" style="{{v.st}}" aria-pressed="{{v.on}}" onClick="{{v.pick}}"><i></i>{{v.n}}</button></sc-for>
+            </div>
+            <div class="nvrnote" style="color: var(--muted); padding: 4px 16px 16px; font-size: 13.5px">{{wf.note}}</div>
+          </div>
+<!--@pheroB-->
+
+  <section id="dlaczego" class="{{rv.why}}" data-rv="why" style="padding: 96px 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Dlaczego Wi-Fi nie działa</span><h2 class="h2">Mocniejszy router zwykle nie pomaga. Pomaga plan.</h2></div><p class="lead" style="max-width: 440px">W pensjonatach i domach na Podhalu widzimy ciągle te same przyczyny. Zwykle da się je naprawić bez zmiany operatora.</p></div>
+      <div class="g4"><sc-for list="{{why}}" as="w" hint-placeholder-count="4"><div class="card feat ri"><span class="ico"><!--i:w.ic:22--></span><b class="h3">{{w.t}}</b><p>{{w.d}}</p></div></sc-for></div>
+    </div>
+  </section>
+
+  <section id="podzial" class="{{rv.vlan}}" data-rv="vlan" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Osobne sieci w jednym budynku</span><h2 class="h2">Gość nie zobaczy Twoich kamer ani kasy.</h2></div><p class="lead" style="max-width: 460px">Jeden kabel, jedno łącze, ale kilka oddzielnych sieci. Kliknij sieć, żeby zobaczyć, co do niej należy.</p></div>
+      <div class="netd ri">
+        <div class="netn root"><!--i:P.globe:22--><b>Internet</b><span>światłowód, radio lub LTE</span></div>
+        <div class="netl"></div>
+        <div class="netn"><!--i:P.shield:22--><b>Router z zaporą</b><span>rozdziela sieci i pilnuje ruchu</span></div>
+        <div class="netl"></div>
+        <div class="netn"><!--i:P.net:22--><b>Switch PoE</b><span>zasila punkty dostępowe i kamery</span></div>
+        <div class="netl split4"></div>
+        <div class="netv"><sc-for list="{{vl}}" as="v" hint-placeholder-count="4"><button type="button" class="{{v.cls}}" style="{{v.st}}" aria-pressed="{{v.on}}" onClick="{{v.pick}}"><!--i:v.ic:22--><b>{{v.n}}</b><span>{{v.d}}</span><em>{{v.x}}</em></button></sc-for></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="portal" class="{{rv.portal}}" data-rv="portal" style="padding: 0 0 104px">
+    <div class="wrap smw">
+      <div class="ri" style="display: flex; flex-direction: column; gap: 20px">
+        <span class="eye">Wi-Fi dla gości</span>
+        <h2 class="h2">Strona logowania z Twoim logo. Hasło na pobyt, nie na zawsze.</h2>
+        <p class="lead">Portal gościa pokazuje ekran powitalny obiektu. Możesz dać voucher z limitem czasu, prędkości albo transferu, hasło z recepcji albo logowanie jednym kliknięciem. Urządzenia gości są od siebie odizolowane.</p>
+        <ul class="list"><sc-for list="{{portal}}" as="p" hint-placeholder-count="4"><li><i><!--i:P.check:14:2.6--></i><div><b>{{p.t}}</b><span>{{p.d}}</span></div></li></sc-for></ul>
+        <div class="note"><!--i:P.doc:20--><span>Udostępnianie gościom internetu przez Wi-Fi jako dodatek do noclegu nie jest działalnością telekomunikacyjną (Prawo komunikacji elektronicznej, art. 1 ust. 2). Zwykle nie trzeba niczego rejestrować w UKE.</span></div>
+        <div class="note"><!--i:P.lock:20--><span>Jeśli logowanie zbiera e-mail albo telefon gościa, potrzebna jest klauzula informacyjna RODO, a do marketingu osobna zgoda. Pomożemy to ustawić. Najprościej: voucher bez danych osobowych.</span></div>
+      </div>
+      <div class="ri">
+        <div class="phone"><div class="phs" style="min-height: 560px; background: linear-gradient(180deg, #10313A, #141A17 55%)">
+          <div class="phh"><span>Wi-Fi · Pensjonat</span><span>15:04</span></div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 16px 0 4px"><span style="width: 64px; height: 64px; border-radius: 18px; background: #F4F5F1; color: #10313A; display: flex; align-items: center; justify-content: center; font-family: Archivo; font-weight: 900; font-size: 22px">LOGO</span><b class="pht" style="text-align: center">Witamy w&#160;[nazwa obiektu]</b><span style="font-size: 12.5px; color: #B5BBB5; text-align: center">Wi-Fi dla gości</span></div>
+          <div class="tile on" style="gap: 8px"><span>Kod z recepcji lub z wiadomości</span><b class="big" style="letter-spacing: .2em">{{pt.code}}</b></div>
+          <div class="tile" style="flex-direction: row; justify-content: space-between; align-items: center"><span>Ważny do</span><b>{{pt.until}}</b></div>
+          <div class="tile" style="flex-direction: row; justify-content: space-between; align-items: center"><span>Prędkość</span><b>do 50 Mb/s</b></div>
+          <div style="border-radius: 14px; background: #12B6D8; color: #06181C; font-weight: 800; text-align: center; padding: 14px">Połącz z internetem</div>
+          <span style="font-size: 11.5px; color: #8C948E; text-align: center">Akceptuję regulamin sieci</span>
+          <div style="margin-top: auto; font-size: 12px; color: #8C948E; text-align: center">Przykładowy ekran · ilustracja</div>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="okablowanie" class="{{rv.cab}}" data-rv="cab" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Kable, szafy, światłowody</span><h2 class="h2">Dobre Wi-Fi zaczyna się od kabla.</h2></div><p class="lead" style="max-width: 460px">Punkty dostępowe podłączamy przewodem, a budynki łączymy światłowodem albo mostem radiowym. W górach, gdzie stok zasłania sygnał, to często jedyna droga.</p></div>
+      <div class="g3"><sc-for list="{{cab}}" as="b" hint-placeholder-count="6"><div class="card feat ri"><span class="ico"><!--i:b.ic:22--></span><b class="h3">{{b.t}}</b><p>{{b.d}}</p></div></sc-for></div>
+      <div class="note ri" style="margin-top: 18px"><!--i:P.globe:20--><span>Według UKE w 2024 roku ok. 16% gospodarstw domowych w Polsce nie miało dostępu do internetu 100 Mb/s. Na Podhalu też trafiamy na takie adresy. Wtedy budujemy łącze radiowe albo zapasowe LTE.</span></div>
+      <p class="src ri" style="margin-top: 12px">Realizacja: okablowanie stanowisk biurowych w Blachotrapezie w Rabce-Zdroju. <span class="ph">[SZEF: zgoda klienta na podanie nazwy]</span></p>
+    </div>
+  </section>
+
+  <section id="narzedzia" class="{{rv.lab}}" data-rv="lab" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Sprawdź sam</span><h2 class="h2">Cztery decyzje, które przesądzają o sieci.</h2></div><p class="lead" style="max-width: 460px">Mury, kabel, połączenie budynków i zapasowe łącze. Pobaw się suwakami, a zobaczysz, dlaczego zawsze zaczynamy od wizji lokalnej.</p></div>
+      <div class="labg">
+        <div class="card labc ri">
+          <span class="svk">Mury a Wi-Fi</span><b class="h3">Ile sygnału zabiera ściana?</b>
+          <div class="seg"><sc-for list="{{lb.bands}}" as="b" hint-placeholder-count="2"><button type="button" class="{{b.cls}}" aria-pressed="{{b.on}}" onClick="{{b.pick}}">{{b.n}}</button></sc-for></div>
+          <div class="zpc"><sc-for list="{{lb.walls}}" as="w" hint-placeholder-count="6"><button type="button" class="{{w.cls}}" aria-pressed="{{w.on}}" onClick="{{w.pick}}">{{w.n}}</button></sc-for></div>
+          <div class="wallv"><div class="wv1"><!--i:P.wifi:22--><span>Nadajnik</span></div><div class="{{lb.wallCls}}"></div><div class="wv2"><div class="wbars"><sc-for list="{{lb.bars}}" as="x" hint-placeholder-count="5"><i class="{{x}}"></i></sc-for></div><b>−{{lb.db}} dB</b></div></div>
+          <p class="labr">{{lb.txt}}</p>
+          <span class="src">Wartości dla typowej ściany. Gruby mur tłumi więcej.</span>
+        </div>
+        <div class="card labc ri">
+          <span class="svk">Kabel</span><b class="h3">Cat6 czy Cat6A?</b>
+          <div class="cq"><span>Długość trasy: {{lb.len}} m</span><input class="rng" type="range" min="10" max="100" step="5" value="{{lb.len}}" onInput="{{lb.onLen}}" aria-label="Długość trasy w metrach"></div>
+          <div class="cq"><span>Potrzebna prędkość</span><div class="seg"><sc-for list="{{lb.sp}}" as="b" hint-placeholder-count="3"><button type="button" class="{{b.cls}}" aria-pressed="{{b.on}}" onClick="{{b.pick}}">{{b.n}}</button></sc-for></div></div>
+          <div class="{{lb.catCls}}"><b>{{lb.cat}}</b><span>{{lb.catS}}</span></div>
+          <span class="src">Cat6: 10 Gb/s do ok. 55 m, Cat6A: 10 Gb/s na pełnych 100 m. Cat7 nie jest uznawana przez normę TIA, dlatego jej nie proponujemy.</span>
+        </div>
+        <div class="card labc ri">
+          <span class="svk">Kilka budynków</span><b class="h3">Światłowód czy most radiowy?</b>
+          <div class="cq"><span>Odległość między budynkami</span><div class="seg"><sc-for list="{{lb.dist}}" as="b" hint-placeholder-count="3"><button type="button" class="{{b.cls}}" aria-pressed="{{b.on}}" onClick="{{b.pick}}">{{b.n}}</button></sc-for></div></div>
+          <div class="cq"><span>Czy można kopać?</span><div class="seg"><sc-for list="{{lb.dig}}" as="b" hint-placeholder-count="2"><button type="button" class="{{b.cls}}" aria-pressed="{{b.on}}" onClick="{{b.pick}}">{{b.n}}</button></sc-for></div></div>
+          <div class="cq"><span>Czy budynki się widzą?</span><div class="seg"><sc-for list="{{lb.see}}" as="b" hint-placeholder-count="2"><button type="button" class="{{b.cls}}" aria-pressed="{{b.on}}" onClick="{{b.pick}}">{{b.n}}</button></sc-for></div></div>
+          <div class="labres"><!--i:lb.lnkIc:22--><div><b>{{lb.lnk}}</b><span>{{lb.lnkS}}</span></div></div>
+        </div>
+        <div class="card labc ri">
+          <span class="svk">Łącze zapasowe</span><b class="h3">Co się dzieje, gdy padnie internet?</b>
+          <div class="fov {{lb.foCls}}">
+            <div class="fon"><!--i:P.globe:20--><span>Operator</span><i class="fol l1"></i></div>
+            <div class="fon"><!--i:P.ant:20--><span>LTE/5G</span><i class="fol l2"></i></div>
+            <div class="fon r"><!--i:P.net:20--><span>Router</span></div>
+            <div class="fon t"><!--i:P.card:20--><span>Terminal</span><b>{{lb.term}}</b></div>
+          </div>
+          <button type="button" class="{{lb.foBtnCls}}" onClick="{{lb.foTog}}"><!--i:P.x:15-->{{lb.foBtn}}</button>
+          <p class="labr">{{lb.foTxt}}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NET2 -->
+  <!-- NET3 -->
+  <section id="sprzet" class="{{rv.hw}}" data-rv="hw" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Z czego składa się dobra sieć</span><h2 class="h2">Cztery elementy zamiast routera od operatora. <span class="acc">Jedna aplikacja do wszystkich.</span></h2></div><p class="lead" style="max-width: 460px">Sieć w obiekcie to system: brama z zaporą, przełącznik, który zasila urządzenia po kablu, punkty Wi-Fi i panel, z którego wszystko widać. Markę sprzętu dobieramy po wizji lokalnej.</p></div>
+      <div class="hwflow ri"><sc-for list="{{hw.roles}}" as="r" hint-placeholder-count="4"><div class="card hwrole"><span class="hwno">{{r.no}}</span><span class="ico"><!--i:r.ic:22--></span><b class="h3">{{r.t}}</b><p>{{r.d}}</p><span class="hwtip"><b>Na co uważać:</b> {{r.w}}</span></div></sc-for></div>
+      <div class="hwcmp xb-hw2 ri">
+        <div class="card hwk"><span class="eye">Na czym budujemy</span><b class="h3">Sprzęt dobieramy do budynku, nie odwrotnie.</b><p style="color: var(--muted); margin: 0">Najczęściej pracujemy na systemach Ubiquiti UniFi albo TP-Link Omada, a przy mostach radiowych także MikroTik. Markę dobieramy po wizji lokalnej: do liczby pokoi, kamer, budynków i tego, kto będzie siecią zarządzał.</p></div>
+        <div class="card dark hwk"><span class="eye" style="color: #4CCBE6">Niezależnie od marki</span><b class="h3">To dostajesz w każdej sieci.</b><ul class="uhl"><li><!--i:P.check:13:2.8-->Osobna sieć gości z portalem logowania</li><li><!--i:P.check:13:2.8-->Zasilanie punktów i kamer jednym kablem (PoE)</li><li><!--i:P.check:13:2.8-->Aktualizacje i nadzór zdalny z panelu</li></ul></div>
+      </div>
+      
+    </div>
+  </section>
+  <section id="standardy" class="{{rv.std}}" data-rv="std" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Wi-Fi 6, 6E i 7</span><h2 class="h2">Co naprawdę zmieniają nowe standardy.</h2></div><p class="lead" style="max-width: 460px">Nowszy standard nie zawsze znaczy „szybciej u każdego”. Pełną korzyść mają nowe telefony i laptopy, a starsze urządzenia dalej działają.</p></div>
+      <div class="g3"><sc-for list="{{wgen}}" as="w" hint-placeholder-count="3"><div class="card wfc ri" style="{{w.st}}"><span class="wfg">{{w.g}}</span><b class="h3">{{w.t}}</b><ul class="uhl"><sc-for list="{{w.l}}" as="x" hint-placeholder-count="3"><li><!--i:P.check:13:2.8-->{{x}}</li></sc-for></ul><span class="wfn">{{w.n}}</span></div></sc-for></div>
+      <div class="note ri" style="margin-top: 16px"><!--i:P.doc:20--><span><b>Pasmo 6 GHz w Polsce:</b> 5945–6425 MHz udostępnione rozporządzeniem z 11.11.2023 (Dz.U. 2023 poz. 2567). Punkty o mocy LPI pracują tylko wewnątrz budynków, dlatego na zewnątrz i w mostach radiowych dalej używamy 5 GHz lub 60 GHz.</span></div>
+    </div>
+  </section>
+
+  <section id="zapas" class="{{rv.bak}}" data-rv="bak" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div style="display: grid">
+        <div class="card dark bkc ri">
+          <span class="eye" style="color: #4CCBE6">Dla firm średnich i dużych oraz instytucji</span><b class="h3" style="font-size: 26px">NIS2 jest już w polskim prawie.</b>
+          <p style="color: #B5C7CB">Nowelizacja ustawy o krajowym systemie cyberbezpieczeństwa (Dz.U. 2026 poz. 252) obowiązuje od 3.04.2026. Obejmuje co do zasady średnie i duże firmy z wybranych sektorów, a także wiele podmiotów publicznych.</p>
+          <ul class="uhl" style="color: #E8F0F1"><li><!--i:P.check:13:2.8-->Osobne sieci dla urządzeń i gości</li><li><!--i:P.check:13:2.8-->Aktualizacje i kopie konfiguracji</li><li><!--i:P.check:13:2.8-->Dokumentacja sieci i dostępów</li></ul>
+          <span style="color: #9FB0B4; font-size: 13.5px">Nie robimy audytów prawnych. Przygotowujemy sieć i dokumentację techniczną, które ułatwiają spełnienie wymagań.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!--@odbsec-->
+<!--@pkgs-->
+<!--@cena-->
+<!--@faqsec-->
+<!--@relsec-->

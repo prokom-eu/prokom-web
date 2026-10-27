@@ -1,0 +1,886 @@
+{
+ "_strona": "Alarmy",
+ "_title": "Alarmy i wideodomofony Rabka-Zdrój, Zakopane | PRO-KOM",
+ "_description": "Alarmy Satel i Ajax, wideodomofony i domofony na Podhalu. Ochrona domu letniskowego zimą, powiadomienia na telefon, montaż z Rabki-Zdroju i Zakopanego.",
+ "_uwaga": "Zrzut danych z wizualizacji v4.0 (stan początkowy strony, motyw jasny). Teksty = treść do seeda. Klucze UI (cls, on, pick) pomijaj.",
+ "dane": {
+  "ctaEye": "Alarm na Podhalu",
+  "ctaH": "Zaprojektujemy alarm, który chroni, a nie denerwuje.",
+  "ctaP": "Strefy, tryb nocny, czujki całodobowe i wideodomofon. Montaż, test czujek razem z Tobą i serwis.",
+  "hero": {
+   "mid": true,
+   "midT": "Usługi",
+   "midH": "Main.dc.html#uslugi",
+   "cta": "Zaplanuj instalację",
+   "ctaHref": "Zaplanuj.dc.html",
+   "crumb": "Alarmy i wideodomofony",
+   "eye": "Systemy alarmowe · Rabka-Zdrój, Zakopane, Podhale",
+   "h1a": "Alarm, który budzi złodzieja,",
+   "h1b": "a nie Ciebie o trzeciej w nocy.",
+   "lead": "Montujemy alarmy przewodowe i bezprzewodowe, czujki dymu, zalania i temperatury oraz wideodomofony z aplikacją. Do domu, domu letniskowego, pensjonatu i firmy. Po montażu testujemy czujki razem z Tobą.",
+   "kv": [
+    {
+     "b": "całą dobę",
+     "s": "czujki dymu, zalania i mrozu"
+    },
+    {
+     "b": "od 2004",
+     "s": "montaż i serwis na Podhalu"
+    },
+    {
+     "b": "1 aplikacja",
+     "s": "alarm, domofon, kamery jednej marki"
+    }
+   ],
+   "tags": [
+    {
+     "n": "Satel"
+    },
+    {
+     "n": "Ajax"
+    },
+    {
+     "n": "Hikvision"
+    },
+    {
+     "n": "Wideodomofony"
+    }
+   ]
+  },
+  "anc": [
+   {
+    "href": "#jak-dziala",
+    "n": "Jak działa"
+   },
+   {
+    "href": "#wersje",
+    "n": "Wersje alarmu"
+   },
+   {
+    "href": "#przewod",
+    "n": "Przewodowy czy radiowy"
+   },
+   {
+    "href": "#wideodomofon",
+    "n": "Wideodomofon"
+   },
+   {
+    "href": "#domofony",
+    "n": "Domofony"
+   },
+   {
+    "href": "#dom-letniskowy",
+    "n": "Dom letniskowy"
+   },
+   {
+    "href": "#agencja",
+    "n": "Agencja ochrony"
+   },
+   {
+    "href": "#pakiety",
+    "n": "Zestawy"
+   },
+   {
+    "href": "#faq",
+    "n": "Pytania"
+   }
+  ],
+  "pkgs": [
+   {
+    "ic": "ikona:home",
+    "n": "Mieszkanie i mały dom",
+    "d": "Podstawowa ochrona wejść i parteru.",
+    "f": [
+     "Centrala z aplikacją",
+     "Czujki ruchu i otwarcia drzwi",
+     "Syrena zewnętrzna",
+     "Czujka dymu",
+     "Test i szkolenie"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "hot": false,
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri"
+   },
+   {
+    "ic": "ikona:home",
+    "n": "Dom z garażem i furtką",
+    "d": "Alarm, wideodomofon i czujki całodobowe.",
+    "f": [
+     "Strefy: parter, piętro, garaż",
+     "Tryb nocny",
+     "Wideodomofon z aplikacją",
+     "Czujki zalania i temperatury",
+     "Integracja z kamerami"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "hot": true,
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri hot"
+   },
+   {
+    "ic": "ikona:office",
+    "n": "Firma, sklep, pensjonat",
+    "d": "Strefy, kody dla pracowników, agencja.",
+    "f": [
+     "Osobne kody i harmonogramy",
+     "Strefy: sala, zaplecze, magazyn",
+     "Łączność LAN i LTE",
+     "Przekazanie sygnału do agencji",
+     "Przeglądy okresowe"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "hot": false,
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri"
+   }
+  ],
+  "cena": [
+   {
+    "ic": "ikona:home",
+    "t": "Wielkość obiektu",
+    "d": "Liczba pomieszczeń, wejść, okien i pięter."
+   },
+   {
+    "ic": "ikona:wifi",
+    "t": "Przewodowy czy radiowy",
+    "d": "Przewody na etapie budowy są tańsze. W gotowym domu często lepsze radio."
+   },
+   {
+    "ic": "ikona:bell",
+    "t": "Rodzaje czujek",
+    "d": "Ruch, otwarcie, szyba, dym, zalanie, temperatura, czujki zewnętrzne."
+   },
+   {
+    "ic": "ikona:phone",
+    "t": "Wideodomofon",
+    "d": "Liczba wejść, panel w domu, aplikacja, brama."
+   },
+   {
+    "ic": "ikona:globe",
+    "t": "Łączność",
+    "d": "LAN, LTE, a przy agencji ochrony także moduł do jej centrum."
+   },
+   {
+    "ic": "ikona:wrench",
+    "t": "Serwis",
+    "d": "Przeglądy okresowe, wymiana akumulatora i baterii."
+   }
+  ],
+  "faq": [
+   {
+    "n": "01",
+    "q": "Przewodowy czy bezprzewodowy alarm?",
+    "a": "W budowanym domu zwykle przewodowy, bo kable idą razem z elektryką. W domu wykończonym albo apartamencie lepszy bezprzewodowy, bez kucia. Często łączymy oba: przewody tam, gdzie się da, radio w trudnych miejscach.",
+    "open": true
+   },
+   {
+    "n": "02",
+    "q": "Czy alarm zadziała bez prądu i internetu?",
+    "a": "Tak. Centrala ma akumulator, a powiadomienia może wysyłać przez sieć komórkową, gdy padnie internet. Ile wytrzyma akumulator, zależy od systemu i liczby czujek.",
+    "open": false
+   },
+   {
+    "n": "03",
+    "q": "Czy pies uruchomi alarm?",
+    "a": "Dobieramy czujki odporne na małe zwierzęta i ustawiamy strefy tak, żeby pies mógł chodzić po wybranej części domu. Duży pies na kanapie to temat do omówienia przy projekcie.",
+    "open": false
+   },
+   {
+    "n": "04",
+    "q": "Czy potrzebuję agencji ochrony?",
+    "a": "Nie musisz. Powiadomienia mogą trafiać do Ciebie i wskazanych osób. Agencja ma sens, gdy nikt nie może szybko zareagować, np. w firmie albo w domu letniskowym.",
+    "open": false
+   },
+   {
+    "n": "05",
+    "q": "Czy mogę podłączyć alarm do smart home?",
+    "a": "Tak. Ampio integruje się m.in. z centralami Satel i kamerami Dahua i Hikvision, więc alarm może np. zgasić światła i zamknąć rolety po uzbrojeniu.",
+    "open": false
+   },
+   {
+    "n": "06",
+    "q": "Mam stary domofon. Trzeba kuć ściany?",
+    "a": "Często nie. Wideodomofony dwuprzewodowe działają na istniejącym przewodzie. Sprawdzamy to na miejscu.",
+    "open": false
+   },
+   {
+    "n": "07",
+    "q": "Jaką gwarancję dostanę?",
+    "a": "Na montaż dajemy 24 miesiące gwarancji PRO-KOM, a urządzenia mają gwarancję producenta. Na zgłoszenie odpowiadamy do 24 h w dni robocze: oddzwonimy albo odpiszemy.",
+    "open": false
+   },
+   {
+    "n": "08",
+    "q": "Co dostanę na telefon, gdy alarm się włączy?",
+    "a": "Powiadomienie z aplikacji z nazwą strefy i czujki, a przy ważnych zdarzeniach także SMS albo połączenie przez moduł GSM/LTE. Jeśli alarm współpracuje z kamerami, od razu sprawdzisz obraz.",
+    "open": false
+   }
+  ],
+  "rel": [
+   {
+    "k": "kam",
+    "n": "Monitoring i kamery",
+    "g": "Bezpieczeństwo",
+    "href": "Monitoring.dc.html",
+    "ic": "ikona:cam",
+    "s": "Kompletny system: kamery, rejestrator, dyski, PoE"
+   },
+   {
+    "k": "kd",
+    "n": "Kontrola dostępu i zamki",
+    "g": "Bezpieczeństwo",
+    "href": "Dostep.dc.html",
+    "ic": "ikona:lock",
+    "s": "Karty, kody, apartamenty"
+   },
+   {
+    "k": "smart",
+    "n": "Smart home Ampio",
+    "g": "Komfort i obraz",
+    "href": "SmartHome.dc.html",
+    "ic": "ikona:home",
+    "s": "Polski system, działa bez internetu"
+   },
+   {
+    "href": "Serwis.dc.html",
+    "ic": "ikona:wrench",
+    "n": "Serwis i przeglądy",
+    "s": "Testy czujek, akumulatory, przejęcie instalacji"
+   }
+  ],
+  "segRel": [
+   {
+    "k": "dom",
+    "g": "Dom i noclegi",
+    "n": "Dom i domek letniskowy",
+    "s": "Bezpieczny, gdy Cię nie ma",
+    "page": "SegDom",
+    "href": "SegDom.dc.html",
+    "ic": "ikona:home",
+    "h": "#7BD36A",
+    "hs": "--mh:#7BD36A",
+    "cls": ""
+   },
+   {
+    "k": "apt",
+    "g": "Dom i noclegi",
+    "n": "Apartament na wynajem",
+    "s": "Gość wchodzi sam, Ty widzisz wszystko",
+    "page": "SegApartament",
+    "href": "SegApartament.dc.html",
+    "ic": "ikona:key",
+    "h": "#F2B84B",
+    "hs": "--mh:#F2B84B",
+    "cls": ""
+   },
+   {
+    "k": "sklep",
+    "g": "Firmy",
+    "n": "Sklep i salon",
+    "s": "Kasa, witryna, komunikaty",
+    "page": "SegSklep",
+    "href": "SegSklep.dc.html",
+    "ic": "ikona:shop",
+    "h": "#12B6D8",
+    "hs": "--mh:#12B6D8",
+    "cls": ""
+   },
+   {
+    "k": "firma",
+    "g": "Firmy",
+    "n": "Firma, biuro i hala",
+    "s": "Wejścia, rampa, sieć firmowa",
+    "page": "SegFirma",
+    "href": "SegFirma.dc.html",
+    "ic": "ikona:factory",
+    "h": "#5B8CF0",
+    "hs": "--mh:#5B8CF0",
+    "cls": ""
+   },
+   {
+    "k": "kosc",
+    "g": "Instytucje",
+    "n": "Kościół i parafia",
+    "s": "Zrozumiała mowa, transmisja mszy",
+    "page": "SegKosciol",
+    "href": "SegKosciol.dc.html",
+    "ic": "ikona:church",
+    "h": "#B58CF0",
+    "hs": "--mh:#B58CF0",
+    "cls": ""
+   }
+  ],
+  "hasSegRel": true,
+  "segRelH": "Dla kogo robimy tę instalację",
+  "sx": {
+   "faqA": {
+    "t": "Masz inne pytanie?",
+    "d": "Wyślij zdjęcie obiektu albo obecnej instalacji. Powiemy, od czego zacząć i czego się spodziewać.",
+    "cta": "Zaplanuj instalację",
+    "href": "Zaplanuj.dc.html"
+   },
+   "faqH": "Zanim zadzwonisz.",
+   "relH": "Alarm, kamery i dostęp w jednej aplikacji.",
+   "pkg": {
+    "eye": "Przykładowe zestawy",
+    "h": "Trzy typowe punkty startu.",
+    "p": "Zakres zawsze dopasowujemy po obejrzeniu budynku.",
+    "note": "To przykłady. Liczbę czujek, strefy i rodzaj systemu ustalamy na wizji lokalnej, a cenę podajemy na piśmie."
+   },
+   "cena": {
+    "btn": "Wyślij zdjęcia do wyceny",
+    "eye": "Wycena",
+    "h": "Od czego zależy cena alarmu.",
+    "p": "Najwięcej zmienia to, czy kable da się poprowadzić razem z elektryką, czy montujemy w gotowym wnętrzu."
+   }
+  },
+  "av": {
+   "sub": "pilnuje także pod nieobecność",
+   "tabs": [
+    {
+     "n": "Mieszkanie",
+     "ic": "ikona:office",
+     "on": "false",
+     "cls": ""
+    },
+    {
+     "n": "Dom",
+     "ic": "ikona:home",
+     "on": "false",
+     "cls": ""
+    },
+    {
+     "n": "Dom letniskowy",
+     "ic": "ikona:snow",
+     "on": "true",
+     "cls": "on"
+    },
+    {
+     "n": "Firma i sklep",
+     "ic": "ikona:shop",
+     "on": "false",
+     "cls": ""
+    }
+   ],
+   "items": [
+    {
+     "ic": "ikona:cpu",
+     "n": "Centrala z akumulatorem",
+     "d": "Mózg systemu. Przy braku prądu pracuje na akumulatorze, przy braku internetu wysyła powiadomienia przez sieć komórkową.",
+     "m": "np. Satel z kontrolerem ABAX 2, Ajax Hub 2",
+     "cls": "alvi on"
+    },
+    {
+     "ic": "ikona:grid",
+     "n": "Klawiatura i piloty",
+     "d": "Uzbrajanie przy wejściu, pilot dla domowników, a do tego aplikacja w telefonie.",
+     "m": "manipulator, breloki",
+     "cls": "alvi on"
+    },
+    {
+     "ic": "ikona:eye",
+     "n": "Czujki ruchu odporne na zwierzęta",
+     "d": "Ignorują psa lub kota do ok. 20 kg, zależnie od modelu.",
+     "m": "np. Satel APD-200 Pet: pole 14 × 16 m",
+     "cls": "alvi on"
+    },
+    {
+     "ic": "ikona:door",
+     "n": "Czujki otwarcia drzwi i okien",
+     "d": "Alarm, zanim ktoś wejdzie do środka.",
+     "m": "czujki magnetyczne",
+     "cls": "alvi on"
+    },
+    {
+     "ic": "ikona:x",
+     "n": "Czujki zbicia szyby",
+     "d": "Przy dużych przeszkleniach, witrynach i drzwiach tarasowych.",
+     "m": "np. Satel AGD-200: do 6 m",
+     "cls": "alvi"
+    },
+    {
+     "ic": "ikona:sun2",
+     "n": "Czujki zewnętrzne",
+     "d": "Alarm, gdy ktoś jest jeszcze na podwórku, a nie dopiero w domu.",
+     "m": "np. Satel AOD-210: praca od −40°C",
+     "cls": "alvi"
+    },
+    {
+     "ic": "ikona:bell",
+     "n": "Sygnalizator z lampą",
+     "d": "Głośny sygnał i błyskające światło odstraszają i pokazują, gdzie jest alarm.",
+     "m": "np. Satel ASP-200 R: do 105 dB",
+     "cls": "alvi on"
+    },
+    {
+     "ic": "ikona:drop",
+     "n": "Czujki zalania i temperatury",
+     "d": "Woda pod pralką albo spadek temperatury w kotłowni od razu w telefonie.",
+     "m": "np. Satel AFD-200: bateria do 5 lat",
+     "cls": "alvi on"
+    },
+    {
+     "ic": "ikona:fire",
+     "n": "Czujki dymu",
+     "d": "Powiadomienie w telefonie, nawet gdy w domu nikogo nie ma.",
+     "m": "np. Satel ASD-250, zgodna z EN 14604",
+     "cls": "alvi on"
+    },
+    {
+     "ic": "ikona:camera2",
+     "n": "Czujka ze zdjęciem",
+     "d": "Przy alarmie przesyła serię zdjęć, więc od razu widzisz, czy to włamanie.",
+     "m": "np. Ajax MotionCam: bateria do 4 lat",
+     "cls": "alvi on"
+    },
+    {
+     "ic": "ikona:ant",
+     "n": "Łączność LTE i Ethernet",
+     "d": "Dwie drogi powiadomień. Gdy jedna zawiedzie, działa druga.",
+     "m": "moduł GSM/LTE, dwie karty SIM",
+     "cls": "alvi on"
+    },
+    {
+     "ic": "ikona:shield",
+     "n": "Agencja ochrony (opcja)",
+     "d": "Sygnał trafia do całodobowego centrum, które wysyła patrol.",
+     "m": "umowa z agencją z koncesją",
+     "cls": "alvi"
+    }
+   ]
+  },
+  "dm": {
+   "v": [
+    {
+     "ic": "ikona:home",
+     "n": "Dom i furtka",
+     "f": [
+      "Panel z kamerą przy furtce",
+      "Monitor w domu albo tylko aplikacja",
+      "Rozmowa i otwieranie z telefonu",
+      "Elektrozaczep lub zwora w furtce"
+     ]
+    },
+    {
+     "ic": "ikona:gate",
+     "n": "Dom z bramą",
+     "f": [
+      "Osobno „furtka” i „brama”",
+      "Sterowanie napędem bramy",
+      "Kody PIN i breloki dla domowników",
+      "Drugi monitor na piętrze"
+     ]
+    },
+    {
+     "ic": "ikona:users",
+     "n": "Blok i wspólnota",
+     "f": [
+      "Panel z numerami lokali lub listą",
+      "Breloki dla mieszkańców",
+      "Zgubiony brelok blokujemy w systemie",
+      "Monitory albo aplikacja w mieszkaniach"
+     ]
+    },
+    {
+     "ic": "ikona:bed",
+     "n": "Pensjonat i apartamenty",
+     "f": [
+      "Połączenie do recepcji",
+      "Po godzinach przekierowanie na telefon",
+      "Breloki dla obsługi",
+      "Historia otwarć: kto i kiedy"
+     ]
+    }
+   ],
+   "q": [
+    {
+     "n": "Tak, dwie żyły",
+     "on": "true",
+     "cls": "on"
+    },
+    {
+     "n": "Nie, nowy dom",
+     "on": "false",
+     "cls": ""
+    },
+    {
+     "n": "Nie wiem",
+     "on": "false",
+     "cls": ""
+    }
+   ],
+   "r": "System 2-przewodowy",
+   "rs": "Zasilanie, dźwięk i obraz idą istniejącą parą przewodów. Producent podaje zasięg zależny od przekroju kabla, np. Dahua 2-Wire Hybrid do 200 m. Stan starego przewodu sprawdzamy na miejscu.",
+   "src": "Rozpoznawania twarzy w panelach nie proponujemy domyślnie: to dane biometryczne i wymagają szczególnych podstaw z RODO."
+  },
+  "al": {
+   "cls": "full",
+   "clock": "02:14",
+   "modes": [
+    {
+     "n": "Rozbrojony",
+     "ic": "ikona:lock",
+     "on": "false",
+     "cls": ""
+    },
+    {
+     "n": "Noc · parter",
+     "ic": "ikona:moon",
+     "on": "false",
+     "cls": ""
+    },
+    {
+     "n": "Pełne uzbrojenie",
+     "ic": "ikona:shield",
+     "on": "true",
+     "cls": "on"
+    }
+   ],
+   "tests": [
+    {
+     "n": "Wejście przez taras",
+     "ic": "ikona:door"
+    },
+    {
+     "n": "Zalanie",
+     "ic": "ikona:drop"
+    },
+    {
+     "n": "Dym",
+     "ic": "ikona:fire"
+    }
+   ],
+   "rooms": [
+    {
+     "n": "Sypialnia",
+     "x": 96,
+     "y": 140,
+     "w": 170,
+     "h": 106,
+     "tx": 104,
+     "ty": 157,
+     "cls": "hroom arm"
+    },
+    {
+     "n": "Korytarz",
+     "x": 266,
+     "y": 140,
+     "w": 60,
+     "h": 106,
+     "tx": 274,
+     "ty": 157,
+     "cls": "hroom arm"
+    },
+    {
+     "n": "Pokój",
+     "x": 326,
+     "y": 140,
+     "w": 138,
+     "h": 106,
+     "tx": 334,
+     "ty": 157,
+     "cls": "hroom arm"
+    },
+    {
+     "n": "Salon",
+     "x": 96,
+     "y": 246,
+     "w": 140,
+     "h": 106,
+     "tx": 104,
+     "ty": 263,
+     "cls": "hroom arm"
+    },
+    {
+     "n": "Wejście",
+     "x": 236,
+     "y": 246,
+     "w": 72,
+     "h": 106,
+     "tx": 244,
+     "ty": 263,
+     "cls": "hroom arm"
+    },
+    {
+     "n": "Kuchnia",
+     "x": 308,
+     "y": 246,
+     "w": 156,
+     "h": 106,
+     "tx": 316,
+     "ty": 263,
+     "cls": "hroom arm"
+    },
+    {
+     "n": "Garaż",
+     "x": 464,
+     "y": 232,
+     "w": 140,
+     "h": 120,
+     "tx": 472,
+     "ty": 249,
+     "cls": "hroom arm"
+    }
+   ],
+   "sens": [
+    {
+     "n": "Ruch",
+     "l": "R",
+     "x": 200,
+     "y": 272,
+     "ty": 275.5,
+     "cls": "sg arm"
+    },
+    {
+     "n": "Okno",
+     "l": "O",
+     "x": 155,
+     "y": 306,
+     "ty": 309.5,
+     "cls": "sg arm"
+    },
+    {
+     "n": "Drzwi",
+     "l": "O",
+     "x": 272,
+     "y": 290,
+     "ty": 293.5,
+     "cls": "sg arm"
+    },
+    {
+     "n": "Ruch",
+     "l": "R",
+     "x": 444,
+     "y": 266,
+     "ty": 269.5,
+     "cls": "sg arm"
+    },
+    {
+     "n": "Taras",
+     "l": "O",
+     "x": 397,
+     "y": 300,
+     "ty": 303.5,
+     "cls": "sg arm"
+    },
+    {
+     "n": "Dym",
+     "l": "D",
+     "x": 330,
+     "y": 290,
+     "ty": 293.5,
+     "cls": "sg d24"
+    },
+    {
+     "n": "Woda",
+     "l": "W",
+     "x": 330,
+     "y": 336,
+     "ty": 339.5,
+     "cls": "sg d24"
+    },
+    {
+     "n": "Ruch",
+     "l": "R",
+     "x": 586,
+     "y": 252,
+     "ty": 255.5,
+     "cls": "sg arm"
+    },
+    {
+     "n": "Brama",
+     "l": "O",
+     "x": 534,
+     "y": 256,
+     "ty": 259.5,
+     "cls": "sg arm"
+    },
+    {
+     "n": "Temp.",
+     "l": "T",
+     "x": 498,
+     "y": 336,
+     "ty": 339.5,
+     "cls": "sg d24"
+    },
+    {
+     "n": "Dym",
+     "l": "D",
+     "x": 230,
+     "y": 168,
+     "ty": 171.5,
+     "cls": "sg d24"
+    },
+    {
+     "n": "Ruch",
+     "l": "R",
+     "x": 296,
+     "y": 196,
+     "ty": 199.5,
+     "cls": "sg arm"
+    }
+   ],
+   "sirCls": "sirg",
+   "stCls": "arm",
+   "stIc": "ikona:shield",
+   "stT": "Uzbrojony",
+   "stS": "cały dom i garaż",
+   "msgs": [],
+   "note": "R ruch · O otwarcie · D dym · W zalanie · T temperatura. Niebieskie są uzbrojone, zielone czuwają całą dobę. Wychodzisz z domu: wszystko jest uzbrojone."
+  },
+  "flow": [
+   {
+    "n": "01",
+    "ic": "ikona:eye",
+    "t": "Czujki",
+    "d": "Ruchu, otwarcia drzwi i okien, rozbicia szyby, dymu, zalania, temperatury."
+   },
+   {
+    "n": "02",
+    "ic": "ikona:cpu",
+    "t": "Centrala",
+    "d": "Sprawdza strefy i czas na wpisanie kodu. Ma akumulator na wypadek braku prądu."
+   },
+   {
+    "n": "03",
+    "ic": "ikona:bell",
+    "t": "Syrena i telefon",
+    "d": "Syrena odstrasza, a powiadomienie i SMS trafiają do Ciebie i wskazanych osób."
+   },
+   {
+    "n": "04",
+    "ic": "ikona:shield",
+    "t": "Reakcja",
+    "d": "Sprawdzasz kamerę w aplikacji. Opcjonalnie sygnał odbiera agencja ochrony."
+   }
+  ],
+  "cmp": [
+   {
+    "k": "Kiedy najlepiej",
+    "a": "Nowy dom, remont, firma. Kable prowadzimy razem z elektryką.",
+    "b": "Dom wykończony, apartament, lokal na wynajem. Bez kucia ścian."
+   },
+   {
+    "k": "Niezawodność",
+    "a": "Brak baterii w czujkach, odporność na zakłócenia radiowe.",
+    "b": "Nowoczesne systemy mają szyfrowaną łączność i nadzór czujek."
+   },
+   {
+    "k": "Obsługa",
+    "a": "Klawiatura, aplikacja, piloty.",
+    "b": "Aplikacja, piloty, klawiatura bezprzewodowa."
+   },
+   {
+    "k": "Serwis",
+    "a": "Praktycznie bez wymiany baterii.",
+    "b": "Baterie w czujkach co kilka lat, aplikacja przypomina."
+   },
+   {
+    "k": "Rozbudowa",
+    "a": "Najtańsza na etapie budowy, potem trudniejsza.",
+    "b": "Łatwo dodać czujkę w dowolnym miejscu."
+   },
+   {
+    "k": "Łączność",
+    "a": "LAN, GSM/LTE, zależnie od modułów.",
+    "b": "Ethernet, Wi-Fi, karta SIM, zależnie od modelu."
+   }
+  ],
+  "sys": [
+   {
+    "n": "Satel PERFECTA i INTEGRA",
+    "d": "Polskie centrale. PERFECTA do mieszkań, domów i lokali, z aplikacją i czujkami bezprzewodowymi MICRA. INTEGRA łączy alarm z automatyką domu.",
+    "s": "Według kart produktów Satel."
+   },
+   {
+    "n": "Ajax",
+    "d": "System bezprzewodowy: zasięg radiowy do 2000 m w otwartej przestrzeni, do 100 urządzeń na centralę, łączność Ethernet i SIM.",
+    "s": "Według producenta, wariant Hub zależny od modelu."
+   },
+   {
+    "n": "Hikvision AX PRO",
+    "d": "Bezprzewodowy alarm z klasą Grade 2, łącznością LAN, Wi-Fi i 4G oraz weryfikacją wideo w aplikacji Hik-Connect.",
+    "s": "Według dystrybutora."
+   }
+  ],
+  "vd": {
+   "time": "14:32",
+   "lbl": "Furtka · dzwoni",
+   "msg": "Ktoś dzwoni do furtki",
+   "ic": "ikona:bell",
+   "cls": "ring",
+   "c1": "on",
+   "c2": "",
+   "c3": ""
+  },
+  "vdl": [
+   {
+    "t": "Aplikacja w telefonie",
+    "d": "Aplikacja producenta, np. Hik-Connect albo DMSS: rozmowa, otwieranie, historia połączeń."
+   },
+   {
+    "t": "Wymiana starego domofonu",
+    "d": "Systemy dwuprzewodowe działają na istniejącym kablu. Często bez kucia."
+   },
+   {
+    "t": "Kilka wejść i lokali",
+    "d": "Furtka, brama, drzwi do budynku, kilka mieszkań lub apartamentów."
+   },
+   {
+    "t": "Razem z alarmem i kamerami",
+    "d": "Jedna aplikacja albo integracja z Ampio w smart home."
+   }
+  ],
+  "dl": {
+   "day": 12,
+   "date": "12 listopada",
+   "clock": "08:00",
+   "stat": [
+    {
+     "k": "W domu",
+     "v": "12°C",
+     "ic": "ikona:thermo",
+     "cls": "dls"
+    },
+    {
+     "k": "Na zewnątrz",
+     "v": "−3°C",
+     "ic": "ikona:snow",
+     "cls": "dls"
+    },
+    {
+     "k": "Woda",
+     "v": "sucho",
+     "ic": "ikona:drop",
+     "cls": "dls"
+    }
+   ],
+   "feed": [
+    {
+     "ic": "ikona:check",
+     "t": "Wyjazd: alarm uzbrojony",
+     "s": "11 dni temu · Tryb pusty dom · wszystkie czujki aktywne",
+     "cls": "phn dlf ok"
+    }
+   ]
+  },
+  "ag": [
+   {
+    "ic": "ikona:phone",
+    "t": "Powiadomienia do Ciebie",
+    "d": "Aplikacja, SMS, połączenie głosowe. Bez abonamentu agencji."
+   },
+   {
+    "ic": "ikona:users",
+    "t": "Lista osób",
+    "d": "Sąsiad, rodzina, opiekun domu. Każdy dostaje powiadomienie."
+   },
+   {
+    "ic": "ikona:shield",
+    "t": "Agencja ochrony",
+    "d": "Całodobowy odbiór sygnałów i patrol interwencyjny, umowa z agencją."
+   }
+  ]
+ }
+}

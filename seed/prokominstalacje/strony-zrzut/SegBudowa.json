@@ -1,0 +1,655 @@
+{
+ "_strona": "SegBudowa",
+ "_title": "Monitoring placu budowy bez prądu i kabla — Podhale | PRO-KOM",
+ "_description": "Kamery LTE na maszcie solarnym, alarm ze zdjęciem, syrena i światło, timelapse dla inwestora i zasilanie dobrane do podhalańskiej zimy.",
+ "_uwaga": "Zrzut danych z wizualizacji v4.0 (stan początkowy strony, motyw jasny). Teksty = treść do seeda. Klucze UI (cls, on, pick) pomijaj.",
+ "dane": {
+  "ctaEye": "Budowa",
+  "ctaH": "Przyjedziemy na działkę, zmierzymy zasięg i dobierzemy zasilanie na zimę.",
+  "ctaP": "Wizja lokalna, projekt i wycena na piśmie. Montaż masztu, przestawianie przy zmianie etapu i kable pod docelowe instalacje.",
+  "hero": {
+   "mid": true,
+   "midT": "Dla kogo",
+   "midH": "Main.dc.html#dla-kogo",
+   "cta": "Zaplanuj instalację",
+   "ctaHref": "Zaplanuj.dc.html#obiekt=bud",
+   "crumb": "Budowa",
+   "eye": "Monitoring placu budowy · Zakopane, Rabka, Podhale",
+   "h1a": "Plac pilnuje się sam,",
+   "h1b": "zanim powstanie przyłącze prądu.",
+   "lead": "Kamery LTE na maszcie z panelem i akumulatorem, alarm zewnętrzny ze zdjęciem, syrena i komunikat głosowy po godzinach pracy. Do tego timelapse i podgląd dla inwestora, a w trakcie budowy kable pod docelowy monitoring, sieć i domofon.",
+   "kv": [
+    {
+     "b": "73,6%",
+     "s": "firm budowlanych zgłasza kradzieże (BauWatch 2026, raport firmy sprzedającej monitoring)"
+    },
+    {
+     "b": "24 mies.",
+     "s": "gwarancji na montaż"
+    },
+    {
+     "b": "do 24 h",
+     "s": "odpowiedź na zgłoszenie w dni robocze"
+    }
+   ],
+   "tags": [
+    {
+     "n": "Kamery LTE"
+    },
+    {
+     "n": "Zasilanie solarne"
+    },
+    {
+     "n": "Alarm ze zdjęciem"
+    },
+    {
+     "n": "Timelapse"
+    }
+   ]
+  },
+  "anc": [
+   {
+    "href": "#problemy",
+    "n": "Problemy"
+   },
+   {
+    "href": "#rok",
+    "n": "Doba na budowie"
+   },
+   {
+    "href": "#przepisy",
+    "n": "Przepisy"
+   },
+   {
+    "href": "#gory",
+    "n": "Podhale"
+   },
+   {
+    "href": "#pakiety",
+    "n": "Zestawy"
+   },
+   {
+    "href": "#przygotuj",
+    "n": "Przed wizytą"
+   },
+   {
+    "href": "#faq",
+    "n": "Pytania"
+   }
+  ],
+  "pkgs": [
+   {
+    "n": "Budowa domu",
+    "d": "Mały plac, jeden budynek.",
+    "ic": "ikona:home",
+    "f": [
+     "1–2 kamery LTE z dobrym obrazem nocą",
+     "Zasilanie z rozdzielnicy z podtrzymaniem",
+     "Syrena i światło w kamerze",
+     "Tabliczki i maski na drogę"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "hot": false,
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri"
+   },
+   {
+    "n": "Budowa z zapleczem",
+    "d": "Dom, pensjonat albo mała firma budowlana.",
+    "ic": "ikona:crane",
+    "hot": true,
+    "f": [
+     "Maszt z 2–4 kamerami, w tym zoom",
+     "Router LTE z dwiema kartami SIM",
+     "Alarm zewnętrzny ze zdjęciem",
+     "Zasilanie hybrydowe dobrane do zimy",
+     "Timelapse i podgląd dla inwestora"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri hot"
+   },
+   {
+    "n": "Inwestycja",
+    "d": "Deweloper albo kilka budów naraz.",
+    "ic": "ikona:layers",
+    "f": [
+     "Maszt solarno-hybrydowy do 4 kamer",
+     "Kamera obrotowa i analityka",
+     "Archiwum zdjęć dla inwestora i banku",
+     "Wszystkie budowy w jednej aplikacji",
+     "Kable pod docelowe instalacje budynku"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "hot": false,
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri"
+   }
+  ],
+  "cena": [],
+  "faq": [
+   {
+    "n": "01",
+    "q": "Czy kamera zadziała bez prądu i internetu?",
+    "a": "Tak. Kamera łączy się przez LTE, a zasilanie daje akumulator z panelem albo zasilanie hybrydowe. Zasięg sprawdzamy na miejscu, a nagrania zapisują się lokalnie, gdy sieć chwilowo zniknie.",
+    "open": true
+   },
+   {
+    "n": "02",
+    "q": "Czy zestaw solarny przetrwa zimę na Podhalu?",
+    "a": "Mały zestaw z marketu zwykle nie: zimą panel daje mało energii, a wiele akumulatorów litowych nie ładuje się w mrozie. Dobieramy panel, akumulator z grzaniem i zapas na kilka pochmurnych dni albo dokładamy zasilanie z rozdzielnicy budowlanej.",
+    "open": false
+   },
+   {
+    "n": "03",
+    "q": "Czy można przenieść kamery na kolejną budowę?",
+    "a": "Tak, system na maszcie jest do tego zaprojektowany. Przy zmianie etapu przestawiamy kamery i poprawiamy maski prywatności. Po zakończeniu budowy można go przenieść albo zostawić jako stały monitoring.",
+    "open": false
+   },
+   {
+    "n": "04",
+    "q": "Czy mogę nagrywać ekipę i podwykonawców?",
+    "a": "Tak, jeśli celem jest ochrona mienia, teren jest oznaczony, a na tabliczce jest informacja o administratorze. Kto nim jest, inwestor czy wykonawca, ustalamy na starcie. Zasady dla własnych pracowników opisujemy w sekcji przepisów.",
+    "open": false
+   },
+   {
+    "n": "05",
+    "q": "Od czego zależy cena monitoringu budowy?",
+    "a": "Od liczby kamer i masztów, sposobu zasilania (panel, zasilanie hybrydowe albo rozdzielnica), zasięgu LTE na działce i czasu trwania budowy. Wycenę podajemy na piśmie po wizji lokalnej.",
+    "open": false
+   },
+   {
+    "n": "06",
+    "q": "Co daje timelapse inwestorowi?",
+    "a": "Widzisz postęp bez przyjeżdżania i masz zdjęcia każdego etapu na odbiory albo spory z wykonawcą. Na koniec dostajesz film z całej budowy.",
+    "open": false
+   },
+   {
+    "n": "07",
+    "q": "Kto reaguje, gdy w nocy ktoś wejdzie na plac?",
+    "a": "Analityka rozpoznaje człowieka albo pojazd w strefie, włącza syrenę i światło i wysyła powiadomienie ze zdjęciem. Reakcję organizujesz Ty albo agencja ochrony z interwencją, do której możemy przekazywać alarmy [SZEF: partner — agencja ochrony]. Sami nie wysyłamy patrolu.",
+    "open": false
+   },
+   {
+    "n": "08",
+    "q": "Kupić zestaw czy wynająć go na czas budowy?",
+    "a": "Zestaw na maszcie można kupić, a po budowie przenieść na kolejną albo zostawić jako stały monitoring. Wynajem na czas budowy: [SZEF: czy oferujemy wynajem; jeśli nie, napisać to wprost]. Co się bardziej opłaca, zależy głównie od tego, jak długo potrwa budowa.",
+    "open": false
+   }
+  ],
+  "rel": [
+   {
+    "k": "kam",
+    "n": "Monitoring i kamery",
+    "g": "Bezpieczeństwo",
+    "href": "Monitoring.dc.html",
+    "ic": "ikona:cam",
+    "s": "Kompletny system: kamery, rejestrator, dyski, PoE"
+   },
+   {
+    "k": "alarm",
+    "n": "Alarmy i wideodomofony",
+    "g": "Bezpieczeństwo",
+    "href": "Alarmy.dc.html",
+    "ic": "ikona:bell",
+    "s": "Czujki, syreny, domofon z aplikacją"
+   },
+   {
+    "k": "wifi",
+    "n": "Sieci i Wi-Fi",
+    "g": "Sieci i technika",
+    "href": "Sieci.dc.html",
+    "ic": "ikona:wifi",
+    "s": "Okablowanie, światłowód, Wi-Fi gości"
+   },
+   {
+    "k": "tel",
+    "n": "Teletechnika w budownictwie",
+    "g": "Sieci i technika",
+    "href": "Teletechnika.dc.html",
+    "ic": "ikona:build",
+    "s": "Dla deweloperów i wykonawców"
+   }
+  ],
+  "segRel": [
+   {
+    "k": "dev",
+    "g": "Budownictwo",
+    "n": "Deweloper",
+    "s": "Teletechnika budynku do odbioru",
+    "page": "SegDeweloper",
+    "href": "SegDeweloper.dc.html",
+    "ic": "ikona:build",
+    "h": "#4CCBE6",
+    "hs": "--mh:#4CCBE6",
+    "cls": ""
+   },
+   {
+    "k": "firma",
+    "g": "Firmy",
+    "n": "Firma, biuro i hala",
+    "s": "Wejścia, rampa, sieć firmowa",
+    "page": "SegFirma",
+    "href": "SegFirma.dc.html",
+    "ic": "ikona:factory",
+    "h": "#5B8CF0",
+    "hs": "--mh:#5B8CF0",
+    "cls": ""
+   }
+  ],
+  "hasSegRel": true,
+  "segRelH": "Podobne obiekty",
+  "sx": {
+   "faqA": {
+    "t": "Masz inne pytanie?",
+    "d": "Wyślij zdjęcie obiektu albo obecnej instalacji. Powiemy, od czego zacząć i czego się spodziewać.",
+    "cta": "Zaplanuj instalację",
+    "href": "Zaplanuj.dc.html"
+   },
+   "faqH": "Pytania inwestorów i wykonawców.",
+   "relH": "Usługi, które łączymy w tym obiekcie.",
+   "pkg": {
+    "eye": "Zestawy dla budów",
+    "h": "Od budowy domu po kilka placów dewelopera.",
+    "p": "",
+    "note": "To przykłady. Ostateczny zakres i cenę ustalamy po wizji lokalnej i podajemy na piśmie."
+   },
+   "cena": {
+    "btn": "Wyślij zdjęcia do wyceny",
+    "eye": "Wycena",
+    "h": "Co wpływa na cenę.",
+    "p": ""
+   }
+  },
+  "sg": {
+   "sceneT": "Przekrój placu budowy",
+   "hc": {
+    "k0": "hs on",
+    "k1": "hs",
+    "k2": "hs",
+    "k3": "hs",
+    "k4": "hs",
+    "k5": "hs",
+    "k6": "hs",
+    "k7": "hs"
+   },
+   "hp": {},
+   "zap": "Zaplanuj.dc.html#obiekt=bud",
+   "prepEye": "Przed wizytą",
+   "prepLead": "Zaznacz, co już masz. Zdjęcia możesz wysłać w formularzu albo przez WhatsApp.",
+   "leg": [
+    {
+     "no": "1",
+     "t": "Kamery na maszcie solarnym",
+     "on": "true",
+     "st": "--c:#12B6D8",
+     "cls": "sglgb on"
+    },
+    {
+     "no": "2",
+     "t": "Zoom na kontener i skład stali",
+     "on": "false",
+     "st": "--c:#12B6D8",
+     "cls": "sglgb"
+    },
+    {
+     "no": "3",
+     "t": "Router LTE z dwiema kartami SIM",
+     "on": "false",
+     "st": "--c:#5B8CF0",
+     "cls": "sglgb"
+    },
+    {
+     "no": "4",
+     "t": "Panel i akumulator z grzaniem",
+     "on": "false",
+     "st": "--c:#12B6D8",
+     "cls": "sglgb"
+    },
+    {
+     "no": "5",
+     "t": "Czujki zewnętrzne ze zdjęciem alarmu",
+     "on": "false",
+     "st": "--c:#F07A6A",
+     "cls": "sglgb"
+    },
+    {
+     "no": "6",
+     "t": "Syrena, światło i komunikat głosowy",
+     "on": "false",
+     "st": "--c:#F07A6A",
+     "cls": "sglgb"
+    },
+    {
+     "no": "7",
+     "t": "Timelapse i podgląd dla inwestora",
+     "on": "false",
+     "st": "--c:#E86FB0",
+     "cls": "sglgb"
+    },
+    {
+     "no": "8",
+     "t": "Kable pod docelowe instalacje budynku",
+     "on": "false",
+     "st": "--c:#8C9CF5",
+     "cls": "sglgb"
+    }
+   ],
+   "ly": [
+    {
+     "n": "Wszystko",
+     "on": "true",
+     "cls": "sglyb on"
+    },
+    {
+     "n": "Bezpieczeństwo",
+     "on": "false",
+     "cls": "sglyb"
+    },
+    {
+     "n": "Sieć i łączność",
+     "on": "false",
+     "cls": "sglyb"
+    },
+    {
+     "n": "Dźwięk i obraz",
+     "on": "false",
+     "cls": "sglyb"
+    }
+   ],
+   "cur": {
+    "k": "h0",
+    "no": "1",
+    "t": "Kamery na maszcie solarnym",
+    "d": "Kamery wysoko na maszcie widzą cały plac, a analityka ogranicza fałszywe alarmy od drzew, śniegu i folii na rusztowaniu.",
+    "sn": "Monitoring i kamery",
+    "href": "Monitoring.dc.html",
+    "st": "--c:#12B6D8"
+   },
+   "pos": "1 z 8",
+   "pr": {
+    "eye": "Co słyszymy od inwestorów i wykonawców",
+    "h": "Prąd, zasięg, mróz i złodzieje.",
+    "ha": "Typowe kłopoty placu budowy.",
+    "lead": "Budowa zmienia się co kilka tygodni, a na Podhalu przez część zimy stoi bez ludzi. Monitoring musi się do tego dostosować."
+   },
+   "prob": [
+    {
+     "q": "„Z koparki zniknęło paliwo”",
+     "d": "Na budowach giną narzędzia, kable miedziane, paliwo i stal. Kradzież paliwa zgłasza w Polsce więcej firm niż średnio w krajach z raportu BauWatch.",
+     "fix": "Kamery na maszty, maszyny i skład materiałów, alarm ze zdjęciem i odstraszanie po godzinach.",
+     "ic": "ikona:drop",
+     "sn": "Monitoring i kamery",
+     "href": "Monitoring.dc.html",
+     "st": "--c:#12B6D8"
+    },
+    {
+     "q": "„Nie ma jeszcze prądu”",
+     "d": "Przyłączenie prądu może trwać od kilku do kilkunastu miesięcy, a pilnować trzeba od pierwszego dnia.",
+     "fix": "Zasilanie z panelu i akumulatora albo z agregatu, potem z rozdzielnicy budowlanej.",
+     "ic": "ikona:battery",
+     "sn": "Monitoring i kamery",
+     "href": "Monitoring.dc.html",
+     "st": "--c:#12B6D8"
+    },
+    {
+     "q": "„Nie ma internetu”",
+     "d": "Działka w dolinie, słaby zasięg jednego operatora.",
+     "fix": "Router LTE z anteną zewnętrzną, dwie karty SIM i zapis lokalny. Zasięg mierzymy na miejscu.",
+     "ic": "ikona:wifi",
+     "sn": "Sieci i Wi-Fi",
+     "href": "Sieci.dc.html",
+     "st": "--c:#5B8CF0"
+    },
+    {
+     "q": "„Zestaw z marketu zgasł w grudniu”",
+     "d": "Mały panel zimą daje mało energii, a wiele akumulatorów litowych nie ładuje się w mrozie.",
+     "fix": "Większy zapas energii, akumulator z grzaniem i zasilanie hybrydowe dobrane do zimy.",
+     "ic": "ikona:snow",
+     "sn": "Monitoring i kamery",
+     "href": "Monitoring.dc.html",
+     "st": "--c:#12B6D8"
+    },
+    {
+     "q": "„Alarm wyje przez drzewa”",
+     "d": "Ruch gałęzi, śnieg i folia na rusztowaniu wywołują fałszywe alarmy.",
+     "fix": "Analityka człowieka i pojazdu, strefy uzbrajane po godzinach i zdjęcie każdego alarmu.",
+     "ic": "ikona:bell",
+     "sn": "Alarmy i wideodomofony",
+     "href": "Alarmy.dc.html",
+     "st": "--c:#F07A6A"
+    },
+    {
+     "q": "„Mieszkam w Warszawie, budowa w Zakopanem”",
+     "d": "Inwestor spoza regionu chce widzieć postęp, mieć dowody etapów i wiedzieć, kto zareaguje na alarm.",
+     "fix": "Timelapse, podgląd w telefonie i archiwum zdjęć. Alarm może trafiać do agencji ochrony z interwencją. Na miejsce dojeżdżamy z Rabki albo Zakopanego.",
+     "ic": "ikona:eye",
+     "sn": "Ekrany i transmisja",
+     "href": "Multimedia.dc.html",
+     "st": "--c:#E86FB0"
+    }
+   ],
+   "day": {
+    "eye": "Doba na budowie",
+    "h": "Od pierwszej ekipy do nocy na pustym placu.",
+    "lead": "Tak pracuje monitoring budowy przez dobę, także w przerwie zimowej.",
+    "k": "d0",
+    "pg": "width:17%",
+    "items": [
+     {
+      "tm": "7:00",
+      "n": "Ekipa wchodzi",
+      "on": "true",
+      "cls": "sgdb on"
+     },
+     {
+      "tm": "12:00",
+      "n": "Inwestor zagląda",
+      "on": "false",
+      "cls": "sgdb"
+     },
+     {
+      "tm": "16:00",
+      "n": "Koniec pracy",
+      "on": "false",
+      "cls": "sgdb"
+     },
+     {
+      "tm": "23:40",
+      "n": "Ktoś przy kontenerze",
+      "on": "false",
+      "cls": "sgdb"
+     },
+     {
+      "tm": "Styczeń",
+      "n": "Przerwa zimowa",
+      "on": "false",
+      "cls": "sgdb"
+     },
+     {
+      "tm": "Etap dachu",
+      "n": "Przestawienie kamer",
+      "on": "false",
+      "cls": "sgdb"
+     }
+    ],
+    "cur": {
+     "tm": "7:00",
+     "n": "Ekipa wchodzi",
+     "d": "Strefy alarmowe rozbrajają się same według harmonogramu. Kamera timelapse robi pierwsze zdjęcie dnia.",
+     "ic": "ikona:sun",
+     "st": "--c:#F07A6A",
+     "ch": [
+      {
+       "n": "Alarmy i wideodomofony",
+       "href": "Alarmy.dc.html",
+       "st": "--c:#F07A6A"
+      },
+      {
+       "n": "Ekrany i transmisja",
+       "href": "Multimedia.dc.html",
+       "st": "--c:#E86FB0"
+      }
+     ],
+     "hs": [
+      {
+       "no": "5",
+       "st": "--c:#F07A6A"
+      },
+      {
+       "no": "6",
+       "st": "--c:#F07A6A"
+      },
+      {
+       "no": "7",
+       "st": "--c:#E86FB0"
+      }
+     ]
+    }
+   },
+   "law": {
+    "h": "Kamery na budowie. Kto jest administratorem i co wolno.",
+    "lead": "Monitoring placu budowy to sposób na zabezpieczenie terenu. Kilka zasad trzeba ustalić na starcie.",
+    "items": [
+     {
+      "t": "Zabezpieczenie terenu budowy",
+      "a": "art. 22 pkt 1 Prawa budowlanego",
+      "d": "Kierownik budowy ma obowiązek odpowiednio zabezpieczyć teren budowy. Monitoring nie jest wymagany wprost, ale jest jednym ze sposobów, żeby to zrobić.",
+      "who": "Razem",
+      "wc": "sgwho r",
+      "href": "https://api.sejm.gov.pl/eli/acts/DU/2026/524/text.pdf",
+      "sl": "Prawo budowlane, t.j. Dz.U. 2026 poz. 524"
+     },
+     {
+      "t": "Kto jest administratorem",
+      "a": "art. 13 RODO",
+      "d": "Na starcie ustalamy, czy monitoring prowadzi inwestor, czy wykonawca. Tabliczki przy wjeździe i furtce, z odesłaniem do pełnej informacji.",
+      "who": "Inwestor",
+      "wc": "sgwho o",
+      "href": "https://eur-lex.europa.eu/legal-content/PL/TXT/HTML/?uri=CELEX:32016R0679",
+      "sl": "RODO, EUR-Lex"
+     },
+     {
+      "t": "Własni pracownicy",
+      "a": "art. 22² Kodeksu pracy",
+      "d": "Firma, która monitoruje własnych pracowników, informuje ich 2 tygodnie przed uruchomieniem, oznacza teren dzień wcześniej i trzyma nagrania najwyżej 3 miesiące.",
+      "who": "Wykonawca",
+      "wc": "sgwho o",
+      "href": "https://api.sejm.gov.pl/eli/acts/DU/2026/1245/text.pdf",
+      "sl": "Kodeks pracy, t.j. Dz.U. 2026 poz. 1245"
+     },
+     {
+      "t": "Droga i sąsiedzi poza kadrem",
+      "a": "EROD 3/2019, pkt 27",
+      "d": "Kamera na maszcie widzi daleko, ale monitoring kończy się na granicy terenu. Drogę i działki sąsiadów maskujemy przy montażu i po każdym przestawieniu.",
+      "who": "Instalator",
+      "wc": "sgwho i",
+      "href": "https://www.edpb.europa.eu/system/files/documents/files/file1/edpb_guidelines_201903_video_devices_pl_0.pdf",
+      "sl": "EROD, wytyczne 3/2019 (PDF)"
+     },
+     {
+      "t": "Timelapse w internecie",
+      "a": "art. 81 pr. aut.",
+      "d": "Publikacja wizerunku wymaga zgody, chyba że osoba jest tylko szczegółem całości. Do publikacji ustawiamy szeroki kadr, osobno od nagrań ochronnych.",
+      "who": "Inwestor",
+      "wc": "sgwho o",
+      "href": "https://api.sejm.gov.pl/eli/acts/DU/2025/24/text.pdf",
+      "sl": "Prawo autorskie, t.j. Dz.U. 2025 poz. 24"
+     },
+     {
+      "t": "Prąd na budowie",
+      "a": "Tauron Dystrybucja, ulotka",
+      "d": "Do przyłączenia placu budowy potrzebne jest prawomocne pozwolenie na budowę albo zgłoszenie. Tauron podaje, że warunki przyłączenia przygotowuje w ciągu 21 dni, a realizacja przyłączenia może trwać od kilku do kilkunastu miesięcy.",
+      "who": "Inwestor",
+      "wc": "sgwho o",
+      "href": "https://tauron.pl/-/media/offer-documents/dystrybucja/inne-dokumenty/przylaczenie-do-sieci-ulotka.ashx",
+      "sl": "Tauron, ulotka o przyłączeniu (PDF)"
+     }
+    ]
+   },
+   "gory": {
+    "h": "Zima, krótki dzień i doliny bez zasięgu.",
+    "items": [
+     {
+      "ic": "ikona:moon",
+      "t": "56,1% widzi więcej kradzieży zimą",
+      "d": "Tyle poszkodowanych firm uważa, że kradzieży i wandalizmu jest więcej jesienią i zimą. Na Podhalu dochodzi przerwa zimowa.",
+      "hasS": true,
+      "sh": "https://a.storyblok.com/f/321519/x/86a187d5c9/bauwatch-crime-report_2026-poland.pdf",
+      "sl": "BauWatch Crime Report 2026 (PDF)"
+     },
+     {
+      "ic": "ikona:drop",
+      "t": "Paliwo: 39% wobec średnio 25,4%",
+      "d": "Kradzież paliwa zgłasza w Polsce 39% firm, a średnio w krajach z raportu 25,4%. To raport firmy, która sprzedaje monitoring budów.",
+      "hasS": true,
+      "sh": "https://a.storyblok.com/f/321519/x/86a187d5c9/bauwatch-crime-report_2026-poland.pdf",
+      "sl": "BauWatch Crime Report 2026 (PDF)"
+     },
+     {
+      "ic": "ikona:snow",
+      "t": "−28,5°C i śnieg na panelu",
+      "d": "Panel ustawiamy prawie pionowo, akumulator grzejemy, a zapas energii liczymy na kilka pochmurnych dni.",
+      "hasS": true,
+      "sh": "https://www.rmf24.pl/fakty/pogoda/news-siarczysty-mroz-w-polsce-nawet-285-stopni,nId,6582692",
+      "sl": "RMF24, 7.02.2023"
+     },
+     {
+      "ic": "ikona:storm",
+      "t": "Maszt to najwyższy punkt",
+      "d": "Maszt z kamerą uziemiamy i chronimy ogranicznikami przepięć, bo burza na placu trafia w najwyższy punkt.",
+      "hasS": false,
+      "sh": "",
+      "sl": ""
+     }
+    ]
+   },
+   "hasReal": false,
+   "realH": "",
+   "real": [],
+   "ck": {
+    "n": 0,
+    "t": 7,
+    "st": "--p:0",
+    "cta": "Wyślij zdjęcia i opis →",
+    "items": [
+     {
+      "t": "Szkic działki: wjazd, kontener, skład, tankowanie",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Czy jest prąd albo kiedy będzie przyłącze",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Harmonogram budowy i przerwa zimowa",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Który operator ma zasięg na działce",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Kto ma oglądać obraz i czy chcesz timelapse",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Kontakt do kierownika i elektryka budowy",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Czy monitoring ma zostać w gotowym budynku",
+      "on": "false",
+      "cls": "sgci"
+     }
+    ]
+   }
+  }
+ }
+}

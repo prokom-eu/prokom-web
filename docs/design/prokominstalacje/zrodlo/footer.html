@@ -1,0 +1,68 @@
+  <section style="padding: 0 0 96px">
+    <div class="wrap">
+      <div class="cta">
+        <div style="display: flex; flex-direction: column; gap: 16px"><span class="eye" style="color: #4CCBE6">{{ctaEye}}</span><b class="h2" style="font-size: clamp(30px, 3.4vw, 48px)">{{ctaH}}</b><p class="lead">{{ctaP}}</p></div>
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <a href="{{ctaBtnHref}}" class="btn hbtn-p" style="font-size: 17px">{{ctaBtn}}</a>
+          <a href="{{K.telH}}" class="btn hbtn-g">Zadzwoń: <span class="ph" style="color: #F2B84B">{{K.tel}}</span></a>
+          <span style="font-size: 13.5px; color: #9FB0B4; text-align: center">Salony: Rabka-Zdrój, ul. Orkana 16B · Zakopane <span class="ph">{{K.adrZ}}</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer class="ftr ftr2">
+    <svg class="ftmt" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true"><path d="M0 120 L0 74 L90 52 L170 70 L260 30 L330 58 L420 18 L500 50 L580 34 L650 62 L740 22 L820 56 L900 40 L990 70 L1080 36 L1160 60 L1250 28 L1330 56 L1440 44 L1440 120 Z"></path><path class="l" d="M0 74 L90 52 L170 70 L260 30 L330 58 L420 18 L500 50 L580 34 L650 62 L740 22 L820 56 L900 40 L990 70 L1080 36 L1160 60 L1250 28 L1330 56 L1440 44"></path></svg>
+    <div class="wrap">
+      <div class="ftc">
+        <a href="{{K.telH}}" class="ftci big"><span class="ftic"><!--i:P.phone:20--></span><span><small>Instalacje i serwis</small><b class="ph">{{K.tel}}</b><em>pn–pt 9:00–17:00</em></span></a>
+        <a href="Kontakt.dc.html" class="ftci"><span class="ftic"><!--i:P.pin:20--></span><span><small>Salon Rabka-Zdrój</small><b>ul. Orkana 16B</b><em>34-700 Rabka-Zdrój</em></span></a>
+        <a href="Kontakt.dc.html" class="ftci"><span class="ftic"><!--i:P.pin:20--></span><span><small>Salon Zakopane</small><b class="ph">{{K.adrZ}}</b><em>obsługa Tatr i okolic</em></span></a>
+        <a href="Zaplanuj.dc.html" class="ftci cta"><span class="ftic"><!--i:P.plane:20--></span><span><small>Bez zobowiązań</small><b>Zaplanuj instalację</b><em>4 kroki · 2 minuty →</em></span></a>
+      </div>
+      <div class="fg">
+        <div class="ftb">
+          <a href="Main.dc.html" class="logo" aria-label="PRO-KOM Instalacje" style="max-width: 170px"><b style="font-size: 28px">PRO<i>-</i>KOM</b><span><em></em><small>INSTALACJE</small></span></a>
+          <p>Monitoring, alarmy, kontrola dostępu, sieci i Wi-Fi, smart home Ampio, nagłośnienie, ekrany, anteny i teletechnika. Projekt, montaż i serwis na Podhalu i w Małopolsce. PRO-KOM Tadeusz Wójciak, od 2004 roku.</p>
+          <div class="ftchips"><span>Projekt · montaż · serwis</span><span>Podhale i Małopolska</span><span class="b">Wycena na piśmie</span></div>
+        </div>
+        <div><h4>Usługi</h4><sc-for list="{{svcNav}}" as="m" hint-placeholder-count="9"><a href="{{m.href}}">{{m.n}}</a></sc-for><a href="Oferta.dc.html" class="ftstrong">Pełna oferta →</a></div>
+        <div><h4>Dla kogo</h4><sc-for list="{{SG}}" as="m" hint-placeholder-count="12"><a href="{{m.href}}">{{m.n}}</a></sc-for></div>
+        <div><h4>Firma</h4><a href="OFirmie.dc.html">O firmie</a><a href="Realizacje.dc.html">Realizacje</a><a href="Poradnik.dc.html">Poradnik</a><a href="Serwis.dc.html">Serwis i przeglądy</a><a href="Kontakt.dc.html">Kontakt i dojazd</a><a href="Zaplanuj.dc.html" class="ftstrong">Zaplanuj instalację →</a></div>
+        <div><h4>Strony PRO-KOM</h4><a href="https://pro-kom.eu">PRO-KOM · pro-kom.eu</a><a href="https://prokombiznes.pl">Biznes · kasy, komputery, IT</a><a href="https://prokomsoftware.pl">Software · strony i systemy</a><a href="https://prokomserwis.pl">Tech · naprawy sprzętu</a><a href="https://telefonyzakopane.pl">Zakopane · salon</a></div>
+      </div>
+      <div class="fbot"><span>© 2026 PRO-KOM Tadeusz Wójciak · ul. Orkana 16B, 34-700 Rabka-Zdrój · NIP 7352511447 · Logotypy należą do ich właścicieli</span><span class="ftl"><a href="#polityka-prywatnosci" title="Strona do przygotowania przed publikacją">Polityka prywatności</a><a href="#cookies" title="Strona do przygotowania przed publikacją">Cookies</a><a href="#dostepnosc" title="Strona do przygotowania przed publikacją">Dostępność</a><a href="#top">Do góry ↑</a></span></div>
+    </div>
+  </footer>
+  <sc-if value="{{menuOn}}" hint-placeholder-val="{{ false }}">
+  <div class="msh" role="dialog" aria-modal="true" aria-label="Menu">
+    <button type="button" class="mshbg" onClick="{{closeMenu}}" aria-label="Zamknij menu"></button>
+    <div class="mshp">
+      <div class="mshh">
+        <span class="mshg" aria-hidden="true"></span>
+        <div class="mtabs mtabs3"><sc-for list="{{mtabs}}" as="t" hint-placeholder-count="3"><button type="button" class="{{t.cls}}" onClick="{{t.pick}}" aria-pressed="{{t.on}}">{{t.n}}</button></sc-for></div>
+        <button type="button" class="iconb mshx" onClick="{{closeMenu}}" aria-label="Zamknij"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+      </div>
+      <div class="mshb">
+        <sc-if value="{{mtU}}" hint-placeholder-val="{{ true }}">
+          <sc-for list="{{megaCols}}" as="g" hint-placeholder-count="3"><span class="mgh">{{g.n}}</span><div class="mgrid"><sc-for list="{{g.items}}" as="m" hint-placeholder-count="3"><a href="{{m.href}}" style="{{m.hs}}"><span class="mhi2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{m.ic}}"></path></svg></span>{{m.n}}</a></sc-for></div></sc-for>
+          <a href="Oferta.dc.html" class="mall">Pełna oferta: {{offerN.i}} {{offerN.iW}} →</a>
+        </sc-if>
+        <sc-if value="{{mtO}}" hint-placeholder-val="{{ false }}">
+          <sc-for list="{{segCols}}" as="g" hint-placeholder-count="4"><span class="mgh">{{g.n}}</span><div class="mgrid"><sc-for list="{{g.items}}" as="m" hint-placeholder-count="3"><a href="{{m.href}}" style="{{m.hs}}"><span class="mhi2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{m.ic}}"></path></svg></span>{{m.n}}</a></sc-for></div></sc-for>
+        </sc-if>
+        <sc-if value="{{mtM}}" hint-placeholder-val="{{ false }}">
+          <div class="mshlive"><span class="{{hours.cls}}"></span><b>{{hours.txt}}</b></div>
+          <div class="mshl"><sc-for list="{{mmore}}" as="m" hint-placeholder-count="6"><a href="{{m.href}}"><span class="mhi2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{m.ic}}"></path></svg></span><span><b>{{m.n}}</b><small>{{m.s}}</small></span><i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></i></a></sc-for></div>
+          <div class="mshrow">
+            <a href="{{K.telH}}" class="mshc"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{P.phone}}"></path></svg><span><small>Zadzwoń</small><b class="ph">{{K.tel}}</b></span></a>
+            <button type="button" class="mshc" onClick="{{toggleTheme}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg><span><small>Motyw</small><b>{{themeLabel}}</b></span></button>
+          </div>
+        </sc-if>
+      </div>
+      <div class="mshf"><a href="Zaplanuj.dc.html" class="btn btn-p">Zaplanuj instalację</a></div>
+    </div>
+  </div>
+  </sc-if>
+  <nav class="{{bnavCls}}" aria-label="Szybka nawigacja">
+    <sc-for list="{{bnav}}" as="b" hint-placeholder-count="5"><sc-if value="{{b.link}}" hint-placeholder-val="{{ true }}"><a href="{{b.href}}" class="{{b.cls}}" aria-current="{{b.cur}}"><span class="bni"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{b.ic}}"></path></svg></span><span class="bnt">{{b.n}}</span></a></sc-if><sc-if value="{{b.btn}}" hint-placeholder-val="{{ false }}"><button type="button" class="{{b.cls}}" onClick="{{b.go}}" aria-expanded="{{b.exp}}"><span class="bni"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{b.ic}}"></path></svg></span><span class="bnt">{{b.n}}</span></button></sc-if></sc-for>
+  </nav>

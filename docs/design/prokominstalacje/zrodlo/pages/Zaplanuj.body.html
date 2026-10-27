@@ -1,0 +1,110 @@
+  <section class="phero zkh" style="padding-bottom: 96px">
+    <div class="hgrid"></div><div class="hglow"></div><div class="hglow2"></div>
+    <svg class="phmt" viewBox="0 0 1440 260" preserveAspectRatio="none" aria-hidden="true"><path class="phm1" d="M0 260 L0 170 L120 120 L210 150 L330 80 L430 130 L560 70 L690 140 L820 90 L940 150 L1060 100 L1190 150 L1310 110 L1440 150 L1440 260 Z"></path><path class="phm2" d="M0 260 L0 210 L160 170 L300 200 L470 150 L640 200 L800 160 L980 205 L1150 170 L1300 200 L1440 180 L1440 260 Z"></path></svg>
+    <div class="wrap" style="position: relative">
+      <nav class="crumb in d1" aria-label="Okruszki"><a href="Main.dc.html">Start</a><span>/</span><span style="color: var(--text)">Zaplanuj instalację</span></nav>
+      <div class="zkhead">
+        <div class="zkht">
+          <span class="eye in d1">Kreator · 4 krótkie kroki · 2 minuty</span>
+          <h1 class="h1 in d2">Zaplanuj instalację: <span class="acc">monitoring, alarm, Wi-Fi, smart home na Podhalu.</span></h1>
+          <p class="lead in d3">Powiedz, co planujesz, a resztę ustalimy na miejscu. Klikasz, zamiast pisać. Po drodze podpowiemy, na co zwrócić uwagę, a na końcu zostawiasz numer. Oddzwonimy i umówimy wizję lokalną.</p>
+        </div>
+        <div class="zktrust in d4"><sc-for list="{{zk.trust}}" as="t" hint-placeholder-count="3"><div><span class="ico s"><!--i:t.ic:18--></span><span><b>{{t.t}}</b><span>{{t.d}}</span></span></div></sc-for></div>
+      </div>
+
+      <div class="zkw">
+        <div class="zkcard" key="{{zk.k}}">
+          <div class="zkprog">
+            <div class="zkbar"><i style="{{zk.barSt}}"></i></div>
+            <div class="zksteps"><sc-for list="{{zk.steps}}" as="s" hint-placeholder-count="4"><button type="button" class="{{s.cls}}" onClick="{{s.go}}" aria-current="{{s.cur}}"><em>{{s.n}}</em><span>{{s.t}}</span></button></sc-for></div>
+          </div>
+
+          <sc-if value="{{zk.s1}}" hint-placeholder-val="{{ true }}">
+            <div class="zkbody">
+              <div class="zkq"><h2 data-zkh tabindex="-1">Co planujesz?</h2><p>Zaznacz jedną albo kilka rzeczy. Nie musisz znać nazw technicznych.</p></div>
+              <div class="zkpre"><span class="zklab">Szybki wybór</span><div class="zkprel"><sc-for list="{{zk.pre}}" as="p" hint-placeholder-count="4"><button type="button" class="{{p.cls}}" onClick="{{p.pick}}"><span class="zkpi"><!--i:p.ic:18--></span><span><b>{{p.n}}</b><span>{{p.d}}</span></span></button></sc-for></div></div>
+              <div class="zksvc"><sc-for list="{{zk.svc}}" as="c" hint-placeholder-count="10"><button type="button" class="{{c.cls}}" style="{{c.st}}" aria-pressed="{{c.on}}" onClick="{{c.toggle}}"><span class="zksi"><!--i:c.ic:22--></span><b>{{c.n}}</b><span>{{c.s}}</span><em><!--i:P.check:13:3--></em></button></sc-for></div>
+              <button type="button" class="{{zk.unsCls}}" onClick="{{zk.uns}}"><span class="zksi"><!--i:P.chat:20--></span><span><b>Nie wiem, doradźcie mi</b><span>Opiszesz problem, a my zaproponujemy rozwiązanie</span></span><em><!--i:P.check:13:3--></em></button>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{zk.s2}}" hint-placeholder-val="{{ false }}">
+            <div class="zkbody">
+              <div class="zkq"><h2 data-zkh tabindex="-1">Gdzie to będzie?</h2><p>Rodzaj obiektu i miejscowość wystarczą, żebyśmy się przygotowali.</p></div>
+              <div class="zkobj"><sc-for list="{{zk.obj}}" as="o" hint-placeholder-count="9"><button type="button" class="{{o.cls}}" aria-pressed="{{o.on}}" onClick="{{o.pick}}"><span class="zksi"><!--i:o.ic:22--></span><b>{{o.n}}</b></button></sc-for></div>
+              <div class="zkrow">
+                <div class="zkgrp"><span class="zklab">Wielkość</span><div class="zkseg"><sc-for list="{{zk.size}}" as="c" hint-placeholder-count="3"><button type="button" class="{{c.cls}}" aria-pressed="{{c.on}}" onClick="{{c.pick}}"><b>{{c.n}}</b><span>{{c.d}}</span></button></sc-for></div></div>
+                <div class="zkgrp"><span class="zklab">Etap</span><div class="zkseg"><sc-for list="{{zk.stage}}" as="c" hint-placeholder-count="3"><button type="button" class="{{c.cls}}" aria-pressed="{{c.on}}" onClick="{{c.pick}}"><b>{{c.n}}</b><span>{{c.d}}</span></button></sc-for></div></div>
+              </div>
+              <div class="zkgrp"><span class="zklab">Miejscowość</span>
+                <div class="zktown"><span class="ico s"><!--i:P.pin:18--></span><input class="zkin" type="text" placeholder="Wpisz, np. Nowy Targ" value="{{zk.town}}" onInput="{{zk.onTown}}" aria-label="Miejscowość"><span class="{{zk.zoneCls}}">{{zk.zone}}</span></div>
+                <div class="zkchips"><sc-for list="{{zk.towns}}" as="t" hint-placeholder-count="6"><button type="button" class="{{t.cls}}" onClick="{{t.pick}}">{{t.n}}</button></sc-for></div>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{zk.s3}}" hint-placeholder-val="{{ false }}">
+            <div class="zkbody">
+              <div class="zkq"><h2 data-zkh tabindex="-1">Kilka szczegółów</h2><p>Pytamy tylko o to, co wybrałeś. Jeśli nie wiesz, kliknij „Nie wiem”, to normalne.</p></div>
+              <sc-if value="{{zk.noQ}}" hint-placeholder-val="{{ false }}"><div class="note"><!--i:P.chat:20--><span>Nie wybrałeś konkretnej instalacji. Napisz poniżej, co chcesz poprawić albo co Cię martwi.</span></div></sc-if>
+              <div class="zkqs"><sc-for list="{{zk.qs}}" as="q" hint-placeholder-count="3"><div class="{{q.cls}}" style="{{q.st}}"><div class="zkqh"><span class="zksi"><!--i:q.ic:18--></span><span><em>{{q.svc}}</em><b>{{q.q}}</b></span></div><div class="zkchips"><sc-for list="{{q.a}}" as="a" hint-placeholder-count="4"><button type="button" class="{{a.cls}}" aria-pressed="{{a.on}}" onClick="{{a.pick}}">{{a.n}}</button></sc-for></div></div></sc-for></div>
+              <label class="zkgrp"><span class="zklab">Coś jeszcze? <span class="mut" style="text-transform: none; letter-spacing: 0">opcjonalnie</span></span><textarea class="zkin zkta" placeholder="np. kamery na parking i narciarnię, Wi-Fi nie działa na drugim piętrze"></textarea></label>
+              <div class="zkph">
+                <button type="button" class="zkdrop" onClick="{{zk.addPh}}"><span class="ico"><!--i:P.camera2:22--></span><span><b>Dodaj zdjęcia obiektu</b><span>opcjonalnie · bardzo pomagają w wycenie</span></span></button>
+                <div class="zkthumbs"><sc-for list="{{zk.thumbs}}" as="t" hint-placeholder-count="2"><div class="zkth"><!--i:P.camera2:18--><span>{{t}}</span></div></sc-for></div>
+                <div class="zktips"><b>Co warto sfotografować</b><sc-for list="{{zk.tips}}" as="t" hint-placeholder-count="3"><span><!--i:P.check:13:3-->{{t}}</span></sc-for></div>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{zk.s4}}" hint-placeholder-val="{{ false }}">
+            <div class="zkbody">
+              <div class="zkq"><h2 data-zkh tabindex="-1">Jak się z Tobą skontaktować?</h2><p>Wystarczy imię i telefon. Nie wysyłamy reklam.</p></div>
+              <div class="zkform">
+                <label class="zkfl"><span>Imię</span><input class="zkin" type="text" placeholder="np. Anna" autocomplete="given-name" value="{{zk.name}}" onInput="{{zk.onName}}"></label>
+                <label class="zkfl"><span>Telefon</span><input class="zkin" type="tel" placeholder="np. 600 000 000" autocomplete="tel" value="{{zk.phone}}" onInput="{{zk.onPhone}}"><em class="{{zk.phOkCls}}"><!--i:P.check:13:3--></em></label>
+                <label class="zkfl full"><span>E-mail <i>{{zk.emailLab}}</i></span><input class="{{zk.emailCls}}" type="email" placeholder="np. anna@example.pl" autocomplete="email" value="{{zk.email}}" onInput="{{zk.onEmail}}"></label>
+              </div>
+              <div class="zkrow">
+                <div class="zkgrp"><span class="zklab">Wolisz kontakt przez</span><div class="zkseg"><sc-for list="{{zk.via}}" as="c" hint-placeholder-count="3"><button type="button" class="{{c.cls}}" aria-pressed="{{c.on}}" onClick="{{c.pick}}"><!--i:c.ic:16--><b>{{c.n}}</b></button></sc-for></div></div>
+                <div class="zkgrp"><span class="zklab">Kiedy najlepiej?</span><div class="zkseg"><sc-for list="{{zk.when}}" as="c" hint-placeholder-count="3"><button type="button" class="{{c.cls}}" aria-pressed="{{c.on}}" onClick="{{c.pick}}"><b>{{c.n}}</b></button></sc-for></div></div>
+              </div>
+              <button type="button" class="{{zk.consCls}}" onClick="{{zk.tCons}}" aria-pressed="{{zk.consOn}}"><em><!--i:P.check:13:3--></em><span>Zgadzam się na kontakt w sprawie tego zgłoszenia. Dane przetwarzamy zgodnie z polityką prywatności. <span class="ph">[SZEF: treść klauzuli]</span></span></button>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{zk.s5}}" hint-placeholder-val="{{ false }}">
+            <div class="zkdone">
+              <span class="zkok"><svg viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="24"></circle><path d="M15 27 l7 7 l15 -16"></path></svg></span>
+              <b class="h2" data-zkh tabindex="-1" style="font-size: clamp(28px, 3vw, 40px)">Dziękujemy{{zk.nameC}}! Zgłoszenie jest u nas.</b>
+              <p class="lead" style="max-width: 560px">Odezwiemy się do 24 h w dni robocze, tak jak wybrałeś: {{zk.doneVia}}. Wtedy dopytamy o szczegóły i umówimy wizję lokalną.</p>
+              <div class="zkdtl"><sc-for list="{{zk.after}}" as="a" hint-placeholder-count="3"><div><em>{{a.n}}</em><b>{{a.t}}</b><span>{{a.d}}</span></div></sc-for></div>
+              <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center"><a href="Main.dc.html" class="btn btn-g">Wróć na stronę główną</a><a href="Poradnik.dc.html" class="btn btn-g">Poczytaj poradnik</a></div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{zk.err}}" hint-placeholder-val="{{ false }}"><div class="zkerr" role="alert"><!--i:P.chat:16-->{{zk.errT}}</div></sc-if>
+          <sc-if value="{{zk.nav}}" hint-placeholder-val="{{ true }}">
+            <div class="zknav"><button type="button" class="btn btn-g" onClick="{{zk.back}}" style="{{zk.backSt}}">← Wstecz</button><span class="zknc">{{zk.navHint}}</span><span class="xa-zkno" aria-hidden="true">{{zk.stepNo}}</span><button type="button" class="{{zk.nextCls}}" onClick="{{zk.next}}">{{zk.nextT}}</button></div>
+          </sc-if>
+        </div>
+
+        <sc-if value="{{zk.side}}" hint-placeholder-val="{{ true }}"><aside class="zkside">
+          <div class="zkticket">
+            <div class="zktt"><span class="eye">Twoje zgłoszenie</span><span class="zkring" style="{{zk.ringSt}}"><b>{{zk.pct}}%</b></span></div>
+            <div class="zktsv"><sc-for list="{{zk.sumSvc}}" as="s" hint-placeholder-count="3"><span class="zktag" style="{{s.st}}"><!--i:s.ic:13-->{{s.n}}</span></sc-for><sc-if value="{{zk.sumNone}}" hint-placeholder-val="{{ false }}"><span class="mut" style="font-size: 13.5px">{{zk.sumNoneT}}</span></sc-if></div>
+            <div class="zktl">
+              <div><span>Obiekt</span><b>{{zk.sumObj}}</b></div>
+              <div><span>Etap</span><b>{{zk.sumStage}}</b></div>
+              <div><span>Szczegóły</span><b>{{zk.sumQ}}</b></div>
+              <div><span>Zdjęcia</span><b>{{zk.sumPh}}</b></div>
+              <div><span>Miejscowość</span><b>{{zk.sumTown}}</b></div>
+            </div>
+          </div>
+          <div class="zkhint" key="{{zk.hintK}}"><span class="zkhi"><!--i:P.star:16--></span><div><b>Podpowiedź</b><sc-for list="{{zk.hints}}" as="h" hint-placeholder-count="2"><p>{{h}}</p></sc-for></div></div>
+          <div class="zkafter"><b>Co dalej</b><sc-for list="{{zk.after}}" as="a" hint-placeholder-count="3"><div><em>{{a.n}}</em><span><b>{{a.t}}</b><span>{{a.d}}</span></span></div></sc-for><span class="mut" style="font-size: 13px">Wolisz zadzwonić? <span class="ph">[TELEFON]</span> · pn–pt 9:00–17:00</span></div>
+        </aside></sc-if>
+      </div>
+    </div>
+  </section>
+  <i class="xa-zapmark" hidden></i>

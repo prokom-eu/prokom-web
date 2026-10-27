@@ -1,0 +1,581 @@
+{
+ "_strona": "Anteny",
+ "_title": "Anteny satelitarne i DVB-T2 na Podhalu | PRO-KOM Instalacje",
+ "_description": "Anteny satelitarne i DVB-T2 ustawiane miernikiem, montaż odporny na halny. Instalacje zbiorcze i telewizja w pokojach pensjonatów na Podhalu.",
+ "_uwaga": "Zrzut danych z wizualizacji v4.0 (stan początkowy strony, motyw jasny). Teksty = treść do seeda. Klucze UI (cls, on, pick) pomijaj.",
+ "dane": {
+  "ctaEye": "Anteny RTV/SAT",
+  "ctaH": "Obraz się rwie albo budujesz dom? Ustawimy antenę jak trzeba.",
+  "ctaP": "Montaż, ustawienie miernikiem, rozprowadzenie do telewizorów i opieka po montażu.",
+  "hero": {
+   "mid": true,
+   "midT": "Usługi",
+   "midH": "Main.dc.html#uslugi",
+   "cta": "Zaplanuj instalację",
+   "ctaHref": "Zaplanuj.dc.html",
+   "crumb": "Anteny RTV/SAT",
+   "eye": "Anteny satelitarne i naziemne DVB-T2 · Podhale",
+   "h1a": "Antena ustawiona miernikiem,",
+   "h1b": "nie na oko.",
+   "lead": "Montujemy anteny satelitarne i naziemne DVB-T2 w domach, pensjonatach i hotelach, instalacje zbiorcze w blokach i telewizję hotelową. Ustaw antenę sam w symulatorze, a zobaczysz, dlaczego robimy to z miernikiem.",
+   "kv": [
+    {
+     "b": "od 2004",
+     "s": "PRO-KOM na Podhalu"
+    },
+    {
+     "b": "DVB-T2",
+     "s": "standard telewizji naziemnej"
+    },
+    {
+     "b": "13°E",
+     "s": "Hot Bird, m.in. CANAL+"
+    }
+   ],
+   "tags": [
+    {
+     "n": "Satelitarne"
+    },
+    {
+     "n": "DVB-T2/HEVC"
+    },
+    {
+     "n": "Zbiorcze"
+    },
+    {
+     "n": "TV hotelowa"
+    }
+   ]
+  },
+  "anc": [
+   {
+    "href": "#co-robimy",
+    "n": "Co robimy"
+   },
+   {
+    "href": "#gory",
+    "n": "Anteny w górach"
+   },
+   {
+    "href": "#multipleksy",
+    "n": "Multipleksy"
+   },
+   {
+    "href": "#satelita",
+    "n": "Satelita"
+   },
+   {
+    "href": "#pensjonat-tv",
+    "n": "TV w pensjonacie"
+   },
+   {
+    "href": "#pakiety",
+    "n": "Zestawy"
+   },
+   {
+    "href": "#faq",
+    "n": "Pytania"
+   }
+  ],
+  "pkgs": [
+   {
+    "ic": "ikona:home",
+    "n": "Dom",
+    "d": "Satelita i telewizja naziemna.",
+    "f": [
+     "Antena satelitarna z konwerterem",
+     "Antena naziemna DVB-T2",
+     "Rozprowadzenie do 2–4 telewizorów",
+     "Pomiar w każdym gnieździe",
+     "Ustawienie dekoderów"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "hot": false,
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri"
+   },
+   {
+    "ic": "ikona:hotel",
+    "n": "Pensjonat i hotel",
+    "d": "Telewizja w każdym pokoju.",
+    "f": [
+     "Wspólny punkt odbioru",
+     "Multiswitch lub stacja czołowa",
+     "Gniazdo w każdym pokoju",
+     "Pomiary w gniazdach, opis według ustaleń",
+     "Opieka w sezonie"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "hot": true,
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri hot"
+   },
+   {
+    "ic": "ikona:build",
+    "n": "Blok i wspólnota",
+    "d": "Instalacja zbiorcza lub modernizacja.",
+    "f": [
+     "Jedna antena dla mieszkańców",
+     "Multiswitche w pionach",
+     "Wymiana starych wzmacniaczy",
+     "Pomiary w lokalach",
+     "Zakres dokumentacji ustalamy w ofercie"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "hot": false,
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri"
+   }
+  ],
+  "cena": [
+   {
+    "ic": "ikona:dish",
+    "t": "Rodzaj anten",
+    "d": "Satelitarna, naziemna, kierunkowa, z kilku satelitów."
+   },
+   {
+    "ic": "ikona:tv",
+    "t": "Liczba telewizorów",
+    "d": "Każde gniazdo to przewód, a czasem multiswitch."
+   },
+   {
+    "ic": "ikona:build",
+    "t": "Miejsce montażu",
+    "d": "Dach, ściana, maszt. Wysokość i dostęp."
+   },
+   {
+    "ic": "ikona:ruler",
+    "t": "Długość przewodów",
+    "d": "Trasa od anteny do telewizorów i przejścia przez ściany."
+   },
+   {
+    "ic": "ikona:shield",
+    "t": "Uziemienie i ochrona",
+    "d": "Ochrona przepięciowa i uziemienie instalacji."
+   },
+   {
+    "ic": "ikona:wrench",
+    "t": "Modernizacja",
+    "d": "Co da się zostawić z istniejącej instalacji."
+   }
+  ],
+  "faq": [
+   {
+    "n": "01",
+    "q": "Czy mój telewizor odbierze DVB-T2?",
+    "a": "Telewizory sprzed kilku lat często nie mają tunera DVB-T2/HEVC. Sprawdzimy model i podpowiemy, czy wystarczy dekoder.",
+    "open": true
+   },
+   {
+    "n": "02",
+    "q": "Czy antenę satelitarną można zamontować na balkonie?",
+    "a": "Często tak, jeśli z balkonu widać południe bez przeszkód. Montaż w piwnicy czy wewnątrz budynku nie jest możliwy, bo antena musi „widzieć” satelitę.",
+    "open": false
+   },
+   {
+    "n": "03",
+    "q": "Czy jedna antena może obsłużyć kilka telewizorów?",
+    "a": "Tak. Rozprowadzamy sygnał przewodami, a przy kilku dekoderach satelitarnych stosujemy multiswitch.",
+    "open": false
+   },
+   {
+    "n": "04",
+    "q": "Mieszkam w bloku. Czy da się zrobić instalację zbiorczą?",
+    "a": "Tak, to częste zlecenie wspólnot. Jedna antena na dachu zastępuje talerze na balkonach, a sygnał trafia do każdego lokalu.",
+    "open": false
+   },
+   {
+    "n": "05",
+    "q": "Obraz rwie się przy złej pogodzie. Co robić?",
+    "a": "Najczęściej antena jest lekko przestawiona albo złącze zawilgło. Sprawdzamy miernikiem i ustawiamy ponownie.",
+    "open": false
+   },
+   {
+    "n": "06",
+    "q": "Jaką gwarancję dostanę?",
+    "a": "Na montaż dajemy 24 miesiące gwarancji PRO-KOM, a urządzenia mają gwarancję producenta. Na zgłoszenie odpowiadamy do 24 h w dni robocze: oddzwonimy albo odpiszemy.",
+    "open": false
+   },
+   {
+    "n": "07",
+    "q": "Satelita czy telewizja naziemna?",
+    "a": "Naziemna DVB-T2 nie wymaga płatnego pakietu u operatora (abonament RTV obowiązuje niezależnie od sposobu odbioru) i daje kanały z multipleksów. Satelita daje więcej kanałów, zwykle w płatnym pakiecie Polsat Box albo CANAL+. W górach o wyborze często decyduje zasięg nadajnika, który sprawdzamy miernikiem.",
+    "open": false
+   },
+   {
+    "n": "08",
+    "q": "Czy antenę na dachu trzeba uziemić?",
+    "a": "Tak. Maszt i instalację łączymy z uziemieniem i wyrównujemy potencjały zgodnie z normą PN-EN 60728-11. Na Podhalu, przy częstych burzach, to ochrona telewizorów i dekoderów.",
+    "open": false
+   }
+  ],
+  "rel": [
+   {
+    "k": "wifi",
+    "n": "Sieci i Wi-Fi",
+    "g": "Sieci i technika",
+    "href": "Sieci.dc.html",
+    "ic": "ikona:wifi",
+    "s": "Okablowanie, światłowód, Wi-Fi gości"
+   },
+   {
+    "k": "tel",
+    "n": "Teletechnika w budownictwie",
+    "g": "Sieci i technika",
+    "href": "Teletechnika.dc.html",
+    "ic": "ikona:build",
+    "s": "Dla deweloperów i wykonawców"
+   },
+   {
+    "k": "scr",
+    "n": "Ekrany i digital signage",
+    "g": "Komfort i obraz",
+    "href": "Multimedia.dc.html",
+    "ic": "ikona:scr",
+    "s": "Witryny, menu board, recepcja, ściany wideo"
+   }
+  ],
+  "segRel": [
+   {
+    "k": "pens",
+    "g": "Dom i noclegi",
+    "n": "Pensjonat",
+    "s": "Wi-Fi i TV w pokojach, kamery na zewnątrz",
+    "page": "Noclegowe",
+    "href": "Noclegowe.dc.html",
+    "ic": "ikona:bed",
+    "h": "#F29A4B",
+    "hs": "--mh:#F29A4B",
+    "cls": ""
+   },
+   {
+    "k": "hotel",
+    "g": "Dom i noclegi",
+    "n": "Hotel",
+    "s": "Recepcja 24/7, sale, SPA",
+    "page": "SegHotel",
+    "href": "SegHotel.dc.html",
+    "ic": "ikona:hotel",
+    "h": "#E86FB0",
+    "hs": "--mh:#E86FB0",
+    "cls": ""
+   },
+   {
+    "k": "dom",
+    "g": "Dom i noclegi",
+    "n": "Dom i domek letniskowy",
+    "s": "Bezpieczny, gdy Cię nie ma",
+    "page": "SegDom",
+    "href": "SegDom.dc.html",
+    "ic": "ikona:home",
+    "h": "#7BD36A",
+    "hs": "--mh:#7BD36A",
+    "cls": ""
+   },
+   {
+    "k": "dev",
+    "g": "Budownictwo",
+    "n": "Deweloper",
+    "s": "Teletechnika budynku do odbioru",
+    "page": "SegDeweloper",
+    "href": "SegDeweloper.dc.html",
+    "ic": "ikona:build",
+    "h": "#4CCBE6",
+    "hs": "--mh:#4CCBE6",
+    "cls": ""
+   }
+  ],
+  "hasSegRel": true,
+  "segRelH": "Dla kogo robimy tę instalację",
+  "sx": {
+   "faqA": {
+    "t": "Masz inne pytanie?",
+    "d": "Wyślij zdjęcie obiektu albo obecnej instalacji. Powiemy, od czego zacząć i czego się spodziewać.",
+    "cta": "Zaplanuj instalację",
+    "href": "Zaplanuj.dc.html"
+   },
+   "faqH": "Zanim zadzwonisz.",
+   "relH": "Telewizja, sieć i ekrany razem.",
+   "pkg": {
+    "eye": "Przykładowe zestawy",
+    "h": "Od domu po cały blok.",
+    "p": "Zakres ustalamy po obejrzeniu dachu i miejsc na telewizory.",
+    "note": "To przykłady. Rodzaj anten i rozprowadzenie dobieramy na miejscu, a cenę podajemy na piśmie."
+   },
+   "cena": {
+    "btn": "Wyślij zdjęcia do wyceny",
+    "eye": "Wycena",
+    "h": "Od czego zależy cena instalacji antenowej.",
+    "p": "Zrób zdjęcie dachu albo miejsca na antenę i napisz, ile telewizorów chcesz podłączyć."
+   }
+  },
+  "am": {
+   "mux": [
+    {
+     "n": "MUX-1",
+     "std": "DVB-T2",
+     "d": "Kanały ogólnodostępne",
+     "cls": "mxc2"
+    },
+    {
+     "n": "MUX-2",
+     "std": "DVB-T2",
+     "d": "[svg-path]",
+     "cls": "mxc2"
+    },
+    {
+     "n": "MUX-3",
+     "std": "DVB-T2",
+     "d": "Główne kanały TVP, od grudnia 2023",
+     "cls": "mxc2"
+    },
+    {
+     "n": "MUX-4",
+     "std": "DVB-T2",
+     "d": "Pakiet płatny",
+     "cls": "mxc2"
+    },
+    {
+     "n": "MUX-6",
+     "std": "DVB-T2",
+     "d": "Od startu w DVB-T2/HEVC",
+     "cls": "mxc2"
+    },
+    {
+     "n": "MUX-8",
+     "std": "DVB-T · VHF",
+     "d": "Czeka na zmianę standardu. Część osób potrzebuje anteny VHF.",
+     "cls": "mxc2 old"
+    }
+   ],
+   "q1": [
+    {
+     "n": "Od grudnia 2019",
+     "on": "false",
+     "cls": "zksg"
+    },
+    {
+     "n": "Wcześniej",
+     "on": "false",
+     "cls": "zksg"
+    },
+    {
+     "n": "Nie wiem",
+     "on": "false",
+     "cls": "zksg"
+    }
+   ],
+   "q2": [
+    {
+     "n": "Tak, obraz i dźwięk",
+     "on": "false",
+     "cls": "zksg"
+    },
+    {
+     "n": "Nie odbieram",
+     "on": "false",
+     "cls": "zksg"
+    },
+    {
+     "n": "Nie sprawdzałem",
+     "on": "false",
+     "cls": "zksg"
+    }
+   ],
+   "resCls": "tvres",
+   "resT": "Odpowiedz na dwa pytania",
+   "resD": "Najprostszy test: wyszukaj kanały w telewizorze. Jeśli z anteny odbierasz TVP1 i Polsat z obrazem i dźwiękiem, telewizor jest gotowy.",
+   "fOn": "false",
+   "fCls": "lkpw",
+   "fT": "Bez filtra",
+   "fD": "Sygnał LTE/5G wchodzi do wzmacniacza razem z telewizją i może go przesterować.",
+   "specCls": "spec",
+   "sat": [
+    {
+     "k": "1–4 telewizory",
+     "t": "Konwerter Quad",
+     "st": "--h:#5B8CF0",
+     "d": "Cztery niezależne wyjścia, każde do osobnego tunera. Bez dodatkowych urządzeń.",
+     "n": "Dom, mały pensjonat",
+     "p": "[svg-path]",
+     "tv": [
+      "22",
+      "48",
+      "74",
+      "100"
+     ]
+    },
+    {
+     "k": "Wiele pokoi",
+     "t": "Quattro + multiswitch",
+     "st": "--h:#B58CF0",
+     "d": "Konwerter Quattro podaje wszystkie pasma do multiswitcha, a ten rozdziela sygnał do każdego gniazda. Można dodać naziemną.",
+     "n": "Pensjonat, budynek wielorodzinny",
+     "p": "[svg-path]",
+     "tv": [
+      "50",
+      "80",
+      "110",
+      "140",
+      "170"
+     ]
+    },
+    {
+     "k": "Jeden kabel",
+     "t": "Unicable II / dCSS",
+     "st": "--h:#12B6D8",
+     "d": "Do 32 tunerów na jednym przewodzie (norma EN 50607). Dobre przy remoncie, gdy nie ma jak dołożyć kabli. Odbiornik musi obsługiwać ten standard.",
+     "n": "Remont, istniejące okablowanie",
+     "p": "[svg-path]",
+     "tv": [
+      "70",
+      "110",
+      "150"
+     ]
+    }
+   ],
+   "htv": [
+    {
+     "ic": "ikona:dish",
+     "t": "Satelita i naziemna razem",
+     "d": "Wspólna antena na dachu, multiswitch i gniazda w pokojach. Jeden przewód do każdego telewizora."
+    },
+    {
+     "ic": "ikona:tv",
+     "t": "Własny kanał z recepcji",
+     "d": "Modulator zamienia sygnał HDMI, np. z komputera z informacjami o obiekcie, na kanał widoczny na każdym telewizorze."
+    },
+    {
+     "ic": "ikona:layers",
+     "t": "Kanały satelitarne bez dekodera w pokoju",
+     "d": "Transmodulator przerabia wybrane kanały SAT na DVB-T lub DVB-C w wewnętrznej sieci obiektu. Dotyczy to kanałów niekodowanych albo płatnych w ramach umowy hotelowej z operatorem (np. Polsat Box, CANAL+). Bez takiej umowy płatnych kanałów nie wolno rozprowadzać po pokojach."
+    }
+   ]
+  },
+  "an": {
+   "modes": [
+    {
+     "n": "Satelitarna",
+     "ic": "ikona:dish",
+     "on": "true",
+     "cls": "on"
+    },
+    {
+     "n": "Naziemna DVB-T2",
+     "ic": "ikona:ant",
+     "on": "false",
+     "cls": ""
+    }
+   ],
+   "tag": "Cel: Hot Bird 13°E",
+   "sat": true,
+   "dvb": false,
+   "ridge": "[svg-path]",
+   "ox": 470,
+   "oy": 138,
+   "tx": "302.3",
+   "ty": "29.1",
+   "bx": "297.8",
+   "by": "57.7",
+   "beamCls": "anbeam",
+   "mx": 467.5,
+   "my": 138,
+   "mh": 38,
+   "dishTr": "translate(470 138) rotate(-155)",
+   "satTr": "translate(302.3 29.1)",
+   "yagiTr": "",
+   "tcx": "-5.9",
+   "tcy": "37.5",
+   "ncx": "3.6",
+   "ncy": "33.8",
+   "lockCls": "anmeter",
+   "lockTxt": "SZUKAM",
+   "lv": 22,
+   "q": 0,
+   "lvSt": "width:22%",
+   "qSt": "width:0%",
+   "az": 174,
+   "el": 25,
+   "mastCls": "mstb",
+   "mastOn": "false",
+   "note": "Brak sygnału. Kręć azymutem i elewacją albo kliknij „Ustaw jak instalator”. W praktyce robimy to miernikiem, nie na oko."
+  },
+  "cr": [
+   {
+    "ic": "ikona:home",
+    "t": "Dom jednorodzinny",
+    "d": "Antena satelitarna i naziemna DVB-T2, rozprowadzenie do kilku telewizorów, pomiar sygnału przy każdym gnieździe."
+   },
+   {
+    "ic": "ikona:build",
+    "t": "Instalacje zbiorcze w blokach",
+    "d": "Jedna antena dla wszystkich mieszkańców zamiast lasu talerzy na balkonach. Multiswitche i rozprowadzenie do lokali."
+   },
+   {
+    "ic": "ikona:wrench",
+    "t": "Modernizacja starych instalacji",
+    "d": "Wymiana wzmacniaczy, przewodów i gniazd w istniejących instalacjach zbiorczych, z pomiarami po modernizacji."
+   },
+   {
+    "ic": "ikona:hotel",
+    "t": "Telewizja hotelowa",
+    "d": "Telewizja w każdym pokoju pensjonatu i hotelu, z jednego punktu odbioru. Razem z siecią i ekranami w recepcji."
+   },
+   {
+    "ic": "ikona:sliders",
+    "t": "Pomiary miernikiem",
+    "d": "Ustawiamy anteny profesjonalnym miernikiem poziomu i jakości sygnału. Wynik pokazujemy przy odbiorze."
+   },
+   {
+    "ic": "ikona:shield",
+    "t": "Opieka po montażu",
+    "d": "Konserwacja w gwarancji i opieka po gwarancji: przestawiona przez wiatr antena, zalane złącze, nowy telewizor."
+   }
+  ],
+  "dv": [
+   {
+    "ic": "ikona:tv",
+    "t": "Sprawdzenie telewizora",
+    "d": "Czy ma tuner DVB-T2/HEVC, czy potrzebny jest dekoder."
+   },
+   {
+    "ic": "ikona:ant",
+    "t": "Dobór anteny",
+    "d": "Kierunkowa albo dookólna, zależnie od odległości i ukształtowania terenu."
+   },
+   {
+    "ic": "ikona:sliders",
+    "t": "Pomiar w gniazdach",
+    "d": "Poziom i jakość sygnału w każdym gnieździe, nie tylko przy antenie."
+   },
+   {
+    "ic": "ikona:layers",
+    "t": "Satelita i naziemna razem",
+    "d": "Wspólna instalacja, żeby jeden przewód obsłużył oba źródła."
+   }
+  ],
+  "gr": [
+   {
+    "ic": "ikona:mountain",
+    "t": "Zasłonięty nadajnik",
+    "d": "Stok albo las między domem a nadajnikiem. Pomaga wyższy maszt, inne miejsce montażu albo antena kierunkowa."
+   },
+   {
+    "ic": "ikona:storm",
+    "t": "Halny i wichury",
+    "d": "Mocowania i maszty dobieramy z zapasem. W Zakopanem halny dawał porywy 33 m/s (grudzień 2013).",
+    "s": "Druet, Wiśniewski, „Geography and Tourism”, 2021."
+   },
+   {
+    "ic": "ikona:snow",
+    "t": "Śnieg i lód",
+    "d": "Mokry śnieg na czaszy osłabia sygnał. Dobieramy miejsce montażu tak, żeby antenę dało się bezpiecznie odśnieżyć."
+   },
+   {
+    "ic": "ikona:bolt",
+    "t": "Burze",
+    "d": "Uziemienie i ochrona przepięciowa instalacji antenowej, żeby piorun nie trafił przez przewód do telewizora."
+   }
+  ]
+ }
+}

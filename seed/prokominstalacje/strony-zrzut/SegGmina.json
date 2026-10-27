@@ -1,0 +1,680 @@
+{
+ "_strona": "SegGmina",
+ "_title": "Transmisja sesji i monitoring dla gmin i powiatów | PRO-KOM",
+ "_description": "Transmisja i nagrywanie sesji (art. 20 ust. 1b u.s.g.), mikrofony, połączenie z systemem głosowania, pętla indukcyjna, monitoring placów i sieć urzędu.",
+ "_uwaga": "Zrzut danych z wizualizacji v4.0 (stan początkowy strony, motyw jasny). Teksty = treść do seeda. Klucze UI (cls, on, pick) pomijaj.",
+ "dane": {
+  "ctaEye": "Gmina i urząd",
+  "ctaH": "Przyjedziemy na salę obrad i powiemy, co poprawić przed następną sesją.",
+  "ctaP": "Oględziny sali i sieci, opis potrzeb do zapytania, montaż poza sesjami i szkolenie.",
+  "hero": {
+   "mid": true,
+   "midT": "Dla kogo",
+   "midH": "Main.dc.html#dla-kogo",
+   "cta": "Zaplanuj instalację",
+   "ctaHref": "Zaplanuj.dc.html#obiekt=gmina",
+   "crumb": "Gmina i urząd",
+   "eye": "Instalacje dla gmin, powiatów i urzędów · Podhale i Małopolska",
+   "h1a": "Sesja idzie na żywo, a nagranie zapisuje się lokalnie.",
+   "h1b": "Nawet gdy padnie internet.",
+   "lead": "Sala obrad z mikrofonami, kamerami i transmisją, połączona z systemem do głosowania elektronicznego z imiennym wykazem głosowań. Pętla indukcyjna w punkcie obsługi, monitoring placów i przystanków w celach z art. 9a, sieć urzędu z zapisem lokalnym i łączem zapasowym.",
+   "kv": [
+    {
+     "b": "14 dni",
+     "s": "na dostosowanie nagrania sesji, np. napisy (art. 5a)"
+    },
+    {
+     "b": "24 mies.",
+     "s": "gwarancji na montaż"
+    },
+    {
+     "b": "do 24 h",
+     "s": "odpowiedź na zgłoszenie w dni robocze"
+    }
+   ],
+   "tags": [
+    {
+     "n": "Transmisja sesji"
+    },
+    {
+     "n": "Mikrofony i głosowanie"
+    },
+    {
+     "n": "Pętla indukcyjna"
+    },
+    {
+     "n": "Monitoring gminy"
+    }
+   ]
+  },
+  "anc": [
+   {
+    "href": "#problemy",
+    "n": "Problemy"
+   },
+   {
+    "href": "#rok",
+    "n": "Dzień sesji"
+   },
+   {
+    "href": "#przepisy",
+    "n": "Przepisy"
+   },
+   {
+    "href": "#gory",
+    "n": "Podhale"
+   },
+   {
+    "href": "#pakiety",
+    "n": "Zestawy"
+   },
+   {
+    "href": "#przygotuj",
+    "n": "Przed wizytą"
+   },
+   {
+    "href": "#faq",
+    "n": "Pytania"
+   }
+  ],
+  "pkgs": [
+   {
+    "n": "Sala obrad",
+    "d": "Transmisja i nagrywanie sesji.",
+    "ic": "ikona:users",
+    "f": [
+     "Mikrofony dla radnych",
+     "Kamery z zapamiętanymi ujęciami",
+     "Transmisja i zapis lokalny",
+     "Połączenie z systemem głosowania",
+     "Zasilanie awaryjne"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "hot": false,
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri"
+   },
+   {
+    "n": "Urząd",
+    "d": "Sala, punkt obsługi i sieć.",
+    "ic": "ikona:town",
+    "hot": true,
+    "f": [
+     "Wszystko z Sali obrad",
+     "Pętla indukcyjna w punkcie obsługi",
+     "Osobne sieci dla urzędu i mieszkańców",
+     "Łącze zapasowe",
+     "Karty do archiwum i serwerowni"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri hot"
+   },
+   {
+    "n": "Gmina",
+    "d": "Urząd i przestrzeń publiczna.",
+    "ic": "ikona:layers",
+    "f": [
+     "Monitoring placów i przystanków",
+     "Kamery szkół i obiektów gminy",
+     "Jedna aplikacja dla obiektów",
+     "Ekrany informacyjne",
+     "Dokumentacja i szkolenie w zakresie z zapytania"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "hot": false,
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri"
+   }
+  ],
+  "cena": [],
+  "faq": [
+   {
+    "n": "01",
+    "q": "Od czego zależy koszt wyposażenia sali obrad?",
+    "a": "Od liczby radnych i mikrofonów, liczby kamer, tego, czy sala służy też do ślubów i szkoleń, oraz od sprzętu, który da się wykorzystać. Wycenę przygotujemy w odpowiedzi na zapytanie ofertowe.",
+    "open": true
+   },
+   {
+    "n": "02",
+    "q": "Czy robicie system do głosowania?",
+    "a": "Dostarczamy i montujemy sprzęt sali: mikrofony, kamery, nagłośnienie i transmisję, i łączymy go z systemem do głosowania elektronicznego wybranym przez gminę. Oprogramowanie do głosowania to zwykle usługa zewnętrznego dostawcy, więc doradzamy, co sprawdzi się w danej sali.",
+    "open": false
+   },
+   {
+    "n": "03",
+    "q": "Co, jeśli w trakcie sesji padnie internet albo prąd?",
+    "a": "Projektujemy zasilanie awaryjne i łącze zapasowe, a nagranie zapisuje się lokalnie nawet bez transmisji. Celem jest, żeby rada nie musiała przechodzić na głosowanie imienne bez urządzeń.",
+    "open": false
+   },
+   {
+    "n": "04",
+    "q": "Czy pomożecie z napisami w nagraniach sesji?",
+    "a": "Napisy przygotowuje gmina albo jej dostawca. My odpowiadamy za tor dźwięku: każdy radny mówi do swojego mikrofonu, a dźwięk idzie z miksera, więc napisy są dokładniejsze. Zakres obowiązku warto potwierdzić z koordynatorem dostępności.",
+    "open": false
+   },
+   {
+    "n": "05",
+    "q": "Czy można monitorować przystanek, który nie należy do gminy?",
+    "a": "Tak, ale w przestrzeni publicznej potrzebna jest zgoda zarządzającego terenem, np. zarządcy drogi. Przed projektem ustalamy, kto zarządza placem lub przystankiem.",
+    "open": false
+   },
+   {
+    "n": "06",
+    "q": "Czy montaż przeszkodzi w sesjach i pracy urzędu?",
+    "a": "Montaż w sali planujemy między sesjami, a prace w punkcie obsługi poza godzinami przyjęć albo etapami. Harmonogram uzgadniamy z sekretarzem gminy.",
+    "open": false
+   },
+   {
+    "n": "07",
+    "q": "Jak z wami współpracować przy zamówieniu publicznym?",
+    "a": "Bierzemy udział w zapytaniach ofertowych i przetargach. Możemy obejrzeć salę i pomóc opisać potrzeby. Jeśli zamówienie podlega Pzp, taka pomoc musi być ujawniona, a gmina zapewnia, że nie zakłóci ona konkurencji (art. 85 Pzp). W skrajnym razie grozi to wykluczeniem wykonawcy (art. 108 ust. 1 pkt 6), dlatego mówimy o tym otwarcie od początku. Warunki gwarancji i szkolenia wpisujemy do oferty zgodnie z zapytaniem.",
+    "open": false
+   },
+   {
+    "n": "08",
+    "q": "Czy przeszkolicie osobę, która prowadzi transmisję?",
+    "a": "Tak. Pokazujemy na miejscu start transmisji, kontrolę zapisu lokalnego i przygotowanie nagrania do publikacji w BIP. Zakres szkolenia wpisujemy do oferty, zgodnie z zapytaniem.",
+    "open": false
+   }
+  ],
+  "rel": [
+   {
+    "k": "kam",
+    "n": "Monitoring i kamery",
+    "g": "Bezpieczeństwo",
+    "href": "Monitoring.dc.html",
+    "ic": "ikona:cam",
+    "s": "Kompletny system: kamery, rejestrator, dyski, PoE"
+   },
+   {
+    "k": "kd",
+    "n": "Kontrola dostępu i zamki",
+    "g": "Bezpieczeństwo",
+    "href": "Dostep.dc.html",
+    "ic": "ikona:lock",
+    "s": "Karty, kody, apartamenty"
+   },
+   {
+    "k": "wifi",
+    "n": "Sieci i Wi-Fi",
+    "g": "Sieci i technika",
+    "href": "Sieci.dc.html",
+    "ic": "ikona:wifi",
+    "s": "Okablowanie, światłowód, Wi-Fi gości"
+   },
+   {
+    "k": "snd",
+    "n": "Nagłośnienie",
+    "g": "Komfort i obraz",
+    "href": "Naglosnienie.dc.html",
+    "ic": "ikona:spk",
+    "s": "APART: restauracje, hotele, kościoły, sale"
+   },
+   {
+    "k": "scr",
+    "n": "Ekrany i digital signage",
+    "g": "Komfort i obraz",
+    "href": "Multimedia.dc.html",
+    "ic": "ikona:scr",
+    "s": "Witryny, menu board, recepcja, ściany wideo"
+   }
+  ],
+  "segRel": [
+   {
+    "k": "szk",
+    "g": "Instytucje",
+    "n": "Szkoła i przedszkole",
+    "s": "Bezpieczne wejścia, dzwonki, sieć",
+    "page": "SegSzkola",
+    "href": "SegSzkola.dc.html",
+    "ic": "ikona:school",
+    "h": "#5FD0B0",
+    "hs": "--mh:#5FD0B0",
+    "cls": ""
+   },
+   {
+    "k": "kosc",
+    "g": "Instytucje",
+    "n": "Kościół i parafia",
+    "s": "Zrozumiała mowa, transmisja mszy",
+    "page": "SegKosciol",
+    "href": "SegKosciol.dc.html",
+    "ic": "ikona:church",
+    "h": "#B58CF0",
+    "hs": "--mh:#B58CF0",
+    "cls": ""
+   }
+  ],
+  "hasSegRel": true,
+  "segRelH": "Podobne obiekty",
+  "sx": {
+   "faqA": {
+    "t": "Masz inne pytanie?",
+    "d": "Wyślij zdjęcie obiektu albo obecnej instalacji. Powiemy, od czego zacząć i czego się spodziewać.",
+    "cta": "Zaplanuj instalację",
+    "href": "Zaplanuj.dc.html"
+   },
+   "faqH": "Pytania urzędów.",
+   "relH": "Usługi, które łączymy w tym obiekcie.",
+   "pkg": {
+    "eye": "Zestawy dla gmin",
+    "h": "Od sali obrad po cały urząd i przestrzeń gminy.",
+    "p": "",
+    "note": "To przykłady. Ostateczny zakres i cenę ustalamy po wizji lokalnej i podajemy na piśmie."
+   },
+   "cena": {
+    "btn": "Wyślij zdjęcia do wyceny",
+    "eye": "Wycena",
+    "h": "Co wpływa na cenę.",
+    "p": ""
+   }
+  },
+  "sg": {
+   "sceneT": "Przekrój urzędu gminy z salą obrad",
+   "hc": {
+    "k0": "hs on",
+    "k1": "hs",
+    "k2": "hs",
+    "k3": "hs",
+    "k4": "hs",
+    "k5": "hs",
+    "k6": "hs",
+    "k7": "hs",
+    "k8": "hs",
+    "k9": "hs"
+   },
+   "hp": {},
+   "zap": "Zaplanuj.dc.html#obiekt=gmina",
+   "prepEye": "Przed wizytą",
+   "prepLead": "Zaznaczenie, co już jest, przyspieszy wycenę. Zdjęcia można wysłać w formularzu albo przez WhatsApp.",
+   "leg": [
+    {
+     "no": "1",
+     "t": "Mikrofony radnych i nagłośnienie sali",
+     "on": "true",
+     "st": "--c:#F29A4B",
+     "cls": "sglgb on"
+    },
+    {
+     "no": "2",
+     "t": "Kamery i transmisja sesji",
+     "on": "false",
+     "st": "--c:#E86FB0",
+     "cls": "sglgb"
+    },
+    {
+     "no": "3",
+     "t": "Ekran z wynikami głosowania",
+     "on": "false",
+     "st": "--c:#E86FB0",
+     "cls": "sglgb"
+    },
+    {
+     "no": "4",
+     "t": "Połączenie z systemem głosowania elektronicznego",
+     "on": "false",
+     "st": "--c:#F29A4B",
+     "cls": "sglgb"
+    },
+    {
+     "no": "5",
+     "t": "Zapis lokalny, łącze zapasowe, UPS",
+     "on": "false",
+     "st": "--c:#5B8CF0",
+     "cls": "sglgb"
+    },
+    {
+     "no": "6",
+     "t": "Monitoring placu i przystanku",
+     "on": "false",
+     "st": "--c:#12B6D8",
+     "cls": "sglgb"
+    },
+    {
+     "no": "7",
+     "t": "Pętla indukcyjna w punkcie obsługi",
+     "on": "false",
+     "st": "--c:#F29A4B",
+     "cls": "sglgb"
+    },
+    {
+     "no": "8",
+     "t": "Karty do archiwum i serwerowni",
+     "on": "false",
+     "st": "--c:#F2B84B",
+     "cls": "sglgb"
+    },
+    {
+     "no": "9",
+     "t": "Wi-Fi dla mieszkańców osobno od sieci urzędu",
+     "on": "false",
+     "st": "--c:#5B8CF0",
+     "cls": "sglgb"
+    },
+    {
+     "no": "10",
+     "t": "Alarm budynku urzędu",
+     "on": "false",
+     "st": "--c:#F07A6A",
+     "cls": "sglgb"
+    }
+   ],
+   "ly": [
+    {
+     "n": "Wszystko",
+     "on": "true",
+     "cls": "sglyb on"
+    },
+    {
+     "n": "Bezpieczeństwo",
+     "on": "false",
+     "cls": "sglyb"
+    },
+    {
+     "n": "Sieć i łączność",
+     "on": "false",
+     "cls": "sglyb"
+    },
+    {
+     "n": "Dźwięk i obraz",
+     "on": "false",
+     "cls": "sglyb"
+    }
+   ],
+   "cur": {
+    "k": "h0",
+    "no": "1",
+    "t": "Mikrofony radnych i nagłośnienie sali",
+    "d": "Mikrofon przy każdym radnym i przewodniczącym. Dźwięk do transmisji idzie z miksera, a nie z mikrofonu kamery.",
+    "sn": "Nagłośnienie",
+    "href": "Naglosnienie.dc.html",
+    "st": "--c:#F29A4B"
+   },
+   "pos": "1 z 10",
+   "pr": {
+    "eye": "Co słyszymy od sekretarzy gmin",
+    "h": "Co wraca na każdej sesji",
+    "ha": "i w każdym urzędzie.",
+    "lead": "Transmisja, głosowanie, dostępność i monitoring mają w gminie podstawę w ustawie. Projektujemy tak, żeby gminie łatwiej było spełnić przepisy, a sesja nie stawała."
+   },
+   "prob": [
+    {
+     "q": "„Transmisja zerwała się w połowie sesji”",
+     "d": "Słabe wysyłanie, dźwięk z mikrofonu kamery i ręczne wrzucanie nagrań do BIP.",
+     "fix": "Zapis lokalny, łącze zapasowe, dźwięk z miksera i transmisja z jednego stanowiska.",
+     "ic": "ikona:play",
+     "sn": "Ekrany i transmisja",
+     "href": "Multimedia.dc.html",
+     "st": "--c:#E86FB0"
+    },
+    {
+     "q": "„Głosowanie trzeba było powtórzyć ręcznie”",
+     "d": "Gdy urządzenia zawiodą, ustawa przewiduje głosowanie imienne bez urządzeń, co wydłuża sesję i grozi błędem w protokole.",
+     "fix": "Sprzęt sali połączony z systemem głosowania i zasilanie awaryjne.",
+     "ic": "ikona:check",
+     "sn": "Nagłośnienie",
+     "href": "Naglosnienie.dc.html",
+     "st": "--c:#F29A4B"
+    },
+    {
+     "q": "„Nagrania muszą mieć napisy”",
+     "d": "Nagrania z transmisji na żywo trzeba dostosować w 14 dni, najpóźniej w 2 miesiące.",
+     "fix": "Czysty tor dźwięku z mikrofonów, dzięki któremu napisy są dokładniejsze.",
+     "ic": "ikona:doc",
+     "sn": "Nagłośnienie",
+     "href": "Naglosnienie.dc.html",
+     "st": "--c:#F29A4B"
+    },
+    {
+     "q": "„Policja chce stały podgląd”",
+     "d": "UODO uznał, że gmina nie może dać policji stałego dostępu do obrazu na żywo.",
+     "fix": "Monitoring w celach z art. 9a, nagrania do 3 miesięcy i przekazywanie fragmentów na wniosek.",
+     "ic": "ikona:shield",
+     "sn": "Monitoring i kamery",
+     "href": "Monitoring.dc.html",
+     "st": "--c:#12B6D8"
+    },
+    {
+     "q": "„Kamery wiszą w sieci urzędników”",
+     "d": "Rejestratory i kamery bez podziału sieci to ryzyko dla całego urzędu.",
+     "fix": "Osobne sieci dla urzędników, mieszkańców i kamer oraz łącze zapasowe.",
+     "ic": "ikona:net",
+     "sn": "Sieci i Wi-Fi",
+     "href": "Sieci.dc.html",
+     "st": "--c:#5B8CF0"
+    },
+    {
+     "q": "„Mieszkaniec nie słyszy w okienku”",
+     "d": "Podmiot publiczny zapewnia urządzenia dla osób słabosłyszących.",
+     "fix": "Pętla indukcyjna w punkcie obsługi i w sali obrad.",
+     "ic": "ikona:chat",
+     "sn": "Nagłośnienie",
+     "href": "Naglosnienie.dc.html",
+     "st": "--c:#F29A4B"
+    }
+   ],
+   "day": {
+    "eye": "Dzień sesji w urzędzie",
+    "h": "Od otwarcia urzędu do nagrania w BIP.",
+    "lead": "Tak pracują instalacje urzędu w dniu sesji rady gminy.",
+    "k": "d0",
+    "pg": "width:17%",
+    "items": [
+     {
+      "tm": "7:30",
+      "n": "Otwarcie urzędu",
+      "on": "true",
+      "cls": "sgdb on"
+     },
+     {
+      "tm": "9:00",
+      "n": "Punkt obsługi",
+      "on": "false",
+      "cls": "sgdb"
+     },
+     {
+      "tm": "13:00",
+      "n": "Start sesji",
+      "on": "false",
+      "cls": "sgdb"
+     },
+     {
+      "tm": "14:20",
+      "n": "Głosowanie",
+      "on": "false",
+      "cls": "sgdb"
+     },
+     {
+      "tm": "15:05",
+      "n": "Awaria łącza",
+      "on": "false",
+      "cls": "sgdb"
+     },
+     {
+      "tm": "Wieczór",
+      "n": "Plac po zmroku",
+      "on": "false",
+      "cls": "sgdb"
+     }
+    ],
+    "cur": {
+     "tm": "7:30",
+     "n": "Otwarcie urzędu",
+     "d": "Pracownicy wchodzą na karty, alarm budynku rozbraja się strefami. Mieszkańcy łączą się z osobną siecią.",
+     "ic": "ikona:door",
+     "st": "--c:#F2B84B",
+     "ch": [
+      {
+       "n": "Kontrola dostępu i zamki",
+       "href": "Dostep.dc.html",
+       "st": "--c:#F2B84B"
+      },
+      {
+       "n": "Sieci i Wi-Fi",
+       "href": "Sieci.dc.html",
+       "st": "--c:#5B8CF0"
+      }
+     ],
+     "hs": [
+      {
+       "no": "5",
+       "st": "--c:#5B8CF0"
+      },
+      {
+       "no": "8",
+       "st": "--c:#F2B84B"
+      },
+      {
+       "no": "9",
+       "st": "--c:#5B8CF0"
+      }
+     ]
+    }
+   },
+   "law": {
+    "h": "Sesje, głosowanie, monitoring i dostępność. Co mówią przepisy.",
+    "lead": "Gmina ma najwięcej obowiązków z ustawy. Projektujemy pod nie salę, sieć i monitoring.",
+    "items": [
+     {
+      "t": "Transmisja i nagrywanie obrad",
+      "a": "art. 20 ust. 1b u.s.g.",
+      "d": "Obrady rady gminy są transmitowane i utrwalane za pomocą urządzeń rejestrujących obraz i dźwięk. Nagrania udostępnia się w BIP i na stronie gminy. Dla powiatu to samo mówi art. 15 ust. 1a u.s.p.",
+      "who": "Gmina",
+      "wc": "sgwho o",
+      "href": "https://eli.gov.pl/api/acts/DU/2018/130/text/T/D20180130L.pdf",
+      "sl": "Dz.U. 2018 poz. 130 (ELI)"
+     },
+     {
+      "t": "Głosowanie z imiennym wykazem",
+      "a": "art. 14 ust. 2–4 u.s.g.",
+      "d": "Jawne głosowania odbywają się za pomocą urządzeń, które sporządzają i utrwalają imienny wykaz głosowań radnych. Gdy urządzenia zawiodą, głosuje się imiennie.",
+      "who": "Gmina",
+      "wc": "sgwho o",
+      "href": "https://eli.gov.pl/api/acts/DU/2018/130/text/T/D20180130L.pdf",
+      "sl": "Dz.U. 2018 poz. 130 (ELI)"
+     },
+     {
+      "t": "Monitoring gminy",
+      "a": "art. 9a u.s.g.",
+      "d": "Monitoring dla porządku publicznego, bezpieczeństwa oraz ochrony przeciwpożarowej i przeciwpowodziowej, z oznakowaniem. W przestrzeni publicznej potrzebna jest zgoda zarządzającego terenem, np. zarządcy drogi przy przystanku. Nagrania do 3 miesięcy. Bez pomieszczeń sanitarnych, szatni, stołówek, palarni i obiektów socjalnych.",
+      "who": "Gmina",
+      "wc": "sgwho o",
+      "href": "https://eli.gov.pl/eli/DU/2026/662/ogl",
+      "sl": "u.s.g., t.j. Dz.U. 2026 poz. 662 (ELI)"
+     },
+     {
+      "t": "Bez stałego podglądu dla policji",
+      "a": "UODO, 30.09.2025",
+      "d": "Prezes UODO uznał, że nie ma podstawy prawnej do stałego udostępniania policji obrazu na żywo. Można przekazywać fragmenty nagrań na wniosek.",
+      "who": "Gmina",
+      "wc": "sgwho o",
+      "href": "https://nowybiuletyn.uodo.gov.pl/gmina-nie-moze-przyznac-policji-stalego-dostepu-do-swojego-monitoringu/?pdf=1118",
+      "sl": "Biuletyn UODO"
+     },
+     {
+      "t": "Napisy w nagraniach sesji",
+      "a": "art. 5a ustawy o dostępności cyfrowej",
+      "d": "Nagrania z transmisji na żywo publikowane na stronie dostosowuje się w 14 dni, a jeśli to niemożliwe, w 2 miesiące. Czysty dźwięk z mikrofonów ułatwia przygotowanie napisów.",
+      "who": "Razem",
+      "wc": "sgwho r",
+      "href": "https://api.sejm.gov.pl/eli/acts/DU/2023/511/text/T/D20230511L.pdf",
+      "sl": "Dz.U. 2023 poz. 511 (PDF)"
+     },
+     {
+      "t": "Próg 170 000 zł i pomoc w opisie",
+      "a": "art. 2 i art. 85 Pzp",
+      "d": "Od 1.01.2026 próg stosowania ustawy to 170 000 zł, a poniżej gmina działa według własnego regulaminu. Jeśli pomagaliśmy opisać potrzeby, a zamówienie podlega ustawie, gmina musi zadbać, żeby nie zakłóciło to konkurencji (art. 85). Dlatego taką pomoc ujawniamy.",
+      "who": "Gmina",
+      "wc": "sgwho o",
+      "href": "https://api.sejm.gov.pl/eli/acts/DU/2026/793/text.pdf",
+      "sl": "Pzp, t.j. Dz.U. 2026 poz. 793 (PDF)"
+     }
+    ]
+   },
+   "gory": {
+    "h": "Małe gminy, jedna sala na wszystko i słabe łącze.",
+    "items": [
+     {
+      "ic": "ikona:town",
+      "t": "Małe gminy, jedna sala",
+      "d": "Na Podhalu to głównie małe gminy wiejskie i miejsko-wiejskie. Jedna sala bywa salą obrad, ślubów i szkoleń, więc system musi być wielofunkcyjny.",
+      "hasS": false,
+      "sh": "",
+      "sl": ""
+     },
+     {
+      "ic": "ikona:wifi",
+      "t": "Słabe wysyłanie",
+      "d": "W części miejscowości łącze ma słabe wysyłanie. Transmisja potrzebuje zapasu albo łącza zapasowego.",
+      "hasS": false,
+      "sh": "",
+      "sl": ""
+     },
+     {
+      "ic": "ikona:snow",
+      "t": "Kamery na słupach",
+      "d": "Monitoring placów i przystanków wymaga kamer odpornych na mróz, ochronników przepięciowych i zasilania awaryjnego.",
+      "hasS": false,
+      "sh": "",
+      "sl": ""
+     },
+     {
+      "ic": "ikona:users",
+      "t": "Parkingi w sezonie",
+      "d": "Parkingi, deptaki i punkty widokowe są oblegane w sezonie. Monitoring tylko w celach z art. 9a.",
+      "hasS": false,
+      "sh": "",
+      "sl": ""
+     }
+    ]
+   },
+   "hasReal": false,
+   "realH": "",
+   "real": [],
+   "ck": {
+    "n": 0,
+    "t": 7,
+    "st": "--p:0",
+    "cta": "Wyślij zdjęcia i opis →",
+    "items": [
+     {
+      "t": "Rzut sali obrad i liczba radnych",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Jak dziś działa transmisja i głosowanie",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Kto dostarcza system głosowania",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Parametry łącza internetowego urzędu",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Gdzie są kamery gminy i kto zarządza placem lub przystankiem",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Kontakt do koordynatora dostępności",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Tryb zamówienia: zapytanie czy przetarg",
+      "on": "false",
+      "cls": "sgci"
+     }
+    ]
+   }
+  }
+ }
+}

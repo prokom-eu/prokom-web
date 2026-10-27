@@ -59,6 +59,7 @@ Gdy dwie strony powstają w tym samym czasie, każda ma **własny folder** z wł
 |---|---|---|---|
 | `prokom-web-biznes` (worktree) | prokombiznes.pl | 3000 | `prokom_web` |
 | `prokom-web` (główny) | prokomsoftware.pl | 3001 | `prokom_web_software` |
+| `prokom-instal` (worktree) | prokominstalacje.pl | 3002 | `prokom_web_instalacje` |
 
 **Dlaczego osobna baza:** każda gałąź dodaje własne migracje. Na wspólnej bazie Payload trafiłby na migrację, której jego gałąź nie zna, albo na tabele niezgodne z kodem. Kontener PostgreSQL jest jeden (stała nazwa projektu w `docker/compose.dev.yml`), baz w nim dwie.
 **Dlaczego osobny port:** `next dev` bez ustalonego portu przy zajętym 3000 sam przeskakuje na 3001, a e2e z `reuseExistingServer` testowałyby wtedy serwer drugiej strony. `pnpm dev` i Playwright biorą `PORT` z `.env`, więc każdy folder ma swój port na stałe.

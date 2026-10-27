@@ -1,0 +1,713 @@
+{
+ "_strona": "Noclegowe",
+ "_title": "Wi-Fi, kamery i czujki dla pensjonatów — Zakopane | PRO-KOM",
+ "_description": "Wi-Fi w każdym pokoju, kamery parkingu i narciarni, wejście z kodem, telewizja w pokojach i czujki dymu. Pensjonaty w Zakopanem i na Podhalu.",
+ "_uwaga": "Zrzut danych z wizualizacji v4.0 (stan początkowy strony, motyw jasny). Teksty = treść do seeda. Klucze UI (cls, on, pick) pomijaj.",
+ "dane": {
+  "ctaEye": "Pensjonat",
+  "ctaH": "Przyjedziemy przed sezonem i zaplanujemy wszystko razem.",
+  "ctaP": "Wizja lokalna, projekt i wycena na piśmie, montaż poza sezonem albo w wolnych pokojach, szkolenie, a na życzenie przegląd przed feriami.",
+  "hero": {
+   "mid": true,
+   "midT": "Dla kogo",
+   "midH": "Main.dc.html#dla-kogo",
+   "cta": "Zaplanuj instalację",
+   "ctaHref": "Zaplanuj.dc.html#obiekt=pens",
+   "crumb": "Pensjonat",
+   "eye": "Instalacje dla pensjonatów i pokoi gościnnych · Zakopane, Kościelisko, Rabka, Podhale",
+   "h1a": "Pensjonat, który działa sam,",
+   "h1b": "gdy Ty śpisz albo jesteś na stoku.",
+   "lead": "Wi-Fi w każdym pokoju, kamery tam, gdzie są spory: wjazd, parking, narciarnia. Wejście z kodem i wideodomofon w telefonie, telewizja w pokojach z jednej szafy, czujki dymu w pokojach i ogrzewanie, które nie grzeje pustych pokoi.",
+   "kv": [
+    {
+     "b": "30.06.2026",
+     "s": "od tego dnia czujka dymu w każdym pokoju"
+    },
+    {
+     "b": "24 mies.",
+     "s": "gwarancji na montaż"
+    },
+    {
+     "b": "do 24 h",
+     "s": "odpowiedź na zgłoszenie w dni robocze"
+    }
+   ],
+   "tags": [
+    {
+     "n": "Wi-Fi w pokojach"
+    },
+    {
+     "n": "Kamery narciarni i parkingu"
+    },
+    {
+     "n": "Wejście z kodem"
+    },
+    {
+     "n": "Czujki dymu"
+    }
+   ]
+  },
+  "anc": [
+   {
+    "href": "#problemy",
+    "n": "Problemy"
+   },
+   {
+    "href": "#rok",
+    "n": "Doba w ferie"
+   },
+   {
+    "href": "#przepisy",
+    "n": "Przepisy"
+   },
+   {
+    "href": "#gory",
+    "n": "Podhale"
+   },
+   {
+    "href": "#pakiety",
+    "n": "Zestawy"
+   },
+   {
+    "href": "#przygotuj",
+    "n": "Przed wizytą"
+   },
+   {
+    "href": "#faq",
+    "n": "Pytania"
+   }
+  ],
+  "pkgs": [
+   {
+    "n": "Pokoje gościnne",
+    "d": "Kilka pokoi w domu rodzinnym.",
+    "ic": "ikona:bed",
+    "f": [
+     "Wi-Fi z punktami w pokojach",
+     "Kamera wejścia i parkingu",
+     "Czujki dymu w pokojach",
+     "Wideodomofon w telefonie",
+     "Osobna sieć gości"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "hot": false,
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri"
+   },
+   {
+    "n": "Pensjonat",
+    "d": "Kilkanaście pokoi i narciarnia.",
+    "ic": "ikona:home",
+    "hot": true,
+    "f": [
+     "Wszystko z zestawu Pokoje gościnne",
+     "Kamera narciarni i suszarni",
+     "Wejście z kodem z systemu rezerwacji",
+     "Telewizja w pokojach z jednej szafy",
+     "Czujka czadu w kotłowni"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri hot"
+   },
+   {
+    "n": "Pensjonat z dobudówką",
+    "d": "Kilka budynków i sala.",
+    "ic": "ikona:layers",
+    "f": [
+     "Wszystko z zestawu Pensjonat",
+     "Most radiowy albo światłowód",
+     "Ogrzewanie pokoi według obłożenia",
+     "Ekran w jadalni",
+     "Nagłośnienie sali kominkowej"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "hot": false,
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri"
+   }
+  ],
+  "cena": [],
+  "faq": [
+   {
+    "n": "01",
+    "q": "Czy czujki dymu w pokojach są obowiązkowe?",
+    "a": "Tak, w każdym pokoju gości (szczegóły w sekcji „Przepisy”). Dobieramy czujki zgodne z normą, które mogą też powiadomić Cię na telefonie, a w kotłowni lub sali kominkowej czujkę czadu.",
+    "open": true
+   },
+   {
+    "n": "02",
+    "q": "Kiedy potrzebuję systemu sygnalizacji pożarowej, a nie samych czujek?",
+    "a": "Powyżej 50 miejsc noclegowych, a zakres potwierdza projektant lub rzeczoznawca ppoż. (szczegóły w sekcji „Przepisy”). Systemu sygnalizacji pożarowej nie projektujemy ani nie montujemy. Wskażemy firmę z uprawnieniami, a pozostałe instalacje przygotujemy do współpracy z jej systemem.",
+    "open": false
+   },
+   {
+    "n": "03",
+    "q": "Gdzie mogę mieć kamery, a gdzie nie?",
+    "a": "Wejście, parking, wjazd, narciarnia i teren tak, pokoje, łazienki, sauna i przebieralnie nie. Zasady dla pracowników i gości są w sekcji „Przepisy”.",
+    "open": false
+   },
+   {
+    "n": "04",
+    "q": "Goście narzekają na Wi-Fi. Wystarczy mocniejszy router?",
+    "a": "Zwykle nie. Grube mury i stropy tłumią sygnał, więc router w korytarzu nie dociera do pokoi. Montujemy punkty dostępowe w pokojach albo nad drzwiami, kablem od szafy, i oddzielamy sieć gości od kamer i recepcji.",
+    "open": false
+   },
+   {
+    "n": "05",
+    "q": "Czy muszę płacić abonament za każdy telewizor?",
+    "a": "Tak, za każdy odbiornik (stawka w sekcji „Przepisy”). Dlatego doradzamy, ile telewizorów naprawdę potrzebujesz i jak rozprowadzić sygnał z jednej szafy.",
+    "open": false
+   },
+   {
+    "n": "06",
+    "q": "Czy gość może wejść sam, kiedy mnie nie ma?",
+    "a": "Tak. System rezerwacji wysyła kod ważny tylko na czas pobytu, a wideodomofon przy wejściu łączy się z Twoim telefonem. Zostawiamy zapasowy sposób otwarcia na wypadek awarii.",
+    "open": false
+   },
+   {
+    "n": "07",
+    "q": "Mam dwa budynki. Czy trzeba kopać rów pod kabel?",
+    "a": "Niekoniecznie. Między budynkami w zasięgu wzroku często wystarczy most radiowy. Przy wykopie lepszy jest światłowód, bo nie przenosi przepięć z burzy.",
+    "open": false
+   },
+   {
+    "n": "08",
+    "q": "Czy prace można rozłożyć na etapy poza sezonem?",
+    "a": "Tak. Najpierw robimy to, co wymagane albo najbardziej widoczne w opiniach, np. czujki i Wi-Fi, a kamery, zamki czy telewizję w kolejnych etapach. Pracujemy poza sezonem albo w wolnych pokojach. Cena zależy od liczby pokoi, budynków i tego, czy da się poprowadzić kable, dlatego wycenę podajemy na piśmie po wizji lokalnej.",
+    "open": false
+   }
+  ],
+  "rel": [
+   {
+    "k": "kam",
+    "n": "Monitoring i kamery",
+    "g": "Bezpieczeństwo",
+    "href": "Monitoring.dc.html",
+    "ic": "ikona:cam",
+    "s": "Kompletny system: kamery, rejestrator, dyski, PoE"
+   },
+   {
+    "k": "alarm",
+    "n": "Alarmy i wideodomofony",
+    "g": "Bezpieczeństwo",
+    "href": "Alarmy.dc.html",
+    "ic": "ikona:bell",
+    "s": "Czujki, syreny, domofon z aplikacją"
+   },
+   {
+    "k": "kd",
+    "n": "Kontrola dostępu i zamki",
+    "g": "Bezpieczeństwo",
+    "href": "Dostep.dc.html",
+    "ic": "ikona:lock",
+    "s": "Karty, kody, apartamenty"
+   },
+   {
+    "k": "wifi",
+    "n": "Sieci i Wi-Fi",
+    "g": "Sieci i technika",
+    "href": "Sieci.dc.html",
+    "ic": "ikona:wifi",
+    "s": "Okablowanie, światłowód, Wi-Fi gości"
+   },
+   {
+    "k": "ant",
+    "n": "Anteny RTV/SAT",
+    "g": "Sieci i technika",
+    "href": "Anteny.dc.html",
+    "ic": "ikona:dish",
+    "s": "Satelitarne, DVB-T2, zbiorcze, TV hotelowa"
+   },
+   {
+    "k": "smart",
+    "n": "Smart home Ampio",
+    "g": "Komfort i obraz",
+    "href": "SmartHome.dc.html",
+    "ic": "ikona:home",
+    "s": "Polski system, działa bez internetu"
+   }
+  ],
+  "segRel": [
+   {
+    "k": "apt",
+    "g": "Dom i noclegi",
+    "n": "Apartament na wynajem",
+    "s": "Gość wchodzi sam, Ty widzisz wszystko",
+    "page": "SegApartament",
+    "href": "SegApartament.dc.html",
+    "ic": "ikona:key",
+    "h": "#F2B84B",
+    "hs": "--mh:#F2B84B",
+    "cls": ""
+   },
+   {
+    "k": "hotel",
+    "g": "Dom i noclegi",
+    "n": "Hotel",
+    "s": "Recepcja 24/7, sale, SPA",
+    "page": "SegHotel",
+    "href": "SegHotel.dc.html",
+    "ic": "ikona:hotel",
+    "h": "#E86FB0",
+    "hs": "--mh:#E86FB0",
+    "cls": ""
+   },
+   {
+    "k": "rest",
+    "g": "Firmy",
+    "n": "Restauracja i sala weselna",
+    "s": "Muzyka w strefach, menu na ekranach",
+    "page": "SegRestauracja",
+    "href": "SegRestauracja.dc.html",
+    "ic": "ikona:food",
+    "h": "#F07A6A",
+    "hs": "--mh:#F07A6A",
+    "cls": ""
+   }
+  ],
+  "hasSegRel": true,
+  "segRelH": "Podobne obiekty",
+  "sx": {
+   "faqA": {
+    "t": "Masz inne pytanie?",
+    "d": "Wyślij zdjęcie obiektu albo obecnej instalacji. Powiemy, od czego zacząć i czego się spodziewać.",
+    "cta": "Zaplanuj instalację",
+    "href": "Zaplanuj.dc.html"
+   },
+   "faqH": "Pytania właścicieli pensjonatów.",
+   "relH": "Usługi, które łączymy w tym obiekcie.",
+   "pkg": {
+    "eye": "Zestawy dla pensjonatów",
+    "h": "Od kilku pokoi gościnnych po pensjonat z dobudówką.",
+    "p": "",
+    "note": "To przykłady. Ostateczny zakres i cenę ustalamy po wizji lokalnej i podajemy na piśmie."
+   },
+   "cena": {
+    "btn": "Wyślij zdjęcia do wyceny",
+    "eye": "Wycena",
+    "h": "Co wpływa na cenę.",
+    "p": ""
+   }
+  },
+  "sg": {
+   "sceneT": "Przekrój pensjonatu z narciarnią",
+   "hc": {
+    "k0": "hs on",
+    "k1": "hs",
+    "k2": "hs",
+    "k3": "hs",
+    "k4": "hs",
+    "k5": "hs",
+    "k6": "hs",
+    "k7": "hs",
+    "k8": "hs",
+    "k9": "hs",
+    "k10": "hs"
+   },
+   "hp": {},
+   "zap": "Zaplanuj.dc.html#obiekt=pens",
+   "prepEye": "Przed wizytą",
+   "prepLead": "Zaznacz, co już masz. Zdjęcia możesz wysłać w formularzu albo przez WhatsApp.",
+   "leg": [
+    {
+     "no": "1",
+     "t": "Kod do drzwi i wideodomofon w telefonie",
+     "on": "true",
+     "st": "--c:#F2B84B",
+     "cls": "sglgb on"
+    },
+    {
+     "no": "2",
+     "t": "Kamera narciarni i suszarni",
+     "on": "false",
+     "st": "--c:#12B6D8",
+     "cls": "sglgb"
+    },
+    {
+     "no": "3",
+     "t": "Kamera wjazdu i parkingu",
+     "on": "false",
+     "st": "--c:#12B6D8",
+     "cls": "sglgb"
+    },
+    {
+     "no": "4",
+     "t": "Punkt Wi-Fi w każdym pokoju",
+     "on": "false",
+     "st": "--c:#5B8CF0",
+     "cls": "sglgb"
+    },
+    {
+     "no": "5",
+     "t": "Telewizja w pokojach z jednej szafy",
+     "on": "false",
+     "st": "--c:#B58CF0",
+     "cls": "sglgb"
+    },
+    {
+     "no": "6",
+     "t": "Czujka dymu w każdym pokoju",
+     "on": "false",
+     "st": "--c:#F07A6A",
+     "cls": "sglgb"
+    },
+    {
+     "no": "7",
+     "t": "Czujka czadu w kotłowni",
+     "on": "false",
+     "st": "--c:#F07A6A",
+     "cls": "sglgb"
+    },
+    {
+     "no": "8",
+     "t": "Ogrzewanie pokoi według obłożenia",
+     "on": "false",
+     "st": "--c:#7BD36A",
+     "cls": "sglgb"
+    },
+    {
+     "no": "9",
+     "t": "Ekran w jadalni: pogoda i stoki",
+     "on": "false",
+     "st": "--c:#E86FB0",
+     "cls": "sglgb"
+    },
+    {
+     "no": "10",
+     "t": "Most radiowy do dobudówki",
+     "on": "false",
+     "st": "--c:#5B8CF0",
+     "cls": "sglgb"
+    },
+    {
+     "no": "11",
+     "t": "Ładowarka dla gości",
+     "on": "false",
+     "st": "--c:#5FD0B0",
+     "cls": "sglgb"
+    }
+   ],
+   "ly": [
+    {
+     "n": "Wszystko",
+     "on": "true",
+     "cls": "sglyb on"
+    },
+    {
+     "n": "Bezpieczeństwo",
+     "on": "false",
+     "cls": "sglyb"
+    },
+    {
+     "n": "Sieć i łączność",
+     "on": "false",
+     "cls": "sglyb"
+    },
+    {
+     "n": "Dźwięk i obraz",
+     "on": "false",
+     "cls": "sglyb"
+    },
+    {
+     "n": "Komfort i energia",
+     "on": "false",
+     "cls": "sglyb"
+    }
+   ],
+   "cur": {
+    "k": "h0",
+    "no": "1",
+    "t": "Kod do drzwi i wideodomofon w telefonie",
+    "d": "Kod ważny na czas pobytu wysyłany z systemu rezerwacji, a wideodomofon przy wejściu łączy się z Twoim telefonem. Nie siedzisz do północy w recepcji.",
+    "sn": "Kontrola dostępu i zamki",
+    "href": "Dostep.dc.html",
+    "st": "--c:#F2B84B"
+   },
+   "pos": "1 z 11",
+   "pr": {
+    "eye": "Co słyszymy od właścicieli pensjonatów",
+    "h": "Sześć rzeczy, które trafiają do opinii",
+    "ha": "albo do nocnych telefonów.",
+    "lead": "Typowy obiekt na Podhalu to rodzinny dom z pokojami. Projektujemy tak, żeby działał bez stałej recepcji i żeby goście chwalili go w opiniach."
+   },
+   "prob": [
+    {
+     "q": "„Gość przyjechał o północy”",
+     "d": "Właściciel nie chce siedzieć do późna, a gość nie chce czekać pod drzwiami.",
+     "fix": "Kod do drzwi na czas pobytu, wideodomofon w telefonie i zapasowy sposób otwarcia.",
+     "ic": "ikona:key",
+     "sn": "Kontrola dostępu i zamki",
+     "href": "Dostep.dc.html",
+     "st": "--c:#F2B84B"
+    },
+    {
+     "q": "„W pokoju nie ma Wi-Fi”",
+     "d": "Jeden router w korytarzu nie przebija się przez grube mury i stropy. To jedna z częstych skarg w opiniach.",
+     "fix": "Punkty dostępowe w pokojach albo nad drzwiami, kablem od szafy, i osobna sieć gości.",
+     "ic": "ikona:wifi",
+     "sn": "Sieci i Wi-Fi",
+     "href": "Sieci.dc.html",
+     "st": "--c:#5B8CF0"
+    },
+    {
+     "q": "„Zginęły narty”",
+     "d": "Narciarnia i suszarnia butów bez nagrania to spór bez rozstrzygnięcia.",
+     "fix": "Kamera narciarni i suszarni z tabliczką, bez kamer w pokojach i strefach intymnych.",
+     "ic": "ikona:snow",
+     "sn": "Monitoring i kamery",
+     "href": "Monitoring.dc.html",
+     "st": "--c:#12B6D8"
+    },
+    {
+     "q": "„Telewizor bez kanałów”",
+     "d": "Stare telewizory bez DVB-T2 i kanały satelitarne do rozprowadzenia na kilkanaście pokoi.",
+     "fix": "Telewizja w pokojach z jednej szafy i doradztwo, ile odbiorników ma sens.",
+     "ic": "ikona:tv",
+     "sn": "Anteny RTV/SAT",
+     "href": "Anteny.dc.html",
+     "st": "--c:#B58CF0"
+    },
+    {
+     "q": "„Czy muszę mieć czujki w pokojach?”",
+     "d": "Czujki są wymagane od 30.06.2026. Większy obiekt może potrzebować systemu sygnalizacji pożarowej (szczegóły w sekcji „Przepisy”).",
+     "fix": "Czujki dymu i czadu zgodne z normą. Przy większym obiekcie przygotowujemy instalacje pod projekt systemu pożarowego.",
+     "ic": "ikona:fire",
+     "sn": "Alarmy i wideodomofony",
+     "href": "Alarmy.dc.html",
+     "st": "--c:#F07A6A"
+    },
+    {
+     "q": "„Grzeję puste pokoje”",
+     "d": "Poza sezonem obłożenie spada, a grzejniki grzeją wszystkie pokoje.",
+     "fix": "Sterowanie ogrzewaniem pokojami albo strefami według obłożenia.",
+     "ic": "ikona:thermo",
+     "sn": "Smart home Ampio",
+     "href": "SmartHome.dc.html",
+     "st": "--c:#7BD36A"
+    }
+   ],
+   "day": {
+    "eye": "Doba w pensjonacie w ferie",
+    "h": "Od śniadania do przyjazdu o północy.",
+    "lead": "Tak pracują instalacje pensjonatu w pełnym obłożeniu.",
+    "k": "d0",
+    "pg": "width:17%",
+    "items": [
+     {
+      "tm": "7:30",
+      "n": "Śniadanie",
+      "on": "true",
+      "cls": "sgdb on"
+     },
+     {
+      "tm": "9:00",
+      "n": "Wyjście na stok",
+      "on": "false",
+      "cls": "sgdb"
+     },
+     {
+      "tm": "14:00",
+      "n": "Manewry na parkingu",
+      "on": "false",
+      "cls": "sgdb"
+     },
+     {
+      "tm": "18:00",
+      "n": "Wieczór w pokojach",
+      "on": "false",
+      "cls": "sgdb"
+     },
+     {
+      "tm": "23:50",
+      "n": "Późny przyjazd",
+      "on": "false",
+      "cls": "sgdb"
+     },
+     {
+      "tm": "3:00",
+      "n": "Noc",
+      "on": "false",
+      "cls": "sgdb"
+     }
+    ],
+    "cur": {
+     "tm": "7:30",
+     "n": "Śniadanie",
+     "d": "Ekran w jadalni pokazuje pogodę i warunki na stokach. Goście sprawdzają je w Wi-Fi, które działa w każdym pokoju.",
+     "ic": "ikona:coffee",
+     "st": "--c:#E86FB0",
+     "ch": [
+      {
+       "n": "Ekrany i transmisja",
+       "href": "Multimedia.dc.html",
+       "st": "--c:#E86FB0"
+      },
+      {
+       "n": "Sieci i Wi-Fi",
+       "href": "Sieci.dc.html",
+       "st": "--c:#5B8CF0"
+      }
+     ],
+     "hs": [
+      {
+       "no": "4",
+       "st": "--c:#5B8CF0"
+      },
+      {
+       "no": "9",
+       "st": "--c:#E86FB0"
+      },
+      {
+       "no": "10",
+       "st": "--c:#5B8CF0"
+      }
+     ]
+    }
+   },
+   "law": {
+    "h": "Czujki dymu, ppoż., kamery i telewizory. Co mówią przepisy.",
+    "lead": "Pensjonat to formalnie budynek zamieszkania zbiorowego. Kilka obowiązków dotyczy instalacji, a część tylko obiektu.",
+    "items": [
+     {
+      "t": "Czujka dymu w każdym pokoju",
+      "a": "§ 28a rozp. ppoż.",
+      "d": "Od 30.06.2026 każdy pokój, w którym świadczysz usługi hotelarskie, musi mieć autonomiczną czujkę dymu, chyba że obiekt chroni system sygnalizacji pożarowej. Przy kotle lub kominku z otwartą komorą spalania potrzebna jest czujka czadu.",
+      "who": "Pensjonat",
+      "wc": "sgwho o",
+      "href": "https://eli.gov.pl/eli/DU/2024/1716/ogl/pol/pdf",
+      "sl": "Dz.U. 2024 poz. 1716 (ELI)"
+     },
+     {
+      "t": "Powyżej 50 miejsc: SSP",
+      "a": "§ 28 ust. 1 pkt 12 rozp. ppoż.",
+      "d": "W budynkach zamieszkania zbiorowego powyżej 50 miejsc noclegowych wymagany jest system sygnalizacji pożarowej (§ 28 ust. 1 pkt 12). Zakres potwierdza projektant lub rzeczoznawca ppoż. Systemu sygnalizacji pożarowej nie projektujemy ani nie montujemy, ale przygotowujemy pod niego pozostałe instalacje.",
+      "who": "Pensjonat",
+      "wc": "sgwho o",
+      "href": "https://arslege.pl/system-sygnalizacji-pozarowej/k310/a29356/",
+      "sl": "Rozporządzenie o ochronie ppoż., § 28 (arslege)"
+     },
+     {
+      "t": "Kamery: gdzie tak, gdzie nie",
+      "a": "art. 6 i 13 RODO, art. 22² KP",
+      "d": "Wejście, parking, narciarnia i teren tak. Pokoje, łazienki, sauna i przebieralnie nie. Przy pracownikach nagrania najwyżej 3 miesiące i informacja 2 tygodnie przed uruchomieniem.",
+      "who": "Razem",
+      "wc": "sgwho r",
+      "href": "https://www.edpb.europa.eu/our-work-tools/our-documents/guidelines/guidelines-32019-processing-personal-data-through-video_pl",
+      "sl": "EROD, wytyczne 3/2019"
+     },
+     {
+      "t": "Wi-Fi nie jest wymagane, odbiór TV od 3*",
+      "a": "załącznik nr 2, Dz.U. 2017 poz. 2166",
+      "d": "Przepisy o kategoryzacji pensjonatów nie wymagają internetu, ale goście go oczekują. Od 3 gwiazdek w pokoju wymagana jest instalacja do odbioru telewizji. Dotyczy to tylko pensjonatów skategoryzowanych. Nowy wymóg Wi-Fi (Dz.U. 2026 poz. 1150) dotyczy hoteli i moteli.",
+      "who": "Pensjonat",
+      "wc": "sgwho o",
+      "href": "https://api.sejm.gov.pl/eli/acts/DU/2017/2166/text.pdf",
+      "sl": "Rozporządzenie o obiektach hotelarskich (PDF)"
+     },
+     {
+      "t": "Każdy telewizor kosztuje",
+      "a": "abonament RTV",
+      "d": "Przedsiębiorca płaci abonament za każdy odbiornik osobno, w 2026 r. 30,50 zł miesięcznie za telewizor. Do tego dochodzą licencje organizacji zbiorowego zarządzania, np. STOART liczy stawkę od pokoju. Doradzamy, ile odbiorników naprawdę potrzebujesz.",
+      "who": "Pensjonat",
+      "wc": "sgwho o",
+      "href": "https://eli.gov.pl/eli/DU/2025/885/ogl/pol/pdf",
+      "sl": "Dz.U. 2025 poz. 885, opłaty abonamentowe na 2026 r."
+     },
+     {
+      "t": "Rejestr i numer obiektu",
+      "a": "ustawa o usługach hotelarskich",
+      "d": "8.10.2026 Sejm uchwalił ustawę o Centralnym Wykazie Turystycznych Obiektów Noclegowych z numerem obiektu w ofertach. Na dzień 26.10.2026 ustawa jest w Senacie, więc szczegóły mogą się zmienić.",
+      "who": "Pensjonat",
+      "wc": "sgwho o",
+      "href": "https://finwire.pl/artykuly/najem-krotkoterminowy-2026-sejm-uchwalil-ustawe-cwton-kary-50-tys",
+      "sl": "finwire.pl, 09.10.2026"
+     }
+    ]
+   },
+   "gory": {
+    "h": "Narciarnia, parking zimą i dobudówki.",
+    "items": [
+     {
+      "ic": "ikona:bed",
+      "t": "4 333 obiekty i 48,5 tys. miejsc",
+      "d": "Tyle liczyła ewidencja obiektów nieskategoryzowanych w Zakopanem we wrześniu 2026, wobec 61 skategoryzowanych.",
+      "hasS": true,
+      "sh": "https://www.money.pl/finanse/zakopane-peka-w-szwach-tak-wzrosla-liczba-noclegow-7336305827326240a.html",
+      "sl": "money.pl / PAP, 04.10.2026"
+     },
+     {
+      "ic": "ikona:wifi",
+      "t": "Grube mury i stropy",
+      "d": "Stare domy z pokojami gościnnymi mają grube ściany, które tłumią Wi-Fi. Dlatego punkt w pokoju albo nad drzwiami, kablem od szafy.",
+      "hasS": false,
+      "sh": "",
+      "sl": ""
+     },
+     {
+      "ic": "ikona:fiber",
+      "t": "Dobudówki i kilka budynków",
+      "d": "Most radiowy albo światłowód między budynkami i ochrona przepięciowa na wejściach.",
+      "hasS": false,
+      "sh": "",
+      "sl": ""
+     },
+     {
+      "ic": "ikona:cal",
+      "t": "Przegląd przed sezonem",
+      "d": "Listopad–grudzień przed feriami i maj–czerwiec przed wakacjami, kiedy obiekt jest jeszcze pusty.",
+      "hasS": false,
+      "sh": "",
+      "sl": ""
+     }
+    ]
+   },
+   "hasReal": false,
+   "realH": "",
+   "real": [],
+   "ck": {
+    "n": 0,
+    "t": 7,
+    "st": "--p:0",
+    "cta": "Wyślij zdjęcia i opis →",
+    "items": [
+     {
+      "t": "Liczba pokoi i miejsc noclegowych",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Rzut kondygnacji albo plan ewakuacji",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Gdzie stoi router i czy jest szafa",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Jak dziś docierają kanały TV do pokoi",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "System rezerwacji i obecne zamki",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Czy jest dobudówka albo drugi budynek",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Rodzaj ogrzewania i czy jest kominek",
+      "on": "false",
+      "cls": "sgci"
+     }
+    ]
+   }
+  }
+ }
+}

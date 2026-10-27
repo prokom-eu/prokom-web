@@ -1,0 +1,409 @@
+{
+ "k": "firma",
+ "page": "SegFirma",
+ "h": "#5B8CF0",
+ "dla": "firm",
+ "title": "Kontrola dostępu, monitoring i sieć dla firm — Podhale | PRO-KOM",
+ "desc": "Karty pracowników z eksportem do RCP, kamery rampy i placu, Wi-Fi w hali, światłowód między budynkami i alarm strefowy. Podhale i Małopolska.",
+ "sceneT": "Przekrój: biuro, hala i rampa",
+ "hero": {
+  "crumb": "Firma, biuro i hala",
+  "eye": "Instalacje dla firm, biur, hal i magazynów · Podhale i Małopolska",
+  "h1a": "Wiesz, kto otworzył magazyn w sobotę.",
+  "h1b": "I masz sieć, która nie staje w środku zmiany.",
+  "lead": "Karty dla pracowników z historią wejść i eksportem do rejestracji czasu pracy, kamery na rampie i placu, okablowanie z opisem każdego gniazda, Wi-Fi w hali dobrane do regałów i alarm podzielony na strefy.",
+  "kv": [
+   [
+    "10 736 zł",
+    "średni miesięczny koszt pracy na osobę (GUS, 2024)"
+   ],
+   [
+    "24 mies.",
+    "gwarancji na montaż"
+   ],
+   [
+    "do 24 h",
+    "odpowiedź na zgłoszenie w dni robocze"
+   ]
+  ],
+  "tags": [
+   "Karty i RCP",
+   "Kamery rampy i placu",
+   "Sieć i światłowód",
+   "Alarm strefowy"
+  ]
+ },
+ "hs": [
+  {
+   "d": "Karta, brelok albo kod. Uprawnienia według stref i godzin, a zgubioną kartę blokujesz w minutę, bez wymiany zamków."
+  },
+  {
+   "d": "Wejścia i wyjścia z czytników eksportujemy do programu rejestracji czasu pracy. Przed ofertą sprawdzamy, czy Twój program przyjmie eksport. Używamy kart, nie odcisku palca, zgodnie ze stanowiskiem UODO."
+  },
+  {
+   "d": "Kadr na naczepę i paletę przy każdym załadunku. Spór z kierowcą o uszkodzony towar rozstrzygasz nagraniem."
+  },
+  {
+   "d": "Brama wjazdowa i plac, z maską na drogę publiczną. Po godzinach analityka przekroczenia linii wysyła powiadomienie."
+  },
+  {
+   "d": "Punkty dostępowe rozmieszczone pod metalowe regały, a nie jeden router w biurze. Skanery i terminale mają własną sieć."
+  },
+  {
+   "d": "Biuro i hala w jednej sieci przez światłowód, który nie przenosi przepięć przy burzy. Gdy kabla nie da się położyć, most radiowy."
+  },
+  {
+   "d": "Okablowanie strukturalne z pomiarami, opisane gniazda i szafa rack z zasilaniem awaryjnym. Sieć podzielona na biuro, produkcję, kamery i gości."
+  },
+  {
+   "d": "Biuro uzbrajane osobno od hali, osobne kody pracowników, czujki zalania i temperatury w serwerowni i kotłowni."
+  },
+  {
+   "d": "Przywołanie pracownika, sygnał przerwy i komunikat z biura bez biegania po hali. Głośniki dobrane do wysokiego stropu."
+  },
+  {
+   "d": "Plan zmian, zasady BHP i komunikaty dla pracowników na ekranie w hali, zmieniane z komputera w biurze."
+  },
+  {
+   "d": "Ampio włącza ogrzewanie i światło biura według harmonogramu i obniża temperaturę po godzinach pracy."
+  }
+ ],
+ "pr": {
+  "eye": "Co słyszymy od właścicieli firm",
+  "h": "Na czym firma traci czas",
+  "ha": "i pieniądze.",
+  "lead": "Godzina przestoju to wynagrodzenia, które i tak płacisz. Dlatego dzielimy sieć na części, a nadzór zdalny proponujemy w umowie serwisowej."
+ },
+ "prob": [
+  {
+   "q": "„Klucze krążą po ludziach”",
+   "d": "Nie wiadomo, kto ma klucz do magazynu i kto otworzył go w weekend.",
+   "fix": "Kontrola dostępu na karty z uprawnieniami według stref i godzin oraz historią wejść.",
+   "s": "kd",
+   "ic": "key"
+  },
+  {
+   "q": "„Czas pracy liczymy na kartce”",
+   "d": "Ewidencję czasu pracy i tak trzeba prowadzić, a ręczne listy obecności się mylą.",
+   "fix": "Zdarzenia z czytników eksportowane do programu rejestracji czasu pracy, na karty, bez biometrii.",
+   "s": "kd",
+   "ic": "clock"
+  },
+  {
+   "q": "„Z placu znika paliwo i materiał”",
+   "d": "Plac i rampa bez kamer albo z kamerą, która nocą pokazuje tylko światła.",
+   "fix": "Kamery na rampę, bramę i plac z analityką po godzinach i maską na drogę publiczną.",
+   "s": "kam",
+   "ic": "cam"
+  },
+  {
+   "q": "„Skanery gubią Wi-Fi w magazynie”",
+   "d": "Metalowe regały tłumią sygnał z routera stojącego w biurze.",
+   "fix": "Punkty dostępowe rozmieszczone pod regały po pomiarze i osobna sieć dla skanerów.",
+   "s": "wifi",
+   "ic": "wifi"
+  },
+  {
+   "q": "„Hasła ma były informatyk”",
+   "d": "Nikt nie wie, który kabel gdzie idzie i jak zalogować się do routera.",
+   "fix": "Uporządkowane i opisane gniazda oraz podział sieci. Nadzór zdalny w ramach umowy serwisowej. Zakres dokumentacji ustalamy w ofercie.",
+   "s": "tel",
+   "ic": "doc"
+  },
+  {
+   "q": "„Hala i biuro w dwóch budynkach”",
+   "d": "Skrętka po słupach zbiera przepięcia przy każdej burzy.",
+   "fix": "Światłowód albo most radiowy i jedna sieć z tym samym podziałem w obu budynkach.",
+   "s": "wifi",
+   "ic": "fiber"
+  }
+ ],
+ "day": {
+  "eye": "Dzień w firmie",
+  "h": "Od pierwszej zmiany do alarmu w nocy.",
+  "lead": "Tak pracują instalacje w firmie z biurem i halą przez jeden dzień.",
+  "items": [
+   {
+    "tm": "6:00",
+    "n": "Pierwsza zmiana",
+    "d": "Pracownicy wchodzą na karty. Wejścia trafiają do programu czasu pracy, a hala rozbraja się tylko dla tej strefy.",
+    "s": [
+     "kd",
+     "alarm"
+    ],
+    "ic": "sun"
+   },
+   {
+    "tm": "8:00",
+    "n": "Biuro",
+    "d": "Ogrzewanie biura jest już włączone według harmonogramu. Komputery, drukarki i telefony pracują w swojej sieci, oddzielonej od produkcji.",
+    "s": [
+     "smart",
+     "wifi"
+    ],
+    "ic": "office"
+   },
+   {
+    "tm": "10:30",
+    "n": "Załadunek na rampie",
+    "d": "Kamera rampy nagrywa paletę i naczepę. Kierowca twierdzi, że towar był uszkodzony, a Ty masz nagranie z godziną.",
+    "s": [
+     "kam"
+    ],
+    "ic": "eye"
+   },
+   {
+    "tm": "12:00",
+    "n": "Przerwa",
+    "d": "Sygnał przerwy w hali i komunikat z biura. Ekran pokazuje plan drugiej zmiany i ogłoszenia.",
+    "s": [
+     "snd",
+     "scr"
+    ],
+    "ic": "clock"
+   },
+   {
+    "tm": "15:40",
+    "n": "Burza nad halą",
+    "d": "Ochronniki i światłowód między budynkami chronią sieć. Zasilanie awaryjne trzyma szafę rack przy krótkim zaniku prądu.",
+    "s": [
+     "wifi",
+     "tel"
+    ],
+    "ic": "storm"
+   },
+   {
+    "tm": "23:00",
+    "n": "Noc",
+    "d": "Ktoś przekracza linię przy płocie. Kamera placu wysyła powiadomienie, a alarm hali informuje agencję ochrony.",
+    "s": [
+     "kam",
+     "alarm"
+    ],
+    "ic": "moon"
+   }
+  ]
+ },
+ "law": {
+  "h": "Kamery, czas pracy i drzwi ewakuacyjne. Co mówią przepisy.",
+  "lead": "Najważniejsze zasady dla pracodawcy, który montuje kamery i kontrolę dostępu. Mówimy, co jest po Twojej stronie, a co po naszej.",
+  "items": [
+   {
+    "who": "Firma",
+    "a": "art. 22² Kodeksu pracy",
+    "t": "Monitoring w zakładzie pracy",
+    "d": "Kamery w celu bezpieczeństwa, ochrony mienia, kontroli produkcji albo tajemnicy. Bez pomieszczeń sanitarnych, szatni, stołówek, palarni i pomieszczeń związków zawodowych. Nagrania najwyżej 3 miesiące, informacja 2 tygodnie przed startem, oznaczenie dzień wcześniej."
+   },
+   {
+    "who": "Firma",
+    "a": "art. 22³ KP",
+    "t": "Poczta i ruch w sieci firmowej",
+    "d": "Kontrola służbowej poczty jest dozwolona, gdy jest niezbędna do organizacji pracy i właściwego używania narzędzi pracy, bez naruszania tajemnicy korespondencji. Logi i filtrowanie ruchu pracowników mogą być „inną formą monitorowania” (§ 4), więc stosuje się do nich te same zasady. Pracowników informuje się jak przy kamerach."
+   },
+   {
+    "who": "Firma",
+    "a": "UODO, 11.05.2020",
+    "t": "Czas pracy na karty, nie na palec",
+    "d": "UODO uznał, że biometria nie może służyć do ewidencji czasu pracy, bo brakuje do tego podstawy prawnej. Rejestrację robimy na karty i breloki z kontroli dostępu."
+   },
+   {
+    "who": "Razem",
+    "a": "§ 4 ust. 1 pkt 14 rozp. ppoż.",
+    "t": "Drzwi ewakuacyjne na kartę",
+    "d": "Drzwi ewakuacyjnych nie wolno zamknąć tak, żeby nie dało się ich natychmiast otworzyć. Zamek dobieramy tak, żeby zwalniał przy zaniku zasilania albo sygnale pożarowym. Jeśli potrzebna jest opinia rzeczoznawcy ds. zabezpieczeń przeciwpożarowych, mówimy o tym przed ofertą, bo to osobny koszt po stronie inwestora."
+   },
+   {
+    "who": "Instalator",
+    "a": "EROD 3/2019, pkt 27",
+    "t": "Kamera kończy się na płocie",
+    "d": "Droga przed bramą tylko w niezbędnym zakresie, resztę i posesje sąsiadów maskujemy w ustawieniach kamery."
+   },
+   {
+    "who": "Firma",
+    "a": "Dz.U. 2026 poz. 252",
+    "t": "Cyberbezpieczeństwo i NIS2",
+    "d": "Nowelizacja ustawy o krajowym systemie cyberbezpieczeństwa obejmuje podmioty kluczowe i ważne z wybranych sektorów. Sieć projektujemy tak, żeby ułatwić spełnienie wymagań: podział sieci i rejestr zdarzeń. Kopie zapasowe i opiekę IT prowadzi PRO-KOM Biznes."
+   }
+  ]
+ },
+ "gory": {
+  "h": "Działki z kilkoma budynkami, burze i mróz w hali.",
+  "items": [
+   {
+    "ic": "fiber",
+    "t": "Kilka budynków na działce",
+    "d": "Biuro w domu, hala za domem, plac przy drodze. Łączymy je światłowodem albo mostem radiowym."
+   },
+   {
+    "ic": "snow",
+    "t": "−28,5°C w Kotlinie Orawsko-Nowotarskiej",
+    "d": "Tak było 7.02.2023. W nieogrzewanej hali i skrzynce na zewnątrz stosujemy switche przemysłowe, a nie biurowe."
+   },
+   {
+    "ic": "wifi",
+    "t": "Słaby zasięg LTE w dolinach",
+    "d": "Łącze zapasowe dobieramy po pomiarze na miejscu. Gdy LTE nie wystarcza, proponujemy inną drogę."
+   },
+   {
+    "ic": "shield",
+    "t": "273 tys. incydentów",
+    "d": "Tyle incydentów cyberbezpieczeństwa obsłużyły zespoły CSIRT w 2025 r., o 144% więcej niż rok wcześniej."
+   }
+  ]
+ },
+ "realH": "Od sali konferencyjnej po stanowiska biurowe w Blachotrapezie.",
+ "real": [
+  {
+   "t": "Blachotrapez",
+   "m": "Rabka-Zdrój · stanowiska biurowe",
+   "d": "Przyłącza IT i okablowanie stanowisk."
+  },
+  {
+   "t": "Blachotrapez",
+   "m": "Rabka-Zdrój · sala konferencyjna",
+   "d": "Nagłośnienie, sprzęt projekcyjny i przyłącza IT."
+  },
+  {
+   "t": "Blachotrapez",
+   "m": "Ponice · sala szkoleniowa",
+   "d": "Instalacja audiowizualna."
+  }
+ ],
+ "prep": [
+  "Rzut albo szkic budynków i placu",
+  "Liczba pracowników i zmian, strefy dostępu",
+  "Gdzie stoi router i czy jest szafa rack",
+  "Odległość między budynkami",
+  "Co jest najcenniejsze na placu i w magazynie",
+  "Program do czasu pracy, jeśli go macie",
+  "Obecny sprzęt i kto ma do niego hasła"
+ ],
+ "pkgH": "Od biura po zakład z kilkoma budynkami.",
+ "pkgs": [
+  {
+   "n": "Biuro",
+   "d": "Biuro albo warsztat do ok. 15 osób.",
+   "ic": "office",
+   "f": [
+    "Szafa rack i okablowanie Cat6",
+    "Router z podziałem sieci",
+    "4 kamery: wejście, plac, warsztat, parking",
+    "Alarm z kodami pracowników",
+    "Wideodomofon przy wejściu"
+   ],
+   "pr": "od [CENA] zł"
+  },
+  {
+   "n": "Hala i biuro",
+   "d": "15–50 osób, magazyn albo produkcja.",
+   "ic": "factory",
+   "hot": true,
+   "f": [
+    "Karty do stref z eksportem do RCP",
+    "8–16 kamer z rampą i placem",
+    "Wi-Fi w hali i światłowód do biura",
+    "Alarm strefowy z czujkami w serwerowni",
+    "Komunikaty w hali"
+   ],
+   "pr": "od [CENA] zł"
+  },
+  {
+   "n": "Zakład",
+   "d": "Kilka budynków albo lokalizacji.",
+   "ic": "layers",
+   "f": [
+    "Kontrola dostępu z podglądem zdarzeń z kamer",
+    "20+ kamer z uprawnieniami dla kierowników",
+    "Teletechnika nowej hali z pomiarami",
+    "Ekrany dla pracowników",
+    "Nadzór zdalny i plan serwisowy"
+   ],
+   "pr": "od [CENA] zł"
+  }
+ ],
+ "faqH": "Pytania pracodawców.",
+ "faq": [
+  [
+   "Od czego zależy cena instalacji w firmie?",
+   "Od liczby budynków i stref, długości tras kabli, liczby kamer, czytników i punktów Wi-Fi oraz od tego, ile obecnego sprzętu da się zostawić. Wycenę podajemy na piśmie po wizji lokalnej, a większy zakres można rozłożyć na etapy."
+  ],
+  [
+   "Czy kontrola dostępu może liczyć czas pracy?",
+   "Tak. Zdarzenia z czytników eksportujemy do programu rejestracji czasu pracy. Przed ofertą sprawdzamy, czy Twój program przyjmie taki eksport. Pracownicy używają kart albo breloków, bez odcisku palca."
+  ],
+  [
+   "Co z drzwiami na kartę, gdy zabraknie prądu albo wybuchnie pożar?",
+   "Kontroler ma akumulator, więc krótki zanik prądu nie wyłącza systemu. Na drzwiach ewakuacyjnych zamek dobieramy tak, żeby przejście dało się otworzyć natychmiast, także przy awarii zasilania albo sygnale pożarowym."
+  ],
+  [
+   "Mamy biuro i halę w dwóch budynkach. Jak je połączyć?",
+   "Najlepiej światłowodem, bo nie przenosi przepięć przy burzy. Gdy nie da się położyć kabla, stawiamy most radiowy. W obu budynkach dostajesz jedną sieć z tym samym podziałem."
+  ],
+  [
+   "Czy Wi-Fi zadziała w magazynie z metalowymi regałami?",
+   "Tak, jeśli punkty dostępowe są rozmieszczone pod regały. Na wizji lokalnej mierzymy zasięg i proponujemy liczbę i miejsca punktów. Skanery i terminale dostają osobną sieć."
+  ],
+  [
+   "Czy montaż zatrzyma pracę firmy?",
+   "Nie musi. Prace planujemy w uzgodnionych godzinach i etapami, np. halę w weekend, a biuro po godzinach. Przełączenie sieci robimy w jednym, wcześniej ustalonym oknie czasowym."
+  ],
+  [
+   "Kto przygotuje dokumenty do monitoringu?",
+   "Regulamin i informację dla pracowników przygotowuje pracodawca. Na życzenie dołączymy opis kamer i stref nagrywania oraz tabliczki. Zakres ustalamy w ofercie."
+  ],
+  [
+   "Czy przejmiecie sieć po poprzednim informatyku?",
+   "Tak. Zaczynamy od przeglądu: co jest w szafie, który kabel dokąd idzie i do których urządzeń brakuje haseł. Dostęp pomagamy odzyskać za zgodą właściciela, także procedurą producenta. Potem proponujemy uporządkowanie, a w umowie serwisowej z nadzorem zdalnym część usterek widzimy wcześniej."
+  ]
+ ],
+ "rel": [
+  "kd",
+  "kam",
+  "wifi",
+  "tel",
+  "alarm",
+  "snd"
+ ],
+ "anc": [
+  [
+   "problemy",
+   "Problemy"
+  ],
+  [
+   "rok",
+   "Dzień w firmie"
+  ],
+  [
+   "przepisy",
+   "Przepisy"
+  ],
+  [
+   "gory",
+   "Podhale"
+  ],
+  [
+   "pakiety",
+   "Zestawy"
+  ],
+  [
+   "przygotuj",
+   "Przed wizytą"
+  ],
+  [
+   "faq",
+   "Pytania"
+  ]
+ ],
+ "cta": [
+  "Firma, biuro i hala",
+  "Przyjedziemy, obejdziemy budynki i plac, a potem zaproponujemy jeden system.",
+  "Wizja lokalna z pomiarem zasięgu, projekt i wycena na piśmie, montaż w uzgodnionych godzinach, tak żeby nie zatrzymywać pracy."
+ ],
+ "fold": [
+  "problemy:900",
+  "rok",
+  "przepisy",
+  "gory",
+  "faq"
+ ]
+}
