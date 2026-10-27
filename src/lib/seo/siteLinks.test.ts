@@ -87,8 +87,12 @@ describe('buildSiteMap — Software', () => {
   it('lists the catalog of solutions, never its filtered views (SW9)', () => {
     const map = buildSiteMap({ pages, catalog: null, news: null, solutions: true })
     const section = map.find(({ id }) => id === 'rozwiazania')
-    expect(section?.links).toEqual([{ href: '/rozwiazania', label: 'Pełna oferta' }])
+    expect(section?.links).toEqual([
+      { href: '/rozwiazania', label: 'Pełna oferta' },
+      { href: '/dobierz', label: 'Dobierz rozwiązanie' },
+    ])
     expect(siteMapPaths(map)).toContainEqual({ path: '/rozwiazania' })
+    expect(siteMapPaths(map)).toContainEqual({ path: '/dobierz' })
   })
 
   it('has no such section elsewhere', () => {

@@ -5,6 +5,7 @@ import { industryHref } from '../catalog/industry'
 import { HOME_SLUG, pagePath } from '../pages/slug'
 import { NEWS_PATH, postHref } from '../posts/list'
 import { CATALOG_PATH as SOLUTIONS_PATH } from '../software/catalog'
+import { WIZARD_PATH } from '../software/wizardFlow'
 
 export const SITE_MAP_PATH = '/mapa-strony'
 
@@ -115,7 +116,10 @@ export function buildSiteMap({ pages, catalog, news, solutions }: SiteMapInput):
     sections.push({
       id: 'rozwiazania',
       title: 'Rozwiązania',
-      links: [{ href: SOLUTIONS_PATH, label: 'Pełna oferta' }],
+      links: [
+        { href: SOLUTIONS_PATH, label: 'Pełna oferta' },
+        { href: WIZARD_PATH, label: 'Dobierz rozwiązanie' },
+      ],
     })
   }
 
