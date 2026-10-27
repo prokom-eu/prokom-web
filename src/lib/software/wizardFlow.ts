@@ -32,8 +32,11 @@ export type WizardAnswers = {
   url: string
   when: string | null
   description: string
-  /** Items of „Co będzie potrzebne” the customer already has. */
-  checklist: string[]
+  /**
+   * Positions in „Co będzie potrzebne” (`results[].nd`) the customer already has. Positions, not
+   * texts: the browser gets the texts with facts filled in, the server compares with the rules.
+   */
+  checklist: number[]
   /** `contactPrefs[].id`; `null` = the first one. */
   contactPref: string | null
 }
@@ -359,7 +362,7 @@ const answersShape = z.object({
   url: z.string().trim().max(MAX_URL),
   when: z.string().max(40).nullable(),
   description: z.string().trim().max(MAX_DESCRIPTION),
-  checklist: z.array(z.string().max(200)).max(20),
+  checklist: z.array(z.number().int().min(0).max(19)).max(20),
   contactPref: z.string().max(40).nullable(),
 })
 
@@ -371,9 +374,10 @@ export function parseSoftwareAnswers(rules: SoftwareWizard, input: unknown): Wiz
   const parsed = answersShape.safeParse(input)
   if (!parsed.success) return null
   const answers = parsed.data
-  const unique = (list: string[]) => new Set(list).size === list.length
+  const unique = (list: (string | number)[]) => new Set(list).size === list.length
   if (answers.own) {
     if (answers.need !== null || answers.options.length > 0 || answers.have !== null) return null
+    if (answers.url !== '') return null
   } else {
     const need = answers.need === null ? undefined : rules.needs[answers.need]
     if (!need) return null
@@ -386,8 +390,8 @@ export function parseSoftwareAnswers(rules: SoftwareWizard, input: unknown): Wiz
   }
   if (answers.when !== null && !rules.whens.some((when) => when.id === answers.when)) return null
   const result = rules.results[resultIdOf(rules, answers)]
-  if (!answers.checklist.every((item) => result?.nd.includes(item)) || !unique(answers.checklist))
-    return null
+  const items = result?.nd.length ?? 0
+  if (!answers.checklist.every((index) => index < items) || !unique(answers.checklist)) return null
   if (
     answers.contactPref !== null &&
     !rules.contactPrefs.some((pref) => pref.id === answers.contactPref)
@@ -425,7 +429,8 @@ export function wizardSummary(
   const when = nameIn(rules.whens, answers.when)
   if (when) summary[rules.ui.whenQ] = when
   summary[rules.ui.recommend] = rules.results[resultId]?.n ?? resultId
-  if (answers.checklist.length > 0) summary['Już mam'] = answers.checklist
+  const had = answers.checklist.flatMap((index) => rules.results[resultId]?.nd[index] ?? [])
+  if (had.length > 0) summary['Już mam'] = had
   if (answers.description) summary[rules.ui.yourNeeds] = answers.description
   summary[rules.send.prefQ] = contactPrefOf(rules, answers)?.n ?? ''
   return summary

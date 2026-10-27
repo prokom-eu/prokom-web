@@ -579,8 +579,8 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
                   {rules.ui.checklist.title}
                 </legend>
                 <div className="clear-both flex flex-wrap gap-2">
-                  {view.checklist.map((item) => {
-                    const on = answers.checklist.includes(item)
+                  {view.checklist.map((item, index) => {
+                    const on = answers.checklist.includes(index)
                     return (
                       <label
                         key={item}
@@ -595,8 +595,8 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
                           onChange={() =>
                             update({
                               checklist: on
-                                ? answers.checklist.filter((each) => each !== item)
-                                : [...answers.checklist, item],
+                                ? answers.checklist.filter((each) => each !== index)
+                                : [...answers.checklist, index],
                             })
                           }
                           className="size-[18px] accent-accent-text"

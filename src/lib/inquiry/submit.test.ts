@@ -7,7 +7,7 @@ import { wizardFromSeed, wizardSchema } from '../catalog/wizard'
 import { softwareWizardSchema } from '../software/wizard'
 import { CONSENT_CLAUSE } from './consent'
 import { createRateLimiter, FORM_MIN_FILL_MS, issueFormToken } from './spam'
-import { submitInquiryWith, type SubmitDeps } from './submit'
+import { siteUrl, submitInquiryWith, type SubmitDeps } from './submit'
 
 // Wizard rules of tenant 1: the register is Posnet Ergo, the terminal a product not published.
 const rules = wizardSchema.parse(
@@ -584,5 +584,19 @@ describe('submitInquiry (ADR-003)', () => {
       ).toBe(true)
       expect(d.save).toHaveBeenCalledWith(expect.objectContaining({ items: [] }))
     })
+  })
+})
+
+describe('siteUrl (the current site from the wizard)', () => {
+  it.each([
+    ['stara.pl', 'https://stara.pl/'],
+    ['https://www.stara.pl/o-nas', 'https://www.stara.pl/o-nas'],
+    ['HTTP://stara.pl', 'http://stara.pl/'],
+    ['localhost', undefined],
+    ['javascript:alert(1)', undefined],
+    ['program do faktur', undefined],
+    ['', undefined],
+  ])('%s', (text, expected) => {
+    expect(siteUrl(text)).toBe(expected)
   })
 })

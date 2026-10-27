@@ -241,7 +241,7 @@ describe('Software wizard answers on the server', () => {
     url: '',
     when: 'zima',
     description: 'Goście dzwonią o wolne pokoje.',
-    checklist: ['Logo'],
+    checklist: [0],
     contactPref: 'mail',
   }
 
@@ -256,7 +256,13 @@ describe('Software wizard answers on the server', () => {
     ['an unknown size', { size: 'xl' }],
     ['a chip of another set', { have: 'excel' }],
     ['an unknown term', { when: 'jutro' }],
-    ['a checklist item of another result', { checklist: ['Excel'] }],
+    ['a checklist position past the list', { checklist: [4] }],
+    ['a checklist position twice', { checklist: [0, 0] }],
+    ['a checklist text instead of a position', { checklist: ['Logo'] }],
+    [
+      'an address in „opisz po swojemu”',
+      { need: null, own: true, options: [], have: null, url: 'a.pl' },
+    ],
     ['an unknown contact preference', { contactPref: 'fax' }],
     ['no need without „opisz po swojemu”', { need: null }],
     ['an address for a need without the field', { url: 'stara.pl' }],
