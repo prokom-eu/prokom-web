@@ -1,0 +1,738 @@
+{
+ "_strona": "Dostep",
+ "_title": "Zamki do apartamentów, kontrola dostępu Zakopane | PRO-KOM",
+ "_description": "Zamki z kodem do apartamentów w Zakopanem i na Podhalu, karty dla pracowników, kontrola wjazdu. Integracja z systemami rezerwacji i plan na brak prądu.",
+ "_uwaga": "Zrzut danych z wizualizacji v4.0 (stan początkowy strony, motyw jasny). Teksty = treść do seeda. Klucze UI (cls, on, pick) pomijaj.",
+ "dane": {
+  "ctaEye": "Zamki i kontrola dostępu",
+  "ctaH": "Koniec z przekazywaniem kluczy.",
+  "ctaP": "Dobierzemy zamki do drzwi i systemu rezerwacji, zamontujemy i nauczymy obsługi.",
+  "hero": {
+   "mid": true,
+   "midT": "Usługi",
+   "midH": "Main.dc.html#uslugi",
+   "cta": "Zaplanuj instalację",
+   "ctaHref": "Zaplanuj.dc.html",
+   "crumb": "Kontrola dostępu i zamki",
+   "eye": "Kontrola dostępu · Zakopane, Rabka-Zdrój, Podhale",
+   "h1a": "Gość wchodzi sam o 23:00.",
+   "h1b": "Ty śpisz spokojnie.",
+   "lead": "Zamki z kodem do apartamentów i pensjonatów, karty dla pracowników, breloki dla wspólnot. Łączymy je z systemem rezerwacji, alarmem i domofonem, żeby klucze przestały być problemem.",
+   "kv": [
+    {
+     "b": "1 kod",
+     "s": "na jeden pobyt"
+    },
+    {
+     "b": "0 spotkań",
+     "s": "żeby przekazać klucze"
+    },
+    {
+     "b": "całą dobę",
+     "s": "zameldowanie bez recepcji"
+    }
+   ],
+   "tags": [
+    {
+     "n": "Apartamenty"
+    },
+    {
+     "n": "Pensjonaty"
+    },
+    {
+     "n": "Firmy"
+    },
+    {
+     "n": "Wspólnoty"
+    }
+   ]
+  },
+  "anc": [
+   {
+    "href": "#metody",
+    "n": "Czym się otwiera"
+   },
+   {
+    "href": "#apartamenty",
+    "n": "Apartamenty"
+   },
+   {
+    "href": "#firma",
+    "n": "Firma i wspólnota"
+   },
+   {
+    "href": "#identyfikatory",
+    "n": "Karty i breloki"
+   },
+   {
+    "href": "#zamki",
+    "n": "Zamki i prąd"
+   },
+   {
+    "href": "#pakiety",
+    "n": "Zestawy"
+   },
+   {
+    "href": "#cena",
+    "n": "Cena"
+   },
+   {
+    "href": "#faq",
+    "n": "Pytania"
+   }
+  ],
+  "pkgs": [
+   {
+    "ic": "ikona:bed",
+    "n": "Apartament na wynajem",
+    "d": "Jedne drzwi, kod dla każdego gościa.",
+    "f": [
+     "Zamek z kodem i aplikacją",
+     "Integracja z systemem rezerwacji",
+     "Kody dla sprzątania",
+     "Powiadomienie o słabej baterii",
+     "Instrukcja dla gości"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "hot": false,
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri"
+   },
+   {
+    "ic": "ikona:hotel",
+    "n": "Pensjonat lub kilka apartamentów",
+    "d": "Wejście główne i pokoje w jednym systemie.",
+    "f": [
+     "Zamki do pokoi lub apartamentów",
+     "Wejście główne na kod lub kartę",
+     "Wideodomofon dla gości",
+     "Historia wejść",
+     "Szkolenie dla obsługi"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "hot": true,
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri hot"
+   },
+   {
+    "ic": "ikona:office",
+    "n": "Firma lub wspólnota",
+    "d": "Karty, strefy, brama i szlaban.",
+    "f": [
+     "Czytniki kart przy drzwiach",
+     "Strefy i harmonogramy",
+     "Brama i szlaban",
+     "Rejestr wejść",
+     "Integracja z alarmem"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "hot": false,
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri"
+   }
+  ],
+  "cena": [
+   {
+    "ic": "ikona:door",
+    "t": "Liczba drzwi",
+    "d": "I to, czy są drewniane, metalowe, przeciwpożarowe czy szklane."
+   },
+   {
+    "ic": "ikona:lock",
+    "t": "Rodzaj zamka",
+    "d": "Wkładka z kodem, zamek z klamką, elektrozaczep, zwora."
+   },
+   {
+    "ic": "ikona:cpu",
+    "t": "Integracje",
+    "d": "System rezerwacji, alarm, domofon, smart home."
+   },
+   {
+    "ic": "ikona:plug",
+    "t": "Zasilanie i okablowanie",
+    "d": "Bateryjne czy przewodowe, sterownik, zasilacz awaryjny."
+   },
+   {
+    "ic": "ikona:card",
+    "t": "Karty i breloki",
+    "d": "Liczba nośników dla gości, pracowników lub mieszkańców."
+   },
+   {
+    "ic": "ikona:globe",
+    "t": "Łączność",
+    "d": "Wi-Fi, mostek, bramka. Przy apartamentach często potrzebna sieć."
+   }
+  ],
+  "faq": [
+   {
+    "n": "01",
+    "q": "Co się stanie, gdy padnie bateria w zamku?",
+    "a": "Zamek ostrzega wcześniej w aplikacji, a każde drzwi mają awaryjne otwarcie: klucz mechaniczny albo zewnętrzne zasilanie, zależnie od modelu.",
+    "open": true
+   },
+   {
+    "n": "02",
+    "q": "Czy zamek działa bez internetu?",
+    "a": "Kod wpisany na klawiaturze zwykle działa lokalnie. Internet jest potrzebny do wysyłania nowych kodów, zdalnego otwierania i historii w aplikacji.",
+    "open": false
+   },
+   {
+    "n": "03",
+    "q": "Czy zamek połączy się z moim systemem rezerwacji?",
+    "a": "Zależy od systemu. Smoobu, Beds24 i Hotres mają integracje zamków. Przed zakupem sprawdzamy, który zamek współpracuje z Twoim kontem.",
+    "open": false
+   },
+   {
+    "n": "04",
+    "q": "Czy mogę założyć zamek na istniejące drzwi?",
+    "a": "Najczęściej tak: wymieniamy wkładkę albo okucie. Przy drzwiach przeciwpożarowych i nietypowych dobieramy rozwiązanie na miejscu.",
+    "open": false
+   },
+   {
+    "n": "05",
+    "q": "Czy w firmie można wchodzić na odcisk palca?",
+    "a": "Biometria pracowników jest dopuszczalna tylko w wąskich przypadkach. Według stanowiska UODO rejestracja czasu pracy biometrią nie jest zgodna z RODO. Proponujemy karty lub breloki.",
+    "open": false
+   },
+   {
+    "n": "06",
+    "q": "Jaką gwarancję dostanę?",
+    "a": "Na montaż dajemy 24 miesiące gwarancji PRO-KOM, a urządzenia mają gwarancję producenta. Na zgłoszenie odpowiadamy do 24 h w dni robocze: oddzwonimy albo odpiszemy.",
+    "open": false
+   },
+   {
+    "n": "07",
+    "q": "Czy mogę zdalnie otworzyć drzwi gościowi?",
+    "a": "Tak, przy zamkach z bramką internetową otwierasz drzwi z aplikacji i widzisz historię otwarć. Bez bramki kody działają, ale zmiany wprowadza się przy zamku przez Bluetooth.",
+    "open": false
+   },
+   {
+    "n": "08",
+    "q": "Co z kodami dla sprzątania i serwisu?",
+    "a": "Każda osoba dostaje własny kod albo kartę z harmonogramem, np. sprzątanie tylko w godzinach między wyjazdem a przyjazdem gości. Gdy ktoś przestaje u Ciebie pracować, usuwasz jego kod, bez wymiany wkładki.",
+    "open": false
+   }
+  ],
+  "rel": [
+   {
+    "k": "alarm",
+    "n": "Alarmy i wideodomofony",
+    "g": "Bezpieczeństwo",
+    "href": "Alarmy.dc.html",
+    "ic": "ikona:bell",
+    "s": "Czujki, syreny, domofon z aplikacją"
+   },
+   {
+    "k": "wifi",
+    "n": "Sieci i Wi-Fi",
+    "g": "Sieci i technika",
+    "href": "Sieci.dc.html",
+    "ic": "ikona:wifi",
+    "s": "Okablowanie, światłowód, Wi-Fi gości"
+   },
+   {
+    "k": "smart",
+    "n": "Smart home Ampio",
+    "g": "Komfort i obraz",
+    "href": "SmartHome.dc.html",
+    "ic": "ikona:home",
+    "s": "Polski system, działa bez internetu"
+   }
+  ],
+  "segRel": [
+   {
+    "k": "apt",
+    "g": "Dom i noclegi",
+    "n": "Apartament na wynajem",
+    "s": "Gość wchodzi sam, Ty widzisz wszystko",
+    "page": "SegApartament",
+    "href": "SegApartament.dc.html",
+    "ic": "ikona:key",
+    "h": "#F2B84B",
+    "hs": "--mh:#F2B84B",
+    "cls": ""
+   },
+   {
+    "k": "pens",
+    "g": "Dom i noclegi",
+    "n": "Pensjonat",
+    "s": "Wi-Fi i TV w pokojach, kamery na zewnątrz",
+    "page": "Noclegowe",
+    "href": "Noclegowe.dc.html",
+    "ic": "ikona:bed",
+    "h": "#F29A4B",
+    "hs": "--mh:#F29A4B",
+    "cls": ""
+   },
+   {
+    "k": "hotel",
+    "g": "Dom i noclegi",
+    "n": "Hotel",
+    "s": "Recepcja 24/7, sale, SPA",
+    "page": "SegHotel",
+    "href": "SegHotel.dc.html",
+    "ic": "ikona:hotel",
+    "h": "#E86FB0",
+    "hs": "--mh:#E86FB0",
+    "cls": ""
+   },
+   {
+    "k": "firma",
+    "g": "Firmy",
+    "n": "Firma, biuro i hala",
+    "s": "Wejścia, rampa, sieć firmowa",
+    "page": "SegFirma",
+    "href": "SegFirma.dc.html",
+    "ic": "ikona:factory",
+    "h": "#5B8CF0",
+    "hs": "--mh:#5B8CF0",
+    "cls": ""
+   },
+   {
+    "k": "dev",
+    "g": "Budownictwo",
+    "n": "Deweloper",
+    "s": "Teletechnika budynku do odbioru",
+    "page": "SegDeweloper",
+    "href": "SegDeweloper.dc.html",
+    "ic": "ikona:build",
+    "h": "#4CCBE6",
+    "hs": "--mh:#4CCBE6",
+    "cls": ""
+   }
+  ],
+  "hasSegRel": true,
+  "segRelH": "Dla kogo robimy tę instalację",
+  "sx": {
+   "faqA": {
+    "t": "Masz inne pytanie?",
+    "d": "Wyślij zdjęcie obiektu albo obecnej instalacji. Powiemy, od czego zacząć i czego się spodziewać.",
+    "cta": "Zaplanuj instalację",
+    "href": "Zaplanuj.dc.html"
+   },
+   "faqH": "Zanim zadzwonisz.",
+   "relH": "Dostęp działa najlepiej razem z resztą.",
+   "pkg": {
+    "eye": "Przykładowe zestawy",
+    "h": "Od jednych drzwi do całego budynku.",
+    "p": "Zaczynamy od tego, kto i kiedy ma wchodzić.",
+    "note": "To przykłady. Rodzaj zamków i integracje dobieramy po obejrzeniu drzwi i sprawdzeniu Twojego systemu rezerwacji."
+   },
+   "cena": {
+    "btn": "Wyślij zdjęcia do wyceny",
+    "eye": "Wycena",
+    "h": "Od czego zależy cena.",
+    "p": "Najwięcej zmieniają drzwi i integracje. Zrób zdjęcie drzwi z obu stron i boku skrzydła, a powiemy, jaki zamek pasuje."
+   }
+  },
+  "idt": {
+   "tabs": [
+    {
+     "n": "Brelok 125 kHz",
+     "s": "najtańszy, popularny",
+     "ic": "ikona:key",
+     "on": "true",
+     "cls": "idtb on"
+    },
+    {
+     "n": "MIFARE Classic",
+     "s": "karta 13,56 MHz",
+     "ic": "ikona:card",
+     "on": "false",
+     "cls": "idtb"
+    },
+    {
+     "n": "MIFARE DESFire / Plus",
+     "s": "szyfrowanie AES",
+     "ic": "ikona:shield",
+     "on": "false",
+     "cls": "idtb"
+    },
+    {
+     "n": "Telefon",
+     "s": "BLE, NFC, kod QR",
+     "ic": "ikona:phone",
+     "on": "false",
+     "cls": "idtb"
+    },
+    {
+     "n": "Kod PIN",
+     "s": "klawiatura przy drzwiach",
+     "ic": "ikona:grid",
+     "on": "false",
+     "cls": "idtb"
+    },
+    {
+     "n": "Odcisk palca",
+     "s": "biometria",
+     "ic": "ikona:finger",
+     "on": "false",
+     "cls": "idtb"
+    }
+   ],
+   "k": "id0",
+   "n": "Brelok 125 kHz",
+   "d": "Dane na kartach 125 kHz nie są szyfrowane. Producent ICT sklonował taką kartę w ok. 15 sekund skanerem za ok. 30 USD.",
+   "fit": "Furtka, śmietnik, komórki lokatorskie",
+   "warn": "Każdy może zrobić kopię. Nie do biura ani serwerowni.",
+   "lvl": "Niska",
+   "bar": "width:25%",
+   "st": "--h:#F07A6A",
+   "cardT": "Brelok 125 kHz"
+  },
+  "lk": {
+   "pwOn": "true",
+   "pwCls": "lkpw on",
+   "pwT": "Prąd jest",
+   "hint": "Wszystkie drzwi są zamknięte i czekają na kartę lub kod.",
+   "items": [
+    {
+     "n": "Zwora elektromagnetyczna",
+     "d": "Trzyma drzwi polem magnetycznym, siła trzymania np. ok. 280 kg. Bez prądu puszcza.",
+     "where": "Gdzie: Drzwi szklane. Wyjście ewakuacyjne tylko z przyciskiem awaryjnym i zwolnieniem z systemu pożarowego",
+     "state": "Zamknięte",
+     "cls": "lki pw",
+     "dx": 112,
+     "dy": 22,
+     "dw": 26,
+     "dh": 10,
+     "lx": 125,
+     "ly": 27
+    },
+    {
+     "n": "Elektrozaczep NO (rewersyjny)",
+     "d": "Pod napięciem zablokowany, po zaniku zasilania odblokowany.",
+     "where": "Gdzie: Klatki schodowe, drogi ewakuacyjne (po uzgodnieniu z rzeczoznawcą ppoż.)",
+     "state": "Zamknięte",
+     "cls": "lki pw",
+     "dx": 130,
+     "dy": 52,
+     "dw": 8,
+     "dh": 24,
+     "lx": 134,
+     "ly": 46
+    },
+    {
+     "n": "Elektrozaczep zwykły (NC)",
+     "d": "Odblokowuje się tylko pod napięciem. Bez prądu drzwi zostają zamknięte.",
+     "where": "Gdzie: Magazyn, biuro, komórki, furtka",
+     "state": "Zamknięte",
+     "cls": "lki pw",
+     "dx": 130,
+     "dy": 52,
+     "dw": 8,
+     "dh": 24,
+     "lx": 134,
+     "ly": 46
+    },
+    {
+     "n": "Zamek silnikowy / na wkładkę",
+     "d": "Rygluje silnikiem, zasilanie z baterii lub przewodu. Zawsze z awaryjnym kluczem.",
+     "where": "Gdzie: Dom, apartament, drzwi wejściowe",
+     "state": "Zamknięte",
+     "cls": "lki pw",
+     "dx": 108,
+     "dy": 56,
+     "dw": 18,
+     "dh": 18,
+     "lx": 117,
+     "ly": 52
+    }
+   ]
+  },
+  "awr": [
+   {
+    "ic": "ikona:battery",
+    "t": "Bateria w zamku",
+    "d": "Zamki na wkładkę, np. Nuki czy Yale Linus, działają na bateriach i wcześniej ostrzegają w aplikacji (Nuki przy 20%). Gdy bateria się wyczerpie, Nuki otworzysz zwykłym kluczem."
+   },
+   {
+    "ic": "ikona:cloud",
+    "t": "Brak internetu",
+    "d": "Systemy takie jak Salto KS dalej działają według reguł zapisanych w zamkach. Kody PIN działają offline."
+   },
+   {
+    "ic": "ikona:bolt",
+    "t": "Brak prądu",
+    "d": "Kontrolery z akumulatorem rezerwowym działają dalej. Bez niego zwora puszcza, a elektrozaczep zwykły (NC) trzyma drzwi."
+   },
+   {
+    "ic": "ikona:key",
+    "t": "Gość bez telefonu",
+    "d": "Kod na klawiaturze albo karta z recepcji. Zawsze zostawiamy drugą drogę wejścia."
+   }
+  ],
+  "chk": [
+   {
+    "n": "1",
+    "t": "Drzwi",
+    "d": "Kierunek otwierania, materiał, samozamykacz, czy są na drodze ewakuacyjnej."
+   },
+   {
+    "n": "2",
+    "t": "Wkładka",
+    "d": "Typ, długość, funkcja awaryjna (otwarcie z kluczem w środku)."
+   },
+   {
+    "n": "3",
+    "t": "Ościeżnica",
+    "d": "Miejsce na elektrozaczep lub zworę, przejście przewodu przez zawias."
+   },
+   {
+    "n": "4",
+    "t": "Kable i zasilanie",
+    "d": "Trasa do kontrolera, zasilacz z akumulatorem, gniazdo w pobliżu."
+   },
+   {
+    "n": "5",
+    "t": "Sieć",
+    "d": "Zasięg Wi-Fi lub Bluetooth przy drzwiach dla zamków z bramką."
+   },
+   {
+    "n": "6",
+    "t": "Integracje",
+    "d": "Alarm, kamery, program kadrowy, system rezerwacji (Hotres, Beds24, Smoobu, Airbnb)."
+   }
+  ],
+  "kd": {
+   "tabs": [
+    {
+     "n": "Apartamenty",
+     "ic": "ikona:bed",
+     "on": "true",
+     "cls": "on"
+    },
+    {
+     "n": "Firma",
+     "ic": "ikona:office",
+     "on": "false",
+     "cls": ""
+    },
+    {
+     "n": "Wspólnota",
+     "ic": "ikona:users",
+     "on": "false",
+     "cls": ""
+    }
+   ],
+   "badge": "Integracja z rezerwacjami",
+   "door": "APARTAMENT 4",
+   "dcls": "",
+   "disp": "— — — —",
+   "dispS": "Wpisz kod",
+   "dispCls": "",
+   "hint": "2468",
+   "keys": [
+    {
+     "n": "1",
+     "a": "Cyfra 1"
+    },
+    {
+     "n": "2",
+     "a": "Cyfra 2"
+    },
+    {
+     "n": "3",
+     "a": "Cyfra 3"
+    },
+    {
+     "n": "4",
+     "a": "Cyfra 4"
+    },
+    {
+     "n": "5",
+     "a": "Cyfra 5"
+    },
+    {
+     "n": "6",
+     "a": "Cyfra 6"
+    },
+    {
+     "n": "7",
+     "a": "Cyfra 7"
+    },
+    {
+     "n": "8",
+     "a": "Cyfra 8"
+    },
+    {
+     "n": "9",
+     "a": "Cyfra 9"
+    },
+    {
+     "n": "C",
+     "a": "Wyczyść"
+    },
+    {
+     "n": "0",
+     "a": "Cyfra 0"
+    },
+    {
+     "n": "OK",
+     "a": "Zatwierdź"
+    }
+   ],
+   "calT": "Kody gości · ten tydzień",
+   "calS": "kod działa od zameldowania do wymeldowania",
+   "days": [
+    "pn",
+    "wt",
+    "śr",
+    "cz",
+    "pt",
+    "sb",
+    "nd"
+   ],
+   "rows": [
+    {
+     "n": "Ap. 4",
+     "bars": [
+      {
+       "t": "Kowalska · wygasł",
+       "st": "left:8.93%;width:26.19%",
+       "cls": "kbar off"
+      },
+      {
+       "t": "Nowak · 2468",
+       "st": "left:66.07%;width:26.19%",
+       "cls": "kbar cur"
+      }
+     ]
+    },
+    {
+     "n": "Ap. 2",
+     "bars": [
+      {
+       "t": "Müller · 7310",
+       "st": "left:23.21%;width:54.76%",
+       "cls": "kbar"
+      }
+     ]
+    },
+    {
+     "n": "Sprzątanie",
+     "bars": [
+      {
+       "t": "11–14",
+       "st": "left:35.12%;width:1.79%",
+       "cls": "kbar"
+      },
+      {
+       "t": "11–14",
+       "st": "left:92.26%;width:1.79%",
+       "cls": "kbar"
+      }
+     ]
+    }
+   ],
+   "log": [
+    {
+     "cls": "kl",
+     "ic": "ikona:key",
+     "t": "Pt 15:42",
+     "s": "Nowak · Ap. 4 · kod gościa"
+    },
+    {
+     "cls": "kl",
+     "ic": "ikona:key",
+     "t": "Pt 12:05",
+     "s": "Sprzątanie · Ap. 4"
+    },
+    {
+     "cls": "kl",
+     "ic": "ikona:clock",
+     "t": "Śr 10:51",
+     "s": "Kowalska · kod wygasł"
+    }
+   ]
+  },
+  "met": [
+   {
+    "ic": "ikona:grid",
+    "t": "Kod PIN",
+    "d": "Stały dla domowników, czasowy dla gości i serwisu. Wygasa sam.",
+    "k": "Apartamenty, pensjonaty"
+   },
+   {
+    "ic": "ikona:card",
+    "t": "Karta lub brelok",
+    "d": "Najwygodniejsze dla pracowników i mieszkańców. W systemach online zgubioną blokujesz zdalnie.",
+    "k": "Firmy, wspólnoty, hotele"
+   },
+   {
+    "ic": "ikona:phone",
+    "t": "Telefon",
+    "d": "Otwieranie z aplikacji, także zdalnie dla gościa, który utknął przy drzwiach.",
+    "k": "Domy, apartamenty"
+   },
+   {
+    "ic": "ikona:key",
+    "t": "Klucz awaryjny",
+    "d": "Mechaniczne otwarcie albo zasilanie awaryjne, gdy wyczerpie się bateria.",
+    "k": "Każde drzwi"
+   }
+  ],
+  "aptf": [
+   {
+    "ic": "ikona:cal",
+    "t": "Rezerwacja",
+    "d": "Gość rezerwuje przez Booking, Airbnb albo Twoją stronę."
+   },
+   {
+    "ic": "ikona:cpu",
+    "t": "System rezerwacji",
+    "d": "Tworzy kod ważny od zameldowania do wymeldowania."
+   },
+   {
+    "ic": "ikona:send",
+    "t": "Wiadomość do gościa",
+    "d": "Kod przychodzi mailem lub SMS-em przed przyjazdem."
+   },
+   {
+    "ic": "ikona:lock",
+    "t": "Przyjazd i wyjazd",
+    "d": "Gość wchodzi sam, a po wymeldowaniu kod przestaje działać."
+   }
+  ],
+  "pms": [
+   {
+    "n": "Smoobu",
+    "z": "Nuki, TTLock, Yale, Salto KS, igloohome, Tedee i inne",
+    "u": "Funkcja w planie Pro, 4 € miesięcznie za zamek. Nuki wymaga też abonamentu Smart Hosting."
+   },
+   {
+    "n": "Beds24",
+    "z": "31 integracji, m.in. Nuki, TTLock, Salto, Yale, Igloohome",
+    "u": "Lista w dokumentacji Beds24."
+   },
+   {
+    "n": "Hotres",
+    "z": "Moduł zamków hotelowych z kodem wysyłanym mailem lub SMS-em",
+    "u": "Partnerów sprawdzamy przy wycenie."
+   },
+   {
+    "n": "Hotel na karty",
+    "z": "Zamki hotelowe RFID, np. dormakaba",
+    "u": "Karty kodowane w recepcji, integracja z systemem hotelowym."
+   }
+  ],
+  "firl": [
+   {
+    "t": "Strefy",
+    "d": "Biuro, magazyn, serwerownia, zaplecze. Każda grupa osób ma swoje."
+   },
+   {
+    "t": "Harmonogramy",
+    "d": "Karta działa w godzinach pracy, serwis tylko w dniu wizyty."
+   },
+   {
+    "t": "Historia wejść",
+    "d": "Kto, którędy i kiedy. Przydaje się przy incydentach i kontroli dostępu do stref."
+   },
+   {
+    "t": "Brama i szlaban",
+    "d": "Wjazd na plac i parking na pilota, kartę albo odczyt tablic."
+   }
+  ]
+ }
+}

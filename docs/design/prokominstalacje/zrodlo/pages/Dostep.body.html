@@ -1,0 +1,120 @@
+<!--@pheroA-->
+          <div class="ill" role="region" aria-label="Interaktywny zamek z kodem i harmonogram kodów">
+            <div class="illbar">
+              <div class="seg" role="tablist" aria-label="Rodzaj obiektu"><sc-for list="{{kd.tabs}}" as="t" hint-placeholder-count="3"><button type="button" role="tab" class="{{t.cls}}" aria-selected="{{t.on}}" onClick="{{t.pick}}"><!--i:t.ic:15-->{{t.n}}</button></sc-for></div>
+              <span class="tag a">{{kd.badge}}</span>
+            </div>
+            <div class="kdw">
+              <div class="kdl">
+                <svg class="kdoor {{kd.dcls}}" viewBox="0 0 220 300" aria-hidden="true">
+                  <rect x="10" y="10" width="200" height="290" rx="6" class="kfr"></rect>
+                  <rect x="26" y="26" width="168" height="274" class="kin"></rect>
+                  <g class="kleaf"><rect x="26" y="26" width="168" height="274" class="klf"></rect><rect x="44" y="46" width="132" height="96" rx="4" class="kpn"></rect><rect x="44" y="160" width="132" height="120" rx="4" class="kpn"></rect>
+                    <rect x="146" y="128" width="34" height="74" rx="8" class="klock"></rect><circle cx="163" cy="148" r="6" class="kled"></circle><rect x="152" y="166" width="22" height="26" rx="3" class="kpad"></rect></g>
+                  <foreignObject x="26" y="12" width="168" height="14" class="fo "><div xmlns="http://www.w3.org/1999/xhtml" class="fot knum2">{{kd.door}}</div></foreignObject>
+                </svg>
+              </div>
+              <div class="kdr">
+                <div class="kpbox">
+                  <div class="kdisp {{kd.dispCls}}"><span>{{kd.disp}}</span><small>{{kd.dispS}}</small></div>
+                  <div class="kkeys"><sc-for list="{{kd.keys}}" as="k" hint-placeholder-count="12"><button type="button" class="kkey" onClick="{{k.press}}" aria-label="{{k.a}}">{{k.n}}</button></sc-for></div>
+                  <span class="mut" style="font-size: 12.5px; text-align: center">Wpisz kod gościa: <b style="color: var(--accentText)">{{kd.hint}}</b></span>
+                </div>
+              </div>
+            </div>
+            <div class="kcal">
+              <div class="kcalh"><b>{{kd.calT}}</b><span class="mut">{{kd.calS}}</span></div>
+              <div class="kgrid">
+                <div></div><sc-for list="{{kd.days}}" as="d" hint-placeholder-count="7"><span class="kday">{{d}}</span></sc-for>
+                <sc-for list="{{kd.rows}}" as="r" hint-placeholder-count="3"><span class="krn">{{r.n}}</span><div class="krow"><sc-for list="{{r.bars}}" as="b" hint-placeholder-count="2"><span class="{{b.cls}}" style="{{b.st}}">{{b.t}}</span></sc-for></div></sc-for>
+              </div>
+              <div class="klog"><sc-for list="{{kd.log}}" as="l" hint-placeholder-count="3"><div class="{{l.cls}}"><!--i:l.ic:14--><span><b>{{l.t}}</b> {{l.s}}</span></div></sc-for></div>
+            </div>
+          </div>
+<!--@pheroB-->
+
+  <section id="metody" class="{{rv.met}}" data-rv="met" style="padding: 96px 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Czym się otwiera</span><h2 class="h2">Kod, karta, telefon. Klucz zostaje na wszelki wypadek.</h2></div><p class="lead" style="max-width: 440px">Dobieramy sposób otwierania do ludzi, którzy będą wchodzić: gości, pracowników, mieszkańców, serwisu.</p></div>
+      <div class="g4"><sc-for list="{{met}}" as="m" hint-placeholder-count="5"><div class="card feat ri"><span class="ico"><!--i:m.ic:22--></span><b class="h3">{{m.t}}</b><p>{{m.d}}</p><span class="tag">{{m.k}}</span></div></sc-for></div>
+    </div>
+  </section>
+
+  <section id="apartamenty" class="{{rv.apt}}" data-rv="apt" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Apartamenty i pensjonaty</span><h2 class="h2">Rezerwacja wpada, kod wysyła się sam.</h2></div><p class="lead" style="max-width: 460px">Zamek połączony z systemem rezerwacji tworzy kod ważny tylko w czasie pobytu i wysyła go gościowi. Ty nie jedziesz o 22:00 przekazać klucza.</p></div>
+      <div class="aptflow ri"><sc-for list="{{aptf}}" as="a" hint-placeholder-count="4"><div class="aptc"><span class="ico"><!--i:a.ic:22--></span><b>{{a.t}}</b><span>{{a.d}}</span></div></sc-for></div>
+      <div class="tblw ri" style="margin-top: 22px">
+        <table class="tbl">
+          <thead><tr><th>System rezerwacji</th><th>Zamki, które obsługuje</th><th>Uwagi</th></tr></thead>
+          <tbody><sc-for list="{{pms}}" as="r" hint-placeholder-count="4"><tr><td><b>{{r.n}}</b></td><td>{{r.z}}</td><td class="mut">{{r.u}}</td></tr></sc-for></tbody>
+        </table>
+      </div>
+      <p class="src ri" style="margin-top: 10px">Przed zakupem zamka sprawdzamy integrację z Twoim systemem.</p>
+    </div>
+  </section>
+
+  <section id="firma" class="{{rv.fir}}" data-rv="fir" style="padding: 0 0 104px">
+    <div class="wrap split" style="align-items: start">
+      <div class="ri" style="display: flex; flex-direction: column; gap: 16px"><span class="eye">Firma, hala, wspólnota</span><h2 class="h2">Każdy wchodzi tam, gdzie powinien. I o tej porze.</h2><p class="lead">Karty albo breloki dla pracowników i mieszkańców, strefy, harmonogramy i historia wejść. W systemach online zgubioną kartę blokujesz od razu, bez wymiany zamków.</p>
+        <ul class="list"><sc-for list="{{firl}}" as="f" hint-placeholder-count="4"><li><i><!--i:P.check:14:2.6--></i><div><b>{{f.t}}</b><span>{{f.d}}</span></div></li></sc-for></ul>
+      </div>
+      <div class="ri" style="display: flex; flex-direction: column; gap: 12px">
+        <div class="note w"><!--i:P.doc:20--><span>Rejestr wejść pracowników może być uznany za „inną formę monitorowania” (art. 22³ § 4 Kp), dlatego stosujemy te same zasady informowania co przy kamerach.</span></div>
+        <div class="note w"><!--i:P.finger:20--><span>Odcisk palca pracownika można przetwarzać tylko z jego inicjatywy albo do dostępu do szczególnie ważnych informacji lub pomieszczeń (art. 22¹ᵃ § 3 i 22¹ᵇ Kp). Według stanowiska UODO rejestracja czasu pracy na podstawie biometrii nie jest zgodna z RODO. Dlatego w firmach proponujemy karty i breloki.</span></div>
+        <div class="note"><!--i:P.battery:20--><span>Zamki mają zasilanie bateryjne lub awaryjne i ostrzegają o słabej baterii. Przy każdych drzwiach planujemy też awaryjne otwarcie.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KD2 -->
+  <section id="identyfikatory" class="{{rv.idt}}" data-rv="idt" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Brelok, karta, telefon, palec</span><h2 class="h2">Nie każda karta jest bezpieczna. <span class="acc">Sprawdź, czym się różnią.</span></h2></div><p class="lead" style="max-width: 460px">Popularny brelok 125 kHz da się skopiować w kilkanaście sekund. Wybierz identyfikator, a pokażemy, gdzie ma sens.</p></div>
+      <div class="card idw ri">
+        <div class="idtabs" role="tablist"><sc-for list="{{idt.tabs}}" as="t" hint-placeholder-count="6"><button type="button" role="tab" class="{{t.cls}}" aria-selected="{{t.on}}" onClick="{{t.pick}}"><span class="idti"><!--i:t.ic:18--></span><b>{{t.n}}</b><span>{{t.s}}</span></button></sc-for></div>
+        <div class="idd" key="{{idt.k}}">
+          <div class="idvis" style="{{idt.st}}"><div class="idcard"><span class="idchip"></span><span class="idwave"><i></i><i></i><i></i></span><b>{{idt.cardT}}</b></div>
+            <div class="idmeter"><span>Odporność na skopiowanie</span><div class="idbar"><i style="{{idt.bar}}"></i></div><b>{{idt.lvl}}</b></div></div>
+          <div class="idtx"><b class="h3">{{idt.n}}</b><p>{{idt.d}}</p>
+            <div class="idg"><div><span>Gdzie pasuje</span><b>{{idt.fit}}</b></div><div><span>Na co uważać</span><b>{{idt.warn}}</b></div></div></div>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+
+  <section id="zamki" class="{{rv.lck}}" data-rv="lck" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Zwora, elektrozaczep, zamek</span><h2 class="h2">Co się dzieje z drzwiami, <span class="acc">gdy zabraknie prądu?</span></h2></div><p class="lead" style="max-width: 460px">To pierwsze pytanie przy każdych drzwiach. Na drodze ewakuacyjnej drzwi mają się otworzyć, w magazynie raczej zostać zamknięte. Przełącz zasilanie.</p></div>
+      <div class="card lkw ri">
+        <div class="lkbar"><span class="usl">Zasilanie</span><button type="button" class="{{lk.pwCls}}" onClick="{{lk.tPw}}" aria-pressed="{{lk.pwOn}}"><i></i><b>{{lk.pwT}}</b></button><span class="mut" style="font-size: 13.5px">{{lk.hint}}</span></div>
+        <div class="lkg"><sc-for list="{{lk.items}}" as="l" hint-placeholder-count="4"><div class="{{l.cls}}">
+          <svg viewBox="0 0 160 120" aria-hidden="true"><rect x="20" y="10" width="120" height="104" rx="4" class="lkfr"></rect><g class="lkdoor"><rect x="28" y="16" width="104" height="98" class="lkleaf"></rect><rect x="112" y="60" width="14" height="5" rx="2.5" class="lkhd"></rect></g><rect x="{{l.dx}}" y="{{l.dy}}" width="{{l.dw}}" height="{{l.dh}}" rx="2" class="lkdev"></rect><circle cx="{{l.lx}}" cy="{{l.ly}}" r="4" class="lkled"></circle></svg>
+          <b>{{l.n}}</b><span class="lkst">{{l.state}}</span><p>{{l.d}}</p><em>{{l.where}}</em>
+        </div></sc-for></div>
+        <div class="note" style="margin: 0"><!--i:P.fire:18--><span><b>Drzwi ewakuacyjne:</b> przepisy przeciwpożarowe zabraniają zamykania ich w sposób, który uniemożliwia natychmiastowe użycie (§ 4 ust. 1 pkt 14 rozporządzenia o ochronie ppoż.). W pomieszczeniach dla ponad 300 osób przepisy techniczno-budowlane wymagają zamknięć przeciwpanicznych (norma PN-EN 1125). Rozwiązanie dla takich drzwi uzgadniamy z rzeczoznawcą ds. zabezpieczeń ppoż.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="awarie" class="{{rv.awr}}" data-rv="awr" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div style="display: grid">
+        <div class="card kdk ri">
+          <span class="eye">Gdy coś zawiedzie</span><b class="h3" style="font-size: 26px">Bateria, internet, prąd. Na każdy wypadek jest plan B.</b>
+          <div class="kdl"><sc-for list="{{awr}}" as="a" hint-placeholder-count="4"><div><span class="ico s"><!--i:a.ic:18--></span><span><b>{{a.t}}</b><span>{{a.d}}</span></span></div></sc-for></div>
+        </div>
+      </div>
+      <div class="card kdchk ri">
+        <div style="display: flex; flex-direction: column; gap: 8px"><span class="eye">Wizja lokalna</span><b class="h3" style="font-size: 24px">Co sprawdzamy przy drzwiach, zanim podamy cenę.</b></div>
+        <div class="kdcg"><sc-for list="{{chk}}" as="c" hint-placeholder-count="6"><div><em>{{c.n}}</em><span><b>{{c.t}}</b><span>{{c.d}}</span></span></div></sc-for></div>
+      </div>
+    </div>
+  </section>
+
+<!--@odbsec-->
+<!--@pkgs-->
+<!--@cena-->
+<!--@faqsec-->
+<!--@relsec-->

@@ -1,0 +1,299 @@
+{
+ "_strona": "Kontakt",
+ "_title": "Kontakt: PRO-KOM Instalacje, Rabka-Zdrój i Zakopane",
+ "_description": "Kontakt z PRO-KOM Instalacje: salon w Rabce-Zdroju (ul. Orkana 16B) i w Zakopanem. Telefon, WhatsApp, e-mail i mapa stref dojazdu.",
+ "_uwaga": "Zrzut danych z wizualizacji v4.0 (stan początkowy strony, motyw jasny). Teksty = treść do seeda. Klucze UI (cls, on, pick) pomijaj.",
+ "dane": {
+  "ctaEye": "Zaplanuj instalację",
+  "ctaH": "Wolisz, żebyśmy to my zadzwonili?",
+  "ctaP": "Zostaw numer w kreatorze. Odezwiemy się do 24 h w dni robocze, w godzinach pracy.",
+  "kt": {
+   "q": "",
+   "zc": {
+    "p": "kz2",
+    "r": "kz2",
+    "z": "kz2"
+   },
+   "towns": [
+    {
+     "n": "Rabka-Zdrój",
+     "x": 225,
+     "y": 253,
+     "r": 4,
+     "tx": 239,
+     "ty": 228,
+     "fc": "fo-l",
+     "cls": "ktg2 hq"
+    },
+    {
+     "n": "Zakopane",
+     "x": 220,
+     "y": 485,
+     "r": 4,
+     "tx": 234,
+     "ty": 460,
+     "fc": "fo-l",
+     "cls": "ktg2 hq"
+    },
+    {
+     "n": "Nowy Targ",
+     "x": 260,
+     "y": 350,
+     "r": 4,
+     "tx": 268,
+     "ty": 347,
+     "fc": "fo-l",
+     "cls": "ktg2"
+    },
+    {
+     "n": "Jordanów",
+     "x": 160,
+     "y": 223,
+     "r": 4,
+     "tx": 151,
+     "ty": 220,
+     "fc": "fo-r",
+     "cls": "ktg2"
+    },
+    {
+     "n": "Mszana Dolna",
+     "x": 285,
+     "y": 200,
+     "r": 4,
+     "tx": 293,
+     "ty": 197,
+     "fc": "fo-l",
+     "cls": "ktg2"
+    },
+    {
+     "n": "Chabówka",
+     "x": 205,
+     "y": 267,
+     "r": 4,
+     "tx": 196,
+     "ty": 272,
+     "fc": "fo-r",
+     "cls": "ktg2 mn"
+    },
+    {
+     "n": "Limanowa",
+     "x": 455,
+     "y": 185,
+     "r": 4,
+     "tx": 463,
+     "ty": 182,
+     "fc": "fo-l",
+     "cls": "ktg2"
+    },
+    {
+     "n": "Szczawnica",
+     "x": 490,
+     "y": 388,
+     "r": 4,
+     "tx": 498,
+     "ty": 385,
+     "fc": "fo-l",
+     "cls": "ktg2"
+    },
+    {
+     "n": "Krościenko",
+     "x": 460,
+     "y": 380,
+     "r": 4,
+     "tx": 451,
+     "ty": 377,
+     "fc": "fo-r",
+     "cls": "ktg2 mn"
+    },
+    {
+     "n": "Czarny Dunajec",
+     "x": 170,
+     "y": 380,
+     "r": 4,
+     "tx": 161,
+     "ty": 377,
+     "fc": "fo-r",
+     "cls": "ktg2"
+    },
+    {
+     "n": "Białka Tatrzańska",
+     "x": 295,
+     "y": 418,
+     "r": 4,
+     "tx": 303,
+     "ty": 415,
+     "fc": "fo-l",
+     "cls": "ktg2"
+    },
+    {
+     "n": "Bukowina Tatrzańska",
+     "x": 300,
+     "y": 455,
+     "r": 4,
+     "tx": 308,
+     "ty": 452,
+     "fc": "fo-l",
+     "cls": "ktg2 mn"
+    },
+    {
+     "n": "Poronin",
+     "x": 245,
+     "y": 455,
+     "r": 4,
+     "tx": 236,
+     "ty": 452,
+     "fc": "fo-r",
+     "cls": "ktg2 mn nl"
+    },
+    {
+     "n": "Kościelisko",
+     "x": 190,
+     "y": 493,
+     "r": 4,
+     "tx": 181,
+     "ty": 490,
+     "fc": "fo-r",
+     "cls": "ktg2 mn"
+    },
+    {
+     "n": "Maków Podhalański",
+     "x": 85,
+     "y": 163,
+     "r": 4,
+     "tx": 93,
+     "ty": 160,
+     "fc": "fo-l",
+     "cls": "ktg2 mn"
+    },
+    {
+     "n": "Myślenice",
+     "x": 215,
+     "y": 88,
+     "r": 4,
+     "tx": 223,
+     "ty": 85,
+     "fc": "fo-l",
+     "cls": "ktg2"
+    },
+    {
+     "n": "Nowy Sącz",
+     "x": 590,
+     "y": 245,
+     "r": 4,
+     "tx": 581,
+     "ty": 242,
+     "fc": "fo-r",
+     "cls": "ktg2"
+    }
+   ],
+   "pins": [
+    {
+     "tr": "translate(225 253)"
+    },
+    {
+     "tr": "translate(220 485)"
+    }
+   ],
+   "route": "",
+   "hasRoute": false,
+   "zt": "Wpisz miejscowość (min. 3 litery)",
+   "zd": "Pokażemy strefę dojazdu i najbliższy salon.",
+   "cards": [
+    {
+     "ic": "ikona:phone",
+     "t": "Telefon",
+     "v": "Instalacje i serwis",
+     "ph": "[TELEFON]",
+     "href": "tel:+48TELEFON"
+    },
+    {
+     "ic": "ikona:chat",
+     "t": "WhatsApp",
+     "v": "Zdjęcia obiektu i pytania",
+     "ph": "[WHATSAPP]",
+     "href": "https://wa.me/48WHATSAPP?text=Dzie%C5%84%20dobry%2C%20mam%20pytanie%20o%20instalacj%C4%99%20w%20obiekcie%3A%20"
+    },
+    {
+     "ic": "ikona:mail",
+     "t": "E-mail",
+     "v": "Zapytania i dokumenty",
+     "ph": "[E-MAIL]",
+     "href": "mailto:E-MAIL?subject=Pytanie%20o%20instalacj%C4%99"
+    },
+    {
+     "ic": "ikona:send",
+     "t": "Kreator",
+     "v": "Zaplanuj instalację w 2 minuty",
+     "ph": "",
+     "href": "Zaplanuj.dc.html"
+    }
+   ],
+   "hours": [
+    {
+     "d": "Rabka-Zdrój, pn–pt",
+     "v": "9:00–17:00"
+    },
+    {
+     "d": "Zakopane, pn–pt",
+     "v": "[SZEF: godziny]"
+    },
+    {
+     "d": "Soboty",
+     "v": "[SZEF]"
+    },
+    {
+     "d": "Niedziela",
+     "v": "nieczynne"
+    }
+   ],
+   "topic": [
+    {
+     "n": "Nowa instalacja",
+     "on": "true",
+     "cls": "chip on"
+    },
+    {
+     "n": "Awaria lub serwis",
+     "on": "false",
+     "cls": "chip"
+    },
+    {
+     "n": "Współpraca dla firm budowlanych",
+     "on": "false",
+     "cls": "chip"
+    },
+    {
+     "n": "Inne",
+     "on": "false",
+     "cls": "chip"
+    }
+   ],
+   "shops": [
+    {
+     "n": "Rabka-Zdrój",
+     "a": "ul. Orkana 16B, 34-700 Rabka-Zdrój",
+     "ph": "[SZEF: parking przy salonie]",
+     "route": true,
+     "rh": "https://www.google.com/maps/search/?api=1&query=PRO-KOM%2C%20ul.%20Orkana%2016B%2C%2034-700%20Rabka-Zdr%C3%B3j"
+    },
+    {
+     "n": "Zakopane",
+     "a": "Adres salonu",
+     "ph": "[ADRES ZAKOPANE]",
+     "route": false,
+     "rh": ""
+    }
+   ],
+   "fName": "",
+   "fPh": "",
+   "fMsg": "",
+   "fCons": "false",
+   "consCls": "consent xa-cons",
+   "phCls": "zin",
+   "err": false,
+   "errT": "",
+   "form": true,
+   "sent": false
+  }
+ }
+}

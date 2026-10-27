@@ -1,0 +1,989 @@
+{
+ "_strona": "Ladowarki",
+ "_title": "Ładowarki Elzab EcoPower: CC Home, CC Wall, CC City | PRO-KOM",
+ "_description": "Ładowarki Elzab EcoPower z montażem na Podhalu: CC Home do garażu, CC Wall dla firm, CC City na parking. Dobór mocy do przyłącza i formalności.",
+ "_uwaga": "Zrzut danych z wizualizacji v4.0 (stan początkowy strony, motyw jasny). Teksty = treść do seeda. Klucze UI (cls, on, pick) pomijaj.",
+ "dane": {
+  "ctaEye": "Ładowarki Elzab EcoPower na Podhalu",
+  "ctaH": "Wyślij zdjęcie rozdzielnicy. Powiemy, którą ładowarkę da się podłączyć.",
+  "ctaP": "Dobór modelu i mocy, montaż, uruchomienie i pomoc w formalnościach. W domu, pensjonacie, hotelu i firmie.",
+  "hero": {
+   "mid": true,
+   "midT": "Usługi",
+   "midH": "Main.dc.html#uslugi",
+   "cta": "Dobierz ładowarkę",
+   "ctaHref": "#model",
+   "crumb": "Ładowarki samochodów",
+   "eye": "Elzab EcoPower · dom, firma, parking · Podhale",
+   "h1a": "Ładowarki Elzab EcoPower.",
+   "h1b": "Od garażu po parking.",
+   "lead": "Cała oferta ładowarek polskiego producenta Elzab: CC Home do garażu, CC Wall dla firm i obiektów z gośćmi, CC City na parking. Dobieramy moc do przyłącza, montujemy, uruchamiamy i pomagamy w formalnościach.",
+   "kv": [
+    {
+     "b": "3,7–22 kW",
+     "s": "moc ładowania AC"
+    },
+    {
+     "b": "1 lub 2",
+     "s": "auta ładowane naraz"
+    },
+    {
+     "b": "24 mies.",
+     "s": "gwarancji PRO-KOM na montaż"
+    }
+   ],
+   "tags": [
+    {
+     "n": "CC Home"
+    },
+    {
+     "n": "CC Wall"
+    },
+    {
+     "n": "CC City"
+    },
+    {
+     "n": "Produkcja w Polsce"
+    }
+   ]
+  },
+  "anc": [
+   {
+    "href": "#oferta",
+    "n": "Oferta"
+   },
+   {
+    "href": "#model",
+    "n": "Dobór wersji"
+   },
+   {
+    "href": "#urzadzenia",
+    "n": "Porównanie"
+   },
+   {
+    "href": "#kalkulator",
+    "n": "Kalkulator"
+   },
+   {
+    "href": "#formalnosci",
+    "n": "Formalności"
+   },
+   {
+    "href": "#pakiety",
+    "n": "Zestawy"
+   },
+   {
+    "href": "#faq",
+    "n": "Pytania"
+   }
+  ],
+  "pkgs": [
+   {
+    "ic": "ikona:home",
+    "n": "Dom",
+    "d": "Ładowarka w garażu lub pod wiatą.",
+    "f": [
+     "Elzab CC Home 3,7, 7,4 lub 11 kW",
+     "Przewód z rozdzielnicy i zabezpieczenia",
+     "Dobór mocy do przyłącza",
+     "Uruchomienie i test",
+     "Porada w sprawie taryfy"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "hot": false,
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri"
+   },
+   {
+    "ic": "ikona:bed",
+    "n": "Pensjonat, hotel, firma",
+    "d": "Ładowanie dla gości lub floty.",
+    "f": [
+     "Elzab CC Wall, 1 lub 2 punkty",
+     "Karty RFID dla gości",
+     "Dzielenie mocy przy kilku stacjach",
+     "Pomoc w sprawie UDT",
+     "Oznakowanie miejsc"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "hot": true,
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri hot"
+   },
+   {
+    "ic": "ikona:car",
+    "n": "Parking obiektu",
+    "d": "Stacja dla gości i klientów hotelu lub firmy.",
+    "f": [
+     "Elzab CC City z licznikiem MID",
+     "Fundament i zasilanie",
+     "Rozliczanie w aplikacji (OCPP), jeśli ładowanie ma być płatne",
+     "Pomoc w sprawie badania UDT",
+     "Serwis"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "hot": false,
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri"
+   }
+  ],
+  "cena": [
+   {
+    "ic": "ikona:bolt",
+    "t": "Model i moc",
+    "d": "CC Home, CC Wall czy CC City, liczba punktów i moc na punkt."
+   },
+   {
+    "ic": "ikona:ruler",
+    "t": "Odległość od rozdzielnicy",
+    "d": "Długość i przekrój przewodu, trasa, przekopy."
+   },
+   {
+    "ic": "ikona:cpu",
+    "t": "Rozdzielnica",
+    "d": "Nowe zabezpieczenia, ewentualnie rozbudowa rozdzielnicy."
+   },
+   {
+    "ic": "ikona:plug",
+    "t": "Moc przyłącza",
+    "d": "Zwiększenie mocy u operatora albo dzielenie mocy."
+   },
+   {
+    "ic": "ikona:build",
+    "t": "Montaż",
+    "d": "Ściana, podstawa albo fundament pod stację wolnostojącą."
+   },
+   {
+    "ic": "ikona:doc",
+    "t": "Formalności",
+    "d": "Zgłoszenie do UDT, uzgodnienia ze wspólnotą."
+   }
+  ],
+  "faq": [
+   {
+    "n": "01",
+    "q": "Którą ładowarkę Elzab wybrać?",
+    "a": "Do domu zwykle CC Home: prosta, bez kart i aplikacji. Gdy z ładowarki korzystają goście, pracownicy albo dwa auta naraz, lepsza jest CC Wall z kartami RFID. Na otwarty parking hotelu czy firmy najlepiej pasuje wolnostojąca CC City z licznikiem MID.",
+    "open": true
+   },
+   {
+    "n": "02",
+    "q": "Jaką moc ładowarki wybrać do domu?",
+    "a": "Zależy od auta i przyłącza. Do ładowania nocą zwykle wystarcza 7,4 albo 11 kW. Nie ma sensu płacić za 22 kW, jeśli auto przyjmuje 11 kW, chyba że planujesz dwa auta albo zmianę samochodu.",
+    "open": false
+   },
+   {
+    "n": "03",
+    "q": "Czy montujecie samą ładowarkę?",
+    "a": "Tak. Możesz zamówić u nas samą ładowarkę Elzab EcoPower z montażem, bez innych instalacji. Jeśli planujesz też okablowanie, kamery czy smart home, przewód do ładowarki poprowadzimy przy okazji.",
+    "open": false
+   },
+   {
+    "n": "04",
+    "q": "Czy ładowanie dla gości da się rozliczać?",
+    "a": "Tak. CC City i wersje CC Wall z OCPP można połączyć z systemem operatora, który rozlicza ładowanie w aplikacji. Prostsza opcja to karty RFID tylko dla Twoich gości, a koszt ładowania doliczasz do pobytu.",
+    "open": false
+   },
+   {
+    "n": "05",
+    "q": "Czy ładowarka dla gości pensjonatu wymaga UDT?",
+    "a": "Ustawa przewiduje badanie UDT dla stacji ładowania przed oddaniem do eksploatacji, a nie ma jednoznacznego stanowiska, jak traktować ładowarki dla gości. Sprawdzamy to przy projekcie i pomagamy w zgłoszeniu.",
+    "open": false
+   },
+   {
+    "n": "06",
+    "q": "Czy ładowarka działa w mróz?",
+    "a": "Ładowarki Elzab EcoPower mają zakres pracy od −25°C. Zimą auto ładuje się wolniej przy zimnej baterii, a zasięg wyraźnie spada, zwłaszcza w mrozie.",
+    "open": false
+   },
+   {
+    "n": "07",
+    "q": "Mieszkam w bloku. Mogę mieć ładowarkę?",
+    "a": "Tak, ale w budynku z więcej niż trzema lokalami mieszkalnymi trzeba złożyć wniosek do zarządcy. We wspólnocie mieszkaniowej zgoda na punkt ładowania o mocy mniejszej niż 11 kW jest czynnością zwykłego zarządu. Pomożemy przygotować dokumenty.",
+    "open": false
+   },
+   {
+    "n": "08",
+    "q": "Jaką gwarancję dostanę?",
+    "a": "Na montaż dajemy 24 miesiące gwarancji PRO-KOM, a ładowarki mają gwarancję producenta. Na zgłoszenie odpowiadamy do 24 h w dni robocze: oddzwonimy albo odpiszemy.",
+    "open": false
+   },
+   {
+    "n": "09",
+    "q": "Czy ładowarka współpracuje z fotowoltaiką?",
+    "a": "Ładowanie można zaplanować na godziny produkcji z paneli. Czy ładowarka sama dopasuje moc do nadwyżki prądu, zależy od modelu i falownika. Sprawdzamy to przy doborze.",
+    "open": false
+   }
+  ],
+  "rel": [
+   {
+    "k": "wifi",
+    "n": "Sieci i Wi-Fi",
+    "g": "Sieci i technika",
+    "href": "Sieci.dc.html",
+    "ic": "ikona:wifi",
+    "s": "Okablowanie, światłowód, Wi-Fi gości"
+   },
+   {
+    "k": "tel",
+    "n": "Teletechnika w budownictwie",
+    "g": "Sieci i technika",
+    "href": "Teletechnika.dc.html",
+    "ic": "ikona:build",
+    "s": "Dla deweloperów i wykonawców"
+   },
+   {
+    "k": "smart",
+    "n": "Smart home Ampio",
+    "g": "Komfort i obraz",
+    "href": "SmartHome.dc.html",
+    "ic": "ikona:home",
+    "s": "Polski system, działa bez internetu"
+   }
+  ],
+  "segRel": [
+   {
+    "k": "dom",
+    "g": "Dom i noclegi",
+    "n": "Dom i domek letniskowy",
+    "s": "Bezpieczny, gdy Cię nie ma",
+    "page": "SegDom",
+    "href": "SegDom.dc.html",
+    "ic": "ikona:home",
+    "h": "#7BD36A",
+    "hs": "--mh:#7BD36A",
+    "cls": ""
+   },
+   {
+    "k": "pens",
+    "g": "Dom i noclegi",
+    "n": "Pensjonat",
+    "s": "Wi-Fi i TV w pokojach, kamery na zewnątrz",
+    "page": "Noclegowe",
+    "href": "Noclegowe.dc.html",
+    "ic": "ikona:bed",
+    "h": "#F29A4B",
+    "hs": "--mh:#F29A4B",
+    "cls": ""
+   },
+   {
+    "k": "hotel",
+    "g": "Dom i noclegi",
+    "n": "Hotel",
+    "s": "Recepcja 24/7, sale, SPA",
+    "page": "SegHotel",
+    "href": "SegHotel.dc.html",
+    "ic": "ikona:hotel",
+    "h": "#E86FB0",
+    "hs": "--mh:#E86FB0",
+    "cls": ""
+   },
+   {
+    "k": "firma",
+    "g": "Firmy",
+    "n": "Firma, biuro i hala",
+    "s": "Wejścia, rampa, sieć firmowa",
+    "page": "SegFirma",
+    "href": "SegFirma.dc.html",
+    "ic": "ikona:factory",
+    "h": "#5B8CF0",
+    "hs": "--mh:#5B8CF0",
+    "cls": ""
+   }
+  ],
+  "hasSegRel": true,
+  "segRelH": "Dla kogo robimy tę instalację",
+  "sx": {
+   "faqA": {
+    "t": "Masz inne pytanie?",
+    "d": "Wyślij zdjęcie obiektu albo obecnej instalacji. Powiemy, od czego zacząć i czego się spodziewać.",
+    "cta": "Zaplanuj instalację",
+    "href": "Zaplanuj.dc.html"
+   },
+   "faqH": "Zanim zadzwonisz.",
+   "relH": "Ładowarka w systemie budynku.",
+   "pkg": {
+    "eye": "Przykładowe zestawy",
+    "h": "Ładowarka z montażem i formalnościami.",
+    "p": "Cena zależy głównie od modelu, odległości od rozdzielnicy i stanu przyłącza.",
+    "note": "Do wyceny wystarczą zdjęcia rozdzielnicy, licznika i miejsca montażu. Ostateczną cenę podajemy na piśmie."
+   },
+   "cena": {
+    "btn": "Wyślij zdjęcia do wyceny",
+    "eye": "Wycena",
+    "h": "Od czego zależy cena ładowarki.",
+    "p": "Sama ładowarka to tylko część kosztu. Resztę robi przewód, rozdzielnica i formalności."
+   }
+  },
+  "ev": {
+   "paths": [
+    {
+     "n": "Dom",
+     "ic": "ikona:home",
+     "on": "true",
+     "cls": "on"
+    },
+    {
+     "n": "Obiekt z gośćmi",
+     "ic": "ikona:bed",
+     "on": "false",
+     "cls": ""
+    },
+    {
+     "n": "Parking obiektu",
+     "ic": "ikona:car",
+     "on": "false",
+     "cls": ""
+    }
+   ],
+   "dev": "Elzab CC Home",
+   "scls": "evs",
+   "winter": true,
+   "flakes": [
+    {
+     "x": 0,
+     "y": 0,
+     "r": 1.2,
+     "st": "animation-duration:5s;animation-delay:-0s"
+    },
+    {
+     "x": 53,
+     "y": 37,
+     "r": 1.7999999999999998,
+     "st": "animation-duration:6s;animation-delay:-1s"
+    },
+    {
+     "x": 106,
+     "y": 74,
+     "r": 2.4,
+     "st": "animation-duration:7s;animation-delay:-2s"
+    },
+    {
+     "x": 159,
+     "y": 111,
+     "r": 1.2,
+     "st": "animation-duration:8s;animation-delay:-3s"
+    },
+    {
+     "x": 212,
+     "y": 28,
+     "r": 1.7999999999999998,
+     "st": "animation-duration:9s;animation-delay:-4s"
+    },
+    {
+     "x": 265,
+     "y": 65,
+     "r": 2.4,
+     "st": "animation-duration:5s;animation-delay:-5s"
+    },
+    {
+     "x": 318,
+     "y": 102,
+     "r": 1.2,
+     "st": "animation-duration:6s;animation-delay:-6s"
+    },
+    {
+     "x": 371,
+     "y": 19,
+     "r": 1.7999999999999998,
+     "st": "animation-duration:7s;animation-delay:-0s"
+    },
+    {
+     "x": 424,
+     "y": 56,
+     "r": 2.4,
+     "st": "animation-duration:8s;animation-delay:-1s"
+    },
+    {
+     "x": 477,
+     "y": 93,
+     "r": 1.2,
+     "st": "animation-duration:9s;animation-delay:-2s"
+    },
+    {
+     "x": 530,
+     "y": 10,
+     "r": 1.7999999999999998,
+     "st": "animation-duration:5s;animation-delay:-3s"
+    },
+    {
+     "x": 583,
+     "y": 47,
+     "r": 2.4,
+     "st": "animation-duration:6s;animation-delay:-4s"
+    },
+    {
+     "x": 636,
+     "y": 84,
+     "r": 1.2,
+     "st": "animation-duration:7s;animation-delay:-5s"
+    },
+    {
+     "x": 49,
+     "y": 1,
+     "r": 1.7999999999999998,
+     "st": "animation-duration:8s;animation-delay:-6s"
+    },
+    {
+     "x": 102,
+     "y": 38,
+     "r": 2.4,
+     "st": "animation-duration:9s;animation-delay:-0s"
+    },
+    {
+     "x": 155,
+     "y": 75,
+     "r": 1.2,
+     "st": "animation-duration:5s;animation-delay:-1s"
+    },
+    {
+     "x": 208,
+     "y": 112,
+     "r": 1.7999999999999998,
+     "st": "animation-duration:6s;animation-delay:-2s"
+    },
+    {
+     "x": 261,
+     "y": 29,
+     "r": 2.4,
+     "st": "animation-duration:7s;animation-delay:-3s"
+    },
+    {
+     "x": 314,
+     "y": 66,
+     "r": 1.2,
+     "st": "animation-duration:8s;animation-delay:-4s"
+    },
+    {
+     "x": 367,
+     "y": 103,
+     "r": 1.7999999999999998,
+     "st": "animation-duration:9s;animation-delay:-5s"
+    },
+    {
+     "x": 420,
+     "y": 20,
+     "r": 2.4,
+     "st": "animation-duration:5s;animation-delay:-6s"
+    },
+    {
+     "x": 473,
+     "y": 57,
+     "r": 1.2,
+     "st": "animation-duration:6s;animation-delay:-0s"
+    },
+    {
+     "x": 526,
+     "y": 94,
+     "r": 1.7999999999999998,
+     "st": "animation-duration:7s;animation-delay:-1s"
+    },
+    {
+     "x": 579,
+     "y": 11,
+     "r": 2.4,
+     "st": "animation-duration:8s;animation-delay:-2s"
+    },
+    {
+     "x": 632,
+     "y": 48,
+     "r": 1.2,
+     "st": "animation-duration:9s;animation-delay:-3s"
+    },
+    {
+     "x": 45,
+     "y": 85,
+     "r": 1.7999999999999998,
+     "st": "animation-duration:5s;animation-delay:-4s"
+    }
+   ],
+   "kwTxt": "11 kW",
+   "pct": 10,
+   "fillSt": "width:18px",
+   "bat": 60,
+   "ranges": [
+    {
+     "n": "20 → 80%",
+     "on": "false",
+     "cls": ""
+    },
+    {
+     "n": "10 → 100%",
+     "on": "true",
+     "cls": "on"
+    },
+    {
+     "n": "40 → 80%",
+     "on": "false",
+     "cls": ""
+    }
+   ],
+   "pw": [
+    {
+     "n": "3,7 kW",
+     "on": "false",
+     "dis": "",
+     "tip": "",
+     "cls": ""
+    },
+    {
+     "n": "7,4 kW",
+     "on": "false",
+     "dis": "",
+     "tip": "",
+     "cls": ""
+    },
+    {
+     "n": "11 kW",
+     "on": "true",
+     "dis": "",
+     "tip": "",
+     "cls": "on"
+    },
+    {
+     "n": "22 kW",
+     "on": "false",
+     "dis": "true",
+     "tip": "CC Home: maks. 11 kW",
+     "cls": " xc-dis"
+    }
+   ],
+   "obc": [
+    {
+     "n": "7,4 kW",
+     "on": "false",
+     "cls": ""
+    },
+    {
+     "n": "11 kW",
+     "on": "true",
+     "cls": "on"
+    },
+    {
+     "n": "22 kW",
+     "on": "false",
+     "cls": ""
+    }
+   ],
+   "time": "4 h 55 min",
+   "kwh": "54,0",
+   "eff": "11",
+   "phase": "3 fazy, 16 A",
+   "note": "Elzab CC Home ładuje z mocą do 11 kW (3 fazy). Do 22 kW potrzebna jest ładowarka CC Wall. Czas liczymy jako energia ÷ moc. W praktyce bywa trochę dłużej: auto zwalnia ładowanie pod koniec, a część energii idzie na straty. Auto pobiera tyle, ile pozwala jego ładowarka pokładowa."
+  },
+  "sh": {
+   "tabs": [
+    {
+     "n": "CC Home",
+     "on": "true",
+     "cls": "on"
+    },
+    {
+     "n": "CC Wall",
+     "on": "false",
+     "cls": ""
+    },
+    {
+     "n": "CC City",
+     "on": "false",
+     "cls": ""
+    }
+   ],
+   "items": [
+    {
+     "src": "ev/home.webp",
+     "alt": "Ładowarka Elzab EcoPower CC Home, okrągła, naścienna, z przewodem",
+     "cls": "evi evi-h on"
+    },
+    {
+     "src": "ev/wall.webp",
+     "alt": "Ładowarka Elzab EcoPower CC Wall, biała obudowa z czarnym frontem",
+     "cls": "evi evi-w"
+    },
+    {
+     "src": "ev/city.webp",
+     "alt": "Wolnostojąca stacja ładowania Elzab EcoPower CC City",
+     "cls": "evi evi-c"
+    }
+   ],
+   "k": "Dom i garaż",
+   "n": "CC Home",
+   "d": "Okrągła ładowarka do garażu. Podłączasz auto i ładujesz, bez kart i aplikacji.",
+   "pw": "3,7–11 kW",
+   "pwS": "1 punkt ładowania",
+   "sp": [
+    {
+     "k": "Moc",
+     "v": "3,7 / 7,4 / 11 kW"
+    },
+    {
+     "k": "Obudowa",
+     "v": "IP44, IK08"
+    },
+    {
+     "k": "Wyjście",
+     "v": "gniazdo lub przewód 5 m"
+    }
+   ]
+  },
+  "prods": [
+   {
+    "n": "CC Home",
+    "k": "Dom i garaż",
+    "who": "Dom, garaż, wiata",
+    "d": "Okrągła ładowarka do garażu. Podłączasz auto i ładujesz, bez kart i aplikacji.",
+    "pw": "3,7–11 kW",
+    "pwS": "1 punkt ładowania",
+    "f": [
+     "1 faza 3,7 lub 7,4 kW albo 3 fazy 11 kW",
+     "Montaż na ścianie w garażu lub pod wiatą",
+     "Tryb domowy: bez autoryzacji, status na diodzie LED",
+     "Średnica 361 mm, masa 5 kg"
+    ],
+    "v": [
+     "3,7 kW",
+     "7,4 kW",
+     "11 kW"
+    ],
+    "src": "ev/home.webp",
+    "alt": "Ładowarka Elzab EcoPower CC Home, okrągła, naścienna, z przewodem",
+    "ic2": "evi evi-h",
+    "cls": "card evcard ri"
+   },
+   {
+    "n": "CC Wall",
+    "k": "Firma i obiekt",
+    "who": "Pensjonat, hotel, firma, flota",
+    "d": "Ładowarka ścienna na jedno albo dwa auta. Dostęp na kartę RFID lub w aplikacji, na ścianę albo na podstawę.",
+    "pw": "do 2×22 kW",
+    "pwS": "1 lub 2 punkty ładowania",
+    "f": [
+     "Od 1×11 do 2×22 kW, gniazdo lub wtyk Typ 2",
+     "Na ścianę albo na dedykowaną podstawę",
+     "Karty RFID, aplikacja, OCPP, dzielenie mocy",
+     "Osobne zabezpieczenia każdego punktu"
+    ],
+    "v": [
+     "1×11 kW",
+     "2×22 kW",
+     "6 kolorów"
+    ],
+    "src": "ev/wall.webp",
+    "alt": "Ładowarka Elzab EcoPower CC Wall, biała obudowa z czarnym frontem",
+    "ic2": "evi evi-w",
+    "cls": "card evcard ri hot"
+   },
+   {
+    "n": "CC City",
+    "k": "Parking",
+    "who": "Parking hotelu, firmy, sklepu",
+    "d": "Wolnostojąca stacja na parking. Dwa auta naraz, licznik MID i połączenie z systemem rozliczeń.",
+    "pw": "do 2×22 kW",
+    "pwS": "1 lub 2 punkty ładowania",
+    "f": [
+     "Od 1×11 do 2×22 kW, gniazdo lub przewód Typ 2",
+     "Stal ocynkowana, malowana proszkowo, IP54, IK10",
+     "RFID, aplikacja albo plug & charge",
+     "Licznik MID, łączność GSM, OCPP 1.5/1.6"
+    ],
+    "v": [
+     "1 punkt",
+     "2 punkty",
+     "MID"
+    ],
+    "src": "ev/city.webp",
+    "alt": "Wolnostojąca stacja ładowania Elzab EcoPower CC City",
+    "ic2": "evi evi-c",
+    "cls": "card evcard ri"
+   }
+  ],
+  "extras": [
+   {
+    "ic": "ikona:build",
+    "t": "Podstawa do CC Wall",
+    "d": "Ładowarka ścienna staje na parkingu bez ściany."
+   },
+   {
+    "ic": "ikona:plug",
+    "t": "Przewód 7,5 m",
+    "d": "Do CC Wall, w wersji 1- lub 3-fazowej."
+   },
+   {
+    "ic": "ikona:card",
+    "t": "Karty RFID",
+    "d": "Dla gości, pracowników i floty."
+   },
+   {
+    "ic": "ikona:cloud",
+    "t": "Rozliczanie ładowania",
+    "d": "OCPP i aplikacja, gdy ładowanie ma być płatne."
+   }
+  ],
+  "cf": {
+   "opts": [
+    {
+     "l": "Punkty ładowania",
+     "ch": [
+      {
+       "n": "1 auto",
+       "on": "false",
+       "cls": ""
+      },
+      {
+       "n": "2 auta naraz",
+       "on": "true",
+       "cls": "on"
+      }
+     ]
+    },
+    {
+     "l": "Moc na punkt",
+     "ch": [
+      {
+       "n": "11 kW",
+       "on": "false",
+       "cls": ""
+      },
+      {
+       "n": "22 kW",
+       "on": "true",
+       "cls": "on"
+      }
+     ]
+    },
+    {
+     "l": "Wyjście",
+     "ch": [
+      {
+       "n": "Gniazdo Typ 2",
+       "on": "true",
+       "cls": "on"
+      },
+      {
+       "n": "Przewód 7,5 m",
+       "on": "false",
+       "cls": ""
+      }
+     ]
+    },
+    {
+     "l": "Montaż",
+     "ch": [
+      {
+       "n": "Na ścianę",
+       "on": "true",
+       "cls": "on"
+      },
+      {
+       "n": "Na podstawie",
+       "on": "false",
+       "cls": ""
+      }
+     ]
+    }
+   ],
+   "title": "CC Wall · 2×22 kW · gniazdo · na ścianę",
+   "out": [
+    {
+     "k": "Moc ładowania",
+     "v": "2×22 kW"
+    },
+    {
+     "k": "Zasilanie",
+     "v": "3 fazy, 2×32 A"
+    },
+    {
+     "k": "Montaż",
+     "v": "na ścianie"
+    },
+    {
+     "k": "Obudowa",
+     "v": "IP54, IK10, −25 do +40°C"
+    },
+    {
+     "k": "Dostęp",
+     "v": "karta RFID, aplikacja"
+    },
+    {
+     "k": "Wymiary",
+     "v": "688×452×238 mm, 39 kg"
+    }
+   ],
+   "inst": "Do pełnej mocy przyłącze potrzebuje zapasu ok. 64 A na fazę. Gdy go brakuje, dzielenie mocy rozkłada prąd między oba auta.",
+   "href": "Zaplanuj.dc.html#obiekt=firma&uslugi=ev",
+   "cols": [
+    {
+     "n": "Czarny",
+     "st": "background:#1E2224",
+     "on": "false",
+     "cls": "evswb"
+    },
+    {
+     "n": "Biały",
+     "st": "background:#F4F5F2",
+     "on": "true",
+     "cls": "evswb on"
+    },
+    {
+     "n": "Szary",
+     "st": "background:#8E9599",
+     "on": "false",
+     "cls": "evswb"
+    },
+    {
+     "n": "Niebieski",
+     "st": "background:#2F5E9E",
+     "on": "false",
+     "cls": "evswb"
+    },
+    {
+     "n": "Zielony",
+     "st": "background:#5D9E46",
+     "on": "false",
+     "cls": "evswb"
+    },
+    {
+     "n": "Brązowy",
+     "st": "background:#7A5638",
+     "on": "false",
+     "cls": "evswb"
+    }
+   ],
+   "colN": "Biały",
+   "colSt": "background:#F4F5F2",
+   "models": [
+    {
+     "n": "CC Home",
+     "on": "false",
+     "cls": ""
+    },
+    {
+     "n": "CC Wall",
+     "on": "true",
+     "cls": "on"
+    },
+    {
+     "n": "CC City",
+     "on": "false",
+     "cls": ""
+    }
+   ],
+   "src": "ev/wall.webp",
+   "alt": "Ładowarka Elzab EcoPower CC Wall, biała obudowa z czarnym frontem",
+   "icls": "evi evi-w on",
+   "n": "CC Wall",
+   "wall": true
+  },
+  "kTips": [
+   "Do ładowania nocą w domu zwykle wystarcza 7,4 albo 11 kW.",
+   "Mocniejsza ładowarka nie przyspieszy auta, które przyjmuje mniej.",
+   "22 kW ma sens przy dwóch autach, flocie albo krótkich postojach gości."
+  ],
+  "devt": [
+   {
+    "k": "Dla kogo",
+    "a": "dom, garaż, wiata",
+    "b": "firma, pensjonat, hotel, flota",
+    "c": "parking hotelu, firmy, sklepu"
+   },
+   {
+    "k": "Moc",
+    "a": "3,7 / 7,4 kW (1 faza) lub 11 kW (3 fazy)",
+    "b": "od 1×11 do 2×22 kW",
+    "c": "od 1×11 do 2×22 kW"
+   },
+   {
+    "k": "Punkty ładowania",
+    "a": "1",
+    "b": "1 lub 2",
+    "c": "1 lub 2"
+   },
+   {
+    "k": "Wyjście",
+    "a": "gniazdo Typ 2 lub przewód 5 m",
+    "b": "gniazdo lub wtyk Typ 2, opcja przewód 7,5 m",
+    "c": "gniazdo lub przewód Typ 2"
+   },
+   {
+    "k": "Montaż",
+    "a": "naścienny, wewnątrz lub pod wiatą",
+    "b": "ściana lub dedykowana podstawa",
+    "c": "wolnostojąca, na fundamencie"
+   },
+   {
+    "k": "Szczelność i odporność",
+    "a": "IP44, IK08",
+    "b": "IP54, IK10",
+    "c": "IP54, IK10"
+   },
+   {
+    "k": "Dostęp",
+    "a": "tryb domowy, bez autoryzacji",
+    "b": "karta RFID, aplikacja",
+    "c": "karta RFID, aplikacja, plug & charge"
+   },
+   {
+    "k": "Łączność i OCPP",
+    "a": "—",
+    "b": "OCPP, praca offline lub online",
+    "c": "GSM, OCPP 1.5/1.6, Modbus RS485"
+   },
+   {
+    "k": "Dzielenie mocy",
+    "a": "—",
+    "b": "tak (DLM)",
+    "c": "tak"
+   },
+   {
+    "k": "Licznik MID",
+    "a": "—",
+    "b": "zależnie od wersji",
+    "c": "tak"
+   },
+   {
+    "k": "Wymiary i masa",
+    "a": "Ø361 mm, 5 kg",
+    "b": "688×452×238 mm, 39 kg",
+    "c": "1360×262×217 mm, 60 kg"
+   },
+   {
+    "k": "Obudowa",
+    "a": "poliwęglan i metal",
+    "b": "kilka kolorów do wyboru",
+    "c": "stal ocynkowana, malowana proszkowo"
+   },
+   {
+    "k": "Temperatura pracy",
+    "a": "−25 do +40°C",
+    "b": "−25 do +40°C",
+    "c": "−25 do +40°C"
+   }
+  ],
+  "form": [
+   {
+    "ic": "ikona:bolt",
+    "t": "Moc przyłącza",
+    "d": "Sprawdzamy rozdzielnicę i moc umowną. 11 kW wymaga trzech faz. Gdy mocy jest mało, ustawiamy niższą moc albo dzielenie mocy między stacje.",
+    "s": "Wycenę zaczynamy od zdjęcia rozdzielnicy i licznika."
+   },
+   {
+    "ic": "ikona:shield",
+    "t": "Badanie UDT",
+    "d": "Ustawa o elektromobilności (art. 16) przewiduje badanie UDT przed oddaniem stacji do eksploatacji, także po naprawie lub modernizacji. Czy dotyczy Twojej ładowarki, zależy m.in. od tego, kto z niej korzysta. Sprawdzamy to przy projekcie i pomagamy w zgłoszeniu.",
+    "s": ""
+   },
+   {
+    "ic": "ikona:users",
+    "t": "Ładowarka w bloku i we wspólnocie",
+    "d": "W budynku z więcej niż trzema lokalami mieszkalnymi potrzebna jest zgoda zarządcy. Zarządca w 30 dni od wniosku zleca ekspertyzę (nie trzeba jej, gdy budynek ma instalację pod ładowarki), a wniosek rozpatruje w 30 dni od jej otrzymania. We wspólnocie mieszkaniowej zgoda na punkt ładowania o mocy mniejszej niż 11 kW jest czynnością zwykłego zarządu.",
+    "s": ""
+   },
+   {
+    "ic": "ikona:globe",
+    "t": "Stacja ogólnodostępna",
+    "d": "Stację dostępną dla wszystkich kierowców realizujemy na zapytanie, z partnerem, który zostaje operatorem stacji, rejestruje ją w Ewidencji Infrastruktury Paliw Alternatywnych (EIPA) i rozlicza ładowanie.",
+    "s": ""
+   }
+  ]
+ }
+}

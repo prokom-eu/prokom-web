@@ -1,0 +1,729 @@
+{
+ "_strona": "SegHotel",
+ "_title": "Wi-Fi, TV i zamki na karty dla hoteli — Zakopane | PRO-KOM",
+ "_description": "Wi-Fi zgodne z nową kategoryzacją i protokół pomiarów, TV w pokojach, zamki na karty, monitoring i sale konferencyjne. Hotele w Zakopanem i na Podhalu.",
+ "_uwaga": "Zrzut danych z wizualizacji v4.0 (stan początkowy strony, motyw jasny). Teksty = treść do seeda. Klucze UI (cls, on, pick) pomijaj.",
+ "dane": {
+  "ctaEye": "Hotel",
+  "ctaH": "Zmierzymy Wi-Fi w Twoim hotelu i powiemy, co trzeba zrobić do marca 2027.",
+  "ctaP": "Pomiar zasięgu i pojemności, projekt i wycena na piśmie, prace w terminach niskiego obłożenia, protokół pomiarów Wi-Fi. Zakres dokumentacji ustalamy przed pracami.",
+  "hero": {
+   "mid": true,
+   "midT": "Dla kogo",
+   "midH": "Main.dc.html#dla-kogo",
+   "cta": "Zaplanuj instalację",
+   "ctaHref": "Zaplanuj.dc.html#obiekt=hotel",
+   "crumb": "Hotel",
+   "eye": "Instalacje dla hoteli · Zakopane, Białka, Bukowina, Podhale",
+   "h1a": "Wi-Fi w każdym pokoju to już wymóg kategoryzacji.",
+   "h1b": "Zróbmy je tak, żeby goście chwalili je w opiniach.",
+   "lead": "Sieć zaprojektowana na setki urządzeń, telewizja w pokojach z jednej szafy, zamki na karty połączone z systemem rezerwacji, monitoring wjazdu, lobby i korytarzy, nagłośnienie sal konferencyjnych i pokoje, które same oszczędzają energię.",
+   "kv": [
+    {
+     "b": "15.03.2027",
+     "s": "termin Wi-Fi dla skategoryzowanych hoteli"
+    },
+    {
+     "b": "24 mies.",
+     "s": "gwarancji na montaż"
+    },
+    {
+     "b": "do 24 h",
+     "s": "odpowiedź na zgłoszenie w dni robocze"
+    }
+   ],
+   "tags": [
+    {
+     "n": "Wi-Fi z protokołem pomiarów"
+    },
+    {
+     "n": "TV w pokojach"
+    },
+    {
+     "n": "Zamki na karty"
+    },
+    {
+     "n": "Sale konferencyjne"
+    }
+   ]
+  },
+  "anc": [
+   {
+    "href": "#problemy",
+    "n": "Problemy"
+   },
+   {
+    "href": "#rok",
+    "n": "Doba w hotelu"
+   },
+   {
+    "href": "#przepisy",
+    "n": "Przepisy"
+   },
+   {
+    "href": "#gory",
+    "n": "Podhale"
+   },
+   {
+    "href": "#pakiety",
+    "n": "Zestawy"
+   },
+   {
+    "href": "#przygotuj",
+    "n": "Przed wizytą"
+   },
+   {
+    "href": "#faq",
+    "n": "Pytania"
+   }
+  ],
+  "pkgs": [
+   {
+    "n": "Zgodność Wi-Fi",
+    "d": "Sieć zgodna z nową kategoryzacją.",
+    "ic": "ikona:check",
+    "f": [
+     "Pomiar i projekt Wi-Fi",
+     "Punkty w pokojach i strefach wspólnych",
+     "Protokół pomiarów",
+     "Monitoring wjazdu i parkingu",
+     "Zasilanie awaryjne sieci"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "hot": false,
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri"
+   },
+   {
+    "n": "Hotel",
+    "d": "Pełna obsługa gości.",
+    "ic": "ikona:hotel",
+    "hot": true,
+    "f": [
+     "Wszystko z zestawu Zgodność Wi-Fi",
+     "Telewizja w pokojach z jednej szafy",
+     "Zamki na karty połączone z rezerwacjami",
+     "Kamery lobby, korytarzy i zaplecza",
+     "Ekran w recepcji"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri hot"
+   },
+   {
+    "n": "Hotel z salami",
+    "d": "Konferencje, SPA, restauracja.",
+    "ic": "ikona:users",
+    "f": [
+     "Wszystko z zestawu Hotel",
+     "Nagłośnienie i ekrany w salach",
+     "Muzyka strefowa w lobby i restauracji",
+     "Samodzielne meldowanie całą dobę",
+     "Pokoje według obecności (Ampio)"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "hot": false,
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri"
+   }
+  ],
+  "cena": [],
+  "faq": [
+   {
+    "n": "01",
+    "q": "Czy Wi-Fi w hotelu jest teraz obowiązkowe?",
+    "a": "Tak, w pokojach i strefach wspólnych. Hotele już skategoryzowane mają czas do 15.03.2027 (szczegóły w sekcji „Przepisy”). Robimy pomiar zasięgu i pojemności i zostawiamy protokół pomiarów.",
+    "open": true
+   },
+   {
+    "n": "02",
+    "q": "Mamy 3 gwiazdki. Czy możemy zrezygnować z nocnej recepcji?",
+    "a": "Nowe przepisy pozwalają, żeby w hotelu 3* całodobowe samodzielne zameldowanie i wymeldowanie zastąpiło recepcję 24 h. Technicznie potrzebny jest system rezerwacji połączony z zamkami lub automatem i wideodomofon przy wejściu. Spełnienie wymogu warto potwierdzić przy kategoryzacji.",
+    "open": false
+   },
+   {
+    "n": "03",
+    "q": "Czy nagłośnienie w lobby może służyć jako system ostrzegawczy?",
+    "a": "Nie. To osobny system ppoż. z certyfikowaną centralą (progi w sekcji „Przepisy”). Systemów pożarowych nie montujemy. Wskażemy firmę z uprawnieniami, a nasze nagłośnienie przygotujemy do wyciszenia sygnałem z jej systemu.",
+    "open": false
+   },
+   {
+    "n": "04",
+    "q": "Ile kamer potrzebuje hotel i jak długo trzymamy nagrania?",
+    "a": "To zależy od układu: wjazd, parking, wejścia, lobby, korytarze, zaplecze. Przy pracownikach nagrania najwyżej 3 miesiące, a zasady informowania są w sekcji „Przepisy”. Czas nadpisywania ustawiamy przy montażu.",
+    "open": false
+   },
+   {
+    "n": "05",
+    "q": "Czy zamki zadziałają, kiedy padnie internet albo serwer?",
+    "a": "Wybieramy systemy, które pracują lokalnie: zamki hotelowe trzymają uprawnienia w kartach albo w zamku i synchronizują zmiany po powrocie łącza. Serwer, switche i szafy zasilamy awaryjnie.",
+    "open": false
+   },
+   {
+    "n": "06",
+    "q": "Za telewizory płacimy abonament i licencje. Da się to ograniczyć?",
+    "a": "Opłaty zależą od liczby odbiorników i umów z organizacjami zbiorowego zarządzania (szczegóły w sekcji „Przepisy”). Doradzimy, ile odbiorników i jaki system dystrybucji sygnału ma sens.",
+    "open": false
+   },
+   {
+    "n": "07",
+    "q": "Czy automatyka pokoi naprawdę obniża rachunki?",
+    "a": "Badanie dla Departamentu Energii USA zmierzyło średnio 18,4% oszczędności na ogrzewaniu i chłodzeniu pokoi dzięki sterowaniu według obecności (od 10,8% do 26,5%). Efekt zależy od instalacji grzewczej i obłożenia, dlatego liczymy go dla konkretnego obiektu.",
+    "open": false
+   },
+   {
+    "n": "08",
+    "q": "Czy modernizację da się zrobić etapami, bez zamykania hotelu?",
+    "a": "Tak. Zaczynamy od pomiaru i projektu, potem szafa i kolejne piętra albo skrzydła, w terminach niskiego obłożenia. Kolejność ustalamy tak, żeby najpierw spełnić wymóg Wi-Fi z kategoryzacji. Cena zależy od liczby pokoi, sal i stanu okablowania, dlatego wycenę podajemy na piśmie po pomiarze.",
+    "open": false
+   }
+  ],
+  "rel": [
+   {
+    "k": "kam",
+    "n": "Monitoring i kamery",
+    "g": "Bezpieczeństwo",
+    "href": "Monitoring.dc.html",
+    "ic": "ikona:cam",
+    "s": "Kompletny system: kamery, rejestrator, dyski, PoE"
+   },
+   {
+    "k": "kd",
+    "n": "Kontrola dostępu i zamki",
+    "g": "Bezpieczeństwo",
+    "href": "Dostep.dc.html",
+    "ic": "ikona:lock",
+    "s": "Karty, kody, apartamenty"
+   },
+   {
+    "k": "wifi",
+    "n": "Sieci i Wi-Fi",
+    "g": "Sieci i technika",
+    "href": "Sieci.dc.html",
+    "ic": "ikona:wifi",
+    "s": "Okablowanie, światłowód, Wi-Fi gości"
+   },
+   {
+    "k": "ant",
+    "n": "Anteny RTV/SAT",
+    "g": "Sieci i technika",
+    "href": "Anteny.dc.html",
+    "ic": "ikona:dish",
+    "s": "Satelitarne, DVB-T2, zbiorcze, TV hotelowa"
+   },
+   {
+    "k": "smart",
+    "n": "Smart home Ampio",
+    "g": "Komfort i obraz",
+    "href": "SmartHome.dc.html",
+    "ic": "ikona:home",
+    "s": "Polski system, działa bez internetu"
+   },
+   {
+    "k": "snd",
+    "n": "Nagłośnienie",
+    "g": "Komfort i obraz",
+    "href": "Naglosnienie.dc.html",
+    "ic": "ikona:spk",
+    "s": "APART: restauracje, hotele, kościoły, sale"
+   },
+   {
+    "k": "scr",
+    "n": "Ekrany i digital signage",
+    "g": "Komfort i obraz",
+    "href": "Multimedia.dc.html",
+    "ic": "ikona:scr",
+    "s": "Witryny, menu board, recepcja, ściany wideo"
+   }
+  ],
+  "segRel": [
+   {
+    "k": "pens",
+    "g": "Dom i noclegi",
+    "n": "Pensjonat",
+    "s": "Wi-Fi i TV w pokojach, kamery na zewnątrz",
+    "page": "Noclegowe",
+    "href": "Noclegowe.dc.html",
+    "ic": "ikona:bed",
+    "h": "#F29A4B",
+    "hs": "--mh:#F29A4B",
+    "cls": ""
+   },
+   {
+    "k": "rest",
+    "g": "Firmy",
+    "n": "Restauracja i sala weselna",
+    "s": "Muzyka w strefach, menu na ekranach",
+    "page": "SegRestauracja",
+    "href": "SegRestauracja.dc.html",
+    "ic": "ikona:food",
+    "h": "#F07A6A",
+    "hs": "--mh:#F07A6A",
+    "cls": ""
+   },
+   {
+    "k": "apt",
+    "g": "Dom i noclegi",
+    "n": "Apartament na wynajem",
+    "s": "Gość wchodzi sam, Ty widzisz wszystko",
+    "page": "SegApartament",
+    "href": "SegApartament.dc.html",
+    "ic": "ikona:key",
+    "h": "#F2B84B",
+    "hs": "--mh:#F2B84B",
+    "cls": ""
+   }
+  ],
+  "hasSegRel": true,
+  "segRelH": "Podobne obiekty",
+  "sx": {
+   "faqA": {
+    "t": "Masz inne pytanie?",
+    "d": "Wyślij zdjęcie obiektu albo obecnej instalacji. Powiemy, od czego zacząć i czego się spodziewać.",
+    "cta": "Zaplanuj instalację",
+    "href": "Zaplanuj.dc.html"
+   },
+   "faqH": "Pytania hotelarzy.",
+   "relH": "Usługi, które łączymy w tym obiekcie.",
+   "pkg": {
+    "eye": "Zestawy dla hoteli",
+    "h": "Od pensjonatu z ambicjami po hotel z salami konferencyjnymi.",
+    "p": "",
+    "note": "To przykłady. Ostateczny zakres i cenę ustalamy po wizji lokalnej i podajemy na piśmie."
+   },
+   "cena": {
+    "btn": "Wyślij zdjęcia do wyceny",
+    "eye": "Wycena",
+    "h": "Co wpływa na cenę.",
+    "p": ""
+   }
+  },
+  "sg": {
+   "sceneT": "Przekrój hotelu z salą konferencyjną",
+   "hc": {
+    "k0": "hs on",
+    "k1": "hs",
+    "k2": "hs",
+    "k3": "hs",
+    "k4": "hs",
+    "k5": "hs",
+    "k6": "hs",
+    "k7": "hs",
+    "k8": "hs",
+    "k9": "hs",
+    "k10": "hs",
+    "k11": "hs"
+   },
+   "hp": {},
+   "zap": "Zaplanuj.dc.html#obiekt=hotel",
+   "prepEye": "Przed wizytą",
+   "prepLead": "Zaznacz, co już masz. Zdjęcia możesz wysłać w formularzu albo przez WhatsApp.",
+   "leg": [
+    {
+     "no": "1",
+     "t": "Wi-Fi w każdym pokoju i strefie wspólnej",
+     "on": "true",
+     "st": "--c:#5B8CF0",
+     "cls": "sglgb on"
+    },
+    {
+     "no": "2",
+     "t": "Telewizja w pokojach z jednej szafy",
+     "on": "false",
+     "st": "--c:#B58CF0",
+     "cls": "sglgb"
+    },
+    {
+     "no": "3",
+     "t": "Zamek na kartę albo klucz w telefonie",
+     "on": "false",
+     "st": "--c:#F2B84B",
+     "cls": "sglgb"
+    },
+    {
+     "no": "4",
+     "t": "Samodzielne meldowanie i wideodomofon",
+     "on": "false",
+     "st": "--c:#F2B84B",
+     "cls": "sglgb"
+    },
+    {
+     "no": "5",
+     "t": "Kamera wjazdu na parking",
+     "on": "false",
+     "st": "--c:#12B6D8",
+     "cls": "sglgb"
+    },
+    {
+     "no": "6",
+     "t": "Kamery w lobby i na korytarzach",
+     "on": "false",
+     "st": "--c:#12B6D8",
+     "cls": "sglgb"
+    },
+    {
+     "no": "7",
+     "t": "Nagłośnienie i mikrofony w sali",
+     "on": "false",
+     "st": "--c:#F29A4B",
+     "cls": "sglgb"
+    },
+    {
+     "no": "8",
+     "t": "Ekran i prezentacje bez kabli",
+     "on": "false",
+     "st": "--c:#E86FB0",
+     "cls": "sglgb"
+    },
+    {
+     "no": "9",
+     "t": "Ekran powitalny w recepcji",
+     "on": "false",
+     "st": "--c:#E86FB0",
+     "cls": "sglgb"
+    },
+    {
+     "no": "10",
+     "t": "Pokój sterowany według obecności",
+     "on": "false",
+     "st": "--c:#7BD36A",
+     "cls": "sglgb"
+    },
+    {
+     "no": "11",
+     "t": "Ładowarki na parkingu",
+     "on": "false",
+     "st": "--c:#5FD0B0",
+     "cls": "sglgb"
+    },
+    {
+     "no": "12",
+     "t": "Szafa: sieć, telewizja, rejestrator, UPS",
+     "on": "false",
+     "st": "--c:#5B8CF0",
+     "cls": "sglgb"
+    }
+   ],
+   "ly": [
+    {
+     "n": "Wszystko",
+     "on": "true",
+     "cls": "sglyb on"
+    },
+    {
+     "n": "Bezpieczeństwo",
+     "on": "false",
+     "cls": "sglyb"
+    },
+    {
+     "n": "Sieć i łączność",
+     "on": "false",
+     "cls": "sglyb"
+    },
+    {
+     "n": "Dźwięk i obraz",
+     "on": "false",
+     "cls": "sglyb"
+    },
+    {
+     "n": "Komfort i energia",
+     "on": "false",
+     "cls": "sglyb"
+    }
+   ],
+   "cur": {
+    "k": "h0",
+    "no": "1",
+    "t": "Wi-Fi w każdym pokoju i strefie wspólnej",
+    "d": "Projekt pojemności na setki urządzeń, punkty w pokojach i strefach wspólnych, osobne sieci dla gości, konferencji, recepcji i kamer. Na koniec protokół pomiarów.",
+    "sn": "Sieci i Wi-Fi",
+    "href": "Sieci.dc.html",
+    "st": "--c:#5B8CF0"
+   },
+   "pos": "1 z 12",
+   "pr": {
+    "eye": "Co słyszymy od hotelarzy",
+    "h": "Sześć spraw, które decydują o opiniach",
+    "ha": "i rachunkach.",
+    "lead": "W hotelu instalacje widać w opiniach gości i w rachunkach. Projektujemy na szczyt sezonu i planujemy prace na okresy niskiego obłożenia."
+   },
+   "prob": [
+    {
+     "q": "„Wi-Fi pada, gdy przyjeżdża konferencja”",
+     "d": "Sto pokoi to kilkaset urządzeń wieczorem, a do tego sala, w której wszyscy łączą laptopy w tej samej minucie.",
+     "fix": "Projekt pojemności, punkty w pokojach, osobne sieci i protokół pomiarów.",
+     "ic": "ikona:wifi",
+     "sn": "Sieci i Wi-Fi",
+     "href": "Sieci.dc.html",
+     "st": "--c:#5B8CF0"
+    },
+    {
+     "q": "„Telewizor w pokoju nie ma kanałów”",
+     "d": "Dystrybucja sygnału do kilkudziesięciu odbiorników robiona latami przez różne firmy.",
+     "fix": "Jedna szafa i ten sam zestaw kanałów w każdym pokoju, zestawienie odbiorników do rozliczeń.",
+     "ic": "ikona:tv",
+     "sn": "Anteny RTV/SAT",
+     "href": "Anteny.dc.html",
+     "st": "--c:#B58CF0"
+    },
+    {
+     "q": "„Zgubione karty i drzwi do SPA”",
+     "d": "Karty do pokoi, strefy personelu, SPA i sale. Każdy system osobno.",
+     "fix": "Zamki hotelowe połączone z systemem rezerwacji i kontrola dostępu do stref.",
+     "ic": "ikona:card",
+     "sn": "Kontrola dostępu i zamki",
+     "href": "Dostep.dc.html",
+     "st": "--c:#F2B84B"
+    },
+    {
+     "q": "„Nocna recepcja to duży koszt poza sezonem”",
+     "d": "Całodobowa recepcja w mniejszym hotelu zjada marżę poza sezonem.",
+     "fix": "Samodzielne meldowanie, kody albo karty z automatu i wideodomofon przy wejściu.",
+     "ic": "ikona:clock",
+     "sn": "Kontrola dostępu i zamki",
+     "href": "Dostep.dc.html",
+     "st": "--c:#F2B84B"
+    },
+    {
+     "q": "„Klimatyzacja chodzi w pustych pokojach”",
+     "d": "Pokoje gości to zwykle 40–80% zużycia energii hotelu (raport PNNL dla Departamentu Energii USA).",
+     "fix": "Sterowanie pokojem według obecności i tryb pustego pokoju.",
+     "ic": "ikona:thermo",
+     "sn": "Smart home Ampio",
+     "href": "SmartHome.dc.html",
+     "st": "--c:#7BD36A"
+    },
+    {
+     "q": "„Nagłośnienie sali to loteria”",
+     "d": "Piszczące mikrofony i kable po podłodze przy każdej konferencji.",
+     "fix": "Stałe nagłośnienie z mikrofonami, strefami i prostym sterowaniem dla obsługi.",
+     "ic": "ikona:spk",
+     "sn": "Nagłośnienie",
+     "href": "Naglosnienie.dc.html",
+     "st": "--c:#F29A4B"
+    }
+   ],
+   "day": {
+    "eye": "Doba w hotelu w ferie",
+    "h": "Od śniadania do zameldowania o północy.",
+    "lead": "Tak pracują instalacje hotelu przez jedną dobę w pełnym obłożeniu.",
+    "k": "d0",
+    "pg": "width:17%",
+    "items": [
+     {
+      "tm": "7:00",
+      "n": "Śniadania",
+      "on": "true",
+      "cls": "sgdb on"
+     },
+     {
+      "tm": "9:30",
+      "n": "Konferencja",
+      "on": "false",
+      "cls": "sgdb"
+     },
+     {
+      "tm": "11:00",
+      "n": "Pokój pusty",
+      "on": "false",
+      "cls": "sgdb"
+     },
+     {
+      "tm": "18:00",
+      "n": "Kolacja i wieczór",
+      "on": "false",
+      "cls": "sgdb"
+     },
+     {
+      "tm": "23:50",
+      "n": "Późne zameldowanie",
+      "on": "false",
+      "cls": "sgdb"
+     },
+     {
+      "tm": "3:00",
+      "n": "Noc",
+      "on": "false",
+      "cls": "sgdb"
+     }
+    ],
+    "cur": {
+     "tm": "7:00",
+     "n": "Śniadania",
+     "d": "Muzyka w restauracji gra cicho, ekran w recepcji pokazuje warunki na stokach, a goście łączą się z Wi-Fi bez wpisywania hasła na nowo.",
+     "ic": "ikona:coffee",
+     "st": "--c:#F29A4B",
+     "ch": [
+      {
+       "n": "Nagłośnienie",
+       "href": "Naglosnienie.dc.html",
+       "st": "--c:#F29A4B"
+      },
+      {
+       "n": "Ekrany i transmisja",
+       "href": "Multimedia.dc.html",
+       "st": "--c:#E86FB0"
+      }
+     ],
+     "hs": [
+      {
+       "no": "7",
+       "st": "--c:#F29A4B"
+      },
+      {
+       "no": "8",
+       "st": "--c:#E86FB0"
+      },
+      {
+       "no": "9",
+       "st": "--c:#E86FB0"
+      }
+     ]
+    }
+   },
+   "law": {
+    "h": "Kategoryzacja, ppoż., kamery i telewizory. Co mówią przepisy.",
+    "lead": "Hotel ma najwięcej obowiązków ze wszystkich obiektów noclegowych. Część z nich dotyczy instalacji, a część tylko obiektu.",
+    "items": [
+     {
+      "t": "Wi-Fi obowiązkowe w każdej kategorii",
+      "a": "Dz.U. 2026 poz. 1150",
+      "d": "Od 15.09.2026 Wi-Fi w pokojach i strefach wspólnych jest wymagane we wszystkich kategoriach hoteli i moteli. Obiekty już skategoryzowane mają czas do 15.03.2027. W 3* całodobowe samodzielne meldowanie może zastąpić nocną recepcję (warto to potwierdzić przy kategoryzacji).",
+      "who": "Hotel",
+      "wc": "sgwho o",
+      "href": "https://eli.gov.pl/eli/DU/2026/1150/ogl/pol/pdf",
+      "sl": "Dz.U. 2026 poz. 1150 (ELI)"
+     },
+     {
+      "t": "SSP i DSO to osobne systemy",
+      "a": "§ 28 i § 29 rozp. ppoż.",
+      "d": "System sygnalizacji pożarowej jest wymagany powyżej 50 miejsc noclegowych, a dźwiękowy system ostrzegawczy powyżej 200 miejsc albo w budynkach wysokich. Nagłośnienie muzyczne nie zastępuje DSO. Systemów pożarowych nie montujemy, a nasze nagłośnienie przygotowujemy do wyciszenia sygnałem z systemu pożarowego.",
+      "who": "Hotel",
+      "wc": "sgwho o",
+      "href": "https://arslege.pl/system-sygnalizacji-pozarowej/k310/a29356/",
+      "sl": "Rozporządzenie o ochronie ppoż., § 28 (arslege)"
+     },
+     {
+      "t": "Drzwi ewakuacyjne z kartą",
+      "a": "§ 4 ust. 1 pkt 14 rozp. ppoż.",
+      "d": "Drzwi ewakuacyjnych nie wolno zamykać tak, żeby nie dało się ich natychmiast otworzyć. Dlatego elektrozamek na drodze ewakuacyjnej zwalnia się sygnałem z systemu pożarowego lub przyciskiem awaryjnym. Rozwiązanie uzgadniamy z projektantem.",
+      "who": "Razem",
+      "wc": "sgwho r",
+      "href": "https://api.sejm.gov.pl/eli/acts/DU/2023/822/text.pdf",
+      "sl": "Rozporządzenie o ochronie ppoż. (PDF)"
+     },
+     {
+      "t": "Kamery a pracownicy i goście",
+      "a": "art. 22² Kodeksu pracy",
+      "d": "Nagrania najwyżej 3 miesiące, informacja dla pracowników 2 tygodnie przed uruchomieniem, tabliczki dla gości. Bez kamer w pokojach, łazienkach, szatniach SPA i saunie.",
+      "who": "Hotel",
+      "wc": "sgwho o",
+      "href": "https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU19740240141",
+      "sl": "Kodeks pracy (ISAP)"
+     },
+     {
+      "t": "Abonament za każdy telewizor",
+      "a": "abonament RTV",
+      "d": "Abonament RTV płaci się za każdy odbiornik osobno, w 2026 r. 30,50 zł miesięcznie za telewizor. Przygotujemy zestawienie odbiorników.",
+      "who": "Hotel",
+      "wc": "sgwho o",
+      "href": "https://eli.gov.pl/eli/DU/2025/885/ogl/pol/pdf",
+      "sl": "Dz.U. 2025 poz. 885, opłaty abonamentowe na 2026 r."
+     },
+     {
+      "t": "Sygnał w pokojach a licencje",
+      "a": "TSUE C-306/05",
+      "d": "Rozprowadzanie sygnału do pokoi to publiczne udostępnianie utworów, więc potrzebne są licencje organizacji zbiorowego zarządzania. Na przykład STOART liczy w 2026 r. stawkę od pokoju zależnie od kategorii hotelu.",
+      "who": "Hotel",
+      "wc": "sgwho o",
+      "href": "https://stoart.org.pl/upload/2026/05/tabela-noclegi-audio-stoart-waloryzacja-2026.pdf",
+      "sl": "STOART, tabela noclegi audio 2026 (PDF)"
+     }
+    ]
+   },
+   "gory": {
+    "h": "Pełne obłożenie, mały rynek i zima.",
+    "items": [
+     {
+      "ic": "ikona:hotel",
+      "t": "36 hoteli w Zakopanem",
+      "d": "Wśród 61 obiektów skategoryzowanych z ponad 6 tys. miejsc. Mały rynek, w którym każdy hotel walczy opiniami.",
+      "hasS": true,
+      "sh": "https://www.money.pl/finanse/zakopane-peka-w-szwach-tak-wzrosla-liczba-noclegow-7336305827326240a.html",
+      "sl": "money.pl / PAP, 04.10.2026"
+     },
+     {
+      "ic": "ikona:users",
+      "t": "58,9 mln turystów w 2025 r.",
+      "d": "Rekordowa liczba turystów w obiektach noclegowych w Polsce według GUS, o 11,6% więcej niż rok wcześniej.",
+      "hasS": true,
+      "sh": "https://stat.gov.pl/dla-mediow/informacje-prasowe/moda-na-polske-2025-rok-pod-znakiem-rekordow-w-turystyce,52,1.html",
+      "sl": "GUS, 06.02.2026"
+     },
+     {
+      "ic": "ikona:cal",
+      "t": "Szczyty bez okna serwisowego",
+      "d": "Ferie, Sylwester i długie weekendy. Prace planujemy na listopad, kwiecień i maj, a serwis prowadzimy w dużej części zdalnie.",
+      "hasS": false,
+      "sh": "",
+      "sl": ""
+     },
+     {
+      "ic": "ikona:bolt",
+      "t": "Zasilanie awaryjne",
+      "d": "Burze latem i oblodzenie zimą. Zasilanie awaryjne w szafach i ochrona przepięciowa między budynkami.",
+      "hasS": false,
+      "sh": "",
+      "sl": ""
+     }
+    ]
+   },
+   "hasReal": false,
+   "realH": "",
+   "real": [],
+   "ck": {
+    "n": 0,
+    "t": 7,
+    "st": "--p:0",
+    "cta": "Wyślij zdjęcia i opis →",
+    "items": [
+     {
+      "t": "Liczba pokoi i kategoria hotelu",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Rzuty kondygnacji albo plan ewakuacji",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "System rezerwacji i obecne zamki",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Jak dziś dociera telewizja do pokoi",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Sale konferencyjne i ich wyposażenie",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Kto prowadzi system pożarowy w obiekcie",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Terminy niskiego obłożenia na prace",
+      "on": "false",
+      "cls": "sgci"
+     }
+    ]
+   }
+  }
+ }
+}

@@ -1,0 +1,708 @@
+{
+ "_strona": "SegSklep",
+ "_title": "Monitoring i alarm dla sklepów — Zakopane, Podhale | PRO-KOM",
+ "_description": "Kamery z nagraniem przydatnym policji, alarm z czujką zbicia szyby, ekran w witrynie czytelny w słońcu i łącze zapasowe dla terminala. Sklepy na Podhalu.",
+ "_uwaga": "Zrzut danych z wizualizacji v4.0 (stan początkowy strony, motyw jasny). Teksty = treść do seeda. Klucze UI (cls, on, pick) pomijaj.",
+ "dane": {
+  "ctaEye": "Sklep i salon",
+  "ctaH": "Przyjedziemy przed otwarciem i zaplanujemy kamery pod to, co u Ciebie ginie.",
+  "ctaP": "Wizja lokalna, projekt i wycena na piśmie. Montaż poza godzinami ruchu, szkolenie z eksportu nagrań, a na życzenie przegląd przed sezonem.",
+  "hero": {
+   "mid": true,
+   "midT": "Dla kogo",
+   "midH": "Main.dc.html#dla-kogo",
+   "cta": "Zaplanuj instalację",
+   "ctaHref": "Zaplanuj.dc.html#obiekt=sklep",
+   "crumb": "Sklep i salon",
+   "eye": "Instalacje dla sklepów i salonów · Zakopane, Rabka, Podhale",
+   "h1a": "Mniej ginie z półek.",
+   "h1b": "Terminal ma łącze zapasowe, gdy padnie internet.",
+   "lead": "Kamery ustawione tak, żeby nagranie przydało się policji, alarm z czujką zbicia szyby i przyciskiem napadowym, ekran w witrynie czytelny w słońcu, muzyka z komunikatami i sieć z łączem zapasowym dla kasy i terminala.",
+   "kv": [
+    {
+     "b": "ok. 320 tys.",
+     "s": "kradzieży w sklepach w 2023 r. według policji"
+    },
+    {
+     "b": "24 mies.",
+     "s": "gwarancji na montaż"
+    },
+    {
+     "b": "do 24 h",
+     "s": "odpowiedź na zgłoszenie w dni robocze"
+    }
+   ],
+   "tags": [
+    {
+     "n": "Kamera wejścia na wysokości twarzy"
+    },
+    {
+     "n": "Alarm i przycisk napadowy"
+    },
+    {
+     "n": "Ekran w witrynie"
+    },
+    {
+     "n": "Łącze zapasowe"
+    }
+   ]
+  },
+  "anc": [
+   {
+    "href": "#problemy",
+    "n": "Problemy"
+   },
+   {
+    "href": "#rok",
+    "n": "Dzień w sezonie"
+   },
+   {
+    "href": "#przepisy",
+    "n": "Przepisy"
+   },
+   {
+    "href": "#gory",
+    "n": "Podhale"
+   },
+   {
+    "href": "#pakiety",
+    "n": "Zestawy"
+   },
+   {
+    "href": "#przygotuj",
+    "n": "Przed wizytą"
+   },
+   {
+    "href": "#faq",
+    "n": "Pytania"
+   }
+  ],
+  "pkgs": [
+   {
+    "n": "Butik",
+    "d": "Mały sklep do ok. 60 m².",
+    "ic": "ikona:shop",
+    "f": [
+     "4 kamery: wejście, kasa, sala, zaplecze",
+     "Alarm z czujką zbicia szyby",
+     "Przycisk napadowy",
+     "Osobna sieć dla kasy i terminala"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "hot": false,
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri"
+   },
+   {
+    "n": "Salon",
+    "d": "Sklep 60–300 m² z sezonowym ruchem.",
+    "ic": "ikona:eye",
+    "hot": true,
+    "f": [
+     "Wszystko z zestawu Butik",
+     "6–10 kamer, kamera wejścia na wysokości twarzy",
+     "Muzyka w strefach i mikrofon przy kasie",
+     "Ekran witrynowy o wysokiej jasności",
+     "Łącze zapasowe LTE/5G i alarm strefowy"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri hot"
+   },
+   {
+    "n": "Kilka punktów",
+    "d": "Sieć sklepów albo duży salon.",
+    "ic": "ikona:layers",
+    "f": [
+     "Zestaw Butik albo Salon w każdym punkcie",
+     "Wszystkie sklepy w jednej aplikacji",
+     "Kody na zaplecze i do magazynu",
+     "Treści ekranów i sieć zarządzane zdalnie",
+     "Przegląd przed sezonem"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "hot": false,
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri"
+   }
+  ],
+  "cena": [],
+  "faq": [
+   {
+    "n": "01",
+    "q": "Czy mogę nagrywać klientów w sklepie?",
+    "a": "Tak, w celu ochrony mienia, jeśli oznaczysz teren i podasz informację o monitoringu (jak to zrobić, piszemy w sekcji „Przepisy”). Bez kamer w przymierzalniach i toaletach.",
+    "open": true
+   },
+   {
+    "n": "02",
+    "q": "Jak długo przechowywać nagrania?",
+    "a": "Nagrania obejmujące pracowników najwyżej 3 miesiące, dłużej tylko jako dowód w sprawie. Wytyczne zalecają zwykle kilka dni. Ustawiamy automatyczne nadpisywanie i pokazujemy, jak szybko zabezpieczyć nagranie z kradzieży.",
+    "open": false
+   },
+   {
+    "n": "03",
+    "q": "Czy nagranie z kamery przyda się policji?",
+    "a": "Może się przydać, jeśli twarz jest czytelna, a obraz ma poprawną datę i godzinę. Dlatego kamerę przy wejściu montujemy na wysokości twarzy i synchronizujemy czas rejestratora. Uczymy, jak wyeksportować fragment w kilka minut.",
+    "open": false
+   },
+   {
+    "n": "04",
+    "q": "Czy ekran w witrynie musi być specjalny?",
+    "a": "Zwykły telewizor w słońcu jest nieczytelny i przegrzewa się. Ekrany witrynowe mają wielokrotnie wyższą jasność i są zrobione do pracy przez cały dzień. W Zakopanem sprawdzamy też zgodność z uchwałą krajobrazową.",
+    "open": false
+   },
+   {
+    "n": "05",
+    "q": "Czy za muzykę w sklepie trzeba płacić?",
+    "a": "Zwykle tak, także za radio (szczegóły w sekcji „Przepisy”). Umowę z organizacjami zbiorowego zarządzania zawiera sklep, my podłączamy dowolne źródło.",
+    "open": false
+   },
+   {
+    "n": "06",
+    "q": "Co, jeśli padnie internet przy pełnym sklepie?",
+    "a": "Router z łączem zapasowym LTE albo 5G sam przełączy się na zapas, a terminal i kasa powinny działać dalej, jeśli na miejscu jest zasięg. Zasięg sprawdzamy przy wizji lokalnej. Zasilanie awaryjne chroni sieć przed krótkim zanikiem prądu.",
+    "open": false
+   },
+   {
+    "n": "07",
+    "q": "Czy alarm może powiadomić agencję ochrony?",
+    "a": "Tak. Centrala z modułem LTE i internetem wysyła zdarzenia do aplikacji i do stacji monitorowania agencji. Przy obiektach, które potrzebują interwencji, współpracujemy z agencją ochrony.",
+    "open": false
+   },
+   {
+    "n": "08",
+    "q": "Od czego zależy cena monitoringu w sklepie?",
+    "a": "Od powierzchni i układu sali, liczby wejść i kas, tego, co i gdzie ginie, oraz od tego, czy da się poprowadzić kable bez kucia. Możesz zacząć od kamer wejścia i kasy, a alarm, ekran czy muzykę dołożyć później. Wycenę podajemy na piśmie po wizji lokalnej.",
+    "open": false
+   }
+  ],
+  "rel": [
+   {
+    "k": "kam",
+    "n": "Monitoring i kamery",
+    "g": "Bezpieczeństwo",
+    "href": "Monitoring.dc.html",
+    "ic": "ikona:cam",
+    "s": "Kompletny system: kamery, rejestrator, dyski, PoE"
+   },
+   {
+    "k": "alarm",
+    "n": "Alarmy i wideodomofony",
+    "g": "Bezpieczeństwo",
+    "href": "Alarmy.dc.html",
+    "ic": "ikona:bell",
+    "s": "Czujki, syreny, domofon z aplikacją"
+   },
+   {
+    "k": "kd",
+    "n": "Kontrola dostępu i zamki",
+    "g": "Bezpieczeństwo",
+    "href": "Dostep.dc.html",
+    "ic": "ikona:lock",
+    "s": "Karty, kody, apartamenty"
+   },
+   {
+    "k": "wifi",
+    "n": "Sieci i Wi-Fi",
+    "g": "Sieci i technika",
+    "href": "Sieci.dc.html",
+    "ic": "ikona:wifi",
+    "s": "Okablowanie, światłowód, Wi-Fi gości"
+   },
+   {
+    "k": "snd",
+    "n": "Nagłośnienie",
+    "g": "Komfort i obraz",
+    "href": "Naglosnienie.dc.html",
+    "ic": "ikona:spk",
+    "s": "APART: restauracje, hotele, kościoły, sale"
+   },
+   {
+    "k": "scr",
+    "n": "Ekrany i digital signage",
+    "g": "Komfort i obraz",
+    "href": "Multimedia.dc.html",
+    "ic": "ikona:scr",
+    "s": "Witryny, menu board, recepcja, ściany wideo"
+   }
+  ],
+  "segRel": [
+   {
+    "k": "rest",
+    "g": "Firmy",
+    "n": "Restauracja i sala weselna",
+    "s": "Muzyka w strefach, menu na ekranach",
+    "page": "SegRestauracja",
+    "href": "SegRestauracja.dc.html",
+    "ic": "ikona:food",
+    "h": "#F07A6A",
+    "hs": "--mh:#F07A6A",
+    "cls": ""
+   },
+   {
+    "k": "firma",
+    "g": "Firmy",
+    "n": "Firma, biuro i hala",
+    "s": "Wejścia, rampa, sieć firmowa",
+    "page": "SegFirma",
+    "href": "SegFirma.dc.html",
+    "ic": "ikona:factory",
+    "h": "#5B8CF0",
+    "hs": "--mh:#5B8CF0",
+    "cls": ""
+   }
+  ],
+  "hasSegRel": true,
+  "segRelH": "Podobne obiekty",
+  "sx": {
+   "faqA": {
+    "t": "Masz inne pytanie?",
+    "d": "Wyślij zdjęcie obiektu albo obecnej instalacji. Powiemy, od czego zacząć i czego się spodziewać.",
+    "cta": "Zaplanuj instalację",
+    "href": "Zaplanuj.dc.html"
+   },
+   "faqH": "Pytania właścicieli sklepów.",
+   "relH": "Usługi, które łączymy w tym obiekcie.",
+   "pkg": {
+    "eye": "Zestawy dla sklepów",
+    "h": "Od butiku po kilka sklepów w jednej aplikacji.",
+    "p": "",
+    "note": "To przykłady. Ostateczny zakres i cenę ustalamy po wizji lokalnej i podajemy na piśmie."
+   },
+   "cena": {
+    "btn": "Wyślij zdjęcia do wyceny",
+    "eye": "Wycena",
+    "h": "Co wpływa na cenę.",
+    "p": ""
+   }
+  },
+  "sg": {
+   "sceneT": "Przekrój sklepu z witryną",
+   "hc": {
+    "k0": "hs on",
+    "k1": "hs",
+    "k2": "hs",
+    "k3": "hs",
+    "k4": "hs",
+    "k5": "hs",
+    "k6": "hs",
+    "k7": "hs",
+    "k8": "hs",
+    "k9": "hs"
+   },
+   "hp": {},
+   "zap": "Zaplanuj.dc.html#obiekt=sklep",
+   "prepEye": "Przed wizytą",
+   "prepLead": "Zaznacz, co już masz. Zdjęcia możesz wysłać w formularzu albo przez WhatsApp.",
+   "leg": [
+    {
+     "no": "1",
+     "t": "Kamera przy wejściu, na wysokości twarzy",
+     "on": "true",
+     "st": "--c:#12B6D8",
+     "cls": "sglgb on"
+    },
+    {
+     "no": "2",
+     "t": "Kamera nad kasą",
+     "on": "false",
+     "st": "--c:#12B6D8",
+     "cls": "sglgb"
+    },
+    {
+     "no": "3",
+     "t": "Kamera w alejce z drogim towarem",
+     "on": "false",
+     "st": "--c:#12B6D8",
+     "cls": "sglgb"
+    },
+    {
+     "no": "4",
+     "t": "Ekran w witrynie, czytelny w słońcu",
+     "on": "false",
+     "st": "--c:#E86FB0",
+     "cls": "sglgb"
+    },
+    {
+     "no": "5",
+     "t": "Muzyka w strefach i komunikaty z kasy",
+     "on": "false",
+     "st": "--c:#F29A4B",
+     "cls": "sglgb"
+    },
+    {
+     "no": "6",
+     "t": "Czujka zbicia szyby i ruchu",
+     "on": "false",
+     "st": "--c:#F07A6A",
+     "cls": "sglgb"
+    },
+    {
+     "no": "7",
+     "t": "Przycisk napadowy przy kasie",
+     "on": "false",
+     "st": "--c:#F07A6A",
+     "cls": "sglgb"
+    },
+    {
+     "no": "8",
+     "t": "Sieć kasy i terminala z łączem zapasowym",
+     "on": "false",
+     "st": "--c:#5B8CF0",
+     "cls": "sglgb"
+    },
+    {
+     "no": "9",
+     "t": "Kod na zaplecze i dzwonek dla dostaw",
+     "on": "false",
+     "st": "--c:#F2B84B",
+     "cls": "sglgb"
+    },
+    {
+     "no": "10",
+     "t": "Harmonogram światła witryny",
+     "on": "false",
+     "st": "--c:#7BD36A",
+     "cls": "sglgb"
+    }
+   ],
+   "ly": [
+    {
+     "n": "Wszystko",
+     "on": "true",
+     "cls": "sglyb on"
+    },
+    {
+     "n": "Bezpieczeństwo",
+     "on": "false",
+     "cls": "sglyb"
+    },
+    {
+     "n": "Sieć i łączność",
+     "on": "false",
+     "cls": "sglyb"
+    },
+    {
+     "n": "Dźwięk i obraz",
+     "on": "false",
+     "cls": "sglyb"
+    },
+    {
+     "n": "Komfort i energia",
+     "on": "false",
+     "cls": "sglyb"
+    }
+   ],
+   "cur": {
+    "k": "h0",
+    "no": "1",
+    "t": "Kamera przy wejściu, na wysokości twarzy",
+    "d": "Kamera w kadrze wejścia, na wysokości twarzy, a nie pod sufitem. Tylko wtedy nagranie z kradzieży pokazuje, kto wszedł do sklepu.",
+    "sn": "Monitoring i kamery",
+    "href": "Monitoring.dc.html",
+    "st": "--c:#12B6D8"
+   },
+   "pos": "1 z 10",
+   "pr": {
+    "eye": "Co słyszymy od właścicieli sklepów",
+    "h": "Sześć problemów, które kosztują sklep",
+    "ha": "najwięcej.",
+    "lead": "Kamery i alarm planujemy pod konkretne ryzyko w Twoim sklepie, a nie według ilości. Najpierw pytamy, co i gdzie ginie."
+   },
+   "prob": [
+    {
+     "q": "„Na nagraniu widać tylko czubek głowy”",
+     "d": "Kamera pod sufitem nad drzwiami pokazuje sylwetkę, a nie twarz. Policja nie ma czego użyć.",
+     "fix": "Kamera w kadrze wejścia na wysokości twarzy, poprawny czas rejestratora i szybki eksport fragmentu.",
+     "ic": "ikona:cam",
+     "sn": "Monitoring i kamery",
+     "href": "Monitoring.dc.html",
+     "st": "--c:#12B6D8"
+    },
+    {
+     "q": "„Brakuje w utargu”",
+     "d": "Różnice w kasie bez dowodu, kiedy i jak powstały.",
+     "fix": "Kamera nad stanowiskiem kasowym bez widoku na klawiaturę terminala i wyszukiwanie nagrań według godziny z paragonu.",
+     "ic": "ikona:euro",
+     "sn": "Monitoring i kamery",
+     "href": "Monitoring.dc.html",
+     "st": "--c:#12B6D8"
+    },
+    {
+     "q": "„Terminal nie działa, kolejka ucieka”",
+     "d": "Router operatora pod ladą i terminal na Wi-Fi dla klientów. Awaria łącza w sezonie to stracony utarg.",
+     "fix": "Osobna sieć dla kasy i terminala, łącze zapasowe z automatycznym przełączaniem i zasilanie awaryjne.",
+     "ic": "ikona:wifi",
+     "sn": "Sieci i Wi-Fi",
+     "href": "Sieci.dc.html",
+     "st": "--c:#5B8CF0"
+    },
+    {
+     "q": "„Telewizor w witrynie nic nie pokazuje w słońcu”",
+     "d": "Zwykły telewizor w witrynie jest nieczytelny w słońcu i przegrzewa się.",
+     "fix": "Ekran witrynowy o wysokiej jasności z harmonogramem i treścią zmienianą zdalnie.",
+     "ic": "ikona:scr",
+     "sn": "Ekrany i transmisja",
+     "href": "Multimedia.dc.html",
+     "st": "--c:#E86FB0"
+    },
+    {
+     "q": "„W nocy ktoś wybił szybę”",
+     "d": "Witryna to najsłabsze miejsce sklepu, a sama syrena często nie wystarcza.",
+     "fix": "Czujka zbicia szyby, czujki ruchu, przycisk napadowy i powiadomienie do Ciebie albo do agencji ochrony.",
+     "ic": "ikona:bell",
+     "sn": "Alarmy i wideodomofony",
+     "href": "Alarmy.dc.html",
+     "st": "--c:#F07A6A"
+    },
+    {
+     "q": "„Mam trzy sklepy i trzy aplikacje”",
+     "d": "Każdy punkt robiony przez kogo innego, inne hasła i inny serwis.",
+     "fix": "Wszystkie punkty w jednej aplikacji, uprawnienia dla kierowników i jeden serwis.",
+     "ic": "ikona:layers",
+     "sn": "Monitoring i kamery",
+     "href": "Monitoring.dc.html",
+     "st": "--c:#12B6D8"
+    }
+   ],
+   "day": {
+    "eye": "Dzień w sklepie w sezonie",
+    "h": "Od otwarcia do nocy po zamknięciu.",
+    "lead": "Tak pracują instalacje w sklepie przez jeden dzień w szczycie sezonu.",
+    "k": "d0",
+    "pg": "width:17%",
+    "items": [
+     {
+      "tm": "8:30",
+      "n": "Otwarcie",
+      "on": "true",
+      "cls": "sgdb on"
+     },
+     {
+      "tm": "11:00",
+      "n": "Dostawa od podwórza",
+      "on": "false",
+      "cls": "sgdb"
+     },
+     {
+      "tm": "14:00",
+      "n": "Szczyt i kolejka",
+      "on": "false",
+      "cls": "sgdb"
+     },
+     {
+      "tm": "16:20",
+      "n": "Kradzież przy alejce",
+      "on": "false",
+      "cls": "sgdb"
+     },
+     {
+      "tm": "20:00",
+      "n": "Zamknięcie",
+      "on": "false",
+      "cls": "sgdb"
+     },
+     {
+      "tm": "2:00",
+      "n": "Noc",
+      "on": "false",
+      "cls": "sgdb"
+     }
+    ],
+    "cur": {
+     "tm": "8:30",
+     "n": "Otwarcie",
+     "d": "Pracownik rozbraja alarm własnym kodem, a Ty widzisz w aplikacji, kto i o której otworzył sklep. Ekran w witrynie włącza się sam.",
+     "ic": "ikona:sun",
+     "st": "--c:#F07A6A",
+     "ch": [
+      {
+       "n": "Alarmy i wideodomofony",
+       "href": "Alarmy.dc.html",
+       "st": "--c:#F07A6A"
+      },
+      {
+       "n": "Ekrany i transmisja",
+       "href": "Multimedia.dc.html",
+       "st": "--c:#E86FB0"
+      }
+     ],
+     "hs": [
+      {
+       "no": "4",
+       "st": "--c:#E86FB0"
+      },
+      {
+       "no": "6",
+       "st": "--c:#F07A6A"
+      },
+      {
+       "no": "7",
+       "st": "--c:#F07A6A"
+      }
+     ]
+    }
+   },
+   "law": {
+    "h": "Kamery w sklepie, muzyka i kradzież. Co mówią przepisy.",
+    "lead": "Kilka zasad, które dotyczą każdego sklepu z monitoringiem i muzyką. Mówimy, co jest po Twojej stronie, a co po naszej.",
+    "items": [
+     {
+      "t": "Tabliczka przy wejściu i informacja przy kasie",
+      "a": "EROD 3/2019, pkt 119",
+      "d": "Wytyczne europejskich organów ochrony danych podają przykład wprost ze sklepu: znak przy wejściu i pełna informacja (druga warstwa) przy kasie. Bez kamer w przymierzalniach i toaletach.",
+      "who": "Razem",
+      "wc": "sgwho r",
+      "href": "https://www.edpb.europa.eu/system/files/documents/files/file1/edpb_guidelines_201903_video_devices_pl_0.pdf",
+      "sl": "EROD, wytyczne 3/2019 (PDF)"
+     },
+     {
+      "t": "Kamery a pracownicy",
+      "a": "art. 22² Kodeksu pracy",
+      "d": "Nagrania najwyżej 3 miesiące, informacja dla pracowników 2 tygodnie przed uruchomieniem i oznaczenie terenu dzień wcześniej. Bez szatni i pokoju socjalnego.",
+      "who": "Sklep",
+      "wc": "sgwho o",
+      "href": "https://api.sejm.gov.pl/eli/acts/DU/2026/1245/text.pdf",
+      "sl": "Kodeks pracy, t.j. Dz.U. 2026 poz. 1245"
+     },
+     {
+      "t": "Bez rozpoznawania twarzy",
+      "a": "art. 9 RODO",
+      "d": "Rozpoznawanie twarzy to przetwarzanie danych biometrycznych. W sklepie go nie stosujemy, a kamery ustawiamy tak, żeby nagranie dobrze pokazywało zdarzenie.",
+      "who": "Instalator",
+      "wc": "sgwho i",
+      "href": "https://eur-lex.europa.eu/legal-content/PL/TXT/HTML/?uri=CELEX:32016R0679",
+      "sl": "RODO, EUR-Lex"
+     },
+     {
+      "t": "Opłaty za muzykę",
+      "a": "art. 24 ust. 2 pr. aut.",
+      "d": "Zwolnienie z art. 24 ust. 2 nie działa, gdy muzyka wspiera sprzedaż, więc opłaty dla organizacji zbiorowego zarządzania są zwykle należne. Stawka zależy od miejscowości i nagłaśnianej powierzchni, w miejscowościach turystycznych w sezonie jest wyższa.",
+      "who": "Sklep",
+      "wc": "sgwho o",
+      "href": "https://stoart.org.pl/upload/2023/04/tabela-stawek-wynagrodzen-za-odtwarzanie-2023v_2.pdf",
+      "sl": "Tabela stawek STOART, od 1.04.2023 (PDF)"
+     },
+     {
+      "t": "Płatność bezgotówkowa musi działać",
+      "a": "art. 19a Prawa przedsiębiorców",
+      "d": "Sklep z kasą rejestrującą musi umożliwić płatność bezgotówkową, np. kartą. Dlatego kasa i terminal dostają osobną sieć i łącze zapasowe.",
+      "who": "Sklep",
+      "wc": "sgwho o",
+      "href": "https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20180000646",
+      "sl": "Prawo przedsiębiorców (ISAP)"
+     },
+     {
+      "t": "Ekran w witrynie w Zakopanem",
+      "a": "uchwała z 28.05.2026",
+      "d": "Zakopane przyjęło uchwałę krajobrazową. Ekran skierowany na ulicę sprawdzamy z jej zapisami przed montażem. Ekran w głębi sklepu tego nie dotyczy.",
+      "who": "Sklep",
+      "wc": "sgwho o",
+      "href": "https://www.zakopane.pl/zagospodarowanie-przestrzenne/uchwala-krajobrazowa",
+      "sl": "Zakopane, uchwała krajobrazowa"
+     }
+    ]
+   },
+   "gory": {
+    "h": "Sezon, turyści i witryna na mrozie.",
+    "items": [
+     {
+      "ic": "ikona:users",
+      "t": "Klient z sezonu nie wraca",
+      "d": "Turysta często jest w sklepie tylko raz. Gdy coś zginie, liczy się czytelne nagranie i fragment wyeksportowany dla policji tego samego dnia.",
+      "hasS": false,
+      "sh": "",
+      "sl": ""
+     },
+     {
+      "ic": "ikona:euro",
+      "t": "Ponad 65% bez gotówki",
+      "d": "Tyle transakcji w sklepach i punktach usługowych było bezgotówkowych w 2023 r. według badania Fundacji Polska Bezgotówkowa. Bez sieci tracisz większość płatności.",
+      "hasS": true,
+      "sh": "https://bank.pl/?p=475744",
+      "sl": "bank.pl, 9.04.2024"
+     },
+     {
+      "ic": "ikona:snow",
+      "t": "Ekran w zimnym przedsionku",
+      "d": "Ekrany witrynowe mają określony zakres temperatur pracy. Zimą sprawdzamy, czy przedsionek jest ogrzewany.",
+      "hasS": false,
+      "sh": "",
+      "sl": ""
+     },
+     {
+      "ic": "ikona:storm",
+      "t": "Burze i przepięcia",
+      "d": "Ochronniki na liniach kamer i zasilaniu, zasilanie awaryjne dla rejestratora, routera i terminala.",
+      "hasS": false,
+      "sh": "",
+      "sl": ""
+     }
+    ]
+   },
+   "hasReal": true,
+   "realH": "Nagłaśnialiśmy salony Empik w Zakopanem i Krakowie.",
+   "real": [
+    {
+     "t": "Empik",
+     "m": "Zakopane · salon sprzedaży",
+     "d": "Nagłośnienie sali sprzedaży."
+    },
+    {
+     "t": "Empik",
+     "m": "Kraków · salon sprzedaży",
+     "d": "Nagłośnienie sali sprzedaży."
+    },
+    {
+     "t": "Salony PRO-KOM",
+     "m": "Rabka-Zdrój i Zakopane",
+     "d": "Ekrany w naszych salonach, z których korzystamy na co dzień."
+    }
+   ],
+   "ck": {
+    "n": 0,
+    "t": 7,
+    "st": "--p:0",
+    "cta": "Wyślij zdjęcia i opis →",
+    "items": [
+     {
+      "t": "Zdjęcia sali, witryny, zaplecza i wejścia dostaw",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Gdzie stoi kasa i terminal, gdzie wchodzi internet",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Co najczęściej ginie i w którym miejscu",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Godziny otwarcia i dni największego ruchu",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Czy lokal jest wynajęty i jakie są zasady właściciela",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Zdjęcie witryny w słoneczny dzień",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Obecny sprzęt: kamery, alarm, router",
+      "on": "false",
+      "cls": "sgci"
+     }
+    ]
+   }
+  }
+ }
+}

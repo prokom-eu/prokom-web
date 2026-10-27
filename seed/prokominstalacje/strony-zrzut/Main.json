@@ -1,0 +1,980 @@
+{
+ "_strona": "Main",
+ "_title": "Monitoring, alarmy, Wi-Fi, smart home Podhale | PRO-KOM Instalacje",
+ "_description": "Monitoring, alarmy, zamki, Wi-Fi, smart home Ampio i nagłośnienie na Podhalu. Projekt, montaż i serwis z Rabki-Zdroju i Zakopanego. 24 mies. gwarancji.",
+ "_uwaga": "Zrzut danych z wizualizacji v4.0 (stan początkowy strony, motyw jasny). Teksty = treść do seeda. Klucze UI (cls, on, pick) pomijaj.",
+ "dane": {
+  "ctaEye": "Zaplanuj instalację",
+  "ctaH": "Powiedz, co planujesz. Przyjedziemy i wszystko policzymy.",
+  "ctaP": "Wizja lokalna, projekt i wycena na piśmie. Potem montaż, szkolenie i serwis pod jednym numerem.",
+  "railCls": "rail",
+  "hxCls": "hx night",
+  "zapHref": "Zaplanuj.dc.html#obiekt=pens&uslugi=kam,wifi",
+  "pipOn": true,
+  "otabs": [
+   {
+    "n": "Dom",
+    "ic": "ikona:home",
+    "sel": "false",
+    "cls": "hotab"
+   },
+   {
+    "n": "Pensjonat",
+    "ic": "ikona:bed",
+    "sel": "true",
+    "cls": "hotab on"
+   },
+   {
+    "n": "Hotel",
+    "ic": "ikona:hotel",
+    "sel": "false",
+    "cls": "hotab"
+   },
+   {
+    "n": "Restauracja",
+    "ic": "ikona:food",
+    "sel": "false",
+    "cls": "hotab"
+   },
+   {
+    "n": "Sklep",
+    "ic": "ikona:shop",
+    "sel": "false",
+    "cls": "hotab"
+   },
+   {
+    "n": "Firma",
+    "ic": "ikona:factory",
+    "sel": "false",
+    "cls": "hotab"
+   }
+  ],
+  "modes": [
+   {
+    "n": "Dzień",
+    "ic": "ikona:sun",
+    "on": "false",
+    "cls": "hmode"
+   },
+   {
+    "n": "Noc",
+    "ic": "ikona:moon",
+    "on": "true",
+    "cls": "hmode on"
+   },
+   {
+    "n": "Zima",
+    "ic": "ikona:snow",
+    "on": "false",
+    "cls": "hmode"
+   }
+  ],
+  "chips": [
+   {
+    "n": "Kamery",
+    "ic": "ikona:cam",
+    "on": "true",
+    "k": "✓",
+    "cls": "hchip on"
+   },
+   {
+    "n": "Alarm",
+    "ic": "ikona:bell",
+    "on": "false",
+    "k": "+",
+    "cls": "hchip"
+   },
+   {
+    "n": "Domofon i dostęp",
+    "ic": "ikona:lock",
+    "on": "false",
+    "k": "+",
+    "cls": "hchip"
+   },
+   {
+    "n": "Wi-Fi i sieć",
+    "ic": "ikona:wifi",
+    "on": "true",
+    "k": "✓",
+    "cls": "hchip on"
+   },
+   {
+    "n": "Smart home Ampio",
+    "ic": "ikona:home",
+    "on": "false",
+    "k": "+",
+    "cls": "hchip"
+   },
+   {
+    "n": "Ładowarka EV",
+    "ic": "ikona:bolt",
+    "on": "false",
+    "k": "+",
+    "cls": "hchip"
+   },
+   {
+    "n": "Nagłośnienie",
+    "ic": "ikona:spk",
+    "on": "false",
+    "k": "+",
+    "cls": "hchip"
+   },
+   {
+    "n": "Ekrany",
+    "ic": "ikona:scr",
+    "on": "false",
+    "k": "+",
+    "cls": "hchip"
+   }
+  ],
+  "allLabel": "Pokaż wszystko",
+  "brands": [
+   {
+    "n": "Dahua",
+    "k": "kamery",
+    "cls": "brand"
+   },
+   {
+    "n": "Hikvision",
+    "k": "kamery",
+    "cls": "brand"
+   },
+   {
+    "n": "BCS",
+    "k": "kamery",
+    "cls": "brand"
+   },
+   {
+    "n": "Satel",
+    "k": "alarmy",
+    "cls": "brand"
+   },
+   {
+    "n": "Ubiquiti",
+    "k": "sieci Wi-Fi",
+    "cls": "brand"
+   },
+   {
+    "n": "Ampio",
+    "k": "smart home",
+    "cls": "brand"
+   },
+   {
+    "n": "Elzab EcoPower",
+    "k": "ładowarki",
+    "cls": "brand"
+   },
+   {
+    "n": "Samsung",
+    "k": "ekrany",
+    "cls": "brand"
+   },
+   {
+    "n": "APART",
+    "k": "nagłośnienie",
+    "cls": "brand"
+   },
+   {
+    "n": "RCF",
+    "k": "nagłośnienie",
+    "cls": "brand hm"
+   },
+   {
+    "n": "MikroTik",
+    "k": "sieci",
+    "cls": "brand hm"
+   }
+  ],
+  "us": {
+   "dots": [
+    "background:#12B6D8;animation-delay:-0.0s",
+    "background:#7BD36A;animation-delay:-0.4s",
+    "background:#F07A6A;animation-delay:-0.8s",
+    "background:#F2B84B;animation-delay:-1.2s",
+    "background:#5B8CF0;animation-delay:-1.6s",
+    "background:#F29A4B;animation-delay:-2.0s",
+    "background:#E86FB0;animation-delay:-2.4s",
+    "background:#8C9CF5;animation-delay:-2.8s",
+    "background:#B58CF0;animation-delay:-3.2s",
+    "background:#5FD0B0;animation-delay:-3.6s"
+   ],
+   "nBrands": 23,
+   "nBrandsW": "marki"
+  },
+  "u": {
+   "kam": {
+    "n": "Monitoring i kamery",
+    "g": "Bezpieczeństwo",
+    "ic": "ikona:cam",
+    "href": "Monitoring.dc.html",
+    "d": "Kamery, które widzą w nocy i w śniegu, z nagraniami u Ciebie, nie w obcej chmurze. Projektujemy cały system, nie tylko miejsca na kamery.",
+    "parts": "kamery · rejestrator NVR · dyski 24/7 · switch PoE · UPS · aplikacja",
+    "hl": [
+     "Cztery wersje instalacji: od domu po duży obiekt",
+     "Kolor w nocy i wykrywanie ludzi oraz aut",
+     "Maski prywatności i czas nagrań ustawione pod RODO"
+    ],
+    "pl": [
+     "kamery",
+     "rejestrator NVR",
+     "dyski 24/7",
+     "switch PoE",
+     "UPS",
+     "aplikacja"
+    ],
+    "big": true,
+    "pr": "Wycena po wizji lokalnej",
+    "rec": false,
+    "badge": "",
+    "why": "",
+    "cls": "ut2 ri ut-kam w2"
+   },
+   "alarm": {
+    "n": "Alarmy i wideodomofony",
+    "g": "Bezpieczeństwo",
+    "ic": "ikona:bell",
+    "href": "Alarmy.dc.html",
+    "d": "Czujki, syreny i powiadomienia na telefon. Wideodomofon przy furtce, który odbierasz z drugiego końca Polski.",
+    "parts": "centrala · czujki · syrena · moduł GSM · wideodomofon",
+    "hl": [
+     "Przewodowe lub bezprzewodowe, z aplikacją",
+     "Wideodomofon odbierany w telefonie"
+    ],
+    "pl": [
+     "centrala",
+     "czujki",
+     "syrena",
+     "moduł GSM"
+    ],
+    "big": false,
+    "pr": "Wycena po wizji lokalnej",
+    "rec": false,
+    "badge": "",
+    "why": "",
+    "cls": "ut2 ri ut-alarm"
+   },
+   "kd": {
+    "n": "Kontrola dostępu i zamki",
+    "g": "Bezpieczeństwo",
+    "ic": "ikona:lock",
+    "href": "Dostep.dc.html",
+    "d": "Karty, kody i zamki do apartamentów. Gość albo pracownik wchodzi sam, a Ty wiesz, kto i kiedy.",
+    "parts": "zamki z kodem · czytniki kart · harmonogramy",
+    "hl": [
+     "Kody czasowe dla gości apartamentów",
+     "Historia wejść: kto i kiedy"
+    ],
+    "pl": [
+     "zamki z kodem",
+     "czytniki kart",
+     "harmonogramy"
+    ],
+    "big": false,
+    "pr": "Wycena po wizji lokalnej",
+    "rec": false,
+    "badge": "",
+    "why": "",
+    "cls": "ut2 ri ut-kd"
+   },
+   "wifi": {
+    "n": "Sieci i Wi-Fi",
+    "g": "Łączność",
+    "ic": "ikona:wifi",
+    "href": "Sieci.dc.html",
+    "d": "Wi-Fi bez martwych stref, osobna sieć dla gości i dla kamer. Okablowanie, szafy rack i światłowody.",
+    "parts": "punkty Wi-Fi · router · switch · szafa rack · światłowód",
+    "hl": [
+     "Osobne sieci: goście, kamery, kasa",
+     "Pomiar zasięgu przed i po montażu"
+    ],
+    "pl": [
+     "punkty Wi-Fi",
+     "router",
+     "switch",
+     "szafa rack"
+    ],
+    "big": false,
+    "pr": "Wycena po wizji lokalnej",
+    "rec": false,
+    "badge": "",
+    "why": "",
+    "cls": "ut2 ri ut-wifi"
+   },
+   "tel": {
+    "n": "Teletechnika w budownictwie",
+    "g": "Łączność",
+    "ic": "ikona:build",
+    "href": "Teletechnika.dc.html",
+    "d": "Dla deweloperów i wykonawców: okablowanie, światłowód do lokali, RTV/SAT i domofony. Z pomiarami.",
+    "parts": "okablowanie · światłowód · RTV/SAT · pomiary",
+    "hl": [
+     "Od przedmiaru do odbioru z protokołami",
+     "Pomiar i opis każdego gniazda"
+    ],
+    "pl": [
+     "okablowanie",
+     "światłowód",
+     "RTV/SAT",
+     "pomiary"
+    ],
+    "big": false,
+    "pr": "Wycena po wizji lokalnej",
+    "rec": false,
+    "badge": "",
+    "why": "",
+    "cls": "ut2 ri ut-tel"
+   },
+   "ant": {
+    "n": "Anteny RTV/SAT",
+    "g": "Łączność",
+    "ic": "ikona:dish",
+    "href": "Anteny.dc.html",
+    "d": "Anteny satelitarne i DVB-T2, instalacje zbiorcze i telewizja w pokojach. Ustawiane miernikiem.",
+    "parts": "antena · konwerter · multiswitch · gniazda",
+    "hl": [
+     "Ustawiane miernikiem sygnału",
+     "Ta sama telewizja w każdym pokoju"
+    ],
+    "pl": [
+     "antena",
+     "konwerter",
+     "multiswitch",
+     "gniazda"
+    ],
+    "big": false,
+    "pr": "Wycena po wizji lokalnej",
+    "rec": false,
+    "badge": "",
+    "why": "",
+    "cls": "ut2 ri ut-ant"
+   },
+   "smart": {
+    "n": "Smart home Ampio",
+    "g": "Komfort i obraz",
+    "ic": "ikona:home",
+    "href": "SmartHome.dc.html",
+    "d": "Polski system Ampio: światło, ogrzewanie, rolety, brama, alarm i kamery w jednej aplikacji. Gdy padnie internet, dom dalej działa.",
+    "parts": "moduły Ampio · panele M-DOT · aplikacja UNI · sceny · integracje",
+    "hl": [
+     "Nowy dom i remont, projekt przed tynkami",
+     "Ogrzewanie strefowe, pompa ciepła, fotowoltaika",
+     "Apple, Google i Alexa przez Matter"
+    ],
+    "pl": [
+     "moduły Ampio",
+     "panele M-DOT",
+     "aplikacja UNI",
+     "sceny",
+     "integracje"
+    ],
+    "big": true,
+    "pr": "Wycena po wizji lokalnej",
+    "rec": false,
+    "badge": "",
+    "why": "",
+    "cls": "ut2 ri ut-smart w2"
+   },
+   "snd": {
+    "n": "Nagłośnienie",
+    "g": "Komfort i obraz",
+    "ic": "ikona:spk",
+    "href": "Naglosnienie.dc.html",
+    "d": "Stałe nagłośnienie APART i innych marek: muzyka w tle, komunikaty, strefy z osobną głośnością i mowa zrozumiała w ostatniej ławce.",
+    "parts": "głośniki · wzmacniacz strefowy · mikrofony · panel ścienny · komunikaty",
+    "hl": [
+     "Restauracje, hotele, kościoły, sale obrad",
+     "Każda strefa z osobną głośnością"
+    ],
+    "pl": [
+     "głośniki",
+     "wzmacniacz strefowy",
+     "mikrofony",
+     "panel ścienny",
+     "komunikaty"
+    ],
+    "big": true,
+    "pr": "Wycena po wizji lokalnej",
+    "rec": false,
+    "badge": "",
+    "why": "",
+    "cls": "ut2 ri ut-snd"
+   },
+   "scr": {
+    "n": "Ekrany i digital signage",
+    "g": "Komfort i obraz",
+    "ic": "ikona:scr",
+    "href": "Multimedia.dc.html",
+    "d": "Ekrany w witrynie, menu board, recepcja i ściany wideo. Treść zmieniasz z komputera na wszystkich ekranach naraz.",
+    "parts": "ekrany profesjonalne · odtwarzacz w ekranie · uchwyty · zarządzanie treścią · szablony",
+    "hl": [
+     "Wdrażamy to w naszych salonach w Rabce i Zakopanem",
+     "Harmonogram: rano śniadania, wieczorem kolacje"
+    ],
+    "pl": [
+     "ekrany profesjonalne",
+     "odtwarzacz w ekranie",
+     "uchwyty",
+     "zarządzanie treścią",
+     "szablony"
+    ],
+    "big": true,
+    "pr": "Wycena po wizji lokalnej",
+    "rec": false,
+    "badge": "",
+    "why": "",
+    "cls": "ut2 ri ut-scr w2"
+   },
+   "ev": {
+    "n": "Ładowarki samochodów",
+    "g": "E-mobilność",
+    "ic": "ikona:bolt",
+    "href": "Ladowarki.dc.html",
+    "d": "Ładowarki Elzab EcoPower: CC Home do garażu, CC Wall dla firm i obiektów, CC City na parking. Moc dobrana do przyłącza.",
+    "parts": "CC Home · CC Wall · CC City · RFID · OCPP",
+    "hl": [
+     "Od 3,7 do 2×22 kW, polski producent",
+     "Montaż i pomoc w formalnościach"
+    ],
+    "pl": [
+     "CC Home",
+     "CC Wall",
+     "CC City",
+     "RFID"
+    ],
+    "big": false,
+    "pr": "Wycena po wizji lokalnej",
+    "rec": false,
+    "badge": "",
+    "why": "",
+    "cls": "ut2 ri ut-ev"
+   }
+  },
+  "gAll": {
+   "cls": "g3 gorg",
+   "btn": "Pokaż wszystkie 6 wyzwań"
+  },
+  "oAll": {
+   "cls": "obg",
+   "btn": "Pokaż wszystkie 12 obiektów"
+  },
+  "srv": [
+   {
+    "ic": "ikona:cal",
+    "t": "Przegląd przed sezonem",
+    "d": "Kamery, dyski, akumulatory, Wi-Fi."
+   },
+   {
+    "ic": "ikona:chat",
+    "t": "Pomoc zdalna",
+    "d": "Wiele usterek naprawiamy bez dojazdu."
+   },
+   {
+    "ic": "ikona:wrench",
+    "t": "Naprawy i rozbudowa",
+    "d": "Jeden numer do całej instalacji."
+   },
+   {
+    "ic": "ikona:layers",
+    "t": "Przejęcie serwisu",
+    "d": "Instalacje po firmach, które zniknęły."
+   }
+  ],
+  "gory": [
+   {
+    "n": "Mróz i śnieg",
+    "ic": "ikona:snow",
+    "d": "Dobieramy kamery i obudowy do górskiej zimy i montujemy je tak, żeby jak najmniej zbierały śnieg. Obraz ustawiamy pod odblask od śniegu i wieczorne światło."
+   },
+   {
+    "n": "Burze i przepięcia",
+    "ic": "ikona:storm",
+    "d": "Ochrona przepięciowa zmniejsza ryzyko uszkodzeń po burzy, a zasilacz UPS podtrzymuje kamery i alarm przy krótkich zanikach prądu."
+   },
+   {
+    "n": "Słabe łącze",
+    "ic": "ikona:off",
+    "d": "Nagrania zapisują się w obiekcie, a Ampio steruje domem lokalnie. Gdy internet zniknie, instalacja działa dalej, a podgląd z telefonu wraca razem z łączem."
+   },
+   {
+    "n": "Domy na wynajem i letnie",
+    "ic": "ikona:home",
+    "d": "Podgląd z daleka, nagrzanie domu przed przyjazdem, ochrona przed zamarzaniem i zalaniem. Dla domów, w których nikogo nie ma przez kilka miesięcy."
+   },
+   {
+    "n": "Przegląd przed sezonem",
+    "ic": "ikona:cal",
+    "d": "Przed zimą i przed latem: czyszczenie kamer, test dysków, akumulatorów, Wi-Fi i ładowarki. Zanim przyjadą goście, a nie po pierwszej awarii."
+   },
+   {
+    "n": "Dwa salony blisko Ciebie",
+    "ic": "ikona:pin",
+    "d": "Rabka-Zdrój i Zakopane. Dużo usterek naprawiamy zdalnie, a gdy trzeba przyjechać, nie jedziemy z Krakowa."
+   }
+  ],
+  "objs": [
+   {
+    "n": "Dom i domek letniskowy",
+    "d": "Kamery przy furtce, alarm z czujkami mrozu i zalania, smart home i wideodomofon.",
+    "ic": "ikona:home",
+    "set": [
+     "Kamery",
+     "Alarm",
+     "Smart home"
+    ],
+    "href": "SegDom.dc.html",
+    "more": "Zobacz rozwiązania",
+    "live": true,
+    "cls": "obc ri oh1 big"
+   },
+   {
+    "n": "Pensjonat",
+    "d": "Monitoring bez pokoi gości, Wi-Fi w każdym pokoju, telewizja i przegląd przed sezonem.",
+    "ic": "ikona:bed",
+    "set": [
+     "Wi-Fi gości",
+     "Kamery RODO",
+     "TV w pokojach"
+    ],
+    "href": "Noclegowe.dc.html",
+    "more": "Zobacz rozwiązania",
+    "live": true,
+    "cls": "obc ri oh2 big"
+   },
+   {
+    "n": "Apartament na wynajem",
+    "d": "Przyjazd z kodem bez przekazywania kluczy, czujka zalania i Wi-Fi bez haseł na kartce.",
+    "ic": "ikona:key",
+    "set": [
+     "Zamek z kodem",
+     "Czujki",
+     "Wi-Fi"
+    ],
+    "href": "SegApartament.dc.html",
+    "more": "Zobacz rozwiązania",
+    "live": false,
+    "cls": "obc ri oh3"
+   },
+   {
+    "n": "Hotel",
+    "d": "Karty do pokoi, sieć na setki urządzeń, nagłośnienie sal i ekrany w recepcji.",
+    "ic": "ikona:hotel",
+    "set": [
+     "Karty",
+     "Sieć",
+     "Nagłośnienie"
+    ],
+    "href": "SegHotel.dc.html",
+    "more": "Zobacz rozwiązania",
+    "live": true,
+    "cls": "obc ri oh4"
+   },
+   {
+    "n": "Restauracja i sala weselna",
+    "d": "Muzyka na sali i tarasie, mikrofony na przemówienia, menu board i kamery przy kasie.",
+    "ic": "ikona:food",
+    "set": [
+     "Nagłośnienie",
+     "Menu board",
+     "Kamery"
+    ],
+    "href": "SegRestauracja.dc.html",
+    "more": "Zobacz rozwiązania",
+    "live": true,
+    "cls": "obc ri oh5"
+   },
+   {
+    "n": "Sklep i salon",
+    "d": "Kamery sali i kas, alarm, ekran w witrynie i muzyka z komunikatami.",
+    "ic": "ikona:shop",
+    "set": [
+     "Kamery",
+     "Alarm",
+     "Witryna"
+    ],
+    "href": "SegSklep.dc.html",
+    "more": "Zobacz rozwiązania",
+    "live": true,
+    "cls": "obc ri oh1"
+   },
+   {
+    "n": "Firma, biuro i hala",
+    "d": "Sieć firmowa, karty dla pracowników, kamery placu i rampy, brama na karty.",
+    "ic": "ikona:factory",
+    "set": [
+     "Sieć",
+     "Karty",
+     "Kamery placu"
+    ],
+    "href": "SegFirma.dc.html",
+    "more": "Zobacz rozwiązania",
+    "live": true,
+    "cls": "obc ri oh2"
+   },
+   {
+    "n": "Kościół i parafia",
+    "d": "Mowa zrozumiała w ostatniej ławce, transmisja mszy i ochrona zabytkowego wnętrza.",
+    "ic": "ikona:church",
+    "set": [
+     "Nagłośnienie",
+     "Transmisja",
+     "Monitoring"
+    ],
+    "href": "SegKosciol.dc.html",
+    "more": "Zobacz rozwiązania",
+    "live": false,
+    "cls": "obc ri oh3"
+   },
+   {
+    "n": "Szkoła i przedszkole",
+    "d": "Bezpieczne wejścia, dzwonki i komunikaty, sieć dla uczniów i monitory interaktywne.",
+    "ic": "ikona:school",
+    "set": [
+     "Wejścia",
+     "Dzwonki",
+     "Sieć"
+    ],
+    "href": "SegSzkola.dc.html",
+    "more": "Zobacz rozwiązania",
+    "live": false,
+    "cls": "obc ri oh4"
+   },
+   {
+    "n": "Gmina i urząd",
+    "d": "Sala obrad z transmisją i nagrywaniem sesji, monitoring budynków i przestrzeni.",
+    "ic": "ikona:town",
+    "set": [
+     "Sala obrad",
+     "Transmisja",
+     "Monitoring"
+    ],
+    "href": "SegGmina.dc.html",
+    "more": "Zobacz rozwiązania",
+    "live": false,
+    "cls": "obc ri oh5"
+   },
+   {
+    "n": "Deweloper",
+    "d": "Teletechnika budynku: światłowód do lokali, RTV/SAT, domofony, dokumentacja do odbioru.",
+    "ic": "ikona:build",
+    "set": [
+     "Światłowód",
+     "Domofony",
+     "Odbiory"
+    ],
+    "href": "SegDeweloper.dc.html",
+    "more": "Zobacz rozwiązania",
+    "live": false,
+    "cls": "obc ri oh4 big"
+   },
+   {
+    "n": "Budowa",
+    "d": "Kamery na placu bez przyłącza prądu i kabla (zasilanie z akumulatora lub panelu słonecznego), ochrona maszyn i podgląd postępu prac.",
+    "ic": "ikona:crane",
+    "set": [
+     "Kamery LTE",
+     "Alarm",
+     "Timelapse"
+    ],
+    "href": "SegBudowa.dc.html",
+    "more": "Zobacz rozwiązania",
+    "live": false,
+    "cls": "obc ri oh1 big"
+   }
+  ],
+  "steps": [
+   {
+    "n": "01",
+    "t": "Rozmowa",
+    "d": "Telefon albo formularz. Mówisz, co chcesz zabezpieczyć lub usprawnić, wysyłasz zdjęcia."
+   },
+   {
+    "n": "02",
+    "t": "Wizja lokalna",
+    "d": "Przyjeżdżamy, mierzymy, sprawdzamy kable, zasięg i rozdzielnicę."
+   },
+   {
+    "n": "03",
+    "t": "Projekt i wycena",
+    "d": "Plan rozmieszczenia urządzeń i wycena na piśmie, zwykle w wariantach do wyboru."
+   },
+   {
+    "n": "04",
+    "t": "Montaż",
+    "d": "W ustalonym terminie, czysto, z zabezpieczeniem mebli i podłóg."
+   },
+   {
+    "n": "05",
+    "t": "Odbiór",
+    "d": "Sprawdzamy działanie razem z Tobą i pokazujemy, jak korzystać z aplikacji."
+   },
+   {
+    "n": "06",
+    "t": "Serwis",
+    "d": "Przegląd przed sezonem, zdalna pomoc i naprawy pod jednym numerem."
+   }
+  ],
+  "rl": [
+   {
+    "k": "Audio, projekcja, IT",
+    "n": "Blachotrapez",
+    "m": "Rabka-Zdrój · sala konferencyjna",
+    "z": "Nagłośnienie, sprzęt projekcyjny i przyłącza IT",
+    "ph": "",
+    "art": "[svg-path]"
+   },
+   {
+    "k": "Nagłośnienie",
+    "n": "Parafia św. Teresy",
+    "m": "Rabka-Zdrój · kościół",
+    "z": "Instalacja audiowizualna i nagłośnienie chóru",
+    "ph": "",
+    "art": "[svg-path]"
+   },
+   {
+    "k": "Nagłośnienie",
+    "n": "Empik Zakopane",
+    "m": "Zakopane · salon sprzedaży",
+    "z": "Nagłośnienie sali sprzedaży",
+    "ph": "",
+    "art": "[svg-path]"
+   },
+   {
+    "k": "Audio i wideo",
+    "n": "Restauracja i dom weselny „Aleksandra”",
+    "m": "Mszana Dolna · sala bankietowa",
+    "z": "Instalacja audiowizualna",
+    "ph": "",
+    "art": "[svg-path]"
+   }
+  ],
+  "faq": [
+   {
+    "n": "01",
+    "q": "Ile kosztuje monitoring albo cała instalacja?",
+    "a": "Zależy od obiektu: liczby urządzeń, długości kabli, wysokości montażu i tego, czy trzeba kuć ściany. Po wizji lokalnej dostajesz wycenę na piśmie, zwykle w wariantach do wyboru.",
+    "open": true
+   },
+   {
+    "n": "02",
+    "q": "Czy wizja lokalna jest płatna?",
+    "a": "[SZEF: zasady wizji lokalnej i dojazdu]. Zanim przyjedziemy, możesz wysłać zdjęcia obiektu. Często już na ich podstawie powiemy, jakiego zakresu się spodziewać.",
+    "open": false
+   },
+   {
+    "n": "03",
+    "q": "Czy kamery działają bez internetu?",
+    "a": "Tak. Kamery nagrywają na rejestrator w obiekcie. Internet jest potrzebny tylko do podglądu z telefonu i powiadomień.",
+    "open": false
+   },
+   {
+    "n": "04",
+    "q": "Czy monitoring w pensjonacie albo firmie jest zgodny z RODO?",
+    "a": "Pomagamy od strony technicznej: ustawiamy strefy i maski prywatności, czas przechowywania nagrań i miejsca na tabliczki informacyjne. Obowiązki administratora danych, np. regulamin monitoringu, zostają po Twojej stronie. Podpowiemy, co przygotować.",
+    "open": false
+   },
+   {
+    "n": "05",
+    "q": "Mam instalację od innej firmy. Przejmiecie serwis?",
+    "a": "Tak. Sprawdzamy, co jest zamontowane, i pomagamy odzyskać dostęp do urządzeń (za zgodą właściciela, także procedurą producenta). Potem proponujemy naprawę albo rozbudowę zamiast wymiany wszystkiego.",
+    "open": false
+   },
+   {
+    "n": "06",
+    "q": "Czy smart home da się zrobić w domu, który już stoi?",
+    "a": "Tak, w zakresie zależnym od instalacji elektrycznej. Moduły Ampio montujemy w rozdzielnicy, a tam, gdzie nie ma przewodów, łączymy urządzenia bezprzewodowe w standardach, które Ampio obsługuje, np. Z-Wave. Najwięcej możliwości daje instalacja zaplanowana razem z elektryką na etapie budowy.",
+    "open": false
+   },
+   {
+    "n": "07",
+    "q": "Czy mogę zlecić kilka instalacji naraz?",
+    "a": "Tak, i to najczęściej się opłaca. Kamery, Wi-Fi, alarm czy nagłośnienie projektujemy razem: wspólne trasy kabli, jedna szafa techniczna, jedna wizja lokalna i jedna umowa serwisowa. Wycenę dostajesz dla całości, z podziałem na instalacje.",
+    "open": false
+   },
+   {
+    "n": "08",
+    "q": "Na jakim terenie działacie?",
+    "a": "Podhale i okolice: Rabka-Zdrój, Nowy Targ, Zakopane, Jordanów, Mszana Dolna. Dalej w Małopolsce (np. Limanowa, Nowy Sącz) dojazd ustalamy indywidualnie, zwykle przy większych inwestycjach. [SZEF: strefa i zasady dojazdu]",
+    "open": false
+   }
+  ],
+  "kz": {
+   "form": true,
+   "done": false,
+   "n1": "",
+   "n2": "",
+   "n3": "",
+   "svc": [
+    {
+     "n": "Monitoring i kamery",
+     "ic": "ikona:cam",
+     "st": "--h:#12B6D8",
+     "on": "false",
+     "cls": "hzkb"
+    },
+    {
+     "n": "Alarmy i wideodomofony",
+     "ic": "ikona:bell",
+     "st": "--h:#F07A6A",
+     "on": "false",
+     "cls": "hzkb"
+    },
+    {
+     "n": "Kontrola dostępu i zamki",
+     "ic": "ikona:lock",
+     "st": "--h:#F2B84B",
+     "on": "false",
+     "cls": "hzkb"
+    },
+    {
+     "n": "Sieci i Wi-Fi",
+     "ic": "ikona:wifi",
+     "st": "--h:#5B8CF0",
+     "on": "false",
+     "cls": "hzkb"
+    },
+    {
+     "n": "Teletechnika w budownictwie",
+     "ic": "ikona:build",
+     "st": "--h:#8C9CF5",
+     "on": "false",
+     "cls": "hzkb"
+    },
+    {
+     "n": "Anteny RTV/SAT",
+     "ic": "ikona:dish",
+     "st": "--h:#B58CF0",
+     "on": "false",
+     "cls": "hzkb"
+    },
+    {
+     "n": "Smart home Ampio",
+     "ic": "ikona:home",
+     "st": "--h:#7BD36A",
+     "on": "false",
+     "cls": "hzkb"
+    },
+    {
+     "n": "Nagłośnienie",
+     "ic": "ikona:spk",
+     "st": "--h:#F29A4B",
+     "on": "false",
+     "cls": "hzkb"
+    },
+    {
+     "n": "Ekrany i digital signage",
+     "ic": "ikona:scr",
+     "st": "--h:#E86FB0",
+     "on": "false",
+     "cls": "hzkb"
+    },
+    {
+     "n": "Ładowarki samochodów",
+     "ic": "ikona:bolt",
+     "st": "--h:#5FD0B0",
+     "on": "false",
+     "cls": "hzkb"
+    }
+   ],
+   "obj": [
+    {
+     "n": "Dom",
+     "ic": "ikona:home",
+     "on": "false",
+     "cls": "hzko"
+    },
+    {
+     "n": "Pensjonat lub apartamenty",
+     "ic": "ikona:bed",
+     "on": "false",
+     "cls": "hzko"
+    },
+    {
+     "n": "Hotel",
+     "ic": "ikona:hotel",
+     "on": "false",
+     "cls": "hzko"
+    },
+    {
+     "n": "Restauracja",
+     "ic": "ikona:food",
+     "on": "false",
+     "cls": "hzko"
+    },
+    {
+     "n": "Sklep",
+     "ic": "ikona:shop",
+     "on": "false",
+     "cls": "hzko"
+    },
+    {
+     "n": "Biuro lub firma",
+     "ic": "ikona:office",
+     "on": "false",
+     "cls": "hzko"
+    },
+    {
+     "n": "Hala lub magazyn",
+     "ic": "ikona:factory",
+     "on": "false",
+     "cls": "hzko"
+    },
+    {
+     "n": "Gmina, szkoła, kościół",
+     "ic": "ikona:school",
+     "on": "false",
+     "cls": "hzko"
+    },
+    {
+     "n": "Deweloper, wspólnota",
+     "ic": "ikona:crane",
+     "on": "false",
+     "cls": "hzko"
+    }
+   ],
+   "town": "",
+   "zoneS": "strefa",
+   "zoneCls": "hzkz",
+   "towns": [
+    {
+     "n": "Rabka-Zdrój",
+     "cls": "hzkt"
+    },
+    {
+     "n": "Nowy Targ",
+     "cls": "hzkt"
+    },
+    {
+     "n": "Zakopane",
+     "cls": "hzkt"
+    },
+    {
+     "n": "Jordanów",
+     "cls": "hzkt"
+    },
+    {
+     "n": "Mszana Dolna",
+     "cls": "hzkt"
+    },
+    {
+     "n": "Limanowa",
+     "cls": "hzkt"
+    }
+   ],
+   "phone": "",
+   "phCls": "hzkok",
+   "consCls": "hzkcons",
+   "sendCls": "hzksend",
+   "fullHref": "Zaplanuj.dc.html",
+   "err": false,
+   "errT": "",
+   "pct": "0",
+   "ringSt": "--p:0",
+   "sum": [],
+   "sumNone": true,
+   "sumObj": "—",
+   "sumTown": "—",
+   "zone": "—",
+   "sumPh": "—"
+  }
+ }
+}

@@ -1,0 +1,169 @@
+{
+ "Main": [
+  "faq"
+ ],
+ "Monitoring": [
+  "system",
+  "cena",
+  "faq"
+ ],
+ "Alarmy": [
+  "wersje",
+  "przewod",
+  "wideodomofon",
+  "domofony",
+  "cena",
+  "faq"
+ ],
+ "Dostep": [
+  "apartamenty",
+  "firma",
+  "awarie",
+  "cena",
+  "faq"
+ ],
+ "Sieci": [
+  "podzial",
+  "portal",
+  "okablowanie",
+  "sprzet:900",
+  "standardy",
+  "cena",
+  "faq"
+ ],
+ "Teletechnika": [
+  "zakres",
+  "faq"
+ ],
+ "Anteny": [
+  "gory",
+  "multipleksy",
+  "satelita",
+  "pensjonat-tv",
+  "cena",
+  "faq"
+ ],
+ "SmartHome": [
+  "dlaczego",
+  "integracje",
+  "obiekty",
+  "moduly",
+  "etapy",
+  "cena",
+  "faq"
+ ],
+ "Naglosnienie": [
+  "obiekty:900",
+  "jak-dziala",
+  "kosciol",
+  "sala-obrad",
+  "dso",
+  "licencje",
+  "realizacje-n",
+  "cena",
+  "faq"
+ ],
+ "Multimedia": [
+  "tv-czy-ekran",
+  "sciany-led",
+  "zewnatrz",
+  "cena",
+  "faq"
+ ],
+ "Ladowarki": [
+  "urzadzenia",
+  "formalnosci",
+  "cena",
+  "faq"
+ ],
+ "Noclegowe": [
+  "problemy:900",
+  "rok",
+  "przepisy",
+  "gory",
+  "faq"
+ ],
+ "Oferta": [
+  "lista:2600"
+ ],
+ "Serwis": [
+  "faq"
+ ],
+ "SegKosciol": [
+  "problemy:900",
+  "rok",
+  "przepisy",
+  "gory",
+  "faq"
+ ],
+ "SegRestauracja": [
+  "problemy:900",
+  "rok",
+  "przepisy",
+  "gory",
+  "faq"
+ ],
+ "SegSklep": [
+  "problemy:900",
+  "rok",
+  "przepisy",
+  "gory",
+  "faq"
+ ],
+ "SegFirma": [
+  "problemy:900",
+  "rok",
+  "przepisy",
+  "gory",
+  "faq"
+ ],
+ "SegBudowa": [
+  "problemy:900",
+  "rok",
+  "przepisy",
+  "gory",
+  "faq"
+ ],
+ "SegDom": [
+  "problemy:900",
+  "rok",
+  "przepisy",
+  "gory",
+  "faq"
+ ],
+ "SegApartament": [
+  "problemy:900",
+  "rok",
+  "przepisy",
+  "gory",
+  "faq"
+ ],
+ "SegHotel": [
+  "problemy:900",
+  "rok",
+  "przepisy",
+  "gory",
+  "faq"
+ ],
+ "SegSzkola": [
+  "problemy:900",
+  "rok",
+  "przepisy",
+  "gory",
+  "faq"
+ ],
+ "SegGmina": [
+  "problemy:900",
+  "rok",
+  "przepisy",
+  "gory",
+  "faq"
+ ],
+ "SegDeweloper": [
+  "problemy:900",
+  "rok",
+  "przepisy",
+  "gory",
+  "faq"
+ ]
+}

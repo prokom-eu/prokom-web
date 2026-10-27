@@ -1,0 +1,950 @@
+{
+ "_strona": "Monitoring",
+ "_title": "Monitoring CCTV Rabka-Zdrój, Zakopane, Podhale | PRO-KOM",
+ "_description": "Monitoring CCTV dla domów, pensjonatów i firm na Podhalu: kolor w nocy, podgląd w telefonie, nagrania w obiekcie i 24 miesiące gwarancji na montaż.",
+ "_uwaga": "Zrzut danych z wizualizacji v4.0 (stan początkowy strony, motyw jasny). Teksty = treść do seeda. Klucze UI (cls, on, pick) pomijaj.",
+ "dane": {
+  "ctaEye": "Monitoring na Podhalu",
+  "ctaH": "Pokaż nam obiekt. Zaproponujemy, gdzie i jakie kamery.",
+  "ctaP": "Wizja lokalna, plan rozmieszczenia kamer i wycena na piśmie. Potem montaż, konfiguracja aplikacji i serwis.",
+  "hero": {
+   "mid": true,
+   "midT": "Usługi",
+   "midH": "Main.dc.html#uslugi",
+   "cta": "Zaplanuj instalację",
+   "ctaHref": "Zaplanuj.dc.html",
+   "crumb": "Monitoring i kamery",
+   "eye": "Monitoring CCTV · Rabka-Zdrój, Zakopane, Podhale",
+   "h1a": "Monitoring na Podhalu, który widzi w nocy, w śniegu",
+   "h1b": "i tylko to, co trzeba.",
+   "lead": "Projektujemy, montujemy i serwisujemy kamery dla domów, pensjonatów, firm i gmin. Wykrywanie ludzi i aut, kolor w nocy, podgląd w telefonie i nagrania w Twoim obiekcie, ustawione tak, żeby ułatwić Ci spełnienie RODO.",
+   "kv": [
+    {
+     "b": "od 2004",
+     "s": "na Podhalu"
+    },
+    {
+     "b": "−40°C",
+     "s": "zakres pracy wybranych kamer"
+    },
+    {
+     "b": "0 zł",
+     "s": "abonamentu za chmurę"
+    }
+   ],
+   "tags": [
+    {
+     "n": "Dahua"
+    },
+    {
+     "n": "Hikvision"
+    },
+    {
+     "n": "BCS"
+    },
+    {
+     "n": "Maski prywatności"
+    }
+   ]
+  },
+  "anc": [
+   {
+    "href": "#co-dostajesz",
+    "n": "Co dostajesz"
+   },
+   {
+    "href": "#system",
+    "n": "Wersje instalacji"
+   },
+   {
+    "href": "#typy",
+    "n": "Rodzaje kamer"
+   },
+   {
+    "href": "#ile-widac",
+    "n": "Ile widać"
+   },
+   {
+    "href": "#nagrania",
+    "n": "Ile dni nagrań"
+   },
+   {
+    "href": "#rodo",
+    "n": "RODO"
+   },
+   {
+    "href": "#cena",
+    "n": "Cena"
+   },
+   {
+    "href": "#faq",
+    "n": "Pytania"
+   }
+  ],
+  "pkgs": [
+   {
+    "ic": "ikona:home",
+    "n": "Dom",
+    "d": "Podjazd, furtka, ogród i wejście.",
+    "f": [
+     "4 kamery z wykrywaniem ludzi i aut",
+     "Rejestrator z dyskiem",
+     "Podgląd i powiadomienia w telefonie",
+     "Maska na posesję sąsiada",
+     "Szkolenie z aplikacji"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "hot": false,
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri"
+   },
+   {
+    "ic": "ikona:bed",
+    "n": "Mały pensjonat, restauracja, sklep",
+    "d": "Parking, wejścia, narciarnia, kasa i zaplecze.",
+    "f": [
+     "6–8 kamer, w tym kolor w nocy",
+     "Kamera z odstraszaniem w narciarni lub garażu",
+     "Strefy i maski RODO, czas nagrań",
+     "Osobna sieć dla kamer",
+     "Przegląd przed sezonem"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "hot": true,
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri hot"
+   },
+   {
+    "ic": "ikona:factory",
+    "n": "Firma, hala, gmina",
+    "d": "Plac, brama, rampa, teren i budynki.",
+    "f": [
+     "Kamery stałe i obrotowe PTZ",
+     "Odczyt tablic na wjeździe",
+     "Światłowód między budynkami",
+     "Zasilanie awaryjne UPS",
+     "Umowa serwisowa z terminami przyjazdu"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "hot": false,
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri"
+   }
+  ],
+  "cena": [
+   {
+    "ic": "ikona:cam",
+    "t": "Liczba i rodzaj kamer",
+    "d": "Kamera z AI, kolorem w nocy czy odstraszaniem kosztuje więcej niż podstawowa."
+   },
+   {
+    "ic": "ikona:ruler",
+    "t": "Trasy kabli",
+    "d": "Długość przewodów, przejścia przez ściany, korytka, kucie lub praca w gotowych wnękach."
+   },
+   {
+    "ic": "ikona:build",
+    "t": "Wysokość montażu",
+    "d": "Kamery na ścianie szczytowej albo maszcie mogą wymagać podnośnika."
+   },
+   {
+    "ic": "ikona:cpu",
+    "t": "Rejestrator i dysk",
+    "d": "Liczba kanałów i pojemność dobrane do kamer i czasu nagrań."
+   },
+   {
+    "ic": "ikona:battery",
+    "t": "Zasilanie awaryjne",
+    "d": "UPS podtrzymuje nagrywanie podczas zaniku prądu."
+   },
+   {
+    "ic": "ikona:wifi",
+    "t": "Sieć i zdalny dostęp",
+    "d": "Osobna sieć dla kamer, łącze w obiekcie, ewentualnie most radiowy."
+   }
+  ],
+  "faq": [
+   {
+    "n": "01",
+    "q": "Czy kamery działają bez internetu?",
+    "a": "Tak. Kamery nagrywają na rejestrator w obiekcie. Internet jest potrzebny tylko do podglądu z telefonu i powiadomień.",
+    "open": true
+   },
+   {
+    "n": "02",
+    "q": "Ile kosztuje monitoring?",
+    "a": "Zależy od liczby kamer, tras kabli, wysokości montażu i rodzaju kamer. Po wizji lokalnej dostajesz wycenę na piśmie, zwykle w wariantach. Zdjęcia obiektu możesz wysłać wcześniej.",
+    "open": false
+   },
+   {
+    "n": "03",
+    "q": "Czy mogę mieć kamerę w pensjonacie?",
+    "a": "Tak, na parkingu, przy wejściu czy w narciarni. Nie w pokojach, łazienkach ani w saunie. Ustawiamy strefy, maski i czas nagrań, a Ty przygotowujesz informację dla gości. Podpowiemy, co w niej ująć.",
+    "open": false
+   },
+   {
+    "n": "04",
+    "q": "Jak długo przechowywać nagrania?",
+    "a": "Tyle, ile wynika z celu monitoringu. EROD zaleca, by nagrania co do zasady usuwać automatycznie po kilku dniach, a dłuższy czas, zwłaszcza ponad 72 godziny, uzasadnić celem. Przy monitoringu pracowników Kodeks pracy pozwala najwyżej na 3 miesiące, chyba że nagranie jest dowodem w postępowaniu.",
+    "open": false
+   },
+   {
+    "n": "05",
+    "q": "Czy kamera może patrzeć na ulicę albo na sąsiada?",
+    "a": "Lepiej nie. Kamera, która obejmuje drogę lub posesję sąsiada, podlega RODO. Ustawiamy kadr na Twoją posesję, a resztę maskujemy w obrazie.",
+    "open": false
+   },
+   {
+    "n": "06",
+    "q": "Mam stare kamery analogowe. Trzeba wszystko wymieniać?",
+    "a": "Nie zawsze. Często da się zostawić część okablowania albo podłączyć istniejące kamery do nowego rejestratora. Sprawdzamy to na miejscu i proponujemy rozsądny wariant.",
+    "open": false
+   },
+   {
+    "n": "07",
+    "q": "Co się stanie, gdy zabraknie prądu?",
+    "a": "Z zasilaczem awaryjnym UPS system nagrywa dalej: od około godziny w małym zestawie do kilku godzin z dodatkową baterią. Bez UPS-a nagrywanie stanie razem z prądem.",
+    "open": false
+   },
+   {
+    "n": "08",
+    "q": "Kamera ma stać daleko, przy bramie albo na parkingu. Da się?",
+    "a": "Tak. Do około 90 metrów wystarcza kabel sieciowy. Dalej stawiamy dodatkowy switch, kładziemy światłowód albo łączymy radiowo, bez kopania przez całą działkę.",
+    "open": false
+   },
+   {
+    "n": "09",
+    "q": "Czy ktoś może się włamać do moich kamer przez internet?",
+    "a": "Każde urządzenie w sieci da się zaatakować, jeśli jest źle skonfigurowane. Dlatego zmieniamy hasła fabryczne, aktualizujemy oprogramowanie, dajemy kamerom osobną sieć i nie wystawiamy rejestratora wprost do internetu.",
+    "open": false
+   },
+   {
+    "n": "10",
+    "q": "Jaki dysk montujecie?",
+    "a": "Dysk przeznaczony do monitoringu, np. WD Purple albo Seagate SkyHawk, zaprojektowany do zapisu przez całą dobę. Pojemność dobieramy do liczby kamer i czasu przechowywania nagrań.",
+    "open": false
+   },
+   {
+    "n": "11",
+    "q": "Co z serwisem po montażu?",
+    "a": "Robimy przeglądy przed sezonem: czyszczenie kamer, test dysku i nagrań, aktualizacje. Wiele rzeczy sprawdzimy zdalnie, a do obiektu na Podhalu dojeżdżamy z Rabki albo Zakopanego.",
+    "open": false
+   }
+  ],
+  "rel": [
+   {
+    "k": "alarm",
+    "n": "Alarmy i wideodomofony",
+    "g": "Bezpieczeństwo",
+    "href": "Alarmy.dc.html",
+    "ic": "ikona:bell",
+    "s": "Czujki, syreny, domofon z aplikacją"
+   },
+   {
+    "k": "kd",
+    "n": "Kontrola dostępu i zamki",
+    "g": "Bezpieczeństwo",
+    "href": "Dostep.dc.html",
+    "ic": "ikona:lock",
+    "s": "Karty, kody, apartamenty"
+   },
+   {
+    "k": "wifi",
+    "n": "Sieci i Wi-Fi",
+    "g": "Sieci i technika",
+    "href": "Sieci.dc.html",
+    "ic": "ikona:wifi",
+    "s": "Okablowanie, światłowód, Wi-Fi gości"
+   },
+   {
+    "href": "Serwis.dc.html",
+    "ic": "ikona:wrench",
+    "n": "Serwis i przeglądy",
+    "s": "Przegląd przed sezonem, naprawy, przejęcie instalacji"
+   }
+  ],
+  "segRel": [
+   {
+    "k": "dom",
+    "g": "Dom i noclegi",
+    "n": "Dom i domek letniskowy",
+    "s": "Bezpieczny, gdy Cię nie ma",
+    "page": "SegDom",
+    "href": "SegDom.dc.html",
+    "ic": "ikona:home",
+    "h": "#7BD36A",
+    "hs": "--mh:#7BD36A",
+    "cls": ""
+   },
+   {
+    "k": "pens",
+    "g": "Dom i noclegi",
+    "n": "Pensjonat",
+    "s": "Wi-Fi i TV w pokojach, kamery na zewnątrz",
+    "page": "Noclegowe",
+    "href": "Noclegowe.dc.html",
+    "ic": "ikona:bed",
+    "h": "#F29A4B",
+    "hs": "--mh:#F29A4B",
+    "cls": ""
+   },
+   {
+    "k": "sklep",
+    "g": "Firmy",
+    "n": "Sklep i salon",
+    "s": "Kasa, witryna, komunikaty",
+    "page": "SegSklep",
+    "href": "SegSklep.dc.html",
+    "ic": "ikona:shop",
+    "h": "#12B6D8",
+    "hs": "--mh:#12B6D8",
+    "cls": ""
+   },
+   {
+    "k": "firma",
+    "g": "Firmy",
+    "n": "Firma, biuro i hala",
+    "s": "Wejścia, rampa, sieć firmowa",
+    "page": "SegFirma",
+    "href": "SegFirma.dc.html",
+    "ic": "ikona:factory",
+    "h": "#5B8CF0",
+    "hs": "--mh:#5B8CF0",
+    "cls": ""
+   },
+   {
+    "k": "bud",
+    "g": "Budownictwo",
+    "n": "Budowa",
+    "s": "Monitoring placu bez prądu i kabla",
+    "page": "SegBudowa",
+    "href": "SegBudowa.dc.html",
+    "ic": "ikona:crane",
+    "h": "#E8A23A",
+    "hs": "--mh:#E8A23A",
+    "cls": ""
+   },
+   {
+    "k": "gmina",
+    "g": "Instytucje",
+    "n": "Gmina i urząd",
+    "s": "Sala obrad, transmisja sesji",
+    "page": "SegGmina",
+    "href": "SegGmina.dc.html",
+    "ic": "ikona:town",
+    "h": "#8C9CF5",
+    "hs": "--mh:#8C9CF5",
+    "cls": ""
+   }
+  ],
+  "hasSegRel": true,
+  "segRelH": "Dla kogo robimy tę instalację",
+  "sx": {
+   "faqA": {
+    "t": "Masz inne pytanie?",
+    "d": "Wyślij zdjęcie obiektu albo obecnej instalacji. Powiemy, od czego zacząć i czego się spodziewać.",
+    "cta": "Zaplanuj instalację",
+    "href": "Zaplanuj.dc.html"
+   },
+   "faqH": "Zanim zadzwonisz.",
+   "relH": "Monitoring działa najlepiej w zestawie.",
+   "pkg": {
+    "eye": "Przykładowe zestawy",
+    "h": "Od czego zwykle zaczynamy.",
+    "p": "Trzy typowe punkty startu. Każdy dopasowujemy do obiektu po wizji lokalnej.",
+    "note": "To przykłady. Liczbę kamer, ich rodzaj i miejsca montażu ustalamy na miejscu, a cenę podajemy na piśmie."
+   },
+   "cena": {
+    "btn": "Wyślij zdjęcia do wyceny",
+    "eye": "Wycena",
+    "h": "Od czego zależy cena monitoringu.",
+    "p": "Nie podajemy ceny „za kamerę” w ciemno, bo dwie takie same kamery na różnych budynkach to zupełnie inna praca. Wyślij zdjęcia, a powiemy, czego się spodziewać."
+   }
+  },
+  "sy": {
+   "tabs": [
+    {
+     "n": "Dom",
+     "ic": "ikona:home",
+     "on": "false",
+     "cls": ""
+    },
+    {
+     "n": "Firma",
+     "ic": "ikona:shop",
+     "on": "false",
+     "cls": ""
+    },
+    {
+     "n": "Obiekt noclegowy",
+     "ic": "ikona:bed",
+     "on": "true",
+     "cls": "on"
+    },
+    {
+     "n": "Duży obiekt",
+     "ic": "ikona:factory",
+     "on": "false",
+     "cls": ""
+    }
+   ],
+   "name": "Obiekt noclegowy",
+   "sub": "10–16 kamer",
+   "camN": "12 × 4 MP",
+   "nvrN": "16 kanałów",
+   "upsN": "2–4 h",
+   "flow": "fl2",
+   "e": {
+    "cam": {
+     "cls": "sye sy-cam on"
+    },
+    "srg": {
+     "cls": "sye sy-srg on"
+    },
+    "sw": {
+     "cls": "sye sy-sw on"
+    },
+    "nvr": {
+     "cls": "sye sy-nvr on sel"
+    },
+    "hdd": {
+     "cls": "sye sy-hdd on"
+    },
+    "ups": {
+     "cls": "sye sy-ups on"
+    },
+    "rack": {
+     "cls": "sye sy-rack on"
+    },
+    "rtr": {
+     "cls": "sye sy-rtr on"
+    },
+    "app": {
+     "cls": "sye sy-app on"
+    },
+    "lnk": {
+     "cls": "sye sy-lnk on"
+    },
+    "lpr": {
+     "cls": "sye sy-lpr on"
+    },
+    "ptz": {
+     "cls": "sye sy-ptz"
+    }
+   },
+   "ci": {
+    "c0": "syc on",
+    "c1": "syc on",
+    "c2": "syc on",
+    "c3": "syc on",
+    "c4": "syc on",
+    "c5": "syc on",
+    "c6": "syc on",
+    "c7": "syc on"
+   },
+   "d0": "syd on",
+   "d1": "syd on",
+   "d2": "syd",
+   "d3": "syd",
+   "stats": [
+    {
+     "k": "Kamery",
+     "v": "12"
+    },
+    {
+     "k": "Rejestrator",
+     "v": "16 kanałów"
+    },
+    {
+     "k": "Dyski",
+     "v": "2 × 8 TB"
+    },
+    {
+     "k": "Zapis ciągły",
+     "v": "ok. 4–8 tyg."
+    },
+    {
+     "k": "Bez prądu",
+     "v": "cel 2–4 h"
+    }
+   ],
+   "foot": "Czas zapisu orientacyjnie: kamery 4 MP, kompresja H.265, zapis ciągły 2–4 Mb/s na kamerę, 95% pojemności dysku. Noc, śnieg i drzewa na wietrze zwiększają strumień. Dokładnie liczymy w projekcie.",
+   "info": {
+    "k": "invr2",
+    "ic": "ikona:cpu",
+    "n": "Rejestrator NVR",
+    "st": "Serce systemu",
+    "d": "Nagrywa wszystkie kamery naraz i trzyma nagrania w budynku, a nie w obcej chmurze. Analizuje obraz i wysyła powiadomienia.",
+    "tip": "Dobieramy go po przepustowości, a nie tylko po liczbie kanałów. Suma strumieni ze wszystkich kamer musi się w niej zmieścić z zapasem.",
+    "spec": "16 kanałów, wbudowane PoE"
+   },
+   "list": [
+    {
+     "n": "Kamery IP",
+     "ic": "ikona:cam",
+     "s": "12 kamer 4 MP: wejścia, parking, teren, bez pokoi gości",
+     "no": "01",
+     "cls": "syli"
+    },
+    {
+     "n": "Ochrona przepięciowa",
+     "ic": "ikona:bolt",
+     "s": "Na wejściach kabli do budynków, z uziemieniem",
+     "no": "02",
+     "cls": "syli"
+    },
+    {
+     "n": "Switch PoE",
+     "ic": "ikona:net",
+     "s": "Dodatkowy switch PoE w drugim budynku",
+     "no": "03",
+     "cls": "syli"
+    },
+    {
+     "n": "Rejestrator NVR",
+     "ic": "ikona:cpu",
+     "s": "16 kanałów, wbudowane PoE",
+     "no": "04",
+     "cls": "syli on"
+    },
+    {
+     "n": "Dyski do monitoringu",
+     "ic": "ikona:layers",
+     "s": "2 dyski po 8 TB",
+     "no": "05",
+     "cls": "syli"
+    },
+    {
+     "n": "Zasilacz awaryjny UPS",
+     "ic": "ikona:battery",
+     "s": "UPS z dodatkową baterią, cel 2–4 godziny",
+     "no": "06",
+     "cls": "syli"
+    },
+    {
+     "n": "Szafa rack",
+     "ic": "ikona:build",
+     "s": "Szafa 12U z wentylacją w ogrzewanym pomieszczeniu",
+     "no": "07",
+     "cls": "syli"
+    },
+    {
+     "n": "Router i osobna sieć",
+     "ic": "ikona:wifi",
+     "s": "Osobno kamery, osobno Wi-Fi gości",
+     "no": "08",
+     "cls": "syli"
+    },
+    {
+     "n": "Aplikacja i powiadomienia",
+     "ic": "ikona:phone",
+     "s": "Właściciel i obsługa, powiadomienia z parkingu w nocy",
+     "no": "09",
+     "cls": "syli"
+    },
+    {
+     "n": "Światłowód lub most radiowy",
+     "ic": "ikona:fiber",
+     "s": "Światłowód albo most radiowy do drugiego budynku",
+     "no": "10",
+     "cls": "syli"
+    },
+    {
+     "n": "Odczyt tablic rejestracyjnych",
+     "ic": "ikona:car",
+     "s": "Na wjeździe, opcjonalnie otwiera bramę",
+     "no": "11",
+     "cls": "syli"
+    }
+   ],
+   "cnt": "11",
+   "pos": "4"
+  },
+  "nv": {
+   "day": "NOC · −9°C",
+   "time": "02:14:00",
+   "scn": "cs col",
+   "modes": [
+    {
+     "n": "Dzień",
+     "ic": "ikona:sun",
+     "on": "false",
+     "cls": ""
+    },
+    {
+     "n": "Noc · IR",
+     "ic": "ikona:moon",
+     "on": "false",
+     "cls": ""
+    },
+    {
+     "n": "Noc · kolor",
+     "ic": "ikona:light",
+     "on": "true",
+     "cls": "on"
+    }
+   ],
+   "big": false,
+   "gcls": "nvrg",
+   "s1": true,
+   "s2": true,
+   "s3": true,
+   "s4": true,
+   "c1": "cam",
+   "c2": "cam",
+   "c3": "cam",
+   "c4": "cam",
+   "ai": true,
+   "noai": false,
+   "night": true,
+   "dayv": false,
+   "deter": true,
+   "mask": true,
+   "mcls": "pmask",
+   "ev": [
+    {
+     "cls": "tlev c",
+     "st": "left:8%",
+     "k": "A",
+     "t": "Auto"
+    },
+    {
+     "cls": "tlev p",
+     "st": "left:27%",
+     "k": "C",
+     "t": "Człowiek"
+    },
+    {
+     "cls": "tlev c",
+     "st": "left:41%",
+     "k": "A",
+     "t": "Auto"
+    },
+    {
+     "cls": "tlev p",
+     "st": "left:55%",
+     "k": "C",
+     "t": "Człowiek"
+    },
+    {
+     "cls": "tlev p",
+     "st": "left:68%",
+     "k": "C",
+     "t": "Człowiek"
+    },
+    {
+     "cls": "tlev c",
+     "st": "left:80%",
+     "k": "A",
+     "t": "Auto"
+    },
+    {
+     "cls": "tlev p",
+     "st": "left:91%",
+     "k": "C",
+     "t": "Człowiek"
+    }
+   ],
+   "note": "Kolor w nocy: jasny obiektyw i ciepłe doświetlenie (Hikvision ColorVu, Dahua Full-color). Widać kolor kurtki i auta, co pomaga przy zgłoszeniu. Posesja sąsiada na kamerze 4 jest zamaskowana i nie trafia do nagrań.",
+   "aiCls": "tgl on",
+   "aiOn": "true",
+   "mkCls": "tgl on",
+   "mkOn": "true",
+   "dtCls": "tgl on",
+   "dtOn": "true"
+  },
+  "feats": [
+   {
+    "ic": "ikona:home",
+    "t": "Nagrania zostają u Ciebie",
+    "d": "Rejestrator stoi w Twoim obiekcie. Nie płacisz abonamentu za chmurę, a nagrania nie wyjeżdżają na cudze serwery."
+   },
+   {
+    "ic": "ikona:phone",
+    "t": "Podgląd w telefonie",
+    "d": "Aplikacja producenta (np. Hik-Connect, DMSS albo aplikacja BCS): obraz na żywo, powiadomienia, przewijanie nagrań. Konfigurujemy ją razem z Tobą."
+   },
+   {
+    "ic": "ikona:eye",
+    "t": "Wykrywanie ludzi i aut",
+    "d": "Analiza obrazu (Hikvision AcuSense, Dahua WizSense) odróżnia człowieka i samochód od liści, śniegu i zwierząt. Mniej fałszywych powiadomień."
+   },
+   {
+    "ic": "ikona:moon",
+    "t": "Kolor także w nocy",
+    "d": "Kamery z jasnym obiektywem F1.0 i ciepłym doświetleniem pokazują kolory po zmroku. Albo dyskretna podczerwień, gdy światło przeszkadza gościom."
+   },
+   {
+    "ic": "ikona:bell",
+    "t": "Odstraszanie",
+    "d": "Kamera z białym światłem, syreną i własnym komunikatem głosowym reaguje, zanim ktoś wejdzie do narciarni czy garażu."
+   },
+   {
+    "ic": "ikona:snow",
+    "t": "Na górską zimę",
+    "d": "Dobieramy kamery do mrozu: przykładowo Dahua IPC-HDBW3441R-AS-P pracuje od −40 do +60°C, ma szczelność IP67 i odporność na uderzenia IK10.",
+    "src": "Według karty producenta."
+   }
+  ],
+  "typ": {
+   "k": "ty0",
+   "d0": true,
+   "d1": false,
+   "d2": false,
+   "d3": false,
+   "d4": false,
+   "n": "Kopułkowa",
+   "d": "Mała, dyskretna, montowana pod okapem lub na suficie. Trudno ją przestawić albo zasłonić.",
+   "ok": "Wejścia, recepcja, korytarze, sala sklepu, okap nad drzwiami.",
+   "no": "Kopułka zbiera krople i szron, jeśli nie jest pod daszkiem. Montujemy ją pod okapem.",
+   "tabs": [
+    {
+     "n": "Kopułkowa",
+     "on": "true",
+     "cls": "typb on"
+    },
+    {
+     "n": "Tubowa",
+     "on": "false",
+     "cls": "typb"
+    },
+    {
+     "n": "Obrotowa PTZ",
+     "on": "false",
+     "cls": "typb"
+    },
+    {
+     "n": "Z odstraszaniem",
+     "on": "false",
+     "cls": "typb"
+    },
+    {
+     "n": "Panoramiczna",
+     "on": "false",
+     "cls": "typb"
+    }
+   ]
+  },
+  "dori": {
+   "res": [
+    {
+     "n": "2 MP",
+     "on": "false",
+     "cls": ""
+    },
+    {
+     "n": "4 MP",
+     "on": "true",
+     "cls": "on"
+    },
+    {
+     "n": "8 MP",
+     "on": "false",
+     "cls": ""
+    }
+   ],
+   "lens": [
+    {
+     "n": "2,8 mm · ok. 100°",
+     "on": "true",
+     "cls": "on"
+    },
+    {
+     "n": "4 mm · ok. 85°",
+     "on": "false",
+     "cls": ""
+    },
+    {
+     "n": "6 mm · ok. 55°",
+     "on": "false",
+     "cls": ""
+    },
+    {
+     "n": "12 mm · ok. 30°",
+     "on": "false",
+     "cls": ""
+    }
+   ],
+   "d": 12,
+   "ppm": 90,
+   "w": "28,6",
+   "zones": [
+    {
+     "n": "Id.",
+     "st": "left:0.0%;width:10.7%"
+    },
+    {
+     "n": "Roz.",
+     "st": "left:10.7%;width:10.7%"
+    },
+    {
+     "n": "Obserwacja",
+     "st": "left:21.5%;width:21.8%"
+    },
+    {
+     "n": "Wykrycie",
+     "st": "left:43.3%;width:56.7%"
+    }
+   ],
+   "manSt": "left:calc(30.0% - 11px);transform:scale(1.05)",
+   "lv": [
+    {
+     "n": "Wykrycie",
+     "cls": "on"
+    },
+    {
+     "n": "Obserwacja",
+     "cls": "on"
+    },
+    {
+     "n": "Rozpoznanie",
+     "cls": ""
+    },
+    {
+     "n": "Identyfikacja",
+     "cls": ""
+    }
+   ],
+   "txt": "Widać sylwetkę, ubiór i to, co robi."
+  },
+  "rec": {
+   "n": 8,
+   "br": [
+    {
+     "n": "2 Mb/s",
+     "on": "false",
+     "cls": ""
+    },
+    {
+     "n": "4 Mb/s",
+     "on": "true",
+     "cls": "on"
+    },
+    {
+     "n": "8 Mb/s",
+     "on": "false",
+     "cls": ""
+    }
+   ],
+   "tb": [
+    {
+     "n": "2 TB",
+     "on": "false",
+     "cls": ""
+    },
+    {
+     "n": "4 TB",
+     "on": "true",
+     "cls": "on"
+    },
+    {
+     "n": "8 TB",
+     "on": "false",
+     "cls": ""
+    },
+    {
+     "n": "16 TB",
+     "on": "false",
+     "cls": ""
+    }
+   ],
+   "days": 10,
+   "big": "10",
+   "unit": "dni",
+   "bar": "width:12%",
+   "txt": "8 kamer zapisuje ok. 0,35 TB na dobę. Czas przechowywania ustawiamy w rejestratorze, a starsze nagrania nadpisują się same."
+  },
+  "rodo": {
+   "ok": [
+    "Parking i podjazd",
+    "Wejście do budynku i recepcja",
+    "Narciarnia, wózkownia, garaż",
+    "Kasa, zaplecze, magazyn",
+    "Teren wokół obiektu, bez posesji sąsiadów"
+   ],
+   "no": [
+    "Pokoje gości i apartamenty",
+    "Łazienki, toalety, szatnie",
+    "Sauna, strefa SPA, przebieralnie",
+    "Stołówka, palarnia i pokój związków zawodowych (Kodeks pracy dopuszcza tylko wąskie wyjątki)",
+    "Okna, ogrody i działki sąsiadów"
+   ],
+   "we": [
+    {
+     "ic": "ikona:layers",
+     "t": "Strefy i maski",
+     "d": "Zaczerniamy w obrazie to, czego kamera nie powinna nagrywać."
+    },
+    {
+     "ic": "ikona:clock",
+     "t": "Czas nagrań",
+     "d": "Ustawiamy nadpisywanie po tylu dniach, ile wynika z celu."
+    },
+    {
+     "ic": "ikona:lock",
+     "t": "Hasła i konta",
+     "d": "Zmieniamy hasła fabryczne, konta tylko dla upoważnionych."
+    },
+    {
+     "ic": "ikona:doc",
+     "t": "Tabliczki",
+     "d": "Pokazujemy, gdzie powiesić oznaczenia i co na nich wpisać."
+    }
+   ]
+  },
+  "brandsM": [
+   {
+    "n": "Hikvision",
+    "k": "detekcja i noc w kolorze",
+    "f": [
+     "AcuSense: alarm tylko od ludzi i aut, mniej fałszywych powiadomień",
+     "ColorVu: kolorowy obraz w nocy dzięki jasnemu obiektywowi i światłu białemu",
+     "Aplikacja Hik-Connect: podgląd, nagrania i powiadomienia"
+    ],
+    "s": "Opisy technologii według materiałów producenta i dystrybutorów."
+   },
+   {
+    "n": "Dahua",
+    "k": "odstraszanie i mróz",
+    "f": [
+     "WizSense: wykrywanie ludzi i pojazdów, ochrona linii i strefy",
+     "TiOC: odstrasza światłem i komunikatem głosowym, rozmowa przez kamerę",
+     "Wybrane modele pracują od −40 °C. Aplikacja DMSS"
+    ],
+    "s": "Według karty kamery z serii WizSense 3 (2025)."
+   },
+   {
+    "n": "BCS",
+    "k": "polska marka",
+    "f": [
+     "Marka polskiej firmy BCS Sp. z o.o., która jest też importerem",
+     "BCS Point łączy kamery IP z analogowymi HD, więc rozbudujesz starą instalację",
+     "Kilka linii produktów i własne aplikacje do podglądu"
+    ],
+    "s": "Według materiałów producenta."
+   }
+  ],
+  "brD": [
+   {
+    "ic": "ikona:snow",
+    "t": "Mróz i wiatr",
+    "d": "Zakres pracy różni się między modelami. Na Podhalu sprawdzamy go w karcie każdej kamery."
+   },
+   {
+    "ic": "ikona:moon",
+    "t": "Noc",
+    "d": "Kolor ze światłem białym tam, gdzie liczą się szczegóły, podczerwień tam, gdzie światło przeszkadza."
+   },
+   {
+    "ic": "ikona:eye",
+    "t": "Odległość i szczegóły",
+    "d": "Obiektyw i rozdzielczość liczymy z tego, czy ma być widać sylwetkę, twarz czy tablicę."
+   },
+   {
+    "ic": "ikona:cpu",
+    "t": "Rejestrator i dysk",
+    "d": "NVR z zasilaniem PoE dla kamer i dyski do zapisu przez całą dobę, np. WD Purple albo Seagate SkyHawk."
+   }
+  ]
+ }
+}

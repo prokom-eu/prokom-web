@@ -1,0 +1,660 @@
+{
+ "_strona": "Multimedia",
+ "_title": "Ekrany i menu board, Zakopane i Podhale | PRO-KOM Instalacje",
+ "_description": "Ekrany w witrynie, menu board, ekrany w recepcji i ściany wideo w Zakopanem i na Podhalu. Ekrany profesjonalne z treścią zmienianą zdalnie.",
+ "_uwaga": "Zrzut danych z wizualizacji v4.0 (stan początkowy strony, motyw jasny). Teksty = treść do seeda. Klucze UI (cls, on, pick) pomijaj.",
+ "dane": {
+  "ctaEye": "Ekrany i multimedia",
+  "ctaH": "Pokaż miejsce na ekran. Zaproponujemy sprzęt i treści na start.",
+  "ctaP": "Dobór ekranu, montaż, odtwarzanie, harmonogram i szkolenie. Potem treści na zlecenie i serwis.",
+  "hero": {
+   "mid": true,
+   "midT": "Usługi",
+   "midH": "Main.dc.html#uslugi",
+   "cta": "Zaplanuj instalację",
+   "ctaHref": "Zaplanuj.dc.html",
+   "crumb": "Ekrany i digital signage",
+   "eye": "Ekrany, menu board, witryny, ściany wideo · Zakopane i Podhale",
+   "h1a": "Ekrany, które mówią za Ciebie.",
+   "h1b": "Menu, pogoda, oferta.",
+   "lead": "Montujemy ekrany w recepcjach, restauracjach, witrynach i salach konferencyjnych. Dobieramy sprzęt do miejsca, ustawiamy odtwarzanie i harmonogram, a treści zmieniasz z telefonu albo zlecasz nam.",
+   "kv": [
+    {
+     "b": "24/7",
+     "s": "ekrany do pracy ciągłej"
+    },
+    {
+     "b": "Z telefonu",
+     "s": "zmienisz menu"
+    },
+    {
+     "b": "−30°C",
+     "s": "zakres pracy ekranów zewnętrznych"
+    }
+   ],
+   "tags": [
+    {
+     "n": "Samsung"
+    },
+    {
+     "n": "Menu board"
+    },
+    {
+     "n": "Totemy"
+    },
+    {
+     "n": "Sale konferencyjne"
+    }
+   ]
+  },
+  "anc": [
+   {
+    "href": "#gdzie",
+    "n": "Gdzie montujemy"
+   },
+   {
+    "href": "#dwa-salony",
+    "n": "Demo: dwa salony"
+   },
+   {
+    "href": "#jasnosc",
+    "n": "Jasność"
+   },
+   {
+    "href": "#tv-czy-ekran",
+    "n": "Telewizor czy ekran"
+   },
+   {
+    "href": "#tresci",
+    "n": "Treści"
+   },
+   {
+    "href": "#sciany-led",
+    "n": "LED i interaktywne"
+   },
+   {
+    "href": "#zewnatrz",
+    "n": "Na zewnątrz"
+   },
+   {
+    "href": "#pakiety",
+    "n": "Zestawy"
+   },
+   {
+    "href": "#faq",
+    "n": "Pytania"
+   }
+  ],
+  "pkgs": [
+   {
+    "ic": "ikona:food",
+    "n": "Menu board",
+    "d": "Restauracja, kawiarnia, bar.",
+    "f": [
+     "1–3 ekrany pionowe lub poziome",
+     "Odtwarzacz i oprogramowanie",
+     "Szablon menu w Twoich kolorach",
+     "Harmonogram śniadań i obiadów",
+     "Szkolenie z edycji"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "hot": false,
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri"
+   },
+   {
+    "ic": "ikona:bed",
+    "n": "Recepcja i lobby",
+    "d": "Pensjonat, hotel, wypożyczalnia.",
+    "f": [
+     "Ekran w recepcji",
+     "Pogoda, atrakcje, posiłki, Wi-Fi",
+     "Harmonogram treści",
+     "Integracja z siecią obiektu",
+     "Opieka nad treścią na życzenie"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "hot": true,
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri hot"
+   },
+   {
+    "ic": "ikona:users",
+    "n": "Sala konferencyjna",
+    "d": "Hotel, firma, szkoła.",
+    "f": [
+     "Ekran lub projektor",
+     "Prezentacja bezprzewodowa",
+     "Nagłośnienie i mikrofony",
+     "Okablowanie w stole",
+     "Szkolenie obsługi, dokumentacja według oferty"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "hot": false,
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri"
+   }
+  ],
+  "cena": [
+   {
+    "ic": "ikona:tv",
+    "t": "Rodzaj i wielkość ekranu",
+    "d": "Ekran do pracy ciągłej, zewnętrzny, pionowy, ściana wideo."
+   },
+   {
+    "ic": "ikona:cpu",
+    "t": "Odtwarzacz i oprogramowanie",
+    "d": "Wbudowany odtwarzacz lub osobny, licencja systemu treści."
+   },
+   {
+    "ic": "ikona:build",
+    "t": "Montaż",
+    "d": "Uchwyt ścienny, sufitowy, totem, praca na wysokości."
+   },
+   {
+    "ic": "ikona:net",
+    "t": "Zasilanie i sieć",
+    "d": "Gniazdo, przewód sieciowy lub Wi-Fi przy ekranie."
+   },
+   {
+    "ic": "ikona:grid",
+    "t": "Treści",
+    "d": "Szablony, projekt graficzny, aktualizacje na zlecenie."
+   },
+   {
+    "ic": "ikona:wrench",
+    "t": "Serwis",
+    "d": "Zdalny nadzór i wymiana sprzętu w razie awarii."
+   }
+  ],
+  "faq": [
+   {
+    "n": "01",
+    "q": "Czy mogę zwykły telewizor użyć jako menu board?",
+    "a": "Można, ale telewizor nie jest projektowany do pracy wiele godzin dziennie i zwykle ma słabsze zarządzanie treścią. Do pracy ciągłej dobieramy ekrany profesjonalne.",
+    "open": true
+   },
+   {
+    "n": "02",
+    "q": "Kto zmienia treści na ekranach?",
+    "a": "Ty, w aplikacji lub przeglądarce, albo my w ramach opieki nad treścią. Ustawiamy też harmonogramy, żeby menu zmieniało się samo.",
+    "open": false
+   },
+   {
+    "n": "03",
+    "q": "Czy w Zakopanem mogę mieć ekran w witrynie?",
+    "a": "Od 4 lipca 2026 r. obowiązuje tam uchwała krajobrazowa, a według materiałów miasta ogranicza ona m.in. nośniki o zmiennej, migającej treści. Ekran w witrynie lub na elewacji może być więc mocno ograniczony. Pełny tekst uchwały sprawdzamy przed każdą ofertą na taki montaż.",
+    "open": false
+   },
+   {
+    "n": "04",
+    "q": "Czy ekran zniesie mróz na zewnątrz?",
+    "a": "Ekran przeznaczony na zewnątrz tak. Przykładowo Samsung OHDX 55\" pracuje od −30 do +50°C i ma obudowę IP56. Zwykły ekran za szybą w nieogrzewanym miejscu to ryzyko.",
+    "open": false
+   },
+   {
+    "n": "05",
+    "q": "Czy licencja na oprogramowanie jest płatna?",
+    "a": "Zwykle tak. Samsung VXT rozliczany jest w abonamencie. Licencję dobieramy do liczby ekranów i potrzebnych funkcji, a jej koszt podajemy w ofercie.",
+    "open": false
+   },
+   {
+    "n": "06",
+    "q": "Mamy MagicINFO. Trzeba wszystko wymieniać?",
+    "a": "Nie od razu. Samsung kończy sprzedaż MagicINFO w wersji lokalnej z końcem 2026 roku, ale wspiera istniejące instalacje do końca 2029. Wyjątek: MagicINFO Cloud przestaje działać 28.02.2027, więc tam migrację na VXT trzeba zaplanować wcześniej. W pozostałych przypadkach migrujemy wtedy, gdy ma to sens.",
+    "open": false
+   },
+   {
+    "n": "07",
+    "q": "Czy ekran połączy się z nagłośnieniem?",
+    "a": "Tak. W salach konferencyjnych i restauracjach łączymy obraz z nagłośnieniem stref.",
+    "open": false
+   }
+  ],
+  "rel": [
+   {
+    "k": "wifi",
+    "n": "Sieci i Wi-Fi",
+    "g": "Sieci i technika",
+    "href": "Sieci.dc.html",
+    "ic": "ikona:wifi",
+    "s": "Okablowanie, światłowód, Wi-Fi gości"
+   },
+   {
+    "k": "smart",
+    "n": "Smart home Ampio",
+    "g": "Komfort i obraz",
+    "href": "SmartHome.dc.html",
+    "ic": "ikona:home",
+    "s": "Polski system, działa bez internetu"
+   },
+   {
+    "k": "snd",
+    "n": "Nagłośnienie",
+    "g": "Komfort i obraz",
+    "href": "Naglosnienie.dc.html",
+    "ic": "ikona:spk",
+    "s": "APART: restauracje, hotele, kościoły, sale"
+   }
+  ],
+  "segRel": [
+   {
+    "k": "rest",
+    "g": "Firmy",
+    "n": "Restauracja i sala weselna",
+    "s": "Muzyka w strefach, menu na ekranach",
+    "page": "SegRestauracja",
+    "href": "SegRestauracja.dc.html",
+    "ic": "ikona:food",
+    "h": "#F07A6A",
+    "hs": "--mh:#F07A6A",
+    "cls": ""
+   },
+   {
+    "k": "sklep",
+    "g": "Firmy",
+    "n": "Sklep i salon",
+    "s": "Kasa, witryna, komunikaty",
+    "page": "SegSklep",
+    "href": "SegSklep.dc.html",
+    "ic": "ikona:shop",
+    "h": "#12B6D8",
+    "hs": "--mh:#12B6D8",
+    "cls": ""
+   },
+   {
+    "k": "hotel",
+    "g": "Dom i noclegi",
+    "n": "Hotel",
+    "s": "Recepcja 24/7, sale, SPA",
+    "page": "SegHotel",
+    "href": "SegHotel.dc.html",
+    "ic": "ikona:hotel",
+    "h": "#E86FB0",
+    "hs": "--mh:#E86FB0",
+    "cls": ""
+   },
+   {
+    "k": "gmina",
+    "g": "Instytucje",
+    "n": "Gmina i urząd",
+    "s": "Sala obrad, transmisja sesji",
+    "page": "SegGmina",
+    "href": "SegGmina.dc.html",
+    "ic": "ikona:town",
+    "h": "#8C9CF5",
+    "hs": "--mh:#8C9CF5",
+    "cls": ""
+   },
+   {
+    "k": "szk",
+    "g": "Instytucje",
+    "n": "Szkoła i przedszkole",
+    "s": "Bezpieczne wejścia, dzwonki, sieć",
+    "page": "SegSzkola",
+    "href": "SegSzkola.dc.html",
+    "ic": "ikona:school",
+    "h": "#5FD0B0",
+    "hs": "--mh:#5FD0B0",
+    "cls": ""
+   }
+  ],
+  "hasSegRel": true,
+  "segRelH": "Dla kogo robimy tę instalację",
+  "sx": {
+   "faqA": {
+    "t": "Masz inne pytanie?",
+    "d": "Wyślij zdjęcie obiektu albo obecnej instalacji. Powiemy, od czego zacząć i czego się spodziewać.",
+    "cta": "Zaplanuj instalację",
+    "href": "Zaplanuj.dc.html"
+   },
+   "faqH": "Zanim zadzwonisz.",
+   "relH": "Obraz, dźwięk i sieć razem.",
+   "pkg": {
+    "eye": "Przykładowe zestawy",
+    "h": "Ekran z montażem i treściami na start.",
+    "p": "Każdy zestaw kończy się szkoleniem z edycji treści.",
+    "note": "To przykłady. Wielkość i rodzaj ekranów dobieramy do miejsca, a cenę podajemy na piśmie."
+   },
+   "cena": {
+    "btn": "Wyślij zdjęcia do wyceny",
+    "eye": "Wycena",
+    "h": "Od czego zależy cena ekranów.",
+    "p": "Najwięcej zmienia rodzaj ekranu: do recepcji, do pracy ciągłej czy na zewnątrz."
+   }
+  },
+  "sy": {
+   "k": "p0",
+   "flash": "",
+   "date": "27.10",
+   "log": "Demo z przykładowymi cenami. Kliknij przycisk powyżej.",
+   "btns": [
+    {
+     "n": "Obniż cenę smartfona o 100 zł"
+    },
+    {
+     "n": "Promocja na słuchawki"
+    },
+    {
+     "n": "Przywróć ceny"
+    }
+   ],
+   "screens": [
+    {
+     "n": "Rabka-Zdrój",
+     "st": "zsynchronizowano"
+    },
+    {
+     "n": "Zakopane",
+     "st": "zsynchronizowano"
+    }
+   ],
+   "rows": [
+    {
+     "n": "Smartfon 128 GB",
+     "p": "1899 zł",
+     "cls": "synr"
+    },
+    {
+     "n": "Smartfon 256 GB",
+     "p": "2599 zł",
+     "cls": "synr"
+    },
+    {
+     "n": "Tablet 11 cali",
+     "p": "1499 zł",
+     "cls": "synr"
+    },
+    {
+     "n": "Słuchawki bezprzewodowe",
+     "p": "349 zł",
+     "cls": "synr"
+    }
+   ]
+  },
+  "js": {
+   "places": [
+    {
+     "n": "Biuro, sala",
+     "ic": "ikona:office",
+     "on": "false",
+     "cls": "chip"
+    },
+    {
+     "n": "Środek sklepu",
+     "ic": "ikona:shop",
+     "on": "false",
+     "cls": "chip"
+    },
+    {
+     "n": "Jasne wnętrze",
+     "ic": "ikona:sun",
+     "on": "false",
+     "cls": "chip"
+    },
+    {
+     "n": "Witryna w cieniu",
+     "ic": "ikona:eye",
+     "on": "true",
+     "cls": "chip on"
+    },
+    {
+     "n": "Witryna w słońcu",
+     "ic": "ikona:sun2",
+     "on": "false",
+     "cls": "chip"
+    },
+    {
+     "n": "Na zewnątrz",
+     "ic": "ikona:snow",
+     "on": "false",
+     "cls": "chip"
+    }
+   ],
+   "vcls": "p3",
+   "nits": "1500–2500 nitów",
+   "cls": "Ekran witrynowy, np. OMDX 32\" (2000 nitów)",
+   "txt": "Ekran za szybą od strony północnej albo pod zadaszeniem. Montujemy go w odstępie od szyby, żeby się nie przegrzewał.",
+   "bar": "width:57%",
+   "marks": [
+    {
+     "n": "350",
+     "st": "left:10%"
+    },
+    {
+     "n": "700",
+     "st": "left:20%"
+    },
+    {
+     "n": "2000",
+     "st": "left:57%"
+    },
+    {
+     "n": "3500",
+     "st": "left:100%"
+    }
+   ],
+   "scrSt": "opacity:1.00;filter:contrast(1.00)",
+   "rLabel": "Pokaż zwykły ekran 350 nitów"
+  },
+  "tvc": [
+   {
+    "k": "Gwarancja przy użytku w firmie",
+    "a": "Wyłączona albo ograniczona w warunkach Samsung i LG",
+    "b": "Zaprojektowany do firm, Samsung LFD: 36 miesięcy"
+   },
+   {
+    "k": "Godziny pracy",
+    "a": "Producent nie podaje",
+    "b": "16/7 albo 24/7, zależnie od serii"
+   },
+   {
+    "k": "Jasność",
+    "a": "Do wnętrz",
+    "b": "Od 350 do kilku tysięcy nitów"
+   },
+   {
+    "k": "Praca w pionie",
+    "a": "Zwykle nieprzewidziana",
+    "b": "Pion i poziom, np. QBC, QMC, QHC"
+   },
+   {
+    "k": "Odtwarzanie treści",
+    "a": "Aplikacje telewizora",
+    "b": "Wbudowany odtwarzacz, bez komputera"
+   },
+   {
+    "k": "Zdalne zarządzanie",
+    "a": "Zwykle brak",
+    "b": "Włączanie, harmonogram, monitoring, blokada USB i pilota"
+   }
+  ],
+  "ld": {
+   "p": 25,
+   "pT": "2,5",
+   "min": "2,5",
+   "cmf": "6,0",
+   "z1": "width:10%",
+   "z2": "left:10%;width:14%"
+  },
+  "ldx": [
+   {
+    "ic": "ikona:grid",
+    "t": "Ściany wideo",
+    "d": "Kilka ekranów z wąską ramką jako jeden obraz. Np. Samsung VM55B-U ma 3,5 mm przerwy między obrazami sąsiednich ekranów i fabryczną kalibrację kolorów."
+   },
+   {
+    "ic": "ikona:finger",
+    "t": "Monitory interaktywne Avtek",
+    "d": "Polska marka firmy VIDIS. Np. TouchScreen 6 Connect 86: 4K, 20 punktów dotyku, według producenta 5 lat gwarancji."
+   },
+   {
+    "ic": "ikona:users",
+    "t": "Samsung Flip i monitory edukacyjne",
+    "d": "Interaktywny flipchart do sal spotkań i monitory z Google Play i Classroom do szkół."
+   },
+   {
+    "ic": "ikona:tv",
+    "t": "Projektory i ekrany",
+    "d": "Sale konferencyjne, szkoły i kościoły. Projektor, ekran projekcyjny i nagłośnienie w jednym projekcie."
+   }
+  ],
+  "tv": {
+   "tabs": [
+    {
+     "n": "Recepcja",
+     "ic": "ikona:bed",
+     "on": "true",
+     "cls": "on"
+    },
+    {
+     "n": "Menu board",
+     "ic": "ikona:food",
+     "on": "false",
+     "cls": ""
+    },
+    {
+     "n": "Witryna",
+     "ic": "ikona:shop",
+     "on": "false",
+     "cls": ""
+    },
+    {
+     "n": "Sala konferencyjna",
+     "ic": "ikona:users",
+     "on": "false",
+     "cls": ""
+    }
+   ],
+   "fmt": "Ekran poziomy",
+   "frame": "tvf",
+   "scls": "tvsc",
+   "k": "rec0",
+   "isRec": true,
+   "isMenu": false,
+   "isWin": false,
+   "isConf": false,
+   "s": {
+    "h": "Dzień dobry! Pogoda dziś",
+    "sub": "",
+    "f": "Przykładowe dane · pogoda i warunki z wybranych serwisów",
+    "items": [
+     {
+      "ic": "ikona:sun",
+      "v": "−4°",
+      "n": "rano",
+      "st": ""
+     },
+     {
+      "ic": "ikona:snow",
+      "v": "śnieg",
+      "n": "na stokach",
+      "st": ""
+     },
+     {
+      "ic": "ikona:cloud",
+      "v": "+1°",
+      "n": "po południu",
+      "st": ""
+     }
+    ]
+   },
+   "clock": "07:00",
+   "dots": [
+    "on",
+    "",
+    ""
+   ],
+   "sched": [
+    {
+     "n": "Śniadanie i pogoda",
+     "st": "left:25.0%;width:16.1%",
+     "cls": "on"
+    },
+    {
+     "n": "Atrakcje",
+     "st": "left:41.7%;width:28.6%",
+     "cls": ""
+    },
+    {
+     "n": "Kolacja i Wi-Fi",
+     "st": "left:70.8%;width:24.4%",
+     "cls": ""
+    }
+   ],
+   "nowSt": "left:29.2%",
+   "note": "Ekran w recepcji odpowiada na pytania gości, zanim je zadadzą: pogoda, dojazdy, godziny posiłków, Wi-Fi."
+  },
+  "gd": [
+   {
+    "ic": "ikona:bed",
+    "t": "Recepcja i lobby",
+    "d": "Pogoda, dojazdy, atrakcje, posiłki i Wi-Fi. Mniej pytań przy ladzie."
+   },
+   {
+    "ic": "ikona:food",
+    "t": "Menu board",
+    "d": "Menu, które zmienia się o godzinie. Zdjęcia dań, ceny i promocje."
+   },
+   {
+    "ic": "ikona:shop",
+    "t": "Witryna i totem",
+    "d": "Oferta dnia widoczna z ulicy. Pionowe ekrany przy wejściu."
+   },
+   {
+    "ic": "ikona:users",
+    "t": "Sale konferencyjne",
+    "d": "Ekran lub projektor, prezentacja bezprzewodowa, nagłośnienie i mikrofony."
+   },
+   {
+    "ic": "ikona:grid",
+    "t": "Ściany wideo",
+    "d": "Kilka ekranów jako jeden obraz w holu, salonie albo na wydarzeniach."
+   },
+   {
+    "ic": "ikona:school",
+    "t": "Projektory w salach i szkołach",
+    "d": "Sprzęt projekcyjny w salach szkoleniowych, konferencyjnych i klasach. Robiliśmy to m.in. w Blachotrapezie i w szkole w Rabce-Zdroju."
+   }
+  ],
+  "cms": [
+   {
+    "ic": "ikona:phone",
+    "t": "Zmiany z telefonu lub komputera",
+    "d": "Wgrywasz zdjęcie, zmieniasz cenę albo tekst i publikujesz na wybranych ekranach."
+   },
+   {
+    "ic": "ikona:clock",
+    "t": "Harmonogramy",
+    "d": "Śniadanie, obiad, kolacja. Treść zmienia się sama, także w weekendy i święta."
+   },
+   {
+    "ic": "ikona:wrench",
+    "t": "Treści na zlecenie",
+    "d": "Możemy przygotowywać i aktualizować treści za Ciebie. Zakres i cena: [SZEF]."
+   }
+  ],
+  "ext": [
+   {
+    "ic": "ikona:sun",
+    "t": "Jasność",
+    "d": "Ekrany zewnętrzne mają wielokrotnie wyższą jasność, np. Samsung OHDX 55\": 3500 nitów."
+   },
+   {
+    "ic": "ikona:snow",
+    "t": "Mróz",
+    "d": "Ten sam model pracuje od −30 do +50°C, w trybie 24/7."
+   },
+   {
+    "ic": "ikona:drop",
+    "t": "Woda i pył",
+    "d": "Obudowa IP56 i odporność na uderzenia IK10."
+   },
+   {
+    "ic": "ikona:doc",
+    "t": "Przepisy lokalne",
+    "d": "Uchwała krajobrazowa w Zakopanem i przepisy innych gmin. Sprawdzamy przed montażem."
+   }
+  ]
+ }
+}

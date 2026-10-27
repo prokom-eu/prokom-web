@@ -1,0 +1,679 @@
+{
+ "_strona": "SegKosciol",
+ "_title": "Nagłośnienie i transmisja mszy dla parafii — Podhale | PRO-KOM",
+ "_description": "Nagłośnienie kościoła, transmisja mszy, kamery przy skarbonach i alarm w zakrystii. Także w zabytkach, z opisem tras do wniosku konserwatora.",
+ "_uwaga": "Zrzut danych z wizualizacji v4.0 (stan początkowy strony, motyw jasny). Teksty = treść do seeda. Klucze UI (cls, on, pick) pomijaj.",
+ "dane": {
+  "ctaEye": "Kościół i parafia",
+  "ctaH": "Przyjedziemy, posłuchamy kościoła i powiemy, co da się poprawić.",
+  "ctaP": "Odsłuch na miejscu, propozycja na piśmie, rysunek tras dla konserwatora, montaż poza godzinami mszy i szkolenie dla kościelnego.",
+  "hero": {
+   "mid": true,
+   "midT": "Dla kogo",
+   "midH": "Main.dc.html#dla-kogo",
+   "cta": "Zaplanuj instalację",
+   "ctaHref": "Zaplanuj.dc.html#obiekt=kosc",
+   "crumb": "Kościół i parafia",
+   "eye": "Instalacje dla kościołów i parafii · Rabka-Zdrój, Zakopane, Podhale",
+   "h1a": "Każde słowo słychać w ostatniej ławce.",
+   "h1b": "A msza trafia do tych, którzy nie mogą przyjść.",
+   "lead": "Nagłośnienie dobrane do pogłosu wnętrza, transmisja mszy bez osoby przy kamerze, kamery przy skarbonach i alarm w zakrystii. Także w zabytkowych kościołach, z rysunkiem tras do wniosku o pozwolenie konserwatora.",
+   "kv": [
+    {
+     "b": "9",
+     "s": "elementów jednego systemu, od ambony po plac"
+    },
+    {
+     "b": "24 mies.",
+     "s": "gwarancji na montaż"
+    },
+    {
+     "b": "do 24 h",
+     "s": "odpowiedź na zgłoszenie w dni robocze"
+    }
+   ],
+   "tags": [
+    {
+     "n": "Nagłośnienie APART"
+    },
+    {
+     "n": "Transmisja mszy"
+    },
+    {
+     "n": "Monitoring skarbon"
+    },
+    {
+     "n": "Prace w zabytkach"
+    }
+   ]
+  },
+  "anc": [
+   {
+    "href": "#problemy",
+    "n": "Problemy"
+   },
+   {
+    "href": "#rok",
+    "n": "Rok w parafii"
+   },
+   {
+    "href": "#przepisy",
+    "n": "Przepisy"
+   },
+   {
+    "href": "#gory",
+    "n": "Podhale"
+   },
+   {
+    "href": "#pakiety",
+    "n": "Zestawy"
+   },
+   {
+    "href": "#przygotuj",
+    "n": "Przed wizytą"
+   },
+   {
+    "href": "#faq",
+    "n": "Pytania"
+   }
+  ],
+  "pkgs": [
+   {
+    "n": "Podstawa",
+    "d": "Żeby było słychać w całym kościele.",
+    "ic": "ikona:spk",
+    "f": [
+     "Przegląd obecnego nagłośnienia",
+     "Wzmacniacz miksujący z priorytetem",
+     "Kolumny ustawione na nawę",
+     "Mikrofony przy ołtarzu i ambonie",
+     "Prosty panel dla kościelnego"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "hot": false,
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri"
+   },
+   {
+    "n": "Komfort",
+    "d": "Słychać wszędzie, a kościół jest chroniony.",
+    "ic": "ikona:shield",
+    "hot": true,
+    "f": [
+     "Wszystko z Podstawy",
+     "Strefy: nawa, chór, kruchta, plac",
+     "Mikrofon bezprzewodowy dla lektora",
+     "Kamery na skarbony, wejście i zakrystię",
+     "Alarm w zakrystii, wideodomofon na plebanii"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri hot"
+   },
+   {
+    "n": "Parafia online",
+    "d": "Pełny system z transmisją mszy.",
+    "ic": "ikona:play",
+    "f": [
+     "Wszystko z Komfortu",
+     "Kamera obrotowa ze zbliżeniem (PTZ) i transmisja na YouTube lub Facebook",
+     "Ekran z tekstami pieśni",
+     "Pętla indukcyjna w części ławek",
+     "Wi-Fi na plebanii, światłowód plebania–kościół"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "hot": false,
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri"
+   }
+  ],
+  "cena": [],
+  "faq": [
+   {
+    "n": "01",
+    "q": "Dlaczego w kościele nie wystarczy mocniejszy wzmacniacz?",
+    "a": "W pogłosowym wnętrzu głośniej oznacza też więcej pogłosu i echa. Pomaga dobór i ustawienie głośników, np. kolumn skierowanych na wiernych, a nie na sklepienie. Po oględzinach mówimy, co da się poprawić samym nagłośnieniem, a co wymagałoby adaptacji akustycznej.",
+    "open": true
+   },
+   {
+    "n": "02",
+    "q": "Czy montaż w zabytkowym kościele wymaga zgody konserwatora?",
+    "a": "Jeśli kościół jest w rejestrze zabytków, tak. Od nas parafia dostaje opis i rysunek tras kablowych do wniosku. Jeśli kuria wymaga własnego uzgodnienia, ten sam opis posłuży także tam. Montaż zaczynamy po uzyskaniu pozwolenia.",
+    "open": false
+   },
+   {
+    "n": "03",
+    "q": "Gdzie w kościele montujecie kamery?",
+    "a": "Tylko tam, gdzie są potrzebne: przy skarbonach, wejściach i w zakrystii, z tabliczkami. Kamer ochrony nie kierujemy na ławki. Regulamin parafia przyjmuje według dekretu KEP i wytycznych kurii.",
+    "open": false
+   },
+   {
+    "n": "04",
+    "q": "Czy da się transmitować mszę bez osoby przy kamerze?",
+    "a": "Tak. Kamera z zapamiętanymi ujęciami i enkoder mogą startować o stałych porach albo z jednego przycisku w zakrystii. Dźwięk bierzemy prosto z nagłośnienia, więc jest czysty, bez pogłosu. Uwaga na muzykę z nagrań: na YouTube i Facebooku może uruchomić blokadę z powodu praw autorskich, więc podkłady warto sprawdzić przed transmisją.",
+    "open": false
+   },
+   {
+    "n": "05",
+    "q": "Kogo widać na transmisji?",
+    "a": "Prezbiterium i ambonę. Nie robimy zbliżeń na wiernych ani kadru na przyjmowanie Komunii. Przy wejściu warto powiesić informację, że msza jest transmitowana.",
+    "open": false
+   },
+   {
+    "n": "06",
+    "q": "Czy na czas montażu trzeba odwołać msze?",
+    "a": "Nie. Prace planujemy poza godzinami mszy i uroczystości, a kable prowadzimy w istniejących trasach. Czas montażu zależy od zakresu i od terminu pozwolenia konserwatora. Podajemy go w ofercie.",
+    "open": false
+   },
+   {
+    "n": "07",
+    "q": "Co z burzami i starą instalacją elektryczną?",
+    "a": "Montujemy ochronniki przepięciowe, a między budynkami kładziemy światłowód, który nie przenosi przepięć. Jeśli zobaczymy problem z instalacją elektryczną, mówimy o nim wprost i polecamy elektryka.",
+    "open": false
+   },
+   {
+    "n": "08",
+    "q": "Czy możecie przyjść przed świętami na przegląd?",
+    "a": "Tak. Przed Wielkanocą, Bożym Narodzeniem albo odpustem sprawdzamy mikrofony, baterie, nagrania i transmisję próbną. Termin warto umówić z wyprzedzeniem, ustalamy go w rozmowie.",
+    "open": false
+   }
+  ],
+  "rel": [
+   {
+    "k": "kam",
+    "n": "Monitoring i kamery",
+    "g": "Bezpieczeństwo",
+    "href": "Monitoring.dc.html",
+    "ic": "ikona:cam",
+    "s": "Kompletny system: kamery, rejestrator, dyski, PoE"
+   },
+   {
+    "k": "alarm",
+    "n": "Alarmy i wideodomofony",
+    "g": "Bezpieczeństwo",
+    "href": "Alarmy.dc.html",
+    "ic": "ikona:bell",
+    "s": "Czujki, syreny, domofon z aplikacją"
+   },
+   {
+    "k": "snd",
+    "n": "Nagłośnienie",
+    "g": "Komfort i obraz",
+    "href": "Naglosnienie.dc.html",
+    "ic": "ikona:spk",
+    "s": "APART: restauracje, hotele, kościoły, sale"
+   },
+   {
+    "k": "scr",
+    "n": "Ekrany i digital signage",
+    "g": "Komfort i obraz",
+    "href": "Multimedia.dc.html",
+    "ic": "ikona:scr",
+    "s": "Witryny, menu board, recepcja, ściany wideo"
+   }
+  ],
+  "segRel": [
+   {
+    "k": "szk",
+    "g": "Instytucje",
+    "n": "Szkoła i przedszkole",
+    "s": "Bezpieczne wejścia, dzwonki, sieć",
+    "page": "SegSzkola",
+    "href": "SegSzkola.dc.html",
+    "ic": "ikona:school",
+    "h": "#5FD0B0",
+    "hs": "--mh:#5FD0B0",
+    "cls": ""
+   },
+   {
+    "k": "gmina",
+    "g": "Instytucje",
+    "n": "Gmina i urząd",
+    "s": "Sala obrad, transmisja sesji",
+    "page": "SegGmina",
+    "href": "SegGmina.dc.html",
+    "ic": "ikona:town",
+    "h": "#8C9CF5",
+    "hs": "--mh:#8C9CF5",
+    "cls": ""
+   }
+  ],
+  "hasSegRel": true,
+  "segRelH": "Podobne obiekty",
+  "sx": {
+   "faqA": {
+    "t": "Masz inne pytanie?",
+    "d": "Wyślij zdjęcie obiektu albo obecnej instalacji. Powiemy, od czego zacząć i czego się spodziewać.",
+    "cta": "Zaplanuj instalację",
+    "href": "Zaplanuj.dc.html"
+   },
+   "faqH": "Pytania proboszczów.",
+   "relH": "Usługi, które łączymy w tym obiekcie.",
+   "pkg": {
+    "eye": "Zestawy dla parafii",
+    "h": "Od „żeby było słychać” po parafię online.",
+    "p": "",
+    "note": "To przykłady. Ostateczny zakres i cenę ustalamy po wizji lokalnej i podajemy na piśmie."
+   },
+   "cena": {
+    "btn": "Wyślij zdjęcia do wyceny",
+    "eye": "Wycena",
+    "h": "Co wpływa na cenę.",
+    "p": ""
+   }
+  },
+  "sg": {
+   "sceneT": "Przekrój kościoła",
+   "hc": {
+    "k0": "hs on",
+    "k1": "hs",
+    "k2": "hs",
+    "k3": "hs",
+    "k4": "hs",
+    "k5": "hs",
+    "k6": "hs",
+    "k7": "hs",
+    "k8": "hs"
+   },
+   "hp": {},
+   "zap": "Zaplanuj.dc.html#obiekt=kosc",
+   "prepEye": "Przed wizytą",
+   "prepLead": "Zaznaczenie, co już jest, przyspieszy wycenę. Zdjęcia można wysłać w formularzu albo przez WhatsApp.",
+   "leg": [
+    {
+     "no": "1",
+     "t": "Kolumny głośnikowe na filarach",
+     "on": "true",
+     "st": "--c:#F29A4B",
+     "cls": "sglgb on"
+    },
+    {
+     "no": "2",
+     "t": "Mikrofony przy ołtarzu i ambonie",
+     "on": "false",
+     "st": "--c:#F29A4B",
+     "cls": "sglgb"
+    },
+    {
+     "no": "3",
+     "t": "Pętla indukcyjna w ławkach",
+     "on": "false",
+     "st": "--c:#F29A4B",
+     "cls": "sglgb"
+    },
+    {
+     "no": "4",
+     "t": "Kamera do transmisji mszy",
+     "on": "false",
+     "st": "--c:#E86FB0",
+     "cls": "sglgb"
+    },
+    {
+     "no": "5",
+     "t": "Ekran z tekstami pieśni",
+     "on": "false",
+     "st": "--c:#E86FB0",
+     "cls": "sglgb"
+    },
+    {
+     "no": "6",
+     "t": "Kamera przy wejściu i skarbonie",
+     "on": "false",
+     "st": "--c:#12B6D8",
+     "cls": "sglgb"
+    },
+    {
+     "no": "7",
+     "t": "Alarm w zakrystii",
+     "on": "false",
+     "st": "--c:#F07A6A",
+     "cls": "sglgb"
+    },
+    {
+     "no": "8",
+     "t": "Głośniki zewnętrzne na odpust",
+     "on": "false",
+     "st": "--c:#F29A4B",
+     "cls": "sglgb"
+    },
+    {
+     "no": "9",
+     "t": "Szafa: mikser, rejestrator, łącze",
+     "on": "false",
+     "st": "--c:#5B8CF0",
+     "cls": "sglgb"
+    }
+   ],
+   "ly": [
+    {
+     "n": "Wszystko",
+     "on": "true",
+     "cls": "sglyb on"
+    },
+    {
+     "n": "Bezpieczeństwo",
+     "on": "false",
+     "cls": "sglyb"
+    },
+    {
+     "n": "Sieć i łączność",
+     "on": "false",
+     "cls": "sglyb"
+    },
+    {
+     "n": "Dźwięk i obraz",
+     "on": "false",
+     "cls": "sglyb"
+    }
+   ],
+   "cur": {
+    "k": "h0",
+    "no": "1",
+    "t": "Kolumny głośnikowe na filarach",
+    "d": "Kolumny głośnikowe kierują dźwięk na ławki, a nie na sklepienie. Dzięki temu pogłos mniej przeszkadza, a mowa jest wyraźna także w nawach bocznych.",
+    "sn": "Nagłośnienie",
+    "href": "Naglosnienie.dc.html",
+    "st": "--c:#F29A4B"
+   },
+   "pos": "1 z 9",
+   "pr": {
+    "eye": "Najczęstsze sprawy",
+    "h": "Z czym proboszczowie dzwonią",
+    "ha": "najczęściej.",
+    "lead": "Każda z nich ma rozwiązanie, które nie wymaga przebudowy kościoła. Zaczynamy od odsłuchu i oględzin, a potem mówimy, co da się poprawić."
+   },
+   "prob": [
+    {
+     "q": "„Z tyłu kościoła nic nie słychać”",
+     "d": "Pod chórem i w nawach bocznych dźwięk odbija się od sklepienia. Głośniej znaczy tu więcej pogłosu, a nie wyraźniej.",
+     "fix": "Kolumny kierujące dźwięk na wiernych, strefy z osobną głośnością i ustawienie systemu podczas odsłuchu na miejscu.",
+     "ic": "ikona:spk",
+     "sn": "Nagłośnienie",
+     "href": "Naglosnienie.dc.html",
+     "st": "--c:#F29A4B"
+    },
+    {
+     "q": "„Przy ambonie piszczy”",
+     "d": "Sprzężenia pojawiają się, gdy głośnik gra w stronę mikrofonu albo mikrofon trzyma ktoś bez wprawy.",
+     "fix": "Mikrofony dobrane do miejsca, głośniki poza osią mikrofonów i ograniczenie sprzężeń w procesorze.",
+     "ic": "ikona:music",
+     "sn": "Nagłośnienie",
+     "href": "Naglosnienie.dc.html",
+     "st": "--c:#F29A4B"
+    },
+    {
+     "q": "„Transmisja z telefonu to samo echo”",
+     "d": "Mikrofon kamery łapie pogłos całego kościoła, a obraz zrywa się na słabym łączu.",
+     "fix": "Kamera z zapamiętanymi ujęciami, dźwięk prosto z miksera, łącze z zapasem wysyłania i start o stałej porze.",
+     "ic": "ikona:play",
+     "sn": "Ekrany i transmisja",
+     "href": "Multimedia.dc.html",
+     "st": "--c:#E86FB0"
+    },
+    {
+     "q": "„Ktoś zaczął zaglądać do skarbon”",
+     "d": "Celem kradzieży są skarbony, puszki na ofiary, naczynia liturgiczne i zabytkowe wyposażenie.",
+     "fix": "Kamery na skarbony, kruchtę i zakrystię, alarm z powiadomieniem na telefon i rejestrator w zamkniętej szafce.",
+     "ic": "ikona:cam",
+     "sn": "Monitoring i kamery",
+     "href": "Monitoring.dc.html",
+     "st": "--c:#12B6D8"
+    },
+    {
+     "q": "„Konserwator nie pozwoli wiercić”",
+     "d": "W kościele z rejestru zabytków każda trasa kabla i każde urządzenie na ścianie wymaga pozwolenia.",
+     "fix": "Kable w istniejących trasach, dyskretne urządzenia i opis z rysunkiem tras do wniosku o pozwolenie konserwatora.",
+     "ic": "ikona:doc",
+     "sn": "Nagłośnienie",
+     "href": "Naglosnienie.dc.html",
+     "st": "--c:#F29A4B"
+    },
+    {
+     "q": "„Po burzy nie działa wzmacniacz”",
+     "d": "Długie linie do dzwonnicy, głośników zewnętrznych i plebanii zbierają przepięcia.",
+     "fix": "Ochronniki na zasilaniu i liniach zewnętrznych, a między plebanią i kościołem światłowód, który nie przenosi przepięć.",
+     "ic": "ikona:storm",
+     "sn": "Sieci i Wi-Fi",
+     "href": "Sieci.dc.html",
+     "st": "--c:#5B8CF0"
+    }
+   ],
+   "day": {
+    "eye": "Tydzień i rok w parafii",
+    "h": "Jeden system na codzienną mszę, odpust i noc.",
+    "lead": "Tak wygląda nagłośnienie, transmisja i ochrona kościoła w praktyce. Wystarczy kliknąć moment albo chwilę poczekać, a pokażemy kolejne.",
+    "k": "d0",
+    "pg": "width:17%",
+    "items": [
+     {
+      "tm": "Codziennie 7:00",
+      "n": "Msza poranna",
+      "on": "true",
+      "cls": "sgdb on"
+     },
+     {
+      "tm": "Niedziela 10:00",
+      "n": "Suma z transmisją",
+      "on": "false",
+      "cls": "sgdb"
+     },
+     {
+      "tm": "Ślub i pogrzeb",
+      "n": "Mikrofon dla kantora i lektora",
+      "on": "false",
+      "cls": "sgdb"
+     },
+     {
+      "tm": "Odpust i Boże Ciało",
+      "n": "Strefa przed kościołem",
+      "on": "false",
+      "cls": "sgdb"
+     },
+     {
+      "tm": "Noc",
+      "n": "Kościół zamknięty",
+      "on": "false",
+      "cls": "sgdb"
+     },
+     {
+      "tm": "Przed świętami",
+      "n": "Przegląd systemu",
+      "on": "false",
+      "cls": "sgdb"
+     }
+    ],
+    "cur": {
+     "tm": "Codziennie 7:00",
+     "n": "Msza poranna",
+     "d": "Kościelny włącza nagłośnienie jednym przyciskiem. Głośność i mikrofony są zapamiętane, więc nikt nie kręci gałkami przed mszą.",
+     "ic": "ikona:sun",
+     "st": "--c:#F29A4B",
+     "ch": [
+      {
+       "n": "Nagłośnienie",
+       "href": "Naglosnienie.dc.html",
+       "st": "--c:#F29A4B"
+      }
+     ],
+     "hs": [
+      {
+       "no": "1",
+       "st": "--c:#F29A4B"
+      },
+      {
+       "no": "2",
+       "st": "--c:#F29A4B"
+      },
+      {
+       "no": "3",
+       "st": "--c:#F29A4B"
+      },
+      {
+       "no": "8",
+       "st": "--c:#F29A4B"
+      }
+     ]
+    }
+   },
+   "law": {
+    "h": "Kościół ma własne zasady. Znamy je.",
+    "lead": "Zabytek, dane osobowe według przepisów kościelnych i wizerunek wiernych na transmisji. Mówimy, co dotyczy parafii, a co instalatora.",
+    "items": [
+     {
+      "t": "Pozwolenie konserwatora zabytków",
+      "a": "art. 36 ust. 1 pkt 1 i 10",
+      "d": "Przy kościele z rejestru zabytków roboty budowlane i umieszczanie na nim urządzeń technicznych, np. kamer, kolumn i anten, wymagają pozwolenia wojewódzkiego konserwatora. Przygotowujemy opis i rysunek tras do wniosku. Jeśli kuria wymaga własnego uzgodnienia, ten sam opis posłuży także tam.",
+      "who": "Parafia",
+      "wc": "sgwho o",
+      "href": "https://api.sejm.gov.pl/eli/acts/DU/2024/1292/text.html",
+      "sl": "Ustawa o ochronie zabytków, t.j. Dz.U. 2024 poz. 1292"
+     },
+     {
+      "t": "Kamery według przepisów kościelnych",
+      "a": "Dekret KEP z 13.03.2018",
+      "d": "Kościół katolicki stosuje własny dekret o ochronie danych, a nadzór sprawuje Kościelny Inspektor Ochrony Danych. Regulamin i tabliczki parafia przyjmuje według dekretu i wytycznych kurii; opis kamer dołączymy na życzenie. Jeśli kamera obejmuje miejsce pracy kościelnego albo organisty, parafia jako pracodawca stosuje też art. 22² Kodeksu pracy: informacja 2 tygodnie przed startem, oznaczenie dzień wcześniej.",
+      "who": "Parafia",
+      "wc": "sgwho o",
+      "href": "https://www.bolszewo.pijarzy.pl/storage/uploaded/dekret_rodo_2.pdf",
+      "sl": "Dekret ogólny KEP o ochronie danych (PDF)"
+     },
+     {
+      "t": "Wierni na transmisji",
+      "a": "art. 81 ust. 2 pkt 2 pr. aut.",
+      "d": "Wizerunek osoby, która jest tylko szczegółem zgromadzenia, można rozpowszechniać bez zgody. Mimo to radzimy kadr bez zbliżeń na wiernych i informację o transmisji przy wejściu.",
+      "who": "Razem",
+      "wc": "sgwho r",
+      "href": "https://api.sejm.gov.pl/eli/acts/DU/2025/24/text.pdf",
+      "sl": "Prawo autorskie, t.j. Dz.U. 2025 poz. 24 (PDF)"
+     },
+     {
+      "t": "DSO nie jest obowiązkowy",
+      "a": "§ 29 rozp. ppoż.",
+      "d": "Dźwiękowy system ostrzegawczy jest wymagany m.in. w kinach i teatrach powyżej 600 miejsc, salach widowiskowych i sportowych powyżej 1500 miejsc oraz w wysokich budynkach użyteczności publicznej. Rozporządzenie nie wymienia kościołów, więc nagłośnienie projektujemy pod zrozumiałość mowy.",
+      "who": "Instalator",
+      "wc": "sgwho i",
+      "href": "https://api.sejm.gov.pl/eli/acts/DU/2023/822/text.pdf",
+      "sl": "Rozporządzenie o ochronie ppoż., t.j. Dz.U. 2023 poz. 822 (PDF)"
+     },
+     {
+      "t": "Pętla indukcyjna to wybór",
+      "a": "art. 6 pkt 3 lit. b",
+      "d": "Obowiązek z ustawy o dostępności dotyczy podmiotów publicznych, nie parafii. Pętla w części ławek to ułatwienie dla osób z aparatem słuchowym.",
+      "who": "Parafia",
+      "wc": "sgwho o",
+      "href": "https://eli.gov.pl/api/acts/DU/2019/1696/text.html",
+      "sl": "Ustawa o zapewnianiu dostępności"
+     },
+     {
+      "t": "Głośniki na zewnątrz a sąsiedzi",
+      "a": "art. 156 POŚ",
+      "d": "Przepis zakazuje używania urządzeń nagłaśniających na publicznie dostępnych terenach miast i terenach zabudowanych. Wyjątki obejmują m.in. okazjonalne uroczystości. Bezpieczniej: strefę zewnętrzną włączać na odpust, procesję i inne uroczystości, a na co dzień mieć ją wyłączoną.",
+      "who": "Razem",
+      "wc": "sgwho r",
+      "href": "https://bip.brpo.gov.pl/pl/content/minister-klimatu-ograniczenia-na-uzywanie-sprzetu-naglasniajacego-w-miejscach-publicznych-potrzebne",
+      "sl": "BIP RPO: art. 156 POŚ i nagłaśnianie"
+     }
+    ]
+   },
+   "gory": {
+    "h": "Drewniane kościoły, burze i mróz. Na to projektujemy.",
+    "items": [
+     {
+      "ic": "ikona:mountain",
+      "t": "255 obiektów na szlaku",
+      "d": "Szlak Architektury Drewnianej w Małopolsce, w tym drewniane kościoły i cerkwie z listy UNESCO, m.in. w Dębnie Podhalańskim.",
+      "hasS": true,
+      "sh": "https://visitmalopolska.pl/en_GB/szlak-architektury-drewnianej1",
+      "sl": "visitmalopolska.pl"
+     },
+     {
+      "ic": "ikona:fire",
+      "t": "28 pożarów w Zakopanem",
+      "d": "Tyle pożarów budynków drewnianych było w Zakopanem od 2014 do lipca 2017 (dane PSP przytoczone przez NIK, 2018). Oglądamy, skąd bierzemy zasilanie, a gdy coś budzi wątpliwości, prosimy o pomiary elektryka.",
+      "hasS": true,
+      "sh": "https://wartowiedziec.pl/zarzadzanie-przestrzenia/45679-zabytki-architektury-drewnianej-poza-kontrola-konserwatorow",
+      "sl": "Raport NIK, omówienie (2018)"
+     },
+     {
+      "ic": "ikona:storm",
+      "t": "Burze i długie linie",
+      "d": "Ochronniki na zasilaniu, liniach kamer i torach do dzwonnicy. Między budynkami światłowód zamiast skrętki.",
+      "hasS": false,
+      "sh": "",
+      "sl": ""
+     },
+     {
+      "ic": "ikona:snow",
+      "t": "Mróz w kruchcie i na wieży",
+      "d": "Sprzęt bez wentylatorów w szafie i kamery o zakresie pracy dobranym do miejsca montażu, także na zewnątrz.",
+      "hasS": false,
+      "sh": "",
+      "sl": ""
+     }
+    ]
+   },
+   "hasReal": true,
+   "realH": "Nagłośnialiśmy kościoły w Rabce i Ślemieniu.",
+   "real": [
+    {
+     "t": "Parafia św. Teresy",
+     "m": "Rabka-Zdrój · kościół",
+     "d": "Instalacja audiowizualna: nagłośnienie i ekrany."
+    },
+    {
+     "t": "Parafia św. Teresy, chór",
+     "m": "Rabka-Zdrój · chór kościoła",
+     "d": "Nagłośnienie chóru."
+    },
+    {
+     "t": "Parafia Narodzenia św. Jana Chrzciciela",
+     "m": "Ślemień · Jasna Górka",
+     "d": "Montaż nagłośnienia kościoła."
+    }
+   ],
+   "ck": {
+    "n": 0,
+    "t": 7,
+    "st": "--p:0",
+    "cta": "Wyślij zdjęcia i opis →",
+    "items": [
+     {
+      "t": "Czy kościół jest w rejestrze zabytków (numer, jeśli jest)",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Zdjęcia prezbiterium, ambony, chóru, naw i kruchty",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Lista obecnego sprzętu: wzmacniacz, mikrofony, głośniki",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Gdzie dziś słabo słychać i kiedy piszczy",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Zakres: nagłośnienie, transmisja, kamery, plebania",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Internet w kościele lub na plebanii (operator, wysyłanie)",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Godziny, kiedy można wejść i sprawdzić dźwięk",
+      "on": "false",
+      "cls": "sgci"
+     }
+    ]
+   }
+  }
+ }
+}

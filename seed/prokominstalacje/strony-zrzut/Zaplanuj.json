@@ -1,0 +1,392 @@
+{
+ "_strona": "Zaplanuj",
+ "_title": "Zaplanuj instalację: monitoring, alarm, Wi-Fi, smart home | PRO-KOM Instalacje",
+ "_description": "Zaplanuj instalację w 2 minuty: wybierz, co chcesz zamontować, opisz obiekt i zostaw telefon. Oddzwonimy do 24 h w dni robocze.",
+ "_uwaga": "Zrzut danych z wizualizacji v4.0 (stan początkowy strony, motyw jasny). Teksty = treść do seeda. Klucze UI (cls, on, pick) pomijaj.",
+ "dane": {
+  "ctaEye": "Zaplanuj instalację",
+  "ctaH": "Powiedz, co planujesz. Przyjedziemy i wszystko policzymy.",
+  "ctaP": "Wizja lokalna, projekt i wycena na piśmie. Potem montaż, szkolenie i serwis pod jednym numerem.",
+  "zk": {
+   "trust": [
+    {
+     "ic": "ikona:clock",
+     "t": "2 minuty",
+     "d": "klikasz zamiast pisać"
+    },
+    {
+     "ic": "ikona:shield",
+     "t": "Bez zobowiązań",
+     "d": "wycena po wizji lokalnej"
+    },
+    {
+     "ic": "ikona:doc",
+     "t": "Na piśmie",
+     "d": "zakres i cena przed montażem"
+    }
+   ],
+   "k": "zk1",
+   "barSt": "width:0%",
+   "steps": [
+    {
+     "n": "1",
+     "t": "Instalacje",
+     "cur": "step",
+     "cls": "zkst on"
+    },
+    {
+     "n": "2",
+     "t": "Obiekt",
+     "cur": "false",
+     "cls": "zkst"
+    },
+    {
+     "n": "3",
+     "t": "Szczegóły",
+     "cur": "false",
+     "cls": "zkst"
+    },
+    {
+     "n": "4",
+     "t": "Kontakt",
+     "cur": "false",
+     "cls": "zkst"
+    }
+   ],
+   "s1": true,
+   "s2": false,
+   "s3": false,
+   "s4": false,
+   "s5": false,
+   "nav": true,
+   "pre": [
+    {
+     "n": "Nowy dom",
+     "d": "smart home, alarm, kamery, Wi-Fi",
+     "ic": "ikona:home",
+     "cls": "zkpb"
+    },
+    {
+     "n": "Pensjonat, apartamenty",
+     "d": "kamery, Wi-Fi gości, zamki, alarm",
+     "ic": "ikona:bed",
+     "cls": "zkpb"
+    },
+    {
+     "n": "Firma, sklep, biuro",
+     "d": "kamery, alarm, sieć, dostęp",
+     "ic": "ikona:shop",
+     "cls": "zkpb"
+    },
+    {
+     "n": "Restauracja, hotel, sala",
+     "d": "nagłośnienie, ekrany, Wi-Fi",
+     "ic": "ikona:food",
+     "cls": "zkpb"
+    }
+   ],
+   "svc": [
+    {
+     "n": "Monitoring i kamery",
+     "s": "Kompletny system: kamery, rejestrator, dyski, PoE",
+     "ic": "ikona:cam",
+     "on": "false",
+     "st": "--h:#12B6D8",
+     "cls": "zksb"
+    },
+    {
+     "n": "Alarmy i wideodomofony",
+     "s": "Czujki, syreny, domofon z aplikacją",
+     "ic": "ikona:bell",
+     "on": "false",
+     "st": "--h:#F07A6A",
+     "cls": "zksb"
+    },
+    {
+     "n": "Kontrola dostępu i zamki",
+     "s": "Karty, kody, apartamenty",
+     "ic": "ikona:lock",
+     "on": "false",
+     "st": "--h:#F2B84B",
+     "cls": "zksb"
+    },
+    {
+     "n": "Sieci i Wi-Fi",
+     "s": "Okablowanie, światłowód, Wi-Fi gości",
+     "ic": "ikona:wifi",
+     "on": "false",
+     "st": "--h:#5B8CF0",
+     "cls": "zksb"
+    },
+    {
+     "n": "Teletechnika w budownictwie",
+     "s": "Dla deweloperów i wykonawców",
+     "ic": "ikona:build",
+     "on": "false",
+     "st": "--h:#9AA8AD",
+     "cls": "zksb"
+    },
+    {
+     "n": "Anteny RTV/SAT",
+     "s": "Satelitarne, DVB-T2, zbiorcze, TV hotelowa",
+     "ic": "ikona:dish",
+     "on": "false",
+     "st": "--h:#B58CF0",
+     "cls": "zksb"
+    },
+    {
+     "n": "Smart home Ampio",
+     "s": "Polski system, działa bez internetu",
+     "ic": "ikona:home",
+     "on": "false",
+     "st": "--h:#7BD36A",
+     "cls": "zksb"
+    },
+    {
+     "n": "Nagłośnienie",
+     "s": "APART: restauracje, hotele, kościoły, sale",
+     "ic": "ikona:spk",
+     "on": "false",
+     "st": "--h:#F29A4B",
+     "cls": "zksb"
+    },
+    {
+     "n": "Ekrany i digital signage",
+     "s": "Witryny, menu board, recepcja, ściany wideo",
+     "ic": "ikona:scr",
+     "on": "false",
+     "st": "--h:#E86FB0",
+     "cls": "zksb"
+    },
+    {
+     "n": "Ładowarki samochodów",
+     "s": "Elzab EcoPower: dom, firma, parking",
+     "ic": "ikona:bolt",
+     "on": "false",
+     "st": "--h:#5FD0B0",
+     "cls": "zksb"
+    }
+   ],
+   "unsCls": "zkuns",
+   "obj": [
+    {
+     "n": "Dom",
+     "ic": "ikona:home",
+     "on": "false",
+     "cls": "zkob"
+    },
+    {
+     "n": "Pensjonat",
+     "ic": "ikona:bed",
+     "on": "false",
+     "cls": "zkob"
+    },
+    {
+     "n": "Apartament",
+     "ic": "ikona:key",
+     "on": "false",
+     "cls": "zkob"
+    },
+    {
+     "n": "Hotel",
+     "ic": "ikona:hotel",
+     "on": "false",
+     "cls": "zkob"
+    },
+    {
+     "n": "Restauracja",
+     "ic": "ikona:food",
+     "on": "false",
+     "cls": "zkob"
+    },
+    {
+     "n": "Sklep",
+     "ic": "ikona:shop",
+     "on": "false",
+     "cls": "zkob"
+    },
+    {
+     "n": "Biuro lub hala",
+     "ic": "ikona:factory",
+     "on": "false",
+     "cls": "zkob"
+    },
+    {
+     "n": "Szkoła, gmina, kościół",
+     "ic": "ikona:school",
+     "on": "false",
+     "cls": "zkob"
+    },
+    {
+     "n": "Deweloper, wspólnota",
+     "ic": "ikona:crane",
+     "on": "false",
+     "cls": "zkob"
+    }
+   ],
+   "size": [
+    {
+     "n": "Mały",
+     "d": "dom, lokal",
+     "on": "false",
+     "cls": "zksg"
+    },
+    {
+     "n": "Średni",
+     "d": "pensjonat, firma",
+     "on": "false",
+     "cls": "zksg"
+    },
+    {
+     "n": "Duży",
+     "d": "kilka budynków",
+     "on": "false",
+     "cls": "zksg"
+    }
+   ],
+   "stage": [
+    {
+     "n": "Budowa",
+     "d": "stan surowy",
+     "on": "false",
+     "cls": "zksg"
+    },
+    {
+     "n": "Remont",
+     "d": "w trakcie",
+     "on": "false",
+     "cls": "zksg"
+    },
+    {
+     "n": "Działa",
+     "d": "obiekt gotowy",
+     "on": "false",
+     "cls": "zksg"
+    }
+   ],
+   "town": "",
+   "zone": "strefa dojazdu",
+   "zoneCls": "zkzone",
+   "towns": [
+    {
+     "n": "Rabka-Zdrój",
+     "cls": "zkc"
+    },
+    {
+     "n": "Nowy Targ",
+     "cls": "zkc"
+    },
+    {
+     "n": "Zakopane",
+     "cls": "zkc"
+    },
+    {
+     "n": "Jordanów",
+     "cls": "zkc"
+    },
+    {
+     "n": "Mszana Dolna",
+     "cls": "zkc"
+    },
+    {
+     "n": "Limanowa",
+     "cls": "zkc"
+    }
+   ],
+   "qs": [],
+   "noQ": true,
+   "thumbs": [],
+   "tips": [
+    "budynek z zewnątrz, z dwóch stron"
+   ],
+   "name": "",
+   "email": "",
+   "emailReq": false,
+   "emailLab": "opcjonalnie",
+   "emailCls": "zkin",
+   "phone": "",
+   "phOkCls": "zkok2",
+   "via": [
+    {
+     "n": "Telefon",
+     "ic": "ikona:phone",
+     "on": "true",
+     "cls": "zksg on"
+    },
+    {
+     "n": "WhatsApp",
+     "ic": "ikona:chat",
+     "on": "false",
+     "cls": "zksg"
+    },
+    {
+     "n": "E-mail",
+     "ic": "ikona:mail",
+     "on": "false",
+     "cls": "zksg"
+    }
+   ],
+   "when": [
+    {
+     "n": "Rano",
+     "on": "false",
+     "cls": "zksg"
+    },
+    {
+     "n": "Po południu",
+     "on": "false",
+     "cls": "zksg"
+    },
+    {
+     "n": "Obojętnie",
+     "on": "false",
+     "cls": "zksg"
+    }
+   ],
+   "cons": false,
+   "consOn": "false",
+   "consCls": "zkcons",
+   "err": false,
+   "errT": "",
+   "backSt": "visibility:hidden",
+   "nextT": "Dalej →",
+   "nextCls": "btn btn-p zknext dim",
+   "navHint": "Krok 1 z 4",
+   "stepNo": "Krok 1 z 4",
+   "doneVia": "telefonem",
+   "side": true,
+   "nameC": "",
+   "pct": "0",
+   "ringSt": "--p:0",
+   "sumSvc": [],
+   "sumNone": true,
+   "sumNoneT": "Nic jeszcze nie wybrano",
+   "sumObj": "—",
+   "sumStage": "—",
+   "sumQ": "—",
+   "sumPh": "brak",
+   "sumTown": "—",
+   "hints": [
+    "Nie wiesz, od czego zacząć? Kliknij szybki wybór, a zaznaczymy typowy zestaw. Potem możesz go zmienić."
+   ],
+   "hintK": "h1-1",
+   "after": [
+    {
+     "n": "1",
+     "t": "Odezwiemy się",
+     "d": "Do 24 h w dni robocze. Dopytamy o szczegóły i umówimy termin."
+    },
+    {
+     "n": "2",
+     "t": "Wizja lokalna",
+     "d": "Oglądamy obiekt, mierzymy, sprawdzamy kable."
+    },
+    {
+     "n": "3",
+     "t": "Wycena na piśmie",
+     "d": "Zwykle w wariantach do wyboru."
+    }
+   ]
+  }
+ }
+}

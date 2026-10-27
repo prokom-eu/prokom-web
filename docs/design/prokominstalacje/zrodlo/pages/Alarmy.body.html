@@ -1,0 +1,140 @@
+<!--@pheroA-->
+          <div class="ill" role="region" aria-label="Interaktywny przekrój domu z czujkami alarmu">
+            <div class="illbar">
+              <div class="seg" role="group" aria-label="Tryb alarmu"><sc-for list="{{al.modes}}" as="m" hint-placeholder-count="3"><button type="button" class="{{m.cls}}" aria-pressed="{{m.on}}" onClick="{{m.pick}}"><!--i:m.ic:15-->{{m.n}}</button></sc-for></div>
+              <div style="display: flex; gap: 6px; flex-wrap: wrap"><sc-for list="{{al.tests}}" as="t" hint-placeholder-count="3"><button type="button" class="btn btn-g btn-s" style="min-height: 40px; padding: 0 12px; font-size: 13px" onClick="{{t.go}}"><!--i:t.ic:15-->{{t.n}}</button></sc-for></div>
+            </div>
+            <div class="alw">
+              <svg class="house {{al.cls}}" viewBox="50 30 580 350" aria-hidden="true">
+                <defs><linearGradient id="hsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--hsky1)"></stop><stop offset="1" stop-color="var(--hsky2)"></stop></linearGradient></defs>
+                <rect width="640" height="400" fill="url(#hsky)"></rect>
+                <path d="M0 330 L90 270 L170 300 L260 240 L360 290 L450 250 L560 296 L640 270 V340 H0 Z" fill="var(--hmtn)"></path>
+                <rect y="352" width="640" height="48" fill="var(--hgnd)"></rect>
+                <path d="M70 140 L280 40 L490 140 Z" class="hroof"></path>
+                <rect x="96" y="140" width="368" height="212" class="hwall"></rect>
+                <rect x="464" y="232" width="140" height="120" class="hwall"></rect><path d="M454 232 H614 L604 214 H464 Z" class="hroof"></path>
+                <sc-for list="{{al.rooms}}" as="r" hint-placeholder-count="7"><rect class="{{r.cls}}" x="{{r.x}}" y="{{r.y}}" width="{{r.w}}" height="{{r.h}}"></rect><foreignObject x="{{r.tx}}" y="{{r.ty}}" width="300" height="24" class="fo fo-l"><div xmlns="http://www.w3.org/1999/xhtml" class="fot">{{r.n}}</div></foreignObject></sc-for>
+                <path d="M96 246 H464" class="hfloor"></path>
+                <rect x="250" y="276" width="44" height="76" class="hdoor"></rect>
+                <rect x="486" y="262" width="96" height="90" class="hgate"></rect><path d="M486 280 H582 M486 298 H582 M486 316 H582 M486 334 H582" class="hgl"></path>
+                <rect x="120" y="170" width="56" height="44" class="hwin"></rect><rect x="380" y="170" width="56" height="44" class="hwin"></rect><rect x="120" y="280" width="70" height="52" class="hwin"></rect><rect x="360" y="280" width="74" height="72" class="hwin"></rect>
+                <rect x="297" y="286" width="9" height="14" rx="2" class="hkp"></rect>
+                <sc-for list="{{al.sens}}" as="s" hint-placeholder-count="10"><g class="{{s.cls}}"><circle cx="{{s.x}}" cy="{{s.y}}" r="16" class="sring"></circle><circle cx="{{s.x}}" cy="{{s.y}}" r="9.5" class="sdot"></circle><foreignObject x="{{s.x}}" y="{{s.ty}}" width="300" height="24" class="fo fo-c"><div xmlns="http://www.w3.org/1999/xhtml" class="fot stl2">{{s.l}}</div></foreignObject></g></sc-for>
+                <g class="{{al.sirCls}}"><rect x="438" y="150" width="22" height="30" rx="5" class="sir"></rect><path d="M470 152 a14 14 0 0 1 0 26 M478 146 a22 22 0 0 1 0 38" class="sirw"></path></g>
+              </svg>
+              <div class="alph glass" aria-live="polite">
+                                <div class="alst {{al.stCls}}"><span class="alapp">Aplikacja · {{al.clock}}</span><!--i:al.stIc:22--><div><b>{{al.stT}}</b><span>{{al.stS}}</span></div></div>
+                <sc-for list="{{al.msgs}}" as="m" hint-placeholder-count="3"><div class="{{m.cls}}"><b>{{m.t}}</b><span>{{m.s}}</span></div></sc-for>
+              </div>
+            </div>
+            <div class="nvrnote" style="color: var(--muted); padding: 12px 16px 16px; font-size: 13.5px">{{al.note}}</div>
+          </div>
+<!--@pheroB-->
+
+  <section id="jak-dziala" class="{{rv.flow}}" data-rv="flow" style="padding: 96px 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Jak to działa</span><h2 class="h2">Od otwartego okna do powiadomienia w kilka sekund.</h2></div><p class="lead" style="max-width: 440px">Czujki pilnują drzwi, okien i pomieszczeń. Centrala decyduje, co zrobić. Ty dostajesz powiadomienie, a jeśli chcesz, sygnał trafia też do agencji ochrony.</p></div>
+      <div class="flow">
+        <sc-for list="{{flow}}" as="f" hint-placeholder-count="4"><div class="card flowc ri"><span class="stn">{{f.n}}</span><span class="ico"><!--i:f.ic:22--></span><b class="h3">{{f.t}}</b><p>{{f.d}}</p></div></sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="wersje" class="{{rv.wer}}" data-rv="wer" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Wersje alarmu</span><h2 class="h2">Inny alarm do mieszkania, inny do pustego domu w górach.</h2></div><p class="lead" style="max-width: 460px">Wybierz obiekt. Pokażemy, z jakich elementów zwykle składamy system i co każdy z nich robi. Przykładowe urządzenia z bezprzewodowej linii Satel ABAX 2 i Ajax.</p></div>
+      <div class="card alv ri">
+        <div class="illbar" style="padding: 0 0 14px"><div class="seg" role="tablist" aria-label="Wersja alarmu"><sc-for list="{{av.tabs}}" as="t" hint-placeholder-count="4"><button type="button" role="tab" class="{{t.cls}}" aria-selected="{{t.on}}" onClick="{{t.pick}}"><!--i:t.ic:15-->{{t.n}}</button></sc-for></div><span class="tag a">{{av.sub}}</span></div>
+        <div class="alvg xb-alv"><sc-for list="{{av.items}}" as="i" hint-placeholder-count="10"><div class="{{i.cls}}"><span class="ico" style="width: 40px; height: 40px"><!--i:i.ic:19--></span><div><b>{{i.n}}</b><span>{{i.d}}</span><em>{{i.m}}</em></div></div></sc-for></div>
+        <p class="src" style="margin: 12px 0 0">Zasięgi radiowe podaje się dla otwartej przestrzeni, w budynku są krótsze. Konkretne urządzenia dobieramy po wizji lokalnej.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="przewod" class="{{rv.cmp}}" data-rv="cmp" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Przewodowy czy bezprzewodowy</span><h2 class="h2">Dobieramy system do budynku, a nie odwrotnie.</h2></div></div>
+      <div class="tblw ri">
+        <table class="tbl">
+          <thead><tr><th></th><th>Przewodowy</th><th>Bezprzewodowy</th></tr></thead>
+          <tbody><sc-for list="{{cmp}}" as="r" hint-placeholder-count="6"><tr><td><b>{{r.k}}</b></td><td>{{r.a}}</td><td>{{r.b}}</td></tr></sc-for></tbody>
+        </table>
+      </div>
+      <div class="g3" style="margin-top: 18px"><sc-for list="{{sys}}" as="s" hint-placeholder-count="3"><div class="card feat ri"><b class="disp" style="font-size: 22px">{{s.n}}</b><p>{{s.d}}</p></div></sc-for></div>
+      <div class="note ri" style="margin-top: 16px"><!--i:P.shield:20--><span><b>Firma, sklep, pensjonat:</b> centralę i czujki dobieramy w klasie zabezpieczeń (Grade według normy EN 50131), której wymaga Twój ubezpieczyciel. Warto sprawdzić to w polisie przed wyceną.</span></div>
+    </div>
+  </section>
+
+  <section id="wideodomofon" class="{{rv.vd}}" data-rv="vd" style="padding: 0 0 104px">
+    <div class="wrap smw">
+      <div class="ri" style="display: flex; flex-direction: column; gap: 20px">
+        <span class="eye">Wideodomofony z aplikacją</span>
+        <h2 class="h2">Kurier przy furtce, a Ty na stoku. Otwierasz z telefonu.</h2>
+        <p class="lead">Wideodomofon dzwoni do panelu w domu i do aplikacji w telefonie. Widzisz, kto stoi przy furtce, rozmawiasz i otwierasz furtkę albo bramę. Dla pensjonatu: gość zgłasza się przy wejściu, nawet gdy recepcja jest zamknięta.</p>
+        <ul class="list"><sc-for list="{{vdl}}" as="v" hint-placeholder-count="4"><li><i><!--i:P.check:14:2.6--></i><div><b>{{v.t}}</b><span>{{v.d}}</span></div></li></sc-for></ul>
+      </div>
+      <div class="ri">
+        <div class="phone">
+          <div class="phs" style="min-height: 520px">
+            <div class="phh"><span>Wideodomofon · Furtka</span><span>{{vd.time}}</span></div>
+            <div class="vdscr {{vd.cls}}">
+              <svg viewBox="0 0 300 220" aria-hidden="true"><rect width="300" height="220" fill="#22302F"></rect><rect y="150" width="300" height="70" fill="#3A4542"></rect><path d="M0 120 H300" stroke="#4A3524" stroke-width="5"></path><path d="M20 96 V150 M70 96 V150 M230 96 V150 M280 96 V150" stroke="#4A3524" stroke-width="7"></path><rect x="98" y="70" width="104" height="150" fill="#2E3A38" stroke="#6B5A44" stroke-width="5"></rect><circle cx="150" cy="104" r="22" fill="#E2CDB4"></circle><path d="M112 220 V160 a38 38 0 0 1 76 0 V220 Z" fill="#C0392B"></path><rect x="122" y="168" width="56" height="38" rx="4" fill="#B88A55"></rect><text x="130" y="192" fill="#fff" font-family="Manrope" font-weight="800" font-size="12">PACZKA</text></svg>
+              <span class="vdl">{{vd.lbl}}</span>
+            </div>
+            <div class="phn"><!--i:vd.ic:18--><span>{{vd.msg}}</span></div>
+            <div class="vdb">
+              <button type="button" class="{{vd.c1}}" onClick="{{vd.talk}}"><!--i:P.phone:20--><span>Rozmawiaj</span></button>
+              <button type="button" class="{{vd.c2}}" onClick="{{vd.gate}}"><!--i:P.lock:20--><span>Furtka</span></button>
+              <button type="button" class="{{vd.c3}}" onClick="{{vd.drive}}"><!--i:P.gate:20--><span>Brama</span></button>
+            </div>
+            <div style="margin-top: auto; font-size: 12px; color: #8C948E; text-align: center">Przykładowy ekran · ilustracja</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="domofony" class="{{rv.dmf}}" data-rv="dmf" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Domofony i wideodomofony</span><h2 class="h2">Od furtki przy domu po wejście do bloku.</h2></div><p class="lead" style="max-width: 460px">Dobieramy system do tego, co już masz w ścianie. Stary domofon na dwóch żyłach często da się wymienić na wideodomofon bez kucia, a w nowym domu kładziemy przewód sieciowy.</p></div>
+      <div class="dmw">
+        <div class="dmg"><sc-for list="{{dm.v}}" as="v" hint-placeholder-count="4"><div class="card dmc ri"><span class="ico"><!--i:v.ic:22--></span><b class="h3">{{v.n}}</b><ul class="list" style="gap: 6px"><sc-for list="{{v.f}}" as="f" hint-placeholder-count="4"><li style="font-size: 14.5px"><i><!--i:P.check:13:2.6--></i><span style="color: var(--soft)">{{f}}</span></li></sc-for></ul></div></sc-for></div>
+        <div class="card dmq ri">
+          <span class="svk">Jaki system?</span><b class="h3">Masz w ścianie przewody od starego domofonu?</b>
+          <div class="seg"><sc-for list="{{dm.q}}" as="b" hint-placeholder-count="3"><button type="button" class="{{b.cls}}" aria-pressed="{{b.on}}" onClick="{{b.pick}}">{{b.n}}</button></sc-for></div>
+          <div class="labres"><!--i:P.check:20--><div><b>{{dm.r}}</b><span>{{dm.rs}}</span></div></div>
+          <span class="src">{{dm.src}}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="dom-letniskowy" class="{{rv.dl}}" data-rv="dl" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div class="card dark ri dlw">
+        <div style="display: flex; flex-direction: column; gap: 14px"><span class="eye" style="color: #4CCBE6">Dom letniskowy i apartament na wynajem</span><b class="h2" style="font-size: clamp(28px, 3vw, 42px)">Nikogo nie ma od miesiąca. Alarm i tak pilnuje.</b><p class="lead">Przesuń suwak i zobacz zimę w pustym domu. Oprócz czujek ruchu dokładamy czujki, które działają całą dobę: zalanie, temperatura, dym. Satel AFD-200 wykrywa wodę i mierzy temperaturę, a bateria wystarcza według producenta do 5 lat.</p>
+          <div class="cq"><span style="color: #B5C7CB">Dzień {{dl.day}} od wyjazdu · {{dl.date}}</span><input class="rng" type="range" min="1" max="60" step="1" value="{{dl.day}}" onInput="{{dl.onDay}}" aria-label="Dzień od wyjazdu"></div>
+          <div class="dlstat"><sc-for list="{{dl.stat}}" as="s" hint-placeholder-count="3"><div class="{{s.cls}}"><!--i:s.ic:18--><span>{{s.k}}</span><b>{{s.v}}</b></div></sc-for></div>
+        </div>
+        <div class="phone"><div class="phs" style="min-height: 460px"><div class="phh"><span>Aplikacja alarmu</span><span>{{dl.clock}}</span></div><div class="pht" style="font-size: 18px">Dom w Bukowinie</div>
+          <sc-for list="{{dl.feed}}" as="f" hint-placeholder-count="4"><div class="{{f.cls}}"><!--i:f.ic:18--><div><b>{{f.t}}</b><span>{{f.s}}</span></div></div></sc-for>
+          <div style="margin-top: auto; font-size: 12px; color: #8C948E; text-align: center">Przykładowy przebieg · ilustracja</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="agencja" class="{{rv.ag}}" data-rv="ag" style="padding: 0 0 104px">
+    <div class="wrap split">
+      <div class="ri" style="display: flex; flex-direction: column; gap: 16px"><span class="eye">Powiadomienia czy agencja ochrony</span><h2 class="h2">Kto reaguje, gdy alarm zawyje?</h2><p class="lead">Najprościej: Ty, przez aplikację i SMS. Jeśli nie możesz odbierać powiadomień, sygnał może trafić do całodobowego centrum agencji ochrony, która wyśle patrol.</p></div>
+      <div style="display: flex; flex-direction: column; gap: 12px">
+        <sc-for list="{{ag}}" as="a" hint-placeholder-count="3"><div class="card ri" style="padding: 22px; display: flex; gap: 16px; align-items: flex-start"><span class="ico"><!--i:a.ic:22--></span><div><b style="font-size: 17px">{{a.t}}</b><p class="mut" style="margin: 4px 0 0; font-size: 15px">{{a.d}}</p></div></div></sc-for>
+        <div class="note ri"><!--i:P.doc:20--><span>Montaż i serwis alarmów w domach, firmach i pensjonatach nie wymagają koncesji (poza obszarami i obiektami podlegającymi obowiązkowej ochronie). Całodobowe dozorowanie sygnałów to już ochrona fizyczna i prowadzi ją agencja z koncesją MSWiA. Agencja partnerska: <span class="ph">[SZEF]</span>.</span></div>
+      </div>
+    </div>
+  </section>
+
+<!--@odbsec-->
+<!--@pkgs-->
+<!--@cena-->
+<!--@faqsec-->
+<!--@relsec-->

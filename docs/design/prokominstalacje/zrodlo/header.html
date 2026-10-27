@@ -1,0 +1,83 @@
+  <svg class="pkdefs" width="0" height="0" aria-hidden="true" focusable="false"><defs>
+    <linearGradient id="gWood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A8774E"></stop><stop offset="1" stop-color="#6A4326"></stop></linearGradient>
+    <linearGradient id="gWoodL" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8E623E"></stop><stop offset=".5" stop-color="#7A5232"></stop><stop offset="1" stop-color="#5E3D22"></stop></linearGradient>
+    <linearGradient id="gRoof" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5E4232"></stop><stop offset="1" stop-color="#2C1F17"></stop></linearGradient>
+    <linearGradient id="gWallD" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#33302C"></stop><stop offset="1" stop-color="#211E1B"></stop></linearGradient>
+    <linearGradient id="gWallL" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F6ECDD"></stop><stop offset="1" stop-color="#E2D2BA"></stop></linearGradient>
+    <linearGradient id="gGlass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#D6EEF5"></stop><stop offset=".55" stop-color="#9CC7D4"></stop><stop offset="1" stop-color="#6E9EAE"></stop></linearGradient>
+    <linearGradient id="gLit" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFEBB8"></stop><stop offset="1" stop-color="#F2B24B"></stop></linearGradient>
+    <linearGradient id="gMetal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F2F5F6"></stop><stop offset=".6" stop-color="#C3CBCF"></stop><stop offset="1" stop-color="#8E999E"></stop></linearGradient>
+    <linearGradient id="gDark" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#26343A"></stop><stop offset="1" stop-color="#121A1D"></stop></linearGradient>
+    <linearGradient id="gAcc" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6FDDF2"></stop><stop offset="1" stop-color="#0E8FAE"></stop></linearGradient>
+    <linearGradient id="gCar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"></stop><stop offset="1" stop-color="#C9D3D6"></stop></linearGradient>
+    <radialGradient id="gPool" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FFD27A" stop-opacity=".55"></stop><stop offset="1" stop-color="#FFD27A" stop-opacity="0"></stop></radialGradient>
+    <pattern id="pFloor" width="22" height="22" patternUnits="userSpaceOnUse"><rect width="22" height="22" fill="#1A2427"></rect><path d="M0 11H22M11 0V11M0 22V11" stroke="#212D31" stroke-width="1"></path></pattern>
+    <pattern id="pFloorL" width="22" height="22" patternUnits="userSpaceOnUse"><rect width="22" height="22" fill="#F4EEE4"></rect><path d="M0 11H22M11 0V11M0 22V11" stroke="#E6DDCE" stroke-width="1"></path></pattern>
+    <pattern id="pPlank" width="80" height="14" patternUnits="userSpaceOnUse"><rect width="80" height="14" fill="#8A5E3A"></rect><path d="M0 13.5H80M40 0V14" stroke="#6E4628" stroke-width="1"></path></pattern>
+    <filter id="fSh" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#000" flood-opacity=".35"></feDropShadow></filter>
+    <filter id="fGl" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5" result="b"></feGaussianBlur><feMerge><feMergeNode in="b"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge></filter>
+  </defs></svg>
+  <div class="topb">
+    <div class="wrap topw">
+      <span><span class="{{hours.cls}}"></span>{{hours.txt}} · Rabka-Zdrój, ul. Orkana 16B · Zakopane, <span class="ph">{{K.adrZ}}</span></span>
+      <span style="display: flex; flex-wrap: wrap; gap: 16px"><a href="https://prokombiznes.pl">PRO-KOM Biznes</a><a href="https://prokomsoftware.pl">Software</a><a href="https://prokomserwis.pl">Tech · naprawy sprzętu</a><a href="Serwis.dc.html#zglos">Zgłoś awarię</a><a href="{{K.telH}}" style="color: var(--soft); font-weight: 800">Instalacje: <span class="ph">{{K.tel}}</span></a></span>
+    </div>
+  </div>
+  <header class="{{hdrCls}}">
+    <div class="wrap hdrw">
+      <a href="Main.dc.html" class="logo" aria-label="PRO-KOM Instalacje, strona główna"><b>PRO<i>-</i>KOM</b><span><em></em><small>INSTALACJE</small></span></a>
+      <nav class="nav" aria-label="Główne menu">
+        <div class="ndd" onMouseLeave="{{megaClose}}" onMouseEnter="{{megaKeep}}">
+          <button type="button" class="{{mg.uBtn}}" onClick="{{mg.uTog}}" onMouseEnter="{{mg.uOpen}}" aria-expanded="{{mg.uExp}}">Usługi<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+          <button type="button" class="{{mg.oBtn}}" onClick="{{mg.oTog}}" onMouseEnter="{{mg.oOpen}}" aria-expanded="{{mg.oExp}}">Dla kogo<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+          <sc-if value="{{mg.uOn}}" hint-placeholder-val="{{ false }}">
+            <div class="mega mega2" role="menu">
+              <sc-for list="{{megaCols}}" as="g" hint-placeholder-count="3">
+                <div class="megac">
+                  <span class="megah">{{g.n}}</span>
+                  <sc-for list="{{g.items}}" as="m" hint-placeholder-count="3"><a href="{{m.href}}" style="{{m.hs}}"><span class="ico s mhi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{m.ic}}"></path></svg></span><span><b>{{m.n}}</b><span>{{m.s}}</span></span></a></sc-for>
+                </div>
+              </sc-for>
+              <div class="megap">
+                <span class="eye" style="font-size: 12px">Pełna oferta</span>
+                <b>{{offerN.a}} obszarów, {{offerN.i}} {{offerN.iW}}</b>
+                <span>Wszystko z filtrem po rodzaju obiektu. Jeden wykonawca, jeden numer do serwisu.</span>
+                <a href="Oferta.dc.html" class="btn btn-p btn-s" style="align-self: flex-start">Zobacz pełną ofertę →</a>
+                <a href="Zaplanuj.dc.html" class="megal">Nie wiesz, od czego zacząć? Zaplanuj →</a>
+              </div>
+            </div>
+          </sc-if>
+          <sc-if value="{{mg.oOn}}" hint-placeholder-val="{{ false }}">
+            <div class="mega mega2 megao" role="menu">
+              <sc-for list="{{segCols}}" as="g" hint-placeholder-count="4">
+                <div class="megac">
+                  <span class="megah">{{g.n}}</span>
+                  <sc-for list="{{g.items}}" as="m" hint-placeholder-count="3"><a href="{{m.href}}" style="{{m.hs}}" class="{{m.cls}}"><span class="ico s mhi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{m.ic}}"></path></svg></span><span><b>{{m.n}}</b><span>{{m.s}}</span></span></a></sc-for>
+                </div>
+              </sc-for>
+              <div class="megap megapo">
+                <span class="eye" style="font-size: 12px">Twój obiekt</span>
+                <b>Każdy obiekt ma inne potrzeby. Zobacz, co ma sens u Ciebie.</b>
+                <span>Przekrój budynku, typowe problemy, przepisy i zestawy dobrane do rodzaju obiektu.</span>
+                <a href="Zaplanuj.dc.html" class="btn btn-p btn-s" style="align-self: flex-start">Zaplanuj instalację →</a>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+        <a href="Realizacje.dc.html" class="{{nav.rl}}">Realizacje</a>
+        <a href="Serwis.dc.html" class="{{nav.srw}}">Serwis</a>
+        <a href="Poradnik.dc.html" class="{{nav.pr}}">Poradnik</a>
+        <a href="OFirmie.dc.html" class="{{nav.of}}">O firmie</a>
+        <a href="Kontakt.dc.html" class="{{nav.kt}}">Kontakt</a>
+      </nav>
+      <div class="hdra">
+        <button type="button" class="iconb" onClick="{{toggleTheme}}" aria-label="{{themeLabel}}" title="{{themeLabel}}">
+          <sc-if value="{{isDark}}" hint-placeholder-val="{{ true }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg></sc-if>
+          <sc-if value="{{isLight}}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg></sc-if>
+        </button>
+        <a href="{{K.telH}}" class="iconb mobb" aria-label="Zadzwoń"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"></path></svg></a>
+        <a href="Zaplanuj.dc.html" class="btn btn-p btn-s desk">Zaplanuj instalację</a>
+        <button type="button" class="iconb mobb" onClick="{{toggleMenu}}" aria-label="Menu" aria-expanded="{{menuExp}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></button>
+      </div>
+    </div>
+  </header>

@@ -1,0 +1,290 @@
+<!--@pheroA-->
+          <div class="nvr" role="region" aria-label="Przykładowy podgląd z rejestratora: cztery kamery w pensjonacie">
+            <div class="nvrh"><span>REJESTRATOR · PENSJONAT · {{nv.day}}</span><span class="rec">REC {{nv.time}}</span></div>
+            <div class="nvrtools" style="border-top: 0; border-bottom: 1px solid #1A2B2F">
+              <div class="segd" role="group" aria-label="Pora i tryb obrazu"><sc-for list="{{nv.modes}}" as="m" hint-placeholder-count="3"><button type="button" class="{{m.cls}}" aria-pressed="{{m.on}}" onClick="{{m.pick}}"><!--i:m.ic:14-->{{m.n}}</button></sc-for></div>
+              <span style="flex: 1"></span>
+              <sc-if value="{{nv.big}}" hint-placeholder-val="{{ false }}"><button type="button" class="tgl" onClick="{{nv.grid}}"><!--i:P.layers:14-->Wszystkie kamery</button></sc-if>
+            </div>
+            <div class="{{nv.gcls}}">
+              <sc-if value="{{nv.s1}}" hint-placeholder-val="{{ true }}">
+              <button type="button" class="{{nv.c1}}" onClick="{{nv.p1}}" aria-label="Kamera 1, parking. Kliknij, aby powiększyć.">
+                <svg class="{{nv.scn}}" viewBox="0 0 320 180" aria-hidden="true">
+                  <rect class="sky" width="320" height="52"></rect>
+                  <path d="M0 52 L40 30 L70 44 L110 18 L150 40 L190 22 L230 42 L270 26 L320 46 V52 Z" fill="#3B4A50" opacity=".7"></path>
+                  <path d="M96 26 L110 18 L122 26 L114 24 Z M180 28 L190 22 L200 28 Z" class="snow"></path>
+                  <rect class="pv" y="52" width="320" height="128"></rect>
+                  <rect class="snow" y="52" width="320" height="7" opacity=".9"></rect>
+                  <ellipse class="warm" cx="250" cy="70" rx="150" ry="110" fill="url(#mwarm)"></ellipse>
+                  <defs><radialGradient id="mwarm"><stop offset="0" stop-color="#FFD27A" stop-opacity=".8"></stop><stop offset="1" stop-color="#FFD27A" stop-opacity="0"></stop></radialGradient></defs>
+                  <path class="ln" d="M40 180 L80 70 M110 180 L130 70 M180 180 L180 70 M250 180 L230 70 M320 170 L280 70"></path>
+                  <g><rect class="car2" x="88" y="92" width="38" height="56" rx="9"></rect><rect x="93" y="104" width="28" height="16" rx="4" fill="#1B2A30"></rect></g>
+                  <g><rect class="car3" x="190" y="90" width="36" height="54" rx="9"></rect><rect x="195" y="101" width="26" height="15" rx="4" fill="#1B2A30"></rect></g>
+                  <g class="carm"><rect class="car1" x="240" y="112" width="40" height="58" rx="9"></rect><rect x="245" y="124" width="30" height="16" rx="4" fill="#1B2A30"></rect>
+                    <sc-if value="{{nv.ai}}" hint-placeholder-val="{{ true }}"><rect class="dbox car" x="234" y="106" width="52" height="70" rx="3"></rect><rect class="dlbg car" x="234" y="94" width="52" height="13" rx="2"></rect><text class="dlab" x="238" y="104" fill="#06181C">Auto 94%</text></sc-if>
+                    <sc-if value="{{nv.noai}}" hint-placeholder-val="{{ false }}"><rect class="dbox fa" x="234" y="106" width="52" height="70" rx="3"></rect><rect class="dlbg fa" x="234" y="94" width="34" height="13" rx="2"></rect><text class="dlab" x="238" y="104" fill="#06181C">Ruch</text></sc-if>
+                  </g>
+                  <g class="walkp"><circle cx="30" cy="118" r="6" fill="#E9D9C4"></circle><rect x="23" y="125" width="14" height="26" rx="5" fill="#C24E3A"></rect><rect x="24" y="150" width="5" height="14" fill="#2A2A2A"></rect><rect x="31" y="150" width="5" height="14" fill="#2A2A2A"></rect>
+                    <sc-if value="{{nv.ai}}" hint-placeholder-val="{{ true }}"><rect class="dbox" x="17" y="108" width="26" height="60" rx="3"></rect><rect class="dlbg" x="17" y="96" width="62" height="13" rx="2"></rect><text class="dlab" x="20" y="106" fill="#06181C">Człowiek 97%</text></sc-if>
+                    <sc-if value="{{nv.noai}}" hint-placeholder-val="{{ false }}"><rect class="dbox fa" x="17" y="108" width="26" height="60" rx="3"></rect><rect class="dlbg fa" x="17" y="96" width="34" height="13" rx="2"></rect><text class="dlab" x="20" y="106" fill="#06181C">Ruch</text></sc-if>
+                  </g>
+                </svg>
+                <span class="cl">KAM 1 · Parking</span><span class="ct2">{{nv.time}}</span>
+              </button>
+              </sc-if>
+              <sc-if value="{{nv.s2}}" hint-placeholder-val="{{ true }}">
+              <button type="button" class="{{nv.c2}}" onClick="{{nv.p2}}" aria-label="Kamera 2, wejście główne. Kliknij, aby powiększyć.">
+                <svg class="{{nv.scn}}" viewBox="0 0 320 180" aria-hidden="true">
+                  <rect class="wl" width="320" height="180"></rect>
+                  <path d="M0 0 H320 V24 L160 8 L0 24 Z" class="wd"></path>
+                  <rect class="lw" x="22" y="40" width="48" height="56" rx="3"></rect><rect class="lw" x="250" y="40" width="48" height="56" rx="3"></rect>
+                  <path d="M46 40 V96 M22 68 H70 M274 40 V96 M250 68 H298" stroke="#2E2219" stroke-width="3"></path>
+                  <rect class="wd" x="125" y="44" width="70" height="106" rx="4"></rect><path d="M160 44 V150" stroke="#1E160F" stroke-width="2"></path><circle cx="150" cy="100" r="3" fill="#E6C27A"></circle><circle cx="170" cy="100" r="3" fill="#E6C27A"></circle>
+                  <rect x="98" y="58" width="12" height="16" rx="3" fill="#E6C27A"></rect>
+                  <ellipse class="warm" cx="104" cy="66" rx="90" ry="90" fill="url(#mwarm2)"></ellipse>
+                  <defs><radialGradient id="mwarm2"><stop offset="0" stop-color="#FFD27A" stop-opacity=".9"></stop><stop offset="1" stop-color="#FFD27A" stop-opacity="0"></stop></radialGradient></defs>
+                  <rect class="pv" y="150" width="320" height="30"></rect><rect x="110" y="150" width="100" height="8" fill="#5A6460"></rect><rect x="100" y="158" width="120" height="8" fill="#4B5450"></rect>
+                  <rect class="snow" y="166" width="96" height="14"></rect><rect class="snow" x="224" y="166" width="96" height="14"></rect>
+                  <g class="walkp" style="animation-duration: 11s"><circle cx="40" cy="112" r="7" fill="#E9D9C4"></circle><rect x="32" y="120" width="16" height="30" rx="6" fill="#2C6E9B"></rect><rect x="33" y="149" width="6" height="16" fill="#2A2A2A"></rect><rect x="41" y="149" width="6" height="16" fill="#2A2A2A"></rect><rect x="50" y="136" width="14" height="22" rx="3" fill="#3A3A3A"></rect><path d="M55 136 V128 H59 V136" stroke="#3A3A3A" stroke-width="2" fill="none"></path>
+                    <sc-if value="{{nv.ai}}" hint-placeholder-val="{{ true }}"><rect class="dbox" x="26" y="100" width="42" height="68" rx="3"></rect><rect class="dlbg" x="26" y="88" width="62" height="13" rx="2"></rect><text class="dlab" x="29" y="98" fill="#06181C">Człowiek 98%</text></sc-if>
+                    <sc-if value="{{nv.noai}}" hint-placeholder-val="{{ false }}"><rect class="dbox fa" x="26" y="100" width="42" height="68" rx="3"></rect><rect class="dlbg fa" x="26" y="88" width="34" height="13" rx="2"></rect><text class="dlab" x="29" y="98" fill="#06181C">Ruch</text></sc-if>
+                  </g>
+                </svg>
+                <span class="cl">KAM 2 · Wejście</span><span class="ct2">{{nv.time}}</span>
+              </button>
+              </sc-if>
+              <sc-if value="{{nv.s3}}" hint-placeholder-val="{{ true }}">
+              <button type="button" class="{{nv.c3}}" onClick="{{nv.p3}}" aria-label="Kamera 3, narciarnia. Kliknij, aby powiększyć.">
+                <svg class="{{nv.scn}}" viewBox="0 0 320 180" aria-hidden="true">
+                  <rect class="wd" width="320" height="180"></rect>
+                  <path d="M0 30 H320 M0 60 H320 M0 90 H320 M0 120 H320" stroke="#000" stroke-opacity=".18" stroke-width="2"></path>
+                  <rect class="pv" y="140" width="320" height="40"></rect>
+                  <rect x="30" y="56" width="170" height="8" rx="2" fill="#5B4632"></rect><rect x="30" y="120" width="170" height="8" rx="2" fill="#5B4632"></rect>
+                  <g stroke-width="5" stroke-linecap="round"><path d="M46 40 V136" stroke="#C0392B"></path><path d="M56 40 V136" stroke="#C0392B"></path><path d="M80 36 V136" stroke="#2C6E9B"></path><path d="M90 36 V136" stroke="#2C6E9B"></path><path d="M114 42 V136" stroke="#E6C27A"></path><path d="M124 42 V136" stroke="#E6C27A"></path><path d="M148 38 V136" stroke="#7BD36A"></path><path d="M158 38 V136" stroke="#7BD36A"></path><path d="M182 44 V136" stroke="#D9D9D9"></path></g>
+                  <rect x="226" y="34" width="70" height="106" rx="3" fill="#0B1418"></rect><rect x="232" y="40" width="58" height="100" fill="#13242A"></rect>
+                  <rect class="lw" x="236" y="46" width="50" height="34" opacity=".5"></rect>
+                  <sc-if value="{{nv.night}}" hint-placeholder-val="{{ false }}">
+                    <g class="walkp" style="animation-duration: 8s"><circle cx="246" cy="98" r="6" fill="#B9AFA3"></circle><rect x="239" y="105" width="14" height="26" rx="5" fill="#1F1F1F"></rect><rect x="240" y="130" width="5" height="12" fill="#111"></rect><rect x="247" y="130" width="5" height="12" fill="#111"></rect>
+                      <sc-if value="{{nv.ai}}" hint-placeholder-val="{{ true }}"><rect class="dbox" x="233" y="88" width="26" height="58" rx="3"></rect></sc-if>
+                      <sc-if value="{{nv.noai}}" hint-placeholder-val="{{ false }}"><rect class="dbox fa" x="233" y="88" width="26" height="58" rx="3"></rect></sc-if>
+                    </g>
+                    <sc-if value="{{nv.deter}}" hint-placeholder-val="{{ false }}"><circle class="strobe" cx="300" cy="40" r="8"></circle><rect x="8" y="150" width="200" height="22" rx="5" fill="#0A1214" opacity=".85"></rect><text class="dlab" x="16" y="165" fill="#F2B84B">Odstraszanie: światło + syrena + komunikat</text></sc-if>
+                  </sc-if>
+                  <sc-if value="{{nv.dayv}}" hint-placeholder-val="{{ true }}"><rect x="8" y="150" width="150" height="22" rx="5" fill="#0A1214" opacity=".7"></rect><text class="dlab" x="16" y="165" fill="#C9D3D5">Narciarnia · wejście dla gości</text></sc-if>
+                </svg>
+                <span class="cl">KAM 3 · Narciarnia</span><span class="ct2">{{nv.time}}</span>
+              </button>
+              </sc-if>
+              <sc-if value="{{nv.s4}}" hint-placeholder-val="{{ true }}">
+              <button type="button" class="{{nv.c4}}" onClick="{{nv.p4}}" aria-label="Kamera 4, podjazd i ogród. Kliknij, aby powiększyć.">
+                <svg class="{{nv.scn}}" viewBox="0 0 320 180" aria-hidden="true">
+                  <rect class="sky" width="320" height="70"></rect>
+                  <path d="M0 70 L60 40 L120 62 L180 34 L250 60 L320 44 V70 Z" fill="#3B4A50" opacity=".7"></path>
+                  <rect class="gr" y="70" width="320" height="110"></rect>
+                  <rect class="snow" y="70" width="320" height="10" opacity=".85"></rect>
+                  <g><path d="M220 70 L262 40 L304 70 Z" class="wd"></path><rect class="wl" x="226" y="70" width="72" height="44"></rect><rect class="lw" x="240" y="80" width="18" height="18"></rect><rect class="lw" x="268" y="80" width="18" height="18"></rect></g>
+                  <path d="M0 118 H200" stroke="#5B4632" stroke-width="4"></path><path d="M10 104 V124 M40 104 V124 M70 104 V124 M100 104 V124 M130 104 V124 M160 104 V124 M190 104 V124" stroke="#5B4632" stroke-width="5"></path>
+                  <path d="M60 180 L110 112 H170 L230 180 Z" class="pv"></path>
+                  <g class="sway"><rect x="28" y="120" width="6" height="30" fill="#4A3524"></rect><path d="M31 78 L54 124 H8 Z" fill="#2E5B3E"></path><path d="M31 70 L48 102 H14 Z" fill="#3B7050"></path></g>
+                  <sc-if value="{{nv.noai}}" hint-placeholder-val="{{ false }}"><rect class="dbox fa" x="4" y="66" width="56" height="88" rx="3"></rect><rect class="dlbg fa" x="4" y="54" width="34" height="13" rx="2"></rect><text class="dlab" x="7" y="64" fill="#06181C">Ruch</text></sc-if>
+                  <g class="carm" style="animation-duration: 15s"><rect class="car4" x="120" y="128" width="40" height="44" rx="8"></rect><rect x="125" y="136" width="30" height="12" rx="3" fill="#1B2A30"></rect>
+                    <sc-if value="{{nv.ai}}" hint-placeholder-val="{{ true }}"><rect class="dbox car" x="114" y="122" width="52" height="56" rx="3"></rect><rect class="dlbg car" x="114" y="110" width="58" height="13" rx="2"></rect><text class="dlab" x="117" y="120" fill="#06181C">Auto · KR 1234</text></sc-if>
+                  </g>
+                  <sc-if value="{{nv.mask}}" hint-placeholder-val="{{ true }}"><rect class="{{nv.mcls}}" x="214" y="34" width="100" height="86" rx="4"></rect><text class="dlab" x="222" y="82" fill="#F2B84B">Strefa prywatności</text><text class="dlab" x="222" y="95" fill="#F2B84B" opacity=".8">posesja sąsiada</text></sc-if>
+                </svg>
+                <span class="cl">KAM 4 · Podjazd</span><span class="ct2">{{nv.time}}</span>
+              </button>
+              </sc-if>
+            </div>
+            <div class="nvrt">
+              <div class="tlx" style="margin: 0 0 8px; justify-content: flex-start; gap: 14px"><span>Ostatnie 24 h:</span><span style="color: #F2B84B">C · człowiek</span><span style="color: #4CCBE6">A · auto</span><sc-if value="{{nv.noai}}" hint-placeholder-val="{{ false }}"><span style="color: #F07A6A">! · fałszywy alarm</span></sc-if></div>
+              <div class="tline"><sc-for list="{{nv.ev}}" as="e" hint-placeholder-count="6"><span class="{{e.cls}}" style="{{e.st}}" title="{{e.t}}">{{e.k}}</span></sc-for><b></b></div>
+              <div class="tlx"><span>00:00</span><span>06:00</span><span>12:00</span><span>18:00</span><span>24:00</span></div>
+            </div>
+            <div class="nvrtools">
+              <button type="button" class="{{nv.aiCls}}" aria-pressed="{{nv.aiOn}}" onClick="{{nv.tAi}}"><i></i>Wykrywanie ludzi i aut</button>
+              <button type="button" class="{{nv.mkCls}}" aria-pressed="{{nv.mkOn}}" onClick="{{nv.tMask}}"><i></i>Maska prywatności</button>
+              <button type="button" class="{{nv.dtCls}}" aria-pressed="{{nv.dtOn}}" onClick="{{nv.tDet}}"><i></i>Odstraszanie nocą</button>
+            </div>
+            <div class="nvrnote" aria-live="polite">{{nv.note}}</div>
+          </div>
+<!--@pheroB-->
+
+  <!-- CO DOSTAJESZ -->
+  <section id="co-dostajesz" class="{{rv.co}}" data-rv="co" style="padding: 96px 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Monitoring od PRO-KOM</span><h2 class="h2">Kamery, które widzą to, co trzeba. I nie widzą tego, czego nie wolno.</h2></div><p class="lead" style="max-width: 440px">Dobieramy kamery do miejsca, a nie do katalogu. Ustawiamy wykrywanie, strefy i czas nagrań, a potem uczymy Cię obsługi aplikacji.</p></div>
+      <div class="g3"><sc-for list="{{feats}}" as="f" hint-placeholder-count="6"><div class="card feat ri"><span class="ico"><!--i:f.ic:22--></span><b class="h3">{{f.t}}</b><p>{{f.d}}</p><sc-if value="{{f.src}}" hint-placeholder-val="{{ false }}"></sc-if></div></sc-for></div>
+    </div>
+  </section>
+
+  <section id="system" class="{{rv.sys}}" data-rv="sys" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Wersje instalacji</span><h2 class="h2">Monitoring to cały system. <span class="acc">Zobacz, co wchodzi w skład.</span></h2></div><p class="lead" style="max-width: 460px">Kamera to tylko początek. Żeby nagrania nie ginęły przy burzy, mrozie czy zaniku prądu, potrzebny jest rejestrator, dyski do pracy 24/7, zasilanie, sieć i porządna aplikacja. Wybierz wersję i kliknij element schematu.</p></div>
+      <div class="syw ri">
+        <div class="card sycard">
+          <div class="illbar" style="padding: 0 0 12px">
+            <div class="seg" role="tablist" aria-label="Wersja instalacji"><sc-for list="{{sy.tabs}}" as="t" hint-placeholder-count="4"><button type="button" role="tab" class="{{t.cls}}" aria-selected="{{t.on}}" onClick="{{t.pick}}"><!--i:t.ic:15-->{{t.n}}</button></sc-for></div>
+            <span class="tag a">{{sy.sub}}</span>
+          </div>
+          <div class="syscroll"><div class="syin"><svg class="sysvg" viewBox="0 0 1120 470" role="img" aria-label="Schemat systemu monitoringu: {{sy.name}}">
+  <rect x="270" y="26" width="830" height="300" rx="22" class="syzone"></rect>
+  <foreignObject x="290" y="34" width="300" height="22" class="fo"><div xmlns="http://www.w3.org/1999/xhtml" class="fot syzl">Budynek · pomieszczenie techniczne</div></foreignObject>
+  <rect x="14" y="26" width="236" height="300" rx="22" class="syzone t"></rect>
+  <foreignObject x="30" y="34" width="200" height="22" class="fo"><div xmlns="http://www.w3.org/1999/xhtml" class="fot syzl">Teren i elewacja</div></foreignObject>
+  <path d="M180 148 C 240 148, 260 145, 330 145" class="sycab {{sy.flow}}"></path>
+  <path d="M450 145 L520 130" class="sycab {{sy.flow}}"></path>
+  <path d="M700 130 L760 135" class="sycab {{sy.flow}}"></path>
+  <path d="M860 135 C 900 135, 920 140, 960 140" class="sycab net {{sy.flow}}"></path>
+  <g class="{{sy.e.lnk.cls}}" onClick="{{sy.e.lnk.pick}}" tabindex="0" role="button" aria-label="Światłowód lub most radiowy"><path d="M228 400 C 300 400, 360 300, 390 172" class="syfib"></path><path d="M236 372 a22 22 0 0 1 22 -22 M236 360 a34 34 0 0 1 34 -34" class="syrad"></path><rect x="20" y="350" width="220" height="100" rx="18" class="syzone t"></rect><path d="M60 430 V392 l36 -24 l36 24 V430Z" class="syb"></path><foreignObject x="140" y="380" width="120" height="44" class="fo"><div xmlns="http://www.w3.org/1999/xhtml" class="fot syt">Drugi budynek</div><div xmlns="http://www.w3.org/1999/xhtml" class="fot sym">lub brama, parking</div></foreignObject></g>
+  <g class="{{sy.e.cam.cls}}" onClick="{{sy.e.cam.pick}}" tabindex="0" role="button" aria-label="Kamery IP"><g class="{{sy.ci.c0}}" transform="translate(70 64)"><rect x="-22" y="-14" width="44" height="26" rx="8" class="syb"></rect><circle cx="10" cy="-1" r="6" class="sya"></circle><path d="M-22 -1 h-8 M-30 -9 v18" class="sys"></path></g><g class="{{sy.ci.c1}}" transform="translate(140 64)"><rect x="-22" y="-14" width="44" height="26" rx="8" class="syb"></rect><circle cx="10" cy="-1" r="6" class="sya"></circle><path d="M-22 -1 h-8 M-30 -9 v18" class="sys"></path></g><g class="{{sy.ci.c2}}" transform="translate(70 120)"><rect x="-22" y="-14" width="44" height="26" rx="8" class="syb"></rect><circle cx="10" cy="-1" r="6" class="sya"></circle><path d="M-22 -1 h-8 M-30 -9 v18" class="sys"></path></g><g class="{{sy.ci.c3}}" transform="translate(140 120)"><rect x="-22" y="-14" width="44" height="26" rx="8" class="syb"></rect><circle cx="10" cy="-1" r="6" class="sya"></circle><path d="M-22 -1 h-8 M-30 -9 v18" class="sys"></path></g><g class="{{sy.ci.c4}}" transform="translate(70 176)"><rect x="-22" y="-14" width="44" height="26" rx="8" class="syb"></rect><circle cx="10" cy="-1" r="6" class="sya"></circle><path d="M-22 -1 h-8 M-30 -9 v18" class="sys"></path></g><g class="{{sy.ci.c5}}" transform="translate(140 176)"><rect x="-22" y="-14" width="44" height="26" rx="8" class="syb"></rect><circle cx="10" cy="-1" r="6" class="sya"></circle><path d="M-22 -1 h-8 M-30 -9 v18" class="sys"></path></g><g class="{{sy.ci.c6}}" transform="translate(70 232)"><rect x="-22" y="-14" width="44" height="26" rx="8" class="syb"></rect><circle cx="10" cy="-1" r="6" class="sya"></circle><path d="M-22 -1 h-8 M-30 -9 v18" class="sys"></path></g><g class="{{sy.ci.c7}}" transform="translate(140 232)"><rect x="-22" y="-14" width="44" height="26" rx="8" class="syb"></rect><circle cx="10" cy="-1" r="6" class="sya"></circle><path d="M-22 -1 h-8 M-30 -9 v18" class="sys"></path></g><foreignObject x="30" y="268" width="200" height="40" class="fo"><div xmlns="http://www.w3.org/1999/xhtml" class="fot syt">{{sy.camN}}</div><div xmlns="http://www.w3.org/1999/xhtml" class="fot sym">kamery IP</div></foreignObject></g>
+  <g class="{{sy.e.ptz.cls}}" onClick="{{sy.e.ptz.pick}}" tabindex="0" role="button" aria-label="Kamera obrotowa PTZ"><g transform="translate(320 400)"><rect x="-30" y="-40" width="60" height="12" rx="4" class="syb"></rect><path d="M0 -28 v8" class="sys"></path><circle cx="0" cy="-2" r="20" class="syb"></circle><circle cx="6" cy="0" r="7" class="sya"></circle></g><foreignObject x="350" y="378" width="130" height="40" class="fo"><div xmlns="http://www.w3.org/1999/xhtml" class="fot syt">Kamera PTZ</div><div xmlns="http://www.w3.org/1999/xhtml" class="fot sym">obrót i zoom</div></foreignObject></g>
+  <g class="{{sy.e.lpr.cls}}" onClick="{{sy.e.lpr.pick}}" tabindex="0" role="button" aria-label="Odczyt tablic rejestracyjnych"><g transform="translate(520 404)"><rect x="-30" y="-16" width="60" height="30" rx="8" class="syb"></rect><circle cx="14" cy="-1" r="6" class="sya"></circle><rect x="-22" y="20" width="46" height="16" rx="3" class="sylp"></rect></g><foreignObject x="560" y="384" width="140" height="40" class="fo"><div xmlns="http://www.w3.org/1999/xhtml" class="fot syt">Odczyt tablic</div><div xmlns="http://www.w3.org/1999/xhtml" class="fot sym">wjazd, brama, szlaban</div></foreignObject></g>
+  <g class="{{sy.e.srg.cls}}" onClick="{{sy.e.srg.pick}}" tabindex="0" role="button" aria-label="Ochrona przepięciowa"><g transform="translate(250 147)"><circle r="17" class="syb"></circle><path d="M2 -9 L-5 2 h6 l-3 8" class="syw"></path></g></g>
+  <g class="{{sy.e.sw.cls}}" onClick="{{sy.e.sw.pick}}" tabindex="0" role="button" aria-label="Switch PoE"><rect x="330" y="120" width="120" height="52" rx="10" class="syb"></rect><g class="syports"><rect x="342" y="148" width="10" height="10" rx="2"></rect><rect x="356" y="148" width="10" height="10" rx="2"></rect><rect x="370" y="148" width="10" height="10" rx="2"></rect><rect x="384" y="148" width="10" height="10" rx="2"></rect><rect x="398" y="148" width="10" height="10" rx="2"></rect><rect x="412" y="148" width="10" height="10" rx="2"></rect><rect x="426" y="148" width="10" height="10" rx="2"></rect></g><foreignObject x="340" y="124" width="110" height="20" class="fo"><div xmlns="http://www.w3.org/1999/xhtml" class="fot syt">Switch PoE</div></foreignObject></g>
+  <g class="{{sy.e.rack.cls}}" onClick="{{sy.e.rack.pick}}" tabindex="0" role="button" aria-label="Szafa rack"><rect x="496" y="64" width="388" height="236" rx="16" class="syrack"></rect><foreignObject x="510" y="268" width="300" height="22" class="fo"><div xmlns="http://www.w3.org/1999/xhtml" class="fot sym">Szafa rack</div></foreignObject></g>
+  <g class="{{sy.e.nvr.cls}}" onClick="{{sy.e.nvr.pick}}" tabindex="0" role="button" aria-label="Rejestrator NVR"><rect x="520" y="96" width="180" height="70" rx="10" class="syb"></rect><foreignObject x="532" y="102" width="70" height="40" class="fo"><div xmlns="http://www.w3.org/1999/xhtml" class="fot syt">NVR</div><div xmlns="http://www.w3.org/1999/xhtml" class="fot sym">{{sy.nvrN}}</div></foreignObject><circle cx="540" cy="150" r="4" class="syled"></circle></g>
+  <g class="{{sy.e.hdd.cls}}" onClick="{{sy.e.hdd.pick}}" tabindex="0" role="button" aria-label="Dyski do monitoringu"><rect x="606" y="104" width="20" height="52" rx="4" class="{{sy.d0}}"></rect><rect x="630" y="104" width="20" height="52" rx="4" class="{{sy.d1}}"></rect><rect x="654" y="104" width="20" height="52" rx="4" class="{{sy.d2}}"></rect><rect x="678" y="104" width="14" height="52" rx="4" class="{{sy.d3}}"></rect></g>
+  <g class="{{sy.e.ups.cls}}" onClick="{{sy.e.ups.pick}}" tabindex="0" role="button" aria-label="Zasilacz awaryjny UPS"><rect x="520" y="196" width="180" height="56" rx="10" class="syb"></rect><rect x="534" y="214" width="44" height="20" rx="4" class="syups"></rect><rect x="536" y="216" height="16" rx="3" class="syupsf"></rect><foreignObject x="590" y="208" width="108" height="40" class="fo"><div xmlns="http://www.w3.org/1999/xhtml" class="fot syt">UPS</div><div xmlns="http://www.w3.org/1999/xhtml" class="fot sym">{{sy.upsN}}</div></foreignObject></g>
+  <g class="{{sy.e.rtr.cls}}" onClick="{{sy.e.rtr.pick}}" tabindex="0" role="button" aria-label="Router i osobna sieć"><rect x="760" y="110" width="104" height="52" rx="10" class="syb"></rect><path d="M778 110 v-14 M846 110 v-14" class="sys"></path><foreignObject x="772" y="116" width="90" height="40" class="fo"><div xmlns="http://www.w3.org/1999/xhtml" class="fot syt">Router</div><div xmlns="http://www.w3.org/1999/xhtml" class="fot sym">osobna sieć</div></foreignObject><rect x="770" y="176" width="84" height="22" rx="11" class="syvlan"></rect><foreignObject x="770" y="179" width="84" height="18" class="fo"><div xmlns="http://www.w3.org/1999/xhtml" class="fot syvt">VLAN kamer</div></foreignObject></g>
+  <g class="{{sy.e.app.cls}}" onClick="{{sy.e.app.pick}}" tabindex="0" role="button" aria-label="Aplikacja i powiadomienia"><rect x="964" y="62" width="88" height="160" rx="16" class="syph"></rect><rect x="974" y="84" width="68" height="44" rx="6" class="syscr"></rect><circle cx="1008" cy="106" r="7" class="sya"></circle><rect x="974" y="138" width="68" height="16" rx="5" class="synote"></rect><rect x="974" y="160" width="50" height="10" rx="5" class="synote o"></rect><foreignObject x="950" y="232" width="130" height="40" class="fo"><div xmlns="http://www.w3.org/1999/xhtml" class="fot syt">Aplikacja</div><div xmlns="http://www.w3.org/1999/xhtml" class="fot sym">podgląd i alerty</div></foreignObject></g>
+</svg></div></div>
+          <span class="syhint">Przesuń schemat palcem →</span>
+          <div class="systat"><sc-for list="{{sy.stats}}" as="s" hint-placeholder-count="5"><div><span>{{s.k}}</span><b>{{s.v}}</b></div></sc-for></div>
+          <p class="src" style="margin: 10px 0 0">{{sy.foot}}</p>
+        </div>
+        <div class="sypanel">
+          <div class="card syinfo" key="{{sy.info.k}}">
+            <div style="display: flex; gap: 12px; align-items: center"><span class="ico"><!--i:sy.info.ic:22--></span><div><span class="svk">{{sy.info.st}}</span><b class="h3" style="display: block">{{sy.info.n}}</b></div></div>
+            <p>{{sy.info.d}}</p>
+            <div class="syspec"><span>W tej wersji</span><b>{{sy.info.spec}}</b></div>
+            <div class="note" style="margin: 0"><!--i:P.snow:18--><span>{{sy.info.tip}}</span></div>
+            <div class="sydots" role="group" aria-label="Elementy zestawu"><sc-for list="{{sy.list}}" as="l" hint-placeholder-count="10"><button type="button" class="{{l.cls}}" onClick="{{l.pick}}" aria-label="{{l.n}}" title="{{l.n}}"><!--i:l.ic:16--></button></sc-for></div>
+            <div class="synav"><button type="button" onClick="{{sy.prev}}" aria-label="Poprzedni element">←</button><span><b>{{sy.pos}}</b> z {{sy.cnt}}</span><button type="button" onClick="{{sy.next}}" aria-label="Następny element">→</button></div>
+          </div>
+        </div>
+      </div>
+      <div class="card sylist2 ri">
+        <div class="sylh"><b>W zestawie „{{sy.name}}”</b><span>{{sy.cnt}} elementów · kliknij, żeby zobaczyć opis na schemacie</span></div>
+        <div class="sylg"><sc-for list="{{sy.list}}" as="l" hint-placeholder-count="10"><button type="button" class="{{l.cls}}" onClick="{{l.pick}}"><i><!--i:l.ic:16--></i><span><b>{{l.n}}</b><span>{{l.s}}</span></span><em>{{l.no}}</em></button></sc-for><a href="Zaplanuj.dc.html" class="sycta"><b>Policz zestaw dla swojego obiektu</b><span>Kreator w 2 minuty, wycena po wizji lokalnej →</span></a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TYPY KAMER -->
+  <section id="typy" class="{{rv.typy}}" data-rv="typy" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Jaką kamerę wybrać</span><h2 class="h2">Pięć rodzajów kamer. Każda do innego miejsca.</h2></div></div>
+      <div class="typw ri">
+        <div class="typl" role="tablist" aria-label="Rodzaje kamer"><sc-for list="{{typ.tabs}}" as="t" hint-placeholder-count="5"><button type="button" role="tab" class="{{t.cls}}" aria-selected="{{t.on}}" onClick="{{t.pick}}"><span class="ico s"><!--i:P.cam--></span>{{t.n}}</button></sc-for></div>
+        <div class="card typc" key="{{typ.k}}">
+          <svg class="dev" viewBox="0 0 240 200" aria-hidden="true">
+            <sc-if value="{{typ.d0}}" hint-placeholder-val="{{ true }}"><rect class="b2" x="40" y="40" width="160" height="22" rx="6"></rect><path class="b1" d="M50 62 H190 A70 70 0 0 1 50 62 Z"></path><circle class="lens" cx="120" cy="96" r="20"></circle><circle class="ir" cx="92" cy="80" r="4"></circle><circle class="ir" cx="148" cy="80" r="4"></circle></sc-if>
+            <sc-if value="{{typ.d1}}" hint-placeholder-val="{{ false }}"><rect class="b2" x="20" y="40" width="40" height="70" rx="6"></rect><path class="b2" d="M60 72 L96 80 V92 L60 96 Z"></path><rect class="b1" x="92" y="58" width="128" height="52" rx="12"></rect><rect class="b2" x="206" y="52" width="24" height="64" rx="8"></rect><circle class="lens" cx="210" cy="84" r="16"></circle><circle class="ir" cx="196" cy="66" r="3"></circle><circle class="ir" cx="196" cy="102" r="3"></circle></sc-if>
+            <sc-if value="{{typ.d2}}" hint-placeholder-val="{{ false }}"><rect class="b2" x="104" y="10" width="32" height="40" rx="6"></rect><rect class="b2" x="70" y="50" width="100" height="24" rx="8"></rect><circle class="b1" cx="120" cy="120" r="56"></circle><rect class="b2" x="78" y="104" width="84" height="34" rx="17"></rect><circle class="lens" cx="120" cy="121" r="13"></circle><path d="M40 170 A90 30 0 0 0 200 170" fill="none" stroke="var(--accentText)" stroke-width="3" stroke-dasharray="6 6"></path></sc-if>
+            <sc-if value="{{typ.d3}}" hint-placeholder-val="{{ false }}"><rect class="b2" x="20" y="40" width="40" height="70" rx="6"></rect><path class="b2" d="M60 72 L96 80 V92 L60 96 Z"></path><rect class="b1" x="92" y="58" width="128" height="52" rx="12"></rect><circle class="lens" cx="200" cy="84" r="14"></circle><rect x="110" y="64" width="40" height="14" rx="4" fill="#F07A6A"></rect><rect x="110" y="82" width="40" height="14" rx="4" fill="#4C7BF0"></rect><path d="M150 140 a20 20 0 0 1 0 30 M162 132 a32 32 0 0 1 0 46" fill="none" stroke="var(--warn)" stroke-width="3"></path><rect x="118" y="138" width="22" height="34" rx="4" fill="var(--warn)"></rect></sc-if>
+            <sc-if value="{{typ.d4}}" hint-placeholder-val="{{ false }}"><rect class="b2" x="40" y="40" width="160" height="22" rx="6"></rect><path class="b1" d="M44 62 H196 A76 50 0 0 1 44 62 Z"></path><circle class="lens" cx="82" cy="84" r="12"></circle><circle class="lens" cx="120" cy="92" r="12"></circle><circle class="lens" cx="158" cy="84" r="12"></circle><path d="M30 160 L120 120 L210 160" fill="none" stroke="var(--accentText)" stroke-width="3" stroke-dasharray="6 6"></path></sc-if>
+          </svg>
+          <div style="display: flex; flex-direction: column; gap: 14px">
+            <b class="h3" style="font-size: 26px">{{typ.n}}</b>
+            <p class="mut" style="margin: 0; font-size: 16px">{{typ.d}}</p>
+            <div class="g2" style="gap: 12px">
+              <div class="note" style="flex-direction: column; gap: 6px"><b style="color: var(--ok)">Gdzie pasuje</b><span>{{typ.ok}}</span></div>
+              <div class="note" style="flex-direction: column; gap: 6px"><b style="color: var(--warn)">Na co uważać</b><span>{{typ.no}}</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ILE WIDAĆ -->
+  <section id="ile-widac" class="{{rv.dori}}" data-rv="dori" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Kalkulator: ile widać</span><h2 class="h2">Twarz czy tylko sylwetka? To zależy od odległości.</h2></div><p class="lead" style="max-width: 460px">Norma PN-EN 62676-4 mówi, ile pikseli na metr potrzeba, żeby człowieka wykryć, obserwować, rozpoznać albo zidentyfikować. Sprawdź, jak zmienia się to z odległością.</p></div>
+      <div class="split ri" style="align-items: stretch">
+        <div class="card calc">
+          <div class="cq"><span>Rozdzielczość kamery</span><div class="seg"><sc-for list="{{dori.res}}" as="r" hint-placeholder-count="3"><button type="button" class="{{r.cls}}" aria-pressed="{{r.on}}" onClick="{{r.pick}}">{{r.n}}</button></sc-for></div></div>
+          <div class="cq"><span>Obiektyw (kąt widzenia)</span><div class="seg"><sc-for list="{{dori.lens}}" as="r" hint-placeholder-count="4"><button type="button" class="{{r.cls}}" aria-pressed="{{r.on}}" onClick="{{r.pick}}">{{r.n}}</button></sc-for></div></div>
+          <div class="cq"><span>Odległość do osoby: <b class="xb-nu">{{dori.d}} m</b></span><input class="rng" type="range" min="2" max="40" step="1" value="{{dori.d}}" onInput="{{dori.onD}}" aria-label="Odległość w metrach"></div>
+          <span class="src">Kąty widzenia są przykładowe. Dokładny kąt dla danej rozdzielczości i obiektywu podaje karta konkretnego modelu.</span>
+        </div>
+        <div class="cres">
+          <span class="eye" style="color: #4CCBE6">Wynik</span>
+          <div class="big">{{dori.ppm}}<small>pikseli na metr</small></div>
+          <div class="dori" aria-hidden="true">
+            <sc-for list="{{dori.zones}}" as="z" hint-placeholder-count="4"><div class="z" style="{{z.st}}">{{z.n}}</div></sc-for>
+            <svg class="cam0" width="34" height="24" viewBox="0 0 24 24" fill="none" stroke="#4CCBE6" stroke-width="2"><path d="{{P.cam}}"></path></svg>
+            <svg class="man" style="{{dori.manSt}}" width="22" height="60" viewBox="0 0 22 60"><circle cx="11" cy="7" r="6" fill="#F4F5F1"></circle><rect x="4" y="15" width="14" height="26" rx="6" fill="#F4F5F1"></rect><rect x="5" y="40" width="5" height="20" fill="#F4F5F1"></rect><rect x="12" y="40" width="5" height="20" fill="#F4F5F1"></rect></svg>
+          </div>
+          <div class="lvl"><sc-for list="{{dori.lv}}" as="l" hint-placeholder-count="4"><span class="{{l.cls}}">{{l.n}}</span></sc-for></div>
+          <p>{{dori.txt}}</p>
+          <p style="font-size: 13px">Szerokość kadru w tej odległości: {{dori.w}} m. Progi DORI: wykrycie 25, obserwacja 62, rozpoznanie 125, identyfikacja 250 px/m.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NAGRANIA -->
+  <section id="nagrania" class="{{rv.rec}}" data-rv="rec" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Kalkulator: ile dni nagrań</span><h2 class="h2">Dysk dobieramy do liczby kamer. I do przepisów.</h2></div><p class="lead" style="max-width: 460px">Nagrania zostają na rejestratorze w Twoim obiekcie. Policz, na ile dni wystarczy dysk przy nagrywaniu ciągłym.</p></div>
+      <div class="split ri" style="align-items: stretch">
+        <div class="card calc">
+          <div class="cq"><span>Liczba kamer</span><div class="stepper"><button type="button" onClick="{{rec.nm}}" aria-label="Mniej kamer">−</button><b>{{rec.n}}</b><button type="button" onClick="{{rec.np}}" aria-label="Więcej kamer">+</button></div></div>
+          <div class="cq"><span>Strumień jednej kamery (H.265)</span><div class="seg"><sc-for list="{{rec.br}}" as="r" hint-placeholder-count="3"><button type="button" class="{{r.cls}}" aria-pressed="{{r.on}}" onClick="{{r.pick}}">{{r.n}}</button></sc-for></div></div>
+          <div class="cq"><span>Dysk w rejestratorze</span><div class="seg"><sc-for list="{{rec.tb}}" as="r" hint-placeholder-count="4"><button type="button" class="{{r.cls}}" aria-pressed="{{r.on}}" onClick="{{r.pick}}">{{r.n}}</button></sc-for></div></div>
+          <span class="src">Wzór: 95% pojemności dysku (TB) ÷ zapis na dobę. Zapis na dobę = liczba kamer × strumień (Mb/s) × 86&#160;400 s ÷ 8, czyli MB przeliczone na TB. Strumień zależy od sceny, ustawień i pory dnia, więc wynik jest szacunkiem. Nagrywanie tylko przy ruchu wydłuża ten czas.</span>
+        </div>
+        <div class="cres">
+          <span class="eye" style="color: #4CCBE6">Wystarczy na około</span>
+          <div class="big">{{rec.big}}<small>{{rec.unit}}</small></div>
+          <div class="evbar" style="background: rgba(255,255,255,.08)"><i style="{{rec.bar}}"></i></div>
+          <p>{{rec.txt}}</p>
+          <div class="note" style="background: rgba(18,182,216,.08); color: #DDE8EA"><!--i:P.shield:20--><span>Monitoring pracowników: nagrania najwyżej 3 miesiące od nagrania, chyba że są dowodem w postępowaniu (Kodeks pracy, art. 22²). EROD zaleca, by nagrania co do zasady usuwać automatycznie po kilku dniach. Dłuższy czas, zwłaszcza ponad 72 godziny, administrator musi uzasadnić celem monitoringu.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RODO -->
+  <section id="rodo" class="{{rv.rodo}}" data-rv="rodo" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Monitoring i RODO</span><h2 class="h2">Gdzie kamera może patrzeć, a gdzie nie.</h2></div><p class="lead" style="max-width: 460px">Technikę ustawiamy tak, żeby pomagała Ci spełnić przepisy: strefy, maski, czas nagrań, tabliczki. Dokumenty, np. regulamin monitoringu, przygotowuje właściciel. Podpowiemy, co w nich ująć.</p></div>
+      <div class="rodo">
+        <div class="card rz ok ri"><b class="h3">Tak, z rozsądkiem</b><ul><sc-for list="{{rodo.ok}}" as="r" hint-placeholder-count="5"><li><i><!--i:P.check:14:2.6--></i><span>{{r}}</span></li></sc-for></ul></div>
+        <div class="card rz nn ri"><b class="h3">Nie</b><ul><sc-for list="{{rodo.no}}" as="r" hint-placeholder-count="5"><li><i><!--i:P.x:14:2.6--></i><span>{{r}}</span></li></sc-for></ul></div>
+        <div class="sign ri" role="img" aria-label="Przykład tabliczki informującej o monitoringu">
+          <div style="display: flex; gap: 12px; align-items: center"><span class="sgi"><!--i:P.cam:34--></span><b>Obiekt monitorowany</b></div>
+          <hr>
+          <span><b>Administrator:</b> [nazwa obiektu, adres, kontakt]</span>
+          <span><b>Cel:</b> bezpieczeństwo osób i ochrona mienia</span>
+          <span><b>Czas przechowywania:</b> [liczba dni, np. 3]</span>
+          <span><b>Twoje prawa:</b> m.in. dostęp do nagrań, usunięcie, sprzeciw</span>
+          <span><b>Pełna informacja:</b> recepcja lub [adres strony]</span>
+          <span style="font-size: 11.5px; opacity: .75">Przykład układu tabliczki według wytycznych EROD 3/2019. Treść ustala administrator.</span>
+        </div>
+      </div>
+      <div class="g4 ri" style="margin-top: 18px"><sc-for list="{{rodo.we}}" as="w" hint-placeholder-count="4"><div class="card feat" style="padding: 20px"><span class="ico s"><!--i:w.ic--></span><b>{{w.t}}</b><p style="font-size: 14.5px">{{w.d}}</p></div></sc-for></div>
+      <div class="note w ri" style="margin-top: 18px"><!--i:P.doc:20--><span>Kamera przy domu, która obejmuje choćby część drogi albo działki sąsiada, nie jest już „czysto domowym” użyciem i podlega RODO (wyrok TSUE C-212/13, Ryneš). Ustawimy kadr i maski tak, żeby patrzyła na Twoją posesję.</span></div>
+      <div class="note w ri" style="margin-top: 12px"><!--i:P.users:20--><span><b>Masz pracowników?</b> Kodeks pracy (art. 22²) wymaga, by cel i zasięg monitoringu ustalić w regulaminie pracy albo obwieszczeniu, poinformować pracowników najpóźniej 2 tygodnie przed uruchomieniem kamer i oznaczyć monitorowany teren najpóźniej dzień wcześniej. Więcej w <a class="xb-lnk" href="PoradnikRodo.dc.html">poradniku o monitoringu i RODO</a>.</span></div>
+    </div>
+  </section>
+
+  <!-- MARKI -->
+  <section id="sprzet-kamery" class="{{rv.br}}" data-rv="br" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Sprzęt</span><h2 class="h2">Dahua, Hikvision, BCS. <span class="acc">Dobieramy pod obiekt, nie pod markę.</span></h2></div><p class="lead" style="max-width: 460px">To popularne marki monitoringu, a każda ma setki modeli. Nie sprzedajemy jednej linii. Kamerę, rejestrator i dysk dobieramy do miejsca: mrozu, światła nocą, odległości i tego, co ma być widać. Gdy budujemy też sieć, sprawdzamy, czy kamery tego samego producenta co sieć nie uproszczą obsługi.</p></div>
+      <div class="bmg xb-bmg3 ri"><sc-for list="{{brandsM}}" as="b" hint-placeholder-count="4"><div class="card bmc"><div class="bmh"><b class="disp" style="font-size: 26px">{{b.n}}</b><span class="tag a">{{b.k}}</span></div><ul class="axl"><sc-for list="{{b.f}}" as="f" hint-placeholder-count="3"><li><span class="axok"><!--i:P.check:14:2.6--></span><span>{{f}}</span></li></sc-for></ul></div></sc-for></div>
+      <div class="bmd ri">
+        <div class="bmdh"><span class="usl" style="width: auto">Jak dobieramy</span></div>
+        <div class="bmdg"><sc-for list="{{brD}}" as="d" hint-placeholder-count="4"><div class="bmdc"><span class="ico"><!--i:d.ic:20--></span><div><b>{{d.t}}</b><p>{{d.d}}</p></div></div></sc-for></div>
+      </div>
+    </div>
+  </section>
+
+<!--@odbsec-->
+<!--@pkgs-->
+<!--@cena-->
+<!--@faqsec-->
+<!--@relsec-->

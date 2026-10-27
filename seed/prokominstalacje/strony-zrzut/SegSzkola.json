@@ -1,0 +1,698 @@
+{
+ "_strona": "SegSzkola",
+ "_title": "Monitoring, dzwonki i Wi-Fi dla szkół — Podhale | PRO-KOM",
+ "_description": "Monitoring pod art. 108a Prawa oświatowego, wideodomofon, dzwonki z kalendarzem i komunikaty, Wi-Fi w klasach za routerem OSE i monitory interaktywne.",
+ "_uwaga": "Zrzut danych z wizualizacji v4.0 (stan początkowy strony, motyw jasny). Teksty = treść do seeda. Klucze UI (cls, on, pick) pomijaj.",
+ "dane": {
+  "ctaEye": "Szkoła i przedszkole",
+  "ctaH": "Przyjedziemy po lekcjach i przygotujemy opis systemu do konsultacji.",
+  "ctaP": "Wizja lokalna, rzut kamer przygotowany pod art. 108a, wycena na piśmie i montaż w ferie albo wakacje.",
+  "hero": {
+   "mid": true,
+   "midT": "Dla kogo",
+   "midH": "Main.dc.html#dla-kogo",
+   "cta": "Zaplanuj instalację",
+   "ctaHref": "Zaplanuj.dc.html#obiekt=szk",
+   "crumb": "Szkoła i przedszkole",
+   "eye": "Instalacje dla szkół i przedszkoli · Rabka-Zdrój, Nowy Targ, Podhale",
+   "h1a": "Bezpieczne wejście, słyszalne dzwonki",
+   "h1b": "i Wi-Fi na 30 tabletów i laptopów w klasie.",
+   "lead": "Wideodomofon i kontrola wejścia, kamery rozmieszczone pod wymagania art. 108a Prawa oświatowego, dzwonki z kalendarzem ferii i komunikaty z sekretariatu, sieć w klasach za routerem OSE, monitory interaktywne i nagłośnienie sali gimnastycznej.",
+   "kv": [
+    {
+     "b": "20,5 tys.",
+     "s": "szkół korzysta z internetu OSE"
+    },
+    {
+     "b": "24 mies.",
+     "s": "gwarancji na montaż"
+    },
+    {
+     "b": "do 24 h",
+     "s": "odpowiedź na zgłoszenie w dni robocze"
+    }
+   ],
+   "tags": [
+    {
+     "n": "Monitoring pod art. 108a"
+    },
+    {
+     "n": "Dzwonki i komunikaty"
+    },
+    {
+     "n": "Wi-Fi za routerem OSE"
+    },
+    {
+     "n": "Monitory interaktywne"
+    }
+   ]
+  },
+  "anc": [
+   {
+    "href": "#problemy",
+    "n": "Problemy"
+   },
+   {
+    "href": "#rok",
+    "n": "Dzień w szkole"
+   },
+   {
+    "href": "#przepisy",
+    "n": "Przepisy"
+   },
+   {
+    "href": "#gory",
+    "n": "Podhale"
+   },
+   {
+    "href": "#pakiety",
+    "n": "Zestawy"
+   },
+   {
+    "href": "#przygotuj",
+    "n": "Przed wizytą"
+   },
+   {
+    "href": "#faq",
+    "n": "Pytania"
+   }
+  ],
+  "pkgs": [
+   {
+    "n": "Bezpieczne wejście",
+    "d": "Przedszkole albo mała szkoła.",
+    "ic": "ikona:door",
+    "f": [
+     "Wideodomofon przy wejściu",
+     "Kamery wejścia, holu i boiska",
+     "Rejestrator z automatycznym usuwaniem nagrań najpóźniej po 3 miesiącach",
+     "Opis systemu do konsultacji przed montażem",
+     "Alarm po lekcjach"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "hot": false,
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri"
+   },
+   {
+    "n": "Szkoła",
+    "d": "Szkoła podstawowa z salą.",
+    "ic": "ikona:school",
+    "hot": true,
+    "f": [
+     "Wszystko z Bezpiecznego wejścia",
+     "Dzwonki z kalendarzem i komunikaty",
+     "Wi-Fi w klasach za routerem OSE",
+     "Podgląd dla dyżurnego",
+     "Nagłośnienie sali gimnastycznej"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri hot"
+   },
+   {
+    "n": "Szkoła w sieci",
+    "d": "Zespół szkół, kilka budynków.",
+    "ic": "ikona:layers",
+    "f": [
+     "Monitory interaktywne z okablowaniem",
+     "Światłowód między budynkami",
+     "Karty dla pracowników",
+     "Pętla indukcyjna w sekretariacie",
+     "Specyfikacja do wniosku o dofinansowanie"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "hot": false,
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri"
+   }
+  ],
+  "cena": [],
+  "faq": [
+   {
+    "n": "01",
+    "q": "Gdzie w szkole wolno montować kamery?",
+    "a": "Zwykle na wejściach, w holu, na korytarzach, parkingu i boisku, jeśli to niezbędne dla bezpieczeństwa. Sale lekcyjne, łazienki, szatnie, gabinety i pokój nauczycielski są wyłączone. Wyjątek jest możliwy tylko wtedy, gdy jest to niezbędne z powodu zagrożenia, a obraz nie pozwala nikogo rozpoznać.",
+    "open": true
+   },
+   {
+    "n": "02",
+    "q": "Ile przechowuje się nagrania?",
+    "a": "Najdłużej 3 miesiące. Rejestrator ustawiamy tak, żeby sam usuwał starsze nagrania przed upływem tego terminu.",
+    "open": false
+   },
+   {
+    "n": "03",
+    "q": "Co musi zrobić dyrektor przed uruchomieniem monitoringu?",
+    "a": "Po kolei: uzgodnienie z organem prowadzącym, konsultacje z radą pedagogiczną, radą rodziców i samorządem uczniowskim, informacja co najmniej 14 dni przed startem i oznakowanie dzień wcześniej. Na etapie oferty przygotujemy opis systemu i rzut kamer, które można pokazać na konsultacjach.",
+    "open": false
+   },
+   {
+    "n": "04",
+    "q": "Czy możecie zrobić Wi-Fi, skoro internet daje OSE?",
+    "a": "Tak. OSE doprowadza internet do budynku, a my budujemy sieć wewnątrz: kable, szafę, punkty dostępowe w klasach i osobne sieci dla uczniów i administracji. Przed projektem sprawdzamy, co robi lub planuje operator OSE.",
+    "open": false
+   },
+   {
+    "n": "05",
+    "q": "Czy system dzwonków może nadawać komunikaty?",
+    "a": "Tak. Jeden system dzwoni według kalendarza z feriami i skróconymi lekcjami, nadaje komunikaty z sekretariatu i odtwarza osobny sygnał, np. ewakuacji, zgodny z instrukcją bezpieczeństwa pożarowego szkoły. To nie jest dźwiękowy system ostrzegawczy (DSO).",
+    "open": false
+   },
+   {
+    "n": "06",
+    "q": "Czy kamery mogą być w łazience z powodu e-papierosów?",
+    "a": "Co do zasady nie. Wyjątek wymaga zagrożenia, którego nie udało się opanować innymi metodami, i obrazu, na którym nie da się nikogo rozpoznać. Najpierw proponujemy kamerę na korytarzu przed łazienką i lepszy nadzór w czasie przerw.",
+    "open": false
+   },
+   {
+    "n": "07",
+    "q": "Czy pomożecie przy wniosku o dofinansowanie?",
+    "a": "Przygotujemy specyfikację sprzętu i opis zakresu do wniosku organu prowadzącego. Nie obiecujemy dotacji, bo programy zmieniają się co roku. Na lata 2026–2029 jest m.in. program „Pracownie Kompas Jutra” na pracownie przyrody i techniki.",
+    "open": false
+   },
+   {
+    "n": "08",
+    "q": "Czy montaż zrobicie w ferie albo wakacje?",
+    "a": "Tak. Większe prace planujemy na ferie i wakacje, drobniejsze po lekcjach. Termin rezerwujemy przy zamówieniu, więc warto zgłosić się z wyprzedzeniem, zwłaszcza przed wakacjami.",
+    "open": false
+   }
+  ],
+  "rel": [
+   {
+    "k": "kam",
+    "n": "Monitoring i kamery",
+    "g": "Bezpieczeństwo",
+    "href": "Monitoring.dc.html",
+    "ic": "ikona:cam",
+    "s": "Kompletny system: kamery, rejestrator, dyski, PoE"
+   },
+   {
+    "k": "alarm",
+    "n": "Alarmy i wideodomofony",
+    "g": "Bezpieczeństwo",
+    "href": "Alarmy.dc.html",
+    "ic": "ikona:bell",
+    "s": "Czujki, syreny, domofon z aplikacją"
+   },
+   {
+    "k": "kd",
+    "n": "Kontrola dostępu i zamki",
+    "g": "Bezpieczeństwo",
+    "href": "Dostep.dc.html",
+    "ic": "ikona:lock",
+    "s": "Karty, kody, apartamenty"
+   },
+   {
+    "k": "wifi",
+    "n": "Sieci i Wi-Fi",
+    "g": "Sieci i technika",
+    "href": "Sieci.dc.html",
+    "ic": "ikona:wifi",
+    "s": "Okablowanie, światłowód, Wi-Fi gości"
+   },
+   {
+    "k": "snd",
+    "n": "Nagłośnienie",
+    "g": "Komfort i obraz",
+    "href": "Naglosnienie.dc.html",
+    "ic": "ikona:spk",
+    "s": "APART: restauracje, hotele, kościoły, sale"
+   },
+   {
+    "k": "scr",
+    "n": "Ekrany i digital signage",
+    "g": "Komfort i obraz",
+    "href": "Multimedia.dc.html",
+    "ic": "ikona:scr",
+    "s": "Witryny, menu board, recepcja, ściany wideo"
+   }
+  ],
+  "segRel": [
+   {
+    "k": "gmina",
+    "g": "Instytucje",
+    "n": "Gmina i urząd",
+    "s": "Sala obrad, transmisja sesji",
+    "page": "SegGmina",
+    "href": "SegGmina.dc.html",
+    "ic": "ikona:town",
+    "h": "#8C9CF5",
+    "hs": "--mh:#8C9CF5",
+    "cls": ""
+   },
+   {
+    "k": "kosc",
+    "g": "Instytucje",
+    "n": "Kościół i parafia",
+    "s": "Zrozumiała mowa, transmisja mszy",
+    "page": "SegKosciol",
+    "href": "SegKosciol.dc.html",
+    "ic": "ikona:church",
+    "h": "#B58CF0",
+    "hs": "--mh:#B58CF0",
+    "cls": ""
+   }
+  ],
+  "hasSegRel": true,
+  "segRelH": "Podobne obiekty",
+  "sx": {
+   "faqA": {
+    "t": "Masz inne pytanie?",
+    "d": "Wyślij zdjęcie obiektu albo obecnej instalacji. Powiemy, od czego zacząć i czego się spodziewać.",
+    "cta": "Zaplanuj instalację",
+    "href": "Zaplanuj.dc.html"
+   },
+   "faqH": "Pytania dyrektorów.",
+   "relH": "Usługi, które łączymy w tym obiekcie.",
+   "pkg": {
+    "eye": "Zestawy dla szkół",
+    "h": "Od bezpiecznego wejścia po całą szkołę w jednej sieci.",
+    "p": "",
+    "note": "To przykłady. Ostateczny zakres i cenę ustalamy po wizji lokalnej i podajemy na piśmie."
+   },
+   "cena": {
+    "btn": "Wyślij zdjęcia do wyceny",
+    "eye": "Wycena",
+    "h": "Co wpływa na cenę.",
+    "p": ""
+   }
+  },
+  "sg": {
+   "sceneT": "Przekrój szkoły z salą gimnastyczną",
+   "hc": {
+    "k0": "hs on",
+    "k1": "hs",
+    "k2": "hs",
+    "k3": "hs",
+    "k4": "hs",
+    "k5": "hs",
+    "k6": "hs",
+    "k7": "hs",
+    "k8": "hs",
+    "k9": "hs"
+   },
+   "hp": {},
+   "zap": "Zaplanuj.dc.html#obiekt=szk",
+   "prepEye": "Przed wizytą",
+   "prepLead": "Zaznaczenie, co już jest, przyspieszy wycenę. Zdjęcia można wysłać w formularzu albo przez WhatsApp.",
+   "leg": [
+    {
+     "no": "1",
+     "t": "Wideodomofon i kontrola wejścia",
+     "on": "true",
+     "st": "--c:#F2B84B",
+     "cls": "sglgb on"
+    },
+    {
+     "no": "2",
+     "t": "Kamera holu wejściowego",
+     "on": "false",
+     "st": "--c:#12B6D8",
+     "cls": "sglgb"
+    },
+    {
+     "no": "3",
+     "t": "Kamera korytarza przed łazienkami",
+     "on": "false",
+     "st": "--c:#12B6D8",
+     "cls": "sglgb"
+    },
+    {
+     "no": "4",
+     "t": "Kamera boiska i wejścia",
+     "on": "false",
+     "st": "--c:#12B6D8",
+     "cls": "sglgb"
+    },
+    {
+     "no": "5",
+     "t": "Dzwonki i komunikaty z sekretariatu",
+     "on": "false",
+     "st": "--c:#F29A4B",
+     "cls": "sglgb"
+    },
+    {
+     "no": "6",
+     "t": "Wi-Fi w klasach na 30 urządzeń",
+     "on": "false",
+     "st": "--c:#5B8CF0",
+     "cls": "sglgb"
+    },
+    {
+     "no": "7",
+     "t": "Monitor interaktywny w klasie",
+     "on": "false",
+     "st": "--c:#E86FB0",
+     "cls": "sglgb"
+    },
+    {
+     "no": "8",
+     "t": "Nagłośnienie sali i akademii",
+     "on": "false",
+     "st": "--c:#F29A4B",
+     "cls": "sglgb"
+    },
+    {
+     "no": "9",
+     "t": "Szafa za routerem OSE",
+     "on": "false",
+     "st": "--c:#5B8CF0",
+     "cls": "sglgb"
+    },
+    {
+     "no": "10",
+     "t": "Alarm po lekcjach",
+     "on": "false",
+     "st": "--c:#F07A6A",
+     "cls": "sglgb"
+    }
+   ],
+   "ly": [
+    {
+     "n": "Wszystko",
+     "on": "true",
+     "cls": "sglyb on"
+    },
+    {
+     "n": "Bezpieczeństwo",
+     "on": "false",
+     "cls": "sglyb"
+    },
+    {
+     "n": "Sieć i łączność",
+     "on": "false",
+     "cls": "sglyb"
+    },
+    {
+     "n": "Dźwięk i obraz",
+     "on": "false",
+     "cls": "sglyb"
+    }
+   ],
+   "cur": {
+    "k": "h0",
+    "no": "1",
+    "t": "Wideodomofon i kontrola wejścia",
+    "d": "Wideodomofon przy wejściu i karta albo kod dla pracowników. W przedszkolu widać, kto stoi przy furtce, zanim ktoś otworzy.",
+    "sn": "Kontrola dostępu i zamki",
+    "href": "Dostep.dc.html",
+    "st": "--c:#F2B84B"
+   },
+   "pos": "1 z 10",
+   "pr": {
+    "eye": "Z rozmów z dyrektorami",
+    "h": "Od wejścia po Wi-Fi: sprawy,",
+    "ha": "o które pytają dyrektorzy.",
+    "lead": "Szkoła ma swoje przepisy o monitoringu i swój rytm roku. Projektujemy pod wymagania art. 108a i montujemy w ferie albo wakacje."
+   },
+   "prob": [
+    {
+     "q": "„Każdy może wejść do szkoły”",
+     "d": "NIK (2021) uznała zabezpieczenie budynków przed dostępem osób trzecich za niewystarczające.",
+     "fix": "Wideodomofon przy wejściu, karty albo kody dla pracowników i kamera na wejście.",
+     "ic": "ikona:door",
+     "sn": "Kontrola dostępu i zamki",
+     "href": "Dostep.dc.html",
+     "st": "--c:#F2B84B"
+    },
+    {
+     "q": "„Kamery nagrywają, nikt nie patrzy”",
+     "d": "Według NIK (2021) kamery służyły tylko jako dowód, a w czasie przerw nikt nie obserwował obrazu.",
+     "fix": "Podgląd w pokoju dyżurnym albo sekretariacie i kamery tam, gdzie w czasie przerw dzieje się najwięcej.",
+     "ic": "ikona:eye",
+     "sn": "Monitoring i kamery",
+     "href": "Monitoring.dc.html",
+     "st": "--c:#12B6D8"
+    },
+    {
+     "q": "„W toaletach palą e-papierosy”",
+     "d": "Kamery w łazienkach są co do zasady zakazane i budzą protesty rodziców.",
+     "fix": "Kamera na korytarzu przed łazienką i lepszy nadzór w czasie przerw. Najpierw te metody.",
+     "ic": "ikona:shield",
+     "sn": "Monitoring i kamery",
+     "href": "Monitoring.dc.html",
+     "st": "--c:#12B6D8"
+    },
+    {
+     "q": "„Dzwonek nie zna ferii”",
+     "d": "Stare dzwonki bez kalendarza i brak komunikatu do całej szkoły. NIK (2021) wytknęła też brak zróżnicowanych sygnałów alarmowych.",
+     "fix": "Dzwonki z kalendarzem, komunikaty z sekretariatu i osobny sygnał, np. ewakuacji.",
+     "ic": "ikona:bell",
+     "sn": "Nagłośnienie",
+     "href": "Naglosnienie.dc.html",
+     "st": "--c:#F29A4B"
+    },
+    {
+     "q": "„Internet jest, Wi-Fi w klasie nie”",
+     "d": "Internet OSE dochodzi do budynku, ale sieć wewnątrz nie wytrzymuje 30 urządzeń.",
+     "fix": "Punkt dostępowy w każdej klasie i sieci rozdzielone dla uczniów, nauczycieli i administracji.",
+     "ic": "ikona:wifi",
+     "sn": "Sieci i Wi-Fi",
+     "href": "Sieci.dc.html",
+     "st": "--c:#5B8CF0"
+    },
+    {
+     "q": "„Monitor stoi nieużywany”",
+     "d": "Monitor kupiony bez okablowania, uchwytu i szkolenia działa tylko z jednego laptopa.",
+     "fix": "Montaż z okablowaniem, przesyłanie obrazu bez kabla i szkolenie dla nauczycieli.",
+     "ic": "ikona:scr",
+     "sn": "Ekrany i transmisja",
+     "href": "Multimedia.dc.html",
+     "st": "--c:#E86FB0"
+    }
+   ],
+   "day": {
+    "eye": "Dzień w szkole",
+    "h": "Od wejścia o 7:30 do alarmu po lekcjach.",
+    "lead": "Tak pracują instalacje szkoły przez jeden dzień nauki.",
+    "k": "d0",
+    "pg": "width:17%",
+    "items": [
+     {
+      "tm": "7:30",
+      "n": "Wejście uczniów",
+      "on": "true",
+      "cls": "sgdb on"
+     },
+     {
+      "tm": "8:00",
+      "n": "Pierwszy dzwonek",
+      "on": "false",
+      "cls": "sgdb"
+     },
+     {
+      "tm": "9:40",
+      "n": "Lekcja z monitorem",
+      "on": "false",
+      "cls": "sgdb"
+     },
+     {
+      "tm": "10:25",
+      "n": "Przerwa",
+      "on": "false",
+      "cls": "sgdb"
+     },
+     {
+      "tm": "12:00",
+      "n": "Akademia",
+      "on": "false",
+      "cls": "sgdb"
+     },
+     {
+      "tm": "17:00",
+      "n": "Po lekcjach",
+      "on": "false",
+      "cls": "sgdb"
+     }
+    ],
+    "cur": {
+     "tm": "7:30",
+     "n": "Wejście uczniów",
+     "d": "Drzwi otwarte w godzinach wejścia, kamera holu nagrywa. Później wejście tylko przez wideodomofon.",
+     "ic": "ikona:door",
+     "st": "--c:#F2B84B",
+     "ch": [
+      {
+       "n": "Kontrola dostępu i zamki",
+       "href": "Dostep.dc.html",
+       "st": "--c:#F2B84B"
+      },
+      {
+       "n": "Monitoring i kamery",
+       "href": "Monitoring.dc.html",
+       "st": "--c:#12B6D8"
+      }
+     ],
+     "hs": [
+      {
+       "no": "1",
+       "st": "--c:#F2B84B"
+      },
+      {
+       "no": "2",
+       "st": "--c:#12B6D8"
+      },
+      {
+       "no": "3",
+       "st": "--c:#12B6D8"
+      },
+      {
+       "no": "4",
+       "st": "--c:#12B6D8"
+      }
+     ]
+    }
+   },
+   "law": {
+    "h": "Art. 108a i inne zasady, o które pytają dyrektorzy.",
+    "lead": "Monitoring w szkole ma osobny przepis w Prawie oświatowym. Do tego stanowisko MEN o toaletach, sieć OSE i dostępność.",
+    "items": [
+     {
+      "t": "Gdzie wolno montować kamery",
+      "a": "art. 108a ust. 1–3 Prawa oświatowego",
+      "d": "Monitoring dla bezpieczeństwa uczniów i pracowników albo ochrony mienia, po uzgodnieniu z organem prowadzącym i konsultacjach. Bez sal lekcyjnych, łazienek, szatni, gabinetu profilaktyki zdrowotnej, pomieszczeń pomocy psychologiczno-pedagogicznej i pokoju nauczycielskiego. Wyjątek tylko przy realnym zagrożeniu i z techniką, która nie pozwala nikogo rozpoznać.",
+      "who": "Szkoła",
+      "wc": "sgwho o",
+      "href": "https://lexlege.pl/prawo-oswiatowe/art-108a/",
+      "sl": "Prawo oświatowe, art. 108a (lexlege)"
+     },
+     {
+      "t": "3 miesiące i 14 dni",
+      "a": "art. 108a ust. 4–8",
+      "d": "Nagrania najwyżej 3 miesiące. Uczniów i pracowników informuje się co najmniej 14 dni przed uruchomieniem, a oznakowanie wiesza się dzień wcześniej. Na etapie oferty przygotujemy opis systemu i rzut kamer do konsultacji.",
+      "who": "Szkoła",
+      "wc": "sgwho o",
+      "href": "https://lexlege.pl/prawo-oswiatowe/art-108a/",
+      "sl": "Prawo oświatowe, art. 108a (lexlege)"
+     },
+     {
+      "t": "Kamera w toalecie tylko wyjątkowo",
+      "a": "stanowisko MEN, 03.2024",
+      "d": "Tylko gdy były tam niebezpieczne zdarzenia, inne metody zawiodły i obraz nie pozwala rozpoznać osób. W 2025 r. Prezes UODO zaapelował do MEN o analizę monitoringu w szkołach.",
+      "who": "Razem",
+      "wc": "sgwho r",
+      "href": "https://www.portaloswiatowy.pl/wazne-wydarzenia-dla-szkol-i-przedszkoli/monitoring-wizyjny-w-toalecie-szkolnej-na-jakich-zasadach-24601.html",
+      "sl": "Portal Oświatowy: monitoring w toalecie"
+     },
+     {
+      "t": "Za routerem OSE",
+      "a": "ustawa o OSE",
+      "d": "OSE doprowadza internet do szkoły. Projekt nowelizacji z 2026 r. daje operatorowi prawo doposażania budynków. Przed projektem sprawdzamy, co w szkole robi lub planuje operator, żeby się nie dublować.",
+      "who": "Instalator",
+      "wc": "sgwho i",
+      "href": "https://www.gov.pl/web/cyfryzacja/projekt-ustawy-o-zmianie-ustawy-o-ogolnopolskiej-sieci-edukacyjnej",
+      "sl": "gov.pl: projekt nowelizacji ustawy o OSE"
+     },
+     {
+      "t": "Pętla indukcyjna w sekretariacie",
+      "a": "art. 6 pkt 3 lit. b ustawy o dostępności",
+      "d": "Szkoła publiczna to podmiot publiczny, który zapewnia urządzenia dla osób słabosłyszących, w szczególności pętle indukcyjne. Pętlę montujemy w sekretariacie albo tam, gdzie przyjmuje się interesantów.",
+      "who": "Szkoła",
+      "wc": "sgwho o",
+      "href": "https://eli.gov.pl/api/acts/DU/2019/1696/text.html",
+      "sl": "Ustawa o zapewnianiu dostępności"
+     },
+     {
+      "t": "DSO zwykle nie jest wymagany",
+      "a": "§ 29 rozp. ppoż.",
+      "d": "Typowa szkoła nie jest wymieniona wśród budynków z obowiązkowym dźwiękowym systemem ostrzegawczym. Nagłośnienie komunikatów to nie DSO i tak je opisujemy.",
+      "who": "Instalator",
+      "wc": "sgwho i",
+      "href": "https://api.sejm.gov.pl/eli/acts/DU/2023/822/text.pdf",
+      "sl": "Rozporządzenie o ochronie ppoż., t.j. Dz.U. 2023 poz. 822 (PDF)"
+     }
+    ]
+   },
+   "gory": {
+    "h": "Małe szkoły, dwa budynki i zima przy wejściu.",
+    "items": [
+     {
+      "ic": "ikona:school",
+      "t": "Szkoła i sala w dwóch budynkach",
+      "d": "Sala gimnastyczna często dobudowana później. Łączymy budynki światłowodem, który jest bezpieczniejszy przy burzach.",
+      "hasS": false,
+      "sh": "",
+      "sl": ""
+     },
+     {
+      "ic": "ikona:snow",
+      "t": "Śnieg i lód przy wejściu",
+      "d": "Wideodomofon pod daszkiem i kamery dobrze widzące po zmroku i odporne na mróz.",
+      "hasS": false,
+      "sh": "",
+      "sl": ""
+     },
+     {
+      "ic": "ikona:users",
+      "t": "Dowożenie uczniów",
+      "d": "Rano i po lekcjach dużo osób przy wejściu i przystanku. Kamera obejmuje wejście i parking autobusu.",
+      "hasS": false,
+      "sh": "",
+      "sl": ""
+     },
+     {
+      "ic": "ikona:cal",
+      "t": "Prace w ferie i wakacje",
+      "d": "Większe montaże planujemy tak, żeby nie przeszkadzać w lekcjach.",
+      "hasS": false,
+      "sh": "",
+      "sl": ""
+     }
+    ]
+   },
+   "hasReal": true,
+   "realH": "Sprzęt projekcyjny w Szkole Podstawowej w Rabce-Zdroju.",
+   "real": [
+    {
+     "t": "Szkoła Podstawowa im. Adama Mickiewicza",
+     "m": "Rabka-Zdrój · szkoła",
+     "d": "Sprzedaż i montaż sprzętu projekcyjnego."
+    }
+   ],
+   "ck": {
+    "n": 0,
+    "t": 7,
+    "st": "--p:0",
+    "cta": "Wyślij zdjęcia i opis →",
+    "items": [
+     {
+      "t": "Rzuty kondygnacji albo plan ewakuacji",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Gdzie dziś są kamery, dzwonki i wzmacniacz",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Gdzie stoi router OSE i szafa",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Liczba klas i urządzeń w sieci",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Czy sala gimnastyczna to osobny budynek",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Terminy ferii i dni wolnych na montaż",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Kontakt do organu prowadzącego",
+      "on": "false",
+      "cls": "sgci"
+     }
+    ]
+   }
+  }
+ }
+}

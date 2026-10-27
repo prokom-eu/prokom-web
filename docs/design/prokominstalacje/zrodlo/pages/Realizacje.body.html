@@ -1,0 +1,25 @@
+  <section class="phero" style="padding-bottom: 40px">
+    <div class="hgrid"></div><div class="hglow"></div>
+    <div class="wrap" style="position: relative">
+      <nav class="crumb in d1" aria-label="Okruszki"><a href="Main.dc.html">Start</a><span>/</span><span style="color: var(--text)">Realizacje</span></nav>
+      <div class="split" style="margin-top: 22px; align-items: end">
+        <div style="display: flex; flex-direction: column; gap: 16px"><span class="eye in d1">Realizacje · Podhale, Małopolska i okolice</span><h1 class="h1 in d2">Wybrane realizacje <span class="acc">PRO-KOM.</span></h1></div>
+        <p class="lead in d3">Nagłośnienie, multimedia, projekcja, sieci i anteny dla firm, parafii, szkół i lokali na Podhalu, w Małopolsce i okolicach. Wybierz rodzaj instalacji albo obiektu.</p>
+      </div>
+      <div class="rfil in d4">
+        <div class="zpc"><sc-for list="{{rl.fs}}" as="f" hint-placeholder-count="6"><button type="button" class="{{f.cls}}" aria-pressed="{{f.on}}" onClick="{{f.pick}}">{{f.n}}<em>{{f.c}}</em></button></sc-for></div>
+        <div class="zpc"><sc-for list="{{rl.fo}}" as="f" hint-placeholder-count="5"><button type="button" class="{{f.cls}}" aria-pressed="{{f.on}}" onClick="{{f.pick}}">{{f.n}}</button></sc-for></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding: 0 0 80px">
+    <div class="wrap">
+      <div class="rgrid">
+        <sc-for list="{{rl.list}}" as="r" hint-placeholder-count="9"><div class="{{r.cls}}"><div class="rlimg"><svg viewBox="0 0 300 190" aria-hidden="true"><rect width="300" height="190" fill="var(--bg3)"></rect><path d="{{r.art}}" fill="none" stroke="var(--accentText)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" transform="translate(75 30) scale(.62)"></path></svg></div><div class="rlb"><span class="tag a" style="align-self: flex-start">{{r.k}}</span><b class="h3">{{r.n}}</b><span>{{r.m}}</span><span style="font-size: 13.5px; color: var(--soft)">{{r.ph}}</span><span class="mut" style="font-size: 12.5px">{{r.z}} · rok: <span class="ph">[SZEF]</span></span></div></div></sc-for>
+      </div>
+      <sc-if value="{{rl.moreOn}}" hint-placeholder-val="{{ false }}"><button type="button" class="btn btn-g xa-rlmore" onClick="{{rl.more}}">{{rl.moreT}}</button></sc-if>
+      <sc-if value="{{rl.empty}}" hint-placeholder-val="{{ false }}"><div class="note" style="margin-top: 18px"><!--i:P.eye:20--><span>Brak realizacji dla tego filtra. Wkrótce dodamy kolejne.</span></div></sc-if>
+      <div class="note w" style="margin-top: 22px"><!--i:P.doc:20--><span>Lista z dotychczasowej strony pro-kom.eu. Przed publikacją: zgody klientów na podanie nazw, lata realizacji, zdjęcia i 3–5 nowszych realizacji monitoringu, sieci i smart home. Bez zgody klienta opisujemy obiekt ogólnie, np. „salon sieci księgarni, Zakopane”. <span class="ph">[SZEF]</span></span></div>
+    </div>
+  </section>

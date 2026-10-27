@@ -9,6 +9,7 @@ src/payload-types.ts
 src/app/(payload)/admin/importMap.js
 docs/
 *.md
-# Source data from the handoff packages (prokombiznes, prokomsoftware), kept 1:1 with them
+# Source data from the handoff packages (prokombiznes, prokomsoftware, prokominstalacje), kept 1:1 with them
 seed/prokombiznes/
 seed/prokomsoftware/
+seed/prokominstalacje/

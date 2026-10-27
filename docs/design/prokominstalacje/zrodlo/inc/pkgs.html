@@ -1,0 +1,15 @@
+  <section id="pakiety" class="{{rv.pakiety}}" data-rv="pakiety" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">{{sx.pkg.eye}}</span><h2 class="h2">{{sx.pkg.h}}</h2></div><p class="lead" style="max-width: 440px">{{sx.pkg.p}}</p></div>
+      <div class="pkgs">
+        <sc-for list="{{pkgs}}" as="p" hint-placeholder-count="3"><div class="{{p.cls}}">
+          <sc-if value="{{p.hot}}" hint-placeholder-val="{{ false }}"><span class="badge">{{p.badge}}</span></sc-if>
+          <span class="ico"><!--i:p.ic:22--></span>
+          <b class="h3">{{p.n}}</b><span class="mut" style="font-size: 15px">{{p.d}}</span>
+          <ul><sc-for list="{{p.f}}" as="f" hint-placeholder-count="5"><li><i><!--i:P.check:16:2.6--></i><span>{{f}}</span></li></sc-for></ul>
+          <div style="margin-top: auto; padding-top: 14px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 12px"><span class="prc" style="font-size: 22px">{{p.pr}}</span><a href="Zaplanuj.dc.html" class="btn btn-g btn-s">Zapytaj o ten zestaw →</a></div>
+        </div></sc-for>
+      </div>
+      <div class="note ri" style="margin-top: 18px"><!--i:P.doc:20--><span>{{sx.pkg.note}}</span></div>
+    </div>
+  </section>
