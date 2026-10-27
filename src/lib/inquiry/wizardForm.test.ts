@@ -3,7 +3,16 @@ import { describe, expect, it } from 'vitest'
 import type { WizardAnswers } from '../catalog/wizardKit'
 import { CONSENT_CLAUSE } from './consent'
 import { parseInquiryInput } from './schema'
-import { buildWizardInquiryBody, checkWizardRequired, type WizardContact } from './wizardForm'
+import { EMPTY_ANSWERS, type WizardAnswers as SoftwareAnswers } from '../software/wizardFlow'
+import {
+  ANONYMOUS_WIZARD_NAME,
+  buildSoftwareWizardBody,
+  buildWizardInquiryBody,
+  checkSoftwareWizardRequired,
+  checkWizardRequired,
+  type SoftwareWizardContact,
+  type WizardContact,
+} from './wizardForm'
 
 const contact: WizardContact = {
   name: 'Jan',
@@ -47,5 +56,42 @@ describe('buildWizardInquiryBody', () => {
     })
     expect(body).not.toHaveProperty('items')
     expect(parseInquiryInput(body, 'biznes').error?.issues).toBeUndefined()
+  })
+})
+
+describe('Software wizard form (SW7)', () => {
+  const values: SoftwareWizardContact = {
+    name: 'Anna',
+    contact: 'anna@firma.pl',
+    consent: true,
+    website: '',
+  }
+  const softwareAnswers: SoftwareAnswers = { ...EMPTY_ANSWERS, need: 'firm', options: ['bud'] }
+
+  it('asks for a usable contact and the consent (send.errors)', () => {
+    expect(checkSoftwareWizardRequired(values)).toEqual({})
+    expect(checkSoftwareWizardRequired({ ...values, contact: 'abc', consent: false })).toEqual({
+      contact: true,
+      consent: true,
+    })
+  })
+
+  it('sends the contact as an e-mail or a phone, the answers and a valid body', () => {
+    const href = 'https://software.localhost:3000/dobierz?potrzeba=firm'
+    const email = buildSoftwareWizardBody(values, {
+      href,
+      formToken: 't',
+      answers: softwareAnswers,
+    })
+    expect(email).toMatchObject({ type: 'wizard', email: 'anna@firma.pl', wizard: softwareAnswers })
+    expect(email).not.toHaveProperty('phone')
+    expect(parseInquiryInput(email, 'software').success).toBe(true)
+
+    const phone = buildSoftwareWizardBody(
+      { ...values, name: ' ', contact: '+48 600 100 200' },
+      { href, formToken: 't', answers: softwareAnswers },
+    )
+    expect(phone).toMatchObject({ phone: '+48 600 100 200', name: ANONYMOUS_WIZARD_NAME })
+    expect(parseInquiryInput(phone, 'software').success).toBe(true)
   })
 })

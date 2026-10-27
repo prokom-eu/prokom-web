@@ -3,6 +3,15 @@ import type { Inquiry } from '@/payload-types'
 import type { Wizard } from '../catalog/wizard'
 import { buildKit, parseWizardAnswers, proposedSlugs, wizardSummary } from '../catalog/wizardKit'
 import { errorFields, log } from '../log'
+import type { SoftwareWizard } from '../software/wizard'
+import {
+  contactPrefOf,
+  needOf,
+  parseSoftwareAnswers,
+  resultIdOf,
+  wizardMessage,
+  wizardSummary as softwareWizardSummary,
+} from '../software/wizardFlow'
 import { normalizeHost } from '../tenant/host'
 import type { Line } from '../tenant/lines'
 import {
@@ -45,6 +54,8 @@ export type SubmitDeps = {
   findSolutions: (tenantId: number, slugs: string[]) => Promise<InquiryProduct[]>
   /** Valid wizard rules of this tenant (`BiznesSettings.wizard`), or `null` without them. */
   findWizard: (tenantId: number) => Promise<Wizard | null>
+  /** Valid wizard rules of a Software tenant (`SoftwareSettings.wizard`), or `null`. */
+  findSoftwareWizard: (tenantId: number) => Promise<SoftwareWizard | null>
   /** Returns the record after the hooks, so with the number (`Inquiries.assignNumber`). */
   save: (data: NewInquiry) => Promise<{ id: number; number?: string | null }>
   sendEmail: (email: Email) => Promise<unknown>
@@ -126,6 +137,58 @@ async function composeWizard(
   return { items, summary: wizardSummary(rules, answers, kit), when: answers.when }
 }
 
+type ComposedWizard = {
+  items: SavedItem[]
+  summary: Record<string, unknown>
+  when?: string
+  message?: string
+  preferredContact?: InquiryInput['preferredContact']
+  auditUrl?: string
+}
+
+/** `stara.pl` → `https://stara.pl/`; anything that is not a web address → `undefined`. */
+export function siteUrl(text: string): string | undefined {
+  if (!text) return undefined
+  try {
+    const url = new URL(/^https?:\/\//i.test(text) ? text : `https://${text}`)
+    return url.hostname.includes('.') ? url.href : undefined
+  } catch {
+    return undefined
+  }
+}
+
+/**
+ * The Software wizard's answers as an inquiry (spec. §6.3): checked against this site's rules,
+ * the recommended solution as the item (published, this tenant), the answers named for people,
+ * the message written here and the contact preference mapped — or `null` when the answers do
+ * not fit the rules (or there are none).
+ */
+async function composeSoftwareWizard(
+  deps: SubmitDeps,
+  tenantId: number,
+  input: unknown,
+): Promise<ComposedWizard | null> {
+  const rules = await deps.findSoftwareWizard(tenantId)
+  const answers = rules ? parseSoftwareAnswers(rules, input) : null
+  if (!rules || !answers) return null
+  const slug = rules.resultToSolutionSlug[resultIdOf(rules, answers)] ?? null
+  const solutions = slug ? await deps.findSolutions(tenantId, [slug]) : []
+  const items = solutions.map((solution) => ({
+    solution: solution.id,
+    nameSnapshot: solution.name,
+    quantity: 1,
+  }))
+  const when = rules.whens.find((option) => option.id === answers.when)?.n
+  return {
+    items,
+    summary: softwareWizardSummary(rules, answers),
+    message: wizardMessage(rules, answers),
+    preferredContact: contactPrefOf(rules, answers)?.inquiryValue,
+    ...(when && { when }),
+    ...(needOf(rules, answers)?.url && { auditUrl: siteUrl(answers.url) }),
+  }
+}
+
 /** The one place that accepts an inquiry (ADR-003); see `submitInquiry`. */
 export async function submitInquiryWith(
   deps: SubmitDeps,
@@ -182,10 +245,14 @@ export async function submitInquiryWith(
   // is computed here, from published products of this tenant (B10c) — never taken as sent.
   let wizard = input.wizard
   let deadline = input.deadline
+  let { message, preferredContact, auditUrl } = input
   if (input.type === 'wizard') {
-    let composed: { items: SavedItem[]; summary: Record<string, unknown>; when?: string } | null
+    let composed: ComposedWizard | null
     try {
-      composed = await composeWizard(deps, tenant.id, input.wizard)
+      composed =
+        tenant.line === 'software'
+          ? await composeSoftwareWizard(deps, tenant.id, input.wizard)
+          : await composeWizard(deps, tenant.id, input.wizard)
     } catch (error) {
       deps.log.error({ tenant: tenant.id, ...errorFields(error) }, 'Inquiry wizard lookup failed')
       return { ok: false, error: 'unavailable' }
@@ -194,13 +261,16 @@ export async function submitInquiryWith(
     items = composed.items
     wizard = composed.summary
     deadline = composed.when ?? deadline
+    // Software: the server writes the message and maps the preference (spec. §6.3).
+    message = composed.message ?? message
+    preferredContact = composed.preferredContact ?? preferredContact
+    auditUrl = composed.auditUrl ?? auditUrl
   }
 
   // The audit form sends the address only; the message says what is asked (rozstrz. SW0 6).
-  const message =
-    input.type === 'audit' && input.message === undefined
-      ? `Prośba o audyt strony: ${input.auditUrl}`
-      : input.message
+  if (input.type === 'audit' && message === undefined) {
+    message = `Prośba o audyt strony: ${input.auditUrl}`
+  }
 
   if (!deps.limiter.hit(rateLimitKey(ip ?? 'unknown', deps.secret))) {
     deps.log.warn({ tenant: tenant.id }, 'Inquiry rate-limited')
@@ -223,8 +293,8 @@ export async function submitInquiryWith(
       phone: input.phone,
       city: input.city,
       message,
-      auditUrl: input.auditUrl,
-      preferredContact: input.preferredContact,
+      auditUrl,
+      preferredContact,
       deadline,
       topics: input.topics,
       items,
@@ -245,6 +315,8 @@ export async function submitInquiryWith(
   const forEmail: InquiryForEmail = {
     ...input,
     message,
+    auditUrl,
+    preferredContact,
     deadline,
     wizard,
     id,
@@ -369,6 +441,10 @@ export async function submitInquiry(
           overrideAccess: true,
         })
         return docs.map(({ id, slug, name }) => ({ id, slug, name }))
+      },
+      findSoftwareWizard: async (tenantId) => {
+        const { readSoftwareWizard } = await import('../software/wizardRules')
+        return readSoftwareWizard(payload, tenantId)
       },
       findWizard: async (tenantId) => {
         const { readWizardRules } = await import('../catalog/wizardRules')

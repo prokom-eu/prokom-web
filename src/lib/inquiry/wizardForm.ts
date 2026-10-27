@@ -1,6 +1,7 @@
 import type { WizardAnswers } from '../catalog/wizardKit'
 import { CONSENT_CLAUSE } from './consent'
-import { BIZNES_FIELD_MESSAGES, sourceFromHref } from './form'
+import type { WizardAnswers as SoftwareAnswers } from '../software/wizardFlow'
+import { BIZNES_FIELD_MESSAGES, sourceFromHref, splitEmailOrPhone } from './form'
 import { HONEYPOT_FIELD } from './honeypot'
 
 // Browser side of the wizard's last step (`/kreator`, spec. §6.8, plansza Kreator): what it
@@ -57,3 +58,45 @@ export function buildWizardInquiryBody(
     formToken,
   }
 }
+
+/** Last step of the Software wizard (`/dobierz`, spec. §6.3): name, one contact field, consent. */
+export type SoftwareWizardContact = {
+  name: string
+  /** „Telefon albo e-mail”. */
+  contact: string
+  consent: boolean
+  website: string
+}
+
+/** Errors of the board (`send.errors`): no usable contact, no consent. */
+export function checkSoftwareWizardRequired(
+  values: SoftwareWizardContact,
+): Partial<Record<'contact' | 'consent', true>> {
+  const errors: Partial<Record<'contact' | 'consent', true>> = {}
+  if (!splitEmailOrPhone(values.contact)) errors.contact = true
+  if (!values.consent) errors.consent = true
+  return errors
+}
+
+/**
+ * Body of `POST /api/inquiry`: the answers only — the server checks them against its rules,
+ * writes the message and maps the contact preference. Without a name the office reads
+ * „Klient kreatora” (the board's name field is optional; the schema needs one).
+ */
+export function buildSoftwareWizardBody(
+  values: SoftwareWizardContact,
+  { href, formToken, answers }: { href: string; formToken: string; answers: SoftwareAnswers },
+) {
+  return {
+    type: 'wizard',
+    source: sourceFromHref(href),
+    name: values.name.trim() || ANONYMOUS_WIZARD_NAME,
+    ...splitEmailOrPhone(values.contact),
+    wizard: answers,
+    consent: { accepted: values.consent, clauseVersion: CONSENT_CLAUSE.version },
+    [HONEYPOT_FIELD]: values.website,
+    formToken,
+  }
+}
+
+export const ANONYMOUS_WIZARD_NAME = 'Klient kreatora'
