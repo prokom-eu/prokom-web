@@ -6,6 +6,8 @@ import { api, loginAsAdmin, tenantId } from './helpers'
 
 // SW2a acceptance: the Software collections belong to the Software line only, their slugs and
 // import ids are unique per tenant, and an editor of another tenant never sees their records.
+// SW2b: industries and posts shared with Biznes carry the tenant's line, and a post takes only
+// a category of its line.
 
 const unique = () => `${Date.now()}${Math.floor(Math.random() * 1000)}`
 
@@ -159,6 +161,66 @@ test.describe('Software data in the panel', () => {
       await context.close()
       if (editorId !== null) await api(page, 'DELETE', `/api/users/${editorId}`)
       for (const [path, recordId] of records) await api(page, 'DELETE', `${path}/${recordId}`)
+    }
+  })
+
+  test('an industry keeps the line of its tenant, whatever the request sends', async ({ page }) => {
+    await loginAsAdmin(page)
+    const software = await tenantId(page, 'software')
+    const id = unique()
+    const created = await api(page, 'POST', '/api/industries', {
+      tenant: software,
+      slug: `e2e-${id}`,
+      name: `Branża E2E ${id}`,
+      line: 'biznes',
+      software: { group: 'noclegi', wizardFirm: 'nocleg', wizardTitle: 'W 60 sekund.' },
+    })
+    expect(created.status).toBe(201)
+    const doc = created.json.doc as { id: number; line: string; software: { group: string } }
+    try {
+      expect(doc.line).toBe('software')
+      expect(doc.software.group).toBe('noclegi')
+    } finally {
+      await api(page, 'DELETE', `/api/industries/${doc.id}`)
+    }
+  })
+
+  test('a post takes only a category of its line', async ({ page }) => {
+    await loginAsAdmin(page)
+    const [software, biznes] = await Promise.all([
+      tenantId(page, 'software'),
+      tenantId(page, 'biznes'),
+    ])
+    const id = unique()
+    // Drafts: the category check runs on every save, the content is not needed for it.
+    const post = (tenant: number, category: string) => ({
+      tenant,
+      category,
+      slug: `e2e-${category}-${id}`,
+      title: `Wpis E2E ${id}`,
+      _status: 'draft',
+    })
+
+    for (const [tenant, category] of [
+      [biznes, 'poradnik'],
+      [software, 'ksef'],
+    ] as const) {
+      const refused = await api(page, 'POST', '/api/posts?draft=true', post(tenant, category))
+      expect(refused.status, category).toBe(400)
+    }
+
+    const accepted = await api(page, 'POST', '/api/posts?draft=true', post(software, 'poradnik'))
+    expect(accepted.status).toBe(201)
+    const doc = accepted.json.doc as { id: number; line: string }
+    try {
+      expect(doc.line).toBe('software')
+      // Changing the category later is checked too.
+      const changed = await api(page, 'PATCH', `/api/posts/${doc.id}?draft=true`, {
+        category: 'kasy',
+      })
+      expect(changed.status).toBe(400)
+    } finally {
+      await api(page, 'DELETE', `/api/posts/${doc.id}`)
     }
   })
 })

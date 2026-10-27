@@ -394,7 +394,8 @@ test.describe('Biznes home page: references, facts, news, FAQ, contact', () => {
         tenant,
         title,
         slug,
-        category: 'ksef',
+        // A post takes only a category of its tenant's line (SW2b).
+        category: tenant === software ? 'poradnik' : 'ksef',
         publishedAt: publishedAt.toISOString(),
         content: {
           root: {

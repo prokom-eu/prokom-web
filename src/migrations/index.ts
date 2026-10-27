@@ -34,6 +34,8 @@ import * as migration_20261026_202214_k3_model from './20261026_202214_k3_model'
 import * as migration_20261026_223643_k31_catalog from './20261026_223643_k31_catalog'
 import * as migration_20261027_205737_solutions_price_monthly from './20261027_205737_solutions_price_monthly'
 import * as migration_20261027_213113_k31_showroom_plans from './20261027_213113_k31_showroom_plans'
+import * as migration_20261027_214531_software_industries_posts from './20261027_214531_software_industries_posts'
+import * as migration_20261027_215434_software_inquiries from './20261027_215434_software_inquiries'
 
 export const migrations = [
   {
@@ -215,5 +217,15 @@ export const migrations = [
     up: migration_20261027_213113_k31_showroom_plans.up,
     down: migration_20261027_213113_k31_showroom_plans.down,
     name: '20261027_213113_k31_showroom_plans',
+  },
+  {
+    up: migration_20261027_214531_software_industries_posts.up,
+    down: migration_20261027_214531_software_industries_posts.down,
+    name: '20261027_214531_software_industries_posts',
+  },
+  {
+    up: migration_20261027_215434_software_inquiries.up,
+    down: migration_20261027_215434_software_inquiries.down,
+    name: '20261027_215434_software_inquiries',
   },
 ]

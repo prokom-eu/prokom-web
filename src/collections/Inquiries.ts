@@ -180,6 +180,13 @@ export const Inquiries: CollectionConfig = {
       admin: { readOnly: true },
     },
     {
+      name: 'auditUrl',
+      label: 'Adres strony',
+      type: 'text',
+      access: locked,
+      admin: { readOnly: true, description: 'Strona do audytu albo obecna strona z kreatora.' },
+    },
+    {
       name: 'preferredContact',
       label: 'Preferowany kontakt',
       type: 'select',
@@ -203,7 +210,8 @@ export const Inquiries: CollectionConfig = {
       admin: { readOnly: true, description: 'Np. „Przed sezonem”.' },
     },
     {
-      // Snapshot of the inquiry list (spec. §8.1): the name stays even if the product changes.
+      // Snapshot of the inquiry list (spec. §8.1) or „Twój projekt” (Software): the name stays
+      // even if the product or solution changes.
       name: 'items',
       label: 'Pozycje',
       type: 'array',
@@ -211,6 +219,12 @@ export const Inquiries: CollectionConfig = {
       admin: { readOnly: true },
       fields: [
         { name: 'product', label: 'Produkt', type: 'relationship', relationTo: 'products' },
+        {
+          name: 'solution',
+          label: 'Rozwiązanie',
+          type: 'relationship',
+          relationTo: 'solutions',
+        },
         { name: 'nameSnapshot', label: 'Nazwa', type: 'text', required: true },
         { name: 'quantity', label: 'Ilość', type: 'number', required: true, min: 1 },
         { name: 'note', label: 'Uwaga', type: 'textarea' },

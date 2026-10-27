@@ -1,6 +1,15 @@
 import { describe, expect, it } from 'vitest'
 
-import { categoryChips, hasNews, NEWS_LINES, newsListHref, parseCategory, postHref } from './list'
+import {
+  categoriesOfLine,
+  categoryChips,
+  hasNews,
+  isCategoryOfLine,
+  NEWS_LINES,
+  newsListHref,
+  parseCategory,
+  postHref,
+} from './list'
 
 describe('hasNews', () => {
   it('is true only for lines with a news section (Software joins in SW11b)', () => {
@@ -37,5 +46,21 @@ describe('categoryChips', () => {
       { value: 'kasy', label: 'Kasy' },
     ])
     expect(categoryChips([])).toEqual([])
+  })
+})
+
+describe('post categories per line', () => {
+  it('accepts only a category of the post line', () => {
+    expect(isCategoryOfLine('ksef', 'biznes')).toBe(true)
+    expect(isCategoryOfLine('poradnik', 'software')).toBe(true)
+    expect(isCategoryOfLine('poradnik', 'biznes')).toBe(false)
+    expect(isCategoryOfLine('ksef', 'software')).toBe(false)
+    expect(isCategoryOfLine('ksef', null)).toBe(false)
+    expect(isCategoryOfLine('nieznana', 'biznes')).toBe(false)
+  })
+
+  it('lists the categories of a line', () => {
+    expect(categoriesOfLine('software')).toEqual(['Poradnik', 'Nowości', 'Realizacje'])
+    expect(categoriesOfLine('instalacje')).toEqual([])
   })
 })

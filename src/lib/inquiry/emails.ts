@@ -2,7 +2,9 @@ import { LINES, type Line } from '../tenant/lines'
 import { RESPONSE_TIME } from './consent'
 import {
   INQUIRY_TYPE_LABELS,
+  isSoftwareTopic,
   PREFERRED_CONTACT_LABELS,
+  SOFTWARE_TOPIC_LABELS,
   type InquiryType,
   type PreferredContact,
 } from './types'
@@ -26,6 +28,8 @@ export type InquiryForEmail = {
   phone?: string | null
   city?: string | null
   message?: string | null
+  /** The site to audit, or the current site from the wizard (Software). */
+  auditUrl?: string | null
   preferredContact?: PreferredContact | null
   deadline?: string | null
   topics: string[]
@@ -40,6 +44,14 @@ export type InquiryForEmail = {
   }
   consent: { clauseVersion: string; acceptedAt: string }
   marketingConsent: boolean
+}
+
+/** Software topics by their names; a phrase of „Zapytaj o X” stays as typed. */
+function topicsText({ line, type, topics }: InquiryForEmail): string {
+  const named = line === 'software' && type !== 'search'
+  return topics
+    .map((topic) => (named && isSoftwareTopic(topic) ? SOFTWARE_TOPIC_LABELS[topic] : topic))
+    .join(', ')
 }
 
 export type Email = { to: string; replyTo?: string; subject: string; text: string }
@@ -116,8 +128,9 @@ export function notificationEmail(
         'Preferowany kontakt',
         inquiry.preferredContact && PREFERRED_CONTACT_LABELS[inquiry.preferredContact],
       ],
+      ['Adres strony', inquiry.auditUrl],
       ['Termin', inquiry.deadline],
-      ['Tematy', inquiry.topics.join(', ')],
+      ['Tematy', topicsText(inquiry)],
     ]),
     ...(inquiry.items.length > 0
       ? ['', `Pozycje (${inquiry.items.length}):`, ...itemLines(inquiry.items, true)]

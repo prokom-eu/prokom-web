@@ -1,4 +1,5 @@
 import fakty from '../../../seed/prokomsoftware/fakty.json'
+import branze from '../../../seed/prokomsoftware/branze.json'
 import ikony from '../../../seed/prokomsoftware/ikony.json'
 import kreator from '../../../seed/prokomsoftware/kreator.json'
 import miejscowosci from '../../../seed/prokomsoftware/miejscowosci.json'
@@ -8,9 +9,11 @@ import popularne from '../../../seed/prokomsoftware/popularne.json'
 import rozwiazania from '../../../seed/prokomsoftware/rozwiazania.json'
 import stronaGlowna from '../../../seed/prokomsoftware/strona-glowna.json'
 import technologie from '../../../seed/prokomsoftware/technologie.json'
+import wpisy from '../../../seed/prokomsoftware/wpisy.json'
 import wyszukiwarka from '../../../seed/prokomsoftware/wyszukiwarka.json'
 import { isIconName } from '../../lib/catalog/options'
-import type { City, Solution, SolutionArea } from '../../payload-types'
+import type { City, Industry, Post, Solution, SolutionArea } from '../../payload-types'
+import { h2, p, richText, ul } from '../biznes/lexical'
 import { SOFTWARE_NOT_FOUND, SOFTWARE_THANKS } from './pages'
 
 /**
@@ -31,6 +34,8 @@ type Data<T> = Omit<T, 'id' | 'tenant' | 'updatedAt' | 'createdAt' | '_status'>
 export type SolutionData = Data<Solution>
 export type AreaData = Data<SolutionArea>
 export type CityData = Data<City>
+export type IndustryData = Data<Industry>
+export type PostData = Data<Post>
 
 function solutionRef(ref: SolutionRef, slug: string, where: string): number {
   const id = ref(slug)
@@ -132,14 +137,14 @@ for (const [name, path] of Object.entries(ikony.icons)) {
 }
 
 /** One name per drawing: two names with the same path (`mount`, `mountain`) stop the seed. */
-function areaIcon(path: string, key: string): SolutionArea['icon'] {
+function iconOf(path: string, where: string): NonNullable<SolutionArea['icon']> {
   const names = ICONS_BY_PATH.get(path) ?? []
   if (names.length > 1) {
-    throw new Error(`Seed (Software): area "${key}" — icon path of ${names.join(' and ')}.`)
+    throw new Error(`Seed (Software): ${where} — icon path of ${names.join(' and ')}.`)
   }
   const [name] = names
   if (!name || !isIconName(name)) {
-    throw new Error(`Seed (Software): area "${key}" has an icon outside ikony.json.`)
+    throw new Error(`Seed (Software): ${where} has an icon outside ikony.json.`)
   }
   return name
 }
@@ -149,7 +154,7 @@ export function areaData(item: SeedArea, ref: SolutionRef): AreaData {
   return {
     key: item.key as SolutionArea['key'],
     name: item.name,
-    icon: areaIcon(item.icon, item.key),
+    icon: iconOf(item.icon, `area "${item.key}"`),
     short: item.short,
     description: item.description,
     gain: item.gain,
@@ -225,6 +230,145 @@ export function cityData(item: SeedCity, ref: SolutionRef): CityData {
     cta: { title: cta.title, text: cta.text, buttons: cta.buttons.map(link) },
     seo: { title: seo.title, description: seo.description },
   }
+}
+
+// --- industries ---
+
+type SeedIndustryPage = (typeof branze.pagesAtStart)[number]
+
+/** Page contents of the package by name (`pagesAtStart[].content`). */
+const INDUSTRY_CONTENTS = { budowlanka: branze.budowlanka } as const
+
+/** Slug of a solution of the package by its import id (problems name them by `id`). */
+function slugOfLegacyId(legacyId: number, where: string): string {
+  const item = solutionsToImport().find((solution) => solution.legacyId === legacyId)
+  if (!item) throw new Error(`Seed (Software): ${where} → unknown solution id ${legacyId}.`)
+  return item.slug
+}
+
+/**
+ * One Software industry page (ADR-014 §1.6, `branze.json` → `pagesAtStart`). Only a page with
+ * content (`budowlanka`) is active; the others keep name, group and wizard kind (spec. §6.7).
+ * The FAQ goes to the shared `faq` field (rozstrz. v20 8); card prices come from the solutions.
+ */
+export function industryData(
+  page: SeedIndustryPage,
+  order: number,
+  ref: SolutionRef,
+): IndustryData {
+  const base = {
+    name: page.name,
+    slug: page.slug,
+    active: page.active,
+    order,
+    software: {
+      group: page.group as NonNullable<Industry['software']>['group'],
+      wizardFirm: (page.wizardFirm ?? null) as NonNullable<Industry['software']>['wizardFirm'],
+    },
+  }
+  if (page.content === null) {
+    if (page.active)
+      throw new Error(`Seed (Software): industry "${page.slug}" active without text.`)
+    return base
+  }
+  const content = INDUSTRY_CONTENTS[page.content as keyof typeof INDUSTRY_CONTENTS]
+  if (!content) throw new Error(`Seed (Software): industry "${page.slug}" → unknown content.`)
+  const where = `industry "${page.slug}"`
+  return {
+    ...base,
+    faq: content.faq.map(({ q, a }) => ({ question: q, answer: a })),
+    software: {
+      ...base.software,
+      wizardTitle: content.wizardTitle,
+      problems: content.problems.map((problem) => ({
+        question: problem.q,
+        note: problem.s,
+        icon: iconOf(problem.ic, where),
+        title: problem.h,
+        text: problem.p,
+        features: problem.f,
+        solution: solutionRef(ref, slugOfLegacyId(problem.id, where), where),
+        cta: { label: problem.cta, href: problem.href },
+      })),
+      moduleMap: content.timeline.map(([name, icon, x, y, delay]) => ({
+        name: String(name),
+        icon: iconOf(String(icon), where),
+        x: Number(x),
+        y: Number(y),
+        delay: Number(delay),
+      })),
+      offline: content.offline.map(([, title, text]) => ({ title, text })),
+      topSolutions: content.solutions.map((card) => solutionRef(ref, card.solution, where)),
+    },
+  }
+}
+
+/** The 12 industry pages of the package, in its order. */
+export function industriesToImport(ref: SolutionRef): IndustryData[] {
+  return branze.pagesAtStart.map((page, index) => industryData(page, index + 1, ref))
+}
+
+// --- posts ---
+
+type SeedPost = (typeof wpisy.items)[number]
+type SeedSection = SeedPost['sections'][number]
+
+/** Package categories (`Poradnik`) → values of `POST_CATEGORIES`. */
+const POST_CATEGORY: Record<string, Post['category']> = {
+  Poradnik: 'poradnik',
+  Nowości: 'nowosci',
+  Realizacje: 'realizacje',
+}
+
+function sectionNodes(section: SeedSection): object[] {
+  const nodes: object[] = [h2(section.h2)]
+  if ('stats' in section && section.stats) {
+    nodes.push(
+      p(section.p),
+      ul(...section.stats.map(([value, text]) => [{ bold: value }, ` ${text}`])),
+    )
+    return nodes
+  }
+  if ('compare' in section && section.compare) {
+    nodes.push(ul(...section.compare.map(([title, text]) => [{ bold: `${title}:` }, ` ${text}`])))
+  }
+  nodes.push(p(section.p))
+  return nodes
+}
+
+/**
+ * A Software post of the package as a draft (`wpisy.json`): its figures are checked and the
+ * sources dated on the day of publication (spec. §13), so the seed never publishes it. „W
+ * skrócie” = `tldr`, the list lead goes to the SEO description; reading time is computed.
+ */
+export function softwarePostData(item: SeedPost, ref: SolutionRef): PostData {
+  const category = POST_CATEGORY[item.category]
+  if (!category) throw new Error(`Seed (Software): post "${item.slug}" → unknown category.`)
+  return {
+    title: item.title,
+    slug: item.slug,
+    category,
+    lead: item.lead,
+    summary: item.tldr,
+    content: richText<Post['content']>(item.sections.flatMap(sectionNodes)),
+    // TODO(krystian): check the figures and fill in the missing source address and every
+    // „Sprawdzone dnia” in the panel before publishing (wpisy.json → sources[].note). A draft
+    // is saved without validation, so the incomplete sources wait there; publishing checks them.
+    sources: item.sources.map((source) => ({
+      name: source.name,
+      url: source.url,
+      verifiedAt: source.verifiedAt,
+    })) as unknown as PostData['sources'],
+    relatedSolutions: item.relatedSolutions.map((slug) =>
+      solutionRef(ref, slug, `post "${item.slug}"`),
+    ),
+    seo: { description: item.listLead },
+  }
+}
+
+/** The posts of the package. */
+export function softwarePosts(): SeedPost[] {
+  return wpisy.items
 }
 
 // --- settings ---

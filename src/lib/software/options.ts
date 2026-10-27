@@ -62,3 +62,20 @@ export const CARD_GRADIENTS = [
 export const SOLUTION_SIZES = ['start', 'std', 'full'] as const
 
 export type SolutionSize = (typeof SOLUTION_SIZES)[number]
+
+/**
+ * Kinds of business in the wizard (`kreator.json` → `needs.firm.o`): an industry page opens the
+ * wizard with its kind (`/dobierz?firma=<id>`, ADR-014 §1.6).
+ */
+export const WIZARD_FIRMS = [
+  { label: 'Pensjonat, hotel, apartamenty', value: 'nocleg' },
+  { label: 'Restauracja, bar, kawiarnia', value: 'gastro' },
+  { label: 'Budowlanka i remonty', value: 'bud' },
+  { label: 'Turystyka i atrakcje', value: 'turyst' },
+  { label: 'Uroda i zdrowie', value: 'uroda' },
+  { label: 'Warsztat i motoryzacja', value: 'moto' },
+  { label: 'Sklep i handel', value: 'handel' },
+  { label: 'Biuro i usługi dla firm', value: 'biuro' },
+  { label: 'Produkcja i rzemiosło', value: 'prod' },
+  { label: 'Inna firma', value: 'inna' },
+] as const

@@ -1271,6 +1271,7 @@ export interface CatalogCategory {
 export interface Industry {
   id: number;
   tenant?: (number | null) | Tenant;
+  line?: ('prokom' | 'biznes' | 'instalacje' | 'software') | null;
   name: string;
   /**
    * Część adresu, np. „gastronomia”.
@@ -1313,6 +1314,186 @@ export interface Industry {
         id?: string | null;
       }[]
     | null;
+  software?: {
+    /**
+     * Filtr „Branża” w katalogu rozwiązań.
+     */
+    group?:
+      | (
+          | 'budowlanka-i-ekipy'
+          | 'noclegi'
+          | 'turystyka-i-wydarzenia'
+          | 'gastronomia'
+          | 'zdrowie-i-uroda'
+          | 'uslugi-i-transport'
+          | 'handel-i-producenci'
+          | 'edukacja-i-organizacje'
+        )
+      | null;
+    /**
+     * „Złóż system” otwiera kreator z tym rodzajem (puste = bez).
+     */
+    wizardFirm?:
+      ('nocleg' | 'gastro' | 'bud' | 'turyst' | 'uroda' | 'moto' | 'handel' | 'biuro' | 'prod' | 'inna') | null;
+    /**
+     * Np. „Złóż system dla swojej firmy. W 60 sekund.”
+     */
+    wizardTitle?: string | null;
+    problems?:
+      | {
+          question: string;
+          note?: string | null;
+          icon?:
+            | (
+                | 'shield'
+                | 'cal'
+                | 'users'
+                | 'store'
+                | 'bolt'
+                | 'doc'
+                | 'life'
+                | 'arrow'
+                | 'check'
+                | 'phone'
+                | 'mail'
+                | 'pin'
+                | 'clock'
+                | 'monitor'
+                | 'remote'
+                | 'bell'
+                | 'wallet'
+                | 'chat'
+                | 'wrench'
+                | 'rocket'
+                | 'map'
+                | 'star'
+                | 'q'
+                | 'flash'
+                | 'grad'
+                | 'server'
+                | 'compass'
+                | 'panel'
+                | 'site'
+                | 'grid'
+                | 'plug'
+                | 'ticket'
+                | 'lifebuoy'
+                | 'chart'
+                | 'sign'
+                | 'cash'
+                | 'search'
+                | 'x'
+                | 'bed'
+                | 'food'
+                | 'refresh'
+                | 'globe'
+                | 'box'
+                | 'car'
+                | 'home'
+                | 'mountain'
+                | 'heart'
+                | 'bag'
+                | 'card'
+                | 'target'
+                | 'key'
+                | 'mega'
+                | 'mount'
+                | 'brief'
+              )
+            | null;
+          title?: string | null;
+          text?: string | null;
+          features?: string[] | null;
+          solution?: (number | null) | Solution;
+          cta?: {
+            label?: string | null;
+            href?: string | null;
+          };
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Moduły wokół telefonu w nagłówku: pozycja w % i opóźnienie w s.
+     */
+    moduleMap?:
+      | {
+          name: string;
+          icon?:
+            | (
+                | 'shield'
+                | 'cal'
+                | 'users'
+                | 'store'
+                | 'bolt'
+                | 'doc'
+                | 'life'
+                | 'arrow'
+                | 'check'
+                | 'phone'
+                | 'mail'
+                | 'pin'
+                | 'clock'
+                | 'monitor'
+                | 'remote'
+                | 'bell'
+                | 'wallet'
+                | 'chat'
+                | 'wrench'
+                | 'rocket'
+                | 'map'
+                | 'star'
+                | 'q'
+                | 'flash'
+                | 'grad'
+                | 'server'
+                | 'compass'
+                | 'panel'
+                | 'site'
+                | 'grid'
+                | 'plug'
+                | 'ticket'
+                | 'lifebuoy'
+                | 'chart'
+                | 'sign'
+                | 'cash'
+                | 'search'
+                | 'x'
+                | 'bed'
+                | 'food'
+                | 'refresh'
+                | 'globe'
+                | 'box'
+                | 'car'
+                | 'home'
+                | 'mountain'
+                | 'heart'
+                | 'bag'
+                | 'card'
+                | 'target'
+                | 'key'
+                | 'mega'
+                | 'mount'
+                | 'brief'
+              )
+            | null;
+          x: number;
+          y: number;
+          delay?: number | null;
+          id?: string | null;
+        }[]
+      | null;
+    offline?:
+      | {
+          title: string;
+          text?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Karty z katalogu, w tej kolejności (ceny z rozwiązań).
+     */
+    topSolutions?: (number | Solution)[] | null;
+  };
   productsSection?: {
     eyebrow?: string | null;
     title?: string | null;
@@ -1389,6 +1570,102 @@ export interface Industry {
   };
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "solutions".
+ */
+export interface Solution {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  /**
+   * Część adresu, np. „strona-firmowa-z-panelem”.
+   */
+  slug: string;
+  legacyId?: number | null;
+  name: string;
+  /**
+   * Filtr katalogu i zakładka cennika.
+   */
+  category: 'strony' | 'systemy' | 'aplikacje' | 'automatyzacje' | 'opieka';
+  /**
+   * Np. „Strona”, „System”.
+   */
+  label?: string | null;
+  /**
+   * Np. „PANEL TREŚCI”.
+   */
+  tag?: string | null;
+  lead?: string | null;
+  /**
+   * Trzy krótkie cechy na karcie. {termin} = termin tego rozwiązania.
+   */
+  features?: string[] | null;
+  forWhom?: string | null;
+  situations?: ('Z' | 'R' | 'P')[] | null;
+  industryGroups?:
+    | (
+        | 'budowlanka-i-ekipy'
+        | 'noclegi'
+        | 'turystyka-i-wydarzenia'
+        | 'gastronomia'
+        | 'zdrowie-i-uroda'
+        | 'uslugi-i-transport'
+        | 'handel-i-producenci'
+        | 'edukacja-i-organizacje'
+      )[]
+    | null;
+  /**
+   * Po spacji; polskie znaki niepotrzebne.
+   */
+  keywords?: string | null;
+  hasLivePreview?: boolean | null;
+  /**
+   * Np. „Nowe zapytanie z formularza”.
+   */
+  toast?: string | null;
+  /**
+   * Puste = karta bez miniatury.
+   */
+  cardGradient?: ('peach' | 'sand' | 'sage') | null;
+  prices?: {
+    start?: number | null;
+    std?: number | null;
+    full?: number | null;
+  };
+  /**
+   * Np. opieka: ceny to kwoty za miesiąc — na karcie „od 149 zł / mies.” (wzór z Ustawień Software → Kreator).
+   */
+  priceMonthly?: boolean | null;
+  /**
+   * Puste = „Na start”, „Standard”, „Pełna”. Np. opieka: „Podstawowa”, „Standard”, „Systemy”.
+   */
+  sizeNames?: {
+    start?: string | null;
+    std?: string | null;
+    full?: string | null;
+  };
+  /**
+   * Np. „2 tygodnie”, „4–5 tygodni”.
+   */
+  leadTimes?: {
+    start?: string | null;
+    std?: string | null;
+    full?: string | null;
+  };
+  /**
+   * Linia pod ceną, np. „Na start = jeden moduł na gotowym fundamencie, do 5 użytkowników”.
+   */
+  priceNote?: string | null;
+  featured?: {
+    name?: string | null;
+    tag?: string | null;
+    lead?: string | null;
+    features?: string[] | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3535,7 +3812,7 @@ export interface Inquiry {
    */
   statusChangedAt?: string | null;
   line: 'prokom' | 'biznes' | 'instalacje' | 'software';
-  type: 'contact' | 'list' | 'wizard' | 'search';
+  type: 'contact' | 'list' | 'wizard' | 'search' | 'audit';
   category?: string | null;
   name: string;
   company?: string | null;
@@ -3544,7 +3821,11 @@ export interface Inquiry {
   phone?: string | null;
   city?: string | null;
   message?: string | null;
-  preferredContact?: ('phone' | 'whatsapp' | 'email') | null;
+  /**
+   * Strona do audytu albo obecna strona z kreatora.
+   */
+  auditUrl?: string | null;
+  preferredContact?: ('phone' | 'whatsapp' | 'email' | 'meeting' | 'online') | null;
   topics?: string[] | null;
   /**
    * Np. „Przed sezonem”.
@@ -3553,6 +3834,7 @@ export interface Inquiry {
   items?:
     | {
         product?: (number | null) | Product;
+        solution?: (number | null) | Solution;
         nameSnapshot: string;
         quantity: number;
         note?: string | null;
@@ -3603,12 +3885,16 @@ export interface InquiryDeletion {
 export interface Post {
   id: number;
   tenant?: (number | null) | Tenant;
+  line?: ('prokom' | 'biznes' | 'instalacje' | 'software') | null;
   title: string;
   /**
    * Część adresu, np. „ksef-2026-co-musisz-wiedziec”.
    */
   slug: string;
-  category: 'ksef' | 'kasy' | 'terminale' | 'dofinansowania' | 'programy';
+  /**
+   * Biznes: KSeF, Kasy, Terminale, Dofinansowania, Programy. Software: Poradnik, Nowości, Realizacje.
+   */
+  category: 'ksef' | 'kasy' | 'terminale' | 'dofinansowania' | 'programy' | 'poradnik' | 'nowosci' | 'realizacje';
   /**
    * Puste przy publikacji → dzisiejsza data.
    */
@@ -3646,6 +3932,10 @@ export interface Post {
       }[]
     | null;
   relatedProducts?: (number | Product)[] | null;
+  /**
+   * Karty pod wpisem (do 3).
+   */
+  relatedSolutions?: (number | Solution)[] | null;
   /**
    * Karta z przyciskiem i licznik dni obok treści (puste = bez nich).
    */
@@ -3751,102 +4041,6 @@ export interface BiznesSetting {
     | null;
   updatedAt: string;
   createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "solutions".
- */
-export interface Solution {
-  id: number;
-  tenant?: (number | null) | Tenant;
-  /**
-   * Część adresu, np. „strona-firmowa-z-panelem”.
-   */
-  slug: string;
-  legacyId?: number | null;
-  name: string;
-  /**
-   * Filtr katalogu i zakładka cennika.
-   */
-  category: 'strony' | 'systemy' | 'aplikacje' | 'automatyzacje' | 'opieka';
-  /**
-   * Np. „Strona”, „System”.
-   */
-  label?: string | null;
-  /**
-   * Np. „PANEL TREŚCI”.
-   */
-  tag?: string | null;
-  lead?: string | null;
-  /**
-   * Trzy krótkie cechy na karcie. {termin} = termin tego rozwiązania.
-   */
-  features?: string[] | null;
-  forWhom?: string | null;
-  situations?: ('Z' | 'R' | 'P')[] | null;
-  industryGroups?:
-    | (
-        | 'budowlanka-i-ekipy'
-        | 'noclegi'
-        | 'turystyka-i-wydarzenia'
-        | 'gastronomia'
-        | 'zdrowie-i-uroda'
-        | 'uslugi-i-transport'
-        | 'handel-i-producenci'
-        | 'edukacja-i-organizacje'
-      )[]
-    | null;
-  /**
-   * Po spacji; polskie znaki niepotrzebne.
-   */
-  keywords?: string | null;
-  hasLivePreview?: boolean | null;
-  /**
-   * Np. „Nowe zapytanie z formularza”.
-   */
-  toast?: string | null;
-  /**
-   * Puste = karta bez miniatury.
-   */
-  cardGradient?: ('peach' | 'sand' | 'sage') | null;
-  prices?: {
-    start?: number | null;
-    std?: number | null;
-    full?: number | null;
-  };
-  /**
-   * Np. opieka: ceny to kwoty za miesiąc — na karcie „od 149 zł / mies.” (wzór z Ustawień Software → Kreator).
-   */
-  priceMonthly?: boolean | null;
-  /**
-   * Puste = „Na start”, „Standard”, „Pełna”. Np. opieka: „Podstawowa”, „Standard”, „Systemy”.
-   */
-  sizeNames?: {
-    start?: string | null;
-    std?: string | null;
-    full?: string | null;
-  };
-  /**
-   * Np. „2 tygodnie”, „4–5 tygodni”.
-   */
-  leadTimes?: {
-    start?: string | null;
-    std?: string | null;
-    full?: string | null;
-  };
-  /**
-   * Linia pod ceną, np. „Na start = jeden moduł na gotowym fundamencie, do 5 użytkowników”.
-   */
-  priceNote?: string | null;
-  featured?: {
-    name?: string | null;
-    tag?: string | null;
-    lead?: string | null;
-    features?: string[] | null;
-  };
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -5961,6 +6155,7 @@ export interface InquiriesSelect<T extends boolean = true> {
   phone?: T;
   city?: T;
   message?: T;
+  auditUrl?: T;
   preferredContact?: T;
   topics?: T;
   deadline?: T;
@@ -5968,6 +6163,7 @@ export interface InquiriesSelect<T extends boolean = true> {
     | T
     | {
         product?: T;
+        solution?: T;
         nameSnapshot?: T;
         quantity?: T;
         note?: T;
@@ -6141,6 +6337,7 @@ export interface CatalogCategoriesSelect<T extends boolean = true> {
  */
 export interface IndustriesSelect<T extends boolean = true> {
   tenant?: T;
+  line?: T;
   name?: T;
   slug?: T;
   active?: T;
@@ -6161,6 +6358,49 @@ export interface IndustriesSelect<T extends boolean = true> {
         question?: T;
         answer?: T;
         id?: T;
+      };
+  software?:
+    | T
+    | {
+        group?: T;
+        wizardFirm?: T;
+        wizardTitle?: T;
+        problems?:
+          | T
+          | {
+              question?: T;
+              note?: T;
+              icon?: T;
+              title?: T;
+              text?: T;
+              features?: T;
+              solution?: T;
+              cta?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                  };
+              id?: T;
+            };
+        moduleMap?:
+          | T
+          | {
+              name?: T;
+              icon?: T;
+              x?: T;
+              y?: T;
+              delay?: T;
+              id?: T;
+            };
+        offline?:
+          | T
+          | {
+              title?: T;
+              text?: T;
+              id?: T;
+            };
+        topSolutions?: T;
       };
   productsSection?:
     | T
@@ -6402,6 +6642,7 @@ export interface ProductsSelect<T extends boolean = true> {
  */
 export interface PostsSelect<T extends boolean = true> {
   tenant?: T;
+  line?: T;
   title?: T;
   slug?: T;
   category?: T;
@@ -6419,6 +6660,7 @@ export interface PostsSelect<T extends boolean = true> {
         id?: T;
       };
   relatedProducts?: T;
+  relatedSolutions?: T;
   aside?:
     | T
     | {

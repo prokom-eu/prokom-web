@@ -30,7 +30,7 @@ type InquiryTenant = { id: number; name: string; line: Line; notificationEmail?:
 
 type NewInquiry = Omit<Inquiry, 'id' | 'createdAt' | 'updatedAt' | 'statusChangedAt'>
 
-/** A published product of the tenant, as far as an inquiry needs it. */
+/** A published product (Biznes) or solution (Software) of the tenant, as an inquiry needs it. */
 export type InquiryProduct = { id: number; slug: string; name: string }
 
 /** Everything `submitInquiry` touches outside itself — injected, so the logic is unit-tested. */
@@ -41,6 +41,8 @@ export type SubmitDeps = {
   findTenant: (host: string) => Promise<InquiryTenant | null>
   /** Published products of this tenant with these slugs (tenant isolation, ADR-012 §3). */
   findProducts: (tenantId: number, slugs: string[]) => Promise<InquiryProduct[]>
+  /** Published solutions of this tenant with these slugs — „Twój projekt” (ADR-014 §3). */
+  findSolutions: (tenantId: number, slugs: string[]) => Promise<InquiryProduct[]>
   /** Valid wizard rules of this tenant (`BiznesSettings.wizard`), or `null` without them. */
   findWizard: (tenantId: number) => Promise<Wizard | null>
   /** Returns the record after the hooks, so with the number (`Inquiries.assignNumber`). */
@@ -64,21 +66,32 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value)
 }
 
-type SavedItem = { product: number; nameSnapshot: string; quantity: number; note?: string }
+type SavedItem = {
+  product?: number
+  solution?: number
+  nameSnapshot: string
+  quantity: number
+  note?: string
+}
 
 /**
- * The list items as products of this tenant, in the customer's order. The name is taken from
- * the database, never from the browser; a slug of another site or a removed product is dropped.
+ * The list items as records of this tenant (products, or solutions on Software), in the
+ * customer's order. The name is taken from the database, never from the browser; a slug of
+ * another site or a removed record is dropped.
  */
-function matchItems(items: InquiryInput['items'], products: InquiryProduct[]): SavedItem[] {
-  const bySlug = new Map(products.map((product) => [product.slug, product]))
+function matchItems(
+  items: InquiryInput['items'],
+  records: InquiryProduct[],
+  relation: 'product' | 'solution',
+): SavedItem[] {
+  const bySlug = new Map(records.map((record) => [record.slug, record]))
   return items.flatMap((item) => {
-    const product = bySlug.get(item.slug)
-    if (!product) return []
+    const record = bySlug.get(item.slug)
+    if (!record) return []
     return [
       {
-        product: product.id,
-        nameSnapshot: product.name,
+        [relation]: record.id,
+        nameSnapshot: record.name,
         quantity: item.quantity,
         ...(item.note ? { note: item.note } : {}),
       },
@@ -152,7 +165,10 @@ export async function submitInquiryWith(
   if (input.items.length > 0) {
     try {
       const slugs = input.items.map((item) => item.slug)
-      items = matchItems(input.items, await deps.findProducts(tenant.id, slugs))
+      items =
+        tenant.line === 'software'
+          ? matchItems(input.items, await deps.findSolutions(tenant.id, slugs), 'solution')
+          : matchItems(input.items, await deps.findProducts(tenant.id, slugs), 'product')
     } catch (error) {
       deps.log.error({ tenant: tenant.id, ...errorFields(error) }, 'Inquiry products lookup failed')
       return { ok: false, error: 'unavailable' }
@@ -180,6 +196,12 @@ export async function submitInquiryWith(
     deadline = composed.when ?? deadline
   }
 
+  // The audit form sends the address only; the message says what is asked (rozstrz. SW0 6).
+  const message =
+    input.type === 'audit' && input.message === undefined
+      ? `Prośba o audyt strony: ${input.auditUrl}`
+      : input.message
+
   if (!deps.limiter.hit(rateLimitKey(ip ?? 'unknown', deps.secret))) {
     deps.log.warn({ tenant: tenant.id }, 'Inquiry rate-limited')
     return { ok: false, error: 'rate_limited' }
@@ -200,7 +222,8 @@ export async function submitInquiryWith(
       email: input.email,
       phone: input.phone,
       city: input.city,
-      message: input.message,
+      message,
+      auditUrl: input.auditUrl,
       preferredContact: input.preferredContact,
       deadline,
       topics: input.topics,
@@ -221,6 +244,7 @@ export async function submitInquiryWith(
   // The record is the source of truth: a failed e-mail is logged, the customer still gets 201.
   const forEmail: InquiryForEmail = {
     ...input,
+    message,
     deadline,
     wizard,
     id,
@@ -311,6 +335,25 @@ export async function submitInquiry(
       findProducts: async (tenantId, slugs) => {
         const { docs } = await payload.find({
           collection: 'products',
+          where: {
+            and: [
+              { tenant: { equals: tenantId } },
+              { slug: { in: slugs } },
+              { _status: { equals: 'published' } },
+            ],
+          },
+          draft: false,
+          depth: 0,
+          limit: slugs.length,
+          pagination: false,
+          select: { slug: true, name: true },
+          overrideAccess: true,
+        })
+        return docs.map(({ id, slug, name }) => ({ id, slug, name }))
+      },
+      findSolutions: async (tenantId, slugs) => {
+        const { docs } = await payload.find({
+          collection: 'solutions',
           where: {
             and: [
               { tenant: { equals: tenantId } },

@@ -114,13 +114,19 @@ export const WIZARD_BUSINESS_TYPES = [
   { label: 'Inna firma', value: 'inna' },
 ] as const
 
-/** Post categories = filters of `/aktualnosci` (spec. §6.9). */
+/**
+ * Post categories = filters of `/aktualnosci` (spec. §6.9). One list for all lines (ADR-014
+ * rozstrz. SW0 2); a post may only take a category of its tenant's line (`lib/posts/list`).
+ */
 export const POST_CATEGORIES = [
-  { label: 'KSeF', value: 'ksef' },
-  { label: 'Kasy', value: 'kasy' },
-  { label: 'Terminale', value: 'terminale' },
-  { label: 'Dofinansowania', value: 'dofinansowania' },
-  { label: 'Programy', value: 'programy' },
+  { label: 'KSeF', value: 'ksef', line: 'biznes' },
+  { label: 'Kasy', value: 'kasy', line: 'biznes' },
+  { label: 'Terminale', value: 'terminale', line: 'biznes' },
+  { label: 'Dofinansowania', value: 'dofinansowania', line: 'biznes' },
+  { label: 'Programy', value: 'programy', line: 'biznes' },
+  { label: 'Poradnik', value: 'poradnik', line: 'software' },
+  { label: 'Nowości', value: 'nowosci', line: 'software' },
+  { label: 'Realizacje', value: 'realizacje', line: 'software' },
 ] as const
 
 const HEX_COLOR = /^#[0-9a-f]{6}$/i

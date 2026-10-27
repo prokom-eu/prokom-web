@@ -1,7 +1,9 @@
+import { APIError } from 'payload'
 import type {
   CollectionAfterChangeHook,
   CollectionAfterDeleteHook,
   CollectionBeforeChangeHook,
+  CollectionBeforeValidateHook,
   CollectionConfig,
 } from 'payload'
 
@@ -10,9 +12,31 @@ import { restrictedRichTextEditor } from '../blocks/RichText/config'
 import { adminOnly } from '../lib/auth/access'
 import { POST_CATEGORIES } from '../lib/catalog/options'
 import { revalidatePageTags } from '../lib/pages/revalidate'
+import { categoriesOfLine, isCategoryOfLine } from '../lib/posts/list'
 import { withPublishedAt } from '../lib/posts/publishedAt'
 import { postsTagsOf } from '../lib/posts/tags'
+import { copyTenantLine, notOnLine, onLine } from '../lib/tenant/copyLine'
+import { tenantIdOf } from '../lib/tenant/id'
+import { lineOfTenant } from '../lib/tenant/lineOf'
+import { LINES } from '../lib/tenant/lines'
 import { imageField, seoGroup, slugField } from './catalogFields'
+
+/**
+ * One category list for all lines (ADR-014 rozstrz. SW0 2): a category of another line would
+ * put the post under a filter its site never shows, so the save is refused (400).
+ */
+const categoryOfTenantLine: CollectionBeforeValidateHook = async ({ data, originalDoc, req }) => {
+  const category = data?.category ?? originalDoc?.category
+  const tenantId = tenantIdOf(data?.tenant ?? originalDoc?.tenant)
+  // No tenant: the plugin's required tenant field refuses the save anyway.
+  if (category === undefined || category === null || tenantId === null) return data
+  const line = await lineOfTenant(tenantId, req)
+  if (!isCategoryOfLine(category, line)) {
+    const allowed = categoriesOfLine(line).join(', ') || 'brak'
+    throw new APIError(`Kategoria spoza tej strony. Dozwolone: ${allowed}.`, 400, null, true)
+  }
+  return data
+}
 
 const fillPublishedAt: CollectionBeforeChangeHook = ({ data }) => withPublishedAt(data, new Date())
 
@@ -53,12 +77,21 @@ export const Posts: CollectionConfig = {
     maxPerDoc: 20,
   },
   hooks: {
-    beforeChange: [fillPublishedAt],
+    beforeValidate: [categoryOfTenantLine],
+    beforeChange: [copyTenantLine, fillPublishedAt],
     afterChange: [revalidateAfterChange],
     afterDelete: [revalidateAfterDelete],
   },
   indexes: [{ fields: ['tenant', 'slug'], unique: true }],
   fields: [
+    {
+      name: 'line',
+      label: 'Linia',
+      type: 'select',
+      options: [...LINES],
+      // Always overwritten by `copyTenantLine` on save, whatever the request sends.
+      admin: { hidden: true },
+    },
     { name: 'title', label: 'Tytuł', type: 'text', required: true },
     slugField('posts', 'ksef-2026-co-musisz-wiedziec'),
     {
@@ -66,8 +99,12 @@ export const Posts: CollectionConfig = {
       label: 'Kategoria',
       type: 'select',
       required: true,
-      options: [...POST_CATEGORIES],
-      admin: { position: 'sidebar' },
+      options: POST_CATEGORIES.map(({ label, value }) => ({ label, value })),
+      admin: {
+        position: 'sidebar',
+        description:
+          'Biznes: KSeF, Kasy, Terminale, Dofinansowania, Programy. Software: Poradnik, Nowości, Realizacje.',
+      },
     },
     {
       name: 'publishedAt',
@@ -129,6 +166,16 @@ export const Posts: CollectionConfig = {
       relationTo: 'products',
       hasMany: true,
       maxRows: 6,
+      admin: { condition: notOnLine('software') },
+    },
+    {
+      name: 'relatedSolutions',
+      label: 'Powiązane rozwiązania',
+      type: 'relationship',
+      relationTo: 'solutions',
+      hasMany: true,
+      maxRows: 3,
+      admin: { condition: onLine('software'), description: 'Karty pod wpisem (do 3).' },
     },
     {
       name: 'aside',

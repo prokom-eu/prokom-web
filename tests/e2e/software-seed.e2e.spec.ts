@@ -1,12 +1,14 @@
 import { expect, test } from '@playwright/test'
 
+import branze from '../../seed/prokomsoftware/branze.json' with { type: 'json' }
 import miejscowosci from '../../seed/prokomsoftware/miejscowosci.json' with { type: 'json' }
 import rozwiazania from '../../seed/prokomsoftware/rozwiazania.json' with { type: 'json' }
 import { api, loginAsAdmin, site, tenantId } from './helpers'
 
 // SW3 acceptance: after `pnpm seed` the Software panel has the package v20 — 29 published
 // solutions with prices, 8 areas, 6 cities (Rabka-Zdrój active), navigation, facts and the
-// Software settings; a solution removed from the offer never reaches the database.
+// Software settings; a solution removed from the offer never reaches the database. SW2b: 12
+// industries (construction active, with its FAQ) and the post as a draft.
 
 /** Ids of the package are 1–30; other e2e specs create their records far above them. */
 const PACKAGE_IDS = 'where[legacyId][less_than_equal]=100'
@@ -85,5 +87,36 @@ test.describe('Software seed', () => {
     const response = await page.goto(site('software.localhost', '/dziekujemy'))
     expect(response?.status()).toBe(200)
     await expect(page.locator('h1')).toHaveText('Dziękujemy, mamy to.')
+  })
+
+  test('imports the 12 industries and the post draft', async ({ page }) => {
+    await loginAsAdmin(page)
+    const software = await tenantId(page, 'software')
+    const inTenant = `where[tenant][equals]=${software}&limit=100&depth=0`
+
+    const { json } = await api(page, 'GET', `/api/industries?${inTenant}&sort=order`)
+    const docs = json.docs as {
+      slug: string
+      active: boolean
+      line: string
+      faq?: unknown[]
+      software?: { group?: string; problems?: { solution: number | null }[] }
+    }[]
+    const seeded = docs.filter((doc) => branze.pagesAtStart.some((p) => p.slug === doc.slug))
+    expect(seeded).toHaveLength(12)
+    expect(seeded.every((doc) => doc.line === 'software')).toBe(true)
+    const active = seeded.filter((doc) => doc.active)
+    expect(active.map((doc) => doc.slug)).toEqual(['budownictwo-i-wykonczenia'])
+    expect(active[0]?.faq).toHaveLength(4)
+    expect(active[0]?.software?.group).toBe('budowlanka-i-ekipy')
+    expect(active[0]?.software?.problems?.every((problem) => problem.solution !== null)).toBe(true)
+
+    const posts = await api(
+      page,
+      'GET',
+      `/api/posts?${inTenant}&draft=true&where[slug][equals]=wordpress-czy-strona-od-zera`,
+    )
+    const [post] = posts.json.docs as { category: string; _status: string }[]
+    expect(post).toMatchObject({ category: 'poradnik', _status: 'draft' })
   })
 })
