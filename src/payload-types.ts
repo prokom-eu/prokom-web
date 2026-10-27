@@ -3812,7 +3812,7 @@ export interface Inquiry {
    */
   statusChangedAt?: string | null;
   line: 'prokom' | 'biznes' | 'instalacje' | 'software';
-  type: 'contact' | 'list' | 'wizard' | 'search';
+  type: 'contact' | 'list' | 'wizard' | 'search' | 'audit';
   category?: string | null;
   name: string;
   company?: string | null;
@@ -3821,7 +3821,11 @@ export interface Inquiry {
   phone?: string | null;
   city?: string | null;
   message?: string | null;
-  preferredContact?: ('phone' | 'whatsapp' | 'email') | null;
+  /**
+   * Strona do audytu albo obecna strona z kreatora.
+   */
+  auditUrl?: string | null;
+  preferredContact?: ('phone' | 'whatsapp' | 'email' | 'meeting' | 'online') | null;
   topics?: string[] | null;
   /**
    * Np. „Przed sezonem”.
@@ -3830,6 +3834,7 @@ export interface Inquiry {
   items?:
     | {
         product?: (number | null) | Product;
+        solution?: (number | null) | Solution;
         nameSnapshot: string;
         quantity: number;
         note?: string | null;
@@ -6150,6 +6155,7 @@ export interface InquiriesSelect<T extends boolean = true> {
   phone?: T;
   city?: T;
   message?: T;
+  auditUrl?: T;
   preferredContact?: T;
   topics?: T;
   deadline?: T;
@@ -6157,6 +6163,7 @@ export interface InquiriesSelect<T extends boolean = true> {
     | T
     | {
         product?: T;
+        solution?: T;
         nameSnapshot?: T;
         quantity?: T;
         note?: T;

@@ -253,6 +253,65 @@ test.describe('inquiry inbox (ADR-003)', () => {
     })
   })
 
+  test('Software saves „Twój projekt” as its solutions and an audit with its site (SW2b)', async ({
+    page,
+  }) => {
+    const marker = `E2E-SW-${Date.now()}`
+    await page.goto(site('software.localhost'))
+    const project = await post(
+      page,
+      inquiry(`${marker}-P`, {
+        type: 'list',
+        message: '',
+        preferredContact: 'meeting',
+        topics: ['strona'],
+        items: [
+          { slug: 'strona-firmowa-z-panelem', quantity: 1 },
+          // A Biznes product slug: nobody's solution here, dropped.
+          { slug: 'posnet-ergo-online', quantity: 1 },
+        ],
+      }),
+      randomIp(),
+    )
+    expect(project.status).toBe(201)
+    const audit = await post(
+      page,
+      inquiry(`${marker}-A`, { type: 'audit', message: '', auditUrl: 'https://firma.example' }),
+      randomIp(),
+    )
+    expect(audit.status).toBe(201)
+
+    await loginAsAdmin(page)
+    const [saved] = await findInquiries(page, `${marker}-P`)
+    const [auditRecord] = await findInquiries(page, `${marker}-A`)
+    try {
+      expect(saved).toMatchObject({
+        line: 'software',
+        type: 'list',
+        preferredContact: 'meeting',
+        topics: ['strona'],
+        items: [
+          expect.objectContaining({
+            nameSnapshot: 'Strona firmowa z panelem',
+            quantity: 1,
+            solution: expect.any(Number),
+            product: null,
+          }),
+        ],
+      })
+      expect(saved?.items).toHaveLength(1)
+      expect(auditRecord).toMatchObject({
+        type: 'audit',
+        auditUrl: 'https://firma.example',
+        message: 'Prośba o audyt strony: https://firma.example',
+      })
+    } finally {
+      for (const record of [saved, auditRecord]) {
+        if (record) await api(page, 'DELETE', `/api/inquiries/${record.id as number}`)
+      }
+    }
+  })
+
   test('spam is rejected and nothing is saved', async ({ page }) => {
     const marker = `E2E-SPAM-${Date.now()}`
     await page.goto(site('biznes.localhost'))

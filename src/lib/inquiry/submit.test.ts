@@ -49,6 +49,14 @@ function deps(overrides: Partial<SubmitDeps> = {}): SubmitDeps {
           ].filter((product) => slugs.includes(product.slug))
         : [],
     ),
+    // Solutions of tenant 2 (Software) only.
+    findSolutions: vi.fn(async (tenantId: number, slugs: string[]) =>
+      tenantId === 2
+        ? [{ id: 11, slug: 'strona-firmowa-z-panelem', name: 'Strona firmowa z panelem' }].filter(
+            (solution) => slugs.includes(solution.slug),
+          )
+        : [],
+    ),
     findWizard: vi.fn(async (tenantId: number) => (tenantId === 1 ? rules : null)),
     sendEmail: vi.fn(async () => undefined),
     panelUrl: (id: number) => `http://panel.localhost:3000/admin/collections/inquiries/${id}`,
@@ -394,6 +402,68 @@ describe('submitInquiry (ADR-003)', () => {
         ok: false,
         error: 'unavailable',
       })
+    })
+  })
+
+  describe('Software (SW2b)', () => {
+    const software = (overrides: Partial<SubmitDeps> = {}) =>
+      deps({
+        findTenant: vi.fn(async () => ({
+          id: 2,
+          name: 'PRO-KOM Software',
+          line: 'software' as const,
+          notificationEmail: 's@p.pl',
+        })),
+        ...overrides,
+      })
+    const softwareRequest = { host: 'software.localhost:3000', ip: '203.0.113.9' }
+    const project = {
+      ...body,
+      type: 'list',
+      message: '',
+      items: [
+        { slug: 'strona-firmowa-z-panelem', quantity: 1 },
+        { slug: 'posnet-ergo-online', quantity: 1 },
+      ],
+    }
+
+    it('saves „Twój projekt” as solutions of this tenant, never as products', async () => {
+      const d = software()
+      expect((await submitInquiryWith(d, { ...softwareRequest, body: project })).ok).toBe(true)
+      expect(d.findSolutions).toHaveBeenCalledWith(2, [
+        'strona-firmowa-z-panelem',
+        'posnet-ergo-online',
+      ])
+      expect(d.findProducts).not.toHaveBeenCalled()
+      expect(d.save).toHaveBeenCalledWith(
+        expect.objectContaining({
+          line: 'software',
+          items: [{ solution: 11, nameSnapshot: 'Strona firmowa z panelem', quantity: 1 }],
+        }),
+      )
+    })
+
+    it('rejects a project with no solution of this site, without saving', async () => {
+      const d = software()
+      const result = await submitInquiryWith(d, {
+        ...softwareRequest,
+        body: { ...project, items: [{ slug: 'posnet-ergo-online', quantity: 1 }] },
+      })
+      expect(result).toEqual({ ok: false, error: 'invalid', fields: ['items'] })
+      expect(d.save).not.toHaveBeenCalled()
+    })
+
+    it('saves an audit with the address and writes its message from it', async () => {
+      const d = software()
+      const audit = { ...body, type: 'audit', message: '', auditUrl: 'https://firma.pl' }
+      expect((await submitInquiryWith(d, { ...softwareRequest, body: audit })).ok).toBe(true)
+      expect(d.save).toHaveBeenCalledWith(
+        expect.objectContaining({
+          type: 'audit',
+          auditUrl: 'https://firma.pl',
+          message: 'Prośba o audyt strony: https://firma.pl',
+        }),
+      )
     })
   })
 })

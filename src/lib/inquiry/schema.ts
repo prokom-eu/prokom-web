@@ -4,7 +4,7 @@ import { MAX_ITEMS, MAX_NOTE, MAX_QTY } from '../cart/cart'
 import { isValidNip, normalizeNip } from '../site/company'
 import type { Line } from '../tenant/lines'
 import { CONSENT_CLAUSE } from './consent'
-import { INQUIRY_TYPES, PREFERRED_CONTACTS } from './types'
+import { INQUIRY_TYPES, isSoftwareTopic, PREFERRED_CONTACTS, SOFTWARE_ONLY_CONTACTS } from './types'
 
 // Characters of the serialized answers (UTF-16), well under the route's body limit.
 const MAX_WIZARD_CHARS = 8 * 1024
@@ -54,6 +54,8 @@ const baseSchema = z.object({
   ),
   city: optionalText(100),
   message: optionalText(5000),
+  // The site to audit (`audit`) or the customer's current site (wizard, „mam już stronę”).
+  auditUrl: optionalText(2000).pipe(z.url({ protocol: /^https?$/ }).optional()),
   preferredContact: z.enum(PREFERRED_CONTACTS).optional(),
   deadline: optionalText(100),
   topics: z.array(requiredText(100)).max(10).default([]),
@@ -91,6 +93,28 @@ function inquirySchemaFor(line: Line | undefined) {
     // Wizard answers belong to the wizard only, like items to the list (B10c).
     if (data.type !== 'wizard' && data.wizard !== undefined)
       issue('wizard', 'answers only in the wizard')
+
+    // Software (ADR-014 §3): the audit form names the site; the server writes its message.
+    if (data.type === 'audit' && line !== 'software') issue('type', 'audit on Software only')
+    if (data.type === 'audit' && data.auditUrl === undefined) issue('auditUrl', 'address required')
+    const auditUrlAllowed = line === 'software' && (data.type === 'audit' || data.type === 'wizard')
+    if (data.auditUrl !== undefined && !auditUrlAllowed) {
+      issue('auditUrl', 'address only on a Software audit or wizard')
+    }
+    if (
+      data.preferredContact !== undefined &&
+      SOFTWARE_ONLY_CONTACTS.includes(data.preferredContact) &&
+      line !== 'software'
+    ) {
+      issue('preferredContact', 'meeting and online call on Software only')
+    }
+    if (line === 'software') {
+      if (data.type !== 'search' && !data.topics.every(isSoftwareTopic)) {
+        issue('topics', 'unknown topic')
+      }
+      // „Twój projekt” lists solutions, not quantities (rozstrz. SW0 6).
+      if (data.items.some((item) => item.quantity !== 1)) issue('items', 'one of each solution')
+    }
 
     // „Jak się skontaktować? E-mail” needs an address to write to.
     if (data.preferredContact === 'email' && data.email === undefined) {

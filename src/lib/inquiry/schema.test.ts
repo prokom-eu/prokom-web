@@ -205,3 +205,70 @@ describe('parseInquiryInput — types of the Biznes forms (B8)', () => {
     expect(errorsOf({ ...valid, phone: undefined }, 'software')).toEqual([])
   })
 })
+
+describe('parseInquiryInput — Software forms (SW2b, ADR-014 §3)', () => {
+  const audit = { ...valid, type: 'audit', message: undefined, auditUrl: 'https://firma.pl' }
+  const project = {
+    ...valid,
+    type: 'list',
+    items: [{ slug: 'strona-firmowa-z-panelem', quantity: 1 }],
+  }
+
+  it('accepts an audit with the address of the site, without a message', () => {
+    expect(errorsOf(audit, 'software')).toEqual([])
+    expect(parseInquiryInput(audit, 'software').data?.auditUrl).toBe('https://firma.pl')
+  })
+
+  it('requires an http(s) address on an audit, and the audit on Software only', () => {
+    expect(errorsOf({ ...audit, auditUrl: undefined }, 'software')).toContain('auditUrl')
+    expect(errorsOf({ ...audit, auditUrl: 'ftp://firma.pl' }, 'software')).toContain('auditUrl')
+    expect(errorsOf({ ...audit, auditUrl: 'firma.pl' }, 'software')).toContain('auditUrl')
+    expect(errorsOf({ ...audit, phone: '+48 600 100 200' }, 'biznes')).toContain('type')
+  })
+
+  it('accepts the address only on an audit or in the wizard („mam już stronę”)', () => {
+    expect(errorsOf({ ...valid, auditUrl: 'https://firma.pl' }, 'software')).toContain('auditUrl')
+    expect(
+      errorsOf(
+        { ...valid, type: 'wizard', wizard: { need: 'www' }, auditUrl: 'https://firma.pl' },
+        'software',
+      ),
+    ).toEqual([]) // Biznes forms never take it, the wizard neither.
+    expect(
+      errorsOf(
+        {
+          ...valid,
+          type: 'wizard',
+          wizard: { firma: 'gastro' },
+          phone: '+48 600 100 200',
+          auditUrl: 'https://firma.pl',
+        },
+        'biznes',
+      ),
+    ).toContain('auditUrl')
+  })
+
+  it('accepts a meeting or an online call as the contact on Software only', () => {
+    for (const preferredContact of ['meeting', 'online']) {
+      expect(errorsOf({ ...valid, preferredContact }, 'software')).toEqual([])
+      expect(
+        errorsOf({ ...valid, preferredContact, phone: '+48 600 100 200' }, 'biznes'),
+      ).toContain('preferredContact')
+    }
+  })
+
+  it('accepts only the Software topics on a Software form', () => {
+    expect(errorsOf({ ...valid, topics: ['strona', 'laczenie'] }, 'software')).toEqual([])
+    expect(errorsOf({ ...valid, topics: ['kasy'] }, 'software')).toContain('topics')
+  })
+
+  it('takes one of each solution in „Twój projekt” (quantity 1)', () => {
+    expect(errorsOf(project, 'software')).toEqual([])
+    expect(
+      errorsOf(
+        { ...project, items: [{ slug: 'strona-firmowa-z-panelem', quantity: 2 }] },
+        'software',
+      ),
+    ).toContain('items')
+  })
+})

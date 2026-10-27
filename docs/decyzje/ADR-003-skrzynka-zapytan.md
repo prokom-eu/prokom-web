@@ -46,6 +46,7 @@ Docelowo zapytania żyją w PRO-KOM System (Django, styczeń 2027). Pierwsza str
 Kontrakt `POST /api/inquiry` rozszerzony o formularze prokombiznes.pl (ADR-012 §3, spec. §8.4). Pola i reguły są w `lib/inquiry/schema.ts` (Zod) i przechodzą 1:1 do modelu `Inquiry` w PRO-KOM System.
 - **Nowe pola:**
   - `type`: `contact` (domyślny, więc formularze innych linii działają bez zmian) / `list` (lista zapytania) / `wizard` (kreator) / `search` („Zapytaj o X”);
+  - Software (SW2b, 27.10.2026) dokłada: `type` `audit`, `auditUrl`, `preferredContact` `meeting` / `online`, tematy Software w `topics[]` i `items[].solution` — szczegóły i reguły per linia w ADR-014 §3.1.
   - `items[]`: `{ slug, quantity ≤ 999, note ≤ 500 }`, maks. 50 pozycji, tylko w typie `list`. Serwer dopasowuje slugi do opublikowanych produktów **tego tenanta** i zapisuje `{ product, nameSnapshot }` z bazy. Nieznane slugi pomija. Lista bez żadnej znanej pozycji jest odrzucana;
   - `city` (Miejscowość), `preferredContact` (`phone` / `whatsapp` / `email`; dawne „Obojętnie” usunięte), `deadline`, `topics[]` (fraza „Zapytaj o X”), `wizard` (JSON odpowiedzi, ≤ 8 tys. znaków).
 - **Wymagalność:**

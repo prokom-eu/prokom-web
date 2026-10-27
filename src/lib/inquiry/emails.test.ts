@@ -164,3 +164,21 @@ describe('confirmationEmail', () => {
     expect(confirmationEmail({ ...inquiry, email: undefined })).toBeNull()
   })
 })
+
+describe('notificationEmail — Software (SW2b)', () => {
+  it('names the Software topics and gives the site of an audit (SW2b)', () => {
+    const audit = notificationEmail(
+      {
+        ...inquiry,
+        line: 'software',
+        type: 'audit',
+        topics: ['laczenie', 'audyt'],
+        auditUrl: 'https://firma.pl',
+      },
+      { to: 's@p.pl', panelUrl: 'http://panel.localhost/admin' },
+    )
+    expect(audit.text).toContain('Tematy: Łączenie programów, Audyt')
+    expect(audit.text).toContain('Adres strony: https://firma.pl')
+    expect(audit.subject).toContain('Audyt')
+  })
+})
