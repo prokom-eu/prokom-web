@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import type { CatalogIndex, IndexProduct } from './catalogIndex'
-import { cardFallback, productBadges } from './card'
+import { cardIcon, productBadges } from './card'
 
 const product = (overrides: Partial<IndexProduct>): IndexProduct => ({
   slug: 'p',
@@ -58,7 +58,7 @@ describe('productBadges (spec. §5.3, at most 2)', () => {
   })
 })
 
-describe('cardFallback', () => {
+describe('cardIcon', () => {
   const index = {
     categories: [
       { slug: 'kasy', name: 'Kasy', group: 'sprzedaz', icon: 'store', count: 1 },
@@ -70,17 +70,12 @@ describe('cardFallback', () => {
     ],
   } as unknown as CatalogIndex
 
-  it('takes the main category icon and the group gradient', () => {
-    expect(cardFallback(product({ categories: ['kasy'], group: 'sprzedaz' }), index)).toEqual({
-      icon: 'store',
-      gradient: ['#111111', '#222222'],
-    })
+  it('takes the main category icon', () => {
+    expect(cardIcon(product({ categories: ['kasy'], group: 'sprzedaz' }), index)).toBe('store')
   })
 
-  it('falls back to the group icon, then to the store icon without a gradient', () => {
-    expect(cardFallback(product({ categories: ['uslugi'], group: 'serwis' }), index).icon).toBe(
-      'wrench',
-    )
-    expect(cardFallback(product({}), index)).toEqual({ icon: 'store', gradient: null })
+  it('falls back to the group icon, then to the store icon', () => {
+    expect(cardIcon(product({ categories: ['uslugi'], group: 'serwis' }), index)).toBe('wrench')
+    expect(cardIcon(product({}), index)).toBe('store')
   })
 })

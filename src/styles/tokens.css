@@ -8,7 +8,8 @@
  * Semantic variables (set per line through `data-line`, per theme through `data-theme`):
  *   --accent, --accent-2, --accent-text, --accent-on-dark, --accent-ink (label on accent buttons)
  *   --surface, --surface-2, --surface-3, --card, --surface-dark (dark rhythm blocks)
- *   --ink, --ink-2, --ink-3 (text, secondary, tertiary), --border, --glow, --grid
+ *   --ink, --ink-2, --ink-3 (text, secondary, tertiary), --border, --glow, --grid (Software only)
+ *   --st1, --st2, --st3, --sth, --shd (studio under product photos — Biznes, K31-ZMIANY §3)
  *   --border-input (form fields, ≥ 3:1 on every surface — WCAG 1.4.11; `--border` is decorative)
  *   --ok, --warn (status dots: open / partner, closed; ≥ 3:1; on Biznes `--warn` is also small
  *   orange text on cards and `surface-2`, ≥ 4.5:1 — themes.test.ts), --ok-text (small green labels)
@@ -59,7 +60,12 @@
   --c-biznes-light-ink-3: #6b7590;
   --c-biznes-light-border: #e2e6ef;
   --c-biznes-light-glow: rgba(74, 123, 224, 0.22);
-  --c-biznes-light-grid: rgba(36, 79, 176, 0.07);
+  /* Studio background under product photos (K31-ZMIANY §3): gradient stops, desk, shadow. */
+  --c-biznes-light-st1: #ffffff;
+  --c-biznes-light-st2: #f2f5fb;
+  --c-biznes-light-st3: #e1e8f4;
+  --c-biznes-light-sth: rgba(36, 79, 176, 0.055);
+  --c-biznes-light-shd: rgba(13, 19, 38, 0.26);
   /* Biznes — dark theme of the visualisation. */
   --c-biznes-night-surface: #060a15;
   --c-biznes-night-surface-2: #0b1222;
@@ -72,7 +78,11 @@
   --c-biznes-night-accent-2: #8fb0f4;
   --c-biznes-night-accent-ink: #06102a;
   --c-biznes-night-glow: rgba(74, 123, 224, 0.42);
-  --c-biznes-night-grid: rgba(143, 176, 244, 0.07);
+  --c-biznes-night-st1: #1c2a4d;
+  --c-biznes-night-st2: #111b35;
+  --c-biznes-night-st3: #0a1226;
+  --c-biznes-night-sth: rgba(143, 176, 244, 0.06);
+  --c-biznes-night-shd: rgba(0, 0, 0, 0.6);
   /* Biznes — dark rhythm blocks, the same in both themes. */
   --c-biznes-navy: #0a1430;
   /* Need tiles of the home page (icon squares, tags), from boards/Main.dc.html. */
@@ -206,6 +216,12 @@
   --accent-soft: color-mix(in srgb, var(--accent) 10%, var(--surface));
   --accent-line: color-mix(in srgb, var(--accent) 35%, var(--surface));
   --stage: var(--surface-2);
+  /* Studio under product photos (Biznes, K31-ZMIANY §3); neutral on other lines. */
+  --st1: var(--surface);
+  --st2: var(--surface-2);
+  --st3: var(--surface-3);
+  --sth: transparent;
+  --shd: transparent;
   --chip: var(--surface-2);
   --glow-2: transparent;
   --dot: transparent;
@@ -247,7 +263,11 @@
   --border: var(--c-biznes-light-border);
   --border-input: var(--c-biznes-light-ink-3);
   --glow: var(--c-biznes-light-glow);
-  --grid: var(--c-biznes-light-grid);
+  --st1: var(--c-biznes-light-st1);
+  --st2: var(--c-biznes-light-st2);
+  --st3: var(--c-biznes-light-st3);
+  --sth: var(--c-biznes-light-sth);
+  --shd: var(--c-biznes-light-shd);
   --tone-green: var(--c-biznes-tone-green);
   --tone-green-2: var(--c-biznes-tone-green-2);
   --tone-red: var(--c-biznes-tone-red);
@@ -349,7 +369,11 @@
   --border: var(--c-biznes-night-border);
   --border-input: var(--c-biznes-night-ink-3);
   --glow: var(--c-biznes-night-glow);
-  --grid: var(--c-biznes-night-grid);
+  --st1: var(--c-biznes-night-st1);
+  --st2: var(--c-biznes-night-st2);
+  --st3: var(--c-biznes-night-st3);
+  --sth: var(--c-biznes-night-sth);
+  --shd: var(--c-biznes-night-shd);
   --ok: var(--c-ok-night);
   --ok-text: var(--c-ok-night);
   --warn: var(--c-warn-night);
@@ -411,7 +435,11 @@
     --border: var(--c-biznes-night-border);
     --border-input: var(--c-biznes-night-ink-3);
     --glow: var(--c-biznes-night-glow);
-    --grid: var(--c-biznes-night-grid);
+    --st1: var(--c-biznes-night-st1);
+    --st2: var(--c-biznes-night-st2);
+    --st3: var(--c-biznes-night-st3);
+    --sth: var(--c-biznes-night-sth);
+    --shd: var(--c-biznes-night-shd);
     --ok: var(--c-ok-night);
     --ok-text: var(--c-ok-night);
     --warn: var(--c-warn-night);

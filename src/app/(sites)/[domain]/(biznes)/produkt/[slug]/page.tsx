@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
-import { cardFallback, productBadges, productHref } from '@/lib/catalog/card'
+import { cardIcon, productBadges, productHref } from '@/lib/catalog/card'
 import { getCatalogIndex, getProductView } from '@/lib/catalog/data'
 import { categoryHref } from '@/lib/catalog/category'
 import { CATALOG_PATH } from '@/lib/catalog/filters'
@@ -118,7 +118,7 @@ export default async function ProductPage({ params }: Props) {
     name: item.name,
     benefit: item.benefit ?? null,
     image: item.image ?? null,
-    ...cardFallback(item, index),
+    icon: cardIcon(item, index),
   }))
   const alternatives = alternativeProducts(index, product.slug, product.alternatives)
   const similar = similarProducts(index, product.slug)
@@ -142,7 +142,7 @@ export default async function ProductPage({ params }: Props) {
               hotspots={product.hotspots}
               modules={product.modules}
               badges={badges}
-              fallback={listed ? cardFallback(listed, index) : { icon: 'store', gradient: null }}
+              icon={listed ? cardIcon(listed, index) : 'store'}
             />
             <ProductBox
               product={product}

@@ -140,6 +140,15 @@ describe.each(cases.filter(({ line }) => line === 'biznes'))(
     it('orange label of the downtime calculator reaches 4.5:1 on its card', () => {
       expect(contrastRatio(hex('--warn', s), hex('--card', s))).toBeGreaterThanOrEqual(4.5)
     })
+
+    it('the no-photo note reaches 4.5:1 on every studio stop (K31-ZMIANY §4.10)', () => {
+      for (const stop of ['--st1', '--st2', '--st3']) {
+        expect(
+          contrastRatio(hex('--ink-2', s), hex(stop, s)),
+          `--ink-2 on ${stop}`,
+        ).toBeGreaterThanOrEqual(4.5)
+      }
+    })
   },
 )
 

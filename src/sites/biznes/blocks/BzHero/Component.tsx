@@ -34,10 +34,6 @@ export async function BzHeroBlock({ block, isFirst, tenantId }: Props) {
 
   return (
     <section id="start" className="relative overflow-hidden pt-6 pb-20 sm:pt-10 sm:pb-24">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle,var(--grid)_1px,transparent_1.2px)] [mask-image:radial-gradient(ellipse_at_70%_40%,black,transparent_70%)] bg-size-[26px_26px]"
-      />
       <Container
         wide
         className="relative grid items-center gap-7 min-[1080px]:grid-cols-[minmax(0,1fr)_minmax(0,1.08fr)]"

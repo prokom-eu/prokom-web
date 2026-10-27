@@ -44,11 +44,16 @@ function LinkColumn({ title, links }: { title: string; links: { label: string; h
 
 /**
  * Footer of the Biznes line, five columns of the `Main` design (spec. §3.4, layout chosen
- * 18.10): the company with hours, status badges and towns served; Oferta (catalog groups);
- * Najważniejsze and Branże i firma (panel); Kontakt. Bottom row: copyright, NIP, legal links.
+ * 18.10, K3.1 links in K31-ZMIANY §11.4): the company with hours, status badges and towns
+ * served; Oferta (catalog groups — the K3.1 links to sets, the plan and the brand showrooms come
+ * with their routes); Najważniejsze and Branże i firma (panel); Kontakt with the line's e-mail.
+ * Bottom row: copyright, NIP, legal links.
  * Extra bottom padding on phones keeps the last line above the sticky bar (`MobileBar`).
  */
 export function BiznesFooter({ name, company, settings, biznes, menu, badges, contact }: Props) {
+  // One address on the whole site (K31-ZMIANY §11.4): the line's inbox, else the company's.
+  const email = settings.email ?? company?.email ?? null
+  // Only the first location (Rabka on Biznes, spec. §1) — never the list of all branches.
   const main = company?.locations[0]
   // `CompanyData` phones are shared by all lines and may repeat the main number shown above.
   const otherPhones = (company?.phones ?? []).filter(
@@ -149,10 +154,10 @@ export function BiznesFooter({ name, company, settings, biznes, menu, badges, co
                 </li>
               )
             })}
-            {company && (
+            {email && (
               <li>
-                <a href={`mailto:${company.email}`} className={LINK}>
-                  {company.email}
+                <a href={`mailto:${email}`} className={LINK}>
+                  {email}
                 </a>
               </li>
             )}

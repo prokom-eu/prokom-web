@@ -9,6 +9,8 @@ import type { ProductBadge, BadgeTone } from '@/lib/catalog/card'
 import type { IconName } from '@/lib/catalog/options'
 import type { ProductView } from '@/lib/catalog/product'
 
+import { ProductStage, STAGE_SHADOW, StageFallback } from '../ProductStage'
+
 const BADGE: Record<BadgeTone, string> = {
   service: 'bg-ink text-surface',
   new: 'bg-ok-text text-surface',
@@ -22,8 +24,8 @@ type Props = {
   hotspots: ProductView['hotspots']
   modules: ProductView['modules']
   badges: ProductBadge[]
-  /** Picture without a photo: the icon on the gradient of the product's group, as on the card. */
-  fallback: { icon: IconName; gradient: [string, string] | null }
+  /** Picture without a photo: the category icon on the studio, as on the card. */
+  icon: IconName
 }
 
 /**
@@ -31,7 +33,7 @@ type Props = {
  * the panel — numbered points over the first photo with their description below it. Module
  * cards follow the gallery. Points never cover the photo for keyboard users: each is a button.
  */
-export function ProductGallery({ name, images, hotspots, modules, badges, fallback }: Props) {
+export function ProductGallery({ name, images, hotspots, modules, badges, icon }: Props) {
   const [active, setActive] = useState(0)
   const [point, setPoint] = useState(0)
   const id = useId()
@@ -41,8 +43,8 @@ export function ProductGallery({ name, images, hotspots, modules, badges, fallba
 
   return (
     <div className="flex min-w-0 flex-col gap-3">
-      <div className="relative isolate overflow-hidden rounded-[26px] bg-surface-2 bg-[radial-gradient(ellipse_at_50%_70%,var(--glow),transparent_68%)] shadow-[inset_0_0_0_1px_var(--border)] sm:rounded-[32px]">
-        <div className="relative flex min-h-[300px] items-center justify-center px-6 pb-6 pt-14 sm:min-h-[480px] sm:px-10 sm:pb-10">
+      <div className="relative isolate overflow-hidden rounded-[26px] bg-card sm:rounded-[32px]">
+        <ProductStage className="min-h-[300px] px-6 pb-6 pt-14 sm:min-h-[480px] sm:px-10 sm:pb-10">
           {image ? (
             // The frame takes the photo's own size, so points in % land where they were set.
             <div className="relative">
@@ -50,7 +52,10 @@ export function ProductGallery({ name, images, hotspots, modules, badges, fallba
                 image={image}
                 sizes="(min-width: 1024px) 720px, 100vw"
                 eager={active === 0}
-                className="block h-auto max-h-[240px] w-auto max-w-full drop-shadow-[0_30px_40px_var(--glow)] sm:max-h-[400px]"
+                className={cx(
+                  'block h-auto max-h-[240px] w-auto max-w-full sm:max-h-[380px]',
+                  STAGE_SHADOW,
+                )}
               />
               {showPoints &&
                 hotspots.map((spot, position) => (
@@ -74,21 +79,9 @@ export function ProductGallery({ name, images, hotspots, modules, badges, fallba
                 ))}
             </div>
           ) : (
-            <span
-              aria-hidden="true"
-              className="flex size-28 items-center justify-center rounded-[34px] bg-accent-text text-white sm:size-36"
-              style={
-                fallback.gradient
-                  ? {
-                      backgroundImage: `linear-gradient(145deg, ${fallback.gradient[0]}, ${fallback.gradient[1]})`,
-                    }
-                  : undefined
-              }
-            >
-              <Icon name={fallback.icon} className="size-12 sm:size-16" />
-            </span>
+            <StageFallback icon={icon} size="lg" name={name} />
           )}
-        </div>
+        </ProductStage>
         {badges.length > 0 && (
           <ul className="absolute inset-x-4 top-4 flex flex-wrap gap-1.5 sm:inset-x-5 sm:top-5">
             {badges.map((badge) => (
@@ -116,6 +109,10 @@ export function ProductGallery({ name, images, hotspots, modules, badges, fallba
             )}
           </div>
         )}
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 rounded-[inherit] shadow-[inset_0_0_0_1px_var(--border)]"
+        />
       </div>
 
       {images.length > 1 && (
@@ -127,14 +124,25 @@ export function ProductGallery({ name, images, hotspots, modules, badges, fallba
                 onClick={() => setActive(position)}
                 aria-pressed={active === position}
                 aria-label={`Zdjęcie ${position + 1} z ${images.length}: ${name}`}
-                className={cx(
-                  'relative flex size-[72px] items-center justify-center overflow-hidden rounded-xl bg-surface-2 p-1.5 sm:size-20',
-                  active === position
-                    ? 'shadow-[inset_0_0_0_2px_var(--accent-text)]'
-                    : 'shadow-[inset_0_0_0_1px_var(--border)] hover:shadow-[inset_0_0_0_1px_var(--ink-3)]',
-                )}
+                className="group/thumb relative block overflow-hidden rounded-xl"
               >
-                <MediaImage image={thumb} sizes="80px" className="h-full w-full object-contain" />
+                <ProductStage as="span" className="size-[72px] p-2 sm:size-20">
+                  <MediaImage
+                    image={thumb}
+                    sizes="80px"
+                    className="relative h-full w-full object-contain"
+                  />
+                </ProductStage>
+                {/* The frame over the studio, so the photo never covers it. */}
+                <span
+                  aria-hidden="true"
+                  className={cx(
+                    'pointer-events-none absolute inset-0 rounded-xl',
+                    active === position
+                      ? 'shadow-[inset_0_0_0_2px_var(--accent-text)]'
+                      : 'shadow-[inset_0_0_0_1px_var(--border)] group-hover/thumb:shadow-[inset_0_0_0_1px_var(--ink-3)]',
+                  )}
+                />
               </button>
             </li>
           ))}

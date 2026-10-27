@@ -58,7 +58,7 @@ import {
   type SeedCatalog,
 } from './map'
 import { hasSameValues } from '../compare'
-import { FOOTER_LEGAL_LINKS, FOOTER_TEXT, footerData } from './footer'
+import { FOOTER_LEGAL_LINKS, FOOTER_TEXT, footerData, upgradedImportant } from './footer'
 import { seedBiznesCategoryContent } from './category'
 import { seedBiznesIndustries } from './industries'
 import { seedBiznesNews } from './posts'
@@ -710,6 +710,25 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
       },
       ...local,
     })
+  }
+
+  // --- footer K3.1 (K31b): „Najważniejsze” still as the old seed wrote it → the new links ---
+  if (siteSettings && !footerMissing) {
+    const current = await payload.findByID({
+      collection: 'site-settings',
+      id: siteSettings.id,
+      ...local,
+    })
+    const important = upgradedImportant(current.biznes?.footer?.important)
+    count('site-settings footer K3.1', important ? 'updated' : false)
+    if (important && current.biznes?.footer) {
+      await payload.update({
+        collection: 'site-settings',
+        id: siteSettings.id,
+        data: { biznes: { ...current.biznes, footer: { ...current.biznes.footer, important } } },
+        ...local,
+      })
+    }
   }
 
   // --- WhatsApp: the line's own (sample) number, spec. §1 "ten sam numer na WhatsApp" ---
