@@ -18,6 +18,7 @@ import { CATALOG_PAGE_SIZE } from '@/lib/catalog/filters'
 import { plural } from '@/lib/plural'
 
 import { ProductCard } from '../catalog/ProductCard'
+import { ProductStage, STAGE_SHADOW } from '../ProductStage'
 
 type Props = {
   /** Index with only this category's products (the page never sends the whole catalog). */
@@ -121,10 +122,7 @@ export function CategoryGrid({ index, help, printersHref }: Props) {
                       'shadow-[0_20px_40px_-28px_var(--glow),inset_0_0_0_2px_var(--accent-text)] hover:shadow-[0_20px_40px_-28px_var(--glow),inset_0_0_0_2px_var(--accent-text)]',
                   )}
                 >
-                  <span
-                    aria-hidden="true"
-                    className="flex h-24 items-center justify-center rounded-2xl bg-white shadow-[inset_0_0_0_1px_var(--border)] sm:h-28"
-                  >
+                  <ProductStage as="span" className="h-24 rounded-2xl sm:h-28">
                     {option.image && (
                       <Image
                         src={option.image.url}
@@ -132,10 +130,13 @@ export function CategoryGrid({ index, help, printersHref }: Props) {
                         width={option.image.width}
                         height={option.image.height}
                         unoptimized
-                        className="h-auto max-h-20 w-auto max-w-[70%] object-contain sm:max-h-24"
+                        className={cx(
+                          'relative h-auto max-h-20 w-auto max-w-[70%] object-contain sm:max-h-24',
+                          STAGE_SHADOW,
+                        )}
                       />
                     )}
-                  </span>
+                  </ProductStage>
                   <span
                     aria-hidden="true"
                     className={cx(

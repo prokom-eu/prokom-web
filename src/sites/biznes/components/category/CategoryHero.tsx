@@ -1,11 +1,13 @@
 import Image from 'next/image'
 
+import { cx } from '@/components/ui/cx'
 import { MediaImage } from '@/components/MediaImage'
 import type { IndexImage, IndexLogo } from '@/lib/catalog/catalogIndex'
 import type { CategoryView } from '@/lib/catalog/category'
 
 import type { Crumb } from '../Breadcrumbs'
 import { CatalogHero } from '../catalog/CatalogHero'
+import { STAGE_BG } from '../ProductStage'
 
 type Props = {
   category: CategoryView
@@ -37,7 +39,12 @@ export function CategoryHero({ category, crumbs, pill, primary, phone, photos, l
       chips={category.highlights}
       visual={
         stage && (
-          <div className="relative overflow-hidden rounded-[32px] bg-surface-2 bg-[linear-gradient(var(--grid)_1px,transparent_1px),linear-gradient(90deg,var(--grid)_1px,transparent_1px)] bg-size-[28px_28px] p-6 shadow-[inset_0_0_0_1px_var(--border)] sm:p-8">
+          <div
+            className={cx(
+              'relative overflow-hidden rounded-[32px] p-6 shadow-[inset_0_0_0_1px_var(--border)] sm:p-8',
+              STAGE_BG,
+            )}
+          >
             {logos.length > 0 && (
               <ul className="relative z-10 flex flex-wrap justify-between gap-3">
                 {logos.map(({ name, logo }) => (

@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
+import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
 import { productHref } from '@/lib/catalog/card'
 import type { IndexImage } from '@/lib/catalog/catalogIndex'
@@ -11,15 +12,15 @@ import { cartActions, useCart } from '@/lib/cart/store'
 import { plural } from '@/lib/plural'
 
 import { AddToCartButton } from '../AddToCartButton'
+import { ProductStage, STAGE_SHADOW, StageFallback } from '../ProductStage'
 
 export type KitItem = {
   slug: string
   name: string
   benefit: string | null
   image: IndexImage | null
-  /** Picture without a photo: the icon on its group's gradient, as on the catalog card. */
+  /** Picture without a photo: the category icon on the studio, as on the catalog card. */
   icon: IconName
-  gradient: [string, string] | null
 }
 
 const added = (count: number) =>
@@ -65,7 +66,7 @@ export function ProductKit({ items }: { items: KitItem[] }) {
             key={item.slug}
             className="flex flex-col gap-3 rounded-[22px] bg-card p-3.5 shadow-[inset_0_0_0_1px_var(--border)]"
           >
-            <div className="flex h-24 items-center justify-center overflow-hidden rounded-2xl bg-surface-2 bg-[radial-gradient(ellipse_at_50%_90%,var(--glow),transparent_70%)]">
+            <ProductStage className="h-28 rounded-2xl">
               {item.image ? (
                 <Image
                   src={item.image.url}
@@ -73,24 +74,15 @@ export function ProductKit({ items }: { items: KitItem[] }) {
                   width={item.image.width}
                   height={item.image.height}
                   unoptimized
-                  className="max-h-20 w-auto max-w-[80%] object-contain"
+                  className={cx(
+                    'relative max-h-[78%] w-auto max-w-[78%] object-contain',
+                    STAGE_SHADOW,
+                  )}
                 />
               ) : (
-                <span
-                  aria-hidden="true"
-                  className="flex size-12 items-center justify-center rounded-2xl bg-accent-text text-white"
-                  style={
-                    item.gradient
-                      ? {
-                          backgroundImage: `linear-gradient(145deg, ${item.gradient[0]}, ${item.gradient[1]})`,
-                        }
-                      : undefined
-                  }
-                >
-                  <Icon name={item.icon} className="size-6" />
-                </span>
+                <StageFallback icon={item.icon} />
               )}
-            </div>
+            </ProductStage>
             <h3 className="font-extrabold leading-snug">
               <Link href={productHref(item.slug)} className="text-ink hover:text-accent-text">
                 {item.name}

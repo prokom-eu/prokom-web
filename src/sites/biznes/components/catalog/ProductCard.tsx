@@ -2,11 +2,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import { cx } from '@/components/ui/cx'
-import { Icon } from '@/components/ui/Icon'
-import { cardFallback, productBadges, productHref, type BadgeTone } from '@/lib/catalog/card'
+import { cardIcon, productBadges, productHref, type BadgeTone } from '@/lib/catalog/card'
 import type { CatalogIndex, IndexProduct } from '@/lib/catalog/catalogIndex'
 
 import { AddToCartButton } from '../AddToCartButton'
+import { ProductStage, STAGE_SHADOW, StageFallback } from '../ProductStage'
 
 const BADGE: Record<BadgeTone, string> = {
   service: 'bg-ink text-surface',
@@ -42,7 +42,6 @@ export function ProductCard({
   const href = productHref(product.slug)
   const brand = index.brands.find((item) => item.slug === product.brand)
   const category = index.categories.find((item) => item.slug === product.categories[0])
-  const fallback = cardFallback(product, index)
   const badges = productBadges(product, index.brands).slice(0, home ? 1 : undefined)
 
   return (
@@ -53,9 +52,8 @@ export function ProductCard({
         'group/card relative flex w-full flex-col overflow-hidden rounded-[18px] bg-card shadow-[inset_0_0_0_1px_var(--border)] transition-[translate,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_24px_48px_-28px_var(--glow),inset_0_0_0_1px_var(--border)] motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:rounded-3xl',
       )}
     >
-      <div
+      <ProductStage
         className={cx(
-          'relative flex items-center justify-center overflow-hidden bg-surface-2 bg-[radial-gradient(ellipse_at_50%_92%,var(--glow),transparent_68%)]',
           // Home strip on a phone: wide cards (78%) with the board's 180 px picture.
           home ? 'h-[180px]' : 'h-32',
           // `cx` only joins classes: each size is set once, never overridden.
@@ -70,24 +68,13 @@ export function ProductCard({
             height={product.image.height}
             unoptimized
             className={cx(
-              'w-auto max-w-[76%] object-contain drop-shadow-[0_24px_30px_var(--glow)]',
-              home ? 'max-h-[140px] sm:max-h-[156px]' : 'max-h-[104px] sm:max-h-[156px]',
+              'relative w-auto max-w-[76%] object-contain',
+              STAGE_SHADOW,
+              home ? 'max-h-[140px] sm:max-h-[156px]' : 'max-h-[100px] sm:max-h-[150px]',
             )}
           />
         ) : (
-          <span
-            aria-hidden="true"
-            className="flex size-[62px] items-center justify-center rounded-[20px] text-white sm:size-[92px] sm:rounded-[28px]"
-            style={
-              fallback.gradient
-                ? {
-                    backgroundImage: `linear-gradient(145deg, ${fallback.gradient[0]}, ${fallback.gradient[1]})`,
-                  }
-                : undefined
-            }
-          >
-            <Icon name={fallback.icon} className="size-7 sm:size-10" />
-          </span>
+          <StageFallback icon={cardIcon(product, index)} />
         )}
         {badges.length > 0 && (
           <ul className="absolute inset-x-2 top-2 flex flex-wrap gap-1.5 sm:inset-x-3 sm:top-3">
@@ -106,7 +93,7 @@ export function ProductCard({
             ))}
           </ul>
         )}
-      </div>
+      </ProductStage>
 
       <div
         className={cx(

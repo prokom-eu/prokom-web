@@ -9,6 +9,7 @@ import { categoryHref } from '@/lib/catalog/category'
 import { plural } from '@/lib/plural'
 
 import { SectionHead } from '../home/SectionHead'
+import { ProductStage } from '../ProductStage'
 
 /** „W cenie” (board: „Kupujesz kasę, dostajesz spokój.”): cards with an icon, title and text. */
 export function IncludedCards({ included }: { included: CategoryView['included'] }) {
@@ -132,10 +133,7 @@ export function BoughtWith({ heading, tiles }: { heading: string; tiles: BoughtW
                 href={categoryHref(tile.slug)}
                 className="flex items-center gap-4 rounded-[20px] bg-card p-3 shadow-[inset_0_0_0_1px_var(--border)] transition-shadow hover:shadow-[0_20px_40px_-28px_var(--glow),inset_0_0_0_1px_var(--ink-3)]"
               >
-                <span
-                  aria-hidden="true"
-                  className="flex size-[72px] shrink-0 items-center justify-center rounded-2xl bg-surface-2"
-                >
+                <ProductStage as="span" className="size-[72px] shrink-0 rounded-2xl">
                   {tile.image ? (
                     <Image
                       src={tile.image.url}
@@ -143,12 +141,12 @@ export function BoughtWith({ heading, tiles }: { heading: string; tiles: BoughtW
                       width={tile.image.width}
                       height={tile.image.height}
                       unoptimized
-                      className="h-auto max-h-14 w-auto max-w-14 object-contain"
+                      className="relative h-auto max-h-14 w-auto max-w-14 object-contain"
                     />
                   ) : (
                     <Icon name={tile.icon ?? 'store'} className="size-7 text-accent-text" />
                   )}
-                </span>
+                </ProductStage>
                 <span className="min-w-0">
                   <span className="block font-extrabold text-ink">{tile.name}</span>
                   <span className="mt-0.5 block text-sm text-ink-3">
