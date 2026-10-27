@@ -31,7 +31,7 @@ const SITES: { host: string; line: string; dark: boolean; extra?: string[] }[] =
     ],
   },
   { host: 'instalacje.localhost', line: 'instalacje', dark: false },
-  { host: 'software.localhost', line: 'software', dark: true },
+  { host: 'software.localhost', line: 'software', dark: true, extra: ['/dobierz'] },
 ]
 const PATHS = ['/', '/kontakt']
 const WCAG = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']
