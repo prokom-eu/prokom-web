@@ -116,6 +116,8 @@ export const getSolutionsIndex = (tenantId: number): Promise<SolutionsIndex> =>
             prices: true,
             leadTimes: true,
             priceNote: true,
+            priceMonthly: true,
+            sizeNames: true,
           },
           ...read,
         }),
@@ -123,7 +125,8 @@ export const getSolutionsIndex = (tenantId: number): Promise<SolutionsIndex> =>
           collection: 'software-settings',
           where: inTenant,
           limit: 1,
-          select: { search: true },
+          // `wizard` is one JSON field: the price templates come with it.
+          select: { search: true, wizard: true },
           ...read,
         }),
       ])
@@ -136,6 +139,8 @@ export const getSolutionsIndex = (tenantId: number): Promise<SolutionsIndex> =>
       return buildSolutionsIndex({
         solutions: solutions.docs,
         search: settings.docs[0]?.search,
+        priceDisplay: (settings.docs[0]?.wizard as { priceDisplay?: unknown } | null | undefined)
+          ?.priceDisplay,
       })
     },
     ['solutions-index', String(tenantId)],

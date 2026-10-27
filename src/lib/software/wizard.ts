@@ -50,6 +50,20 @@ const template = (token: string) =>
 /** Keyed texts with the package's `_info` note (scope notes). */
 const notes = z.object({ _info: z.string().optional() }).catchall(text)
 
+/**
+ * How prices read on the site (kreator.json → `priceDisplay`): a chosen size, „od” the lowest,
+ * the monthly care price, no price and no term. Also used by the catalog cards (SW9).
+ */
+export const priceDisplaySchema = obj({
+  template: template('{cena}'),
+  templateFrom: template('{cena}'),
+  fallback: label,
+  termFallback: label,
+  monthTemplate: template('{cena}'),
+})
+
+export type PriceDisplay = z.infer<typeof priceDisplaySchema>
+
 export const softwareWizardSchema = obj({
   steps: z.array(label).length(5),
   needs: z.record(key, need),
@@ -98,13 +112,7 @@ export const softwareWizardSchema = obj({
     default: text,
     _rule: z.string().optional(),
   }),
-  priceDisplay: obj({
-    template: template('{cena}'),
-    templateFrom: template('{cena}'),
-    fallback: label,
-    termFallback: label,
-    monthTemplate: template('{cena}'),
-  }),
+  priceDisplay: priceDisplaySchema,
   scopeNotes: notes,
   mobile: obj({ previewToggle: z.tuple([label, label]) }),
   badges: z.array(label).max(5),

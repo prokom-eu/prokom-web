@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest'
 import {
   articleJsonLd,
   breadcrumbJsonLd,
+  serviceListJsonLd,
   faqJsonLd,
   organizationJsonLd,
   productJsonLd,
@@ -283,5 +284,48 @@ describe('articleJsonLd', () => {
     expect(data).not.toHaveProperty('description')
     expect(data).not.toHaveProperty('datePublished')
     expect(data).not.toHaveProperty('image')
+  })
+})
+
+describe('serviceListJsonLd', () => {
+  it('lists the services in order with their pages (spec. §5: ItemList of Service)', () => {
+    expect(
+      serviceListJsonLd({
+        name: 'Pełna oferta',
+        provider: 'PRO-KOM Software',
+        items: [
+          { name: 'Strona wizytówka', description: 'Jedna strona.', url: 'https://x.pl/a' },
+          { name: 'CRM', description: undefined, url: 'https://x.pl/b' },
+        ],
+      }),
+    ).toEqual({
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      name: 'Pełna oferta',
+      numberOfItems: 2,
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          item: {
+            '@type': 'Service',
+            name: 'Strona wizytówka',
+            description: 'Jedna strona.',
+            url: 'https://x.pl/a',
+            provider: { '@type': 'Organization', name: 'PRO-KOM Software' },
+          },
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          item: {
+            '@type': 'Service',
+            name: 'CRM',
+            url: 'https://x.pl/b',
+            provider: { '@type': 'Organization', name: 'PRO-KOM Software' },
+          },
+        },
+      ],
+    })
   })
 })

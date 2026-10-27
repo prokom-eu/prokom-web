@@ -9,7 +9,7 @@ export const SOLUTION_CATEGORIES = [
   { label: 'Systemy', value: 'systemy' },
   { label: 'Aplikacje', value: 'aplikacje' },
   { label: 'Automatyzacje', value: 'automatyzacje' },
-  { label: 'Opieka', value: 'opieka' },
+  { label: 'Opieka i audyt', value: 'opieka' },
 ] as const
 
 export type SolutionCategory = (typeof SOLUTION_CATEGORIES)[number]['value']
@@ -18,7 +18,7 @@ export type SolutionCategory = (typeof SOLUTION_CATEGORIES)[number]['value']
 export const SITUATIONS = [
   { label: 'Zaczynam od zera', value: 'Z' },
   { label: 'Mam program, brakuje mu czegoś', value: 'R' },
-  { label: 'Mam kilka programów, które się nie dogadują', value: 'P' },
+  { label: 'Mam kilka programów', value: 'P' },
 ] as const
 
 /** Industry groups of the catalog filter (`branze.json` → `groups`). */

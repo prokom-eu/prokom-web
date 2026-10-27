@@ -7,7 +7,7 @@ import { buildSiteMap, type SiteMapSection } from './siteLinks'
 
 /**
  * The site map of one tenant from the cached loaders (each filters by the tenant): pages, on
- * Biznes the catalog, on lines with news the posts. Shared by `sitemap.xml` and `/mapa-strony`.
+ * Biznes the catalog, on Software the catalog of solutions, on lines with news the posts. Shared by `sitemap.xml` and `/mapa-strony`.
  */
 export async function loadSiteMap(tenant: { id: number; line: Line }): Promise<SiteMapSection[]> {
   const catalog = tenant.line === 'biznes'
@@ -33,5 +33,6 @@ export async function loadSiteMap(tenant: { id: number; line: Line }): Promise<S
       })),
     },
     news: posts && { posts },
+    solutions: tenant.line === 'software',
   })
 }

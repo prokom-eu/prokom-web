@@ -4,6 +4,7 @@ import { CATALOG_PATH } from '../catalog/filters'
 import { industryHref } from '../catalog/industry'
 import { HOME_SLUG, pagePath } from '../pages/slug'
 import { NEWS_PATH, postHref } from '../posts/list'
+import { CATALOG_PATH as SOLUTIONS_PATH } from '../software/catalog'
 
 export const SITE_MAP_PATH = '/mapa-strony'
 
@@ -30,6 +31,8 @@ export type SiteMapInput = {
   } | null
   /** Posts of a line with news; `null` on lines without it. */
   news: { posts: readonly ({ slug: string; title: string } & Dated)[] } | null
+  /** Software: the catalog of solutions (its solution pages come with SW10). */
+  solutions?: boolean
 }
 
 const byLabel = (a: SiteMapLink, b: SiteMapLink) => a.label.localeCompare(b.label, 'pl')
@@ -39,7 +42,7 @@ const byLabel = (a: SiteMapLink, b: SiteMapLink) => a.label.localeCompare(b.labe
  * `sitemap.xml` writes out (`siteMapPaths`), so the two cannot drift apart. Built only from what
  * the loaders return for the site's own tenant; filtered views are never listed (`noindex`).
  */
-export function buildSiteMap({ pages, catalog, news }: SiteMapInput): SiteMapSection[] {
+export function buildSiteMap({ pages, catalog, news, solutions }: SiteMapInput): SiteMapSection[] {
   const home = pages.find((page) => page.slug === HOME_SLUG)
   const sections: SiteMapSection[] = [
     {
@@ -106,6 +109,14 @@ export function buildSiteMap({ pages, catalog, news }: SiteMapInput): SiteMapSec
     if (groups.length > 0) {
       sections.push({ id: 'produkty', title: 'Produkty i usługi', links: [], groups })
     }
+  }
+
+  if (solutions) {
+    sections.push({
+      id: 'rozwiazania',
+      title: 'Rozwiązania',
+      links: [{ href: SOLUTIONS_PATH, label: 'Pełna oferta' }],
+    })
   }
 
   if (news) {

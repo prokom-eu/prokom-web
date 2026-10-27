@@ -36,6 +36,35 @@ describe('solutions index on the seed package', () => {
     expect(app?.priceFrom).toBeNull()
   })
 
+  it('carries the monthly flag and the version names (SW9)', () => {
+    expect(solutionOf('opieka-nad-strona-i-systemem')).toMatchObject({
+      priceMonthly: true,
+      sizeNames: { start: 'Podstawowa', std: 'Standard', full: 'Systemy' },
+    })
+    expect(solutionOf('strona-firmowa-z-panelem')).toMatchObject({
+      priceMonthly: false,
+      sizeNames: {},
+    })
+  })
+
+  it('has the price templates of the wizard settings', () => {
+    expect(index.priceDisplay).toMatchObject({
+      templateFrom: 'od {cena} zł netto',
+      monthTemplate: 'od {cena} zł / mies.',
+      fallback: 'Zapytaj o wycenę',
+      termFallback: 'po krótkiej rozmowie',
+    })
+  })
+
+  it('falls back to the default templates without valid wizard settings', () => {
+    const source = solutionsSourceFromSeed()
+    const broken = buildSolutionsIndex({ ...source, priceDisplay: { template: 'bez tokenu' } })
+    expect(broken.priceDisplay.templateFrom).toBe('od {cena} zł netto')
+    expect(buildSolutionsIndex({ ...source, priceDisplay: null }).priceDisplay.fallback).toBe(
+      'Zapytaj o wycenę',
+    )
+  })
+
   it('counts solutions per category, in the catalog order', () => {
     expect(index.categories.map((category) => category.slug)).toEqual([
       'strony',

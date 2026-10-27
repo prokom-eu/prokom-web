@@ -70,6 +70,20 @@ export function cardGradientKey(css: string | null): Solution['cardGradient'] {
 }
 
 /**
+ * Monthly prices and version names the package keeps only in a price note („Cena miesięczna:
+ * Podstawowa 149, Standard 299, Systemy 790 zł/mies.”) — fields of the panel since SW9.
+ */
+const PRICE_EXTRAS: Record<
+  string,
+  { priceMonthly: boolean; sizeNames: { start: string; std: string; full: string } }
+> = {
+  'opieka-nad-strona-i-systemem': {
+    priceMonthly: true,
+    sizeNames: { start: 'Podstawowa', std: 'Standard', full: 'Systemy' },
+  },
+}
+
+/**
  * Card, prices and the „12 rzeczy” card of one solution. Only the prices and terms per size
  * are stored; `priceFrom`/`leadTime` of the package are computed from them (ADR-014 rozstrz.
  * SW0 5). The order of the 12 cards is `SoftwareSettings.home.popular`, not `featuredOrder`.
@@ -98,6 +112,8 @@ export function solutionData(item: SeedSolution): SolutionData {
       full: item.leadTimes.full,
     },
     priceNote: item.priceNote,
+    priceMonthly: PRICE_EXTRAS[item.slug]?.priceMonthly ?? false,
+    sizeNames: PRICE_EXTRAS[item.slug]?.sizeNames ?? { start: null, std: null, full: null },
     featured: {
       name: item.featuredName ?? null,
       tag: item.featuredTag ?? null,
