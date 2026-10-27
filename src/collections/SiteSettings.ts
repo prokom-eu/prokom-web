@@ -1,15 +1,14 @@
-import type { CollectionBeforeChangeHook, CollectionConfig, Field } from 'payload'
+import type { CollectionConfig, Field } from 'payload'
 
 import { adminOnly } from '../lib/auth/access'
 import { tenantImageFilter } from '../lib/media/access'
 import { DEPARTMENTS } from '../lib/site/departments'
 import { isValidNavHref, toWhatsAppHref } from '../lib/site/link'
 import { isValidTitleTemplate } from '../lib/site/title'
-import { tenantIdOf } from '../lib/tenant/id'
 import { FACT_KEY } from '../lib/software/facts'
 import { validateNavigation } from '../lib/software/navigation'
 import { LINES } from '../lib/tenant/lines'
-import { lineOfTenant } from '../lib/tenant/lineOf'
+import { copyTenantLine, onLine } from '../lib/tenant/copyLine'
 import { biznesFooter } from './biznesFooter'
 import { biznesNavigation } from './biznesNavigation'
 
@@ -27,18 +26,7 @@ const linkFields: Field[] = [
   },
 ]
 
-/**
- * Copy of the tenant's line for the panel only: `admin.condition` is synchronous and sees just
- * this document, so it shows the fields of the line (Biznes, Software) from here. Set on every save. The public site
- * never trusts it — it uses the tenant's own line (`getSiteSettings`).
- */
-const copyTenantLine: CollectionBeforeChangeHook = async ({ data, originalDoc, req }) => {
-  const tenantId = tenantIdOf(data.tenant ?? originalDoc?.tenant)
-  if (tenantId === null) return data
-  return { ...data, line: await lineOfTenant(tenantId, req) }
-}
-
-const isBiznes = (data: { line?: unknown } | undefined) => data?.line === 'biznes'
+const isBiznes = onLine('biznes')
 
 const text = (name: string, label: string, description?: string): Field => ({
   name,
@@ -168,7 +156,7 @@ const biznesGroup: Field = {
   ],
 }
 
-const isSoftware = (data: { line?: unknown } | undefined) => data?.line === 'software'
+const isSoftware = onLine('software')
 
 /**
  * Data of the Software line (ADR-014 §1.4, rozstrz. v20 4–5). Shown in the panel only for

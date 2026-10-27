@@ -1,12 +1,15 @@
 import { describe, expect, it } from 'vitest'
 
+import branze from '../../../seed/prokomsoftware/branze.json'
 import fakty from '../../../seed/prokomsoftware/fakty.json'
 import miejscowosci from '../../../seed/prokomsoftware/miejscowosci.json'
 import obszary from '../../../seed/prokomsoftware/obszary.json'
 import rozwiazania from '../../../seed/prokomsoftware/rozwiazania.json'
+import wpisy from '../../../seed/prokomsoftware/wpisy.json'
 import { homeSchema } from '../../lib/software/home'
 import { navigationSchema } from '../../lib/software/navigation'
 import { notFoundSchema, thanksSchema } from '../../lib/software/pages'
+import { INDUSTRY_GROUPS, WIZARD_FIRMS } from '../../lib/software/options'
 import { formatPrice } from '../../lib/software/price'
 import { softwareWizardSchema } from '../../lib/software/wizard'
 import {
@@ -14,8 +17,11 @@ import {
   cardGradientKey,
   cityData,
   factsData,
+  industriesToImport,
+  industryData,
   missingFacts,
   type SeedCity,
+  softwarePostData,
   softwareSettingsData,
   solutionData,
   solutionsToImport,
@@ -294,5 +300,90 @@ describe('Software settings of the seed', () => {
       expansions: ['arkusz', 'tabelka', 'z excela do systemu'],
     })
     expect(settings.search.popular.length).toBeLessThanOrEqual(12)
+  })
+})
+
+describe('industryData', () => {
+  const industries = industriesToImport(solutionId)
+  const construction = industries.find((item) => item.slug === 'budownictwo-i-wykonczenia')!
+
+  it('imports the 12 pages in the package order, only construction active', () => {
+    expect(industries.map((item) => item.slug)).toEqual(branze.pagesAtStart.map((p) => p.slug))
+    expect(industries.map((item) => item.order)).toEqual(industries.map((_, index) => index + 1))
+    expect(industries.filter((item) => item.active).map((item) => item.slug)).toEqual([
+      'budownictwo-i-wykonczenia',
+    ])
+  })
+
+  it('keeps every group and wizard kind within the lists of the catalog and the wizard', () => {
+    const groups = INDUSTRY_GROUPS.map((group) => group.value as string)
+    const firms = WIZARD_FIRMS.map((firm) => firm.value as string)
+    for (const item of industries) {
+      expect(groups).toContain(item.software?.group)
+      if (item.software?.wizardFirm) expect(firms).toContain(item.software.wizardFirm)
+    }
+  })
+
+  it('puts the FAQ into the shared field and the page into the Software group', () => {
+    expect(construction.faq).toHaveLength(4)
+    expect(construction.faq?.[0]).toEqual({
+      question: branze.budowlanka.faq[0]!.q,
+      answer: branze.budowlanka.faq[0]!.a,
+    })
+    expect(construction.software?.wizardTitle).toBe(branze.budowlanka.wizardTitle)
+    expect(construction.software?.offline).toHaveLength(3)
+    expect(construction.software?.moduleMap?.[0]).toEqual({
+      name: 'Zlecenia i grafik',
+      icon: 'cal',
+      x: 50,
+      y: 10,
+      delay: 0,
+    })
+  })
+
+  it('links problems by solution id and the cards by slug', () => {
+    const [first] = construction.software?.problems ?? []
+    expect(first).toMatchObject({ icon: 'chat', solution: 10, features: expect.any(Array) })
+    expect(first?.cta).toEqual({
+      label: 'Zobacz podgląd na żywo',
+      href: '/rozwiazania/aplikacja-dla-ekip-w-terenie',
+    })
+    expect(construction.software?.topSolutions).toEqual(
+      branze.budowlanka.solutions.map((card) => solutionId(card.solution)),
+    )
+  })
+
+  it('leaves a page without content inactive, with its name, group and wizard kind only', () => {
+    const transport = industries.find((item) => item.slug === 'transport')!
+    expect(transport).toEqual({
+      name: 'Transport',
+      slug: 'transport',
+      active: false,
+      order: 10,
+      software: { group: 'uslugi-i-transport', wizardFirm: null },
+    })
+  })
+
+  it('refuses an active page without content', () => {
+    const page = { ...branze.pagesAtStart[1]!, active: true }
+    expect(() => industryData(page, 1, solutionId)).toThrow(/active without text/)
+  })
+})
+
+describe('softwarePostData', () => {
+  const [item] = wpisy.items
+  const post = softwarePostData(item!, solutionId)
+
+  it('maps the category, leads and related solutions', () => {
+    expect(post.category).toBe('poradnik')
+    expect(post.summary).toBe(item!.tldr)
+    expect(post.seo?.description).toBe(item!.listLead)
+    expect(post.relatedSolutions).toEqual(item!.relatedSolutions.map(solutionId))
+  })
+
+  it('turns the sections into headings, paragraphs and lists', () => {
+    const nodes = (post.content as { root: { children: { type: string }[] } }).root.children
+    expect(nodes.filter((node) => node.type === 'heading')).toHaveLength(item!.sections.length)
+    expect(nodes.filter((node) => node.type === 'list')).toHaveLength(3)
   })
 })

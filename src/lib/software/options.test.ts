@@ -11,6 +11,7 @@ import {
   SITUATIONS,
   SOLUTION_CATEGORIES,
   SOLUTION_SIZES,
+  WIZARD_FIRMS,
 } from './options'
 
 const values = (options: readonly { value: string }[]) => options.map((option) => option.value)
@@ -42,5 +43,11 @@ describe('Software options match the seed package (v20)', () => {
 
   it('has the wizard sizes', () => {
     expect([...SOLUTION_SIZES]).toEqual(kreator.sizes.map((size) => size.id))
+  })
+
+  it('has the kinds of business of the wizard, with their names', () => {
+    const firms = kreator.needs.firm.o.map((firm) => ({ label: firm.n, value: firm.id }))
+    expect([...WIZARD_FIRMS]).toEqual(firms)
+    expect(values(WIZARD_FIRMS)).toEqual(branze.wizardBusinessTypes.map((firm) => firm.id))
   })
 })

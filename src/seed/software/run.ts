@@ -8,9 +8,12 @@ import {
   areaData,
   cityData,
   factsData,
+  industriesToImport,
   missingFacts,
   removedSolutions,
   softwareSettingsData,
+  softwarePostData,
+  softwarePosts,
   solutionData,
   solutionsToImport,
 } from './map'
@@ -24,7 +27,10 @@ type Counter = { created: number; updated: number; skipped: number }
  * local only, like `seed:biznes`). Idempotent: a record is found by its key in the tenant
  * (`legacyId` of a solution, `key` of an area, `slug` of a city) and written only when it
  * differs from the package, so a re-run makes no new versions.
- * - Solutions, areas, cities: every field the package provides wins over an edit in the panel.
+ * - Solutions, areas, cities, industries: every field the package provides wins over an edit
+ *   in the panel.
+ * - Posts: created as drafts when missing (their figures are checked on publication), later
+ *   they belong to the panel.
  * - Settings (navigation, `SoftwareSettings`): written only while empty — then they belong to
  *   the panel. Facts: only the keys missing there are added.
  * - Solutions removed from the offer are never imported; one left in the database from an
@@ -109,7 +115,11 @@ export async function seedSoftware(payload: Payload): Promise<void> {
 
   // --- areas and cities: plain collections, found by their key ---
   /** The stored record with this key, and whether it already has the package values. */
-  async function stored(collection: 'solution-areas' | 'cities', where: Where, data: object) {
+  async function stored(
+    collection: 'solution-areas' | 'cities' | 'industries',
+    where: Where,
+    data: object,
+  ) {
     const {
       docs: [existing],
     } = await payload.find({ collection, where: inTenant(where), limit: 1, ...local })
@@ -139,6 +149,37 @@ export async function seedSoftware(payload: Payload): Promise<void> {
       await payload.update({ collection: 'cities', id, data, ...local })
     }
     count('cities', id === undefined || (same ? false : 'updated'))
+  }
+
+  // --- industries (ADR-014 §1.6) and posts ---
+  for (const data of industriesToImport(solutionRef)) {
+    const { id, same } = await stored('industries', { slug: { equals: data.slug } }, data)
+    if (id === undefined) {
+      await payload.create({
+        collection: 'industries',
+        data: { ...data, tenant: tenant.id },
+        ...local,
+      })
+    } else if (!same) {
+      await payload.update({ collection: 'industries', id, data, ...local })
+    }
+    count('industries', id === undefined || (same ? false : 'updated'))
+  }
+  for (const item of softwarePosts()) {
+    const { totalDocs } = await payload.count({
+      collection: 'posts',
+      where: inTenant({ slug: { equals: item.slug } }),
+      overrideAccess: true,
+    })
+    if (totalDocs === 0) {
+      await payload.create({
+        collection: 'posts',
+        data: { ...softwarePostData(item, solutionRef), tenant: tenant.id, _status: 'draft' },
+        draft: true,
+        ...local,
+      })
+    }
+    count('posts', totalDocs === 0)
   }
 
   // --- settings ---

@@ -36,6 +36,16 @@ export function parseCategory(value: string | string[] | undefined): PostCategor
   return isPostCategory(first) ? first : null
 }
 
+/** Whether a post of `line` may take `category` (the save refuses another line's category). */
+export function isCategoryOfLine(category: unknown, line: Line | null): boolean {
+  return POST_CATEGORIES.some((option) => option.value === category && option.line === line)
+}
+
+/** The categories of one line, for messages and filters. */
+export function categoriesOfLine(line: Line | null): string[] {
+  return POST_CATEGORIES.filter((option) => option.line === line).map((option) => option.label)
+}
+
 export function categoryLabel(value: string | null | undefined): string | null {
   return POST_CATEGORIES.find((category) => category.value === value)?.label ?? null
 }
