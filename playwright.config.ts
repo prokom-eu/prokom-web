@@ -23,6 +23,9 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
   workers: 1,
+  // CI splits the tests between shards one by one, not whole files, so the shards take about
+  // the same time. Each shard still runs its tests one after another (workers: 1).
+  fullyParallel: !!process.env.CI,
   timeout: 60_000,
   reporter: process.env.CI ? 'github' : 'list',
   use: {
