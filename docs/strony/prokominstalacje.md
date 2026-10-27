@@ -43,7 +43,7 @@ Linia: **PRO-KOM Instalacje** (projekt, montaż i serwis instalacji niskoprądow
 
 - Adresy usług bez prefiksu (krótkie, mocne frazy). Adresy obiektów pod `/dla-kogo/`. Polskie słowa bez znaków diakrytycznych, małe litery, myślniki.
 - Prototyp ma pliki o nazwach `dom.html`, `hotele.html` itd. — to tylko nazwy plików wzorca, adresem publicznym jest tabela wyżej.
-- **Routing domen (repo):** `proxy.ts` przepisuje host na `/<host>/<ścieżka>`, segment `[domain]` wybiera tenanta. Strony = dokumenty `Pages` z blokami linii (slug unikalny w ramach tenanta, więc `/kontakt` czy `/o-firmie` Instalacji nie kolidują z Biznesem). Trasy statyczne grup linii są wspólne dla wszystkich domen i rezerwują adres (`RESERVED_PAGE_SLUGS`): **`/oferta` należy do Biznesu, `/dziekujemy` i `/rozwiazania` do Software** — dlatego pełna oferta Instalacji to **`/uslugi`**, a strona po wysłaniu formularza **`/wyslane`**. Instalacje dodają tylko dwie trasy linii: `/dla-kogo/[obiekt]` i `/poradnik/[slug]`. Szczegóły: ADR-I002 §0.
+- **Routing domen (repo):** `proxy.ts` przepisuje host na `/<host>/<ścieżka>`, segment `[domain]` wybiera tenanta. Strony = dokumenty `Pages` z blokami linii (slug unikalny w ramach tenanta, więc `/kontakt` czy `/o-firmie` Instalacji nie kolidują z Biznesem). Trasy statyczne grup linii są wspólne dla wszystkich domen i rezerwują adres (`RESERVED_PAGE_SLUGS`): **`/oferta` należy do Biznesu, `/dziekujemy` i `/rozwiazania` do Software** — dlatego pełna oferta Instalacji to **`/uslugi`**, a strona po wysłaniu formularza **`/wyslane`**. Instalacje dodają tylko trzy trasy linii: `/dla-kogo/[obiekt]`, `/poradnik/[slug]` i `/wyslane` (noindex, poza sitemap — `Pages` nie ma przełącznika noindex). Szczegóły: ADR-I002 §0 i „Poprawki I0”.
 
 ## 4. Nawigacja
 
@@ -78,7 +78,7 @@ Sekcje własne (wszystkie interaktywne — logika w `zrodlo/pages/*.js`):
 - **Alarmy:** symulator zdarzeń (wejście, zalanie, mróz, brak prądu), tryby czuwania, wideodomofon.
 - **Kontrola dostępu:** zakładki (apartament, firma…), symulator klawiatury z kodem i historią wejść.
 - **Sieci i Wi-Fi:** kalkulator punktów dostępowych, osobne sieci (VLAN), łącze, światłowód.
-- **Teletechnika:** warstwy instalacji w budynku, etapy budowy, formularz przedmiaru dla dewelopera (pliki, typ inwestycji) — działa i wysyła zapytanie.
+- **Teletechnika:** warstwy instalacji w budynku, etapy budowy, formularz przedmiaru dla dewelopera (typ inwestycji, zakres; w wersji 1 bez uploadu — przedmiar mailem po zgłoszeniu, ADR-I002 §4) — działa i wysyła zapytanie.
 - **Anteny:** SAT/DVB-T2, ustawianie azymutu i elewacji, quiz „co wybrać”.
 - **Smart home Ampio:** mapa 12 obszarów sterowania, scenariusze, integracje.
 - **Nagłośnienie (APART):** strefy z osobną głośnością, priorytet komunikatów, kalkulator dla kościoła/sali.
@@ -98,7 +98,7 @@ SVG przekrojów: gotowe w `zrodlo/pages/Seg*.body.html` (wygenerowane z `zrodlo/
 - **O firmie, Kontakt:** dane z ustawień (telefon, e-mail, adresy salonów Rabka i Zakopane, godziny), formularz kontaktowy z walidacją.
 
 ## 6. Formularze i zapytania
-Wszystkie formularze: imię (gdzie jest), telefon (walidacja PL), zgoda RODO z linkiem do polityki, antyspam (honeypot + limit), komunikaty błędów przy polu, stan „wysłane” z numerem zgłoszenia. Zapis do skrzynki zapytań przez **istniejący adapter (ADR-003 w repo)** z `tenant = instalacje`, źródłem (`inst-zaplanuj`, `inst-glowna`, `inst-kontakt`, `inst-serwis`, `inst-teletechnika-przedmiar`, `inst-usluga`) i polami z ADR-I002 §4. Powiadomienie e-mail na adres Instalacji z panelu. Pliki (zdjęcia rozdzielnicy, rzuty, przedmiary): limit rozmiaru i typów, bezpieczne nazwy plików (sanityzacja), sprawdzenie typu po zawartości, przechowywanie zgodne z polityką prywatności.
+Wszystkie formularze: imię (gdzie jest), telefon (walidacja PL), zgoda RODO z linkiem do polityki, antyspam (honeypot + limit), komunikaty błędów przy polu, stan „wysłane” z numerem zgłoszenia. Zapis do skrzynki zapytań przez **istniejący adapter (ADR-003 w repo)** z `tenant = instalacje`, źródłem formularza (`inst-zaplanuj`, `inst-glowna`, `inst-kontakt`, `inst-serwis`, `inst-teletechnika-przedmiar`, `inst-usluga` → pole `category` jako etykieta po polsku) i danymi w istniejących polach kontraktu (mapa w ADR-I002 §4 — bez nowych kolumn). Powiadomienie e-mail na adres Instalacji z panelu. **Pliki (zdjęcia rozdzielnicy, rzuty, przedmiary) — nie w wersji 1** (decyzja I0, 28.10.2026): przy formularzach zdanie „prześlij mailem po zgłoszeniu — adres w potwierdzeniu”; upload jako osobne zadanie później.
 
 ## 7. Treści i dane
 - Treść każdej strony jest w `seed/prokominstalacje/` (zrzut danych z wizualizacji). Seed jest **jedynym źródłem tekstów** — nie przepisywać tekstów „z pamięci” ani ze zrzutów ekranu.
@@ -106,7 +106,7 @@ Wszystkie formularze: imię (gdzie jest), telefon (walidacja PL), zgoda RODO z l
 - Edytowalne w panelu (Payload, tenant `instalacje`): dane kontaktowe i godziny, teksty hero i sekcji, FAQ, zestawy, czynniki ceny, ceny „od” (z przełącznikiem), realizacje, wpisy, SEO każdej strony. W kodzie: układ, sceny SVG, logika kalkulatorów i symulatorów (ADR-I002).
 
 ## 8. Wygląd
-- Tokeny: `docs/design/prokominstalacje/tokens.css` (motyw ciemny domyślny, jasny przełączany, zapamiętany). Kroje: Archivo (nagłówki) i Manrope (tekst), self-hosted przez `next/font`.
+- Tokeny: `docs/design/prokominstalacje/tokens.css` → `src/styles/tokens.css` (bez wyboru gościa motyw za ustawieniem systemu, jak Biznes i Software — decyzja I0, ADR-I003 §6; przełącznik zapamiętany). Kroje: Archivo (nagłówki) i Manrope (tekst) — pliki lokalne już w repo (`next/font/local`).
 - Wierność wzorcowi i sposób przenoszenia CSS: ADR-I003. Każda sesja z UI kończy się porównaniem `narzedzia/porownaj.mjs` (1440 i 390, jasny i ciemny).
 - Animacje: wejście sekcji przy przewinięciu, autoodtwarzanie scen — **wszystko wyłączane przy `prefers-reduced-motion`** i wstrzymywane poza ekranem.
 

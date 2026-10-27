@@ -1,6 +1,6 @@
 # ADR-I003 — Wygląd prokominstalacje.pl: jak przenieść wizualizację do kodu 1:1
 
-- Status: proponowany (przyjęcie w I0) · Data: 27.10.2026
+- Status: **przyjęty z poprawkami** (I0, 28.10.2026: §4 fonty, §6 motyw domyślny) · Data: 27.10.2026
 
 ## Kontekst
 - Wizualizacja (prototyp) jest kompletna: 31 stron, desktop i telefon, jasny i ciemny motyw, wszystkie interakcje działają. To **cel** — strona ma wyglądać i działać tak samo.
@@ -41,7 +41,7 @@ Mapa części prototypu na komponenty React: `docs/design/prokominstalacje/KOMPO
 - Sceny SVG (hero strony głównej, przekroje obiektów, ilustracje usług) **kopiujemy z prototypu** jako komponenty SVG (wartości dynamiczne → propsy). Nie rysujemy od nowa.
 - Zdjęcia: tylko ładowarki Elzab (`public/instalacje/ev/*.webp`, wycięte tło). `next/image`, wymiary jawne.
 - Ikony: jeden zestaw z `icons.ts` (obrys 2 px, końcówki zaokrąglone).
-- Fonty: Archivo (wdth 62–125, wght 400–900) i Manrope (400–800) przez `next/font/google` (self-hosted w buildzie).
+- Fonty: Archivo (wdth 62–125, wght 400–900) i Manrope (400–800) — **już są w repo** jako pliki lokalne (`src/app/(sites)/fonts/`, `fonts.ts`, `next/font/local`); Instalacje używają ich, bez `next/font/google` (poprawka I0).
 
 ### 5. Wierność — jak sprawdzamy
 1. Przed sesją: `node docs/design/prokominstalacje/narzedzia/zrzuty-wzorca.mjs <plik-prototypu>` → zrzuty wzorca w `tmp/wzorzec/` (1440/390, jasny/ciemny, kawałki po 1600 px).
@@ -51,7 +51,7 @@ Mapa części prototypu na komponenty React: `docs/design/prokominstalacje/KOMPO
 5. W opisie PR: lista sekcji „zgodne / różnice + powód”.
 
 ### 6. Motyw
-Domyślnie ciemny; przełącznik w nagłówku i w arkuszu „Więcej”; zapis w `localStorage` (`pk-theme`) + skrypt w `<head>` ustawiający `data-theme` przed pierwszym malowaniem (bez mignięcia). Scena hero ma własną porę (dzień/noc/zima) niezależną od motywu.
+Bez wyboru gościa motyw **za ustawieniem systemu** (`prefers-color-scheme`), tak jak Biznes i Software (decyzja Krystiana w I0, 28.10.2026 — zmienia pierwotne „domyślnie ciemny”). W `src/styles/tokens.css` wartości ciemne Instalacji pod `[data-line='instalacje'][data-theme='dark']` i w `@media (prefers-color-scheme: dark)` dla `:not([data-theme='light'])`, `'instalacje'` w `DARK_THEME_LINES` (I1). Przełącznik w nagłówku i w arkuszu „Więcej”; zapis w `localStorage` (`pk-theme`) + skrypt w `<head>` ustawiający `data-theme` przed pierwszym malowaniem (bez mignięcia). Scena hero ma własną porę (dzień/noc/zima) niezależną od motywu.
 
 ## Konsekwencje
 - (+) Najkrótsza droga do wyglądu 1:1; logika już przetestowana w prototypie.

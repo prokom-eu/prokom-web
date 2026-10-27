@@ -9,7 +9,7 @@ Jak przenosić: ADR-I003 §2. Ścieżki docelowe są propozycją — I0 dopasowu
 | `Header` + `MegaMenu` | `header.html`, `common.js` (`mg`, `uOpen/uTog/megaClose/megaKeep`) | most nad panelem, opóźnienie 280 ms, klik przełącza, Esc, focus; desktop ≥ 1101 px |
 | `MobileHeader` | `header.html` (`mobb`), `common.js` (`hdrHide`, `_onS`) | chowany przy przewijaniu |
 | `BottomTabBar` | `footer.html` (`bnav`), `common.js` (`BN`, `bnav`) | 5 kart, aktywna wg `navKey` strony |
-| `BottomSheet` + `MenuSheet` | `footer.html` (`msh`), `common.js` (`openSheet`, `mtabs`, `mmore`) | 3 zakładki; MOBILE-APLIKACJA §4 |
+| `BottomSheet` + `MenuSheet` | `footer.html` (`msh`), `common.js` (`openSheet`, `mtabs`, `mmore`) | 3 zakładki; MOBILE-APLIKACJA §4; `BottomSheet` wspólny z Software (`src/components`), `TabBar` własny — ADR-I004 |
 | `ThemeToggle` | `common.js` (`toggleTheme`, `pk-theme`) | skrypt w `<head>` bez mignięcia |
 | `SectionRail` | `Main.body.html` (`railItems`) | tylko strona główna, ≥ 1400 px |
 | `AnchorsBar` | `inc/pheroA.html` (`anc`) | przyklejony pod nagłówkiem |
@@ -47,7 +47,7 @@ Stan początkowy = `initState()` z pliku źródła; logika = `page()`; timery = 
 | Alarmy | `Alarmy.*` (`avs, dday, dmq, amode, sim, vd`) | symulator zdarzeń, tryby czuwania, wideodomofon (2 timery) |
 | Kontrola dostępu | `Dostep.*` (`tab, code, res, hist, idI, pw`) | zakładki obiektów, klawiatura z kodem i historią |
 | Sieci i Wi-Fi | `Sieci.*` (`wb, ww, cl, cs, ld, lg, ls, fo, wm, vl, wlM, wlB, brD, brL`) | kalkulator punktów, sieci osobne, łącze |
-| Teletechnika | `Teletechnika.*` (`tl, stp, el, rTyp, rZak, rLok, rName…`) | warstwy budynku, etapy, **formularz przedmiaru z plikami** |
+| Teletechnika | `Teletechnika.*` (`tl, stp, el, rTyp, rZak, rLok, rName…`) | warstwy budynku, etapy, **formularz przedmiaru** (w wersji 1 bez uploadu plików — ADR-I002 §4) |
 | Anteny | `Anteny.*` (`mode, az, el, mast, ph, q1, q2, flt`) | ustawianie anteny, quiz |
 | Smart home | `SmartHome.*` | mapa 12 obszarów Ampio, scenariusze |
 | Nagłośnienie | `Naglosnienie.*` (`apk, lm, ann, kv, kr, kc, ia, ih, im, ven, lv, mu, src, pri`) | strefy z głośnością, komunikaty z priorytetem, kalkulatory |

@@ -1,6 +1,6 @@
 # ADR-I001 — Instalacje w prokom-web: osobny worktree i równoległa praca z Biznesem, Software i Gaming
 
-- Status: proponowany (przyjęcie w sesji I0) · Data: 27.10.2026 · Autor: Krystian (z Claude)
+- Status: **przyjęty** (I0, 28.10.2026, sprawdzony na develop 33f6e9b) · Data: 27.10.2026 · Autor: Krystian (z Claude)
 - Numer: seria `I` w `docs/decyzje/` (obok ADR-001…016). Osobna seria, bo Biznes i Software dopisują ADR-y równolegle — numer 017+ łatwo by się zdublował.
 
 ## Kontekst
@@ -46,8 +46,9 @@ Wspólna historia i obiekty git, osobne pliki robocze, osobna gałąź. Na jedne
 **Wyjątek:** sesja W-I w jednym PR `inst/w-pakiet` dopisuje 7 linijek do `CLAUDE.md`, jedną linię do `docs/STAN.md`, `tmp/` do `.gitignore` i `seed/prokominstalacje/` do `.prettierignore` (jak `seed/prokombiznes/`) — to jedyna zmiana strefy wspólnej poza PR-em `wsp`. (`docs/**` jest już wyłączone z ESLint i Prettiera.)
 
 **Strefa wspólna** — zmiany tylko w małych, osobnych PR-ach `inst/wsp-<opis>`, scalanych szybko (ten sam wieczór), zanim zbuduje się na nich więcej:
-- `src/payload.config.ts` (rejestracja kolekcji), `src/blocks/registry.ts` (bloki linii Instalacje — rejestr ADR-010), `src/lib/pages/slug.ts` (`RESERVED_PAGE_SLUGS` dla tras `(instalacje)`), `src/app/(sites)/[domain]/layout.tsx` (wpięcie `InstalacjeFrame`), `src/lib/brand/theme.ts` + `src/styles/tokens.css` (motyw ciemny Instalacji), kolekcje współdzielone (`Inquiries`, `Pages`, `Posts`, `SiteSettings`, `Tenants`, `Industries`, `Redirects`), `src/proxy.ts` i `src/lib/tenant/**`, `src/components/**` (wspólne — np. arkusz i dolny pasek, jeśli przenosimy je z Software), `package.json`/`pnpm-lock.yaml`, konfiguracje (Next, TS, ESLint, Playwright, CI), `docker/**`, `CLAUDE.md`, `docs/STAN.md`, `docs/sposob-pracy.md`.
-- **Uwaga 27.10:** Software (gałąź `feat/sw2b-model-wspolny`) zmienia właśnie `Inquiries`, `Industries` i ADR-003. Zmiany Instalacji w tych plikach dopiero po scaleniu SW2b.
+- `src/payload.config.ts` (rejestracja kolekcji), `src/blocks/registry.ts` (bloki linii Instalacje — rejestr ADR-010), `src/lib/pages/slug.ts` (`RESERVED_PAGE_SLUGS` dla tras `(instalacje)`), `src/app/(sites)/[domain]/layout.tsx` (wpięcie `InstalacjeFrame`), `src/lib/brand/theme.ts` + `src/styles/tokens.css` (motyw ciemny Instalacji), kolekcje współdzielone (`Inquiries`, `Pages`, `Posts`, `SiteSettings`, `Tenants`, `Industries`, `Redirects`), `src/proxy.ts` i `src/lib/tenant/**`, `src/components/**` (wspólne — np. arkusz przenoszony z Software, ADR-I004), `src/collections/Tenants.ts` (lista kolekcji tenanta), `src/seed/index.ts` (wywołanie seeda linii), `src/lib/posts/**` (adres wpisu, kategorie), `src/lib/inquiry/**` (reguły zapytań per linia), `package.json`/`pnpm-lock.yaml`, konfiguracje (Next, TS, ESLint, Playwright, CI), `docker/**`, `CLAUDE.md`, `docs/STAN.md`, `docs/sposob-pracy.md`.
+- **SW2b scalone** (#124, 7a0f6ae) — `Inquiries`, `Industries` i ADR-003 są wolne.
+- **Uwaga 28.10:** Software pracuje nad SW7 (kreator, gałąź `feat/sw7-kreator`) — dotyka `src/lib/inquiry/submit.ts` (`composeWizard` per linia). Zmiany zapytań Instalacji (I11) dopiero po scaleniu SW7.
 - Zasada: **zanim zmienisz plik wspólny, zrób `git fetch` i rebase na `origin/develop`**. Nowa zależność npm = osobny PR wspólny.
 
 ### 4. Migracje i pliki generowane
