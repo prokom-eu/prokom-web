@@ -1,6 +1,6 @@
 # prokominstalacje.pl — plan budowy w Claude Code (sesje I0–I15)
 
-Wersja 1.0 · 27.10.2026. Repo `prokom-web`, worktree `D:\PRO-KOM\repos\prokom-instal`, gałęzie `inst/*` (ADR-I001).
+Wersja 1.1 · 28.10.2026 (poprawki I0: ADR-I002 „Poprawki I0”, ADR-I003 §6, ADR-I004). Repo `prokom-web`, worktree `D:\PRO-KOM\repos\prokom-instal`, gałęzie `inst/*` (ADR-I001).
 Wzorzec: `docs/design/prokominstalacje/` (prototyp v4.0). Specyfikacja: `docs/strony/prokominstalacje.md`. Stan: `docs/stan/STAN-instalacje.md`.
 
 ## 0. Rytuał każdej sesji (bez wyjątków)
@@ -15,10 +15,10 @@ Zasady stałe: jedna sesja = jedno zadanie = jedna gałąź = jeden PR. Zmiana w
 ## 1. Sesje i szacunek
 | Sesja | Zakres | Wieczory | Zależy od |
 |---|---|---|---|
-| **W-I** | wgranie pakietu do repo (same pliki, PR `inst/w-pakiet`) | 0,25 | — |
-| **I0** | dokumenty i decyzje, bez kodu | 0,5 | W-I |
+| **W-I** ✅ | wgranie pakietu do repo (same pliki, PR #125, scalone) | 0,25 | — |
+| **I0** ✅ | dokumenty i decyzje, bez kodu (PR `inst/i0-ustalenia`) | 0,5 | W-I |
 | **I1** | wspólne minimum: motyw ciemny linii, Frame Instalacji (pusty), grupa tras `(instalacje)`, arkusz CSS linii, rejestr bloków, test dymny | 1 | I0 |
-| **I2** | model treści, rozszerzenie zapytań, import seeda, pliki danych widżetów | 1,5 | I1 |
+| **I2** | model treści, import seeda, pliki danych widżetów (zapytania → I11) | 1,5 | I1 |
 | **I3** | powłoka: nagłówek, mega menu, górny pasek, stopka, motyw; telefon: nagłówek chowany, dolny pasek, arkusz; 404 | 2 | I1 |
 | **I4** | sekcje wspólne + pierwsza pełna strona usługi: Anteny | 1,5 | I2, I3 |
 | **I5** | strona główna: hero „Twój obiekt na żywo” | 2,5 | I3 |
@@ -27,8 +27,8 @@ Zasady stałe: jedna sesja = jedno zadanie = jedna gałąź = jeden PR. Zmiana w
 | **I8** | Kontrola dostępu, Sieci i Wi-Fi, Teletechnika (z formularzem przedmiaru) | 2 | I4 |
 | **I9** | Smart home, Nagłośnienie, Ekrany, Ładowarki EV | 2,5 | I4 |
 | **I10** | Dla kogo: szablon, 12 przekrojów SVG, Pensjonaty | 2,5 | I4 |
-| **I11** | Zaplanuj (kreator), Kontakt, Serwis, maile, pliki, `/wyslane` | 2 | I2, I3 |
-| **I12** | Pełna oferta `/uslugi` (76), Realizacje, O firmie, Poradnik + wpis RODO | 1,5 | I4 |
+| **I11** | Zaplanuj (kreator), Kontakt, Serwis, reguły zapytań Instalacji, maile, `/wyslane` (bez plików w v1) | 2 | I2, I3, SW7 scalone |
+| **I12** | Pełna oferta `/uslugi` (76), Realizacje, O firmie, Poradnik + wpis RODO (PR wsp: adres wpisu per linia) | 1,5 | I4 |
 | **I13** | SEO techniczne, strony prawne, analityka, 301, wydajność, dostępność, e2e całości | 1,5 | I5–I12 |
 | **I14** | telefon: audyt 31 stron × 360/390/414, test na urządzeniach, poprawki | 1 | I13 |
 | **I15** | staging → akceptacja szefa → produkcja | 1 | I14 + [SZEF] |
@@ -76,11 +76,11 @@ DoD: same dokumenty; /inst-koniec przed /pr.
 Sesja I1 (Instalacje). Przeczytaj CLAUDE.md, docs/stan/STAN-instalacje.md (Ustalenia I0), ADR-I001, ADR-I002 §0, ADR-I003 §3–§6, wzory: src/sites/software/Frame.tsx, src/app/(sites)/[domain]/(software)/layout.tsx, src/lib/brand/theme.ts, src/styles/tokens.css.
 Port 3002 i baza prokom_web_instalacje działają już z .env (repo obsługuje worktree) — nie zmieniaj portów ani Compose.
 Zakres (PR wspólny inst/wsp-fundament, mały i szybki do scalenia):
-1. Motyw ciemny Instalacji: 'instalacje' w DARK_THEME_LINES + wartości ciemne/jasne w src/styles/tokens.css z docs/design/prokominstalacje/tokens.css (motyw ciemny domyślny dla Instalacji — sprawdź, jak Biznes/Software ustawiają domyślny, i zrób tak samo albo zapisz różnicę w ADR-I003), testy kontrastu jak dla innych linii.
-2. InstalacjeFrame (na razie: znak, pusty nagłówek, stopka minimalna) w src/sites/instalacje/Frame.tsx, wpięty w [domain]/layout.tsx obok BiznesFrame i SoftwareFrame.
-3. Grupa tras src/app/(sites)/[domain]/(instalacje)/layout.tsx z requireLine(params, 'instalacje'); slugi dla-kogo i poradnik do RESERVED_PAGE_SLUGS (z komentarzem jak przy Software).
+1. Motyw ciemny Instalacji: 'instalacje' w DARK_THEME_LINES + wartości ciemne/jasne w src/styles/tokens.css z docs/design/prokominstalacje/tokens.css. Domyślny motyw jak w Biznesie i Software: bez wyboru gościa za systemem (prefers-color-scheme) — ADR-I003 §6. Testy kontrastu jak dla innych linii.
+2. InstalacjeFrame (na razie: znak, pusty nagłówek, stopka minimalna) w src/sites/instalacje/Frame.tsx, wpięty w [domain]/layout.tsx obok BiznesFrame i SoftwareFrame — wybierany po tenant.line === 'instalacje' (bez grupy SiteSettings.instalacje i bez migracji; ADR-I002 §0).
+3. Grupa tras src/app/(sites)/[domain]/(instalacje)/layout.tsx z requireLine(params, 'instalacje'); slugi dla-kogo i wyslane do RESERVED_PAGE_SLUGS (z komentarzem jak przy Software). poradnik NIE — lista /poradnik to strona Pages, trasa grupy obsłuży tylko /poradnik/[slug] (ADR-I002 §0).
 4. Arkusz CSS linii src/sites/instalacje/instalacje.css (sceny, keyframes, rzeczy trudne w Tailwind — ADR-I003 §3) importowany przez Frame; overflow-x: clip na kontenerze strony.
-5. Rejestr bloków: miejsce na bloki linii Instalacje (pusta lista dozwolonych + bloki generyczne, jak na starcie innych linii).
+5. Rejestr bloków: miejsce na bloki linii Instalacje (INSTALACJE_BLOCKS pusta + ALLOWED_BLOCKS.instalacje = bloki generyczne + linii; nowe bloki zawsze na końcu ALL_BLOCKS).
 6. Test dymny e2e: http://instalacje.localhost:3002 zwraca 200 i ma data-line="instalacje"; tenant z active=false → 404.
 Nie buduj jeszcze nagłówka ani stron. DoD: lint, typecheck, testy, build, CI zielone; strony Biznesu (prokom-web-biznes, :3000) i Software (prokom-web, :3001) bez zmian wizualnych (zrzut przed/po ich stron głównych).
 ```
@@ -89,8 +89,8 @@ Nie buduj jeszcze nagłówka ani stron. DoD: lint, typecheck, testy, build, CI z
 ```
 Sesja I2 (Instalacje). Przeczytaj ADR-I002 w całości, seed/prokominstalacje/README.md, Ustalenia I0 w STAN.
 Zakres:
-1. Kolekcje InstalacjeSettings, InstServices, InstObjects, InstSolutions, Realizations w src/collections/ (wzór SoftwareSettings/Solutions, onlyLineTenant('instalacje'), tenant, SEO tam, gdzie mają stronę) oraz dokumenty Pages tenanta Instalacji z ADR-I002 §0 (slugi i puste bloki — komponenty bloków powstają w kolejnych sesjach). Hook: realizacja bez zgody klienta nie może być opublikowana.
-2. PR-y wspólne (osobno, scalane przed resztą, w tej kolejności): (a) inst/wsp-zapytania — pola z ADR-I002 §4 w Inquiries (albo meta JSON) + migracja (rebase na develop przed migrate:create!) — dopiero po scaleniu SW2b Software; (b) inst/wsp-rejestracja — rejestracja kolekcji linii w src/payload.config.ts + skrypt "seed:instalacje" (src/seed/instalacje/index.ts, wzór seed:software) w package.json. Dopiero po ich scaleniu gałąź inst/i2-model z develop (albo rebase --onto, ADR-I001 §5).
+1. Kolekcje InstalacjeSettings (z polem whatsapp — ADR-I002 §3), InstServices, InstObjects, InstSolutions, Realizations w src/collections/ (wzór SoftwareSettings/Solutions, onlyLineTenant('instalacje'), tenant, SEO tam, gdzie mają stronę) oraz dokumenty Pages tenanta Instalacji z ADR-I002 §0 (slugi i puste bloki — komponenty bloków powstają w kolejnych sesjach). Telefon i e-mail linii do SiteSettings.phone/email, salony do CompanyData.locations (placeholdery). Hook: realizacja bez zgody klienta nie może być opublikowana. Idempotencja jak w seedzie Biznesu/Software (src/seed/compare.ts).
+2. PR wspólny inst/wsp-rejestracja (osobno, scalany przed resztą): rejestracja kolekcji linii w src/payload.config.ts, dopisanie ich do listy kolekcji tenanta w src/collections/Tenants.ts, skrypt "seed:instalacje" w package.json (src/seed/instalacje/{index,run,map}.ts, wzór src/seed/software/) i wywołanie seedInstalacje w src/seed/index.ts (jak seedSoftware). Zapytania NIE w I2 — bez nowych kolumn, reguły w I11 (ADR-I002 §4). Dopiero po scaleniu gałąź inst/i2-model z develop (albo rebase --onto, ADR-I001 §5).
 3. Skrypt pnpm seed:instalacje (idempotentny) dokładnie wg mapy plików w ADR-I002 §5: wspolne.json, obiekty/*.json (źródło prawdy obiektów), strony-zrzut usług, oferta-76.json (NIE Oferta.json), realizacje jako wersje robocze bez zgody, wpis RODO; linki .dc.html i zdjęcia ev/*.webp przez seed/prokominstalacje/adresy.json; klucze UI pomijane; klucze src importowane normalnie (źródła-przypisy są już usunięte z seeda).
 4. Generator src/sites/instalacje/dane/<strona>.ts z kluczy, które wg mapy w ADR-I002 §5 nie idą do panelu — typowane, commitowane.
 5. Testy: import dwa razy z rzędu nie tworzy duplikatów; liczności: 10 usług, 12 obiektów, 76 rozwiązań w 10 obszarach; brak „[svg-path]” i „.dc.html” w bazie; zdjęcia ładowarek wskazują /instalacje/ev/*.webp; żadna realizacja nie jest opublikowana.
@@ -100,7 +100,7 @@ DoD: migracje w repo (bez push), lint, typecheck, testy, CI.
 ### I3 — powłoka (desktop + telefon jak aplikacja)
 ```
 Sesja I3 (Instalacje) — powłoka. Przeczytaj: MOBILE-APLIKACJA.md (cały), KOMPONENTY.md §1, ADR-I003, spec §4. Wzorzec: prototyp/start.html, prototyp/monitoring.html, zrodlo/header.html, zrodlo/footer.html, zrodlo/common.js (common(), mg, BN, openSheet, _onS, toggleTheme), stany-telefonu/*.webp.
-Najpierw decyzja z I0: BottomSheet i TabBar z src/sites/software/components — przenieść do src/components (wspólne, osobny PR inst/wsp-arkusz, gdy Software nie pracuje na tych plikach) i użyć w obu liniach, albo — jeśli ich API nie pasuje do 3 zakładek arkusza Instalacji — własne komponenty w src/sites/instalacje (zapisz powód w ADR-I004).
+Decyzja z I0 (ADR-I004): BottomSheet → wspólny src/components/BottomSheet.tsx z progiem jako propem (osobny mały PR inst/wsp-arkusz, gdy Software nie pracuje na tym pliku; testy Software zielone), 3 zakładki = treść Instalacji; TabBar → własny src/sites/instalacje/components/TabBar.tsx; logika chowania nagłówka z PhoneLayer — sprawdź, czy da się wydzielić hook, domyślnie własna.
 Zakres: TopBar, Header + MegaMenu (most nad panelem, opóźnienie 280 ms, klik przełącza, Esc, focus-trap), MobileHeader (chowany przy przewijaniu), BottomTabBar (5 kart, stan aktywny), BottomSheet + MenuSheet (3 zakładki, gest w dół, Esc, wstecz, blokada przewijania), ThemeToggle, AnchorsBar, CtaBand, Footer, strona 404, manifest + theme-color, View Transitions.
 Najpierw: node docs/design/prokominstalacje/narzedzia/zrzuty-wzorca.mjs start i monitoring. Na koniec porównaj nagłówek (#naglowek), stopkę (#stopka) przez porownaj.mjs (start / i monitoring /monitoring, 1440 i 390, oba motywy), a elementy przyklejone (dolny pasek, arkusz w 3 zakładkach, schowany/wracający nagłówek) zrzutem ekranu 390×844 obok stany-telefonu/02–07.
 Testy e2e: mega menu (najazd, przejście kursorem na pozycję, klik działa), arkusz (otwórz każdą zakładką, zamknij ×, tłem, Esc), nagłówek chowa się i wraca, brak poziomego przewijania przy 360/390/414. Test na prawdziwym telefonie przed scaleniem.
@@ -144,7 +144,7 @@ DoD: docs/strony/prokominstalacje.md §10 + MOBILE-APLIKACJA.md §10 + SEO stron
 ### I8 — Kontrola dostępu, Sieci, Teletechnika
 ```
 Sesja I8 (Instalacje). Wzorzec: prototyp/kontrola-dostepu.html, sieci-wifi.html, teletechnika.html; zrodlo/pages/Dostep.*, Sieci.*, Teletechnika.*.
-Zakres: trzy strony w całości. Teletechnika: formularz przedmiaru z plikami (typy i limit z ADR-I002 §4, walidacja, zgoda, zapis przez adapter: źródło inst-teletechnika-przedmiar). Na stronie Sieci żadnej sprzedaży sprzętu (decyzja: informacja i „dobieramy pod obiekt”).
+Zakres: trzy strony w całości. Teletechnika: formularz przedmiaru BEZ uploadu w v1 (ADR-I002 §4: zdanie „przedmiar prześlij mailem po zgłoszeniu”), walidacja, zgoda, zapis przez adapter: category „Teletechnika — przedmiar”, type contact (reguły zapytań Instalacji dochodzą w I11 — jeśli I8 idzie przed I11, formularz wysyła zwykły kontakt z category). Na stronie Sieci żadnej sprzedaży sprzętu (decyzja: informacja i „dobieramy pod obiekt”).
 Porównanie 1440/390 × oba motywy; e2e formularza przedmiaru.
 DoD: docs/strony/prokominstalacje.md §10 + MOBILE-APLIKACJA.md §10 + SEO strony (title, description, JSON-LD); /inst-koniec przed /pr.
 ```
@@ -168,7 +168,8 @@ DoD: docs/strony/prokominstalacje.md §10 + MOBILE-APLIKACJA.md §10 + SEO stron
 ### I11 — formularze i kontakt
 ```
 Sesja I11 (Instalacje). Wzorzec: prototyp/zaplanuj.html, kontakt.html, serwis.html; zrodlo/pages/Zaplanuj.*, Kontakt.*, Serwis.*; spec §6; ADR-I002 §4.
-Zakres: kreator Zaplanuj (4 kroki, odczyt #obiekt=&uslugi=&konf= — konfiguracja ładowarki pokazana w kroku Szczegóły i zapisana w polu konfiguracja, ADR-I002 §4, jeden krok na ekran na telefonie, przyklejone Wstecz/Dalej), Kontakt (formularz, salony, godziny, mapa dojazdu bez zewnętrznych skryptów — statyczna grafika/link do Map), Serwis (#zglos), strona /wyslane (Pages + blok InstSent; /dziekujemy należy do Software), powiadomienie e-mail (Mailpit lokalnie: http://localhost:8025), antyspam, limit, pliki. Wszystko przez istniejący adapter zapytań z tenant=instalacje.
+Najpierw: SW7 (kreator Software) scalony? — ten sam src/lib/inquiry/submit.ts. Potem mały PR wsp inst/wsp-zapytania: reguły linii instalacje w lib/inquiry/schema.ts (klucze usług w topics[]) i gałąź kreatora Instalacji w submit.ts (odpowiedzi → podsumowanie w wizard) — bez nowych kolumn i migracji, mapa pól w ADR-I002 §4.
+Zakres: kreator Zaplanuj (4 kroki, odczyt #obiekt=&uslugi=&konf= — konfiguracja ładowarki pokazana w kroku Szczegóły i wysłana w odpowiedziach wizard, ADR-I002 §4, jeden krok na ekran na telefonie, przyklejone Wstecz/Dalej), Kontakt (formularz, salony z CompanyData.locations, godziny, mapa dojazdu bez zewnętrznych skryptów — statyczna grafika/link do Map), Serwis (#zglos, pilność → deadline), trasa (instalacje)/wyslane (noindex, poza sitemap, teksty w dane/wyslane.ts; /dziekujemy należy do Software), powiadomienie e-mail (Mailpit lokalnie: http://localhost:8025), antyspam, limit. Bez uploadu plików w v1. Wszystko przez istniejący adapter zapytań z tenant=instalacje.
 e2e: każdy formularz — błędy walidacji, wysyłka, zapis w panelu, e-mail w Mailpit. Porównanie 1440/390 × oba motywy.
 DoD: docs/strony/prokominstalacje.md §10 + MOBILE-APLIKACJA.md §10 + SEO strony (title, description, JSON-LD); /inst-koniec przed /pr.
 ```
@@ -176,7 +177,7 @@ DoD: docs/strony/prokominstalacje.md §10 + MOBILE-APLIKACJA.md §10 + SEO stron
 ### I12 — Oferta, Realizacje, O firmie, Poradnik
 ```
 Sesja I12 (Instalacje). Wzorzec: prototyp/oferta.html, realizacje.html, o-firmie.html, poradnik.html, poradnik-monitoring-rodo.html; źródła w zrodlo/pages/.
-Zakres: pełna oferta pod /uslugi (Pages + blok InstOffer; /oferta należy do Biznesu) — 76 rozwiązań z InstSolutions, filtr po obiekcie, wyszukiwarka z normalizacją polskich znaków i literówek, nawigacja obszarów), Realizacje (filtr; placeholdery do czasu zdjęć — bez fikcyjnych realizacji), O firmie, Poradnik (lista z kategorią) i wpis RODO z quizem (Article JSON-LD, autor, data aktualizacji, zdanie „To nie jest porada prawna”).
+Zakres: pełna oferta pod /uslugi (Pages + blok InstOffer; /oferta należy do Biznesu) — 76 rozwiązań z InstSolutions, filtr po obiekcie, wyszukiwarka z normalizacją polskich znaków i literówek, nawigacja obszarów), Realizacje (filtr; placeholdery do czasu zdjęć — bez fikcyjnych realizacji), O firmie, Poradnik (lista z kategorią) i wpis RODO z quizem (Article JSON-LD, autor, data aktualizacji, zdanie „To nie jest porada prawna”). Przed tym mały PR wsp inst/wsp-poradnik: postHref/sitemap zależne od linii w src/lib/posts/list.ts (Instalacje → /poradnik/<slug>, reszta bez zmian, testy obu linii) + kategorie Instalacji w POST_CATEGORIES (migracja enumu); potem trasa (instalacje)/poradnik/[slug].
 Porównanie 1440/390 × oba motywy.
 DoD: docs/strony/prokominstalacje.md §10 + MOBILE-APLIKACJA.md §10 + SEO strony (title, description, JSON-LD); /inst-koniec przed /pr.
 ```
