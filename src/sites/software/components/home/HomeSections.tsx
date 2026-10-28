@@ -11,18 +11,25 @@ import {
 } from '@/lib/software/data'
 import { fillText, type TextContext } from '@/lib/software/facts'
 import { popularCards, popularTabs } from '@/lib/software/popular'
+import { livePreviews } from '@/lib/software/previews'
+import { processQuote, processStages } from '@/lib/software/process'
 import { Wizard } from '@/sites/software/components/wizard/Wizard'
 import { loadWizardProps } from '@/sites/software/components/wizard/wizardProps'
 
 import { AreasExplorer } from './AreasExplorer'
+import { LivePreviewPanel } from './LivePreviews'
+import { LivePreviewTabs } from './LivePreviewTabs'
+import { ProcessExplorer } from './ProcessExplorer'
+import { ProcessPanel } from './ProcessVisuals'
 import { PopularExplorer } from './PopularExplorer'
 import { SectionHead } from './SectionHead'
 
 /**
- * The fixed sections of the Software start page built in SW5 (spec. §4 pkt 3, 4, 7) — server
+ * The fixed sections of the Software start page built in SW5 and SW6 (spec. §4 pkt 3–7) — server
  * parts; each reads its texts from `SoftwareSettings.home` and its lists from the collections
  * of this tenant, and is skipped while they are missing (a section without a heading is worse
- * than none). Anchors: `#oferta`, `#popularne`, `#dobierz` (header links, section rail).
+ * than none). Anchors: `#oferta`, `#popularne`, `#podglady`, `#proces`, `#dobierz` (header
+ * links, section rail).
  */
 
 async function textContext(tenantId: number): Promise<TextContext> {
@@ -125,6 +132,51 @@ export async function WizardSection({ tenantId }: { tenantId: number }) {
     <section id="dobierz" className="scroll-mt-24 py-10 min-[640px]:py-14">
       <Container wide>
         <Wizard {...props} headingLevel="h2" />
+      </Container>
+    </section>
+  )
+}
+
+export async function LivePreviewsSection({ tenantId }: { tenantId: number }) {
+  const [home, context] = await Promise.all([getSoftwareHome(tenantId), textContext(tenantId)])
+  const texts = home?.sections?.livePreviews
+  if (!home || !texts) return null
+  const previews = livePreviews(home.livePreviews, (text) => fillText(text, context))
+  if (previews.length === 0) return null
+  return (
+    <section id="podglady" className="scroll-mt-24 py-10 min-[640px]:py-14">
+      <Container wide className="flex flex-col gap-6">
+        <SectionHead eyebrow={texts.eyebrow} title={texts.title} lead={texts.lead} aside />
+        <LivePreviewTabs
+          tabs={previews.map(({ label, icon }) => ({ label, icon }))}
+          hint={texts.hint}
+          panels={previews.map((preview) => (
+            <LivePreviewPanel key={preview.kind} preview={preview} texts={texts} />
+          ))}
+        />
+      </Container>
+    </section>
+  )
+}
+
+export async function ProcessSection({ tenantId }: { tenantId: number }) {
+  const [home, context] = await Promise.all([getSoftwareHome(tenantId), textContext(tenantId)])
+  const texts = home?.sections?.process
+  if (!home || !texts) return null
+  const fill = (text: string) => fillText(text, context)
+  const stages = processStages(home.process, fill)
+  const quote = processQuote(home.proceduralMock, fill)
+  if (stages.length === 0) return null
+  return (
+    <section id="proces" className="scroll-mt-24 py-10 min-[640px]:py-14">
+      <Container wide className="flex flex-col gap-6 min-[640px]:gap-8">
+        <SectionHead eyebrow={texts.eyebrow} title={texts.title} lead={texts.lead} aside />
+        <ProcessExplorer
+          stages={stages.map(({ num, name, duration }) => ({ num, name, duration }))}
+          panels={stages.map((stage) => (
+            <ProcessPanel key={stage.num} stage={stage} texts={texts} quote={quote} />
+          ))}
+        />
       </Container>
     </section>
   )

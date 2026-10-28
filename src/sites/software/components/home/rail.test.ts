@@ -33,7 +33,7 @@ describe('Software section rail', () => {
 
   it('skips a section without its component yet (no anchor on the page)', () => {
     const items = softwareRailItems([
-      { blockType: 'swHomeSection', section: 'livePreviews' },
+      { blockType: 'swHomeSection', section: 'showcase' },
       { blockType: 'swHomeSection', section: 'areas' },
       { blockType: 'faq' },
     ])

@@ -107,6 +107,18 @@
   }
 }
 
+/* A tab panel of the Software start page coming in (previews, process; off with reduced motion). */
+@theme {
+  --animate-pane: pane 0.35s ease-out both;
+
+  @keyframes pane {
+    from {
+      opacity: 0;
+      translate: 0 8px;
+    }
+  }
+}
+
 /* Brand marquee of the Biznes home page (`BrandMarquee`): the list is rendered twice. */
 @theme {
   --animate-marquee: marquee 50s linear infinite;
