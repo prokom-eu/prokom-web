@@ -2,7 +2,7 @@ import { expect, test, type Page } from '@playwright/test'
 
 import { site } from './helpers'
 
-// SW5: start page of the Software line, part 1 (spec. §4 pkt 1–4, 7; §3.3 section rail). Data
+// SW5–SW6: start page of the Software line (spec. §4 pkt 1–7; §3.3 section rail). Data
 // from `pnpm seed`: the home page blocks in the order of `homeOrder`, texts in
 // `SoftwareSettings.home`, areas and solutions of the package.
 const HOST = 'software.localhost'
@@ -10,6 +10,11 @@ const HOST = 'software.localhost'
 const areaTabs = (page: Page) =>
   page.getByRole('tablist', { name: 'Obszary oferty' }).getByRole('tab')
 const areaPanel = (page: Page) => page.locator('#oferta').getByRole('tabpanel')
+const previewTabs = (page: Page) =>
+  page.getByRole('tablist', { name: 'Rodzaj rozwiązania' }).getByRole('tab')
+const previewPanel = (page: Page) => page.locator('#podglady [role=tabpanel]:not([inert])')
+const stageTabs = (page: Page) => page.getByRole('tablist', { name: 'Etapy' }).getByRole('tab')
+const stagePanel = (page: Page) => page.locator('#proces [role=tabpanel]:not([inert])')
 const modules = (page: Page) =>
   page.getByRole('group', { name: 'Moduły Twojego systemu' }).getByRole('button')
 
@@ -22,7 +27,7 @@ test.describe('Software start page', () => {
     const ids = await page
       .locator('main section[id]')
       .evaluateAll((sections) => sections.map((section) => section.id))
-    expect(ids).toEqual(['start', 'oferta', 'popularne', 'dobierz'])
+    expect(ids).toEqual(['start', 'oferta', 'popularne', 'podglady', 'proces', 'dobierz'])
     await expect(
       page.locator('#start').getByRole('link', { name: /Dobierz rozwiązanie/ }),
     ).toHaveAttribute('href', '/#dobierz')
@@ -119,6 +124,99 @@ test.describe('Software start page', () => {
     await expect(section).toContainText('od 149 zł / mies.')
   })
 
+  test('previews: 5 tabs, switching itself every 6 s until picked', async ({ page }) => {
+    await page.clock.install()
+    await page.goto(site(HOST))
+    await expect(previewTabs(page)).toHaveText([
+      'Strona',
+      'Rezerwacje',
+      'System firmowy',
+      'Aplikacja mobilna',
+      'Automatyzacje i AI',
+    ])
+    await expect(previewTabs(page).first()).toHaveAttribute('aria-selected', 'true')
+    await expect(previewPanel(page).getByRole('heading', { level: 3 })).toHaveText(
+      'Strona, która zbiera zapytania, a nie kurz',
+    )
+    await expect(previewPanel(page)).toContainText('w mniej niż 2,5 sekundy') // Google LCP
+    await expect(page.locator('#podglady')).toContainText('Przełącza się samo.')
+
+    // Switching by itself never moves the page below (no layout shift).
+    const height = async () => (await page.locator('#podglady').boundingBox())?.height
+    const before = await height()
+    await page.mouse.move(0, 0)
+    await page.clock.runFor(6100)
+    await expect(previewTabs(page).nth(1)).toHaveAttribute('aria-selected', 'true')
+    expect(await height()).toBe(before)
+
+    // Picked by keyboard: stops for good, the hint says so.
+    await previewTabs(page).nth(1).focus()
+    await page.keyboard.press('ArrowRight')
+    await expect(previewTabs(page).nth(2)).toBeFocused()
+    await expect(previewPanel(page).getByRole('heading', { level: 3 })).toHaveText(
+      'Cała firma w jednym panelu',
+    )
+    await expect(page.locator('#podglady')).toContainText('Twój wybór. Klikaj po ekranach.')
+    await page.mouse.move(0, 0)
+    await page.locator('body').click({ position: { x: 1, y: 1 } })
+    await page.clock.runFor(20_000)
+    await expect(previewTabs(page).nth(2)).toHaveAttribute('aria-selected', 'true')
+  })
+
+  test('„Chcę takie u siebie” adds the preview to „Twój projekt”', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    await page.goto(site(HOST))
+    await previewTabs(page).nth(1).click()
+    await previewPanel(page).getByRole('button', { name: 'Chcę takie u siebie' }).click()
+    await expect(
+      previewPanel(page).getByRole('button', { name: '✓ W Twoim projekcie' }),
+    ).toHaveAttribute('aria-pressed', 'true')
+    const stored = await page.evaluate(() => localStorage.getItem('pk-project'))
+    expect(JSON.parse(stored ?? '[]')).toContainEqual({ id: 'hero-rez', name: 'rezerwacje' })
+    await expect(
+      previewPanel(page).getByRole('link', { name: 'Otwórz pełny podgląd' }),
+    ).toHaveAttribute('href', '/rozwiazania')
+  })
+
+  test('process: 5 stages, the sample quote, switching itself until picked', async ({ page }) => {
+    await page.clock.install()
+    await page.goto(site(HOST))
+    await expect(stageTabs(page)).toHaveCount(5)
+    await expect(stageTabs(page).first()).toContainText('Rozmowa')
+    await expect(stagePanel(page).getByRole('heading', { level: 3 })).toHaveText(
+      'Opowiadasz, jak pracuje firma. My słuchamy.',
+    )
+    await expect(stagePanel(page)).toContainText('Płacisz: 0 zł')
+
+    const height = async () => (await page.locator('#proces').boundingBox())?.height
+    const before = await height()
+    await page.mouse.move(0, 0)
+    await page.clock.runFor(5300)
+    await expect(stageTabs(page).nth(1)).toHaveAttribute('aria-selected', 'true')
+    expect(await height()).toBe(before)
+    // Stage 2: the quote of `proceduralMock` — amounts of the price list.
+    await expect(stagePanel(page)).toContainText('Wycena nr PKS-2026-0142')
+    await expect(stagePanel(page)).toContainText('8 980 zł netto')
+
+    await stageTabs(page).nth(4).click()
+    await expect(stagePanel(page)).toContainText('Etap 05')
+    await page.mouse.move(0, 0)
+    await page.clock.runFor(20_000)
+    await expect(stageTabs(page).nth(4)).toHaveAttribute('aria-selected', 'true')
+  })
+
+  test('previews and process do not switch themselves with reduced motion', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    await page.clock.install()
+    await page.goto(site(HOST))
+    await expect(previewTabs(page)).toHaveCount(5)
+    await expect(stageTabs(page)).toHaveCount(5)
+    await page.mouse.move(0, 0)
+    await page.clock.runFor(20_000)
+    await expect(previewTabs(page).first()).toHaveAttribute('aria-selected', 'true')
+    await expect(stageTabs(page).first()).toHaveAttribute('aria-selected', 'true')
+  })
+
   test('the wizard is a section of the page, its title an h2', async ({ page }) => {
     await page.goto(site(HOST))
     const wizard = page.locator('#dobierz')
@@ -136,6 +234,8 @@ test.describe('Software start page', () => {
       'Start',
       'Oferta',
       'Najczęściej zamawiane',
+      'Podglądy na żywo',
+      'Jak pracujemy i cena',
       'Dobierz rozwiązanie',
     ])
     await expect(rail).toBeVisible()
@@ -158,6 +258,8 @@ test.describe('Software start page on a phone', () => {
         modules(page).first(),
         areaTabs(page).first(),
         page.locator('#popularne').getByRole('tab').first(),
+        previewTabs(page).first(),
+        stageTabs(page).first(),
       ]) {
         const box = await target.boundingBox()
         expect(box?.height ?? 0).toBeGreaterThanOrEqual(44)
@@ -165,6 +267,13 @@ test.describe('Software start page on a phone', () => {
       // 12 rzeczy as a carousel: a card is 84% wide, the next one peeks in.
       const card = await page.getByTestId('popular-card').first().boundingBox()
       expect(card?.width ?? 0).toBeLessThan(width * 0.9)
+      // Previews: the laptop only, no phone and no floating notes; process without the sketch.
+      await expect(previewPanel(page).getByText('Nowe zapytanie z formularza')).toBeHidden()
+      const stage = await previewPanel(page).locator('[aria-hidden="true"]').first().boundingBox()
+      expect(stage?.width ?? 0).toBeGreaterThan(width * 0.8)
+      expect((stage?.x ?? 0) + (stage?.width ?? 0)).toBeLessThanOrEqual(width)
+      await stageTabs(page).nth(1).click()
+      await expect(stagePanel(page).getByText('szkic Twojego systemu, za darmo')).toBeHidden()
     })
   }
 })
