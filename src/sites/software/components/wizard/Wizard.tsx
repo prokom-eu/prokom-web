@@ -98,8 +98,9 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
 
   const need = needOf(rules, answers)
   const sized = hasSize(rules, answers)
+  // Changing an answer after sending keeps the „Wysłane” card: no second inquiry by accident.
+  // Only a new path (another need, „opisz po swojemu”) starts a new quote.
   const update = (patch: Partial<WizardAnswers>) => {
-    setSent(null)
     setAnswers((current) => ({ ...current, ...patch }))
   }
   const go = (next: number) => {
@@ -179,7 +180,7 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
         <div>
           <p className="text-ink-2">{rules.ui.lead}</p>
           <ul className="mt-4 flex gap-2 overflow-x-auto pb-1 text-sm font-bold [scrollbar-width:none]">
-            {rules.badges.map((badge, i) => (
+            {rules.badges.map((badge) => (
               <li
                 key={badge}
                 className="inline-flex shrink-0 items-center gap-2 rounded-full border border-border bg-card py-1 pl-1 pr-3.5"
@@ -188,9 +189,9 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
                   aria-hidden="true"
                   className="inline-flex size-6 items-center justify-center rounded-full bg-accent text-xs text-accent-ink"
                 >
-                  {i === 0 ? rules.steps.length : i === 1 ? '●' : '✓'}
+                  ✓
                 </span>
-                {i === 0 ? badge.replace(/^\d+\s*/, '') : badge}
+                {badge}
               </li>
             ))}
           </ul>

@@ -138,6 +138,10 @@ for (const viewport of [
         const success = main(page).getByRole('status').filter({ hasText: 'Wycena jest w drodze' })
         await expect(success).toContainText(/Wysłane · PKS-\d{4}-\d{4}/i)
         await expect(success).toContainText('W ciągu 1 dnia roboczego napiszemy')
+        // Changing the size after sending keeps the card: no second inquiry by accident.
+        await button(page, 'Na start').click()
+        await expect(success).toBeVisible()
+        await expect(send(page)).toHaveCount(0)
 
         await loginAsAdmin(page)
         const { json } = await api(
