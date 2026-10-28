@@ -47,6 +47,19 @@ describe('solutions index on the seed package', () => {
     })
   })
 
+  it('carries the „12 rzeczy” card only when it differs from the catalog card (SW5)', () => {
+    const withCard = index.solutions.filter((solution) => solution.featured)
+    expect(withCard.length).toBeGreaterThan(0)
+    for (const solution of withCard) {
+      expect(Object.values(solution.featured ?? {}).every((value) => value !== undefined)).toBe(
+        true,
+      )
+    }
+    const source = solutionsSourceFromSeed()
+    source.solutions[0] = { ...source.solutions[0], featured: { name: ' ', features: [] } }
+    expect(buildSolutionsIndex(source).solutions[0]?.featured).toBeUndefined()
+  })
+
   it('has the price templates of the wizard settings', () => {
     expect(index.priceDisplay).toMatchObject({
       templateFrom: 'od {cena} zł netto',
