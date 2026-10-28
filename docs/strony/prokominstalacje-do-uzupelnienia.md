@@ -37,3 +37,5 @@ Lista wygenerowana 27.10.2026 z prototypu i seeda (wszystkie znaczniki `[…]`).
 | `[SZEF]` | ogólna decyzja/dane od szefa w danym miejscu | Alarmy, Kontakt, Multimedia, Naglosnienie, OFirmie, Realizacje, seed:strony-zrzut/Kontakt.json, seed:strony-zrzut/Multimedia.json, seed:strony-zrzut/Naglosnienie.json |
 | `[TELEFON]` | telefon linii Instalacje | Main, Zaplanuj, common, seed:strony-zrzut/Kontakt.json, seed:wspolne.json |
 | `[WHATSAPP]` | numer WhatsApp (albo usunąć przycisk) | common, seed:strony-zrzut/Kontakt.json, seed:wspolne.json |
+
+Gdzie w panelu (I2): telefon i e-mail linii — Ustawienia strony tenanta Instalacje (`SiteSettings`, dziś przykładowe wartości z `pnpm seed`); WhatsApp — Ustawienia Instalacji. Import seeda ich nie wpisuje (ADR-I002 „Import (I2)”).

@@ -15,6 +15,7 @@ import { isIconName } from '../../lib/catalog/options'
 import type { City, Industry, Post, Solution, SolutionArea } from '../../payload-types'
 import { h2, p, richText, ul } from '../biznes/lexical'
 import { SOFTWARE_NOT_FOUND, SOFTWARE_THANKS } from './pages'
+import { HOME_SECTION_TEXTS } from './homeExtras'
 import { wizardSeed } from './wizardExtras'
 
 /**
@@ -393,7 +394,7 @@ export function missingFacts(
 /**
  * Settings JSON 1:1 with the package (ADR-014 doprecyzowania SW2a 6). `home` = the start page
  * texts without `homeOrder` (the section order is the order of the page blocks, D2) + the
- * technology layers + the 12 cards.
+ * technology layers + the 12 cards + the section headings of the board (SW5).
  */
 export function softwareSettingsData() {
   const { homeOrder: _order, ...homeTexts } = structuredClone(stronaGlowna)
@@ -409,6 +410,7 @@ export function softwareSettingsData() {
       ...homeTexts,
       technologies: structuredClone(technologie.layers),
       popular: { order: structuredClone(popularne.order), tabs: structuredClone(popularne.tabs) },
+      sections: structuredClone(HOME_SECTION_TEXTS),
     },
     thanks: structuredClone(SOFTWARE_THANKS),
     notFound: structuredClone(SOFTWARE_NOT_FOUND),

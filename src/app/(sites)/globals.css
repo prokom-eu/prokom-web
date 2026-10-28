@@ -96,6 +96,17 @@
   }
 }
 
+/* Progress of the self-switching areas of the Software start page (`AreasExplorer`, 5,5 s). */
+@theme {
+  --animate-area-progress: area-progress 5.5s linear both;
+
+  @keyframes area-progress {
+    from {
+      scale: 0 1;
+    }
+  }
+}
+
 /* Brand marquee of the Biznes home page (`BrandMarquee`): the list is rendered twice. */
 @theme {
   --animate-marquee: marquee 50s linear infinite;

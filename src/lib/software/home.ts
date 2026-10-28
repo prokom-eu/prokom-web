@@ -1,5 +1,6 @@
 import { z } from 'zod'
 
+import { ICON_NAMES } from '../catalog/options'
 import { isHttpsUrl } from '../site/link'
 import { firstIssue, href, key, label, link, obj, slug, svgPath, text } from './schema'
 
@@ -47,6 +48,42 @@ const genericCard = obj({
   order: z.number().int().min(1),
   href,
 })
+
+/** Eyebrow, H2 and lead of a start page section. */
+const sectionHead = { eyebrow: label, title: label, lead: text }
+
+/**
+ * Headings and small texts of the start page sections built in SW5 — the board `Main` keeps them
+ * in its HTML, not in `strona-glowna.json` (ADR-014 doprecyzowania SW5). The wizard section has
+ * none: its heading is the wizard's own (`wizard.ui`). Facts (`[OPIEKA OD]`) are filled on render.
+ */
+export const homeSectionsSchema = obj({
+  areas: obj({
+    ...sectionHead,
+    /** Caption above the area price („Cena”). */
+    priceCaption: label,
+    /** Button to the wizard next to the area's own CTA („Dobierz w 60 s”). */
+    wizardButton: label,
+  }),
+  popular: obj({
+    ...sectionHead,
+    /** Number of visible cards: [1, 2–4, 5+] with `{n}`. */
+    count: z.tuple([label, label, label]),
+    /** Shown after the count („kliknij kartę, żeby rozwinąć”). */
+    hint: label,
+    /** „A gdy już masz stronę lub system”: links under the cards and the button to the catalog. */
+    after: obj({
+      title: label,
+      items: z
+        .array(obj({ title: label, text: label, href, icon: z.enum(ICON_NAMES) }))
+        .min(1)
+        .max(4),
+      button: link,
+    }),
+  }),
+})
+
+export type SoftwareHomeSections = z.infer<typeof homeSectionsSchema>
 
 export const homeSchema = obj({
   process: z
@@ -134,6 +171,8 @@ export const homeSchema = obj({
     /** [category key, label] of the filter tabs. */
     tabs: z.array(z.tuple([key, label])).min(1),
   }),
+  /** Optional: a home saved before SW5 has none; the sections that need it are then skipped. */
+  sections: homeSectionsSchema.optional(),
 })
 
 export type SoftwareHome = z.infer<typeof homeSchema>

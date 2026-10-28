@@ -7,6 +7,8 @@ import { log } from '../log'
 import { PAGE_CACHE_SECONDS } from '../pages/data'
 import { isIconName } from '../catalog/options'
 import { factsMap } from './facts'
+import { homeSchema, type SoftwareHome } from './home'
+import { type HomeArea, homeAreas } from './homeAreas'
 import type { MenuArea } from './mobileNav'
 import { thanksSchema, type SoftwareThanks } from './pages'
 import { buildSolutionsIndex, type SolutionsIndex } from './solutionsIndex'
@@ -120,6 +122,7 @@ export const getSolutionsIndex = (tenantId: number): Promise<SolutionsIndex> =>
             priceNote: true,
             priceMonthly: true,
             sizeNames: true,
+            featured: true,
           },
           ...read,
         }),
@@ -160,3 +163,75 @@ export const getSoftwareWizard = (tenantId: number): Promise<SoftwareWizard | nu
     ['software-wizard', 'sw7', String(tenantId)],
     { tags: [solutionsTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
   )()
+
+/**
+ * Texts of the start page sections of one Software tenant (`SoftwareSettings.home`) — `null`
+ * until saved or when they no longer match the schema (the sections that need them are skipped).
+ * Cached under `tenant:<id>:solutions`: the hooks of `SoftwareSettings` revalidate it.
+ */
+export const getSoftwareHome = (tenantId: number): Promise<SoftwareHome | null> =>
+  unstable_cache(
+    async () => {
+      const payload = await getPayload({ config })
+      const { docs } = await payload.find({
+        collection: 'software-settings',
+        where: { tenant: { equals: tenantId } },
+        limit: 1,
+        depth: 0,
+        select: { home: true },
+        overrideAccess: true,
+      })
+      const parsed = homeSchema.safeParse(docs[0]?.home)
+      if (!parsed.success && docs[0]?.home) {
+        log.warn({ tenant: tenantId }, 'Software home texts do not match the schema')
+      }
+      return parsed.success ? parsed.data : null
+    },
+    // The shape of the texts is part of the key: a schema change never serves a cached old shape.
+    ['software-home', 'sw5', String(tenantId)],
+    { tags: [solutionsTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
+  )()
+
+/**
+ * The areas of the start page section „Oferta” of one Software tenant, in panel order; chips link
+ * only to solutions published in this tenant. Read on the server (`SolutionAreas` is readable
+ * for the panel only). Deduplicated per request.
+ */
+export const getHomeAreas = cache(async (tenantId: number): Promise<HomeArea[]> => {
+  const payload = await getPayload({ config })
+  const inTenant = { tenant: { equals: tenantId } }
+  const [areas, solutions] = await Promise.all([
+    payload.find({
+      collection: 'solution-areas',
+      where: inTenant,
+      limit: 20,
+      depth: 0,
+      sort: 'order',
+      select: {
+        key: true,
+        name: true,
+        icon: true,
+        short: true,
+        description: true,
+        gain: true,
+        countLabel: true,
+        priceFrom: true,
+        priceLabel: true,
+        chips: true,
+        cta: true,
+      },
+      overrideAccess: true,
+    }),
+    payload.find({
+      collection: 'solutions',
+      where: { and: [inTenant, { _status: { equals: 'published' } }] },
+      draft: false,
+      limit: MAX_SOLUTIONS,
+      depth: 0,
+      select: { slug: true },
+      overrideAccess: true,
+    }),
+  ])
+  const slugs = new Map(solutions.docs.map((doc) => [doc.id, doc.slug]))
+  return homeAreas(areas.docs, slugs)
+})

@@ -20,6 +20,12 @@ type Props = {
   situationNames: Readonly<Record<string, string>>
   open: boolean
   onToggle: () => void
+  /** Generic card of „12 rzeczy” (SW5): its own link instead of the solution page. */
+  link?: { href: string; label: string }
+  /** Kinds of a generic card („Dla pracowników w terenie”), shown when expanded. */
+  variants?: readonly string[]
+  /** Card in a phone carousel: always the column layout. */
+  className?: string
 }
 
 /** The solution page comes with SW10; without a live preview the card asks instead. */
@@ -32,7 +38,16 @@ const solutionHref = (slug: string) => `/rozwiazania/${slug}`
  * the versions with price and term, the scope line, for whom and situations, and the actions:
  * „Zobacz podgląd” (or „Zapytaj”) and „+ Do projektu” / „✓ W projekcie”.
  */
-export function SolutionCard({ solution, display, situationNames, open, onToggle }: Props) {
+export function SolutionCard({
+  solution,
+  display,
+  situationNames,
+  open,
+  onToggle,
+  link,
+  variants = [],
+  className,
+}: Props) {
   const panelId = useId()
   const project = useProject()
   const [full, setFull] = useState(false)
@@ -44,6 +59,7 @@ export function SolutionCard({ solution, display, situationNames, open, onToggle
       className={cx(
         'relative grid grid-cols-[104px_1fr] gap-x-3.5 rounded-[22px] border bg-card p-3.5 transition-shadow sm:flex sm:flex-col',
         open ? 'border-accent-text shadow-raised' : 'border-border hover:shadow-raised',
+        className,
       )}
     >
       <CardScene
@@ -110,6 +126,23 @@ export function SolutionCard({ solution, display, situationNames, open, onToggle
             </ul>
           </>
         )}
+        {variants.length > 0 && (
+          <>
+            <p className="mt-4 text-xs font-extrabold uppercase tracking-[0.12em] text-ink-2">
+              Warianty
+            </p>
+            <ul className="mt-2 flex flex-wrap gap-1.5">
+              {variants.map((variant) => (
+                <li
+                  key={variant}
+                  className="rounded-lg bg-chip px-2.5 py-1.5 text-xs font-bold text-ink"
+                >
+                  {variant}
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
         {price.versions.length > 0 && (
           <dl className="mt-4 grid grid-cols-3 gap-2">
             {price.versions.map((version, i) => (
@@ -143,10 +176,12 @@ export function SolutionCard({ solution, display, situationNames, open, onToggle
         )}
         <div className="mt-4 grid grid-cols-2 gap-2">
           <Link
-            href={solution.hasLivePreview ? solutionHref(solution.slug) : '/kontakt'}
+            href={
+              link?.href ?? (solution.hasLivePreview ? solutionHref(solution.slug) : '/kontakt')
+            }
             className="flex min-h-11 items-center justify-center rounded-xl border border-border px-3 text-sm font-bold"
           >
-            {solution.hasLivePreview ? 'Zobacz podgląd' : 'Zapytaj'}
+            {link?.label ?? (solution.hasLivePreview ? 'Zobacz podgląd' : 'Zapytaj')}
           </Link>
           <button
             type="button"

@@ -1647,6 +1647,8 @@ export interface Page {
         | BzLinesBlock
         | BzBrandsBlock
         | BzLocationBlock
+        | SwHeroBlock
+        | SwHomeSectionBlock
       )[]
     | null;
   seo?: {
@@ -3710,6 +3712,182 @@ export interface BzLocationBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SwHeroBlock".
+ */
+export interface SwHeroBlock {
+  /**
+   * Jeden taki blok na stronę, na początku (kotwica #start, nagłówek H1).
+   */
+  eyebrow: string;
+  title: string;
+  /**
+   * W kolorze akcentu, po nagłówku.
+   */
+  titleAccent?: string | null;
+  lead: string;
+  primary: {
+    label: string;
+    href: string;
+  };
+  /**
+   * Np. „60 s”. Pusta = bez plakietki.
+   */
+  primaryBadge?: string | null;
+  secondary?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  /**
+   * Np. „Odpowiadamy w ciągu **[CZAS ODPOWIEDZI]**”. Pusty = bez linii.
+   */
+  response?: string | null;
+  trust?:
+    | {
+        text: string;
+        icon:
+          | 'shield'
+          | 'cal'
+          | 'users'
+          | 'store'
+          | 'bolt'
+          | 'doc'
+          | 'life'
+          | 'arrow'
+          | 'check'
+          | 'phone'
+          | 'mail'
+          | 'pin'
+          | 'clock'
+          | 'monitor'
+          | 'remote'
+          | 'bell'
+          | 'wallet'
+          | 'chat'
+          | 'wrench'
+          | 'rocket'
+          | 'map'
+          | 'star'
+          | 'q'
+          | 'flash'
+          | 'grad'
+          | 'server'
+          | 'compass'
+          | 'panel'
+          | 'site'
+          | 'grid'
+          | 'plug'
+          | 'ticket'
+          | 'lifebuoy'
+          | 'chart'
+          | 'sign'
+          | 'cash'
+          | 'search'
+          | 'x'
+          | 'bed'
+          | 'food'
+          | 'refresh'
+          | 'globe'
+          | 'box'
+          | 'car'
+          | 'home'
+          | 'mountain'
+          | 'heart'
+          | 'bag'
+          | 'card'
+          | 'target'
+          | 'key'
+          | 'mega'
+          | 'mount'
+          | 'brief';
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Pod hero. Na telefonie bez opisów (2×2).
+   */
+  intents?:
+    | {
+        title: string;
+        icon:
+          | 'shield'
+          | 'cal'
+          | 'users'
+          | 'store'
+          | 'bolt'
+          | 'doc'
+          | 'life'
+          | 'arrow'
+          | 'check'
+          | 'phone'
+          | 'mail'
+          | 'pin'
+          | 'clock'
+          | 'monitor'
+          | 'remote'
+          | 'bell'
+          | 'wallet'
+          | 'chat'
+          | 'wrench'
+          | 'rocket'
+          | 'map'
+          | 'star'
+          | 'q'
+          | 'flash'
+          | 'grad'
+          | 'server'
+          | 'compass'
+          | 'panel'
+          | 'site'
+          | 'grid'
+          | 'plug'
+          | 'ticket'
+          | 'lifebuoy'
+          | 'chart'
+          | 'sign'
+          | 'cash'
+          | 'search'
+          | 'x'
+          | 'bed'
+          | 'food'
+          | 'refresh'
+          | 'globe'
+          | 'box'
+          | 'car'
+          | 'home'
+          | 'mountain'
+          | 'heart'
+          | 'bag'
+          | 'card'
+          | 'target'
+          | 'key'
+          | 'mega'
+          | 'mount'
+          | 'brief';
+        tone: 'www' | 'sys' | 'app' | 'cal' | 'plug' | 'auto' | 'care' | 'aud';
+        text: string;
+        href: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'swHero';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SwHomeSectionBlock".
+ */
+export interface SwHomeSectionBlock {
+  /**
+   * Każda sekcja raz na stronie (ma swoją kotwicę, np. #oferta). Teksty sekcji edytuje się w Ustawieniach Software → strona główna.
+   */
+  section: 'areas' | 'popular' | 'livePreviews' | 'process' | 'wizard' | 'whyNotWordpress' | 'guarantees' | 'showcase';
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'swHomeSection';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -5203,6 +5381,8 @@ export interface PagesSelect<T extends boolean = true> {
         bzLines?: T | BzLinesBlockSelect<T>;
         bzBrands?: T | BzBrandsBlockSelect<T>;
         bzLocation?: T | BzLocationBlockSelect<T>;
+        swHero?: T | SwHeroBlockSelect<T>;
+        swHomeSection?: T | SwHomeSectionBlockSelect<T>;
       };
   seo?:
     | T
@@ -6306,6 +6486,58 @@ export interface BzLocationBlockSelect<T extends boolean = true> {
   lead?: T;
   areaLabel?: T;
   phoneNote?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SwHeroBlock_select".
+ */
+export interface SwHeroBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  title?: T;
+  titleAccent?: T;
+  lead?: T;
+  primary?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  primaryBadge?: T;
+  secondary?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  response?: T;
+  trust?:
+    | T
+    | {
+        text?: T;
+        icon?: T;
+        id?: T;
+      };
+  intents?:
+    | T
+    | {
+        title?: T;
+        icon?: T;
+        tone?: T;
+        text?: T;
+        href?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SwHomeSectionBlock_select".
+ */
+export interface SwHomeSectionBlockSelect<T extends boolean = true> {
+  section?: T;
   id?: T;
   blockName?: T;
 }

@@ -4,6 +4,7 @@ import { type ReactNode, useEffect, useId, useRef, useState } from 'react'
 
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
+import { useProject } from '@/lib/software/projectStore'
 import type { SoftwareWizard } from '@/lib/software/wizard'
 import {
   choiceOf,
@@ -47,10 +48,21 @@ const primary =
 const stepTitle =
   'scroll-mt-44 font-display text-[clamp(1.6rem,2.6vw,2.1rem)] font-extrabold leading-tight outline-none'
 
-/** Action row; sticks above the bottom bar on the phone (spec. §8.6). */
+/**
+ * Action row; sticks above the bottom bar on the phone (spec. §8.6) — and above the „Twój
+ * projekt” pill (48 px + 8 px gap) while the list has items, so the pill never covers „Dalej”.
+ */
 function Actions({ children }: { children: ReactNode }) {
+  const pill = useProject().length > 0
   return (
-    <div className="sticky bottom-[calc(88px+env(safe-area-inset-bottom))] z-20 -mx-4 mt-6 flex items-center justify-end gap-4 bg-surface/90 px-4 py-3 backdrop-blur-md min-[1081px]:static min-[1081px]:mx-0 min-[1081px]:bg-transparent min-[1081px]:p-0 min-[1081px]:backdrop-blur-none">
+    <div
+      className={cx(
+        'sticky z-20 -mx-4 mt-6 flex items-center justify-end gap-4 bg-surface/90 px-4 py-3 backdrop-blur-md min-[1081px]:static min-[1081px]:mx-0 min-[1081px]:bg-transparent min-[1081px]:p-0 min-[1081px]:backdrop-blur-none',
+        pill
+          ? 'bottom-[calc(144px+env(safe-area-inset-bottom))]'
+          : 'bottom-[calc(88px+env(safe-area-inset-bottom))]',
+      )}
+    >
       {children}
     </div>
   )

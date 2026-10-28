@@ -1,24 +1,13 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { connection } from 'next/server'
 
 import { Container } from '@/components/ui/Container'
 import { getEnv } from '@/lib/env'
-import { issueFormToken } from '@/lib/inquiry/spam'
 import { robotsMeta } from '@/lib/seo/robots'
-import { getSiteSettings } from '@/lib/site/data'
-import { toTelHref } from '@/lib/site/link'
-import { getSoftwareFacts, getSoftwareWizard, getSolutionsIndex } from '@/lib/software/data'
-import { fillText, type TextContext } from '@/lib/software/facts'
-import { wizardSolutionSlugs } from '@/lib/software/wizard'
-import {
-  fillWizardTexts,
-  parseWizardParams,
-  WIZARD_PATH,
-  type WizardSolution,
-} from '@/lib/software/wizardFlow'
+import { WIZARD_PATH } from '@/lib/software/wizardFlow'
 import { Wizard } from '@/sites/software/components/wizard/Wizard'
+import { loadWizardProps } from '@/sites/software/components/wizard/wizardProps'
 
 import { requestOrigin, requireLine } from '../../tenant'
 
@@ -59,36 +48,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
  */
 export default async function WizardPage({ params, searchParams }: Props) {
   const tenant = await requireLine(params, 'software')
-  // The token carries the render time (minimum fill time): never from a cache.
-  await connection()
-  const [rules, index, facts, settings, query] = await Promise.all([
-    getSoftwareWizard(tenant.id),
-    getSolutionsIndex(tenant.id),
-    getSoftwareFacts(tenant.id),
-    getSiteSettings(tenant.id),
-    searchParams,
-  ])
+  const props = await loadWizardProps(tenant.id, await searchParams)
   // No valid rules in the panel yet: there is no wizard to show.
-  if (!rules) notFound()
-
-  const context: TextContext = {
-    tenantId: tenant.id,
-    facts,
-    prices: {},
-    strict: getEnv().SITE_ENV === 'production',
-  }
-  // Only the solutions the results are priced with, published on this site.
-  const wanted = new Set(wizardSolutionSlugs(rules))
-  const solutions: Record<string, WizardSolution> = Object.fromEntries(
-    index.solutions
-      .filter((solution) => wanted.has(solution.slug))
-      .map(({ slug, name, prices, leadTimes, priceMonthly }) => [
-        slug,
-        { name, prices, leadTimes, priceMonthly },
-      ]),
-  )
-  const phone = settings?.phone ?? null
-  const tel = phone ? toTelHref(phone) : null
+  if (!props) notFound()
 
   return (
     <div className="overflow-x-clip pt-6 pb-16 sm:pt-10 sm:pb-24">
@@ -108,14 +70,7 @@ export default async function WizardPage({ params, searchParams }: Props) {
             </li>
           </ol>
         </nav>
-        <Wizard
-          rules={fillWizardTexts(rules, (text) => fillText(text, context))}
-          solutions={solutions}
-          initial={parseWizardParams(rules, query)}
-          formToken={issueFormToken(getEnv().PAYLOAD_SECRET)}
-          phone={phone && tel ? { label: phone, href: tel } : null}
-          headingLevel="h1"
-        />
+        <Wizard {...props} headingLevel="h1" />
       </Container>
     </div>
   )

@@ -3,12 +3,13 @@ import { notFound } from 'next/navigation'
 
 import { renderableBlocks } from '@/blocks/registry'
 import { RenderBlocks } from '@/components/RenderBlocks'
+import { type RailItem, SectionRail } from '@/components/SectionRail'
 import { getPublishedPage } from '@/lib/pages/data'
 import { pageMetadata } from '@/lib/pages/metadata'
 import { getSiteSettings } from '@/lib/site/data'
 import { HOME_SLUG } from '@/lib/pages/slug'
 import { railItems } from '@/sites/biznes/components/home/rail'
-import { SectionRail } from '@/sites/biznes/components/home/SectionRail'
+import { softwareRailItems } from '@/sites/software/components/home/rail'
 
 import { requireTenant } from './tenant'
 
@@ -30,14 +31,20 @@ export default async function TenantHomePage({ params }: Props) {
   const tenant = await requireTenant(params)
   const page = await getPublishedPage(tenant.id, HOME_SLUG)
   if (!page) notFound()
-  // Biznes: the floating section rail of the home page (spec. §3.7), from the blocks on it.
-  const rail =
+  // The floating section rail of the home page, from the blocks on it: Biznes (spec. §3.7)
+  // from 1400 px, Software (spec. §3.3) above 1400 px.
+  const blocks = renderableBlocks(tenant.line, page.layout)
+  const rail: RailItem[] =
     tenant.line === 'biznes'
-      ? railItems(renderableBlocks(tenant.line, page.layout).map((block) => block.blockType))
-      : []
+      ? railItems(blocks.map((block) => block.blockType))
+      : tenant.line === 'software'
+        ? softwareRailItems(blocks)
+        : []
   return (
     <>
-      {rail.length > 0 && <SectionRail items={rail} />}
+      {rail.length > 0 && (
+        <SectionRail items={rail} from={tenant.line === 'software' ? 1401 : 1400} />
+      )}
       <RenderBlocks page={page} tenant={tenant} />
     </>
   )
