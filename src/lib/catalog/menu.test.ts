@@ -46,6 +46,36 @@ describe('megaMenu', () => {
     })
   })
 
+  it('lists the subcategory pages under their category, outside the limit (K3b′)', () => {
+    const menu = megaMenu(
+      {
+        ...index,
+        groups: [group('biuro', 'Komputery i biuro')],
+        categories: [
+          {
+            ...category('komputery-monitory', 'biuro', 5),
+            subcategories: [
+              { name: 'Laptopy', slug: 'laptopy', count: 3 },
+              { name: 'Bez adresu', count: 2 },
+            ],
+          },
+          category('drukarki', 'biuro', 1),
+        ],
+      },
+      { columnLimit: 2, highlights: [] },
+    )
+    expect(menu.columns[0]!.items).toEqual([
+      {
+        label: 'komputery-monitory',
+        href: '/oferta/komputery-monitory',
+        count: 5,
+        sub: [{ label: 'Laptopy', href: '/oferta/komputery-monitory/laptopy', count: 3 }],
+      },
+      { label: 'drukarki', href: '/oferta/drukarki', count: 1 },
+    ])
+    expect(menu.columns[0]!.more).toBeNull()
+  })
+
   it('puts highlights first and fills the column up to the limit', () => {
     const menu = megaMenu(index, {
       columnLimit: 3,

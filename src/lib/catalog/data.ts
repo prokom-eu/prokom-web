@@ -4,6 +4,7 @@ import { getPayload } from 'payload'
 
 import { PAGE_CACHE_SECONDS } from '../pages/data'
 import { pagesTag } from '../pages/tags'
+import { buildBrandView, type BrandView } from './brand'
 import { buildCatalogIndex, type CatalogIndex } from './catalogIndex'
 import { buildCategoryView, type CategoryView } from './category'
 import { buildIndustryView, type IndustryView } from './industry'
@@ -162,6 +163,30 @@ export const getCategoryView = (tenantId: number, slug: string): Promise<Categor
       return category ? buildCategoryView(category, tenantId) : null
     },
     ['category-view', String(tenantId), slug],
+    { tags: [catalogTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
+  )()
+
+/**
+ * The brand page of one brand for `/marki/[slug]`, as `BrandView` — or `null` (no page, not a
+ * brand of this site). `Partners` is shared, so the tenant is checked in `buildBrandView`;
+ * cached under the catalog tag, which brand changes refresh (`catalogRevalidationHooks`).
+ */
+export const getBrandView = (tenantId: number, slug: string): Promise<BrandView | null> =>
+  unstable_cache(
+    async () => {
+      const payload = await getPayload({ config })
+      const { docs } = await payload.find({
+        collection: 'partners',
+        where: { and: [{ slug: { equals: slug } }, { tenants: { in: [tenantId] } }] },
+        limit: 1,
+        depth: 0,
+        // Server-side read of public brand data; only the fields of `BrandView` leave here.
+        overrideAccess: true,
+      })
+      const partner = docs[0]
+      return partner ? buildBrandView(partner, tenantId) : null
+    },
+    ['brand-view', String(tenantId), slug],
     { tags: [catalogTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
   )()
 

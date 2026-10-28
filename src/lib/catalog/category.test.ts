@@ -9,8 +9,13 @@ import {
   categoryPill,
   categoryProducts,
   filterCategoryProducts,
+  findSubcategory,
   helpCardSpan,
   registerOptions,
+  subcategoryHref,
+  subcategoryLinks,
+  subcategoryProducts,
+  subcategoryTitle,
 } from './category'
 import type { CatalogIndex, IndexProduct } from './catalogIndex'
 
@@ -130,6 +135,85 @@ describe('filterCategoryProducts', () => {
     expect(
       slugs(filterCategoryProducts(products, { registerType: 'mobile', brand: 'posnet' })),
     ).toEqual(['ergo'])
+  })
+
+  it('narrows by the main category (brand page) and a subcategory chip (K3b′)', () => {
+    const mixed = [
+      product('szuflada', { categories: ['akcesoria-pos'], subcategory: 'Szuflady kasowe' }),
+      product('sprawdzarka', { categories: ['akcesoria-pos'], subcategory: 'Sprawdzarki cen' }),
+      product('ergo-2', { categories: ['kasy-fiskalne', 'akcesoria-pos'] }),
+    ]
+    expect(slugs(filterCategoryProducts(mixed, { category: 'akcesoria-pos' }))).toEqual([
+      'szuflada',
+      'sprawdzarka',
+    ])
+    expect(slugs(filterCategoryProducts(mixed, { subcategory: 'Szuflady kasowe' }))).toEqual([
+      'szuflada',
+    ])
+  })
+})
+
+describe('subcategories (K3b′)', () => {
+  const komp = {
+    slug: 'komputery-monitory',
+    name: 'Komputery i monitory',
+    group: 'biuro',
+    count: 3,
+    subcategories: [
+      { name: 'Laptopy', slug: 'laptopy', count: 2 },
+      { name: 'Monitory', slug: 'monitory', count: 1 },
+    ],
+  }
+  const akc = {
+    slug: 'akcesoria-pos',
+    name: 'Akcesoria POS',
+    group: 'sprzedaz',
+    count: 2,
+    subcategories: [{ name: 'Szuflady kasowe', count: 2 }],
+  }
+  const categories = [komp, akc]
+
+  it('finds a subcategory page only by its address in a listed category', () => {
+    expect(findSubcategory({ categories }, 'komputery-monitory', 'laptopy')).toEqual({
+      category: komp,
+      subcategory: { name: 'Laptopy', slug: 'laptopy', count: 2 },
+    })
+    expect(findSubcategory({ categories }, 'komputery-monitory', 'tablety')).toBeNull()
+    expect(findSubcategory({ categories }, 'akcesoria-pos', 'szuflady-kasowe')).toBeNull()
+    expect(findSubcategory({ categories }, 'nieznana', 'laptopy')).toBeNull()
+  })
+
+  it('takes the cards whose main category holds the subcategory', () => {
+    const products = [
+      product('tb', { categories: ['komputery-monitory'], subcategory: 'Laptopy' }),
+      product('obcy', { categories: ['inna', 'komputery-monitory'], subcategory: 'Laptopy' }),
+      product('mon', { categories: ['komputery-monitory'], subcategory: 'Monitory' }),
+    ]
+    expect(
+      subcategoryProducts({ products }, 'komputery-monitory', 'Laptopy').map((p) => p.slug),
+    ).toEqual(['tb'])
+  })
+
+  it('links subcategories with an address and keeps the others as chips', () => {
+    expect(subcategoryLinks(komp).pages.map((item) => item.href)).toEqual([
+      '/oferta/komputery-monitory/laptopy',
+      '/oferta/komputery-monitory/monitory',
+    ])
+    expect(subcategoryLinks(akc)).toEqual({
+      pages: [],
+      chips: [{ name: 'Szuflady kasowe', count: 2 }],
+    })
+    expect(subcategoryHref('a b', 'c')).toBe('/oferta/a%20b/c')
+  })
+
+  it('names the subcategory page with its brands', () => {
+    expect(subcategoryTitle('Laptopy', [{ name: 'Lenovo' }, { name: 'Dell' }])).toBe(
+      'Laptopy dla firm — Lenovo i Dell',
+    )
+    expect(subcategoryTitle('Zasilacze UPS', [{ name: 'APC' }])).toBe(
+      'Zasilacze UPS dla firm — APC',
+    )
+    expect(subcategoryTitle('Projektory', [])).toBe('Projektory dla firm')
   })
 })
 

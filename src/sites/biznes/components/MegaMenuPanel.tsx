@@ -87,6 +87,29 @@ export function MegaMenuPanel({ menu, shortcuts, cards, industry }: Props) {
                         )
                       )}
                     </Link>
+                    {item.sub && (
+                      <ul className="mb-1 ml-2 border-l border-border pl-2">
+                        {item.sub.map((sub) => (
+                          <li key={sub.href}>
+                            <Link
+                              href={sub.href}
+                              className="flex min-h-9 items-center justify-between gap-2 rounded-lg px-2 py-1 text-sm leading-snug font-semibold text-ink-2 hover:bg-surface-2"
+                            >
+                              <span>{sub.label}</span>
+                              {sub.count !== undefined && (
+                                <small className="text-xs font-bold text-ink-2">
+                                  {sub.count}
+                                  <span className="sr-only">
+                                    {' '}
+                                    {plural(sub.count, ['pozycja', 'pozycje', 'pozycji'])}
+                                  </span>
+                                </small>
+                              )}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                   </li>
                 ))}
               </ul>

@@ -237,9 +237,10 @@ test.describe('Biznes product page 2.0', () => {
     const family = page.getByRole('region', { name: 'Inne z rodziny ThinkBook' })
     await expect(family.getByRole('article')).toHaveCount(4)
     await expect(family.getByRole('link', { name: 'Lenovo ThinkBook 14 G8 / G9' })).toHaveCount(0)
+    // The brand page since K3b′ (before: the catalog filtered to the brand).
     await expect(family.getByRole('link', { name: 'Cała oferta Lenovo' })).toHaveAttribute(
       'href',
-      /\/oferta\?marka=lenovo/,
+      '/marki/lenovo',
     )
   })
 

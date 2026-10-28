@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 import { bentoTiles } from '@/lib/catalog/bento'
+import { brandPageHref } from '@/lib/catalog/brand'
 import { cardIcon, productHref } from '@/lib/catalog/card'
 import { categoryHref } from '@/lib/catalog/category'
 import { getCatalogIndex, getProductView } from '@/lib/catalog/data'
@@ -127,13 +128,14 @@ export default async function ProductPage({ params }: Props) {
 
   // The category page exists only for a listed category (rozstrzygnięcie 7).
   const categoryLink = category ? categoryHref(category.slug) : null
-  // The brand's catalog until its showroom exists (K3b′, K31c).
+  // The brand page (K3b′; the showroom of Lenovo and Dell in K31c), else the brand's catalog.
   const brandLink = product.brand
-    ? catalogHref(
+    ? (brandPageHref(index, product.brand.slug) ??
+      catalogHref(
         updateState(parseCatalogState(new URLSearchParams(), index), {
           brands: [product.brand.slug],
         }),
-      )
+      ))
     : null
 
   const tiles = bentoTiles(product.specs)

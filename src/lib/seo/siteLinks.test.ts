@@ -58,6 +58,33 @@ describe('buildSiteMap', () => {
     expect(map[4]?.links.map(({ href }) => href)).toEqual(['/aktualnosci', '/aktualnosci/ksef'])
   })
 
+  it('lists subcategory pages under their category and the brand pages (K3b′)', () => {
+    const map = buildSiteMap({
+      pages: [],
+      catalog: {
+        categories: [
+          {
+            slug: 'komputery-monitory',
+            name: 'Komputery i monitory',
+            subcategories: [{ name: 'Laptopy', slug: 'laptopy' }, { name: 'Bez adresu' }],
+          },
+        ],
+        brands: [{ slug: 'dibal', name: 'Dibal' }],
+        industries: [],
+        products: [],
+      },
+      news: null,
+    })
+    expect(map.find(({ id }) => id === 'oferta')?.links.map(({ href }) => href)).toEqual([
+      '/oferta',
+      '/oferta/komputery-monitory',
+      '/oferta/komputery-monitory/laptopy',
+    ])
+    expect(map.find(({ id }) => id === 'marki')?.links).toEqual([
+      { href: '/marki/dibal', label: 'Dibal' },
+    ])
+  })
+
   it('keeps a published product whose category is not listed, under „Pozostałe”', () => {
     const map = buildSiteMap({
       pages: [],

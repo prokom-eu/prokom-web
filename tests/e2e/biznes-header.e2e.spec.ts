@@ -64,14 +64,17 @@ test.describe('Biznes header', () => {
   })
 
   test('stays open on a click inside the panel, closes on a click outside', async ({ page }) => {
+    // A tall window: with the subcategories (K3b′) the panel fills a 720 px one (it scrolls).
+    await page.setViewportSize({ width: 1280, height: 1200 })
     await page.goto(site('biznes.localhost'))
     const button = mainNav(page).getByRole('button', { name: 'Oferta' })
     await button.click()
     // Plain text of the panel: focus leaves the button without a new target.
     await page.getByText('Bez cen na stronie').click()
     await expect(button).toHaveAttribute('aria-expanded', 'true')
-    // Bottom of the window, below the panel.
-    await page.mouse.click(10, (page.viewportSize()?.height ?? 720) - 10)
+    // Below the panel, measured from its own bottom edge.
+    const box = await page.locator(`#${await button.getAttribute('aria-controls')}`).boundingBox()
+    await page.mouse.click(10, (box?.y ?? 0) + (box?.height ?? 0) + 20)
     await expect(button).toHaveAttribute('aria-expanded', 'false')
   })
 

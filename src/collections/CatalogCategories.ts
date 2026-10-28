@@ -123,7 +123,7 @@ export const CatalogCategories: CollectionConfig = {
       fields: [
         {
           name: 'includedSection',
-          label: 'Sekcja „W cenie”',
+          label: 'Sekcja „Co robimy przy zakupie”',
           type: 'group',
           fields: [
             sectionHeading,

@@ -6,7 +6,8 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
-import type { CatalogIndex } from '@/lib/catalog/catalogIndex'
+import { brandCategories } from '@/lib/catalog/brand'
+import type { CatalogIndex, IndexSubcategory } from '@/lib/catalog/catalogIndex'
 import {
   categoryBrands,
   filterCategoryProducts,
@@ -26,6 +27,15 @@ type Props = {
   help: { title: string; text: string }
   /** „…potrzebujesz drukarki fiskalnej, nie kasy →” — only when that category is listed. */
   printersHref: string | null
+  /** Segments above the grid: brands (category page) or main categories (brand page, K3b′). */
+  segments?: 'brand' | 'category'
+  /**
+   * Subcategory chips without their own address (K3b′): filters in the browser. A subcategory
+   * belongs to the main category (`category`), so the chip narrows to it too — like its count.
+   */
+  chips?: { category: string; items: IndexSubcategory[] } | null
+  /** Visible heading of the grid (brand page: „W katalogu”); else a hidden „Produkty”. */
+  title?: string
 }
 
 const SPAN_2: Record<number, string> = { 1: 'col-span-1', 2: 'col-span-2' }
@@ -38,19 +48,35 @@ const SPAN_3: Record<number, string> = {
 const SEGMENT =
   'relative inline-flex min-h-11 cursor-pointer items-center rounded-xl px-4 text-sm font-extrabold text-ink-2 has-checked:bg-card has-checked:text-ink has-checked:shadow-[0_6px_16px_-10px_var(--glow),inset_0_0_0_1px_var(--border)] has-focus-visible:outline-3 has-focus-visible:outline-offset-2 has-focus-visible:outline-accent-text'
 
+/** Subcategory chip; checked = the accent fill, like the chips of the hero (K31 board). */
+const CHIP =
+  'inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-xl bg-card px-4 text-sm font-bold text-ink shadow-[inset_0_0_0_1px_var(--border)] hover:shadow-[inset_0_0_0_1px_var(--ink-3)] has-checked:bg-accent-text has-checked:text-accent-ink has-checked:shadow-none has-focus-visible:outline-3 has-focus-visible:outline-offset-2 has-focus-visible:outline-accent-text'
+
 /**
  * Products of a category (spec. §6.1): the cash register picker (when the products have types),
  * brand segments, the grid with the „Nie wiesz, którą wybrać?” card and „Pokaż kolejne”. The
  * choice lives only in the browser — the page keeps one address for search engines.
  */
-export function CategoryGrid({ index, help, printersHref }: Props) {
+export function CategoryGrid({
+  index,
+  help,
+  printersHref,
+  segments = 'brand',
+  chips = null,
+  title,
+}: Props) {
   const products = index.products
   const [choice, setChoice] = useState<CategoryChoice>({})
   const [shown, setShown] = useState(CATALOG_PAGE_SIZE)
   const focusCard = useRef<number | null>(null)
 
   const options = useMemo(() => registerOptions(products), [products])
-  const brands = useMemo(() => categoryBrands(products, index), [products, index])
+  const segmentList = useMemo(
+    () =>
+      segments === 'brand' ? categoryBrands(products, index) : brandCategories(products, index),
+    [segments, products, index],
+  )
+  const segmentKey = segments === 'brand' ? 'brand' : 'category'
   const results = useMemo(() => filterCategoryProducts(products, choice), [products, choice])
   const visible = results.slice(0, shown)
   const more = results.length - visible.length
@@ -100,8 +126,15 @@ export function CategoryGrid({ index, help, printersHref }: Props) {
           )}
         </div>
       ) : (
-        <h2 id="produkty-h" className="sr-only">
-          Produkty
+        <h2
+          id="produkty-h"
+          className={
+            title
+              ? 'font-display text-[clamp(1.8rem,3vw,2.6rem)] leading-tight font-extrabold tracking-[-0.02em]'
+              : 'sr-only'
+          }
+        >
+          {title ?? 'Produkty'}
         </h2>
       )}
 
@@ -160,24 +193,48 @@ export function CategoryGrid({ index, help, printersHref }: Props) {
         </ul>
       )}
 
+      {chips && chips.items.length > 1 && (
+        <fieldset className="mt-8 flex flex-wrap gap-2">
+          <legend className="sr-only">Podkategoria</legend>
+          {[{ name: '', count: products.length }, ...chips.items].map((chip) => (
+            <label key={chip.name || 'all'} className={CHIP}>
+              <input
+                type="radio"
+                name="podkategoria"
+                checked={(choice.subcategory ?? '') === chip.name}
+                onChange={() =>
+                  choose({
+                    subcategory: chip.name || undefined,
+                    category: chip.name ? chips.category : undefined,
+                  })
+                }
+                className="sr-only"
+              />
+              {chip.name || 'Wszystkie'}
+              <span className="text-xs font-extrabold">{chip.count}</span>
+            </label>
+          ))}
+        </fieldset>
+      )}
+
       <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
         <p role="status" className="text-ink-2">
           <b className="font-display text-2xl font-extrabold text-ink">{results.length}</b>{' '}
           {countLabel}
         </p>
-        {brands.length > 1 && (
+        {segmentList.length > 1 && (
           <fieldset className="flex flex-wrap gap-1 rounded-2xl bg-surface-2 p-1">
-            <legend className="sr-only">Marka</legend>
-            {[{ slug: '', name: 'Wszystkie' }, ...brands].map((brand) => (
-              <label key={brand.slug || 'all'} className={SEGMENT}>
+            <legend className="sr-only">{segments === 'brand' ? 'Marka' : 'Kategoria'}</legend>
+            {[{ slug: '', name: 'Wszystkie' }, ...segmentList].map((segment) => (
+              <label key={segment.slug || 'all'} className={SEGMENT}>
                 <input
                   type="radio"
-                  name="marka"
-                  checked={(choice.brand ?? '') === brand.slug}
-                  onChange={() => choose({ brand: brand.slug || undefined })}
+                  name={segments === 'brand' ? 'marka' : 'kategoria'}
+                  checked={(choice[segmentKey] ?? '') === segment.slug}
+                  onChange={() => choose({ [segmentKey]: segment.slug || undefined })}
                   className="sr-only"
                 />
-                {brand.name}
+                {segment.name}
               </label>
             ))}
           </fieldset>
@@ -189,7 +246,14 @@ export function CategoryGrid({ index, help, printersHref }: Props) {
           <p className="font-extrabold text-ink">Nic nie pasuje do tego wyboru.</p>
           <button
             type="button"
-            onClick={() => choose({ registerType: undefined, brand: undefined })}
+            onClick={() =>
+              choose({
+                registerType: undefined,
+                brand: undefined,
+                category: undefined,
+                subcategory: undefined,
+              })
+            }
             className="inline-flex min-h-11 items-center rounded-xl bg-card px-4 font-extrabold text-ink shadow-[inset_0_0_0_1.5px_var(--border)] hover:shadow-[inset_0_0_0_1.5px_var(--ink-3)]"
           >
             Pokaż wszystkie

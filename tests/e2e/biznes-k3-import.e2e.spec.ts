@@ -79,18 +79,20 @@ test.describe('Biznes catalog after the K3 import', () => {
   })
 
   test('shows no price and no banned brand on catalog pages (K3-KATALOG §10)', async ({ page }) => {
-    // „W cenie” is still a section name of the category and product pages — renamed in K3b′
-    // and K31b; the K3 data itself is checked for it in `k3-content.test.ts`.
-    const rules = (text: string) => forbiddenContent(text).filter((rule) => rule !== 'w cenie')
+    // Brand and subcategory pages (K3b′) too; the section names are renamed (K31b, K3b′).
     for (const path of [
       '/oferta',
+      '/oferta/kasy-fiskalne',
       '/oferta/komputery-monitory',
+      '/oferta/komputery-monitory/laptopy',
+      '/marki/lenovo',
+      '/marki/dibal',
       THINKBOOK,
       '/produkt/posnet-ergo-online',
     ]) {
       await page.goto(site('biznes.localhost', path))
       const text = await page.locator('main').innerText()
-      expect(rules(text), path).toEqual([])
+      expect(forbiddenContent(text), path).toEqual([])
     }
   })
 })

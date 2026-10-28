@@ -26,6 +26,8 @@ export const RESERVED_PAGE_SLUGS: readonly string[] = [
   'mapa-strony',
   'dla-kogo',
   'wyslane',
+  // Brand pages of the Biznes catalog (K3b′, ADR-012 rozstrz. 14).
+  'marki',
 ]
 
 export function isValidPageSlug(slug: string): boolean {

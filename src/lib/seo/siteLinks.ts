@@ -1,5 +1,6 @@
+import { brandHref } from '../catalog/brand'
 import { productHref } from '../catalog/card'
-import { categoryHref } from '../catalog/category'
+import { categoryHref, subcategoryHref } from '../catalog/category'
 import { CATALOG_PATH } from '../catalog/filters'
 import { industryHref } from '../catalog/industry'
 import { HOME_SLUG, pagePath } from '../pages/slug'
@@ -25,7 +26,14 @@ export type SiteMapInput = {
   pages: readonly ({ slug: string; title: string } & Dated)[]
   /** Biznes catalog; `null` on lines without it. */
   catalog: {
-    categories: readonly { slug: string; name: string }[]
+    /** Subcategories with a `slug` have their own page (K3b′). */
+    categories: readonly {
+      slug: string
+      name: string
+      subcategories?: readonly { name: string; slug?: string }[]
+    }[]
+    /** Brands with a page `/marki/[slug]` (K3b′); the loader keeps only those. */
+    brands?: readonly { slug: string; name: string }[]
     industries: readonly { slug: string; name: string; active: boolean }[]
     /** `categories[0]` is the main category. */
     products: readonly ({ slug: string; name: string; categories: readonly string[] } & Dated)[]
@@ -70,12 +78,22 @@ export function buildSiteMap({ pages, catalog, news, solutions }: SiteMapInput):
       title: 'Oferta',
       links: [
         { href: CATALOG_PATH, label: 'Cały katalog' },
-        ...catalog.categories.map((category) => ({
-          href: categoryHref(category.slug),
-          label: category.name,
-        })),
+        ...catalog.categories.flatMap((category) => [
+          { href: categoryHref(category.slug), label: category.name },
+          ...(category.subcategories ?? []).flatMap(({ name, slug }) =>
+            slug ? [{ href: subcategoryHref(category.slug, slug), label: name }] : [],
+          ),
+        ]),
       ],
     })
+    const brands = catalog.brands ?? []
+    if (brands.length > 0) {
+      sections.push({
+        id: 'marki',
+        title: 'Marki',
+        links: brands.map((brand) => ({ href: brandHref(brand.slug), label: brand.name })),
+      })
+    }
     // „Wkrótce” industries have no page (ADR-012 rozstrz. 7).
     const industries = catalog.industries.filter((industry) => industry.active)
     if (industries.length > 0) {

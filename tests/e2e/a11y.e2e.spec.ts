@@ -5,7 +5,8 @@ import { site } from './helpers'
 
 // ADR-007 / ADR-013 / ADR-015: every line passes axe (WCAG 2.1 A/AA) in each of its themes, the layout
 // holds at 360 px and the dark theme switch works. Seed pages: `home` and `kontakt` (and the Biznes
-// subpages from blocks, B9; the category page, B10a; an industry page, B10b; the wizard, B10c).
+// subpages from blocks, B9; the category page, B10a; an industry page, B10b; the wizard, B10c; a
+// brand and a subcategory page, K3b′).
 // `themeSwitch: false`: the line has a dark theme (from the system) but no switch yet — Instalacje
 // until its header (I3).
 const SITES: {
@@ -36,6 +37,8 @@ const SITES: {
       '/zapytanie',
       '/cookies',
       '/dostepnosc',
+      '/marki/dibal',
+      '/oferta/komputery-monitory/laptopy',
     ],
   },
   { host: 'instalacje.localhost', line: 'instalacje', dark: true, themeSwitch: false },
