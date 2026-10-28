@@ -28,7 +28,7 @@ export function Footer({ navigation, menu, company, phone, legal }: Props) {
   const [salon] = company?.locations ?? []
   const year = new Date().getFullYear()
   return (
-    <footer id="stopka" className="ftr2">
+    <footer id="stopka" className="ftr2" data-surface="dark">
       <svg className="ftmt" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
         <path d="M0 120 L0 74 L90 52 L170 70 L260 30 L330 58 L420 18 L500 50 L580 34 L650 62 L740 22 L820 56 L900 40 L990 70 L1080 36 L1160 60 L1250 28 L1330 56 L1440 44 L1440 120 Z" />
         <path
@@ -95,7 +95,7 @@ export function Footer({ navigation, menu, company, phone, legal }: Props) {
             </div>
           </div>
           <nav aria-label="Usługi">
-            <h4>Usługi</h4>
+            <h2>Usługi</h2>
             {menu.services
               .flatMap((column) => column.items)
               .map((item) => (
@@ -108,7 +108,7 @@ export function Footer({ navigation, menu, company, phone, legal }: Props) {
             </Link>
           </nav>
           <nav aria-label="Dla kogo">
-            <h4>Dla kogo</h4>
+            <h2>Dla kogo</h2>
             {menu.objects
               .flatMap((column) => column.items)
               .map((item) => (
@@ -118,7 +118,7 @@ export function Footer({ navigation, menu, company, phone, legal }: Props) {
               ))}
           </nav>
           <nav aria-label="Firma">
-            <h4>Firma</h4>
+            <h2>Firma</h2>
             {footer.company.map((link) => (
               <Link key={link.href} href={link.href}>
                 {link.label}
@@ -129,7 +129,7 @@ export function Footer({ navigation, menu, company, phone, legal }: Props) {
             </Link>
           </nav>
           <nav aria-label="Strony PRO-KOM">
-            <h4>Strony PRO-KOM</h4>
+            <h2>Strony PRO-KOM</h2>
             {footer.sites.map((link) => (
               <a key={link.href} href={link.href}>
                 {link.label}

@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import type { MouseEvent } from 'react'
 
 import { BottomSheet } from '@/components/BottomSheet'
 import type { InstMenu, MenuColumn } from '@/lib/instalacje/menu'
@@ -59,6 +60,15 @@ export function MenuSheet({ navigation, menu, hours, status, phone }: Props) {
   const { sheet, openSheet, closeSheet, closeSheetForLink } = useShell()
   const tab = sheet ?? 'services'
 
+  // A link followed in this tab leaves through the next page, not through „back” (capture:
+  // before the sheet's own close on a link click). Not for „open in a new tab”, which leaves the
+  // page — and the sheet — as they are (the same check as `BottomSheet`).
+  const onLinkCapture = (event: MouseEvent) => {
+    const opensHere =
+      event.button === 0 && !event.ctrlKey && !event.metaKey && !event.shiftKey && !event.altKey
+    if (opensHere && (event.target as Element).closest('a')) closeSheetForLink()
+  }
+
   const header = (
     <div className="mt-3 flex items-center gap-2">
       <div className="mtabs" role="group" aria-label="Sekcje menu">
@@ -81,9 +91,11 @@ export function MenuSheet({ navigation, menu, hours, status, phone }: Props) {
   )
 
   const footer = (
-    <Link href={navigation.cta.href} className="btn btn-p">
-      {navigation.cta.label}
-    </Link>
+    <div onClickCapture={onLinkCapture}>
+      <Link href={navigation.cta.href} className="btn btn-p">
+        {navigation.cta.label}
+      </Link>
+    </div>
   )
 
   return (
@@ -98,13 +110,7 @@ export function MenuSheet({ navigation, menu, hours, status, phone }: Props) {
       backdropClassName={BACKDROP}
       dragToClose
     >
-      {/* A followed link leaves through the next page, not through „back” (capture: before the
-          sheet's own close on a link click). */}
-      <div
-        onClickCapture={(event) => {
-          if ((event.target as Element).closest('a')) closeSheetForLink()
-        }}
-      >
+      <div onClickCapture={onLinkCapture}>
         {tab === 'services' && (
           <>
             <Tiles columns={menu.services} />

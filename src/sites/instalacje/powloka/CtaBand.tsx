@@ -22,12 +22,12 @@ export function CtaBand({ band, phone, salons }: Props) {
   return (
     <section className="pb-24" aria-labelledby="cta-band-title">
       <div className="wrap">
-        <div className="cta">
+        <div className="cta" data-surface="dark">
           <div className="flex flex-col gap-4">
             <span className="eye">{band.eyebrow}</span>
-            <b id="cta-band-title" className="h2">
+            <h2 id="cta-band-title" className="h2">
               {band.title}
-            </b>
+            </h2>
             <p className="lead">{band.text}</p>
           </div>
           <div className="flex flex-col gap-2.5">

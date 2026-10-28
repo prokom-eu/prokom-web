@@ -127,7 +127,10 @@ test.describe('Instalacje phone shell', () => {
         'aria-pressed',
         'true',
       )
-      await expect(page.locator('html')).toHaveClass(/pk-lock/)
+      // The page under the sheet does not scroll (the effect, not only the class).
+      const overflow = () =>
+        page.evaluate(() => getComputedStyle(document.documentElement).overflow)
+      await expect.poll(overflow).toBe('hidden')
       await sheet(page).getByRole('button', { name: 'Zamknij' }).click()
       await expect(sheet(page)).toBeHidden()
       await expect(page.locator('html')).not.toHaveClass(/pk-lock/)
@@ -164,6 +167,19 @@ test.describe('Instalacje phone shell', () => {
       .getByRole('link', { name: /Realizacje/ })
       .click()
     await expect(page).toHaveURL(site(HOST, '/realizacje'))
+    await expect(sheet(page)).toBeHidden()
+    await page.goBack()
+    await expect(page).toHaveURL(site(HOST))
+    await expect(sheet(page)).toBeHidden()
+  })
+
+  test('„Zaplanuj instalację” at the bottom of the sheet leads on; „back” returns to the page', async ({
+    page,
+  }) => {
+    await page.goto(site(HOST))
+    await bottomBar(page).getByRole('button', { name: 'Usługi' }).click()
+    await sheet(page).getByRole('link', { name: 'Zaplanuj instalację', exact: true }).click()
+    await expect(page).toHaveURL(site(HOST, '/zaplanuj'))
     await expect(sheet(page)).toBeHidden()
     await page.goBack()
     await expect(page).toHaveURL(site(HOST))

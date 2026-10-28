@@ -34,7 +34,7 @@ export function ThemeTile() {
       className="mshc"
       onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
     >
-      <InstIcon name="moon" size={18} />
+      <InstIcon name={theme === 'dark' ? 'sun' : 'moon'} size={18} />
       <span>
         <small>Motyw</small>
         <b>{themeLabel(theme)}</b>
