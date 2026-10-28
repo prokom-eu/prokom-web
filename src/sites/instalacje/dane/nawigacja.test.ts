@@ -15,14 +15,35 @@ describe('navigation', () => {
   })
 
   it('links only to addresses of the site and opens every sheet tab', () => {
+    const { megaServices, megaObjects, footer } = navigation
     const hrefs = [
       ...navigation.bottomBar.flatMap((item) => ('href' in item ? [item.href] : [])),
       ...navigation.more.map((item) => item.href),
       navigation.cta.href,
+      navigation.topBar.fault.href,
+      ...navigation.header.map((item) => item.href),
+      ...[megaServices, megaObjects].flatMap((m) => [m.button.href, m.link.href]),
+      navigation.ctaBand.button.href,
+      footer.plan.href,
+      ...footer.company.map((item) => item.href),
     ]
     for (const href of hrefs) expect(href).toMatch(/^\/[a-z0-9/#=&-]*$/)
     const sheets = navigation.bottomBar.flatMap((item) => ('sheet' in item ? [item.sheet] : []))
     expect(sheets.sort()).toEqual(['more', 'objects', 'services'])
+  })
+
+  it('links to other PRO-KOM sites over https only', () => {
+    for (const { href } of [...navigation.topBar.links, ...navigation.footer.sites]) {
+      expect(href).toMatch(/^https:\/\/[a-z0-9.-]+\.(pl|eu)$/)
+    }
+  })
+
+  it('has „Dla architektów” where ADR-I005 §4 puts it', () => {
+    const architects = '/dla-architektow'
+    expect(navigation.header[0]).toMatchObject({ href: architects, accent: true })
+    expect(navigation.megaObjects.link.href).toBe(architects)
+    expect(navigation.more[0]).toMatchObject({ href: architects, icon: 'ruler' })
+    expect(navigation.footer.company[0]?.href).toBe(architects)
   })
 
   it('carries no prototype leftovers', () => {

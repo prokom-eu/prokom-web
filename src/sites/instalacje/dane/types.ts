@@ -17,6 +17,18 @@ export type NavLink = {
   /** Icon key of the design (`zrodlo/common.js → icons()`). */
   icon?: string
   caption?: string
+  /** Shown in the accent colour (the „Dla architektów” item, ADR-I005 §4). */
+  accent?: boolean
+}
+
+/** Promo column of a mega menu panel (`zrodlo/header.html` → `.megap`). */
+export type MegaPromo = {
+  eyebrow: string
+  /** Without it the title is the offer count („10 obszarów, 76 rozwiązań”). */
+  title?: string
+  text: string
+  button: { label: string; href: string }
+  link: { label: string; href: string }
 }
 
 /**
@@ -38,4 +50,27 @@ export type Navigation = {
   more: NavLink[]
   /** Main call to action of the header. */
   cta: { label: string; href: string }
+  /** Desktop top bar: other PRO-KOM sites and „Zgłoś awarię” (spec §4). */
+  topBar: { links: NavLink[]; fault: NavLink }
+  /** Desktop header links after „Usługi ▾” and „Dla kogo ▾”, in order. */
+  header: NavLink[]
+  /** Promo columns of the two mega menu panels. */
+  megaServices: MegaPromo
+  megaObjects: MegaPromo
+  /** Band above the footer (`zrodlo/footer.html` → `.cta`); hidden on the start page. */
+  ctaBand: { eyebrow: string; title: string; text: string; button: { label: string; href: string } }
+  /** Footer (`zrodlo/footer.html`). Contact, salons and hours come from the panel. */
+  footer: {
+    about: string
+    chips: { label: string; strong?: boolean }[]
+    plan: { label: string; title: string; caption: string; href: string }
+    company: NavLink[]
+    sites: NavLink[]
+  }
 }
+
+/** The part of `Navigation` generated from the seed (`src/seed/instalacje/dane.ts`, I2). */
+export type SeedNavigation = Pick<
+  Navigation,
+  'serviceColumns' | 'objectColumns' | 'bottomBar' | 'sheetTabs' | 'more' | 'cta'
+>
