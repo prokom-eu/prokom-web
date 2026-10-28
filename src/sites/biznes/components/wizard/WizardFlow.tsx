@@ -7,6 +7,7 @@ import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
 import { TextLink } from '@/components/ui/TextLink'
 import { cartActions } from '@/lib/cart/store'
+import type { BundleCardData } from '@/lib/catalog/bundle'
 import type { BusinessTypeId, Wizard } from '@/lib/catalog/wizard'
 import {
   buildKit,
@@ -30,6 +31,7 @@ import {
 } from '@/lib/inquiry/wizardForm'
 import { plural } from '@/lib/plural'
 
+import { BundleGrid } from '../bundle/BundleCard'
 import { AreaField, ConsentField, IconField } from '../forms/fields'
 import { WizardIcon } from './WizardIcon'
 import { TONE_GRADIENT, WizardSummary } from './WizardSummary'
@@ -40,6 +42,8 @@ type Props = {
   products: KitProduct[]
   /** `?firma=` of an industry page, already checked against the rules. */
   initialType: BusinessTypeId | null
+  /** Ready bundles of each business type (K3c): shown on the result screen. */
+  bundles: Partial<Record<string, BundleCardData[]>>
   formToken: string
   phone: { label: string; href: string } | null
   /** `SiteSettings.biznes.promises.callbackTime` — only from the panel [SZEF]. */
@@ -120,6 +124,7 @@ export function WizardFlow({
   rules,
   products,
   initialType,
+  bundles,
   formToken,
   phone,
   callbackTime,
@@ -364,6 +369,14 @@ export function WizardFlow({
                 Zacznij od nowa
               </button>
             </div>
+            {type && (bundles[type.id]?.length ?? 0) > 0 && (
+              <div className="mt-6 flex flex-col gap-5 border-t border-border pt-8">
+                <h3 className="font-display text-2xl font-extrabold text-ink font-stretch-106%">
+                  Gotowe zestawy dla Twojej firmy
+                </h3>
+                <BundleGrid bundles={bundles[type.id] ?? []} headingLevel="h4" />
+              </div>
+            )}
           </section>
         ) : step === 0 || !answers ? (
           <section className="flex flex-col gap-6">

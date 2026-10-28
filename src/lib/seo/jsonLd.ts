@@ -237,6 +237,31 @@ export function serviceListJsonLd({
   }
 }
 
+/**
+ * List of linked pages (K3c: the items of a ready bundle, the bundles of `/zestawy`): `ListItem`
+ * with a name and an address only — never `offers` (no prices on the site).
+ */
+export function itemListJsonLd({
+  name,
+  items,
+}: {
+  name: string
+  items: readonly { name: string; url: string }[]
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name,
+    numberOfItems: items.length,
+    itemListElement: items.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.name,
+      url: item.url,
+    })),
+  }
+}
+
 /** JSON for `<script type="application/ld+json">`; `<` escaped so text cannot end the tag (Next docs). */
 export function serializeJsonLd(data: unknown): string {
   return JSON.stringify(data).replace(/</g, '\\u003c')

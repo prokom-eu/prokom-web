@@ -3,7 +3,9 @@ import { notFound } from 'next/navigation'
 import { connection } from 'next/server'
 
 import { Container } from '@/components/ui/Container'
-import { getCatalogIndex, getWizardRules } from '@/lib/catalog/data'
+import { bundleCard, listBundles, type BundleCardData } from '@/lib/catalog/bundle'
+import { getBundles, getCatalogIndex, getWizardRules } from '@/lib/catalog/data'
+import { wizardBundles } from '@/lib/catalog/wizardBundles'
 import type { KitProduct } from '@/lib/catalog/wizardKit'
 import { getEnv } from '@/lib/env'
 import { issueFormToken } from '@/lib/inquiry/spam'
@@ -35,11 +37,12 @@ export default async function WizardPage({ params, searchParams }: Props) {
   const tenant = await requireLine(params, 'biznes')
   // The token carries the render time (minimum fill time): never from a cache.
   await connection()
-  const [rules, index, settings, query] = await Promise.all([
+  const [rules, index, settings, query, allBundles] = await Promise.all([
     getWizardRules(tenant.id),
     getCatalogIndex(tenant.id),
     getSiteSettings(tenant.id),
     searchParams,
+    getBundles(tenant.id),
   ])
   // No valid rules in the panel yet: there is no wizard to show.
   if (!rules) notFound()
@@ -59,6 +62,15 @@ export default async function WizardPage({ params, searchParams }: Props) {
       ...(benefit && { benefit }),
       ...(image && { image }),
     }))
+  // Ready bundles of each business type for the result screen (K3-KATALOG §9, K3c).
+  const byslug = new Map(index.products.map((product) => [product.slug, product]))
+  const listed = listBundles(allBundles, new Set(byslug.keys()))
+  const bundles: Partial<Record<string, BundleCardData[]>> = Object.fromEntries(
+    rules.businessTypes.map(({ id }) => [
+      id,
+      wizardBundles(id, listed).map((bundle) => bundleCard(bundle, byslug)),
+    ]),
+  )
   const phone = settings?.phone ?? null
   const tel = phone ? toTelHref(phone) : null
 
@@ -76,6 +88,7 @@ export default async function WizardPage({ params, searchParams }: Props) {
         rules={rules}
         products={products}
         initialType={initialType}
+        bundles={bundles}
         formToken={issueFormToken(getEnv().PAYLOAD_SECRET)}
         phone={phone && tel ? { label: phone, href: tel } : null}
         callbackTime={settings?.biznes?.promises.callbackTime ?? null}

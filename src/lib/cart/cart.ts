@@ -72,6 +72,42 @@ export function addAll(cart: Cart, ids: readonly string[]): { cart: Cart; added:
   return { cart: next, added }
 }
 
+export type NewCartItem = { id: string; q: number; uwaga?: string }
+
+/**
+ * „Zapytaj o ten zestaw” (K3c, spec. §6.10): adds the missing items in order with their quantity
+ * and note, up to the item limit. A listed item keeps its quantity; it takes the note only when it
+ * has none. `added` = the items really added, `noted` = listed ones that took the note,
+ * `skipped` = those left out because the list is full.
+ */
+export function addItems(
+  cart: Cart,
+  items: readonly NewCartItem[],
+): { cart: Cart; added: string[]; noted: string[]; skipped: string[] } {
+  let next: Cart = cart
+  const added: string[] = []
+  const noted: string[] = []
+  const skipped: string[] = []
+  for (const { id, q, uwaga } of items) {
+    const note = uwaga?.trim().slice(0, MAX_NOTE) ?? ''
+    const listed = next.find((item) => item.id === id)
+    if (listed) {
+      if (note && !listed.uwaga) {
+        next = setNote(next, id, note)
+        noted.push(id)
+      }
+      continue
+    }
+    if (next.length >= MAX_ITEMS) {
+      skipped.push(id)
+      continue
+    }
+    next = [...next, { id, q: clampQty(q), ...(note && { uwaga: note }) }]
+    added.push(id)
+  }
+  return { cart: next, added, noted, skipped }
+}
+
 export function changeQty(cart: Cart, id: string, delta: number): Cart {
   return cart.map((item) => (item.id === id ? { ...item, q: clampQty(item.q + delta) } : item))
 }

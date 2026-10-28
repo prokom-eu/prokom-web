@@ -39,6 +39,20 @@ export const cartActions = {
     store.write(cart)
     store.announce(added[0]!, name(added.length))
   },
+  /**
+   * „Zapytaj o ten zestaw”: items with quantity and note, one write and one toast. Returns what
+   * happened, so the button can say it when no toast shows (only notes added, list full).
+   */
+  addItems(items: readonly list.NewCartItem[], name: (added: number) => string) {
+    const result = list.addItems(get(), items)
+    if (result.added.length || result.noted.length) store.write(result.cart)
+    if (result.added.length) store.announce(result.added[0]!, name(result.added.length))
+    return {
+      added: result.added.length,
+      noted: result.noted.length,
+      skipped: result.skipped.length,
+    }
+  },
   changeQty: (id: string, delta: number) => store.write(list.changeQty(get(), id, delta)),
   remove: (id: string) => store.write(list.remove(get(), id)),
   setNote: (id: string, note: string) => store.write(list.setNote(get(), id, note)),
