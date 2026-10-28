@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation'
 import { type ReactNode, useEffect, useId, useRef, useState } from 'react'
 
 import { cx } from '@/components/ui/cx'
+import { BUNDLES_PATH } from '@/lib/catalog/bundle'
 import type { PublicBiznesNavigation } from '@/lib/site/navigation'
 
 type Props = {
@@ -85,8 +86,11 @@ export function HeaderNav({ menu, panels }: Props) {
         {menu.map((item, i) => {
           if (item.type === 'link') {
             const current = pathOf(item.href) === pathname
+            // 1080–1279 px: seven items do not fit in one row. „Gotowe zestawy” steps out there
+            // — it stays in the „Oferta” mega menu and the footer (K3c).
+            const narrowHidden = pathOf(item.href) === BUNDLES_PATH
             return (
-              <li key={i}>
+              <li key={i} className={narrowHidden ? 'hidden min-[1280px]:list-item' : undefined}>
                 <Link
                   href={item.href ?? '/'}
                   aria-current={current ? 'page' : undefined}

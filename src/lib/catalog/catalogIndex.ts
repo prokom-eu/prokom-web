@@ -284,7 +284,8 @@ export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
         subcategory,
         series,
         ...features,
-        benefit,
+        // Not `benefit`: the index carries it once and `prepareSearch` joins it to the hay — the
+        // copy here cost ~4 KB of the 50 KB gzip budget (K3c).
         badge,
         product.keywords,
         ...industries.map((industry) => industry.name),

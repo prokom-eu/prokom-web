@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import rozwiazania from '../../seed/prokomsoftware/rozwiazania.json'
 import { buildCatalogIndex, type CatalogIndex, type IndexProduct } from './catalog/catalogIndex'
+import { normalizeText } from './catalog/normalize'
 import { sourceFromSeed } from './catalog/seedSource.fixture'
 import {
   damerauLevenshtein,
@@ -54,6 +55,13 @@ describe('searchProducts on the seed catalog (spec. §9 pkt 2)', () => {
     expect(slugs('')).toBeNull()
     expect(slugs('   ')).toBeNull()
     expect(slugs('szukam dla')).toBeNull()
+  })
+
+  it('matches words of the benefit, which the index keeps out of `hay` (K3c, size)', () => {
+    const ergo = productOf('posnet-ergo-online')!
+    expect(ergo.hay).not.toContain('prosto')
+    expect(ergo.benefit).toContain('prosto na kasie')
+    expect(slugs('prosto na kasie')).toContain('posnet-ergo-online')
   })
 
   it('„kasa fiskalan” finds fiscal registers despite the typo', () => {
@@ -204,7 +212,11 @@ describe('matchCategories and matchPages', () => {
 
   it('ranks a hit only in the group name below any hit in the product itself', () => {
     const results = searchProducts(prepared, 'kasa') ?? []
-    const ownHit = (slug: string) => productOf(slug)!.hay.includes('kas')
+    // The search reads the hay with the benefit joined (`prepareSearch`).
+    const ownHit = (slug: string) => {
+      const product = productOf(slug)!
+      return `${product.hay} ${normalizeText(product.benefit ?? '')}`.includes('kas')
+    }
     const firstGroupOnly = results.findIndex((product) => !ownHit(product.slug))
     expect(firstGroupOnly).toBeGreaterThan(0)
     expect(results.slice(firstGroupOnly).every((product) => !ownHit(product.slug))).toBe(true)

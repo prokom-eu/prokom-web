@@ -83,6 +83,7 @@ test.describe('Biznes header', () => {
     const items = mainNav(page).locator(':scope > ul > li')
     await expect(items).toHaveText([
       /^Oferta/,
+      'Gotowe zestawy',
       'Opieka IT',
       /^GoPOS/,
       /^InsERT/,
@@ -142,8 +143,9 @@ test.describe('Biznes header', () => {
       }))
       expect(scrollWidth).toBe(innerWidth)
       // One line per item: every item is as tall as the first.
+      // Shown items only: below 1280 px „Gotowe zestawy” steps out of the row (K3c).
       const heights = await mainNav(page)
-        .locator(':scope > ul > li')
+        .locator(':scope > ul > li:visible')
         .evaluateAll((items) => items.map((item) => item.getBoundingClientRect().height))
       expect(new Set(heights).size).toBe(1)
     })
