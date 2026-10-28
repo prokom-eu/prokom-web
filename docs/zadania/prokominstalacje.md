@@ -10,6 +10,8 @@ Wzorzec: `docs/design/prokominstalacje/` (prototyp v4.0). Specyfikacja: `docs/st
 4. **Zadanie skończone:** `/przeglad` → `/inst-koniec` (STAN w tym samym PR) → `/pr` (opis z tabelą „sekcja: zgodna / różnica + powód”) → zielone CI → rebase, jeśli develop się zmienił → Squash and merge.
 5. **Zadanie niedokończone (wieczór się kończy):** `/inst-koniec` (STAN: co zostało, następny krok) → `scripts\koniec.ps1 "co w toku"` (push gałęzi). PR następnego dnia. Nigdy nie commituj STAN na gałęzi już scalonej.
 
+Pliki danych widżetów (ADR-I002 „Pliki danych w kodzie”): każda sesja strony pisze swój `src/sites/instalacje/dane/<strona>.ts` z pełnego źródła `zrodlo/pages/<Strona>.js` (zrzuty to stan jednego ekranu), typowany, czyszczony `cleanPrototype` z `src/seed/instalacje/dane.ts`; nawigacja jest już w `dane/nawigacja.ts`.
+
 Zasady stałe: jedna sesja = jedno zadanie = jedna gałąź = jeden PR. Zmiana w strefie wspólnej (ADR-I001 §3) = osobny mały PR `inst/wsp-*` scalony od razu. Nowy pomysł w trakcie = wpis w STAN („Pomysły”), nie „przy okazji”. Telefon w każdej sesji z UI (MOBILE-APLIKACJA §10). SEO w każdej sesji z nową stroną (SEO §2.2–2.3).
 
 ## 1. Sesje i szacunek
