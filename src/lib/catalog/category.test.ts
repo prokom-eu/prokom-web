@@ -7,11 +7,16 @@ import {
   buildCategoryView,
   categoryBrands,
   categoryPill,
+  categoryIndustries,
   categoryProducts,
+  categorySeries,
   filterCategoryProducts,
   findSubcategory,
   helpCardSpan,
   registerOptions,
+  seriesFilter,
+  seriesFromParam,
+  showroomHelpHref,
   subcategoryHref,
   subcategoryLinks,
   subcategoryProducts,
@@ -402,5 +407,82 @@ describe('categoryPill', () => {
     expect(categoryPill('Serwis', [product('x', { kind: 'service' })], index([]))).toBe(
       'Serwis · 1 pozycja',
     )
+  })
+})
+
+describe('series filter (K31c, `?seria=`)', () => {
+  const laptops = [
+    product('tb14', { brand: 'lenovo', series: 'ThinkBook', industries: ['biuro'] }),
+    product('dp14', { brand: 'dell', series: 'Dell Pro', industries: ['biuro', 'teren'] }),
+    product('tb16', { brand: 'lenovo', series: 'ThinkBook' }),
+    product('x1', { brand: 'lenovo', series: 'ThinkPad X1 i X9', industries: ['szef'] }),
+    product('bez-serii', { brand: 'dell' }),
+  ]
+
+  it('lists series with counts, most cards first, ties in index order', () => {
+    expect(categorySeries(laptops)).toEqual([
+      { name: 'ThinkBook', slug: 'thinkbook', count: 2 },
+      { name: 'Dell Pro', slug: 'dell-pro', count: 1 },
+      { name: 'ThinkPad X1 i X9', slug: 'thinkpad-x1-i-x9', count: 1 },
+    ])
+  })
+
+  it('the filter shows only where the page asks for it and the cards have 2+ series', () => {
+    // A brand page without its showroom (template) keeps its category filter: no series filter.
+    expect(seriesFilter(false, laptops)).toEqual([])
+    expect(seriesFilter(true, laptops)).toHaveLength(3)
+    expect(seriesFilter(true, laptops.slice(0, 1))).toEqual([])
+  })
+
+  it('reads `?seria=` by slug; unknown or empty → no filter', () => {
+    const series = categorySeries(laptops)
+    expect(seriesFromParam('thinkpad-x1-i-x9', series)).toBe('ThinkPad X1 i X9')
+    expect(seriesFromParam('nie-ma', series)).toBeUndefined()
+    expect(seriesFromParam(null, series)).toBeUndefined()
+  })
+
+  it('filters by series, any of the brands and any of the uses', () => {
+    const slugs = (items: IndexProduct[]) => items.map((item) => item.slug)
+    expect(slugs(filterCategoryProducts(laptops, { series: 'ThinkBook' }))).toEqual([
+      'tb14',
+      'tb16',
+    ])
+    expect(slugs(filterCategoryProducts(laptops, { brands: ['dell'] }))).toEqual([
+      'dp14',
+      'bez-serii',
+    ])
+    expect(slugs(filterCategoryProducts(laptops, { industries: ['teren', 'szef'] }))).toEqual([
+      'dp14',
+      'x1',
+    ])
+    expect(slugs(filterCategoryProducts(laptops, { brands: [], industries: [] }))).toHaveLength(5)
+  })
+
+  it('„Do czego”: active uses of the cards, in the order of the index', () => {
+    const catalog = index(laptops, {
+      industries: [
+        { slug: 'szef', name: 'Dla szefa', active: true },
+        { slug: 'biuro', name: 'Biuro i recepcja', active: true },
+        { slug: 'teren', name: 'Praca w terenie', active: false },
+        { slug: 'szkola', name: 'Szkoła', active: true },
+      ],
+    })
+    expect(categoryIndustries(laptops, catalog)).toEqual([
+      { slug: 'szef', name: 'Dla szefa', count: 1 },
+      { slug: 'biuro', name: 'Biuro i recepcja', count: 2 },
+    ])
+  })
+
+  it('„Nie wiesz, który?” goes to the wizard of a showroom: the chosen brand, else the biggest', () => {
+    const brands: CatalogIndex['brands'] = [
+      { slug: 'lenovo', name: 'Lenovo', status: 'none', page: true, showroom: true },
+      { slug: 'dell', name: 'Dell', status: 'none', page: true, showroom: true },
+      { slug: 'asus', name: 'Asus', status: 'none', page: true },
+    ]
+    const catalog = index(laptops, { brands })
+    expect(showroomHelpHref(laptops, catalog, [])).toBe('/marki/lenovo#dobor')
+    expect(showroomHelpHref(laptops, catalog, ['dell'])).toBe('/marki/dell#dobor')
+    expect(showroomHelpHref(laptops, catalog, ['asus'])).toBe('/marki/lenovo#dobor')
+    expect(showroomHelpHref(laptops, index(laptops, { brands: brands.slice(2) }), [])).toBeNull()
   })
 })

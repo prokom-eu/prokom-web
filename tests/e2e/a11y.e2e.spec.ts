@@ -38,6 +38,8 @@ const SITES: {
       '/cookies',
       '/dostepnosc',
       '/marki/dibal',
+      '/marki/lenovo',
+      '/marki/dell',
       '/oferta/komputery-monitory/laptopy',
     ],
   },

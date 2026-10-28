@@ -46,6 +46,8 @@ export type IndexProduct = {
   /** Subcategory and series (Lenovo, Dell): „Z tej samej rodziny” on the product page (K31b). */
   subcategory?: string
   series?: string
+  /** Has an active producer's film: the „film” badge of the card (K31c). */
+  video?: true
   industries: string[]
   /** "Skompletuj stanowisko" (`fitsWith`): slugs of products that go with this one. */
   fits?: string[]
@@ -84,6 +86,8 @@ export type CatalogIndex = {
     status: Partner['partnerStatus']
     logo?: IndexLogo
     page?: true
+    /** The brand page is a showroom (K31c): „Nie wiesz, który?” leads to its wizard. */
+    showroom?: true
   }[]
   /** Only categories with published products (rozstrzygnięcie 7); `count` = such products. */
   categories: {
@@ -126,6 +130,7 @@ export type IndexedProductDoc = Pick<
   | 'categories'
   | 'subcategory'
   | 'series'
+  | 'videos'
   | 'industries'
   | 'fitsWith'
   | 'benefit'
@@ -205,6 +210,18 @@ const subcategoryKey = (category: string, name: string) => `${category}/${name.t
 
 const optional = (value: string | null | undefined) => (value?.trim() ? value.trim() : undefined)
 
+/** The brand page is a showroom (K31c): its showroom lists at least one listed card. */
+function showsShowroom(brand: Partner, listedIds: ReadonlySet<number>): boolean {
+  return (brand.showroom?.segments ?? []).some((segment) =>
+    (segment.series ?? []).some((series) =>
+      (series.products ?? []).some((value) => {
+        const id = typeof value === 'number' ? value : value?.id
+        return id !== undefined && listedIds.has(id)
+      }),
+    ),
+  )
+}
+
 export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
   const { tenantId } = source
   const groupById = new Map(source.groups.map((group) => [group.id, group]))
@@ -215,6 +232,8 @@ export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
   const groupSlugOf = (category: CatalogCategory) => groupOf(category)?.slug
 
   const ownTenant = (record: { tenant?: unknown }) => tenantIdOf(record.tenant) === tenantId
+  // Published cards of this site: a showroom shows only while one of its cards is listed.
+  const listedIds = new Set(source.products.map((product) => product.id))
   const brands = new Map<string, CatalogIndex['brands'][number]>()
   const products: IndexProduct[] = source.products.map((product) => {
     // Read with `overrideAccess`: relations are re-checked here like images in `publicImage`,
@@ -229,6 +248,8 @@ export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
         status: brand.partnerStatus,
         ...(logo && { logo }),
         ...(brand.brandPage?.hasPage && { page: true as const }),
+        ...(brand.brandPage?.hasPage &&
+          showsShowroom(brand, listedIds) && { showroom: true as const }),
       })
     }
     const categories = docs(product.categories).filter(ownTenant)
@@ -269,6 +290,7 @@ export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
       group: (main && groupSlugOf(main)) ?? null,
       ...(subcategory && { subcategory }),
       ...(series && { series }),
+      ...(product.videos?.some((video) => video.active !== false) && { video: true as const }),
       industries: industries.map((industry) => industry.slug),
       ...(fits.length > 0 && { fits }),
       ...(benefit && { benefit }),
@@ -357,4 +379,13 @@ export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
       popular: search?.popular ?? [],
     },
   }
+}
+
+/**
+ * The index the browser fetches (`GET /api/catalog-index`: search, inquiry drawer — no cards):
+ * without the „film” badge, which only server-rendered cards show (K31c), so it stays within
+ * its 50 KB gzip budget (ADR-012 §2.4).
+ */
+export function searchIndex(index: CatalogIndex): CatalogIndex {
+  return { ...index, products: index.products.map(({ video: _video, ...product }) => product) }
 }

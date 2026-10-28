@@ -1,3 +1,4 @@
+import { searchIndex } from '@/lib/catalog/catalogIndex'
 import { getCatalogIndex } from '@/lib/catalog/data'
 import { log } from '@/lib/log'
 import { REQUEST_ID_HEADER, requestIdFrom } from '@/lib/requestId'
@@ -21,7 +22,7 @@ export async function GET(request: Request) {
       return Response.json({ error: 'not_found' }, { status: 404, headers: NO_STORE })
     }
     tenantId = tenant.id
-    return Response.json(await getCatalogIndex(tenant.id), {
+    return Response.json(searchIndex(await getCatalogIndex(tenant.id)), {
       // Short browser cache: a change in the panel shows up within a minute.
       headers: { 'Cache-Control': 'public, max-age=60' },
     })
