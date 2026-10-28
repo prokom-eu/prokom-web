@@ -85,22 +85,66 @@ type ProductInput = {
   category: string | null
   /** Absolute image addresses, the main one first. */
   images: readonly string[]
+  /** `productGroupID` of a `ProductGroup` (the card's slug). */
+  groupId?: string
+  /** Versions of a card with many models: ≥ 2 make it a `ProductGroup` (K31-ZMIANY §13.5). */
+  variants?: readonly { name: string; sku: string; url: string }[]
 }
 
 /**
  * `Product` of the product page — never with `offers`: the catalog has no prices (spec. §6.2,
- * spec. §1). Missing fields are left out rather than sent empty.
+ * spec. §1). A card with ≥ 2 versions is a `ProductGroup` whose `hasVariant` link to
+ * `?wersja=` (canonical stays on the card). Missing fields are left out rather than sent empty.
  */
-export function productJsonLd({ name, description, url, brand, category, images }: ProductInput) {
-  return {
+export function productJsonLd({
+  name,
+  description,
+  url,
+  brand,
+  category,
+  images,
+  groupId,
+  variants = [],
+}: ProductInput) {
+  const common = {
     '@context': 'https://schema.org',
-    '@type': 'Product',
     name,
     ...(description && { description }),
     url,
     ...(brand && { brand: { '@type': 'Brand', name: brand } }),
     ...(category && { category }),
     ...(images.length > 0 && { image: [...images] }),
+  }
+  if (variants.length < 2) return { ...common, '@type': 'Product' }
+  return {
+    ...common,
+    '@type': 'ProductGroup',
+    ...(groupId && { productGroupID: groupId }),
+    variesBy: ['https://schema.org/model'],
+    hasVariant: variants.map((variant) => ({
+      '@type': 'Product',
+      name: variant.name,
+      sku: variant.sku,
+      url: variant.url,
+    })),
+  }
+}
+
+type VideoInput = { id: string; title: string; channel: string | null }
+
+/**
+ * `VideoObject` of a producer's video (ADR-016): the poster address from `i.ytimg.com` and the
+ * youtube-nocookie player — only in JSON-LD, the browser loads neither before „▶”. Without
+ * `uploadDate`: neither the import nor oEmbed gives it (STAN, K31b).
+ */
+export function videoJsonLd({ id, title, channel }: VideoInput) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'VideoObject',
+    name: title,
+    description: channel ? `${title} — film producenta (${channel}).` : title,
+    thumbnailUrl: [`https://i.ytimg.com/vi/${id}/hqdefault.jpg`],
+    embedUrl: `https://www.youtube-nocookie.com/embed/${id}`,
   }
 }
 

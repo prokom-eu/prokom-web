@@ -1,16 +1,17 @@
+import { searchProducts, type PreparedSearch } from '../search'
 import type { CatalogIndex, IndexProduct } from './catalogIndex'
 
 /**
- * Products shown under the product page (spec. §6.2, B6b). Every one comes from the catalog
- * index, which holds only this site's published products — so a draft or another site's
- * product never shows up, whatever the relation in the panel points at.
+ * Products shown under the product page (spec. §6.2, K31-ZMIANY §4 pkt 7). Every one comes from
+ * the catalog index, which holds only this site's published products — so a draft or another
+ * site's product never shows up, whatever the relation in the panel points at.
  */
 
-/** „Podobne”: 4 products of the same main category. */
-export const SIMILAR_LIMIT = 4
+/** „Z tej samej rodziny”: at most 4 (K31-ZMIANY §4 pkt 7). */
+export const FAMILY_LIMIT = 4
 
-/** „Skompletuj stanowisko”: 4–5 accessories (spec. §6.2). */
-export const KIT_LIMIT = 5
+/** „Do tego zwykle dobierają”: cards in one row (4) and its second half. */
+export const SUGGESTION_LIMIT = 8
 
 /** Listed products for slugs, in their order: no repeats, none missing, not the product itself. */
 function listed(index: CatalogIndex, self: string, slugs: readonly string[]): IndexProduct[] {
@@ -26,26 +27,61 @@ function listed(index: CatalogIndex, self: string, slugs: readonly string[]): In
   return products
 }
 
-/** Most popular products of the product's main category (the index is sorted by popularity). */
-export function similarProducts(index: CatalogIndex, slug: string): IndexProduct[] {
-  const main = index.products.find((product) => product.slug === slug)?.categories[0]
-  if (!main) return []
-  return index.products
-    .filter((product) => product.slug !== slug && product.categories.includes(main))
-    .slice(0, SIMILAR_LIMIT)
+/**
+ * „Z tej samej rodziny” (K31-ZMIANY §4 pkt 7): the same brand and series first, then the same
+ * subcategory of the main category; most popular first (the index is sorted by popularity).
+ */
+export function familyProducts(index: CatalogIndex, slug: string): IndexProduct[] {
+  const self = index.products.find((product) => product.slug === slug)
+  if (!self) return []
+  const others = index.products.filter((product) => product.slug !== slug)
+  const series = self.series
+    ? others.filter((product) => product.brand === self.brand && product.series === self.series)
+    : []
+  const subcategory = self.subcategory
+    ? others.filter(
+        (product) =>
+          product.subcategory === self.subcategory &&
+          product.categories[0] === self.categories[0] &&
+          !series.includes(product),
+      )
+    : []
+  return [...series, ...subcategory].slice(0, FAMILY_LIMIT)
 }
 
-/** „Skompletuj stanowisko” from the product's `fitsWith`, in the order set in the panel. */
-export function kitProducts(index: CatalogIndex, slug: string): IndexProduct[] {
-  const fits = index.products.find((product) => product.slug === slug)?.fits ?? []
-  return listed(index, slug, fits).slice(0, KIT_LIMIT)
-}
+export type Suggestion = { label: string | null; product: IndexProduct }
 
-/** „Kiedy wybrać coś innego?” from the product's `alternatives`. */
-export function alternativeProducts(
+/**
+ * „Do tego zwykle dobierają” (K31-ZMIANY §4 pkt 7, decision 28.10): each phrase of
+ * `suggestions` („szuflada kasowa”) as the best search hit — of the product's brand when it has
+ * one (a ThinkBook gets a Lenovo dock) — then the products of „pasuje do” (`fitsWith`). A phrase
+ * without a hit stays a text chip. No product twice, never the product itself.
+ */
+export function suggestedProducts(
   index: CatalogIndex,
+  prepared: PreparedSearch,
   slug: string,
-  alternatives: readonly string[],
-): IndexProduct[] {
-  return listed(index, slug, alternatives)
+  phrases: readonly string[],
+): { cards: Suggestion[]; chips: string[] } {
+  const brand = index.products.find((product) => product.slug === slug)?.brand ?? null
+  const used = new Set([slug])
+  const cards: Suggestion[] = []
+  const chips: string[] = []
+  for (const phrase of phrases) {
+    const hits = (searchProducts(prepared, phrase) ?? []).filter(
+      (product) => !used.has(product.slug),
+    )
+    const hit = (brand && hits.find((product) => product.brand === brand)) || hits[0]
+    if (hit) {
+      used.add(hit.slug)
+      cards.push({ label: phrase, product: hit })
+    } else chips.push(phrase)
+  }
+  const fits = index.products.find((product) => product.slug === slug)?.fits ?? []
+  for (const product of listed(index, slug, fits)) {
+    if (used.has(product.slug)) continue
+    used.add(product.slug)
+    cards.push({ label: null, product })
+  }
+  return { cards: cards.slice(0, SUGGESTION_LIMIT), chips }
 }

@@ -57,16 +57,6 @@ describe('buildProductView tenant isolation', () => {
     expect(view.brand).toBeNull()
   })
 
-  it('lists alternatives of this tenant only, as slugs', () => {
-    const alternative = (slug: string, tenant: number) =>
-      ({ id: 50 + tenant, slug, tenant }) as unknown as Product
-    expect(
-      build({ alternatives: [alternative('obca', OTHER_TENANT), alternative('neo', TENANT), 7] })
-        .alternatives,
-    ).toEqual(['neo'])
-    expect(build().alternatives).toEqual([])
-  })
-
   it('keeps a brand shown on this site', () => {
     expect(build({ brand: brand([OTHER_TENANT, TENANT]) }).brand).toMatchObject({
       slug: 'marka',
@@ -89,21 +79,32 @@ describe('buildProductView tenant isolation', () => {
 })
 
 describe('buildProductView content', () => {
-  it('removes repeated datasheets and product pages (the seed repeats one PDF per variant)', () => {
+  it('lists producer sources once each, datasheets first, with labels (K31-ZMIANY §4 pkt 9)', () => {
     const view = build({
+      brand: brand([TENANT]),
       sources: {
         datasheets: [
           'https://www.posnet.com.pl/a.pdf',
           'https://www.posnet.com.pl/a.pdf',
-          'https://www.posnet.com.pl/b.pdf',
+          'https://sklep.example.pl/b.pdf',
         ],
         productPages: ['https://www.posnet.com.pl/p', 'https://www.posnet.com.pl/p'],
+        checkedAt: '2026-10-25T00:00:00.000Z',
       },
     })
-    expect(view.documents).toEqual({
-      datasheets: ['https://www.posnet.com.pl/a.pdf', 'https://www.posnet.com.pl/b.pdf'],
-      productPages: ['https://www.posnet.com.pl/p'],
-    })
+    expect(view.sources).toEqual([
+      {
+        url: 'https://www.posnet.com.pl/a.pdf',
+        label: 'Dokument PDF — posnet.com.pl',
+        meta: 'posnet.com.pl · PDF',
+      },
+      {
+        url: 'https://www.posnet.com.pl/p',
+        label: 'Strona producenta — posnet.com.pl',
+        meta: 'posnet.com.pl/p',
+      },
+    ])
+    expect(view.checkedAt).toBe('2026-10-25T00:00:00.000Z')
   })
 
   it('takes „W cenie” from the product, else from the main category', () => {
@@ -114,42 +115,60 @@ describe('buildProductView content', () => {
     )
   })
 
-  it('groups the specification rows, keeping their order', () => {
+  it('keeps the parameters in the panel order, without empty rows', () => {
     const view = build({
       specs: [
         { group: 'Druk', label: 'Szybkość', value: '20 l/s' },
-        { group: 'Druk', label: 'Papier', value: '57 mm' },
-        { group: null, label: 'Waga', value: '0,6 kg' },
+        { group: null, label: 'Waga', value: ' 0,6 kg ' },
+        { group: null, label: 'Pusty', value: ' ' },
       ],
     })
     expect(view.specs).toEqual([
-      {
-        group: 'Druk',
-        rows: [
-          { label: 'Szybkość', value: '20 l/s' },
-          { label: 'Papier', value: '57 mm' },
-        ],
-      },
-      { group: null, rows: [{ label: 'Waga', value: '0,6 kg' }] },
+      { label: 'Szybkość', value: '20 l/s' },
+      { label: 'Waga', value: '0,6 kg' },
     ])
   })
 
-  it('shows hotspots only over a picture', () => {
-    const hotspots = [{ x: 10, y: 20, title: 'Moduł WiFi', description: null }]
-    expect(build({ hotspots }).hotspots).toEqual([])
-    expect(build({ hotspots, images: [image(1, 'a.webp')] }).hotspots).toEqual([
-      { x: 10, y: 20, title: 'Moduł WiFi', description: null },
-    ])
+  it('heads a long name with the short one (K31-ZMIANY §13.5)', () => {
+    const name = 'Lenovo ThinkBook 14 G8 IRL / G8 IAL / G9 IRL / G9 IPL / G9 AHP (Intel albo AMD)'
+    expect(build({ name, shortName: 'Lenovo ThinkBook 14 G8 / G9' }).heading).toBe(
+      'Lenovo ThinkBook 14 G8 / G9',
+    )
+    expect(build({ name: 'Posnet Ergo', shortName: 'Ergo' }).heading).toBe('Posnet Ergo')
   })
 
-  it('drops hotspots when the first photo of the panel is not public (they were set on it)', () => {
-    const hotspots = [{ x: 10, y: 20, title: 'Moduł WiFi', description: null }]
-    const view = build({
-      hotspots,
-      images: [image(1, 'a.webp', { requiresConsent: true }), image(2, 'b.webp')],
+  it('shows at most 2 active videos (ADR-016)', () => {
+    const video = (youtubeId: string, active: boolean) => ({
+      youtubeId,
+      title: `Film ${youtubeId}`,
+      match: 'model' as const,
+      active,
+      channel: 'Lenovo',
+      lang: 'en',
     })
-    expect(view.images).toHaveLength(1)
-    expect(view.hotspots).toEqual([])
+    const view = build({
+      videos: [
+        video('aaaaaaaaaaa', false),
+        video('bbbbbbbbbbb', true),
+        video('ccccccccccc', true),
+        video('ddddddddddd', true),
+      ],
+    })
+    expect(view.videos.map((item) => item.id)).toEqual(['bbbbbbbbbbb', 'ccccccccccc'])
+    expect(view.videos[0]).toEqual({
+      id: 'bbbbbbbbbbb',
+      title: 'Film bbbbbbbbbbb',
+      channel: 'Lenovo',
+      lang: 'en',
+    })
+  })
+
+  it('has no configurator without options to choose from', () => {
+    expect(build().configurator).toBeNull()
+    expect(
+      build({ configurator: { options: [{ name: 'RAM', values: ['8 GB', '16 GB'] }] } })
+        .configurator?.options,
+    ).toHaveLength(1)
   })
 
   it('marks a product „Do sprawdzenia” as not indexable, otherwise looks the same (K3a)', () => {
@@ -194,29 +213,15 @@ describe('buildProductView content', () => {
   })
 })
 
-describe('buildProductView tabs', () => {
-  it('lists only the tabs with content, in the order of the board', () => {
-    expect(build().tabs).toEqual([])
-    expect(
-      build({
-        description: paragraph('Kasa na co dzień.') as unknown as Product['description'],
-        specs: [{ group: null, label: 'Waga', value: '0,6 kg' }],
-        sources: { datasheets: ['https://www.posnet.com.pl/a.pdf'] },
-        faq: [{ question: 'Czy?', answer: 'Tak.' }],
-      }).tabs,
-    ).toEqual(['opis', 'specyfikacja', 'dokumenty', 'pytania'])
-  })
-
-  it('counts product pages alone as documents', () => {
-    expect(build({ sources: { productPages: ['https://www.posnet.com.pl/p'] } }).tabs).toEqual([
-      'dokumenty',
-    ])
-  })
-
+describe('buildProductView description', () => {
   it('treats an empty editor as no description', () => {
-    const view = build({ description: paragraph('') as unknown as Product['description'] })
-    expect(view.description).toBeNull()
-    expect(view.tabs).toEqual([])
+    expect(
+      build({ description: paragraph('') as unknown as Product['description'] }).description,
+    ).toBeNull()
+    expect(
+      build({ description: paragraph('Kasa na co dzień.') as unknown as Product['description'] })
+        .description,
+    ).not.toBeNull()
   })
 })
 
