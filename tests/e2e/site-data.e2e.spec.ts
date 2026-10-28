@@ -28,8 +28,11 @@ test.describe('company data and site settings', () => {
 
     try {
       // Software's footer lists the line's own phone only (spec. §3.4); its company data
-      // (name, address, NIP) is checked in software-frame.e2e.spec.ts.
-      for (const host of HOSTS.filter((h) => h !== 'software.localhost')) {
+      // (name, address, NIP) is checked in software-frame.e2e.spec.ts. Instalacje: minimal
+      // footer with the line's contact until its shell (I1 → I3).
+      for (const host of HOSTS.filter(
+        (h) => h !== 'software.localhost' && h !== 'instalacje.localhost',
+      )) {
         await page.goto(site(host))
         await expect(page.locator('footer')).toContainText(phone)
       }

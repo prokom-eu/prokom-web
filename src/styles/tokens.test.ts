@@ -49,12 +49,20 @@ describe('brand colours (docs/marka.md)', () => {
 })
 
 describe('data-line → --accent* (ADR-007)', () => {
+  // ADR-015: Software's interface accent is a darker shade of its brand colour (white on the
+  // brand book's #8B61E3 is only 4.27:1); the mark keeps the brand colour. ADR-I003 §3: the
+  // Instalacje interface takes both accents from its visualisation (#007A96 / #006A82).
+  const INTERFACE_ACCENTS: Record<string, Partial<Record<'--accent' | '--accent-text', string>>> = {
+    software: { '--accent': 'var(--c-software-light-accent)' },
+    instalacje: {
+      '--accent': 'var(--c-instalacje-light-accent)',
+      '--accent-text': 'var(--c-instalacje-light-accent-text)',
+    },
+  }
   const accents = (line: string) => ({
-    // ADR-015: Software's interface accent is a darker shade of its brand colour (white on the
-    // brand book's #8B61E3 is only 4.27:1); the mark keeps the brand colour.
-    '--accent': line === 'software' ? 'var(--c-software-light-accent)' : `var(--c-${line})`,
+    '--accent': INTERFACE_ACCENTS[line]?.['--accent'] ?? `var(--c-${line})`,
     '--accent-on-dark': `var(--c-${line}-on-dark)`,
-    '--accent-text': `var(--c-${line}-text)`,
+    '--accent-text': INTERFACE_ACCENTS[line]?.['--accent-text'] ?? `var(--c-${line}-text)`,
   })
 
   it.each([...LINE_VALUES])('maps the %s line', (line) => {

@@ -14,6 +14,13 @@
       "runtimeArgs": ["dev"],
       "port": 3001,
       "url": "http://software.localhost:3001"
+    },
+    {
+      "name": "dev-3002",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["dev"],
+      "port": 3002,
+      "url": "http://instalacje.localhost:3002"
     }
   ]
 }

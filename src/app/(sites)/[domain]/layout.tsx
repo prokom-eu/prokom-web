@@ -12,6 +12,7 @@ import { getCompanyData, getSiteSettings } from '@/lib/site/data'
 import { isPromoForLine } from '@/lib/site/promo'
 import { isValidTitleTemplate } from '@/lib/site/title'
 import { BiznesFrame } from '@/sites/biznes/Frame'
+import { InstalacjeFrame } from '@/sites/instalacje/Frame'
 import { SoftwareFrame } from '@/sites/software/Frame'
 
 import { requestOrigin, requireTenant } from './tenant'
@@ -79,6 +80,13 @@ export default async function TenantLayout({ children, params }: Props) {
       >
         {main}
       </BiznesFrame>
+    )
+  } else if (tenant.line === 'instalacje') {
+    // ADR-I002 §0: no settings group of its own yet, so the line picks its frame.
+    frame = (
+      <InstalacjeFrame tenant={tenant} settings={settings} promo={promo}>
+        {main}
+      </InstalacjeFrame>
     )
   } else if (settings && navigation) {
     frame = (

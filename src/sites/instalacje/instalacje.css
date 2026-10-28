@@ -1,0 +1,12 @@
+/*
+ * Stylesheet of the Instalacje line (ADR-I003 §3): scenes, keyframes and effects from the
+ * visualisation (docs/design/prokominstalacje/pk.css) that are hard to express in Tailwind.
+ * Layout, spacing and typography stay in Tailwind. Colours only through tokens (tokens.css).
+ * Every rule is scoped to the line: a global stylesheet stays loaded after a navigation.
+ */
+
+/* `clip`, not `hidden`: `hidden` makes the page a scroll container and breaks `position: sticky`
+   of the header and the anchor bar (fixed in the visualisation v4.0). */
+[data-line='instalacje'] .inst-page {
+  overflow-x: clip;
+}
