@@ -47,7 +47,7 @@ describe('lineManifest', () => {
     const manifest = lineManifest('instalacje', 'PRO-KOM Instalacje')
     expect(manifest).toMatchObject({
       name: 'PRO-KOM Instalacje',
-      short_name: 'PRO-KOM Instalacje',
+      short_name: 'Instalacje',
       lang: 'pl',
       start_url: '/',
       display: 'standalone',

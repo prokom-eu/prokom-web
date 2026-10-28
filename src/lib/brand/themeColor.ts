@@ -16,6 +16,11 @@ export const LINE_THEME_COLORS: Partial<Record<Line, ThemeColors>> = {
   instalacje: { light: '#f4f5f1', dark: '#101412' },
 }
 
+/** Name under the icon on a phone's home screen: short, or Android cuts it (~12 characters). */
+const SHORT_NAMES: Partial<Record<Line, string>> = {
+  instalacje: 'Instalacje',
+}
+
 /** Viewport of a line's pages: content under the notch (safe areas) and the bar colour. */
 export function lineViewport(line: Line): Viewport {
   const colors = LINE_THEME_COLORS[line]
@@ -39,7 +44,7 @@ export function lineManifest(line: Line, name: string): MetadataRoute.Manifest |
   const icon512 = brandAsset(line, 'icon-512.png')
   return {
     name,
-    short_name: name,
+    short_name: SHORT_NAMES[line] ?? name,
     lang: 'pl',
     start_url: '/',
     display: 'standalone',

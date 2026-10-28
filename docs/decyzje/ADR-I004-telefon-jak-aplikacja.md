@@ -17,7 +17,7 @@ Sprawdzone na develop 33f6e9b (`src/sites/software/components/`):
 - `PhoneLayer` (chowanie nagłówka, warstwa telefonu) — w I3 sprawdzić, czy logika chowania przy przewijaniu da się wydzielić jako hook wspólny; domyślnie własny w Instalacjach.
 
 ### Doprecyzowanie I3 (28.10.2026, PR `inst/wsp-arkusz`)
-- `src/components/BottomSheet.tsx`: `desktopQuery` (wymagany), `header` (slot zamiast tytułu i ×; tytuł zostaje w `aria-label`), `panelClassName` (rozmiar i położenie panelu), `dragToClose` (gest w dół, `sheetDrag.ts`: > 80 px albo szybki ruch). Software: bez zmian zachowania. Tło zamyka arkusz także obok wyśrodkowanego panelu (tablet).
+- `src/components/BottomSheet.tsx`: `desktopQuery` (wymagany), `header` (slot zamiast tytułu i ×; tytuł zostaje w `aria-label`), `panelClassName` (rozmiar i położenie panelu), `backdropClassName` (tło pod arkuszem), `footer` (przyklejona stopka z bezpiecznym marginesem, np. „Zaplanuj instalację”), `dragToClose` (gest w dół, `sheetDrag.ts`: > 80 px albo szybki ruch). Software: bez zmian zachowania. Tło zamyka arkusz także obok wyśrodkowanego panelu (tablet).
 - Próg arkusza Instalacji: **`(min-width: 1101px)`**, nie 760 px — spec §4: tablet 761–1100 px też ma arkusz (wyśrodkowany, max 560 px).
 - Historia („wstecz”) i blokada przewijania strony zostają po stronie Instalacji (`MenuSheet`), bo nie potrzebują DOM panelu.
 - Chowanie nagłówka: w Software go nie ma (zero nasłuchów `scroll` w `src`) — hook własny Instalacji.

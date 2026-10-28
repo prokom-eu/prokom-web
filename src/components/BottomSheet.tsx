@@ -16,8 +16,16 @@ import { shouldCloseOnDrag } from './sheetDrag'
 
 /** Size and position of the panel when the line gives none: full width, from the bottom. */
 const DEFAULT_PANEL = 'inset-x-0 bottom-0 top-auto max-h-[92dvh] w-full max-w-none rounded-t-[28px]'
+/** Dimmed page behind the sheet when the line gives none. */
+const DEFAULT_BACKDROP = 'backdrop:bg-surface-dark/60'
 /** Movement (px) before a press on the sheet's top becomes a drag (a tap stays a tap). */
 const DRAG_START = 6
+
+/** Back to the sheet's own place, without the inline styles of a drag. */
+function resetSheet(element: HTMLDialogElement) {
+  element.style.transition = ''
+  element.style.transform = ''
+}
 
 type Props = {
   open: boolean
@@ -32,6 +40,10 @@ type Props = {
   header?: ReactNode
   /** Replaces the default size and position classes of the panel (`DEFAULT_PANEL`). */
   panelClassName?: string
+  /** Replaces the default backdrop classes (`DEFAULT_BACKDROP`); use `backdrop:` utilities. */
+  backdropClassName?: string
+  /** Stays at the bottom of the panel while the content scrolls (e.g. the main action). */
+  footer?: ReactNode
   /** Pulling the top of the sheet (handle and header) down closes it. */
   dragToClose?: boolean
   children: ReactNode
@@ -52,6 +64,8 @@ export function BottomSheet({
   headingRef,
   header,
   panelClassName,
+  backdropClassName,
+  footer,
   dragToClose = false,
   children,
 }: Props) {
@@ -70,6 +84,9 @@ export function BottomSheet({
     if (!element) return
     if (open && !element.open) element.showModal()
     if (!open && element.open) element.close()
+    // A sheet closed by a pull stays where the finger left it until it is hidden; the next
+    // opening starts from its own place again.
+    if (!open) resetSheet(element)
   }, [open])
 
   // A followed link (route change) must not leave the sheet over the next page.
@@ -102,6 +119,13 @@ export function BottomSheet({
         onPointerMove: (event: PointerEvent<HTMLDivElement>) => {
           const state = drag.current
           if (!state) return
+          // A mouse released outside the sheet's top sent no `pointerup` here: drop the drag
+          // instead of letting a plain hover move the sheet.
+          if (event.buttons === 0) {
+            drag.current = null
+            if (state.active) moveSheet(0, true)
+            return
+          }
           state.dy = event.clientY - state.y
           if (!state.active && state.dy > DRAG_START) {
             state.active = true
@@ -114,8 +138,9 @@ export function BottomSheet({
           drag.current = null
           if (!state?.active) return
           const velocity = state.dy / Math.max(1, event.timeStamp - state.time)
-          moveSheet(0, true)
+          // Closing: hide it from where it is (no bounce back first); the `open` effect resets it.
           if (shouldCloseOnDrag(state.dy, velocity)) onClose()
+          else moveSheet(0, true)
         },
         onPointerCancel: () => {
           drag.current = null
@@ -146,9 +171,14 @@ export function BottomSheet({
           event.button === 0 && !event.ctrlKey && !event.metaKey && !event.shiftKey && !event.altKey
         if (opensHere && (event.target as Element).closest('a')) onClose()
       }}
-      className={`fixed m-0 overflow-y-auto overscroll-contain bg-surface p-0 text-ink shadow-raised backdrop:bg-surface-dark/60 ${panelClassName ?? DEFAULT_PANEL}`}
+      className={`fixed m-0 overflow-y-auto overscroll-contain bg-surface p-0 text-ink shadow-raised ${backdropClassName ?? DEFAULT_BACKDROP} ${panelClassName ?? DEFAULT_PANEL}`}
     >
-      <div className="px-4 pb-[calc(1.5rem+env(safe-area-inset-bottom))] pt-2.5">
+      {/* With a footer the safe area moves to the footer, the last thing on the screen. */}
+      <div
+        className={
+          footer ? 'px-4 pb-4 pt-2.5' : 'px-4 pb-[calc(1.5rem+env(safe-area-inset-bottom))] pt-2.5'
+        }
+      >
         <div {...dragHandlers} className={dragToClose ? 'touch-none' : undefined}>
           <span aria-hidden="true" className="mx-auto block h-1.5 w-11 rounded-full bg-border" />
           {header ?? (
@@ -173,6 +203,11 @@ export function BottomSheet({
         </div>
         {children}
       </div>
+      {footer && (
+        <div className="sticky bottom-0 border-t border-border bg-surface px-4 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pt-3">
+          {footer}
+        </div>
+      )}
     </dialog>
   )
 }
