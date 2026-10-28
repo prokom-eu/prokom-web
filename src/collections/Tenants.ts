@@ -74,6 +74,11 @@ const TENANT_CONTENT: readonly { collection: CollectionSlug; label: string }[] =
   { collection: 'solution-areas', label: 'obszary' },
   { collection: 'cities', label: 'miejscowości' },
   { collection: 'software-settings', label: 'ustawienia Software' },
+  { collection: 'instalacje-settings', label: 'ustawienia Instalacji' },
+  { collection: 'inst-services', label: 'usługi' },
+  { collection: 'inst-objects', label: 'obiekty' },
+  { collection: 'inst-solutions', label: 'rozwiązania oferty' },
+  { collection: 'realizations', label: 'realizacje' },
 ]
 
 const refuse = (message: string) => new APIError(message, 400, null, true)

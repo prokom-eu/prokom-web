@@ -37,6 +37,7 @@ import * as migration_20261027_213113_k31_showroom_plans from './20261027_213113
 import * as migration_20261027_214531_software_industries_posts from './20261027_214531_software_industries_posts'
 import * as migration_20261027_215434_software_inquiries from './20261027_215434_software_inquiries'
 import * as migration_20261028_000918_k31b_drop_hotspots from './20261028_000918_k31b_drop_hotspots'
+import * as migration_20261028_200537_instalacje_collections from './20261028_200537_instalacje_collections'
 
 export const migrations = [
   {
@@ -233,5 +234,10 @@ export const migrations = [
     up: migration_20261028_000918_k31b_drop_hotspots.up,
     down: migration_20261028_000918_k31b_drop_hotspots.down,
     name: '20261028_000918_k31b_drop_hotspots',
+  },
+  {
+    up: migration_20261028_200537_instalacje_collections.up,
+    down: migration_20261028_200537_instalacje_collections.down,
+    name: '20261028_200537_instalacje_collections',
   },
 ]
