@@ -94,6 +94,8 @@ test.describe('Software start page', () => {
     await page.emulateMedia({ reducedMotion: 'reduce' })
     await page.clock.install()
     await page.goto(site(HOST))
+    // The section first, then the time: the clock only runs once the tabs are on the page.
+    await expect(areaTabs(page)).toHaveCount(8)
     await page.mouse.move(0, 0)
     await page.clock.runFor(12_000)
     await expect(areaTabs(page).first()).toHaveAttribute('aria-selected', 'true')
