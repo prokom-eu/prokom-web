@@ -1,19 +1,21 @@
 # STAN — prokominstalacje.pl (linia Instalacje)
 
-Ostatnia aktualizacja: 28.10.2026 (sesja I0 — ustalenia na develop 33f6e9b, same dokumenty)
+Ostatnia aktualizacja: 28.10.2026 (sesja I1 — wspólne minimum, gałąź `inst/wsp-fundament` na develop 82ed0a2)
 Worktree: `D:\PRO-KOM\repos\prokom-instal` · gałęzie `inst/*` · `PORT=3002`, baza `prokom_web_instalacje` we wspólnym kontenerze PostgreSQL prokom-web (54320), Mailpit wspólny (8025)
 
 ## W toku
-- Gałąź: `inst/i0-ustalenia` (PR „docs(instalacje): I0 ustalenia” → develop)
-- Niedokończone: — (po scaleniu PR-a I0 nic nie zostaje)
-- Następny krok: **I1** — nowa gałąź `inst/wsp-fundament` z `origin/develop` po scaleniu I0, prompt I1 z `docs/zadania/prokominstalacje.md` §3 (wersja 1.1: motyw za systemem, ramka po `tenant.line`, `RESERVED`: `dla-kogo`, `wyslane`).
+- Gałąź: `inst/wsp-fundament` (PR wspólny „feat(instalacje): I1 — motyw, ramka i trasy linii” → develop, scalić od razu)
+- Niedokończone: — (po scaleniu PR-a I1 nic nie zostaje; w CI do sprawdzenia `build` i pełne e2e)
+- Następny krok: **I2** — po scaleniu I1 najpierw PR `inst/wsp-rejestracja` z `origin/develop`, potem `inst/i2-model`; prompt do skopiowania: „Sesja I2 (Instalacje)…” z `docs/zadania/prokominstalacje.md` §3 → I2.
+- Znane ograniczenia po I1 (do I3): ramka Instalacji nie ma nawigacji, linków prawnych ani przełącznika motywu (działa motyw systemu) — **stagingu Instalacji nie pokazywać dalej przed I3/I13** (brak polityki prywatności w stopce).
 
 ## Zrobione
 | Data | Sesja | PR | Co |
 |---|---|---|---|
 | 27.10.2026 | (czat) | — | wizualizacja v4.0: 31 stron, telefon jak aplikacja (dolny pasek, arkusz 3 zakładki, chowany nagłówek), poprawka hero na telefonie w jasnym motywie, pełna oferta Elzab EcoPower; pakiet: spec, SEO, ADR-I001–I004, plan I0–I15, wzorzec, seed |
 | 28.10.2026 | W-I | #125 | pakiet wgrany do repo (squash 33f6e9b) |
-| 28.10.2026 | I0 | (ten PR) | ustalenia sprawdzone na develop 33f6e9b; ADR-I001, I004 przyjęte, ADR-I002, I003 przyjęte z poprawkami; plan sesji 1.1; spec §3, §5, §6, §8 uzgodnione |
+| 28.10.2026 | I0 | #126 | ustalenia sprawdzone na develop 33f6e9b; ADR-I001, I004 przyjęte, ADR-I002, I003 przyjęte z poprawkami; plan sesji 1.1; spec §3, §5, §6, §8 uzgodnione |
+| 28.10.2026 | I1 | (ten PR) | motyw jasny/ciemny Instalacji w `tokens.css` (za systemem), `InstalacjeFrame` (logo, stopka minimalna), grupa `(instalacje)`, `dla-kogo`/`wyslane` zarezerwowane, `instalacje.css`, `INSTALACJE_BLOCKS`, test dymny e2e; Biznes/Software bez zmian (zrzuty 1440/390, oba motywy: 0,000% różnicy pikseli) |
 
 ## Decyzje obowiązujące (skrót — pełna lista: spec §2)
 - Gwarancja 24 mies. na montaż; „24 h” = odpowiedź na zgłoszenie w dni robocze, nie przyjazd.
@@ -21,6 +23,7 @@ Worktree: `D:\PRO-KOM\repos\prokom-instal` · gałęzie `inst/*` · `PORT=3002`,
 - Hero strony głównej bez zmian. Kolor linii: turkus.
 - Instalacje = tenant prokom-web, praca w osobnym worktree (ADR-I001).
 - I0 (28.10): `/wyslane` = trasa linii; poradnik pod `/poradnik/<slug>`; formularze bez uploadu plików w v1; motyw jak system (jak inne linie).
+- I1 (28.10): akcent interfejsu Instalacji z wizualizacji (`#007A96` przyciski, `#006A82` tekst w jasnym; `#12B6D8` / `#4CCBE6` w ciemnym), kolory księgi znaku (`--c-instalacje*`) bez zmian. Wartości spoza wizualizacji: `--surface-dark` = `#0B1416` (prototypowe `--ink`), ramka pól i zielony tekst jak w Software. Tokeny scen (`--sg*`, `--ev*`), usług (`--svc-*`) i `--bad` dochodzą w sesjach, które ich używają (I3/I5/I10, `--bad` w I11 z testem kontrastu).
 
 ## Ustalenia I0 (28.10.2026, develop 33f6e9b)
 **Potwierdzone**
@@ -48,9 +51,12 @@ Worktree: `D:\PRO-KOM\repos\prokom-instal` · gałęzie `inst/*` · `PORT=3002`,
 ## Pytania do Krystiana / szefa
 - [SZEF] telefon, e-mail, WhatsApp Instalacji; adres salonu w Zakopanem; ceny „od” czy bez cen; zgody na realizacje i zdjęcia.
 - [SZEF] telefon wymagany w formularzach Instalacji? (dziś reguła „e-mail lub telefon”; Biznes wymaga telefonu) — przed I11.
-- [Krystian] usunąć starą lokalną gałąź `inst/w-pakiet` (scalona w #125).
+- [Krystian] usunąć stare lokalne gałęzie `inst/w-pakiet` (#125) i `inst/i0-ustalenia` (#126) — scalone.
 
 ## Pomysły na później (nie robić „przy okazji”)
+- `GenericFrame` (ramka linii bez własnego wyglądu) nie ma po I1 żadnego lokalnego tenanta → brak pokrycia e2e; wróci z hubem pro-kom.eu albo z tenantem testowym w seedzie.
+- Test e2e „trasy `(instalacje)` → 404 na innych liniach, 200 na Instalacjach” — dodać z pierwszą trasą grupy (I10 `/dla-kogo/…` albo I11 `/wyslane`).
+- `--accent-on-dark` Instalacji: jasny `#12B6D8`, ciemny `#4CCBE6` — ujednolicić wg wizualizacji przy pierwszym ciemnym bloku (I5).
 - Strony miejscowości z unikalną treścią (etap 2, SEO §1).
 - Teksty widżetów edytowalne w panelu (ADR-I002 §1, etap 2).
 - Upload plików do zapytań (`InquiryFiles`, wspólny z Software — ADR-014 §3.2): przedmiary, zdjęcia rozdzielnic.
