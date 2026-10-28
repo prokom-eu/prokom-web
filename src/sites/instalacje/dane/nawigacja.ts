@@ -4,7 +4,8 @@
  * edit here from now on. Names, icons and colours of services and objects: the panel, by key.
  * I3: texts of the top bar, mega menu promos, CTA band and footer copied 1:1 from
  * `docs/design/prokominstalacje/zrodlo/{header,footer}.html` and `common.js` (v4.2), with the
- * „Dla architektów” items of ADR-I005 §4.
+ * „Dla architektów” items of ADR-I005 §4. Top bar „Biznes”, not the prototype's „PRO-KOM Biznes”:
+ * another tenant's name on this domain is what the isolation tests look for (`BRAND_LINKS` wording).
  */
 import type { Navigation } from './types'
 
@@ -65,7 +66,7 @@ export const navigation: Navigation = {
   cta: { label: 'Zaplanuj instalację', href: '/zaplanuj' },
   topBar: {
     links: [
-      { label: 'PRO-KOM Biznes', href: 'https://prokombiznes.pl' },
+      { label: 'Biznes', href: 'https://prokombiznes.pl' },
       { label: 'Software', href: 'https://prokomsoftware.pl' },
       { label: 'Tech · naprawy sprzętu', href: 'https://prokomserwis.pl' },
     ],

@@ -139,13 +139,16 @@ export function ShellProvider({ children }: { children: ReactNode }) {
     document.documentElement.toggleAttribute('data-hdr-hidden', headerHidden)
   }, [headerHidden])
 
-  // `theme-color` follows the system theme (layout); a theme chosen by hand wins.
+  // `theme-color` follows the system theme (one `<meta>` per scheme, layout); a theme chosen by
+  // hand (`html[data-theme]`, set only by a choice) wins over both.
   const [theme] = useTheme()
   useEffect(() => {
     const colors = LINE_THEME_COLORS.instalacje
     if (!colors) return
+    const chosen = document.documentElement.getAttribute('data-theme')
     for (const meta of document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]')) {
-      meta.content = colors[theme]
+      const scheme = meta.media.includes('dark') ? 'dark' : 'light'
+      meta.content = chosen === 'light' || chosen === 'dark' ? colors[chosen] : colors[scheme]
     }
   }, [theme])
 
