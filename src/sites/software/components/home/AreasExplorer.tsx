@@ -1,25 +1,17 @@
 'use client'
 
 import Link from 'next/link'
-import { type KeyboardEvent, useEffect, useId, useRef, useState } from 'react'
+import { useId } from 'react'
 
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
 import type { HomeArea } from '@/lib/software/homeAreas'
 
 import { AreaScene } from './AreaScene'
+import { useAutoTabs } from './useAutoTabs'
 
 /** Board `Main`: the areas change every 5,5 s until the visitor picks one (spec. §8.3). */
 export const AREAS_AUTO_MS = 5500
-
-const KEYS: Record<string, (index: number, count: number) => number> = {
-  ArrowDown: (i, n) => (i + 1) % n,
-  ArrowRight: (i, n) => (i + 1) % n,
-  ArrowUp: (i, n) => (i - 1 + n) % n,
-  ArrowLeft: (i, n) => (i - 1 + n) % n,
-  Home: () => 0,
-  End: (_, n) => n - 1,
-}
 
 type Props = {
   areas: HomeArea[]
@@ -35,35 +27,10 @@ type Props = {
  */
 export function AreasExplorer({ areas, priceCaption, wizardButton }: Props) {
   const id = useId()
-  const [active, setActive] = useState(0)
-  const [picked, setPicked] = useState(false)
-  const [paused, setPaused] = useState(false)
-  const buttons = useRef<(HTMLButtonElement | null)[]>([])
-  const count = areas.length
-
-  useEffect(() => {
-    if (picked || paused || count < 2) return
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    const timer = window.setInterval(() => {
-      if (!document.hidden) setActive((current) => (current + 1) % count)
-    }, AREAS_AUTO_MS)
-    return () => window.clearInterval(timer)
-  }, [picked, paused, count])
-
-  function pick(index: number) {
-    setPicked(true)
-    setActive(index)
-  }
-
-  function onKeyDown(event: KeyboardEvent) {
-    const move = KEYS[event.key]
-    if (!move) return
-    event.preventDefault()
-    const next = move(active, count)
-    pick(next)
-    buttons.current[next]?.focus()
-    buttons.current[next]?.scrollIntoView({ block: 'nearest', inline: 'nearest' })
-  }
+  const { active, picked, paused, pick, onKeyDown, tabRef, region } = useAutoTabs(
+    areas.length,
+    AREAS_AUTO_MS,
+  )
 
   const area = areas[active]
   if (!area) return null
@@ -71,12 +38,7 @@ export function AreasExplorer({ areas, priceCaption, wizardButton }: Props) {
   return (
     <div
       className="grid gap-5 min-[1081px]:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] min-[1081px]:gap-6"
-      onPointerEnter={() => setPaused(true)}
-      onPointerLeave={() => setPaused(false)}
-      onFocus={() => setPaused(true)}
-      onBlur={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget)) setPaused(false)
-      }}
+      {...region}
     >
       <div
         role="tablist"
@@ -89,9 +51,7 @@ export function AreasExplorer({ areas, priceCaption, wizardButton }: Props) {
           return (
             <button
               key={item.key}
-              ref={(element) => {
-                buttons.current[i] = element
-              }}
+              ref={tabRef(i)}
               type="button"
               role="tab"
               id={`${id}-tab-${i}`}
