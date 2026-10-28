@@ -1,4 +1,4 @@
-import type { RailItem } from './SectionRail'
+import type { RailItem } from '@/components/SectionRail'
 
 /** Board `Main` (`RAILI`): the sections with an anchor, by the block that renders them. */
 const RAIL: Record<string, RailItem> = {
