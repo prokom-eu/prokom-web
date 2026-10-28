@@ -14,7 +14,7 @@ const main = (page: Page) => page.getByRole('main')
 const tile = (page: Page, name: string) =>
   main(page).getByRole('button', { name: new RegExp(`^${name}`) })
 const button = (page: Page, name: string | RegExp) => main(page).getByRole('button', { name })
-const title = (page: Page) => main(page).getByRole('heading', { level: 3 }).first()
+const title = (page: Page) => main(page).getByRole('heading', { level: 2 }).first()
 const price = (page: Page) => page.locator('[data-wizard-price]')
 const term = (page: Page) => page.locator('[data-wizard-term]')
 const send = (page: Page) => button(page, 'Wyślij mi wycenę na piśmie →')
@@ -74,9 +74,11 @@ const PATHS: Path[] = [
   },
 ]
 
-// Own client address per sending test (TEST-NET-3): the limit of 5 inquiries per 10 minutes
-// keys on `X-Real-IP` (the proxy sets it), so six sends here never use up other specs' limit.
-let clientIp = 100
+// Own client address per sending test (benchmark range 198.18.0.0/15, random per run): the limit
+// of 5 inquiries per 10 minutes keys on `X-Real-IP` (the proxy sets it), so these sends never use
+// up the limit of other specs, nor of the previous local run.
+const runOctet = Math.floor(Math.random() * 250)
+let clientIp = 1
 
 for (const viewport of [
   { width: 1440, height: 1000 },
@@ -87,7 +89,7 @@ for (const viewport of [
 
     for (const path of PATHS) {
       test(`${path.id}: result, price, error and sending`, async ({ page }) => {
-        await page.setExtraHTTPHeaders({ 'X-Real-IP': `203.0.113.${clientIp++}` })
+        await page.setExtraHTTPHeaders({ 'X-Real-IP': `198.18.${runOctet}.${clientIp++}` })
         const name = `E2E kreator SW7 ${viewport.width} ${path.id} ${Date.now()}`
         await page.goto(site(HOST, PATH))
         await path.walk(page)
@@ -187,6 +189,25 @@ test.describe('Software wizard', () => {
     await expect(title(page)).toHaveText('Rozmowa i propozycja na piśmie')
     await expect(price(page)).toHaveText('Bezpłatnie')
     await expect(button(page, 'Standard')).toHaveCount(0)
+  })
+
+  test('a server error is announced: its box takes the focus', async ({ page }) => {
+    await page.route('**/api/inquiry', (route) =>
+      route.fulfill({ status: 500, contentType: 'application/json', body: '{}' }),
+    )
+    await page.goto(site(HOST, `${PATH}?potrzeba=wiz&firma=bud`))
+    await button(page, 'Dalej →').click()
+    await button(page, 'Pomiń').click()
+    await main(page).getByPlaceholder('Telefon albo e-mail').fill('600 100 200')
+    await main(page)
+      .getByRole('checkbox', { name: /Wyrażam zgodę/ })
+      .check()
+    await send(page).click()
+    const focused = page.locator(':focus')
+    await expect(focused).toHaveAttribute('tabindex', '-1')
+    await expect(focused).not.toBeEmpty()
+    // The form stays, nothing was sent.
+    await expect(send(page)).toBeVisible()
   })
 
   test('55: an app has no price in the panel → „Zapytaj o wycenę”', async ({ page }) => {

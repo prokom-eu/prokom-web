@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { type FormEvent, useId, useRef, useState } from 'react'
+import { type FormEvent, useEffect, useId, useRef, useState } from 'react'
 
 import { FieldError } from '@/components/ui/Field'
 import { cx } from '@/components/ui/cx'
@@ -21,6 +21,8 @@ type Props = {
   answers: WizardAnswers
   onContactPref: (id: string) => void
   formToken: string
+  /** Level of the form's heading (one under the wizard's title). */
+  heading: 'h2' | 'h3'
   phone: { label: string; href: string } | null
   /** Sent: the inquiry number (`null` when the server gave none). */
   sent: { number: string | null } | null
@@ -45,6 +47,7 @@ export function WizardSend({
   answers,
   onContactPref,
   formToken,
+  heading: Heading,
   phone,
   sent,
   onSent,
@@ -59,6 +62,12 @@ export function WizardSend({
   const contactRef = useRef<HTMLInputElement>(null)
   const consentRef = useRef<HTMLInputElement>(null)
   const boxRef = useRef<HTMLDivElement>(null)
+  // A form error (server, network) focuses its box once rendered — the first time it is not in
+  // the DOM yet when the answer comes. The focus announces it; no `role="alert"` on top.
+  const [focusBox, setFocusBox] = useState(0)
+  useEffect(() => {
+    if (focusBox > 0) boxRef.current?.focus()
+  }, [focusBox])
   const pref = contactPrefOf(rules, answers)
   const ready = contact.trim().length > 0 && consent
 
@@ -71,7 +80,7 @@ export function WizardSend({
         <span className="self-start rounded-lg bg-ok-text px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.1em] text-surface">
           {send.sentLabel.replace('{nr}', sent.number ?? '—')}
         </span>
-        <h3 className="font-display text-2xl font-extrabold">{send.success.title}</h3>
+        <Heading className="font-display text-2xl font-extrabold">{send.success.title}</Heading>
         <ol className="space-y-3">
           {send.success.steps.map((step, i) => (
             <li key={step} className="flex gap-3">
@@ -141,7 +150,7 @@ export function WizardSend({
         : outcome.formError && { form: outcome.formError }),
     })
     if (contactError) contactRef.current?.focus()
-    else boxRef.current?.focus()
+    else setFocusBox((count) => count + 1)
   }
 
   const errorList = [errors.contact, errors.consent, errors.form].filter(Boolean)
@@ -151,7 +160,7 @@ export function WizardSend({
       onSubmit={submit}
       className="flex flex-col gap-4 rounded-[22px] border border-accent-line bg-card-2 p-5 sm:p-6"
     >
-      <h3 className="font-display text-2xl font-extrabold">{send.title}</h3>
+      <Heading className="font-display text-2xl font-extrabold">{send.title}</Heading>
       <fieldset>
         <legend className={label}>{send.prefQ}</legend>
         <div className="mt-2.5 flex flex-wrap gap-2">

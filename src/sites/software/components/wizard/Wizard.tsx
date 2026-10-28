@@ -159,6 +159,8 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
   }
 
   const Heading = headingLevel
+  // One level under the wizard's title: h2 on /dobierz, h3 as a section of the start page.
+  const StepHeading = headingLevel === 'h1' ? 'h2' : 'h3'
   const view = resultView(rules, answers, solutions)
   const preview = previewOf(rules, answers)
   const haveSet = need?.have ? rules.haves[need.have] : undefined
@@ -248,9 +250,9 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
 
           {step === STEP.need && (
             <section aria-labelledby={`${id}-title`} className="mt-5">
-              <h3 id={`${id}-title`} ref={titleRef} tabIndex={-1} className={stepTitle}>
+              <StepHeading id={`${id}-title`} ref={titleRef} tabIndex={-1} className={stepTitle}>
                 {rules.ui.needTitle}
-              </h3>
+              </StepHeading>
               {rows.map((row) => {
                 const entries = orderedNeeds(rules).filter(([, each]) => each.row === row)
                 return (
@@ -300,9 +302,9 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
 
           {step === STEP.detail && need && (
             <section aria-labelledby={`${id}-title`} className="mt-5">
-              <h3 id={`${id}-title`} ref={titleRef} tabIndex={-1} className={stepTitle}>
+              <StepHeading id={`${id}-title`} ref={titleRef} tabIndex={-1} className={stepTitle}>
                 {need.q}
-              </h3>
+              </StepHeading>
               <p className="mt-1.5 text-sm text-ink-2">{need.h}</p>
               <div
                 className={cx(
@@ -363,9 +365,9 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
 
           {step === STEP.scope && need && (
             <section aria-labelledby={`${id}-title`} className="mt-5">
-              <h3 id={`${id}-title`} ref={titleRef} tabIndex={-1} className={stepTitle}>
+              <StepHeading id={`${id}-title`} ref={titleRef} tabIndex={-1} className={stepTitle}>
                 {rules.ui.scopeTitle}
-              </h3>
+              </StepHeading>
               {sized && (
                 <fieldset className="mt-5">
                   <legend className={label}>{rules.ui.sizeQ}</legend>
@@ -452,10 +454,10 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
 
           {step === STEP.describe && (
             <section aria-labelledby={`${id}-title`} className="mt-5">
-              <h3 id={`${id}-title`} ref={titleRef} tabIndex={-1} className={stepTitle}>
+              <StepHeading id={`${id}-title`} ref={titleRef} tabIndex={-1} className={stepTitle}>
                 {rules.ui.describe.title}{' '}
                 <span className="text-base font-bold text-ink-2">{rules.ui.describe.optional}</span>
-              </h3>
+              </StepHeading>
               <ul className="mt-3 flex flex-wrap gap-2">
                 {rules.ui.describe.prompts.map((prompt) => (
                   <li
@@ -515,9 +517,9 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
                   {view.result.kind}
                 </span>
               </div>
-              <h3 id={`${id}-title`} ref={titleRef} tabIndex={-1} className={stepTitle}>
+              <StepHeading id={`${id}-title`} ref={titleRef} tabIndex={-1} className={stepTitle}>
                 {view.result.n}
-              </h3>
+              </StepHeading>
               {view.resultNote && (
                 <p className="self-start rounded-xl bg-accent-soft px-3 py-2 text-sm font-extrabold text-accent-text">
                   {view.resultNote}
@@ -659,6 +661,7 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
                   setAnswers((current) => ({ ...current, contactPref }))
                 }
                 formToken={formToken}
+                heading={StepHeading}
                 phone={phone}
                 sent={sent}
                 onSent={(number) => setSent({ number })}
