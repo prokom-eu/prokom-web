@@ -1,14 +1,12 @@
 # STAN — prokominstalacje.pl (linia Instalacje)
 
-Ostatnia aktualizacja: 28.10.2026 (sesja I2, część 2 z 3 — import seeda, gałąź `inst/i2-model` na develop e09687c)
+Ostatnia aktualizacja: 28.10.2026 (sesja I2, część 3 z 3 — nawigacja w kodzie, gałąź `inst/i2-dane` na develop ae35ca4)
 Worktree: `D:\PRO-KOM\repos\prokom-instal` · gałęzie `inst/*` · `PORT=3002`, baza `prokom_web_instalacje` we wspólnym kontenerze PostgreSQL prokom-web (54320), Mailpit wspólny (8025)
 
 ## W toku
-- Gałąź: `inst/i2-model` (PR „feat(instalacje): I2 — import seeda do kolekcji i stron” → develop)
-- Niedokończone — I2 (3 PR-y, uzgodnione 28.10): PR 1 #131 scalony, PR 2 = ta gałąź, został:
-  - **PR 3 `inst/i2-dane`:** generator (skrypt jednorazowy, np. `src/seed/instalacje/dane.ts` uruchamiany przez `payload run`) i commitowane, typowane `src/sites/instalacje/dane/<strona>.ts` z kluczy, które wg ADR-I002 §5 nie idą do panelu: usługi — wszystko w `strony-zrzut/<Usługa>.json → dane` poza `hero, anc, pkgs, cena, faq, rel, segRel, sx, ctaEye/ctaH/ctaP` (np. Monitoring `nv, feats, typ, dori, rec, rodo, brandsM, brD`; Ładowarki `sh, prods, extras, cf, kTips, devt, form, ev`); `Main.json` → `dane/glowna.ts` (bez `us`, `u`, `rl`); `Noclegowe.json` → `dane/noclegowe.ts`; `Oferta`, `Realizacje` (filtry), `Poradnik`, `Zaplanuj`, `Kontakt`, `Serwis`, `OFirmie` → `dane/<strona>.ts`; nawigacja z `wspolne.json` (`megaCols`, `segCols`, `bnav`, `mmore`, `mtabs`, `nav`, `svcNav`) → `dane/nawigacja.ts`. Pominąć klucze UI (`cls`, `on`, `pick`, `go`, `tch`, `cur`, `exp`, `open`) i `[svg-path]`; linki przez `adresy.json` (`mapHref` z `map.ts`), zdjęcia `ev/*.webp` → `/instalacje/ev/*.webp` (`adresy.json → zdjecia`). Testy: brak `[svg-path]`, `.dc.html`, `.html`, `ikona:` w `dane/`; zdjęcia ładowarek wskazują `/instalacje/ev/`.
-  - Poza I2 (uzgodnione): `CompanyData.locations` nietknięte (salon Zakopane pokazałby się na Biznesie — decyzja w I11); bloki linii w rejestrze dopiero w sesjach, które je budują (I4+); wpis RODO → I12 (kategorie `Posts`).
-- Następny krok: po scaleniu `inst/i2-model` → `/inst-start`, gałąź `inst/i2-dane` z `origin/develop`; prompt do skopiowania: „Sesja I2, PR 3 (Instalacje): pliki danych widżetów wg docs/stan/STAN-instalacje.md → W toku → PR 3 i ADR-I002 §1, §5. Najpierw plan.”
+- Gałąź: `inst/i2-dane` (PR „feat(instalacje): I2 — nawigacja w kodzie i pomocnik danych prototypu” → develop)
+- Niedokończone: — (po scaleniu I2 jest zamknięte: #131, #134, ten PR). Celowo poza I2: pliki `dane/<strona>.ts` robią sesje stron (ADR-I002 „Pliki danych w kodzie”), `CompanyData.locations` → I11, bloki linii w rejestrze → I4+, wpis RODO → I12.
+- Następny krok: **I3 — powłoka** po scaleniu tego PR: `/inst-start`, najpierw mały PR wsp `inst/wsp-arkusz` (BottomSheet → `src/components/BottomSheet.tsx`, próg jako prop, testy Software zielone — ADR-I004), potem `inst/i3-powloka`; prompt do skopiowania: „Sesja I3 (Instalacje) — powłoka…” z `docs/zadania/prokominstalacje.md` §3 → I3. Menu czyta `dane/nawigacja.ts` (układ) + `InstServices`/`InstObjects` (nazwy, ikony, kolory po kluczu).
 - Znane ograniczenia po I1 (do I3): ramka Instalacji nie ma nawigacji, linków prawnych ani przełącznika motywu (działa motyw systemu) — **stagingu Instalacji nie pokazywać dalej przed I3/I13** (brak polityki prywatności w stopce).
 
 ## Zrobione
@@ -19,7 +17,8 @@ Worktree: `D:\PRO-KOM\repos\prokom-instal` · gałęzie `inst/*` · `PORT=3002`,
 | 28.10.2026 | I0 | #126 | ustalenia sprawdzone na develop 33f6e9b; ADR-I001, I004 przyjęte, ADR-I002, I003 przyjęte z poprawkami; plan sesji 1.1; spec §3, §5, §6, §8 uzgodnione |
 | 28.10.2026 | I1 | #128 | motyw jasny/ciemny Instalacji w `tokens.css` (za systemem), `InstalacjeFrame` (logo, stopka minimalna), grupa `(instalacje)`, `dla-kogo`/`wyslane` zarezerwowane, `instalacje.css`, `INSTALACJE_BLOCKS`, test dymny e2e; Biznes/Software bez zmian (zrzuty 1440/390, oba motywy: 0,000% różnicy pikseli) |
 | 28.10.2026 | I2 (1/3) | #131 | kolekcje `InstalacjeSettings`, `InstServices`, `InstObjects`, `InstSolutions`, `Realizations` + migracja `instalacje_collections`, rejestracja w configu i `Tenants`, szkielet `pnpm seed:instalacje` (ustawienia linii); realizacja bez zgody klienta nie jest publikowana (hook + testy); mapa pól w ADR-I002 |
-| 28.10.2026 | I2 (2/3) | (ten PR) | `pnpm seed:instalacje` importuje paczkę: 10 usług, 12 obiektów, 76 rozwiązań (opublikowane), 11 realizacji (wersje robocze bez zgody, 4 wyróżnione), 16 pustych wersji roboczych `Pages` z tytułem i SEO (`home`/`kontakt` z `pnpm seed` nietknięte); idempotentny (drugi przebieg: 0 zmian); testy mapowania na plikach seeda; rozstrzygnięcia importu w ADR-I002 |
+| 28.10.2026 | I2 (2/3) | #134 | `pnpm seed:instalacje` importuje paczkę: 10 usług, 12 obiektów, 76 rozwiązań (opublikowane), 11 realizacji (wersje robocze bez zgody, 4 wyróżnione), 16 pustych wersji roboczych `Pages` z tytułem i SEO (`home`/`kontakt` z `pnpm seed` nietknięte); idempotentny (drugi przebieg: 0 zmian); testy mapowania na plikach seeda; rozstrzygnięcia importu w ADR-I002 |
+| 28.10.2026 | I2 (3/3) | (ten PR) | `dane/nawigacja.ts` (układ menu, dolny pasek, „Więcej”, CTA; typy w `dane/types.ts`, test reguł pliku), pomocnik `cleanPrototype` dla sesji stron, skrypt `write-dane.ts` (raz, bez nadpisywania); zmiana planu: pliki `dane/<strona>.ts` w sesjach stron ze źródła JS |
 
 ## Decyzje obowiązujące (skrót — pełna lista: spec §2)
 - Gwarancja 24 mies. na montaż; „24 h” = odpowiedź na zgłoszenie w dni robocze, nie przyjazd.
@@ -30,6 +29,7 @@ Worktree: `D:\PRO-KOM\repos\prokom-instal` · gałęzie `inst/*` · `PORT=3002`,
 - I1 (28.10): akcent interfejsu Instalacji z wizualizacji (`#007A96` przyciski, `#006A82` tekst w jasnym; `#12B6D8` / `#4CCBE6` w ciemnym), kolory księgi znaku (`--c-instalacje*`) bez zmian. Wartości spoza wizualizacji: `--surface-dark` = `#0B1416` (prototypowe `--ink`), ramka pól i zielony tekst jak w Software. Tokeny scen (`--sg*`, `--ev*`), usług (`--svc-*`) i `--bad` dochodzą w sesjach, które ich używają (I3/I5/I10, `--bad` w I11 z testem kontrastu).
 - I2 (28.10): I2 w 3 PR-ach (wsp-rejestracja → i2-model → i2-dane). Pola wg ADR-I002 „Mapa pól (I2)”: FAQ zwykłym tekstem, SEO bez obrazu OG, realizacja — jedno `place`, obszar oferty w `InstServices.offer`, `liczbaRozwiazan` liczona przy renderowaniu. Klucz usługi/obiektu ustawiany raz (panel go nie zmienia). `CompanyData` nietknięte w I2.
 - I2 import (28.10, ADR-I002 „Import (I2)”): SEO usług w `Pages.seo` (nie `InstServices.seo`), bez dopisku „| PRO-KOM…”; telefon i e-mail linii wpisuje szef w panelu (`SiteSettings`), seed ich nie rusza; realizacje z `Realizacje.json`; tekst bez cyfry i `[CENA]` to nie cena; istniejących stron (`home`, `kontakt` — przykładowe, test izolacji) import nie rusza; ich SEO z paczki w I6/I11.
+- I2 dane (28.10, ADR-I002 „Pliki danych w kodzie”): zrzuty to stan jednego ekranu prototypu (widżety niepełne) → w I2 tylko nawigacja; każda sesja strony pisze swój `dane/<strona>.ts` z `zrodlo/pages/<Strona>.js`, typowany, czyszczony `cleanPrototype`. Menu: układ w kodzie, nazwy/ikony/kolory z panelu po kluczu.
 
 ## Ustalenia I0 (28.10.2026, develop 33f6e9b)
 **Potwierdzone**
@@ -57,7 +57,7 @@ Worktree: `D:\PRO-KOM\repos\prokom-instal` · gałęzie `inst/*` · `PORT=3002`,
 ## Pytania do Krystiana / szefa
 - [SZEF] telefon, e-mail, WhatsApp Instalacji; adres salonu w Zakopanem; ceny „od” czy bez cen; zgody na realizacje i zdjęcia.
 - [SZEF] telefon wymagany w formularzach Instalacji? (dziś reguła „e-mail lub telefon”; Biznes wymaga telefonu) — przed I11.
-- [Krystian] usunąć stare lokalne gałęzie `inst/w-pakiet` (#125), `inst/i0-ustalenia` (#126), `inst/wsp-fundament` (#128) i `inst/wsp-rejestracja` (#131) — scalone; pliki `tmp/check-i2.ts`, `tmp/check-i2-model.ts`, `tmp/diff-objects.ts` (skrypty sprawdzające I2, ignorowane przez git) można skasować.
+- [Krystian] usunąć stare lokalne gałęzie `inst/w-pakiet` (#125), `inst/i0-ustalenia` (#126), `inst/wsp-fundament` (#128), `inst/wsp-rejestracja` (#131) i `inst/i2-model` (#134) — scalone; pliki `tmp/check-i2.ts`, `tmp/check-i2-model.ts`, `tmp/diff-objects.ts`, `tmp/restore-sample-pages.ts` (skrypty sprawdzające I2, ignorowane przez git) można skasować.
 
 ## Pomysły na później (nie robić „przy okazji”)
 - `GenericFrame` (ramka linii bez własnego wyglądu) nie ma po I1 żadnego lokalnego tenanta → brak pokrycia e2e; wróci z hubem pro-kom.eu albo z tenantem testowym w seedzie.
