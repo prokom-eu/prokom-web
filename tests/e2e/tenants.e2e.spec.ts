@@ -120,11 +120,14 @@ test.describe('panel only on the panel domain', () => {
     await expect(page).toHaveURL(/\/admin/)
   })
 
-  // Floor plans (K3.1) are read by the pages with the tenant filter (K31d), never through the API.
-  // `page`, not `request`: only the browser resolves `*.localhost`.
-  test('floor plans are not public through the API', async ({ page }) => {
-    expect((await page.goto(site('biznes.localhost', '/api/floor-plans')))?.status()).toBe(404)
-    expect((await page.goto('/api/floor-plans'))?.status()).toBe(403)
+  // Floor plans (K3.1) and ready bundles (K3c, internal notes inside) are read by the pages with
+  // the tenant filter, never through the API. `page`, not `request`: only the browser resolves
+  // `*.localhost`.
+  test('floor plans and bundles are not public through the API', async ({ page }) => {
+    for (const collection of ['floor-plans', 'bundles']) {
+      expect((await page.goto(site('biznes.localhost', `/api/${collection}`)))?.status()).toBe(404)
+      expect((await page.goto(`/api/${collection}`))?.status()).toBe(403)
+    }
   })
 
   test('panel domain does not serve site pages', async ({ page }) => {

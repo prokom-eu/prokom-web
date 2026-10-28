@@ -87,6 +87,10 @@ test.describe('Biznes catalog after the K3 import', () => {
       '/oferta/komputery-monitory/laptopy',
       '/marki/lenovo',
       '/marki/dibal',
+      // Ready bundles (K3c).
+      '/zestawy',
+      '/zestawy/zestaw-kawiarnia-lada',
+      '/zestawy/zestaw-biuro-3-5',
       THINKBOOK,
       '/produkt/posnet-ergo-online',
     ]) {
