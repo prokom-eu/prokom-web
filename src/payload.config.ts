@@ -13,6 +13,10 @@ import { CatalogGroups } from './collections/CatalogGroups'
 import { Cities } from './collections/Cities'
 import { FloorPlans } from './collections/FloorPlans'
 import { Industries } from './collections/Industries'
+import { InstObjects } from './collections/InstObjects'
+import { InstServices } from './collections/InstServices'
+import { InstSolutions } from './collections/InstSolutions'
+import { InstalacjeSettings } from './collections/InstalacjeSettings'
 import { Inquiries } from './collections/Inquiries'
 import { InquiryDeletions } from './collections/InquiryDeletions'
 import { Media } from './collections/Media'
@@ -20,6 +24,7 @@ import { Pages } from './collections/Pages'
 import { Partners } from './collections/Partners'
 import { Posts } from './collections/Posts'
 import { Products } from './collections/Products'
+import { Realizations } from './collections/Realizations'
 import { Redirects } from './collections/Redirects'
 import { SiteSettings } from './collections/SiteSettings'
 import { SoftwareSettings } from './collections/SoftwareSettings'
@@ -72,6 +77,12 @@ export default buildConfig({
     SoftwareSettings,
     // Biznes K3.1 (ADR-012 rozstrz. 15). Last, so the unique-index names of the others stay.
     FloorPlans,
+    // Instalacje (ADR-I002). After everything else, for the same index names.
+    InstalacjeSettings,
+    InstServices,
+    InstObjects,
+    InstSolutions,
+    Realizations,
   ],
   globals: [CompanyData],
   editor: lexicalEditor(),
@@ -157,6 +168,12 @@ export default buildConfig({
         cities: {},
         // One document per tenant, Software only (`SoftwareSettings` hook).
         'software-settings': { isGlobal: true },
+        // One document per tenant, Instalacje only (`InstalacjeSettings` hook).
+        'instalacje-settings': { isGlobal: true },
+        'inst-services': {},
+        'inst-objects': {},
+        'inst-solutions': {},
+        realizations: {},
       },
       // Deleting a tenant must never silently delete its content.
       cleanupAfterTenantDelete: false,

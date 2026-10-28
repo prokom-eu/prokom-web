@@ -141,3 +141,29 @@ Obowiązują zamiast sprzecznych fragmentów wersji z 27.10.
 4. **Kontakt:** `SiteSettings.phone`/`email` + `CompanyData.locations`; WhatsApp w `InstalacjeSettings.whatsapp`.
 5. **Ramka po `tenant.line`**, bez grupy `SiteSettings.instalacje`.
 6. **`Industries` bez zmian.**
+
+## Mapa pól (I2, 28.10.2026 — PR `inst/wsp-rejestracja`)
+Nazwy z §2–§3 → pola w kodzie (`src/collections/Inst*.ts`, `Realizations.ts`, `InstalacjeSettings.ts`; wspólne kawałki w `instalacjeFields.ts`, słowniki w `src/lib/instalacje/options.ts`). Slugi kolekcji: `instalacje-settings`, `inst-services`, `inst-objects`, `inst-solutions`, `realizations`. Klucz seeda w nawiasie.
+
+**Wspólne**
+| ADR | Pole | Uwagi |
+|---|---|---|
+| `klucz` | `key` (select) | ustawiany raz — `access.update: false` (kreator i zapytania na nim stoją) |
+| `nazwa`, `grupa`, `ikona`, `kolor`, `podpisMenu` | `name`, `group`, `icon`, `color`, `menuCaption` | `group` = wartości angielskie (`security`, `networks`, `comfort`; obiekty: `homes`, `business`, `institutions`, `construction`), etykiety po polsku; `icon` bez prefiksu `ikona:`; `color` `#rrggbb` (dane, jak gradienty katalogu) |
+| `hero {eyebrow, h1a, h1b, lead, kv[], tagi[], cta}` | `hero {crumb, eyebrow, h1a, h1b, lead, facts[] {value, label}, tags[], cta {text, href}}` | `kv` ma w seedzie dwa kształty (obiekty: pary `[w, o]`, usługi: `{b, s}`) → jeden `facts`; `tags` usług (`{n}`) → tekst |
+| `kotwice[] {id, nazwa}` | `anchors[] {anchorId, name}` | walidacja id względem komponentu — gdy powstaną komponenty (I4+) |
+| `zestawy[] {ikona, nazwa, opis, elementy[], cena, wyrozniony}` | `packages[] {name, icon, description, items[], price, badge, featured}` | `badge` dochodzi (jest w seedzie usług) |
+| `faq[] {pytanie, odpowiedz}` | `faq[] {question, answer}` | **zwykły tekst** (`faqArray` repo, jak Biznes/Software), nie richText — seed ma sam tekst |
+| `cta {eyebrow, h, p}` | `cta {eyebrow, heading, text}` | |
+| `seo` | `seo {title, description}` (`seoGroup` repo) | **bez obrazu OG** — jak inne kolekcje repo; OG w I13, jeśli potrzebny |
+| wersje | `versions.drafts` | `InstServices`, `InstObjects`, `InstSolutions`, `Realizations` |
+
+**`InstServices`** — `kafel {opis, elementy[], wyroznienia[], cenaOd}` → `tile {description, parts, highlights[], items[], priceFrom, wide}` (`parts`, `wide` z `Main.u`: `parts`, `big`); `zestawyNaglowek` → `packagesIntro {eyebrow, heading, text, note}`; `cena[]` → `priceFactors[] {title, icon, description}`; `cenaNaglowek` → `priceIntro {eyebrow, heading, text, button}`; `powiazaneUslugi`, `podobneObiekty`, `powiazaneNaglowek` → `relatedServices`, `similarObjects`, `relatedHeading`; dochodzą `faqHeading` (`sx.faqH`) i `faqAside {title, text, button, href}` (`sx.faqA`). **Obszar oferty** (`oferta-76.json → obszary[]`: `rodzina`, `opis`, `marki`) → `offer {family, description, brands[]}` — jeden obszar = jedna usługa, więc bez osobnej kolekcji; `family`: `security`, `connectivity`, `comfort`, `emobility`.
+
+**`InstObjects`** — `dla` → `forWhom`; `tytulSceny` → `sceneTitle`; `punkty[]` → `hotspots[] {description}`; `pr` → `problemsIntro {eyebrow, heading, headingAccent, text}`; `problemy[] (q, d, fix, s, ic)` → `problems[] {quote, description, fix, service, icon}`; `doba` → `dayIntro` + `day[] {time, name, description, services[], icon}`; `przepisy` → `lawIntro` + `law[] {who, article, title, description}`; `gory` → `mountainsIntro` + `mountains[] {title, icon, description}`; `realizacje (realH, real)` → `realizationsHeading` + `realizations[] {title, place, description}`; `przygotuj {eyebrow, lead, pozycje[]}` → `prepareIntro {eyebrow, heading, text}` + `prepare[]`; `pkgH` → `packagesHeading`; `faqH` → `faqHeading`; `powiazane[]` (klucze usług) → `relatedServices` (relacja); `zwijaneNaTelefonie[]` (`"problemy:900"`) → `foldOnPhone[] {anchorId, maxHeight}`.
+
+**`InstSolutions`** — `nazwa`, `opis`, `usluga`, `kategorie[]`, `kolejnosc` → `name`, `description`, `service` (relacja), `categories[]`, `order`; dochodzi `legacyId` (pozycja w paczce, klucz importu — jak `Solutions` Software).
+
+**`Realizations`** — `tytul` → `title`; `obiekt` + `miejscowosc` → jedno **`place`** (seed ma je razem: `m` „Rabka-Zdrój · sala konferencyjna”); `rok` → `year`; `uslugi[]` → `services[]` (klucze); `opis` → `description` (`ph`); `zdjecia[]` → `photos[]`; `zgodaKlienta` → `clientConsent`; `wyrozniona` → `featured`; dochodzą `category` (`k`, „Audio, projekcja, IT”), `scope` (`z`) i `legacyId`. Hook: publikacja (także pozostawienie opublikowanej) bez `clientConsent` → 400; status i zgoda brane z zapisanego dokumentu, gdy zapis ich nie wysyła.
+
+**`InstalacjeSettings`** — `pokazCeny` → `showPrices`; `komunikatBezCen` → `noPriceText`; `gwarancjaMies` → `warrantyMonths`; `tekstOdpowiedzi` → `responseText`; `whatsapp` → `whatsapp`. **`liczbaRozwiazan` pominięte** — liczone z `InstSolutions` przy renderowaniu, nie przechowywane.

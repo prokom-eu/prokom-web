@@ -87,6 +87,11 @@ export interface Config {
     cities: City;
     'software-settings': SoftwareSetting;
     'floor-plans': FloorPlan;
+    'instalacje-settings': InstalacjeSetting;
+    'inst-services': InstService;
+    'inst-objects': InstObject;
+    'inst-solutions': InstSolution;
+    realizations: Realization;
     'payload-kv': PayloadKv;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
@@ -115,6 +120,11 @@ export interface Config {
     cities: CitiesSelect<false> | CitiesSelect<true>;
     'software-settings': SoftwareSettingsSelect<false> | SoftwareSettingsSelect<true>;
     'floor-plans': FloorPlansSelect<false> | FloorPlansSelect<true>;
+    'instalacje-settings': InstalacjeSettingsSelect<false> | InstalacjeSettingsSelect<true>;
+    'inst-services': InstServicesSelect<false> | InstServicesSelect<true>;
+    'inst-objects': InstObjectsSelect<false> | InstObjectsSelect<true>;
+    'inst-solutions': InstSolutionsSelect<false> | InstSolutionsSelect<true>;
+    realizations: RealizationsSelect<false> | RealizationsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -4281,6 +4291,419 @@ export interface FloorPlan {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "instalacje-settings".
+ */
+export interface InstalacjeSetting {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  /**
+   * Jeden przełącznik dla kafli i zestawów wszystkich usług.
+   */
+  showPrices?: boolean | null;
+  noPriceText: string;
+  warrantyMonths: number;
+  /**
+   * Numer z kierunkowym, np. +48 889 003 889.
+   */
+  whatsapp?: string | null;
+  /**
+   * „24 h” to odpowiedź na zgłoszenie, nie przyjazd (spec §2).
+   */
+  responseText: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "inst-services".
+ */
+export interface InstService {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  /**
+   * Stały klucz używany w kreatorze i zapytaniach.
+   */
+  key: 'kam' | 'alarm' | 'kd' | 'wifi' | 'tel' | 'ant' | 'smart' | 'snd' | 'scr' | 'ev';
+  /**
+   * Część adresu, np. „monitoring”.
+   */
+  slug: string;
+  name: string;
+  group: 'security' | 'networks' | 'comfort';
+  /**
+   * Klucz ikony z wzorca, np. „cam”, „home”.
+   */
+  icon?: string | null;
+  color?: string | null;
+  menuCaption?: string | null;
+  tile?: {
+    description?: string | null;
+    parts?: string | null;
+    highlights?: string[] | null;
+    items?: string[] | null;
+    /**
+     * Widoczna tylko przy „Pokaż ceny”.
+     */
+    priceFrom?: string | null;
+    wide?: boolean | null;
+  };
+  offer?: {
+    family?: ('security' | 'connectivity' | 'comfort' | 'emobility') | null;
+    description?: string | null;
+    brands?: string[] | null;
+  };
+  hero: {
+    crumb?: string | null;
+    eyebrow?: string | null;
+    h1a: string;
+    h1b?: string | null;
+    lead?: string | null;
+    facts?:
+      | {
+          value: string;
+          label: string;
+          id?: string | null;
+        }[]
+      | null;
+    tags?: string[] | null;
+    cta?: {
+      text?: string | null;
+      href?: string | null;
+    };
+  };
+  /**
+   * Pasek skrótów do sekcji. Id musi istnieć na stronie.
+   */
+  anchors?:
+    | {
+        anchorId: string;
+        name: string;
+        id?: string | null;
+      }[]
+    | null;
+  packagesIntro?: {
+    eyebrow?: string | null;
+    heading?: string | null;
+    text?: string | null;
+    note?: string | null;
+  };
+  packages?:
+    | {
+        name: string;
+        /**
+         * Klucz ikony z wzorca, np. „cam”, „home”.
+         */
+        icon?: string | null;
+        description?: string | null;
+        items?: string[] | null;
+        /**
+         * Widoczna tylko przy „Pokaż ceny” w Ustawieniach Instalacji.
+         */
+        price?: string | null;
+        badge?: string | null;
+        featured?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  priceIntro?: {
+    eyebrow?: string | null;
+    heading?: string | null;
+    text?: string | null;
+    button?: string | null;
+  };
+  priceFactors?:
+    | {
+        title: string;
+        /**
+         * Klucz ikony z wzorca, np. „cam”, „home”.
+         */
+        icon?: string | null;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  faqHeading?: string | null;
+  faq?:
+    | {
+        question: string;
+        answer: string;
+        id?: string | null;
+      }[]
+    | null;
+  faqAside?: {
+    title?: string | null;
+    text?: string | null;
+    button?: string | null;
+    href?: string | null;
+  };
+  relatedHeading?: string | null;
+  relatedServices?: (number | InstService)[] | null;
+  similarObjects?: (number | InstObject)[] | null;
+  cta?: {
+    eyebrow?: string | null;
+    heading?: string | null;
+    text?: string | null;
+  };
+  seo?: {
+    title?: string | null;
+    description?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "inst-objects".
+ */
+export interface InstObject {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  /**
+   * Stały klucz używany w kreatorze i zapytaniach.
+   */
+  key: 'dom' | 'apt' | 'pens' | 'hotel' | 'rest' | 'sklep' | 'firma' | 'kosc' | 'szk' | 'gmina' | 'dev' | 'bud';
+  /**
+   * Część adresu, np. „pensjonaty”.
+   */
+  slug: string;
+  name: string;
+  group: 'homes' | 'business' | 'institutions' | 'construction';
+  /**
+   * Klucz ikony z wzorca, np. „cam”, „home”.
+   */
+  icon?: string | null;
+  color?: string | null;
+  menuCaption?: string | null;
+  /**
+   * Np. „domu”, „pensjonatu”.
+   */
+  forWhom?: string | null;
+  hero: {
+    crumb?: string | null;
+    eyebrow?: string | null;
+    h1a: string;
+    h1b?: string | null;
+    lead?: string | null;
+    facts?:
+      | {
+          value: string;
+          label: string;
+          id?: string | null;
+        }[]
+      | null;
+    tags?: string[] | null;
+    cta?: {
+      text?: string | null;
+      href?: string | null;
+    };
+  };
+  sceneTitle?: string | null;
+  /**
+   * Kolejność = numery na rysunku.
+   */
+  hotspots?:
+    | {
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Pasek skrótów do sekcji. Id musi istnieć na stronie.
+   */
+  anchors?:
+    | {
+        anchorId: string;
+        name: string;
+        id?: string | null;
+      }[]
+    | null;
+  problemsIntro?: {
+    eyebrow?: string | null;
+    heading?: string | null;
+    text?: string | null;
+    headingAccent?: string | null;
+  };
+  problems?:
+    | {
+        quote: string;
+        description?: string | null;
+        fix?: string | null;
+        service?: ('kam' | 'alarm' | 'kd' | 'wifi' | 'tel' | 'ant' | 'smart' | 'snd' | 'scr' | 'ev') | null;
+        /**
+         * Klucz ikony z wzorca, np. „cam”, „home”.
+         */
+        icon?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  dayIntro?: {
+    eyebrow?: string | null;
+    heading?: string | null;
+    text?: string | null;
+  };
+  day?:
+    | {
+        time: string;
+        name: string;
+        description?: string | null;
+        services?: ('kam' | 'alarm' | 'kd' | 'wifi' | 'tel' | 'ant' | 'smart' | 'snd' | 'scr' | 'ev')[] | null;
+        /**
+         * Klucz ikony z wzorca, np. „cam”, „home”.
+         */
+        icon?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  lawIntro?: {
+    eyebrow?: string | null;
+    heading?: string | null;
+    text?: string | null;
+  };
+  /**
+   * Bez źródeł na stronie (spec §2).
+   */
+  law?:
+    | {
+        who?: string | null;
+        article?: string | null;
+        title: string;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  mountainsIntro?: {
+    eyebrow?: string | null;
+    heading?: string | null;
+    text?: string | null;
+  };
+  mountains?:
+    | {
+        title: string;
+        /**
+         * Klucz ikony z wzorca, np. „cam”, „home”.
+         */
+        icon?: string | null;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  realizationsHeading?: string | null;
+  realizations?:
+    | {
+        title: string;
+        place?: string | null;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  prepareIntro?: {
+    eyebrow?: string | null;
+    heading?: string | null;
+    text?: string | null;
+  };
+  prepare?: string[] | null;
+  packagesHeading?: string | null;
+  packages?:
+    | {
+        name: string;
+        /**
+         * Klucz ikony z wzorca, np. „cam”, „home”.
+         */
+        icon?: string | null;
+        description?: string | null;
+        items?: string[] | null;
+        /**
+         * Widoczna tylko przy „Pokaż ceny” w Ustawieniach Instalacji.
+         */
+        price?: string | null;
+        badge?: string | null;
+        featured?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  faqHeading?: string | null;
+  faq?:
+    | {
+        question: string;
+        answer: string;
+        id?: string | null;
+      }[]
+    | null;
+  relatedServices?: (number | InstService)[] | null;
+  cta?: {
+    eyebrow?: string | null;
+    heading?: string | null;
+    text?: string | null;
+  };
+  foldOnPhone?:
+    | {
+        anchorId: string;
+        /**
+         * Puste = zwinięta do nagłówka.
+         */
+        maxHeight?: number | null;
+        id?: string | null;
+      }[]
+    | null;
+  seo?: {
+    title?: string | null;
+    description?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "inst-solutions".
+ */
+export interface InstSolution {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  legacyId?: number | null;
+  name: string;
+  description?: string | null;
+  service: number | InstService;
+  /**
+   * Mniejsza liczba = wcześniej.
+   */
+  order?: number | null;
+  categories?: ('dom' | 'apt' | 'pens' | 'rest' | 'sklep' | 'firma' | 'inst' | 'dev')[] | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "realizations".
+ */
+export interface Realization {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  legacyId?: number | null;
+  /**
+   * Bez zgody realizacja zostaje wersją roboczą.
+   */
+  clientConsent?: boolean | null;
+  featured?: boolean | null;
+  title: string;
+  /**
+   * Np. „Audio, projekcja, IT”.
+   */
+  category?: string | null;
+  year?: number | null;
+  place?: string | null;
+  scope?: string | null;
+  description?: string | null;
+  services?: ('kam' | 'alarm' | 'kd' | 'wifi' | 'tel' | 'ant' | 'smart' | 'snd' | 'scr' | 'ev')[] | null;
+  photos?: (number | Media)[] | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -4483,6 +4906,26 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'floor-plans';
         value: number | FloorPlan;
+      } | null)
+    | ({
+        relationTo: 'instalacje-settings';
+        value: number | InstalacjeSetting;
+      } | null)
+    | ({
+        relationTo: 'inst-services';
+        value: number | InstService;
+      } | null)
+    | ({
+        relationTo: 'inst-objects';
+        value: number | InstObject;
+      } | null)
+    | ({
+        relationTo: 'inst-solutions';
+        value: number | InstSolution;
+      } | null)
+    | ({
+        relationTo: 'realizations';
+        value: number | Realization;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -6896,6 +7339,369 @@ export interface FloorPlansSelect<T extends boolean = true> {
       };
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "instalacje-settings_select".
+ */
+export interface InstalacjeSettingsSelect<T extends boolean = true> {
+  tenant?: T;
+  showPrices?: T;
+  noPriceText?: T;
+  warrantyMonths?: T;
+  whatsapp?: T;
+  responseText?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "inst-services_select".
+ */
+export interface InstServicesSelect<T extends boolean = true> {
+  tenant?: T;
+  key?: T;
+  slug?: T;
+  name?: T;
+  group?: T;
+  icon?: T;
+  color?: T;
+  menuCaption?: T;
+  tile?:
+    | T
+    | {
+        description?: T;
+        parts?: T;
+        highlights?: T;
+        items?: T;
+        priceFrom?: T;
+        wide?: T;
+      };
+  offer?:
+    | T
+    | {
+        family?: T;
+        description?: T;
+        brands?: T;
+      };
+  hero?:
+    | T
+    | {
+        crumb?: T;
+        eyebrow?: T;
+        h1a?: T;
+        h1b?: T;
+        lead?: T;
+        facts?:
+          | T
+          | {
+              value?: T;
+              label?: T;
+              id?: T;
+            };
+        tags?: T;
+        cta?:
+          | T
+          | {
+              text?: T;
+              href?: T;
+            };
+      };
+  anchors?:
+    | T
+    | {
+        anchorId?: T;
+        name?: T;
+        id?: T;
+      };
+  packagesIntro?:
+    | T
+    | {
+        eyebrow?: T;
+        heading?: T;
+        text?: T;
+        note?: T;
+      };
+  packages?:
+    | T
+    | {
+        name?: T;
+        icon?: T;
+        description?: T;
+        items?: T;
+        price?: T;
+        badge?: T;
+        featured?: T;
+        id?: T;
+      };
+  priceIntro?:
+    | T
+    | {
+        eyebrow?: T;
+        heading?: T;
+        text?: T;
+        button?: T;
+      };
+  priceFactors?:
+    | T
+    | {
+        title?: T;
+        icon?: T;
+        description?: T;
+        id?: T;
+      };
+  faqHeading?: T;
+  faq?:
+    | T
+    | {
+        question?: T;
+        answer?: T;
+        id?: T;
+      };
+  faqAside?:
+    | T
+    | {
+        title?: T;
+        text?: T;
+        button?: T;
+        href?: T;
+      };
+  relatedHeading?: T;
+  relatedServices?: T;
+  similarObjects?: T;
+  cta?:
+    | T
+    | {
+        eyebrow?: T;
+        heading?: T;
+        text?: T;
+      };
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "inst-objects_select".
+ */
+export interface InstObjectsSelect<T extends boolean = true> {
+  tenant?: T;
+  key?: T;
+  slug?: T;
+  name?: T;
+  group?: T;
+  icon?: T;
+  color?: T;
+  menuCaption?: T;
+  forWhom?: T;
+  hero?:
+    | T
+    | {
+        crumb?: T;
+        eyebrow?: T;
+        h1a?: T;
+        h1b?: T;
+        lead?: T;
+        facts?:
+          | T
+          | {
+              value?: T;
+              label?: T;
+              id?: T;
+            };
+        tags?: T;
+        cta?:
+          | T
+          | {
+              text?: T;
+              href?: T;
+            };
+      };
+  sceneTitle?: T;
+  hotspots?:
+    | T
+    | {
+        description?: T;
+        id?: T;
+      };
+  anchors?:
+    | T
+    | {
+        anchorId?: T;
+        name?: T;
+        id?: T;
+      };
+  problemsIntro?:
+    | T
+    | {
+        eyebrow?: T;
+        heading?: T;
+        text?: T;
+        headingAccent?: T;
+      };
+  problems?:
+    | T
+    | {
+        quote?: T;
+        description?: T;
+        fix?: T;
+        service?: T;
+        icon?: T;
+        id?: T;
+      };
+  dayIntro?:
+    | T
+    | {
+        eyebrow?: T;
+        heading?: T;
+        text?: T;
+      };
+  day?:
+    | T
+    | {
+        time?: T;
+        name?: T;
+        description?: T;
+        services?: T;
+        icon?: T;
+        id?: T;
+      };
+  lawIntro?:
+    | T
+    | {
+        eyebrow?: T;
+        heading?: T;
+        text?: T;
+      };
+  law?:
+    | T
+    | {
+        who?: T;
+        article?: T;
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  mountainsIntro?:
+    | T
+    | {
+        eyebrow?: T;
+        heading?: T;
+        text?: T;
+      };
+  mountains?:
+    | T
+    | {
+        title?: T;
+        icon?: T;
+        description?: T;
+        id?: T;
+      };
+  realizationsHeading?: T;
+  realizations?:
+    | T
+    | {
+        title?: T;
+        place?: T;
+        description?: T;
+        id?: T;
+      };
+  prepareIntro?:
+    | T
+    | {
+        eyebrow?: T;
+        heading?: T;
+        text?: T;
+      };
+  prepare?: T;
+  packagesHeading?: T;
+  packages?:
+    | T
+    | {
+        name?: T;
+        icon?: T;
+        description?: T;
+        items?: T;
+        price?: T;
+        badge?: T;
+        featured?: T;
+        id?: T;
+      };
+  faqHeading?: T;
+  faq?:
+    | T
+    | {
+        question?: T;
+        answer?: T;
+        id?: T;
+      };
+  relatedServices?: T;
+  cta?:
+    | T
+    | {
+        eyebrow?: T;
+        heading?: T;
+        text?: T;
+      };
+  foldOnPhone?:
+    | T
+    | {
+        anchorId?: T;
+        maxHeight?: T;
+        id?: T;
+      };
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "inst-solutions_select".
+ */
+export interface InstSolutionsSelect<T extends boolean = true> {
+  tenant?: T;
+  legacyId?: T;
+  name?: T;
+  description?: T;
+  service?: T;
+  order?: T;
+  categories?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "realizations_select".
+ */
+export interface RealizationsSelect<T extends boolean = true> {
+  tenant?: T;
+  legacyId?: T;
+  clientConsent?: T;
+  featured?: T;
+  title?: T;
+  category?: T;
+  year?: T;
+  place?: T;
+  scope?: T;
+  description?: T;
+  services?: T;
+  photos?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -1,12 +1,15 @@
 # STAN — prokominstalacje.pl (linia Instalacje)
 
-Ostatnia aktualizacja: 28.10.2026 (sesja I1 — wspólne minimum, gałąź `inst/wsp-fundament` na develop 82ed0a2)
+Ostatnia aktualizacja: 28.10.2026 (sesja I2, część 1 z 3 — PR wspólny `inst/wsp-rejestracja` na develop 002f45f)
 Worktree: `D:\PRO-KOM\repos\prokom-instal` · gałęzie `inst/*` · `PORT=3002`, baza `prokom_web_instalacje` we wspólnym kontenerze PostgreSQL prokom-web (54320), Mailpit wspólny (8025)
 
 ## W toku
-- Gałąź: `inst/wsp-fundament` (PR wspólny „feat(instalacje): I1 — motyw, ramka i trasy linii” → develop, scalić od razu)
-- Niedokończone: — (po scaleniu PR-a I1 nic nie zostaje; w CI do sprawdzenia `build` i pełne e2e)
-- Następny krok: **I2** — po scaleniu I1 najpierw PR `inst/wsp-rejestracja` z `origin/develop`, potem `inst/i2-model`; prompt do skopiowania: „Sesja I2 (Instalacje)…” z `docs/zadania/prokominstalacje.md` §3 → I2.
+- Gałąź: `inst/wsp-rejestracja` (PR wspólny „feat(instalacje): I2 — kolekcje linii, migracja i rejestracja” → develop, scalić od razu — ADR-I001 §3)
+- Niedokończone — I2 podzielone na 3 PR-y (uzgodnione 28.10):
+  - **PR 2 `inst/i2-model`:** `src/seed/instalacje/map.ts` + rozbudowa `run.ts` — import wg ADR-I002 §5 i „Mapa pól (I2)”: `wspolne.json` → menu w `InstServices`/`InstObjects`; `obiekty/*.json` → `InstObjects`; `strony-zrzut/<Usługa>.json` + `Main.u` → `InstServices`; `oferta-76.json` → `InstSolutions` + `InstServices.offer`; realizacje (`Main.rl`, `Realizacje.json`) jako wersje robocze bez zgody; dokumenty `Pages` tenanta (slugi z ADR-I002 §0, wersje robocze, pusty układ, SEO z `_title`/`_description`); `SiteSettings.phone/email` Instalacji (placeholder; e-mail, który nie przejdzie walidacji → puste + `TODO(krystian)`). Linki przez `adresy.json`, zdjęcia EV → `/instalacje/ev/*.webp`. Testy Vitest mapowania (10 usług, 12 obiektów, 76 rozwiązań w 10 obszarach, brak `[svg-path]` i `.dc.html`, żadna realizacja opublikowana) + `pnpm seed:instalacje` dwa razy ręcznie.
+  - **PR 3 `inst/i2-dane`:** generator i `src/sites/instalacje/dane/<strona>.ts` z kluczy spoza panelu (ADR-I002 §5).
+  - Poza I2 (uzgodnione): `CompanyData.locations` nietknięte (salon Zakopane pokazałby się na Biznesie — decyzja w I11); bloki linii w rejestrze dopiero w sesjach, które je budują (I4+); wpis RODO → I12 (kategorie `Posts`).
+- Następny krok: po scaleniu `inst/wsp-rejestracja` → `/inst-start`, gałąź `inst/i2-model` z `origin/develop`, `pnpm payload migrate`; prompt do skopiowania: „Sesja I2, PR 2 (Instalacje): import seeda wg docs/stan/STAN-instalacje.md → W toku → PR 2, ADR-I002 §5 i „Mapa pól (I2)”. Najpierw plan.”
 - Znane ograniczenia po I1 (do I3): ramka Instalacji nie ma nawigacji, linków prawnych ani przełącznika motywu (działa motyw systemu) — **stagingu Instalacji nie pokazywać dalej przed I3/I13** (brak polityki prywatności w stopce).
 
 ## Zrobione
@@ -15,7 +18,8 @@ Worktree: `D:\PRO-KOM\repos\prokom-instal` · gałęzie `inst/*` · `PORT=3002`,
 | 27.10.2026 | (czat) | — | wizualizacja v4.0: 31 stron, telefon jak aplikacja (dolny pasek, arkusz 3 zakładki, chowany nagłówek), poprawka hero na telefonie w jasnym motywie, pełna oferta Elzab EcoPower; pakiet: spec, SEO, ADR-I001–I004, plan I0–I15, wzorzec, seed |
 | 28.10.2026 | W-I | #125 | pakiet wgrany do repo (squash 33f6e9b) |
 | 28.10.2026 | I0 | #126 | ustalenia sprawdzone na develop 33f6e9b; ADR-I001, I004 przyjęte, ADR-I002, I003 przyjęte z poprawkami; plan sesji 1.1; spec §3, §5, §6, §8 uzgodnione |
-| 28.10.2026 | I1 | (ten PR) | motyw jasny/ciemny Instalacji w `tokens.css` (za systemem), `InstalacjeFrame` (logo, stopka minimalna), grupa `(instalacje)`, `dla-kogo`/`wyslane` zarezerwowane, `instalacje.css`, `INSTALACJE_BLOCKS`, test dymny e2e; Biznes/Software bez zmian (zrzuty 1440/390, oba motywy: 0,000% różnicy pikseli) |
+| 28.10.2026 | I1 | #128 | motyw jasny/ciemny Instalacji w `tokens.css` (za systemem), `InstalacjeFrame` (logo, stopka minimalna), grupa `(instalacje)`, `dla-kogo`/`wyslane` zarezerwowane, `instalacje.css`, `INSTALACJE_BLOCKS`, test dymny e2e; Biznes/Software bez zmian (zrzuty 1440/390, oba motywy: 0,000% różnicy pikseli) |
+| 28.10.2026 | I2 (1/3) | (ten PR) | kolekcje `InstalacjeSettings`, `InstServices`, `InstObjects`, `InstSolutions`, `Realizations` + migracja `instalacje_collections`, rejestracja w configu i `Tenants`, szkielet `pnpm seed:instalacje` (ustawienia linii); realizacja bez zgody klienta nie jest publikowana (hook + testy); mapa pól w ADR-I002 |
 
 ## Decyzje obowiązujące (skrót — pełna lista: spec §2)
 - Gwarancja 24 mies. na montaż; „24 h” = odpowiedź na zgłoszenie w dni robocze, nie przyjazd.
@@ -24,6 +28,7 @@ Worktree: `D:\PRO-KOM\repos\prokom-instal` · gałęzie `inst/*` · `PORT=3002`,
 - Instalacje = tenant prokom-web, praca w osobnym worktree (ADR-I001).
 - I0 (28.10): `/wyslane` = trasa linii; poradnik pod `/poradnik/<slug>`; formularze bez uploadu plików w v1; motyw jak system (jak inne linie).
 - I1 (28.10): akcent interfejsu Instalacji z wizualizacji (`#007A96` przyciski, `#006A82` tekst w jasnym; `#12B6D8` / `#4CCBE6` w ciemnym), kolory księgi znaku (`--c-instalacje*`) bez zmian. Wartości spoza wizualizacji: `--surface-dark` = `#0B1416` (prototypowe `--ink`), ramka pól i zielony tekst jak w Software. Tokeny scen (`--sg*`, `--ev*`), usług (`--svc-*`) i `--bad` dochodzą w sesjach, które ich używają (I3/I5/I10, `--bad` w I11 z testem kontrastu).
+- I2 (28.10): I2 w 3 PR-ach (wsp-rejestracja → i2-model → i2-dane). Pola wg ADR-I002 „Mapa pól (I2)”: FAQ zwykłym tekstem, SEO bez obrazu OG, realizacja — jedno `place`, obszar oferty w `InstServices.offer`, `liczbaRozwiazan` liczona przy renderowaniu. Klucz usługi/obiektu ustawiany raz (panel go nie zmienia). `CompanyData` nietknięte w I2.
 
 ## Ustalenia I0 (28.10.2026, develop 33f6e9b)
 **Potwierdzone**
@@ -51,7 +56,7 @@ Worktree: `D:\PRO-KOM\repos\prokom-instal` · gałęzie `inst/*` · `PORT=3002`,
 ## Pytania do Krystiana / szefa
 - [SZEF] telefon, e-mail, WhatsApp Instalacji; adres salonu w Zakopanem; ceny „od” czy bez cen; zgody na realizacje i zdjęcia.
 - [SZEF] telefon wymagany w formularzach Instalacji? (dziś reguła „e-mail lub telefon”; Biznes wymaga telefonu) — przed I11.
-- [Krystian] usunąć stare lokalne gałęzie `inst/w-pakiet` (#125) i `inst/i0-ustalenia` (#126) — scalone.
+- [Krystian] usunąć stare lokalne gałęzie `inst/w-pakiet` (#125) i `inst/i0-ustalenia` (#126) i `inst/wsp-fundament` (#128) — scalone; plik `tmp/check-i2.ts` (skrypt sprawdzający I2, ignorowany przez git) można skasować.
 
 ## Pomysły na później (nie robić „przy okazji”)
 - `GenericFrame` (ramka linii bez własnego wyglądu) nie ma po I1 żadnego lokalnego tenanta → brak pokrycia e2e; wróci z hubem pro-kom.eu albo z tenantem testowym w seedzie.
@@ -61,3 +66,6 @@ Worktree: `D:\PRO-KOM\repos\prokom-instal` · gałęzie `inst/*` · `PORT=3002`,
 - Teksty widżetów edytowalne w panelu (ADR-I002 §1, etap 2).
 - Upload plików do zapytań (`InquiryFiles`, wspólny z Software — ADR-014 §3.2): przedmiary, zdjęcia rozdzielnic.
 - WhatsApp jako pole wspólne `SiteSettings` (dziś osobno w grupie Biznesu i w `InstalacjeSettings`).
+- Hooki rewalidacji dla kolekcji Instalacji (jak `solutionsRevalidationHooks` Software) — z pierwszym komponentem, który czyta te dane (I4).
+- Walidacja id kotwic (`anchors`) względem sekcji komponentu strony (ADR-I002 §2) — gdy powstaną komponenty usług i obiektów (I4/I10).
+- Obraz OG w SEO kolekcji Instalacji — jeśli I13 go wymaga (dziś `seoGroup` repo bez obrazu).

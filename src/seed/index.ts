@@ -9,6 +9,7 @@ import { assertSeedAllowed, parseSeedEnv } from './config'
 import { HOME_SLUG } from '../lib/pages/slug'
 import { CONTACT_SLUG } from './biznes/contact'
 import { seedBiznesCatalog } from './biznes/run'
+import { seedInstalacje } from './instalacje/run'
 import { seedSoftware } from './software/run'
 import { sampleImage } from './media'
 import {
@@ -217,6 +218,8 @@ try {
   await seedBiznesCatalog(payload)
   // Solutions, areas, cities and settings of the Software site (SW3); also `pnpm seed:software`.
   await seedSoftware(payload)
+  // Content of the Instalacje site (I2); also `pnpm seed:instalacje`.
+  await seedInstalacje(payload)
 } finally {
   await payload.destroy()
 }
