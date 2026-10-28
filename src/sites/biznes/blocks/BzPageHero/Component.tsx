@@ -43,10 +43,6 @@ export function BzPageHeroBlock({ block, isFirst, page, tenantId }: Props) {
     <section className="relative overflow-hidden pt-6 pb-16 sm:pt-8 sm:pb-24">
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle,var(--grid)_1px,transparent_1.2px)] [mask-image:radial-gradient(ellipse_at_80%_30%,black,transparent_70%)] bg-size-[26px_26px]"
-      />
-      <div
-        aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 top-0 h-[520px] bg-[radial-gradient(ellipse_at_90%_10%,var(--glow),transparent_60%)]"
       />
       <Container wide className="relative">

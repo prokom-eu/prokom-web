@@ -6,6 +6,7 @@ import type { Wizard } from '@/lib/catalog/wizard'
 import type { Kit, WizardAnswers } from '@/lib/catalog/wizardKit'
 import { plural } from '@/lib/plural'
 
+import { ProductStage } from '../ProductStage'
 import { WizardIcon } from './WizardIcon'
 
 export const TONE_GRADIENT: Record<Wizard['businessTypes'][number]['tone'], string> = {
@@ -101,10 +102,7 @@ export function WizardSummary({ rules, answers, kit, phone }: Props) {
           <ul className="flex flex-col gap-2">
             {items.map((item) => (
               <li key={item.need} className="flex items-center gap-3 rounded-2xl bg-white/5 p-2.5">
-                <span
-                  aria-hidden="true"
-                  className="flex size-14 shrink-0 items-center justify-center rounded-xl bg-white text-surface-dark"
-                >
+                <ProductStage as="span" className="size-14 shrink-0 rounded-xl text-accent-text">
                   {item.image ? (
                     <Image
                       src={item.image.url}
@@ -112,12 +110,12 @@ export function WizardSummary({ rules, answers, kit, phone }: Props) {
                       width={item.image.width}
                       height={item.image.height}
                       unoptimized
-                      className="h-auto max-h-12 w-auto max-w-12 object-contain"
+                      className="relative h-auto max-h-12 w-auto max-w-12 object-contain"
                     />
                   ) : (
                     <WizardIcon name={item.icon} className="size-6" />
                   )}
-                </span>
+                </ProductStage>
                 <span className="min-w-0">
                   <span className="block font-bold leading-snug">
                     {item.quantity > 1 && `${item.quantity} × `}

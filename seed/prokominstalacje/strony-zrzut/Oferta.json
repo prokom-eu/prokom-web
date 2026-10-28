@@ -1,0 +1,614 @@
+{
+ "_strona": "Oferta",
+ "_title": "Oferta instalacji na Podhalu: monitoring, alarmy, sieci | PRO-KOM",
+ "_description": "Pełna oferta PRO-KOM Instalacje: 10 obszarów i ponad 70 rozwiązań z filtrem po rodzaju obiektu. Dom, pensjonat, firma, sklep, kościół, budowa.",
+ "_uwaga": "Zrzut danych z wizualizacji v4.0 (stan początkowy strony, motyw jasny). Teksty = treść do seeda. Klucze UI (cls, on, pick) pomijaj.",
+ "dane": {
+  "ctaEye": "Pełna oferta",
+  "ctaH": "Nie wiesz, co wybrać? Pomożemy ułożyć zestaw.",
+  "ctaP": "Opisz obiekt albo wyślij zdjęcia. Zaproponujemy, od czego zacząć, i wycenimy na piśmie.",
+  "of": {
+   "q": "",
+   "hasQ": false,
+   "objs": [
+    {
+     "n": "Wszystkie",
+     "ic": "ikona:layers",
+     "on": "true",
+     "cls": "uchip on"
+    },
+    {
+     "n": "Dom",
+     "ic": "ikona:home",
+     "on": "false",
+     "cls": "uchip"
+    },
+    {
+     "n": "Apartament",
+     "ic": "ikona:key",
+     "on": "false",
+     "cls": "uchip"
+    },
+    {
+     "n": "Pensjonat i hotel",
+     "ic": "ikona:bed",
+     "on": "false",
+     "cls": "uchip"
+    },
+    {
+     "n": "Restauracja",
+     "ic": "ikona:food",
+     "on": "false",
+     "cls": "uchip"
+    },
+    {
+     "n": "Sklep",
+     "ic": "ikona:shop",
+     "on": "false",
+     "cls": "uchip"
+    },
+    {
+     "n": "Firma i hala",
+     "ic": "ikona:factory",
+     "on": "false",
+     "cls": "uchip"
+    },
+    {
+     "n": "Kościół, szkoła, gmina",
+     "ic": "ikona:church",
+     "on": "false",
+     "cls": "uchip"
+    },
+    {
+     "n": "Deweloper",
+     "ic": "ikona:crane",
+     "on": "false",
+     "cls": "uchip"
+    }
+   ],
+   "nA": 10,
+   "nAll": 76,
+   "nShow": 76,
+   "filtered": false,
+   "nav": [
+    {
+     "n": "Monitoring i kamery",
+     "ic": "ikona:cam",
+     "href": "#o-kam",
+     "c": 10,
+     "cls": "ofn"
+    },
+    {
+     "n": "Alarmy i wideodomofony",
+     "ic": "ikona:bell",
+     "href": "#o-alarm",
+     "c": 8,
+     "cls": "ofn"
+    },
+    {
+     "n": "Kontrola dostępu i zamki",
+     "ic": "ikona:lock",
+     "href": "#o-kd",
+     "c": 6,
+     "cls": "ofn"
+    },
+    {
+     "n": "Sieci i Wi-Fi",
+     "ic": "ikona:wifi",
+     "href": "#o-wifi",
+     "c": 9,
+     "cls": "ofn"
+    },
+    {
+     "n": "Teletechnika w budownictwie",
+     "ic": "ikona:build",
+     "href": "#o-tel",
+     "c": 6,
+     "cls": "ofn"
+    },
+    {
+     "n": "Anteny RTV/SAT",
+     "ic": "ikona:dish",
+     "href": "#o-ant",
+     "c": 5,
+     "cls": "ofn"
+    },
+    {
+     "n": "Smart home Ampio",
+     "ic": "ikona:home",
+     "href": "#o-smart",
+     "c": 10,
+     "cls": "ofn"
+    },
+    {
+     "n": "Nagłośnienie",
+     "ic": "ikona:spk",
+     "href": "#o-snd",
+     "c": 8,
+     "cls": "ofn"
+    },
+    {
+     "n": "Ekrany i digital signage",
+     "ic": "ikona:scr",
+     "href": "#o-scr",
+     "c": 8,
+     "cls": "ofn"
+    },
+    {
+     "n": "Ładowarki samochodów",
+     "ic": "ikona:bolt",
+     "href": "#o-ev",
+     "c": 6,
+     "cls": "ofn"
+    }
+   ],
+   "areas": [
+    {
+     "id": "o-kam",
+     "k": "kam",
+     "n": "Monitoring i kamery",
+     "ic": "ikona:cam",
+     "href": "Monitoring.dc.html",
+     "fam": "Bezpieczeństwo",
+     "d": "Kompletny system, a nie same kamery: rejestrator, dyski do pracy 24/7, zasilanie PoE, UPS i aplikacja w telefonie.",
+     "b": [
+      "Hikvision",
+      "Dahua",
+      "BCS",
+      "Ubiquiti"
+     ],
+     "hasB": true,
+     "items": [
+      {
+       "n": "Monitoring domu i posesji",
+       "d": "Podjazd, furtka i ogród. Podgląd i nagrania w telefonie.",
+       "t": [
+        "Dom",
+        "Apartament"
+       ]
+      },
+      {
+       "n": "Monitoring pensjonatu i hotelu",
+       "d": "Parking, wejścia i narciarnia, bez zaglądania do pokoi gości.",
+       "t": [
+        "Pensjonat i hotel",
+        "Apartament"
+       ]
+      },
+      {
+       "n": "Monitoring firmy, hali i placu",
+       "d": "Wjazd, rampa, magazyn i kasy. Nagrania jako dowód.",
+       "t": [
+        "Firma i hala",
+        "Sklep",
+        "Restauracja"
+       ]
+      }
+     ],
+     "nItems": 10,
+     "more": true,
+     "moreT": "Pokaż wszystkie (10)",
+     "less": false,
+     "cls": "ofa ri"
+    },
+    {
+     "id": "o-alarm",
+     "k": "alarm",
+     "n": "Alarmy i wideodomofony",
+     "ic": "ikona:bell",
+     "href": "Alarmy.dc.html",
+     "fam": "Bezpieczeństwo",
+     "d": "Czujki, syreny i powiadomienia na telefon, a przy furtce wideodomofon, który odbierasz z dowolnego miejsca.",
+     "b": [
+      "Satel",
+      "Ajax",
+      "Hikvision",
+      "Dahua",
+      "BCS"
+     ],
+     "hasB": true,
+     "items": [
+      {
+       "n": "Alarm do domu i mieszkania",
+       "d": "Czujki ruchu i otwarcia, syrena, sterowanie z aplikacji.",
+       "t": [
+        "Dom",
+        "Apartament"
+       ]
+      },
+      {
+       "n": "Alarm bezprzewodowy bez kucia ścian",
+       "d": "Do wykończonego domu, apartamentu i biura.",
+       "t": [
+        "Dom",
+        "Apartament",
+        "Firma i hala"
+       ]
+      },
+      {
+       "n": "Ochrona domu letniskowego",
+       "d": "Czujki zalania, dymu i spadku temperatury działające całą dobę.",
+       "t": [
+        "Dom",
+        "Apartament",
+        "Pensjonat i hotel"
+       ]
+      }
+     ],
+     "nItems": 8,
+     "more": true,
+     "moreT": "Pokaż wszystkie (8)",
+     "less": false,
+     "cls": "ofa ri"
+    },
+    {
+     "id": "o-kd",
+     "k": "kd",
+     "n": "Kontrola dostępu i zamki",
+     "ic": "ikona:lock",
+     "href": "Dostep.dc.html",
+     "fam": "Bezpieczeństwo",
+     "d": "Kody, karty i zamki elektroniczne. Gość albo pracownik wchodzi sam, a Ty wiesz, kto i kiedy.",
+     "b": [],
+     "hasB": false,
+     "items": [
+      {
+       "n": "Zamki z kodem do apartamentów",
+       "d": "Kod ważny tylko w czasie pobytu, wysyłany automatycznie, jeśli Twój system rezerwacji to obsługuje.",
+       "t": [
+        "Apartament",
+        "Pensjonat i hotel"
+       ]
+      },
+      {
+       "n": "Hotelowe zamki na karty",
+       "d": "Koder kart na recepcji i rejestr otwarć.",
+       "t": [
+        "Pensjonat i hotel"
+       ]
+      },
+      {
+       "n": "Karty i breloki dla pracowników",
+       "d": "Strefy, godziny wejść, blokada zgubionej karty od ręki.",
+       "t": [
+        "Firma i hala",
+        "Sklep",
+        "Kościół, szkoła, gmina"
+       ]
+      }
+     ],
+     "nItems": 6,
+     "more": true,
+     "moreT": "Pokaż wszystkie (6)",
+     "less": false,
+     "cls": "ofa ri"
+    },
+    {
+     "id": "o-wifi",
+     "k": "wifi",
+     "n": "Sieci i Wi-Fi",
+     "ic": "ikona:wifi",
+     "href": "Sieci.dc.html",
+     "fam": "Łączność",
+     "d": "Sieć, która działa w każdym pokoju i nie pada w sezonie: okablowanie, szafy, światłowód, Wi-Fi i łącze zapasowe.",
+     "b": [
+      "Ubiquiti",
+      "MikroTik",
+      "TP-Link",
+      "Cisco"
+     ],
+     "hasB": true,
+     "items": [
+      {
+       "n": "Wi-Fi w całym domu i ogrodzie",
+       "d": "Bez martwych stref, jedna nazwa sieci.",
+       "t": [
+        "Dom",
+        "Apartament"
+       ]
+      },
+      {
+       "n": "Wi-Fi dla gości z portalem logowania",
+       "d": "Osobna sieć gości, logo obiektu, vouchery na czas pobytu.",
+       "t": [
+        "Pensjonat i hotel",
+        "Apartament",
+        "Restauracja"
+       ]
+      },
+      {
+       "n": "Sieć firmowa i bezpieczeństwo",
+       "d": "Router, firewall i osobne sieci dla kas, kamer i gości.",
+       "t": [
+        "Firma i hala",
+        "Sklep",
+        "Restauracja",
+        "Kościół, szkoła, gmina"
+       ]
+      }
+     ],
+     "nItems": 9,
+     "more": true,
+     "moreT": "Pokaż wszystkie (9)",
+     "less": false,
+     "cls": "ofa ri"
+    },
+    {
+     "id": "o-tel",
+     "k": "tel",
+     "n": "Teletechnika w budownictwie",
+     "ic": "ikona:build",
+     "href": "Teletechnika.dc.html",
+     "fam": "Łączność",
+     "d": "Dla deweloperów, wykonawców i inwestorów: instalacje słaboprądowe budynku z pomiarami i dokumentacją do odbioru.",
+     "b": [],
+     "hasB": false,
+     "items": [
+      {
+       "n": "Instalacja telekomunikacyjna w nowym budynku",
+       "d": "Gotowa na internet, telefon i telewizję, zgodnie z przepisami o instalacji telekomunikacyjnej w nowych budynkach (tzw. megaustawa).",
+       "t": [
+        "Deweloper"
+       ]
+      },
+      {
+       "n": "Światłowód do lokali",
+       "d": "Od punktu styku do każdego mieszkania i lokalu.",
+       "t": [
+        "Deweloper"
+       ]
+      },
+      {
+       "n": "RTV/SAT zbiorcza",
+       "d": "Jedna antena, sygnał w każdym lokalu.",
+       "t": [
+        "Deweloper",
+        "Pensjonat i hotel"
+       ]
+      }
+     ],
+     "nItems": 6,
+     "more": true,
+     "moreT": "Pokaż wszystkie (6)",
+     "less": false,
+     "cls": "ofa ri"
+    },
+    {
+     "id": "o-ant",
+     "k": "ant",
+     "n": "Anteny RTV/SAT",
+     "ic": "ikona:dish",
+     "href": "Anteny.dc.html",
+     "fam": "Łączność",
+     "d": "Anteny ustawiane miernikiem i montowane z zapasem na halny. Od domu po telewizję w każdym pokoju pensjonatu.",
+     "b": [],
+     "hasB": false,
+     "items": [
+      {
+       "n": "Anteny satelitarne",
+       "d": "Ustawienie miernikiem na Hot Bird 13°E.",
+       "t": [
+        "Dom",
+        "Apartament",
+        "Pensjonat i hotel"
+       ]
+      },
+      {
+       "n": "Anteny naziemne DVB-T2",
+       "d": "Dobór kierunku i nadajnika na Podhalu.",
+       "t": [
+        "Dom",
+        "Apartament"
+       ]
+      },
+      {
+       "n": "Instalacje zbiorcze",
+       "d": "Multiswitch i rozprowadzenie w budynku.",
+       "t": [
+        "Deweloper",
+        "Pensjonat i hotel"
+       ]
+      }
+     ],
+     "nItems": 5,
+     "more": true,
+     "moreT": "Pokaż wszystkie (5)",
+     "less": false,
+     "cls": "ofa ri"
+    },
+    {
+     "id": "o-smart",
+     "k": "smart",
+     "n": "Smart home Ampio",
+     "ic": "ikona:home",
+     "href": "SmartHome.dc.html",
+     "fam": "Komfort i obraz",
+     "d": "Polski system Ampio. Światło, ogrzewanie, rolety, brama, alarm i kamery w jednej aplikacji. Działa także bez internetu.",
+     "b": [
+      "Ampio"
+     ],
+     "hasB": true,
+     "items": [
+      {
+       "n": "Smart home w nowym domu",
+       "d": "Projekt przed tynkami, okablowanie i rozdzielnica.",
+       "t": [
+        "Dom"
+       ]
+      },
+      {
+       "n": "Smart home w remoncie",
+       "d": "Modernizacja bez przebudowy całego domu.",
+       "t": [
+        "Dom",
+        "Apartament"
+       ]
+      },
+      {
+       "n": "Oświetlenie i sceny",
+       "d": "Jednym dotknięciem: przyjazd, wyjście, noc, kino.",
+       "t": [
+        "Dom",
+        "Apartament",
+        "Pensjonat i hotel",
+        "Restauracja"
+       ]
+      }
+     ],
+     "nItems": 10,
+     "more": true,
+     "moreT": "Pokaż wszystkie (10)",
+     "less": false,
+     "cls": "ofa ri"
+    },
+    {
+     "id": "o-snd",
+     "k": "snd",
+     "n": "Nagłośnienie",
+     "ic": "ikona:spk",
+     "href": "Naglosnienie.dc.html",
+     "fam": "Komfort i obraz",
+     "d": "Stałe nagłośnienie APART i innych marek: muzyka w tle, komunikaty i mowa zrozumiała w ostatniej ławce.",
+     "b": [
+      "APART",
+      "JBL",
+      "Mackie",
+      "RCF",
+      "Electro-Voice",
+      "LDM",
+      "EAW",
+      "Alto",
+      "Audio-Technica"
+     ],
+     "hasB": true,
+     "items": [
+      {
+       "n": "Muzyka w restauracji i kawiarni",
+       "d": "Sala, bar, taras i toalety z osobną głośnością.",
+       "t": [
+        "Restauracja",
+        "Pensjonat i hotel"
+       ]
+      },
+      {
+       "n": "Nagłośnienie hotelu i pensjonatu",
+       "d": "Jadalnia, recepcja, SPA i sala, komunikaty do wybranych stref.",
+       "t": [
+        "Pensjonat i hotel"
+       ]
+      },
+      {
+       "n": "Nagłośnienie kościoła",
+       "d": "Zrozumiała mowa, a nie tylko głośniej.",
+       "t": [
+        "Kościół, szkoła, gmina"
+       ]
+      }
+     ],
+     "nItems": 8,
+     "more": true,
+     "moreT": "Pokaż wszystkie (8)",
+     "less": false,
+     "cls": "ofa ri"
+    },
+    {
+     "id": "o-scr",
+     "k": "scr",
+     "n": "Ekrany i digital signage",
+     "ic": "ikona:scr",
+     "href": "Multimedia.dc.html",
+     "fam": "Komfort i obraz",
+     "d": "Ekrany profesjonalne do pracy wiele godzin dziennie i treść zmieniana zdalnie. Wdrażamy to w naszych salonach.",
+     "b": [
+      "Samsung",
+      "Avtek",
+      "Sharp/NEC"
+     ],
+     "hasB": true,
+     "items": [
+      {
+       "n": "Ekrany w witrynie",
+       "d": "Jasne ekrany czytelne w słońcu, sterowane harmonogramem.",
+       "t": [
+        "Sklep",
+        "Restauracja",
+        "Pensjonat i hotel"
+       ]
+      },
+      {
+       "n": "Menu board w gastronomii",
+       "d": "Ceny i menu zmieniane z komputera, bez drukowania.",
+       "t": [
+        "Restauracja"
+       ]
+      },
+      {
+       "n": "Ekran w recepcji hotelu",
+       "d": "Pogoda, stoki, atrakcje i oferta obiektu.",
+       "t": [
+        "Pensjonat i hotel"
+       ]
+      }
+     ],
+     "nItems": 8,
+     "more": true,
+     "moreT": "Pokaż wszystkie (8)",
+     "less": false,
+     "cls": "ofa ri"
+    },
+    {
+     "id": "o-ev",
+     "k": "ev",
+     "n": "Ładowarki samochodów",
+     "ic": "ikona:bolt",
+     "href": "Ladowarki.dc.html",
+     "fam": "E-mobilność",
+     "d": "Pełna oferta ładowarek Elzab EcoPower produkowanych w Polsce: CC Home do garażu, CC Wall dla firm i obiektów, CC City na parking. Z doborem mocy do przyłącza i montażem.",
+     "b": [
+      "Elzab EcoPower"
+     ],
+     "hasB": true,
+     "items": [
+      {
+       "n": "Ładowarka w domu",
+       "d": "Elzab CC Home w garażu: 3,7, 7,4 albo 11 kW.",
+       "t": [
+        "Dom"
+       ]
+      },
+      {
+       "n": "Ładowarka ścienna z dwoma punktami",
+       "d": "Elzab CC Wall, do 2×22 kW, na ścianę albo podstawę.",
+       "t": [
+        "Firma i hala",
+        "Pensjonat i hotel"
+       ]
+      },
+      {
+       "n": "Ładowarki dla firm i floty",
+       "d": "Karty RFID, aplikacja, dzielenie mocy przyłącza.",
+       "t": [
+        "Firma i hala"
+       ]
+      }
+     ],
+     "nItems": 6,
+     "more": true,
+     "moreT": "Pokaż wszystkie (6)",
+     "less": false,
+     "cls": "ofa ri extra"
+    }
+   ],
+   "empty": false,
+   "always": [
+    "Wizja lokalna i doradztwo",
+    "Projekt i wycena na piśmie, zwykle w wariantach do wyboru",
+    "Montaż czysto i w ustalonym terminie",
+    "Konfiguracja aplikacji i kont użytkowników",
+    "Sprawdzenie działania przy Tobie",
+    "Pokazujemy obsługę i aplikację",
+    "Serwis, przeglądy i pomoc zdalna"
+   ]
+  }
+ }
+}

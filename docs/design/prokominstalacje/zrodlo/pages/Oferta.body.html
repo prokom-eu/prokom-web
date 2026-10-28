@@ -1,0 +1,50 @@
+  <section class="phero ofh" style="padding-bottom: 34px">
+    <div class="hgrid"></div><div class="hglow"></div>
+    <div class="wrap" style="position: relative">
+      <nav class="crumb in d1" aria-label="Okruszki"><a href="Main.dc.html">Start</a><span>/</span><span style="color: var(--text)">Pełna oferta</span></nav>
+      <div class="split" style="margin-top: 22px; align-items: end">
+        <div style="display: flex; flex-direction: column; gap: 16px"><span class="eye in d1">Pełna oferta · {{of.nA}} obszarów · {{of.nAll}} {{offerN.iW}}</span><h1 class="h1 in d2">Oferta instalacji na Podhalu: <span class="acc">monitoring, alarmy, sieci, smart home, nagłośnienie.</span></h1></div>
+        <p class="lead in d3">Od kamery przy furtce po nagłośnienie kościoła i ekrany w dwóch salonach naraz. Wybierz swój obiekt albo wpisz, czego szukasz, a pokażemy tylko to, co ma dla Ciebie sens.</p>
+      </div>
+      <div class="ofbar in d4">
+        <label class="ofs"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.6-3.6"></path></svg><input type="search" placeholder="Szukaj: np. kamera, Wi-Fi dla gości, kościół, menu board" value="{{of.q}}" onInput="{{of.onQ}}" aria-label="Szukaj w ofercie"><sc-if value="{{of.hasQ}}" hint-placeholder-val="{{ false }}"><button type="button" class="ofx" onClick="{{of.clrQ}}" aria-label="Wyczyść">×</button></sc-if></label>
+        <div class="uschips ofo" role="group" aria-label="Rodzaj obiektu"><sc-for list="{{of.objs}}" as="o" hint-placeholder-count="9"><button type="button" class="{{o.cls}}" aria-pressed="{{o.on}}" onClick="{{o.pick}}"><!--i:o.ic:16-->{{o.n}}</button></sc-for></div>
+        <div class="ofcnt" aria-live="polite">Pokazujemy <b>{{of.nShow}}</b> z {{of.nAll}} {{offerN.iWg}}<sc-if value="{{of.filtered}}" hint-placeholder-val="{{ false }}"> · <button type="button" onClick="{{of.reset}}">pokaż wszystko</button></sc-if></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="lista" class="{{rv.ofl}}" data-rv="ofl" style="padding: 18px 0 96px">
+    <div class="wrap ofw">
+      <nav class="ofnav" aria-label="Obszary oferty">
+        <span class="usl" style="width: auto; margin-bottom: 6px">Obszary</span>
+        <sc-for list="{{of.nav}}" as="n" hint-placeholder-count="10"><a href="{{n.href}}" class="{{n.cls}}"><!--i:n.ic:17--><span>{{n.n}}</span><em>{{n.c}}</em></a></sc-for>
+        <a href="Zaplanuj.dc.html" class="btn btn-p btn-s" style="margin-top: 12px">Zaplanuj instalację</a>
+      </nav>
+      <div class="oflist">
+        <sc-for list="{{of.areas}}" as="a" hint-placeholder-count="10">
+          <article id="{{a.id}}" class="{{a.cls}}">
+            <header class="ofah">
+              <span class="ico"><!--i:a.ic:24--></span>
+              <div class="ofat"><span class="svk">{{a.fam}}</span><h2 class="h3" style="font-size: 26px; margin: 0">{{a.n}}</h2><p>{{a.d}}</p></div>
+              <a href="{{a.href}}" class="btn btn-g btn-s ofgo">Strona usługi →</a>
+            </header>
+            <sc-if value="{{a.hasB}}" hint-placeholder-val="{{ true }}"><div class="ofb"><span>Sprzęt dobieramy pod obiekt. Pracujemy m.in. z:</span><sc-for list="{{a.b}}" as="b" hint-placeholder-count="4"><span class="tag">{{b}}</span></sc-for></div></sc-if>
+            <div class="ofg"><sc-for list="{{a.items}}" as="i" hint-placeholder-count="6"><div class="ofi"><b>{{i.n}}</b><span>{{i.d}}</span><div class="ofit"><sc-for list="{{i.t}}" as="t" hint-placeholder-count="3"><em>{{t}}</em></sc-for></div></div></sc-for></div>
+            <sc-if value="{{a.more}}" hint-placeholder-val="{{ false }}"><button type="button" class="btn btn-g btn-s xa-ofmore" onClick="{{a.tog}}">{{a.moreT}}</button></sc-if>
+            <sc-if value="{{a.less}}" hint-placeholder-val="{{ false }}"><button type="button" class="btn btn-g btn-s xa-ofmore" onClick="{{a.tog}}">Zwiń</button></sc-if>
+          </article>
+        </sc-for>
+        <sc-if value="{{of.empty}}" hint-placeholder-val="{{ false }}"><div class="note"><!--i:P.eye:20--><span>Nic nie pasuje do tego wyszukiwania. Spróbuj innego słowa albo <a href="Zaplanuj.dc.html" style="color: var(--accentText); font-weight: 800">opisz, czego potrzebujesz</a>, a odpowiemy, czy to robimy.</span></div></sc-if>
+      </div>
+    </div>
+  </section>
+
+  <section id="zawsze" class="{{rv.zaw}}" data-rv="zaw" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div class="odb ri" style="margin-top: 0">
+        <div style="display: flex; flex-direction: column; gap: 14px"><span class="eye" style="color: #4CCBE6">W każdej instalacji</span><b class="h2" style="font-size: 36px">Nie sprzedajemy pudełek. Oddajemy działający system.</b><p class="lead">Niezależnie od tego, czy to jedna kamera, czy cały pensjonat, zakres jest ten sam: od wizji lokalnej po serwis. Wszystko na piśmie przed montażem.</p></div>
+        <div class="odl"><sc-for list="{{of.always}}" as="o" hint-placeholder-count="8"><div class="odi"><i><!--i:P.check:18:2.4--></i><span>{{o}}</span></div></sc-for></div>
+      </div>
+    </div>
+  </section>

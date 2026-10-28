@@ -140,6 +140,15 @@ describe.each(cases.filter(({ line }) => line === 'biznes'))(
     it('orange label of the downtime calculator reaches 4.5:1 on its card', () => {
       expect(contrastRatio(hex('--warn', s), hex('--card', s))).toBeGreaterThanOrEqual(4.5)
     })
+
+    it('the no-photo note reaches 4.5:1 on every studio stop (K31-ZMIANY §4.10)', () => {
+      for (const stop of ['--st1', '--st2', '--st3']) {
+        expect(
+          contrastRatio(hex('--ink-2', s), hex(stop, s)),
+          `--ink-2 on ${stop}`,
+        ).toBeGreaterThanOrEqual(4.5)
+      }
+    })
   },
 )
 
@@ -203,6 +212,35 @@ describe.each(cases.filter(({ line }) => line === 'software'))(
           `--accent-ink on ${end}`,
         ).toBeGreaterThanOrEqual(4.5)
       }
+    })
+  },
+)
+
+// ADR-I003 §3: the Instalacje visualisation uses the second card level and active chips like
+// Software, and puts button labels on --accent.
+describe.each(cases.filter(({ line }) => line === 'instalacje'))(
+  'Instalacje surfaces, $mode theme',
+  ({ line, mode }) => {
+    const s = scope(line, mode)
+
+    it.each(['--ink', '--ink-soft', '--ink-2', '--accent-text'])(
+      '%s reaches 4.5:1 on the second card level and active chips',
+      (text) => {
+        for (const surface of ['--card-2', '--accent-soft']) {
+          expect(
+            contrastRatio(hex(text, s), hex(surface, s)),
+            `${text} on ${surface}`,
+          ).toBeGreaterThanOrEqual(4.5)
+        }
+      },
+    )
+
+    it('button label reaches 4.5:1 on the accent button', () => {
+      expect(contrastRatio(hex('--accent-ink', s), hex('--accent', s))).toBeGreaterThanOrEqual(4.5)
+    })
+
+    it('form field border reaches 3:1 on the second card level', () => {
+      expect(contrastRatio(hex('--border-input', s), hex('--card-2', s))).toBeGreaterThanOrEqual(3)
     })
   },
 )

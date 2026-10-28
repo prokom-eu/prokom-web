@@ -1,0 +1,396 @@
+{
+ "k": "hotel",
+ "page": "SegHotel",
+ "h": "#E86FB0",
+ "dla": "hoteli",
+ "title": "Wi-Fi, TV i zamki na karty dla hoteli — Zakopane | PRO-KOM",
+ "desc": "Wi-Fi zgodne z nową kategoryzacją i protokół pomiarów, TV w pokojach, zamki na karty, monitoring i sale konferencyjne. Hotele w Zakopanem i na Podhalu.",
+ "sceneT": "Przekrój hotelu z salą konferencyjną",
+ "hero": {
+  "crumb": "Hotel",
+  "eye": "Instalacje dla hoteli · Zakopane, Białka, Bukowina, Podhale",
+  "h1a": "Wi-Fi w każdym pokoju to już wymóg kategoryzacji.",
+  "h1b": "Zróbmy je tak, żeby goście chwalili je w opiniach.",
+  "lead": "Sieć zaprojektowana na setki urządzeń, telewizja w pokojach z jednej szafy, zamki na karty połączone z systemem rezerwacji, monitoring wjazdu, lobby i korytarzy, nagłośnienie sal konferencyjnych i pokoje, które same oszczędzają energię.",
+  "kv": [
+   [
+    "15.03.2027",
+    "termin Wi-Fi dla skategoryzowanych hoteli"
+   ],
+   [
+    "24 mies.",
+    "gwarancji na montaż"
+   ],
+   [
+    "do 24 h",
+    "odpowiedź na zgłoszenie w dni robocze"
+   ]
+  ],
+  "tags": [
+   "Wi-Fi z protokołem pomiarów",
+   "TV w pokojach",
+   "Zamki na karty",
+   "Sale konferencyjne"
+  ]
+ },
+ "hs": [
+  {
+   "d": "Projekt pojemności na setki urządzeń, punkty w pokojach i strefach wspólnych, osobne sieci dla gości, konferencji, recepcji i kamer. Na koniec protokół pomiarów."
+  },
+  {
+   "d": "Ten sam zestaw kanałów w każdym pokoju z jednej szafy, ekran powitalny i przesyłanie obrazu z telefonu gościa."
+  },
+  {
+   "d": "Zamki hotelowe pracują lokalnie, więc działają także przy awarii internetu. Kodowanie kart w recepcji połączone z systemem rezerwacji."
+  },
+  {
+   "d": "Nowe przepisy pozwalają hotelom 3* zastąpić nocną recepcję całodobowym samodzielnym meldowaniem. Potrzebny jest system rezerwacji połączony z zamkami i wideodomofon przy wejściu."
+  },
+  {
+   "d": "Kamera wjazdu i parkingu. W wyższych kategoriach parking ma być monitorowany."
+  },
+  {
+   "d": "Lobby, korytarze, wejścia i zaplecze. Nigdy w pokojach, łazienkach, szatniach SPA i saunie."
+  },
+  {
+   "d": "Mikrofony stołowe i bezprzewodowe, strefy, podział sali ścianą mobilną i proste sterowanie dla obsługi."
+  },
+  {
+   "d": "Ekran albo projektor z przesyłaniem obrazu z laptopa bez kabli. Konferencje wypełniają obłożenie jesienią i wiosną."
+  },
+  {
+   "d": "Pogoda, warunki na stokach, atrakcje i oferta hotelu, zmieniane z komputera w recepcji."
+  },
+  {
+   "d": "Gdy gość wychodzi, ogrzewanie i klimatyzacja przechodzą w tryb oszczędny, a światło gaśnie. W badaniu dla Departamentu Energii USA dało to średnio 18,4% oszczędności na ogrzewaniu i chłodzeniu pokoi."
+  },
+  {
+   "d": "Ładowarki dla gości z autami elektrycznymi, montowane przy okazji instalacji i dobrane do przyłącza."
+  },
+  {
+   "d": "Sieć, telewizja, rejestrator i zasilanie awaryjne w uporządkowanej szafie, z opisem i nadzorem zdalnym."
+  }
+ ],
+ "pr": {
+  "eye": "Co słyszymy od hotelarzy",
+  "h": "Sześć spraw, które decydują o opiniach",
+  "ha": "i rachunkach.",
+  "lead": "W hotelu instalacje widać w opiniach gości i w rachunkach. Projektujemy na szczyt sezonu i planujemy prace na okresy niskiego obłożenia."
+ },
+ "prob": [
+  {
+   "q": "„Wi-Fi pada, gdy przyjeżdża konferencja”",
+   "d": "Sto pokoi to kilkaset urządzeń wieczorem, a do tego sala, w której wszyscy łączą laptopy w tej samej minucie.",
+   "fix": "Projekt pojemności, punkty w pokojach, osobne sieci i protokół pomiarów.",
+   "s": "wifi",
+   "ic": "wifi"
+  },
+  {
+   "q": "„Telewizor w pokoju nie ma kanałów”",
+   "d": "Dystrybucja sygnału do kilkudziesięciu odbiorników robiona latami przez różne firmy.",
+   "fix": "Jedna szafa i ten sam zestaw kanałów w każdym pokoju, zestawienie odbiorników do rozliczeń.",
+   "s": "ant",
+   "ic": "tv"
+  },
+  {
+   "q": "„Zgubione karty i drzwi do SPA”",
+   "d": "Karty do pokoi, strefy personelu, SPA i sale. Każdy system osobno.",
+   "fix": "Zamki hotelowe połączone z systemem rezerwacji i kontrola dostępu do stref.",
+   "s": "kd",
+   "ic": "card"
+  },
+  {
+   "q": "„Nocna recepcja to duży koszt poza sezonem”",
+   "d": "Całodobowa recepcja w mniejszym hotelu zjada marżę poza sezonem.",
+   "fix": "Samodzielne meldowanie, kody albo karty z automatu i wideodomofon przy wejściu.",
+   "s": "kd",
+   "ic": "clock"
+  },
+  {
+   "q": "„Klimatyzacja chodzi w pustych pokojach”",
+   "d": "Pokoje gości to zwykle 40–80% zużycia energii hotelu (raport PNNL dla Departamentu Energii USA).",
+   "fix": "Sterowanie pokojem według obecności i tryb pustego pokoju.",
+   "s": "smart",
+   "ic": "thermo"
+  },
+  {
+   "q": "„Nagłośnienie sali to loteria”",
+   "d": "Piszczące mikrofony i kable po podłodze przy każdej konferencji.",
+   "fix": "Stałe nagłośnienie z mikrofonami, strefami i prostym sterowaniem dla obsługi.",
+   "s": "snd",
+   "ic": "spk"
+  }
+ ],
+ "day": {
+  "eye": "Doba w hotelu w ferie",
+  "h": "Od śniadania do zameldowania o północy.",
+  "lead": "Tak pracują instalacje hotelu przez jedną dobę w pełnym obłożeniu.",
+  "items": [
+   {
+    "tm": "7:00",
+    "n": "Śniadania",
+    "d": "Muzyka w restauracji gra cicho, ekran w recepcji pokazuje warunki na stokach, a goście łączą się z Wi-Fi bez wpisywania hasła na nowo.",
+    "s": [
+     "snd",
+     "scr"
+    ],
+    "ic": "coffee"
+   },
+   {
+    "tm": "9:30",
+    "n": "Konferencja",
+    "d": "Sto osób łączy laptopy w tej samej minucie. Sieć konferencji ma swoją pojemność, a prelegent przesyła prezentację na ekran bez kabla.",
+    "s": [
+     "wifi",
+     "scr"
+    ],
+    "ic": "users"
+   },
+   {
+    "tm": "11:00",
+    "n": "Pokój pusty",
+    "d": "Gość wyszedł na narty. Pokój przechodzi w tryb oszczędny, a światło gaśnie.",
+    "s": [
+     "smart"
+    ],
+    "ic": "thermo"
+   },
+   {
+    "tm": "18:00",
+    "n": "Kolacja i wieczór",
+    "d": "Kilkaset urządzeń w sieci gości. Telewizja w pokojach działa z jednej szafy, a goście przesyłają obraz z telefonu.",
+    "s": [
+     "wifi",
+     "ant"
+    ],
+    "ic": "tv"
+   },
+   {
+    "tm": "23:50",
+    "n": "Późne zameldowanie",
+    "d": "Gość odbiera kartę z automatu albo kod w wiadomości i rozmawia z dyżurnym przez wideodomofon.",
+    "s": [
+     "kd"
+    ],
+    "ic": "key"
+   },
+   {
+    "tm": "3:00",
+    "n": "Noc",
+    "d": "Kamery wjazdu i lobby nagrywają, rejestrator i sieć pracują na zasilaniu awaryjnym przy zaniku prądu.",
+    "s": [
+     "kam",
+     "wifi"
+    ],
+    "ic": "moon"
+   }
+  ]
+ },
+ "law": {
+  "h": "Kategoryzacja, ppoż., kamery i telewizory. Co mówią przepisy.",
+  "lead": "Hotel ma najwięcej obowiązków ze wszystkich obiektów noclegowych. Część z nich dotyczy instalacji, a część tylko obiektu.",
+  "items": [
+   {
+    "who": "Hotel",
+    "a": "Dz.U. 2026 poz. 1150",
+    "t": "Wi-Fi obowiązkowe w każdej kategorii",
+    "d": "Od 15.09.2026 Wi-Fi w pokojach i strefach wspólnych jest wymagane we wszystkich kategoriach hoteli i moteli. Obiekty już skategoryzowane mają czas do 15.03.2027. W 3* całodobowe samodzielne meldowanie może zastąpić nocną recepcję (warto to potwierdzić przy kategoryzacji)."
+   },
+   {
+    "who": "Hotel",
+    "a": "§ 28 i § 29 rozp. ppoż.",
+    "t": "SSP i DSO to osobne systemy",
+    "d": "System sygnalizacji pożarowej jest wymagany powyżej 50 miejsc noclegowych, a dźwiękowy system ostrzegawczy powyżej 200 miejsc albo w budynkach wysokich. Nagłośnienie muzyczne nie zastępuje DSO. Systemów pożarowych nie montujemy, a nasze nagłośnienie przygotowujemy do wyciszenia sygnałem z systemu pożarowego."
+   },
+   {
+    "who": "Razem",
+    "a": "§ 4 ust. 1 pkt 14 rozp. ppoż.",
+    "t": "Drzwi ewakuacyjne z kartą",
+    "d": "Drzwi ewakuacyjnych nie wolno zamykać tak, żeby nie dało się ich natychmiast otworzyć. Dlatego elektrozamek na drodze ewakuacyjnej zwalnia się sygnałem z systemu pożarowego lub przyciskiem awaryjnym. Rozwiązanie uzgadniamy z projektantem."
+   },
+   {
+    "who": "Hotel",
+    "a": "art. 22² Kodeksu pracy",
+    "t": "Kamery a pracownicy i goście",
+    "d": "Nagrania najwyżej 3 miesiące, informacja dla pracowników 2 tygodnie przed uruchomieniem, tabliczki dla gości. Bez kamer w pokojach, łazienkach, szatniach SPA i saunie."
+   },
+   {
+    "who": "Hotel",
+    "a": "abonament RTV",
+    "t": "Abonament za każdy telewizor",
+    "d": "Abonament RTV płaci się za każdy odbiornik osobno, w 2026 r. 30,50 zł miesięcznie za telewizor. Przygotujemy zestawienie odbiorników."
+   },
+   {
+    "who": "Hotel",
+    "a": "TSUE C-306/05",
+    "t": "Sygnał w pokojach a licencje",
+    "d": "Rozprowadzanie sygnału do pokoi to publiczne udostępnianie utworów, więc potrzebne są licencje organizacji zbiorowego zarządzania. Na przykład STOART liczy w 2026 r. stawkę od pokoju zależnie od kategorii hotelu."
+   }
+  ]
+ },
+ "gory": {
+  "h": "Pełne obłożenie, mały rynek i zima.",
+  "items": [
+   {
+    "ic": "hotel",
+    "t": "36 hoteli w Zakopanem",
+    "d": "Wśród 61 obiektów skategoryzowanych z ponad 6 tys. miejsc. Mały rynek, w którym każdy hotel walczy opiniami."
+   },
+   {
+    "ic": "users",
+    "t": "58,9 mln turystów w 2025 r.",
+    "d": "Rekordowa liczba turystów w obiektach noclegowych w Polsce według GUS, o 11,6% więcej niż rok wcześniej."
+   },
+   {
+    "ic": "cal",
+    "t": "Szczyty bez okna serwisowego",
+    "d": "Ferie, Sylwester i długie weekendy. Prace planujemy na listopad, kwiecień i maj, a serwis prowadzimy w dużej części zdalnie."
+   },
+   {
+    "ic": "bolt",
+    "t": "Zasilanie awaryjne",
+    "d": "Burze latem i oblodzenie zimą. Zasilanie awaryjne w szafach i ochrona przepięciowa między budynkami."
+   }
+  ]
+ },
+ "realH": "",
+ "real": [],
+ "prep": [
+  "Liczba pokoi i kategoria hotelu",
+  "Rzuty kondygnacji albo plan ewakuacji",
+  "System rezerwacji i obecne zamki",
+  "Jak dziś dociera telewizja do pokoi",
+  "Sale konferencyjne i ich wyposażenie",
+  "Kto prowadzi system pożarowy w obiekcie",
+  "Terminy niskiego obłożenia na prace"
+ ],
+ "pkgH": "Od pensjonatu z ambicjami po hotel z salami konferencyjnymi.",
+ "pkgs": [
+  {
+   "n": "Zgodność Wi-Fi",
+   "d": "Sieć zgodna z nową kategoryzacją.",
+   "ic": "check",
+   "f": [
+    "Pomiar i projekt Wi-Fi",
+    "Punkty w pokojach i strefach wspólnych",
+    "Protokół pomiarów",
+    "Monitoring wjazdu i parkingu",
+    "Zasilanie awaryjne sieci"
+   ],
+   "pr": "od [CENA] zł"
+  },
+  {
+   "n": "Hotel",
+   "d": "Pełna obsługa gości.",
+   "ic": "hotel",
+   "hot": true,
+   "f": [
+    "Wszystko z zestawu Zgodność Wi-Fi",
+    "Telewizja w pokojach z jednej szafy",
+    "Zamki na karty połączone z rezerwacjami",
+    "Kamery lobby, korytarzy i zaplecza",
+    "Ekran w recepcji"
+   ],
+   "pr": "od [CENA] zł"
+  },
+  {
+   "n": "Hotel z salami",
+   "d": "Konferencje, SPA, restauracja.",
+   "ic": "users",
+   "f": [
+    "Wszystko z zestawu Hotel",
+    "Nagłośnienie i ekrany w salach",
+    "Muzyka strefowa w lobby i restauracji",
+    "Samodzielne meldowanie całą dobę",
+    "Pokoje według obecności (Ampio)"
+   ],
+   "pr": "od [CENA] zł"
+  }
+ ],
+ "faqH": "Pytania hotelarzy.",
+ "faq": [
+  [
+   "Czy Wi-Fi w hotelu jest teraz obowiązkowe?",
+   "Tak, w pokojach i strefach wspólnych. Hotele już skategoryzowane mają czas do 15.03.2027 (szczegóły w sekcji „Przepisy”). Robimy pomiar zasięgu i pojemności i zostawiamy protokół pomiarów."
+  ],
+  [
+   "Mamy 3 gwiazdki. Czy możemy zrezygnować z nocnej recepcji?",
+   "Nowe przepisy pozwalają, żeby w hotelu 3* całodobowe samodzielne zameldowanie i wymeldowanie zastąpiło recepcję 24 h. Technicznie potrzebny jest system rezerwacji połączony z zamkami lub automatem i wideodomofon przy wejściu. Spełnienie wymogu warto potwierdzić przy kategoryzacji."
+  ],
+  [
+   "Czy nagłośnienie w lobby może służyć jako system ostrzegawczy?",
+   "Nie. To osobny system ppoż. z certyfikowaną centralą (progi w sekcji „Przepisy”). Systemów pożarowych nie montujemy. Wskażemy firmę z uprawnieniami, a nasze nagłośnienie przygotujemy do wyciszenia sygnałem z jej systemu."
+  ],
+  [
+   "Ile kamer potrzebuje hotel i jak długo trzymamy nagrania?",
+   "To zależy od układu: wjazd, parking, wejścia, lobby, korytarze, zaplecze. Przy pracownikach nagrania najwyżej 3 miesiące, a zasady informowania są w sekcji „Przepisy”. Czas nadpisywania ustawiamy przy montażu."
+  ],
+  [
+   "Czy zamki zadziałają, kiedy padnie internet albo serwer?",
+   "Wybieramy systemy, które pracują lokalnie: zamki hotelowe trzymają uprawnienia w kartach albo w zamku i synchronizują zmiany po powrocie łącza. Serwer, switche i szafy zasilamy awaryjnie."
+  ],
+  [
+   "Za telewizory płacimy abonament i licencje. Da się to ograniczyć?",
+   "Opłaty zależą od liczby odbiorników i umów z organizacjami zbiorowego zarządzania (szczegóły w sekcji „Przepisy”). Doradzimy, ile odbiorników i jaki system dystrybucji sygnału ma sens."
+  ],
+  [
+   "Czy automatyka pokoi naprawdę obniża rachunki?",
+   "Badanie dla Departamentu Energii USA zmierzyło średnio 18,4% oszczędności na ogrzewaniu i chłodzeniu pokoi dzięki sterowaniu według obecności (od 10,8% do 26,5%). Efekt zależy od instalacji grzewczej i obłożenia, dlatego liczymy go dla konkretnego obiektu."
+  ],
+  [
+   "Czy modernizację da się zrobić etapami, bez zamykania hotelu?",
+   "Tak. Zaczynamy od pomiaru i projektu, potem szafa i kolejne piętra albo skrzydła, w terminach niskiego obłożenia. Kolejność ustalamy tak, żeby najpierw spełnić wymóg Wi-Fi z kategoryzacji. Cena zależy od liczby pokoi, sal i stanu okablowania, dlatego wycenę podajemy na piśmie po pomiarze."
+  ]
+ ],
+ "rel": [
+  "wifi",
+  "ant",
+  "kd",
+  "kam",
+  "snd",
+  "scr",
+  "smart"
+ ],
+ "anc": [
+  [
+   "problemy",
+   "Problemy"
+  ],
+  [
+   "rok",
+   "Doba w hotelu"
+  ],
+  [
+   "przepisy",
+   "Przepisy"
+  ],
+  [
+   "gory",
+   "Podhale"
+  ],
+  [
+   "pakiety",
+   "Zestawy"
+  ],
+  [
+   "przygotuj",
+   "Przed wizytą"
+  ],
+  [
+   "faq",
+   "Pytania"
+  ]
+ ],
+ "cta": [
+  "Hotel",
+  "Zmierzymy Wi-Fi w Twoim hotelu i powiemy, co trzeba zrobić do marca 2027.",
+  "Pomiar zasięgu i pojemności, projekt i wycena na piśmie, prace w terminach niskiego obłożenia, protokół pomiarów Wi-Fi. Zakres dokumentacji ustalamy przed pracami."
+ ],
+ "fold": [
+  "problemy:900",
+  "rok",
+  "przepisy",
+  "gory",
+  "faq"
+ ]
+}

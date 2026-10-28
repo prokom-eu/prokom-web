@@ -1,0 +1,6 @@
+  <section id="cena" class="{{rv.cena}}" data-rv="cena" style="padding: 0 0 104px">
+    <div class="wrap split">
+      <div class="ri" style="display: flex; flex-direction: column; gap: 16px"><span class="eye">{{sx.cena.eye}}</span><h2 class="h2">{{sx.cena.h}}</h2><p class="lead">{{sx.cena.p}}</p><div style="display: flex; gap: 10px; flex-wrap: wrap"><a href="Zaplanuj.dc.html" class="btn btn-p">{{sx.cena.btn}}</a></div></div>
+      <div class="prep ri"><sc-for list="{{cena}}" as="c" hint-placeholder-count="6"><div><i><!--i:c.ic:20--></i><span><b style="display: block">{{c.t}}</b><span class="mut">{{c.d}}</span></span></div></sc-for></div>
+    </div>
+  </section>

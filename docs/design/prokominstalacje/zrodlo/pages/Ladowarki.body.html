@@ -1,0 +1,131 @@
+<!--@pheroA-->
+          <div class="ill evsh" role="region" aria-label="Ładowarki Elzab EcoPower">
+            <div class="illbar">
+              <div class="seg" role="tablist" aria-label="Model ładowarki"><sc-for list="{{sh.tabs}}" as="t" hint-placeholder-count="3"><button type="button" role="tab" class="{{t.cls}}" aria-selected="{{t.on}}" onClick="{{t.pick}}">{{t.n}}</button></sc-for></div>
+              <span class="tag a">{{sh.k}}</span>
+            </div>
+            <div class="evstage">
+              <div class="evglow"></div>
+              <sc-for list="{{sh.items}}" as="m" hint-placeholder-count="3"><img src="{{m.src}}" alt="{{m.alt}}" class="{{m.cls}}"></sc-for>
+              <div class="evbadge"><b>{{sh.pw}}</b><span>{{sh.pwS}}</span></div>
+            </div>
+            <div class="evinfo">
+              <div><b class="h3">Elzab {{sh.n}}</b><p class="mut" style="margin: 6px 0 0">{{sh.d}}</p></div>
+              <ul class="evspec"><sc-for list="{{sh.sp}}" as="s" hint-placeholder-count="3"><li><span>{{s.k}}</span><b>{{s.v}}</b></li></sc-for></ul>
+              <a href="#model" class="btn btn-g evgo" onClick="{{sh.go}}">Dobierz wersję {{sh.n}}<!--i:P.arrow:16--></a>
+            </div>
+          </div>
+<!--@pheroB-->
+
+  <section id="oferta" class="{{rv.of}}" data-rv="of" style="padding: 96px 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Oferta Elzab EcoPower</span><h2 class="h2">Trzy ładowarki. Od garażu po parking hotelu.</h2></div><p class="lead" style="max-width: 470px">Montujemy całą rodzinę ładowarek Elzab EcoPower. Elzab to polski producent z Zabrza. Model dobieramy do tego, kto będzie ładował, ile aut naraz i czy ładowanie ma być rozliczane.</p></div>
+      <div class="g3 evcards"><sc-for list="{{prods}}" as="p" hint-placeholder-count="3"><article class="{{p.cls}}">
+        <div class="evtile"><img src="{{p.src}}" alt="{{p.alt}}" class="{{p.ic2}}"><span class="evtk">{{p.k}}</span></div>
+        <div class="evcb">
+          <span class="svk">{{p.who}}</span>
+          <b class="h3">Elzab {{p.n}}</b>
+          <p class="mut" style="margin: 0">{{p.d}}</p>
+          <div class="evpw"><b>{{p.pw}}</b><span>{{p.pwS}}</span></div>
+          <ul class="list" style="gap: 8px"><sc-for list="{{p.f}}" as="f" hint-placeholder-count="4"><li style="font-size: 14.5px"><i><!--i:P.check:13:2.6--></i><span style="color: var(--soft)">{{f}}</span></li></sc-for></ul>
+          <div class="evchips"><sc-for list="{{p.v}}" as="v" hint-placeholder-count="3"><span class="tag">{{v}}</span></sc-for></div>
+          <a href="#model" class="btn btn-g evcbtn" onClick="{{p.go}}">Dobierz wersję<!--i:P.arrow:16--></a>
+        </div>
+      </article></sc-for></div>
+      <div class="evx ri"><b class="evxh">W ofercie także</b><sc-for list="{{extras}}" as="e" hint-placeholder-count="4"><div class="evxi"><span class="ico"><!--i:e.ic:18--></span><div><b>{{e.t}}</b><span>{{e.d}}</span></div></div></sc-for></div>
+    </div>
+  </section>
+
+  <section id="model" class="{{rv.model}}" data-rv="model" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Dobór wersji</span><h2 class="h2">Złóż swoją ładowarkę.</h2></div><p class="lead" style="max-width: 470px">Wybierz model i opcje. Pokażemy, czego taka wersja wymaga od instalacji. Dokładny model potwierdzimy po zdjęciu rozdzielnicy.</p></div>
+      <div class="evcfg ri">
+        <div class="evcv">
+          <div class="evglow"></div>
+          <img src="{{cf.src}}" alt="{{cf.alt}}" class="{{cf.icls}}">
+          <sc-if value="{{cf.wall}}" hint-placeholder-val="{{ false }}"><span class="evcol"><i style="{{cf.colSt}}"></i>{{cf.colN}}</span></sc-if>
+        </div>
+        <div class="evco">
+          <div class="cq"><span>Model</span><div class="seg" role="tablist" aria-label="Model"><sc-for list="{{cf.models}}" as="m" hint-placeholder-count="3"><button type="button" role="tab" class="{{m.cls}}" aria-selected="{{m.on}}" onClick="{{m.pick}}">{{m.n}}</button></sc-for></div></div>
+          <sc-for list="{{cf.opts}}" as="o" hint-placeholder-count="4"><div class="cq"><span>{{o.l}}</span><div class="seg"><sc-for list="{{o.ch}}" as="c" hint-placeholder-count="3"><button type="button" class="{{c.cls}}" aria-pressed="{{c.on}}" onClick="{{c.pick}}">{{c.n}}</button></sc-for></div></div></sc-for>
+          <sc-if value="{{cf.wall}}" hint-placeholder-val="{{ false }}"><div class="cq"><span>Kolor obudowy</span><div class="evsw"><sc-for list="{{cf.cols}}" as="c" hint-placeholder-count="6"><button type="button" class="{{c.cls}}" style="{{c.st}}" aria-pressed="{{c.on}}" aria-label="{{c.n}}" title="{{c.n}}" onClick="{{c.pick}}"></button></sc-for></div><small class="evsm">Dostępność koloru potwierdzamy przy zamówieniu.</small></div></sc-if>
+        </div>
+        <div class="evcr">
+          <span class="svk">Twoja konfiguracja</span>
+          <b class="evcrn">{{cf.title}}</b>
+          <ul class="evspec"><sc-for list="{{cf.out}}" as="s" hint-placeholder-count="6"><li><span>{{s.k}}</span><b>{{s.v}}</b></li></sc-for></ul>
+          <div class="evinst"><!--i:P.bolt:18--><span>{{cf.inst}}</span></div>
+          <a class="btn btn-p" href="{{cf.href}}">Zapytaj o tę wersję</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="urzadzenia" class="{{rv.dev}}" data-rv="dev" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Porównanie</span><h2 class="h2">CC Home, CC Wall i CC City obok siebie.</h2></div></div>
+      <div class="tblw ri">
+        <table class="tbl evtbl">
+          <thead><tr><th></th><th>CC Home</th><th>CC Wall</th><th>CC City</th></tr></thead>
+          <tbody><sc-for list="{{devt}}" as="r" hint-placeholder-count="12"><tr><td><b>{{r.k}}</b></td><td>{{r.a}}</td><td>{{r.b}}</td><td>{{r.c}}</td></tr></sc-for></tbody>
+        </table>
+      </div>
+      <p class="xc-swipe" aria-hidden="true">Przesuń tabelę w bok, żeby zobaczyć CC City →</p>
+      <p class="src ri" style="margin-top: 10px">Przed zamówieniem potwierdzamy aktualne parametry i dostępność wybranej wersji.</p>
+    </div>
+  </section>
+
+  <section id="kalkulator" class="{{rv.kalk}}" data-rv="kalk" style="padding: 0 0 104px">
+    <div class="wrap evkalk">
+      <div class="evkt ri">
+        <span class="eye">Kalkulator</span>
+        <h2 class="h2">Ile potrwa ładowanie Twojego auta?</h2>
+        <p class="lead">Ustaw baterię, zakres ładowania i moc. Zobaczysz, czy mocniejsza ładowarka ma u Ciebie sens.</p>
+        <ul class="list" style="gap: 10px; margin-top: 18px"><sc-for list="{{kTips}}" as="t" hint-placeholder-count="3"><li style="font-size: 15px"><i><!--i:P.check:13:2.6--></i><span style="color: var(--soft)">{{t}}</span></li></sc-for></ul>
+      </div>
+          <div class="ill ri" role="region" aria-label="Kalkulator czasu ładowania samochodu elektrycznego">
+            <div class="illbar">
+              <div class="seg" role="tablist" aria-label="Gdzie ładujesz"><sc-for list="{{ev.paths}}" as="p" hint-placeholder-count="3"><button type="button" role="tab" class="{{p.cls}}" aria-selected="{{p.on}}" onClick="{{p.pick}}"><!--i:p.ic:15-->{{p.n}}</button></sc-for></div>
+              <span class="tag a">{{ev.dev}}</span>
+            </div>
+            <svg class="evs {{ev.scls}}" viewBox="0 0 640 260" aria-hidden="true">
+              <rect width="640" height="260" class="evsky"></rect>
+              <path d="M0 180 L80 120 L150 150 L240 96 L330 146 L420 110 L520 150 L640 116 V200 H0 Z" class="evmtn"></path>
+              <path d="M226 102 L240 96 L252 104 Z M410 114 L420 110 L430 116 Z" class="evsnow"></path>
+              <rect y="200" width="640" height="60" class="evgnd"></rect>
+              <rect x="40" y="40" width="150" height="160" class="evwall"></rect>
+              <rect x="88" y="86" width="56" height="78" rx="12" class="evbox"></rect><rect x="98" y="98" width="36" height="20" rx="4" class="evlcd"></rect><foreignObject x="98" y="102" width="36" height="14" class="fo "><div xmlns="http://www.w3.org/1999/xhtml" class="fot evkw2">{{ev.kwTxt}}</div></foreignObject><circle cx="116" cy="138" r="7" class="evled"></circle>
+              <path d="M116 164 C116 230, 330 236, 372 172" class="evcab"></path>
+              <g class="evcar"><path d="M300 200 V170 Q302 150 330 146 L380 120 Q400 110 440 110 L500 112 Q530 116 556 146 L590 154 Q606 160 606 178 V200 Z" class="evbody"></path><path d="M392 124 L440 116 L452 146 H372 Z M462 116 L500 118 Q520 122 538 146 H470 Z" class="evglass"></path><circle cx="358" cy="202" r="22" class="evwh"></circle><circle cx="548" cy="202" r="22" class="evwh"></circle><circle cx="358" cy="202" r="9" class="evhub"></circle><circle cx="548" cy="202" r="9" class="evhub"></circle><rect x="364" y="164" width="14" height="12" rx="3" class="evport"></rect></g>
+              <g transform="translate(400 54)"><rect width="190" height="44" rx="12" class="evbat"></rect><rect x="6" y="6" height="32" rx="8" class="evfill" style="{{ev.fillSt}}"></rect><rect x="190" y="14" width="7" height="16" rx="2" class="evbat"></rect><foreignObject x="0" y="11" width="190" height="22" class="fo "><div xmlns="http://www.w3.org/1999/xhtml" class="fot evpct2">{{ev.pct}}%</div></foreignObject></g>
+              <sc-if value="{{ev.winter}}" hint-placeholder-val="{{ false }}"><sc-for list="{{ev.flakes}}" as="f" hint-placeholder-count="20"><circle cx="{{f.x}}" cy="{{f.y}}" r="{{f.r}}" class="evflake" style="{{f.st}}"></circle></sc-for></sc-if>
+            </svg>
+            <div class="evcalc">
+              <div class="cq"><span>Bateria auta: {{ev.bat}} kWh</span><input class="rng" type="range" min="30" max="110" step="5" value="{{ev.bat}}" onInput="{{ev.onBat}}" aria-label="Pojemność baterii w kWh"></div>
+              <div class="cq"><span>Ładujesz od – do</span><div class="seg"><sc-for list="{{ev.ranges}}" as="r" hint-placeholder-count="3"><button type="button" class="{{r.cls}}" aria-pressed="{{r.on}}" onClick="{{r.pick}}">{{r.n}}</button></sc-for></div></div>
+              <div class="cq"><span>Moc ładowarki</span><div class="seg"><sc-for list="{{ev.pw}}" as="r" hint-placeholder-count="4"><button type="button" class="{{r.cls}}" aria-pressed="{{r.on}}" disabled="{{r.dis}}" title="{{r.tip}}" onClick="{{r.pick}}">{{r.n}}</button></sc-for></div></div>
+              <div class="cq"><span>Ile przyjmuje auto (AC)</span><div class="seg"><sc-for list="{{ev.obc}}" as="r" hint-placeholder-count="3"><button type="button" class="{{r.cls}}" aria-pressed="{{r.on}}" onClick="{{r.pick}}">{{r.n}}</button></sc-for></div></div>
+            </div>
+            <div class="evres">
+              <div><span>Czas ładowania</span><b>{{ev.time}}</b></div>
+              <div><span>Energia</span><b>{{ev.kwh}} kWh</b></div>
+              <div><span>Moc w praktyce</span><b>{{ev.eff}} kW</b></div>
+              <div><span>Zasilanie</span><b>{{ev.phase}}</b></div>
+            </div>
+            <div class="nvrnote" style="color: var(--muted); padding: 0 16px 16px; font-size: 13px">{{ev.note}}</div>
+          </div>
+    </div>
+  </section>
+
+  <section id="formalnosci" class="{{rv.form}}" data-rv="form" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Formalności</span><h2 class="h2">Przyłącze, UDT, wspólnota. Pomagamy przejść przez wszystko.</h2></div></div>
+      <div class="g2"><sc-for list="{{form}}" as="f" hint-placeholder-count="4"><div class="card feat ri"><span class="ico"><!--i:f.ic:22--></span><b class="h3">{{f.t}}</b><p>{{f.d}}</p><span class="src">{{f.s}}</span></div></sc-for></div>
+    </div>
+  </section>
+
+<!--@odbsec-->
+<!--@pkgs-->
+<!--@cena-->
+<!--@faqsec-->
+<!--@relsec-->

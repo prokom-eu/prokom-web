@@ -1,0 +1,137 @@
+{
+ "_strona": "PoradnikRodo",
+ "_title": "Monitoring w pensjonacie a RODO: gdzie kamera może patrzeć | PRO-KOM Instalacje",
+ "_description": "Monitoring a RODO w pensjonacie, sklepie i firmie: tabliczki, czas przechowywania nagrań, kamery a prywatność gości i pracowników. Przepisy ze źródłami.",
+ "_uwaga": "Zrzut danych z wizualizacji v4.0 (stan początkowy strony, motyw jasny). Teksty = treść do seeda. Klucze UI (cls, on, pick) pomijaj.",
+ "dane": {
+  "ctaEye": "Monitoring ustawiony pod RODO",
+  "ctaH": "Chcesz, żebyśmy sprawdzili Twój monitoring?",
+  "ctaP": "Przegląd kadrów, masek, czasu nagrań i haseł. Bez wymiany sprzętu, jeśli nie trzeba.",
+  "ar": {
+   "toc": [
+    {
+     "href": "#czy-mozna",
+     "n": "Czy można"
+    },
+    {
+     "href": "#gdzie",
+     "n": "Gdzie tak, gdzie nie"
+    },
+    {
+     "href": "#jak-dlugo",
+     "n": "Jak długo nagrania"
+    },
+    {
+     "href": "#tabliczka",
+     "n": "Tabliczka"
+    },
+    {
+     "href": "#sasiad",
+     "n": "Kamera a sąsiad"
+    },
+    {
+     "href": "#dzwiek",
+     "n": "Bez dźwięku"
+    },
+    {
+     "href": "#pracownicy",
+     "n": "Pracownicy"
+    },
+    {
+     "href": "#podzial",
+     "n": "Kto co robi"
+    },
+    {
+     "href": "#test",
+     "n": "Sprawdź się"
+    }
+   ],
+   "tldr": [
+    "Monitoring w pensjonacie jest legalny, ale właściciel odpowiada za niego jak administrator danych.",
+    "Parking, wejście, narciarnia: tak. Pokoje, łazienki, sauna, posesje sąsiadów: nie.",
+    "Kodeks pracy: nagrania z monitoringu pracowników najwyżej 3 miesiące. EROD zaleca możliwie krótko, zwykle kilka dni.",
+    "Sama naklejka z kamerą nie wystarczy. Potrzebna tabliczka i pełna informacja."
+   ],
+   "we": [
+    "Kadry kamer i maski prywatności",
+    "Czas nadpisywania nagrań",
+    "Hasła i konta tylko dla upoważnionych",
+    "Miejsca na tabliczki"
+   ],
+   "you": [
+    "Cel monitoringu",
+    "Informacja dla gości i pracowników",
+    "Układ zbiorowy, regulamin pracy lub obwieszczenie",
+    "Udostępnianie nagrań na wniosek"
+   ],
+   "qz": [
+    {
+     "t": "Kamery nie obejmują pokoi, łazienek ani sauny",
+     "k": "✓",
+     "on": "true",
+     "cls": "chk on"
+    },
+    {
+     "t": "Posesja sąsiada i droga są zamaskowane",
+     "k": "",
+     "on": "false",
+     "cls": "chk"
+    },
+    {
+     "t": "Mikrofony w kamerach są wyłączone",
+     "k": "✓",
+     "on": "true",
+     "cls": "chk on"
+    },
+    {
+     "t": "Nagrania nadpisują się automatycznie po ustalonym czasie",
+     "k": "",
+     "on": "false",
+     "cls": "chk"
+    },
+    {
+     "t": "Przy wejściu w strefę wisi tabliczka z administratorem i celem",
+     "k": "",
+     "on": "false",
+     "cls": "chk"
+    },
+    {
+     "t": "Pełna informacja jest w recepcji lub na stronie",
+     "k": "",
+     "on": "false",
+     "cls": "chk"
+    },
+    {
+     "t": "Hasła do rejestratora są zmienione z fabrycznych",
+     "k": "",
+     "on": "false",
+     "cls": "chk"
+    }
+   ],
+   "bar": [
+    "on",
+    "on",
+    "",
+    "",
+    "",
+    "",
+    ""
+   ],
+   "res": "2 z 7. Brakujące punkty techniczne ustawimy przy przeglądzie. Przy pozostałych podpowiemy, co przygotować.",
+   "rel": [
+    {
+     "n": "Ile dni nagrań i jaki dysk",
+     "href": "Monitoring.dc.html#nagrania"
+    },
+    {
+     "n": "Wi-Fi dla gości a UKE",
+     "href": "Sieci.dc.html#portal"
+    },
+    {
+     "n": "Przegląd przed sezonem",
+     "href": "Serwis.dc.html#plany"
+    }
+   ]
+  }
+ }
+}

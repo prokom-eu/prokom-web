@@ -85,6 +85,26 @@ test.describe('Biznes footer', () => {
     await expect(page.getByRole('navigation', { name: 'Szybki kontakt' })).toBeHidden()
   })
 
+  test('has the K3.1 links, one e-mail and only the first address (K31b)', async ({ page }) => {
+    await page.goto(site('biznes.localhost'))
+    const footer = page.locator('footer')
+    const important = footer.getByRole('navigation', { name: 'Najważniejsze' })
+    await expect(important.getByRole('link')).toHaveText([
+      'Opieka IT',
+      'GoPOS',
+      'InsERT i KSeF',
+      'KSeF 2027',
+      'Dobierz zestaw w 60 s',
+    ])
+    // The IT review waits for the boss's approval — no link to it in the footer.
+    await expect(footer.locator('a[href*="przeglad"]')).toHaveCount(0)
+    // One e-mail on the whole footer: the line's inbox from its settings, not the company's.
+    const mails = footer.locator('a[href^="mailto:"]')
+    await expect(mails).toHaveCount(1)
+    await expect(mails).toHaveAttribute('href', /^mailto:biznes@/)
+    await expect(footer.locator('address')).toHaveCount(1)
+  })
+
   test('other lines keep their own footer', async ({ page }) => {
     await page.goto(site('instalacje.localhost'))
     await expect(
@@ -124,5 +144,47 @@ test.describe('seasonal bar', () => {
       })
       expect(restored.status).toBe(200)
     }
+  })
+})
+
+// K31b: product photos stand on the studio; a product without a photo shows its category icon —
+// never an empty `<img>` (K31-ZMIANY §4.10).
+test.describe('product pictures', () => {
+  for (const path of [
+    '/',
+    '/oferta',
+    '/oferta/kasy-fiskalne',
+    '/produkt/posnet-ergo-online',
+    // A card without a manufacturer photo (K31-ZMIANY §4.10).
+    '/produkt/lenovo-thinkpad-p1-gen-9',
+  ]) {
+    test(`no empty or broken <img> on ${path}`, async ({ page }) => {
+      await page.goto(site('biznes.localhost', path))
+      await page.evaluate(async () => {
+        // Lazy pictures below the fold load only when scrolled to.
+        for (let y = 0; y < document.body.scrollHeight; y += 600) {
+          window.scrollTo(0, y)
+          await new Promise((resolve) => setTimeout(resolve, 30))
+        }
+      })
+      await page.waitForLoadState('networkidle')
+      const broken = await page
+        .locator('img')
+        .evaluateAll((images) =>
+          (images as HTMLImageElement[])
+            .filter((img) => !img.getAttribute('src') || (img.complete && img.naturalWidth === 0))
+            .map((img) => img.outerHTML.slice(0, 120)),
+        )
+      expect(broken).toEqual([])
+    })
+  }
+
+  test('a product without a photo shows the stand-in, not an image', async ({ page }) => {
+    await page.goto(site('biznes.localhost', '/produkt/lenovo-thinkpad-p1-gen-9'))
+    const note = page.getByText('Zdjęcie producenta pojawi się wkrótce.')
+    await expect(note).toBeVisible()
+    // The gallery stage holds the stand-in only: no <img> next to the note.
+    const stage = note.locator('xpath=ancestor::div[contains(@class,"isolate")][1]')
+    await expect(stage.locator('img')).toHaveCount(0)
   })
 })

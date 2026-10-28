@@ -1,0 +1,16 @@
+  <section class="phero">
+    <div class="hgrid"></div><div class="hglow"></div><div class="hglow2"></div><svg class="phmt" viewBox="0 0 1440 240" preserveAspectRatio="none" aria-hidden="true"><path class="phm1" d="M0 150 L120 96 L210 124 L330 54 L420 104 L520 74 L640 128 L760 62 L860 110 L980 70 L1100 120 L1220 80 L1330 116 L1440 90 V240 H0 Z"></path><path class="phm2" d="M0 196 L160 160 L300 182 L460 150 L620 186 L780 156 L940 190 L1100 162 L1260 188 L1440 166 V240 H0 Z"></path></svg>
+    <div class="wrap">
+      <nav class="crumb in d1" aria-label="Okruszki"><a href="Main.dc.html">Start</a><span>/</span><sc-if value="{{hero.mid}}" hint-placeholder-val="{{ true }}"><a href="{{hero.midH}}">{{hero.midT}}</a><span>/</span></sc-if><span style="color: var(--text)">{{hero.crumb}}</span></nav>
+      <div class="phw">
+        <div class="pht2">
+          <h1 class="h1 in d2"><span class="eye h1k">{{hero.eye}}</span><span class="vh">: </span>{{hero.h1a}} <span class="acc">{{hero.h1b}}</span></h1>
+          <p class="lead in d3">{{hero.lead}}</p>
+          <div class="in d4" style="display: flex; flex-wrap: wrap; gap: 10px">
+            <a href="{{hero.ctaHref}}" class="btn btn-p">{{hero.cta}}</a>
+            <a href="{{K.telH}}" class="btn btn-g"><!--i:P.phone--><span class="ph">{{K.tel}}</span></a>
+          </div>
+          <div class="pkv in d5"><sc-for list="{{hero.kv}}" as="k" hint-placeholder-count="3"><div class="kv"><b>{{k.b}}</b><span>{{k.s}}</span></div></sc-for></div>
+          <div class="tags in d6"><sc-for list="{{hero.tags}}" as="t" hint-placeholder-count="4"><span class="tag a"><!--i:P.check:13:2.6-->{{t.n}}</span></sc-for></div>
+        </div>
+        <div class="phv in d3">

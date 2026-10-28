@@ -1,0 +1,890 @@
+{
+ "_uwaga": "Pełna oferta: 76 rozwiązań w 10 obszarach (źródło: zrodlo/common.js → offer()). Pole obiekty = kategorie filtra Oferty (słownik niżej), NIE klucze InstObjects.",
+ "slownikFiltra": {
+  "dom": "Dom",
+  "apt": "Apartament",
+  "pens": "Pensjonat i hotel",
+  "rest": "Restauracja",
+  "sklep": "Sklep",
+  "firma": "Firma i hala",
+  "inst": "Kościół, szkoła, gmina",
+  "dev": "Deweloper"
+ },
+ "regulaWyswietlania": "Rozwiązanie z 7+ kategoriami pokazuje etykietę „każdy obiekt” (Oferta.js).",
+ "obszary": [
+  {
+   "usluga": "kam",
+   "nazwaUslugi": "Monitoring i kamery",
+   "rodzina": "Bezpieczeństwo",
+   "opis": "Kompletny system, a nie same kamery: rejestrator, dyski do pracy 24/7, zasilanie PoE, UPS i aplikacja w telefonie.",
+   "marki": [
+    "Hikvision",
+    "Dahua",
+    "BCS",
+    "Ubiquiti"
+   ],
+   "rozwiazania": [
+    {
+     "nazwa": "Monitoring domu i posesji",
+     "opis": "Podjazd, furtka i ogród. Podgląd i nagrania w telefonie.",
+     "obiekty": [
+      "dom",
+      "apt"
+     ],
+     "kolejnosc": 1
+    },
+    {
+     "nazwa": "Monitoring pensjonatu i hotelu",
+     "opis": "Parking, wejścia i narciarnia, bez zaglądania do pokoi gości.",
+     "obiekty": [
+      "pens",
+      "apt"
+     ],
+     "kolejnosc": 2
+    },
+    {
+     "nazwa": "Monitoring firmy, hali i placu",
+     "opis": "Wjazd, rampa, magazyn i kasy. Nagrania jako dowód.",
+     "obiekty": [
+      "firma",
+      "sklep",
+      "rest"
+     ],
+     "kolejnosc": 3
+    },
+    {
+     "nazwa": "Kamery z kolorem w nocy i detekcją AI",
+     "opis": "Odróżniają człowieka i auto od kota, liści i śniegu.",
+     "obiekty": [
+      "dom",
+      "apt",
+      "pens",
+      "rest",
+      "sklep",
+      "firma",
+      "inst",
+      "dev"
+     ],
+     "kolejnosc": 4
+    },
+    {
+     "nazwa": "Rejestratory NVR i dyski do monitoringu",
+     "opis": "Dysk dobrany do liczby kamer i czasu przechowywania nagrań.",
+     "obiekty": [
+      "dom",
+      "apt",
+      "pens",
+      "rest",
+      "sklep",
+      "firma",
+      "inst",
+      "dev"
+     ],
+     "kolejnosc": 5
+    },
+    {
+     "nazwa": "Switche PoE, UPS i szafa rack",
+     "opis": "Kamera zasilana tym samym kablem, którym przesyła obraz. Działa też przy zaniku prądu.",
+     "obiekty": [
+      "dom",
+      "apt",
+      "pens",
+      "rest",
+      "sklep",
+      "firma",
+      "inst",
+      "dev"
+     ],
+     "kolejnosc": 6
+    },
+    {
+     "nazwa": "Rozpoznawanie tablic rejestracyjnych",
+     "opis": "Wjazd na parking, brama albo szlaban i historia aut.",
+     "obiekty": [
+      "firma",
+      "pens",
+      "inst",
+      "dev"
+     ],
+     "kolejnosc": 7
+    },
+    {
+     "nazwa": "Kamery tam, gdzie nie ma kabla",
+     "opis": "Most radiowy do odległej bramy albo łącze komórkowe na budowę.",
+     "obiekty": [
+      "firma",
+      "dev",
+      "dom"
+     ],
+     "kolejnosc": 8
+    },
+    {
+     "nazwa": "Monitoring zgodny z zasadami RODO",
+     "opis": "Maski prywatności, czas przechowywania i oznakowanie terenu.",
+     "obiekty": [
+      "dom",
+      "apt",
+      "pens",
+      "rest",
+      "sklep",
+      "firma",
+      "inst",
+      "dev"
+     ],
+     "kolejnosc": 9
+    },
+    {
+     "nazwa": "Przejęcie i modernizacja starego monitoringu",
+     "opis": "Wymiana kamer analogowych, pomoc w odzyskaniu dostępu, nowy rejestrator.",
+     "obiekty": [
+      "dom",
+      "apt",
+      "pens",
+      "rest",
+      "sklep",
+      "firma",
+      "inst",
+      "dev"
+     ],
+     "kolejnosc": 10
+    }
+   ]
+  },
+  {
+   "usluga": "alarm",
+   "nazwaUslugi": "Alarmy i wideodomofony",
+   "rodzina": "Bezpieczeństwo",
+   "opis": "Czujki, syreny i powiadomienia na telefon, a przy furtce wideodomofon, który odbierasz z dowolnego miejsca.",
+   "marki": [
+    "Satel",
+    "Ajax",
+    "Hikvision",
+    "Dahua",
+    "BCS"
+   ],
+   "rozwiazania": [
+    {
+     "nazwa": "Alarm do domu i mieszkania",
+     "opis": "Czujki ruchu i otwarcia, syrena, sterowanie z aplikacji.",
+     "obiekty": [
+      "dom",
+      "apt"
+     ],
+     "kolejnosc": 1
+    },
+    {
+     "nazwa": "Alarm bezprzewodowy bez kucia ścian",
+     "opis": "Do wykończonego domu, apartamentu i biura.",
+     "obiekty": [
+      "dom",
+      "apt",
+      "firma"
+     ],
+     "kolejnosc": 2
+    },
+    {
+     "nazwa": "Ochrona domu letniskowego",
+     "opis": "Czujki zalania, dymu i spadku temperatury działające całą dobę.",
+     "obiekty": [
+      "dom",
+      "apt",
+      "pens"
+     ],
+     "kolejnosc": 3
+    },
+    {
+     "nazwa": "Alarm dla firmy i sklepu",
+     "opis": "Strefy, harmonogram uzbrojenia i opcjonalnie agencja ochrony.",
+     "obiekty": [
+      "firma",
+      "sklep",
+      "rest",
+      "inst"
+     ],
+     "kolejnosc": 4
+    },
+    {
+     "nazwa": "Wideodomofon z aplikacją",
+     "opis": "Widzisz, kto stoi przy furtce, i otwierasz z telefonu.",
+     "obiekty": [
+      "dom",
+      "apt",
+      "pens"
+     ],
+     "kolejnosc": 5
+    },
+    {
+     "nazwa": "Wideodomofon na starych dwóch przewodach",
+     "opis": "Modernizacja bez kucia, jeśli przewód się nada.",
+     "obiekty": [
+      "dom",
+      "firma"
+     ],
+     "kolejnosc": 6
+    },
+    {
+     "nazwa": "Domofony dla wspólnot i budynków",
+     "opis": "Panel z listą lokatorów, kody, breloki i aplikacja.",
+     "obiekty": [
+      "dev",
+      "firma"
+     ],
+     "kolejnosc": 7
+    },
+    {
+     "nazwa": "Brama i furtka sterowane z telefonu",
+     "opis": "Otwieranie z aplikacji wideodomofonu albo z panelu.",
+     "obiekty": [
+      "dom",
+      "pens",
+      "firma"
+     ],
+     "kolejnosc": 8
+    }
+   ]
+  },
+  {
+   "usluga": "kd",
+   "nazwaUslugi": "Kontrola dostępu i zamki",
+   "rodzina": "Bezpieczeństwo",
+   "opis": "Kody, karty i zamki elektroniczne. Gość albo pracownik wchodzi sam, a Ty wiesz, kto i kiedy.",
+   "marki": [],
+   "rozwiazania": [
+    {
+     "nazwa": "Zamki z kodem do apartamentów",
+     "opis": "Kod ważny tylko w czasie pobytu, wysyłany z systemu rezerwacji.",
+     "obiekty": [
+      "apt",
+      "pens"
+     ],
+     "kolejnosc": 1
+    },
+    {
+     "nazwa": "Hotelowe zamki na karty",
+     "opis": "Koder kart na recepcji i rejestr otwarć.",
+     "obiekty": [
+      "pens"
+     ],
+     "kolejnosc": 2
+    },
+    {
+     "nazwa": "Karty i breloki dla pracowników",
+     "opis": "Strefy, godziny wejść, blokada zgubionej karty w minutę.",
+     "obiekty": [
+      "firma",
+      "sklep",
+      "inst"
+     ],
+     "kolejnosc": 3
+    },
+    {
+     "nazwa": "Kontrola wjazdu",
+     "opis": "Brama i szlaban na pilota, kartę albo aplikację.",
+     "obiekty": [
+      "firma",
+      "dev",
+      "pens"
+     ],
+     "kolejnosc": 4
+    },
+    {
+     "nazwa": "Kontrola dostępu we wspólnocie",
+     "opis": "Karty do klatek, garaży i śmietników.",
+     "obiekty": [
+      "dev"
+     ],
+     "kolejnosc": 5
+    },
+    {
+     "nazwa": "Harmonogramy i historia wejść",
+     "opis": "Kto, kiedy i którymi drzwiami. Z zasadami RODO.",
+     "obiekty": [
+      "firma",
+      "inst",
+      "pens"
+     ],
+     "kolejnosc": 6
+    }
+   ]
+  },
+  {
+   "usluga": "wifi",
+   "nazwaUslugi": "Sieci i Wi-Fi",
+   "rodzina": "Łączność",
+   "opis": "Sieć, która działa w każdym pokoju i nie pada w sezonie: okablowanie, szafy, światłowód, Wi-Fi i łącze zapasowe.",
+   "marki": [
+    "Ubiquiti",
+    "MikroTik",
+    "TP-Link",
+    "Cisco"
+   ],
+   "rozwiazania": [
+    {
+     "nazwa": "Wi-Fi w całym domu i ogrodzie",
+     "opis": "Bez martwych stref, jedna nazwa sieci.",
+     "obiekty": [
+      "dom",
+      "apt"
+     ],
+     "kolejnosc": 1
+    },
+    {
+     "nazwa": "Wi-Fi dla gości z portalem logowania",
+     "opis": "Osobna sieć gości, logo obiektu, vouchery na czas pobytu.",
+     "obiekty": [
+      "pens",
+      "apt",
+      "rest"
+     ],
+     "kolejnosc": 2
+    },
+    {
+     "nazwa": "Sieć firmowa i bezpieczeństwo",
+     "opis": "Router, firewall i osobne sieci dla kas, kamer i gości.",
+     "obiekty": [
+      "firma",
+      "sklep",
+      "rest",
+      "inst"
+     ],
+     "kolejnosc": 3
+    },
+    {
+     "nazwa": "Okablowanie strukturalne",
+     "opis": "Gniazda, patchpanele i pomiary każdego toru z protokołem.",
+     "obiekty": [
+      "firma",
+      "dev",
+      "inst"
+     ],
+     "kolejnosc": 4
+    },
+    {
+     "nazwa": "Szafy rack i porządek w kablach",
+     "opis": "Opisane porty, zasilanie awaryjne, wentylacja.",
+     "obiekty": [
+      "firma",
+      "pens",
+      "inst"
+     ],
+     "kolejnosc": 5
+    },
+    {
+     "nazwa": "Światłowód i spawanie",
+     "opis": "Między budynkami i na dłuższych odcinkach, odporny na przepięcia.",
+     "obiekty": [
+      "firma",
+      "pens",
+      "dev",
+      "inst"
+     ],
+     "kolejnosc": 6
+    },
+    {
+     "nazwa": "Mosty radiowe między budynkami",
+     "opis": "Internet i kamery w drugim budynku bez kopania rowu.",
+     "obiekty": [
+      "pens",
+      "firma",
+      "dom"
+     ],
+     "kolejnosc": 7
+    },
+    {
+     "nazwa": "Łącze zapasowe",
+     "opis": "Gdy padnie główne łącze, sieć przełącza się na zapasowe.",
+     "obiekty": [
+      "firma",
+      "pens",
+      "sklep"
+     ],
+     "kolejnosc": 8
+    },
+    {
+     "nazwa": "Zdalny nadzór nad siecią",
+     "opis": "Widzimy awarię, zanim zadzwonisz, wiele rzeczy naprawiamy zdalnie.",
+     "obiekty": [
+      "dom",
+      "apt",
+      "pens",
+      "rest",
+      "sklep",
+      "firma",
+      "inst",
+      "dev"
+     ],
+     "kolejnosc": 9
+    }
+   ]
+  },
+  {
+   "usluga": "tel",
+   "nazwaUslugi": "Teletechnika w budownictwie",
+   "rodzina": "Łączność",
+   "opis": "Dla deweloperów, wykonawców i inwestorów: instalacje słaboprądowe budynku z pomiarami i dokumentacją do odbioru.",
+   "marki": [],
+   "rozwiazania": [
+    {
+     "nazwa": "Instalacja telekomunikacyjna w nowym budynku",
+     "opis": "Gotowa na internet, telefon i telewizję, zgodnie z megaustawą.",
+     "obiekty": [
+      "dev"
+     ],
+     "kolejnosc": 1
+    },
+    {
+     "nazwa": "Światłowód do lokali",
+     "opis": "Od punktu styku do każdego mieszkania i lokalu.",
+     "obiekty": [
+      "dev"
+     ],
+     "kolejnosc": 2
+    },
+    {
+     "nazwa": "RTV/SAT zbiorcza",
+     "opis": "Jedna antena, sygnał w każdym lokalu.",
+     "obiekty": [
+      "dev",
+      "pens"
+     ],
+     "kolejnosc": 3
+    },
+    {
+     "nazwa": "Domofony i wideodomofony w klatkach",
+     "opis": "Panele wejściowe, unifony i monitory.",
+     "obiekty": [
+      "dev"
+     ],
+     "kolejnosc": 4
+    },
+    {
+     "nazwa": "Okablowanie biur i lokali usługowych",
+     "opis": "Gniazda, szafa, punkty dostępowe.",
+     "obiekty": [
+      "firma",
+      "sklep",
+      "rest"
+     ],
+     "kolejnosc": 5
+    },
+    {
+     "nazwa": "Pomiary i dokumentacja powykonawcza",
+     "opis": "Protokoły pomiarów i opis tras do odbioru.",
+     "obiekty": [
+      "dev",
+      "firma",
+      "inst"
+     ],
+     "kolejnosc": 6
+    }
+   ]
+  },
+  {
+   "usluga": "ant",
+   "nazwaUslugi": "Anteny RTV/SAT",
+   "rodzina": "Łączność",
+   "opis": "Anteny ustawiane miernikiem i montowane z zapasem na halny. Od domu po telewizję w każdym pokoju pensjonatu.",
+   "marki": [],
+   "rozwiazania": [
+    {
+     "nazwa": "Anteny satelitarne",
+     "opis": "Ustawienie miernikiem na Hot Bird 13°E.",
+     "obiekty": [
+      "dom",
+      "apt",
+      "pens"
+     ],
+     "kolejnosc": 1
+    },
+    {
+     "nazwa": "Anteny naziemne DVB-T2",
+     "opis": "Dobór kierunku i nadajnika na Podhalu.",
+     "obiekty": [
+      "dom",
+      "apt"
+     ],
+     "kolejnosc": 2
+    },
+    {
+     "nazwa": "Instalacje zbiorcze",
+     "opis": "Multiswitch i rozprowadzenie w budynku.",
+     "obiekty": [
+      "dev",
+      "pens"
+     ],
+     "kolejnosc": 3
+    },
+    {
+     "nazwa": "Telewizja w pensjonacie i hotelu",
+     "opis": "Ten sam zestaw kanałów w każdym pokoju.",
+     "obiekty": [
+      "pens"
+     ],
+     "kolejnosc": 4
+    },
+    {
+     "nazwa": "Serwis po halnym i burzy",
+     "opis": "Ponowne ustawienie, wymiana konwertera i okablowania.",
+     "obiekty": [
+      "dom",
+      "pens"
+     ],
+     "kolejnosc": 5
+    }
+   ]
+  },
+  {
+   "usluga": "smart",
+   "nazwaUslugi": "Smart home Ampio",
+   "rodzina": "Komfort i obraz",
+   "opis": "Polski system Ampio. Światło, ogrzewanie, rolety, brama, alarm i kamery w jednej aplikacji. Działa także bez internetu.",
+   "marki": [
+    "Ampio"
+   ],
+   "rozwiazania": [
+    {
+     "nazwa": "Smart home w nowym domu",
+     "opis": "Projekt przed tynkami, okablowanie i rozdzielnica.",
+     "obiekty": [
+      "dom"
+     ],
+     "kolejnosc": 1
+    },
+    {
+     "nazwa": "Smart home w remoncie",
+     "opis": "Modernizacja bez przebudowy całego domu.",
+     "obiekty": [
+      "dom",
+      "apt"
+     ],
+     "kolejnosc": 2
+    },
+    {
+     "nazwa": "Oświetlenie i sceny",
+     "opis": "Jednym dotknięciem: przyjazd, wyjście, noc, kino.",
+     "obiekty": [
+      "dom",
+      "apt",
+      "pens",
+      "rest"
+     ],
+     "kolejnosc": 3
+    },
+    {
+     "nazwa": "Ogrzewanie strefowe i pompa ciepła",
+     "opis": "Każdy pokój osobno, harmonogramy i tryb oszczędny.",
+     "obiekty": [
+      "dom",
+      "apt",
+      "pens"
+     ],
+     "kolejnosc": 4
+    },
+    {
+     "nazwa": "Rolety, żaluzje i markizy",
+     "opis": "Według godziny, słońca i wiatru.",
+     "obiekty": [
+      "dom",
+      "apt",
+      "pens"
+     ],
+     "kolejnosc": 5
+    },
+    {
+     "nazwa": "Fotowoltaika i zarządzanie energią",
+     "opis": "Prąd ze słońca tam, gdzie się opłaca.",
+     "obiekty": [
+      "dom",
+      "firma",
+      "pens"
+     ],
+     "kolejnosc": 6
+    },
+    {
+     "nazwa": "Szklane panele Ampio M-DOT",
+     "opis": "Własne ikony, podpisy i kolor szkła.",
+     "obiekty": [
+      "dom",
+      "apt",
+      "pens"
+     ],
+     "kolejnosc": 7
+    },
+    {
+     "nazwa": "Integracja z alarmem, kamerami i bramą",
+     "opis": "Jedna aplikacja zamiast pięciu.",
+     "obiekty": [
+      "dom",
+      "pens",
+      "firma"
+     ],
+     "kolejnosc": 8
+    },
+    {
+     "nazwa": "Smart apartament i pensjonat",
+     "opis": "Puste pokoje w trybie oszczędnym, nagrzanie przed przyjazdem.",
+     "obiekty": [
+      "apt",
+      "pens"
+     ],
+     "kolejnosc": 9
+    },
+    {
+     "nazwa": "Sterowanie głosem i Matter",
+     "opis": "Apple, Google i Alexa, jeśli lubisz mówić do domu.",
+     "obiekty": [
+      "dom",
+      "apt"
+     ],
+     "kolejnosc": 10
+    }
+   ]
+  },
+  {
+   "usluga": "snd",
+   "nazwaUslugi": "Nagłośnienie",
+   "rodzina": "Komfort i obraz",
+   "opis": "Stałe nagłośnienie APART i innych marek: muzyka w tle, komunikaty i mowa zrozumiała w ostatniej ławce.",
+   "marki": [
+    "APART",
+    "JBL",
+    "Mackie",
+    "RCF",
+    "Electro-Voice",
+    "LDM",
+    "EAW",
+    "Alto",
+    "Audio-Technica"
+   ],
+   "rozwiazania": [
+    {
+     "nazwa": "Muzyka w restauracji i kawiarni",
+     "opis": "Sala, bar, taras i toalety z osobną głośnością.",
+     "obiekty": [
+      "rest",
+      "pens"
+     ],
+     "kolejnosc": 1
+    },
+    {
+     "nazwa": "Nagłośnienie hotelu i pensjonatu",
+     "opis": "Jadalnia, recepcja, SPA i sala, komunikaty do wybranych stref.",
+     "obiekty": [
+      "pens"
+     ],
+     "kolejnosc": 2
+    },
+    {
+     "nazwa": "Nagłośnienie kościoła",
+     "opis": "Zrozumiała mowa, a nie tylko głośniej.",
+     "obiekty": [
+      "inst"
+     ],
+     "kolejnosc": 3
+    },
+    {
+     "nazwa": "Sale konferencyjne i sale obrad",
+     "opis": "Mikrofony, nagrywanie i transmisja.",
+     "obiekty": [
+      "inst",
+      "firma",
+      "pens"
+     ],
+     "kolejnosc": 4
+    },
+    {
+     "nazwa": "Sklepy: muzyka i komunikaty",
+     "opis": "Tło dla klientów i komunikaty dla obsługi.",
+     "obiekty": [
+      "sklep"
+     ],
+     "kolejnosc": 5
+    },
+    {
+     "nazwa": "Szkoły i hale sportowe",
+     "opis": "Dzwonki, komunikaty i nagłośnienie apeli.",
+     "obiekty": [
+      "inst"
+     ],
+     "kolejnosc": 6
+    },
+    {
+     "nazwa": "Ogrody, tarasy i baseny",
+     "opis": "Głośniki zewnętrzne odporne na pogodę.",
+     "obiekty": [
+      "dom",
+      "pens",
+      "rest"
+     ],
+     "kolejnosc": 7
+    },
+    {
+     "nazwa": "Mikrofony i systemy konferencyjne",
+     "opis": "Przewodowe, bezprzewodowe i stołowe.",
+     "obiekty": [
+      "inst",
+      "firma"
+     ],
+     "kolejnosc": 8
+    }
+   ]
+  },
+  {
+   "usluga": "scr",
+   "nazwaUslugi": "Ekrany i digital signage",
+   "rodzina": "Komfort i obraz",
+   "opis": "Ekrany profesjonalne do pracy wiele godzin dziennie i treść zmieniana zdalnie. Sami używamy tego w naszych salonach.",
+   "marki": [
+    "Samsung",
+    "Avtek",
+    "Sharp/NEC"
+   ],
+   "rozwiazania": [
+    {
+     "nazwa": "Ekrany w witrynie",
+     "opis": "Jasne ekrany czytelne w słońcu, sterowane harmonogramem.",
+     "obiekty": [
+      "sklep",
+      "rest",
+      "pens"
+     ],
+     "kolejnosc": 1
+    },
+    {
+     "nazwa": "Menu board w gastronomii",
+     "opis": "Ceny i menu zmieniane z komputera, bez drukowania.",
+     "obiekty": [
+      "rest"
+     ],
+     "kolejnosc": 2
+    },
+    {
+     "nazwa": "Ekran w recepcji hotelu",
+     "opis": "Pogoda, stoki, atrakcje i oferta obiektu.",
+     "obiekty": [
+      "pens"
+     ],
+     "kolejnosc": 3
+    },
+    {
+     "nazwa": "Ściany wideo",
+     "opis": "Kilka ekranów jako jeden obraz.",
+     "obiekty": [
+      "firma",
+      "sklep",
+      "inst"
+     ],
+     "kolejnosc": 4
+    },
+    {
+     "nazwa": "Monitory interaktywne",
+     "opis": "Do szkół i sal spotkań.",
+     "obiekty": [
+      "inst",
+      "firma"
+     ],
+     "kolejnosc": 5
+    },
+    {
+     "nazwa": "Totemy informacyjne",
+     "opis": "Wolnostojące ekrany przy wejściu.",
+     "obiekty": [
+      "sklep",
+      "pens",
+      "inst"
+     ],
+     "kolejnosc": 6
+    },
+    {
+     "nazwa": "Zarządzanie treścią na wielu ekranach",
+     "opis": "Jedna zmiana trafia na ekrany w kilku lokalizacjach.",
+     "obiekty": [
+      "sklep",
+      "rest",
+      "pens",
+      "firma"
+     ],
+     "kolejnosc": 7
+    },
+    {
+     "nazwa": "Projektory i ekrany projekcyjne",
+     "opis": "Sale konferencyjne, szkoły, kościoły.",
+     "obiekty": [
+      "inst",
+      "firma",
+      "pens"
+     ],
+     "kolejnosc": 8
+    }
+   ]
+  },
+  {
+   "usluga": "ev",
+   "nazwaUslugi": "Ładowarki samochodów",
+   "rodzina": "E-mobilność",
+   "opis": "Pełna oferta ładowarek Elzab EcoPower produkowanych w Polsce: CC Home do garażu, CC Wall dla firm i obiektów, CC City na parking. Z doborem mocy do przyłącza i montażem.",
+   "marki": [
+    "Elzab EcoPower"
+   ],
+   "rozwiazania": [
+    {
+     "nazwa": "Ładowarka w domu",
+     "opis": "Elzab CC Home w garażu: 3,7, 7,4 albo 11 kW.",
+     "obiekty": [
+      "dom"
+     ],
+     "kolejnosc": 1
+    },
+    {
+     "nazwa": "Ładowarka ścienna z dwoma punktami",
+     "opis": "Elzab CC Wall, do 2×22 kW, na ścianę albo podstawę.",
+     "obiekty": [
+      "firma",
+      "pens"
+     ],
+     "kolejnosc": 2
+    },
+    {
+     "nazwa": "Ładowarki dla firm i floty",
+     "opis": "Karty RFID, aplikacja, dzielenie mocy przyłącza.",
+     "obiekty": [
+      "firma"
+     ],
+     "kolejnosc": 3
+    },
+    {
+     "nazwa": "Stacja wolnostojąca na parking",
+     "opis": "Elzab CC City z licznikiem MID, dwa auta naraz.",
+     "obiekty": [
+      "pens",
+      "rest",
+      "sklep",
+      "firma"
+     ],
+     "kolejnosc": 4
+    },
+    {
+     "nazwa": "Rozliczanie ładowania",
+     "opis": "OCPP i aplikacja, gdy ładowanie dla gości ma być płatne.",
+     "obiekty": [
+      "pens",
+      "rest",
+      "firma"
+     ],
+     "kolejnosc": 5
+    },
+    {
+     "nazwa": "Pomoc w formalnościach",
+     "opis": "Dozór techniczny, zgoda wspólnoty, moc przyłącza.",
+     "obiekty": [
+      "dom",
+      "firma",
+      "pens",
+      "dev"
+     ],
+     "kolejnosc": 6
+    }
+   ]
+  }
+ ]
+}

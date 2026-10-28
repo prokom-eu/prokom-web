@@ -1,0 +1,133 @@
+<!--@pheroA-->
+          <div class="ill" role="region" aria-label="Podgląd treści na ekranach w obiekcie">
+            <div class="illbar">
+              <div class="seg" role="tablist" aria-label="Gdzie stoi ekran"><sc-for list="{{tv.tabs}}" as="t" hint-placeholder-count="4"><button type="button" role="tab" class="{{t.cls}}" aria-selected="{{t.on}}" onClick="{{t.pick}}"><!--i:t.ic:15-->{{t.n}}</button></sc-for></div>
+              <span class="tag">{{tv.fmt}}</span>
+            </div>
+            <div class="tvstage">
+              <div class="{{tv.frame}}">
+                <div class="{{tv.scls}}" key="{{tv.k}}">
+                  <sc-if value="{{tv.isRec}}" hint-placeholder-val="{{ true }}">
+                    <div class="sl rec">
+                      <div class="slh"><b>{{tv.s.h}}</b><span>{{tv.clock}}</span></div>
+                      <div class="slg"><sc-for list="{{tv.s.items}}" as="i" hint-placeholder-count="3"><div class="sli"><!--i:i.ic:26:1.8--><b>{{i.v}}</b><span>{{i.n}}</span></div></sc-for></div>
+                      <div class="slf">{{tv.s.f}}</div>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{tv.isMenu}}" hint-placeholder-val="{{ false }}">
+                    <div class="sl menu">
+                      <div class="slh"><b>{{tv.s.h}}</b><span>{{tv.s.sub}}</span></div>
+                      <div class="mnl"><sc-for list="{{tv.s.items}}" as="i" hint-placeholder-count="4"><div class="mni"><span>{{i.n}}</span><i></i><b>{{i.v}}</b></div></sc-for></div>
+                      <div class="slf">{{tv.s.f}}</div>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{tv.isWin}}" hint-placeholder-val="{{ false }}">
+                    <div class="sl win"><span class="wbig">{{tv.s.h}}</span><span class="wsub">{{tv.s.sub}}</span><span class="wcta">{{tv.s.f}}</span></div>
+                  </sc-if>
+                  <sc-if value="{{tv.isConf}}" hint-placeholder-val="{{ false }}">
+                    <div class="sl conf"><div class="slh"><b>{{tv.s.h}}</b><span>{{tv.s.sub}}</span></div><div class="cfbars"><sc-for list="{{tv.s.items}}" as="i" hint-placeholder-count="4"><div class="cfb"><i style="{{i.st}}"></i><span>{{i.n}}</span></div></sc-for></div><div class="slf">{{tv.s.f}}</div></div>
+                  </sc-if>
+                </div>
+                <div class="tvdots"><sc-for list="{{tv.dots}}" as="d" hint-placeholder-count="3"><i class="{{d}}"></i></sc-for></div>
+              </div>
+            </div>
+            <div class="tvsched">
+              <span class="mut" style="font-size: 12.5px; font-weight: 800">Harmonogram treści:</span>
+              <div class="tvtl"><sc-for list="{{tv.sched}}" as="p" hint-placeholder-count="3"><span class="{{p.cls}}" style="{{p.st}}">{{p.n}}</span></sc-for><b style="{{tv.nowSt}}"></b></div>
+            </div>
+            <div class="nvrnote" style="color: var(--muted); padding: 0 16px 16px; font-size: 13.5px">{{tv.note}}</div>
+          </div>
+<!--@pheroB-->
+
+  <section id="gdzie" class="{{rv.gd}}" data-rv="gd" style="padding: 96px 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Gdzie montujemy ekrany</span><h2 class="h2">Ekran, który pracuje, a nie tylko świeci.</h2></div><p class="lead" style="max-width: 460px">Dobieramy ekran do miejsca, montujemy go, podłączamy odtwarzacz i ustawiamy harmonogram treści. Treść zmieniasz z telefonu albo zlecasz nam.</p></div>
+      <div class="g3"><sc-for list="{{gd}}" as="g" hint-placeholder-count="6"><div class="card feat ri"><span class="ico"><!--i:g.ic:22--></span><b class="h3">{{g.t}}</b><p>{{g.d}}</p></div></sc-for></div>
+      <div class="note ri" style="margin-top: 18px"><!--i:P.eye:20--><span>Realizacje: sale konferencyjna, szkoleniowa i marketingowa Blachotrapezu, Szkoła Podstawowa im. Adama Mickiewicza w Rabce-Zdroju, Caffe Europa w Nowym Sączu. Telewizję w pokojach gości robimy w ramach <a href="Anteny.dc.html" style="color: var(--accentText); font-weight: 800">instalacji antenowych</a>. <a href="Realizacje.dc.html" style="color: var(--accentText); font-weight: 800">Zobacz realizacje →</a></span></div>
+    </div>
+  </section>
+
+  <section id="dwa-salony" class="{{rv.syn}}" data-rv="syn" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div class="card dark ri synw">
+        <div style="display: flex; flex-direction: column; gap: 14px">
+          <span class="eye" style="color: #4CCBE6">Wdrażamy to u siebie</span>
+          <h2 class="h2" style="font-size: clamp(28px, 3vw, 42px)">Jedna zmiana ceny. Dwa salony. Kilka sekund.</h2>
+          <p class="lead">Taki system wdrażamy w naszych salonach w Rabce-Zdroju i Zakopanem: ceny telefonów zmieniamy w jednym miejscu, a ekrany w obu salonach odświeżają się same. Kliknij w demo i sprawdź, jak to działa. <span class="ph">[SZEF: potwierdź stan wdrożenia w salonach]</span></p>
+          <div class="synbtn"><sc-for list="{{sy.btns}}" as="b" hint-placeholder-count="3"><button type="button" class="btn btn-s hbtn-g" onClick="{{b.go}}">{{b.n}}</button></sc-for></div>
+          <span style="color: #9FB0B4; font-size: 14px" aria-live="polite">{{sy.log}}</span>
+        </div>
+        <div class="syns"><sc-for list="{{sy.screens}}" as="s" hint-placeholder-count="2"><div class="synsc"><div class="synf {{sy.flash}}" key="{{sy.k}}"><div class="synh"><b>{{s.n}}</b><span>Ceny dnia · {{sy.date}}</span></div><sc-for list="{{sy.rows}}" as="r" hint-placeholder-count="4"><div class="{{r.cls}}"><span>{{r.n}}</span><i></i><b>{{r.p}}</b></div></sc-for><div class="synft">PRO-KOM · salon {{s.n}}</div></div><span class="synl"><i></i>{{s.st}}</span></div></sc-for></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="jasnosc" class="{{rv.jas}}" data-rv="jas" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Dobierz ekran do miejsca</span><h2 class="h2">W witrynie zwykły ekran po prostu zniknie.</h2></div><p class="lead" style="max-width: 460px">Jasność ekranu mierzy się w nitach. W środku sklepu wystarcza kilkaset, w witrynie w słońcu potrzeba kilku tysięcy. Wybierz miejsce, a pokażemy, jaka klasa ekranu ma sens.</p></div>
+      <div class="card jsw ri">
+        <div class="zpc"><sc-for list="{{js.places}}" as="p" hint-placeholder-count="6"><button type="button" class="{{p.cls}}" aria-pressed="{{p.on}}" onClick="{{p.pick}}"><!--i:p.ic:16-->{{p.n}}</button></sc-for></div>
+        <div class="jsg">
+          <div class="jsvwrap"><div class="jsvis {{js.vcls}}"><div class="jssun"></div><div class="jsglass"></div><div class="jsscr" style="{{js.scrSt}}"><b>PROMOCJA</b><span>−20% na akcesoria</span></div></div><button type="button" class="btn btn-g btn-s" onClick="{{js.tR}}">{{js.rLabel}}</button></div>
+          <div class="jsinfo">
+            <span class="usl" style="width: auto">Potrzebna jasność</span>
+            <b class="jsn">{{js.nits}}</b>
+            <div class="jsbar"><i style="{{js.bar}}"></i><sc-for list="{{js.marks}}" as="m" hint-placeholder-count="4"><em style="{{m.st}}">{{m.n}}</em></sc-for></div>
+            <div class="syspec"><span>Przykładowa klasa ekranu</span><b>{{js.cls}}</b></div>
+            <p style="margin: 0; color: var(--soft); font-size: 15px">{{js.txt}}</p>
+          </div>
+        </div>
+        <p class="src" style="margin: 12px 0 0">Zakres jest orientacyjny. Miejsce sprawdzamy w najjaśniejszej porze dnia.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="tv-czy-ekran" class="{{rv.tvc}}" data-rv="tvc" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Telewizor czy ekran profesjonalny</span><h2 class="h2">Telewizor w witrynie to oszczędność tylko na starcie.</h2></div><p class="lead" style="max-width: 460px">Telewizor jest tańszy, ale nie jest robiony do pracy w firmie. Warunki gwarancji producentów telewizorów wyłączają albo ograniczają użytek inny niż domowy.</p></div>
+      <div class="tblw ri"><table class="tbl"><thead><tr><th></th><th>Telewizor domowy</th><th>Ekran profesjonalny</th></tr></thead><tbody><sc-for list="{{tvc}}" as="r" hint-placeholder-count="6"><tr><td><b>{{r.k}}</b></td><td class="mut">{{r.a}}</td><td>{{r.b}}</td></tr></sc-for></tbody></table></div>
+      
+    </div>
+  </section>
+
+  <section id="tresci" class="{{rv.cms}}" data-rv="cms" style="padding: 0 0 104px">
+    <div class="wrap split" style="align-items: start">
+      <div class="ri" style="display: flex; flex-direction: column; gap: 16px"><span class="eye">Treści i zarządzanie</span><h2 class="h2">Zmieniasz menu z telefonu. Albo robimy to za Ciebie.</h2><p class="lead">Samsung kończy sprzedaż MagicINFO w wersji lokalnej z końcem 2026 roku, a jego następcą jest VXT. Istniejące instalacje MagicINFO mają wsparcie do końca 2029 roku, ale MagicINFO Cloud przestaje działać już 28.02.2027. Nowe wdrożenia robimy na VXT, a licencję dobieramy do liczby ekranów i tego, kto zmienia treści.</p></div>
+      <div style="display: flex; flex-direction: column; gap: 12px"><sc-for list="{{cms}}" as="m" hint-placeholder-count="3"><div class="card ri" style="padding: 22px; display: flex; gap: 16px; align-items: flex-start"><span class="ico"><!--i:m.ic:22--></span><div><b style="font-size: 17px">{{m.t}}</b><p class="mut" style="margin: 4px 0 0; font-size: 15px">{{m.d}}</p></div></div></sc-for></div>
+    </div>
+  </section>
+
+  <section id="sciany-led" class="{{rv.led}}" data-rv="led" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div class="g2 ri" style="align-items: stretch">
+        <div class="card labc">
+          <span class="svk">Ekrany LED</span><b class="h3">Z jakiej odległości oglądasz?</b>
+          <p class="mut" style="margin: 0; font-size: 15px">W ekranach LED liczy się rozstaw pikseli. Im mniejszy, tym bliżej można stać, ale tym drożej.</p>
+          <div class="cq"><span>Rozstaw pikseli: {{ld.pT}} mm</span><input class="rng" type="range" min="9" max="100" step="1" value="{{ld.p}}" onInput="{{ld.onP}}" aria-label="Rozstaw pikseli"></div>
+          <div class="ldr"><div><span>Najbliżej</span><b>{{ld.min}} m</b></div><div><span>Komfortowo</span><b>od {{ld.cmf}} m</b></div></div>
+          <div class="ldvis"><i class="ldme"></i><i class="ldwall"></i><span class="ldz1" style="{{ld.z1}}"></span><span class="ldz2" style="{{ld.z2}}"></span></div>
+          <span class="src">Reguła minimum: 1 mm rozstawu to ok. 1 m odległości. Komfortowo ok. 2,4 m na każdy 1 mm.</span>
+        </div>
+        <div class="card labc">
+          <span class="svk">Ściany wideo i monitory interaktywne</span><b class="h3">Kiedy jeden ekran to za mało.</b>
+          <sc-for list="{{ldx}}" as="x" hint-placeholder-count="3"><div class="odi2"><span class="ico" style="width: 40px; height: 40px"><!--i:x.ic:19--></span><div><b>{{x.t}}</b><span>{{x.d}}</span></div></div></sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="zewnatrz" class="{{rv.ext}}" data-rv="ext" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div class="card dark ri" style="padding: 44px; border-radius: 30px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 36px; align-items: center">
+        <div style="display: flex; flex-direction: column; gap: 14px"><span class="eye" style="color: #4CCBE6">Ekrany zewnętrzne i w witrynie</span><h2 class="h2" style="font-size: clamp(28px, 3vw, 42px)">Na zewnątrz w górach potrzebny jest inny ekran.</h2><p class="lead">Słońce odbite od śniegu, mróz i wilgoć. Na zewnątrz montujemy ekrany do tego przeznaczone, a w Zakopanem najpierw sprawdzamy zgodność z uchwałą krajobrazową.</p></div>
+        <div class="g2" style="gap: 12px"><sc-for list="{{ext}}" as="e" hint-placeholder-count="4"><div class="odi"><!--i:e.ic:20--><div><b style="display: block">{{e.t}}</b><span style="color: #B5C7CB; font-size: 14px">{{e.d}}</span></div></div></sc-for></div>
+      </div>
+      <div class="note w ri" style="margin-top: 18px"><!--i:P.doc:20--><span>Zakopane: uchwała krajobrazowa (Dz. Urz. Woj. Małopolskiego z 3.06.2026, poz. 3134) obowiązuje od 4 lipca 2026 r. Istniejące reklamy i szyldy trzeba co do zasady dostosować w ciągu 12 miesięcy. Według materiałów miasta uchwała ogranicza m.in. nośniki o zmiennej, migającej treści, więc ekran w witrynie lub na elewacji może być mocno ograniczony. Ofertę na taki montaż w Zakopanem przygotowujemy dopiero po sprawdzeniu pełnego tekstu uchwały.</span></div>
+    </div>
+  </section>
+
+<!--@odbsec-->
+<!--@pkgs-->
+<!--@cena-->
+<!--@faqsec-->
+<!--@relsec-->

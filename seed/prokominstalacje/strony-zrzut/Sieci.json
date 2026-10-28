@@ -1,0 +1,1050 @@
+{
+ "_strona": "Sieci",
+ "_title": "Wi-Fi i sieci dla pensjonatów Rabka-Zdrój, Zakopane | PRO-KOM",
+ "_description": "Wi-Fi w każdym pokoju pensjonatu, domu i firmy na Podhalu. Sprzęt dobierany do obiektu, okablowanie Cat6 i Cat6A, portal dla gości i łącze zapasowe.",
+ "_uwaga": "Zrzut danych z wizualizacji v4.0 (stan początkowy strony, motyw jasny). Teksty = treść do seeda. Klucze UI (cls, on, pick) pomijaj.",
+ "dane": {
+  "ctaEye": "Sieci i Wi-Fi na Podhalu",
+  "ctaH": "Zmierzymy zasięg i zaplanujemy sieć, która wytrzyma sezon.",
+  "ctaP": "Pomiar, plan punktów dostępowych, okablowanie, montaż i konfiguracja. Potem zdalna opieka.",
+  "hw": {
+   "roles": [
+    {
+     "no": "01",
+     "ic": "ikona:shield",
+     "t": "Brama z zaporą",
+     "d": "Łączy obiekt z internetem i pilnuje, kto i dokąd może się połączyć. Tu powstają osobne sieci dla gości, kas i kamer, VPN i łącze zapasowe.",
+     "w": "domowy router nie rozdzieli sieci i nie przełączy się sam na drugie łącze."
+    },
+    {
+     "no": "02",
+     "ic": "ikona:net",
+     "t": "Przełącznik PoE",
+     "d": "Do niego schodzą kable z całego budynku. Jednym kablem daje urządzeniom internet i prąd, więc punkty Wi-Fi i kamery nie potrzebują gniazdek.",
+     "w": "budżet mocy PoE musi wystarczyć na wszystkie punkty i kamery, z zapasem."
+    },
+    {
+     "no": "03",
+     "ic": "ikona:wifi",
+     "t": "Punkty dostępowe",
+     "d": "Sufitowe na korytarze i sale, ścienne w miejscu gniazdka w pokojach, zewnętrzne na taras i parking. Telefon sam przełącza się między nimi.",
+     "w": "na kabel, nie mesh. Każdy skok radiowy obniża prędkość."
+    },
+    {
+     "no": "04",
+     "ic": "ikona:sliders",
+     "t": "Panel i aplikacja",
+     "d": "Cała sieć w jednym miejscu: kto jest podłączony, który punkt ma problem, aktualizacje. Jeśli masz u nas opiekę, widzimy awarię zdalnie, często zanim zadzwonisz.",
+     "w": "konto administratora ma być na Ciebie, a nie na instalatora."
+    }
+   ]
+  },
+  "hero": {
+   "mid": true,
+   "midT": "Usługi",
+   "midH": "Main.dc.html#uslugi",
+   "cta": "Zaplanuj instalację",
+   "ctaHref": "Zaplanuj.dc.html",
+   "crumb": "Sieci i Wi-Fi",
+   "eye": "Sieci komputerowe i Wi-Fi · Rabka-Zdrój, Zakopane, Podhale",
+   "h1a": "Wi-Fi w każdym pokoju.",
+   "h1b": "Bez wzmacniaczy z gniazdka.",
+   "lead": "Projektujemy i budujemy sieci w pensjonatach, hotelach, domach i firmach. Punkty dostępowe podłączone kablem, osobna sieć dla gości, kamer i kasy, okablowanie, szafy rack i światłowody między budynkami.",
+   "kv": [
+    {
+     "b": "1 panel",
+     "s": "cała sieć w jednym miejscu"
+    },
+    {
+     "b": "4 sieci",
+     "s": "goście, kamery, kasa, smart"
+    },
+    {
+     "b": "0 zł",
+     "s": "licencji za samo zarządzanie"
+    }
+   ],
+   "tags": [
+    {
+     "n": "Osobne sieci"
+    },
+    {
+     "n": "Portal gościa"
+    },
+    {
+     "n": "Światłowód"
+    },
+    {
+     "n": "Mosty radiowe"
+    }
+   ]
+  },
+  "anc": [
+   {
+    "href": "#dlaczego",
+    "n": "Dlaczego nie działa"
+   },
+   {
+    "href": "#podzial",
+    "n": "Osobne sieci"
+   },
+   {
+    "href": "#portal",
+    "n": "Wi-Fi dla gości"
+   },
+   {
+    "href": "#okablowanie",
+    "n": "Okablowanie"
+   },
+   {
+    "href": "#narzedzia",
+    "n": "Sprawdź sam"
+   },
+   {
+    "href": "#sprzet",
+    "n": "Jak zbudowana"
+   },
+   {
+    "href": "#pakiety",
+    "n": "Zestawy"
+   },
+   {
+    "href": "#faq",
+    "n": "Pytania"
+   }
+  ],
+  "pkgs": [
+   {
+    "ic": "ikona:home",
+    "n": "Dom",
+    "d": "Zasięg na wszystkich piętrach i w ogrodzie.",
+    "f": [
+     "2–3 punkty dostępowe",
+     "Router z zaporą",
+     "Kabel do punktów zamiast mesh",
+     "Osobna sieć dla gości",
+     "Konfiguracja aplikacji"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "hot": false,
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri"
+   },
+   {
+    "ic": "ikona:bed",
+    "n": "Pensjonat i hotel",
+    "d": "Sieć gości z portalem, osobne sieci dla techniki.",
+    "f": [
+     "Punkty w korytarzach i salach",
+     "Portal gościa z logo",
+     "Sieci: goście, kamery, kasa, smart",
+     "Szafa rack i switch PoE",
+     "Przegląd przed sezonem"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "hot": true,
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri hot"
+   },
+   {
+    "ic": "ikona:factory",
+    "n": "Firma, hala, kilka budynków",
+    "d": "Okablowanie, światłowód i Wi-Fi w hali.",
+    "f": [
+     "Okablowanie strukturalne",
+     "Światłowód lub most radiowy",
+     "Wi-Fi w hali i na placu",
+     "Łącze zapasowe LTE",
+     "Opis gniazd; zakres dokumentacji ustalamy przed instalacją"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "hot": false,
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri"
+   }
+  ],
+  "cena": [
+   {
+    "ic": "ikona:home",
+    "t": "Powierzchnia i piętra",
+    "d": "Liczba punktów dostępowych zależy od układu ścian i stropów."
+   },
+   {
+    "ic": "ikona:ruler",
+    "t": "Prowadzenie kabli",
+    "d": "Korytka, listwy, przejścia między piętrami, kanały w ścianach."
+   },
+   {
+    "ic": "ikona:cpu",
+    "t": "Szafa i urządzenia",
+    "d": "Router, switch PoE, UPS, porządek w szafie."
+   },
+   {
+    "ic": "ikona:users",
+    "t": "Portal gościa",
+    "d": "Vouchery, ekran powitalny, regulamin, limity."
+   },
+   {
+    "ic": "ikona:fiber",
+    "t": "Inne budynki",
+    "d": "Światłowód w ziemi albo most radiowy."
+   },
+   {
+    "ic": "ikona:wrench",
+    "t": "Opieka",
+    "d": "Zdalny nadzór, aktualizacje, przegląd przed sezonem."
+   }
+  ],
+  "faq": [
+   {
+    "n": "01",
+    "q": "Cat6 czy Cat6A?",
+    "a": "Do domu i większości firm Cat6 wystarcza na 1 Gb/s. Cat6A daje 10 Gb/s na pełnych 100 metrach, a Cat6 tylko do około 55 metrów. Przy nowej budowie i dłuższych trasach polecamy Cat6A.",
+    "open": true
+   },
+   {
+    "n": "02",
+    "q": "Dlaczego światłowód między budynkami?",
+    "a": "Bo nie przewodzi prądu. Przy burzy i różnych uziemieniach budynków skrętka może przenieść przepięcie i uszkodzić sprzęt w obu budynkach.",
+    "open": false
+   },
+   {
+    "n": "03",
+    "q": "Czy na most radiowy potrzebne jest pozwolenie?",
+    "a": "Nie, jeśli sprzęt pracuje w paśmie dopuszczonym bez pozwolenia, np. 5470–5725 MHz na zewnątrz do 1 W EIRP z mechanizmem DFS. Dobieramy sprzęt i ustawienia zgodnie z przepisami.",
+    "open": false
+   },
+   {
+    "n": "04",
+    "q": "Czy płacę abonament za zarządzanie siecią?",
+    "a": "Za samo oprogramowanie zwykle nie: popularne systemy, np. UniFi i podstawowa chmura Omada, działają bez licencji. Płatna jest rozszerzona wersja Omada. Osobno można wykupić naszą opiekę serwisową.",
+    "open": false
+   },
+   {
+    "n": "05",
+    "q": "Czy muszę zmieniać operatora internetu?",
+    "a": "Zwykle nie. Router operatora zostaje jako modem, a za nim budujemy własną sieć z punktami dostępowymi. Jeśli łącze jest za słabe, doradzimy, jakie opcje są pod Twoim adresem.",
+    "open": false
+   },
+   {
+    "n": "06",
+    "q": "Dlaczego punkty dostępowe na kabel, a nie mesh?",
+    "a": "Mesh bez kabla traci prędkość przy każdym skoku radiowym. Ubiquiti zaleca najwyżej dwa skoki. Kabel daje pełną prędkość w każdym pokoju i stabilność w sezonie.",
+    "open": false
+   },
+   {
+    "n": "07",
+    "q": "Czy Wi-Fi dla gości trzeba zgłaszać do UKE?",
+    "a": "Zwykle nie. Według Prawa komunikacji elektronicznej udostępnianie internetu przez lokalne Wi-Fi jako dodatek do głównej działalności nie jest działalnością telekomunikacyjną.",
+    "open": false
+   },
+   {
+    "n": "08",
+    "q": "Czy goście widzą moje kamery albo komputer?",
+    "a": "Nie, jeśli sieć jest podzielona. Tworzymy osobne sieci dla gości, kamer, recepcji i urządzeń smart. Goście są izolowani od siebie i od reszty.",
+    "open": false
+   },
+   {
+    "n": "09",
+    "q": "Czy da się zrobić Wi-Fi w drewnianym domu albo w kilku domkach?",
+    "a": "Tak. Domki łączymy kablem w ziemi, światłowodem albo mostem radiowym, a w każdym stawiamy własny punkt dostępowy.",
+    "open": false
+   }
+  ],
+  "rel": [
+   {
+    "k": "kam",
+    "n": "Monitoring i kamery",
+    "g": "Bezpieczeństwo",
+    "href": "Monitoring.dc.html",
+    "ic": "ikona:cam",
+    "s": "Kompletny system: kamery, rejestrator, dyski, PoE"
+   },
+   {
+    "k": "tel",
+    "n": "Teletechnika w budownictwie",
+    "g": "Sieci i technika",
+    "href": "Teletechnika.dc.html",
+    "ic": "ikona:build",
+    "s": "Dla deweloperów i wykonawców"
+   },
+   {
+    "k": "scr",
+    "n": "Ekrany i digital signage",
+    "g": "Komfort i obraz",
+    "href": "Multimedia.dc.html",
+    "ic": "ikona:scr",
+    "s": "Witryny, menu board, recepcja, ściany wideo"
+   }
+  ],
+  "segRel": [
+   {
+    "k": "pens",
+    "g": "Dom i noclegi",
+    "n": "Pensjonat",
+    "s": "Wi-Fi i TV w pokojach, kamery na zewnątrz",
+    "page": "Noclegowe",
+    "href": "Noclegowe.dc.html",
+    "ic": "ikona:bed",
+    "h": "#F29A4B",
+    "hs": "--mh:#F29A4B",
+    "cls": ""
+   },
+   {
+    "k": "hotel",
+    "g": "Dom i noclegi",
+    "n": "Hotel",
+    "s": "Recepcja 24/7, sale, SPA",
+    "page": "SegHotel",
+    "href": "SegHotel.dc.html",
+    "ic": "ikona:hotel",
+    "h": "#E86FB0",
+    "hs": "--mh:#E86FB0",
+    "cls": ""
+   },
+   {
+    "k": "rest",
+    "g": "Firmy",
+    "n": "Restauracja i sala weselna",
+    "s": "Muzyka w strefach, menu na ekranach",
+    "page": "SegRestauracja",
+    "href": "SegRestauracja.dc.html",
+    "ic": "ikona:food",
+    "h": "#F07A6A",
+    "hs": "--mh:#F07A6A",
+    "cls": ""
+   },
+   {
+    "k": "firma",
+    "g": "Firmy",
+    "n": "Firma, biuro i hala",
+    "s": "Wejścia, rampa, sieć firmowa",
+    "page": "SegFirma",
+    "href": "SegFirma.dc.html",
+    "ic": "ikona:factory",
+    "h": "#5B8CF0",
+    "hs": "--mh:#5B8CF0",
+    "cls": ""
+   },
+   {
+    "k": "szk",
+    "g": "Instytucje",
+    "n": "Szkoła i przedszkole",
+    "s": "Bezpieczne wejścia, dzwonki, sieć",
+    "page": "SegSzkola",
+    "href": "SegSzkola.dc.html",
+    "ic": "ikona:school",
+    "h": "#5FD0B0",
+    "hs": "--mh:#5FD0B0",
+    "cls": ""
+   }
+  ],
+  "hasSegRel": true,
+  "segRelH": "Dla kogo robimy tę instalację",
+  "sx": {
+   "faqA": {
+    "t": "Masz inne pytanie?",
+    "d": "Wyślij zdjęcie obiektu albo obecnej instalacji. Powiemy, od czego zacząć i czego się spodziewać.",
+    "cta": "Zaplanuj instalację",
+    "href": "Zaplanuj.dc.html"
+   },
+   "faqH": "Zanim zadzwonisz.",
+   "relH": "Na dobrej sieci działa reszta.",
+   "pkg": {
+    "eye": "Przykładowe zestawy",
+    "h": "Sieć dopasowana do budynku.",
+    "p": "Zaczynamy od pomiaru zasięgu i planu punktów dostępowych.",
+    "note": "To przykłady. Liczbę punktów i trasy kabli ustalamy po pomiarze na miejscu."
+   },
+   "cena": {
+    "btn": "Wyślij zdjęcia do wyceny",
+    "eye": "Wycena",
+    "h": "Od czego zależy cena sieci.",
+    "p": "Najwięcej kosztuje praca przy kablach. Dlatego najlepiej zaplanować sieć razem z remontem albo budową."
+   }
+  },
+  "wl": {
+   "mats": [
+    {
+     "n": "Ciężki beton",
+     "cls": "zkc on"
+    },
+    {
+     "n": "Lekki beton",
+     "cls": "zkc"
+    },
+    {
+     "n": "Cegła, kamień",
+     "cls": "zkc"
+    },
+    {
+     "n": "Szkło",
+     "cls": "zkc"
+    },
+    {
+     "n": "Płyta g-k",
+     "cls": "zkc"
+    },
+    {
+     "n": "Drzwi drewniane",
+     "cls": "zkc"
+    },
+    {
+     "n": "Okno z powłoką",
+     "cls": "zkc"
+    }
+   ],
+   "bands": [
+    {
+     "n": "2,4 GHz",
+     "d": "dalej, wolniej",
+     "cls": "zksg"
+    },
+    {
+     "n": "5 GHz",
+     "d": "szybciej, bliżej",
+     "cls": "zksg on"
+    }
+   ],
+   "mat": "Ciężki beton",
+   "db": "44 dB",
+   "pct": "<1%",
+   "wallCls": "wlwall m0",
+   "st": "--keep:0.060",
+   "bars": [
+    "b",
+    "b",
+    "b",
+    "b"
+   ],
+   "note": "Przez taką przeszkodę sygnał praktycznie nie przechodzi. Potrzebny jest osobny punkt Wi-Fi po drugiej stronie, podłączony kablem."
+  },
+  "wgen": [
+   {
+    "g": "Wi-Fi 6",
+    "t": "Więcej urządzeń naraz",
+    "st": "--h:#5B8CF0",
+    "l": [
+     "OFDMA: kanał dzielony między wiele urządzeń",
+     "MU-MIMO: kilka urządzeń obsługiwanych jednocześnie",
+     "TWT: dłużej działa bateria w telefonach i czujnikach"
+    ],
+    "n": "Dziś rozsądne minimum w domu i firmie."
+   },
+   {
+    "g": "Wi-Fi 6E",
+    "t": "Nowe pasmo 6 GHz",
+    "st": "--h:#B58CF0",
+    "l": [
+     "Dodatkowe pasmo z wolnymi kanałami",
+     "Mniej zakłóceń od sąsiadów",
+     "Punkty dostępowe tylko wewnątrz budynków (moc LPI)"
+    ],
+    "n": "Dobre tam, gdzie w okolicy jest dużo sieci."
+   },
+   {
+    "g": "Wi-Fi 7",
+    "t": "Szybciej i stabilniej",
+    "st": "--h:#12B6D8",
+    "l": [
+     "Kanały do 320 MHz; w Polsce pasmo 6 GHz (480 MHz) mieści jeden taki kanał",
+     "MLO: kilka pasm używanych naraz",
+     "4K-QAM: ok. 20% więcej niż 1024-QAM"
+    ],
+    "n": "Warto rozważyć przy nowej instalacji."
+   }
+  ],
+  "br": {
+   "d": "250",
+   "dTxt": "250 m",
+   "los": [
+    {
+     "n": "Widać budynek",
+     "d": "czysta linia",
+     "cls": "zksg on"
+    },
+    {
+     "n": "Drzewa po drodze",
+     "d": "przeszkody",
+     "cls": "zksg"
+    }
+   ],
+   "trees": false,
+   "fibCls": "brfib on",
+   "radCls": "brrad on",
+   "fibT": "światłowód OM3 · 10 Gb/s",
+   "radT": "most 60 GHz",
+   "opts": [
+    {
+     "cls": "bro top",
+     "k": "Najlepiej",
+     "n": "Światłowód wielomodowy OM3",
+     "d": "10 Gb/s do 300 m. Wymaga wykopu lub istniejącej rury."
+    },
+    {
+     "cls": "bro",
+     "k": "Bez kopania",
+     "n": "Most radiowy 60 GHz",
+     "d": "Np. UniFi Building Bridge: do 500 m, ponad 1,7 Gb/s. Deszcz obniża sygnał, wtedy przełącza się na zapasowe 5 GHz."
+    },
+    {
+     "cls": "bro",
+     "k": "Alternatywa",
+     "n": "Most radiowy 5 GHz",
+     "d": "Na dłuższe dystanse. Na zewnątrz pasmo 5470–5725 MHz, do 1 W mocy, z DFS i TPC."
+    }
+   ]
+  },
+  "bk": [
+   {
+    "ic": "ikona:wifi",
+    "t": "Modem LTE lub 5G",
+    "d": "Jako drugie łącze w routerze, z automatycznym przełączaniem."
+   },
+   {
+    "ic": "ikona:globe",
+    "t": "Starlink",
+    "d": "Tam, gdzie brak zasięgu i kabla. Od 22.05.2026: 135, 190 lub 265 zł miesięcznie."
+   },
+   {
+    "ic": "ikona:net",
+    "t": "Dwóch operatorów",
+    "d": "Światłowód i radiówka albo kabel, z równoważeniem ruchu."
+   }
+  ],
+  "lb": {
+   "bands": [
+    {
+     "n": "2,4 GHz",
+     "on": "false",
+     "cls": ""
+    },
+    {
+     "n": "5 GHz",
+     "on": "true",
+     "cls": "on"
+    }
+   ],
+   "walls": [
+    {
+     "n": "Płyta g-k",
+     "on": "false",
+     "cls": "chip"
+    },
+    {
+     "n": "Drzwi drewniane",
+     "on": "false",
+     "cls": "chip"
+    },
+    {
+     "n": "Cegła, kamień",
+     "on": "false",
+     "cls": "chip"
+    },
+    {
+     "n": "Lekki beton",
+     "on": "true",
+     "cls": "chip on"
+    },
+    {
+     "n": "Ciężki beton, strop",
+     "on": "false",
+     "cls": "chip"
+    },
+    {
+     "n": "Okno z powłoką",
+     "on": "false",
+     "cls": "chip"
+    }
+   ],
+   "db": "16",
+   "bars": [
+    "on mid",
+    "on mid",
+    "on mid",
+    " mid",
+    " mid"
+   ],
+   "wallCls": "wallw w3",
+   "txt": "Przez jedną taką ścianę jeszcze działa, przez dwie już słabo. W pensjonacie to argument za punktem w pokoju, a nie w korytarzu.",
+   "len": 70,
+   "sp": [
+    {
+     "n": "1 Gb/s",
+     "on": "false",
+     "cls": ""
+    },
+    {
+     "n": "2,5 Gb/s",
+     "on": "true",
+     "cls": "on"
+    },
+    {
+     "n": "10 Gb/s",
+     "on": "false",
+     "cls": ""
+    }
+   ],
+   "cat": "Cat6 wystarczy",
+   "catS": "Do 2,5 Gb/s na 70 m Cat6 w zupełności wystarcza.",
+   "catCls": "labres ok",
+   "dist": [
+    {
+     "n": "do 100 m",
+     "on": "false",
+     "cls": ""
+    },
+    {
+     "n": "100–500 m",
+     "on": "true",
+     "cls": "on"
+    },
+    {
+     "n": "ponad 500 m",
+     "on": "false",
+     "cls": ""
+    }
+   ],
+   "dig": [
+    {
+     "n": "Tak",
+     "on": "false",
+     "cls": ""
+    },
+    {
+     "n": "Nie",
+     "on": "true",
+     "cls": "on"
+    }
+   ],
+   "see": [
+    {
+     "n": "Tak",
+     "on": "true",
+     "cls": "on"
+    },
+    {
+     "n": "Nie",
+     "on": "false",
+     "cls": ""
+    }
+   ],
+   "lnk": "Most radiowy 60 GHz",
+   "lnkS": "Szybkie łącze na setki metrów bez kopania. Mocny deszcz osłabia 60 GHz, dlatego dobre modele przełączają się wtedy na zapasowe 5 GHz.",
+   "lnkIc": "ikona:ant",
+   "foCls": "",
+   "foBtn": "Odetnij łącze operatora",
+   "foBtnCls": "btn btn-s btn-g",
+   "term": "działa",
+   "foTxt": "Główne łącze działa. Router pilnuje go cały czas i w razie awarii przełączy ruch na łącze zapasowe."
+  },
+  "wf": {
+   "modes": [
+    {
+     "n": "Przed: router operatora",
+     "ic": "ikona:wifi",
+     "on": "false",
+     "cls": ""
+    },
+    {
+     "n": "Po: 3 punkty dostępowe",
+     "ic": "ikona:check",
+     "on": "true",
+     "cls": "on"
+    }
+   ],
+   "tag": "Zasięg w całym budynku",
+   "tagCls": "a",
+   "heat": [
+    {
+     "x": 170,
+     "y": 170,
+     "r": 230
+    },
+    {
+     "x": 470,
+     "y": 170,
+     "r": 230
+    },
+    {
+     "x": 320,
+     "y": 292,
+     "r": 230
+    }
+   ],
+   "rooms": [
+    {
+     "n": "Pokój 1",
+     "x": 20,
+     "y": 20,
+     "w": 150,
+     "h": 120,
+     "tx": 32,
+     "ty": 42,
+     "qy": 60,
+     "q": "Świetny",
+     "qc": "wq q3",
+     "cls": "rm"
+    },
+    {
+     "n": "Pokój 2",
+     "x": 170,
+     "y": 20,
+     "w": 150,
+     "h": 120,
+     "tx": 182,
+     "ty": 42,
+     "qy": 60,
+     "q": "Świetny",
+     "qc": "wq q3",
+     "cls": "rm"
+    },
+    {
+     "n": "Pokój 3",
+     "x": 320,
+     "y": 20,
+     "w": 150,
+     "h": 120,
+     "tx": 332,
+     "ty": 42,
+     "qy": 60,
+     "q": "Świetny",
+     "qc": "wq q3",
+     "cls": "rm"
+    },
+    {
+     "n": "Pokój 4",
+     "x": 470,
+     "y": 20,
+     "w": 150,
+     "h": 120,
+     "tx": 482,
+     "ty": 42,
+     "qy": 60,
+     "q": "Świetny",
+     "qc": "wq q3",
+     "cls": "rm"
+    },
+    {
+     "n": "Korytarz",
+     "x": 20,
+     "y": 140,
+     "w": 600,
+     "h": 60,
+     "tx": 32,
+     "ty": 162,
+     "qy": 180,
+     "q": "Świetny",
+     "qc": "wq q3",
+     "cls": "rm"
+    },
+    {
+     "n": "Recepcja",
+     "x": 20,
+     "y": 200,
+     "w": 200,
+     "h": 140,
+     "tx": 32,
+     "ty": 222,
+     "qy": 240,
+     "q": "Świetny",
+     "qc": "wq q3",
+     "cls": "rm"
+    },
+    {
+     "n": "Jadalnia",
+     "x": 220,
+     "y": 200,
+     "w": 250,
+     "h": 140,
+     "tx": 232,
+     "ty": 222,
+     "qy": 240,
+     "q": "Świetny",
+     "qc": "wq q3",
+     "cls": "rm"
+    },
+    {
+     "n": "Kuchnia",
+     "x": 470,
+     "y": 200,
+     "w": 150,
+     "h": 140,
+     "tx": 482,
+     "ty": 222,
+     "qy": 240,
+     "q": "Świetny",
+     "qc": "wq q3",
+     "cls": "rm"
+    }
+   ],
+   "aps": [
+    {
+     "x": 170,
+     "y": 170,
+     "ty": 174,
+     "n": "1"
+    },
+    {
+     "x": 470,
+     "y": 170,
+     "ty": 174,
+     "n": "2"
+    },
+    {
+     "x": 320,
+     "y": 292,
+     "ty": 296,
+     "n": "3"
+    }
+   ],
+   "devs": [
+    {
+     "x": 95,
+     "y": 95,
+     "ic": "ikona:phone",
+     "tr": "translate(88 88) scale(.58)",
+     "cls": "wdv",
+     "st": "--vc:#4CCBE6"
+    },
+    {
+     "x": 245,
+     "y": 100,
+     "ic": "ikona:phone",
+     "tr": "translate(238 93) scale(.58)",
+     "cls": "wdv",
+     "st": "--vc:#4CCBE6"
+    },
+    {
+     "x": 395,
+     "y": 95,
+     "ic": "ikona:phone",
+     "tr": "translate(388 88) scale(.58)",
+     "cls": "wdv",
+     "st": "--vc:#4CCBE6"
+    },
+    {
+     "x": 560,
+     "y": 100,
+     "ic": "ikona:phone",
+     "tr": "translate(553 93) scale(.58)",
+     "cls": "wdv",
+     "st": "--vc:#4CCBE6"
+    },
+    {
+     "x": 330,
+     "y": 250,
+     "ic": "ikona:phone",
+     "tr": "translate(323 243) scale(.58)",
+     "cls": "wdv",
+     "st": "--vc:#4CCBE6"
+    },
+    {
+     "x": 130,
+     "y": 185,
+     "ic": "ikona:cam",
+     "tr": "translate(123 178) scale(.58)",
+     "cls": "wdv",
+     "st": "--vc:#F2B84B"
+    },
+    {
+     "x": 600,
+     "y": 160,
+     "ic": "ikona:cam",
+     "tr": "translate(593 153) scale(.58)",
+     "cls": "wdv",
+     "st": "--vc:#F2B84B"
+    },
+    {
+     "x": 600,
+     "y": 320,
+     "ic": "ikona:cam",
+     "tr": "translate(593 313) scale(.58)",
+     "cls": "wdv",
+     "st": "--vc:#F2B84B"
+    },
+    {
+     "x": 150,
+     "y": 300,
+     "ic": "ikona:office",
+     "tr": "translate(143 293) scale(.58)",
+     "cls": "wdv",
+     "st": "--vc:#7BD36A"
+    },
+    {
+     "x": 190,
+     "y": 260,
+     "ic": "ikona:card",
+     "tr": "translate(183 253) scale(.58)",
+     "cls": "wdv",
+     "st": "--vc:#7BD36A"
+    },
+    {
+     "x": 430,
+     "y": 320,
+     "ic": "ikona:tv",
+     "tr": "translate(423 313) scale(.58)",
+     "cls": "wdv",
+     "st": "--vc:#B58CF0"
+    },
+    {
+     "x": 540,
+     "y": 60,
+     "ic": "ikona:thermo",
+     "tr": "translate(533 53) scale(.58)",
+     "cls": "wdv",
+     "st": "--vc:#B58CF0"
+    },
+    {
+     "x": 120,
+     "y": 220,
+     "ic": "ikona:scr",
+     "tr": "translate(113 213) scale(.58)",
+     "cls": "wdv",
+     "st": "--vc:#B58CF0"
+    }
+   ],
+   "vl": [
+    {
+     "n": "Goście",
+     "st": "--vc:#4CCBE6",
+     "on": "false",
+     "cls": "wvb"
+    },
+    {
+     "n": "Kamery",
+     "st": "--vc:#F2B84B",
+     "on": "false",
+     "cls": "wvb"
+    },
+    {
+     "n": "Recepcja i kasa",
+     "st": "--vc:#7BD36A",
+     "on": "false",
+     "cls": "wvb"
+    },
+    {
+     "n": "Smart i TV",
+     "st": "--vc:#B58CF0",
+     "on": "false",
+     "cls": "wvb"
+    }
+   ],
+   "note": "Trzy punkty dostępowe podłączone kablem dają równy zasięg w pokojach, jadalni i kuchni. Gość przechodzi z pokoju na taras bez zrywania połączenia."
+  },
+  "vl": [
+   {
+    "n": "Goście",
+    "d": "Telefony i laptopy gości. Odizolowane od siebie i od reszty.",
+    "x": "portal z voucherem",
+    "ic": "ikona:users",
+    "st": "--vc:#4CCBE6",
+    "on": "false",
+    "cls": "netvb"
+   },
+   {
+    "n": "Kamery",
+    "d": "Kamery i rejestrator. Bez dostępu z sieci gości.",
+    "x": "zasilanie PoE",
+    "ic": "ikona:cam",
+    "st": "--vc:#F2B84B",
+    "on": "false",
+    "cls": "netvb"
+   },
+   {
+    "n": "Recepcja i kasa",
+    "d": "Komputer recepcji, kasa fiskalna, terminal płatniczy.",
+    "x": "priorytet ruchu",
+    "ic": "ikona:office",
+    "st": "--vc:#7BD36A",
+    "on": "false",
+    "cls": "netvb"
+   },
+   {
+    "n": "Smart i TV",
+    "d": "Telewizory, ekran w recepcji, sterowanie Ampio, ładowarka.",
+    "x": "urządzenia IoT",
+    "ic": "ikona:home",
+    "st": "--vc:#B58CF0",
+    "on": "false",
+    "cls": "netvb"
+   }
+  ],
+  "why": [
+   {
+    "ic": "ikona:wifi",
+    "t": "Jeden router na cały budynek",
+    "d": "Router od operatora stoi w szafce przy wejściu, a pokoje są dwa piętra wyżej."
+   },
+   {
+    "ic": "ikona:build",
+    "t": "Ściany i stropy",
+    "d": "Beton, cegła, kamień i stropy osłabiają sygnał. Zwykle każde piętro potrzebuje swojego punktu."
+   },
+   {
+    "ic": "ikona:layers",
+    "t": "Mesh bez kabla",
+    "d": "Każdy skok radiowy obniża prędkość. Ubiquiti zaleca najwyżej dwa skoki bezprzewodowe."
+   },
+   {
+    "ic": "ikona:lock",
+    "t": "Jedna sieć dla wszystkiego",
+    "d": "Goście, kamery i kasa w tej samej sieci to ryzyko i spowolnienie w sezonie."
+   }
+  ],
+  "portal": [
+   {
+    "t": "Vouchery na pobyt",
+    "d": "Kod z limitem czasu, prędkości albo transferu, drukowany lub wysyłany gościom."
+   },
+   {
+    "t": "Twoje logo i regulamin",
+    "d": "Ekran powitalny z nazwą obiektu i linkiem do oferty."
+   },
+   {
+    "t": "Izolacja gości",
+    "d": "Urządzenia gości nie widzą siebie nawzajem ani Twoich sieci."
+   },
+   {
+    "t": "Płynne przechodzenie",
+    "d": "Szybki roaming między punktami dostępowymi w budynku."
+   }
+  ],
+  "cab": [
+   {
+    "ic": "ikona:net",
+    "t": "Okablowanie Cat6 i Cat6A",
+    "d": "Gniazda w pokojach, przy telewizorach i w miejscach na punkty dostępowe."
+   },
+   {
+    "ic": "ikona:cpu",
+    "t": "Szafa rack",
+    "d": "Porządek w technice: router, switch PoE, rejestrator, UPS i opisane przewody."
+   },
+   {
+    "ic": "ikona:fiber",
+    "t": "Światłowód między budynkami",
+    "d": "Światłowody jedno- i wielomodowe: układanie, spawanie i pomiary. Pensjonat, domki i hala w jednej sieci."
+   },
+   {
+    "ic": "ikona:mountain",
+    "t": "Mosty radiowe",
+    "d": "Połączenie punkt–punkt tam, gdzie kabla nie da się przekopać."
+   },
+   {
+    "ic": "ikona:battery",
+    "t": "Zasilanie awaryjne",
+    "d": "UPS dla routera i kamer, żeby krótki zanik prądu nie wyłączał sieci."
+   },
+   {
+    "ic": "ikona:globe",
+    "t": "Łącze zapasowe LTE",
+    "d": "Gdy główne łącze padnie, router przełącza się na sieć komórkową."
+   }
+  ],
+  "pt": {
+   "code": "7H2K",
+   "until": "nd, 11:00"
+  }
+ }
+}

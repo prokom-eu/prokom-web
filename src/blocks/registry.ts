@@ -85,16 +85,23 @@ export const BIZNES_BLOCKS: Block[] = [
 ]
 
 /**
+ * Sections of the Instalacje pages (ADR-I002 §0) — `src/sites/instalacje/blocks/`; the blocks
+ * come with their sessions (I4–I12).
+ */
+export const INSTALACJE_BLOCKS: Block[] = []
+
+/**
  * Every block a page may contain (ADR-010). A block of one line only lives in
  * `src/sites/<line>/blocks/` and is listed here too. Each block means new tables → migration;
  * new blocks go at the end, so the existing tables keep their names.
  */
-export const ALL_BLOCKS: Block[] = [...GENERIC_BLOCKS, ...BIZNES_BLOCKS]
+export const ALL_BLOCKS: Block[] = [...GENERIC_BLOCKS, ...BIZNES_BLOCKS, ...INSTALACJE_BLOCKS]
 
 const slugsOf = (blocks: Block[]): readonly string[] => blocks.map((block) => block.slug)
 
 export const GENERIC_BLOCK_SLUGS = slugsOf(GENERIC_BLOCKS)
 export const BIZNES_BLOCK_SLUGS = slugsOf(BIZNES_BLOCKS)
+export const INSTALACJE_BLOCK_SLUGS = slugsOf(INSTALACJE_BLOCKS)
 export const BLOCK_SLUGS = slugsOf(ALL_BLOCKS)
 
 export type AllowedBlocks = Readonly<Record<Line, readonly string[]>>
@@ -103,7 +110,7 @@ export type AllowedBlocks = Readonly<Record<Line, readonly string[]>>
 export const ALLOWED_BLOCKS: AllowedBlocks = {
   prokom: GENERIC_BLOCK_SLUGS,
   biznes: [...GENERIC_BLOCK_SLUGS, ...BIZNES_BLOCK_SLUGS],
-  instalacje: GENERIC_BLOCK_SLUGS,
+  instalacje: [...GENERIC_BLOCK_SLUGS, ...INSTALACJE_BLOCK_SLUGS],
   software: GENERIC_BLOCK_SLUGS,
 }
 

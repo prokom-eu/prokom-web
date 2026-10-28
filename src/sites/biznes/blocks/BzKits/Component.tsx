@@ -6,6 +6,7 @@ import { publicImage } from '@/lib/media/public'
 import type { BzKitsBlock as BzKitsBlockData } from '@/payload-types'
 
 import { SectionHead } from '../../components/home/SectionHead'
+import { ProductStage, STAGE_SHADOW } from '../../components/ProductStage'
 import { AddKitButton } from './AddKitButton'
 
 type Props = { block: BzKitsBlockData; tenantId: number }
@@ -63,16 +64,21 @@ export async function BzKitsBlock({ block, tenantId }: Props) {
                     {kit.tag}
                   </span>
                 )}
-                <div className="flex h-52 items-end justify-center gap-3 bg-surface-2 bg-[radial-gradient(ellipse_at_50%_100%,color-mix(in_srgb,var(--ok)_22%,transparent),transparent_70%)] px-5 pt-12 pb-4">
-                  {images.map((image, j) => (
-                    <MediaImage
-                      key={j}
-                      image={image}
-                      sizes="140px"
-                      className="h-auto max-h-36 w-auto max-w-[33%] object-contain"
-                    />
-                  ))}
-                </div>
+                <ProductStage className="h-52 px-5 pt-12 pb-4">
+                  <div className="relative flex h-full w-full items-end justify-center gap-3">
+                    {images.map((image, j) => (
+                      <MediaImage
+                        key={j}
+                        image={image}
+                        sizes="140px"
+                        className={cx(
+                          'h-auto max-h-36 w-auto max-w-[33%] object-contain',
+                          STAGE_SHADOW,
+                        )}
+                      />
+                    ))}
+                  </div>
+                </ProductStage>
                 <div className="flex flex-1 flex-col gap-4 p-6">
                   <div>
                     <h3 className="font-display text-[1.5rem] leading-tight font-extrabold text-ink">

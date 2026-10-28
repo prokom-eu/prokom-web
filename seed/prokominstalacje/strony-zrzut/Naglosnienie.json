@@ -1,0 +1,1038 @@
+{
+ "_strona": "Naglosnienie",
+ "_title": "Nagłośnienie APART dla lokali i kościołów, Podhale | PRO-KOM",
+ "_description": "Nagłośnienie APART dla restauracji, hoteli, kościołów, szkół i sal obrad na Podhalu. Muzyka w strefach, zrozumiała mowa i transmisja sesji.",
+ "_uwaga": "Zrzut danych z wizualizacji v4.0 (stan początkowy strony, motyw jasny). Teksty = treść do seeda. Klucze UI (cls, on, pick) pomijaj.",
+ "dane": {
+  "ctaEye": "Nagłośnienie na Podhalu",
+  "ctaH": "Przyjedziemy, posłuchamy wnętrza i zaproponujemy rozwiązanie.",
+  "ctaP": "Odsłuch, projekt stref, montaż, ustawienie i szkolenie obsługi. Potem serwis.",
+  "hero": {
+   "mid": true,
+   "midT": "Usługi",
+   "midH": "Main.dc.html#uslugi",
+   "cta": "Zaplanuj instalację",
+   "ctaHref": "Zaplanuj.dc.html",
+   "crumb": "Nagłośnienie",
+   "eye": "Nagłośnienie · restauracje, hotele, kościoły, szkoły · Podhale",
+   "h1a": "Muzyka tam, gdzie trzeba.",
+   "h1b": "Cisza tam, gdzie ma być cicho.",
+   "lead": "Projektujemy i montujemy nagłośnienie stref w restauracjach, hotelach, kościołach, szkołach, sklepach i halach. Każda strefa z osobną głośnością, komunikaty z priorytetem i obsługa, którą zrozumie każdy pracownik.",
+   "kv": [
+    {
+     "b": "Strefy",
+     "s": "każda z osobną głośnością"
+    },
+    {
+     "b": "1 przycisk",
+     "s": "do komunikatu"
+    },
+    {
+     "b": "od 2004",
+     "s": "PRO-KOM na Podhalu"
+    }
+   ],
+   "tags": [
+    {
+     "n": "APART Audio"
+    },
+    {
+     "n": "JBL"
+    },
+    {
+     "n": "RCF"
+    },
+    {
+     "n": "Audio-Technica"
+    }
+   ]
+  },
+  "anc": [
+   {
+    "href": "#obiekty",
+    "n": "Gdzie nagłaśniamy"
+   },
+   {
+    "href": "#apart",
+    "n": "APART"
+   },
+   {
+    "href": "#jak-dziala",
+    "n": "Jak działa"
+   },
+   {
+    "href": "#kosciol",
+    "n": "Kościół"
+   },
+   {
+    "href": "#ile-glosnikow",
+    "n": "Kalkulator"
+   },
+   {
+    "href": "#sala-obrad",
+    "n": "Sale obrad"
+   },
+   {
+    "href": "#dso",
+    "n": "DSO"
+   },
+   {
+    "href": "#licencje",
+    "n": "Muzyka w lokalu"
+   },
+   {
+    "href": "#realizacje-n",
+    "n": "Realizacje"
+   },
+   {
+    "href": "#faq",
+    "n": "Pytania"
+   }
+  ],
+  "pkgs": [
+   {
+    "ic": "ikona:food",
+    "n": "Lokal",
+    "d": "Restauracja, kawiarnia, sklep.",
+    "f": [
+     "2–4 strefy z osobną głośnością",
+     "Głośniki dobrane do wnętrza",
+     "Wzmacniacz strefowy",
+     "Panel na ścianie lub aplikacja",
+     "Ustawienie i szkolenie"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "hot": false,
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri"
+   },
+   {
+    "ic": "ikona:hotel",
+    "n": "Hotel i obiekt",
+    "d": "Kilka stref i komunikaty.",
+    "f": [
+     "Strefy: lobby, restauracja, SPA, sale",
+     "Komunikaty z priorytetem",
+     "Mikrofon na recepcji",
+     "Integracja z ekranami",
+     "Serwis"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "hot": true,
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri hot"
+   },
+   {
+    "ic": "ikona:church",
+    "n": "Kościół, szkoła, hala",
+    "d": "Zrozumiałość mowy i duże przestrzenie.",
+    "f": [
+     "Analiza wnętrza",
+     "Kolumny dobrane do akustyki",
+     "Mikrofony bezprzewodowe",
+     "Dzwonki i komunikaty",
+     "Prosta obsługa"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "hot": false,
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri"
+   }
+  ],
+  "cena": [
+   {
+    "ic": "ikona:home",
+    "t": "Wielkość i akustyka wnętrza",
+    "d": "Wysokie, twarde wnętrza potrzebują innych głośników niż mała sala."
+   },
+   {
+    "ic": "ikona:layers",
+    "t": "Liczba stref",
+    "d": "Każda strefa to osobna regulacja i okablowanie."
+   },
+   {
+    "ic": "ikona:spk",
+    "t": "Rodzaj głośników",
+    "d": "Sufitowe, naścienne, zewnętrzne, kolumny."
+   },
+   {
+    "ic": "ikona:music",
+    "t": "Źródła i mikrofony",
+    "d": "Odtwarzacz, mikrofony przewodowe i bezprzewodowe, wejścia TV."
+   },
+   {
+    "ic": "ikona:ruler",
+    "t": "Okablowanie",
+    "d": "Trasy przewodów, praca w gotowym wnętrzu lub w remoncie."
+   },
+   {
+    "ic": "ikona:sliders",
+    "t": "Sterowanie",
+    "d": "Panel ścienny, aplikacja, integracja ze smart home."
+   }
+  ],
+  "faq": [
+   {
+    "n": "01",
+    "q": "Linia 100 V czy niska impedancja?",
+    "a": "Linię 100 V stosujemy przy wielu głośnikach i dłuższych kablach: sklep, hotel, kościół, szkoła. Niską impedancję przy kilku głośnikach blisko wzmacniacza: bar, sala konferencyjna. Dobieramy to w projekcie.",
+    "open": true
+   },
+   {
+    "n": "02",
+    "q": "Czy da się sterować z panelu na ścianie?",
+    "a": "Tak. Panel w strefie ma głośność i wybór źródła, a łączymy go z mikserem zwykłą skrętką. Obsługa nie musi wchodzić do zaplecza.",
+    "open": false
+   },
+   {
+    "n": "03",
+    "q": "Czy APART zagra z radia albo z telefonu przez Bluetooth?",
+    "a": "Tak. Odtwarzacz PCR3000RMKIII ma radio DAB+ i FM, CD, USB, kartę SD i Bluetooth, więc muzyka gra bez komputera. Tuner PR4000R ma cztery radia, więc każda strefa może grać inną stację.",
+    "open": false
+   },
+   {
+    "n": "04",
+    "q": "Czy da się sterować z telefonu?",
+    "a": "W linii APART nie ma aplikacji. Jeśli sterowanie z telefonu jest ważne, dobieramy inne rozwiązanie. Muzykę z telefonu podłączamy zwykle przez odbiornik wpięty do wejścia miksera.",
+    "open": false
+   },
+   {
+    "n": "05",
+    "q": "Czy gmina musi nagrywać i transmitować sesje rady?",
+    "a": "Tak. Art. 20 ust. 1b ustawy o samorządzie gminnym nakazuje transmisję i utrwalanie obrad, a art. 14 wymaga urządzeń do imiennego wykazu głosowań. Nagłośnienie jest częścią takiego systemu.",
+    "open": false
+   },
+   {
+    "n": "06",
+    "q": "Czy głośniki nadają się do łazienki, SPA albo na taras?",
+    "a": "Tak, są modele o podwyższonej odporności: sufitowe do wilgotnych pomieszczeń, naścienne IP64 i kolumny IP66. Dobieramy je do miejsca.",
+    "open": false
+   },
+   {
+    "n": "07",
+    "q": "Czy w pensjonacie potrzebny jest DSO?",
+    "a": "Zwykle nie. Rozporządzenie wymaga DSO m.in. w budynkach zamieszkania zbiorowego z ponad 200 miejscami noclegowymi albo w budynkach wysokich. Typowy pensjonat na Podhalu jest mniejszy. O wymaganiach dla konkretnego budynku decyduje projekt i rzeczoznawca ppoż.",
+    "open": false
+   },
+   {
+    "n": "08",
+    "q": "Czy muszę płacić za muzykę w restauracji?",
+    "a": "Zwykle tak, bo to publiczne odtwarzanie utworów. Opłaty pobierają organizacje zbiorowego zarządzania, można też korzystać z serwisów muzyki licencjonowanej do lokali.",
+    "open": false
+   },
+   {
+    "n": "09",
+    "q": "Czy można mieć inną muzykę na tarasie i na sali?",
+    "a": "Tak. W systemie strefowym każda strefa może mieć własne źródło i głośność.",
+    "open": false
+   },
+   {
+    "n": "10",
+    "q": "Czy obsługa poradzi sobie z mikserem?",
+    "a": "Nie dajemy obsłudze miksera. Montujemy prosty panel albo aplikację z kilkoma przyciskami, a ustawienia akustyczne blokujemy.",
+    "open": false
+   },
+   {
+    "n": "11",
+    "q": "Czy nagłośnienie kościoła da się poprawić bez wymiany wszystkiego?",
+    "a": "Często tak. Zaczynamy od odsłuchu i sprawdzenia, co działa. Czasem wystarczy zmiana ustawień, mikrofonów albo części kolumn.",
+    "open": false
+   }
+  ],
+  "rel": [
+   {
+    "k": "wifi",
+    "n": "Sieci i Wi-Fi",
+    "g": "Sieci i technika",
+    "href": "Sieci.dc.html",
+    "ic": "ikona:wifi",
+    "s": "Okablowanie, światłowód, Wi-Fi gości"
+   },
+   {
+    "k": "smart",
+    "n": "Smart home Ampio",
+    "g": "Komfort i obraz",
+    "href": "SmartHome.dc.html",
+    "ic": "ikona:home",
+    "s": "Polski system, działa bez internetu"
+   },
+   {
+    "k": "scr",
+    "n": "Ekrany i digital signage",
+    "g": "Komfort i obraz",
+    "href": "Multimedia.dc.html",
+    "ic": "ikona:scr",
+    "s": "Witryny, menu board, recepcja, ściany wideo"
+   },
+   {
+    "href": "Realizacje.dc.html",
+    "ic": "ikona:eye",
+    "n": "Realizacje",
+    "s": "Empik, kościół, kawiarnia i inne"
+   }
+  ],
+  "segRel": [
+   {
+    "k": "kosc",
+    "g": "Instytucje",
+    "n": "Kościół i parafia",
+    "s": "Zrozumiała mowa, transmisja mszy",
+    "page": "SegKosciol",
+    "href": "SegKosciol.dc.html",
+    "ic": "ikona:church",
+    "h": "#B58CF0",
+    "hs": "--mh:#B58CF0",
+    "cls": ""
+   },
+   {
+    "k": "rest",
+    "g": "Firmy",
+    "n": "Restauracja i sala weselna",
+    "s": "Muzyka w strefach, menu na ekranach",
+    "page": "SegRestauracja",
+    "href": "SegRestauracja.dc.html",
+    "ic": "ikona:food",
+    "h": "#F07A6A",
+    "hs": "--mh:#F07A6A",
+    "cls": ""
+   },
+   {
+    "k": "gmina",
+    "g": "Instytucje",
+    "n": "Gmina i urząd",
+    "s": "Sala obrad, transmisja sesji",
+    "page": "SegGmina",
+    "href": "SegGmina.dc.html",
+    "ic": "ikona:town",
+    "h": "#8C9CF5",
+    "hs": "--mh:#8C9CF5",
+    "cls": ""
+   },
+   {
+    "k": "szk",
+    "g": "Instytucje",
+    "n": "Szkoła i przedszkole",
+    "s": "Bezpieczne wejścia, dzwonki, sieć",
+    "page": "SegSzkola",
+    "href": "SegSzkola.dc.html",
+    "ic": "ikona:school",
+    "h": "#5FD0B0",
+    "hs": "--mh:#5FD0B0",
+    "cls": ""
+   },
+   {
+    "k": "hotel",
+    "g": "Dom i noclegi",
+    "n": "Hotel",
+    "s": "Recepcja 24/7, sale, SPA",
+    "page": "SegHotel",
+    "href": "SegHotel.dc.html",
+    "ic": "ikona:hotel",
+    "h": "#E86FB0",
+    "hs": "--mh:#E86FB0",
+    "cls": ""
+   }
+  ],
+  "hasSegRel": true,
+  "segRelH": "Dla kogo robimy tę instalację",
+  "sx": {
+   "faqA": {
+    "t": "Masz inne pytanie?",
+    "d": "Wyślij zdjęcie obiektu albo obecnej instalacji. Powiemy, od czego zacząć i czego się spodziewać.",
+    "cta": "Zaplanuj instalację",
+    "href": "Zaplanuj.dc.html"
+   },
+   "faqH": "Zanim zadzwonisz.",
+   "relH": "Dźwięk i obraz w jednym projekcie.",
+   "pkg": {
+    "eye": "Przykładowe zestawy",
+    "h": "Od kawiarni do kościoła.",
+    "p": "Sprzęt dobieramy po odsłuchu i obejrzeniu wnętrza.",
+    "note": "To przykłady. Liczbę stref i rodzaj głośników ustalamy na miejscu, a cenę podajemy na piśmie."
+   },
+   "cena": {
+    "btn": "Wyślij zdjęcia do wyceny",
+    "eye": "Wycena",
+    "h": "Od czego zależy cena nagłośnienia.",
+    "p": "Największy wpływ ma wnętrze: jego wielkość, wysokość i to, jak bardzo pogłosowe jest."
+   }
+  },
+  "apy": [
+   {
+    "ic": "ikona:layers",
+    "t": "Cały system od jednego producenta",
+    "d": "Głośniki, wzmacniacze, strefy, mikrofony i źródła muzyki są do siebie dopasowane."
+   },
+   {
+    "ic": "ikona:spk",
+    "t": "100 V i niska impedancja",
+    "d": "Te same modele głośników w wersji na linię 100 V i w wersji niskoimpedancyjnej: wiele głośników na długim kablu albo pełniejsze brzmienie w barze."
+   },
+   {
+    "ic": "ikona:clock",
+    "t": "Do pracy przez cały dzień",
+    "d": "Wzmacniacze do pracy ciągłej, część modeli bez wentylatora, a we wzmacniaczach miksujących wejście zasilania awaryjnego."
+   },
+   {
+    "ic": "ikona:shield",
+    "t": "Gwarancja producenta",
+    "d": "Biamp daje 5 lat gwarancji na nowe produkty kupione u autoryzowanego dealera. Na montaż dajemy 24 miesiące. [SZEF: potwierdź u dystrybutora, że 5 lat obejmuje APART i nasz kanał zakupu]"
+   }
+  ],
+  "ap": {
+   "c": {
+    "cm": {
+     "n": "Głośniki sufitowe",
+     "s": "CM · CMX · CMS",
+     "on": "true",
+     "cls": "apc on"
+    },
+    "cmar": {
+     "n": "Do łazienek i SPA",
+     "s": "CMAR",
+     "on": "false",
+     "cls": "apc"
+    },
+    "mask": {
+     "n": "Głośniki naścienne",
+     "s": "MASK · OVO · SDQ",
+     "on": "false",
+     "cls": "apc"
+    },
+    "sph": {
+     "n": "Głośniki wiszące",
+     "s": "SPH",
+     "on": "false",
+     "cls": "apc"
+    },
+    "col": {
+     "n": "Kolumny głośnikowe",
+     "s": "COLS · COLW",
+     "on": "false",
+     "cls": "apc"
+    },
+    "rock": {
+     "n": "Ogród i teren",
+     "s": "ROCK · MASK · COLW",
+     "on": "false",
+     "cls": "apc"
+    },
+    "sub": {
+     "n": "Subwoofer",
+     "s": "SUBA",
+     "on": "false",
+     "cls": "apc"
+    },
+    "amp": {
+     "n": "Wzmacniacze",
+     "s": "REVAMP · CONCEPT · MA",
+     "on": "false",
+     "cls": "apc"
+    },
+    "zone": {
+     "n": "Strefy i panele ścienne",
+     "s": "ZONE4 · PM1122",
+     "on": "false",
+     "cls": "apc"
+    },
+    "mic": {
+     "n": "Mikrofony do komunikatów",
+     "s": "MICPAT",
+     "on": "false",
+     "cls": "apc"
+    },
+    "src": {
+     "n": "Źródła muzyki",
+     "s": "PCR · PR",
+     "on": "false",
+     "cls": "apc"
+    },
+    "dsp": {
+     "n": "Matryce audio",
+     "s": "AUDIOCONTROL · AUDIOSYSTEM",
+     "on": "false",
+     "cls": "apc"
+    }
+   },
+   "sel": {
+    "k": "apcm",
+    "n": "Głośniki sufitowe",
+    "g": "Do sufitu",
+    "d": "Najczęstszy wybór do restauracji, sklepów, hoteli i szkół. Równy dźwięk w całym pomieszczeniu, a z sufitu widać tylko maskownicę. Są wersje okrągłe, kwadratowe do sufitów podwieszanych, bezramkowe i sufitowy subwoofer CMSUB8.",
+    "kv": [
+     {
+      "k": "Pasmo",
+      "v": "od 50–60 Hz do 20 kHz"
+     },
+     {
+      "k": "Szczelność",
+      "v": "do IP54"
+     },
+     {
+      "k": "Podłączenie",
+      "v": "linia 100 V lub 16 Ω"
+     }
+    ],
+    "w": [
+     "Restauracja",
+     "Sklep",
+     "Hotel",
+     "Szkoła"
+    ],
+    "m": [
+     "CM6T",
+     "CMX20T",
+     "CMSQ108",
+     "CM20DTS (bezramkowy)"
+    ]
+   }
+  },
+  "chn": {
+   "tabs": [
+    {
+     "n": "Linia 100 V",
+     "on": "true",
+     "cls": "on"
+    },
+    {
+     "n": "Niska impedancja",
+     "on": "false",
+     "cls": ""
+    }
+   ],
+   "annCls": "btn btn-s btn-g",
+   "annT": "Nadaj komunikat",
+   "priCls": "",
+   "src": [
+    {
+     "n": "Muzyka i radio",
+     "ic": "ikona:music",
+     "cls": "chs on"
+    },
+    {
+     "n": "Mikrofon przy kasie",
+     "ic": "ikona:chat",
+     "cls": "chs"
+    },
+    {
+     "n": "Gong",
+     "ic": "ikona:bell",
+     "cls": "chs"
+    },
+    {
+     "n": "Wejście alarmowe",
+     "ic": "ikona:shield",
+     "cls": "chs"
+    }
+   ],
+   "mix": "Wzmacniacz miksujący, np. MA247MR",
+   "mixS": "Do 6 poziomów priorytetu i VOX",
+   "amp": "np. REVAMP2120T w linii 100 V",
+   "ampS": "Wiele głośników na jednej linii, długie kable",
+   "zones": [
+    {
+     "n": "Sala",
+     "sp": [
+      "chp t",
+      "chp t",
+      "chp t",
+      "chp t",
+      "chp t",
+      "chp t"
+     ],
+     "v": "muzyka 60%"
+    },
+    {
+     "n": "Bar",
+     "sp": [
+      "chp t",
+      "chp t",
+      "chp t"
+     ],
+     "v": "muzyka 45%"
+    },
+    {
+     "n": "Taras",
+     "sp": [
+      "chp t",
+      "chp t",
+      "chp t",
+      "chp t"
+     ],
+     "v": "muzyka 50%"
+    },
+    {
+     "n": "Toalety",
+     "sp": [
+      "chp t",
+      "chp t"
+     ],
+     "v": "muzyka 30%"
+    }
+   ],
+   "note": "W linii 100 V każdy głośnik ma transformator z odczepami mocy, np. 1,5 / 3 / 6 W. Na jedną linię wpinamy wiele głośników i każdemu dobieramy głośność. Dobre do sklepów, hoteli, kościołów i szkół."
+  },
+  "ko": {
+   "vol": 60,
+   "rev": 4,
+   "revT": "długi",
+   "colCls": "chip",
+   "colOn": "false",
+   "beam": "[svg-path]",
+   "refl": [
+    {
+     "d": "[svg-path]",
+     "st": "opacity:0.67"
+    },
+    {
+     "d": "[svg-path]",
+     "st": "opacity:0.67"
+    },
+    {
+     "d": "[svg-path]",
+     "st": "opacity:0.67"
+    }
+   ],
+   "blur": "filter:blur(1.6px);opacity:0.72",
+   "bar": "width:49%",
+   "txt": "Da się zrozumieć, ale trzeba się wsłuchać.",
+   "pts": [
+    {
+     "t": "Kolumny zamiast zwykłych głośników",
+     "d": "Kierują dźwięk na ławki, a mniej na sklepienie, więc pogłos mniej przeszkadza."
+    },
+    {
+     "t": "Mikrofony przy ołtarzu i ambonie",
+     "d": "Dobrane tak, żeby nie było sprzężeń i dudnienia."
+    },
+    {
+     "t": "Pętla indukcyjna",
+     "d": "Przesyła mowę prosto do aparatu słuchowego. Podmioty publiczne muszą zapewnić wsparcie słyszenia, np. pętlę indukcyjną. Dla parafii to wybór dobrowolny."
+    },
+    {
+     "t": "Nagłośnienie przed kościołem",
+     "d": "Na odpusty i uroczystości, gdy wierni stoją na zewnątrz."
+    }
+   ]
+  },
+  "ig": {
+   "a": 120,
+   "h": 30,
+   "hT": "3,0",
+   "modes": [
+    {
+     "n": "Muzyka w tle",
+     "on": "true",
+     "cls": "on"
+    },
+    {
+     "n": "Mowa i komunikaty",
+     "on": "false",
+     "cls": ""
+    }
+   ],
+   "res": "3–4",
+   "unit": "głośniki sufitowe",
+   "dots": [
+    "on",
+    "on",
+    "on",
+    "on",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+   ],
+   "note": "Muzyka w tle: głośniki co około dwie wysokości sufitu. To szacunek z reguł branżowych. Dokładnie liczymy po oględzinach, bo dużo zależy od pogłosu i wyposażenia sali."
+  },
+  "so": [
+   {
+    "ic": "ikona:spk",
+    "t": "Nagłośnienie sali",
+    "d": "Mikrofony dla radnych i prowadzącego, głośniki dobrane do akustyki sali.",
+    "s": "Mikrofony konferencyjne m.in. Audio-Technica"
+   },
+   {
+    "ic": "ikona:camera2",
+    "t": "Nagrywanie i transmisja",
+    "d": "Obrady rady gminy są transmitowane i utrwalane, a nagrania trafiają do BIP i na stronę gminy.",
+    "s": "Art. 20 ust. 1b ustawy o samorządzie gminnym"
+   },
+   {
+    "ic": "ikona:check",
+    "t": "Imienny wykaz głosowań",
+    "d": "Głosowania jawne odbywają się za pomocą urządzeń, które utrwalają imienny wykaz głosów radnych.",
+    "s": "Art. 14 ust. 2–4 u.s.g. · system głosowania z partnerem [SZEF]"
+   },
+   {
+    "ic": "ikona:users",
+    "t": "Pętla indukcyjna",
+    "d": "Podmioty publiczne muszą zapewnić urządzenia wspierające słyszenie, np. pętle indukcyjne, systemy FM albo inne rozwiązania techniczne.",
+    "s": "Ustawa o zapewnianiu dostępności, art. 6 pkt 3 lit. b"
+   }
+  ],
+  "mx": {
+   "venues": [
+    {
+     "n": "Restauracja",
+     "ic": "ikona:food",
+     "on": "true",
+     "cls": "on"
+    },
+    {
+     "n": "Hotel",
+     "ic": "ikona:hotel",
+     "on": "false",
+     "cls": ""
+    },
+    {
+     "n": "Kościół",
+     "ic": "ikona:church",
+     "on": "false",
+     "cls": ""
+    },
+    {
+     "n": "Szkoła",
+     "ic": "ikona:school",
+     "on": "false",
+     "cls": ""
+    },
+    {
+     "n": "Sala obrad",
+     "ic": "ikona:users",
+     "on": "false",
+     "cls": ""
+    },
+    {
+     "n": "Hala",
+     "ic": "ikona:factory",
+     "on": "false",
+     "cls": ""
+    }
+   ],
+   "v": {
+    "rest": true,
+    "hotel": false,
+    "kos": false,
+    "szk": false,
+    "obr": false,
+    "hala": false
+   },
+   "ch": [
+    {
+     "n": "Sala",
+     "db": "−12 dB",
+     "l": "70",
+     "aria": "Głośność strefy Sala",
+     "seg": [
+      "ms on",
+      "ms on",
+      "ms on",
+      "ms on",
+      "ms on",
+      "ms on",
+      "ms on",
+      "ms on pkk",
+      "ms y",
+      "ms y",
+      "ms r",
+      "ms r"
+     ],
+     "cls": "cch",
+     "mcls": "cmu",
+     "mOn": "false",
+     "mtxt": "Wycisz"
+    },
+    {
+     "n": "Taras",
+     "db": "−18 dB",
+     "l": "55",
+     "aria": "Głośność strefy Taras",
+     "seg": [
+      "ms on",
+      "ms on",
+      "ms on",
+      "ms on",
+      "ms on",
+      "ms on",
+      "ms on pkk",
+      "ms",
+      "ms y",
+      "ms y",
+      "ms r",
+      "ms r"
+     ],
+     "cls": "cch",
+     "mcls": "cmu",
+     "mOn": "false",
+     "mtxt": "Wycisz"
+    },
+    {
+     "n": "Bar",
+     "db": "−16 dB",
+     "l": "60",
+     "aria": "Głośność strefy Bar",
+     "seg": [
+      "ms on",
+      "ms on",
+      "ms on",
+      "ms on",
+      "ms on",
+      "ms on",
+      "ms on pkk",
+      "ms",
+      "ms y",
+      "ms y",
+      "ms r",
+      "ms r"
+     ],
+     "cls": "cch",
+     "mcls": "cmu",
+     "mOn": "false",
+     "mtxt": "Wycisz"
+    },
+    {
+     "n": "Toalety",
+     "db": "−26 dB",
+     "l": "35",
+     "aria": "Głośność strefy Toalety",
+     "seg": [
+      "ms on",
+      "ms on",
+      "ms on",
+      "ms on pkk",
+      "ms",
+      "ms",
+      "ms",
+      "ms",
+      "ms y",
+      "ms y",
+      "ms r",
+      "ms r"
+     ],
+     "cls": "cch",
+     "mcls": "cmu",
+     "mOn": "false",
+     "mtxt": "Wycisz"
+    }
+   ],
+   "pri": false,
+   "cls": "mxp src0",
+   "src": [
+    {
+     "n": "Muzyka w tle",
+     "ic": "ikona:music",
+     "on": "true",
+     "cls": "csb on"
+    },
+    {
+     "n": "Mikrofon",
+     "ic": "ikona:spk",
+     "on": "false",
+     "cls": "csb"
+    },
+    {
+     "n": "Telewizor, AUX",
+     "ic": "ikona:tv",
+     "on": "false",
+     "cls": "csb"
+    }
+   ],
+   "annCls": "cann",
+   "note": "Przesuń suwak albo wycisz strefę i zobacz, jak zmienia się zasięg głośników na planie. Muzykę w strefie sala możesz podgłośnić, a w toalety wyciszyć z panelu na ścianie (z telefonu w systemach z aplikacją).",
+   "z0": {
+    "n": "Sala",
+    "db": "−12 dB",
+    "cls": "m_zg",
+    "st": "--lv:0.70"
+   },
+   "z1": {
+    "n": "Taras",
+    "db": "−18 dB",
+    "cls": "m_zg",
+    "st": "--lv:0.55"
+   },
+   "z2": {
+    "n": "Bar",
+    "db": "−16 dB",
+    "cls": "m_zg",
+    "st": "--lv:0.60"
+   },
+   "z3": {
+    "n": "Toalety",
+    "db": "−26 dB",
+    "cls": "m_zg",
+    "st": "--lv:0.35"
+   }
+  },
+  "ob": [
+   {
+    "ic": "ikona:food",
+    "t": "Restauracje i karczmy",
+    "d": "Muzyka w tle na sali, osobno na tarasie i w toaletach. Głośność, której nie trzeba poprawiać co godzinę.",
+    "k": [
+     "strefy",
+     "taras",
+     "panel ścienny"
+    ]
+   },
+   {
+    "ic": "ikona:hotel",
+    "t": "Hotele i pensjonaty",
+    "d": "Lobby, restauracja, SPA, sala konferencyjna. Komunikaty do wybranych stref.",
+    "k": [
+     "strefy",
+     "komunikaty",
+     "sala konf."
+    ]
+   },
+   {
+    "ic": "ikona:church",
+    "t": "Kościoły",
+    "d": "Zrozumiałość mowy w całej nawie, mikrofony bezprzewodowe, prosta obsługa dla zakrystianina.",
+    "k": [
+     "zrozumiałość mowy",
+     "mikrofony"
+    ]
+   },
+   {
+    "ic": "ikona:school",
+    "t": "Szkoły",
+    "d": "Dzwonki, komunikaty, apel na sali gimnastycznej i boisku.",
+    "k": [
+     "dzwonki",
+     "komunikaty",
+     "apel"
+    ]
+   },
+   {
+    "ic": "ikona:factory",
+    "t": "Hale i obiekty sportowe",
+    "d": "Komunikaty na trybunach i płycie, muzyka na wydarzenia.",
+    "k": [
+     "komunikaty",
+     "wydarzenia"
+    ]
+   },
+   {
+    "ic": "ikona:users",
+    "t": "Sale obrad i rady gmin",
+    "d": "Mikrofony dyskusyjne dobrane tak, żeby ograniczyć sprzężenia, z nagrywaniem obrad i sygnałem do transmisji internetowej.",
+    "k": [
+     "mikrofony",
+     "nagrywanie",
+     "transmisje"
+    ]
+   },
+   {
+    "ic": "ikona:shop",
+    "t": "Sklepy i salony",
+    "d": "Muzyka i komunikaty marketingowe, sterowanie z zaplecza. Między innymi salony Empik w Zakopanem i Krakowie. [SZEF: potwierdź zgodę klienta na podanie nazwy]",
+    "k": [
+     "muzyka",
+     "reklamy audio"
+    ]
+   },
+   {
+    "ic": "ikona:car",
+    "t": "Nagłośnienie na pojazdach",
+    "d": "Nagłośnienie zewnętrzne na samochodzie reklamowym albo na wydarzenia plenerowe.",
+    "k": [
+     "pojazd",
+     "plener"
+    ]
+   }
+  ],
+  "dso": [
+   {
+    "ic": "ikona:hotel",
+    "t": "budynki zamieszkania zbiorowego z ponad 200 miejscami noclegowymi albo budynki wysokie i wysokościowe"
+   },
+   {
+    "ic": "ikona:tv",
+    "t": "kina i teatry z ponad 600 miejscami"
+   },
+   {
+    "ic": "ikona:users",
+    "t": "sale widowiskowe i sportowe z ponad 1500 miejscami"
+   },
+   {
+    "ic": "ikona:shop",
+    "t": "budynki handlowe ze strefą ZL I powyżej 8000 m² (jedna kondygnacja) lub 5000 m² (więcej kondygnacji)"
+   },
+   {
+    "ic": "ikona:plus",
+    "t": "szpitale i sanatoria z ponad 200 łóżkami oraz inne obiekty wymienione w rozporządzeniu"
+   }
+  ],
+  "lic": [
+   {
+    "ic": "ikona:music",
+    "t": "Radio w lokalu to też publiczne odtwarzanie",
+    "d": "Prawo autorskie pozwala odbierać radio i telewizję w miejscu ogólnodostępnym bez opłat tylko wtedy, gdy nie łączy się to z korzyścią majątkową (art. 24 ust. 2)."
+   },
+   {
+    "ic": "ikona:users",
+    "t": "Organizacje zbiorowego zarządzania",
+    "d": "Opłaty pobierają m.in. ZAiKS, STOART, SAWP i ZPAV. Według Ministerstwa Kultury można też licencjonować muzykę bezpośrednio."
+   },
+   {
+    "ic": "ikona:play",
+    "t": "Muzyka licencjonowana do lokali",
+    "d": "Serwisy muzyki dla firm mają własne licencje. Podłączamy je do systemu tak samo jak każde inne źródło."
+   }
+  ],
+  "rn": [
+   {
+    "k": "Sklep",
+    "n": "Empik Zakopane i Kraków",
+    "m": "Nagłośnienie sal sprzedaży [SZEF: zgoda klienta na nazwę]",
+    "ph": "",
+    "art": "[svg-path]"
+   },
+   {
+    "k": "Kościół",
+    "n": "Parafia św. Teresy",
+    "m": "Rabka-Zdrój · instalacja audiowizualna i nagłośnienie chóru",
+    "ph": "",
+    "art": "[svg-path]"
+   },
+   {
+    "k": "Kościół",
+    "n": "Jasna Górka, Ślemień",
+    "m": "Parafia Narodzenia św. Jana Chrzciciela · nagłośnienie",
+    "ph": "",
+    "art": "[svg-path]"
+   },
+   {
+    "k": "Kaplica",
+    "n": "Kaplica Sióstr Nazaretanek",
+    "m": "Rabka-Zdrój · nagłośnienie",
+    "ph": "",
+    "art": "[svg-path]"
+   },
+   {
+    "k": "Gastronomia",
+    "n": "Restauracja „Aleksandra”",
+    "m": "Mszana Dolna · instalacja audiowizualna",
+    "ph": "",
+    "art": "[svg-path]"
+   },
+   {
+    "k": "Gastronomia",
+    "n": "Caffe Europa i FitBar",
+    "m": "Nowy Sącz · nagłośnienie lokali",
+    "ph": "",
+    "art": "[svg-path]"
+   }
+  ]
+ }
+}

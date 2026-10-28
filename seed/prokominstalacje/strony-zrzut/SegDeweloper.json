@@ -1,0 +1,692 @@
+{
+ "_strona": "SegDeweloper",
+ "_title": "Teletechnika dla deweloperów, § 192e — Małopolska | PRO-KOM",
+ "_description": "Instalacja telekomunikacyjna według § 192e: punkt styku, światłowód, skrętka i koncentryk do mieszkań, RTV/SAT, domofony i protokoły pomiarów do odbioru.",
+ "_uwaga": "Zrzut danych z wizualizacji v4.0 (stan początkowy strony, motyw jasny). Teksty = treść do seeda. Klucze UI (cls, on, pick) pomijaj.",
+ "dane": {
+  "ctaEye": "Deweloper",
+  "ctaH": "Prześlij projekt albo przedmiar, a przygotujemy ofertę z harmonogramem i listą pomiarów.",
+  "ctaP": "Wycena branży teletechnicznej, wejście w stanie surowym, pomiary i protokoły do odbioru, przekazanie wspólnocie w zakresie z umowy.",
+  "hero": {
+   "mid": true,
+   "midT": "Dla kogo",
+   "midH": "Main.dc.html#dla-kogo",
+   "cta": "Zaplanuj instalację",
+   "ctaHref": "Zaplanuj.dc.html#obiekt=dev",
+   "crumb": "Deweloper",
+   "eye": "Teletechnika dla deweloperów · Podhale i Małopolska",
+   "h1a": "Teletechnika przygotowana do odbioru,",
+   "h1b": "która nie wraca w reklamacjach.",
+   "lead": "Instalacja telekomunikacyjna według § 192e warunków technicznych: punkt styku dla wielu operatorów, światłowód, skrętka i koncentryk do każdego mieszkania, zbiorcza antena naziemna i satelitarna, domofony, karty do garażu i protokoły pomiarów do odbioru.",
+   "kv": [
+    {
+     "b": "64,2%",
+     "s": "mieszkań w 2025 r. oddali deweloperzy (GUS)"
+    },
+    {
+     "b": "24 mies.",
+     "s": "gwarancji na montaż"
+    },
+    {
+     "b": "do 24 h",
+     "s": "odpowiedź na zgłoszenie w dni robocze"
+    }
+   ],
+   "tags": [
+    {
+     "n": "§ 192e warunków technicznych"
+    },
+    {
+     "n": "Pomiary i protokoły"
+    },
+    {
+     "n": "Domofony i karty"
+    },
+    {
+     "n": "Przygotowanie pod smart"
+    }
+   ]
+  },
+  "anc": [
+   {
+    "href": "#problemy",
+    "n": "Problemy"
+   },
+   {
+    "href": "#rok",
+    "n": "Etapy budowy"
+   },
+   {
+    "href": "#przepisy",
+    "n": "Przepisy"
+   },
+   {
+    "href": "#gory",
+    "n": "Podhale"
+   },
+   {
+    "href": "#pakiety",
+    "n": "Zestawy"
+   },
+   {
+    "href": "#przygotuj",
+    "n": "Przed wyceną"
+   },
+   {
+    "href": "#faq",
+    "n": "Pytania"
+   }
+  ],
+  "pkgs": [
+   {
+    "n": "Do odbioru",
+    "d": "Zgodnie z warunkami technicznymi.",
+    "ic": "ikona:doc",
+    "f": [
+     "Instalacja według § 192e i § 192f",
+     "Zbiorcza RTV i SAT z masztem",
+     "Domofon na klatkę",
+     "Pomiary i protokoły",
+     "Dokumentacja powykonawcza"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "hot": false,
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri"
+   },
+   {
+    "n": "Łatwiej sprzedać",
+    "d": "Wyposażenie, o które pytają kupujący.",
+    "ic": "ikona:key",
+    "hot": true,
+    "f": [
+     "Wszystko z Do odbioru",
+     "Wideodomofony z aplikacją",
+     "Breloki do furtki, klatek i garażu",
+     "Monitoring części wspólnych",
+     "Przekazanie wspólnocie w zakresie z umowy"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri hot"
+   },
+   {
+    "n": "Osiedle premium",
+    "d": "Wyróżnik w ofercie.",
+    "ic": "ikona:star",
+    "f": [
+     "Przygotowanie pod smart home Ampio",
+     "Kanały pod ładowarki w garażu",
+     "Ekran informacyjny w holu",
+     "Monitoring wjazdu do garażu",
+     "Umowa serwisowa ze wspólnotą"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "hot": false,
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri"
+   }
+  ],
+  "cena": [],
+  "faq": [
+   {
+    "n": "01",
+    "q": "Co musi mieć nowy budynek wielorodzinny?",
+    "a": "W skrócie: punkt styku, światłowód, skrętkę i koncentryk do skrzynki przy każdym mieszkaniu, zbiorczą antenę z masztem na dachu i sygnalizację dzwonkową. Szczegóły z § 192a, § 192e i § 192f są w sekcji przepisów. Wykonujemy całość z pomiarami.",
+    "open": true
+   },
+   {
+    "n": "02",
+    "q": "Według jakich warunków technicznych projektujecie?",
+    "a": "Nowe warunki techniczne nie zostały ogłoszone (stan na październik 2026). Projektujemy więc według dotychczasowych, które w okresie przejściowym stosuje się po oświadczeniu inwestora. Śledzimy zmiany i uprzedzamy, jeśli wpłyną na projekt.",
+    "open": false
+   },
+   {
+    "n": "03",
+    "q": "Jakie dokumenty dostaniemy do odbioru?",
+    "a": "Protokoły pomiarów światłowodu, skrętki i poziomów sygnału TV oraz dokumentację powykonawczą teletechniki, bo są wymagane do odbioru. Zakres przekazania wspólnocie (dostępy, instrukcja, lista urządzeń) ustalamy w umowie.",
+    "open": false
+   },
+   {
+    "n": "04",
+    "q": "Od czego zależy cena teletechniki?",
+    "a": "Od liczby lokali i klatek, garażu, standardu domofonów i kontroli dostępu oraz od etapu, na którym wchodzimy. Wycenę branży przygotujemy z projektu albo przedmiaru, razem z harmonogramem prac.",
+    "open": false
+   },
+   {
+    "n": "05",
+    "q": "Kiedy powinniście wejść na budowę?",
+    "a": "Najlepiej przy projekcie i w stanie surowym, przed tynkami: wtedy kładziemy przepusty, rury i skrzynki bez kucia. Montaż urządzeń i pomiary robimy na końcu, przed odbiorami.",
+    "open": false
+   },
+   {
+    "n": "06",
+    "q": "Jak ograniczyć reklamacje lokatorów?",
+    "a": "Przed odbiorami lokatorskimi testujemy każde gniazdo, wideodomofon i sygnał TV i oddajemy listę wyników dla działu obsługi klienta. Mniej wad przy odbiorze to mniej terminów z ustawy deweloperskiej do pilnowania.",
+    "open": false
+   },
+   {
+    "n": "07",
+    "q": "Czy przygotowanie pod smart home się opłaca?",
+    "a": "Na etapie budowy to głównie głębsze puszki, dodatkowe przewody i miejsce w rozdzielnicy, a dokładanie tego po wykończeniu oznacza kucie. Mieszkanie z przygotowaniem albo z pakietem w mieszkaniu pokazowym łatwiej wyróżnić w ofercie.",
+    "open": false
+   },
+   {
+    "n": "08",
+    "q": "Czy zabezpieczycie też plac budowy?",
+    "a": "Tak. Na czas budowy stawiamy kamery na maszcie z zasilaniem dobranym do zimy, a kable pod docelowy monitoring budynku kładziemy w stanie surowym. Szczegóły są na stronie o monitoringu budów.",
+    "open": false
+   }
+  ],
+  "rel": [
+   {
+    "k": "kam",
+    "n": "Monitoring i kamery",
+    "g": "Bezpieczeństwo",
+    "href": "Monitoring.dc.html",
+    "ic": "ikona:cam",
+    "s": "Kompletny system: kamery, rejestrator, dyski, PoE"
+   },
+   {
+    "k": "alarm",
+    "n": "Alarmy i wideodomofony",
+    "g": "Bezpieczeństwo",
+    "href": "Alarmy.dc.html",
+    "ic": "ikona:bell",
+    "s": "Czujki, syreny, domofon z aplikacją"
+   },
+   {
+    "k": "kd",
+    "n": "Kontrola dostępu i zamki",
+    "g": "Bezpieczeństwo",
+    "href": "Dostep.dc.html",
+    "ic": "ikona:lock",
+    "s": "Karty, kody, apartamenty"
+   },
+   {
+    "k": "tel",
+    "n": "Teletechnika w budownictwie",
+    "g": "Sieci i technika",
+    "href": "Teletechnika.dc.html",
+    "ic": "ikona:build",
+    "s": "Dla deweloperów i wykonawców"
+   },
+   {
+    "k": "ant",
+    "n": "Anteny RTV/SAT",
+    "g": "Sieci i technika",
+    "href": "Anteny.dc.html",
+    "ic": "ikona:dish",
+    "s": "Satelitarne, DVB-T2, zbiorcze, TV hotelowa"
+   },
+   {
+    "k": "smart",
+    "n": "Smart home Ampio",
+    "g": "Komfort i obraz",
+    "href": "SmartHome.dc.html",
+    "ic": "ikona:home",
+    "s": "Polski system, działa bez internetu"
+   }
+  ],
+  "segRel": [
+   {
+    "k": "bud",
+    "g": "Budownictwo",
+    "n": "Budowa",
+    "s": "Monitoring placu bez prądu i kabla",
+    "page": "SegBudowa",
+    "href": "SegBudowa.dc.html",
+    "ic": "ikona:crane",
+    "h": "#E8A23A",
+    "hs": "--mh:#E8A23A",
+    "cls": ""
+   },
+   {
+    "k": "firma",
+    "g": "Firmy",
+    "n": "Firma, biuro i hala",
+    "s": "Wejścia, rampa, sieć firmowa",
+    "page": "SegFirma",
+    "href": "SegFirma.dc.html",
+    "ic": "ikona:factory",
+    "h": "#5B8CF0",
+    "hs": "--mh:#5B8CF0",
+    "cls": ""
+   }
+  ],
+  "hasSegRel": true,
+  "segRelH": "Podobne obiekty",
+  "sx": {
+   "faqA": {
+    "t": "Masz inne pytanie?",
+    "d": "Wyślij zdjęcie obiektu albo obecnej instalacji. Powiemy, od czego zacząć i czego się spodziewać.",
+    "cta": "Zaplanuj instalację",
+    "href": "Zaplanuj.dc.html"
+   },
+   "faqH": "Pytania deweloperów.",
+   "relH": "Usługi, które łączymy w tym obiekcie.",
+   "pkg": {
+    "eye": "Zestawy dla deweloperów",
+    "h": "Od zgodności z warunkami technicznymi po osiedle premium.",
+    "p": "",
+    "note": "To przykłady. Ostateczny zakres i cenę ustalamy po wizji lokalnej i podajemy na piśmie."
+   },
+   "cena": {
+    "btn": "Wyślij zdjęcia do wyceny",
+    "eye": "Wycena",
+    "h": "Co wpływa na cenę.",
+    "p": ""
+   }
+  },
+  "sg": {
+   "sceneT": "Przekrój budynku wielorodzinnego",
+   "hc": {
+    "k0": "hs on",
+    "k1": "hs",
+    "k2": "hs",
+    "k3": "hs",
+    "k4": "hs",
+    "k5": "hs",
+    "k6": "hs",
+    "k7": "hs",
+    "k8": "hs",
+    "k9": "hs"
+   },
+   "hp": {},
+   "zap": "Zaplanuj.dc.html#obiekt=dev",
+   "prepEye": "Przed wyceną",
+   "prepLead": "Zaznacz, co już masz. Zdjęcia możesz wysłać w formularzu albo przez WhatsApp.",
+   "leg": [
+    {
+     "no": "1",
+     "t": "Punkt styku dla wszystkich operatorów",
+     "on": "true",
+     "st": "--c:#8C9CF5",
+     "cls": "sglgb on"
+    },
+    {
+     "no": "2",
+     "t": "Pion: światłowód, skrętka i koncentryk",
+     "on": "false",
+     "st": "--c:#8C9CF5",
+     "cls": "sglgb"
+    },
+    {
+     "no": "3",
+     "t": "Skrzynka teletechniczna przy każdym mieszkaniu",
+     "on": "false",
+     "st": "--c:#8C9CF5",
+     "cls": "sglgb"
+    },
+    {
+     "no": "4",
+     "t": "Zbiorcza antena naziemna i satelitarna",
+     "on": "false",
+     "st": "--c:#B58CF0",
+     "cls": "sglgb"
+    },
+    {
+     "no": "5",
+     "t": "Panel domofonowy przy wejściu",
+     "on": "false",
+     "st": "--c:#F07A6A",
+     "cls": "sglgb"
+    },
+    {
+     "no": "6",
+     "t": "Unifon albo wideodomofon w mieszkaniu",
+     "on": "false",
+     "st": "--c:#F07A6A",
+     "cls": "sglgb"
+    },
+    {
+     "no": "7",
+     "t": "Karta do garażu i klatek",
+     "on": "false",
+     "st": "--c:#F2B84B",
+     "cls": "sglgb"
+    },
+    {
+     "no": "8",
+     "t": "Monitoring osiedla",
+     "on": "false",
+     "st": "--c:#12B6D8",
+     "cls": "sglgb"
+    },
+    {
+     "no": "9",
+     "t": "Przygotowanie pod smart home",
+     "on": "false",
+     "st": "--c:#7BD36A",
+     "cls": "sglgb"
+    },
+    {
+     "no": "10",
+     "t": "Kanały kablowe pod ładowarki",
+     "on": "false",
+     "st": "--c:#5FD0B0",
+     "cls": "sglgb"
+    }
+   ],
+   "ly": [
+    {
+     "n": "Wszystko",
+     "on": "true",
+     "cls": "sglyb on"
+    },
+    {
+     "n": "Bezpieczeństwo",
+     "on": "false",
+     "cls": "sglyb"
+    },
+    {
+     "n": "Sieć i łączność",
+     "on": "false",
+     "cls": "sglyb"
+    },
+    {
+     "n": "Komfort i energia",
+     "on": "false",
+     "cls": "sglyb"
+    }
+   ],
+   "cur": {
+    "k": "h0",
+    "no": "1",
+    "t": "Punkt styku dla wszystkich operatorów",
+    "d": "Punkt styku w osobnym pomieszczeniu na pierwszej kondygnacji, z równym dostępem dla operatorów i ochronnikami przepięciowymi.",
+    "sn": "Teletechnika",
+    "href": "Teletechnika.dc.html",
+    "st": "--c:#8C9CF5"
+   },
+   "pos": "1 z 10",
+   "pr": {
+    "eye": "Co słyszymy od deweloperów",
+    "h": "Gdzie teletechnika psuje odbiory",
+    "ha": "na końcu budowy.",
+    "lead": "Teletechnika wchodzi ostatnia, a jej błędy widać przy odbiorach lokatorskich. Wchodzimy na etapie projektu i stanu surowego."
+   },
+   "prob": [
+    {
+     "q": "„Brak protokołów do odbioru”",
+     "d": "Do zawiadomienia o zakończeniu budowy dołącza się protokoły badań i sprawdzeń instalacji.",
+     "fix": "Pomiar każdego toru światłowodu, skrętki i poziomu TV z protokołami i dokumentacją powykonawczą.",
+     "ic": "ikona:doc",
+     "sn": "Teletechnika",
+     "href": "Teletechnika.dc.html",
+     "st": "--c:#8C9CF5"
+    },
+    {
+     "q": "„Lokator zgłasza: nie działa domofon”",
+     "d": "Na wadę zgłoszoną przy odbiorze deweloper ma 14 dni na odpowiedź i 30 dni na usunięcie.",
+     "fix": "Test każdego gniazda, domofonu i sygnału TV przed odbiorami lokatorskimi i lista dla działu obsługi.",
+     "ic": "ikona:check",
+     "sn": "Alarmy i wideodomofony",
+     "href": "Alarmy.dc.html",
+     "st": "--c:#F07A6A"
+    },
+    {
+     "q": "„Tylko jeden operator w budynku”",
+     "d": "Instalacja bez punktu styku dla wielu operatorów to argument przeciwko mieszkaniu.",
+     "fix": "Instalacja według § 192e z punktem styku i dostępem dla wielu operatorów.",
+     "ic": "ikona:net",
+     "sn": "Teletechnika",
+     "href": "Teletechnika.dc.html",
+     "st": "--c:#8C9CF5"
+    },
+    {
+     "q": "„Kucie po tynkach”",
+     "d": "Projekt bez przepustów i kanalizacji kablowej oznacza kucie na końcu budowy.",
+     "fix": "Trasy, piony i puszki w stanie surowym, montaż urządzeń i pomiary przed odbiorami.",
+     "ic": "ikona:build",
+     "sn": "Teletechnika",
+     "href": "Teletechnika.dc.html",
+     "st": "--c:#8C9CF5"
+    },
+    {
+     "q": "„Wspólnota nie ma haseł”",
+     "d": "Po przekazaniu nikt nie wie, kto ma hasła do domofonów, rejestratora i kontroli dostępu.",
+     "fix": "Zakres przekazania wspólnocie (dostępy, instrukcja, lista urządzeń) ustalamy w umowie przed startem, razem z opieką serwisową.",
+     "ic": "ikona:key",
+     "sn": "Kontrola dostępu i zamki",
+     "href": "Dostep.dc.html",
+     "st": "--c:#F2B84B"
+    },
+    {
+     "q": "„Drzwi na kartę blokują wyjście ewakuacyjne”",
+     "d": "Kontrola dostępu na drogach ewakuacyjnych musi pozwalać na swobodne wyjście.",
+     "fix": "Dobór zamków i zwolnień zgodny z przepisami, uzgodniony z projektantem.",
+     "ic": "ikona:door",
+     "sn": "Kontrola dostępu i zamki",
+     "href": "Dostep.dc.html",
+     "st": "--c:#F2B84B"
+    }
+   ],
+   "day": {
+    "eye": "Teletechnika na osi budowy",
+    "h": "Od projektu do przekazania wspólnocie.",
+    "lead": "Tak wygląda nasza praca na budowie budynku wielorodzinnego, etap po etapie.",
+    "k": "d0",
+    "pg": "width:17%",
+    "items": [
+     {
+      "tm": "Projekt",
+      "n": "Uzgodnienie branży",
+      "on": "true",
+      "cls": "sgdb on"
+     },
+     {
+      "tm": "Stan surowy",
+      "n": "Trasy i piony",
+      "on": "false",
+      "cls": "sgdb"
+     },
+     {
+      "tm": "Po tynkach",
+      "n": "Kable i skrzynki",
+      "on": "false",
+      "cls": "sgdb"
+     },
+     {
+      "tm": "Wykończenie",
+      "n": "Urządzenia",
+      "on": "false",
+      "cls": "sgdb"
+     },
+     {
+      "tm": "Przed odbiorem",
+      "n": "Pomiary i testy",
+      "on": "false",
+      "cls": "sgdb"
+     },
+     {
+      "tm": "Przekazanie",
+      "n": "Wspólnota",
+      "on": "false",
+      "cls": "sgdb"
+     }
+    ],
+    "cur": {
+     "tm": "Projekt",
+     "n": "Uzgodnienie branży",
+     "d": "Liczymy kable, skrzynki i piony według § 192e i proponujemy przygotowanie pod smart i ładowarki.",
+     "ic": "ikona:doc",
+     "st": "--c:#8C9CF5",
+     "ch": [
+      {
+       "n": "Teletechnika",
+       "href": "Teletechnika.dc.html",
+       "st": "--c:#8C9CF5"
+      },
+      {
+       "n": "Smart home Ampio",
+       "href": "SmartHome.dc.html",
+       "st": "--c:#7BD36A"
+      }
+     ],
+     "hs": [
+      {
+       "no": "1",
+       "st": "--c:#8C9CF5"
+      },
+      {
+       "no": "2",
+       "st": "--c:#8C9CF5"
+      },
+      {
+       "no": "3",
+       "st": "--c:#8C9CF5"
+      },
+      {
+       "no": "9",
+       "st": "--c:#7BD36A"
+      }
+     ]
+    }
+   },
+   "law": {
+    "h": "Warunki techniczne, megaustawa i ustawa deweloperska.",
+    "lead": "Teletechnika budynku wielorodzinnego ma dokładne wymagania. Oddajemy instalację z protokołami pomiarów do odbioru.",
+    "items": [
+     {
+      "t": "Co musi mieć budynek",
+      "a": "§ 192e i § 192f WT",
+      "d": "Kanalizacja telekomunikacyjna, skrzynki przy drzwiach mieszkań, światłowód od punktu styku, skrętka, kable współosiowe, zbiorcza antena naziemna i satelitarna oraz maszt na dachu.",
+      "who": "Instalator",
+      "wc": "sgwho i",
+      "href": "https://eli.gov.pl/eli/DU/2022/1225/ogl",
+      "sl": "WT, t.j. Dz.U. 2022 poz. 1225 (ELI)"
+     },
+     {
+      "t": "Nowe warunki jeszcze nie weszły",
+      "a": "nowe WT, stan 10.2026",
+      "d": "Planowany termin 20.09.2026 minął bez ogłoszenia rozporządzenia. Prawo budowlane (art. 102a–102c) pozwala przez 18 miesięcy od 20.09.2026 stosować dotychczasowe warunki po oświadczeniu inwestora. Okres liczy się od 20.09.2026, a nie od ogłoszenia nowych WT, więc im później wejdą, tym mniej czasu na wybór.",
+      "who": "Deweloper",
+      "wc": "sgwho o",
+      "href": "https://www.money.pl/gospodarka/miala-byc-rewolucja-w-budowie-domow-termin-minal-przepisow-nie-ma-7336366827530560a.html",
+      "sl": "money.pl, 04.10.2026"
+     },
+     {
+      "t": "Dostęp operatora do budynku",
+      "a": "art. 30 megaustawy",
+      "d": "Właściciel zapewnia operatorowi dostęp do budynku i instalacji, nieodpłatnie, a koszty utrzymania ponosi operator. Instalacja z punktem styku dla wielu operatorów to argument dla nabywców.",
+      "who": "Deweloper",
+      "wc": "sgwho o",
+      "href": "https://api.sejm.gov.pl/eli/acts/DU/2026/562/text/U/D20260562Lj.pdf",
+      "sl": "Megaustawa, t.j. Dz.U. 2026 poz. 562 (PDF)"
+     },
+     {
+      "t": "Protokoły do odbioru",
+      "a": "art. 57 ust. 1 pkt 4 Prawa budowlanego",
+      "d": "Do zawiadomienia albo wniosku o pozwolenie na użytkowanie dołącza się protokoły badań i sprawdzeń instalacji.",
+      "who": "Razem",
+      "wc": "sgwho r",
+      "href": "https://api.sejm.gov.pl/eli/acts/DU/2026/524/text.pdf",
+      "sl": "Prawo budowlane, t.j. Dz.U. 2026 poz. 524"
+     },
+     {
+      "t": "14 i 30 dni na wady",
+      "a": "art. 41 ustawy deweloperskiej",
+      "d": "Deweloper ma 14 dni na odpowiedź na wadę zgłoszoną przy odbiorze, a brak odpowiedzi oznacza uznanie. Na usunięcie ma 30 dni. Testy przed odbiorami pozwalają uniknąć takich zgłoszeń.",
+      "who": "Deweloper",
+      "wc": "sgwho o",
+      "href": "https://eli.gov.pl/eli/DU/2021/1177/ogl",
+      "sl": "Ustawa deweloperska z 20.05.2021 (ELI)"
+     },
+     {
+      "t": "Światłowód w nowych budynkach",
+      "a": "rozp. UE 2024/1309 (GIA)",
+      "d": "Unijny akt o infrastrukturze gigabitowej stosuje się wprost. Od 12.02.2026 nowe budynki muszą mieć infrastrukturę gotową na światłowód. Polska ustawa wdrażająca (projekt UC116) w kwietniu 2026 była jeszcze projektem, więc jej stan sprawdzamy przy każdym projekcie. Instalacja według § 192e ma światłowód do każdego mieszkania.",
+      "who": "Deweloper",
+      "wc": "sgwho o",
+      "href": "https://muratordom.pl/budowa/inne-technologie-budowlane/swiatlowod-jak-prad-i-woda-jest-nowy-obowiazek-dla-kazdego-kto-buduje-dom-aa-4XGv-uZJo-7xW4.html",
+      "sl": "Murator, 17.04.2026"
+     }
+    ]
+   },
+   "gory": {
+    "h": "Apartamenty pod wynajem, stoki i burze.",
+    "items": [
+     {
+      "ic": "ikona:apt",
+      "t": "Apartamenty pod wynajem",
+      "d": "W Zakopanem, Białce i Bukowinie kupujący pytają o zamki na kod, Wi-Fi w każdym lokalu i telewizję. Okablowanie na etapie budowy jest tańsze niż dokładanie później.",
+      "hasS": false,
+      "sh": "",
+      "sl": ""
+     },
+     {
+      "ic": "ikona:dish",
+      "t": "Satelita w górach",
+      "d": "Warunki techniczne wymagają odbioru z co najmniej 2 satelitów. W górach liczy się widoczność południa, więc maszt i czasza muszą stać w dobrym miejscu.",
+      "hasS": false,
+      "sh": "",
+      "sl": ""
+     },
+     {
+      "ic": "ikona:storm",
+      "t": "Burze i maszt na dachu",
+      "d": "Maszt i anteny w strefie ochrony odgromowej, ochronniki na wszystkich liniach wychodzących z budynku.",
+      "hasS": false,
+      "sh": "",
+      "sl": ""
+     },
+     {
+      "ic": "ikona:build",
+      "t": "9,8% mieszkań w Małopolsce",
+      "d": "Tyle mieszkań oddanych w kraju w 2025 r. przypadło na Małopolskę według wstępnych danych GUS.",
+      "hasS": true,
+      "sh": "https://www.blog.ongeo.pl/budownictwo-mieszkaniowe-2025-gus",
+      "sl": "OnGeo za GUS, 20.03.2026"
+     }
+    ]
+   },
+   "hasReal": false,
+   "realH": "",
+   "real": [],
+   "ck": {
+    "n": 0,
+    "t": 7,
+    "st": "--p:0",
+    "cta": "Wyślij zdjęcia i opis →",
+    "items": [
+     {
+      "t": "Projekt branży teletechnicznej albo przedmiar",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Harmonogram budowy i etap prac",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Liczba lokali, klatek i miejsc w garażu",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Czy budynek ma garaż podziemny",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Oczekiwania co do domofonów i kontroli dostępu",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Czy planujecie mieszkanie pokazowe",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Kontakt do kierownika budowy",
+      "on": "false",
+      "cls": "sgci"
+     }
+    ]
+   }
+  }
+ }
+}

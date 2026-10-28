@@ -1,0 +1,391 @@
+{
+ "k": "pens",
+ "page": "Noclegowe",
+ "h": "#F29A4B",
+ "dla": "pensjonatów",
+ "title": "Wi-Fi, kamery i czujki dla pensjonatów — Zakopane | PRO-KOM",
+ "desc": "Wi-Fi w każdym pokoju, kamery parkingu i narciarni, wejście z kodem, telewizja w pokojach i czujki dymu. Pensjonaty w Zakopanem i na Podhalu.",
+ "sceneT": "Przekrój pensjonatu z narciarnią",
+ "hero": {
+  "crumb": "Pensjonat",
+  "eye": "Instalacje dla pensjonatów i pokoi gościnnych · Zakopane, Kościelisko, Rabka, Podhale",
+  "h1a": "Pensjonat, który działa sam,",
+  "h1b": "gdy Ty śpisz albo jesteś na stoku.",
+  "lead": "Wi-Fi w każdym pokoju, kamery tam, gdzie są spory: wjazd, parking, narciarnia. Wejście z kodem i wideodomofon w telefonie, telewizja w pokojach z jednej szafy, czujki dymu w pokojach i ogrzewanie, które nie grzeje pustych pokoi.",
+  "kv": [
+   [
+    "30.06.2026",
+    "od tego dnia czujka dymu w każdym pokoju"
+   ],
+   [
+    "24 mies.",
+    "gwarancji na montaż"
+   ],
+   [
+    "do 24 h",
+    "odpowiedź na zgłoszenie w dni robocze"
+   ]
+  ],
+  "tags": [
+   "Wi-Fi w pokojach",
+   "Kamery narciarni i parkingu",
+   "Wejście z kodem",
+   "Czujki dymu"
+  ]
+ },
+ "hs": [
+  {
+   "d": "Kod ważny na czas pobytu wysyłany z systemu rezerwacji, a wideodomofon przy wejściu łączy się z Twoim telefonem. Nie siedzisz do północy w recepcji."
+  },
+  {
+   "d": "Narciarnia i suszarnia butów to miejsca największych sporów. Nagranie rozstrzyga, kto zabrał nie swoje narty."
+  },
+  {
+   "d": "Wjazd i parking zimą: stłuczki przy manewrach, obce auta, zajęte miejsca. Kamera z detekcją aut i maską na drogę."
+  },
+  {
+   "d": "Punkt dostępowy w pokoju albo nad drzwiami, podłączony kablem. Grube mury nie zabierają zasięgu, a sieć gości jest oddzielona od kamer i recepcji."
+  },
+  {
+   "d": "Ten sam zestaw kanałów w każdym pokoju z jednej szafy. Doradzamy, ile telewizorów naprawdę potrzebujesz, bo każdy oznacza opłaty."
+  },
+  {
+   "d": "Od 30.06.2026 każdy pokój musi mieć autonomiczną czujkę dymu. Dobieramy czujki zgodne z normą, które mogą też powiadomić Cię na telefonie."
+  },
+  {
+   "d": "Kocioł albo kominek z otwartą komorą spalania, np. w sali kominkowej, wymaga czujki tlenku węgla."
+  },
+  {
+   "d": "Poza sezonem puste pokoje są w trybie oszczędnym, a przed przyjazdem gości ogrzewanie samo się podnosi."
+  },
+  {
+   "d": "Pogoda, warunki na stokach, godziny śniadań i atrakcje na ekranie w jadalni, zmieniane z telefonu."
+  },
+  {
+   "d": "Dobudówka bez kopania rowu: most radiowy przenosi internet i obraz z kamer. Przy wykopie lepszy światłowód."
+  },
+  {
+   "d": "Ładowarka dla gości z autami elektrycznymi, montowana przy okazji instalacji."
+  }
+ ],
+ "pr": {
+  "eye": "Co słyszymy od właścicieli pensjonatów",
+  "h": "Sześć rzeczy, które trafiają do opinii",
+  "ha": "albo do nocnych telefonów.",
+  "lead": "Typowy obiekt na Podhalu to rodzinny dom z pokojami. Projektujemy tak, żeby działał bez stałej recepcji i żeby goście chwalili go w opiniach."
+ },
+ "prob": [
+  {
+   "q": "„Gość przyjechał o północy”",
+   "d": "Właściciel nie chce siedzieć do późna, a gość nie chce czekać pod drzwiami.",
+   "fix": "Kod do drzwi na czas pobytu, wideodomofon w telefonie i zapasowy sposób otwarcia.",
+   "s": "kd",
+   "ic": "key"
+  },
+  {
+   "q": "„W pokoju nie ma Wi-Fi”",
+   "d": "Jeden router w korytarzu nie przebija się przez grube mury i stropy. To jedna z częstych skarg w opiniach.",
+   "fix": "Punkty dostępowe w pokojach albo nad drzwiami, kablem od szafy, i osobna sieć gości.",
+   "s": "wifi",
+   "ic": "wifi"
+  },
+  {
+   "q": "„Zginęły narty”",
+   "d": "Narciarnia i suszarnia butów bez nagrania to spór bez rozstrzygnięcia.",
+   "fix": "Kamera narciarni i suszarni z tabliczką, bez kamer w pokojach i strefach intymnych.",
+   "s": "kam",
+   "ic": "snow"
+  },
+  {
+   "q": "„Telewizor bez kanałów”",
+   "d": "Stare telewizory bez DVB-T2 i kanały satelitarne do rozprowadzenia na kilkanaście pokoi.",
+   "fix": "Telewizja w pokojach z jednej szafy i doradztwo, ile odbiorników ma sens.",
+   "s": "ant",
+   "ic": "tv"
+  },
+  {
+   "q": "„Czy muszę mieć czujki w pokojach?”",
+   "d": "Czujki są wymagane od 30.06.2026. Większy obiekt może potrzebować systemu sygnalizacji pożarowej (szczegóły w sekcji „Przepisy”).",
+   "fix": "Czujki dymu i czadu zgodne z normą. Przy większym obiekcie przygotowujemy instalacje pod projekt systemu pożarowego.",
+   "s": "alarm",
+   "ic": "fire"
+  },
+  {
+   "q": "„Grzeję puste pokoje”",
+   "d": "Poza sezonem obłożenie spada, a grzejniki grzeją wszystkie pokoje.",
+   "fix": "Sterowanie ogrzewaniem pokojami albo strefami według obłożenia.",
+   "s": "smart",
+   "ic": "thermo"
+  }
+ ],
+ "day": {
+  "eye": "Doba w pensjonacie w ferie",
+  "h": "Od śniadania do przyjazdu o północy.",
+  "lead": "Tak pracują instalacje pensjonatu w pełnym obłożeniu.",
+  "items": [
+   {
+    "tm": "7:30",
+    "n": "Śniadanie",
+    "d": "Ekran w jadalni pokazuje pogodę i warunki na stokach. Goście sprawdzają je w Wi-Fi, które działa w każdym pokoju.",
+    "s": [
+     "scr",
+     "wifi"
+    ],
+    "ic": "coffee"
+   },
+   {
+    "tm": "9:00",
+    "n": "Wyjście na stok",
+    "d": "Narciarnia pełna nart i butów. Kamera nagrywa, kto bierze sprzęt, a puste pokoje przechodzą w tryb oszczędny.",
+    "s": [
+     "kam",
+     "smart"
+    ],
+    "ic": "snow"
+   },
+   {
+    "tm": "14:00",
+    "n": "Manewry na parkingu",
+    "d": "Ktoś zarysował auto na śliskim parkingu. Nagranie z kamery wjazdu wyjaśnia sprawę w kilka minut.",
+    "s": [
+     "kam"
+    ],
+    "ic": "car"
+   },
+   {
+    "tm": "18:00",
+    "n": "Wieczór w pokojach",
+    "d": "Goście oglądają telewizję albo seriale przez Wi-Fi. Sieć gości nie widzi kamer ani komputera recepcji.",
+    "s": [
+     "ant",
+     "wifi"
+    ],
+    "ic": "tv"
+   },
+   {
+    "tm": "23:50",
+    "n": "Późny przyjazd",
+    "d": "Gość wpisuje kod przy wejściu. Jeśli ma pytanie, dzwoni przez wideodomofon, a Ty odbierasz w telefonie.",
+    "s": [
+     "kd"
+    ],
+    "ic": "key"
+   },
+   {
+    "tm": "3:00",
+    "n": "Noc",
+    "d": "Czujki dymu w pokojach i czujka czadu w kotłowni czuwają. W razie alarmu dostajesz powiadomienie na telefon.",
+    "s": [
+     "alarm"
+    ],
+    "ic": "moon"
+   }
+  ]
+ },
+ "law": {
+  "h": "Czujki dymu, ppoż., kamery i telewizory. Co mówią przepisy.",
+  "lead": "Pensjonat to formalnie budynek zamieszkania zbiorowego. Kilka obowiązków dotyczy instalacji, a część tylko obiektu.",
+  "items": [
+   {
+    "who": "Pensjonat",
+    "a": "§ 28a rozp. ppoż.",
+    "t": "Czujka dymu w każdym pokoju",
+    "d": "Od 30.06.2026 każdy pokój, w którym świadczysz usługi hotelarskie, musi mieć autonomiczną czujkę dymu, chyba że obiekt chroni system sygnalizacji pożarowej. Przy kotle lub kominku z otwartą komorą spalania potrzebna jest czujka czadu."
+   },
+   {
+    "who": "Pensjonat",
+    "a": "§ 28 ust. 1 pkt 12 rozp. ppoż.",
+    "t": "Powyżej 50 miejsc: SSP",
+    "d": "W budynkach zamieszkania zbiorowego powyżej 50 miejsc noclegowych wymagany jest system sygnalizacji pożarowej (§ 28 ust. 1 pkt 12). Zakres potwierdza projektant lub rzeczoznawca ppoż. Systemu sygnalizacji pożarowej nie projektujemy ani nie montujemy, ale przygotowujemy pod niego pozostałe instalacje."
+   },
+   {
+    "who": "Razem",
+    "a": "art. 6 i 13 RODO, art. 22² KP",
+    "t": "Kamery: gdzie tak, gdzie nie",
+    "d": "Wejście, parking, narciarnia i teren tak. Pokoje, łazienki, sauna i przebieralnie nie. Przy pracownikach nagrania najwyżej 3 miesiące i informacja 2 tygodnie przed uruchomieniem."
+   },
+   {
+    "who": "Pensjonat",
+    "a": "załącznik nr 2, Dz.U. 2017 poz. 2166",
+    "t": "Wi-Fi nie jest wymagane, odbiór TV od 3*",
+    "d": "Przepisy o kategoryzacji pensjonatów nie wymagają internetu, ale goście go oczekują. Od 3 gwiazdek w pokoju wymagana jest instalacja do odbioru telewizji. Dotyczy to tylko pensjonatów skategoryzowanych. Nowy wymóg Wi-Fi (Dz.U. 2026 poz. 1150) dotyczy hoteli i moteli."
+   },
+   {
+    "who": "Pensjonat",
+    "a": "abonament RTV",
+    "t": "Każdy telewizor kosztuje",
+    "d": "Przedsiębiorca płaci abonament za każdy odbiornik osobno, w 2026 r. 30,50 zł miesięcznie za telewizor. Do tego dochodzą licencje organizacji zbiorowego zarządzania, np. STOART liczy stawkę od pokoju. Doradzamy, ile odbiorników naprawdę potrzebujesz."
+   },
+   {
+    "who": "Pensjonat",
+    "a": "ustawa o usługach hotelarskich",
+    "t": "Rejestr i numer obiektu",
+    "d": "8.10.2026 Sejm uchwalił ustawę o Centralnym Wykazie Turystycznych Obiektów Noclegowych z numerem obiektu w ofertach. Na dzień 26.10.2026 ustawa jest w Senacie, więc szczegóły mogą się zmienić."
+   }
+  ]
+ },
+ "gory": {
+  "h": "Narciarnia, parking zimą i dobudówki.",
+  "items": [
+   {
+    "ic": "bed",
+    "t": "4 333 obiekty i 48,5 tys. miejsc",
+    "d": "Tyle liczyła ewidencja obiektów nieskategoryzowanych w Zakopanem we wrześniu 2026, wobec 61 skategoryzowanych."
+   },
+   {
+    "ic": "wifi",
+    "t": "Grube mury i stropy",
+    "d": "Stare domy z pokojami gościnnymi mają grube ściany, które tłumią Wi-Fi. Dlatego punkt w pokoju albo nad drzwiami, kablem od szafy."
+   },
+   {
+    "ic": "fiber",
+    "t": "Dobudówki i kilka budynków",
+    "d": "Most radiowy albo światłowód między budynkami i ochrona przepięciowa na wejściach."
+   },
+   {
+    "ic": "cal",
+    "t": "Przegląd przed sezonem",
+    "d": "Listopad–grudzień przed feriami i maj–czerwiec przed wakacjami, kiedy obiekt jest jeszcze pusty."
+   }
+  ]
+ },
+ "realH": "",
+ "real": [],
+ "prep": [
+  "Liczba pokoi i miejsc noclegowych",
+  "Rzut kondygnacji albo plan ewakuacji",
+  "Gdzie stoi router i czy jest szafa",
+  "Jak dziś docierają kanały TV do pokoi",
+  "System rezerwacji i obecne zamki",
+  "Czy jest dobudówka albo drugi budynek",
+  "Rodzaj ogrzewania i czy jest kominek"
+ ],
+ "pkgH": "Od kilku pokoi gościnnych po pensjonat z dobudówką.",
+ "pkgs": [
+  {
+   "n": "Pokoje gościnne",
+   "d": "Kilka pokoi w domu rodzinnym.",
+   "ic": "bed",
+   "f": [
+    "Wi-Fi z punktami w pokojach",
+    "Kamera wejścia i parkingu",
+    "Czujki dymu w pokojach",
+    "Wideodomofon w telefonie",
+    "Osobna sieć gości"
+   ],
+   "pr": "od [CENA] zł"
+  },
+  {
+   "n": "Pensjonat",
+   "d": "Kilkanaście pokoi i narciarnia.",
+   "ic": "home",
+   "hot": true,
+   "f": [
+    "Wszystko z zestawu Pokoje gościnne",
+    "Kamera narciarni i suszarni",
+    "Wejście z kodem z systemu rezerwacji",
+    "Telewizja w pokojach z jednej szafy",
+    "Czujka czadu w kotłowni"
+   ],
+   "pr": "od [CENA] zł"
+  },
+  {
+   "n": "Pensjonat z dobudówką",
+   "d": "Kilka budynków i sala.",
+   "ic": "layers",
+   "f": [
+    "Wszystko z zestawu Pensjonat",
+    "Most radiowy albo światłowód",
+    "Ogrzewanie pokoi według obłożenia",
+    "Ekran w jadalni",
+    "Nagłośnienie sali kominkowej"
+   ],
+   "pr": "od [CENA] zł"
+  }
+ ],
+ "faqH": "Pytania właścicieli pensjonatów.",
+ "faq": [
+  [
+   "Czy czujki dymu w pokojach są obowiązkowe?",
+   "Tak, w każdym pokoju gości (szczegóły w sekcji „Przepisy”). Dobieramy czujki zgodne z normą, które mogą też powiadomić Cię na telefonie, a w kotłowni lub sali kominkowej czujkę czadu."
+  ],
+  [
+   "Kiedy potrzebuję systemu sygnalizacji pożarowej, a nie samych czujek?",
+   "Powyżej 50 miejsc noclegowych, a zakres potwierdza projektant lub rzeczoznawca ppoż. (szczegóły w sekcji „Przepisy”). Systemu sygnalizacji pożarowej nie projektujemy ani nie montujemy. Wskażemy firmę z uprawnieniami, a pozostałe instalacje przygotujemy do współpracy z jej systemem."
+  ],
+  [
+   "Gdzie mogę mieć kamery, a gdzie nie?",
+   "Wejście, parking, wjazd, narciarnia i teren tak, pokoje, łazienki, sauna i przebieralnie nie. Zasady dla pracowników i gości są w sekcji „Przepisy”."
+  ],
+  [
+   "Goście narzekają na Wi-Fi. Wystarczy mocniejszy router?",
+   "Zwykle nie. Grube mury i stropy tłumią sygnał, więc router w korytarzu nie dociera do pokoi. Montujemy punkty dostępowe w pokojach albo nad drzwiami, kablem od szafy, i oddzielamy sieć gości od kamer i recepcji."
+  ],
+  [
+   "Czy muszę płacić abonament za każdy telewizor?",
+   "Tak, za każdy odbiornik (stawka w sekcji „Przepisy”). Dlatego doradzamy, ile telewizorów naprawdę potrzebujesz i jak rozprowadzić sygnał z jednej szafy."
+  ],
+  [
+   "Czy gość może wejść sam, kiedy mnie nie ma?",
+   "Tak. System rezerwacji wysyła kod ważny tylko na czas pobytu, a wideodomofon przy wejściu łączy się z Twoim telefonem. Zostawiamy zapasowy sposób otwarcia na wypadek awarii."
+  ],
+  [
+   "Mam dwa budynki. Czy trzeba kopać rów pod kabel?",
+   "Niekoniecznie. Między budynkami w zasięgu wzroku często wystarczy most radiowy. Przy wykopie lepszy jest światłowód, bo nie przenosi przepięć z burzy."
+  ],
+  [
+   "Czy prace można rozłożyć na etapy poza sezonem?",
+   "Tak. Najpierw robimy to, co wymagane albo najbardziej widoczne w opiniach, np. czujki i Wi-Fi, a kamery, zamki czy telewizję w kolejnych etapach. Pracujemy poza sezonem albo w wolnych pokojach. Cena zależy od liczby pokoi, budynków i tego, czy da się poprowadzić kable, dlatego wycenę podajemy na piśmie po wizji lokalnej."
+  ]
+ ],
+ "rel": [
+  "wifi",
+  "kam",
+  "kd",
+  "ant",
+  "alarm",
+  "smart"
+ ],
+ "anc": [
+  [
+   "problemy",
+   "Problemy"
+  ],
+  [
+   "rok",
+   "Doba w ferie"
+  ],
+  [
+   "przepisy",
+   "Przepisy"
+  ],
+  [
+   "gory",
+   "Podhale"
+  ],
+  [
+   "pakiety",
+   "Zestawy"
+  ],
+  [
+   "przygotuj",
+   "Przed wizytą"
+  ],
+  [
+   "faq",
+   "Pytania"
+  ]
+ ],
+ "cta": [
+  "Pensjonat",
+  "Przyjedziemy przed sezonem i zaplanujemy wszystko razem.",
+  "Wizja lokalna, projekt i wycena na piśmie, montaż poza sezonem albo w wolnych pokojach, szkolenie, a na życzenie przegląd przed feriami."
+ ],
+ "fold": [
+  "problemy:900",
+  "rok",
+  "przepisy",
+  "gory",
+  "faq"
+ ]
+}

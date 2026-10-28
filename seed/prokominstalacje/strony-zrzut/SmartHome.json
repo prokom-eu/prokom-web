@@ -1,0 +1,1296 @@
+{
+ "_strona": "SmartHome",
+ "_title": "Smart home Ampio na Podhalu | PRO-KOM Instalacje",
+ "_description": "Smart home Ampio w Rabce-Zdroju, Zakopanem i na Podhalu: światło, ogrzewanie, rolety, brama i alarm w jednej aplikacji. Działa też bez internetu.",
+ "_uwaga": "Zrzut danych z wizualizacji v4.0 (stan początkowy strony, motyw jasny). Teksty = treść do seeda. Klucze UI (cls, on, pick) pomijaj.",
+ "dane": {
+  "ctaEye": "Smart home Ampio",
+  "ctaH": "Budujesz albo remontujesz? Zaplanujmy automatykę razem z elektryką.",
+  "ctaP": "Projekt, rozdzielnica, montaż, programowanie scen i szkolenie. Potem opieka i zmiany zdalnie.",
+  "hero": {
+   "mid": true,
+   "midT": "Usługi",
+   "midH": "Main.dc.html#uslugi",
+   "cta": "Zaplanuj instalację",
+   "ctaHref": "Zaplanuj.dc.html",
+   "crumb": "Smart home Ampio",
+   "eye": "Inteligentny dom i automatyka budynku · Ampio · Podhale",
+   "h1a": "Inteligentny dom, który działa",
+   "h1b": "także bez internetu.",
+   "lead": "Montujemy polski system Ampio w domach, apartamentach, pensjonatach i firmach. Światło, ogrzewanie, rolety, brama, alarm, kamery i energia w jednej aplikacji i na szklanych panelach. Sceny i czujniki działają lokalnie w budynku.",
+   "kv": [
+    {
+     "b": "1 aplikacja",
+     "s": "Ampio UNI"
+    },
+    {
+     "b": "Bez abonamentu",
+     "s": "za sterowanie lokalne (stan na 10.2026)"
+    },
+    {
+     "b": "Matter",
+     "s": "Apple, Google, Alexa"
+    }
+   ],
+   "tags": [
+    {
+     "n": "Ampio"
+    },
+    {
+     "n": "Pompa ciepła"
+    },
+    {
+     "n": "Fotowoltaika"
+    },
+    {
+     "n": "Nowy dom i remont"
+    }
+   ]
+  },
+  "anc": [
+   {
+    "href": "#co-sterujesz",
+    "n": "Co sterujesz"
+   },
+   {
+    "href": "#dlaczego",
+    "n": "Dlaczego Ampio"
+   },
+   {
+    "href": "#panele",
+    "n": "Panele"
+   },
+   {
+    "href": "#integracje",
+    "n": "Integracje"
+   },
+   {
+    "href": "#obiekty",
+    "n": "Pensjonaty"
+   },
+   {
+    "href": "#moduly",
+    "n": "Moduły"
+   },
+   {
+    "href": "#etapy",
+    "n": "Kiedy zacząć"
+   },
+   {
+    "href": "#faq",
+    "n": "Pytania"
+   }
+  ],
+  "pkgs": [
+   {
+    "ic": "ikona:home",
+    "n": "Start",
+    "d": "Mieszkanie lub mały dom.",
+    "f": [
+     "Oświetlenie i sceny",
+     "Rolety",
+     "Ogrzewanie w pomieszczeniach",
+     "Aplikacja Ampio UNI",
+     "Kilka paneli szklanych"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "hot": false,
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri"
+   },
+   {
+    "ic": "ikona:home",
+    "n": "Dom",
+    "d": "Pełna automatyka nowego domu.",
+    "f": [
+     "Wszystko z pakietu Start",
+     "Brama, furtka, alarm, kamery",
+     "Pompa ciepła i rekuperacja",
+     "Fotowoltaika i energia",
+     "Sceny Wyjście, Noc, Przyjazd"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "hot": true,
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri hot"
+   },
+   {
+    "ic": "ikona:hotel",
+    "n": "Pensjonat i apartamenty",
+    "d": "Oszczędność w pustych pokojach.",
+    "f": [
+     "Czujniki obecności",
+     "Ogrzewanie według rezerwacji",
+     "Powiadomienia o wyciekach",
+     "Panele z czytnikiem RFID",
+     "Zdalna obsługa"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "hot": false,
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri"
+   }
+  ],
+  "cena": [
+   {
+    "ic": "ikona:home",
+    "t": "Wielkość budynku",
+    "d": "Liczba pomieszczeń, obwodów oświetlenia i rolet."
+   },
+   {
+    "ic": "ikona:cpu",
+    "t": "Moduły w rozdzielnicy",
+    "d": "Ich liczba wynika z liczby odbiorników i czujników."
+   },
+   {
+    "ic": "ikona:grid",
+    "t": "Panele i czujniki",
+    "d": "Szklane panele M-DOT, czujniki ruchu, temperatury, obecności."
+   },
+   {
+    "ic": "ikona:layers",
+    "t": "Integracje",
+    "d": "Pompa ciepła, rekuperacja, alarm, kamery, brama, fotowoltaika."
+   },
+   {
+    "ic": "ikona:ruler",
+    "t": "Etap budowy",
+    "d": "Na etapie elektryki taniej niż w wykończonym domu."
+   },
+   {
+    "ic": "ikona:tool",
+    "t": "Programowanie",
+    "d": "Sceny, automatyki, aplikacja, późniejsze zmiany."
+   }
+  ],
+  "faq": [
+   {
+    "n": "01",
+    "q": "Czy Ampio działa bez internetu?",
+    "a": "Tak. Moduły, panele i czujniki pracują lokalnie w budynku, więc sceny i automatyki działają dalej. Internet jest potrzebny do sterowania z telefonu spoza domu.",
+    "open": true
+   },
+   {
+    "n": "02",
+    "q": "Czy smart home da się zrobić w domu, który już stoi?",
+    "a": "Tak, w zakresie zależnym od instalacji elektrycznej. Moduły montujemy w rozdzielnicy, a tam, gdzie nie ma przewodów, łączymy urządzenia bezprzewodowe w standardach obsługiwanych przez Ampio, np. Z-Wave czy ZigBee.",
+    "open": false
+   },
+   {
+    "n": "03",
+    "q": "Czy jest abonament?",
+    "a": "Sterowanie lokalne w budynku nie wymaga żadnych opłat. Czy i które usługi chmurowe producenta są płatne, potwierdzamy przy projekcie, zanim podpiszesz umowę.",
+    "open": false
+   },
+   {
+    "n": "04",
+    "q": "Czy połączę Ampio z Apple Home albo Google Home?",
+    "a": "Tak, przez standard Matter na serwerze Ampio. Producent testował integrację z produktami Google, Amazon i Apple.",
+    "open": false
+   },
+   {
+    "n": "05",
+    "q": "Kiedy najlepiej planować smart home?",
+    "a": "Przed rozpoczęciem instalacji elektrycznej. Wtedy przewody do paneli, czujników i rolet kładzie się razem z resztą, a rozdzielnica od razu ma miejsce na moduły.",
+    "open": false
+   },
+   {
+    "n": "06",
+    "q": "Co się stanie, gdy zepsuje się jeden moduł?",
+    "a": "Przestają działać tylko funkcje tego modułu, a reszta domu pracuje normalnie, bo Ampio nie ma jednego centralnego sterownika.",
+    "open": false
+   },
+   {
+    "n": "07",
+    "q": "A gdy zabraknie prądu?",
+    "a": "System wyłącza się jak zwykła instalacja i sam startuje po powrocie prądu. Jeśli ma działać przy awarii sieci, dokładamy zasilanie awaryjne.",
+    "open": false
+   },
+   {
+    "n": "08",
+    "q": "Czy zostaną zwykłe włączniki?",
+    "a": "Można je zostawić w prostszych układach. Przy większej liczbie funkcji wygodniejsze są szklane panele dotykowe.",
+    "open": false
+   },
+   {
+    "n": "09",
+    "q": "Mam kilka apartamentów. Obsłużę je z jednego telefonu?",
+    "a": "Tak. Aplikacja Ampio UNI przełącza się między instalacjami, a gościom albo obsłudze możesz dać dostęp na określony czas. Po zmianie obsługi zmieniamy też hasła lokalne.",
+    "open": false
+   },
+   {
+    "n": "10",
+    "q": "Czy alarm Ampio wystarczy dla ubezpieczyciela?",
+    "a": "Nie zawsze. Producent nie podaje klasy centrali Ampio według normy EN 50131. Gdy ubezpieczyciel wymaga certyfikowanego alarmu, montujemy centralę Satel albo Jablotron i łączymy ją z Ampio, żeby alarm uzbrajał się razem ze sceną Wyjście.",
+    "open": false
+   },
+   {
+    "n": "11",
+    "q": "Kto zmieni scenę, gdy będę chciał coś inaczej?",
+    "a": "My, często zdalnie. Proste zmiany, np. godziny harmonogramów, zrobisz sam w aplikacji.",
+    "open": false
+   }
+  ],
+  "rel": [
+   {
+    "k": "kam",
+    "n": "Monitoring i kamery",
+    "g": "Bezpieczeństwo",
+    "href": "Monitoring.dc.html",
+    "ic": "ikona:cam",
+    "s": "Kompletny system: kamery, rejestrator, dyski, PoE"
+   },
+   {
+    "k": "alarm",
+    "n": "Alarmy i wideodomofony",
+    "g": "Bezpieczeństwo",
+    "href": "Alarmy.dc.html",
+    "ic": "ikona:bell",
+    "s": "Czujki, syreny, domofon z aplikacją"
+   },
+   {
+    "k": "ev",
+    "n": "Ładowarki samochodów",
+    "g": "Sieci i technika",
+    "href": "Ladowarki.dc.html",
+    "ic": "ikona:bolt",
+    "s": "Elzab EcoPower: dom, firma, parking"
+   }
+  ],
+  "segRel": [
+   {
+    "k": "dom",
+    "g": "Dom i noclegi",
+    "n": "Dom i domek letniskowy",
+    "s": "Bezpieczny, gdy Cię nie ma",
+    "page": "SegDom",
+    "href": "SegDom.dc.html",
+    "ic": "ikona:home",
+    "h": "#7BD36A",
+    "hs": "--mh:#7BD36A",
+    "cls": ""
+   },
+   {
+    "k": "apt",
+    "g": "Dom i noclegi",
+    "n": "Apartament na wynajem",
+    "s": "Gość wchodzi sam, Ty widzisz wszystko",
+    "page": "SegApartament",
+    "href": "SegApartament.dc.html",
+    "ic": "ikona:key",
+    "h": "#F2B84B",
+    "hs": "--mh:#F2B84B",
+    "cls": ""
+   },
+   {
+    "k": "hotel",
+    "g": "Dom i noclegi",
+    "n": "Hotel",
+    "s": "Recepcja 24/7, sale, SPA",
+    "page": "SegHotel",
+    "href": "SegHotel.dc.html",
+    "ic": "ikona:hotel",
+    "h": "#E86FB0",
+    "hs": "--mh:#E86FB0",
+    "cls": ""
+   },
+   {
+    "k": "pens",
+    "g": "Dom i noclegi",
+    "n": "Pensjonat",
+    "s": "Wi-Fi i TV w pokojach, kamery na zewnątrz",
+    "page": "Noclegowe",
+    "href": "Noclegowe.dc.html",
+    "ic": "ikona:bed",
+    "h": "#F29A4B",
+    "hs": "--mh:#F29A4B",
+    "cls": ""
+   }
+  ],
+  "hasSegRel": true,
+  "segRelH": "Dla kogo robimy tę instalację",
+  "sx": {
+   "faqA": {
+    "t": "Masz inne pytanie?",
+    "d": "Wyślij zdjęcie obiektu albo obecnej instalacji. Powiemy, od czego zacząć i czego się spodziewać.",
+    "cta": "Zaplanuj instalację",
+    "href": "Zaplanuj.dc.html"
+   },
+   "faqH": "Zanim zadzwonisz.",
+   "relH": "Ampio łączy się z resztą instalacji.",
+   "pkg": {
+    "eye": "Przykładowe zestawy",
+    "h": "Od kilku scen do pełnej automatyki.",
+    "p": "Zakres rośnie razem z potrzebami. System da się rozbudować później.",
+    "note": "To przykłady. Liczbę modułów, paneli i integracji ustalamy w projekcie, a cenę podajemy na piśmie."
+   },
+   "cena": {
+    "btn": "Wyślij projekt lub rzut",
+    "eye": "Wycena",
+    "h": "Od czego zależy cena smart home.",
+    "p": "Najtaniej jest zaplanować automatykę razem z elektryką. Wyślij projekt domu albo rzut (albo zdjęcia, jeśli dom już stoi), a przygotujemy wstępną wycenę."
+   }
+  },
+  "sh": {
+   "scenes": [
+    {
+     "n": "Dzień dobry",
+     "ic": "ikona:sun",
+     "on": "false",
+     "cls": "scp"
+    },
+    {
+     "n": "Wyjście",
+     "ic": "ikona:door",
+     "on": "false",
+     "cls": "scp"
+    },
+    {
+     "n": "Kino",
+     "ic": "ikona:tv",
+     "on": "false",
+     "cls": "scp"
+    },
+    {
+     "n": "Noc",
+     "ic": "ikona:moon",
+     "on": "false",
+     "cls": "scp"
+    },
+    {
+     "n": "Przyjazd",
+     "ic": "ikona:car",
+     "on": "true",
+     "cls": "scp on"
+    }
+   ],
+   "offCls": "offb",
+   "offOn": "false",
+   "rooms": [
+    {
+     "n": "Salon",
+     "x": 20,
+     "y": 20,
+     "w": 280,
+     "h": 210,
+     "cx": 160,
+     "cy": 125,
+     "rx": 154,
+     "ry": 115.50000000000001,
+     "lst": "opacity:0.57",
+     "tx": 32,
+     "ty": 42,
+     "vy": 64,
+     "t": "21°",
+     "cls": "shr",
+     "gcls": "shg sel"
+    },
+    {
+     "n": "Kuchnia",
+     "x": 300,
+     "y": 20,
+     "w": 150,
+     "h": 150,
+     "cx": 375,
+     "cy": 95,
+     "rx": 82.5,
+     "ry": 82.5,
+     "lst": "opacity:0.38",
+     "tx": 312,
+     "ty": 42,
+     "vy": 64,
+     "t": "21°",
+     "cls": "shr",
+     "gcls": "shg"
+    },
+    {
+     "n": "Sypialnia",
+     "x": 450,
+     "y": 20,
+     "w": 170,
+     "h": 190,
+     "cx": 535,
+     "cy": 115,
+     "rx": 93.50000000000001,
+     "ry": 104.50000000000001,
+     "lst": "opacity:0.00",
+     "tx": 462,
+     "ty": 42,
+     "vy": 64,
+     "t": "21°",
+     "cls": "shr",
+     "gcls": "shg"
+    },
+    {
+     "n": "Hol",
+     "x": 300,
+     "y": 170,
+     "w": 150,
+     "h": 130,
+     "cx": 375,
+     "cy": 235,
+     "rx": 82.5,
+     "ry": 71.5,
+     "lst": "opacity:0.76",
+     "tx": 312,
+     "ty": 192,
+     "vy": 214,
+     "t": "21°",
+     "cls": "shr",
+     "gcls": "shg"
+    },
+    {
+     "n": "Łazienka",
+     "x": 450,
+     "y": 210,
+     "w": 170,
+     "h": 90,
+     "cx": 535,
+     "cy": 255,
+     "rx": 93.50000000000001,
+     "ry": 49.50000000000001,
+     "lst": "opacity:0.00",
+     "tx": 462,
+     "ty": 232,
+     "vy": 254,
+     "t": "23°",
+     "cls": "shr",
+     "gcls": "shg"
+    },
+    {
+     "n": "Gabinet",
+     "x": 20,
+     "y": 230,
+     "w": 160,
+     "h": 150,
+     "cx": 100,
+     "cy": 305,
+     "rx": 88,
+     "ry": 82.5,
+     "lst": "opacity:0.00",
+     "tx": 32,
+     "ty": 252,
+     "vy": 274,
+     "t": "21°",
+     "cls": "shr",
+     "gcls": "shg"
+    },
+    {
+     "n": "Taras",
+     "x": 180,
+     "y": 230,
+     "w": 120,
+     "h": 150,
+     "cx": 240,
+     "cy": 305,
+     "rx": 66,
+     "ry": 82.5,
+     "lst": "opacity:0.57",
+     "tx": 192,
+     "ty": 252,
+     "vy": 274,
+     "t": "",
+     "cls": "shr ext",
+     "gcls": "shg"
+    },
+    {
+     "n": "Garaż",
+     "x": 300,
+     "y": 300,
+     "w": 320,
+     "h": 80,
+     "cx": 460,
+     "cy": 340,
+     "rx": 176,
+     "ry": 44,
+     "lst": "opacity:0.66",
+     "tx": 312,
+     "ty": 322,
+     "vy": 344,
+     "t": "",
+     "cls": "shr",
+     "gcls": "shg"
+    }
+   ],
+   "wins": [
+    {
+     "x": 60,
+     "y": 14,
+     "w": 80,
+     "h": 8,
+     "bw": "0.0",
+     "bh": 8
+    },
+    {
+     "x": 180,
+     "y": 14,
+     "w": 80,
+     "h": 8,
+     "bw": "0.0",
+     "bh": 8
+    },
+    {
+     "x": 14,
+     "y": 80,
+     "w": 8,
+     "h": 80,
+     "bw": 8,
+     "bh": "0.0"
+    },
+    {
+     "x": 340,
+     "y": 14,
+     "w": 70,
+     "h": 8,
+     "bw": "0.0",
+     "bh": 8
+    },
+    {
+     "x": 490,
+     "y": 14,
+     "w": 90,
+     "h": 8,
+     "bw": "0.0",
+     "bh": 8
+    },
+    {
+     "x": 626,
+     "y": 70,
+     "w": 8,
+     "h": 90,
+     "bw": 8,
+     "bh": "0.0"
+    },
+    {
+     "x": 626,
+     "y": 230,
+     "w": 8,
+     "h": 50,
+     "bw": 8,
+     "bh": "0.0"
+    },
+    {
+     "x": 14,
+     "y": 270,
+     "w": 8,
+     "h": 70,
+     "bw": 8,
+     "bh": "0.0"
+    },
+    {
+     "x": 60,
+     "y": 386,
+     "w": 80,
+     "h": 8,
+     "bw": "0.0",
+     "bh": 8
+    }
+   ],
+   "gate": {
+    "x": 400,
+    "w": 24
+   },
+   "alCls": "shal",
+   "alT": "ALARM",
+   "sel": {
+    "n": "Salon",
+    "l": 60,
+    "b": 0,
+    "t": 21
+   },
+   "netCls": "",
+   "appS": "połączona",
+   "note": "Przyjazd: brama otwiera się, w holu, salonie i garażu zapala się światło, dom jest nagrzany."
+  },
+  "pn": {
+   "glass": [
+    {
+     "n": "Czarne",
+     "on": "true",
+     "cls": "on"
+    },
+    {
+     "n": "Białe",
+     "on": "false",
+     "cls": ""
+    },
+    {
+     "n": "Grafitowe",
+     "on": "false",
+     "cls": ""
+    }
+   ],
+   "size": [
+    {
+     "n": "6 pól",
+     "on": "false",
+     "cls": ""
+    },
+    {
+     "n": "9 pól",
+     "on": "true",
+     "cls": "on"
+    },
+    {
+     "n": "12 pól",
+     "on": "false",
+     "cls": ""
+    }
+   ],
+   "cls": "mdp c0",
+   "gst": "grid-template-columns:repeat(3,minmax(0,1fr))",
+   "label": "PRZYKŁADOWY UKŁAD PANELU",
+   "icons": [
+    {
+     "n": "Światło",
+     "ic": "ikona:light",
+     "cls": "mdk on"
+    },
+    {
+     "n": "Rolety",
+     "ic": "ikona:blind",
+     "cls": "mdk"
+    },
+    {
+     "n": "Ogrzew.",
+     "ic": "ikona:thermo",
+     "cls": "mdk"
+    },
+    {
+     "n": "Scena",
+     "ic": "ikona:star",
+     "cls": "mdk on"
+    },
+    {
+     "n": "Brama",
+     "ic": "ikona:gate",
+     "cls": "mdk"
+    },
+    {
+     "n": "Alarm",
+     "ic": "ikona:shield",
+     "cls": "mdk"
+    },
+    {
+     "n": "Muzyka",
+     "ic": "ikona:music",
+     "cls": "mdk"
+    },
+    {
+     "n": "Noc",
+     "ic": "ikona:moon",
+     "cls": "mdk"
+    },
+    {
+     "n": "Wyjście",
+     "ic": "ikona:door",
+     "cls": "mdk"
+    }
+   ]
+  },
+  "ax": {
+   "areas": [
+    {
+     "n": "Oświetlenie",
+     "ic": "ikona:light",
+     "on": "true",
+     "cls": "axc on"
+    },
+    {
+     "n": "Ogrzewanie i chłodzenie",
+     "ic": "ikona:thermo",
+     "on": "false",
+     "cls": "axc"
+    },
+    {
+     "n": "Wentylacja i powietrze",
+     "ic": "ikona:cloud",
+     "on": "false",
+     "cls": "axc"
+    },
+    {
+     "n": "Rolety, markizy i okna",
+     "ic": "ikona:blind",
+     "on": "false",
+     "cls": "axc"
+    },
+    {
+     "n": "Brama, furtka i zamki",
+     "ic": "ikona:gate",
+     "on": "false",
+     "cls": "axc"
+    },
+    {
+     "n": "Alarm i czujki",
+     "ic": "ikona:shield",
+     "on": "false",
+     "cls": "axc"
+    },
+    {
+     "n": "Dostęp i wideodomofon",
+     "ic": "ikona:key",
+     "on": "false",
+     "cls": "axc"
+    },
+    {
+     "n": "Kamery w aplikacji",
+     "ic": "ikona:cam",
+     "on": "false",
+     "cls": "axc"
+    },
+    {
+     "n": "Energia i fotowoltaika",
+     "ic": "ikona:bolt",
+     "on": "false",
+     "cls": "axc"
+    },
+    {
+     "n": "Ogród, podlewanie i basen",
+     "ic": "ikona:leaf",
+     "on": "false",
+     "cls": "axc"
+    },
+    {
+     "n": "Muzyka i kino domowe",
+     "ic": "ikona:music",
+     "on": "false",
+     "cls": "axc"
+    },
+    {
+     "n": "Aplikacja, głos i sceny",
+     "ic": "ikona:star",
+     "on": "false",
+     "cls": "axc"
+    }
+   ],
+   "k": "axsw",
+   "n": "Oświetlenie",
+   "ic": "ikona:light",
+   "g": "Światło",
+   "d": "Od zwykłego włącznika po setki opraw w biurze. Każdy obwód może mieć scenę, harmonogram i czujnik ruchu.",
+   "f": [
+    "Włączanie, ściemnianie i sceny jednym przyciskiem",
+    "Taśmy LED, kolory RGBW i płynne ściemnianie punktów LED",
+    "DALI do 64 opraw, każda osobno, także z regulacją barwy bieli",
+    "Światło według obecności, pory dnia i jasności za oknem",
+    "Symulacja obecności, gdy wyjeżdżasz"
+   ],
+   "when": "Wieczorem ktoś wchodzi na schody",
+   "then": "Zapala się delikatne światło i samo gaśnie po chwili",
+   "m": [
+    "M-REL",
+    "M-DIM",
+    "M-OC",
+    "[svg-path]",
+    "M-CON-DL-s"
+   ],
+   "i": [
+    "DALI",
+    "Philips",
+    "OSRAM",
+    "Shelly"
+   ],
+   "note": "W biurach i szkołach DALI pozwala utrzymywać stałe natężenie światła w lux."
+  },
+  "axb": [
+   {
+    "ic": "ikona:hotel",
+    "n": "Hotel i pensjonat",
+    "f": [
+     "Karta w kieszeni przy drzwiach włącza zasilanie pokoju",
+     "Panele M-DOT PRO z grawerem numeru pokoju i logo",
+     "Wejście kartą lub kodem, funkcje dla obsługi w aplikacji",
+     "Sceny dla sal: kolacja, konferencja, SPA"
+    ],
+    "s": "Panele PRO zamawia się od 10 sztuk jednego wzoru."
+   },
+   {
+    "ic": "ikona:office",
+    "n": "Biuro i firma",
+    "f": [
+     "Klimat w strefach, który nadąża za zmianą aranżacji",
+     "Sala konferencyjna jednym przyciskiem: światło, rolety, ekran",
+     "Połączenie z kontrolą dostępu, alarmem i kamerami",
+     "Liczniki mediów do rozliczania najemców"
+    ],
+    "s": ""
+   },
+   {
+    "ic": "ikona:town",
+    "n": "Obiekt publiczny",
+    "f": [
+     "Od jednej sali po kompleks budynków",
+     "Światło według obecności, pory dnia i natężenia w lux",
+     "Harmonogramy i tryby oszczędne po godzinach",
+     "Ampio steruje m.in. salą sesyjną Rady Miasta w Szczecinie"
+    ],
+    "s": "To nie jest system przeciwpożarowy."
+   }
+  ],
+  "ints": [
+   {
+    "n": "Standardy",
+    "t": [
+     "KNX",
+     "DALI",
+     "Modbus",
+     "Z-Wave",
+     "ZigBee",
+     "EnOcean",
+     "MQTT",
+     "REST API",
+     "Matter"
+    ]
+   },
+   {
+    "n": "Alarmy i kamery",
+    "t": [
+     "Satel",
+     "Jablotron",
+     "Dahua",
+     "Hikvision"
+    ]
+   },
+   {
+    "n": "Domofony i zamki",
+    "t": [
+     "Akuvox",
+     "DoorBird",
+     "Gerda",
+     "Tedee",
+     "Shelly"
+    ]
+   },
+   {
+    "n": "Klimatyzacja",
+    "t": [
+     "Daikin",
+     "LG",
+     "Samsung",
+     "Mitsubishi",
+     "Gree"
+    ]
+   },
+   {
+    "n": "Rekuperacja",
+    "t": [
+     "Thessla Green",
+     "Zehnder",
+     "Komfovent",
+     "Brink",
+     "Pro-Vent"
+    ]
+   },
+   {
+    "n": "Pompy ciepła i kotły",
+    "t": [
+     "Panasonic",
+     "LG",
+     "Daikin",
+     "Viessmann",
+     "Buderus",
+     "Stiebel"
+    ]
+   },
+   {
+    "n": "Fotowoltaika",
+    "t": [
+     "Huawei",
+     "Fronius",
+     "SMA",
+     "GoodWe",
+     "Sofar"
+    ]
+   },
+   {
+    "n": "Audio",
+    "t": [
+     "Sonos",
+     "Denon",
+     "HEOS",
+     "MusicCast",
+     "Chromecast"
+    ]
+   },
+   {
+    "n": "Rolety, okna, bramy",
+    "t": [
+     "Somfy",
+     "Selve",
+     "Fakro",
+     "Velux",
+     "Hörmann"
+    ]
+   },
+   {
+    "n": "Liczniki i pogoda",
+    "t": [
+     "Eastron",
+     "F&F",
+     "Apator",
+     "Davis",
+     "Netatmo"
+    ]
+   },
+   {
+    "n": "Głos (przez Matter) i platformy",
+    "t": [
+     "Apple",
+     "Google",
+     "Amazon Alexa",
+     "Home Assistant",
+     "Node-RED"
+    ]
+   }
+  ],
+  "et": [
+   {
+    "n": "01",
+    "t": "Rozmowa i potrzeby",
+    "d": "Co ma się dziać w domu, kto w nim mieszka, co już jest.",
+    "w": "Ty i my"
+   },
+   {
+    "n": "02",
+    "t": "Projekt i dobór modułów",
+    "d": "Rozmieszczenie paneli, czujników i odbiorników, schemat rozdzielnicy.",
+    "w": "PRO-KOM"
+   },
+   {
+    "n": "03",
+    "t": "Okablowanie przed tynkami",
+    "d": "Magistrala do paneli, czujników i urządzeń do integracji.",
+    "w": "PRO-KOM z elektrykiem"
+   },
+   {
+    "n": "04",
+    "t": "Rozdzielnica i montaż",
+    "d": "Moduły na szynie DIN, zasilacze z redundancją, panele i czujniki.",
+    "w": "PRO-KOM"
+   },
+   {
+    "n": "05",
+    "t": "Programowanie i sceny",
+    "d": "Sceny, harmonogramy, automatyki i integracje.",
+    "w": "PRO-KOM"
+   },
+   {
+    "n": "06",
+    "t": "Szkolenie i aplikacja",
+    "d": "Uczymy obsługi aplikacji. Zakres przekazania dostępów i uprawnień ustalamy w umowie.",
+    "w": "Ty i my"
+   },
+   {
+    "n": "07",
+    "t": "Serwis zdalny i rozbudowa",
+    "d": "Zmiany scen zdalnie, nowe moduły w dowolnym momencie.",
+    "w": "PRO-KOM"
+   }
+  ],
+  "why": [
+   {
+    "t": "Polski producent",
+    "d": "Ampio projektuje i produkuje system w Polsce. Marka działa od 1997 roku, system na magistrali CAN rozwija od 2007."
+   },
+   {
+    "t": "Działa w domu bez internetu",
+    "d": "W sieci domowej aplikacja Ampio UNI steruje domem także wtedy, gdy nie ma internetu. Z zewnątrz potrzebny jest internet."
+   },
+   {
+    "t": "Przewodowa magistrala",
+    "d": "Jedna skrętka łączy moduły, panele i czujniki. Przewód jest pewniejszy niż radio i nie potrzebuje baterii."
+   },
+   {
+    "t": "Rozbudowa w każdej chwili",
+    "d": "Nowe moduły dokładamy do tej samej magistrali, bez wymiany tego, co już działa."
+   },
+   {
+    "t": "Bez abonamentu",
+    "d": "Za sterowanie lokalne producent nie pobiera dziś opłat od właścicieli (stan na październik 2026). Zastrzega, że może się to zmienić."
+   }
+  ],
+  "fl": {
+   "btn": "Symuluj awarię",
+   "btnCls": "btn btn-s btn-g",
+   "cc": "flc",
+   "aTxt": "Wszystko zależy od jednego urządzenia.",
+   "bTxt": "Każdy moduł działa samodzielnie.",
+   "a0": "flrm",
+   "b0": "flrm",
+   "a1": "flrm",
+   "b1": "flrm",
+   "a2": "flrm",
+   "b2": "flrm",
+   "a3": "flrm",
+   "b3": "flrm",
+   "a4": "flrm",
+   "b4": "flrm",
+   "a5": "flrm",
+   "b5": "flrm"
+  },
+  "rb": {
+   "sum": "2 pokoje w trybie eko",
+   "rooms": [
+    {
+     "n": "Pokój 101",
+     "st": "Gość w pokoju",
+     "t": "21°",
+     "l": "wg gościa",
+     "x": "komfort",
+     "cls": "rbr g"
+    },
+    {
+     "n": "Pokój 102",
+     "st": "Pokój pusty",
+     "t": "17°",
+     "l": "zgaszone",
+     "x": "tryb eko",
+     "cls": "rbr e"
+    },
+    {
+     "n": "Pokój 103",
+     "st": "Gość w pokoju",
+     "t": "21°",
+     "l": "wg gościa",
+     "x": "komfort",
+     "cls": "rbr g"
+    },
+    {
+     "n": "Pokój 104",
+     "st": "Do sprzątania",
+     "t": "19°",
+     "l": "włączone",
+     "x": "obsługa",
+     "cls": "rbr c"
+    },
+    {
+     "n": "Pokój 105",
+     "st": "Pokój pusty",
+     "t": "17°",
+     "l": "zgaszone",
+     "x": "tryb eko",
+     "cls": "rbr e"
+    },
+    {
+     "n": "Pokój 106",
+     "st": "Gość w pokoju",
+     "t": "21°",
+     "l": "wg gościa",
+     "x": "komfort",
+     "cls": "rbr g"
+    }
+   ]
+  },
+  "mo": {
+   "title": "Apartament Zakopane 1",
+   "note": "Gość przyjeżdża o 16:00 · ogrzewanie włączone",
+   "k": "mo1",
+   "tabs": [
+    {
+     "n": "Dom",
+     "cls": "objb"
+    },
+    {
+     "n": "Zakopane 1",
+     "cls": "objb on"
+    },
+    {
+     "n": "Zakopane 2",
+     "cls": "objb"
+    }
+   ],
+   "tiles": [
+    {
+     "n": "Salon",
+     "ic": "ikona:thermo",
+     "v": "21°",
+     "s": "na przyjazd",
+     "cls": "tile on"
+    },
+    {
+     "n": "Sypialnia",
+     "ic": "ikona:thermo",
+     "v": "20°",
+     "s": "na przyjazd",
+     "cls": "tile on"
+    },
+    {
+     "n": "Światło",
+     "ic": "ikona:light",
+     "v": "Wył.",
+     "s": "czeka na gościa",
+     "cls": "tile"
+    },
+    {
+     "n": "Woda",
+     "ic": "ikona:drop",
+     "v": "OK",
+     "s": "czujnik zalania",
+     "cls": "tile"
+    },
+    {
+     "n": "Drzwi",
+     "ic": "ikona:lock",
+     "v": "Kod aktywny",
+     "s": "16:00–11:00",
+     "cls": "tile on"
+    },
+    {
+     "n": "Rolety",
+     "ic": "ikona:blind",
+     "v": "Otwarte",
+     "s": "salon",
+     "cls": "tile"
+    }
+   ]
+  },
+  "refs": [
+   {
+    "n": "Hotel Taaka Ryba, Sumina",
+    "d": "Kiosk w lobby, sterowanie pokojem z panelu i aplikacji, puste pokoje w trybie oszczędnym (2023)."
+   },
+   {
+    "n": "Citadines, Berlin",
+    "d": "Czujniki obecności, alarmy o wyciekach i hałasie dla obsługi, montaż bez zamykania hotelu (2024)."
+   },
+   {
+    "n": "Hotel Arche, Piła",
+    "d": "Oświetlenie korytarzy i wentylacja sali konferencyjnej."
+   }
+  ],
+  "mods": [
+   {
+    "ic": "ikona:cpu",
+    "n": "Serwer i aplikacja",
+    "d": "Brama dla aplikacji Ampio UNI w domu i przez chmurę, integracje IP i wideodomofony.",
+    "m": [
+     "M-SERV-s",
+     "[svg-path]"
+    ]
+   },
+   {
+    "ic": "ikona:light",
+    "n": "Oświetlenie",
+    "d": "Ściemniacze, taśmy LED, kolory RGBW i integracja z DALI.",
+    "m": [
+     "M-DIM",
+     "M-OC",
+     "M-LED",
+     "M-CON-DL-s"
+    ]
+   },
+   {
+    "ic": "ikona:blind",
+    "n": "Rolety, żaluzje, brama",
+    "d": "Wyjścia przekaźnikowe do napędów, także bezprzewodowy sterownik rolety.",
+    "m": [
+     "M-REL",
+     "WL-REL-ROL1p"
+    ]
+   },
+   {
+    "ic": "ikona:thermo",
+    "n": "Ogrzewanie i chłodzenie",
+    "d": "Regulacja w strefach (od 1 do 32), harmonogramy dzień i noc, klimatyzatory i Modbus.",
+    "m": [
+     "M-RT-s",
+     "M-CON-HVAC-p",
+     "M-CON-485-s"
+    ]
+   },
+   {
+    "ic": "ikona:cloud",
+    "n": "Czujniki",
+    "d": "Temperatura, wilgotność, światło, jakość powietrza, ruch i wejścia na kontaktrony lub czujki zalania.",
+    "m": [
+     "M-SENS",
+     "WZ-PIR",
+     "M-IN"
+    ]
+   },
+   {
+    "ic": "ikona:bolt",
+    "n": "Energia",
+    "d": "Wejścia impulsowe dla liczników prądu, wody i gazu, integracje falowników PV.",
+    "m": [
+     "M-IN-IMP4s"
+    ]
+   },
+   {
+    "ic": "ikona:grid",
+    "n": "Panele szklane",
+    "d": "Od 2 do 18 pól, z wyświetlaczem, z ekranem dotykowym, z czytnikiem RFID albo gestami.",
+    "m": [
+     "M-DOT",
+     "M-DOT-T6",
+     "M-DOT-R14",
+     "M-DOT-GEST"
+    ]
+   },
+   {
+    "ic": "ikona:layers",
+    "n": "Integracje i alarm",
+    "d": "Bramki do KNX, Z-Wave, EnOcean i podczerwieni, własna centrala alarmowa.",
+    "m": [
+     "M-CON-KNX-s",
+     "[svg-path]",
+     "M-ALARM-8s"
+    ]
+   }
+  ],
+  "ck": {
+   "items": [
+    {
+     "t": "Skrętka magistrali do każdego panelu",
+     "d": "I do urządzeń, które chcesz połączyć: rekuperator, klimatyzacja, falownik.",
+     "on": "true",
+     "cls": "cki on"
+    },
+    {
+     "t": "Głębsze puszki pod panele",
+     "d": "Korpus panelu chowa się w ścianie na 22 mm, dlatego pod panel montuje się głęboką puszkę. Typ puszki podajemy w projekcie.",
+     "on": "true",
+     "cls": "cki on"
+    },
+    {
+     "t": "Przewód do czujnika temperatury",
+     "d": "Dwużyłowy, do najbliższego panelu lub modułu, czujnik na 120–150 cm.",
+     "on": "false",
+     "cls": "cki"
+    },
+    {
+     "t": "Większa rozdzielnica",
+     "d": "Moduły Ampio montuje się na szynie DIN, potrzeba na nie miejsca.",
+     "on": "false",
+     "cls": "cki"
+    },
+    {
+     "t": "Dwa zasilacze z redundancją",
+     "d": "Osobne zabezpieczenia, jeden buforowy, połączone modułem redundancji.",
+     "on": "false",
+     "cls": "cki"
+    },
+    {
+     "t": "Przewody do rolet i bramy",
+     "d": "Każdy napęd osobno, żeby sterować nim z systemu.",
+     "on": "false",
+     "cls": "cki"
+    },
+    {
+     "t": "Zapasowy kabel magistrali",
+     "d": "Opcjonalnie, na późniejszą rozbudowę.",
+     "on": "false",
+     "cls": "cki"
+    },
+    {
+     "t": "Miejsce na serwer i router",
+     "d": "Serwer Ampio łączy się z siecią domową.",
+     "on": "false",
+     "cls": "cki"
+    }
+   ],
+   "bar": "width:25%",
+   "txt": "Zaplanowane: 2 z 8"
+  }
+ }
+}

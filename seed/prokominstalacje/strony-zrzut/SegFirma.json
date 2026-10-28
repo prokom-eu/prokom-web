@@ -1,0 +1,729 @@
+{
+ "_strona": "SegFirma",
+ "_title": "Kontrola dostępu, monitoring i sieć dla firm — Podhale | PRO-KOM",
+ "_description": "Karty pracowników z eksportem do RCP, kamery rampy i placu, Wi-Fi w hali, światłowód między budynkami i alarm strefowy. Podhale i Małopolska.",
+ "_uwaga": "Zrzut danych z wizualizacji v4.0 (stan początkowy strony, motyw jasny). Teksty = treść do seeda. Klucze UI (cls, on, pick) pomijaj.",
+ "dane": {
+  "ctaEye": "Firma, biuro i hala",
+  "ctaH": "Przyjedziemy, obejdziemy budynki i plac, a potem zaproponujemy jeden system.",
+  "ctaP": "Wizja lokalna z pomiarem zasięgu, projekt i wycena na piśmie, montaż w uzgodnionych godzinach, tak żeby nie zatrzymywać pracy.",
+  "hero": {
+   "mid": true,
+   "midT": "Dla kogo",
+   "midH": "Main.dc.html#dla-kogo",
+   "cta": "Zaplanuj instalację",
+   "ctaHref": "Zaplanuj.dc.html#obiekt=firma",
+   "crumb": "Firma, biuro i hala",
+   "eye": "Instalacje dla firm, biur, hal i magazynów · Podhale i Małopolska",
+   "h1a": "Wiesz, kto otworzył magazyn w sobotę.",
+   "h1b": "I masz sieć, która nie staje w środku zmiany.",
+   "lead": "Karty dla pracowników z historią wejść i eksportem do rejestracji czasu pracy, kamery na rampie i placu, okablowanie z opisem każdego gniazda, Wi-Fi w hali dobrane do regałów i alarm podzielony na strefy.",
+   "kv": [
+    {
+     "b": "10 736 zł",
+     "s": "średni miesięczny koszt pracy na osobę (GUS, 2024)"
+    },
+    {
+     "b": "24 mies.",
+     "s": "gwarancji na montaż"
+    },
+    {
+     "b": "do 24 h",
+     "s": "odpowiedź na zgłoszenie w dni robocze"
+    }
+   ],
+   "tags": [
+    {
+     "n": "Karty i RCP"
+    },
+    {
+     "n": "Kamery rampy i placu"
+    },
+    {
+     "n": "Sieć i światłowód"
+    },
+    {
+     "n": "Alarm strefowy"
+    }
+   ]
+  },
+  "anc": [
+   {
+    "href": "#problemy",
+    "n": "Problemy"
+   },
+   {
+    "href": "#rok",
+    "n": "Dzień w firmie"
+   },
+   {
+    "href": "#przepisy",
+    "n": "Przepisy"
+   },
+   {
+    "href": "#gory",
+    "n": "Podhale"
+   },
+   {
+    "href": "#pakiety",
+    "n": "Zestawy"
+   },
+   {
+    "href": "#przygotuj",
+    "n": "Przed wizytą"
+   },
+   {
+    "href": "#faq",
+    "n": "Pytania"
+   }
+  ],
+  "pkgs": [
+   {
+    "n": "Biuro",
+    "d": "Biuro albo warsztat do ok. 15 osób.",
+    "ic": "ikona:office",
+    "f": [
+     "Szafa rack i okablowanie Cat6",
+     "Router z podziałem sieci",
+     "4 kamery: wejście, plac, warsztat, parking",
+     "Alarm z kodami pracowników",
+     "Wideodomofon przy wejściu"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "hot": false,
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri"
+   },
+   {
+    "n": "Hala i biuro",
+    "d": "15–50 osób, magazyn albo produkcja.",
+    "ic": "ikona:factory",
+    "hot": true,
+    "f": [
+     "Karty do stref z eksportem do RCP",
+     "8–16 kamer z rampą i placem",
+     "Wi-Fi w hali i światłowód do biura",
+     "Alarm strefowy z czujkami w serwerowni",
+     "Komunikaty w hali"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri hot"
+   },
+   {
+    "n": "Zakład",
+    "d": "Kilka budynków albo lokalizacji.",
+    "ic": "ikona:layers",
+    "f": [
+     "Kontrola dostępu z podglądem zdarzeń z kamer",
+     "20+ kamer z uprawnieniami dla kierowników",
+     "Teletechnika nowej hali z pomiarami",
+     "Ekrany dla pracowników",
+     "Nadzór zdalny i plan serwisowy"
+    ],
+    "pr": "Cena po wizji lokalnej",
+    "hot": false,
+    "badge": "Najczęściej wybierany",
+    "cls": "card pkg ri"
+   }
+  ],
+  "cena": [],
+  "faq": [
+   {
+    "n": "01",
+    "q": "Od czego zależy cena instalacji w firmie?",
+    "a": "Od liczby budynków i stref, długości tras kabli, liczby kamer, czytników i punktów Wi-Fi oraz od tego, ile obecnego sprzętu da się zostawić. Wycenę podajemy na piśmie po wizji lokalnej, a większy zakres można rozłożyć na etapy.",
+    "open": true
+   },
+   {
+    "n": "02",
+    "q": "Czy kontrola dostępu może liczyć czas pracy?",
+    "a": "Tak. Zdarzenia z czytników eksportujemy do programu rejestracji czasu pracy. Przed ofertą sprawdzamy, czy Twój program przyjmie taki eksport. Pracownicy używają kart albo breloków, bez odcisku palca.",
+    "open": false
+   },
+   {
+    "n": "03",
+    "q": "Co z drzwiami na kartę, gdy zabraknie prądu albo wybuchnie pożar?",
+    "a": "Kontroler ma akumulator, więc krótki zanik prądu nie wyłącza systemu. Na drzwiach ewakuacyjnych zamek dobieramy tak, żeby przejście dało się otworzyć natychmiast, także przy awarii zasilania albo sygnale pożarowym.",
+    "open": false
+   },
+   {
+    "n": "04",
+    "q": "Mamy biuro i halę w dwóch budynkach. Jak je połączyć?",
+    "a": "Najlepiej światłowodem, bo nie przenosi przepięć przy burzy. Gdy nie da się położyć kabla, stawiamy most radiowy. W obu budynkach dostajesz jedną sieć z tym samym podziałem.",
+    "open": false
+   },
+   {
+    "n": "05",
+    "q": "Czy Wi-Fi zadziała w magazynie z metalowymi regałami?",
+    "a": "Tak, jeśli punkty dostępowe są rozmieszczone pod regały. Na wizji lokalnej mierzymy zasięg i proponujemy liczbę i miejsca punktów. Skanery i terminale dostają osobną sieć.",
+    "open": false
+   },
+   {
+    "n": "06",
+    "q": "Czy montaż zatrzyma pracę firmy?",
+    "a": "Nie musi. Prace planujemy w uzgodnionych godzinach i etapami, np. halę w weekend, a biuro po godzinach. Przełączenie sieci robimy w jednym, wcześniej ustalonym oknie czasowym.",
+    "open": false
+   },
+   {
+    "n": "07",
+    "q": "Kto przygotuje dokumenty do monitoringu?",
+    "a": "Regulamin i informację dla pracowników przygotowuje pracodawca. Na życzenie dołączymy opis kamer i stref nagrywania oraz tabliczki. Zakres ustalamy w ofercie.",
+    "open": false
+   },
+   {
+    "n": "08",
+    "q": "Czy przejmiecie sieć po poprzednim informatyku?",
+    "a": "Tak. Zaczynamy od przeglądu: co jest w szafie, który kabel dokąd idzie i do których urządzeń brakuje haseł. Dostęp pomagamy odzyskać za zgodą właściciela, także procedurą producenta. Potem proponujemy uporządkowanie, a w umowie serwisowej z nadzorem zdalnym część usterek widzimy wcześniej.",
+    "open": false
+   }
+  ],
+  "rel": [
+   {
+    "k": "kam",
+    "n": "Monitoring i kamery",
+    "g": "Bezpieczeństwo",
+    "href": "Monitoring.dc.html",
+    "ic": "ikona:cam",
+    "s": "Kompletny system: kamery, rejestrator, dyski, PoE"
+   },
+   {
+    "k": "alarm",
+    "n": "Alarmy i wideodomofony",
+    "g": "Bezpieczeństwo",
+    "href": "Alarmy.dc.html",
+    "ic": "ikona:bell",
+    "s": "Czujki, syreny, domofon z aplikacją"
+   },
+   {
+    "k": "kd",
+    "n": "Kontrola dostępu i zamki",
+    "g": "Bezpieczeństwo",
+    "href": "Dostep.dc.html",
+    "ic": "ikona:lock",
+    "s": "Karty, kody, apartamenty"
+   },
+   {
+    "k": "wifi",
+    "n": "Sieci i Wi-Fi",
+    "g": "Sieci i technika",
+    "href": "Sieci.dc.html",
+    "ic": "ikona:wifi",
+    "s": "Okablowanie, światłowód, Wi-Fi gości"
+   },
+   {
+    "k": "tel",
+    "n": "Teletechnika w budownictwie",
+    "g": "Sieci i technika",
+    "href": "Teletechnika.dc.html",
+    "ic": "ikona:build",
+    "s": "Dla deweloperów i wykonawców"
+   },
+   {
+    "k": "snd",
+    "n": "Nagłośnienie",
+    "g": "Komfort i obraz",
+    "href": "Naglosnienie.dc.html",
+    "ic": "ikona:spk",
+    "s": "APART: restauracje, hotele, kościoły, sale"
+   }
+  ],
+  "segRel": [
+   {
+    "k": "sklep",
+    "g": "Firmy",
+    "n": "Sklep i salon",
+    "s": "Kasa, witryna, komunikaty",
+    "page": "SegSklep",
+    "href": "SegSklep.dc.html",
+    "ic": "ikona:shop",
+    "h": "#12B6D8",
+    "hs": "--mh:#12B6D8",
+    "cls": ""
+   },
+   {
+    "k": "bud",
+    "g": "Budownictwo",
+    "n": "Budowa",
+    "s": "Monitoring placu bez prądu i kabla",
+    "page": "SegBudowa",
+    "href": "SegBudowa.dc.html",
+    "ic": "ikona:crane",
+    "h": "#E8A23A",
+    "hs": "--mh:#E8A23A",
+    "cls": ""
+   },
+   {
+    "k": "dev",
+    "g": "Budownictwo",
+    "n": "Deweloper",
+    "s": "Teletechnika budynku do odbioru",
+    "page": "SegDeweloper",
+    "href": "SegDeweloper.dc.html",
+    "ic": "ikona:build",
+    "h": "#4CCBE6",
+    "hs": "--mh:#4CCBE6",
+    "cls": ""
+   }
+  ],
+  "hasSegRel": true,
+  "segRelH": "Podobne obiekty",
+  "sx": {
+   "faqA": {
+    "t": "Masz inne pytanie?",
+    "d": "Wyślij zdjęcie obiektu albo obecnej instalacji. Powiemy, od czego zacząć i czego się spodziewać.",
+    "cta": "Zaplanuj instalację",
+    "href": "Zaplanuj.dc.html"
+   },
+   "faqH": "Pytania pracodawców.",
+   "relH": "Usługi, które łączymy w tym obiekcie.",
+   "pkg": {
+    "eye": "Zestawy dla firm",
+    "h": "Od biura po zakład z kilkoma budynkami.",
+    "p": "",
+    "note": "To przykłady. Ostateczny zakres i cenę ustalamy po wizji lokalnej i podajemy na piśmie."
+   },
+   "cena": {
+    "btn": "Wyślij zdjęcia do wyceny",
+    "eye": "Wycena",
+    "h": "Co wpływa na cenę.",
+    "p": ""
+   }
+  },
+  "sg": {
+   "sceneT": "Przekrój: biuro, hala i rampa",
+   "hc": {
+    "k0": "hs on",
+    "k1": "hs",
+    "k2": "hs",
+    "k3": "hs",
+    "k4": "hs",
+    "k5": "hs",
+    "k6": "hs",
+    "k7": "hs",
+    "k8": "hs",
+    "k9": "hs",
+    "k10": "hs"
+   },
+   "hp": {},
+   "zap": "Zaplanuj.dc.html#obiekt=firma",
+   "prepEye": "Przed wizytą",
+   "prepLead": "Zaznacz, co już masz. Zdjęcia możesz wysłać w formularzu albo przez WhatsApp.",
+   "leg": [
+    {
+     "no": "1",
+     "t": "Czytnik kart przy wejściu do biura",
+     "on": "true",
+     "st": "--c:#F2B84B",
+     "cls": "sglgb on"
+    },
+    {
+     "no": "2",
+     "t": "Karta do hali i magazynu, eksport do RCP",
+     "on": "false",
+     "st": "--c:#F2B84B",
+     "cls": "sglgb"
+    },
+    {
+     "no": "3",
+     "t": "Kamery na rampie",
+     "on": "false",
+     "st": "--c:#12B6D8",
+     "cls": "sglgb"
+    },
+    {
+     "no": "4",
+     "t": "Kamera bramy i placu",
+     "on": "false",
+     "st": "--c:#12B6D8",
+     "cls": "sglgb"
+    },
+    {
+     "no": "5",
+     "t": "Wi-Fi w hali dobrane do regałów",
+     "on": "false",
+     "st": "--c:#5B8CF0",
+     "cls": "sglgb"
+    },
+    {
+     "no": "6",
+     "t": "Światłowód między budynkami",
+     "on": "false",
+     "st": "--c:#5B8CF0",
+     "cls": "sglgb"
+    },
+    {
+     "no": "7",
+     "t": "Szafa rack i okablowanie z opisem gniazd",
+     "on": "false",
+     "st": "--c:#8C9CF5",
+     "cls": "sglgb"
+    },
+    {
+     "no": "8",
+     "t": "Alarm strefowy i czujki w serwerowni",
+     "on": "false",
+     "st": "--c:#F07A6A",
+     "cls": "sglgb"
+    },
+    {
+     "no": "9",
+     "t": "Komunikaty i sygnał przerwy w hali",
+     "on": "false",
+     "st": "--c:#F29A4B",
+     "cls": "sglgb"
+    },
+    {
+     "no": "10",
+     "t": "Ekran z informacjami dla zmiany",
+     "on": "false",
+     "st": "--c:#E86FB0",
+     "cls": "sglgb"
+    },
+    {
+     "no": "11",
+     "t": "Ogrzewanie i światło biura według harmonogramu",
+     "on": "false",
+     "st": "--c:#7BD36A",
+     "cls": "sglgb"
+    }
+   ],
+   "ly": [
+    {
+     "n": "Wszystko",
+     "on": "true",
+     "cls": "sglyb on"
+    },
+    {
+     "n": "Bezpieczeństwo",
+     "on": "false",
+     "cls": "sglyb"
+    },
+    {
+     "n": "Sieć i łączność",
+     "on": "false",
+     "cls": "sglyb"
+    },
+    {
+     "n": "Dźwięk i obraz",
+     "on": "false",
+     "cls": "sglyb"
+    },
+    {
+     "n": "Komfort i energia",
+     "on": "false",
+     "cls": "sglyb"
+    }
+   ],
+   "cur": {
+    "k": "h0",
+    "no": "1",
+    "t": "Czytnik kart przy wejściu do biura",
+    "d": "Karta, brelok albo kod. Uprawnienia według stref i godzin, a zgubioną kartę blokujesz w minutę, bez wymiany zamków.",
+    "sn": "Kontrola dostępu i zamki",
+    "href": "Dostep.dc.html",
+    "st": "--c:#F2B84B"
+   },
+   "pos": "1 z 11",
+   "pr": {
+    "eye": "Co słyszymy od właścicieli firm",
+    "h": "Na czym firma traci czas",
+    "ha": "i pieniądze.",
+    "lead": "Godzina przestoju to wynagrodzenia, które i tak płacisz. Dlatego dzielimy sieć na części, a nadzór zdalny proponujemy w umowie serwisowej."
+   },
+   "prob": [
+    {
+     "q": "„Klucze krążą po ludziach”",
+     "d": "Nie wiadomo, kto ma klucz do magazynu i kto otworzył go w weekend.",
+     "fix": "Kontrola dostępu na karty z uprawnieniami według stref i godzin oraz historią wejść.",
+     "ic": "ikona:key",
+     "sn": "Kontrola dostępu i zamki",
+     "href": "Dostep.dc.html",
+     "st": "--c:#F2B84B"
+    },
+    {
+     "q": "„Czas pracy liczymy na kartce”",
+     "d": "Ewidencję czasu pracy i tak trzeba prowadzić, a ręczne listy obecności się mylą.",
+     "fix": "Zdarzenia z czytników eksportowane do programu rejestracji czasu pracy, na karty, bez biometrii.",
+     "ic": "ikona:clock",
+     "sn": "Kontrola dostępu i zamki",
+     "href": "Dostep.dc.html",
+     "st": "--c:#F2B84B"
+    },
+    {
+     "q": "„Z placu znika paliwo i materiał”",
+     "d": "Plac i rampa bez kamer albo z kamerą, która nocą pokazuje tylko światła.",
+     "fix": "Kamery na rampę, bramę i plac z analityką po godzinach i maską na drogę publiczną.",
+     "ic": "ikona:cam",
+     "sn": "Monitoring i kamery",
+     "href": "Monitoring.dc.html",
+     "st": "--c:#12B6D8"
+    },
+    {
+     "q": "„Skanery gubią Wi-Fi w magazynie”",
+     "d": "Metalowe regały tłumią sygnał z routera stojącego w biurze.",
+     "fix": "Punkty dostępowe rozmieszczone pod regały po pomiarze i osobna sieć dla skanerów.",
+     "ic": "ikona:wifi",
+     "sn": "Sieci i Wi-Fi",
+     "href": "Sieci.dc.html",
+     "st": "--c:#5B8CF0"
+    },
+    {
+     "q": "„Hasła ma były informatyk”",
+     "d": "Nikt nie wie, który kabel gdzie idzie i jak zalogować się do routera.",
+     "fix": "Uporządkowane i opisane gniazda oraz podział sieci. Nadzór zdalny w ramach umowy serwisowej. Zakres dokumentacji ustalamy w ofercie.",
+     "ic": "ikona:doc",
+     "sn": "Teletechnika",
+     "href": "Teletechnika.dc.html",
+     "st": "--c:#8C9CF5"
+    },
+    {
+     "q": "„Hala i biuro w dwóch budynkach”",
+     "d": "Skrętka po słupach zbiera przepięcia przy każdej burzy.",
+     "fix": "Światłowód albo most radiowy i jedna sieć z tym samym podziałem w obu budynkach.",
+     "ic": "ikona:fiber",
+     "sn": "Sieci i Wi-Fi",
+     "href": "Sieci.dc.html",
+     "st": "--c:#5B8CF0"
+    }
+   ],
+   "day": {
+    "eye": "Dzień w firmie",
+    "h": "Od pierwszej zmiany do alarmu w nocy.",
+    "lead": "Tak pracują instalacje w firmie z biurem i halą przez jeden dzień.",
+    "k": "d0",
+    "pg": "width:17%",
+    "items": [
+     {
+      "tm": "6:00",
+      "n": "Pierwsza zmiana",
+      "on": "true",
+      "cls": "sgdb on"
+     },
+     {
+      "tm": "8:00",
+      "n": "Biuro",
+      "on": "false",
+      "cls": "sgdb"
+     },
+     {
+      "tm": "10:30",
+      "n": "Załadunek na rampie",
+      "on": "false",
+      "cls": "sgdb"
+     },
+     {
+      "tm": "12:00",
+      "n": "Przerwa",
+      "on": "false",
+      "cls": "sgdb"
+     },
+     {
+      "tm": "15:40",
+      "n": "Burza nad halą",
+      "on": "false",
+      "cls": "sgdb"
+     },
+     {
+      "tm": "23:00",
+      "n": "Noc",
+      "on": "false",
+      "cls": "sgdb"
+     }
+    ],
+    "cur": {
+     "tm": "6:00",
+     "n": "Pierwsza zmiana",
+     "d": "Pracownicy wchodzą na karty. Wejścia trafiają do programu czasu pracy, a hala rozbraja się tylko dla tej strefy.",
+     "ic": "ikona:sun",
+     "st": "--c:#F2B84B",
+     "ch": [
+      {
+       "n": "Kontrola dostępu i zamki",
+       "href": "Dostep.dc.html",
+       "st": "--c:#F2B84B"
+      },
+      {
+       "n": "Alarmy i wideodomofony",
+       "href": "Alarmy.dc.html",
+       "st": "--c:#F07A6A"
+      }
+     ],
+     "hs": [
+      {
+       "no": "1",
+       "st": "--c:#F2B84B"
+      },
+      {
+       "no": "2",
+       "st": "--c:#F2B84B"
+      },
+      {
+       "no": "8",
+       "st": "--c:#F07A6A"
+      }
+     ]
+    }
+   },
+   "law": {
+    "h": "Kamery, czas pracy i drzwi ewakuacyjne. Co mówią przepisy.",
+    "lead": "Najważniejsze zasady dla pracodawcy, który montuje kamery i kontrolę dostępu. Mówimy, co jest po Twojej stronie, a co po naszej.",
+    "items": [
+     {
+      "t": "Monitoring w zakładzie pracy",
+      "a": "art. 22² Kodeksu pracy",
+      "d": "Kamery w celu bezpieczeństwa, ochrony mienia, kontroli produkcji albo tajemnicy. Bez pomieszczeń sanitarnych, szatni, stołówek, palarni i pomieszczeń związków zawodowych. Nagrania najwyżej 3 miesiące, informacja 2 tygodnie przed startem, oznaczenie dzień wcześniej.",
+      "who": "Firma",
+      "wc": "sgwho o",
+      "href": "https://api.sejm.gov.pl/eli/acts/DU/2026/1245/text.pdf",
+      "sl": "Kodeks pracy, t.j. Dz.U. 2026 poz. 1245"
+     },
+     {
+      "t": "Poczta i ruch w sieci firmowej",
+      "a": "art. 22³ KP",
+      "d": "Kontrola służbowej poczty jest dozwolona, gdy jest niezbędna do organizacji pracy i właściwego używania narzędzi pracy, bez naruszania tajemnicy korespondencji. Logi i filtrowanie ruchu pracowników mogą być „inną formą monitorowania” (§ 4), więc stosuje się do nich te same zasady. Pracowników informuje się jak przy kamerach.",
+      "who": "Firma",
+      "wc": "sgwho o",
+      "href": "https://api.sejm.gov.pl/eli/acts/DU/2026/1245/text.pdf",
+      "sl": "Kodeks pracy, t.j. Dz.U. 2026 poz. 1245"
+     },
+     {
+      "t": "Czas pracy na karty, nie na palec",
+      "a": "UODO, 11.05.2020",
+      "d": "UODO uznał, że biometria nie może służyć do ewidencji czasu pracy, bo brakuje do tego podstawy prawnej. Rejestrację robimy na karty i breloki z kontroli dostępu.",
+      "who": "Firma",
+      "wc": "sgwho o",
+      "href": "https://www.zut.edu.pl/fileadmin/pliki/2020/iod/1205/UODO-Rejestracja_czasu_pracy_za_pomoc%C4%85_danych_biometrycznych.pdf",
+      "sl": "UODO, stanowisko o RCP i biometrii (PDF)"
+     },
+     {
+      "t": "Drzwi ewakuacyjne na kartę",
+      "a": "§ 4 ust. 1 pkt 14 rozp. ppoż.",
+      "d": "Drzwi ewakuacyjnych nie wolno zamknąć tak, żeby nie dało się ich natychmiast otworzyć. Zamek dobieramy tak, żeby zwalniał przy zaniku zasilania albo sygnale pożarowym. Jeśli potrzebna jest opinia rzeczoznawcy ds. zabezpieczeń przeciwpożarowych, mówimy o tym przed ofertą, bo to osobny koszt po stronie inwestora.",
+      "who": "Razem",
+      "wc": "sgwho r",
+      "href": "https://api.sejm.gov.pl/eli/acts/DU/2023/822/text.pdf",
+      "sl": "Rozporządzenie o ochronie ppoż., t.j. Dz.U. 2023 poz. 822 (PDF)"
+     },
+     {
+      "t": "Kamera kończy się na płocie",
+      "a": "EROD 3/2019, pkt 27",
+      "d": "Droga przed bramą tylko w niezbędnym zakresie, resztę i posesje sąsiadów maskujemy w ustawieniach kamery.",
+      "who": "Instalator",
+      "wc": "sgwho i",
+      "href": "https://www.edpb.europa.eu/system/files/documents/files/file1/edpb_guidelines_201903_video_devices_pl_0.pdf",
+      "sl": "EROD, wytyczne 3/2019 (PDF)"
+     },
+     {
+      "t": "Cyberbezpieczeństwo i NIS2",
+      "a": "Dz.U. 2026 poz. 252",
+      "d": "Nowelizacja ustawy o krajowym systemie cyberbezpieczeństwa obejmuje podmioty kluczowe i ważne z wybranych sektorów. Sieć projektujemy tak, żeby ułatwić spełnienie wymagań: podział sieci i rejestr zdarzeń. Kopie zapasowe i opiekę IT prowadzi PRO-KOM Biznes.",
+      "who": "Firma",
+      "wc": "sgwho o",
+      "href": "https://eli.gov.pl/eli/DU/2026/252/ogl",
+      "sl": "Dz.U. 2026 poz. 252 (ELI)"
+     }
+    ]
+   },
+   "gory": {
+    "h": "Działki z kilkoma budynkami, burze i mróz w hali.",
+    "items": [
+     {
+      "ic": "ikona:fiber",
+      "t": "Kilka budynków na działce",
+      "d": "Biuro w domu, hala za domem, plac przy drodze. Łączymy je światłowodem albo mostem radiowym.",
+      "hasS": false,
+      "sh": "",
+      "sl": ""
+     },
+     {
+      "ic": "ikona:snow",
+      "t": "−28,5°C w Kotlinie Orawsko-Nowotarskiej",
+      "d": "Tak było 7.02.2023. W nieogrzewanej hali i skrzynce na zewnątrz stosujemy switche przemysłowe, a nie biurowe.",
+      "hasS": true,
+      "sh": "https://www.rmf24.pl/fakty/pogoda/news-siarczysty-mroz-w-polsce-nawet-285-stopni,nId,6582692",
+      "sl": "RMF24, 7.02.2023"
+     },
+     {
+      "ic": "ikona:wifi",
+      "t": "Słaby zasięg LTE w dolinach",
+      "d": "Łącze zapasowe dobieramy po pomiarze na miejscu. Gdy LTE nie wystarcza, proponujemy inną drogę.",
+      "hasS": false,
+      "sh": "",
+      "sl": ""
+     },
+     {
+      "ic": "ikona:shield",
+      "t": "273 tys. incydentów",
+      "d": "Tyle incydentów cyberbezpieczeństwa obsłużyły zespoły CSIRT w 2025 r., o 144% więcej niż rok wcześniej.",
+      "hasS": true,
+      "sh": "https://www.telepolis.pl/tech/bezpieczenstwo/ministerstwo-cyfryzacji-raport-cyberbezpieczenstwo-w-polsce-2025",
+      "sl": "telepolis.pl, 16.04.2026"
+     }
+    ]
+   },
+   "hasReal": true,
+   "realH": "Od sali konferencyjnej po stanowiska biurowe w Blachotrapezie.",
+   "real": [
+    {
+     "t": "Blachotrapez",
+     "m": "Rabka-Zdrój · stanowiska biurowe",
+     "d": "Przyłącza IT i okablowanie stanowisk."
+    },
+    {
+     "t": "Blachotrapez",
+     "m": "Rabka-Zdrój · sala konferencyjna",
+     "d": "Nagłośnienie, sprzęt projekcyjny i przyłącza IT."
+    },
+    {
+     "t": "Blachotrapez",
+     "m": "Ponice · sala szkoleniowa",
+     "d": "Instalacja audiowizualna."
+    }
+   ],
+   "ck": {
+    "n": 0,
+    "t": 7,
+    "st": "--p:0",
+    "cta": "Wyślij zdjęcia i opis →",
+    "items": [
+     {
+      "t": "Rzut albo szkic budynków i placu",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Liczba pracowników i zmian, strefy dostępu",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Gdzie stoi router i czy jest szafa rack",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Odległość między budynkami",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Co jest najcenniejsze na placu i w magazynie",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Program do czasu pracy, jeśli go macie",
+      "on": "false",
+      "cls": "sgci"
+     },
+     {
+      "t": "Obecny sprzęt i kto ma do niego hasła",
+      "on": "false",
+      "cls": "sgci"
+     }
+    ]
+   }
+  }
+ }
+}

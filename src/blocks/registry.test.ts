@@ -7,6 +7,7 @@ import {
   BLOCK_SLUGS,
   createBlocksFilter,
   GENERIC_BLOCK_SLUGS,
+  INSTALACJE_BLOCK_SLUGS,
   isBlockAllowed,
   renderableBlocks,
 } from './registry'
@@ -27,10 +28,27 @@ describe('block registry', () => {
 
   it('allows the Biznes blocks on the Biznes line only', () => {
     expect(BIZNES_BLOCK_SLUGS.length).toBeGreaterThan(0)
-    expect([...ALLOWED_BLOCKS.biznes].sort()).toEqual([...BLOCK_SLUGS].sort())
+    expect([...ALLOWED_BLOCKS.biznes].sort()).toEqual(
+      [...GENERIC_BLOCK_SLUGS, ...BIZNES_BLOCK_SLUGS].sort(),
+    )
     for (const line of ['prokom', 'instalacje', 'software'] as const) {
       for (const slug of BIZNES_BLOCK_SLUGS) expect(isBlockAllowed(line, slug)).toBe(false)
     }
+  })
+
+  it('allows the Instalacje blocks on the Instalacje line only', () => {
+    expect([...ALLOWED_BLOCKS.instalacje].sort()).toEqual(
+      [...GENERIC_BLOCK_SLUGS, ...INSTALACJE_BLOCK_SLUGS].sort(),
+    )
+    for (const line of ['prokom', 'biznes', 'software'] as const) {
+      for (const slug of INSTALACJE_BLOCK_SLUGS) expect(isBlockAllowed(line, slug)).toBe(false)
+    }
+  })
+
+  it('registers every line block in ALL_BLOCKS', () => {
+    expect([...BLOCK_SLUGS].sort()).toEqual(
+      [...GENERIC_BLOCK_SLUGS, ...BIZNES_BLOCK_SLUGS, ...INSTALACJE_BLOCK_SLUGS].sort(),
+    )
   })
 
   it('has unique block slugs', () => {

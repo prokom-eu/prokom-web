@@ -6,7 +6,15 @@ import { site } from './helpers'
 // ADR-007 / ADR-013 / ADR-015: every line passes axe (WCAG 2.1 A/AA) in each of its themes, the layout
 // holds at 360 px and the dark theme switch works. Seed pages: `home` and `kontakt` (and the Biznes
 // subpages from blocks, B9; the category page, B10a; an industry page, B10b; the wizard, B10c).
-const SITES: { host: string; line: string; dark: boolean; extra?: string[] }[] = [
+// `themeSwitch: false`: the line has a dark theme (from the system) but no switch yet — Instalacje
+// until its header (I3).
+const SITES: {
+  host: string
+  line: string
+  dark: boolean
+  themeSwitch?: boolean
+  extra?: string[]
+}[] = [
   {
     host: 'biznes.localhost',
     line: 'biznes',
@@ -30,7 +38,7 @@ const SITES: { host: string; line: string; dark: boolean; extra?: string[] }[] =
       '/dostepnosc',
     ],
   },
-  { host: 'instalacje.localhost', line: 'instalacje', dark: false },
+  { host: 'instalacje.localhost', line: 'instalacje', dark: true, themeSwitch: false },
   { host: 'software.localhost', line: 'software', dark: true, extra: ['/dobierz'] },
 ]
 const PATHS = ['/', '/kontakt']
@@ -91,7 +99,7 @@ test.describe('phone width (360 px)', () => {
 })
 
 test.describe('dark theme switch', () => {
-  for (const { host } of SITES.filter(({ dark }) => dark)) {
+  for (const { host } of SITES.filter(({ dark, themeSwitch = true }) => dark && themeSwitch)) {
     test(`toggles, is announced and survives a reload (${host})`, async ({ page }) => {
       await page.emulateMedia({ colorScheme: 'light' })
       await page.goto(site(host))
@@ -110,11 +118,6 @@ test.describe('dark theme switch', () => {
       )
     })
   }
-
-  test('is not offered on lines without a dark design', async ({ page }) => {
-    await page.goto(site('instalacje.localhost'))
-    await expect(page.getByRole('button', { name: 'Tryb ciemny' })).toHaveCount(0)
-  })
 })
 
 test.describe('main navigation', () => {

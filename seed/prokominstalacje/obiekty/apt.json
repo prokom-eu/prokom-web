@@ -1,0 +1,382 @@
+{
+ "k": "apt",
+ "page": "SegApartament",
+ "h": "#F2B84B",
+ "dla": "apartamentów",
+ "title": "Zamki z kodem dla apartamentów na wynajem — Zakopane | PRO-KOM",
+ "desc": "Zamek z kodem z systemu rezerwacji, kody dla sprzątania, czujki zalania i dymu, Wi-Fi i ogrzewanie pustego lokalu. Apartamenty w Zakopanem i na Podhalu.",
+ "sceneT": "Przekrój budynku z apartamentem",
+ "hero": {
+  "crumb": "Apartament na wynajem",
+  "eye": "Instalacje dla apartamentów na wynajem · Zakopane, Kościelisko, Podhale",
+  "h1a": "Gość wchodzi sam o 23:00.",
+  "h1b": "Ty widzisz, że dotarł, i śpisz spokojnie.",
+  "lead": "Zamek z kodem połączony z Twoim systemem rezerwacji, osobne kody dla sprzątania i serwisu, czujka zalania i dymu z powiadomieniem, mocne Wi-Fi w każdym pokoju i ogrzewanie, które nie grzeje pustego lokalu. Bez kamer w środku.",
+  "kv": [
+   [
+    "6 031",
+    "miejsc w apartamentach w Zakopanem (09.2026)"
+   ],
+   [
+    "24 mies.",
+    "gwarancji na montaż"
+   ],
+   [
+    "do 24 h",
+    "odpowiedź na zgłoszenie w dni robocze"
+   ]
+  ],
+  "tags": [
+   "Zamek z kodem",
+   "Hotres, Beds24, Smoobu",
+   "Czujka zalania i dymu",
+   "Bez kamer w środku"
+  ]
+ },
+ "hs": [
+  {
+   "d": "Klawiatura z kodem, który system rezerwacji wysyła sam i który działa tylko w dniach pobytu. Zawsze z awaryjnym sposobem wejścia."
+  },
+  {
+   "d": "Gość musi wejść też do klatki i przez bramę. Kod do części wspólnych montujemy po zgodzie zarządu wspólnoty."
+  },
+  {
+   "d": "Czujka zalania pod pralką i zmywarką. Apartament stoi pusty kilka dni między rezerwacjami, a woda nie może lecieć do sąsiada."
+  },
+  {
+   "d": "Przy wynajmie na doby autonomiczna czujka dymu jest obowiązkowa od 30.06.2026. Może też wysłać powiadomienie na Twój telefon."
+  },
+  {
+   "d": "Pusty lokal ma temperaturę dyżurną, a godzinę przed przyjazdem ogrzewanie samo się podnosi. Rachunki nie zjadają marży."
+  },
+  {
+   "d": "Punkt dostępowy w salonie zamiast routera schowanego w szafce przy drzwiach. Gość ma zasięg w sypialni i nie pisze o tym w opinii."
+  },
+  {
+   "d": "Telewizor z odbiorem DVB-T2 i aplikacjami, żeby gość mógł obejrzeć swój serwis na swoim koncie."
+  },
+  {
+   "d": "Mierzy tylko poziom hałasu i niczego nie nagrywa. Ujawniony w ogłoszeniu, dozwolony przez zasady Airbnb."
+  },
+  {
+   "d": "Kod do bramy garażu albo otwarcie z telefonu, ważne tylko w czasie pobytu."
+  }
+ ],
+ "pr": {
+  "eye": "Co słyszymy od właścicieli apartamentów",
+  "h": "Sześć problemów, które psują opinie",
+  "ha": "i rachunki.",
+  "lead": "Apartament na doby ma działać bez Ciebie: wejście, Wi-Fi, ciepło i bezpieczeństwo. Dobieramy sprzęt pod system rezerwacji, którego już używasz."
+ },
+ "prob": [
+  {
+   "q": "„Gość utknął w korku na zakopiance”",
+   "d": "Ktoś musi czekać pod budynkiem z kluczami, a klucze się gubią i są dorabiane.",
+   "fix": "Zamek z kodem ważnym tylko w dniach pobytu, wysyłanym automatycznie z systemu rezerwacji.",
+   "s": "kd",
+   "ic": "key"
+  },
+  {
+   "q": "„Kto wchodził we wtorek?”",
+   "d": "Sprzątanie, serwis i konserwator potrzebują dostępu tylko w swoich godzinach.",
+   "fix": "Osobne kody z harmonogramem godzin i historia wejść w aplikacji.",
+   "s": "kd",
+   "ic": "clock"
+  },
+  {
+   "q": "„Zalało sąsiada piętro niżej”",
+   "d": "Pralka albo wężyk pod umywalką, a apartament stoi pusty kilka dni.",
+   "fix": "Czujka zalania z powiadomieniem, a w pełnym zestawie zawór odcinający wodę.",
+   "s": "alarm",
+   "ic": "drop"
+  },
+  {
+   "q": "„W sypialni nie ma Wi-Fi”",
+   "d": "Router operatora w szafce przy drzwiach nie sięga do dalszych pokoi.",
+   "fix": "Punkt dostępowy w środku lokalu i sieć gości z kodem QR zamiast hasła na kartce.",
+   "s": "wifi",
+   "ic": "wifi"
+  },
+  {
+   "q": "„Grzejniki na piątce przez tydzień”",
+   "d": "Ogrzewanie i klimatyzacja pracują w pustym lokalu po wyjeździe gości.",
+   "fix": "Tryb pustego apartamentu i podniesienie temperatury przed przyjazdem.",
+   "s": "smart",
+   "ic": "thermo"
+  },
+  {
+   "q": "„Impreza, skarga wspólnoty”",
+   "d": "Za dużo osób i hałas w nocy. Zarządca dzwoni, zanim Ty się dowiesz.",
+   "fix": "Czujnik hałasu bez nagrywania, ujawniony w ogłoszeniu. Bez kamer w środku.",
+   "s": "smart",
+   "ic": "users"
+  }
+ ],
+ "day": {
+  "eye": "Od rezerwacji do wymeldowania",
+  "h": "Jedna rezerwacja, zero przekazywania kluczy.",
+  "lead": "Tak wygląda pobyt gościa w apartamencie z naszymi instalacjami.",
+  "items": [
+   {
+    "tm": "Rezerwacja",
+    "n": "Gość płaci na Bookingu",
+    "d": "Twój system rezerwacji tworzy kod ważny od przyjazdu do wyjazdu i wysyła go gościowi w wiadomości.",
+    "s": [
+     "kd"
+    ],
+    "ic": "cal"
+   },
+   {
+    "tm": "Dzień przyjazdu, 16:00",
+    "n": "Ogrzewanie wstaje",
+    "d": "Godzinę przed zameldowaniem ogrzewanie przechodzi z trybu dyżurnego na komfortowy.",
+    "s": [
+     "smart"
+    ],
+    "ic": "thermo"
+   },
+   {
+    "tm": "23:10",
+    "n": "Późny przyjazd",
+    "d": "Gość wpisuje kod przy bramie i w drzwiach. Ty dostajesz powiadomienie, że dotarł, i śpisz dalej.",
+    "s": [
+     "kd"
+    ],
+    "ic": "key"
+   },
+   {
+    "tm": "Drugi wieczór",
+    "n": "Za głośno",
+    "d": "Czujnik hałasu przekracza próg. Piszesz do gościa, zanim zadzwoni zarządca budynku.",
+    "s": [
+     "smart"
+    ],
+    "ic": "users"
+   },
+   {
+    "tm": "Wymeldowanie, 11:00",
+    "n": "Sprzątanie",
+    "d": "Kod gościa wygasa. Ekipa sprzątająca wchodzi swoim kodem, ważnym w godzinach między pobytami.",
+    "s": [
+     "kd"
+    ],
+    "ic": "clock"
+   },
+   {
+    "tm": "Między pobytami",
+    "n": "Pusty lokal",
+    "d": "Ogrzewanie na temperaturze dyżurnej, czujka zalania i dymu czuwają, a Ty widzisz stan lokalu w telefonie.",
+    "s": [
+     "alarm",
+     "smart"
+    ],
+    "ic": "moon"
+   }
+  ]
+ },
+ "law": {
+  "h": "Kamery, wspólnota, czujka dymu i nowe przepisy o najmie.",
+  "lead": "Apartament na doby ma kilka zasad z przepisów i z regulaminów platform. Mówimy, co dotyczy Ciebie, a co montażu.",
+  "items": [
+   {
+    "who": "Właściciel",
+    "a": "zasady Airbnb, 30.04.2024",
+    "t": "Bez kamer w środku",
+    "d": "Airbnb zakazuje kamer wewnątrz obiektów na całym świecie. Kamera zewnętrzna tylko ujawniona i bez widoku do środka. Mierniki hałasu są dozwolone, jeśli nie nagrywają dźwięku."
+   },
+   {
+    "who": "Razem",
+    "a": "art. 22 ustawy o własności lokali",
+    "t": "Części wspólne za zgodą",
+    "d": "Na zamek w drzwiach Twojego lokalu zgoda nie jest potrzebna. Na domofon, bramę, kamerę na klatce czy czytnik w garażu tak. Pomagamy przygotować opis dla zarządu."
+   },
+   {
+    "who": "Właściciel",
+    "a": "§ 28a rozp. ppoż.",
+    "t": "Czujka dymu jest obowiązkowa",
+    "d": "Lokal, w którym świadczy się usługi hotelarskie, musi mieć autonomiczną czujkę dymu. Dla lokali używanych wcześniej termin minął 30.06.2026. Jeśli w apartamencie jest piecyk gazowy z otwartą komorą albo kominek, przepis wymaga też czujki czadu (w lokalach mieszkalnych już używanych najpóźniej od 1.01.2030). Kuchenki gazowej to nie dotyczy."
+   },
+   {
+    "who": "Właściciel",
+    "a": "rozp. UE 2024/1028",
+    "t": "Rejestr najmu krótkoterminowego",
+    "d": "Od 20.05.2026 stosuje się unijne rozporządzenie o danych z najmu krótkoterminowego. 8.10.2026 Sejm uchwalił ustawę o Centralnym Wykazie Turystycznych Obiektów Noclegowych z numerem obiektu w ofertach. Na dzień 26.10.2026 ustawa jest w Senacie."
+   },
+   {
+    "who": "Instalator",
+    "a": "UODO, DS.523.703.2024",
+    "t": "Kamera w wizjerze: nie montujemy",
+    "d": "Kamera w wizjerze, która nagrywa klatkę i dźwięk, to według UODO niedozwolony monitoring klatki. Takich rozwiązań nie montujemy."
+   },
+   {
+    "who": "Właściciel",
+    "a": "abonament RTV",
+    "t": "Telewizor w lokalu na wynajem",
+    "d": "Przedsiębiorca płaci abonament za każdy odbiornik osobno. W 2026 r. to 30,50 zł miesięcznie za telewizor."
+   }
+  ]
+ },
+ "gory": {
+  "h": "Późne przyjazdy, sezony i mróz na drzwiach.",
+  "items": [
+   {
+    "ic": "bed",
+    "t": "Szacunkowo 44,8 mln noclegów",
+    "d": "Tyle noclegów w najmie krótkoterminowym w Polsce w 2025 r. szacuje GUS. To rynek, na którym gość porównuje opinie o wejściu, Wi-Fi i cieple."
+   },
+   {
+    "ic": "apt",
+    "t": "6 031 miejsc w apartamentach",
+    "d": "Tyle miejsc w apartamentach było w ewidencji Zakopanego pod koniec września 2026."
+   },
+   {
+    "ic": "car",
+    "t": "Przyjazdy w nocy",
+    "d": "Korki na zakopiance i późne przyjazdy po nartach to codzienność, stąd zamek z kodem i powiadomienie o wejściu."
+   },
+   {
+    "ic": "snow",
+    "t": "Mróz i baterie zamka",
+    "d": "Zamek bateryjny na drzwiach wystawionych na mróz szybciej się rozładowuje. Dobieramy miejsce i model do warunków."
+   }
+  ]
+ },
+ "realH": "",
+ "real": [],
+ "prep": [
+  "Zdjęcie drzwi z obu stron i wkładki z kluczem",
+  "Z jakiego systemu rezerwacji korzystasz",
+  "Droga gościa: brama, klatka, winda, garaż",
+  "Internet: operator i gdzie stoi router",
+  "Rzut lokalu z umowy albo ogłoszenia",
+  "Kto wchodzi oprócz gości",
+  "Rodzaj ogrzewania i czy masz na nie wpływ"
+ ],
+ "pkgH": "Od wejścia bez kluczy po kilka apartamentów w jednej aplikacji.",
+ "pkgs": [
+  {
+   "n": "Bez kluczy",
+   "d": "Jeden apartament, szybki start.",
+   "ic": "key",
+   "f": [
+    "Zamek z kodem i awaryjne wejście",
+    "Połączenie z Twoim systemem rezerwacji",
+    "Kody dla sprzątania i serwisu",
+    "Czujka dymu i czujka zalania",
+    "Punkt Wi-Fi w salonie"
+   ],
+   "pr": "od [CENA] zł"
+  },
+  {
+   "n": "Apartament pod kontrolą",
+   "d": "Zdalne zarządzanie i historia wejść.",
+   "ic": "eye",
+   "hot": true,
+   "f": [
+    "Wszystko z zestawu Bez kluczy",
+    "Bramka zamka i zdalna zmiana kodów",
+    "Kod do bramy i klatki za zgodą wspólnoty",
+    "Czujniki temperatury i otwarcia okna",
+    "Czujnik hałasu bez nagrywania"
+   ],
+   "pr": "od [CENA] zł"
+  },
+  {
+   "n": "Kilka apartamentów",
+   "d": "Jeden pulpit do wielu lokali.",
+   "ic": "layers",
+   "f": [
+    "Wszystko z zestawu Apartament pod kontrolą",
+    "Ogrzewanie: tryb pustego lokalu i przyjazd gościa",
+    "Zawór odcinający wodę przy zalaniu",
+    "Wiele lokali w jednej aplikacji",
+    "Sieć kablowa do Wi-Fi i TV"
+   ],
+   "pr": "od [CENA] zł"
+  }
+ ],
+ "faqH": "Pytania właścicieli apartamentów.",
+ "faq": [
+  [
+   "Czy gość musi instalować aplikację, żeby wejść?",
+   "Nie musi. Najprościej działa klawiatura z kodem, który system rezerwacji wysyła automatycznie i który jest ważny tylko w dniach pobytu. Aplikacja to dodatek dla tych, którzy wolą telefon."
+  ],
+  [
+   "Co, jeśli w apartamencie padnie internet?",
+   "Zależy od zamka. Część zamków działa bez internetu, bo kod jest liczony z góry. Zamki z bramką dostaną zmiany po powrocie łącza. Zawsze zostawiamy drugi sposób wejścia."
+  ],
+  [
+   "Czy mogę mieć kamerę w apartamencie?",
+   "W środku nie. Zamiast kamery proponujemy czujnik hałasu, który niczego nie nagrywa, albo ujawnioną kamerę przy wejściu na Twoim terenie. Zasady Airbnb opisujemy w sekcji „Przepisy”."
+  ],
+  [
+   "Czy to działa z Bookingiem?",
+   "Booking nie łączy się z zamkiem bezpośrednio, ale robi to Twój system rezerwacji. Hotres, IdoBooking, Beds24 i Smoobu mają gotowe integracje z zamkami. Dobieramy zamek pod system, którego już używasz."
+  ],
+  [
+   "Czy wspólnota musi się zgodzić?",
+   "Na zamek w drzwiach lokalu nie, na części wspólne tak (szczegóły w sekcji „Przepisy”). Pomagamy przygotować opis dla zarządu, a montujemy po zgodzie."
+  ],
+  [
+   "Czy czujka dymu jest w apartamencie obowiązkowa?",
+   "Tak, jeśli wynajmujesz na doby. Przy piecyku gazowym z otwartą komorą albo kominku potrzebna jest też czujka czadu. Terminy są w sekcji „Przepisy”. Dobieramy czujki, które mogą też powiadomić Cię na telefonie."
+  ],
+  [
+   "Ile trwa montaż i czy trzeba kuć?",
+   "Nakładka na wkładkę, czujniki i punkt Wi-Fi to zwykle praca bez kucia. Sprawdzamy tylko wymiary wkładki i drzwi. Sterowanie ogrzewaniem i zawór wody ustalamy po wizji lokalnej."
+  ],
+  [
+   "Mam kilka apartamentów. Czy mogę zacząć od jednego?",
+   "Tak. Najczęściej zaczynamy od jednego lokalu: zamek, czujki i Wi-Fi. Gdy sprawdzi się w sezonie, dokładamy kolejne apartamenty do tej samej aplikacji i tego samego systemu rezerwacji. Cena zależy od drzwi, zamka, systemu rezerwacji i tego, co jest już w lokalu, dlatego wycenę podajemy na piśmie po wizji."
+  ]
+ ],
+ "rel": [
+  "kd",
+  "alarm",
+  "wifi",
+  "smart",
+  "ant"
+ ],
+ "anc": [
+  [
+   "problemy",
+   "Problemy"
+  ],
+  [
+   "rok",
+   "Pobyt gościa"
+  ],
+  [
+   "przepisy",
+   "Przepisy"
+  ],
+  [
+   "gory",
+   "Podhale"
+  ],
+  [
+   "pakiety",
+   "Zestawy"
+  ],
+  [
+   "przygotuj",
+   "Przed wizytą"
+  ],
+  [
+   "faq",
+   "Pytania"
+  ]
+ ],
+ "cta": [
+  "Apartament na wynajem",
+  "Przyjedziemy między rezerwacjami i ustawimy wejście bez kluczy.",
+  "Dobór zamka pod Twój system rezerwacji, montaż bez kucia, test z prawdziwą rezerwacją i ustalona procedura awaryjna."
+ ],
+ "fold": [
+  "problemy:900",
+  "rok",
+  "przepisy",
+  "gory",
+  "faq"
+ ]
+}

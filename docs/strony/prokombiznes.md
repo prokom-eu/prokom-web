@@ -133,7 +133,7 @@ Układ planszy `Main` (decyzja Krystiana 18.10.2026, B3b; wcześniejsza wersja t
 - Kolumny:
   - opis linii, dane firmy z adresem i godzinami, **miejscowości obsługi** (z `SiteSettings`), odznaki statusów partnerów;
   - Oferta: „Cały katalog” + grupy katalogu;
-  - Najważniejsze (linki z panelu: Opieka IT, GoPOS, InsERT, przegląd IT, KSeF, kreator);
+  - Najważniejsze (linki z panelu: Opieka IT, GoPOS, InsERT, przegląd IT, KSeF, kreator — do K3.1; od K31b bez przeglądu IT, niżej „Stopka K3.1”);
   - Branże i firma (linki z panelu: branże, O firmie, Aktualności, pozostałe linie PRO-KOM);
   - Kontakt: numer główny, WhatsApp, telefony firmy, e-mail, „Kontakt i dojazd”.
 - Odznaki są **tekstowe** jak na planszy („Autoryzowany partner GoPOS”, „Serwis Posnet i Elzab”), tworzone ze statusów partnerów potwierdzonych w panelu [SZEF] — bez statusu nie ma odznaki.
