@@ -174,4 +174,4 @@ Nazwy z §2–§3 → pola w kodzie (`src/collections/Inst*.ts`, `Realizations.t
 - **Realizacje z `Realizacje.json`** (11, źródło prawdy); `Main.rl` tylko wskazuje, ile pierwszych jest wyróżnionych (`featured`) — to te same firmy pod krótszymi nazwami.
 - **Karty „Powiązane” bez klucza usługi** (Monitoring, Alarmy → Serwis; Nagłośnienie → Realizacje) nie mieszczą się w relacji `relatedServices` — pominięte w imporcie, rozwiązanie w I4 (stała karta w komponencie albo pole linków).
 - **Ceny:** tekst bez cyfry i bez `[CENA]` (np. „Cena po wizji lokalnej”) to nie cena — pole zostaje puste, stronę obsługuje `InstalacjeSettings.noPriceText`.
-- **Strony `Pages`:** brakujące jako puste wersje robocze; istniejące (`home`, `kontakt` z `pnpm seed`) dostają tylko tytuł i SEO — układ i status bez zmian. Strony prawne w I13.
+- **Strony `Pages`:** brakujące jako puste wersje robocze z tytułem i SEO; istniejących import nie rusza — `home` i `kontakt` to strony przykładowe z `pnpm seed`, na których stoi test izolacji tenantów (tytuł = nazwa strony). Ich SEO z paczki (`Main.json`, `Kontakt.json`) ustawiają sesje, które je budują (I6, I11). Strony prawne w I13.

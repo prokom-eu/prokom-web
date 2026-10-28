@@ -27,8 +27,8 @@ type Counter = { created: number; updated: number; skipped: number }
  *   published. Services and objects point at each other, so missing ones are created first.
  * - Realizations: created as drafts without the client consent when missing, later they belong
  *   to the panel (consent, photos).
- * - Pages: missing ones as empty drafts (blocks come with their sessions); title and SEO follow
- *   the package, layout and status of an existing page are never touched.
+ * - Pages: missing ones as empty drafts with title and SEO (blocks come with their sessions);
+ *   an existing page is never touched.
  * - Settings: created while missing, then they belong to the panel. Phone and e-mail of the
  *   line stay as `pnpm seed` set them (`SiteSettings`), the boss fills them in.
  */
@@ -193,38 +193,32 @@ export async function seedInstalacje(payload: Payload): Promise<void> {
     count('realizations', totalDocs === 0 ? 'created' : 'skipped')
   }
 
-  // --- pages: empty drafts; title and SEO from the package ---
+  // --- pages: missing ones as empty drafts with title and SEO; existing ones untouched ---
+  // `home` and `kontakt` are the sample pages of `pnpm seed`, which the tenant isolation test
+  // reads (title = site name); the sessions that build them (I6, I11) set their SEO.
   for (const page of pagesToImport()) {
-    const {
-      docs: [existing],
-    } = await payload.find({
+    const { totalDocs } = await payload.count({
       collection: 'pages',
       where: inTenant({ slug: { equals: page.slug } }),
-      limit: 1,
-      draft: true,
-      ...local,
+      overrideAccess: true,
+      context: SEED_CONTEXT,
     })
-    const data = { title: page.title, seo: page.seo }
-    if (!existing) {
+    if (totalDocs === 0) {
       await payload.create({
         collection: 'pages',
-        data: { ...data, slug: page.slug, layout: [], tenant: tenantId, _status: 'draft' },
+        data: {
+          title: page.title,
+          seo: page.seo,
+          slug: page.slug,
+          layout: [],
+          tenant: tenantId,
+          _status: 'draft',
+        },
         draft: true,
         ...local,
       })
-      count('pages', 'created')
-    } else if (!hasSameValues(existing, data)) {
-      // Keeps the layout and the status: a published page stays published, a draft a draft.
-      const published = existing._status === 'published'
-      await payload.update({
-        collection: 'pages',
-        id: existing.id,
-        data: { ...data, _status: published ? 'published' : 'draft' },
-        draft: !published,
-        ...local,
-      })
-      count('pages', 'updated')
-    } else count('pages', 'skipped')
+    }
+    count('pages', totalDocs === 0 ? 'created' : 'skipped')
   }
 
   for (const [name, c] of Object.entries(counters)) {
