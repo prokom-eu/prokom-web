@@ -84,12 +84,25 @@ const PRIVACY = [
   ),
 ]
 
+/** First sentence of the cookies page before K31b: a page still opening with it gets the new text. */
+export const LEGACY_COOKIES_INTRO =
+  'Strona nie ustawia cookies — ani własnych, ani analitycznych czy reklamowych — i nie osadza treści innych firm (map, filmów, czatów). Dlatego nie prosimy o zgodę na cookies.'
+
+const GOOGLE_PRIVACY = 'https://policies.google.com/privacy'
+
 // TODO(krystian): [SZEF/prawnik] DRAFT — the keys are the only browser storage of the site
 // (`lib/cart/store.ts`, `lib/brand/theme.ts`, `lib/site/promo.ts`); the site sets no cookies.
-// Check again whenever a new key, an embed (map, video) or analytics is added (ADR needed).
+// The YouTube paragraph (spec. §6.13, ADR-016, K31b) waits for the approval of the boss / lawyer.
+// Check again whenever a new key, an embed (map) or analytics is added (ADR needed).
 const COOKIES = [
   p(
-    'Strona nie ustawia cookies — ani własnych, ani analitycznych czy reklamowych — i nie osadza treści innych firm (map, filmów, czatów). Dlatego nie prosimy o zgodę na cookies.',
+    'Strona nie ustawia cookies — ani własnych, ani analitycznych czy reklamowych. Jedyną treścią innej firmy są filmy producentów z YouTube, które ładują się dopiero po kliknięciu (opis niżej). Dlatego nie prosimy o zgodę na cookies.',
+  ),
+  h2('Filmy z YouTube'),
+  p(
+    'Na stronach produktów i w Planie Twojej firmy możesz obejrzeć filmy producentów z serwisu YouTube. Film ładuje się dopiero, gdy klikniesz przycisk odtwarzania — wcześniej strona nie łączy się z YouTube. Używamy trybu youtube-nocookie.com, w którym YouTube według swoich zasad nie zapisuje plików cookie przed odtworzeniem filmu; po kliknięciu obowiązują ',
+    { text: 'zasady prywatności Google', href: GOOGLE_PRIVACY },
+    '.',
   ),
   h2('Co zapisujemy w przeglądarce'),
   p(
@@ -155,7 +168,8 @@ const LEGAL_PAGES = [
     slug: 'cookies',
     title: 'Cookies',
     layout: [text(COOKIES)],
-    description: 'Strona nie ustawia cookies. Co zapisuje w pamięci przeglądarki i jak to usunąć.',
+    description:
+      'Strona nie ustawia cookies, a filmy YouTube ładują się dopiero po kliknięciu. Co zapisuje w pamięci przeglądarki i jak to usunąć.',
   },
   {
     slug: 'dostepnosc',
@@ -164,6 +178,45 @@ const LEGAL_PAGES = [
     description: 'Jak dbamy o dostępność strony PRO-KOM Biznes i jak zgłosić problem.',
   },
 ]
+
+/** Whether a page layout still holds the cookies text of the seed before K31b (no YouTube). */
+export function isLegacyCookies(layout: unknown): boolean {
+  const json = JSON.stringify(layout ?? null)
+  return json.includes(LEGACY_COOKIES_INTRO) && !json.includes('youtube')
+}
+
+/**
+ * K31b: the cookies page still as the old seed wrote it gets the YouTube paragraph (spec.
+ * §6.13); a page edited in the panel stays as it is.
+ */
+async function upgradeCookies(
+  payload: Payload,
+  tenantId: number,
+  page: (typeof LEGAL_PAGES)[number],
+): Promise<boolean> {
+  const { docs } = await payload.find({
+    collection: 'pages',
+    where: { and: [{ tenant: { equals: tenantId } }, { slug: { equals: page.slug } }] },
+    limit: 1,
+    depth: 0,
+    overrideAccess: true,
+    context: { seed: true },
+  })
+  const current = docs[0]
+  if (!current || !isLegacyCookies(current.layout)) return false
+  await payload.update({
+    collection: 'pages',
+    id: current.id,
+    data: {
+      layout: page.layout,
+      seo: { ...current.seo, description: page.description },
+      _status: 'published',
+    },
+    overrideAccess: true,
+    context: { seed: true },
+  })
+  return true
+}
 
 /**
  * Legal pages of Biznes (B11b) from text blocks: created and published only when missing — never
@@ -182,7 +235,10 @@ export async function seedBiznesLegal(
       overrideAccess: true,
     })
     if (totalDocs > 0) {
-      report(`pages ${page.slug}`, false)
+      report(
+        `pages ${page.slug}`,
+        page.slug === 'cookies' && (await upgradeCookies(payload, tenantId, page)),
+      )
       continue
     }
     await upsertBiznesPage(payload, tenantId, page, report)
