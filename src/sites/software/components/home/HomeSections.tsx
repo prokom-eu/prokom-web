@@ -13,23 +13,26 @@ import { fillText, type TextContext } from '@/lib/software/facts'
 import { popularCards, popularTabs } from '@/lib/software/popular'
 import { livePreviews } from '@/lib/software/previews'
 import { processQuote, processStages } from '@/lib/software/process'
+import { whyNotWordpressView } from '@/lib/software/whyNotWordpress'
 import { Wizard } from '@/sites/software/components/wizard/Wizard'
 import { loadWizardProps } from '@/sites/software/components/wizard/wizardProps'
 
 import { AreasExplorer } from './AreasExplorer'
+import { Guarantees } from './Guarantees'
 import { LivePreviewPanel } from './LivePreviews'
 import { LivePreviewTabs } from './LivePreviewTabs'
 import { ProcessExplorer } from './ProcessExplorer'
 import { ProcessPanel } from './ProcessVisuals'
 import { PopularExplorer } from './PopularExplorer'
 import { SectionHead } from './SectionHead'
+import { WhyNotWordpress } from './WhyNotWordpress'
 
 /**
- * The fixed sections of the Software start page built in SW5 and SW6 (spec. §4 pkt 3–7) — server
- * parts; each reads its texts from `SoftwareSettings.home` and its lists from the collections
- * of this tenant, and is skipped while they are missing (a section without a heading is worse
- * than none). Anchors: `#oferta`, `#popularne`, `#podglady`, `#proces`, `#dobierz` (header
- * links, section rail).
+ * The fixed sections of the Software start page built in SW5, SW6 and SW8a (spec. §4 pkt 3–9) —
+ * server parts; each reads its texts from `SoftwareSettings.home` and its lists from the
+ * collections of this tenant, and is skipped while they are missing (a section without a heading
+ * is worse than none). Anchors: `#oferta`, `#popularne`, `#podglady`, `#proces`, `#dobierz`,
+ * `#bez-wordpressa`, `#zasady` (header links, section rail).
  */
 
 async function textContext(tenantId: number): Promise<TextContext> {
@@ -180,4 +183,32 @@ export async function ProcessSection({ tenantId }: { tenantId: number }) {
       </Container>
     </section>
   )
+}
+
+export async function WhyNotWordpressSection({ tenantId }: { tenantId: number }) {
+  const [home, index, context] = await Promise.all([
+    getSoftwareHome(tenantId),
+    getSolutionsIndex(tenantId),
+    textContext(tenantId),
+  ])
+  if (!home) return null
+  // `{cena:<slug>}` of the rebuild button: the „od” price from this tenant's solutions.
+  const prices = Object.fromEntries(index.solutions.map(({ slug, prices }) => [slug, prices]))
+  const view = whyNotWordpressView(home.whyNotWordpress, (text) =>
+    fillText(text, { ...context, prices }),
+  )
+  return view ? <WhyNotWordpress view={view} /> : null
+}
+
+export async function GuaranteesSection({ tenantId }: { tenantId: number }) {
+  const [home, context] = await Promise.all([getSoftwareHome(tenantId), textContext(tenantId)])
+  const texts = home?.sections?.guarantees
+  if (!home || !texts) return null
+  const cards = home.guarantees.flatMap((card) => {
+    const title = fillText(card.title, context)
+    const text = fillText(card.text, context)
+    return title && text ? [{ title, text, icon: card.icon }] : []
+  })
+  if (cards.length === 0) return null
+  return <Guarantees texts={texts} cards={cards} />
 }

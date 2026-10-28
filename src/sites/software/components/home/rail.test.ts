@@ -31,6 +31,15 @@ describe('Software section rail', () => {
     expect(items.map((item) => item.id)).not.toContain('zasady')
   })
 
+  it('lists „Dlaczego nie WordPress” of SW8a, but not „Zasady” next to it', () => {
+    const items = softwareRailItems([
+      { blockType: 'swHomeSection', section: 'wizard' },
+      { blockType: 'swHomeSection', section: 'whyNotWordpress' },
+      { blockType: 'swHomeSection', section: 'guarantees' },
+    ])
+    expect(items.map((item) => item.id)).toEqual(['dobierz', 'bez-wordpressa'])
+  })
+
   it('skips a section without its component yet (no anchor on the page)', () => {
     const items = softwareRailItems([
       { blockType: 'swHomeSection', section: 'showcase' },
