@@ -6,7 +6,7 @@ import { toTelHref } from '@/lib/site/link'
 import type { BzAuditBlock as BzAuditBlockData } from '@/payload-types'
 
 import { DaysUntil } from '../../components/DaysUntil'
-import { Emphasis } from '../../components/Emphasis'
+import { Emphasis } from '@/components/Emphasis'
 import { PageLink } from '../../components/PageLink'
 import { auditSummary } from './summary'
 
