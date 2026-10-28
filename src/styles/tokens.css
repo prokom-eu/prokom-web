@@ -224,6 +224,48 @@
   --c-instalacje-light-border-input: #767c74;
   --c-instalacje-light-ok-text: #256a18;
   --c-instalacje-night-border-input: #7a817b;
+  /* Shell of the visualisation v4.2 (I3, `pk.css`): the CTA band and the footer are dark in
+     both themes; the bottom bar and the menu sheet cast their own shadows. */
+  --c-instalacje-band: #0e1a1d;
+  --c-instalacje-band-line: #1f4e57;
+  --c-instalacje-band-ink: #f4f5f1;
+  --c-instalacje-band-lead: #b5c7cb;
+  --c-instalacje-band-note: #9fb0b4;
+  --c-instalacje-band-glow: rgba(18, 182, 216, 0.35);
+  --c-instalacje-band-button: #12b6d8;
+  --c-instalacje-band-button-ink: #06181c;
+  --c-instalacje-band-button-glow: rgba(18, 182, 216, 0.6);
+  --c-instalacje-band-ghost: rgba(14, 26, 29, 0.5);
+  --c-instalacje-band-ghost-ring: rgba(255, 255, 255, 0.22);
+  --c-instalacje-band-phone: #f2b84b;
+  --c-instalacje-foot-top: #071214;
+  --c-instalacje-foot-mid: #061012;
+  --c-instalacje-foot-bottom: #050b0d;
+  --c-instalacje-foot-glow: rgba(18, 182, 216, 0.08);
+  --c-instalacje-foot-ink: #f2f6f7;
+  --c-instalacje-foot-ink-2: #7f9398;
+  --c-instalacje-foot-text: #9fb0b4;
+  --c-instalacje-foot-line: rgba(255, 255, 255, 0.08);
+  --c-instalacje-foot-rule: #142226;
+  --c-instalacje-foot-accent: #4ccbe6;
+  --c-instalacje-foot-card: rgba(255, 255, 255, 0.035);
+  --c-instalacje-foot-card-hover: rgba(255, 255, 255, 0.06);
+  --c-instalacje-foot-card-ring: rgba(255, 255, 255, 0.07);
+  --c-instalacje-foot-icon-bg: rgba(76, 203, 230, 0.12);
+  --c-instalacje-foot-ridge: rgba(76, 203, 230, 0.35);
+  --c-instalacje-foot-cta-from: #12b6d8;
+  --c-instalacje-foot-cta-to: #0a8fad;
+  --c-instalacje-foot-cta-glow: rgba(18, 182, 216, 0.8);
+  --c-instalacje-foot-cta-icon: rgba(255, 255, 255, 0.18);
+  --c-instalacje-foot-white: #ffffff;
+  --c-instalacje-foot-chip: #7fe0b0;
+  --c-instalacje-foot-chip-bg: rgba(70, 199, 139, 0.12);
+  --c-instalacje-foot-chip-2: #8fd8ea;
+  --c-instalacje-scrim: rgba(5, 10, 9, 0.52);
+  --c-instalacje-live-ping: rgba(123, 211, 106, 0.55);
+  --c-instalacje-bar-shadow: 0 18px 40px -16px rgba(0, 0, 0, 0.6);
+  --c-instalacje-sheet-shadow: 0 -24px 60px -20px rgba(0, 0, 0, 0.55);
+  --c-instalacje-tab-shadow: 0 6px 16px -10px rgba(0, 0, 0, 0.5);
 
   /* Status colours of the Biznes visualisation (dots); `-text` is darkened for 4.5:1. */
   --c-ok: #1f9d63;
@@ -365,6 +407,48 @@
   --shadow: var(--c-instalacje-light-shadow);
   /* Visualisation: buttons on --accent with --accent-ink; follows the theme with --accent. */
   --button-bg: var(--accent);
+  /* Shell (I3): the same in both themes. */
+  --inst-band: var(--c-instalacje-band);
+  --inst-band-line: var(--c-instalacje-band-line);
+  --inst-band-ink: var(--c-instalacje-band-ink);
+  --inst-band-lead: var(--c-instalacje-band-lead);
+  --inst-band-note: var(--c-instalacje-band-note);
+  --inst-band-glow: var(--c-instalacje-band-glow);
+  --inst-band-button: var(--c-instalacje-band-button);
+  --inst-band-button-ink: var(--c-instalacje-band-button-ink);
+  --inst-band-button-glow: var(--c-instalacje-band-button-glow);
+  --inst-band-ghost: var(--c-instalacje-band-ghost);
+  --inst-band-ghost-ring: var(--c-instalacje-band-ghost-ring);
+  --inst-band-phone: var(--c-instalacje-band-phone);
+  --inst-foot-top: var(--c-instalacje-foot-top);
+  --inst-foot-mid: var(--c-instalacje-foot-mid);
+  --inst-foot-bottom: var(--c-instalacje-foot-bottom);
+  --inst-foot-glow: var(--c-instalacje-foot-glow);
+  --inst-foot-ink: var(--c-instalacje-foot-ink);
+  --inst-foot-ink-2: var(--c-instalacje-foot-ink-2);
+  --inst-foot-text: var(--c-instalacje-foot-text);
+  --inst-foot-line: var(--c-instalacje-foot-line);
+  --inst-foot-rule: var(--c-instalacje-foot-rule);
+  --inst-foot-accent: var(--c-instalacje-foot-accent);
+  --inst-foot-card: var(--c-instalacje-foot-card);
+  --inst-foot-card-hover: var(--c-instalacje-foot-card-hover);
+  --inst-foot-card-ring: var(--c-instalacje-foot-card-ring);
+  --inst-foot-icon-bg: var(--c-instalacje-foot-icon-bg);
+  --inst-foot-ridge: var(--c-instalacje-foot-ridge);
+  --inst-foot-cta-from: var(--c-instalacje-foot-cta-from);
+  --inst-foot-cta-to: var(--c-instalacje-foot-cta-to);
+  --inst-foot-cta-glow: var(--c-instalacje-foot-cta-glow);
+  --inst-foot-cta-icon: var(--c-instalacje-foot-cta-icon);
+  --inst-foot-white: var(--c-instalacje-foot-white);
+  --inst-foot-chip: var(--c-instalacje-foot-chip);
+  --inst-foot-chip-bg: var(--c-instalacje-foot-chip-bg);
+  --inst-foot-chip-2: var(--c-instalacje-foot-chip-2);
+  --inst-promo-warm: var(--c-instalacje-night-warn);
+  --inst-scrim: var(--c-instalacje-scrim);
+  --inst-live-ping: var(--c-instalacje-live-ping);
+  --inst-bar-shadow: var(--c-instalacje-bar-shadow);
+  --inst-sheet-shadow: var(--c-instalacje-sheet-shadow);
+  --inst-tab-shadow: var(--c-instalacje-tab-shadow);
 }
 
 [data-line='software'] {
