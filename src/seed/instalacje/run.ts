@@ -1,15 +1,36 @@
-import type { Payload } from 'payload'
+import type { Payload, Where } from 'payload'
 
 import { SETTINGS_DEFAULTS } from '../../lib/instalacje/options'
+import { hasSameValues } from '../compare'
 import { SEED_CONTEXT } from '../config'
+import {
+  objectData,
+  objectsToImport,
+  pagesToImport,
+  realizationsToImport,
+  serviceData,
+  servicesToImport,
+  solutionsToImport,
+  type Refs,
+} from './map'
 
 const INSTALACJE_TENANT_SLUG = 'instalacje'
 
+type Counter = { created: number; updated: number; skipped: number }
+
 /**
- * Imports the Instalacje package (`seed/prokominstalacje/`) into the local database (I2, local
- * only, like `seed:software`). Idempotent. So far only the settings document of the line, with
- * its defaults, created while missing — then it belongs to the panel. Services, objects, offer
- * and realizations follow in `inst/i2-model` (ADR-I002 §5).
+ * Imports the Instalacje package (`seed/prokominstalacje/`, v4.0) into the local database (I2,
+ * local only, like `seed:software`). Idempotent: a record is found by its key in the tenant
+ * (`key` of a service or object, `legacyId` of a solution or realization, `slug` of a page) and
+ * written only when it differs from the package, so a re-run makes no new versions.
+ * - Services, objects, offer: every field the package provides wins over an edit in the panel;
+ *   published. Services and objects point at each other, so missing ones are created first.
+ * - Realizations: created as drafts without the client consent when missing, later they belong
+ *   to the panel (consent, photos).
+ * - Pages: missing ones as empty drafts (blocks come with their sessions); title and SEO follow
+ *   the package, layout and status of an existing page are never touched.
+ * - Settings: created while missing, then they belong to the panel. Phone and e-mail of the
+ *   line stay as `pnpm seed` set them (`SiteSettings`), the boss fills them in.
  */
 export async function seedInstalacje(payload: Payload): Promise<void> {
   const log = (message: string) => payload.logger.info(`Seed (Instalacje): ${message}`)
@@ -24,22 +45,189 @@ export async function seedInstalacje(payload: Payload): Promise<void> {
     ...local,
   })
   if (!tenant) throw new Error('Seed (Instalacje): tenant "instalacje" missing — run `pnpm seed`.')
+  const tenantId = tenant.id
+  const inTenant = (where: Where): Where => ({ and: [{ tenant: { equals: tenantId } }, where] })
 
-  const { totalDocs } = await payload.count({
+  const counters: Record<string, Counter> = {}
+  const count = (name: string, result: 'created' | 'updated' | 'skipped') => {
+    const counter = (counters[name] ??= { created: 0, updated: 0, skipped: 0 })
+    counter[result] += 1
+  }
+
+  // --- settings ---
+  const { totalDocs: settingsCount } = await payload.count({
     collection: 'instalacje-settings',
-    where: { tenant: { equals: tenant.id } },
+    where: { tenant: { equals: tenantId } },
     overrideAccess: true,
     context: SEED_CONTEXT,
   })
-  if (totalDocs > 0) {
-    log('instalacje-settings: already set, skipped.')
-    return
+  if (settingsCount === 0) {
+    // No prices, 24-month warranty, 24 h answer (spec §2).
+    await payload.create({
+      collection: 'instalacje-settings',
+      data: { tenant: tenantId, showPrices: false, ...SETTINGS_DEFAULTS },
+      ...local,
+    })
   }
-  // No prices, 24-month warranty, 24 h answer (spec §2).
-  await payload.create({
-    collection: 'instalacje-settings',
-    data: { tenant: tenant.id, showPrices: false, ...SETTINGS_DEFAULTS },
-    ...local,
-  })
-  log('instalacje-settings: created.')
+  count('instalacje-settings', settingsCount === 0 ? 'created' : 'skipped')
+
+  // --- services and objects: ids first, then full data with the relations ---
+  const services = servicesToImport()
+  const objects = objectsToImport()
+  const noRefs: Refs = { service: () => undefined, object: () => undefined }
+  const created = new Set<string>()
+
+  async function idsByKey(collection: 'inst-services' | 'inst-objects') {
+    const { docs } = await payload.find({
+      collection,
+      where: { tenant: { equals: tenantId } },
+      limit: 100,
+      draft: true,
+      ...local,
+    })
+    return new Map<string, number>(docs.map((doc) => [doc.key, doc.id]))
+  }
+
+  let serviceIds = await idsByKey('inst-services')
+  for (const item of services) {
+    if (serviceIds.has(item.menu.k)) continue
+    await payload.create({
+      collection: 'inst-services',
+      data: { ...serviceData(item, noRefs), tenant: tenantId, _status: 'published' },
+      ...local,
+    })
+    created.add(`service:${item.menu.k}`)
+    count('inst-services', 'created')
+  }
+  let objectIds = await idsByKey('inst-objects')
+  for (const item of objects) {
+    if (objectIds.has(item.page.k)) continue
+    await payload.create({
+      collection: 'inst-objects',
+      data: { ...objectData(item, noRefs), tenant: tenantId, _status: 'published' },
+      ...local,
+    })
+    created.add(`object:${item.page.k}`)
+    count('inst-objects', 'created')
+  }
+  serviceIds = await idsByKey('inst-services')
+  objectIds = await idsByKey('inst-objects')
+  const refs: Refs = { service: (key) => serviceIds.get(key), object: (key) => objectIds.get(key) }
+
+  /** Writes `data` as published when the stored record differs (or is not published). */
+  async function publishIfChanged(
+    collection: 'inst-services' | 'inst-objects' | 'inst-solutions',
+    id: number,
+    data: object,
+  ): Promise<boolean> {
+    const existing = await payload.findByID({ collection, id, draft: true, ...local })
+    if (existing._status === 'published' && hasSameValues(existing, data)) return false
+    await payload.update({ collection, id, data: { ...data, _status: 'published' }, ...local })
+    return true
+  }
+
+  // Records created above got their relations here: they still count as created.
+  for (const item of services) {
+    const id = serviceIds.get(item.menu.k)
+    if (id === undefined) throw new Error(`Seed (Instalacje): service "${item.menu.k}" missing.`)
+    const changed = await publishIfChanged('inst-services', id, serviceData(item, refs))
+    if (!created.has(`service:${item.menu.k}`)) {
+      count('inst-services', changed ? 'updated' : 'skipped')
+    }
+  }
+  for (const item of objects) {
+    const id = objectIds.get(item.page.k)
+    if (id === undefined) throw new Error(`Seed (Instalacje): object "${item.page.k}" missing.`)
+    const changed = await publishIfChanged('inst-objects', id, objectData(item, refs))
+    if (!created.has(`object:${item.page.k}`)) {
+      count('inst-objects', changed ? 'updated' : 'skipped')
+    }
+  }
+
+  // --- offer ---
+  for (const item of solutionsToImport()) {
+    const service = refs.service(item.serviceKey)
+    if (service === undefined)
+      throw new Error(
+        `Seed (Instalacje): no service "${item.serviceKey}" for solution ${item.legacyId}.`,
+      )
+    const data = { ...item.data, legacyId: item.legacyId, service }
+    const {
+      docs: [existing],
+    } = await payload.find({
+      collection: 'inst-solutions',
+      where: inTenant({ legacyId: { equals: item.legacyId } }),
+      limit: 1,
+      draft: true,
+      ...local,
+    })
+    if (!existing) {
+      await payload.create({
+        collection: 'inst-solutions',
+        data: { ...data, tenant: tenantId, _status: 'published' },
+        ...local,
+      })
+      count('inst-solutions', 'created')
+    } else {
+      const changed = await publishIfChanged('inst-solutions', existing.id, data)
+      count('inst-solutions', changed ? 'updated' : 'skipped')
+    }
+  }
+
+  // --- realizations: drafts without consent, only when missing ---
+  for (const data of realizationsToImport()) {
+    const { totalDocs } = await payload.count({
+      collection: 'realizations',
+      where: inTenant({ legacyId: { equals: data.legacyId } }),
+      overrideAccess: true,
+      context: SEED_CONTEXT,
+    })
+    if (totalDocs === 0) {
+      await payload.create({
+        collection: 'realizations',
+        data: { ...data, tenant: tenantId, _status: 'draft' },
+        draft: true,
+        ...local,
+      })
+    }
+    count('realizations', totalDocs === 0 ? 'created' : 'skipped')
+  }
+
+  // --- pages: empty drafts; title and SEO from the package ---
+  for (const page of pagesToImport()) {
+    const {
+      docs: [existing],
+    } = await payload.find({
+      collection: 'pages',
+      where: inTenant({ slug: { equals: page.slug } }),
+      limit: 1,
+      draft: true,
+      ...local,
+    })
+    const data = { title: page.title, seo: page.seo }
+    if (!existing) {
+      await payload.create({
+        collection: 'pages',
+        data: { ...data, slug: page.slug, layout: [], tenant: tenantId, _status: 'draft' },
+        draft: true,
+        ...local,
+      })
+      count('pages', 'created')
+    } else if (!hasSameValues(existing, data)) {
+      // Keeps the layout and the status: a published page stays published, a draft a draft.
+      const published = existing._status === 'published'
+      await payload.update({
+        collection: 'pages',
+        id: existing.id,
+        data: { ...data, _status: published ? 'published' : 'draft' },
+        draft: !published,
+        ...local,
+      })
+      count('pages', 'updated')
+    } else count('pages', 'skipped')
+  }
+
+  for (const [name, c] of Object.entries(counters)) {
+    log(`${name}: ${c.created} created, ${c.updated} updated, ${c.skipped} unchanged.`)
+  }
 }
