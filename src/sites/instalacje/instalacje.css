@@ -10,3 +10,1091 @@
 [data-line='instalacje'] .inst-page {
   overflow-x: clip;
 }
+
+/* Page under an open menu sheet does not scroll (`ShellProvider`, MOBILE-APLIKACJA §4). */
+html[data-line='instalacje'].pk-lock,
+html[data-line='instalacje'].pk-lock body {
+  overflow: hidden;
+}
+
+/*
+ * Shell (I3): top bar, header, mega menu, bottom bar, menu sheet, CTA band, footer.
+ * Rules of `pk.css` v4.2 copied 1:1 with the class names of the prototype (easier to compare);
+ * a rule that the file overrides later is merged into its last version. Variables of the
+ * prototype → tokens: bg → --surface, bg2 → --surface-2, bg3 → --surface-3, card → --card,
+ * text → --ink, soft → --ink-soft, muted → --ink-2, line → --border, hdr → --header-bg,
+ * accentText/Soft/Line/Ink → --accent-text/-soft/-line/-ink. Hover only with a pointer
+ * (MOBILE-APLIKACJA §5). Breakpoints: 1300, 1100, 760, 700 px (ADR-I003 §3).
+ */
+[data-line='instalacje'] {
+  /* Base pieces the shell uses (pk.css: .wrap, .btn, .eye, .ico). */
+  & .wrap {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+  & .eye {
+    font-weight: 800;
+    color: var(--accent-text);
+    font-size: 13.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  & .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 56px;
+    padding: 0 26px;
+    border-radius: 16px;
+    font-weight: 800;
+    font-size: 16px;
+    border: 0;
+    cursor: pointer;
+    font-family: inherit;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease,
+      background 0.2s;
+    color: var(--ink);
+    white-space: nowrap;
+    touch-action: manipulation;
+  }
+  & .btn-p {
+    background: var(--accent);
+    color: var(--accent-ink);
+    box-shadow: 0 14px 34px -12px var(--glow);
+  }
+  & .btn-s {
+    min-height: 46px;
+    padding: 0 18px;
+    font-size: 14.5px;
+    border-radius: 13px;
+  }
+  & .ico {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: var(--accent-soft);
+    color: var(--accent-text);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    box-shadow: inset 0 0 0 1px var(--accent-line);
+  }
+  & .ico.s {
+    width: 38px;
+    height: 38px;
+    border-radius: 11px;
+  }
+
+  /* Top bar (desktop and tablet). */
+  & .topb {
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    position: relative;
+    z-index: 41;
+  }
+  & .topw {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 6px 20px;
+    color: var(--ink-2);
+  }
+  & .topw a {
+    color: var(--ink-2);
+  }
+  & .topw .tel {
+    color: var(--ink-soft);
+    font-weight: 800;
+  }
+  & .live {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--ok);
+    animation: inst-ping 2.4s ease-out infinite;
+    margin-right: 7px;
+    vertical-align: 1px;
+  }
+  & .live.off {
+    background: var(--warn);
+    animation: none;
+  }
+
+  /* Header. */
+  & .hdr {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: var(--header-bg);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+    view-transition-name: inst-header;
+  }
+  & .hdrw {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    min-height: 76px;
+  }
+  & .nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  & .nav > a,
+  & .nav .nbtn {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--ink-2);
+    padding: 8px 2px;
+    transition: color 0.2s;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    position: relative;
+    font-family: inherit;
+  }
+  & .nav .nbtn.on,
+  & .nav > a.on {
+    color: var(--ink);
+  }
+  & .nav > a.on::after,
+  & .nav .nbtn.cur::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    height: 3px;
+    border-radius: 2px;
+    background: var(--accent);
+  }
+  & .nav a.arn {
+    color: var(--accent-text);
+  }
+  & .ndd {
+    position: static;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  & .mega {
+    position: absolute;
+    left: 32px;
+    right: 32px;
+    top: calc(100% - 4px);
+    background: var(--card);
+    border-radius: 24px;
+    box-shadow:
+      inset 0 0 0 1px var(--border),
+      var(--shadow);
+    padding: 26px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) 1.05fr;
+    gap: 10px 18px;
+    animation: inst-megain 0.22s ease;
+  }
+  /* The bridge: the pointer crosses the gap between the button and the panel without leaving
+     the menu (spec §4 — a real bug of the visualisation). */
+  & .mega::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 100%;
+    height: 32px;
+  }
+  & .mega[hidden] {
+    display: none;
+  }
+  & .mega.megao {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) 1fr;
+  }
+  & .megah {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12.5px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-text);
+    margin-bottom: 8px;
+  }
+  & .megac {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  & .megac a {
+    position: relative;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 10px;
+    border-radius: 14px;
+    transition: background 0.2s;
+  }
+  & .megac a b {
+    display: block;
+    font-size: 15px;
+  }
+  & .megac a span span {
+    display: block;
+    font-size: 13px;
+    color: var(--ink-2);
+    line-height: 1.4;
+  }
+  & .megac a .mhi {
+    flex: none;
+    background: color-mix(in srgb, var(--mh, var(--accent)) 15%, transparent);
+    color: color-mix(in srgb, var(--mh, var(--accent)) 82%, var(--ink));
+    box-shadow: none;
+    transition: transform 0.2s;
+  }
+  & .megap {
+    background: var(--accent-soft);
+    border-radius: 18px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow: inset 0 0 0 1px var(--accent-line);
+  }
+  & .megap b {
+    font-family: var(--font-display);
+    font-stretch: 112%;
+    font-size: 20px;
+    line-height: 1.15;
+  }
+  & .megap > span {
+    font-size: 14px;
+    color: var(--ink-soft);
+  }
+  & .megapo {
+    background: linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--inst-promo-warm) 14%, var(--card)),
+      var(--accent-soft)
+    );
+  }
+  & .megal {
+    font-weight: 800;
+    font-size: 14px;
+    color: var(--accent-text);
+  }
+  & .hdra {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  & .iconb {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    border: 1.5px solid var(--border);
+    background: transparent;
+    color: var(--ink);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex: none;
+    touch-action: manipulation;
+  }
+  & .mobb {
+    display: none;
+  }
+
+  /* Anchor bar of subpages (`AnchorsBar`; first used in I4). */
+  & .anchors {
+    position: sticky;
+    top: 76px;
+    z-index: 20;
+    background: var(--header-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  & .anchors .wrap {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+  & .anchors .wrap::-webkit-scrollbar {
+    display: none;
+  }
+  & .anchors a {
+    white-space: nowrap;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--ink-2);
+  }
+
+  /* CTA band above the footer — dark in both themes. */
+  & .cta {
+    position: relative;
+    overflow: hidden;
+    border-radius: 32px;
+    padding: 56px;
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    gap: 32px;
+    align-items: center;
+    background: var(--inst-band);
+    color: var(--inst-band-ink);
+    box-shadow: inset 0 0 0 1px var(--inst-band-line);
+  }
+  & .cta::after {
+    content: '';
+    position: absolute;
+    right: -120px;
+    top: -160px;
+    width: 520px;
+    height: 520px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--inst-band-glow), transparent 65%);
+    filter: blur(30px);
+    pointer-events: none;
+  }
+  & .cta > * {
+    position: relative;
+    z-index: 1;
+  }
+  & .cta .eye {
+    color: var(--inst-foot-accent);
+  }
+  & .cta .h2 {
+    font-family: var(--font-display);
+    font-stretch: 115%;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    font-size: clamp(30px, 3.4vw, 48px);
+    line-height: 1.02;
+    margin: 0;
+  }
+  & .cta .lead {
+    font-size: clamp(17px, 1.4vw, 20px);
+    line-height: 1.6;
+    color: var(--inst-band-lead);
+    margin: 0;
+    max-width: 62ch;
+  }
+  & .cta .note {
+    font-size: 13.5px;
+    color: var(--inst-band-note);
+    text-align: center;
+  }
+  & .hbtn-p {
+    background: var(--inst-band-button);
+    color: var(--inst-band-button-ink);
+    box-shadow: 0 16px 36px -12px var(--inst-band-button-glow);
+  }
+  & .hbtn-g {
+    background: var(--inst-band-ghost);
+    color: var(--inst-band-ink);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: inset 0 0 0 1.5px var(--inst-band-ghost-ring);
+  }
+  & .hbtn-g b {
+    color: var(--inst-band-phone);
+  }
+
+  /* Footer — dark in both themes; the prototype re-points its own variables. */
+  & .ftr2 {
+    --ink: var(--inst-foot-ink);
+    --ink-2: var(--inst-foot-ink-2);
+    --border: var(--inst-foot-line);
+    --accent-text: var(--inst-foot-accent);
+    position: relative;
+    background: linear-gradient(
+      180deg,
+      var(--inst-foot-top) 0%,
+      var(--inst-foot-mid) 40%,
+      var(--inst-foot-bottom) 100%
+    );
+    color: var(--inst-foot-text);
+    padding: 26px 0 34px;
+    margin-top: 90px;
+    font-size: 14.5px;
+  }
+  & .ftr2::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 120px;
+    width: 60%;
+    height: 520px;
+    background: radial-gradient(50% 50% at 80% 40%, var(--inst-foot-glow), transparent 75%);
+    pointer-events: none;
+  }
+  & .ftmt {
+    position: absolute;
+    left: 0;
+    top: -89px;
+    display: block;
+    width: 100%;
+    height: 90px;
+  }
+  & .ftmt path {
+    fill: var(--inst-foot-top);
+  }
+  & .ftmt path.l {
+    fill: none;
+    stroke: var(--inst-foot-ridge);
+    stroke-width: 1.5;
+    vector-effect: non-scaling-stroke;
+  }
+  & .ftc {
+    display: grid;
+    grid-template-columns: 1.25fr 1fr 1fr 1fr;
+    gap: 12px;
+    margin: 10px 0 52px;
+  }
+  & .ftci {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    padding: 18px;
+    border-radius: 20px;
+    background: var(--inst-foot-card);
+    box-shadow: inset 0 0 0 1px var(--inst-foot-card-ring);
+    color: var(--inst-foot-ink);
+    transition:
+      background 0.25s,
+      transform 0.25s;
+  }
+  & .ftci small {
+    display: block;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--inst-foot-ink-2);
+  }
+  & .ftci b {
+    display: block;
+    font: 900 18px var(--font-display);
+    margin: 2px 0;
+  }
+  & .ftci.big b {
+    font-size: 24px;
+  }
+  & .ftci em {
+    font-style: normal;
+    font-size: 13px;
+    color: var(--inst-foot-text);
+  }
+  & .ftic {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    background: var(--inst-foot-icon-bg);
+    color: var(--inst-foot-accent);
+  }
+  /* The plan card: dark ink on turquoise (the white of the design gives 2.4:1, below AA). */
+  & .ftci.plan {
+    background: linear-gradient(135deg, var(--inst-foot-cta-from), var(--inst-foot-cta-to));
+    box-shadow: 0 18px 40px -20px var(--inst-foot-cta-glow);
+    color: var(--inst-band-button-ink);
+  }
+  & .ftci.plan .ftic {
+    background: var(--inst-foot-cta-icon);
+    color: var(--inst-band-button-ink);
+  }
+  & .ftci.plan small,
+  & .ftci.plan em {
+    color: var(--inst-band-button-ink);
+  }
+  & .fg {
+    display: grid;
+    grid-template-columns: 1.4fr repeat(4, minmax(0, 1fr));
+    gap: 36px;
+  }
+  & .fg h2 {
+    margin: 0 0 12px;
+    color: var(--inst-foot-white);
+    font-size: 14px;
+    letter-spacing: 0.02em;
+  }
+  & .fg a {
+    display: block;
+    padding: 5px 0;
+    color: var(--inst-foot-text);
+  }
+  & .fg a.ftstrong {
+    color: var(--inst-foot-white);
+    font-weight: 800;
+  }
+  & .ftb p {
+    margin: 16px 0 0;
+    max-width: 36ch;
+    line-height: 1.6;
+    color: var(--inst-foot-text);
+  }
+  & .ftchips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+  }
+  & .ftchips span {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--inst-foot-chip);
+    background: var(--inst-foot-chip-bg);
+    padding: 6px 10px;
+    border-radius: 999px;
+  }
+  & .ftchips span.b {
+    color: var(--inst-foot-chip-2);
+    background: var(--inst-foot-icon-bg);
+  }
+  & .fbot {
+    margin-top: 40px;
+    padding-top: 22px;
+    border-top: 1px solid var(--inst-foot-rule);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px;
+    color: var(--inst-foot-ink-2);
+    font-size: 13px;
+  }
+  & .ftl {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  & .ftl a {
+    color: var(--inst-foot-text);
+  }
+
+  /* Phone bottom bar. */
+  & .bnav {
+    display: none;
+  }
+
+  /* Menu sheet (shared `BottomSheet`, MOBILE-APLIKACJA §4). */
+  & .mshp {
+    box-shadow:
+      var(--inst-sheet-shadow),
+      inset 0 1px 0 var(--border);
+    animation: inst-sheet-up 0.34s cubic-bezier(0.2, 0.9, 0.25, 1) both;
+  }
+  & .mshp::backdrop {
+    animation: inst-fade 0.25s ease both;
+  }
+  & .mtabs {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+    padding: 5px;
+    border-radius: 16px;
+    background: var(--surface-2);
+    box-shadow: inset 0 0 0 1px var(--border);
+    flex: 1;
+  }
+  & .mtab {
+    min-height: 46px;
+    border: 0;
+    border-radius: 12px;
+    background: transparent;
+    color: var(--ink-2);
+    font: 800 15px var(--font-sans);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  & .mtab.on {
+    background: var(--card);
+    color: var(--ink);
+    box-shadow:
+      var(--inst-tab-shadow),
+      inset 0 0 0 1px var(--border);
+  }
+  & .mshx {
+    width: 46px;
+    height: 46px;
+  }
+  & .mgh {
+    display: block;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-text);
+    padding: 12px 4px 0;
+  }
+  & .mgrid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    padding: 8px 0 4px;
+  }
+  & .mgrid a {
+    background: color-mix(in srgb, var(--mh, var(--accent)) 8%, var(--surface-3));
+    border-radius: 14px;
+    padding: 12px;
+    font-size: 14.5px;
+    font-weight: 800;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    line-height: 1.25;
+    min-height: 58px;
+    transition: transform 0.15s;
+  }
+  & .mhi2 {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    flex: none;
+    background: color-mix(in srgb, var(--mh, var(--accent)) 18%, transparent);
+    color: color-mix(in srgb, var(--mh, var(--accent)) 85%, var(--ink));
+  }
+  & .mall {
+    display: block;
+    font-weight: 800;
+    color: var(--accent-text);
+    padding: 12px 4px;
+  }
+  & .mshlive {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 4px 6px;
+    font-size: 14px;
+  }
+  & .mshl {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 8px;
+  }
+  & .mshl a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 16px;
+    background: var(--card);
+    box-shadow: inset 0 0 0 1px var(--border);
+    transition: transform 0.15s;
+  }
+  & .mshl a > span:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    min-width: 0;
+  }
+  & .mshl b {
+    font-size: 15.5px;
+    font-weight: 800;
+  }
+  & .mshl small {
+    font-size: 12.5px;
+    color: var(--ink-2);
+  }
+  & .mshl i {
+    color: var(--ink-2);
+    display: grid;
+  }
+  & .mshrow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding-top: 10px;
+  }
+  & .mshc {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px;
+    border-radius: 16px;
+    border: 0;
+    background: var(--surface-3);
+    color: var(--ink);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: transform 0.15s;
+    touch-action: manipulation;
+  }
+  & .mshc span {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  & .mshc small {
+    font-size: 12px;
+    color: var(--ink-2);
+    font-weight: 700;
+  }
+  & .mshc b {
+    font-size: 14.5px;
+    font-weight: 800;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  & .mshf .btn {
+    width: 100%;
+  }
+  & .mgrid a:active,
+  & .mshl a:active,
+  & .mshc:active,
+  & .btn:active {
+    transform: scale(0.97);
+  }
+}
+
+/* Hover only with a pointer: on touch it sticks after a tap (MOBILE-APLIKACJA §5). */
+@media (hover: hover) {
+  [data-line='instalacje'] {
+    & .topw a:hover {
+      color: var(--ink);
+    }
+    & .nav > a:hover,
+    & .nav .nbtn:hover {
+      color: var(--ink);
+    }
+    & .megac a:hover {
+      background: color-mix(in srgb, var(--mh, var(--accent)) 9%, transparent);
+    }
+    & .megac a:hover .mhi {
+      transform: scale(1.08);
+    }
+    & .megac a:hover b {
+      color: color-mix(in srgb, var(--mh, var(--accent)) 70%, var(--ink));
+    }
+    & .iconb:hover {
+      border-color: var(--accent);
+    }
+    & .btn-p:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 44px -12px var(--glow);
+    }
+    & .hbtn-p:hover {
+      transform: translateY(-2px);
+    }
+    & .hbtn-g:hover {
+      box-shadow: inset 0 0 0 1.5px var(--inst-band-button);
+    }
+    & .anchors a:hover {
+      color: var(--ink);
+      background: var(--surface-3);
+    }
+    & .ftci:hover {
+      background: var(--inst-foot-card-hover);
+      transform: translateY(-2px);
+    }
+    & .fg a:hover,
+    & .ftl a:hover {
+      color: var(--inst-foot-white);
+    }
+  }
+}
+
+@media (max-width: 1300px) {
+  [data-line='instalacje'] {
+    & .nav {
+      gap: 13px;
+    }
+    & .ndd {
+      gap: 13px;
+    }
+    & .nav > a,
+    & .nav .nbtn {
+      font-size: 14px;
+    }
+  }
+}
+
+@media (max-width: 1100px) {
+  [data-line='instalacje'] {
+    & .nav,
+    & .desk {
+      display: none !important;
+    }
+    & .mobb {
+      display: inline-flex;
+    }
+    & .cta {
+      grid-template-columns: 1fr;
+    }
+    & .fg {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    & .ftc {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+}
+
+/* Tablet: the sheet in the middle of the screen (spec §4). */
+@media (min-width: 761px) {
+  [data-line='instalacje'] .mshp {
+    border-radius: 28px;
+    max-height: 84vh;
+  }
+}
+
+@media (max-width: 760px) {
+  [data-line='instalacje'] {
+    & .wrap {
+      padding: 0 16px;
+    }
+    & .topb {
+      display: none;
+    }
+    & .hdr {
+      transition: transform 0.28s ease;
+    }
+    & .hdr.hdrh {
+      transform: translateY(-100%);
+    }
+    & .hdrw {
+      min-height: 64px;
+    }
+    & .anchors {
+      top: 64px;
+      transition: top 0.28s ease;
+    }
+    & .cta {
+      padding: 28px;
+      border-radius: 24px;
+    }
+    & .ftr2 {
+      margin-top: 50px;
+      padding-bottom: 120px;
+    }
+    & .ftr2::before {
+      display: none;
+    }
+    & .ftmt {
+      top: -49px;
+      height: 50px;
+    }
+    & .ftc {
+      grid-template-columns: minmax(0, 1fr);
+      margin-bottom: 36px;
+    }
+    & .fg {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 26px;
+    }
+    & .ftb {
+      grid-column: 1 / -1;
+    }
+    & .bnav {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      position: fixed;
+      left: 10px;
+      right: 10px;
+      bottom: calc(10px + env(safe-area-inset-bottom));
+      z-index: 50;
+      background: var(--header-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 22px;
+      box-shadow:
+        inset 0 0 0 1px var(--border),
+        var(--inst-bar-shadow);
+      padding: 6px;
+      view-transition-name: inst-bottom-bar;
+    }
+    & .bnav.bnsh {
+      opacity: 0;
+      pointer-events: none;
+    }
+    & .bnav a,
+    & .bnav button {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      min-height: 54px;
+      border-radius: 16px;
+      font: 800 11.5px var(--font-sans);
+      color: var(--ink-2);
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+      padding: 0;
+      touch-action: manipulation;
+    }
+    & .bnav .bni {
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 28px;
+      border-radius: 999px;
+      transition:
+        background 0.2s,
+        color 0.2s;
+    }
+    & .bnav .act {
+      color: var(--ink);
+    }
+    & .bnav .act .bni {
+      background: var(--accent-soft);
+      color: var(--accent-text);
+    }
+    & .bnav a.mid {
+      background: var(--accent);
+      color: var(--accent-ink);
+      margin: -14px 4px 0;
+      box-shadow: 0 12px 26px -10px var(--glow);
+    }
+    & .bnav a.mid .bni {
+      background: transparent;
+      color: inherit;
+    }
+    & .bnav a:active,
+    & .bnav button:active {
+      transform: scale(0.94);
+    }
+  }
+  /* The header out of view: the anchor bar moves up without a gap. */
+  [data-line='instalacje'][data-hdr-hidden] .anchors {
+    top: 0;
+  }
+}
+
+@media (max-width: 700px) {
+  [data-line='instalacje'] {
+    & .ftc {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+    & .ftc .ftci {
+      padding: 12px 14px;
+      min-height: 0;
+    }
+    & .ftc .ftci.plan {
+      display: none;
+    }
+    & .ftci small {
+      letter-spacing: 0.06em;
+    }
+    & .ftb p {
+      display: none;
+    }
+    & .fg {
+      gap: 20px;
+    }
+    & .fg > :not(.ftb) {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2px 14px;
+      grid-column: 1 / -1;
+    }
+    & .fg > :not(.ftb) h2 {
+      flex: 0 0 100%;
+      margin-bottom: 4px;
+    }
+    & .fg a {
+      padding: 3px 0;
+      font-size: 14px;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-line='instalacje'] {
+    & .mshp,
+    & .mshp::backdrop,
+    & .mega,
+    & .live {
+      animation: none;
+    }
+    & .hdr,
+    & .anchors {
+      transition: none;
+    }
+  }
+}
+
+@keyframes inst-ping {
+  0% {
+    box-shadow: 0 0 0 0 var(--inst-live-ping);
+  }
+  80%,
+  100% {
+    box-shadow: 0 0 0 10px transparent;
+  }
+}
+
+@keyframes inst-megain {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes inst-sheet-up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes inst-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Page transitions (MOBILE-APLIKACJA §5): a short cross-fade; header and bottom bar stay put. */
+@media (prefers-reduced-motion: no-preference) {
+  html[data-line='instalacje']::view-transition-old(*),
+  html[data-line='instalacje']::view-transition-new(*) {
+    animation-duration: 180ms;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-line='instalacje']::view-transition-group(*),
+  html[data-line='instalacje']::view-transition-old(*),
+  html[data-line='instalacje']::view-transition-new(*) {
+    animation: none;
+  }
+}

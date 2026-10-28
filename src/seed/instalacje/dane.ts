@@ -1,7 +1,12 @@
 import adresy from '../../../seed/prokominstalacje/adresy.json'
 import wspolne from '../../../seed/prokominstalacje/wspolne.json'
 import { OBJECT_KEYS, SERVICE_KEYS } from '../../lib/instalacje/options'
-import type { Navigation, ObjectKey, ServiceKey, SheetTab } from '../../sites/instalacje/dane/types'
+import type {
+  ObjectKey,
+  SeedNavigation,
+  ServiceKey,
+  SheetTab,
+} from '../../sites/instalacje/dane/types'
 import { mapHref } from './map'
 
 /**
@@ -77,7 +82,7 @@ function sheetOf(label: string): SheetTab {
 const icon = (value: string) => (value === DRAWING ? undefined : cleanString(value))
 
 /** Layout of the menus from `wspolne.json` (`megaCols`, `segCols`, `bnav`, `mtabs`, `mmore`). */
-export function navigationData(): Navigation {
+export function navigationData(): SeedNavigation {
   const tabLabel = (tab: SheetTab): string => {
     const found = wspolne.mtabs.find((item) => sheetOf(item.n) === tab)
     if (!found) throw new Error(`Seed (Instalacje): no sheet tab "${tab}" in mtabs.`)
