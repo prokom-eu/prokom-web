@@ -263,7 +263,7 @@ export async function seedSoftware(payload: Payload): Promise<void> {
       popular: stored?.popular?.length ? stored.popular : search.popular,
     }
     if (!hasSameValues(stored, searchMissing)) missing.search = searchMissing
-    // A home saved before SW5 lacks the section headings: only they are added.
+    // A home saved before SW5 / SW6 lacks some section headings: only the missing ones are added.
     const home = homeWithSections(softwareSettings.home, HOME_SECTION_TEXTS)
     if (home) missing.home = home as typeof fields.home
     const changed = Object.keys(missing).length > 0

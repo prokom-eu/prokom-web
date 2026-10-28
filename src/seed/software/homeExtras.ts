@@ -44,18 +44,46 @@ export const HOME_SECTION_TEXTS: SoftwareHomeSections = {
       button: ['Pełna oferta →', '/rozwiazania'],
     },
   },
+  livePreviews: {
+    eyebrow: 'Podglądy na żywo · zanim zapłacisz',
+    title: 'Zobacz, jak to będzie wyglądać. Zanim zapłacisz.',
+    lead: 'To nie są obrazki. Laptop pokazuje Twoje biuro, telefon pokazuje Twojego pracownika albo klienta, a oba ekrany żyją razem. Wybierz rodzaj rozwiązania.',
+    hint: ['Przełącza się samo. Kliknij, żeby wybrać.', 'Twój wybór. Klikaj po ekranach.'],
+    open: 'Otwórz pełny podgląd',
+    add: ['Chcę takie u siebie', '✓ W Twoim projekcie'],
+  },
+  process: {
+    eyebrow: 'Jak pracujemy i jak powstaje cena',
+    title: 'Od rozmowy do działającego systemu. Płacisz po każdym etapie.',
+    lead: 'Pięć etapów, zero niespodzianek. Kliknij etap: zobaczysz, co się dzieje, co dostajesz do ręki i kiedy płacisz.',
+    stage: 'Etap {num} · {t}',
+    get: 'Co dostajesz',
+    you: 'Ty robisz',
+  },
 }
 
 /**
- * `home` with the section headings added, for a home saved before SW5 (no `sections` yet) —
- * `null` when there is nothing to add: headings edited in the panel stay, and an empty field is
- * filled whole by the seed's „only while empty” rule.
+ * `home` with the section headings the seed knows and the stored one lacks — a home saved
+ * before SW5 has no `sections`, one saved in SW5 none for the SW6 sections. Sections already
+ * stored stay as they are (edited in the panel); `null` when nothing is missing or the field is
+ * empty (then the seed's „only while empty” rule fills it whole).
  */
 export function homeWithSections(
   stored: unknown,
   sections: SoftwareHomeSections,
 ): Record<string, unknown> | null {
-  if (typeof stored !== 'object' || stored === null || Array.isArray(stored)) return null
-  if ('sections' in stored && stored.sections != null) return null
-  return { ...stored, sections: structuredClone(sections) }
+  if (!isRecord(stored)) return null
+  const current = isRecord(stored.sections) ? stored.sections : {}
+  const missing = Object.entries(sections).filter(
+    ([name, value]) => value != null && current[name] == null,
+  )
+  if (missing.length === 0) return null
+  return {
+    ...stored,
+    sections: { ...current, ...structuredClone(Object.fromEntries(missing)) },
+  }
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value)
 }

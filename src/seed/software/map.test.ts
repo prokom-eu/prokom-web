@@ -280,8 +280,10 @@ describe('Software settings of the seed', () => {
     expect(settings.home).toHaveProperty('popular.order')
   })
 
-  it('add the SW5 section headings from the board to the home texts', () => {
+  it('add the SW5 and SW6 section headings from the board to the home texts', () => {
     expect(settings.home.sections?.areas.title).toBe('Wszystko dla firmy, w ośmiu obszarach.')
+    expect(settings.home.sections?.livePreviews?.eyebrow).toBe('Podglądy na żywo · zanim zapłacisz')
+    expect(settings.home.sections?.process?.stage).toBe('Etap {num} · {t}')
     expect(settings.home.sections?.popular.after.items[0]?.text).toBe('od [OPIEKA OD] zł / mies.')
   })
 
@@ -289,12 +291,16 @@ describe('Software settings of the seed', () => {
     const { sections, ...stored } = structuredClone(settings.home)
     const added = homeWithSections(stored, HOME_SECTION_TEXTS)
     expect(added).toEqual({ ...stored, sections })
-    // Edited in the panel: kept as it is.
+    // Edited in the panel and complete: kept as it is.
     const edited = {
       ...stored,
       sections: { ...HOME_SECTION_TEXTS, areas: { ...HOME_SECTION_TEXTS.areas, title: 'Inny' } },
     }
     expect(homeWithSections(edited, HOME_SECTION_TEXTS)).toBeNull()
+    // Saved in SW5 (no SW6 sections): only the missing ones are added, edits stay.
+    const { livePreviews, process, ...sw5 } = edited.sections
+    const filled = homeWithSections({ ...stored, sections: sw5 }, HOME_SECTION_TEXTS)
+    expect(filled).toEqual({ ...stored, sections: { ...sw5, livePreviews, process } })
     // Not a home object (empty field): left to the „fill while empty” rule.
     expect(homeWithSections(null, HOME_SECTION_TEXTS)).toBeNull()
   })

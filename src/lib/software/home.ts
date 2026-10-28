@@ -81,6 +81,24 @@ export const homeSectionsSchema = obj({
       button: link,
     }),
   }),
+  /** SW6 — optional: a home saved in SW5 has none until the seed (or the panel) adds them. */
+  livePreviews: obj({
+    ...sectionHead,
+    /** Next to the tabs: [switching itself, after the visitor's pick]. */
+    hint: z.tuple([label, label]),
+    /** Link to the preview's `href` („Otwórz pełny podgląd”). */
+    open: label,
+    /** „Twój projekt”: [add, already added]. */
+    add: z.tuple([label, label]),
+  }).optional(),
+  process: obj({
+    ...sectionHead,
+    /** Eyebrow of the stage panel; `{num}` and `{t}` from the stage. */
+    stage: label,
+    /** Column headings: what you get, what you do. */
+    get: label,
+    you: label,
+  }).optional(),
 })
 
 export type SoftwareHomeSections = z.infer<typeof homeSectionsSchema>
