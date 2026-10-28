@@ -30,6 +30,45 @@ test.describe('Instalacje frame', () => {
     expect(await page.evaluate(surface)).toBe('#101412')
   })
 
+  test('is installable: theme colour, safe areas and a manifest (ADR-I004)', async ({ page }) => {
+    await page.goto(site(HOST))
+    const themeColors = await page
+      .locator('meta[name="theme-color"]')
+      .evaluateAll((metas) =>
+        metas.map((m) => [m.getAttribute('media'), m.getAttribute('content')]),
+      )
+    expect(themeColors).toEqual([
+      ['(prefers-color-scheme: light)', '#f4f5f1'],
+      ['(prefers-color-scheme: dark)', '#101412'],
+    ])
+    await expect(page.locator('meta[name="viewport"]')).toHaveAttribute(
+      'content',
+      /viewport-fit=cover/,
+    )
+    await expect(page.locator('link[rel="manifest"]')).toHaveAttribute(
+      'href',
+      '/manifest.webmanifest',
+    )
+
+    // Through the browser: Node does not resolve `*.localhost`.
+    const manifest = await page.goto(site(HOST, '/manifest.webmanifest'))
+    expect(manifest?.status()).toBe(200)
+    expect(manifest?.headers()['content-type']).toContain('application/manifest+json')
+    expect(await manifest?.json()).toMatchObject({
+      name: 'PRO-KOM Instalacje',
+      display: 'standalone',
+      start_url: '/',
+    })
+  })
+
+  test('other lines get no manifest nor theme colour', async ({ page }) => {
+    const manifest = await page.goto(site('software.localhost', '/manifest.webmanifest'))
+    expect(manifest?.status()).toBe(404)
+    await page.goto(site('software.localhost'))
+    await expect(page.locator('meta[name="theme-color"]')).toHaveCount(0)
+    await expect(page.locator('link[rel="manifest"]')).toHaveCount(0)
+  })
+
   test('an inactive tenant answers 404', async ({ page, context }) => {
     await loginAsAdmin(page)
     const id = await tenantId(page, 'instalacje')

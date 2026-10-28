@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { type ReactNode, useEffect, useMemo, useRef, useState } from 'react'
 
+import { BottomSheet } from '@/components/BottomSheet'
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
 import type { IconName } from '@/lib/catalog/options'
@@ -21,7 +22,7 @@ import { useProject } from '@/lib/software/projectStore'
 import { prepareSolutionSearch } from '@/lib/software/search'
 import type { SolutionsIndex } from '@/lib/software/solutionsIndex'
 
-import { BottomSheet } from '../BottomSheet'
+import { DESKTOP_QUERY } from '../layer'
 import { DeviceIcon } from '../FrameIcons'
 import { CatalogFilters } from './CatalogFilters'
 import { SolutionCard } from './SolutionCard'
@@ -315,6 +316,7 @@ export function Catalog({ index, hero }: Props) {
         onClose={() => setSheetOpen(false)}
         title="Filtry"
         headingRef={sheetTitle}
+        desktopQuery={DESKTOP_QUERY}
       >
         <div className="mt-4">
           <CatalogFilters

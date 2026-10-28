@@ -3,13 +3,14 @@
 import Link from 'next/link'
 import { useState } from 'react'
 
+import { BottomSheet } from '@/components/BottomSheet'
 import { HomeAwareLink } from '@/components/HomeAwareLink'
 
 import { Icon } from '@/components/ui/Icon'
 import type { MenuTile } from '@/lib/software/mobileNav'
 import type { SoftwareNavigation } from '@/lib/software/navigation'
 
-import { BottomSheet } from './BottomSheet'
+import { DESKTOP_QUERY } from './layer'
 import { ChevronIcon, WandIcon } from './FrameIcons'
 import { MenuSearch } from './MenuSearch'
 import { ProjectPill } from './ProjectPill'
@@ -53,7 +54,12 @@ export function PhoneLayer({ navigation, tiles, homeHrefs, phone, footerLine }: 
         onMenu={() => setMenuOpen(true)}
         menuOpen={menuOpen}
       />
-      <BottomSheet open={menuOpen} onClose={() => setMenuOpen(false)} title="Menu">
+      <BottomSheet
+        open={menuOpen}
+        onClose={() => setMenuOpen(false)}
+        title="Menu"
+        desktopQuery={DESKTOP_QUERY}
+      >
         <MenuSearch placeholder={mobileMenu.search} />
 
         <HomeAwareLink
