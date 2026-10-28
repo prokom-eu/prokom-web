@@ -6,6 +6,7 @@ import icons from '../../../seed/prokombiznes/ikony.json'
 import katalog from '../../../seed/prokombiznes/katalog.json'
 import k3Dictionaries from '../../../seed/prokombiznes/k3/slowniki-k3.json'
 import k3Removed from '../../../seed/prokombiznes/k3/usuniete.json'
+import k3Bundles from '../../../seed/prokombiznes/k3/zestawy.json'
 import kreator from '../../../seed/prokombiznes/kreator.json'
 import media from '../../../seed/prokombiznes/media.json'
 import gallery from '../../../seed/prokombiznes/media-produkty-v2.json'
@@ -43,6 +44,7 @@ import {
   loadK31Catalog,
 } from './k31Data'
 import { cardsOf, floorPlanData, seriesMismatches, showroomData } from './k31Plans'
+import { bundleData, nextBundleStatus, sceneBundles, type K3Bundle } from './k3Bundles'
 import {
   brandLogoFile,
   galleryFileName,
@@ -69,7 +71,7 @@ import { seedBiznesGopos } from './gopos'
 import { seedBiznesInsert } from './insert'
 import { seedBiznesOpiekaIt } from './opiekaIt'
 import { seedBiznesHome } from './home'
-import { navigationData } from './navigation'
+import { navigationData, upgradedMenu } from './navigation'
 
 /** Files of the design package, relative to the repo root (where `pnpm seed` runs). */
 const MEDIA_DIR = path.join('docs', 'design', 'prokombiznes', 'boards', 'media')
@@ -568,10 +570,62 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
   const hiddenCards = new Set(
     cards.filter((card) => k3PublishStatus(card) === 'draft').map((card) => card.slug_seed),
   )
+  // --- ready bundles (K3c), after the cards they list; the floor plans name them below ---
+  const bundleIds = new Map<string, number>()
+  const bundles: K3Bundle[] = k3Bundles.zestawy
+  for (const bundle of bundles) {
+    const data = bundleData(bundle, k3Bundles.sprawdzone_zgodnosci, {
+      cards: cardsFor,
+      product: productId,
+      industry: (slug) => industryIds.get(slug),
+      category: (code) => categoryIds.get(code),
+      hidden: hiddenCards,
+    })
+    for (const item of bundle.elementy) {
+      if (cardsFor(item.slug).some((slug) => hiddenCards.has(slug))) {
+        note('element zestawu z ukrytą kartą', `${bundle.slug}: ${item.slug}`)
+      }
+    }
+    const {
+      docs: [existing],
+    } = await payload.find({
+      collection: 'bundles',
+      where: inTenant({ slug: { equals: data.slug } }),
+      limit: 1,
+      ...local,
+    })
+    const full = {
+      ...data,
+      contentStatus: nextBundleStatus(data.contentStatus, existing?.contentStatus),
+    }
+    if (full.contentStatus !== data.contentStatus) note('zestaw „Gotowe” z panelu', bundle.slug)
+    if (!existing) {
+      const created = await payload.create({
+        collection: 'bundles',
+        data: { ...full, tenant: tenant.id },
+        ...local,
+      })
+      bundleIds.set(bundle.slug, created.id)
+      count('bundles', true)
+    } else {
+      const same = hasSameValues(existing, full)
+      if (!same)
+        await payload.update({ collection: 'bundles', id: existing.id, data: full, ...local })
+      bundleIds.set(bundle.slug, existing.id)
+      count('bundles', same ? false : 'updated')
+    }
+  }
+  log(
+    `bundles (K3c): ${bundles.length}, „Gotowe” in the package: ${bundles.filter((b) => b.status === 'gotowe').length}`,
+  )
+
   let planPoints = 0
   for (const [index, scene] of k31Scenes.entries()) {
     const svg = await readFile(path.join(K31_DIR, scene.svg), 'utf8')
-    const data = floorPlanData(scene, index, svg, cardsFor, productId)
+    const data = {
+      ...floorPlanData(scene, index, svg, cardsFor, productId),
+      bundles: sceneBundles(scene.zestawy, (slug) => bundleIds.get(slug), scene.id),
+    }
     planPoints += data.points.length
     for (const point of scene.punkty) {
       if (cardsFor(point.slug).some((slug) => hiddenCards.has(slug))) {
@@ -683,6 +737,25 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
       },
       ...local,
     })
+  }
+
+  // --- menu K3c: „Gotowe zestawy” in a menu still as the first seed wrote it ---
+  if (siteSettings && !navigationMissing) {
+    const current = await payload.findByID({
+      collection: 'site-settings',
+      id: siteSettings.id,
+      ...local,
+    })
+    const menu = upgradedMenu(current.biznes?.navigation?.menu)
+    count('site-settings menu K3c', menu ? 'updated' : false)
+    if (menu && current.biznes?.navigation) {
+      await payload.update({
+        collection: 'site-settings',
+        id: siteSettings.id,
+        data: { biznes: { ...current.biznes, navigation: { ...current.biznes.navigation, menu } } },
+        ...local,
+      })
+    }
   }
 
   // --- footer columns, the same way: only while the first column is empty ---

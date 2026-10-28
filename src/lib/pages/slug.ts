@@ -28,6 +28,8 @@ export const RESERVED_PAGE_SLUGS: readonly string[] = [
   'wyslane',
   // Brand pages of the Biznes catalog (K3b′, ADR-012 rozstrz. 14).
   'marki',
+  // Ready bundles (K3c).
+  'zestawy',
 ]
 
 export function isValidPageSlug(slug: string): boolean {

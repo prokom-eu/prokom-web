@@ -43,6 +43,8 @@ export type K31Scene = {
   svg: string
   viewBox: string
   punkty: { x: number; y: number; slug: string; etykieta: string; opis?: string }[]
+  /** Ready bundles under the plan (K3c, `sceneBundles`). */
+  zestawy?: string[]
 }
 
 export type ShowroomData = NonNullable<Partner['showroom']>

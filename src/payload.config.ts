@@ -11,6 +11,7 @@ import { BiznesSettings } from './collections/BiznesSettings'
 import { CatalogCategories } from './collections/CatalogCategories'
 import { CatalogGroups } from './collections/CatalogGroups'
 import { Cities } from './collections/Cities'
+import { Bundles } from './collections/Bundles'
 import { FloorPlans } from './collections/FloorPlans'
 import { Industries } from './collections/Industries'
 import { InstObjects } from './collections/InstObjects'
@@ -83,6 +84,8 @@ export default buildConfig({
     InstObjects,
     InstSolutions,
     Realizations,
+    // Biznes K3c (ready bundles). Last, so the unique-index names of the others stay.
+    Bundles,
   ],
   globals: [CompanyData],
   editor: lexicalEditor(),
@@ -159,6 +162,7 @@ export default buildConfig({
         'catalog-categories': {},
         industries: {},
         'floor-plans': {},
+        bundles: {},
         products: {},
         posts: {},
         // One document per tenant, Biznes only (`BiznesSettings` hook).

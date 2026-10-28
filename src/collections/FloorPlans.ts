@@ -9,7 +9,7 @@ import { orderField, slugField } from './catalogFields'
  * „Plan Twojej firmy” (K3.1, ADR-012 rozstrz. 15): one record = one scene. The floor plan is
  * SVG code in the record — the plan renders it inline (K31d), styled by our CSS; the check on
  * save keeps it a drawing only. Points link to catalog cards; a hidden card hides its point
- * (K31d). Bundles of a scene come with `Bundles` (K3c).
+ * (K31d). Ready bundles of a scene show under the plan — only those marked „Gotowe” (K3c).
  */
 export const FloorPlans: CollectionConfig = {
   slug: 'floor-plans',
@@ -75,6 +75,14 @@ export const FloorPlans: CollectionConfig = {
         description:
           'Kod SVG rzutu, od „<svg” do „</svg>”. Wygląd z klas CSS strony — bez stylów i skryptów w pliku.',
       },
+    },
+    {
+      name: 'bundles',
+      label: 'Gotowe zestawy pod planem',
+      type: 'relationship',
+      relationTo: 'bundles',
+      hasMany: true,
+      admin: { description: 'Pokazują się tylko zestawy „Gotowe”.' },
     },
     {
       name: 'points',

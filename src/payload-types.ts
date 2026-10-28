@@ -92,6 +92,7 @@ export interface Config {
     'inst-objects': InstObject;
     'inst-solutions': InstSolution;
     realizations: Realization;
+    bundles: Bundle;
     'payload-kv': PayloadKv;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
@@ -125,6 +126,7 @@ export interface Config {
     'inst-objects': InstObjectsSelect<false> | InstObjectsSelect<true>;
     'inst-solutions': InstSolutionsSelect<false> | InstSolutionsSelect<true>;
     realizations: RealizationsSelect<false> | RealizationsSelect<true>;
+    bundles: BundlesSelect<false> | BundlesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -4451,6 +4453,10 @@ export interface FloorPlan {
    * Kod SVG rzutu, od „<svg” do „</svg>”. Wygląd z klas CSS strony — bez stylów i skryptów w pliku.
    */
   svg: string;
+  /**
+   * Pokazują się tylko zestawy „Gotowe”.
+   */
+  bundles?: (number | Bundle)[] | null;
   points?:
     | {
         x: number;
@@ -4461,6 +4467,107 @@ export interface FloorPlan {
         product?: (number | null) | Product;
         label: string;
         description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "bundles".
+ */
+export interface Bundle {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  /**
+   * Część adresu, np. „zestaw-kawiarnia-lada”.
+   */
+  slug: string;
+  /**
+   * Mniejsza liczba = wcześniej.
+   */
+  order?: number | null;
+  /**
+   * „Gotowe” po sprawdzeniu zgodności elementów. „Do sprawdzenia” = widoczny, ale bez Google, mapy strony, planu i stron branż.
+   */
+  contentStatus: 'ready' | 'needs-review';
+  hiddenItems?: string | null;
+  name: string;
+  area: 'sklep' | 'gastronomia' | 'noclegi' | 'biuro' | 'gabinet' | 'szkola' | 'siec' | 'ekrany';
+  /**
+   * Z paczki, np. „gastronomia-lada” — kreator dobiera po niej.
+   */
+  series: string;
+  /**
+   * Np. „Mały”, „Średni”, „Standard”.
+   */
+  level?: string | null;
+  /**
+   * Na stronach tych branż w sekcji „Gotowe zestawy” (tylko „Gotowe”).
+   */
+  industries?: (number | Industry)[] | null;
+  audience: string;
+  benefit: string;
+  description?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  items?:
+    | {
+        /**
+         * Element bez widocznego produktu nie pokazuje się.
+         */
+        product?: (number | null) | Product;
+        role: string;
+        /**
+         * Liczba albo opis, np. „wg stanowisk”, „1–2”.
+         */
+        quantity: string;
+        mandatory?: boolean | null;
+        suggestedVersion?: string | null;
+        /**
+         * Nigdy na stronie. Pusto we wszystkich = można dać „Gotowe”.
+         */
+        toConfirm?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  swaps?:
+    | {
+        from?: (number | null) | Product;
+        to?: (number | null) | Product;
+        when: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Karty usług. Nieopublikowane nie pokazują się.
+   */
+  services?: (number | Product)[] | null;
+  reasons?: string[] | null;
+  faq?:
+    | {
+        question: string;
+        answer: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Kategorie katalogu, np. „Dofinansowania”.
+   */
+  related?: (number | CatalogCategory)[] | null;
+  /**
+   * Z importu i dla zespołu — nigdy na stronie.
+   */
+  internalNotes?: string | null;
+  compatChecks?:
+    | {
+        pair: string;
+        source?: string | null;
+        status?: string | null;
         id?: string | null;
       }[]
     | null;
@@ -5104,6 +5211,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'realizations';
         value: number | Realization;
+      } | null)
+    | ({
+        relationTo: 'bundles';
+        value: number | Bundle;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -7559,6 +7670,7 @@ export interface FloorPlansSelect<T extends boolean = true> {
   iconPath?: T;
   viewBox?: T;
   svg?: T;
+  bundles?: T;
   points?:
     | T
     | {
@@ -7934,6 +8046,70 @@ export interface RealizationsSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "bundles_select".
+ */
+export interface BundlesSelect<T extends boolean = true> {
+  tenant?: T;
+  slug?: T;
+  order?: T;
+  contentStatus?: T;
+  hiddenItems?: T;
+  name?: T;
+  area?: T;
+  series?: T;
+  level?: T;
+  industries?: T;
+  audience?: T;
+  benefit?: T;
+  description?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  items?:
+    | T
+    | {
+        product?: T;
+        role?: T;
+        quantity?: T;
+        mandatory?: T;
+        suggestedVersion?: T;
+        toConfirm?: T;
+        id?: T;
+      };
+  swaps?:
+    | T
+    | {
+        from?: T;
+        to?: T;
+        when?: T;
+        id?: T;
+      };
+  services?: T;
+  reasons?: T;
+  faq?:
+    | T
+    | {
+        question?: T;
+        answer?: T;
+        id?: T;
+      };
+  related?: T;
+  internalNotes?: T;
+  compatChecks?:
+    | T
+    | {
+        pair?: T;
+        source?: T;
+        status?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
