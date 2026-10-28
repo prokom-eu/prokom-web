@@ -1,9 +1,10 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import React from 'react'
 
 import { GenericFrame } from '@/components/GenericFrame'
 import { PromoBar } from '@/components/PromoBar'
 import { brandIcons } from '@/lib/brand/lines'
+import { LINE_THEME_COLORS, lineViewport } from '@/lib/brand/themeColor'
 import { getEnv } from '@/lib/env'
 import { ogImages } from '@/lib/pages/metadata'
 import { organizationJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
@@ -31,6 +32,8 @@ export async function generateMetadata({ params }: Omit<Props, 'children'>): Pro
       template && isValidTitleTemplate(template) ? { default: tenant.name, template } : tenant.name,
     description: settings?.seo.description ?? undefined,
     icons: brandIcons(tenant.line),
+    // Lines that look like an app on a phone (ADR-I004): installable, `[domain]/manifest.webmanifest`.
+    manifest: LINE_THEME_COLORS[tenant.line] ? '/manifest.webmanifest' : undefined,
     robots: robotsMeta(getEnv().SITE_ENV),
     // For routes without page metadata (e.g. 404); pages set their own, complete Open Graph.
     openGraph: {
@@ -40,6 +43,12 @@ export async function generateMetadata({ params }: Omit<Props, 'children'>): Pro
       images: ogImages(settings?.seo.ogImage ?? null),
     },
   }
+}
+
+/** Safe areas and the browser bar colour of lines with a phone app look (`lineViewport`). */
+export async function generateViewport({ params }: Omit<Props, 'children'>): Promise<Viewport> {
+  const tenant = await requireTenant(params)
+  return lineViewport(tenant.line)
 }
 
 export default async function TenantLayout({ children, params }: Props) {

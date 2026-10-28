@@ -1,13 +1,16 @@
 # STAN — prokominstalacje.pl (linia Instalacje)
 
-Ostatnia aktualizacja: 28.10.2026 (sesja W-A — pakiet strony dla architektów, gałąź `inst/w-architekci` na develop 787876b)
+Ostatnia aktualizacja: 28.10.2026 (sesja I3, część 1 — PR wspólny `inst/wsp-arkusz` na develop 787876b)
 Worktree: `D:\PRO-KOM\repos\prokom-instal` · gałęzie `inst/*` · `PORT=3002`, baza `prokom_web_instalacje` we wspólnym kontenerze PostgreSQL prokom-web (54320), Mailpit wspólny (8025)
 
 ## W toku
-- Gałąź: `inst/w-architekci` (PR „docs(instalacje): strona dla architektów i deweloperów — spec, ADR-I005, wzorzec v4.2, plan I16” → develop; same dokumenty, przygotowane z czatu).
-- Niedokończone: — (I2 zamknięte: #131, #134, #135; W-A zamknięte tym PR). Celowo poza I2: pliki `dane/<strona>.ts` robią sesje stron (ADR-I002 „Pliki danych w kodzie”), `CompanyData.locations` → I11, bloki linii w rejestrze → I4+, wpis RODO → I12.
-- Następny krok: **I3 — powłoka** po scaleniu tego PR: `/inst-start`, najpierw mały PR wsp `inst/wsp-arkusz` (BottomSheet → `src/components/BottomSheet.tsx`, próg jako prop, testy Software zielone — ADR-I004), potem `inst/i3-powloka`; prompt do skopiowania: „Sesja I3 (Instalacje) — powłoka…” z `docs/zadania/prokominstalacje.md` §3 → I3 (z dopiskiem W-A: pozycja „Dla architektów” w menu, ADR-I005 §4 — dopisz ją ręcznie w `dane/nawigacja.ts`; `write-dane.ts` nie nadpisuje ręcznie edytowanego pliku). Menu czyta `dane/nawigacja.ts` (układ) + `InstServices`/`InstObjects` (nazwy, ikony, kolory po kluczu).
-- Znane ograniczenia po I1 (do I3): ramka Instalacji nie ma nawigacji, linków prawnych ani przełącznika motywu (działa motyw systemu) — **stagingu Instalacji nie pokazywać dalej przed I3/I13** (brak polityki prywatności w stopce).
+- Gałąź: `inst/wsp-arkusz` (PR „feat(wsp): wspólny arkusz od dołu, theme-color i manifest Instalacji” → develop). Przegląd recenzenta: gotowe do PR, uwagi 1–3 poprawione (commit 2389645).
+- Plan I3 (zatwierdzony 28.10): 3 PR-y — `inst/wsp-arkusz` (ten) → `inst/wsp-tokeny` → jeden `inst/i3-powloka` (decyzja Krystiana: bez podziału na desktop/telefon).
+- Niedokończone I3:
+  - `inst/wsp-tokeny`: tokeny powłoki pod `[data-line='instalacje']` w `src/styles/tokens.css` (kolory pasa CTA, stopki, arkusza i dolnego paska z `pk.css`: ok. 40 wartości, m.in. `#4CCBE6`, `#9FB0B4`, `#F2B84B`, tło arkusza `rgba(5,10,9,.52)`) + test kontrastu. Wyliczane przy budowie komponentów, scalane przed `i3-powloka` (ADR-I001 §5, `rebase --onto`).
+  - `inst/i3-powloka` — **także pozycja „Dla architektów” w menu** (W-A, ADR-I005 §4: dopisz ją ręcznie w `dane/nawigacja.ts`; `write-dane.ts` nie nadpisuje ręcznie edytowanego pliku): cała powłoka wg planu w `docs/zadania/prokominstalacje.md` §3 → I3 i ADR-I004 „Doprecyzowanie I3”: `src/sites/instalacje/powloka/` (TopBar, Header + MegaMenu, chowany nagłówek, TabBar, MenuSheet na wspólnym `BottomSheet` z `desktopQuery="(min-width: 1101px)"`, `header`, `footer`, `backdropClassName`, `dragToClose`; ThemeButton, AnchorsBar, CtaBand, Footer, View Transitions), `src/sites/instalacje/icons.ts`, `src/lib/instalacje/menu.ts` (publiczny odczyt `InstServices`/`InstObjects` z filtrem tenanta), testy jednostkowe (`buildMenu`, `activeSection`, `nextHeaderHidden`, `hoursText`) i e2e `tests/e2e/instalacje/shell.e2e.spec.ts`. Zrzuty wzorca `start` i `monitoring` są w `tmp/wzorzec/` (lokalnie, poza gitem).
+- Następny krok: po scaleniu tego PR `/inst-start` na nowej gałęzi `inst/i3-powloka` od `origin/develop` i prompt: „Sesja I3 (Instalacje) — powłoka, część 2: `inst/i3-powloka` wg planu z STAN „W toku” i ADR-I004 „Doprecyzowanie I3”; `BottomSheet`, `theme-color` i manifest są już na develop; tokeny powłoki zbierz przy budowie i wydziel do `inst/wsp-tokeny` przed PR powłoki.”
+- Znane ograniczenia (do I3/I13): ramka Instalacji nadal bez nawigacji, linków prawnych i przełącznika motywu — **stagingu Instalacji nie pokazywać dalej przed I3/I13** (brak polityki prywatności w stopce).
 
 ## Zrobione
 | Data | Sesja | PR | Co |
@@ -20,7 +23,8 @@ Worktree: `D:\PRO-KOM\repos\prokom-instal` · gałęzie `inst/*` · `PORT=3002`,
 | 28.10.2026 | I2 (2/3) | #134 | `pnpm seed:instalacje` importuje paczkę: 10 usług, 12 obiektów, 76 rozwiązań (opublikowane), 11 realizacji (wersje robocze bez zgody, 4 wyróżnione), 16 pustych wersji roboczych `Pages` z tytułem i SEO (`home`/`kontakt` z `pnpm seed` nietknięte); idempotentny (drugi przebieg: 0 zmian); testy mapowania na plikach seeda; rozstrzygnięcia importu w ADR-I002 |
 | 28.10.2026 | I2 (3/3) | #135 | `dane/nawigacja.ts` (układ menu, dolny pasek, „Więcej”, CTA; typy w `dane/types.ts`, test reguł pliku), pomocnik `cleanPrototype` dla sesji stron, skrypt `write-dane.ts` (raz, bez nadpisywania); zmiana planu: pliki `dane/<strona>.ts` w sesjach stron ze źródła JS |
 | 28.10.2026 | (czat) | — | wizualizacja v4.2: strona `/dla-architektow` (32. strona) + sekcja `#architekci` na głównej, „Dla architektów” w menu wszystkich stron; research: liczby do projektu, nowe rozwiązania, deweloperzy, przepisy 2026–2028 (źródła w `docs/strony/prokominstalacje-architekci-zrodla.md`) |
-| 28.10.2026 | W-A | (ten PR) | pakiet architektów w repo: spec `prokominstalacje-architekci.md` + źródła, ADR-I005 (przyjęty), zadania I16a–c, wzorzec v4.2 (prototyp 32 stron, `ARCHITEKCI.md`, stany telefonu 21–25), seed `architekci/` + `strony-zrzut/Architekci.json`, `Main.json` z `arhm`/`arsc`; dopiski do spec linii, ADR-I002, planu, SEO, do-uzupełnienia, MAPA, KOMPONENTY, README |
+| 28.10.2026 | W-A | #137 | pakiet architektów w repo: spec `prokominstalacje-architekci.md` + źródła, ADR-I005 (przyjęty), zadania I16a–c, wzorzec v4.2 (prototyp 32 stron, `ARCHITEKCI.md`, stany telefonu 21–25), seed `architekci/` + `strony-zrzut/Architekci.json`, `Main.json` z `arhm`/`arsc`; dopiski do spec linii, ADR-I002, planu, SEO, do-uzupełnienia, MAPA, KOMPONENTY, README |
+| 28.10.2026 | I3 (wsp) | (ten PR) | `BottomSheet` wspólny w `src/components` (`desktopQuery`, `header`, `footer`, `panelClassName`, `backdropClassName`, `dragToClose`), Software bez zmian zachowania; `theme-color` + `viewport-fit=cover` i `/manifest.webmanifest` dla Instalacji (`src/lib/brand/themeColor.ts`); e2e Software i ramki Instalacji zielone |
 
 ## Decyzje obowiązujące (skrót — pełna lista: spec §2)
 - Gwarancja 24 mies. na montaż; „24 h” = odpowiedź na zgłoszenie w dni robocze, nie przyjazd.
@@ -33,6 +37,7 @@ Worktree: `D:\PRO-KOM\repos\prokom-instal` · gałęzie `inst/*` · `PORT=3002`,
 - I2 import (28.10, ADR-I002 „Import (I2)”): SEO usług w `Pages.seo` (nie `InstServices.seo`), bez dopisku „| PRO-KOM…”; telefon i e-mail linii wpisuje szef w panelu (`SiteSettings`), seed ich nie rusza; realizacje z `Realizacje.json`; tekst bez cyfry i `[CENA]` to nie cena; istniejących stron (`home`, `kontakt` — przykładowe, test izolacji) import nie rusza; ich SEO z paczki w I6/I11.
 - I2 dane (28.10, ADR-I002 „Pliki danych w kodzie”): zrzuty to stan jednego ekranu prototypu (widżety niepełne) → w I2 tylko nawigacja; każda sesja strony pisze swój `dane/<strona>.ts` z `zrodlo/pages/<Strona>.js`, typowany, czyszczony `cleanPrototype`. Menu: układ w kodzie, nazwy/ikony/kolory z panelu po kluczu.
 - Architekci (28.10, decyzja szefa, ADR-I005): `/dla-architektow` = `Pages` + `InstArchitects` (11. blok linii), kolekcja `InstArchNews`, opiekun w `InstalacjeSettings.architects`, formularze w `Inquiries` (3 kategorie „Architekci · …”, zgoda na nowości osobno i niezaznaczona), bez uploadu w v1 (pole „Link do rzutów”), link w menu w I3, sekcja `#architekci` na głównej w I16c; nie obiecujemy wyższej ceny lokalu; liczby tylko z pliku źródeł; przepisy z datą stanu i zdaniem „To nie jest porada prawna”.
+- I3 (28.10, ADR-I004 „Doprecyzowanie I3”): próg arkusza Instalacji 1101 px (tablet też ma arkusz, spec §4), nie 760; historia „wstecz” i blokada przewijania po stronie `MenuSheet`; chowanie nagłówka = hook własny (w Software go nie ma); komponenty powłoki w `src/sites/instalacje/powloka/` (także `TabBar`); `theme-color` = kopie `--surface` w `LINE_THEME_COLORS`, pilnowane testem; manifest tylko dla linii z wpisem; tokeny powłoki osobnym PR `inst/wsp-tokeny`.
 
 ## Ustalenia I0 (28.10.2026, develop 33f6e9b)
 **Potwierdzone**
@@ -60,11 +65,14 @@ Worktree: `D:\PRO-KOM\repos\prokom-instal` · gałęzie `inst/*` · `PORT=3002`,
 ## Pytania do Krystiana / szefa
 - [SZEF] telefon, e-mail, WhatsApp Instalacji; adres salonu w Zakopanem; ceny „od” czy bez cen; zgody na realizacje i zdjęcia.
 - [SZEF] telefon wymagany w formularzach Instalacji? (dziś reguła „e-mail lub telefon”; Biznes wymaga telefonu) — przed I11.
-- [Krystian] usunąć stare lokalne gałęzie `inst/w-pakiet` (#125), `inst/i0-ustalenia` (#126), `inst/wsp-fundament` (#128), `inst/wsp-rejestracja` (#131) i `inst/i2-model` (#134) — scalone; pliki `tmp/check-i2.ts`, `tmp/check-i2-model.ts`, `tmp/diff-objects.ts`, `tmp/restore-sample-pages.ts` (skrypty sprawdzające I2, ignorowane przez git) można skasować.
+- [Krystian] test na prawdziwym telefonie (Android + iPhone) przed scaleniem `inst/i3-powloka` (MOBILE-APLIKACJA §10).
+- [Krystian] usunąć stare lokalne gałęzie `inst/w-pakiet` (#125), `inst/i0-ustalenia` (#126), `inst/wsp-fundament` (#128), `inst/wsp-rejestracja` (#131), `inst/i2-model` (#134) i `inst/i2-dane` (#135) — scalone; pliki `tmp/check-i2.ts`, `tmp/check-i2-model.ts`, `tmp/diff-objects.ts`, `tmp/restore-sample-pages.ts` (skrypty sprawdzające I2, ignorowane przez git) można skasować.
 - [SZEF] strona dla architektów, przed I16c: opiekun (imię, zdjęcie, telefon, e-mail architekci@), dostępność marek (Sonance, Amina, KEF, B&W, ELAC, Molecule, Future Automation, Nuki), partner Sonos, warunki dla pracowni, bezpłatna konsultacja, pokaz w salonie, realizacje z projektem architekta, autoryzacje Ampio i Satel — lista w `prokominstalacje-do-uzupelnienia.md`.
-- [Krystian] usunąć lokalną gałąź `inst/i2-dane` (#135) — scalona.
 
 ## Pomysły na później (nie robić „przy okazji”)
+- **I3:** przełącznik motywu ma też nadpisywać `meta[name=theme-color]` — dziś kolor paska idzie tylko za motywem systemu (uwaga recenzenta).
+- **I3 → I4:** `AnchorsBar` powstaje w I3 bez strony, która go pokazuje; test „pasek kotwic nie zostawia przerwy” (MOBILE §10) z pierwszą stroną usługi (Anteny).
+- Niestabilny test Software `tests/e2e/software-catalog.e2e.spec.ts` „Back after „Wyczyść filtry” brings the search back” (1 na 3 przebiegi czerwony, 28.10; wyszukiwarka z opóźnieniem 300 ms + „wstecz”) — zgłosić linii Software, nie poprawiać z Instalacji.
 - `GenericFrame` (ramka linii bez własnego wyglądu) nie ma po I1 żadnego lokalnego tenanta → brak pokrycia e2e; wróci z hubem pro-kom.eu albo z tenantem testowym w seedzie.
 - Test e2e „trasy `(instalacje)` → 404 na innych liniach, 200 na Instalacjach” — dodać z pierwszą trasą grupy (I10 `/dla-kogo/…` albo I11 `/wyslane`).
 - `--accent-on-dark` Instalacji: jasny `#12B6D8`, ciemny `#4CCBE6` — ujednolicić wg wizualizacji przy pierwszym ciemnym bloku (I5).

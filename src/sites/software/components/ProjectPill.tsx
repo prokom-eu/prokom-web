@@ -2,13 +2,13 @@
 
 import { useEffect, useRef, useState } from 'react'
 
+import { BottomSheet } from '@/components/BottomSheet'
 import { Icon } from '@/components/ui/Icon'
 import { plural } from '@/lib/plural'
 import type { SoftwareNavigation } from '@/lib/software/navigation'
 import { onProjectOpen, useProject } from '@/lib/software/projectStore'
 
-import { BottomSheet } from './BottomSheet'
-import { focusProjectFallback, isDesktop } from './layer'
+import { DESKTOP_QUERY, focusProjectFallback, isDesktop } from './layer'
 import { ProjectList } from './ProjectList'
 
 type Props = {
@@ -86,7 +86,13 @@ export function ProjectPill({ pill, texts }: Props) {
           </button>
         </div>
       )}
-      <BottomSheet open={open} onClose={close} title={texts.title} headingRef={headingRef}>
+      <BottomSheet
+        open={open}
+        onClose={close}
+        title={texts.title}
+        headingRef={headingRef}
+        desktopQuery={DESKTOP_QUERY}
+      >
         <ProjectList texts={texts} headingRef={headingRef} onSend={() => setOpen(false)} />
       </BottomSheet>
     </>

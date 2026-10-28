@@ -16,6 +16,14 @@ Sprawdzone na develop 33f6e9b (`src/sites/software/components/`):
 - **`TabBar` → własny** `src/sites/instalacje/components/TabBar.tsx`. Wersja Software jest związana z jej układem: stałe ikony w kolejności planszy, środkowy przycisk kreatora, aktywna karta z `lib/software/mobileNav`, próg 1080 px. Instalacje mają inne karty (Start · Usługi · Zaplanuj · Dla kogo · Więcej) i inny wygląd — wspólny komponent wymagałby tylu parametrów, że byłby trudniejszy niż dwa proste.
 - `PhoneLayer` (chowanie nagłówka, warstwa telefonu) — w I3 sprawdzić, czy logika chowania przy przewijaniu da się wydzielić jako hook wspólny; domyślnie własny w Instalacjach.
 
+### Doprecyzowanie I3 (28.10.2026, PR `inst/wsp-arkusz`)
+- `src/components/BottomSheet.tsx`: `desktopQuery` (wymagany), `header` (slot zamiast tytułu i ×; tytuł zostaje w `aria-label`), `panelClassName` (rozmiar i położenie panelu), `backdropClassName` (tło pod arkuszem), `footer` (przyklejona stopka z bezpiecznym marginesem, np. „Zaplanuj instalację”), `dragToClose` (gest w dół, `sheetDrag.ts`: > 80 px albo szybki ruch). Software: bez zmian zachowania. Tło zamyka arkusz także obok wyśrodkowanego panelu (tablet).
+- Próg arkusza Instalacji: **`(min-width: 1101px)`**, nie 760 px — spec §4: tablet 761–1100 px też ma arkusz (wyśrodkowany, max 560 px).
+- Historia („wstecz”) i blokada przewijania strony zostają po stronie Instalacji (`MenuSheet`), bo nie potrzebują DOM panelu.
+- Chowanie nagłówka: w Software go nie ma (zero nasłuchów `scroll` w `src`) — hook własny Instalacji.
+- Komponenty powłoki Instalacji w `src/sites/instalacje/powloka/` (ADR-I003 §1, KOMPONENTY §1), także `TabBar`.
+- `theme-color` i `viewport-fit=cover`: `src/lib/brand/themeColor.ts` (`LINE_THEME_COLORS`, kopie `--surface` pilnowane testem), manifest `/manifest.webmanifest` tylko dla linii z wpisem (na razie Instalacje).
+
 ## Konsekwencje
 - (+) Spójność z pozostałymi liniami PRO-KOM; szybka nawigacja jednym kciukiem; „Zaplanuj” zawsze pod ręką.
 - (−) Więcej stanów do testowania (arkusz, gesty, historia) — pokryte testami e2e w I3.
