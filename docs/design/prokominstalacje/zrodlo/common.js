@@ -81,7 +81,7 @@
       light: 'M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.6 1 2.5h6c0-.9.2-1.7 1-2.5A6 6 0 0 0 12 3z',
       blind: 'M4 3h16M5 3v11h14V3M5 7h14M5 11h14M12 14v5M10 21h4',
       gate: 'M3 21V9M21 21V9M3 13h18M3 17h18M7 9v12M11 9v12M15 9v12M19 9v12',
-      check: 'M5 12l5 5L20 7', x: 'M6 6l12 12M18 6L6 18', plus: 'M12 5v14M5 12h14', arrow: 'M5 12h14M13 6l6 6-6 6',
+      check: 'M5 12l5 5L20 7', x: 'M6 6l12 12M18 6L6 18', plus: 'M12 5v14M5 12h14', arrow: 'M5 12h14M13 6l6 6-6 6', arrowL: 'M19 12H5M11 6l-6 6 6 6',
       wrench: 'M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z',
       chat: 'M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z', doc: 'M6 2h9l5 5v15H6zM14 2v6h6M9 14h6M9 18h4',
       eye: 'M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12zM12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z', plane: 'M22 2L11 13M22 2l-7 20-4-9-9-4z',
@@ -93,6 +93,74 @@
       tv: 'M3 6h18v12H3zM7 21h10M10 3l2 3 2-3', sliders: 'M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6',
       leaf: 'M5 21c0-9 6-15 16-16-1 10-7 16-16 16zM5 21l8-8', euro: 'M17 5a7 7 0 1 0 0 14M4 10h10M4 14h10', file: 'M6 2h9l5 5v15H6zM14 2v6h6',
       play: 'M6 4l14 8-14 8z', ant: 'M12 21V10M7 3l5 7 5-7M4 7l8 3 8-3M9 21h6', dish: 'M5 9a9 9 0 0 0 10 10zM9 15l6-6M17 7a1.5 1.5 0 1 0 .01 0M8 21h8', book: 'M4 4h6a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H4zM20 4h-6a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h7z', drop: 'M12 3s-6 7-6 11a6 6 0 0 0 12 0c0-4-6-11-6-11z', fire: 'M12 22a7 7 0 0 0 7-7c0-4-3-6-4-10-2 2-3 4-3 6-1-1-2-2-2-4-3 2-5 5-5 8a7 7 0 0 0 7 7z', card: 'M3 6h18v12H3zM3 10h18M7 15h4', finger: 'M12 11v4M8 8a4 4 0 0 1 8 0v6a8 8 0 0 1-1 4M5 11a7 7 0 0 1 14-1M9 21a10 10 0 0 0 1-5v-4', grid: 'M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z', upload: 'M12 16V4M7 9l5-5 5 5M4 20h16', send: 'M22 2L11 13M22 2l-7 20-4-9-9-4z', globe: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18', cloud: 'M7 18a5 5 0 1 1 1-9.9A6 6 0 0 1 19 10a4 4 0 0 1 0 8z', plug: 'M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4', sun2: 'M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10z', mountain: 'M3 20l6-11 4 6 3-4 5 9z', tool: 'M4 20l7-7M14 4l6 6-3 3-6-6zM9 9l6 6', town: 'M3 21h18M5 21V11M9.5 21V11M14.5 21V11M19 21V11M2 11l10-7 10 7zM12 7.5h.01', apt: 'M5 21V3h14v18M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2M17 21v-3', stroller: 'M6 4l3 8h9M6 4H3M18 12a6 6 0 0 0-6-6v6M8 20a2 2 0 1 0 0-.01M17 20a2 2 0 1 0 0-.01'
+    };
+  }
+
+  arHotspots() {
+    // x,y w układzie sceny 1000x600; k = usługa; e = etap; v = co widzi klient; p = co zaplanować; s = klucz liczb do projektu (arSpecs)
+    return [
+      { x: 194, y: 250, k: 'kam', e: 'Projekt', t: 'Kamera pod okapem', v: 'Mała kamera w kolorze elewacji. Bez kabla na wierzchu i bez puszki na ociepleniu.', p: 'Miejsce uzgodnione z detalem okapu i element montażowy w warstwie ocieplenia. Kabel sieciowy do szafy rack.', s: 'kam' },
+      { x: 33, y: 472, k: 'alarm', e: 'Projekt', t: 'Wideodomofon przy furtce', v: 'Panel w słupku ogrodzenia. Gość dzwoni, Ty odbierasz w telefonie.', p: 'Rura osłonowa w ziemi od furtki do budynku, wnęka w słupku na panel.', s: 'dom' },
+      { x: 158, y: 470, k: 'kd', e: 'Przed tynkami', t: 'Zamek z kodem przy drzwiach', v: 'Drzwi otwierane kodem, kartą albo telefonem. Bez szukania kluczy.', p: 'Przewód do ościeżnicy (elektrozaczep albo zamek silnikowy) i zasilanie z szafy.', s: 'kd' },
+      { x: 277, y: 451, k: 'alarm', e: 'Przed tynkami', t: 'Manipulator alarmu', v: 'Płaska klawiatura przy wejściu, w linii z włącznikami.', p: 'Puszka na wysokości włączników przy drzwiach i przewód do centrali w pomieszczeniu technicznym.', s: 'alm' },
+      { x: 631, y: 451, k: 'smart', e: 'Przed tynkami', t: 'Szklany panel Ampio', v: 'Jeden szklany panel zamiast rzędu włączników: światło, rolety, ogrzewanie, sceny.', p: 'Głęboka puszka przy drzwiach. Kolor szkła i ikony dobrane do wnętrza.', s: 'panel' },
+      { x: 482, y: 404, k: 'snd', e: 'Projekt', t: 'Głośniki w suficie', v: 'Maskownice w kolorze sufitu albo głośniki całkiem pod gładzią. Muzyka bez kolumn na podłodze.', p: 'Sufit podwieszany z miejscem na korpus, ramki montażowe przed płytą g-k, przewód do wzmacniacza.', s: 'spk' },
+      { x: 352, y: 406, k: 'wifi', e: 'Przed tynkami', t: 'Punkt Wi-Fi w suficie', v: 'Płaski krążek na suficie. Zasięg w całym domu bez routerów na półce.', p: 'Kabel sieciowy z każdego punktu do szafy, zasilanie przez ten sam kabel (PoE).', s: 'ap' },
+      { x: 478, y: 468, k: 'scr', e: 'Projekt', t: 'Telewizor w zabudowie', v: 'Ekran w lamelach, bez kabli pod spodem. Sprzęt schowany w szafce albo w szafie rack.', p: 'Wnęka z wentylacją, rura pod przewody za ekranem, gniazdo zasilania i sieci.', s: 'tv' },
+      { x: 560, y: 518, k: 'smart', e: 'Przed tynkami', t: 'Ogrzewanie strefowe', v: 'Każdy pokój ma swoją temperaturę, ustawianą z panelu albo telefonu.', p: 'Czujnik temperatury w każdej strefie i przewody do siłowników przy rozdzielaczu.', s: 'heat' },
+      { x: 262, y: 254, k: 'smart', e: 'Projekt', t: 'Roleta w nadprożu', v: 'Nie widać kasety. Roleta zjeżdża sama, gdy słońce grzeje albo gdy wyjeżdżasz.', p: 'Wnęka w nadprożu na kasetę i przewód do sterowania przed tynkami.', s: 'rol' },
+      { x: 490, y: 254, k: 'snd', e: 'Projekt', t: 'Głośnik w łazience', v: 'Głośnik w suficie odporny na wilgoć. Muzyka albo radio rano.', p: 'Model do wilgotnych pomieszczeń i przewód do wzmacniacza strefy.', s: 'bath' },
+      { x: 728, y: 470, k: 'wifi', e: 'Projekt', t: 'Szafa rack', v: 'Klient jej nie widzi. Wszystkie kable kończą się w jednym, opisanym miejscu.', p: 'Miejsce w pomieszczeniu technicznym: wentylacja, osobny obwód zasilania, dostęp z przodu.', s: 'rack' },
+      { x: 946, y: 451, k: 'ev', e: 'Projekt', t: 'Ładowarka w garażu', v: 'Ładowarka na ścianie garażu. Auto ładuje się w nocy.', p: 'Moc przyłącza z zapasem i przewód zasilający do garażu, uzgodnione z projektantem elektrycznym.', s: 'ev' },
+      { x: 943, y: 394, k: 'kam', e: 'Projekt', t: 'Kamera wjazdu', v: 'Widać podjazd i bramę, także w nocy.', p: 'Miejsce nad bramą garażową i kabel do szafy przez ścianę garażu.', s: 'kam2' },
+      { x: 690, y: 118, k: 'ant', e: 'Projekt', t: 'Antena na dachu', v: 'Antena od strony ogrodu, nie na głównej elewacji.', p: 'Miejsce na maszt, przepust przez dach, uziemienie i przewód do szafy.', s: 'ant' },
+      { x: 161, y: 498, k: 'snd', e: 'Projekt', t: 'Głośnik ogrodowy', v: 'Głośnik udający kamień albo schowany w zieleni. Muzyka na tarasie.', p: 'Przewód w rurze w ziemi od tarasu do budynku.', s: 'gard' },
+      { x: 92, y: 566, k: 'tel', e: 'Projekt', t: 'Rura pod światłowód', v: 'Niewidoczna. Internet światłowodowy bez kopania podjazdu.', p: 'Rura osłonowa od granicy działki do pomieszczenia technicznego, z pilotem do przeciągnięcia.', s: 'fib' }
+    ];
+  }
+
+  arScene(c, o, set) {
+    // o: { m: 'kl'|'ty'|'in', hs, off: [] }
+    const HU = c.HU, P = c.P, HS = this.arHotspots(), off = o.off || [], SP = this.arSpecs();
+    const vis = HS.map((h, i) => i).filter((i) => !off.includes(HS[i].k));
+    const hs = vis.includes(o.hs) ? o.hs : (vis[0] || 0);
+    const cur = HS[hs] || HS[0];
+    const SN = { kam: 'Monitoring', alarm: 'Alarm i domofon', kd: 'Kontrola dostępu', wifi: 'Sieć i Wi-Fi', smart: 'Smart home', snd: 'Dźwięk', scr: 'Ekrany i TV', ant: 'Anteny', ev: 'Ładowarka EV', tel: 'Teletechnika' };
+    const M = [['kl', 'Gotowy dom', P.home], ['ty', 'Przed tynkami', P.tool], ['in', 'Wszystkie instalacje', P.layers]];
+    const LB = { kl: 'Tak widzi to klient. Ile instalacji tu jest?', ty: 'Przed tynkami: puszki, ramki, rury i trasy kabli', in: 'Wszystkie instalacje i trasy do szafy rack' };
+    const step = (d) => { const k = vis.indexOf(hs); const n = vis[(k + d + vis.length) % vis.length]; set({ m: o.m === 'kl' ? 'in' : o.m, hs: n }); };
+    return {
+      m: o.m, cls: 'ars m-' + o.m + off.map((k) => ' off-' + k).join(''),
+      modes: M.map((x) => ({ n: x[1], ic: x[2], cls: 'armode' + (o.m === x[0] ? ' on' : ''), on: o.m === x[0] ? 'true' : 'false', go: () => set({ m: x[0] }) })),
+      lbl: LB[o.m],
+      hs: HS.map((h, i) => ({ n: i + 1, tr: 'translate(' + h.x + ' ' + h.y + ')', st: '--hc:' + HU[h.k], cls: 'arhs L-' + h.k + (i === hs ? ' on' : ''), t: h.t, go: () => set({ m: o.m === 'kl' ? 'in' : o.m, hs: i }) })),
+      layers: Object.keys(SN).map((k) => { const on = !off.includes(k); return { n: SN[k], st: '--hc:' + HU[k], cls: 'arsys sm' + (on ? ' on' : ''), on: on ? 'true' : 'false', go: () => set({ off: on ? off.concat([k]) : off.filter((x) => x !== k) }) }; }),
+      allL: () => set({ off: [] }),
+      cur: { n: hs + 1, t: cur.t, v: cur.v, p: cur.p, s: SP[cur.s] || 'Parametry dobieramy do projektu.', svc: SN[cur.k], etap: 'Etap: ' + cur.e, st: '--hc:' + HU[cur.k] },
+      prev: () => step(-1), next: () => step(1)
+    };
+  }
+
+  arSpecs() {
+    // wartości z kart katalogowych i norm (źródła: docs/strony/prokominstalacje-architekci-zrodla.md)
+    return {
+      kam: 'Kamera IP pobiera zwykle ok. 6–12 W (np. Hikvision ColorVu 8 MP: maks. 6,5 W). Mieści się w PoE 802.3af (13 W dla urządzenia). Kabel do 90 m od szafy.',
+      dom: 'Panel furtki i monitor zasilane zwykle z PoE. Rura w ziemi z zapasem, bez łączenia kabli po drodze.',
+      kd: 'Zamek albo elektrozaczep zasilany z szafy, przewód do ościeżnicy przed montażem drzwi. Model zamka dobieramy z producentem drzwi.',
+      alm: 'Manipulator i czujki na przewodzie albo bezprzewodowe. Przewód do centrali w szafie lub obok niej.',
+      panel: 'Panele Ampio M-DOT: 90×90 albo 90×160 mm, od 2 do 18 pól. Puszka osadzona głębiej niż standardowo. Szkło, ikony i podpisy ustawiasz w kreatorze Ampio.',
+      spk: 'Głośnik 6–6,5": otwór ok. 200–210 mm, głębokość 92–120 mm. 8": otwór ok. 257 mm, głębokość ok. 135 mm. Para stereo w odstępie 1,8–3 m.',
+      ap: 'Punkt Wi-Fi na środku sufitu, kolejne co 10–12 m (wytyczne TP-Link Omada). Zasilanie PoE+ do 25,5 W (np. UniFi U7 Pro maks. 21 W).',
+      tv: 'Kąt widzenia 30–40°: z 2,1 m to ekran ok. 55–70". Środek ekranu na wysokości oczu: dla 65" ok. 100–120 cm od podłogi.',
+      heat: 'Czujnik temperatury w każdej strefie i przewód do siłownika przy rozdzielaczu. Strefy ustalamy z projektantem instalacji grzewczej.',
+      rol: 'Napęd sterowany z modułu Ampio. Przewód do każdej rolety i wnęka w nadprożu na kasetę.',
+      bath: 'Głośnik do wilgotnych pomieszczeń (model łazienkowy), przewód do wzmacniacza strefy.',
+      rack: '19": 1U = 44,45 mm. Szafa wisząca 600×450 mm daje ok. 39 cm użytecznej głębokości. Wentylacja, osobny obwód zasilania i dostęp z przodu.',
+      ev: 'Elzab CC Home: 3,7 kW (1 faza 16 A), 7,4 kW (1 faza 32 A) albo 11 kW (3 fazy 16 A). 22 kW wymaga 3 faz 32 A.',
+      kam2: 'Ta sama zasada co przy elewacji: kabel PoE do szafy (do 90 m), uchwyt nad bramą, bez mostka termicznego w ociepleniu.',
+      ant: 'Satelita Hot Bird 13°E. Przewód 75 Ω z ekranowaniem klasy A, osobny do każdego odbiornika z multiswitcha.',
+      gard: 'Przewód głośnikowy w rurze w ziemi. Głośniki zewnętrzne odporne na wodę i mróz.',
+      fib: 'Rura osłonowa od granicy działki do szafy. W budynkach wielorodzinnych: punkt styku, skrzynka w każdym lokalu, światłowód jednomodowy.'
     };
   }
 
@@ -234,15 +302,15 @@
     const open = dow >= 1 && dow <= 5 && hr >= 9 && hr < 17;
     const hours = { cls: open ? 'live' : 'live off', txt: open ? 'Otwarte teraz, do 17:00' : ((dow >= 1 && dow <= 4 && hr >= 17) || (dow >= 1 && dow <= 5 && hr < 9)) ? 'Zamknięte · otwieramy o 9:00' : 'Zamknięte · otwieramy w poniedziałek o 9:00' };
     const nk = this.navKey ? this.navKey() : '';
-    const nav = { noc: nk === 'noc' ? 'on' : '', rl: nk === 'rl' ? 'on' : '', srw: nk === 'srw' ? 'on' : '', of: nk === 'of' ? 'on' : '', kt: nk === 'kt' ? 'on' : '', pr: nk === 'pr' ? 'on' : '' };
+    const nav = { noc: nk === 'noc' ? 'on' : '', rl: nk === 'rl' ? 'on' : '', srw: nk === 'srw' ? 'on' : '', of: nk === 'of' ? 'on' : '', kt: nk === 'kt' ? 'on' : '', pr: nk === 'pr' ? 'on' : '', ar: nk === 'ar' ? 'on arn' : 'arn' };
     // Telefon jak aplikacja: dolny pasek kart; Usługi, Dla kogo i Więcej otwierają arkusz od dołu
     const openSheet = (t) => { const on = !(st.menu && st.mtab === t); try { document.documentElement.classList.toggle('pk-lock', on); } catch (e) {} self.setState({ menu: on, mtab: t, mega: false, hdrHide: false }); };
-    const curTab = st.menu ? st.mtab : ({ usl: 'u', seg: 'o', noc: 'o', rl: 'm', kt: 'm', of: 'm', pr: 'm', srw: 'm' }[nk] || '');
+    const curTab = st.menu ? st.mtab : ({ usl: 'u', seg: 'o', noc: 'o', ar: 'm', rl: 'm', kt: 'm', of: 'm', pr: 'm', srw: 'm' }[nk] || '');
     const BN = [['Start', P.home, 'link', 'Main.dc.html', nk === 'home' && !st.menu], ['Usługi', P.net, 'u'], ['Zaplanuj', P.plane, 'mid', 'Zaplanuj.dc.html'], ['Dla kogo', P.users, 'o'], ['Więcej', 'M4 7h16M4 12h16M4 17h10', 'm']];
     const bnav = BN.map((b) => b[2] === 'link' || b[2] === 'mid'
       ? { link: true, btn: false, href: b[3], n: b[0], ic: b[1], cls: b[2] === 'mid' ? 'mid' : (b[4] ? 'act' : ''), cur: b[4] ? 'page' : 'false', go: null, exp: 'false' }
       : { link: false, btn: true, href: '', n: b[0], ic: b[1], cls: (curTab === b[2] ? 'act' : '') + (st.menu && st.mtab === b[2] ? ' open' : ''), cur: 'false', go: () => openSheet(b[2]), exp: st.menu && st.mtab === b[2] ? 'true' : 'false' });
-    const mmore = [['Realizacje.dc.html', 'Realizacje', 'Przykłady naszych montaży', P.eye], ['Serwis.dc.html', 'Serwis i przeglądy', 'Zgłoś awarię, przegląd, przejęcie instalacji', P.wrench], ['Poradnik.dc.html', 'Poradnik', 'Monitoring a RODO i inne', P.book], ['OFirmie.dc.html', 'O firmie', 'PRO-KOM od 2004 r., Rabka i Zakopane', P.shield], ['Kontakt.dc.html', 'Kontakt i dojazd', 'Telefon, e-mail, salony', P.pin], ['Oferta.dc.html', 'Pełna oferta', 'Wszystkie rozwiązania w jednym miejscu', P.layers]].map((m) => ({ href: m[0], n: m[1], s: m[2], ic: m[3] }));
+    const mmore = [['Architekci.dc.html', 'Dla architektów', 'Współpraca, wytyczne do projektu, nowości', P.ruler], ['Realizacje.dc.html', 'Realizacje', 'Przykłady naszych montaży', P.eye], ['Serwis.dc.html', 'Serwis i przeglądy', 'Zgłoś awarię, przegląd, przejęcie instalacji', P.wrench], ['Poradnik.dc.html', 'Poradnik', 'Monitoring a RODO i inne', P.book], ['OFirmie.dc.html', 'O firmie', 'PRO-KOM od 2004 r., Rabka i Zakopane', P.shield], ['Kontakt.dc.html', 'Kontakt i dojazd', 'Telefon, e-mail, salony', P.pin], ['Oferta.dc.html', 'Pełna oferta', 'Wszystkie rozwiązania w jednym miejscu', P.layers]].map((m) => ({ href: m[0], n: m[1], s: m[2], ic: m[3] }));
     const ids = this.rvIds ? this.rvIds() : [];
     const rv = {}; ids.forEach((id) => { rv[id] = 'rv' + (st.allSeen || st.seen[id] ? ' on' : ''); });
     const FI = this.foldIds ? this.foldIds() : [], fold = {}, foldT = {}, foldTg = {};

@@ -2,7 +2,7 @@
  "_strona": "Main",
  "_title": "Monitoring, alarmy, Wi-Fi, smart home Podhale | PRO-KOM Instalacje",
  "_description": "Monitoring, alarmy, zamki, Wi-Fi, smart home Ampio i nagłośnienie na Podhalu. Projekt, montaż i serwis z Rabki-Zdroju i Zakopanego. 24 mies. gwarancji.",
- "_uwaga": "Zrzut danych z wizualizacji v4.0 (stan początkowy strony, motyw jasny). Teksty = treść do seeda. Klucze UI (cls, on, pick) pomijaj.",
+ "_uwaga": "Zrzut danych z wizualizacji v4.2 (stan początkowy strony, motyw jasny). Teksty = treść do seeda. Klucze UI (cls, on, pick) pomijaj.",
  "dane": {
   "ctaEye": "Zaplanuj instalację",
   "ctaH": "Powiedz, co planujesz. Przyjedziemy i wszystko policzymy.",
@@ -975,6 +975,249 @@
    "sumTown": "—",
    "zone": "—",
    "sumPh": "—"
+  },
+  "arhm": {
+   "news": "Głośniki pod gładzią: dźwięk w salonie bez żadnej maskownicy na suficie.",
+   "pts": [
+    {
+     "ic": "ikona:ruler",
+     "t": "Plan urządzeń na rzutach",
+     "d": "Kamery, czujki, głośniki, Wi-Fi, panele i trasy kabli."
+    },
+    {
+     "ic": "ikona:eye",
+     "t": "Technika, której nie widać",
+     "d": "Głośniki w suficie, szklane panele, TV w zabudowie."
+    },
+    {
+     "ic": "ikona:users",
+     "t": "Jeden opiekun",
+     "d": "Od koncepcji, przez budowę, do serwisu po odbiorze."
+    },
+    {
+     "ic": "ikona:chat",
+     "t": "Zawsze pomożemy",
+     "d": "Nawet jeśli to jedno pytanie do projektu."
+    }
+   ]
+  },
+  "arsc": {
+   "m": "kl",
+   "cls": "ars m-kl",
+   "modes": [
+    {
+     "n": "Gotowy dom",
+     "ic": "ikona:home",
+     "cls": "armode on",
+     "on": "true"
+    },
+    {
+     "n": "Przed tynkami",
+     "ic": "ikona:tool",
+     "cls": "armode",
+     "on": "false"
+    },
+    {
+     "n": "Wszystkie instalacje",
+     "ic": "ikona:layers",
+     "cls": "armode",
+     "on": "false"
+    }
+   ],
+   "lbl": "Tak widzi to klient. Ile instalacji tu jest?",
+   "hs": [
+    {
+     "n": 1,
+     "tr": "translate(194 250)",
+     "st": "--hc:#12B6D8",
+     "cls": "arhs L-kam on",
+     "t": "Kamera pod okapem"
+    },
+    {
+     "n": 2,
+     "tr": "translate(33 472)",
+     "st": "--hc:#F07A6A",
+     "cls": "arhs L-alarm",
+     "t": "Wideodomofon przy furtce"
+    },
+    {
+     "n": 3,
+     "tr": "translate(158 470)",
+     "st": "--hc:#F2B84B",
+     "cls": "arhs L-kd",
+     "t": "Zamek z kodem przy drzwiach"
+    },
+    {
+     "n": 4,
+     "tr": "translate(277 451)",
+     "st": "--hc:#F07A6A",
+     "cls": "arhs L-alarm",
+     "t": "Manipulator alarmu"
+    },
+    {
+     "n": 5,
+     "tr": "translate(631 451)",
+     "st": "--hc:#7BD36A",
+     "cls": "arhs L-smart",
+     "t": "Szklany panel Ampio"
+    },
+    {
+     "n": 6,
+     "tr": "translate(482 404)",
+     "st": "--hc:#F29A4B",
+     "cls": "arhs L-snd",
+     "t": "Głośniki w suficie"
+    },
+    {
+     "n": 7,
+     "tr": "translate(352 406)",
+     "st": "--hc:#5B8CF0",
+     "cls": "arhs L-wifi",
+     "t": "Punkt Wi-Fi w suficie"
+    },
+    {
+     "n": 8,
+     "tr": "translate(478 468)",
+     "st": "--hc:#E86FB0",
+     "cls": "arhs L-scr",
+     "t": "Telewizor w zabudowie"
+    },
+    {
+     "n": 9,
+     "tr": "translate(560 518)",
+     "st": "--hc:#7BD36A",
+     "cls": "arhs L-smart",
+     "t": "Ogrzewanie strefowe"
+    },
+    {
+     "n": 10,
+     "tr": "translate(262 254)",
+     "st": "--hc:#7BD36A",
+     "cls": "arhs L-smart",
+     "t": "Roleta w nadprożu"
+    },
+    {
+     "n": 11,
+     "tr": "translate(490 254)",
+     "st": "--hc:#F29A4B",
+     "cls": "arhs L-snd",
+     "t": "Głośnik w łazience"
+    },
+    {
+     "n": 12,
+     "tr": "translate(728 470)",
+     "st": "--hc:#5B8CF0",
+     "cls": "arhs L-wifi",
+     "t": "Szafa rack"
+    },
+    {
+     "n": 13,
+     "tr": "translate(946 451)",
+     "st": "--hc:#5FD0B0",
+     "cls": "arhs L-ev",
+     "t": "Ładowarka w garażu"
+    },
+    {
+     "n": 14,
+     "tr": "translate(943 394)",
+     "st": "--hc:#12B6D8",
+     "cls": "arhs L-kam",
+     "t": "Kamera wjazdu"
+    },
+    {
+     "n": 15,
+     "tr": "translate(690 118)",
+     "st": "--hc:#B58CF0",
+     "cls": "arhs L-ant",
+     "t": "Antena na dachu"
+    },
+    {
+     "n": 16,
+     "tr": "translate(161 498)",
+     "st": "--hc:#F29A4B",
+     "cls": "arhs L-snd",
+     "t": "Głośnik ogrodowy"
+    },
+    {
+     "n": 17,
+     "tr": "translate(92 566)",
+     "st": "--hc:#8C9CF5",
+     "cls": "arhs L-tel",
+     "t": "Rura pod światłowód"
+    }
+   ],
+   "layers": [
+    {
+     "n": "Monitoring",
+     "st": "--hc:#12B6D8",
+     "cls": "arsys sm on",
+     "on": "true"
+    },
+    {
+     "n": "Alarm i domofon",
+     "st": "--hc:#F07A6A",
+     "cls": "arsys sm on",
+     "on": "true"
+    },
+    {
+     "n": "Kontrola dostępu",
+     "st": "--hc:#F2B84B",
+     "cls": "arsys sm on",
+     "on": "true"
+    },
+    {
+     "n": "Sieć i Wi-Fi",
+     "st": "--hc:#5B8CF0",
+     "cls": "arsys sm on",
+     "on": "true"
+    },
+    {
+     "n": "Smart home",
+     "st": "--hc:#7BD36A",
+     "cls": "arsys sm on",
+     "on": "true"
+    },
+    {
+     "n": "Dźwięk",
+     "st": "--hc:#F29A4B",
+     "cls": "arsys sm on",
+     "on": "true"
+    },
+    {
+     "n": "Ekrany i TV",
+     "st": "--hc:#E86FB0",
+     "cls": "arsys sm on",
+     "on": "true"
+    },
+    {
+     "n": "Anteny",
+     "st": "--hc:#B58CF0",
+     "cls": "arsys sm on",
+     "on": "true"
+    },
+    {
+     "n": "Ładowarka EV",
+     "st": "--hc:#5FD0B0",
+     "cls": "arsys sm on",
+     "on": "true"
+    },
+    {
+     "n": "Teletechnika",
+     "st": "--hc:#8C9CF5",
+     "cls": "arsys sm on",
+     "on": "true"
+    }
+   ],
+   "cur": {
+    "n": 1,
+    "t": "Kamera pod okapem",
+    "v": "Mała kamera w kolorze elewacji. Bez kabla na wierzchu i bez puszki na ociepleniu.",
+    "p": "Miejsce uzgodnione z detalem okapu i element montażowy w warstwie ocieplenia. Kabel sieciowy do szafy rack.",
+    "s": "Kamera IP pobiera zwykle ok. 6–12 W (np. Hikvision ColorVu 8 MP: maks. 6,5 W). Mieści się w PoE 802.3af (13 W dla urządzenia). Kabel do 90 m od szafy.",
+    "svc": "Monitoring",
+    "etap": "Etap: Projekt",
+    "st": "--hc:#12B6D8"
+   }
   }
  }
 }

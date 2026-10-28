@@ -1,7 +1,8 @@
 # prokominstalacje.pl — plan budowy w Claude Code (sesje I0–I15)
 
 Wersja 1.1 · 28.10.2026 (poprawki I0: ADR-I002 „Poprawki I0”, ADR-I003 §6, ADR-I004). Repo `prokom-web`, worktree `D:\PRO-KOM\repos\prokom-instal`, gałęzie `inst/*` (ADR-I001).
-Wzorzec: `docs/design/prokominstalacje/` (prototyp v4.0). Specyfikacja: `docs/strony/prokominstalacje.md`. Stan: `docs/stan/STAN-instalacje.md`.
+Wzorzec: `docs/design/prokominstalacje/` (prototyp v4.2, 32 strony). Specyfikacja: `docs/strony/prokominstalacje.md`. Stan: `docs/stan/STAN-instalacje.md`.
+Strona dla architektów i deweloperów (`/dla-architektow`, decyzja szefa 28.10): sesje W-A, I16a–c — `docs/zadania/prokominstalacje-architekci.md` (prompty), spec `docs/strony/prokominstalacje-architekci.md`, ADR-I005.
 
 ## 0. Rytuał każdej sesji (bez wyjątków)
 1. Terminal w `D:\PRO-KOM\repos\prokom-instal` → `.\scripts\start.ps1` (baza `prokom_web_instalacje`, zależności, migracje). Nowa sesja Claude Code → `/inst-start` (git status, fetch, rebase na `origin/develop`, odczyt STAN).
@@ -32,17 +33,25 @@ Zasady stałe: jedna sesja = jedno zadanie = jedna gałąź = jeden PR. Zmiana w
 | **I11** | Zaplanuj (kreator), Kontakt, Serwis, reguły zapytań Instalacji, maile, `/wyslane` (bez plików w v1) | 2 | I2, I3, SW7 scalone |
 | **I12** | Pełna oferta `/uslugi` (76), Realizacje, O firmie, Poradnik + wpis RODO (PR wsp: adres wpisu per linia) | 1,5 | I4 |
 | **I13** | SEO techniczne, strony prawne, analityka, 301, wydajność, dostępność, e2e całości | 1,5 | I5–I12 |
-| **I14** | telefon: audyt 31 stron × 360/390/414, test na urządzeniach, poprawki | 1 | I13 |
+| **I14** | telefon: audyt 32 stron × 360/390/414, test na urządzeniach, poprawki | 1 | I13 |
+| **W-A** ✅ | wgranie pakietu architektów + dopiski do dokumentów (same pliki, PR `inst/w-architekci`) | 0,25 | I2 |
+| **I16a** | `/dla-architektow` cz. 1: blok `InstArchitects`, `ArchHouseScene`, hero i sekcje 1–6 (`prokominstalacje-architekci.md`) | 2 | I3, I4 |
+| **I16b** | cz. 2: kolekcja `InstArchNews` + seed, Nowe rozwiązania, Checklista, Liczby, Deweloperzy, Przepisy | 1,5 | I16a |
+| **I16c** | cz. 3: Opiekun, formularze, FAQ, sekcja `#architekci` na głównej (`ArchTeaser`), linki, SEO | 1 | I16b, I6, I11 |
 | **I15** | staging → akceptacja szefa → produkcja | 1 | I14 + [SZEF] |
-| | **Razem** | **≈ 27** | |
+| | **Razem** | **≈ 31,5** | |
 
-**Uczciwie o terminie:** 27 wieczorów to sama budowa bez bufora. Równoległa praca nad Biznesem (produkcja), Gaming (20.11) i Software nie skraca tej liczby — rozkłada ją w czasie. Przy 2–3 sesjach Instalacji w tygodniu produkcja wypada w styczniu; przy 4–5 w tygodniu — w połowie grudnia. Kolejność linii ustala szef (Asana). **Kolejność cięcia, jeśli trzeba zdążyć z wersją 1:** Realizacje (zostają placeholdery, bez strony) → Poradnik (sam wpis RODO) → Oferta bez wyszukiwarki literówek → strony obiektów 9–12 (gminy, kościoły, szkoły, budowy) jako druga fala. **Bez cięć:** strona główna z hero, 10 usług, Zaplanuj, Kontakt, Serwis, telefon jak aplikacja, SEO techniczne, strony prawne.
+**Uczciwie o terminie:** ≈ 31,5 wieczoru (27 + 4,75 na stronę dla architektów, W-A + I16a–c) to sama budowa bez bufora. Terminy poniżej liczone dla 27 — I16 przesuwa je o ok. 2 tygodnie przy 2–3 sesjach w tygodniu. Równoległa praca nad Biznesem (produkcja), Gaming (20.11) i Software nie skraca tej liczby — rozkłada ją w czasie. Przy 2–3 sesjach Instalacji w tygodniu produkcja wypada w styczniu; przy 4–5 w tygodniu — w połowie grudnia. Kolejność linii ustala szef (Asana). **Kolejność cięcia, jeśli trzeba zdążyć z wersją 1:** Realizacje (zostają placeholdery, bez strony) → Poradnik (sam wpis RODO) → Oferta bez wyszukiwarki literówek → strony obiektów 9–12 (gminy, kościoły, szkoły, budowy) jako druga fala. **Bez cięć:** strona główna z hero, 10 usług, Zaplanuj, Kontakt, Serwis, telefon jak aplikacja, SEO techniczne, strony prawne.
+
+**I16 (strona dla architektów) — priorytet szefa:** najlepiej zaraz po I11 (I16a można zacząć już po I4). Kolejność cięcia przy braku czasu: najpierw Biblioteka (zostają same linki producentów), potem Doświadczenie łączone z O firmie; przekrój domu, Nowe rozwiązania, Deweloperzy, Przepisy i formularz bez cięć.
 
 Sesje I5 i I7–I10 mogą iść w dowolnej kolejności po I4. I11 można zrobić wcześniej (zaraz po I3), jeśli szef chce szybko zbierać zapytania.
 
 ## 2. Co robi Krystian poza Claude Code (równolegle, w pracy)
 - [SZEF] telefon, e-mail, WhatsApp Instalacji; adres salonu w Zakopanem; ceny „od” (albo decyzja: bez cen); zgoda na realizacje i zdjęcia; opinie Google; autoryzacja Ampio — przed I13.
 - [Krystian] treść polityki prywatności, cookies, deklaracji dostępności (czat → `docs/tresci/`) — przed I13; mapa 301 (czat → `docs/tresci/prokominstalacje-301.md`) — przed I13; potwierdzenie danych Elzab — przed I9; zakup/konfiguracja domeny `prokominstalacje.pl` na VPS — przed I15.
+- [SZEF] strona dla architektów: opiekun (imię, zdjęcie, telefon, e-mail architekci@), marki spoza oferty, partner Sonos, warunki dla pracowni, bezpłatna konsultacja, pokaz w salonie, realizacje z projektem architekta, autoryzacje — **przed I16c** (`prokominstalacje-architekci.md` §2).
+- [czat] treść PDF „Checklista projektanta” (`docs/tresci/`) — przed I16b; wpisy Poradnika o projektowaniu — po I12; ponowna weryfikacja przepisów na `/dla-architektow` — przed I13.
 - Po każdej sesji: przegląd PR na telefonie (GitHub tylko do odczytu w pracy), lista uwag do czatu.
 
 ## 3. Prompty sesji (kopiuj w całości)
@@ -104,6 +113,7 @@ DoD: migracje w repo (bez push), lint, typecheck, testy, CI.
 Sesja I3 (Instalacje) — powłoka. Przeczytaj: MOBILE-APLIKACJA.md (cały), KOMPONENTY.md §1, ADR-I003, spec §4. Wzorzec: prototyp/start.html, prototyp/monitoring.html, zrodlo/header.html, zrodlo/footer.html, zrodlo/common.js (common(), mg, BN, openSheet, _onS, toggleTheme), stany-telefonu/*.webp.
 Decyzja z I0 (ADR-I004): BottomSheet → wspólny src/components/BottomSheet.tsx z progiem jako propem (osobny mały PR inst/wsp-arkusz, gdy Software nie pracuje na tym pliku; testy Software zielone), 3 zakładki = treść Instalacji; TabBar → własny src/sites/instalacje/components/TabBar.tsx; logika chowania nagłówka z PhoneLayer — sprawdź, czy da się wydzielić hook, domyślnie własna.
 Zakres: TopBar, Header + MegaMenu (most nad panelem, opóźnienie 280 ms, klik przełącza, Esc, focus-trap), MobileHeader (chowany przy przewijaniu), BottomTabBar (5 kart, stan aktywny), BottomSheet + MenuSheet (3 zakładki, gest w dół, Esc, wstecz, blokada przewijania), ThemeToggle, AnchorsBar, CtaBand, Footer, strona 404, manifest + theme-color, View Transitions.
+Nawigacja: pozycja „Dla architektów” (desktop po „Dla kogo ▾”, w kolorze akcentu; w mega „Dla kogo” link „Architekt lub projektant? Współpraca →” w panelu promo; w arkuszu „Więcej” na telefonie pierwsza; w stopce „Firma” pierwsza) — z dane/nawigacja.ts, ADR-I005 §4, wzorzec prototyp/*.html v4.2. Link prowadzi do /dla-architektow (strona powstaje w I16a).
 Najpierw: node docs/design/prokominstalacje/narzedzia/zrzuty-wzorca.mjs start i monitoring. Na koniec porównaj nagłówek (#naglowek), stopkę (#stopka) przez porownaj.mjs (start / i monitoring /monitoring, 1440 i 390, oba motywy), a elementy przyklejone (dolny pasek, arkusz w 3 zakładkach, schowany/wracający nagłówek) zrzutem ekranu 390×844 obok stany-telefonu/02–07.
 Testy e2e: mega menu (najazd, przejście kursorem na pozycję, klik działa), arkusz (otwórz każdą zakładką, zamknij ×, tłem, Esc), nagłówek chowa się i wraca, brak poziomego przewijania przy 360/390/414. Test na prawdziwym telefonie przed scaleniem.
 DoD: docs/strony/prokominstalacje.md §10 + MOBILE-APLIKACJA.md §10 + SEO strony (title, description, JSON-LD); /inst-koniec przed /pr.
@@ -113,6 +123,7 @@ DoD: docs/strony/prokominstalacje.md §10 + MOBILE-APLIKACJA.md §10 + SEO stron
 ```
 Sesja I4 (Instalacje). Przeczytaj KOMPONENTY.md §2 i §4 (Anteny), ADR-I003 §2. Wzorzec: zrodlo/inc/*.html, zrodlo/pages/Anteny.*, prototyp/anteny.html, seed strony-zrzut/Anteny.json.
 Zakres: PageHero (slot na widżet), GuaranteeSection, Packages (cena wg InstalacjeSettings.pokazCeny), PriceFactors, Faq (+ FAQPage JSON-LD), Related (+ „Podobne obiekty”), Fold (telefon), useReveal, useInterval z pauzą. Potem pełna strona /anteny: dane z InstServices + src/sites/instalacje/dane/anteny.ts, widżety (ustawianie anteny, quiz), SEO (title, description, Service + BreadcrumbList).
+Sekcja „Powiązane” przyjmuje opcjonalny link dodatkowy (I16c doda „Projektujesz? Współpraca dla architektów →”).
 Porównanie: porownaj.mjs anteny /anteny — 1440 i 390, jasny i ciemny; każda sekcja zgodna. Telefon wg MOBILE-APLIKACJA §10.
 DoD: docs/strony/prokominstalacje.md §10 + MOBILE-APLIKACJA.md §10 + SEO strony (title, description, JSON-LD); /inst-koniec przed /pr.
 ```
@@ -130,7 +141,8 @@ DoD: docs/strony/prokominstalacje.md §10 + MOBILE-APLIKACJA.md §10 + SEO stron
 ```
 Sesja I6 (Instalacje). Wzorzec: prototyp/start.html, Main.body.html (#dla-kogo, #uslugi, #realizacje, #gory, #proces, #serwis, #faq, #zaplanuj), Main.js, KOMPONENTY.md §3.
 Zakres: ForWhoGrid, ServicesGrid (karty z mini-ilustracjami, kolory usług), Realizations (placeholdery), MountainsSection, ProcessSteps, ServiceTeaser, Faq, QuickPlanForm (walidacja, zgoda, antyspam, zapis przez adapter: źródło inst-glowna, uslugi[], obiekt, miejscowosc), SectionRail (≥ 1400 px), JSON-LD Organization + LocalBusiness + WebSite.
-Porównanie całej strony głównej 1440/390 × jasny/ciemny. e2e: wysłanie mini-formularza zapisuje zapytanie z tenant=instalacje.
+Sekcja #architekci (po #uslugi) i jej pozycja w szynie powstają w I16c (ArchTeaser, ADR-I005 §5): w I6 zostaw w InstHome miejsce (zaślepka zwracająca null). Jeśli I16c jest już scalone — wstaw gotowy komponent.
+Porównanie całej strony głównej 1440/390 × jasny/ciemny (bez #architekci, jeśli I16c jeszcze nie scalone). e2e: wysłanie mini-formularza zapisuje zapytanie z tenant=instalacje.
 DoD: docs/strony/prokominstalacje.md §10 + MOBILE-APLIKACJA.md §10 + SEO strony (title, description, JSON-LD); /inst-koniec przed /pr.
 ```
 
@@ -187,12 +199,13 @@ DoD: docs/strony/prokominstalacje.md §10 + MOBILE-APLIKACJA.md §10 + SEO stron
 ### I13 — SEO, prawo, wydajność, jakość
 ```
 Sesja I13 (Instalacje). Przeczytaj docs/strony/prokominstalacje-SEO.md w całości.
-Zakres: meta i OG dla 31 stron (z panelu, domyślne z seeda), JSON-LD wg §2.3 (walidacja), sitemap.xml i robots.txt tenanta, llms.txt, canonical, 301 z docs/tresci/prokominstalacje-301.md (wtyczka Redirects), strony prawne z docs/tresci/ (polityka prywatności, cookies, deklaracja dostępności) + linki w stopce i przy formularzach, analityka bez cookies (wzorzec repo, zdarzenia z SEO §5), nagłówki bezpieczeństwa wg repo, test e2e „brak placeholderów [ ] i list źródeł na stronach”, Lighthouse mobile ≥ 90 na 5 stronach z SEO §6 (wyniki w PR).
+Zakres: meta i OG dla 32 stron (z panelu, domyślne z seeda), JSON-LD wg §2.3 (walidacja), sitemap.xml i robots.txt tenanta, llms.txt, canonical, 301 z docs/tresci/prokominstalacje-301.md (wtyczka Redirects), strony prawne z docs/tresci/ (polityka prywatności, cookies, deklaracja dostępności) + linki w stopce i przy formularzach, analityka bez cookies (wzorzec repo, zdarzenia z SEO §5), nagłówki bezpieczeństwa wg repo, test e2e „brak placeholderów [ ] i list źródeł na stronach”, Lighthouse mobile ≥ 90 na 5 stronach z SEO §6 (wyniki w PR).
+Strona /dla-architektow (prokominstalacje-architekci.md §1): przepisy — sprawdź stan nowych WT, ustawy GIA, wdrożenia EPBD i ustawy o najmie (weryfikacja w czacie przed sesją), zaktualizuj przepisyStan i plik źródeł; żadna opublikowana pozycja InstArchNews nie zawiera „[SZEF” ani „[CENA”.
 ```
 
 ### I14 — telefon: audyt końcowy
 ```
-Sesja I14 (Instalacje). Przeczytaj MOBILE-APLIKACJA.md §10. Przejdź wszystkie 31 stron przy 360, 390 i 414 px w obu motywach: poziome przewijanie, cele dotykowe, dolny pasek i arkusz, chowany nagłówek, pasek kotwic, sekcje zwinięte, formularze z klawiaturą, karuzele, widżety dotykiem. Skrypt e2e, który to sprawdza automatycznie dla wszystkich adresów. Poprawki w tej samej gałęzi. Raport w PR: tabela strona × szerokość.
+Sesja I14 (Instalacje). Przeczytaj MOBILE-APLIKACJA.md §10. Przejdź wszystkie 32 strony (z /dla-architektow; wzorzec telefonu dla niej: stany-telefonu/21–25) przy 360, 390 i 414 px w obu motywach: poziome przewijanie, cele dotykowe, dolny pasek i arkusz, chowany nagłówek, pasek kotwic, sekcje zwinięte, formularze z klawiaturą, karuzele, widżety dotykiem. Skrypt e2e, który to sprawdza automatycznie dla wszystkich adresów. Poprawki w tej samej gałęzi. Raport w PR: tabela strona × szerokość.
 ```
 
 ### I15 — staging i produkcja

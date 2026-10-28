@@ -9,7 +9,7 @@ Linia: **PRO-KOM Instalacje** (projekt, montaż i serwis instalacji niskoprądow
 
 **Cel biznesowy:** zapytania o instalacje (monitoring, alarmy, kontrola dostępu, sieci i Wi-Fi, teletechnika, anteny, smart home Ampio, nagłośnienie, ekrany, ładowarki EV) od klientów z Podhala i Małopolski. Miara sukcesu: liczba wysłanych formularzy „Zaplanuj instalację” i telefonów oraz pozycje w Google na frazy lokalne (§9 i `docs/strony/prokominstalacje-SEO.md`).
 
-**Odbiorcy:** właściciele domów i domków letniskowych (także mieszkający daleko), pensjonaty, apartamenty i hotele, restauracje, sklepy, firmy i hale, kościoły, szkoły, gminy, deweloperzy i wykonawcy budów.
+**Odbiorcy:** właściciele domów i domków letniskowych (także mieszkający daleko), pensjonaty, apartamenty i hotele, restauracje, sklepy, firmy i hale, kościoły, szkoły, gminy, deweloperzy i wykonawcy budów, a także **architekci, projektanci wnętrz, deweloperzy i generalni wykonawcy jako partnerzy** (osobna strona `/dla-architektow`, spec `prokominstalacje-architekci.md`, ADR-I005).
 
 **Zasada strony:** „Dobieramy pod obiekt, nie pod markę”. Strona pokazuje, co instalacja robi w konkretnym obiekcie (interaktywne sceny, kalkulatory, symulatory), a nie katalog sprzętu.
 
@@ -31,25 +31,25 @@ Linia: **PRO-KOM Instalacje** (projekt, montaż i serwis instalacji niskoprądow
 
 ## 3. Mapa strony i adresy
 
-31 stron. Pełna lista sekcji każdej strony: `docs/design/prokominstalacje/MAPA-STRON.md`.
+32 strony (od v4.2, 28.10.2026: `/dla-architektow`). Pełna lista sekcji każdej strony: `docs/design/prokominstalacje/MAPA-STRON.md`.
 
 | Grupa | Strony i adresy |
 |---|---|
 | Główna | `/` |
 | Usługi (10) | `/monitoring` · `/alarmy` · `/kontrola-dostepu` · `/sieci-wifi` · `/teletechnika` · `/anteny` · `/smart-home` · `/naglosnienie` · `/ekrany` · `/ladowarki-ev` |
 | Dla kogo (12) | `/dla-kogo/dom` · `/dla-kogo/apartamenty` · `/dla-kogo/pensjonaty` · `/dla-kogo/hotele` · `/dla-kogo/restauracje` · `/dla-kogo/sklepy` · `/dla-kogo/firmy` · `/dla-kogo/koscioly` · `/dla-kogo/szkoly` · `/dla-kogo/gminy` · `/dla-kogo/deweloperzy` · `/dla-kogo/budowy` |
-| Pozostałe | `/uslugi` (pełna oferta, 76 rozwiązań) · `/zaplanuj` · `/realizacje` · `/serwis` · `/poradnik` · `/poradnik/monitoring-a-rodo` · `/o-firmie` · `/kontakt` |
+| Pozostałe | `/uslugi` (pełna oferta, 76 rozwiązań) · `/zaplanuj` · `/realizacje` · `/serwis` · `/poradnik` · `/poradnik/monitoring-a-rodo` · `/o-firmie` · `/kontakt` · **`/dla-architektow`** (Dla architektów i deweloperów) |
 | Prawne (do zrobienia w I13) | `/polityka-prywatnosci` · `/cookies` · `/deklaracja-dostepnosci` · 404 · `/wyslane` (po wysłaniu formularza, pomiar konwersji) |
 
 - Adresy usług bez prefiksu (krótkie, mocne frazy). Adresy obiektów pod `/dla-kogo/`. Polskie słowa bez znaków diakrytycznych, małe litery, myślniki.
 - Prototyp ma pliki o nazwach `dom.html`, `hotele.html` itd. — to tylko nazwy plików wzorca, adresem publicznym jest tabela wyżej.
-- **Routing domen (repo):** `proxy.ts` przepisuje host na `/<host>/<ścieżka>`, segment `[domain]` wybiera tenanta. Strony = dokumenty `Pages` z blokami linii (slug unikalny w ramach tenanta, więc `/kontakt` czy `/o-firmie` Instalacji nie kolidują z Biznesem). Trasy statyczne grup linii są wspólne dla wszystkich domen i rezerwują adres (`RESERVED_PAGE_SLUGS`): **`/oferta` należy do Biznesu, `/dziekujemy` i `/rozwiazania` do Software** — dlatego pełna oferta Instalacji to **`/uslugi`**, a strona po wysłaniu formularza **`/wyslane`**. Instalacje dodają tylko trzy trasy linii: `/dla-kogo/[obiekt]`, `/poradnik/[slug]` i `/wyslane` (noindex, poza sitemap — `Pages` nie ma przełącznika noindex). Szczegóły: ADR-I002 §0 i „Poprawki I0”.
+- **Routing domen (repo):** `proxy.ts` przepisuje host na `/<host>/<ścieżka>`, segment `[domain]` wybiera tenanta. Strony = dokumenty `Pages` z blokami linii (slug unikalny w ramach tenanta, więc `/kontakt` czy `/o-firmie` Instalacji nie kolidują z Biznesem). Trasy statyczne grup linii są wspólne dla wszystkich domen i rezerwują adres (`RESERVED_PAGE_SLUGS`): **`/oferta` należy do Biznesu, `/dziekujemy` i `/rozwiazania` do Software** — dlatego pełna oferta Instalacji to **`/uslugi`**, a strona po wysłaniu formularza **`/wyslane`**. Instalacje dodają tylko trzy trasy linii: `/dla-kogo/[obiekt]`, `/poradnik/[slug]` i `/wyslane` (noindex, poza sitemap — `Pages` nie ma przełącznika noindex). Szczegóły: ADR-I002 §0 i „Poprawki I0”. `/dla-architektow` to zwykła strona `Pages` z blokiem `InstArchitects` — Instalacje mają **11 bloków** (ADR-I005).
 
 ## 4. Nawigacja
 
 ### Desktop (≥ 1101 px)
 - Górny pasek: godziny na żywo („Otwarte teraz, do 17:00” / „Zamknięte · otwieramy o 9:00”), „Tech · naprawy sprzętu” (link prokomserwis.pl), „Zgłoś awarię” → `/serwis#zglos`, telefon.
-- Menu: **Usługi ▾** (mega menu: 10 usług w 3 kolumnach Bezpieczeństwo / Sieci i technika / Komfort i obraz, każda z ikoną i kolorem usługi, podpisem; na dole „Pełna oferta: 76 rozwiązań”) · **Dla kogo ▾** (12 obiektów w 4 grupach: Dom i noclegi / Firmy / Instytucje / Budownictwo) · Realizacje · Serwis · Poradnik · O firmie · Kontakt | przełącznik motywu | „Zaplanuj instalację”.
+- Menu: **Usługi ▾** (mega menu: 10 usług w 3 kolumnach Bezpieczeństwo / Sieci i technika / Komfort i obraz, każda z ikoną i kolorem usługi, podpisem; na dole „Pełna oferta: 76 rozwiązań”) · **Dla kogo ▾** (12 obiektów w 4 grupach: Dom i noclegi / Firmy / Instytucje / Budownictwo; w panelu promocyjnym link „Architekt lub projektant? Współpraca →”) · **Dla architektów** (link w kolorze akcentu, ADR-I005 §4) · Realizacje · Serwis · Poradnik · O firmie · Kontakt | przełącznik motywu | „Zaplanuj instalację”.
 - **Mega menu musi mieć niewidoczny „most”** nad panelem i opóźnienie zamykania 250–300 ms, klik przełącza (otwarte ponad 600 ms → zamyka), Esc zamyka, focus-trap w panelu. To był realny błąd w wizualizacji — test e2e: najazd na „Usługi”, przesunięcie kursora na pozycję, klik działa.
 - Na stronie głównej po lewej szyna sekcji (≥ 1400 px), pojawia się po przewinięciu 400 px, podświetla aktywną sekcję.
 - Na podstronach pod hero przyklejony pasek kotwic sekcji (pod nagłówkiem).
@@ -61,6 +61,7 @@ Nagłówek z przyciskiem menu; menu jako arkusz (ten sam komponent co na telefon
 Szczegóły i definicja ukończenia: `docs/design/prokominstalacje/MOBILE-APLIKACJA.md`. W skrócie:
 - Kompaktowy nagłówek (znak, motyw, telefon, menu), **chowany przy przewijaniu w dół, wraca przy przewijaniu w górę**.
 - **Dolny pasek kart:** Start · Usługi · **Zaplanuj** (wyróżniony środek) · Dla kogo · Więcej. Usługi, Dla kogo i Więcej otwierają **arkusz od dołu** z trzema zakładkami.
+- Arkusz „Więcej” zaczyna się od pozycji „Dla architektów”. Stopka (kolumna „Firma”): pierwsza pozycja „Dla architektów”.
 - Interaktywne sekcje (sceny, kalkulatory) działają dotykiem; długie sekcje zwinięte (`fold.json`).
 
 ## 5. Strony — zakres i zachowanie
@@ -69,7 +70,7 @@ Dokładny wygląd: prototyp. Dokładne treści: `seed/` (zrzut z wizualizacji). 
 
 ### 5.1 Strona główna `/`
 - **Hero „Twój obiekt na żywo”** — scena SVG obiektu (dom, pensjonat, hotel, restauracja, sklep, firma) w trybie dzień/noc/zima, warstwy instalacji do włączania (kamery, Wi-Fi, alarm, dostęp, smart home, EV, nagłośnienie, ekrany), podgląd kamery „REC”, panel „Na żywo · <obiekt>” ze zdarzeniami, przycisk „Zaplanuj instalację” przenosi wybrany obiekt i warstwy do kreatora (`/zaplanuj#obiekt=pens&uslugi=kam,wifi`). Autoodtwarzanie zmienia obiekty, dopóki użytkownik nie dotknie sceny. Na telefonie scena nad tekstem, tło sekcji zgodne z porą sceny (noc ciemne, dzień/zima jasne) niezależnie od motywu strony.
-- Dalej: Dla kogo (12 kafli), Usługi (10 kart z mini-ilustracjami), Realizacje, „Robimy to w górach” (mróz, burze, słabe łącze…), Jak pracujemy (6 kroków), Serwis i przeglądy, FAQ, formularz „Zaplanuj instalację · 2 minuty” (usługi, obiekt, miejscowość, telefon, zgoda).
+- Dalej: Dla kogo (12 kafli), Usługi (10 kart z mini-ilustracjami), Realizacje, „Robimy to w górach” (mróz, burze, słabe łącze…), Jak pracujemy (6 kroków), **Dla architektów, projektantów i deweloperów** (`#architekci`, przekrój domu w wersji kompaktowej + karta „Nowość” — budowana w I16c, ADR-I005 §5), Realizacje… — kolejność wg `MAPA-STRON.md`: Dla kogo, Usługi, Architekci, Realizacje, Góry, Jak pracujemy, Serwis i przeglądy, FAQ, formularz „Zaplanuj instalację · 2 minuty” (usługi, obiekt, miejscowość, telefon, zgoda).
 
 ### 5.2 Strony usług (10)
 Wspólny szkielet (komponenty w `zrodlo/inc/`): hero z ilustracją lub widżetem po prawej (`pheroA/pheroB`), pasek kotwic, sekcje własne usługi, **„Gwarancja i serwis”** (`odbsec`: gwarancja 24 mies., odpowiedź do 24 h w dni robocze, „Masz już instalację?” — przejęcie i odzyskanie dostępu), **przykładowe zestawy** (`pkgs`), **„Od czego zależy cena”** (`cena`, przycisk np. „Wyślij zdjęcia do wyceny”), **FAQ** (`faqsec`), **powiązane** (`relsec`: usługi + „Podobne obiekty”).
@@ -95,6 +96,7 @@ SVG przekrojów: gotowe w `zrodlo/pages/Seg*.body.html` (wygenerowane z `zrodlo/
 - **Realizacje:** filtr po usłudze i obiekcie; na start placeholdery do czasu zdjęć i zgód (szef). Realizacje z seeda mają prawdziwe nazwy klientów — importowane jako wersje robocze bez zgody, niewidoczne (ADR-I002 §2).
 - **Serwis:** formularz zgłoszenia (kto, system, objaw, pilność) — kotwica `#zglos`; przeglądy, przejęcie instalacji.
 - **Poradnik + wpis „Monitoring a RODO”:** wpis z quizem; na końcu zdanie „To nie jest porada prawna”. Wpisy w kolekcji wpisów repo (tenant `instalacje`).
+- **Dla architektów i deweloperów `/dla-architektow`:** cała specyfikacja w `prokominstalacje-architekci.md` (18 sekcji: przekrój domu z 17 punktami, etapy projektu, checklista, liczby do projektu, 10 instalacji, nowe rozwiązania z kolekcji `InstArchNews`, deweloperzy, przepisy 2026–2028, doświadczenie, biblioteka, opiekun, formularz „Wyślij rzuty”). Sesje I16a–c.
 - **O firmie, Kontakt:** dane z ustawień (telefon, e-mail, adresy salonów Rabka i Zakopane, godziny), formularz kontaktowy z walidacją.
 
 ## 6. Formularze i zapytania

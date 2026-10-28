@@ -37,6 +37,7 @@ Jak przenosić: ADR-I003 §2. Ścieżki docelowe są propozycją — I0 dopasowu
 | `MountainsSection` | `#gory` | mróz, burze, łącze… |
 | `ProcessSteps` | `#proces` | 6 kroków |
 | `ServiceTeaser` | `#serwis` | serwis i przeglądy |
+| `ArchTeaser` (**I16c**) | `#architekci` (po `#uslugi`; `Main.js`: `arhm` teksty, `arsc` stan przekroju) | sekcja dla architektów: kompaktowy `ArchHouseScene` z autoprzełączaniem trybów, 3 nowe rozwiązania (`featured` z `InstArchNews`), przejście do `/dla-architektow` — ADR-I005 §5, `ARCHITEKCI.md` |
 | `QuickPlanForm` | `#zaplanuj` (`kSvc, kObj, kTown, kPh, kCons…`) | mini-formularz → zapytanie `inst-glowna` |
 
 ## 4. Widżety usług (`src/sites/instalacje/widzety/<usluga>/`) — sesje I7–I9
@@ -77,3 +78,6 @@ Stan początkowy = `initState()` z pliku źródła; logika = `page()`; timery = 
 
 ## 7. Ikony
 `zrodlo/common.js → icons()` — ok. 90 ścieżek SVG (24×24, obrys). Przenieść do `src/sites/instalacje/icons.ts` jako mapę `nazwa → d`; komponent `<Icon name size strokeWidth />`. Ikony w seedzie są zapisane jako `ikona:<nazwa>` (np. `SV[].ic = "ikona:cam"`) — nazwa = klucz w `icons()`. `[svg-path]` zostaje tylko tam, gdzie to geometria rysunku (sceny), nie ikona.
+
+## 8. Dla architektów (`/dla-architektow`) — sesje I16a–c
+Pełna tabela komponentów, stanów i interakcji: **`ARCHITEKCI.md`** (blok `InstArchitects`, `ArchHouseScene` wspólny z `ArchTeaser` z §3, karty `InstArchNews`, checklista, formularze). Spec: `docs/strony/prokominstalacje-architekci.md`, model: ADR-I005.

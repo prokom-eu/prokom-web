@@ -165,5 +165,15 @@
   "przepisy",
   "gory",
   "faq"
+ ],
+ "Architekci": [
+  "problemy:700",
+  "checklista:760",
+  "liczby:900",
+  "przepisy:900",
+  "doswiadczenie:760",
+  "biblioteka:700",
+  "zasady:640",
+  "faq"
  ]
 }

@@ -6,7 +6,8 @@ Treści stron wyciągnięte automatycznie z wizualizacji v4.0 (27.10.2026) — *
 |---|---|---|
 | `wspolne.json` | `K` dane kontaktowe (placeholdery `[TELEFON]` itd.), `SV` 10 usług, `SG` 12 obiektów, `HU` kolory usług, `megaCols`/`segCols` menu, `bnav`/`mmore`/`mtabs` nawigacja telefonu, `offerN` liczby oferty | ustawienia firmy/tenanta, `InstServices`, `InstObjects`, nawigacja w kodzie |
 | `obiekty/<klucz>.json` (12) | pełne dane stron „Dla kogo”: `hero`, `hs` (opisy punktów sceny), `pr`, `prob`, `day`, `law`, `gory`, `real`, `prep`, `pkgs`, `faq`, `rel`, `anc`, `cta`, `fold`, `title`, `desc` | `InstObjects` |
-| `strony-zrzut/<Strona>.json` (31) | stan początkowy każdej strony (motyw jasny): wszystkie teksty i dane sekcji; `_title`, `_description` = SEO | `InstServices` (hero, `pkgs`, `cena`, `faq`, `rel`, `segRel`, `sx`, cta) + pliki danych widżetów `src/sites/instalacje/dane/*.ts` |
+| `strony-zrzut/<Strona>.json` (32; v4.2: nowy `Architekci.json`, `Main.json` z `arhm` — teksty sekcji `#architekci` — i `arsc` — stan przekroju) | stan początkowy każdej strony (motyw jasny): wszystkie teksty i dane sekcji; `_title`, `_description` = SEO | `InstServices` (hero, `pkgs`, `cena`, `faq`, `rel`, `segRel`, `sx`, cta) + pliki danych widżetów `src/sites/instalacje/dane/*.ts` |
+| `architekci/` | strona `/dla-architektow` (v4.2, 28.10.2026): `strona.json` (sekcje), `przekroj.json` (17 punktów z liczbami), `nowe-rozwiazania.json` (20 pozycji `InstArchNews`) — opis w `architekci/README.md`; import w I16a–c (ADR-I005), **nie w `seed:instalacje` z I2** | `dane/architekci.ts`, `dane/przekroj.ts`, `InstArchNews` |
 | `oferta-76.json` | **pełna oferta: 76 rozwiązań w 10 obszarach** (z `common.js → offer()`), słownik kategorii filtra | `InstSolutions` |
 | `adresy.json` | mapa `X.dc.html` / `slug.html` → adres publiczny; `zdjecia`: `ev/*.webp` → `/instalacje/ev/*.webp` | zamiana linków i ścieżek przy imporcie |
 

@@ -1,0 +1,1361 @@
+{
+ "_uwaga": "Treści strony /dla-architektow z wizualizacji v4.2. Ikony jako ikona:<nazwa> (klucz w icons()). Znaczniki [SZEF: …] = do uzupełnienia w panelu, nie na produkcji.",
+ "dlaKogo": [
+  {
+   "k": "arch",
+   "n": "Architekt",
+   "ic": "ikona:ruler",
+   "h": "Projekt, który obroni się na budowie.",
+   "d": "Technikę wpisujesz w projekt raz, w odpowiednim miejscu. Bez improwizacji ekipy i bez kucia po tynkach.",
+   "pts": [
+    "Plan urządzeń na Twoich rzutach (kamery, czujki, głośniki, Wi-Fi, panele)",
+    "Wytyczne dla branży elektrycznej: szafa rack, przepusty, moc pod ładowarkę",
+    "Opis systemów prostym językiem dla inwestora",
+    "Konsultacja na etapie koncepcji, zanim zamkniesz projekt"
+   ],
+   "cta": "Wyślij rzuty",
+   "href": "#wyslij"
+  },
+  {
+   "k": "wn",
+   "n": "Projektant wnętrz",
+   "ic": "ikona:eye",
+   "h": "Technika, której nie widać we wnętrzu.",
+   "d": "Dobieramy urządzenia do wnętrza, a nie wnętrze do urządzeń: maskownice, kolor szkła paneli, zabudowy, głośniki pod gładzią.",
+   "pts": [
+    "Głośniki w suficie i pod gładzią, maskownice do malowania",
+    "Szklane panele Ampio: kolor, ikony i podpisy pod projekt",
+    "Telewizor w zabudowie bez kabli, sprzęt w szafie",
+    "Pokaz próbek w Twojej pracowni"
+   ],
+   "cta": "Zobacz rozwiązania",
+   "href": "#nowosci"
+  },
+  {
+   "k": "dev",
+   "n": "Deweloper",
+   "ic": "ikona:apt",
+   "h": "Budynek gotowy na odbiór i na sprzedaż.",
+   "d": "Teletechnika budynku z pomiarami, części wspólne, garaż z ładowaniem i opcja smart apartamentu. Jeden wykonawca niskoprądówki.",
+   "pts": [
+    "Instalacja telekomunikacyjna: punkt styku, skrzynki w lokalach, światłowód",
+    "Wideodomofony, kontrola dostępu do klatek i garażu, monitoring",
+    "Ładowarki i przygotowanie miejsc postojowych",
+    "Pomiary i dokumentacja do odbioru"
+   ],
+   "cta": "Zakres dla dewelopera",
+   "href": "#deweloperzy"
+  },
+  {
+   "k": "gw",
+   "n": "Generalny wykonawca",
+   "ic": "ikona:crane",
+   "h": "Podwykonawca, który trzyma harmonogram.",
+   "d": "Wchodzimy na budowę w uzgodnionych oknach: przed tynkami i przy wykończeniu. Jedna osoba kontaktowa dla kierownika budowy.",
+   "pts": [
+    "Okablowanie i puszki przed tynkami, zdjęcia tras",
+    "Koordynacja z elektrykiem i ekipą wykończeniową",
+    "Montaż, uruchomienie i szkolenie użytkownika",
+    "Serwis po odbiorze, bez telefonów do Ciebie"
+   ],
+   "cta": "Umów wizję na budowie",
+   "href": "#wyslij"
+  }
+ ],
+ "problemy": [
+  {
+   "ic": "ikona:tool",
+   "t": "Technika dokładana po tynkach",
+   "d": "Kamera „na kołkach”, kabel w listwie, kucie świeżej gładzi tydzień przed przeprowadzką.",
+   "a": "Trasy, puszki i ramki planujemy na rzutach. Po tynkach już nic nie kujemy."
+  },
+  {
+   "ic": "ikona:eye",
+   "t": "Urządzenia psują wnętrze",
+   "d": "Rząd włączników, biała kolumna w rogu, czujka na środku sufitu, kable pod telewizorem.",
+   "a": "Dobieramy urządzenia do projektu: maskownice, kolory, szkło paneli, zabudowy."
+  },
+  {
+   "ic": "ikona:chat",
+   "t": "Klient chce „smart”, ale nie wie co",
+   "d": "Inwestor pyta o inteligentny dom, a na rozmowę o protokołach nie ma czasu ani Ty, ani on.",
+   "a": "Rozmawiamy z inwestorem prostym językiem i zamieniamy to na listę systemów do projektu."
+  },
+  {
+   "ic": "ikona:users",
+   "t": "Sześć firm, nikt za całość",
+   "d": "Osobno alarm, kamery, sieć, antena, audio i smart home. Każdy kładzie swoje kable.",
+   "a": "Jeden wykonawca 10 instalacji i jeden opiekun od koncepcji do serwisu."
+  }
+ ],
+ "bravas": [
+  {
+   "b": "28%",
+   "s": "architektów i wykonawców wciąga integratora już na etapie koncepcji"
+  },
+  {
+   "b": "31%",
+   "s": "potrzebuje łatwiejszego dostępu do wykwalifikowanych integratorów"
+  },
+  {
+   "b": "30%",
+   "s": "szuka bardziej rzetelnych wykonawców instalacji"
+  }
+ ],
+ "etapy": [
+  {
+   "t": "Koncepcja",
+   "s": "Najlepszy moment",
+   "best": true,
+   "rob": [
+    "Rozmowa z Tobą i inwestorem o potrzebach: bezpieczeństwo, sieć, dźwięk, sterowanie, ładowanie auta.",
+    "Lista systemów i orientacyjny zakres w wariantach."
+   ],
+   "dost": [
+    "Lista instalacji z tym, co zmieniają w projekcie: sufity, wnęki, pomieszczenie techniczne."
+   ],
+   "inw": [
+    "Od początku wie, co dostanie. Bez dopłat „bo tego nie było w projekcie”."
+   ]
+  },
+  {
+   "t": "Projekt budowlany",
+   "s": "Też dobry moment",
+   "best": true,
+   "rob": [
+    "Miejsce na szafę rack: wentylacja, osobny obwód, dostęp serwisowy.",
+    "Przepusty, kanalizacja teletechniczna, przyłącze światłowodu, moc pod ładowarkę."
+   ],
+   "dost": [
+    "Wytyczne dla branży elektrycznej i teletechnicznej do włączenia w projekt."
+   ],
+   "inw": [
+    "Przyłącza i moc zaplanowane raz, bez rozkopywania podjazdu po latach."
+   ]
+  },
+  {
+   "t": "Projekt wnętrz",
+   "s": "Wykonawczy",
+   "best": false,
+   "rob": [
+    "Rozmieszczenie urządzeń na rzutach: kamery, czujki, głośniki, punkty Wi-Fi, panele, ekrany.",
+    "Wysokości montażu, trasy kabli, dobór wykończeń: kolor maskownic, szkło paneli."
+   ],
+   "dost": [
+    "Rzuty z naniesionymi urządzeniami i zestawienie. [SZEF: PDF czy też DWG]"
+   ],
+   "inw": [
+    "Technika zgodna z projektem wnętrza, a nie dobrana na budowie."
+   ]
+  },
+  {
+   "t": "Przed tynkami",
+   "s": "Stan surowy",
+   "best": false,
+   "rob": [
+    "Okablowanie, puszki, korytka, ramki pod głośniki sufitowe.",
+    "Pomiary torów i zdjęcia tras przed zakryciem."
+   ],
+   "dost": [
+    "Termin wejścia uzgodniony z wykonawcą i kierownikiem budowy."
+   ],
+   "inw": [
+    "Wie, gdzie biegnie każdy kabel, także za 10 lat."
+   ]
+  },
+  {
+   "t": "Wykończenie",
+   "s": "Montaż i uruchomienie",
+   "best": false,
+   "rob": [
+    "Montaż urządzeń, programowanie scen, strojenie dźwięku, pomiar zasięgu Wi-Fi."
+   ],
+   "dost": [
+    "Koordynacja z wykonawcą wnętrz. Nie wchodzimy na świeżą gładź bez uzgodnienia."
+   ],
+   "inw": [
+    "Wszystko działa w dniu przeprowadzki."
+   ]
+  },
+  {
+   "t": "Odbiór i serwis",
+   "s": "Zostajemy po montażu",
+   "best": false,
+   "rob": [
+    "Szkolenie inwestora, dokumentacja w zakresie ustalonym przed instalacją.",
+    "Gwarancja 24 miesiące na montaż, przeglądy, pomoc zdalna."
+   ],
+   "dost": [
+    "Inwestor dzwoni z serwisem do nas, nie do Ciebie."
+   ],
+   "inw": [
+    "Jeden numer do wszystkich instalacji w domu."
+   ]
+  }
+ ],
+ "wymiana": {
+  "od": [
+   [
+    "Rzuty",
+    "PDF albo DWG, nawet wersja robocza."
+   ],
+   [
+    "Wysokości i przekroje",
+    "Sufity podwieszane, wnęki, zabudowy."
+   ],
+   [
+    "Projekt wnętrz i oświetlenia",
+    "Jeśli już jest. Dopasujemy się do niego."
+   ],
+   [
+    "Harmonogram budowy",
+    "Kiedy tynki, kiedy wykończenie."
+   ],
+   [
+    "Kontakt do inwestora i wykonawcy",
+    "Tylko za Twoją zgodą."
+   ]
+  ],
+  "my": [
+   [
+    "Plan urządzeń na rzutach",
+    "Kamery, czujki, głośniki, Wi-Fi, panele, ekrany, ładowarka."
+   ],
+   [
+    "Wytyczne kablowe",
+    "Trasy, typy przewodów, puszki i ramki."
+   ],
+   [
+    "Wymagania dla szafy rack",
+    "Miejsce, wentylacja, zasilanie, dostęp."
+   ],
+   [
+    "Opis systemów",
+    "Prostym językiem, do projektu albo dla inwestora."
+   ],
+   [
+    "Budżet w wariantach",
+    "Orientacyjnie na etapie projektu, na piśmie po wizji lokalnej."
+   ]
+  ]
+ },
+ "checklista": {
+  "obiekty": [
+   [
+    "dom",
+    "Dom jednorodzinny",
+    "ikona:home"
+   ],
+   [
+    "apt",
+    "Apartament, mieszkanie",
+    "ikona:key"
+   ],
+   [
+    "pens",
+    "Pensjonat, hotel",
+    "ikona:bed"
+   ],
+   [
+    "lok",
+    "Lokal: restauracja, sklep, biuro",
+    "ikona:shop"
+   ],
+   [
+    "wiel",
+    "Budynek wielorodzinny",
+    "ikona:apt"
+   ]
+  ],
+  "instalacje": [
+   [
+    "wifi",
+    "Sieć i Wi-Fi"
+   ],
+   [
+    "kam",
+    "Monitoring"
+   ],
+   [
+    "alarm",
+    "Alarm i domofon"
+   ],
+   [
+    "kd",
+    "Kontrola dostępu"
+   ],
+   [
+    "smart",
+    "Smart home"
+   ],
+   [
+    "snd",
+    "Dźwięk"
+   ],
+   [
+    "scr",
+    "Ekrany i TV"
+   ],
+   [
+    "ant",
+    "Anteny"
+   ],
+   [
+    "ev",
+    "Ładowarka EV"
+   ]
+  ],
+  "etapy": [
+   [
+    "p",
+    "Na etapie projektu",
+    "ikona:ruler"
+   ],
+   [
+    "t",
+    "Przed tynkami",
+    "ikona:tool"
+   ],
+   [
+    "w",
+    "Przy wykończeniu",
+    "ikona:check"
+   ]
+  ],
+  "pozycje": [
+   {
+    "instalacja": "wifi",
+    "etap": "p",
+    "tekst": "Miejsce na szafę rack: wentylacja, osobny obwód zasilania, dostęp serwisowy",
+    "obiekty": [
+     "dom",
+     "apt",
+     "pens",
+     "lok",
+     "wiel"
+    ]
+   },
+   {
+    "instalacja": "wifi",
+    "etap": "p",
+    "tekst": "Rura osłonowa pod światłowód od granicy działki do budynku",
+    "obiekty": [
+     "dom",
+     "pens",
+     "lok"
+    ]
+   },
+   {
+    "instalacja": "wifi",
+    "etap": "p",
+    "tekst": "Pion i kanalizacja teletechniczna z zapasem miejsca",
+    "obiekty": [
+     "wiel",
+     "pens"
+    ]
+   },
+   {
+    "instalacja": "wifi",
+    "etap": "t",
+    "tekst": "Kabel sieciowy kat. 6 do TV, biurka i każdego punktu Wi-Fi w suficie",
+    "obiekty": [
+     "dom",
+     "apt",
+     "pens",
+     "lok",
+     "wiel"
+    ]
+   },
+   {
+    "instalacja": "wifi",
+    "etap": "t",
+    "tekst": "Kabel albo pusta rura do garażu, budynku gospodarczego i bramy",
+    "obiekty": [
+     "dom",
+     "pens"
+    ]
+   },
+   {
+    "instalacja": "kam",
+    "etap": "p",
+    "tekst": "Miejsca kamer na elewacji uzgodnione z detalem: okap, gzyms, podbitka",
+    "obiekty": [
+     "dom",
+     "pens",
+     "lok",
+     "wiel"
+    ]
+   },
+   {
+    "instalacja": "kam",
+    "etap": "t",
+    "tekst": "Puszka montażowa pod każdą kamerą w warstwie ocieplenia",
+    "obiekty": [
+     "dom",
+     "pens",
+     "lok",
+     "wiel"
+    ]
+   },
+   {
+    "instalacja": "kam",
+    "etap": "w",
+    "tekst": "Kąty kamer bez sąsiadów i pokoi gości: maski prywatności",
+    "obiekty": [
+     "dom",
+     "pens",
+     "wiel"
+    ]
+   },
+   {
+    "instalacja": "alarm",
+    "etap": "p",
+    "tekst": "Miejsce na manipulator przy wejściu i na centralę alarmu",
+    "obiekty": [
+     "dom",
+     "apt",
+     "pens",
+     "lok"
+    ]
+   },
+   {
+    "instalacja": "alarm",
+    "etap": "t",
+    "tekst": "Przewody do czujek, sygnalizatora i czujek zalania przy kotłowni i pralni",
+    "obiekty": [
+     "dom",
+     "apt",
+     "pens"
+    ]
+   },
+   {
+    "instalacja": "alarm",
+    "etap": "t",
+    "tekst": "Wideodomofon: przewód w rurze od furtki do domu",
+    "obiekty": [
+     "dom"
+    ]
+   },
+   {
+    "instalacja": "alarm",
+    "etap": "t",
+    "tekst": "Panel domofonu przy wejściu do klatki i unifony w lokalach",
+    "obiekty": [
+     "wiel"
+    ]
+   },
+   {
+    "instalacja": "kd",
+    "etap": "t",
+    "tekst": "Przewód do zamka lub elektrozaczepu w ościeżnicy drzwi",
+    "obiekty": [
+     "apt",
+     "pens",
+     "lok",
+     "wiel"
+    ]
+   },
+   {
+    "instalacja": "kd",
+    "etap": "p",
+    "tekst": "Rura pod nawierzchnią do napędu bramy, szlabanu i czytnika",
+    "obiekty": [
+     "pens",
+     "lok",
+     "wiel",
+     "dom"
+    ]
+   },
+   {
+    "instalacja": "smart",
+    "etap": "p",
+    "tekst": "Większa rozdzielnica z miejscem na moduły smart home",
+    "obiekty": [
+     "dom",
+     "apt",
+     "pens"
+    ]
+   },
+   {
+    "instalacja": "smart",
+    "etap": "t",
+    "tekst": "Głębokie puszki pod panele i przewód do każdej rolety",
+    "obiekty": [
+     "dom",
+     "apt",
+     "pens"
+    ]
+   },
+   {
+    "instalacja": "smart",
+    "etap": "t",
+    "tekst": "Czujnik temperatury i przewody siłowników w każdej strefie grzewczej",
+    "obiekty": [
+     "dom",
+     "apt",
+     "pens"
+    ]
+   },
+   {
+    "instalacja": "smart",
+    "etap": "w",
+    "tekst": "Panele: szkło, kolor i ikony dobrane do projektu wnętrza",
+    "obiekty": [
+     "dom",
+     "apt",
+     "pens",
+     "lok"
+    ]
+   },
+   {
+    "instalacja": "snd",
+    "etap": "p",
+    "tekst": "Sufit podwieszany albo wnęka o głębokości pod głośnik do zabudowy",
+    "obiekty": [
+     "dom",
+     "apt",
+     "pens",
+     "lok",
+     "wiel"
+    ]
+   },
+   {
+    "instalacja": "snd",
+    "etap": "t",
+    "tekst": "Ramki montażowe pod głośniki sufitowe przed płytą g-k",
+    "obiekty": [
+     "dom",
+     "apt",
+     "pens",
+     "lok",
+     "wiel"
+    ]
+   },
+   {
+    "instalacja": "snd",
+    "etap": "t",
+    "tekst": "Przewód głośnikowy z każdej strefy do miejsca wzmacniacza",
+    "obiekty": [
+     "dom",
+     "apt",
+     "pens",
+     "lok",
+     "wiel"
+    ]
+   },
+   {
+    "instalacja": "snd",
+    "etap": "w",
+    "tekst": "Maskownice w kolorze sufitu albo do malowania",
+    "obiekty": [
+     "dom",
+     "apt",
+     "pens",
+     "lok",
+     "wiel"
+    ]
+   },
+   {
+    "instalacja": "snd",
+    "etap": "t",
+    "tekst": "Taras i ogród: przewód w rurze do głośników zewnętrznych",
+    "obiekty": [
+     "dom",
+     "pens",
+     "lok"
+    ]
+   },
+   {
+    "instalacja": "scr",
+    "etap": "p",
+    "tekst": "Wnęka albo zabudowa pod TV z miejscem na wentylację",
+    "obiekty": [
+     "dom",
+     "apt",
+     "pens"
+    ]
+   },
+   {
+    "instalacja": "scr",
+    "etap": "t",
+    "tekst": "Rura za telewizorem pod przewody, gniazdo zasilania i sieci",
+    "obiekty": [
+     "dom",
+     "apt",
+     "pens",
+     "lok"
+    ]
+   },
+   {
+    "instalacja": "scr",
+    "etap": "t",
+    "tekst": "Zasilanie i kabel sieci przy witrynie, menu board albo recepcji",
+    "obiekty": [
+     "lok",
+     "pens"
+    ]
+   },
+   {
+    "instalacja": "ant",
+    "etap": "p",
+    "tekst": "Miejsce na maszt i antenę, przepust przez dach, uziemienie",
+    "obiekty": [
+     "dom",
+     "pens",
+     "wiel"
+    ]
+   },
+   {
+    "instalacja": "ant",
+    "etap": "t",
+    "tekst": "Przewód antenowy z anteny do szafy i do każdego telewizora",
+    "obiekty": [
+     "dom",
+     "pens",
+     "wiel"
+    ]
+   },
+   {
+    "instalacja": "ev",
+    "etap": "p",
+    "tekst": "Moc przyłącza z zapasem pod ładowarkę, uzgodniona z projektantem elektrycznym",
+    "obiekty": [
+     "dom",
+     "pens",
+     "lok",
+     "wiel"
+    ]
+   },
+   {
+    "instalacja": "ev",
+    "etap": "t",
+    "tekst": "Przewód zasilający i kabel sieci do miejsca ładowarki w garażu lub na parkingu",
+    "obiekty": [
+     "dom",
+     "pens",
+     "lok",
+     "wiel"
+    ]
+   },
+   {
+    "instalacja": "ev",
+    "etap": "p",
+    "tekst": "Kanały kablowe pod przyszłe punkty ładowania na miejscach postojowych",
+    "obiekty": [
+     "wiel",
+     "lok"
+    ]
+   }
+  ]
+ },
+ "liczby": [
+  {
+   "k": "wifi",
+   "b": "90 m",
+   "t": "kabla stałego w torze skrętki",
+   "d": "Kanał do 100 m z kablami przyłączeniowymi. Szafa rack w środku budynku, nie na jego końcu."
+  },
+  {
+   "k": "wifi",
+   "b": "55 / 100 m",
+   "t": "10 Gb/s: Cat6 / Cat6A",
+   "d": "Cat6 przenosi 10 Gb/s na 37–55 m, Cat6A na 100 m. Przy długich trasach kładziemy Cat6A."
+  },
+  {
+   "k": "wifi",
+   "b": "13–71 W",
+   "t": "moc PoE dla urządzenia",
+   "d": "802.3af 13 W, at 25,5 W, bt 51 i 71 W. Kamera i punkt Wi-Fi na jednym kablu, bez gniazdka obok."
+  },
+  {
+   "k": "wifi",
+   "b": "10–12 m",
+   "t": "odstęp punktów Wi-Fi",
+   "d": "Na środku sufitu, nie w rogu. Tak zalecają wytyczne TP-Link Omada."
+  },
+  {
+   "k": "kam",
+   "b": "6–12 W",
+   "t": "pobór kamery IP",
+   "d": "Np. Hikvision ColorVu 8 MP maks. 6,5 W, kamera z motozoomem ok. 12 W. Wystarczy PoE 802.3af."
+  },
+  {
+   "k": "snd",
+   "b": "Ø 200–210",
+   "t": "mm otworu, głośnik 6–6,5\"",
+   "d": "Głębokość zabudowy 92–120 mm. Głośnik 8\": otwór ok. 257 mm, głębokość ok. 135 mm."
+  },
+  {
+   "k": "snd",
+   "b": "1,8–3 m",
+   "t": "rozstaw pary stereo w suficie",
+   "d": "Miejsce słuchania mniej więcej pośrodku. Pokój do ok. 14 m² to zwykle jedna para."
+  },
+  {
+   "k": "snd",
+   "b": "2–3 mm",
+   "t": "maks. wykończenia na głośniku pod gładzią",
+   "d": "Amina do 2 mm, Sonance Invisible do 3 mm. Gładź na wysoki standard, cienkie warstwy."
+  },
+  {
+   "k": "scr",
+   "b": "30–40°",
+   "t": "kąt widzenia ekranu",
+   "d": "Z 2,1 m to ekran ok. 55–70\". Środek ekranu na wysokości oczu siedzącego."
+  },
+  {
+   "k": "wifi",
+   "b": "44,45 mm",
+   "t": "1U w szafie 19\"",
+   "d": "Szafa wisząca 600×450 mm daje ok. 39 cm użytecznej głębokości. Do tego wentylacja i osobny obwód."
+  },
+  {
+   "k": "ev",
+   "b": "3,7–22 kW",
+   "t": "moc ładowarki",
+   "d": "3,7 kW: 1 faza 16 A. 11 kW: 3 fazy 16 A. 22 kW: 3 fazy 32 A. Moc przyłącza ustal z elektrykiem."
+  },
+  {
+   "k": "smart",
+   "b": "90×90",
+   "t": "mm panelu Ampio M-DOT",
+   "d": "Także 90×160 mm, od 2 do 18 pól dotykowych. Puszka osadzona głębiej niż standardowo."
+  },
+  {
+   "k": "ant",
+   "b": "13°E",
+   "t": "satelita Hot Bird",
+   "d": "Przewód 75 Ω z ekranowaniem klasy A. Osobny przewód do każdego odbiornika z multiswitcha."
+  },
+  {
+   "k": "tel",
+   "b": "≤ 1,2 dB",
+   "t": "tłumienie toru światłowodu w lokalu",
+   "d": "Od skrzynki mieszkaniowej do punktu styku w budynku wielorodzinnym. Pomiary w dokumentacji powykonawczej."
+  }
+ ],
+ "instalacje": {
+  "kolejnosc": [
+   "smart",
+   "snd",
+   "kam",
+   "alarm",
+   "kd",
+   "wifi",
+   "tel",
+   "ant",
+   "scr",
+   "ev"
+  ],
+  "opisy": {
+   "smart": {
+    "big": true,
+    "h": "Smart home Ampio: dom, który sam pilnuje światła, ciepła i rolet.",
+    "d": "Polski system Ampio. Światło, ogrzewanie strefowe, rolety, brama, alarm i kamery w jednej aplikacji. Działa także bez internetu, a sceny („przyjazd”, „noc”, „wyjście”) uruchamia jeden przycisk albo czujnik.",
+    "plan": [
+     "Projekt przed tynkami: rozdzielnica z miejscem na moduły, przewody do rolet i stref grzewczych.",
+     "Głębokie puszki pod szklane panele przy drzwiach i w strefach.",
+     "Czujniki temperatury i ruchu w miejscach uzgodnionych z oświetleniem."
+    ],
+    "look": [
+     "Szklane panele M-DOT z własnymi ikonami",
+     "Jeden panel zamiast rzędu włączników",
+     "Bez widocznych termostatów"
+    ],
+    "br": "Ampio · Matter (Apple, Google, Alexa)"
+   },
+   "snd": {
+    "big": true,
+    "h": "Dźwięk w domu i obiekcie: słychać, nie widać.",
+    "d": "Multiroom w domu: muzyka w każdym pokoju, na tarasie i w łazience, sterowana z telefonu. W restauracji, hotelu, kościele i sali stałe nagłośnienie APART ze strefami i komunikatami. Do domu także głośniki Hi-Fi do zabudowy i głośniki, które są obiektem designu.",
+    "plan": [
+     "Głębokość zabudowy w suficie albo ścianie i ramki montażowe przed płytą g-k.",
+     "Przewody głośnikowe z każdej strefy do jednego miejsca na wzmacniacze.",
+     "Akustyka: twarde, gładkie wnętrza potrzebują innego doboru niż drewno i tkaniny."
+    ],
+    "look": [
+     "Maskownice do malowania",
+     "Głośniki pod gładzią",
+     "Głośnik jako rzeźba ścienna"
+    ],
+    "br": "APART · Sonos · HEOS · MusicCast · [SZEF: marki Hi-Fi, np. Bowers & Wilkins, ELAC]"
+   },
+   "kam": {
+    "h": "Monitoring, który nie wygląda jak monitoring.",
+    "d": "Kompletny system: kamery, rejestrator, dyski do pracy całą dobę, zasilanie PoE i podgląd w telefonie. Kamery z kolorem w nocy i wykrywaniem człowieka i auta.",
+    "plan": [
+     "Miejsca kamer uzgodnione z detalem elewacji: okap, podbitka, gzyms.",
+     "Puszka montażowa w ociepleniu, kabel do szafy rack.",
+     "Kąty bez sąsiadów i stref prywatnych, zgodnie z zasadami RODO."
+    ],
+    "look": [
+     "Kamery w kolorze elewacji",
+     "Bez kabla na wierzchu"
+    ],
+    "br": "Hikvision · Dahua · BCS · Ubiquiti"
+   },
+   "alarm": {
+    "h": "Alarm i wideodomofon: spokój, gdy dom stoi pusty.",
+    "d": "Czujki ruchu, otwarcia, zalania i dymu, syrena i powiadomienia w telefonie. Przy furtce wideodomofon, który odbierasz z dowolnego miejsca.",
+    "plan": [
+     "Manipulator przy wejściu, centrala w szafie albo obok.",
+     "Przewód od furtki do domu w rurze.",
+     "Czujki zalania przy kotłowni i pralni, ważne w domach letniskowych."
+    ],
+    "look": [
+     "Czujki w narożnikach",
+     "Panel furtki dobrany do ogrodzenia"
+    ],
+    "br": "Satel · Ajax · Hikvision · Dahua"
+   },
+   "kd": {
+    "h": "Kontrola dostępu: kod, karta albo telefon zamiast klucza.",
+    "d": "Zamki z kodem w apartamentach, karty w hotelu i firmie, brama i szlaban z aplikacji. Wiadomo, kto i kiedy wszedł.",
+    "plan": [
+     "Przewód do zamka lub elektrozaczepu w ościeżnicy.",
+     "Rura pod nawierzchnią do bramy, szlabanu i czytnika."
+    ],
+    "look": [
+     "Czytniki płaskie, w kolorze drzwi",
+     "Zamek bez klamki z klawiaturą"
+    ],
+    "br": "Dobieramy pod obiekt"
+   },
+   "wifi": {
+    "h": "Sieć i Wi-Fi: fundament wszystkich pozostałych instalacji.",
+    "d": "Okablowanie strukturalne, szafa rack, światłowód i Wi-Fi bez martwych stref, także w ogrodzie. Na tej sieci działają kamery, smart home, TV i ładowarka.",
+    "plan": [
+     "Miejsce na szafę rack w pomieszczeniu technicznym.",
+     "Punkty Wi-Fi w suficie z kablem PoE, kabel do TV i biurka.",
+     "Rura pod światłowód od granicy działki."
+    ],
+    "look": [
+     "Płaskie punkty Wi-Fi w suficie",
+     "Zero routerów na półce"
+    ],
+    "br": "Ubiquiti · MikroTik · TP-Link Omada"
+   },
+   "tel": {
+    "h": "Teletechnika w budownictwie: dla deweloperów i wykonawców.",
+    "d": "Instalacje słaboprądowe budynku: światłowód do lokali, RTV/SAT zbiorcza, domofony, okablowanie lokali usługowych, pomiary i dokumentacja do odbioru.",
+    "plan": [
+     "Piony, kanalizacja teletechniczna i skrzynki w lokalach.",
+     "Punkt styku i trasa przyłącza operatora."
+    ],
+    "look": [
+     "Skrzynki mieszkaniowe w zabudowie"
+    ],
+    "br": "Dobieramy pod obiekt"
+   },
+   "ant": {
+    "h": "Anteny RTV/SAT: telewizja bez anteny na środku elewacji.",
+    "d": "Anteny satelitarne i naziemne ustawiane miernikiem, instalacje zbiorcze i telewizja w każdym pokoju pensjonatu. Montaż z zapasem na halny.",
+    "plan": [
+     "Miejsce na maszt od strony mniej widocznej, przepust przez dach, uziemienie.",
+     "Przewód antenowy do szafy i do każdego TV."
+    ],
+    "look": [
+     "Antena poza głównym widokiem budynku"
+    ],
+    "br": "Dobieramy pod obiekt"
+   },
+   "scr": {
+    "h": "Ekrany i digital signage: obraz jako część wnętrza.",
+    "d": "Telewizory w zabudowie, ekrany w recepcji i witrynie, menu board w gastronomii. Treść zmieniana zdalnie z komputera.",
+    "plan": [
+     "Wnęka z wentylacją, rura pod przewody za ekranem.",
+     "Zasilanie i sieć przy witrynie, recepcji, menu board."
+    ],
+    "look": [
+     "Ekran w lamelach albo w meblu",
+     "Bez kabli pod ekranem"
+    ],
+    "br": "Samsung · Avtek · Sharp/NEC"
+   },
+   "ev": {
+    "h": "Ładowarki samochodów: zaplanuj moc, zanim inwestor kupi auto.",
+    "d": "Ładowarki Elzab EcoPower produkowane w Polsce: CC Home do garażu, CC Wall dla firm i obiektów, CC City na parking. Z doborem mocy do przyłącza i montażem.",
+    "plan": [
+     "Moc przyłącza z zapasem, uzgodniona z projektantem elektrycznym.",
+     "Przewód zasilający i sieciowy do miejsca ładowarki.",
+     "W budynkach z parkingiem: kanały pod kolejne punkty ładowania."
+    ],
+    "look": [
+     "Ładowarka dobrana do elewacji garażu"
+    ],
+    "br": "Elzab EcoPower"
+   }
+  }
+ },
+ "deweloperzy": [
+  {
+   "k": "lok",
+   "n": "Lokale",
+   "ic": "ikona:key",
+   "h": "W każdym mieszkaniu i apartamencie",
+   "it": [
+    "Skrzynka mieszkaniowa: światłowód jednomodowy, skrętka, przewód antenowy",
+    "Gniazda RJ45 i TV w pokojach, punkt Wi-Fi w suficie",
+    "Unifon albo monitor wideodomofonu",
+    "Opcja: smart apartament Ampio (światło, ogrzewanie, rolety, zamek)"
+   ],
+   "why": "Od 2013 r. każdy nowy budynek wielorodzinny musi mieć instalację telekomunikacyjną: punkt styku, skrzynkę w lokalu, światłowód, skrętkę i koncentryk."
+  },
+  {
+   "k": "wsp",
+   "n": "Części wspólne",
+   "ic": "ikona:apt",
+   "h": "Klatki, hol, wejścia, teren",
+   "it": [
+    "Panele wideodomofonu przy wejściach, lista lokatorów",
+    "Karty i breloki do klatek, rowerowni i śmietników",
+    "Monitoring wejść, holu i terenu z zasadami RODO",
+    "Zbiorcza instalacja RTV/SAT dla całego budynku"
+   ],
+   "why": "Bezpieczeństwo to priorytet dla 50% szukających domu i 34% szukających mieszkania. Najwyżej oceniają czujniki, monitoring i alarm."
+  },
+  {
+   "k": "gar",
+   "n": "Garaż i parking",
+   "ic": "ikona:car",
+   "h": "Wjazd, miejsca postojowe, ładowanie",
+   "it": [
+    "Szlaban albo brama: pilot, karta, aplikacja, odczyt tablic",
+    "Monitoring wjazdu i hali garażowej",
+    "Ładowarki Elzab EcoPower z podziałem mocy",
+    "Okablowanie i kanały pod kolejne punkty ładowania"
+   ],
+   "why": "Gotowość do zakupu auta elektrycznego rośnie z 17% do 29%, gdy kierowca ma ładowarkę tam, gdzie parkuje na noc."
+  },
+  {
+   "k": "inw",
+   "n": "Apartamenty inwestycyjne",
+   "ic": "ikona:bed",
+   "h": "Lokale na wynajem krótkoterminowy",
+   "it": [
+    "Zamki z kodem: gość wchodzi sam, kod ważny tylko w czasie pobytu",
+    "Wi-Fi dla gości i telewizja w każdym lokalu",
+    "Ogrzewanie w trybie oszczędnym, gdy lokal stoi pusty",
+    "Zdalny podgląd i serwis z Rabki i Zakopanego"
+   ],
+   "why": "W Zakopanem działa ok. 3,5 tys. ofert najmu krótkoterminowego, średnie obłożenie ok. 48%. Od 20.05.2026 każdy lokal potrzebuje numeru rejestrowego."
+  },
+  {
+   "k": "odb",
+   "n": "Odbiór i dokumentacja",
+   "ic": "ikona:doc",
+   "h": "Pomiary, protokoły, przekazanie",
+   "it": [
+    "Pomiary torów światłowodowych i skrętki z protokołami",
+    "Dokumentacja powykonawcza: trasy, opisy, zestawienia",
+    "Szkolenie zarządcy i przekazanie haseł",
+    "Umowa serwisowa dla wspólnoty albo zarządcy"
+   ],
+   "why": "Pomiary światłowodu trafiają do dokumentacji powykonawczej. Tłumienie toru od skrzynki w lokalu do punktu styku nie powinno przekraczać 1,2 dB."
+  }
+ ],
+ "przepisy": [
+  {
+   "d": "20.09.2026",
+   "y": "IX 2026",
+   "s": "Okres przejściowy",
+   "c": "warn",
+   "t": "Stare warunki techniczne tylko z oświadczeniem",
+   "x": "Rozporządzenie o warunkach technicznych z 2002 r. straciło moc. Do 20.03.2028 projekt można przygotować według starych przepisów, jeśli inwestor złoży oświadczenie (art. 102a Prawa budowlanego).",
+   "p": "Na starcie projektu ustal z inwestorem, według których przepisów projektujesz. Od tego zależą wymagania dla instalacji telekomunikacyjnej."
+  },
+  {
+   "d": "w toku",
+   "y": "nowe WT",
+   "s": "Czekamy",
+   "c": "mut",
+   "t": "Nowe warunki techniczne",
+   "x": "Nowe rozporządzenie o warunkach technicznych nie zostało jeszcze ogłoszone (stan na październik 2026).",
+   "p": "Przy każdym projekcie sprawdzamy aktualny stan prawny i dopasowujemy wytyczne."
+  },
+  {
+   "d": "12.02.2026",
+   "y": "II 2026",
+   "s": "Obowiązuje",
+   "c": "ok",
+   "t": "Budynek gotowy na światłowód (GIA)",
+   "x": "Unijne rozporządzenie o infrastrukturze gigabitowej: budynki z wnioskiem o pozwolenie złożonym po 12.02.2026 mają mieć infrastrukturę gotową na światłowód i okablowanie światłowodowe. Budynki wielolokalowe także punkt dostępu.",
+   "p": "Rura od granicy działki, trasa do pomieszczenia technicznego i światłowód do punktu zakończenia sieci w budynku."
+  },
+  {
+   "d": "w toku",
+   "y": "ustawa",
+   "s": "W przygotowaniu",
+   "c": "mut",
+   "t": "Polska ustawa wdrażająca GIA",
+   "x": "Projekt nowelizacji megaustawy jest w przygotowaniu. Ma m.in. rozstrzygnąć, czy obowiązek obejmie domy jednorodzinne budowane na własne potrzeby.",
+   "p": "Do czasu uchwalenia rekomendujemy przygotowanie pod światłowód także w domu jednorodzinnym. To rura i trasa, niewielki koszt."
+  },
+  {
+   "d": "od 2013",
+   "y": "2013",
+   "s": "Stare WT",
+   "c": "ok",
+   "t": "Instalacja telekomunikacyjna w budynku wielorodzinnym",
+   "x": "Według rozdziału 8a starych warunków technicznych: punkt styku, kanalizacja teletechniczna, co najmniej 2 włókna jednomodowe, 2 skrętki i przewód koncentryczny do każdego mieszkania.",
+   "p": "Dla projektów na starych WT: punkt styku w szafie, skrzynki mieszkaniowe, piony i pomiary do dokumentacji."
+  },
+  {
+   "d": "29.05.2026",
+   "y": "V 2026",
+   "s": "Czeka na wdrożenie",
+   "c": "warn",
+   "t": "Ładowanie aut w budynkach mieszkalnych (EPBD)",
+   "x": "Dyrektywa budynkowa: w nowych budynkach mieszkalnych z więcej niż 3 miejscami postojowymi okablowanie co najmniej 50% miejsc, kanały na pozostałe, co najmniej 1 punkt ładowania i 2 miejsca rowerowe na lokal. Termin wdrożenia minął, Polska jeszcze jej nie wdrożyła.",
+   "p": "Warto przewidzieć kanały i moc już teraz. Dołożenie ich po wykończeniu garażu kosztuje więcej."
+  },
+  {
+   "d": "20.05.2026",
+   "y": "V 2026",
+   "s": "Obowiązuje",
+   "c": "ok",
+   "t": "Rejestr najmu krótkoterminowego",
+   "x": "Unijne rozporządzenie: każdy lokal na wynajem krótkoterminowy potrzebuje numeru rejestracyjnego. Polska ustawa z karami do 50 tys. zł przeszła przez Sejm 8.10.2026.",
+   "p": "Apartamenty inwestycyjne projektuj od razu pod zdalną obsługę: zamek z kodem, Wi-Fi dla gości, podgląd i serwis zdalny."
+  },
+  {
+   "d": "zawsze",
+   "y": "RODO",
+   "s": "Obowiązuje",
+   "c": "ok",
+   "t": "Kamery a RODO",
+   "x": "Kamera przy domu, która obejmuje ulicę albo posesję sąsiada, podlega RODO (wyrok TSUE C-212/13). W firmie nagrania przechowuje się najwyżej 3 miesiące, a pracowników informuje 2 tygodnie przed uruchomieniem.",
+   "p": "Kąty kamer i maski prywatności ustalamy już na rzutach, nie po montażu."
+  }
+ ],
+ "osCzasu": [
+  {
+   "d": "2013",
+   "n": "Instalacja telekom. w budynkach wielorodzinnych",
+   "cls": "artl"
+  },
+  {
+   "d": "12.02.2026",
+   "n": "GIA: gotowość na światłowód",
+   "cls": "artl"
+  },
+  {
+   "d": "20.05.2026",
+   "n": "Rejestr najmu krótkoterminowego",
+   "cls": "artl"
+  },
+  {
+   "d": "29.05.2026",
+   "n": "Termin wdrożenia EPBD",
+   "cls": "artl"
+  },
+  {
+   "d": "20.09.2026",
+   "n": "Koniec WT z 2002 r.",
+   "cls": "artl now"
+  },
+  {
+   "d": "20.03.2028",
+   "n": "Koniec okresu przejściowego",
+   "cls": "artl"
+  }
+ ],
+ "doswiadczenie": {
+  "kv": [
+   {
+    "b": "od 2004",
+    "s": "PRO-KOM w Rabce-Zdroju"
+   },
+   {
+    "b": "2 salony",
+    "s": "Rabka-Zdrój i Zakopane"
+   },
+   {
+    "b": "10",
+    "s": "rodzajów instalacji u jednego wykonawcy"
+   },
+   {
+    "b": "100+",
+    "s": "klientów firmowych całej PRO-KOM"
+   }
+  ],
+  "rl": [
+   {
+    "n": "Blachotrapez",
+    "d": "sale konferencyjne i szkoleniowe, przyłącza IT, nagłośnienie"
+   },
+   {
+    "n": "Parafia św. Teresy",
+    "d": "nagłośnienie i multimedia, chór"
+   },
+   {
+    "n": "Empik Zakopane i Kraków",
+    "d": "nagłośnienie i multimedia"
+   },
+   {
+    "n": "Restauracja „Aleksandra”",
+    "d": "nagłośnienie"
+   },
+   {
+    "n": "Caffe Europa",
+    "d": "nagłośnienie"
+   },
+   {
+    "n": "SP im. A. Mickiewicza, Rabka",
+    "d": "nagłośnienie i multimedia"
+   },
+   {
+    "n": "Kaplica Sióstr Nazaretanek",
+    "d": "nagłośnienie"
+   },
+   {
+    "n": "Dom prywatny, Ponice",
+    "d": "instalacja RTV i SAT"
+   }
+  ],
+  "br": [
+   {
+    "n": "Ampio"
+   },
+   {
+    "n": "Dahua"
+   },
+   {
+    "n": "Hikvision"
+   },
+   {
+    "n": "BCS"
+   },
+   {
+    "n": "Ubiquiti"
+   },
+   {
+    "n": "MikroTik"
+   },
+   {
+    "n": "TP-Link Omada"
+   },
+   {
+    "n": "Satel"
+   },
+   {
+    "n": "Ajax"
+   },
+   {
+    "n": "APART"
+   },
+   {
+    "n": "JBL"
+   },
+   {
+    "n": "RCF"
+   },
+   {
+    "n": "Samsung"
+   },
+   {
+    "n": "Elzab EcoPower"
+   }
+  ]
+ },
+ "biblioteka": {
+  "own": [
+   {
+    "ic": "ikona:check",
+    "t": "Checklista projektanta",
+    "d": "Co przewidzieć w projekcie, etap po etapie. PDF, 1 strona na instalację.",
+    "f": "PDF",
+    "st": "Na e-mail"
+   },
+   {
+    "ic": "ikona:grid",
+    "t": "Symbole urządzeń do rzutów",
+    "d": "Kamery, czujki, głośniki, punkty Wi-Fi, panele, gniazda. Gotowe do wklejenia w rzut.",
+    "f": "DWG · PDF",
+    "st": "W przygotowaniu"
+   },
+   {
+    "ic": "ikona:doc",
+    "t": "Opisy systemów do projektu",
+    "d": "Krótkie opisy monitoringu, sieci, smart home i dźwięku do części opisowej projektu.",
+    "f": "DOCX",
+    "st": "W przygotowaniu"
+   },
+   {
+    "ic": "ikona:layers",
+    "t": "Wytyczne dla szafy rack",
+    "d": "Miejsce, wymiary, wentylacja, zasilanie i dostęp. Do pomieszczenia technicznego.",
+    "f": "PDF",
+    "st": "W przygotowaniu"
+   }
+  ],
+  "ext": [
+   {
+    "t": "Ampio: katalog dla architekta",
+    "d": "System, panele, realizacje.",
+    "href": "https://www.ampio.com/assets/_catalogues/architect_pl.pdf",
+    "m": "PDF"
+   },
+   {
+    "t": "Ampio: katalog dla dewelopera",
+    "d": "Smart apartament w inwestycji.",
+    "href": "https://www.ampio.com/assets/_catalogues/developer_pl.pdf",
+    "m": "PDF"
+   },
+   {
+    "t": "Ampio: kreator paneli",
+    "d": "Kolor szkła, ikony, podpisy, podgląd.",
+    "href": "https://kreatorpaneli.ampio.pl/",
+    "m": "Narzędzie"
+   },
+   {
+    "t": "UniFi Design Center",
+    "d": "Rzut, symulacja zasięgu Wi-Fi, 3D.",
+    "href": "https://design.ui.com/",
+    "m": "Narzędzie"
+   },
+   {
+    "t": "Omada Design Hub",
+    "d": "Mapa zasięgu Wi-Fi i rozmieszczenie punktów.",
+    "href": "https://design.tplinkcloud.com",
+    "m": "Narzędzie"
+   },
+   {
+    "t": "Dahua Project Design Tool",
+    "d": "Pole widzenia kamer i martwe strefy.",
+    "href": "https://support.dahuasecurity.com/en/ProjectDesignTool",
+    "m": "Narzędzie"
+   },
+   {
+    "t": "Ajax: kalkulatory",
+    "d": "Zasięg radiowy, zasilanie, archiwum wideo.",
+    "href": "https://ajax.systems/tools/",
+    "m": "Narzędzie"
+   },
+   {
+    "t": "Sonos dla architektów",
+    "d": "Materiały i broszura dla inwestora.",
+    "href": "https://www.sonos.com/pl-pl/trades/architects",
+    "m": "Strona"
+   }
+  ]
+ },
+ "prezentacje": [
+  {
+   "ic": "ikona:office",
+   "t": "W Twojej pracowni",
+   "d": "Przyjeżdżamy z próbkami: panel Ampio, głośnik sufitowy, kamera, punkt Wi-Fi. Pokazujemy, co zaplanować w projekcie.",
+   "tag": "Podhale i Kraków"
+  },
+  {
+   "ic": "ikona:shop",
+   "t": "W salonie PRO-KOM",
+   "d": "Rabka-Zdrój albo Zakopane. Zobaczysz i usłyszysz rozwiązania, które możesz pokazać inwestorowi.",
+   "tag": "[SZEF: co mamy na pokazie]"
+  },
+  {
+   "ic": "ikona:crane",
+   "t": "Na budowie, z inwestorem",
+   "d": "Wizja lokalna z Tobą i inwestorem. Na miejscu ustalamy miejsca urządzeń i trasy kabli.",
+   "tag": "Przed tynkami"
+  }
+ ],
+ "zasady": [
+  {
+   "ic": "ikona:layers",
+   "t": "Twój projekt, Twoje decyzje",
+   "d": "Dobieramy technikę pod projekt, nie pod markę. Jeśli coś koliduje z wnętrzem, szukamy innego rozwiązania."
+  },
+  {
+   "ic": "ikona:shield",
+   "t": "Grasz pierwsze skrzypce",
+   "d": "Z inwestorem rozmawiamy razem z Tobą albo za Twoją zgodą. Nie zmieniamy projektu za Twoimi plecami."
+  },
+  {
+   "ic": "ikona:doc",
+   "t": "Wycena na piśmie",
+   "d": "Zakres, sprzęt i cena czarno na białym, w wariantach do wyboru. Inwestor wie, za co płaci."
+  },
+  {
+   "ic": "ikona:users",
+   "t": "Jeden opiekun",
+   "d": "Jedna osoba od pierwszej rozmowy do odbioru. Nie tłumaczysz projektu od nowa każdemu monterowi."
+  },
+  {
+   "ic": "ikona:check",
+   "t": "Gwarancja 24 miesiące",
+   "d": "Na montaż. Sprzęt według gwarancji producenta. Serwis i przeglądy po montażu."
+  },
+  {
+   "ic": "ikona:star",
+   "t": "Warunki dla pracowni",
+   "d": "[SZEF: opisane jawnie albo „ustalamy indywidualnie”]"
+  }
+ ],
+ "faq": [
+  {
+   "q": "Kiedy najlepiej nas zaprosić?",
+   "a": "Na etapie koncepcji albo projektu budowlanego. Wtedy miejsce na szafę rack, przepusty, moc pod ładowarkę i sufity pod głośniki nic nie kosztują. Pomożemy też później, ale przed tynkami to ostatni moment bez kucia."
+  },
+  {
+   "q": "Czy muszę znać się na smart home i sieciach?",
+   "a": "Nie. Wystarczą rzuty i rozmowa o potrzebach inwestora. Technikę bierzemy na siebie, a do projektu oddajemy proste wytyczne."
+  },
+  {
+   "q": "Co dostanę do projektu?",
+   "a": "Plan urządzeń na rzutach, wytyczne kablowe, wymagania dla szafy rack i opis systemów prostym językiem. Zakres ustalamy na początku, zależnie od etapu i obiektu."
+  },
+  {
+   "q": "Czy pracujecie z projektem elektrycznym innego projektanta?",
+   "a": "Tak. Instalacje niskoprądowe uzgadniamy z projektantem elektrycznym i wykonawcą. Zasilanie, moc i zabezpieczenia zostają w jego branży."
+  },
+  {
+   "q": "Czy pomożecie, jeśli inwestor wybierze innego wykonawcę?",
+   "a": "Jedno pytanie do projektu zawsze. Zadzwoń i zapytaj. Pełne wytyczne przygotowujemy do projektów, które realizujemy. [SZEF: potwierdzić]"
+  },
+  {
+   "q": "Ile to kosztuje inwestora?",
+   "a": "Zależy od obiektu i zakresu. Na etapie projektu podajemy orientacyjny budżet w wariantach, a dokładną wycenę na piśmie po wizji lokalnej."
+  },
+  {
+   "q": "Jaki obszar obsługujecie?",
+   "a": "Podhale i Małopolskę: salony w Rabce-Zdroju i Zakopanem. Przy większych inwestycjach jedziemy dalej, dojazd ustalamy indywidualnie."
+  },
+  {
+   "q": "Według których przepisów projektować teletechnikę w 2026 r.?",
+   "a": "Stare warunki techniczne straciły moc 20.09.2026. Do 20.03.2028 można projektować według nich, jeśli inwestor złoży oświadczenie. Nowe warunki nie zostały jeszcze ogłoszone, dlatego stan prawny sprawdzamy przy każdym projekcie."
+  },
+  {
+   "q": "Czy dom jednorodzinny musi mieć światłowód?",
+   "a": "Unijne rozporządzenie GIA obejmuje nowe budynki z wnioskiem o pozwolenie po 12.02.2026. Polska ustawa, która może zwolnić domy budowane na własne potrzeby, jest w przygotowaniu. Rura pod światłowód kosztuje niewiele, więc rekomendujemy ją w każdym projekcie."
+  },
+  {
+   "q": "Kto zajmuje się serwisem po odbiorze?",
+   "a": "My. Inwestor dostaje jeden numer do wszystkich instalacji. Na montaż dajemy 24 miesiące gwarancji, a przeglądy robimy przed sezonem."
+  }
+ ],
+ "formularz": {
+  "role": [
+   "Architekt",
+   "Projektant wnętrz",
+   "Generalny wykonawca",
+   "Deweloper",
+   "Inwestor"
+  ],
+  "etapy": [
+   "Koncepcja",
+   "Projekt budowlany",
+   "Projekt wnętrz",
+   "Budowa",
+   "Wykończenie"
+  ],
+  "obiekty": [
+   "Dom",
+   "Apartamenty",
+   "Pensjonat, hotel",
+   "Lokal",
+   "Wielorodzinny",
+   "Inny"
+  ]
+ }
+}
