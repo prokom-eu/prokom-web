@@ -1,0 +1,48 @@
+import { expect, test } from '@playwright/test'
+
+import { api, loginAsAdmin, site, tenantId } from '../helpers'
+
+// I1: smoke test of the Instalacje line — its own frame, the theme from the system (ADR-I003 §6),
+// and invisibility of an inactive tenant (ADR-I001 §6). Data from `pnpm seed`. The line-only
+// routes get their 404 test with their first page (I10, I11): until then they 404 everywhere.
+const HOST = 'instalacje.localhost'
+
+const surface = () =>
+  getComputedStyle(document.documentElement).getPropertyValue('--surface').trim().toLowerCase()
+
+test.describe('Instalacje frame', () => {
+  test('answers 200 on its own domain with its line and frame', async ({ page }) => {
+    const response = await page.goto(site(HOST))
+    expect(response?.status()).toBe(200)
+    await expect(page.locator('html')).toHaveAttribute('data-line', 'instalacje')
+    await expect(
+      page.getByRole('link', { name: 'PRO-KOM Instalacje — strona główna' }),
+    ).toHaveCount(1)
+    await expect(page.locator('footer')).toContainText('instalacje@example.test')
+  })
+
+  test('follows the system theme', async ({ page }) => {
+    await page.emulateMedia({ colorScheme: 'light' })
+    await page.goto(site(HOST))
+    expect(await page.evaluate(surface)).toBe('#f4f5f1')
+
+    await page.emulateMedia({ colorScheme: 'dark' })
+    expect(await page.evaluate(surface)).toBe('#101412')
+  })
+
+  test('an inactive tenant answers 404', async ({ page, context }) => {
+    await loginAsAdmin(page)
+    const id = await tenantId(page, 'instalacje')
+    const setActive = async (active: boolean) =>
+      expect((await api(page, 'PATCH', `/api/tenants/${id}`, { active })).status).toBe(200)
+
+    const visitor = await context.newPage()
+    try {
+      await setActive(false)
+      expect((await visitor.goto(site(HOST)))?.status()).toBe(404)
+    } finally {
+      await setActive(true)
+    }
+    expect((await visitor.goto(site(HOST)))?.status()).toBe(200)
+  })
+})

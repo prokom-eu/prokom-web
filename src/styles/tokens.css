@@ -172,6 +172,59 @@
   --c-software-night-header-bg: rgba(18, 22, 19, 0.78);
   --c-software-night-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.8);
 
+  /* Instalacje — values 1:1 from docs/design/prokominstalacje/tokens.css (ADR-I003 §3). */
+  /* Instalacje — light theme of the visualisation. */
+  --c-instalacje-light-surface: #f4f5f1;
+  --c-instalacje-light-surface-2: #eceee8;
+  --c-instalacje-light-surface-3: #e3e6df;
+  --c-instalacje-light-card: #ffffff;
+  --c-instalacje-light-card-2: #f7f8f5;
+  --c-instalacje-light-border: #dcdfd8;
+  --c-instalacje-light-ink: #121613;
+  --c-instalacje-light-ink-soft: #2e342f;
+  /* = ink-3: the visualisation has one shade of secondary text (`--muted`). */
+  --c-instalacje-light-ink-2: #4f5650;
+  /* White on the brand book's #0093b3 is too little for a button label (visualisation note). */
+  --c-instalacje-light-accent: #007a96;
+  --c-instalacje-light-accent-text: #006a82;
+  --c-instalacje-light-accent-ink: #ffffff;
+  --c-instalacje-light-accent-soft: #e1f2f6;
+  --c-instalacje-light-accent-line: #b6dde6;
+  --c-instalacje-light-ok: #2e7a1e;
+  --c-instalacje-light-warn: #a86a00;
+  --c-instalacje-light-glow: rgba(0, 122, 150, 0.24);
+  --c-instalacje-light-dot: rgba(18, 22, 19, 0.08);
+  --c-instalacje-light-header-bg: rgba(244, 245, 241, 0.86);
+  --c-instalacje-light-shadow: 0 36px 80px -30px rgba(20, 60, 70, 0.32);
+  /* Instalacje — dark theme of the visualisation. */
+  --c-instalacje-night-surface: #101412;
+  --c-instalacje-night-surface-2: #151916;
+  --c-instalacje-night-surface-3: #1b201c;
+  --c-instalacje-night-card: #191e1a;
+  --c-instalacje-night-card-2: #1f251f;
+  --c-instalacje-night-border: #2a302b;
+  --c-instalacje-night-ink: #f4f5f1;
+  --c-instalacje-night-ink-soft: #d9ddd8;
+  --c-instalacje-night-ink-2: #b5bbb5;
+  /* = --c-instalacje-on-dark of the brand book. */
+  --c-instalacje-night-accent: #12b6d8;
+  --c-instalacje-night-accent-text: #4ccbe6;
+  --c-instalacje-night-accent-ink: #06181c;
+  --c-instalacje-night-accent-soft: #0f272b;
+  --c-instalacje-night-accent-line: #1f4e57;
+  --c-instalacje-night-ok: #7bd36a;
+  --c-instalacje-night-warn: #f2b84b;
+  --c-instalacje-night-glow: rgba(18, 182, 216, 0.36);
+  --c-instalacje-night-dot: rgba(244, 245, 241, 0.07);
+  --c-instalacje-night-header-bg: rgba(16, 20, 18, 0.8);
+  --c-instalacje-night-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.8);
+  /* Not in the visualisation; chosen for the contrast tests (themes.test.ts). Dark blocks: the
+     visualisation's `--ink` (#0b1416), the same in both themes. */
+  --c-instalacje-surface-dark: #0b1416;
+  --c-instalacje-light-border-input: #767c74;
+  --c-instalacje-light-ok-text: #256a18;
+  --c-instalacje-night-border-input: #7a817b;
+
   /* Status colours of the Biznes visualisation (dots); `-text` is darkened for 4.5:1. */
   --c-ok: #1f9d63;
   --c-ok-text: #15724a;
@@ -284,10 +337,34 @@
 }
 
 [data-line='instalacje'] {
-  --accent: var(--c-instalacje);
+  --accent: var(--c-instalacje-light-accent);
   --accent-on-dark: var(--c-instalacje-on-dark);
-  --accent-text: var(--c-instalacje-text);
-  --accent-2: var(--c-instalacje);
+  --accent-text: var(--c-instalacje-light-accent-text);
+  --accent-2: var(--c-instalacje-light-accent);
+  --accent-ink: var(--c-instalacje-light-accent-ink);
+  --accent-soft: var(--c-instalacje-light-accent-soft);
+  --accent-line: var(--c-instalacje-light-accent-line);
+  --surface: var(--c-instalacje-light-surface);
+  --surface-2: var(--c-instalacje-light-surface-2);
+  --surface-3: var(--c-instalacje-light-surface-3);
+  --card: var(--c-instalacje-light-card);
+  --card-2: var(--c-instalacje-light-card-2);
+  --surface-dark: var(--c-instalacje-surface-dark);
+  --ink: var(--c-instalacje-light-ink);
+  --ink-soft: var(--c-instalacje-light-ink-soft);
+  --ink-2: var(--c-instalacje-light-ink-2);
+  --ink-3: var(--c-instalacje-light-ink-2);
+  --border: var(--c-instalacje-light-border);
+  --border-input: var(--c-instalacje-light-border-input);
+  --ok: var(--c-instalacje-light-ok);
+  --ok-text: var(--c-instalacje-light-ok-text);
+  --warn: var(--c-instalacje-light-warn);
+  --glow: var(--c-instalacje-light-glow);
+  --dot: var(--c-instalacje-light-dot);
+  --header-bg: var(--c-instalacje-light-header-bg);
+  --shadow: var(--c-instalacje-light-shadow);
+  /* Visualisation: buttons on --accent with --accent-ink; follows the theme with --accent. */
+  --button-bg: var(--accent);
 }
 
 [data-line='software'] {
@@ -415,6 +492,36 @@
   --shadow: var(--c-software-night-shadow);
 }
 
+[data-line='instalacje'][data-theme='dark'] {
+  color-scheme: dark;
+  --accent: var(--c-instalacje-night-accent);
+  --accent-on-dark: var(--c-instalacje-night-accent-text);
+  --accent-text: var(--c-instalacje-night-accent-text);
+  --accent-2: var(--c-instalacje-night-accent-text);
+  --accent-ink: var(--c-instalacje-night-accent-ink);
+  --accent-soft: var(--c-instalacje-night-accent-soft);
+  --accent-line: var(--c-instalacje-night-accent-line);
+  --surface: var(--c-instalacje-night-surface);
+  --surface-2: var(--c-instalacje-night-surface-2);
+  --surface-3: var(--c-instalacje-night-surface-3);
+  --card: var(--c-instalacje-night-card);
+  --card-2: var(--c-instalacje-night-card-2);
+  --surface-dark: var(--c-instalacje-surface-dark);
+  --ink: var(--c-instalacje-night-ink);
+  --ink-soft: var(--c-instalacje-night-ink-soft);
+  --ink-2: var(--c-instalacje-night-ink-2);
+  --ink-3: var(--c-instalacje-night-ink-2);
+  --border: var(--c-instalacje-night-border);
+  --border-input: var(--c-instalacje-night-border-input);
+  --ok: var(--c-instalacje-night-ok);
+  --ok-text: var(--c-instalacje-night-ok);
+  --warn: var(--c-instalacje-night-warn);
+  --glow: var(--c-instalacje-night-glow);
+  --dot: var(--c-instalacje-night-dot);
+  --header-bg: var(--c-instalacje-night-header-bg);
+  --shadow: var(--c-instalacje-night-shadow);
+}
+
 /* …or by the system when there is no choice. Keep in sync with the rules above (tested). */
 @media (prefers-color-scheme: dark) {
   [data-line='biznes']:not([data-theme='light']) {
@@ -479,5 +586,35 @@
     --header-bg: var(--c-software-night-header-bg);
     --pill-accent: var(--c-software-light-accent-text);
     --shadow: var(--c-software-night-shadow);
+  }
+
+  [data-line='instalacje']:not([data-theme='light']) {
+    color-scheme: dark;
+    --accent: var(--c-instalacje-night-accent);
+    --accent-on-dark: var(--c-instalacje-night-accent-text);
+    --accent-text: var(--c-instalacje-night-accent-text);
+    --accent-2: var(--c-instalacje-night-accent-text);
+    --accent-ink: var(--c-instalacje-night-accent-ink);
+    --accent-soft: var(--c-instalacje-night-accent-soft);
+    --accent-line: var(--c-instalacje-night-accent-line);
+    --surface: var(--c-instalacje-night-surface);
+    --surface-2: var(--c-instalacje-night-surface-2);
+    --surface-3: var(--c-instalacje-night-surface-3);
+    --card: var(--c-instalacje-night-card);
+    --card-2: var(--c-instalacje-night-card-2);
+    --surface-dark: var(--c-instalacje-surface-dark);
+    --ink: var(--c-instalacje-night-ink);
+    --ink-soft: var(--c-instalacje-night-ink-soft);
+    --ink-2: var(--c-instalacje-night-ink-2);
+    --ink-3: var(--c-instalacje-night-ink-2);
+    --border: var(--c-instalacje-night-border);
+    --border-input: var(--c-instalacje-night-border-input);
+    --ok: var(--c-instalacje-night-ok);
+    --ok-text: var(--c-instalacje-night-ok);
+    --warn: var(--c-instalacje-night-warn);
+    --glow: var(--c-instalacje-night-glow);
+    --dot: var(--c-instalacje-night-dot);
+    --header-bg: var(--c-instalacje-night-header-bg);
+    --shadow: var(--c-instalacje-night-shadow);
   }
 }

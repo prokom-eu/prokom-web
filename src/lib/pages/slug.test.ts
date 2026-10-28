@@ -50,6 +50,16 @@ describe('RESERVED_PAGE_SLUGS', () => {
       expect(RESERVED_PAGE_SLUGS).toContain(slug)
     },
   )
+
+  // Instalacje routes (ADR-I002 §0): reserved before their pages exist (I10, I11).
+  it.each(['dla-kogo', 'wyslane'])('reserves the Instalacje path %s', (slug) => {
+    expect(RESERVED_PAGE_SLUGS).toContain(slug)
+  })
+
+  // The guide list `/poradnik` is a page of `Pages`; the route group serves only its entries.
+  it('keeps poradnik free for a page', () => {
+    expect(isValidPageSlug('poradnik')).toBe(true)
+  })
 })
 
 describe('pagePath', () => {

@@ -216,6 +216,35 @@ describe.each(cases.filter(({ line }) => line === 'software'))(
   },
 )
 
+// ADR-I003 §3: the Instalacje visualisation uses the second card level and active chips like
+// Software, and puts button labels on --accent.
+describe.each(cases.filter(({ line }) => line === 'instalacje'))(
+  'Instalacje surfaces, $mode theme',
+  ({ line, mode }) => {
+    const s = scope(line, mode)
+
+    it.each(['--ink', '--ink-soft', '--ink-2', '--accent-text'])(
+      '%s reaches 4.5:1 on the second card level and active chips',
+      (text) => {
+        for (const surface of ['--card-2', '--accent-soft']) {
+          expect(
+            contrastRatio(hex(text, s), hex(surface, s)),
+            `${text} on ${surface}`,
+          ).toBeGreaterThanOrEqual(4.5)
+        }
+      },
+    )
+
+    it('button label reaches 4.5:1 on the accent button', () => {
+      expect(contrastRatio(hex('--accent-ink', s), hex('--accent', s))).toBeGreaterThanOrEqual(4.5)
+    })
+
+    it('form field border reaches 3:1 on the second card level', () => {
+      expect(contrastRatio(hex('--border-input', s), hex('--card-2', s))).toBeGreaterThanOrEqual(3)
+    })
+  },
+)
+
 // ADR-015 v20 pkt 5: the „Czasem powiemy: nie budujcie” block keeps the light palette's
 // gradient in both themes, with a white label.
 it('Software: white on the „Czasem powiemy” gradient reaches 4.5:1 at both ends', () => {
