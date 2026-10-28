@@ -7,6 +7,7 @@ import {
   faqJsonLd,
   organizationJsonLd,
   productJsonLd,
+  videoJsonLd,
   serializeJsonLd,
 } from './jsonLd'
 import { pageRobots, robotsMeta, robotsTxt } from './robots'
@@ -164,6 +165,21 @@ describe('faqJsonLd', () => {
   })
 })
 
+describe('videoJsonLd', () => {
+  it('points at the youtube-nocookie player and the ytimg poster (ADR-016)', () => {
+    expect(videoJsonLd({ id: 'UFXLZ4kSjD0', title: 'Mobilna kasa K10', channel: 'ELZAB' })).toEqual(
+      {
+        '@context': 'https://schema.org',
+        '@type': 'VideoObject',
+        name: 'Mobilna kasa K10',
+        description: 'Mobilna kasa K10 — film producenta (ELZAB).',
+        thumbnailUrl: ['https://i.ytimg.com/vi/UFXLZ4kSjD0/hqdefault.jpg'],
+        embedUrl: 'https://www.youtube-nocookie.com/embed/UFXLZ4kSjD0',
+      },
+    )
+  })
+})
+
 describe('productJsonLd', () => {
   const input = {
     name: 'Posnet Ergo Online',
@@ -189,6 +205,36 @@ describe('productJsonLd', () => {
 
   it('never has offers — there are no prices (spec. §6.2)', () => {
     expect(JSON.stringify(productJsonLd(input))).not.toMatch(/offers|price/i)
+  })
+
+  it('is a ProductGroup with ?wersja= variants for a card with ≥ 2 versions (K31-ZMIANY §13.5)', () => {
+    const variants = [
+      { name: 'Posnet Ergo Online BT', sku: 'BT', url: `${input.url}?wersja=bt` },
+      { name: 'Posnet Ergo Online LAN', sku: 'LAN', url: `${input.url}?wersja=lan` },
+    ]
+    const group = productJsonLd({ ...input, groupId: 'posnet-ergo-online', variants })
+    expect(group).toMatchObject({
+      '@type': 'ProductGroup',
+      productGroupID: 'posnet-ergo-online',
+      url: input.url,
+      variesBy: ['https://schema.org/model'],
+      hasVariant: [
+        {
+          '@type': 'Product',
+          name: 'Posnet Ergo Online BT',
+          sku: 'BT',
+          url: `${input.url}?wersja=bt`,
+        },
+        {
+          '@type': 'Product',
+          name: 'Posnet Ergo Online LAN',
+          sku: 'LAN',
+          url: `${input.url}?wersja=lan`,
+        },
+      ],
+    })
+    expect(JSON.stringify(group)).not.toMatch(/offers|price/i)
+    expect(productJsonLd({ ...input, variants: variants.slice(0, 1) })['@type']).toBe('Product')
   })
 
   it('leaves out what is missing', () => {

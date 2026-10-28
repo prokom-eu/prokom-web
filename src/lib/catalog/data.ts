@@ -43,6 +43,8 @@ export const getCatalogIndex = (tenantId: number): Promise<CatalogIndex> =>
             kind: true,
             brand: true,
             categories: true,
+            subcategory: true,
+            series: true,
             industries: true,
             fitsWith: true,
             benefit: true,
@@ -133,7 +135,8 @@ export const getProductView = (tenantId: number, slug: string): Promise<ProductV
       const product = docs[0]
       return product ? buildProductView(product, tenantId) : null
     },
-    ['product-view', String(tenantId), slug],
+    // The key names the shape of `ProductView`: a cached entry of an older shape is never read.
+    ['product-view-2.0', String(tenantId), slug],
     { tags: [catalogTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
   )()
 

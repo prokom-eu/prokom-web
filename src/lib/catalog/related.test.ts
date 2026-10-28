@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest'
 
+import { prepareSearch } from '../search'
 import type { CatalogIndex, IndexProduct } from './catalogIndex'
-import { alternativeProducts, kitProducts, similarProducts } from './related'
+import { FAMILY_LIMIT, familyProducts, suggestedProducts } from './related'
 
 const product = (slug: string, fields: Partial<IndexProduct> = {}): IndexProduct => ({
   slug,
@@ -31,54 +32,85 @@ const index = (products: IndexProduct[]): CatalogIndex => ({
   search: { synonyms: {}, stopWords: [], popular: [] },
 })
 
-describe('similarProducts', () => {
-  const catalog = index([
-    product('a'),
-    product('ergo'),
-    product('b', { categories: ['akcesoria', 'kasy'] }),
-    product('obca', { categories: ['terminale'] }),
-    product('c'),
-    product('d'),
-    product('e'),
-  ])
+describe('familyProducts', () => {
+  const lenovo = (slug: string, series: string | undefined, subcategory = 'Laptopy') =>
+    product(slug, { brand: 'lenovo', series, subcategory, categories: ['komputery'] })
 
-  it('takes the 4 most popular of the main category, without the product itself', () => {
-    expect(similarProducts(catalog, 'ergo').map((item) => item.slug)).toEqual(['a', 'b', 'c', 'd'])
-  })
-
-  it('is empty for a product missing from the index', () => {
-    expect(similarProducts(catalog, 'nie-ma')).toEqual([])
-  })
-})
-
-describe('kitProducts', () => {
-  it('keeps the panel order of „pasuje do”, only listed products, no repeats and not itself', () => {
+  it('takes the same brand and series first, then the same subcategory', () => {
     const catalog = index([
-      product('ergo', { fits: ['szuflada', 'szkic', 'ergo', 'terminal', 'szuflada'] }),
-      product('terminal'),
-      product('szuflada'),
+      lenovo('tb14', 'ThinkBook'),
+      lenovo('t14', 'ThinkPad T'),
+      lenovo('tb16', 'ThinkBook'),
+      product('dell', {
+        brand: 'dell',
+        series: 'ThinkBook',
+        subcategory: 'Laptopy',
+        categories: ['komputery'],
+      }),
+      lenovo('tbmon', 'ThinkBook', 'Monitory'),
     ])
-    expect(kitProducts(catalog, 'ergo').map((item) => item.slug)).toEqual(['szuflada', 'terminal'])
+    expect(familyProducts(catalog, 'tb14').map((item) => item.slug)).toEqual([
+      'tb16',
+      'tbmon',
+      't14',
+      'dell',
+    ])
   })
 
-  it('shows at most 5', () => {
-    const fits = ['p1', 'p2', 'p3', 'p4', 'p5', 'p6']
-    const catalog = index([product('ergo', { fits }), ...fits.map((slug) => product(slug))])
-    expect(kitProducts(catalog, 'ergo')).toHaveLength(5)
-  })
-
-  it('is empty without „pasuje do”', () => {
-    expect(kitProducts(index([product('ergo')]), 'ergo')).toEqual([])
+  it('shows at most 4, never the product itself, nothing for a product without either', () => {
+    const many = index(Array.from({ length: 7 }, (_, i) => lenovo(`m${i}`, 'ThinkBook')))
+    expect(familyProducts(many, 'm0')).toHaveLength(FAMILY_LIMIT)
+    expect(familyProducts(many, 'm0').map((item) => item.slug)).not.toContain('m0')
+    expect(familyProducts(index([product('a'), product('b')]), 'a')).toEqual([])
+    expect(familyProducts(many, 'brak')).toEqual([])
   })
 })
 
-describe('alternativeProducts', () => {
-  it('maps slugs to listed products in their order, skipping missing ones and itself', () => {
-    const catalog = index([product('ergo'), product('neo'), product('mini')])
-    expect(
-      alternativeProducts(catalog, 'ergo', ['mini', 'szkic', 'ergo', 'neo', 'mini']).map(
-        (item) => item.slug,
-      ),
-    ).toEqual(['mini', 'neo'])
+describe('suggestedProducts', () => {
+  const catalog = index([
+    product('ergo', { fits: ['szuflada', 'rolki', 'brak'] }),
+    product('szuflada', { name: 'Szuflada kasowa SK-500', hay: 'szuflada kasowa' }),
+    product('rolki', { name: 'Rolki termiczne 57 mm', hay: 'rolki papier' }),
+    product('czytnik', { name: 'Czytnik kodów', hay: 'czytnik kodow skaner' }),
+  ])
+  const prepared = prepareSearch(catalog)
+
+  it('matches phrases to cards, then adds „pasuje do”, without repeats', () => {
+    const { cards, chips } = suggestedProducts(catalog, prepared, 'ergo', [
+      'szuflada kasowa',
+      'czytnik kodów',
+      'terminal płatniczy',
+    ])
+    expect(cards.map(({ label, product }) => [label, product.slug])).toEqual([
+      ['szuflada kasowa', 'szuflada'],
+      ['czytnik kodów', 'czytnik'],
+      [null, 'rolki'],
+    ])
+    expect(chips).toEqual(['terminal płatniczy'])
+  })
+
+  it('prefers a hit of the same brand', () => {
+    const lenovo = index([
+      product('tb14', { brand: 'lenovo' }),
+      product('dell-dock', {
+        brand: 'dell',
+        name: 'Dell stacja dokująca',
+        hay: 'stacja dokujaca',
+        popularity: 90,
+      }),
+      product('lenovo-dock', {
+        brand: 'lenovo',
+        name: 'Lenovo stacja dokująca',
+        hay: 'stacja dokujaca',
+        popularity: 10,
+      }),
+    ])
+    const { cards } = suggestedProducts(lenovo, prepareSearch(lenovo), 'tb14', ['stacja dokująca'])
+    expect(cards.map((card) => card.product.slug)).toEqual(['lenovo-dock'])
+  })
+
+  it('never suggests the product itself', () => {
+    const { cards } = suggestedProducts(catalog, prepared, 'szuflada', ['szuflada kasowa'])
+    expect(cards).toEqual([])
   })
 })

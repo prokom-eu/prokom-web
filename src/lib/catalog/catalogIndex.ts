@@ -43,6 +43,9 @@ export type IndexProduct = {
   categories: string[]
   /** Group of the main category. */
   group: string | null
+  /** Subcategory and series (Lenovo, Dell): „Z tej samej rodziny” on the product page (K31b). */
+  subcategory?: string
+  series?: string
   industries: string[]
   /** "Skompletuj stanowisko" (`fitsWith`): slugs of products that go with this one. */
   fits?: string[]
@@ -99,6 +102,8 @@ export type IndexedProductDoc = Pick<
   | 'kind'
   | 'brand'
   | 'categories'
+  | 'subcategory'
+  | 'series'
   | 'industries'
   | 'fitsWith'
   | 'benefit'
@@ -208,6 +213,8 @@ export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
       .map((fit) => fit.slug)
     const main = categories[0]
     const benefit = optional(product.benefit)
+    const subcategory = optional(product.subcategory)
+    const series = optional(product.series)
     const badge = optional(product.badge)
     const image = cardImage(product.images, tenantId)
     const features = product.features ?? []
@@ -232,6 +239,8 @@ export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
       kind: product.kind,
       categories: categories.map((category) => category.slug),
       group: (main && groupSlugOf(main)) ?? null,
+      ...(subcategory && { subcategory }),
+      ...(series && { series }),
       industries: industries.map((industry) => industry.slug),
       ...(fits.length > 0 && { fits }),
       ...(benefit && { benefit }),

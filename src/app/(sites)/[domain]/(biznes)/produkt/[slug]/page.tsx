@@ -1,27 +1,49 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
-import { cardIcon, productBadges, productHref } from '@/lib/catalog/card'
-import { getCatalogIndex, getProductView } from '@/lib/catalog/data'
+import { bentoTiles } from '@/lib/catalog/bento'
+import { cardIcon, productHref } from '@/lib/catalog/card'
 import { categoryHref } from '@/lib/catalog/category'
-import { CATALOG_PATH } from '@/lib/catalog/filters'
-import { alternativeProducts, kitProducts, similarProducts } from '@/lib/catalog/related'
+import { getCatalogIndex, getProductView } from '@/lib/catalog/data'
+import { CATALOG_PATH, catalogHref, parseCatalogState, updateState } from '@/lib/catalog/filters'
+import { productTitle, uniqueVersions, variantKey, variantSlug } from '@/lib/catalog/productName'
+import { familyProducts, suggestedProducts } from '@/lib/catalog/related'
 import { getEnv } from '@/lib/env'
 import { pickSource } from '@/lib/media/sizes'
 import { ogImages } from '@/lib/pages/metadata'
-import { breadcrumbJsonLd, productJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
+import { prepareSearch } from '@/lib/search'
+import {
+  breadcrumbJsonLd,
+  faqJsonLd,
+  productJsonLd,
+  serializeJsonLd,
+  videoJsonLd,
+} from '@/lib/seo/jsonLd'
 import { pageRobots } from '@/lib/seo/robots'
 import { getSiteSettings } from '@/lib/site/data'
-import { toTelHref, toWhatsAppHref } from '@/lib/site/link'
+import { toTelHref } from '@/lib/site/link'
 import { isValidSlug } from '@/lib/tenant/uniqueSlug'
 import { Breadcrumbs, type Crumb } from '@/sites/biznes/components/Breadcrumbs'
-import { ProductBox } from '@/sites/biznes/components/product/ProductBox'
-import { ProductDetails } from '@/sites/biznes/components/product/ProductDetails'
-import { ProductAlternatives } from '@/sites/biznes/components/product/ProductAlternatives'
-import { ProductGallery } from '@/sites/biznes/components/product/ProductGallery'
-import { ProductKit, type KitItem } from '@/sites/biznes/components/product/ProductKit'
-import { SimilarProducts } from '@/sites/biznes/components/product/SimilarProducts'
-import { HowInquiryWorks } from '@/sites/biznes/components/HowInquiryWorks'
+import { ProductAbout } from '@/sites/biznes/components/product/ProductAbout'
+import { ProductBento } from '@/sites/biznes/components/product/ProductBento'
+import { ProductConfigProvider } from '@/sites/biznes/components/product/ProductConfig'
+import { ProductConfigurator } from '@/sites/biznes/components/product/ProductConfigurator'
+import { ProductHero } from '@/sites/biznes/components/product/ProductHero'
+import {
+  ProductSectionNav,
+  type NavSection,
+} from '@/sites/biznes/components/product/ProductSectionNav'
+import {
+  ProductCtaBand,
+  ProductFamily,
+  ProductFaq,
+  ProductSources,
+  ProductSuggestions,
+  ProductVersions,
+} from '@/sites/biznes/components/product/ProductSections'
+import { ProductSpecs } from '@/sites/biznes/components/product/ProductSpecs'
+import { CONFIGURATOR_ID } from '@/sites/biznes/components/product/ProductVersionPicker'
+import { ProductVideos } from '@/sites/biznes/components/product/ProductVideos'
 
 import { requestOrigin, requireLine } from '../../../tenant'
 
@@ -29,6 +51,19 @@ type Props = { params: Promise<{ domain: string; slug: string }> }
 
 /** Width of the image in JSON-LD: Google asks for large images (≥ 1200 px when there is one). */
 const JSON_LD_IMAGE_WIDTH = 1200
+
+/** Anchors of the sections, in the order of the page (K31-ZMIANY §4 pkt 2). */
+const ID = {
+  overview: 'przeglad',
+  about: 'opis',
+  video: 'film',
+  specs: 'parametry',
+  versions: 'wersje',
+  suggestions: 'dobierz',
+  family: 'rodzina',
+  faq: 'faq',
+  sources: 'zrodla',
+} as const
 
 async function load(params: Props['params']) {
   const tenant = await requireLine(params, 'biznes')
@@ -41,9 +76,15 @@ async function load(params: Props['params']) {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { tenant, product } = await load(params)
   if (!product) return {}
-  const title = product.seo.title ?? product.name
+  const title =
+    product.seo.title ??
+    productTitle(
+      product.heading,
+      product.variants.map((variant) => variant.name),
+    )
   const description = product.seo.description ?? product.benefit ?? undefined
   const settings = await getSiteSettings(tenant.id)
+  // One canonical per card: `?wersja=` only picks the configurator (K31-ZMIANY §13.5).
   const canonical = productHref(product.slug)
   return {
     title,
@@ -64,8 +105,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 /**
- * Product page `/produkt/[slug]` (spec. §6.2): gallery and box (B6a), then tabs, alternatives,
- * „Skompletuj stanowisko”, „Podobne” and how the inquiry works (B6b).
+ * Product page 2.0 `/produkt/[slug]` (spec. §6.2, K31-ZMIANY §4, §7, §13.5, §13.7): hero, the
+ * section bar, „W skrócie”, description, configurator, video, parameters, versions, „Do tego
+ * zwykle dobierają”, the family, FAQ, sources and the CTA band. An empty section is not shown.
  */
 export default async function ProductPage({ params }: Props) {
   const { tenant, product } = await load(params)
@@ -76,55 +118,86 @@ export default async function ProductPage({ params }: Props) {
     requestOrigin(),
   ])
 
-  // Badges and the picture without a photo are the card's (catalog index), so both agree.
+  // The picture without a photo is the card's (catalog index), so both agree.
   const listed = index.products.find((item) => item.slug === product.slug)
   const category = index.categories.find((item) => item.slug === product.category?.slug)
-  const badges = listed ? productBadges(listed, index.brands) : []
-
-  const phone = settings?.phone ?? null
-  const tel = phone ? toTelHref(phone) : null
-  const whatsapp = settings?.biznes?.whatsapp ?? null
-  const contact = {
-    phone: phone && tel ? { label: phone, href: tel } : null,
-    whatsapp: whatsapp ? toWhatsAppHref(whatsapp) : null,
-  }
+  const phoneLabel = settings?.phone ?? null
+  const tel = phoneLabel ? toTelHref(phoneLabel) : null
+  const phone = phoneLabel && tel ? { label: phoneLabel, href: tel } : null
 
   // The category page exists only for a listed category (rozstrzygnięcie 7).
   const categoryLink = category ? categoryHref(category.slug) : null
+  // The brand's catalog until its showroom exists (K3b′, K31c).
+  const brandLink = product.brand
+    ? catalogHref(
+        updateState(parseCatalogState(new URLSearchParams(), index), {
+          brands: [product.brand.slug],
+        }),
+      )
+    : null
+
+  const tiles = bentoTiles(product.specs)
+  const variantNames = uniqueVersions(product.variants.map((variant) => variant.name))
+  const suggestions = suggestedProducts(
+    index,
+    prepareSearch(index),
+    product.slug,
+    product.suggestions,
+  )
+  const family = familyProducts(index, product.slug)
+  const video = product.videos.length > 0
+  const hasVersions = variantNames.length >= 2
+
+  const sections: NavSection[] = [
+    ...(tiles.length > 0 ? [{ id: ID.overview, label: 'Przegląd' }] : []),
+    { id: ID.about, label: 'Opis' },
+    ...(product.configurator ? [{ id: CONFIGURATOR_ID, label: 'Wybierz wersję' }] : []),
+    ...(video ? [{ id: ID.video, label: 'Film' }] : []),
+    ...(product.specs.length > 0 ? [{ id: ID.specs, label: 'Parametry' }] : []),
+    ...(hasVersions ? [{ id: ID.versions, label: 'Wersje' }] : []),
+    ...(product.faq.length > 0 ? [{ id: ID.faq, label: 'FAQ' }] : []),
+    ...(product.sources.length > 0 ? [{ id: ID.sources, label: 'Źródła' }] : []),
+  ]
 
   const crumbs: Crumb[] = [
     { name: 'Strona główna', href: '/' },
     { name: 'Oferta', href: CATALOG_PATH },
     ...(category && categoryLink ? [{ name: category.name, href: categoryLink }] : []),
-    { name: product.name, href: productHref(product.slug) },
+    { name: product.heading, href: productHref(product.slug) },
   ]
+  const url = origin + productHref(product.slug)
   const jsonLd = [
     productJsonLd({
       name: product.name,
-      description: product.benefit,
-      url: origin + productHref(product.slug),
+      description: product.subtitle ?? product.benefit,
+      url,
+      groupId: product.slug,
       brand: product.brand?.name ?? null,
       category: product.category?.name ?? null,
       images: product.images.map(
         (image) => origin + pickSource(image.sources, JSON_LD_IMAGE_WIDTH),
       ),
+      variants: hasVersions
+        ? variantNames.map((name) => ({
+            name: `${product.heading} ${name}`,
+            sku: variantKey(name),
+            url: `${url}?wersja=${variantSlug(name)}`,
+          }))
+        : [],
     }),
     breadcrumbJsonLd(crumbs.map(({ name, href }) => ({ name, url: origin + href }))),
+    // FAQPage only for a card „Gotowe” (K3-KATALOG §5.2).
+    ...(product.indexable && product.faq.length > 0 ? [faqJsonLd(product.faq)] : []),
+    ...product.videos.slice(0, 1).map((item) => videoJsonLd(item)),
   ]
 
-  // Sections under the content (B6b): only this site's published products (catalog index).
-  const kit: KitItem[] = kitProducts(index, product.slug).map((item) => ({
-    slug: item.slug,
-    name: item.name,
-    benefit: item.benefit ?? null,
-    image: item.image ?? null,
-    icon: cardIcon(item, index),
-  }))
-  const alternatives = alternativeProducts(index, product.slug, product.alternatives)
-  const similar = similarProducts(index, product.slug)
-
   return (
-    <>
+    <ProductConfigProvider
+      slug={product.slug}
+      name={product.name}
+      config={product.configurator}
+      variants={variantNames}
+    >
       {jsonLd.map((data, position) => (
         <script
           key={position}
@@ -132,43 +205,52 @@ export default async function ProductPage({ params }: Props) {
           dangerouslySetInnerHTML={{ __html: serializeJsonLd(data) }}
         />
       ))}
-      <div className="relative bg-[radial-gradient(ellipse_at_85%_0%,var(--glow),transparent_55%)]">
-        <div className="mx-auto w-full max-w-7xl px-4 pb-12 pt-5 sm:px-6 sm:pb-16 sm:pt-9 lg:px-8">
-          <Breadcrumbs items={crumbs} />
-          <div className="mt-5 grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,480px)] lg:items-start lg:gap-10">
-            <ProductGallery
-              name={product.name}
-              images={product.images}
-              hotspots={product.hotspots}
-              modules={product.modules}
-              badges={badges}
-              icon={listed ? cardIcon(listed, index) : 'store'}
-            />
-            <ProductBox
-              product={product}
-              contact={contact}
-              callbackTime={settings?.biznes?.promises.callbackTime ?? null}
-            />
-          </div>
+      <div className="mx-auto w-full max-w-7xl px-4 pt-5 pb-12 sm:px-6 sm:pt-8 sm:pb-16 lg:px-8">
+        <Breadcrumbs items={crumbs} />
+        <div className="mt-5 sm:mt-7">
+          <ProductHero
+            product={product}
+            icon={listed ? cardIcon(listed, index) : 'store'}
+            brandHref={brandLink}
+            categoryHref={categoryLink}
+            phone={phone}
+            videoTarget={video ? ID.video : null}
+          />
         </div>
       </div>
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-14 px-4 pb-16 sm:gap-20 sm:px-6 sm:pb-24 lg:px-8">
-        {product.tabs.length > 0 && <ProductDetails product={product} />}
-        {alternatives.length > 0 && <ProductAlternatives products={alternatives} />}
-        {kit.length > 0 && <ProductKit items={kit} />}
-        {similar.length > 0 && (
-          <SimilarProducts
-            products={similar}
-            index={index}
-            category={
-              category && categoryLink
-                ? { name: category.name, count: category.count, href: categoryLink }
-                : null
-            }
-          />
-        )}
+      <ProductSectionNav
+        sections={sections}
+        name={product.heading}
+        image={product.images[0] ?? null}
+      />
+      <div className="mx-auto flex w-full max-w-7xl flex-col gap-20 px-4 pt-14 pb-16 sm:gap-28 sm:px-6 sm:pt-20 sm:pb-24 lg:px-8">
+        <ProductBento id={ID.overview} heading={product.heading} tiles={tiles} />
+        <ProductAbout id={ID.about} product={product} />
+        {product.configurator && <ProductConfigurator config={product.configurator} />}
+        <ProductVideos id={ID.video} videos={product.videos} poster={product.images[0] ?? null} />
+        <ProductSpecs id={ID.specs} rows={product.specs} />
+        <ProductVersions id={ID.versions} variants={product.variants} />
+        <ProductSuggestions
+          id={ID.suggestions}
+          cards={suggestions.cards}
+          chips={suggestions.chips}
+          index={index}
+        />
+        <ProductFamily
+          id={ID.family}
+          products={family}
+          index={index}
+          heading={product.series ? `Inne z rodziny ${product.series}` : 'Z tej samej rodziny'}
+          brandLink={
+            product.brand && brandLink
+              ? { label: `Cała oferta ${product.brand.name}`, href: brandLink }
+              : null
+          }
+        />
+        <ProductFaq id={ID.faq} faq={product.faq} phone={phone} />
+        <ProductSources id={ID.sources} sources={product.sources} checkedAt={product.checkedAt} />
+        <ProductCtaBand phone={phone} />
       </div>
-      <HowInquiryWorks callbackTime={settings?.biznes?.promises.callbackTime ?? null} />
-    </>
+    </ProductConfigProvider>
   )
 }

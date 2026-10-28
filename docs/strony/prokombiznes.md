@@ -383,7 +383,8 @@ Kolejność sekcji (pusta sekcja się nie renderuje):
 - **SEO:** `Product` bez `offers`, `BreadcrumbList`, `FAQPage` tylko dla kart `gotowe`, `VideoObject` dla filmu, `ProductGroup` (`variesBy`, `hasVariant` z `?wersja=`) dla kart z ≥ 2 wariantami; karty `do-sprawdzenia` — `noindex`, poza sitemap.
 - **Telefon:** galeria przesuwana palcem, krótki H1 + chipy, konfigurator z zawijanymi chipami, parametry „6 + Pokaż wszystkie”, przyklejone „Dodaj do zapytania” (`MOBILE-APLIKACJA.md` §3).
 - **Usunięte/scalone karty:** adres → 301 (do kategorii albo nowej karty); karta `do-akceptacji-szefa` → 404 albo 301 na `/opieka-it`.
-- Z etapu 1 (B6) znikają: hotspoty na zdjęciu (pole w modelu do decyzji w K31b — usunąć migracją, jeśli nieużywane), zakładki (zastępuje je nawigacja sekcji), „W PRO-KOM w cenie” (zasady treści, §1).
+- Z etapu 1 (B6) znikają: hotspoty i moduły na zdjęciu (pola usunięte migracją `k31b_drop_hotspots`, K31b), zakładki (zastępuje je nawigacja sekcji), „W PRO-KOM w cenie” (zasady treści, §1; jego miejsce zajmuje „Co robimy przy zakupie” w panelu opisu), „Podobne” (zastępuje je „Z tej samej rodziny”), „Kiedy wybrać coś innego?” i „Skompletuj stanowisko” (decyzja Krystiana 28.10: relacje `alternatives` i `fitsWith` zostają w panelu; produkty z „pasuje do” dochodzą do „Do tego zwykle dobierają” po kartach dopasowanych do fraz `dobierz`, a fraza bez dopasowania zostaje chipem; przy kilku trafieniach wygrywa karta tej samej marki).
+- `VideoObject` bez `uploadDate` — daty publikacji nie ma ani w paczce, ani w oEmbed (decyzja 28.10; wraca, jeśli dojdzie pole w panelu albo zadanie pobierze ją z YouTube Data API — wymaga ADR).
 
 **Etap 1 (B6, historia — zastąpione przez produkt 2.0):**
 Wzór: `Produkt` (Posnet Ergo Online), zrzuty jasny i ciemny.
