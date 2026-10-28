@@ -23,9 +23,10 @@
 | Po wysłaniu formularza | trasa linii **`(instalacje)/wyslane`** (jak `/dziekujemy` Software: `noindex`, poza sitemap — `Pages` nie ma przełącznika `noindex`), teksty w `dane/wyslane.ts`, `wyslane` do `RESERVED_PAGE_SLUGS` | **`/wyslane`** (`/dziekujemy` jest zajęte przez trasę Software) |
 | Kontakt, Serwis, O firmie, Realizacje | `Pages` + bloki **`InstContact`**, **`InstServiceDesk`**, **`InstAbout`**, **`InstRealizations`** | `/kontakt`, `/serwis`, `/o-firmie`, `/realizacje` |
 | Poradnik + wpisy | `Pages` `poradnik` + blok **`InstGuide`** (lista `Posts` tenanta); wpis: trasa linii **`(instalacje)/poradnik/[slug]`**. `poradnik` **nie** trafia do `RESERVED_PAGE_SLUGS` — lista jest stroną `Pages`, a trasa grupy obsługuje tylko adresy zagnieżdżone. Wspólne `postHref()` (`src/lib/posts/list.ts`) daje dziś zawsze `/aktualnosci/…` → w I12 mały PR wsp: adres wpisu zależny od linii (testy Biznesu i Instalacji, też w sitemap) | `/poradnik`, `/poradnik/<slug>` |
+| Dla architektów i deweloperów | `Pages` `dla-architektow` + blok **`InstArchitects`** (cała strona; teksty `dane/architekci.ts`, przekrój `dane/przekroj.ts`, nowe rozwiązania z `InstArchNews`) — **ADR-I005** | `/dla-architektow` |
 | Prawne | `Pages` z blokiem `RichText` (wspólny) | `/polityka-prywatnosci`, `/cookies`, `/deklaracja-dostepnosci` |
 
-Razem **10 bloków linii** (`InstHome`, `InstService`, `InstOffer`, `InstPlanner`, `InstContact`, `InstServiceDesk`, `InstAbout`, `InstRealizations`, `InstGuide` + ewentualnie `InstCta`) — poniżej progu ADR-010. Bloki w `src/sites/instalacje/blocks/`, wpisy w rejestrze (strefa wspólna). Layout grupy `(instalacje)` jak `(software)/layout.tsx` (`requireLine(params, 'instalacje')`); do `RESERVED_PAGE_SLUGS`: `dla-kogo`, `wyslane`. Frame linii (`InstalacjeFrame`: nagłówek, stopka, dolny pasek, arkusz) wpięty w `[domain]/layout.tsx` obok `BiznesFrame` i `SoftwareFrame` — wybierany po `tenant.line === 'instalacje'`. Biznes i Software wybierają ramkę po swojej grupie w `SiteSettings`; Instalacje mają nawigację w kodzie (`dane/nawigacja.ts`), więc grupa `SiteSettings.instalacje` nie jest potrzebna.
+Razem **11 bloków linii** (`InstHome`, `InstService`, `InstOffer`, `InstPlanner`, `InstContact`, `InstServiceDesk`, `InstAbout`, `InstRealizations`, `InstGuide`, `InstArchitects` (W-A, ADR-I005) + ewentualnie `InstCta`) — poniżej progu ADR-010. Bloki w `src/sites/instalacje/blocks/`, wpisy w rejestrze (strefa wspólna). Layout grupy `(instalacje)` jak `(software)/layout.tsx` (`requireLine(params, 'instalacje')`); do `RESERVED_PAGE_SLUGS`: `dla-kogo`, `wyslane`. Frame linii (`InstalacjeFrame`: nagłówek, stopka, dolny pasek, arkusz) wpięty w `[domain]/layout.tsx` obok `BiznesFrame` i `SoftwareFrame` — wybierany po `tenant.line === 'instalacje'`. Biznes i Software wybierają ramkę po swojej grupie w `SiteSettings`; Instalacje mają nawigację w kodzie (`dane/nawigacja.ts`), więc grupa `SiteSettings.instalacje` nie jest potrzebna.
 
 ### 1. Podział: panel vs kod
 | W panelu (Payload) | W kodzie (`src/sites/instalacje/`) |
@@ -68,6 +69,8 @@ Wszystkie z polem tenanta (wtyczka multi-tenant). Nazwy pól poniżej są opisow
 - `tytul`, `uslugi[]`, `obiekt`, `miejscowosc`, `rok`, `opis`, `zdjecia[]` (media), `zgodaKlienta` (bool, wymagane do publikacji — hook blokuje publikację bez zgody), `wyrozniona`.
 - Seed (`Main.json → rl`, `Realizacje.json`) zawiera **prawdziwe nazwy klientów** z dawnych realizacji. Import: wszystkie jako **wersje robocze z `zgodaKlienta = false`**. Na stronie głównej i w `/realizacje` do czasu zgód: placeholdery z prototypu (bez nazw klientów). Lista do zgód — `docs/strony/prokominstalacje-do-uzupelnienia.md`.
 
+**`InstArchNews`** (nowe rozwiązania dla architektów, panel) — pola, hook znaczników i seed: **ADR-I005 §2**, sesja I16b.
+
 ### 3. Ustawienia linii
 **`InstalacjeSettings`** (kolekcja z jednym dokumentem na tenant — wzór `BiznesSettings` / `SoftwareSettings`)
 - `pokazCeny` (bool, domyślnie **false**), `komunikatBezCen` („Wycena po wizji lokalnej”), `liczbaRozwiazan` (wyliczana), `gwarancjaMies` (24), `tekstOdpowiedzi` („Do 24 h odpowiadamy na zgłoszenia w dni robocze…”) — teksty obietnic w jednym miejscu, żeby zmiana decyzji szefa była jedną edycją.
@@ -76,6 +79,8 @@ Dane kontaktowe — w istniejących ustawieniach, gdzie się da (sprawdzone w I0
 - telefon i e-mail linii: `SiteSettings.phone` / `SiteSettings.email` (tenant `instalacje`);
 - salony z adresami i godzinami: `CompanyData.locations` (global wspólny dla linii; adres salonu w Zakopanem [SZEF]);
 - **WhatsApp:** pole jest tylko w grupie `SiteSettings.biznes` → dla Instalacji `InstalacjeSettings.whatsapp` (strefa własna, ta sama walidacja `toWhatsAppHref`), bez ruszania danych Biznesu.
+
+- **Opiekun architektów:** grupa `InstalacjeSettings.architects` (`name`, `role`, `photo`, `phone`, `email`, `quote`, `responseText`) — ADR-I005 §1, sesja I16c.
 
 Placeholdery z `wspolne.json → K` wpisujemy do seeda, szef podmienia w panelu.
 

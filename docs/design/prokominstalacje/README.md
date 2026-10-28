@@ -1,15 +1,16 @@
-# Wzorzec wyglądu prokominstalacje.pl (wizualizacja v4.0, 27.10.2026)
+# Wzorzec wyglądu prokominstalacje.pl (wizualizacja v4.2, 28.10.2026)
 
 Wszystko, czego Claude Code potrzebuje, żeby zbudować stronę 1:1 z wizualizacją. Canvas i prototyp z czatu są tu w całości — Claude Code nie musi (i nie może) zaglądać do czatu.
 
 ## Co tu jest i do czego służy
 | Ścieżka | Co to jest | Kiedy używać |
 |---|---|---|
-| `prototyp/*.html` | **klikalny prototyp 31 stron** (desktop i telefon, oba motywy, wszystkie interakcje), działa po otwarciu pliku w przeglądarce | zawsze: to jest cel; przed i po każdej sekcji |
-| `MAPA-STRON.md` | lista 31 stron: adres publiczny, plik prototypu, sekcje z `id` w kolejności, wysokości | planowanie sesji, kontrola kompletności |
+| `prototyp/*.html` | **klikalny prototyp 32 stron** (desktop i telefon, oba motywy, wszystkie interakcje), działa po otwarciu pliku w przeglądarce | zawsze: to jest cel; przed i po każdej sekcji |
+| `MAPA-STRON.md` | lista 32 stron: adres publiczny, plik prototypu, sekcje z `id` w kolejności, wysokości | planowanie sesji, kontrola kompletności |
 | `KOMPONENTY.md` | mapa części prototypu → komponenty React, stany widżetów | planowanie każdej sesji z UI |
 | `MOBILE-APLIKACJA.md` | telefon jak aplikacja: szkielet, nagłówek, dolny pasek, arkusz, przejścia, odbiór | każda sesja z UI (Definition of Done) |
-| `stany-telefonu/*.webp` | 10 stanów telefonu × jasny/ciemny (arkusz, chowany nagłówek, aktywna karta…) | I3, I14 i przy każdej zmianie powłoki |
+| `stany-telefonu/*.webp` | 10 stanów telefonu × jasny/ciemny (arkusz, chowany nagłówek, aktywna karta…); `21–25` — strona dla architektów (start, przekrój „przed tynkami”, nowe rozwiązania, deweloperzy, wysyłka rzutów) | I3, I14 i przy każdej zmianie powłoki; `21–25` w I16a–c |
+| `ARCHITEKCI.md` | strona dla architektów: sekcje, komponenty, interakcje, stany (v4.2) | sesje I16a–c |
 | `tokens.css` | kolory, motywy, kolory usług, sceny | I1 i wszędzie (kolory tylko przez zmienne) |
 | `pk.css` | pełny arkusz prototypu (źródło reguł do przeniesienia) | przy przenoszeniu każdej sekcji — szukaj jej klas |
 | `zrodlo/` | źródło prototypu: `pages/<Nazwa>.body.html` (szablon), `<Nazwa>.js` (stan, logika, treści), `.meta.json` (tytuł, opis, wysokości), `inc/` (sekcje wspólne), `header.html`, `footer.html`, `common.js` (powłoka, ikony, usługi, obiekty, menu), `fold.json` (sekcje zwijane na telefonie), `generator-obiektow/` (dane i sceny 12 stron „Dla kogo”) | logika widżetów, dokładne klasy i struktura |

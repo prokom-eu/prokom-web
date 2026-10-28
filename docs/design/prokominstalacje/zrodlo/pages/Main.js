@@ -1,7 +1,7 @@
-  initState() { return { obj: 'pens', mode: 'night', layers: ['kam', 'wifi'], touched: false, kSvc: [], kObj: '', kTown: '', kPh: '', kCons: false, kDone: false, kErr: '', nw: false, gAll: false, oAll: false }; }
+  initState() { return { obj: 'pens', mode: 'night', layers: ['kam', 'wifi'], touched: false, kSvc: [], kObj: '', kTown: '', kPh: '', kCons: false, kDone: false, kErr: '', nw: false, gAll: false, oAll: false, arT: false, arM: 'in', arHs: 0, arOff: [] }; }
   navKey() { return 'home'; }
-  railIds() { return ['start', 'dla-kogo', 'uslugi', 'realizacje', 'gory', 'proces', 'serwis', 'faq', 'zaplanuj']; }
-  rvIds() { return ['dla', 'uslugi', 'realizacje', 'gory', 'proces', 'serwis', 'faq', 'zaplanuj']; }
+  railIds() { return ['start', 'dla-kogo', 'uslugi', 'architekci', 'realizacje', 'gory', 'proces', 'serwis', 'faq', 'zaplanuj']; }
+  rvIds() { return ['dla', 'uslugi', 'arch', 'realizacje', 'gory', 'proces', 'serwis', 'faq', 'zaplanuj']; }
   mountPage() {
     var self = this;
     var SEQ = ['kam', 'wifi', 'alarm', 'smart', 'snd', 'scr', 'kd', 'ev'];
@@ -363,9 +363,17 @@
       sum: KS.filter((k) => kSvc.includes(k[0])).map((k) => ({ n: k[1], st: '--h:' + HZ[k[0]] })), sumNone: !kSvc.length,
       sumObj: (KO.find((o) => o[0] === st.kObj) || ['', '—'])[1], sumTown: st.kTown || '—', zone: zone, sumPh: kDig >= 9 ? st.kPh : '—'
     };
-    const RL = [['start', 'Start', P.home], ['dla-kogo', 'Dla kogo', P.users], ['uslugi', 'Usługi', P.net], ['realizacje', 'Realizacje', P.eye], ['gory', 'Góry i zima', P.snow], ['proces', 'Jak pracujemy', P.check], ['serwis', 'Serwis', P.wrench], ['faq', 'Pytania', P.chat], ['zaplanuj', 'Zaplanuj', P.plane]];
+    const RL = [['start', 'Start', P.home], ['dla-kogo', 'Dla kogo', P.users], ['uslugi', 'Usługi', P.net], ['architekci', 'Architekci', P.ruler], ['realizacje', 'Realizacje', P.eye], ['gory', 'Góry i zima', P.snow], ['proces', 'Jak pracujemy', P.check], ['serwis', 'Serwis', P.wrench], ['faq', 'Pytania', P.chat], ['zaplanuj', 'Zaplanuj', P.plane]];
     const zapHref = 'Zaplanuj.dc.html#obiekt=' + st.obj + (L.length ? '&uslugi=' + L.join(',') : '');
+    const arAuto = !st.arT, arTk = Math.floor((st.tick || 0) / 3);
+    const arsc = this.arScene(c, arAuto ? { m: ['kl', 'ty', 'in'][arTk % 3], hs: Math.floor(arTk / 3) % 17, off: [] } : { m: st.arM, hs: st.arHs, off: st.arOff }, (o) => self.setState({ arT: true, arM: o.m || (arAuto ? ['kl', 'ty', 'in'][arTk % 3] : st.arM), arHs: o.hs !== undefined ? o.hs : (arAuto ? Math.floor(arTk / 3) % 17 : st.arHs), arOff: o.off || st.arOff }));
+    const arhm = { news: 'Głośniki pod gładzią: dźwięk w salonie bez żadnej maskownicy na suficie.', pts: [
+      { ic: P.ruler, t: 'Plan urządzeń na rzutach', d: 'Kamery, czujki, głośniki, Wi-Fi, panele i trasy kabli.' },
+      { ic: P.eye, t: 'Technika, której nie widać', d: 'Głośniki w suficie, szklane panele, TV w zabudowie.' },
+      { ic: P.users, t: 'Jeden opiekun', d: 'Od koncepcji, przez budowę, do serwisu po odbiorze.' },
+      { ic: P.chat, t: 'Zawsze pomożemy', d: 'Nawet jeśli to jedno pytanie do projektu.' }] };
     return {
+      arsc: arsc, arhm: arhm,
       railCls: 'rail' + (st.railOn ? ' on' : ''), railItems: RL.map((r) => ({ href: '#' + r[0], n: r[1], ic: r[2], cls: st.rail === r[0] ? 'act' : '' })),
       hxCls: 'hx ' + st.mode, zapHref: zapHref, sc: sc, pip: pip, pipOn: has('kam'), otabs: otabs, modes: modes, chips: chips,
       allLayers: () => touch({ layers: allOn ? [] : LAY.map((l) => l[0]) }), allLabel: allOn ? 'Wyłącz wszystko' : 'Pokaż wszystko',

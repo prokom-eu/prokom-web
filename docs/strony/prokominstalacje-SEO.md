@@ -14,9 +14,11 @@ Zasada: **jedna intencja = jedna strona**. Dwie strony na tę samą frazę konku
 | usługa | `/monitoring` … `/ladowarki-ev` | montaż monitoringu Zakopane, kamery Nowy Targ, alarm do domu Podhale, kontrola dostępu apartamenty, Wi-Fi w pensjonacie, smart home Ampio Małopolska, nagłośnienie kościoła, digital signage, ładowarka Elzab montaż, teletechnika dla dewelopera, montaż anteny satelitarnej Rabka |
 | obiekt | `/dla-kogo/*` | monitoring pensjonatu, alarm domku letniskowego, Wi-Fi dla hotelu, nagłośnienie restauracji, instalacje dla dewelopera |
 | problem / wiedza | `/poradnik/*` | monitoring a RODO, ile dni nagrań, jaka kamera do domu |
+| architekci i deweloperzy (współpraca przy projekcie) | `/dla-architektow` | smart home dla architektów, współpraca z architektami instalacje, projekt instalacji niskoprądowych, przygotowanie instalacji pod smart home na etapie budowy, głośniki do zabudowy w suficie projekt, okablowanie strukturalne dom jednorodzinny, teletechnika dla dewelopera; lokalnie: Zakopane, Nowy Targ, Podhale, Kraków (spec `prokominstalacje-architekci.md` §7) |
 | marka | `/o-firmie`, `/kontakt` | PRO-KOM instalacje, PRO-KOM Rabka |
 
 - Miejscowości: Rabka-Zdrój, Zakopane, Nowy Targ, Jordanów, Mszana Dolna, Limanowa, Szczawnica, Białka Tatrzańska, Bukowina Tatrzańska, Poronin. **Nie robimy stron-klonów pod miejscowości** (wytyczne Google o stronach przejściowych). Miejscowości występują naturalnie w treści, w danych strukturalnych (`areaServed`) i na Kontakcie (mapa dojazdu). Osobne strony miejscowości — tylko z unikalną treścią (np. realizacje z danej miejscowości), w etapie 2.
+- Rozdział `/dla-kogo/deweloperzy` ↔ `/dla-architektow`: strona obiektu = co dostaje inwestycja i jej mieszkańcy (zestawy, przekrój budynku); strona dla architektów = współpraca przy projekcie (etapy, liczby do projektu, wymiana plików, przepisy). Nie powtarzamy tekstów, linkujemy w obie strony.
 - Kanibalizacja z prokombiznes.pl: sprzedaż sprzętu dla firm → Biznes; projekt i montaż → Instalacje. Linkujemy krzyżowo, nie kopiujemy tekstów.
 
 ## 2. Technika (zakres kodu — sprawdzane w I13 i w DoD każdej sesji)
@@ -64,6 +66,7 @@ Kontrast AA, nagłówki w kolejności (jeden H1), etykiety formularzy, `alt` opi
 ### 2.8 Linkowanie wewnętrzne
 - Usługa → obiekty, w których jest najważniejsza (sekcja „Podobne obiekty”/powiązane) i odwrotnie (zestawy na stronie obiektu linkują do usług).
 - Każda strona usługi linkuje do kreatora z parametrami i do 2–3 wpisów poradnika.
+- Każda strona usługi (sekcja „Powiązane”, I4/I16c) → `/dla-architektow` („Projektujesz? Współpraca dla architektów →”); `/dla-kogo/deweloperzy` i `/dla-kogo/budowy` → blok „Dla architektów i deweloperów”; wpisy Poradnika o projektowaniu → `/dla-architektow`.
 - Okruszki (breadcrumbs) na wszystkich podstronach.
 - Stopka: wszystkie usługi i obiekty (crawl), strony PRO-KOM (Biznes, Software, Tech, pro-kom.eu).
 
@@ -73,6 +76,7 @@ Kontrast AA, nagłówki w kolejności (jeden H1), etykiety formularzy, `alt` opi
 - **Odpowiedzi wprost:** FAQ pisane pełnymi zdaniami, pierwsze zdanie = odpowiedź. To lubią i Google (fragmenty z odpowiedzią), i asystenci AI.
 - **Aktualność:** data aktualizacji przy przepisach i poradnikach; przegląd treści co kwartał.
 - Poradnik: 1 wpis na start (RODO), plan 6–8 wpisów na pierwsze 3 miesiące (lista w czacie „Spec · prokominstalacje.pl”).
+- Poradnik dla projektantów (po I12, treść z czatu → `docs/tresci/`): „Co przewidzieć w projekcie domu: instalacje niskoprądowe”, „Głośniki w suficie: jak zaplanować na etapie projektu”, „Okablowanie strukturalne w domu jednorodzinnym”, „Warunki techniczne 2026–2028 a teletechnika”.
 
 ## 4. Poza stroną (firma)
 - **Profil Firmy w Google** dla Rabki i Zakopanego: kategorie (np. „Instalator systemów bezpieczeństwa”, „Usługi instalacji systemów monitoringu”), link do prokominstalacje.pl (z UTM), zdjęcia z montaży, posty, pytania i odpowiedzi.
@@ -85,7 +89,7 @@ Kontrast AA, nagłówki w kolejności (jeden H1), etykiety formularzy, `alt` opi
 - Raport miesięczny w czacie „Szef · raporty”: wyświetlenia, kliknięcia, średnia pozycja dla 20 fraz z §1, liczba zapytań.
 
 ## 6. Lista kontrolna przed produkcją (I13/I15)
-- [ ] Każda z 31 stron: unikalny title/description, H1, canonical, OG, JSON-LD bez błędów w Rich Results Test.
+- [ ] Każda z 32 stron: unikalny title/description, H1, canonical, OG, JSON-LD bez błędów w Rich Results Test.
 - [ ] sitemap.xml i robots.txt poprawne; staging `noindex`.
 - [ ] 301 ze starych adresów działają (test listy).
 - [ ] Lighthouse telefon ≥ 90 na: `/`, `/monitoring`, `/dla-kogo/pensjonaty`, `/ladowarki-ev`, `/zaplanuj`.

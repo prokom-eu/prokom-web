@@ -395,6 +395,25 @@
     </div>
   </section>
 
+  <!-- ARCHITEKCI -->
+  <section id="architekci" class="{{rv.arch}} xa-s" data-rv="arch" style="padding: 0 0 100px">
+    <div class="wrap">
+      <div class="arhm ri">
+        <div class="arhmt">
+          <span class="eye">Dla architektów, projektantów i deweloperów</span>
+          <h2 class="h2">Projektujesz dom albo inwestycję? <span class="acc">Technikę zaplanujemy z Tobą.</span></h2>
+          <p class="lead">Plan urządzeń na rzutach i proste wytyczne do projektu: monitoring, sieć, smart home Ampio, dźwięk, ekrany i ładowarki. Bez kucia po tynkach i bez urządzeń, które psują wnętrze.</p>
+          <div class="arhml"><sc-for list="{{arhm.pts}}" as="x" hint-placeholder-count="4"><div><span class="arok"><!--i:x.ic:14:2.4--></span><span><b>{{x.t}}</b><span>{{x.d}}</span></span></div></sc-for></div>
+          <div style="display: flex; flex-wrap: wrap; gap: 10px"><a href="Architekci.dc.html" class="btn btn-p">Współpraca dla architektów →</a><a href="Architekci.dc.html#wyslij" class="btn btn-g"><!--i:P.upload-->Wyślij rzuty</a></div>
+        </div>
+        <div class="arhmv">
+<!--@arscene-->
+          <a href="Architekci.dc.html#nowosci" class="arhmn"><span class="arty">Nowość</span><span>{{arhm.news}}</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- REALIZACJE -->
   <section id="realizacje" class="{{rv.realizacje}} xa-s xa-t0" data-rv="realizacje" style="padding: 0 0 96px">
     <div class="wrap">

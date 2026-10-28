@@ -39,3 +39,22 @@ Lista wygenerowana 27.10.2026 z prototypu i seeda (wszystkie znaczniki `[…]`).
 | `[WHATSAPP]` | numer WhatsApp (albo usunąć przycisk) | common, seed:strony-zrzut/Kontakt.json, seed:wspolne.json |
 
 Gdzie w panelu (I2): telefon i e-mail linii — Ustawienia strony tenanta Instalacje (`SiteSettings`, dziś przykładowe wartości z `pnpm seed`); WhatsApp — Ustawienia Instalacji. Import seeda ich nie wpisuje (ADR-I002 „Import (I2)”).
+
+## Dla architektów (`/dla-architektow`) — przed I16c
+
+Strona z decyzji szefa 28.10.2026 (spec `prokominstalacje-architekci.md` §9, ADR-I005). Znaczniki są w `seed/prokominstalacje/architekci/` i `strony-zrzut/Architekci.json`; pozycje `InstArchNews` z niepotwierdzoną dostępnością importują się jako wersje robocze z notatką wewnętrzną.
+
+| Co | Znacznik / miejsce | Gdzie w panelu |
+|---|---|---|
+| Opiekun architektów: imię, rola, zdjęcie, telefon, e-mail (np. architekci@pro-kom.eu), cytat | `[TELEFON]`, `[E-MAIL]`, sekcja Opiekun | Ustawienia Instalacji → `architects` |
+| Dostępność marek spoza obecnej oferty: Sonance, Amina, KEF, Bowers & Wilkins, ELAC, Molecule, Future Automation, Nuki | `[SZEF: dostępność marki u nas]`, `[SZEF: marki Hi-Fi …]` | `InstArchNews` (wersje robocze) + `dane/architekci.ts` |
+| Partner Sonos (czy jesteśmy) | `[SZEF: potwierdzić]` | `InstArchNews` |
+| Warunki współpracy dla pracowni (jawnie albo „ustalamy indywidualnie”) | `[SZEF: warunki współpracy]`, `[SZEF: opisane jawnie albo …]` | `dane/architekci.ts` (Zasady) |
+| Bezpłatna konsultacja i co gratis przy montażu | `[SZEF: potwierdzić]` | `dane/architekci.ts` (Zasady, FAQ) |
+| Pokaz w salonie: co mamy na pokazie, kto prowadzi prezentacje | `[SZEF: co mamy na pokazie]`, `[SZEF: kto prowadzi, czy w salonie]` | `dane/architekci.ts` (Prezentacje) |
+| Format plików od nas: PDF czy też DWG | `[SZEF: PDF czy też DWG]` | `dane/architekci.ts` (Wymiana) |
+| Realizacje: lata, zgody, zdjęcia, 2–3 domy z projektem architekta | `[SZEF]`, sekcja Doświadczenie | Realizacje + `dane/architekci.ts` |
+| Autoryzacje Ampio i Satel (skany) | sekcja Doświadczenie | `dane/architekci.ts` |
+| Potwierdzenie danych Elzab | sekcja Doświadczenie | `dane/architekci.ts` |
+
+Przed produkcją (I13): żadna opublikowana pozycja `InstArchNews` i żaden tekst strony nie zawiera `[SZEF` ani `[CENA` (hook blokuje publikację, test e2e sprawdza stronę).

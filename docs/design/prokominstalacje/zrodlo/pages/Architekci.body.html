@@ -1,0 +1,281 @@
+  <section id="hero" class="phero arhero">
+    <div class="hgrid"></div><div class="hglow"></div><div class="hglow2"></div>
+    <div class="wrap">
+      <nav class="crumb in d1" aria-label="Okruszki"><a href="Main.dc.html">Start</a><span>/</span><span style="color: var(--text)">Dla architektów</span></nav>
+      <div class="arhead">
+        <h1 class="h1 in d2"><span class="eye h1k">Dla architektów, projektantów wnętrz, deweloperów i wykonawców</span><span class="vh">: </span>Technika, która nie psuje projektu. <span class="acc">Zaplanujmy ją przed tynkami.</span></h1>
+        <div class="arheadr in d3">
+          <p class="lead">Monitoring, sieć, smart home Ampio, dźwięk, ekrany, anteny i ładowarki. Dostajesz plan urządzeń na rzutach i wytyczne, które da się wpisać w projekt. Inwestor dostaje technikę, której nie widać, i jednego wykonawcę od koncepcji do serwisu.</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 10px"><a href="#wyslij" class="btn btn-p"><!--i:P.upload-->Wyślij rzuty do konsultacji</a><a href="#pokaz" class="btn btn-g">Umów prezentację dla pracowni</a></div>
+        </div>
+      </div>
+      <div class="arstage in d4">
+<!--@arscene-->
+      </div>
+      <div class="arkvs in d5"><div class="kv"><b>od 2004</b><span>instalacje na Podhalu</span></div><div class="kv"><b>10 instalacji</b><span>jeden wykonawca, jeden opiekun</span></div><div class="kv"><b>17 punktów</b><span>do zaplanowania w typowym domu</span></div><div class="kv"><b>24 miesiące</b><span>gwarancji na montaż</span></div></div>
+    </div>
+  </section>
+  <nav class="anchors" aria-label="Na tej stronie"><div class="wrap"><sc-for list="{{anc}}" as="a" hint-placeholder-count="9"><a href="{{a.href}}">{{a.n}}</a></sc-for></div></nav>
+
+  <!-- DLA KOGO -->
+  <section id="dla-ciebie" class="{{rv.au}}" data-rv="au" style="padding: 88px 0 0">
+    <div class="wrap">
+      <div class="araudw ri">
+        <div class="araudl"><span class="eye">Dla kogo jest ta strona</span><b class="h3" style="font-size: clamp(22px, 2vw, 28px)">Wybierz, kim jesteś. Pokażemy, co dostajesz.</b>
+          <div class="araudtabs" role="tablist"><sc-for list="{{ar.aud.tabs}}" as="t" hint-placeholder-count="4"><button type="button" role="tab" class="{{t.cls}}" aria-selected="{{t.on}}" onClick="{{t.go}}"><span class="ico s"><!--i:t.ic:18--></span>{{t.n}}<!--i:P.arrow:16:2.4--></button></sc-for></div>
+        </div>
+        <div class="card araudr" role="tabpanel">
+          <b class="h2" style="font-size: clamp(28px, 2.8vw, 42px)">{{ar.aud.cur.h}}</b>
+          <p class="lead">{{ar.aud.cur.d}}</p>
+          <div class="araudp"><sc-for list="{{ar.aud.cur.pts}}" as="x" hint-placeholder-count="4"><div><span class="arok"><!--i:P.check:14:3--></span><span>{{x.x}}</span></div></sc-for></div>
+          <a href="{{ar.aud.cur.href}}" class="btn btn-p" style="align-self: flex-start">{{ar.aud.cur.cta}} →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEMY -->
+  <section id="problemy" class="{{rv.pr}}" data-rv="pr" style="padding: 104px 0 96px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Znasz to z budowy</span><h2 class="h2">Technika zaplanowana za późno <span class="acc">psuje najlepszy projekt.</span></h2></div><p class="lead" style="max-width: 440px">Cztery sytuacje, które słyszymy od architektów najczęściej. Każdą da się rozwiązać na rzutach, zanim ekipa wejdzie na budowę.</p></div>
+      <div class="g4 arpr">
+        <sc-for list="{{ar.prob}}" as="p" hint-placeholder-count="4"><div class="card arprc ri"><span class="ico"><!--i:p.ic:22--></span><b class="h3">{{p.t}}</b><p class="arprd">{{p.d}}</p><div class="arpra"><em>U nas</em><span>{{p.a}}</span></div></div></sc-for>
+      </div>
+      <div class="arbr ri">
+        <div class="arbrl"><b>Nie tylko u nas.</b><span>Badanie BRAVAS 2024 wśród architektów i wykonawców domów premium w USA.</span></div>
+        <sc-for list="{{ar.br}}" as="b" hint-placeholder-count="3"><div class="arbri"><b>{{b.b}}</b><span>{{b.s}}</span></div></sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ETAPY -->
+  <section id="etapy" class="{{rv.et}} bnd bnd-tint" data-rv="et" style="padding: 104px 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Współpraca etap po etapie</span><h2 class="h2">Na każdym etapie wiesz, <span class="acc">co dostajesz.</span></h2></div><p class="lead" style="max-width: 440px">Wchodzimy tam, gdzie jesteś z projektem. Najtaniej dla inwestora jest na etapie koncepcji i projektu budowlanego.</p></div>
+      <div class="artabs ri" role="tablist" aria-label="Etapy projektu">
+        <div class="artrack"><i style="{{ar.et.bar}}"></i></div>
+        <sc-for list="{{ar.et.tabs}}" as="t" hint-placeholder-count="6"><button type="button" role="tab" class="{{t.cls}}" aria-selected="{{t.on}}" onClick="{{t.go}}"><em>{{t.n}}</em><b>{{t.t}}</b><span>{{t.s}}</span></button></sc-for>
+      </div>
+      <div class="card aretp ri" role="tabpanel">
+        <div class="aretph"><span class="arbig">{{ar.et.cur.n}}</span><div><b class="h3">{{ar.et.cur.t}}</b><sc-if value="{{ar.et.cur.best}}" hint-placeholder-val="{{ true }}"><span class="tag a" style="margin-top: 8px"><!--i:P.star:13:2.4-->Najlepszy moment, żeby nas zaprosić</span></sc-if></div><span style="margin-left: auto; display: flex; gap: 8px"><button type="button" class="arnav" onClick="{{ar.et.prev}}" aria-label="Poprzedni etap"><!--i:P.arrowL:18:2.4--></button><button type="button" class="arnav" onClick="{{ar.et.next}}" aria-label="Następny etap"><!--i:P.arrow:18:2.4--></button></span></div>
+        <div class="aretg">
+          <div><em><!--i:P.tool:16-->Co robimy</em><sc-for list="{{ar.et.cur.rob}}" as="x" hint-placeholder-count="2"><p>{{x.x}}</p></sc-for></div>
+          <div><em><!--i:P.ruler:16-->Co dostajesz Ty</em><sc-for list="{{ar.et.cur.dost}}" as="x" hint-placeholder-count="1"><p>{{x.x}}</p></sc-for></div>
+          <div><em><!--i:P.home:16-->Co zyskuje inwestor</em><sc-for list="{{ar.et.cur.inw}}" as="x" hint-placeholder-count="1"><p>{{x.x}}</p></sc-for></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WYMIANA -->
+  <section id="wymiana" class="{{rv.wy}}" data-rv="wy" style="padding: 104px 0 96px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Konkretnie</span><h2 class="h2">Co od Ciebie, <span class="acc">co od nas.</span></h2></div><p class="lead" style="max-width: 420px">Bez spotkań, z których nic nie wynika. Wysyłasz rzuty, dostajesz wytyczne, które da się wpisać w projekt.</p></div>
+      <div class="arwy ri">
+        <div class="card arwyc"><span class="eye">Od Ciebie</span><sc-for list="{{ar.wy.od}}" as="x" hint-placeholder-count="5"><div class="arwyi"><i></i><div><b>{{x.t}}</b><span>{{x.d}}</span></div></div></sc-for></div>
+        <div class="arwya" aria-hidden="true"><!--i:P.arrow:28:2.2--></div>
+        <div class="arwyc hi"><span class="eye">Od nas</span><sc-for list="{{ar.wy.my}}" as="x" hint-placeholder-count="5"><div class="arwyi"><span class="arok"><!--i:P.check:14:3--></span><div><b>{{x.t}}</b><span>{{x.d}}</span></div></div></sc-for><p class="arwyn">Konsultacja na etapie projektu bez opłat. Zakres wytycznych ustalamy na początku. <span class="ph">[SZEF: co bezpłatnie przy montażu u nas]</span></p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHECKLISTA -->
+  <section id="checklista" class="{{rv.ck}} bnd bnd-soft" data-rv="ck" style="padding: 104px 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Checklista projektanta</span><h2 class="h2">Co przewidzieć w projekcie? <span class="acc">Wybierz obiekt i instalacje.</span></h2></div><p class="lead" style="max-width: 430px">Lista rzeczy, które trzeba zaplanować przed tynkami, żeby potem niczego nie kuć. Odhaczaj albo pobierz jako PDF dla zespołu.</p></div>
+      <div class="arck ri">
+        <div class="card arckl">
+          <span class="arckh">1. Obiekt</span>
+          <div class="archips"><sc-for list="{{ar.ck.objs}}" as="o" hint-placeholder-count="5"><button type="button" class="{{o.cls}}" aria-pressed="{{o.on}}" onClick="{{o.go}}"><!--i:o.ic:16-->{{o.n}}</button></sc-for></div>
+          <span class="arckh">2. Instalacje</span>
+          <div class="arsyss"><sc-for list="{{ar.ck.sys}}" as="s" hint-placeholder-count="9"><button type="button" class="{{s.cls}}" style="{{s.st}}" aria-pressed="{{s.on}}" onClick="{{s.go}}"><i></i>{{s.n}}</button></sc-for></div>
+          <div class="arpdf">
+            <sc-if value="{{ar.ck.pdfForm}}" hint-placeholder-val="{{ true }}"><b>Checklista w PDF</b><span class="mut" style="font-size: 14px">Pełna wersja z rysunkami puszek i ramek. Wyślemy na e-mail.</span><div class="arpdff"><input class="zin" type="email" placeholder="adres@pracownia.pl" value="{{ar.ck.pdfMail}}" onInput="{{ar.ck.onPdf}}" aria-label="E-mail do wysłania checklisty"><button type="button" class="btn btn-p btn-s" onClick="{{ar.ck.pdfGo}}">Wyślij PDF</button></div></sc-if>
+            <sc-if value="{{ar.ck.pdfOk}}" hint-placeholder-val="{{ false }}"><b style="color: var(--ok)">Wysłane. Sprawdź skrzynkę.</b><span class="mut" style="font-size: 14px">W wizualizacji to tylko pokaz działania.</span></sc-if>
+          </div>
+        </div>
+        <div class="card arckr">
+          <div class="arckt"><div><b class="h3">{{ar.ck.n}} {{ar.ck.nW}} do przewidzenia</b><span class="mut">{{ar.ck.objN}}</span></div><div class="arckp"><span>{{ar.ck.dn}} / {{ar.ck.n}}</span><i><s style="{{ar.ck.pct}}"></s></i></div></div>
+          <sc-if value="{{ar.ck.empty}}" hint-placeholder-val="{{ false }}"><p class="mut">Wybierz co najmniej jedną instalację.</p></sc-if>
+          <sc-for list="{{ar.ck.ph}}" as="g" hint-placeholder-count="3"><div class="arckg"><span class="arckgh"><!--i:g.ic:16-->{{g.n}}</span><sc-for list="{{g.items}}" as="i" hint-placeholder-count="4"><button type="button" class="{{i.cls}}" style="{{i.st}}" aria-pressed="{{i.on}}" onClick="{{i.go}}"><span class="arbox"><!--i:P.check:13:3.2--></span><span class="arckx">{{i.t}}</span><em>{{i.sys}}</em></button></sc-for></div></sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LICZBY -->
+  <section id="liczby" class="{{rv.lz}}" data-rv="lz" style="padding: 104px 0 96px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Liczby do projektu</span><h2 class="h2">Wymiary i parametry, <span class="acc">które warto mieć pod ręką.</span></h2></div><p class="lead" style="max-width: 440px">Z kart katalogowych producentów i norm, z którymi pracujemy. Konkretny model może się różnić, dlatego ostateczne wartości podajemy w wytycznych do Twojego projektu.</p></div>
+      <div class="arlz">
+        <sc-for list="{{ar.lz}}" as="z" hint-placeholder-count="14"><div class="arlzc ri" style="{{z.st}}"><b>{{z.b}}</b><span class="arlzt">{{z.t}}</span><p>{{z.d}}</p></div></sc-for>
+      </div>
+      <p class="src ri" style="margin-top: 16px">Stan na październik 2026. Wartości orientacyjne do wstępnego projektu, nie zastępują karty katalogowej wybranego modelu.</p>
+    </div>
+  </section>
+
+  <!-- INSTALACJE -->
+  <section id="instalacje" class="{{rv.in}}" data-rv="in" style="padding: 104px 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Wszystkie instalacje w jednym miejscu</span><h2 class="h2">Co warto wiedzieć <span class="acc">o każdej instalacji.</span></h2></div><p class="lead" style="max-width: 440px">Dla każdej z 10 instalacji: co daje inwestorowi, co zaplanować w projekcie i jak wygląda we wnętrzu. Smart home i dźwięk na początek, bo o nie pytacie najczęściej.</p></div>
+      <div class="arin2 ri">
+        <div class="arsvl" role="tablist" aria-label="Instalacje"><sc-for list="{{ar.ins.list}}" as="s" hint-placeholder-count="10"><button type="button" role="tab" class="{{s.cls}}" style="{{s.st}}" aria-selected="{{s.on}}" onClick="{{s.go}}"><span class="arsvi"><!--i:s.ic:20--></span><span class="arsvt"><b>{{s.n}}</b><span>{{s.s}}</span></span></button></sc-for></div>
+        <div class="card arsvd" style="{{ar.ins.cur.st}}" role="tabpanel">
+          <div class="arsvdh"><span class="arsvi lg"><!--i:ar.ins.cur.ic:26--></span><span class="eye" style="color: var(--hc)">{{ar.ins.cur.n}}</span></div>
+          <b class="h3 arsvdt">{{ar.ins.cur.h}}</b>
+          <p class="arsvdd">{{ar.ins.cur.d}}</p>
+          <div class="arsvdg">
+            <div><em>W projekcie zaplanuj</em><sc-for list="{{ar.ins.cur.plan}}" as="x" hint-placeholder-count="3"><p><span class="arok"><!--i:P.check:12:3--></span>{{x.x}}</p></sc-for></div>
+            <div><em>We wnętrzu</em><div class="arlook"><sc-for list="{{ar.ins.cur.look}}" as="x" hint-placeholder-count="3"><span class="tag">{{x.x}}</span></sc-for></div><em style="margin-top: 18px">Marki, z którymi pracujemy</em><p class="mut" style="font-size: 14px">{{ar.ins.cur.br}}</p></div>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto"><a href="{{ar.ins.cur.href}}" class="btn btn-g btn-s">Pełna strona: {{ar.ins.cur.n}} →</a><a href="#wyslij" class="btn btn-p btn-s">Zapytaj o to w projekcie</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOWE ROZWIĄZANIA -->
+  <section id="nowosci" class="{{rv.nw}} bnd bnd-tint" data-rv="nw" style="padding: 104px 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Nowe rozwiązania do projektów</span><h2 class="h2">Co warto pokazać inwestorowi <span class="acc">w tym sezonie.</span></h2></div><p class="lead" style="max-width: 460px">Rozwiązania, które sprawdzamy i montujemy. Przy każdym: parametry z karty katalogowej i to, co trzeba przewidzieć w projekcie. Dodajemy nowe na bieżąco.</p></div>
+      <div class="arnf ri"><sc-for list="{{ar.nw.f}}" as="f" hint-placeholder-count="8"><button type="button" class="{{f.cls}}" aria-pressed="{{f.on}}" onClick="{{f.go}}">{{f.n}}<em>{{f.c}}</em></button></sc-for></div>
+      <div class="arnx ri">
+        <div class="arnxl" role="listbox" aria-label="Lista rozwiązań"><sc-for list="{{ar.nw.items}}" as="n" hint-placeholder-count="20"><button type="button" role="option" class="{{n.cls}}" style="{{n.st}}" aria-selected="{{n.on}}" onClick="{{n.go}}"><span class="arnwth"><svg viewBox="0 0 200 120" aria-hidden="true"><path d="{{n.art}}"></path></svg></span><span class="arnwtx"><span class="arnwm"><em>{{n.cat}}</em><span class="{{n.tyCls}}">{{n.ty}}</span></span><b>{{n.t}}</b><span class="arnwk">{{n.key}}</span></span></button></sc-for></div>
+        <article class="arnxd" style="{{ar.nw.cur.st}}" aria-live="polite">
+          <div class="arnxa"><svg viewBox="0 0 200 120" aria-hidden="true"><path d="{{ar.nw.cur.art}}"></path></svg><span class="{{ar.nw.cur.tyCls}}">{{ar.nw.cur.ty}}</span><span class="arnxpos">{{ar.nw.cur.pos}}</span></div>
+          <div class="arnxb">
+            <span class="eye" style="color: var(--hc)">{{ar.nw.cur.cat}}</span>
+            <b class="h3 arnxt">{{ar.nw.cur.t}}</b>
+            <p class="arnxdsc">{{ar.nw.cur.d}}</p>
+            <div class="arnxsp"><sc-for list="{{ar.nw.cur.sp}}" as="s" hint-placeholder-count="4"><div><span>{{s.l}}</span><b>{{s.v}}</b></div></sc-for></div>
+            <div class="arnxpl"><em><!--i:P.ruler:15-->W projekcie zaplanuj</em><sc-for list="{{ar.nw.cur.plan}}" as="x" hint-placeholder-count="2"><p><span class="arok"><!--i:P.check:12:3--></span>{{x.x}}</p></sc-for></div>
+            <div class="arnxm"><sc-if value="{{ar.nw.cur.hasPr}}" hint-placeholder-val="{{ true }}"><div><em>Przykłady</em><span>{{ar.nw.cur.pr}}</span></div></sc-if><div><em>Gdzie się sprawdza</em><span class="arnxdl"><sc-for list="{{ar.nw.cur.dla}}" as="d" hint-placeholder-count="3"><span class="tag">{{d.n}}</span></sc-for></span></div></div>
+            <sc-if value="{{ar.nw.cur.hasSt}}" hint-placeholder-val="{{ false }}"><span class="ph" style="font-size: 13px">{{ar.nw.cur.stt}}</span></sc-if>
+            <div class="arnxf"><a href="#wyslij" class="btn btn-p btn-s">Zapytaj o to w projekcie</a><span style="margin-left: auto; display: flex; gap: 6px"><button type="button" class="arnav" onClick="{{ar.nw.prev}}" aria-label="Poprzednie rozwiązanie"><!--i:P.arrowL:16:2.4--></button><button type="button" class="arnav" onClick="{{ar.nw.next}}" aria-label="Następne rozwiązanie"><!--i:P.arrow:16:2.4--></button></span></div>
+          </div>
+        </article>
+      </div>
+      <div class="arnl ri">
+        <div><b class="h3" style="font-size: 22px">Nowe rozwiązania raz w miesiącu, na e-mail.</b><span class="mut">Krótko: jedno rozwiązanie z parametrami, termin prezentacji, oferta dla pracowni. Wypiszesz się jednym kliknięciem.</span></div>
+        <sc-if value="{{ar.nw.nlForm}}" hint-placeholder-val="{{ true }}"><div class="arpdff"><input class="zin" type="email" placeholder="adres@pracownia.pl" value="{{ar.nw.nlMail}}" onInput="{{ar.nw.onNl}}" aria-label="E-mail do nowości"><button type="button" class="btn btn-p btn-s" onClick="{{ar.nw.nlGo}}">Zapisz pracownię</button></div></sc-if>
+        <sc-if value="{{ar.nw.nlOk}}" hint-placeholder-val="{{ false }}"><b style="color: var(--ok)">Zapisane. Pierwszy e-mail z nowościami wkrótce.</b></sc-if>
+      </div>
+      <p class="src ri" style="margin-top: 14px">Parametry z kart katalogowych producentów, stan na październik 2026. Marki podajemy jako przykład: dobieramy sprzęt pod projekt.</p>
+    </div>
+  </section>
+
+  <!-- DEWELOPERZY -->
+  <section id="deweloperzy" class="{{rv.dv}}" data-rv="dv" style="padding: 104px 0 104px">
+    <div class="wrap">
+      <div class="ardvb ri">
+        <div class="shead" style="margin-bottom: 30px"><div><span class="eye" style="color: #4CCBE6">Dla deweloperów i inwestorów</span><h2 class="h2">Budynek gotowy na odbiór. <span style="color: #4CCBE6">I na sprzedaż.</span></h2></div><p class="lead" style="max-width: 440px">Cała niskoprądówka budynku u jednego wykonawcy: od punktu styku, przez klatki i garaż, po apartament na wynajem. Z pomiarami do odbioru.</p></div>
+        <div class="ardvd"><sc-for list="{{ar.dv.data}}" as="d" hint-placeholder-count="3"><div><b>{{d.b}}</b><span>{{d.s}}</span></div></sc-for></div>
+        <div class="ardvw">
+          <div class="ardvtabs" role="tablist"><sc-for list="{{ar.dv.tabs}}" as="t" hint-placeholder-count="5"><button type="button" role="tab" class="{{t.cls}}" aria-selected="{{t.on}}" onClick="{{t.go}}"><!--i:t.ic:18-->{{t.n}}</button></sc-for></div>
+          <div class="ardvp" role="tabpanel">
+            <div class="ardvph"><span class="ardvi"><!--i:ar.dv.cur.ic:26--></span><b class="h3">{{ar.dv.cur.h}}</b></div>
+            <div class="ardvl"><sc-for list="{{ar.dv.cur.it}}" as="x" hint-placeholder-count="4"><div><span class="arok"><!--i:P.check:14:3--></span><span>{{x.x}}</span></div></sc-for></div>
+            <div class="ardvwhy"><em>Dlaczego to ważne</em><span>{{ar.dv.cur.why}}</span></div>
+          </div>
+        </div>
+        <div class="ardvf"><span>Nie obiecujemy, że smart home podniesie cenę lokalu: polskie dane tego nie potwierdzają. Pokazujemy to, co realnie przekonuje kupujących: bezpieczeństwo, szybki internet i miejsce do ładowania auta.</span><a href="#wyslij" class="btn hbtn-p">Wyślij projekt inwestycji →</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRZEPISY -->
+  <section id="przepisy" class="{{rv.pz}}" data-rv="pz" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Przepisy 2026–2028</span><h2 class="h2">Co się zmienia w prawie <span class="acc">i co to znaczy dla instalacji.</span></h2></div><p class="lead" style="max-width: 440px">Warunki techniczne, światłowód, ładowanie aut, najem krótkoterminowy i RODO. Śledzimy zmiany, żeby Twój projekt był zgodny z prawem w dniu złożenia wniosku.</p></div>
+      <div class="artlw ri"><div class="artlline"></div><sc-for list="{{ar.tl}}" as="t" hint-placeholder-count="6"><div class="{{t.cls}}"><i></i><b>{{t.d}}</b><span>{{t.n}}</span></div></sc-for></div>
+      <div class="arprz"><sc-for list="{{ar.prz}}" as="r" hint-placeholder-count="8"><div class="card arprc2 ri"><div class="arprh"><span class="{{r.cls}}">{{r.s}}</span><span class="arprd2">{{r.d}}</span></div><b class="h3" style="font-size: 20px">{{r.t}}</b><p>{{r.x}}</p><div class="arprp"><em>W projekcie</em><span>{{r.p}}</span></div></div></sc-for></div>
+      <p class="src ri" style="margin-top: 16px">Opisujemy przepisy, które dotyczą instalacji. To nie jest porada prawna. Stan na 28.10.2026, aktualizujemy przy każdej zmianie.</p>
+    </div>
+  </section>
+
+  <!-- DOŚWIADCZENIE -->
+  <section id="doswiadczenie" class="{{rv.ex}}" data-rv="ex" style="padding: 104px 0 96px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Nasze doświadczenie</span><h2 class="h2">Od 2004 roku na Podhalu. <span class="acc">Zostajemy po montażu.</span></h2></div><p class="lead" style="max-width: 440px">PRO-KOM to firma z Rabki-Zdroju z salonem w Zakopanem. Instalacje, sprzęt, serwis i oprogramowanie w jednej firmie, blisko Twoich inwestycji.</p></div>
+      <div class="arexkv ri"><sc-for list="{{ar.exp.kv}}" as="k" hint-placeholder-count="4"><div><b>{{k.b}}</b><span>{{k.s}}</span></div></sc-for></div>
+      <div class="arexg">
+        <div class="card arexr ri"><span class="eye">Wybrane realizacje</span><div class="arexl"><sc-for list="{{ar.exp.rl}}" as="r" hint-placeholder-count="8"><div><b>{{r.n}}</b><span>{{r.d}}</span></div></sc-for></div><p class="src">Realizacje monitoringu, sieci i smart home ze zdjęciami dodamy przed publikacją. <span class="ph">[SZEF: lata, zgody, zdjęcia, 2–3 domy z projektem architekta]</span></p><a href="Realizacje.dc.html" class="btn btn-g btn-s" style="align-self: flex-start">Wszystkie realizacje →</a></div>
+        <div class="card arexb ri"><span class="eye">Sprzęt, z którym pracujemy</span><div class="arexbr"><sc-for list="{{ar.exp.br}}" as="b" hint-placeholder-count="14"><span>{{b.n}}</span></sc-for></div><p class="mut" style="margin: 0; font-size: 14.5px">Dobieramy sprzęt pod obiekt, nie pod markę. Sprzęt dostępny dla firm: <a href="https://prokombiznes.pl" style="color: var(--accentText)">prokombiznes.pl</a>.</p><span class="ph" style="font-size: 13px">[SZEF: autoryzacje i certyfikaty, np. Ampio, Satel]</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BIBLIOTEKA -->
+  <section id="biblioteka" class="{{rv.lb}} bnd bnd-soft" data-rv="lb" style="padding: 104px 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Biblioteka projektanta</span><h2 class="h2">Materiały, które <span class="acc">skracają projekt.</span></h2></div><p class="lead" style="max-width: 440px">Nasze materiały do pobrania i sprawdzone narzędzia producentów, z których korzystamy przy projektach.</p></div>
+      <div class="g4 arlibo"><sc-for list="{{ar.lib.own}}" as="o" hint-placeholder-count="4"><div class="card arlibc ri"><div style="display: flex; justify-content: space-between; align-items: flex-start"><span class="ico"><!--i:o.ic:22--></span><span class="tag">{{o.f}}</span></div><b class="h3" style="font-size: 19px">{{o.t}}</b><p>{{o.d}}</p><span class="arlibs">{{o.st}}</span></div></sc-for></div>
+      <div class="arlibe ri"><span class="arckh">Narzędzia producentów</span><div class="arlibg"><sc-for list="{{ar.lib.ext}}" as="e" hint-placeholder-count="8"><a href="{{e.href}}" class="arlibx" target="_blank" rel="noopener"><span><b>{{e.t}}</b><span>{{e.d}}</span></span><em>{{e.m}} ↗</em></a></sc-for></div></div>
+    </div>
+  </section>
+
+  <!-- PREZENTACJE -->
+  <section id="pokaz" class="{{rv.pk}}" data-rv="pk" style="padding: 104px 0 96px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Zobacz i usłysz</span><h2 class="h2">Najlepiej przekonuje <span class="acc">pokaz na żywo.</span></h2></div><a href="#wyslij" class="btn btn-p">Umów prezentację</a></div>
+      <div class="g3"><sc-for list="{{ar.pk}}" as="p" hint-placeholder-count="3"><div class="card arpk ri"><span class="ico"><!--i:p.ic:22--></span><b class="h3">{{p.t}}</b><p>{{p.d}}</p><span class="tag" style="margin-top: auto; align-self: flex-start">{{p.tag}}</span></div></sc-for></div>
+    </div>
+  </section>
+
+  <!-- ZASADY + OPIEKUN -->
+  <section id="zasady" class="{{rv.za}}" data-rv="za" style="padding: 0 0 96px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Zasady współpracy</span><h2 class="h2">Chętnie współpracujemy. <span class="acc">Na jasnych zasadach.</span></h2></div></div>
+      <div class="g3"><sc-for list="{{ar.za}}" as="z" hint-placeholder-count="6"><div class="card feat ri"><span class="ico"><!--i:z.ic:22--></span><b class="h3">{{z.t}}</b><p>{{z.d}}</p></div></sc-for></div>
+    </div>
+  </section>
+
+  <section id="opiekun" class="{{rv.op}}" data-rv="op" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div class="arop ri">
+        <div class="aropp"><div class="aropa" aria-hidden="true"><svg viewBox="0 0 120 120"><circle cx="60" cy="46" r="22"></circle><path d="M18 116c4-26 22-38 42-38s38 12 42 38"></path></svg></div><span class="ph" style="font-size: 12.5px">[SZEF: zdjęcie]</span></div>
+        <div class="aropt">
+          <span class="eye" style="color: #4CCBE6">Twój opiekun w PRO-KOM</span>
+          <b class="h2" style="font-size: clamp(28px, 2.8vw, 40px)"><span class="ph" style="color: #F2B84B">[SZEF: imię i nazwisko]</span></b>
+          <span class="aropr">Opiekun architektów i wykonawców · instalacje niskoprądowe i smart home</span>
+          <p class="aropq">„Zawsze pomożemy. Nawet jeśli to jedno pytanie o puszkę pod kamerę albo głębokość sufitu pod głośnik. Zadzwoń, zanim projekt pójdzie do druku.”</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 10px"><a href="{{K.telH}}" class="btn hbtn-p"><!--i:P.phone--><span>{{K.tel}}</span></a><a href="mailto:architekci@prokominstalacje.pl" class="btn hbtn-g"><!--i:P.mail-->architekci@prokominstalacje.pl <span class="ph" style="color: #F2B84B">[SZEF]</span></a></div>
+          <span class="aropn">Odpowiadamy do 24 h w dni robocze.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!--@faqsec-->
+
+  <!-- WYŚLIJ RZUTY -->
+  <section id="wyslij" class="{{rv.rz}} bnd bnd-plan" data-rv="rz" style="padding: 104px 0 104px">
+    <div class="wrap">
+      <div class="arfm ri">
+        <div class="arfml">
+          <span class="eye">Wyślij rzuty</span>
+          <h2 class="h2">Prześlij projekt. <span class="acc">Oddzwonimy z konkretami.</span></h2>
+          <p class="lead">Opiekun przejrzy rzuty i zadzwoni z pierwszymi uwagami: co przewidzieć, gdzie miejsce na szafę rack, na co uważać w suficie i elewacji.</p>
+          <div class="arsteps"><div><em>1</em><span>Wysyłasz rzuty i etap projektu</span></div><div><em>2</em><span>Oddzwaniamy do 24 h w dni robocze</span></div><div><em>3</em><span>Dostajesz uwagi i propozycję zakresu</span></div></div>
+        </div>
+        <div class="card arfmr">
+          <sc-if value="{{ar.fm.form}}" hint-placeholder-val="{{ true }}">
+            <div class="arfg"><span class="arfl">Kim jesteś</span><div class="archips"><sc-for list="{{ar.fm.role}}" as="o" hint-placeholder-count="5"><button type="button" class="{{o.cls}}" aria-pressed="{{o.on}}" onClick="{{o.go}}">{{o.n}}</button></sc-for></div></div>
+            <div class="arfg"><span class="arfl">Etap projektu</span><div class="archips"><sc-for list="{{ar.fm.stage}}" as="o" hint-placeholder-count="5"><button type="button" class="{{o.cls}}" aria-pressed="{{o.on}}" onClick="{{o.go}}">{{o.n}}</button></sc-for></div></div>
+            <div class="arfg"><span class="arfl">Obiekt</span><div class="archips"><sc-for list="{{ar.fm.obj}}" as="o" hint-placeholder-count="6"><button type="button" class="{{o.cls}}" aria-pressed="{{o.on}}" onClick="{{o.go}}">{{o.n}}</button></sc-for></div></div>
+            <div class="arf2"><label class="arfg"><span class="arfl">Imię i nazwisko</span><input class="zin" type="text" autocomplete="name" placeholder="np. Anna Kowalska" value="{{ar.fm.fName}}" onInput="{{ar.fm.onName}}"></label><label class="arfg"><span class="arfl">Pracownia lub firma</span><input class="zin" type="text" autocomplete="organization" placeholder="np. Pracownia Architektury" value="{{ar.fm.fFirm}}" onInput="{{ar.fm.onFirm}}"></label></div>
+            <div class="arf2"><label class="arfg"><span class="arfl">Telefon *</span><input class="{{ar.fm.phCls}}" type="tel" autocomplete="tel" placeholder="np. 600 000 000" value="{{ar.fm.fPh}}" onInput="{{ar.fm.onPh}}"></label><label class="arfg"><span class="arfl">Miejscowość inwestycji</span><input class="zin" type="text" placeholder="np. Zakopane" value="{{ar.fm.fTown}}" onInput="{{ar.fm.onTown}}"></label></div>
+            <label class="arfile"><input class="xc-file" type="file" multiple accept=".pdf,.dwg,.dxf,.jpg,.png,.zip" onChange="{{ar.fm.onFiles}}"><span class="ico s"><!--i:P.upload:20--></span><span><b>Dodaj rzuty</b><span class="mut">PDF, DWG, DXF, JPG albo ZIP, do 6 plików</span></span></label>
+            <sc-if value="{{ar.fm.hasFiles}}" hint-placeholder-val="{{ false }}"><div class="arfiles"><sc-for list="{{ar.fm.files}}" as="f" hint-placeholder-count="2"><span class="tag"><!--i:P.file:13-->{{f.n}} · {{f.s}}</span></sc-for></div></sc-if>
+            <label class="arfg"><span class="arfl">Wiadomość</span><textarea class="zin" placeholder="Co projektujesz, jakie instalacje rozważa inwestor, na kiedy potrzebujesz uwag" onInput="{{ar.fm.onMsg}}"></textarea></label>
+            <label class="{{ar.fm.consCls}}"><input type="checkbox" checked="{{ar.fm.fCons}}" onChange="{{ar.fm.tCons}}"><span>Zgadzam się na kontakt w sprawie zgłoszenia. Pliki służą tylko do przygotowania uwag do projektu. <a href="#" style="text-decoration: underline">Polityka prywatności</a></span></label>
+            <sc-if value="{{ar.fm.err}}" hint-placeholder-val="{{ false }}"><p class="arerr" role="alert">{{ar.fm.errT}}</p></sc-if>
+            <button type="button" class="btn btn-p" onClick="{{ar.fm.send}}" style="width: 100%"><!--i:P.send-->Wyślij do opiekuna</button>
+          </sc-if>
+          <sc-if value="{{ar.fm.sent}}" hint-placeholder-val="{{ false }}">
+            <div class="arsent"><span class="arokb"><!--i:P.check:30:3--></span><b class="h3">Dziękujemy. Mamy Twoje zgłoszenie.</b><span class="mut">{{ar.fm.sum}}</span><p>Opiekun oddzwoni do 24 h w dni robocze. Jeśli projekt jest pilny, zadzwoń: <span class="ph">{{K.tel}}</span></p><button type="button" class="btn btn-g btn-s" onClick="{{ar.fm.reset}}">Wyślij kolejny projekt</button></div>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </section>

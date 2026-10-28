@@ -1,6 +1,6 @@
-# Mapa stron prokominstalacje.pl — 31 stron
+# Mapa stron prokominstalacje.pl — 32 strony
 
-Wygenerowane z prototypu v4.0 (27.10.2026). Każda strona: adres publiczny, plik prototypu, źródło, wysokość w prototypie i sekcje w kolejności.
+Wygenerowane z prototypu v4.0 (27.10.2026), uzupełnione do v4.2 (28.10.2026: `dla-architektow` + `#architekci` na głównej). Każda strona: adres publiczny, plik prototypu, źródło, wysokość w prototypie i sekcje w kolejności.
 
 - Prototyp: `docs/design/prokominstalacje/prototyp/<plik>.html` (otwierasz w przeglądarce, działa bez serwera).
 - Źródło: `docs/design/prokominstalacje/zrodlo/pages/<Nazwa>.body.html` (szablon) + `<Nazwa>.js` (stan, logika, treści) + `<Nazwa>.meta.json` (tytuł, opis).
@@ -14,11 +14,12 @@ Wygenerowane z prototypu v4.0 (27.10.2026). Każda strona: adres publiczny, plik
 ### Main — `/`
 - Prototyp: `prototyp/start.html` · źródło: `zrodlo/pages/Main.*`
 - Tytuł strony: Monitoring, alarmy, Wi-Fi, smart home Podhale | PRO-KOM Instalacje
-- Wysokość w prototypie: desktop 11905 px · telefon 10222 px
+- Wysokość w prototypie: desktop 12980 px · telefon 12381 px (v4.2, z `#architekci`; bez niej jak w v4.0: 11905 / 10222)
 - Sekcje:
   - `#start` — Monitoring, alarmy, Wi-Fi i smart home na Podhalu. Twój obiekt na żywo.
   - `#dla-kogo` — Dla kogo pracujemy · Od domu letniskowego po halę i szkołę.
   - `#uslugi` — Dziesięć obszarów, jeden wykonawca · Jedna firma od kamery po zamek w drzwiach.
+  - `#architekci` — Dla architektów, projektantów i deweloperów · Projektujesz dom albo inwestycję? Technikę zaplanujemy z Tobą. (I16c, `ArchTeaser`)
   - `#realizacje` — Realizacje · Wybrane realizacje: nagłośnienie i multimedia.
   - `#gory` — Robimy to w górach, nie w biurowcu · Na Podhalu instalacja ma trudniej. Projektujemy to od początku.
   - `#proces` — Jak pracujemy · Rozmowa, wizja lokalna, projekt, montaż, odbiór, serwis.
@@ -412,6 +413,12 @@ Wygenerowane z prototypu v4.0 (27.10.2026). Każda strona: adres publiczny, plik
   - `#powiazane` — Zwykle idzie w parze · Usługi, które łączymy w tym obiekcie.
 
 ## Pozostałe
+
+### Architekci — `/dla-architektow`
+- Prototyp: `prototyp/dla-architektow.html` · źródło: `zrodlo/pages/Architekci.*` · szczegóły: `ARCHITEKCI.md`
+- Tytuł strony: Dla architektów: smart home, audio i teletechnika | PRO-KOM
+- Wysokość w prototypie: desktop 20009 px · telefon 24376 px
+- Sekcje: `#hero` · `#dla-ciebie` · `#problemy` 📱 · `#etapy` · `#wymiana` · `#checklista` 📱 · `#liczby` 📱 · `#instalacje` · `#nowosci` · `#deweloperzy` · `#przepisy` 📱 · `#doswiadczenie` 📱 · `#biblioteka` 📱 · `#pokaz` · `#zasady` 📱 · `#opiekun` · `#faq` 📱 · `#wyslij`
 
 ### Oferta — `/uslugi`
 - Prototyp: `prototyp/oferta.html` · źródło: `zrodlo/pages/Oferta.*`

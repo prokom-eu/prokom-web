@@ -1,0 +1,729 @@
+{
+ "_uwaga": "Seed kolekcji InstArchNews (ADR-I005). kategoria = klucz usługi (kolor z hues()) albo \"sz\" (szkolenia/oferty, kolor --warn). doPotwierdzenia = znacznik [SZEF], w panelu pole notatki; na produkcji nie może zostać. ilustracja = ścieżka SVG 200x120 (obrys).",
+ "kategorie": {
+  "snd": "Dźwięk",
+  "scr": "Obraz",
+  "smart": "Sterowanie",
+  "wifi": "Sieć",
+  "kam": "Bezpieczeństwo",
+  "ev": "Energia",
+  "sz": "Dla pracowni"
+ },
+ "pozycje": [
+  {
+   "kategoria": "snd",
+   "typ": "Nowość",
+   "tytul": "Głośniki pod gładzią",
+   "opis": "Panel montowany w ścianie albo suficie, szpachlowany i malowany razem ze ścianą. Po wykończeniu widać tylko gładką powierzchnię.",
+   "parametry": [
+    {
+     "nazwa": "Głębokość montażu",
+     "wartosc": "np. 68 mm (Sonance IS6)"
+    },
+    {
+     "nazwa": "Panel",
+     "wartosc": "np. 409×409 mm"
+    },
+    {
+     "nazwa": "Pasmo",
+     "wartosc": "50 Hz – 30 kHz"
+    },
+    {
+     "nazwa": "Wykończenie",
+     "wartosc": "do 2–3 mm masy, gładź na wysoki standard"
+    }
+   ],
+   "wProjekcie": [
+    "Wnęka albo puszka tylna i przewód głośnikowy przed płytą g-k",
+    "Wykończenie ściany według instrukcji producenta, cienkimi warstwami"
+   ],
+   "przyklady": "np. Sonance Invisible, Amina",
+   "gdzie": [
+    "Salon",
+    "Sypialnia",
+    "Wnętrza minimalistyczne"
+   ],
+   "doPotwierdzenia": "[SZEF: dostępność marki u nas]",
+   "ilustracja": "M30 28h140v70H30zM60 50h80M60 63h80M60 76h80"
+  },
+  {
+   "kategoria": "snd",
+   "typ": "Nowość",
+   "tytul": "Głośniki sufitowe bez ramki",
+   "opis": "Cienka maskownica równo z sufitem, malowana na jego kolor. Wersje bardzo płytkie mieszczą się tam, gdzie zwykły głośnik nie wejdzie.",
+   "parametry": [
+    {
+     "nazwa": "Głębokość",
+     "wartosc": "od 36 mm (KEF Ci160TR)"
+    },
+    {
+     "nazwa": "Otwór",
+     "wartosc": "ok. 196–210 mm"
+    },
+    {
+     "nazwa": "Maskownica",
+     "wartosc": "do malowania, bez ramki"
+    },
+    {
+     "nazwa": "Moc",
+     "wartosc": "do 140 W (Sonance VX66R)"
+    }
+   ],
+   "wProjekcie": [
+    "Pustka w suficie na głębokość montażu",
+    "Montaż dwuetapowy: ramka i kabel w stanie surowym, głośnik na końcu"
+   ],
+   "przyklady": "np. KEF Ci, Sonance VX, Bowers & Wilkins CCM",
+   "gdzie": [
+    "Salon",
+    "Kuchnia",
+    "Łazienka"
+   ],
+   "doPotwierdzenia": "[SZEF: marki Hi-Fi u nas]",
+   "ilustracja": "M40 40h120M70 40v-6h60v6M100 52a26 8 0 1 0 .1 0M84 62l-8 14M116 62l8 14"
+  },
+  {
+   "kategoria": "snd",
+   "typ": "Rozwiązanie",
+   "tytul": "Subwoofer w ścianie lub suficie",
+   "opis": "Pełny bas do salonu albo kina domowego bez skrzyni na podłodze.",
+   "parametry": [
+    {
+     "nazwa": "Głośnik",
+     "wartosc": "200 mm (KEF Ci200QSb)"
+    },
+    {
+     "nazwa": "Otwór",
+     "wartosc": "238×238 mm"
+    },
+    {
+     "nazwa": "Głębokość",
+     "wartosc": "101,6 mm"
+    },
+    {
+     "nazwa": "Pasmo",
+     "wartosc": "30–140 Hz ze wzmacniaczem"
+    }
+   ],
+   "wProjekcie": [
+    "Zamknięta przestrzeń o objętości z tabeli producenta",
+    "Miejsce na wzmacniacz w szafie rack"
+   ],
+   "przyklady": "np. KEF Ci200QSb-THX",
+   "gdzie": [
+    "Kino domowe",
+    "Salon"
+   ],
+   "doPotwierdzenia": "[SZEF: dostępność marki u nas]",
+   "ilustracja": "M60 26h80v70H60zM100 61a22 22 0 1 0 .1 0M100 61a9 9 0 1 0 .1 0"
+  },
+  {
+   "kategoria": "snd",
+   "typ": "Rozwiązanie",
+   "tytul": "Głośniki w suficie jako strefa Sonos",
+   "opis": "Wzmacniacz Sonos Amp zamienia zwykłe głośniki sufitowe w strefę sterowaną z aplikacji, z AirPlay i dźwiękiem z telewizora.",
+   "parametry": [
+    {
+     "nazwa": "Moc",
+     "wartosc": "2×125 W przy 8 Ω"
+    },
+    {
+     "nazwa": "Złącza",
+     "wartosc": "HDMI eARC, wejście liniowe, subwoofer"
+    },
+    {
+     "nazwa": "Głośniki",
+     "wartosc": "do 3 par na jeden Amp"
+    },
+    {
+     "nazwa": "Wymiary",
+     "wartosc": "64×217×217 mm"
+    }
+   ],
+   "wProjekcie": [
+    "Szafa rack z wentylacją i kabel sieciowy do wzmacniacza",
+    "Osobny przewód głośnikowy z każdej strefy do szafy"
+   ],
+   "przyklady": "Sonos Amp; nowy Amp Multi: 8 kanałów, 4 strefy",
+   "gdzie": [
+    "Dom",
+    "Apartament",
+    "Restauracja"
+   ],
+   "doPotwierdzenia": null,
+   "ilustracja": "M40 46h120v30H40zM56 61h20M140 61a5 5 0 1 0 .1 0M40 86l-14 14M160 86l14 14"
+  },
+  {
+   "kategoria": "snd",
+   "typ": "Nowość",
+   "tytul": "Hi-Fi jako rzeźba na ścianie",
+   "opis": "Modułowe głośniki z drewna i miedzi połączone rurkami w kompozycję na ścianie. Instalacja artystyczna, która gra.",
+   "parametry": [
+    {
+     "nazwa": "Moduły",
+     "wartosc": "do 10 głośników i 1 zasilacz"
+    },
+    {
+     "nazwa": "Głośnik",
+     "wartosc": "Ø 300–350 × 108 mm"
+    },
+    {
+     "nazwa": "Wejścia",
+     "wartosc": "2× RCA, jack 3,5 mm, Bluetooth"
+    },
+    {
+     "nazwa": "Producent",
+     "wartosc": "Ultrasonic Audio, Słowenia"
+    }
+   ],
+   "wProjekcie": [
+    "Ściana pod kompozycję, uzgodniona z projektem wnętrza",
+    "Gniazdo zasilania przy zasilaczu systemu"
+   ],
+   "przyklady": "Molecule (Ultrasonic Audio)",
+   "gdzie": [
+    "Feature wall",
+    "Salon",
+    "Lobby"
+   ],
+   "doPotwierdzenia": "[SZEF: dostępność marki u nas]",
+   "ilustracja": "M44 40a16 16 0 1 0 .1 0M112 30a20 20 0 1 0 .1 0M158 74a14 14 0 1 0 .1 0M60 42l34 -6M128 44l20 20M44 72v20h114"
+  },
+  {
+   "kategoria": "scr",
+   "typ": "Rozwiązanie",
+   "tytul": "Telewizor, który wygląda jak obraz",
+   "opis": "Matowy ekran i wymienne ramki. Wyłączony telewizor pokazuje grafiki, a przewody prowadzą do osobnego modułu w szafce.",
+   "parametry": [
+    {
+     "nazwa": "Grubość",
+     "wartosc": "ok. 25 mm (The Frame 55\")"
+    },
+    {
+     "nazwa": "Montaż",
+     "wartosc": "płasko, uchwyt Slim Fit w zestawie"
+    },
+    {
+     "nazwa": "Ramki",
+     "wartosc": "brąz, tek, biel, piaskowe złoto"
+    },
+    {
+     "nazwa": "Wersja Pro",
+     "wartosc": "moduł bezprzewodowy do 10 m"
+    }
+   ],
+   "wProjekcie": [
+    "Miejsce na moduł One Connect w szafce i trasa przewodu w rurze",
+    "Wersja Pro: modułu nie zamykać w metalowej szafce"
+   ],
+   "przyklady": "Samsung The Frame / The Frame Pro",
+   "gdzie": [
+    "Salon",
+    "Sypialnia",
+    "Hotel"
+   ],
+   "doPotwierdzenia": null,
+   "ilustracja": "M34 26h132v74H34zM42 34h116v58H42zM58 80l24 -26 18 18 14 -12 22 20"
+  },
+  {
+   "kategoria": "scr",
+   "typ": "Rozwiązanie",
+   "tytul": "Projektor laserowy przy ścianie",
+   "opis": "Projektor stoi w meblu tuż przy ścianie i daje obraz do 150\". Zamiast dużego telewizora: gładka ściana albo ekran.",
+   "parametry": [
+    {
+     "nazwa": "Jasność",
+     "wartosc": "4000 lm (Epson EH-LS800B)"
+    },
+    {
+     "nazwa": "Obraz",
+     "wartosc": "32–150\""
+    },
+    {
+     "nazwa": "Odległość",
+     "wartosc": "100\" z ok. 10 cm od ściany"
+    },
+    {
+     "nazwa": "Mebel",
+     "wartosc": "głębokość ok. 35 cm"
+    }
+   ],
+   "wProjekcie": [
+    "Gładka ściana albo ekran ALR",
+    "Mebel z zasilaniem, HDMI i siecią"
+   ],
+   "przyklady": "np. Epson EH-LS800B",
+   "gdzie": [
+    "Kino domowe",
+    "Salon",
+    "Sala konferencyjna"
+   ],
+   "doPotwierdzenia": null,
+   "ilustracja": "M30 24h140v62H30zM70 98h60v10H70zM100 98l-40 -12M100 98l40 -12"
+  },
+  {
+   "kategoria": "scr",
+   "typ": "Rozwiązanie",
+   "tytul": "Telewizor chowany w suficie lub meblu",
+   "opis": "Ekran wysuwa się z sufitu albo komody na pilota lub z systemu automatyki. Gdy niepotrzebny, znika.",
+   "parametry": [
+    {
+     "nazwa": "Ekrany",
+     "wartosc": "40–86\""
+    },
+    {
+     "nazwa": "Pustka w suficie",
+     "wartosc": "210–270 mm"
+    },
+    {
+     "nazwa": "Nośność",
+     "wartosc": "do 140 kg"
+    },
+    {
+     "nazwa": "Sterowanie",
+     "wartosc": "RS232, styk, IR"
+    }
+   ],
+   "wProjekcie": [
+    "Strop przeniesie ciężar mechanizmu (nawet ok. 145 kg)",
+    "Klapa rewizyjna, zasilanie i sygnał w suficie"
+   ],
+   "przyklady": "np. Future Automation",
+   "gdzie": [
+    "Sypialnia",
+    "Salon",
+    "Apartament premium"
+   ],
+   "doPotwierdzenia": "[SZEF: dostępność marki u nas]",
+   "ilustracja": "M30 30h140M80 30v12h40V30M70 42h60v40H70zM100 90v14M90 98l10 8 10 -8"
+  },
+  {
+   "kategoria": "scr",
+   "typ": "Rozwiązanie",
+   "tytul": "Ekran w witrynie czytelny w słońcu",
+   "opis": "Profesjonalny ekran do witryny, menu albo pylonu: wysoka jasność, praca całą dobę, odporność na pogodę.",
+   "parametry": [
+    {
+     "nazwa": "Jasność",
+     "wartosc": "3500 nit typowo (Samsung OHDX 55\")"
+    },
+    {
+     "nazwa": "Odporność",
+     "wartosc": "IP56, IK10, od −30 do +50 °C"
+    },
+    {
+     "nazwa": "Praca",
+     "wartosc": "24/7"
+    },
+    {
+     "nazwa": "Głębokość",
+     "wartosc": "69 mm"
+    }
+   ],
+   "wProjekcie": [
+    "Obwód zasilania o odpowiedniej mocy i kabel sieciowy",
+    "Konstrukcja nośna pod mocowanie VESA"
+   ],
+   "przyklady": "Samsung Smart Signage",
+   "gdzie": [
+    "Sklep",
+    "Restauracja",
+    "Hotel"
+   ],
+   "doPotwierdzenia": null,
+   "ilustracja": "M60 18h80v74H60zM92 92v16M76 108h48M72 34h56M72 46h40M72 58h50"
+  },
+  {
+   "kategoria": "smart",
+   "typ": "Nowość",
+   "tytul": "Szklane panele z własnymi ikonami",
+   "opis": "Polski system Ampio. Jeden szklany panel zamiast rzędu włączników. Kolor szkła, ikony i podpisy ustawiasz w kreatorze i pokazujesz inwestorowi.",
+   "parametry": [
+    {
+     "nazwa": "Rozmiary",
+     "wartosc": "90×90 i 90×160 mm"
+    },
+    {
+     "nazwa": "Pola",
+     "wartosc": "od 2 do 18, z ekranem albo bez"
+    },
+    {
+     "nazwa": "Krawędź",
+     "wartosc": "szlif 2 albo 5 mm"
+    },
+    {
+     "nazwa": "Nowość",
+     "wartosc": "M-DOT-T6 z ekranem dotykowym"
+    }
+   ],
+   "wProjekcie": [
+    "Puszka osadzona głębiej niż standardowo, panel równo ze ścianą",
+    "Przewód magistrali Ampio do każdego panelu"
+   ],
+   "przyklady": "Ampio M-DOT, kreator paneli Ampio",
+   "gdzie": [
+    "Dom",
+    "Apartament",
+    "Hotel"
+   ],
+   "doPotwierdzenia": null,
+   "ilustracja": "M60 22h80v80H60zM80 44a7 7 0 1 0 .1 0M120 44a7 7 0 1 0 .1 0M80 80a7 7 0 1 0 .1 0M120 80a7 7 0 1 0 .1 0"
+  },
+  {
+   "kategoria": "smart",
+   "typ": "Rozwiązanie",
+   "tytul": "Smart home z Apple, Google i Alexą",
+   "opis": "Wybrane funkcje Ampio udostępnione w standardzie Matter. Inwestor steruje światłem i roletami także głosem, z ulubionej aplikacji.",
+   "parametry": [
+    {
+     "nazwa": "Standard",
+     "wartosc": "Matter"
+    },
+    {
+     "nazwa": "Ekosystemy",
+     "wartosc": "Apple Home, Google Home, Alexa"
+    },
+    {
+     "nazwa": "Parowanie",
+     "wartosc": "kod QR"
+    },
+    {
+     "nazwa": "Działa bez internetu",
+     "wartosc": "system Ampio lokalnie"
+    }
+   ],
+   "wProjekcie": [
+    "Serwer Ampio z aktualnym oprogramowaniem",
+    "Stabilna sieć LAN w szafie rack"
+   ],
+   "przyklady": "Ampio + Matter",
+   "gdzie": [
+    "Dom",
+    "Apartament"
+   ],
+   "doPotwierdzenia": null,
+   "ilustracja": "M100 30a30 30 0 1 0 .1 0M100 46v30M84 62h32M60 100h80"
+  },
+  {
+   "kategoria": "wifi",
+   "typ": "Nowość",
+   "tytul": "Wi-Fi 7 z sufitu i ze ściany",
+   "opis": "Trójpasmowe punkty Wi-Fi 7 (także 6 GHz) w sufit albo na ścianę. Szybki internet w całym domu i ogrodzie, bez routerów na widoku.",
+   "parametry": [
+    {
+     "nazwa": "Wymiary",
+     "wartosc": "150×103×36 mm (U7 Pro Wall)"
+    },
+    {
+     "nazwa": "Zasilanie",
+     "wartosc": "PoE+, maks. 22 W"
+    },
+    {
+     "nazwa": "Port",
+     "wartosc": "2,5 GbE"
+    },
+    {
+     "nazwa": "Pasma",
+     "wartosc": "2,4 / 5 / 6 GHz"
+    }
+   ],
+   "wProjekcie": [
+    "Kabel kat. 6 albo 6A do każdego punktu",
+    "Rozmieszczenie według projektu radiowego"
+   ],
+   "przyklady": "np. UniFi U7 Pro, TP-Link Omada",
+   "gdzie": [
+    "Dom",
+    "Hotel",
+    "Biuro"
+   ],
+   "doPotwierdzenia": null,
+   "ilustracja": "M100 66a30 9 0 1 0 .1 0M70 46a40 40 0 0 1 60 0M80 54a26 26 0 0 1 40 0M100 66v-34"
+  },
+  {
+   "kategoria": "wifi",
+   "typ": "Rozwiązanie",
+   "tytul": "Wi-Fi i gniazda w puszce, w każdym pokoju",
+   "opis": "Punkt Wi-Fi podtynkowy z gniazdami sieciowymi dla telewizora i telefonu. Jeden kabel na pokój hotelu albo apartamentu.",
+   "parametry": [
+    {
+     "nazwa": "Wymiary",
+     "wartosc": "137×99×30 mm (U7 In-Wall)"
+    },
+    {
+     "nazwa": "Porty",
+     "wartosc": "3× 2,5 GbE, jeden z PoE"
+    },
+    {
+     "nazwa": "Zasięg",
+     "wartosc": "ok. 115 m²"
+    },
+    {
+     "nazwa": "Pobór",
+     "wartosc": "maks. 13 W"
+    }
+   ],
+   "wProjekcie": [
+    "Puszka podtynkowa przy biurku albo TV",
+    "Jeden kabel sieciowy do każdego pokoju"
+   ],
+   "przyklady": "np. UniFi U7 In-Wall",
+   "gdzie": [
+    "Hotel",
+    "Pensjonat",
+    "Apartamenty"
+   ],
+   "doPotwierdzenia": null,
+   "ilustracja": "M66 26h68v76H66zM82 80h12v10H82zM106 80h12v10h-12zM84 48a24 24 0 0 1 32 0M90 56a14 14 0 0 1 20 0"
+  },
+  {
+   "kategoria": "kam",
+   "typ": "Nowość",
+   "tytul": "Kamery w kolorze elewacji, z AI",
+   "opis": "Kolorowy obraz w nocy i wykrywanie człowieka i auta zamiast alarmów od kotów i liści. Obudowa biała albo czarna, dobrana do elewacji.",
+   "parametry": [
+    {
+     "nazwa": "Rozdzielczość",
+     "wartosc": "8 MP, obiektyw F1.0"
+    },
+    {
+     "nazwa": "Noc",
+     "wartosc": "kolor, doświetlenie do 30 m"
+    },
+    {
+     "nazwa": "Odstraszanie",
+     "wartosc": "światło i dźwięk"
+    },
+    {
+     "nazwa": "Obudowa",
+     "wartosc": "IP67, biała lub czarna"
+    }
+   ],
+   "wProjekcie": [
+    "Kabel sieciowy do każdego punktu kamery",
+    "Kolor obudowy i miejsce dobrane do detalu elewacji"
+   ],
+   "przyklady": "np. Hikvision ColorVu 3.0, UniFi G6",
+   "gdzie": [
+    "Dom",
+    "Pensjonat",
+    "Osiedle"
+   ],
+   "doPotwierdzenia": null,
+   "ilustracja": "M40 50l70 -26 12 30 -66 26zM110 24l16 -6 8 22-12 6M60 76l8 26H50"
+  },
+  {
+   "kategoria": "kam",
+   "typ": "Nowość",
+   "tytul": "Wideodomofon z rozpoznawaniem twarzy",
+   "opis": "Panel przy furtce otwiera domownikom bez klucza: twarz, karta albo kod QR dla gościa. Rozmowa w telefonie z dowolnego miejsca.",
+   "parametry": [
+    {
+     "nazwa": "Kamery",
+     "wartosc": "2× 2 MP"
+    },
+    {
+     "nazwa": "Dostęp",
+     "wartosc": "twarz, karta 13,56 MHz, kod QR"
+    },
+    {
+     "nazwa": "Zasilanie",
+     "wartosc": "PoE 802.3af"
+    },
+    {
+     "nazwa": "Odporność",
+     "wartosc": "IP65, od −40 do +60 °C"
+    }
+   ],
+   "wProjekcie": [
+    "Kabel sieciowy do panelu przy furtce i do monitora w domu",
+    "Przewód do elektrozaczepu albo napędu bramy"
+   ],
+   "przyklady": "np. Hikvision DS-KV9503-WBE1",
+   "gdzie": [
+    "Dom",
+    "Osiedle",
+    "Biuro"
+   ],
+   "doPotwierdzenia": null,
+   "ilustracja": "M76 20h48v88H76zM100 40a10 10 0 1 0 .1 0M86 64h28v20H86zM90 96h20"
+  },
+  {
+   "kategoria": "kam",
+   "typ": "Rozwiązanie",
+   "tytul": "Zamek bez klucza do apartamentu",
+   "opis": "Gość dostaje kod albo dostęp w telefonie tylko na czas pobytu. Właściciel widzi historię wejść i nie przekazuje kluczy.",
+   "parametry": [
+    {
+     "nazwa": "Dostęp",
+     "wartosc": "telefon, kod, odcisk palca"
+    },
+    {
+     "nazwa": "Uprawnienia",
+     "wartosc": "do 200"
+    },
+    {
+     "nazwa": "Łączność",
+     "wartosc": "Matter, Thread, Wi-Fi"
+    },
+    {
+     "nazwa": "Zasilanie",
+     "wartosc": "akumulator ok. 6 miesięcy"
+    }
+   ],
+   "wProjekcie": [
+    "Drzwi z wkładką europejską",
+    "Zasięg sieci przy drzwiach wejściowych"
+   ],
+   "przyklady": "np. Nuki Smart Lock, zamki hotelowe",
+   "gdzie": [
+    "Apartament na wynajem",
+    "Pensjonat"
+   ],
+   "doPotwierdzenia": "[SZEF: dostępność marki u nas]",
+   "ilustracja": "M70 24h60v80H70zM100 52a12 12 0 1 0 .1 0M96 64h8v20h-8zM140 40h20M140 52h14"
+  },
+  {
+   "kategoria": "kam",
+   "typ": "Rozwiązanie",
+   "tytul": "Alarm i włączniki w kolorach wnętrza",
+   "opis": "Bezprzewodowy alarm i włączniki z frontami w kilku kolorach. Elementy pasują do wnętrza, a montaż w wykończonym domu nie wymaga kucia.",
+   "parametry": [
+    {
+     "nazwa": "Kolory frontu",
+     "wartosc": "8, od bieli po czerń i oliwkowy"
+    },
+    {
+     "nazwa": "Łączność",
+     "wartosc": "radiowa, bez kucia"
+    },
+    {
+     "nazwa": "Sterowanie",
+     "wartosc": "aplikacja"
+    },
+    {
+     "nazwa": "Montaż",
+     "wartosc": "także po wykończeniu"
+    }
+   ],
+   "wProjekcie": [
+    "Puszki pod włączniki",
+    "Centrala w miejscu z zasilaniem i siecią"
+   ],
+   "przyklady": "np. Ajax LightSwitch",
+   "gdzie": [
+    "Dom",
+    "Apartament",
+    "Remont"
+   ],
+   "doPotwierdzenia": null,
+   "ilustracja": "M40 34h50v60H40zM110 34h50v60h-50zM65 54v20M135 54v20"
+  },
+  {
+   "kategoria": "ev",
+   "typ": "Rozwiązanie",
+   "tytul": "Ładowarki z podziałem mocy",
+   "opis": "Polskie ładowarki Elzab EcoPower: do garażu, na ścianę i na parking. Przy kilku stacjach moc przyłącza dzielona automatycznie.",
+   "parametry": [
+    {
+     "nazwa": "CC Home",
+     "wartosc": "3,7 / 7,4 / 11 kW"
+    },
+    {
+     "nazwa": "CC Wall",
+     "wartosc": "od 1×11 do 2×22 kW, RFID, OCPP"
+    },
+    {
+     "nazwa": "CC City",
+     "wartosc": "stacja na parking, licznik MID"
+    },
+    {
+     "nazwa": "Kilka stacji",
+     "wartosc": "dynamiczny podział mocy"
+    }
+   ],
+   "wProjekcie": [
+    "Osobny obwód i moc przyłącza (3 fazy dla 11 i 22 kW)",
+    "Przy kilku stacjach kabel komunikacyjny, przy CC City fundament"
+   ],
+   "przyklady": "Elzab EcoPower CC Home, CC Wall, CC City",
+   "gdzie": [
+    "Dom",
+    "Pensjonat",
+    "Garaż podziemny"
+   ],
+   "doPotwierdzenia": null,
+   "ilustracja": "M70 22h50v80H70zM96 40l-10 20h14l-8 20M120 60h24v34M144 94a8 8 0 1 0 .1 0"
+  },
+  {
+   "kategoria": "sz",
+   "typ": "Szkolenie",
+   "tytul": "Prezentacja dla pracowni",
+   "opis": "Krótka prezentacja w Twojej pracowni: co zaplanować w projekcie pod smart home, dźwięk, sieć i monitoring. Z próbkami urządzeń do dotknięcia.",
+   "parametry": [
+    {
+     "nazwa": "Gdzie",
+     "wartosc": "w pracowni albo w salonie PRO-KOM"
+    },
+    {
+     "nazwa": "Dla kogo",
+     "wartosc": "architekci, projektanci, zespoły"
+    },
+    {
+     "nazwa": "Z czym",
+     "wartosc": "próbki: panel, głośnik, kamera, Wi-Fi"
+    },
+    {
+     "nazwa": "Koszt",
+     "wartosc": "bezpłatnie"
+    }
+   ],
+   "wProjekcie": [
+    "Termin ustalamy z Tobą",
+    "Pytania z bieżących projektów mile widziane"
+   ],
+   "przyklady": "",
+   "gdzie": [
+    "Pracownie architektoniczne",
+    "Biura projektowe"
+   ],
+   "doPotwierdzenia": "[SZEF: kto prowadzi, czy w salonie]",
+   "ilustracja": "M36 28h128v64H36zM56 48h50M56 60h70M56 72h40M150 104l-14 -12M50 104l14 -12"
+  },
+  {
+   "kategoria": "sz",
+   "typ": "Oferta",
+   "tytul": "Oferta dla pracowni",
+   "opis": "Wytyczne do projektu i konsultacja dla Twoich inwestorów. Warunki współpracy opiszemy tutaj, gdy zostaną ustalone.",
+   "parametry": [
+    {
+     "nazwa": "Konsultacja",
+     "wartosc": "na etapie projektu"
+    },
+    {
+     "nazwa": "Wytyczne",
+     "wartosc": "plan urządzeń, trasy, szafa rack"
+    },
+    {
+     "nazwa": "Opiekun",
+     "wartosc": "jedna osoba do projektu"
+    },
+    {
+     "nazwa": "Warunki",
+     "wartosc": "do ustalenia"
+    }
+   ],
+   "wProjekcie": [
+    "Wyślij rzuty i etap projektu",
+    "Oddzwonimy z propozycją zakresu"
+   ],
+   "przyklady": "",
+   "gdzie": [
+    "Architekci",
+    "Projektanci wnętrz"
+   ],
+   "doPotwierdzenia": "[SZEF: warunki współpracy]",
+   "ilustracja": "M50 26h100v74H50zM70 46h60M70 60h60M70 74h36M118 82l8 8 16 -18"
+  }
+ ]
+}
