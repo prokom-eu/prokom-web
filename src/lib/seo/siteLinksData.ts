@@ -24,6 +24,7 @@ export async function loadSiteMap(tenant: { id: number; line: Line }): Promise<S
     pages,
     catalog: index && {
       categories: index.categories,
+      brands: index.brands.filter((brand) => brand.page),
       industries: index.industries,
       products: products.map(({ slug, name, updatedAt }) => ({
         slug,

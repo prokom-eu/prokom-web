@@ -1,9 +1,16 @@
 import type { PublicBiznesNavigation } from '../site/navigation'
-import { categoryHref } from './category'
+import { categoryHref, subcategoryHref } from './category'
 import type { CatalogIndex } from './catalogIndex'
 import type { IconName } from './options'
 
-export type MegaMenuItem = { label: string; href: string; count?: number; badge?: string }
+export type MegaMenuItem = {
+  label: string
+  href: string
+  count?: number
+  badge?: string
+  /** Subcategory pages under the category (K3b′, e.g. Laptopy, Monitory). */
+  sub?: MegaMenuItem[]
+}
 
 export type MegaMenuColumn = {
   slug: string
@@ -27,7 +34,9 @@ export const groupHref = (slug: string) => `/oferta?grupa=${encodeURIComponent(s
 /**
  * Columns of the Oferta mega menu (spec. §3.2): one per group of the catalog index, which
  * already holds only categories with published products (ADR-012, rozstrzygnięcie 7). The
- * column limit counts every row, highlights included — fewer rows, not a smaller font.
+ * column limit counts every row, highlights included — fewer rows, not a smaller font. The
+ * subcategory pages under a category (K3-KATALOG §9) go with it and are not counted: a hidden
+ * category hides them too.
  */
 export function megaMenu(
   index: Pick<CatalogIndex, 'products' | 'brands' | 'groups' | 'categories'>,
@@ -40,7 +49,14 @@ export function megaMenu(
       .map(({ label, href: link, badge }) => ({ label, href: link, ...(badge && { badge }) }))
     const categories: MegaMenuItem[] = index.categories
       .filter((category) => category.group === group.slug)
-      .map(({ name, slug, count }) => ({ label: name, href: categoryHref(slug), count }))
+      .map(({ name, slug, count, subcategories }) => {
+        const sub = (subcategories ?? []).flatMap((item) =>
+          item.slug
+            ? [{ label: item.name, href: subcategoryHref(slug, item.slug), count: item.count }]
+            : [],
+        )
+        return { label: name, href: categoryHref(slug), count, ...(sub.length > 0 && { sub }) }
+      })
     const room = Math.max(navigation.columnLimit - highlights.length, 0)
     const hidden = Math.max(categories.length - room, 0)
     return {

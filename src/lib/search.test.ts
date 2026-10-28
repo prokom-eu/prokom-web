@@ -5,6 +5,7 @@ import { buildCatalogIndex, type CatalogIndex, type IndexProduct } from './catal
 import { sourceFromSeed } from './catalog/seedSource.fixture'
 import {
   damerauLevenshtein,
+  matchBrands,
   matchCategories,
   matchPages,
   prepareSearch,
@@ -107,6 +108,63 @@ describe('searchProducts on the seed catalog (spec. §9 pkt 2)', () => {
   it('a name hit outranks a description hit', () => {
     const results = searchProducts(prepared, 'posnet') ?? []
     expect(results[0]?.name.toLowerCase()).toContain('posnet')
+  })
+})
+
+describe('brands and subcategories in the search (K3b′)', () => {
+  const card = (slug: string, fields: Partial<IndexProduct>): IndexProduct => ({
+    slug,
+    name: slug,
+    brand: null,
+    kind: 'device',
+    categories: ['komputery-monitory'],
+    group: 'biuro',
+    industries: [],
+    features: [],
+    isNew: false,
+    authorized: false,
+    popularity: 50,
+    registerTypes: [],
+    hay: slug,
+    ...fields,
+  })
+  const small: CatalogIndex = {
+    ...index,
+    products: [
+      // Built by `buildCatalogIndex`: the subcategory „Laptopy” is in the hay, not in the name.
+      card('thinkbook-14', {
+        name: 'Lenovo ThinkBook 14 G8',
+        brand: 'lenovo',
+        hay: 'lenovo thinkbook 14 g8 laptopy thinkbook',
+      }),
+      card('latitude', {
+        name: 'Dell Latitude 5450',
+        brand: 'dell',
+        hay: 'dell latitude 5450 laptopy',
+      }),
+      card('thinkvision', {
+        name: 'Lenovo ThinkVision',
+        brand: 'lenovo',
+        hay: 'lenovo thinkvision monitory',
+      }),
+    ],
+    brands: [
+      { slug: 'dell', name: 'Dell', status: 'none', page: true },
+      { slug: 'lenovo', name: 'Lenovo', status: 'none', page: true },
+      { slug: 'ingenico', name: 'Ingenico', status: 'none' },
+    ],
+  }
+
+  it('„laptop” finds the laptops through their subcategory', () => {
+    const found = searchProducts(prepareSearch(small), 'laptop')?.map((p) => p.slug)
+    expect(found).toEqual(expect.arrayContaining(['thinkbook-14', 'latitude']))
+    expect(found).not.toContain('thinkvision')
+  })
+
+  it('lists brands with a page by name, most products first', () => {
+    expect(matchBrands(small, 'lenovo').map((brand) => brand.slug)).toEqual(['lenovo'])
+    expect(matchBrands(small, 'ingenico')).toEqual([])
+    expect(matchBrands(small, '')).toEqual([])
   })
 })
 

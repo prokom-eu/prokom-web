@@ -16,7 +16,9 @@ import {
 import { ICON_BUTTON } from '@/components/ui/iconButton'
 import type { CatalogIndex, IndexProduct } from '@/lib/catalog/catalogIndex'
 import { useCatalogIndex } from '@/lib/catalog/useCatalogIndex'
+import { brandHref } from '@/lib/catalog/brand'
 import {
+  matchBrands,
   matchCategories,
   matchPages,
   prepareSearch,
@@ -31,6 +33,7 @@ import { SearchIcon } from './SearchIcon'
 const MAX_PRODUCTS = 6
 const MAX_CATEGORIES = 4
 const MAX_PAGES = 3
+const MAX_BRANDS = 3
 
 type Props = {
   /** wa.me link of the line; `null` hides "Napisz na WhatsApp" when nothing is found. */
@@ -231,6 +234,7 @@ function SearchResults({ index, query, onPick, whatsapp }: ResultsProps) {
         .slice(0, MAX_CATEGORIES)
         .map((category) => ({ ...category, hits: 0 }))
   const pages = (results ? matchPages(index, deferred) : index.pages).slice(0, MAX_PAGES)
+  const brands = matchBrands(index, deferred).slice(0, MAX_BRANDS)
   const nothing = results !== null && results.length === 0
 
   return (
@@ -293,6 +297,22 @@ function SearchResults({ index, query, onPick, whatsapp }: ResultsProps) {
                 </ul>
               </section>
             )}
+            {brands.length > 0 && (
+              <section aria-labelledby={`${ids}-brands`}>
+                <h3 id={`${ids}-brands`} className={HEADING}>
+                  Marki
+                </h3>
+                <ul className="flex flex-col gap-1">
+                  {brands.map((brand) => (
+                    <li key={brand.slug}>
+                      <Link href={brandHref(brand.slug)} data-result className={ROW}>
+                        {brand.name} w PRO-KOM
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
             {pages.length > 0 && (
               <section aria-labelledby={`${ids}-pages`}>
                 <h3 id={`${ids}-pages`} className={HEADING}>
@@ -315,8 +335,8 @@ function SearchResults({ index, query, onPick, whatsapp }: ResultsProps) {
 
       <div className="flex flex-wrap items-center justify-between gap-3 border-t border-border pt-3.5 text-sm text-ink-3">
         <span>
-          Szukamy w produktach, usługach, kategoriach i stronach. Rozumiemy literówki i potoczne
-          nazwy („kasa na baterie”).
+          Szukamy w produktach, usługach, kategoriach, markach i stronach. Rozumiemy literówki i
+          potoczne nazwy („kasa na baterie”).
         </span>
         <Link
           href={trimmed ? `/oferta?szukaj=${encodeURIComponent(trimmed)}` : '/oferta'}

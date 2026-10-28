@@ -242,6 +242,24 @@ export function matchPages(index: CatalogIndex, query: string): CatalogIndex['pa
   })
 }
 
+/**
+ * Brands with a page whose name holds every token of the query (K3-KATALOG §9: the search
+ * covers the brands), most listed products first — „lenovo” → the page of Lenovo.
+ */
+export function matchBrands(index: CatalogIndex, query: string): CatalogIndex['brands'] {
+  const tokens = tokenize(query, new Set(index.search.stopWords.map(normalizeText)))
+  if (tokens.length === 0) return []
+  const counts = new Map<string, number>()
+  for (const { brand } of index.products) if (brand) counts.set(brand, (counts.get(brand) ?? 0) + 1)
+  return index.brands
+    .filter((brand) => {
+      if (!brand.page) return false
+      const name = normalizeText(brand.name)
+      return tokens.every((token) => name.includes(token))
+    })
+    .sort((a, b) => (counts.get(b.slug) ?? 0) - (counts.get(a.slug) ?? 0))
+}
+
 /** „1 wynik”, „2–4 wyniki”, „5+ wyników” (12–14 → „wyników”). */
 export function resultsLabel(count: number): string {
   return `${count} ${plural(count, ['wynik', 'wyniki', 'wyników'])}`

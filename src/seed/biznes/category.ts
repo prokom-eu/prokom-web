@@ -31,6 +31,23 @@ type Content = Pick<
  * - „Fiskalizacja … upoważniony przez Posnet i Elzab” — text of the board, kept; to confirm with
  *   the partner statuses (spec. §13).
  */
+/** Name of the section without „w cenie” (spec. §1, K3b′); the stage-1 text it replaces. */
+export const INCLUDED_EYEBROW = 'Co robimy przy zakupie kasy'
+export const STAGE1_INCLUDED_EYEBROW = 'W cenie każdej kasy od nas'
+
+/**
+ * The section name of stage 1, if the record still has it untouched — the only text the seed
+ * overwrites (a name edited in the panel stays).
+ */
+export function renamedIncludedEyebrow(
+  category: Pick<CatalogCategory, 'includedSection'>,
+): Partial<CatalogCategory> {
+  const section = category.includedSection
+  return section?.eyebrow === STAGE1_INCLUDED_EYEBROW
+    ? { includedSection: { ...section, eyebrow: INCLUDED_EYEBROW } }
+    : {}
+}
+
 export const CASH_REGISTERS_CONTENT: Content = {
   hero: {
     title: 'Kasy fiskalne online. Dobrane, zafiskalizowane, z serwisem w Rabce.',
@@ -38,7 +55,7 @@ export const CASH_REGISTERS_CONTENT: Content = {
     highlights: ['Fiskalizacja i szkolenie'],
   },
   includedSection: {
-    eyebrow: 'W cenie każdej kasy od nas',
+    eyebrow: INCLUDED_EYEBROW,
     title: 'Kupujesz kasę, dostajesz spokój.',
     cards: [
       {
@@ -158,8 +175,14 @@ export async function seedBiznesCategoryContent(
   })
   if (!category) return
   const boughtWith = BOUGHT_WITH.map(product).filter((id): id is number => id !== undefined)
+  // Rename first: a nested patch of `missingFields` copies the section it fills.
+  const renamed = renamedIncludedEyebrow(category)
   const patch: Partial<CatalogCategory> = {
-    ...(missingFields(category, CASH_REGISTERS_CONTENT) as Partial<CatalogCategory>),
+    ...renamed,
+    ...(missingFields(
+      { ...category, ...renamed },
+      CASH_REGISTERS_CONTENT,
+    ) as Partial<CatalogCategory>),
     ...(isBlank(category.frequentlyBoughtWith) && boughtWith.length > 0
       ? { frequentlyBoughtWith: boughtWith }
       : {}),
