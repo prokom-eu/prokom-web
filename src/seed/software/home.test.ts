@@ -7,12 +7,19 @@ const ids = (layout: readonly { blockType: string; section?: string | null }[] |
 
 describe('Software start page of the seed', () => {
   it('puts the built sections in the package order (homeOrder)', () => {
-    expect(ids(softwareHomeLayout())).toEqual(['swHero', 'areas', 'popular', 'wizard'])
+    expect(ids(softwareHomeLayout())).toEqual([
+      'swHero',
+      'areas',
+      'popular',
+      'livePreviews',
+      'process',
+      'wizard',
+    ])
   })
 
   it('adds a section of a later session in its place', () => {
-    const layout = softwareHomeLayout(undefined, ['areas', 'popular', 'livePreviews', 'wizard'])
-    expect(ids(layout)).toEqual(['swHero', 'areas', 'popular', 'livePreviews', 'wizard'])
+    const layout = softwareHomeLayout(undefined, ['areas', 'popular', 'whyNotWordpress', 'wizard'])
+    expect(ids(layout)).toEqual(['swHero', 'areas', 'popular', 'wizard', 'whyNotWordpress'])
   })
 
   it('replaces the sample page (no Software block yet)', () => {
@@ -31,7 +38,15 @@ describe('Software start page of the seed', () => {
       edited as Parameters<typeof mergeSoftwareHome>[0],
       softwareHomeLayout(),
     )
-    expect(ids(merged)).toEqual(['popular', 'swHero', 'areas', 'wizard', 'faq'])
+    expect(ids(merged)).toEqual([
+      'popular',
+      'swHero',
+      'areas',
+      'livePreviews',
+      'process',
+      'wizard',
+      'faq',
+    ])
     expect(merged?.[1]).toMatchObject({ title: 'Mój tytuł' })
   })
 
