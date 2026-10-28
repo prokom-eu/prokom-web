@@ -15,7 +15,7 @@ import { isIconName } from '../../lib/catalog/options'
 import type { City, Industry, Post, Solution, SolutionArea } from '../../payload-types'
 import { h2, p, richText, ul } from '../biznes/lexical'
 import { SOFTWARE_NOT_FOUND, SOFTWARE_THANKS } from './pages'
-import { HOME_SECTION_TEXTS } from './homeExtras'
+import { HOME_SECTION_TEXTS, REBUILD_BUTTON } from './homeExtras'
 import { wizardSeed } from './wizardExtras'
 
 /**
@@ -394,10 +394,15 @@ export function missingFacts(
 /**
  * Settings JSON 1:1 with the package (ADR-014 doprecyzowania SW2a 6). `home` = the start page
  * texts without `homeOrder` (the section order is the order of the page blocks, D2) + the
- * technology layers + the 12 cards + the section headings of the board (SW5).
+ * technology layers + the 12 cards + the section headings of the board (SW5) + the price token
+ * of the rebuild button (SW8a).
  */
 export function softwareSettingsData() {
   const { homeOrder: _order, ...homeTexts } = structuredClone(stronaGlowna)
+  // The rebuild price comes from `Solutions`, not from the text (ADR-014 doprecyzowania SW8a).
+  homeTexts.whyNotWordpress.cta.buttons = homeTexts.whyNotWordpress.cta.buttons.map((button) =>
+    button[0] === REBUILD_BUTTON.package ? [REBUILD_BUTTON.token, ...button.slice(1)] : button,
+  )
   return {
     navigation: structuredClone(nawigacja),
     search: {

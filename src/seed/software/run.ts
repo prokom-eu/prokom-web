@@ -18,7 +18,7 @@ import {
   solutionsToImport,
 } from './map'
 import { seedSoftwareHome } from './home'
-import { HOME_SECTION_TEXTS, homeWithSections } from './homeExtras'
+import { HOME_SECTION_TEXTS, homeWithPriceTokens, homeWithSections } from './homeExtras'
 import { isPreSw7Wizard } from './wizardExtras'
 
 const SOFTWARE_TENANT_SLUG = 'software'
@@ -263,8 +263,10 @@ export async function seedSoftware(payload: Payload): Promise<void> {
       popular: stored?.popular?.length ? stored.popular : search.popular,
     }
     if (!hasSameValues(stored, searchMissing)) missing.search = searchMissing
-    // A home saved before SW5 / SW6 lacks some section headings: only the missing ones are added.
-    const home = homeWithSections(softwareSettings.home, HOME_SECTION_TEXTS)
+    // A home saved before SW5 / SW6 / SW8a lacks some section headings: only the missing ones
+    // are added. The package's rebuild price written as text becomes the price token (SW8a).
+    const withSections = homeWithSections(softwareSettings.home, HOME_SECTION_TEXTS)
+    const home = homeWithPriceTokens(withSections ?? softwareSettings.home) ?? withSections
     if (home) missing.home = home as typeof fields.home
     const changed = Object.keys(missing).length > 0
     if (changed) {

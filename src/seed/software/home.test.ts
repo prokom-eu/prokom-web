@@ -14,6 +14,8 @@ describe('Software start page of the seed', () => {
       'livePreviews',
       'process',
       'wizard',
+      'whyNotWordpress',
+      'guarantees',
     ])
   })
 
@@ -45,6 +47,8 @@ describe('Software start page of the seed', () => {
       'livePreviews',
       'process',
       'wizard',
+      'whyNotWordpress',
+      'guarantees',
       'faq',
     ])
     expect(merged?.[1]).toMatchObject({ title: 'Mój tytuł' })

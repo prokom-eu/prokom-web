@@ -425,6 +425,13 @@
   --grad-card-peach: linear-gradient(135deg, #f3b07c, #f7d9b5);
   --grad-card-sand: linear-gradient(135deg, #d8c3a8, #a38363);
   --grad-card-sage: linear-gradient(135deg, #bfd9cf, #7fa898);
+  /* „Czasem powiemy: nie budujcie” and our fact in „Dlaczego nie WordPress” — the light palette's
+     accent in both themes, white text ≥ 4.5:1 at both ends (ADR-015 v20 pkt 5, themes.test.ts). */
+  --grad-say-no: linear-gradient(
+    135deg,
+    var(--c-software-light-accent-text),
+    var(--c-software-light-accent)
+  );
 }
 
 /* Dark theme — chosen by the visitor (`data-theme`, see lib/brand/theme.ts)… */

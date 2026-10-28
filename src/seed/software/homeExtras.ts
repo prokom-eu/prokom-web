@@ -60,6 +60,42 @@ export const HOME_SECTION_TEXTS: SoftwareHomeSections = {
     get: 'Co dostajesz',
     you: 'Ty robisz',
   },
+  guarantees: {
+    eyebrow: 'Na piśmie, nie na słowo',
+    title: 'Zasady, których się trzymamy.',
+    sayNo: {
+      title: 'Czasem powiemy: nie budujcie.',
+      text: 'Jeśli gotowy program za kilkadziesiąt złotych miesięcznie rozwiąże Twój problem, powiemy Ci to wprost i pomożemy go wybrać. Budujemy tylko wtedy, gdy to się opłaca Tobie.',
+    },
+  },
+}
+
+/**
+ * The rebuild button of „Dlaczego nie WordPress” — the package writes its price as text; the
+ * page takes it from `Solutions` (spec. §4 pkt 8, ADR-014 v20 10). `{cena:…}` brings „zł”.
+ */
+export const REBUILD_BUTTON = {
+  package: 'Przebudowa od 1 499 zł →',
+  token: 'Przebudowa od {cena:przebudowa-starej-strony} →',
+} as const
+
+/**
+ * `home` with the package's rebuild button label swapped for the price token; any other label
+ * (edited in the panel) stays. `null` when there is nothing to swap.
+ */
+export function homeWithPriceTokens(stored: unknown): Record<string, unknown> | null {
+  if (!isRecord(stored) || !isRecord(stored.whyNotWordpress)) return null
+  const why = stored.whyNotWordpress
+  const cta = isRecord(why.cta) ? why.cta : null
+  if (!cta || !Array.isArray(cta.buttons)) return null
+  let swapped = false
+  const buttons = cta.buttons.map((button: unknown) => {
+    if (!Array.isArray(button) || button[0] !== REBUILD_BUTTON.package) return button
+    swapped = true
+    return [REBUILD_BUTTON.token, ...button.slice(1)]
+  })
+  if (!swapped) return null
+  return { ...stored, whyNotWordpress: { ...why, cta: { ...cta, buttons } } }
 }
 
 /**

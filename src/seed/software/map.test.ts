@@ -12,7 +12,12 @@ import { notFoundSchema, thanksSchema } from '../../lib/software/pages'
 import { INDUSTRY_GROUPS, WIZARD_FIRMS } from '../../lib/software/options'
 import { formatPrice } from '../../lib/software/price'
 import { softwareWizardSchema } from '../../lib/software/wizard'
-import { HOME_SECTION_TEXTS, homeWithSections } from './homeExtras'
+import {
+  HOME_SECTION_TEXTS,
+  REBUILD_BUTTON,
+  homeWithPriceTokens,
+  homeWithSections,
+} from './homeExtras'
 import {
   areaData,
   cardGradientKey,
@@ -285,6 +290,24 @@ describe('Software settings of the seed', () => {
     expect(settings.home.sections?.livePreviews?.eyebrow).toBe('Podglądy na żywo · zanim zapłacisz')
     expect(settings.home.sections?.process?.stage).toBe('Etap {num} · {t}')
     expect(settings.home.sections?.popular.after.items[0]?.text).toBe('od [OPIEKA OD] zł / mies.')
+    expect(settings.home.sections?.guarantees?.sayNo.title).toBe('Czasem powiemy: nie budujcie.')
+  })
+
+  it('take the rebuild price of „Dlaczego nie WordPress” from Solutions, not from the text', () => {
+    const buttons = settings.home.whyNotWordpress.cta.buttons
+    expect(buttons[1]).toEqual([REBUILD_BUTTON.token, '/rozwiazania/przebudowa-starej-strony'])
+    // A home saved with the package's text: only that label is swapped.
+    const stored = structuredClone(settings.home)
+    stored.whyNotWordpress.cta.buttons[1] = [REBUILD_BUTTON.package, '/x']
+    const swapped = homeWithPriceTokens(stored)
+    expect(swapped).toMatchObject({
+      whyNotWordpress: { cta: { buttons: [buttons[0], [REBUILD_BUTTON.token, '/x']] } },
+    })
+    // Edited in the panel or already a token: left as it is.
+    stored.whyNotWordpress.cta.buttons[1] = ['Przebudowa w promocji', '/x']
+    expect(homeWithPriceTokens(stored)).toBeNull()
+    expect(homeWithPriceTokens(settings.home)).toBeNull()
+    expect(homeWithPriceTokens(null)).toBeNull()
   })
 
   it('add the section headings to a home saved before SW5, and only then', () => {
@@ -298,9 +321,9 @@ describe('Software settings of the seed', () => {
     }
     expect(homeWithSections(edited, HOME_SECTION_TEXTS)).toBeNull()
     // Saved in SW5 (no SW6 sections): only the missing ones are added, edits stay.
-    const { livePreviews, process, ...sw5 } = edited.sections
+    const { livePreviews, process, guarantees, ...sw5 } = edited.sections
     const filled = homeWithSections({ ...stored, sections: sw5 }, HOME_SECTION_TEXTS)
-    expect(filled).toEqual({ ...stored, sections: { ...sw5, livePreviews, process } })
+    expect(filled).toEqual({ ...stored, sections: { ...sw5, livePreviews, process, guarantees } })
     // Not a home object (empty field): left to the „fill while empty” rule.
     expect(homeWithSections(null, HOME_SECTION_TEXTS)).toBeNull()
   })

@@ -99,6 +99,12 @@ export const homeSectionsSchema = obj({
     get: label,
     you: label,
   }).optional(),
+  /** SW8a — „Zasady”: heading of the guarantee cards and the „Czasem powiemy” block. */
+  guarantees: obj({
+    eyebrow: label,
+    title: label,
+    sayNo: obj({ title: label, text }),
+  }).optional(),
 })
 
 export type SoftwareHomeSections = z.infer<typeof homeSectionsSchema>
