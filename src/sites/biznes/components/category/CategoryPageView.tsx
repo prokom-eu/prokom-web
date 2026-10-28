@@ -6,6 +6,7 @@ import {
   categoryPill,
   categoryProducts,
   registerOptions,
+  seriesFilter,
   subcategoryHref,
   subcategoryLinks,
   subcategoryProducts,
@@ -86,10 +87,12 @@ export async function CategoryPageView({
   )
 
   // The client island gets only these products, not the whole catalog.
+  const bySeries = seriesFilter(true, products).length > 0
+  // Industries only for „Do czego” of a category with series (K31c).
   const islandIndex: CatalogIndex = {
     ...index,
     products,
-    industries: [],
+    industries: bySeries ? index.industries : [],
     pages: [],
     search: { synonyms: {}, stopWords: [], popular: [] },
   }
@@ -139,6 +142,7 @@ export async function CategoryPageView({
           help={category.help}
           printersHref={printers}
           chips={subcategory ? null : { category: category.slug, items: links.chips }}
+          bySeriesFilter={bySeries}
         />
       </Container>
       <IncludedCards included={category.included} />

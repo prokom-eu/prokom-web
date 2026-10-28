@@ -148,8 +148,23 @@ export function showroomData(
 }
 
 /**
+ * Series of every card: the showroom tile that lists it wins over `seria_karty` (decision
+ * 28.10 — Dell Pro Max), so the category's series filter (K31c) and the showroom agree.
+ */
+export function showroomSeries(
+  seriesOfCard: Record<string, string>,
+  showrooms: Record<string, Pick<K31Showroom, 'segs'>>,
+): Record<string, string> {
+  const result = { ...seriesOfCard }
+  for (const showroom of Object.values(showrooms))
+    for (const segment of showroom.segs)
+      for (const series of segment.series) for (const slug of series.prods) result[slug] = series.n
+  return result
+}
+
+/**
  * Cards whose series (`seria_karty`, set on the product by K31a-1) differs from the showroom
- * series that lists them — for the report, the package decides (K31c filters by the product's).
+ * series that lists them — for the report; empty while `showroomSeries` sets the cards' series.
  */
 export function seriesMismatches(
   showroom: K31Showroom,

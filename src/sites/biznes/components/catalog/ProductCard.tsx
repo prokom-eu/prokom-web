@@ -24,6 +24,8 @@ type Props = {
   layout?: 'grid' | 'list'
   /** `home` („Najczęściej wybierane”, spec. §4 pkt 5): one badge, no category and no tags. */
   variant?: 'catalog' | 'home'
+  /** Right of the brand: the main category, or the series (showroom, category with series). */
+  meta?: 'category' | 'series'
 }
 
 /**
@@ -36,6 +38,7 @@ export function ProductCard({
   position,
   layout = 'grid',
   variant = 'catalog',
+  meta = 'category',
 }: Props) {
   const list = layout === 'list'
   const home = variant === 'home'
@@ -43,6 +46,8 @@ export function ProductCard({
   const brand = index.brands.find((item) => item.slug === product.brand)
   const category = index.categories.find((item) => item.slug === product.categories[0])
   const badges = productBadges(product, index.brands).slice(0, home ? 1 : undefined)
+  const film = Boolean(product.video) && !home
+  const label = meta === 'series' && product.series ? product.series : category?.name
 
   return (
     <article
@@ -76,7 +81,8 @@ export function ProductCard({
         ) : (
           <StageFallback icon={cardIcon(product, index)} />
         )}
-        {badges.length > 0 && (
+        {(badges.length > 0 || film) && (
+          // One row: badges on the left, „film” at the right end — never on top of each other.
           <ul className="absolute inset-x-2 top-2 flex flex-wrap gap-1.5 sm:inset-x-3 sm:top-3">
             {badges.map((badge, position) => (
               <li
@@ -91,6 +97,14 @@ export function ProductCard({
                 {badge.label}
               </li>
             ))}
+            {film && (
+              <li className="ml-auto inline-flex items-center gap-1 rounded-full bg-card/90 px-2 py-1 text-[0.68rem] leading-none font-extrabold text-ink-2 shadow-[inset_0_0_0_1px_var(--border)]">
+                <svg viewBox="0 0 24 24" width="10" height="10" aria-hidden="true">
+                  <path d="M7 4.5v15l12.5-7.5z" fill="currentColor" />
+                </svg>
+                film
+              </li>
+            )}
           </ul>
         )}
       </ProductStage>
@@ -120,9 +134,7 @@ export function ProductCard({
           ) : (
             <span />
           )}
-          {category && !home && (
-            <span className="hidden text-right sm:inline">{category.name}</span>
-          )}
+          {label && !home && <span className="hidden text-right sm:inline">{label}</span>}
         </div>
         <h3 className="font-display text-[0.95rem] font-extrabold leading-tight tracking-[-0.01em] font-stretch-106% sm:text-lg">
           <Link href={href} className="text-ink hover:text-accent-text">

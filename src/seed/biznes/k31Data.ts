@@ -12,7 +12,7 @@ import supplements from '../../../seed/prokombiznes/k31/tresci-uzupelnienia-k31.
 import plans from '../../../seed/prokombiznes/k31/plansze-k31.json'
 import videos from '../../../seed/prokombiznes/k31/wideo-k31.json'
 import { k31Catalog, k31Gallery, type K31Input, type K31Video } from './k31'
-import type { K31Scene, K31SeriesVideo, K31Showroom } from './k31Plans'
+import { showroomSeries, type K31Scene, type K31SeriesVideo, type K31Showroom } from './k31Plans'
 
 /** The K3 + K3.1 packages as the import reads them (one place for `run.ts` and the tests). */
 export const k31Input: K31Input = {
@@ -23,7 +23,11 @@ export const k31Input: K31Input = {
   splitContents: splitContent.karty,
 }
 
-export const k31Series: Record<string, string> = showrooms.seria_karty
+/** Series of the cards; the showroom tile wins over `seria_karty` (decision 28.10). */
+export const k31Series: Record<string, string> = showroomSeries(
+  showrooms.seria_karty,
+  showrooms.salony,
+)
 export const k31Videos: Record<string, K31Video[]> = videos.produkty
 export const k31Featured: string[] = homepage.najczesciej_wybierane
 

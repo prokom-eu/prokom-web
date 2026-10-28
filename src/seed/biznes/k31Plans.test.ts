@@ -3,7 +3,7 @@ import path from 'path'
 import { describe, expect, it } from 'vitest'
 
 import { k31Series, k31SeriesVideos, k31Scenes, k31Showrooms, loadK31Catalog } from './k31Data'
-import { cardsOf, floorPlanData, seriesMismatches, showroomData } from './k31Plans'
+import { cardsOf, floorPlanData, seriesMismatches, showroomData, showroomSeries } from './k31Plans'
 
 const { catalog } = loadK31Catalog()
 const cards = cardsOf(catalog)
@@ -78,13 +78,24 @@ describe('showrooms (Partners.showroom)', () => {
     expect(dell.videos).toEqual([])
   })
 
-  it('reports cards whose series differs from the showroom tile (package data)', () => {
+  it('the showroom series wins over `seria_karty` (decision 28.10: Dell Pro Max)', () => {
     expect(seriesMismatches(k31Showrooms.Lenovo!, k31Series)).toEqual([])
-    expect(seriesMismatches(k31Showrooms.Dell!, k31Series)).toEqual([
-      'dell-pro-max-desktop: karta „Dell Pro Precision”, salon „Dell Pro Max”',
-      'dell-pro-max-plus: karta „Dell Pro Precision”, salon „Dell Pro Max”',
-      'dell-pro-precision-7: karta „Dell Pro Precision”, salon „Dell Pro Max”',
-    ])
+    expect(seriesMismatches(k31Showrooms.Dell!, k31Series)).toEqual([])
+    expect(k31Series['dell-pro-max-desktop']).toBe('Dell Pro Max')
+    expect(k31Series['dell-pro-max-plus']).toBe('Dell Pro Max')
+    expect(k31Series['dell-pro-precision-7']).toBe('Dell Pro Max')
+    expect(k31Series['dell-pro-precision-5']).toBe('Dell Pro Precision')
+  })
+
+  it('showroomSeries: a card outside every showroom keeps its own series', () => {
+    const showroom = {
+      ...k31Showrooms.Dell!,
+      segs: [{ id: 'x', n: 'X', series: [{ n: 'Salon', prods: ['a'] }] }],
+    }
+    expect(showroomSeries({ a: 'Karta', b: 'Inna' }, { Dell: showroom })).toEqual({
+      a: 'Salon',
+      b: 'Inna',
+    })
   })
 
   it('fails when a card has no record yet', () => {

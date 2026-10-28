@@ -44,7 +44,8 @@ test.describe('Biznes brand pages (K3b′)', () => {
   })
 
   test('filters the products of a brand with several categories', async ({ page }) => {
-    await page.goto(biznes('/marki/lenovo'))
+    // Lenovo and Dell have a showroom instead (K31c): a template brand with categories.
+    await page.goto(biznes('/marki/elzab'))
     const segments = page.getByRole('group', { name: 'Kategoria' })
     await expect(segments).toBeVisible()
     const all = await page.locator('[data-category-grid] > li').count()

@@ -6,6 +6,7 @@ import { isHttpsUrl, isValidNavHref } from '../site/link'
 import { tenantIdOf } from '../tenant/id'
 import type { CatalogIndex, IndexImage, IndexProduct, IndexSubcategory } from './catalogIndex'
 import type { IconName } from './options'
+import { seriesSlug } from './showroom'
 
 /**
  * Category page `/oferta/[kategoria]` (spec. §6.1, board `Kategoria`). Products come from the
@@ -187,19 +188,94 @@ export type CategoryChoice = {
   brand?: string
   category?: string
   subcategory?: string
+  /** K31c: the series (`?seria=`), any of the brands and any of the uses („Do czego”). */
+  series?: string
+  brands?: string[]
+  industries?: string[]
 }
 
 export function filterCategoryProducts(
   products: readonly IndexProduct[],
-  { registerType, brand, category, subcategory }: CategoryChoice,
+  { registerType, brand, category, subcategory, series, brands, industries }: CategoryChoice,
 ): IndexProduct[] {
   return products.filter(
     (product) =>
       (!registerType || product.registerTypes.includes(registerType)) &&
       (!brand || product.brand === brand) &&
       (!category || product.categories[0] === category) &&
-      (!subcategory || product.subcategory === subcategory),
+      (!subcategory || product.subcategory === subcategory) &&
+      (!series || product.series === series) &&
+      (!brands?.length || (product.brand !== null && brands.includes(product.brand))) &&
+      (!industries?.length || product.industries.some((slug) => industries.includes(slug))),
   )
+}
+
+/** Query parameter of the series filter; the canonical address never carries it (K31c). */
+export const SERIES_PARAM = 'seria'
+
+export type CategorySeries = { name: string; slug: string; count: number }
+
+/** Series of the cards (Lenovo, Dell) with counts: most cards first, ties in index order. */
+export function categorySeries(products: readonly IndexProduct[]): CategorySeries[] {
+  const counts = new Map<string, number>()
+  for (const { series } of products) if (series) counts.set(series, (counts.get(series) ?? 0) + 1)
+  return [...counts]
+    .map(([name, count]) => ({ name, slug: seriesSlug(name), count }))
+    .sort((a, b) => b.count - a.count)
+}
+
+/**
+ * Series of the filter row — or none: the page did not ask for it (only category pages do; a
+ * brand page keeps its category filter) or the cards have fewer than 2 series.
+ */
+export function seriesFilter(
+  enabled: boolean,
+  products: readonly IndexProduct[],
+): CategorySeries[] {
+  const series = enabled ? categorySeries(products) : []
+  return series.length > 1 ? series : []
+}
+
+/** The series a `?seria=` value names — or `undefined` (none, or not in this list). */
+export function seriesFromParam(
+  value: string | null | undefined,
+  series: readonly CategorySeries[],
+): string | undefined {
+  return value ? series.find((item) => item.slug === value)?.name : undefined
+}
+
+/** „Do czego”: active industries of the cards, with counts, in the index order. */
+export function categoryIndustries(
+  products: readonly IndexProduct[],
+  index: Pick<CatalogIndex, 'industries'>,
+): CategoryBrand[] {
+  const counts = new Map<string, number>()
+  for (const product of products)
+    for (const slug of new Set(product.industries)) counts.set(slug, (counts.get(slug) ?? 0) + 1)
+  return index.industries.flatMap(({ slug, name, active }) => {
+    const count = counts.get(slug)
+    return active && count ? [{ slug, name, count }] : []
+  })
+}
+
+/**
+ * „Nie wiesz, który?” → the wizard of a showroom (`/marki/<marka>#dobor`): the chosen brand when
+ * it has a showroom, else the showroom brand with most cards here; `null` without any.
+ */
+export function showroomHelpHref(
+  products: readonly IndexProduct[],
+  index: Pick<CatalogIndex, 'brands'>,
+  chosen: readonly string[],
+): string | null {
+  const showrooms = new Set(index.brands.filter((brand) => brand.showroom).map(({ slug }) => slug))
+  const counts = new Map<string, number>()
+  for (const { brand } of products)
+    if (brand && showrooms.has(brand)) counts.set(brand, (counts.get(brand) ?? 0) + 1)
+  const pick =
+    chosen.find((slug) => counts.has(slug)) ??
+    [...counts].sort((a, b) => b[1] - a[1])[0]?.[0] ??
+    null
+  return pick ? `/marki/${encodeURIComponent(pick)}#dobor` : null
 }
 
 /** Columns the „Nie wiesz, którą wybrać?” card takes: the rest of the last row, or a full row. */
