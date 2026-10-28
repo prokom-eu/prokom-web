@@ -12,7 +12,7 @@ import type {
   Product,
 } from '@/payload-types'
 
-import { buildCatalogIndex, WIZARD_PAGE } from './catalogIndex'
+import { buildCatalogIndex, type CatalogSource, WIZARD_PAGE } from './catalogIndex'
 import { image, sourceFromSeed, TENANT } from './seedSource.fixture'
 import { wizardFromSeed } from './wizard'
 
@@ -157,6 +157,71 @@ describe('buildCatalogIndex tenant isolation of relations', () => {
       height: 200,
     })
     expect(build({ brand: brand([TENANT]) }).brands[0]).not.toHaveProperty('logo')
+  })
+})
+
+describe('buildCatalogIndex brand pages and subcategories (K3b′)', () => {
+  const group = { id: 50, slug: 'biuro', name: 'Komputery i biuro', tenant: TENANT }
+  const komp = {
+    id: 51,
+    slug: 'komputery-monitory',
+    name: 'Komputery i monitory',
+    tenant: TENANT,
+    group: 50,
+    subcategories: [
+      { name: 'Laptopy', slug: 'laptopy' },
+      { name: 'Komputery i All-in-One', slug: 'komputery' },
+      { name: 'Monitory', slug: 'monitory' },
+    ],
+  } as CatalogCategory
+  const lenovo = {
+    id: 30,
+    slug: 'lenovo',
+    name: 'Lenovo',
+    partnerStatus: 'none',
+    tenants: [TENANT],
+    brandPage: { hasPage: true },
+  } as Partner
+  const ingenico = { ...lenovo, id: 31, slug: 'ingenico', name: 'Ingenico', brandPage: {} }
+  const card = (id: number, fields: Partial<Product>) =>
+    ({
+      id,
+      slug: `p${id}`,
+      name: `P${id}`,
+      kind: 'device',
+      categories: [komp],
+      ...fields,
+    }) as Product
+  const index = buildCatalogIndex({
+    tenantId: TENANT,
+    products: [
+      card(1, { brand: lenovo, subcategory: 'Laptopy', series: 'ThinkBook' }),
+      card(2, { brand: lenovo, subcategory: 'Laptopy' }),
+      card(3, { brand: ingenico, subcategory: 'Monitory' }),
+      card(4, { subcategory: 'Nieznana' }),
+    ],
+    categories: [komp],
+    groups: [group] as unknown as CatalogSource['groups'],
+    industries: [],
+    pages: [],
+    settings: null,
+  })
+
+  it('marks only brands with a page', () => {
+    expect(index.brands.find((brand) => brand.slug === 'lenovo')).toMatchObject({ page: true })
+    expect(index.brands.find((brand) => brand.slug === 'ingenico')).not.toHaveProperty('page')
+  })
+
+  it('counts subcategories with products, in the panel order, with their addresses', () => {
+    expect(index.categories[0]!.subcategories).toEqual([
+      { name: 'Laptopy', slug: 'laptopy', count: 2 },
+      { name: 'Monitory', slug: 'monitory', count: 1 },
+    ])
+  })
+
+  it('lets „laptop” find a card through its subcategory and series', () => {
+    expect(index.products[0]!.hay).toContain('laptopy')
+    expect(index.products[0]!.hay).toContain('thinkbook')
   })
 })
 

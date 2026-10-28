@@ -4,7 +4,7 @@ import { publicImage, type PublicImage } from '../media/public'
 import { plural } from '../plural'
 import { isHttpsUrl, isValidNavHref } from '../site/link'
 import { tenantIdOf } from '../tenant/id'
-import type { CatalogIndex, IndexImage, IndexProduct } from './catalogIndex'
+import type { CatalogIndex, IndexImage, IndexProduct, IndexSubcategory } from './catalogIndex'
 import type { IconName } from './options'
 
 /**
@@ -40,6 +40,59 @@ export const REGISTER_PICKER: readonly { value: RegisterType; title: string; tex
 
 /** Address of a category page (indexed, unlike the filtered `/oferta?kategoria=`). */
 export const categoryHref = (slug: string) => `/oferta/${encodeURIComponent(slug)}`
+
+/** Address of a subcategory page (K3b′, ADR-012 rozstrz. 14), e.g. `/oferta/komputery-monitory/laptopy`. */
+export const subcategoryHref = (category: string, subcategory: string) =>
+  `${categoryHref(category)}/${encodeURIComponent(subcategory)}`
+
+type ListedCategory = CatalogIndex['categories'][number]
+
+/** A subcategory with its own page, with its listed category — or `null` (404). */
+export function findSubcategory(
+  index: Pick<CatalogIndex, 'categories'>,
+  categorySlug: string,
+  subcategorySlug: string,
+): { category: ListedCategory; subcategory: IndexSubcategory & { slug: string } } | null {
+  const category = index.categories.find((item) => item.slug === categorySlug)
+  const subcategory = category?.subcategories?.find((item) => item.slug === subcategorySlug)
+  return category && subcategory?.slug
+    ? { category, subcategory: { ...subcategory, slug: subcategory.slug } }
+    : null
+}
+
+/** Products of a subcategory: its name on cards whose main category it belongs to (K3a). */
+export function subcategoryProducts(
+  index: Pick<CatalogIndex, 'products'>,
+  categorySlug: string,
+  name: string,
+): IndexProduct[] {
+  return index.products.filter(
+    (product) => product.categories[0] === categorySlug && product.subcategory === name,
+  )
+}
+
+/** Subcategory navigation: pages of the category's subcategories, chips for the others. */
+export function subcategoryLinks(category: ListedCategory): {
+  pages: (IndexSubcategory & { href: string })[]
+  chips: IndexSubcategory[]
+} {
+  const all = category.subcategories ?? []
+  return {
+    pages: all.flatMap((item) =>
+      item.slug ? [{ ...item, href: subcategoryHref(category.slug, item.slug) }] : [],
+    ),
+    chips: all.filter((item) => !item.slug),
+  }
+}
+
+/**
+ * H1 of a subcategory page (K3-KATALOG §9: „Laptopy dla firm — Lenovo i Dell”): the name and up
+ * to 3 brands with the most products.
+ */
+export function subcategoryTitle(name: string, brands: readonly { name: string }[]): string {
+  const names = brands.slice(0, 3).map((brand) => brand.name)
+  return names.length > 0 ? `${name} dla firm — ${listNames(names)}` : `${name} dla firm`
+}
 
 /** „Do … często dobierane”: as many tiles as the board has. */
 export const BOUGHT_WITH_LIMIT = 4
@@ -125,16 +178,27 @@ export function registerOptions(products: readonly IndexProduct[]): RegisterOpti
   })
 }
 
-export type CategoryChoice = { registerType?: RegisterType; brand?: string }
+/**
+ * Choice in the grid: the register type, a brand segment (category page) or a category segment
+ * (brand page, its main category) and a subcategory chip without its own address (K3b′).
+ */
+export type CategoryChoice = {
+  registerType?: RegisterType
+  brand?: string
+  category?: string
+  subcategory?: string
+}
 
 export function filterCategoryProducts(
   products: readonly IndexProduct[],
-  { registerType, brand }: CategoryChoice,
+  { registerType, brand, category, subcategory }: CategoryChoice,
 ): IndexProduct[] {
   return products.filter(
     (product) =>
       (!registerType || product.registerTypes.includes(registerType)) &&
-      (!brand || product.brand === brand),
+      (!brand || product.brand === brand) &&
+      (!category || product.categories[0] === category) &&
+      (!subcategory || product.subcategory === subcategory),
   )
 }
 
@@ -207,9 +271,13 @@ export type CategoryView = {
   seo: { title: string | null; description: string | null }
 }
 
-/** General texts for a category without its own (the board's, without the cash register). */
-const DEFAULTS = {
-  included: { eyebrow: 'W cenie od nas', title: 'Kupujesz u nas, dostajesz spokój.' },
+/**
+ * General texts for a category without its own (the board's, without the cash register); the
+ * help card and contact panel of a brand page use them too (K3b′) — one copy in the code.
+ */
+export const DEFAULTS = {
+  // Without „w cenie” (spec. §1, K3b′) — the name of the product page's panel (K31b).
+  included: { eyebrow: 'Co robimy przy zakupie', title: 'Kupujesz u nas, dostajesz spokój.' },
   facts: { eyebrow: 'Przepisy w pigułce', title: 'Co warto wiedzieć przed zakupem.' },
   faq: { eyebrow: 'Pytania i odpowiedzi', title: 'Zanim zdecydujesz' },
   help: {

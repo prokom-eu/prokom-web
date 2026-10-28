@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { useId, useState } from 'react'
 
 import { cx } from '@/components/ui/cx'
+import { brandPageHref } from '@/lib/catalog/brand'
 import type { CatalogIndex } from '@/lib/catalog/catalogIndex'
 import {
   KINDS,
@@ -74,6 +75,10 @@ export function CatalogFilters({
         (brandCounts.get(b.slug) ?? 0) - (brandCounts.get(a.slug) ?? 0) ||
         a.name.localeCompare(b.name, 'pl'),
     )
+  // One brand chosen → „Zobacz markę” to its page (K3-KATALOG §6), when it has one.
+  const chosenBrand =
+    state.brands.length === 1 ? index.brands.find((b) => b.slug === state.brands[0]) : undefined
+  const chosenBrandHref = chosenBrand ? brandPageHref(index, chosenBrand.slug) : null
   const shownBrands = allBrands
     ? brands
     : [
@@ -207,6 +212,14 @@ export function CatalogFilters({
             >
               {allBrands ? 'Pokaż mniej' : `Pokaż wszystkie marki (${brands.length})`}
             </button>
+          )}
+          {chosenBrand && chosenBrandHref && (
+            <Link
+              href={chosenBrandHref}
+              className="mt-2 flex min-h-9 items-center text-sm font-extrabold text-accent-text hover:underline"
+            >
+              Zobacz markę {chosenBrand.name} →
+            </Link>
           )}
         </fieldset>
       </div>

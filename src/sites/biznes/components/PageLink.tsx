@@ -28,15 +28,34 @@ type Props = {
   kind?: PageLinkKind
   arrow?: boolean
   className?: string
+  /** A page of another site (the producer's): a plain `<a rel="noopener">`, not `next/link`. */
+  external?: boolean
   children: ReactNode
 }
 
 /** Call-to-action link of the Biznes subpages (plansze Dzial, Gopos, Insert). */
-export function PageLink({ href, kind = 'primary', arrow = false, className, children }: Props) {
-  return (
-    <Link href={href} className={cx(BASE, KIND[kind], className)}>
+export function PageLink({
+  href,
+  kind = 'primary',
+  arrow = false,
+  className,
+  external = false,
+  children,
+}: Props) {
+  const content = (
+    <>
       {children}
       {arrow && <Icon name="arrow" strokeWidth={2.4} className="size-[18px] shrink-0" />}
+    </>
+  )
+  const classes = cx(BASE, KIND[kind], className)
+  return external ? (
+    <a href={href} rel="noopener" className={classes}>
+      {content}
+    </a>
+  ) : (
+    <Link href={href} className={classes}>
+      {content}
     </Link>
   )
 }

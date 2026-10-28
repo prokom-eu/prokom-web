@@ -66,16 +66,38 @@ export type IndexProduct = {
   hay: string
 }
 
+export type IndexSubcategory = { name: string; slug?: string; count: number }
+
 export type ShowcaseStatus = { label: string; value: string; tone: 'ok' | 'warn' }
 
 export type GroupShowcase = { images: IndexImage[]; statuses: ShowcaseStatus[] }
 
 export type CatalogIndex = {
   products: IndexProduct[]
-  /** Brands of the listed products; `logo` only when the record has a file. */
-  brands: { slug: string; name: string; status: Partner['partnerStatus']; logo?: IndexLogo }[]
+  /**
+   * Brands of the listed products; `logo` only when the record has a file, `page` when the brand
+   * has its page `/marki/[slug]` (K3b′).
+   */
+  brands: {
+    slug: string
+    name: string
+    status: Partner['partnerStatus']
+    logo?: IndexLogo
+    page?: true
+  }[]
   /** Only categories with published products (rozstrzygnięcie 7); `count` = such products. */
-  categories: { slug: string; name: string; group: string; icon?: IconName; count: number }[]
+  categories: {
+    slug: string
+    name: string
+    group: string
+    icon?: IconName
+    count: number
+    /**
+     * Subcategories with listed products (K3b′), in the panel's order; `slug` only where the
+     * subcategory has its own page `/oferta/<kategoria>/<slug>`.
+     */
+    subcategories?: IndexSubcategory[]
+  }[]
   /** Only groups with a listed category. */
   groups: {
     slug: string
@@ -179,6 +201,8 @@ export function brandLogo(brand: Partner): IndexLogo | undefined {
   return { url: pickSource(sources, LOGO_WIDTH), width: brand.width, height: brand.height }
 }
 
+const subcategoryKey = (category: string, name: string) => `${category}/${name.trim()}`
+
 const optional = (value: string | null | undefined) => (value?.trim() ? value.trim() : undefined)
 
 export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
@@ -204,6 +228,7 @@ export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
         name: brand.name,
         status: brand.partnerStatus,
         ...(logo && { logo }),
+        ...(brand.brandPage?.hasPage && { page: true as const }),
       })
     }
     const categories = docs(product.categories).filter(ownTenant)
@@ -223,6 +248,9 @@ export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
         product.name,
         brand?.name,
         ...categories.map((category) => category.name),
+        // „laptop” finds the laptops even when a card never says the word (K3b′).
+        subcategory,
+        series,
         ...features,
         benefit,
         badge,
@@ -257,20 +285,36 @@ export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
   })
 
   const counts = new Map<string, number>()
+  // `Products.subcategory` is a name from the list of the main category (K3a).
+  const subcategoryCounts = new Map<string, number>()
   for (const product of products) {
     for (const slug of new Set(product.categories)) counts.set(slug, (counts.get(slug) ?? 0) + 1)
+    const main = product.categories[0]
+    if (main && product.subcategory) {
+      const key = subcategoryKey(main, product.subcategory)
+      subcategoryCounts.set(key, (subcategoryCounts.get(key) ?? 0) + 1)
+    }
   }
   const categories: CatalogIndex['categories'] = []
   for (const category of source.categories) {
     const count = counts.get(category.slug) ?? 0
     const group = groupSlugOf(category)
     if (count === 0 || !group) continue
+    const subcategories = (category.subcategories ?? []).flatMap(({ name, slug }) => {
+      const label = name.trim()
+      const subcategoryCount = subcategoryCounts.get(subcategoryKey(category.slug, label))
+      const address = optional(slug)
+      return label && subcategoryCount
+        ? [{ name: label, ...(address && { slug: address }), count: subcategoryCount }]
+        : []
+    })
     categories.push({
       slug: category.slug,
       name: category.name,
       group,
       ...(category.icon && { icon: category.icon }),
       count,
+      ...(subcategories.length > 0 && { subcategories }),
     })
   }
   const usedGroups = new Set(categories.map((category) => category.group))

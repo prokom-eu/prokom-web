@@ -5,7 +5,14 @@ import { cache } from 'react'
 import { imageSources } from '../media/sizes'
 import type { PublicImage } from '../media/public'
 
-export type PublicPartner = { id: number; name: string; url: string | null; logo: PublicImage }
+export type PublicPartner = {
+  id: number
+  name: string
+  /** Address of the brand in the Biznes catalog; the brand page decides if it is a link. */
+  slug: string | null
+  url: string | null
+  logo: PublicImage
+}
 
 /**
  * Partners shown on one tenant, in their order. The tenant filter is mandatory, like for pages.
@@ -29,6 +36,7 @@ export const getPartners = cache(async (tenantId: number): Promise<PublicPartner
     partners.push({
       id: doc.id,
       name: doc.name,
+      slug: doc.slug ?? null,
       url: doc.website ?? null,
       logo: { alt: `Logo ${doc.name}`, width: doc.width, height: doc.height, sources },
     })
