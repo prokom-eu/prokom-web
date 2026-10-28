@@ -257,7 +257,6 @@
   --c-instalacje-foot-cta-to: #0a8fad;
   --c-instalacje-foot-cta-glow: rgba(18, 182, 216, 0.8);
   --c-instalacje-foot-cta-icon: rgba(255, 255, 255, 0.18);
-  --c-instalacje-foot-cta-note: rgba(255, 255, 255, 0.85);
   --c-instalacje-foot-white: #ffffff;
   --c-instalacje-foot-chip: #7fe0b0;
   --c-instalacje-foot-chip-bg: rgba(70, 199, 139, 0.12);
@@ -440,7 +439,6 @@
   --inst-foot-cta-to: var(--c-instalacje-foot-cta-to);
   --inst-foot-cta-glow: var(--c-instalacje-foot-cta-glow);
   --inst-foot-cta-icon: var(--c-instalacje-foot-cta-icon);
-  --inst-foot-cta-note: var(--c-instalacje-foot-cta-note);
   --inst-foot-white: var(--c-instalacje-foot-white);
   --inst-foot-chip: var(--c-instalacje-foot-chip);
   --inst-foot-chip-bg: var(--c-instalacje-foot-chip-bg);
