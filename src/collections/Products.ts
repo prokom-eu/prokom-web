@@ -6,7 +6,6 @@ import { catalogRevalidationHooks } from '../lib/catalog/revalidate'
 import {
   CONTENT_BATCHES,
   CONTENT_STATUSES,
-  ICON_OPTIONS,
   PRODUCT_KINDS,
   REGISTER_TYPES,
 } from '../lib/catalog/options'
@@ -20,16 +19,6 @@ import {
   seoGroup,
   slugField,
 } from './catalogFields'
-
-const percent = (name: string, label: string): Field => ({
-  name,
-  label,
-  type: 'number',
-  required: true,
-  min: 0,
-  max: 100,
-  admin: { width: '50%', description: '0–100 % szerokości/wysokości zdjęcia.' },
-})
 
 const labelValue: Field[] = [
   {
@@ -118,7 +107,7 @@ export const Products: CollectionConfig = {
               hasMany: true,
               required: true,
               minRows: 1,
-              admin: { description: 'Pierwsza jest główna (okruszki, „Podobne”).' },
+              admin: { description: 'Pierwsza jest główna (okruszki, „Z tej samej rodziny”).' },
             },
             {
               name: 'subcategory',
@@ -248,26 +237,6 @@ export const Products: CollectionConfig = {
               label: 'Opis',
               type: 'richText',
               editor: restrictedRichTextEditor,
-            },
-            {
-              name: 'hotspots',
-              label: 'Punkty na zdjęciu',
-              type: 'array',
-              fields: [
-                { type: 'row', fields: [percent('x', 'X (%)'), percent('y', 'Y (%)')] },
-                { name: 'title', label: 'Tytuł', type: 'text', required: true },
-                { name: 'description', label: 'Opis', type: 'textarea' },
-              ],
-            },
-            {
-              name: 'modules',
-              label: 'Moduły',
-              type: 'array',
-              fields: [
-                { name: 'name', label: 'Nazwa', type: 'text', required: true },
-                { name: 'description', label: 'Opis', type: 'textarea' },
-                { name: 'icon', label: 'Ikona', type: 'select', options: ICON_OPTIONS },
-              ],
             },
             includedField('Puste = „W cenie” z kategorii głównej.'),
             {

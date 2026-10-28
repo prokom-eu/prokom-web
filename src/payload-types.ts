@@ -757,7 +757,7 @@ export interface Product {
    */
   brand?: (number | null) | Partner;
   /**
-   * Pierwsza jest główna (okruszki, „Podobne”).
+   * Pierwsza jest główna (okruszki, „Z tej samej rodziny”).
    */
   categories: (number | CatalogCategory)[];
   /**
@@ -843,86 +843,6 @@ export interface Product {
     };
     [k: string]: unknown;
   } | null;
-  hotspots?:
-    | {
-        /**
-         * 0–100 % szerokości/wysokości zdjęcia.
-         */
-        x: number;
-        /**
-         * 0–100 % szerokości/wysokości zdjęcia.
-         */
-        y: number;
-        title: string;
-        description?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  modules?:
-    | {
-        name: string;
-        description?: string | null;
-        icon?:
-          | (
-              | 'shield'
-              | 'cal'
-              | 'users'
-              | 'store'
-              | 'bolt'
-              | 'doc'
-              | 'life'
-              | 'arrow'
-              | 'check'
-              | 'phone'
-              | 'mail'
-              | 'pin'
-              | 'clock'
-              | 'monitor'
-              | 'remote'
-              | 'bell'
-              | 'wallet'
-              | 'chat'
-              | 'wrench'
-              | 'rocket'
-              | 'map'
-              | 'star'
-              | 'q'
-              | 'flash'
-              | 'grad'
-              | 'server'
-              | 'compass'
-              | 'panel'
-              | 'site'
-              | 'grid'
-              | 'plug'
-              | 'ticket'
-              | 'lifebuoy'
-              | 'chart'
-              | 'sign'
-              | 'cash'
-              | 'search'
-              | 'x'
-              | 'bed'
-              | 'food'
-              | 'refresh'
-              | 'globe'
-              | 'box'
-              | 'car'
-              | 'home'
-              | 'mountain'
-              | 'heart'
-              | 'bag'
-              | 'card'
-              | 'target'
-              | 'key'
-              | 'mega'
-              | 'mount'
-              | 'brief'
-            )
-          | null;
-        id?: string | null;
-      }[]
-    | null;
   /**
    * Puste = „W cenie” z kategorii głównej.
    */
@@ -6538,23 +6458,6 @@ export interface ProductsSelect<T extends boolean = true> {
         id?: T;
       };
   description?: T;
-  hotspots?:
-    | T
-    | {
-        x?: T;
-        y?: T;
-        title?: T;
-        description?: T;
-        id?: T;
-      };
-  modules?:
-    | T
-    | {
-        name?: T;
-        description?: T;
-        icon?: T;
-        id?: T;
-      };
   included?: T;
   configurator?:
     | T
