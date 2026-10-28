@@ -1,16 +1,7 @@
 import type { CSSProperties } from 'react'
 
-import type { SolutionCategory } from '@/lib/software/options'
+import { CATEGORY_AREA } from '@/lib/software/options'
 import type { IndexSolution } from '@/lib/software/solutionsIndex'
-
-/** Area of the category: its gradient token colours the scene (`--grad-area-<key>`). */
-const AREA: Record<SolutionCategory, string> = {
-  strony: 'www',
-  systemy: 'sys',
-  aplikacje: 'app',
-  automatyzacje: 'auto',
-  opieka: 'care',
-}
 
 type Props = Pick<IndexSolution, 'category' | 'tag' | 'cardGradient'>
 
@@ -24,7 +15,7 @@ const BAR = 'h-2 rounded-full bg-border'
  */
 export function CardScene({ category, tag, cardGradient }: Props) {
   const fill: CSSProperties = {
-    backgroundImage: `var(--grad-${cardGradient ? `card-${cardGradient}` : `area-${AREA[category]}`})`,
+    backgroundImage: `var(--grad-${cardGradient ? `card-${cardGradient}` : `area-${CATEGORY_AREA[category]}`})`,
   }
   return (
     <div

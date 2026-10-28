@@ -14,6 +14,18 @@ export const SOLUTION_CATEGORIES = [
 
 export type SolutionCategory = (typeof SOLUTION_CATEGORIES)[number]['value']
 
+/**
+ * Area key of each category (`AREA_KEYS`): the gradient of its scenes (`--grad-area-<key>`) and
+ * the tab keys of „12 rzeczy” (`popularne.json` → `tabs`).
+ */
+export const CATEGORY_AREA: Record<SolutionCategory, string> = {
+  strony: 'www',
+  systemy: 'sys',
+  aplikacje: 'app',
+  automatyzacje: 'auto',
+  opieka: 'care',
+}
+
 /** Situation filter of the catalog (`rozwiazania.json` → `situations`). */
 export const SITUATIONS = [
   { label: 'Zaczynam od zera', value: 'Z' },

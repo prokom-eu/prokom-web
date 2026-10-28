@@ -5,6 +5,7 @@ import { HOME_SLUG } from '../../lib/pages/slug'
 import type { Page } from '../../payload-types'
 import { factsBlocks } from './homeFacts'
 import { planBlocks } from './homePlan'
+import { mergeLayout } from '../layout'
 
 /**
  * Start content of the Biznes home page (B7, spec. §4 v20). Texts 1:1 from
@@ -202,32 +203,12 @@ export function biznesHomeLayout(refs: HomeRefs = NO_REFS): HomeBlock[] {
   ]
 }
 
-/**
- * The home layout after seeding: the sample page (no Biznes block yet) is replaced; otherwise
- * the page keeps its blocks, order and duplicates (edited in the panel) and only block types it
- * lacks are inserted — right after the last block that comes before them in the seed.
- * `null` = nothing to change.
- */
+/** The home layout after seeding (`mergeLayout` with the Biznes blocks, `bz*`). */
 export function mergeHomeLayout<T extends { blockType: string }>(
   existing: readonly T[] | null | undefined,
   seed: readonly T[],
 ): T[] | null {
-  const current = existing ?? []
-  if (!current.some((block) => block.blockType.startsWith('bz'))) return [...seed]
-  const seedOrder = seed.map((block) => block.blockType)
-  const layout = [...current]
-  let changed = false
-  seed.forEach((block, position) => {
-    if (layout.some((b) => b.blockType === block.blockType)) return
-    const earlier = new Set(seedOrder.slice(0, position))
-    let after = -1
-    layout.forEach((b, i) => {
-      if (earlier.has(b.blockType)) after = i
-    })
-    layout.splice(after + 1, 0, block)
-    changed = true
-  })
-  return changed ? layout : null
+  return mergeLayout(existing, seed, { own: (block) => block.blockType.startsWith('bz') })
 }
 
 type Report = (name: string, changed: boolean) => void

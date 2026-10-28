@@ -40,9 +40,14 @@ export type IndexSolution = {
   priceFrom: number | null
   /** Term of the `start` size, else the first given; `null` → „po krótkiej rozmowie”. */
   leadTime: string | null
+  /** Card of „12 rzeczy” (SW5): only the fields filled in the panel, absent when none is. */
+  featured?: FeaturedCard
   /** Normalized text the search matches (`normalizeText`). */
   hay: string
 }
+
+/** Fields of the „12 rzeczy” card that differ from the catalog card (`Solutions.featured`). */
+export type FeaturedCard = { name?: string; tag?: string; lead?: string; features?: string[] }
 
 export type SolutionsIndex = {
   solutions: IndexSolution[]
@@ -89,6 +94,7 @@ export type IndexedSolutionDoc = Pick<
   | 'priceNote'
   | 'priceMonthly'
   | 'sizeNames'
+  | 'featured'
 >
 
 export type SolutionsSource = {
@@ -108,6 +114,19 @@ function sizes<T>(values: Partial<Record<keyof Sizes<T>, T | null>> | null | und
     if (value !== null && value !== undefined && value !== '') result[size] = value
   }
   return result
+}
+
+function featuredCard(featured: IndexedSolutionDoc['featured']): FeaturedCard | undefined {
+  const card: FeaturedCard = {}
+  const name = text(featured?.name)
+  const tag = text(featured?.tag)
+  const lead = text(featured?.lead)
+  const features = (featured?.features ?? []).map((feature) => feature.trim()).filter(Boolean)
+  if (name) card.name = name
+  if (tag) card.tag = tag
+  if (lead) card.lead = lead
+  if (features.length > 0) card.features = features
+  return Object.keys(card).length > 0 ? card : undefined
 }
 
 function indexSolution(doc: IndexedSolutionDoc): IndexSolution {
@@ -139,6 +158,7 @@ function indexSolution(doc: IndexedSolutionDoc): IndexSolution {
     ),
     priceFrom: priceFromOf(doc.prices),
     leadTime: leadTimeOf(doc.leadTimes),
+    featured: featuredCard(doc.featured),
     hay: normalizeText(
       [doc.name, doc.label, doc.tag, doc.lead, ...features, doc.forWhom, doc.keywords]
         .filter(Boolean)

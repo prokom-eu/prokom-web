@@ -12,6 +12,7 @@ import { notFoundSchema, thanksSchema } from '../../lib/software/pages'
 import { INDUSTRY_GROUPS, WIZARD_FIRMS } from '../../lib/software/options'
 import { formatPrice } from '../../lib/software/price'
 import { softwareWizardSchema } from '../../lib/software/wizard'
+import { HOME_SECTION_TEXTS, homeWithSections } from './homeExtras'
 import {
   areaData,
   cardGradientKey,
@@ -277,6 +278,25 @@ describe('Software settings of the seed', () => {
     expect(settings.home).not.toHaveProperty('homeOrder')
     expect(settings.home).toHaveProperty('technologies')
     expect(settings.home).toHaveProperty('popular.order')
+  })
+
+  it('add the SW5 section headings from the board to the home texts', () => {
+    expect(settings.home.sections?.areas.title).toBe('Wszystko dla firmy, w ośmiu obszarach.')
+    expect(settings.home.sections?.popular.after.items[0]?.text).toBe('od [OPIEKA OD] zł / mies.')
+  })
+
+  it('add the section headings to a home saved before SW5, and only then', () => {
+    const { sections, ...stored } = structuredClone(settings.home)
+    const added = homeWithSections(stored, HOME_SECTION_TEXTS)
+    expect(added).toEqual({ ...stored, sections })
+    // Edited in the panel: kept as it is.
+    const edited = {
+      ...stored,
+      sections: { ...HOME_SECTION_TEXTS, areas: { ...HOME_SECTION_TEXTS.areas, title: 'Inny' } },
+    }
+    expect(homeWithSections(edited, HOME_SECTION_TEXTS)).toBeNull()
+    // Not a home object (empty field): left to the „fill while empty” rule.
+    expect(homeWithSections(null, HOME_SECTION_TEXTS)).toBeNull()
   })
 
   it('keep the 404 tile prices equal to the lowest start price of their category', () => {

@@ -17,6 +17,8 @@ import {
   solutionData,
   solutionsToImport,
 } from './map'
+import { seedSoftwareHome } from './home'
+import { HOME_SECTION_TEXTS, homeWithSections } from './homeExtras'
 import { isPreSw7Wizard } from './wizardExtras'
 
 const SOFTWARE_TENANT_SLUG = 'software'
@@ -261,6 +263,9 @@ export async function seedSoftware(payload: Payload): Promise<void> {
       popular: stored?.popular?.length ? stored.popular : search.popular,
     }
     if (!hasSameValues(stored, searchMissing)) missing.search = searchMissing
+    // A home saved before SW5 lacks the section headings: only they are added.
+    const home = homeWithSections(softwareSettings.home, HOME_SECTION_TEXTS)
+    if (home) missing.home = home as typeof fields.home
     const changed = Object.keys(missing).length > 0
     if (changed) {
       await payload.update({
@@ -272,6 +277,9 @@ export async function seedSoftware(payload: Payload): Promise<void> {
     }
     count('software-settings', changed ? 'updated' : false)
   }
+
+  // --- start page (SW5): after the settings, its sections read their texts ---
+  await seedSoftwareHome(payload, tenant.id, count)
 
   for (const [collection, { created, updated, skipped }] of Object.entries(counters)) {
     log(`${collection}: ${created} created, ${updated} updated, ${skipped} unchanged.`)

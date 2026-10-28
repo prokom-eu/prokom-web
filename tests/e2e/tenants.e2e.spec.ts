@@ -3,7 +3,8 @@ import { expect, test } from '@playwright/test'
 import { site } from './helpers'
 
 // Matches src/seed/tenants.ts (run `pnpm seed` before the e2e tests).
-// The Biznes home page has its own hero (B7, `seedBiznesHome`); the others the sample one.
+// The Biznes and Software home pages have their own heroes (B7 `seedBiznesHome`, SW5
+// `seedSoftwareHome`); Instalacje the sample one.
 // `markers`: content from the panel only that tenant has (hero, its settings' e-mail, the
 // Software mega menu card) — searched in the whole HTML of the other domains, RSC payload too.
 const TENANTS = [
@@ -22,8 +23,12 @@ const TENANTS = [
   {
     host: 'software.localhost',
     name: 'PRO-KOM Software',
-    h1: 'PRO-KOM Software',
-    markers: ['software@example.test', 'Strony, systemy i aplikacje dla firm z Podhala'],
+    h1: 'Strony, systemy i aplikacje szyte pod Twoją firmę.',
+    markers: [
+      'software@example.test',
+      'Strony, systemy i aplikacje dla firm z Podhala',
+      'szyte pod Twoją firmę',
+    ],
   },
 ]
 

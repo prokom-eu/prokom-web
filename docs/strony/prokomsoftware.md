@@ -78,7 +78,7 @@ Dane: `nawigacja.json` → `headerMobile`, `tabBar`, `mobileMenu`, `mobileMenuFo
 - **„Twój projekt” na telefonie** (`stany/81a-mobile-pigulka-projektu.jpg`, `81-mobile-projekt.jpg`): pigułka nad dolnym paskiem **tylko przy niepustej liście** („Twój projekt · 2 · Zobacz →”); otwiera arkusz z listą (nazwa, ×), „Wyślij do bezpłatnej wyceny →” (`/kontakt?projekt=1`) i „Wyczyść listę”. Te same dane i store co na desktopie (§3.1, §8.1).
 
 ### 3.3 Szyna sekcji (tylko strona główna, ≥ 1401 px)
-Pionowa nawigacja po lewej z kropkami i nazwami sekcji: start, oferta, popularne, podglądy, proces, dobierz, bez-wordpressa, zasady, realizacje, faq, kontakt (kolejność §4). Aktywna sekcja z `IntersectionObserver`. Poniżej 1400 px ukryta.
+Pionowa nawigacja po lewej z ikonami i nazwami sekcji (nazwy po najechaniu): start, oferta, popularne, podglądy, proces, dobierz, bez-wordpressa, realizacje, faq, kontakt — 10 pozycji jak `RAILI` planszy `Main`, bez „zasady” (decyzja Krystiana 28.10, SW5); kolejność §4, tylko sekcje obecne na stronie. Aktywna sekcja z `IntersectionObserver`. Do 1400 px włącznie ukryta.
 
 ### 3.4 Stopka
 4 kolumny: opis linii („Strony, systemy, aplikacje i automatyzacje dla firm. Linia firmy PRO-KOM Tadeusz Wójciak.”) · Usługi (5 kategorii katalogu) · Firma (O firmie, Jedna firma do wszystkiego, **Dla branż**, Realizacje → `/#realizacje` do czasu etapu 2, Aktualności, Cennik, Darmowy audyt, Rabka-Zdrój) · Kontakt (telefon i e-mail linii z `SiteSettings.phone` / `SiteSettings.email`, „Rabka-Zdrój · Zakopane · zdalnie w całej Polsce”). Dane: `nawigacja.json` → `footer`.

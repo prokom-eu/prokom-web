@@ -30,6 +30,8 @@ import { BzPageHeroBlock } from '../sites/biznes/blocks/BzPageHero/config'
 import { BzLinesBlock } from '../sites/biznes/blocks/BzLines/config'
 import { BzBrandsBlock } from '../sites/biznes/blocks/BzBrands/config'
 import { BzLocationBlock } from '../sites/biznes/blocks/BzLocation/config'
+import { SwHeroBlock } from '../sites/software/blocks/SwHero/config'
+import { SwHomeSectionBlock } from '../sites/software/blocks/SwHomeSection/config'
 import { CallToActionBlock } from './CallToAction/config'
 import { ContactBlock } from './Contact/config'
 import { FaqBlock } from './Faq/config'
@@ -91,17 +93,29 @@ export const BIZNES_BLOCKS: Block[] = [
 export const INSTALACJE_BLOCKS: Block[] = []
 
 /**
+ * Sections of the Software pages (ADR-014 rozstrz. SW0 7, at most 10) — `src/sites/software/blocks/`.
+ * The fixed start page sections are one block, `swHomeSection`, with the section picked.
+ */
+export const SOFTWARE_BLOCKS: Block[] = [SwHeroBlock, SwHomeSectionBlock]
+
+/**
  * Every block a page may contain (ADR-010). A block of one line only lives in
  * `src/sites/<line>/blocks/` and is listed here too. Each block means new tables → migration;
  * new blocks go at the end, so the existing tables keep their names.
  */
-export const ALL_BLOCKS: Block[] = [...GENERIC_BLOCKS, ...BIZNES_BLOCKS, ...INSTALACJE_BLOCKS]
+export const ALL_BLOCKS: Block[] = [
+  ...GENERIC_BLOCKS,
+  ...BIZNES_BLOCKS,
+  ...INSTALACJE_BLOCKS,
+  ...SOFTWARE_BLOCKS,
+]
 
 const slugsOf = (blocks: Block[]): readonly string[] => blocks.map((block) => block.slug)
 
 export const GENERIC_BLOCK_SLUGS = slugsOf(GENERIC_BLOCKS)
 export const BIZNES_BLOCK_SLUGS = slugsOf(BIZNES_BLOCKS)
 export const INSTALACJE_BLOCK_SLUGS = slugsOf(INSTALACJE_BLOCKS)
+export const SOFTWARE_BLOCK_SLUGS = slugsOf(SOFTWARE_BLOCKS)
 export const BLOCK_SLUGS = slugsOf(ALL_BLOCKS)
 
 export type AllowedBlocks = Readonly<Record<Line, readonly string[]>>
@@ -111,7 +125,7 @@ export const ALLOWED_BLOCKS: AllowedBlocks = {
   prokom: GENERIC_BLOCK_SLUGS,
   biznes: [...GENERIC_BLOCK_SLUGS, ...BIZNES_BLOCK_SLUGS],
   instalacje: [...GENERIC_BLOCK_SLUGS, ...INSTALACJE_BLOCK_SLUGS],
-  software: GENERIC_BLOCK_SLUGS,
+  software: [...GENERIC_BLOCK_SLUGS, ...SOFTWARE_BLOCK_SLUGS],
 }
 
 export function allowedBlockSlugs(
