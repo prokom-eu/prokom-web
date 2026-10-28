@@ -13,6 +13,37 @@ import { firstIssue, key, label, obj, slug, svgPath, text } from './schema'
 
 const option = obj({ id: key, n: label, ic: svgPath })
 
+const size = z.enum(SOLUTION_SIZES)
+
+/**
+ * When a rule applies (SW7 — the board kept these rules in its script): every list given must
+ * match, any value of a list is enough. `options` = one of the answers to the need's question.
+ */
+const condition = obj({
+  needs: z.array(key).min(1).optional(),
+  options: z.array(key).min(1).optional(),
+  results: z.array(key).min(1).optional(),
+  kinds: z.array(label).min(1).optional(),
+  sizes: z.array(size).min(1).optional(),
+})
+
+export type WizardCondition = z.infer<typeof condition>
+
+/** Any of the conditions; an empty list never applies. */
+const anyOf = z.array(condition)
+
+/** Parts of the sample site in the live preview, switched by `preview.features`. */
+export const PREVIEW_FEATURES = [
+  'lang',
+  'login',
+  'booking',
+  'form',
+  'map',
+  'cards',
+  'catalog',
+  'blog',
+] as const
+
 const need = obj({
   n: label,
   d: text,
@@ -27,6 +58,12 @@ const need = obj({
   multi: z.boolean().optional(),
   /** No size step (wizytówka, landing page). */
   noSize: z.boolean().optional(),
+  /** Set of „Co już masz?” chips (`haves`) in step 3. */
+  have: key.optional(),
+  /** Address field instead of the chips (odświeżenie: the current site). */
+  url: obj({ q: label, placeholder: label }).optional(),
+  /** Sentence in step 3 in place of a file field (spec. §7.3). */
+  fileNote: text.optional(),
 })
 
 const result = obj({
@@ -80,9 +117,81 @@ export const softwareWizardSchema = obj({
         n: label,
         /** Value of `Inquiries.preferredContact` (ADR-014 §3.1). */
         inquiryValue: z.enum(['phone', 'email', 'meeting', 'online']),
+        /** `{kontakt}` of the success steps: „zadzwonimy”. */
+        verb: label,
       }),
     )
     .min(1),
+  /** Order of the needs (the database does not keep the order of object keys). */
+  needOrder: z.array(key).min(1),
+  haves: z.record(
+    key,
+    obj({
+      q: label,
+      o: z.array(obj({ id: key, n: label, resultNote: text.optional() })).min(1),
+    }),
+  ),
+  /** Line added to the gains of a result with sizes. */
+  sizeGains: obj({ start: text, std: text, full: text }),
+  /** Scope line under the price: the first rule that applies picks a `scopeNotes` key. */
+  scopeRules: z.array(obj({ when: anyOf.min(1), note: key })),
+  /** A bigger job: `whenNotes` uses `<when>Big` instead of `<when>Small`. */
+  bigWhen: anyOf,
+  /** A free result (`results[].free`): no price and term from `Solutions`. */
+  free: obj({ price: label, term: label }),
+  preview: obj({
+    /** `previewBrands` key when neither the answer nor the need has a brand. */
+    defaultBrand: key,
+    features: z.array(obj({ id: z.enum(PREVIEW_FEATURES), when: anyOf })),
+    /** Menu of the sample site: the first entry whose `when` applies (none = always). */
+    navs: z.array(obj({ when: anyOf.optional(), items: z.array(label) })).min(1),
+    /** System view before an answer (`systemViews` key). */
+    systemDefault: key,
+    /** App view before an answer (`appViews` key). */
+    appDefault: key,
+    /** Sample screen of the app, per answer of the `app` question. */
+    appViews: z
+      .record(key, obj({ t: label, l: z.array(z.tuple([label, label])).min(1), b: label }))
+      .refine((views) => Object.keys(views).length > 0, 'Co najmniej jeden widok.'),
+    /** Shown before anything is chosen. */
+    rebuildDefault: z.array(key).min(1),
+    automationDefault: z.array(key).min(1),
+  }),
+  /** Fixed texts of the component (board `Kreator`). */
+  ui: obj({
+    eyebrow: label,
+    title: label,
+    lead: text,
+    needTitle: label,
+    /** Names of the tile rows of step 1, by `needs[].row`. */
+    rows: z.array(label).min(1).max(4),
+    own: obj({ title: label, text }),
+    scopeTitle: label,
+    sizeQ: label,
+    whenQ: label,
+    describe: obj({
+      title: label,
+      optional: label,
+      prompts: z.array(label).max(3),
+      placeholder: text,
+      skip: label,
+    }),
+    next: label,
+    back: label,
+    showResult: label,
+    recommend: label,
+    priceLabel: label,
+    termLabel: label,
+    /** Term of a result without sizes: the first size's term. */
+    termFrom: template('{czas}'),
+    /** Choice chip of „Opisz po swojemu”. */
+    ownChip: label,
+    checklist: obj({ title: label, hint: text }),
+    yourNeeds: label,
+    yourChoice: label,
+    choiceEmpty: label,
+    idle: obj({ title: label, text, steps: z.array(label).length(3) }),
+  }),
   needsChecklist: z.record(key, z.array(label)),
   /** [name, slogan, lead, button, domain, menu] of the sample site in the preview. */
   previewBrands: z.record(key, z.tuple([label, label, label, label, label, z.array(label)])),
@@ -121,6 +230,15 @@ export const softwareWizardSchema = obj({
     consent: text,
     errors: obj({ contact: text, consent: text }),
     success: obj({ title: label, steps: z.array(text).min(1) }),
+    title: label,
+    prefQ: label,
+    button: label,
+    /** Under the button: „Odpowiadamy w ciągu [CZAS ODPOWIEDZI]…”. */
+    note: text,
+    /** „Wysłane · {nr}”. */
+    sentLabel: template('{nr}'),
+    /** Under the success steps (e-mail copy, phone of the line). */
+    copyNote: text,
   }),
 }).superRefine((wizard, ctx) => {
   const results = new Set(Object.keys(wizard.results))
@@ -153,6 +271,59 @@ export const softwareWizardSchema = obj({
   for (const [viewId, view] of Object.entries(wizard.systemViews)) {
     if (view.a >= view.side.length) issue(['systemViews', viewId, 'a'], 'Poza listą `side`.')
   }
+
+  for (const [needId, need] of Object.entries(wizard.needs)) {
+    if (need.have !== undefined && !(need.have in wizard.haves)) {
+      issue(['needs', needId, 'have'], `Nieznany zestaw „${need.have}” (haves).`)
+    }
+  }
+  // Conditions name only what exists; a typo would silently never apply.
+  const checkConditions = (conditions: WizardCondition[], path: (string | number)[]) =>
+    conditions.forEach((condition, index) => {
+      for (const id of condition.needs ?? []) {
+        if (!needs.has(id)) issue([...path, index, 'needs'], `Nieznana potrzeba „${id}”.`)
+      }
+      for (const id of condition.results ?? []) {
+        if (!results.has(id)) issue([...path, index, 'results'], `Nieznany wynik „${id}”.`)
+      }
+    })
+  wizard.scopeRules.forEach((rule, index) => {
+    if (!(rule.note in wizard.scopeNotes) || rule.note === '_info') {
+      issue(['scopeRules', index, 'note'], `Brak notki „${rule.note}” w scopeNotes.`)
+    }
+    checkConditions(rule.when, ['scopeRules', index, 'when'])
+  })
+  checkConditions(wizard.bigWhen, ['bigWhen'])
+  wizard.preview.features.forEach((feature, index) =>
+    checkConditions(feature.when, ['preview', 'features', index, 'when']),
+  )
+  wizard.preview.navs.forEach((nav, index) =>
+    checkConditions(nav.when ?? [], ['preview', 'navs', index, 'when']),
+  )
+  if (!(wizard.preview.defaultBrand in wizard.previewBrands)) {
+    issue(['preview', 'defaultBrand'], 'Brak w previewBrands.')
+  }
+  for (const [needId, need] of Object.entries(wizard.needs)) {
+    if (need.row >= wizard.ui.rows.length)
+      issue(['needs', needId, 'row'], 'Brak nazwy wiersza w ui.rows.')
+  }
+  const order = new Set(wizard.needOrder)
+  if (
+    order.size !== wizard.needOrder.length ||
+    [...needs].some((id) => !order.has(id)) ||
+    wizard.needOrder.some((id) => !needs.has(id))
+  ) {
+    issue(['needOrder'], 'Każda potrzeba dokładnie raz.')
+  }
+  if (!(wizard.preview.systemDefault in wizard.systemViews))
+    issue(['preview', 'systemDefault'], 'Brak w systemViews.')
+  if (!(wizard.preview.appDefault in wizard.preview.appViews))
+    issue(['preview', 'appDefault'], 'Brak w preview.appViews.')
+  const prefIds = wizard.contactPrefs.map((pref) => pref.id)
+  prefIds.forEach((id, index) => {
+    if (prefIds.indexOf(id) !== index)
+      issue(['contactPrefs', index, 'id'], `„${id}” jest dwa razy.`)
+  })
 })
 
 export type SoftwareWizard = z.infer<typeof softwareWizardSchema>

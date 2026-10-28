@@ -11,6 +11,8 @@ import type { MenuArea } from './mobileNav'
 import { thanksSchema, type SoftwareThanks } from './pages'
 import { buildSolutionsIndex, type SolutionsIndex } from './solutionsIndex'
 import { solutionsTag } from './tags'
+import type { SoftwareWizard } from './wizard'
+import { readSoftwareWizard } from './wizardRules'
 
 /**
  * Facts [SZEF] of one Software tenant (`SiteSettings.software.facts`) — the tenant filter is
@@ -144,5 +146,17 @@ export const getSolutionsIndex = (tenantId: number): Promise<SolutionsIndex> =>
       })
     },
     ['solutions-index', String(tenantId)],
+    { tags: [solutionsTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
+  )()
+
+/**
+ * Valid wizard rules of one Software tenant (`SoftwareSettings.wizard`), or `null`; cached under
+ * `tenant:<id>:solutions` — the hooks of `SoftwareSettings` revalidate it with the index.
+ */
+export const getSoftwareWizard = (tenantId: number): Promise<SoftwareWizard | null> =>
+  unstable_cache(
+    async () => readSoftwareWizard(await getPayload({ config }), tenantId),
+    // The shape of the rules is part of the key: a schema change never serves a cached old shape.
+    ['software-wizard', 'sw7', String(tenantId)],
     { tags: [solutionsTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
   )()

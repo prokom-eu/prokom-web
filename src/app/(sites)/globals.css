@@ -65,6 +65,8 @@
   /* Subset chains (see fonts.ts): basic Latin first, then Polish and other Latin letters. */
   --font-sans: var(--font-manrope-latin), var(--font-manrope-latin-ext), system-ui, sans-serif;
   --font-display: var(--font-archivo-latin), var(--font-archivo-latin-ext), system-ui, sans-serif;
+  /* Sample sites in Software mock-ups only (ADR-015 pkt 6): a system serif, no third font file. */
+  --font-mock: Georgia, 'Times New Roman', serif;
 
   /* Raised cards of Software's visualisation (`shadow-raised`); no shadow on other lines. */
   --shadow-raised: var(--shadow);
@@ -75,6 +77,23 @@
   background-image: var(--grad-h1);
   background-clip: text;
   color: transparent;
+}
+
+/* Dotted stage of Software mock-ups (the wizard preview, board Kreator). */
+@utility bg-dots {
+  background-image: radial-gradient(var(--dot) 1px, transparent 1.2px);
+  background-size: 22px 22px;
+}
+
+/* Floating mini-cards of the empty wizard preview (off with prefers-reduced-motion). */
+@theme {
+  --animate-float: float 6s ease-in-out infinite;
+
+  @keyframes float {
+    50% {
+      translate: 0 -6px;
+    }
+  }
 }
 
 /* Brand marquee of the Biznes home page (`BrandMarquee`): the list is rendered twice. */

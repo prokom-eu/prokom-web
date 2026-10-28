@@ -174,3 +174,15 @@ export function readOutcome<F extends string = FieldName>(
   }
   return { kind: 'error', message: FALLBACK }
 }
+
+/**
+ * One field „Telefon albo e-mail” (Software forms, spec. §7.1): an address with `@` is an e-mail,
+ * digits with spaces, brackets, dashes and a leading `+` a phone. `null` = neither — the form
+ * asks again before sending.
+ */
+export function splitEmailOrPhone(text: string): { email: string } | { phone: string } | null {
+  const value = text.trim()
+  if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return { email: value }
+  if (/^\+?[\d\s()-]+$/.test(value) && value.replace(/\D/g, '').length >= 6) return { phone: value }
+  return null
+}

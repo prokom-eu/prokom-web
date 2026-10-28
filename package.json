@@ -26,6 +26,7 @@
     "seed": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/index.ts",
     "seed:biznes": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/biznes/index.ts",
     "seed:software": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/software/index.ts",
+    "software:wizard-json": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/software/printWizard.ts",
     "prepare": "husky"
   },
   "dependencies": {

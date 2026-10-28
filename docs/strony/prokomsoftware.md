@@ -149,7 +149,7 @@ Sekcje: hero (H1 „Oprogramowanie dla firm, które pracują w terenie, nie przy
 - Treść budowlanki jest w `branze.json` → `budowlanka`. **Pozostałe 11 = treść do napisania w czacie** (problemy, moduły, 6 rozwiązań), każda unikalna. Strona bez treści nie jest publikowana (`active=false`).
 
 ### 6.3 Kreator `/dobierz` i sekcja `#dobierz` (plansza `Kreator`, stany `50–55`, telefon `87a–f`)
-Jeden komponent w dwóch miejscach. Reguły to **dane** (`kreator.json` → `SoftwareSettings.wizard`, schemat Zod), nie `if` w komponentach.
+Jeden komponent w dwóch miejscach. Reguły to **dane** (`kreator.json` → `SoftwareSettings.wizard`, schemat Zod), nie `if` w komponentach. Reguły, które plansza trzymała w skrypcie (kolejność potrzeb, „Co już masz?”, linia zakresu, notka „zima”, podgląd, stałe teksty), dokłada seed jako pola JSON — ADR-014 „Doprecyzowania SW7”.
 
 **Plakietki** nad kreatorem: „5 krótkich kroków · podgląd na żywo · wycena na piśmie” (`badges`). Wszędzie jedna obietnica: 60 s / 5 kroków (karta w menu, strona branży „W 60 sekund”).
 

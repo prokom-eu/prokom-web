@@ -8,6 +8,7 @@ import {
   linkInText,
   readOutcome,
   sourceFromHref,
+  splitEmailOrPhone,
   type FormValues,
 } from './form'
 import { parseInquiryInput } from './schema'
@@ -198,5 +199,18 @@ describe('Biznes contact form v20 (ZMIANY-v20 §2.9)', () => {
     })
     expect(body.type).toBe('contact')
     expect(parseInquiryInput(body, 'biznes').success).toBe(true)
+  })
+})
+
+describe('splitEmailOrPhone', () => {
+  it.each([
+    ['jan@firma.pl', { email: 'jan@firma.pl' }],
+    ['  600 100 200 ', { phone: '600 100 200' }],
+    ['+48 (18) 267-00-00', { phone: '+48 (18) 267-00-00' }],
+    ['12345', null],
+    ['jan@firma', null],
+    ['zadzwoń', null],
+  ])('%s', (text, expected) => {
+    expect(splitEmailOrPhone(text)).toEqual(expected)
   })
 })
