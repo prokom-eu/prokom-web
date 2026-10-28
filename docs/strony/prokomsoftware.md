@@ -233,6 +233,7 @@ H1 „Napisz, co Cię boli. Odpowiemy z konkretem.” (eyebrow „Kontakt · Rab
 ### 7.1 Zasady wspólne
 - Wszystko przez `submitInquiry()` i `POST /api/inquiry` (ADR-003): honeypot, podpisany token, limit, maile, retencja. Numer `PKS-RRRR-NNNN` (jest od B1b).
 - Jedno pole „E-mail albo telefon” → rozpoznanie po formacie, zapis do `email` albo `phone`.
+- Kontakt: temat to jeden wybór (domyślnie „System lub panel”); wymagane: opis, imię, kontakt, zgoda (ADR-014 doprecyzowania SW8b).
 - `preferredContact`: rozszerzyć o `meeting` (spotkanie w salonie) i `online`; kreator mapuje `tel→phone`, `mail→email`, `salon→meeting`, `online→online`.
 - Bez danych osobowych w logach. Zgoda: treść z `consent.ts` (`TODO(krystian)` z S8b), checkbox przy **każdym** formularzu z linkiem do `/polityka-prywatnosci`.
 
