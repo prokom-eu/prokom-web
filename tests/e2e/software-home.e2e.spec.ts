@@ -2,7 +2,7 @@ import { expect, test, type Page } from '@playwright/test'
 
 import { site } from './helpers'
 
-// SW5–SW6: start page of the Software line (spec. §4 pkt 1–7; §3.3 section rail). Data
+// SW5–SW8a: start page of the Software line (spec. §4 pkt 1–9; §3.3 section rail). Data
 // from `pnpm seed`: the home page blocks in the order of `homeOrder`, texts in
 // `SoftwareSettings.home`, areas and solutions of the package.
 const HOST = 'software.localhost'
@@ -27,7 +27,16 @@ test.describe('Software start page', () => {
     const ids = await page
       .locator('main section[id]')
       .evaluateAll((sections) => sections.map((section) => section.id))
-    expect(ids).toEqual(['start', 'oferta', 'popularne', 'podglady', 'proces', 'dobierz'])
+    expect(ids).toEqual([
+      'start',
+      'oferta',
+      'popularne',
+      'podglady',
+      'proces',
+      'dobierz',
+      'bez-wordpressa',
+      'zasady',
+    ])
     await expect(
       page.locator('#start').getByRole('link', { name: /Dobierz rozwiązanie/ }),
     ).toHaveAttribute('href', '/#dobierz')
@@ -226,6 +235,49 @@ test.describe('Software start page', () => {
     await expect(wizard.getByRole('heading', { level: 3 }).first()).toBeVisible()
   })
 
+  test('„Dlaczego nie WordPress”: facts with sources, 6 rows, the rebuild price from Solutions', async ({
+    page,
+  }) => {
+    await page.goto(site(HOST))
+    const section = page.locator('#bez-wordpressa')
+    await expect(section.getByRole('heading', { level: 2 })).toHaveText(
+      'Bez wtyczek do łatania. Bez nocnych aktualizacji.',
+    )
+    const facts = section.getByRole('listitem')
+    await expect(facts).toHaveCount(3)
+    await expect(facts.nth(0)).toContainText('Źródło: Patchstack')
+    await expect(facts.nth(1)).toContainText('Źródło: RODO, art. 33 i art. 83 ust. 4')
+    const table = section.getByRole('table', { name: 'WordPress z wtyczkami a Strona od PRO-KOM' })
+    await expect(table.getByRole('rowheader')).toHaveText([
+      'Szybkość',
+      'Bezpieczeństwo',
+      'Aktualizacje',
+      'Wygląd',
+      'Google i AI',
+      'Zmiana treści',
+    ])
+    await expect(table.getByRole('columnheader').nth(2)).toHaveText('Strona od PRO-KOM')
+    await expect(
+      section.getByRole('link', { name: 'Sprawdź swoją stronę za darmo' }),
+    ).toHaveAttribute('href', '/audyt')
+    // The price is filled from `Solutions` (`{cena:przebudowa-starej-strony}`), no token left.
+    const rebuild = section.getByRole('link', { name: /^Przebudowa od / })
+    await expect(rebuild).toHaveText(/^Przebudowa od 1\s?499 zł →$/)
+    await expect(rebuild).toHaveAttribute('href', '/rozwiazania/przebudowa-starej-strony')
+    await expect(section).not.toContainText('{cena')
+  })
+
+  test('„Zasady”: 6 guarantee cards and „Czasem powiemy”', async ({ page }) => {
+    await page.goto(site(HOST))
+    const section = page.locator('#zasady')
+    await expect(section.getByRole('heading', { level: 2 })).toHaveText(
+      'Zasady, których się trzymamy.',
+    )
+    await expect(section.getByRole('listitem')).toHaveCount(6)
+    await expect(section.getByRole('listitem').first()).toContainText('Stała cena za zakres')
+    await expect(section).toContainText('Czasem powiemy: nie budujcie.')
+  })
+
   test('section rail above 1400 px, hidden below', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 })
     await page.goto(site(HOST))
@@ -237,6 +289,7 @@ test.describe('Software start page', () => {
       'Podglądy na żywo',
       'Jak pracujemy i cena',
       'Dobierz rozwiązanie',
+      'Dlaczego nie WordPress',
     ])
     await expect(rail).toBeVisible()
     await page.setViewportSize({ width: 1400, height: 900 })
@@ -274,6 +327,18 @@ test.describe('Software start page on a phone', () => {
       expect((stage?.x ?? 0) + (stage?.width ?? 0)).toBeLessThanOrEqual(width)
       await stageTabs(page).nth(1).click()
       await expect(stagePanel(page).getByText('szkic Twojego systemu, za darmo')).toBeHidden()
+      // „Bez WordPressa”: facts as a carousel, the table as cards (no column header row).
+      const why = page.locator('#bez-wordpressa')
+      const fact = await why.getByRole('listitem').first().boundingBox()
+      expect(fact?.width ?? 0).toBeLessThan(width * 0.9)
+      const row = why.getByRole('row').nth(1)
+      const name = await row.getByRole('rowheader').boundingBox()
+      const theirs = await row.getByRole('cell').nth(0).boundingBox()
+      const ours = await row.getByRole('cell').nth(1).boundingBox()
+      expect(theirs?.y ?? 0).toBeGreaterThan(name?.y ?? 0)
+      expect(ours?.y ?? 0).toBeGreaterThan(theirs?.y ?? 0)
+      const header = await why.getByRole('row').first().boundingBox()
+      expect(header?.height ?? 0).toBeLessThanOrEqual(1)
     })
   }
 })
