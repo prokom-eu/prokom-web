@@ -12,7 +12,13 @@ import type {
   Product,
 } from '@/payload-types'
 
-import { buildCatalogIndex, type CatalogSource, WIZARD_PAGE } from './catalogIndex'
+import {
+  buildCatalogIndex,
+  type CatalogIndex,
+  type CatalogSource,
+  searchIndex,
+  WIZARD_PAGE,
+} from './catalogIndex'
 import { image, sourceFromSeed, TENANT } from './seedSource.fixture'
 import { wizardFromSeed } from './wizard'
 
@@ -315,5 +321,70 @@ describe('buildCatalogIndex group showcase (home page offer cards)', () => {
   it('has no showcase when nothing is set', () => {
     expect(build(undefined)).not.toHaveProperty('showcase')
     expect(build({ mode: 'images', images: [] })).not.toHaveProperty('showcase')
+  })
+})
+
+describe('searchIndex (`GET /api/catalog-index`, K31c)', () => {
+  it('leaves out what only server-rendered cards use: the „film” badge', () => {
+    const index = {
+      products: [
+        { slug: 'a', video: true, name: 'A' },
+        { slug: 'b', name: 'B' },
+      ],
+      brands: [],
+    } as unknown as CatalogIndex
+    expect(searchIndex(index).products).toEqual([
+      { slug: 'a', name: 'A' },
+      { slug: 'b', name: 'B' },
+    ])
+  })
+})
+
+describe('buildCatalogIndex showroom brands and films (K31c)', () => {
+  const brand = (id: number, slug: string, series: (number | { id: number })[]) =>
+    ({
+      id,
+      slug,
+      name: slug,
+      partnerStatus: 'none',
+      tenants: [TENANT],
+      brandPage: { hasPage: true },
+      showroom: {
+        segments: [{ name: 'Laptopy', key: 'laptopy', series: [{ name: 'S', products: series }] }],
+      },
+    }) as unknown as Partner
+  const build = (products: Partial<Product>[]) =>
+    buildCatalogIndex({
+      tenantId: TENANT,
+      products: products.map((fields, position) => ({
+        id: position + 1,
+        slug: `p${position + 1}`,
+        name: `P${position + 1}`,
+        kind: 'device',
+        categories: [],
+        ...fields,
+      })) as Product[],
+      categories: [],
+      groups: [],
+      industries: [],
+      pages: [],
+      settings: null,
+    })
+
+  it('a brand is a showroom only while a card of its showroom is listed', () => {
+    const lenovo = brand(30, 'lenovo', [1])
+    const dell = brand(31, 'dell', [{ id: 99 }])
+    const index = build([{ brand: lenovo }, { brand: dell }])
+    expect(index.brands.find((item) => item.slug === 'lenovo')).toMatchObject({ showroom: true })
+    expect(index.brands.find((item) => item.slug === 'dell')).not.toHaveProperty('showroom')
+  })
+
+  it('marks cards with an active film', () => {
+    const index = build([
+      { videos: [{ youtubeId: 'UFXLZ4kSjD0', title: 'A', match: 'model', active: true }] },
+      { videos: [{ youtubeId: 'UFXLZ4kSjD0', title: 'A', match: 'model', active: false }] },
+      {},
+    ])
+    expect(index.products.map((product) => product.video ?? false)).toEqual([true, false, false])
   })
 })

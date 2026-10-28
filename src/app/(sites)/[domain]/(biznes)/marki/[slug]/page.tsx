@@ -11,17 +11,25 @@ import {
 } from '@/lib/catalog/brand'
 import type { CatalogIndex } from '@/lib/catalog/catalogIndex'
 import { DEFAULTS } from '@/lib/catalog/category'
-import { getBrandView, getCatalogIndex } from '@/lib/catalog/data'
+import { getBrandView, getCatalogIndex, getShowroomView } from '@/lib/catalog/data'
 import { CATALOG_PATH } from '@/lib/catalog/filters'
+import { listShowroom, showroomStats } from '@/lib/catalog/showroom'
 import { getEnv } from '@/lib/env'
 import { ogImages } from '@/lib/pages/metadata'
 import { pickSource } from '@/lib/media/sizes'
 import { breadcrumbJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
 import { robotsMeta } from '@/lib/seo/robots'
 import { getSiteSettings } from '@/lib/site/data'
+import { toTelHref } from '@/lib/site/link'
 import { isValidSlug } from '@/lib/tenant/uniqueSlug'
 import type { Crumb } from '@/sites/biznes/components/Breadcrumbs'
 import { BrandAbout, BrandHero } from '@/sites/biznes/components/brand/BrandSections'
+import { ShowroomBody } from '@/sites/biznes/components/brand/ShowroomBody'
+import {
+  ShowroomCtaBand,
+  ShowroomHero,
+  ShowroomServices,
+} from '@/sites/biznes/components/brand/ShowroomSections'
 import { CatalogContactPanel } from '@/sites/biznes/components/catalog/CatalogContactPanel'
 import { CategoryGrid } from '@/sites/biznes/components/category/CategoryGrid'
 import { HowInquiryWorks } from '@/sites/biznes/components/HowInquiryWorks'
@@ -71,12 +79,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 /**
  * Brand page `/marki/[slug]` (K3-KATALOG §6, spec. §6.11, `k3/screens/Web-Marka*`): the brand,
  * its description, lines and facts, then its products with a category filter (from 2
- * categories). Lenovo and Dell get their showroom on this address in K31c.
+ * categories). A brand with a showroom (Lenovo, Dell — K31c, K31-ZMIANY §5) gets it instead:
+ * segments, series, the comparison, the wizard, the film of a series and services.
  */
 export default async function BrandPage({ params }: Props) {
   const { tenant, index, brand } = await load(params)
   if (!index || !brand) notFound()
-  const [settings, origin] = await Promise.all([getSiteSettings(tenant.id), requestOrigin()])
+  const [settings, origin, showroom] = await Promise.all([
+    getSiteSettings(tenant.id),
+    requestOrigin(),
+    getShowroomView(tenant.id, brand.slug),
+  ])
   const callback = settings?.biznes?.promises.callbackTime ?? null
 
   const products = brandProducts(index, brand.slug)
@@ -107,12 +120,48 @@ export default async function BrandPage({ params }: Props) {
     search: { synonyms: {}, stopWords: [], popular: [] },
   }
 
+  const jsonLdScript = (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
+    />
+  )
+
+  // Only the cards listed on this site: an unpublished card never shows in the showroom.
+  const listed = showroom && listShowroom(showroom, new Set(products.map(({ slug }) => slug)))
+  if (listed) {
+    const bySlug = new Map(products.map((product) => [product.slug, product]))
+    const hero = listed.hero.length > 0 ? listed.hero : products.map(({ slug }) => slug)
+    const photos = hero.flatMap((slug) => bySlug.get(slug)?.image ?? []).slice(0, 3)
+    const phoneLabel = settings?.phone ?? null
+    const tel = phoneLabel ? toTelHref(phoneLabel) : null
+    return (
+      <>
+        {jsonLdScript}
+        <ShowroomHero
+          brand={brand}
+          view={listed}
+          crumbs={crumbs}
+          stats={showroomStats(listed)}
+          photos={photos}
+        />
+        <Container wide className="flex flex-col gap-16 pt-10 pb-14 sm:gap-24 sm:pt-14 sm:pb-20">
+          <ShowroomBody
+            brand={brand.name}
+            view={listed}
+            index={islandIndex}
+            poster={photos[0] ?? null}
+          />
+          <ShowroomServices services={listed.services} />
+          <ShowroomCtaBand phone={phoneLabel && tel ? { label: phoneLabel, href: tel } : null} />
+        </Container>
+      </>
+    )
+  }
+
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
-      />
+      {jsonLdScript}
       <BrandHero brand={brand} crumbs={crumbs} count={products.length} />
       <BrandAbout brand={brand} />
       <Container wide className="pb-14 sm:pb-20">
