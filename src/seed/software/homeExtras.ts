@@ -68,6 +68,7 @@ export const HOME_SECTION_TEXTS: SoftwareHomeSections = {
       text: 'Jeśli gotowy program za kilkadziesiąt złotych miesięcznie rozwiąże Twój problem, powiemy Ci to wprost i pomożemy go wybrać. Budujemy tylko wtedy, gdy to się opłaca Tobie.',
     },
   },
+  showcase: { eyebrow: 'Realizacje' },
 }
 
 /**

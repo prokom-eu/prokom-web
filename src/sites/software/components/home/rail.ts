@@ -8,7 +8,8 @@ import {
 /**
  * Section rail of the Software start page (spec. §3.3; board `Main`, `RAILI` — 10 entries, no
  * „Zasady”, decision of Krystian 28.10): only sections whose components exist, by the block that
- * renders them. `faq` and `kontakt` join with their blocks (SW8b); a section that renders nothing
+ * renders them — `faq` is the shared FAQ block, `kontakt` the `swContact` block (SW8b); a section
+ * that renders nothing
  * (texts missing in the panel) is dropped by `SectionRail` itself, when its anchor is not found.
  */
 export const RAIL_LABELS: Record<string, Omit<RailItem, 'id'>> = {
@@ -29,6 +30,8 @@ type RailBlock = { blockType: string; section?: string | null }
 /** Anchor of a block of the Software start page, or `null`. */
 function anchorOf(block: RailBlock, built: readonly HomeSectionValue[]): string | null {
   if (block.blockType === 'swHero') return 'start'
+  if (block.blockType === 'faq') return 'faq'
+  if (block.blockType === 'swContact') return 'kontakt'
   if (block.blockType !== 'swHomeSection' || !block.section) return null
   const section = block.section as HomeSectionValue
   return built.includes(section) ? homeSectionAnchor(section) : null

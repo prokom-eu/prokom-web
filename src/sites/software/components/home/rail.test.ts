@@ -41,12 +41,28 @@ describe('Software section rail', () => {
   })
 
   it('skips a section without its component yet (no anchor on the page)', () => {
-    const items = softwareRailItems([
-      { blockType: 'swHomeSection', section: 'showcase' },
-      { blockType: 'swHomeSection', section: 'areas' },
-      { blockType: 'faq' },
-    ])
+    const items = softwareRailItems(
+      [
+        { blockType: 'swHomeSection', section: 'showcase' },
+        { blockType: 'swHomeSection', section: 'areas' },
+      ],
+      ['areas'],
+    )
     expect(items.map((item) => item.id)).toEqual(['oferta'])
+  })
+
+  it('ends with „Realizacje”, the FAQ block and the contact block of SW8b', () => {
+    const items = softwareRailItems([
+      { blockType: 'swHomeSection', section: 'guarantees' },
+      { blockType: 'swHomeSection', section: 'showcase' },
+      { blockType: 'faq' },
+      { blockType: 'swContact' },
+    ])
+    expect(items.map((item) => [item.id, item.label])).toEqual([
+      ['realizacje', 'Realizacje'],
+      ['faq', 'Pytania'],
+      ['kontakt', 'Kontakt'],
+    ])
   })
 
   it('skips other blocks and repeated sections', () => {

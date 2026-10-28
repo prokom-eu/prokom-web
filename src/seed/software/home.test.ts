@@ -16,12 +16,29 @@ describe('Software start page of the seed', () => {
       'wizard',
       'whyNotWordpress',
       'guarantees',
+      'showcase',
+      'faq',
+      'swContact',
     ])
+  })
+
+  it('takes the 6 questions of the start page FAQ from the package', () => {
+    const faq = softwareHomeLayout().find((block) => block.blockType === 'faq')
+    expect(faq).toMatchObject({ heading: 'Pytania, które słyszymy najczęściej' })
+    expect(faq && 'items' in faq ? faq.items : []).toHaveLength(6)
   })
 
   it('adds a section of a later session in its place', () => {
     const layout = softwareHomeLayout(undefined, ['areas', 'popular', 'whyNotWordpress', 'wizard'])
-    expect(ids(layout)).toEqual(['swHero', 'areas', 'popular', 'wizard', 'whyNotWordpress'])
+    expect(ids(layout)).toEqual([
+      'swHero',
+      'areas',
+      'popular',
+      'wizard',
+      'whyNotWordpress',
+      'faq',
+      'swContact',
+    ])
   })
 
   it('replaces the sample page (no Software block yet)', () => {
@@ -49,7 +66,9 @@ describe('Software start page of the seed', () => {
       'wizard',
       'whyNotWordpress',
       'guarantees',
+      'showcase',
       'faq',
+      'swContact',
     ])
     expect(merged?.[1]).toMatchObject({ title: 'Mój tytuł' })
   })

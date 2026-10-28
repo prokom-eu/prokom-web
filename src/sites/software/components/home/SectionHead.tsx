@@ -3,7 +3,8 @@ import { cx } from '@/components/ui/cx'
 type Props = {
   eyebrow: string
   title: string
-  lead: string
+  /** Left out when missing (a lead with an unresolved fact on production). */
+  lead: string | null
   /** Lead next to the heading from 1081 px (board `Main`: „12 rzeczy”), else under it. */
   aside?: boolean
   className?: string
@@ -28,14 +29,16 @@ export function SectionHead({ eyebrow, title, lead, aside = false, className }: 
           {title}
         </h2>
       </div>
-      <p
-        className={cx(
-          'text-lg text-ink-2 min-[640px]:text-xl',
-          aside ? 'max-w-[46ch]' : 'max-w-[40ch]',
-        )}
-      >
-        {lead}
-      </p>
+      {lead ? (
+        <p
+          className={cx(
+            'text-lg text-ink-2 min-[640px]:text-xl',
+            aside ? 'max-w-[46ch]' : 'max-w-[40ch]',
+          )}
+        >
+          {lead}
+        </p>
+      ) : null}
     </div>
   )
 }

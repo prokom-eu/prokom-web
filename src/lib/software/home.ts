@@ -105,6 +105,8 @@ export const homeSectionsSchema = obj({
     title: label,
     sayNo: obj({ title: label, text }),
   }).optional(),
+  /** SW8b — „Realizacje”: the eyebrow (title and lead are in `showcase` of the package). */
+  showcase: obj({ eyebrow: label }).optional(),
 })
 
 export type SoftwareHomeSections = z.infer<typeof homeSectionsSchema>

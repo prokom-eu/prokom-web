@@ -40,6 +40,7 @@ import * as migration_20261028_000918_k31b_drop_hotspots from './20261028_000918
 import * as migration_20261028_200537_instalacje_collections from './20261028_200537_instalacje_collections'
 import * as migration_20261028_204612_software_home_blocks from './20261028_204612_software_home_blocks'
 import * as migration_20261028_222338_k3c_bundles from './20261028_222338_k3c_bundles'
+import * as migration_20261028_234736_software_contact_block from './20261028_234736_software_contact_block'
 
 export const migrations = [
   {
@@ -251,5 +252,10 @@ export const migrations = [
     up: migration_20261028_222338_k3c_bundles.up,
     down: migration_20261028_222338_k3c_bundles.down,
     name: '20261028_222338_k3c_bundles',
+  },
+  {
+    up: migration_20261028_234736_software_contact_block.up,
+    down: migration_20261028_234736_software_contact_block.down,
+    name: '20261028_234736_software_contact_block',
   },
 ]

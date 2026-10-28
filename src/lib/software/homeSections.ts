@@ -18,8 +18,8 @@ export const HOME_SECTIONS = [
 export type HomeSectionValue = (typeof HOME_SECTIONS)[number]['value']
 
 /**
- * Sections whose components exist (SW5: 3, 4, 7; SW6: 5, 6; SW8a: 8, 9) — the seed places only
- * these blocks and the section rail lists only these; SW8b adds `showcase` here.
+ * Sections whose components exist (SW5: 3, 4, 7; SW6: 5, 6; SW8a: 8, 9; SW8b: 10) — the seed places
+ * only these blocks and the section rail lists only these.
  */
 export const BUILT_HOME_SECTIONS: readonly HomeSectionValue[] = [
   'areas',
@@ -29,6 +29,7 @@ export const BUILT_HOME_SECTIONS: readonly HomeSectionValue[] = [
   'wizard',
   'whyNotWordpress',
   'guarantees',
+  'showcase',
 ]
 
 export function homeSectionAnchor(value: string): string | null {

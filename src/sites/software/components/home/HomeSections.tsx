@@ -2,20 +2,17 @@ import Link from 'next/link'
 
 import { Container } from '@/components/ui/Container'
 import { Icon } from '@/components/ui/Icon'
-import { getEnv } from '@/lib/env'
-import {
-  getHomeAreas,
-  getSoftwareFacts,
-  getSoftwareHome,
-  getSolutionsIndex,
-} from '@/lib/software/data'
-import { fillText, type TextContext } from '@/lib/software/facts'
+import { getHomeAreas, getSoftwareHome, getSolutionsIndex } from '@/lib/software/data'
+import { fillText } from '@/lib/software/facts'
 import { popularCards, popularTabs } from '@/lib/software/popular'
 import { livePreviews } from '@/lib/software/previews'
 import { processQuote, processStages } from '@/lib/software/process'
+import { showcaseView } from '@/lib/software/showcase'
 import { whyNotWordpressView } from '@/lib/software/whyNotWordpress'
 import { Wizard } from '@/sites/software/components/wizard/Wizard'
 import { loadWizardProps } from '@/sites/software/components/wizard/wizardProps'
+
+import { softwareTextContext } from '../textContext'
 
 import { AreasExplorer } from './AreasExplorer'
 import { Guarantees } from './Guarantees'
@@ -25,24 +22,16 @@ import { ProcessExplorer } from './ProcessExplorer'
 import { ProcessPanel } from './ProcessVisuals'
 import { PopularExplorer } from './PopularExplorer'
 import { SectionHead } from './SectionHead'
+import { Showcase } from './Showcase'
 import { WhyNotWordpress } from './WhyNotWordpress'
 
 /**
- * The fixed sections of the Software start page built in SW5, SW6 and SW8a (spec. §4 pkt 3–9) —
+ * The fixed sections of the Software start page built in SW5, SW6, SW8a and SW8b (spec. §4 pkt 3–10) —
  * server parts; each reads its texts from `SoftwareSettings.home` and its lists from the
  * collections of this tenant, and is skipped while they are missing (a section without a heading
  * is worse than none). Anchors: `#oferta`, `#popularne`, `#podglady`, `#proces`, `#dobierz`,
- * `#bez-wordpressa`, `#zasady` (header links, section rail).
+ * `#bez-wordpressa`, `#zasady`, `#realizacje` (header links, section rail).
  */
-
-async function textContext(tenantId: number): Promise<TextContext> {
-  return {
-    tenantId,
-    facts: await getSoftwareFacts(tenantId),
-    prices: {},
-    strict: getEnv().SITE_ENV === 'production',
-  }
-}
 
 export async function AreasSection({ tenantId }: { tenantId: number }) {
   const [home, areas] = await Promise.all([getSoftwareHome(tenantId), getHomeAreas(tenantId)])
@@ -70,7 +59,7 @@ export async function PopularSection({ tenantId }: { tenantId: number }) {
   const [home, index, context] = await Promise.all([
     getSoftwareHome(tenantId),
     getSolutionsIndex(tenantId),
-    textContext(tenantId),
+    softwareTextContext(tenantId),
   ])
   const texts = home?.sections?.popular
   if (!home || !texts) return null
@@ -141,7 +130,10 @@ export async function WizardSection({ tenantId }: { tenantId: number }) {
 }
 
 export async function LivePreviewsSection({ tenantId }: { tenantId: number }) {
-  const [home, context] = await Promise.all([getSoftwareHome(tenantId), textContext(tenantId)])
+  const [home, context] = await Promise.all([
+    getSoftwareHome(tenantId),
+    softwareTextContext(tenantId),
+  ])
   const texts = home?.sections?.livePreviews
   if (!home || !texts) return null
   const previews = livePreviews(home.livePreviews, (text) => fillText(text, context))
@@ -163,7 +155,10 @@ export async function LivePreviewsSection({ tenantId }: { tenantId: number }) {
 }
 
 export async function ProcessSection({ tenantId }: { tenantId: number }) {
-  const [home, context] = await Promise.all([getSoftwareHome(tenantId), textContext(tenantId)])
+  const [home, context] = await Promise.all([
+    getSoftwareHome(tenantId),
+    softwareTextContext(tenantId),
+  ])
   const texts = home?.sections?.process
   if (!home || !texts) return null
   const fill = (text: string) => fillText(text, context)
@@ -189,7 +184,7 @@ export async function WhyNotWordpressSection({ tenantId }: { tenantId: number })
   const [home, index, context] = await Promise.all([
     getSoftwareHome(tenantId),
     getSolutionsIndex(tenantId),
-    textContext(tenantId),
+    softwareTextContext(tenantId),
   ])
   if (!home) return null
   // `{cena:<slug>}` of the rebuild button: the „od” price from this tenant's solutions.
@@ -201,7 +196,10 @@ export async function WhyNotWordpressSection({ tenantId }: { tenantId: number })
 }
 
 export async function GuaranteesSection({ tenantId }: { tenantId: number }) {
-  const [home, context] = await Promise.all([getSoftwareHome(tenantId), textContext(tenantId)])
+  const [home, context] = await Promise.all([
+    getSoftwareHome(tenantId),
+    softwareTextContext(tenantId),
+  ])
   const texts = home?.sections?.guarantees
   if (!home || !texts) return null
   const cards = home.guarantees.flatMap((card) => {
@@ -211,4 +209,15 @@ export async function GuaranteesSection({ tenantId }: { tenantId: number }) {
   })
   if (cards.length === 0) return null
   return <Guarantees texts={texts} cards={cards} />
+}
+
+export async function ShowcaseSection({ tenantId }: { tenantId: number }) {
+  const [home, context] = await Promise.all([
+    getSoftwareHome(tenantId),
+    softwareTextContext(tenantId),
+  ])
+  const texts = home?.sections?.showcase
+  if (!home || !texts) return null
+  const view = showcaseView(home.showcase, texts.eyebrow, (text) => fillText(text, context))
+  return view ? <Showcase view={view} /> : null
 }
