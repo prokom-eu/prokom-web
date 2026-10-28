@@ -136,10 +136,11 @@ try {
 
     for (const page of samplePages(tenant, imageDoc.id)) {
       // The Biznes home and contact pages have their own sections (B7, B8c): seeded with the
-      // Biznes catalog below.
+      // Biznes catalog below. The Software home too (SW5, `seedSoftware`).
       if (tenant.line === 'biznes' && (page.slug === HOME_SLUG || page.slug === CONTACT_SLUG)) {
         continue
       }
+      if (tenant.line === 'software' && page.slug === HOME_SLUG) continue
       const {
         docs: [existingPage],
       } = await payload.find({

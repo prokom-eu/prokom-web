@@ -10,6 +10,7 @@ import {
   INSTALACJE_BLOCK_SLUGS,
   isBlockAllowed,
   renderableBlocks,
+  SOFTWARE_BLOCK_SLUGS,
 } from './registry'
 
 const restricted = {
@@ -45,10 +46,31 @@ describe('block registry', () => {
     }
   })
 
-  it('registers every line block in ALL_BLOCKS', () => {
-    expect([...BLOCK_SLUGS].sort()).toEqual(
-      [...GENERIC_BLOCK_SLUGS, ...BIZNES_BLOCK_SLUGS, ...INSTALACJE_BLOCK_SLUGS].sort(),
+  it('allows the Software blocks on the Software line only (ADR-014 rozstrz. 7)', () => {
+    expect(SOFTWARE_BLOCK_SLUGS).toEqual(['swHero', 'swHomeSection'])
+    expect([...ALLOWED_BLOCKS.software].sort()).toEqual(
+      [...GENERIC_BLOCK_SLUGS, ...SOFTWARE_BLOCK_SLUGS].sort(),
     )
+    for (const line of ['prokom', 'biznes', 'instalacje'] as const) {
+      for (const slug of SOFTWARE_BLOCK_SLUGS) expect(isBlockAllowed(line, slug)).toBe(false)
+    }
+  })
+
+  it('keeps at most 10 Software blocks (ADR-014 rozstrz. 7)', () => {
+    expect(SOFTWARE_BLOCK_SLUGS.length).toBeLessThanOrEqual(10)
+  })
+
+  it('registers every line block in ALL_BLOCKS, the Software ones last', () => {
+    expect([...BLOCK_SLUGS].sort()).toEqual(
+      [
+        ...GENERIC_BLOCK_SLUGS,
+        ...BIZNES_BLOCK_SLUGS,
+        ...INSTALACJE_BLOCK_SLUGS,
+        ...SOFTWARE_BLOCK_SLUGS,
+      ].sort(),
+    )
+    // New blocks at the end: the tables of the earlier ones keep their names.
+    expect(BLOCK_SLUGS.slice(-SOFTWARE_BLOCK_SLUGS.length)).toEqual([...SOFTWARE_BLOCK_SLUGS])
   })
 
   it('has unique block slugs', () => {

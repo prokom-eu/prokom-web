@@ -28,6 +28,7 @@
     "seed:instalacje": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/instalacje/index.ts",
     "seed:software": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/software/index.ts",
     "software:wizard-json": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/software/printWizard.ts",
+    "software:home-sections-json": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/software/printHomeSections.ts",
     "prepare": "husky"
   },
   "dependencies": {
