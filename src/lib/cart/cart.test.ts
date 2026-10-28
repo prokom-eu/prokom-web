@@ -4,6 +4,7 @@ import { buildCatalogIndex, type CatalogIndex, type IndexProduct } from '../cata
 import { sourceFromSeed } from '../catalog/seedSource.fixture'
 import {
   addAll,
+  addItems,
   addOnly,
   type CartItem,
   cartCount,
@@ -178,5 +179,46 @@ describe('addAll', () => {
 
     const almost = full.slice(1)
     expect(addAll(almost, ['a', 'b']).added).toEqual(['a'])
+  })
+})
+
+describe('addItems (Zapytaj o ten zestaw)', () => {
+  it('adds missing items with quantity and note, in order', () => {
+    const { cart, added } = addItems(
+      [],
+      [
+        { id: 'd3', q: 1, uwaga: 'Zestaw: Kawiarnia; wersja: D3 PRO' },
+        { id: 'pol', q: 2000, uwaga: '' },
+      ],
+    )
+    expect(cart).toEqual([
+      { id: 'd3', q: 1, uwaga: 'Zestaw: Kawiarnia; wersja: D3 PRO' },
+      { id: 'pol', q: MAX_QTY },
+    ])
+    expect(added).toEqual(['d3', 'pol'])
+  })
+
+  it('keeps the quantity of a listed item and gives it the note only when it has none', () => {
+    const start = [
+      { id: 'd3', q: 3 },
+      { id: 'zeta', q: 1, uwaga: 'czarna' },
+    ]
+    const { cart, added, noted } = addItems(start, [
+      { id: 'd3', q: 1, uwaga: 'Zestaw: K' },
+      { id: 'zeta', q: 1, uwaga: 'Zestaw: K' },
+    ])
+    expect(cart).toEqual([
+      { id: 'd3', q: 3, uwaga: 'Zestaw: K' },
+      { id: 'zeta', q: 1, uwaga: 'czarna' },
+    ])
+    expect(added).toEqual([])
+    expect(noted).toEqual(['d3'])
+  })
+
+  it('stops at the item limit and cuts long notes', () => {
+    const full = Array.from({ length: MAX_ITEMS }, (_, i) => item(`p${i}`))
+    expect(addItems(full, [{ id: 'new', q: 1 }])).toMatchObject({ added: [], skipped: ['new'] })
+    const [only] = addItems([], [{ id: 'x', q: 1, uwaga: 'a'.repeat(MAX_NOTE + 9) }]).cart
+    expect(only?.uwaga).toHaveLength(MAX_NOTE)
   })
 })

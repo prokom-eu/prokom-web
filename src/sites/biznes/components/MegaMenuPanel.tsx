@@ -4,6 +4,7 @@ import { MediaImage } from '@/components/MediaImage'
 import { Container } from '@/components/ui/Container'
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
+import { BUNDLES_PATH } from '@/lib/catalog/bundle'
 import type { MegaMenu } from '@/lib/catalog/menu'
 import { plural } from '@/lib/plural'
 import type { PublicBiznesNavigation } from '@/lib/site/navigation'
@@ -186,6 +187,13 @@ export function MegaMenuPanel({ menu, shortcuts, cards, industry }: Props) {
           >
             Cały katalog · {products} {plural(products, ['pozycja', 'pozycje', 'pozycji'])},{' '}
             {brands} {plural(brands, ['marka', 'marki', 'marek'])}
+            <Icon name="arrow" className="size-4" strokeWidth={2.4} />
+          </Link>
+          <Link
+            href={BUNDLES_PATH}
+            className="inline-flex items-center gap-1.5 font-extrabold text-accent-text hover:underline"
+          >
+            Gotowe zestawy
             <Icon name="arrow" className="size-4" strokeWidth={2.4} />
           </Link>
           {/* TODO(krystian): spec. §3.2 lists the phone in this bar, the `Main` design has none —

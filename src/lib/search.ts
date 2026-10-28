@@ -122,7 +122,8 @@ export function prepareSearch(index: CatalogIndex): PreparedSearch {
     index.products.map((product) => ({
       item: product,
       name: `${product.name} ${(product.brand && brandNames.get(product.brand)) ?? ''}`,
-      hay: product.hay,
+      // The index keeps the benefit out of `hay` (size); the search still matches it.
+      hay: product.benefit ? `${product.hay} ${normalizeText(product.benefit)}` : product.hay,
       popularity: product.popularity,
       group: product.group ? groupNames.get(product.group) : null,
     })),

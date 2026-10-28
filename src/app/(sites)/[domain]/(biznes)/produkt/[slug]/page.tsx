@@ -3,9 +3,10 @@ import { notFound } from 'next/navigation'
 
 import { bentoTiles } from '@/lib/catalog/bento'
 import { brandPageHref } from '@/lib/catalog/brand'
+import { BUNDLES_PATH, bundleCard, bundlesWithProduct, listBundles } from '@/lib/catalog/bundle'
 import { cardIcon, productHref } from '@/lib/catalog/card'
 import { categoryHref } from '@/lib/catalog/category'
-import { getCatalogIndex, getProductView } from '@/lib/catalog/data'
+import { getBundles, getCatalogIndex, getProductView } from '@/lib/catalog/data'
 import { CATALOG_PATH, catalogHref, parseCatalogState, updateState } from '@/lib/catalog/filters'
 import { productTitle, uniqueVersions, variantKey, variantSlug } from '@/lib/catalog/productName'
 import { familyProducts, suggestedProducts } from '@/lib/catalog/related'
@@ -25,11 +26,14 @@ import { getSiteSettings } from '@/lib/site/data'
 import { toTelHref } from '@/lib/site/link'
 import { isValidSlug } from '@/lib/tenant/uniqueSlug'
 import { Breadcrumbs, type Crumb } from '@/sites/biznes/components/Breadcrumbs'
+import { BundleGrid } from '@/sites/biznes/components/bundle/BundleCard'
+import { PageLink } from '@/sites/biznes/components/PageLink'
 import { ProductAbout } from '@/sites/biznes/components/product/ProductAbout'
 import { ProductBento } from '@/sites/biznes/components/product/ProductBento'
 import { ProductConfigProvider } from '@/sites/biznes/components/product/ProductConfig'
 import { ProductConfigurator } from '@/sites/biznes/components/product/ProductConfigurator'
 import { ProductHero } from '@/sites/biznes/components/product/ProductHero'
+import { ProductSection } from '@/sites/biznes/components/product/ProductSection'
 import {
   ProductSectionNav,
   type NavSection,
@@ -60,6 +64,7 @@ const ID = {
   video: 'film',
   specs: 'parametry',
   versions: 'wersje',
+  bundles: 'zestawy',
   suggestions: 'dobierz',
   family: 'rodzina',
   faq: 'faq',
@@ -113,10 +118,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ProductPage({ params }: Props) {
   const { tenant, product } = await load(params)
   if (!product) notFound()
-  const [index, settings, origin] = await Promise.all([
+  const [index, settings, origin, allBundles] = await Promise.all([
     getCatalogIndex(tenant.id),
     getSiteSettings(tenant.id),
     requestOrigin(),
+    getBundles(tenant.id),
   ])
 
   // The picture without a photo is the card's (catalog index), so both agree.
@@ -147,6 +153,14 @@ export default async function ProductPage({ params }: Props) {
     product.suggestions,
   )
   const family = familyProducts(index, product.slug)
+  // „W zestawach” (spec. §6.2 pkt 7, K3c): up to 3 bundles listing this card.
+  const products = new Map(index.products.map((item) => [item.slug, item]))
+  const bundles = bundlesWithProduct(
+    listBundles(allBundles, new Set(products.keys())),
+    product.slug,
+  )
+    .slice(0, 3)
+    .map((bundle) => bundleCard(bundle, products))
   const video = product.videos.length > 0
   const hasVersions = variantNames.length >= 2
 
@@ -157,6 +171,7 @@ export default async function ProductPage({ params }: Props) {
     ...(video ? [{ id: ID.video, label: 'Film' }] : []),
     ...(product.specs.length > 0 ? [{ id: ID.specs, label: 'Parametry' }] : []),
     ...(hasVersions ? [{ id: ID.versions, label: 'Wersje' }] : []),
+    ...(bundles.length > 0 ? [{ id: ID.bundles, label: 'Zestawy' }] : []),
     ...(product.faq.length > 0 ? [{ id: ID.faq, label: 'FAQ' }] : []),
     ...(product.sources.length > 0 ? [{ id: ID.sources, label: 'Źródła' }] : []),
   ]
@@ -232,6 +247,20 @@ export default async function ProductPage({ params }: Props) {
         <ProductVideos id={ID.video} videos={product.videos} poster={product.images[0] ?? null} />
         <ProductSpecs id={ID.specs} rows={product.specs} />
         <ProductVersions id={ID.versions} variants={product.variants} />
+        {bundles.length > 0 && (
+          <ProductSection
+            id={ID.bundles}
+            eyebrow="Gotowe zestawy"
+            heading="W zestawach"
+            action={
+              <PageLink href={BUNDLES_PATH} kind="outline" arrow>
+                Wszystkie zestawy
+              </PageLink>
+            }
+          >
+            <BundleGrid bundles={bundles} />
+          </ProductSection>
+        )}
         <ProductSuggestions
           id={ID.suggestions}
           cards={suggestions.cards}

@@ -39,6 +39,7 @@ import * as migration_20261027_215434_software_inquiries from './20261027_215434
 import * as migration_20261028_000918_k31b_drop_hotspots from './20261028_000918_k31b_drop_hotspots'
 import * as migration_20261028_200537_instalacje_collections from './20261028_200537_instalacje_collections'
 import * as migration_20261028_204612_software_home_blocks from './20261028_204612_software_home_blocks'
+import * as migration_20261028_222338_k3c_bundles from './20261028_222338_k3c_bundles'
 
 export const migrations = [
   {
@@ -245,5 +246,10 @@ export const migrations = [
     up: migration_20261028_204612_software_home_blocks.up,
     down: migration_20261028_204612_software_home_blocks.down,
     name: '20261028_204612_software_home_blocks',
+  },
+  {
+    up: migration_20261028_222338_k3c_bundles.up,
+    down: migration_20261028_222338_k3c_bundles.down,
+    name: '20261028_222338_k3c_bundles',
   },
 ]

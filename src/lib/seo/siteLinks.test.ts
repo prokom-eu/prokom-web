@@ -85,6 +85,21 @@ describe('buildSiteMap', () => {
     ])
   })
 
+  it('lists /zestawy and the bundles given (only „Gotowe” — K3c)', () => {
+    const catalog = { categories: [], industries: [], products: [] }
+    const map = buildSiteMap({
+      pages: [],
+      catalog: { ...catalog, bundles: [{ slug: 'zestaw-wifi-omada', name: 'Wi-Fi Omada' }] },
+      news: null,
+    })
+    expect(map.find(({ id }) => id === 'zestawy')?.links).toEqual([
+      { href: '/zestawy', label: 'Wszystkie zestawy' },
+      { href: '/zestawy/zestaw-wifi-omada', label: 'Wi-Fi Omada' },
+    ])
+    const none = buildSiteMap({ pages: [], catalog: { ...catalog, bundles: null }, news: null })
+    expect(none.find(({ id }) => id === 'zestawy')).toBeUndefined()
+  })
+
   it('keeps a published product whose category is not listed, under „Pozostałe”', () => {
     const map = buildSiteMap({
       pages: [],

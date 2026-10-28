@@ -93,6 +93,23 @@ export const CONTENT_STATUSES = [
   { label: 'Do sprawdzenia', value: 'needs-review' },
 ] as const
 
+/**
+ * Areas of ready bundles = filter chips of `/zestawy` (K3c; board `Web-Zestawy-1440`: 8 areas —
+ * backups belong to „Biuro i usługi”). The import maps the bundle `seria` onto an area.
+ */
+export const BUNDLE_AREAS = [
+  { label: 'Sklep', value: 'sklep' },
+  { label: 'Gastronomia', value: 'gastronomia' },
+  { label: 'Noclegi', value: 'noclegi' },
+  { label: 'Biuro i usługi', value: 'biuro' },
+  { label: 'Gabinet', value: 'gabinet' },
+  { label: 'Szkoła', value: 'szkola' },
+  { label: 'Sieć i Wi-Fi', value: 'siec' },
+  { label: 'Ekrany', value: 'ekrany' },
+] as const
+
+export type BundleArea = (typeof BUNDLE_AREAS)[number]['value']
+
 /** `partia` in the seed (katalog v2): content planning only — every batch is in the catalog. */
 export const CONTENT_BATCHES = [
   { label: 'Na start', value: '0' },

@@ -13,6 +13,7 @@ import type {
 } from '@/payload-types'
 
 import {
+  BUNDLES_PAGE,
   buildCatalogIndex,
   type CatalogIndex,
   type CatalogSource,
@@ -92,6 +93,30 @@ describe('buildCatalogIndex on the seed package', () => {
     })
     expect(withWizard.pages).toContainEqual(WIZARD_PAGE)
     expect(index.pages).not.toContainEqual(WIZARD_PAGE)
+  })
+
+  it('lists ready bundles among the pages (K3c), in the 50 KB budget', () => {
+    const source = sourceFromSeed()
+    const listed = source.products[0]!.id
+    const withBundles = buildCatalogIndex({
+      ...source,
+      bundles: [
+        {
+          slug: 'zestaw-kawiarnia-lada',
+          name: 'Kawiarnia — stanowisko przy ladzie',
+          required: [listed],
+        },
+        // Every required card hidden: the bundle page answers 404, so it is no result.
+        { slug: 'zestaw-ukryty', name: 'Ukryty', required: [-1] },
+      ],
+    })
+    expect(withBundles.pages.map(({ slug }) => slug)).not.toContain('zestawy/zestaw-ukryty')
+    expect(withBundles.pages).toContainEqual(BUNDLES_PAGE)
+    expect(withBundles.pages).toContainEqual({
+      slug: 'zestawy/zestaw-kawiarnia-lada',
+      title: 'Zestaw: Kawiarnia — stanowisko przy ladzie',
+    })
+    expect(index.pages).not.toContainEqual(BUNDLES_PAGE)
   })
 
   it('carries no price field', () => {

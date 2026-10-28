@@ -155,11 +155,19 @@ export type CatalogSource = {
   groups: CatalogGroup[]
   industries: Industry[]
   pages: Pick<Page, 'slug' | 'title'>[]
+  /**
+   * Ready bundles (K3c): in the search as pages `zestawy/<slug>`. `required`: product ids of the
+   * required items — a bundle with none of them listed has no page (`listBundle`), so no result.
+   */
+  bundles?: { slug: string; name: string; required: number[] }[]
   settings: Pick<BiznesSetting, 'search' | 'wizard'> | null
 }
 
 /** The wizard is a route, not a page from blocks: listed in the search while it has rules. */
 export const WIZARD_PAGE = { slug: 'kreator', title: 'Dobierz zestaw w 60 s — kreator' }
+
+/** `/zestawy` in the search (K3c), with the bundles when there are any. */
+export const BUNDLES_PAGE = { slug: 'zestawy', title: 'Gotowe zestawy dla firm' }
 
 /** Populated documents of a relation; ids (unpopulated or not readable) are left out. */
 function docs<T extends object>(values: (number | T)[] | null | undefined): T[] {
@@ -234,6 +242,9 @@ export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
   const ownTenant = (record: { tenant?: unknown }) => tenantIdOf(record.tenant) === tenantId
   // Published cards of this site: a showroom shows only while one of its cards is listed.
   const listedIds = new Set(source.products.map((product) => product.id))
+  const shownBundles = (source.bundles ?? []).filter(({ required }) =>
+    required.some((id) => listedIds.has(id)),
+  )
   const brands = new Map<string, CatalogIndex['brands'][number]>()
   const products: IndexProduct[] = source.products.map((product) => {
     // Read with `overrideAccess`: relations are re-checked here like images in `publicImage`,
@@ -273,7 +284,8 @@ export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
         subcategory,
         series,
         ...features,
-        benefit,
+        // Not `benefit`: the index carries it once and `prepareSearch` joins it to the hay — the
+        // copy here cost ~4 KB of the 50 KB gzip budget (K3c).
         badge,
         product.keywords,
         ...industries.map((industry) => industry.name),
@@ -370,6 +382,15 @@ export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
         .filter(({ slug }) => slug !== HOME_SLUG)
         .map(({ slug, title }) => ({ slug, title })),
       ...(wizardSchema.safeParse(source.settings?.wizard).success ? [WIZARD_PAGE] : []),
+      ...(shownBundles.length
+        ? [
+            BUNDLES_PAGE,
+            ...shownBundles.map(({ slug, name }) => ({
+              slug: `zestawy/${slug}`,
+              title: `Zestaw: ${name}`,
+            })),
+          ]
+        : []),
     ],
     search: {
       synonyms: Object.fromEntries(

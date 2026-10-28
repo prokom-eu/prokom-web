@@ -3,11 +3,12 @@ import { notFound } from 'next/navigation'
 
 import { MediaImage } from '@/components/MediaImage'
 import type { CatalogIndex } from '@/lib/catalog/catalogIndex'
-import { getCatalogIndex, getIndustryView } from '@/lib/catalog/data'
+import { getBundles, getCatalogIndex, getIndustryView } from '@/lib/catalog/data'
 import { catalogHref, DEFAULT_STATE } from '@/lib/catalog/filters'
 import { industryHref, industryProducts, otherIndustries, wizardHref } from '@/lib/catalog/industry'
 import { getEnv } from '@/lib/env'
 import { ogImages } from '@/lib/pages/metadata'
+import { bundleCard, bundlesOfIndustry, listBundles } from '@/lib/catalog/bundle'
 import { breadcrumbJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
 import { robotsMeta } from '@/lib/seo/robots'
 import { getSiteSettings } from '@/lib/site/data'
@@ -20,6 +21,7 @@ import { CatalogContactPanel } from '@/sites/biznes/components/catalog/CatalogCo
 import { CatalogHero } from '@/sites/biznes/components/catalog/CatalogHero'
 import { FaqBiznes } from '@/sites/biznes/components/home/FaqBiznes'
 import {
+  IndustryBundles,
   IndustryProducts,
   OtherIndustriesSection,
 } from '@/sites/biznes/components/industry/IndustrySections'
@@ -75,7 +77,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function IndustryPage({ params }: Props) {
   const { tenant, index, industry } = await load(params)
   if (!index || !industry) notFound()
-  const [settings, origin] = await Promise.all([getSiteSettings(tenant.id), requestOrigin()])
+  const [settings, origin, allBundles] = await Promise.all([
+    getSiteSettings(tenant.id),
+    requestOrigin(),
+    getBundles(tenant.id),
+  ])
+  const products = new Map(index.products.map((product) => [product.slug, product]))
+  const bundles = bundlesOfIndustry(
+    listBundles(allBundles, new Set(products.keys())),
+    industry.slug,
+  ).map((bundle) => bundleCard(bundle, products))
 
   const { featured, total } = industryProducts(index, industry.slug, industry.featured)
   const callback = settings?.biznes?.promises.callbackTime ?? null
@@ -128,6 +139,7 @@ export default async function IndustryPage({ params }: Props) {
           )
         }
       />
+      <IndustryBundles bundles={bundles} />
       <IndustryProducts
         section={industry.products}
         products={featured}

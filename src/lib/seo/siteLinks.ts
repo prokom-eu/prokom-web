@@ -1,4 +1,5 @@
 import { brandHref } from '../catalog/brand'
+import { BUNDLES_PATH, bundleHref } from '../catalog/bundle'
 import { productHref } from '../catalog/card'
 import { categoryHref, subcategoryHref } from '../catalog/category'
 import { CATALOG_PATH } from '../catalog/filters'
@@ -35,6 +36,11 @@ export type SiteMapInput = {
     /** Brands with a page `/marki/[slug]` (K3b′); the loader keeps only those. */
     brands?: readonly { slug: string; name: string }[]
     industries: readonly { slug: string; name: string; active: boolean }[]
+    /**
+     * Ready bundles (K3c): `null`/absent = no `/zestawy`; the list holds only those „Gotowe” —
+     * „Do sprawdzenia” are `noindex` (K3-KATALOG §7).
+     */
+    bundles?: readonly { slug: string; name: string }[] | null
     /** `categories[0]` is the main category. */
     products: readonly ({ slug: string; name: string; categories: readonly string[] } & Dated)[]
   } | null
@@ -92,6 +98,19 @@ export function buildSiteMap({ pages, catalog, news, solutions }: SiteMapInput):
         id: 'marki',
         title: 'Marki',
         links: brands.map((brand) => ({ href: brandHref(brand.slug), label: brand.name })),
+      })
+    }
+    if (catalog.bundles) {
+      sections.push({
+        id: 'zestawy',
+        title: 'Gotowe zestawy',
+        links: [
+          { href: BUNDLES_PATH, label: 'Wszystkie zestawy' },
+          ...catalog.bundles.map((bundle) => ({
+            href: bundleHref(bundle.slug),
+            label: bundle.name,
+          })),
+        ],
       })
     }
     // „Wkrótce” industries have no page (ADR-012 rozstrz. 7).

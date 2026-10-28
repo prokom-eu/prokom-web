@@ -5,6 +5,7 @@ import { LocationAddress } from '@/components/ContactDetails'
 import { Container } from '@/components/ui/Container'
 import { cx } from '@/components/ui/cx'
 import { brandAsset, HORIZONTAL_LOGO_SIZE } from '@/lib/brand/lines'
+import { BUNDLES_PATH } from '@/lib/catalog/bundle'
 import type { MegaMenu } from '@/lib/catalog/menu'
 import type { PartnerBadge } from '@/lib/partners/badges'
 import { toTelHref } from '@/lib/site/link'
@@ -47,8 +48,8 @@ function LinkColumn({ title, links }: { title: string; links: { label: string; h
 /**
  * Footer of the Biznes line, five columns of the `Main` design (spec. §3.4, layout chosen
  * 18.10, K3.1 links in K31-ZMIANY §11.4): the company with hours, status badges and towns
- * served; Oferta (catalog groups and the brand showrooms; the K3.1 links to sets and the plan
- * come with their routes); Najważniejsze and Branże i firma (panel); Kontakt with the line's e-mail.
+ * served; Oferta (the catalog, ready bundles — K3c, catalog groups and the brand showrooms; the
+ * plan comes with its route in K31d); Najważniejsze and Branże i firma (panel); Kontakt with the line's e-mail.
  * Bottom row: copyright, NIP, legal links.
  * Extra bottom padding on phones keeps the last line above the sticky bar (`MobileBar`).
  */
@@ -117,6 +118,7 @@ export function BiznesFooter({
           title="Oferta"
           links={[
             { label: 'Cały katalog', href: '/oferta' },
+            { label: 'Gotowe zestawy', href: BUNDLES_PATH },
             ...menu.columns.map((column) => ({ label: column.name, href: column.href })),
             ...showrooms,
           ]}

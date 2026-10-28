@@ -3,9 +3,11 @@ import Link from 'next/link'
 import { Container } from '@/components/ui/Container'
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
+import { BUNDLES_PATH, type BundleCardData } from '@/lib/catalog/bundle'
 import type { CatalogIndex, IndexProduct } from '@/lib/catalog/catalogIndex'
 import type { IndustryView, OtherIndustries } from '@/lib/catalog/industry'
 
+import { BundleGrid } from '../bundle/BundleCard'
 import { ProductCard } from '../catalog/ProductCard'
 import { SectionHead } from '../home/SectionHead'
 
@@ -54,6 +56,40 @@ export function IndustryProducts({ section, products, total, index, catalogHref 
             <Icon name="arrow" strokeWidth={2.4} className="size-4" />
           </Link>
         </div>
+      </Container>
+    </section>
+  )
+}
+
+/**
+ * „Gotowe zestawy” of the industry (K3-KATALOG §9, K3c): bundles marked „Gotowe” only, up to 6,
+ * above the products. None → no section.
+ */
+export function IndustryBundles({ bundles }: { bundles: BundleCardData[] }) {
+  if (bundles.length === 0) return null
+  return (
+    <section
+      id="gotowe-zestawy"
+      aria-labelledby="gotowe-zestawy-h"
+      className="scroll-mt-28 py-14 sm:py-20"
+    >
+      <Container wide>
+        <SectionHead
+          id="gotowe-zestawy-h"
+          eyebrow="Gotowe zestawy"
+          heading="Sprzęt, program i usługi, które działają razem."
+          lead="Każdy element możesz zamienić — doradzimy, co i kiedy."
+        />
+        <div className="mt-8">
+          <BundleGrid bundles={bundles} />
+        </div>
+        <Link
+          href={BUNDLES_PATH}
+          className="mt-6 inline-flex min-h-12 items-center gap-2 rounded-2xl bg-card px-5 font-extrabold text-ink shadow-[inset_0_0_0_1.5px_var(--border)] transition-shadow hover:shadow-[inset_0_0_0_1.5px_var(--ink-3)]"
+        >
+          Wszystkie gotowe zestawy
+          <Icon name="arrow" strokeWidth={2.4} className="size-4" />
+        </Link>
       </Container>
     </section>
   )
