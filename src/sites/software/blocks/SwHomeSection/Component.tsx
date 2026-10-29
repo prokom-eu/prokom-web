@@ -5,6 +5,7 @@ import {
   LivePreviewsSection,
   PopularSection,
   ProcessSection,
+  ShowcaseSection,
   WhyNotWordpressSection,
   WizardSection,
 } from '@/sites/software/components/home/HomeSections'
@@ -13,7 +14,7 @@ type Props = { block: SwHomeSectionBlockData; tenantId: number }
 
 /**
  * One fixed section of the Software start page, picked in the block (ADR-014 rozstrz. 7).
- * Sections of later sessions (SW8b: `showcase`) render nothing until their components exist.
+ * A section without a component renders nothing.
  */
 export function SwHomeSectionBlock({ block, tenantId }: Props) {
   switch (block.section) {
@@ -31,6 +32,8 @@ export function SwHomeSectionBlock({ block, tenantId }: Props) {
       return <WhyNotWordpressSection tenantId={tenantId} />
     case 'guarantees':
       return <GuaranteesSection tenantId={tenantId} />
+    case 'showcase':
+      return <ShowcaseSection tenantId={tenantId} />
     default:
       return null
   }

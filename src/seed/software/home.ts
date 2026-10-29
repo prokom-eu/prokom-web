@@ -1,5 +1,6 @@
 import type { Payload } from 'payload'
 
+import faqPackage from '../../../seed/prokomsoftware/faq.json'
 import stronaGlowna from '../../../seed/prokomsoftware/strona-glowna.json'
 import { HOME_SLUG } from '../../lib/pages/slug'
 import {
@@ -67,16 +68,67 @@ export const SW_HERO: Extract<Block, { blockType: 'swHero' }> = {
   ],
 }
 
+/**
+ * FAQ of the start page (spec. §4 pkt 11) — the shared block in the Software look; heading and
+ * lead from the board `Main`, the 6 questions from `faq.json` → `homeFaq` (`[OPIEKA OD]` is
+ * filled on render).
+ */
+export const SW_FAQ: Extract<Block, { blockType: 'faq' }> = {
+  blockType: 'faq',
+  eyebrow: 'Zanim napiszesz',
+  heading: 'Pytania, które słyszymy najczęściej',
+  lead: 'Nie ma Twojego? Zadaj je w formularzu poniżej, odpowiadamy konkretnie.',
+  items: faqPackage.homeFaq.map(({ q, a }) => ({ question: q, answer: a })),
+}
+
+/**
+ * Contact block of the start page (spec. §4 pkt 12) — texts of the board `Main`; promises with
+ * facts (`[MIESIĄC]` is empty in the package, so that one stays hidden on production).
+ */
+export const SW_CONTACT: Extract<Block, { blockType: 'swContact' }> = {
+  blockType: 'swContact',
+  eyebrow: 'Kontakt',
+  title: 'Powiedz, co Cię boli. Resztą zajmiemy się my.',
+  sideTitle: 'Najpierw zobaczysz, potem zapłacisz.',
+  sideText:
+    'Po krótkiej rozmowie dostajesz: szkic rozwiązania, zakres, cenę i termin. Wszystko na piśmie. Bez zobowiązań.',
+  promises: [
+    { text: 'Odpowiadamy w ciągu [CZAS ODPOWIEDZI]' },
+    { text: 'Spotkanie w Rabce, Zakopanem, u Ciebie albo online' },
+    // TODO(krystian): wording not in the package — taken from spec. §13 pkt 11.
+    { text: 'Najbliższy wolny termin: [MIESIĄC]' },
+  ],
+  auditTitle: 'Masz już stronę?',
+  auditHref: '/audyt',
+  auditText: 'Zrób darmowy audyt: szybkość, telefon, Google i AI. Wynik na piśmie.',
+  phoneCaption: '[GODZINY]',
+  topicsLabel: 'Czego dotyczy sprawa?',
+  messageLabel: 'Opisz krótko, po swojemu',
+  messagePlaceholder: 'np. Mamy 3 ekipy, zlecenia idą SMS-em, a protokoły piszemy na kartkach…',
+  nameLabel: 'Imię i firma',
+  namePlaceholder: 'Anna, Twoja Firma',
+  contactLabel: 'E-mail albo telefon',
+  contactPlaceholder: 'jak mamy się odezwać?',
+  submit: 'Wyślij',
+  alternative: 'Wolisz kliknąć niż pisać?',
+  alternativeLink: { label: 'Dobierz rozwiązanie w 60 sekund', href: '/#dobierz' },
+}
+
 const isSection = (key: string): key is HomeSectionValue =>
   HOME_SECTIONS.some((section) => section.value === key)
 
-/** Blocks of the start page in the package order; `intents` are part of the hero block. */
+/**
+ * Blocks of the start page in the package order; `intents` are part of the hero block, `faq` is
+ * the shared FAQ block, `contact` the `swContact` block.
+ */
 export function softwareHomeLayout(
   order: readonly string[] = stronaGlowna.homeOrder.order,
   built: readonly HomeSectionValue[] = BUILT_HOME_SECTIONS,
 ): Block[] {
   return order.flatMap((key): Block[] => {
     if (key === 'hero') return [structuredClone(SW_HERO)]
+    if (key === 'faq') return [structuredClone(SW_FAQ)]
+    if (key === 'contact') return [structuredClone(SW_CONTACT)]
     if (isSection(key) && built.includes(key)) {
       return [{ blockType: 'swHomeSection', section: key }]
     }

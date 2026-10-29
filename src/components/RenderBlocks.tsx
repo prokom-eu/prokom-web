@@ -44,7 +44,9 @@ import { Breadcrumbs } from '@/sites/biznes/components/Breadcrumbs'
 import { BrandMarquee } from '@/sites/biznes/components/home/BrandMarquee'
 import { FaqBiznes } from '@/sites/biznes/components/home/FaqBiznes'
 import { SwHeroBlock } from '@/sites/software/blocks/SwHero/Component'
+import { SwContactBlock } from '@/sites/software/blocks/SwContact/Component'
 import { SwHomeSectionBlock } from '@/sites/software/blocks/SwHomeSection/Component'
+import { FaqSoftware } from '@/sites/software/components/home/FaqSoftware'
 
 type Props = { page: PublicPage; tenant: SiteTenant }
 
@@ -56,11 +58,12 @@ const HERO_BLOCKS = new Set(['hero', 'bzHero', 'bzContactInfo', 'bzPageHero', 's
  * removing a block from a line's list hides it at once, before editors clean up the pages.
  * Without a hero as the first block, the page title is the h1. Shared blocks may look different
  * per line (ADR-014 rozstrz. 7): on Biznes, Partners is the brands bar and FAQ the cards with
- * a contact column.
+ * a contact column; on Software, FAQ takes the line's look (SW8b).
  */
 export function RenderBlocks({ page, tenant }: Props) {
   const blocks = renderableBlocks(tenant.line, page.layout)
   const biznes = tenant.line === 'biznes'
+  const software = tenant.line === 'software'
   return (
     <>
       {!HERO_BLOCKS.has(blocks[0]?.blockType ?? '') && (
@@ -93,11 +96,9 @@ export function RenderBlocks({ page, tenant }: Props) {
           case 'callToAction':
             return <CallToActionBlock key={key} block={block} />
           case 'faq':
-            return biznes ? (
-              <FaqBiznes key={key} block={block} tenantId={tenant.id} />
-            ) : (
-              <FaqBlock key={key} block={block} />
-            )
+            if (biznes) return <FaqBiznes key={key} block={block} tenantId={tenant.id} />
+            if (software) return <FaqSoftware key={key} block={block} tenantId={tenant.id} />
+            return <FaqBlock key={key} block={block} />
           case 'contact':
             return <ContactBlock key={key} block={block} tenantId={tenant.id} />
           case 'partners':
@@ -178,6 +179,8 @@ export function RenderBlocks({ page, tenant }: Props) {
             return <SwHeroBlock key={key} block={block} isFirst={i === 0} tenantId={tenant.id} />
           case 'swHomeSection':
             return <SwHomeSectionBlock key={key} block={block} tenantId={tenant.id} />
+          case 'swContact':
+            return <SwContactBlock key={key} block={block} tenantId={tenant.id} />
         }
       })}
     </>

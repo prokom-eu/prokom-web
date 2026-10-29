@@ -1651,6 +1651,7 @@ export interface Page {
         | BzLocationBlock
         | SwHeroBlock
         | SwHomeSectionBlock
+        | SwContactBlock
       )[]
     | null;
   seo?: {
@@ -3890,6 +3891,60 @@ export interface SwHomeSectionBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SwContactBlock".
+ */
+export interface SwContactBlock {
+  /**
+   * Jeden taki blok na stronę (kotwica #kontakt).
+   */
+  eyebrow: string;
+  title: string;
+  sideTitle: string;
+  sideText?: string | null;
+  /**
+   * Np. „Odpowiadamy w ciągu [CZAS ODPOWIEDZI]”. Fakty w nawiasach z Ustawień linii.
+   */
+  promises?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  auditTitle?: string | null;
+  auditHref?: string | null;
+  /**
+   * Pusty tytuł albo link = bez karty.
+   */
+  auditText?: string | null;
+  /**
+   * Np. „[GODZINY]”; e-mail linii dochodzi sam.
+   */
+  phoneCaption?: string | null;
+  /**
+   * Tematy są stałe (spec. §7) — zapisują się w zgłoszeniu.
+   */
+  topicsLabel: string;
+  messageLabel: string;
+  messagePlaceholder?: string | null;
+  nameLabel: string;
+  namePlaceholder?: string | null;
+  contactLabel: string;
+  contactPlaceholder?: string | null;
+  submit: string;
+  /**
+   * Np. „Wolisz kliknąć niż pisać?” — przed linkiem poniżej.
+   */
+  alternative?: string | null;
+  alternativeLink?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'swContact';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -5494,6 +5549,7 @@ export interface PagesSelect<T extends boolean = true> {
         bzLocation?: T | BzLocationBlockSelect<T>;
         swHero?: T | SwHeroBlockSelect<T>;
         swHomeSection?: T | SwHomeSectionBlockSelect<T>;
+        swContact?: T | SwContactBlockSelect<T>;
       };
   seo?:
     | T
@@ -6649,6 +6705,43 @@ export interface SwHeroBlockSelect<T extends boolean = true> {
  */
 export interface SwHomeSectionBlockSelect<T extends boolean = true> {
   section?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SwContactBlock_select".
+ */
+export interface SwContactBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  title?: T;
+  sideTitle?: T;
+  sideText?: T;
+  promises?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  auditTitle?: T;
+  auditHref?: T;
+  auditText?: T;
+  phoneCaption?: T;
+  topicsLabel?: T;
+  messageLabel?: T;
+  messagePlaceholder?: T;
+  nameLabel?: T;
+  namePlaceholder?: T;
+  contactLabel?: T;
+  contactPlaceholder?: T;
+  submit?: T;
+  alternative?: T;
+  alternativeLink?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
   id?: T;
   blockName?: T;
 }

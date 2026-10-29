@@ -177,7 +177,7 @@ describe('notificationEmail — Software (SW2b)', () => {
       },
       { to: 's@p.pl', panelUrl: 'http://panel.localhost/admin' },
     )
-    expect(audit.text).toContain('Tematy: Łączenie programów, Audyt')
+    expect(audit.text).toContain('Tematy: Rozbudowa, Audyt')
     expect(audit.text).toContain('Adres strony: https://firma.pl')
     expect(audit.subject).toContain('Audyt')
   })

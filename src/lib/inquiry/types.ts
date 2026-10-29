@@ -30,13 +30,16 @@ export const PREFERRED_CONTACT_LABELS: Record<PreferredContact, string> = {
 
 export const SOFTWARE_ONLY_CONTACTS: readonly PreferredContact[] = ['meeting', 'online']
 
-/** Topics of the Software contact form (ADR-014 §3.1); stored as values, e-mailed as labels. */
+/**
+ * Topics of the Software contact form (ADR-014 §3.1); stored as values, shown and e-mailed as
+ * labels (spec. §7, board `Main`).
+ */
 export const SOFTWARE_TOPIC_LABELS = {
   strona: 'Strona',
-  system: 'System',
+  system: 'System lub panel',
   mobile: 'Aplikacja mobilna',
-  laczenie: 'Łączenie programów',
-  opieka: 'Opieka',
+  laczenie: 'Rozbudowa',
+  opieka: 'Opieka lub ratunek',
   audyt: 'Audyt',
 } as const
 

@@ -32,6 +32,7 @@ import { BzBrandsBlock } from '../sites/biznes/blocks/BzBrands/config'
 import { BzLocationBlock } from '../sites/biznes/blocks/BzLocation/config'
 import { SwHeroBlock } from '../sites/software/blocks/SwHero/config'
 import { SwHomeSectionBlock } from '../sites/software/blocks/SwHomeSection/config'
+import { SwContactBlock } from '../sites/software/blocks/SwContact/config'
 import { CallToActionBlock } from './CallToAction/config'
 import { ContactBlock } from './Contact/config'
 import { FaqBlock } from './Faq/config'
@@ -94,9 +95,10 @@ export const INSTALACJE_BLOCKS: Block[] = []
 
 /**
  * Sections of the Software pages (ADR-014 rozstrz. SW0 7, at most 10) — `src/sites/software/blocks/`.
- * The fixed start page sections are one block, `swHomeSection`, with the section picked.
+ * The fixed start page sections are one block, `swHomeSection`, with the section picked; new
+ * blocks go at the end (SW8b: `swContact`).
  */
-export const SOFTWARE_BLOCKS: Block[] = [SwHeroBlock, SwHomeSectionBlock]
+export const SOFTWARE_BLOCKS: Block[] = [SwHeroBlock, SwHomeSectionBlock, SwContactBlock]
 
 /**
  * Every block a page may contain (ADR-010). A block of one line only lives in

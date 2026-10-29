@@ -1,8 +1,9 @@
 import { expect, test, type Page } from '@playwright/test'
 
-import { site } from './helpers'
+import { FORM_MIN_FILL_MS } from '../../src/lib/inquiry/spam'
+import { api, loginAsAdmin, site } from './helpers'
 
-// SW5–SW8a: start page of the Software line (spec. §4 pkt 1–9; §3.3 section rail). Data
+// SW5–SW8b: start page of the Software line (spec. §4 pkt 1–12; §3.3 section rail; §7). Data
 // from `pnpm seed`: the home page blocks in the order of `homeOrder`, texts in
 // `SoftwareSettings.home`, areas and solutions of the package.
 const HOST = 'software.localhost'
@@ -36,6 +37,9 @@ test.describe('Software start page', () => {
       'dobierz',
       'bez-wordpressa',
       'zasady',
+      'realizacje',
+      'faq',
+      'kontakt',
     ])
     await expect(
       page.locator('#start').getByRole('link', { name: /Dobierz rozwiązanie/ }),
@@ -278,6 +282,45 @@ test.describe('Software start page', () => {
     await expect(section).toContainText('Czasem powiemy: nie budujcie.')
   })
 
+  test('„Realizacje”: 3 own systems with their status and the figures', async ({ page }) => {
+    await page.goto(site(HOST))
+    const section = page.locator('#realizacje')
+    await expect(section.getByRole('heading', { level: 2 })).toHaveText(
+      'Najpierw zbudowaliśmy to dla siebie.',
+    )
+    const systems = section.getByRole('link')
+    await expect(systems).toHaveCount(3)
+    await expect(systems.nth(0)).toHaveAttribute('href', 'https://prokomserwis.pl')
+    await expect(systems.nth(0)).toContainText('działa')
+    await expect(systems.nth(2)).toContainText('prokombiznes.pl')
+    await expect(systems.nth(2)).toContainText('w budowie')
+    // Locally the empty fact `[WYNIK]` stays visible; production drops that figure.
+    await expect(section.locator('ul').last().getByRole('listitem')).toHaveCount(4)
+    await expect(section).toContainText('2004')
+    await expect(section).toContainText('100+')
+  })
+
+  test('FAQ: 6 questions, the first open, facts filled, FAQPage JSON-LD', async ({ page }) => {
+    await page.goto(site(HOST))
+    const section = page.locator('#faq')
+    await expect(section.getByRole('heading', { level: 2 })).toHaveText(
+      'Pytania, które słyszymy najczęściej',
+    )
+    const items = section.locator('details')
+    await expect(items).toHaveCount(6)
+    await expect(items.nth(0)).toHaveAttribute('open', '')
+    await expect(items.nth(1)).not.toHaveAttribute('open', '')
+    await expect(items.nth(0)).toContainText('od 149 zł miesięcznie')
+    await items.nth(1).locator('summary').click()
+    await expect(items.nth(1)).toContainText('Wersję testową oglądasz co tydzień')
+    const jsonLd = await section
+      .locator('script[type="application/ld+json"]')
+      .evaluate((script) => JSON.parse(script.textContent ?? '{}'))
+    expect(jsonLd['@type']).toBe('FAQPage')
+    expect(jsonLd.mainEntity).toHaveLength(6)
+    expect(JSON.stringify(jsonLd)).not.toContain('[OPIEKA OD]')
+  })
+
   test('section rail above 1400 px, hidden below', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 })
     await page.goto(site(HOST))
@@ -290,10 +333,107 @@ test.describe('Software start page', () => {
       'Jak pracujemy i cena',
       'Dobierz rozwiązanie',
       'Dlaczego nie WordPress',
+      'Realizacje',
+      'Pytania',
+      'Kontakt',
     ])
     await expect(rail).toBeVisible()
     await page.setViewportSize({ width: 1400, height: 900 })
     await expect(rail).toBeHidden()
+  })
+})
+
+// Own client address per run (benchmark range 198.18.0.0/15): the limit of 5 inquiries per
+// 10 minutes keys on `X-Real-IP`, so this send never uses up the limit of other specs.
+const clientIp = `198.19.${Math.floor(Math.random() * 250)}.${Math.floor(Math.random() * 250)}`
+
+test.describe('Software start page — contact form', () => {
+  const contact = (page: Page) => page.locator('#kontakt')
+  const send = (page: Page) => contact(page).getByRole('button', { name: 'Wyślij' })
+
+  test('promises, audit card and phone next to the form', async ({ page }) => {
+    await page.goto(site(HOST))
+    const section = contact(page)
+    await expect(section.getByRole('heading', { level: 2 })).toHaveText(
+      'Powiedz, co Cię boli. Resztą zajmiemy się my.',
+    )
+    await expect(section).toContainText('Odpowiadamy w ciągu 1 dnia roboczego')
+    await expect(section.getByRole('link', { name: /Masz już stronę\?/ })).toHaveAttribute(
+      'href',
+      '/audyt',
+    )
+    await expect(section.locator('a[href^="tel:"]')).toHaveCount(1)
+    await expect(section.getByRole('radio')).toHaveCount(6)
+    await expect(section.getByRole('radio', { name: 'System lub panel' })).toBeChecked()
+  })
+
+  test('77: errors under the fields and in the box, then sending → /dziekujemy', async ({
+    page,
+  }) => {
+    await page.setExtraHTTPHeaders({ 'X-Real-IP': clientIp })
+    const name = `E2E kontakt SW8b ${Date.now()}`
+    await page.goto(site(HOST, '/#kontakt'))
+    const section = contact(page)
+    await send(page).click()
+    await expect(section.getByLabel('Opisz krótko, po swojemu')).toBeFocused()
+    await expect(
+      section.getByText('Podaj telefon albo e-mail, żebyśmy mogli wysłać wycenę.').first(),
+    ).toBeVisible()
+
+    // stany/77: everything filled but the consent.
+    // The radio is visually hidden; its label card is what people click.
+    await section.locator('label', { hasText: 'Opieka lub ratunek' }).click()
+    await expect(section.getByRole('radio', { name: 'Opieka lub ratunek' })).toBeChecked()
+    await section.getByLabel('Opisz krótko, po swojemu').fill('Strona po kimś, kto zniknął.')
+    await section.getByLabel('Imię i firma').fill(name)
+    await section.getByLabel('E-mail albo telefon').fill('e2e-kontakt@example.test')
+    await send(page).click()
+    await expect(section.getByRole('checkbox', { name: /Wyrażam zgodę/ })).toBeFocused()
+    await expect(
+      section.getByText('Zaznacz zgodę na kontakt w sprawie wyceny.').first(),
+    ).toBeVisible()
+
+    await section.getByRole('checkbox', { name: /Wyrażam zgodę/ }).check()
+    // The server refuses forms sent faster than a person can fill them (spam protection).
+    await page.waitForTimeout(FORM_MIN_FILL_MS + 500)
+    await send(page).click()
+    await expect(page).toHaveURL(/\/dziekujemy\?nr=PKS-\d{4}-\d{4,}$/)
+
+    await loginAsAdmin(page)
+    const { json } = await api(
+      page,
+      'GET',
+      `/api/inquiries?where[name][equals]=${encodeURIComponent(name)}&depth=0`,
+    )
+    const record = (json.docs as Record<string, unknown>[])[0]
+    try {
+      expect(record).toMatchObject({
+        line: 'software',
+        type: 'contact',
+        topics: ['opieka'],
+        email: 'e2e-kontakt@example.test',
+        message: 'Strona po kimś, kto zniknął.',
+      })
+    } finally {
+      if (record) await api(page, 'DELETE', `/api/inquiries/${record.id}`)
+    }
+  })
+
+  test('a server error is announced in the box', async ({ page }) => {
+    await page.route('**/api/inquiry', (route) =>
+      route.fulfill({ status: 503, contentType: 'application/json', body: '{}' }),
+    )
+    await page.goto(site(HOST, '/#kontakt'))
+    const section = contact(page)
+    await section.getByLabel('Opisz krótko, po swojemu').fill('Test błędu serwera.')
+    await section.getByLabel('Imię i firma').fill('E2E')
+    await section.getByLabel('E-mail albo telefon').fill('600 100 200')
+    await section.getByRole('checkbox', { name: /Wyrażam zgodę/ }).check()
+    await send(page).click()
+    const box = section.locator('div[tabindex="-1"]')
+    await expect(box).toContainText('Nie udało się wysłać zapytania')
+    await expect(box).toBeFocused()
+    await expect(page).not.toHaveURL(/dziekujemy/)
   })
 })
 
@@ -339,6 +479,25 @@ test.describe('Software start page on a phone', () => {
       expect(ours?.y ?? 0).toBeGreaterThan(theirs?.y ?? 0)
       const header = await why.getByRole('row').first().boundingBox()
       expect(header?.height ?? 0).toBeLessThanOrEqual(1)
+      // Realizacje: a carousel of systems, the figures 2×2.
+      const showcase = page.locator('#realizacje')
+      const system = await showcase.getByRole('link').first().boundingBox()
+      expect(system?.width ?? 0).toBeLessThan(width * 0.9)
+      const figures = showcase.locator('ul').last().getByRole('listitem')
+      const [first, second, third] = await Promise.all(
+        [0, 1, 2].map((index) => figures.nth(index).boundingBox()),
+      )
+      expect(Math.round(second?.y ?? 0)).toBe(Math.round(first?.y ?? 0))
+      expect(third?.y ?? 0).toBeGreaterThan(first?.y ?? 0)
+      // Kontakt: the form under the promises, topics as large targets.
+      const side = await page.locator('#kontakt').getByText('Najpierw zobaczysz').boundingBox()
+      const form = await page.locator('#kontakt form').boundingBox()
+      expect(form?.y ?? 0).toBeGreaterThan(side?.y ?? 0)
+      const topic = await page
+        .locator('#kontakt label:has(input[type=radio])')
+        .first()
+        .boundingBox()
+      expect(topic?.height ?? 0).toBeGreaterThanOrEqual(44)
     })
   }
 })
