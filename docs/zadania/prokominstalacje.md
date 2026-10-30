@@ -6,7 +6,7 @@ Strona dla architektów i deweloperów (`/dla-architektow`, decyzja szefa 28.10)
 
 ## 0. Rytuał każdej sesji (bez wyjątków)
 1. Terminal w `D:\PRO-KOM\repos\prokom-instal` → `.\scripts\start.ps1` (baza `prokom_web_instalacje`, zależności, migracje). Nowa sesja Claude Code → `/inst-start` (git status, fetch, rebase na `origin/develop`, odczyt STAN).
-2. Wklej prompt sesji z §3. Claude Code najpierw pokazuje **plan** (pliki, kolejność, ryzyka) — akceptujesz, dopiero potem kod.
+2. Wklej prompt sesji z §3. Prompt jest planem: Claude Code pyta tylko o decyzje, których prompt nie rozstrzyga, i od razu buduje (tryb szybki od 30.10 — `prokominstalacje-przyspieszenie.md`).
 3. Każda sekcja z UI: zrzuty wzorca → budowa → `porownaj.mjs` (1440 i 390, jasny i ciemny) → poprawki do zgodności.
 4. **Zadanie skończone:** `/przeglad` → `/inst-koniec` (STAN w tym samym PR) → `/pr` (opis z tabelą „sekcja: zgodna / różnica + powód”) → zielone CI → rebase, jeśli develop się zmienił → Squash and merge.
 5. **Zadanie niedokończone (wieczór się kończy):** `/inst-koniec` (STAN: co zostało, następny krok) → `scripts\koniec.ps1 "co w toku"` (push gałęzi). PR następnego dnia. Nigdy nie commituj STAN na gałęzi już scalonej.
@@ -16,6 +16,8 @@ Pliki danych widżetów (ADR-I002 „Pliki danych w kodzie”): każda sesja str
 Zasady stałe: jedna sesja = jedno zadanie = jedna gałąź = jeden PR. Zmiana w strefie wspólnej (ADR-I001 §3) = osobny mały PR `inst/wsp-*` scalony od razu. Nowy pomysł w trakcie = wpis w STAN („Pomysły”), nie „przy okazji”. Telefon w każdej sesji z UI (MOBILE-APLIKACJA §10). SEO w każdej sesji z nową stroną (SEO §2.2–2.3).
 
 ## 1. Sesje i szacunek
+**Od 30.10 obowiązuje plan przyspieszenia** (`prokominstalacje-przyspieszenie.md`: narzędzia po I6, tokeny wszystkich stron jednym PR, auto-merge małych PR-ów, dwie sesje stron równolegle) — pozostałe ≈ 22 wieczory → ≈ 15; tabela niżej to szacunek pierwotny.
+
 | Sesja | Zakres | Wieczory | Zależy od |
 |---|---|---|---|
 | **W-I** ✅ | wgranie pakietu do repo (same pliki, PR #125, scalone) | 0,25 | — |
