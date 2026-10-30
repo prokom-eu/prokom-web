@@ -90,7 +90,7 @@ Krystian pracuje na jednym komputerze. **GitHub to kopia kodu i jedyna droga na 
 - Po każdej akcji na GitHubie (utworzenie PR, edycja, scalenie) **zweryfikuj ją** (`gh pr view` / `gh pr list`) i podaj link — nie raportuj sukcesu bez sprawdzenia.
 - Testy najpierw dla logiki biznesowej (rozpoznawanie domeny, izolacja tenantów, walidacja formularzy): najpierw test, który nie przechodzi, potem kod.
 - Commity są podpisywane kluczem SSH (`commit.gpgsign`). Jeśli podpis się nie uda — **nie wyłączaj go** i nie używaj `--no-gpg-sign`; powiedz mi.
-- Commity robisz sam w trakcie sesji: małe, logiczne, Conventional, podpisane, po zielonym `lint/typecheck/test`. **Całość czytam raz, przed `/pr`:** `git diff origin/develop...HEAD --stat`, werdykt recenzenta i Twoja ocena każdej uwagi. PR dopiero po moim „tak”. Wyjątki linii Instalacje — sekcja „Linia Instalacje” niżej.
+- Commity robisz sam w trakcie sesji: małe, logiczne, Conventional, podpisane, po zielonym `lint/typecheck/test`. Po zielonych testach i recenzencie sam otwierasz PR (`/pr`) — opis PR zawiera werdykt recenzenta i Twoją ocenę każdej uwagi; **diff czytam w PR, scalam ja**. Pytasz mnie tylko o decyzje produktowe, nowe zależności, migracje usuwające dane, scalenie i wdrożenie. Wyjątki linii Instalacje — sekcja „Linia Instalacje” niżej.
 - Zmiany DNS: najpierw `docs/dns.md`, potem dostawca — nigdy odwrotnie.
 
 ## Jak ze mną pracujesz (rzemiosło)
@@ -103,7 +103,7 @@ Krystian pracuje na jednym komputerze. **GitHub to kopia kodu i jedyna droga na 
 ## Komendy projektu
 - `/zadanie <sesja lub opis>` — kontekst i plan (maks. 15 linii). Gdy prompt sesji w `PRZEKAZANIE-*.md` jest kompletny, od razu kod; zatrzymujesz się tylko przy decyzji (pytanie z opcjami) albo migracji usuwającej dane. Bez trybu planu przy gotowym prompcie.
 - `/przeglad` — przegląd zmian przed PR.
-- `/pr` — tytuł (Conventional Commits) i opis wg `.github/pull_request_template.md`, po mojej akceptacji `gh pr create --base develop`.
+- `/pr` — tytuł (Conventional Commits) i opis wg `.github/pull_request_template.md`, od razu `gh pr create --base develop` (bez czekania na „ok”); ja czytam diff i scalam.
 - `/wdrozenie staging|produkcja` — checklista przed wdrożeniem.
 - `/koniec-sesji` — aktualizacja `docs/STAN.md` (z następnym krokiem) i podsumowanie.
 - Skrypty Krystiana (nie uruchamiaj ich sam): `scripts\start.ps1` — start pracy; `scripts\koniec.ps1` — koniec pracy.
