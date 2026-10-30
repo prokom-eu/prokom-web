@@ -1570,7 +1570,9 @@
 
 /* Mini scenes of the home service cards (I6, `pk.css` .sx*): illustrations on a dark stage in
    both themes, set by `data-inst-sx` on the card stage; the hue of a service comes as `--h`
-   from its data. Values 1:1 from the prototype, like the hero palette above. */
+   from its data. Values 1:1 from the prototype, like the hero palette above. Pages with
+   illustrations (I7+) set `data-inst-sx` on their root too: `przenies-css.strony.json` maps
+   their scene colours to these tokens and to `--il-*` below. */
 [data-line='instalacje'] [data-inst-sx] {
   --sx-sky: #0b1a22;
   --sx-m1: #132a33;
@@ -1645,6 +1647,68 @@
   --sx-solar-line: #8ea9d6;
   --sx-mast: #9aa6a9;
   --sx-dish: #d3d9da;
+}
+
+/* Illustrations of the service pages (I7–I8, `pk.css` .cs/.cam scenes and SVG fills of
+   `Monitoring`, `Alarmy`, `Teletechnika`, `.glass`) that the `--sx-*` palette above does not
+   have: the same in both themes, set by `data-inst-il` (next to `data-inst-sx`) on the page
+   root. Camera scenes switch day/night with the scene's own class (`.cs.day`, `.cs.ir`,
+   `.cs.col`), not with the page theme. Values 1:1 from the prototype. */
+[data-line='instalacje'] [data-inst-il] {
+  --il-cam: #111c1f;
+  --il-cam-label: rgba(0, 0, 0, 0.55);
+  --il-cam-time: #c9d3d5;
+  --il-day-sky: #8fb8c7;
+  --il-ridge: #3b4a50;
+  --il-day-grass: #6e7d72;
+  --il-night-grass: #1e2a26;
+  --il-day-pave: #7f8784;
+  --il-night-pave: #2a3230;
+  --il-day-wall: #c9b79a;
+  --il-night-wall: #3a3128;
+  --il-day-wood: #7b5a3c;
+  --il-night-wood: #2e2219;
+  --il-door-line: #1e160f;
+  --il-window: #2a3a40;
+  --il-lit: #ffd27a;
+  --il-brass: #e6c27a;
+  --il-snow: #e8eef0;
+  --il-night-snow: #9aa7ab;
+  --il-red: #c0392b;
+  --il-blue: #2c6e9b;
+  --il-silver: #d9d9d9;
+  --il-green-car: #2f3b35;
+  --il-ir-car: #888888;
+  --il-car-glass: #1b2a30;
+  --il-skin: #e9d9c4;
+  --il-skin-ir: #b9afa3;
+  --il-jacket: #c24e3a;
+  --il-legs: #2a2a2a;
+  --il-bag: #3a3a3a;
+  --il-dark: #1f1f1f;
+  --il-black: #111111;
+  --il-step: #5a6460;
+  --il-step-2: #4b5450;
+  --il-rail: #5b4632;
+  --il-niche: #13242a;
+  --il-tree: #2e5b3e;
+  --il-tree-2: #3b7050;
+  --il-mask: #0a1214;
+  --il-mask-day: #2a3437;
+  --il-false: #f07a6a;
+  --il-strobe: #4c7bf0;
+  --il-door-bg: #22302f;
+  --il-door-ground: #3a4542;
+  --il-door: #2e3a38;
+  --il-door-frame: #6b5a44;
+  --il-face: #e2cdb4;
+  --il-parcel: #b88a55;
+  --il-metal-1: #5c676b;
+  --il-metal-2: #4e585b;
+  --il-glow-warm: #ffd58a;
+  --il-glow-cyan: #5fd3ee;
+  --il-glass: rgba(12, 22, 25, 0.72);
+  --il-glass-shadow: rgba(0, 0, 0, 0.7);
 }
 
 [data-line='software'] {

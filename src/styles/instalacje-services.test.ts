@@ -54,6 +54,32 @@ const THEMED: Array<[text: string, surface: string]> = [
   ['--inst-warn-text', '--inst-mux-old-bg'],
 ]
 
+// I7–I8: illustrations of the service pages (same in both themes). Labels drawn inside the
+// scenes: the camera name on its chip, scene captions on the dark mask, the false-alarm marker.
+const il = { ...light, ...rule("[data-line='instalacje'] [data-inst-il]") }
+const ilRatio = (text: string, surface: string, base = '--il-cam') =>
+  contrastRatio(
+    resolve(`var(${text})`, il),
+    over(resolve(`var(${surface})`, il), resolve(`var(${base})`, il)),
+  )
+
+describe('Instalacje service page illustrations', () => {
+  it('keep their palette in one rule of tokens.css', () => {
+    const palette = rule("[data-line='instalacje'] [data-inst-il]")
+    expect(Object.keys(palette).every((k) => k.startsWith('--il-'))).toBe(true)
+    expect(Object.keys(palette).length).toBeGreaterThan(45)
+  })
+
+  it.each([
+    ['--inst-plan-white', '--il-cam-label'],
+    ['--il-cam-time', '--il-mask'],
+    ['--inst-promo-warm', '--il-mask'],
+    ['--inst-band-button-ink', '--il-false'],
+  ])('%s on %s ≥ 4.5:1', (text, surface) => {
+    expect(ilRatio(text, surface)).toBeGreaterThanOrEqual(4.5)
+  })
+})
+
 describe('Instalacje service page colours', () => {
   it.each(FIXED)('%s on %s ≥ 4.5:1', (text, surface) => {
     expect(ratio(light, text, surface)).toBeGreaterThanOrEqual(4.5)

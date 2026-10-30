@@ -1,6 +1,6 @@
 // Przenosi reguły pk.css wybranych klas do zagnieżdżonego CSS linii (I6, ADR-I003 §3).
 // Użycie: node docs/design/prokominstalacje/narzedzia/przenies-css.mjs <pk.css> <src/styles/tokens.css> <klasy.txt> <mapa.json> [klasy-strony.txt] > out.css
-// klasy.txt — klasy sekcji; mapa.json — {"prefix":"sx","ids":[…],"colors":{"#hex|rgba(…)":"--token"},
+// klasy.txt — klasy sekcji; mapa.json — {"prefix":"sx","palette":"sx|il","ids":[…],"colors":{"#hex|rgba(…)":"--token"},
 // "selectors":{"selektor|właściwość|nr":"--token"}} (selectors — z tokeny-stron.mjs, wygrywa z colors);
 // klasy-strony.txt — wszystkie klasy strony (selektory z innymi klasami odpadają). Raport (stderr):
 // reguły „tylko jasny motyw” i kolory bez tokenu — do ręcznego przejrzenia. Wzór mapy: przenies-css.glowna.json.
@@ -24,13 +24,21 @@ const norm = (c) =>
     .replace(/,\.(\d)/g, ',0.$1')
     .replace(/,(\d?\.\d+?)0+\)/g, ',$1)')
 
-// Scene palette from tokens.css (value → --sx-name).
-const sxBlock = tokens.slice(tokens.indexOf("[data-inst-sx] {"))
-const sx = new Map()
-for (const m of sxBlock.slice(0, sxBlock.indexOf('}')).matchAll(/(--sx-[\w-]+):\s*([^;]+);/g)) {
-  const v = norm(m[2])
-  if (!sx.has(v)) sx.set(v, m[1])
+// Scene palettes from tokens.css (value → --name): `sx` = home service cards (I6), `il` = service
+// page illustrations (I7+). The map's `palette` picks the fallback for colours without a token.
+function palette(name) {
+  const found = new Map()
+  const at = tokens.indexOf(`[data-inst-${name}] {`)
+  if (at < 0) return found
+  const block = tokens.slice(at, tokens.indexOf('}', at))
+  for (const m of block.matchAll(new RegExp(`(--${name}-[\\w-]+):\\s*([^;]+);`, 'g'))) {
+    const v = norm(m[2])
+    if (!found.has(v)) found.set(v, m[1])
+  }
+  return found
 }
+const sx = palette('sx')
+const fallback = manual.palette && manual.palette !== 'sx' ? palette(manual.palette) : sx
 const general = new Map(Object.entries(manual.colors).map(([k, v]) => [norm(k), v]))
 const VARS = {
   '--bg': '--surface',
@@ -72,7 +80,7 @@ function convert(decls, isScene, selector) {
         const own = manual.selectors?.[`${first}|${prop}|${n++}`]
         if (own) return `var(${own})`
         const v = norm(c)
-        const token = (isScene && sx.get(v)) || general.get(v) || sx.get(v)
+        const token = (isScene && sx.get(v)) || general.get(v) || fallback.get(v)
         if (token) return `var(${token})`
         unknown.set(v, [...(unknown.get(v) ?? []), selector])
         return c

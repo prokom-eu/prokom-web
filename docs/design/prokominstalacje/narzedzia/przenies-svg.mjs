@@ -38,6 +38,17 @@ const colors = new Map(
     ? Object.entries(JSON.parse(fs.readFileSync(mapPath, 'utf8')).colors ?? {}).map(([k, v]) => [norm(k), v])
     : [],
 )
+// The map's scene palette (`palette`, e.g. "il" → `[data-inst-il]` in tokens.css) for colours
+// without a token in `colors`. tokens.css is read from the repo root (run the tool from there).
+const paletteName = mapPath ? JSON.parse(fs.readFileSync(mapPath, 'utf8')).palette : null
+if (paletteName && fs.existsSync('src/styles/tokens.css')) {
+  const tokens = fs.readFileSync('src/styles/tokens.css', 'utf8')
+  const at = tokens.indexOf(`[data-inst-${paletteName}] {`)
+  const block = at < 0 ? '' : tokens.slice(at, tokens.indexOf('}', at))
+  for (const m of block.matchAll(new RegExp(`(--${paletteName}-[\\w-]+):\\s*([^;]+);`, 'g'))) {
+    if (!colors.has(norm(m[2]))) colors.set(norm(m[2]), m[1])
+  }
+}
 
 const source = fs.readFileSync(file, 'utf8')
 
