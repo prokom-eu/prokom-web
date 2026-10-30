@@ -78,13 +78,14 @@ test.describe('Biznes theme (D-K4-5)', () => {
 })
 
 test.describe('Biznes footer', () => {
-  test('has the five columns and the bottom row', async ({ page }) => {
+  // K4 footer (K36 §1): six columns.
+  test('has the six columns and the bottom row', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
     const footer = page.locator('footer')
-    for (const name of ['Oferta', 'Najważniejsze', 'Branże i firma', 'Kontakt']) {
+    for (const name of ['Oferta', 'Usługi', 'Systemy i tematy', 'PRO-KOM w regionie', 'Kontakt']) {
       await expect(footer.getByRole('heading', { name, exact: true })).toBeVisible()
     }
-    await expect(footer.getByRole('link', { name: 'Cały katalog' })).toHaveAttribute(
+    await expect(footer.getByRole('link', { name: 'Cała oferta' })).toHaveAttribute(
       'href',
       '/oferta',
     )
@@ -94,19 +95,18 @@ test.describe('Biznes footer', () => {
     await expect(page.getByRole('navigation', { name: 'Szybki kontakt' })).toBeHidden()
   })
 
-  test('has the K3.1 links, one e-mail and only the first address (K31b)', async ({ page }) => {
+  test('has the K4 services and topics, one e-mail and only the first address', async ({
+    page,
+  }) => {
     await page.goto(site('biznes.localhost'))
     const footer = page.locator('footer')
-    const important = footer.getByRole('navigation', { name: 'Najważniejsze' })
-    await expect(important.getByRole('link')).toHaveText([
-      'Opieka IT',
-      'GoPOS',
-      'InsERT i KSeF',
-      'KSeF 2027',
-      'Dobierz zestaw w 60 s',
-    ])
-    // The IT review waits for the boss's approval — no link to it in the footer.
-    await expect(footer.locator('a[href*="przeglad"]')).toHaveCount(0)
+    await expect(footer.getByRole('navigation', { name: 'Usługi' }).getByRole('link')).toHaveCount(
+      7,
+    )
+    await expect(
+      footer.getByRole('navigation', { name: 'Systemy i tematy' }).getByRole('link').first(),
+    ).toHaveText('GoPOS')
+    await expect(footer).toContainText('Autoryzowany serwis Posnet i Elzab')
     // One e-mail on the whole footer: the line's inbox from its settings, not the company's.
     const mails = footer.locator('a[href^="mailto:"]')
     await expect(mails).toHaveCount(1)
@@ -117,7 +117,7 @@ test.describe('Biznes footer', () => {
   test('other lines keep their own footer', async ({ page }) => {
     await page.goto(site('instalacje.localhost'))
     await expect(
-      page.locator('footer').getByRole('heading', { name: 'Najważniejsze' }),
+      page.locator('footer').getByRole('heading', { name: 'Systemy i tematy' }),
     ).toHaveCount(0)
   })
 })

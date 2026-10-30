@@ -59,18 +59,7 @@ test.describe('Biznes brand pages (K3b′)', () => {
     await expect(page).toHaveURL(biznes('/marki/lenovo'))
   })
 
-  test('the footer links the showrooms of Lenovo and Dell', async ({ page }) => {
-    await page.goto(biznes('/'))
-    const footer = page.locator('footer')
-    await expect(footer.getByRole('link', { name: 'Salon Lenovo' })).toHaveAttribute(
-      'href',
-      '/marki/lenovo',
-    )
-    await expect(footer.getByRole('link', { name: 'Salon Dell' })).toHaveAttribute(
-      'href',
-      '/marki/dell',
-    )
-  })
+  // The K4 footer has no showroom links (K36 §1); the showrooms are on /marki (K4f).
 })
 
 test.describe('Biznes subcategory pages (K3b′)', () => {

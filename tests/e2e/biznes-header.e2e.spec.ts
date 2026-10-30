@@ -41,29 +41,33 @@ test.describe('Biznes header', () => {
     await expect(button).toBeFocused()
   })
 
-  test('the mega menu lists categories up to the column limit and links them', async ({ page }) => {
+  // K4 mega menu v147c (K35 7a): departments switch the middle, categories link their pages.
+  test('the mega menu switches departments and links categories and shortcuts', async ({
+    page,
+  }) => {
     await page.goto(site('biznes.localhost'))
     await mainNav(page).getByRole('button', { name: 'Oferta' }).click()
     const panel = page.locator('[id$="-offer"]')
-
-    await expect(panel.getByRole('link', { name: 'Kasy i sprzedaż', exact: true })).toHaveAttribute(
-      'href',
-      /^\/oferta\?grupa=/,
-    )
+    const heading = panel.getByRole('heading', { level: 2 })
+    await expect(heading).toHaveText('Kasy i sprzedaż')
     await expect(panel.getByRole('link', { name: /^Kasy fiskalne \d+ pozycj/ })).toHaveAttribute(
       'href',
       '/oferta/kasy-fiskalne',
     )
-    // K4: 10 sales categories and the column limit from the panel (seed: 10, K4a-1b-2) — the
-    // whole department fits, so no „Wszystkie w grupie” (overflow: lib/catalog/menu.test.ts).
-    await expect(panel.getByRole('link', { name: /^Automaty vendingowe/ })).toHaveAttribute(
+    await expect(panel.getByRole('link', { name: /^Cały dział · \d+ pozycj/ })).toHaveAttribute(
       'href',
-      '/oferta/automaty-vendingowe',
+      /^\/oferta\?grupa=/,
     )
-    await expect(
-      panel.getByRole('link', { name: 'Wszystkie w grupie: Kasy i sprzedaż' }),
-    ).toHaveCount(0)
-    await expect(panel.getByRole('link', { name: /^Cały katalog · \d+ pozycj/ })).toBeVisible()
+    await panel.getByRole('button', { name: /^Oprogramowanie/ }).hover()
+    await expect(heading).toHaveText('Oprogramowanie')
+    await expect(panel.getByRole('link', { name: /^Konfigurator/ })).toHaveAttribute(
+      'href',
+      '/kreator',
+    )
+    await expect(panel.getByRole('link', { name: /^Gotowe zestawy/ })).toHaveAttribute(
+      'href',
+      '/zestawy',
+    )
   })
 
   test('stays open on a click inside the panel, closes on a click outside', async ({ page }) => {
@@ -73,7 +77,7 @@ test.describe('Biznes header', () => {
     const button = mainNav(page).getByRole('button', { name: 'Oferta' })
     await button.click()
     // Plain text of the panel: focus leaves the button without a new target.
-    await page.getByText('Bez cen na stronie').click()
+    await page.locator('[id$="-offer"]').getByText('Na skróty').click()
     await expect(button).toHaveAttribute('aria-expanded', 'true')
     // Below the panel, measured from its own bottom edge.
     const box = await page.locator(`#${await button.getAttribute('aria-controls')}`).boundingBox()
@@ -81,12 +85,12 @@ test.describe('Biznes header', () => {
     await expect(button).toHaveAttribute('aria-expanded', 'false')
   })
 
-  test('v20 menu: no Branże ▾, the industries are linked from the mega menu', async ({ page }) => {
+  // K4 menu (K33 §2.2): „Gotowe zestawy” moved to the mega menu and the footer.
+  test('K4 menu: Oferta ▾, Opieka IT, GoPOS, InsERT, O firmie, Kontakt', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
     const items = mainNav(page).locator(':scope > ul > li')
     await expect(items).toHaveText([
       /^Oferta/,
-      'Gotowe zestawy',
       'Opieka IT',
       /^GoPOS/,
       /^InsERT/,
@@ -94,10 +98,6 @@ test.describe('Biznes header', () => {
       'Kontakt',
     ])
     await expect(mainNav(page).getByRole('button', { name: 'Branże' })).toHaveCount(0)
-    await mainNav(page).getByRole('button', { name: 'Oferta' }).click()
-    await expect(
-      page.getByRole('link', { name: 'Rozwiązania dla branż: gastronomia, handel, hotele' }),
-    ).toHaveAttribute('href', '/branze/gastronomia')
   })
 
   // K4 (K33 §2.1, K36 §1): five lines with their colours, the Konfigurator, no „Zgłoś awarię”.
@@ -117,7 +117,7 @@ test.describe('Biznes header', () => {
     const magnifier = page
       .getByRole('banner')
       .getByRole('button', { name: 'Szukaj w ofercie (Ctrl K lub /)' })
-    await expect(magnifier).toHaveAttribute('aria-keyshortcuts', '/')
+    await expect(magnifier).toHaveAttribute('aria-keyshortcuts', 'Control+K Meta+K /')
     await magnifier.click()
     await expect(page.getByRole('dialog', { name: 'Szukaj w ofercie' })).toBeVisible()
   })
