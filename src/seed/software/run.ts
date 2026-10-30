@@ -22,7 +22,7 @@ import {
 } from './map'
 import { seedSoftwareHome } from './home'
 import { HOME_SECTION_TEXTS, homeWithPriceTokens, homeWithSections } from './homeExtras'
-import { isPreSw7Wizard } from './wizardExtras'
+import { isPreV22Wizard } from './wizardExtras'
 
 const SOFTWARE_TENANT_SLUG = 'software'
 
@@ -270,8 +270,8 @@ export async function seedSoftware(payload: Payload): Promise<void> {
     const missing: Partial<typeof fields> = Object.fromEntries(
       Object.entries(jsonFields).filter(([key]) => {
         const value = softwareSettings[key as keyof typeof jsonFields]
-        // A wizard saved before SW7 lacks its rules: replaced, like Biznes rules of an old shape.
-        if (key === 'wizard' && isPreSw7Wizard(value)) return true
+        // A wizard saved before v22 (sizes, no scope) or SW7: replaced, like Biznes rules of an old shape.
+        if (key === 'wizard' && isPreV22Wizard(value)) return true
         // Window texts in an older shape would hide the window's shared parts: replaced (SWR3).
         if (key === 'offer' && value != null) return !softwareOfferSchema.safeParse(value).success
         return value === null || value === undefined

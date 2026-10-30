@@ -9,14 +9,16 @@ import type { SoftwareWizard } from '@/lib/software/wizard'
 import {
   choiceOf,
   EMPTY_ANSWERS,
-  hasSize,
   needOf,
   orderedNeeds,
   previewOf,
   resultView,
-  STEP,
+  shopHintApplies,
+  stepsOf,
+  tileHintOf,
   type WizardAnswers,
   type WizardSolution,
+  type WizardStep,
 } from '@/lib/software/wizardFlow'
 
 import { PathIcon, WizardPreview } from './WizardPreview'
@@ -28,7 +30,7 @@ export type WizardProps = {
   /** Solutions that price the results, by slug (published ones of this site). */
   solutions: Record<string, WizardSolution>
   /** From `parseWizardParams` (`?potrzeba=`, `?firma=`, `?tryb=opis`). */
-  initial: { step: number; answers: WizardAnswers }
+  initial: { step: WizardStep; answers: WizardAnswers }
   formToken: string
   phone: { label: string; href: string } | null
   /** `h1` on `/dobierz`, `h2` as a section of the start page (SW5). */
@@ -88,16 +90,16 @@ function Choice({ title, chips, empty }: { title: string; chips: string[]; empty
 }
 
 /**
- * The Software wizard (spec. §6.3, board `Kreator`, stany 50–55, 87a–f): five steps on the left,
- * the live preview on the right, the result with the price of the chosen size and the quote
- * form. One component for `/dobierz` and the start page section (SW5). Everything it shows comes
+ * The Software wizard (spec. §6.3, board `Kreator`): four steps on the left (three for „opisz po
+ * swojemu”), the live preview on the right, the result with the one „od” price, the add-ons and
+ * the quote form. SWR4a keeps the SW7 look; the v22 layout comes with SWR4b. One component for `/dobierz` and the start page section (SW5). Everything it shows comes
  * from `rules` through `lib/software/wizardFlow` — no need ids here.
  */
 export function Wizard({ rules, solutions, initial, formToken, phone, headingLevel }: WizardProps) {
   const id = useId()
   const [answers, setAnswers] = useState<WizardAnswers>(initial.answers)
   const [step, setStep] = useState(initial.step)
-  const [maxStep, setMaxStep] = useState(initial.step)
+  const [maxStep, setMaxStep] = useState(() => stepsOf(initial.answers).indexOf(initial.step))
   const [previewOpen, setPreviewOpen] = useState(false)
   const [sent, setSent] = useState<{ number: string | null } | null>(null)
   const titleRef = useRef<HTMLHeadingElement>(null)
@@ -109,32 +111,34 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
   }, [step])
 
   const need = needOf(rules, answers)
-  const sized = hasSize(rules, answers)
+  const steps = stepsOf(answers)
+  const stepNames = answers.own ? rules.stepsOwn : rules.steps
+  const stepIndex = steps.indexOf(step)
   // Changing an answer after sending keeps the „Wysłane” card: no second inquiry by accident.
   // Only a new path (another need, „opisz po swojemu”) starts a new quote.
   const update = (patch: Partial<WizardAnswers>) => {
     setAnswers((current) => ({ ...current, ...patch }))
   }
-  const go = (next: number) => {
+  const go = (next: WizardStep) => {
     moved.current = true
     setStep(next)
-    setMaxStep((current) => Math.max(current, next))
+    setMaxStep((current) => Math.max(current, steps.indexOf(next)))
   }
-  const skipped = (index: number) => answers.own && (index === STEP.detail || index === STEP.scope)
+  const toggle = (list: string[], value: string) =>
+    list.includes(value) ? list.filter((each) => each !== value) : [...list, value]
 
   const pickNeed = (needId: string) => {
     setSent(null)
     setAnswers((current) => ({
       ...EMPTY_ANSWERS,
-      size: current.size,
       contactPref: current.contactPref,
       // A new path clears the description of the previous one (spec. §6.3).
       description: current.need === needId ? current.description : '',
       need: needId,
     }))
     moved.current = true
-    setStep(STEP.detail)
-    setMaxStep(STEP.detail)
+    setStep('detail')
+    setMaxStep(1)
   }
   const pickOwn = () => {
     setSent(null)
@@ -145,21 +149,17 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
       own: true,
     }))
     moved.current = true
-    setStep(STEP.describe)
-    setMaxStep(STEP.describe)
+    setStep('describe')
+    setMaxStep(1)
   }
   const pickOption = (optionId: string) => {
     if (!need) return
     if (need.multi) {
-      const has = answers.options.includes(optionId)
-      update({
-        options: has
-          ? answers.options.filter((option) => option !== optionId)
-          : [...answers.options, optionId],
-      })
+      update({ options: toggle(answers.options, optionId), more: [], addOns: [] })
     } else {
-      update({ options: [optionId], checklist: [] })
-      go(STEP.scope)
+      // Another answer may mean another result: its „więcej”, add-ons and checklist start over.
+      update({ options: [optionId], checklist: [], more: [], addOns: [], shop: false })
+      go('scope')
     }
   }
   const addPhrase = (phrase: string) => {
@@ -178,7 +178,8 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
   const preview = previewOf(rules, answers)
   const haveSet = need?.have ? rules.haves[need.have] : undefined
   const rows = [...new Set(Object.values(rules.needs).map((each) => each.row))].sort()
-  const multiEmpty = step === STEP.detail && !!need?.multi && answers.options.length === 0
+  const multiEmpty = step === 'detail' && !!need?.multi && answers.options.length === 0
+  const shopHint = shopHintApplies(rules, answers) ? rules.shopHint : null
 
   return (
     <div>
@@ -215,21 +216,20 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
         <div data-wizard-column="left" className="min-w-0">
           <div className="sticky top-[66px] z-20 -mx-4 flex items-center gap-2 bg-surface/90 px-4 py-3 backdrop-blur-md sm:top-[76px] min-[1081px]:static min-[1081px]:mx-0 min-[1081px]:bg-transparent min-[1081px]:p-0 min-[1081px]:backdrop-blur-none">
             <ol className="flex min-w-0 flex-1 gap-1.5 overflow-x-auto [scrollbar-width:none]">
-              {rules.steps.map((name, index) => {
-                const current = index === step
+              {stepNames.map((name, index) => {
+                const current = index === stepIndex
                 const done = index <= maxStep && !current
-                const off = skipped(index)
+                const target = steps[index]
                 return (
                   <li key={name} className="shrink-0">
                     <button
                       type="button"
                       aria-current={current ? 'step' : undefined}
-                      disabled={index > maxStep || off}
-                      onClick={() => go(index)}
+                      disabled={index > maxStep || !target}
+                      onClick={() => target && go(target)}
                       className={cx(
                         'inline-flex min-h-11 items-center gap-2 rounded-full py-1 pl-1 pr-3 text-sm font-extrabold',
                         current ? 'bg-accent text-accent-ink' : 'bg-chip text-ink',
-                        off && 'opacity-45',
                       )}
                     >
                       <span
@@ -249,10 +249,10 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
                 )
               })}
             </ol>
-            {step > 0 && (
+            {stepIndex > 0 && (
               <button
                 type="button"
-                onClick={() => go(answers.own && step === STEP.describe ? STEP.need : step - 1)}
+                onClick={() => go(steps[stepIndex - 1] ?? 'need')}
                 className="inline-flex min-h-11 shrink-0 items-center gap-1 px-2 text-sm font-extrabold"
               >
                 <Icon name="arrow" className="size-4 rotate-180" />
@@ -261,7 +261,7 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
             )}
           </div>
 
-          {step === STEP.need && (
+          {step === 'need' && (
             <section aria-labelledby={`${id}-title`} className="mt-5">
               <StepHeading id={`${id}-title`} ref={titleRef} tabIndex={-1} className={stepTitle}>
                 {rules.ui.needTitle}
@@ -290,6 +290,12 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
                           </span>
                           <b className="mt-1 font-display text-[17px] leading-tight">{each.n}</b>
                           <span className="hidden text-sm text-ink-2 sm:block">{each.d}</span>
+                          <span
+                            data-wizard-tile-price
+                            className="text-sm font-extrabold text-accent-text"
+                          >
+                            {tileHintOf(rules, needId, solutions)}
+                          </span>
                         </button>
                       ))}
                     </div>
@@ -313,7 +319,7 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
             </section>
           )}
 
-          {step === STEP.detail && need && (
+          {step === 'detail' && need && (
             <section aria-labelledby={`${id}-title`} className="mt-5">
               <StepHeading id={`${id}-title`} ref={titleRef} tabIndex={-1} className={stepTitle}>
                 {need.q}
@@ -366,7 +372,7 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
                   <button
                     type="button"
                     aria-disabled={multiEmpty}
-                    onClick={() => !multiEmpty && go(STEP.scope)}
+                    onClick={() => !multiEmpty && go('scope')}
                     className={cx(primary, multiEmpty && 'bg-chip text-ink-2 shadow-none')}
                   >
                     {rules.ui.next}
@@ -376,35 +382,54 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
             </section>
           )}
 
-          {step === STEP.scope && need && (
+          {step === 'scope' && need && (
             <section aria-labelledby={`${id}-title`} className="mt-5">
               <StepHeading id={`${id}-title`} ref={titleRef} tabIndex={-1} className={stepTitle}>
                 {rules.ui.scopeTitle}
               </StepHeading>
-              {sized && (
+              {view.included.length > 0 && (
+                <div className="mt-5 rounded-[20px] border border-accent-line bg-accent-soft p-4">
+                  <p className={label}>{rules.priceDisplay.scopeIntro}</p>
+                  <p data-wizard-scope-price className="mt-1 font-display text-xl font-extrabold">
+                    {view.price} · {view.term}
+                  </p>
+                  <ul className="mt-2 list-disc pl-5 text-sm font-bold">
+                    {view.included.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              {view.ask && <p className="mt-5 text-sm font-bold">{view.priceSub}</p>}
+              {view.more.length > 0 && (
                 <fieldset className="mt-5">
-                  <legend className={label}>{rules.ui.sizeQ}</legend>
-                  <div className="mt-2.5 grid grid-cols-3 gap-2.5">
-                    {rules.sizes.map((size) => {
-                      const on = answers.size === size.id
-                      return (
-                        <button
-                          key={size.id}
-                          type="button"
-                          aria-pressed={on}
-                          onClick={() => update({ size: size.id })}
-                          className={cx(
-                            'rounded-2xl border bg-card px-3 py-3 text-left',
-                            on ? 'border-accent-text' : 'border-border hover:border-ink-2',
-                          )}
-                        >
-                          <b className="block text-sm">{size.n}</b>
-                          <span className="text-xs text-ink-2 sm:text-sm">{size.d}</span>
-                        </button>
-                      )
-                    })}
+                  <legend className={label}>{rules.priceDisplay.moreHint}</legend>
+                  <div className="mt-2.5 flex flex-wrap gap-2">
+                    {view.more.map((each) => (
+                      <button
+                        key={each.id}
+                        type="button"
+                        aria-pressed={each.on}
+                        onClick={() => update({ more: toggle(answers.more, each.id) })}
+                        className={chip(each.on)}
+                      >
+                        {each.name}
+                      </button>
+                    ))}
                   </div>
                 </fieldset>
+              )}
+              {shopHint && (
+                <button
+                  type="button"
+                  onClick={() => update({ shop: !answers.shop, more: [], addOns: [] })}
+                  className="mt-5 flex w-full flex-col items-start rounded-2xl border border-dashed border-accent-line bg-card p-4 text-left"
+                >
+                  <b>{answers.shop ? shopHint.back.title : shopHint.toShop.title}</b>
+                  <span className="text-sm text-ink-2">
+                    {answers.shop ? shopHint.back.sub : shopHint.toShop.sub}
+                  </span>
+                </button>
               )}
               {need.url && (
                 <div className="mt-5">
@@ -457,15 +482,30 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
                   ))}
                 </div>
               </fieldset>
+              <div className="mt-5">
+                <label htmlFor={`${id}-scope-description`} className={label}>
+                  {rules.ui.describe.title}{' '}
+                  <span className="normal-case tracking-normal">{rules.ui.describe.optional}</span>
+                </label>
+                <textarea
+                  id={`${id}-scope-description`}
+                  rows={3}
+                  maxLength={2000}
+                  value={answers.description}
+                  onChange={(event) => update({ description: event.target.value })}
+                  placeholder={rules.ui.describe.placeholder}
+                  className="mt-2.5 block w-full rounded-[18px] border-[1.5px] border-border-input bg-surface-2 p-4 text-ink placeholder:text-ink-3 focus:border-accent-text"
+                />
+              </div>
               <Actions>
-                <button type="button" onClick={() => go(STEP.describe)} className={primary}>
-                  {rules.ui.next}
+                <button type="button" onClick={() => go('result')} className={primary}>
+                  {rules.ui.showResult}
                 </button>
               </Actions>
             </section>
           )}
 
-          {step === STEP.describe && (
+          {step === 'describe' && (
             <section aria-labelledby={`${id}-title`} className="mt-5">
               <StepHeading id={`${id}-title`} ref={titleRef} tabIndex={-1} className={stepTitle}>
                 {rules.ui.describe.title}{' '}
@@ -508,19 +548,19 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
               <Actions>
                 <button
                   type="button"
-                  onClick={() => go(STEP.result)}
+                  onClick={() => go('result')}
                   className="min-h-12 px-3 font-extrabold"
                 >
                   {rules.ui.describe.skip}
                 </button>
-                <button type="button" onClick={() => go(STEP.result)} className={primary}>
+                <button type="button" onClick={() => go('result')} className={primary}>
                   {rules.ui.showResult}
                 </button>
               </Actions>
             </section>
           )}
 
-          {step === STEP.result && (
+          {step === 'result' && (
             <section aria-labelledby={`${id}-title`} className="mt-5 flex flex-col gap-4">
               <div className="flex items-center gap-3">
                 <span className="rounded-lg bg-ok-text px-2.5 py-1 text-xs font-extrabold uppercase tracking-[0.1em] text-surface">
@@ -538,26 +578,7 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
                   {view.resultNote}
                 </p>
               )}
-              {view.hasSize && (
-                <div role="group" aria-label={rules.ui.sizeQ} className="grid grid-cols-3 gap-2.5">
-                  {rules.sizes.map((size) => (
-                    <button
-                      key={size.id}
-                      type="button"
-                      aria-pressed={answers.size === size.id}
-                      onClick={() => update({ size: size.id })}
-                      className={cx(
-                        'min-h-11 rounded-2xl border bg-card px-2 text-sm font-bold',
-                        answers.size === size.id
-                          ? 'border-accent-text'
-                          : 'border-border hover:border-ink-2',
-                      )}
-                    >
-                      {size.n}
-                    </button>
-                  ))}
-                </div>
-              )}
+              {view.recommend && <p className="font-bold">{view.recommend}</p>}
               <dl className="grid grid-cols-2 gap-3" aria-live="polite">
                 <div className="rounded-2xl border border-accent-line bg-accent-soft p-4">
                   <dt className={label}>{rules.ui.priceLabel}</dt>
@@ -582,6 +603,40 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
                 <p className="rounded-xl bg-surface-2 px-3 py-2.5 text-sm font-bold">
                   {view.scope}
                 </p>
+              )}
+              {view.toQuote.length > 0 && (
+                <div data-wizard-to-quote className="rounded-xl bg-surface-2 px-3 py-2.5 text-sm">
+                  <p className="font-bold">{rules.priceDisplay.moreSelectedNote}</p>
+                  <p className="mt-1">+ {view.toQuote.join(', ')}</p>
+                </div>
+              )}
+              {view.honest && (
+                <p className="rounded-xl border border-border px-3 py-2.5 text-sm">{view.honest}</p>
+              )}
+              {view.addOns.length > 0 && (
+                <div className="flex flex-col gap-2">
+                  {view.addOns.map((addOn) => (
+                    <button
+                      key={addOn.id}
+                      type="button"
+                      aria-pressed={addOn.on}
+                      onClick={() => update({ addOns: toggle(answers.addOns, addOn.id) })}
+                      className={cx(
+                        'flex items-center gap-3 rounded-2xl border bg-card p-3 text-left',
+                        addOn.on ? 'border-accent-text' : 'border-border hover:border-ink-2',
+                      )}
+                    >
+                      <span className="inline-flex size-9 shrink-0 items-center justify-center rounded-lg bg-accent-soft text-accent-text">
+                        <PathIcon d={addOn.icon} className="size-[18px]" />
+                      </span>
+                      <span className="flex-1">
+                        <b className="block text-sm">{addOn.name}</b>
+                        <span className="text-xs text-ink-2">{addOn.description}</span>
+                      </span>
+                      <span className="text-sm font-extrabold">{addOn.price}</span>
+                    </button>
+                  ))}
+                </div>
               )}
               {view.whenNote && (
                 <p className="flex items-start gap-2 text-sm font-bold">
@@ -647,7 +702,7 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
             onClick={() => setPreviewOpen(!previewOpen)}
             className={cx(
               'flex min-h-12 items-center justify-between rounded-2xl border border-border bg-card px-4 font-extrabold min-[1081px]:hidden',
-              step === STEP.result ? 'order-2' : 'order-0',
+              step === 'result' ? 'order-2' : 'order-0',
             )}
           >
             {rules.mobile.previewToggle[previewOpen ? 1 : 0]}
@@ -660,12 +715,12 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
             className={cx(
               'min-[1081px]:flex min-[1081px]:flex-1 min-[1081px]:flex-col',
               previewOpen ? 'flex flex-col' : 'hidden',
-              step === STEP.result ? 'order-3 min-[1081px]:order-0' : 'order-1',
+              step === 'result' ? 'order-3 min-[1081px]:order-0' : 'order-1',
             )}
           >
             <WizardPreview preview={preview} idle={rules.ui.idle} />
           </div>
-          {step === STEP.result ? (
+          {step === 'result' ? (
             <div className="order-1 min-[1081px]:order-0">
               <WizardSend
                 rules={rules}
@@ -684,7 +739,7 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
             <div className="order-2 hidden rounded-[20px] border border-border bg-card p-4 min-[1081px]:block">
               <Choice
                 title={rules.ui.yourChoice}
-                chips={choiceOf(rules, answers, { withScope: step > STEP.scope })}
+                chips={choiceOf(rules, answers, { withWhen: stepIndex > steps.indexOf('scope') })}
                 empty={rules.ui.choiceEmpty}
               />
             </div>

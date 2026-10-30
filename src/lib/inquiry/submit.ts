@@ -5,6 +5,7 @@ import { buildKit, parseWizardAnswers, proposedSlugs, wizardSummary } from '../c
 import { errorFields, log } from '../log'
 import type { SoftwareWizard } from '../software/wizard'
 import {
+  addOnSlugsOf,
   contactPrefOf,
   needOf,
   parseSoftwareAnswers,
@@ -159,7 +160,7 @@ export function siteUrl(text: string): string | undefined {
 
 /**
  * The Software wizard's answers as an inquiry (spec. §6.3): checked against this site's rules,
- * the recommended solution as the item (published, this tenant), the answers named for people,
+ * the recommended solution and the added add-ons as items (published, this tenant), the answers named for people,
  * the message written here and the contact preference mapped — or `null` when the answers do
  * not fit the rules (or there are none).
  */
@@ -171,13 +172,15 @@ async function composeSoftwareWizard(
   const rules = await deps.findSoftwareWizard(tenantId)
   const answers = rules ? parseSoftwareAnswers(rules, input) : null
   if (!rules || !answers) return null
-  const slug = rules.resultToSolutionSlug[resultIdOf(rules, answers)] ?? null
-  const solutions = slug ? await deps.findSolutions(tenantId, [slug]) : []
-  const items = solutions.map((solution) => ({
-    solution: solution.id,
-    nameSnapshot: solution.name,
-    quantity: 1,
-  }))
+  // The recommended solution first, then the added add-ons (each solution once).
+  const result = rules.resultToSolutionSlug[resultIdOf(rules, answers)] ?? null
+  const slugs = [...new Set([...(result ? [result] : []), ...addOnSlugsOf(rules, answers)])]
+  const found = slugs.length > 0 ? await deps.findSolutions(tenantId, slugs) : []
+  const bySlug = new Map(found.map((solution) => [solution.slug, solution]))
+  const items = slugs.flatMap((slug) => {
+    const solution = bySlug.get(slug)
+    return solution ? [{ solution: solution.id, nameSnapshot: solution.name, quantity: 1 }] : []
+  })
   const when = rules.whens.find((option) => option.id === answers.when)?.n
   return {
     items,

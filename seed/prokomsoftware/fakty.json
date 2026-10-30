@@ -1,5 +1,5 @@
 {
-  "_info": "Wartości [SZEF] i inne placeholdery używane w tekstach plansz i seedów. Trafiają do SiteSettings.software.facts (klucz → wartość). Renderer podmienia [KLUCZ] w tekstach; tekst z nierozwiązanym placeholderem na produkcji nie jest wyświetlany (ADR-014 §1.4). Jeden klucz = jedna wartość w całej stronie (ADR-014 rozstrz. 4): ceny i terminy rozwiązań są w Solutions ({termin} = leadTime), telefon i e-mail linii w SiteSettings.phone/email, poziomy opieki w bloku cennika. Wszystkie wartości = null do decyzji (spec. §13). Wartości wpisane 25.10.2026 (zaakceptowane przez Krystiana, przed publikacją akceptacja szefa). null = linia/element ukryty. Zostają do decyzji szefa: ADRES SALONU W ZAKOPANEM, IMIĘ I NAZWISKO; WYNIK = po pomiarze na produkcji. v20: dochodzą TELEFON ZAKOPANE, OKRES PRZECHOWYWANIA, DATA AKTUALIZACJI (puste — decyzja szefa).",
+  "_info": "Wartości [SZEF] i inne placeholdery używane w tekstach plansz i seedów. Trafiają do SiteSettings.software.facts (klucz → wartość). Renderer podmienia [KLUCZ] w tekstach; tekst z nierozwiązanym placeholderem na produkcji nie jest wyświetlany (ADR-014 §1.4). Jeden klucz = jedna wartość w całej stronie (ADR-014 rozstrz. 4): ceny i terminy rozwiązań są w Solutions ({termin} = leadTime), telefon i e-mail linii w SiteSettings.phone/email, poziomy opieki w bloku cennika. Wszystkie wartości = null do decyzji (spec. §13). Wartości wpisane 25.10.2026 (zaakceptowane przez Krystiana, przed publikacją akceptacja szefa). null = linia/element ukryty. Zostają do decyzji szefa: ADRES SALONU W ZAKOPANEM, IMIĘ I NAZWISKO; WYNIK = po pomiarze na produkcji. v20: dochodzą TELEFON ZAKOPANE, OKRES PRZECHOWYWANIA, DATA AKTUALIZACJI (puste — decyzja szefa). SWR4: bez [DATA] — datę „jeśli zaczniemy do …” kreator liczy z `winterDeadline`.",
   "facts": {
     "OPIEKA OD": "149",
     "CZAS PIERWSZEGO ETAPU": "3–4 tygodniach",
@@ -12,7 +12,6 @@
     "ZALICZKA": "30%",
     "ZASADY PŁATNOŚCI": "Przy stronach 70% po odbiorze, przy systemach raty po każdym etapie. Faktura VAT, przelew 7 dni.",
     "MIESIĄC": null,
-    "DATA": "30 listopada",
     "WYNIK": null,
     "ADRES": "ul. Orkana 16B, 34-700 Rabka-Zdrój",
     "ADRES SALONU W ZAKOPANEM": null,

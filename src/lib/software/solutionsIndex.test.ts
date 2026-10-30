@@ -71,7 +71,8 @@ describe('solutions index on the seed package', () => {
 
   it('has the price templates of the wizard settings', () => {
     expect(index.priceDisplay).toMatchObject({
-      templateFrom: 'od {cena} zł netto',
+      template: 'od {cena} zł netto',
+      short: 'od {cena} zł',
       monthTemplate: 'od {cena} zł / mies.',
       fallback: 'Zapytaj o wycenę',
       termFallback: 'po krótkiej rozmowie',
@@ -81,7 +82,7 @@ describe('solutions index on the seed package', () => {
   it('falls back to the default templates without valid wizard settings', () => {
     const source = solutionsSourceFromSeed()
     const broken = buildSolutionsIndex({ ...source, priceDisplay: { template: 'bez tokenu' } })
-    expect(broken.priceDisplay.templateFrom).toBe('od {cena} zł netto')
+    expect(broken.priceDisplay.template).toBe('od {cena} zł netto')
     expect(buildSolutionsIndex({ ...source, priceDisplay: null }).priceDisplay.fallback).toBe(
       'Zapytaj o wycenę',
     )

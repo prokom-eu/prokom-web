@@ -474,7 +474,7 @@ describe('submitInquiry (ADR-003)', () => {
     })
   })
 
-  describe('Software wizard (SW7)', () => {
+  describe('Software wizard (SW7, v22)', () => {
     const software = (overrides: Partial<SubmitDeps> = {}) =>
       deps({
         findTenant: vi.fn(async () => ({
@@ -483,10 +483,11 @@ describe('submitInquiry (ADR-003)', () => {
           line: 'software' as const,
           notificationEmail: 's@p.pl',
         })),
-        // Tenant 2 prices „Strona firmowa z panelem” (the only published solution there).
+        // Published on tenant 2 (in this order — the inquiry keeps the wizard's order).
         findSolutions: vi.fn(async (tenantId: number, slugs: string[]) =>
           tenantId === 2
             ? [
+                { id: 13, slug: 'opieka-nad-strona-i-systemem', name: 'Opieka nad stroną' },
                 { id: 11, slug: 'strona-firmowa-z-panelem', name: 'Strona firmowa z panelem' },
                 { id: 12, slug: 'przebudowa-starej-strony', name: 'Przebudowa starej strony' },
               ].filter((solution) => slugs.includes(solution.slug))
@@ -499,12 +500,14 @@ describe('submitInquiry (ADR-003)', () => {
       need: 'firm',
       own: false,
       options: ['bud'],
-      size: 'start',
       have: null,
       url: '',
       when: 'lato',
       description: 'Chcę więcej telefonów.',
       checklist: [],
+      more: ['blog'],
+      addOns: ['opieka', 'sms'],
+      shop: false,
       contactPref: 'salon',
     }
     const wizardBody = {
@@ -515,25 +518,37 @@ describe('submitInquiry (ADR-003)', () => {
       wizard: answers,
     }
 
-    it('saves the recommendation, the named answers and the message written here', async () => {
+    it('saves the recommendation and the add-ons, the named answers and the message', async () => {
       const d = software()
       expect((await submitInquiryWith(d, { ...softwareRequest, body: wizardBody })).ok).toBe(true)
       expect(d.findWizard).not.toHaveBeenCalled()
-      expect(d.findSolutions).toHaveBeenCalledWith(2, ['strona-firmowa-z-panelem'])
+      expect(d.findSolutions).toHaveBeenCalledWith(2, [
+        'strona-firmowa-z-panelem',
+        'opieka-nad-strona-i-systemem',
+        'powiadomienia-sms-i-e-mail',
+      ])
       expect(d.save).toHaveBeenCalledWith(
         expect.objectContaining({
           line: 'software',
           type: 'wizard',
-          items: [{ solution: 11, nameSnapshot: 'Strona firmowa z panelem', quantity: 1 }],
+          // The result first; the SMS add-on is not published on this site, so it is dropped.
+          items: [
+            { solution: 11, nameSnapshot: 'Strona firmowa z panelem', quantity: 1 },
+            { solution: 13, nameSnapshot: 'Opieka nad stroną', quantity: 1 },
+          ],
           preferredContact: 'meeting',
           deadline: 'Przed latem',
-          message: expect.stringContaining('Kreator: Strona firmowa z panelem (Na start)'),
+          message: expect.stringContaining('+ do wyceny: Aktualności i blog'),
           wizard: expect.objectContaining({
-            Potrzeba: 'Strona firmowa',
+            Potrzeba: 'Strona dla firmy',
             Szczegóły: ['Budowlanka i remonty'],
+            'Do wyceny': ['Aktualności i blog'],
+            Dodatki: ['Opieka nad stroną', 'Powiadomienia SMS i e-mail'],
           }),
         }),
       )
+      const saved = vi.mocked(d.save).mock.calls[0]?.[0]
+      expect(saved?.message).toMatch(/^Kreator: Strona firmowa z panelem\n/)
     })
 
     it('keeps the current site of a refresh as the address to look at', async () => {
@@ -543,6 +558,8 @@ describe('submitInquiry (ADR-003)', () => {
         need: 'odsw',
         options: ['wolna'],
         url: 'stara-firma.pl',
+        more: [],
+        addOns: [],
       }
       const result = await submitInquiryWith(d, {
         ...softwareRequest,
@@ -560,6 +577,8 @@ describe('submitInquiry (ADR-003)', () => {
     it('rejects answers that do not fit the rules, and a site without rules', async () => {
       for (const [d, wizard] of [
         [software(), { ...answers, options: ['zlec'] }],
+        [software(), { ...answers, size: 'start' }],
+        [software(), { ...answers, addOns: ['opiekaSys'] }],
         [software({ findSoftwareWizard: vi.fn(async () => null) }), answers],
       ] as const) {
         expect(
@@ -577,7 +596,7 @@ describe('submitInquiry (ADR-003)', () => {
 
     it('saves the advice without an item when nothing prices it („Opisz po swojemu”)', async () => {
       const d = software()
-      const own = { ...answers, need: null, own: true, options: [] }
+      const own = { ...answers, need: null, own: true, options: [], more: [], addOns: [] }
       expect(
         (await submitInquiryWith(d, { ...softwareRequest, body: { ...wizardBody, wizard: own } }))
           .ok,

@@ -1,36 +1,42 @@
 import { z } from 'zod'
 
-import { SOLUTION_SIZES } from './options'
 import { firstIssue, key, label, obj, slug, svgPath, text } from './schema'
 
 /**
  * Rules and texts of the Software wizard (`/dobierz`, spec. §6.3), one JSON value in
- * `SoftwareSettings.wizard` (ADR-014 §1.3, rozstrz. v20 1, 7). The shape is
+ * `SoftwareSettings.wizard` (ADR-014 §1.3, v22 pkt 10). The shape is
  * `seed/prokomsoftware/kreator.json` 1:1 — its short keys (`n` name, `d` description, `ic` icon,
  * `pv` preview, `q` question, `h` hint, `o` options, `g` gains, `nd` what we need) stay as they are.
- * Prices are never here: they come from `Solutions.prices` (`resultToSolutionSlug`).
+ * Prices and terms are never here: they come from `Solutions` (`resultToSolutionSlug`,
+ * `addOns.items[].slug`, `{cena:<slug>}` / `{termin:<slug>}` in texts). One „od” price, no sizes.
  */
 
 const option = obj({ id: key, n: label, ic: svgPath })
 
-const size = z.enum(SOLUTION_SIZES)
-
 /**
- * When a rule applies (SW7 — the board kept these rules in its script): every list given must
- * match, any value of a list is enough. `options` = one of the answers to the need's question.
+ * When a rule applies (the board kept these rules in its script): every key given must match,
+ * any value of a list is enough; `{}` always applies. `options` = one of the answers to the need's
+ * question, `haves` = the „Co już masz?” chip, `whens` = the term chip, `minOptions` = at least
+ * that many answers, `outsidePrice` = an answer outside `scope.<result>.featuresInPrice`.
  */
 const condition = obj({
   needs: z.array(key).min(1).optional(),
   options: z.array(key).min(1).optional(),
   results: z.array(key).min(1).optional(),
   kinds: z.array(label).min(1).optional(),
-  sizes: z.array(size).min(1).optional(),
+  haves: z.array(key).min(1).optional(),
+  whens: z.array(key).min(1).optional(),
+  minOptions: z.number().int().min(1).max(20).optional(),
+  outsidePrice: z.literal(true).optional(),
 })
 
 export type WizardCondition = z.infer<typeof condition>
 
 /** Any of the conditions; an empty list never applies. */
 const anyOf = z.array(condition)
+
+/** A sentence shown when its conditions apply — the first matching rule of a list wins. */
+const sentenceRule = obj({ when: anyOf.min(1), text })
 
 /** Parts of the sample site in the live preview, switched by `preview.features`. */
 export const PREVIEW_FEATURES = [
@@ -56,11 +62,9 @@ const need = obj({
   h: text,
   o: z.array(option).min(1),
   multi: z.boolean().optional(),
-  /** No size step (wizytówka, landing page). */
-  noSize: z.boolean().optional(),
   /** Set of „Co już masz?” chips (`haves`) in step 3. */
   have: key.optional(),
-  /** Address field instead of the chips (odświeżenie: the current site). */
+  /** Address field instead of the chips (przebudowa: the current site). */
   url: obj({ q: label, placeholder: label }).optional(),
   /** Sentence in step 3 in place of a file field (spec. §7.3). */
   fileNote: text.optional(),
@@ -88,26 +92,47 @@ const template = (token: string) =>
 const notes = z.object({ _info: z.string().optional() }).catchall(text)
 
 /**
- * How prices read on the site (kreator.json → `priceDisplay`): a chosen size, „od” the lowest,
- * the monthly care price, no price and no term. Also used by the catalog cards (SW9).
+ * How prices read on the site (kreator.json → `priceDisplay`): always „od” (v22). Also used by the
+ * catalog cards (SW9) and the offer window (SWR3).
  */
 export const priceDisplaySchema = obj({
+  /** „od {cena} zł netto” — the result and the cards. */
   template: template('{cena}'),
-  templateFrom: template('{cena}'),
+  /** „od {cena} zł” — tiles of step 1 and add-ons. */
+  short: template('{cena}'),
+  /** Care from its lowest level: „od {cena} zł / mies.”. */
+  monthTemplate: template('{cena}'),
+  /** The price of one care level: „{cena} zł / mies.”. */
+  levelMonthTemplate: template('{cena}'),
   fallback: label,
   termFallback: label,
-  monthTemplate: template('{cena}'),
+  priceSub: label,
+  /** Under „Potrzebujesz czegoś więcej?” — before and after something is ticked. */
+  moreHint: text,
+  moreSelectedNote: text,
+  /** A result without a price (apps, automations). */
+  noPrice: obj({ price: label, term: label, priceSub: label, termSub: text, mobileBar: label }),
+  scopeIntro: label,
 })
 
 export type PriceDisplay = z.infer<typeof priceDisplaySchema>
 
+/** Step „Zakres”: what the „od” price includes and examples of more (quoted in writing). */
+const scopeEntry = obj({
+  included: z.array(label).min(1).max(6),
+  moreExamples: z.array(obj({ id: key, n: label })).max(6),
+  /** Answers of the need's question within the price (rozbudowana: blog); others are extra. */
+  featuresInPrice: z.array(key).optional(),
+})
+
+const shopSwitch = obj({ title: label, sub: label, result: key })
+
 export const softwareWizardSchema = obj({
-  steps: z.array(label).length(5),
+  steps: z.array(label).length(4),
+  /** Steps of „Opisz po swojemu”. */
+  stepsOwn: z.array(label).length(3),
   needs: z.record(key, need),
   results: z.record(key, result),
-  sizes: z
-    .array(obj({ id: z.enum(SOLUTION_SIZES), n: label, d: label }))
-    .length(SOLUTION_SIZES.length),
   whens: z.array(obj({ id: key, n: label })).min(1),
   phrases: z.array(label),
   contactPrefs: z
@@ -131,12 +156,43 @@ export const softwareWizardSchema = obj({
       o: z.array(obj({ id: key, n: label, resultNote: text.optional() })).min(1),
     }),
   ),
-  /** Line added to the gains of a result with sizes. */
-  sizeGains: obj({ start: text, std: text, full: text }),
+  scope: z.object({ _info: z.string().optional() }).catchall(scopeEntry),
+  /** „Dlaczego to rozwiązanie” — `{lista}` = the chosen answers. */
+  recommend: z.array(sentenceRule),
+  /** Honest note when less may be enough. */
+  honest: z.array(sentenceRule),
+  addOns: obj({
+    items: z
+      .array(
+        obj({
+          id: key,
+          n: label,
+          d: text,
+          /** Key of `icons`. */
+          icon: key,
+          /** The solution that prices the add-on (and becomes an item of the inquiry). */
+          slug,
+          /** Name of a level of that solution (`Solutions.levels`) — its price instead. */
+          level: label.optional(),
+        }),
+      )
+      .min(1),
+    /** The first rule that applies lists the add-ons of a result (`[]` = none). */
+    rules: z.array(obj({ when: anyOf.min(1), items: z.array(key).max(4) })).min(1),
+  }),
+  /** „Chcesz sprzedawać online?” — switches the result to the shop and back. */
+  shopHint: obj({ when: anyOf.min(1), toShop: shopSwitch, back: shopSwitch }),
   /** Scope line under the price: the first rule that applies picks a `scopeNotes` key. */
   scopeRules: z.array(obj({ when: anyOf.min(1), note: key })),
   /** A bigger job: `whenNotes` uses `<when>Big` instead of `<when>Small`. */
   bigWhen: anyOf,
+  /** `{data}` of the term notes: the next such day from today („30 listopada”). */
+  winterDeadline: obj({
+    day: z.number().int().min(1).max(31),
+    month: z.number().int().min(1).max(12),
+  }).refine(({ day, month }) => day <= new Date(Date.UTC(2024, month, 0)).getUTCDate(), {
+    message: 'Nie ma takiego dnia.',
+  }),
   /** A free result (`results[].free`): no price and term from `Solutions`. */
   free: obj({ price: label, term: label }),
   preview: obj({
@@ -167,7 +223,6 @@ export const softwareWizardSchema = obj({
     rows: z.array(label).min(1).max(4),
     own: obj({ title: label, text }),
     scopeTitle: label,
-    sizeQ: label,
     whenQ: label,
     describe: obj({
       title: label,
@@ -182,8 +237,6 @@ export const softwareWizardSchema = obj({
     recommend: label,
     priceLabel: label,
     termLabel: label,
-    /** Term of a result without sizes: the first size's term. */
-    termFrom: template('{czas}'),
     /** Choice chip of „Opisz po swojemu”. */
     ownChip: label,
     checklist: obj({ title: label, hint: text }),
@@ -219,7 +272,6 @@ export const softwareWizardSchema = obj({
     lato: text,
     brak: text,
     default: text,
-    _rule: z.string().optional(),
   }),
   priceDisplay: priceDisplaySchema,
   scopeNotes: notes,
@@ -243,8 +295,14 @@ export const softwareWizardSchema = obj({
 }).superRefine((wizard, ctx) => {
   const results = new Set(Object.keys(wizard.results))
   const needs = new Set(Object.keys(wizard.needs))
+  const haves = new Set(Object.values(wizard.haves).flatMap((set) => set.o.map((o) => o.id)))
+  const whens = new Set(wizard.whens.map((when) => when.id))
   const issue = (path: (string | number)[], message: string) =>
     ctx.addIssue({ code: 'custom', path, message })
+  const duplicates = (ids: string[], path: (string | number)[]) =>
+    ids.forEach((id, index) => {
+      if (ids.indexOf(id) !== index) issue([...path, index, 'id'], `„${id}” jest dwa razy.`)
+    })
 
   for (const [needId, target] of Object.entries(wizard.mapping)) {
     if (needId !== 'own' && !needs.has(needId)) issue(['mapping', needId], 'Nieznana potrzeba.')
@@ -263,11 +321,10 @@ export const softwareWizardSchema = obj({
   for (const resultId of Object.keys(wizard.resultToSolutionSlug)) {
     if (!results.has(resultId)) issue(['resultToSolutionSlug', resultId], 'Nieznany wynik.')
   }
-  const sizeIds = wizard.sizes.map((size) => size.id)
-  sizeIds.forEach((id, index) => {
-    if (sizeIds.indexOf(id) !== index)
-      issue(['sizes', index, 'id'], `Rozmiar „${id}” jest dwa razy.`)
-  })
+  for (const resultId of Object.keys(wizard.scope)) {
+    if (resultId !== '_info' && !results.has(resultId))
+      issue(['scope', resultId], 'Nieznany wynik.')
+  }
   for (const [viewId, view] of Object.entries(wizard.systemViews)) {
     if (view.a >= view.side.length) issue(['systemViews', viewId, 'a'], 'Poza listą `side`.')
   }
@@ -280,12 +337,15 @@ export const softwareWizardSchema = obj({
   // Conditions name only what exists; a typo would silently never apply.
   const checkConditions = (conditions: WizardCondition[], path: (string | number)[]) =>
     conditions.forEach((condition, index) => {
-      for (const id of condition.needs ?? []) {
-        if (!needs.has(id)) issue([...path, index, 'needs'], `Nieznana potrzeba „${id}”.`)
+      const check = (list: string[] | undefined, known: Set<string>, field: string) => {
+        for (const id of list ?? []) {
+          if (!known.has(id)) issue([...path, index, field], `Nieznane „${id}”.`)
+        }
       }
-      for (const id of condition.results ?? []) {
-        if (!results.has(id)) issue([...path, index, 'results'], `Nieznany wynik „${id}”.`)
-      }
+      check(condition.needs, needs, 'needs')
+      check(condition.results, results, 'results')
+      check(condition.haves, haves, 'haves')
+      check(condition.whens, whens, 'whens')
     })
   wizard.scopeRules.forEach((rule, index) => {
     if (!(rule.note in wizard.scopeNotes) || rule.note === '_info') {
@@ -294,6 +354,29 @@ export const softwareWizardSchema = obj({
     checkConditions(rule.when, ['scopeRules', index, 'when'])
   })
   checkConditions(wizard.bigWhen, ['bigWhen'])
+  wizard.recommend.forEach((rule, index) =>
+    checkConditions(rule.when, ['recommend', index, 'when']),
+  )
+  wizard.honest.forEach((rule, index) => checkConditions(rule.when, ['honest', index, 'when']))
+  checkConditions(wizard.shopHint.when, ['shopHint', 'when'])
+  for (const side of ['toShop', 'back'] as const) {
+    if (!results.has(wizard.shopHint[side].result)) {
+      issue(['shopHint', side, 'result'], 'Nieznany wynik.')
+    }
+  }
+
+  const addOnIds = wizard.addOns.items.map((item) => item.id)
+  duplicates(addOnIds, ['addOns', 'items'])
+  wizard.addOns.items.forEach((item, index) => {
+    if (!(item.icon in wizard.icons)) issue(['addOns', 'items', index, 'icon'], 'Brak w icons.')
+  })
+  wizard.addOns.rules.forEach((rule, index) => {
+    checkConditions(rule.when, ['addOns', 'rules', index, 'when'])
+    for (const id of rule.items) {
+      if (!addOnIds.includes(id)) issue(['addOns', 'rules', index, 'items'], `Nieznane „${id}”.`)
+    }
+  })
+
   wizard.preview.features.forEach((feature, index) =>
     checkConditions(feature.when, ['preview', 'features', index, 'when']),
   )
@@ -319,18 +402,18 @@ export const softwareWizardSchema = obj({
     issue(['preview', 'systemDefault'], 'Brak w systemViews.')
   if (!(wizard.preview.appDefault in wizard.preview.appViews))
     issue(['preview', 'appDefault'], 'Brak w preview.appViews.')
-  const prefIds = wizard.contactPrefs.map((pref) => pref.id)
-  prefIds.forEach((id, index) => {
-    if (prefIds.indexOf(id) !== index)
-      issue(['contactPrefs', index, 'id'], `„${id}” jest dwa razy.`)
-  })
+  duplicates(
+    wizard.contactPrefs.map((pref) => pref.id),
+    ['contactPrefs'],
+  )
 })
 
 export type SoftwareWizard = z.infer<typeof softwareWizardSchema>
 
-/** Solution slugs the wizard prices its results with (checked against `Solutions` on save). */
+/** Solution slugs the wizard prices with — results and add-ons (checked on save). */
 export function wizardSolutionSlugs(wizard: SoftwareWizard): string[] {
-  return [...new Set(Object.values(wizard.resultToSolutionSlug).filter((s) => s !== null))]
+  const results = Object.values(wizard.resultToSolutionSlug).filter((s) => s !== null)
+  return [...new Set([...results, ...wizard.addOns.items.map((item) => item.slug)])]
 }
 
 export function validateSoftwareWizard(value: unknown): true | string {

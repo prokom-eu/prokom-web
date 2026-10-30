@@ -74,14 +74,6 @@ export const CARD_GRADIENTS = [
 ] as const
 
 /**
- * Sizes of the wizard step (`kreator.json` → `sizes`). Since v22 they carry no prices (one „od”
- * price per solution); the step goes with the v22 wizard (SWR4).
- */
-export const SOLUTION_SIZES = ['start', 'std', 'full'] as const
-
-export type SolutionSize = (typeof SOLUTION_SIZES)[number]
-
-/**
  * Kinds of business in the wizard (`kreator.json` → `needs.firm.o`): an industry page opens the
  * wizard with its kind (`/dobierz?firma=<id>`, ADR-014 §1.6).
  */

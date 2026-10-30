@@ -53,17 +53,8 @@ export const WIZARD_EXTRAS = {
       ],
     },
   },
-  sizeGains: {
-    start: 'Wersja na start: najważniejsze funkcje, resztę dołożysz później',
-    std: 'Standard: wszystko, czego potrzebuje typowa firma',
-    full: 'Pełna wersja: więcej podstron, języków albo modułów',
-  },
-  scopeRules: [
-    { when: [{ kinds: ['System'], sizes: ['start'] }], note: 'systemStart' },
-    { when: [{ results: ['przebudowa'], sizes: ['start'] }], note: 'przebudowaStart' },
-    { when: [{ results: ['pensjonat'], sizes: ['start', 'std'] }], note: 'pensjonatStartStd' },
-  ],
-  bigWhen: [{ needs: ['prog', 'app', 'rozb'] }, { sizes: ['full'] }],
+  scopeRules: [{ when: [{ results: ['pensjonat'] }], note: 'pensjonat' }],
+  bigWhen: [{ needs: ['prog', 'app', 'rozb'] }],
   free: { price: 'Bezpłatnie', term: 'Odpowiedź w ciągu [CZAS ODPOWIEDZI]' },
   preview: {
     defaultBrand: 'inna',
@@ -74,7 +65,7 @@ export const WIZARD_EXTRAS = {
         id: 'lang',
         when: [
           { needs: ['rozb'], options: ['jez'] },
-          { needs: ['firm'], options: ['nocleg'], sizes: ['std', 'full'] },
+          { needs: ['firm'], options: ['nocleg'] },
         ],
       },
       { id: 'login', when: [{ needs: ['rozb'], options: ['strefa'] }] },
@@ -93,11 +84,7 @@ export const WIZARD_EXTRAS = {
     ],
     navs: [
       { when: [{ needs: ['wiz', 'land'] }], items: [] },
-      { when: [{ sizes: ['start'] }], items: ['Oferta', 'Kontakt'] },
-      {
-        when: [{ sizes: ['full'] }, { needs: ['rozb'] }],
-        items: ['Oferta', 'Realizacje', 'Blog', 'Kontakt'],
-      },
+      { when: [{ needs: ['rozb'] }], items: ['Oferta', 'Realizacje', 'Blog', 'Kontakt'] },
       { items: ['Oferta', 'O nas', 'Kontakt'] },
     ],
     appViews: {
@@ -132,7 +119,6 @@ export const WIZARD_EXTRAS = {
       text: 'Napisz, co nie działa i czego oczekujesz. Doradzimy.',
     },
     scopeTitle: 'Jeszcze trzy szczegóły',
-    sizeQ: 'Jak duże?',
     whenQ: 'Na kiedy?',
     describe: {
       title: 'Opisz po swojemu',
@@ -148,7 +134,6 @@ export const WIZARD_EXTRAS = {
     recommend: 'Polecamy',
     priceLabel: 'Cena',
     termLabel: 'Termin',
-    termFrom: 'od {czas}',
     ownChip: 'Opis po swojemu',
     checklist: {
       title: 'Co będzie potrzebne od Ciebie',
@@ -197,11 +182,14 @@ export function wizardSeed(source: Kreator) {
   }
 }
 
-/** Keys a stored wizard must have to be the SW7 shape (older seeds lack them). */
-export const WIZARD_SW7_KEYS = Object.keys(WIZARD_EXTRAS)
+/** Keys a stored wizard must have to be the v22 shape (SW7 and older lack some of them). */
+const WIZARD_V22_KEYS = [...Object.keys(WIZARD_EXTRAS), 'scope', 'addOns', 'winterDeadline']
 
-/** A stored wizard of the pre-SW7 shape (the package 1:1, without the rules above). */
-export function isPreSw7Wizard(value: unknown): boolean {
+/**
+ * A stored wizard of an older shape — before SW7 (without the rules above) or before v22 (sizes,
+ * no `scope`): the seed replaces it locally; staging pastes `pnpm software:wizard-json`.
+ */
+export function isPreV22Wizard(value: unknown): boolean {
   if (typeof value !== 'object' || value === null || Array.isArray(value)) return false
-  return WIZARD_SW7_KEYS.some((key) => !(key in value))
+  return 'sizes' in value || WIZARD_V22_KEYS.some((key) => !(key in value))
 }
