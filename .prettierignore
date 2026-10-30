@@ -1,6 +1,7 @@
 pnpm-lock.yaml
 .next/
 node_modules/
+.claude/
 playwright-report/
 test-results/
 coverage/
