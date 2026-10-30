@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { menuData, upgradedMenu } from './navigation'
+import { K4_COLUMN_LIMIT, menuData, upgradedColumnLimit, upgradedMenu } from './navigation'
 
 const legacy = [
   { id: 'a', type: 'offer' as const, label: 'Oferta', href: '/oferta' },
@@ -30,5 +30,17 @@ describe('upgradedMenu (K3c)', () => {
     ).toBeNull()
     expect(upgradedMenu(menuData())).toBeNull()
     expect(upgradedMenu(null)).toBeNull()
+  })
+})
+
+describe('upgradedColumnLimit (K4a-1b-2)', () => {
+  it('raises the old seed limit to every category of a department', () => {
+    expect(upgradedColumnLimit(6)).toBe(K4_COLUMN_LIMIT)
+  })
+
+  it('leaves a limit set in the panel or already current', () => {
+    expect(upgradedColumnLimit(8)).toBeNull()
+    expect(upgradedColumnLimit(K4_COLUMN_LIMIT)).toBeNull()
+    expect(upgradedColumnLimit(null)).toBeNull()
   })
 })

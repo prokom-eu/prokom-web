@@ -173,10 +173,11 @@ test.describe('Biznes search with brands (K3b′)', () => {
     }
   })
 
-  test('the catalog index stays under 50 KB gzip', async ({ page }) => {
+  // 80 KB since K4a-1b-2 (~430 cards, 74 KB); see catalog-index.e2e.
+  test('the catalog index stays under 80 KB gzip', async ({ page }) => {
     const response = await page.goto(biznes('/api/catalog-index'))
     expect(response?.status()).toBe(200)
     const body = (await response?.body()) ?? Buffer.alloc(0)
-    expect(gzipSync(body).length).toBeLessThan(50 * 1024)
+    expect(gzipSync(body).length).toBeLessThan(80 * 1024)
   })
 })

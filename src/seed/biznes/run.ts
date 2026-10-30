@@ -77,7 +77,7 @@ import {
   galleryMediaData,
   groupData,
   industryData,
-  isImportedFileName,
+  findImportedFile,
   mediaData,
   PREVIOUS_CATEGORY_SLUGS,
   productUpdateData,
@@ -97,7 +97,7 @@ import { seedBiznesGopos } from './gopos'
 import { seedBiznesInsert } from './insert'
 import { seedBiznesOpiekaIt } from './opiekaIt'
 import { seedBiznesHome } from './home'
-import { navigationData, upgradedMenu } from './navigation'
+import { navigationData, upgradedColumnLimit, upgradedMenu } from './navigation'
 
 /** Files of the design package, relative to the repo root (where `pnpm seed` runs). */
 const MEDIA_DIR = path.join('docs', 'design', 'prokombiznes', 'boards', 'media')
@@ -294,7 +294,7 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
       limit: 50,
       ...local,
     })
-    const existing = candidates.find((doc) => isImportedFileName(doc.filename, file.plik))
+    const existing = findImportedFile(candidates, file.plik)
     count('media', !existing)
     const id = existing
       ? existing.id
@@ -333,8 +333,7 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     select: { filename: true },
     ...local,
   })
-  const storedId = (name: string) =>
-    storedMedia.find((doc) => isImportedFileName(doc.filename, name))?.id
+  const storedId = (name: string) => findImportedFile(storedMedia, name)?.id
 
   // Katalog v2 gallery files still used by a card without K3 photos.
   const wantedV2 = new Set([...imageKeys.values()].flat())
@@ -925,12 +924,20 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
       ...local,
     })
     const menu = upgradedMenu(current.biznes?.navigation?.menu)
+    // K4a-1b-2: the K4 menu shows every category of a department (v147c).
+    const columnLimit = upgradedColumnLimit(current.biznes?.navigation?.columnLimit)
     count('site-settings menu K3c', menu ? 'updated' : false)
-    if (menu && current.biznes?.navigation) {
+    count('site-settings menu K4 (column)', columnLimit ? 'updated' : false)
+    if ((menu || columnLimit) && current.biznes?.navigation) {
+      const navigation = {
+        ...current.biznes.navigation,
+        ...(menu && { menu }),
+        ...(columnLimit && { columnLimit }),
+      }
       await payload.update({
         collection: 'site-settings',
         id: siteSettings.id,
-        data: { biznes: { ...current.biznes, navigation: { ...current.biznes.navigation, menu } } },
+        data: { biznes: { ...current.biznes, navigation } },
         ...local,
       })
     }

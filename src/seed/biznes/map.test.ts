@@ -15,6 +15,7 @@ import {
   galleryMediaData,
   groupData,
   industryData,
+  findImportedFile,
   isImportedFileName,
   mediaData,
   productData,
@@ -364,6 +365,25 @@ describe('isImportedFileName', () => {
     for (const file of imported) {
       expect(imported.filter((other) => isImportedFileName(other, file))).toEqual([file])
     }
+  })
+})
+
+describe('findImportedFile', () => {
+  // Newest first, as the import reads them: `-4` is a K4 gallery photo, not a renamed copy.
+  const docs = [
+    { id: 4, filename: 'k4-apple-macbook-air-m5-4.webp' },
+    { id: 1, filename: 'k4-apple-macbook-air-m5.webp' },
+    { id: 9, filename: 'p-posnet-trio-1.webp' },
+  ]
+
+  it('takes the record with exactly the file name first', () => {
+    expect(findImportedFile(docs, 'k4-apple-macbook-air-m5.webp')?.id).toBe(1)
+    expect(findImportedFile(docs, 'k4-apple-macbook-air-m5-4.webp')?.id).toBe(4)
+  })
+
+  it('falls back to a copy renamed by Payload', () => {
+    expect(findImportedFile(docs, 'p-posnet-trio.webp')?.id).toBe(9)
+    expect(findImportedFile(docs, 'k4-nieznany.webp')).toBeUndefined()
   })
 })
 

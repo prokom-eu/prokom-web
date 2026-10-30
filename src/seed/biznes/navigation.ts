@@ -58,6 +58,19 @@ export function upgradedMenu(current: readonly MenuItem[] | null | undefined): M
   return untouched ? menuData() : null
 }
 
+/** Categories per mega menu column: the K4 menu (v147c) shows every category of a department. */
+export const K4_COLUMN_LIMIT = 10
+/** What the seed wrote before K4a-1b-2. */
+const LEGACY_COLUMN_LIMIT = 6
+
+/**
+ * The K4 limit for a column still at the old seed value; `null` when the panel set another one
+ * (the panel wins) or it is already current.
+ */
+export function upgradedColumnLimit(current: number | null | undefined): number | null {
+  return current === LEGACY_COLUMN_LIMIT ? K4_COLUMN_LIMIT : null
+}
+
 /**
  * Header navigation of the design (`boards/Main.dc.html` v20: menu and mega menu), the
  * texts 1:1. Editable in the panel afterwards; the seed writes it only when the menu is empty.
@@ -74,7 +87,7 @@ export function navigationData(refs: Refs): Navigation {
       // TODO(krystian): address of the KSeF post once it exists (B11).
       { label: 'KSeF 2027', href: '/aktualnosci' },
     ],
-    columnLimit: 6,
+    columnLimit: K4_COLUMN_LIMIT,
     highlights: [
       { group: group('prog'), label: 'GoPOS', href: '/gopos', badge: 'partner' },
       { group: group('prog'), label: 'InsERT', href: '/insert', badge: 'partner' },
