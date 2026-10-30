@@ -23,8 +23,8 @@ env:
 
 jobs:
   # Does the PR touch anything besides documentation? A docs-only PR skips build · e2e; pushes to
-  # develop/main always run everything. `docs/design/` is not documentation here: the seed reads
-  # its images.
+  # develop/main always run the e2e job (there: seed · build only, see below). `docs/design/` is
+  # not documentation here: the seed reads its images.
   changes:
     name: changes
     runs-on: ubuntu-24.04
@@ -120,8 +120,15 @@ jobs:
   # the tests that edit content never meet. Tests are split one by one (fullyParallel in CI),
   # so the shards take about the same time. More shards barely help: each one has ~45 s of
   # fixed set-up (containers, install, build).
+  #
+  # A push to develop/main runs one job without Playwright: fresh seed, snapshot save and build.
+  # Why: the merged PR already passed full e2e on its merge commit, and 6 shards per merge filled
+  # the plan's limit of parallel jobs, so the next PRs waited minutes for a runner. The one job
+  # still catches a seed bug a stale snapshot could hide, and it saves the seed snapshot and
+  # `.next/cache` that PR runs restore. Risk: two PRs green on their own can break together
+  # after squash — the next PR's CI (merge commit with current develop) or staging shows it.
   e2e:
-    name: e2e (${{ matrix.shard }}/6)
+    name: ${{ github.event_name == 'pull_request' && format('e2e ({0}/6)', matrix.shard) || 'seed · build (no e2e on push)' }}
     needs: changes
     if: needs.changes.outputs.code == 'true'
     runs-on: ubuntu-24.04
@@ -129,7 +136,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        shard: [1, 2, 3, 4, 5, 6]
+        shard: ${{ fromJSON(github.event_name == 'pull_request' && '[1, 2, 3, 4, 5, 6]' || '[1]') }}
 
     # Database for the build and Playwright (same version as docker/compose.dev.yml).
     services:
@@ -188,13 +195,14 @@ jobs:
 
       # Chromium of the pinned Playwright version; system libraries are installed every time.
       - id: playwright-cache
+        if: github.event_name == 'pull_request'
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
 
       - name: Install Playwright (Chromium only)
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        if: github.event_name == 'pull_request' && steps.playwright-cache.outputs.cache-hit != 'true'
         run: pnpm exec playwright install chromium
 
       # System libraries for Chromium come from apt. The Ubuntu mirror is sometimes very slow
@@ -202,6 +210,7 @@ jobs:
       # ~/apt-archives (its own directory, so the runner's clean-up does not delete them) and
       # installs from disk next time. Killing a slow apt does not help — it keeps the dpkg lock.
       - id: apt-cache
+        if: github.event_name == 'pull_request'
         uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ~/apt-archives
@@ -211,6 +220,7 @@ jobs:
       # apt runs in the background while the database and the build are prepared; the
       # "Wait for…" step below collects its result. Its log and exit code go to ~/apt-deps.*.
       - name: Start Playwright system dependencies (background)
+        if: github.event_name == 'pull_request'
         run: |
           mkdir -p ~/apt-archives/partial
           printf '%s\n' \
@@ -293,6 +303,7 @@ jobs:
         run: pnpm build
 
       - name: Wait for Playwright system dependencies
+        if: github.event_name == 'pull_request'
         timeout-minutes: 15
         run: |
           until [ -f ~/apt-deps.exit ]; do sleep 2; done
@@ -302,7 +313,7 @@ jobs:
           sudo rm -rf ~/apt-archives/partial ~/apt-archives/lock
           sudo chown -R "$(id -u):$(id -g)" ~/apt-archives
 
-      - if: steps.apt-cache.outputs.cache-hit != 'true'
+      - if: github.event_name == 'pull_request' && steps.apt-cache.outputs.cache-hit != 'true'
         uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ~/apt-archives
@@ -310,12 +321,13 @@ jobs:
 
       # On the build above (`pnpm start`, playwright.config.ts): no route compiling on first visit.
       - name: E2E tests (shard ${{ matrix.shard }}/6)
+        if: github.event_name == 'pull_request'
         run: pnpm test:e2e --shard=${{ matrix.shard }}/6
         env:
           E2E_SERVER: start
 
       - name: Upload Playwright report
-        if: failure()
+        if: github.event_name == 'pull_request' && failure()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: playwright-report-${{ matrix.shard }}
@@ -329,7 +341,8 @@ jobs:
   e2e-result:
     name: build · e2e
     needs: [changes, e2e]
-    if: always()
+    # !cancelled(), not always(): a run cancelled by a newer push must not wait for a runner.
+    if: ${{ !cancelled() }}
     runs-on: ubuntu-24.04
     timeout-minutes: 2
     steps:
