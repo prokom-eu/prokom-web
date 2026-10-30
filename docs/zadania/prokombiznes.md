@@ -252,6 +252,20 @@ Listy: `START-TUTAJ.md` §5, `PRZEKAZANIE-K3.md` §6, `PRZEKAZANIE-K31.md` §5, 
 | 16 | **QA-K4** | odbiór całości vs plansze i audyty `k4/audyty/` |
 | 17 | **Staging** | jak w §6.1 → akceptacja szefa → produkcja |
 
+### 7.1 Fale i dwa tory (od 30.10, decyzja Krystiana: maksymalne przyspieszenie)
+
+Tabela wyżej to **zakres**; **kolejność i grupowanie** sesji od K4b idą wg fal — szczegóły, właściciele plików wspólnych i ryzyka: `docs/zadania/przyspieszenie.md`. Tor A (dane, migracje) w folderze `prokom-web-biznes`, po kolei; tor B (UI) w drugim folderze Biznesu (`docs/sposob-pracy.md` → „Dwie strony równolegle”). Sesja może wydać 2–3 PR-y piętrowo.
+
+| Fala | Tor A | Tor B | Poza kodem |
+|---|---|---|---|
+| 0 | K4a-2 | — | S10 (serwer, staging) · ADR-018 (import treści) |
+| 1 | **K4f** = K4f-1 + K4f-2 | **K4bc** = K4b + K4c | staging działa |
+| 2 | **K4de** = K4d + K4e | **K4hij** = K4h + K4i + K4j | Lighthouse na stagingu po fali |
+| 3 | **K4g** + K31d′ | **M1′-reszta** (czego nie zrobiły sesje UI) | szef przegląda staging na bieżąco |
+| 4 | **Odbiór** = PROD′ + QA-K4 na stagingu | — | import treści → akceptacja szefa → produkcja |
+
+Telefon (`MOBILE-APLIKACJA.md` §4) zostaje Definition of Done **każdej** sesji z UI, dlatego M1′ kurczy się do resztek. Kolejność cięcia — bez zmian.
+
 **Wspólne kryteria:** §6.3 + `K4-FINAL.md` §8 (0 poziomego przewijania na 390/768/1024/1280/1440, kontrast w obu motywach, zero cen / zakazane marki / „abonament” przy Opiece IT / „Aut.”, jedno H1, `alt`). **Dopiski do promptów:** §6.2 + blok K4 z `PRZEKAZANIE-K4.md` §4.
 
 **Kolejność cięcia** (od końca, nie jakość): 1) strona ulgi → wpis w Aktualnościach; 2) salony Sharp/NEC, Avtek, EuroCert, PolCard → strona marki z K3b′; 3) `/automaty-vendingowe` → kategoria `vend`; 4) K4g → kreator z B10c pod `/konfigurator`. **Bez cięć:** K4a-1, K4a-2, K4b, K4c, K4d, K4e, K4f-1, K31d′, M1′, PROD′, QA-K4.
