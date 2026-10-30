@@ -1,3 +1,4 @@
+import { partnerStatusLabel } from '../partners/badges'
 import type { CatalogIndex, IndexProduct } from './catalogIndex'
 import type { IconName } from './options'
 
@@ -7,11 +8,17 @@ export type ProductBadge = { label: string; tone: BadgeTone }
 
 const MAX_BADGES = 2
 
-/** Authorization label: the brand's status from the panel, else by kind (as in the design). */
-function authorizedLabel(product: IndexProduct, brands: CatalogIndex['brands']): string {
+/**
+ * Authorization label: the brand's authorized status from the panel; a brand without a status
+ * falls back to the kind (as in the design). A brand with another status (Optivendi „Partner”,
+ * COMEX „We współpracy”) gets no authorization badge — never „Autoryzowany” (K4-FINAL §1).
+ */
+function authorizedLabel(product: IndexProduct, brands: CatalogIndex['brands']): string | null {
   const status = brands.find((brand) => brand.slug === product.brand)?.status
-  if (status === 'authorized-partner') return 'Autoryzowany partner'
-  if (status === 'authorized-service') return 'Autoryzowany serwis'
+  if (status === 'authorized-partner' || status === 'authorized-service') {
+    return partnerStatusLabel(status)
+  }
+  if (status && status !== 'none') return null
   return product.kind === 'software' ? 'Autoryzowany partner' : 'Autoryzowany serwis'
 }
 
@@ -27,8 +34,9 @@ export function productBadges(
   if (product.kind === 'service') badges.push({ label: 'Usługa', tone: 'service' })
   if (product.isNew) badges.push({ label: 'Nowość', tone: 'new' })
   if (product.badge) badges.push({ label: product.badge, tone: 'promo' })
-  if (product.authorized && badges.length < MAX_BADGES) {
-    badges.push({ label: authorizedLabel(product, brands), tone: 'authorized' })
+  const authorized = product.authorized ? authorizedLabel(product, brands) : null
+  if (authorized && badges.length < MAX_BADGES) {
+    badges.push({ label: authorized, tone: 'authorized' })
   }
   return badges.slice(0, MAX_BADGES)
 }
