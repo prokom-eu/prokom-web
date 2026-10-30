@@ -104,7 +104,7 @@ export function SearchOverlay({ whatsapp }: Props) {
         </span>
         <kbd
           aria-hidden="true"
-          className="hidden rounded-md border border-border bg-surface px-1.5 py-0.5 font-sans text-[11px] font-bold text-ink-2 sm:inline"
+          className="hidden rounded-md border border-border bg-surface px-1.5 py-0.5 font-sans text-[11px] font-bold whitespace-nowrap text-ink-2 sm:inline"
         >
           Ctrl K
         </kbd>

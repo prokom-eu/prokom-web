@@ -1069,7 +1069,7 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     const menu = upgradedMenu(current.biznes?.navigation?.menu)
     // K4a-1b-2: the K4 menu shows every category of a department (v147c).
     const columnLimit = upgradedColumnLimit(current.biznes?.navigation?.columnLimit)
-    count('site-settings menu K3c', menu ? 'updated' : false)
+    count('site-settings menu K4', menu ? 'updated' : false)
     count('site-settings menu K4 (column)', columnLimit ? 'updated' : false)
     if ((menu || columnLimit) && current.biznes?.navigation) {
       const navigation = {

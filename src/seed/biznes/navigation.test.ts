@@ -11,24 +11,31 @@ const legacy = [
   { id: 'f', type: 'link' as const, label: 'Kontakt', href: '/kontakt' },
 ]
 
-describe('upgradedMenu (K3c)', () => {
-  it('adds „Gotowe zestawy” after „Oferta” to the menu of the first seed', () => {
-    expect(upgradedMenu(legacy)?.map((item) => item.label)).toEqual([
-      'Oferta',
-      'Gotowe zestawy',
-      'Opieka IT',
-      'GoPOS',
-      'InsERT',
-      'O firmie',
-      'Kontakt',
-    ])
+describe('upgradedMenu (K4)', () => {
+  const k3c = [
+    legacy[0]!,
+    { id: 'z', type: 'link' as const, label: 'Gotowe zestawy', href: '/zestawy' },
+    ...legacy.slice(1),
+  ]
+  const v20 = legacy.map(({ partner: _partner, ...item }) => item)
+
+  it('gives the menus of earlier seeds the K4 menu, without „Gotowe zestawy”', () => {
+    for (const seeded of [k3c, v20]) {
+      expect(upgradedMenu(seeded)?.map((item) => item.label)).toEqual([
+        'Oferta',
+        'Opieka IT',
+        'GoPOS',
+        'InsERT',
+        'O firmie',
+        'Kontakt',
+      ])
+    }
   })
 
   it('leaves a menu edited in the panel or already current', () => {
-    expect(
-      upgradedMenu([...legacy.slice(0, 5), { ...legacy[5]!, label: 'Kontakt i dojazd' }]),
-    ).toBeNull()
+    expect(upgradedMenu([...k3c.slice(0, 6), { ...k3c[6]!, label: 'Kontakt i dojazd' }])).toBeNull()
     expect(upgradedMenu(menuData())).toBeNull()
+    expect(upgradedMenu(legacy)).toBeNull()
     expect(upgradedMenu(null)).toBeNull()
   })
 })

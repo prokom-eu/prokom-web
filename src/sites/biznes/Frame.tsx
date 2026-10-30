@@ -2,9 +2,10 @@ import type { ReactNode } from 'react'
 
 import { brandPageHref } from '@/lib/catalog/brand'
 import { getCatalogIndex } from '@/lib/catalog/data'
-import { megaMenu } from '@/lib/catalog/menu'
+import { megaMenu, offerMenu } from '@/lib/catalog/menu'
 import { partnerBadges } from '@/lib/partners/badges'
 import { getPartnerStatuses } from '@/lib/partners/data'
+import { hoursSummary } from '@/lib/site/hoursSummary'
 import { toTelHref, toWhatsAppHref } from '@/lib/site/link'
 import type { PublicCompanyData, PublicSiteSettings } from '@/lib/site/public'
 import type { SiteTenant } from '@/lib/tenant/byHost'
@@ -43,6 +44,7 @@ export async function BiznesFrame({ tenant, settings, biznes, company, promo, ch
     whatsapp: biznes.whatsapp ? toWhatsAppHref(biznes.whatsapp) : null,
   }
   const menu = megaMenu(index, biznes.navigation)
+  const hours = company?.locations[0]?.hours ?? null
   // „Salon Lenovo / Dell” in the footer once their brand pages exist (decision 27.10, K3b′).
   const showrooms = SHOWROOM_BRANDS.flatMap((slug) => {
     const brand = index.brands.find((item) => item.slug === slug)
@@ -51,14 +53,14 @@ export async function BiznesFrame({ tenant, settings, biznes, company, promo, ch
   })
   return (
     <>
-      <TopBar phone={settings.phone} hours={company?.locations[0]?.hours ?? null} />
+      <TopBar phone={settings.phone} hours={hours} />
       {promo}
       <BiznesHeader
         tenant={tenant}
         navigation={biznes.navigation}
         menu={menu}
-        // v20: Branże ▾ is gone; the mega menu links the first active industry page.
-        industrySlug={index.industries.find((industry) => industry.active)?.slug ?? null}
+        offer={offerMenu(index)}
+        hours={hours ? hoursSummary(hours) : null}
         contact={contact}
       />
       {children}

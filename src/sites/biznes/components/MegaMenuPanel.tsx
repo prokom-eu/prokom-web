@@ -1,218 +1,289 @@
-import Link from 'next/link'
+'use client'
 
-import { MediaImage } from '@/components/MediaImage'
+import Image from 'next/image'
+import Link from 'next/link'
+import { useState } from 'react'
+
 import { Container } from '@/components/ui/Container'
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
 import { BUNDLES_PATH } from '@/lib/catalog/bundle'
-import type { MegaMenu } from '@/lib/catalog/menu'
+import type { OfferMenu } from '@/lib/catalog/menu'
+import type { IconName } from '@/lib/catalog/options'
 import { plural } from '@/lib/plural'
-import type { PublicBiznesNavigation } from '@/lib/site/navigation'
 
 type Props = {
-  menu: MegaMenu
-  shortcuts: PublicBiznesNavigation['shortcuts']
-  cards: PublicBiznesNavigation['cards']
-  /** Slug of the first active industry; `null` hides "Rozwiązania dla branż". */
-  industry: string | null
+  offer: OfferMenu
+  /** Main phone of the line; `null` hides „Wolisz zapytać?”. */
+  phone: { label: string; href: string } | null
+  /** Opening hours in short, e.g. „pn–pt 9–17”. */
+  hours: string | null
 }
 
+const items = (n: number) => `${n} ${plural(n, ['pozycja', 'pozycje', 'pozycji'])}`
+
+// `/kreator` until K4g moves it to `/konfigurator`; the plan section of the home page until the
+// plan page (K31d′); the whole catalog until `/marki` (K4f).
+const CONFIGURATOR_HREF = '/kreator'
+const PLAN_HREF = '/#plan'
+const ALL_BRANDS_HREF = '/oferta'
+
 /**
- * Oferta ▾ (spec. §3.2): five columns = five catalog groups with their categories and counts,
- * the partner cards on the right and the bar with the whole catalog and the wizard. Category
- * names ≥ 15 px (the boss's remark of 16.10) — a long group gets "Wszystkie w grupie →".
+ * Oferta ▾ of K4 (K35 7a, mega menu v147c): departments on the left (hover or focus switches the
+ * middle), categories of the department with a product picture and „Marki w dziale”, and four
+ * shortcut cards with the phone on the right. 1080–1279 px: the cards go in one row below.
  */
-export function MegaMenuPanel({ menu, shortcuts, cards, industry }: Props) {
-  const { products, brands } = menu.total
+export function MegaMenuPanel({ offer, phone, hours }: Props) {
+  const [active, setActive] = useState(0)
+  const department = offer.departments[active] ?? offer.departments[0]
+  if (!department) return null
+  const { totals } = offer
+  const shortcuts: {
+    label: string
+    text: string
+    href: string
+    icon: IconName
+    tile: string
+    featured?: true
+  }[] = [
+    {
+      label: 'Konfigurator',
+      text: 'Dobierzemy rozwiązanie w około minutę',
+      href: CONFIGURATOR_HREF,
+      icon: 'star',
+      tile: 'bg-white/15 text-white',
+      featured: true,
+    },
+    {
+      label: 'Gotowe zestawy',
+      text:
+        totals.bundles > 0
+          ? `${totals.bundles} ${plural(totals.bundles, ['zestaw', 'zestawy', 'zestawów'])}: sklep, gastronomia, biuro, hotel`
+          : 'Sklep, gastronomia, biuro, hotel',
+      href: BUNDLES_PATH,
+      icon: 'box',
+      tile: 'bg-ok text-white',
+    },
+    {
+      label: 'Plan Twojej firmy',
+      text: 'Kliknij urządzenie na planie lokalu',
+      href: PLAN_HREF,
+      icon: 'map',
+      tile: 'bg-[var(--c-instalacje)] text-white',
+    },
+    {
+      label: 'Cała oferta',
+      text: `${items(totals.products)} · filtry po marce i branży`,
+      href: '/oferta',
+      icon: 'grid',
+      tile: 'bg-accent text-white',
+    },
+  ]
+
   return (
     <div className="max-h-[calc(100vh-7.5rem)] overflow-auto border-t border-border bg-card shadow-2xl">
-      <Container wide className="grid gap-6 py-6 xl:grid-cols-[repeat(5,minmax(0,1fr))_17rem]">
-        {shortcuts.length > 0 && (
-          <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-ink-2 xl:col-span-full">
-            <span>Na skróty:</span>
-            {shortcuts.map((link, i) => (
-              <span key={link.href} className="inline-flex items-center gap-2">
-                {i > 0 && <span aria-hidden="true">·</span>}
-                <Link href={link.href} className="font-extrabold text-ink hover:underline">
-                  {link.label}
-                </Link>
-              </span>
-            ))}
+      <Container
+        wide
+        className="grid grid-cols-[16.5rem_minmax(0,1fr)] gap-x-8 py-6 min-[1280px]:grid-cols-[16.5rem_minmax(0,1fr)_18rem]"
+      >
+        {/* Departments */}
+        <div className="border-r border-border pr-6">
+          <p className="mb-3 px-3 text-xs font-extrabold tracking-[0.14em] text-ink-2 uppercase">
+            Działy
           </p>
-        )}
-
-        <div className="grid grid-cols-2 gap-6 md:grid-cols-3 xl:col-span-5 xl:grid-cols-5">
-          {menu.columns.map((column) => (
-            <section key={column.slug} aria-labelledby={`mega-${column.slug}`}>
-              <Link
-                id={`mega-${column.slug}`}
-                href={column.href}
-                className="mb-2 flex items-center gap-2.5 font-display text-[0.97rem] font-extrabold leading-tight text-ink hover:underline"
-              >
-                <span
-                  aria-hidden="true"
-                  className="inline-flex size-8 shrink-0 items-center justify-center rounded-lg text-white"
-                  // Group colours are data of the record (ADR-012, rozstrzygnięcie of 18.10).
-                  style={{
-                    backgroundImage: `linear-gradient(135deg, ${column.gradient[0]}, ${column.gradient[1]})`,
-                  }}
-                >
-                  <Icon name={column.icon} className="size-[18px]" strokeWidth={2} />
-                </span>
-                {column.name}
-              </Link>
-              <ul>
-                {column.items.map((item) => (
-                  <li key={item.href + item.label}>
-                    <Link
-                      href={item.href}
-                      className={cx(
-                        'flex min-h-10 items-center justify-between gap-2 rounded-lg px-2 py-1.5 text-[0.94rem] leading-snug hover:bg-surface-2',
-                        item.badge ? 'font-extrabold text-ink' : 'font-semibold text-ink-2',
-                      )}
-                    >
-                      <span>{item.label}</span>
-                      {item.badge ? (
-                        <em className="shrink-0 rounded-full bg-surface-2 px-2 py-0.5 text-[0.7rem] font-black uppercase not-italic tracking-wide text-ok-text">
-                          {item.badge}
-                        </em>
-                      ) : (
-                        item.count !== undefined && (
-                          <small className="text-xs font-bold text-ink-2">
-                            {item.count}
-                            <span className="sr-only">
-                              {' '}
-                              {plural(item.count, ['pozycja', 'pozycje', 'pozycji'])}
-                            </span>
-                          </small>
-                        )
-                      )}
-                    </Link>
-                    {item.sub && (
-                      <ul className="mb-1 ml-2 border-l border-border pl-2">
-                        {item.sub.map((sub) => (
-                          <li key={sub.href}>
-                            <Link
-                              href={sub.href}
-                              className="flex min-h-9 items-center justify-between gap-2 rounded-lg px-2 py-1 text-sm leading-snug font-semibold text-ink-2 hover:bg-surface-2"
-                            >
-                              <span>{sub.label}</span>
-                              {sub.count !== undefined && (
-                                <small className="text-xs font-bold text-ink-2">
-                                  {sub.count}
-                                  <span className="sr-only">
-                                    {' '}
-                                    {plural(sub.count, ['pozycja', 'pozycje', 'pozycji'])}
-                                  </span>
-                                </small>
-                              )}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
+          <ul className="space-y-1">
+            {offer.departments.map((item, i) => {
+              const current = i === active
+              return (
+                <li key={item.slug}>
+                  <button
+                    type="button"
+                    aria-current={current ? 'true' : undefined}
+                    onMouseEnter={() => setActive(i)}
+                    onFocus={() => setActive(i)}
+                    onClick={() => setActive(i)}
+                    className={cx(
+                      'flex w-full items-center gap-3 rounded-xl border px-3 py-2.5 text-left',
+                      current
+                        ? 'border-border bg-surface-2'
+                        : 'border-transparent hover:bg-surface-2',
                     )}
-                  </li>
-                ))}
-              </ul>
-              {column.more && (
-                <Link
-                  href={column.more.href}
-                  aria-label={`Wszystkie w grupie: ${column.name}`}
-                  className="mt-1 inline-flex min-h-10 items-center gap-1 px-2 text-sm font-extrabold text-accent-text hover:underline"
-                >
-                  Wszystkie w grupie
-                  <Icon name="arrow" className="size-4" strokeWidth={2.4} />
-                </Link>
-              )}
-            </section>
-          ))}
+                  >
+                    <span
+                      aria-hidden="true"
+                      className="inline-flex size-9 shrink-0 items-center justify-center rounded-lg text-white"
+                      // Department colours are data of the record (ADR-012, 18.10).
+                      style={{
+                        backgroundImage: `linear-gradient(135deg, ${item.gradient[0]}, ${item.gradient[1]})`,
+                      }}
+                    >
+                      <Icon name={item.icon} className="size-[18px]" strokeWidth={2} />
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block font-display leading-tight font-extrabold text-ink">
+                        {item.name}
+                      </span>
+                      <span className="block text-sm text-ink-2">{items(item.count)}</span>
+                    </span>
+                    {current && <Icon name="arrow" className="size-4 shrink-0 text-accent-text" />}
+                  </button>
+                </li>
+              )
+            })}
+          </ul>
         </div>
 
-        {cards.length > 0 && (
-          <div className="hidden gap-3 xl:flex xl:flex-col">
-            {cards.map((card) => (
-              <Link
-                key={card.href}
-                href={card.href}
-                data-surface={card.dark ? 'dark' : undefined}
-                className={cx(
-                  'relative flex min-h-36 flex-col gap-1.5 overflow-hidden rounded-2xl p-4 pr-20 transition-transform hover:-translate-y-0.5',
-                  card.dark
-                    ? 'bg-surface-dark text-white'
-                    : 'border border-border bg-surface-2 text-ink',
-                )}
+        {/* Categories of the department */}
+        <section aria-labelledby="mega-department" className="min-w-0">
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div className="max-w-xl">
+              <p className="text-xs font-extrabold tracking-[0.14em] text-ink-2 uppercase">
+                Dział {active + 1} z {offer.departments.length}
+              </p>
+              <h2
+                id="mega-department"
+                className="font-display text-2xl leading-tight font-extrabold text-ink"
               >
-                {card.logo && (
-                  <span className="self-start rounded-md bg-white px-2 py-1">
-                    <MediaImage image={card.logo} sizes="96px" className="h-4 w-auto" />
-                  </span>
-                )}
-                {card.badge && (
-                  <span
-                    className={cx(
-                      'text-[0.68rem] font-black uppercase tracking-wide',
-                      card.dark ? 'text-accent-on-dark' : 'text-ok-text',
-                    )}
-                  >
-                    {card.badge}
-                  </span>
-                )}
-                <b className="text-[0.94rem] leading-snug">{card.title}</b>
-                {card.text && (
-                  <span
-                    className={cx(
-                      'text-[0.8rem] leading-snug',
-                      card.dark ? 'text-white' : 'text-ink-2',
-                    )}
-                  >
-                    {card.text}
-                  </span>
-                )}
-                {card.image && (
-                  <MediaImage
-                    image={{ ...card.image, alt: '' }}
-                    sizes="80px"
-                    className="absolute -bottom-1.5 -right-1 w-20"
-                  />
-                )}
-              </Link>
-            ))}
-          </div>
-        )}
-
-        <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-t border-border py-4 text-sm xl:col-span-full">
-          <Link
-            href="/oferta"
-            className="inline-flex items-center gap-1.5 font-extrabold text-accent-text hover:underline"
-          >
-            Cały katalog · {products} {plural(products, ['pozycja', 'pozycje', 'pozycji'])},{' '}
-            {brands} {plural(brands, ['marka', 'marki', 'marek'])}
-            <Icon name="arrow" className="size-4" strokeWidth={2.4} />
-          </Link>
-          <Link
-            href={BUNDLES_PATH}
-            className="inline-flex items-center gap-1.5 font-extrabold text-accent-text hover:underline"
-          >
-            Gotowe zestawy
-            <Icon name="arrow" className="size-4" strokeWidth={2.4} />
-          </Link>
-          {/* TODO(krystian): spec. §3.2 lists the phone in this bar, the `Main` design has none —
-              confirm with the boss which one wins. */}
-          <span className="text-ink-2">
-            Bez cen na stronie — wycenę dostajesz na piśmie, pod swoją firmę.
-          </span>
-          <Link href="/kreator" className="font-extrabold text-ink hover:underline">
-            Nie wiesz, co wybrać? Dobierz zestaw w 60 s
-          </Link>
-          {/* v20: Branże ▾ left the menu — the industry pages are reached from here. */}
-          {industry && (
+                {department.name}
+              </h2>
+              {department.description && (
+                <p className="mt-1 text-ink-2">{department.description}</p>
+              )}
+            </div>
             <Link
-              href={`/branze/${industry}`}
-              className="inline-flex items-center gap-1.5 font-extrabold text-accent-text hover:underline"
+              href={department.href}
+              className="inline-flex items-center gap-2 rounded-xl border border-border bg-surface-2 px-4 py-2 font-bold text-accent-text hover:bg-surface"
             >
-              Rozwiązania dla branż: gastronomia, handel, hotele
-              <Icon name="arrow" className="size-4" strokeWidth={2.4} />
+              Cały dział · {items(department.count)}
+              <Icon name="arrow" className="size-4" />
             </Link>
+          </div>
+
+          <ul className="mt-4 grid gap-2.5 sm:grid-cols-2">
+            {department.categories.map((category) => (
+              <li key={category.href}>
+                <Link
+                  href={category.href}
+                  className="group flex items-center gap-3 rounded-xl border border-border px-3 py-2.5 hover:border-accent"
+                >
+                  <span className="inline-flex size-[50px] shrink-0 items-center justify-center overflow-hidden rounded-lg bg-surface-2">
+                    {category.image ? (
+                      <Image
+                        src={category.image.url}
+                        alt=""
+                        width={category.image.width}
+                        height={category.image.height}
+                        unoptimized
+                        className="max-h-11 w-auto object-contain"
+                      />
+                    ) : (
+                      <Icon name={department.icon} className="size-5 text-ink-2" />
+                    )}
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span className="block text-[15px] leading-tight font-bold text-ink">
+                      {category.label}
+                    </span>
+                    <span className="block text-sm text-ink-2">{items(category.count)}</span>
+                  </span>
+                  <Icon
+                    name="arrow"
+                    className="size-4 shrink-0 text-accent-text opacity-0 group-hover:opacity-100"
+                  />
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          {department.brands.length > 0 && (
+            <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-border pt-4">
+              <p className="mr-2 text-xs font-extrabold tracking-[0.14em] text-ink-2 uppercase">
+                Marki w dziale
+              </p>
+              {department.brands.map((brand) => (
+                <span
+                  key={brand.slug}
+                  // Brand logos stay on light tiles in both themes (K35 §6).
+                  className="inline-flex h-8 w-[76px] items-center justify-center rounded-lg border border-border bg-white px-2"
+                >
+                  <Image
+                    src={brand.logo.url}
+                    alt={brand.name}
+                    width={brand.logo.width}
+                    height={brand.logo.height}
+                    unoptimized
+                    className="max-h-5 w-auto object-contain"
+                  />
+                </span>
+              ))}
+              <Link
+                href={ALL_BRANDS_HREF}
+                className="ml-1 inline-flex items-center gap-1 text-sm font-bold text-ink hover:underline"
+              >
+                Wszystkie · {totals.brands}
+                <Icon name="arrow" className="size-3.5" />
+              </Link>
+            </div>
+          )}
+        </section>
+
+        {/* Shortcuts: a column from 1280 px, a row of four below */}
+        <div className="col-span-full mt-6 border-t border-border pt-6 min-[1280px]:col-span-1 min-[1280px]:mt-0 min-[1280px]:border-t-0 min-[1280px]:border-l min-[1280px]:pt-0 min-[1280px]:pl-6">
+          <p className="mb-3 text-xs font-extrabold tracking-[0.14em] text-ink-2 uppercase">
+            Na skróty
+          </p>
+          <ul className="grid grid-cols-4 gap-2.5 min-[1280px]:grid-cols-1">
+            {shortcuts.map((card) => (
+              <li key={card.label}>
+                <Link
+                  href={card.href}
+                  className={cx(
+                    'flex h-full items-center gap-3 rounded-2xl px-3.5 py-3',
+                    card.featured
+                      ? 'bg-linear-to-br from-[var(--c-software)] to-accent text-white'
+                      : 'bg-surface-2 text-ink hover:bg-surface',
+                  )}
+                >
+                  <span
+                    aria-hidden="true"
+                    className={cx(
+                      'inline-flex size-10 shrink-0 items-center justify-center rounded-xl',
+                      card.tile,
+                    )}
+                  >
+                    <Icon name={card.icon} className="size-5" strokeWidth={2} />
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span className="block font-display leading-tight font-extrabold">
+                      {card.label}
+                    </span>
+                    <span
+                      className={cx(
+                        'block text-sm leading-snug',
+                        card.featured ? 'text-white/90' : 'text-ink-2',
+                      )}
+                    >
+                      {card.text}
+                    </span>
+                  </span>
+                  <Icon name="arrow" className="size-4 shrink-0" />
+                </Link>
+              </li>
+            ))}
+          </ul>
+          {phone && (
+            <p className="mt-5 hidden items-start gap-3 border-t border-border pt-4 min-[1280px]:flex">
+              <span className="inline-flex size-9 items-center justify-center rounded-full bg-surface-2 text-accent-text">
+                <Icon name="phone" className="size-4" />
+              </span>
+              <span className="flex-1 text-sm text-ink-2">
+                Wolisz zapytać?
+                <a href={phone.href} className="block font-extrabold text-ink hover:underline">
+                  {phone.label}
+                </a>
+                {hours && <span className="block">{hours}</span>}
+              </span>
+            </p>
           )}
         </div>
       </Container>
