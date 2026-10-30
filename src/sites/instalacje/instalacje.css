@@ -11,6 +11,11 @@
   overflow-x: clip;
 }
 
+/* A page with its own CTA band (service pages, `CtaBandView page`) hides the frame's one. */
+[data-line='instalacje'] .inst-page:has([data-cta-page]) .ctaf {
+  display: none;
+}
+
 /* Page under an open menu sheet does not scroll (`ShellProvider`, MOBILE-APLIKACJA §4). */
 html[data-line='instalacje'].pk-lock,
 html[data-line='instalacje'].pk-lock body {
@@ -28,7 +33,10 @@ html[data-line='instalacje'].pk-lock body {
  */
 [data-line='instalacje'] {
   /* Base pieces the shell uses (pk.css: .wrap, .btn, .eye, .ico). */
+  /* `content-box` as in the prototype (no box-sizing reset there): 1280 px of content plus the
+     padding, 1344 px in all — Tailwind's `border-box` made every page 64 px narrower (I4). */
   & .wrap {
+    box-sizing: content-box;
     max-width: 1280px;
     margin: 0 auto;
     padding: 0 32px;

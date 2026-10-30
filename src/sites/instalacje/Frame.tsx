@@ -18,6 +18,7 @@ import { ShellProvider } from './powloka/ShellProvider'
 import { TabBar } from './powloka/TabBar'
 import { TopBar } from './powloka/TopBar'
 import './instalacje.css'
+import './sekcje/sekcje.css'
 
 type Props = {
   tenant: SiteTenant

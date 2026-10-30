@@ -1,5 +1,6 @@
 import type { Payload, Where } from 'payload'
 
+import { SERVICE_SECTION_IDS } from '../../lib/instalacje/anchors'
 import { SETTINGS_DEFAULTS } from '../../lib/instalacje/options'
 import { hasSameValues } from '../compare'
 import { SEED_CONTEXT } from '../config'
@@ -219,6 +220,33 @@ export async function seedInstalacje(payload: Payload): Promise<void> {
       })
     }
     count('pages', totalDocs === 0 ? 'created' : 'skipped')
+  }
+
+  // --- service pages built in code (I4+): an empty page gets its `instService` block once and
+  // is published (local seed only); a page an editor already laid out is left alone ---
+  for (const key of Object.keys(SERVICE_SECTION_IDS)) {
+    const service = services.find((item) => item.menu.k === key)
+    const serviceId = serviceIds.get(key)
+    if (!service || serviceId === undefined) continue
+    const { docs } = await payload.find({
+      collection: 'pages',
+      where: inTenant({ slug: { equals: serviceData(service, noRefs).slug } }),
+      draft: true,
+      limit: 1,
+      ...local,
+    })
+    const page = docs[0]
+    if (!page || (page.layout ?? []).length > 0) {
+      count('service-pages', 'skipped')
+      continue
+    }
+    await payload.update({
+      collection: 'pages',
+      id: page.id,
+      data: { layout: [{ blockType: 'instService', service: serviceId }], _status: 'published' },
+      ...local,
+    })
+    count('service-pages', 'updated')
   }
 
   for (const [name, c] of Object.entries(counters)) {
