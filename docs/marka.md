@@ -22,7 +22,7 @@
 | `--c-papier` | `#F4F5F1` | — | jasne tła sekcji |
 | `--c-white` | `#FFFFFF` | — | tło |
 
-**W kodzie:** layout tenanta ustawia atrybut `data-line="biznes"` na `<html>`; CSS mapuje go na `--accent`, `--accent-on-dark`, `--accent-text`. Komponenty używają wyłącznie `--accent*`, nigdy konkretnego koloru linii.
+**W kodzie:** layout tenanta ustawia atrybut `data-line="biznes"` na `<html>`; CSS mapuje go na `--accent`, `--accent-on-dark`, `--accent-text`. Komponenty używają wyłącznie `--accent*`, nigdy konkretnego koloru linii — wyjątek: karty linii PRO-KOM w stopce Software („Jedna firma, sześć adresów”) pokazują każdą linię jej kolorem `--c-<linia>-on-dark` (tylko kreska i myślnik znaku, ADR-015 v22 pkt 1).
 Pliki: tokeny `src/styles/tokens.css` (jedyne miejsce z wartościami kolorów), Tailwind `src/app/(sites)/globals.css` — zna tylko tokeny (`bg-accent-text`, `text-grafit`, `bg-papier`, `border-border`…; domyślna paleta Tailwinda jest wyłączona). Ciemna sekcja ma `data-surface="dark"` — linki i obrys fokusu przechodzą wtedy na `--accent-on-dark`. Brak `data-line` (nieznana domena) = zieleń PRO-KOM.
 
 ### Kontrast — ważne (WCAG AA)

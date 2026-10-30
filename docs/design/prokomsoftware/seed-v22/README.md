@@ -5,7 +5,7 @@ Pliki, które zmieniły się względem `seed/prokomsoftware/` (v20). **Nie kopiu
 | Plik | Sesja |
 |---|---|
 | ~~`rozwiazania.json`, `obszary.json`~~ | SWR1 — przeniesione do `seed/prokomsoftware/` (z poprawkami wg plansz, opisanymi w `_info`) |
-| `nawigacja.json` | SWR2 |
+| ~~`nawigacja.json`~~ | SWR2 — przeniesione do `seed/prokomsoftware/` (poprawki wg planszy `Main` w `_info`) |
 | `kreator.json` | SWR4 |
 | `strona-glowna.json` | SWR5 (na końcu usuń ten folder) |
 
