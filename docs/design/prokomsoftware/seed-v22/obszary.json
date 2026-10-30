@@ -1,0 +1,313 @@
+{
+  "_info": "8 obszarów strony głównej (sekcja #oferta) — grupowanie marketingowe, NIE kategorie katalogu. countLabel to tekst redakcyjny (np. „3 poziomy”), nie licznik z bazy. chips[].solution = slug z rozwiazania.json albo null (chip bez linku). priceFrom = null do decyzji szefa. href docelowo /rozwiazania?kategoria=… (ADR-014 §1). 25.10.2026: priceFrom wpisane wg cennika; chip „Rezerwacje online” zastąpiony (rozwiązanie usunięte).",
+  "items": [
+    {
+      "name": "Strony internetowe",
+      "short": "Firmowe, dla noclegów, lokali, landing page",
+      "countLabel": "7 rozwiązań",
+      "icon": "M3 5h18v14H3zM3 9h18M7 7h.01M10 7h.01",
+      "gradient": [
+        "#6E45D4",
+        "#A24BD8"
+      ],
+      "scene": "www",
+      "description": "Firmowe, dla noclegów i gastronomii, wizytówki i landing page. Szybkie, wygodne na telefonie, z panelem po polsku.",
+      "gain": "Klient znajduje Cię w Google i od razu dzwoni albo pisze.",
+      "href": "/rozwiazania?kategoria=strony",
+      "cta": "Zobacz strony",
+      "key": "www",
+      "order": 1,
+      "chips": [
+        {
+          "label": "Wizytówka",
+          "solution": "strona-wizytowka"
+        },
+        {
+          "label": "Strona firmowa",
+          "solution": "strona-firmowa-z-panelem"
+        },
+        {
+          "label": "Rozbudowana strona",
+          "solution": "rozbudowana-strona-firmowa"
+        },
+        {
+          "label": "Landing page",
+          "solution": "landing-page"
+        },
+        {
+          "label": "Dla restauracji",
+          "solution": "strona-dla-restauracji-lub-baru"
+        },
+        {
+          "label": "Dla hotelu lub pensjonatu",
+          "solution": "strona-dla-hotelu-lub-pensjonatu"
+        },
+        {
+          "label": "Przebudowa starej",
+          "solution": "przebudowa-starej-strony"
+        }
+      ],
+      "priceFrom": 999,
+      "priceLabel": "od 999 zł"
+    },
+    {
+      "name": "Systemy i panele",
+      "short": "Zlecenia, CRM, czas pracy, Excel",
+      "countLabel": "8 rozwiązań",
+      "icon": "M3 4h18v16H3zM3 9h18M9 9v11",
+      "gradient": [
+        "#1F6F8B",
+        "#2E9A76"
+      ],
+      "scene": "sys",
+      "description": "Zlecenia, grafik, klienci, czas pracy i rozliczenia. Zbudowane pod to, jak naprawdę pracujecie.",
+      "gain": "Jedna baza zamiast kartek, SMS-ów i pięciu Exceli.",
+      "href": "/rozwiazania?kategoria=systemy",
+      "cta": "Zobacz systemy",
+      "key": "sys",
+      "order": 2,
+      "chips": [
+        {
+          "label": "Zlecenia i grafik pracy",
+          "solution": "system-zlecen-i-grafik-ekip"
+        },
+        {
+          "label": "CRM",
+          "solution": "crm-dla-malej-i-sredniej-firmy"
+        },
+        {
+          "label": "Czas pracy",
+          "solution": "czas-pracy-i-rozliczenia"
+        },
+        {
+          "label": "Serwis i zgłoszenia",
+          "solution": "system-serwisu-i-zgloszen"
+        },
+        {
+          "label": "Z Excela do systemu",
+          "solution": "z-excela-do-systemu"
+        },
+        {
+          "label": "Magazyn",
+          "solution": "magazyn-i-zamowienia"
+        }
+      ],
+      "priceFrom": 2990,
+      "priceLabel": "od 2 990 zł"
+    },
+    {
+      "name": "Aplikacje mobilne",
+      "short": "Dla ekip w terenie i dla klientów",
+      "countLabel": "4 rozwiązania",
+      "icon": "M8 2h8a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zM11 18h2",
+      "gradient": [
+        "#3A7BD5",
+        "#6E45D4"
+      ],
+      "scene": "app",
+      "description": "iPhone i Android z jednego kodu albo aplikacja z przeglądarki. Dla ekip w terenie albo dla Twoich klientów.",
+      "gain": "Ekipa ma zlecenia w kieszeni, a biuro widzi wszystko od razu.",
+      "href": "/rozwiazania?kategoria=aplikacje",
+      "cta": "Zobacz aplikacje",
+      "key": "app",
+      "order": 3,
+      "chips": [
+        {
+          "label": "Dla ekip w terenie",
+          "solution": "aplikacja-dla-ekip-w-terenie"
+        },
+        {
+          "label": "Dla klientów",
+          "solution": "aplikacja-do-rezerwacji-dla-gosci"
+        },
+        {
+          "label": "Z przeglądarki (PWA)",
+          "solution": null
+        },
+        {
+          "label": "Do Twojego programu",
+          "solution": "aplikacja-do-programu-ktory-masz"
+        }
+      ],
+      "priceFrom": null,
+      "priceLabel": "Zapytaj o wycenę"
+    },
+    {
+      "name": "Sklepy i zamówienia",
+      "short": "Rezerwacje, zamówienia, płatności",
+      "countLabel": "3 rozwiązania",
+      "icon": "M4 5h16v16H4zM4 10h16M9 3v4M15 3v4",
+      "gradient": [
+        "#E8955A",
+        "#C2577A"
+      ],
+      "scene": "cal",
+      "description": "Sklep internetowy, rezerwacja stolika i zapytania o termin dla pensjonatów. Klient zamawia i rezerwuje sam, o każdej porze.",
+      "gain": "Mniej telefonów, więcej rezerwacji bezpośrednio u Ciebie.",
+      "href": "/rozwiazania?kategoria=strony",
+      "cta": "Zobacz rozwiązania",
+      "key": "cal",
+      "order": 4,
+      "chips": [
+        {
+          "label": "Sklep internetowy",
+          "solution": "sklep-internetowy"
+        },
+        {
+          "label": "Rezerwacja stolika",
+          "solution": "strona-dla-restauracji-lub-baru"
+        },
+        {
+          "label": "Zapytania o termin dla pensjonatu",
+          "solution": "strona-dla-hotelu-lub-pensjonatu"
+        }
+      ],
+      "priceFrom": 1999,
+      "priceLabel": "od 1 999 zł"
+    },
+    {
+      "name": "Rozbudowa i połączenia",
+      "short": "Dobudujemy, czego brakuje",
+      "countLabel": "4 rozwiązania",
+      "icon": "M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4",
+      "gradient": [
+        "#24324A",
+        "#5E74A6"
+      ],
+      "scene": "plug",
+      "description": "Masz już program? Dobudujemy brakujący moduł albo połączymy go z resztą. Także system kupiony gdzie indziej.",
+      "gain": "Nie wyrzucasz tego, za co już zapłaciłeś.",
+      "href": "/rozwiazania?kategoria=automatyzacje",
+      "cta": "Zobacz rozwiązania",
+      "key": "plug",
+      "order": 5,
+      "chips": [
+        {
+          "label": "Panel do Twojego programu",
+          "solution": "aplikacja-do-programu-ktory-masz"
+        },
+        {
+          "label": "Dodatek do CRM",
+          "solution": null
+        },
+        {
+          "label": "Połączenie programów",
+          "solution": "polaczenie-programow"
+        },
+        {
+          "label": "Moduł do systemu",
+          "solution": null
+        }
+      ],
+      "priceFrom": null,
+      "priceLabel": "Zapytaj o wycenę"
+    },
+    {
+      "name": "Automatyzacje i AI",
+      "short": "SMS-y, raporty, asystent AI",
+      "countLabel": "3 rozwiązania",
+      "icon": "M13 2L4 14h7l-1 8 9-12h-7z",
+      "gradient": [
+        "#B7791F",
+        "#E8955A"
+      ],
+      "scene": "auto",
+      "description": "SMS-y, maile, faktury i raporty robią się same. Asystent AI odpowiada na zapytania w kilku językach.",
+      "gain": "Godziny przepisywania tygodniowo wracają do Ciebie.",
+      "href": "/rozwiazania?kategoria=automatyzacje",
+      "cta": "Zobacz automatyzacje",
+      "key": "auto",
+      "order": 6,
+      "chips": [
+        {
+          "label": "SMS-y i e-maile",
+          "solution": "powiadomienia-sms-i-e-mail"
+        },
+        {
+          "label": "Raporty dla szefa",
+          "solution": "raporty-dla-szefa"
+        },
+        {
+          "label": "Asystent AI na zapytania",
+          "solution": "asystent-ai-do-zapytan"
+        }
+      ],
+      "priceFrom": null,
+      "priceLabel": "Zapytaj o wycenę"
+    },
+    {
+      "name": "Opieka i rozwój",
+      "short": "Kopie, aktualizacje, przejęcie",
+      "countLabel": "3 poziomy",
+      "icon": "M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z",
+      "gradient": [
+        "#2E8A1E",
+        "#4FB3A0"
+      ],
+      "scene": "care",
+      "description": "Kopie, aktualizacje, monitoring i nowe funkcje. Także przejęcie strony albo programu po kimś, kto zniknął.",
+      "gain": "Spokój: ktoś pilnuje, zanim coś się zepsuje.",
+      "href": "/cennik",
+      "cta": "Zobacz poziomy opieki",
+      "key": "care",
+      "order": 7,
+      "chips": [
+        {
+          "label": "Opieka podstawowa",
+          "solution": "opieka-nad-strona-i-systemem"
+        },
+        {
+          "label": "Opieka z monitoringiem",
+          "solution": "opieka-nad-strona-i-systemem"
+        },
+        {
+          "label": "Opieka nad systemem",
+          "solution": "opieka-nad-strona-i-systemem"
+        },
+        {
+          "label": "Przejęcie po kimś",
+          "solution": "przejecie-po-innym-wykonawcy"
+        }
+      ],
+      "priceFrom": 149,
+      "priceLabel": "od 149 zł / mies."
+    },
+    {
+      "name": "Audyty i doradztwo",
+      "short": "Sprawdzimy i powiemy uczciwie",
+      "countLabel": "szybki audyt za darmo",
+      "icon": "M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM20 20l-4-4",
+      "gradient": [
+        "#B9506F",
+        "#E59A7E"
+      ],
+      "scene": "aud",
+      "description": "Sprawdzimy stronę albo program i uczciwie powiemy, co poprawić. Czasem odpowiedź brzmi: nic nie budujcie.",
+      "gain": "Wiesz, na czym stoisz, zanim wydasz złotówkę.",
+      "href": "/audyt",
+      "cta": "Zamów darmowy audyt",
+      "key": "aud",
+      "order": 8,
+      "chips": [
+        {
+          "label": "Szybki audyt strony",
+          "solution": "audyt-strony-lub-programu"
+        },
+        {
+          "label": "Pełny audyt z raportem",
+          "solution": "audyt-strony-lub-programu"
+        },
+        {
+          "label": "Dostępność",
+          "solution": "audyt-strony-lub-programu"
+        },
+        {
+          "label": "Doradztwo przy wyborze",
+          "solution": null
+        }
+      ],
+      "priceFrom": 0,
+      "priceLabel": "szybki audyt za darmo"
+    }
+  ]
+}

@@ -1354,7 +1354,6 @@ body{margin:0}
   .pjpill b{min-width:24px;height:24px;padding:0 7px;border-radius:999px;background:var(--bg);color:var(--text);display:inline-flex;align-items:center;justify-content:center;font-size:13px}
   .pjpill em{font-style:normal;color:var(--accent2);padding-right:8px}
   .toast{bottom:calc(146px + env(safe-area-inset-bottom,0px));width:calc(100% - 28px);max-width:420px;justify-content:flex-start}
-  footer{padding-bottom:96px}
   /* arkusze (menu i projekt) */
   .msh,.pjsh{display:flex;position:fixed;inset:0;z-index:100;flex-direction:column;justify-content:flex-end}
   .mshbg{position:absolute;inset:0;background:rgba(8,6,16,.52);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);animation:mshf .25s ease both}
@@ -1464,11 +1463,11 @@ body{margin:0}
   .prgrid{grid-template-columns:1fr !important}
   .prvis{min-height:0 !important;padding:22px 14px !important}
   .prdoc{width:100%;max-width:300px;transform:none}
-  .prstamp{top:auto;bottom:44px;right:12px}
+  .prstamp{top:10px;bottom:auto;right:10px;font-size:10px;transform:rotate(6deg)}
   /* zasady: zwarta siatka */
   .gcard{padding:14px !important;gap:12px}
   .saynot{padding:22px !important}
-  .saynot span:first-child{font-size:30px !important}
+  .saynot .snh{font-size:30px !important}
   /* realizacje: karuzela */
   .rlz{display:flex !important;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px !important;margin:0 -18px;padding:2px 18px 12px;scrollbar-width:none}
   .rlz::-webkit-scrollbar{display:none}
@@ -1488,9 +1487,6 @@ body{margin:0}
   .fmain .btn{width:100%}
   .topic{min-height:48px}
   /* stopka: dwie kolumny linków */
-  footer .wrap{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:22px 16px !important;padding-top:36px !important}
-  footer .wrap > div:first-child,footer .wrap > div:last-child{grid-column:1 / -1}
-  footer .wrap a{padding:3px 0}
   .prshot{display:none !important}
   .gcard span[style*="flex-direction: column"] > span{font-size:13.5px}
 }
@@ -1586,15 +1582,935 @@ body{margin:0}
 
 /* v20 · cele dotyku linków w stopce i okruszkach (≥ 44 px wysokości wiersza na telefonie) */
 @media (max-width:1080px){
-  footer a{display:inline-flex;align-items:center;min-height:40px}
-  footer .wrap > div{gap:2px !important}
   .crumbs a,.bcr a,nav[aria-label="Ścieżka"] a,nav[aria-label="Okruszki"] a{display:inline-flex;align-items:center;min-height:40px}
 }
 .fokn > span > em{font-style:normal;display:block}
 
+/* v21 · „Jak robimy” i „Z czego budujemy” wróciły na stronę główną — zwarte na telefonie */
+@media (max-width:640px){
+  .jxg{display:flex !important;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;gap:10px;padding-bottom:6px}
+  .jxg::-webkit-scrollbar,.jrvsg::-webkit-scrollbar,.jxfacts::-webkit-scrollbar{display:none}
+  .jxg .jxc{flex:0 0 84%;scroll-snap-align:center}
+  .jxv{height:130px}
+  .jx .jrvsg{display:flex !important;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;gap:10px;padding-bottom:6px}
+  .jrvsg .jxside{flex:0 0 88%;scroll-snap-align:center}
+  .jrvsmid{display:none !important}
+  .jxside.them .jxstk span.wp:nth-child(n+5){display:none}
+  .jxfacts{display:flex !important;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;gap:8px;padding-bottom:6px}
+  .jxfacts > div{flex:0 0 78%;scroll-snap-align:center}
+  .jxfacts small,.jxus3 span{font-size:12.5px}
+}
+
+/* v21 · ciemna stopka — w obu motywach ciemna (Grafit z księgi znaku) */
+.ft{--ftbg:#101411;--ftt:#F4F5F1;--ftm:#AEB5AF;--ftl:rgba(255,255,255,.09);position:relative;overflow:hidden;background:radial-gradient(ellipse 70% 60% at 85% 0%,rgba(150,112,238,.22),transparent 60%),radial-gradient(ellipse 50% 50% at 0% 100%,rgba(150,112,238,.10),transparent 60%),var(--ftbg);color:var(--ftt);border-top:0}
+.pk[data-theme="dark"] .ft{--ftbg:#0B0E0C;box-shadow:inset 0 1px 0 var(--ftl)}
+.ft a{color:inherit}
+.ftcta{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;padding-top:56px;padding-bottom:40px;border-bottom:1px solid var(--ftl)}
+.fte{display:block;font-size:12.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#C7B5FA;margin-bottom:8px}
+.ftct h2{margin:0;font-family:Archivo,sans-serif;font-stretch:112%;font-weight:900;font-size:clamp(28px,3.4vw,44px);line-height:1.05;letter-spacing:-.02em}
+.ftct p{margin:10px 0 0;color:var(--ftm);font-size:16px;max-width:56ch}
+.ftcb{display:flex;gap:10px;flex-wrap:wrap}
+.ft .ftbk{background:linear-gradient(135deg,#7C55E6,#9A5BD8);color:#FFFFFF;box-shadow:0 18px 40px -18px rgba(150,112,238,.8)}
+.ft .ftbw{background:rgba(255,255,255,.07);color:#FFFFFF;box-shadow:inset 0 0 0 1px rgba(255,255,255,.16)}
+.ft .ftbw:hover{background:rgba(255,255,255,.12)}
+.ft .btn svg{flex:none}
+.ftg{display:grid;grid-template-columns:minmax(0,1.5fr) repeat(2,minmax(0,.8fr)) minmax(0,1.3fr);gap:36px;padding-top:44px;padding-bottom:36px}
+.ftlogo{display:inline-flex;flex-direction:column;align-items:flex-end;gap:2px;width:max-content}
+.ftlogo b{font-family:Archivo,sans-serif;font-stretch:118%;font-weight:800;font-size:28px;letter-spacing:-.01em;display:inline-flex;align-items:center;line-height:1}
+.ftlogo b i{display:inline-block;width:.32em;height:.14em;background:#9670EE;margin:0 .04em;border-radius:1px}
+.ftlogo span{font-size:11.5px;font-weight:800;letter-spacing:.32em;padding-top:4px;border-top:3px solid #9670EE;width:100%;text-align:right}
+.ftbrand p{margin:16px 0 0;color:var(--ftm);font-size:14.5px;line-height:1.6;max-width:40ch}
+.fttrust{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
+.fttrust li{display:flex;gap:10px;align-items:center;font-size:14px;font-weight:600}
+.fttrust svg{flex:none;width:22px;height:22px;padding:4px;border-radius:50%;background:rgba(123,211,106,.16);color:#7BD36A;box-sizing:border-box}
+.ftcol{display:flex;flex-direction:column;gap:10px;font-size:14.5px}
+.ftcol > b{font-size:12.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ftm);margin-bottom:4px}
+.ftcol a{color:#E4E7E3;width:max-content;max-width:100%;transition:color .15s}
+.ftcol a:hover{color:#C7B5FA}
+.ftcol a em{font-style:normal;font-size:11.5px;font-weight:800;padding:2px 7px;border-radius:999px;background:rgba(123,211,106,.16);color:#9BE38A;margin-left:6px}
+.ftk{display:grid;grid-template-columns:20px minmax(0,1fr);gap:10px;align-items:start;color:#E4E7E3}
+.ftk svg{color:#C7B5FA;margin-top:2px}
+.ftk small{display:block;color:var(--ftm);font-size:13px;margin-top:2px}
+.ftlines{padding-top:28px;padding-bottom:28px;border-top:1px solid var(--ftl)}
+.ftlh{display:block;font-size:12.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ftm);margin-bottom:14px}
+.ftlg{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
+.ftl{display:flex;flex-direction:column;gap:8px;padding:14px;border-radius:18px;background:rgba(255,255,255,.04);box-shadow:inset 0 0 0 1px var(--ftl);transition:background .15s,transform .15s}
+.ftl:hover{background:rgba(255,255,255,.08);transform:translateY(-2px)}
+.ftl.on{background:rgba(150,112,238,.16);box-shadow:inset 0 0 0 1.5px rgba(150,112,238,.55)}
+.ftlm{display:flex;flex-direction:column;align-items:flex-start;gap:3px}
+.ftlm b{font-family:Archivo,sans-serif;font-stretch:118%;font-weight:800;font-size:16px;display:inline-flex;align-items:center;line-height:1}
+.ftlm b i{display:inline-block;width:.36em;height:.16em;margin:0 .05em;border-radius:1px;background:var(--lc)}
+.ftlm small{border-top:2px solid var(--lc);padding-top:3px;align-self:stretch}
+.ftl:hover{box-shadow:inset 0 0 0 1px var(--lc)}
+.ftlm small{font-size:10.5px;font-weight:800;letter-spacing:.2em;color:var(--ftm)}
+.ftld{font-size:13px;line-height:1.4;color:var(--ftm)}
+.ftb{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-top:18px;padding-bottom:26px;border-top:1px solid var(--ftl);font-size:13px;color:var(--ftm)}
+.ftbl{display:flex;gap:16px;flex-wrap:wrap}
+.ftbl a{color:#E4E7E3;text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(255,255,255,.3)}
+@media (max-width:1080px){
+  .ftg{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ftlg{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media (max-width:640px){
+  .ftcta{padding-top:40px;padding-bottom:28px;gap:18px}
+  .ftct h2{font-size:30px}
+  .ftcb{width:100%;flex-direction:column}
+  .ftcb .btn{width:100%;justify-content:center}
+  .ftg{grid-template-columns:repeat(2,minmax(0,1fr));gap:26px 16px;padding-top:32px;padding-bottom:26px}
+  .ftbrand,.ftkon{grid-column:1 / -1}
+  .ftcol{gap:0}
+  .ftcol > b{margin-bottom:6px}
+  .ftcol a{display:flex;align-items:center;min-height:42px}
+  .ftk{padding:6px 0}
+  .ftlg{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin:0 -18px;padding:2px 18px 6px}
+  .ftlg::-webkit-scrollbar{display:none}
+  .ftl{flex:0 0 58%;scroll-snap-align:start}
+  .ftb{flex-direction:column;padding-bottom:112px}
+}
+
+/* v21 · strona główna: zasady w karuzeli, bez podwójnego CTA przed stopką */
+.pk[data-page="start"] .ftcta,.pk[data-page="kontakt"] .ftcta,.pk[data-page="thanks"] .ftcta,.pk[data-page="kontakt"] .ftlines{display:none}
+@media (max-width:640px){
+  .gg{display:flex !important;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin:0 -18px;padding:2px 18px 8px;gap:10px !important}
+  .gg::-webkit-scrollbar{display:none}
+  .gg .gcard{flex:0 0 78%;scroll-snap-align:start}
+  .saynot{padding:22px !important}
+  .saynot .snh{font-size:30px !important}
+}
+
+/* v21 · po audycie */
+.poph{min-height:26px}
+.poph .ocb{padding:3px 8px;line-height:1.2}
+.oxl,.ptabs,.pop,.prtl,.rlz,.wpf,.gg,.ftlg,.trust,.jxg,.jrvsg,.jxfacts,.team,.salg,.lines-g,.auplans,.ctabs,.plans{scroll-padding-inline:18px}
+@media (max-width:640px){
+  .wpbtn .btn{justify-content:center;text-align:center}
+  .oxf{flex-direction:column;align-items:stretch !important;gap:12px}
+  .oxf > div{width:100%;flex-wrap:nowrap !important}
+  .oxf > div .btn{flex:1 1 0;min-width:0;padding-left:10px;padding-right:10px;justify-content:center;text-align:center}
+}
+
+/* v21 · P1 — finalne szlify strony głównej */
+.bcap{display:none}
+.hbtns .btn{white-space:nowrap}
+@media (min-width:641px){.hbtns{flex-wrap:nowrap !important}}
+.saynot .sne{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.16);font-size:12.5px;font-weight:800;letter-spacing:.03em}
+.saynot .snb{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;min-height:46px;margin-top:4px;padding:0 18px;border-radius:14px;background:#FFFFFF;color:#4B2AA8;font-weight:800;font-size:15px;text-decoration:none;transition:transform .2s}
+.saynot .snb:hover{transform:translateY(-2px)}
+/* rytm sekcji: „Jak robimy” na delikatnym tle, „Z czego budujemy” bez pudełka */
+.pk[data-theme="light"] .jx{background:radial-gradient(ellipse at 100% 0%,rgba(110,69,212,.15),transparent 55%),radial-gradient(ellipse at 0% 100%,rgba(70,150,220,.10),transparent 50%),#F3F0FB;box-shadow:inset 0 0 0 1px #E4DDF7}
+.tx{background:transparent !important;box-shadow:none !important;border-radius:0;padding:0 !important;overflow:visible}
+.tx:before{display:none}
+@media (max-width:640px){
+  .hvis .bld{display:none !important}
+  .bcap{display:block;font-size:13px;font-weight:800;color:var(--muted);margin:2px 0 -4px}
+  .prstamp{display:none !important}
+  .jxgain{margin-top:6px}
+  .saynot{padding:24px !important;gap:12px !important}
+  .saynot .snh{font-size:30px !important}
+}
+#bez-wordpressa{padding-top:0}
+/* P1 · minimalny rozmiar tekstu 12 px (etykiety) */
+.oxpr small,.prk,.jxgain small,.txk,.txsrc,.ftlogo span,.ftlm small,.ft a em{font-size:12px !important}
+/* P1 · liczby realizacji w ciemnym motywie: panel odcina się od tła */
+.pk[data-theme="dark"] .strip{background:radial-gradient(ellipse at 0% 0%,rgba(150,112,238,.30),transparent 55%),radial-gradient(ellipse at 100% 100%,rgba(150,112,238,.16),transparent 55%),#1A1528;box-shadow:inset 0 0 0 1px rgba(201,169,255,.30),0 30px 60px -40px rgba(0,0,0,.8)}
+.pk[data-theme="dark"] .strip .n{color:#E4D8FF}
+/* P1 · cele dotyku na tablecie (≤1080 px = tryb aplikacji) */
+@media (max-width:1080px){.ftcol{gap:0}.ftcol > b{margin-bottom:6px}.ftcol a{display:flex;align-items:center;min-height:42px}.wplink{display:inline-flex;align-items:center;min-height:44px}}
+
+/* v21 final · czytelność: etykiety min. 12 px, link w stopce z celem dotyku 44 px */
+.navk em{font-size:12px}
+.pcnt,.ocb{font-size:12px}
+.txln .txt2,.txpn .txt2{font-size:12px}
+.ftbl a{display:inline-flex;align-items:center;min-height:44px}
+.popk{font-size:12px}
+
+/* v21 final · po audycie: pasek zaufania bez ucinania, proces z widocznym 4. etapem, przyciski oferty na 360 px */
+@media (max-width:640px){
+  .trust{flex-wrap:wrap !important;overflow:visible !important;margin:0 !important;padding:0 !important}
+  .prtl > button{flex:0 0 104px !important;min-width:0 !important;white-space:normal}
+  .prtl > button *{white-space:normal}
+}
+.oxf .btn{white-space:nowrap}
+@media (max-width:400px){
+  .oxf{flex-wrap:wrap}
+  .oxf > div{width:100%}
+  .oxf > div .btn{flex:1 1 0;min-width:0;padding-left:10px;padding-right:10px}
+}
+/* podstrony: tło hero wygasa łagodnie, pierwsza sekcja ma oddech */
+.pk:not([data-page="start"]) section.hero > .hglow{-webkit-mask-image:linear-gradient(to bottom,#000 55%,transparent 100%);mask-image:linear-gradient(to bottom,#000 55%,transparent 100%)}
+.pk:not([data-page="start"]) section.hero + section.sec{padding-top:40px !important}
+@media (max-width:640px){.pk:not([data-page="start"]) section.hero + section.sec{padding-top:24px !important}}
+.ftbl{align-items:center}
+@media (min-width:641px){.ftb{align-items:center}}
+/* telefon: polecany wariant pierwszy w przewijanym rzędzie planów */
+@media (max-width:640px){.plans > .plan.top{order:-1}}
+/* pigułka „Twój projekt” ma odwrócone tło — akcent z przeciwnego motywu (kontrast ≥ 4,5:1); na Kontakcie zbędna */
+.pk .pjpill em{color:#C9A9FF}
+.pk[data-theme="dark"] .pjpill em{color:#5B33C4}
+.pk[data-page="kontakt"] .pjpill{display:none !important}
+@media (max-width:380px){.prtl > button{flex-basis:92px !important}}
+.pk section.xhero > .hglow{-webkit-mask-image:linear-gradient(to bottom,#000 55%,transparent 100%);mask-image:linear-gradient(to bottom,#000 55%,transparent 100%)}
+.pk section.xhero + section.sec{padding-top:48px !important}
+@media (max-width:640px){.pk section.xhero + section.sec{padding-top:28px !important}}
+/* poświata w hero podstron mieści się w sekcji — bez twardej krawędzi */
+.pk:not([data-page="start"]) section.hero > .hglow,.pk section.xhero > .hglow{top:0 !important;bottom:auto !important;height:100% !important;max-height:720px;-webkit-mask-image:none;mask-image:none}
+
+/* --- kreator.css --- */
+/* v21 · kreator „Dobierz rozwiązanie” (28.10.2026) — prefiks .kz; wnętrze podglądu korzysta z klas .dz* (dzbar, dzbody, dzw, dzsys, dzapp, dzflow, dzab, dzidle, dzhelpv) */
+.kz{position:relative;display:flex;flex-direction:column;gap:30px;padding:clamp(22px,3.6vw,52px);border-radius:36px;background:radial-gradient(ellipse at 100% 0%,rgba(150,112,238,.22),transparent 52%),radial-gradient(ellipse at 0% 100%,var(--glow2),transparent 46%),var(--card);box-shadow:inset 0 0 0 1px var(--line)}
+.pk[data-theme="light"] .kz{background:radial-gradient(ellipse at 100% 0%,rgba(110,69,212,.09),transparent 52%),radial-gradient(ellipse at 0% 100%,rgba(40,150,200,.06),transparent 46%),#FFFFFF;box-shadow:0 0 0 1px var(--line),0 40px 90px -54px rgba(40,30,80,.35)}
+.kz *{box-sizing:border-box}
+.kzh{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.kzht{display:flex;flex-direction:column;gap:10px;max-width:700px}
+.kzhr{display:flex;flex-direction:column;gap:12px;align-items:flex-start;max-width:46ch}
+.kzhr .lead{margin:0}
+.kzbadges{display:flex;gap:8px;flex-wrap:wrap}
+.kzbadges span{display:inline-flex;align-items:center;gap:8px;padding:6px 12px 6px 6px;border-radius:999px;background:var(--chip);font-size:13px;font-weight:800;color:var(--soft)}
+.kzbadges i{width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:var(--accent);color:var(--accentInk);font-style:normal;font-size:11.5px;font-weight:900}
+.kzbadges i.kzpulse{background:transparent;position:relative}
+.kzpulse{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 0 rgba(123,211,106,.6);animation:kzp 2s infinite}
+.kzbadges i.kzpulse:after{content:"";position:absolute;inset:6px;border-radius:50%;background:var(--ok)}
+.kzbadges i.kzpulse{animation:none;box-shadow:none;width:22px;height:22px;background:rgba(123,211,106,.18)}
+@keyframes kzp{0%{box-shadow:0 0 0 0 rgba(123,211,106,.55)}70%{box-shadow:0 0 0 9px rgba(123,211,106,0)}100%{box-shadow:0 0 0 0 rgba(123,211,106,0)}}
+
+.kzg{display:grid;grid-template-columns:minmax(0,1.28fr) minmax(0,.72fr);gap:28px;align-items:start}
+.kzl{display:flex;flex-direction:column;gap:20px;min-width:0}
+
+/* postęp */
+.kztop{display:flex;flex-direction:column;gap:12px}
+.kzprog{display:flex;align-items:center;gap:12px;justify-content:space-between;flex-wrap:wrap}
+.kzsteps{display:flex;gap:6px;flex-wrap:wrap}
+.kzst{display:inline-flex;align-items:center;gap:8px;min-height:36px;padding:5px 13px 5px 5px;border-radius:999px;border:0;background:var(--chip);color:var(--muted);font:inherit;font-size:13.5px;font-weight:800;cursor:default;transition:background .25s,color .25s}
+.kzst i{width:26px;height:26px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:var(--bg);font-style:normal;font-size:12px}
+.pk[data-theme="light"] .kzst i{background:#FFFFFF}
+.kzst.done{color:var(--text);cursor:pointer}
+.kzst.done i,.pk[data-theme="light"] .kzst.done i{background:var(--ok);color:#FFFFFF}
+.kzst.on{background:var(--accent);color:var(--accentInk)}
+.kzst.on i,.pk[data-theme="light"] .kzst.on i{background:rgba(255,255,255,.24);color:inherit}
+.kzprm{display:none}
+.kzback{margin-left:auto;display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 12px;border:0;border-radius:12px;background:transparent;color:var(--muted);font:inherit;font-size:14px;font-weight:800;cursor:pointer}
+.kzback:hover{background:var(--chip);color:var(--text)}
+.kzline{height:4px;border-radius:4px;background:var(--chip);overflow:hidden}
+.kzline i{display:block;height:100%;border-radius:4px;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .5s cubic-bezier(.2,.7,.2,1)}
+
+.kzpane{display:flex;flex-direction:column;gap:18px}
+.kzqh{display:flex;flex-direction:column;gap:6px}
+.kzq{margin:0;font-family:Archivo,sans-serif;font-stretch:112%;font-weight:900;font-size:clamp(24px,2.3vw,32px);line-height:1.08;letter-spacing:-.015em}
+.kzhint{font-size:15px;color:var(--muted);line-height:1.45}
+.kzrow{display:flex;flex-direction:column;gap:9px}
+.kzrl,.kzsl{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+
+/* krok 1: duże kafle */
+.kztiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.kzt{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:8px;min-height:176px;padding:16px;border-radius:20px;border:1.5px solid var(--line);background:var(--card2);color:var(--text);font:inherit;text-align:left;cursor:pointer;overflow:hidden;transition:transform .3s cubic-bezier(.2,.7,.2,1),border-color .25s,box-shadow .3s,background .25s}
+.pk[data-theme="light"] .kzt{background:#FFFFFF;box-shadow:0 12px 26px -24px rgba(40,30,80,.55)}
+.kzt:before{content:"";position:absolute;right:-30px;top:-30px;width:110px;height:110px;border-radius:50%;background:radial-gradient(circle,var(--glow),transparent 70%);opacity:0;transition:opacity .3s}
+.kzt:hover{transform:translateY(-4px);border-color:var(--accentLine);box-shadow:0 22px 44px -28px var(--glow)}
+.kzt:hover:before,.kzt.on:before{opacity:.8}
+.kzt.on{border-color:var(--accent);background:var(--accentSoft)}
+.kzi{flex:none;width:48px;height:48px;border-radius:15px;display:inline-flex;align-items:center;justify-content:center;color:#FFFFFF;box-shadow:0 12px 24px -12px rgba(60,30,140,.55)}
+.kzt b{font-size:16px;line-height:1.2}
+.kztd{font-size:13.5px;line-height:1.4;color:var(--muted)}
+.kzph{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;font-size:13px;font-weight:800;color:var(--accentText)}
+.kzph i{font-style:normal;width:26px;height:26px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:var(--chip);color:var(--text);transition:all .25s}
+.kzt:hover .kzph i,.kzt.on .kzph i{background:var(--accent);color:var(--accentInk);transform:translateX(2px)}
+.kzown{display:flex;align-items:center;gap:14px;width:100%;padding:16px 18px;border-radius:20px;border:1.5px dashed var(--accentLine);background:transparent;color:var(--text);font:inherit;text-align:left;cursor:pointer;transition:background .25s,border-color .25s}
+.kzown:hover{background:var(--accentSoft);border-color:var(--accent)}
+.kzown > span:nth-child(2){display:flex;flex-direction:column;gap:3px;font-size:14px;color:var(--muted);line-height:1.4}
+.kzown b{font-size:15.5px;color:var(--text)}
+.kzown em{margin-left:auto;font-style:normal;font-size:20px;color:var(--accentText)}
+.kzoi{flex:none;width:42px;height:42px;border-radius:13px;display:inline-flex;align-items:center;justify-content:center;background:var(--accentSoft);color:var(--accentText);transition:all .25s}
+
+/* krok 2: opcje */
+.kzopts{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+.kzopts.many{grid-template-columns:repeat(5,minmax(0,1fr))}
+.kzo{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:10px;min-height:112px;padding:14px 40px 14px 14px;border-radius:18px;border:1.5px solid var(--line);background:var(--card2);color:var(--text);font:inherit;font-size:14.5px;text-align:left;cursor:pointer;transition:transform .25s cubic-bezier(.2,.7,.2,1),border-color .25s,background .25s,box-shadow .25s}
+.pk[data-theme="light"] .kzo{background:#FFFFFF}
+.kzo b{font-weight:800;line-height:1.3}
+.kzo:hover{transform:translateY(-3px);border-color:var(--accentLine);box-shadow:0 18px 36px -26px var(--glow)}
+.kzo.on{border-color:var(--accent);background:var(--accentSoft)}
+.kzo:hover .kzoi,.kzo.on .kzoi{background:var(--accent);color:var(--accentInk)}
+.kzck{position:absolute;right:12px;top:12px;width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;box-shadow:inset 0 0 0 1.5px var(--line);color:transparent;transition:all .25s}
+.kzo.on .kzck{background:var(--accent);color:var(--accentInk);box-shadow:none}
+.kzo:not(.m) .kzck{border-radius:50%}
+.kznext{display:flex;justify-content:flex-end;gap:8px}
+.kzgo{min-height:52px;padding:0 26px}
+
+/* krok 3: rozmiary */
+.kzszs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.kzsz{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:18px;border-radius:20px;border:1.5px solid var(--line);background:var(--card2);color:var(--text);font:inherit;text-align:left;cursor:pointer;transition:border-color .25s,background .25s,box-shadow .3s,transform .25s}
+.pk[data-theme="light"] .kzsz{background:#FFFFFF}
+.kzsz:hover{border-color:var(--accentLine);transform:translateY(-2px)}
+.kzsz.on{border-color:var(--accent);background:var(--accentSoft);box-shadow:0 20px 44px -30px var(--glow)}
+.kzszn{display:inline-flex;align-items:center;gap:9px;font-size:13px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.kzsz.on .kzszn{color:var(--accentText)}
+.kzrad{width:18px;height:18px;border-radius:50%;box-shadow:inset 0 0 0 2px var(--line);transition:all .2s}
+.kzsz.on .kzrad{box-shadow:inset 0 0 0 5px var(--accent)}
+.kzszp{font-family:Archivo,sans-serif;font-stretch:112%;font-weight:900;font-size:30px;line-height:1.05;letter-spacing:-.01em}
+.kzszp small{font-family:Manrope,sans-serif;font-size:13px;font-weight:700;color:var(--muted);margin-left:6px;letter-spacing:0}
+.kzszt{font-size:13.5px;font-weight:700;color:var(--muted)}
+.kzszf{display:flex;flex-direction:column;gap:6px;margin-top:6px;padding-top:12px;border-top:1px dashed var(--line);width:100%}
+.kzszf em,.kzszd em{position:relative;padding-left:22px;font-style:normal;font-size:13.5px;line-height:1.4;color:var(--soft)}
+.kzszf em:before,.kzszd em:before{content:"";position:absolute;left:2px;top:4px;width:12px;height:7px;border-left:2.4px solid var(--ok);border-bottom:2.4px solid var(--ok);transform:rotate(-45deg)}
+.kzrec{position:absolute;right:14px;top:-11px;padding:4px 10px;border-radius:999px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#FFFFFF;font-size:11.5px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;box-shadow:0 8px 18px -8px var(--glow)}
+.kzszd{display:none}
+.kzwhy,.kzask,.kzhon{display:flex;gap:12px;align-items:flex-start;padding:13px 15px;border-radius:16px;background:var(--accentSoft);box-shadow:inset 0 0 0 1px var(--accentLine);font-size:14.5px;line-height:1.45;font-weight:600}
+.kzask > span:nth-child(2),.kzhon > span:nth-child(2){display:flex;flex-direction:column;gap:2px;color:var(--soft)}
+.kzask b,.kzhon b{color:var(--text);font-size:15px}
+.kzhon{background:var(--chip);box-shadow:none}
+.kzwi{flex:none;width:30px;height:30px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;background:var(--accent);color:var(--accentInk)}
+.kzhon .kzwi{background:var(--ok);color:#FFFFFF}
+.kzscope{display:block;padding:10px 13px;border-radius:12px;background:var(--chip);font-size:13.5px;font-weight:700;color:var(--soft);line-height:1.45}
+.kzmore{font-size:13.5px;color:var(--muted)}
+.kzset{display:flex;flex-direction:column;gap:10px}
+.kzchips{display:flex;flex-wrap:wrap;gap:8px}
+.kzchip{min-height:44px;padding:0 16px;border-radius:999px;border:1.5px solid var(--line);background:transparent;color:var(--text);font:inherit;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s}
+.kzchip:hover{border-color:var(--accentLine)}
+.kzchip.on{background:var(--accent);border-color:var(--accent);color:var(--accentInk)}
+.kzchip.add{border-style:dashed;color:var(--soft);font-weight:600}
+.kzwn{display:flex;gap:8px;align-items:flex-start;font-size:14px;font-weight:700;color:var(--soft)}
+.kzwn:before{content:"";flex:none;width:8px;height:8px;margin-top:6px;border-radius:50%;background:var(--ok)}
+.kzdescb{align-self:flex-start;min-height:44px;padding:0 4px;border:0;background:transparent;color:var(--accentText);font:inherit;font-size:15px;font-weight:800;cursor:pointer}
+.kzdescb small{font-weight:600;color:var(--muted);font-size:13px}
+.kzin,.kzta{width:100%;min-height:52px;padding:14px 16px;border-radius:14px;border:1.5px solid var(--line);background:var(--bg);color:var(--text);font:inherit;font-size:15.5px;outline:none;transition:border-color .2s,box-shadow .2s}
+.pk[data-theme="light"] .kzin,.pk[data-theme="light"] .kzta{background:#FFFFFF}
+.kzin:focus,.kzta:focus{border-color:var(--accent);box-shadow:0 0 0 4px var(--accentSoft)}
+.kzta{resize:vertical;line-height:1.5;min-height:96px}
+
+/* wynik */
+.kzres{gap:16px}
+.kzrh{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.kzk{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;background:var(--ok);color:#FFFFFF;font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+.kzkind{font-size:12px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--accentText)}
+.kzrn{margin:0;font-family:Archivo,sans-serif;font-stretch:112%;font-weight:900;font-size:clamp(30px,3.2vw,44px);line-height:1.02;letter-spacing:-.02em}
+.kzfor{font-size:15px;color:var(--muted);margin-top:-6px}
+.kzplus{align-self:flex-start;padding:7px 12px;border-radius:999px;background:var(--chip);font-size:13.5px;font-weight:800}
+.kzsw{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.kzsw .kzsz{padding:12px 14px;flex-direction:row;flex-wrap:wrap;align-items:center;gap:4px 12px;border-radius:16px}
+.kzsw .kzszn{flex-basis:100%}
+.kzsw .kzszp{font-size:20px}
+.kzsw .kzrec{top:-10px;right:10px}
+.kzkpi{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.kzkpi > span{display:flex;flex-direction:column;gap:3px;padding:16px 18px;border-radius:18px;background:linear-gradient(135deg,var(--accentSoft),transparent 140%);box-shadow:inset 0 0 0 1px var(--accentLine)}
+.kzkpi small{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.kzkpi b{font-family:Archivo,sans-serif;font-stretch:112%;font-weight:900;font-size:clamp(22px,2.2vw,30px);line-height:1.08;color:var(--accentText)}
+.kzkpi em{font-style:normal;font-size:13px;color:var(--muted)}
+.kzblk{display:flex;flex-direction:column;gap:10px;padding:16px 18px;border-radius:18px;background:var(--bg2);box-shadow:inset 0 0 0 1px var(--line)}
+.pk[data-theme="light"] .kzblk{background:#FAFAF8}
+.kzblkh{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.kzndt{flex:none;white-space:nowrap;font-size:13px;font-weight:800;color:var(--accentText)}
+.kzndbar{height:6px;border-radius:6px;background:var(--chip);overflow:hidden}
+.kzndbar i{display:block;height:100%;background:var(--ok);border-radius:6px;transition:width .4s}
+.kzneeds{display:flex;flex-wrap:wrap;gap:8px}
+.kznd{display:inline-flex;align-items:center;gap:9px;min-height:44px;padding:0 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--card);color:var(--text);font:inherit;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s}
+.kznd i{width:18px;height:18px;border-radius:6px;box-shadow:inset 0 0 0 1.5px var(--line);position:relative}
+.kznd.on{border-color:var(--ok);background:rgba(123,211,106,.12)}
+.kznd.on i{background:var(--ok);box-shadow:none}
+.kznd.on i:after{content:"";position:absolute;left:5px;top:4px;width:7px;height:4px;border-left:2px solid #FFFFFF;border-bottom:2px solid #FFFFFF;transform:rotate(-45deg)}
+.kznote{font-size:13px;color:var(--muted);line-height:1.45}
+.kzads{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.kzad{display:flex;align-items:flex-start;gap:12px;padding:12px;border-radius:16px;border:1.5px solid var(--line);background:var(--card);color:var(--text);font:inherit;text-align:left;cursor:pointer;transition:all .2s}
+.kzad:hover{border-color:var(--accentLine)}
+.kzad.on{border-color:var(--accent);background:var(--accentSoft)}
+.kzadi{flex:none;width:36px;height:36px;border-radius:11px;display:inline-flex;align-items:center;justify-content:center;background:var(--chip);color:var(--accentText)}
+.kzad.on .kzadi{background:var(--accent);color:var(--accentInk)}
+.kzadt{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}
+.kzadt b{font-size:14px;line-height:1.3}
+.kzadt small{font-size:12.5px;line-height:1.4;color:var(--muted)}
+.kzadt em{font-style:normal;font-size:13px;font-weight:800;color:var(--accentText);margin-top:2px}
+.kzadb{flex:none;align-self:center;padding:7px 10px;border-radius:999px;background:var(--chip);font-size:12.5px;font-weight:800;white-space:nowrap}
+.kzad.on .kzadb{background:var(--accent);color:var(--accentInk)}
+.kzdq{display:flex;flex-direction:column;gap:6px;padding:14px 16px;border-radius:16px;background:var(--chip);font-style:italic;font-size:15px;line-height:1.5}
+.kzdq .kzsl{font-style:normal}
+.kzwhen{display:flex;gap:9px;align-items:flex-start;font-size:14.5px;font-weight:700;line-height:1.45}
+.kzwhen i{flex:none;width:9px;height:9px;margin-top:6px;border-radius:50%;background:var(--ok)}
+.kzagain{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 4px;border:0;background:transparent;color:var(--muted);font:inherit;font-size:14px;font-weight:800;cursor:pointer}
+.kzagain:hover{color:var(--text)}
+
+/* prawa kolumna: wycena na żywo */
+.kzr{position:sticky;top:92px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.kzlh{display:flex;align-items:center;gap:10px;font-size:12.5px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.kzpvb{display:none}
+.kzscr{display:flex;flex-direction:column;border-radius:20px;overflow:hidden;background:#F6F7F3;box-shadow:0 0 0 1px var(--line),0 30px 60px -36px rgba(20,10,60,.5)}
+.kzscr .dzbody{flex:none;height:260px;min-height:0;overflow:hidden}
+.kzscr .dzidle{padding:16px;gap:6px}
+.kzscr .dzim{grid-template-columns:repeat(2,minmax(0,118px));gap:10px;margin-bottom:4px}
+.kzscr .dzmi{height:78px;padding:22px 8px 8px}
+.kzscr .dzhow{display:none}
+.kzscr .dzit{font-size:17px}
+.kzr.fin .kzscr .dzbody{height:220px}
+.kzlive{display:flex;flex-direction:column;gap:12px;padding:18px;border-radius:20px;background:var(--bg2);box-shadow:inset 0 0 0 1px var(--line)}
+.pk[data-theme="light"] .kzlive{background:#FAFAF8}
+.kzlidle{display:flex;flex-direction:column;gap:6px}
+.kzlidle b{font-family:Archivo,sans-serif;font-stretch:112%;font-weight:900;font-size:32px;color:var(--muted)}
+.kzlidle span{font-size:14px;color:var(--muted);line-height:1.45}
+.kzln{font-size:14px;font-weight:800;color:var(--soft)}
+.kzlpr{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.kzlpr b{font-family:Archivo,sans-serif;font-stretch:112%;font-weight:900;font-size:34px;line-height:1;letter-spacing:-.015em;color:var(--accentText)}
+.kzlpr small{font-size:13px;font-weight:700;color:var(--muted)}
+.kzlt{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:14px;font-weight:800}
+.kzlt > span{display:inline-flex;align-items:center;gap:6px}
+.kzlsz{padding:4px 10px;border-radius:999px;background:var(--accentSoft);color:var(--accentText);font-size:12.5px}
+.kzsum{display:flex;flex-direction:column;gap:8px;padding-top:12px;border-top:1px dashed var(--line)}
+.kzsum > div{display:flex;flex-wrap:wrap;gap:6px}
+.kzsc{padding:6px 11px;border-radius:999px;background:var(--accentSoft);color:var(--accentText);font-size:12.5px;font-weight:800}
+.kzsc.mute{background:var(--chip);color:var(--muted)}
+/* v21.1 · blok wysyłki (28.10 po uwagach Krystiana): komunikat, „bilet” wyceny, segment kontaktu, pola z etykietami */
+.kzsend{display:flex;flex-direction:column;gap:16px;padding:22px;border-radius:24px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line),0 34px 70px -44px var(--glow)}
+.pk[data-theme="light"] .kzsend{background:#FFFFFF;box-shadow:0 0 0 1px var(--line),0 34px 70px -44px rgba(60,30,140,.45)}
+.kzsh2{display:flex;flex-direction:column;gap:6px}
+.kzstep{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--accentText)}
+.kzstep i{width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:var(--accent);color:var(--accentInk);font-style:normal;font-size:11.5px;letter-spacing:0}
+.kzsh{font-family:Archivo,sans-serif;font-stretch:112%;font-weight:900;font-size:26px;line-height:1.08;letter-spacing:-.015em}
+.kzsd{font-size:14.5px;line-height:1.5;color:var(--muted)}
+.kztk{position:relative;display:flex;flex-direction:column;gap:10px;padding:16px 18px 16px;border-radius:18px;color:#FFFFFF;background:radial-gradient(ellipse at 100% 0%,rgba(255,255,255,.22),transparent 55%),linear-gradient(135deg,#5B33C4,#8A3FC7);box-shadow:0 22px 40px -24px rgba(91,51,196,.8)}
+.kztk:before,.kztk:after{content:"";position:absolute;top:31px;width:18px;height:18px;border-radius:50%;background:var(--card)}
+.pk[data-theme="light"] .kztk:before,.pk[data-theme="light"] .kztk:after{background:#FFFFFF}
+.kztk:before{left:-9px}.kztk:after{right:-9px}
+.kztkh{display:flex;justify-content:space-between;align-items:center;padding-bottom:10px;border-bottom:1.5px dashed rgba(255,255,255,.35);font-size:11.5px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.8)}
+.kztkh em{font-style:normal;padding:3px 8px;border-radius:999px;background:rgba(255,255,255,.18);letter-spacing:.06em}
+.kztkn{font-family:Archivo,sans-serif;font-stretch:112%;font-weight:900;font-size:19px;line-height:1.15}
+.kztkr{display:grid;grid-template-columns:auto auto minmax(0,1fr);gap:16px}
+.kztkr > span{display:flex;flex-direction:column;gap:1px;min-width:0}
+.kztkr small{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.72)}
+.kztkr b{font-size:15px;font-weight:900;white-space:nowrap}
+.kztkr b i{font-style:normal;font-size:11.5px;font-weight:700;color:rgba(255,255,255,.72);margin-left:4px}
+.kztka{display:flex;flex-wrap:wrap;gap:6px}
+.kztka em{font-style:normal;padding:4px 9px;border-radius:999px;background:rgba(255,255,255,.16);font-size:12px;font-weight:800}
+.kztk.sm .kztkn{font-size:17px}
+.kzfld{display:flex;flex-direction:column;gap:7px;min-width:0}
+.kzlab{font-size:13px;font-weight:800;color:var(--soft)}
+.kzpfs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;padding:5px;border-radius:16px;background:var(--chip)}
+.kzpf{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:60px;padding:6px 4px;border:0;border-radius:12px;background:transparent;color:var(--muted);font:inherit;font-size:12.5px;font-weight:800;cursor:pointer;transition:background .2s,color .2s,box-shadow .2s}
+.kzpf:hover{color:var(--text)}
+.kzpf.on{background:var(--card);color:var(--accentText);box-shadow:0 6px 16px -8px rgba(20,10,60,.35),inset 0 0 0 1.5px var(--accentLine)}
+.pk[data-theme="light"] .kzpf.on{background:#FFFFFF}
+.kzpf span{white-space:nowrap}
+.kzsrow{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:10px}
+.kzin.bad{border-color:#D0452F;box-shadow:0 0 0 4px rgba(208,69,47,.12)}
+.kzerr{font-size:13px;font-weight:700;color:#B4321F}
+.pk[data-theme="dark"] .kzerr{color:#FF9C8A}
+.kzcons{display:flex;align-items:center;gap:10px;min-height:44px;margin:-4px 0;font-size:13.5px;font-weight:600;color:var(--soft);cursor:pointer}
+.kzcons input{flex:none;width:20px;height:20px;margin:0;accent-color:var(--accent)}
+.kzcons a{color:var(--accentText);font-weight:800}
+.kzcons.bad{color:#B4321F}
+.pk[data-theme="dark"] .kzcons.bad{color:#FF9C8A}
+.kzsendb{display:grid;grid-template-columns:1fr auto;grid-template-rows:auto auto;align-items:center;column-gap:12px;width:100%;min-height:60px;padding:10px 18px 10px 22px;text-align:left;border-radius:16px}
+.kzsendb span{font-size:17px;font-weight:900;line-height:1.1}
+.kzsendb small{grid-row:2;font-size:12.5px;font-weight:700;opacity:.85}
+.kzsendb i{grid-row:1/3;grid-column:2;font-style:normal;width:36px;height:36px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,.2);font-size:18px;transition:transform .25s}
+.kzsendb:hover i{transform:translateX(3px)}
+.kztrust{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;padding-top:14px;border-top:1px dashed var(--line)}
+.kztrust span{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:700;color:var(--soft)}
+.kztrust svg{flex:none;color:var(--ok)}
+.kzok{gap:14px}
+.kzokh{display:flex;align-items:center;gap:12px}
+.kzokc{flex:none;width:48px;height:48px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:var(--ok);color:#FFFFFF;box-shadow:0 0 0 8px rgba(123,211,106,.16)}
+.kzok .kzstep{color:var(--ok)}
+.kztl{display:flex;flex-direction:column;gap:0}
+.kztl > span{position:relative;display:flex;gap:12px;padding-bottom:14px}
+.kztl > span:last-child{padding-bottom:0}
+.kztl > span:not(:last-child):before{content:"";position:absolute;left:13px;top:28px;bottom:2px;width:2px;background:var(--line)}
+.kztl i{flex:none;width:28px;height:28px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:var(--chip);color:var(--muted);font-style:normal;font-size:12.5px;font-weight:900;position:relative}
+.kztl > span.on i{background:var(--ok);color:#FFFFFF}
+.kztl em{display:flex;flex-direction:column;gap:1px;font-style:normal;font-size:13.5px;line-height:1.4;color:var(--muted)}
+.kztl em b{font-size:14px;color:var(--text)}
+.kzrsz{display:flex;flex-direction:column;gap:10px}
+.kzszr .kzsz{padding:16px}
+.kzszr .kzszp{font-size:26px}
+
+/* belka na telefonie (ukryta na desktopie) */
+.kzbar{display:none}
+
+@media (max-width:1280px) and (min-width:1081px){.kzt{padding:14px;min-height:168px}.kzt b{font-size:15px}.kzopts.many{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:1080px){
+  .kzst{min-height:44px}
+  .kzg{grid-template-columns:minmax(0,1fr)}
+  .kzr{position:static}
+  .kztiles{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .kzopts.many{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .kzlh{display:none}
+  .kzr .kzlive{display:none}
+  .kzpvb{display:flex;align-items:center;gap:10px;width:100%;min-height:52px;padding:0 16px;border:0;border-radius:16px;background:var(--chip);color:var(--text);font:inherit;font-size:15px;font-weight:800;cursor:pointer;order:2}
+  .kzpvb em{margin-left:auto;font-style:normal;font-size:20px;color:var(--accentText)}
+  .kzr .kzscr{display:none;order:3}
+  .kzr.pvon .kzscr{display:flex}
+  .kzr .kzsend,.kzr .kzok{order:1}
+  .kznext{display:none}
+  .kzbar{position:sticky;bottom:calc(88px + env(safe-area-inset-bottom,0px));z-index:6;display:flex;align-items:center;gap:12px;margin:4px 0 0;padding:10px 10px 10px 16px;border-radius:20px;background:var(--hdr);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);box-shadow:0 0 0 1px var(--line),0 18px 40px -20px rgba(0,0,0,.45)}
+  .kzbar.idle{display:none}
+  .kzbv{display:flex;flex-direction:column;min-width:0;flex:1;line-height:1.2}
+  .kzbv small{font-size:11.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .kzbv b{font-family:Archivo,sans-serif;font-stretch:112%;font-weight:900;font-size:19px;color:var(--accentText);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .kzbv > span{font-size:12.5px;font-weight:700;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .kzbar .kzgo{flex:none;min-height:48px;padding:0 18px;font-size:15px}
+}
+@media (max-width:640px){
+  .kz{padding:16px;border-radius:26px;gap:20px}
+  .kz *{min-width:0}
+  .kzh{gap:14px}
+  .kzhr .lead{font-size:15px}
+  .kzhr{max-width:none;width:100%}
+  .kzbadges{gap:6px}
+  .kzbadges span{white-space:nowrap;font-size:12.5px}
+  .kzsteps{display:none}
+  .kzprm{display:flex;align-items:baseline;gap:8px;font-size:14px}
+  .kzprm b{font-weight:900}
+  .kzprm span{color:var(--muted);font-weight:700}
+  .kzq{font-size:24px}
+  .kzhint{font-size:14px}
+  .kztiles{gap:8px}
+  .kzt{min-height:0;padding:12px;gap:8px;border-radius:16px}
+  .kzt b{font-size:14.5px;line-height:1.25}
+  .kztd{display:none}
+  .kzi{width:40px;height:40px;border-radius:12px}
+  .kzi svg{width:20px;height:20px}
+  .kzph{font-size:12.5px}
+  .kzph i{width:24px;height:24px}
+  .kzown{padding:14px;gap:12px}
+  .kzown > span:nth-child(2){font-size:13px}
+  .kzopts,.kzopts.many{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .kzo{min-height:92px;padding:12px 34px 12px 12px;font-size:14px;gap:8px}
+  .kzopts.many .kzo{min-height:58px;flex-direction:row;align-items:center}
+  .kzopts.many .kzoi{display:none}
+  .kzsz{padding:14px 12px}
+  .kzszp{font-size:22px}
+  .kzszp small{display:block;margin:2px 0 0}
+  .kzszt{font-size:12.5px}
+  .kzszs .kzszf{display:none}
+  .kzszd{display:flex;flex-direction:column;gap:6px;padding:12px 14px;border-radius:14px;background:var(--bg2);box-shadow:inset 0 0 0 1px var(--line)}
+  .kzrec{right:10px;font-size:10.5px;padding:3px 8px}
+  .kzwhy,.kzask,.kzhon{font-size:14px;padding:12px}
+  .kzchip{padding:0 14px;font-size:13.5px}
+  .kzrn{font-size:30px}
+  .kzkpi{gap:8px}
+  .kzkpi > span{padding:12px 14px}
+  .kzkpi b{font-size:20px}
+  .kzblk{padding:14px}
+  .kzads{grid-template-columns:minmax(0,1fr)}
+  .kzsw .kzsz{padding:10px 12px}
+  .kzsw .kzszp{font-size:18px}
+  .kzsend{padding:18px;gap:14px}
+  .kzsh{font-size:23px}
+  .kzsrow{grid-template-columns:minmax(0,1fr)}
+  .kzpf{min-height:58px;font-size:12px}
+  .kztkr{gap:12px}
+  .kztkr b{font-size:14px}
+      .kzscr .dzbody,.kzr.fin .kzscr .dzbody{height:300px}
+}
+@media (max-width:380px){.kzbar .kzgo{padding:0 14px;font-size:14px}.kzbv b{font-size:17px}}
+@media (prefers-reduced-motion:reduce){.kz *,.kz *:before,.kz *:after{animation:none !important;transition:none !important}}
+
+/* v21 · po audycie: belka wyceny z pełnym tłem; na stronie /dobierz bez dolnego paska nawigacji */
+@media (max-width:640px){
+  .kzbar{background:var(--card) !important;-webkit-backdrop-filter:none !important;backdrop-filter:none !important;box-shadow:0 18px 40px -16px rgba(20,16,40,.45),inset 0 0 0 1px var(--line) !important}
+  .pk[data-theme="light"] .kzbar{background:#FFFFFF !important}
+  .pk[data-page="kreator"] .tbar{display:none !important}
+  .pk[data-page="kreator"] .kzbar{bottom:calc(12px + env(safe-area-inset-bottom,0px))}
+  .pk[data-page="kreator"] footer{padding-bottom:24px}
+}
+@media (max-width:640px){
+  .kzhr .lead{display:none}
+  .pk[data-page="kreator"] .kzhr{display:none}
+}
+
+/* v21 final (po audycie) · podgląd aplikacji mieści się w ramce; telefon: belka kreatora zamiast dolnego paska */
+.kzscr .dzapp{padding:10px 0}
+.kzscr .dzph{height:auto;transform:scale(.8);transform-origin:50% 50%}
+.kzscr .dzph em{margin-top:4px}
+@media (max-width:1080px){
+  .pk[data-page="start"] .tbar{transition:transform .28s ease,opacity .28s ease}
+  .pk[data-page="start"] #dobierz .kzbar{transition:bottom .28s ease}
+  body[data-kz="1"] .pk[data-page="start"]:has(#dobierz .kzbar:not(.idle)) .tbar{transform:translateY(calc(100% + 28px));opacity:0;pointer-events:none}
+  body[data-kz="1"] .pk[data-page="start"] #dobierz .kzbar{bottom:calc(12px + env(safe-area-inset-bottom,0px))}
+}
+.dzph{color:#17201B}
+.kznd{text-align:left}
+@media (max-width:640px){
+  .kztkr{grid-template-columns:auto auto auto;justify-content:start}
+  .kztkr b{white-space:normal;line-height:1.2}
+}
+
+/* v22 · jedna cena „od”: karta „W cenie” + „Potrzebujesz czegoś więcej?” (bez wersji) */
+.kzinc{position:relative;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:18px;align-items:center;padding:20px 22px;border-radius:22px;border:1.5px solid var(--accentLine);background:linear-gradient(135deg,var(--accentSoft),var(--card2));box-shadow:0 22px 44px -32px var(--glow);overflow:hidden}
+.pk[data-theme="light"] .kzinc{background:linear-gradient(135deg,var(--accentSoft),#FFFFFF)}
+.kzinch{display:flex;flex-direction:column;gap:4px;min-width:0}
+.kzinl{font-size:12.5px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--accentText)}
+.kzinp{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap;font-family:Archivo,sans-serif;font-stretch:112%;font-weight:900;font-size:34px;line-height:1.05;letter-spacing:-.01em;color:var(--text)}
+.kzinp small{font-family:Manrope,sans-serif;font-size:15px;font-weight:800;color:var(--muted);letter-spacing:0}
+.kzinp i{font-family:Manrope,sans-serif;font-style:normal;font-size:13px;font-weight:700;color:var(--muted);letter-spacing:0}
+.kzint{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:800;color:var(--soft)}
+.kzinls{display:flex;flex-direction:column;gap:8px;min-width:0}
+.kzinc .kzinls{padding-left:18px;border-left:1px dashed var(--accentLine)}
+.kzinls em{position:relative;padding-left:24px;font-style:normal;font-size:14px;line-height:1.4;font-weight:600;color:var(--soft)}
+.kzinls em:before{content:"";position:absolute;left:3px;top:4px;width:12px;height:7px;border-left:2.4px solid var(--ok);border-bottom:2.4px solid var(--ok);transform:rotate(-45deg)}
+.kzinr{padding:14px 16px;border-radius:16px;background:var(--bg2);box-shadow:inset 0 0 0 1px var(--line)}
+.kzinr .kzsl{margin-bottom:2px}
+.kzmos{display:flex;flex-direction:column;gap:10px}
+.kzmoh{display:flex;flex-direction:column;gap:2px}
+.kzmot{font-size:13.5px;line-height:1.45;color:var(--muted)}
+.kzmol{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.kzmo{display:flex;align-items:center;gap:10px;min-height:52px;padding:10px 12px;border-radius:14px;border:1.5px solid var(--line);background:var(--card2);color:var(--text);font:inherit;font-size:14px;font-weight:700;line-height:1.3;text-align:left;cursor:pointer;transition:border-color .2s,background .2s,transform .2s}
+.pk[data-theme="light"] .kzmo{background:#FFFFFF}
+.kzmo:hover{border-color:var(--accentLine);transform:translateY(-1px)}
+.kzmo span{flex:1;min-width:0}
+.kzmo small{flex:none;font-size:12px;font-weight:800;letter-spacing:.04em;color:var(--muted);text-transform:uppercase}
+.kzmoc{flex:none;width:22px;height:22px;border-radius:7px;display:inline-flex;align-items:center;justify-content:center;box-shadow:inset 0 0 0 1.5px var(--line);color:transparent;transition:all .2s}
+.kzmo.on{border-color:var(--accent);background:var(--accentSoft)}
+.kzmo.on .kzmoc{background:var(--accent);color:var(--accentInk);box-shadow:none}
+.kzmo.on small{color:var(--accentText)}
+.kzmsel{display:flex;flex-direction:column;gap:6px;padding:12px 14px;border-radius:16px;background:var(--accentSoft);box-shadow:inset 0 0 0 1px var(--accentLine)}
+.kzmsel > div{display:flex;flex-wrap:wrap;gap:6px}
+.kzmsel em{font-style:normal;padding:4px 10px;border-radius:999px;background:var(--card);font-size:13px;font-weight:800;color:var(--text)}
+.kzmsel small{font-size:12.5px;color:var(--muted);line-height:1.4}
+@media (max-width:1080px){.kzinc{grid-template-columns:1fr;gap:14px}.kzinc .kzinls{padding-left:0;padding-top:14px;border-left:0;border-top:1px dashed var(--accentLine)}}
+@media (max-width:640px){
+  .kzinc{padding:16px;border-radius:18px}
+  .kzinp{font-size:28px}
+  .kzmol{grid-template-columns:1fr}
+  .kzmo{min-height:48px;font-size:13.5px}
+  .kzinls em{font-size:13.5px}
+}
+/* v22 · tablet: na /dobierz belka wyceny zamiast dolnego paska (wcześniej tylko ≤ 640 px — przycisk Kreatora nachodził na belkę) */
+@media (max-width:1080px) and (min-width:641px){
+  .pk[data-page="kreator"] .tbar{display:none !important}
+  .pk[data-page="kreator"] .kzbar{bottom:calc(12px + env(safe-area-inset-bottom,0px))}
+  .pk[data-page="kreator"] footer{padding-bottom:24px}
+}
+
+/* v22 · po audycie: podpowiedź sklepu, ceny i terminy bez łamania, kontrast kroków w ciemnym motywie */
+.kzshop{display:flex;align-items:center;gap:12px;width:100%;margin:2px 0 4px;padding:12px 14px;border-radius:16px;border:1.5px dashed var(--accentLine);background:var(--accentSoft);color:var(--text);font:inherit;text-align:left;cursor:pointer;transition:border-color .2s,transform .2s}
+.kzshop:hover{border-color:var(--accent);transform:translateY(-1px)}
+.kzshop.back{background:var(--card2);border-color:var(--line)}
+.kzshi{flex:none;width:38px;height:38px;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;background:var(--accent);color:var(--accentInk)}
+.kzshop.back .kzshi{background:var(--chip);color:var(--accentText)}
+.kzsht{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.kzsht b{font-size:14.5px;font-weight:800;line-height:1.25}
+.kzsht small{font-size:13px;font-weight:700;color:var(--accentText)}
+.kzshop em{flex:none;font-style:normal;font-weight:900;font-size:18px;color:var(--accentText)}
+.kzint{white-space:nowrap}
+.kzbv.ask b{font-size:16px !important;white-space:normal !important;line-height:1.15;overflow:visible !important}
+.kzbv.ask > span{display:none !important}
+@media (max-width:380px){.kzkpi b{font-size:18px}}
+.pk:not([data-theme="light"]) .kzst.done i{color:var(--bg)}
+
+/* --- offer.css --- */
+/* =====================================================================
+   v21 · okno szczegółów oferty (Katalog, 12 rzeczy na stronie głównej)
+   Desktop: duże okno na środku. Telefon: arkusz od dołu.
+   Kolejność: nazwa i fakty → wybór wersji → porównanie → co dostajesz →
+   przykład → dla kogo → jak to wygląda → co od Ciebie → pytania → powiązane.
+   ===================================================================== */
+.om{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:24px}
+.ombg{position:absolute;inset:0;background:rgba(10,8,20,.52);-webkit-backdrop-filter:blur(10px) saturate(1.1);backdrop-filter:blur(10px) saturate(1.1);animation:omfade .25s ease both}
+.pk[data-theme="light"] .ombg{background:rgba(24,18,44,.42)}
+.omd{--c1:#6E45D4;--c2:#A24BD8;--ct:#5B33C4;position:relative;display:flex;flex-direction:column;width:min(1180px,100%);height:min(880px,calc(100vh - 48px));border-radius:30px;background:var(--bg);color:var(--text);box-shadow:0 0 0 1px var(--line),0 60px 140px -40px rgba(0,0,0,.6);overflow:hidden;outline:none;animation:omin .32s cubic-bezier(.2,.8,.2,1) both}
+.omd.k-sys{--c1:#1F6F8B;--c2:#2E9A76;--ct:#17657D}
+.omd.k-app{--c1:#3A7BD5;--c2:#6E45D4;--ct:#2F68BE}
+.omd.k-auto{--c1:#B7791F;--c2:#E8955A;--ct:#9A5F0E}
+.omd.k-care{--c1:#2E8A1E;--c2:#4FB3A0;--ct:#25731A}
+.pk[data-theme="dark"] .omd{--ct:#B79CFF}
+.pk[data-theme="dark"] .omd.k-sys{--ct:#6CC9C0}.pk[data-theme="dark"] .omd.k-app{--ct:#8DB6FF}.pk[data-theme="dark"] .omd.k-auto{--ct:#F2B36F}.pk[data-theme="dark"] .omd.k-care{--ct:#8FD88A}
+.om.anch{align-items:flex-start}
+.om.anch .omd{position:absolute;top:var(--omy,40px);left:50%;transform:translateX(-50%);width:min(1180px,calc(100% - 48px));height:860px;animation:none}
+@keyframes omfade{from{opacity:0}to{opacity:1}}
+@keyframes omin{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:none}}
+@keyframes omup{from{transform:translateY(40px);opacity:.6}to{transform:none;opacity:1}}
+.om .sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* pasek górny */
+.omtop{flex:none;display:flex;align-items:center;gap:12px;min-height:64px;padding:0 14px 0 18px;border-bottom:1px solid var(--line);background:color-mix(in srgb,var(--bg) 88%,transparent)}
+.omgrab{display:none}
+.omnav{display:flex;align-items:center;gap:4px;padding:3px;border-radius:14px;background:var(--bg2);box-shadow:inset 0 0 0 1px var(--line)}
+.omnb{width:40px;height:40px;border:0;border-radius:11px;background:transparent;color:var(--text);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s}
+.omnb:hover{background:var(--card)}
+.omcnt{min-width:52px;text-align:center;font-size:13px;font-weight:800;color:var(--muted);font-variant-numeric:tabular-nums}
+.omcrumb{flex:1;min-width:0;font-size:13px;font-weight:700;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.omx{flex:none;width:46px;height:46px;border:0;border-radius:14px;background:var(--bg2);box-shadow:inset 0 0 0 1px var(--line);color:var(--text);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .2s,background .2s}
+.omx:hover{background:var(--card);transform:rotate(90deg)}
+.omsc{position:relative;flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;scrollbar-width:thin}
+/* sygnał „jest więcej niżej”: cień przy dolnej krawędzi treści */
+.omsc:after{content:'';position:sticky;bottom:0;display:block;height:44px;margin-top:-44px;background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--bg) 92%,transparent));pointer-events:none;z-index:3}
+
+/* nagłówek: nazwa, fakty, wybór wersji + ilustracja */
+.omhero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,440px);gap:32px;align-items:start;padding:26px 28px 18px}
+.omht{display:flex;flex-direction:column;gap:12px;min-width:0}
+.omchips{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.omkat{display:inline-flex;align-items:center;min-height:28px;padding:0 11px;border-radius:9px;background:linear-gradient(135deg,var(--c1),var(--c2));color:#FFFFFF;font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+.omtag{display:inline-flex;align-items:center;min-height:28px;padding:0 10px;border-radius:9px;background:color-mix(in srgb,var(--c1) 12%,var(--card));box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--c1) 26%,transparent);color:var(--ct);font-size:12px;font-weight:800;letter-spacing:.06em}
+.ompv{display:inline-flex;align-items:center;gap:6px;min-height:28px;padding:0 10px;border-radius:9px;background:color-mix(in srgb,var(--ok) 13%,transparent);color:var(--ok);font-size:12.5px;font-weight:800}
+.ompv i{width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 4px color-mix(in srgb,var(--ok) 22%,transparent)}
+.omtitle{margin:0;font-family:Archivo,sans-serif;font-stretch:118%;font-weight:900;font-size:clamp(28px,3.1vw,42px);line-height:1.04;letter-spacing:-.02em;text-wrap:balance}
+.omlead{margin:0;font-size:17px;line-height:1.5;color:var(--soft);max-width:56ch}
+.omfacts{display:grid;grid-template-columns:auto auto minmax(0,1fr);gap:8px}
+.omfacts.noprice{grid-template-columns:auto minmax(0,1fr)}
+.omfacts.noprice .omfp{display:none}
+.omfacts>div{display:flex;flex-direction:column;gap:3px;padding:10px 14px;border-radius:15px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line);min-width:0}
+.omfacts small{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.omfacts b{font-family:Archivo,sans-serif;font-stretch:110%;font-weight:900;font-size:17px;line-height:1.2;color:var(--ct);overflow-wrap:anywhere}
+.omfacts .omfw b{font-family:inherit;font-stretch:100%;font-weight:800;font-size:14px;line-height:1.35;color:var(--text)}
+.omh3{display:block;font-size:12px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.omcfg{display:flex;flex-direction:column;gap:6px;margin-top:4px}
+.omsz{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding-top:6px}
+.omsz.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.omszc{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:4px;min-height:44px;padding:14px 16px 15px;border:0;border-radius:18px;background:var(--card);box-shadow:inset 0 0 0 1.5px var(--line);color:var(--text);font:inherit;text-align:left;cursor:pointer;transition:box-shadow .2s,background .2s,transform .2s;min-width:0}
+.omszc:hover{transform:translateY(-1px);box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--c1) 45%,var(--line))}
+.omszc.on{background:color-mix(in srgb,var(--c1) 9%,var(--card));box-shadow:inset 0 0 0 2px var(--c1),0 18px 34px -24px var(--c1)}
+.pk[data-theme="dark"] .omszc.on{background:color-mix(in srgb,var(--c1) 22%,var(--card));box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--c1) 70%,#FFFFFF)}
+.omrad{position:absolute;right:14px;top:14px;width:20px;height:20px;border-radius:50%;box-shadow:inset 0 0 0 2px var(--line);transition:box-shadow .2s}
+.omszc.on .omrad{box-shadow:inset 0 0 0 6px var(--c1)}
+.pk[data-theme="dark"] .omszc.on .omrad{box-shadow:inset 0 0 0 6px color-mix(in srgb,var(--c1) 60%,#FFFFFF)}
+.omszn{display:flex;align-items:center;flex-wrap:wrap;gap:6px;padding-right:26px;min-height:22px}
+.omszn b{font-size:15px;font-weight:900}
+.omszn em{position:absolute;left:14px;top:-10px;box-shadow:0 6px 14px -6px var(--c1);font-style:normal;font-size:12px;font-weight:900;letter-spacing:.04em;padding:3px 7px;border-radius:7px;background:linear-gradient(135deg,var(--c1),var(--c2));color:#FFFFFF;line-height:1.2}
+.omszp{display:flex;align-items:baseline;gap:5px;flex-wrap:wrap}
+.omszp b{font-family:Archivo,sans-serif;font-stretch:112%;font-weight:900;font-size:26px;line-height:1.05;letter-spacing:-.01em;color:var(--ct)}
+.omszp small{font-size:12.5px;font-weight:800;color:var(--muted)}
+.omszt{display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:800;color:var(--soft)}
+.omszt svg{flex:none;color:var(--muted)}
+.omsz.three .omszt{align-items:flex-start}
+.omsz.three .omszt svg{margin-top:1px}
+.omsz.three .omszc{padding:12px 13px}
+.omsz.three .omszp b{font-size:21px}
+.omsz.three .omszt{font-size:12.5px;line-height:1.3}
+.omask{display:flex;flex-direction:column;gap:6px;padding:16px 18px;border-radius:18px;background:linear-gradient(135deg,color-mix(in srgb,var(--c1) 12%,var(--card)),color-mix(in srgb,var(--c2) 10%,var(--card)));box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--c1) 35%,transparent)}
+.omask b{font-family:Archivo,sans-serif;font-stretch:112%;font-weight:900;font-size:24px;color:var(--ct)}
+.omask>span{font-size:14.5px;line-height:1.5;color:var(--soft)}
+.omask small{font-size:12.5px;font-weight:800;color:var(--muted)}
+.omnote,.ommore{margin:0;font-size:13.5px;line-height:1.5;padding:10px 13px;border-radius:13px}
+.omnote{background:var(--accentSoft);color:var(--text)}
+.ommore{background:var(--bg2);color:var(--muted)}
+.omtrust{list-style:none;margin:0;padding:4px 4px 0;display:flex;flex-direction:column;gap:7px}
+.omtrust li{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--soft)}
+.omtrust svg{color:var(--ok);flex:none}
+
+.omvis{position:relative;display:flex;flex-direction:column;gap:22px;min-width:0;container-type:inline-size}
+.omimg{display:block;width:100%;height:auto;aspect-ratio:280 / 170;border-radius:22px;box-shadow:0 0 0 1px var(--line),0 34px 60px -34px color-mix(in srgb,var(--c1) 75%,transparent)}
+.pk[data-theme="dark"] .omimg{filter:brightness(.88) saturate(.95);box-shadow:0 0 0 1px var(--line),0 34px 60px -34px rgba(0,0,0,.8)}
+.ovt{position:absolute;left:16px;top:calc(60.71cqw - 19px);z-index:2;display:inline-flex;align-items:center;gap:8px;max-width:calc(100% - 28px);padding:8px 12px;border-radius:12px;background:var(--text);color:var(--bg);font-size:13px;font-weight:800;box-shadow:0 14px 30px -14px rgba(0,0,0,.5);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;animation:omup .5s .15s cubic-bezier(.2,.8,.2,1) both}
+.ovt i{width:8px;height:8px;border-radius:50%;background:#5FD35A;flex:none}
+.omlnk{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:44px;border-radius:14px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line);font-size:14.5px;font-weight:800;color:var(--accentText)}
+.omlnk:hover{box-shadow:inset 0 0 0 1.5px var(--accentLine)}
+
+/* treść: dwie kolumny kart, szerokie sekcje na całą szerokość */
+.omgrid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:14px;align-items:start;padding:6px 28px 40px}
+.omwide{grid-column:1 / -1}
+.omd.nofeat .omcmps{grid-row:span 2}
+.omd.nofeat .omgrid{grid-template-rows:auto 1fr}
+.omsec{display:flex;flex-direction:column;gap:12px;min-width:0;padding:18px 20px;border-radius:22px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line)}
+.pk[data-theme="light"] .omsec{background:#FFFFFF}
+.omsh{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.omhint{font-size:13px;color:var(--muted)}
+.omp{margin:0;font-size:15.5px;line-height:1.5}
+
+/* porównanie wersji */
+.omcmp{display:flex;flex-direction:column;border-radius:16px;box-shadow:inset 0 0 0 1px var(--line);overflow:hidden}
+.omcr{display:grid;grid-template-columns:minmax(0,1fr) repeat(2,minmax(96px,132px));align-items:stretch;border-top:1px solid var(--line)}
+.omcmp.c3 .omcr{grid-template-columns:minmax(0,1fr) repeat(3,minmax(84px,112px))}
+.omcr:first-child{border-top:0}
+.omcn{display:flex;align-items:center;padding:10px 14px;font-size:14px;font-weight:700;line-height:1.35}
+.omchd{background:var(--bg2)}
+.omchd .omcn{font-size:12px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.omchc{display:flex;min-width:0}
+.omchc .omcol{min-width:0;width:100%}
+.omcol b{display:block;max-width:100%}
+.omcol{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:58px;padding:8px 6px;border:0;background:transparent;color:var(--text);font:inherit;cursor:pointer;transition:background .2s}
+.omcol b{font-size:13.5px;font-weight:900;text-align:center;line-height:1.15}
+.omcol > span{font-family:Archivo,sans-serif;font-stretch:110%;font-size:15px;font-weight:900;color:var(--ct);white-space:nowrap}
+.omcol:hover{background:color-mix(in srgb,var(--c1) 8%,transparent)}
+.omcol.on{background:color-mix(in srgb,var(--c1) 14%,var(--card));box-shadow:inset 0 3px 0 var(--c1)}
+.omc{position:relative;display:flex;align-items:center;justify-content:center;padding:8px 6px;font-size:15px;font-weight:900;text-align:center;line-height:1.3}
+.omc.cy{color:var(--ok)}
+.omc.cn{color:var(--muted);opacity:.6;font-weight:700}
+.omc.cp>span:first-child{display:inline-flex;align-items:center;min-height:24px;padding:0 8px;border-radius:8px;background:color-mix(in srgb,var(--c1) 13%,var(--card));color:var(--ct);font-size:12px;font-weight:900;white-space:nowrap}
+.omc.ct{font-size:13px;font-weight:800;color:var(--text)}
+.omc.on{background:color-mix(in srgb,var(--c1) 7%,transparent)}
+.omcr.omtx{background:color-mix(in srgb,var(--bg2) 60%,transparent)}
+
+/* co dostajesz */
+.omfeat{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.omfeat li{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border-radius:13px;background:var(--bg2);font-size:15px;font-weight:700;line-height:1.4}
+.omfeat i{flex:none;width:22px;height:22px;margin-top:1px;border-radius:7px;display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--c1),var(--c2));color:#FFFFFF}
+
+/* przykład z życia */
+.omex{background:linear-gradient(150deg,color-mix(in srgb,var(--c1) 9%,var(--card)),var(--card) 70%) !important;box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--c1) 22%,var(--line)) !important}
+.omexl{display:inline-flex;align-items:center;min-height:24px;padding:0 9px;border-radius:8px;background:var(--bg2);box-shadow:inset 0 0 0 1px var(--line);font-size:12px;font-weight:800;color:var(--muted)}
+.omex p{margin:0;font-size:15.5px;line-height:1.6;color:var(--text);padding-left:14px;border-left:3px solid var(--c1)}
+
+/* dla kogo */
+.omsit{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.omsitl{font-size:13px;font-weight:800;color:var(--muted);margin-right:2px}
+.omsi{display:inline-flex;align-items:center;gap:6px;min-height:32px;padding:0 11px;border-radius:10px;background:color-mix(in srgb,var(--c1) 11%,var(--card));box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--c1) 30%,transparent);color:var(--text);font-size:13px;font-weight:700}
+.omsi i{display:inline-flex;color:var(--ct)}
+
+/* jak to wygląda */
+.omsteps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.omsteps li{position:relative;display:flex;flex-direction:column;gap:10px;padding:14px;border-radius:16px;background:var(--bg2)}
+.omsteps li:not(:last-child):after{content:'';position:absolute;right:-10px;top:29px;width:10px;height:2px;background:color-mix(in srgb,var(--c1) 40%,var(--line))}
+.omsteps em{font-style:normal;width:30px;height:30px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;background:var(--card);box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--c1) 40%,var(--line));color:var(--ct);font-family:Archivo,sans-serif;font-weight:900;font-size:14px}
+.omsteps li:first-child em{background:linear-gradient(135deg,var(--c1),var(--c2));color:#FFFFFF !important;box-shadow:none}
+.omstb{display:flex;flex-direction:column;align-items:flex-start;gap:5px}
+.omstb b{font-size:15px;color:var(--text)}
+.omstt{display:inline-flex;align-items:center;min-height:24px;padding:0 8px;border-radius:8px;background:color-mix(in srgb,var(--c1) 12%,var(--card));color:var(--ct);font-size:12px;font-weight:900}
+.omstp{font-size:13.5px;line-height:1.45;color:var(--muted)}
+
+/* co od Ciebie, FAQ */
+.omneed{display:flex;flex-wrap:wrap;gap:7px}
+.omneed>span{display:inline-flex;align-items:center;min-height:38px;padding:0 13px;border-radius:12px;background:var(--bg2);box-shadow:inset 0 0 0 1px var(--line);font-size:14px;font-weight:700}
+.omfaq{display:flex;flex-direction:column;gap:6px}
+.omfq{border-radius:14px;background:var(--bg2);overflow:hidden}
+.omfq button{width:100%;display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:48px;padding:10px 14px;border:0;background:transparent;color:var(--text);font:inherit;font-size:14.5px;font-weight:800;text-align:left;cursor:pointer}
+.omfq em{font-style:normal;flex:none;width:28px;height:28px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;background:var(--card);color:var(--ct);font-size:18px;font-weight:900}
+.omfq.on{box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--c1) 30%,transparent)}
+.omfq p{margin:0;padding:0 14px 14px;font-size:14.5px;line-height:1.55;color:var(--soft)}
+
+/* powiązane z miniaturami */
+.omrel{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.omrc{--rc:#6E45D4;display:grid;grid-template-columns:118px minmax(0,1fr);align-items:center;gap:12px;padding:8px;border:0;border-radius:18px;background:var(--bg2);box-shadow:inset 0 0 0 1px var(--line);color:var(--text);font:inherit;text-align:left;cursor:pointer;overflow:hidden;transition:transform .2s,box-shadow .2s}
+.omrc.k-sys{--rc:#1F8A86}.omrc.k-app{--rc:#3A7BD5}.omrc.k-auto{--rc:#C8862B}.omrc.k-care{--rc:#2E8A1E}
+.omrc:hover{transform:translateY(-2px);box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--rc) 50%,var(--line))}
+.omrc img{display:block;width:118px;height:auto;aspect-ratio:280 / 170;border-radius:11px}
+.pk[data-theme="dark"] .omrc img{filter:brightness(.86) saturate(.95)}
+.omrcb{display:flex;flex-direction:column;gap:3px;min-width:0;padding:2px 6px 2px 0}
+.omrcb small{font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--rc)}
+.pk[data-theme="dark"] .omrcb small{color:color-mix(in srgb,var(--rc) 55%,#FFFFFF)}
+.omrcb b{font-size:14.5px;line-height:1.3}
+.omrcb>span{font-size:13px;font-weight:800;color:var(--muted)}
+.omend{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px 18px}
+.omfull{display:inline-flex;align-items:center;gap:7px;min-height:44px;padding:0 2px;font-size:14.5px;font-weight:800;color:var(--accentText)}
+.omkre{display:none}
+
+/* dolny pasek: wybór + cena, kreator, jeden główny przycisk */
+.ombar{flex:none;display:flex;align-items:center;gap:10px;padding:12px 16px 12px 24px;border-top:1px solid var(--line);background:color-mix(in srgb,var(--card) 86%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.pk[data-theme="light"] .ombar{background:rgba(255,255,255,.92)}
+.ombarp{flex:1;display:flex;flex-direction:column;gap:1px;min-width:0}
+.ombarp small{font-size:12.5px;font-weight:800;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ombarp b{font-family:Archivo,sans-serif;font-stretch:110%;font-weight:900;font-size:22px;line-height:1.1;color:var(--ct);white-space:nowrap}
+.ombar .btn{flex:none;min-height:52px;padding:0 20px;border-radius:15px;font-size:15px;gap:8px}
+.ombar .omadd{min-width:220px;justify-content:center;font-size:16px}
+.pk .omfull,.pk .omlnk{color:var(--accentText)}
+.omd:focus,.omd:focus-visible{outline:none}
+
+/* miniatury kart „12 rzeczy” na stronie głównej (offer_thumbs.py; scena ma własne tło) */
+.pop .pth{position:relative;flex:none;aspect-ratio:280 / 170;border-radius:14px;overflow:hidden;background:var(--bg2);box-shadow:inset 0 0 0 1px var(--line);margin-bottom:4px}
+.pop .pth img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+.pop .popc:hover .pth img{transform:scale(1.035)}
+.pk[data-theme="dark"] .pop .pth img,.pk[data-theme="dark"] .kth img{filter:brightness(.86) saturate(.95)}
+
+/* tablet: jedna kolumna treści */
+@media (max-width:980px){
+  .omhero{grid-template-columns:minmax(0,1fr) minmax(0,300px);gap:22px;padding:22px 20px 14px}
+  .omgrid{grid-template-columns:1fr;padding:4px 20px 36px}
+  .omsteps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .omsteps li:after{display:none}
+}
+/* telefon: arkusz od dołu; nad zgięciem nazwa, cena, wybór wersji i główny przycisk */
+@media (max-width:640px){
+  .om{padding:0;align-items:flex-end}
+  .omd{width:100%;height:calc(100% - 22px);max-height:none;border-radius:26px 26px 0 0;box-shadow:0 -30px 80px -20px rgba(0,0,0,.55);animation:omup .34s cubic-bezier(.2,.8,.2,1) both}
+  .om.anch{align-items:flex-start}
+  .om.anch .omd{left:0;transform:none;width:100%;height:820px;border-radius:26px}
+  .omtop{position:relative;min-height:58px;padding:14px 10px 4px 12px;gap:8px;border-bottom:0}
+  .omgrab{display:block;position:absolute;left:50%;top:6px;width:44px;height:5px;margin-left:-22px;border-radius:3px;background:var(--line)}
+  .omcrumb{display:none}
+  .omnav{margin-right:auto}
+  .omnb{width:44px;height:44px}
+  .omcnt{min-width:46px}
+  .omhero{grid-template-columns:1fr;gap:14px;padding:2px 16px 10px}
+  .omht{gap:10px}
+  .omtitle{font-size:28px}
+  .omlead{font-size:15px;line-height:1.45}
+  .omfacts{grid-template-columns:1fr 1fr;gap:6px}
+  .omfacts .omfp{display:none}
+  .omfacts .omfw{grid-column:auto}
+  .omfacts>div{padding:9px 12px}
+  .omfacts b{font-size:15px}
+  .omfacts .omfw b{font-size:13px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .omsz{gap:8px}
+  .omsz.three{grid-template-columns:1fr}
+  .omszc{padding:12px 12px 13px}
+  .omrad{right:11px;top:12px}
+  .omszp b{font-size:22px}
+  .omsz.three .omszc{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;column-gap:10px;row-gap:2px;padding:11px 44px 11px 13px}
+  .omsz.three .omszn{grid-column:1;padding-right:0}
+  .omsz.three .omszp{grid-column:2;grid-row:1 / span 2;justify-self:end}
+  .omsz.three .omszt{grid-column:1}
+  .omsz.three .omrad{top:50%;margin-top:-10px}
+  .omszt{font-size:12.5px}
+  .omtrust{gap:5px;padding:0 2px}
+  .omtrust li{font-size:12.5px}
+  .omvis{gap:8px}
+  .omimg{border-radius:18px;margin-bottom:16px}
+  .ovt{left:12px;top:calc(60.71cqw - 17px);font-size:12px;padding:7px 10px}
+  .omgrid{gap:10px;padding:2px 16px 36px}
+  .omsec{padding:16px;border-radius:20px;gap:10px}
+  .omcmps{padding:14px 12px}
+  .omcr{grid-template-columns:minmax(0,1fr) repeat(2,minmax(84px,96px))}
+  .omcmp.c3 .omcr{grid-template-columns:minmax(0,1fr) repeat(3,76px)}
+  .omcmp.c3 .omcol{padding:6px 0}
+  .omcmp.c3 .omcn{padding:9px 8px}
+  .omcmp.c3 .omcol b{font-size:12px;letter-spacing:-.01em}
+  .omcn{padding:9px 10px;font-size:13px}
+  .omchd .omcn{font-size:12px;letter-spacing:.06em}
+  .omcol{min-height:54px;padding:6px 4px}
+  .omcol b{font-size:12.5px}
+  .omcol > span{font-size:13px}
+  .omcmp.c3 .omcol > span{font-size:12px}
+  .omc{padding:7px 3px}
+  .omc.cp>span:first-child{padding:0 6px;font-size:12px}
+  .omcmp.c3 .omc.cp>span:first-child{white-space:normal;flex-direction:column;justify-content:center;min-height:0;padding:3px 6px;line-height:1.15;text-align:center}
+  .omc.ct{font-size:12px}
+  .omfeat li{font-size:14.5px;padding:10px}
+  .omex p{font-size:15px}
+  .omsteps{grid-template-columns:1fr;gap:8px}
+  .omsteps li{flex-direction:row;align-items:flex-start;gap:12px;padding:12px}
+  .omsteps em{flex:none}
+  .omrel{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;margin:0 -16px;padding:2px 16px 4px;scrollbar-width:none}
+  .omrel::-webkit-scrollbar{display:none}
+  .omrc{flex:0 0 86%;scroll-snap-align:start;grid-template-columns:104px minmax(0,1fr)}
+  .omrc img{width:104px}
+  .omkre{display:inline-flex}
+  .omend{flex-direction:column}
+  .ombar{gap:10px;padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px)) 16px}
+  .ombarp small{font-size:12px}
+  .ombarp b{font-size:19px}
+  .ombx{display:none !important}
+  .ombar .btn{padding:0 16px}
+  .ombar .omadd{min-width:0;font-size:15px}
+}
+@media (prefers-reduced-motion:reduce){
+  .ombg,.omd,.ovt{animation:none !important}
+  .omx:hover,.omszc:hover,.omrc:hover{transform:none}
+  .kgrid .popc:hover .kth img,.pop .popc:hover .pth img{transform:none}
+}
+/* final: bez ucinania wielokropkiem — pasek ceny i „Dla kogo” zawijają tekst */
+.ombarp small{white-space:normal;overflow:visible;text-overflow:clip;line-height:1.25}
+.omfacts .omfw b{display:block;-webkit-line-clamp:unset;overflow:visible}
+
+/* v22: jedna cena „od” — karta „W cenie” zamiast wyboru wersji */
+.ominc{display:flex;flex-direction:column;gap:12px;margin-top:4px;padding:16px 18px 16px;border-radius:20px;background:linear-gradient(150deg,color-mix(in srgb,var(--c1) 10%,var(--card)),var(--card) 75%);box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--c1) 38%,var(--line)),0 18px 34px -26px var(--c1)}
+.pk[data-theme="dark"] .ominc{background:linear-gradient(150deg,color-mix(in srgb,var(--c1) 20%,var(--card)),var(--card) 75%);box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--c1) 55%,var(--line))}
+.ominch{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.omincp{display:flex;align-items:baseline;gap:7px;flex-wrap:wrap}
+.omincp b{font-family:Archivo,sans-serif;font-stretch:112%;font-weight:900;font-size:28px;line-height:1.05;letter-spacing:-.01em;color:var(--ct)}
+.omincp small{font-size:13px;font-weight:800;color:var(--muted)}
+.omincl{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr;gap:7px}
+.omincl li{display:flex;align-items:flex-start;gap:9px;font-size:14.5px;font-weight:700;line-height:1.4;color:var(--text)}
+.omincl i{flex:none;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;margin-top:1px;border-radius:7px;background:var(--c1);color:#FFFFFF}
+.pk[data-theme="dark"] .omincl i{background:color-mix(in srgb,var(--c1) 70%,#FFFFFF);color:#121613}
+.ommore2{display:flex;align-items:flex-start;gap:8px;margin:0;padding:10px 12px;border-radius:13px;background:var(--bg2);font-size:13.5px;line-height:1.5;color:var(--soft)}
+.ommore2 svg{flex:none;margin-top:3px;color:var(--accentText)}
+@media (max-width:640px){
+  .ominc{padding:14px 14px 14px;gap:10px}
+  .omincp b{font-size:24px}
+  .omincl li{font-size:14px}
+}
+/* v22: wąskie telefony — cena w pasku nie styka się z przyciskiem */
+@media (max-width:374px){.ombarp b{font-size:17px}.ombar{gap:8px}}
+
 </style>
 </helmet>
-<div class="pk" data-theme="{{theme}}" data-page="kreator" style="min-height: 2200px">
+<div class="pk" data-theme="{{theme}}" data-page="kreator" style="min-height: 0px">
   <div class="topb" style="background: var(--bg2); border-bottom: 1px solid var(--line); font-size: 13px">
     <div class="wrap" style="padding-top: 8px; padding-bottom: 8px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 20px; color: var(--muted)">
       <span>Linia firmy PRO-KOM · od 2004 r. · Rabka-Zdrój i Zakopane</span>
@@ -1614,11 +2530,11 @@ body{margin:0}
           <sc-if value="{{megaOn}}" hint-placeholder-val="{{ false }}"><div class="mega pk-pop" role="menu">
             <div class="megag">
               <div class="megac"><span class="megah"><i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h18v14H3zM3 9h18"></path></svg></i>Strony internetowe</span>
-                <a href="Katalog.dc.html">Strona wizytówka</a><a href="Katalog.dc.html">Strona firmowa</a><a href="Katalog.dc.html">Rozbudowana strona</a><a href="Katalog.dc.html">Landing page</a><a href="Katalog.dc.html">Strona dla restauracji lub baru</a><a href="Katalog.dc.html">Strona dla hotelu lub pensjonatu</a></div>
+                <a href="Katalog.dc.html">Strona wizytówka</a><a href="Katalog.dc.html">Strona firmowa z panelem</a><a href="Katalog.dc.html">Rozbudowana strona</a><a href="Katalog.dc.html">Landing page</a><a href="Katalog.dc.html">Strona dla restauracji lub baru</a><a href="Katalog.dc.html">Strona dla hotelu lub pensjonatu</a></div>
               <div class="megac"><span class="megah"><i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h18v16H3zM3 9h18M9 9v11"></path></svg></i>Systemy dla firm</span>
-                <a href="Katalog.dc.html">CRM dla małej i średniej firmy</a><a href="Katalog.dc.html">Z Excela do systemu</a><a href="Katalog.dc.html">System zleceń i grafik pracy</a><a href="Katalog.dc.html">Czas pracy i rozliczenia</a></div>
+                <a href="Katalog.dc.html">CRM dla małej i średniej firmy</a><a href="Katalog.dc.html">Z Excela do systemu</a><a href="Katalog.dc.html">System zleceń i grafik ekip</a><a href="Katalog.dc.html">Czas pracy i rozliczenia</a></div>
               <div class="megac"><span class="megah"><i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L4 14h7l-1 8 9-12h-7z"></path></svg></i>Aplikacje i automatyzacje</span>
-                <a href="Katalog.dc.html">Aplikacja na telefon</a><a href="Katalog.dc.html">Automatyzacje</a>
+                <a href="Katalog.dc.html">Aplikacje na telefon</a><a href="Katalog.dc.html">Automatyzacje</a>
                 <span class="megah" style="margin-top: 14px"><i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"></path></svg></i>Po wdrożeniu</span>
                 <a href="Cennik.dc.html">Opieka, kopie i aktualizacje</a><a href="Cennik.dc.html">Cennik</a><a href="Audyt.dc.html">Darmowy audyt strony</a></div>
               <div class="megap">
@@ -1645,7 +2561,7 @@ body{margin:0}
             <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px"><b style="font-family: Archivo, sans-serif; font-stretch: 112%; font-size: 18px">Twój projekt</b><button type="button" class="pjx" onClick="{{projClose}}" aria-label="Zamknij"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></div>
             <sc-if value="{{projEmpty}}" hint-placeholder-val="{{ true }}"><div class="pje"><span class="pjei"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></span><span>Na razie pusto. Klikaj <b>„Chcę takie u siebie”</b> przy rozwiązaniach, a tu zbierze się lista. Wycenimy całość naraz.</span></div></sc-if>
             <sc-if value="{{projHas}}" hint-placeholder-val="{{ false }}"><div class="pjlst"><sc-for list="{{projItems}}" as="p" hint-placeholder-count="2"><div class="pji"><i><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg></i><span>{{p.n}}</span><button type="button" onClick="{{p.rm}}" aria-label="Usuń">×</button></div></sc-for></div>
-              <a href="Kontakt.dc.html" class="btn btn-p" style="min-height: 48px; font-size: 15px">Wyślij do bezpłatnej wyceny →</a>
+              <a href="Kontakt.dc.html?projekt=1#formularz" class="btn btn-p" style="min-height: 48px; font-size: 15px">Wyślij do wyceny →</a>
               <button type="button" class="pjc" onClick="{{projClear}}">Wyczyść listę</button></sc-if>
           </div></sc-if>
         </div>
@@ -1671,7 +2587,7 @@ body{margin:0}
       <span class="mshg" aria-hidden="true"></span>
       <div class="mshtop"><b>Menu</b><button type="button" class="mshx" onClick="{{closeMenu}}" aria-label="Zamknij menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></div>
       <a href="Katalog.dc.html" class="mshs"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM20 20l-4-4"></path></svg><span>Czego szukasz? np. zlecenia, pensjonat</span></a>
-      <a href="Kreator.dc.html" class="mshk" onClick="{{closeMenu}}"><span class="mshki"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 4V2M15 16v-2M8 9h2M20 9h2M17.8 11.8L19 13M17.8 6.2L19 5M3 21l9-9M12.2 6.2L11 5"></path></svg></span><span><b>Dobierz rozwiązanie</b><small>5 krótkich kroków · 60 s · cena od razu</small></span><em>→</em></a>
+      <a href="Kreator.dc.html" class="mshk" onClick="{{closeMenu}}"><span class="mshki"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 4V2M15 16v-2M8 9h2M20 9h2M17.8 11.8L19 13M17.8 6.2L19 5M3 21l9-9M12.2 6.2L11 5"></path></svg></span><span><b>Dobierz rozwiązanie</b><small>4 krótkie kroki · 60 s · cena od razu</small></span><em>→</em></a>
       <span class="mshl">Oferta</span>
       <div class="msht"><a href="Katalog.dc.html" class="mtile"><i style="background: linear-gradient(135deg, #6E45D4, #A24BD8)"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h18v14H3zM3 9h18M7 7h.01M10 7h.01"></path></svg></i><b>Strony internetowe</b><small>od 999 zł</small></a><a href="Katalog.dc.html" class="mtile"><i style="background: linear-gradient(135deg, #1F6F8B, #2E9A76)"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h18v16H3zM3 9h18M9 9v11"></path></svg></i><b>Systemy i panele</b><small>od 2 990 zł</small></a><a href="Katalog.dc.html" class="mtile"><i style="background: linear-gradient(135deg, #3A7BD5, #6E45D4)"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2h8a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zM11 18h2"></path></svg></i><b>Aplikacje mobilne</b><small>zapytaj o wycenę</small></a><a href="Katalog.dc.html" class="mtile"><i style="background: linear-gradient(135deg, #B7791F, #E8955A)"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L4 14h7l-1 8 9-12h-7z"></path></svg></i><b>Automatyzacje i AI</b><small>zapytaj o wycenę</small></a></div>
       <div class="mshrows"><a href="Katalog.dc.html">Pełna oferta<em>›</em></a><a href="Branza.dc.html">Dla branż<em>›</em></a><a href="Cennik.dc.html">Cennik<em>›</em></a><a href="Audyt.dc.html">Darmowy audyt strony<span class="mshb">0 zł</span><em>›</em></a></div>
@@ -1687,9 +2603,9 @@ body{margin:0}
     <div class="mshp">
       <span class="mshg" aria-hidden="true"></span>
       <div class="mshtop"><b>Twój projekt</b><button type="button" class="mshx" onClick="{{projClose}}" aria-label="Zamknij"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></div>
-      <sc-if value="{{projEmpty}}" hint-placeholder-val="{{ true }}"><div class="pje"><span class="pjei"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></span><span>Na razie pusto. Klikaj <b>„+ Do projektu”</b> przy rozwiązaniach, a tu zbierze się lista. Wycenimy całość naraz.</span></div></sc-if>
+      <sc-if value="{{projEmpty}}" hint-placeholder-val="{{ true }}"><div class="pje"><span class="pjei"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></span><span>Na razie pusto. Klikaj <b>„+ Dodaj do wyceny”</b> przy rozwiązaniach, a tu zbierze się lista. Wycenimy całość naraz.</span></div></sc-if>
       <sc-if value="{{projHas}}" hint-placeholder-val="{{ false }}"><div class="pjshl"><sc-for list="{{projItems}}" as="p" hint-placeholder-count="2"><div class="pji"><i><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg></i><span>{{p.n}}</span><button type="button" onClick="{{p.rm}}" aria-label="Usuń">×</button></div></sc-for></div>
-        <a href="Kontakt.dc.html" class="btn btn-p" style="min-height: 52px">Wyślij do bezpłatnej wyceny →</a>
+        <a href="Kontakt.dc.html?projekt=1#formularz" class="btn btn-p" style="min-height: 52px">Wyślij do wyceny →</a>
         <button type="button" class="pjc" onClick="{{projClear}}">Wyczyść listę</button></sc-if>
     </div>
   </div></sc-if>
@@ -1699,83 +2615,102 @@ body{margin:0}
   <div class="wrap" style="padding-top: 22px; font-size: 14px; color: var(--muted)"><a href="Main.dc.html" style="color: var(--muted)">Strona główna</a> › Dobierz rozwiązanie</div>
   <!-- DOBIERZ -->
   <section id="dobierz" class="sec" style="padding-top: 28px">
-    <div class="wrap"><div class="dz">
-      <div class="dzh">
-        <div style="display: flex; flex-direction: column; gap: 10px; max-width: 700px"><span class="eye">Dobierz rozwiązanie · 60 sekund</span><h2 class="h2">Kliknij kilka razy. Zobacz, co dla Ciebie zbudujemy.</h2></div>
-        <div style="display: flex; flex-direction: column; gap: 12px; align-items: flex-start"><p class="lead" style="max-width: 44ch; margin: 0">Bez formularzy na start. Telefon albo e-mail podajesz na końcu i tylko wtedy, gdy chcesz wycenę na piśmie.</p><div class="dzbadges"><span><i>5</i>krótkich kroków</span><span><i>●</i>podgląd na żywo</span><span><i>✓</i>wycena na piśmie</span></div></div>
+    <div class="wrap"><div class="kz">
+      <div class="kzh">
+        <div class="kzht"><span class="eye">Dobierz rozwiązanie · 60 sekund</span><h2 class="h2">Kilka kliknięć. Cena, termin i&nbsp;podgląd od razu.</h2></div>
+        <div class="kzhr"><p class="lead">Bez formularzy na start. Kontakt podajesz na końcu i&nbsp;tylko wtedy, gdy chcesz wycenę na piśmie.</p><div class="kzbadges"><span><i>4</i>krótkie kroki</span><span><i class="kzpulse"></i>cena na żywo</span><span><i>✓</i>wycena na piśmie</span></div></div>
       </div>
 
       <div class="{{dz.gCls}}">
-        <div class="dzl">
-          <div class="dztop">
-            <div class="dzsteps"><sc-for list="{{dz.steps}}" as="s" hint-placeholder-count="5"><button type="button" class="{{s.cls}}" onClick="{{s.go}}" aria-current="{{s.cur}}"><i>{{s.i}}</i><span>{{s.n}}</span></button></sc-for></div>
-            <sc-if value="{{dz.canBack}}" hint-placeholder-val="{{ false }}"><button type="button" class="dzback" onClick="{{dz.back}}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg>Wstecz</button></sc-if>
+        <div class="kzl">
+          <div class="kztop">
+            <div class="kzprog">
+              <div class="kzsteps"><sc-for list="{{dz.steps}}" as="s" hint-placeholder-count="4"><button type="button" class="{{s.cls}}" onClick="{{s.go}}" aria-current="{{s.cur}}"><i>{{s.i}}</i><span>{{s.n}}</span></button></sc-for></div>
+              <div class="kzprm"><b>{{dz.stepT}}</b><span>{{dz.stepN}}</span></div>
+              <sc-if value="{{dz.canBack}}" hint-placeholder-val="{{ false }}"><button type="button" class="kzback" onClick="{{dz.back}}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg>Wstecz</button></sc-if>
+            </div>
+            <div class="kzline" aria-hidden="true"><i style="{{dz.progW}}"></i></div>
           </div>
 
           <sc-if value="{{dz.s0}}" hint-placeholder-val="{{ true }}">
-            <div class="dzpane pk-pop">
-              <h3 class="dzq">Czego potrzebujesz?</h3>
+            <div class="kzpane pk-pop">
+              <div class="kzqh"><h3 class="kzq">Czego potrzebujesz?</h3><span class="kzhint">Wybierz jedno. Cenę i termin zobaczysz od razu.</span></div>
               <sc-for list="{{dz.rows}}" as="r" hint-placeholder-count="2">
-                <div class="dzrow"><span class="dzrl">{{r.n}}</span>
-                  <div class="dztiles"><sc-for list="{{r.items}}" as="t" hint-placeholder-count="4"><button type="button" class="{{t.cls}}" onClick="{{t.pick}}"><span class="dzti"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{t.ic}}"></path></svg></span><b>{{t.n}}</b><span>{{t.d}}</span></button></sc-for></div>
+                <div class="kzrow"><span class="kzrl">{{r.n}}</span>
+                  <div class="kztiles"><sc-for list="{{r.items}}" as="t" hint-placeholder-count="4"><button type="button" class="{{t.cls}}" onClick="{{t.pick}}"><span class="kzi" style="{{t.bg}}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{t.ic}}"></path></svg></span><b>{{t.n}}</b><span class="kztd">{{t.d}}</span><span class="kzph">{{t.ph}}<i aria-hidden="true">→</i></span></button></sc-for></div>
                 </div>
               </sc-for>
-              <button type="button" class="dzown" onClick="{{dz.goOwn}}"><span class="dzti"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path></svg></span><span><b>Wolisz opisać po swojemu?</b>Napisz, co nie działa i czego oczekujesz. Doradzimy.</span><em>→</em></button>
+              <button type="button" class="kzown" onClick="{{dz.goOwn}}"><span class="kzoi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path></svg></span><span><b>Nie wiesz, co wybrać? Opisz po swojemu</b>Napisz, co nie działa i czego oczekujesz. Doradzimy uczciwie, za darmo.</span><em aria-hidden="true">→</em></button>
             </div>
           </sc-if>
 
           <sc-if value="{{dz.s1}}" hint-placeholder-val="{{ false }}">
-            <div class="dzpane pk-pop">
-              <h3 class="dzq">{{dz.q2}}</h3>
-              <span class="dzhint">{{dz.q2h}}</span>
-              <div class="{{dz.optsCls}}"><sc-for list="{{dz.opts}}" as="o" hint-placeholder-count="5"><button type="button" class="{{o.cls}}" aria-pressed="{{o.on}}" onClick="{{o.pick}}"><span class="dzti"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{o.ic}}"></path></svg></span><b>{{o.n}}</b><i class="dzck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg></i></button></sc-for></div>
-              <sc-if value="{{dz.multi}}" hint-placeholder-val="{{ false }}"><div class="dznext"><button type="button" class="{{dz.nextCls}}" onClick="{{dz.next}}">Dalej →</button></div></sc-if>
+            <div class="kzpane pk-pop">
+              <div class="kzqh"><h3 class="kzq">{{dz.q2}}</h3><span class="kzhint">{{dz.q2h}}</span></div>
+              <div class="{{dz.optsCls}}"><sc-for list="{{dz.opts}}" as="o" hint-placeholder-count="5"><button type="button" class="{{o.cls}}" aria-pressed="{{o.on}}" onClick="{{o.pick}}"><span class="kzoi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{o.ic}}"></path></svg></span><b>{{o.n}}</b><i class="kzck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg></i></button></sc-for></div>
+              <sc-if value="{{dz.multi}}" hint-placeholder-val="{{ false }}"><div class="kznext"><button type="button" class="{{dz.nextCls}}" onClick="{{dz.next}}">Dalej →</button></div></sc-if>
             </div>
           </sc-if>
 
           <sc-if value="{{dz.s2}}" hint-placeholder-val="{{ false }}">
-            <div class="dzpane pk-pop">
-              <h3 class="dzq">Jeszcze trzy szczegóły</h3>
-              <sc-if value="{{dz.hasSize}}" hint-placeholder-val="{{ true }}"><div class="dzset"><span class="dzsl">Jak duże?</span><div class="dzseg"><sc-for list="{{dz.sizes}}" as="x" hint-placeholder-count="3"><button type="button" class="{{x.cls}}" onClick="{{x.pick}}"><b>{{x.n}}</b><span>{{x.d}}</span></button></sc-for></div></div></sc-if>
-              <div class="dzset"><span class="dzsl">{{dz.haveQ}}</span>
-                <sc-if value="{{dz.haveUrl}}" hint-placeholder-val="{{ false }}"><input class="dzin" type="text" placeholder="{{dz.urlPh}}" value="{{dz.url}}" onInput="{{dz.onUrl}}"></sc-if>
-                <sc-if value="{{dz.haveChips}}" hint-placeholder-val="{{ true }}"><div class="dzchips"><sc-for list="{{dz.haves}}" as="x" hint-placeholder-count="3"><button type="button" class="{{x.cls}}" onClick="{{x.pick}}">{{x.n}}</button></sc-for></div></sc-if>
-                <sc-if value="{{dz.hasFile}}" hint-placeholder-val="{{ false }}"><label class="dzfile"><input type="file" onChange="{{dz.onFile}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.5l-8.5 8.5a5 5 0 0 1-7-7L14 5.5a3.3 3.3 0 0 1 4.7 4.7L10.2 18.7a1.7 1.7 0 0 1-2.4-2.4L15.5 8.6"></path></svg><span><b>{{dz.fileT}}</b>{{dz.fileD}}</span></label></sc-if>
+            <div class="kzpane pk-pop">
+              <div class="kzqh"><h3 class="kzq">{{dz.s2T}}</h3><span class="kzhint">{{dz.s2H}}</span></div>
+              <sc-if value="{{dz.shopHint}}" hint-placeholder-val="{{ false }}"><button type="button" class="kzshop" onClick="{{dz.toShop}}"><span class="kzshi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 12H6zM9 8a3 3 0 0 1 6 0"></path></svg></span><span class="kzsht"><b>Chcesz sprzedawać online?</b><small>Sklep internetowy od&nbsp;8&nbsp;990&nbsp;zł, od&nbsp;5&nbsp;tygodni</small></span><em aria-hidden="true">→</em></button></sc-if><sc-if value="{{dz.shopBack}}" hint-placeholder-val="{{ false }}"><button type="button" class="kzshop back" onClick="{{dz.toFirm}}"><span class="kzshi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h18v14H3zM3 9h18"></path></svg></span><span class="kzsht"><b>Wolisz stronę z ofertą, bez sprzedaży online?</b><small>Strona firmowa z panelem od&nbsp;2&nbsp;490&nbsp;zł</small></span><em aria-hidden="true">←</em></button></sc-if>
+              <sc-if value="{{dz.hasSize}}" hint-placeholder-val="{{ true }}">
+                <div class="kzinc"><div class="kzinch"><span class="kzinl">W cenie</span><b class="kzinp"><small>od</small>{{dz.incP}}<i>netto</i></b><span class="kzint"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 7v5l3 2"></path></svg>{{dz.incT}}</span></div><div class="kzinls"><sc-for list="{{dz.incL}}" as="f" hint-placeholder-count="3"><em>{{f}}</em></sc-for></div></div>
+                <sc-if value="{{dz.hasWhy}}" hint-placeholder-val="{{ true }}"><div class="kzwhy"><span class="kzwi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8zM19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z"></path></svg></span><span>{{dz.why}}</span></div></sc-if>
+                <sc-if value="{{dz.hasMores}}" hint-placeholder-val="{{ true }}"><div class="kzmos"><div class="kzmoh"><span class="kzsl">Potrzebujesz czegoś więcej?</span><span class="kzmot">{{dz.moreT}}</span></div><div class="kzmol"><sc-for list="{{dz.mores}}" as="x" hint-placeholder-count="3"><button type="button" class="{{x.cls}}" onClick="{{x.pick}}" aria-pressed="{{x.on}}"><i class="kzmoc"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg></i><span>{{x.n}}</span><small>do wyceny</small></button></sc-for></div></div></sc-if>
+              </sc-if>
+              <div class="kzset"><span class="kzsl">{{dz.haveQ}}</span>
+                <sc-if value="{{dz.haveUrl}}" hint-placeholder-val="{{ false }}"><input class="kzin" type="text" placeholder="{{dz.urlPh}}" value="{{dz.url}}" onInput="{{dz.onUrl}}" aria-label="{{dz.haveQ}}"></sc-if>
+                <sc-if value="{{dz.haveChips}}" hint-placeholder-val="{{ true }}"><div class="kzchips"><sc-for list="{{dz.haves}}" as="x" hint-placeholder-count="3"><button type="button" class="{{x.cls}}" onClick="{{x.pick}}">{{x.n}}</button></sc-for></div></sc-if>
               </div>
-              <div class="dzset"><span class="dzsl">Na kiedy?</span><div class="dzchips"><sc-for list="{{dz.whens}}" as="x" hint-placeholder-count="4"><button type="button" class="{{x.cls}}" onClick="{{x.pick}}">{{x.n}}</button></sc-for></div></div>
-              <div class="dznext"><button type="button" class="btn btn-p" onClick="{{dz.next}}">Dalej →</button></div>
+              <div class="kzset"><span class="kzsl">Na kiedy?</span><div class="kzchips"><sc-for list="{{dz.whens}}" as="x" hint-placeholder-count="4"><button type="button" class="{{x.cls}}" onClick="{{x.pick}}">{{x.n}}</button></sc-for></div><sc-if value="{{dz.hasWhen}}" hint-placeholder-val="{{ false }}"><span class="kzwn">{{dz.whenNote}}</span></sc-if></div>
+              <sc-if value="{{dz.descClosed}}" hint-placeholder-val="{{ true }}"><button type="button" class="kzdescb" onClick="{{dz.descT}}">+ Dodaj kilka słów od siebie <small>(opcjonalnie)</small></button></sc-if>
+              <sc-if value="{{dz.descOpen}}" hint-placeholder-val="{{ false }}"><div class="kzset"><span class="kzsl">Kilka słów od siebie</span><textarea class="kzta" rows="3" placeholder="np. Goście pytają telefonicznie o wolne pokoje. Zależy mi przed feriami." value="{{dz.desc}}" onInput="{{dz.onDesc}}" aria-label="Kilka słów od siebie"></textarea><div class="kzchips"><sc-for list="{{dz.phr}}" as="x" hint-placeholder-count="4"><button type="button" class="kzchip add" onClick="{{x.pick}}">+ {{x.n}}</button></sc-for></div></div></sc-if>
+              <div class="kznext"><button type="button" class="btn btn-p kzgo" onClick="{{dz.next}}">Pokaż wynik →</button></div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{dz.s2own}}" hint-placeholder-val="{{ false }}">
+            <div class="kzpane pk-pop">
+              <div class="kzqh"><h3 class="kzq">Opisz po swojemu</h3><span class="kzhint">Co dziś nie działa, czego oczekujesz i do kiedy. Doradzimy uczciwie, także wtedy, gdy wystarczy gotowy program.</span></div>
+              <textarea class="kzta" rows="5" placeholder="np. Zlecenia przekazujemy SMS-ami i wieczorem nie wiem, kto gdzie był. Chcę to mieć w jednym miejscu przed zimą." value="{{dz.desc}}" onInput="{{dz.onDesc}}" aria-label="Twój opis"></textarea>
+              <div class="kzchips"><sc-for list="{{dz.phr}}" as="x" hint-placeholder-count="4"><button type="button" class="kzchip add" onClick="{{x.pick}}">+ {{x.n}}</button></sc-for></div>
+              <div class="kznext"><button type="button" class="btn btn-p kzgo" onClick="{{dz.next}}">Pokaż wynik →</button></div>
             </div>
           </sc-if>
 
           <sc-if value="{{dz.s3}}" hint-placeholder-val="{{ false }}">
-            <div class="dzpane pk-pop">
-              <h3 class="dzq">Opisz po swojemu <span class="dzqo">(możesz pominąć)</span></h3>
-              <div class="dzhelp"><span>Co dziś nie działa?</span><span>Czego oczekujesz?</span><span>Do kiedy?</span></div>
-              <textarea class="dzta" rows="5" placeholder="np. Goście pytają telefonicznie o wolne pokoje, chcę żeby sprawdzali sami. Zależy mi przed feriami." value="{{dz.desc}}" onInput="{{dz.onDesc}}"></textarea>
-              <div class="dzchips"><sc-for list="{{dz.phr}}" as="x" hint-placeholder-count="5"><button type="button" class="dzchip add" onClick="{{x.pick}}">+ {{x.n}}</button></sc-for></div>
-              <div class="dznext"><button type="button" class="dzskip" onClick="{{dz.next}}">Pomiń</button><button type="button" class="btn btn-p" onClick="{{dz.next}}">Pokaż wynik →</button></div>
+            <div class="kzpane kzres pk-pop">
+              <div class="kzrh"><span class="kzk"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg>{{dz.kzkT}}</span><span class="kzkind">{{dz.r.kind}}</span></div>
+              <h3 class="kzrn">{{dz.r.n}}</h3>
+              <sc-if value="{{dz.shopHint}}" hint-placeholder-val="{{ false }}"><button type="button" class="kzshop" onClick="{{dz.toShop}}"><span class="kzshi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 12H6zM9 8a3 3 0 0 1 6 0"></path></svg></span><span class="kzsht"><b>Chcesz sprzedawać online?</b><small>Sklep internetowy od&nbsp;8&nbsp;990&nbsp;zł, od&nbsp;5&nbsp;tygodni</small></span><em aria-hidden="true">→</em></button></sc-if><sc-if value="{{dz.shopBack}}" hint-placeholder-val="{{ false }}"><button type="button" class="kzshop back" onClick="{{dz.toFirm}}"><span class="kzshi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h18v14H3zM3 9h18"></path></svg></span><span class="kzsht"><b>Wolisz stronę z ofertą, bez sprzedaży online?</b><small>Strona firmowa z panelem od&nbsp;2&nbsp;490&nbsp;zł</small></span><em aria-hidden="true">←</em></button></sc-if>
+              <sc-if value="{{dz.hasFor}}" hint-placeholder-val="{{ false }}"><span class="kzfor">{{dz.forT}}</span></sc-if>
+              <sc-if value="{{dz.isRebuild}}" hint-placeholder-val="{{ false }}"><span class="kzplus">W cenie: przeniesienie treści i&nbsp;adresów ze starej strony, bez utraty pozycji w&nbsp;Google</span></sc-if>
+              <sc-if value="{{dz.hasSize}}" hint-placeholder-val="{{ true }}"><div class="kzrsz"><div class="kzinls kzinr"><span class="kzsl">W cenie</span><sc-for list="{{dz.incL}}" as="f" hint-placeholder-count="3"><em>{{f}}</em></sc-for></div>
+                <sc-if value="{{dz.hasMoreSel}}" hint-placeholder-val="{{ false }}"><div class="kzmsel"><span class="kzsl">Do wyceny na piśmie</span><div><sc-for list="{{dz.moreSel}}" as="x" hint-placeholder-count="2"><em>+ {{x}}</em></sc-for></div><small>Dodatki wycenimy na piśmie w&nbsp;5–&#8288;7&nbsp;dni. Cena „od” to podstawa, dopłatę za dodatki zobaczysz w&nbsp;wycenie.</small></div></sc-if></div></sc-if>
+              <div class="kzkpi"><span><small>Cena</small><b>{{dz.price}}</b><em>{{dz.priceSub}}</em></span><span><small>Termin</small><b>{{dz.term}}</b><em>{{dz.termSub}}</em></span></div>
+              <sc-if value="{{dz.hasScope}}" hint-placeholder-val="{{ false }}"><span class="kzscope">{{dz.scope}}</span></sc-if>
+              <sc-if value="{{dz.hasHonest}}" hint-placeholder-val="{{ false }}"><div class="kzhon"><span class="kzwi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"></path></svg></span><span><b>Uczciwie</b>{{dz.honest}}</span></div></sc-if>
+              <div class="kzblk"><div class="kzblkh"><span class="kzsl">Co będzie potrzebne od Ciebie</span><span class="kzndt">{{dz.ndT}}</span></div><div class="kzndbar" aria-hidden="true"><i style="{{dz.ndW}}"></i></div><div class="kzneeds"><sc-for list="{{dz.needs}}" as="x" hint-placeholder-count="4"><button type="button" class="{{x.cls}}" onClick="{{x.pick}}" aria-pressed="{{x.on}}"><i></i>{{x.n}}</button></sc-for></div><span class="kznote">{{dz.ndHelp}}</span></div>
+              <sc-if value="{{dz.hasAds}}" hint-placeholder-val="{{ true }}"><div class="kzblk"><span class="kzsl">Często dobierane razem</span><div class="kzads"><sc-for list="{{dz.ads}}" as="a" hint-placeholder-count="2"><button type="button" class="{{a.cls}}" onClick="{{a.pick}}" aria-pressed="{{a.on}}"><span class="kzadi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{a.ic}}"></path></svg></span><span class="kzadt"><b>{{a.n}}</b><small>{{a.d}}</small><em>{{a.p}}</em></span><span class="kzadb">{{a.btn}}</span></button></sc-for></div></div></sc-if>
+              <sc-if value="{{dz.hasDesc}}" hint-placeholder-val="{{ false }}"><div class="kzdq"><span class="kzsl">Twoje słowa</span><span>„{{dz.desc}}”</span></div></sc-if>
+              <span class="kzwhen"><i></i>{{dz.whenNote}}</span>
+              <button type="button" class="kzagain" onClick="{{dz.again}}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 2.6-6.4M3 3v6h6"></path></svg>Zacznij od nowa</button>
             </div>
           </sc-if>
 
-          <sc-if value="{{dz.s4}}" hint-placeholder-val="{{ false }}">
-            <div class="dzpane pk-pop">
-              <div class="dzrh"><span class="dzk">Polecamy</span><span class="dzkind">{{dz.r.kind}}</span></div>
-              <h3 class="dzrn">{{dz.r.n}}</h3>
-              <sc-if value="{{dz.isRebuild}}" hint-placeholder-val="{{ false }}"><span class="dzplus">+ przebudowa starej strony, bez utraty pozycji w Google</span></sc-if>
-              <sc-if value="{{dz.hasSize}}" hint-placeholder-val="{{ true }}"><div class="dzseg sm"><sc-for list="{{dz.sizes}}" as="x" hint-placeholder-count="3"><button type="button" class="{{x.cls}}" onClick="{{x.pick}}"><b>{{x.n}}</b></button></sc-for></div></sc-if>
-              <div class="dzpr"><span class="dzpv"><small>Cena</small><b>{{dz.price}}</b></span><span class="dzpv"><small>Termin</small><b>{{dz.term}}</b></span></div>
-              <sc-if value="{{dz.hasScope}}" hint-placeholder-val="{{ false }}"><span class="dzscope">{{dz.scope}}</span></sc-if>
-              <span class="dzwhen">{{dz.whenNote}}</span>
-              <div class="dzneedb"><span class="dzsl">Co będzie potrzebne od Ciebie</span><div class="dzneed"><sc-for list="{{dz.needs}}" as="x" hint-placeholder-count="4"><button type="button" class="{{x.cls}}" onClick="{{x.pick}}"><i></i>{{x.n}}</button></sc-for></div><span class="dznote">Kliknij, co już masz. Czegoś brakuje? Pomożemy: teksty, zdjęcia, domena.</span></div>
-              <sc-if value="{{dz.hasDesc}}" hint-placeholder-val="{{ false }}"><div class="dzdesc"><span class="dzsl">Twoje potrzeby</span><span class="dzdq">„{{dz.desc}}”</span></div></sc-if>
-              <div class="dzchosen"><span class="dzsl">Twój wybór</span><div><sc-for list="{{dz.sum}}" as="x" hint-placeholder-count="3"><span class="dzsc">{{x}}</span></sc-for></div></div>
-            </div>
-          </sc-if>
+          <div class="{{dz.barCls}}">
+            <span class="{{dz.bvCls}}"><small>Twoja wycena</small><b>{{dz.barP}}</b><span>{{dz.term}}</span></span>
+            <sc-if value="{{dz.hasBarBtn}}" hint-placeholder-val="{{ false }}"><button type="button" class="{{dz.nextCls}}" onClick="{{dz.next}}">{{dz.barBtn}}</button></sc-if>
+          </div>
         </div>
 
-        <div class="{{dz.rCls}}">
-          <button type="button" class="dzpvb" onClick="{{dz.pvT}}" aria-expanded="{{dz.pvOnS}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h18v12H3zM8 20h8M12 16v4"></path></svg>{{dz.pvLabel}}<em>{{dz.pvSign}}</em></button>
-          <div class="dzscr" aria-hidden="true">
+        <aside class="{{dz.rCls}}">
+          <div class="kzlh"><span class="kzpulse"></span>{{dz.liveL}}</div>
+          <button type="button" class="kzpvb" onClick="{{dz.pvT}}" aria-expanded="{{dz.pvOnS}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h18v12H3zM8 20h8M12 16v4"></path></svg>{{dz.pvLabel}}<em>{{dz.pvSign}}</em></button>
+          <div class="kzscr dzscr" aria-hidden="true">
             <div class="dzbar"><i></i><i></i><i></i><span>{{dz.pvUrl}}</span></div>
             <div class="dzbody">
               <sc-if value="{{dz.pvIdle}}" hint-placeholder-val="{{ true }}"><div class="dzidle"><div class="dzim"><div class="dzmi m1"><em>Strona</em><i class="mb"></i><i class="mh"></i><span class="mr"><i></i><i></i><i></i></span></div><div class="dzmi m2"><em>System</em><span class="ms"><i class="msd"></i><span class="mc"><i></i><i></i><i></i></span></span></div><div class="dzmi m3"><em>Aplikacja</em><span class="mp"><i></i><i></i><i></i></span></div><div class="dzmi m4"><em>Automatyzacja</em><span class="mf"><i></i><b></b><i></i><b></b><i></i></span></div></div><b class="dzit">Tu zobaczysz swój projekt</b><span class="dzis2">Składa się sam, gdy klikasz po lewej.</span><div class="dzhow"><span><i>1</i>Wybierz</span><em></em><span><i>2</i>Doprecyzuj</span><em></em><span><i>3</i>Zobacz wynik</span></div></div></sc-if>
@@ -1783,7 +2718,7 @@ body{margin:0}
                 <div class="{{dz.wCls}}">
                   <div class="dzwn"><b>{{dz.brand}}</b><span class="dzwl"><sc-for list="{{dz.navs}}" as="x" hint-placeholder-count="3"><i>{{x}}</i></sc-for></span><sc-if value="{{dz.fLang}}" hint-placeholder-val="{{ false }}"><span class="dzlang"><i class="on">PL</i><i>EN</i><i>DE</i></span></sc-if><sc-if value="{{dz.fStrefa}}" hint-placeholder-val="{{ false }}"><span class="dzlog">Zaloguj</span></sc-if></div>
                   <div class="dzwh"><b>{{dz.heroT}}</b><span>{{dz.heroS}}</span><em>{{dz.cta}}</em></div>
-                  <sc-if value="{{dz.fRez}}" hint-placeholder-val="{{ false }}"><div class="dzcal pk-pop"><span><small>Przyjazd</small>12 sty</span><span><small>Wyjazd</small>15 sty</span><span><small>Goście</small>2 osoby</span><em>Sprawdź termin</em></div></sc-if>
+                  <sc-if value="{{dz.fRez}}" hint-placeholder-val="{{ false }}"><div class="dzcal pk-pop"><span><small>Przyjazd</small>12 sty</span><span><small>Wyjazd</small>15 sty</span><span><small>Goście</small>2 osoby</span><em>{{dz.rezT}}</em></div></sc-if>
                   <sc-if value="{{dz.fForm}}" hint-placeholder-val="{{ false }}"><div class="dzform pk-pop"><span>Imię</span><span>Telefon</span><em>{{dz.formCta}}</em></div></sc-if>
                   <sc-if value="{{dz.fMap}}" hint-placeholder-val="{{ false }}"><div class="dzmap pk-pop"><span><b>Zadzwoń</b>123 456 789</span><span><b>Godziny</b>pn–pt 8–16</span><i></i></div></sc-if>
                   <sc-if value="{{dz.fCards}}" hint-placeholder-val="{{ true }}"><div class="dzwc"><sc-for list="{{dz.cards}}" as="c" hint-placeholder-count="3"><span class="dzcd"><i></i><b>{{c}}</b></span></sc-for></div></sc-if>
@@ -1821,44 +2756,78 @@ body{margin:0}
               </sc-if>
             </div>
           </div>
-          <sc-if value="{{dz.notRes}}" hint-placeholder-val="{{ true }}"><div class="dzsum"><span class="dzsl">Twój wybór</span><div><sc-for list="{{dz.sum}}" as="x" hint-placeholder-count="3"><span class="dzsc pk-pop">{{x}}</span></sc-for><sc-if value="{{dz.sumEmpty}}" hint-placeholder-val="{{ true }}"><span class="dzsc mute">jeszcze nic</span></sc-if></div></div></sc-if>
-          <sc-if value="{{dz.s4}}" hint-placeholder-val="{{ false }}">
+          <sc-if value="{{dz.notRes}}" hint-placeholder-val="{{ true }}">
+            <div class="kzlive">
+              <sc-if value="{{dz.idle}}" hint-placeholder-val="{{ true }}"><div class="kzlidle"><b>— zł</b><span>Wybierz, czego potrzebujesz. Cena i termin pojawią się tutaj.</span></div></sc-if>
+              <sc-if value="{{dz.live}}" hint-placeholder-val="{{ false }}">
+                <span class="kzln">{{dz.liveN}}</span>
+                <div class="kzlpr"><b>{{dz.price}}</b><small>{{dz.priceSub}}</small></div>
+                <div class="kzlt"><span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 7v5l3 2"></path></svg>{{dz.term}}</span></div>
+              </sc-if>
+              <div class="kzsum"><span class="kzsl">Twój wybór</span><div><sc-for list="{{dz.sum}}" as="x" hint-placeholder-count="3"><span class="kzsc pk-pop">{{x}}</span></sc-for><sc-if value="{{dz.sumEmpty}}" hint-placeholder-val="{{ true }}"><span class="kzsc mute">jeszcze nic</span></sc-if></div></div>
+            </div>
+          </sc-if>
+          <sc-if value="{{dz.s3}}" hint-placeholder-val="{{ false }}">
             <sc-if value="{{dz.notSent}}" hint-placeholder-val="{{ true }}">
-              <div class="dzsend pk-pop">
-                <b class="dzsh">Chcesz wycenę na piśmie?</b>
-                <span class="dzsl">Jak wolisz rozmawiać?</span>
-                <div class="dzchips"><sc-for list="{{dz.prefs}}" as="x" hint-placeholder-count="4"><button type="button" class="{{x.cls}}" onClick="{{x.pick}}">{{x.n}}</button></sc-for></div>
-                <div class="dzsrow2"><input class="dzin" type="text" placeholder="Imię" value="{{dz.name}}" onInput="{{dz.onName}}" aria-label="Imię"><input class="{{dz.inCls}}" type="text" placeholder="Telefon albo e-mail" value="{{dz.contact}}" onInput="{{dz.onContact}}" aria-label="Telefon albo e-mail"></div>
-                <label class="cbx"><input type="checkbox" checked="{{dz.ok}}" onChange="{{dz.toggleOk}}"><span>Zgadzam się na kontakt w sprawie tej wyceny. Szczegóły w <a href="Polityka.dc.html">polityce prywatności</a>.</span></label>
-                <sc-if value="{{dz.err}}" hint-placeholder-val="{{ false }}"><div class="ferr" role="alert">{{dz.errT}}</div></sc-if>
-                <button type="button" class="{{dz.sendCls}}" onClick="{{dz.send}}" style="width: 100%">Wyślij mi wycenę na piśmie →</button>
-                <span class="dznote">Odpowiadamy w ciągu 1 dnia roboczego. Dane tylko do tej wyceny, bez newslettera.</span>
+              <div class="kzsend pk-pop" id="kzform">
+                <div class="kzsh2"><span class="kzstep"><i>4</i>Ostatni krok</span><b class="kzsh">Dokąd wysłać wycenę?</b><span class="kzsd">Dostaniesz ją na piśmie: zakres, cenę i&nbsp;termin. Decydujesz potem, bez zobowiązań.</span></div>
+                <div class="kztk" aria-label="Podsumowanie wyceny">
+                  <div class="kztkh"><span>Twoja wycena</span><em>szkic</em></div>
+                  <b class="kztkn">{{dz.r.n}}</b>
+                  <div class="kztkr"><span><small>Cena</small><b>{{dz.tkPrice}}<sc-if value="{{dz.tkNote}}" hint-placeholder-val="{{ true }}"><i>{{dz.tkNote}}</i></sc-if></b></span><span><small>Termin</small><b>{{dz.term}}</b></span></div>
+                  <sc-if value="{{dz.hasAdded}}" hint-placeholder-val="{{ false }}"><div class="kztka"><sc-for list="{{dz.addedL}}" as="x" hint-placeholder-count="1"><em>+ {{x}}</em></sc-for></div></sc-if>
+                </div>
+                <div class="kzfld"><span class="kzlab">Jak wolisz rozmawiać?</span><div class="kzpfs" role="radiogroup" aria-label="Sposób kontaktu"><sc-for list="{{dz.prefs}}" as="x" hint-placeholder-count="4"><button type="button" class="{{x.cls}}" role="radio" aria-checked="{{x.on}}" onClick="{{x.pick}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{x.ic}}"></path></svg><span>{{x.n}}</span></button></sc-for></div></div>
+                <div class="kzsrow">
+                  <label class="kzfld"><span class="kzlab">Imię</span><input class="kzin" type="text" placeholder="np. Anna" value="{{dz.name}}" onInput="{{dz.onName}}" autocomplete="given-name"></label>
+                  <label class="kzfld"><span class="kzlab">{{dz.ctLab}}</span><input class="{{dz.inCls}}" type="{{dz.ctType}}" placeholder="{{dz.ctPh}}" value="{{dz.contact}}" onInput="{{dz.onContact}}"><sc-if value="{{dz.ctBad}}" hint-placeholder-val="{{ false }}"><span class="kzerr" role="alert">{{dz.ctErrT}}</span></sc-if></label>
+                </div>
+                <label class="{{dz.consCls}}"><input type="checkbox" checked="{{dz.ok}}" onChange="{{dz.toggleOk}}"><span>Zgoda na kontakt w sprawie tej wyceny · <a href="Polityka.dc.html">prywatność</a></span></label>
+                <sc-if value="{{dz.consBad}}" hint-placeholder-val="{{ false }}"><span class="kzerr" role="alert">Zaznacz zgodę, bez niej nie możemy odpowiedzieć.</span></sc-if>
+                <button type="button" class="{{dz.sendCls}}" onClick="{{dz.send}}"><span>Poproś o wycenę</span><small>odezwiemy się w 1 dzień roboczy</small><i aria-hidden="true">→</i></button>
+                <div class="kztrust"><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 7v5l3 2"></path></svg>Odpowiedź w&nbsp;1 dzień roboczy</span><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2h9l5 5v15H6zM14 2v6h6M9 14h6M9 18h4"></path></svg>Wycena na piśmie w&nbsp;5–7&nbsp;dni</span><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"></path></svg>Bez zobowiązań, bez newslettera</span></div>
               </div>
             </sc-if>
-            <sc-if value="{{dz.sent}}" hint-placeholder-val="{{ false }}"><div class="fok pk-pop" role="status">
-              <span class="dzk" style="align-self: flex-start">Wysłane · PKS-2026-0144</span>
-              <h3>Gotowe. Wycena jest w drodze.</h3>
-              <div class="fokn"><span><em>W ciągu 1 dnia roboczego {{dz.prefT}} i dopytamy o szczegóły.</em></span><span>Dostaniesz szkic do klikania i wycenę na piśmie: zakres, cenę i termin.</span><span>Decydujesz Ty. Wycena jest ważna 30 dni, bez zobowiązań.</span></div>
-              <span class="dznote">Kopia zgłoszenia przyjdzie na Twój e-mail, jeśli go podałeś. Pilne? [TELEFON SOFTWARE]</span>
+            <sc-if value="{{dz.sent}}" hint-placeholder-val="{{ false }}"><div class="kzsend kzok pk-pop" role="status" id="kzform">
+              <div class="kzokh"><span class="kzokc"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg></span><span class="kzstep">Wysłane · PKS-2026-0144</span></div>
+              <b class="kzsh">{{dz.okWho}} Zgłoszenie jest u&nbsp;nas.</b>
+              <span class="kzsd">Wycenę na piśmie dostaniesz w&nbsp;5–7&nbsp;dni. {{dz.okT}}</span>
+              <div class="kztk sm"><div class="kztkh"><span>Twoja wycena</span><em>przyjęta</em></div><b class="kztkn">{{dz.r.n}}</b><div class="kztkr"><span><small>Cena</small><b>{{dz.tkPrice}}<sc-if value="{{dz.tkNote}}" hint-placeholder-val="{{ true }}"><i>{{dz.tkNote}}</i></sc-if></b></span><span><small>Termin</small><b>{{dz.term}}</b></span></div><sc-if value="{{dz.hasAdded}}" hint-placeholder-val="{{ false }}"><div class="kztka"><sc-for list="{{dz.addedL}}" as="x" hint-placeholder-count="1"><em>+ {{x}}</em></sc-for></div></sc-if></div>
+              <div class="kztl"><span class="on"><i>1</i><em><b>Dziś</b>Czytamy Twój wybór</em></span><span><i>2</i><em><b>Do 1 dnia roboczego</b>Rozmowa i doprecyzowanie</em></span><span><i>3</i><em><b>W 5–7 dni</b>Podgląd do klikania i wycena na piśmie</em></span></div>
+              <span class="kznote">Wycena jest ważna 30 dni, bez zobowiązań. Pilne? [TELEFON SOFTWARE]</span>
             </div></sc-if>
           </sc-if>
-        </div>
+        </aside>
       </div>
     </div></div>
   </section>
-
-  <footer style="border-top: 1px solid var(--line); background: var(--bg2)">
-    <div class="wrap" style="padding-top: 48px; padding-bottom: 28px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 28px; font-size: 14px">
-      <div style="display: flex; flex-direction: column; gap: 10px"><span style="font-family: Archivo, sans-serif; font-stretch: 118%; font-weight: 800; font-size: 22px">PRO<span style="color: var(--accent)">-</span>KOM <span style="font-size: 12px; letter-spacing: 0.16em">SOFTWARE</span></span><span style="color: var(--muted)">Strony, systemy, aplikacje i automatyzacje dla firm. Linia firmy PRO-KOM Tadeusz Wójciak.</span></div>
-      <div style="display: flex; flex-direction: column; gap: 8px; color: var(--muted)"><b style="color: var(--text)">Usługi</b><a href="Katalog.dc.html">Strony internetowe</a><a href="Katalog.dc.html">Systemy i panele</a><a href="Katalog.dc.html">Aplikacje mobilne</a><a href="Katalog.dc.html">Automatyzacje i AI</a><a href="Katalog.dc.html">Opieka i audyty</a></div>
-      <div style="display: flex; flex-direction: column; gap: 8px; color: var(--muted)"><b style="color: var(--text)">Firma</b><a href="ONas.dc.html">O firmie</a><a href="Wszystko.dc.html">Jedna firma do wszystkiego</a><a href="Main.dc.html#realizacje">Realizacje</a><a href="Aktualnosci.dc.html">Aktualności</a><a href="Branza.dc.html">Dla branż</a><a href="Cennik.dc.html">Cennik</a><a href="Audyt.dc.html">Darmowy audyt</a><a href="Miasto.dc.html">Rabka-Zdrój</a><a href="Kontakt.dc.html">Kontakt</a></div>
-      <div style="display: flex; flex-direction: column; gap: 8px; color: var(--muted)"><b style="color: var(--text)">Kontakt</b><span>[TELEFON SOFTWARE]</span><span>[E-MAIL SOFTWARE]</span><span>Rabka-Zdrój · Zakopane · zdalnie w całej Polsce</span></div>
+  <footer class="ft">
+    <div class="wrap ftcta">
+      <div class="ftct"><span class="fte">Masz pomysł albo problem do rozwiązania?</span><h2>Porozmawiajmy o&nbsp;Twojej firmie.</h2><p>Odpowiadamy w 1 dzień roboczy. Podgląd i wycena na piśmie w 5–7 dni, bez zobowiązań.</p></div>
+      <div class="ftcb"><a href="Kontakt.dc.html" class="btn ftbk"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"></path></svg>[TELEFON SOFTWARE]</a><a href="Kontakt.dc.html" class="btn ftbw">Napisz do nas<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a></div>
     </div>
-    <div class="wrap" style="padding-top: 18px; padding-bottom: 28px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; font-size: 13px; color: var(--muted)"><span>PRO-KOM Tadeusz Wójciak · ul. Orkana 16B, 34-700 Rabka-Zdrój · NIP 7352511447</span><span>Szukasz sprzętu, kas albo KSeF? <a href="https://prokombiznes.pl" style="color: var(--accentText); font-weight: 700">PRO-KOM Biznes →</a></span><span><a href="Polityka.dc.html">Polityka prywatności</a></span></div>
+    <div class="wrap ftg">
+      <div class="ftbrand">
+        <a href="Main.dc.html" class="ftlogo" aria-label="PRO-KOM Software, strona główna"><b>PRO<i></i>KOM</b><span>SOFTWARE</span></a>
+        <p>Strony, systemy, aplikacje i automatyzacje dla firm. Linia firmy PRO-KOM Tadeusz Wójciak, działającej na Podhalu od 2004 r.</p>
+        <ul class="fttrust"><li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg>Kod, domena i dane należą do Ciebie</li><li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg>Serwer w Polsce, kopia co noc</li><li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg>Cena i termin na piśmie</li></ul>
+      </div>
+      <nav class="ftcol" aria-label="Oferta"><b>Oferta</b><a href="Katalog.dc.html">Strony internetowe</a><a href="Katalog.dc.html">Systemy i panele</a><a href="Katalog.dc.html">Aplikacje mobilne</a><a href="Katalog.dc.html">Automatyzacje i AI</a><a href="Katalog.dc.html">Opieka i utrzymanie</a><a href="Cennik.dc.html">Cennik</a><a href="Audyt.dc.html">Darmowy audyt <em>0 zł</em></a></nav>
+      <nav class="ftcol" aria-label="Firma"><b>Firma</b><a href="ONas.dc.html">O firmie</a><a href="Wszystko.dc.html">Jedna firma do wszystkiego</a><a href="Main.dc.html#realizacje">Realizacje</a><a href="Branza.dc.html">Dla branż</a><a href="Aktualnosci.dc.html">Aktualności i poradnik</a><a href="Miasto.dc.html">Rabka-Zdrój</a><a href="Kontakt.dc.html">Kontakt</a></nav>
+      <div class="ftcol ftkon"><b>Kontakt</b>
+        <span class="ftk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"></path></svg><span>[TELEFON SOFTWARE]</span></span>
+        <span class="ftk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18v12H3zM3 7l9 6 9-6"></path></svg><span>[E-MAIL SOFTWARE]</span></span>
+        <span class="ftk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21zM12 12a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"></path></svg><span>ul. Orkana 16B, 34‑700 Rabka-Zdrój<small>salon w Zakopanem: [ADRES SALONU W ZAKOPANEM]</small></span></span>
+        <span class="ftk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 7v5l3 2M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0"></path></svg><span>pn–pt 9:00–17:00<small>odpowiedź w 1 dzień roboczy</small></span></span>
+        <span class="ftk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0"></path></svg><span>Podhale, Małopolska i zdalnie w całej Polsce</span></span>
+      </div>
+    </div>
+    <div class="wrap ftlines"><span class="ftlh">Jedna firma, sześć adresów</span><div class="ftlg"><a href="https://pro-kom.eu" class="ftl" rel="noopener" style="--lc: #4FB034"><span class="ftlm"><b>PRO<i></i>KOM</b><small>GŁÓWNA</small></span><span class="ftld">wszystkie linie</span></a><a href="https://prokombiznes.pl" class="ftl" rel="noopener" style="--lc: #4A7BE0"><span class="ftlm"><b>PRO<i></i>KOM</b><small>BIZNES</small></span><span class="ftld">kasy, GoPOS, programy, opieka IT</span></a><a href="https://prokominstalacje.pl" class="ftl" rel="noopener" style="--lc: #12B6D8"><span class="ftlm"><b>PRO<i></i>KOM</b><small>INSTALACJE</small></span><span class="ftld">monitoring, sieci, smart home</span></a><a href="Main.dc.html" class="ftl on" aria-current="page" style="--lc: #9670EE"><span class="ftlm"><b>PRO<i></i>KOM</b><small>SOFTWARE</small></span><span class="ftld">strony, systemy, aplikacje</span></a><a href="https://prokomserwis.pl" class="ftl" rel="noopener" style="--lc: #E2483A"><span class="ftlm"><b>PRO<i></i>KOM</b><small>TECH</small></span><span class="ftld">serwis komputerów i telefonów</span></a><a href="Kontakt.dc.html" class="ftl" style="--lc: #F29A00"><span class="ftlm"><b>PRO<i></i>KOM</b><small>ZAKOPANE</small></span><span class="ftld">salon w Zakopanem</span></a></div></div>
+    <div class="wrap ftb"><span>© 2026 PRO-KOM Tadeusz Wójciak · ul. Orkana 16B, 34‑700 Rabka-Zdrój · NIP 7352511447</span><span class="ftbl"><a href="Polityka.dc.html">Polityka prywatności</a><span>Bez ciasteczek śledzących</span></span></div>
   </footer>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["dark","light"],"default":"dark"},"$preview":{"width":1440,"height":2200}}'>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["dark","light"],"default":"dark"},"$preview":{"width":1440,"height":2330}}'>
 class Component extends DCLogic {
   constructor(props) {
     super(props);
@@ -1906,10 +2875,12 @@ class Component extends DCLogic {
     return Object.assign(base, this.pageVals({ st, self, theme, isAdded, add }));
   }
 
-  initialState() { return { dzS: 0, dzMax: 0, dzNeed: '', dzSub: [], dzSize: 'std', dzHave: '', dzWhen: '', dzUrl: '', dzFile: '', dzDesc: '', dzMam: [], dzPref: 'tel', dzContact: '', dzSent: false, dzShared: false, dzOwn: false, dzName: '', dzOk: false, dzErr: false, dzPv: false, show: 'www', showTouched: false }; }
+  initialState() { return { dzS: 0, dzMax: 0, dzNeed: '', dzSub: [], dzHave: '', dzWhen: '', dzUrl: '', dzFile: '', dzDesc: '', dzMam: [], dzPref: 'tel', dzContact: '', dzSent: false, dzShared: false, dzOwn: false, dzName: '', dzOk: false, dzErr: false, dzPv: false, dzMore: [], dzAdd: [], dzDescOpen: false, dzShop: false, show: 'www', showTouched: false }; }
   pageVals({ st, self, theme, isAdded, add }) {
     const dz = (() => {
       const S = st.dzS || 0, sub = st.dzSub || [], need = st.dzNeed, own = !!st.dzOwn;
+      // telefon: gdy kreator jest w widoku, belka ceny zastępuje dolny pasek (body[data-kz="1"], CSS w kreator.css)
+      try { if (typeof window !== 'undefined' && !window.__kzObs && 'IntersectionObserver' in window) { window.__kzObs = 1; const arm = () => { const el = document.getElementById('dobierz'); if (!el) { setTimeout(arm, 300); return; } new IntersectionObserver((es) => es.forEach((e) => document.body.setAttribute('data-kz', e.isIntersecting ? '1' : '0')), { rootMargin: '-12% 0px -12% 0px' }).observe(el); }; setTimeout(arm, 0); } } catch (e) {}
       const set = (o) => self.setState(Object.assign({ dzSent: false, dzShared: false }, o));
       const go = (n) => self.setState({ dzS: n, dzMax: Math.max(self.state.dzMax || 0, n) });
       const I = {
@@ -1926,30 +2897,31 @@ class Component extends DCLogic {
       };
       const BR = [{ id: 'nocleg', n: 'Pensjonat, hotel, apartamenty', ic: I.bed }, { id: 'gastro', n: 'Restauracja, bar, kawiarnia', ic: I.food }, { id: 'bud', n: 'Budowlanka i remonty', ic: I.home }, { id: 'turyst', n: 'Turystyka i atrakcje', ic: I.mount }, { id: 'uroda', n: 'Uroda i zdrowie', ic: I.heart }, { id: 'moto', n: 'Warsztat i motoryzacja', ic: I.car }, { id: 'handel', n: 'Sklep i handel', ic: I.bag }, { id: 'biuro', n: 'Biuro i usługi dla firm', ic: I.brief }, { id: 'prod', n: 'Produkcja i rzemiosło', ic: I.wrench }, { id: 'inna', n: 'Inna firma', ic: I.box }];
       const N = {
-        firm: { n: 'Strona firmowa', d: 'Pokazuje firmę i ofertę. Treści zmieniasz sam.', ic: I.site, row: 0, pv: 'www', q: 'Jaka to firma?', h: 'Dopasujemy wygląd i treści do branży.', o: BR },
-        rozb: { n: 'Rozbudowana strona', d: 'Wiele podstron, blog, języki, rezerwacje.', ic: I.grid, row: 0, pv: 'www', q: 'Co ma umieć?', h: 'Zaznacz wszystko, co pasuje.', multi: true, o: [{ id: 'blog', n: 'Wiele podstron i blog', ic: I.doc }, { id: 'jez', n: 'Kilka języków', ic: I.globe }, { id: 'rez', n: 'Rezerwacje lub zamówienia', ic: I.cal }, { id: 'kat', n: 'Katalog produktów', ic: I.bag }, { id: 'strefa', n: 'Strefa klienta', ic: I.users }] },
-        wiz: { n: 'Wizytówka', d: 'Jedna strona: kim jesteś, telefon, mapa.', ic: I.card, row: 0, pv: 'www', q: 'Jaka to firma?', h: 'Branża zmienia wygląd i przykładowe treści.', o: BR, noSize: true },
-        land: { n: 'Landing page', d: 'Jedna usługa albo kampania, z formularzem.', ic: I.target, row: 0, pv: 'www', q: 'Do czego ma służyć?', h: 'Jedna strona, jeden cel.', o: [{ id: 'usl', n: 'Jedna usługa', ic: I.wrench }, { id: 'kamp', n: 'Kampania reklamowa', ic: I.mega }, { id: 'event', n: 'Wydarzenie lub promocja', ic: I.cal }, { id: 'zapis', n: 'Nabór lub zapisy', ic: I.users }], noSize: true },
-        odsw: { n: 'Odświeżenie obecnej strony', d: 'Masz stronę, ale jest stara i nic nie daje.', ic: I.refresh, row: 1, pv: 'odsw', q: 'Co jest nie tak?', h: 'Zaznacz wszystko, co pasuje.', multi: true, o: [{ id: 'wolna', n: 'Wolno się ładuje', ic: I.clock }, { id: 'tel', n: 'Źle wygląda na telefonie', ic: I.phone }, { id: 'google', n: 'Nikt jej nie znajduje', ic: I.target }, { id: 'zmiany', n: 'Nie da się nic zmienić', ic: I.key }, { id: 'wyglad', n: 'Wygląda staro', ic: I.site }] },
+        firm: { n: 'Strona dla firmy', d: 'Lokal lub pensjonat od 1 999 zł, firmowa z panelem od 2 490 zł.', ic: I.site, row: 0, pv: 'www', q: 'Jaka to firma?', h: 'Dopasujemy wygląd i treści do branży.', o: BR },
+        rozb: { n: 'Rozbudowana strona', d: 'Wiele podstron, blog, języki, katalog.', ic: I.grid, row: 0, pv: 'www', q: 'Co ma umieć?', h: 'Zaznacz wszystko, co pasuje.', multi: true, o: [{ id: 'blog', n: 'Wiele podstron i blog', ic: I.doc }, { id: 'jez', n: 'Kilka języków', ic: I.globe }, { id: 'rez', n: 'Formularze zapytań i zamówień', ic: I.cal }, { id: 'kat', n: 'Katalog produktów', ic: I.bag }, { id: 'strefa', n: 'Strefa klienta', ic: I.users }] },
+        wiz: { n: 'Wizytówka', d: 'Jedna strona: kim jesteś, telefon, mapa.', ic: I.card, row: 0, pv: 'www', q: 'Jaka to firma?', h: 'Branża zmienia wygląd i przykładowe treści.', o: BR },
+        land: { n: 'Landing page', d: 'Jedna usługa albo kampania, z formularzem.', ic: I.target, row: 0, pv: 'www', q: 'Do czego ma służyć?', h: 'Jedna strona, jeden cel.', o: [{ id: 'usl', n: 'Jedna usługa', ic: I.wrench }, { id: 'kamp', n: 'Kampania reklamowa', ic: I.mega }, { id: 'event', n: 'Wydarzenie lub promocja', ic: I.cal }, { id: 'zapis', n: 'Nabór lub zapisy', ic: I.users }] },
+        odsw: { n: 'Przebudowa starej strony', d: 'Masz stronę, ale jest stara i nic nie daje.', ic: I.refresh, row: 1, pv: 'odsw', q: 'Co jest nie tak?', h: 'Zaznacz wszystko, co pasuje.', multi: true, o: [{ id: 'wolna', n: 'Wolno się ładuje', ic: I.clock }, { id: 'tel', n: 'Źle wygląda na telefonie', ic: I.phone }, { id: 'google', n: 'Nikt jej nie znajduje', ic: I.target }, { id: 'zmiany', n: 'Nie da się nic zmienić', ic: I.key }, { id: 'wyglad', n: 'Wygląda staro', ic: I.site }] },
         prog: { n: 'Program dla firmy', d: 'Zlecenia, klienci, godziny, zgłoszenia.', ic: I.panel, row: 1, pv: 'sys', q: 'Co dziś najbardziej przeszkadza?', h: 'Wybierz jedno. Resztę omówimy.', o: [{ id: 'zlec', n: 'Zlecenia na kartkach i SMS-ach', ic: I.doc }, { id: 'klienci', n: 'Klienci w zeszycie', ic: I.users }, { id: 'godz', n: 'Godziny pracy na kartkach', ic: I.clock }, { id: 'zgl', n: 'Zgłoszenia i naprawy', ic: I.ticket }, { id: 'excel', n: 'Wszystko w Excelu', ic: I.grid }] },
-        app: { n: 'Aplikacja na telefon', d: 'Dla ekipy w terenie albo dla klientów.', ic: I.phone, row: 1, pv: 'app', q: 'Dla kogo?', h: 'iPhone i Android z jednego kodu.', o: [{ id: 'ekipa', n: 'Dla pracowników w terenie', ic: I.wrench }, { id: 'klienci', n: 'Dla klientów', ic: I.users }] },
-        auto: { n: 'Automatyzacje', d: 'SMS-y, faktury, raporty robią się same.', ic: I.bolt, row: 1, pv: 'auto', q: 'Co ma się robić samo?', h: 'Zaznacz wszystko, co pasuje.', multi: true, o: [{ id: 'sms', n: 'Przypomnienia SMS i e-mail', ic: I.bell }, { id: 'fv', n: 'Faktury i dokumenty', ic: I.doc }, { id: 'rap', n: 'Raporty dla szefa', ic: I.chart }, { id: 'ai', n: 'Odpowiedzi na zapytania', ic: I.chat }] },
+        app: { n: 'Aplikacja na telefon', d: 'Dla ekipy w terenie albo dla klientów.', ic: I.phone, row: 1, pv: 'app', q: 'Dla kogo?', h: 'iPhone i Android z jednego kodu.', o: [{ id: 'ekipa', n: 'Dla pracowników w terenie', ic: I.wrench }, { id: 'klienci', n: 'Dla klientów', ic: I.users }], noSize: true },
+        auto: { n: 'Automatyzacje', d: 'SMS-y, faktury, raporty robią się same.', ic: I.bolt, row: 1, pv: 'auto', q: 'Co ma się robić samo?', h: 'Zaznacz wszystko, co pasuje.', multi: true, o: [{ id: 'sms', n: 'Przypomnienia SMS i e‑mail', ic: I.bell }, { id: 'fv', n: 'Faktury i dokumenty', ic: I.doc }, { id: 'rap', n: 'Raporty dla szefa', ic: I.chart }, { id: 'ai', n: 'Odpowiedzi na zapytania', ic: I.chat }], noSize: true },
       };
-      const SITE = ['Logo', 'Zdjęcia', 'Teksty o firmie', 'Domena'], SYS = ['15 min rozmowy o tym, jak pracujecie', 'Przykładowe dokumenty albo Excel', 'Lista osób, które będą korzystać'];
+      const SITE = ['Logo', 'Zdjęcia', 'Teksty o firmie', 'Domena'], SYS = ['15 min rozmowy o tym, jak pracuje Twoja firma', 'Przykładowe dokumenty albo Excel', 'Lista osób, które będą korzystać'];
       const R = {
-        pensjonat: { n: 'Strona dla pensjonatu lub hotelu', kind: 'Strona', pv: 'rez', g: ['Pokoje, galeria i okolica w kilku językach', 'Zapytanie o termin albo rezerwacja online, bez prowizji portali', 'Panel: sam zmieniasz ceny, zdjęcia i dostępność'], nd: SITE },
+        pensjonat: { n: 'Strona dla pensjonatu lub hotelu', kind: 'Strona', pv: 'rez', g: ['Pokoje, galeria i okolica w kilku językach', 'Zapytanie o termin prosto do Ciebie, bez prowizji portali', 'Panel: sam zmieniasz ceny, zdjęcia i dostępność'], nd: SITE },
         restauracja: { n: 'Strona dla restauracji lub baru', kind: 'Strona', pv: 'www', g: ['Menu w panelu: zmieniasz je sam, bez PDF-ów', 'Rezerwacja stolika i godziny w sezonie', 'Mapa, dojazd i telefon jednym kliknięciem'], nd: SITE },
         firmowa: { n: 'Strona firmowa z panelem', kind: 'Strona', pv: 'www', g: ['Oferta, realizacje, opinie i formularz prosto do Ciebie', 'Panel po polsku: treści zmieniasz sam', 'Szybka, na telefon, przygotowana pod Google i AI'], nd: SITE },
-        rozbudowana: { n: 'Rozbudowana strona firmowa', kind: 'Strona', pv: 'www', g: ['Wiele podstron, blog i aktualności', 'Języki, katalog albo rezerwacje: to, co zaznaczysz', 'Panel z osobnymi kontami dla kilku osób'], nd: SITE },
-        wizytowka: { n: 'Strona wizytówka', kind: 'Strona', pv: 'www', g: ['Jedna strona: kim jesteś, co robisz, jak dojechać', 'Telefon i mapa jednym kliknięciem', 'Najszybszy start w Google'], nd: SITE },
+        sklep: { n: 'Sklep internetowy', kind: 'Strona', pv: 'www', g: ['Produkty, płatności online i BLIK', 'Dostawa i odbiór osobisty', 'Zamówienia od razu w panelu'], nd: ['Lista produktów i ceny', 'Zdjęcia produktów', 'Logo', 'Domena'] },
+        rozbudowana: { n: 'Rozbudowana strona firmowa', kind: 'Strona', pv: 'www', g: ['Wiele podstron, blog i aktualności', 'Języki, katalog albo strefa klienta: to, co zaznaczysz', 'Panel z osobnymi kontami dla kilku osób'], nd: SITE },
+        wizytowka: { n: 'Strona wizytówka', kind: 'Strona', pv: 'www', g: ['Jedna strona: kim jesteś, co robisz, jak dojechać', 'Telefon i mapa jednym kliknięciem', 'Gotowa pod Google od pierwszego dnia'], nd: SITE },
         landing: { n: 'Landing page', kind: 'Strona', pv: 'www', g: ['Jedna strona pod jedną usługę albo kampanię', 'Formularz i telefon w każdym miejscu strony', 'Widzisz, ile osób zostawiło kontakt'], nd: ['Opis usługi lub promocji', 'Zdjęcia', 'Logo'] },
         przebudowa: { n: 'Przebudowa starej strony', kind: 'Strona', pv: 'www', g: ['Nowa, szybka strona z Twoimi treściami', 'Przekierowania: bez utraty pozycji w Google', 'Panel, w którym wreszcie sam coś zmienisz'], nd: ['Adres obecnej strony', 'Dostęp do starej strony, jeśli masz', 'Nowe zdjęcia, jeśli są'] },
-        zlecenia: { n: 'System zleceń i grafik ekip', kind: 'System', pv: 'sys', g: ['Kto, gdzie i kiedy: grafik dla ekip', 'Status zlecenia dla klienta, SMS „w drodze”', 'Protokoły i zdjęcia prosto z telefonu'], nd: SYS },
+        zlecenia: { n: 'System zleceń i grafik ekip', kind: 'System', pv: 'sys', g: ['Kto, gdzie i kiedy: grafik dla ekip', 'Status zlecenia dla klienta pod linkiem', 'Protokoły i zdjęcia prosto z telefonu'], nd: SYS },
         crm: { n: 'CRM dla małej i średniej firmy', kind: 'System', pv: 'sys', g: ['Klienci, zapytania i oferty w jednym miejscu', 'Przypomnienia, do kogo zadzwonić', 'Cała historia kontaktu z każdym klientem'], nd: SYS },
         czas: { n: 'Czas pracy i rozliczenia', kind: 'System', pv: 'sys', g: ['Godziny z telefonu pracownika, nie z kartek', 'Rozliczenie miesiąca robi się samo', 'Eksport dla księgowej'], nd: SYS },
-        serwis: { n: 'System serwisu i zgłoszeń', kind: 'System', pv: 'sys', g: ['Przyjęcie, status i historia każdej naprawy', 'SMS „gotowe” do klienta', 'Klient sam sprawdza status, jak w prokomserwis.pl'], nd: SYS },
+        serwis: { n: 'System serwisu i zgłoszeń', kind: 'System', pv: 'sys', g: ['Przyjęcie, status i historia każdej naprawy', 'Powiadomienie „gotowe” e-mailem', 'Klient sam sprawdza status, jak w prokomserwis.pl'], nd: SYS },
         excel: { n: 'Z Excela do systemu', kind: 'System', pv: 'sys', g: ['Arkusze zamienione w prosty panel', 'Dane przeniesione, duplikaty usunięte', 'Kilka osób naraz, bez nadpisywania'], nd: SYS },
-        rozbudowa: { n: 'Rozbudowa programu i połączenia', kind: 'System', pv: 'sys', g: ['Dokładamy brakujący moduł, nie piszemy od nowa', 'Łączymy programy, żeby nic nie przepisywać', 'Działa obok tego, co już masz'], nd: ['Nazwa programu, którego używacie', 'Opis, czego brakuje', 'Dostęp testowy, jeśli jest'] },
+        rozbudowa: { n: 'Rozbudowa programu i połączenia', kind: 'System', pv: 'sys', g: ['Dokładamy brakujący moduł, nie piszemy od nowa', 'Łączymy programy, żeby nic nie przepisywać', 'Działa obok tego, co już masz'], nd: ['Nazwa programu, którego używasz', 'Opis, czego brakuje', 'Dostęp testowy, jeśli jest'] },
         app: { n: 'Aplikacja na telefon', kind: 'Aplikacja', pv: 'app', g: ['iPhone i Android z jednego kodu', 'Te same dane co w systemie i na stronie', 'Powiadomienia prosto na telefon'], nd: ['Opis, co ma robić', 'Kto będzie z niej korzystał', 'Konta w App Store i Google Play (pomożemy założyć)'] },
         auto: { n: 'Automatyzacje', kind: 'Automatyzacja', pv: 'auto', g: ['Powtarzalna robota robi się sama', 'Łączymy programy, które już masz', 'Mniej przepisywania, mniej pomyłek'], nd: ['Lista programów, których używasz', 'Co dziś robisz ręcznie'] },
         opieka: { n: 'Opieka i przejęcie po poprzedniku', kind: 'Opieka', pv: 'www', g: ['Odzyskujemy dostępy i robimy kopię', 'Naprawiamy to, co nie działa', 'Stała opieka: aktualizacje, monitoring, czas reakcji na piśmie'], nd: ['Adres strony lub nazwa programu', 'Dostępy, jeśli masz', 'Krótki opis problemu'], month: true },
@@ -1958,32 +2930,100 @@ class Component extends DCLogic {
       const nd = N[need];
       const s0 = sub[0] || '';
       let rk = 'own';
-      if (need === 'firm') rk = s0 === 'nocleg' ? 'pensjonat' : s0 === 'gastro' ? 'restauracja' : 'firmowa';
+      if (need === 'firm') rk = s0 === 'nocleg' ? 'pensjonat' : s0 === 'gastro' ? 'restauracja' : s0 === 'handel' && st.dzShop ? 'sklep' : 'firmowa';
       else if (need) rk = { rozb: 'rozbudowana', wiz: 'wizytowka', land: 'landing', odsw: 'przebudowa', dodo: 'rozbudowa', app: 'app', auto: 'auto', help: 'opieka' }[need] || ({ zlec: 'zlecenia', klienci: 'crm', godz: 'czas', zgl: 'serwis', excel: 'excel' }[s0] || 'zlecenia');
       const r = R[rk];
-      const isSite = nd && nd.row === 0, hasSize = !!nd && !nd.noSize;
-      const SZ = [{ id: 'start', n: 'Na start', d: 'Najważniejsze, szybko' }, { id: 'std', n: 'Standard', d: 'Najczęściej wybierane' }, { id: 'full', n: 'Pełna wersja', d: 'Z dodatkami' }];
+      const isSite = nd && nd.row === 0;
+      // ceny i terminy „od” (netto) — od 29.10 jedna cena „od”, bez wersji
+      const PRC = { wizytowka: 999, landing: 1299, firmowa: 2490, przebudowa: 1499, restauracja: 1999, pensjonat: 1999, rozbudowana: 6990, sklep: 8990, excel: 2990, czas: 2990, zlecenia: 3490, crm: 3490, serwis: 3490 };
+      const TRM = { wizytowka: 'od 1 tygodnia', landing: 'od 1 tygodnia', firmowa: 'od 2 tygodni', przebudowa: 'od 2 tygodni', restauracja: 'od 2 tygodni', pensjonat: 'od 2 tygodni', rozbudowana: 'od 5 tygodni', sklep: 'od 5 tygodni', excel: 'od 2 tygodni', czas: 'od 2 tygodni', zlecenia: 'od 3 tygodni', crm: 'od 3 tygodni', serwis: 'od 3 tygodni' };
+      // co jest w cenie „od” (i) i czego można potrzebować więcej (m) — „więcej” = wycena na piśmie, cena „od” się nie zmienia
+      const SYSI = ['Jeden moduł na gotowym fundamencie', 'Do 5 użytkowników', 'Dostęp z komputera i telefonu'];
+      const SYSM = [['mod', 'Kolejne moduły'], ['users', 'Więcej użytkowników i ról'], ['imp', 'Import danych z Excela'], ['int', 'Połączenie z innym programem']];
+      const INC = {
+        wizytowka: { i: ['Jedna strona: oferta, telefon, mapa i formularz', 'Wygodna na telefonie', 'Gotowa pod Google'], m: [['gal', 'Galeria zdjęć i opinie klientów'], ['sek', 'Więcej sekcji o ofercie'], ['gmb', 'Profil Firmy w Google ustawiony razem ze stroną']] },
+        landing: { i: ['Jedna strona pod jedną usługę', 'Formularz i telefon w każdym miejscu', 'Gotowa pod kampanię'], m: [['faq', 'FAQ, opinie i porównanie'], ['pom', 'Pomiar zgłoszeń z kampanii'], ['ab', 'Test A/B nagłówka']] },
+        firmowa: { i: ['Do 5 podstron: oferta, realizacje, opinie, kontakt', 'Panel do zmian i formularz prosto do Ciebie', 'Gotowa pod Google i AI'], m: [['pod', 'Więcej niż 5 podstron'], ['blog', 'Aktualności i blog'], ['jez', 'Kolejny język']] },
+        przebudowa: { i: ['Nowa strona do 3 podstron', 'Przekierowania starych adresów', 'Panel do zmian'], m: [['pod', 'Więcej niż 3 podstrony'], ['tre', 'Przeniesienie wszystkich treści i zdjęć'], ['poz', 'Kontrola pozycji w Google po starcie']] },
+        restauracja: { i: ['Menu w panelu, godziny, mapa', 'Formularz rezerwacji stolika', 'Telefon i dojazd jednym kliknięciem'], m: [['jez', 'Menu w dwóch językach'], ['imp', 'Galeria i podstrona imprez okolicznościowych'], ['zap', 'Zapytanie o imprezę z liczbą gości i datą']] },
+        pensjonat: { i: ['Pokoje, galeria i okolica w trzech językach: PL · EN · DE', 'Zapytanie o termin prosto do Ciebie', 'Panel: ceny i zdjęcia zmieniasz sam'], m: [['cen', 'Cennik sezonowy i oferty specjalne'], ['atr', 'Atrakcje w okolicy i dojazd'], ['op', 'Opinie gości i galeria sezonowa'], ['zal', 'Rezerwacja z zaliczką online']] },
+        sklep: { i: ['Produkty, płatności online i BLIK', 'Dostawa i odbiór osobisty', 'Zamówienia od razu w panelu'], m: [['fv', 'Faktury wystawiane automatycznie'], ['mag', 'Połączenie z magazynem'], ['int', 'Połączenie z innym programem']] },
+        rozbudowana: { i: ['Wiele podstron i blog', 'Panel z kontami dla kilku osób', 'Gotowa pod Google i AI'], m: [['szuk', 'Wyszukiwarka na stronie'], ['tre', 'Przeniesienie treści ze starej strony'], ['int', 'Połączenie z innym programem']] },
+        excel: { i: SYSI, m: SYSM }, czas: { i: SYSI, m: SYSM }, zlecenia: { i: SYSI, m: SYSM }, crm: { i: SYSI, m: SYSM }, serwis: { i: SYSI, m: SYSM }
+      };
+      const hasSize = !!PRC[rk] && !!nd && !nd.noSize;
+      const inc = INC[rk] || { i: [], m: [] };
+      const moreSel0 = inc.m.filter((x) => (st.dzMore || []).includes(rk + ':' + x[0])).map((x) => x[1]);
+      // rozbudowana: funkcje z kroku 2 poza „Wiele podstron i blog” idą do wyceny na piśmie
+      const featIn = need === 'rozb' && nd ? nd.o.filter((o) => sub.includes(o.id) && o.id === 'blog').map((o) => o.n) : [];
+      const featOut = need === 'rozb' && nd ? nd.o.filter((o) => sub.includes(o.id) && o.id !== 'blog').map((o) => o.n) : [];
+      const moreSel = featOut.concat(moreSel0);
+      // dlaczego to rozwiązanie (uczciwa podpowiedź, bez wersji)
+      let why = '', more = false;
+      const nSub = sub.length;
+      if (rk === 'wizytowka') why = 'Jedna dobra strona z telefonem i mapą wystarczy, żeby zacząć. Galerię i opinie dołożysz w każdej chwili.';
+      else if (rk === 'landing') why = 'Jedna usługa, jeden cel: landing robi to najlepiej.';
+      else if (rk === 'firmowa') why = st.dzWhen === 'asap' && st.dzHave === 'nic' ? 'Chcesz szybko i zaczynasz od zera: ruszamy z podstawą, resztę dołożysz później.' : 'Oferta, formularz i panel do zmian: to, co zbiera zapytania z Google.';
+      else if (rk === 'pensjonat') why = 'Zapytania o termin trafiają prosto do Ciebie, bez prowizji portali.';
+      else if (rk === 'restauracja') why = 'Formularz rezerwacji stolika odciąża telefon w sezonie.';
+      else if (rk === 'rozbudowana') { const fl = featIn.concat(featOut); why = !fl.length ? 'Zaczniemy od podstron i bloga, kolejne funkcje dołożysz w następnym etapie.' : 'Wybrane funkcje: ' + fl.join(', ') + '. ' + (featOut.length ? 'Wiele podstron i blog są w cenie, pozostałe wycenimy na piśmie w 5–7 dni.' : 'Mieszczą się w cenie.'); more = nSub >= 4; }
+      else if (rk === 'sklep') why = 'Sprzedajesz online: produkty, płatności i zamówienia w jednym panelu.';
+      else if (rk === 'przebudowa') why = nSub >= 3 ? 'Do poprawy jest kilka rzeczy naraz. Przeniesiemy treści i adresy, bez utraty pozycji w Google.' : 'Strona do 3 podstron mieści się w cenie od 1 499 zł.';
+      else if (hasSize) { if (st.dzHave === 'kartki') why = 'Zaczniemy od jednego modułu dla 5 osób. Kolejne dołożysz, gdy zespół się przyzwyczai.'; else if (st.dzHave === 'excel') why = 'Import danych z Twoich arkuszy wycenimy razem z systemem.'; else if (st.dzHave === 'program') { why = 'Masz dane w innym programie. Przeniesienie danych wycenimy razem z systemem.'; more = true; } else why = 'Zaczniemy od jednego modułu, który dziś najbardziej przeszkadza. Kolejne dokładamy etapami.'; }
+      const zl = (v) => String(v).replace(/\B(?=(\d{3})+(?!\d))/g, '\u00a0');
+      const nb = (t) => String(t || '').replace(/(^|\s)(od|do|w) (?=\d)/g, '$1$2\u00a0').replace(/(\d) (zł|tygodni|tygodnia|dni|dnia)/g, '$1\u00a0$2').replace(/(\d)–(\d)/g, '$1–\u2060$2');
+      const firm0 = need === 'firm' && !s0;
+      const price = nb(firm0 ? 'od 1 999 zł' : r.free ? 'Bezpłatnie' : r.month ? 'od 149 zł / mies.' : PRC[rk] ? 'od ' + zl(PRC[rk]) + ' zł' : 'Zapytaj o wycenę');
+      const priceSub = nb(r.free ? 'rozmowa i propozycja' : r.month ? 'netto, opieka miesięczna' : PRC[rk] ? 'netto · stałą cenę dostaniesz na piśmie' : 'cena na piśmie w 5–7 dni');
+      const term = nb(firm0 ? 'od 2 tygodni' : r.free ? '1 dzień roboczy' : TRM[rk] || 'po krótkiej rozmowie');
       const W = [{ id: 'asap', n: 'Jak najszybciej' }, { id: 'zima', n: 'Przed sezonem zimowym' }, { id: 'lato', n: 'Przed latem' }, { id: 'brak', n: 'Bez pośpiechu' }];
       const HV = isSite ? [{ id: 'nic', n: 'Nic, zaczynam od zera' }, { id: 'stara', n: 'Starą stronę' }, { id: 'logo', n: 'Domenę i logo' }] : [{ id: 'kartki', n: 'Kartki i zeszyty' }, { id: 'excel', n: 'Excel' }, { id: 'program', n: 'Inny program' }];
       const urlMode = need === 'odsw' || need === 'help';
-      const szN = (SZ.find((x) => x.id === st.dzSize) || SZ[1]).n, whN = (W.find((x) => x.id === st.dzWhen) || {}).n;
-      const big = need === 'prog' || need === 'app' || need === 'rozb' || st.dzSize === 'full';
-      const whenNote = { asap: 'Zaczynamy od rozmowy jeszcze w tym tygodniu. Dokładny termin dostaniesz na piśmie.', zima: big ? 'Przed sezonem zimowym zdążymy z wersją na start. Resztę dołożymy po sezonie, bez przestoju.' : 'Przed sezonem zimowym zdążymy, jeśli zaczniemy do 30 listopada.', lato: 'Przed latem zdążymy spokojnie, z czasem na poprawki.', brak: 'Termin ustalimy razem i zapiszemy w umowie.' }[st.dzWhen] || 'Termin potwierdzimy na piśmie po krótkiej rozmowie.';
-      const PRC = { wizytowka: [999, 1490, 2490], landing: [1299, 1990, 2590], firmowa: [2490, 3390, 5490], przebudowa: [1499, 2490, 2990], restauracja: [1999, 2990, 4490], pensjonat: [1999, 2990, 4490], rozbudowana: [6990, 9990, 14990],
-        excel: [2990, 4990, 8990], czas: [2990, 4990, 7990], zlecenia: [3490, 5990, 9990], crm: [3490, 5990, 9990], serwis: [3490, 5990, 9990] };
-      const TRM = { wizytowka: ['1 tydzień', '1–2 tygodnie', '2 tygodnie'], landing: ['1–2 tygodnie', '2 tygodnie', '3 tygodnie'], firmowa: ['2 tygodnie', '3 tygodnie', '4–5 tygodni'], przebudowa: ['2 tygodnie', '3 tygodnie', '4 tygodnie'], restauracja: ['2 tygodnie', '3 tygodnie', '4–5 tygodni'], pensjonat: ['2 tygodnie', '3 tygodnie', '4–5 tygodni'], rozbudowana: ['5 tygodni', '6–8 tygodni', '8–10 tygodni'],
-        excel: ['2–3 tygodnie', '5 tygodni', '8 tygodni'], czas: ['2–3 tygodnie', '5 tygodni', '8 tygodni'], zlecenia: ['3 tygodnie', '6 tygodni', '10 tygodni'], crm: ['3 tygodnie', '6 tygodni', '10 tygodni'], serwis: ['3 tygodnie', '6 tygodni', '10 tygodni'] };
-      const szI = st.dzSize === 'start' ? 0 : st.dzSize === 'full' ? 2 : 1;
-      const zl = (v) => String(v).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
-      const price = r.free ? 'Bezpłatnie' : r.month ? 'od 149 zł / mies.' : PRC[rk] ? (hasSize ? zl(PRC[rk][szI]) + ' zł netto' : 'od ' + zl(PRC[rk][0]) + ' zł netto') : 'Zapytaj o wycenę';
-      const term = r.free ? 'Odpowiedź w ciągu 1 dnia roboczego' : TRM[rk] ? (hasSize ? TRM[rk][szI] : 'od ' + TRM[rk][0]) : 'po krótkiej rozmowie';
-      const scope = r.kind === 'System' && szI === 0 ? 'Na start: jeden moduł na gotowym fundamencie, do 5 użytkowników, bez integracji.' : rk === 'przebudowa' && szI === 0 ? 'Na start: przebudowa strony do 3 podstron.' : rk === 'pensjonat' && szI < 2 ? 'Zapytanie o termin w cenie. Rezerwacja z zaliczką online w Pełnej wersji.' : '';
+      const whN = (W.find((x) => x.id === st.dzWhen) || {}).n;
+      const big = need === 'prog' || need === 'app' || need === 'rozb';
+      const whenNote = { asap: 'Zaczynamy od rozmowy jeszcze w tym tygodniu. Dokładny termin dostaniesz na piśmie.', zima: big ? 'Przed sezonem zimowym zdążymy z pierwszym etapem. Resztę dołożymy po sezonie, bez przestoju.' : 'Przed sezonem zimowym zdążymy, jeśli zaczniemy do 30 listopada.', lato: 'Przed latem zdążymy spokojnie, z czasem na poprawki.', brak: 'Termin ustalimy razem i zapiszemy w umowie.' }[st.dzWhen] || 'Termin potwierdzimy na piśmie po krótkiej rozmowie.';
+      const scope = rk === 'pensjonat' ? 'Zapytanie o termin jest w cenie. Rezerwacja z zaliczką online — osobna wycena.' : '';
+      const moreT = nb('Dodatki wycenimy na piśmie w 5–7 dni. Cena „od” to podstawa, dopłatę za dodatki zobaczysz w wycenie.');
+      // uczciwie: kiedy wystarczy mniej
+      const honest = rk === 'wizytowka' && st.dzHave === 'nic' ? 'Jeśli potrzebujesz tylko telefonu i mapy w Google, wystarczy darmowy Profil Firmy w Google. Pomożemy go ustawić, nawet jeśli nie zamówisz strony.' : rk === 'excel' || (need === 'prog' && st.dzHave === 'excel') ? 'Przy 1–2 osobach czasem wystarczy dobrze ułożony arkusz. Jeśli tak będzie, powiemy to na rozmowie.' : rk === 'app' ? 'Najpierw sprawdzimy, czy nie wystarczy aplikacja w przeglądarce telefonu, bez sklepu z aplikacjami. Jest szybsza i tańsza.' : rk === 'auto' ? 'Zanim coś zbudujemy, sprawdzimy, czy Twój obecny program nie robi tego już sam.' : '';
+      // często dobierane razem
+      const AD = { opieka: { n: 'Opieka nad stroną', p: 'od 149 zł / mies.', d: 'Serwer w Polsce, kopia co noc, aktualizacje', ic: I.shield }, opiekaSys: { n: 'Opieka · poziom Systemy', p: '790 zł / mies.', d: 'Reakcja do 4 h roboczych, eksport danych co miesiąc', ic: I.shield }, audyt: { n: 'Darmowy audyt obecnej strony', p: '0 zł', d: 'Raport na piśmie w 2 dni robocze', ic: I.target }, sms: { n: 'Powiadomienia SMS i e‑mail', p: 'Zapytaj o wycenę', d: 'Potwierdzenia i przypomnienia dla klientów', ic: I.bell }, appE: { n: 'Aplikacja dla ekip w terenie', p: 'Zapytaj o wycenę', d: 'Zlecenia i zdjęcia z telefonu, także bez zasięgu', ic: I.phone }, zlec: { n: 'System zleceń i grafik ekip', p: 'od 3 490 zł', d: 'Panel w biurze, z którym łączy się aplikacja', ic: I.panel }, excelS: { n: 'Z Excela do systemu', p: 'od 2 990 zł', d: 'Dane w jednym miejscu, gotowe do automatyzacji', ic: I.grid } };
+      const adK = rk === 'own' ? [] : rk === 'opieka' ? ['audyt'] : rk === 'pensjonat' || rk === 'restauracja' ? ['opieka', 'sms'] : rk === 'przebudowa' || (isSite && st.dzHave === 'stara') ? ['opieka', 'audyt'] : r.kind === 'Strona' ? ['opieka', 'sms'] : r.kind === 'System' ? ['appE', 'opiekaSys'] : rk === 'app' ? ['zlec', 'opiekaSys'] : rk === 'auto' ? ['excelS', 'opiekaSys'] : ['opieka'];
+      const added = (st.dzAdd || []).filter((k) => adK.includes(k));
       const subN = nd ? nd.o.filter((o) => sub.includes(o.id)).map((o) => o.n) : [];
-      // podgląd
-      const pv = !need && !own ? 'idle' : own ? 'idle' : nd.pv;
+      // treści do szybkiego opisu (zależne od potrzeby)
+      const PHM = { firm: ['mało telefonów z internetu', 'chcę sam zmieniać treści', 'klienci pytają o cennik'], rozb: ['kilka osób ma edytować', 'goście z zagranicy', 'chcę pisać poradniki'], wiz: ['nie ma nas w Google', 'chcę szybko', 'tylko telefon i mapa'], land: ['ruszam z reklamą', 'jedna nowa usługa', 'zapisy do końca miesiąca'], odsw: ['strona jest wolna', 'nie da się nic zmienić', 'nie chcę stracić pozycji'], prog: ['za dużo przepisywania', 'gubią się zlecenia', 'chcę widzieć wszystko w telefonie'], app: ['ekipa bez zasięgu na budowie', 'zdjęcia i podpis klienta', 'klienci mają rezerwować sami'], auto: ['ręcznie wysyłamy SMS-y', 'faktury przepisujemy', 'raport robię w niedzielę'] };
+      const PH = (PHM[need] || ['mało telefonów z internetu', 'za dużo przepisywania', 'chcę sam zmieniać ceny']).concat(['przed sezonem zimowym']);
+      const PREF = [{ id: 'tel', n: 'Telefon', ic: 'M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z' }, { id: 'mail', n: 'E-mail', ic: 'M3 5h18v14H3zM3 7l9 6 9-6' }, { id: 'salon', n: 'Spotkanie', ic: 'M3 21h18M5 21V10l7-6 7 6v11M9 21v-5h6v5' }, { id: 'online', n: 'Online', ic: 'M3 6h13v12H3zM16 10l5-3v10l-5-3' }];
+      const c0 = (st.dzContact || '').trim(), dig = c0.replace(/[^0-9]/g, '').length, isMail = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(c0);
+      const pref = st.dzPref || 'tel';
+      const ctOk = pref === 'mail' ? isMail : pref === 'tel' ? dig >= 9 : (isMail || dig >= 9);
+      const ctBad = !!st.dzErr && !ctOk, consBad = !!st.dzErr && !st.dzOk;
+      const STEPS = own ? [['Potrzeba', 0], ['Twój opis', 2], ['Wynik', 3]] : [['Potrzeba', 0], ['Szczegóły', 1], ['Zakres', 2], ['Wynik', 3]];
+      const curIdx = STEPS.findIndex((x) => x[1] === S);
+      const GR = { firm: ['#6E45D4', '#A24BD8'], rozb: ['#4A5BD8', '#7B5BE0'], wiz: ['#2E9C86', '#2F7FA8'], land: ['#E8955A', '#C2577A'], odsw: ['#D98A3E', '#B5523A'], prog: ['#2F8F6B', '#3E7FB8'], app: ['#4C6FE0', '#2EA0C9'], auto: ['#B04BD8', '#E05A8E'] };
+      const PHINT = { firm: 'od 1 999 zł', rozb: 'od 6 990 zł', wiz: 'od 999 zł', land: 'od 1 299 zł', odsw: 'od 1 499 zł', prog: 'od 2 990 zł', app: 'Zapytaj o wycenę', auto: 'Zapytaj o wycenę' };
+      const sum = [];
+      if (own) sum.push('Opis po swojemu');
+      if (nd) sum.push(nd.n);
+      subN.forEach((x) => sum.push(x));
+      if (S >= 2 && whN) sum.push(whN);
+      if (S >= 2) moreSel0.forEach((x) => sum.push('+ ' + x));
+      added.forEach((k) => sum.push('+ ' + AD[k].n));
+      const resKey = 'dz-' + rk + (s0 ? '-' + s0 : '');
+      const mam = st.dzMam || [];
+      const ndHave = r.nd.filter((x) => mam.includes(x)).length;
+      const live = !!(need || own);
+      const sendSum = r.n + ' · ' + price + (PRC[rk] || r.month ? ' netto' : '') + ' · ' + term + moreSel.map((x) => ' + do wyceny: ' + x).join('') + added.map((k) => ' + ' + AD[k].n).join('');
+      const canNext1 = !(nd && nd.multi && !sub.length) && !!(nd && (nd.multi ? sub.length : s0));
+      const barBtn = S === 1 ? 'Dalej →' : S === 2 ? 'Pokaż wynik →' : S === 3 ? (st.dzSent ? '' : 'Poproś o wycenę ↓') : '';
+      const toForm = () => { try { const el = document.getElementById('kzform'); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e) {} };
+      const next = () => { if (S === 1 && !canNext1) return; if (S === 3) { toForm(); return; } go(S + 1); };
+      // podgląd (bez zmian względem v20)
+      const pv = !need || own ? 'idle' : nd.pv;
       const br = need === 'firm' || need === 'wiz' ? (s0 || 'inna') : need === 'land' ? 'land' : 'inna';
       const BRD = { nocleg: ['Twój Pensjonat', 'Cisza, widok na Tatry', 'Pokoje z widokiem · śniadania', 'Sprawdź termin', 'twojpensjonat.pl', ['Pokoje', 'Galeria', 'Okolica']], gastro: ['Twoja Restauracja', 'Kuchnia regionalna', 'Menu dnia · rezerwacja stolika', 'Zarezerwuj stolik', 'twojarestauracja.pl', ['Menu', 'Rezerwacja', 'Dojazd']], bud: ['Twoja Firma', 'Remonty i wykończenia', 'Rabka-Zdrój i okolice', 'Bezpłatna wycena', 'twojafirma.pl', ['Oferta', 'Realizacje', 'Opinie']], turyst: ['Twoja Wypożyczalnia', 'Narty, rowery, atrakcje', 'Rezerwacja online · PL · EN', 'Zarezerwuj', 'twojawypozyczalnia.pl', ['Oferta', 'Cennik', 'Dojazd']], uroda: ['Twój Salon', 'Zadbaj o siebie', 'Fryzjer · kosmetyka · masaż', 'Umów wizytę', 'twojsalon.pl', ['Usługi', 'Cennik', 'Zespół']], moto: ['Twój Warsztat', 'Serwis i naprawy', 'Mechanika · opony · diagnostyka', 'Umów naprawę', 'twojwarsztat.pl', ['Usługi', 'Cennik', 'Dojazd']], handel: ['Twój Sklep', 'Wszystko na miejscu', 'Oferta · promocje · godziny', 'Zobacz ofertę', 'twojsklep.pl', ['Oferta', 'Promocje', 'Kontakt']], biuro: ['Twoje Biuro', 'Księgowość bez stresu', 'Dla firm z Podhala', 'Umów rozmowę', 'twojebiuro.pl', ['Usługi', 'Zespół', 'Kontakt']], prod: ['Twoja Pracownia', 'Robione na miejscu', 'Drewno · metal · na zamówienie', 'Zapytaj o wycenę', 'twojapracownia.pl', ['Wyroby', 'Realizacje', 'Kontakt']], inna: ['Twoja Firma', 'Twoja oferta, prosto', 'Konkretnie i na telefon', 'Zadzwoń', 'twojafirma.pl', ['Oferta', 'O nas', 'Opinie']], land: ['Twoja Usługa', { usl: 'Jedna usługa, jeden cel', kamp: 'Oferta z reklamy', event: 'Promocja sezonowa', zapis: 'Zapisy otwarte' }[s0] || 'Jedna usługa, jeden cel', 'Zostaw numer, oddzwonimy', 'Zostaw kontakt', 'twojausluga.pl', []] }[br];
-      const navs = need === 'wiz' || need === 'land' ? [] : st.dzSize === 'start' ? ['Oferta', 'Kontakt'] : st.dzSize === 'full' || need === 'rozb' ? ['Oferta', 'Realizacje', 'Blog', 'Kontakt'] : ['Oferta', 'O nas', 'Kontakt'];
+      const navs = need === 'wiz' || need === 'land' ? [] : need === 'rozb' ? ['Oferta', 'Realizacje', 'Blog', 'Kontakt'] : ['Oferta', 'O nas', 'Kontakt'];
       const ISS = { wolna: ['ładuje się długo', '< 2,5 s'], tel: ['rozjeżdża się na telefonie', 'wygodna na telefonie'], google: ['nikt jej nie znajduje', 'gotowa pod Google i AI'], zmiany: ['nie da się nic zmienić', 'panel po polsku'], wyglad: ['wygląda staro', 'nowoczesny wygląd'] };
       const issK = (need === 'odsw' && sub.length ? sub : ['wolna', 'tel', 'zmiany']);
       const SYSV = {
@@ -1993,71 +3033,73 @@ class Component extends DCLogic {
         zgl: { side: ['Pulpit', 'Zgłoszenia', 'Klienci', 'Magazyn'], a: 1, t: 'Zgłoszenia · w toku', v: 'list', l: [['#2041 · Laptop', 'Nowak', 'diagnoza', 'w'], ['#2040 · Drukarka', 'Lis', 'czeka na część', 'n'], ['#2038 · Telefon', 'Kowalska', 'gotowe · SMS', 'o']] },
         excel: { side: ['Pulpit', 'Klienci', 'Zlecenia', 'Import'], a: 3, t: 'Z Excela do panelu', v: 'xls' },
       };
-      const sv = need === 'dodo' ? SYSV.dodo : SYSV[s0] || SYSV.zlec;
+      const sv = SYSV[s0] || SYSV.zlec;
       const AUTO = { sms: 'SMS do klienta', fv: 'Faktura w programie', rap: 'Raport dla szefa', ai: 'Odpowiedź na zapytanie, PL · EN · DE' };
       const autoL = (need === 'auto' && sub.length ? sub : ['sms', 'fv', 'rap']).map((k) => AUTO[k]);
-      const PH = ['mało telefonów z internetu', 'chcę sam zmieniać ceny', 'goście pytają o wolne terminy', 'za dużo przepisywania', 'przed sezonem zimowym'];
-      const PREF = [{ id: 'tel', n: 'Telefon' }, { id: 'mail', n: 'E-mail' }, { id: 'salon', n: 'Spotkanie w salonie' }, { id: 'online', n: 'Online' }];
-      const STEPS = ['Potrzeba', 'Szczegóły', 'Zakres', 'Opis', 'Wynik'];
-      const sum = [];
-      if (own) sum.push('Opis po swojemu');
-      if (nd) sum.push(nd.n);
-      subN.forEach((x) => sum.push(x));
-      if (S >= 3 && hasSize) sum.push(szN);
-      if (S >= 3 && whN) sum.push(whN);
-      if (st.dzFile) sum.push('plik: ' + st.dzFile);
-      const resKey = 'dz-' + rk + (s0 ? '-' + s0 : '');
       return {
-        s0: S === 0, s1: S === 1, s2: S === 2, s3: S === 3, s4: S === 4, canBack: S > 0,
-        back: () => go(own && S === 3 ? 0 : S - 1),
-        steps: STEPS.map((n, i) => ({ n, i: String(i + 1), cur: i === S ? 'step' : 'false', cls: 'dzst' + (i === S ? ' on' : i <= (st.dzMax || 0) ? ' done' : '') + (own && (i === 1 || i === 2) ? ' skip' : ''), go: () => { if (i <= (self.state.dzMax || 0) && !(own && (i === 1 || i === 2))) go(i); } })),
-        rows: [{ n: 'Nowa strona internetowa', items: [] }, { n: 'Odświeżenie, program, aplikacja', items: [] }].map((rw, ri) => ({ n: rw.n, items: Object.keys(N).filter((k) => N[k].row === ri).map((k) => ({ n: N[k].n, d: N[k].d, ic: N[k].ic, cls: 'dzt' + (need === k ? ' on' : ''), pick: () => { set({ dzNeed: k, dzSub: [], dzOwn: false, dzHave: '', dzUrl: '', dzFile: '', dzDesc: self.state.dzNeed === k ? self.state.dzDesc : '', dzS: 1, dzMax: 1 }); } })) })),
-        goOwn: () => set({ dzOwn: true, dzNeed: '', dzSub: [], dzS: 3, dzMax: 3 }),
-        q2: nd ? nd.q : '', q2h: nd ? nd.h : '', multi: !!(nd && nd.multi), optsCls: 'dzopts' + (nd && nd.o.length > 6 ? ' many' : ''),
-        opts: nd ? nd.o.map((o) => ({ n: o.n, ic: o.ic, on: sub.includes(o.id) ? 'true' : 'false', cls: 'dzo' + (sub.includes(o.id) ? ' on' : '') + (nd.multi ? ' m' : ''), pick: () => { if (nd.multi) { const cur = self.state.dzSub || []; set({ dzSub: cur.includes(o.id) ? cur.filter((x) => x !== o.id) : cur.concat([o.id]) }); } else { set({ dzSub: [o.id] }); go(2); } } })) : [],
-        nextCls: 'btn btn-p' + (S === 1 && nd && nd.multi && !sub.length ? ' off' : ''),
-        next: () => { if (S === 1 && nd && nd.multi && !(self.state.dzSub || []).length) return; go(S + 1); },
-        hasSize, sizes: SZ.map((x) => ({ n: x.n, d: x.d, cls: 'dzsz' + (st.dzSize === x.id ? ' on' : ''), pick: () => set({ dzSize: x.id }) })),
-        haveQ: urlMode ? (need === 'odsw' ? 'Adres obecnej strony' : 'Adres strony albo nazwa programu') : isSite ? 'Co już masz?' : 'Na czym dziś pracujecie?',
+        s0: S === 0, s1: S === 1 && !own, s2: S === 2 && !own, s2own: S === 2 && own, s3: S === 3, notRes: S !== 3, canBack: S > 0,
+        back: () => go(own && S === 2 ? 0 : own && S === 3 ? 2 : S - 1),
+        progW: 'width: ' + Math.round(((curIdx < 0 ? 0 : curIdx) + 1) / STEPS.length * 100) + '%',
+        stepT: 'Krok ' + ((curIdx < 0 ? 0 : curIdx) + 1) + ' z ' + STEPS.length, stepN: (STEPS[curIdx] || STEPS[0])[0],
+        steps: STEPS.map((x, i) => ({ n: x[0], i: String(i + 1), cur: i === curIdx ? 'step' : 'false', cls: 'kzst' + (i === curIdx ? ' on' : x[1] <= (st.dzMax || 0) ? ' done' : ''), go: () => { if (x[1] <= (self.state.dzMax || 0)) go(x[1]); } })),
+        rows: [{ n: 'Nowa strona internetowa', items: [] }, { n: 'Odświeżenie, program, aplikacja', items: [] }].map((rw, ri) => ({ n: rw.n, items: Object.keys(N).filter((k) => N[k].row === ri).map((k) => ({ n: N[k].n, d: N[k].d, ic: N[k].ic, ph: PHINT[k], bg: 'background: linear-gradient(135deg, ' + GR[k][0] + ', ' + GR[k][1] + ')', cls: 'kzt' + (need === k ? ' on' : ''), pick: () => { set({ dzNeed: k, dzSub: [], dzOwn: false, dzHave: '', dzUrl: '', dzFile: '', dzMore: [], dzAdd: [], dzShop: false, dzDesc: self.state.dzNeed === k ? self.state.dzDesc : '', dzS: 1, dzMax: 1 }); } })) })),
+        goOwn: () => set({ dzOwn: true, dzNeed: '', dzSub: [], dzAdd: [], dzS: 2, dzMax: 2 }),
+        q2: nd ? nd.q : '', q2h: nd ? nd.h : '', multi: !!(nd && nd.multi), optsCls: 'kzopts' + (nd && nd.o.length > 6 ? ' many' : ''),
+        opts: nd ? nd.o.map((o) => ({ n: o.n, ic: o.ic, on: sub.includes(o.id) ? 'true' : 'false', cls: 'kzo' + (sub.includes(o.id) ? ' on' : '') + (nd.multi ? ' m' : ''), pick: () => { if (nd.multi) { const cur = self.state.dzSub || []; set({ dzSub: cur.includes(o.id) ? cur.filter((x) => x !== o.id) : cur.concat([o.id]) }); } else { set({ dzSub: [o.id], dzShop: false }); go(2); } } })) : [],
+        nextCls: 'btn btn-p kzgo' + (S === 1 && !canNext1 ? ' off' : ''), next, barBtn, hasBarBtn: !!barBtn, barCls: 'kzbar' + (S === 0 || (S === 3 && st.dzSent) ? ' idle' : ''),
+        hasSize, noSz: !hasSize, isSys: r.kind === 'System', descClosed: !(st.dzDescOpen || (st.dzDesc || '').trim()),
+        incP: PRC[rk] ? zl(PRC[rk]) + '\u00a0zł' : '', incT: nb(TRM[rk] || ''), incL: inc.i, why: nb(why), hasWhy: !!why && hasSize, more, moreT,
+        mores: inc.m.map((x) => { const key = rk + ':' + x[0]; const on = (st.dzMore || []).includes(key); return { n: x[1], on: on ? 'true' : 'false', cls: 'kzmo' + (on ? ' on' : ''), pick: () => { const c = self.state.dzMore || []; self.setState({ dzMore: on ? c.filter((y) => y !== key) : c.concat([key]) }); } }; }), hasMores: hasSize && inc.m.length > 0,
+        moreSel, hasMoreSel: moreSel.length > 0,
+        haveQ: urlMode ? (need === 'odsw' ? 'Adres obecnej strony' : 'Adres strony albo nazwa programu') : isSite ? 'Co już masz?' : 'Na czym dziś pracujesz?',
         haveUrl: urlMode, haveChips: !urlMode, urlPh: need === 'odsw' ? 'np. twojafirma.pl' : 'np. twojafirma.pl albo „program do faktur”', url: st.dzUrl, onUrl: (e) => self.setState({ dzUrl: e.target.value }),
-        haves: HV.map((x) => ({ n: x.n, cls: 'dzchip' + (st.dzHave === x.id ? ' on' : ''), pick: () => set({ dzHave: x.id }) })),
-        hasFile: !!nd && nd.row === 1 && need !== 'help', fileT: st.dzFile ? st.dzFile : 'Dołącz plik Excela albo zdjęcie kartki', fileD: st.dzFile ? ' · dołączony, kliknij, żeby zmienić' : ' · opcjonalnie. Widzimy go tylko my, usuwamy po wycenie.',
-        onFile: (e) => { const f = e.target.files && e.target.files[0]; if (f) self.setState({ dzFile: f.name }); },
-        whens: W.map((x) => ({ n: x.n, cls: 'dzchip' + (st.dzWhen === x.id ? ' on' : ''), pick: () => set({ dzWhen: x.id }) })),
+        haves: HV.map((x) => ({ n: x.n, cls: 'kzchip' + (st.dzHave === x.id ? ' on' : ''), pick: () => set({ dzHave: st.dzHave === x.id ? '' : x.id }) })),
+        whens: W.map((x) => ({ n: x.n, cls: 'kzchip' + (st.dzWhen === x.id ? ' on' : ''), pick: () => set({ dzWhen: st.dzWhen === x.id ? '' : x.id }) })),
+        whenNote: nb(whenNote), hasWhen: !!st.dzWhen,
+        descOpen: !!st.dzDescOpen || !!(st.dzDesc || '').trim(), descT: () => self.setState({ dzDescOpen: true }),
         desc: st.dzDesc, hasDesc: !!(st.dzDesc || '').trim(), onDesc: (e) => self.setState({ dzDesc: e.target.value }),
-        phr: PH.map((p) => ({ n: p, pick: () => { const d0 = (self.state.dzDesc || '').trim(); self.setState({ dzDesc: d0 ? d0.replace(/[.,]$/, '') + ', ' + p : p.charAt(0).toUpperCase() + p.slice(1) }); } })),
-        r: { n: r.n, kind: r.kind }, isRebuild: isSite && need !== 'odsw' && st.dzHave === 'stara',
-        price, term, whenNote,
-        gains: r.g.concat(hasSize ? [{ start: 'Wersja na start: najważniejsze funkcje, resztę dołożysz później', std: 'Standard: wszystko, czego potrzebuje typowa firma', full: 'Pełna wersja: więcej podstron, języków albo modułów' }[st.dzSize] || ''] : []),
-        needs: r.nd.map((x) => { const on = (st.dzMam || []).includes(x); return { n: x, cls: 'dznd' + (on ? ' on' : ''), pick: () => { const c = self.state.dzMam || []; self.setState({ dzMam: on ? c.filter((y) => y !== x) : c.concat([x]) }); } }; }),
+        phr: PH.map((p) => ({ n: p, pick: () => { const d0 = (self.state.dzDesc || '').trim(); self.setState({ dzDescOpen: true, dzDesc: d0 ? d0.replace(/[.,]$/, '') + ', ' + p : p.charAt(0).toUpperCase() + p.slice(1) }); } })),
+        r: { n: r.n, kind: r.kind }, forT: subN.join(' · '), hasFor: subN.length > 0, isRebuild: isSite && need !== 'odsw' && st.dzHave === 'stara',
+        price, priceSub, term, termSub: TRM[rk] ? 'od podpisania umowy' : r.free ? 'od wysłania opisu' : nb('cenę i termin dostaniesz na piśmie w 5–7 dni'), ndHelp: isSite ? 'Kliknij, co już masz. Czegoś brakuje? Pomożemy: teksty, zdjęcia, domena.' : 'Kliknij, co już masz. Resztę ustalimy w rozmowie.', live, idle: !live, scope, hasScope: !!scope, honest, hasHonest: !!honest,
+        needs: r.nd.map((x) => { const on = mam.includes(x); return { n: x, cls: 'kznd' + (on ? ' on' : ''), on: on ? 'true' : 'false', pick: () => { const c = self.state.dzMam || []; self.setState({ dzMam: on ? c.filter((y) => y !== x) : c.concat([x]) }); } }; }),
+        ndT: 'Masz ' + ndHave + ' z ' + r.nd.length, ndW: 'width: ' + Math.round(ndHave / r.nd.length * 100) + '%',
+        ads: adK.map((k) => { const on = added.includes(k); return { n: AD[k].n, p: AD[k].p, d: AD[k].d, ic: AD[k].ic, cls: 'kzad' + (on ? ' on' : ''), on: on ? 'true' : 'false', btn: on ? '✓ Dodane' : '+ Dodaj', pick: () => { const c = self.state.dzAdd || []; self.setState({ dzAdd: on ? c.filter((y) => y !== k) : c.concat([k]) }); } }; }), hasAds: adK.length > 0,
         preview: () => self.setState({ show: { rez: 'rez', sys: 'sys', app: 'app', auto: 'auto' }[r.pv] || 'www', showTouched: true }),
-        addP: add(resKey, r.n), addT: isAdded(resKey) ? '✓ W Twoim projekcie' : '+ Do projektu',
-        again: () => { add(resKey, r.n)(); self.setState({ dzS: 0, dzMax: 0, dzNeed: '', dzSub: [], dzOwn: false, dzHave: '', dzUrl: '', dzFile: '', dzSent: false }); },
-        share: () => { try { navigator.clipboard.writeText(String(location.href).split('#')[0] + '#dobierz'); } catch (e) {} self.setState({ dzShared: true }); }, shareT: st.dzShared ? 'Link skopiowany' : 'Link dla wspólnika',
-        prefs: PREF.map((x) => ({ n: x.n, cls: 'dzchip' + (st.dzPref === x.id ? ' on' : ''), pick: () => self.setState({ dzPref: x.id }) })), prefT: { tel: 'zadzwonimy', mail: 'napiszemy', salon: 'umówimy spotkanie w salonie', online: 'umówimy rozmowę online' }[st.dzPref] || 'zadzwonimy',
-        contact: st.dzContact, onContact: (e) => self.setState({ dzContact: e.target.value }),
-        sendCls: 'btn btn-p' + ((st.dzContact || '').trim().length < 5 || !st.dzOk ? ' off' : ''), send: () => { const c0 = (self.state.dzContact || '').trim(); if (c0.length < 5 || !self.state.dzOk) self.setState({ dzErr: true }); else self.setState({ dzSent: true, dzErr: false }); },
-        name: st.dzName || '', onName: (e) => self.setState({ dzName: e.target.value }), ok: !!st.dzOk, toggleOk: () => self.setState({ dzOk: !self.state.dzOk, dzErr: false }), err: !!st.dzErr, errT: (st.dzContact || '').trim().length < 5 ? 'Podaj telefon albo e-mail, żebyśmy mogli wysłać wycenę.' : 'Zaznacz zgodę na kontakt w sprawie wyceny.', inCls: 'dzin' + (st.dzErr && (st.dzContact || '').trim().length < 5 ? ' fin bad' : ''),
-        rCls: 'dzr' + (st.dzPv ? ' pvon' : ''), pvT: () => self.setState({ dzPv: !self.state.dzPv }), pvOnS: st.dzPv ? 'true' : 'false', pvLabel: st.dzPv ? 'Ukryj podgląd projektu' : 'Pokaż podgląd projektu', pvSign: st.dzPv ? '−' : '+', hasScope: !!scope, scope,
+        addP: add(resKey, r.n), addT: isAdded(resKey) ? '✓ W wycenie' : '+ Dodaj do wyceny',
+        again: () => self.setState({ dzS: 0, dzMax: 0, dzNeed: '', dzSub: [], dzOwn: false, dzHave: '', dzUrl: '', dzFile: '', dzSent: false, dzAdd: [], dzMore: [], dzErr: false, dzShop: false }),
+        prefs: PREF.map((x) => ({ n: x.n, ic: x.ic, on: pref === x.id ? 'true' : 'false', cls: 'kzpf' + (pref === x.id ? ' on' : ''), pick: () => self.setState({ dzPref: x.id }) })), prefT: { tel: 'zadzwonimy', mail: 'napiszemy', salon: 'umówimy spotkanie w salonie', online: 'umówimy rozmowę online' }[st.dzPref] || 'zadzwonimy',
+        contact: st.dzContact, onContact: (e) => self.setState({ dzContact: e.target.value }), sendSum,
+        sendCls: 'btn btn-p kzsendb', send: () => { if (!ctOk || !self.state.dzOk) self.setState({ dzErr: true }); else self.setState({ dzSent: true, dzErr: false }); },
+        name: st.dzName || '', onName: (e) => self.setState({ dzName: e.target.value }), ok: !!st.dzOk, toggleOk: () => self.setState({ dzOk: !self.state.dzOk }),
+        ctLab: pref === 'mail' ? 'E-mail' : pref === 'tel' ? 'Telefon' : 'Telefon albo e-mail', ctPh: pref === 'mail' ? 'np. anna@twojafirma.pl' : pref === 'tel' ? 'np. 600 000 000' : 'telefon albo e-mail', ctType: pref === 'mail' ? 'email' : pref === 'tel' ? 'tel' : 'text',
+        ctBad, consBad, ctErrT: pref === 'mail' ? 'Wpisz adres e-mail, np. anna@twojafirma.pl' : pref === 'tel' ? 'Wpisz numer telefonu (9 cyfr).' : 'Wpisz telefon albo adres e-mail.',
+        inCls: 'kzin' + (ctBad ? ' bad' : ''), consCls: 'kzcons' + (consBad ? ' bad' : ''),
+        liveN: firm0 ? 'Strona dla firmy' : r.n, barP: price, bvCls: 'kzbv' + (PRC[rk] || r.month || r.free || firm0 ? '' : ' ask'), tkPrice: price, kzkT: 'Twoje rozwiązanie',
+        s2T: hasSize ? 'Zakres i termin' : 'Zakres i termin', s2H: hasSize ? 'Tyle kosztuje podstawa.' : nb((r.kind === 'Automatyzacja' ? 'Automatyzację' : r.kind === 'Aplikacja' ? 'Aplikację' : 'To') + ' wyceniamy indywidualnie — cenę i\u00a0termin dostaniesz na piśmie w 5–7 dni.'), addedL: moreSel.map((x) => 'do wyceny: ' + x).concat(added.map((k) => AD[k].n)), hasAdded: added.length > 0 || moreSel.length > 0, tkNote: PRC[rk] || r.month ? 'netto' : '',
+        okT: { tel: 'Zadzwonimy', mail: 'Napiszemy', salon: 'Zadzwonimy i umówimy spotkanie w salonie', online: 'Napiszemy z linkiem do rozmowy online' }[pref] + ' w ciągu 1 dnia roboczego.', okWho: (st.dzName || '').trim() ? 'Dziękujemy, ' + (st.dzName || '').trim().split(' ')[0] + '.' : 'Dziękujemy.', okTo: c0,
+        rCls: 'kzr' + (S === 3 ? ' fin' : '') + (st.dzPv ? ' pvon' : ''), liveL: S === 3 ? 'Podgląd Twojego projektu' : 'Twoja wycena na żywo', pvT: () => self.setState({ dzPv: !self.state.dzPv }), pvOnS: st.dzPv ? 'true' : 'false', pvLabel: st.dzPv ? 'Ukryj podgląd projektu' : 'Pokaż podgląd projektu', pvSign: st.dzPv ? '−' : '+',
         notSent: !st.dzSent, sent: !!st.dzSent,
         pvIdle: pv === 'idle', pvWww: pv === 'www', pvOdsw: pv === 'odsw', pvSys: pv === 'sys', pvApp: pv === 'app', pvAuto: pv === 'auto', pvHelp: pv === 'help',
         pvUrl: pv === 'idle' ? 'twój-projekt' : pv === 'www' ? BRD[4] : pv === 'odsw' ? 'twojafirma.pl · przed i po' : pv === 'sys' ? 'panel.twojafirma.pl' : pv === 'app' ? 'Aplikacja · iPhone i Android' : pv === 'auto' ? 'Automatyzacje · działa w tle' : 'Opieka · przed i po przejęciu',
         wCls: 'dzw ' + br, brand: BRD[0], heroT: BRD[1], heroS: BRD[2], cta: BRD[3], navs, cards: BRD[5],
-        fLang: (need === 'rozb' && sub.includes('jez')) || (need === 'firm' && s0 === 'nocleg' && st.dzSize !== 'start'),
-        fStrefa: need === 'rozb' && sub.includes('strefa'), fRez: (need === 'rozb' && sub.includes('rez')) || (need === 'firm' && (s0 === 'nocleg' || s0 === 'turyst')),
-        fForm: need === 'land', formCta: 'Wyślij zgłoszenie', fMap: need === 'wiz', fCards: need !== 'land' && need !== 'wiz',
+        fLang: (need === 'rozb' && sub.includes('jez')) || (need === 'firm' && s0 === 'nocleg'),
+        fStrefa: need === 'rozb' && sub.includes('strefa'), fRez: (need === 'firm' && (s0 === 'nocleg' || s0 === 'turyst')),
+        rezT: need === 'firm' && s0 === 'nocleg' ? 'Zapytaj o termin' : 'Sprawdź termin',
+        fForm: need === 'land' || (need === 'rozb' && sub.includes('rez')), formCta: 'Wyślij zgłoszenie', fMap: need === 'wiz', fCards: need !== 'land' && need !== 'wiz',
         fKat: need === 'rozb' && sub.includes('kat'), fBlog: need === 'rozb' && sub.includes('blog'),
         issues: issK.map((k) => ({ bad: '× ' + ISS[k][0], good: '✓ ' + ISS[k][1] })),
         side: sv.side.map((n, i) => ({ n, cls: i === sv.a ? 'on' : '' })), sysT: sv.t,
-        vKan: sv.v === 'kan', vList: sv.v === 'list', vBars: sv.v === 'bars', vXls: sv.v === 'xls', vPlug: sv.v === 'plug',
+        vKan: sv.v === 'kan', vList: sv.v === 'list', vBars: sv.v === 'bars', vXls: sv.v === 'xls', vPlug: false,
         kan: [{ n: 'Nowe', c: ['Łazienka · Kowalscy', 'Taras · Lis'] }, { n: 'W drodze', c: ['Kuchnia · Nowak'] }, { n: 'Gotowe', c: ['Dach · Wójcik'] }],
         list: (sv.l || []).map((x) => ({ a: x[0], b: x[1], st: x[2], cls: x[3] })),
         bars: [['Marek', 92, 'pełny etat'], ['Piotr', 78, 'ekipa 2'], ['Anna', 60, 'biuro']].map((x) => ({ n: x[0], w: 'width: ' + x[1] + '%', h: x[2] })),
-        plugs: need === 'dodo' && sub.length ? subN.map((x) => x.replace(/^Panelu/, 'Panel').replace(/^Połączenia/, 'Połączenie').replace(/^Raportów/, 'Raporty').replace(/^Powiadomień/, 'Powiadomienia')) : ['Panel dla klientów', 'Raporty'],
-        appT: s0 === 'klienci' ? 'Twój Pensjonat' : 'Dziś · Ekipa Marka', appL: s0 === 'klienci' ? [{ a: 'Rezerwacja potwierdzona', b: '12–15 sty · 2 osoby' }, { a: 'Zamówienie gotowe', b: 'odbiór o 18:00' }] : [{ a: '8:00 · Łazienka', b: 'Kowalscy · Rabka' }, { a: '13:00 · Taras', b: 'Lis · Mszana Dolna' }], appB: s0 === 'klienci' ? 'Zarezerwuj' : 'Zakończ zlecenie',
+        plugs: [],
+        appT: s0 === 'klienci' ? 'Twój Pensjonat' : 'Dziś · Ekipa Marka', appL: s0 === 'klienci' ? [{ a: 'Zapytanie o termin', b: '12–15 sty · 2 osoby' }, { a: 'Zamówienie gotowe', b: 'odbiór o 18:00' }] : [{ a: '8:00 · Łazienka', b: 'Kowalscy · Rabka' }, { a: '13:00 · Taras', b: 'Lis · Mszana Dolna' }], appB: s0 === 'klienci' ? 'Zapytaj o termin' : 'Zakończ zlecenie',
         trig: 'Nowe zlecenie albo koniec dnia', acts: autoL,
         hrows: [['Strona lub program', 'nie działa', 'działa'], ['Dostępy', 'brak', 'u Ciebie'], ['Kopia zapasowa', 'brak', 'co noc'], ['Aktualizacje', 'zaległe', 'na bieżąco']].map((x) => ({ n: x[0], bad: x[1], good: x[2] })),
-        sum, sumEmpty: sum.length === 0, notRes: S !== 4, gCls: 'dzg' + (S === 4 ? ' dzfin' : '')
+        shopHint: need === 'firm' && s0 === 'handel' && rk !== 'sklep', shopBack: rk === 'sklep',
+        toShop: () => set({ dzShop: true, dzMore: [] }), toFirm: () => set({ dzShop: false, dzMore: [] }),
+        sum, sumEmpty: sum.length === 0, gCls: 'kzg' + (S === 3 ? ' fin' : '')
       };
     })();
 
