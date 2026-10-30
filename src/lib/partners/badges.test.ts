@@ -15,7 +15,7 @@ describe('partnerBadges', () => {
     ).toEqual([
       { label: 'Autoryzowany partner GoPOS', kind: 'partner' },
       { label: 'Autoryzowany partner InsERT', kind: 'partner' },
-      { label: 'Serwis Posnet i Elzab', kind: 'service' },
+      { label: 'Autoryzowany serwis Posnet i Elzab', kind: 'service' },
     ])
   })
 
@@ -26,7 +26,7 @@ describe('partnerBadges', () => {
         { name: 'Elzab', status: 'authorized-service' },
         { name: 'Fawag', status: 'authorized-service' },
       ]),
-    ).toEqual([{ label: 'Serwis Posnet, Elzab i Fawag', kind: 'service' }])
+    ).toEqual([{ label: 'Autoryzowany serwis Posnet, Elzab i Fawag', kind: 'service' }])
   })
 
   // Statuses are [SZEF] facts set in the panel; the seed sets none.

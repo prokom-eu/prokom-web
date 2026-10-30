@@ -1,6 +1,5 @@
 import type { ReactNode } from 'react'
 
-import { brandPageHref } from '@/lib/catalog/brand'
 import { getCatalogIndex } from '@/lib/catalog/data'
 import { megaMenu, offerMenu } from '@/lib/catalog/menu'
 import { partnerBadges } from '@/lib/partners/badges'
@@ -25,9 +24,6 @@ type Props = {
   children: ReactNode
 }
 
-/** Brands with a showroom (K3.1): Lenovo and Dell, in the order of K31-ZMIANY §11.4. */
-const SHOWROOM_BRANDS = ['lenovo', 'dell'] as const
-
 /**
  * Page frame of the Biznes line (B3, ADR-014 rozstrz. 12): top bar, header with the mega menu
  * from the cached catalog index (it already hides empty categories — ADR-012, rozstrzygnięcie 7),
@@ -45,12 +41,6 @@ export async function BiznesFrame({ tenant, settings, biznes, company, promo, ch
   }
   const menu = megaMenu(index, biznes.navigation)
   const hours = company?.locations[0]?.hours ?? null
-  // „Salon Lenovo / Dell” in the footer once their brand pages exist (decision 27.10, K3b′).
-  const showrooms = SHOWROOM_BRANDS.flatMap((slug) => {
-    const brand = index.brands.find((item) => item.slug === slug)
-    const href = brandPageHref(index, slug)
-    return brand && href ? [{ label: `Salon ${brand.name}`, href }] : []
-  })
   return (
     <>
       <TopBar phone={settings.phone} hours={hours} />
@@ -69,8 +59,6 @@ export async function BiznesFrame({ tenant, settings, biznes, company, promo, ch
         company={company}
         settings={settings}
         biznes={biznes}
-        menu={menu}
-        showrooms={showrooms}
         badges={partnerBadges(partners)}
         contact={contact}
       />

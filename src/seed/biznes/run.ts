@@ -100,7 +100,13 @@ import {
   type SeedCatalog,
 } from './map'
 import { hasSameValues } from '../compare'
-import { FOOTER_LEGAL_LINKS, FOOTER_TEXT, footerData, upgradedImportant } from './footer'
+import {
+  FOOTER_LEGAL_LINKS,
+  FOOTER_TEXT,
+  footerData,
+  upgradedCompany,
+  upgradedImportant,
+} from './footer'
 import { seedBiznesCategoryContent } from './category'
 import { seedBiznesIndustries } from './industries'
 import { seedBiznesNews } from './posts'
@@ -1090,9 +1096,6 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
   const footerMissing = Boolean(siteSettings && !siteSettings.biznes?.footer?.important?.length)
   if (siteSettings) count('site-settings footer', footerMissing)
   if (siteSettings && footerMissing) {
-    const activeIndustries = catalog.branze
-      .map((industry, index) => industryData(industry, index))
-      .filter((industry) => industry.active)
     // Read again: the navigation update above may have changed the document.
     const current = await payload.findByID({
       collection: 'site-settings',
@@ -1107,13 +1110,13 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
           text: FOOTER_TEXT,
           links: current.footer?.links?.length ? current.footer.links : FOOTER_LEGAL_LINKS,
         },
-        biznes: { ...current.biznes, footer: footerData(activeIndustries) },
+        biznes: { ...current.biznes, footer: footerData() },
       },
       ...local,
     })
   }
 
-  // --- footer K3.1 (K31b): „Najważniejsze” still as the old seed wrote it → the new links ---
+  // --- footer K4: columns still as earlier seeds wrote them → „Usługi”, „Systemy i tematy” ---
   if (siteSettings && !footerMissing) {
     const current = await payload.findByID({
       collection: 'site-settings',
@@ -1121,12 +1124,18 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
       ...local,
     })
     const important = upgradedImportant(current.biznes?.footer?.important)
-    count('site-settings footer K3.1', important ? 'updated' : false)
-    if (important && current.biznes?.footer) {
+    const company = upgradedCompany(current.biznes?.footer?.company)
+    count('site-settings footer K4', important || company ? 'updated' : false)
+    if ((important || company) && current.biznes?.footer) {
+      const footer = {
+        ...current.biznes.footer,
+        ...(important && { important }),
+        ...(company && { company }),
+      }
       await payload.update({
         collection: 'site-settings',
         id: siteSettings.id,
-        data: { biznes: { ...current.biznes, footer: { ...current.biznes.footer, important } } },
+        data: { biznes: { ...current.biznes, footer } },
         ...local,
       })
     }
