@@ -89,7 +89,7 @@ Krystian pracuje na jednym komputerze. **GitHub to kopia kodu i jedyna droga na 
 - Po każdej akcji na GitHubie (utworzenie PR, edycja, scalenie) **zweryfikuj ją** (`gh pr view` / `gh pr list`) i podaj link — nie raportuj sukcesu bez sprawdzenia.
 - Testy najpierw dla logiki biznesowej (rozpoznawanie domeny, izolacja tenantów, walidacja formularzy): najpierw test, który nie przechodzi, potem kod.
 - Commity są podpisywane kluczem SSH (`commit.gpgsign`). Jeśli podpis się nie uda — **nie wyłączaj go** i nie używaj `--no-gpg-sign`; powiedz mi.
-- Przed każdym commitem pokaż mi `git diff --staged --stat` i 1–3 zdania: co i dlaczego. Commit dopiero, gdy Krystian przeczyta zmiany.
+- Przed każdym commitem pokaż mi `git diff --staged --stat` i 1–3 zdania: co i dlaczego. Commit dopiero, gdy Krystian przeczyta zmiany. Wyjątki linii Instalacje — sekcja „Linia Instalacje” niżej.
 - Zmiany DNS: najpierw `docs/dns.md`, potem dostawca — nigdy odwrotnie.
 
 ## Jak ze mną pracujesz (rzemiosło)
@@ -143,3 +143,4 @@ Jeśli pracujesz w folderze `prokom-instal` albo na gałęzi `inst/*`:
 - Wzorzec wyglądu = `docs/design/prokominstalacje/` (prototyp v4.0 + `MOBILE-APLIKACJA.md`, `KOMPONENTY.md`, `MAPA-STRON.md`). Każda sekcja z UI: `narzedzia/porownaj.mjs` w 1440 i 390, jasny i ciemny, przed PR.
 - Pliki strefy wspólnej (ADR-I001 §3) zmieniasz tylko w osobnym małym PR `inst/wsp-*`. Stan sesji zapisujesz w `docs/stan/STAN-instalacje.md` (`/inst-koniec`), nie w `docs/STAN.md`.
 - Na stronie Instalacji: zero cen sprzętu, zero list źródeł, „24 h” tylko jako odpowiedź na zgłoszenie, gwarancja 24 mies. na montaż.
+- **Tryb szybki (decyzja Krystiana 30.10, `docs/zadania/prokominstalacje-przyspieszenie.md`):** małe PR-y bez logiki (strefa wspólna `inst/wsp-*`: tokeny + test, dokumenty, poprawki testów) — commit, PR i auto-merge po zielonym CI bez osobnego „ok” (diff czyta w PR). Duże PR-y z logiką: commity na gałęzi bez pytania, Krystian czyta diff raz przed `/pr`; `/przeglad` bez zmian (formularze, migracje, tenant, dostęp). Sesja z gotowym promptem z §3: bez osobnej rundy „plan → ok”, pytanie tylko o decyzję, której prompt nie rozstrzyga.
