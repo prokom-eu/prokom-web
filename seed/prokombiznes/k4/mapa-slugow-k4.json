@@ -1,0 +1,50 @@
+{
+ "opis": "Mapa między danymi wizualizacji (v150) a repo. 1) „niepodzielone”: wizualizacja ma jeszcze karty sprzed podziału K3.1 — w repo zostaje podział; odwołania w danych K4 (salony, plany, listy) do tych slugów przepisz na „301”. 2) „zmiana_slugu”: usługa w repo → nowa karta K4 (301). 3) „ukryj”: kart z repo nie ma w K4 — zostają nieopublikowane z 301 wg kolumny.",
+ "niepodzielone": {
+  "dell-pro-7": {
+   "301": "dell-pro-7-13-14",
+   "nowe": [
+    "dell-pro-7-13-14",
+    "dell-pro-7-2w1"
+   ]
+  },
+  "dell-ultrasharp-oled-6k": {
+   "301": "dell-ultrasharp-32-qd-oled-u3226q",
+   "nowe": [
+    "dell-ultrasharp-32-qd-oled-u3226q",
+    "dell-ultrasharp-52-6k-u5226kw"
+   ]
+  },
+  "lenovo-thinkstation-p3-tower-gen-2-p4": {
+   "301": "lenovo-thinkstation-p3-tower-gen-2",
+   "nowe": [
+    "lenovo-thinkstation-p3-tower-gen-2",
+    "lenovo-thinkstation-p4"
+   ]
+  },
+  "lenovo-yoga-pro": {
+   "301": "lenovo-yoga-pro-7-15",
+   "nowe": [
+    "lenovo-yoga-pro-7-15",
+    "lenovo-yoga-pro-9-16"
+   ]
+  },
+  "synology-dyski-rozszerzenia": {
+   "301": "synology-dyski-hat",
+   "nowe": [
+    "synology-dyski-hat",
+    "synology-obudowy-rozszerzajace"
+   ]
+  }
+ },
+ "zmiana_slugu": {
+  "przeglad": "przeglad-it",
+  "kopie": "kopie-zapasowe"
+ },
+ "ukryj": {
+  "kopie": "kopie-zapasowe",
+  "opieka": "/opieka-it",
+  "przeglad": "przeglad-it",
+  "ux": "ubiquiti-unifi-express-7"
+ }
+}

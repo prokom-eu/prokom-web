@@ -1,0 +1,428 @@
+{
+ "marki": {
+  "APC": {
+   "opis_krotki": "Zasilacze UPS",
+   "status": null,
+   "salon": false,
+   "salon_klucz": null,
+   "logo": null,
+   "pozycji_w_wizualizacji": 5
+  },
+  "Adobe": {
+   "opis_krotki": "Acrobat Pro",
+   "status": null,
+   "salon": false,
+   "salon_klucz": null,
+   "logo": null,
+   "pozycji_w_wizualizacji": 1
+  },
+  "Apple": {
+   "opis_krotki": "iPhone, iPad, Mac",
+   "status": null,
+   "salon": true,
+   "salon_klucz": "Apple",
+   "logo": "media/marki/logo-apple.png",
+   "pozycji_w_wizualizacji": 11
+  },
+  "Avtek": {
+   "opis_krotki": "Monitory interaktywne",
+   "status": null,
+   "salon": true,
+   "salon_klucz": "Avtek",
+   "logo": "media/marki/logo-avtek.webp",
+   "pozycji_w_wizualizacji": 8
+  },
+  "Brother": {
+   "opis_krotki": "Drukarki, skanery, etykiety",
+   "status": null,
+   "salon": true,
+   "salon_klucz": "Brother",
+   "logo": "media/marki/logo-brother.svg",
+   "pozycji_w_wizualizacji": 28
+  },
+  "COMEX": {
+   "opis_krotki": "Zasilacze UPS COVER",
+   "status": "We współpracy",
+   "salon": true,
+   "salon_klucz": "COMEX",
+   "logo": "media/marki/logo-comex.svg",
+   "pozycji_w_wizualizacji": 14
+  },
+  "Comarch": {
+   "opis_krotki": "Comarch ERP Optima",
+   "status": null,
+   "salon": false,
+   "salon_klucz": null,
+   "logo": "media/marki/logo-comarch.webp",
+   "pozycji_w_wizualizacji": 1
+  },
+  "Dell": {
+   "opis_krotki": "Laptopy, komputery, serwery",
+   "status": null,
+   "salon": true,
+   "salon_klucz": "Dell",
+   "logo": "media/marki/logo-dell.webp",
+   "pozycji_w_wizualizacji": 34
+  },
+  "Dibal": {
+   "opis_krotki": "Wagi sklepowe i etykietujące",
+   "status": null,
+   "salon": false,
+   "salon_klucz": null,
+   "logo": "media/marki/logo-dibal.webp",
+   "pozycji_w_wizualizacji": 7
+  },
+  "ESET": {
+   "opis_krotki": "Ochrona komputerów",
+   "status": null,
+   "salon": true,
+   "salon_klucz": "ESET",
+   "logo": "media/marki/logo-eset.webp",
+   "pozycji_w_wizualizacji": 1
+  },
+  "Elzab": {
+   "opis_krotki": "Kasy, drukarki i wagi",
+   "status": "Autoryzowany serwis",
+   "salon": true,
+   "salon_klucz": "Elzab",
+   "logo": "media/marki/logo-elzab.webp",
+   "pozycji_w_wizualizacji": 26
+  },
+  "EuroCert": {
+   "opis_krotki": "Podpis i pieczęć kwalifikowana",
+   "status": null,
+   "salon": true,
+   "salon_klucz": "EuroCert",
+   "logo": "media/marki/logo-eurocert.webp",
+   "pozycji_w_wizualizacji": 2
+  },
+  "Fawag": {
+   "opis_krotki": "Wagi i skanery",
+   "status": null,
+   "salon": false,
+   "salon_klucz": null,
+   "logo": "media/marki/logo-fawag.webp",
+   "pozycji_w_wizualizacji": 4
+  },
+  "Fellowes": {
+   "opis_krotki": "Niszczarki do biura i działu",
+   "status": null,
+   "salon": true,
+   "salon_klucz": "Niszczarki",
+   "logo": "media/marki/logo-fellowes.svg",
+   "pozycji_w_wizualizacji": 9
+  },
+  "GoPOS": {
+   "opis_krotki": "System dla gastronomii",
+   "status": "Autoryzowany partner",
+   "salon": true,
+   "salon_klucz": null,
+   "logo": "media/marki/logo-gopos.webp",
+   "pozycji_w_wizualizacji": 10
+  },
+  "Godex": {
+   "opis_krotki": "Drukarki etykiet",
+   "status": null,
+   "salon": false,
+   "salon_klucz": null,
+   "logo": "media/marki/logo-godex.webp",
+   "pozycji_w_wizualizacji": 7
+  },
+  "HP": {
+   "opis_krotki": "Drukarki LaserJet i OfficeJet",
+   "status": null,
+   "salon": false,
+   "salon_klucz": null,
+   "logo": "media/marki/logo-hp.svg",
+   "pozycji_w_wizualizacji": 10
+  },
+  "InsERT": {
+   "opis_krotki": "Subiekt, Rachmistrz, Rewizor",
+   "status": "Autoryzowany partner",
+   "salon": true,
+   "salon_klucz": null,
+   "logo": "media/marki/logo-insert.webp",
+   "pozycji_w_wizualizacji": 9
+  },
+  "Insoft": {
+   "opis_krotki": "PC-Market, PC-POS",
+   "status": null,
+   "salon": false,
+   "salon_klucz": null,
+   "logo": "media/marki/logo-insoft.webp",
+   "pozycji_w_wizualizacji": 4
+  },
+  "Kobra": {
+   "opis_krotki": "Niszczarki z Włoch do pracy ciągłej",
+   "status": null,
+   "salon": true,
+   "salon_klucz": "Niszczarki",
+   "logo": "media/marki/logo-kobra.svg",
+   "pozycji_w_wizualizacji": 7
+  },
+  "Konica Minolta": {
+   "opis_krotki": "Urządzenia wielofunkcyjne",
+   "status": null,
+   "salon": true,
+   "salon_klucz": "Druk",
+   "logo": "media/marki/logo-konica-minolta.webp",
+   "pozycji_w_wizualizacji": 9
+  },
+  "Kyocera": {
+   "opis_krotki": "Drukarki i kopiarki",
+   "status": null,
+   "salon": true,
+   "salon_klucz": "Druk",
+   "logo": "media/marki/logo-kyocera.webp",
+   "pozycji_w_wizualizacji": 10
+  },
+  "Lenovo": {
+   "opis_krotki": "Laptopy, komputery, monitory",
+   "status": null,
+   "salon": true,
+   "salon_klucz": "Lenovo",
+   "logo": "media/marki/logo-lenovo.webp",
+   "pozycji_w_wizualizacji": 44
+  },
+  "Logitech": {
+   "opis_krotki": "Klawiatury, kamery, sale spotkań",
+   "status": null,
+   "salon": true,
+   "salon_klucz": "Logitech",
+   "logo": "media/marki/logo-logitech.png",
+   "pozycji_w_wizualizacji": 22
+  },
+  "Microsoft": {
+   "opis_krotki": "Microsoft 365, Windows",
+   "status": null,
+   "salon": true,
+   "salon_klucz": "Microsoft",
+   "logo": "media/marki/logo-microsoft.webp",
+   "pozycji_w_wizualizacji": 4
+  },
+  "NFHotel": {
+   "opis_krotki": "Program hotelowy",
+   "status": null,
+   "salon": false,
+   "salon_klucz": null,
+   "logo": "media/marki/logo-nfhotel.webp",
+   "pozycji_w_wizualizacji": 1
+  },
+  "Optivendi": {
+   "opis_krotki": "Automaty vendingowe",
+   "status": "Partner",
+   "salon": true,
+   "salon_klucz": null,
+   "logo": "media/marki/logo-optivendi.png",
+   "pozycji_w_wizualizacji": 22
+  },
+  "PolCard": {
+   "opis_krotki": "Terminale płatnicze",
+   "status": null,
+   "salon": true,
+   "salon_klucz": "PolCard",
+   "logo": "media/marki/logo-polcard.webp",
+   "pozycji_w_wizualizacji": 2
+  },
+  "Posnet": {
+   "opis_krotki": "Kasy i drukarki fiskalne",
+   "status": "Autoryzowany serwis",
+   "salon": true,
+   "salon_klucz": "Posnet",
+   "logo": "media/marki/logo-posnet.webp",
+   "pozycji_w_wizualizacji": 26
+  },
+  "QNAP": {
+   "opis_krotki": "Serwery plików NAS",
+   "status": null,
+   "salon": true,
+   "salon_klucz": "NAS",
+   "logo": "media/marki/logo-qnap.webp",
+   "pozycji_w_wizualizacji": 7
+  },
+  "SATO": {
+   "opis_krotki": "Metkownice",
+   "status": null,
+   "salon": false,
+   "salon_klucz": null,
+   "logo": "media/marki/logo-sato.webp",
+   "pozycji_w_wizualizacji": 1
+  },
+  "Samsung": {
+   "opis_krotki": "Galaxy i ekrany dla firm",
+   "status": null,
+   "salon": true,
+   "salon_klucz": "Samsung",
+   "logo": "media/marki/logo-samsung.svg",
+   "pozycji_w_wizualizacji": 8
+  },
+  "Sharp/NEC": {
+   "opis_krotki": "Projektory",
+   "status": null,
+   "salon": true,
+   "salon_klucz": "Sharp/NEC",
+   "logo": "media/marki/logo-sharp-nec.webp",
+   "pozycji_w_wizualizacji": 3
+  },
+  "Stormshield": {
+   "opis_krotki": "Zapory sieciowe",
+   "status": null,
+   "salon": false,
+   "salon_klucz": null,
+   "logo": "media/marki/logo-stormshield.webp",
+   "pozycji_w_wizualizacji": 1
+  },
+  "Sunmi": {
+   "opis_krotki": "Stanowiska POS i terminale",
+   "status": null,
+   "salon": true,
+   "salon_klucz": "Sunmi",
+   "logo": "media/marki/logo-sunmi.webp",
+   "pozycji_w_wizualizacji": 12
+  },
+  "Synology": {
+   "opis_krotki": "Serwery plików NAS",
+   "status": null,
+   "salon": true,
+   "salon_klucz": "NAS",
+   "logo": "media/marki/logo-synology.webp",
+   "pozycji_w_wizualizacji": 6
+  },
+  "TP-Link": {
+   "opis_krotki": "Sieć i Wi-Fi Omada",
+   "status": null,
+   "salon": true,
+   "salon_klucz": "Sieć",
+   "logo": "media/marki/logo-tp-link.svg",
+   "pozycji_w_wizualizacji": 10
+  },
+  "Ubiquiti": {
+   "opis_krotki": "Sieć i Wi-Fi UniFi",
+   "status": null,
+   "salon": true,
+   "salon_klucz": "Sieć",
+   "logo": "media/marki/logo-ubiquiti.webp",
+   "pozycji_w_wizualizacji": 14
+  },
+  "Zebra": {
+   "opis_krotki": "Drukarki etykiet i kolektory",
+   "status": null,
+   "salon": false,
+   "salon_klucz": null,
+   "logo": "media/marki/logo-zebra.svg",
+   "pozycji_w_wizualizacji": 5
+  }
+ },
+ "grupy": [
+  {
+   "t": "Kasy, POS i płatności",
+   "d": "Kasy fiskalne, stanowiska POS, terminale i system dla gastronomii",
+   "ic": "M3 9l2-5h14l2 5 M4 9v11h16V9 M9 20v-6h6v6",
+   "b": [
+    "Posnet",
+    "Elzab",
+    "Sunmi",
+    "PolCard",
+    "GoPOS"
+   ]
+  },
+  {
+   "t": "Komputery, druk i akcesoria",
+   "d": "Laptopy, komputery, telefony, drukarki, klawiatury i kamery",
+   "ic": "M4 5h16v10H4z M2 19h20",
+   "b": [
+    "Apple",
+    "Lenovo",
+    "Dell",
+    "Samsung",
+    "Brother",
+    "HP",
+    "Konica Minolta",
+    "Kyocera",
+    "Logitech",
+    "Fellowes",
+    "Kobra"
+   ]
+  },
+  {
+   "t": "Sieć, serwery i zasilanie",
+   "d": "Wi-Fi i routery, serwery plików NAS, zasilacze awaryjne",
+   "ic": "M3 8h18v8H3z M6 12h1 M9 12h1 M12 12h1",
+   "b": [
+    "Ubiquiti",
+    "TP-Link",
+    "Synology",
+    "QNAP",
+    "COMEX",
+    "APC"
+   ]
+  },
+  {
+   "t": "Programy, ochrona i podpis",
+   "d": "Programy do sprzedaży i księgowości, licencje, antywirus, podpis kwalifikowany",
+   "ic": "M6 3h9l4 4v14H6z M14 3v5h5 M9 13h7 M9 17h5",
+   "b": [
+    "InsERT",
+    "Microsoft",
+    "ESET",
+    "EuroCert",
+    "Comarch",
+    "Insoft",
+    "NFHotel",
+    "Stormshield",
+    "Adobe"
+   ]
+  },
+  {
+   "t": "Sale, ekrany i automaty",
+   "d": "Monitory interaktywne, projektory, ekrany informacyjne, vending",
+   "ic": "M3 4h18v12H3z M8 20h8 M12 16v4",
+   "b": [
+    "Avtek",
+    "Sharp/NEC",
+    "Samsung",
+    "Optivendi"
+   ]
+  },
+  {
+   "t": "Wagi, etykiety i kody",
+   "d": "Wagi sklepowe, drukarki etykiet, metkownice, kolektory danych",
+   "ic": "M4 6v12 M7 6v12 M10 6v12 M14 6v12 M17 6v12 M20 6v12",
+   "b": [
+    "Dibal",
+    "Fawag",
+    "Godex",
+    "Zebra",
+    "SATO"
+   ]
+  }
+ ],
+ "kolejnosc_na_glownej": [
+  "Posnet",
+  "Elzab",
+  "Apple",
+  "Lenovo",
+  "Dell",
+  "Samsung",
+  "Sunmi",
+  "GoPOS",
+  "InsERT",
+  "Ubiquiti",
+  "Synology",
+  "Microsoft",
+  "Konica Minolta",
+  "COMEX",
+  "PolCard",
+  "Brother"
+ ],
+ "liczba_marek": 39,
+ "zasady_statusow": {
+  "Posnet": "Autoryzowany serwis",
+  "Elzab": "Autoryzowany serwis",
+  "GoPOS": "Autoryzowany partner",
+  "InsERT": "Autoryzowany partner",
+  "Optivendi": "Partner",
+  "COMEX": "We współpracy",
+  "*": "brak statusu — nigdy „partner”"
+ }
+}
