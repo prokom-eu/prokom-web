@@ -5,13 +5,15 @@
 // Adres bazowy: zmienna INST_URL (domyślnie http://instalacje.localhost:3002).
 // Stan widżetu: zmienna INST_STAN — przyciski klikane po tekście przed zrzutem, w obu stronach
 //   (np. INST_STAN="Dom,Dzień" dla hero strony głównej); nazwa pliku dostaje dopisek ze stanem.
-// Wynik: tmp/porownanie/<slug>/<szerokosc>-<motyw>-<nr>-<id-sekcji>.png — po lewej WZORZEC, po prawej KOD.
+// Wynik: tmp/porownanie/<slug>/<szerokosc>-<motyw>-<nr>-<id-sekcji>.png — po lewej WZORZEC, po prawej KOD,
+// oraz <szerokosc>-<motyw>-wysokosci.md — wysokość każdej sekcji we wzorcu i w kodzie (ADR-I003 §5 p. 6).
+// Wiele stron naraz: porownaj-wszystko.mjs.
 // Sekcje dopasowywane po atrybucie id (<section id="...">) — w kodzie zachowaj te same id co w prototypie.
 // Hero strony bez id w prototypie dostaje id „hero” (w kodzie nadaj <section id="hero">), nagłówek — „naglowek”, stopka — „stopka”.
 // Elementy przyklejone (dolny pasek, arkusz) nie są tu porównywane — sprawdzaj je zrzutem ekranu 390×844 (stany-telefonu/).
 // Zrzuty wzorca rób z dostępem do internetu (prototyp ładuje fonty z Google Fonts; offline wyjdą fonty zastępcze).
 import { chromium } from '@playwright/test'; // w repo jest @playwright/test; przeglądarka: pnpm exec playwright install chromium
-import { mkdirSync } from 'node:fs';
+import { mkdirSync, writeFileSync } from 'node:fs';
 import { resolve, join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
@@ -50,16 +52,18 @@ async function shots(url) {
     return { id, y: Math.round(r.top + window.scrollY), h: Math.round(r.height) };
   }).filter((b) => b.h > 20));
   const map = {};
+  const heights = {};
+  for (const b of boxes) if (!(b.id in heights)) heights[b.id] = b.h;
   for (const b of boxes) {
     if (map[b.id]) continue;
     try { map[b.id] = (await page.screenshot({ fullPage: true, animations: 'disabled', clip: { x: 0, y: b.y, width, height: Math.min(b.h, 6000) } })).toString('base64'); } catch (e) { console.warn('pominięto #' + b.id + ': ' + e.message.split('\n')[0]); }
   }
   await page.close();
-  return map;
+  return { map, heights };
 }
 
-const ref = await shots(pathToFileURL(resolve('docs/design/prokominstalacje/prototyp', slug + '.html')).href);
-const app = await shots(BASE + route);
+const { map: ref, heights: refH } = await shots(pathToFileURL(resolve('docs/design/prokominstalacje/prototyp', slug + '.html')).href);
+const { map: app, heights: appH } = await shots(BASE + route);
 const page = await browser.newPage({ viewport: { width: width * 2 + 48, height: 800 } });
 let n = 0;
 for (const id of Object.keys(ref)) {
@@ -69,5 +73,19 @@ for (const id of Object.keys(ref)) {
   await page.screenshot({ path: join(OUT, `${width}-${theme}${SUFFIX}-${String(n).padStart(2, '0')}-${id}.png`), fullPage: true });
 }
 const extra = Object.keys(app).filter((id) => !ref[id]);
+// Heights side by side: a difference over 2% (and 8 px) is marked for a look.
+const rows = Object.keys(refH).map((id) => {
+  const a = appH[id];
+  const d = a === undefined ? null : a - refH[id];
+  const flag = d === null ? 'BRAK' : Math.abs(d) > Math.max(8, refH[id] * 0.02) ? 'SPRAWDŹ' : 'ok';
+  return `| ${id} | ${refH[id]} | ${a ?? '—'} | ${d === null ? '—' : (d > 0 ? '+' : '') + d} | ${flag} |`;
+});
+const table = `### ${slug} ${width} ${theme}${SUFFIX}
+| sekcja | wzorzec px | kod px | różnica | |
+|---|---|---|---|---|
+${rows.join('\n')}
+`;
+writeFileSync(join(OUT, `${width}-${theme}${SUFFIX}-wysokosci.md`), table);
+if (process.env.INST_TABELA) console.log(table);
 console.log(`${slug}: ${n} sekcji porównanych. Brak w kodzie: ${Object.keys(ref).filter((id) => !app[id]).join(', ') || '—'}. Dodatkowe w kodzie: ${extra.join(', ') || '—'}`);
 await browser.close();
