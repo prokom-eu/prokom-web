@@ -46,3 +46,20 @@ export function serviceJsonLd({
     offers: { '@type': 'Offer', url, availability: 'https://schema.org/InStock' },
   }
 }
+
+/**
+ * `WebSite` of the line's home page (SEO §2.3): the site's name and address, published by the
+ * Organization the layout already emits (`/#organization`). No search action — the site has no
+ * search page yet (I12).
+ */
+export function websiteJsonLd({ origin, name }: { origin: string; name: string }) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${origin}/#website`,
+    name,
+    url: `${origin}/`,
+    inLanguage: 'pl-PL',
+    publisher: { '@id': `${origin}/#organization` },
+  }
+}

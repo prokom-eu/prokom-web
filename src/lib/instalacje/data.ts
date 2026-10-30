@@ -114,6 +114,8 @@ export type InstalacjeSiteSettings = {
   noPriceText: string
   warrantyMonths: number
   responseText: string
+  /** WhatsApp number of the line (the panel validates it), `null` when not set. */
+  whatsapp: string | null
 }
 
 /**
@@ -128,7 +130,13 @@ export const getInstalacjeSettings = cache(
       where: { tenant: { equals: tenantId } },
       depth: 0,
       limit: 1,
-      select: { showPrices: true, noPriceText: true, warrantyMonths: true, responseText: true },
+      select: {
+        showPrices: true,
+        noPriceText: true,
+        warrantyMonths: true,
+        responseText: true,
+        whatsapp: true,
+      },
       overrideAccess: true,
     })
     const doc = docs[0]
@@ -137,6 +145,64 @@ export const getInstalacjeSettings = cache(
       noPriceText: doc?.noPriceText || SETTINGS_DEFAULTS.noPriceText,
       warrantyMonths: doc?.warrantyMonths ?? SETTINGS_DEFAULTS.warrantyMonths,
       responseText: doc?.responseText || SETTINGS_DEFAULTS.responseText,
+      whatsapp: doc?.whatsapp || null,
+    }
+  },
+)
+
+export type HomeRealization = {
+  id: number
+  title: string
+  category: string | null
+  place: string | null
+  scope: string | null
+}
+
+/**
+ * What the home sections need beyond the menu (I6): the number of brands of the published offer
+ * (`InstServices.offer.brands`, counted once each) and up to 4 published, featured realizations
+ * (published = with the client's consent, I2). This tenant only, public fields only.
+ */
+export const getInstalacjeHome = cache(
+  async (tenantId: number): Promise<{ brands: number; realizations: HomeRealization[] }> => {
+    const payload = await getPayload({ config })
+    const where: Where = {
+      and: [{ tenant: { equals: tenantId } }, { _status: { equals: 'published' } }],
+    }
+    const [services, realizations] = await Promise.all([
+      payload.find({
+        collection: 'inst-services',
+        where,
+        draft: false,
+        depth: 0,
+        limit: LIMIT,
+        select: { offer: true },
+        overrideAccess: true,
+      }),
+      payload.find({
+        collection: 'realizations',
+        where: { and: [...(where.and ?? []), { featured: { equals: true } }] },
+        draft: false,
+        depth: 0,
+        limit: 4,
+        sort: '-year',
+        select: { title: true, category: true, place: true, scope: true },
+        overrideAccess: true,
+      }),
+    ])
+    const brands = new Set(
+      services.docs.flatMap((doc) => (doc.offer?.brands ?? []).map((b) => b.trim().toLowerCase())),
+    )
+    brands.delete('')
+    return {
+      brands: brands.size,
+      realizations: realizations.docs.map((doc) => ({
+        id: doc.id,
+        title: doc.title,
+        category: doc.category ?? null,
+        place: doc.place ?? null,
+        scope: doc.scope ?? null,
+      })),
     }
   },
 )
