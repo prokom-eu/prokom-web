@@ -4957,6 +4957,18 @@ export interface SoftwareSetting {
     | boolean
     | null;
   /**
+   * Wspólne teksty okna szczegółów oferty wg kategorii (kroki, „Co od Ciebie”, płatność, pytania) i nadpisania dla jednego rozwiązania. Ceny w tekstach tylko jako {cena:<adres>}. Teksty jednego rozwiązania są w Rozwiązaniach → „Okno oferty”.
+   */
+  offer?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
    * Teksty /dziekujemy — strona po wysłaniu formularza.
    */
   thanks?:
@@ -7999,6 +8011,7 @@ export interface SoftwareSettingsSelect<T extends boolean = true> {
       };
   wizard?: T;
   home?: T;
+  offer?: T;
   thanks?: T;
   notFound?: T;
   updatedAt?: T;

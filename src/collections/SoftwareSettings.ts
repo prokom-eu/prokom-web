@@ -2,6 +2,11 @@ import type { CollectionConfig, JSONFieldValidation, PayloadRequest } from 'payl
 
 import { adminOnly } from '../lib/auth/access'
 import { homeSchema, homeSolutionSlugs, validateHome } from '../lib/software/home'
+import {
+  offerSolutionSlugs,
+  softwareOfferSchema,
+  validateSoftwareOffer,
+} from '../lib/software/offer'
 import { validateNotFound, validateThanks } from '../lib/software/pages'
 import {
   softwareWizardSchema,
@@ -108,6 +113,21 @@ export const SoftwareSettings: CollectionConfig = {
       admin: {
         description:
           'Proces, zasady, porównania, podglądy, realizacje, „Dlaczego nie WordPress”, technologie i „12 rzeczy”. Kolejność sekcji = kolejność bloków na stronie.',
+      },
+    },
+    {
+      name: 'offer',
+      label: 'Teksty okna oferty (JSON)',
+      type: 'json',
+      validate: withSolutions(
+        validateSoftwareOffer,
+        (value) => softwareOfferSchema.parse(value),
+        offerSolutionSlugs,
+        'Teksty okna oferty',
+      ),
+      admin: {
+        description:
+          'Wspólne teksty okna szczegółów oferty wg kategorii (kroki, „Co od Ciebie”, płatność, pytania) i nadpisania dla jednego rozwiązania. Ceny w tekstach tylko jako {cena:<adres>}. Teksty jednego rozwiązania są w Rozwiązaniach → „Okno oferty”.',
       },
     },
     {

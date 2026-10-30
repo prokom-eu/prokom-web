@@ -5,6 +5,7 @@ import kreator from '../../../seed/prokomsoftware/kreator.json'
 import miejscowosci from '../../../seed/prokomsoftware/miejscowosci.json'
 import nawigacja from '../../../seed/prokomsoftware/nawigacja.json'
 import obszary from '../../../seed/prokomsoftware/obszary.json'
+import oknoOferty from '../../../seed/prokomsoftware/okno-oferty.json'
 import popularne from '../../../seed/prokomsoftware/popularne.json'
 import rozwiazania from '../../../seed/prokomsoftware/rozwiazania.json'
 import stronaGlowna from '../../../seed/prokomsoftware/strona-glowna.json'
@@ -440,6 +441,7 @@ export function softwareSettingsData() {
       popular: { order: structuredClone(popularne.order), tabs: structuredClone(popularne.tabs) },
       sections: structuredClone(HOME_SECTION_TEXTS),
     },
+    offer: structuredClone(oknoOferty),
     thanks: structuredClone(SOFTWARE_THANKS),
     notFound: structuredClone(SOFTWARE_NOT_FOUND),
   }
