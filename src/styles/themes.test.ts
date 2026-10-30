@@ -98,6 +98,7 @@ describe.each(cases)('$line, $mode theme', ({ line, mode }) => {
   })
 
   // Badges and the inquiry switch of the Biznes catalog cards (`ProductCard`): small bold labels, 4.5:1.
+  // `--surface` on `--ok-text` is also „Polecamy” of the Software offer window (SWR3).
   it('card badge labels reach 4.5:1 on their badges', () => {
     const pairs: [string, string][] = [
       ['--surface', '--ok-text'],

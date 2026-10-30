@@ -339,3 +339,16 @@
     transform: scale(0.99);
   }
 }
+
+/*
+ * Thumbnails of Software solutions (spec. §5.2, ADR-015 v22 pkt 4): the SVG files carry their own
+ * light background, so the dark theme dims them a little instead of a second set of files.
+ */
+[data-theme='dark'] .thumb-dim {
+  filter: brightness(0.86);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .thumb-dim {
+    filter: brightness(0.86);
+  }
+}

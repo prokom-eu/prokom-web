@@ -15,7 +15,7 @@ import {
   parseCatalogState,
   type ParamSource,
 } from '@/lib/software/catalog'
-import { getSoftwareFacts, getSolutionsIndex } from '@/lib/software/data'
+import { getOfferViews, getSoftwareFacts, getSolutionsIndex } from '@/lib/software/data'
 import { fillText, type TextContext } from '@/lib/software/facts'
 import { Catalog } from '@/sites/software/components/catalog/Catalog'
 import { ContactBlock } from '@/sites/software/components/ContactBlock'
@@ -29,7 +29,7 @@ type Props = {
 
 const TITLE = 'Pełna oferta: strony, systemy i aplikacje dla firm'
 const LEAD =
-  'Filtruj po tym, czego potrzebujesz, albo po branży. Przy stronach i systemach widzisz cenę „od” i termin od razu, aplikacje i automatyzacje wyceniamy po krótkiej rozmowie. Kartę rozwiniesz kliknięciem.'
+  'Zawęź listę do swojej sytuacji i branży. Przy stronach i systemach od razu widzisz cenę „od” i termin, aplikacje i automatyzacje wyceniamy po krótkiej rozmowie. Otwórz kartę, a zobaczysz, co jest w cenie, przykład z życia i termin.'
 
 export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
   const tenant = await requireLine(params, 'software')
@@ -61,8 +61,9 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
  */
 export default async function SolutionsCatalogPage({ params }: Props) {
   const tenant = await requireLine(params, 'software')
-  const [index, facts, settings, origin] = await Promise.all([
+  const [index, offers, facts, settings, origin] = await Promise.all([
     getSolutionsIndex(tenant.id),
+    getOfferViews(tenant.id),
     getSoftwareFacts(tenant.id),
     getSiteSettings(tenant.id),
     requestOrigin(),
@@ -94,26 +95,34 @@ export default async function SolutionsCatalogPage({ params }: Props) {
 
   const hero = (
     <div className="max-w-3xl">
+      {/* „Start / Pełna oferta” with spaces, 44 px targets (spec. §5, v21). */}
       <nav aria-label="Okruszki" className="text-sm text-ink-2">
-        <ol className="flex flex-wrap gap-2">
+        <ol className="flex flex-wrap items-center gap-1">
           <li>
-            <Link href="/" className="hover:text-ink hover:underline">
-              Strona główna
+            <Link
+              href="/"
+              className="inline-flex min-h-11 items-center px-1 hover:text-ink hover:underline"
+            >
+              Start
             </Link>
           </li>
-          <li aria-hidden="true">›</li>
+          <li aria-hidden="true">/</li>
           <li>
-            <Link href={CATALOG_PATH} aria-current="page" className="text-ink">
+            <Link
+              href={CATALOG_PATH}
+              aria-current="page"
+              className="inline-flex min-h-11 items-center px-1 text-ink"
+            >
               Pełna oferta
             </Link>
           </li>
         </ol>
       </nav>
-      <p className="mt-6 text-sm font-extrabold uppercase tracking-[0.14em] text-accent-text">
+      <p className="mt-4 text-sm font-extrabold uppercase tracking-[0.14em] text-accent-text">
         Pełna oferta
       </p>
       <h1 className="mt-3 font-display text-[40px] font-extrabold leading-[1.02] tracking-tight sm:text-6xl">
-        Wszystko, co programujemy. <span className="text-grad-h1">Ceny, terminy, podgląd.</span>
+        Cała oferta, <span className="text-grad-h1">z&nbsp;ceną i&nbsp;terminem.</span>
       </h1>
       <p className="mt-5 text-lg text-ink-2 sm:text-xl">{LEAD}</p>
     </div>
@@ -132,7 +141,7 @@ export default async function SolutionsCatalogPage({ params }: Props) {
         <Container wide>
           {/* `useSearchParams` in the island: the shell around it renders without waiting. */}
           <Suspense fallback={hero}>
-            <Catalog index={index} hero={hero} />
+            <Catalog index={index} offers={offers} hero={hero} />
           </Suspense>
         </Container>
       </div>
