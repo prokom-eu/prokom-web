@@ -811,6 +811,17 @@ export interface Product {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Wersje kolorystyczne (K4): galeria pokazuje zdjęcie koloru, wybór trafia do notatki w zapytaniu.
+   */
+  colors?:
+    | {
+        name: string;
+        hex: string;
+        image?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
   keyParams?:
     | {
         label: string;
@@ -869,6 +880,24 @@ export interface Product {
           name: string;
           values?: string[] | null;
           note?: string | null;
+          /**
+           * Co daje ta opcja, zwykłym językiem.
+           */
+          help?: string | null;
+          /**
+           * Wartości jedna pod drugą zamiast obok siebie.
+           */
+          longValues?: boolean | null;
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Pokazywane jako parametry, nie do wyboru.
+     */
+    fixed?:
+      | {
+          label: string;
+          value: string;
           id?: string | null;
         }[]
       | null;
@@ -888,9 +917,19 @@ export interface Product {
       }[]
     | null;
   /**
-   * Nazwy rzeczy, np. „szuflada kasowa” — strona dopasuje do nich karty katalogu.
+   * Nazwy rzeczy, np. „szuflada kasowa” — strona dopasuje do nich karty katalogu. Od K4 zastępuje je lista „Polecane do tego produktu”.
    */
   suggestions?: string[] | null;
+  /**
+   * „Do tego zwykle dobierają” (K4): karta i krótka etykieta, np. „Szuflada”.
+   */
+  recommended?:
+    | {
+        product: number | Product;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
   /**
    * Tylko karta opieki IT — na stronie dopiero po akceptacji szefa.
    */
@@ -919,6 +958,16 @@ export interface Product {
      * Tylko do sprawdzania w panelu — sklepów i dystrybutorów nie pokazujemy na stronie.
      */
     distributorPages?: string[] | null;
+    /**
+     * Lista „Źródła: … · …” (K4). Na stronie tylko domeny producentów — sklepy i dystrybutorzy zostają w panelu.
+     */
+    links?:
+      | {
+          label: string;
+          url: string;
+          id?: string | null;
+        }[]
+      | null;
     /**
      * Wypełnia człowiek po sprawdzeniu u producenta.
      */
@@ -7472,6 +7521,14 @@ export interface ProductsSelect<T extends boolean = true> {
         difference?: T;
         id?: T;
       };
+  colors?:
+    | T
+    | {
+        name?: T;
+        hex?: T;
+        image?: T;
+        id?: T;
+      };
   keyParams?:
     | T
     | {
@@ -7510,6 +7567,15 @@ export interface ProductsSelect<T extends boolean = true> {
               name?: T;
               values?: T;
               note?: T;
+              help?: T;
+              longValues?: T;
+              id?: T;
+            };
+        fixed?:
+          | T
+          | {
+              label?: T;
+              value?: T;
               id?: T;
             };
         popular?:
@@ -7528,6 +7594,13 @@ export interface ProductsSelect<T extends boolean = true> {
         id?: T;
       };
   suggestions?: T;
+  recommended?:
+    | T
+    | {
+        product?: T;
+        label?: T;
+        id?: T;
+      };
   packages?:
     | T
     | {
@@ -7546,6 +7619,13 @@ export interface ProductsSelect<T extends boolean = true> {
         productPages?: T;
         datasheets?: T;
         distributorPages?: T;
+        links?:
+          | T
+          | {
+              label?: T;
+              url?: T;
+              id?: T;
+            };
         checkedAt?: T;
       };
   registerTypes?: T;

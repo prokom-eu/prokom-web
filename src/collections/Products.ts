@@ -6,6 +6,7 @@ import { catalogRevalidationHooks } from '../lib/catalog/revalidate'
 import {
   CONTENT_BATCHES,
   CONTENT_STATUSES,
+  isHexColor,
   PRODUCT_KINDS,
   REGISTER_TYPES,
 } from '../lib/catalog/options'
@@ -174,6 +175,33 @@ export const Products: CollectionConfig = {
                 { name: 'difference', label: 'Czym się różni', type: 'textarea' },
               ],
             },
+            {
+              name: 'colors',
+              label: 'Kolory',
+              type: 'array',
+              admin: {
+                description:
+                  'Wersje kolorystyczne (K4): galeria pokazuje zdjęcie koloru, wybór trafia do notatki w zapytaniu.',
+              },
+              fields: [
+                {
+                  type: 'row',
+                  fields: [
+                    { name: 'name', label: 'Nazwa', type: 'text', required: true },
+                    {
+                      name: 'hex',
+                      label: 'Kolor próbki',
+                      type: 'text',
+                      required: true,
+                      // Swatch of a product color: data, like a group gradient (ADR-012 B0).
+                      validate: (value: unknown) =>
+                        isHexColor(value) ? true : 'Kolor w formacie #RRGGBB, np. #2E3641.',
+                    },
+                  ],
+                },
+                imageField('image', 'Zdjęcie'),
+              ],
+            },
           ],
         },
         {
@@ -257,7 +285,27 @@ export const Products: CollectionConfig = {
                     { name: 'name', label: 'Nazwa', type: 'text', required: true },
                     { name: 'values', label: 'Wartości', type: 'text', hasMany: true },
                     { name: 'note', label: 'Uwaga producenta', type: 'textarea' },
+                    {
+                      name: 'help',
+                      label: 'Wyjaśnienie',
+                      type: 'textarea',
+                      admin: { description: 'Co daje ta opcja, zwykłym językiem.' },
+                    },
+                    {
+                      name: 'longValues',
+                      label: 'Długie wartości',
+                      type: 'checkbox',
+                      defaultValue: false,
+                      admin: { description: 'Wartości jedna pod drugą zamiast obok siebie.' },
+                    },
                   ],
+                },
+                {
+                  name: 'fixed',
+                  label: 'Stałe w każdej wersji',
+                  type: 'array',
+                  admin: { description: 'Pokazywane jako parametry, nie do wyboru.' },
+                  fields: labelValue,
                 },
                 {
                   name: 'popular',
@@ -283,8 +331,32 @@ export const Products: CollectionConfig = {
               hasMany: true,
               admin: {
                 description:
-                  'Nazwy rzeczy, np. „szuflada kasowa” — strona dopasuje do nich karty katalogu.',
+                  'Nazwy rzeczy, np. „szuflada kasowa” — strona dopasuje do nich karty katalogu. Od K4 zastępuje je lista „Polecane do tego produktu”.',
               },
+            },
+            {
+              name: 'recommended',
+              label: 'Polecane do tego produktu',
+              type: 'array',
+              admin: {
+                description:
+                  '„Do tego zwykle dobierają” (K4): karta i krótka etykieta, np. „Szuflada”.',
+              },
+              fields: [
+                {
+                  type: 'row',
+                  fields: [
+                    {
+                      name: 'product',
+                      label: 'Produkt',
+                      type: 'relationship',
+                      relationTo: 'products',
+                      required: true,
+                    },
+                    { name: 'label', label: 'Etykieta', type: 'text', required: true },
+                  ],
+                },
+              ],
             },
             {
               name: 'packages',
@@ -315,7 +387,7 @@ export const Products: CollectionConfig = {
             },
             {
               name: 'alternatives',
-              label: 'Kiedy wybrać inną',
+              label: 'Podobne / z tej samej rodziny',
               type: 'relationship',
               relationTo: 'products',
               hasMany: true,
@@ -351,6 +423,31 @@ export const Products: CollectionConfig = {
                     description:
                       'Tylko do sprawdzania w panelu — sklepów i dystrybutorów nie pokazujemy na stronie.',
                   },
+                },
+                {
+                  name: 'links',
+                  label: 'Źródła z etykietą',
+                  type: 'array',
+                  admin: {
+                    description:
+                      'Lista „Źródła: … · …” (K4). Na stronie tylko domeny producentów — sklepy i dystrybutorzy zostają w panelu.',
+                  },
+                  fields: [
+                    {
+                      type: 'row',
+                      fields: [
+                        { name: 'label', label: 'Etykieta', type: 'text', required: true },
+                        {
+                          name: 'url',
+                          label: 'Link',
+                          type: 'text',
+                          required: true,
+                          validate: (value: unknown) =>
+                            validateHttpUrls(typeof value === 'string' ? [value] : []),
+                        },
+                      ],
+                    },
+                  ],
                 },
                 {
                   name: 'checkedAt',
