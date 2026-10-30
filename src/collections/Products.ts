@@ -6,6 +6,7 @@ import { catalogRevalidationHooks } from '../lib/catalog/revalidate'
 import {
   CONTENT_BATCHES,
   CONTENT_STATUSES,
+  FEATURED_GROUPS,
   isHexColor,
   PRODUCT_KINDS,
   REGISTER_TYPES,
@@ -529,6 +530,24 @@ export const Products: CollectionConfig = {
       label: 'Kolejność wyróżnienia',
       type: 'number',
       admin: { position: 'sidebar', condition: (data) => Boolean(data?.featured) },
+    },
+    {
+      // Filter pills of „O to firmy pytają najczęściej” (K35 §7a): not the departments — UPS
+      // has its own pill.
+      name: 'featuredGroup',
+      label: 'Grupa wyróżnienia',
+      type: 'select',
+      options: [...FEATURED_GROUPS],
+      admin: { position: 'sidebar', condition: (data) => Boolean(data?.featured) },
+    },
+    {
+      // `pop9` of the K4 package (K36 §10): order of the card inside its category under
+      // „Polecane” in the offer. Empty = after the numbered ones.
+      name: 'categoryOrder',
+      label: 'Kolejność w kategorii',
+      type: 'number',
+      min: 0,
+      admin: { position: 'sidebar', description: 'Mniejsza liczba = wcześniej w „Polecane”.' },
     },
     {
       name: 'contentStatus',

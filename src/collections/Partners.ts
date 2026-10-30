@@ -88,7 +88,14 @@ export const Partners: CollectionConfig = {
         { label: 'Marka (bez statusu)', value: 'none' },
         { label: 'Autoryzowany serwis', value: 'authorized-service' },
         { label: 'Autoryzowany partner', value: 'authorized-partner' },
+        // K4-FINAL §1: Optivendi „Partner”, COMEX „We współpracy” — no other brand has one.
+        { label: 'Partner', value: 'partner' },
+        { label: 'We współpracy', value: 'cooperation' },
       ],
+      admin: {
+        description:
+          'Tylko: Posnet i Elzab — autoryzowany serwis; GoPOS i InsERT — autoryzowany partner; Optivendi — partner; COMEX — we współpracy.',
+      },
     },
     {
       name: 'tenants',
