@@ -1,6 +1,7 @@
 // Przenosi reguły pk.css wybranych klas do zagnieżdżonego CSS linii (I6, ADR-I003 §3).
 // Użycie: node docs/design/prokominstalacje/narzedzia/przenies-css.mjs <pk.css> <src/styles/tokens.css> <klasy.txt> <mapa.json> [klasy-strony.txt] > out.css
-// klasy.txt — klasy sekcji; mapa.json — {"prefix":"sx","ids":[…],"colors":{"#hex|rgba(…)":"--token"}};
+// klasy.txt — klasy sekcji; mapa.json — {"prefix":"sx","ids":[…],"colors":{"#hex|rgba(…)":"--token"},
+// "selectors":{"selektor|właściwość|nr":"--token"}} (selectors — z tokeny-stron.mjs, wygrywa z colors);
 // klasy-strony.txt — wszystkie klasy strony (selektory z innymi klasami odpadają). Raport (stderr):
 // reguły „tylko jasny motyw” i kolory bez tokenu — do ręcznego przejrzenia. Wzór mapy: przenies-css.glowna.json.
 // Ports pk.css rules of the given classes to nested, token-only CSS for src/sites/instalacje.
@@ -58,13 +59,26 @@ function convert(decls, isScene, selector) {
   out = out
     .replace(/(['"]?)Archivo\1\s*,\s*sans-serif/g, 'var(--font-display)')
     .replace(/(['"]?)Manrope\1\s*,\s*sans-serif/g, 'var(--font-sans)')
-  out = out.replace(COLOR, (c) => {
-    const n = norm(c)
-    const token = (isScene && sx.get(n)) || general.get(n) || sx.get(n)
-    if (token) return `var(${token})`
-    unknown.set(n, [...(unknown.get(n) ?? []), selector])
-    return c
-  })
+  // Per declaration: a colour of this selector and property may have its own token
+  // (`selectors` of the map, `tokeny-stron.mjs`: "selector|property|n" → token).
+  const first = selector.split(',')[0].trim()
+  out = out
+    .split(';')
+    .map((decl) => {
+      const colon = decl.indexOf(':')
+      const prop = colon < 0 ? '' : decl.slice(0, colon).trim()
+      let n = 0
+      return decl.replace(COLOR, (c) => {
+        const own = manual.selectors?.[`${first}|${prop}|${n++}`]
+        if (own) return `var(${own})`
+        const v = norm(c)
+        const token = (isScene && sx.get(v)) || general.get(v) || sx.get(v)
+        if (token) return `var(${token})`
+        unknown.set(v, [...(unknown.get(v) ?? []), selector])
+        return c
+      })
+    })
+    .join(';')
   return out
 }
 
