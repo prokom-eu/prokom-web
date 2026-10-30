@@ -19,11 +19,14 @@ import {
 } from '@/lib/software/catalog'
 import type { SolutionCategory } from '@/lib/software/options'
 import { useProject } from '@/lib/software/projectStore'
+import type { OfferView } from '@/lib/software/offer'
+import { CATEGORY_AREA } from '@/lib/software/options'
 import { prepareSolutionSearch } from '@/lib/software/search'
 import type { SolutionsIndex } from '@/lib/software/solutionsIndex'
 
 import { DESKTOP_QUERY } from '../layer'
 import { DeviceIcon } from '../FrameIcons'
+import { SolutionDialog } from '../offer/SolutionDialog'
 import { CatalogFilters } from './CatalogFilters'
 import { SolutionCard } from './SolutionCard'
 
@@ -51,6 +54,8 @@ const solutionsWord = (n: number) =>
 
 type Props = {
   index: SolutionsIndex
+  /** Offer windows of the published solutions by slug (`getOfferViews`). */
+  offers: Readonly<Record<string, OfferView>>
   /** Breadcrumbs, eyebrow, H1 and lead — rendered on the server, next to the search box. */
   hero: ReactNode
 }
@@ -62,14 +67,10 @@ type Props = {
  * the first view from the same URL. Up to 1080 px: tabs in a scrolling row, a sticky search bar
  * with „Filtry (n)” and the filters in a sheet.
  */
-export function Catalog({ index, hero }: Props) {
+export function Catalog({ index, offers, hero }: Props) {
   const searchParams = useSearchParams()
   const state = useMemo(() => parseCatalogState(searchParams), [searchParams])
   const search = useMemo(() => prepareSolutionSearch(index), [index])
-  const situationNames = useMemo(
-    () => Object.fromEntries(index.situations.map(({ slug, name }) => [slug, name])),
-    [index],
-  )
 
   // The box shows what is typed at once; the URL catches up after a pause (Biznes pattern).
   const [draft, setDraft] = useState(state.query)
@@ -95,22 +96,46 @@ export function Catalog({ index, hero }: Props) {
     [typing, index, search, state, results],
   )
 
-  const [open, setOpen] = useState<string | null>(null)
+  // The window follows the address (`?rozwiazanie=`, decyzja 1); an unknown slug opens nothing.
+  const openSlug = state.solution && offers[state.solution] ? state.solution : null
+  /** The window's history entry is ours (opened here): closing goes back instead of adding one. */
+  const ownEntry = useRef(false)
+  useEffect(() => {
+    // Closed by the browser's Back (or a filter): the entry is gone, nothing of ours to undo.
+    if (!state.solution) ownEntry.current = false
+  }, [state.solution])
   const [sheetOpen, setSheetOpen] = useState(false)
   const countRef = useRef<HTMLParagraphElement>(null)
   const sheetTitle = useRef<HTMLHeadingElement>(null)
 
   const write = writeUrl
   const change = (patch: Partial<SoftwareCatalogState>) => {
-    setOpen(null)
-    write({ ...view, ...patch })
+    write({ ...view, ...patch, solution: null })
+  }
+  const openWindow = (slug: string) => {
+    ownEntry.current = true
+    write({ ...view, solution: slug })
+  }
+  const switchWindow = (slug: string) => write({ ...view, solution: slug }, 'replace')
+  const closeWindow = (reason?: 'link') => {
+    // Already closed by the browser's Back: nothing to write (a typed draft stays out of the URL).
+    if (!state.solution) return
+    // A link in the window leaves the page: a `history.back()` now could undo that navigation.
+    if (reason === 'link') {
+      ownEntry.current = false
+      return
+    }
+    if (ownEntry.current) {
+      ownEntry.current = false
+      window.history.back()
+    } else write({ ...view, solution: null }, 'replace')
   }
 
   useEffect(() => {
     if (!typing) return
     const timer = window.setTimeout(() => {
       setWritten(view.query)
-      writeUrl(view, 'replace')
+      writeUrl({ ...view, solution: null }, 'replace')
     }, QUERY_DELAY_MS)
     return () => window.clearTimeout(timer)
   }, [typing, view])
@@ -123,6 +148,7 @@ export function Catalog({ index, hero }: Props) {
     countRef.current?.focus()
   }
   const sheetCount = sheetFilterCount(view)
+  const list = useMemo(() => results.map((solution) => solution.slug), [results])
 
   const tabs = [
     { value: null, name: 'Wszystko', icon: ICONS.all, count: facets.category.all ?? 0 },
@@ -139,7 +165,7 @@ export function Catalog({ index, hero }: Props) {
       role="search"
       onSubmit={(event) => {
         event.preventDefault()
-        write({ ...view, query: draft.trim() }, 'replace')
+        write({ ...view, query: draft.trim(), solution: null }, 'replace')
       }}
       className={className}
     >
@@ -271,38 +297,46 @@ export function Catalog({ index, hero }: Props) {
 
           {results.length === 0 ? (
             <div className="mt-4 rounded-[22px] border border-border bg-card p-6">
-              <h2 className="font-display text-xl font-extrabold">Nie widzisz swojej sytuacji?</h2>
+              <h2 className="font-display text-xl font-extrabold">
+                Nic nie pasuje do tych filtrów.
+              </h2>
               <p className="mt-2 text-ink-2">
-                Nie mamy dokładnie tego w katalogu, ale to nie znaczy, że tego nie zrobimy. Opisz to
-                w kreatorze albo napisz do nas. Większość naszych systemów zaczynała się od „a da
-                się…?”.
+                Zmień filtry albo napisz, czego szukasz. Jeśli da się to sensownie zbudować, powiemy
+                jak, za ile i w jakim terminie. Jeśli nie warto, też powiemy.
               </p>
               <div className="mt-4 flex flex-wrap gap-3">
+                <button
+                  type="button"
+                  onClick={clearAll}
+                  className="inline-flex min-h-12 items-center rounded-xl border border-border px-5 font-bold"
+                >
+                  Wyczyść filtry
+                </button>
+                <Link
+                  href="/kontakt"
+                  className="inline-flex min-h-12 items-center rounded-xl bg-button px-5 font-bold text-accent-ink"
+                >
+                  Napisz, czego szukasz
+                </Link>
                 {/* SW7: the wizard opens in its „opisz po swojemu” mode (spec. §5). */}
                 <Link
                   href="/dobierz?tryb=opis"
-                  className="inline-flex min-h-11 items-center rounded-xl bg-button px-5 font-bold text-accent-ink"
+                  className="inline-flex min-h-12 items-center px-2 font-bold text-accent-text underline underline-offset-4"
                 >
                   Opisz w kreatorze
-                </Link>
-                <Link
-                  href="/kontakt"
-                  className="inline-flex min-h-11 items-center rounded-xl border border-border px-5 font-bold"
-                >
-                  Napisz do nas
                 </Link>
               </div>
             </div>
           ) : (
-            <ul className="mt-4 grid items-start gap-4 sm:grid-cols-2 xl:grid-cols-3">
-              {results.map((solution) => (
+            <ul className="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+              {results.map((solution, i) => (
                 <li key={solution.slug}>
                   <SolutionCard
                     solution={solution}
                     display={index.priceDisplay}
-                    situationNames={situationNames}
-                    open={open === solution.slug}
-                    onToggle={() => setOpen(open === solution.slug ? null : solution.slug)}
+                    tone={offers[solution.slug]?.tone ?? CATEGORY_AREA[solution.category]}
+                    eager={i < 3}
+                    onOpen={() => openWindow(solution.slug)}
                   />
                 </li>
               ))}
@@ -317,6 +351,9 @@ export function Catalog({ index, hero }: Props) {
         title="Filtry"
         headingRef={sheetTitle}
         desktopQuery={DESKTOP_QUERY}
+        // No `closeOnBack`: every filter already writes its own history entry, and taking the
+        // sheet's entry off on „Pokaż” would undo the last filter.
+        dragToClose
       >
         <div className="mt-4">
           <CatalogFilters
@@ -348,6 +385,14 @@ export function Catalog({ index, hero }: Props) {
           </button>
         </div>
       </BottomSheet>
+
+      <SolutionDialog
+        views={offers}
+        slug={openSlug}
+        list={list}
+        onSwitch={switchWindow}
+        onClose={closeWindow}
+      />
     </>
   )
 }
@@ -366,7 +411,7 @@ function ProjectBox() {
       <p className="mt-1 font-display text-3xl font-extrabold">{count}</p>
       <p className="mt-1 text-sm text-ink-2">
         {count === 0
-          ? 'Dodawaj rozwiązania, które Cię interesują.'
+          ? 'Dodaj rozwiązania przyciskiem „+ Dodaj do wyceny” w oknie oferty.'
           : `${plural(count, ['rozwiązanie', 'rozwiązania', 'rozwiązań'])} w Twoim projekcie`}
       </p>
       <Link

@@ -5,6 +5,7 @@ import obszary from '../../../seed/prokomsoftware/obszary.json'
 import { hasSameValues } from '../compare'
 import { SEED_CONTEXT } from '../config'
 import { navigationSchema } from '../../lib/software/navigation'
+import { softwareOfferSchema } from '../../lib/software/offer'
 import {
   areaData,
   cityData,
@@ -253,6 +254,7 @@ export async function seedSoftware(payload: Payload): Promise<void> {
     search: settings.search,
     wizard: settings.wizard,
     home: settings.home,
+    offer: settings.offer,
     thanks: settings.thanks,
     notFound: settings.notFound,
   }
@@ -270,6 +272,8 @@ export async function seedSoftware(payload: Payload): Promise<void> {
         const value = softwareSettings[key as keyof typeof jsonFields]
         // A wizard saved before SW7 lacks its rules: replaced, like Biznes rules of an old shape.
         if (key === 'wizard' && isPreSw7Wizard(value)) return true
+        // Window texts in an older shape would hide the window's shared parts: replaced (SWR3).
+        if (key === 'offer' && value != null) return !softwareOfferSchema.safeParse(value).success
         return value === null || value === undefined
       }),
     )

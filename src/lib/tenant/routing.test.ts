@@ -213,6 +213,17 @@ describe('decideRoute — site domains', () => {
     expect(route('biznes.localhost', '/brand/logo.svg')).toEqual({ type: 'next' })
   })
 
+  it('serves the Software solution thumbnails (SWR3, spec. §5.2) — only that folder', () => {
+    expect(route('software.localhost', '/software/rozwiazania/strona-wizytowka.svg')).toEqual({
+      type: 'next',
+    })
+    // `/software` itself stays a page path of the tenant.
+    expect(route('software.localhost', '/software/cennik')).toEqual({
+      type: 'rewrite',
+      pathname: '/software.localhost/software/cennik',
+    })
+  })
+
   // Review of S3: a path ending in another domain must not reach that tenant's segment.
   it('rewrites a path that looks like another domain under the request host', () => {
     expect(route('instalacje.localhost', '/biznes.localhost')).toEqual({

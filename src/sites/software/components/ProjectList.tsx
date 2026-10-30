@@ -5,6 +5,7 @@ import { type RefObject, useEffect, useRef } from 'react'
 
 import { Icon } from '@/components/ui/Icon'
 import type { SoftwareNavigation } from '@/lib/software/navigation'
+import { PROJECT_SEND_HREF } from '@/lib/software/project'
 import { projectActions, useProject } from '@/lib/software/projectStore'
 
 type Props = {
@@ -18,7 +19,6 @@ type Props = {
 
 /** The inquiry form takes the list from the browser (`?projekt=1`) — straight to the form
     (spec. §3.1, v21). */
-const SEND_HREF = '/kontakt?projekt=1#formularz'
 
 /** Focus to restore after the list changed under it: a removed row or a cleared list. */
 type PendingFocus = { row: number } | 'heading'
@@ -75,7 +75,7 @@ export function ProjectList({ texts, headingRef, onSend }: Props) {
         ))}
       </ul>
       <Link
-        href={SEND_HREF}
+        href={PROJECT_SEND_HREF}
         onClick={onSend}
         className="mt-4 flex min-h-[52px] items-center justify-center rounded-xl bg-button px-5 font-bold text-accent-ink"
       >

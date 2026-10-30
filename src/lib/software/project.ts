@@ -7,6 +7,9 @@
 
 export const PROJECT_KEY = 'pk-project'
 export const MAX_PROJECT_ITEMS = 30
+
+/** „Wyślij do wyceny →”: the contact form with the project list (spec. §3.1, v21). */
+export const PROJECT_SEND_HREF = '/kontakt?projekt=1#formularz'
 const MAX_NAME = 120
 
 export type ProjectItem = { id: string; name: string }

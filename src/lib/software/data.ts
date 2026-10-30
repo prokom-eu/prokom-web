@@ -3,17 +3,27 @@ import { cacheQuery } from '../cache'
 import { getPayload } from 'payload'
 import { cache } from 'react'
 
+import { getEnv } from '../env'
 import { log } from '../log'
 import { PAGE_CACHE_SECONDS } from '../pages/data'
 import { isIconName } from '../catalog/options'
-import { factsMap } from './facts'
+import { factsMap, fillText } from './facts'
 import { homeSchema, type SoftwareHome } from './home'
 import { type HomeArea, homeAreas } from './homeAreas'
 import type { MenuArea } from './mobileNav'
+import {
+  buildOfferView,
+  EMPTY_OFFER,
+  type FillText,
+  offerSolutionOf,
+  type OfferView,
+  relatedCard,
+  softwareOfferSchema,
+} from './offer'
 import { thanksSchema, type SoftwareThanks } from './pages'
-import { buildSolutionsIndex, type SolutionsIndex } from './solutionsIndex'
+import { buildSolutionsIndex, DEFAULT_PRICE_DISPLAY, type SolutionsIndex } from './solutionsIndex'
 import { solutionsTag } from './tags'
-import type { SoftwareWizard } from './wizard'
+import { priceDisplaySchema, type SoftwareWizard } from './wizard'
 import { readSoftwareWizard } from './wizardRules'
 
 /**
@@ -236,3 +246,105 @@ export const getHomeAreas = cache(async (tenantId: number): Promise<HomeArea[]> 
   const slugs = new Map(solutions.docs.map((doc) => [doc.id, doc.slug]))
   return homeAreas(areas.docs, slugs)
 })
+
+/**
+ * What the offer windows of one Software tenant read (SWR3): published solutions with the window
+ * fields and `related` ids, the shared texts and the price templates. Cached with the index (same
+ * tag, revalidated by the hooks of `Solutions` and `SoftwareSettings`).
+ */
+const getOfferSource = (tenantId: number) =>
+  cacheQuery(
+    async () => {
+      const payload = await getPayload({ config })
+      const read = { overrideAccess: true, depth: 0 } as const
+      const inTenant = { tenant: { equals: tenantId } }
+      const [solutions, settings] = await Promise.all([
+        payload.find({
+          collection: 'solutions',
+          where: { and: [inTenant, { _status: { equals: 'published' } }] },
+          draft: false,
+          limit: MAX_SOLUTIONS,
+          sort: 'id',
+          select: {
+            slug: true,
+            name: true,
+            category: true,
+            label: true,
+            tag: true,
+            lead: true,
+            features: true,
+            forWhom: true,
+            situations: true,
+            hasLivePreview: true,
+            toast: true,
+            thumbnail: true,
+            priceFrom: true,
+            priceMonthly: true,
+            leadTime: true,
+            levels: true,
+            levelRows: true,
+            included: true,
+            moreExamples: true,
+            example: true,
+            related: true,
+            benefits: true,
+            needs: true,
+            faq: true,
+          },
+          ...read,
+        }),
+        payload.find({
+          collection: 'software-settings',
+          where: inTenant,
+          limit: 1,
+          select: { offer: true, wizard: true },
+          ...read,
+        }),
+      ])
+      return {
+        solutions: solutions.docs,
+        offer: settings.docs[0]?.offer ?? null,
+        priceDisplay: (settings.docs[0]?.wizard as { priceDisplay?: unknown } | null | undefined)
+          ?.priceDisplay,
+      }
+    },
+    ['offer-source', 'v22', String(tenantId)],
+    { tags: [solutionsTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
+  )()
+
+/**
+ * Offer windows of one Software tenant by slug (spec. §5.1): only published solutions, „Dobrze
+ * łączy się z” only to published solutions of the same tenant. Texts are filled per request
+ * (facts, `{cena:<slug>}`); on production a text with a missing value is left out. Call it only
+ * for a tenant of the Software line.
+ */
+export async function getOfferViews(tenantId: number): Promise<Record<string, OfferView>> {
+  const [source, facts] = await Promise.all([getOfferSource(tenantId), getSoftwareFacts(tenantId)])
+  const parsed = softwareOfferSchema.safeParse(source.offer)
+  if (!parsed.success && source.offer !== null) {
+    log.warn({ tenant: tenantId }, 'SoftwareSettings.offer does not match the schema')
+  }
+  const offer = parsed.data ?? EMPTY_OFFER
+  const display = priceDisplaySchema.safeParse(source.priceDisplay).data ?? DEFAULT_PRICE_DISPLAY
+  const entries = source.solutions.map((doc) => ({
+    id: doc.id,
+    related: (doc.related ?? []).map((item) => (typeof item === 'number' ? item : item.id)),
+    solution: offerSolutionOf(doc),
+  }))
+  const byId = new Map(entries.map(({ id, solution }) => [id, solution]))
+  const prices = Object.fromEntries(
+    entries.map(({ solution }) => [solution.slug, solution.priceFrom]),
+  )
+  const strict = getEnv().SITE_ENV === 'production'
+  return Object.fromEntries(
+    entries.map(({ id, related, solution }) => {
+      const fill: FillText = (text, term) =>
+        fillText(text, { tenantId, facts, prices, term, strict })
+      const cards = related.flatMap((relatedId) => {
+        const card = relatedId === id ? undefined : byId.get(relatedId)
+        return card ? [relatedCard(card, display)] : []
+      })
+      return [solution.slug, buildOfferView(solution, { offer, display, related: cards, fill })]
+    }),
+  )
+}

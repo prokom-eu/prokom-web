@@ -1,4 +1,5 @@
 import { INDUSTRY_GROUPS, SITUATIONS, SOLUTION_CATEGORIES, type SolutionCategory } from './options'
+import { slug as slugSchema } from './schema'
 import { searchSolutions, type PreparedSolutionSearch } from './search'
 import type { IndexSolution, SolutionsIndex } from './solutionsIndex'
 
@@ -24,6 +25,8 @@ export type SoftwareCatalogState = {
   group: IndustryGroup | null
   /** Only solutions with a live preview. */
   preview: boolean
+  /** Slug of the open offer window (SWR3, decyzja 1); the island checks that it exists. */
+  solution: string | null
 }
 
 export const DEFAULT_CATALOG_STATE: SoftwareCatalogState = {
@@ -32,6 +35,7 @@ export const DEFAULT_CATALOG_STATE: SoftwareCatalogState = {
   situation: null,
   group: null,
   preview: false,
+  solution: null,
 }
 
 /** URL words of the situations (readable links instead of the package's letters). */
@@ -47,6 +51,7 @@ const PARAM = {
   situation: 'sytuacja',
   group: 'branza',
   preview: 'podglad',
+  solution: 'rozwiazanie',
 } as const
 
 export type ParamSource = URLSearchParams | Record<string, string | string[] | undefined>
@@ -70,6 +75,7 @@ export function parseCatalogState(params: ParamSource): SoftwareCatalogState {
         Situation | undefined) ?? null,
     group: INDUSTRY_GROUPS.find(({ value }) => value === group)?.value ?? null,
     preview: first(params, PARAM.preview) === '1',
+    solution: slugSchema.safeParse(first(params, PARAM.solution)).data ?? null,
   }
 }
 
@@ -81,6 +87,7 @@ export function catalogHref(state: SoftwareCatalogState): string {
   if (state.situation) params.set(PARAM.situation, SITUATION_PARAMS[state.situation])
   if (state.group) params.set(PARAM.group, state.group)
   if (state.preview) params.set(PARAM.preview, '1')
+  if (state.solution) params.set(PARAM.solution, state.solution)
   const query = params.toString()
   return query ? `${CATALOG_PATH}?${query}` : CATALOG_PATH
 }
@@ -144,7 +151,10 @@ export function runCatalog(
   }
 }
 
-/** Only the plain catalog is indexed; every filtered view points to it (spec. §5, `noindex`). */
+/**
+ * Only the plain catalog is indexed; every filtered view and every open window points to it
+ * (spec. §5, `noindex`).
+ */
 export function catalogSeo(state: SoftwareCatalogState): { index: boolean; canonical: string } {
   return { index: catalogHref(state) === CATALOG_PATH, canonical: CATALOG_PATH }
 }
