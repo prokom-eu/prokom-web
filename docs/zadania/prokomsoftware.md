@@ -52,7 +52,7 @@ Potem wpisz moje rozstrzygnięcia: <tu wklejam decyzje z czatu> do sekcji „Roz
 
 **Kolejność = kolejność wierszy** (SW0 22.10, podział SW2 22.10, v20 w SWD1 25.10; ADR-014 rozstrz. 13). Numery sesji zostają, zmienia się tylko kolejność: najpierw ścieżki, które dają zapytania (katalog → „Twój projekt” → kontakt, kreator), potem sekcje strony głównej, które używają gotowej karty rozwiązania i kreatora. SW2b rusza po SW9 (B8, B10, B11 scalone — nic już nie blokuje).
 
-**Wzorzec telefonu w każdej sesji z UI** (v20): zakres sesji obejmuje zrzuty 390 px i stany 8x–9x, nie tylko desktop — prompt 4.1 + dopisek „wzorzec telefonu”.
+**Wzorzec telefonu w każdej sesji z UI** (v20): zakres sesji obejmuje zrzuty 390 px i stany 8x–9x, nie tylko desktop — prompt 4.1 + dopisek „wzorzec telefonu”. **Od 30.10: telefon „jak najlepsza aplikacja” — `docs/design/prokomsoftware/MOBILE-APLIKACJA.md` (§3 ekrany per sesja, §4 odczucie aplikacji, §5 Definition of Done telefonu) obowiązuje w SWR2–SWR5, SW10, SW11a, SW11b.**
 
 | # | Zadanie | Gotowe, gdy | Spec. / plansze |
 |---|---|---|---|
@@ -164,7 +164,7 @@ Przed PR: zrzuty Playwright (1440 i 390, jasny i ciemny) porównane z screens/ i
 
 **Dopisek do każdej sesji z UI — wzorzec telefonu (v20, prompt 2.3 z `PRZEKAZANIE-v20.md`):**
 ```
-Wzorzec telefonu jest częścią zakresu, nie poprawką na koniec: zrzuty 390 px (screens/<Plansza>-390-light, Main także -390-dark) i stany 8x–9x. Przed PR zrób zrzuty Playwright przy 390 i 360 px i sprawdź: zero poziomego przewijania strony (document.scrollingElement.scrollWidth = szerokość okna), żaden element nie wystaje poza ekran, cele dotyku ≥ 44 px, tekst ≥ 12 px, dolny pasek nie zasłania treści (padding-bottom pod pasek), arkusze z focus trap i Esc.
+Telefon ma działać jak najlepsza aplikacja: przeczytaj docs/design/prokomsoftware/MOBILE-APLIKACJA.md (§3 — ekrany tej sesji, §4 — odczucie aplikacji, §5 — Definition of Done telefonu) i spełnij §5 przed PR. Wzorzec telefonu jest częścią zakresu, nie poprawką na koniec: zrzuty 390 px (screens/<Plansza>-390-light, Main także -390-dark) i stany 8x–9x. Przed PR zrób zrzuty Playwright przy 390 i 360 px i sprawdź: zero poziomego przewijania strony (document.scrollingElement.scrollWidth = szerokość okna), żaden element nie wystaje poza ekran, cele dotyku ≥ 44 px, tekst ≥ 12 px, dolny pasek nie zasłania treści (padding-bottom pod pasek), arkusze z focus trap i Esc.
 ```
 
 ### 4.2 Porównanie z wzorcem (na koniec sesji z UI)

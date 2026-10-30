@@ -295,6 +295,8 @@ Zdarzenia (bez danych osobowych): `kreator_start`, `kreator_krok` (numer), `krea
 Budżet jak w S10 (Lighthouse CI). Animacje tylko `transform`/`opacity`. Makiety podglądów to HTML/SVG, nie obrazy. Strona główna statyczna z rewalidacją (dane z Payload, tagi `tenant:<id>:…`). Kreator i interaktywne sekcje jako komponenty klienckie ładowane przy przewinięciu.
 
 ### 8.6 Telefon i tablet (v20) — zasady wspólne dla wszystkich stron
+**Od 30.10.2026 (decyzja Krystiana): telefon ma działać i wyglądać „jak najlepsza aplikacja”.** Pełny zbiór zasad, ekranów z wzorcami, wymagań „odczucia aplikacji” (stany wciśnięcia, gest w dół w arkuszach, ruch bez skoków, klawiatura, „wstecz” zamyka arkusz, `theme-color` i manifest) i Definition of Done telefonu: **`docs/design/prokomsoftware/MOBILE-APLIKACJA.md`** — w sprawach telefonu wygrywa nad tą sekcją.
+
 Plansze mają warstwę mobilną jako jedną sekcję CSS na końcu (`v20 · warstwa mobilna`). W kodzie: **komponenty**, nie kopia CSS.
 - **≤ 1080 px:** nagłówek kompaktowy, dolny pasek i arkusze (§3.2); znika pasek linii, pozycje menu i szyna sekcji; hero i kreator w jednej kolumnie.
 - **≤ 640 px:**
