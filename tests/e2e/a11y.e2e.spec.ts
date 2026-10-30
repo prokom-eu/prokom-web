@@ -40,7 +40,7 @@ const SITES: {
       '/marki/dibal',
       '/marki/lenovo',
       '/marki/dell',
-      '/oferta/komputery-monitory/laptopy',
+      '/oferta/serwery-nas-ups/ups',
     ],
   },
   { host: 'instalacje.localhost', line: 'instalacje', dark: true, themeSwitch: false },
