@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { AREA_SERVED, serviceJsonLd } from './seo'
+import { AREA_SERVED, serviceJsonLd, websiteJsonLd } from './seo'
 
 const base = {
   origin: 'https://prokominstalacje.pl',
@@ -26,5 +26,21 @@ describe('serviceJsonLd', () => {
 
   it('leaves out an empty description', () => {
     expect(serviceJsonLd({ ...base, description: '' })).not.toHaveProperty('description')
+  })
+})
+
+describe('websiteJsonLd', () => {
+  it('names the site and points to the Organization of the layout', () => {
+    expect(
+      websiteJsonLd({ origin: 'https://prokominstalacje.pl', name: 'PRO-KOM Instalacje' }),
+    ).toEqual({
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      '@id': 'https://prokominstalacje.pl/#website',
+      name: 'PRO-KOM Instalacje',
+      url: 'https://prokominstalacje.pl/',
+      inLanguage: 'pl-PL',
+      publisher: { '@id': 'https://prokominstalacje.pl/#organization' },
+    })
   })
 })

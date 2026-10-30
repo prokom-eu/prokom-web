@@ -16,7 +16,7 @@ Pliki danych widżetów (ADR-I002 „Pliki danych w kodzie”): każda sesja str
 Zasady stałe: jedna sesja = jedno zadanie = jedna gałąź = jeden PR. Zmiana w strefie wspólnej (ADR-I001 §3) = osobny mały PR `inst/wsp-*` scalony od razu. Nowy pomysł w trakcie = wpis w STAN („Pomysły”), nie „przy okazji”. Telefon w każdej sesji z UI (MOBILE-APLIKACJA §10). SEO w każdej sesji z nową stroną (SEO §2.2–2.3).
 
 ## 1. Sesje i szacunek
-**Od 30.10 obowiązuje plan przyspieszenia** (`prokominstalacje-przyspieszenie.md`: narzędzia po I6, tokeny wszystkich stron jednym PR, auto-merge małych PR-ów, dwie sesje stron równolegle) — pozostałe ≈ 22 wieczory → ≈ 15; tabela niżej to szacunek pierwotny.
+**Od 30.10 obowiązuje plan przyspieszenia** (`prokominstalacje-przyspieszenie.md`: narzędzia po I6, tokeny wszystkich stron jednym PR, auto-merge małych PR-ów, jeden folder i sesje połączone — 31.10) — pozostałe ≈ 22 wieczory → ≈ 15; tabela niżej to szacunek pierwotny.
 
 | Sesja | Zakres | Wieczory | Zależy od |
 |---|---|---|---|

@@ -6,7 +6,8 @@ import { cx } from '@/components/ui/cx'
 import { plural } from '@/lib/plural'
 import { type PopularCard, type PopularTab, visibleCards } from '@/lib/software/popular'
 import type { PriceDisplay } from '@/lib/software/wizard'
-import { SolutionCard } from '@/sites/software/components/catalog/SolutionCard'
+
+import { PopularSolutionCard } from './PopularSolutionCard'
 
 type Props = {
   cards: PopularCard[]
@@ -120,7 +121,7 @@ export function PopularExplorer({ cards, tabs, display, situationNames, count, h
               className="w-[84%] shrink-0 snap-start min-[640px]:w-auto"
               data-testid="popular-card"
             >
-              <SolutionCard
+              <PopularSolutionCard
                 solution={card.solution}
                 display={display}
                 situationNames={situationNames}

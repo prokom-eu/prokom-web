@@ -1,6 +1,6 @@
 # Przyspieszenie budowy — prokombiznes.pl do produkcji (propozycja, 30.10.2026)
 
-> **Status: przyjęta 30.10.2026** (Krystian: „chcę maksymalnie przyspieszyć budowanie”). Fale — `docs/zadania/prokombiznes.md` §7.1; dwa tory i migracje — `docs/sposob-pracy.md`; import treści — ADR-018 (proponowana); zasady P1–P5 i P7 — `CLAUDE.md` i `.claude/commands/zadanie.md` (tekst zmian: §9).
+> **Status: przyjęta 30.10.2026** (Krystian: „chcę maksymalnie przyspieszyć budowanie”). Kolejka sesji (jeden folder) — `docs/zadania/prokombiznes.md` §7.1; migracje z kilku folderów — `docs/sposob-pracy.md`; import treści — ADR-018 (proponowana); zasady P1–P5 i P7 — `CLAUDE.md` i `.claude/commands/zadanie.md` (tekst zmian: §9).
 
 ## 1. Gdzie dziś ucieka czas
 
@@ -14,26 +14,23 @@
 
 ## 2. Nowy podział sesji Biznesu (zamiast §7 pkt 3–17)
 
-Dwa tory w dwóch sesjach naraz. **Tor A** — sesje ze zmianą danych i schematu, po kolei, w folderze `prokom-web-biznes`. **Tor B** — rama i strony, w drugiej sesji (osobny folder albo worktree wg `docs/sposob-pracy.md`). Jedna sesja może wydać 2–3 PR-y „piętrowo” (druga gałąź od pierwszej), bez rytuału pomiędzy nimi.
+**Jeden folder, sesje po kolei** (decyzja Krystiana 30.10: bez drugiego folderu). Zysk bierze się z połączenia sesji i z PR-ów piętrowych (druga gałąź od pierwszej, bez rytuału pomiędzy), nie z równoległości.
 
-| Fala | Tor A (dane, migracje) | Tor B (UI) | Poza kodem |
+| # | Sesja | Zakres | Uwagi |
 |---|---|---|---|
-| **0 — teraz** | K4a-2 (w przeglądzie) | — | **S10: serwer i staging** (Krystian + sesja wg `docs/runbook.md` §1) · **ADR-018: import treści** (pkt 4) |
-| **1** | **K4f** — `/marki` + szablon salonu 2.0 + 20 salonów + usunięcie `Partners.showroom` (było K4f-1 + K4f-2) | **K4bc** — rama + strona główna v150 (było K4b + K4c; 2 PR-y) | staging działa → każdy PR od razu na `develop`/staging |
-| **2** | **K4de** — oferta, kategoria i produkt K4 (było K4d + K4e; wspólna karta produktu) | **K4hij** — strony z blokami: GoPOS, InsERT, Opieka IT, O firmie, Kontakt, KSeF, ulga, automaty (było K4h + K4i + K4j; 3 PR-y) | Lighthouse na stagingu po każdej fali, nie na końcu |
-| **3** | **K4g** — Konfigurator 3.0 + **K31d′** Plan (wspólne sceny i dane) | **M1′-reszta** — tylko to, czego nie zrobiły sesje UI (dolny pasek aplikacji, przejścia) | szef przegląda staging na bieżąco (Asana) |
-| **4** | **Odbiór** — PROD′ + QA-K4 w jednej sesji, na stagingu | — | import treści (ADR-018) → akceptacja szefa → `/wdrozenie produkcja` |
+| 1 | **K4bc** | rama (K4b) + strona główna v150 (K4c) | 2 PR-y piętrowo; rama wpływa na każdy widok, więc pierwsza |
+| 2 | **K4f** | `/marki` + szablon salonu 2.0 + 20 salonów + usunięcie `Partners.showroom` (K4f-1 + K4f-2) | 2 PR-y; dane z K4a-2 |
+| 3 | **K4de** | oferta, kategoria i produkt K4 (K4d + K4e) | wspólna karta produktu |
+| 4 | **K4hij** | GoPOS, InsERT, Opieka IT, O firmie, Kontakt, KSeF, ulga, automaty (K4h + K4i + K4j) | 3 PR-y piętrowo |
+| 5 | **K4g** + **K31d′** | Konfigurator 3.0 + Plan Twojej firmy | wspólne sceny i dane |
+| 6 | **M1′-reszta** | tylko to, czego nie zrobiły sesje UI (dolny pasek aplikacji, przejścia) | |
+| 7 | **Odbiór** | PROD′ + QA-K4 na stagingu → import treści (ADR-018) → akceptacja szefa → produkcja | |
 
-**Efekt:** z 15 kroków po kolei robi się 8 sesji w 4 falach. Telefon (MOBILE-APLIKACJA §4) jest już Definition of Done każdej sesji z UI, więc M1′ kurczy się do resztek.
+**Równolegle, poza kodem:** S10 (serwer i staging) jak najwcześniej; Lighthouse na stagingu po każdej sesji z UI; szef przegląda staging na bieżąco.
+
+**Efekt:** z 15 kroków robi się 7 sesji. Telefon (MOBILE-APLIKACJA §4) jest już Definition of Done każdej sesji z UI, więc M1′ kurczy się do resztek.
 
 **Kolejność cięcia** (§7) zostaje bez zmian — gdy termin goni, tniemy od końca.
-
-### Kto jest właścicielem plików wspólnych w danej fali
-
-Żeby dwie sesje nie pisały tych samych plików:
-- **Fala 1:** K4bc ma `globals.css`, motyw, nagłówek, stopkę i bloki strony głównej; K4f ma trasy `/marki` i komponenty salonów.
-- **Fala 2:** K4de ma kartę produktu (`ProductCard`, `ProductStage`) — K4hij jej używa, nie zmienia; K4hij ma nowe bloki `Pages`.
-- **Zawsze po kolei:** `src/seed/biznes/run.ts`, `src/payload-types.ts`, `src/migrations/*`. Zasada migracji — pkt 3, P6.
 
 ## 3. Zmiany w sposobie pracy (propozycja zmian w `CLAUDE.md`)
 
@@ -78,13 +75,12 @@ Dwa tory w dwóch sesjach naraz. **Tor A** — sesje ze zmianą danych i schemat
 ## 7. Ryzyka tej propozycji
 
 - **Większe PR-y do czytania** — łagodzi to recenzent i podział na PR-y piętrowe w jednej sesji.
-- **Konflikty przy scalaniu dwóch torów** (`run.ts`, `payload-types.ts`, migracje) — łagodzą to właściciele plików w fali i zasada P6.
 - **P2 oznacza mniej punktów kontrolnych w trakcie sesji.** Jeśli wolisz, P2 można włączyć tylko dla sesji UI, a przy migracjach zostać przy diffie przed commitem.
 
 ## 8. Co weszło (PR `docs/przyspieszenie`)
 
 - `docs/zadania/prokombiznes.md` §7.1 — fale i tory.
-- `docs/sposob-pracy.md` — dwa tory, własny port na folder, zasada migracji (P6), bezpieczny test `down`.
+- `docs/sposob-pracy.md` — migracje z kilku folderów, własny port na folder, zasada migracji (P6), bezpieczny test `down`.
 - ADR-018 — jednorazowy import treści (proponowana).
 - `CLAUDE.md` i `.claude/commands/zadanie.md` — zasady P1–P5 i P7 (§9; wprowadzone po zgodzie Krystiana w oknie uprawnień).
 - **Krystian, poza repo:** `PORT=3001` w `.env` folderu `prokom-web-biznes`; drugi folder Biznesu dla toru B (`docs/sposob-pracy.md` → „Dwie strony równolegle”); start S10.
@@ -94,9 +90,9 @@ Dwa tory w dwóch sesjach naraz. **Tor A** — sesje ze zmianą danych i schemat
 Każda pozycja: **zamień** zdanie z `CLAUDE.md` na nowe.
 
 1. Sekcja „Sposób pracy”, przed punktem „Dwie strony równolegle” — **dopisz:**
-   > - **Dwa tory naraz (`docs/zadania/przyspieszenie.md`):** tor A — sesje ze zmianą danych i schematu, po kolei; tor B — rama i strony, w drugim folderze. Najwyżej dwie sesje piszące kod naraz we wszystkich liniach. W fali każdy plik wspólny ma jednego właściciela; `run.ts`, `payload-types.ts` i migracje zawsze po kolei.
+   > - **Biznes w jednym folderze (decyzja Krystiana 30.10):** sesje po kolei wg kolejki `docs/zadania/prokombiznes.md` §7.1 — sesje połączone, 2–3 PR-y piętrowo w jednej sesji, bez drugiego folderu. Najwyżej dwie sesje piszące kod naraz we wszystkich liniach (Biznes, Software, Instalacje).
 2. „Zasady kodu”, punkt o migracji — **dopisz na końcu:**
-   > Przed `/pr` gałąź z migracją: rebase na `origin/develop`, usunięcie własnej migracji i `migrate:create` od nowa (`docs/sposob-pracy.md` → „Dwa tory i migracje”).
+   > Przed `/pr` gałąź z migracją: rebase na `origin/develop`, usunięcie własnej migracji i `migrate:create` od nowa (`docs/sposob-pracy.md` → „Migracje z kilku folderów”).
 3. „Git” — **zamień** „Przed każdym commitem pokaż mi `git diff --staged --stat`… Commit dopiero, gdy Krystian przeczyta zmiany.” **na:**
    > - Commity robisz sam w trakcie sesji: małe, logiczne, Conventional, podpisane, po zielonym `lint/typecheck/test`. **Całość czytam raz, przed `/pr`:** `git diff origin/develop...HEAD --stat`, werdykt recenzenta i Twoja ocena każdej uwagi. PR dopiero po moim „tak”.
 4. „Rzemiosło”, „Małe kroki” — **zamień na:**

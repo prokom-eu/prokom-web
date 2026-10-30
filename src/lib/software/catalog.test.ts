@@ -85,6 +85,7 @@ describe('catalogHref', () => {
       situation: 'R',
       group: 'noclegi',
       preview: true,
+      solution: 'strona-dla-hotelu-lub-pensjonatu',
     }
     const url = new URL(catalogHref(state), 'https://prokomsoftware.pl')
     expect(parseCatalogState(url.searchParams)).toEqual(state)
@@ -147,5 +148,32 @@ describe('catalogSeo', () => {
       canonical: CATALOG_PATH,
     })
     expect(catalogSeo({ ...DEFAULT_CATALOG_STATE, query: 'crm' }).index).toBe(false)
+  })
+})
+
+describe('offer window in the address (?rozwiazanie=, plan §3b decyzja 1)', () => {
+  it('reads the open solution, only a well-formed slug', () => {
+    expect(parseCatalogState(new URLSearchParams('rozwiazanie=strona-wizytowka')).solution).toBe(
+      'strona-wizytowka',
+    )
+    expect(parseCatalogState(new URLSearchParams('rozwiazanie=../admin')).solution).toBeNull()
+    expect(parseCatalogState(new URLSearchParams('rozwiazanie=')).solution).toBeNull()
+  })
+
+  it('writes it last, after the filters', () => {
+    expect(
+      catalogHref({
+        ...DEFAULT_CATALOG_STATE,
+        category: 'strony',
+        solution: 'strona-wizytowka',
+      }),
+    ).toBe('/rozwiazania?kategoria=strony&rozwiazanie=strona-wizytowka')
+  })
+
+  it('an open window is never indexed — the canonical stays the catalog', () => {
+    expect(catalogSeo({ ...DEFAULT_CATALOG_STATE, solution: 'strona-wizytowka' })).toEqual({
+      index: false,
+      canonical: CATALOG_PATH,
+    })
   })
 })

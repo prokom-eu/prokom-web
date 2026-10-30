@@ -18,7 +18,7 @@ export type SolutionCategory = (typeof SOLUTION_CATEGORIES)[number]['value']
  * Area key of each category (`AREA_KEYS`): the gradient of its scenes (`--grad-area-<key>`) and
  * the tab keys of „12 rzeczy” (`popularne.json` → `tabs`).
  */
-export const CATEGORY_AREA: Record<SolutionCategory, string> = {
+export const CATEGORY_AREA: Record<SolutionCategory, AreaKey> = {
   strony: 'www',
   systemy: 'sys',
   aplikacje: 'app',
@@ -59,6 +59,9 @@ export const AREA_KEYS = [
   { label: 'Opieka', value: 'care' },
   { label: 'Audyt', value: 'aud' },
 ] as const
+
+/** Key of an area gradient (`--grad-area-<key>`). */
+export type AreaKey = (typeof AREA_KEYS)[number]['value']
 
 /**
  * Thumbnail gradients of solution cards (ADR-015 rozstrz. 4) — keys only; the colours become
