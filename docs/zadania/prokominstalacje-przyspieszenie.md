@@ -28,7 +28,7 @@ Po narzędziach: **jeden PR `inst/wsp-tokeny-strony`** z tokenami wszystkich poz
 - **Plan sesji**: prompt z §3 jest planem — pytam tylko o decyzje, których prompt nie rozstrzyga (jedno pytanie z opcjami), zamiast osobnej rundy „plan → ok”.
 - **Recenzent w tle**: `/przeglad` rusza, a ja w tym czasie robię porównania i STAN.
 - **Lokalnie**: testy jednostkowe + e2e zmienionej strony; reszta i `build` w CI (już tak jest).
-- **Dwie sesje stron naraz** (po §3): np. I7 i I10 w dwóch folderach (drugi worktree `prokom-instal-2`, `PORT=3003`, własna baza). Każda sesja to osobna gałąź i PR.
+- **Jeden folder, sesje po kolei** (decyzja Krystiana 31.10, jak Biznes): bez drugiego worktree. Zamiast równoległości — sesje połączone: sąsiednie strony w jednej sesji, 2–3 PR-y piętrowo (np. I7 + I8; drugi PR od gałęzi pierwszego, po scaleniu pierwszego przepięty na `develop`).
 
 ## 5. Harmonogram po zmianach
 | Sesja | Było (wieczory) | Po zmianach | Uwagi |
@@ -47,9 +47,9 @@ Po narzędziach: **jeden PR `inst/wsp-tokeny-strony`** z tokenami wszystkich poz
 | I15 staging i produkcja | 1 | 1 | zależy od szefa |
 | **Razem** | **≈ 22** | **≈ 15** | |
 
-Przy 3 sesjach w tygodniu: ≈ 5 tygodni zamiast ≈ 7,5. Z dwiema sesjami stron równolegle (I7–I10, I12) — ok. tydzień mniej.
+Przy 3 sesjach w tygodniu: ≈ 5 tygodni zamiast ≈ 7,5 (jeden folder — liczba wieczorów ta sama, sesje połączone oszczędzają rozruch i cykle CI).
 
-**Kolejność:** I6 → narzędzia + tokeny hurtem → I7, I8, I9, I10 (po dwie naraz) → I11 → I16a → I16b → I16c → I12 → I13 → I14 → I15.
+**Kolejność (jeden folder):** I6 ✅ → narzędzia + tokeny hurtem → I7 + I8 (jedna sesja, 2 PR-y) → I9 → I10 → I11 → I16a → I16b → I16c → I12 → I13 → I14 → I15.
 
 ## 6. Czego nie przyspieszamy
 - `/przeglad` przy formularzach, migracjach, izolacji tenantów i dostępie.
@@ -62,5 +62,5 @@ Przy 3 sesjach w tygodniu: ≈ 5 tygodni zamiast ≈ 7,5. Z dwiema sesjami stron
 - [x] Małe PR-y bez osobnego „ok” + auto-merge po zielonym CI (§4) — zmiana reguły w `CLAUDE.md` („Przed każdym commitem pokaż mi…”) tylko dla PR-ów `inst/wsp-*` bez logiki, dokumentów i poprawek testów.
 - [x] Duże PR-y: jedno czytanie diffu przed PR zamiast przy każdym commicie.
 - [x] Bez osobnej rundy „plan → ok” dla sesji stron z gotowym promptem.
-- [x] Drugi folder Instalacji do pracy równoległej (po tokenach hurtem).
+- [ ] ~~Drugi folder Instalacji do pracy równoległej~~ — zmienione 31.10: jeden folder, sesje połączone (§4).
 - [x] Lista pytań do szefa wysłana teraz (§6).
