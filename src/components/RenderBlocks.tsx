@@ -43,6 +43,7 @@ import { BzTimelineBlock } from '@/sites/biznes/blocks/BzTimeline/Component'
 import { Breadcrumbs } from '@/sites/biznes/components/Breadcrumbs'
 import { BrandMarquee } from '@/sites/biznes/components/home/BrandMarquee'
 import { FaqBiznes } from '@/sites/biznes/components/home/FaqBiznes'
+import { InstHomeBlock } from '@/sites/instalacje/blocks/InstHome/Component'
 import { InstServiceBlock } from '@/sites/instalacje/blocks/InstService/Component'
 import { SwHeroBlock } from '@/sites/software/blocks/SwHero/Component'
 import { SwContactBlock } from '@/sites/software/blocks/SwContact/Component'
@@ -59,6 +60,7 @@ const HERO_BLOCKS = new Set([
   'bzPageHero',
   'swHero',
   'instService',
+  'instHome',
 ])
 
 /**
@@ -191,6 +193,8 @@ export function RenderBlocks({ page, tenant }: Props) {
             return <SwContactBlock key={key} block={block} tenantId={tenant.id} />
           case 'instService':
             return <InstServiceBlock key={key} block={block} tenantId={tenant.id} />
+          case 'instHome':
+            return <InstHomeBlock key={key} block={block} tenantId={tenant.id} />
         }
       })}
     </>

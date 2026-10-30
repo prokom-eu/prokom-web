@@ -4,6 +4,7 @@ import { SERVICE_SECTION_IDS } from '../../lib/instalacje/anchors'
 import { SETTINGS_DEFAULTS } from '../../lib/instalacje/options'
 import { hasSameValues } from '../compare'
 import { SEED_CONTEXT } from '../config'
+import { seedInstalacjeHome } from './home'
 import {
   objectData,
   objectsToImport,
@@ -29,7 +30,7 @@ type Counter = { created: number; updated: number; skipped: number }
  * - Realizations: created as drafts without the client consent when missing, later they belong
  *   to the panel (consent, photos).
  * - Pages: missing ones as empty drafts with title and SEO (blocks come with their sessions);
- *   an existing page is never touched.
+ *   an existing page is never touched — except home, which gets its `instHome` block (I5).
  * - Settings: created while missing, then they belong to the panel. Phone and e-mail of the
  *   line stay as `pnpm seed` set them (`SiteSettings`), the boss fills them in.
  */
@@ -194,9 +195,12 @@ export async function seedInstalacje(payload: Payload): Promise<void> {
     count('realizations', totalDocs === 0 ? 'created' : 'skipped')
   }
 
+  // --- home page (I5): the `instHome` block and SEO, also over the sample page ---
+  await seedInstalacjeHome(payload, tenantId, count)
+
   // --- pages: missing ones as empty drafts with title and SEO; existing ones untouched ---
-  // `home` and `kontakt` are the sample pages of `pnpm seed`, which the tenant isolation test
-  // reads (title = site name); the sessions that build them (I6, I11) set their SEO.
+  // `kontakt` is the sample page of `pnpm seed`, which the tenant isolation test reads; I11,
+  // which builds it, sets its SEO.
   for (const page of pagesToImport()) {
     const { totalDocs } = await payload.count({
       collection: 'pages',

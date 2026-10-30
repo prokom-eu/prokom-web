@@ -3,8 +3,8 @@ import { expect, test } from '@playwright/test'
 import { site } from './helpers'
 
 // Matches src/seed/tenants.ts (run `pnpm seed` before the e2e tests).
-// The Biznes and Software home pages have their own heroes (B7 `seedBiznesHome`, SW5
-// `seedSoftwareHome`); Instalacje the sample one.
+// Every line's home page has its own hero (B7 `seedBiznesHome`, SW5 `seedSoftwareHome`, I5
+// `seedInstalacjeHome`). `title`: the start page's own SEO title, by default the site name.
 // `markers`: content from the panel only that tenant has (hero, its settings' e-mail, the
 // Software mega menu card) — searched in the whole HTML of the other domains, RSC payload too.
 const TENANTS = [
@@ -17,8 +17,9 @@ const TENANTS = [
   {
     host: 'instalacje.localhost',
     name: 'PRO-KOM Instalacje',
-    h1: 'PRO-KOM Instalacje',
-    markers: ['instalacje@example.test'],
+    title: 'Monitoring, alarmy, Wi-Fi, smart home Podhale | PRO-KOM Instalacje',
+    h1: /Twój obiekt na żywo\.$/,
+    markers: ['instalacje@example.test', 'Wybierz obiekt obok'],
   },
   {
     host: 'software.localhost',
@@ -38,7 +39,7 @@ test.describe('tenant isolation', () => {
       const response = await page.goto(site(tenant.host))
       expect(response?.status()).toBe(200)
       await expect(page.locator('h1')).toHaveText(tenant.h1)
-      await expect(page).toHaveTitle(tenant.name)
+      await expect(page).toHaveTitle(tenant.title ?? tenant.name)
 
       // Content of the other tenants: nowhere in the HTML, hidden panels and RSC payload too.
       const html = await page.content()

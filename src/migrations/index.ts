@@ -44,6 +44,7 @@ import * as migration_20261028_234736_software_contact_block from './20261028_23
 import * as migration_20261030_182219_inst_service_block from './20261030_182219_inst_service_block'
 import * as migration_20261030_185159_k4a_categories from './20261030_185159_k4a_categories'
 import * as migration_20261030_194149_software_solutions_v22 from './20261030_194149_software_solutions_v22'
+import * as migration_20261030_200246_inst_home_block from './20261030_200246_inst_home_block'
 
 export const migrations = [
   {
@@ -275,5 +276,10 @@ export const migrations = [
     up: migration_20261030_194149_software_solutions_v22.up,
     down: migration_20261030_194149_software_solutions_v22.down,
     name: '20261030_194149_software_solutions_v22',
+  },
+  {
+    up: migration_20261030_200246_inst_home_block.up,
+    down: migration_20261030_200246_inst_home_block.down,
+    name: '20261030_200246_inst_home_block',
   },
 ]
