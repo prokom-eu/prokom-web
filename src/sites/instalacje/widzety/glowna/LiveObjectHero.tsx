@@ -9,7 +9,14 @@ import {
   useState,
 } from 'react'
 
-import { glowna, HERO_LAYERS, HERO_MODES, HERO_OBJECTS, type HeroLayer } from '../../dane/glowna'
+import {
+  glowna,
+  HERO_LAYERS,
+  HERO_MODES,
+  HERO_OBJECTS,
+  type HeroLayer,
+  type HeroObject,
+} from '../../dane/glowna'
 import { InstIcon } from '../../InstIcon'
 import { INST_ICONS, isInstIconName } from '../../icons'
 import { useInterval } from '../../sekcje/useInterval'
@@ -24,6 +31,7 @@ import {
   previewTime,
   TICK_MS,
 } from './heroModel'
+import { HERO_OBJECT_EVENT } from './heroEvents'
 
 import './glowna.css'
 
@@ -82,6 +90,17 @@ export function LiveObjectHero({ backdrop, children }: Props) {
     setTouched(true)
     setScene((s) => ({ ...s, ...change }))
   }
+  // „Pokaż na żywo” on a „Dla kogo” card (I6): the card's object, autoplay stops.
+  useEffect(() => {
+    const onObject = (event: Event) => {
+      const obj = (event as CustomEvent<HeroObject>).detail
+      if (!HERO_OBJECTS.includes(obj)) return
+      setTouched(true)
+      setScene((s) => ({ ...s, obj }))
+    }
+    window.addEventListener(HERO_OBJECT_EVENT, onObject)
+    return () => window.removeEventListener(HERO_OBJECT_EVENT, onObject)
+  }, [])
   const toggle = (k: HeroLayer) =>
     touch({ layers: has(k) ? scene.layers.filter((x) => x !== k) : [...scene.layers, k] })
 
