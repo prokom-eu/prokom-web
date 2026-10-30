@@ -1709,6 +1709,25 @@
   --il-glow-cyan: #5fd3ee;
   --il-glass: rgba(12, 22, 25, 0.72);
   --il-glass-shadow: rgba(0, 0, 0, 0.7);
+  /* Shared gradients and patterns of the prototype (`zrodlo/header.html` → `.pkdefs`) not
+     covered by `--inst-scene-*`: drawn once per page by `IlDefs`. */
+  --il-g-wood-l1: #8e623e;
+  --il-g-wood-l2: #7a5232;
+  --il-g-wall-d1: #33302c;
+  --il-g-wall-d2: #211e1b;
+  --il-g-wall-l1: #f6ecdd;
+  --il-g-wall-l2: #e2d2ba;
+  --il-g-glass-1: #d6eef5;
+  --il-g-glass-2: #9cc7d4;
+  --il-g-glass-3: #6e9eae;
+  --il-g-dark-1: #26343a;
+  --il-g-dark-2: #121a1d;
+  --il-g-car-2: #c9d3d6;
+  --il-g-floor-line: #212d31;
+  --il-g-floor-l: #f4eee4;
+  --il-g-floor-l-line: #e6ddce;
+  --il-g-plank: #8a5e3a;
+  --il-g-plank-line: #6e4628;
 }
 
 [data-line='software'] {
