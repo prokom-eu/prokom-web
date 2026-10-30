@@ -1,0 +1,549 @@
+{
+  "process": [
+    {
+      "num": "01",
+      "n": "Rozmowa",
+      "t": "30 min",
+      "h": "Opowiadasz, jak pracuje firma. My słuchamy.",
+      "p": "U Ciebie w firmie, w Rabce, Zakopanem albo online. Nie musisz nic przygotowywać ani znać nazw technologii. Pytamy o to, co boli, i o programy, które już masz.",
+      "get": [
+        "Jasną odpowiedź: budować czy kupić gotowe",
+        "Listę programów, które zostają",
+        "Termin, kiedy dostaniesz szkic i wycenę"
+      ],
+      "you": [
+        "Godzina czasu",
+        "Szczerość o tym, co nie działa"
+      ],
+      "pay": "Płacisz: 0 zł",
+      "payd": "Rozmowa i szkic są bezpłatne i bez zobowiązań."
+    },
+    {
+      "num": "02",
+      "n": "Podgląd i wycena",
+      "t": "[DNI] dni",
+      "h": "Zobaczysz, jak to będzie wyglądać. Zanim zapłacisz.",
+      "p": "Dostajesz szkic rozwiązania do klikania i wycenę na piśmie: zakres, stała cena, etapy, termin. Zmiany spoza zakresu tylko po Twojej zgodzie.",
+      "get": [
+        "Szkic systemu do klikania",
+        "Wycenę na piśmie, ważną 30 dni",
+        "Plan etapów z terminami"
+      ],
+      "you": [
+        "Uwagi do szkicu",
+        "Decyzję: start albo nie"
+      ],
+      "pay": "Płacisz: [ZALICZKA] po podpisaniu",
+      "payd": "Reszta dopiero po odbiorze kolejnych etapów. [ZASADY PŁATNOŚCI]"
+    },
+    {
+      "num": "03",
+      "n": "Budowa",
+      "t": "[TYGODNIE] tyg.",
+      "h": "Co tydzień klikasz nową wersję. Nie czytasz raportów.",
+      "p": "Budujemy etapami. Co tydzień dostajesz link do wersji testowej: klikasz, zgłaszasz uwagi, my poprawiamy. Pierwszy etap zaczyna pracować, zanim skończymy ostatni.",
+      "get": [
+        "Wersję testową co tydzień",
+        "Pierwszy etap działający po [CZAS PIERWSZEGO ETAPU]",
+        "Listę zmian po każdym tygodniu"
+      ],
+      "you": [
+        "15 minut tygodniowo na kliknięcie",
+        "Treści i zdjęcia, jeśli masz własne"
+      ],
+      "pay": "Płacisz: po odbiorze każdego etapu",
+      "payd": "Etap odbierasz, gdy działa u Ciebie. Wtedy faktura."
+    },
+    {
+      "num": "04",
+      "n": "Wdrożenie",
+      "t": "1–2 dni",
+      "h": "Uruchomienie bez zatrzymywania firmy.",
+      "p": "Przenosimy dane, zakładamy konta, szkolimy ludzi na ich własnych zleceniach. Start w poniedziałek rano, a stary sposób działa równolegle, dopóki nie powiesz „wyłączamy”.",
+      "get": [
+        "Dane przeniesione i sprawdzone",
+        "Szkolenie w biurze i krótką instrukcję",
+        "Dostępy, domenę i kod na Twoje konto"
+      ],
+      "you": [
+        "Półtorej godziny zespołu na szkolenie",
+        "Decyzję o dniu startu"
+      ],
+      "pay": "Płacisz: ostatnią część po odbiorze",
+      "payd": "Protokół odbioru z pomiarem szybkości i listą tego, co działa."
+    },
+    {
+      "num": "05",
+      "n": "Opieka",
+      "t": "co miesiąc",
+      "h": "Działa także za rok. I rośnie z firmą.",
+      "p": "Kopie codziennie, aktualizacje, monitoring, który często widzi problem przed Tobą, i czas reakcji zapisany w umowie. Gdy firma rośnie, dokładamy kolejny moduł na tym samym fundamencie.",
+      "get": [
+        "Kopie, aktualizacje, monitoring",
+        "Czas reakcji na piśmie",
+        "Raport co miesiąc od opieki Rozszerzonej"
+      ],
+      "you": [
+        "Nic. Ewentualnie pomysł na kolejny moduł"
+      ],
+      "pay": "Płacisz: od [OPIEKA OD] zł / mies.",
+      "payd": "Trzy poziomy opieki. Możesz zrezygnować, kod i dane zostają Twoje."
+    }
+  ],
+  "processShort": [
+    {
+      "num": "01",
+      "title": "Rozmowa",
+      "text": "Opowiadasz, jak pracuje firma i co boli."
+    },
+    {
+      "num": "02",
+      "title": "Podgląd i wycena",
+      "text": "Pokazujemy, jak to może wyglądać. Zakres, cena i termin na piśmie."
+    },
+    {
+      "num": "03",
+      "title": "Budowa",
+      "text": "Co tydzień widzisz postęp i zgłaszasz uwagi."
+    },
+    {
+      "num": "04",
+      "title": "Wdrożenie",
+      "text": "Uruchomienie, szkolenie i krótka instrukcja."
+    },
+    {
+      "num": "05",
+      "title": "Opieka",
+      "text": "Kopie, aktualizacje, poprawki i rozwój."
+    }
+  ],
+  "guarantees": [
+    {
+      "title": "Stała cena za zakres",
+      "text": "Wycena na piśmie przed startem. Zmiany spoza zakresu tylko po Twojej zgodzie.",
+      "icon": "M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"
+    },
+    {
+      "title": "Wersja testowa co tydzień",
+      "text": "Widzisz postęp na własne oczy, a nie w raporcie.",
+      "icon": "M3 4h18v12H3zM8 20h8M12 16v4"
+    },
+    {
+      "title": "Kod i dostępy są Twoje",
+      "text": "Domena, serwer, panel i kod należą do Twojej firmy.",
+      "icon": "M4 10h16v11H4zM8 10V7a4 4 0 0 1 8 0v3"
+    },
+    {
+      "title": "Bez uwiązania",
+      "text": "Dokumentacja pozwala przekazać projekt komuś innemu. Zostajesz, bo chcesz.",
+      "icon": "M9 6l-6 6 6 6M15 6l6 6-6 6"
+    },
+    {
+      "title": "Dane zawsze u Ciebie",
+      "text": "Eksport Twoich danych na każde żądanie, w Opiece Systemy co miesiąc.",
+      "icon": "M12 3v12M7 10l5 5 5-5M4 21h16"
+    },
+    {
+      "title": "Czas reakcji na piśmie",
+      "text": "W opiece wiesz, kiedy odpowiemy i kiedy naprawimy.",
+      "icon": "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 7v5l3 2"
+    }
+  ],
+  "compare": {
+    "columns": [
+      "kryterium",
+      "ikona freelancer",
+      "freelancer",
+      "ikona agencja",
+      "agencja z dużego miasta",
+      "PRO-KOM Software"
+    ],
+    "rows": [
+      [
+        "Podgląd na żywo przed zakupem",
+        "–",
+        "rzadko, zwykle po zaliczce",
+        "–",
+        "makiety, zwykle płatne",
+        "na stronie, od razu, za darmo"
+      ],
+      [
+        "Kod, domena i dane należą do Ciebie",
+        "?",
+        "zależy od umowy",
+        "?",
+        "zależy od umowy; bywa licencja",
+        "tak, zapisane w umowie"
+      ],
+      [
+        "Czas reakcji na piśmie",
+        "–",
+        "zwykle brak",
+        "?",
+        "w droższych pakietach",
+        "w każdym poziomie opieki"
+      ],
+      [
+        "Firma, która nie zniknie",
+        "?",
+        "jedna osoba, jeden telefon",
+        "✓",
+        "tak",
+        "biuro w Rabce i Zakopanem, od 2004 r."
+      ],
+      [
+        "Spotkanie u Ciebie w firmie",
+        "?",
+        "czasem",
+        "–",
+        "zwykle online",
+        "na Podhalu i w Małopolsce, tak"
+      ],
+      [
+        "Sprzęt, sieć i kasy od tej samej firmy",
+        "–",
+        "nie",
+        "–",
+        "nie",
+        "tak, przez PRO-KOM Biznes i Instalacje"
+      ]
+    ]
+  },
+  "heroModules": [
+    [
+      "www",
+      "Strona",
+      "M3 5h18v14H3zM3 9h18M7 7h.01M10 7h.01"
+    ],
+    [
+      "zlec",
+      "Zlecenia i grafik",
+      "M3 4h18v16H3zM3 9h18M9 9v11"
+    ],
+    [
+      "app",
+      "Aplikacja ekipy",
+      "M8 2h8a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zM11 18h2"
+    ],
+    [
+      "fv",
+      "Twój program do faktur",
+      "M6 2h9l5 5v15H6zM14 2v6h6M9 14h6M9 18h4"
+    ],
+    [
+      "sms",
+      "SMS do klientów",
+      "M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"
+    ],
+    [
+      "rap",
+      "Raport dla szefa",
+      "M4 20V10M10 20V4M16 20v-7M22 20H2"
+    ],
+    [
+      "ai",
+      "Asystent AI",
+      "M13 2L4 14h7l-1 8 9-12h-7z"
+    ]
+  ],
+  "livePreviews": {
+    "www": {
+      "label": "Strona",
+      "icon": "M3 5h18v14H3zM3 9h18M7 7h.01M10 7h.01",
+      "tag": "Strony internetowe",
+      "title": "Strona, która zbiera zapytania, a nie kurz",
+      "text": "Szybka, czytelna na telefonie i przygotowana pod Google. Treści zmieniasz sam w prostym panelu.",
+      "href": "/rozwiazania",
+      "a": "Nowe zapytanie z formularza",
+      "as": "remont łazienki · przed chwilą",
+      "b": "Wersja na telefon",
+      "bs": "gotowa od pierwszego dnia",
+      "steps": [
+        [
+          "Klient wchodzi z Google",
+          "na telefonie, strona gotowa w mniej niż 2,5 sekundy"
+        ],
+        [
+          "Wypełnia „Umów wycenę”",
+          "dwa pola, bez zakładania konta"
+        ],
+        [
+          "Ty dostajesz maila od razu",
+          "z numerem, opisem i zdjęciem, jeśli dodał"
+        ]
+      ]
+    },
+    "rez": {
+      "label": "Noclegi",
+      "icon": "M4 5h16v16H4zM4 10h16M9 3v4M15 3v4",
+      "tag": "Pensjonaty i lokale",
+      "title": "Zapytania o termin prosto do Ciebie",
+      "text": "Pokoje, galeria i trzy języki. Gość pisze bezpośrednio do Ciebie, bez prowizji portalu, a Ty dostajesz powiadomienie na telefon.",
+      "href": "/rozwiazania",
+      "a": "Nowe zapytanie o termin",
+      "as": "pokój z widokiem · 12–15 sty",
+      "b": "PL · EN · DE",
+      "bs": "goście piszą w swoim języku",
+      "steps": [
+        [
+          "Gość ogląda pokoje",
+          "zdjęcia, ceny i okolica w swoim języku"
+        ],
+        [
+          "Wysyła zapytanie",
+          "w swoim języku, bez portalu z prowizją"
+        ],
+        [
+          "Ty potwierdzasz jednym dotknięciem",
+          "z telefonu, w drodze na zakupy"
+        ]
+      ]
+    },
+    "sys": {
+      "label": "System firmowy",
+      "icon": "M3 4h18v16H3zM3 9h18M9 9v11",
+      "tag": "Systemy i panele",
+      "title": "Cała firma w jednym panelu",
+      "text": "Zlecenia, kalendarz, klienci, magazyn i raporty. Zbudowane pod to, jak pracujecie, a nie odwrotnie.",
+      "href": "/rozwiazania",
+      "a": "Zlecenie przypisane",
+      "as": "ekipa Marka · jutro 8:00",
+      "b": "Raport tygodniowy",
+      "bs": "gotowy w poniedziałek rano",
+      "steps": [
+        [
+          "Rano: pulpit",
+          "co dziś, kto gdzie, co czeka na fakturę"
+        ],
+        [
+          "Jedno kliknięcie: zlecenie do ekipy",
+          "termin, adres, materiały, klient dostaje SMS"
+        ],
+        [
+          "Wieczorem: nic do przepisania",
+          "wszystko już jest w systemie"
+        ]
+      ]
+    },
+    "app": {
+      "label": "Aplikacja mobilna",
+      "icon": "M8 2h8a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zM11 18h2",
+      "tag": "Aplikacje mobilne",
+      "title": "Aplikacja w kieszeni każdego pracownika",
+      "text": "iOS i Android z jednego kodu. Działa bez zasięgu, robi zdjęcia, zbiera podpisy i od razu aktualizuje biuro.",
+      "href": "/rozwiazania/aplikacja-dla-ekip-w-terenie",
+      "a": "Działa bez zasięgu",
+      "as": "wyśle się, gdy wróci sieć",
+      "b": "Podpis klienta zapisany",
+      "bs": "protokół już w biurze",
+      "steps": [
+        [
+          "Ekipa otwiera zlecenie",
+          "adres, lista zadań, zdjęcia „przed”"
+        ],
+        [
+          "Odhacza, fotografuje, klient podpisuje",
+          "na telefonie, także bez zasięgu"
+        ],
+        [
+          "Biuro ma protokół w sekundę",
+          "i może od razu wystawić fakturę"
+        ]
+      ]
+    },
+    "auto": {
+      "label": "Automatyzacje i AI",
+      "icon": "M13 2L4 14h7l-1 8 9-12h-7z",
+      "tag": "Automatyzacje i AI",
+      "title": "Powtarzalna robota robi się sama",
+      "text": "Formularz, SMS, faktura, raport. Łączymy programy, których już używasz, i dokładamy asystenta AI tam, gdzie oszczędza czas.",
+      "href": "/rozwiazania",
+      "a": "Faktura przekazana",
+      "as": "do Twojego programu",
+      "b": "Odpowiedź przygotowana",
+      "bs": "asystent AI, Ty zatwierdzasz",
+      "steps": [
+        [
+          "Przychodzi zapytanie",
+          "ze strony, maila albo Messengera"
+        ],
+        [
+          "Asystent streszcza i proponuje odpowiedź",
+          "po polsku, angielsku, niemiecku"
+        ],
+        [
+          "Ty klikasz „wyślij”",
+          "albo poprawiasz jedno zdanie"
+        ]
+      ]
+    }
+  },
+  "showcase": {
+    "title": "Najpierw zbudowaliśmy to dla siebie.",
+    "lead": "Na tych systemach na co dzień pracuje PRO-KOM: sklepy, serwis i biuro. Możesz je otworzyć i sprawdzić.",
+    "items": [
+      {
+        "name": "prokomserwis.pl",
+        "status": "działa",
+        "text": "System serwisu: przyjęcia napraw, status dla klienta, SMS o gotowości, panel pracowników.",
+        "url": "https://prokomserwis.pl"
+      },
+      {
+        "name": "pro-kom.eu",
+        "status": "działa",
+        "text": "Strona firmy przeniesiona ze starego systemu na nowoczesny, z prostym panelem treści dla pracowników.",
+        "url": "https://pro-kom.eu"
+      },
+      {
+        "name": "prokombiznes.pl",
+        "status": "w budowie",
+        "text": "Katalog sprzętu i programów z wyszukiwarką, filtrami i listą zapytań ofertowych.",
+        "url": "https://prokombiznes.pl"
+      }
+    ],
+    "stats": [
+      {
+        "v": "2004",
+        "l": "Od tego roku PRO-KOM działa na Podhalu. Software to nowa linia firmy, która istnieje naprawdę."
+      },
+      {
+        "v": "100+",
+        "l": "klientów biznesowych PRO-KOM na Podhalu i w Małopolsce."
+      },
+      {
+        "v": "[WYNIK]",
+        "l": "szybkość tej strony na telefonie (Lighthouse, mierzone, nie obiecywane)."
+      },
+      {
+        "v": "0",
+        "l": "banerów cookies na tej stronie. Analityka bez śledzenia Twoich klientów."
+      }
+    ],
+    "_info": "Sekcja #realizacje. Statystyka „0 banerów cookies” prawdziwa tylko przy analityce bez ciasteczek (spec. §1 pkt 6). [WYNIK] = zmierzony wynik produkcji. Opis prokombiznes.pl bez „porównywarki” i liczby produktów (SW0, spec. §13 pkt 22)."
+  },
+  "_info": "Treści sekcji strony głównej. process = 5 etapów sekcji #proces (ST w Main.dc.html; etap 3 nazywa się „Budowa”). processShort = wersja skrócona (inne miejsca); etap 3 ujednolicony do „Budowa”. guarantees = #zasady, compare = #porownanie, livePreviews = #podglady, heroModules = makieta hero, showcase = #realizacje. Gdzie w Payload: pola bloków sw* (ADR-014 §2). Placeholdery w tekstach rozwiązuje SiteSettings.software.facts. v21 (29.10): homeOrder wg ZMIANY-v21 §2 — kreator przed procesem, „Jak robimy” i „Z czego budujemy” wróciły na główną, realizacje przed zasadami.",
+  "whyNotWordpress": {
+    "_info": "v20 (25.10.2026, prośba Krystiana; treść na podstawie pro-kom.eu/tworzenie-stron-internetowych). Sekcja między kreatorem a zasadami. Fakty ze źródłem.",
+    "eyebrow": "Dlaczego nie WordPress i PHP",
+    "title": "Bez wtyczek do łatania. Bez nocnych aktualizacji.",
+    "lead": "WordPress to dobre narzędzie do bloga. Strona firmy, której nikt na co dzień nie pilnuje, płaci za niego bezpieczeństwem i szybkością. Dlatego piszemy strony od podstaw, bez PHP.",
+    "facts": [
+      {
+        "v": "7 966",
+        "t": "nowych luk w WordPressie i wtyczkach w 2024 r. To ok. 22 dziennie, 96% we wtyczkach.",
+        "src": "Patchstack, „State of WordPress Security in 2025”"
+      },
+      {
+        "v": "72 h",
+        "t": "na zgłoszenie wycieku danych klientów do UODO. Za brak zgłoszenia grozi kara do 10 mln euro albo 2% rocznego obrotu.",
+        "src": "RODO, art. 33 i art. 83 ust. 4"
+      },
+      {
+        "v": "0",
+        "t": "wtyczek do aktualizacji na naszych stronach. Jeden kod, który znamy w całości.",
+        "src": "Next.js, TypeScript, panel Payload"
+      }
+    ],
+    "compare": {
+      "columns": [
+        "",
+        "WordPress z wtyczkami",
+        "Strona od PRO-KOM"
+      ],
+      "rows": [
+        [
+          "Szybkość",
+          "motyw i kilkanaście wtyczek ładuje się przy każdym wejściu",
+          "strona czeka gotowa, treść w mniej niż 2,5 s"
+        ],
+        [
+          "Bezpieczeństwo",
+          "każda wtyczka to inny autor i inna luka",
+          "jeden kod, bez PHP i bez wtyczek"
+        ],
+        [
+          "Aktualizacje",
+          "ktoś musi je robić co tydzień",
+          "robimy je my, w opiece"
+        ],
+        [
+          "Wygląd",
+          "gotowy szablon, jak u setek innych firm",
+          "projekt pod Twoją firmę"
+        ],
+        [
+          "Google i AI",
+          "zależy od wtyczek i ich ustawień",
+          "w cenie: dane firmy, opisy, szybkość"
+        ],
+        [
+          "Zmiana treści",
+          "rozbudowany panel z setką opcji",
+          "panel po polsku, tylko Twoje pola"
+        ]
+      ]
+    },
+    "cta": {
+      "title": "Masz stronę na WordPressie?",
+      "text": "Przeniesiemy treści, zdjęcia i adresy, bez utraty pozycji w Google. Starą instalację usuwamy z serwera po odbiorze.",
+      "buttons": [
+        [
+          "Sprawdź swoją stronę za darmo",
+          "/audyt"
+        ],
+        [
+          "Przebudowa od 1 499 zł →",
+          "/rozwiazania/przebudowa-starej-strony"
+        ]
+      ],
+      "link": [
+        "Uczciwe porównanie: kiedy WordPress ma sens, a kiedy nie →",
+        "/aktualnosci/wordpress-czy-strona-od-zera"
+      ]
+    }
+  },
+  "homeOrder": {
+    "_info": "v21 (29.10.2026): kolejność sekcji strony głównej wg ZMIANY-v21 §2. Technologie i „Jak robimy” wróciły na główną; porównanie zostaje na /o-firmie.",
+    "order": [
+      "hero",
+      "intents",
+      "areas",
+      "popular",
+      "livePreviews",
+      "wizard",
+      "process",
+      "howWeBuild",
+      "whyNotWordpress",
+      "technologies",
+      "showcase",
+      "guarantees",
+      "faq",
+      "contact"
+    ],
+    "movedToAbout": [
+      "compare"
+    ]
+  },
+  "proceduralMock": {
+    "_info": "Makieta wyceny w sekcji procesu (przykład, wyraźnie fikcyjny klient). Przykład wyceny na piśmie dla większego zakresu (kwoty powyżej cen „od” — zakres klienta po rozmowie); połączenie z programem bez ceny publicznej (automatyzacje = „Zapytaj o wycenę”).",
+    "number": "PKS-2026-0142",
+    "title": "System zleceń + czas pracy",
+    "rows": [
+      [
+        "Etap 1 · zlecenia i grafik",
+        "5 990 zł"
+      ],
+      [
+        "Etap 2 · czas pracy ekip",
+        "2 990 zł"
+      ],
+      [
+        "Połączenie z Subiektem",
+        "po sprawdzeniu programu"
+      ]
+    ],
+    "total": "8 980 zł netto (etapy 1–2)",
+    "term": "10 tygodni",
+    "totalLabel": "Razem etapy 1–2, stała cena"
+  }
+}

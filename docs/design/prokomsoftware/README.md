@@ -1,5 +1,7 @@
 # prokomsoftware.pl — wzorzec wyglądu
 
+> **30.10.2026 — wgrana wizualizacja v21 + v22 (W-v22).** Plansze, zrzuty i stany w tym folderze są już **v22** (jedna cena „od”, kreator w 4 krokach, okno szczegółów oferty, ciemna stopka, kontakt z „Twoim projektem”, nowa kolejność strony głównej). Opis niżej jest jeszcze z v20 — **do czasu SWD2 źródła: `ZMIANY-v21.md` (§11 = v22 wygrywa) i `PRZEKAZANIE-v22.md`.** Nowe: `stany/kreator-*` (zastępują dawne 50–55 i 87), `stany/okno-*` (okno oferty; 12 rzeczy = `okno-99-main-grid-*`, zastępują 20–21), `stany/kontakt-*`, `miniatury/` (29 SVG rozwiązań), `seed-v22/` (nowy seed — przenoszony do `seed/prokomsoftware/` w SWR1–SWR5). Pełną aktualizację tego pliku robi SWD2.
+
 Wizualizację całej strony przygotował i zaakceptował Krystian 18.10.2026 („cała strona v3”), a 25.10.2026 przebudował ją po audycie: **v20 — telefon jak aplikacja, ceny, nowa kolejność strony głównej, sekcja „Dlaczego nie WordPress i PHP”, strony prawne (16 plansz)**. Co się zmieniło: `ZMIANY-v20.md` — **wniesione do spec., ADR-014/015 i planu w SWD1 (25.10.2026); dziś tylko historia, źródłem prawdy jest spec.**; prompty: `PRZEKAZANIE-v20.md`. To **cel wizualny**. Pozostałe dokumenty:
 - zakres i zachowania: `docs/strony/prokomsoftware.md`;
 - model danych: `docs/decyzje/ADR-014-model-tresci-prokomsoftware.md`;

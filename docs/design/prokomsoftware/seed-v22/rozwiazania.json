@@ -1,0 +1,1407 @@
+{
+  "_info": "Rozwiązania z planszy Katalog (29 + 1 usunięte, patrz removed). Ceny netto zaakceptowane przez Krystiana 25.10.2026 (claude/software-cennik.md), przed publikacją akceptacja szefa. v22 (29.10.2026, decyzja Krystiana): JEDNA CENA „OD” — nie ma wersji Na start / Standard. priceFrom = cena „od” (dawna Na start), leadTime = termin „od” (np. „od 2 tygodni”); included = co jest w cenie „od” (okno oferty: karta „W cenie”), moreExamples = przykłady „Potrzebujesz więcej?” wyceniane na piśmie w 5–7 dni (dawne punkty Standardu — nigdy cena). Wyjątki z 3 pozycjami (inne usługi, nie wersje): opieka (levels: Podstawowa 149 / Rozszerzona 299 / Systemy 790 zł/mies., priceNote) i audyt (levels: szybki 0 / pełny 990 / strona+program albo dostępność 1 990 zł). Przejęcie po informatyku: od 990 zł jednorazowo (dokumentacja i przeniesienie — wycena po sprawdzeniu). Aplikacje i automatyzacje: priceFrom/leadTime = null → „Zapytaj o wycenę”. category = 5 kategorii katalogu. related = 3 powiązane rozwiązania („Dobrze łączy się z”). example = „Przykład z życia”. featured* = karty „12 rzeczy” na stronie głównej (te same nazwy i teksty co w katalogu).",
+  "situations": {
+    "Z": "Zaczynam od zera",
+    "R": "Mam już stronę lub program",
+    "P": "Mam kilka programów, które się nie dogadują"
+  },
+  "areas": {
+    "www": "strony",
+    "sys": "systemy",
+    "app": "aplikacje",
+    "auto": "automatyzacje",
+    "care": "opieka"
+  },
+  "items": [
+    {
+      "legacyId": 1,
+      "slug": "strona-firmowa-z-panelem",
+      "name": "Strona firmowa z panelem",
+      "label": "Strona",
+      "tag": "PANEL TREŚCI",
+      "lead": "Oferta, realizacje, opinie, formularz prosto do Ciebie. Treści zmieniasz sam.",
+      "features": [
+        "Do 5 podstron i panel do zmian",
+        "Formularz prosto na Twoją skrzynkę",
+        "Przygotowana pod Google i AI"
+      ],
+      "forWhom": "każda firma usługowa, handlowa, produkcyjna",
+      "situations": [
+        "Z"
+      ],
+      "industryGroups": [
+        "budowlanka-i-ekipy",
+        "turystyka-i-wydarzenia",
+        "zdrowie-i-uroda",
+        "uslugi-i-transport",
+        "handel-i-producenci",
+        "edukacja-i-organizacje"
+      ],
+      "hasLivePreview": true,
+      "toast": "Nowe zapytanie z formularza",
+      "keywords": "strona firmowa www oferta realizacje",
+      "priceFrom": 2490,
+      "leadTime": "od 2 tygodni",
+      "cardGradient": null,
+      "featuredOrder": 2,
+      "featuredName": "Strona firmowa z panelem",
+      "featuredLead": "Oferta, realizacje, opinie, formularz prosto do Ciebie. Treści zmieniasz sam.",
+      "featuredFeatures": [
+        "Do 5 podstron i panel do zmian",
+        "Formularz prosto na Twoją skrzynkę",
+        "Przygotowana pod Google i AI"
+      ],
+      "featuredTag": "PANEL TREŚCI",
+      "category": "strony",
+      "priceNote": null,
+      "related": [
+        "opieka-nad-strona-i-systemem",
+        "wyceny-i-oferty-z-pdf",
+        "crm-dla-malej-i-sredniej-firmy"
+      ],
+      "example": "Firma remontowa pokazuje realizacje ze zdjęciami i opisem. Klient wypełnia formularz, a zapytanie od razu trafia na skrzynkę szefa. Nową realizację dodajesz sam w panelu, bez dzwonienia do informatyka.",
+      "included": [
+        "Do 5 podstron i panel do zmian",
+        "Formularz prosto do Ciebie",
+        "Gotowa pod Google i AI"
+      ],
+      "moreExamples": [
+        "do 10 podstron",
+        "realizacje",
+        "opinie i aktualności"
+      ]
+    },
+    {
+      "legacyId": 2,
+      "slug": "strona-dla-hotelu-lub-pensjonatu",
+      "name": "Strona dla pensjonatu lub hotelu",
+      "label": "Strona",
+      "tag": "PL · EN · DE",
+      "lead": "Pokoje, zapytanie o termin, trzy języki. Gość pisze do Ciebie, nie przez portal z prowizją.",
+      "features": [
+        "3 języki, pokoje, galeria",
+        "Zapytanie o termin prosto do Ciebie",
+        "Panel: ceny i zdjęcia zmieniasz sam"
+      ],
+      "forWhom": "pensjonaty, hotele, apartamenty, domki",
+      "situations": [
+        "Z"
+      ],
+      "industryGroups": [
+        "noclegi"
+      ],
+      "hasLivePreview": true,
+      "toast": "Zapytanie o termin · 12–15 sty",
+      "keywords": "pensjonat hotel noclegi gosc portal booking prowizja apartament",
+      "priceFrom": 1999,
+      "leadTime": "od 2 tygodni",
+      "cardGradient": "135deg, #F3B07C, #F7D9B5",
+      "featuredOrder": 6,
+      "featuredName": "Strona dla pensjonatu lub hotelu",
+      "featuredLead": "Pokoje, zapytanie o termin, trzy języki. Gość pisze do Ciebie, nie przez portal z prowizją.",
+      "featuredFeatures": [
+        "3 języki, pokoje, galeria",
+        "Zapytanie o termin prosto do Ciebie",
+        "Panel: ceny i zdjęcia zmieniasz sam"
+      ],
+      "featuredTag": "PL · EN · DE",
+      "category": "strony",
+      "priceNote": "Zapytanie o termin w cenie. Rezerwacja z zaliczką online — osobna wycena.",
+      "related": [
+        "aplikacja-do-rezerwacji-dla-gosci",
+        "powiadomienia-sms-i-e-mail",
+        "opieka-nad-strona-i-systemem"
+      ],
+      "example": "Gość z Niemiec trafia na stronę po niemiecku, ogląda pokoje i wysyła zapytanie o termin. Wiadomość przychodzi prosto do Ciebie, bez prowizji portalu. Ceny i zdjęcia zmieniasz sam w panelu.",
+      "included": [
+        "Pokoje, galeria i okolica: PL · EN · DE",
+        "Zapytanie o termin prosto do Ciebie",
+        "Panel: ceny i zdjęcia zmieniasz sam"
+      ],
+      "moreExamples": [
+        "cennik sezonowy i oferty specjalne",
+        "atrakcje w okolicy",
+        "opinie gości"
+      ]
+    },
+    {
+      "legacyId": 3,
+      "slug": "strona-dla-restauracji-lub-baru",
+      "name": "Strona dla restauracji lub baru",
+      "label": "Strona",
+      "tag": "MENU + STOLIK",
+      "lead": "Menu zmieniasz sam w panelu. Gość sprawdza godziny w sezonie i rezerwuje stolik przez formularz.",
+      "features": [
+        "Menu zmieniasz sam w kilka minut",
+        "Formularz rezerwacji stolika",
+        "Mapa, dojazd i godziny w sezonie"
+      ],
+      "forWhom": "restauracje, bary, kawiarnie, catering",
+      "situations": [
+        "Z"
+      ],
+      "industryGroups": [
+        "gastronomia"
+      ],
+      "hasLivePreview": false,
+      "toast": "Rezerwacja stolika · 19:00",
+      "keywords": "restauracja bar menu stolik dowoz kawiarnia catering gastronomia",
+      "priceFrom": 1999,
+      "leadTime": "od 2 tygodni",
+      "cardGradient": "135deg, #D8C3A8, #A38363",
+      "featuredOrder": 5,
+      "featuredName": "Strona dla restauracji lub baru",
+      "featuredLead": "Menu zmieniasz sam w panelu. Gość sprawdza godziny w sezonie i rezerwuje stolik przez formularz.",
+      "featuredFeatures": [
+        "Menu zmieniasz sam w kilka minut",
+        "Formularz rezerwacji stolika",
+        "Mapa, dojazd i godziny w sezonie"
+      ],
+      "featuredTag": "MENU + STOLIK",
+      "category": "strony",
+      "priceNote": null,
+      "related": [
+        "powiadomienia-sms-i-e-mail",
+        "opieka-nad-strona-i-systemem",
+        "strona-firmowa-z-panelem"
+      ],
+      "example": "Bar zmienia menu dnia w panelu w kilka minut. Gość sprawdza godziny w sezonie, klika „dojazd” i wysyła formularz rezerwacji stolika, a zgłoszenie przychodzi prosto do Ciebie.",
+      "included": [
+        "Menu w panelu, godziny i mapa",
+        "Formularz rezerwacji stolika",
+        "Telefon i dojazd jednym kliknięciem"
+      ],
+      "moreExamples": [
+        "menu w dwóch językach",
+        "podstrona imprez okolicznościowych z zapytaniem"
+      ]
+    },
+    {
+      "legacyId": 4,
+      "slug": "strona-wizytowka",
+      "name": "Strona wizytówka",
+      "label": "Strona",
+      "tag": "1 STRONA",
+      "lead": "Jedna strona, z której klient od razu dzwoni albo pisze. Dobra na start w Google.",
+      "features": [
+        "Oferta, mapa, telefon i formularz",
+        "Wygodna na telefonie",
+        "Gotowa już od tygodnia"
+      ],
+      "forWhom": "jednoosobowe firmy, rzemiosło, start",
+      "situations": [
+        "Z"
+      ],
+      "industryGroups": [
+        "budowlanka-i-ekipy",
+        "zdrowie-i-uroda",
+        "uslugi-i-transport",
+        "edukacja-i-organizacje"
+      ],
+      "hasLivePreview": false,
+      "toast": "Telefon ze strony · 3 min temu",
+      "keywords": "wizytowka prosta mala strona",
+      "priceFrom": 999,
+      "leadTime": "od 1 tygodnia",
+      "cardGradient": null,
+      "featuredOrder": 1,
+      "featuredName": "Strona wizytówka",
+      "featuredLead": "Jedna strona, z której klient od razu dzwoni albo pisze. Dobra na start w Google.",
+      "featuredFeatures": [
+        "Oferta, mapa, telefon i formularz",
+        "Wygodna na telefonie",
+        "Gotowa już od tygodnia"
+      ],
+      "featuredTag": "1 STRONA",
+      "category": "strony",
+      "priceNote": null,
+      "related": [
+        "opieka-nad-strona-i-systemem",
+        "landing-page",
+        "strona-firmowa-z-panelem"
+      ],
+      "example": "Hydraulik chce, żeby klient z Google od razu do niego zadzwonił. Jedna strona: usługi, obszar działania, mapa i duży przycisk „Zadzwoń”.",
+      "included": [
+        "Jedna strona: oferta, telefon, mapa i formularz",
+        "Wygodna na telefonie",
+        "Gotowa pod Google"
+      ],
+      "moreExamples": [
+        "galeria i opinie klientów",
+        "więcej sekcji",
+        "Profil Firmy w Google ustawiony razem ze stroną"
+      ]
+    },
+    {
+      "legacyId": 5,
+      "slug": "przebudowa-starej-strony",
+      "name": "Przebudowa starej strony",
+      "label": "Strona",
+      "tag": "BEZ UTRATY SEO",
+      "lead": "Nowa, szybka, bez utraty pozycji w Google. Stary adres działa dalej.",
+      "features": [
+        "Przeniesienie treści i adresów",
+        "Bez utraty pozycji w Google",
+        "Stara wyłączona po odbiorze"
+      ],
+      "forWhom": "firmy ze stroną sprzed 5+ lat albo z WordPressa",
+      "situations": [
+        "R"
+      ],
+      "industryGroups": [
+        "budowlanka-i-ekipy",
+        "noclegi",
+        "turystyka-i-wydarzenia",
+        "gastronomia",
+        "zdrowie-i-uroda",
+        "uslugi-i-transport",
+        "handel-i-producenci",
+        "edukacja-i-organizacje"
+      ],
+      "hasLivePreview": false,
+      "toast": "Szybkość zmierzona przed i po",
+      "keywords": "stara strona wolna wordpress przebudowa odswiezenie zhakowana",
+      "priceFrom": 1499,
+      "leadTime": "od 2 tygodni",
+      "cardGradient": null,
+      "category": "strony",
+      "priceNote": "W cenie „od”: nowa strona do 3 podstron.",
+      "related": [
+        "audyt-strony-lub-programu",
+        "opieka-nad-strona-i-systemem",
+        "strona-firmowa-z-panelem"
+      ],
+      "example": "Stara strona ładuje się długo i źle działa na telefonie. Budujemy nową, a stare adresy przekierowujemy, żeby klienci z Google trafiali we właściwe miejsce. Starą wyłączamy dopiero po odbiorze.",
+      "included": [
+        "Nowa strona do 3 podstron",
+        "Przekierowania starych adresów",
+        "Panel do zmian"
+      ],
+      "moreExamples": [
+        "więcej podstron",
+        "przeniesienie wszystkich treści i zdjęć",
+        "kontrola pozycji w Google po starcie"
+      ]
+    },
+    {
+      "legacyId": 6,
+      "slug": "rozbudowana-strona-firmowa",
+      "name": "Rozbudowana strona firmowa",
+      "label": "Strona",
+      "tag": "WIELE PODSTRON",
+      "lead": "Szeroka oferta, blog lub poradnik i kilka osób, które dodają treści. Języki, katalog albo strefę klienta dokładamy pod Twoją firmę.",
+      "features": [
+        "Wiele podstron i blog pod Google",
+        "Konta w panelu dla kilku osób",
+        "Gotowa pod Google i asystentów AI"
+      ],
+      "forWhom": "firmy z szeroką ofertą, producenci, B2B",
+      "situations": [
+        "Z",
+        "R"
+      ],
+      "industryGroups": [
+        "handel-i-producenci",
+        "edukacja-i-organizacje"
+      ],
+      "hasLivePreview": true,
+      "toast": "Zapytanie z katalogu · 3 produkty",
+      "keywords": "rozbudowana duza podstrony blog katalog strefa klienta jezyki",
+      "priceFrom": 6990,
+      "leadTime": "od 5 tygodni",
+      "cardGradient": null,
+      "featuredOrder": 3,
+      "featuredName": "Rozbudowana strona firmowa",
+      "featuredLead": "Szeroka oferta, blog lub poradnik i kilka osób, które dodają treści. Języki, katalog albo strefę klienta dokładamy pod Twoją firmę.",
+      "featuredFeatures": [
+        "Wiele podstron i blog pod Google",
+        "Konta w panelu dla kilku osób",
+        "Gotowa pod Google i asystentów AI"
+      ],
+      "featuredTag": "WIELE PODSTRON",
+      "category": "strony",
+      "priceNote": null,
+      "related": [
+        "opieka-nad-strona-i-systemem",
+        "crm-dla-malej-i-sredniej-firmy",
+        "asystent-ai-do-zapytan"
+      ],
+      "example": "Producent z szeroką ofertą ma klientów w Polsce i za granicą. Katalog z filtrami, poradnik pod Google i kolejne języki w jednej stronie, a handlowcy dodają treści ze swoich kont.",
+      "included": [
+        "Wiele podstron i blog",
+        "Panel z kontami dla kilku osób",
+        "Gotowa pod Google i AI"
+      ],
+      "moreExamples": [
+        "kolejne języki",
+        "katalog albo strefa klienta",
+        "wyszukiwarka na stronie"
+      ]
+    },
+    {
+      "legacyId": 7,
+      "slug": "landing-page",
+      "name": "Landing page",
+      "label": "Strona",
+      "tag": "1 CEL · POMIAR",
+      "lead": "Jedna strona pod jedną usługę albo kampanię. Formularz i telefon w każdym miejscu.",
+      "features": [
+        "Jedna usługa, jeden cel",
+        "Formularz lub telefon pod ręką",
+        "Gotowa pod kampanię Google i Facebook"
+      ],
+      "forWhom": "kampanie Google i Facebook, oferty sezonowe",
+      "situations": [
+        "Z"
+      ],
+      "industryGroups": [
+        "budowlanka-i-ekipy",
+        "noclegi",
+        "turystyka-i-wydarzenia",
+        "gastronomia",
+        "zdrowie-i-uroda",
+        "uslugi-i-transport",
+        "edukacja-i-organizacje"
+      ],
+      "hasLivePreview": false,
+      "toast": "12 zapytań z kampanii",
+      "keywords": "landing kampania reklama google ads facebook promocja",
+      "priceFrom": 1299,
+      "leadTime": "od 1 tygodnia",
+      "cardGradient": null,
+      "featuredOrder": 4,
+      "featuredName": "Landing page",
+      "featuredLead": "Jedna strona pod jedną usługę albo kampanię. Formularz i telefon w każdym miejscu.",
+      "featuredFeatures": [
+        "Jedna usługa, jeden cel",
+        "Formularz lub telefon pod ręką",
+        "Gotowa pod kampanię Google i Facebook"
+      ],
+      "featuredTag": "1 CEL · POMIAR",
+      "category": "strony",
+      "priceNote": null,
+      "related": [
+        "strona-wizytowka",
+        "opieka-nad-strona-i-systemem",
+        "crm-dla-malej-i-sredniej-firmy"
+      ],
+      "example": "Firma montująca pompy ciepła startuje z reklamą przed sezonem. Landing ma jeden cel: zapytanie o wycenę, a formularz i telefon są pod ręką w każdym miejscu strony.",
+      "included": [
+        "Jedna strona pod jedną usługę",
+        "Formularz i telefon w każdym miejscu",
+        "Gotowa pod kampanię"
+      ],
+      "moreExamples": [
+        "sekcje FAQ i opinii",
+        "pomiar zgłoszeń z kampanii",
+        "test dwóch nagłówków"
+      ]
+    },
+    {
+      "legacyId": 8,
+      "slug": "sklep-internetowy",
+      "name": "Sklep internetowy",
+      "label": "Strona",
+      "tag": "SPRZEDAŻ",
+      "lead": "Produkty, płatności online, dostawa i odbiór w sklepie. Zamówienia widzisz od razu w panelu.",
+      "features": [
+        "Płatności online i BLIK",
+        "Odbiór osobisty i dostawa",
+        "Zamówienia od razu w panelu"
+      ],
+      "forWhom": "sklepy lokalne, producenci regionalni",
+      "situations": [
+        "Z"
+      ],
+      "industryGroups": [
+        "handel-i-producenci"
+      ],
+      "hasLivePreview": false,
+      "toast": "Nowe zamówienie · 3 produkty",
+      "keywords": "sklep internetowy sprzedaz online zamowienia koszyk platnosci",
+      "priceFrom": 8990,
+      "leadTime": "od 5 tygodni",
+      "cardGradient": "135deg, #BFD9CF, #7FA898",
+      "category": "strony",
+      "priceNote": null,
+      "related": [
+        "magazyn-i-zamowienia",
+        "faktury-bez-przepisywania",
+        "opieka-nad-strona-i-systemem"
+      ],
+      "example": "Lokalny producent sprzedaje online: klient płaci BLIK-iem i wybiera odbiór w sklepie albo dostawę. Zamówienie widzisz od razu w panelu.",
+      "included": [
+        "Produkty, płatności online i BLIK",
+        "Dostawa i odbiór osobisty",
+        "Zamówienia od razu w panelu"
+      ],
+      "moreExamples": [
+        "faktury automatycznie",
+        "połączenie z magazynem"
+      ]
+    },
+    {
+      "legacyId": 10,
+      "slug": "system-zlecen-i-grafik-ekip",
+      "name": "System zleceń i grafik ekip",
+      "label": "System",
+      "tag": "EKIPY · STATUS",
+      "lead": "Kto, gdzie, kiedy i z czym jedzie. Klient sprawdza status pod linkiem, a Ty nie dzwonisz po ekipach wieczorem.",
+      "features": [
+        "Kalendarz ekip i materiały",
+        "Status zlecenia dla klienta",
+        "Protokoły i zdjęcia przy zleceniu"
+      ],
+      "forWhom": "budowlanka, instalatorzy, serwisy, sprzątanie",
+      "situations": [
+        "Z"
+      ],
+      "industryGroups": [
+        "budowlanka-i-ekipy",
+        "uslugi-i-transport"
+      ],
+      "hasLivePreview": true,
+      "toast": "Ekipa Marka · zakończone",
+      "keywords": "zlecenia grafik kalendarz ekipy kartki sms harmonogram",
+      "priceFrom": 3490,
+      "leadTime": "od 3 tygodni",
+      "cardGradient": null,
+      "featuredOrder": 9,
+      "featuredName": "System zleceń i grafik ekip",
+      "featuredLead": "Kto, gdzie, kiedy i z czym jedzie. Klient sprawdza status pod linkiem, a Ty nie dzwonisz po ekipach wieczorem.",
+      "featuredFeatures": [
+        "Kalendarz ekip i materiały",
+        "Status zlecenia dla klienta",
+        "Protokoły i zdjęcia przy zleceniu"
+      ],
+      "featuredTag": "EKIPY · STATUS",
+      "category": "systemy",
+      "priceNote": "W cenie „od”: jeden moduł na gotowym fundamencie, do 5 użytkowników. Połączenia z innymi programami — osobna wycena.",
+      "related": [
+        "aplikacja-dla-ekip-w-terenie",
+        "czas-pracy-i-rozliczenia",
+        "powiadomienia-sms-i-e-mail"
+      ],
+      "example": "Biuro widzi w kalendarzu, która ekipa jest gdzie i z jakim materiałem. Monter dodaje zdjęcia i protokół przy zleceniu, a klient sprawdza status pod linkiem. Nikt nie dzwoni do szefa o 21:00.",
+      "included": [
+        "Jeden moduł na gotowym fundamencie",
+        "Do 5 użytkowników",
+        "Dostęp z komputera i telefonu"
+      ],
+      "moreExamples": [
+        "kolejne moduły",
+        "więcej użytkowników i ról",
+        "import danych z Excela",
+        "połączenia z innymi programami"
+      ]
+    },
+    {
+      "legacyId": 11,
+      "slug": "crm-dla-malej-i-sredniej-firmy",
+      "name": "CRM dla małej i średniej firmy",
+      "label": "System",
+      "tag": "KLIENCI · OFERTY",
+      "lead": "Klienci, zapytania, oferty i co dalej. Przypomina, do kogo zadzwonić.",
+      "features": [
+        "Klienci i cała historia",
+        "Oferty i przypomnienia",
+        "Raport: skąd przychodzą klienci"
+      ],
+      "forWhom": "usługi, handel, B2B, biura",
+      "situations": [
+        "Z"
+      ],
+      "industryGroups": [
+        "zdrowie-i-uroda",
+        "uslugi-i-transport",
+        "handel-i-producenci"
+      ],
+      "hasLivePreview": false,
+      "toast": "Przypomnienie: zadzwoń do Nowaka",
+      "keywords": "crm klienci baza kontakty oferty zapytania sprzedaz lejek",
+      "priceFrom": 3490,
+      "leadTime": "od 3 tygodni",
+      "cardGradient": null,
+      "featuredOrder": 7,
+      "featuredName": "CRM dla małej i średniej firmy",
+      "featuredLead": "Klienci, zapytania, oferty i co dalej. Przypomina, do kogo zadzwonić.",
+      "featuredFeatures": [
+        "Klienci i cała historia",
+        "Oferty i przypomnienia",
+        "Raport: skąd przychodzą klienci"
+      ],
+      "featuredTag": "KLIENCI · OFERTY",
+      "category": "systemy",
+      "priceNote": "W cenie „od”: jeden moduł na gotowym fundamencie, do 5 użytkowników. Połączenia z innymi programami — osobna wycena.",
+      "related": [
+        "wyceny-i-oferty-z-pdf",
+        "powiadomienia-sms-i-e-mail",
+        "raporty-dla-szefa"
+      ],
+      "example": "Zapytanie z formularza trafia do CRM, a system przypomina, kiedy zadzwonić z ofertą. Widzisz całą historię klienta i to, skąd przychodzą nowi.",
+      "included": [
+        "Jeden moduł na gotowym fundamencie",
+        "Do 5 użytkowników",
+        "Dostęp z komputera i telefonu"
+      ],
+      "moreExamples": [
+        "kolejne moduły",
+        "więcej użytkowników i ról",
+        "import danych z Excela",
+        "połączenia z innymi programami"
+      ]
+    },
+    {
+      "legacyId": 12,
+      "slug": "czas-pracy-i-rozliczenia",
+      "name": "Czas pracy i rozliczenia",
+      "label": "System",
+      "tag": "START / STOP",
+      "lead": "Godziny z telefonu pracownika, nie z kartek. Rozliczenie miesiąca robi się samo.",
+      "features": [
+        "Start/stop w telefonie",
+        "Rozliczenie miesiąca automatycznie",
+        "Eksport do kadr i księgowej"
+      ],
+      "forWhom": "firmy z pracownikami w terenie i na zmiany",
+      "situations": [
+        "Z"
+      ],
+      "industryGroups": [
+        "budowlanka-i-ekipy",
+        "gastronomia",
+        "uslugi-i-transport"
+      ],
+      "hasLivePreview": true,
+      "toast": "Marek · 8 h 20 min · dziś",
+      "keywords": "czas pracy godziny ewidencja rozliczenie wyplata nadgodziny",
+      "priceFrom": 2990,
+      "leadTime": "od 2 tygodni",
+      "cardGradient": null,
+      "featuredOrder": 10,
+      "featuredName": "Czas pracy i rozliczenia",
+      "featuredLead": "Godziny z telefonu pracownika, nie z kartek. Rozliczenie miesiąca robi się samo.",
+      "featuredFeatures": [
+        "Start/stop w telefonie",
+        "Rozliczenie miesiąca automatycznie",
+        "Eksport do kadr i księgowej"
+      ],
+      "featuredTag": "START / STOP",
+      "category": "systemy",
+      "priceNote": "W cenie „od”: jeden moduł na gotowym fundamencie, do 5 użytkowników. Połączenia z innymi programami — osobna wycena.",
+      "related": [
+        "system-zlecen-i-grafik-ekip",
+        "faktury-bez-przepisywania",
+        "raporty-dla-szefa"
+      ],
+      "example": "Pracownik klika „start” w telefonie, gdy zaczyna pracę, i „stop”, gdy kończy. Na koniec miesiąca rozliczenie godzin jest gotowe dla księgowej.",
+      "included": [
+        "Jeden moduł na gotowym fundamencie",
+        "Do 5 użytkowników",
+        "Dostęp z komputera i telefonu"
+      ],
+      "moreExamples": [
+        "kolejne moduły",
+        "więcej użytkowników i ról",
+        "import danych z Excela",
+        "połączenia z innymi programami"
+      ]
+    },
+    {
+      "legacyId": 13,
+      "slug": "system-serwisu-i-zgloszen",
+      "name": "System serwisu i zgłoszeń",
+      "label": "System",
+      "tag": "STATUS DLA KLIENTA",
+      "lead": "Przyjęcie, status i wiadomość „gotowe do odbioru”. Klient sprawdza sam, zamiast dzwonić. Tak działa nasz prokomserwis.pl.",
+      "features": [
+        "Status naprawy dla klienta",
+        "E-mail „gotowe do odbioru”",
+        "Historia napraw i części"
+      ],
+      "forWhom": "serwisy, warsztaty, naprawy, reklamacje",
+      "situations": [
+        "Z"
+      ],
+      "industryGroups": [
+        "uslugi-i-transport"
+      ],
+      "hasLivePreview": true,
+      "toast": "#2038 gotowe · klient powiadomiony",
+      "keywords": "serwis naprawa zgloszenia status reklamacja warsztat",
+      "priceFrom": 3490,
+      "leadTime": "od 3 tygodni",
+      "cardGradient": null,
+      "category": "systemy",
+      "priceNote": "W cenie „od”: jeden moduł na gotowym fundamencie, do 5 użytkowników. Połączenia z innymi programami — osobna wycena.",
+      "related": [
+        "powiadomienia-sms-i-e-mail",
+        "panel-klienta-i-portal-b2b",
+        "faktury-bez-przepisywania"
+      ],
+      "example": "Klient oddaje laptop do serwisu i dostaje numer zgłoszenia. Status sprawdza sam, a gdy naprawa jest gotowa, dostaje e-mail. Tak działa nasz prokomserwis.pl.",
+      "included": [
+        "Jeden moduł na gotowym fundamencie",
+        "Do 5 użytkowników",
+        "Dostęp z komputera i telefonu"
+      ],
+      "moreExamples": [
+        "kolejne moduły",
+        "więcej użytkowników i ról",
+        "import danych z Excela",
+        "połączenia z innymi programami"
+      ]
+    },
+    {
+      "legacyId": 14,
+      "slug": "z-excela-do-systemu",
+      "name": "Z Excela do systemu",
+      "label": "System",
+      "tag": "KONIEC Z FINAL_v7",
+      "lead": "Arkusze zamieniamy w panel, dane przenosimy, duplikaty usuwamy.",
+      "features": [
+        "Przeniesienie danych z arkuszy",
+        "Uprawnienia: kto co widzi",
+        "Historia zmian"
+      ],
+      "forWhom": "każda firma, która żyje w plikach",
+      "situations": [
+        "R",
+        "P"
+      ],
+      "industryGroups": [
+        "budowlanka-i-ekipy",
+        "handel-i-producenci"
+      ],
+      "hasLivePreview": true,
+      "toast": "Zaimportowano 1 240 wierszy",
+      "keywords": "excel arkusz plik tabela nadpisal duplikaty",
+      "priceFrom": 2990,
+      "leadTime": "od 2 tygodni",
+      "cardGradient": null,
+      "featuredOrder": 8,
+      "featuredName": "Z Excela do systemu",
+      "featuredLead": "Arkusze zamieniamy w panel, dane przenosimy, duplikaty usuwamy.",
+      "featuredFeatures": [
+        "Przeniesienie danych z arkuszy",
+        "Uprawnienia: kto co widzi",
+        "Historia zmian"
+      ],
+      "featuredTag": "KONIEC Z FINAL_v7",
+      "category": "systemy",
+      "priceNote": "W cenie „od”: jeden moduł na gotowym fundamencie, do 5 użytkowników. Połączenia z innymi programami — osobna wycena.",
+      "related": [
+        "raporty-dla-szefa",
+        "polaczenie-programow",
+        "opieka-nad-strona-i-systemem"
+      ],
+      "example": "Zlecenia żyją w kilku arkuszach, które ktoś ciągle nadpisuje. Przenosimy dane do jednego panelu, usuwamy duplikaty i ustawiamy, kto co widzi.",
+      "included": [
+        "Jeden moduł na gotowym fundamencie",
+        "Do 5 użytkowników",
+        "Dostęp z komputera i telefonu"
+      ],
+      "moreExamples": [
+        "kolejne moduły",
+        "więcej użytkowników i ról",
+        "import danych z Excela",
+        "połączenia z innymi programami"
+      ]
+    },
+    {
+      "legacyId": 15,
+      "slug": "magazyn-i-zamowienia",
+      "name": "Magazyn i zamówienia",
+      "label": "System",
+      "tag": "STANY NA ŻYWO",
+      "lead": "Stany, przyjęcia, wydania na zlecenia i lista zamówień do hurtowni. Z czytnikiem kodów albo telefonem.",
+      "features": [
+        "Stany na bieżąco",
+        "Kody kreskowe",
+        "Przypomnienie o stanie minimalnym"
+      ],
+      "forWhom": "handel, producenci, firmy z materiałami",
+      "situations": [
+        "R",
+        "P"
+      ],
+      "industryGroups": [
+        "handel-i-producenci"
+      ],
+      "hasLivePreview": false,
+      "toast": "Stan minimalny: zamów płytki",
+      "keywords": "magazyn stany towar zamowienia hurtownia kody kreskowe",
+      "priceFrom": 3490,
+      "leadTime": "od 3 tygodni",
+      "cardGradient": null,
+      "category": "systemy",
+      "priceNote": "W cenie „od”: jeden moduł na gotowym fundamencie, do 5 użytkowników. Połączenia z innymi programami — osobna wycena.",
+      "related": [
+        "sklep-internetowy",
+        "faktury-bez-przepisywania",
+        "polaczenie-programow"
+      ],
+      "example": "Magazynier skanuje kod przy wydaniu na zlecenie. Gdy towaru zostaje mniej niż minimum, system przypomina o zamówieniu do hurtowni.",
+      "included": [
+        "Jeden moduł na gotowym fundamencie",
+        "Do 5 użytkowników",
+        "Dostęp z komputera i telefonu"
+      ],
+      "moreExamples": [
+        "kolejne moduły",
+        "więcej użytkowników i ról",
+        "import danych z Excela",
+        "połączenia z innymi programami"
+      ]
+    },
+    {
+      "legacyId": 16,
+      "slug": "wyceny-i-oferty-z-pdf",
+      "name": "Wyceny i oferty z PDF",
+      "label": "System",
+      "tag": "PDF W 2 MIN",
+      "lead": "Oferta z cennika w kilka minut, PDF z logo, śledzenie, czy klient otworzył.",
+      "features": [
+        "Cennik i szablony",
+        "PDF z logo jednym kliknięciem",
+        "Wiesz, kiedy klient otworzył"
+      ],
+      "forWhom": "firmy, które wysyłają dużo wycen",
+      "situations": [
+        "Z"
+      ],
+      "industryGroups": [
+        "budowlanka-i-ekipy",
+        "uslugi-i-transport"
+      ],
+      "hasLivePreview": false,
+      "toast": "Klient otworzył ofertę · 2 min temu",
+      "keywords": "wycena oferta pdf cennik kosztorys",
+      "priceFrom": 2990,
+      "leadTime": "od 2 tygodni",
+      "cardGradient": null,
+      "category": "systemy",
+      "priceNote": "W cenie „od”: jeden moduł na gotowym fundamencie, do 5 użytkowników. Połączenia z innymi programami — osobna wycena.",
+      "related": [
+        "crm-dla-malej-i-sredniej-firmy",
+        "faktury-bez-przepisywania",
+        "system-zlecen-i-grafik-ekip"
+      ],
+      "example": "Handlowiec wybiera pozycje z cennika i w kilka minut wysyła ofertę w PDF z logo. Widzi, kiedy klient ją otworzył, więc dzwoni we właściwym momencie.",
+      "included": [
+        "Jeden moduł na gotowym fundamencie",
+        "Do 5 użytkowników",
+        "Dostęp z komputera i telefonu"
+      ],
+      "moreExamples": [
+        "kolejne moduły",
+        "więcej użytkowników i ról",
+        "import danych z Excela",
+        "połączenia z innymi programami"
+      ]
+    },
+    {
+      "legacyId": 17,
+      "slug": "panel-klienta-i-portal-b2b",
+      "name": "Panel klienta i portal B2B",
+      "label": "System",
+      "tag": "B2B",
+      "lead": "Klient sam widzi status zlecenia, faktury, dokumenty i zamawia ponownie.",
+      "features": [
+        "Logowanie dla klientów",
+        "Status, faktury, dokumenty",
+        "Ponowne zamówienia"
+      ],
+      "forWhom": "firmy ze stałymi klientami, hurt, producenci",
+      "situations": [
+        "R",
+        "P"
+      ],
+      "industryGroups": [
+        "handel-i-producenci"
+      ],
+      "hasLivePreview": false,
+      "toast": "Klient pobrał fakturę",
+      "keywords": "panel klienta portal b2b logowanie faktury dokumenty",
+      "priceFrom": 3490,
+      "leadTime": "od 3 tygodni",
+      "cardGradient": null,
+      "category": "systemy",
+      "priceNote": "W cenie „od”: jeden moduł na gotowym fundamencie, do 5 użytkowników. Połączenia z innymi programami — osobna wycena.",
+      "related": [
+        "system-serwisu-i-zgloszen",
+        "faktury-bez-przepisywania",
+        "opieka-nad-strona-i-systemem"
+      ],
+      "example": "Stały klient loguje się do panelu, pobiera fakturę i zamawia ponownie, bez dzwonienia do biura.",
+      "included": [
+        "Jeden moduł na gotowym fundamencie",
+        "Do 5 użytkowników",
+        "Dostęp z komputera i telefonu"
+      ],
+      "moreExamples": [
+        "kolejne moduły",
+        "więcej użytkowników i ról",
+        "import danych z Excela",
+        "połączenia z innymi programami"
+      ]
+    },
+    {
+      "legacyId": 18,
+      "slug": "grafik-i-rezerwacje-zajec",
+      "name": "Grafik i rezerwacje zajęć",
+      "label": "System",
+      "tag": "INSTRUKTORZY",
+      "lead": "Instruktorzy, grupy, sprzęt i zapisy przez internet. Dla szkół narciarskich, fitness i kursów.",
+      "features": [
+        "Grafik instruktorów",
+        "Zapisy przez internet",
+        "Listy obecności w telefonie"
+      ],
+      "forWhom": "szkoły narciarskie, fitness, kursy, kluby",
+      "situations": [
+        "Z"
+      ],
+      "industryGroups": [
+        "turystyka-i-wydarzenia",
+        "zdrowie-i-uroda",
+        "edukacja-i-organizacje"
+      ],
+      "hasLivePreview": false,
+      "toast": "Grupa 10:00 · 6/8 zapisanych",
+      "keywords": "instruktor grafik zajecia szkola narciarska fitness kurs zapisy",
+      "priceFrom": 3490,
+      "leadTime": "od 3 tygodni",
+      "cardGradient": null,
+      "category": "systemy",
+      "priceNote": "W cenie „od”: jeden moduł na gotowym fundamencie, do 5 użytkowników. Połączenia z innymi programami — osobna wycena.",
+      "related": [
+        "aplikacja-do-rezerwacji-dla-gosci",
+        "powiadomienia-sms-i-e-mail",
+        "czas-pracy-i-rozliczenia"
+      ],
+      "example": "Szkoła narciarska układa grafik instruktorów na sezon. Rodzic zapisuje dziecko przez internet, a instruktor sprawdza listę obecności w telefonie.",
+      "included": [
+        "Jeden moduł na gotowym fundamencie",
+        "Do 5 użytkowników",
+        "Dostęp z komputera i telefonu"
+      ],
+      "moreExamples": [
+        "kolejne moduły",
+        "więcej użytkowników i ról",
+        "import danych z Excela",
+        "połączenia z innymi programami"
+      ]
+    },
+    {
+      "legacyId": 19,
+      "slug": "kalendarz-sal-i-imprez",
+      "name": "Kalendarz sal i imprez",
+      "label": "System",
+      "tag": "ZALICZKI",
+      "lead": "Sale, wesela i imprezy w jednym kalendarzu. Zaliczki, umowy i lista zadań przed każdym terminem.",
+      "features": [
+        "Kalendarz sal i terminów",
+        "Zaliczki i umowy przy imprezie",
+        "Lista zadań przed imprezą"
+      ],
+      "forWhom": "domy weselne, sale, hotele z eventami",
+      "situations": [
+        "Z"
+      ],
+      "industryGroups": [
+        "noclegi",
+        "turystyka-i-wydarzenia",
+        "gastronomia"
+      ],
+      "hasLivePreview": false,
+      "toast": "Zaliczka zapisana · wesele 14.06",
+      "keywords": "sala wesele impreza event kalendarz zaliczka",
+      "priceFrom": 2990,
+      "leadTime": "od 2 tygodni",
+      "cardGradient": null,
+      "category": "systemy",
+      "priceNote": "W cenie „od”: jeden moduł na gotowym fundamencie, do 5 użytkowników. Połączenia z innymi programami — osobna wycena.",
+      "related": [
+        "strona-dla-restauracji-lub-baru",
+        "powiadomienia-sms-i-e-mail",
+        "faktury-bez-przepisywania"
+      ],
+      "example": "Dom weselny widzi terminy wszystkich sal w jednym kalendarzu. Przy rezerwacji zapisujesz zaliczkę i umowę, a przed imprezą system pokazuje listę zadań.",
+      "included": [
+        "Jeden moduł na gotowym fundamencie",
+        "Do 5 użytkowników",
+        "Dostęp z komputera i telefonu"
+      ],
+      "moreExamples": [
+        "kolejne moduły",
+        "więcej użytkowników i ról",
+        "import danych z Excela",
+        "połączenia z innymi programami"
+      ]
+    },
+    {
+      "legacyId": 20,
+      "slug": "aplikacja-dla-ekip-w-terenie",
+      "name": "Aplikacja dla ekip w terenie",
+      "label": "Aplikacja",
+      "tag": "BEZ ZASIĘGU",
+      "lead": "Zlecenia, zdjęcia, lista zadań i podpis klienta. Działa bez zasięgu, wysyła, gdy wróci sieć.",
+      "features": [
+        "Działa bez zasięgu",
+        "Podpis klienta, zdjęcia",
+        "Panel dla biura"
+      ],
+      "forWhom": "budowlanka, instalatorzy, serwisy",
+      "situations": [
+        "R"
+      ],
+      "industryGroups": [
+        "budowlanka-i-ekipy",
+        "uslugi-i-transport"
+      ],
+      "hasLivePreview": true,
+      "toast": "Podpis klienta zapisany",
+      "keywords": "aplikacja ekipa teren monter budowa protokol zdjecia podpis zasieg",
+      "priceFrom": null,
+      "leadTime": null,
+      "cardGradient": null,
+      "category": "aplikacje",
+      "priceNote": "Zapytaj o wycenę",
+      "related": [
+        "system-zlecen-i-grafik-ekip",
+        "czas-pracy-i-rozliczenia",
+        "powiadomienia-sms-i-e-mail"
+      ],
+      "example": "Monter w piwnicy bez zasięgu robi zdjęcia, odhacza zadania i zbiera podpis klienta. Aplikacja wysyła wszystko do biura, gdy wróci sieć."
+    },
+    {
+      "legacyId": 21,
+      "slug": "aplikacja-do-rezerwacji-dla-gosci",
+      "name": "Aplikacja do rezerwacji dla gości",
+      "label": "Aplikacja",
+      "tag": "DLA KLIENTÓW",
+      "lead": "Gość rezerwuje pokój, stolik albo wizytę z telefonu i dostaje przypomnienie. Płatności online ustalamy w wycenie.",
+      "features": [
+        "Rezerwacje z telefonu",
+        "Przypomnienia push",
+        "Twoje logo na ekranie klienta"
+      ],
+      "forWhom": "pensjonaty, gastronomia, gabinety, wypożyczalnie",
+      "situations": [
+        "R"
+      ],
+      "industryGroups": [
+        "noclegi",
+        "turystyka-i-wydarzenia"
+      ],
+      "hasLivePreview": true,
+      "toast": "Nowa rezerwacja · z aplikacji",
+      "keywords": "aplikacja klienci goscie rezerwacja push lojalnosc",
+      "priceFrom": null,
+      "leadTime": null,
+      "cardGradient": "135deg, #F3B07C, #F7D9B5",
+      "category": "aplikacje",
+      "priceNote": "Zapytaj o wycenę",
+      "related": [
+        "strona-dla-hotelu-lub-pensjonatu",
+        "grafik-i-rezerwacje-zajec",
+        "powiadomienia-sms-i-e-mail"
+      ],
+      "example": "Gość rezerwuje pobyt w aplikacji z Twoim logo i dostaje przypomnienie przed przyjazdem. Zakres i cenę ustalamy po krótkiej rozmowie."
+    },
+    {
+      "legacyId": 22,
+      "slug": "aplikacja-do-programu-ktory-masz",
+      "name": "Aplikacja do programu, który masz",
+      "label": "Aplikacja",
+      "tag": "DO TWOJEGO PROGRAMU",
+      "lead": "Twój system nie działa wygodnie na telefonie? Dorabiamy aplikację na danych z Twojego programu.",
+      "features": [
+        "Łączy się z Twoim systemem",
+        "Tylko to, co potrzebne w terenie",
+        "Bez wymiany programu"
+      ],
+      "forWhom": "firmy z gotowym systemem bez aplikacji",
+      "situations": [
+        "R"
+      ],
+      "industryGroups": [
+        "budowlanka-i-ekipy",
+        "uslugi-i-transport"
+      ],
+      "hasLivePreview": false,
+      "toast": "Zsynchronizowano z Twoim programem",
+      "keywords": "aplikacja do programu istniejacy system mobilna",
+      "priceFrom": null,
+      "leadTime": null,
+      "cardGradient": null,
+      "category": "aplikacje",
+      "priceNote": "Zapytaj o wycenę",
+      "related": [
+        "polaczenie-programow",
+        "raporty-dla-szefa",
+        "opieka-nad-strona-i-systemem"
+      ],
+      "example": "Program do zleceń działa tylko na komputerze. Dorabiamy aplikację, która pokazuje ekipie w terenie tylko to, czego potrzebuje, na danych z tego programu."
+    },
+    {
+      "legacyId": 23,
+      "slug": "powiadomienia-sms-i-e-mail",
+      "name": "Powiadomienia SMS i e-mail",
+      "label": "Automatyzacja",
+      "tag": "SAMO SIĘ WYSYŁA",
+      "lead": "Potwierdzenie terminu, „ekipa w drodze”, „gotowe do odbioru”, przypomnienie o płatności.",
+      "features": [
+        "Szablony po polsku",
+        "Wysyłka sama, z Twojego systemu",
+        "Odpowiedzi trafiają do biura"
+      ],
+      "forWhom": "każda firma z terminami i klientami",
+      "situations": [
+        "R"
+      ],
+      "industryGroups": [
+        "noclegi",
+        "gastronomia",
+        "zdrowie-i-uroda",
+        "edukacja-i-organizacje"
+      ],
+      "hasLivePreview": false,
+      "toast": "SMS wysłany: „Ekipa jutro 8:00”",
+      "keywords": "sms powiadomienia mail przypomnienie potwierdzenie",
+      "priceFrom": null,
+      "leadTime": null,
+      "cardGradient": null,
+      "category": "automatyzacje",
+      "priceNote": "Zapytaj o wycenę",
+      "related": [
+        "system-serwisu-i-zgloszen",
+        "system-zlecen-i-grafik-ekip",
+        "aplikacja-do-rezerwacji-dla-gosci"
+      ],
+      "example": "Dzień przed wizytą klient dostaje SMS z godziną, a po naprawie „gotowe do odbioru”. Wysyłka idzie sama z Twojego systemu."
+    },
+    {
+      "legacyId": 24,
+      "slug": "faktury-bez-przepisywania",
+      "name": "Faktury bez przepisywania",
+      "label": "Automatyzacja",
+      "tag": "DO PROGRAMU FAKTUR",
+      "lead": "Gdy zlecenie albo zamówienie się kończy, pozycje same trafiają do Twojego programu do faktur.",
+      "features": [
+        "Połączenie z programem do faktur",
+        "Bez przepisywania pozycji",
+        "Dziennik: co i kiedy poszło"
+      ],
+      "forWhom": "firmy z Subiektem, wFirmą, Fakturownią i podobnymi",
+      "situations": [
+        "P"
+      ],
+      "industryGroups": [
+        "noclegi",
+        "gastronomia",
+        "handel-i-producenci"
+      ],
+      "hasLivePreview": false,
+      "toast": "Faktura przekazana do programu",
+      "keywords": "faktury subiekt program ksiegowosc przepisywanie integracja",
+      "priceFrom": null,
+      "leadTime": null,
+      "cardGradient": null,
+      "category": "automatyzacje",
+      "priceNote": "Zapytaj o wycenę",
+      "related": [
+        "wyceny-i-oferty-z-pdf",
+        "system-zlecen-i-grafik-ekip",
+        "magazyn-i-zamowienia"
+      ],
+      "example": "Gdy zlecenie dostaje status „zakończone”, pozycje same trafiają do programu do faktur. Nikt ich nie przepisuje."
+    },
+    {
+      "legacyId": 25,
+      "slug": "asystent-ai-do-zapytan",
+      "name": "Asystent AI do zapytań",
+      "label": "Automatyzacja",
+      "tag": "PL · EN · DE",
+      "lead": "Odpowiada na maile i pytania ze strony w kilku językach, streszcza, proponuje odpowiedź. Ty klikasz „wyślij”.",
+      "features": [
+        "Uczy się Twojej oferty",
+        "Streszcza i proponuje odpowiedź",
+        "Ty zatwierdzasz"
+      ],
+      "forWhom": "noclegi, turystyka, firmy z wieloma zapytaniami",
+      "situations": [
+        "R"
+      ],
+      "industryGroups": [
+        "noclegi",
+        "turystyka-i-wydarzenia"
+      ],
+      "hasLivePreview": true,
+      "toast": "Odpowiedź gotowa do wysłania",
+      "keywords": "ai asystent chatbot pytania mail odpowiada sztuczna inteligencja",
+      "priceFrom": null,
+      "leadTime": null,
+      "cardGradient": null,
+      "category": "automatyzacje",
+      "priceNote": "Zapytaj o wycenę",
+      "related": [
+        "strona-dla-hotelu-lub-pensjonatu",
+        "crm-dla-malej-i-sredniej-firmy",
+        "powiadomienia-sms-i-e-mail"
+      ],
+      "example": "Gość pisze po niemiecku z pytaniem o wolny pokój. Asystent proponuje odpowiedź na podstawie Twojej oferty, a Ty ją sprawdzasz i klikasz „wyślij”."
+    },
+    {
+      "legacyId": 26,
+      "slug": "raporty-dla-szefa",
+      "name": "Raporty dla szefa",
+      "label": "Automatyzacja",
+      "tag": "PONIEDZIAŁEK 7:00",
+      "lead": "Co tydzień: przychód, zlecenia, opóźnienia, kto ile. Na telefon, bez dzwonienia po ludziach.",
+      "features": [
+        "Pulpit właściciela",
+        "Raport co poniedziałek",
+        "Alerty, gdy coś się opóźnia"
+      ],
+      "forWhom": "właściciele, którzy chcą wiedzieć bez pytania",
+      "situations": [
+        "P"
+      ],
+      "industryGroups": [
+        "gastronomia",
+        "handel-i-producenci"
+      ],
+      "hasLivePreview": false,
+      "toast": "Raport tygodnia wysłany",
+      "keywords": "raport szef wlasciciel pulpit przychod kontrola",
+      "priceFrom": null,
+      "leadTime": null,
+      "cardGradient": null,
+      "category": "automatyzacje",
+      "priceNote": "Zapytaj o wycenę",
+      "related": [
+        "crm-dla-malej-i-sredniej-firmy",
+        "czas-pracy-i-rozliczenia",
+        "polaczenie-programow"
+      ],
+      "example": "W poniedziałek rano na telefon przychodzi raport: przychód z tygodnia, zlecenia i to, co się opóźnia. Bez dzwonienia po kierownikach."
+    },
+    {
+      "legacyId": 27,
+      "slug": "polaczenie-programow",
+      "name": "Połączenie programów",
+      "label": "Automatyzacja",
+      "tag": "JEDNE DANE",
+      "lead": "Kalendarz, sklep, CRM, faktury: dane płyną same między programami, których już używasz.",
+      "features": [
+        "Twoje programy zostają",
+        "Dane płyną w obie strony",
+        "Dziennik zdarzeń"
+      ],
+      "forWhom": "firmy z kilkoma programami, które się nie dogadują",
+      "situations": [
+        "P"
+      ],
+      "industryGroups": [
+        "handel-i-producenci"
+      ],
+      "hasLivePreview": false,
+      "toast": "Zsynchronizowano 3 programy",
+      "keywords": "polaczenie integracja programy dogaduja przepisywanie",
+      "priceFrom": null,
+      "leadTime": null,
+      "cardGradient": null,
+      "category": "automatyzacje",
+      "priceNote": "Zapytaj o wycenę",
+      "related": [
+        "faktury-bez-przepisywania",
+        "aplikacja-do-programu-ktory-masz",
+        "raporty-dla-szefa"
+      ],
+      "example": "Zamówienie ze sklepu samo trafia do CRM i do programu do faktur. Programy zostają, a dane wpisujesz tylko raz."
+    },
+    {
+      "legacyId": 28,
+      "slug": "opieka-nad-strona-i-systemem",
+      "name": "Opieka nad stroną i systemem",
+      "label": "Opieka",
+      "tag": "3 POZIOMY",
+      "lead": "Kopia co noc i aktualizacje w każdym poziomie, monitoring od poziomu Standard. Czas reakcji zapisany w umowie.",
+      "features": [
+        "Czas reakcji w umowie",
+        "Kopia co noc, aktualizacje",
+        "Raport co miesiąc od poziomu Standard"
+      ],
+      "forWhom": "każdy, kto ma stronę albo system",
+      "situations": [
+        "R",
+        "P"
+      ],
+      "industryGroups": [
+        "budowlanka-i-ekipy",
+        "noclegi",
+        "turystyka-i-wydarzenia",
+        "gastronomia",
+        "zdrowie-i-uroda",
+        "uslugi-i-transport",
+        "handel-i-producenci",
+        "edukacja-i-organizacje"
+      ],
+      "hasLivePreview": false,
+      "toast": "Kopia zapasowa · dziś 03:00",
+      "keywords": "opieka utrzymanie kopie backup aktualizacje monitoring hosting abonament",
+      "priceFrom": 149,
+      "leadTime": null,
+      "cardGradient": null,
+      "category": "opieka",
+      "priceNote": "Cena miesięczna: Podstawowa 149, Standard 299, Systemy 790 zł/mies.",
+      "related": [
+        "audyt-strony-lub-programu",
+        "przejecie-po-innym-wykonawcy",
+        "strona-firmowa-z-panelem"
+      ],
+      "example": "Co noc robimy kopię strony i systemu, a monitoring sprawdza, czy wszystko działa. Gdy coś się dzieje, reagujemy w czasie zapisanym w umowie.",
+      "levels": [
+        {
+          "name": "Podstawowa",
+          "price": 149,
+          "period": "mies.",
+          "reaction": "do końca następnego dnia roboczego"
+        },
+        {
+          "name": "Rozszerzona",
+          "price": 299,
+          "period": "mies.",
+          "reaction": "8 h roboczych",
+          "recommended": true
+        },
+        {
+          "name": "Systemy",
+          "price": 790,
+          "period": "mies.",
+          "reaction": "4 h roboczych, na piśmie"
+        }
+      ]
+    },
+    {
+      "legacyId": 29,
+      "slug": "przejecie-po-innym-wykonawcy",
+      "name": "Przejęcie po informatyku, który zniknął",
+      "label": "Ratunek",
+      "tag": "RATUNEK",
+      "lead": "Nie masz dostępów, coś nie działa. Odzyskujemy, zabezpieczamy i oddajemy klucze.",
+      "features": [
+        "Odzyskanie dostępów",
+        "Zabezpieczenie i kopie",
+        "Lista dostępów dla Ciebie"
+      ],
+      "forWhom": "firmy zostawione z porzuconą stroną lub systemem",
+      "situations": [
+        "R"
+      ],
+      "industryGroups": [
+        "budowlanka-i-ekipy",
+        "noclegi",
+        "turystyka-i-wydarzenia",
+        "gastronomia",
+        "zdrowie-i-uroda",
+        "uslugi-i-transport",
+        "handel-i-producenci",
+        "edukacja-i-organizacje"
+      ],
+      "hasLivePreview": false,
+      "toast": "Dostępy odzyskane · zabezpieczone",
+      "keywords": "informatyk zniknal porzucona dostepy haslo ratunek przejecie",
+      "priceFrom": 990,
+      "leadTime": "od 2 dni",
+      "cardGradient": null,
+      "category": "opieka",
+      "priceNote": "jednorazowo; dokumentacja i przeniesienie na nasz serwer — wycena po sprawdzeniu",
+      "related": [
+        "opieka-nad-strona-i-systemem",
+        "audyt-strony-lub-programu",
+        "przebudowa-starej-strony"
+      ],
+      "example": "Poprzedni informatyk nie odbiera telefonu, a nikt w firmie nie zna haseł do serwera. Odzyskujemy dostępy, robimy kopię i zapisujemy wszystko na Twoją firmę.",
+      "included": [
+        "Odzyskanie dostępów do serwera, domeny i panelu",
+        "Kopia zapasowa i zabezpieczenie",
+        "Dostępy zapisane na Twoją firmę"
+      ],
+      "moreExamples": [
+        "dokumentacja",
+        "przeniesienie na nasz serwer"
+      ]
+    },
+    {
+      "legacyId": 30,
+      "slug": "audyt-strony-lub-programu",
+      "name": "Audyt strony lub programu",
+      "label": "Audyt",
+      "tag": "ZA DARMO",
+      "lead": "Szybkość, Google, bezpieczeństwo, dostępność. Uczciwie: co poprawić, co zostawić, czego nie budować.",
+      "features": [
+        "Szybki audyt za darmo",
+        "Pełny: raport i lista zadań",
+        "Audyt dostępności (EAA)"
+      ],
+      "forWhom": "każdy przed decyzją o nowej stronie lub systemie",
+      "situations": [
+        "R",
+        "P"
+      ],
+      "industryGroups": [
+        "budowlanka-i-ekipy",
+        "noclegi",
+        "turystyka-i-wydarzenia",
+        "gastronomia",
+        "zdrowie-i-uroda",
+        "uslugi-i-transport",
+        "handel-i-producenci",
+        "edukacja-i-organizacje"
+      ],
+      "hasLivePreview": false,
+      "toast": "Wynik: 3 rzeczy do poprawy",
+      "keywords": "audyt sprawdzic ocena szybkosc seo bezpieczenstwo dostepnosc eaa wcag",
+      "priceFrom": 0,
+      "leadTime": "2 dni robocze",
+      "cardGradient": null,
+      "category": "opieka",
+      "priceNote": "Szybki audyt za darmo. Pełny audyt odliczamy od projektu zamówionego w ciągu 60 dni.",
+      "related": [
+        "przebudowa-starej-strony",
+        "opieka-nad-strona-i-systemem",
+        "przejecie-po-innym-wykonawcy"
+      ],
+      "example": "Zanim zamówisz nową stronę, sprawdzamy obecną: szybkość, Google, bezpieczeństwo. Czasem wystarczy poprawić kilka rzeczy i to też powiemy.",
+      "levels": [
+        {
+          "name": "Szybki",
+          "price": 0,
+          "leadTime": "2 dni robocze"
+        },
+        {
+          "name": "Pełny",
+          "price": 990,
+          "leadTime": "1 tydzień",
+          "recommended": true
+        },
+        {
+          "name": "Strona + program albo dostępność",
+          "price": 1990,
+          "leadTime": "2 tygodnie"
+        }
+      ]
+    }
+  ],
+  "removed": [
+    {
+      "legacyId": 9,
+      "slug": "rezerwacje-online-na-stronie",
+      "name": "Rezerwacje online na stronie",
+      "reason": "usunięte z oferty 25.10.2026 (decyzja Krystiana); od 28.10 także bez rezerwacji z zaliczką na stronie pensjonatu — zaliczka online = osobna wycena"
+    }
+  ]
+}
