@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 
-import { site } from './helpers'
+import { setTheme, site } from './helpers'
 
 // ADR-007 / ADR-013 / ADR-015: every line passes axe (WCAG 2.1 A/AA) in each of its themes, the layout
 // holds at 360 px and the dark theme switch works. Seed pages: `home` and `kontakt` (and the Biznes
@@ -62,7 +62,7 @@ test.describe('accessibility (axe)', () => {
         test(`${host}${path} — ${colorScheme}`, async ({ page }) => {
           // Reduced motion: axe measures contrast of the final state, not of an element
           // fading in (`motion-safe:` entrance animations, e.g. the /opieka-it audit badges).
-          await page.emulateMedia({ colorScheme, reducedMotion: 'reduce' })
+          await setTheme(page, colorScheme, { reducedMotion: 'reduce' })
           await page.goto(site(host, path))
           await expect(page.locator('html')).toHaveAttribute('data-line', line)
           await expectNoViolations(page)

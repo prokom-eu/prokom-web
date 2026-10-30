@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 
-import { api, loginAsAdmin, site } from './helpers'
+import { api, loginAsAdmin, setTheme, site } from './helpers'
 
 // B3b: phone menu and bottom bar, the five-column footer and the closable seasonal bar of the
 // Biznes line (spec. §3.3, §3.4, §3.6). Data from `pnpm seed`.
@@ -59,13 +59,22 @@ test.describe('Biznes on a phone', () => {
 
   for (const colorScheme of ['light', 'dark'] as const) {
     test(`axe passes with the menu open — ${colorScheme}`, async ({ page }) => {
-      await page.emulateMedia({ colorScheme })
+      await setTheme(page, colorScheme)
       await page.goto(site('biznes.localhost'))
       await page.getByRole('button', { name: 'Menu' }).click()
       await expect(page.getByRole('dialog', { name: 'Menu' })).toBeVisible()
       await expectNoViolations(page)
     })
   }
+})
+
+test.describe('Biznes theme (D-K4-5)', () => {
+  // Keeping the choice after a reload: a11y.e2e.spec.ts („toggles, is announced and survives a reload”).
+  test('starts light even when the system is dark', async ({ page }) => {
+    await page.emulateMedia({ colorScheme: 'dark' })
+    await page.goto(site('biznes.localhost'))
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'light')
+  })
 })
 
 test.describe('Biznes footer', () => {

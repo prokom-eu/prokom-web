@@ -2,7 +2,7 @@ import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type APIRequestContext, type Page } from '@playwright/test'
 
 import { FORM_MIN_FILL_MS } from '../../src/lib/inquiry/spam'
-import { api, loginAsAdmin, site, tenantId } from './helpers'
+import { api, loginAsAdmin, setTheme, site, tenantId } from './helpers'
 
 // Product page 2.0 `/produkt/[slug]` (spec. §6.2, K31-ZMIANY §4, §7, §13.5, §13.7; K31b).
 // Catalog from `pnpm seed`.
@@ -319,7 +319,7 @@ test.describe('Biznes product page 2.0', () => {
     test(`axe without violations on a card with a configurator, ${theme} theme`, async ({
       page,
     }) => {
-      await page.emulateMedia({ colorScheme: theme })
+      await setTheme(page, theme)
       await page.goto(site('biznes.localhost', THINKBOOK))
       await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
       const { violations } = await new AxeBuilder({ page }).withTags(WCAG).analyze()

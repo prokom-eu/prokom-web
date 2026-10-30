@@ -1,7 +1,7 @@
 import { headers } from 'next/headers'
 import React from 'react'
 
-import { hasDarkTheme, THEME_SCRIPT } from '@/lib/brand/theme'
+import { hasDarkTheme, themeScript } from '@/lib/brand/theme'
 import { getTenantByHost } from '@/lib/tenant/byHost'
 import { normalizeHost } from '@/lib/tenant/host'
 
@@ -21,7 +21,7 @@ export default async function SitesRootLayout({ children }: { children: React.Re
     <html lang="pl" data-line={line} className={fontVariables} suppressHydrationWarning>
       {line && hasDarkTheme(line) && (
         <head>
-          <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+          <script dangerouslySetInnerHTML={{ __html: themeScript(line) }} />
         </head>
       )}
       <body>{children}</body>

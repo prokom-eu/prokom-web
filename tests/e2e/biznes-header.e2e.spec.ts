@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 
-import { site } from './helpers'
+import { setTheme, site } from './helpers'
 
 // B3a + B3c (v20): top bar and header of the Biznes line, Oferta ▾ (spec. §3.1–3.2). Data
 // from `pnpm seed` (navigation of the design, catalog of B2).
@@ -163,7 +163,7 @@ test.describe('Biznes header', () => {
 
   for (const colorScheme of ['light', 'dark'] as const) {
     test(`axe passes with the mega menu open — ${colorScheme}`, async ({ page }) => {
-      await page.emulateMedia({ colorScheme })
+      await setTheme(page, colorScheme)
       await page.goto(site('biznes.localhost'))
       await mainNav(page).getByRole('button', { name: 'Oferta' }).click()
       await expect(page.locator('[id$="-offer"]')).toBeVisible()
