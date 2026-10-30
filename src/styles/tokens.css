@@ -349,6 +349,96 @@
   --c-instalacje-hue-blue: #5b8cf0;
   --c-instalacje-hue-violet: #b58cf0;
 
+  /* Home sections of the visualisation v4.2 (I6, `pk.css`, `Main.body.html`): colour bands,
+     "Dla kogo" cards, the mountain band - `-light`/`-night` pairs flip with the theme; the
+     service teaser, the services card and the quick plan form are dark in both themes. */
+  --c-instalacje-light-band-soft: #ebf0ee;
+  --c-instalacje-night-band-soft: #141916;
+  --c-instalacje-light-band-tint: #e2f1f4;
+  --c-instalacje-night-band-tint: #0f1f22;
+  --c-instalacje-light-band-plan-1: #d6eef3;
+  --c-instalacje-night-band-plan-1: #0f2e33;
+  --c-instalacje-light-band-plan-2: #e7f1e2;
+  --c-instalacje-night-band-plan-2: #1b2a1a;
+  --c-instalacje-light-ob-2: #fbefd8;
+  --c-instalacje-light-obi-2: #9a5e00;
+  --c-instalacje-light-ob-3: #e4ecf9;
+  --c-instalacje-light-obi-3: #2e5ca6;
+  --c-instalacje-light-ob-4: #e4f1df;
+  --c-instalacje-light-ob-5: #f8e5e1;
+  --c-instalacje-light-obi-5: #a83a27;
+  --c-instalacje-light-ob-1: #e0f1f5;
+  --c-instalacje-night-ob-2: #2a2213;
+  --c-instalacje-night-ob-3: #142034;
+  --c-instalacje-night-obi-3: #8db4f0;
+  --c-instalacje-night-ob-4: #16261a;
+  --c-instalacje-night-ob-5: #2c1a17;
+  --c-instalacje-night-obi-5: #f28a78;
+  --c-instalacje-light-ob-ring: rgba(0, 0, 0, 0.04);
+  --c-instalacje-night-ob-ring: rgba(255, 255, 255, 0.06);
+  --c-instalacje-ob-shadow: rgba(0, 0, 0, 0.6);
+  --c-instalacje-light-ob-chip: rgba(255, 255, 255, 0.75);
+  --c-instalacje-light-gor-top: #d7ebf3;
+  --c-instalacje-light-gor-mid: #eef6f8;
+  --c-instalacje-light-gor-bottom: #f7fafa;
+  --c-instalacje-light-gor-ring: #cfe2ea;
+  --c-instalacje-light-gor-card: rgba(255, 255, 255, 0.85);
+  /* The prototype's dark band has two stops; the middle one is its value at 75%. */
+  --c-instalacje-night-gor-top: #0e1e28;
+  --c-instalacje-night-gor-mid: #101b21;
+  --c-instalacje-night-gor-bottom: #111a1f;
+  --c-instalacje-light-gor-mt: #c3dbe5;
+  --c-instalacje-night-gor-mt: #1a2c36;
+  --c-instalacje-us-glow-1: rgba(18, 182, 216, 0.1);
+  --c-instalacje-us-glow-2: rgba(232, 111, 176, 0.08);
+  --c-instalacje-us-glow-3: rgba(123, 211, 106, 0.08);
+  --c-instalacje-us-bar-shadow: rgba(0, 0, 0, 0.45);
+  --c-instalacje-us-stage-end: #081012;
+  --c-instalacje-us-stage-ring: rgba(255, 255, 255, 0.06);
+  --c-instalacje-us-tag: rgba(8, 16, 18, 0.7);
+  --c-instalacje-deep-1: #0f3a44;
+  --c-instalacje-deep-2: #0b1a1d;
+  --c-instalacje-deep-3: #081113;
+  --c-instalacje-deep-ring: rgba(76, 203, 230, 0.2);
+  --c-instalacje-deep-lead: #b8c6c9;
+  --c-instalacje-deep-note: #a9babe;
+  --c-instalacje-deep-tile: rgba(255, 255, 255, 0.05);
+  --c-instalacje-orbit-1: rgba(76, 203, 230, 0.28);
+  --c-instalacje-orbit-2: rgba(76, 203, 230, 0.18);
+  --c-instalacje-plan-1: #16301f;
+  --c-instalacje-plan-bg: #071214;
+  --c-instalacje-plan-bg-2: #0b1618;
+  --c-instalacje-plan-bg-3: #152226;
+  --c-instalacje-plan-glass-top: rgba(255, 255, 255, 0.06);
+  --c-instalacje-light-plan-glass-top: rgba(255, 255, 255, 0.07);
+  --c-instalacje-plan-glass-bottom: rgba(255, 255, 255, 0.02);
+  --c-instalacje-plan-tile: rgba(255, 255, 255, 0.04);
+  --c-instalacje-plan-step: rgba(255, 255, 255, 0.03);
+  --c-instalacje-plan-num: rgba(255, 255, 255, 0.1);
+  --c-instalacje-plan-box: rgba(255, 255, 255, 0.25);
+  --c-instalacje-plan-rule: rgba(255, 255, 255, 0.14);
+  --c-instalacje-plan-card-ink: #dde8ea;
+  --c-instalacje-plan-chip-ink: #c9d6d9;
+  --c-instalacje-plan-placeholder: #5e7076;
+  --c-instalacje-plan-on-ink: #062026;
+  --c-instalacje-plan-send: rgba(76, 203, 230, 0.35);
+  --c-instalacje-plan-send-glow: rgba(18, 182, 216, 0.9);
+  --c-instalacje-plan-chip-on: rgba(76, 203, 230, 0.2);
+  --c-instalacje-plan-step-bg: rgba(76, 203, 230, 0.16);
+  --c-instalacje-plan-ok-glow: rgba(46, 158, 85, 0.2);
+  --c-instalacje-plan-ok-bg: rgba(46, 158, 85, 0.14);
+  /* Green under white text (step done, zone found): the prototype's #2e9e55 gives 3.4:1. */
+  --c-instalacje-plan-ok-label: #258543;
+  --c-instalacje-plan-err-bg: rgba(240, 122, 106, 0.14);
+  --c-instalacje-plan-err: #ff9a8a;
+  --c-instalacje-ticket-1: #103e48;
+  --c-instalacje-ticket-2: #0a171a;
+  --c-instalacje-ticket-ring-bg: #10262b;
+  /* Prototype #8fa3a8 gives 4.4:1 on the ticket's top stop. */
+  --c-instalacje-ticket-mut: #91a5aa;
+  --c-instalacje-ticket-rule: rgba(255, 255, 255, 0.07);
+  --c-instalacje-ticket-shadow: rgba(0, 0, 0, 0.8);
+
   /* Status colours of the Biznes visualisation (dots); `-text` is darkened for 4.5:1. */
   --c-ok: #1f9d63;
   --c-ok-text: #15724a;
@@ -631,6 +721,114 @@
   --inst-hue-blue: var(--c-instalacje-hue-blue);
   --inst-hue-violet: var(--c-instalacje-hue-violet);
   --inst-hue-cyan: var(--c-instalacje-night-accent);
+  /* Home sections (I6): following the theme. */
+  --inst-band-soft: var(--c-instalacje-light-band-soft);
+  --inst-band-tint: var(--c-instalacje-light-band-tint);
+  --inst-band-plan-1: var(--c-instalacje-light-band-plan-1);
+  --inst-band-plan-2: var(--c-instalacje-light-band-plan-2);
+  --inst-ob-1: var(--c-instalacje-light-ob-1);
+  --inst-obi-1: var(--c-instalacje-light-accent-text);
+  --inst-ob-2: var(--c-instalacje-light-ob-2);
+  --inst-obi-2: var(--c-instalacje-light-obi-2);
+  --inst-ob-3: var(--c-instalacje-light-ob-3);
+  --inst-obi-3: var(--c-instalacje-light-obi-3);
+  --inst-ob-4: var(--c-instalacje-light-ob-4);
+  --inst-obi-4: var(--c-instalacje-light-ok);
+  --inst-ob-5: var(--c-instalacje-light-ob-5);
+  --inst-obi-5: var(--c-instalacje-light-obi-5);
+  --inst-ob-ring: var(--c-instalacje-light-ob-ring);
+  --inst-ob-chip: var(--c-instalacje-light-ob-chip);
+  --inst-gor-top: var(--c-instalacje-light-gor-top);
+  --inst-gor-mid: var(--c-instalacje-light-gor-mid);
+  --inst-gor-bottom: var(--c-instalacje-light-gor-bottom);
+  --inst-gor-ring: var(--c-instalacje-light-gor-ring);
+  --inst-gor-card: var(--c-instalacje-light-gor-card);
+  --inst-gor-mt: var(--c-instalacje-light-gor-mt);
+  --inst-plan-glass-top: var(--c-instalacje-light-plan-glass-top);
+  /* Home sections (I6): the same in both themes. */
+  --inst-ob-shadow: var(--c-instalacje-ob-shadow);
+  --inst-us-glow-1: var(--c-instalacje-us-glow-1);
+  --inst-us-glow-2: var(--c-instalacje-us-glow-2);
+  --inst-us-glow-3: var(--c-instalacje-us-glow-3);
+  --inst-us-bar-shadow: var(--c-instalacje-us-bar-shadow);
+  --inst-us-stage: var(--c-instalacje-spec-bg);
+  --inst-us-stage-end: var(--c-instalacje-us-stage-end);
+  --inst-us-stage-ring: var(--c-instalacje-us-stage-ring);
+  --inst-us-tag: var(--c-instalacje-us-tag);
+  --inst-us-tag-ink: var(--c-instalacje-foot-white);
+  /* Dark text on a service hue (badge, hovered footer, light-theme icon mix). */
+  --inst-hue-ink: var(--c-instalacje-spec-bg);
+  --inst-deep-1: var(--c-instalacje-deep-1);
+  --inst-deep-2: var(--c-instalacje-deep-2);
+  --inst-deep-3: var(--c-instalacje-deep-3);
+  --inst-deep-ring: var(--c-instalacje-deep-ring);
+  --inst-deep-ink: var(--c-instalacje-band-ink);
+  --inst-deep-white: var(--c-instalacje-foot-white);
+  --inst-deep-lead: var(--c-instalacje-deep-lead);
+  --inst-deep-lead-2: var(--c-instalacje-band-lead);
+  --inst-deep-note: var(--c-instalacje-deep-note);
+  --inst-deep-tile: var(--c-instalacje-deep-tile);
+  --inst-deep-tile-ring: var(--c-instalacje-meter-track);
+  --inst-orbit-1: var(--c-instalacje-orbit-1);
+  --inst-orbit-2: var(--c-instalacje-orbit-2);
+  --inst-orbit-dot: var(--c-instalacje-foot-accent);
+  --inst-plan-1: var(--c-instalacje-deep-1);
+  --inst-plan-2: var(--c-instalacje-plan-1);
+  --inst-plan-bg: var(--c-instalacje-plan-bg);
+  --inst-plan-bg-2: var(--c-instalacje-plan-bg-2);
+  --inst-plan-bg-3: var(--c-instalacje-plan-bg-3);
+  --inst-plan-card: var(--c-instalacje-band);
+  --inst-plan-ink: var(--c-instalacje-foot-ink);
+  --inst-plan-text: var(--c-instalacje-spec-ink);
+  --inst-plan-white: var(--c-instalacje-foot-white);
+  --inst-plan-lead: var(--c-instalacje-band-lead);
+  --inst-plan-soft: var(--c-instalacje-spec-sub);
+  --inst-plan-note: var(--c-instalacje-band-note);
+  --inst-plan-muted: var(--c-instalacje-foot-ink-2);
+  --inst-plan-line: var(--c-instalacje-meter-track);
+  --inst-plan-accent: var(--c-instalacje-foot-accent);
+  --inst-plan-glass-bottom: var(--c-instalacje-plan-glass-bottom);
+  --inst-plan-glass-ring: var(--c-instalacje-plan-num);
+  --inst-plan-shadow: var(--c-instalacje-ticket-shadow);
+  --inst-plan-tile: var(--c-instalacje-plan-tile);
+  --inst-plan-tile-2: var(--c-instalacje-deep-tile);
+  --inst-plan-step: var(--c-instalacje-plan-step);
+  --inst-plan-num: var(--c-instalacje-plan-num);
+  --inst-plan-box: var(--c-instalacje-plan-box);
+  --inst-plan-rule: var(--c-instalacje-plan-rule);
+  --inst-plan-card-ink: var(--c-instalacje-plan-card-ink);
+  --inst-plan-chip-ink: var(--c-instalacje-plan-chip-ink);
+  --inst-plan-placeholder: var(--c-instalacje-plan-placeholder);
+  --inst-plan-on-ink: var(--c-instalacje-plan-on-ink);
+  --inst-plan-dark-ink: var(--c-instalacje-spec-bg);
+  --inst-plan-send: var(--c-instalacje-plan-send);
+  /* Light label on the not-ready button: the prototype's dark one gives 2.2:1 (AA). */
+  --inst-plan-send-ink: var(--c-instalacje-spec-ink);
+  --inst-plan-send-from: var(--c-instalacje-foot-accent);
+  --inst-plan-send-to: var(--c-instalacje-night-accent);
+  --inst-plan-send-glow: var(--c-instalacje-plan-send-glow);
+  --inst-plan-chip-on: var(--c-instalacje-plan-chip-on);
+  --inst-plan-step-bg: var(--c-instalacje-plan-step-bg);
+  --inst-plan-icon-bg: var(--c-instalacje-dark-icon-bg);
+  --inst-plan-ok: var(--c-instalacje-go);
+  --inst-plan-ok-label: var(--c-instalacje-plan-ok-label);
+  /* Field labels and the zone tag in a field: the prototype's grey gives 4.2-4.3:1 there. */
+  --inst-plan-field-ink: var(--c-instalacje-band-note);
+  --inst-plan-ok-glow: var(--c-instalacje-plan-ok-glow);
+  --inst-plan-ok-bg: var(--c-instalacje-plan-ok-bg);
+  --inst-plan-err-bg: var(--c-instalacje-plan-err-bg);
+  --inst-plan-err: var(--c-instalacje-plan-err);
+  --inst-ticket-1: var(--c-instalacje-ticket-1);
+  --inst-ticket-2: var(--c-instalacje-ticket-2);
+  --inst-ticket-ring: var(--c-instalacje-deep-ring);
+  --inst-ticket-ink: var(--c-instalacje-spec-ink);
+  --inst-ticket-dash: var(--c-instalacje-switch-track);
+  --inst-ticket-eye: var(--c-instalacje-foot-accent);
+  --inst-ticket-ring-bg: var(--c-instalacje-ticket-ring-bg);
+  --inst-ticket-ring-track: var(--c-instalacje-plan-num);
+  --inst-ticket-mut: var(--c-instalacje-ticket-mut);
+  --inst-ticket-rule: var(--c-instalacje-ticket-rule);
+  --inst-ticket-shadow: var(--c-instalacje-ticket-shadow);
 }
 
 /* Home hero "Twój obiekt na żywo" (I5, `pk.css` .hx / .scene, `Main.body.html`, `Main.js`):
@@ -926,6 +1124,85 @@
   --hx-pip-ground: #e6ecee;
 }
 
+/* Mini scenes of the home service cards (I6, `pk.css` .sx*): illustrations on a dark stage in
+   both themes, set by `data-inst-sx` on the card stage; the hue of a service comes as `--h`
+   from its data. Values 1:1 from the prototype, like the hero palette above. */
+[data-line='instalacje'] [data-inst-sx] {
+  --sx-sky: #0b1a22;
+  --sx-m1: #132a33;
+  --sx-snow: #dde8ea;
+  --sx-gnd: #0e171a;
+  --sx-line: rgba(255, 255, 255, 0.12);
+  --sx-wall: #1d2a2e;
+  --sx-win: #f2c46b;
+  --sx-win-d: #1b3640;
+  --sx-winl: #2e3d42;
+  --sx-met: #8e999c;
+  --sx-body: #e8ecec;
+  --sx-car: #2b3a40;
+  --sx-car2: #24343a;
+  --sx-tyre: #05090a;
+  --sx-tyre-line: #3a474b;
+  --sx-glass: #4b6e7a;
+  --sx-glass2: #0e1a1f;
+  --sx-pale: #c9d6d9;
+  --sx-det: #7bd36a;
+  --sx-ink: #0b1418;
+  --sx-white: #ffffff;
+  --sx-chip: rgba(8, 16, 18, 0.7);
+  --sx-ht: #e5fbff;
+  --sx-rec: #ff5a5a;
+  --sx-warn: #f2b84b;
+  --sx-amber: #f2c14b;
+  --sx-go: #56d16e;
+  --sx-blue: #12b6d8;
+  --sx-violet: #b58cf0;
+  --sx-pass: #2e9e55;
+  --sx-room: #141e21;
+  --sx-room2: #121b1e;
+  --sx-frame: #2a3539;
+  --sx-moon: #f4e9c8;
+  --sx-floor: #1b2427;
+  --sx-cord: #59666a;
+  --sx-lamp: rgba(242, 196, 107, 0.14);
+  --sx-panel: #0b1012;
+  --sx-ph-line: rgba(255, 255, 255, 0.14);
+  --sx-pt2: #b5c4c8;
+  --sx-tile: #1a2427;
+  --sx-plan: #0f181b;
+  --sx-z: #162125;
+  --sx-deck: #1e1a14;
+  --sx-wood: #5a3e28;
+  --sx-leaf: #6b4a30;
+  --sx-umb: rgba(242, 184, 75, 0.25);
+  --sx-umb-line: rgba(242, 184, 75, 0.6);
+  --sx-zl: #8fa3a8;
+  --sx-cons: #1a2124;
+  --sx-cons-line: rgba(255, 255, 255, 0.08);
+  --sx-trk: #070a0b;
+  --sx-cap: #d7dedf;
+  --sx-house: #1e2c31;
+  --sx-fl1: #16232a;
+  --sx-fl1-line: rgba(255, 255, 255, 0.1);
+  --sx-fl2: #1a2930;
+  --sx-panelw: rgba(0, 0, 0, 0.25);
+  --sx-card: #e8c27a;
+  --sx-street: #141c1f;
+  --sx-pave: #1e272a;
+  --sx-s1: #1b3a2e;
+  --sx-s2: #2a0f1e;
+  --sx-s3: #14304a;
+  --sx-sl: rgba(255, 255, 255, 0.4);
+  --sx-sl2: rgba(255, 255, 255, 0.22);
+  --sx-bld: #1a2629;
+  --sx-apt: #212f33;
+  --sx-shaft: rgba(255, 255, 255, 0.04);
+  --sx-solar: #2b4a7a;
+  --sx-solar-line: #8ea9d6;
+  --sx-mast: #9aa6a9;
+  --sx-dish: #d3d9da;
+}
+
 [data-line='software'] {
   --accent: var(--c-software-light-accent);
   --accent-on-dark: var(--c-software-on-dark);
@@ -1105,6 +1382,30 @@
   --inst-scene-ground: var(--c-instalacje-night-scene-ground);
   --inst-go-text: var(--c-instalacje-night-ok);
   --inst-warn-text: var(--c-instalacje-night-warn);
+  /* Home sections (I6). */
+  --inst-band-soft: var(--c-instalacje-night-band-soft);
+  --inst-band-tint: var(--c-instalacje-night-band-tint);
+  --inst-band-plan-1: var(--c-instalacje-night-band-plan-1);
+  --inst-band-plan-2: var(--c-instalacje-night-band-plan-2);
+  --inst-ob-1: var(--c-instalacje-night-accent-soft);
+  --inst-obi-1: var(--c-instalacje-night-accent-text);
+  --inst-ob-2: var(--c-instalacje-night-ob-2);
+  --inst-obi-2: var(--c-instalacje-night-warn);
+  --inst-ob-3: var(--c-instalacje-night-ob-3);
+  --inst-obi-3: var(--c-instalacje-night-obi-3);
+  --inst-ob-4: var(--c-instalacje-night-ob-4);
+  --inst-obi-4: var(--c-instalacje-night-ok);
+  --inst-ob-5: var(--c-instalacje-night-ob-5);
+  --inst-obi-5: var(--c-instalacje-night-obi-5);
+  --inst-ob-ring: var(--c-instalacje-night-ob-ring);
+  --inst-ob-chip: var(--c-instalacje-meter-track);
+  --inst-gor-top: var(--c-instalacje-night-gor-top);
+  --inst-gor-mid: var(--c-instalacje-night-gor-mid);
+  --inst-gor-bottom: var(--c-instalacje-night-gor-bottom);
+  --inst-gor-ring: var(--c-instalacje-night-border);
+  --inst-gor-card: var(--c-instalacje-night-card);
+  --inst-gor-mt: var(--c-instalacje-night-gor-mt);
+  --inst-plan-glass-top: var(--c-instalacje-plan-glass-top);
 }
 
 /* …or by the system when there is no choice. Keep in sync with the rules above (tested). */
@@ -1219,5 +1520,29 @@
     --inst-scene-ground: var(--c-instalacje-night-scene-ground);
     --inst-go-text: var(--c-instalacje-night-ok);
     --inst-warn-text: var(--c-instalacje-night-warn);
+    /* Home sections (I6). */
+    --inst-band-soft: var(--c-instalacje-night-band-soft);
+    --inst-band-tint: var(--c-instalacje-night-band-tint);
+    --inst-band-plan-1: var(--c-instalacje-night-band-plan-1);
+    --inst-band-plan-2: var(--c-instalacje-night-band-plan-2);
+    --inst-ob-1: var(--c-instalacje-night-accent-soft);
+    --inst-obi-1: var(--c-instalacje-night-accent-text);
+    --inst-ob-2: var(--c-instalacje-night-ob-2);
+    --inst-obi-2: var(--c-instalacje-night-warn);
+    --inst-ob-3: var(--c-instalacje-night-ob-3);
+    --inst-obi-3: var(--c-instalacje-night-obi-3);
+    --inst-ob-4: var(--c-instalacje-night-ob-4);
+    --inst-obi-4: var(--c-instalacje-night-ok);
+    --inst-ob-5: var(--c-instalacje-night-ob-5);
+    --inst-obi-5: var(--c-instalacje-night-obi-5);
+    --inst-ob-ring: var(--c-instalacje-night-ob-ring);
+    --inst-ob-chip: var(--c-instalacje-meter-track);
+    --inst-gor-top: var(--c-instalacje-night-gor-top);
+    --inst-gor-mid: var(--c-instalacje-night-gor-mid);
+    --inst-gor-bottom: var(--c-instalacje-night-gor-bottom);
+    --inst-gor-ring: var(--c-instalacje-night-border);
+    --inst-gor-card: var(--c-instalacje-night-card);
+    --inst-gor-mt: var(--c-instalacje-night-gor-mt);
+    --inst-plan-glass-top: var(--c-instalacje-plan-glass-top);
   }
 }
