@@ -253,7 +253,7 @@ export const getHomeAreas = cache(async (tenantId: number): Promise<HomeArea[]> 
  * tag, revalidated by the hooks of `Solutions` and `SoftwareSettings`).
  */
 const getOfferSource = (tenantId: number) =>
-  unstable_cache(
+  cacheQuery(
     async () => {
       const payload = await getPayload({ config })
       const read = { overrideAccess: true, depth: 0 } as const
