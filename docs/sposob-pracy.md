@@ -81,6 +81,13 @@ Gdy dwie strony powstają w tym samym czasie, każda ma **własny folder** z wł
 7. **Koniec dnia:** `.\scripts\koniec.ps1` w każdym folderze z pracą w toku.
 8. Folder niepotrzebny (praca znów nad jedną stroną): `git worktree remove ..\prokom-web-biznes`.
 
+### Dwa tory i migracje z dwóch folderów
+Podział sesji na fale i tory: `docs/zadania/przyspieszenie.md`. Najwyżej dwie sesje piszące kod naraz (wszystkie linie razem). Każdy folder ma **własny** `PORT` w `.env` — Playwright (`reuseExistingServer`) podłącza się do każdego serwera na swoim porcie, także z innego folderu (30.10: e2e Biznesu trafiły w serwer `prokom-web` na 3000).
+
+Gdy dwie gałęzie z dwóch folderów zmieniają schemat, każda **przed `/pr`** robi rebase na `origin/develop`, usuwa swoją migrację (`.ts`, `.json`, wpis w `src/migrations/index.ts`), tworzy ją od nowa `pnpm payload migrate:create <nazwa>` i uruchamia `pnpm payload migrate`. Dlaczego: Payload liczy nową migrację od ostatniego snapshotu `.json` — snapshot z gałęzi, która nie zna migracji drugiej, kazałby następnej migracji tworzyć te same tabele drugi raz.
+
+Test `down` migracji lokalnie: wyciągnąć SQL do pliku `BEGIN; <down>; <up>; ROLLBACK;` i uruchomić `psql -v ON_ERROR_STOP=1 -f …` — bez tej flagi psql po błędzie idzie dalej poza transakcją i zmienia bazę (30.10, K4a-2).
+
 ### Zmiana schematu bazy (ADR-009)
 `push` jest wyłączony (`push: false` w `src/payload.config.ts`) — Payload sam nie zmienia tabel. Schemat zmienia się tylko przez migracje w `src/migrations/`:
 1. Zmieniam kolekcję/pole → `pnpm payload migrate:create <krotka-nazwa>` (powstaje plik `.ts` + migawka `.json`).
