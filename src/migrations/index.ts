@@ -46,6 +46,7 @@ import * as migration_20261030_185159_k4a_categories from './20261030_185159_k4a
 import * as migration_20261030_194149_software_solutions_v22 from './20261030_194149_software_solutions_v22'
 import * as migration_20261030_200347_k4_products from './20261030_200347_k4_products'
 import * as migration_20261030_202637_inst_home_block from './20261030_202637_inst_home_block'
+import * as migration_20261030_212947_k4_brands_showrooms from './20261030_212947_k4_brands_showrooms'
 
 export const migrations = [
   {
@@ -287,5 +288,10 @@ export const migrations = [
     up: migration_20261030_202637_inst_home_block.up,
     down: migration_20261030_202637_inst_home_block.down,
     name: '20261030_202637_inst_home_block',
+  },
+  {
+    up: migration_20261030_212947_k4_brands_showrooms.up,
+    down: migration_20261030_212947_k4_brands_showrooms.down,
+    name: '20261030_212947_k4_brands_showrooms',
   },
 ]

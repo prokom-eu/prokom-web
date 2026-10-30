@@ -9,6 +9,10 @@ import k3Removed from '../../../seed/prokombiznes/k3/usuniete.json'
 import k3Bundles from '../../../seed/prokombiznes/k3/zestawy.json'
 import k4Catalog from '../../../seed/prokombiznes/k4/katalog-k4.json'
 import k4Brands from '../../../seed/prokombiznes/k4/marki-k4.json'
+import k4PlansFile from '../../../seed/prokombiznes/k4/plany-k4.json'
+import k4BundlesFile from '../../../seed/prokombiznes/k4/zestawy-k4.json'
+import k4HomeFile from '../../../seed/prokombiznes/k4/strona-glowna-k4.json'
+import k4SalonsFile from '../../../seed/prokombiznes/k4/salony-k4.json'
 import k4SlugMap from '../../../seed/prokombiznes/k4/mapa-slugow-k4.json'
 import k4Slowniki from '../../../seed/prokombiznes/k4/slowniki-k4.json'
 import kreator from '../../../seed/prokombiznes/kreator.json'
@@ -61,7 +65,6 @@ import {
 } from './k4Categories'
 import {
   K31_DIR,
-  k31Featured,
   k31Scenes,
   k31Series,
   k31SeriesVideos,
@@ -71,6 +74,17 @@ import {
 } from './k31Data'
 import { cardsOf, floorPlanData, seriesMismatches, showroomData } from './k31Plans'
 import { bundleData, nextBundleStatus, sceneBundles, type K3Bundle } from './k3Bundles'
+import {
+  hasK4Logo,
+  k4BrandSettings,
+  k4LogoUpload,
+  k4PartnerFields,
+  readK4Logo,
+  type K4BrandsFile,
+} from './k4Brands'
+import { k4ShowroomData, type K4Showroom } from './k4Showrooms'
+import { k4Bundle, k4Scene, k4ServiceSlugs, type K4Bundle, type K4Scene } from './k4Plans'
+import { K4_FEATURED, k4CategoryOrder, k4GroupProducts, k4HomeProductFields } from './k4Home'
 import {
   brandLogoFile,
   galleryFileName,
@@ -127,7 +141,12 @@ type Counter = { created: number; updated: number; skipped: number }
  */
 export async function seedBiznesCatalog(payload: Payload): Promise<void> {
   const catalog: SeedCatalog = katalog
-  const k31Dicts = k31Dictionaries(k3Dictionaries, k31Featured)
+  // „O to firmy pytają najczęściej”: the 16 of K4 (K35 §7a) in place of the K3.1 list (K4a-2).
+  const k31Dicts = k31Dictionaries(
+    k3Dictionaries,
+    K4_FEATURED.map((item) => item.slug),
+  )
+  const k4Order = k4CategoryOrder(k4HomeFile, k4SlugMap.niepodzielone)
   // K4 departments and categories (D-K4-2); the content of a card comes from K4 (K4a-1b).
   const dictionaries = k4Dictionaries(k31Dicts, k4Slowniki)
   const k4Cards = new Map<string, K4Card>(k4Catalog.produkty.map((card) => [card.slug_seed, card]))
@@ -403,9 +422,14 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
         ...local,
       })
     ).docs[0]
+  const k4BrandFile: K4BrandsFile = k4Brands
   for (const [index, brand] of dictionaries.marki.entries()) {
     const existing = await findPartner(brand.slug)
     const { brandPage, website } = k3PartnerData(brand)
+    // K4 one-line description wins (K4a-2), so K3 and K4 do not rewrite each other on a re-run.
+    if (k4BrandFile.marki[brand.marka]) {
+      brandPage.shortDescription = k4PartnerFields(brand.marka, k4BrandFile).shortDescription
+    }
     if (!existing) {
       // No products and no page (Ingenico: a paragraph on the PolCard page) — no record.
       if (!k3BrandNeedsRecord(brand, cards)) {
@@ -485,6 +509,36 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     count('partners (K4)', !existing)
     brandIds.set(name, id)
   }
+  // --- K4 brands (K4a-2): status (K4-FINAL §1), one-line description and logo of the package.
+  // A logo stored as `k4-logo-…` is already the K4 one: a re-run uploads nothing. ---
+  for (const name of Object.keys(k4BrandFile.marki)) {
+    const partnerId = brandIds.get(name)
+    if (partnerId === undefined) {
+      note('K4: marka bez rekordu', name)
+      continue
+    }
+    const existing = await payload.findByID({
+      collection: 'partners',
+      id: partnerId,
+      ...local,
+    })
+    const { partnerStatus, shortDescription } = k4PartnerFields(name, k4BrandFile)
+    const update = { partnerStatus, brandPage: { ...existing.brandPage, shortDescription } }
+    const logo = k4LogoUpload(name, k4BrandFile)
+    if (!logo) note('K4: marka bez logo', name)
+    const file = logo && !hasK4Logo(existing.filename, logo) ? await readK4Logo(logo) : null
+    const same = !file && hasSameValues(existing, update)
+    if (!same) {
+      await payload.update({
+        collection: 'partners',
+        id: partnerId,
+        data: update,
+        ...(file && { file }),
+        ...local,
+      })
+    }
+    count('partners (K4 marki)', same ? false : 'updated')
+  }
 
   // --- products from K3: found by `legacyIds` (K3 ids + those of the katalog v2 product) ---
   // Ids by every key (short id, sheet id, slug_seed), for blocks that list products (B9b kits).
@@ -559,7 +613,11 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     const [existing] = found
     const k31Fields = k31ProductFields(card, k31Series, k31Videos, existing)
     // A new K4 card has no K3.1 series: the K4 one (`seria`).
-    const fields = { ...k31Fields, series: k31Fields.series ?? card.seria ?? null }
+    const fields = {
+      ...k31Fields,
+      series: k31Fields.series ?? card.seria ?? null,
+      ...k4HomeProductFields(card.slug_seed, k4Order),
+    }
     if (fields.videos.length) withFilms += 1
     if ((card.marka === 'Lenovo' || card.marka === 'Dell') && !fields.series) {
       note('Lenovo/Dell bez serii', card.slug_seed)
@@ -639,6 +697,18 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     if (slug !== undefined) slugByKey.set(shortId, slug)
   }
 
+  // --- K4 departments (K4a-2): first cards under „Polecane” (dzTop9) and the wheel products ---
+  for (const [slug, products] of k4GroupProducts(k4HomeFile, (key) => productIds.get(key))) {
+    const groupId = groupIds.get(slug)
+    if (groupId === undefined) throw new Error(`Seed (Biznes): department "${slug}" missing.`)
+    const existing = await payload.findByID({ collection: 'catalog-groups', id: groupId, ...local })
+    const same = hasSameValues(existing, products)
+    if (!same) {
+      await payload.update({ collection: 'catalog-groups', id: groupId, data: products, ...local })
+    }
+    count('catalog-groups K4 lists', same ? false : 'updated')
+  }
+
   // --- K4 polecane and podobne (ADR-017 pkt 10), once every card has its record ---
   log(`products with K4 content: ${JSON.stringify(k4Changes)}`)
   const linked = [...k4Cards.values()].filter((card) => productIds.has(card.slug_seed))
@@ -684,12 +754,14 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
         ...local,
       })
       const hide = record?._status === 'published'
+      // A hidden card leaves „O to firmy pytają najczęściej” too (K4a-2: exactly the 16).
+      const featured = record?.featured === true
       count('products hidden', hide)
-      if (record && hide) {
+      if (record && (hide || featured)) {
         await payload.update({
           collection: 'products',
           id: record.id,
-          data: { _status: 'draft' },
+          data: { _status: 'draft', featured: false, featuredOrder: null },
           ...local,
         })
       }
@@ -744,22 +816,64 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     }
     count('partners showroom', same ? false : 'updated')
   }
+  // --- K4 showrooms 2.0 (D-K4-3) → `Showrooms`; Lenovo and Dell from K4 too. `Partners.showroom`
+  // stays as it is until K4f-2 (the brand page still renders it). ---
+  const k4Salons = k4SalonsFile.salony as unknown as Record<string, K4Showroom>
+  for (const [index, [key, salon]] of Object.entries(k4Salons).entries()) {
+    const { data, unknown } = k4ShowroomData(key, salon, index, {
+      brands: k4BrandFile,
+      partner: (name) => brandIds.get(name),
+      product: productId,
+    })
+    for (const slug of unknown) note('K4: salon — karta bez rekordu', `${key}: ${slug}`)
+    const {
+      docs: [existing],
+    } = await payload.find({
+      collection: 'showrooms',
+      where: inTenant({ slug: { equals: data.slug } }),
+      limit: 1,
+      ...local,
+    })
+    if (!existing) {
+      await payload.create({
+        collection: 'showrooms',
+        data: { ...data, tenant: tenant.id },
+        ...local,
+      })
+      count('showrooms', true)
+    } else {
+      const same = hasSameValues(existing, data)
+      if (!same) {
+        await payload.update({ collection: 'showrooms', id: existing.id, data, ...local })
+      }
+      count('showrooms', same ? false : 'updated')
+    }
+  }
   const hiddenCards = new Set(
     cards.filter((card) => k3PublishStatus(card) === 'draft').map((card) => card.slug_seed),
   )
   // --- ready bundles (K3c), after the cards they list; the floor plans name them below ---
   const bundleIds = new Map<string, number>()
-  const bundles: K3Bundle[] = k3Bundles.zestawy
+  // K4a-2: texts and items of zestawy-k4.json over K3c (series, industries, notes stay). Cards of
+  // K4 data include the new K4 cards, which K3.1 does not know.
+  const k4CardsFor = cardsOf({ ...k31, cards })
+  const serviceSlug = k4ServiceSlugs(k4Catalog.produkty)
+  const k4BundleData = k4BundlesFile.zestawy as Record<string, K4Bundle>
+  const bundles: K3Bundle[] = k3Bundles.zestawy.map((base) => {
+    const k4 = k4BundleData[base.slug]
+    if (!k4) throw new Error(`Seed (Biznes): bundle "${base.slug}" missing in zestawy-k4.json.`)
+    return k4Bundle(base.slug, k4, base, serviceSlug)
+  })
   for (const bundle of bundles) {
     const data = bundleData(bundle, k3Bundles.sprawdzone_zgodnosci, {
-      cards: cardsFor,
+      cards: k4CardsFor,
       product: productId,
       industry: (slug) => industryIds.get(slug),
       category: (code) => categoryIds.get(code),
       hidden: hiddenCards,
     })
     for (const item of bundle.elementy) {
-      if (cardsFor(item.slug).some((slug) => hiddenCards.has(slug))) {
+      if (k4CardsFor(item.slug).some((slug) => hiddenCards.has(slug))) {
         note('element zestawu z ukrytą kartą', `${bundle.slug}: ${item.slug}`)
       }
     }
@@ -793,19 +907,25 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     }
   }
   log(
-    `bundles (K3c): ${bundles.length}, „Gotowe” in the package: ${bundles.filter((b) => b.status === 'gotowe').length}`,
+    `bundles (K4): ${bundles.length}, „Gotowe” in the package: ${bundles.filter((b) => b.status === 'gotowe').length}`,
   )
 
   let planPoints = 0
-  for (const [index, scene] of k31Scenes.entries()) {
+  // K4a-2: points, labels and texts of plany-k4.json over the K3.1 scenes (drawing stays).
+  const scenes = (k4PlansFile.sceny as K4Scene[]).map((scene) => {
+    const base = k31Scenes.find((item) => item.id === scene.id)
+    if (!base) throw new Error(`Seed (Biznes): scene "${scene.id}" has no K3.1 drawing.`)
+    return k4Scene(scene, base)
+  })
+  for (const [index, scene] of scenes.entries()) {
     const svg = await readFile(path.join(K31_DIR, scene.svg), 'utf8')
     const data = {
-      ...floorPlanData(scene, index, svg, cardsFor, productId),
+      ...floorPlanData(scene, index, svg, k4CardsFor, productId),
       bundles: sceneBundles(scene.zestawy, (slug) => bundleIds.get(slug), scene.id),
     }
     planPoints += data.points.length
     for (const point of scene.punkty) {
-      if (cardsFor(point.slug).some((slug) => hiddenCards.has(slug))) {
+      if (k4CardsFor(point.slug).some((slug) => hiddenCards.has(slug))) {
         note('punkt planu z ukrytą kartą', `${scene.id}: ${point.slug}`)
       }
     }
@@ -829,7 +949,7 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
       count('floor-plans changed', 'updated')
     }
   }
-  log(`floor plans (K3.1): ${k31Scenes.length} scenes, ${planPoints} points`)
+  log(`floor plans (K4): ${scenes.length} scenes, ${planPoints} points`)
 
   // --- report: products of the tenant that neither K3 nor the retired list knows (§4 pkt 2) ---
   const retiredKeys = new Set(retired.flatMap((item) => item.legacyIds))
@@ -882,6 +1002,29 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
         ...local,
       })
     }
+  }
+
+  // --- K4 brands of the site (K4a-2): homepage order and the groups of /marki; package wins ---
+  const brandSettings = k4BrandSettings(k4BrandFile, (name) => brandIds.get(name))
+  const {
+    docs: [settingsDoc],
+  } = await payload.find({
+    collection: 'biznes-settings',
+    where: { tenant: { equals: tenant.id } },
+    limit: 1,
+    ...local,
+  })
+  if (settingsDoc) {
+    const same = hasSameValues(settingsDoc.brands, brandSettings)
+    if (!same) {
+      await payload.update({
+        collection: 'biznes-settings',
+        id: settingsDoc.id,
+        data: { brands: brandSettings },
+        ...local,
+      })
+    }
+    count('biznes-settings brands', same ? false : 'updated')
   }
 
   // --- header navigation in the site settings (created by `pnpm seed`), only while empty ---

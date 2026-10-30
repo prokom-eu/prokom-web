@@ -147,8 +147,8 @@ test.describe('Biznes home page: offer and featured', () => {
     )
     await expect(offer.locator('img[src*="logo-gopos"]')).toHaveAttribute('alt', 'GoPOS')
     await expect(offer.getByRole('img', { name: 'PRO-KOM Biznes' })).toBeVisible()
-    // Partner badges come only from statuses confirmed in the panel (seed: none) — [SZEF].
-    await expect(offer).not.toContainText('Autoryzowany partner')
+    // Statuses of K4-FINAL §1 (K4a-2 seed): GoPOS and InsERT are authorized partners.
+    await expect(offer.getByText('Autoryzowany partner', { exact: true })).toHaveCount(2)
     await expect(offer).toContainText('Usługa PRO-KOM')
   })
 

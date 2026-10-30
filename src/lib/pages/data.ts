@@ -1,5 +1,5 @@
 import config from '@payload-config'
-import { unstable_cache } from 'next/cache'
+import { cacheQuery } from '../cache'
 import { getPayload, type PopulateType } from 'payload'
 import { cache } from 'react'
 
@@ -39,7 +39,7 @@ const toPublicPage = ({ id, title, slug, layout, seo }: Page): PublicPage => ({
  */
 export const getPublishedPage = cache(
   (tenantId: number, slug: string): Promise<PublicPage | null> =>
-    unstable_cache(
+    cacheQuery(
       async () => {
         const payload = await getPayload({ config })
         const { docs } = await payload.find({
@@ -71,7 +71,7 @@ export type PublishedPageEntry = Pick<Page, 'slug' | 'title' | 'updatedAt'>
 
 /** Published pages of one tenant for its sitemaps; cached under `pagesTag` like the pages. */
 export const getPublishedPageList = cache((tenantId: number): Promise<PublishedPageEntry[]> =>
-  unstable_cache(
+  cacheQuery(
     async () => {
       const payload = await getPayload({ config })
       const { docs } = await payload.find({

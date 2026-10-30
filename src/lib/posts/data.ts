@@ -1,5 +1,5 @@
 import config from '@payload-config'
-import { unstable_cache } from 'next/cache'
+import { cacheQuery } from '../cache'
 import { getPayload, type Where } from 'payload'
 
 import { catalogTag } from '../catalog/tags'
@@ -33,7 +33,7 @@ const publicPosts = (tenantId: number): Where => ({
  * Marked stale on every change of a post (`Posts` hooks); the pages' TTL is the safety net.
  */
 export const getLatestPosts = (tenantId: number, limit = 3): Promise<PostCard[]> =>
-  unstable_cache(
+  cacheQuery(
     async () => {
       const payload = await getPayload({ config })
       const { docs } = await payload.find({
@@ -61,7 +61,7 @@ export type PostListItem = PostListCard & {
 
 /** All public posts of one tenant, newest first — the list, its filters and the sitemap. */
 export const getPostList = (tenantId: number): Promise<PostListItem[]> =>
-  unstable_cache(
+  cacheQuery(
     async () => {
       const payload = await getPayload({ config })
       const { docs } = await payload.find({
@@ -96,7 +96,7 @@ export const getPostList = (tenantId: number): Promise<PostListItem[]> =>
 
 /** One public post of the tenant as `PostView`, or `null` (unknown, draft, future, other site). */
 export const getPostView = (tenantId: number, slug: string): Promise<PostView | null> =>
-  unstable_cache(
+  cacheQuery(
     async () => {
       const payload = await getPayload({ config })
       const { docs } = await payload.find({
@@ -122,7 +122,7 @@ export const getPostView = (tenantId: number, slug: string): Promise<PostView | 
  * the catalog tag stale (their hooks), so that is the tag here.
  */
 export const getKsefPanel = (tenantId: number): Promise<KsefPanel | null> =>
-  unstable_cache(
+  cacheQuery(
     async () => {
       const payload = await getPayload({ config })
       const { docs } = await payload.find({

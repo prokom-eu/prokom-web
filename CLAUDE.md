@@ -42,7 +42,7 @@ seed/<strona>/             # dane startowe strony z pakietu (JSON 1:1, poza Pret
 ```
 
 ## Lokalnie
-- Domeny dev: `biznes.localhost:3000`, `instalacje.localhost:3002` (folder prokom-instal), `software.localhost:3000`, panel: `panel.localhost:3000/admin` (`PANEL_HOST=panel.localhost` w `.env`). Sam `localhost:3000` to nieznana domena → 404. Port to `PORT` z `.env` folderu (drugi folder: 3001) — `pnpm dev` i Playwright biorą go stamtąd.
+- Domeny dev: `biznes.localhost:3000`, `instalacje.localhost:3002` (folder prokom-instal), `software.localhost:3000`, panel: `panel.localhost:3000/admin` (`PANEL_HOST=panel.localhost` w `.env`). Sam `localhost:3000` to nieznana domena → 404. Port to `PORT` z `.env` folderu (`prokom-web-biznes`: 3001, drugi folder strony: kolejny wolny) — `pnpm dev` i Playwright biorą go stamtąd. Każdy folder ma **własny** port: Playwright (`reuseExistingServer`) podłącza się do każdego serwera na porcie, także z innego folderu. Jeden folder = jeden `pnpm dev`; gdy serwer działa już na innym porcie niż `PORT` z `.env`, uruchom Playwright z `PORT=<port> pnpm test:e2e …`. W `pnpm dev` dane z Payload nie są cache'owane (`lib/cache.ts`), więc wynik `pnpm seed*` widać od razu.
 - `docker compose -f docker/compose.dev.yml up -d` — PostgreSQL (na hoście port **54320**, bo 5432/5433 bywają zajęte przez natywny PostgreSQL) + Mailpit (SMTP `localhost:1025`, podgląd maili: `localhost:8025`).
 - Komendy: `pnpm dev`, `pnpm build`, `pnpm start`, `pnpm lint`, `pnpm typecheck`, `pnpm format` / `pnpm format:check`, `pnpm test` (Vitest, `src/**/*.test.ts`), `pnpm test:e2e` (Playwright, `tests/e2e`, wymaga działającej bazy po `pnpm seed`; testy edytujące treść logują się adminem z `SEED_ADMIN_*` — Playwright sam wczytuje `.env`), `pnpm generate:types`, `pnpm generate:importmap`, `pnpm payload migrate:create <nazwa>`, `pnpm payload migrate`, `docker build -t prokom-web:local .`, `bash scripts/smoke.sh <adres> [domeny…]` (S9a: obraz i smoke test, `docs/wdrozenia.md`), `scripts/backup.sh` / `scripts/restore.sh` (S9b-2: kopie na serwerze — procedury w `docs/runbook.md`), `pnpm seed` (tylko lokalnie; admin z `SEED_ADMIN_EMAIL` / `SEED_ADMIN_PASSWORD`, na produkcji zablokowany; na końcu importuje katalog Biznesu), `pnpm seed:biznes` (sam katalog Biznesu z `seed/prokombiznes/` + obrazy z `docs/design/prokombiznes/boards/media/` i galerie z `seed/prokombiznes/media/`, idempotentny: pola z paczki wygrywają z edycją w panelu, rekord zapisywany tylko przy różnicy; status treści i data sprawdzenia tylko „w przód”). Zmiana schematu: `docs/sposob-pracy.md` → „Zmiana schematu bazy”.
 - pnpm: wersja z `packageManager` (11.x). Wywołuj `pnpm` bezpośrednio — sam przełącza się na przypiętą wersję. Nie używaj `corepack pnpm`: psuje `webServer` w Playwright.
@@ -55,6 +55,7 @@ Krystian pracuje na jednym komputerze. **GitHub to kopia kodu i jedyna droga na 
 - Nie zakładaj, że lokalna baza ma jakieś dane — dane testowe tylko z `pnpm seed` (powtarzalny, idempotentny). Każda migracja w repo, bo CI, staging i produkcja odtwarzają bazę z migracji.
 - Żadnych ścieżek bezwzględnych (`D:\...`, `C:\Users\...`) w kodzie, skryptach ani dokumentacji — tylko ścieżki względne do katalogu repo.
 - Nowa zmienna środowiskowa → `.env.example` z opisem (Krystian przenosi wartości przez menedżer haseł).
+- **Biznes w jednym folderze (decyzja Krystiana 30.10):** sesje po kolei wg kolejki `docs/zadania/prokombiznes.md` §7.1 — sesje połączone, 2–3 PR-y piętrowo w jednej sesji, bez drugiego folderu. Najwyżej dwie sesje piszące kod naraz we wszystkich liniach (Biznes, Software, Instalacje).
 - **Dwie strony równolegle = dwa foldery (git worktree)**, każdy z własną gałęzią, `PORT` i bazą (`docs/sposob-pracy.md` → „Dwie strony równolegle”). Pracujesz tylko w folderze swojej sesji: nie przełączasz go na gałąź drugiej strony, nie otwierasz `develop`, nowe gałęzie zakładasz od `origin/develop`. W `docs/STAN.md` edytujesz tylko podsekcję swojej strony.
 
 ## Zasady kodu
@@ -62,7 +63,7 @@ Krystian pracuje na jednym komputerze. **GitHub to kopia kodu i jedyna droga na 
 - Server Components domyślnie; `"use client"` tylko przy interakcji.
 - Treści z Payload przez Local API po stronie serwera, **zawsze z filtrem tenanta** (helpery w `lib/tenant`). Treść jednej domeny nigdy nie może pojawić się na innej — pilnuje tego test izolacji.
 - Nieznana domena → 404, nigdy domyślny tenant.
-- Zmiana schematu bazy = migracja w repo (`pnpm payload migrate:create`), także lokalnie — `push` wyłączony wszędzie (ADR-009).
+- Zmiana schematu bazy = migracja w repo (`pnpm payload migrate:create`), także lokalnie — `push` wyłączony wszędzie (ADR-009). Przed `/pr` gałąź z migracją: rebase na `origin/develop`, usunięcie własnej migracji i `migrate:create` od nowa (`docs/sposob-pracy.md` → „Migracje z kilku folderów”).
 - Każda strona: metadane, `sitemap.xml` i `robots.txt` per domena, dane strukturalne, obrazy przez `next/image` z `alt`.
 - Dostępność: kontrast WCAG AA, semantyczny HTML, widoczny focus, etykiety formularzy.
 - Formularze: walidacja Zod na serwerze, honeypot + minimalny czas + limit zgłoszeń, zgoda RODO z wersją klauzuli, zapis przez `submitInquiry()` (ADR-003). Żadnych zewnętrznych usług (CAPTCHA, analityka, fonty z CDN) bez ADR.
@@ -85,24 +86,24 @@ Krystian pracuje na jednym komputerze. **GitHub to kopia kodu i jedyna droga na 
 ## Git
 - `main` = produkcja, `develop` = staging. Gałęzie: `feat/<opis>`, `fix/<opis>`, `chore/<opis>`, `docs/<opis>`.
 - **Nigdy nie pushuj bezpośrednio na `main` ani `develop`** — tylko PR z zielonym CI, scalanie przez squash.
-- Conventional Commits, po polsku lub angielsku — konsekwentnie w obrębie PR. Jedno zadanie = jedna gałąź = jeden PR.
+- Conventional Commits, po polsku lub angielsku — konsekwentnie w obrębie PR. Jedno zadanie = jedna gałąź = jeden PR; sesja może wydać 2–3 takie PR-y piętrowo (druga gałąź od pierwszej).
 - Po każdej akcji na GitHubie (utworzenie PR, edycja, scalenie) **zweryfikuj ją** (`gh pr view` / `gh pr list`) i podaj link — nie raportuj sukcesu bez sprawdzenia.
 - Testy najpierw dla logiki biznesowej (rozpoznawanie domeny, izolacja tenantów, walidacja formularzy): najpierw test, który nie przechodzi, potem kod.
 - Commity są podpisywane kluczem SSH (`commit.gpgsign`). Jeśli podpis się nie uda — **nie wyłączaj go** i nie używaj `--no-gpg-sign`; powiedz mi.
-- Przed każdym commitem pokaż mi `git diff --staged --stat` i 1–3 zdania: co i dlaczego. Commit dopiero, gdy Krystian przeczyta zmiany.
+- Commity robisz sam w trakcie sesji: małe, logiczne, Conventional, podpisane, po zielonym `lint/typecheck/test`. Po zielonych testach i recenzencie sam otwierasz PR (`/pr`) — opis PR zawiera werdykt recenzenta i Twoją ocenę każdej uwagi; **diff czytam w PR, scalam ja**. Pytasz mnie tylko o decyzje produktowe, nowe zależności, migracje usuwające dane, scalenie i wdrożenie. Wyjątki linii Instalacje — sekcja „Linia Instalacje” niżej.
 - Zmiany DNS: najpierw `docs/dns.md`, potem dostawca — nigdy odwrotnie.
 
 ## Jak ze mną pracujesz (rzemiosło)
 - **Krystian ma rozumieć każdą linię, którą commituje.** Przy nieoczywistej decyzji (wzorzec, biblioteka, kompromis) dodaj 1–2 zdania „dlaczego tak” — w odpowiedzi, nie w komentarzach do kodu.
 - **Jedna rzecz naraz.** Pomysł spoza zakresu sesji → wpis w `docs/STAN.md` → „Pomysły na później”, nie implementujesz go „przy okazji”.
-- **Małe kroki:** plan → test → kod → `lint/typecheck/test` → pokazanie diffu. Gdy zmiana rośnie powyżej ~400 linii diffu, zaproponuj podział na osobne PR.
-- **`/przeglad` (subagent `recenzent`)** przed PR z kodem: zawsze przy logice biznesowej, tenantach, formularzach, dostępie, migracjach albo diffie powyżej ~100 linii. Drobne zmiany (dokumentacja, kilka linii bez logiki) — bez recenzenta.
+- **Małe kroki:** plan → test → kod → `lint/typecheck/test` → commit. Gdy zmiana rośnie powyżej ~400 linii diffu, podziel ją na PR-y piętrowe w tej samej sesji (druga gałąź od pierwszej), bez rytuału startu i końca pomiędzy.
+- **`/przeglad` (subagent `recenzent`)** uruchamiasz sam na końcu sesji z kodem (poprawki z przeglądu — po mojej zgodzie): zawsze przy logice biznesowej, tenantach, formularzach, dostępie, migracjach albo diffie powyżej ~100 linii. Drobne zmiany (dokumentacja, kilka linii bez logiki) — bez recenzenta.
 - Gdy nie jesteś pewien API biblioteki — sprawdź dokumentację zainstalowanej wersji albo powiedz, że nie wiesz. Nie zgaduj.
 
 ## Komendy projektu
-- `/zadanie <sesja lub opis>` — kontekst, plan, czekasz na „ok”, potem kod.
+- `/zadanie <sesja lub opis>` — kontekst i plan (maks. 15 linii). Gdy prompt sesji w `PRZEKAZANIE-*.md` jest kompletny, od razu kod; zatrzymujesz się tylko przy decyzji (pytanie z opcjami) albo migracji usuwającej dane. Bez trybu planu przy gotowym prompcie.
 - `/przeglad` — przegląd zmian przed PR.
-- `/pr` — tytuł (Conventional Commits) i opis wg `.github/pull_request_template.md`, po mojej akceptacji `gh pr create --base develop`.
+- `/pr` — tytuł (Conventional Commits) i opis wg `.github/pull_request_template.md`, od razu `gh pr create --base develop` (bez czekania na „ok”); ja czytam diff i scalam.
 - `/wdrozenie staging|produkcja` — checklista przed wdrożeniem.
 - `/koniec-sesji` — aktualizacja `docs/STAN.md` (z następnym krokiem) i podsumowanie.
 - Skrypty Krystiana (nie uruchamiaj ich sam): `scripts\start.ps1` — start pracy; `scripts\koniec.ps1` — koniec pracy.
@@ -143,3 +144,4 @@ Jeśli pracujesz w folderze `prokom-instal` albo na gałęzi `inst/*`:
 - Wzorzec wyglądu = `docs/design/prokominstalacje/` (prototyp v4.0 + `MOBILE-APLIKACJA.md`, `KOMPONENTY.md`, `MAPA-STRON.md`). Każda sekcja z UI: `narzedzia/porownaj.mjs` w 1440 i 390, jasny i ciemny, przed PR.
 - Pliki strefy wspólnej (ADR-I001 §3) zmieniasz tylko w osobnym małym PR `inst/wsp-*`. Stan sesji zapisujesz w `docs/stan/STAN-instalacje.md` (`/inst-koniec`), nie w `docs/STAN.md`.
 - Na stronie Instalacji: zero cen sprzętu, zero list źródeł, „24 h” tylko jako odpowiedź na zgłoszenie, gwarancja 24 mies. na montaż.
+- **Tryb szybki (decyzja Krystiana 30.10, `docs/zadania/prokominstalacje-przyspieszenie.md`):** małe PR-y bez logiki (strefa wspólna `inst/wsp-*`: tokeny + test, dokumenty, poprawki testów) — commit, PR i auto-merge po zielonym CI bez osobnego „ok” (diff czyta w PR). Duże PR-y z logiką: commity na gałęzi bez pytania, Krystian czyta diff raz przed `/pr`; `/przeglad` bez zmian (formularze, migracje, tenant, dostęp). Sesja z gotowym promptem z §3: bez osobnej rundy „plan → ok”, pytanie tylko o decyzję, której prompt nie rozstrzyga.

@@ -252,6 +252,24 @@ Listy: `START-TUTAJ.md` §5, `PRZEKAZANIE-K3.md` §6, `PRZEKAZANIE-K31.md` §5, 
 | 16 | **QA-K4** | odbiór całości vs plansze i audyty `k4/audyty/` |
 | 17 | **Staging** | jak w §6.1 → akceptacja szefa → produkcja |
 
+### 7.1 Kolejka sesji (od 30.10, decyzje Krystiana: maksymalne przyspieszenie, jeden folder)
+
+Tabela wyżej to **zakres**; **kolejność i grupowanie** sesji od K4b idą wg tej kolejki (szczegóły: `docs/zadania/przyspieszenie.md`). Jeden folder `prokom-web-biznes`, sesje po kolei; sesja może wydać 2–3 PR-y piętrowo.
+
+| # | Sesja | Zakres | Uwagi |
+|---|---|---|---|
+| 1 | **K4bc** | rama (K4b) + strona główna v150 (K4c) | 2 PR-y piętrowo; rama wpływa na każdy widok, więc pierwsza |
+| 2 | **K4f** | `/marki` + szablon salonu 2.0 + 20 salonów + usunięcie `Partners.showroom` (K4f-1 + K4f-2) | 2 PR-y; dane z K4a-2 |
+| 3 | **K4de** | oferta, kategoria i produkt K4 (K4d + K4e) | wspólna karta produktu |
+| 4 | **K4hij** | GoPOS, InsERT, Opieka IT, O firmie, Kontakt, KSeF, ulga, automaty (K4h + K4i + K4j) | 3 PR-y piętrowo |
+| 5 | **K4g** + **K31d′** | Konfigurator 3.0 + Plan Twojej firmy | wspólne sceny i dane |
+| 6 | **M1′-reszta** | tylko to, czego nie zrobiły sesje UI (dolny pasek aplikacji, przejścia) | |
+| 7 | **Odbiór** | PROD′ + QA-K4 na stagingu → import treści (ADR-018) → akceptacja szefa → produkcja | |
+
+**Równolegle, poza kodem:** S10 (serwer i staging) jak najwcześniej; Lighthouse na stagingu po każdej sesji z UI; szef przegląda staging na bieżąco.
+
+Telefon (`MOBILE-APLIKACJA.md` §4) zostaje Definition of Done **każdej** sesji z UI, dlatego M1′ kurczy się do resztek. Kolejność cięcia — bez zmian.
+
 **Wspólne kryteria:** §6.3 + `K4-FINAL.md` §8 (0 poziomego przewijania na 390/768/1024/1280/1440, kontrast w obu motywach, zero cen / zakazane marki / „abonament” przy Opiece IT / „Aut.”, jedno H1, `alt`). **Dopiski do promptów:** §6.2 + blok K4 z `PRZEKAZANIE-K4.md` §4.
 
 **Kolejność cięcia** (od końca, nie jakość): 1) strona ulgi → wpis w Aktualnościach; 2) salony Sharp/NEC, Avtek, EuroCert, PolCard → strona marki z K3b′; 3) `/automaty-vendingowe` → kategoria `vend`; 4) K4g → kreator z B10c pod `/konfigurator`. **Bez cięć:** K4a-1, K4a-2, K4b, K4c, K4d, K4e, K4f-1, K31d′, M1′, PROD′, QA-K4.

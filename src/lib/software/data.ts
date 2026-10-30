@@ -1,5 +1,5 @@
 import config from '@payload-config'
-import { unstable_cache } from 'next/cache'
+import { cacheQuery } from '../cache'
 import { getPayload } from 'payload'
 import { cache } from 'react'
 
@@ -88,7 +88,7 @@ const MAX_SOLUTIONS = 200
  * Software line (the route checks the line).
  */
 export const getSolutionsIndex = (tenantId: number): Promise<SolutionsIndex> =>
-  unstable_cache(
+  cacheQuery(
     async () => {
       const payload = await getPayload({ config })
       const read = { overrideAccess: true, depth: 0 } as const
@@ -158,7 +158,7 @@ export const getSolutionsIndex = (tenantId: number): Promise<SolutionsIndex> =>
  * `tenant:<id>:solutions` — the hooks of `SoftwareSettings` revalidate it with the index.
  */
 export const getSoftwareWizard = (tenantId: number): Promise<SoftwareWizard | null> =>
-  unstable_cache(
+  cacheQuery(
     async () => readSoftwareWizard(await getPayload({ config }), tenantId),
     // The shape of the rules is part of the key: a schema change never serves a cached old shape.
     ['software-wizard', 'sw7', String(tenantId)],
@@ -171,7 +171,7 @@ export const getSoftwareWizard = (tenantId: number): Promise<SoftwareWizard | nu
  * Cached under `tenant:<id>:solutions`: the hooks of `SoftwareSettings` revalidate it.
  */
 export const getSoftwareHome = (tenantId: number): Promise<SoftwareHome | null> =>
-  unstable_cache(
+  cacheQuery(
     async () => {
       const payload = await getPayload({ config })
       const { docs } = await payload.find({
