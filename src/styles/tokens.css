@@ -267,6 +267,88 @@
   --c-instalacje-sheet-shadow: 0 -24px 60px -20px rgba(0, 0, 0, 0.55);
   --c-instalacje-tab-shadow: 0 6px 16px -10px rgba(0, 0, 0, 0.5);
 
+  /* Service pages of the visualisation v4.2 (I4, `pk.css`): the antenna scene, the meter,
+     multiplexes, the LTE/5G spectrum, switches and quiz results - the same in both themes;
+     `-light`/`-night` pairs flip with the theme. Dark cards reuse the CTA band above. */
+  --c-instalacje-mask: #000000;
+  --c-instalacje-seg-shadow: rgba(0, 0, 0, 0.4);
+  --c-instalacje-light-hero-top: #eaf4f7;
+  --c-instalacje-light-hero-ridge-1: rgba(0, 122, 150, 0.07);
+  --c-instalacje-light-hero-ridge-2: rgba(0, 122, 150, 0.05);
+  --c-instalacje-night-hero-ridge-1: rgba(76, 203, 230, 0.05);
+  --c-instalacje-night-hero-ridge-2: rgba(255, 255, 255, 0.025);
+  --c-instalacje-light-ill-top: #ffffff;
+  --c-instalacje-light-ill-bottom: #f6f8f6;
+  --c-instalacje-night-ill-top: #1c2320;
+  --c-instalacje-night-ill-bottom: #141917;
+  --c-instalacje-light-ill-shadow: 0 40px 90px -40px rgba(20, 60, 70, 0.38);
+  --c-instalacje-night-ill-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 50px 100px -40px rgba(0, 0, 0, 0.85),
+    0 0 0 1px rgba(76, 203, 230, 0.04);
+  --c-instalacje-night-ill-shadow-hover:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 50px 100px -40px rgba(0, 0, 0, 0.85);
+  --c-instalacje-ill-glow: rgba(76, 203, 230, 0.1);
+  --c-instalacje-light-illbar-top: #fafbfa;
+  --c-instalacje-light-illbar-bottom: #f4f6f4;
+  --c-instalacje-night-illbar-top: rgba(255, 255, 255, 0.035);
+  --c-instalacje-night-illbar-bottom: rgba(255, 255, 255, 0);
+  --c-instalacje-light-scene-sky-1: #bfd9e2;
+  --c-instalacje-light-scene-sky-2: #e6eff1;
+  --c-instalacje-night-scene-sky-1: #0b1a22;
+  --c-instalacje-night-scene-sky-2: #1c3440;
+  --c-instalacje-light-scene-ridge: #9fb6bc;
+  --c-instalacje-night-scene-ridge: #1c2e33;
+  --c-instalacje-light-scene-ground: #c9d3cb;
+  --c-instalacje-night-scene-ground: #1e2a26;
+  --c-instalacje-scene-snow: #eef3f4;
+  --c-instalacje-scene-wood-1: #a8774e;
+  --c-instalacje-scene-wood-2: #6a4326;
+  --c-instalacje-scene-wall-line: #4a3524;
+  --c-instalacje-scene-roof-1: #5e4232;
+  --c-instalacje-scene-roof-2: #2c1f17;
+  --c-instalacje-scene-lit-1: #ffebb8;
+  --c-instalacje-scene-lit-2: #f2b24b;
+  --c-instalacje-scene-beam: #7f9296;
+  --c-instalacje-scene-mast: #9aa5a8;
+  --c-instalacje-scene-metal-1: #f2f5f6;
+  --c-instalacje-scene-metal-2: #c3cbcf;
+  --c-instalacje-scene-metal-3: #8e999e;
+  --c-instalacje-scene-metal-line: #8c9a9e;
+  --c-instalacje-scene-acc-1: #6fddf2;
+  --c-instalacje-scene-acc-2: #0e8fae;
+  --c-instalacje-scene-yagi: #d9ddd8;
+  --c-instalacje-scene-compass: rgba(10, 18, 20, 0.6);
+  --c-instalacje-scene-drop: #000000;
+  --c-instalacje-meter-idle: #2a3a3e;
+  --c-instalacje-meter-lock-ink: #0b1a0e;
+  --c-instalacje-meter-track: rgba(255, 255, 255, 0.08);
+  --c-instalacje-dark-icon-bg: rgba(76, 203, 230, 0.14);
+  --c-instalacje-go: #2e9e55;
+  --c-instalacje-go-bg: rgba(46, 158, 85, 0.16);
+  --c-instalacje-go-tint: rgba(46, 158, 85, 0.08);
+  --c-instalacje-mux-ok-bg: rgba(123, 211, 106, 0.16);
+  --c-instalacje-mux-old-bg: rgba(242, 184, 75, 0.18);
+  --c-instalacje-res-bad-bg: rgba(242, 184, 75, 0.08);
+  /* Amber text on the amber tint of a light card (`--warn` gives 4.0:1 there). */
+  --c-instalacje-light-warn-text: #8a5700;
+  --c-instalacje-switch-off: #3a1e1f;
+  --c-instalacje-switch-off-ink: #ffb1b1;
+  --c-instalacje-switch-track: rgba(255, 255, 255, 0.12);
+  --c-instalacje-spec-bg: #0b1418;
+  --c-instalacje-spec-ink: #e8f0f1;
+  --c-instalacje-spec-tv-1: rgba(18, 182, 216, 0.35);
+  --c-instalacje-spec-tv-2: rgba(18, 182, 216, 0.12);
+  --c-instalacje-spec-sub: #b5c4c8;
+  --c-instalacje-spec-lte-1: rgba(240, 122, 106, 0.45);
+  --c-instalacje-spec-lte-2: rgba(240, 122, 106, 0.3);
+  --c-instalacje-spec-filter-bg: rgba(11, 20, 24, 0.55);
+  --c-instalacje-sat-dish: #d3d9da;
+  --c-instalacje-sat-dish-line: #9aa6a9;
+  --c-instalacje-sat-tv: #0b1012;
+  /* Hues of the satellite cards (the colours of Wi-Fi and Anteny in the prototype's menu). */
+  --c-instalacje-hue-blue: #5b8cf0;
+  --c-instalacje-hue-violet: #b58cf0;
+
   /* Status colours of the Biznes visualisation (dots); `-text` is darkened for 4.5:1. */
   --c-ok: #1f9d63;
   --c-ok-text: #15724a;
@@ -405,6 +487,22 @@
   --dot: var(--c-instalacje-light-dot);
   --header-bg: var(--c-instalacje-light-header-bg);
   --shadow: var(--c-instalacje-light-shadow);
+  /* Service pages (I4). */
+  --inst-hero-top: var(--c-instalacje-light-hero-top);
+  --inst-hero-ridge-1: var(--c-instalacje-light-hero-ridge-1);
+  --inst-hero-ridge-2: var(--c-instalacje-light-hero-ridge-2);
+  --inst-ill-top: var(--c-instalacje-light-ill-top);
+  --inst-ill-bottom: var(--c-instalacje-light-ill-bottom);
+  --inst-ill-shadow: var(--c-instalacje-light-ill-shadow);
+  --inst-ill-shadow-hover: inset 0 0 0 1px var(--border), var(--c-instalacje-light-ill-shadow);
+  --inst-illbar-top: var(--c-instalacje-light-illbar-top);
+  --inst-illbar-bottom: var(--c-instalacje-light-illbar-bottom);
+  --inst-scene-sky-1: var(--c-instalacje-light-scene-sky-1);
+  --inst-scene-sky-2: var(--c-instalacje-light-scene-sky-2);
+  --inst-scene-ridge: var(--c-instalacje-light-scene-ridge);
+  --inst-scene-ground: var(--c-instalacje-light-scene-ground);
+  --inst-go-text: var(--c-instalacje-light-ok-text);
+  --inst-warn-text: var(--c-instalacje-light-warn-text);
   /* Visualisation: buttons on --accent with --accent-ink; follows the theme with --accent. */
   --button-bg: var(--accent);
   /* Shell (I3): the same in both themes. */
@@ -449,6 +547,81 @@
   --inst-bar-shadow: var(--c-instalacje-bar-shadow);
   --inst-sheet-shadow: var(--c-instalacje-sheet-shadow);
   --inst-tab-shadow: var(--c-instalacje-tab-shadow);
+  /* Service pages (I4): the same in both themes. */
+  --inst-mask: var(--c-instalacje-mask);
+  --inst-seg-shadow: var(--c-instalacje-seg-shadow);
+  --inst-ill-glow: var(--c-instalacje-ill-glow);
+  --inst-ill-shadow-hover-night:
+    inset 0 0 0 1px var(--accent-line), var(--c-instalacje-night-ill-shadow-hover),
+    0 0 60px -20px var(--glow);
+  --inst-dark-card: var(--c-instalacje-band);
+  --inst-dark-ink: var(--c-instalacje-band-ink);
+  --inst-dark-line: var(--c-instalacje-band-line);
+  --inst-dark-lead: var(--c-instalacje-band-lead);
+  --inst-dark-note: var(--c-instalacje-band-note);
+  --inst-dark-accent: var(--c-instalacje-foot-accent);
+  --inst-dark-white: var(--c-instalacje-foot-white);
+  --inst-dark-icon-bg: var(--c-instalacje-dark-icon-bg);
+  --inst-scene-snow: var(--c-instalacje-scene-snow);
+  --inst-scene-wood-1: var(--c-instalacje-scene-wood-1);
+  --inst-scene-wood-2: var(--c-instalacje-scene-wood-2);
+  --inst-scene-wall-line: var(--c-instalacje-scene-wall-line);
+  --inst-scene-roof-1: var(--c-instalacje-scene-roof-1);
+  --inst-scene-roof-2: var(--c-instalacje-scene-roof-2);
+  --inst-scene-lit-1: var(--c-instalacje-scene-lit-1);
+  --inst-scene-lit-2: var(--c-instalacje-scene-lit-2);
+  --inst-scene-beam: var(--c-instalacje-scene-beam);
+  --inst-scene-beam-ok: var(--c-instalacje-night-ok);
+  --inst-scene-beam-mid: var(--c-instalacje-night-warn);
+  --inst-scene-mast: var(--c-instalacje-scene-mast);
+  --inst-scene-metal-1: var(--c-instalacje-scene-metal-1);
+  --inst-scene-metal-2: var(--c-instalacje-scene-metal-2);
+  --inst-scene-metal-3: var(--c-instalacje-scene-metal-3);
+  --inst-scene-metal-line: var(--c-instalacje-scene-metal-line);
+  --inst-scene-lnb: var(--c-instalacje-night-accent);
+  --inst-scene-acc-1: var(--c-instalacje-scene-acc-1);
+  --inst-scene-acc-2: var(--c-instalacje-scene-acc-2);
+  --inst-scene-panel-line: var(--c-instalacje-night-accent-text);
+  --inst-scene-yagi: var(--c-instalacje-scene-yagi);
+  --inst-scene-compass: var(--c-instalacje-scene-compass);
+  --inst-scene-compass-ink: var(--c-instalacje-band-lead);
+  --inst-scene-drop: var(--c-instalacje-scene-drop);
+  --inst-meter-idle: var(--c-instalacje-meter-idle);
+  --inst-meter-idle-ink: var(--c-instalacje-band-note);
+  --inst-meter-lock: var(--c-instalacje-night-ok);
+  --inst-meter-lock-ink: var(--c-instalacje-meter-lock-ink);
+  --inst-meter-track: var(--c-instalacje-meter-track);
+  --inst-mux-ok: var(--c-instalacje-night-ok);
+  --inst-mux-ok-bg: var(--c-instalacje-mux-ok-bg);
+  --inst-mux-old: var(--c-instalacje-night-warn);
+  --inst-mux-old-bg: var(--c-instalacje-mux-old-bg);
+  --inst-res-ok: var(--c-instalacje-go);
+  --inst-res-ok-bg: var(--c-instalacje-go-tint);
+  --inst-res-bad: var(--c-instalacje-night-warn);
+  --inst-res-bad-bg: var(--c-instalacje-res-bad-bg);
+  --inst-switch-off: var(--c-instalacje-switch-off);
+  --inst-switch-off-ink: var(--c-instalacje-switch-off-ink);
+  --inst-switch-track: var(--c-instalacje-switch-track);
+  --inst-switch-knob: var(--c-instalacje-foot-white);
+  --inst-switch-on: var(--c-instalacje-go);
+  --inst-switch-on-bg: var(--c-instalacje-go-bg);
+  --inst-spec-bg: var(--c-instalacje-spec-bg);
+  --inst-spec-ink: var(--c-instalacje-spec-ink);
+  --inst-spec-axis: var(--c-instalacje-foot-ink-2);
+  --inst-spec-tv-1: var(--c-instalacje-spec-tv-1);
+  --inst-spec-tv-2: var(--c-instalacje-spec-tv-2);
+  --inst-spec-sub: var(--c-instalacje-spec-sub);
+  --inst-spec-bar: var(--c-instalacje-night-accent);
+  --inst-spec-lte-1: var(--c-instalacje-spec-lte-1);
+  --inst-spec-lte-2: var(--c-instalacje-spec-lte-2);
+  --inst-spec-filter: var(--c-instalacje-night-ok);
+  --inst-spec-filter-bg: var(--c-instalacje-spec-filter-bg);
+  --inst-sat-dish: var(--c-instalacje-sat-dish);
+  --inst-sat-dish-line: var(--c-instalacje-sat-dish-line);
+  --inst-sat-tv: var(--c-instalacje-sat-tv);
+  --inst-hue-blue: var(--c-instalacje-hue-blue);
+  --inst-hue-violet: var(--c-instalacje-hue-violet);
+  --inst-hue-cyan: var(--c-instalacje-night-accent);
 }
 
 [data-line='software'] {
@@ -611,6 +784,22 @@
   --dot: var(--c-instalacje-night-dot);
   --header-bg: var(--c-instalacje-night-header-bg);
   --shadow: var(--c-instalacje-night-shadow);
+  /* Service pages (I4). */
+  --inst-hero-top: var(--c-instalacje-night-surface);
+  --inst-hero-ridge-1: var(--c-instalacje-night-hero-ridge-1);
+  --inst-hero-ridge-2: var(--c-instalacje-night-hero-ridge-2);
+  --inst-ill-top: var(--c-instalacje-night-ill-top);
+  --inst-ill-bottom: var(--c-instalacje-night-ill-bottom);
+  --inst-ill-shadow: var(--c-instalacje-night-ill-shadow);
+  --inst-ill-shadow-hover: var(--inst-ill-shadow-hover-night);
+  --inst-illbar-top: var(--c-instalacje-night-illbar-top);
+  --inst-illbar-bottom: var(--c-instalacje-night-illbar-bottom);
+  --inst-scene-sky-1: var(--c-instalacje-night-scene-sky-1);
+  --inst-scene-sky-2: var(--c-instalacje-night-scene-sky-2);
+  --inst-scene-ridge: var(--c-instalacje-night-scene-ridge);
+  --inst-scene-ground: var(--c-instalacje-night-scene-ground);
+  --inst-go-text: var(--c-instalacje-night-ok);
+  --inst-warn-text: var(--c-instalacje-night-warn);
 }
 
 /* …or by the system when there is no choice. Keep in sync with the rules above (tested). */
@@ -707,5 +896,21 @@
     --dot: var(--c-instalacje-night-dot);
     --header-bg: var(--c-instalacje-night-header-bg);
     --shadow: var(--c-instalacje-night-shadow);
+    /* Service pages (I4). */
+    --inst-hero-top: var(--c-instalacje-night-surface);
+    --inst-hero-ridge-1: var(--c-instalacje-night-hero-ridge-1);
+    --inst-hero-ridge-2: var(--c-instalacje-night-hero-ridge-2);
+    --inst-ill-top: var(--c-instalacje-night-ill-top);
+    --inst-ill-bottom: var(--c-instalacje-night-ill-bottom);
+    --inst-ill-shadow: var(--c-instalacje-night-ill-shadow);
+    --inst-ill-shadow-hover: var(--inst-ill-shadow-hover-night);
+    --inst-illbar-top: var(--c-instalacje-night-illbar-top);
+    --inst-illbar-bottom: var(--c-instalacje-night-illbar-bottom);
+    --inst-scene-sky-1: var(--c-instalacje-night-scene-sky-1);
+    --inst-scene-sky-2: var(--c-instalacje-night-scene-sky-2);
+    --inst-scene-ridge: var(--c-instalacje-night-scene-ridge);
+    --inst-scene-ground: var(--c-instalacje-night-scene-ground);
+    --inst-go-text: var(--c-instalacje-night-ok);
+    --inst-warn-text: var(--c-instalacje-night-warn);
   }
 }
