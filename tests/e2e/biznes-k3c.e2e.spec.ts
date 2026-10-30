@@ -50,7 +50,8 @@ test.describe('Biznes ready bundles (K3c)', () => {
     expect(cart).toHaveLength(6)
     for (const item of cart) expect(item.uwaga).toMatch(/^Zestaw: Kawiarnia — /)
     expect(cart[0]?.uwaga).toContain('wersja: D3 PRO')
-    expect(cart.at(-1)?.id).toBe('ubiquiti-unifi-express')
+    // `ux` of the K3 kit is the K4 card since K4a-1b (mapa-slugow-k4.json).
+    expect(cart.at(-1)?.id).toBe('ubiquiti-unifi-express-7')
     // Never a price on the page.
     expect(await page.locator('main').innerText()).not.toMatch(/\d+[,.]\d{2}\s*zł|\d\s*zł\b/)
   })

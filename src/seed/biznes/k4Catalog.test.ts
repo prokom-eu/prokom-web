@@ -180,6 +180,11 @@ describe('k4ProductFields (K4-FINAL §4.2)', () => {
     ])
   })
 
+  it('rejects a source without a link', () => {
+    const zrodla = [{ url: '  ', etykieta: 'Strona producenta', host: '' }]
+    expect(() => k4ProductFields({ ...k4Card, zrodla }, '')).toThrow(/Strona producenta/)
+  })
+
   it('leaves the short name empty when it is the name itself', () => {
     expect(k4ProductFields(k4Card, 'Posnet Ergo').shortName).toBeNull()
   })

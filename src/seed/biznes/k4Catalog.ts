@@ -157,10 +157,12 @@ export function k4ProductFields(card: K4Card, name: string) {
       })),
     },
     // Six Kobra links carry the file inside the archive after the address: „….zip (karta.pdf)”.
-    sourceLinks: (card.zrodla ?? []).map((item) => ({
-      label: item.etykieta,
-      url: item.url.trim().split(/\s+/)[0] ?? '',
-    })),
+    sourceLinks: (card.zrodla ?? []).map((item) => {
+      const url = item.url.trim().split(/\s+/)[0]
+      if (!url)
+        throw new Error(`Seed (K4): source "${item.etykieta}" of "${card.slug_seed}" has no link.`)
+      return { label: item.etykieta, url }
+    }),
   }
 }
 

@@ -136,7 +136,8 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
   const cards = [...k31.cards, ...k4NewCards([...k4Cards.values()], k31.cards)]
   const k4Hidden = new Set(Object.keys(k4SlugMap.ukryj))
   const removed: K3RemovedCard[] = k3Removed.produkty
-  const matches = matchCards(cards, catalog.produkty)
+  // Only repo cards pair with katalog v2: a new K4 card has no record there, by definition.
+  const matches = matchCards(k31.cards, catalog.produkty)
   const report: Record<string, string[]> = {}
   const note = (what: string, item: string) => (report[what] ??= []).push(item)
   const galleryLimit = parseGalleryLimit(process.env.SEED_GALLERY_LIMIT)
