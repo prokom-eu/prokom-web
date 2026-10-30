@@ -2,18 +2,12 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import {
-  type CSSProperties,
-  type KeyboardEvent,
-  type ReactNode,
-  useEffect,
-  useRef,
-  useState,
-} from 'react'
+import { type KeyboardEvent, type ReactNode, useEffect, useRef, useState } from 'react'
 
 import { activeSection, type InstMenu, type MenuColumn } from '@/lib/instalacje/menu'
 
 import type { MegaPromo, Navigation } from '../dane/types'
+import { hue } from '../hue'
 import { InstIcon } from '../InstIcon'
 import { offerText } from './offerText'
 import { useShell } from './ShellProvider'
@@ -32,10 +26,6 @@ type Props = {
   menu: InstMenu
   phone: { label: string; href: string } | null
 }
-
-/** Accent of a service or object for its icon tile (`--mh`, a panel value). */
-export const hue = (color: string | null): CSSProperties | undefined =>
-  color ? ({ '--mh': color } as CSSProperties) : undefined
 
 function MegaColumns({ columns }: { columns: MenuColumn[] }) {
   return columns.map((column) => (

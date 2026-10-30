@@ -9,7 +9,7 @@ import type { OpeningHours, OpeningStatus } from '@/lib/site/hours'
 
 import type { Navigation, SheetTab } from '../dane/types'
 import { InstIcon } from '../InstIcon'
-import { hue } from './Header'
+import { hue } from '../hue'
 import { HoursLive } from './HoursLive'
 import { solutionsText } from './offerText'
 import { useShell } from './ShellProvider'
