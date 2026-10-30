@@ -380,6 +380,8 @@ export const glownaSekcje = {
       title: 'Nie ma Twojego pytania?',
       text: 'Zadzwoń albo napisz na WhatsApp. Wyślij zdjęcie obiektu albo starej instalacji, a powiemy, od czego zacząć.',
       button: 'Napisz na WhatsApp',
+      /** Without a WhatsApp number in the panel. */
+      buttonNoWhatsapp: 'Napisz do nas',
     },
     items: [
       {
@@ -447,8 +449,6 @@ export const glownaSekcje = {
     send: 'Zamów oddzwonienie',
     sending: 'Wysyłamy…',
     towns: ['Rabka-Zdrój', 'Nowy Targ', 'Zakopane', 'Jordanów', 'Mszana Dolna', 'Limanowa'],
-    consent: 'Zgadzam się na kontakt w sprawie zgłoszenia.',
-    privacy: 'Polityka prywatności',
     errors: {
       services: 'Zaznacz przynajmniej jedną instalację.',
       name: 'Podaj imię, żebyśmy wiedzieli, o kogo zapytać.',
@@ -481,8 +481,10 @@ export const glownaSekcje = {
     steps: ['Oddzwaniamy', 'Wizja lokalna', 'Wycena na piśmie'],
     contact: {
       phone: 'Telefon',
+      /** Without opening hours in the company data. */
       hours: 'pn–pt 9:00–17:00',
       mail: 'WhatsApp i e-mail',
+      mailOnly: 'E-mail',
       mailNote: 'Wyślij zdjęcia obiektu',
       salon: 'Salon',
       route: 'Wyznacz trasę →',

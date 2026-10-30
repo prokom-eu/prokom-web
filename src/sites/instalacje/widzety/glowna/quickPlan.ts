@@ -129,6 +129,7 @@ export function planBody(
     type: 'contact' as const,
     category: glownaSekcje.plan.category,
     source: sourceFromHref(href),
+    // The schema takes at most 10 topics — exactly the 10 services today (`SERVICE_KEYS`).
     topics: state.services.map((key) => serviceNames[key] ?? key),
     ...(town ? { city: town } : {}),
     name: state.name.trim(),

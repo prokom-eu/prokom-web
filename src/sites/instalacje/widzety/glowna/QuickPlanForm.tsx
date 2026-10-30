@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { type CSSProperties, type FormEvent, useRef, useState } from 'react'
+import { type CSSProperties, type FormEvent, useEffect, useRef, useState } from 'react'
 
 import {
   CONSENT_CLAUSE,
@@ -60,6 +60,12 @@ export function QuickPlanForm({ services, formToken }: Props) {
   const honeypot = useRef<HTMLInputElement>(null)
   const nameField = useRef<HTMLInputElement>(null)
   const phoneField = useRef<HTMLInputElement>(null)
+  const doneTitle = useRef<HTMLElement>(null)
+
+  // The form is replaced by the thanks: focus goes to their title, so a screen reader hears it.
+  useEffect(() => {
+    if (done) doneTitle.current?.focus()
+  }, [done])
 
   const set = (change: Partial<PlanState>) => {
     setError(null)
@@ -77,7 +83,7 @@ export function QuickPlanForm({ services, formToken }: Props) {
   const href = plannerHref(state)
   const chosen = services.filter((s) => state.services.includes(s.key))
   const objectLabel = PLAN_OBJECTS.find((o) => o.key === state.object)?.label ?? '—'
-  const ready = state.services.length > 0 && phoneReady(state.phone) && state.consent
+  const ready = planError(state) === null
   const invalid = (key: PlanErrorKey) => error?.key === key || undefined
 
   async function submit(event: FormEvent) {
@@ -109,12 +115,15 @@ export function QuickPlanForm({ services, formToken }: Props) {
       })
       if (outcome.kind === 'sent') setDone({ number: outcome.number })
       else if (outcome.kind === 'invalid') {
-        const [key, text] = Object.entries(outcome.fields)[0] ?? []
+        // A stale form ("refresh the page") goes first: fixing a field would not help.
+        const [key, text] = outcome.formError ? [] : (Object.entries(outcome.fields)[0] ?? [])
         setError(
           key && text
             ? { key: key as PlanErrorKey, text }
             : { key: 'form', text: outcome.formError ?? t.errors.failed },
         )
+        if (key === 'name') nameField.current?.focus()
+        if (key === 'phone') phoneField.current?.focus()
       } else {
         setError({ key: 'form', text: response.status === 429 ? t.errors.limit : outcome.message })
       }
@@ -129,14 +138,19 @@ export function QuickPlanForm({ services, formToken }: Props) {
     <div className="hzkw ri">
       <div className="hzkc">
         {done ? (
-          <div className="hzkdone" role="status">
+          <div className="hzkdone">
             <span className="zkok">
               <svg viewBox="0 0 52 52" aria-hidden="true">
                 <circle cx="26" cy="26" r="24" />
                 <path d="M15 27 l7 7 l15 -16" />
               </svg>
             </span>
-            <b className="h2" style={{ fontSize: 'clamp(26px, 2.6vw, 36px)' }}>
+            <b
+              ref={doneTitle}
+              tabIndex={-1}
+              className="h2"
+              style={{ fontSize: 'clamp(26px, 2.6vw, 36px)', outline: 'none' }}
+            >
               {t.done.title}
             </b>
             <p>{t.done.text}</p>
@@ -226,6 +240,7 @@ export function QuickPlanForm({ services, formToken }: Props) {
                     name="city"
                     autoComplete="address-level2"
                     placeholder={t.townPlaceholder}
+                    maxLength={100}
                     value={state.town}
                     onChange={(e) => set({ town: e.target.value })}
                   />
@@ -241,6 +256,7 @@ export function QuickPlanForm({ services, formToken }: Props) {
                     name="name"
                     autoComplete="given-name"
                     placeholder={t.namePlaceholder}
+                    maxLength={120}
                     value={state.name}
                     aria-invalid={invalid('name')}
                     onChange={(e) => set({ name: e.target.value })}
@@ -255,6 +271,7 @@ export function QuickPlanForm({ services, formToken }: Props) {
                     inputMode="tel"
                     autoComplete="tel"
                     placeholder={t.phonePlaceholder}
+                    maxLength={30}
                     value={state.phone}
                     aria-invalid={invalid('phone')}
                     onChange={(e) => set({ phone: e.target.value })}
@@ -310,7 +327,7 @@ export function QuickPlanForm({ services, formToken }: Props) {
               <div aria-hidden="true" className="absolute -left-[9999px]">
                 <input ref={honeypot} name={HONEYPOT_FIELD} tabIndex={-1} autoComplete="off" />
               </div>
-              <div aria-live="assertive">
+              <div>
                 {error && (
                   <div className="hzkerr" role="alert">
                     {error.text}

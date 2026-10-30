@@ -81,8 +81,9 @@ test.describe('Instalacje home sections', () => {
 
     await page.waitForTimeout(FORM_MIN_FILL_MS + 500)
     await send.click()
-    await expect(form.getByRole('status')).toContainText('Dziękujemy! Oddzwonimy.')
-    await expect(form.getByRole('status')).toContainText(/PKI-\d{4}-\d{4,}/)
+    // The thanks replace the form and take the focus (screen readers hear them).
+    await expect(form.getByText('Dziękujemy! Oddzwonimy.')).toBeFocused()
+    await expect(form.locator('.hzkdone')).toContainText(/PKI-\d{4}-\d{4,}/)
 
     await loginAsAdmin(page)
     const { json } = await api(

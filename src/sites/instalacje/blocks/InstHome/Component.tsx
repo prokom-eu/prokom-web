@@ -6,6 +6,7 @@ import { websiteJsonLd } from '@/lib/instalacje/seo'
 import { SERVICE_KEYS } from '@/lib/instalacje/options'
 import { siteOrigin } from '@/lib/seo/origin'
 import { getCompanyData, getSiteSettings } from '@/lib/site/data'
+import { hoursSummary } from '@/lib/site/hoursSummary'
 import { toTelHref, toWhatsAppHref } from '@/lib/site/link'
 import type { InstHomeBlock as InstHomeBlockData } from '@/payload-types'
 
@@ -86,6 +87,8 @@ export async function InstHomeBlock({ block, tenantId }: Props) {
     address: `${l.street}, ${l.postalCode} ${l.city}`,
   }))
   const t = glownaSekcje.faq
+  const firstHours = company?.locations?.[0]?.hours
+  const hours = firstHours?.length ? hoursSummary(firstHours) : null
 
   return (
     <>
@@ -147,7 +150,12 @@ export async function InstHomeBlock({ block, tenantId }: Props) {
         eyebrow={t.eyebrow}
         headLink={{ label: t.guide, href: '/poradnik' }}
         items={t.items}
-        aside={{ ...t.aside, href: whatsapp ?? '/kontakt' }}
+        aside={{
+          title: t.aside.title,
+          text: t.aside.text,
+          button: whatsapp ? t.aside.button : t.aside.buttonNoWhatsapp,
+          href: whatsapp ?? '/kontakt',
+        }}
         phone={phone}
         fold
         className="bnd bnd-soft xa-s"
@@ -158,6 +166,8 @@ export async function InstHomeBlock({ block, tenantId }: Props) {
         phone={phone}
         email={site?.email ?? null}
         salons={salons}
+        whatsapp={whatsapp}
+        hours={hours}
       />
     </>
   )
