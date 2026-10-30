@@ -94,7 +94,14 @@ export const CATEGORY_SLUGS: Record<string, string> = {
   akc: 'akcesoria-pos',
   wagi: 'wagi-sklepowe',
   kody: 'skanery-kolektory-etykiety',
-  komp: 'komputery-monitory',
+  // K4 (D-K4-2): "Komputery i monitory" split into five categories.
+  laptopy: 'laptopy',
+  komputery: 'komputery',
+  monitory: 'monitory',
+  tablety: 'tablety',
+  telefony: 'telefony',
+  'akcesoria-biuro': 'klawiatury-myszy-sluchawki',
+  niszczarki: 'niszczarki',
   podpis: 'podpis-kwalifikowany',
   serwis: 'serwis-przeglady',
   vend: 'automaty-vendingowe',
@@ -109,6 +116,12 @@ export const CATEGORY_SLUGS: Record<string, string> = {
   it: 'opieka-it-wdrozenia',
   dof: 'dofinansowania',
 }
+
+/** Addresses of K3 categories K4 retired (301 in `k4CategoryRedirects`). */
+export const RETIRED_CATEGORY_SLUGS: Record<string, string> = { komp: 'komputery-monitory' }
+
+/** K4 category that takes the links of a retired K3 one (removed cards → their category). */
+export const CATEGORY_SUCCESSORS: Record<string, string> = { komp: 'laptopy' }
 
 /**
  * Addresses a category had before katalog v2 (22.10.2026), so the import finds it in a local

@@ -14,6 +14,7 @@ import media from '../../../seed/prokombiznes/media.json'
 import gallery from '../../../seed/prokombiznes/media-produkty-v2.json'
 import search from '../../../seed/prokombiznes/wyszukiwarka.json'
 import {
+  CATEGORY_SUCCESSORS,
   categoryData,
   galleryFileName,
   galleryMediaData,
@@ -59,7 +60,14 @@ export function sourceFromSeed(): CatalogSource {
     const group = groupBySeed.get(category.grupa)!
     return {
       id: nextId++,
-      ...categoryData(category, group.id, icons.kategoria_ikona),
+      // K4 retired "Komputery i monitory" (D-K4-2): here it only takes the successor's address
+      // and keeps its K3 name — a deliberate shortcut for the katalog v2 fixture until K4a-1b
+      // imports the K4 cards (tests read slugs, not names).
+      ...categoryData(
+        { ...category, slug: CATEGORY_SUCCESSORS[category.slug] ?? category.slug },
+        group.id,
+        icons.kategoria_ikona,
+      ),
       group,
       tenant: TENANT,
     }
