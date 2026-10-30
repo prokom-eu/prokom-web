@@ -4,8 +4,9 @@ import { expect, test, type Page } from '@playwright/test'
 import { FORM_MIN_FILL_MS } from '../../src/lib/inquiry/spam'
 import { api, loginAsAdmin, site } from './helpers'
 
-// SW7: the wizard `/dobierz` (spec. §6.3, §7, board `Kreator`, stany 50–55 and 87a–f). Rules
-// from `pnpm seed` (`kreator.json` + the SW7 rules), prices from the seeded solutions.
+// SW7 / SWR4a: the wizard `/dobierz` (spec. §6.3, §7, board `Kreator`). Rules from `pnpm seed`
+// (`kreator.json` v22 + the board-script rules), prices from the seeded solutions. The v22 layout
+// and the paths of `stany/kreator-*` come with SWR4b — this spec keeps the SW7 checks on v22 data.
 const WCAG = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']
 const HOST = 'software.localhost'
 const PATH = '/dobierz'
@@ -18,26 +19,41 @@ const title = (page: Page) => main(page).getByRole('heading', { level: 2 }).firs
 const price = (page: Page) => page.locator('[data-wizard-price]')
 const term = (page: Page) => page.locator('[data-wizard-term]')
 const send = (page: Page) => button(page, 'Wyślij mi wycenę na piśmie →')
+const showResult = (page: Page) => button(page, 'Pokaż wynik →')
 
-type Path = { id: string; walk: (page: Page) => Promise<void>; result: string; price: RegExp }
+type Path = {
+  id: string
+  walk: (page: Page) => Promise<void>
+  result: string
+  price: RegExp
+  /** Ticked „więcej” and the add-on clicked in the result, if any. */
+  more?: string
+  addOn?: string
+}
 
 /** The clicks of the boards 50–52, up to the result. */
 const PATHS: Path[] = [
   {
     id: '50 strona pensjonatu',
     walk: async (page) => {
-      await tile(page, 'Strona firmowa').click()
+      await expect(tile(page, 'Strona dla firmy')).toContainText(/od 1\s999 zł/)
+      await tile(page, 'Strona dla firmy').click()
       await button(page, 'Pensjonat, hotel, apartamenty').click()
       await expect(title(page)).toHaveText('Jeszcze trzy szczegóły')
+      await expect(page.locator('[data-wizard-scope-price]')).toHaveText(
+        /^od 1\s999 zł netto · od 2 tygodni$/,
+      )
       await button(page, 'Starą stronę').click()
-      await button(page, 'Dalej →').click()
+      await button(page, 'Rezerwacja z zaliczką online').click()
       await main(page)
-        .getByRole('textbox')
+        .getByLabel(/Opisz po swojemu/)
         .fill('Goście dzwonią o wolne pokoje, chcę, żeby sprawdzali sami online.')
-      await button(page, 'Pokaż wynik →').click()
+      await showResult(page).click()
     },
     result: 'Strona dla pensjonatu lub hotelu',
     price: /^od 1\s999 zł netto$/,
+    more: 'Rezerwacja z zaliczką online',
+    addOn: 'Opieka nad stroną',
   },
   {
     id: '51 program zlecenia',
@@ -45,8 +61,7 @@ const PATHS: Path[] = [
       await tile(page, 'Program dla firmy').click()
       await button(page, /^Zlecenia na kartkach/).click()
       await expect(main(page).getByText('Plik możesz dosłać mailem po kontakcie.')).toBeVisible()
-      await button(page, 'Dalej →').click()
-      await button(page, 'Pomiń').click()
+      await showResult(page).click()
     },
     result: 'System zleceń i grafik ekip',
     price: /^od 3\s490 zł netto$/,
@@ -54,7 +69,7 @@ const PATHS: Path[] = [
   {
     id: '52 odświeżenie',
     walk: async (page) => {
-      await tile(page, 'Odświeżenie obecnej strony').click()
+      await tile(page, 'Przebudowa starej strony').click()
       // Several answers: „Dalej” waits for the first one.
       await expect(button(page, 'Dalej →')).toHaveAttribute('aria-disabled', 'true')
       for (const issue of [
@@ -66,8 +81,7 @@ const PATHS: Path[] = [
       }
       await button(page, 'Dalej →').click()
       await main(page).getByLabel('Adres obecnej strony').fill('stara-firma.pl')
-      await button(page, 'Dalej →').click()
-      await button(page, 'Pomiń').click()
+      await showResult(page).click()
     },
     result: 'Przebudowa starej strony',
     price: /^od 1\s499 zł netto$/,
@@ -95,7 +109,10 @@ for (const viewport of [
         await path.walk(page)
         await expect(title(page)).toHaveText(path.result)
         await expect(price(page)).toHaveText(path.price)
-        await expect(button(page, 'Standard')).toHaveAttribute('aria-pressed', 'true')
+        if (path.more) {
+          await expect(page.locator('[data-wizard-to-quote]')).toContainText(path.more)
+        }
+        if (path.addOn) await button(page, new RegExp(`^${path.addOn}`)).click()
 
         if (viewport.width === 1440) {
           // The two columns of the result end together (spec. §6.3).
@@ -131,15 +148,17 @@ for (const viewport of [
         await main(page)
           .getByRole('checkbox', { name: /Wyrażam zgodę/ })
           .check()
-        await button(page, 'E-mail').click()
+        await main(page).getByRole('button', { name: 'E-mail', exact: true }).click()
         // The server refuses forms sent faster than a person can fill them (spam protection).
         await page.waitForTimeout(FORM_MIN_FILL_MS + 500)
         await send(page).click()
         const success = main(page).getByRole('status').filter({ hasText: 'Wycena jest w drodze' })
         await expect(success).toContainText(/Wysłane · PKS-\d{4}-\d{4}/i)
         await expect(success).toContainText('W ciągu 1 dnia roboczego napiszemy')
-        // Changing the size after sending keeps the card: no second inquiry by accident.
-        await button(page, 'Na start').click()
+        // Changing an add-on after sending keeps the card: no second inquiry by accident.
+        await button(page, /^Powiadomienia SMS|^Darmowy audyt|^Aplikacja dla ekip/)
+          .first()
+          .click()
         await expect(success).toBeVisible()
         await expect(send(page)).toHaveCount(0)
 
@@ -157,11 +176,15 @@ for (const viewport of [
             email: 'e2e-kreator@example.test',
             preferredContact: 'email',
           })
-          expect(record?.message).toContain(`Kreator: ${path.result} (Standard)`)
+          expect(record?.message).toMatch(new RegExp(`^Kreator: ${path.result}\n`))
           expect(record?.wizard).toMatchObject({ Polecamy: path.result })
-          expect(record?.items).toEqual([
-            expect.objectContaining({ nameSnapshot: expect.any(String), quantity: 1 }),
-          ])
+          if (path.more) expect(record?.message).toContain(`+ do wyceny: ${path.more}`)
+          // The result, then the added add-on (a solution of this site).
+          expect(record?.items).toEqual(
+            [path.result, ...(path.addOn ? [path.addOn] : [])].map(() =>
+              expect.objectContaining({ nameSnapshot: expect.any(String), quantity: 1 }),
+            ),
+          )
           if (path.id.startsWith('52')) {
             expect(record?.auditUrl).toBe('https://stara-firma.pl/')
           }
@@ -180,19 +203,31 @@ test.describe('Software wizard', () => {
     }
   })
 
-  test('53: „opisz po swojemu” skips to the description and ends with free advice', async ({
-    page,
-  }) => {
+  test('„opisz po swojemu” has three steps and ends with free advice', async ({ page }) => {
     await page.goto(site(HOST, PATH))
     await button(page, /^Wolisz opisać po swojemu/).click()
     await expect(title(page)).toContainText('Opisz po swojemu')
-    // Skipped steps are greyed out and cannot be opened.
-    await expect(button(page, /^2\s*Szczegóły/)).toBeDisabled()
-    await expect(button(page, /^3\s*Zakres/)).toBeDisabled()
-    await button(page, 'Pokaż wynik →').click()
+    await expect(
+      main(page)
+        .getByRole('listitem')
+        .filter({ hasText: /^3\s*Wynik$/ }),
+    ).toHaveCount(1)
+    await expect(button(page, /^3\s*Wynik/)).toBeDisabled()
+    await showResult(page).click()
     await expect(title(page)).toHaveText('Rozmowa i propozycja na piśmie')
     await expect(price(page)).toHaveText('Bezpłatnie')
-    await expect(button(page, 'Standard')).toHaveCount(0)
+  })
+
+  test('the shop hint switches a shop’s firm page to the online shop and back', async ({
+    page,
+  }) => {
+    await page.goto(site(HOST, `${PATH}?potrzeba=firm&firma=handel`))
+    await button(page, /^Chcesz sprzedawać online\?/).click()
+    await expect(page.locator('[data-wizard-scope-price]')).toHaveText(
+      /^od 8\s990 zł netto · od 5 tygodni$/,
+    )
+    await button(page, /^Wolisz stronę z ofertą/).click()
+    await expect(page.locator('[data-wizard-scope-price]')).toHaveText(/^od 2\s490 zł netto/)
   })
 
   test('a server error is announced: its box takes the focus', async ({ page }) => {
@@ -200,8 +235,7 @@ test.describe('Software wizard', () => {
       route.fulfill({ status: 500, contentType: 'application/json', body: '{}' }),
     )
     await page.goto(site(HOST, `${PATH}?potrzeba=wiz&firma=bud`))
-    await button(page, 'Dalej →').click()
-    await button(page, 'Pomiń').click()
+    await showResult(page).click()
     await main(page).getByPlaceholder('Telefon albo e-mail').fill('600 100 200')
     await main(page)
       .getByRole('checkbox', { name: /Wyrażam zgodę/ })
@@ -217,8 +251,7 @@ test.describe('Software wizard', () => {
   test('55: an app has no price in the panel → „Zapytaj o wycenę”', async ({ page }) => {
     await page.goto(site(HOST, `${PATH}?potrzeba=app`))
     await button(page, /^Dla pracowników w terenie/).click()
-    await button(page, 'Dalej →').click()
-    await button(page, 'Pomiń').click()
+    await showResult(page).click()
     await expect(title(page)).toHaveText('Aplikacja na telefon')
     await expect(price(page)).toHaveText('Zapytaj o wycenę')
     await expect(term(page)).toHaveText('po krótkiej rozmowie')
@@ -240,8 +273,7 @@ test.describe('Software wizard', () => {
   test('54: the dark result of a CRM passes axe; the start does too', async ({ page }) => {
     await page.emulateMedia({ colorScheme: 'dark', reducedMotion: 'reduce' })
     await page.goto(site(HOST, `${PATH}?potrzeba=prog&firma=klienci`))
-    await button(page, 'Dalej →').click()
-    await button(page, 'Pomiń').click()
+    await showResult(page).click()
     await expect(title(page)).toHaveText('CRM dla małej i średniej firmy')
     const result = await new AxeBuilder({ page }).withTags(WCAG).analyze()
     expect(
