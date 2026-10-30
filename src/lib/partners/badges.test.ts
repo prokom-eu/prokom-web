@@ -39,6 +39,8 @@ describe('partnerStatusLabel', () => {
   it('names only a status confirmed in the panel', () => {
     expect(partnerStatusLabel('authorized-partner')).toBe('Autoryzowany partner')
     expect(partnerStatusLabel('authorized-service')).toBe('Autoryzowany serwis')
+    expect(partnerStatusLabel('partner')).toBe('Partner')
+    expect(partnerStatusLabel('cooperation')).toBe('We współpracy')
     expect(partnerStatusLabel('none')).toBeNull()
     expect(partnerStatusLabel(null)).toBeNull()
   })

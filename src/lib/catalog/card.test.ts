@@ -24,6 +24,8 @@ const brands = [
   { slug: 'marka', name: 'Marka', status: 'none' as const },
   { slug: 'gopos', name: 'GoPOS', status: 'authorized-partner' as const },
   { slug: 'posnet', name: 'Posnet', status: 'authorized-service' as const },
+  { slug: 'optivendi', name: 'Optivendi', status: 'partner' as const },
+  { slug: 'comex', name: 'COMEX', status: 'cooperation' as const },
 ]
 
 const labels = (overrides: Partial<IndexProduct>) =>
@@ -47,6 +49,11 @@ describe('productBadges (spec. §5.3, at most 2)', () => {
   it('falls back to the kind without a brand status: software → partner, else service', () => {
     expect(labels({ authorized: true, kind: 'software' })).toEqual(['Autoryzowany partner'])
     expect(labels({ authorized: true, kind: 'service' })).toEqual(['Usługa', 'Autoryzowany serwis'])
+  })
+
+  it('never says „Autoryzowany” for a partner or a cooperation brand (K4-FINAL §1)', () => {
+    expect(labels({ authorized: true, brand: 'optivendi' })).toEqual([])
+    expect(labels({ authorized: true, brand: 'comex', kind: 'software' })).toEqual([])
   })
 
   it('keeps the authorization only while there is room', () => {

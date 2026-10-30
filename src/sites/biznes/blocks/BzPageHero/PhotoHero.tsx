@@ -76,7 +76,7 @@ export function PhotoHero({ block, isFirst, crumbs, tenantId }: Props) {
                 </span>
               )}
               {status && partner && (
-                <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-2 text-[13px] font-extrabold tracking-[0.06em] text-ok uppercase ring-1 ring-ok/40 ring-inset">
+                <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-2 text-[13px] font-extrabold tracking-[0.06em] text-footer-ok uppercase ring-1 ring-ok/40 ring-inset">
                   <Icon name="check" strokeWidth={2.6} className="size-4" />
                   {status} {partner.name}
                 </span>

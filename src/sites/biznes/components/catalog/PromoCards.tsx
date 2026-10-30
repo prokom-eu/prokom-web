@@ -152,7 +152,7 @@ export function PartnersCard({
             )}
             <div className="mt-auto flex flex-col gap-3">
               {brand?.status === 'authorized-partner' && (
-                <span className="self-start rounded-full bg-white/10 px-2.5 py-1 text-[0.72rem] font-extrabold uppercase tracking-[0.08em] text-ok">
+                <span className="self-start rounded-full bg-white/10 px-2.5 py-1 text-[0.72rem] font-extrabold uppercase tracking-[0.08em] text-footer-ok">
                   Autoryzowany partner
                 </span>
               )}

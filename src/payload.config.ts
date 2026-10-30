@@ -26,6 +26,7 @@ import { Partners } from './collections/Partners'
 import { Posts } from './collections/Posts'
 import { Products } from './collections/Products'
 import { Realizations } from './collections/Realizations'
+import { Showrooms } from './collections/Showrooms'
 import { Redirects } from './collections/Redirects'
 import { SiteSettings } from './collections/SiteSettings'
 import { SoftwareSettings } from './collections/SoftwareSettings'
@@ -86,6 +87,8 @@ export default buildConfig({
     Realizations,
     // Biznes K3c (ready bundles). Last, so the unique-index names of the others stay.
     Bundles,
+    // Biznes K4 (showrooms 2.0, D-K4-3). Last, so the unique-index names of the others stay.
+    Showrooms,
   ],
   globals: [CompanyData],
   editor: lexicalEditor(),
@@ -163,6 +166,7 @@ export default buildConfig({
         industries: {},
         'floor-plans': {},
         bundles: {},
+        showrooms: {},
         products: {},
         posts: {},
         // One document per tenant, Biznes only (`BiznesSettings` hook).

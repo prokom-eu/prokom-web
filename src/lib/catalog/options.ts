@@ -116,6 +116,16 @@ export const BUNDLE_AREAS = [
 
 export type BundleArea = (typeof BUNDLE_AREAS)[number]['value']
 
+/** Filter pills of „O to firmy pytają najczęściej” on the homepage (K35 §7a, K36 §6). */
+export const FEATURED_GROUPS = [
+  { label: 'Kasy i płatności', value: 'kasy-platnosci' },
+  { label: 'Komputery i telefony', value: 'komputery-telefony' },
+  { label: 'Programy, ochrona i podpis', value: 'programy-ochrona' },
+  { label: 'Zasilanie awaryjne', value: 'zasilanie' },
+] as const
+
+export type FeaturedGroup = (typeof FEATURED_GROUPS)[number]['value']
+
 /** `partia` in the seed (katalog v2): content planning only — every batch is in the catalog. */
 export const CONTENT_BATCHES = [
   { label: 'Na start', value: '0' },
