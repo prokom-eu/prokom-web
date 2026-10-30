@@ -73,6 +73,12 @@ export function isIconName(value: unknown): value is IconName {
 
 export const ICON_OPTIONS = ICON_NAMES.map((name) => ({ label: name, value: name }))
 
+/** Where the "Nie wiesz, co wybrać?" button of a category leads (K4, `dobor.a`). */
+export const HELP_ACTIONS = [
+  { label: 'Zapytanie o dobór', value: 'inquiry' },
+  { label: 'Strona automatów vendingowych', value: 'vending' },
+]
+
 export const PRODUCT_KINDS = [
   { label: 'Urządzenie', value: 'device' },
   { label: 'Program', value: 'software' },

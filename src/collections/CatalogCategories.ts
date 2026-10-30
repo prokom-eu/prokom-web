@@ -1,9 +1,9 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig, Field } from 'payload'
 
 import { linkGroup } from '../blocks/fields'
 import { adminOnly } from '../lib/auth/access'
 import { catalogRevalidationHooks } from '../lib/catalog/revalidate'
-import { ICON_OPTIONS } from '../lib/catalog/options'
+import { HELP_ACTIONS, ICON_OPTIONS } from '../lib/catalog/options'
 import { validateSubcategories, type SubcategoryRow } from '../lib/catalog/subcategories'
 import { isHttpsUrl } from '../lib/site/link'
 import { isValidSlug } from '../lib/tenant/uniqueSlug'
@@ -16,6 +16,44 @@ import {
   seoGroup,
   slugField,
 } from './catalogFields'
+
+// K4 (D-K4-2): "Do czego" chips and the "Nie wiesz, co wybrać?" card, on a category and on
+// each subcategory (`slowniki-k4.json` → `do_czego`, `dobor`).
+// TODO(krystian): K4d shows `useCases`, `help.button` / `help.action` and the subcategory
+// rows on the page — until then the page reads only `help.title` / `help.text` of a category.
+const useCasesField: Field = {
+  name: 'useCases',
+  label: 'Do czego (filtr)',
+  type: 'text',
+  hasMany: true,
+  admin: { description: 'Chipy filtra „Do czego”. Jeszcze niewidoczne na stronie.' },
+}
+
+function helpGroup(description: string): Field {
+  return {
+    name: 'help',
+    label: 'Karta „Nie wiesz, co wybrać?”',
+    type: 'group',
+    admin: { description },
+    fields: [
+      { name: 'title', label: 'Tytuł', type: 'text', maxLength: 90 },
+      { name: 'text', label: 'Tekst', type: 'textarea', maxLength: 200 },
+      {
+        type: 'row',
+        fields: [
+          { name: 'button', label: 'Przycisk', type: 'text', maxLength: 40 },
+          {
+            name: 'action',
+            label: 'Przycisk prowadzi do',
+            type: 'select',
+            options: HELP_ACTIONS,
+            admin: { description: 'Przycisk jeszcze niewidoczny na stronie.' },
+          },
+        ],
+      },
+    ],
+  }
+}
 
 /**
  * Categories of the catalog, each in one group (ADR-012 §1). A category without published
@@ -85,8 +123,11 @@ export const CatalogCategories: CollectionConfig = {
             },
           ],
         },
+        useCasesField,
+        helpGroup('Karta doboru podkategorii. Jeszcze niewidoczna na stronie.'),
       ],
     },
+    useCasesField,
     {
       name: 'hero',
       label: 'Nagłówek strony kategorii',
@@ -205,16 +246,7 @@ export const CatalogCategories: CollectionConfig = {
             { name: 'lead', label: 'Wstęp', type: 'textarea', maxLength: 400 },
           ],
         },
-        {
-          name: 'help',
-          label: 'Karta „Nie wiesz, którą wybrać?”',
-          type: 'group',
-          admin: { description: 'Wypełnia ostatni rząd siatki produktów.' },
-          fields: [
-            { name: 'title', label: 'Tytuł', type: 'text', maxLength: 90 },
-            { name: 'text', label: 'Tekst', type: 'textarea', maxLength: 200 },
-          ],
-        },
+        helpGroup('Wypełnia ostatni rząd siatki produktów.'),
         {
           name: 'contact',
           label: 'Kontakt',
