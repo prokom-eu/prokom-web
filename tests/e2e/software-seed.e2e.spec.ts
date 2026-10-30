@@ -5,10 +5,10 @@ import miejscowosci from '../../seed/prokomsoftware/miejscowosci.json' with { ty
 import rozwiazania from '../../seed/prokomsoftware/rozwiazania.json' with { type: 'json' }
 import { api, loginAsAdmin, site, tenantId } from './helpers'
 
-// SW3 acceptance: after `pnpm seed` the Software panel has the package v20 — 29 published
-// solutions with prices, 8 areas, 6 cities (Rabka-Zdrój active), navigation, facts and the
-// Software settings; a solution removed from the offer never reaches the database. SW2b: 12
-// industries (construction active, with its FAQ) and the post as a draft.
+// SW3 acceptance: after `pnpm seed` the Software panel has the package (solutions v22 since
+// SWR1) — 29 published solutions with prices, 8 areas, 6 cities (Rabka-Zdrój active),
+// navigation, facts and the Software settings; a solution removed from the offer never reaches
+// the database. SW2b: 12 industries (construction active, with its FAQ) and the post as a draft.
 
 /** Ids of the package are 1–30; other e2e specs create their records far above them. */
 const PACKAGE_IDS = 'where[legacyId][less_than_equal]=100'
@@ -26,11 +26,28 @@ test.describe('Software seed', () => {
       slug: string
       legacyId: number
       _status: string
-      prices?: { start?: number | null }
+      priceFrom?: number | null
+      leadTime?: string | null
+      thumbnail?: string | null
+      related?: number[]
+      levels?: { name: string; price: number }[]
     }[]
     expect(docs).toHaveLength(29)
     expect(docs.every((doc) => doc._status === 'published')).toBe(true)
-    expect(docs.find((doc) => doc.slug === 'strona-firmowa-z-panelem')?.prices?.start).toBe(2490)
+    // v22: one „od” price and term, levels only for care and audit, three related solutions.
+    const site = docs.find((doc) => doc.slug === 'strona-firmowa-z-panelem')
+    expect(site).toMatchObject({
+      priceFrom: 2490,
+      leadTime: 'od 2 tygodni',
+      thumbnail: '/software/rozwiazania/strona-firmowa-z-panelem.svg',
+    })
+    expect(site?.related).toHaveLength(3)
+    const care = docs.find((doc) => doc.slug === 'opieka-nad-strona-i-systemem')
+    expect(care?.levels?.map((level) => level.name)).toEqual([
+      'Podstawowa',
+      'Rozszerzona',
+      'Systemy',
+    ])
 
     // ADR-014 v20 pkt 2: removed from the offer = not in the database, by slug or by id.
     for (const removed of rozwiazania.removed) {

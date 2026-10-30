@@ -21,16 +21,14 @@ import {
 const rules = softwareWizardSchema.parse(wizardSeed(kreator))
 const NBSP = String.fromCharCode(0xa0) // formatPrice groups thousands with it
 
-/** Prices and terms of the package, as the solutions index carries them. */
+/** The one „od” price and term of the package, as the solutions index carries them. */
 const solutions: Record<string, WizardSolution> = Object.fromEntries(
   rozwiazania.items.map((item) => [
     item.slug,
     {
       name: item.name,
-      prices: Object.fromEntries(Object.entries(item.prices).filter(([, value]) => value !== null)),
-      leadTimes: Object.fromEntries(
-        Object.entries(item.leadTimes).filter(([, value]) => value !== null),
-      ),
+      priceFrom: item.priceFrom,
+      leadTime: item.leadTime,
       priceMonthly: item.slug === 'opieka-nad-strona-i-systemem',
     },
   ]),
@@ -39,7 +37,7 @@ const solutions: Record<string, WizardSolution> = Object.fromEntries(
 const answers = (patch: Partial<WizardAnswers>): WizardAnswers => ({ ...EMPTY_ANSWERS, ...patch })
 
 describe('Software wizard result (stany 50–55)', () => {
-  it('50: firm + pensjonat, Standard, an old site → hotel page at the Standard price', () => {
+  it('50: firm + pensjonat, Standard, an old site → hotel page at its one „od” price', () => {
     const view = resultView(
       rules,
       answers({ need: 'firm', options: ['nocleg'], size: 'std', have: 'stara' }),
@@ -47,8 +45,8 @@ describe('Software wizard result (stany 50–55)', () => {
     )
     expect(view.resultId).toBe('pensjonat')
     expect(view.result.n).toBe('Strona dla pensjonatu lub hotelu')
-    expect(view.price).toBe(`2${NBSP}990 zł netto`)
-    expect(view.term).toBe('3 tygodnie')
+    expect(view.price).toBe(`od 1${NBSP}999 zł netto`)
+    expect(view.term).toBe('od 2 tygodni')
     expect(view.ask).toBe(false)
     expect(view.scope).toBe(rules.scopeNotes.pensjonatStartStd)
     expect(view.resultNote).toBe('+ przebudowa starej strony, bez utraty pozycji w Google')
@@ -64,22 +62,23 @@ describe('Software wizard result (stany 50–55)', () => {
       answers({ need: 'firm', options: ['nocleg'], size: 'full' }),
       solutions,
     )
-    expect(view.price).toBe(`4${NBSP}490 zł netto`)
+    // v22: no size prices — every size shows the same „od” price until the v22 wizard (SWR4).
+    expect(view.price).toBe(`od 1${NBSP}999 zł netto`)
     expect(view.scope).toBeNull()
   })
 
   it('51: program + zlecenia → orders system; start size adds the system scope', () => {
     const std = resultView(rules, answers({ need: 'prog', options: ['zlec'] }), solutions)
     expect(std.resultId).toBe('zlecenia')
-    expect(std.price).toBe(`5${NBSP}990 zł netto`)
-    expect(std.term).toBe('6 tygodni')
+    expect(std.price).toBe(`od 3${NBSP}490 zł netto`)
+    expect(std.term).toBe('od 3 tygodni')
     expect(std.scope).toBeNull()
     const start = resultView(
       rules,
       answers({ need: 'prog', options: ['zlec'], size: 'start' }),
       solutions,
     )
-    expect(start.price).toBe(`3${NBSP}490 zł netto`)
+    expect(start.price).toBe(`od 3${NBSP}490 zł netto`)
     expect(start.scope).toBe(rules.scopeNotes.systemStart)
   })
 
@@ -92,14 +91,14 @@ describe('Software wizard result (stany 50–55)', () => {
     ).toBe('crm')
   })
 
-  it('52: refresh with three problems → rebuild at the Standard price', () => {
+  it('52: refresh with three problems → rebuild at its „od” price', () => {
     const view = resultView(
       rules,
       answers({ need: 'odsw', options: ['wolna', 'tel', 'google'], url: 'stara.pl' }),
       solutions,
     )
     expect(view.resultId).toBe('przebudowa')
-    expect(view.price).toBe(`2${NBSP}490 zł netto`)
+    expect(view.price).toBe(`od 1${NBSP}499 zł netto`)
     expect(view.choice).toEqual([
       'Odświeżenie obecnej strony',
       'Wolno się ładuje',
@@ -123,11 +122,11 @@ describe('Software wizard result (stany 50–55)', () => {
     expect(view.ask).toBe(true)
   })
 
-  it('a result without sizes shows the lowest price with „od” and the first term', () => {
+  it('a result without sizes shows the „od” price and term as stored', () => {
     const view = resultView(rules, answers({ need: 'wiz', options: ['bud'] }), solutions)
     expect(view.hasSize).toBe(false)
     expect(view.price).toBe('od 999 zł netto')
-    expect(view.term).toBe('od 1 tydzień')
+    expect(view.term).toBe('od 1 tygodnia')
     expect(view.choice).toEqual(['Wizytówka', 'Budowlanka i remonty'])
   })
 

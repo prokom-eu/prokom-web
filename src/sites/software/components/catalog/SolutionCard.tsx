@@ -143,23 +143,6 @@ export function SolutionCard({
             </ul>
           </>
         )}
-        {price.versions.length > 0 && (
-          <dl className="mt-4 grid grid-cols-3 gap-2">
-            {price.versions.map((version, i) => (
-              <div
-                key={version.size}
-                className={cx(
-                  'rounded-xl border p-2.5 text-center',
-                  i === 1 ? 'border-accent-line bg-accent-soft' : 'border-border',
-                )}
-              >
-                <dt className="text-xs font-bold text-ink-2">{version.name}</dt>
-                <dd className="mt-1 text-sm font-extrabold">{version.price}</dd>
-                {version.term && <dd className="mt-0.5 text-xs text-ink-2">{version.term}</dd>}
-              </div>
-            ))}
-          </dl>
-        )}
         {solution.priceNote && <p className="mt-3 text-xs text-ink-2">{solution.priceNote}</p>}
         {solution.forWhom && (
           <p className="mt-3 text-sm text-ink-2">

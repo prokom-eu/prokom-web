@@ -9,9 +9,9 @@ const context = (overrides: Partial<TextContext> = {}): TextContext => ({
   tenantId: 7,
   facts: { 'CZAS ODPOWIEDZI': '1 dzień roboczy', 'OPIEKA OD': '149 zł / mies.' },
   prices: {
-    'system-zlecen-i-grafik-ekip': { start: 4990, std: 7990, full: null },
-    'aplikacja-na-telefon': { start: null, std: null, full: null },
-    'szybki-audyt': { start: 0 },
+    'system-zlecen-i-grafik-ekip': 4990,
+    'aplikacja-na-telefon': null,
+    'szybki-audyt': 0,
   },
   term: '2 tygodnie',
   strict: true,

@@ -16,7 +16,9 @@ const solution = (tenant: number, slug: string, legacyId?: number) => ({
   slug,
   name: `Rozwiązanie E2E ${slug}`,
   category: 'strony',
-  prices: { start: 990, std: null, full: 1990 },
+  priceFrom: 990,
+  leadTime: 'od 1 tygodnia',
+  included: ['Strona E2E'],
   ...(legacyId !== undefined && { legacyId }),
 })
 
@@ -79,6 +81,55 @@ test.describe('Software data in the panel', () => {
         expect(withoutId.status).toBe(201)
         created.push((withoutId.json.doc as { id: number }).id)
       }
+    } finally {
+      for (const doc of created) await api(page, 'DELETE', `/api/solutions/${doc}`)
+    }
+  })
+
+  // SWR1 (ADR-014 v22 pkt 1–3): a priced solution says what is in its „od” price, a care-like
+  // solution takes its „od” price from the lowest level, a thumbnail is a file of the repo.
+  test('a published solution follows the v22 price rules', async ({ page }) => {
+    await loginAsAdmin(page)
+    const software = await tenantId(page, 'software')
+    const id = unique()
+    const created: number[] = []
+    try {
+      const noIncluded = await api(page, 'POST', '/api/solutions', {
+        ...solution(software, `e2e-${id}-a`),
+        included: [],
+        _status: 'published',
+      })
+      expect(noIncluded.status).toBe(400)
+
+      const badThumbnail = await api(page, 'POST', '/api/solutions', {
+        ...solution(software, `e2e-${id}-b`),
+        thumbnail: 'https://example.com/a.svg',
+        _status: 'published',
+      })
+      expect(badThumbnail.status).toBe(400)
+
+      const levels = await api(page, 'POST', '/api/solutions', {
+        tenant: software,
+        slug: `e2e-${id}-c`,
+        name: `Rozwiązanie E2E ${id} poziomy`,
+        category: 'opieka',
+        priceFrom: 1,
+        levels: [
+          { name: 'Rozszerzona', price: 299 },
+          { name: 'Podstawowa', price: 149 },
+        ],
+        levelRows: [{ label: 'Kopia', cells: ['tak', 'tak'] }],
+        _status: 'published',
+      })
+      expect(levels.status).toBe(201)
+      const doc = levels.json.doc as { id: number; priceFrom: number }
+      created.push(doc.id)
+      expect(doc.priceFrom).toBe(149)
+
+      const badRow = await api(page, 'PATCH', `/api/solutions/${doc.id}`, {
+        levelRows: [{ label: 'Kopia', cells: ['tak'] }],
+      })
+      expect(badRow.status).toBe(400)
     } finally {
       for (const doc of created) await api(page, 'DELETE', `/api/solutions/${doc}`)
     }

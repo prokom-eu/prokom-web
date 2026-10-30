@@ -20,31 +20,40 @@ describe('solutions index on the seed package', () => {
     expect(gzipSync(JSON.stringify(index)).length).toBeLessThan(30 * 1024)
   })
 
-  it('computes the price „od” and the term from the sizes', () => {
-    expect(solutionOf('strona-firmowa-z-panelem')).toMatchObject({
-      prices: { start: 2490, std: 3390, full: 5490 },
+  it('carries the one „od” price, the „od” term and the thumbnail (v22)', () => {
+    const solution = solutionOf('strona-firmowa-z-panelem')
+    expect(solution).toMatchObject({
       priceFrom: 2490,
-      leadTime: '2 tygodnie',
+      leadTime: 'od 2 tygodni',
+      thumbnail: '/software/rozwiazania/strona-firmowa-z-panelem.svg',
+      levels: [],
     })
+    expect(solution).not.toHaveProperty('prices')
+    expect(solution).not.toHaveProperty('leadTimes')
+    expect(solution).not.toHaveProperty('sizeNames')
   })
 
   it('keeps 0 as a price and an empty price as none', () => {
-    const audit = index.solutions.find((solution) => solution.prices.start === 0)
-    expect(audit?.priceFrom).toBe(0)
+    expect(solutionOf('audyt-strony-lub-programu')?.priceFrom).toBe(0)
     const app = index.solutions.find((solution) => solution.category === 'aplikacje')
-    expect(app?.prices).toEqual({})
     expect(app?.priceFrom).toBeNull()
+    expect(app?.leadTime).toBeNull()
   })
 
-  it('carries the monthly flag and the version names (SW9)', () => {
-    expect(solutionOf('opieka-nad-strona-i-systemem')).toMatchObject({
-      priceMonthly: true,
-      sizeNames: { start: 'Podstawowa', std: 'Standard', full: 'Systemy' },
-    })
-    expect(solutionOf('strona-firmowa-z-panelem')).toMatchObject({
-      priceMonthly: false,
-      sizeNames: {},
-    })
+  it('carries the monthly flag and the levels of care and audit (v22)', () => {
+    const care = solutionOf('opieka-nad-strona-i-systemem')
+    expect(care).toMatchObject({ priceMonthly: true, priceFrom: 149 })
+    expect(care?.levels.map(({ name, price, recommended }) => [name, price, recommended])).toEqual([
+      ['Podstawowa', 149, false],
+      ['Rozszerzona', 299, true],
+      ['Systemy', 790, false],
+    ])
+    expect(solutionOf('audyt-strony-lub-programu')?.levels.map(({ term }) => term)).toEqual([
+      '2 dni robocze',
+      '1 tydzień',
+      '2 tygodnie',
+    ])
+    expect(solutionOf('strona-firmowa-z-panelem')?.priceMonthly).toBe(false)
   })
 
   it('carries the „12 rzeczy” card only when it differs from the catalog card (SW5)', () => {

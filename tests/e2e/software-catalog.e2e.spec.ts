@@ -124,15 +124,18 @@ test.describe('Software catalog', () => {
     await expect(count(page)).toBeFocused()
   })
 
-  test('a card expands with its versions; care is priced per month', async ({ page }) => {
+  // v22 (SWR1): one „od” price and term on every card — no versions; care is per month.
+  test('a card expands with its one „od” price; care is priced per month', async ({ page }) => {
     await page.goto(site(HOST, PATH))
+    const firmSite = cards(page).filter({ hasText: 'Strona firmowa z panelem' })
+    await expect(firmSite).toContainText(/od\s2\s490\s*zł netto/)
+    await expect(firmSite).toContainText('od 2 tygodni')
     const button = page.getByRole('button', { name: 'Opieka nad stroną i systemem' })
     await button.click()
     await expect(button).toHaveAttribute('aria-expanded', 'true')
     const card = cards(page).filter({ has: button })
     await expect(card).toContainText('od 149 zł / mies.')
-    await expect(card.locator('dl dt')).toHaveText(['Podstawowa', 'Standard', 'Systemy'])
-    await expect(card.locator('dl')).toContainText('299 zł / mies.')
+    await expect(card).not.toContainText('Standard')
 
     // One card open at a time.
     await page.getByRole('button', { name: 'Strona firmowa z panelem' }).click()

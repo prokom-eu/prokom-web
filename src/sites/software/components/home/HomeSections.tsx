@@ -188,7 +188,7 @@ export async function WhyNotWordpressSection({ tenantId }: { tenantId: number })
   ])
   if (!home) return null
   // `{cena:<slug>}` of the rebuild button: the „od” price from this tenant's solutions.
-  const prices = Object.fromEntries(index.solutions.map(({ slug, prices }) => [slug, prices]))
+  const prices = Object.fromEntries(index.solutions.map(({ slug, priceFrom }) => [slug, priceFrom]))
   const view = whyNotWordpressView(home.whyNotWordpress, (text) =>
     fillText(text, { ...context, prices }),
   )

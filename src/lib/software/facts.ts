@@ -1,10 +1,10 @@
 import { log } from '../log'
-import { formatPrice, priceFromOf, type SizePrices } from './price'
+import { formatPrice } from './price'
 
 /**
  * Facts [SZEF] and solution values in panel texts (ADR-014 §1.4, rozstrz. SW0 4, v20 10):
  * - `[KLUCZ]` — a fact from `SiteSettings.software.facts` (uppercase key, one value per site);
- * - `{termin}` — the term of the solution the text belongs to (`leadTimeOf`);
+ * - `{termin}` — the term of the solution the text belongs to (`Solutions.leadTime`);
  * - `{cena:<slug>}` — the „od” price of that solution, e.g. „4 990 zł” („od”/„netto” stay in
  *   the sentence).
  * Other templates (`{cena}`, `{kontakt}`, `{n}` of the wizard) are left for their components.
@@ -13,8 +13,8 @@ export type TextContext = {
   /** Tenant of the page — for the log line only. */
   tenantId: number
   facts: Readonly<Record<string, string>>
-  /** `prices` of the tenant's solutions by slug. */
-  prices: Readonly<Record<string, SizePrices>>
+  /** „Od” prices (`priceFrom`) of the tenant's solutions by slug; `null` = no price. */
+  prices: Readonly<Record<string, number | null>>
   /** Term of the solution the text belongs to; absent outside solution texts. */
   term?: string | null
   /** Production (`SITE_ENV=production`): a text with a missing value is not shown at all. */
@@ -41,8 +41,8 @@ export function resolveText(
     let value: string | null = null
     if (factKey !== undefined) value = context.facts[factKey]?.trim() || null
     else if (priceSlug !== undefined) {
-      const price = priceFromOf(context.prices[priceSlug])
-      value = price === null ? null : `${formatPrice(price)} zł`
+      const price = context.prices[priceSlug]
+      value = price === null || price === undefined ? null : `${formatPrice(price)} zł`
     } else value = context.term?.trim() || null
     if (value === null) missing.push(token)
     return value ?? token
