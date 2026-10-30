@@ -1,5 +1,5 @@
 ---
-description: Start zadania — kontekst, plan, czekasz na akceptację, potem kod
+description: Start zadania — kontekst, plan, kod (stop tylko przy decyzjach)
 argument-hint: <sesja fundamentu, np. S1, albo opis zadania>
 ---
 
@@ -14,5 +14,5 @@ Zaczynamy zadanie: **$ARGUMENTS**
    - nowe zależności (z uzasadnieniem) i nowe zmienne środowiskowe,
    - ryzyka i pytania — jeśli czegoś brakuje, wypisz, nie zgaduj.
 4. Zaproponuj nazwę gałęzi (`feat/...`, `chore/...`, `fix/...`).
-5. **Zatrzymaj się i czekaj na moje „ok”**, zanim napiszesz kod.
-6. Po akceptacji: małe kroki, po każdym `pnpm lint && pnpm typecheck`. Testy dla logiki, izolacji tenantów i formularzy. Nie wychodź poza zakres — pomysły spoza zakresu zapisz w `docs/STAN.md` → „Pomysły na później”.
+5. **Gdy prompt sesji (`PRZEKAZANIE-*.md`) jest kompletny i nie ma otwartych pytań — od razu zaczynasz kod** (bez trybu planu). Zatrzymaj się i czekaj na moją odpowiedź tylko, gdy: jest decyzja do podjęcia (pytanie z opcjami i rekomendacją), brakuje treści biznesowej albo migracja usuwa dane.
+6. Małe kroki, po każdym `pnpm lint && pnpm typecheck`; commity robisz sam (małe, Conventional) po zielonych testach. Testy dla logiki, izolacji tenantów i formularzy. Na końcu sesji z kodem: `/przeglad`, aktualizacja `docs/STAN.md`, potem pokazujesz mi diff całości i czekasz na „tak” przed `/pr`. Nie wychodź poza zakres — pomysły spoza zakresu zapisz w `docs/STAN.md` → „Pomysły na później”.

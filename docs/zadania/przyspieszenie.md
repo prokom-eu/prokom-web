@@ -1,6 +1,6 @@
 # Przyspieszenie budowy — prokombiznes.pl do produkcji (propozycja, 30.10.2026)
 
-> **Status: przyjęta 30.10.2026** (Krystian: „chcę maksymalnie przyspieszyć budowanie”). Fale — `docs/zadania/prokombiznes.md` §7.1; dwa tory i migracje — `docs/sposob-pracy.md`; import treści — ADR-018 (proponowana). **Zmiany P1–P5 i P7 w `CLAUDE.md` oraz `.claude/commands/zadanie.md` wprowadza Krystian** — Claude nie zmienia własnych instrukcji (blokada uprawnień); gotowy tekst: §9.
+> **Status: przyjęta 30.10.2026** (Krystian: „chcę maksymalnie przyspieszyć budowanie”). Fale — `docs/zadania/prokombiznes.md` §7.1; dwa tory i migracje — `docs/sposob-pracy.md`; import treści — ADR-018 (proponowana); zasady P1–P5 i P7 — `CLAUDE.md` i `.claude/commands/zadanie.md` (tekst zmian: §9).
 
 ## 1. Gdzie dziś ucieka czas
 
@@ -86,7 +86,7 @@ Dwa tory w dwóch sesjach naraz. **Tor A** — sesje ze zmianą danych i schemat
 - `docs/zadania/prokombiznes.md` §7.1 — fale i tory.
 - `docs/sposob-pracy.md` — dwa tory, własny port na folder, zasada migracji (P6), bezpieczny test `down`.
 - ADR-018 — jednorazowy import treści (proponowana).
-- **Nie weszło — do wprowadzenia przez Krystiana:** `CLAUDE.md` i `.claude/commands/zadanie.md` (§9). Do tego czasu stare zasady (plan → „ok”, diff przed commitem) dalej obowiązują.
+- `CLAUDE.md` i `.claude/commands/zadanie.md` — zasady P1–P5 i P7 (§9; wprowadzone po zgodzie Krystiana w oknie uprawnień).
 - **Krystian, poza repo:** `PORT=3001` w `.env` folderu `prokom-web-biznes`; drugi folder Biznesu dla toru B (`docs/sposob-pracy.md` → „Dwie strony równolegle”); start S10.
 
 ## 9. Gotowy tekst zmian w `CLAUDE.md` i `.claude/commands/zadanie.md`
@@ -111,4 +111,4 @@ Każda pozycja: **zamień** zdanie z `CLAUDE.md` na nowe.
    > 5. Gdy prompt sesji (`PRZEKAZANIE-*.md`) jest kompletny i nie ma otwartych pytań — od razu zaczynasz kod. Zatrzymaj się tylko, gdy jest decyzja do podjęcia (pytanie z opcjami i rekomendacją), brakuje treści biznesowej albo migracja usuwa dane.
    > 6. Małe kroki, po każdym `pnpm lint && pnpm typecheck`; commity robisz sam po zielonych testach. Na końcu sesji z kodem: `/przeglad`, aktualizacja `docs/STAN.md`, potem diff całości i czekasz na „tak” przed `/pr`.
 
-Możesz też pozwolić Claude wprowadzić te zmiany: zatwierdź edycję `CLAUDE.md` w oknie uprawnień, gdy o nią poproszę.
+Wprowadzone 30.10 w tym samym PR.
