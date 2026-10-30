@@ -3,6 +3,8 @@
 //   node docs/design/prokominstalacje/narzedzia/porownaj.mjs monitoring /monitoring
 //   node docs/design/prokominstalacje/narzedzia/porownaj.mjs monitoring /monitoring 390 dark
 // Adres bazowy: zmienna INST_URL (domyślnie http://instalacje.localhost:3002).
+// Stan widżetu: zmienna INST_STAN — przyciski klikane po tekście przed zrzutem, w obu stronach
+//   (np. INST_STAN="Dom,Dzień" dla hero strony głównej); nazwa pliku dostaje dopisek ze stanem.
 // Wynik: tmp/porownanie/<slug>/<szerokosc>-<motyw>-<nr>-<id-sekcji>.png — po lewej WZORZEC, po prawej KOD.
 // Sekcje dopasowywane po atrybucie id (<section id="...">) — w kodzie zachowaj te same id co w prototypie.
 // Hero strony bez id w prototypie dostaje id „hero” (w kodzie nadaj <section id="hero">), nagłówek — „naglowek”, stopka — „stopka”.
@@ -17,6 +19,8 @@ const [, , slug = 'start', route = '/', w = '1440', theme = 'light'] = process.a
 const width = Number(w);
 const BASE = process.env.INST_URL || 'http://instalacje.localhost:3002';
 const OUT = join(resolve('tmp/porownanie'), slug); mkdirSync(OUT, { recursive: true });
+const STAN = (process.env.INST_STAN || '').split(',').map((s) => s.trim()).filter(Boolean);
+const SUFFIX = STAN.length ? '-' + STAN.join('-').toLowerCase().normalize('NFD').replace(/[^a-z0-9-]/g, '') : '';
 const browser = await chromium.launch();
 
 async function shots(url) {
@@ -28,6 +32,10 @@ async function shots(url) {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto(url, { waitUntil: 'networkidle' }).catch(() => page.goto(url));
   await page.waitForTimeout(1200);
+  for (const label of STAN) {
+    await page.locator('button').filter({ hasText: new RegExp('^\s*' + label + '\s*$') }).first().click();
+    await page.waitForTimeout(400);
+  }
   const H = await page.evaluate(() => document.documentElement.scrollHeight);
   for (let y = 0; y < H; y += 700) { await page.evaluate((yy) => window.scrollTo(0, yy), y); await page.waitForTimeout(100); }
   await page.evaluate(() => window.scrollTo(0, 0));
@@ -58,7 +66,7 @@ for (const id of Object.keys(ref)) {
   n++;
   const right = app[id] ? `<img src="data:image/png;base64,${app[id]}">` : `<div class="miss">BRAK SEKCJI #${id} W KODZIE</div>`;
   await page.setContent(`<style>body{margin:0;background:#888;font:700 14px sans-serif}.r{display:flex;gap:16px;padding:16px;align-items:flex-start}.c{width:${width}px}.c b{display:block;padding:4px 0;color:#fff}img{width:${width}px;display:block}.miss{width:${width}px;height:200px;display:grid;place-items:center;background:#b3261e;color:#fff}</style><div class="r"><div class="c"><b>WZORZEC · #${id}</b><img src="data:image/png;base64,${ref[id]}"></div><div class="c"><b>KOD · #${id}</b>${right}</div></div>`);
-  await page.screenshot({ path: join(OUT, `${width}-${theme}-${String(n).padStart(2, '0')}-${id}.png`), fullPage: true });
+  await page.screenshot({ path: join(OUT, `${width}-${theme}${SUFFIX}-${String(n).padStart(2, '0')}-${id}.png`), fullPage: true });
 }
 const extra = Object.keys(app).filter((id) => !ref[id]);
 console.log(`${slug}: ${n} sekcji porównanych. Brak w kodzie: ${Object.keys(ref).filter((id) => !app[id]).join(', ') || '—'}. Dodatkowe w kodzie: ${extra.join(', ') || '—'}`);
