@@ -18,8 +18,9 @@ export const PAGE_CACHE_SECONDS = 60
 /**
  * Fields of related documents the blocks read. Products (kits, B9b) need only the slug — the rest
  * comes from the catalog index; whole documents would bloat the cached page (2 MB per entry).
+ * An Instalacje service page (`instService`) loads its service itself, fresh per request.
  */
-const BLOCK_POPULATE: PopulateType = { products: { slug: true } }
+const BLOCK_POPULATE: PopulateType = { products: { slug: true }, 'inst-services': { key: true } }
 
 export type PublicPage = Pick<Page, 'id' | 'title' | 'slug' | 'layout' | 'seo'>
 
