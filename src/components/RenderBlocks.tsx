@@ -43,6 +43,7 @@ import { BzTimelineBlock } from '@/sites/biznes/blocks/BzTimeline/Component'
 import { Breadcrumbs } from '@/sites/biznes/components/Breadcrumbs'
 import { BrandMarquee } from '@/sites/biznes/components/home/BrandMarquee'
 import { FaqBiznes } from '@/sites/biznes/components/home/FaqBiznes'
+import { InstServiceBlock } from '@/sites/instalacje/blocks/InstService/Component'
 import { SwHeroBlock } from '@/sites/software/blocks/SwHero/Component'
 import { SwContactBlock } from '@/sites/software/blocks/SwContact/Component'
 import { SwHomeSectionBlock } from '@/sites/software/blocks/SwHomeSection/Component'
@@ -51,7 +52,14 @@ import { FaqSoftware } from '@/sites/software/components/home/FaqSoftware'
 type Props = { page: PublicPage; tenant: SiteTenant }
 
 // Blocks that carry the page's H1 when they come first (otherwise the title is the H1).
-const HERO_BLOCKS = new Set(['hero', 'bzHero', 'bzContactInfo', 'bzPageHero', 'swHero'])
+const HERO_BLOCKS = new Set([
+  'hero',
+  'bzHero',
+  'bzContactInfo',
+  'bzPageHero',
+  'swHero',
+  'instService',
+])
 
 /**
  * Page body from blocks. A block not allowed for the tenant's line is skipped (ADR-010), so
@@ -181,6 +189,8 @@ export function RenderBlocks({ page, tenant }: Props) {
             return <SwHomeSectionBlock key={key} block={block} tenantId={tenant.id} />
           case 'swContact':
             return <SwContactBlock key={key} block={block} tenantId={tenant.id} />
+          case 'instService':
+            return <InstServiceBlock key={key} block={block} tenantId={tenant.id} />
         }
       })}
     </>

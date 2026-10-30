@@ -3,6 +3,7 @@ import { getPayload, type Where } from 'payload'
 import { cache } from 'react'
 
 import { log } from '@/lib/log'
+import type { InstService as InstServiceDoc } from '@/payload-types'
 import { navigation } from '@/sites/instalacje/dane/nawigacja'
 
 import { buildMenu, type InstMenu, type MenuDoc } from './menu'
@@ -57,3 +58,49 @@ export const getInstalacjeMenu = cache(async (tenantId: number): Promise<InstMen
   }
   return menu
 })
+
+/**
+ * One published service of this tenant for its page (`instService` block), relations to other
+ * services and objects populated with their public fields. `null` → the block renders nothing.
+ * Deduplicated per request; fresh on every request like the menu.
+ */
+export const getInstalacjeService = cache(
+  async (tenantId: number, serviceId: number): Promise<InstServiceDoc | null> => {
+    const payload = await getPayload({ config })
+    const { docs } = await payload.find({
+      collection: 'inst-services',
+      where: {
+        and: [
+          { id: { equals: serviceId } },
+          { tenant: { equals: tenantId } },
+          { _status: { equals: 'published' } },
+        ],
+      },
+      draft: false,
+      depth: 1,
+      limit: 1,
+      populate: {
+        // `_status`: a related entry still in draft is dropped by the page.
+        'inst-services': {
+          key: true,
+          slug: true,
+          name: true,
+          icon: true,
+          color: true,
+          menuCaption: true,
+          _status: true,
+        },
+        'inst-objects': {
+          key: true,
+          slug: true,
+          name: true,
+          icon: true,
+          color: true,
+          _status: true,
+        },
+      },
+      overrideAccess: true,
+    })
+    return docs[0] ?? null
+  },
+)

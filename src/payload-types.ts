@@ -1649,6 +1649,7 @@ export interface Page {
         | BzLinesBlock
         | BzBrandsBlock
         | BzLocationBlock
+        | InstServiceBlock
         | SwHeroBlock
         | SwHomeSectionBlock
         | SwContactBlock
@@ -3715,6 +3716,360 @@ export interface BzLocationBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InstServiceBlock".
+ */
+export interface InstServiceBlock {
+  /**
+   * Treść strony (hero, zestawy, cena, FAQ, powiązane) edytuje się w kolekcji Usługi Instalacji.
+   */
+  service: number | InstService;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'instService';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "inst-services".
+ */
+export interface InstService {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  /**
+   * Stały klucz używany w kreatorze i zapytaniach.
+   */
+  key: 'kam' | 'alarm' | 'kd' | 'wifi' | 'tel' | 'ant' | 'smart' | 'snd' | 'scr' | 'ev';
+  /**
+   * Część adresu, np. „monitoring”.
+   */
+  slug: string;
+  name: string;
+  group: 'security' | 'networks' | 'comfort';
+  /**
+   * Klucz ikony z wzorca, np. „cam”, „home”.
+   */
+  icon?: string | null;
+  color?: string | null;
+  menuCaption?: string | null;
+  tile?: {
+    description?: string | null;
+    parts?: string | null;
+    highlights?: string[] | null;
+    items?: string[] | null;
+    /**
+     * Widoczna tylko przy „Pokaż ceny”.
+     */
+    priceFrom?: string | null;
+    wide?: boolean | null;
+  };
+  offer?: {
+    family?: ('security' | 'connectivity' | 'comfort' | 'emobility') | null;
+    description?: string | null;
+    brands?: string[] | null;
+  };
+  hero: {
+    crumb?: string | null;
+    eyebrow?: string | null;
+    h1a: string;
+    h1b?: string | null;
+    lead?: string | null;
+    facts?:
+      | {
+          value: string;
+          label: string;
+          id?: string | null;
+        }[]
+      | null;
+    tags?: string[] | null;
+    cta?: {
+      text?: string | null;
+      href?: string | null;
+    };
+  };
+  /**
+   * Pasek skrótów do sekcji. Id musi istnieć na stronie.
+   */
+  anchors?:
+    | {
+        anchorId: string;
+        name: string;
+        id?: string | null;
+      }[]
+    | null;
+  packagesIntro?: {
+    eyebrow?: string | null;
+    heading?: string | null;
+    text?: string | null;
+    note?: string | null;
+  };
+  packages?:
+    | {
+        name: string;
+        /**
+         * Klucz ikony z wzorca, np. „cam”, „home”.
+         */
+        icon?: string | null;
+        description?: string | null;
+        items?: string[] | null;
+        /**
+         * Widoczna tylko przy „Pokaż ceny” w Ustawieniach Instalacji.
+         */
+        price?: string | null;
+        badge?: string | null;
+        featured?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  priceIntro?: {
+    eyebrow?: string | null;
+    heading?: string | null;
+    text?: string | null;
+    button?: string | null;
+  };
+  priceFactors?:
+    | {
+        title: string;
+        /**
+         * Klucz ikony z wzorca, np. „cam”, „home”.
+         */
+        icon?: string | null;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  faqHeading?: string | null;
+  faq?:
+    | {
+        question: string;
+        answer: string;
+        id?: string | null;
+      }[]
+    | null;
+  faqAside?: {
+    title?: string | null;
+    text?: string | null;
+    button?: string | null;
+    href?: string | null;
+  };
+  relatedHeading?: string | null;
+  relatedServices?: (number | InstService)[] | null;
+  similarObjects?: (number | InstObject)[] | null;
+  cta?: {
+    eyebrow?: string | null;
+    heading?: string | null;
+    text?: string | null;
+  };
+  seo?: {
+    title?: string | null;
+    description?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "inst-objects".
+ */
+export interface InstObject {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  /**
+   * Stały klucz używany w kreatorze i zapytaniach.
+   */
+  key: 'dom' | 'apt' | 'pens' | 'hotel' | 'rest' | 'sklep' | 'firma' | 'kosc' | 'szk' | 'gmina' | 'dev' | 'bud';
+  /**
+   * Część adresu, np. „pensjonaty”.
+   */
+  slug: string;
+  name: string;
+  group: 'homes' | 'business' | 'institutions' | 'construction';
+  /**
+   * Klucz ikony z wzorca, np. „cam”, „home”.
+   */
+  icon?: string | null;
+  color?: string | null;
+  menuCaption?: string | null;
+  /**
+   * Np. „domu”, „pensjonatu”.
+   */
+  forWhom?: string | null;
+  hero: {
+    crumb?: string | null;
+    eyebrow?: string | null;
+    h1a: string;
+    h1b?: string | null;
+    lead?: string | null;
+    facts?:
+      | {
+          value: string;
+          label: string;
+          id?: string | null;
+        }[]
+      | null;
+    tags?: string[] | null;
+    cta?: {
+      text?: string | null;
+      href?: string | null;
+    };
+  };
+  sceneTitle?: string | null;
+  /**
+   * Kolejność = numery na rysunku.
+   */
+  hotspots?:
+    | {
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Pasek skrótów do sekcji. Id musi istnieć na stronie.
+   */
+  anchors?:
+    | {
+        anchorId: string;
+        name: string;
+        id?: string | null;
+      }[]
+    | null;
+  problemsIntro?: {
+    eyebrow?: string | null;
+    heading?: string | null;
+    text?: string | null;
+    headingAccent?: string | null;
+  };
+  problems?:
+    | {
+        quote: string;
+        description?: string | null;
+        fix?: string | null;
+        service?: ('kam' | 'alarm' | 'kd' | 'wifi' | 'tel' | 'ant' | 'smart' | 'snd' | 'scr' | 'ev') | null;
+        /**
+         * Klucz ikony z wzorca, np. „cam”, „home”.
+         */
+        icon?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  dayIntro?: {
+    eyebrow?: string | null;
+    heading?: string | null;
+    text?: string | null;
+  };
+  day?:
+    | {
+        time: string;
+        name: string;
+        description?: string | null;
+        services?: ('kam' | 'alarm' | 'kd' | 'wifi' | 'tel' | 'ant' | 'smart' | 'snd' | 'scr' | 'ev')[] | null;
+        /**
+         * Klucz ikony z wzorca, np. „cam”, „home”.
+         */
+        icon?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  lawIntro?: {
+    eyebrow?: string | null;
+    heading?: string | null;
+    text?: string | null;
+  };
+  /**
+   * Bez źródeł na stronie (spec §2).
+   */
+  law?:
+    | {
+        who?: string | null;
+        article?: string | null;
+        title: string;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  mountainsIntro?: {
+    eyebrow?: string | null;
+    heading?: string | null;
+    text?: string | null;
+  };
+  mountains?:
+    | {
+        title: string;
+        /**
+         * Klucz ikony z wzorca, np. „cam”, „home”.
+         */
+        icon?: string | null;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  realizationsHeading?: string | null;
+  realizations?:
+    | {
+        title: string;
+        place?: string | null;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  prepareIntro?: {
+    eyebrow?: string | null;
+    heading?: string | null;
+    text?: string | null;
+  };
+  prepare?: string[] | null;
+  packagesHeading?: string | null;
+  packages?:
+    | {
+        name: string;
+        /**
+         * Klucz ikony z wzorca, np. „cam”, „home”.
+         */
+        icon?: string | null;
+        description?: string | null;
+        items?: string[] | null;
+        /**
+         * Widoczna tylko przy „Pokaż ceny” w Ustawieniach Instalacji.
+         */
+        price?: string | null;
+        badge?: string | null;
+        featured?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  faqHeading?: string | null;
+  faq?:
+    | {
+        question: string;
+        answer: string;
+        id?: string | null;
+      }[]
+    | null;
+  relatedServices?: (number | InstService)[] | null;
+  cta?: {
+    eyebrow?: string | null;
+    heading?: string | null;
+    text?: string | null;
+  };
+  foldOnPhone?:
+    | {
+        anchorId: string;
+        /**
+         * Puste = zwinięta do nagłówka.
+         */
+        maxHeight?: number | null;
+        id?: string | null;
+      }[]
+    | null;
+  seo?: {
+    title?: string | null;
+    description?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "SwHeroBlock".
  */
 export interface SwHeroBlock {
@@ -4655,347 +5010,6 @@ export interface InstalacjeSetting {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "inst-services".
- */
-export interface InstService {
-  id: number;
-  tenant?: (number | null) | Tenant;
-  /**
-   * Stały klucz używany w kreatorze i zapytaniach.
-   */
-  key: 'kam' | 'alarm' | 'kd' | 'wifi' | 'tel' | 'ant' | 'smart' | 'snd' | 'scr' | 'ev';
-  /**
-   * Część adresu, np. „monitoring”.
-   */
-  slug: string;
-  name: string;
-  group: 'security' | 'networks' | 'comfort';
-  /**
-   * Klucz ikony z wzorca, np. „cam”, „home”.
-   */
-  icon?: string | null;
-  color?: string | null;
-  menuCaption?: string | null;
-  tile?: {
-    description?: string | null;
-    parts?: string | null;
-    highlights?: string[] | null;
-    items?: string[] | null;
-    /**
-     * Widoczna tylko przy „Pokaż ceny”.
-     */
-    priceFrom?: string | null;
-    wide?: boolean | null;
-  };
-  offer?: {
-    family?: ('security' | 'connectivity' | 'comfort' | 'emobility') | null;
-    description?: string | null;
-    brands?: string[] | null;
-  };
-  hero: {
-    crumb?: string | null;
-    eyebrow?: string | null;
-    h1a: string;
-    h1b?: string | null;
-    lead?: string | null;
-    facts?:
-      | {
-          value: string;
-          label: string;
-          id?: string | null;
-        }[]
-      | null;
-    tags?: string[] | null;
-    cta?: {
-      text?: string | null;
-      href?: string | null;
-    };
-  };
-  /**
-   * Pasek skrótów do sekcji. Id musi istnieć na stronie.
-   */
-  anchors?:
-    | {
-        anchorId: string;
-        name: string;
-        id?: string | null;
-      }[]
-    | null;
-  packagesIntro?: {
-    eyebrow?: string | null;
-    heading?: string | null;
-    text?: string | null;
-    note?: string | null;
-  };
-  packages?:
-    | {
-        name: string;
-        /**
-         * Klucz ikony z wzorca, np. „cam”, „home”.
-         */
-        icon?: string | null;
-        description?: string | null;
-        items?: string[] | null;
-        /**
-         * Widoczna tylko przy „Pokaż ceny” w Ustawieniach Instalacji.
-         */
-        price?: string | null;
-        badge?: string | null;
-        featured?: boolean | null;
-        id?: string | null;
-      }[]
-    | null;
-  priceIntro?: {
-    eyebrow?: string | null;
-    heading?: string | null;
-    text?: string | null;
-    button?: string | null;
-  };
-  priceFactors?:
-    | {
-        title: string;
-        /**
-         * Klucz ikony z wzorca, np. „cam”, „home”.
-         */
-        icon?: string | null;
-        description?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  faqHeading?: string | null;
-  faq?:
-    | {
-        question: string;
-        answer: string;
-        id?: string | null;
-      }[]
-    | null;
-  faqAside?: {
-    title?: string | null;
-    text?: string | null;
-    button?: string | null;
-    href?: string | null;
-  };
-  relatedHeading?: string | null;
-  relatedServices?: (number | InstService)[] | null;
-  similarObjects?: (number | InstObject)[] | null;
-  cta?: {
-    eyebrow?: string | null;
-    heading?: string | null;
-    text?: string | null;
-  };
-  seo?: {
-    title?: string | null;
-    description?: string | null;
-  };
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "inst-objects".
- */
-export interface InstObject {
-  id: number;
-  tenant?: (number | null) | Tenant;
-  /**
-   * Stały klucz używany w kreatorze i zapytaniach.
-   */
-  key: 'dom' | 'apt' | 'pens' | 'hotel' | 'rest' | 'sklep' | 'firma' | 'kosc' | 'szk' | 'gmina' | 'dev' | 'bud';
-  /**
-   * Część adresu, np. „pensjonaty”.
-   */
-  slug: string;
-  name: string;
-  group: 'homes' | 'business' | 'institutions' | 'construction';
-  /**
-   * Klucz ikony z wzorca, np. „cam”, „home”.
-   */
-  icon?: string | null;
-  color?: string | null;
-  menuCaption?: string | null;
-  /**
-   * Np. „domu”, „pensjonatu”.
-   */
-  forWhom?: string | null;
-  hero: {
-    crumb?: string | null;
-    eyebrow?: string | null;
-    h1a: string;
-    h1b?: string | null;
-    lead?: string | null;
-    facts?:
-      | {
-          value: string;
-          label: string;
-          id?: string | null;
-        }[]
-      | null;
-    tags?: string[] | null;
-    cta?: {
-      text?: string | null;
-      href?: string | null;
-    };
-  };
-  sceneTitle?: string | null;
-  /**
-   * Kolejność = numery na rysunku.
-   */
-  hotspots?:
-    | {
-        description: string;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Pasek skrótów do sekcji. Id musi istnieć na stronie.
-   */
-  anchors?:
-    | {
-        anchorId: string;
-        name: string;
-        id?: string | null;
-      }[]
-    | null;
-  problemsIntro?: {
-    eyebrow?: string | null;
-    heading?: string | null;
-    text?: string | null;
-    headingAccent?: string | null;
-  };
-  problems?:
-    | {
-        quote: string;
-        description?: string | null;
-        fix?: string | null;
-        service?: ('kam' | 'alarm' | 'kd' | 'wifi' | 'tel' | 'ant' | 'smart' | 'snd' | 'scr' | 'ev') | null;
-        /**
-         * Klucz ikony z wzorca, np. „cam”, „home”.
-         */
-        icon?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  dayIntro?: {
-    eyebrow?: string | null;
-    heading?: string | null;
-    text?: string | null;
-  };
-  day?:
-    | {
-        time: string;
-        name: string;
-        description?: string | null;
-        services?: ('kam' | 'alarm' | 'kd' | 'wifi' | 'tel' | 'ant' | 'smart' | 'snd' | 'scr' | 'ev')[] | null;
-        /**
-         * Klucz ikony z wzorca, np. „cam”, „home”.
-         */
-        icon?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  lawIntro?: {
-    eyebrow?: string | null;
-    heading?: string | null;
-    text?: string | null;
-  };
-  /**
-   * Bez źródeł na stronie (spec §2).
-   */
-  law?:
-    | {
-        who?: string | null;
-        article?: string | null;
-        title: string;
-        description?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  mountainsIntro?: {
-    eyebrow?: string | null;
-    heading?: string | null;
-    text?: string | null;
-  };
-  mountains?:
-    | {
-        title: string;
-        /**
-         * Klucz ikony z wzorca, np. „cam”, „home”.
-         */
-        icon?: string | null;
-        description?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  realizationsHeading?: string | null;
-  realizations?:
-    | {
-        title: string;
-        place?: string | null;
-        description?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  prepareIntro?: {
-    eyebrow?: string | null;
-    heading?: string | null;
-    text?: string | null;
-  };
-  prepare?: string[] | null;
-  packagesHeading?: string | null;
-  packages?:
-    | {
-        name: string;
-        /**
-         * Klucz ikony z wzorca, np. „cam”, „home”.
-         */
-        icon?: string | null;
-        description?: string | null;
-        items?: string[] | null;
-        /**
-         * Widoczna tylko przy „Pokaż ceny” w Ustawieniach Instalacji.
-         */
-        price?: string | null;
-        badge?: string | null;
-        featured?: boolean | null;
-        id?: string | null;
-      }[]
-    | null;
-  faqHeading?: string | null;
-  faq?:
-    | {
-        question: string;
-        answer: string;
-        id?: string | null;
-      }[]
-    | null;
-  relatedServices?: (number | InstService)[] | null;
-  cta?: {
-    eyebrow?: string | null;
-    heading?: string | null;
-    text?: string | null;
-  };
-  foldOnPhone?:
-    | {
-        anchorId: string;
-        /**
-         * Puste = zwinięta do nagłówka.
-         */
-        maxHeight?: number | null;
-        id?: string | null;
-      }[]
-    | null;
-  seo?: {
-    title?: string | null;
-    description?: string | null;
-  };
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "inst-solutions".
  */
 export interface InstSolution {
@@ -5547,6 +5561,7 @@ export interface PagesSelect<T extends boolean = true> {
         bzLines?: T | BzLinesBlockSelect<T>;
         bzBrands?: T | BzBrandsBlockSelect<T>;
         bzLocation?: T | BzLocationBlockSelect<T>;
+        instService?: T | InstServiceBlockSelect<T>;
         swHero?: T | SwHeroBlockSelect<T>;
         swHomeSection?: T | SwHomeSectionBlockSelect<T>;
         swContact?: T | SwContactBlockSelect<T>;
@@ -6653,6 +6668,15 @@ export interface BzLocationBlockSelect<T extends boolean = true> {
   lead?: T;
   areaLabel?: T;
   phoneNote?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InstServiceBlock_select".
+ */
+export interface InstServiceBlockSelect<T extends boolean = true> {
+  service?: T;
   id?: T;
   blockName?: T;
 }
