@@ -57,6 +57,19 @@ describe('familyProducts', () => {
     ])
   })
 
+  it('takes the main category when a product of a series has no subcategory (K4 laptops)', () => {
+    const laptop = (slug: string, series: string, brand = 'lenovo') =>
+      product(slug, { brand, series, subcategory: undefined, categories: ['laptopy'] })
+    const catalog = index([
+      laptop('tb14', 'ThinkBook'),
+      laptop('tb16', 'ThinkBook'),
+      laptop('t14', 'ThinkPad T'),
+      product('mon', { brand: 'lenovo', series: 'ThinkVision', categories: ['monitory'] }),
+      laptop('xps', 'XPS', 'dell'),
+    ])
+    expect(familyProducts(catalog, 'tb14').map((item) => item.slug)).toEqual(['tb16', 't14', 'xps'])
+  })
+
   it('shows at most 4, never the product itself, nothing for a product without either', () => {
     const many = index(Array.from({ length: 7 }, (_, i) => lenovo(`m${i}`, 'ThinkBook')))
     expect(familyProducts(many, 'm0')).toHaveLength(FAMILY_LIMIT)
