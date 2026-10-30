@@ -101,10 +101,11 @@ export function BiznesFooter({
               {badges.map((badge) => (
                 <li
                   key={badge.label}
-                  // As in the design: partners green, services in the line's colour.
+                  // Partners green, services white: small text on the dark footer needs 4.5:1
+                  // (`--ok` and the line blue reach 4.0 and 3.5 — K4a-2, statuses from K4).
                   className={cx(
                     'rounded-full bg-white/10 px-2.5 py-1 text-xs font-extrabold',
-                    badge.kind === 'partner' ? 'text-ok' : 'text-accent-on-dark',
+                    badge.kind === 'partner' ? 'text-footer-ok' : 'text-white',
                   )}
                 >
                   {badge.label}

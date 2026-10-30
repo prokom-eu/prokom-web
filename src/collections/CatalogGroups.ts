@@ -109,6 +109,25 @@ export const CatalogGroups: CollectionConfig = {
         },
       ],
     },
+    {
+      // `top_dzialu` (dzTop9, K36 §10): the department's first cards under „Polecane”.
+      name: 'topProducts',
+      label: 'Najpierw w „Polecane”',
+      type: 'relationship',
+      relationTo: 'products',
+      hasMany: true,
+      maxRows: 5,
+      admin: { description: 'Do 5 produktów działu na początku listy „Polecane” w ofercie.' },
+    },
+    {
+      // `kolo_hero` (K36 §12): three products next to the department on the homepage wheel.
+      name: 'wheelProducts',
+      label: 'Produkty przy dziale na kole (strona główna)',
+      type: 'relationship',
+      relationTo: 'products',
+      hasMany: true,
+      maxRows: 3,
+    },
     orderField,
   ],
 }

@@ -93,6 +93,7 @@ export interface Config {
     'inst-solutions': InstSolution;
     realizations: Realization;
     bundles: Bundle;
+    showrooms: Showroom;
     'payload-kv': PayloadKv;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
@@ -127,6 +128,7 @@ export interface Config {
     'inst-solutions': InstSolutionsSelect<false> | InstSolutionsSelect<true>;
     realizations: RealizationsSelect<false> | RealizationsSelect<true>;
     bundles: BundlesSelect<false> | BundlesSelect<true>;
+    showrooms: ShowroomsSelect<false> | ShowroomsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -576,172 +578,16 @@ export interface CatalogGroup {
       | null;
   };
   /**
+   * Do 5 produktów działu na początku listy „Polecane” w ofercie.
+   */
+  topProducts?: (number | Product)[] | null;
+  wheelProducts?: (number | Product)[] | null;
+  /**
    * Mniejsza liczba = wcześniej.
    */
   order?: number | null;
   updatedAt: string;
   createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "partners".
- */
-export interface Partner {
-  id: number;
-  name: string;
-  /**
-   * Np. „posnet”. Potrzebny markom z katalogu.
-   */
-  slug?: string | null;
-  website?: string | null;
-  partnerStatus: 'none' | 'authorized-service' | 'authorized-partner';
-  tenants?: (number | Tenant)[] | null;
-  /**
-   * Mniejsza liczba = wcześniej.
-   */
-  order?: number | null;
-  /**
-   * Strona marki w katalogu Biznesu (/marki/…).
-   */
-  brandPage?: {
-    hasPage?: boolean | null;
-    country?: string | null;
-    /**
-     * Jedno zdanie pod nazwą marki.
-     */
-    shortDescription?: string | null;
-    description?: {
-      root: {
-        type: string;
-        children: {
-          type: any;
-          version: number;
-          [k: string]: unknown;
-        }[];
-        direction: ('ltr' | 'rtl') | null;
-        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-        indent: number;
-        version: number;
-      };
-      [k: string]: unknown;
-    } | null;
-    facts?:
-      | {
-          label: string;
-          value: string;
-          sourceUrl?: string | null;
-          id?: string | null;
-        }[]
-      | null;
-    productLines?: string[] | null;
-    sources?: string[] | null;
-  };
-  /**
-   * Salon na stronie marki (Lenovo, Dell): działy, serie, dobór w 3 pytaniach. Pusty = strona marki bez salonu. Produkty tylko ze stron, na których marka jest widoczna — przed zdjęciem marki ze strony usuń jej produkty z salonu.
-   */
-  showroom?: {
-    h1?: string | null;
-    lead?: string | null;
-    /**
-     * Zdjęcia w nagłówku salonu.
-     */
-    heroProducts?: (number | Product)[] | null;
-    compareTitle?: string | null;
-    wizardTitle?: string | null;
-    segments?:
-      | {
-          name: string;
-          key: string;
-          iconPath?: string | null;
-          series?:
-            | {
-                /**
-                 * Ta sama pisownia co „Seria” w produktach.
-                 */
-                name: string;
-                tier?: string | null;
-                audience?: string | null;
-                highlight?: string | null;
-                imageProduct?: (number | null) | Product;
-                products?: (number | Product)[] | null;
-                id?: string | null;
-              }[]
-            | null;
-          id?: string | null;
-        }[]
-      | null;
-    wizard?:
-      | {
-          question: string;
-          options?:
-            | {
-                label: string;
-                /**
-                 * Używany w regułach, np. „teren”.
-                 */
-                key: string;
-                id?: string | null;
-              }[]
-            | null;
-          id?: string | null;
-        }[]
-      | null;
-    /**
-     * Pierwsza reguła, której wszystkie klucze pasują do odpowiedzi, wygrywa.
-     */
-    wizardRules?:
-      | {
-          when?: string[] | null;
-          series: string;
-          why: string;
-          products?: (number | Product)[] | null;
-          id?: string | null;
-        }[]
-      | null;
-    services?:
-      | {
-          title: string;
-          iconPath?: string | null;
-          description: string;
-          id?: string | null;
-        }[]
-      | null;
-    /**
-     * Tylko z oficjalnych kanałów producenta (ADR-016). Film „nieaktywny” znika ze strony — ustawia go też cotygodniowe sprawdzenie YouTube.
-     */
-    videos?:
-      | {
-          series: string;
-          youtubeId: string;
-          active?: boolean | null;
-          title: string;
-          channel?: string | null;
-          lang?: string | null;
-          id?: string | null;
-        }[]
-      | null;
-  };
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
-  sizes?: {
-    logo?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -999,6 +845,11 @@ export interface Product {
   popularity?: number | null;
   featured?: boolean | null;
   featuredOrder?: number | null;
+  featuredGroup?: ('kasy-platnosci' | 'komputery-telefony' | 'programy-ochrona' | 'zasilanie') | null;
+  /**
+   * Mniejsza liczba = wcześniej w „Polecane”.
+   */
+  categoryOrder?: number | null;
   /**
    * „Do sprawdzenia” = widoczna, ale bez indeksowania w Google i poza mapą strony.
    */
@@ -1015,6 +866,170 @@ export interface Product {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partners".
+ */
+export interface Partner {
+  id: number;
+  name: string;
+  /**
+   * Np. „posnet”. Potrzebny markom z katalogu.
+   */
+  slug?: string | null;
+  website?: string | null;
+  /**
+   * Tylko: Posnet i Elzab — autoryzowany serwis; GoPOS i InsERT — autoryzowany partner; Optivendi — partner; COMEX — we współpracy.
+   */
+  partnerStatus: 'none' | 'authorized-service' | 'authorized-partner' | 'partner' | 'cooperation';
+  tenants?: (number | Tenant)[] | null;
+  /**
+   * Mniejsza liczba = wcześniej.
+   */
+  order?: number | null;
+  /**
+   * Strona marki w katalogu Biznesu (/marki/…).
+   */
+  brandPage?: {
+    hasPage?: boolean | null;
+    country?: string | null;
+    /**
+     * Jedno zdanie pod nazwą marki.
+     */
+    shortDescription?: string | null;
+    description?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    facts?:
+      | {
+          label: string;
+          value: string;
+          sourceUrl?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    productLines?: string[] | null;
+    sources?: string[] | null;
+  };
+  /**
+   * Salon na stronie marki (Lenovo, Dell): działy, serie, dobór w 3 pytaniach. Pusty = strona marki bez salonu. Produkty tylko ze stron, na których marka jest widoczna — przed zdjęciem marki ze strony usuń jej produkty z salonu.
+   */
+  showroom?: {
+    h1?: string | null;
+    lead?: string | null;
+    /**
+     * Zdjęcia w nagłówku salonu.
+     */
+    heroProducts?: (number | Product)[] | null;
+    compareTitle?: string | null;
+    wizardTitle?: string | null;
+    segments?:
+      | {
+          name: string;
+          key: string;
+          iconPath?: string | null;
+          series?:
+            | {
+                /**
+                 * Ta sama pisownia co „Seria” w produktach.
+                 */
+                name: string;
+                tier?: string | null;
+                audience?: string | null;
+                highlight?: string | null;
+                imageProduct?: (number | null) | Product;
+                products?: (number | Product)[] | null;
+                id?: string | null;
+              }[]
+            | null;
+          id?: string | null;
+        }[]
+      | null;
+    wizard?:
+      | {
+          question: string;
+          options?:
+            | {
+                label: string;
+                /**
+                 * Używany w regułach, np. „teren”.
+                 */
+                key: string;
+                id?: string | null;
+              }[]
+            | null;
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Pierwsza reguła, której wszystkie klucze pasują do odpowiedzi, wygrywa.
+     */
+    wizardRules?:
+      | {
+          when?: string[] | null;
+          series: string;
+          why: string;
+          products?: (number | Product)[] | null;
+          id?: string | null;
+        }[]
+      | null;
+    services?:
+      | {
+          title: string;
+          iconPath?: string | null;
+          description: string;
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Tylko z oficjalnych kanałów producenta (ADR-016). Film „nieaktywny” znika ze strony — ustawia go też cotygodniowe sprawdzenie YouTube.
+     */
+    videos?:
+      | {
+          series: string;
+          youtubeId: string;
+          active?: boolean | null;
+          title: string;
+          channel?: string | null;
+          lang?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+  sizes?: {
+    logo?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -4697,6 +4712,21 @@ export interface BiznesSetting {
       note?: string | null;
     };
   };
+  brands?: {
+    /**
+     * W tej kolejności; obok kafel „Zobacz wszystkie”.
+     */
+    home?: (number | Partner)[] | null;
+    groups?:
+      | {
+          title: string;
+          iconPath?: string | null;
+          description?: string | null;
+          partners?: (number | Partner)[] | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
   /**
    * Rodzaje firm, potrzeby, propozycje i plakietki kreatora (/kreator). Zmieniaj ostrożnie — zapis sprawdza, czy reguły się zgadzają.
    */
@@ -5220,6 +5250,221 @@ export interface Realization {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "showrooms".
+ */
+export interface Showroom {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  /**
+   * W panelu i w tytule paska na telefonie, np. „Niszczarki”, „Lenovo”.
+   */
+  name: string;
+  /**
+   * Część adresu, np. „druk”.
+   */
+  slug: string;
+  /**
+   * Mniejsza liczba = wcześniej.
+   */
+  order?: number | null;
+  /**
+   * Salon marki — jedna; salon tematyczny — kilka (logo w nagłówku).
+   */
+  brands: (number | Partner)[];
+  pill?: string | null;
+  pillMobile?: string | null;
+  h1a: string;
+  h1b?: string | null;
+  lead?: string | null;
+  hero?:
+    | {
+        product: number | Product;
+        label?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  heroCard?: {
+    /**
+     * Np. „Kupujesz sprzęt — dostajesz”.
+     */
+    title?: string | null;
+    items?:
+      | {
+          title: string;
+          text?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    chips?: string[] | null;
+  };
+  facts?:
+    | {
+        value: string;
+        label?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  plans?: {
+    eyebrow?: string | null;
+    title?: string | null;
+    big?: boolean | null;
+    lead?: string | null;
+    /**
+     * Nad modelami oznaczonymi „Drugorzędny”.
+     */
+    altTitle?: string | null;
+    items?:
+      | {
+          name: string;
+          audience?: string | null;
+          /**
+           * Zdjęcie, „Szczegóły” i „Zapytaj”. Bez produktu karta znika.
+           */
+          product?: (number | null) | Product;
+          /**
+           * 3–4 krótkie punkty.
+           */
+          features?: string[] | null;
+          /**
+           * Np. „polecamy na start”.
+           */
+          tag?: string | null;
+          alt?: boolean | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  morePlans?: {
+    eyebrow?: string | null;
+    title?: string | null;
+    big?: boolean | null;
+    lead?: string | null;
+    /**
+     * Nad modelami oznaczonymi „Drugorzędny”.
+     */
+    altTitle?: string | null;
+    items?:
+      | {
+          name: string;
+          audience?: string | null;
+          /**
+           * Zdjęcie, „Szczegóły” i „Zapytaj”. Bez produktu karta znika.
+           */
+          product?: (number | null) | Product;
+          /**
+           * 3–4 krótkie punkty.
+           */
+          features?: string[] | null;
+          /**
+           * Np. „polecamy na start”.
+           */
+          tag?: string | null;
+          alt?: boolean | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  /**
+   * W komórce: 1 = ✓, 0 = —, inny tekst = wartość.
+   */
+  compare?: {
+    title?: string | null;
+    columns?: string[] | null;
+    rows?:
+      | {
+          label: string;
+          values?: string[] | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  family?:
+    | {
+        title: string;
+        iconPath?: string | null;
+        products?: (number | Product)[] | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Pusty = w nagłówku drugi przycisk „Zapytaj o ofertę”.
+   */
+  chooser?: {
+    question?: string | null;
+    options?:
+      | {
+          label: string;
+          products?: (number | Product)[] | null;
+          why?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  service?: {
+    title?: string | null;
+    description?: string | null;
+    items?:
+      | {
+          title: string;
+          text?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    products?: (number | Product)[] | null;
+  };
+  rollout?: {
+    title?: string | null;
+    description?: string | null;
+    steps?:
+      | {
+          title: string;
+          text?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    button?: string | null;
+    /**
+     * Pusty = przycisk otwiera zapytanie.
+     */
+    buttonHref?: string | null;
+    products?: (number | Product)[] | null;
+  };
+  about?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * U innych firm tylko miasto, bez adresu (K4-FINAL §1).
+   */
+  brandFacts?:
+    | {
+        label: string;
+        value: string;
+        sourceUrl?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  faq?:
+    | {
+        question: string;
+        answer: string;
+        id?: string | null;
+      }[]
+    | null;
+  headings?: {
+    faq?: string | null;
+    facts?: string | null;
+    offer?: string | null;
+    more?: string | null;
+    ask?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -5446,6 +5691,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'bundles';
         value: number | Bundle;
+      } | null)
+    | ({
+        relationTo: 'showrooms';
+        value: number | Showroom;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -7237,6 +7486,8 @@ export interface CatalogGroupsSelect<T extends boolean = true> {
               id?: T;
             };
       };
+  topProducts?: T;
+  wheelProducts?: T;
   order?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -7664,6 +7915,8 @@ export interface ProductsSelect<T extends boolean = true> {
   popularity?: T;
   featured?: T;
   featuredOrder?: T;
+  featuredGroup?: T;
+  categoryOrder?: T;
   contentStatus?: T;
   internalNotes?: T;
   batch?: T;
@@ -7786,6 +8039,20 @@ export interface BiznesSettingsSelect<T extends boolean = true> {
                     id?: T;
                   };
               note?: T;
+            };
+      };
+  brands?:
+    | T
+    | {
+        home?: T;
+        groups?:
+          | T
+          | {
+              title?: T;
+              iconPath?: T;
+              description?: T;
+              partners?: T;
+              id?: T;
             };
       };
   wizard?: T;
@@ -8468,6 +8735,185 @@ export interface BundlesSelect<T extends boolean = true> {
         source?: T;
         status?: T;
         id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "showrooms_select".
+ */
+export interface ShowroomsSelect<T extends boolean = true> {
+  tenant?: T;
+  name?: T;
+  slug?: T;
+  order?: T;
+  brands?: T;
+  pill?: T;
+  pillMobile?: T;
+  h1a?: T;
+  h1b?: T;
+  lead?: T;
+  hero?:
+    | T
+    | {
+        product?: T;
+        label?: T;
+        id?: T;
+      };
+  heroCard?:
+    | T
+    | {
+        title?: T;
+        items?:
+          | T
+          | {
+              title?: T;
+              text?: T;
+              id?: T;
+            };
+        chips?: T;
+      };
+  facts?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  plans?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+        big?: T;
+        lead?: T;
+        altTitle?: T;
+        items?:
+          | T
+          | {
+              name?: T;
+              audience?: T;
+              product?: T;
+              features?: T;
+              tag?: T;
+              alt?: T;
+              id?: T;
+            };
+      };
+  morePlans?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+        big?: T;
+        lead?: T;
+        altTitle?: T;
+        items?:
+          | T
+          | {
+              name?: T;
+              audience?: T;
+              product?: T;
+              features?: T;
+              tag?: T;
+              alt?: T;
+              id?: T;
+            };
+      };
+  compare?:
+    | T
+    | {
+        title?: T;
+        columns?: T;
+        rows?:
+          | T
+          | {
+              label?: T;
+              values?: T;
+              id?: T;
+            };
+      };
+  family?:
+    | T
+    | {
+        title?: T;
+        iconPath?: T;
+        products?: T;
+        id?: T;
+      };
+  chooser?:
+    | T
+    | {
+        question?: T;
+        options?:
+          | T
+          | {
+              label?: T;
+              products?: T;
+              why?: T;
+              id?: T;
+            };
+      };
+  service?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        items?:
+          | T
+          | {
+              title?: T;
+              text?: T;
+              id?: T;
+            };
+        products?: T;
+      };
+  rollout?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        steps?:
+          | T
+          | {
+              title?: T;
+              text?: T;
+              id?: T;
+            };
+        button?: T;
+        buttonHref?: T;
+        products?: T;
+      };
+  about?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  brandFacts?:
+    | T
+    | {
+        label?: T;
+        value?: T;
+        sourceUrl?: T;
+        id?: T;
+      };
+  faq?:
+    | T
+    | {
+        question?: T;
+        answer?: T;
+        id?: T;
+      };
+  headings?:
+    | T
+    | {
+        faq?: T;
+        facts?: T;
+        offer?: T;
+        more?: T;
+        ask?: T;
       };
   updatedAt?: T;
   createdAt?: T;

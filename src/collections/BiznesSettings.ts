@@ -3,8 +3,10 @@ import type { CollectionConfig } from 'payload'
 import { linkGroup } from '../blocks/fields'
 import { adminOnly } from '../lib/auth/access'
 import { catalogRevalidationHooks } from '../lib/catalog/revalidate'
+import { validateIconPath } from '../lib/catalog/svg'
 import { validateWizard } from '../lib/catalog/wizard'
 import { onlyLineTenant } from '../lib/tenant/onlyLine'
+import { brandFilter } from './catalogFields'
 import { searchGroup } from './searchGroup'
 
 /** Only a tenant of the Biznes line may have these settings (ADR-012, rozstrzygnięcie 2). */
@@ -87,6 +89,54 @@ export const BiznesSettings: CollectionConfig = {
               type: 'textarea',
               maxLength: 400,
               admin: { description: 'Stan prawny i data sprawdzenia, np. „stan na 15.10.2026”.' },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      // K4 (`marki-k4.json`): per site, as `Partners` is shared; a brand may sit in two groups
+      // (Samsung: computers and screens).
+      name: 'brands',
+      label: 'Marki',
+      type: 'group',
+      fields: [
+        {
+          name: 'home',
+          label: 'Marki na stronie głównej',
+          type: 'relationship',
+          relationTo: 'partners',
+          hasMany: true,
+          filterOptions: brandFilter,
+          admin: { description: 'W tej kolejności; obok kafel „Zobacz wszystkie”.' },
+        },
+        {
+          name: 'groups',
+          label: 'Grupy na stronie „Marki”',
+          type: 'array',
+          labels: { singular: 'Grupa', plural: 'Grupy' },
+          admin: { initCollapsed: true },
+          fields: [
+            {
+              type: 'row',
+              fields: [
+                { name: 'title', label: 'Nazwa', type: 'text', required: true, maxLength: 60 },
+                {
+                  name: 'iconPath',
+                  label: 'Ikona (ścieżka SVG)',
+                  type: 'text',
+                  validate: validateIconPath,
+                },
+              ],
+            },
+            { name: 'description', label: 'Opis', type: 'text', maxLength: 120 },
+            {
+              name: 'partners',
+              label: 'Marki',
+              type: 'relationship',
+              relationTo: 'partners',
+              hasMany: true,
+              filterOptions: brandFilter,
             },
           ],
         },

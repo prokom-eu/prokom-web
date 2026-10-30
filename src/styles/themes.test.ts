@@ -142,8 +142,12 @@ describe.each(cases.filter(({ line }) => line === 'biznes'))(
   ({ line, mode }) => {
     const s = scope(line, mode)
 
-    it('green partner labels of the footer reach 4.5:1 on the dark block', () => {
-      expect(contrastRatio(hex('--ok', s), hex('--surface-dark', s))).toBeGreaterThanOrEqual(4.5)
+    // Status pills of the footer sit on `bg-white/10` over the dark block (K4a-2: `--ok` reached
+    // only 4.0 there, so partners use `--footer-ok` and services white).
+    it('status pills of the footer reach 4.5:1 on their pill', () => {
+      const pill = mix('#ffffff', hex('--surface-dark', s), 0.1)
+      expect(contrastRatio(hex('--footer-ok', s), pill), '--footer-ok').toBeGreaterThanOrEqual(4.5)
+      expect(contrastRatio('#ffffff', pill), 'white').toBeGreaterThanOrEqual(4.5)
     })
 
     it('„W zapytaniu” label (remove on hover) reaches 4.5:1 on its badge', () => {

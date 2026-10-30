@@ -233,8 +233,8 @@ test.describe('Biznes catalog /oferta', () => {
       'href',
       '/insert',
     )
-    // The seed confirms no partner status ([SZEF]): no „Autoryzowany partner” on the card.
-    await expect(items.nth(12)).not.toContainText('Autoryzowany partner')
+    // Statuses of K4-FINAL §1 (K4a-2 seed): GoPOS and InsERT are authorized partners.
+    await expect(items.nth(12).getByText('Autoryzowany partner', { exact: true })).toHaveCount(2)
 
     // A search shows only what was asked for.
     await page.goto(oferta('?szukaj=kasa'))
