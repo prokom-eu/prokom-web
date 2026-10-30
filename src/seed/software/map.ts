@@ -76,24 +76,37 @@ export function cardGradientKey(css: string | null): Solution['cardGradient'] {
   return key
 }
 
-/**
- * Monthly prices and version names the package keeps only in a price note („Cena miesięczna:
- * Podstawowa 149, Standard 299, Systemy 790 zł/mies.”) — fields of the panel since SW9.
- */
-const PRICE_EXTRAS: Record<
-  string,
-  { priceMonthly: boolean; sizeNames: { start: string; std: string; full: string } }
-> = {
-  'opieka-nad-strona-i-systemem': {
-    priceMonthly: true,
-    sizeNames: { start: 'Podstawowa', std: 'Standard', full: 'Systemy' },
-  },
+/** A level of the package (care: `period` + `reaction`; audit: `leadTime`). */
+type SeedLevel = {
+  name: string
+  shortName?: string
+  price: number
+  period?: string
+  reaction?: string
+  leadTime?: string
+  recommended?: boolean
+  description: string
+}
+
+const levelsOf = (item: SeedSolution): readonly SeedLevel[] => item.levels ?? []
+
+/** A level of care or audit (`term` = the package's `reaction` for care, `leadTime` for audit). */
+function levelData(level: SeedLevel): NonNullable<SolutionData['levels']>[number] {
+  return {
+    name: level.name,
+    shortName: level.shortName ?? null,
+    price: level.price,
+    term: level.reaction ?? level.leadTime ?? null,
+    recommended: level.recommended ?? false,
+    description: level.description,
+  }
 }
 
 /**
- * Card, prices and the „12 rzeczy” card of one solution. Only the prices and terms per size
- * are stored; `priceFrom`/`leadTime` of the package are computed from them (ADR-014 rozstrz.
- * SW0 5). The order of the 12 cards is `SoftwareSettings.home.popular`, not `featuredOrder`.
+ * Card, one „od” price and term, levels and the texts of the offer window of one solution
+ * (ADR-014 v22 pkt 1–4). „Dobrze łączy się z” (`related`) needs the ids of the other solutions —
+ * `relatedIds`, written after all are imported. The order of the 12 cards is
+ * `SoftwareSettings.home.popular`, not `featuredOrder`.
  */
 export function solutionData(item: SeedSolution): SolutionData {
   return {
@@ -112,15 +125,20 @@ export function solutionData(item: SeedSolution): SolutionData {
     hasLivePreview: item.hasLivePreview,
     toast: item.toast,
     cardGradient: cardGradientKey(item.cardGradient),
-    prices: { start: item.prices.start, std: item.prices.std, full: item.prices.full },
-    leadTimes: {
-      start: item.leadTimes.start,
-      std: item.leadTimes.std,
-      full: item.leadTimes.full,
-    },
+    priceFrom: item.priceFrom,
+    leadTime: item.leadTime,
     priceNote: item.priceNote,
-    priceMonthly: PRICE_EXTRAS[item.slug]?.priceMonthly ?? false,
-    sizeNames: PRICE_EXTRAS[item.slug]?.sizeNames ?? { start: null, std: null, full: null },
+    // The package marks a monthly price on the levels („mies.”); the panel has one checkbox.
+    priceMonthly: levelsOf(item).some((level) => level.period === 'mies.'),
+    levels: levelsOf(item).map(levelData),
+    levelRows: item.levelRows ?? [],
+    thumbnail: item.thumbnail,
+    included: item.included ?? [],
+    moreExamples: item.moreExamples ?? [],
+    example: item.example,
+    benefits: item.benefits ?? [],
+    needs: item.needs ?? [],
+    faq: item.faq ?? [],
     featured: {
       name: item.featuredName ?? null,
       tag: item.featuredTag ?? null,
@@ -128,6 +146,11 @@ export function solutionData(item: SeedSolution): SolutionData {
       features: item.featuredFeatures ?? [],
     },
   }
+}
+
+/** „Dobrze łączy się z” as ids, in the package order; an unknown slug stops the seed. */
+export function relatedIds(item: SeedSolution, ref: SolutionRef): number[] {
+  return item.related.map((slug) => solutionRef(ref, slug, `solution "${item.slug}" → related`))
 }
 
 // --- areas ---

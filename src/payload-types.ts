@@ -1585,35 +1585,78 @@ export interface Solution {
    * Puste = karta bez miniatury.
    */
   cardGradient?: ('peach' | 'sand' | 'sage') | null;
-  prices?: {
-    start?: number | null;
-    std?: number | null;
-    full?: number | null;
-  };
+  priceFrom?: number | null;
   /**
-   * Np. opieka: ceny to kwoty za miesiąc — na karcie „od 149 zł / mies.” (wzór z Ustawień Software → Kreator).
+   * Np. „od 2 tygodni”, „2 dni robocze”.
+   */
+  leadTime?: string | null;
+  /**
+   * Np. opieka: kwoty za miesiąc — „od 149 zł / mies.” (wzór z Ustawień Software → Kreator).
    */
   priceMonthly?: boolean | null;
   /**
-   * Puste = „Na start”, „Standard”, „Pełna”. Np. opieka: „Podstawowa”, „Standard”, „Systemy”.
-   */
-  sizeNames?: {
-    start?: string | null;
-    std?: string | null;
-    full?: string | null;
-  };
-  /**
-   * Np. „2 tygodnie”, „4–5 tygodni”.
-   */
-  leadTimes?: {
-    start?: string | null;
-    std?: string | null;
-    full?: string | null;
-  };
-  /**
-   * Linia pod ceną, np. „Na start = jeden moduł na gotowym fundamencie, do 5 użytkowników”.
+   * Linia pod ceną, np. „W cenie „od”: nowa strona do 3 podstron.”
    */
   priceNote?: string | null;
+  /**
+   * Tylko usługi z poziomami (opieka: Podstawowa / Rozszerzona / Systemy; audyt: 3 rodzaje). Cena „od” = najniższy poziom (ustawia się sama). Inne rozwiązania mają jedną cenę.
+   */
+  levels?:
+    | {
+        name: string;
+        /**
+         * Puste = nazwa.
+         */
+        shortName?: string | null;
+        price: number;
+        /**
+         * Np. „8 h roboczych”, „1 tydzień”.
+         */
+        term?: string | null;
+        recommended?: boolean | null;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Tabela w oknie oferty. Komórki po kolei dla każdego poziomu: „tak”, „nie”, „dochodzi” albo krótki tekst.
+   */
+  levelRows?:
+    | {
+        label: string;
+        cells?: string[] | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Plik z repozytorium: /software/rozwiazania/<adres>.svg (ilustracje zmienia projektant).
+   */
+  thumbnail?: string | null;
+  /**
+   * Co jest w cenie „od” (3–5 punktów).
+   */
+  included?: string[] | null;
+  /**
+   * Np. „więcej niż 5 podstron”. Bez cen — wyceniamy na piśmie.
+   */
+  moreExamples?: string[] | null;
+  example?: string | null;
+  related?: (number | Solution)[] | null;
+  /**
+   * Puste = punkty wspólne dla kategorii.
+   */
+  benefits?: string[] | null;
+  /**
+   * Puste = lista wspólna dla kategorii.
+   */
+  needs?: string[] | null;
+  faq?:
+    | {
+        q: string;
+        a: string;
+        id?: string | null;
+      }[]
+    | null;
   featured?: {
     name?: string | null;
     tag?: string | null;
@@ -7620,29 +7663,42 @@ export interface SolutionsSelect<T extends boolean = true> {
   hasLivePreview?: T;
   toast?: T;
   cardGradient?: T;
-  prices?:
-    | T
-    | {
-        start?: T;
-        std?: T;
-        full?: T;
-      };
+  priceFrom?: T;
+  leadTime?: T;
   priceMonthly?: T;
-  sizeNames?:
-    | T
-    | {
-        start?: T;
-        std?: T;
-        full?: T;
-      };
-  leadTimes?:
-    | T
-    | {
-        start?: T;
-        std?: T;
-        full?: T;
-      };
   priceNote?: T;
+  levels?:
+    | T
+    | {
+        name?: T;
+        shortName?: T;
+        price?: T;
+        term?: T;
+        recommended?: T;
+        description?: T;
+        id?: T;
+      };
+  levelRows?:
+    | T
+    | {
+        label?: T;
+        cells?: T;
+        id?: T;
+      };
+  thumbnail?: T;
+  included?: T;
+  moreExamples?: T;
+  example?: T;
+  related?: T;
+  benefits?: T;
+  needs?: T;
+  faq?:
+    | T
+    | {
+        q?: T;
+        a?: T;
+        id?: T;
+      };
   featured?:
     | T
     | {

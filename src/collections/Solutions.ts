@@ -1,4 +1,9 @@
-import type { CollectionConfig, Field } from 'payload'
+import type { CollectionBeforeChangeHook, CollectionConfig, Field } from 'payload'
+import {
+  text as textValidation,
+  type TextFieldManyValidation,
+  type TextFieldSingleValidation,
+} from 'payload/shared'
 
 import { adminOnly } from '../lib/auth/access'
 import {
@@ -6,10 +11,15 @@ import {
   INDUSTRY_GROUPS,
   SITUATIONS,
   SOLUTION_CATEGORIES,
-  SOLUTION_SIZES,
-  type SolutionSize,
 } from '../lib/software/options'
 import { solutionsRevalidationHooks } from '../lib/software/revalidate'
+import {
+  includedError,
+  levelCellsError,
+  lowestLevelPrice,
+  relatedFilter,
+  thumbnailError,
+} from '../lib/software/solutionRules'
 import { onlyLineTenant } from '../lib/tenant/onlyLine'
 import { slugField } from './catalogFields'
 
@@ -22,32 +32,40 @@ const features = (description?: string): Field => ({
   ...(description && { admin: { description } }),
 })
 
-const SIZE_LABELS: Record<SolutionSize, string> = {
-  start: 'Na start',
-  std: 'Standard',
-  full: 'Pełna',
+const levelsOf = (data: unknown): unknown[] => {
+  const levels = (data as { levels?: unknown } | undefined)?.levels
+  return Array.isArray(levels) ? levels : []
 }
 
-const sizeRow = (type: 'number' | 'text'): Field => ({
-  type: 'row',
-  fields: SOLUTION_SIZES.map((name): Field =>
-    type === 'number'
-      ? { name, label: SIZE_LABELS[name], type: 'number', min: 0, admin: { width: '33%' } }
-      : {
-          name,
-          label: SIZE_LABELS[name],
-          type: 'text',
-          maxLength: 40,
-          admin: { width: '33%' },
-        },
-  ),
-})
+// Payload's built-in `text` check (length, rows) runs after ours. It handles `hasMany` lists at
+// runtime, but is typed for a single string only.
+const textMany = textValidation as unknown as TextFieldManyValidation
+
+const validateThumbnail: TextFieldSingleValidation = (value, options) =>
+  thumbnailError(value) ?? textValidation(value, options)
+
+const validateCells: TextFieldManyValidation = (value, options) =>
+  levelCellsError(value, levelsOf(options.data).length) ?? textMany(value, options)
+
+const validateIncluded: TextFieldManyValidation = (value, options) => {
+  const data = (options.data ?? {}) as { priceFrom?: number | null }
+  return (
+    includedError(value, { priceFrom: data.priceFrom, levels: levelsOf(data) }) ??
+    textMany(value, options)
+  )
+}
+
+/** Care and audit: the „od” price is the lowest level, so it is never typed twice (pkt 2). */
+const priceFromLevels: CollectionBeforeChangeHook = ({ data }) => {
+  const lowest = lowestLevelPrice(data.levels)
+  return lowest === null ? data : { ...data, priceFrom: lowest }
+}
 
 /**
- * Solutions of the Software catalog (ADR-014 §1.1). Prices and terms are numbers from the panel,
- * one per wizard size; the „od” price and the term are computed (`lib/software/price`, ADR-014
- * rozstrz. SW0 5). Drafts: a solution goes public only once published. The full solution page
- * (`page`) comes with SW10.
+ * Solutions of the Software catalog (ADR-014 §1.1, „Rozstrzygnięcia v21/v22”): one „od” price
+ * and one „od” term, levels only for care and audit, texts of the offer window. Drafts: a
+ * solution goes public only once published (the texts are checked then, not on a draft). The
+ * full solution page (`page`) comes with SW10.
  */
 export const Solutions: CollectionConfig = {
   slug: 'solutions',
@@ -66,6 +84,7 @@ export const Solutions: CollectionConfig = {
   versions: { drafts: true, maxPerDoc: 20 },
   hooks: {
     beforeValidate: [onlyLineTenant('software', 'Rozwiązania mają tylko strony linii Software.')],
+    beforeChange: [priceFromLevels],
     // The public solutions index (`/api/solutions-index`) follows a published change at once.
     ...solutionsRevalidationHooks,
   },
@@ -175,40 +194,41 @@ export const Solutions: CollectionConfig = {
         {
           label: 'Ceny i terminy',
           description:
-            'Kwoty netto w zł, jedna na rozmiar z kreatora. Na stronie „od” = najniższa podana. Pusta cena = „Zapytaj o wycenę”, pusty termin = „po krótkiej rozmowie”. 0 to cena (np. bezpłatny audyt).',
+            'Jedna cena „od” i jeden termin „od”. Pusta cena = „Zapytaj o wycenę”, pusty termin = „po krótkiej rozmowie”. 0 to cena (np. bezpłatny audyt). Poziomy tylko dla opieki i audytu — wtedy cena „od” = najniższy poziom.',
           fields: [
             {
-              name: 'prices',
-              label: 'Ceny (zł netto)',
-              type: 'group',
-              fields: [sizeRow('number')],
-            },
-            {
-              name: 'priceMonthly',
-              label: 'Cena miesięczna',
-              type: 'checkbox',
-              defaultValue: false,
-              admin: {
-                description:
-                  'Np. opieka: ceny to kwoty za miesiąc — na karcie „od 149 zł / mies.” (wzór z Ustawień Software → Kreator).',
-              },
-            },
-            {
-              name: 'sizeNames',
-              label: 'Nazwy wersji',
-              type: 'group',
-              admin: {
-                description:
-                  'Puste = „Na start”, „Standard”, „Pełna”. Np. opieka: „Podstawowa”, „Standard”, „Systemy”.',
-              },
-              fields: [sizeRow('text')],
-            },
-            {
-              name: 'leadTimes',
-              label: 'Terminy',
-              type: 'group',
-              admin: { description: 'Np. „2 tygodnie”, „4–5 tygodni”.' },
-              fields: [sizeRow('text')],
+              type: 'row',
+              fields: [
+                {
+                  name: 'priceFrom',
+                  label: 'Cena od (zł netto)',
+                  type: 'number',
+                  min: 0,
+                  admin: {
+                    width: '33%',
+                    // With levels the hook sets it on every save — a typed value would vanish.
+                    condition: (data) => levelsOf(data).length === 0,
+                  },
+                },
+                {
+                  name: 'leadTime',
+                  label: 'Termin od',
+                  type: 'text',
+                  maxLength: 40,
+                  admin: { width: '33%', description: 'Np. „od 2 tygodni”, „2 dni robocze”.' },
+                },
+                {
+                  name: 'priceMonthly',
+                  label: 'Cena miesięczna',
+                  type: 'checkbox',
+                  defaultValue: false,
+                  admin: {
+                    width: '33%',
+                    description:
+                      'Np. opieka: kwoty za miesiąc — „od 149 zł / mies.” (wzór z Ustawień Software → Kreator).',
+                  },
+                },
+              ],
             },
             {
               name: 'priceNote',
@@ -216,9 +236,173 @@ export const Solutions: CollectionConfig = {
               type: 'textarea',
               maxLength: 240,
               admin: {
-                description:
-                  'Linia pod ceną, np. „Na start = jeden moduł na gotowym fundamencie, do 5 użytkowników”.',
+                description: 'Linia pod ceną, np. „W cenie „od”: nowa strona do 3 podstron.”',
               },
+            },
+            {
+              name: 'levels',
+              label: 'Poziomy (opieka, audyt)',
+              labels: { singular: 'Poziom', plural: 'Poziomy' },
+              type: 'array',
+              maxRows: 3,
+              admin: {
+                description:
+                  'Tylko usługi z poziomami (opieka: Podstawowa / Rozszerzona / Systemy; audyt: 3 rodzaje). Cena „od” = najniższy poziom (ustawia się sama). Inne rozwiązania mają jedną cenę.',
+              },
+              fields: [
+                {
+                  type: 'row',
+                  fields: [
+                    {
+                      name: 'name',
+                      label: 'Nazwa',
+                      type: 'text',
+                      required: true,
+                      maxLength: 60,
+                      admin: { width: '50%' },
+                    },
+                    {
+                      name: 'shortName',
+                      label: 'Nazwa w tabeli',
+                      type: 'text',
+                      maxLength: 40,
+                      admin: { width: '50%', description: 'Puste = nazwa.' },
+                    },
+                  ],
+                },
+                {
+                  type: 'row',
+                  fields: [
+                    {
+                      name: 'price',
+                      label: 'Cena (zł netto)',
+                      type: 'number',
+                      required: true,
+                      min: 0,
+                      admin: { width: '33%' },
+                    },
+                    {
+                      name: 'term',
+                      label: 'Czas reakcji / termin',
+                      type: 'text',
+                      maxLength: 60,
+                      admin: { width: '33%', description: 'Np. „8 h roboczych”, „1 tydzień”.' },
+                    },
+                    {
+                      name: 'recommended',
+                      label: 'Polecamy',
+                      type: 'checkbox',
+                      defaultValue: false,
+                      admin: { width: '33%' },
+                    },
+                  ],
+                },
+                { name: 'description', label: 'Opis', type: 'textarea', maxLength: 200 },
+              ],
+            },
+            {
+              name: 'levelRows',
+              label: 'Porównanie poziomów',
+              labels: { singular: 'Wiersz', plural: 'Wiersze' },
+              type: 'array',
+              admin: {
+                description:
+                  'Tabela w oknie oferty. Komórki po kolei dla każdego poziomu: „tak”, „nie”, „dochodzi” albo krótki tekst.',
+              },
+              fields: [
+                { name: 'label', label: 'Wiersz', type: 'text', required: true, maxLength: 80 },
+                {
+                  name: 'cells',
+                  label: 'Komórki',
+                  type: 'text',
+                  hasMany: true,
+                  maxLength: 60,
+                  validate: validateCells,
+                },
+              ],
+            },
+          ],
+        },
+        {
+          label: 'Okno oferty',
+          description:
+            'Okno szczegółów w katalogu, „12 rzeczy” i na branży. Puste pole = ta część okna się nie pokazuje. Wspólne teksty kategorii (kroki, płatność, pytania) są w Ustawieniach Software.',
+          fields: [
+            {
+              name: 'thumbnail',
+              label: 'Miniatura',
+              type: 'text',
+              admin: {
+                description:
+                  'Plik z repozytorium: /software/rozwiazania/<adres>.svg (ilustracje zmienia projektant).',
+              },
+              validate: validateThumbnail,
+            },
+            {
+              name: 'included',
+              label: 'W cenie',
+              type: 'text',
+              hasMany: true,
+              maxRows: 5,
+              maxLength: 80,
+              admin: { description: 'Co jest w cenie „od” (3–5 punktów).' },
+              validate: validateIncluded,
+            },
+            {
+              name: 'moreExamples',
+              label: 'Potrzebujesz więcej? — przykłady',
+              type: 'text',
+              hasMany: true,
+              maxRows: 6,
+              maxLength: 80,
+              admin: {
+                description: 'Np. „więcej niż 5 podstron”. Bez cen — wyceniamy na piśmie.',
+              },
+            },
+            { name: 'example', label: 'Przykład z życia', type: 'textarea', maxLength: 400 },
+            {
+              name: 'related',
+              label: 'Dobrze łączy się z',
+              type: 'relationship',
+              relationTo: 'solutions',
+              hasMany: true,
+              maxRows: 3,
+              filterOptions: relatedFilter,
+            },
+            {
+              name: 'benefits',
+              label: 'Co dostajesz (zamiast punktów kategorii)',
+              type: 'text',
+              hasMany: true,
+              maxRows: 6,
+              maxLength: 120,
+              admin: { description: 'Puste = punkty wspólne dla kategorii.' },
+            },
+            {
+              name: 'needs',
+              label: 'Co od Ciebie (zamiast listy kategorii)',
+              type: 'text',
+              hasMany: true,
+              maxRows: 5,
+              maxLength: 80,
+              admin: { description: 'Puste = lista wspólna dla kategorii.' },
+            },
+            {
+              name: 'faq',
+              label: 'Pytania (zamiast pytań kategorii)',
+              labels: { singular: 'Pytanie', plural: 'Pytania' },
+              type: 'array',
+              maxRows: 3,
+              fields: [
+                { name: 'q', label: 'Pytanie', type: 'text', required: true, maxLength: 120 },
+                {
+                  name: 'a',
+                  label: 'Odpowiedź',
+                  type: 'textarea',
+                  required: true,
+                  maxLength: 500,
+                },
+              ],
             },
           ],
         },

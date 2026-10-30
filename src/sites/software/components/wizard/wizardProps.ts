@@ -42,9 +42,9 @@ export async function loadWizardProps(
   const solutions: Record<string, WizardSolution> = Object.fromEntries(
     index.solutions
       .filter((solution) => wanted.has(solution.slug))
-      .map(({ slug, name, prices, leadTimes, priceMonthly }) => [
+      .map(({ slug, name, priceFrom, leadTime, priceMonthly }) => [
         slug,
-        { name, prices, leadTimes, priceMonthly },
+        { name, priceFrom, leadTime, priceMonthly },
       ]),
   )
   const phone = settings?.phone ?? null

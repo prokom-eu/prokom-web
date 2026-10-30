@@ -39,12 +39,10 @@ function genericSolution(entry: GenericEntry, category: SolutionCategory): Index
     situations: [],
     industryGroups: [],
     hasLivePreview: false,
-    prices: {},
-    leadTimes: {},
     priceMonthly: false,
-    sizeNames: {},
     priceFrom: null,
     leadTime: null,
+    levels: [],
     hay: '',
   }
 }

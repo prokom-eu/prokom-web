@@ -2,7 +2,6 @@ import type { SoftwareSetting, Solution } from '@/payload-types'
 
 import { normalizeText } from '../catalog/normalize'
 import { INDUSTRY_GROUPS, SITUATIONS, SOLUTION_CATEGORIES, type SolutionCategory } from './options'
-import { leadTimeOf, priceFromOf } from './price'
 import { type PriceDisplay, priceDisplaySchema } from './wizard'
 
 /**
@@ -11,8 +10,6 @@ import { type PriceDisplay, priceDisplaySchema } from './wizard'
  * settings — the same search engine as Biznes (`lib/search.ts`). Prices are public on this
  * line (spec. §5): an empty price stays empty and the page shows „Zapytaj o wycenę”.
  */
-
-type Sizes<T> = { start?: T; std?: T; full?: T }
 
 export type IndexSolution = {
   slug: string
@@ -29,21 +26,30 @@ export type IndexSolution = {
   /** Text of the toast after „+ Do projektu”. */
   toast?: string
   cardGradient?: NonNullable<Solution['cardGradient']>
-  prices: Sizes<number>
-  leadTimes: Sizes<string>
   priceNote?: string
   /** Prices are per month (care): shown with `priceDisplay.monthTemplate`. */
   priceMonthly: boolean
-  /** Names of the versions; a missing one is „Na start” / „Standard” / „Pełna”. */
-  sizeNames: Sizes<string>
-  /** Lowest price given (`0` = free); `null` → „Zapytaj o wycenę” (ADR-014 rozstrz. SW0 5). */
+  /** The one „od” price (`0` = free); `null` → „Zapytaj o wycenę” (ADR-014 v22 pkt 1). */
   priceFrom: number | null
-  /** Term of the `start` size, else the first given; `null` → „po krótkiej rozmowie”. */
+  /** The „od” term as stored („od 2 tygodni”); `null` → „po krótkiej rozmowie”. */
   leadTime: string | null
+  /** Thumbnail file in `public/` (`/software/rozwiazania/<slug>.svg`). */
+  thumbnail?: string
+  /** Levels of care and audit (pkt 2); empty for the other solutions. */
+  levels: IndexLevel[]
   /** Card of „12 rzeczy” (SW5): only the fields filled in the panel, absent when none is. */
   featured?: FeaturedCard
   /** Normalized text the search matches (`normalizeText`). */
   hay: string
+}
+
+/** A level of care or audit: its own price and reaction time / term. */
+export type IndexLevel = {
+  name: string
+  shortName?: string
+  price: number
+  term?: string
+  recommended: boolean
 }
 
 /** Fields of the „12 rzeczy” card that differ from the catalog card (`Solutions.featured`). */
@@ -89,11 +95,12 @@ export type IndexedSolutionDoc = Pick<
   | 'hasLivePreview'
   | 'toast'
   | 'cardGradient'
-  | 'prices'
-  | 'leadTimes'
+  | 'priceFrom'
+  | 'leadTime'
   | 'priceNote'
   | 'priceMonthly'
-  | 'sizeNames'
+  | 'thumbnail'
+  | 'levels'
   | 'featured'
 >
 
@@ -107,13 +114,23 @@ export type SolutionsSource = {
 
 const text = (value: string | null | undefined): string | undefined => value?.trim() || undefined
 
-function sizes<T>(values: Partial<Record<keyof Sizes<T>, T | null>> | null | undefined): Sizes<T> {
-  const result: Sizes<T> = {}
-  for (const size of ['start', 'std', 'full'] as const) {
-    const value = values?.[size]
-    if (value !== null && value !== undefined && value !== '') result[size] = value
-  }
-  return result
+const isPrice = (value: number | null | undefined): value is number =>
+  typeof value === 'number' && Number.isFinite(value) && value >= 0
+
+function indexLevels(levels: IndexedSolutionDoc['levels']): IndexLevel[] {
+  return (levels ?? []).flatMap((level) =>
+    isPrice(level.price)
+      ? [
+          {
+            name: level.name,
+            shortName: text(level.shortName),
+            price: level.price,
+            term: text(level.term),
+            recommended: Boolean(level.recommended),
+          },
+        ]
+      : [],
+  )
 }
 
 function featuredCard(featured: IndexedSolutionDoc['featured']): FeaturedCard | undefined {
@@ -145,19 +162,12 @@ function indexSolution(doc: IndexedSolutionDoc): IndexSolution {
     hasLivePreview: Boolean(doc.hasLivePreview),
     toast: text(doc.toast),
     cardGradient: doc.cardGradient ?? undefined,
-    prices: sizes(doc.prices),
-    leadTimes: sizes(doc.leadTimes),
     priceNote: text(doc.priceNote),
     priceMonthly: Boolean(doc.priceMonthly),
-    sizeNames: sizes(
-      doc.sizeNames && {
-        start: text(doc.sizeNames.start),
-        std: text(doc.sizeNames.std),
-        full: text(doc.sizeNames.full),
-      },
-    ),
-    priceFrom: priceFromOf(doc.prices),
-    leadTime: leadTimeOf(doc.leadTimes),
+    priceFrom: isPrice(doc.priceFrom) ? doc.priceFrom : null,
+    leadTime: text(doc.leadTime) ?? null,
+    thumbnail: text(doc.thumbnail),
+    levels: indexLevels(doc.levels),
     featured: featuredCard(doc.featured),
     hay: normalizeText(
       [doc.name, doc.label, doc.tag, doc.lead, ...features, doc.forWhom, doc.keywords]

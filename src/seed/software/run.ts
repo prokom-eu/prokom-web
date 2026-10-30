@@ -14,6 +14,7 @@ import {
   softwareSettingsData,
   softwarePostData,
   softwarePosts,
+  relatedIds,
   solutionData,
   solutionsToImport,
 } from './map'
@@ -115,6 +116,21 @@ export async function seedSoftware(payload: Payload): Promise<void> {
   }
 
   const solutionRef = (slug: string) => solutionIds.get(slug)
+
+  // „Dobrze łączy się z” points at other solutions — written once all of them have ids.
+  for (const item of solutionsToImport()) {
+    const id = solutionIds.get(item.slug)!
+    const related = relatedIds(item, solutionRef)
+    const stored = await payload.findByID({ collection: 'solutions', id, ...local })
+    if (hasSameValues(stored.related, related)) continue
+    await payload.update({
+      collection: 'solutions',
+      id,
+      data: { related, _status: 'published' },
+      ...local,
+    })
+    count('solutions', 'updated')
+  }
 
   // --- areas and cities: plain collections, found by their key ---
   /** The stored record with this key, and whether it already has the package values. */
