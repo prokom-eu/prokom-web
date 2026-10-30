@@ -13,7 +13,7 @@ const SUBPAGE = '/dziekujemy'
 const mainNav = (page: Page) => page.getByRole('navigation', { name: 'Główna' })
 const projectButton = (page: Page) => page.getByRole('button', { name: /^Twój projekt/ })
 
-/** Puts solutions on the list as a card's „+ Do projektu” does (`pk-project`). */
+/** Puts solutions on the list as a card's „+ Dodaj do wyceny” does (`pk-project`). */
 async function setProject(page: Page, items: { id: string; name: string }[]) {
   await page.evaluate((value) => localStorage.setItem('pk-project', value), JSON.stringify(items))
 }
@@ -101,9 +101,10 @@ test.describe('Software header', () => {
       /^Strona firmowa z panelem/,
       /^System zleceń i grafik ekip/,
     ])
-    await expect(
-      panel.getByRole('link', { name: 'Wyślij do bezpłatnej wyceny →' }),
-    ).toHaveAttribute('href', '/kontakt?projekt=1')
+    await expect(panel.getByRole('link', { name: 'Wyślij do wyceny →' })).toHaveAttribute(
+      'href',
+      '/kontakt?projekt=1#formularz',
+    )
 
     // From the keyboard focus never falls to the page: next row's „Usuń”, then the heading.
     await panel.getByRole('button', { name: 'Usuń: Strona firmowa z panelem' }).focus()
@@ -167,17 +168,34 @@ test.describe('Software header', () => {
 })
 
 test.describe('Software footer', () => {
-  test('link columns, contact and company data', async ({ page }) => {
-    await page.goto(site(HOST, SUBPAGE))
+  // v21 (SWR2): dark footer with the CTA band, three columns, the PRO-KOM lines, bottom bar.
+  test('CTA band, columns, contact, PRO-KOM lines and company data', async ({ page }) => {
+    // The site map ends with no CTA of its own: the footer brings the band.
+    await page.goto(site(HOST, '/mapa-strony'))
     const footer = page.locator('footer')
-    for (const name of ['Usługi', 'Firma', 'Kontakt']) {
+    await expect(footer).toHaveAttribute('data-surface', 'dark')
+    const band = footer.locator('[data-footer-cta]')
+    await expect(
+      band.getByRole('heading', { name: 'Porozmawiajmy o Twojej firmie.' }),
+    ).toBeVisible()
+    await expect(band.getByRole('link', { name: 'Dobierz rozwiązanie · 60 s' })).toHaveAttribute(
+      'href',
+      '/dobierz',
+    )
+    await expect(band.getByRole('link', { name: 'Bezpłatna wycena' })).toHaveAttribute(
+      'href',
+      '/kontakt',
+    )
+
+    for (const name of ['Oferta', 'Firma', 'Kontakt']) {
       await expect(footer.getByRole('heading', { name, exact: true })).toBeVisible()
     }
-    await expect(footer.getByRole('link', { name: 'Dla branż' })).toHaveAttribute(
+    await expect(footer.getByRole('link', { name: 'Darmowy audyt 0 zł' })).toHaveAttribute(
       'href',
-      '/dla-branz',
+      '/audyt',
     )
-    await expect(footer).toContainText('Rabka-Zdrój · Zakopane · zdalnie w całej Polsce')
+    await expect(footer).toContainText('Kod, domena i dane należą do Ciebie')
+    await expect(footer).toContainText('Podhale, Małopolska i zdalnie w całej Polsce')
     // The line's own contact from its site settings (seed), never the package (spec. §3.4).
     await expect(footer.getByRole('link', { name: 'software@example.test' })).toHaveAttribute(
       'href',
@@ -185,14 +203,34 @@ test.describe('Software footer', () => {
     )
     await expect(footer.locator('a[href^="tel:"]')).toHaveCount(1)
     await expect(footer).toContainText(/NIP \d{10}/)
-    await expect(footer.getByRole('link', { name: 'PRO-KOM Biznes →' })).toHaveAttribute(
+
+    // „Jedna firma, sześć adresów” replaces the v20 cross link to Biznes.
+    const lines = footer.getByRole('region', { name: 'Jedna firma, sześć adresów' })
+    await expect(lines.getByRole('link')).toHaveCount(6)
+    await expect(lines.getByRole('link', { name: /^PRO-KOM Biznes/ })).toHaveAttribute(
       'href',
       'https://prokombiznes.pl',
     )
+    await expect(lines.locator('[aria-current="true"]')).toHaveAccessibleName(/^PRO-KOM Software/)
+
     await expect(
       footer.getByRole('navigation', { name: 'Informacje prawne' }).getByRole('link'),
     ).toHaveText(['Polityka prywatności', 'Mapa strony'])
+    await expect(footer).toContainText('Bez ciasteczek śledzących')
+    expect(await page.evaluate(() => document.scrollingElement!.scrollWidth)).toBe(
+      page.viewportSize()!.width,
+    )
   })
+
+  // Every page ends with one CTA (plan §3b, decyzja 6): a page with its own drops the band.
+  for (const path of ['/', '/rozwiazania', '/dobierz', SUBPAGE]) {
+    test(`no CTA band where the page ends with its own CTA (${path})`, async ({ page }) => {
+      await page.goto(site(HOST, path))
+      const footer = page.locator('footer')
+      await expect(footer.getByRole('region', { name: 'Jedna firma, sześć adresów' })).toBeVisible()
+      await expect(footer.locator('[data-footer-cta]')).toBeHidden()
+    })
+  }
 })
 
 test.describe('Software frame accessibility', () => {

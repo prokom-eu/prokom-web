@@ -131,7 +131,7 @@ test.describe('Software start page', () => {
     await expect(section).toContainText('4 pozycje')
 
     const first = cards.first()
-    await first.getByRole('button', { name: 'CRM dla małej i średniej firmy' }).click()
+    await first.getByRole('button', { name: 'CRM dla małej i średniej firmy', exact: true }).click()
     await expect(first).toContainText('Co dostajesz')
     await expect(section).toContainText('Opieka i rozwój')
     await expect(section).toContainText('od 149 zł / mies.')

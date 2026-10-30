@@ -4,6 +4,7 @@ import miejscowosci from '../../../seed/prokomsoftware/miejscowosci.json'
 import obszary from '../../../seed/prokomsoftware/obszary.json'
 import { hasSameValues } from '../compare'
 import { SEED_CONTEXT } from '../config'
+import { navigationSchema } from '../../lib/software/navigation'
 import {
   areaData,
   cityData,
@@ -35,8 +36,8 @@ type Counter = { created: number; updated: number; skipped: number }
  *   in the panel.
  * - Posts: created as drafts when missing (their figures are checked on publication), later
  *   they belong to the panel.
- * - Settings (navigation, `SoftwareSettings`): written only while empty — then they belong to
- *   the panel. Facts: only the keys missing there are added.
+ * - Settings (navigation, `SoftwareSettings`): written only while empty (or in a shape the
+ *   schema no longer accepts) — then they belong to the panel. Facts: only the keys missing there are added.
  * - Solutions removed from the offer are never imported; one left in the database from an
  *   earlier run is only reported (removed by hand in the panel, ADR-014 v20 pkt 2).
  */
@@ -216,7 +217,9 @@ export async function seedSoftware(payload: Payload): Promise<void> {
   if (!siteSettings) {
     log('site-settings: skipped — no settings of the tenant yet, run `pnpm seed`.')
   } else {
-    const navigationMissing = !siteSettings.software?.navigation
+    // A navigation in a shape before v21 (SWR2) no longer passes the schema — the frame would
+    // fall back to the generic one, so locally the seed replaces it (like the wizard, SW7).
+    const navigationMissing = !navigationSchema.safeParse(siteSettings.software?.navigation).success
     const facts = missingFacts(siteSettings.software?.facts, factsData())
     count('site-settings navigation', navigationMissing)
     count('site-settings facts', facts.length > 0 ? 'updated' : false)
@@ -227,7 +230,7 @@ export async function seedSoftware(payload: Payload): Promise<void> {
         data: {
           software: {
             ...siteSettings.software,
-            navigation: siteSettings.software?.navigation ?? settings.navigation,
+            navigation: navigationMissing ? settings.navigation : siteSettings.software?.navigation,
             facts: [...(siteSettings.software?.facts ?? []), ...facts],
           },
         },

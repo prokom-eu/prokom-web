@@ -38,7 +38,7 @@ export function parseProject(raw: string | null): ProjectItem[] {
   return project
 }
 
-/** Add when missing, remove when present — the „+ Do projektu” / „✓ W projekcie” switch. */
+/** Add when missing, remove when present — the „+ Dodaj do wyceny” / „✓ W wycenie” switch. */
 export function toggle(
   project: Project,
   id: string,

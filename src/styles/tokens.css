@@ -414,6 +414,15 @@
   --button-bg: var(--accent-text);
   /* Accent on the inverted pill (--ink background): plain pill text where a line has no pill. */
   --pill-accent: var(--surface);
+  /* Dark footer of Software v21 (ADR-015 v22 pkt 1) — defaults for every line, so the footer
+     never asks which line it is on; only references to the palette. */
+  --footer-bg: var(--c-grafit);
+  --footer-text: var(--c-papier);
+  --footer-muted: var(--c-software-night-ink-2);
+  --footer-line: var(--c-software-night-border);
+  --footer-eyebrow: var(--accent-on-dark);
+  /* Ticks of the guarantees and the „0 zł” badge — the dark palette's green on the footer. */
+  --footer-ok: var(--c-software-night-ok-text);
 }
 
 [data-line='prokom'] {
@@ -953,6 +962,7 @@
   /* ADR-015 v20 pkt 4: „Zobacz →” on the inverted „Twój projekt” pill — the other theme's text
      accent (the board's --accent-2 has too little contrast there). */
   --pill-accent: var(--c-software-night-accent-text);
+  --footer-eyebrow: var(--c-software-night-accent-text);
 
   /* ADR-015: H1 fragment on 5 pages, without the light blue of the boards. */
   --grad-h1: linear-gradient(
@@ -1046,6 +1056,8 @@
   --dot: var(--c-software-night-dot);
   --header-bg: var(--c-software-night-header-bg);
   --pill-accent: var(--c-software-light-accent-text);
+  /* ADR-015 v22 pkt 1: darker than the page in the dark theme, faintly violet. */
+  --footer-bg: var(--c-software-night-surface-dark);
   --shadow: var(--c-software-night-shadow);
 }
 
@@ -1158,6 +1170,8 @@
     --dot: var(--c-software-night-dot);
     --header-bg: var(--c-software-night-header-bg);
     --pill-accent: var(--c-software-light-accent-text);
+    /* ADR-015 v22 pkt 1: darker than the page in the dark theme, faintly violet. */
+    --footer-bg: var(--c-software-night-surface-dark);
     --shadow: var(--c-software-night-shadow);
   }
 

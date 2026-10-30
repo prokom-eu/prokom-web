@@ -1,5 +1,5 @@
 {
-  "_info": "Nagłówek i stopka Software (plansza Main, stany/01-03). Trafia do SiteSettings.software.navigation i .footer (ADR-014 §1.3). Odnośniki do /cennik prowadzą do /kontakt, dopóki strona /cennik jest w szkicu (spec. §6.4).",
+  "_info": "Nagłówek i stopka Software v21 (plansza Main, stany/01-03). Trafia do SiteSettings.software.navigation (ADR-014 v22 pkt 9). Z seed-v22 (SWR2) z poprawkami wg planszy Main: nazwy mega menu = nazwy z Solutions; nazwy koszyka v21; footer = footer.v21 bez zagnieżdżenia, kolumny Oferta / Firma / Kontakt przepisane z planszy (paczka ich nie ma), kolor głównej linii „prokom” (paczka: „zielen”). Telefon, e-mail, adresy i godziny stopki — z SiteSettings i CompanyData, nie stąd. Odnośniki do /cennik prowadzą do /kontakt, dopóki strona /cennik jest w szkicu (spec. §6.4).",
   "header": [
     {
       "label": "Oferta",
@@ -48,7 +48,7 @@
             "/rozwiazania/strona-wizytowka"
           ],
           [
-            "Strona firmowa",
+            "Strona firmowa z panelem",
             "/rozwiazania/strona-firmowa-z-panelem"
           ],
           [
@@ -81,7 +81,7 @@
             "/rozwiazania/z-excela-do-systemu"
           ],
           [
-            "System zleceń i grafik pracy",
+            "System zleceń i grafik ekip",
             "/rozwiazania/system-zlecen-i-grafik-ekip"
           ],
           [
@@ -94,7 +94,7 @@
         "title": "Aplikacje i automatyzacje",
         "links": [
           [
-            "Aplikacja na telefon",
+            "Aplikacje na telefon",
             "/rozwiazania?kategoria=aplikacje"
           ],
           [
@@ -175,7 +175,7 @@
     "search": "Czego szukasz? np. zlecenia, pensjonat",
     "kreator": [
       "Dobierz rozwiązanie",
-      "5 krótkich kroków · 60 s · cena od razu",
+      "4 krótkie kroki · 60 s · cena od razu",
       "/dobierz"
     ],
     "tiles": [
@@ -247,15 +247,33 @@
   },
   "projectDrawer": {
     "title": "Twój projekt",
-    "empty": "Na razie pusto. Klikaj „+ Do projektu” przy rozwiązaniach, a tu zbierze się lista. Wycenimy całość naraz.",
-    "send": "Wyślij do bezpłatnej wyceny →",
+    "empty": "Na razie pusto. Klikaj „+ Dodaj do wyceny” przy rozwiązaniach, a tu zbierze się lista. Wycenimy całość naraz.",
+    "send": "Wyślij do wyceny →",
     "clear": "Wyczyść listę"
   },
   "footer": {
-    "about": "Strony, systemy, aplikacje i automatyzacje dla firm. Linia firmy PRO-KOM Tadeusz Wójciak.",
+    "cta": {
+      "eyebrow": "Masz pomysł albo problem do rozwiązania?",
+      "title": "Porozmawiajmy o Twojej firmie.",
+      "text": "Odpowiadamy w 1 dzień roboczy. Podgląd i wycena na piśmie w 5–7 dni, bez zobowiązań.",
+      "primary": {
+        "label": "Dobierz rozwiązanie · 60 s",
+        "href": "/dobierz"
+      },
+      "secondary": {
+        "label": "Bezpłatna wycena",
+        "href": "/kontakt"
+      }
+    },
+    "about": "Strony, systemy, aplikacje i automatyzacje dla firm. Linia firmy PRO-KOM Tadeusz Wójciak, działającej na Podhalu od 2004 r.",
+    "guarantees": [
+      "Kod, domena i dane należą do Ciebie",
+      "Serwer w Polsce, kopia co noc",
+      "Cena i termin na piśmie"
+    ],
     "columns": [
       {
-        "title": "Usługi",
+        "title": "Oferta",
         "links": [
           [
             "Strony internetowe",
@@ -274,8 +292,17 @@
             "/rozwiazania?kategoria=automatyzacje"
           ],
           [
-            "Opieka i audyty",
+            "Opieka i utrzymanie",
             "/rozwiazania?kategoria=opieka"
+          ],
+          [
+            "Cennik",
+            "/cennik"
+          ],
+          [
+            "Darmowy audyt",
+            "/audyt",
+            "0 zł"
           ]
         ]
       },
@@ -295,37 +322,77 @@
             "/#realizacje"
           ],
           [
-            "Aktualności",
-            "/aktualnosci"
-          ],
-          [
             "Dla branż",
             "/dla-branz"
           ],
           [
-            "Cennik",
-            "/cennik"
-          ],
-          [
-            "Darmowy audyt",
-            "/audyt"
+            "Aktualności i poradnik",
+            "/aktualnosci"
           ],
           [
             "Rabka-Zdrój",
             "/miejscowosci/rabka-zdroj"
+          ],
+          [
+            "Kontakt",
+            "/kontakt"
           ]
         ]
       },
       {
         "title": "Kontakt",
-        "lines": [
-          "Rabka-Zdrój · Zakopane · zdalnie w całej Polsce"
-        ]
+        "response": "odpowiedź w 1 dzień roboczy",
+        "reach": "Podhale, Małopolska i zdalnie w całej Polsce"
       }
     ],
-    "crossLink": [
-      "Szukasz sprzętu, kas albo KSeF? PRO-KOM Biznes →",
-      "https://prokombiznes.pl"
+    "linesTitle": "Jedna firma, sześć adresów",
+    "lines": [
+      {
+        "name": "PRO-KOM",
+        "label": "GŁÓWNA",
+        "text": "wszystkie linie",
+        "href": "https://pro-kom.eu",
+        "color": "prokom"
+      },
+      {
+        "name": "Biznes",
+        "label": "BIZNES",
+        "text": "kasy, GoPOS, programy, opieka IT",
+        "href": "https://prokombiznes.pl",
+        "color": "biznes"
+      },
+      {
+        "name": "Instalacje",
+        "label": "INSTALACJE",
+        "text": "monitoring, sieci, smart home",
+        "href": "https://prokominstalacje.pl",
+        "color": "instalacje"
+      },
+      {
+        "name": "Software",
+        "label": "SOFTWARE",
+        "text": "strony, systemy, aplikacje",
+        "href": "/",
+        "color": "software",
+        "current": true
+      },
+      {
+        "name": "Tech",
+        "label": "TECH",
+        "text": "serwis komputerów i telefonów",
+        "href": "https://prokomserwis.pl",
+        "color": "tech"
+      },
+      {
+        "name": "Zakopane",
+        "label": "ZAKOPANE",
+        "text": "salon w Zakopanem",
+        "href": "/kontakt",
+        "color": "zakopane"
+      }
+    ],
+    "bottom": [
+      "Bez ciasteczek śledzących"
     ],
     "legal": [
       [

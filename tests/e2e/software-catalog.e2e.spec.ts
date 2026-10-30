@@ -124,13 +124,23 @@ test.describe('Software catalog', () => {
     await expect(count(page)).toBeFocused()
   })
 
+  // The whole card opens it (stretched button), also while the press state is on (SWR2).
+  test('a press anywhere on the card opens it, not only on its name', async ({ page }) => {
+    await page.goto(site(HOST, PATH))
+    const button = page.getByRole('button', { name: 'Landing page', exact: true })
+    const card = cards(page).filter({ has: button })
+    const box = (await card.boundingBox())!
+    await card.click({ position: { x: box.width - 12, y: box.height - 12 } })
+    await expect(button).toHaveAttribute('aria-expanded', 'true')
+  })
+
   // v22 (SWR1): one „od” price and term on every card — no versions; care is per month.
   test('a card expands with its one „od” price; care is priced per month', async ({ page }) => {
     await page.goto(site(HOST, PATH))
     const firmSite = cards(page).filter({ hasText: 'Strona firmowa z panelem' })
     await expect(firmSite).toContainText(/od\s2\s490\s*zł netto/)
     await expect(firmSite).toContainText('od 2 tygodni')
-    const button = page.getByRole('button', { name: 'Opieka nad stroną i systemem' })
+    const button = page.getByRole('button', { name: 'Opieka nad stroną i systemem', exact: true })
     await button.click()
     await expect(button).toHaveAttribute('aria-expanded', 'true')
     const card = cards(page).filter({ has: button })
@@ -138,25 +148,27 @@ test.describe('Software catalog', () => {
     await expect(card).not.toContainText('Standard')
 
     // One card open at a time.
-    await page.getByRole('button', { name: 'Strona firmowa z panelem' }).click()
+    await page.getByRole('button', { name: 'Strona firmowa z panelem', exact: true }).click()
     await expect(button).toHaveAttribute('aria-expanded', 'false')
   })
 
-  test('„+ Do projektu” adds to the project with a toast, again removes it', async ({ page }) => {
+  test('„+ Dodaj do wyceny” adds to the project with a toast, again removes it', async ({
+    page,
+  }) => {
     await page.goto(site(HOST, PATH))
-    await page.getByRole('button', { name: 'CRM dla małej i średniej firmy' }).click()
+    await page.getByRole('button', { name: 'CRM dla małej i średniej firmy', exact: true }).click()
     const card = cards(page).filter({ hasText: 'CRM dla małej i średniej firmy' })
-    const add = card.getByRole('button', { name: '+ Do projektu' })
+    const add = card.getByRole('button', {
+      name: 'Dodaj do wyceny: CRM dla małej i średniej firmy',
+    })
     await add.click()
     await expect(
       page.getByRole('status').filter({ hasText: 'Dodano do Twojego projektu' }),
     ).toBeVisible()
-    await expect(card.getByRole('button', { name: '✓ W projekcie' })).toHaveAttribute(
-      'aria-pressed',
-      'true',
-    )
+    const added = card.getByRole('button', { name: 'W wycenie: CRM dla małej i średniej firmy' })
+    await expect(added).toHaveAttribute('aria-pressed', 'true')
     await expect(page.getByRole('button', { name: /^Twój projekt/ })).toContainText('1')
-    await card.getByRole('button', { name: '✓ W projekcie' }).click()
+    await added.click()
     await expect(page.getByRole('button', { name: /^Twój projekt/ })).toHaveCount(0)
   })
 
@@ -234,7 +246,7 @@ test.describe('Software catalog accessibility', () => {
     test(`no axe violations with an open card (${colorScheme})`, async ({ page }) => {
       await page.emulateMedia({ colorScheme })
       await page.goto(site(HOST, PATH))
-      await page.getByRole('button', { name: 'Strona firmowa z panelem' }).click()
+      await page.getByRole('button', { name: 'Strona firmowa z panelem', exact: true }).click()
       expect((await new AxeBuilder({ page }).withTags(WCAG).analyze()).violations).toEqual([])
     })
   }

@@ -46,6 +46,13 @@
   --color-h1-accent: var(--h1-accent);
   --color-button: var(--button-bg);
   --color-pill-accent: var(--pill-accent);
+  /* Dark footer of Software v21 (ADR-015 v22 pkt 1). */
+  --color-footer: var(--footer-bg);
+  --color-footer-text: var(--footer-text);
+  --color-footer-muted: var(--footer-muted);
+  --color-footer-line: var(--footer-line);
+  --color-footer-eyebrow: var(--footer-eyebrow);
+  --color-footer-ok: var(--footer-ok);
   /* Biznes only (need tiles of the home page); undefined elsewhere. */
   --color-tone-green: var(--tone-green);
   --color-tone-green-2: var(--tone-green-2);
@@ -293,5 +300,42 @@
     :root:not([data-theme='light']) .theme-light-only {
       display: none;
     }
+  }
+}
+
+/*
+ * Dark footer of Software v21 (spec. §3.4, plan §3b decyzja 6): every page ends with one CTA.
+ * A page whose content ends with its own CTA (contact block, `swContact`, the wizard, thanks)
+ * carries `data-final-cta`, and the footer's CTA band goes; a page with the PRO-KOM lines
+ * (`/kontakt`) carries `data-lines-section`, and the footer's line cards go. No list of
+ * addresses in the footer; without `:has()` the band simply stays.
+ */
+:root:has([data-final-cta]) [data-footer-cta],
+:root:has([data-lines-section]) [data-footer-lines] {
+  display: none;
+}
+
+/*
+ * Software on a phone feels like an app (MOBILE-APLIKACJA §4 pkt 1): no grey tap rectangle,
+ * no double-tap zoom delay, and every link and button answers the press at once. Inline text
+ * links are untouched (a transform does not apply to inline boxes). Tailwind v4 moves elements
+ * with `translate`/`scale`, not `transform`, so this does not undo a utility. Hover effects are
+ * already limited to `(hover: hover)` by Tailwind.
+ */
+[data-line='software'] :is(a, button, summary, [role='tab']) {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+@media (prefers-reduced-motion: no-preference) {
+  [data-line='software']
+    :is(a, button, summary, [role='tab']):not(:disabled, [data-stretched]):active {
+    transform: scale(0.97);
+  }
+  /* A button stretched over its card (`after:absolute after:inset-0`, `data-stretched`) must
+     not get a transform: it would become the containing block of its `::after`, shrink it to
+     the button while pressed, and a press elsewhere on the card would never click. The card
+     (`data-card`, the positioned box of the `::after`) answers instead. */
+  [data-line='software'] [data-card]:has([data-stretched]:active) {
+    transform: scale(0.99);
   }
 }

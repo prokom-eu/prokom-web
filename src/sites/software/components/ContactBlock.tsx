@@ -34,7 +34,8 @@ export function ContactBlock({ lead, quoteCaption, phone }: Props) {
       : []),
   ]
   return (
-    <section id="kontakt" aria-labelledby="kontakt-tytul" className="py-16">
+    // `data-final-cta`: the page ends with this CTA — the footer drops its CTA band (SWR2).
+    <section id="kontakt" aria-labelledby="kontakt-tytul" data-final-cta className="py-16">
       <Container wide>
         <div className="grid gap-8 rounded-[28px] border border-accent-line bg-accent-soft p-6 sm:p-10 min-[1081px]:grid-cols-[1fr_1.1fr] min-[1081px]:items-center">
           <div>
