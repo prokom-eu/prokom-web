@@ -36,9 +36,19 @@ describe('lineViewport', () => {
     })
   })
 
+  // Software MOBILE-APLIKACJA §4 pkt 8 (SWR2): the same mechanism as Instalacje.
+  it('gives Software the safe area and a theme colour per system theme', () => {
+    expect(lineViewport('software')).toEqual({
+      viewportFit: 'cover',
+      themeColor: [
+        { media: '(prefers-color-scheme: light)', color: LINE_THEME_COLORS.software?.light },
+        { media: '(prefers-color-scheme: dark)', color: LINE_THEME_COLORS.software?.dark },
+      ],
+    })
+  })
+
   it('leaves lines without an entry as they are', () => {
     expect(lineViewport('biznes')).toEqual({})
-    expect(lineViewport('software')).toEqual({})
   })
 })
 
@@ -64,6 +74,17 @@ describe('lineManifest', () => {
         purpose: 'maskable',
       },
     ])
+  })
+
+  it('describes the Software site with its own short name and icons', () => {
+    const manifest = lineManifest('software', 'PRO-KOM Software')
+    expect(manifest).toMatchObject({
+      name: 'PRO-KOM Software',
+      short_name: 'Software',
+      display: 'standalone',
+      theme_color: LINE_THEME_COLORS.software?.light,
+    })
+    expect(manifest?.icons?.[0]?.src).toBe('/brand/prokom-software_icon-192.png')
   })
 
   it('has no manifest for lines without an entry', () => {

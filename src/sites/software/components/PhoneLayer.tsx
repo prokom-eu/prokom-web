@@ -5,6 +5,7 @@ import { useState } from 'react'
 
 import { BottomSheet } from '@/components/BottomSheet'
 import { HomeAwareLink } from '@/components/HomeAwareLink'
+import { useThemeColor } from '@/components/useThemeColor'
 
 import { Icon } from '@/components/ui/Icon'
 import type { MenuTile } from '@/lib/software/mobileNav'
@@ -41,6 +42,8 @@ const ROW = 'flex min-h-14 items-center justify-between gap-3 px-4 font-bold'
  */
 export function PhoneLayer({ navigation, tiles, homeHrefs, phone, footerLine }: Props) {
   const [menuOpen, setMenuOpen] = useState(false)
+  // The browser bar follows a theme chosen in the menu (MOBILE-APLIKACJA §4 pkt 8).
+  useThemeColor('software')
   const { mobileMenu, mobileMenuFooter } = navigation
   const [kreatorTitle, kreatorCaption, kreatorHref] = mobileMenu.kreator
   const [ctaLabel, ctaHref] = mobileMenuFooter.cta
@@ -59,6 +62,8 @@ export function PhoneLayer({ navigation, tiles, homeHrefs, phone, footerLine }: 
         onClose={() => setMenuOpen(false)}
         title="Menu"
         desktopQuery={DESKTOP_QUERY}
+        dragToClose
+        closeOnBack
       >
         <MenuSearch placeholder={mobileMenu.search} />
 

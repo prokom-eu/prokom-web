@@ -28,6 +28,18 @@ function hex(token: string, s: Declarations): string {
   return value
 }
 
+/** `color-mix(in srgb, top share, bottom)` of two `#rrggbb` colours — a Tailwind `/16` tint. */
+function mix(top: string, bottom: string, share: number): string {
+  const channel = (hex: string, i: number) => parseInt(hex.slice(1 + i * 2, 3 + i * 2), 16)
+  return `#${[0, 1, 2]
+    .map((i) =>
+      Math.round(channel(top, i) * share + channel(bottom, i) * (1 - share))
+        .toString(16)
+        .padStart(2, '0'),
+    )
+    .join('')}`
+}
+
 const TEXT_ON_SURFACES: Array<[string, string[]]> = [
   ['--ink', ['--surface', '--surface-2', '--surface-3', '--card']],
   ['--ink-2', ['--surface', '--surface-2', '--surface-3', '--card']],
@@ -256,6 +268,58 @@ it('Software: white on the „Czasem powiemy” gradient reaches 4.5:1 at both e
     ).toBeGreaterThanOrEqual(4.5)
   }
 })
+
+// ADR-015 v22 pkt 1, 7: the dark footer of Software (SWR2) — texts on `--footer-bg`, the line
+// colours of „Jedna firma, sześć adresów” as rules (3:1), white on the CTA button's gradient.
+describe.each(cases.filter(({ line }) => line === 'software'))(
+  'Software dark footer, $mode theme',
+  ({ line, mode }) => {
+    const s = scope(line, mode)
+
+    it.each([
+      '--footer-text',
+      '--footer-muted',
+      '--footer-eyebrow',
+      '--footer-ok',
+      '--accent-on-dark',
+    ])('%s reaches 4.5:1 on the footer', (text) => {
+      expect(contrastRatio(hex(text, s), hex('--footer-bg', s))).toBeGreaterThanOrEqual(4.5)
+    })
+
+    it.each(['prokom', 'biznes', 'instalacje', 'software', 'tech', 'zakopane'])(
+      'line colour %s reaches 3:1 on the footer (rules and marks)',
+      (key) => {
+        expect(
+          contrastRatio(hex(`--c-${key}-on-dark`, s), hex('--footer-bg', s)),
+        ).toBeGreaterThanOrEqual(3)
+      },
+    )
+
+    // Ticks and the „0 zł” badge sit on `bg-footer-ok/16` — the green mixed 16% into the footer.
+    it('green badge text reaches 4.5:1 on its own tinted background', () => {
+      const badge = mix(hex('--footer-ok', s), hex('--footer-bg', s), 0.16)
+      expect(contrastRatio(hex('--footer-ok', s), badge)).toBeGreaterThanOrEqual(4.5)
+    })
+
+    // The current line's card („Software”) is tinted `bg-accent-on-dark/16`; its texts stay AA.
+    it.each(['--footer-text', '--footer-muted'])(
+      '%s reaches 4.5:1 on the current line card',
+      (text) => {
+        const card = mix(hex('--accent-on-dark', s), hex('--footer-bg', s), 0.16)
+        expect(contrastRatio(hex(text, s), card)).toBeGreaterThanOrEqual(4.5)
+      },
+    )
+
+    it('white on the CTA button gradient reaches 4.5:1 at both ends', () => {
+      for (const end of ['--c-software-light-accent-text', '--c-software-light-accent']) {
+        expect(
+          contrastRatio(hex('--c-white', s), hex(end, s)),
+          `white on ${end}`,
+        ).toBeGreaterThanOrEqual(4.5)
+      }
+    })
+  },
+)
 
 describe('dark theme definitions', () => {
   it.each([...LINE_VALUES])('%s: dark rules exist only for lines with a dark design', (line) => {

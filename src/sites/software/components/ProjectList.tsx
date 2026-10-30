@@ -12,19 +12,20 @@ type Props = {
   /** Heading of the surrounding panel or sheet (`tabIndex={-1}`): focus lands there when the
       control it was on disappears. */
   headingRef: RefObject<HTMLHeadingElement | null>
-  /** „Wyślij do bezpłatnej wyceny” leaves the page: the panel or sheet closes. */
+  /** „Wyślij do wyceny” leaves the page: the panel or sheet closes. */
   onSend: () => void
 }
 
-/** The inquiry form takes the list from the browser (`?projekt=1`, spec. §3.1). */
-const SEND_HREF = '/kontakt?projekt=1'
+/** The inquiry form takes the list from the browser (`?projekt=1`) — straight to the form
+    (spec. §3.1, v21). */
+const SEND_HREF = '/kontakt?projekt=1#formularz'
 
 /** Focus to restore after the list changed under it: a removed row or a cleared list. */
 type PendingFocus = { row: number } | 'heading'
 
 /**
  * Contents of „Twój projekt” — the desktop panel and the phone sheet (spec. §3.1–3.2,
- * `stany/02`, `81`): the solutions with „Usuń”, „Wyślij do bezpłatnej wyceny” and „Wyczyść
+ * `stany/02`, `81`): the solutions with „Usuń”, „Wyślij do wyceny” and „Wyczyść
  * listę”, or the empty text. Focus never falls to the page: after „Usuń” it moves to the next
  * row's „Usuń” (or the heading), after „Wyczyść listę” to the heading.
  */

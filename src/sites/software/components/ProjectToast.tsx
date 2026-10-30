@@ -9,7 +9,7 @@ import { onProjectAdded, openProjectDrawer } from '@/lib/software/projectStore'
 const SHOW_MS = 2500
 
 /**
- * „Dodano do Twojego projektu” after „+ Do projektu” on a card (spec. §3.1), with „Zobacz
+ * „Dodano do Twojego projektu” after „+ Dodaj do wyceny” on a card (spec. §3.1), with „Zobacz
  * projekt →” opening the list (`canOpen`: the header has the list, `headerRight.projectDrawer`).
  * A status region: announced without moving focus. On the phone above the bottom bar and the
  * project pill.

@@ -1,5 +1,6 @@
 'use client'
 
+import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 
 import { BottomSheet } from '@/components/BottomSheet'
@@ -32,13 +33,15 @@ function pillParts(pill: string) {
  * „Twój projekt” on the phone (spec. §3.2, `stany/81a`, `81`): an inverted pill above the
  * bottom bar, only while the list has items, opening the sheet with the same list as the
  * desktop panel (`ProjectList`). The toast's „Zobacz projekt” opens the sheet below 1081 px.
- * Emptied, the sheet stays with the empty text; closing it then focuses „Wycena”.
+ * Emptied, the sheet stays with the empty text; closing it then focuses „Wycena”. Not on
+ * `/kontakt`: the list is in the form there (v21).
  */
 export function ProjectPill({ pill, texts }: Props) {
   const project = useProject()
   const [open, setOpen] = useState(false)
   const headingRef = useRef<HTMLHeadingElement>(null)
   const hasItems = project.length > 0
+  const onContact = usePathname() === '/kontakt'
 
   useEffect(
     () =>
@@ -59,7 +62,7 @@ export function ProjectPill({ pill, texts }: Props) {
   const { before, middle, accent } = pillParts(pill)
   return (
     <>
-      {hasItems && (
+      {hasItems && !onContact && (
         <div className="pointer-events-none fixed inset-x-0 bottom-[calc(88px+env(safe-area-inset-bottom))] z-40 flex justify-center px-4 min-[1081px]:hidden">
           <button
             type="button"
@@ -92,6 +95,8 @@ export function ProjectPill({ pill, texts }: Props) {
         title={texts.title}
         headingRef={headingRef}
         desktopQuery={DESKTOP_QUERY}
+        dragToClose
+        closeOnBack
       >
         <ProjectList texts={texts} headingRef={headingRef} onSend={() => setOpen(false)} />
       </BottomSheet>

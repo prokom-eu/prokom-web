@@ -36,7 +36,7 @@ export const SOFTWARE_THANKS: SoftwareThanks = {
       },
       {
         title: 'Wróć na stronę główną',
-        text: 'Dorzuć do zgłoszenia kolejne rozwiązania przyciskiem „+ Do projektu”, wycenimy całość naraz.',
+        text: 'Dorzuć do zgłoszenia kolejne rozwiązania przyciskiem „+ Dodaj do wyceny”, wycenimy całość naraz.',
         cta: 'Strona główna →',
         href: '/',
       },

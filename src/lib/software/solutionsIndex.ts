@@ -23,7 +23,7 @@ export type IndexSolution = {
   situations: NonNullable<Solution['situations']>
   industryGroups: NonNullable<Solution['industryGroups']>
   hasLivePreview: boolean
-  /** Text of the toast after „+ Do projektu”. */
+  /** Text of the toast after „+ Dodaj do wyceny”. */
   toast?: string
   cardGradient?: NonNullable<Solution['cardGradient']>
   priceNote?: string

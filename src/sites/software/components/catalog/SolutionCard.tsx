@@ -36,7 +36,7 @@ const solutionHref = (slug: string) => `/rozwiazania/${slug}`
  * (SW5). Collapsed: scene, category, „podgląd”, name, lead, the „od” price and the start term.
  * Its name is a disclosure button stretched over the card; the expanded part adds what you get,
  * the versions with price and term, the scope line, for whom and situations, and the actions:
- * „Zobacz podgląd” (or „Zapytaj”) and „+ Do projektu” / „✓ W projekcie”.
+ * „Zobacz podgląd” (or „Zapytaj”) and „+ Dodaj do wyceny” / „✓ W wycenie”.
  */
 export function SolutionCard({
   solution,
@@ -56,6 +56,8 @@ export function SolutionCard({
 
   return (
     <article
+      // `data-card`: takes the press state of its stretched name button (globals.css).
+      data-card
       className={cx(
         'relative grid grid-cols-[104px_1fr] gap-x-3.5 rounded-[22px] border bg-card p-3.5 transition-shadow sm:flex sm:flex-col',
         open ? 'border-accent-text shadow-raised' : 'border-border hover:shadow-raised',
@@ -88,6 +90,8 @@ export function SolutionCard({
             aria-controls={panelId}
             onClick={onToggle}
             // The whole card opens it; the actions of the expanded part sit above (z-10).
+            // `data-stretched`: no press transform on it (globals.css), the card takes it.
+            data-stretched
             className="text-left after:absolute after:inset-0 after:rounded-[22px] after:content-['']"
           >
             {solution.name}
@@ -175,7 +179,11 @@ export function SolutionCard({
               added ? 'bg-accent-soft text-accent-text' : 'bg-button text-accent-ink',
             )}
           >
-            {added ? '✓ W projekcie' : '+ Do projektu'}
+            <span aria-hidden="true">{added ? '✓ W wycenie' : '+ Dodaj do wyceny'}</span>
+            {/* Which solution, for a screen reader (spec. §3.1: „Dodaj do wyceny: <nazwa>”). */}
+            <span className="sr-only">
+              {added ? 'W wycenie' : 'Dodaj do wyceny'}: {solution.name}
+            </span>
           </button>
         </div>
         {full && !added && (

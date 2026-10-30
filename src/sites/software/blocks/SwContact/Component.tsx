@@ -70,7 +70,12 @@ export async function SwContactBlock({ block, tenantId }: Props) {
       : null
 
   return (
-    <section id="kontakt" className="scroll-mt-24 py-12 min-[640px]:pt-20 min-[640px]:pb-[110px]">
+    // `data-final-cta`: the page ends with this CTA — the footer drops its CTA band (SWR2).
+    <section
+      id="kontakt"
+      data-final-cta
+      className="scroll-mt-24 py-12 min-[640px]:pt-20 min-[640px]:pb-[110px]"
+    >
       <Container wide className="flex flex-col gap-6 min-[640px]:gap-7">
         <div className="mx-auto flex max-w-[820px] flex-col items-center gap-2.5 text-center">
           <p className="text-xs font-extrabold uppercase tracking-[0.14em] text-accent-text min-[640px]:text-sm">

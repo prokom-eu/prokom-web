@@ -85,6 +85,7 @@ Wizualizacja v21 + v22 (ciemna stopka, okno szczegółów oferty z miniaturami, 
    | `--footer-muted` | `--c-software-night-ink-2` (`#B5BBB5`) | to samo | 9,34 / 9,95 |
    | `--footer-line` | `--c-software-night-border` (dekoracyjna kreska i obrys kart) | to samo | — |
    | `--footer-eyebrow` | `--c-software-night-accent-text` (`#B39BF5`) | to samo | 7,76 / 8,26 |
+   | `--footer-ok` (SWR2: ptaszki gwarancji, plakietka „0 zł” na własnym tle `/16`) | `--c-software-night-ok-text` (`#7BD36A`) | to samo | ≥ 4,5 — test `themes.test.ts` (także na tle plakietki) |
 
    - **Kolory linii w „Jedna firma, sześć adresów”**: wyłącznie `--c-<linia>-on-dark` z księgi (`prokom`, `biznes`, `instalacje`, `software`, `tech`, `zakopane`) — kreska i znak; nazwa i opis karty w `--footer-text` / `--footer-muted` (Biznes 4,52 / 4,82 i Tech 4,54 / 4,84 — na granicy AA, więc kolor linii nie niesie tekstu).
    - **Główny przycisk pasa CTA:** gradient `--c-software-light-accent-text → --c-software-light-accent` w obu motywach, biały napis (7,73 / 6,06) — jak blok „Czasem powiemy” (v20 pkt 5). Drugorzędny: obrys `--footer-line`, napis `--footer-text`.

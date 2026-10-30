@@ -66,7 +66,8 @@ export default async function ThanksPage({ params, searchParams }: Props) {
   const urgent = fill(thanks.urgent)
 
   return (
-    <Section>
+    // `data-final-cta`: no CTA band after a sent inquiry (spec. §3.4, SWR2).
+    <Section data-final-cta>
       <div className="max-w-2xl">
         <Heading level={1} size="xl">
           {title}

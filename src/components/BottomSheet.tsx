@@ -46,6 +46,12 @@ type Props = {
   footer?: ReactNode
   /** Pulling the top of the sheet (handle and header) down closes it. */
   dragToClose?: boolean
+  /**
+   * The browser's „back” closes the open sheet instead of leaving the page (Software
+   * MOBILE-APLIKACJA §4 pkt 6): opening adds a history entry for the same address, closing
+   * another way takes it back off.
+   */
+  closeOnBack?: boolean
   children: ReactNode
 }
 
@@ -67,9 +73,15 @@ export function BottomSheet({
   backdropClassName,
   footer,
   dragToClose = false,
+  closeOnBack = false,
   children,
 }: Props) {
   const dialog = useRef<HTMLDialogElement>(null)
+  /** The sheet's own history entry is on top (`closeOnBack`). Unmounting an open sheet leaves
+      it there on purpose: an unmount usually comes with a navigation, which `back()` would undo. */
+  const historyEntry = useRef(false)
+  /** A `history.back()` of ours is on its way: its `popstate` is not the visitor's „back”. */
+  const ownBack = useRef(false)
   const drag = useRef<{ y: number; time: number; dy: number; active: boolean } | null>(null)
   const pathname = usePathname()
   // React 19.2: the latest `onClose` without re-running the effects below.
@@ -89,8 +101,42 @@ export function BottomSheet({
     if (!open) resetSheet(element)
   }, [open])
 
-  // A followed link (route change) must not leave the sheet over the next page.
   useEffect(() => {
+    if (!closeOnBack) return
+    if (open && !historyEntry.current) {
+      // Same address, `null` state as in the Next.js guide (native History API): the router
+      // keeps its own state on the entry.
+      window.history.pushState(null, '', window.location.href)
+      historyEntry.current = true
+    } else if (!open && historyEntry.current) {
+      // Closed by ×, Esc, the backdrop or a pull: take the entry back off.
+      historyEntry.current = false
+      ownBack.current = true
+      window.history.back()
+    }
+  }, [open, closeOnBack])
+
+  useEffect(() => {
+    if (!closeOnBack) return
+    const onPopState = () => {
+      // Our own `back()` arrives late: a sheet reopened in the meantime must stay open.
+      if (ownBack.current) {
+        ownBack.current = false
+        return
+      }
+      if (!historyEntry.current) return
+      historyEntry.current = false
+      close()
+    }
+    window.addEventListener('popstate', onPopState)
+    return () => window.removeEventListener('popstate', onPopState)
+  }, [closeOnBack])
+
+  // A followed link (route change) must not leave the sheet over the next page. Its history
+  // entry stays behind the new page (going back there shows the page without the sheet) —
+  // taking it off now would undo the navigation.
+  useEffect(() => {
+    historyEntry.current = false
     close()
   }, [pathname])
 
@@ -169,7 +215,12 @@ export function BottomSheet({
         // „open in a new tab” (modifier or middle button), which leaves this page as it is.
         const opensHere =
           event.button === 0 && !event.ctrlKey && !event.metaKey && !event.shiftKey && !event.altKey
-        if (opensHere && (event.target as Element).closest('a')) onClose()
+        if (opensHere && (event.target as Element).closest('a')) {
+          // The link navigates right after: `history.back()` now would undo it (see the
+          // route change effect), so the sheet's entry stays.
+          historyEntry.current = false
+          onClose()
+        }
       }}
       className={`fixed m-0 overflow-y-auto overscroll-contain bg-surface p-0 text-ink shadow-raised ${backdropClassName ?? DEFAULT_BACKDROP} ${panelClassName ?? DEFAULT_PANEL}`}
     >

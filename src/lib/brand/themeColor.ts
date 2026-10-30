@@ -14,11 +14,13 @@ type ThemeColors = { light: string; dark: string }
  */
 export const LINE_THEME_COLORS: Partial<Record<Line, ThemeColors>> = {
   instalacje: { light: '#f4f5f1', dark: '#101412' },
+  software: { light: '#f4f5f1', dark: '#121613' },
 }
 
 /** Name under the icon on a phone's home screen: short, or Android cuts it (~12 characters). */
 const SHORT_NAMES: Partial<Record<Line, string>> = {
   instalacje: 'Instalacje',
+  software: 'Software',
 }
 
 /** Viewport of a line's pages: content under the notch (safe areas) and the bar colour. */

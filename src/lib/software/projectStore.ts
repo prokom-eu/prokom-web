@@ -14,7 +14,7 @@ export const openProjectDrawer = store.open
 
 export const projectActions = {
   /**
-   * „+ Do projektu” / „✓ W projekcie”. Returns `false` when nothing changed — the list is full
+   * „+ Dodaj do wyceny” / „✓ W wycenie”. Returns `false` when nothing changed — the list is full
    * (30): the card's button (SW9) must say so, since there is no toast then.
    */
   toggle(id: string, name: string): boolean {

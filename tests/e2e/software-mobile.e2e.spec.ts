@@ -81,9 +81,13 @@ test.describe('Software phone header and bottom bar', () => {
     await page.reload()
     await expect(pill(page)).toBeVisible()
     await page.evaluate(() => window.scrollTo(0, document.scrollingElement!.scrollHeight))
+    // The dark footer runs under the bar (v21); its last content — the bottom bar's links and
+    // notes — must end above the pill and the bar.
     const footerBottom = await page
       .locator('footer')
-      .evaluate((footer) => footer.getBoundingClientRect().bottom)
+      .getByRole('navigation', { name: 'Informacje prawne' })
+      .locator('..')
+      .evaluate((row) => row.getBoundingClientRect().bottom)
     const pillTop = (await pill(page).boundingBox())!.y
     const barTop = await bar(page).evaluate((nav) => nav.getBoundingClientRect().top)
     expect(footerBottom).toBeLessThanOrEqual(Math.min(pillTop, barTop))
@@ -196,9 +200,10 @@ test.describe('Software project pill and sheet', () => {
       /^Strona firmowa z panelem/,
       /^System zleceń i grafik ekip/,
     ])
-    await expect(
-      sheet.getByRole('link', { name: 'Wyślij do bezpłatnej wyceny →' }),
-    ).toHaveAttribute('href', '/kontakt?projekt=1')
+    await expect(sheet.getByRole('link', { name: 'Wyślij do wyceny →' })).toHaveAttribute(
+      'href',
+      '/kontakt?projekt=1#formularz',
+    )
 
     await sheet.getByRole('button', { name: 'Usuń: Strona firmowa z panelem' }).focus()
     await page.keyboard.press('Enter')
@@ -217,6 +222,17 @@ test.describe('Software project pill and sheet', () => {
   })
 })
 
+// Until SW11a `/kontakt` is the sample page of `pnpm seed`; the frame is the same either way.
+test('no pill on /kontakt — the list is in the form there (v21)', async ({ page }) => {
+  await page.goto(site(HOST, SUBPAGE))
+  await setProject(page, TWO)
+  await page.reload()
+  await expect(pill(page)).toBeVisible()
+  await page.goto(site(HOST, '/kontakt'))
+  await expect(bar(page)).toBeVisible()
+  await expect(pill(page)).toHaveCount(0)
+})
+
 test('closed with × when emptied, focus goes to „Wycena”', async ({ page }) => {
   await page.goto(site(HOST, SUBPAGE))
   await setProject(page, TWO.slice(0, 1))
@@ -229,8 +245,97 @@ test('closed with × when emptied, focus goes to „Wycena”', async ({ page })
   await expect(page.locator('header').getByRole('link', { name: 'Wycena' })).toBeFocused()
 })
 
+// MOBILE-APLIKACJA §4–§5 (SWR2): the frame under a finger — touch emulation, taps, the sheets'
+// pull down and „back”, the browser bar colour and the install manifest.
+test.describe('Software frame on a touch screen', () => {
+  test.use({ hasTouch: true, isMobile: true })
+
+  test('a pull down on the top of the menu sheet closes it', async ({ page }) => {
+    await page.goto(site(HOST, SUBPAGE))
+    await bar(page).getByRole('button', { name: 'Menu' }).tap()
+    const sheet = menuSheet(page)
+    await expect(sheet).toBeVisible()
+    const heading = (await sheet.getByRole('heading', { name: 'Menu' }).boundingBox())!
+    const x = heading.x + heading.width / 2
+    const y = heading.y + heading.height / 2
+    await page.mouse.move(x, y)
+    await page.mouse.down()
+    await page.mouse.move(x, y + 240, { steps: 12 })
+    await page.mouse.up()
+    await expect(sheet).toBeHidden()
+  })
+
+  test('„back” closes the open sheet and keeps the page', async ({ page }) => {
+    await page.goto(site(HOST, SUBPAGE))
+    await setProject(page, TWO)
+    await page.reload()
+    await pill(page).tap()
+    await expect(projectSheet(page)).toBeVisible()
+    await page.goBack()
+    await expect(projectSheet(page)).toBeHidden()
+    await expect(page).toHaveURL(new RegExp(`${SUBPAGE}$`))
+  })
+
+  test('a sheet closed with × leaves no extra history entry', async ({ page }) => {
+    await page.goto(site(HOST, '/rozwiazania'))
+    await page.goto(site(HOST, SUBPAGE))
+    await bar(page).getByRole('button', { name: 'Menu' }).tap()
+    await menuSheet(page).getByRole('button', { name: 'Zamknij' }).tap()
+    await expect(menuSheet(page)).toBeHidden()
+    await page.goBack()
+    await expect(page).toHaveURL(/\/rozwiazania$/)
+  })
+
+  test('taps answer at once: no tap highlight, no double-tap delay', async ({ page }) => {
+    await page.goto(site(HOST, SUBPAGE))
+    const kreator = bar(page).getByRole('link', { name: 'Kreator' })
+    expect(await kreator.evaluate((el) => getComputedStyle(el).touchAction)).toBe('manipulation')
+  })
+
+  test('the browser bar follows the theme, also one chosen in the menu', async ({ page }) => {
+    await page.emulateMedia({ colorScheme: 'light' })
+    await page.goto(site(HOST, SUBPAGE))
+    const metas = page.locator('meta[name="theme-color"]')
+    await expect(metas).toHaveCount(2)
+    await expect(page.locator('meta[name="theme-color"][media*="light"]')).toHaveAttribute(
+      'content',
+      '#f4f5f1',
+    )
+    await bar(page).getByRole('button', { name: 'Menu' }).tap()
+    await menuSheet(page)
+      .getByRole('group', { name: 'Wygląd strony' })
+      .getByRole('button', { name: 'Ciemny' })
+      .tap()
+    await expect(page.locator('meta[name="theme-color"][media*="light"]')).toHaveAttribute(
+      'content',
+      '#121613',
+    )
+  })
+
+  test('the site can be installed: manifest with the Software icons', async ({ page }) => {
+    // From the page: Node does not resolve *.localhost on every system (playwright.config.ts).
+    await page.goto(site(HOST, SUBPAGE))
+    await expect(page.locator('link[rel="manifest"]')).toHaveAttribute(
+      'href',
+      '/manifest.webmanifest',
+    )
+    const manifest = await page.evaluate(async () => {
+      const response = await fetch('/manifest.webmanifest')
+      return { status: response.status, body: (await response.json()) as unknown }
+    })
+    expect(manifest.status).toBe(200)
+    expect(manifest.body).toMatchObject({
+      short_name: 'Software',
+      display: 'standalone',
+      icons: expect.arrayContaining([
+        expect.objectContaining({ src: '/brand/prokom-software_icon-192.png' }),
+      ]),
+    })
+  })
+})
+
 test.describe('Software phone layout', () => {
-  for (const width of [390, 360]) {
+  for (const width of [414, 390, 360]) {
     test(`no horizontal scroll, touch targets ≥ 44 px, text ≥ 12 px at ${width} px`, async ({
       page,
     }) => {

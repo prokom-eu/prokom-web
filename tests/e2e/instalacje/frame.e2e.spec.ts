@@ -63,9 +63,10 @@ test.describe('Instalacje frame', () => {
   })
 
   test('other lines get no manifest nor theme colour', async ({ page }) => {
-    const manifest = await page.goto(site('software.localhost', '/manifest.webmanifest'))
+    // Biznes: Software has its own since SWR2 (MOBILE-APLIKACJA §4 pkt 8).
+    const manifest = await page.goto(site('biznes.localhost', '/manifest.webmanifest'))
     expect(manifest?.status()).toBe(404)
-    await page.goto(site('software.localhost'))
+    await page.goto(site('biznes.localhost'))
     await expect(page.locator('meta[name="theme-color"]')).toHaveCount(0)
     await expect(page.locator('link[rel="manifest"]')).toHaveCount(0)
   })

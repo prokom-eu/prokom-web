@@ -65,12 +65,8 @@ export async function SoftwareFrame({
         email={settings.email}
         company={company}
       />
-      {/* Room under the footer for the bottom bar and the project pill above it (spec. §8.6):
-          the last footer links must not end up under either. */}
-      <div
-        aria-hidden="true"
-        className="h-[calc(148px+env(safe-area-inset-bottom))] min-[1081px]:hidden"
-      />
+      {/* The footer's bottom bar keeps room for the bottom bar and the project pill above it
+          (spec. §8.6), so the dark footer runs to the bottom of the screen. */}
       {/* Outside the header: its backdrop blur would pin `fixed` children to the header. */}
       <ProjectToast canOpen={navigation.headerRight.projectDrawer} />
       <PhoneLayer
