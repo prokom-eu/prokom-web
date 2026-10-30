@@ -54,12 +54,15 @@ test.describe('Biznes header', () => {
       'href',
       '/oferta/kasy-fiskalne',
     )
-    // Katalog v2: 10 sales categories, the column limit from the panel (seed: 6) — the rest,
-    // e.g. „Automaty vendingowe”, is behind „Wszystkie w grupie” (lib/catalog/menu.ts).
-    await expect(panel.getByText('Automaty vendingowe')).toHaveCount(0)
+    // K4: 10 sales categories and the column limit from the panel (seed: 10, K4a-1b-2) — the
+    // whole department fits, so no „Wszystkie w grupie” (overflow: lib/catalog/menu.test.ts).
+    await expect(panel.getByRole('link', { name: /^Automaty vendingowe/ })).toHaveAttribute(
+      'href',
+      '/oferta/automaty-vendingowe',
+    )
     await expect(
       panel.getByRole('link', { name: 'Wszystkie w grupie: Kasy i sprzedaż' }),
-    ).toHaveAttribute('href', '/oferta?grupa=sprzedaz')
+    ).toHaveCount(0)
     await expect(panel.getByRole('link', { name: /^Cały katalog · \d+ pozycj/ })).toBeVisible()
   })
 
