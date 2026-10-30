@@ -29,17 +29,26 @@ function resetSheet(element: HTMLDialogElement) {
 
 type Props = {
   open: boolean
-  onClose: () => void
+  /** `'link'`: a followed link closes it — the page is about to change, history must stay. */
+  onClose: (reason?: 'link') => void
   /** Accessible name of the dialog; also the visible heading unless `header` replaces it. */
   title: string
-  /** Media query of the line's desktop layout: an open sheet closes when it starts to match. */
-  desktopQuery: string
+  /**
+   * Media query of the line's desktop layout: an open sheet closes when it starts to match.
+   * Absent: it stays open at any width — a dialog that is a sheet only on the phone and a modal
+   * on the desktop through `panelClassName` (the Software offer window).
+   */
+  desktopQuery?: string
   /** `tabIndex={-1}` heading, for contents that move focus to it (`ProjectList`). */
   headingRef?: RefObject<HTMLHeadingElement | null>
   /** Replaces the heading row (title and ×), e.g. tabs; it must bring its own close button. */
   header?: ReactNode
   /** Replaces the default size and position classes of the panel (`DEFAULT_PANEL`). */
   panelClassName?: string
+  /** The top (handle and `header`) stays in view while the content scrolls (the offer window). */
+  stickyHeader?: boolean
+  /** Replaces the padding of the content (default: 16 px sides, safe area at the bottom). */
+  contentClassName?: string
   /** Replaces the default backdrop classes (`DEFAULT_BACKDROP`); use `backdrop:` utilities. */
   backdropClassName?: string
   /** Stays at the bottom of the panel while the content scrolls (e.g. the main action). */
@@ -71,6 +80,8 @@ export function BottomSheet({
   header,
   panelClassName,
   backdropClassName,
+  contentClassName,
+  stickyHeader = false,
   footer,
   dragToClose = false,
   closeOnBack = false,
@@ -135,12 +146,17 @@ export function BottomSheet({
   // A followed link (route change) must not leave the sheet over the next page. Its history
   // entry stays behind the new page (going back there shows the page without the sheet) —
   // taking it off now would undo the navigation.
+  // Only a real change: a sheet mounted open (the offer window from `?rozwiazanie=`) must stay.
+  const shownPath = useRef(pathname)
   useEffect(() => {
+    if (shownPath.current === pathname) return
+    shownPath.current = pathname
     historyEntry.current = false
     close()
   }, [pathname])
 
   useEffect(() => {
+    if (!desktopQuery) return
     const desktop = window.matchMedia(desktopQuery)
     const onChange = () => {
       if (desktop.matches) close()
@@ -200,7 +216,7 @@ export function BottomSheet({
       ref={dialog}
       aria-label={title}
       // Esc, `close()` from the effect or a form: keep the parent's state in step.
-      onClose={onClose}
+      onClose={() => onClose()}
       onClick={(event) => {
         // The backdrop: a click on the dialog element outside its box (not its scrollbar, not a
         // text selection ending outside — those target the dialog too; the B3b `FilterSheet`).
@@ -219,7 +235,7 @@ export function BottomSheet({
           // The link navigates right after: `history.back()` now would undo it (see the
           // route change effect), so the sheet's entry stays.
           historyEntry.current = false
-          onClose()
+          onClose('link')
         }
       }}
       className={`fixed m-0 overflow-y-auto overscroll-contain bg-surface p-0 text-ink shadow-raised ${backdropClassName ?? DEFAULT_BACKDROP} ${panelClassName ?? DEFAULT_PANEL}`}
@@ -227,11 +243,33 @@ export function BottomSheet({
       {/* With a footer the safe area moves to the footer, the last thing on the screen. */}
       <div
         className={
-          footer ? 'px-4 pb-4 pt-2.5' : 'px-4 pb-[calc(1.5rem+env(safe-area-inset-bottom))] pt-2.5'
+          contentClassName ??
+          (footer
+            ? 'px-4 pb-4 pt-2.5'
+            : 'px-4 pb-[calc(1.5rem+env(safe-area-inset-bottom))] pt-2.5')
         }
       >
-        <div {...dragHandlers} className={dragToClose ? 'touch-none' : undefined}>
-          <span aria-hidden="true" className="mx-auto block h-1.5 w-11 rounded-full bg-border" />
+        {/* `stickyHeader` (the offer window: arrows, ×): the top stays in view while the
+            content scrolls; the side shadows cover the content's padding (up to 32 px). */}
+        <div
+          {...dragHandlers}
+          className={
+            [
+              dragToClose ? 'touch-none' : '',
+              stickyHeader
+                ? 'sticky top-0 z-10 bg-surface shadow-[-32px_0_0_var(--surface),32px_0_0_var(--surface)]'
+                : '',
+            ]
+              .filter(Boolean)
+              .join(' ') || undefined
+          }
+        >
+          {/* `data-sheet-handle`: a line may hide it where the sheet is a modal (`panelClassName`). */}
+          <span
+            aria-hidden="true"
+            data-sheet-handle
+            className="mx-auto block h-1.5 w-11 rounded-full bg-border"
+          />
           {header ?? (
             <div className="mt-3 flex items-center justify-between gap-3">
               <h2
@@ -243,7 +281,7 @@ export function BottomSheet({
               </h2>
               <button
                 type="button"
-                onClick={onClose}
+                onClick={() => onClose()}
                 className="inline-flex size-11 shrink-0 items-center justify-center rounded-xl bg-chip text-ink"
               >
                 <Icon name="x" strokeWidth={2.4} className="size-5" />

@@ -21,7 +21,8 @@ const PANEL_ONLY_PREFIXES = ['/admin', '/api']
 // Folders of `public/` served as they are. An explicit list on purpose: guessing "a file"
 // from a dot in the path once let `/<other domain>` skip the rewrite and render that tenant.
 // Add a folder here when one is added to `public/`.
-const PUBLIC_PREFIXES = ['/brand']
+// `/software/rozwiazania`: thumbnails of the Software solutions (SWR3, spec. §5.2).
+const PUBLIC_PREFIXES = ['/brand', '/software/rozwiazania']
 // The one part of the Payload API a site domain needs: files of the upload collections, which
 // Payload serves only after its `read` access (tenant of the `Host`, see `lib/media/access`).
 const UPLOAD_FILE = /^\/api\/(media|partners)\/file\/[^/]+$/
