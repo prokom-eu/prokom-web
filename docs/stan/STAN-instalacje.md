@@ -1,17 +1,16 @@
 # STAN — prokominstalacje.pl (linia Instalacje)
 
-Ostatnia aktualizacja: 30.10.2026 (sesja I4 — sekcje wspólne + strona Anteny, gałąź `inst/i4-anteny` na develop f00ff04)
+Ostatnia aktualizacja: 30.10.2026 (sesja I5 — hero strony głównej „Twój obiekt na żywo”, gałąź `inst/i5-hero-glowna` na develop 55ae7c9)
 Worktree: `D:\PRO-KOM\repos\prokom-instal` · gałęzie `inst/*` · `PORT=3002`, baza `prokom_web_instalacje` we wspólnym kontenerze PostgreSQL prokom-web (54320), Mailpit wspólny (8025)
 
 ## W toku
-- Gałąź: `inst/i4-anteny` (PR „feat(instalacje): I4 — sekcje wspólne usług i strona Anteny” → develop). Strefa wspólna I4 już na develop: blok `instService` + migracja (#147), tokeny + test kontrastu (#150).
-- Niedokończone I4:
-  - Lighthouse mobile ≥ 90 dla `/anteny` — na stagingu (lokalnie nie mierzone).
-  - Test na prawdziwym telefonie (Android + iPhone) `/anteny`: zwijanie sekcji, karuzele zestawów i „Powiązanych”, symulator dotykiem (MOBILE §10).
-  - `TODO(krystian)` w `src/sites/instalacje/dane/anteny.ts` (karta „Dwie opłaty”): zdanie wzorca o poradzie prawnej vs spec §2 „To nie jest porada prawna.” — decyzja.
-  - `TODO(krystian)` w `src/lib/instalacje/seo.ts`: `areaServed` i `provider` (LocalBusiness) do panelu w I13.
-- Następny krok: po scaleniu PR I4 — `/inst-start` na nowej gałęzi od `origin/develop` z promptem sesji I5 z `docs/zadania/prokominstalacje.md` §3 („Sesja I5 (Instalacje) — hero strony głównej…”). Sekcje wspólne usług (`src/sites/instalacje/sekcje/`) i układ strony usługi (`blocks/InstService`, rejestr `LAYOUTS` + `SERVICE_SECTION_IDS`) są gotowe dla I7–I9.
-- Znane ograniczenia: podgląd szkicu strony usługi pokazuje tylko opublikowaną usługę (szkic usługi → 404 w podglądzie); linki „Zaplanuj” (`/zaplanuj?usluga=…`), „Serwis” i obiektów (`/dla-kogo/…`) prowadzą do stron z I10–I11 (dziś 404); pas CTA ramki zostaje w HTML jako ukryty, gdy strona ma własny.
+- Gałąź: `inst/i5-hero-glowna` (PR „feat(instalacje): I5 — hero strony głównej „Twój obiekt na żywo”” → develop). Strefa wspólna I5 już na develop: tokeny sceny hero + test kontrastu (#153), blok `instHome` + migracja + seed strony głównej (#156).
+- Niedokończone I5:
+  - Lighthouse mobile ≥ 90 dla `/` — na stagingu (lokalnie nie mierzone).
+  - Test na prawdziwym telefonie (Android + iPhone) `/`: scena nad tekstem, przewijane zakładki obiektów, chipy, autoodtwarzanie (MOBILE §10).
+- Niedokończone I4 (bez zmian): Lighthouse i telefon `/anteny`; `TODO(krystian)` w `dane/anteny.ts` (karta „Dwie opłaty”) i w `lib/instalacje/seo.ts` (`areaServed`, `provider` → I13).
+- Następny krok: po scaleniu PR I5 — `/inst-start` na nowej gałęzi od `origin/develop` z promptem sesji I6 z `docs/zadania/prokominstalacje.md` §3 („Sesja I6 (Instalacje). Wzorzec: prototyp/start.html, Main.body.html (#dla-kogo, #uslugi…”). Sekcje I6 dochodzą do bloku `instHome` (`src/sites/instalacje/blocks/InstHome/Component.tsx`, po `LiveObjectHero`).
+- Znane ograniczenia: „Zaplanuj instalację” i „Zaplanuj taki zestaw” prowadzą do `/zaplanuj#…` (strona z I11, dziś 404); seed nie unieważnia cache stron Next (`unstable_cache`, 60 s) — po `pnpm seed:instalacje` na działającym serwerze nowa treść pojawia się po minucie albo po restarcie.
 
 ## Zrobione
 | Data | Sesja | PR | Co |
@@ -30,7 +29,10 @@ Worktree: `D:\PRO-KOM\repos\prokom-instal` · gałęzie `inst/*` · `PORT=3002`,
 | 29.10.2026 | I3 | #143 | powłoka w `src/sites/instalacje/powloka/`: górny pasek z godzinami na żywo, nagłówek z mega menu (most, 280 ms, klik, Esc, focus-trap), motyw (+ `theme-color` za ręcznym wyborem), pas CTA, stopka; telefon: chowany nagłówek, dolny pasek 5 kart, arkusz 3 zakładki na wspólnym `BottomSheet` (×, tło, gest, Esc, wstecz, blokada przewijania), `AnchorsBar`, View Transitions; menu = `dane/nawigacja.ts` + panel (`getInstalacjeMenu`, `buildMenu`, `activeSection`), „Dla architektów” (ADR-I005 §4); ikony `icons.ts`/`InstIcon`; e2e powłoki 22 testy; nagłówek i stopka zgodne ze wzorcem v4.2 (1440/390, oba motywy) |
 | 30.10.2026 | I4 (wsp) | #147 | blok `instService` (strona usługi = `Pages` + blok, ADR-I002 §0) + migracja `inst_service_block`, loader `getInstalacjeService` (tenant + opublikowane), brak usługi → 404 |
 | 30.10.2026 | I4 (wsp) | #150 | tokeny stron usług w `tokens.css` (scena anteny, miernik, widmo, przełączniki, wyniki quizu) + test kontrastu AA w obu motywach |
-| 30.10.2026 | I4 | (ten PR) | sekcje wspólne usług w `src/sites/instalacje/sekcje/` (PageHero ze slotem, Gwarancja, Zestawy z `displayPrice`, Cena, FAQ + FAQPage, Powiązane z `extraLink`, `InstSection` = reveal + Fold ≤ 700 px, `useReveal`, `useInterval` z pauzą); pełna `/anteny`: symulator ustawiania anteny, quiz telewizora, filtr LTE/5G, `dane/anteny.ts`, Service + BreadcrumbList; walidacja kotwic, `InstServices.seo` ukryte; `.wrap` w `content-box` (cała linia 1344 px jak wzorzec); 14 sekcji zgodnych w 1440/390, jasny i ciemny |
+| 30.10.2026 | I4 | #151 | sekcje wspólne usług w `src/sites/instalacje/sekcje/` (PageHero ze slotem, Gwarancja, Zestawy z `displayPrice`, Cena, FAQ + FAQPage, Powiązane z `extraLink`, `InstSection` = reveal + Fold ≤ 700 px, `useReveal`, `useInterval` z pauzą); pełna `/anteny`: symulator ustawiania anteny, quiz telewizora, filtr LTE/5G, `dane/anteny.ts`, Service + BreadcrumbList; walidacja kotwic, `InstServices.seo` ukryte; `.wrap` w `content-box` (cała linia 1344 px jak wzorzec); 14 sekcji zgodnych w 1440/390, jasny i ciemny |
+| 30.10.2026 | I5 (wsp) | #153 | tokeny sceny hero `--hx-*` w `tokens.css` (paleta 3 pór przez `data-hx-time`, kolory interfejsu, podgląd kamery) + test kontrastu AA dla każdej pory |
+| 30.10.2026 | I5 (wsp) | #156 | blok `instHome` (teksty hero w panelu) + migracja `inst_home_block`, seed publikuje stronę główną z blokiem i pełnym tytułem SEO zamiast przykładowej; test izolacji z nowym H1 |
+| 30.10.2026 | I5 | (ten PR) | hero „Twój obiekt na żywo”: `heroModel.ts` = port `page()` z `Main.js` (test porównuje 108 kombinacji z oryginałem), tło SVG z serwera (`HeroBackdrop`), `LiveObjectHero` (6 obiektów × 3 pory × 8 warstw, podgląd kamery, panel „Na żywo”, chipy, autoodtwarzanie z pauzą), `glowna.css` z `pk.css`; `porownaj.mjs` z `INST_STAN`; zgodne w 1440/390, oba motywy, 3 stany |
 
 ## Decyzje obowiązujące (skrót — pełna lista: spec §2)
 - Gwarancja 24 mies. na montaż; „24 h” = odpowiedź na zgłoszenie w dni robocze, nie przyjazd.
@@ -47,6 +49,7 @@ Worktree: `D:\PRO-KOM\repos\prokom-instal` · gałęzie `inst/*` · `PORT=3002`,
 - I3 powłoka (29.10): CSS powłoki przeniesiony z `pk.css` dosłownie z nazwami klas prototypu (zakres `[data-line='instalacje']`, kolory tylko z tokenów) zamiast tłumaczenia na Tailwind — łatwiejsze porównanie 1:1; hover tylko `@media (hover: hover)`. Godziny ze wspólnego `openingStatus` („Otwarte teraz · do 17:00”, „otwieramy jutro o 9:00”) zamiast tekstów prototypu. Logo = znak z księgi (nie tekstowe logo prototypu). Stopka pokazuje telefon linii, nie e-mail (jak wzorzec; e-mail na Kontakcie). Pas CTA i stopka z `data-surface="dark"` (focus na ciemnym). Teksty powłoki (pasek, mega promo, CTA, stopka) w `dane/nawigacja.ts` 1:1 ze `zrodlo/` — seed ich nie ma.
 
 - I4 (30.10): strona usługi = blok `instService` (PR wsp) + układ per usługa w kodzie (`LAYOUTS` w `blocks/InstService/Component.tsx`, id sekcji w `lib/instalacje/anchors.ts`); kotwice walidowane tylko dla usług z gotową stroną. Fold ≤ 700 px jak CSS prototypu (ADR-I003 §2 poprawiony). Prototyp nie ma resetu `box-sizing` → `.wrap`, `.pkg`, `.relc` w `content-box`, SVG w liście zestawu i miniaturach satelity `inline`/`baseline` (ADR-I003 §5 p. 6); sprawdzaj wysokości sekcji liczbowo. Cena: „Wycena po wizji lokalnej” z ustawień (spec), nie „Cena…” z prototypu (zestawy na telefonie o jedną linię wyższe). Telefon nie dostaje klasy `.ph` (w prototypie = placeholder, bursztyn). Przyciski trybu symulatora = `aria-pressed`, nie zakładki; notatka czytana dopiero po dotknięciu. Pas CTA usługi z `InstServices.cta` (`CtaBandView page`), ramkowy chowany CSS `:has`. SEO usług z `Pages.seo`, tytuł 61 znaków.
+- I5 (30.10): paleta sceny hero w `tokens.css` jako `--hx-*` pod `[data-hx-time]` (pora sceny, nie motyw strony — ADR-I003 §6); szkło paneli w dzień i zimę 0,86 zamiast 0,72 (AA drobnych napisów nad jasnym niebem/śniegiem), noc 1:1. Hero = blok `instHome` (cała strona główna, I6 dopisze sekcje). Silnik sceny przeniesiony 1:1 jako czyste funkcje i pilnowany testem z oryginalnym `Main.js` (prototyp czytany w teście z `docs/design/`); zdarzenia `OBJ.*.e` pominięte (prototyp ich nie pokazuje). Tło 54 KB jako stała renderowana na serwerze. Autoodtwarzanie pauzuje poza ekranem, w ukrytej karcie i przy ograniczonym ruchu (prototyp tylko przy ukrytej karcie). Przyciski pór 44 px (prototyp 40). Telefon z `SiteSettings` zamiast `[TELEFON]`. Jak w prototypie (świadomie, z przeglądu): na telefonie pierwszy kadr sceny jest desktopowy i po hydratacji przeskakuje na wąski (bez przesunięcia układu — `aspect-ratio`); przy ograniczonym ruchu idąca postać z ramką „Osoba 97%” znika ze sceny. Panel „Na żywo” ogłasza zmiany czytnikom dopiero po dotyku (autoodtwarzanie nie gada); zakładki obiektów: strzałki, Home, End, `aria-controls` na scenę.
 
 ## Ustalenia I0 (28.10.2026, develop 33f6e9b)
 **Potwierdzone**
@@ -76,6 +79,8 @@ Worktree: `D:\PRO-KOM\repos\prokom-instal` · gałęzie `inst/*` · `PORT=3002`,
 - [SZEF] telefon wymagany w formularzach Instalacji? (dziś reguła „e-mail lub telefon”; Biznes wymaga telefonu) — przed I11.
 - [Krystian] test na prawdziwym telefonie (Android + iPhone): powłoka (I3) i `/anteny` (I4) — MOBILE-APLIKACJA §10.
 - [Krystian/SZEF] karta „Dwie opłaty” na Antenach: zdanie wzorca „…nie zastępujemy porady prawnej” czy spec §2 „To nie jest porada prawna.”?
+- [Krystian/SZEF] tytuł strony głównej z paczki ma 66 znaków („Monitoring, alarmy, Wi-Fi, smart home Podhale | PRO-KOM Instalacje”), SEO §2.2 mówi ≤ 65 — skrócić w panelu (np. „…Podhale | PRO-KOM Instalacje” bez przecinka po „Wi-Fi”)?
+- [Krystian] usunąć scalone lokalne gałęzie `inst/i4-anteny` (#151), `inst/wsp-tokeny-hero` (#153), `inst/wsp-glowna` (#156).
 - [Krystian] usunąć scalone lokalne gałęzie `inst/i3-powloka` (#143) i `inst/wsp-tokeny-uslugi` (#150).
 - [Krystian] usunąć stare lokalne gałęzie `inst/w-pakiet` (#125), `inst/i0-ustalenia` (#126), `inst/wsp-fundament` (#128), `inst/wsp-rejestracja` (#131), `inst/i2-model` (#134) i `inst/i2-dane` (#135) — scalone; pliki `tmp/check-i2.ts`, `tmp/check-i2-model.ts`, `tmp/diff-objects.ts`, `tmp/restore-sample-pages.ts` (skrypty sprawdzające I2, ignorowane przez git) można skasować.
 - [SZEF] strona dla architektów, przed I16c: opiekun (imię, zdjęcie, telefon, e-mail architekci@), dostępność marek (Sonance, Amina, KEF, B&W, ELAC, Molecule, Future Automation, Nuki), partner Sonos, warunki dla pracowni, bezpłatna konsultacja, pokaz w salonie, realizacje z projektem architekta, autoryzacje Ampio i Satel — lista w `prokominstalacje-do-uzupelnienia.md`.
@@ -88,7 +93,8 @@ Worktree: `D:\PRO-KOM\repos\prokom-instal` · gałęzie `inst/*` · `PORT=3002`,
 - Niestabilny test Software `tests/e2e/software-catalog.e2e.spec.ts` „Back after „Wyczyść filtry” brings the search back” (1 na 3 przebiegi czerwony, 28.10; wyszukiwarka z opóźnieniem 300 ms + „wstecz”) — zgłosić linii Software, nie poprawiać z Instalacji.
 - `GenericFrame` (ramka linii bez własnego wyglądu) nie ma po I1 żadnego lokalnego tenanta → brak pokrycia e2e; wróci z hubem pro-kom.eu albo z tenantem testowym w seedzie.
 - Test e2e „trasy `(instalacje)` → 404 na innych liniach, 200 na Instalacjach” — dodać z pierwszą trasą grupy (I10 `/dla-kogo/…` albo I11 `/wyslane`).
-- `--accent-on-dark` Instalacji: jasny `#12B6D8`, ciemny `#4CCBE6` — ujednolicić wg wizualizacji przy pierwszym ciemnym bloku (I5).
+- `--accent-on-dark` Instalacji: jasny `#12B6D8`, ciemny `#4CCBE6` — ujednolicić wg wizualizacji (hero I5 ma własne `--hx-*`, więc nie wymagał; zostaje na I6).
+- Seed a cache stron Next: `revalidateTag` z seeda nie działa poza Next — rozważyć `pnpm seed` wołający endpoint rewalidacji albo krótszy cache lokalnie (strefa wspólna).
 - Strony miejscowości z unikalną treścią (etap 2, SEO §1).
 - Teksty widżetów edytowalne w panelu (ADR-I002 §1, etap 2).
 - Upload plików do zapytań (`InquiryFiles`, wspólny z Software — ADR-014 §3.2): przedmiary, zdjęcia rozdzielnic.
