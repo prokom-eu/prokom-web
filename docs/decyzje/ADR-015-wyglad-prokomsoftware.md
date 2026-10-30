@@ -1,6 +1,6 @@
 # ADR-015: Wygląd prokomsoftware.pl z wizualizacji — kolory, motyw ciemny, gradient
 
-- **Status:** przyjęta (22.10.2026, SW0); uzupełniona o wizualizację v20 (25.10.2026, SWD1) — rozstrzygnięcia na końcu
+- **Status:** przyjęta (22.10.2026, SW0); uzupełniona o wizualizację v20 (25.10.2026, SWD1) i v22 (30.10.2026, SWD2 — pkt [propozycja] do potwierdzenia przez Krystiana) — rozstrzygnięcia na końcu
 - **Data:** 2026-10-18
 - **Decyduje:** Krystian
 - **Rozszerza:** ADR-013 (mechanizm tokenów neutralnych per linia i motywu ciemnego). **Doprecyzowuje dla Software** pkt 3 (kolor interfejsu może być ciemniejszą pochodną koloru linii; znak bez zmian) i pkt 4 (lista miejsc z gradientem — niżej). Po przyjęciu dopisać odsyłacz w ADR-013.
@@ -71,3 +71,27 @@ Wyjątki do pilnowania testem są w README wzorca (sekcja „Kontrast”).
 4. **Pigułka „Twój projekt”** ma odwrócone kolory (tło `--ink`, tekst `--surface`). Akcent „Zobacz →” z planszy (`--accent-2` na odwróconym tle) ma za mały kontrast w obu motywach (ok. 3,9:1 w jasnym, ok. 1,8:1 w ciemnym) — w kodzie `--accent-text` **przeciwnego motywu** z istniejącej palety (`--c-software-night-accent-text` w jasnym, `--c-software-light-accent-text` w ciemnym; ≥ 7:1). Oczekiwana różnica.
 5. **Blok „Czasem powiemy: nie budujcie”** (zasady): plansza ma gradient z wartości spoza tokenów (`#7E3FC4`, `#8B4ACB`). W kodzie gradient z istniejącej palety: `--c-software-light-accent-text → --c-software-light-accent` w obu motywach, biały napis (≥ 6:1). Różnica odcienia minimalna.
 6. **Test kontrastu** (`themes.test.ts`, SW4) dostaje pary z pkt 3–5 (napis/ikona na gradiencie akcentu w obu motywach, akcent pigułki, napis bloku „Czasem powiemy”).
+
+## Rozstrzygnięcia v22 (SWD2, 30.10.2026)
+
+Wizualizacja v21 + v22 (ciemna stopka, okno szczegółów oferty z miniaturami, kreator z biletem wyceny). Zasada bez zmian: **żadnych nowych wartości kolorów** — nowe tokeny semantyczne to wyłącznie odwołania (`var(...)`) do istniejącej palety w `src/styles/tokens.css`. Plansze v22 mają w stopce i bilecie wartości spoza palety (`#0B0E0C`, `#101411`, `#AEB5AF`, `#C7B5FA`, gradient `#7C55E6 → #9A5BD8`) — w kodzie zastępujemy je niżej (oczekiwane różnice, pkt 6). Pkt oznaczone **[propozycja]** potwierdza Krystian (plan §3b); kontrasty policzone 30.10.2026 wzorem WCAG 2.1.
+
+1. **Ciemna stopka — tokeny z istniejącej palety [propozycja]** (SWR2). Nowe tokeny semantyczne z wartościami domyślnymi dla wszystkich linii (pkt 4 decyzji — komponent nie zna linii), stopka ma `data-surface="dark"` (linki i obrys fokusu na `--accent-on-dark`):
+
+   | Token | Jasny motyw | Ciemny motyw | Kontrast |
+   |---|---|---|---|
+   | `--footer-bg` | `--c-grafit` (`#121613`) | `--c-software-night-surface-dark` (`#0E0B18`, ciemniejsza od tła strony `#121613` — plansza: „w ciemnym motywie ciemniejsza”, delikatnie fioletowa) | — |
+   | `--footer-text` | `--c-papier` | `--c-papier` | 16,68 / 17,76 |
+   | `--footer-muted` | `--c-software-night-ink-2` (`#B5BBB5`) | to samo | 9,34 / 9,95 |
+   | `--footer-line` | `--c-software-night-border` (dekoracyjna kreska i obrys kart) | to samo | — |
+   | `--footer-eyebrow` | `--c-software-night-accent-text` (`#B39BF5`) | to samo | 7,76 / 8,26 |
+
+   - **Kolory linii w „Jedna firma, sześć adresów”**: wyłącznie `--c-<linia>-on-dark` z księgi (`prokom`, `biznes`, `instalacje`, `software`, `tech`, `zakopane`) — kreska i znak; nazwa i opis karty w `--footer-text` / `--footer-muted` (Biznes 4,52 / 4,82 i Tech 4,54 / 4,84 — na granicy AA, więc kolor linii nie niesie tekstu).
+   - **Główny przycisk pasa CTA:** gradient `--c-software-light-accent-text → --c-software-light-accent` w obu motywach, biały napis (7,73 / 6,06) — jak blok „Czasem powiemy” (v20 pkt 5). Drugorzędny: obrys `--footer-line`, napis `--footer-text`.
+   - **Poświata:** `--glow` / `--glow-2` (pkt 7 decyzji — dopisujemy stopkę do listy miejsc z poświatą).
+2. **Akcent pigułki „Twój projekt” — z przeciwnego motywu** (potwierdza v20 pkt 4, bez zmian w tokenach): „Zobacz →” w `--c-software-night-accent-text` (jasny motyw) / `--c-software-light-accent-text` (ciemny), ≥ 7:1. v21 dokłada tylko zachowanie: pigułka ukryta na `/kontakt` (spec. §3.2).
+3. **Okno szczegółów oferty** (SWR3): tło okna `--surface` / `--card`, przyciemnienie tła strony — przezroczysta czerń z rozmyciem (jak `<dialog>` w B3b i v20 pkt 2, nie token koloru); nagłówek w kolorze kategorii — 7 wariantów z istniejących `--grad-area-<key>` (strona → `www`, system → `sys`, aplikacja → `app`, automatyzacja → `auto`, opieka → `care`, audyt → `aud`, ratunek/przejęcie → `plug`) — tylko tło, nigdy tekst (pkt 7 decyzji); karta „W cenie” `--accent-soft` + obrys `--accent-line`, ✓ na `--ok` (kropka/ikona), „+ dochodzi” w `--accent-text`; lepki pasek `--header-bg` z rozmyciem; cień przy dolnej krawędzi = `--shadow-raised`.
+4. **Miniatury rozwiązań w ciemnym motywie [propozycja]:** pliki SVG mają własne tło (działają w obu motywach); w ciemnym motywie lekko przyciemnione filtrem jasności (`filter: brightness(…)` przez klasę narzędziową pod `[data-theme='dark']`) — bez nowych kolorów i bez drugiego kompletu plików. Kolory wewnątrz SVG to ilustracja (jak zdjęcie), nie kolory interfejsu — nie przechodzą przez tokeny; SWR1 sprawdza, że strażnik surowych kolorów nie skanuje `public/software/rozwiazania/` (albo dodaje wyjątek z komentarzem).
+5. **Bilet „Twoja wycena” w kreatorze i plakietki wyceny [propozycja]** (SWR4): gradient jak główny przycisk stopki (pkt 1) z białym napisem w obu motywach — gradient `--accent → --accent-2` w ciemnym motywie dałby biały napis na jasnym fiolecie (< 3:1, ten sam problem co v20 pkt 3). Belka ceny na telefonie: `--header-bg` z rozmyciem i pełnym tłem (v21), obrys `--border`.
+6. **Oczekiwane różnice przy porównaniu zrzutów (dopisane do rozstrz. SW0 8):** stopka — tło grafitowe / `#0E0B18` zamiast `#101411` / `#0B0E0C`, opisy `#B5BBB5` zamiast `#AEB5AF`, eyebrow `#B39BF5` zamiast `#C7B5FA`, przycisk pasa CTA w gradiencie z palety zamiast `#7C55E6 → #9A5BD8`; bilet kreatora w gradiencie z palety; gradient H1 nadal bez błękitnej końcówki (plansze v22 też ją mają).
+7. **Test kontrastu** (`themes.test.ts`, SWR2–SWR4) dostaje pary: `--footer-text`, `--footer-muted`, `--footer-eyebrow` na `--footer-bg` (oba motywy), napis na gradiencie przycisku stopki i biletu, `--c-<linia>-on-dark` na `--footer-bg` (≥ 3:1 dla kreski, informacyjnie AA).
