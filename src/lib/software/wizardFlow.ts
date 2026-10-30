@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 import { SOLUTION_SIZES, type SolutionSize } from './options'
-import { formatPrice, priceFromOf } from './price'
+import { formatPrice } from './price'
 import type { PREVIEW_FEATURES, SoftwareWizard, WizardCondition } from './wizard'
 
 /**
@@ -58,8 +58,10 @@ export const EMPTY_ANSWERS: WizardAnswers = {
 /** What the wizard needs of a solution priced by a result (from the solutions index). */
 export type WizardSolution = {
   name: string
-  prices: Partial<Record<SolutionSize, number>>
-  leadTimes: Partial<Record<SolutionSize, string>>
+  /** The one „od” price (ADR-014 v22 pkt 1); `null` → „Zapytaj o wycenę”. */
+  priceFrom: number | null
+  /** „od 2 tygodni” as stored; `null` → `termFallback`. */
+  leadTime: string | null
   priceMonthly: boolean
 }
 
@@ -136,40 +138,23 @@ function whenNoteOf(rules: SoftwareWizard, answers: WizardAnswers, context: Cont
   return sized ?? notes[answers.when] ?? rules.whenNotes.default
 }
 
+/**
+ * Price and term of a result: the one „od” price and term of its solution (v22). Until the v22
+ * wizard (SWR4) the size step stays, but every size shows the same „od” price — there are no
+ * size prices any more.
+ */
 function priceOf(
   rules: SoftwareWizard,
   result: Result,
   solution: WizardSolution | undefined,
-  size: SolutionSize | null,
 ): { price: string; term: string; ask: boolean } {
   const display = rules.priceDisplay
   if (result.free) return { price: rules.free.price, term: rules.free.term, ask: false }
-  const prices = solution?.prices ?? {}
-  const terms = solution?.leadTimes ?? {}
-  const firstTerm = SOLUTION_SIZES.map((each) => terms[each]).find(Boolean)
-  const termOf = (value: string | undefined, from: boolean) =>
-    value === undefined
-      ? display.termFallback
-      : from
-        ? rules.ui.termFrom.replace('{czas}', value)
-        : value
-
-  if (result.month || solution?.priceMonthly) {
-    const lowest = priceFromOf(prices)
-    return lowest === null
-      ? { price: display.fallback, term: display.termFallback, ask: true }
-      : {
-          price: display.monthTemplate.replace('{cena}', formatPrice(lowest)),
-          term: termOf(firstTerm, false),
-          ask: false,
-        }
-  }
-  const amount = size === null ? (prices.start ?? priceFromOf(prices)) : prices[size]
-  const term = size === null ? termOf(firstTerm, true) : termOf(terms[size], false)
-  if (amount === undefined || amount === null) {
-    return { price: display.fallback, term, ask: true }
-  }
-  const template = size === null ? display.templateFrom : display.template
+  const amount = solution?.priceFrom ?? null
+  const term = solution?.leadTime ?? display.termFallback
+  if (amount === null) return { price: display.fallback, term, ask: true }
+  const template =
+    result.month || solution?.priceMonthly ? display.monthTemplate : display.templateFrom
   return { price: template.replace('{cena}', formatPrice(amount)), term, ask: false }
 }
 
@@ -214,7 +199,7 @@ export function resultView(
     result,
     solutionSlug,
     hasSize: sized,
-    ...priceOf(rules, result, solution, sized ? answers.size : null),
+    ...priceOf(rules, result, solution),
     scope: scopeRule ? (rules.scopeNotes[scopeRule.note] ?? null) : null,
     resultNote: chip?.resultNote ?? null,
     whenNote: whenNoteOf(rules, answers, context),

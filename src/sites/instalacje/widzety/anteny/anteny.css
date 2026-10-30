@@ -1,0 +1,677 @@
+/*
+ * Anteny page (I4): the aiming simulator, multiplexes and the TV quiz, the LTE/5G filter,
+ * satellite set-ups and TV in a guesthouse. Rules of `pk.css` v4.2 copied 1:1 with the
+ * prototype's class names (variable map in `instalacje.css`); colours only through tokens.
+ */
+[data-line='instalacje'] {
+  /* Aiming simulator: scene (the SVG gradients sit in the widget's own <defs>). */
+  & .ans {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  & .ansky1 {
+    stop-color: var(--inst-scene-sky-1);
+  }
+  & .ansky2 {
+    stop-color: var(--inst-scene-sky-2);
+  }
+  & .anmt {
+    fill: var(--inst-scene-ridge);
+  }
+  & .ansn {
+    fill: var(--inst-scene-snow);
+  }
+  & .angd {
+    fill: var(--inst-scene-ground);
+  }
+  & .anwall {
+    fill: url(#anWood);
+    stroke: var(--inst-scene-wall-line);
+    stroke-width: 3;
+  }
+  & .anroof {
+    fill: url(#anRoof);
+    filter: url(#anSh);
+  }
+  & .anwin {
+    fill: url(#anLit);
+    opacity: 0.9;
+  }
+  & .antgt {
+    stroke: var(--warn);
+    stroke-width: 1.8;
+    stroke-dasharray: 6 5;
+    opacity: 0.8;
+  }
+  & .anbeam {
+    stroke: var(--inst-scene-beam);
+    stroke-width: 3;
+    stroke-linecap: round;
+    opacity: 0.6;
+  }
+  & .anbeam.ok {
+    stroke: var(--inst-scene-beam-ok);
+    opacity: 1;
+    stroke-dasharray: 8 6;
+    animation: inst-dash 1s linear infinite;
+  }
+  & .anbeam.mid {
+    stroke: var(--inst-scene-beam-mid);
+    opacity: 0.9;
+  }
+  & .anmast {
+    fill: var(--inst-scene-mast);
+  }
+  & .andish {
+    fill: url(#anMetal);
+    stroke: var(--inst-scene-metal-line);
+    stroke-width: 2;
+    filter: url(#anSh);
+  }
+  & .anarm {
+    stroke: var(--inst-scene-metal-line);
+    stroke-width: 3;
+  }
+  & .anlnb {
+    fill: var(--inst-scene-lnb);
+  }
+  & .ansat {
+    fill: url(#anMetal);
+  }
+  & .anpan {
+    fill: url(#anAcc);
+    stroke: var(--inst-scene-panel-line);
+    stroke-width: 1;
+  }
+  & .anlbl {
+    font-family: var(--font-sans);
+    font-weight: 800;
+    font-size: 11px;
+    fill: var(--ink);
+    text-anchor: middle;
+  }
+  & .anyagi {
+    fill: none;
+    stroke: var(--inst-scene-yagi);
+    stroke-width: 3;
+    stroke-linecap: round;
+  }
+  & .antow {
+    fill: none;
+    stroke: var(--inst-scene-mast);
+    stroke-width: 2.5;
+    stroke-linejoin: round;
+  }
+  & .ancmp {
+    fill: var(--inst-scene-compass);
+    stroke: var(--accent-line);
+    stroke-width: 2;
+  }
+  & .ancd {
+    font-family: var(--font-sans);
+    font-weight: 900;
+    font-size: 10px;
+    fill: var(--inst-scene-compass-ink);
+    text-anchor: middle;
+  }
+  & .anneedle {
+    stroke: var(--inst-scene-lnb);
+    stroke-width: 3;
+    stroke-linecap: round;
+  }
+
+  /* Aiming simulator: meter and controls. */
+  & .anpanel {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 12px;
+    padding: 14px 16px;
+  }
+  & .anmeter {
+    padding: 14px;
+    border-radius: 16px;
+    background: var(--inst-dark-card);
+    color: var(--inst-dark-ink);
+    box-shadow: inset 0 0 0 1px var(--inst-dark-line);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  & .anmh {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  & .anlock {
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    padding: 4px 8px;
+    border-radius: 7px;
+    background: var(--inst-meter-idle);
+    color: var(--inst-meter-idle-ink);
+  }
+  & .anmeter.lock .anlock {
+    background: var(--inst-meter-lock);
+    color: var(--inst-meter-lock-ink);
+  }
+  & .anmeter.lock {
+    box-shadow: inset 0 0 0 1.5px var(--inst-meter-lock);
+  }
+  & .anrow {
+    display: grid;
+    grid-template-columns: 56px 1fr 44px;
+    gap: 8px;
+    align-items: center;
+    font-size: 12.5px;
+    color: var(--inst-dark-lead);
+  }
+  & .anrow b {
+    color: var(--inst-dark-ink);
+    text-align: right;
+    font-family: var(--font-display);
+  }
+  & .anrow .evbar {
+    background: var(--inst-meter-track);
+    box-shadow: none;
+    height: 12px;
+  }
+  & .anctl {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: center;
+  }
+  & .anc {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--ink-soft);
+  }
+  & .anc .stepper button {
+    width: 36px;
+    height: 36px;
+  }
+  & .anc .stepper b {
+    min-width: 54px;
+    font-size: 15px;
+  }
+  & .mstb {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    min-height: 40px;
+    padding: 0 12px 0 8px;
+    border-radius: 11px;
+    border: 0;
+    background: var(--surface-3);
+    color: var(--ink-soft);
+    font-weight: 800;
+    font-size: 13px;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  & .mstb i {
+    width: 30px;
+    height: 18px;
+    border-radius: 999px;
+    background: var(--border);
+    position: relative;
+  }
+  & .mstb i::after {
+    content: '';
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--ink-soft);
+    transition: transform 0.2s;
+  }
+  & .mstb.on {
+    box-shadow: inset 0 0 0 1.5px var(--accent);
+    color: var(--ink);
+  }
+  & .mstb.on i {
+    background: var(--accent);
+  }
+  & .mstb.on i::after {
+    transform: translateX(12px);
+    background: var(--accent-ink);
+  }
+  & .nvrnote {
+    color: var(--ink-2);
+    padding: 0 16px 16px;
+    font-size: 13.5px;
+  }
+
+  /* Multiplexes and the TV quiz. */
+  & .mxs {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  & .mxc2 {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 16px;
+    border-radius: 18px;
+    background: var(--card);
+    box-shadow: inset 0 0 0 1px var(--border);
+    border-top: 4px solid var(--inst-mux-ok);
+  }
+  & .mxc2 b {
+    font: 900 20px var(--font-display);
+  }
+  & .mxc2 span:last-child {
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    line-height: 1.45;
+  }
+  & .mxstd {
+    align-self: flex-start;
+    padding: 3px 8px;
+    border-radius: 7px;
+    background: var(--inst-mux-ok-bg);
+    color: var(--inst-go-text);
+    font: 900 11.5px var(--font-sans);
+  }
+  & .mxc2.old {
+    border-top-color: var(--inst-mux-old);
+  }
+  & .mxc2.old .mxstd {
+    background: var(--inst-mux-old-bg);
+    color: var(--inst-warn-text);
+  }
+  & .tvc {
+    padding: 24px;
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: 24px;
+    align-items: center;
+  }
+  & .tvc > div:first-child {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  & .tvc p {
+    margin: 8px 0 0;
+  }
+  & .tvc .h3 {
+    font-size: 24px;
+  }
+  & .tvq {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  & .tvqi {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  & .tvqi .usl {
+    width: auto;
+    display: block;
+  }
+  & .tvres {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 14px;
+    border-radius: 16px;
+    background: var(--surface-2);
+    box-shadow: inset 0 0 0 1px var(--border);
+    transition: all 0.3s;
+  }
+  & .tvres b {
+    display: block;
+    font-size: 15px;
+  }
+  & .tvres div > span {
+    font-size: 13.5px;
+    color: var(--ink-soft);
+  }
+  & .tvres.ok {
+    box-shadow: inset 0 0 0 2px var(--inst-res-ok);
+    background: var(--inst-res-ok-bg);
+  }
+  & .tvres.bad {
+    box-shadow: inset 0 0 0 2px var(--inst-res-bad);
+    background: var(--inst-res-bad-bg);
+  }
+
+  /* LTE/5G filter: switch and spectrum. */
+  & .spw {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  & .spbar {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  & .spbar .mut {
+    font-size: 13.5px;
+  }
+  & .lkpw {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    padding: 0 16px 0 8px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--inst-switch-off);
+    color: var(--inst-switch-off-ink);
+    font: 900 14px var(--font-sans);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  & .lkpw i {
+    width: 46px;
+    height: 28px;
+    border-radius: 14px;
+    background: var(--inst-switch-track);
+    position: relative;
+    transition: background 0.3s;
+  }
+  & .lkpw i::after {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 4px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--inst-switch-knob);
+    transition: transform 0.3s;
+  }
+  & .lkpw.on {
+    background: var(--inst-switch-on-bg);
+    color: var(--inst-go-text);
+  }
+  & .lkpw.on i {
+    background: var(--inst-switch-on);
+  }
+  & .lkpw.on i::after {
+    transform: translateX(18px);
+  }
+  & .spec {
+    position: relative;
+    padding: 22px 20px 26px;
+    border-radius: 20px;
+    background: var(--inst-spec-bg);
+    color: var(--inst-spec-ink);
+    overflow: hidden;
+  }
+  & .spax {
+    display: flex;
+    justify-content: space-between;
+    font: 800 11.5px var(--font-sans);
+    color: var(--inst-spec-axis);
+    margin-bottom: 8px;
+  }
+  & .spax span:nth-child(2) {
+    position: absolute;
+    left: calc(20px + (100% - 40px) * 0.5649);
+    transform: translateX(-50%);
+  }
+  & .sptrack {
+    display: grid;
+    grid-template-columns: 56.5fr 43.5fr;
+    height: 120px;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  & .sptv {
+    position: relative;
+    padding: 14px;
+    background: linear-gradient(180deg, var(--inst-spec-tv-1), var(--inst-spec-tv-2));
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  & .sptv b,
+  & .splte b {
+    font-size: 15px;
+  }
+  & .sptv span,
+  & .splte span {
+    font-size: 12px;
+    color: var(--inst-spec-sub);
+  }
+  & .sptv i {
+    position: absolute;
+    bottom: 0;
+    width: 7%;
+    border-radius: 4px 4px 0 0;
+    background: var(--inst-spec-bar);
+    opacity: 0.8;
+    animation: inst-spb 2s ease-in-out infinite;
+  }
+  & .sptv i:nth-of-type(1) {
+    left: 6%;
+    height: 44%;
+  }
+  & .sptv i:nth-of-type(2) {
+    left: 20%;
+    height: 50%;
+    animation-delay: -0.4s;
+  }
+  & .sptv i:nth-of-type(3) {
+    left: 36%;
+    height: 40%;
+    animation-delay: -0.8s;
+  }
+  & .sptv i:nth-of-type(4) {
+    left: 52%;
+    height: 52%;
+    animation-delay: -1.2s;
+  }
+  & .sptv i:nth-of-type(5) {
+    left: 68%;
+    height: 46%;
+    animation-delay: -1.6s;
+  }
+  & .sptv i:nth-of-type(6) {
+    left: 84%;
+    height: 42%;
+    animation-delay: -0.2s;
+  }
+  & .splte {
+    position: relative;
+    padding: 14px;
+    background: repeating-linear-gradient(
+      135deg,
+      var(--inst-spec-lte-1) 0 10px,
+      var(--inst-spec-lte-2) 10px 20px
+    );
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    transition:
+      opacity 0.5s,
+      filter 0.5s;
+  }
+  & .spec.f .splte {
+    opacity: 0.25;
+    filter: grayscale(0.6);
+  }
+  & .spfil {
+    position: absolute;
+    right: 20px;
+    top: 42px;
+    bottom: 26px;
+    width: calc((100% - 40px) * 0.435);
+    border-radius: 0 12px 12px 0;
+    box-shadow: inset 0 0 0 3px var(--inst-spec-filter);
+    background: var(--inst-spec-filter-bg);
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.45s;
+  }
+  & .spec.f .spfil {
+    opacity: 1;
+    transform: none;
+  }
+  & .spw .src {
+    margin: 0;
+  }
+
+  /* Satellite set-ups. */
+  & .satc {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-top: 4px solid var(--h);
+  }
+  & .satv svg {
+    display: inline;
+    vertical-align: baseline;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    background: var(--surface-2);
+  }
+  & .satd {
+    fill: var(--inst-sat-dish);
+    stroke: var(--inst-sat-dish-line);
+  }
+  & .satl {
+    fill: var(--h);
+  }
+  & .satc2 {
+    fill: none;
+    stroke: var(--h);
+    stroke-width: 2;
+    stroke-dasharray: 4 4;
+    animation: inst-sxdash 1s linear infinite;
+  }
+  & .sattv {
+    fill: var(--inst-sat-tv);
+    stroke: var(--h);
+  }
+  & .satc p {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 14px;
+  }
+
+  /* TV in a guesthouse: the light list card and the dark fees card. */
+  & .kdk {
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  & .kdk .h3 {
+    font-size: 26px;
+    margin: 0;
+  }
+  & .kdl {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  & .kdl > div {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  & .kdl b {
+    display: block;
+    font-size: 15px;
+  }
+  & .kdl span span {
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  & .kdl.dk b {
+    color: var(--inst-dark-white);
+  }
+  & .kdl.dk span span {
+    color: var(--inst-dark-lead);
+  }
+  & .kdl.dk .ico {
+    background: var(--inst-dark-icon-bg);
+    color: var(--inst-dark-accent);
+  }
+  & .kdk .kdeye {
+    color: var(--inst-dark-accent);
+  }
+  & .kdk .kdnote {
+    color: var(--inst-dark-note);
+    font-size: 13.5px;
+  }
+}
+
+@media (max-width: 1100px) {
+  [data-line='instalacje'] {
+    & .mxs {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    & .tvc {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+}
+
+@media (max-width: 760px) {
+  [data-line='instalacje'] {
+    & .anpanel {
+      grid-template-columns: 1fr;
+    }
+    & .mxs {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    & .sptrack {
+      height: 96px;
+    }
+    & .sptv b,
+    & .splte b {
+      font-size: 12.5px;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-line='instalacje'] {
+    & .anbeam.ok,
+    & .sptv i,
+    & .satc2 {
+      animation: none;
+    }
+  }
+}
+
+@keyframes inst-dash {
+  to {
+    stroke-dashoffset: -40;
+  }
+}
+
+@keyframes inst-spb {
+  50% {
+    transform: scaleY(0.85);
+  }
+}
+
+@keyframes inst-sxdash {
+  to {
+    stroke-dashoffset: -14;
+  }
+}

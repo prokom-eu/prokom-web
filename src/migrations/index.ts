@@ -43,7 +43,8 @@ import * as migration_20261028_222338_k3c_bundles from './20261028_222338_k3c_bu
 import * as migration_20261028_234736_software_contact_block from './20261028_234736_software_contact_block'
 import * as migration_20261030_182219_inst_service_block from './20261030_182219_inst_service_block'
 import * as migration_20261030_185159_k4a_categories from './20261030_185159_k4a_categories'
-import * as migration_20261030_194416_k4_products from './20261030_194416_k4_products'
+import * as migration_20261030_194149_software_solutions_v22 from './20261030_194149_software_solutions_v22'
+import * as migration_20261030_200347_k4_products from './20261030_200347_k4_products'
 
 export const migrations = [
   {
@@ -272,8 +273,13 @@ export const migrations = [
     name: '20261030_185159_k4a_categories',
   },
   {
-    up: migration_20261030_194416_k4_products.up,
-    down: migration_20261030_194416_k4_products.down,
-    name: '20261030_194416_k4_products',
+    up: migration_20261030_194149_software_solutions_v22.up,
+    down: migration_20261030_194149_software_solutions_v22.down,
+    name: '20261030_194149_software_solutions_v22',
+  },
+  {
+    up: migration_20261030_200347_k4_products.up,
+    down: migration_20261030_200347_k4_products.down,
+    name: '20261030_200347_k4_products',
   },
 ]

@@ -29,7 +29,7 @@ export const CATEGORY_AREA: Record<SolutionCategory, string> = {
 /** Situation filter of the catalog (`rozwiazania.json` → `situations`). */
 export const SITUATIONS = [
   { label: 'Zaczynam od zera', value: 'Z' },
-  { label: 'Mam program, brakuje mu czegoś', value: 'R' },
+  { label: 'Mam już stronę lub program', value: 'R' },
   { label: 'Mam kilka programów', value: 'P' },
 ] as const
 
@@ -53,7 +53,7 @@ export const AREA_KEYS = [
   { label: 'Strony internetowe', value: 'www' },
   { label: 'Systemy', value: 'sys' },
   { label: 'Aplikacje', value: 'app' },
-  { label: 'Sklepy i rezerwacje', value: 'cal' },
+  { label: 'Sklepy i zamówienia', value: 'cal' },
   { label: 'Rozbudowa i połączenia', value: 'plug' },
   { label: 'Automatyzacje', value: 'auto' },
   { label: 'Opieka', value: 'care' },
@@ -70,7 +70,10 @@ export const CARD_GRADIENTS = [
   { label: 'Szałwiowy', value: 'sage' },
 ] as const
 
-/** Sizes of a solution in the wizard (`kreator.json` → `sizes`): one price and term each. */
+/**
+ * Sizes of the wizard step (`kreator.json` → `sizes`). Since v22 they carry no prices (one „od”
+ * price per solution); the step goes with the v22 wizard (SWR4).
+ */
 export const SOLUTION_SIZES = ['start', 'std', 'full'] as const
 
 export type SolutionSize = (typeof SOLUTION_SIZES)[number]

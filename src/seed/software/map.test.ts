@@ -1,3 +1,6 @@
+import { existsSync } from 'node:fs'
+import path from 'node:path'
+
 import { describe, expect, it } from 'vitest'
 
 import branze from '../../../seed/prokomsoftware/branze.json'
@@ -11,6 +14,12 @@ import { navigationSchema } from '../../lib/software/navigation'
 import { notFoundSchema, thanksSchema } from '../../lib/software/pages'
 import { INDUSTRY_GROUPS, WIZARD_FIRMS } from '../../lib/software/options'
 import { formatPrice } from '../../lib/software/price'
+import {
+  includedError,
+  levelCellsError,
+  lowestLevelPrice,
+  thumbnailError,
+} from '../../lib/software/solutionRules'
 import { softwareWizardSchema } from '../../lib/software/wizard'
 import {
   HOME_SECTION_TEXTS,
@@ -26,6 +35,7 @@ import {
   industriesToImport,
   industryData,
   missingFacts,
+  relatedIds,
   type SeedCity,
   softwarePostData,
   softwareSettingsData,
@@ -67,24 +77,51 @@ describe('solutions to import', () => {
 describe('solutionData', () => {
   const site = rozwiazania.items.find((item) => item.slug === 'strona-firmowa-z-panelem')!
 
-  it('stores prices and terms per size only (priceFrom and leadTime are computed)', () => {
+  it('stores the one „od” price and term of the package (v22)', () => {
     const data = solutionData(site)
-    expect(data.prices).toEqual({ start: 2490, std: 3390, full: 5490 })
-    expect(data.leadTimes).toEqual({ start: '2 tygodnie', std: '3 tygodnie', full: '4–5 tygodni' })
-    expect(data).not.toHaveProperty('priceFrom')
-    expect(data).not.toHaveProperty('leadTime')
+    expect(data).toMatchObject({ priceFrom: 2490, leadTime: 'od 2 tygodni', levels: [] })
+    for (const field of ['prices', 'leadTimes', 'sizeNames']) expect(data).not.toHaveProperty(field)
   })
 
-  // The package has no such fields: the care levels are only in its price note (SW9).
-  it('marks the care prices as monthly with the levels of the package', () => {
-    const care = rozwiazania.items.find((item) => item.slug === 'opieka-nad-strona-i-systemem')!
-    expect(solutionData(care)).toMatchObject({
-      priceMonthly: true,
-      sizeNames: { start: 'Podstawowa', std: 'Standard', full: 'Systemy' },
-    })
+  it('maps the levels of care (monthly) and audit to the panel fields', () => {
+    const care = solutionData(
+      rozwiazania.items.find((item) => item.slug === 'opieka-nad-strona-i-systemem')!,
+    )
+    expect(care).toMatchObject({ priceMonthly: true, priceFrom: 149 })
+    expect(
+      care.levels?.map(({ name, price, term, recommended }) => [name, price, term, recommended]),
+    ).toEqual([
+      ['Podstawowa', 149, 'do końca następnego dnia roboczego', false],
+      ['Rozszerzona', 299, '8 h roboczych', true],
+      ['Systemy', 790, '4 h roboczych, na piśmie', false],
+    ])
+    expect(care.levelRows?.every((row) => row.cells?.length === 3)).toBe(true)
+    const audit = solutionData(
+      rozwiazania.items.find((item) => item.slug === 'audyt-strony-lub-programu')!,
+    )
+    expect(audit).toMatchObject({ priceMonthly: false, priceFrom: 0 })
+    expect(audit.levels?.map(({ term }) => term)).toEqual([
+      '2 dni robocze',
+      '1 tydzień',
+      '2 tygodnie',
+    ])
+    expect(audit.levels?.[2]?.shortName).toBe('Strona + program / dostępność')
+    expect(solutionData(site).priceMonthly).toBe(false)
+  })
+
+  it('maps the texts of the offer window', () => {
     expect(solutionData(site)).toMatchObject({
-      priceMonthly: false,
-      sizeNames: { start: null, std: null, full: null },
+      thumbnail: '/software/rozwiazania/strona-firmowa-z-panelem.svg',
+      included: [
+        'Do 5 podstron: oferta, realizacje, opinie, kontakt',
+        'Panel do zmian i formularz prosto do Ciebie',
+        'Gotowa pod Google i AI',
+      ],
+      moreExamples: ['więcej niż 5 podstron', 'aktualności i blog', 'kolejny język'],
+      example: expect.stringContaining('Firma remontowa'),
+      benefits: [],
+      needs: [],
+      faq: [],
     })
   })
 
@@ -95,9 +132,9 @@ describe('solutionData', () => {
       slug: 'strona-firmowa-z-panelem',
       name: 'Strona firmowa z panelem',
       category: 'strony',
-      situations: ['Z', 'R'],
+      situations: ['Z'],
       cardGradient: null,
-      featured: { name: 'Strona firmowa', tag: 'PANEL TREŚCI' },
+      featured: { name: 'Strona firmowa z panelem', tag: 'PANEL TREŚCI' },
     })
     expect(data.featured?.features).toHaveLength(3)
   })
@@ -114,6 +151,62 @@ describe('solutionData', () => {
 
   it('maps every solution of the package', () => {
     for (const item of solutionsToImport()) expect(() => solutionData(item)).not.toThrow()
+  })
+})
+
+// The v22 package is complete for the offer window (ADR-014 v22 pkt 1–4, decision SWD2 3): the
+// panel does not require the texts, so this test does.
+describe('solutions v22 of the package', () => {
+  const items = solutionsToImport()
+  const data = items.map((item) => ({ item, data: solutionData(item) }))
+
+  it('pass the rules of the collection (price, levels, „W cenie”, table, thumbnail)', () => {
+    for (const { item, data: solution } of data) {
+      expect(includedError(solution.included, solution), item.slug).toBeNull()
+      expect(thumbnailError(solution.thumbnail), item.slug).toBeNull()
+      const levels = solution.levels ?? []
+      if (levels.length > 0) expect(solution.priceFrom, item.slug).toBe(lowestLevelPrice(levels))
+      for (const row of solution.levelRows ?? []) {
+        expect(levelCellsError(row.cells, levels.length), `${item.slug}: ${row.label}`).toBeNull()
+      }
+    }
+  })
+
+  it('have a thumbnail file in public/ for every solution', () => {
+    for (const { item, data: solution } of data) {
+      expect(solution.thumbnail, item.slug).toBe(`/software/rozwiazania/${item.slug}.svg`)
+      expect(existsSync(path.join('public', solution.thumbnail!)), item.slug).toBe(true)
+    }
+  })
+
+  it('have levels only for care and audit', () => {
+    const withLevels = data.filter(({ data: solution }) => (solution.levels ?? []).length > 0)
+    expect(withLevels.map(({ item }) => item.slug).sort()).toEqual([
+      'audyt-strony-lub-programu',
+      'opieka-nad-strona-i-systemem',
+    ])
+  })
+
+  it('have „Przykład z życia” and three related solutions, never themselves', () => {
+    const ids = new Map(items.map((item) => [item.slug, item.legacyId]))
+    for (const item of items) {
+      expect(solutionData(item).example, item.slug).toBeTruthy()
+      const related = relatedIds(item, (slug) => ids.get(slug))
+      expect(related, item.slug).toHaveLength(3)
+      expect(related, item.slug).not.toContain(item.legacyId)
+    }
+  })
+
+  it('count the situations of the boards (Z 14 · R 13 · P 8)', () => {
+    const count = (situation: string) =>
+      items.filter((item) => item.situations.includes(situation)).length
+    expect([count('Z'), count('R'), count('P')]).toEqual([14, 13, 8])
+  })
+
+  // ADR-014 v22 pkt 8: no „Na start / Standard / Pełna” anywhere in the data.
+  it('never name a version', () => {
+    const text = JSON.stringify({ items: rozwiazania.items, areas: obszary.items })
+    expect(text).not.toMatch(/Na start|Standard|Pełna wersja/)
   })
 })
 
@@ -328,12 +421,12 @@ describe('Software settings of the seed', () => {
     expect(homeWithSections(null, HOME_SECTION_TEXTS)).toBeNull()
   })
 
-  it('keep the 404 tile prices equal to the lowest start price of their category', () => {
+  it('keep the 404 tile prices equal to the lowest „od” price of their category', () => {
     const lowest = (category: string) =>
       Math.min(
         ...solutionsToImport()
           .filter((item) => item.category === category)
-          .map((item) => item.prices.start ?? Infinity),
+          .map((item) => item.priceFrom ?? Infinity),
       )
     const tiles = settings.notFound.places.tiles
     const note = (href: string) => tiles.find((tile) => tile.href === href)?.note

@@ -1,5 +1,5 @@
 {
-  "_info": "8 obszarów strony głównej (sekcja #oferta) — grupowanie marketingowe, NIE kategorie katalogu. countLabel to tekst redakcyjny (np. „3 poziomy”), nie licznik z bazy. chips[].solution = slug z rozwiazania.json albo null (chip bez linku). priceFrom = null do decyzji szefa. href docelowo /rozwiazania?kategoria=… (ADR-014 §1). 25.10.2026: priceFrom wpisane wg cennika; chip „Rezerwacje online” zastąpiony (rozwiązanie usunięte).",
+  "_info": "8 obszarów strony głównej (sekcja #oferta) — grupowanie marketingowe, NIE kategorie katalogu. countLabel to tekst redakcyjny (np. „3 poziomy”), nie licznik z bazy. chips[].solution = slug z rozwiazania.json albo null (chip bez linku). priceFrom = null do decyzji szefa. href docelowo /rozwiazania?kategoria=… (ADR-014 §1). 25.10.2026: priceFrom wpisane wg cennika; chip „Rezerwacje online” zastąpiony (rozwiązanie usunięte). SWR1 (30.10.2026): opis obszaru cal wg planszy Main (plansza wygrywa nad seedem v22).",
   "items": [
     {
       "name": "Strony internetowe",
@@ -133,7 +133,7 @@
       "priceLabel": "Zapytaj o wycenę"
     },
     {
-      "name": "Sklepy i rezerwacje",
+      "name": "Sklepy i zamówienia",
       "short": "Rezerwacje, zamówienia, płatności",
       "countLabel": "3 rozwiązania",
       "icon": "M4 5h16v16H4zM4 10h16M9 3v4M15 3v4",
@@ -142,7 +142,7 @@
         "#C2577A"
       ],
       "scene": "cal",
-      "description": "Sklep internetowy, rezerwacja stolika i zapytania o termin dla pensjonatów (zaliczka online w wersji Pełnej). Klient zamawia i rezerwuje sam, o każdej porze.",
+      "description": "Sklep internetowy, strona restauracji z menu i strona pensjonatu z zapytaniem o termin. Klient zamawia albo pisze do Ciebie o każdej porze.",
       "gain": "Mniej telefonów, więcej rezerwacji bezpośrednio u Ciebie.",
       "href": "/rozwiazania?kategoria=strony",
       "cta": "Zobacz rozwiązania",
@@ -257,7 +257,7 @@
           "solution": "opieka-nad-strona-i-systemem"
         },
         {
-          "label": "Standard z monitoringiem",
+          "label": "Opieka z monitoringiem",
           "solution": "opieka-nad-strona-i-systemem"
         },
         {

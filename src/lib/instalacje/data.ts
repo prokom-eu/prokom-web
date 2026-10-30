@@ -7,6 +7,7 @@ import type { InstService as InstServiceDoc } from '@/payload-types'
 import { navigation } from '@/sites/instalacje/dane/nawigacja'
 
 import { buildMenu, type InstMenu, type MenuDoc } from './menu'
+import { SETTINGS_DEFAULTS } from './options'
 
 /** Far above the 10 services, 12 objects and 76 solutions of the package. */
 const LIMIT = 500
@@ -80,7 +81,7 @@ export const getInstalacjeService = cache(
       depth: 1,
       limit: 1,
       populate: {
-        // `_status`: a related entry still in draft is dropped by the page.
+        // `_status`, `tenant`: a related entry in draft or of another tenant is dropped by the page.
         'inst-services': {
           key: true,
           slug: true,
@@ -88,6 +89,7 @@ export const getInstalacjeService = cache(
           icon: true,
           color: true,
           menuCaption: true,
+          tenant: true,
           _status: true,
         },
         'inst-objects': {
@@ -96,11 +98,45 @@ export const getInstalacjeService = cache(
           name: true,
           icon: true,
           color: true,
+          menuCaption: true,
+          tenant: true,
           _status: true,
         },
       },
       overrideAccess: true,
     })
     return docs[0] ?? null
+  },
+)
+
+export type InstalacjeSiteSettings = {
+  showPrices: boolean
+  noPriceText: string
+  warrantyMonths: number
+  responseText: string
+}
+
+/**
+ * Switches and promises of the line (`InstalacjeSettings`, one per tenant). No document yet →
+ * the boss's decisions as defaults: no prices, 24 months, 24 h answer (spec §2).
+ */
+export const getInstalacjeSettings = cache(
+  async (tenantId: number): Promise<InstalacjeSiteSettings> => {
+    const payload = await getPayload({ config })
+    const { docs } = await payload.find({
+      collection: 'instalacje-settings',
+      where: { tenant: { equals: tenantId } },
+      depth: 0,
+      limit: 1,
+      select: { showPrices: true, noPriceText: true, warrantyMonths: true, responseText: true },
+      overrideAccess: true,
+    })
+    const doc = docs[0]
+    return {
+      showPrices: doc?.showPrices ?? false,
+      noPriceText: doc?.noPriceText || SETTINGS_DEFAULTS.noPriceText,
+      warrantyMonths: doc?.warrantyMonths ?? SETTINGS_DEFAULTS.warrantyMonths,
+      responseText: doc?.responseText || SETTINGS_DEFAULTS.responseText,
+    }
   },
 )

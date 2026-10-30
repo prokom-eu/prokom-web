@@ -10,7 +10,12 @@ import { api, loginAsAdmin, site, tenantId } from './helpers'
 // only — without the ones removed from the offer and without drafts — and follows changes made
 // in the panel right away.
 
-type IndexSolution = { slug: string; priceFrom: number | null; prices: { start?: number } }
+type IndexSolution = {
+  slug: string
+  priceFrom: number | null
+  leadTime: string | null
+  thumbnail?: string
+}
 type SolutionsIndex = {
   solutions: IndexSolution[]
   categories: { slug: string; count: number }[]
@@ -37,8 +42,10 @@ test.describe('solutions index', () => {
     expect(index.solutions.filter((solution) => packageSlugs.has(solution.slug))).toHaveLength(29)
     expect(index.solutions.find((s) => s.slug === 'strona-firmowa-z-panelem')).toMatchObject({
       priceFrom: 2490,
-      prices: { start: 2490 },
+      leadTime: 'od 2 tygodni',
+      thumbnail: '/software/rozwiazania/strona-firmowa-z-panelem.svg',
     })
+    expect(index.solutions[0]).not.toHaveProperty('prices')
     expect(index.categories.map((category) => category.slug)).toContain('opieka')
     expect(index.search.synonyms.excel).toBeTruthy()
     // SW3 acceptance: the whole index under 30 KB gzip.
@@ -68,7 +75,8 @@ test.describe('solutions index', () => {
       name: `Rozwiązanie E2E ${slug}`,
       slug,
       category: 'systemy',
-      prices: { start: 1234 },
+      priceFrom: 1234,
+      included: ['Moduł E2E'],
       _status: 'draft',
     })
     expect(created.status).toBe(201)

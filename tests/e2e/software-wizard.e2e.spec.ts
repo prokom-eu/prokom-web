@@ -37,7 +37,7 @@ const PATHS: Path[] = [
       await button(page, 'Pokaż wynik →').click()
     },
     result: 'Strona dla pensjonatu lub hotelu',
-    price: /^2\s990 zł netto$/,
+    price: /^od 1\s999 zł netto$/,
   },
   {
     id: '51 program zlecenia',
@@ -49,7 +49,7 @@ const PATHS: Path[] = [
       await button(page, 'Pomiń').click()
     },
     result: 'System zleceń i grafik ekip',
-    price: /^5\s990 zł netto$/,
+    price: /^od 3\s490 zł netto$/,
   },
   {
     id: '52 odświeżenie',
@@ -70,7 +70,7 @@ const PATHS: Path[] = [
       await button(page, 'Pomiń').click()
     },
     result: 'Przebudowa starej strony',
-    price: /^2\s490 zł netto$/,
+    price: /^od 1\s499 zł netto$/,
   },
 ]
 

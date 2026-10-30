@@ -1,9 +1,10 @@
-import type { CollectionConfig } from 'payload'
+import { APIError, type CollectionConfig } from 'payload'
 
 import { adminOnly } from '../lib/auth/access'
+import { anchorsError } from '../lib/instalacje/anchors'
 import { OFFER_FAMILIES, SERVICE_GROUPS, SERVICE_KEYS } from '../lib/instalacje/options'
 import { onlyLineTenant } from '../lib/tenant/onlyLine'
-import { faqArray, seoGroup, slugField } from './catalogFields'
+import { faqArray, slugField } from './catalogFields'
 import {
   anchorsArray,
   colorField,
@@ -36,7 +37,14 @@ export const InstServices: CollectionConfig = {
   },
   versions: { drafts: true, maxPerDoc: 20 },
   hooks: {
-    beforeValidate: [onlyLineTenant('instalacje', 'Usługi mają tylko strony linii Instalacje.')],
+    beforeValidate: [
+      onlyLineTenant('instalacje', 'Usługi mają tylko strony linii Instalacje.'),
+      ({ data, originalDoc }) => {
+        const error = anchorsError(data, originalDoc)
+        if (error) throw new APIError(error, 400, null, true)
+        return data
+      },
+    ],
   },
   indexes: [
     { fields: ['tenant', 'slug'], unique: true },
@@ -174,7 +182,17 @@ export const InstServices: CollectionConfig = {
             ctaGroup,
           ],
         },
-        { label: 'SEO', fields: [seoGroup] },
+      ],
+    },
+    // SEO of a service page lives in `Pages.seo` (ADR-I002 „Import (I2)”); the columns (same as
+    // `seoGroup`) stay for now and are hidden, so nobody edits them in the wrong place.
+    {
+      name: 'seo',
+      type: 'group',
+      admin: { hidden: true },
+      fields: [
+        { name: 'title', type: 'text', maxLength: 70 },
+        { name: 'description', type: 'textarea', maxLength: 160 },
       ],
     },
   ],

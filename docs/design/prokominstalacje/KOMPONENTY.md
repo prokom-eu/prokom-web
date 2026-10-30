@@ -24,7 +24,7 @@ Jak przenosić: ADR-I003 §2. Ścieżki docelowe są propozycją — I0 dopasowu
 | `PriceFactors` | `inc/cena.html` | usługi; przycisk z `sx.cena.btn` |
 | `Faq` | `inc/faqsec.html` | wszędzie; pierwsza otwarta, `FAQPage` JSON-LD |
 | `Related` | `inc/relsec.html` | usługi i obiekty: powiązane usługi + pasek „Podobne obiekty” (`segRel`) |
-| `Fold` | `zrodlo/fold.json` (lista sekcji i wysokość; w prototypie zwijanie dodawał skrypt budujący: sekcja dostaje `data-fo` i przycisk na końcu) | telefon: zwinięcie sekcji |
+| `Fold` | `zrodlo/fold.json` (lista sekcji i wysokość; w prototypie zwijanie dodawał skrypt budujący: sekcja dostaje `data-fo` i przycisk na końcu) | telefon (≤ 700 px jak CSS prototypu, decyzja I4): zwinięcie sekcji; w kodzie `InstSection fold` (`src/sites/instalacje/sekcje/`) |
 | `Reveal` / `useReveal` | `common.js` (IntersectionObserver, `rv`) | animacja wejścia |
 
 ## 3. Strona główna — sesje I5–I6
