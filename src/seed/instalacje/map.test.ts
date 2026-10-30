@@ -167,7 +167,6 @@ describe('pages', () => {
   it('lists the panel pages of ADR-I002 §0 with SEO that fits the fields', () => {
     expect(pages.map((p) => p.slug).sort()).toEqual(
       [
-        'home',
         'monitoring',
         'alarmy',
         'kontrola-dostepu',

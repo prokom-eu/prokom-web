@@ -458,7 +458,6 @@ export function realizationsToImport(): (RealizationData & { legacyId: number })
 export type PageItem = { slug: string; title: string; seo: { title: string; description: string } }
 
 const PAGE_FILES: { slug: string; title: string; file: SeedPage }[] = [
-  { slug: HOME_SLUG, title: 'Strona główna', file: Main },
   { slug: 'uslugi', title: 'Pełna oferta', file: Oferta },
   { slug: 'zaplanuj', title: 'Zaplanuj instalację', file: Zaplanuj },
   { slug: 'kontakt', title: 'Kontakt', file: Kontakt },
@@ -469,7 +468,7 @@ const PAGE_FILES: { slug: string; title: string; file: SeedPage }[] = [
 ]
 
 /**
- * Pages of the Instalacje tenant: home, the 10 services and the fixed pages. Their blocks come
+ * Pages of the Instalacje tenant: the 10 services and the fixed pages (home: `home.ts`, I5). Their blocks come
  * with the sessions that build them; the import sets title and SEO (services: here, not in
  * `InstServices.seo`, because page metadata reads `Pages`). Legal pages come in I13.
  */

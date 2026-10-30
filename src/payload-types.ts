@@ -1767,6 +1767,7 @@ export interface Page {
         | BzBrandsBlock
         | BzLocationBlock
         | InstServiceBlock
+        | InstHomeBlock
         | SwHeroBlock
         | SwHomeSectionBlock
         | SwContactBlock
@@ -4187,6 +4188,38 @@ export interface InstObject {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InstHomeBlock".
+ */
+export interface InstHomeBlock {
+  /**
+   * Tekst obok sceny. Scenę (obiekty, pory, instalacje) i jej opisy zmienia się w kodzie.
+   */
+  hero: {
+    eyebrow: string;
+    /**
+     * Pierwsza, mała część nagłówka H1 (słowa kluczowe).
+     */
+    kicker: string;
+    h1a: string;
+    /**
+     * Końcówka tytułu w kolorze akcentu.
+     */
+    h1b: string;
+    lead: string;
+    trust?:
+      | {
+          icon: 'check' | 'pin' | 'doc' | 'shield' | 'clock' | 'wrench';
+          text: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'instHome';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "SwHeroBlock".
  */
 export interface SwHeroBlock {
@@ -5679,6 +5712,7 @@ export interface PagesSelect<T extends boolean = true> {
         bzBrands?: T | BzBrandsBlockSelect<T>;
         bzLocation?: T | BzLocationBlockSelect<T>;
         instService?: T | InstServiceBlockSelect<T>;
+        instHome?: T | InstHomeBlockSelect<T>;
         swHero?: T | SwHeroBlockSelect<T>;
         swHomeSection?: T | SwHomeSectionBlockSelect<T>;
         swContact?: T | SwContactBlockSelect<T>;
@@ -6794,6 +6828,30 @@ export interface BzLocationBlockSelect<T extends boolean = true> {
  */
 export interface InstServiceBlockSelect<T extends boolean = true> {
   service?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InstHomeBlock_select".
+ */
+export interface InstHomeBlockSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        eyebrow?: T;
+        kicker?: T;
+        h1a?: T;
+        h1b?: T;
+        lead?: T;
+        trust?:
+          | T
+          | {
+              icon?: T;
+              text?: T;
+              id?: T;
+            };
+      };
   id?: T;
   blockName?: T;
 }
