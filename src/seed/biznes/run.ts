@@ -34,6 +34,7 @@ import {
   type K3RemovedCard,
 } from './k3'
 import { k31Dictionaries, k31ProductFields, k31Retired, type K31Card } from './k31'
+import { k4ProductFields, k4Relations, withK4Content, type K4Card } from './k4Catalog'
 import {
   k4CardPlacement,
   k4CategoryData,
@@ -108,9 +109,9 @@ type Counter = { created: number; updated: number; skipped: number }
 export async function seedBiznesCatalog(payload: Payload): Promise<void> {
   const catalog: SeedCatalog = katalog
   const k31Dicts = k31Dictionaries(k3Dictionaries, k31Featured)
-  // K4 departments and categories (D-K4-2); cards keep their K3 / K3.1 content until K4a-2.
+  // K4 departments and categories (D-K4-2); the content of a card comes from K4 (K4a-1b).
   const dictionaries = k4Dictionaries(k31Dicts, k4Slowniki)
-  const k4Cards = new Map(k4Catalog.produkty.map((card) => [card.slug_seed, card]))
+  const k4Cards = new Map<string, K4Card>(k4Catalog.produkty.map((card) => [card.slug_seed, card]))
   const { catalog: k31, gallery: k3Gallery } = loadK31Catalog()
   const cards = k31.cards
   const removed: K3RemovedCard[] = k3Removed.produkty
@@ -429,6 +430,7 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
   // Paired cards first: the XL2 record gives up the sheet ids of XL2 A and B before those
   // cards look for a record by them.
   let withFilms = 0
+  const k4Changes: Record<string, number> = {}
   const paired = (card: K31Card) => (matches.has(card.slug_seed) ? 0 : 1)
   for (const source of [...cards].sort((a, b) => paired(a) - paired(b))) {
     // K4 category and subcategory (D-K4-2) in place of the K3 ones.
@@ -440,9 +442,10 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     if (unknownSubcategory) {
       note('podkategoria spoza słownika K4', `${source.slug_seed}: ${unknownSubcategory}`)
     }
-    const card: K31Card = { ...source, ...placement }
+    const k4 = k4Cards.get(source.slug_seed)
+    const card: K31Card = withK4Content({ ...source, ...placement }, k4)
     const v2 = matches.get(card.slug_seed)
-    const data = k3ProductData(
+    const k3Data = k3ProductData(
       card,
       v2,
       dictionaries,
@@ -454,6 +457,20 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
       },
       imageKeys.get(card.slug_seed) ?? [],
     )
+    // K4 fields (K4-FINAL §4.2): the whole configurator, labelled sources, short name, kind and
+    // premiere — the K4 package wins over the panel like the rest of the card.
+    const k4Fields = k4 ? k4ProductFields(k4, k3Data.name) : null
+    const data = k4Fields
+      ? {
+          ...k3Data,
+          configurator: k4Fields.configurator,
+          sources: { ...k3Data.sources, links: k4Fields.sourceLinks },
+        }
+      : k3Data
+    const k4Panel = k4Fields
+      ? { shortName: k4Fields.shortName, kind: k4Fields.kind, isNew: k4Fields.isNew }
+      : {}
+    if (k4) k4Changes[k4.zmiana_k4] = (k4Changes[k4.zmiana_k4] ?? 0) + 1
     const status = k3PublishStatus(card)
     if (card.branze.some((slug) => SKIPPED_INDUSTRIES.has(slug))) {
       note('branża pominięta (magazyn-produkcja)', card.slug_seed)
@@ -482,6 +499,7 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
           ...data,
           ...fields,
           ...k3CreateFields(card, v2, dictionaries),
+          ...k4Panel,
           tenant: tenant.id,
           _status: status,
         },
@@ -495,6 +513,7 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
       const update = {
         ...productUpdateData(data, existing),
         ...fields,
+        ...k4Panel,
         // A card waiting for the boss is a draft „Do sprawdzenia” (ADR-012 rozstrz. 15).
         ...(status === 'draft' ? { contentStatus: data.contentStatus } : {}),
         // A katalog v2 badge with a price goes (K3-KATALOG §10); other badges are the panel's.
@@ -532,6 +551,35 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     if (id !== undefined) productIds.set(shortId, id)
     if (slug !== undefined) slugByKey.set(shortId, slug)
   }
+
+  // --- K4 polecane and podobne (ADR-017 pkt 10), once every card has its record ---
+  log(`products with K4 content: ${JSON.stringify(k4Changes)}`)
+  const linked = [...k4Cards.values()].filter((card) => productIds.has(card.slug_seed))
+  const { docs: linkedDocs } = await payload.find({
+    collection: 'products',
+    where: inTenant({ id: { in: linked.map((card) => productIds.get(card.slug_seed)) } }),
+    pagination: false,
+    select: { recommended: true, alternatives: true, _status: true },
+    ...local,
+  })
+  const unknownLinks = new Set<string>()
+  for (const card of linked) {
+    const stored = linkedDocs.find((doc) => doc.id === productIds.get(card.slug_seed))
+    if (!stored) continue
+    const { unknown, ...relations } = k4Relations(card, (slug) => productIds.get(slug))
+    unknown.forEach((slug) => unknownLinks.add(slug))
+    const same = hasSameValues(stored, relations)
+    if (!same) {
+      await payload.update({
+        collection: 'products',
+        id: stored.id,
+        data: { ...relations, _status: stored._status ?? 'draft' },
+        ...local,
+      })
+    }
+    count('products K4 polecane/podobne', same ? false : 'updated')
+  }
+  for (const slug of unknownLinks) note('K4: polecane/podobne bez karty w bazie', slug)
 
   // --- removed and replaced cards: hidden (draft, records stay), old address → 301 ---
   const retired = [
