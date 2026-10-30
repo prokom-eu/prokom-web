@@ -1,0 +1,666 @@
+{
+ "dzialy": [
+  {
+   "slug": "sprz",
+   "nazwa": "Kasy i sprzedaż",
+   "krotko": "Sprzedaż",
+   "ikona": "M3 9l2-5h14l2 5 M4 9v11h16V9 M9 20v-6h6v6",
+   "kategorie": [
+    "kasy",
+    "druk",
+    "pos",
+    "mob",
+    "term",
+    "kiosk",
+    "akc",
+    "wagi",
+    "kody",
+    "vend"
+   ]
+  },
+  {
+   "slug": "biuro",
+   "nazwa": "Komputery i biuro",
+   "krotko": "Biuro",
+   "ikona": "M4 5h16v10H4z M2 19h20",
+   "kategorie": [
+    "laptopy",
+    "komputery",
+    "monitory",
+    "tablety",
+    "telefony",
+    "akcesoria-biuro",
+    "serw",
+    "mfp",
+    "niszczarki",
+    "av"
+   ]
+  },
+  {
+   "slug": "prog",
+   "nazwa": "Oprogramowanie",
+   "krotko": "Programy",
+   "ikona": "M6 3h9l4 4v14H6z M14 3v5h5 M9 13h7 M9 17h5",
+   "kategorie": [
+    "progs",
+    "progb",
+    "m365"
+   ]
+  },
+  {
+   "slug": "bezp",
+   "nazwa": "Sieć, bezpieczeństwo i podpis",
+   "krotko": "Sieć i bezpieczeństwo",
+   "ikona": "M12 3l7 3v5c0 4.6-3 8.6-7 10-4-1.4-7-5.4-7-10V6l7-3z M9 12l2 2 4-4",
+   "kategorie": [
+    "siec",
+    "ochr",
+    "podpis"
+   ]
+  },
+  {
+   "slug": "usl",
+   "nazwa": "Serwis i usługi",
+   "krotko": "Usługi",
+   "ikona": "M15 7a4 4 0 00-5.3 5.1L4 17.8 6.2 20l5.7-5.7A4 4 0 0017 9l-2.4 2.4-2-2L15 7z",
+   "kategorie": [
+    "it",
+    "serwis",
+    "dof"
+   ]
+  }
+ ],
+ "nazwy_dzialow_skrot": {
+  "bezp": "Sieć i bezpieczeństwo"
+ },
+ "kategorie": [
+  {
+   "kod": "kasy",
+   "dzial": "sprz",
+   "nazwa": "Kasy fiskalne",
+   "opis": "Posnet, Elzab, Fawag — kasy online do sklepu, usług i sprzedaży w terenie",
+   "ikona": "M3 7h18v10H3z M3 10h18 M7 14h4",
+   "liczba_w_wizualizacji": 11,
+   "podkategorie": [],
+   "do_czego": null,
+   "dobor": null
+  },
+  {
+   "kod": "druk",
+   "dzial": "sprz",
+   "nazwa": "Drukarki fiskalne",
+   "opis": "Posnet, Elzab, Fawag — do programu sprzedaży i stanowisk POS",
+   "ikona": "M6 9V3h12v6 M6 18H4a1 1 0 01-1-1v-6a2 2 0 012-2h14a2 2 0 012 2v6a1 1 0 01-1 1h-2 M6 14h12v7H6z",
+   "liczba_w_wizualizacji": 12,
+   "podkategorie": [],
+   "do_czego": null,
+   "dobor": null
+  },
+  {
+   "kod": "pos",
+   "dzial": "sprz",
+   "nazwa": "Stanowiska POS",
+   "opis": "Sunmi, Posnet, Elzab — dotykowe stanowiska pod GoPOS i program sklepowy",
+   "ikona": "M4 5h16v11H4z M8 20h8 M12 16v4",
+   "liczba_w_wizualizacji": 6,
+   "podkategorie": [],
+   "do_czego": null,
+   "dobor": null
+  },
+  {
+   "kod": "mob",
+   "dzial": "sprz",
+   "nazwa": "Kasoterminale i mobilne",
+   "opis": "Sunmi, Posnet, Elzab — kelner przy stoliku i sprzedaż w terenie",
+   "ikona": "M7 2h10v20H7z M10 18h4",
+   "liczba_w_wizualizacji": 6,
+   "podkategorie": [],
+   "do_czego": null,
+   "dobor": null
+  },
+  {
+   "kod": "term",
+   "dzial": "sprz",
+   "nazwa": "Terminale płatnicze",
+   "opis": "PolCard from Fiserv — karty, BLIK, płatność telefonem",
+   "ikona": "M6 2h12v20H6z M9 6h6 M9 10h6 M12 17h.01",
+   "liczba_w_wizualizacji": 3,
+   "podkategorie": [],
+   "do_czego": null,
+   "dobor": null
+  },
+  {
+   "kod": "kiosk",
+   "dzial": "sprz",
+   "nazwa": "Kioski i ekrany kuchenne",
+   "opis": "Sunmi — samoobsługa gości i kuchnia bez papieru",
+   "ikona": "M7 3h10v14H7z M10 21h4 M12 17v4",
+   "liczba_w_wizualizacji": 2,
+   "podkategorie": [],
+   "do_czego": null,
+   "dobor": null
+  },
+  {
+   "kod": "akc",
+   "dzial": "sprz",
+   "nazwa": "Akcesoria POS",
+   "opis": "szuflady, drukarki bonów, sprawdzarki cen, wyświetlacze",
+   "ikona": "M3 8h18v10H3z M3 12h18 M10 15h4",
+   "liczba_w_wizualizacji": 17,
+   "podkategorie": [
+    {
+     "slug": "szuflady-kasowe",
+     "nazwa": "Szuflady kasowe"
+    },
+    {
+     "slug": "sprawdzarki-cen-i-wyswietlacze",
+     "nazwa": "Sprawdzarki cen i wyświetlacze"
+    },
+    {
+     "slug": "drukarki-bonowe",
+     "nazwa": "Drukarki bonowe"
+    },
+    {
+     "slug": "klawiatury-i-osprzet",
+     "nazwa": "Klawiatury i osprzęt"
+    }
+   ],
+   "do_czego": null,
+   "dobor": null
+  },
+  {
+   "kod": "wagi",
+   "dzial": "sprz",
+   "nazwa": "Wagi sklepowe",
+   "opis": "Dibal, Elzab, Fawag — sklepowe, etykietujące i kontrolne",
+   "ikona": "M5 20h14 M12 4v16 M5 8h14 M7 8l-3 6h6z M17 8l-3 6h6z",
+   "liczba_w_wizualizacji": 11,
+   "podkategorie": [
+    {
+     "slug": "wagi-sklepowe",
+     "nazwa": "Wagi sklepowe"
+    },
+    {
+     "slug": "wagi-kontrolne-i-magazynowe",
+     "nazwa": "Wagi kontrolne i magazynowe"
+    }
+   ],
+   "do_czego": null,
+   "dobor": null
+  },
+  {
+   "kod": "kody",
+   "dzial": "sprz",
+   "nazwa": "Skanery, etykiety i kolektory",
+   "opis": "Zebra, Godex, Sunmi, SATO — skanery, drukarki etykiet, kolektory",
+   "ikona": "M4 5v14 M7 5v14 M10 5v14 M14 5v14 M17 5v14 M20 5v14",
+   "liczba_w_wizualizacji": 24,
+   "podkategorie": [
+    {
+     "slug": "drukarki-etykiet-i-metkownice",
+     "nazwa": "Drukarki etykiet i metkownice"
+    },
+    {
+     "slug": "skanery-kodow",
+     "nazwa": "Skanery kodów"
+    },
+    {
+     "slug": "kolektory-danych",
+     "nazwa": "Kolektory danych"
+    },
+    {
+     "slug": "drukarki-kart",
+     "nazwa": "Drukarki kart"
+    }
+   ],
+   "do_czego": null,
+   "dobor": null
+  },
+  {
+   "kod": "vend",
+   "dzial": "sprz",
+   "nazwa": "Automaty vendingowe",
+   "opis": "Automaty z windą, mikromarkety, chlebomat, pizzomat, boxomaty — Optivendi",
+   "ikona": "M5 3h14v18H5z M8 7h8 M8 11h8 M14 16h2",
+   "liczba_w_wizualizacji": 23,
+   "podkategorie": [
+    {
+     "slug": "z-winda",
+     "nazwa": "Automaty z windą i mikromarkety"
+    },
+    {
+     "slug": "zywnosc",
+     "nazwa": "Automaty spożywcze"
+    },
+    {
+     "slug": "boxomaty",
+     "nazwa": "Boxomaty i skrytki"
+    }
+   ],
+   "do_czego": [
+    "Przekąski i napoje",
+    "Świeża żywność",
+    "Pieczywo i ciasta",
+    "Obiady i pizza",
+    "Skrytki i odbiór"
+   ],
+   "dobor": {
+    "t": "Nie wiesz, jaki automat?",
+    "d": "Zacznij od produktu — na stronie o automatach pokazujemy, która maszyna do czego pasuje.",
+    "b": "Dobierz automat",
+    "a": "vending"
+   }
+  },
+  {
+   "kod": "laptopy",
+   "dzial": "biuro",
+   "nazwa": "Laptopy",
+   "opis": "Lenovo, Dell, Apple — laptopy do biura, w teren i do projektowania",
+   "ikona": "M4 5h16v10H4z M2 19h20",
+   "liczba_w_wizualizacji": 43,
+   "podkategorie": [],
+   "do_czego": null,
+   "dobor": null
+  },
+  {
+   "kod": "komputery",
+   "dzial": "biuro",
+   "nazwa": "Komputery i All-in-One",
+   "opis": "Komputery biurowe, mini PC, All-in-One i stacje robocze — Lenovo, Dell",
+   "ikona": "M6 3h12v14H6z M9 21h6 M12 17v4",
+   "liczba_w_wizualizacji": 19,
+   "podkategorie": [],
+   "do_czego": null,
+   "dobor": null
+  },
+  {
+   "kod": "monitory",
+   "dzial": "biuro",
+   "nazwa": "Monitory",
+   "opis": "Monitory biurowe, z jednym kablem USB-C i z kamerą do spotkań",
+   "ikona": "M3 4h18v12H3z M8 20h8 M12 16v4",
+   "liczba_w_wizualizacji": 14,
+   "podkategorie": [],
+   "do_czego": null,
+   "dobor": null
+  },
+  {
+   "kod": "tablety",
+   "dzial": "biuro",
+   "nazwa": "Tablety",
+   "opis": "iPad i Galaxy Tab do pracy w terenie, na recepcji i w sali",
+   "ikona": "M6 2h12v20H6z M11 18h2",
+   "liczba_w_wizualizacji": 3,
+   "podkategorie": [],
+   "do_czego": null,
+   "dobor": null
+  },
+  {
+   "kod": "telefony",
+   "dzial": "biuro",
+   "nazwa": "Telefony",
+   "opis": "iPhone i Samsung Galaxy dla firm — z konfiguracją i przeniesieniem danych",
+   "ikona": "M7 2h10v20H7z M11 18h2",
+   "liczba_w_wizualizacji": 4,
+   "podkategorie": [],
+   "do_czego": null,
+   "dobor": null
+  },
+  {
+   "kod": "akcesoria-biuro",
+   "dzial": "biuro",
+   "nazwa": "Klawiatury, myszy i słuchawki",
+   "opis": "Logitech — klawiatury, myszy, kamery internetowe, słuchawki i głośniki do pracy i spotkań online",
+   "ikona": "M2 7h20v10H2z M6 11h.01 M10 11h.01 M14 11h.01 M18 11h.01 M7 14h10",
+   "liczba_w_wizualizacji": 18,
+   "podkategorie": [
+    {
+     "slug": "klawiatury",
+     "nazwa": "Klawiatury"
+    },
+    {
+     "slug": "myszy",
+     "nazwa": "Myszy"
+    },
+    {
+     "slug": "zestawy",
+     "nazwa": "Zestawy klawiatura i mysz"
+    },
+    {
+     "slug": "kamery",
+     "nazwa": "Kamery internetowe"
+    },
+    {
+     "slug": "sluchawki",
+     "nazwa": "Słuchawki i zestawy słuchawkowe"
+    }
+   ],
+   "do_czego": null,
+   "dobor": null
+  },
+  {
+   "kod": "serw",
+   "dzial": "biuro",
+   "nazwa": "Serwery, NAS i UPS",
+   "opis": "Dell PowerEdge, Synology, QNAP, APC, COMEX",
+   "ikona": "M4 4h16v6H4z M4 14h16v6H4z M8 7h.01 M8 17h.01",
+   "liczba_w_wizualizacji": 39,
+   "podkategorie": [
+    {
+     "slug": "serwery",
+     "nazwa": "Serwery"
+    },
+    {
+     "slug": "nas",
+     "nazwa": "Serwery plików NAS"
+    },
+    {
+     "slug": "ups",
+     "nazwa": "Zasilacze UPS"
+    }
+   ],
+   "do_czego": null,
+   "dobor": null
+  },
+  {
+   "kod": "mfp",
+   "dzial": "biuro",
+   "nazwa": "Drukarki i urządzenia wielofunkcyjne",
+   "opis": "Brother, HP, Konica Minolta, Kyocera — laserowe, atramentowe, skanery dokumentów",
+   "ikona": "M6 9V3h12v6 M4 9h16v8H4z M7 14h10v7H7z",
+   "liczba_w_wizualizacji": 53,
+   "podkategorie": [
+    {
+     "slug": "laser-mono",
+     "nazwa": "Laserowe czarno-białe"
+    },
+    {
+     "slug": "laser-kolor",
+     "nazwa": "Laserowe kolorowe"
+    },
+    {
+     "slug": "atramentowe",
+     "nazwa": "Atramentowe"
+    },
+    {
+     "slug": "skanery",
+     "nazwa": "Skanery dokumentów"
+    },
+    {
+     "slug": "mfp-biuro",
+     "nazwa": "Do biura i działów (A4/A3)"
+    }
+   ],
+   "do_czego": null,
+   "dobor": null
+  },
+  {
+   "kod": "niszczarki",
+   "dzial": "biuro",
+   "nazwa": "Niszczarki",
+   "opis": "Fellowes i Kobra — niszczarki do biura, działu i dokumentów wrażliwych (RODO)",
+   "ikona": "M5 9h14v5H5z M8 3h8v6 M7 14v7 M10 14v7 M14 14v7 M17 14v7",
+   "liczba_w_wizualizacji": 16,
+   "podkategorie": [
+    {
+     "slug": "male-biuro",
+     "nazwa": "Małe biuro i stanowisko"
+    },
+    {
+     "slug": "biuro",
+     "nazwa": "Biuro i zespół"
+    },
+    {
+     "slug": "autofeed",
+     "nazwa": "Z automatycznym podawaniem"
+    },
+    {
+     "slug": "dzial",
+     "nazwa": "Dział i praca ciągła"
+    },
+    {
+     "slug": "wysokie-bezpieczenstwo",
+     "nazwa": "Wysokie bezpieczeństwo (P-5)"
+    }
+   ],
+   "do_czego": null,
+   "dobor": null
+  },
+  {
+   "kod": "av",
+   "dzial": "biuro",
+   "nazwa": "Ekrany i projektory",
+   "opis": "Avtek, Samsung, Sharp/NEC — monitory interaktywne, ekrany informacyjne, projektory",
+   "ikona": "M3 4h18v12H3z M8 20h8 M12 16v4",
+   "liczba_w_wizualizacji": 22,
+   "podkategorie": [
+    {
+     "slug": "monitory-interaktywne",
+     "nazwa": "Monitory interaktywne"
+    },
+    {
+     "slug": "ekrany-informacyjne",
+     "nazwa": "Ekrany informacyjne"
+    },
+    {
+     "slug": "projektory",
+     "nazwa": "Projektory"
+    },
+    {
+     "slug": "wideokonferencje",
+     "nazwa": "Wideokonferencje"
+    }
+   ],
+   "do_czego": null,
+   "dobor": null
+  },
+  {
+   "kod": "progs",
+   "dzial": "prog",
+   "nazwa": "Programy sprzedażowe i ERP",
+   "opis": "InsERT, Comarch, Insoft — sprzedaż, magazyn, księgowość, kadry",
+   "ikona": "M6 3h9l4 4v14H6z M14 3v5h5 M9 13h7 M9 17h5",
+   "liczba_w_wizualizacji": 13,
+   "podkategorie": [],
+   "do_czego": null,
+   "dobor": null
+  },
+  {
+   "kod": "progb",
+   "dzial": "prog",
+   "nazwa": "Programy branżowe",
+   "opis": "GoPOS, NFHotel, Insoft, Elzab — gastronomia, hotele, sklepy",
+   "ikona": "M4 4h16v16H4z M4 9h16 M9 9v11",
+   "liczba_w_wizualizacji": 14,
+   "podkategorie": [],
+   "do_czego": null,
+   "dobor": null
+  },
+  {
+   "kod": "m365",
+   "dzial": "prog",
+   "nazwa": "Licencje i oprogramowanie biurowe",
+   "opis": "Microsoft 365, Windows, Office, Windows Server, Adobe Acrobat",
+   "ikona": "M4 4h7v7H4z M13 4h7v7h-7z M4 13h7v7H4z M13 13h7v7h-7z",
+   "liczba_w_wizualizacji": 5,
+   "podkategorie": [],
+   "do_czego": null,
+   "dobor": null
+  },
+  {
+   "kod": "siec",
+   "dzial": "bezp",
+   "nazwa": "Sieć i Wi-Fi",
+   "opis": "Ubiquiti UniFi, TP-Link Omada — Wi-Fi, routery, przełączniki",
+   "ikona": "M5 12.5a10 10 0 0114 0 M8.5 16a5 5 0 017 0 M12 19.5h.01 M2 9a15 15 0 0120 0",
+   "liczba_w_wizualizacji": 24,
+   "podkategorie": [],
+   "do_czego": null,
+   "dobor": null
+  },
+  {
+   "kod": "ochr",
+   "dzial": "bezp",
+   "nazwa": "Antywirus i firewall",
+   "opis": "ESET, Stormshield",
+   "ikona": "M12 3l7 3v5c0 4.6-3 8.6-7 10-4-1.4-7-5.4-7-10V6l7-3z",
+   "liczba_w_wizualizacji": 2,
+   "podkategorie": [],
+   "do_czego": null,
+   "dobor": null
+  },
+  {
+   "kod": "podpis",
+   "dzial": "bezp",
+   "nazwa": "Podpis i pieczęć kwalifikowana",
+   "opis": "EuroCert — podpis i pieczęć do KSeF, ZUS, KRS, przetargów",
+   "ikona": "M3 17c3-1 4-6 6-6s1 6 4 6 4-4 6-4 M3 21h18",
+   "liczba_w_wizualizacji": 2,
+   "podkategorie": [],
+   "do_czego": null,
+   "dobor": null
+  },
+  {
+   "kod": "it",
+   "dzial": "usl",
+   "nazwa": "Opieka IT i wdrożenia",
+   "opis": "opieka IT, KSeF, wdrożenia programów, kopie, szkolenia",
+   "ikona": "M12 21a9 9 0 100-18 9 9 0 000 18z M12 16a4 4 0 100-8 4 4 0 000 8z",
+   "liczba_w_wizualizacji": 9,
+   "podkategorie": [],
+   "do_czego": null,
+   "dobor": null
+  },
+  {
+   "kod": "serwis",
+   "dzial": "usl",
+   "nazwa": "Serwis i przeglądy",
+   "opis": "kasy i drukarki fiskalne, POS, komputery, odzysk danych",
+   "ikona": "M15 7a4 4 0 00-5.3 5.1L4 17.8 6.2 20l5.7-5.7A4 4 0 0017 9l-2.4 2.4-2-2L15 7z",
+   "liczba_w_wizualizacji": 11,
+   "podkategorie": [],
+   "do_czego": null,
+   "dobor": null
+  },
+  {
+   "kod": "dof",
+   "dzial": "usl",
+   "nazwa": "Dofinansowania",
+   "opis": "zakupy w projektach z dofinansowaniem",
+   "ikona": "M12 3v18 M17 7H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6",
+   "liczba_w_wizualizacji": 1,
+   "podkategorie": [],
+   "do_czego": null,
+   "dobor": null
+  }
+ ],
+ "do_czego_podkategorie": {
+  "vend/z-winda": [
+   "Przekąski i napoje",
+   "Świeża żywność",
+   "Duży ruch (biurowiec, szpital)",
+   "Reklama marki"
+  ],
+  "vend/zywnosc": [
+   "Piekarnia i cukiernia",
+   "Zakład pracy",
+   "Stacja paliw i osiedle",
+   "Galeria i uczelnia"
+  ],
+  "vend/boxomaty": [
+   "Odbiór zamówień",
+   "Hotel i klucze",
+   "Biblioteka",
+   "Na zewnątrz"
+  ],
+  "serw/ups": [
+   "Kasa i jedno stanowisko",
+   "Szafa rack: serwer, NAS, sieć",
+   "Cały budynek (3 fazy)",
+   "Akumulatory i akcesoria"
+  ],
+  "serw/nas": [
+   "Kopie zapasowe biura",
+   "Monitoring (nagrania)",
+   "Pliki dla zespołu",
+   "Szafa rack"
+  ],
+  "serw/serwery": [
+   "Programy w sieci (ERP, KSeF)",
+   "Wirtualizacja",
+   "Szafa rack",
+   "Cicha wieża w biurze"
+  ]
+ },
+ "dobor_podkategorie": {
+  "vend/z-winda": {
+   "t": "Nie wiesz, jaki automat?",
+   "d": "Zacznij od produktu — na stronie o automatach pokazujemy, która maszyna do czego pasuje.",
+   "b": "Dobierz automat",
+   "a": "vending"
+  },
+  "vend/zywnosc": {
+   "t": "Nie wiesz, jaki automat?",
+   "d": "Zacznij od produktu — na stronie o automatach pokazujemy, która maszyna do czego pasuje.",
+   "b": "Dobierz automat",
+   "a": "vending"
+  },
+  "vend/boxomaty": {
+   "t": "Nie wiesz, jaki automat?",
+   "d": "Zacznij od produktu — na stronie o automatach pokazujemy, która maszyna do czego pasuje.",
+   "b": "Dobierz automat",
+   "a": "vending"
+  },
+  "serw/ups": {
+   "t": "Nie wiesz, jaki UPS?",
+   "d": "Napisz, co chcesz podłączyć i jak długo ma działać bez prądu — dobierzemy moc, baterie i montaż.",
+   "b": "Zapytaj o dobór",
+   "a": "kontakt"
+  },
+  "serw/nas": {
+   "t": "Nie wiesz, jaki NAS?",
+   "d": "Powiedz, ile osób i ile danych — dobierzemy obudowę, dyski i kopię 3-2-1.",
+   "b": "Zapytaj o dobór",
+   "a": "kontakt"
+  },
+  "serw/serwery": {
+   "t": "Nie wiesz, jaki serwer?",
+   "d": "Napisz, jakie programy ma obsługiwać — dobierzemy model, dyski i UPS.",
+   "b": "Zapytaj o dobór",
+   "a": "kontakt"
+  }
+ },
+ "branze": [
+  "Handel",
+  "Gastronomia",
+  "Noclegi",
+  "Biura i usługi",
+  "Zdrowie i uzdrowiska",
+  "Szkoły i instytucje",
+  "Magazyn i produkcja",
+  "Beauty"
+ ],
+ "rodzaje": [
+  "Urządzenia",
+  "Oprogramowanie",
+  "Usługi"
+ ],
+ "sortowanie": [
+  [
+   "pop",
+   "Polecane"
+  ],
+  [
+   "new",
+   "Nowości"
+  ],
+  [
+   "az",
+   "Nazwa A–Z"
+  ],
+  [
+   "brand",
+   "Marka A–Z"
+  ]
+ ]
+}

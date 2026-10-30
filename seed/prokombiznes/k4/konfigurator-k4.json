@@ -1,0 +1,1386 @@
+{
+ "kroki_i_rekomendacje": {
+  "firm": [
+   [
+    "sklep",
+    "Sklep",
+    "spożywczy, odzieżowy, branżowy",
+    "M3 9l2-5h14l2 5 M4 9v11h16V9 M9 20v-6h6v6"
+   ],
+   [
+    "gastro",
+    "Gastronomia",
+    "restauracja, kawiarnia, bar",
+    "M7 3v8 M5 3v4a2 2 0 004 0V3 M7 11v10 M17 3c-2 0-3 2-3 5s1 4 3 4v9"
+   ],
+   [
+    "hotel",
+    "Hotel lub pensjonat",
+    "pokoje, apartamenty, domki",
+    "M3 20V8l9-5 9 5v12 M9 20v-6h6v6"
+   ],
+   [
+    "biuro",
+    "Biuro i usługi",
+    "kancelaria, biuro rachunkowe",
+    "M4 5h16v10H4z M2 19h20"
+   ],
+   [
+    "gabinet",
+    "Gabinet lub salon",
+    "lekarz, fizjoterapia, beauty",
+    "M12 21s-7-6-7-11a7 7 0 1114 0c0 5-7 11-7 11z M10 10h4 M12 8v4"
+   ],
+   [
+    "szkola",
+    "Szkoła lub instytucja",
+    "szkoła, przedszkole, urząd",
+    "M3 9l9-5 9 5-9 5z M7 11v5c3 2 7 2 10 0v-5"
+   ],
+   [
+    "warsztat",
+    "Warsztat i serwis",
+    "mechanik, zakład usługowy",
+    "M15 7a4 4 0 00-5.3 5.1L4 17.8 6.2 20l5.7-5.7A4 4 0 0017 9l-2.4 2.4-2-2L15 7z"
+   ],
+   [
+    "produkcja",
+    "Produkcja i magazyn",
+    "zakład, hurtownia, wysyłka",
+    "M3 21V9l6 4V9l6 4V5h6v16z"
+   ],
+   [
+    "inna",
+    "Inna firma",
+    "opiszesz ją na końcu",
+    "M12 5v14 M5 12h14"
+   ]
+  ],
+  "etap": [
+   [
+    "nowa",
+    "Otwieram firmę lub lokal",
+    "wszystko od zera, gotowe na otwarcie"
+   ],
+   [
+    "wymiana",
+    "Wymieniam lub rozbudowuję",
+    "nowy sprzęt, kolejne stanowiska"
+   ],
+   [
+    "awaria",
+    "Coś nie działa",
+    "kasa, komputer, sieć — potrzebuję pomocy"
+   ],
+   [
+    "ksef",
+    "Przygotowuję się do KSeF",
+    "program, certyfikat, uprawnienia"
+   ]
+  ],
+  "skala": [
+   [
+    "1",
+    "1 stanowisko",
+    "jedna kasa lub jeden komputer"
+   ],
+   [
+    "2",
+    "2–3 stanowiska",
+    "mały zespół"
+   ],
+   [
+    "4",
+    "4–10 stanowisk",
+    "kilka pomieszczeń"
+   ],
+   [
+    "10",
+    "Ponad 10",
+    "większa firma lub kilka lokalizacji"
+   ]
+  ],
+  "needs": [
+   [
+    "kasa",
+    "Kasa fiskalna",
+    "M3 9l2-5h14l2 5 M4 9v11h16V9"
+   ],
+   [
+    "pos",
+    "Dotykowy system POS",
+    "M3 4h18v12H3z M8 20h8 M12 16v4"
+   ],
+   [
+    "plat",
+    "Płatności kartą i BLIK",
+    "M3 6h18v12H3z M3 10h18 M7 15h4"
+   ],
+   [
+    "prog",
+    "Program do sprzedaży i magazynu",
+    "M6 3h9l4 4v14H6z M14 3v5h5"
+   ],
+   [
+    "ksef",
+    "Faktury i KSeF",
+    "M6 3h9l4 4v14H6z M9 13h7 M9 17h5"
+   ],
+   [
+    "komp",
+    "Komputery i laptopy",
+    "M4 5h16v10H4z M2 19h20"
+   ],
+   [
+    "tel",
+    "Telefony i tablety",
+    "M7 2h10v20H7z M11 18h2"
+   ],
+   [
+    "druk",
+    "Drukarka i skanowanie",
+    "M6 9V3h12v6 M4 9h16v8H4z M7 17h10v4H7z"
+   ],
+   [
+    "siec",
+    "Sieć i Wi-Fi dla gości",
+    "M12 18h.01 M8.5 14.5a5 5 0 017 0 M5 11a10 10 0 0114 0"
+   ],
+   [
+    "kopie-zapasowe",
+    "Kopie danych i serwer",
+    "M6 3h12v18H6z M9 7h6 M9 11h6"
+   ],
+   [
+    "ups",
+    "Zasilanie awaryjne (UPS)",
+    "M7 3h10v18H7z M12 7l-2 5h4l-2 5"
+   ],
+   [
+    "ochr",
+    "Ochrona antywirusowa",
+    "M12 3l7 3v5c0 4.6-3 8.6-7 10-4-1.4-7-5.4-7-10V6l7-3z"
+   ],
+   [
+    "ekr",
+    "Ekrany i monitory interaktywne",
+    "M3 4h18v12H3z M8 20h8"
+   ],
+   [
+    "waga",
+    "Wagi i etykiety",
+    "M4 18h16 M6 18l2-8h8l2 8 M12 10V5"
+   ],
+   [
+    "vend",
+    "Automaty vendingowe",
+    "M6 2h12v20H6z M9 6h6 M9 10h6 M10 17h4"
+   ],
+   [
+    "opieka",
+    "Stała opieka IT",
+    "M12 21a9 9 0 100-18 9 9 0 000 18z M12 16a4 4 0 100-8 4 4 0 000 8z"
+   ]
+  ],
+  "preset": {
+   "sklep": [
+    "kasa",
+    "plat",
+    "prog",
+    "ksef",
+    "waga"
+   ],
+   "gastro": [
+    "pos",
+    "plat",
+    "prog",
+    "siec",
+    "ksef"
+   ],
+   "hotel": [
+    "prog",
+    "siec",
+    "plat",
+    "komp",
+    "ksef"
+   ],
+   "biuro": [
+    "komp",
+    "ksef",
+    "druk",
+    "kopie-zapasowe",
+    "opieka"
+   ],
+   "gabinet": [
+    "kasa",
+    "plat",
+    "komp",
+    "ksef",
+    "opieka"
+   ],
+   "szkola": [
+    "komp",
+    "ekr",
+    "siec",
+    "ochr",
+    "kopie-zapasowe"
+   ],
+   "warsztat": [
+    "kasa",
+    "komp",
+    "prog",
+    "ksef",
+    "druk"
+   ],
+   "produkcja": [
+    "komp",
+    "prog",
+    "waga",
+    "siec",
+    "kopie-zapasowe"
+   ],
+   "inna": []
+  },
+  "rec": {
+   "kasa": {
+    "t": "Kasa fiskalna",
+    "why": "Fiskalizujemy na miejscu, uczymy obsługi i pilnujemy przeglądów — jesteśmy autoryzowanym serwisem Posnet i Elzab.",
+    "p": [
+     "ergo",
+     "minilt",
+     "k10"
+    ],
+    "by": {
+     "sklep": [
+      "neo",
+      "jota",
+      "bingo"
+     ],
+     "warsztat": [
+      "ergo",
+      "bingo",
+      "k10"
+     ],
+     "gabinet": [
+      "ergo",
+      "k10",
+      "pospay2"
+     ],
+     "4": [
+      "neo",
+      "jota",
+      "bingo"
+     ],
+     "10": [
+      "neo",
+      "jota",
+      "hx"
+     ]
+    },
+    "l": [
+     [
+      "Salon Posnet",
+      {
+       "w": "marka",
+       "marka": "Posnet"
+      }
+     ],
+     [
+      "Salon Elzab",
+      {
+       "w": "marka",
+       "marka": "Elzab"
+      }
+     ]
+    ]
+   },
+   "pos": {
+    "t": "Dotykowy system POS",
+    "why": "Stanowisko z ekranem dotykowym, a do niego terminal przy stoliku i ekran w kuchni — jeden system z wdrożeniem w lokalu.",
+    "p": [
+     "d3",
+     "v3mix",
+     "kds"
+    ],
+    "by": {
+     "sklep": [
+      "t10",
+      "vero",
+      "triotab"
+     ],
+     "gastro": [
+      "d3",
+      "v3mix",
+      "kds"
+     ]
+    },
+    "l": [
+     [
+      "GoPOS dla gastronomii",
+      {
+       "w": "gopos"
+      }
+     ],
+     [
+      "Salon Sunmi",
+      {
+       "w": "marka",
+       "marka": "Sunmi"
+      }
+     ]
+    ]
+   },
+   "plat": {
+    "t": "Płatności kartą i BLIK",
+    "why": "Terminal łączymy z kasą, żeby kwota przechodziła sama. W programie Polska Bezgotówkowa terminal może kosztować 0 zł — warunki sprawdzamy przy ofercie.",
+    "p": [
+     "pol",
+     "posnet-netpay",
+     "softpos"
+    ],
+    "by": {
+     "gastro": [
+      "pol",
+      "pospay2",
+      "softpos"
+     ]
+    },
+    "l": [
+     [
+      "Salon PolCard",
+      {
+       "w": "marka",
+       "marka": "PolCard"
+      }
+     ]
+    ]
+   },
+   "prog": {
+    "t": "Program do sprzedaży i magazynu",
+    "why": "Dobieramy program do skali firmy, przenosimy dane, łączymy z kasą lub drukarką fiskalną i szkolimy zespół.",
+    "p": [
+     "nexo",
+     "s123",
+     "pcpos"
+    ],
+    "by": {
+     "gastro": [
+      "gopos",
+      "gokds",
+      "goorder"
+     ],
+     "hotel": [
+      "nfh",
+      "gopos-hotel",
+      "nexo"
+     ],
+     "sklep": [
+      "nexo",
+      "pcpos",
+      "minimarket"
+     ],
+     "biuro": [
+      "nexo",
+      "rachmistrz",
+      "rewizor"
+     ],
+     "produkcja": [
+      "nexo",
+      "gt",
+      "optima"
+     ]
+    },
+    "l": [
+     [
+      "InsERT — programy",
+      {
+       "w": "insert"
+      }
+     ],
+     [
+      "GoPOS",
+      {
+       "w": "gopos"
+      }
+     ]
+    ]
+   },
+   "ksef": {
+    "t": "Faktury i KSeF",
+    "why": "KSeF działa od 1 kwietnia 2026, a 1 stycznia 2027 kończą się wyjątki dla najmniejszych firm i faktur z kas. Ustawiamy program, uprawnienia i podpis lub pieczęć, żeby faktury szły bez nerwów.",
+    "p": [
+     "ksef",
+     "insert-inspunkty-ksef",
+     "euro"
+    ],
+    "by": {},
+    "l": [
+     [
+      "KSeF w programach InsERT",
+      {
+       "w": "insert"
+      }
+     ],
+     [
+      "Salon EuroCert",
+      {
+       "w": "marka",
+       "marka": "EuroCert"
+      }
+     ]
+    ]
+   },
+   "komp": {
+    "t": "Komputery i laptopy",
+    "why": "Dostarczamy gotowe do pracy: Windows, konta, programy i dane przeniesione ze starego komputera. Zgłoszenia gwarancyjne prowadzimy za Ciebie.",
+    "p": [
+     "lenovo-thinkbook-14-g8-g9",
+     "apple-macbook-air-m5",
+     "lenovo-thinkcentre-neo-50s-55s"
+    ],
+    "by": {
+     "gabinet": [
+      "lenovo-thinkbook-14-g8-g9",
+      "dell-pro-aio",
+      "apple-macbook-air-m5"
+     ],
+     "szkola": [
+      "lenovo-thinkbook-14-g8-g9",
+      "lenovo-thinkcentre-neo-50s-55s",
+      "dell-pro-aio"
+     ],
+     "10": [
+      "dell-pro-14-16",
+      "lenovo-thinkpad-t14-gen7",
+      "lenovo-thinkcentre-neo-50s-55s"
+     ]
+    },
+    "l": [
+     [
+      "Salon Lenovo",
+      {
+       "w": "marka",
+       "marka": "Lenovo"
+      }
+     ],
+     [
+      "Salon Apple",
+      {
+       "w": "marka",
+       "marka": "Apple"
+      }
+     ]
+    ]
+   },
+   "tel": {
+    "t": "Telefony i tablety",
+    "why": "iPhone i Galaxy konfigurujemy przez Apple Business lub Samsung Knox — konta firmowe, aplikacje i zabezpieczenia od pierwszego dnia.",
+    "p": [
+     "apple-iphone-17",
+     "samsung-galaxy-s26",
+     "apple-ipad-air-m4"
+    ],
+    "by": {
+     "hotel": [
+      "apple-iphone-17",
+      "samsung-galaxy-tab-s12",
+      "apple-ipad-air-m4"
+     ]
+    },
+    "l": [
+     [
+      "Salon Apple",
+      {
+       "w": "marka",
+       "marka": "Apple"
+      }
+     ],
+     [
+      "Salon Samsung",
+      {
+       "w": "marka",
+       "marka": "Samsung"
+      }
+     ]
+    ]
+   },
+   "druk": {
+    "t": "Drukarka i skanowanie",
+    "why": "Podłączamy do sieci, ustawiamy skanowanie do e-maila i folderów, doradzamy wydajne tonery.",
+    "p": [
+     "kyocera-ecosys-ma4000x-fx-wifx",
+     "konica-minolta-bizhub-c3321i",
+     "kyocera-ecosys-ma2600cwfx"
+    ],
+    "by": {
+     "4": [
+      "konica-minolta-bizhub-c3321i",
+      "konica-minolta-bizhub-5021i",
+      "kyocera-ecosys-ma4000x-fx-wifx"
+     ],
+     "10": [
+      "konica-minolta-bizhub-5021i",
+      "konica-minolta-bizhub-c301i",
+      "konica-minolta-bizhub-c3351i"
+     ]
+    },
+    "l": [
+     [
+      "Salon: druk w biurze",
+      {
+       "w": "marka",
+       "marka": "Konica Minolta"
+      }
+     ]
+    ]
+   },
+   "siec": {
+    "t": "Sieć i Wi-Fi dla gości",
+    "why": "Sprawdzamy zasięg w budynku, montujemy punkty Wi-Fi i ustawiamy osobną sieć dla gości — odciętą od kasy i komputerów.",
+    "p": [
+     "udr7",
+     "u7",
+     "ucgmax"
+    ],
+    "by": {
+     "hotel": [
+      "udmse",
+      "u7max",
+      "ubiquiti-u7-scienne-zewnetrzne"
+     ],
+     "1": [
+      "udr7",
+      "ubiquiti-unifi-express-7",
+      "u7"
+     ],
+     "4": [
+      "ucgmax",
+      "u7",
+      "usw24max"
+     ],
+     "10": [
+      "udmse",
+      "u7max",
+      "usw24max"
+     ]
+    },
+    "l": [
+     [
+      "Salon: sieć i Wi-Fi",
+      {
+       "w": "marka",
+       "marka": "Ubiquiti"
+      }
+     ]
+    ]
+   },
+   "kopie": {
+    "t": "Kopie danych i serwer",
+    "why": "Ustawiamy kopie według zasady 3-2-1 i robimy próbne odtworzenie — żeby kopia naprawdę działała, gdy będzie potrzebna.",
+    "p": [
+     "synology-diskstation-plus-2-4",
+     "qnap-ts-262a-ts-462a",
+     "synology-diskstation-value-j"
+    ],
+    "by": {
+     "4": [
+      "synology-diskstation-plus-2-4",
+      "synology-diskstation-plus-5-8",
+      "qnap-ts-262a-ts-462a"
+     ],
+     "10": [
+      "synology-diskstation-plus-5-8",
+      "synology-rackstation",
+      "dell-poweredge-t160-t360"
+     ]
+    },
+    "l": [
+     [
+      "Salon: NAS i kopie",
+      {
+       "w": "marka",
+       "marka": "Synology"
+      }
+     ]
+    ]
+   },
+   "ups": {
+    "t": "Zasilanie awaryjne (UPS)",
+    "why": "Przy zaniku prądu kasa, komputer lub serwer pracują dalej, a serwer zamyka się sam, zanim padną baterie.",
+    "p": [
+     "apc-back-ups",
+     "comex-cover-basic-1k",
+     "comex-cover-core-one"
+    ],
+    "by": {},
+    "l": [
+     [
+      "Salon COMEX — UPS COVER",
+      {
+       "w": "marka",
+       "marka": "COMEX"
+      }
+     ]
+    ]
+   },
+   "ochr": {
+    "t": "Ochrona antywirusowa",
+    "why": "Jedna konsola dla wszystkich komputerów i telefonów firmy; pilnujemy alertów i odnowień licencji.",
+    "p": [
+     "eset",
+     "microsoft-365-business",
+     "fw"
+    ],
+    "by": {},
+    "l": [
+     [
+      "Salon ESET",
+      {
+       "w": "marka",
+       "marka": "ESET"
+      }
+     ]
+    ]
+   },
+   "ekr": {
+    "t": "Ekrany i monitory interaktywne",
+    "why": "Menu i promocje na ekranie bez komputera obok, a w salach monitory dotykowe zamiast tablicy i projektora.",
+    "p": [
+     "samsung-qmc",
+     "avtek-ts-9-mate-g",
+     "samsung-qbc"
+    ],
+    "by": {
+     "gastro": [
+      "samsung-qbc",
+      "samsung-qmc",
+      "samsung-om"
+     ],
+     "szkola": [
+      "avtek-ts-9-mate-g",
+      "avtek-ts-9-lite-g",
+      "sharp-nec-projektory-sala"
+     ]
+    },
+    "l": [
+     [
+      "Salon Avtek",
+      {
+       "w": "marka",
+       "marka": "Avtek"
+      }
+     ],
+     [
+      "Salon Samsung",
+      {
+       "w": "marka",
+       "marka": "Samsung"
+      }
+     ]
+    ]
+   },
+   "waga": {
+    "t": "Wagi i etykiety",
+    "why": "Wagę łączymy z kasą, żeby wynik ważenia trafiał do paragonu sam. Do tego drukarki etykiet i czytniki kodów.",
+    "p": [
+     "elzab-waga-prima-2",
+     "dibal-d-955",
+     "zebra-drukarka-etykiet-zd421"
+    ],
+    "by": {
+     "produkcja": [
+      "zebra-drukarka-etykiet-zd421",
+      "godex-rt200-rt200i",
+      "zebra-tc22-tc27"
+     ]
+    },
+    "l": [
+     [
+      "Oferta: wagi",
+      {
+       "w": "oferta",
+       "cat": "wagi"
+      }
+     ],
+     [
+      "Oferta: etykiety i kody",
+      {
+       "w": "oferta",
+       "cat": "kody"
+      }
+     ]
+    ]
+   },
+   "vend": {
+    "t": "Automaty vendingowe",
+    "why": "Sprzedaż 24/7 bez obsługi — dobieramy automat do produktu i miejsca, jako partner Optivendi.",
+    "p": [
+     "optivendi-winda-2026",
+     "optivendi-chlebomat",
+     "optivendi-boxomaty"
+    ],
+    "by": {},
+    "l": [
+     [
+      "Automaty vendingowe",
+      {
+       "w": "vending"
+      }
+     ]
+    ]
+   },
+   "opieka": {
+    "t": "Stała opieka IT",
+    "why": "Informatyk na telefon w stałej opłacie: monitoring, kopie, aktualizacje i serwis. Zaczynamy od bezpłatnego przeglądu IT.",
+    "p": [
+     "srvkomp",
+     "odzysk",
+     "szkol"
+    ],
+    "by": {},
+    "l": [
+     [
+      "Opieka IT — szczegóły",
+      {
+       "w": "opieka"
+      }
+     ]
+    ]
+   }
+  },
+  "etapNote": {
+   "nowa": {
+    "t": "Otwierasz firmę?",
+    "d": "Za kasę online możesz odzyskać do 700 zł (ulgę rozlicza Twoja księgowa), a terminal w programie Polska Bezgotówkowa bywa za 0 zł. Sprawdzimy warunki przy ofercie."
+   },
+   "awaria": {
+    "t": "Coś nie działa?",
+    "d": "Zadzwoń od razu: 889 003 889. Jesteśmy autoryzowanym serwisem Posnet i Elzab, serwisujemy też komputery, sieć i drukarki. W godzinach pracy oddzwaniamy w ciągu 60 minut."
+   },
+   "ksef": {
+    "t": "KSeF: koniec wyjątków 1 stycznia 2027",
+    "d": "Sprawdzimy program, ustawimy uprawnienia i podpis lub pieczęć. Najlepiej zacząć z zapasem czasu — przed grudniowym szczytem."
+   }
+  }
+ },
+ "pytania": {
+  "sklep": [
+   [
+    "waga",
+    "Sprzedajesz towar na wagę?",
+    "warzywa, mięso, sery, słodycze",
+    0,
+    {
+     "add": [
+      "waga"
+     ],
+     "over": {
+      "kasa": [
+       "neo",
+       "jota",
+       "bingo"
+      ]
+     },
+     "tag": "sprzedaż na wagę"
+    }
+   ],
+   [
+    "kody",
+    "Towary z kodami kreskowymi?",
+    "szybka sprzedaż i inwentaryzacja",
+    1,
+    {
+     "add": [
+      "prog"
+     ],
+     "over": {
+      "prog": [
+       "pcpos",
+       "minimarket",
+       "nexo"
+      ]
+     },
+     "tag": "towary z kodami"
+    }
+   ],
+   [
+    "teren",
+    "Sprzedajesz też poza sklepem?",
+    "targi, dowóz, sprzedaż w terenie",
+    0,
+    {
+     "add": [
+      "plat"
+     ],
+     "over": {
+      "kasa": [
+       "k10",
+       "ergo",
+       "pospay2"
+      ]
+     },
+     "tag": "sprzedaż w terenie"
+    }
+   ],
+   [
+    "net",
+    "Masz albo planujesz sklep internetowy?",
+    "faktury i magazyn w jednym programie",
+    0,
+    {
+     "add": [
+      "prog",
+      "ksef"
+     ],
+     "over": {
+      "prog": [
+       "nexo",
+       "s123",
+       "gt"
+      ]
+     },
+     "tag": "sklep internetowy"
+    }
+   ]
+  ],
+  "gastro": [
+   [
+    "stolik",
+    "Obsługa kelnerska przy stolikach?",
+    "zamówienie i płatność przy gościu",
+    1,
+    {
+     "add": [
+      "pos",
+      "plat"
+     ],
+     "over": {
+      "pos": [
+       "d3",
+       "v3mix",
+       "kds"
+      ],
+      "plat": [
+       "pospay2",
+       "pol",
+       "softpos"
+      ]
+     },
+     "tag": "obsługa przy stoliku"
+    }
+   ],
+   [
+    "kuchnia",
+    "Osobna kuchnia albo bar?",
+    "zamówienia trafiają tam same",
+    1,
+    {
+     "add": [
+      "pos"
+     ],
+     "over": {
+      "pos": [
+       "d3",
+       "kds",
+       "v3mix"
+      ]
+     },
+     "tag": "osobna kuchnia"
+    }
+   ],
+   [
+    "dowozy",
+    "Dowozy albo zamówienia online?",
+    "Uber Eats, Glovo, Wolt, Pyszne.pl, własny sklep",
+    0,
+    {
+     "add": [
+      "prog"
+     ],
+     "over": {
+      "prog": [
+       "gohub",
+       "goorder",
+       "gopos"
+      ]
+     },
+     "tag": "dowozy i zamówienia online"
+    }
+   ],
+   [
+    "wifi",
+    "Wi-Fi dla gości?",
+    "osobna sieć, odcięta od kasy",
+    1,
+    {
+     "add": [
+      "siec"
+     ],
+     "tag": "Wi-Fi dla gości"
+    }
+   ],
+   [
+    "menu",
+    "Menu na ekranie albo kiosk?",
+    "ekran z menu, samoobsługowe zamawianie",
+    0,
+    {
+     "add": [
+      "ekr"
+     ],
+     "over": {
+      "ekr": [
+       "samsung-qbc",
+       "kiosk",
+       "samsung-qmc"
+      ]
+     },
+     "tag": "menu na ekranie"
+    }
+   ]
+  ],
+  "hotel": [
+   [
+    "rest",
+    "Restauracja albo bar w obiekcie?",
+    "rachunek dopisany do pokoju",
+    0,
+    {
+     "add": [
+      "pos",
+      "plat"
+     ],
+     "over": {
+      "prog": [
+       "nfh",
+       "gopos-hotel",
+       "nexo"
+      ],
+      "pos": [
+       "d3",
+       "v3mix",
+       "kds"
+      ]
+     },
+     "tag": "restauracja w obiekcie"
+    }
+   ],
+   [
+    "wifi",
+    "Wi-Fi w całym obiekcie?",
+    "pokoje, taras, sala",
+    1,
+    {
+     "add": [
+      "siec"
+     ],
+     "over": {
+      "siec": [
+       "u7",
+       "udr7",
+       "omada-ap-sufitowe"
+      ]
+     },
+     "tag": "Wi-Fi w całym obiekcie"
+    }
+   ],
+   [
+    "kasa",
+    "Sprzedajesz na miejscu?",
+    "bar, sklepik, parking — paragon z kasy",
+    0,
+    {
+     "add": [
+      "kasa"
+     ],
+     "tag": "sprzedaż na miejscu"
+    }
+   ],
+   [
+    "tel",
+    "Telefony lub tablety dla obsługi?",
+    "recepcja, sprzątanie, kuchnia",
+    0,
+    {
+     "add": [
+      "tel"
+     ],
+     "tag": "urządzenia dla obsługi"
+    }
+   ]
+  ],
+  "biuro": [
+   [
+    "zdal",
+    "Pracujecie też zdalnie albo w terenie?",
+    "laptopy, poczta i pliki w chmurze",
+    1,
+    {
+     "add": [
+      "komp",
+      "ochr"
+     ],
+     "over": {
+      "komp": [
+       "lenovo-thinkpad-t14-gen7",
+       "lenovo-thinkbook-14-g8-g9",
+       "apple-macbook-air-m5"
+      ],
+      "ochr": [
+       "microsoft-365-business",
+       "eset",
+       "fw"
+      ]
+     },
+     "tag": "praca zdalna"
+    }
+   ],
+   [
+    "pliki",
+    "Wspólne pliki dla zespołu?",
+    "serwer plików albo NAS z kopiami",
+    1,
+    {
+     "add": [
+      "kopie-zapasowe"
+     ],
+     "tag": "wspólne pliki"
+    }
+   ],
+   [
+    "podpis",
+    "Podpisujecie dokumenty elektronicznie?",
+    "podpis kwalifikowany, KSeF, e-deklaracje",
+    0,
+    {
+     "add": [
+      "ksef"
+     ],
+     "over": {
+      "ksef": [
+       "euro",
+       "ksef",
+       "insert-inspunkty-ksef"
+      ]
+     },
+     "tag": "podpis elektroniczny"
+    }
+   ],
+   [
+    "druk",
+    "Dużo drukujecie i skanujecie?",
+    "urządzenie wielofunkcyjne",
+    1,
+    {
+     "add": [
+      "druk"
+     ],
+     "tag": "druk i skanowanie"
+    }
+   ]
+  ],
+  "gabinet": [
+   [
+    "rej",
+    "Rejestracja klientów przy komputerze?",
+    "kalendarz, karty klientów",
+    1,
+    {
+     "add": [
+      "komp"
+     ],
+     "over": {
+      "komp": [
+       "dell-pro-aio",
+       "lenovo-thinkbook-14-g8-g9",
+       "lenovo-thinkcentre-neo-50s-55s"
+      ]
+     },
+     "tag": "rejestracja przy komputerze"
+    }
+   ],
+   [
+    "karta",
+    "Płatności kartą przy wizycie?",
+    "terminal połączony z kasą",
+    1,
+    {
+     "add": [
+      "plat",
+      "kasa"
+     ],
+     "over": {
+      "kasa": [
+       "pospay2",
+       "ergo",
+       "k10"
+      ]
+     },
+     "tag": "płatność przy wizycie"
+    }
+   ],
+   [
+    "dane",
+    "Przechowujesz dane klientów lub pacjentów?",
+    "kopie i ochrona danych",
+    1,
+    {
+     "add": [
+      "kopie-zapasowe",
+      "ochr"
+     ],
+     "tag": "dane klientów"
+    }
+   ]
+  ],
+  "szkola": [
+   [
+    "sale",
+    "Sale z monitorami interaktywnymi?",
+    "lekcje i prezentacje na dotykowym ekranie",
+    1,
+    {
+     "add": [
+      "ekr"
+     ],
+     "over": {
+      "ekr": [
+       "avtek-ts-9-mate-g",
+       "samsung-waf",
+       "avtek-ts-9-lite-g"
+      ]
+     },
+     "tag": "sale z monitorami"
+    }
+   ],
+   [
+    "prac",
+    "Pracownia komputerowa?",
+    "komputery dla uczniów",
+    0,
+    {
+     "add": [
+      "komp"
+     ],
+     "over": {
+      "komp": [
+       "lenovo-thinkcentre-neo-50s-55s",
+       "lenovo-thinkbook-14-g8-g9",
+       "dell-pro-aio"
+      ]
+     },
+     "tag": "pracownia"
+    }
+   ],
+   [
+    "wifi",
+    "Wi-Fi w całym budynku?",
+    "sale, korytarze, sala gimnastyczna",
+    1,
+    {
+     "add": [
+      "siec"
+     ],
+     "over": {
+      "siec": [
+       "u7",
+       "udr7",
+       "omada-ap-sufitowe"
+      ]
+     },
+     "tag": "Wi-Fi w budynku"
+    }
+   ],
+   [
+    "ochr",
+    "Ochrona komputerów i kopie dokumentów?",
+    "sekretariat, dokumenty, dziennik",
+    1,
+    {
+     "add": [
+      "ochr",
+      "kopie-zapasowe"
+     ],
+     "tag": "ochrona danych"
+    }
+   ]
+  ],
+  "warsztat": [
+   [
+    "fv",
+    "Wystawiasz faktury firmom?",
+    "od 2027 r. wszystkie w KSeF",
+    1,
+    {
+     "add": [
+      "ksef"
+     ],
+     "tag": "faktury dla firm"
+    }
+   ],
+   [
+    "czesci",
+    "Magazyn części z kodami?",
+    "przyjęcia i wydania w programie",
+    0,
+    {
+     "add": [
+      "prog",
+      "waga"
+     ],
+     "over": {
+      "prog": [
+       "nexo",
+       "gt",
+       "s123"
+      ],
+      "waga": [
+       "zebra-drukarka-etykiet-zd421",
+       "godex-rt200-rt200i",
+       "zebra-tc22-tc27"
+      ]
+     },
+     "tag": "magazyn części"
+    }
+   ],
+   [
+    "hala",
+    "Wi-Fi w hali albo na placu?",
+    "zasięg tam, gdzie pracujecie",
+    0,
+    {
+     "add": [
+      "siec"
+     ],
+     "tag": "Wi-Fi w hali"
+    }
+   ]
+  ],
+  "produkcja": [
+   [
+    "mag",
+    "Magazyn i wysyłka z kodami?",
+    "etykiety, kolektory, inwentaryzacja",
+    1,
+    {
+     "add": [
+      "waga",
+      "prog"
+     ],
+     "over": {
+      "waga": [
+       "zebra-drukarka-etykiet-zd421",
+       "zebra-tc22-tc27",
+       "godex-rt200-rt200i"
+      ]
+     },
+     "tag": "magazyn z kodami"
+    }
+   ],
+   [
+    "serw",
+    "Serwer w firmie?",
+    "program, pliki i kopie w jednym miejscu",
+    1,
+    {
+     "add": [
+      "kopie-zapasowe",
+      "ups"
+     ],
+     "over": {
+      "kopie": [
+       "dell-poweredge-t160-t360",
+       "synology-diskstation-plus-2-4",
+       "qnap-ts-262a-ts-462a"
+      ]
+     },
+     "tag": "serwer w firmie"
+    }
+   ],
+   [
+    "hala",
+    "Sieć w hali produkcyjnej?",
+    "osobne strefy dla biura i hali",
+    1,
+    {
+     "add": [
+      "siec"
+     ],
+     "tag": "sieć w hali"
+    }
+   ]
+  ],
+  "inna": [
+   [
+    "det",
+    "Sprzedajesz klientom indywidualnym?",
+    "paragon z kasy fiskalnej",
+    0,
+    {
+     "add": [
+      "kasa",
+      "plat"
+     ],
+     "tag": "sprzedaż detaliczna"
+    }
+   ],
+   [
+    "komp",
+    "Pracujesz na komputerach?",
+    "biuro, faktury, poczta",
+    1,
+    {
+     "add": [
+      "komp",
+      "ochr"
+     ],
+     "tag": "praca przy komputerze"
+    }
+   ],
+   [
+    "fv",
+    "Wystawiasz faktury firmom?",
+    "od 2027 r. wszystkie w KSeF",
+    1,
+    {
+     "add": [
+      "ksef",
+      "prog"
+     ],
+     "tag": "faktury dla firm"
+    }
+   ],
+   [
+    "siec",
+    "Potrzebujesz Wi-Fi albo sieci?",
+    "biuro, lokal, goście",
+    0,
+    {
+     "add": [
+      "siec"
+     ],
+     "tag": "sieć i Wi-Fi"
+    }
+   ]
+  ]
+ },
+ "grupy_zestawow": {
+  "sklep": "Sklep",
+  "gastro": "Gastronomia",
+  "hotel": "Noclegi",
+  "biuro": "Biuro i usługi",
+  "gabinet": "Gabinet",
+  "szkola": "Szkoła"
+ },
+ "sceny_planu": {
+  "sklep": "sklep",
+  "gastro": "gastro",
+  "hotel": "hotel",
+  "biuro": "biuro",
+  "gabinet": "gabinet",
+  "szkola": "szkola",
+  "warsztat": "warsztat",
+  "produkcja": "produkcja"
+ },
+ "opis": "Silnik: K35-ZMIANY.md §1.2 (przenieść 1:1). kroki_i_rekomendacje = rodzaje firm, sytuacje, skale, potrzeby, presety i listy produktów; pytania = pytania Tak/Nie per rodzaj firmy z potrzebami i nadpisaniami."
+}

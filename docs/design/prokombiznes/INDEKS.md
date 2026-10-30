@@ -1,4 +1,20 @@
-# prokombiznes.pl — indeks materiałów dla Claude Code (25.10.2026, wizualizacja v126)
+# prokombiznes.pl — indeks materiałów dla Claude Code
+
+> **Od 30.10.2026 — K4 (wersja finalna, wizualizacja v150).** Czytaj najpierw `K4-FINAL.md` (specyfikacja zbiorcza) i `PRZEKAZANIE-K4.md` (sesje i prompty); Krystian — `START-K4.md`.
+> **Kolejność ważności od K4:** `K4-FINAL.md` → decyzje repo (ADR-017, ADR-012 „Rozstrzygnięcia”) → plansze `k4/boards/` → dane `seed/prokombiznes/k4/` → `k4/zmiany/K36…K32-ZMIANY.md` → `MOBILE-APLIKACJA.md` → `K31-ZMIANY.md` → `K3-KATALOG.md` → `ZMIANY-v20.md` → `docs/strony/prokombiznes.md`.
+>
+> | Ścieżka | Co |
+> |---|---|
+> | `K4-FINAL.md`, `PRZEKAZANIE-K4.md`, `START-K4.md` | specyfikacja K4, sesje K4a–QA-K4 z promptami, instrukcja |
+> | `k4/boards/` | plansze v150: `Strona.dc.html` (komputer, wszystkie widoki), `Aplikacja.dc.html` (telefon), `Web-*`, `App-*` — podgląd `K4-FINAL.md` §9 |
+> | `k4/screens/` | zrzuty v150 (`Web-*` 1440, `Web390-*`, `App-*` 390) |
+> | `k4/zmiany/` | opisy rund K3.2–K3.6 (szczegóły widoków) |
+> | `k4/audyty/` | audyty wersji finalnej — lista kontrolna odbioru |
+> | `seed/prokombiznes/k4/` | katalog 422 kart, kategorie, marki, salony, strony, listy, plany, zestawy, konfigurator, zdjęcia nowych kart |
+>
+> Poniżej indeks z 25.10 (K3/K3.1) — obowiązuje tam, gdzie K4 nic nie zmienia. Zasada z §5 „bez obietnic czasu” jest nieaktualna: „Oddzwaniamy w ciągu 60 minut w godzinach pracy” potwierdzone przez szefa 27.10.
+
+## Indeks K3/K3.1 (25.10.2026, wizualizacja v126)
 
 Czytaj od góry. Gdy dokumenty mówią co innego, kolejność ważności: **MOBILE-APLIKACJA.md (telefon) → K31-ZMIANY.md → K3-KATALOG.md → ZMIANY-v20.md → docs/strony/prokombiznes.md**. Wzorzec (zrzut + plansza) wygrywa z opisem słownym.
 
