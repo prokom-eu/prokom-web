@@ -2816,6 +2816,12 @@
   & .rail a:focus-visible span {
     opacity: 1;
   }
+  /* Town chips as touch targets on a phone (MOBILE-APLIKACJA §10; prototype 32 px). */
+  @media (pointer: coarse), (max-width: 760px) {
+    & .hzkt {
+      min-height: 44px;
+    }
+  }
   @media (max-width: 1240px) {
     & .hzkin {
       grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
