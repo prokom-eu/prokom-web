@@ -38,3 +38,26 @@ test.describe('Biznes K4 categories (K4a-1)', () => {
     )
   })
 })
+
+// K4a-1b-2: the 162 new K4 cards and `mapa-slugow-k4.json` (K4-FINAL §4.3 pkt 3).
+test.describe('Biznes K4 catalog (K4a-1b)', () => {
+  test('a new K4 card has its page with the K4 photos', async ({ page }) => {
+    const response = await page.goto(biznes('/produkt/apple-macbook-air-m5'))
+    expect(response?.status()).toBe(200)
+    await expect(page.getByRole('heading', { level: 1 })).toContainText('MacBook Air')
+    await expect(page.locator('img[alt^="Apple MacBook Air"]').first()).toBeVisible()
+  })
+
+  test('cards K4 hides answer 301 to their new card or page', async ({ page }) => {
+    for (const [from, to] of [
+      ['/produkt/bezplatny-przeglad-it', '/produkt/przeglad-it'],
+      ['/produkt/kopie-zapasowe-z-testem-odtworzenia', '/produkt/kopie-zapasowe'],
+      ['/produkt/ubiquiti-unifi-express', '/produkt/ubiquiti-unifi-express-7'],
+      ['/produkt/opieka-informatyczna', '/opieka-it'],
+    ] as const) {
+      const response = await page.goto(biznes(from))
+      expect(response?.request().redirectedFrom()?.url(), from).toBe(biznes(from))
+      await expect(page).toHaveURL(biznes(to))
+    }
+  })
+})

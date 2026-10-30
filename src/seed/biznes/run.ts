@@ -8,6 +8,8 @@ import k3Dictionaries from '../../../seed/prokombiznes/k3/slowniki-k3.json'
 import k3Removed from '../../../seed/prokombiznes/k3/usuniete.json'
 import k3Bundles from '../../../seed/prokombiznes/k3/zestawy.json'
 import k4Catalog from '../../../seed/prokombiznes/k4/katalog-k4.json'
+import k4Brands from '../../../seed/prokombiznes/k4/marki-k4.json'
+import k4SlugMap from '../../../seed/prokombiznes/k4/mapa-slugow-k4.json'
 import k4Slowniki from '../../../seed/prokombiznes/k4/slowniki-k4.json'
 import kreator from '../../../seed/prokombiznes/kreator.json'
 import media from '../../../seed/prokombiznes/media.json'
@@ -34,7 +36,21 @@ import {
   type K3RemovedCard,
 } from './k3'
 import { k31Dictionaries, k31ProductFields, k31Retired, type K31Card } from './k31'
-import { k4ProductFields, k4Relations, withK4Content, type K4Card } from './k4Catalog'
+import {
+  k4Aliases,
+  k4BrandRecord,
+  k4ColorKeys,
+  k4Colors,
+  k4ImageKeys,
+  k4NewCards,
+  k4PhotoFile,
+  k4PhotoMediaData,
+  k4ProductFields,
+  k4Relations,
+  k4SlugRedirects,
+  withK4Content,
+  type K4Card,
+} from './k4Catalog'
 import {
   k4CardPlacement,
   k4CategoryData,
@@ -116,7 +132,9 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
   const dictionaries = k4Dictionaries(k31Dicts, k4Slowniki)
   const k4Cards = new Map<string, K4Card>(k4Catalog.produkty.map((card) => [card.slug_seed, card]))
   const { catalog: k31, gallery: k3Gallery } = loadK31Catalog()
-  const cards = k31.cards
+  // Repo cards (K3 + K3.1) and the 162 new K4 cards; K4 hides the cards of its slug map.
+  const cards = [...k31.cards, ...k4NewCards([...k4Cards.values()], k31.cards)]
+  const k4Hidden = new Set(Object.keys(k4SlugMap.ukryj))
   const removed: K3RemovedCard[] = k3Removed.produkty
   const matches = matchCards(cards, catalog.produkty)
   const report: Record<string, string[]> = {}
@@ -290,12 +308,21 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     imageIds.set(file.plik, id)
   }
 
-  // --- galleries: K3 photos (uploaded as `k3-<file>`), else katalog v2 or design files ---
+  // --- galleries: K3 photos (uploaded as `k3-<file>`), else katalog v2 or design files; a new
+  // K4 card has its K4 photos (`k4-<file>`) ---
   const imageKeys = new Map(
-    cards.map((card) => [
-      card.slug_seed,
-      k3ImageKeys(card, k3Gallery, matches.get(card.slug_seed), media.pliki, galleryLimit),
-    ]),
+    cards.map((card) => {
+      const keys = k3ImageKeys(
+        card,
+        k3Gallery,
+        matches.get(card.slug_seed),
+        media.pliki,
+        galleryLimit,
+      )
+      const k4 = k4Cards.get(card.slug_seed)
+      const k4Keys = k4 && !keys.length ? k4ImageKeys(k4).slice(0, galleryLimit ?? undefined) : []
+      return [card.slug_seed, keys.length ? keys : k4Keys]
+    }),
   )
   if (galleryLimit !== null) log(`gallery limited to ${galleryLimit} photos per product`)
   const { docs: storedMedia } = await payload.find({
@@ -330,18 +357,23 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     },
   )
 
-  const k3Photos = cards.flatMap((card) =>
-    (imageKeys.get(card.slug_seed) ?? []).flatMap((key) => {
-      const file = k3GalleryFile(key)
-      return file ? [{ card, key, ...file }] : []
-    }),
-  )
+  // Package photos: K3 / K3.1 galleries, K4 galleries of new cards and K4 color photos.
+  const packagePhotos = cards.flatMap((card) => {
+    const k4 = k4Cards.get(card.slug_seed)
+    const keys = [...(imageKeys.get(card.slug_seed) ?? []), ...(k4 ? k4ColorKeys(k4) : [])]
+    return keys.flatMap((key) => {
+      const k3File = k3GalleryFile(key)
+      if (k3File) return [{ card, key, k4: undefined, ...k3File }]
+      const k4File = k4 ? k4PhotoFile(key) : null
+      return k4File ? [{ card, key, k4, ...k4File }] : []
+    })
+  })
   await mapConcurrent(
-    k3Photos,
+    packagePhotos,
     GALLERY_UPLOADS_AT_ONCE,
-    async ({ card, key, filePath, uploadName }) => {
+    async ({ card, key, k4, filePath, uploadName }) => {
       const existing = storedId(uploadName)
-      count('media (K3)', existing === undefined)
+      count(k4 ? 'media (K4)' : 'media (K3)', existing === undefined)
       if (existing !== undefined) {
         imageIds.set(key, existing)
         return
@@ -349,7 +381,10 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
       const data = await readFile(path.resolve(filePath))
       const created = await payload.create({
         collection: 'media',
-        data: { ...k3GalleryMediaData(card, key, k3Gallery), tenant: tenant.id },
+        data: {
+          ...(k4 ? k4PhotoMediaData(k4, key) : k3GalleryMediaData(card, key, k3Gallery)),
+          tenant: tenant.id,
+        },
         file: { data, mimetype: 'image/webp', name: uploadName, size: data.length },
         ...local,
       })
@@ -424,6 +459,32 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     const existing = await findPartner(brand.slug)
     if (existing) brandIds.set(brand.nazwa, existing.id)
   }
+  // Brands of new K4 cards without a record (Apple, HP…): name and address only — logo,
+  // description and status come with the K4 brands (K4a-2).
+  for (const name of new Set(cards.map((card) => card.marka ?? ''))) {
+    if (!name || brandIds.has(name)) continue
+    const record = k4BrandRecord(name, k4Brands.marki)
+    const existing = await findPartner(record.slug)
+    const shownOn = (existing?.tenants ?? []).map((item) =>
+      typeof item === 'number' ? item : item.id,
+    )
+    if (existing && !shownOn.includes(tenant.id)) {
+      throw new Error(
+        `Seed (Biznes): partner "${record.slug}" is not on the Biznes line — add it in the panel.`,
+      )
+    }
+    const id =
+      existing?.id ??
+      (
+        await payload.create({
+          collection: 'partners',
+          data: { ...record, partnerStatus: 'none', tenants: [tenant.id] },
+          ...local,
+        })
+      ).id
+    count('partners (K4)', !existing)
+    brandIds.set(name, id)
+  }
 
   // --- products from K3: found by `legacyIds` (K3 ids + those of the katalog v2 product) ---
   // Ids by every key (short id, sheet id, slug_seed), for blocks that list products (B9b kits).
@@ -470,11 +531,19 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
           sources: { ...k3Data.sources, links: k4Fields.sourceLinks },
         }
       : k3Data
-    const k4Panel = k4Fields
-      ? { shortName: k4Fields.shortName, kind: k4Fields.kind, isNew: k4Fields.isNew }
-      : {}
+    const k4Panel =
+      k4 && k4Fields
+        ? {
+            shortName: k4Fields.shortName,
+            kind: k4Fields.kind,
+            isNew: k4Fields.isNew,
+            colors: k4Colors(k4, (key) => imageIds.get(key)),
+          }
+        : {}
     if (k4) k4Changes[k4.zmiana_k4] = (k4Changes[k4.zmiana_k4] ?? 0) + 1
-    const status = k3PublishStatus(card)
+    if (k4?.zdjecia_brak) note('K4: karta bez zdjęcia (kafel usługi — K4e)', card.slug_seed)
+    // A card of the K4 slug map stays a draft here, so a re-run does not publish it again.
+    const status = k4Hidden.has(card.slug_seed) ? 'draft' : k3PublishStatus(card)
     if (card.branze.some((slug) => SKIPPED_INDUSTRIES.has(slug))) {
       note('branża pominięta (magazyn-produkcja)', card.slug_seed)
     }
@@ -488,7 +557,9 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
       throw new Error(`Seed (Biznes): card "${card.slug_seed}" matches ${found.length} records.`)
     }
     const [existing] = found
-    const fields = k31ProductFields(card, k31Series, k31Videos, existing)
+    const k31Fields = k31ProductFields(card, k31Series, k31Videos, existing)
+    // A new K4 card has no K3.1 series: the K4 one (`seria`).
+    const fields = { ...k31Fields, series: k31Fields.series ?? card.seria ?? null }
     if (fields.videos.length) withFilms += 1
     if ((card.marka === 'Lenovo' || card.marka === 'Dell') && !fields.series) {
       note('Lenovo/Dell bez serii', card.slug_seed)
@@ -545,6 +616,19 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
   }
 
   log(`products with films (K3.1): ${withFilms}`)
+
+  // --- K4 slug map: hidden card → its new card or page (301); page seeds that name the hidden
+  // card get its new card (K3 bundles, wizard, industries) until K4a-2 / K4g replace them ---
+  const k4Redirects = k4SlugRedirects(k4SlugMap, (key) => slugByKey.get(key))
+  for (const [old, target] of Object.entries(k4Aliases(k4SlugMap))) {
+    const id = productIds.get(target)
+    const slug = slugByKey.get(target)
+    if (id === undefined || slug === undefined) {
+      throw new Error(`Seed (Biznes): new card "${target}" of mapa-slugow-k4.json missing.`)
+    }
+    productIds.set(old, id)
+    slugByKey.set(old, slug)
+  }
 
   // Page seeds may name a replaced product (`nas` on the noclegi page): its successor stands in.
   for (const [shortId, target] of Object.entries(REPLACED_PRODUCTS)) {
@@ -612,6 +696,7 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     }
     await ensureRedirect(item.from, item.to)
   }
+  for (const rule of k4Redirects) await ensureRedirect(rule.from, rule.to)
 
   // Brands PRO-KOM no longer sells (Honeywell, StorageCraft): off the Biznes line, record kept.
   // After hiding their products: a product saves only with a brand shown on its line.
