@@ -20,8 +20,8 @@ Przygotowujemy pull request z bieżącej gałęzi do `develop`.
    - **Jak sprawdzić** — kroki, które ja (albo szef na stagingu) mogę wykonać,
    - **Checklista** — zaznacz `[x]` tylko to, co faktycznie sprawdziłeś,
    - **Ryzyka i uwagi** — migracje, nowe zmienne środowiskowe, rzeczy celowo poza zakresem.
-5. Pokaż mi tytuł i opis. **Czekaj na „ok”** (mogę poprawić).
-6. Po akceptacji: zapisz opis do pliku tymczasowego poza repo i uruchom
+5. Opis zawiera werdykt recenzenta (`/przeglad`) i Twoją ocenę każdej uwagi. **Nie czekaj na „ok”** — diff czytam w PR, tam też poprawiam tytuł albo opis.
+6. Zapisz opis do pliku tymczasowego poza repo i uruchom
    `gh pr create --base develop --head <gałąź> --title "<tytuł>" --body-file <plik>`,
    a jeśli PR już istnieje — `gh pr edit --title … --body-file …`. Podaj link do PR.
 7. Przypomnij: scalam przez **Squash and merge** dopiero przy zielonym CI; potem `.\scripts\start.ps1`.
