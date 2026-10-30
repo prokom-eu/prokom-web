@@ -60,9 +60,10 @@ describe('parseCatalogState', () => {
   })
 
   it('drops categories outside the chosen group (the panel lists only its own)', () => {
-    expect(parse('grupa=komputery-biuro&kategoria=kasy-fiskalne,komputery-monitory')).toMatchObject(
-      { group: 'komputery-biuro', categories: ['komputery-monitory'] },
-    )
+    expect(parse('grupa=komputery-biuro&kategoria=kasy-fiskalne,laptopy')).toMatchObject({
+      group: 'komputery-biuro',
+      categories: ['laptopy'],
+    })
   })
 
   it('takes a page from 1 up, anything else is page 1', () => {

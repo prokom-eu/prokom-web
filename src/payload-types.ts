@@ -1049,9 +1049,29 @@ export interface CatalogCategory {
     | {
         name: string;
         slug?: string | null;
+        /**
+         * Chipy filtra „Do czego”. Jeszcze niewidoczne na stronie.
+         */
+        useCases?: string[] | null;
+        /**
+         * Karta doboru podkategorii. Jeszcze niewidoczna na stronie.
+         */
+        help?: {
+          title?: string | null;
+          text?: string | null;
+          button?: string | null;
+          /**
+           * Przycisk jeszcze niewidoczny na stronie.
+           */
+          action?: ('inquiry' | 'vending') | null;
+        };
         id?: string | null;
       }[]
     | null;
+  /**
+   * Chipy filtra „Do czego”. Jeszcze niewidoczne na stronie.
+   */
+  useCases?: string[] | null;
   hero?: {
     /**
      * Puste = nazwa.
@@ -1180,6 +1200,11 @@ export interface CatalogCategory {
   help?: {
     title?: string | null;
     text?: string | null;
+    button?: string | null;
+    /**
+     * Przycisk jeszcze niewidoczny na stronie.
+     */
+    action?: ('inquiry' | 'vending') | null;
   };
   contact?: {
     heading?: string | null;
@@ -7113,8 +7138,18 @@ export interface CatalogCategoriesSelect<T extends boolean = true> {
     | {
         name?: T;
         slug?: T;
+        useCases?: T;
+        help?:
+          | T
+          | {
+              title?: T;
+              text?: T;
+              button?: T;
+              action?: T;
+            };
         id?: T;
       };
+  useCases?: T;
   hero?:
     | T
     | {
@@ -7180,6 +7215,8 @@ export interface CatalogCategoriesSelect<T extends boolean = true> {
     | {
         title?: T;
         text?: T;
+        button?: T;
+        action?: T;
       };
   contact?:
     | T

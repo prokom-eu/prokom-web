@@ -75,28 +75,28 @@ test.describe('Biznes brand pages (K3b′)', () => {
 
 test.describe('Biznes subcategory pages (K3b′)', () => {
   test('a subcategory has its own H1, canonical and only its products', async ({ page }) => {
-    const response = await page.goto(biznes('/oferta/komputery-monitory/laptopy'))
+    const response = await page.goto(biznes('/oferta/serwery-nas-ups/ups'))
     expect(response?.status()).toBe(200)
-    await expect(page.getByRole('heading', { level: 1 })).toHaveText(/^Laptopy dla firm — /)
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText(/^Zasilacze UPS dla firm/)
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
       'href',
-      /\/oferta\/komputery-monitory\/laptopy$/,
+      /\/oferta\/serwery-nas-ups\/ups$/,
     )
     const nav = page.getByRole('navigation', { name: 'Podkategorie' })
-    await expect(nav.getByRole('link', { name: /^Laptopy/ })).toHaveAttribute(
+    await expect(nav.getByRole('link', { name: /^Zasilacze UPS/ })).toHaveAttribute(
       'aria-current',
       'page',
     )
     const names = await page.locator('[data-category-grid] h3').allTextContents()
     expect(names.length).toBeGreaterThan(0)
-    expect(names.join(' ')).not.toMatch(/ThinkVision|monitor/i)
+    expect(names.join(' ')).not.toMatch(/Synology|QNAP|PowerEdge/i)
   })
 
   test('the category page links its subcategories', async ({ page }) => {
-    await page.goto(biznes('/oferta/komputery-monitory'))
+    await page.goto(biznes('/oferta/serwery-nas-ups'))
     const nav = page.getByRole('navigation', { name: 'Podkategorie' })
-    await nav.getByRole('link', { name: /^Monitory/ }).click()
-    await expect(page).toHaveURL(biznes('/oferta/komputery-monitory/monitory'))
+    await nav.getByRole('link', { name: /^Serwery plików NAS/ }).click()
+    await expect(page).toHaveURL(biznes('/oferta/serwery-nas-ups/nas'))
   })
 
   test('a chip without an address shows as many products as it counts', async ({ page }) => {
@@ -112,7 +112,7 @@ test.describe('Biznes subcategory pages (K3b′)', () => {
   })
 
   test('a subcategory without an address or in another category is 404', async ({ page }) => {
-    for (const path of ['/oferta/akcesoria-pos/szuflady-kasowe', '/oferta/kasy-fiskalne/laptopy']) {
+    for (const path of ['/oferta/akcesoria-pos/szuflady-kasowe', '/oferta/kasy-fiskalne/ups']) {
       const response = await page.goto(biznes(path))
       expect(response?.status(), path).toBe(404)
     }
@@ -124,14 +124,16 @@ test.describe('Biznes subcategory pages (K3b′)', () => {
       .getByRole('navigation', { name: 'Główna' })
       .getByRole('button', { name: 'Oferta' })
       .click()
-    await expect(page.locator('a[href="/oferta/komputery-monitory/laptopy"]').first()).toBeVisible()
+    await expect(page.locator('a[href="/oferta/serwery-nas-ups/ups"]').first()).toBeVisible()
   })
 
   test('the site map lists brand and subcategory pages', async ({ page }) => {
     // `page.goto`: the API request context does not resolve `*.localhost` (as in seo.e2e).
     const xml = (await (await page.goto(biznes('/sitemap.xml')))?.text()) ?? ''
     expect(xml).toContain('/marki/lenovo</loc>')
-    expect(xml).toContain('/oferta/komputery-monitory/laptopy</loc>')
+    expect(xml).toContain('/oferta/laptopy</loc>')
+    expect(xml).toContain('/oferta/serwery-nas-ups/ups</loc>')
+    expect(xml).not.toContain('/oferta/komputery-monitory')
     expect(xml).not.toContain('/marki/ingenico</loc>')
   })
 })

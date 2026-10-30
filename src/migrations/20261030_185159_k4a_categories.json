@@ -27847,6 +27847,31 @@
           "type": "varchar",
           "primaryKey": false,
           "notNull": false
+        },
+        "help_title": {
+          "name": "help_title",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "help_text": {
+          "name": "help_text",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "help_button": {
+          "name": "help_button",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "help_action": {
+          "name": "help_action",
+          "type": "enum_catalog_categories_subcategories_help_action",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
         }
       },
       "indexes": {
@@ -28303,6 +28328,19 @@
         "help_text": {
           "name": "help_text",
           "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "help_button": {
+          "name": "help_button",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "help_action": {
+          "name": "help_action",
+          "type": "enum_catalog_categories_help_action",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": false
         },
@@ -34755,277 +34793,6 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.solutions_levels": {
-      "name": "solutions_levels",
-      "schema": "",
-      "columns": {
-        "_order": {
-          "name": "_order",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "_parent_id": {
-          "name": "_parent_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "id": {
-          "name": "id",
-          "type": "varchar",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "name": {
-          "name": "name",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "short_name": {
-          "name": "short_name",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "price": {
-          "name": "price",
-          "type": "numeric",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "term": {
-          "name": "term",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "recommended": {
-          "name": "recommended",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": false
-        },
-        "description": {
-          "name": "description",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        }
-      },
-      "indexes": {
-        "solutions_levels_order_idx": {
-          "name": "solutions_levels_order_idx",
-          "columns": [
-            {
-              "expression": "_order",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "solutions_levels_parent_id_idx": {
-          "name": "solutions_levels_parent_id_idx",
-          "columns": [
-            {
-              "expression": "_parent_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "solutions_levels_parent_id_fk": {
-          "name": "solutions_levels_parent_id_fk",
-          "tableFrom": "solutions_levels",
-          "tableTo": "solutions",
-          "columnsFrom": ["_parent_id"],
-          "columnsTo": ["id"],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.solutions_level_rows": {
-      "name": "solutions_level_rows",
-      "schema": "",
-      "columns": {
-        "_order": {
-          "name": "_order",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "_parent_id": {
-          "name": "_parent_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "id": {
-          "name": "id",
-          "type": "varchar",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "label": {
-          "name": "label",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        }
-      },
-      "indexes": {
-        "solutions_level_rows_order_idx": {
-          "name": "solutions_level_rows_order_idx",
-          "columns": [
-            {
-              "expression": "_order",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "solutions_level_rows_parent_id_idx": {
-          "name": "solutions_level_rows_parent_id_idx",
-          "columns": [
-            {
-              "expression": "_parent_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "solutions_level_rows_parent_id_fk": {
-          "name": "solutions_level_rows_parent_id_fk",
-          "tableFrom": "solutions_level_rows",
-          "tableTo": "solutions",
-          "columnsFrom": ["_parent_id"],
-          "columnsTo": ["id"],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.solutions_faq": {
-      "name": "solutions_faq",
-      "schema": "",
-      "columns": {
-        "_order": {
-          "name": "_order",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "_parent_id": {
-          "name": "_parent_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "id": {
-          "name": "id",
-          "type": "varchar",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "q": {
-          "name": "q",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "a": {
-          "name": "a",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        }
-      },
-      "indexes": {
-        "solutions_faq_order_idx": {
-          "name": "solutions_faq_order_idx",
-          "columns": [
-            {
-              "expression": "_order",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "solutions_faq_parent_id_idx": {
-          "name": "solutions_faq_parent_id_idx",
-          "columns": [
-            {
-              "expression": "_parent_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "solutions_faq_parent_id_fk": {
-          "name": "solutions_faq_parent_id_fk",
-          "tableFrom": "solutions_faq",
-          "tableTo": "solutions",
-          "columnsFrom": ["_parent_id"],
-          "columnsTo": ["id"],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
     "public.solutions": {
       "name": "solutions",
       "schema": "",
@@ -35117,15 +34884,21 @@
           "primaryKey": false,
           "notNull": false
         },
-        "price_from": {
-          "name": "price_from",
+        "prices_start": {
+          "name": "prices_start",
           "type": "numeric",
           "primaryKey": false,
           "notNull": false
         },
-        "lead_time": {
-          "name": "lead_time",
-          "type": "varchar",
+        "prices_std": {
+          "name": "prices_std",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "prices_full": {
+          "name": "prices_full",
+          "type": "numeric",
           "primaryKey": false,
           "notNull": false
         },
@@ -35136,20 +34909,44 @@
           "notNull": false,
           "default": false
         },
+        "size_names_start": {
+          "name": "size_names_start",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "size_names_std": {
+          "name": "size_names_std",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "size_names_full": {
+          "name": "size_names_full",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "lead_times_start": {
+          "name": "lead_times_start",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "lead_times_std": {
+          "name": "lead_times_std",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "lead_times_full": {
+          "name": "lead_times_full",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
         "price_note": {
           "name": "price_note",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "thumbnail": {
-          "name": "thumbnail",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "example": {
-          "name": "example",
           "type": "varchar",
           "primaryKey": false,
           "notNull": false
@@ -35391,129 +35188,6 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.solutions_rels": {
-      "name": "solutions_rels",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "order": {
-          "name": "order",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "parent_id": {
-          "name": "parent_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "path": {
-          "name": "path",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "solutions_id": {
-          "name": "solutions_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        }
-      },
-      "indexes": {
-        "solutions_rels_order_idx": {
-          "name": "solutions_rels_order_idx",
-          "columns": [
-            {
-              "expression": "order",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "solutions_rels_parent_idx": {
-          "name": "solutions_rels_parent_idx",
-          "columns": [
-            {
-              "expression": "parent_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "solutions_rels_path_idx": {
-          "name": "solutions_rels_path_idx",
-          "columns": [
-            {
-              "expression": "path",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "solutions_rels_solutions_id_idx": {
-          "name": "solutions_rels_solutions_id_idx",
-          "columns": [
-            {
-              "expression": "solutions_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "solutions_rels_parent_fk": {
-          "name": "solutions_rels_parent_fk",
-          "tableFrom": "solutions_rels",
-          "tableTo": "solutions",
-          "columnsFrom": ["parent_id"],
-          "columnsTo": ["id"],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        },
-        "solutions_rels_solutions_fk": {
-          "name": "solutions_rels_solutions_fk",
-          "tableFrom": "solutions_rels",
-          "tableTo": "solutions",
-          "columnsFrom": ["solutions_id"],
-          "columnsTo": ["id"],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
     "public._solutions_v_version_situations": {
       "name": "_solutions_v_version_situations",
       "schema": "",
@@ -35672,295 +35346,6 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public._solutions_v_version_levels": {
-      "name": "_solutions_v_version_levels",
-      "schema": "",
-      "columns": {
-        "_order": {
-          "name": "_order",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "_parent_id": {
-          "name": "_parent_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "id": {
-          "name": "id",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "name": {
-          "name": "name",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "short_name": {
-          "name": "short_name",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "price": {
-          "name": "price",
-          "type": "numeric",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "term": {
-          "name": "term",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "recommended": {
-          "name": "recommended",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": false
-        },
-        "description": {
-          "name": "description",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "_uuid": {
-          "name": "_uuid",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        }
-      },
-      "indexes": {
-        "_solutions_v_version_levels_order_idx": {
-          "name": "_solutions_v_version_levels_order_idx",
-          "columns": [
-            {
-              "expression": "_order",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "_solutions_v_version_levels_parent_id_idx": {
-          "name": "_solutions_v_version_levels_parent_id_idx",
-          "columns": [
-            {
-              "expression": "_parent_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "_solutions_v_version_levels_parent_id_fk": {
-          "name": "_solutions_v_version_levels_parent_id_fk",
-          "tableFrom": "_solutions_v_version_levels",
-          "tableTo": "_solutions_v",
-          "columnsFrom": ["_parent_id"],
-          "columnsTo": ["id"],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public._solutions_v_version_level_rows": {
-      "name": "_solutions_v_version_level_rows",
-      "schema": "",
-      "columns": {
-        "_order": {
-          "name": "_order",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "_parent_id": {
-          "name": "_parent_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "id": {
-          "name": "id",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "label": {
-          "name": "label",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "_uuid": {
-          "name": "_uuid",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        }
-      },
-      "indexes": {
-        "_solutions_v_version_level_rows_order_idx": {
-          "name": "_solutions_v_version_level_rows_order_idx",
-          "columns": [
-            {
-              "expression": "_order",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "_solutions_v_version_level_rows_parent_id_idx": {
-          "name": "_solutions_v_version_level_rows_parent_id_idx",
-          "columns": [
-            {
-              "expression": "_parent_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "_solutions_v_version_level_rows_parent_id_fk": {
-          "name": "_solutions_v_version_level_rows_parent_id_fk",
-          "tableFrom": "_solutions_v_version_level_rows",
-          "tableTo": "_solutions_v",
-          "columnsFrom": ["_parent_id"],
-          "columnsTo": ["id"],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public._solutions_v_version_faq": {
-      "name": "_solutions_v_version_faq",
-      "schema": "",
-      "columns": {
-        "_order": {
-          "name": "_order",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "_parent_id": {
-          "name": "_parent_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "id": {
-          "name": "id",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "q": {
-          "name": "q",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "a": {
-          "name": "a",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "_uuid": {
-          "name": "_uuid",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        }
-      },
-      "indexes": {
-        "_solutions_v_version_faq_order_idx": {
-          "name": "_solutions_v_version_faq_order_idx",
-          "columns": [
-            {
-              "expression": "_order",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "_solutions_v_version_faq_parent_id_idx": {
-          "name": "_solutions_v_version_faq_parent_id_idx",
-          "columns": [
-            {
-              "expression": "_parent_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "_solutions_v_version_faq_parent_id_fk": {
-          "name": "_solutions_v_version_faq_parent_id_fk",
-          "tableFrom": "_solutions_v_version_faq",
-          "tableTo": "_solutions_v",
-          "columnsFrom": ["_parent_id"],
-          "columnsTo": ["id"],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
     "public._solutions_v": {
       "name": "_solutions_v",
       "schema": "",
@@ -36058,15 +35443,21 @@
           "primaryKey": false,
           "notNull": false
         },
-        "version_price_from": {
-          "name": "version_price_from",
+        "version_prices_start": {
+          "name": "version_prices_start",
           "type": "numeric",
           "primaryKey": false,
           "notNull": false
         },
-        "version_lead_time": {
-          "name": "version_lead_time",
-          "type": "varchar",
+        "version_prices_std": {
+          "name": "version_prices_std",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_prices_full": {
+          "name": "version_prices_full",
+          "type": "numeric",
           "primaryKey": false,
           "notNull": false
         },
@@ -36077,20 +35468,44 @@
           "notNull": false,
           "default": false
         },
+        "version_size_names_start": {
+          "name": "version_size_names_start",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_size_names_std": {
+          "name": "version_size_names_std",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_size_names_full": {
+          "name": "version_size_names_full",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_lead_times_start": {
+          "name": "version_lead_times_start",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_lead_times_std": {
+          "name": "version_lead_times_std",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_lead_times_full": {
+          "name": "version_lead_times_full",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
         "version_price_note": {
           "name": "version_price_note",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "version_thumbnail": {
-          "name": "version_thumbnail",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "version_example": {
-          "name": "version_example",
           "type": "varchar",
           "primaryKey": false,
           "notNull": false
@@ -36408,129 +35823,6 @@
           "tableFrom": "_solutions_v_texts",
           "tableTo": "_solutions_v",
           "columnsFrom": ["parent_id"],
-          "columnsTo": ["id"],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public._solutions_v_rels": {
-      "name": "_solutions_v_rels",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "order": {
-          "name": "order",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "parent_id": {
-          "name": "parent_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "path": {
-          "name": "path",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "solutions_id": {
-          "name": "solutions_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        }
-      },
-      "indexes": {
-        "_solutions_v_rels_order_idx": {
-          "name": "_solutions_v_rels_order_idx",
-          "columns": [
-            {
-              "expression": "order",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "_solutions_v_rels_parent_idx": {
-          "name": "_solutions_v_rels_parent_idx",
-          "columns": [
-            {
-              "expression": "parent_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "_solutions_v_rels_path_idx": {
-          "name": "_solutions_v_rels_path_idx",
-          "columns": [
-            {
-              "expression": "path",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "_solutions_v_rels_solutions_id_idx": {
-          "name": "_solutions_v_rels_solutions_id_idx",
-          "columns": [
-            {
-              "expression": "solutions_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "_solutions_v_rels_parent_fk": {
-          "name": "_solutions_v_rels_parent_fk",
-          "tableFrom": "_solutions_v_rels",
-          "tableTo": "_solutions_v",
-          "columnsFrom": ["parent_id"],
-          "columnsTo": ["id"],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        },
-        "_solutions_v_rels_solutions_fk": {
-          "name": "_solutions_v_rels_solutions_fk",
-          "tableFrom": "_solutions_v_rels",
-          "tableTo": "solutions",
-          "columnsFrom": ["solutions_id"],
           "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
@@ -51304,6 +50596,11 @@
       "schema": "public",
       "values": ["images", "statuses"]
     },
+    "public.enum_catalog_categories_subcategories_help_action": {
+      "name": "enum_catalog_categories_subcategories_help_action",
+      "schema": "public",
+      "values": ["inquiry", "vending"]
+    },
     "public.enum_catalog_categories_included_section_cards_icon": {
       "name": "enum_catalog_categories_included_section_cards_icon",
       "schema": "public",
@@ -51423,6 +50720,11 @@
         "mount",
         "brief"
       ]
+    },
+    "public.enum_catalog_categories_help_action": {
+      "name": "enum_catalog_categories_help_action",
+      "schema": "public",
+      "values": ["inquiry", "vending"]
     },
     "public.enum_industries_software_problems_icon": {
       "name": "enum_industries_software_problems_icon",
@@ -52038,6 +51340,6 @@
     "tables": {},
     "columns": {}
   },
-  "id": "cc9c1817-614b-4525-8aff-e35a34f30021",
+  "id": "a6697917-cd5b-49b3-907c-de98181d82d5",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }

@@ -83,8 +83,8 @@ test.describe('Biznes catalog after the K3 import', () => {
     for (const path of [
       '/oferta',
       '/oferta/kasy-fiskalne',
-      '/oferta/komputery-monitory',
-      '/oferta/komputery-monitory/laptopy',
+      '/oferta/laptopy',
+      '/oferta/serwery-nas-ups/ups',
       '/marki/lenovo',
       '/marki/dibal',
       // Ready bundles (K3c).

@@ -283,6 +283,12 @@ jobs:
           key: next-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ hashFiles('src/**', 'next.config.ts') }}
           restore-keys: next-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
 
+      # The restored cache also holds `unstable_cache` data of an earlier run's database (catalog
+      # index, site map): with stale-while-revalidate the first request would get it. Only the
+      # compiled modules are worth keeping.
+      - name: Drop cached data of earlier runs
+        run: rm -rf .next/cache/fetch-cache
+
       - name: Build
         run: pnpm build
 
