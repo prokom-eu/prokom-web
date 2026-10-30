@@ -1,5 +1,5 @@
 import config from '@payload-config'
-import { unstable_cache } from 'next/cache'
+import { cacheQuery } from '../cache'
 import { getPayload } from 'payload'
 
 import { PAGE_CACHE_SECONDS } from '../pages/data'
@@ -25,7 +25,7 @@ const MAX_RECORDS = 200
  * tenant; images are re-checked in `buildCatalogIndex` (`publicImage`).
  */
 export const getCatalogIndex = (tenantId: number): Promise<CatalogIndex> =>
-  unstable_cache(
+  cacheQuery(
     async () => {
       const payload = await getPayload({ config })
       // Server-side reads of public catalog data; drafts never leave here.
@@ -134,7 +134,7 @@ export const getCatalogIndex = (tenantId: number): Promise<CatalogIndex> =>
  * (unknown, draft or another site's slug → 404). Cached like the index, under the catalog tag.
  */
 export const getProductView = (tenantId: number, slug: string): Promise<ProductView | null> =>
-  unstable_cache(
+  cacheQuery(
     async () => {
       const payload = await getPayload({ config })
       const { docs } = await payload.find({
@@ -165,7 +165,7 @@ export const getProductView = (tenantId: number, slug: string): Promise<ProductV
  * asks only for slugs listed in the index (categories with published products, rozstrz. 7).
  */
 export const getCategoryView = (tenantId: number, slug: string): Promise<CategoryView | null> =>
-  unstable_cache(
+  cacheQuery(
     async () => {
       const payload = await getPayload({ config })
       const { docs } = await payload.find({
@@ -191,7 +191,7 @@ export const getCategoryView = (tenantId: number, slug: string): Promise<Categor
  * cached under the catalog tag, which brand changes refresh (`catalogRevalidationHooks`).
  */
 export const getBrandView = (tenantId: number, slug: string): Promise<BrandView | null> =>
-  unstable_cache(
+  cacheQuery(
     async () => {
       const payload = await getPayload({ config })
       const { docs } = await payload.find({
@@ -215,7 +215,7 @@ export const getBrandView = (tenantId: number, slug: string): Promise<BrandView 
  * (`listShowroom`), so unpublished cards never show. Cached under the catalog tag.
  */
 export const getShowroomView = (tenantId: number, slug: string): Promise<ShowroomView | null> =>
-  unstable_cache(
+  cacheQuery(
     async () => {
       const payload = await getPayload({ config })
       const { docs } = await payload.find({
@@ -238,7 +238,7 @@ export const getShowroomView = (tenantId: number, slug: string): Promise<Showroo
  * (unknown, inactive „Wkrótce” or another site's slug → 404). Cached under the catalog tag.
  */
 export const getIndustryView = (tenantId: number, slug: string): Promise<IndustryView | null> =>
-  unstable_cache(
+  cacheQuery(
     async () => {
       const payload = await getPayload({ config })
       const { docs } = await payload.find({
@@ -269,7 +269,7 @@ export const getIndustryView = (tenantId: number, slug: string): Promise<Industr
  * saved yet, or of an older format). Cached under the catalog tag (`BiznesSettings` hooks).
  */
 export const getWizardRules = (tenantId: number): Promise<Wizard | null> =>
-  unstable_cache(
+  cacheQuery(
     async () => readWizardRules(await getPayload({ config }), tenantId),
     ['wizard-rules', String(tenantId)],
     { tags: [catalogTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
@@ -282,7 +282,7 @@ export const getWizardRules = (tenantId: number): Promise<Wizard | null> =>
 export const getPublishedProductList = (
   tenantId: number,
 ): Promise<{ slug: string; name: string; updatedAt: string }[]> =>
-  unstable_cache(
+  cacheQuery(
     async () => {
       const payload = await getPayload({ config })
       const { docs } = await payload.find({
@@ -309,7 +309,7 @@ export const getPublishedProductList = (
  * (`listBundle`), so unpublished cards never show. Cached under the catalog tag.
  */
 export const getBundles = (tenantId: number): Promise<BundleView[]> =>
-  unstable_cache(
+  cacheQuery(
     async () => {
       const payload = await getPayload({ config })
       const { docs } = await payload.find({

@@ -29,6 +29,8 @@ export default defineConfig([
   globalIgnores([
     // Documentation, incl. design reference boards with their own (minified) scripts.
     'docs/**',
+    // Other Claude Code sessions' worktrees live in .claude/worktrees/ — each is a full repo copy.
+    '.claude/**',
     '.next/**',
     'node_modules/**',
     'playwright-report/**',
