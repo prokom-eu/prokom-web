@@ -41,11 +41,6 @@ test.describe('Biznes catalog after the K3 import', () => {
     expect(final?.url()).toBe(site('biznes.localhost', '/oferta/skanery-kolektory-etykiety'))
   })
 
-  test('hides a card waiting for the boss (404)', async ({ page }) => {
-    const response = await page.goto(site('biznes.localhost', '/produkt/opieka-informatyczna'))
-    expect(response?.status()).toBe(404)
-  })
-
   test('keeps a card „Do sprawdzenia” visible but out of the index', async ({ page }) => {
     const response = await page.goto(site('biznes.localhost', '/produkt/samsung-om'))
     expect(response?.status()).toBe(200)

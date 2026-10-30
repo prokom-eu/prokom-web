@@ -140,7 +140,8 @@ export const Products: CollectionConfig = {
               name: 'benefit',
               label: 'Korzyść',
               type: 'text',
-              maxLength: 160,
+              // 170: the longest K4 benefits have 168 characters (Logitech, K4a-1b-2).
+              maxLength: 170,
               admin: { description: 'Jedno zdanie na karcie produktu.' },
             },
             { name: 'features', label: 'Cechy', type: 'text', hasMany: true, maxRows: 3 },

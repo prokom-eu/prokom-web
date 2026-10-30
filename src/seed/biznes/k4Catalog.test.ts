@@ -1,10 +1,27 @@
+import fs from 'fs'
+import path from 'path'
 import { describe, expect, it } from 'vitest'
 
 import k4Catalog from '../../../seed/prokombiznes/k4/katalog-k4.json'
+import k4Brands from '../../../seed/prokombiznes/k4/marki-k4.json'
+import k4SlugMap from '../../../seed/prokombiznes/k4/mapa-slugow-k4.json'
 import { forbiddenContent } from '../../lib/catalog/contentRules'
 import { k31Catalog, type K31Card } from './k31'
 import { k31Input } from './k31Data'
-import { k4ProductFields, k4Relations, withK4Content, type K4Card } from './k4Catalog'
+import {
+  k4Aliases,
+  k4BrandRecord,
+  k4Colors,
+  k4ImageKeys,
+  k4NewCards,
+  k4PhotoFile,
+  k4PhotoMediaData,
+  k4ProductFields,
+  k4Relations,
+  k4SlugRedirects,
+  withK4Content,
+  type K4Card,
+} from './k4Catalog'
 
 const repoCard: K31Card = {
   slug_seed: 'posnet-ergo',
@@ -147,6 +164,27 @@ describe('k4ProductFields (K4-FINAL §4.2)', () => {
     })
   })
 
+  it('keeps only the address of a source link with a note after it', () => {
+    const zrodla = [
+      {
+        url: 'https://www.kobra.com/contents/poland/datasheet-pl.zip (kobra-plus1-cc4-karta.pdf)',
+        etykieta: 'Karta katalogowa (PDF) — Kobra',
+        host: 'kobra.com',
+      },
+    ]
+    expect(k4ProductFields({ ...k4Card, zrodla }, '').sourceLinks).toEqual([
+      {
+        label: 'Karta katalogowa (PDF) — Kobra',
+        url: 'https://www.kobra.com/contents/poland/datasheet-pl.zip',
+      },
+    ])
+  })
+
+  it('rejects a source without a link', () => {
+    const zrodla = [{ url: '  ', etykieta: 'Strona producenta', host: '' }]
+    expect(() => k4ProductFields({ ...k4Card, zrodla }, '')).toThrow(/Strona producenta/)
+  })
+
   it('leaves the short name empty when it is the name itself', () => {
     expect(k4ProductFields(k4Card, 'Posnet Ergo').shortName).toBeNull()
   })
@@ -234,5 +272,122 @@ describe('K4 package (katalog-k4.json)', () => {
     )
     expect(items.length).toBeGreaterThan(10000)
     expect(broken).toEqual([])
+  })
+})
+
+describe('k4NewCards (K4-FINAL §4.3, 162 new cards)', () => {
+  const cards: K4Card[] = k4Catalog.produkty
+  const repo = k31Catalog(k31Input).cards
+
+  it('builds the cards the repo does not have, in the K3 shape', () => {
+    const fresh = k4NewCards(cards, repo)
+    expect(fresh).toHaveLength(162)
+    expect(new Set(fresh.map((card) => card.slug_seed)).size).toBe(162)
+    const macbook = fresh.find((card) => card.slug_seed === 'apple-macbook-air-m5')
+    expect(macbook).toMatchObject({
+      marka: 'Apple',
+      kategoria: 'laptopy',
+      dobierz: [],
+      zrodla: [],
+      uwagi: '',
+      seria: expect.any(String),
+    })
+    expect(macbook?.branze.every((slug) => /^[a-z-]+$/.test(slug))).toBe(true)
+  })
+
+  it('takes only the cards marked new', () => {
+    const fresh = new Set(k4NewCards(cards, repo).map((card) => card.slug_seed))
+    expect(
+      cards.filter((card) => fresh.has(card.slug_seed)).every((card) => card.zmiana_k4 === 'nowa'),
+    ).toBe(true)
+  })
+})
+
+describe('K4 photos and colors', () => {
+  const macbook = k4Catalog.produkty.find(
+    (card) => card.slug_seed === 'apple-macbook-air-m5',
+  ) as K4Card
+
+  it('keys the gallery and finds every file of the package', () => {
+    const keys = k4Catalog.produkty.flatMap((card) => k4ImageKeys(card as K4Card))
+    expect(keys.length).toBeGreaterThan(150)
+    for (const key of keys) {
+      const file = k4PhotoFile(key)
+      expect(file && fs.existsSync(path.resolve(file.filePath)), key).toBe(true)
+    }
+    expect(k4PhotoFile('k3:posnet/x.webp')).toBeNull()
+    expect(k4PhotoFile('k4:produkty/x.webp')?.uploadName).toBe('k4-x.webp')
+  })
+
+  it('describes a gallery photo and a color photo', () => {
+    const [first] = k4ImageKeys(macbook)
+    expect(k4PhotoMediaData(macbook, first!).alt).toBe(`${macbook.nazwa} — zdjęcie 1`)
+    const color = 'k4:kolory/apple-macbook-air-m5-srebrny.webp'
+    expect(k4PhotoMediaData(macbook, color).alt).toBe(`${macbook.nazwa} — kolor srebrny`)
+    expect(() => k4PhotoMediaData(macbook, 'k4:produkty/obce.webp')).toThrow(/obce/)
+  })
+
+  it('maps the colors with their photo records', () => {
+    const ids = new Map([['k4:kolory/apple-macbook-air-m5-srebrny.webp', 7]])
+    const all = new Map(
+      (macbook.kolory ?? []).map((item, index) => [
+        `k4:kolory/${path.basename(item.plik)}`,
+        index + 1,
+      ]),
+    )
+    expect(k4Colors(macbook, (key) => all.get(key))[1]).toEqual({
+      name: 'srebrny',
+      hex: '#E3E4E6',
+      image: 2,
+    })
+    expect(() => k4Colors(macbook, (key) => ids.get(key))).toThrow(/błękitny/)
+  })
+})
+
+describe('k4BrandRecord (brands of new cards without a record)', () => {
+  it('takes the address from the logo of marki-k4.json', () => {
+    expect(k4BrandRecord('Apple', k4Brands.marki)).toEqual({ name: 'Apple', slug: 'apple' })
+    expect(k4BrandRecord('COMEX', k4Brands.marki)).toEqual({ name: 'COMEX', slug: 'comex' })
+    expect(() => k4BrandRecord('Nieznana', k4Brands.marki)).toThrow(/Nieznana/)
+  })
+})
+
+describe('mapa-slugow-k4.json', () => {
+  const slugs = new Map([
+    ['przeglad', 'przeglad-it-stary'],
+    ['przeglad-it', 'przeglad-it'],
+    ['kopie', 'kopie-stare'],
+    ['kopie-zapasowe', 'kopie-zapasowe'],
+    ['opieka', 'opieka-it-stara'],
+    ['ux', 'ubiquiti-unifi-express'],
+    ['ubiquiti-unifi-express-7', 'ubiquiti-unifi-express-7'],
+  ])
+
+  it('sends a hidden card to its new card or page (301)', () => {
+    expect(k4SlugRedirects(k4SlugMap, (id) => slugs.get(id))).toEqual([
+      { from: '/produkt/kopie-stare', to: '/produkt/kopie-zapasowe' },
+      { from: '/produkt/opieka-it-stara', to: '/opieka-it' },
+      { from: '/produkt/przeglad-it-stary', to: '/produkt/przeglad-it' },
+      { from: '/produkt/ubiquiti-unifi-express', to: '/produkt/ubiquiti-unifi-express-7' },
+    ])
+    expect(() => k4SlugRedirects(k4SlugMap, () => undefined)).toThrow(/kopie/)
+  })
+
+  it('lets page seeds name the new card instead of a hidden one with a card', () => {
+    expect(k4Aliases(k4SlugMap)).toEqual({
+      kopie: 'kopie-zapasowe',
+      przeglad: 'przeglad-it',
+      ux: 'ubiquiti-unifi-express-7',
+    })
+  })
+
+  it('agrees with itself and with the K3.1 split', () => {
+    for (const [old, target] of Object.entries(k4SlugMap.zmiana_slugu)) {
+      expect(k4SlugMap.ukryj[old as keyof typeof k4SlugMap.ukryj]).toBe(target)
+    }
+    const splits = new Map(k31Input.splits.map((split) => [split.z, split.redirect_301]))
+    for (const [old, item] of Object.entries(k4SlugMap.niepodzielone)) {
+      expect(splits.get(old), old).toBe(item['301'])
+    }
   })
 })

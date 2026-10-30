@@ -41,8 +41,9 @@ test.describe('catalog index', () => {
         'automaty-vendingowe',
       ]),
     )
-    // B2 acceptance: the whole index under 50 KB gzip.
-    expect(gzipSync(JSON.stringify(index)).length).toBeLessThan(50 * 1024)
+    // B2 acceptance was 50 KB gzip for 243 cards; K4 has ~430 (74 KB) — 80 KB until K4b slims
+    // the index with the new search (decision of Krystian, 30.10).
+    expect(gzipSync(JSON.stringify(index)).length).toBeLessThan(80 * 1024)
   })
 
   test('shows no client logo and no price', async ({ page }) => {

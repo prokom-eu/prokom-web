@@ -408,6 +408,21 @@ export function isImportedFileName(stored: string | null | undefined, file: stri
   return /^\d+$/.test(suffix)
 }
 
+/**
+ * The stored record of a package file: the one with exactly its name first, and only then one
+ * with the `-N` suffix. K4 galleries name their photos `<slug>.webp`, `<slug>-2.webp`…, which
+ * would otherwise pass for a renamed copy of `<slug>.webp`.
+ */
+export function findImportedFile<T extends { filename?: string | null }>(
+  docs: T[],
+  file: string,
+): T | undefined {
+  return (
+    docs.find((doc) => doc.filename === file) ??
+    docs.find((doc) => isImportedFileName(doc.filename, file))
+  )
+}
+
 /** Alt texts of the files no product names (checked by looking at each picture). */
 const ALT_BY_FILE: Record<string, string> = {
   'ekran-subiekt-nexo-zlecenie.webp': 'Subiekt nexo — okno zlecenia z listą asortymentu',
