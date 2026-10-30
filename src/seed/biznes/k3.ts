@@ -5,7 +5,7 @@ import { forbiddenContent } from '../../lib/catalog/contentRules'
 import { p, richText } from './lexical'
 import {
   CATEGORY_SLUGS,
-  categoryData,
+  CATEGORY_SUCCESSORS,
   productImageFiles,
   productLegacyIds,
   productPanelFields,
@@ -109,7 +109,7 @@ type GalleryPackage = 'k3' | 'k31'
 // --- rules of the import ---
 
 /** Categories whose subcategories have their own address (ADR-012 rozstrz. 14). */
-const SUBCATEGORY_PAGES = new Set(['komp', 'serw', 'av'])
+export const SUBCATEGORY_PAGES: ReadonlySet<string> = new Set(['komp', 'serw', 'av'])
 
 /** K3 industries without a record and a page (K3-KATALOG §3: "nieaktywna, bez strony"). */
 export const SKIPPED_INDUSTRIES = new Set(['magazyn-produkcja'])
@@ -391,6 +391,8 @@ export type RetiredProduct = {
   reason: 'usunięta' | 'zastąpiona' | 'podzielona'
 }
 
+const successor = (code: string) => CATEGORY_SUCCESSORS[code] ?? code
+
 /** 301 rules and records to hide: removed cards → their category, replaced ones → successor. */
 export function k3Retired(
   cards: K3Card[],
@@ -409,7 +411,7 @@ export function k3Retired(
     retired.push({
       legacyIds: productLegacyIds(product),
       from: `/produkt/${slugFromName(product.nazwa)}`,
-      to: `/oferta/${mapped(CATEGORY_SLUGS, card.kategoria, 'category')}`,
+      to: `/oferta/${mapped(CATEGORY_SLUGS, successor(card.kategoria), 'category')}`,
       unpublish: true,
       reason: 'usunięta',
     })
@@ -421,7 +423,7 @@ export function k3Retired(
     const to =
       'product' in target
         ? `/produkt/${target.product}`
-        : `/oferta/${mapped(CATEGORY_SLUGS, target.category, 'category')}`
+        : `/oferta/${mapped(CATEGORY_SLUGS, successor(target.category), 'category')}`
     // `m365` already had the address of its family: nothing moves.
     if (from === to) continue
     retired.push({
@@ -501,22 +503,6 @@ export function k3GalleryMediaData(
 }
 
 // --- dictionaries (§4 pkt 6) ---
-
-/** Category from the dictionary: name, description and subcategories (address only with a page). */
-export function k3CategoryData(
-  category: K3Category,
-  groupId: number,
-  icons: Record<string, string>,
-) {
-  const withPage = SUBCATEGORY_PAGES.has(category.slug)
-  return {
-    ...categoryData(category, groupId, icons),
-    subcategories: (category.podkategorie ?? []).map((row) => ({
-      name: row.nazwa,
-      slug: withPage ? text(row.slug) : null,
-    })),
-  }
-}
 
 /** A brand gets a record when it has a page or a card (Ingenico has neither: no record). */
 export function k3BrandNeedsRecord(

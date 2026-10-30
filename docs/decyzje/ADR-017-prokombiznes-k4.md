@@ -29,3 +29,8 @@ Po paczce K3.1 (wgranej w #110, zbudowanej do K3c — #142) wizualizacja przesz�
 - Salony jako pole `Partners.showroom` dla wszystkich — salon tematyczny łączy kilka marek.
 - Nowy global na Konfigurator — sprzeczne z decyzją KD D2 (bez nowych globali).
 - Adresy z K33 §1 — zmiana już zbudowanych tras bez korzyści.
+
+## Doprecyzowania K4a-1 (Krystian, 30.10.2026)
+- **Strony podkategorii** (`/oferta/[kategoria]/[podkategoria]`) mają tylko podkategorie **Serwerów, NAS i UPS**, **Ekranów i projektorów** (ADR-012 rozstrz. 14) oraz **Drukarek i urządzeń wielofunkcyjnych** (nowe w K4). W pozostałych kategoriach podkategoria jest chipem filtra bez adresu, choć `slowniki-k4.json` podaje slug — chroni to przed stronami z 1–2 produktami w indeksie. Lista w kodzie: `K4_SUBCATEGORY_PAGES` (`src/seed/biznes/k4Categories.ts`).
+- „Komputery i monitory” nie ma odpowiednika w K4: `/oferta/komputery-monitory` → 301 `/oferta`, jej strony podkategorii → 301 do nowych kategorii (`laptopy`, `komputery`, `monitory`; stacje robocze i dokujące → `komputery`); usunięte karty K3 tej kategorii → `/oferta/laptopy`.
+- Karta „Nie wiesz, co wybrać?” kategorii z paczki (`dobor`) czeka na K4d (przycisk i akcja jeszcze nie trafiają na stronę, a tekst automatów odsyła do strony z K4j); pola są w panelu, import ich jeszcze nie wypełnia.

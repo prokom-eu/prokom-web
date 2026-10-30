@@ -30,6 +30,8 @@ function listed(index: CatalogIndex, self: string, slugs: readonly string[]): In
 /**
  * „Z tej samej rodziny” (K31-ZMIANY §4 pkt 7): the same brand and series first, then the same
  * subcategory of the main category; most popular first (the index is sorted by popularity).
+ * A product of a series without a subcategory takes its main category instead — K4 made the
+ * former subcategories „Laptopy”, „Komputery”, „Monitory” categories of their own (D-K4-2).
  */
 export function familyProducts(index: CatalogIndex, slug: string): IndexProduct[] {
   const self = index.products.find((product) => product.slug === slug)
@@ -38,14 +40,15 @@ export function familyProducts(index: CatalogIndex, slug: string): IndexProduct[
   const series = self.series
     ? others.filter((product) => product.brand === self.brand && product.series === self.series)
     : []
-  const subcategory = self.subcategory
-    ? others.filter(
-        (product) =>
-          product.subcategory === self.subcategory &&
-          product.categories[0] === self.categories[0] &&
-          !series.includes(product),
-      )
-    : []
+  const subcategory =
+    self.subcategory || self.series
+      ? others.filter(
+          (product) =>
+            (!self.subcategory || product.subcategory === self.subcategory) &&
+            product.categories[0] === self.categories[0] &&
+            !series.includes(product),
+        )
+      : []
   return [...series, ...subcategory].slice(0, FAMILY_LIMIT)
 }
 

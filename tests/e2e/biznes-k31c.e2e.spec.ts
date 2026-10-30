@@ -71,7 +71,7 @@ test.describe('Biznes showrooms (K31c)', () => {
 })
 
 test.describe('Biznes category series filter (K31c)', () => {
-  const LAPTOPS = '/oferta/komputery-monitory/laptopy'
+  const LAPTOPS = '/oferta/laptopy'
   const grid = (page: Page) => page.locator('[data-category-grid] [data-card]')
 
   test('`?seria=` filters from the first render, the canonical stays without it', async ({

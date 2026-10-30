@@ -42,7 +42,7 @@ export const REGISTER_PICKER: readonly { value: RegisterType; title: string; tex
 /** Address of a category page (indexed, unlike the filtered `/oferta?kategoria=`). */
 export const categoryHref = (slug: string) => `/oferta/${encodeURIComponent(slug)}`
 
-/** Address of a subcategory page (K3b′, ADR-012 rozstrz. 14), e.g. `/oferta/komputery-monitory/laptopy`. */
+/** Address of a subcategory page (K3b′, ADR-012 rozstrz. 14), e.g. `/oferta/serwery-nas-ups/ups`. */
 export const subcategoryHref = (category: string, subcategory: string) =>
   `${categoryHref(category)}/${encodeURIComponent(subcategory)}`
 

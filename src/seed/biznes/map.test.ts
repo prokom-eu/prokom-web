@@ -19,6 +19,7 @@ import {
   mediaData,
   productData,
   productImageFiles,
+  RETIRED_CATEGORY_SLUGS,
   productLegacyIds,
   productUpdateData,
   PREVIOUS_CATEGORY_SLUGS,
@@ -73,10 +74,11 @@ describe('groups, categories and industries', () => {
   })
 
   it('maps all categories to unique valid addresses', () => {
-    const slugs = catalog.kategorie.map(
-      (category) => categoryData(category, 1, icons.kategoria_ikona).slug,
-    )
-    expect(new Set(slugs).size).toBe(23)
+    // "Komputery i monitory" is gone in K4 (D-K4-2); its products have K4 categories.
+    const slugs = catalog.kategorie
+      .filter((category) => !RETIRED_CATEGORY_SLUGS[category.slug])
+      .map((category) => categoryData(category, 1, icons.kategoria_ikona).slug)
+    expect(new Set(slugs).size).toBe(22)
     for (const slug of slugs) expect(isValidSlug(slug)).toBe(true)
   })
 

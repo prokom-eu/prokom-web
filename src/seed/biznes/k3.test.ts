@@ -2,7 +2,6 @@ import fs from 'fs'
 import path from 'path'
 import { describe, expect, it } from 'vitest'
 
-import icons from '../../../seed/prokombiznes/ikony.json'
 import katalog from '../../../seed/prokombiznes/katalog.json'
 import media from '../../../seed/prokombiznes/media.json'
 import k3Catalog from '../../../seed/prokombiznes/k3/katalog-k3.json'
@@ -13,7 +12,6 @@ import { isValidSlug } from '../../lib/tenant/uniqueSlug'
 import { hasSameValues } from '../compare'
 import {
   K3_MEDIA_DIR,
-  k3CategoryData,
   k3CreateFields,
   k3GalleryFile,
   k3GalleryMediaData,
@@ -451,24 +449,7 @@ describe('galleries (K3-KATALOG §4 pkt 5)', () => {
   })
 })
 
-describe('k3CategoryData and k3PartnerData (dictionaries)', () => {
-  const category = (code: string) => dictionaries.kategorie.find((item) => item.slug === code)!
-
-  it('takes names, descriptions and subcategories; an address only where it has a page', () => {
-    const komp = k3CategoryData(category('komp'), 7, icons.kategoria_ikona)
-    expect(komp).toMatchObject({ slug: 'komputery-monitory', group: 7 })
-    expect(komp.subcategories).toEqual([
-      { name: 'Laptopy', slug: 'laptopy' },
-      { name: 'Komputery i All-in-One', slug: 'komputery' },
-      { name: 'Monitory', slug: 'monitory' },
-    ])
-    expect(k3CategoryData(category('kody'), 7, icons.kategoria_ikona)).toMatchObject({
-      name: 'Skanery, etykiety i kolektory',
-      subcategories: expect.arrayContaining([{ name: 'Skanery kodów', slug: null }]),
-    })
-    expect(k3CategoryData(category('kasy'), 7, icons.kategoria_ikona).subcategories).toEqual([])
-  })
-
+describe('k3PartnerData (dictionaries)', () => {
   it('creates a brand record for a page or a card, never for neither (Ingenico)', () => {
     const brand = (slug: string) => dictionaries.marki.find((item) => item.slug === slug)!
     // PRO-KOM has no page, but 13 cards (services): a fresh database needs the record.

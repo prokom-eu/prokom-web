@@ -7,6 +7,8 @@ import katalog from '../../../seed/prokombiznes/katalog.json'
 import k3Dictionaries from '../../../seed/prokombiznes/k3/slowniki-k3.json'
 import k3Removed from '../../../seed/prokombiznes/k3/usuniete.json'
 import k3Bundles from '../../../seed/prokombiznes/k3/zestawy.json'
+import k4Catalog from '../../../seed/prokombiznes/k4/katalog-k4.json'
+import k4Slowniki from '../../../seed/prokombiznes/k4/slowniki-k4.json'
 import kreator from '../../../seed/prokombiznes/kreator.json'
 import media from '../../../seed/prokombiznes/media.json'
 import gallery from '../../../seed/prokombiznes/media-produkty-v2.json'
@@ -16,7 +18,6 @@ import { mapConcurrent } from '../concurrency'
 import { parseGalleryLimit, SEED_CONTEXT } from '../config'
 import {
   allowedBadge,
-  k3CategoryData,
   k3CreateFields,
   k3GalleryFile,
   k3GalleryMediaData,
@@ -29,10 +30,18 @@ import {
   matchCards,
   REPLACED_PRODUCTS,
   SKIPPED_INDUSTRIES,
-  type K3Dictionaries,
+  SUBCATEGORY_PAGES,
   type K3RemovedCard,
 } from './k3'
 import { k31Dictionaries, k31ProductFields, k31Retired, type K31Card } from './k31'
+import {
+  k4CardPlacement,
+  k4CategoryData,
+  k4CategoryIcons,
+  k4CategoryRedirects,
+  k4Dictionaries,
+  isRetiredTarget,
+} from './k4Categories'
 import {
   K31_DIR,
   k31Featured,
@@ -98,7 +107,10 @@ type Counter = { created: number; updated: number; skipped: number }
  */
 export async function seedBiznesCatalog(payload: Payload): Promise<void> {
   const catalog: SeedCatalog = katalog
-  const dictionaries: K3Dictionaries = k31Dictionaries(k3Dictionaries, k31Featured)
+  const k31Dicts = k31Dictionaries(k3Dictionaries, k31Featured)
+  // K4 departments and categories (D-K4-2); cards keep their K3 / K3.1 content until K4a-2.
+  const dictionaries = k4Dictionaries(k31Dicts, k4Slowniki)
+  const k4Cards = new Map(k4Catalog.produkty.map((card) => [card.slug_seed, card]))
   const { catalog: k31, gallery: k3Gallery } = loadK31Catalog()
   const cards = k31.cards
   const removed: K3RemovedCard[] = k3Removed.produkty
@@ -139,6 +151,34 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     return existing ? existing.id : (await create()).id
   }
 
+  // A 301 rule by its source; one changed in the panel stays and the report shows it, one an
+  // earlier import pointed to a retired category is moved to the new target.
+  async function ensureRedirect(from: string, to: string): Promise<void> {
+    const {
+      docs: [rule],
+    } = await payload.find({
+      collection: 'redirects',
+      where: inTenant({ from: { equals: from } }),
+      limit: 1,
+      ...local,
+    })
+    if (!rule) {
+      await payload.create({
+        collection: 'redirects',
+        data: { from, to, tenant: tenant.id },
+        ...local,
+      })
+      count('redirects', true)
+    } else if (rule.to !== to && isRetiredTarget(rule.to)) {
+      // Written by an earlier import to a category K4 retired: one hop to the new target.
+      await payload.update({ collection: 'redirects', id: rule.id, data: { to }, ...local })
+      count('redirects', 'updated')
+    } else {
+      if (rule.to !== to) note('301 zmienione w panelu', `${from} → ${rule.to}`)
+      count('redirects', false)
+    }
+  }
+
   // --- groups, categories, industries ---
   const groupIds = new Map<string, number>()
   for (const group of dictionaries.grupy) {
@@ -159,7 +199,7 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
   for (const category of dictionaries.kategorie) {
     const groupId = groupIds.get(category.grupa)
     if (groupId === undefined) throw new Error(`Seed (Biznes): unknown group "${category.grupa}".`)
-    const data = k3CategoryData(category, groupId, icons.kategoria_ikona)
+    const data = k4CategoryData(category, groupId, k4CategoryIcons(icons.kategoria_ikona))
     const slugs = [data.slug, ...(PREVIOUS_CATEGORY_SLUGS[data.slug] ?? [])]
     const {
       docs: [existing],
@@ -192,6 +232,15 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
       count('catalog-categories', same ? false : 'updated')
       categoryIds.set(category.slug, existing.id)
     }
+  }
+
+  // K3 category addresses K4 retired (D-K4-2): "Komputery i monitory" and its pages.
+  for (const rule of k4CategoryRedirects(
+    k31Dicts.kategorie,
+    dictionaries.kategorie,
+    SUBCATEGORY_PAGES,
+  )) {
+    await ensureRedirect(rule.from, rule.to)
   }
 
   const industryIds = new Map<string, number>()
@@ -381,7 +430,17 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
   // cards look for a record by them.
   let withFilms = 0
   const paired = (card: K31Card) => (matches.has(card.slug_seed) ? 0 : 1)
-  for (const card of [...cards].sort((a, b) => paired(a) - paired(b))) {
+  for (const source of [...cards].sort((a, b) => paired(a) - paired(b))) {
+    // K4 category and subcategory (D-K4-2) in place of the K3 ones.
+    const { unknownSubcategory, ...placement } = k4CardPlacement(
+      source,
+      k4Cards,
+      dictionaries.kategorie,
+    )
+    if (unknownSubcategory) {
+      note('podkategoria spoza słownika K4', `${source.slug_seed}: ${unknownSubcategory}`)
+    }
+    const card: K31Card = { ...source, ...placement }
     const v2 = matches.get(card.slug_seed)
     const data = k3ProductData(
       card,
@@ -500,25 +559,7 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
         })
       }
     }
-    const {
-      docs: [rule],
-    } = await payload.find({
-      collection: 'redirects',
-      where: inTenant({ from: { equals: item.from } }),
-      limit: 1,
-      ...local,
-    })
-    count('redirects', !rule)
-    if (!rule) {
-      await payload.create({
-        collection: 'redirects',
-        data: { from: item.from, to: item.to, tenant: tenant.id },
-        ...local,
-      })
-    } else if (rule.to !== item.to) {
-      // A rule changed in the panel stays; the report shows it.
-      note('301 zmienione w panelu', `${item.from} → ${rule.to}`)
-    }
+    await ensureRedirect(item.from, item.to)
   }
 
   // Brands PRO-KOM no longer sells (Honeywell, StorageCraft): off the Biznes line, record kept.
