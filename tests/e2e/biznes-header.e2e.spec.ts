@@ -100,26 +100,15 @@ test.describe('Biznes header', () => {
     ).toHaveAttribute('href', '/branze/gastronomia')
   })
 
-  // ZMIANY-v20 §1.1: "Zgłoś awarię" → `#kontakt` on the home page (B7d), `/kontakt` elsewhere.
-  test('top bar: no remote help, "Zgłoś awarię" leads to the form or the contact page', async ({
-    page,
-  }) => {
+  // K4 (K33 §2.1, K36 §1): five lines with their colours, the Konfigurator, no „Zgłoś awarię”.
+  test('top bar: the PRO-KOM lines and the Konfigurator, no „Zgłoś awarię”', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
-    await expect(page.getByRole('link', { name: 'Pomoc zdalna' })).toHaveCount(0)
-    const report = page.getByRole('link', { name: 'Zgłoś awarię' })
-    await expect(report).toHaveAttribute('href', '#kontakt')
-    await expect(page.locator('#kontakt')).toBeAttached()
-    // Client-side navigation (no reload): the top bar stays mounted and must follow the route.
-    await mainNav(page).getByRole('link', { name: 'Kontakt' }).click()
-    await expect(page).toHaveURL(/\/kontakt$/)
-    await expect(page.getByRole('link', { name: 'Zgłoś awarię' })).toHaveAttribute(
+    const lines = page.getByRole('navigation', { name: 'Linie PRO-KOM' }).getByRole('link')
+    await expect(lines).toHaveText(['Biznes', 'Instalacje', 'Software', 'Tech', 'Zakopane'])
+    await expect(page.getByRole('link', { name: 'Zgłoś awarię' })).toHaveCount(0)
+    await expect(page.getByRole('link', { name: 'Konfigurator' }).first()).toHaveAttribute(
       'href',
-      '/kontakt',
-    )
-    await page.goto(site('biznes.localhost', '/oferta'))
-    await expect(page.getByRole('link', { name: 'Zgłoś awarię' })).toHaveAttribute(
-      'href',
-      '/kontakt',
+      '/kreator',
     )
   })
 
@@ -127,7 +116,7 @@ test.describe('Biznes header', () => {
     await page.goto(site('biznes.localhost'))
     const magnifier = page
       .getByRole('banner')
-      .getByRole('button', { name: 'Szukaj w ofercie (skrót /)' })
+      .getByRole('button', { name: 'Szukaj w ofercie (Ctrl K lub /)' })
     await expect(magnifier).toHaveAttribute('aria-keyshortcuts', '/')
     await magnifier.click()
     await expect(page.getByRole('dialog', { name: 'Szukaj w ofercie' })).toBeVisible()

@@ -1,11 +1,8 @@
 import Link from 'next/link'
 
-import { HomeAwareLink } from '@/components/HomeAwareLink'
 import { Container } from '@/components/ui/Container'
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
-import type { IconName } from '@/lib/catalog/options'
-import { BRAND_LINKS } from '@/lib/brand/lines'
 import { openingStatus, type OpeningHours } from '@/lib/site/hours'
 import { toTelHref } from '@/lib/site/link'
 
@@ -17,28 +14,41 @@ type Props = {
   hours: OpeningHours | null
 }
 
-// v20: no remote help here (it lives on `/opieka-it` only). "Zgłoś awarię" leads to the
-// form section on the home page (`#kontakt`, B7d) and to the contact page elsewhere.
-/** `homeHref`: where the link leads on the home page itself (ZMIANY-v20 §1.1). */
-const QUICK_LINKS: { label: string; href: string; homeHref?: string; icon: IconName }[] = [
-  { label: 'Zgłoś awarię', href: '/kontakt', homeHref: '#kontakt', icon: 'wrench' },
-  { label: 'Aktualności', href: '/aktualnosci', icon: 'doc' },
-]
+/**
+ * The PRO-KOM lines of the K4 bar (K33 §2.1, board `Web-Start`), each with its brand-book colour
+ * (`--c-<line>` tokens). Biznes-only: the shared `BRAND_LINKS` serve the other lines' frames.
+ */
+const LINES = [
+  {
+    label: 'Biznes',
+    href: 'https://prokombiznes.pl',
+    color: 'bg-[var(--c-biznes)]',
+    current: true,
+  },
+  { label: 'Instalacje', href: 'https://prokominstalacje.pl', color: 'bg-[var(--c-instalacje)]' },
+  { label: 'Software', href: 'https://prokomsoftware.pl', color: 'bg-[var(--c-software)]' },
+  { label: 'Tech', href: 'https://prokomserwis.pl', color: 'bg-[var(--c-tech)]' },
+  { label: 'Zakopane', href: 'https://prokomzakopane.pl', color: 'bg-[var(--c-zakopane)]' },
+] as const
+
+// K4 (K36 §1): no „Zgłoś awarię” or „Aktualności” here — the Konfigurator is the one quick link.
+// `/kreator` until K4g moves it to `/konfigurator` (with a 301 from the old address).
+const CONFIGURATOR_HREF = '/kreator'
 
 /**
- * Top bar of the Biznes line (spec. §3.1): the PRO-KOM lines, the live opening status, quick
- * links and the one main phone number. Hidden on phones — the bottom bar takes over.
+ * Top bar of the Biznes line (spec. §3.1, K4 one row): the PRO-KOM lines, the live opening status,
+ * the Konfigurator and the one main phone number. Hidden on phones — the bottom bar takes over.
  */
 export function TopBar({ phone, hours }: Props) {
   const tel = phone ? toTelHref(phone) : null
   const status = hours ? openingStatus(hours, new Date()) : null
   return (
     <div className="hidden border-b border-border bg-surface text-sm text-ink-2 sm:block">
-      <Container wide>
+      <Container wide className="flex min-h-10 flex-wrap items-center justify-between gap-x-6">
         <nav aria-label="Linie PRO-KOM">
           <ul className="flex flex-wrap items-center gap-x-5">
-            {BRAND_LINKS.map((link) => {
-              const current = link.line === 'biznes'
+            {LINES.map((link) => {
+              const current = 'current' in link
               return (
                 <li key={link.href}>
                   <a
@@ -49,9 +59,10 @@ export function TopBar({ phone, hours }: Props) {
                       current ? 'font-bold text-ink' : 'hover:text-ink',
                     )}
                   >
-                    {current && (
-                      <span aria-hidden="true" className="h-0.5 w-4 rounded-full bg-accent" />
-                    )}
+                    <span
+                      aria-hidden="true"
+                      className={cx('h-[3px] w-3.5 rounded-full', link.color)}
+                    />
                     {link.label}
                   </a>
                 </li>
@@ -59,33 +70,15 @@ export function TopBar({ phone, hours }: Props) {
             })}
           </ul>
         </nav>
-        <div className="flex flex-wrap items-center gap-x-6 gap-y-1 pb-2">
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-1">
           {hours && status && <HoursStatus hours={hours} initial={status} />}
-          <ul className="flex flex-wrap items-center gap-x-5">
-            {QUICK_LINKS.map((link) => {
-              const className =
-                'inline-flex min-h-7 items-center gap-1.5 font-semibold text-accent-text hover:underline'
-              const content = (
-                <>
-                  <Icon name={link.icon} className="size-4" strokeWidth={2} />
-                  {link.label}
-                </>
-              )
-              return (
-                <li key={link.label}>
-                  {link.homeHref ? (
-                    <HomeAwareLink href={link.href} homeHref={link.homeHref} className={className}>
-                      {content}
-                    </HomeAwareLink>
-                  ) : (
-                    <Link href={link.href} className={className}>
-                      {content}
-                    </Link>
-                  )}
-                </li>
-              )
-            })}
-          </ul>
+          <Link
+            href={CONFIGURATOR_HREF}
+            className="inline-flex min-h-7 items-center gap-1.5 font-semibold text-ink hover:underline"
+          >
+            <Icon name="flash" className="size-4" strokeWidth={2} />
+            Konfigurator
+          </Link>
           {phone && (
             <p>
               Oferty i serwis:{' '}

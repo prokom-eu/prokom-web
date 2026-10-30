@@ -13,6 +13,8 @@ import {
   useState,
 } from 'react'
 
+import { isSearchShortcut } from '@/lib/site/searchShortcut'
+import { cx } from '@/components/ui/cx'
 import { ICON_BUTTON } from '@/components/ui/iconButton'
 import type { CatalogIndex, IndexProduct } from '@/lib/catalog/catalogIndex'
 import { useCatalogIndex } from '@/lib/catalog/useCatalogIndex'
@@ -40,16 +42,11 @@ type Props = {
   whatsapp: string | null
 }
 
-/** Typing into a field (or with a modifier) never opens the search on "/". */
-function isTyping(event: globalThis.KeyboardEvent) {
+/** The focus is in a field: „/” is typed there, not a shortcut. */
+function inField(event: globalThis.KeyboardEvent) {
   const target = event.target as HTMLElement | null
-  return (
-    event.ctrlKey ||
-    event.metaKey ||
-    event.altKey ||
-    Boolean(
-      target?.closest('input, textarea, select, [contenteditable=""], [contenteditable="true"]'),
-    )
+  return Boolean(
+    target?.closest('input, textarea, select, [contenteditable=""], [contenteditable="true"]'),
   )
 }
 
@@ -81,7 +78,8 @@ export function SearchOverlay({ whatsapp }: Props) {
 
   useEffect(() => {
     const onKey = (event: globalThis.KeyboardEvent) => {
-      if (event.key !== '/' || isTyping(event)) return
+      const { key, ctrlKey, metaKey, altKey } = event
+      if (!isSearchShortcut({ key, ctrlKey, metaKey, altKey, typing: inField(event) })) return
       event.preventDefault()
       show()
     }
@@ -91,16 +89,25 @@ export function SearchOverlay({ whatsapp }: Props) {
 
   return (
     <>
-      {/* v20: one magnifier at every width, the size of the theme switch (spec. §3.2). */}
+      {/* K4 (K33 §2.2): „Szukaj · Ctrl K” from 640 px, the magnifier alone on phones. */}
       <button
         type="button"
         aria-haspopup="dialog"
-        aria-keyshortcuts="/"
-        aria-label="Szukaj w ofercie (skrót /)"
+        aria-keyshortcuts="Control+K Meta+K /"
+        aria-label="Szukaj w ofercie (Ctrl K lub /)"
         onClick={show}
-        className={ICON_BUTTON}
+        className={cx(ICON_BUTTON, 'sm:w-auto sm:gap-2.5 sm:bg-surface-2 sm:px-4 sm:font-bold')}
       >
-        <SearchIcon size={20} />
+        <SearchIcon size={18} />
+        <span aria-hidden="true" className="hidden sm:inline">
+          Szukaj
+        </span>
+        <kbd
+          aria-hidden="true"
+          className="hidden rounded-md border border-border bg-surface px-1.5 py-0.5 font-sans text-[11px] font-bold text-ink-2 sm:inline"
+        >
+          Ctrl K
+        </kbd>
       </button>
 
       <dialog
