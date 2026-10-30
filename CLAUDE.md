@@ -55,7 +55,7 @@ Krystian pracuje na jednym komputerze. **GitHub to kopia kodu i jedyna droga na 
 - Nie zakładaj, że lokalna baza ma jakieś dane — dane testowe tylko z `pnpm seed` (powtarzalny, idempotentny). Każda migracja w repo, bo CI, staging i produkcja odtwarzają bazę z migracji.
 - Żadnych ścieżek bezwzględnych (`D:\...`, `C:\Users\...`) w kodzie, skryptach ani dokumentacji — tylko ścieżki względne do katalogu repo.
 - Nowa zmienna środowiskowa → `.env.example` z opisem (Krystian przenosi wartości przez menedżer haseł).
-- **Dwa tory naraz (`docs/zadania/przyspieszenie.md`):** tor A — sesje ze zmianą danych i schematu, po kolei; tor B — rama i strony, w drugim folderze. Najwyżej dwie sesje piszące kod naraz we wszystkich liniach. W fali każdy plik wspólny ma jednego właściciela; `run.ts`, `payload-types.ts` i migracje zawsze po kolei.
+- **Biznes w jednym folderze (decyzja Krystiana 30.10):** sesje po kolei wg kolejki `docs/zadania/prokombiznes.md` §7.1 — sesje połączone, 2–3 PR-y piętrowo w jednej sesji, bez drugiego folderu. Najwyżej dwie sesje piszące kod naraz we wszystkich liniach (Biznes, Software, Instalacje).
 - **Dwie strony równolegle = dwa foldery (git worktree)**, każdy z własną gałęzią, `PORT` i bazą (`docs/sposob-pracy.md` → „Dwie strony równolegle”). Pracujesz tylko w folderze swojej sesji: nie przełączasz go na gałąź drugiej strony, nie otwierasz `develop`, nowe gałęzie zakładasz od `origin/develop`. W `docs/STAN.md` edytujesz tylko podsekcję swojej strony.
 
 ## Zasady kodu
@@ -63,7 +63,7 @@ Krystian pracuje na jednym komputerze. **GitHub to kopia kodu i jedyna droga na 
 - Server Components domyślnie; `"use client"` tylko przy interakcji.
 - Treści z Payload przez Local API po stronie serwera, **zawsze z filtrem tenanta** (helpery w `lib/tenant`). Treść jednej domeny nigdy nie może pojawić się na innej — pilnuje tego test izolacji.
 - Nieznana domena → 404, nigdy domyślny tenant.
-- Zmiana schematu bazy = migracja w repo (`pnpm payload migrate:create`), także lokalnie — `push` wyłączony wszędzie (ADR-009). Przed `/pr` gałąź z migracją: rebase na `origin/develop`, usunięcie własnej migracji i `migrate:create` od nowa (`docs/sposob-pracy.md` → „Dwa tory i migracje”).
+- Zmiana schematu bazy = migracja w repo (`pnpm payload migrate:create`), także lokalnie — `push` wyłączony wszędzie (ADR-009). Przed `/pr` gałąź z migracją: rebase na `origin/develop`, usunięcie własnej migracji i `migrate:create` od nowa (`docs/sposob-pracy.md` → „Migracje z kilku folderów”).
 - Każda strona: metadane, `sitemap.xml` i `robots.txt` per domena, dane strukturalne, obrazy przez `next/image` z `alt`.
 - Dostępność: kontrast WCAG AA, semantyczny HTML, widoczny focus, etykiety formularzy.
 - Formularze: walidacja Zod na serwerze, honeypot + minimalny czas + limit zgłoszeń, zgoda RODO z wersją klauzuli, zapis przez `submitInquiry()` (ADR-003). Żadnych zewnętrznych usług (CAPTCHA, analityka, fonty z CDN) bez ADR.
