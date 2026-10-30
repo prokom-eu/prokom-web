@@ -84,7 +84,8 @@ const text = (value: string | null | undefined) => (value?.trim() ? value.trim()
  * The public content of the K4 card wins (§4.3 pkt 1). The repo keeps what K4 does not carry:
  * keys (`legacyIds`, previous name), packages of the IT care card, the `dobierz` phrases (no
  * longer used — ADR-017 pkt 10), sources with their type (K4 has labels instead — `sources.links`)
- * and internal notes. Category and subcategory come from `k4CardPlacement`.
+ * and internal notes. Category and subcategory come from `k4CardPlacement`; the configurator
+ * from `k4ProductFields` (the whole group, with the K4 help texts).
  */
 export function withK4Content<T extends K31Card>(card: T, k4: K4Card | undefined): T {
   if (!k4) return card
@@ -102,17 +103,6 @@ export function withK4Content<T extends K31Card>(card: T, k4: K4Card | undefined
     status: k4.status,
     marka: k4.marka,
     seria: k4.seria ?? card.seria ?? null,
-    konfigurator: k4.konfigurator
-      ? {
-          opis: k4.konfigurator.opis ?? null,
-          opcje: k4.konfigurator.opcje.map(({ nazwa, wartosci, uwaga }) => ({
-            nazwa,
-            wartosci,
-            ...(uwaga !== undefined && { uwaga }),
-          })),
-          popularne: k4.konfigurator.popularne ?? null,
-        }
-      : null,
   }
 }
 

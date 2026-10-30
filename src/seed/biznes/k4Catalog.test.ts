@@ -92,11 +92,6 @@ describe('withK4Content (K4-FINAL §4.3 pkt 1)', () => {
       branze: ['handel', 'gastronomia'],
       status: 'gotowe',
     })
-    expect(card.konfigurator?.opcje[1]).toEqual({
-      nazwa: 'Moduł',
-      wartosci: ['bardzo długa wartość opcji'],
-      uwaga: 'Przy zamówieniu.',
-    })
   })
 
   it('keeps what only the repo has: keys, packages, phrases, typed sources, notes', () => {

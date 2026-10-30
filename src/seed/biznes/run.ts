@@ -96,13 +96,16 @@ type Counter = { created: number; updated: number; skipped: number }
 /**
  * Imports the Biznes catalog into the local database (B2, local only). Products, categories and
  * brand pages come from the K3 package (`seed/prokombiznes/k3/`, K3-KATALOG §4) with K3.1 on
- * top (`k31.ts`: new cards, series, films, supplements, split cards, homepage list); katalog v2
- * (`katalog.json`) still gives groups' order, industries, design images and what K3 lacks.
+ * top (`k31.ts`: new cards, series, films, supplements, split cards, homepage list) and the
+ * content of the K4 cards on top of that (`k4Catalog.ts`); katalog v2 (`katalog.json`) still
+ * gives groups' order, industries, design images and what K3 lacks.
  * Idempotent: a record is found by its key (slug in the tenant, `legacyIds`, file name).
  * Groups, industries, images and settings are then left as they are.
  * Categories, brand pages and products: every field K3 provides wins over an edit made in the
  * panel — the record is updated when it differs, and only then (no new version on a re-run).
- * Panel fields K3 lacks (kind, popularity, badge, register type…) are written on create only.
+ * Panel fields K3 lacks (kind, popularity, badge, register type…) are written on create only —
+ * except on K4 cards, where kind, „Nowość” (`isNew`) and the short name come from the package
+ * on every run, like the rest of the card (K4-FINAL §4.3 pkt 1).
  * The content status and check date only move forward (`productUpdateData`). Removed and
  * replaced cards are hidden (draft) with a 301 rule; nothing is deleted.
  */
