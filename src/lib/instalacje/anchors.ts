@@ -9,6 +9,7 @@ export const SHARED_SECTION_IDS = ['odbior', 'pakiety', 'cena', 'faq', 'powiazan
  */
 export const SERVICE_SECTION_IDS: Partial<Record<ServiceKey, readonly string[]>> = {
   ant: ['co-robimy', 'gory', 'multipleksy', 'filtr-5g', 'satelita', 'pensjonat-tv'],
+  kam: ['co-dostajesz', 'system', 'typy', 'ile-widac', 'nagrania', 'rodo', 'sprzet-kamery'],
 }
 
 /** Ids a service page can jump to: its own sections and the shared ones. */
