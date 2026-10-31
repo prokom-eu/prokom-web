@@ -96,8 +96,13 @@ if [ ! -s "$keys" ] && [ -s /root/.ssh/authorized_keys ]; then
 fi
 [ -s "$keys" ] || echo "WARNING: $keys is empty — add your public key before phase 2."
 if ! has_password "$user"; then
-  echo "Set a password for sudo (store it in the password manager: \"VPS — webh.pl\"):"
-  passwd "$user"
+  if [ -t 0 ]; then
+    echo "Set a password for sudo (store it in the password manager: \"VPS — webh.pl\"):"
+    passwd "$user"
+  else
+    # Run over a non-interactive ssh: the person sets it later (phase 2 refuses without it).
+    echo "NOTE: $user has no password yet — set it with: ssh -t root@<IP> passwd $user"
+  fi
 fi
 
 step "Firewall (ufw): SSH, HTTP, HTTPS"
