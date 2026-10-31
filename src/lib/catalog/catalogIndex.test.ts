@@ -322,6 +322,31 @@ describe('buildCatalogIndex group showcase (home page offer cards)', () => {
       settings: null,
     }).groups[0]
 
+  it('lists the wheel products of the department by slug, only the listed ones (K36 §12)', () => {
+    const withWheel = buildCatalogIndex({
+      tenantId: TENANT,
+      products: [product],
+      categories: [category] as unknown as CatalogCategory[],
+      groups: [
+        {
+          id: 5,
+          slug: 'sprzedaz',
+          name: 'Kasy i sprzedaż',
+          icon: 'store',
+          gradientFrom: '#244FB0',
+          gradientTo: '#4FA3F0',
+          // A draft (not in the products) and an unpopulated id are left out.
+          wheelProducts: [{ id: 9, slug: 'szkic' }, product, 7],
+        },
+      ] as unknown as Parameters<typeof buildCatalogIndex>[0]['groups'],
+      industries: [],
+      pages: [],
+      settings: null,
+    }).groups[0]
+    expect(withWheel?.wheel).toEqual(['p'])
+    expect(build(null)?.wheel).toBeUndefined()
+  })
+
   it('gives up to two public pictures of this tenant', () => {
     const own = image(1, 'ergo.webp')
     const foreign = image(2, 'obce.webp', { tenant: OTHER_TENANT })

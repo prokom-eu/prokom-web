@@ -22,8 +22,10 @@ export type WheelGroup = {
 
 type Props = { groups: WheelGroup[]; total: number; phone: string | null }
 
-/** Board: the wheel switches to the next department every 4.2 s until the visitor picks one. */
-const AUTO_MS = 4200
+/** Board v149c: the wheel switches to the next department every 6.5 s until one is picked. */
+const AUTO_MS = 6500
+/** K36 §12: a department's products sit in an arc next to it, 21° apart. */
+const ARC_STEP = (21 * Math.PI) / 180
 
 // Radii as a share of the wheel's width (board: 282 and 170 px of 640 px).
 const OUTER = 44
@@ -56,15 +58,15 @@ export function DepartmentWheel({ groups, total, phone }: Props) {
     return () => window.clearInterval(timer)
   }, [groups, picked, paused])
 
-  // Interleaved (one picture of each department, then the next round), so a department's
-  // pictures spread around the ring.
-  const rounds = Math.max(0, ...groups.map((group) => group.thumbs.length))
-  const bubbles = Array.from({ length: rounds }, (_, round) =>
-    groups.flatMap((group) => {
-      const thumb = group.thumbs[round]
-      return thumb ? [{ ...thumb, group: group.slug }] : []
-    }),
-  ).flat()
+  // K36 §12: each department's products in an arc around its own direction on the ring.
+  const angleOf = (i: number) => (2 * Math.PI * i) / groups.length - Math.PI / 2
+  const bubbles = groups.flatMap((group, i) =>
+    group.thumbs.map((thumb, k) => ({
+      ...thumb,
+      group: group.slug,
+      angle: angleOf(i) + (k - (group.thumbs.length - 1) / 2) * ARC_STEP,
+    })),
+  )
   const current = groups.find((group) => group.slug === active)
 
   return (
@@ -94,21 +96,23 @@ export function DepartmentWheel({ groups, total, phone }: Props) {
         aria-label="Przykładowe produkty działów"
         className="absolute inset-0 animate-[spin_120s_linear_infinite] group-focus-within/wheel:[animation-play-state:paused] group-hover/wheel:[animation-play-state:paused] motion-reduce:animate-none"
       >
-        {bubbles.map((bubble, i) => {
+        {bubbles.map((bubble) => {
           const dim = current !== undefined && bubble.group !== current.slug
           const hi = current !== undefined && bubble.group === current.slug
           return (
             <li
               key={bubble.slug}
               className="absolute size-[11.5%] -translate-1/2"
-              style={point((2 * Math.PI * i) / bubbles.length - Math.PI / 2, OUTER)}
+              style={point(bubble.angle, OUTER)}
             >
               <Link
                 href={productHref(bubble.slug)}
                 title={bubble.name}
                 className={cx(
                   'flex size-full animate-[spin_120s_linear_infinite_reverse] items-center justify-center rounded-full bg-card shadow-[0_14px_30px_-14px_var(--glow),inset_0_0_0_1px_var(--border)] transition-[opacity,scale,box-shadow] duration-300 group-focus-within/wheel:[animation-play-state:paused] group-hover/wheel:[animation-play-state:paused] hover:scale-110 motion-reduce:animate-none',
-                  dim && 'scale-[.82] opacity-25',
+                  // v149c: the others stay readable; the pointer on the wheel shows all again.
+                  dim &&
+                    'scale-[.94] opacity-[.82] group-hover/wheel:scale-100 group-hover/wheel:opacity-100',
                   hi &&
                     'scale-110 shadow-[0_14px_30px_-14px_var(--glow),inset_0_0_0_2px_var(--accent)]',
                 )}
@@ -134,7 +138,7 @@ export function DepartmentWheel({ groups, total, phone }: Props) {
             <li
               key={group.slug}
               className="absolute z-[2] -translate-1/2"
-              style={point((2 * Math.PI * i) / groups.length - Math.PI / 2, INNER)}
+              style={point(angleOf(i), INNER)}
             >
               <button
                 type="button"

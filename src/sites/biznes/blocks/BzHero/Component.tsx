@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 import { Container } from '@/components/ui/Container'
 import { Icon } from '@/components/ui/Icon'
 import { getCatalogIndex } from '@/lib/catalog/data'
@@ -73,6 +75,13 @@ export async function BzHeroBlock({ block, isFirst, tenantId }: Props) {
               {block.cta.label}
               <Icon name="arrow" strokeWidth={2.4} className="size-[18px]" />
             </a>
+            {/* v150 (K36 §1): the whole offer with its count from the catalog. */}
+            <Link
+              href="/oferta"
+              className="inline-flex min-h-14 items-center gap-2.5 rounded-2xl bg-card px-6 font-bold text-ink shadow-[inset_0_0_0_1.5px_var(--border)] transition-colors hover:shadow-[inset_0_0_0_1.5px_var(--ink-3)]"
+            >
+              Przeglądaj ofertę · {index.products.length}
+            </Link>
             {phone && tel && (
               <a
                 href={tel}

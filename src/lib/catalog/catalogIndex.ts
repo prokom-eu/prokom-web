@@ -112,6 +112,8 @@ export type CatalogIndex = {
     description?: string
     /** Top of the department card on the home page: pictures or status rows. */
     showcase?: GroupShowcase
+    /** Products next to the department on the home page wheel (K36 §12), listed ones only. */
+    wheel?: string[]
   }[]
   industries: { slug: string; name: string; active: boolean }[]
   /** Published pages of the site but home (the special pages: `/opieka-it`, `/gopos`, …). */
@@ -354,6 +356,7 @@ export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
   const usedGroups = new Set(categories.map((category) => category.group))
 
   const search = source.settings?.search
+  const listedSlugs = new Set(products.map((product) => product.slug))
   return {
     products,
     brands: [...brands.values()].sort((a, b) => a.name.localeCompare(b.name, 'pl')),
@@ -363,6 +366,9 @@ export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
       .map((group) => {
         const description = optional(group.description)
         const showcase = groupShowcase(group, source.tenantId)
+        const wheel = docs(group.wheelProducts)
+          .map((product) => product.slug)
+          .filter((slug) => listedSlugs.has(slug))
         return {
           slug: group.slug,
           name: group.name,
@@ -370,6 +376,7 @@ export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
           gradient: [group.gradientFrom, group.gradientTo] as [string, string],
           ...(description && { description }),
           ...(showcase && { showcase }),
+          ...(wheel.length > 0 && { wheel }),
         }
       }),
     industries: source.industries.map((industry) => ({

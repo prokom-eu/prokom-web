@@ -75,6 +75,23 @@ describe('groupSummaries', () => {
     expect(usl?.thumbs).toEqual([])
   })
 
+  it('takes the wheel products of the department first (K36 §12), in their order', () => {
+    const withWheel = {
+      ...index,
+      groups: index.groups.map((group) =>
+        group.slug === 'sprz'
+          ? { ...group, wheel: ['temo', 'bez-zdjecia', 'nie-ma', 'hx'] }
+          : group,
+      ),
+    } as typeof index
+    // Without a picture or not listed: left out; the rest filled in the usual order.
+    expect(groupSummaries(withWheel)[0]?.thumbs.map((thumb) => thumb.slug)).toEqual([
+      'temo',
+      'hx',
+      'k10',
+    ])
+  })
+
   it('has no description when the group has none', () => {
     expect(groupSummaries(index)[0]?.description).toBeUndefined()
   })
