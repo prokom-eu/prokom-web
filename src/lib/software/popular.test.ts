@@ -11,36 +11,18 @@ const home = homeSchema.parse(softwareSettingsData().home)
 const cards = popularCards(home.popular.order, index.solutions)
 
 describe('„12 rzeczy” cards', () => {
-  it('are the 12 cards of the package in its order, the last two generic', () => {
+  it('are the 12 solutions of the package in its order, no generic cards (v22)', () => {
     expect(cards).toHaveLength(12)
-    expect(cards[0]?.solution.slug).toBe('strona-wizytowka')
-    expect(cards.slice(10).map((card) => card.solution.name)).toEqual([
-      'Aplikacja na telefon',
-      'Automatyzacje',
+    expect(cards[0]?.slug).toBe('strona-wizytowka')
+    expect(cards.slice(10).map((card) => card.slug)).toEqual([
+      'aplikacja-dla-ekip-w-terenie',
+      'powiadomienia-sms-i-e-mail',
     ])
-    expect(cards[10]).toMatchObject({
-      generic: true,
-      href: '/rozwiazania?kategoria=aplikacje',
-      variants: [
-        'Dla pracowników w terenie',
-        'Dla klientów: rezerwacje, zamówienia',
-        'Do programu, który już masz',
-      ],
-    })
   })
 
-  it('take the fields of the „12 rzeczy” card over the catalog card', () => {
-    const [first] = popularCards(
-      ['strona-wizytowka'],
-      [
-        {
-          ...index.solutions.find((solution) => solution.slug === 'strona-wizytowka')!,
-          featured: { name: 'Wizytówka', features: ['Jedna strona'] },
-        },
-      ],
-    )
-    expect(first?.solution).toMatchObject({ name: 'Wizytówka', features: ['Jedna strona'] })
-    expect(first?.solution.lead).toBeTruthy()
+  it('carry the catalog card as it is (name, lead, price, term)', () => {
+    const solution = index.solutions.find((item) => item.slug === 'strona-wizytowka')
+    expect(popularCards(['strona-wizytowka'], index.solutions)[0]).toBe(solution)
   })
 
   it('skip a slug that is not published in the tenant', () => {
@@ -56,7 +38,7 @@ describe('„12 rzeczy” cards', () => {
       ['app', 1],
       ['auto', 1],
     ])
-    expect(visibleCards(cards, 'sys').map((card) => card.solution.category)).toEqual([
+    expect(visibleCards(cards, 'sys').map((card) => card.category)).toEqual([
       'systemy',
       'systemy',
       'systemy',
@@ -66,7 +48,7 @@ describe('„12 rzeczy” cards', () => {
   })
 
   it('drop a tab without cards (a solution unpublished in the panel)', () => {
-    const withoutApps = cards.filter((card) => card.solution.category !== 'aplikacje')
+    const withoutApps = cards.filter((card) => card.category !== 'aplikacje')
     expect(popularTabs(home.popular.tabs, withoutApps).map((tab) => tab.key)).toEqual([
       'all',
       'www',

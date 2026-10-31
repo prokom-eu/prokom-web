@@ -4,17 +4,22 @@ import { type KeyboardEvent, useId, useRef, useState } from 'react'
 
 import { cx } from '@/components/ui/cx'
 import { plural } from '@/lib/plural'
-import { type PopularCard, type PopularTab, visibleCards } from '@/lib/software/popular'
+import type { OfferView } from '@/lib/software/offer'
+import { CATEGORY_AREA } from '@/lib/software/options'
+import { type PopularTab, visibleCards } from '@/lib/software/popular'
+import type { IndexSolution } from '@/lib/software/solutionsIndex'
 import type { PriceDisplay } from '@/lib/software/wizard'
 
-import { PopularSolutionCard } from './PopularSolutionCard'
+import { SolutionCard } from '../catalog/SolutionCard'
+import { SolutionDialog } from '../offer/SolutionDialog'
 
 type Props = {
-  cards: PopularCard[]
+  cards: IndexSolution[]
   tabs: PopularTab[]
   display: PriceDisplay
-  situationNames: Readonly<Record<string, string>>
-  /** [1, 2–4, 5+] with `{n}`, then the hint („kliknij kartę, żeby rozwinąć”). */
+  /** Offer windows of the published solutions by slug (`getOfferViews`). */
+  offers: Readonly<Record<string, OfferView>>
+  /** [1, 2–4, 5+] with `{n}`, then the hint („kliknij kartę, żeby zobaczyć szczegóły”). */
   count: readonly [string, string, string]
   hint: string
 }
@@ -26,20 +31,20 @@ const KEYS: Record<string, (index: number, count: number) => number> = {
   End: (_, n) => n - 1,
 }
 
-/** Link label of a generic card: it leads to the catalog filtered by its category. */
-const GENERIC_LINK = 'Zobacz w ofercie'
-
 /**
- * „12 rzeczy” (spec. §4 pkt 4): filter tabs with counts (ARIA tabs over one list) and the cards
- * of the catalog (SW9) — one expanded at a time. From 640 px a grid (4 columns from 1081 px);
- * on a phone a carousel of cards 84% wide, the next one peeking in.
+ * „12 rzeczy” (spec. §4 pkt 4, v22): filter tabs with counts (ARIA tabs over one list) and the
+ * catalog cards with a thumbnail; a card opens the offer window (←/→ along the visible cards,
+ * „n / 12”) — on the start page without a change of the address (decyzja 1). From 640 px a grid
+ * (4 columns from 1081 px); on a phone a carousel of cards 84% wide, the next one peeking in.
  */
-export function PopularExplorer({ cards, tabs, display, situationNames, count, hint }: Props) {
+export function PopularExplorer({ cards, tabs, display, offers, count, hint }: Props) {
   const id = useId()
   const [tab, setTab] = useState(tabs[0]?.key ?? 'all')
   const [open, setOpen] = useState<string | null>(null)
   const buttons = useRef<(HTMLButtonElement | null)[]>([])
   const shown = visibleCards(cards, tab)
+  // Only cards with a window: a solution without one (cannot happen with the seed) has no ←/→ stop.
+  const list = shown.map((card) => card.slug).filter((slug) => offers[slug])
   const active = Math.max(
     0,
     tabs.findIndex((item) => item.key === tab),
@@ -47,9 +52,7 @@ export function PopularExplorer({ cards, tabs, display, situationNames, count, h
 
   function choose(index: number) {
     const next = tabs[index]
-    if (!next) return
-    setTab(next.key)
-    setOpen(null)
+    if (next) setTab(next.key)
   }
 
   function onKeyDown(event: KeyboardEvent) {
@@ -115,28 +118,32 @@ export function PopularExplorer({ cards, tabs, display, situationNames, count, h
 
       <div id={`${id}-list`} role="tabpanel" aria-labelledby={`${id}-tab-${tab}`}>
         <ul className="-mx-4 flex snap-x snap-mandatory items-start gap-3 overflow-x-auto px-4 pb-2 [scrollbar-width:none] min-[640px]:mx-0 min-[640px]:grid min-[640px]:grid-cols-2 min-[640px]:gap-4 min-[640px]:overflow-visible min-[640px]:px-0 min-[640px]:pb-0 min-[1081px]:grid-cols-4">
-          {shown.map((card) => (
+          {shown.map((card, i) => (
             <li
-              key={card.solution.slug}
+              key={card.slug}
               className="w-[84%] shrink-0 snap-start min-[640px]:w-auto"
               data-testid="popular-card"
             >
-              <PopularSolutionCard
-                solution={card.solution}
+              <SolutionCard
+                solution={card}
                 display={display}
-                situationNames={situationNames}
-                open={open === card.solution.slug}
-                onToggle={() =>
-                  setOpen((current) => (current === card.solution.slug ? null : card.solution.slug))
-                }
-                link={card.href ? { href: card.href, label: GENERIC_LINK } : undefined}
-                variants={card.variants}
-                className="max-[639px]:flex max-[639px]:flex-col"
+                tone={offers[card.slug]?.tone ?? CATEGORY_AREA[card.category]}
+                eager={i < 4}
+                onOpen={() => setOpen(card.slug)}
               />
             </li>
           ))}
         </ul>
       </div>
+
+      <SolutionDialog
+        views={offers}
+        slug={open && offers[open] ? open : null}
+        list={list}
+        onSwitch={setOpen}
+        onClose={() => setOpen(null)}
+        closeOnBack
+      />
     </div>
   )
 }

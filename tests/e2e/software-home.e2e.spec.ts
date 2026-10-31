@@ -119,22 +119,33 @@ test.describe('Software start page', () => {
     await expect(areaTabs(page).first()).toHaveAttribute('aria-selected', 'true')
   })
 
-  test('12 rzeczy: tabs filter the cards, a card expands', async ({ page }) => {
+  test('12 rzeczy: tabs filter the cards, a card opens the offer window', async ({ page }) => {
     await page.goto(site(HOST))
     const section = page.locator('#popularne')
     const cards = section.getByTestId('popular-card')
     await expect(cards).toHaveCount(12)
-    await expect(section).toContainText('12 pozycji · kliknij kartę, żeby rozwinąć')
+    await expect(section).toContainText('12 pozycji · kliknij kartę, żeby zobaczyć szczegóły')
+    // v22: all 12 are solutions — 11 and 12 instead of the generic cards (board `Main`).
+    await expect(cards.nth(10)).toContainText('Aplikacja dla ekip w terenie')
+    await expect(cards.nth(11)).toContainText('Powiadomienia SMS i e-mail')
+    await expect(section).toContainText('Opieka i rozwój')
+    await expect(section).toContainText('od 149 zł / mies.')
 
     await section.getByRole('tab', { name: /Systemy/ }).click()
     await expect(cards).toHaveCount(4)
     await expect(section).toContainText('4 pozycje')
 
-    const first = cards.first()
-    await first.getByRole('button', { name: 'CRM dla małej i średniej firmy', exact: true }).click()
-    await expect(first).toContainText('Co dostajesz')
-    await expect(section).toContainText('Opieka i rozwój')
-    await expect(section).toContainText('od 149 zł / mies.')
+    const name = 'CRM dla małej i średniej firmy'
+    const button = cards.first().getByRole('button', { name, exact: true })
+    await button.click()
+    const dialog = page.getByRole('dialog', { name, exact: true })
+    await expect(dialog).toBeVisible()
+    // ←/→ along the visible cards (the tab's 4), the address stays (decyzja 1).
+    await expect(dialog).toContainText('1 / 4')
+    await expect(page).not.toHaveURL(/rozwiazanie=/)
+    await page.goBack()
+    await expect(dialog).toBeHidden()
+    await expect(button).toBeFocused()
   })
 
   test('previews: 5 tabs, switching itself every 6 s until picked', async ({ page }) => {
