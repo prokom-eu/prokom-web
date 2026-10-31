@@ -11,7 +11,7 @@ const TERMINAL = 'terminal-platniczy-polcard'
 
 const cartButton = (page: Page) =>
   page.getByRole('banner').getByRole('button', { name: /^Zapytanie/ })
-const drawer = (page: Page) => page.getByRole('dialog', { name: 'Twoje zapytanie' })
+const drawer = (page: Page) => page.getByRole('dialog', { name: /^Twoje zapytanie (d+)$/ })
 
 /** Sets the list before the page scripts run (as if added on an earlier visit). */
 async function withCart(page: Page, items: { id: string; q: number }[]) {
@@ -70,7 +70,7 @@ test.describe('Biznes inquiry list', () => {
 
     // "Często dobierane razem" from the keyboard: the suggestion moves onto the list, its row
     // (and the focused button) disappears — focus goes to the drawer's title.
-    const title = drawer(page).getByRole('heading', { name: 'Twoje zapytanie' })
+    const title = drawer(page).getByRole('heading', { name: /^Twoje zapytanie/ })
     const suggestions = drawer(page).getByRole('region', { name: 'Często dobierane razem' })
     await suggestions
       .getByRole('button', { name: /^Dodaj do zapytania: / })
@@ -81,9 +81,10 @@ test.describe('Biznes inquiry list', () => {
     await expect(title).toBeFocused()
     // No toast under the drawer's backdrop: the list itself shows the new position.
     await expect(page.getByText('Dodano do zapytania:')).toHaveCount(0)
-    await expect(
-      drawer(page).getByRole('link', { name: 'Przejdź do zapytania (2)' }),
-    ).toHaveAttribute('href', '/zapytanie')
+    // The form sits under the list (K4-FINAL §5): no detour through /zapytanie.
+    const form = drawer(page).getByRole('region', { name: 'Dokąd wysłać ofertę?' })
+    await expect(form.getByLabel(/^Imię lub firma/)).toBeVisible()
+    await expect(form.getByRole('button', { name: 'Wyślij zapytanie (2 pozycje)' })).toBeVisible()
 
     await ergo.getByRole('button', { name: 'Usuń: Posnet Ergo Online' }).click()
     await expect(cartButton(page)).toHaveAccessibleName('Zapytanie 1 pozycja')

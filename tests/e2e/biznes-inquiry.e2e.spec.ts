@@ -133,11 +133,14 @@ test.describe('inquiry list /zapytanie (B8b)', () => {
     await expect(name).toBeFocused()
     await expect(name).toHaveAccessibleDescription(/Podaj imię/)
     await expect(contact.getByRole('textbox', { name: /^Telefon/ })).toHaveAccessibleDescription(
-      /numer telefonu/,
+      /telefon albo e-mail/,
     )
     await expect(contact.getByLabel(/Wyrażam zgodę/)).toHaveAttribute('aria-invalid', 'true')
     // With items on the list the notes are optional.
-    await expect(contact.getByLabel('Uwagi')).not.toHaveAttribute('aria-invalid', 'true')
+    await expect(contact.getByLabel('Wiadomość (opcjonalnie)')).not.toHaveAttribute(
+      'aria-invalid',
+      'true',
+    )
 
     const overflow = await page.evaluate(
       () => document.documentElement.scrollWidth > window.innerWidth,
@@ -191,6 +194,49 @@ test.describe('inquiry list /zapytanie (B8b)', () => {
     const record = await findInquiry(page, marker)
     try {
       expect(record).toMatchObject({ type: 'search', topics: ['drukarka etykiet'] })
+    } finally {
+      expect((await api(page, 'DELETE', `/api/inquiries/${record?.id}`)).status).toBe(200)
+    }
+  })
+
+  test('the drawer sends the list with an e-mail only (K4-FINAL §5)', async ({ page }) => {
+    const marker = `E2E Szuflada ${Date.now()}`
+    await asNewVisitor(page)
+    const [first] = (await fillCart(page)) as [Product]
+    await page.goto(site('biznes.localhost'))
+    const drawer = page.getByRole('dialog', { name: /^Twoje zapytanie (2)$/ })
+    await expect(async () => {
+      await page
+        .getByRole('banner')
+        .getByRole('button', { name: /^Zapytanie/ })
+        .click()
+      await expect(drawer).toBeVisible({ timeout: 1000 })
+    }).toPass()
+    await expect(drawer.getByRole('link', { name: first.name })).toBeVisible()
+
+    const contact = drawer.getByRole('region', { name: 'Dokąd wysłać ofertę?' })
+    await contact.getByLabel(/^Imię lub firma/).fill(marker)
+    await contact.getByLabel(/^lub e-mail/).fill('e2e-szuflada@example.test')
+    await contact.getByLabel(/Wyrażam zgodę/).check()
+    await expect(contact).toContainText('Oddzwaniamy w ciągu 60 minut w godzinach pracy.')
+    await waitMinimumFillTime(page)
+    await contact.getByRole('button', { name: 'Wyślij zapytanie (2 pozycje)' }).click()
+
+    const done = drawer.getByRole('status').filter({ hasText: 'Dziękujemy, zapytanie wysłane' })
+    await expect(done).toBeFocused()
+    await expect(done).toContainText(/Zapytanie nr PKB-d{4}-d{4,}/)
+    expect(await page.evaluate(() => localStorage.getItem('pk-cart'))).toBe('[]')
+
+    await loginAsAdmin(page)
+    const record = await findInquiry(page, marker)
+    expect(record, 'the inquiry is in the panel').toBeDefined()
+    try {
+      expect(record).toMatchObject({
+        type: 'list',
+        email: 'e2e-szuflada@example.test',
+        preferredContact: 'email',
+      })
+      expect(record?.phone ?? null).toBeNull()
     } finally {
       expect((await api(page, 'DELETE', `/api/inquiries/${record?.id}`)).status).toBe(200)
     }

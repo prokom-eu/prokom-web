@@ -92,11 +92,11 @@ test.describe('Biznes contact form v20 (B8a)', () => {
     await expect(name).toBeFocused()
     await expect(name).toHaveAttribute('aria-invalid', 'true')
     await expect(name).toHaveAccessibleDescription(/Podaj imię/)
-    await expect(contact.getByLabel(/^Telefon/)).toHaveAccessibleDescription(/numer telefonu/)
+    await expect(contact.getByLabel(/^Telefon/)).toHaveAccessibleDescription(/telefon albo e-mail/)
     await expect(contact.getByLabel(/^W czym możemy pomóc/)).toHaveAttribute('aria-invalid', 'true')
     await expect(contact.getByLabel(/Wyrażam zgodę/)).toHaveAttribute('aria-invalid', 'true')
-    // The e-mail is optional, so an empty one is fine.
-    await expect(contact.getByLabel(/^E-mail/)).not.toHaveAttribute('aria-invalid', 'true')
+    // A phone or an e-mail (K4-FINAL §5): the missing contact is reported on the phone only.
+    await expect(contact.getByLabel(/^lub e-mail/)).not.toHaveAttribute('aria-invalid', 'true')
 
     // One column on a phone: no horizontal scroll.
     const overflow = await page.evaluate(
@@ -113,12 +113,12 @@ test.describe('Biznes contact form v20 (B8a)', () => {
     // The format of a given e-mail is the server's verdict.
     await contact.getByLabel(/^Imię/).fill('Test E2E')
     await contact.getByLabel(/^Telefon/).fill('600 100 200')
-    await contact.getByLabel(/^E-mail/).fill('jan@')
+    await contact.getByLabel(/^lub e-mail/).fill('jan@')
     await contact.getByLabel(/^W czym możemy pomóc/).fill('Test.')
     await contact.getByLabel(/Wyrażam zgodę/).check()
     await waitMinimumFillTime(page)
     await contact.getByRole('button', { name: 'Wyślij zapytanie' }).click()
-    const email = contact.getByLabel(/^E-mail/)
+    const email = contact.getByLabel(/^lub e-mail/)
     await expect(email).toBeFocused()
     await expect(email).toHaveAccessibleDescription(/adres e-mail/)
     await expect(contact.getByRole('status')).toHaveCount(0)
@@ -130,7 +130,7 @@ test.describe('Biznes contact form v20 (B8a)', () => {
     await expect(section.getByRole('heading', { level: 2 })).toHaveText(
       'Szukasz czegoś, czego nie ma w katalogu?',
     )
-    await expect(section.getByLabel(/^Telefon/)).toHaveAttribute('required', '')
+    await expect(section.getByLabel(/^Telefon/)).toHaveAccessibleDescription(/telefon albo e-mail/)
     await expect(section.getByRole('button', { name: 'Wyślij zapytanie' })).toBeVisible()
   })
 })
