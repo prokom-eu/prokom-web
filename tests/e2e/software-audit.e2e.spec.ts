@@ -1,4 +1,4 @@
-import { devices, expect, test, type Page } from '@playwright/test'
+import { expect, test, type Page } from '@playwright/test'
 
 import { FORM_MIN_FILL_MS } from '../../src/lib/inquiry/spam'
 import { api, loginAsAdmin, site } from './helpers'
@@ -89,7 +89,8 @@ test.describe('Software /audyt', () => {
 })
 
 test.describe('Software /audyt on a phone', () => {
-  test.use({ ...devices['iPhone 13'] })
+  // Touch phone emulation in Chromium (`devices[...]` would switch the browser: not in a group).
+  test.use({ viewport: { width: 390, height: 844 }, hasTouch: true, isMobile: true })
 
   for (const width of [360, 390, 414]) {
     test(`fits ${width} px: no sideways scroll, the full audit first`, async ({ page }) => {
