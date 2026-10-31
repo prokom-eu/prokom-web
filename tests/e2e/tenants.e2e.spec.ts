@@ -11,7 +11,8 @@ const TENANTS = [
   {
     host: 'biznes.localhost',
     name: 'PRO-KOM Biznes',
-    h1: /^Kasy, komputery i programy dla firm\./,
+    // `\s`: a hard space after „i” (K4-FINAL §1); a regex sees the raw text.
+    h1: /^Kasy, komputery i\sprogramy dla firm\./,
     // No one-letter word: the H1 has hard spaces after them (K4-FINAL §1).
     markers: ['programy dla firm.'],
   },
