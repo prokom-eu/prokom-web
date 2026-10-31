@@ -14,6 +14,7 @@ import {
   orderedNeeds,
   phrasesOf,
   previewOf,
+  pruneAnswers,
   resultView,
   shopHintApplies,
   stepsOf,
@@ -26,7 +27,7 @@ import {
 
 import { WizardBar } from './WizardBar'
 import { PathIcon, WizardPreview } from './WizardPreview'
-import { WizardSend } from './WizardSend'
+import { type SentQuote, WizardSend } from './WizardSend'
 
 export type WizardProps = {
   /** Rules of `SoftwareSettings.wizard` with facts already filled in (an empty text = hidden). */
@@ -108,11 +109,9 @@ function ScopeCard({ rules, view }: { rules: SoftwareWizard; view: ResultView })
           data-wizard-scope-price
           className="mt-1 font-display text-[clamp(1.6rem,3vw,2.1rem)] font-extrabold"
         >
-          {keepTogether(view.priceShort)}{' '}
-          <span className="text-sm font-bold text-ink-2">
-            {view.price.replace(view.priceShort, '').trim()}
-          </span>
+          {keepTogether(view.priceShort)}
         </p>
+        <p className="text-sm text-ink-2">{keepTogether(view.priceSub)}</p>
         <p className="mt-1 flex items-center gap-1.5 font-bold">
           <PathIcon d={clock} className="size-4" />
           {keepTogether(view.term)}
@@ -172,7 +171,7 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
   const [maxStep, setMaxStep] = useState(() => stepsOf(initial.answers).indexOf(initial.step))
   const [previewOpen, setPreviewOpen] = useState(false)
   const [wordsOpen, setWordsOpen] = useState(false)
-  const [sent, setSent] = useState<{ number: string | null; name: string } | null>(null)
+  const [sent, setSent] = useState<SentQuote | null>(null)
   const [inView, setInView] = useState(false)
   const rootRef = useRef<HTMLDivElement>(null)
   const titleRef = useRef<HTMLHeadingElement>(null)
@@ -200,7 +199,7 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
   // Changing an answer after sending keeps the „Wysłane” card: no second inquiry by accident.
   // Only a new path (another need, „opisz po swojemu”, „Zacznij od nowa”) starts a new quote.
   const update = (patch: Partial<WizardAnswers>) =>
-    setAnswers((current) => ({ ...current, ...patch }))
+    setAnswers((current) => pruneAnswers(rules, { ...current, ...patch }))
   const go = (next: WizardStep) => {
     moved.current = true
     setStep(next)
@@ -442,7 +441,9 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
               <StepHeading id={`${id}-title`} ref={titleRef} tabIndex={-1} className={stepTitle}>
                 {need.q}
               </StepHeading>
-              <p className="mt-1.5 text-ink-2">{need.h}</p>
+              <p id={`${id}-hint`} className="mt-1.5 text-ink-2">
+                {need.h}
+              </p>
               <div
                 className={cx(
                   'mt-5 grid gap-3',
@@ -488,6 +489,7 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
                   <button
                     type="button"
                     aria-disabled={multiEmpty}
+                    aria-describedby={multiEmpty ? `${id}-hint` : undefined}
                     onClick={() => !multiEmpty && go('scope')}
                     className={cx(primary, multiEmpty && 'bg-chip text-ink-2 shadow-none')}
                   >

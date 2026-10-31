@@ -34,10 +34,21 @@ type Props = {
   heading: 'h2' | 'h3'
   phone: { label: string; href: string } | null
   /** Sent: the inquiry number (`null` when the server gave none) and the name typed. */
-  sent: { number: string | null; name: string } | null
-  onSent: (sent: { number: string | null; name: string }) => void
+  sent: SentQuote | null
+  onSent: (sent: SentQuote) => void
   /** Number of the step badge („4 · Ostatni krok”). */
   stepNumber: number
+}
+
+/**
+ * A sent quote: the number, the name typed and the ticket as sent — answers changed afterwards
+ * keep the „Wysłane” card, so its ticket must not follow them.
+ */
+export type SentQuote = {
+  number: string | null
+  name: string
+  view: ResultView
+  addOns: string[]
 }
 
 const consentClause = linkInText(CONSENT_CLAUSE.text, PRIVACY_POLICY_LINK_TEXT)
@@ -191,9 +202,9 @@ export function WizardSend({
         <Ticket
           title={send.ticket.title}
           tag={send.ticket.accepted}
-          view={view}
+          view={sent.view}
           rules={rules}
-          addOns={addOns}
+          addOns={sent.addOns}
         />
         <ol className="space-y-3">
           {send.success.timeline.map((step, index) => (
@@ -260,7 +271,9 @@ export function WizardSend({
       outcome = readOutcome(0, null)
     }
     setBusy(false)
-    if (outcome.kind === 'sent') return onSent({ number: outcome.number, name: name.trim() })
+    if (outcome.kind === 'sent') {
+      return onSent({ number: outcome.number, name: name.trim(), view, addOns })
+    }
     const fields = outcome.kind === 'invalid' ? outcome.fields : {}
     const contactError = fields.email ?? fields.phone
     setErrors({

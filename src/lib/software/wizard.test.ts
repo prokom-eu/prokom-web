@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import kreator from '../../../seed/prokomsoftware/kreator.json'
 import rozwiazania from '../../../seed/prokomsoftware/rozwiazania.json'
-import { isPreV22Wizard, wizardSeed } from '../../seed/software/wizardExtras'
+import { wizardSeed } from '../../seed/software/wizardExtras'
 import { softwareWizardSchema, validateSoftwareWizard, wizardSolutionSlugs } from './wizard'
 
 const seed = wizardSeed(kreator)
@@ -16,13 +16,9 @@ describe('Software wizard schema', () => {
 
   it('rejects the package alone: its rules lived in the board script', () => {
     expect(validateSoftwareWizard(kreator)).toMatch(/Reguły kreatora/)
-    expect(isPreV22Wizard(kreator)).toBe(true)
-    expect(isPreV22Wizard(seed)).toBe(false)
-    expect(isPreV22Wizard(null)).toBe(false)
   })
 
   it('treats a stored wizard with sizes (the SW7 shape) as old', () => {
-    expect(isPreV22Wizard({ ...clone(), sizes: [] })).toBe(true)
     expect(validateSoftwareWizard({ ...clone(), sizes: [] })).toMatch(/Reguły kreatora/)
   })
 

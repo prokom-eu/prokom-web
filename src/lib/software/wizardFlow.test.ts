@@ -14,6 +14,7 @@ import {
   parseWizardParams,
   phrasesOf,
   previewOf,
+  pruneAnswers,
   resultIdOf,
   resultView,
   shopHintApplies,
@@ -422,6 +423,23 @@ describe('Software wizard answers on the server', () => {
     expect(addOnSlugsOf(rules, answers({ addOns: ['opieka', 'opiekaSys'] }))).toEqual([
       'opieka-nad-strona-i-systemem',
     ])
+  })
+})
+
+describe('pruneAnswers', () => {
+  it('drops what the result no longer offers after going back (recenzja: SMS → „Starą stronę”)', () => {
+    const before = answers({ need: 'wiz', options: ['bud'], addOns: ['sms', 'opieka'] })
+    expect(parseSoftwareAnswers(rules, { ...before, have: 'stara' })).toBeNull()
+    const pruned = pruneAnswers(rules, { ...before, have: 'stara' })
+    expect(pruned.addOns).toEqual(['opieka'])
+    expect(parseSoftwareAnswers(rules, pruned)).not.toBeNull()
+  })
+
+  it('drops „więcej”, checklist positions and the shop switch of another result', () => {
+    const shop = answers({ need: 'firm', options: ['handel'], shop: true, more: ['fv'] })
+    expect(pruneAnswers(rules, shop)).toMatchObject({ shop: true, more: ['fv'] })
+    const other = pruneAnswers(rules, { ...shop, options: ['bud'], checklist: [0, 3, 9] })
+    expect(other).toMatchObject({ shop: false, more: [], checklist: [0, 3] })
   })
 })
 

@@ -130,7 +130,7 @@ const scopeEntry = obj({
   featuresInPrice: z.array(key).optional(),
 })
 
-const shopSwitch = obj({ title: label, sub: label, result: key })
+const shopSwitch = obj({ title: label, sub: label })
 
 export const softwareWizardSchema = obj({
   steps: z.array(label).length(4),
@@ -191,13 +191,23 @@ export const softwareWizardSchema = obj({
     /** The first rule that applies lists the add-ons of a result (`[]` = none). */
     rules: z.array(obj({ when: anyOf.min(1), items: z.array(key).max(4) })).min(1),
   }),
-  /** „Chcesz sprzedawać online?” — switches the result to the shop and back. */
-  shopHint: obj({ when: anyOf.min(1), toShop: shopSwitch, back: shopSwitch }),
+  /**
+   * „Chcesz sprzedawać online?” — switches the result to `toShop.result`; `back` returns to the
+   * result of `mapping` (its texts only).
+   */
+  shopHint: obj({
+    when: anyOf.min(1),
+    toShop: shopSwitch.extend({ result: key }),
+    back: shopSwitch,
+  }),
   /** Scope line under the price: the first rule that applies picks a `scopeNotes` key. */
   scopeRules: z.array(obj({ when: anyOf.min(1), note: key })),
   /** A bigger job: `whenNotes` uses `<when>Big` instead of `<when>Small`. */
   bigWhen: anyOf,
-  /** `{data}` of the term notes: the next such day from today („30 listopada”). */
+  /**
+   * `{data}` of the term notes, as words („30 listopada”): one rule instead of a fact to edit
+   * (decyzja SWD2 nr 11). The sentence has no year, so the words are the same every year.
+   */
   winterDeadline: obj({
     day: z.number().int().min(1).max(31),
     month: z.number().int().min(1).max(12),
@@ -410,10 +420,8 @@ export const softwareWizardSchema = obj({
   )
   wizard.honest.forEach((rule, index) => checkConditions(rule.when, ['honest', index, 'when']))
   checkConditions(wizard.shopHint.when, ['shopHint', 'when'])
-  for (const side of ['toShop', 'back'] as const) {
-    if (!results.has(wizard.shopHint[side].result)) {
-      issue(['shopHint', side, 'result'], 'Nieznany wynik.')
-    }
+  if (!results.has(wizard.shopHint.toShop.result)) {
+    issue(['shopHint', 'toShop', 'result'], 'Nieznany wynik.')
   }
 
   const addOnIds = wizard.addOns.items.map((item) => item.id)

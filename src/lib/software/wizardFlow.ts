@@ -399,6 +399,25 @@ export function resultView(
   }
 }
 
+/**
+ * The answers without what the current result no longer offers — after going back and changing a
+ * chip, a ticked „więcej”, an add-on, a checklist position or the shop switch of the previous
+ * result would stay hidden in the state and make the server refuse the inquiry.
+ */
+export function pruneAnswers(rules: SoftwareWizard, answers: WizardAnswers): WizardAnswers {
+  const next = { ...answers, shop: answers.shop && shopHintApplies(rules, answers) }
+  const resultId = resultIdOf(rules, next)
+  const more = new Set(scopeOf(rules, resultId)?.moreExamples.map((example) => example.id))
+  const addOns = new Set(addOnIdsOf(rules, next))
+  const items = rules.results[resultId]?.nd.length ?? 0
+  return {
+    ...next,
+    more: next.more.filter((id) => more.has(id)),
+    addOns: next.addOns.filter((id) => addOns.has(id)),
+    checklist: next.checklist.filter((index) => index < items),
+  }
+}
+
 /** Names of the chosen answers to the need's question (under the result's title). */
 export function optionNamesOf(rules: SoftwareWizard, answers: WizardAnswers): string[] {
   return optionNames(needOf(rules, answers), answers.options)

@@ -1869,8 +1869,7 @@
     },
     "back": {
       "title": "Wolisz stronę z ofertą, bez sprzedaży online?",
-      "sub": "Strona firmowa z panelem od {cena:strona-firmowa-z-panelem}",
-      "result": "firmowa"
+      "sub": "Strona firmowa z panelem od {cena:strona-firmowa-z-panelem}"
     }
   },
   "winterDeadline": {

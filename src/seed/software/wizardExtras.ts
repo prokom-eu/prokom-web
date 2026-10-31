@@ -194,18 +194,3 @@ export function wizardSeed(source: Kreator) {
     ...structuredClone(WIZARD_EXTRAS),
   }
 }
-
-/** Keys a stored wizard must have to be the v22 shape (SW7 and older lack some of them). */
-const WIZARD_V22_KEYS = [...Object.keys(WIZARD_EXTRAS), 'scope', 'addOns', 'winterDeadline']
-
-/**
- * A stored wizard of an older shape — before SW7 (without the rules above) or before v22 (sizes,
- * no `scope`): the seed replaces it locally; staging pastes `pnpm software:wizard-json`.
- */
-export function isPreV22Wizard(value: unknown): boolean {
-  if (typeof value !== 'object' || value === null || Array.isArray(value)) return false
-  if ('sizes' in value || WIZARD_V22_KEYS.some((key) => !(key in value))) return true
-  // The send block before SWR4b (one „Telefon albo e-mail” field, no ticket).
-  const send = (value as { send?: unknown }).send
-  return typeof send !== 'object' || send === null || !('ticket' in send)
-}

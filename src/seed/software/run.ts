@@ -6,6 +6,7 @@ import { hasSameValues } from '../compare'
 import { SEED_CONTEXT } from '../config'
 import { navigationSchema } from '../../lib/software/navigation'
 import { softwareOfferSchema } from '../../lib/software/offer'
+import { softwareWizardSchema } from '../../lib/software/wizard'
 import {
   areaData,
   cityData,
@@ -22,7 +23,6 @@ import {
 } from './map'
 import { seedSoftwareHome } from './home'
 import { HOME_SECTION_TEXTS, homeWithPriceTokens, homeWithSections } from './homeExtras'
-import { isPreV22Wizard } from './wizardExtras'
 
 const SOFTWARE_TENANT_SLUG = 'software'
 
@@ -270,8 +270,9 @@ export async function seedSoftware(payload: Payload): Promise<void> {
     const missing: Partial<typeof fields> = Object.fromEntries(
       Object.entries(jsonFields).filter(([key]) => {
         const value = softwareSettings[key as keyof typeof jsonFields]
-        // A wizard saved before v22 (sizes, no scope) or SW7: replaced, like Biznes rules of an old shape.
-        if (key === 'wizard' && isPreV22Wizard(value)) return true
+        // Rules of an older shape (SW7 sizes, SWR4a send block…) hide the wizard: replaced locally,
+        // like the window texts; staging pastes `pnpm software:wizard-json` (decyzja SWD2 nr 5).
+        if (key === 'wizard' && value != null) return !softwareWizardSchema.safeParse(value).success
         // Window texts in an older shape would hide the window's shared parts: replaced (SWR3).
         if (key === 'offer' && value != null) return !softwareOfferSchema.safeParse(value).success
         return value === null || value === undefined
