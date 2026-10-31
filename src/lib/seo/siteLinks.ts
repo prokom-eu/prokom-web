@@ -1,3 +1,4 @@
+import type { CatalogIndex } from '../catalog/catalogIndex'
 import { brandHref } from '../catalog/brand'
 import { BUNDLES_PATH, bundleHref } from '../catalog/bundle'
 import { productHref } from '../catalog/card'
@@ -214,4 +215,19 @@ export function siteMapPaths(
     }
   }
   return [...paths].map(([path, updatedAt]) => ({ path, updatedAt }))
+}
+
+/**
+ * Brand links of the maps: one per salon 2.0 (K4f), named after its brands („Konica Minolta
+ * i Kyocera” → `/marki/druk`), then brand pages of brands without a salon (K3b′).
+ */
+export function brandLinks(brands: CatalogIndex['brands']): { slug: string; name: string }[] {
+  const salons = new Map<string, string[]>()
+  for (const brand of brands) {
+    if (brand.salon) salons.set(brand.salon, [...(salons.get(brand.salon) ?? []), brand.name])
+  }
+  return [
+    ...[...salons].map(([slug, names]) => ({ slug, name: names.join(' i ') })),
+    ...brands.filter((brand) => !brand.salon && brand.page),
+  ]
 }

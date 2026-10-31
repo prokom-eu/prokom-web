@@ -125,18 +125,18 @@ describe('buildCatalogIndex on the seed package', () => {
 })
 
 describe('buildCatalogIndex tenant isolation of relations', () => {
-  const build = (relations: Partial<Product>) =>
-    buildCatalogIndex({
-      tenantId: TENANT,
-      products: [
-        { id: 1, slug: 'p', name: 'P', kind: 'device', categories: [], ...relations },
-      ] as unknown as Product[],
-      categories: [],
-      groups: [],
-      industries: [],
-      pages: [],
-      settings: null,
-    })
+  const source = (relations: Partial<Product>): CatalogSource => ({
+    tenantId: TENANT,
+    products: [
+      { id: 1, slug: 'p', name: 'P', kind: 'device', categories: [], ...relations },
+    ] as unknown as Product[],
+    categories: [],
+    groups: [],
+    industries: [],
+    pages: [],
+    settings: null,
+  })
+  const build = (relations: Partial<Product>) => buildCatalogIndex(source(relations))
   const category = (tenant: number) =>
     ({ id: 10 + tenant, slug: `kat-${tenant}`, name: `Kat ${tenant}`, tenant }) as CatalogCategory
   const industry = (tenant: number) =>
@@ -172,6 +172,20 @@ describe('buildCatalogIndex tenant isolation of relations', () => {
 
   it('keeps a brand shown on this site', () => {
     expect(build({ brand: brand([OTHER_TENANT, TENANT]) }).products[0]!.brand).toBe('marka')
+  })
+
+  it('gives a brand the slug of its first salon 2.0 (K4f), none without one', () => {
+    const relations = { brand: brand([TENANT]) }
+    const withSalons = buildCatalogIndex({
+      ...source(relations),
+      salons: [
+        { slug: 'inny', brandIds: [99] },
+        { slug: 'druk', brandIds: [31, 30] },
+        { slug: 'drugi', brandIds: [30] },
+      ],
+    })
+    expect(withSalons.brands[0]).toMatchObject({ slug: 'marka', salon: 'druk' })
+    expect(build(relations).brands[0]).not.toHaveProperty('salon')
   })
 
   it('gives a brand its small logo file, and none without a file', () => {

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { buildSiteMap, siteMapPaths } from './siteLinks'
+import { brandLinks, buildSiteMap, siteMapPaths } from './siteLinks'
 
 const pages = [
   { slug: 'kontakt', title: 'Kontakt', updatedAt: '2026-10-20T00:00:00.000Z' },
@@ -194,6 +194,30 @@ describe('siteMapPaths', () => {
       { path: '/kontakt', updatedAt: '2026-10-20T00:00:00.000Z' },
       { path: '/mapa-strony', updatedAt: undefined },
       { path: '/aktualnosci', updatedAt: undefined },
+    ])
+  })
+})
+
+describe('brandLinks (K4f)', () => {
+  it('gives one link per salon named after its brands, then pages of brands without one', () => {
+    expect(
+      brandLinks([
+        { slug: 'konica-minolta', name: 'Konica Minolta', status: 'none', salon: 'druk' },
+        {
+          slug: 'posnet',
+          name: 'Posnet',
+          status: 'authorized-service',
+          page: true,
+          salon: 'posnet',
+        },
+        { slug: 'kyocera', name: 'Kyocera', status: 'none', page: true, salon: 'druk' },
+        { slug: 'dibal', name: 'Dibal', status: 'none', page: true },
+        { slug: 'bez-strony', name: 'Bez strony', status: 'none' },
+      ]),
+    ).toEqual([
+      { slug: 'druk', name: 'Konica Minolta i Kyocera' },
+      { slug: 'posnet', name: 'Posnet' },
+      expect.objectContaining({ slug: 'dibal', name: 'Dibal' }),
     ])
   })
 })

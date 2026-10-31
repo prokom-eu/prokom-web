@@ -1,4 +1,5 @@
 import config from '@payload-config'
+import type { Showroom } from '@/payload-types'
 import { cacheQuery } from '../cache'
 import { getPayload } from 'payload'
 import { cache } from 'react'
@@ -35,7 +36,7 @@ export const getCatalogIndex = cache((tenantId: number): Promise<CatalogIndex> =
       // Server-side reads of public catalog data; drafts never leave here.
       const read = { overrideAccess: true, depth: 0 } as const
       const inTenant = { tenant: { equals: tenantId } }
-      const [products, categories, groups, industries, pages, settings, bundles] =
+      const [products, categories, groups, industries, pages, settings, bundles, salons] =
         await Promise.all([
           payload.find({
             collection: 'products',
@@ -112,6 +113,14 @@ export const getCatalogIndex = cache((tenantId: number): Promise<CatalogIndex> =
             select: { slug: true, name: true, items: { product: true, mandatory: true } },
             ...read,
           }),
+          payload.find({
+            collection: 'showrooms',
+            where: inTenant,
+            limit: MAX_RECORDS,
+            sort: 'order',
+            select: { slug: true, brands: true },
+            ...read,
+          }),
         ])
       return buildCatalogIndex({
         tenantId,
@@ -128,6 +137,7 @@ export const getCatalogIndex = cache((tenantId: number): Promise<CatalogIndex> =
             item.mandatory !== false && typeof item.product === 'number' ? [item.product] : [],
           ),
         })),
+        salons: salons.docs.map(({ slug, brands }) => ({ slug, brandIds: idsOf(brands) })),
       })
     },
     ['catalog-index', String(tenantId)],
@@ -434,3 +444,56 @@ function idsOf(values: readonly (number | { id: number } | null | undefined)[] |
     typeof value === 'number' ? [value] : value ? [value.id] : [],
   )
 }
+
+/**
+ * Salon 2.0 `/marki/[slug]` (K4f): the showroom of this tenant with that slug — or `null`.
+ * Products come with only the slug and tenant (the page joins them with the index); brands
+ * populated, their tenant re-checked in `buildSalonView`. Cached under the catalog tag.
+ */
+export const getSalonDoc = (tenantId: number, slug: string): Promise<Showroom | null> =>
+  cacheQuery(
+    async () => {
+      const payload = await getPayload({ config })
+      const { docs } = await payload.find({
+        collection: 'showrooms',
+        where: { and: [{ slug: { equals: slug } }, { tenant: { equals: tenantId } }] },
+        limit: 1,
+        depth: 1,
+        populate: { products: { slug: true, tenant: true } },
+        overrideAccess: true,
+      })
+      return docs[0] ?? null
+    },
+    ['salon-doc', String(tenantId), slug],
+    { tags: [catalogTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
+  )()
+
+/**
+ * Slug of the showroom a brand of this tenant belongs to (Kyocera → `druk`) — or `null`.
+ * `/marki/<brand>` of such a brand redirects there (ADR-017 D-K4-1).
+ */
+export const getSalonSlugOfBrand = (tenantId: number, brandSlug: string): Promise<string | null> =>
+  cacheQuery(
+    async () => {
+      const payload = await getPayload({ config })
+      const read = { overrideAccess: true, depth: 0, limit: 1 } as const
+      const { docs: partners } = await payload.find({
+        collection: 'partners',
+        where: { and: [{ slug: { equals: brandSlug } }, { tenants: { in: [tenantId] } }] },
+        select: { slug: true },
+        ...read,
+      })
+      const partner = partners[0]
+      if (!partner) return null
+      const { docs } = await payload.find({
+        collection: 'showrooms',
+        where: { and: [{ tenant: { equals: tenantId } }, { brands: { in: [partner.id] } }] },
+        sort: 'order',
+        select: { slug: true },
+        ...read,
+      })
+      return docs[0]?.slug ?? null
+    },
+    ['salon-of-brand', String(tenantId), brandSlug],
+    { tags: [catalogTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
+  )()

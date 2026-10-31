@@ -90,6 +90,8 @@ export type CatalogIndex = {
     page?: true
     /** The brand page is a showroom (K31c): „Nie wiesz, który?” leads to its wizard. */
     showroom?: true
+    /** Slug of the salon 2.0 the brand belongs to (K4f): `/marki/<salon>`. */
+    salon?: string
   }[]
   /** Only categories with published products (rozstrzygnięcie 7); `count` = such products. */
   categories: {
@@ -166,6 +168,8 @@ export type CatalogSource = {
    */
   bundles?: { slug: string; name: string; required: number[] }[]
   settings: Pick<BiznesSetting, 'search' | 'wizard'> | null
+  /** Salons 2.0 of the site (K4f) with their brands: a brand's first salon in `brands[].salon`. */
+  salons?: { slug: string; brandIds: number[] }[]
 }
 
 /** The wizard is a route, not a page from blocks: listed in the search while it has rules. */
@@ -251,6 +255,10 @@ export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
     required.some((id) => listedIds.has(id)),
   )
   const brands = new Map<string, CatalogIndex['brands'][number]>()
+  const salonOf = new Map<number, string>()
+  for (const salon of source.salons ?? []) {
+    for (const id of salon.brandIds) if (!salonOf.has(id)) salonOf.set(id, salon.slug)
+  }
   const products: IndexProduct[] = source.products.map((product) => {
     // Read with `overrideAccess`: relations are re-checked here like images in `publicImage`,
     // so a record of another site never reaches this index, whatever the panel allowed.
@@ -266,6 +274,7 @@ export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
         ...(brand.brandPage?.hasPage && { page: true as const }),
         ...(brand.brandPage?.hasPage &&
           showsShowroom(brand, listedIds) && { showroom: true as const }),
+        ...(salonOf.has(brand.id) && { salon: salonOf.get(brand.id) }),
       })
     }
     const categories = docs(product.categories).filter(ownTenant)

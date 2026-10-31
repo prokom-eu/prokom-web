@@ -1,6 +1,7 @@
 import type { CatalogIndex, IndexProduct } from './catalog/catalogIndex'
 import { normalizeText } from './catalog/normalize'
 import { plural } from './plural'
+import { brandTarget } from './catalog/brand'
 
 /**
  * One search engine for every line (ADR-014 rozstrz. SW0 10), on the client over the line's
@@ -254,7 +255,7 @@ export function matchBrands(index: CatalogIndex, query: string): CatalogIndex['b
   for (const { brand } of index.products) if (brand) counts.set(brand, (counts.get(brand) ?? 0) + 1)
   return index.brands
     .filter((brand) => {
-      if (!brand.page) return false
+      if (!brandTarget(brand)) return false
       const name = normalizeText(brand.name)
       return tokens.every((token) => name.includes(token))
     })
