@@ -24,7 +24,8 @@ test.describe('Instalacje Teletechnika', () => {
     await hero.getByRole('button', { name: /Pomiary/ }).click()
     await expect(hero.locator('svg.ttx')).toHaveClass(/\bs4\b/)
     await expect(hero.locator('.ttnote')).toContainText('Etap: Pomiary')
-    await hero.getByRole('button', { name: '3. Szafa główna' }).click()
+    // On a computer the markers on the drawing are clicked (the number buttons are phone only).
+    await hero.locator('svg.ttx [data-k="3"]').first().click()
     await expect(hero.locator('svg.ttx')).toHaveClass(/\bfocus\b/)
     await expect(hero.locator('.ttnote')).toContainText('Szafa główna')
   })
@@ -53,7 +54,8 @@ test.describe('Instalacje Teletechnika', () => {
     await expect(form.locator('.zsum')).toContainText('Osiedle domów')
     await send.click()
     await expect(form.getByRole('alert')).toHaveText('Uzupełnij: zgodę na kontakt.')
-    await form.locator('label.xc-chk').click()
+    // The box, not the middle of the label: the privacy policy link sits in the text.
+    await form.locator('label.xc-chk i').click()
     await expect(form.getByRole('checkbox')).toBeChecked()
 
     await page.waitForTimeout(FORM_MIN_FILL_MS + 500)
