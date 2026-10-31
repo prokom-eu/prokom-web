@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 import { Container } from '@/components/ui/Container'
 import type { SoftwareHomeSections } from '@/lib/software/home'
 
@@ -9,9 +11,10 @@ type Props = {
 }
 
 /**
- * „Zasady, których się trzymamy” (`#zasady`, spec. §4 pkt 9, board `Main`): the guarantee cards
- * and the „Czasem powiemy: nie budujcie” block on `--grad-say-no` (ADR-015 v20 pkt 5). Icons
- * are SVG paths from `SoftwareSettings.home.guarantees`, like the board. One column on a phone.
+ * „Zasady, których się trzymamy” (`#zasady`, spec. §4 pkt 12, board `Main`): the guarantee cards
+ * and the „Czasem powiemy: tego nie buduj.” block on `--grad-say-no` (ADR-015 v20 pkt 5) — v21:
+ * centred, with its eyebrow pill and „Zapytaj, co się opłaca →”. Icons are SVG paths from
+ * `SoftwareSettings.home.guarantees`, like the board. One column on a phone.
  */
 export function Guarantees({ texts, cards }: Props) {
   return (
@@ -55,11 +58,34 @@ export function Guarantees({ texts, cards }: Props) {
             ))}
           </ul>
         </div>
-        <div className="flex min-w-0 flex-[1_1_320px] flex-col justify-end gap-3.5 rounded-[28px] bg-[image:var(--grad-say-no)] p-[22px] text-white shadow-raised min-[641px]:p-8">
+        <div className="flex min-w-0 flex-[1_1_320px] flex-col items-start justify-center gap-3.5 rounded-[28px] bg-[image:var(--grad-say-no)] p-[22px] text-white shadow-raised min-[641px]:p-8">
+          <p className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1.5 text-[13px] font-extrabold">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.4"
+              strokeLinecap="round"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="12" r="9" />
+              <path d="M12 8v5M12 16.5v.01" />
+            </svg>
+            {texts.sayNo.eyebrow}
+          </p>
           <p className="font-display text-[30px] font-extrabold leading-none min-[641px]:text-[40px]">
             {texts.sayNo.title}
           </p>
           <p className="text-base">{texts.sayNo.text}</p>
+          <Link
+            href={texts.sayNo.link[1]}
+            className="mt-1 inline-flex min-h-11 items-center gap-2 rounded-xl bg-card px-4 text-sm font-extrabold text-accent-text"
+          >
+            {texts.sayNo.link[0]}
+            <span aria-hidden="true">→</span>
+          </Link>
         </div>
       </Container>
     </section>

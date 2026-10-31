@@ -39,6 +39,9 @@ const figure = obj({ v: label, l: label })
 /** Eyebrow, H2 and lead of a start page section. */
 const sectionHead = { eyebrow: label, title: label, lead: text }
 
+/** A card of „Jak robimy”: badge on the picture („< 2,5 s”; optional), name, text, the gain. */
+const howWeBuildCard = obj({ badge: label.optional(), name: label, text, gain: text })
+
 /**
  * Headings and small texts of the start page sections built in SW5 — the board `Main` keeps them
  * in its HTML, not in `strona-glowna.json` (ADR-014 doprecyzowania SW5). The wizard section has
@@ -90,10 +93,33 @@ export const homeSectionsSchema = obj({
   guarantees: obj({
     eyebrow: label,
     title: label,
-    sayNo: obj({ title: label, text }),
+    /** v21: eyebrow pill „Uczciwa rada przed wyceną” and the button „Zapytaj, co się opłaca”. */
+    sayNo: obj({ eyebrow: label, title: label, text, link }),
   }).optional(),
   /** SW8b — „Realizacje”: the eyebrow (title and lead are in `showcase` of the package). */
   showcase: obj({ eyebrow: label }).optional(),
+  /**
+   * SWR5 — „Jak robimy” (spec. §4 pkt 8): three cards in a fixed order (speed, safety, Google
+   * and AI — each with its own picture), the threshold source and the measured result apart:
+   * `[WYNIK]` empty on production drops `result`, never the source.
+   */
+  howWeBuild: obj({
+    ...sectionHead,
+    /** Caption over each card's gain („Zyskujesz”). */
+    gainLabel: label,
+    cards: z.tuple([howWeBuildCard, howWeBuildCard, howWeBuildCard]),
+    source: text,
+    result: text,
+  }).optional(),
+  /** SWR5 — „Z czego budujemy” (spec. §4 pkt 10): headings; the layers are `technologies`. */
+  technologies: obj({
+    ...sectionHead,
+    /** Name of the tab list for screen readers („Warstwy systemu”). */
+    tabsLabel: label,
+    /** „Co zyskujesz”, „Dlaczego tak:”. */
+    gainLabel: label,
+    whyLabel: label,
+  }).optional(),
 })
 
 export type SoftwareHomeSections = z.infer<typeof homeSectionsSchema>

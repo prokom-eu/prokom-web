@@ -2,10 +2,12 @@ import type { SwHomeSectionBlock as SwHomeSectionBlockData } from '@/payload-typ
 import {
   AreasSection,
   GuaranteesSection,
+  HowWeBuildSection,
   LivePreviewsSection,
   PopularSection,
   ProcessSection,
   ShowcaseSection,
+  TechnologiesSection,
   WhyNotWordpressSection,
   WizardSection,
 } from '@/sites/software/components/home/HomeSections'
@@ -34,6 +36,10 @@ export function SwHomeSectionBlock({ block, tenantId }: Props) {
       return <GuaranteesSection tenantId={tenantId} />
     case 'showcase':
       return <ShowcaseSection tenantId={tenantId} />
+    case 'howWeBuild':
+      return <HowWeBuildSection tenantId={tenantId} />
+    case 'technologies':
+      return <TechnologiesSection tenantId={tenantId} />
     default:
       return null
   }
