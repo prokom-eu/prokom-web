@@ -1,0 +1,17 @@
+'use client'
+
+// Opens the site search from anywhere on the page (the side rail's „Szukaj”, K33 §2.4) without
+// a shared React tree: the search overlay listens, any button asks.
+const listeners = new Set<() => void>()
+
+/** Called by the search overlay; returns the unsubscribe. */
+export function onSearchRequest(listener: () => void): () => void {
+  listeners.add(listener)
+  return () => {
+    listeners.delete(listener)
+  }
+}
+
+export function requestSearch(): void {
+  for (const listener of listeners) listener()
+}

@@ -187,4 +187,43 @@ test.describe('Biznes header', () => {
     await expect(page.getByRole('button', { name: 'Oferta' })).toHaveCount(0)
     await expect(page.getByText('Oferty i serwis:')).toHaveCount(0)
   })
+
+  test('side rail of subpages from 1400 px: „Szukaj” and the menu with the current page (K33 §2.4)', async ({
+    page,
+  }) => {
+    const hydrationErrors: string[] = []
+    page.on('console', (message) => {
+      if (/hydrat/i.test(message.text())) hydrationErrors.push(message.text())
+    })
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await page.goto(site('biznes.localhost', '/kontakt'))
+    const rail = page.getByRole('navigation', { name: 'Menu boczne' })
+    await expect(rail.getByRole('link')).toHaveCount(8)
+    await expect(rail.getByRole('link', { name: 'Kontakt' })).toHaveAttribute(
+      'aria-current',
+      'page',
+    )
+    await expect(rail.getByRole('link', { name: 'Oferta' })).not.toHaveAttribute('aria-current')
+    // The click works once the page is hydrated.
+    await expect(async () => {
+      await rail.getByRole('button', { name: /^Szukaj w ofercie/ }).click()
+      await expect(page.getByRole('dialog', { name: 'Szukaj w ofercie' })).toBeVisible({
+        timeout: 1000,
+      })
+    }).toPass()
+    expect(hydrationErrors).toEqual([])
+
+    // Below 1400 px the rail is hidden; the start page has its section rail instead.
+    await page.setViewportSize({ width: 1280, height: 900 })
+    await page.goto(site('biznes.localhost', '/kontakt'))
+    await expect(page.getByRole('navigation', { name: 'Menu boczne' })).toBeHidden()
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await page.goto(site('biznes.localhost'))
+    await expect(page.getByRole('navigation', { name: 'Menu boczne' })).toHaveCount(0)
+    await expect(
+      page.getByRole('navigation', { name: 'Na tej stronie' }).getByRole('button', {
+        name: /^Szukaj w ofercie/,
+      }),
+    ).toBeVisible()
+  })
 })
