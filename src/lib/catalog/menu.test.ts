@@ -79,10 +79,10 @@ describe('megaMenu', () => {
   it('puts highlights first and fills the column up to the limit', () => {
     const menu = megaMenu(index, {
       columnLimit: 3,
-      highlights: [{ group: 'sprzedaz', label: 'Przegląd', href: '/opieka-it', badge: '0 zł' }],
+      highlights: [{ group: 'sprzedaz', label: 'GoPOS', href: '/gopos', badge: 'partner' }],
     })
     expect(menu.columns[0]?.items).toEqual([
-      { label: 'Przegląd', href: '/opieka-it', badge: '0 zł' },
+      { label: 'GoPOS', href: '/gopos', badge: 'partner' },
       { label: 'kasy-fiskalne', href: '/oferta/kasy-fiskalne', count: 4 },
       { label: 'drukarki-fiskalne', href: '/oferta/drukarki-fiskalne', count: 2 },
     ])

@@ -127,8 +127,9 @@ export function navigationData(refs: Refs): Navigation {
     highlights: [
       { group: group('prog'), label: 'GoPOS', href: '/gopos', badge: 'partner' },
       { group: group('prog'), label: 'InsERT', href: '/insert', badge: 'partner' },
-      { group: group('usl'), label: 'Opieka IT', href: '/opieka-it', badge: 'abonament' },
-      { group: group('usl'), label: 'Przegląd IT', href: '/opieka-it#przeglad', badge: '0 zł' },
+      // K4-FINAL §1: no „abonament” at Opieka IT, never „przegląd 0 zł” — „bezpłatny przegląd”.
+      { group: group('usl'), label: 'Opieka IT', href: '/opieka-it' },
+      { group: group('usl'), label: 'Bezpłatny przegląd IT', href: '/opieka-it#przeglad' },
     ],
     cards: [
       {
