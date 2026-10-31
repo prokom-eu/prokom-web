@@ -4241,6 +4241,9 @@ export interface SwHeroBlock {
    * W kolorze akcentu, po nagłówku.
    */
   titleAccent?: string | null;
+  /**
+   * Wyróżnienie w **gwiazdkach**, np. „**zanim zapłacisz**”.
+   */
   lead: string;
   primary: {
     label: string;
@@ -4398,7 +4401,18 @@ export interface SwHomeSectionBlock {
   /**
    * Każda sekcja raz na stronie (ma swoją kotwicę, np. #oferta). Teksty sekcji edytuje się w Ustawieniach Software → strona główna.
    */
-  section: 'areas' | 'popular' | 'livePreviews' | 'process' | 'wizard' | 'whyNotWordpress' | 'guarantees' | 'showcase';
+  section:
+    | 'areas'
+    | 'popular'
+    | 'livePreviews'
+    | 'process'
+    | 'wizard'
+    | 'whyNotWordpress'
+    | 'guarantees'
+    | 'showcase'
+    | 'howWeBuild'
+    | 'technologies'
+    | 'compare';
   id?: string | null;
   blockName?: string | null;
   blockType: 'swHomeSection';

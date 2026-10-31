@@ -152,7 +152,8 @@ export async function SwContactBlock({ block, tenantId }: Props) {
                 alternativeLink,
               }}
               topics={TOPICS}
-              initialTopic="system"
+              // v21 (ZMIANY-v21 §9): no topic picked at first; the topic stays optional (board).
+              initialTopic={null}
               errors={{
                 ...SOFTWARE_CONTACT_MESSAGES,
                 contact: wizard?.send.contact.any.error ?? FIELD_MESSAGES.email,

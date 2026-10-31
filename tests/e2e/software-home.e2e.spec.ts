@@ -3,7 +3,7 @@ import { expect, test, type Page } from '@playwright/test'
 import { FORM_MIN_FILL_MS } from '../../src/lib/inquiry/spam'
 import { api, loginAsAdmin, site } from './helpers'
 
-// SW5–SW8b: start page of the Software line (spec. §4 pkt 1–12; §3.3 section rail; §7). Data
+// SW5–SW8b, SWR5 (v21): start page of the Software line (spec. §4, 14 sections; §3.3 rail; §7). Data
 // from `pnpm seed`: the home page blocks in the order of `homeOrder`, texts in
 // `SoftwareSettings.home`, areas and solutions of the package.
 const HOST = 'software.localhost'
@@ -28,16 +28,19 @@ test.describe('Software start page', () => {
     const ids = await page
       .locator('main section[id]')
       .evaluateAll((sections) => sections.map((section) => section.id))
+    // v21: 14 sections (the intent tiles are part of the hero), the wizard before the process.
     expect(ids).toEqual([
       'start',
       'oferta',
       'popularne',
       'podglady',
-      'proces',
       'dobierz',
+      'proces',
+      'jak-robimy',
       'bez-wordpressa',
-      'zasady',
+      'technologie',
       'realizacje',
+      'zasady',
       'faq',
       'kontakt',
     ])
@@ -45,6 +48,7 @@ test.describe('Software start page', () => {
       page.locator('#start').getByRole('link', { name: /Dobierz rozwiązanie/ }),
     ).toHaveAttribute('href', '/#dobierz')
     await expect(page.locator('#start')).toContainText('Odpowiadamy w ciągu 1 dnia roboczego')
+    await expect(page.locator('#start')).toContainText('Zakres · ')
   })
 
   test('four intent tiles lead to the catalog and the wizard', async ({ page }) => {
@@ -153,7 +157,7 @@ test.describe('Software start page', () => {
     await page.goto(site(HOST))
     await expect(previewTabs(page)).toHaveText([
       'Strona',
-      'Rezerwacje',
+      'Noclegi',
       'System firmowy',
       'Aplikacja mobilna',
       'Automatyzacje i AI',
@@ -196,7 +200,7 @@ test.describe('Software start page', () => {
       previewPanel(page).getByRole('button', { name: '✓ W Twoim projekcie' }),
     ).toHaveAttribute('aria-pressed', 'true')
     const stored = await page.evaluate(() => localStorage.getItem('pk-project'))
-    expect(JSON.parse(stored ?? '[]')).toContainEqual({ id: 'hero-rez', name: 'rezerwacje' })
+    expect(JSON.parse(stored ?? '[]')).toContainEqual({ id: 'hero-rez', name: 'noclegi' })
     await expect(
       previewPanel(page).getByRole('link', { name: 'Otwórz pełny podgląd' }),
     ).toHaveAttribute('href', '/rozwiazania')
@@ -211,6 +215,7 @@ test.describe('Software start page', () => {
       'Opowiadasz, jak pracuje firma. My słuchamy.',
     )
     await expect(stagePanel(page)).toContainText('Płacisz: 0 zł')
+    await expect(stageTabs(page).nth(2)).toContainText('od 1 tyg.')
 
     const height = async () => (await page.locator('#proces').boundingBox())?.height
     const before = await height()
@@ -290,7 +295,45 @@ test.describe('Software start page', () => {
     )
     await expect(section.getByRole('listitem')).toHaveCount(6)
     await expect(section.getByRole('listitem').first()).toContainText('Stała cena za zakres')
-    await expect(section).toContainText('Czasem powiemy: nie budujcie.')
+    await expect(section).toContainText('Czasem powiemy: tego nie buduj.')
+    await expect(section.getByRole('link', { name: /Zapytaj, co się opłaca/ })).toHaveAttribute(
+      'href',
+      '/#kontakt',
+    )
+  })
+
+  test('„Jak robimy”: 3 cards with what you gain, the source of the speed threshold', async ({
+    page,
+  }) => {
+    await page.goto(site(HOST))
+    const section = page.locator('#jak-robimy')
+    await expect(section.getByRole('heading', { level: 2 })).toHaveText(
+      'Nie składamy z gotowych klocków. Piszemy pod Twoją firmę.',
+    )
+    await expect(section.getByRole('heading', { level: 3 })).toHaveText([
+      'Szybka',
+      'Bezpieczna',
+      'Widoczna w Google i AI',
+    ])
+    await expect(section.getByRole('listitem').first()).toContainText('Zyskujesz')
+    await expect(section).toContainText('Źródło progu szybkości: Google Search Central')
+  })
+
+  test('„Z czego budujemy”: 6 layers as tabs, the card of the picked one', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    await page.goto(site(HOST))
+    const section = page.locator('#technologie')
+    const tabs = section.getByRole('tablist', { name: 'Warstwy systemu' }).getByRole('tab')
+    await expect(tabs).toHaveCount(6)
+    await expect(tabs.first()).toHaveAttribute('aria-selected', 'true')
+    const panel = section.locator('[role=tabpanel]:not([inert])')
+    await expect(panel.getByRole('heading', { level: 3 })).toHaveText('Strona')
+    await expect(panel).toContainText('Co zyskujesz')
+    await expect(panel).toContainText('< 2,5 s')
+    await tabs.first().focus()
+    await page.keyboard.press('End')
+    await expect(tabs.last()).toBeFocused()
+    await expect(panel.getByRole('heading', { level: 3 })).toHaveText('Serwer')
   })
 
   test('„Realizacje”: 3 own systems with their status and the figures', async ({ page }) => {
@@ -323,7 +366,9 @@ test.describe('Software start page', () => {
     await expect(items.nth(1)).not.toHaveAttribute('open', '')
     await expect(items.nth(0)).toContainText('od 149 zł miesięcznie')
     await items.nth(1).locator('summary').click()
-    await expect(items.nth(1)).toContainText('Wersję testową oglądasz co tydzień')
+    // „Ile to trwa?” with the „od” terms of the solutions (decyzja 10), no token left.
+    await expect(items.nth(1)).toContainText('Wizytówka i landing od 1 tygodnia')
+    await expect(items.nth(1)).not.toContainText('{termin')
     const jsonLd = await section
       .locator('script[type="application/ld+json"]')
       .evaluate((script) => JSON.parse(script.textContent ?? '{}'))
@@ -341,12 +386,13 @@ test.describe('Software start page', () => {
       'Oferta',
       'Najczęściej zamawiane',
       'Podglądy na żywo',
-      'Jak pracujemy i cena',
       'Dobierz rozwiązanie',
+      'Jak robimy',
       'Dlaczego nie WordPress',
+      'Z czego budujemy',
       'Realizacje',
+      'Zasady',
       'Pytania',
-      'Kontakt',
     ])
     await expect(rail).toBeVisible()
     await page.setViewportSize({ width: 1400, height: 900 })
@@ -375,7 +421,8 @@ test.describe('Software start page — contact form', () => {
     )
     await expect(section.locator('a[href^="tel:"]')).toHaveCount(1)
     await expect(section.getByRole('radio')).toHaveCount(6)
-    await expect(section.getByRole('radio', { name: 'System lub panel' })).toBeChecked()
+    // v21: no topic picked at first.
+    await expect(section.getByRole('radio', { checked: true })).toHaveCount(0)
   })
 
   test('77: errors under the fields and in the box, then sending → /dziekujemy', async ({
@@ -498,6 +545,17 @@ test.describe('Software start page on a phone', () => {
       )
       expect(Math.round(second?.y ?? 0)).toBe(Math.round(first?.y ?? 0))
       expect(third?.y ?? 0).toBeGreaterThan(first?.y ?? 0)
+      // Hero: no mock-up on a phone, the switches with their caption; trust points wrap.
+      await expect(
+        page.locator('#start').getByText('Złóż swój system: dotknij modułu'),
+      ).toBeVisible()
+      // „Jak robimy”: a carousel of cards; „Z czego budujemy”: the 6 layers in a 2×3 grid.
+      const how = await page.locator('#jak-robimy li').first().boundingBox()
+      expect(how?.width ?? 0).toBeLessThan(width * 0.9)
+      const layers = page.locator('#technologie [role=tab]')
+      const [l1, l2, l3] = await Promise.all([0, 1, 2].map((i) => layers.nth(i).boundingBox()))
+      expect(Math.round(l2?.y ?? 0)).toBe(Math.round(l1?.y ?? 0))
+      expect(l3?.y ?? 0).toBeGreaterThan(l1?.y ?? 0)
       // Kontakt: the form under the promises, topics as large targets.
       const side = await page.locator('#kontakt').getByText('Najpierw zobaczysz').boundingBox()
       const form = await page.locator('#kontakt form').boundingBox()

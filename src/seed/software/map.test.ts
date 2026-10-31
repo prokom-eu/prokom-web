@@ -372,7 +372,7 @@ describe('Software settings of the seed', () => {
     expect(settings.home.sections?.livePreviews?.eyebrow).toBe('Podglądy na żywo · zanim zapłacisz')
     expect(settings.home.sections?.process?.stage).toBe('Etap {num} · {t}')
     expect(settings.home.sections?.popular.after.items[0]?.text).toBe('od [OPIEKA OD] zł / mies.')
-    expect(settings.home.sections?.guarantees?.sayNo.title).toBe('Czasem powiemy: nie budujcie.')
+    expect(settings.home.sections?.guarantees?.sayNo.title).toBe('Czasem powiemy: tego nie buduj.')
   })
 
   it('take the rebuild price of „Dlaczego nie WordPress” from Solutions, not from the text', () => {

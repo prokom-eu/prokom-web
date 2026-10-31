@@ -63,7 +63,9 @@ export async function SwHeroBlock({ block, tenantId, isFirst = true }: Props) {
                 </>
               )}
             </Title>
-            <p className="max-w-[44ch] text-lg text-ink-2 min-[640px]:text-xl">{block.lead}</p>
+            <p className="max-w-[44ch] text-lg text-ink-2 min-[640px]:text-xl">
+              <Emphasis text={block.lead} boldClassName="font-extrabold text-ink" />
+            </p>
             <div className="flex w-full flex-col gap-2.5 min-[640px]:w-auto min-[640px]:flex-row min-[640px]:flex-wrap">
               <Link
                 href={block.primary.href}
@@ -102,11 +104,11 @@ export async function SwHeroBlock({ block, tenantId, isFirst = true }: Props) {
               </p>
             )}
             {trust.length > 0 && (
-              <ul className="-mx-4 flex w-[calc(100%+2rem)] snap-x gap-2 overflow-x-auto px-4 [scrollbar-width:none] min-[640px]:mx-0 min-[640px]:w-auto min-[640px]:flex-wrap min-[640px]:gap-x-6 min-[640px]:gap-y-3 min-[640px]:overflow-visible min-[640px]:px-0">
+              <ul className="flex flex-wrap gap-2 min-[640px]:gap-x-6 min-[640px]:gap-y-3">
                 {trust.map((item) => (
                   <li
                     key={item.id ?? item.text}
-                    className="flex shrink-0 snap-start items-center gap-2.5 rounded-full border border-border bg-card py-1.5 pl-1.5 pr-4 text-sm font-bold text-ink-2 min-[640px]:border-0 min-[640px]:bg-transparent min-[640px]:p-0"
+                    className="flex items-center gap-2.5 rounded-full border border-border bg-card py-1.5 pl-1.5 pr-4 text-sm font-bold text-ink-2 min-[640px]:border-0 min-[640px]:bg-transparent min-[640px]:p-0"
                   >
                     <span className="grid size-8 place-items-center rounded-lg bg-accent-soft text-accent-text">
                       {isIconName(item.icon) && <Icon name={item.icon} className="size-4" />}
