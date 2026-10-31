@@ -58,7 +58,7 @@ export function RailShell({
             type="button"
             aria-haspopup="dialog"
             aria-keyshortcuts="Control+K Meta+K /"
-            onClick={requestSearch}
+            onClick={() => requestSearch()}
             className="flex h-10 items-center gap-3 rounded-[14px] bg-accent-text px-2 text-left text-sm font-bold whitespace-nowrap text-accent-ink"
           >
             <Icon name="search" className="size-5 shrink-0" />

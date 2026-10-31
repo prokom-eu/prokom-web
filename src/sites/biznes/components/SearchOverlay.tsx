@@ -109,8 +109,15 @@ export function SearchOverlay({ whatsapp }: Props) {
     return () => document.removeEventListener('keydown', onKey)
   }, [show])
 
-  // „Szukaj” of the side rail (K33 §2.4).
-  useEffect(() => onSearchRequest(show), [show])
+  // „Szukaj” of the side rail (K33 §2.4) and the home page's search tile (with a phrase).
+  useEffect(
+    () =>
+      onSearchRequest((phrase) => {
+        if (phrase) setQuery(phrase)
+        show()
+      }),
+    [show],
+  )
 
   return (
     <>
