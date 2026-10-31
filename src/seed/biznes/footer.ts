@@ -46,7 +46,7 @@ export function footerTopics(): Link[] {
   return [
     { label: 'GoPOS', href: '/gopos' },
     { label: 'InsERT i KSeF', href: '/insert' },
-    { label: 'KSeF', href: postHref(KSEF_POST_SLUG) },
+    { label: 'KSeF 2027', href: postHref(KSEF_POST_SLUG) },
     { label: 'Automaty vendingowe', href: '/oferta/automaty-vendingowe' },
     { label: 'O firmie', href: '/o-firmie' },
     { label: 'Aktualności', href: '/aktualnosci' },

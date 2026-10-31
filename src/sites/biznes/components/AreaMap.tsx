@@ -3,7 +3,7 @@ import { toDirectionsHref, toMapsHref } from '@/lib/site/link'
 /**
  * Towns of the area diagram, placed as on the board (percent of the box, Rabka in the middle).
  * A picture of the geography, hidden from screen readers; the towns served are content —
- * `SiteSettings.biznes.serviceAreas`, listed in the card (and in the footer).
+ * `SiteSettings.biznes.serviceAreas`, listed in the card.
  */
 const TOWNS = [
   { name: 'Kraków', x: 48, y: 10 },

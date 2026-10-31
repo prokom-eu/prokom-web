@@ -100,9 +100,14 @@ test.describe('Biznes footer', () => {
   }) => {
     await page.goto(site('biznes.localhost'))
     const footer = page.locator('footer')
-    await expect(footer.getByRole('navigation', { name: 'Usługi' }).getByRole('link')).toHaveCount(
-      7,
-    )
+    const services = footer.getByRole('navigation', { name: 'Usługi' }).getByRole('link')
+    await expect(services).toHaveCount(7)
+    // The seed writes card addresses by hand: each must lead to a published card or page.
+    const hrefs = await services.evaluateAll((links) => links.map((a) => a.getAttribute('href')))
+    for (const href of hrefs) {
+      const response = await page.request.get(site('biznes.localhost', href ?? '/'))
+      expect(response.status(), href ?? '').toBe(200)
+    }
     await expect(
       footer.getByRole('navigation', { name: 'Systemy i tematy' }).getByRole('link').first(),
     ).toHaveText('GoPOS')

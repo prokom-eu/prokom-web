@@ -8,7 +8,7 @@ import {
   upgradedImportant,
 } from './footer'
 
-const ksef = footerTopics().find((link) => link.label === 'KSeF')!.href
+const ksef = footerTopics().find((link) => link.label === 'KSeF 2027')!.href
 
 const b3b = [
   { label: 'Opieka IT', href: '/opieka-it' },
@@ -47,7 +47,7 @@ describe('footer K4 (K36 §1)', () => {
     expect(footerData().company?.map((link) => link.label)).toEqual([
       'GoPOS',
       'InsERT i KSeF',
-      'KSeF',
+      'KSeF 2027',
       'Automaty vendingowe',
       'O firmie',
       'Aktualności',

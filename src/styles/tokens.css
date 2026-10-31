@@ -1410,34 +1410,7 @@
 
 /* …or by the system when there is no choice. Keep in sync with the rules above (tested). */
 @media (prefers-color-scheme: dark) {
-  [data-line='biznes']:not([data-theme='light']) {
-    color-scheme: dark;
-    --accent: var(--c-biznes-on-dark);
-    --accent-on-dark: var(--c-biznes-night-accent-2);
-    --accent-text: var(--c-biznes-on-dark);
-    --accent-2: var(--c-biznes-night-accent-2);
-    --accent-ink: var(--c-biznes-night-accent-ink);
-    --surface: var(--c-biznes-night-surface);
-    --surface-2: var(--c-biznes-night-surface-2);
-    --surface-3: var(--c-biznes-night-surface-3);
-    --card: var(--c-biznes-night-card);
-    --surface-dark: var(--c-biznes-navy);
-    --ink: var(--c-biznes-night-ink);
-    --ink-2: var(--c-biznes-night-ink-2);
-    --ink-3: var(--c-biznes-night-ink-3);
-    --border: var(--c-biznes-night-border);
-    --border-input: var(--c-biznes-night-ink-3);
-    --glow: var(--c-biznes-night-glow);
-    --st1: var(--c-biznes-night-st1);
-    --st2: var(--c-biznes-night-st2);
-    --st3: var(--c-biznes-night-st3);
-    --sth: var(--c-biznes-night-sth);
-    --shd: var(--c-biznes-night-shd);
-    --ok: var(--c-ok-night);
-    --ok-text: var(--c-ok-night);
-    --warn: var(--c-warn-night);
-    --h1-accent: var(--c-biznes-night-accent-2);
-  }
+  /* Biznes: no rule here — it starts light whatever the system says (D-K4-5, `themeScript`). */
 
   [data-line='software']:not([data-theme='light']) {
     color-scheme: dark;

@@ -81,10 +81,13 @@ export const biznesNavigation: Field = {
       ],
     },
     {
+      // Unused since the K4 mega menu (v147c: shortcuts are fixed cards). Hidden until a
+      // migration drops the column (STAN „Pomysły na później”).
       name: 'shortcuts',
       label: 'Na skróty (mega menu)',
       type: 'array',
       maxRows: 6,
+      admin: { hidden: true },
       fields: [{ type: 'row', fields: [labelField, hrefField] }],
     },
     {
@@ -124,10 +127,12 @@ export const biznesNavigation: Field = {
       ],
     },
     {
+      // Unused since the K4 mega menu (v147c), like `shortcuts`.
       name: 'cards',
       label: 'Karty w mega menu',
       type: 'array',
       maxRows: 2,
+      admin: { hidden: true },
       fields: [
         {
           type: 'row',

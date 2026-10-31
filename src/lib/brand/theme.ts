@@ -32,6 +32,16 @@ export const THEME_SCRIPT = `(function(){try{var t=localStorage.getItem("${THEME
  */
 const LIGHT_BY_DEFAULT: readonly Line[] = ['biznes']
 
+/** The line starts light without a choice (D-K4-5); `line`: the `data-line` of `<html>`. */
+export function startsLight(line: string | null | undefined): boolean {
+  return (LIGHT_BY_DEFAULT as readonly string[]).includes(line ?? '')
+}
+
+/** The line follows the system theme until the visitor chooses (not Biznes, D-K4-5). */
+export function followsSystemTheme(line: Line): boolean {
+  return hasDarkTheme(line) && !LIGHT_BY_DEFAULT.includes(line)
+}
+
 /** The `<head>` script of a line: `THEME_SCRIPT`, or one that falls back to light (Biznes). */
 export function themeScript(line: Line): string {
   if (!LIGHT_BY_DEFAULT.includes(line)) return THEME_SCRIPT

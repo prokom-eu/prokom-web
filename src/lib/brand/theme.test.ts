@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { hasDarkTheme, THEME_SCRIPT, THEME_STORAGE_KEY, themeScript } from './theme'
+import { hasDarkTheme, startsLight, THEME_SCRIPT, THEME_STORAGE_KEY, themeScript } from './theme'
 
 /** Runs the inline script against a fake `document` and `localStorage`. */
 function runScript(stored: string | null | Error, script = THEME_SCRIPT): string | null {
@@ -49,6 +49,12 @@ describe('themeScript (D-K4-5: Biznes light by default)', () => {
 
   it('keeps the choice of the visitor on Biznes', () => {
     expect(runScript('dark', biznes)).toBe('dark')
+  })
+
+  it('starts light only on Biznes', () => {
+    expect(startsLight('biznes')).toBe(true)
+    expect(startsLight('software')).toBe(false)
+    expect(startsLight(null)).toBe(false)
   })
 
   it('leaves the other lines on the system preference', () => {
