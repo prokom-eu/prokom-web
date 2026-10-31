@@ -34,12 +34,12 @@
         "Decyzję: start albo nie"
       ],
       "pay": "Płacisz: [ZALICZKA] po podpisaniu",
-      "payd": "Reszta dopiero po odbiorze kolejnych etapów. [ZASADY PŁATNOŚCI]"
+      "payd": "Reszta: przy stronach (70%) po odbiorze, przy systemach ratami po każdym etapie. Faktura VAT, przelew 7 dni."
     },
     {
       "num": "03",
       "n": "Budowa",
-      "t": "[TYGODNIE] tyg.",
+      "t": "od 1 tyg.",
       "h": "Co tydzień klikasz nową wersję. Nie czytasz raportów.",
       "p": "Budujemy etapami. Co tydzień dostajesz link do wersji testowej: klikasz, zgłaszasz uwagi, my poprawiamy. Pierwszy etap zaczyna pracować, zanim skończymy ostatni.",
       "get": [
@@ -51,8 +51,8 @@
         "15 minut tygodniowo na kliknięcie",
         "Treści i zdjęcia, jeśli masz własne"
       ],
-      "pay": "Płacisz: po odbiorze każdego etapu",
-      "payd": "Etap odbierasz, gdy działa u Ciebie. Wtedy faktura."
+      "pay": "Płacisz: po odbiorze",
+      "payd": "Strona: 70% po odbiorze. System: rata po każdym odebranym etapie."
     },
     {
       "num": "04",
@@ -81,7 +81,7 @@
       "get": [
         "Kopie, aktualizacje, monitoring",
         "Czas reakcji na piśmie",
-        "Raport co miesiąc od poziomu Standard"
+        "Raport co miesiąc od opieki Rozszerzonej"
       ],
       "you": [
         "Nic. Ewentualnie pomysł na kolejny moduł"
@@ -268,30 +268,30 @@
           "dwa pola, bez zakładania konta"
         ],
         [
-          "Ty dostajesz SMS i mail",
+          "Ty dostajesz maila od razu",
           "z numerem, opisem i zdjęciem, jeśli dodał"
         ]
       ]
     },
     "rez": {
-      "label": "Rezerwacje",
+      "label": "Noclegi",
       "icon": "M4 5h16v16H4zM4 10h16M9 3v4M15 3v4",
-      "tag": "Sklepy i rezerwacje",
-      "title": "Rezerwacje i zamówienia prosto do Ciebie",
-      "text": "Kalendarz, płatności online i kilka języków. Klient rezerwuje sam, a Ty dostajesz powiadomienie na telefon.",
+      "tag": "Pensjonaty i lokale",
+      "title": "Zapytania o termin prosto do Ciebie",
+      "text": "Pokoje, galeria i trzy języki. Gość pisze bezpośrednio do Ciebie, bez prowizji portalu, a Ty dostajesz powiadomienie na telefon.",
       "href": "/rozwiazania",
-      "a": "Nowa rezerwacja",
-      "as": "zaliczka opłacona online",
+      "a": "Nowe zapytanie o termin",
+      "as": "pokój z widokiem · 12–15 sty",
       "b": "PL · EN · DE",
       "bs": "goście piszą w swoim języku",
       "steps": [
         [
-          "Gość sprawdza termin",
-          "kalendarz pokazuje tylko wolne pokoje"
+          "Gość ogląda pokoje",
+          "zdjęcia, ceny i okolica w swoim języku"
         ],
         [
-          "Płaci zaliczkę online",
-          "BLIK albo karta, w swoim języku"
+          "Wysyła zapytanie",
+          "w swoim języku, bez portalu z prowizją"
         ],
         [
           "Ty potwierdzasz jednym dotknięciem",
@@ -421,7 +421,7 @@
     ],
     "_info": "Sekcja #realizacje. Statystyka „0 banerów cookies” prawdziwa tylko przy analityce bez ciasteczek (spec. §1 pkt 6). [WYNIK] = zmierzony wynik produkcji. Opis prokombiznes.pl bez „porównywarki” i liczby produktów (SW0, spec. §13 pkt 22)."
   },
-  "_info": "Treści sekcji strony głównej. process = 5 etapów sekcji #proces (ST w Main.dc.html; etap 3 nazywa się „Budowa”). processShort = wersja skrócona (inne miejsca); etap 3 ujednolicony do „Budowa”. guarantees = #zasady, compare = #porownanie, livePreviews = #podglady, heroModules = makieta hero, showcase = #realizacje. Gdzie w Payload: pola bloków sw* (ADR-014 §2). Placeholdery w tekstach rozwiązuje SiteSettings.software.facts.",
+  "_info": "Treści sekcji strony głównej. process = 5 etapów sekcji #proces (ST w Main.dc.html; etap 3 nazywa się „Budowa”). processShort = wersja skrócona (inne miejsca); etap 3 ujednolicony do „Budowa”. guarantees = #zasady, compare = #porownanie, livePreviews = #podglady, heroModules = makieta hero, showcase = #realizacje. Gdzie w Payload: pola bloków sw* (ADR-014 §2). Placeholdery w tekstach rozwiązuje SiteSettings.software.facts. v21 (29.10): homeOrder wg ZMIANY-v21 §2 — kreator przed procesem, „Jak robimy” i „Z czego budujemy” wróciły na główną, realizacje przed zasadami. SWR5 (31.10.2026): przeniesione z seed-v22; proces wg planszy Main (ST): etap 02 — reszta płatności (strony 70% po odbiorze, systemy ratami), etap 03 — „od 1 tyg.” i płatność po odbiorze.",
   "whyNotWordpress": {
     "_info": "v20 (25.10.2026, prośba Krystiana; treść na podstawie pro-kom.eu/tworzenie-stron-internetowych). Sekcja między kreatorem a zasadami. Fakty ze źródłem.",
     "eyebrow": "Dlaczego nie WordPress i PHP",
@@ -503,29 +503,29 @@
     }
   },
   "homeOrder": {
-    "_info": "v20 (25.10.2026): kolejność sekcji strony głównej. Technologie, „Jak robimy” i porównanie przeniesione na /o-firmie.",
+    "_info": "v21 (29.10.2026): kolejność sekcji strony głównej wg ZMIANY-v21 §2. Technologie i „Jak robimy” wróciły na główną; porównanie zostaje na /o-firmie.",
     "order": [
       "hero",
       "intents",
       "areas",
       "popular",
       "livePreviews",
-      "process",
       "wizard",
+      "process",
+      "howWeBuild",
       "whyNotWordpress",
-      "guarantees",
+      "technologies",
       "showcase",
+      "guarantees",
       "faq",
       "contact"
     ],
     "movedToAbout": [
-      "technologies",
-      "howWeBuild",
       "compare"
     ]
   },
   "proceduralMock": {
-    "_info": "Makieta wyceny w sekcji procesu (przykład, wyraźnie fikcyjny klient). Kwoty z cennika (System zleceń Standard 5 990, Czas pracy Na start 2 990); połączenie z programem bez ceny publicznej (automatyzacje = „Zapytaj o wycenę”).",
+    "_info": "Makieta wyceny w sekcji procesu (przykład, wyraźnie fikcyjny klient). Przykład wyceny na piśmie dla większego zakresu (kwoty powyżej cen „od” — zakres klienta po rozmowie); połączenie z programem bez ceny publicznej (automatyzacje = „Zapytaj o wycenę”).",
     "number": "PKS-2026-0142",
     "title": "System zleceń + czas pracy",
     "rows": [
