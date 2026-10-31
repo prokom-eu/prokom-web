@@ -2,6 +2,7 @@ import type { Inquiry } from '@/payload-types'
 
 import type { Wizard } from '../catalog/wizard'
 import { buildKit, parseWizardAnswers, proposedSlugs, wizardSummary } from '../catalog/wizardKit'
+import { parsePlanAnswers, planContact, planSummary } from '../instalacje/plan'
 import { errorFields, log } from '../log'
 import type { ContactField, SoftwareWizard } from '../software/wizard'
 import {
@@ -155,6 +156,26 @@ type ComposedWizard = {
   auditUrl?: string
   /** Software: what the chosen contact preference needs (`contactPrefs[].field`). */
   contactField?: ContactField
+  /** Instalacje: the services come from the answers, not from the sent topics. */
+  topics?: string[]
+}
+
+/**
+ * The Instalacje planner's answers as an inquiry (I11, ADR-I002 §4): checked against the rules
+ * in code (`lib/instalacje/plan`), named for people, the services as topics — or `null` when the
+ * answers do not fit. No items: Instalacje quote after a site visit.
+ */
+function composeInstalacjePlan(input: unknown, city: string | undefined): ComposedWizard | null {
+  const answers = parsePlanAnswers(input)
+  if (!answers) return null
+  const contact = planContact(answers)
+  return {
+    items: [],
+    summary: planSummary(answers, city),
+    topics: answers.services,
+    preferredContact: contact,
+    ...(contact === 'email' && { contactField: 'email' as const }),
+  }
 }
 
 /**
@@ -272,6 +293,7 @@ export async function submitInquiryWith(
   // is computed here, from published products of this tenant (B10c) — never taken as sent.
   let wizard = input.wizard
   let deadline = input.deadline
+  let topics = input.topics
   let { message, preferredContact, auditUrl } = input
   if (input.type === 'wizard') {
     let composed: ComposedWizard | null
@@ -279,7 +301,9 @@ export async function submitInquiryWith(
       composed =
         tenant.line === 'software'
           ? await composeSoftwareWizard(deps, tenant.id, input.wizard)
-          : await composeWizard(deps, tenant.id, input.wizard)
+          : tenant.line === 'instalacje'
+            ? composeInstalacjePlan(input.wizard, input.city)
+            : await composeWizard(deps, tenant.id, input.wizard)
     } catch (error) {
       deps.log.error({ tenant: tenant.id, ...errorFields(error) }, 'Inquiry wizard lookup failed')
       return { ok: false, error: 'unavailable' }
@@ -295,6 +319,7 @@ export async function submitInquiryWith(
     message = composed.message ?? message
     preferredContact = composed.preferredContact ?? preferredContact
     auditUrl = composed.auditUrl ?? auditUrl
+    topics = composed.topics ?? topics
   }
 
   // The audit form sends the address only; the message says what is asked (rozstrz. SW0 6).
@@ -304,7 +329,7 @@ export async function submitInquiryWith(
 
   // „Twój projekt” sent without a description (spec. §6.10): the topic and the list say it all.
   if (tenant.line === 'software' && input.type === 'list' && message === undefined) {
-    message = projectMessage(input.topics, items)
+    message = projectMessage(topics, items)
   }
 
   if (!deps.limiter.hit(rateLimitKey(ip ?? 'unknown', deps.secret))) {
@@ -331,7 +356,7 @@ export async function submitInquiryWith(
       auditUrl,
       preferredContact,
       deadline,
-      topics: input.topics,
+      topics,
       items,
       wizard,
       source: input.source,
@@ -349,6 +374,7 @@ export async function submitInquiryWith(
   // The record is the source of truth: a failed e-mail is logged, the customer still gets 201.
   const forEmail: InquiryForEmail = {
     ...input,
+    topics,
     message,
     auditUrl,
     preferredContact,
