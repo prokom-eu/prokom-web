@@ -52,6 +52,8 @@ const THEMED: Array<[text: string, surface: string]> = [
   ['--inst-go-text', '--inst-mux-ok-bg'],
   ['--inst-go-text', '--inst-switch-on-bg'],
   ['--inst-warn-text', '--inst-mux-old-bg'],
+  // Errors and „no” on cards (prototype `--bad`, I8).
+  ['--inst-bad', '--card'],
 ]
 
 // I7–I8: illustrations of the service pages (same in both themes). Labels drawn inside the

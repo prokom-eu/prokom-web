@@ -1,6 +1,7 @@
 // Tokeny kolorów stron Instalacji hurtem (plan przyspieszenia §3): dla każdej strony prototypu
 // zbiera kolory z pk.css, których nie pokrywają tokeny z tokens.css ani mapa strony głównej,
 // i nadaje im tokeny z parą jasny/ciemny (wartość jasna z reguły `.pk[data-theme="light"] …`).
+// Klasy strony: z HTML szablonów i ze słów w apostrofach z `<Strona>.js` (klasy stanów, I7/I8).
 // Użycie (raz, potem ręczne poprawki):
 //   node docs/design/prokominstalacje/narzedzia/tokeny-stron.mjs > tmp/tokeny-stron.css
 // Wynik:
@@ -62,10 +63,18 @@ const incDir = join(ROOT, 'zrodlo/inc')
 const classesOf = (html) =>
   [...html.matchAll(/class="([^"]*)"/g)].flatMap((m) => m[1].split(/\s+/)).filter((c) => c && !/[{$}]/.test(c))
 const homeClasses = new Set(classesOf(fs.readFileSync(join(pagesDir, 'Main.body.html'), 'utf8')))
-const pageClasses = new Set(
-  [...fs.readdirSync(pagesDir).filter((f) => f.endsWith('.body.html')), ...fs.readdirSync(incDir).map((f) => '../inc/' + f)]
+// Classes built in a page's JS (`'tlev ' + kind`, `cls: 'hroom arm'`, the `.ttx` scene of
+// Teletechnika): every quoted word of `<Strona>.js` (I7: these rules and colours were missing).
+const jsClassesOf = (js) =>
+  [...js.matchAll(/'([ a-z0-9-]+)'/g)].flatMap((m) => m[1].split(' ')).filter((c) => /^[a-z][a-z0-9-]{0,15}$/.test(c))
+const pageClasses = new Set([
+  ...[...fs.readdirSync(pagesDir).filter((f) => f.endsWith('.body.html')), ...fs.readdirSync(incDir).map((f) => '../inc/' + f)]
     .flatMap((f) => classesOf(fs.readFileSync(join(pagesDir, f), 'utf8'))),
-)
+  ...fs
+    .readdirSync(pagesDir)
+    .filter((f) => f.endsWith('.js') && f !== 'Main.js')
+    .flatMap((f) => jsClassesOf(fs.readFileSync(join(pagesDir, f), 'utf8'))),
+])
 const STATE = new Set('on dim rec all act ready ok open sel cur w2 big hm show hot pk'.split(' '))
 const selClasses = (s) => [...s.matchAll(/\.([a-zA-Z][\w-]*)/g)].map((m) => m[1])
 const relevant = (s) => {
@@ -196,6 +205,7 @@ process.stdout.write(
 )
 const map = {
   prefix: homeMap.prefix,
+  palette: 'il',
   ids: null,
   colors: Object.fromEntries([...covered]),
   selectors,
