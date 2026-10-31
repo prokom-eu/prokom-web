@@ -133,10 +133,14 @@ test.describe('Biznes inquiry list', () => {
       'href',
       '/oferta',
     )
-    await expect(drawer(page).getByRole('link', { name: /napisz do nas/ })).toHaveAttribute(
+    // Board K4: „Przeglądaj ofertę”, „Konfigurator” and a plain description of the need.
+    await expect(drawer(page).getByRole('link', { name: 'Konfigurator' })).toHaveAttribute(
       'href',
-      '/kontakt#kontakt',
+      '/kreator',
     )
+    await expect(
+      drawer(page).getByRole('link', { name: /Opisz, czego potrzebujesz/ }),
+    ).toHaveAttribute('href', '/zapytanie')
   })
 
   test('the bottom bar opens it on a phone', async ({ page }) => {
