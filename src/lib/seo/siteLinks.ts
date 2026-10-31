@@ -46,8 +46,8 @@ export type SiteMapInput = {
   } | null
   /** Posts of a line with news; `null` on lines without it. */
   news: { posts: readonly ({ slug: string; title: string } & Dated)[] } | null
-  /** Software: the catalog of solutions (its solution pages come with SW10). */
-  solutions?: boolean
+  /** Software: the catalog and the page of every published solution (SW10); absent elsewhere. */
+  solutions?: { items: readonly { slug: string; name: string }[] } | null
 }
 
 const byLabel = (a: SiteMapLink, b: SiteMapLink) => a.label.localeCompare(b.label, 'pl')
@@ -156,6 +156,9 @@ export function buildSiteMap({ pages, catalog, news, solutions }: SiteMapInput):
       links: [
         { href: SOLUTIONS_PATH, label: 'Pełna oferta' },
         { href: WIZARD_PATH, label: 'Dobierz rozwiązanie' },
+        ...solutions.items
+          .map((item) => ({ href: `${SOLUTIONS_PATH}/${item.slug}`, label: item.name }))
+          .sort(byLabel),
       ],
     })
   }

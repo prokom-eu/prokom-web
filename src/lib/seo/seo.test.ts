@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest'
 import {
   articleJsonLd,
   breadcrumbJsonLd,
+  serviceJsonLd,
   serviceListJsonLd,
   faqJsonLd,
   organizationJsonLd,
@@ -373,5 +374,46 @@ describe('serviceListJsonLd', () => {
         },
       ],
     })
+  })
+})
+
+describe('serviceJsonLd (solution page, SW10)', () => {
+  const base = {
+    name: 'Strona wizytówka',
+    description: 'Jedna strona z kontaktem.',
+    url: 'https://prokomsoftware.pl/rozwiazania/strona-wizytowka',
+    provider: 'PRO-KOM Software',
+  }
+
+  it('describes the service with its „od” price', () => {
+    expect(serviceJsonLd({ ...base, priceFrom: 999 })).toEqual({
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      name: 'Strona wizytówka',
+      description: 'Jedna strona z kontaktem.',
+      url: 'https://prokomsoftware.pl/rozwiazania/strona-wizytowka',
+      provider: { '@type': 'Organization', name: 'PRO-KOM Software' },
+      offers: {
+        '@type': 'Offer',
+        priceCurrency: 'PLN',
+        priceSpecification: {
+          '@type': 'PriceSpecification',
+          minPrice: 999,
+          priceCurrency: 'PLN',
+          valueAddedTaxIncluded: false,
+        },
+      },
+    })
+  })
+
+  it('has no offers without a price, and keeps 0 as a price', () => {
+    expect(serviceJsonLd({ ...base, priceFrom: null })).not.toHaveProperty('offers')
+    expect(serviceJsonLd({ ...base, priceFrom: 0 }).offers?.priceSpecification.minPrice).toBe(0)
+  })
+
+  it('leaves out an empty description', () => {
+    expect(serviceJsonLd({ ...base, description: undefined, priceFrom: null })).not.toHaveProperty(
+      'description',
+    )
   })
 })
