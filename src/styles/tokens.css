@@ -2097,6 +2097,11 @@
   --il-bad-feed: rgba(240, 122, 106, 0.18);
   --il-bad-ink: #f7a193;
   --il-cab-top: #3a4c57;
+  /* Teletechnika: outlets of a layer at the „Montaż” stage (classes glued in JS, I8). */
+  --il-out-lan: #bff1fb;
+  --il-out-rtv: #e7daff;
+  /* Window frames of the Teletechnika scene, light theme only (no stroke at night). */
+  --il-frame-light: #b8c2c4;
   --il-glass: rgba(12, 22, 25, 0.72);
   --il-glass-shadow: rgba(0, 0, 0, 0.7);
   /* Shared gradients and patterns of the prototype (`zrodlo/header.html` → `.pkdefs`) not
