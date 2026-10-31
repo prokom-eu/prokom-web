@@ -717,8 +717,12 @@
   & .zknext {
     min-width: 170px;
   }
+  /* Prototype: `opacity: .55` (white on the accent at 2.3:1, below AA). The button stays
+     clickable (it explains what is missing), so it dims with theme colours of AA contrast. */
   & .zknext.dim {
-    opacity: 0.55;
+    background: var(--surface-3);
+    color: var(--ink-2);
+    box-shadow: inset 0 0 0 1px var(--border);
   }
   & .zkdone {
     display: flex;

@@ -79,7 +79,7 @@ export function PlannerWizard({ services, formToken, phone, hours }: Props) {
   const [error, setError] = useState<{ key: PlannerError | 'form'; text: string } | null>(null)
   const [busy, setBusy] = useState(false)
   const honeypot = useRef<HTMLInputElement>(null)
-  const card = useRef<HTMLDivElement>(null)
+  const card = useRef<HTMLFormElement>(null)
   const heading = useRef<HTMLHeadingElement>(null)
   const nameField = useRef<HTMLInputElement>(null)
   const phoneField = useRef<HTMLInputElement>(null)
@@ -169,6 +169,7 @@ export function PlannerWizard({ services, formToken, phone, hours }: Props) {
         name: Z.errors.name,
         phone: Z.errors.phone,
         email: Z.errors.email,
+        consent: Z.errors.consent,
       })
       if (outcome.kind === 'sent') {
         router.push(sentHref(outcome.number, state.via))
@@ -202,7 +203,17 @@ export function PlannerWizard({ services, formToken, phone, hours }: Props) {
 
   return (
     <div className="zkw">
-      <div className="zkcard" ref={card}>
+      {/* A form: Enter in a field goes to the next step and sends on the last one. The checks
+          are ours (`stepError`), not the browser's. */}
+      <form
+        className="zkcard"
+        ref={card}
+        noValidate
+        onSubmit={(event) => {
+          event.preventDefault()
+          void next()
+        }}
+      >
         <div className="zkprog">
           <div className="zkbar">
             <i style={{ width: `${Math.round(((step - 1) / 4) * 100)}%` }} />
@@ -384,8 +395,12 @@ export function PlannerWizard({ services, formToken, phone, hours }: Props) {
                     aria-labelledby="zk-town"
                     onChange={(e) => change({ town: e.target.value })}
                   />
-                  <span className={'zkzone' + (zone ? ' on' : '')} aria-live="polite">
+                  <span className={'zkzone' + (zone ? ' on' : '')}>
                     {zone || Z.step2.zoneEmpty}
+                  </span>
+                  {/* Read out when the zone changes, not on every letter of the town. */}
+                  <span className="sr-only" aria-live="polite">
+                    {zone}
                   </span>
                 </div>
                 <div className="zkchips">
@@ -664,15 +679,14 @@ export function PlannerWizard({ services, formToken, phone, hours }: Props) {
             Krok {step} z 4
           </span>
           <button
-            type="button"
+            type="submit"
             className={'btn btn-p zknext' + (blocked ? ' dim' : '')}
-            onClick={next}
             disabled={busy}
           >
             {step === 4 ? (busy ? Z.nav.sending : Z.nav.send) : Z.nav.next}
           </button>
         </div>
-      </div>
+      </form>
 
       <aside className="zkside" aria-label={Z.side.eyebrow}>
         <div className="zkticket">

@@ -203,3 +203,11 @@ describe('the whole import', () => {
     expect(text).not.toContain('ikona:')
   })
 })
+
+describe('page SEO (I11)', () => {
+  it('keeps the planner title within 65 characters with the site name', () => {
+    const page = pagesToImport().find((item) => item.slug === 'zaplanuj')
+    expect(page?.seo.title).toBe('Zaplanuj instalację na Podhalu w 2 minuty')
+    expect(`${page?.seo.title} | PRO-KOM Instalacje`.length).toBeLessThanOrEqual(65)
+  })
+})
