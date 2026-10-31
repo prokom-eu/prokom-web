@@ -19,6 +19,20 @@ const PAGES = [
   '/naglosnienie',
   '/ekrany',
   '/ladowarki-ev',
+  // „Dla kogo” (I10); /dla-kogo/pensjonaty comes with its own page.
+  ...[
+    'dom',
+    'apartamenty',
+    'hotele',
+    'restauracje',
+    'sklepy',
+    'firmy',
+    'koscioly',
+    'szkoly',
+    'gminy',
+    'deweloperzy',
+    'budowy',
+  ].map((slug) => `/dla-kogo/${slug}`),
 ]
 
 // Known exceptions, each with its open question in docs/stan/STAN-instalacje.md.
@@ -87,3 +101,17 @@ for (const path of PAGES) {
     })
   })
 }
+
+// Routes of the line (`(instalacje)`): only on its own domain, only for a known object (I10).
+test.describe('Instalacje line routes', () => {
+  test('an object page is a 404 on another line and for an unknown object', async ({ page }) => {
+    for (const url of [
+      site('biznes.localhost', '/dla-kogo/dom'),
+      site('software.localhost', '/dla-kogo/dom'),
+      site(HOST, '/dla-kogo/nie-ma-takiego'),
+    ]) {
+      const response = await page.goto(url)
+      expect(response?.status(), url).toBe(404)
+    }
+  })
+})

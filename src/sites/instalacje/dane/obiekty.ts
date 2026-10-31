@@ -3,7 +3,7 @@ import type { ObjectKey, ServiceKey } from './types'
 /**
  * Code data of the „Dla kogo” pages (`/dla-kogo/<slug>`, KOMPONENTY §5), from
  * `zrodlo/generator-obiektow/build_seg.py` (template texts, `SIM`, `LY`) and `lib.py` (`SV`
- * layers and hues), hotspot titles from `zrodlo/pages/Seg*.js` (`D.hs`). Everything else of an
+ * layers), hotspot titles from `zrodlo/pages/Seg*.js` (`D.hs`). Everything else of an
  * object page is in the panel (`InstObjects`, ADR-I002 §2): the hotspot descriptions there are
  * in the order of these titles (the numbers on the drawing).
  */
@@ -19,18 +19,18 @@ export const LAYERS: readonly { key: LayerKey; label: string }[] = [
   { key: 'kom', label: 'Komfort i energia' },
 ]
 
-/** Layer and hue of each service (`SV`); the hue is the fallback for a service without a panel colour. */
-export const SERVICE_SCENE: Record<ServiceKey, { layer: Exclude<LayerKey, ''>; hue: string }> = {
-  kam: { layer: 'bez', hue: '#12B6D8' },
-  alarm: { layer: 'bez', hue: '#F07A6A' },
-  kd: { layer: 'bez', hue: '#F2B84B' },
-  wifi: { layer: 'net', hue: '#5B8CF0' },
-  tel: { layer: 'net', hue: '#8C9CF5' },
-  ant: { layer: 'net', hue: '#B58CF0' },
-  smart: { layer: 'kom', hue: '#7BD36A' },
-  snd: { layer: 'av', hue: '#F29A4B' },
-  scr: { layer: 'av', hue: '#E86FB0' },
-  ev: { layer: 'kom', hue: '#5FD0B0' },
+/** Layer of each service (`SV`); the colours come from the panel (`InstServices.color`). */
+export const SERVICE_SCENE: Record<ServiceKey, { layer: Exclude<LayerKey, ''> }> = {
+  kam: { layer: 'bez' },
+  alarm: { layer: 'bez' },
+  kd: { layer: 'bez' },
+  wifi: { layer: 'net' },
+  tel: { layer: 'net' },
+  ant: { layer: 'net' },
+  smart: { layer: 'kom' },
+  snd: { layer: 'av' },
+  scr: { layer: 'av' },
+  ev: { layer: 'kom' },
 }
 
 export type SceneHotspot = { title: string; service: ServiceKey }

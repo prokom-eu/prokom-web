@@ -89,8 +89,8 @@ export const scenePosition = (s: SceneState, n: number) => `${s.hs + 1} z ${n}`
 
 /**
  * The scene markup with this state: hotspot classes (`%hs.N%`) and their service colours
- * (`%c.N%`). Our own constant (`sceny/*.ts`); the colours come from the panel or `SERVICE_SCENE`
- * and are `#rrggbb` (validated in the panel), so nothing here needs escaping.
+ * (`%c.N%`). Our own constant (`sceny/*.ts`); the colours are the panel's `#rrggbb` (validated
+ * there) or a token, so nothing here needs escaping.
  */
 export function sceneHtml(
   html: string,

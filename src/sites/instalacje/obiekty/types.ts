@@ -1,6 +1,6 @@
 import type { ServiceKey } from '../dane/types'
 
-/** A service as an object page shows it: chip text, address and colour (panel, else `SERVICE_SCENE`). */
+/** A service as an object page shows it: chip text, address and colour (panel, else the line accent). */
 export type ServiceChip = { key: ServiceKey; name: string; href: string | null; color: string }
 
 /** A hotspot of the cross-section: title and service from code, description from the panel. */

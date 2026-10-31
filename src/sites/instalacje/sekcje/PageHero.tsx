@@ -15,7 +15,11 @@ type Props = {
   phone: Phone | null
   /** Right column: the page's widget or illustration (`.phv`). */
   widget?: ReactNode
+  /** Middle breadcrumb (object pages: „Dla kogo”, prototype `hero.midT`); default „Usługi”. */
+  parent?: { label: string; href: string }
 }
+
+const SERVICES = { label: 'Usługi', href: '/#uslugi' }
 
 // The mountain ridges behind the hero (`zrodlo/inc/pheroA.html`).
 const RIDGE_1 =
@@ -24,11 +28,11 @@ const RIDGE_2 =
   'M0 196 L160 160 L300 182 L460 150 L620 186 L780 156 L940 190 L1100 162 L1260 188 L1440 166 V240 H0 Z'
 
 /**
- * Hero of a service page (`pheroA` + `pheroB`): breadcrumbs, the h1 with its eyebrow, lead,
+ * Hero of a service or object page (`pheroA` + `pheroB`): breadcrumbs, the h1 with its eyebrow, lead,
  * plan and phone buttons, key facts, tags, a widget slot and the anchor bar under it.
  * `id="hero"`: the comparison tool (`porownaj.mjs`) maps the prototype's `.phero` to it.
  */
-export function PageHero({ hero, name, anchors, phone, widget }: Props) {
+export function PageHero({ hero, name, anchors, phone, widget, parent = SERVICES }: Props) {
   const crumb = hero?.crumb || name
   const cta = {
     text: hero?.cta?.text || 'Zaplanuj instalację',
@@ -48,7 +52,7 @@ export function PageHero({ hero, name, anchors, phone, widget }: Props) {
           <nav className="crumb in d1" aria-label="Okruszki">
             <Link href="/">Start</Link>
             <span aria-hidden="true">/</span>
-            <Link href="/#uslugi">Usługi</Link>
+            <Link href={parent.href}>{parent.label}</Link>
             <span aria-hidden="true">/</span>
             <span aria-current="page">{crumb}</span>
           </nav>
