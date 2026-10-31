@@ -17,6 +17,12 @@ import type { City, Industry, Post, Solution, SolutionArea } from '../../payload
 import { h2, p, richText, ul } from '../biznes/lexical'
 import { SOFTWARE_NOT_FOUND, SOFTWARE_THANKS } from './pages'
 import { HOME_SECTION_TEXTS, REBUILD_BUTTON } from './homeExtras'
+import {
+  FIELD_CREW_DELIVERABLES,
+  FIELD_CREW_EXTRA,
+  FIELD_CREW_PAGE,
+  FIELD_CREW_SLUG,
+} from './solutionPages'
 import { wizardSeed } from './wizardExtras'
 
 /**
@@ -135,12 +141,27 @@ export function solutionData(item: SeedSolution): SolutionData {
     levelRows: item.levelRows ?? [],
     thumbnail: item.thumbnail,
     included: item.included ?? [],
-    moreExamples: item.moreExamples ?? [],
+    moreExamples: item.moreExamples ?? solutionPageExtra(item.slug),
     example: item.example,
     benefits: item.benefits ?? [],
     needs: item.needs ?? [],
     faq: item.faq ?? [],
+    // Only a full page is written: the tab of the others belongs to the panel.
+    ...(item.slug === FIELD_CREW_SLUG && { page: fieldCrewPage() }),
   }
+}
+
+/**
+ * Tab „Strona” of the field crew app (SW10, spec. §6.1): the board's texts and demo. The other
+ * solutions have no page texts in the package — their page falls back to the card and window.
+ */
+function fieldCrewPage(): NonNullable<SolutionData['page']> {
+  return { ...FIELD_CREW_PAGE, deliverables: FIELD_CREW_DELIVERABLES }
+}
+
+/** „Wyceniane osobno” of a full page whose solution has no examples of its own. */
+function solutionPageExtra(slug: string): string[] {
+  return slug === FIELD_CREW_SLUG ? FIELD_CREW_EXTRA : []
 }
 
 /** „Dobrze łączy się z” as ids, in the package order; an unknown slug stops the seed. */

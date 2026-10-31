@@ -1721,6 +1721,164 @@ export interface Solution {
         id?: string | null;
       }[]
     | null;
+  page?: {
+    /**
+     * Np. „Aplikacja · budowlanka, instalatorzy, serwisy”.
+     */
+    eyebrow?: string | null;
+    title?: string | null;
+    /**
+     * Dalsza część H1 w kolorze, np. „Działa bez zasięgu.”
+     */
+    titleAccent?: string | null;
+    lead?: string | null;
+    /**
+     * Pierwszy kafel to zawsze cena rozwiązania; tu linia pod nią.
+     */
+    priceCaption?: string | null;
+    /**
+     * Np. „Pierwszy etap”, „Działa na”, „Opieka”. Puste = termin i dla kogo.
+     */
+    tiles?:
+      | {
+          label: string;
+          value: string;
+          caption?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Klikalne demo pod nagłówkiem: kroki, zadania, karty i ramka. Dziś jeden rodzaj („fieldCrew” — aplikacja dla ekip). Puste = miniatura rozwiązania.
+     */
+    demo?:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
+    compare?:
+      | {
+          label: string;
+          title: string;
+          text?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Np. „W cenie wdrożenia”.
+     */
+    deliverablesTitle?: string | null;
+    /**
+     * Puste = „W cenie” i punkty kategorii. „Wyceniane osobno” to przykłady z okna oferty.
+     */
+    deliverables?:
+      | {
+          title: string;
+          text?: string | null;
+          icon?:
+            | (
+                | 'shield'
+                | 'cal'
+                | 'users'
+                | 'store'
+                | 'bolt'
+                | 'doc'
+                | 'life'
+                | 'arrow'
+                | 'check'
+                | 'phone'
+                | 'mail'
+                | 'pin'
+                | 'clock'
+                | 'monitor'
+                | 'remote'
+                | 'bell'
+                | 'wallet'
+                | 'chat'
+                | 'wrench'
+                | 'rocket'
+                | 'map'
+                | 'star'
+                | 'q'
+                | 'flash'
+                | 'grad'
+                | 'server'
+                | 'compass'
+                | 'panel'
+                | 'site'
+                | 'grid'
+                | 'plug'
+                | 'ticket'
+                | 'lifebuoy'
+                | 'chart'
+                | 'sign'
+                | 'cash'
+                | 'search'
+                | 'x'
+                | 'bed'
+                | 'food'
+                | 'refresh'
+                | 'globe'
+                | 'box'
+                | 'car'
+                | 'home'
+                | 'mountain'
+                | 'heart'
+                | 'bag'
+                | 'card'
+                | 'target'
+                | 'key'
+                | 'mega'
+                | 'mount'
+                | 'brief'
+              )
+            | null;
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Np. „Z przeglądarki czy ze sklepu?”. Pusty nagłówek = bez bloku.
+     */
+    choice?: {
+      title?: string | null;
+      options?:
+        | {
+            name: string;
+            caption?: string | null;
+            plus?: string[] | null;
+            minus?: string[] | null;
+            id?: string | null;
+          }[]
+        | null;
+      note?: string | null;
+    };
+    /**
+     * Np. „Pytania o tę aplikację”.
+     */
+    faqEyebrow?: string | null;
+    /**
+     * Puste = pytania z okna oferty. Trafiają też do danych dla Google.
+     */
+    faq?:
+      | {
+          q: string;
+          a: string;
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Puste = teksty wspólne bloku kontaktu.
+     */
+    contact?: {
+      eyebrow?: string | null;
+      title?: string | null;
+      lead?: string | null;
+      quoteCaption?: string | null;
+    };
+  };
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -8123,6 +8281,72 @@ export interface SolutionsSelect<T extends boolean = true> {
         q?: T;
         a?: T;
         id?: T;
+      };
+  page?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+        titleAccent?: T;
+        lead?: T;
+        priceCaption?: T;
+        tiles?:
+          | T
+          | {
+              label?: T;
+              value?: T;
+              caption?: T;
+              id?: T;
+            };
+        demo?: T;
+        compare?:
+          | T
+          | {
+              label?: T;
+              title?: T;
+              text?: T;
+              id?: T;
+            };
+        deliverablesTitle?: T;
+        deliverables?:
+          | T
+          | {
+              title?: T;
+              text?: T;
+              icon?: T;
+              id?: T;
+            };
+        choice?:
+          | T
+          | {
+              title?: T;
+              options?:
+                | T
+                | {
+                    name?: T;
+                    caption?: T;
+                    plus?: T;
+                    minus?: T;
+                    id?: T;
+                  };
+              note?: T;
+            };
+        faqEyebrow?: T;
+        faq?:
+          | T
+          | {
+              q?: T;
+              a?: T;
+              id?: T;
+            };
+        contact?:
+          | T
+          | {
+              eyebrow?: T;
+              title?: T;
+              lead?: T;
+              quoteCaption?: T;
+            };
       };
   updatedAt?: T;
   createdAt?: T;
