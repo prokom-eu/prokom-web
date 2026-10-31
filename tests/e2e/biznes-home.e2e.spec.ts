@@ -128,14 +128,15 @@ test.describe('Biznes home page', () => {
 
 // B7b: „Oferta” and „Najczęściej wybierane” (spec. §4 pkt 4–5, ZMIANY-v20 §2.2–2.3).
 test.describe('Biznes home page: offer and featured', () => {
-  test('offer: lead with catalog numbers, five departments with their top categories', async ({
-    page,
-  }) => {
+  test('departments: catalog numbers, categories unfold, „Cały dział”', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
-    const offer = page.getByRole('region', { name: 'Wszystko dla firmy, w pięciu działach.' })
-    await expect(offer).toContainText(/\d+ produktów i usług od \d+ marek\./)
-    await expect(offer).not.toContainText('{produkty}')
-    await expect(offer.getByRole('link', { name: /Cały katalog · \d+ pozycj/ })).toHaveAttribute(
+    const offer = page.getByRole('region', {
+      name: 'Kasy, komputery, programy, sieć i serwis — wybierz dział.',
+    })
+    await expect(offer).toContainText(/OFERTA · 5 DZIAŁÓW · \d+ POZYCJ/i)
+    await expect(offer).toContainText(/Sprzęt, programy i usługi od \d+ marek/)
+    await expect(offer).not.toContainText('{marki}')
+    await expect(offer.getByRole('link', { name: /Cała oferta · \d+ pozycj/ })).toHaveAttribute(
       'href',
       '/oferta',
     )
@@ -148,9 +149,35 @@ test.describe('Biznes home page: offer and featured', () => {
       'href',
       '/oferta?grupa=sprzedaz',
     )
-    await expect(sales.locator('a[href^="/oferta/"]')).toHaveCount(3)
+    // Six categories at once, the rest after „Wszystkie kategorie · N” (board `#s4-dz`).
+    const categories = sales.locator('a[href^="/oferta/"]')
+    await expect(categories).toHaveCount(6)
+    const more = sales.getByRole('button', { name: /Wszystkie kategorie · \d+/ })
+    const total = Number((await more.textContent())?.match(/\d+/)?.[0])
+    await more.click()
+    await expect(categories).toHaveCount(total)
+    await sales.getByRole('button', { name: 'Zwiń kategorie' }).click()
+    await expect(categories).toHaveCount(6)
     // Services show status rows instead of pictures.
     await expect(departments.filter({ hasText: 'Serwis i usługi' })).toContainText('Opieka IT')
+  })
+
+  test('the sixth tile opens the search, a popular phrase typed in', async ({ page }) => {
+    await page.goto(site('biznes.localhost'))
+    const tile = page.getByRole('article', { name: /znajdziemy to za\sCiebie/ })
+    await expect(tile.getByRole('button', { name: /Szukaj w \d+ pozycj/ })).toBeVisible()
+    await expect(tile.getByRole('link', { name: /Gotowe zestawy/ })).toHaveAttribute(
+      'href',
+      '/zestawy',
+    )
+    const phrase = tile.getByRole('list', { name: 'Najczęściej szukane' }).getByRole('button')
+    const first = (await phrase.first().textContent())?.trim() ?? ''
+    await phrase.first().click()
+    const dialog = page.getByRole('dialog')
+    await expect(dialog).toBeVisible()
+    await expect(dialog.getByRole('searchbox').or(dialog.locator('input')).first()).toHaveValue(
+      first,
+    )
   })
 
   test('offer: three system cards with partner logos and links', async ({ page }) => {
@@ -160,8 +187,11 @@ test.describe('Biznes home page: offer and featured', () => {
     await expect(systems).toHaveText([
       'GoPOS dla gastronomii',
       'Subiekt i programy InsERT',
-      'Opieka IT w abonamencie',
+      'Stała opieka IT',
     ])
+    // K4-FINAL §1: no pricing model of the IT care.
+    await expect(offer).not.toContainText('abonament')
+    await expect(offer).not.toContainText('stałej opłacie')
     await expect(offer.getByRole('link', { name: 'Poznaj GoPOS z PRO-KOM' })).toHaveAttribute(
       'href',
       '/gopos',
@@ -245,8 +275,8 @@ test.describe('Biznes blocks on other lines', () => {
   })
 })
 
-// B7c: „Plan Twojej firmy”, „Jak pracujemy”, „Pięć firm czy jedna” (spec. §4 pkt 6–8).
-test.describe('Biznes home page: plan, steps, one partner', () => {
+// K4c PR 3b (v150): „Dla kogo”, „Plan Twojej firmy”, „Jak pracujemy” (K36 §1).
+test.describe('Biznes home page: industries, plan, steps', () => {
   test('plan: tabs switch the scene, from the keyboard too', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
     const plan = page.locator('#plan')
@@ -267,24 +297,30 @@ test.describe('Biznes home page: plan, steps, one partner', () => {
     ).toHaveAttribute('href', '/kreator')
   })
 
-  test('industries: nine tiles, the rest unfolds in place', async ({ page }) => {
+  test('industries: eleven tiles and the funding bar, the rest unfolds in place', async ({
+    page,
+  }) => {
     await page.goto(site('biznes.localhost'))
-    const grid = page.locator('#plan').getByRole('list').filter({ hasText: 'Sklep spożywczy' })
+    const section = page.getByRole('region', {
+      name: 'Firmy każdej wielkości. Od straganu po urząd gminy.',
+    })
+    const grid = section.getByRole('list').filter({ hasText: 'Sklep spożywczy' })
     const tiles = grid.getByRole('link')
-    await expect(tiles).toHaveCount(9)
-    await expect(tiles.filter({ hasText: 'Gmina, urząd, biblioteka' })).toBeVisible()
+    await expect(tiles).toHaveCount(11)
+    await expect(tiles.filter({ hasText: 'Fryzjer, kosmetyka, beauty' })).toBeVisible()
     await expect(tiles.filter({ hasText: 'Restauracja, bar, kawiarnia' })).toHaveAttribute(
       'href',
       '/branze/gastronomia',
     )
+    await expect(section).toContainText('Masz dofinansowanie na sprzęt lub oprogramowanie?')
     await grid.getByRole('button', { name: /Pokaż wszystkie branże/ }).click()
-    await expect(tiles).toHaveCount(20)
-    // First of the rest in the order of ZMIANY-v20 §2.4.
-    await expect(tiles.filter({ hasText: 'Stragan, handel obwoźny' })).toBeFocused()
+    await expect(tiles).toHaveCount(22)
+    // First of the rest in the order of the board (`KG5`).
+    await expect(tiles.filter({ hasText: 'Zakład produkcyjny' })).toBeFocused()
     await expect(tiles.filter({ hasText: 'Każda inna firma' })).toHaveAttribute('href', '/kreator')
   })
 
-  test('steps and guarantees', async ({ page }) => {
+  test('steps and „Nasze zobowiązania”', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
     const steps = page.locator('#jak-pracujemy')
     await expect(steps.getByRole('heading', { level: 3 })).toHaveText([
@@ -292,99 +328,76 @@ test.describe('Biznes home page: plan, steps, one partner', () => {
       'Krok 2: Oferta',
       'Krok 3: Wdrożenie',
       'Krok 4: Opieka',
+      /^Tak pracujemy — nie tylko na\sstronie\.$/,
     ])
-    await expect(steps).toContainText('Wycena bez zobowiązań')
+    await expect(steps).toContainText('Pierwszy kontakt')
+    await expect(steps).toContainText('Nasze zobowiązania')
+    await expect(steps).toContainText('oddzwaniamy w godzinach pracy')
+    await expect(steps.getByRole('link', { name: /Zadzwoń/ })).toHaveAttribute('href', /^tel:/)
   })
 
-  test('one partner: the switch changes rows and phone, and stops switching by itself', async ({
-    page,
-  }) => {
-    // A fake clock instead of waiting 6.5 s for real (Playwright `page.clock`).
-    await page.clock.install()
+  test('v150 has no „Jedna firma czy pięć” and no news on the home page', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
-    const section = page.locator('#jeden')
-    const one = section.getByRole('button', { name: 'Jeden partner: PRO-KOM' })
-    const separate = section.getByRole('button', { name: 'Osobne firmy' })
-    // Untouched, it flips by itself.
-    await expect(separate).toHaveAttribute('aria-pressed', 'true')
-    // In small steps: on a slow build (CI) one 7 s jump can pass before the island hydrates and
-    // starts its timer, which then never fires.
-    await expect(async () => {
-      await page.clock.runFor(1000)
-      await expect(one).toHaveAttribute('aria-pressed', 'true', { timeout: 100 })
-    }).toPass({ timeout: 20_000 })
-
-    await separate.click()
-    await expect(separate).toHaveAttribute('aria-pressed', 'true')
-    await expect(section).toContainText('Serwis drukarek')
-    await one.click()
-    await expect(one).toHaveAttribute('aria-pressed', 'true')
-    await expect(section).toContainText('Pilnujemy za Ciebie')
-    await expect(section).toContainText('Jeden telefon. Sprawdzamy całość')
-    // After a click it stays where the visitor put it.
-    await page.mouse.move(0, 0)
-    await page.clock.runFor(14000)
-    await expect(one).toHaveAttribute('aria-pressed', 'true')
-    // Short version (ZMIANY-v20 §2.5): no 6 → 1 bar.
-    await expect(section).not.toContainText('Firmy do koordynowania')
+    await expect(page.locator('#jeden')).toHaveCount(0)
+    await expect(page.getByText('Ostatnio w Aktualnościach')).toHaveCount(0)
   })
 
   test.describe('on a phone', () => {
     test.use({ viewport: { width: 390, height: 844 } })
 
-    test('five industries and the unfold tile, rows as titles only', async ({ page }) => {
+    test('five industries and the unfold tile, no horizontal scroll', async ({ page }) => {
       await page.goto(site('biznes.localhost'))
-      const grid = page.locator('#plan').getByRole('list').filter({ hasText: 'Sklep spożywczy' })
+      const grid = page
+        .locator('#dla-kogo')
+        .getByRole('list')
+        .filter({ hasText: 'Sklep spożywczy' })
       await expect(grid.getByRole('link').filter({ visible: true })).toHaveCount(5)
       await expect(grid.getByRole('button', { name: /Pokaż wszystkie branże/ })).toBeVisible()
-      await expect(
-        page.locator('#jeden').getByText('Jeden telefon. Sprawdzamy całość'),
-      ).toBeHidden()
       expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390)
     })
   })
 })
 
-// B7d: „Dla kogo”, „Fakty”, „Ostatnio w Aktualnościach”, FAQ, `#kontakt`, the section rail
-// (spec. §3.7, §4 pkt 9–13).
-test.describe('Biznes home page: references, facts, news, FAQ, contact', () => {
-  test('references: six kinds; reviews and logos stay hidden without the settings', async ({
-    page,
-  }) => {
+// K4c PR 3b (v150): „Opinie”, „Słowo od właściciela”, FAQ, `#kontakt`, the section rail.
+test.describe('Biznes home page: reviews, owner, FAQ, contact', () => {
+  test('reviews: the section stays hidden without the setting (D-K4-6)', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
-    const section = page.locator('#referencje')
-    await expect(section.getByRole('heading', { level: 3 })).toHaveCount(6)
-    // Seed: „Pokaż opinie klientów” off, so the real review is not shown either.
-    await expect(section).not.toContainText('Smołecka')
-    await expect(section).toContainText('Logotypy klientów pojawią się')
-    await expect(section).not.toContainText('Miejsce na opinię')
+    // Seed: „Pokaż opinie klientów” off — no section, no real review, no placeholder.
+    await expect(page.locator('#opinie')).toHaveCount(0)
+    await expect(page.getByText('Smołecka')).toHaveCount(0)
+    await expect(page.getByText('[do podmiany]')).toHaveCount(0)
   })
 
-  test('facts: owner quote, contact from the settings, authorization logos', async ({ page }) => {
+  test('owner: quote, four numbers, authorization logos, the company page', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
     const facts = page.locator('#fakty')
     await expect(facts.locator('blockquote')).toContainText('u klienta po prostu działało')
+    await expect(facts).toContainText('Słowo od właściciela')
     await expect(facts).not.toContainText('Zdjęcie właściciela')
-    await expect(facts.locator('a[href^="tel:"]').first()).toBeVisible()
-    await expect(facts.locator('a[href^="mailto:"]')).toBeVisible()
-    await expect(facts.locator('a[href^="https://www.google.com/maps/dir/"]')).toHaveAttribute(
-      'target',
-      '_blank',
-    )
+    await expect(facts.locator('dd')).toHaveText(['2004', '100+', '2', '2'])
+    await expect(facts).toContainText('klientów firmowych')
+    await expect(facts).not.toContainText('pod stałą opieką')
     for (const name of ['Posnet', 'Elzab', 'InsERT', 'GoPOS']) {
       await expect(facts.getByRole('img', { name, exact: true })).toBeVisible()
     }
+    await expect(
+      facts.getByRole('link', { name: 'Poznaj PRO-KOM i pozostałe linie firmy' }),
+    ).toHaveAttribute('href', '/o-firmie')
   })
 
   test('FAQ: numbered cards, the first open, FAQPage data', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
     const faq = page.locator('#faq')
+    await expect(faq.getByRole('heading', { level: 2 })).toHaveText('Zanim zadzwonisz.')
     const items = faq.locator('details')
     await expect(items).toHaveCount(6)
     await expect(items.first()).toHaveAttribute('open', '')
     await expect(items.nth(1)).not.toHaveAttribute('open', '')
     await items.nth(1).locator('summary').click()
     await expect(items.nth(1)).toHaveAttribute('open', '')
+    // K4-FINAL §1: no pricing model of the IT care.
+    await expect(items.nth(1)).toContainText('wycenę na piśmie')
+    await expect(faq).not.toContainText('miesięczną opłatą')
     const jsonLd = await faq.locator('script[type="application/ld+json"]').textContent()
     expect(JSON.parse(jsonLd ?? '{}')['@type']).toBe('FAQPage')
   })
@@ -400,75 +413,29 @@ test.describe('Biznes home page: references, facts, news, FAQ, contact', () => {
     await expect(contact).toContainText('Wycena na piśmie')
   })
 
-  test('section rail: anchors of the sections, the current one marked', async ({ page }) => {
+  test('section rail: the anchors of K36 §1, the current one marked', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 })
     await page.goto(site('biznes.localhost'))
     const rail = page.getByRole('navigation', { name: 'Na tej stronie' })
-    // v150 so far: + Marki, Najczęściej wybierane (K36 §1; the rest with the next sections).
-    await expect(rail.getByRole('link')).toHaveCount(11)
-    await rail.getByRole('link', { name: 'Fakty' }).click()
+    // 12 entries of K36 §1; „Opinie” only with reviews switched on (off in the seed).
+    await expect(rail.getByRole('link')).toHaveText([
+      'Start',
+      'Działy oferty',
+      'Systemy i opieka IT',
+      'Marki',
+      'Najczęściej wybierane',
+      'Dla kogo',
+      'Plan Twojej firmy',
+      'Jak pracujemy',
+      'O firmie',
+      'Pytania',
+      'Kontakt',
+    ])
+    await rail.getByRole('link', { name: 'O firmie' }).click()
     await expect(page).toHaveURL(/#fakty$/)
-    await expect(rail.getByRole('link', { name: 'Fakty' })).toHaveAttribute('aria-current', 'true')
-  })
-
-  test('news: the latest posts of this site only', async ({ page }) => {
-    await loginAsAdmin(page)
-    const biznes = await tenantId(page, 'biznes')
-    const software = await tenantId(page, 'software')
-    const stamp = Date.now()
-    const create = (tenant: number, title: string, slug: string, publishedAt = new Date()) =>
-      api(page, 'POST', '/api/posts', {
-        tenant,
-        title,
-        slug,
-        // A post takes only a category of its tenant's line (SW2b).
-        category: tenant === software ? 'poradnik' : 'ksef',
-        publishedAt: publishedAt.toISOString(),
-        content: {
-          root: {
-            type: 'root',
-            version: 1,
-            children: [
-              {
-                type: 'paragraph',
-                version: 1,
-                children: [{ type: 'text', text: 'E2E', version: 1 }],
-              },
-            ],
-          },
-        },
-        _status: 'published',
-      })
-    const own = await create(biznes, `E2E wpis Biznesu ${stamp}`, `e2e-${biznes}-${stamp}`)
-    const foreign = await create(software, `E2E wpis Software ${stamp}`, `e2e-sw-${stamp}`)
-    // Dated in the future: published, but not yet on the home page.
-    const future = await create(
-      biznes,
-      `E2E wpis z przyszłości ${stamp}`,
-      `e2e-future-${stamp}`,
-      new Date(Date.now() + 7 * 86_400_000),
+    await expect(rail.getByRole('link', { name: 'O firmie' })).toHaveAttribute(
+      'aria-current',
+      'true',
     )
-    try {
-      expect(own.status).toBe(201)
-      // Without the foreign post the isolation check below would prove nothing.
-      expect(foreign.status).toBe(201)
-      expect(future.status).toBe(201)
-      // `Posts` hooks mark the posts cache stale at once; a short retry covers the dev server.
-      await expect(async () => {
-        await page.goto(site('biznes.localhost'))
-        await expect(page.getByText(`E2E wpis Biznesu ${stamp}`)).toBeVisible({ timeout: 1000 })
-      }).toPass({ timeout: 20_000, intervals: [2000] })
-      await expect(page.getByText(`E2E wpis Software ${stamp}`)).toHaveCount(0)
-      await expect(page.getByText(`E2E wpis z przyszłości ${stamp}`)).toHaveCount(0)
-      await expect(
-        page.getByRole('link', { name: `E2E wpis Biznesu ${stamp}`, exact: true }),
-      ).toHaveAttribute('href', `/aktualnosci/e2e-${biznes}-${stamp}`)
-    } finally {
-      await page.goto('/admin/login')
-      for (const result of [own, foreign, future]) {
-        const id = (result.json.doc as { id?: number } | undefined)?.id
-        if (id) await api(page, 'DELETE', `/api/posts/${id}`)
-      }
-    }
   })
 })

@@ -140,7 +140,7 @@ export function RenderBlocks({ page, tenant }: Props) {
           case 'bzPlan':
             return <BzPlanBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzSteps':
-            return <BzStepsBlock key={key} block={block} />
+            return <BzStepsBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzOnePartner':
             return <BzOnePartnerBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzReferences':

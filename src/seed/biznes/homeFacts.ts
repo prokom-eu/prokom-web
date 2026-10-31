@@ -1,9 +1,9 @@
 import type { Page } from '../../payload-types'
 
 /**
- * Start content of B7d: „Dla kogo pracujemy”, „PRO-KOM w faktach”, „Ostatnio w Aktualnościach”,
- * FAQ and the contact section. Texts 1:1 from `docs/design/prokombiznes/boards/Main.dc.html`
- * (`.dk`, `.own`/`.fk26`, `.nw26`, `.fq26`, `.cf26`). Local only, like the rest of
+ * Start content of the lower home page, v150 (K4c, board `Strona.dc.html` start: `#s4-opinie`,
+ * `#s4-fakty`, `#s4-faq`, `#s4-kontakt`): „Opinie”, „Słowo od właściciela”, FAQ and the contact
+ * section. „Ostatnio w Aktualnościach” is gone (K4-FINAL §2). Local only, like the rest of
  * `pnpm seed:biznes`.
  */
 
@@ -13,49 +13,11 @@ export function factsBlocks(brand: (name: string) => number | undefined): HomeBl
   return [
     {
       blockType: 'bzReferences',
-      eyebrow: 'Dla kogo pracujemy',
-      heading: 'Ponad 100 firm i instytucji z Podhala i Małopolski.',
-      lead: 'Od jednej kasy w kwiaciarni po serwer i sieć w pensjonacie na 60 pokoi. Sześć rodzajów firm, które obsługujemy najczęściej.',
-      kinds: [
-        {
-          title: 'Sklepy i handel',
-          icon: 'store',
-          examples: 'spożywcze, odzieżowe, budowlane, apteki',
-          solutions: 'kasy, Subiekt, PC-Market, skanery, wagi',
-        },
-        {
-          title: 'Gastronomia',
-          icon: 'bell',
-          examples: 'restauracje, kawiarnie, bary, food trucki',
-          solutions: 'GoPOS, Sunmi, drukarki fiskalne, terminale',
-        },
-        {
-          title: 'Hotele i pensjonaty',
-          icon: 'cal',
-          examples: 'Rabka, Zakopane, Białka, Szczawnica',
-          solutions: 'NFHotel, Wi-Fi dla gości, recepcja',
-        },
-        {
-          title: 'Biura i usługi',
-          icon: 'doc',
-          examples: 'kancelarie, biura rachunkowe, warsztaty, salony',
-          solutions: 'komputery, Microsoft 365, kopie, opieka IT',
-        },
-        {
-          title: 'Szkoły i instytucje',
-          icon: 'grad',
-          examples: 'szkoły, gminy, ośrodki kultury, parafie',
-          solutions: 'monitory interaktywne, pracownie, dofinansowania',
-        },
-        {
-          title: 'Zdrowie i uzdrowiska',
-          icon: 'shield',
-          examples: 'gabinety, przychodnie, sanatoria',
-          solutions: 'serwery, bezpieczeństwo danych, podpis, UPS',
-        },
-      ],
-      // Only the real, public review of the board; its two "Miejsce na opinię…" placeholders
-      // must never be published. Shown after „Pokaż opinie klientów” in the site settings.
+      eyebrow: 'Opinie',
+      heading: 'Co mówią klienci.',
+      lead: 'Publikujemy opinie w oryginalnym brzmieniu — z podpisem i źródłem.',
+      // Only the real, public review of the board; the section shows after „Pokaż opinie
+      // klientów” in the site settings, placeholders never in production (ADR-017 D-K4-6).
       // TODO(krystian): [SZEF] wybór opinii i zgody (spec. §13).
       reviews: [
         {
@@ -65,12 +27,12 @@ export function factsBlocks(brand: (name: string) => number | undefined): HomeBl
           source: 'opinia w serwisie Panorama Firm · 12.05.2023',
         },
       ],
-      note: 'Zdjęcia z wdrożeń i nazwy klientów dodamy po uzyskaniu zgód. Logotypy klientów pojawią się w tym miejscu.',
     },
     {
       blockType: 'bzFacts',
-      eyebrow: 'PRO-KOM w faktach',
-      heading: 'Lokalna firma, która jest tu od lat — i będzie dalej.',
+      eyebrow: 'O firmie',
+      // For screen readers only (the board shows the label above the quote).
+      heading: 'O firmie — słowo od właściciela',
       // TODO(krystian): [SZEF] treść cytatu, podpis (SVG) i decyzja: zdjęcie czy ikona.
       owner: {
         label: 'Słowo od właściciela',
@@ -83,26 +45,24 @@ export function factsBlocks(brand: (name: string) => number | undefined): HomeBl
         yearText: 'od tego roku PRO-KOM działa w Rabce-Zdroju',
         photoPlaceholder: false,
       },
+      // K4-FINAL §1: „100+ klientów firmowych”; statuses: 2 serwisy (Posnet, Elzab),
+      // 2 partnerstwa (GoPOS, InsERT).
       stats: [
-        { value: '100+', label: 'firm pod stałą opieką' },
-        { value: '4', label: 'autoryzacje i partnerstwa' },
+        { value: '2004', label: 'rok założenia' },
+        { value: '100+', label: 'klientów firmowych' },
+        { value: '2', label: 'autoryzowane serwisy kas' },
+        { value: '2', label: 'autoryzowane partnerstwa' },
       ],
       authorizationsLabel: 'Autoryzowany serwis i partner',
-      authorizations: ['Posnet', 'Elzab', 'InsERT', 'GoPOS'].flatMap((name) => brand(name) ?? []),
-      areaText: 'Dojeżdżamy do firm na całym Podhalu i w Małopolsce.',
-      contactLink: { label: 'Kontakt i dojazd', href: '/kontakt' },
-    },
-    {
-      blockType: 'bzNews',
-      heading: 'Ostatnio w Aktualnościach',
-      allLabel: 'Wszystkie aktualności',
-      readLabel: 'Czytaj',
+      authorizations: ['Posnet', 'Elzab', 'GoPOS', 'InsERT'].flatMap((name) => brand(name) ?? []),
+      contactLink: { label: 'Poznaj PRO-KOM i pozostałe linie firmy', href: '/o-firmie' },
     },
     {
       blockType: 'faq',
       eyebrow: 'Pytania i odpowiedzi',
-      heading: 'Zanim zadzwonisz',
-      lead: 'Najczęstsze pytania od firm z Podhala. Nie ma tu Twojego pytania? Zadzwoń albo napisz, odpowiemy od ręki.',
+      heading: 'Zanim zadzwonisz.',
+      lead: 'Najczęstsze pytania od firm z Podhala. Nie ma tu Twojego? Zadzwoń albo napisz — odpowiemy od ręki.',
+      // Board `FAQ4` (v150).
       items: [
         {
           question: 'Czy obsługujecie firmy spoza Rabki?',
@@ -110,9 +70,10 @@ export function factsBlocks(brand: (name: string) => number | undefined): HomeBl
             'Tak. Dojeżdżamy na całe Podhale i Małopolskę: Nowy Targ, Zakopane, Jordanów, Mszana Dolna, Limanowa, Myślenice, Nowy Sącz i Kraków.',
         },
         {
+          // K4-FINAL §1: no pricing model of the IT care.
           question: 'Ile kosztuje opieka informatyczna?',
           answer:
-            'Zależy od liczby stanowisk, serwera i zakresu. Zaczynamy od bezpłatnego przeglądu IT, a potem dostajesz ofertę na piśmie ze stałą miesięczną opłatą — bez niespodzianek na fakturze.',
+            'Zależy od liczby stanowisk, serwera i zakresu. Zaczynamy od bezpłatnego przeglądu IT, a potem dostajesz wycenę na piśmie.',
         },
         {
           // TODO(krystian): [SZEF] daty KSeF do sprawdzenia przed publikacją (ZMIANY-v20 §5).
@@ -128,13 +89,12 @@ export function factsBlocks(brand: (name: string) => number | undefined): HomeBl
             'Dzwonisz na 889 003 889 w godzinach pracy (pn–pt 9–17). Ustalamy przyczynę i naprawiamy, a gdy trzeba, przyjeżdża serwisant z Rabki. Klienci z umową opieki mają czas reakcji zapisany w umowie.',
         },
         {
-          // TODO(krystian): formularz „Zmień serwis kasy” nie istnieje (v20 usunęło szybkie sprawy).
           question: 'Czy przejmujecie serwis kasy od innej firmy?',
           answer:
-            'Tak. Wystarczy telefon na 889 003 889 albo formularz „Zmień serwis kasy”. Formalności i termin najbliższego przeglądu bierzemy na siebie — jesteśmy autoryzowanym serwisem Posnet i Elzab.',
+            'Tak. Wystarczy telefon na 889 003 889. Formalności i termin najbliższego przeglądu bierzemy na siebie — jesteśmy autoryzowanym serwisem Posnet i Elzab.',
         },
         {
-          question: 'Jestem księgową / prowadzę biuro rachunkowe — jak możemy współpracować?',
+          question: 'Prowadzę biuro rachunkowe — jak możemy współpracować?',
           answer:
             'Pomagamy Twoim klientom przejść na KSeF: program do faktur, certyfikat i uprawnienia dla biura. Zadzwoń na 889 003 889 — ustalimy, jak najprościej przekazywać nam sprawy klientów.',
         },

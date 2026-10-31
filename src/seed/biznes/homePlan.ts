@@ -2,7 +2,7 @@ import type { IconName } from '../../lib/catalog/options'
 import type { Page } from '../../payload-types'
 
 /**
- * Start content of B7c: „Plan Twojej firmy”, „Jak pracujemy”, „Pięć firm czy jedna”. Texts 1:1
+ * Start content of B7c, v150 (K4c): „Plan Twojej firmy” with „Dla kogo”, „Jak pracujemy”. Texts 1:1
  * from `docs/design/prokombiznes/boards/Main.dc.html` (scenes `S`, points `FPS`, industries
  * `KGT`/`KGR`, `.pextra`, `.dof`, `.s2`, `.j4`). Icons: the nearest of the shared set (a new set
  * comes with SW2a). Local only, like the rest of `pnpm seed:biznes`.
@@ -217,37 +217,60 @@ export function planBlocks(industry: (seedSlug: string) => number | undefined): 
         { title: 'Jeden numer do wszystkiego', text: '889 003 889 — oferty, awarie, pytania' },
       ],
       industries: {
-        heading: 'Nie widzisz swojej branży? Obsługujemy każdą firmę.',
-        lead: 'Kilka przykładów i to, od czego zwykle zaczynamy. Każdą firmę dobieramy indywidualnie.',
+        // v150 (board `#s4-real`): its own section „Dla kogo” before the plan.
+        heading: 'Firmy każdej wielkości. Od straganu po urząd gminy.',
+        lead: 'Ponad 100 klientów firmowych — firm i instytucji z Podhala i Małopolski. Wybierz swoją branżę — pokażemy plan lokalu z urządzeniami albo dobierzemy rozwiązanie w konfiguratorze.',
+        // Not shown on v150 (the tile „Każda inna firma” is the way in) — cleanup PR after 3b.
         button: { label: 'Opisz swoją firmę', href: '/kreator' },
         moreLabel: 'Pokaż wszystkie branże',
-        moreNote: 'jeszcze 10 i każda inna firma',
+        moreNote: 'jeszcze 10 branż',
+        // Board `KG5`: 11 at once, 10 after „Pokaż wszystkie”, then „Każda inna firma”.
         tiles: [
           tile('Sklep spożywczy', 'kasa, waga, PC-Market', 'store', 'green', true, 'handel'),
           tile(
-            'Sklep odzieżowy i branżowy',
-            'kasa, skaner, Subiekt',
-            'star',
-            'red',
-            true,
-            'handel',
-          ),
-          tile(
             'Restauracja, bar, kawiarnia',
             'GoPOS, ekran kuchenny, terminal',
-            'bell',
+            'food',
             'red',
             true,
             'gastro',
           ),
           tile(
             'Pensjonat, hotel, apartamenty',
-            'NFHotel, kasa, Wi-Fi',
-            'pin',
+            'NFHotel, kasa, Wi-Fi dla gości',
+            'bed',
             'violet',
             true,
             'noclegi',
           ),
+          tile('Biuro rachunkowe', 'KSeF, podpis, kopie', 'wallet', 'green', true, 'uslugi'),
+          tile(
+            'Gabinet, przychodnia',
+            'rejestracja, kasa, kopie danych',
+            'heart',
+            'red',
+            true,
+            'zdrowie',
+          ),
+          tile(
+            'Szkoła, przedszkole',
+            'monitory Avtek, pracownia, Wi-Fi',
+            'grad',
+            'blue',
+            true,
+            'szkoly',
+          ),
+          tile(
+            'Gmina, urząd, biblioteka',
+            'podpis, ESET, kopie, sala obrad',
+            'doc',
+            'violet',
+            true,
+            'szkoly',
+          ),
+          tile('Mechanik i serwis', 'kasa, Subiekt, Wi-Fi w hali', 'car', 'blue', true),
+          tile('Apteka', 'drukarki fiskalne, skanery 2D, UPS', 'shield', 'green', true, 'zdrowie'),
+          tile('Sklep odzieżowy i branżowy', 'kasa, skaner, Subiekt', 'bag', 'red', true, 'handel'),
           tile(
             'Fryzjer, kosmetyka, beauty',
             'kasa dla usług, terminal',
@@ -256,35 +279,22 @@ export function planBlocks(industry: (seedSlug: string) => number | undefined): 
             true,
             'beauty',
           ),
-          tile('Gmina, urząd, biblioteka', 'podpis, ESET, kopie', 'doc', 'violet', true, 'szkoly'),
-          tile('Biuro rachunkowe', 'KSeF, podpis, kopie', 'wallet', 'green', true, 'uslugi'),
-          tile(
-            'Gabinet, przychodnia',
-            'kasa, ESET, kopie danych',
-            'shield',
-            'red',
-            true,
-            'zdrowie',
-          ),
-          tile('Szkoła, przedszkole', 'monitory Avtek, pracownia', 'grad', 'blue', true, 'szkoly'),
-          // Order of ZMIANY-v20 §2.4 (it wins over the board's `KGR`).
+          tile('Zakład produkcyjny', 'serwer, ERP, sieć w hali', 'server', 'blue', false),
+          tile('Hurtownia i magazyn', 'program magazynowy, kolektory', 'box', 'green', false),
+          tile('Atrakcja, wyciąg, termy', 'kasy biletowe, bramki, Wi-Fi', 'ticket', 'blue', false),
+          tile('Sala konferencyjna', 'ekran, laptopy, Wi-Fi dla gości', 'monitor', 'violet', false),
+          tile('Food truck', 'kasoterminal Sunmi, GoPOS', 'food', 'red', false, 'gastro'),
           tile('Stragan, handel obwoźny', 'kasa mobilna, terminal', 'store', 'green', false),
-          tile('Food truck', 'kasoterminal Sunmi, GoPOS', 'bell', 'red', false),
-          tile('Mechanik i serwis', 'kasa, Subiekt, Wi-Fi w hali', 'wrench', 'blue', false),
-          tile('Zakład produkcyjny', 'serwer, ERP, sieć', 'server', 'blue', false),
-          tile('Hurtownia', 'program magazynowy, terminale', 'map', 'green', false),
-          tile('Firma transportowa', 'laptopy, Microsoft 365, podpis', 'compass', 'blue', false),
-          tile('Kancelaria', 'Microsoft 365, podpis, ESET', 'doc', 'violet', false),
-          tile('Sklep internetowy', 'Subiekt, KSeF, drukarka fiskalna', 'monitor', 'blue', false),
-          tile('Apteka', 'komputery, sieć, UPS', 'shield', 'green', false),
+          tile('Kancelaria', 'Microsoft 365, podpis, ESET', 'doc', 'violet', false, 'uslugi'),
+          tile('Firma transportowa', 'laptopy, Microsoft 365, podpis', 'car', 'blue', false),
+          tile('Sklep internetowy', 'Subiekt, KSeF, drukarka fiskalna', 'site', 'blue', false),
           tile('Stacja paliw, myjnia', 'terminal, sieć, UPS', 'bolt', 'red', false),
-          tile('Każda inna firma', 'opisz ją — dobierzemy', 'q', 'violet', false),
+          tile('Każda inna firma', 'opisz ją — dobierzemy rozwiązanie', 'q', 'violet', false),
         ],
       },
       funding: {
         label: 'Dofinansowania',
         heading: 'Masz dofinansowanie na sprzęt lub oprogramowanie? Zrealizujesz je u nas.',
-        text: 'Dobieramy, dostarczamy, wdrażamy i szkolimy — zgodnie z tym, na co dostałeś środki.',
         chips: [
           { text: 'Szkoły i przedszkola' },
           { text: 'Gminy i urzędy' },
@@ -296,129 +306,54 @@ export function planBlocks(industry: (seedSlug: string) => number | undefined): 
     },
     {
       blockType: 'bzSteps',
+      // v150 (board `#s4-jak`).
       eyebrow: 'Jak pracujemy · ludzie, nie infolinia',
       heading: 'Od pierwszej rozmowy do serwisu — bez niespodzianek.',
-      lead: 'Cztery kroki i konkretni ludzie, którzy za nie odpowiadają. Ten sam zespół z Rabki — od pierwszej rozmowy przez kolejne lata.',
+      lead: 'Cztery kroki i ten sam zespół z Rabki-Zdroju. Na każdym etapie wiesz, kto się Tobą zajmuje i co dostajesz.',
       getsLabel: 'Dostajesz',
       steps: [
         {
           title: 'Rozmowa',
-          icon: 'chat',
-          text: 'Telefon albo wizyta. Pytamy, jak pracuje firma i co ma się poprawić.',
+          icon: 'phone',
+          text: 'Telefon, wiadomość albo wizyta w Rabce. Pytamy, jak pracuje firma i co ma się poprawić.',
           gets: 'listę potrzeb — także tego, czego nie musisz kupować',
-          role: 'Doradca',
-          roleNote: 'mówi wprost, czego nie potrzebujesz',
+          role: 'Doradca PRO-KOM',
+          // v150: the label above the title (the field keeps its old name).
+          roleNote: 'Pierwszy kontakt',
         },
         {
           title: 'Oferta',
           icon: 'doc',
-          text: 'Dobieramy sprzęt i programy do skali firmy. Kilka wariantów do wyboru.',
+          text: 'Dobieramy sprzęt i programy do skali firmy. Kilka wariantów, każdy z uzasadnieniem.',
           gets: 'ofertę na piśmie, bez zobowiązań',
-          role: 'Ten sam doradca',
-          roleNote: 'nie zaczynasz rozmowy od nowa',
+          role: 'ten sam doradca',
+          roleNote: 'Na piśmie',
         },
         {
           title: 'Wdrożenie',
-          icon: 'rocket',
-          text: 'Konfigurujemy przed dostawą, montujemy, przenosimy dane i szkolimy zespół.',
+          icon: 'wrench',
+          text: 'Konfigurujemy przed dostawą, montujemy, fiskalizujemy kasy, przenosimy dane i szkolimy zespół.',
           gets: 'działające stanowiska od pierwszego dnia',
           role: 'Wdrożeniowiec',
-          roleNote: 'partner InsERT, wdraża też Comarch ERP',
+          roleNote: 'U Ciebie w firmie',
         },
         {
           title: 'Opieka',
-          icon: 'life',
-          text: 'Zostajemy: serwis, przeglądy, monitoring i pomoc, gdy coś stanie.',
-          // TODO(krystian): numer wpisany w tekst, jak wyżej.
-          gets: 'jednego opiekuna i jeden numer: 889 003 889',
-          // TODO(krystian): [SZEF] dokładna nazwa statusów serwisu (spec. §13).
-          role: 'Opiekun IT i serwisant',
-          roleNote: 'autoryzowany serwis Posnet i Elzab',
+          icon: 'shield',
+          text: 'Serwis, przeglądy kas z przypomnieniem, aktualizacje i pomoc, gdy coś przestaje działać.',
+          // TODO(krystian): numer wpisany w tekst — po zmianie telefonu linii poprawić też tutaj.
+          gets: 'jeden numer do wszystkiego: 889 003 889',
+          role: 'Serwisant i opiekun IT',
+          roleNote: 'Na lata',
         },
       ],
+      // „Nasze zobowiązania”: title — note (`BzSteps/commitment.ts`).
       guarantees: [
-        { text: 'Wycena bez zobowiązań' },
-        { text: 'Oferta na piśmie' },
-        { text: 'Kasa w cenie z fiskalizacją i szkoleniem' },
-        { text: 'Jeden opiekun od początku do końca' },
-      ],
-    },
-    {
-      blockType: 'bzOnePartner',
-      eyebrowA: 'Pięć firm',
-      eyebrowB: 'czy jedna?',
-      heading: 'Ile numerów masz w telefonie',
-      headingAccent: 'do „spraw IT”?',
-      lead: 'Kasa, komputery, program, sieć, drukarka, kopie danych — w większości firm każdą rzeczą zajmuje się ktoś inny. Działa to do pierwszej awarii.',
-      separateLabel: 'Osobne firmy',
-      oneLabel: 'Jeden partner: PRO-KOM',
-      separateTag: 'osobno',
-      oneTag: 'z PRO-KOM',
-      rows: [
-        {
-          label: 'Coś przestaje działać',
-          icon: 'flash',
-          separate:
-            'Każda firma sprawdza tylko swój kawałek. Ty dzwonisz po kolei i szukasz winnego.',
-          one: 'Jeden telefon. Sprawdzamy całość, bo znamy całość — szukamy przyczyny, nie winnego.',
-        },
-        {
-          label: 'Terminy i przepisy',
-          icon: 'cal',
-          separate: 'Przegląd kasy, licencje, podpis, KSeF — każdy termin pilnujesz sam.',
-          one: 'Pilnujemy terminów za Ciebie i przypominamy, zanim będzie za późno.',
-        },
-        {
-          label: 'Nowy pracownik',
-          icon: 'users',
-          separate: 'Komputer z jednego miejsca, poczta z drugiego, program z trzeciego.',
-          one: 'Stanowisko gotowe od pierwszego dnia: komputer, poczta, program, uprawnienia.',
-        },
-        {
-          label: 'Zakupy sprzętu',
-          icon: 'monitor',
-          separate: 'Kupujesz, a potem szukasz kogoś, kto to podłączy i ustawi.',
-          one: 'Dobieramy, konfigurujemy przed dostawą i zostajemy na serwis.',
-        },
-      ],
-      cta: { label: 'Chcę jeden numer do wszystkiego', href: '/kontakt' },
-      phone: {
-        groupLabel: 'Sprawy IT i sprzęt',
-        proNote: 'Twój opiekun · Rabka-Zdrój',
-        watchLabel: 'Pilnujemy za Ciebie',
-        contacts: [
-          { name: 'Serwis kas', note: 'tylko kasy · „to nie u nas”' },
-          { name: 'Firma od programu', note: 'infolinia · czekasz w kolejce' },
-          { name: 'Informatyk', note: 'dorywczo · „podjadę w poniedziałek”' },
-          { name: 'Firma od sieci i Wi-Fi', note: 'zgłoszenie przez formularz' },
-          { name: 'Serwis drukarek', note: 'tylko drukarki' },
-          { name: 'Sklep komputerowy', note: 'sprzedaje, nie podłącza' },
-        ],
-        chips: [
-          { text: 'Kasy i POS' },
-          { text: 'Komputery' },
-          { text: 'Programy i KSeF' },
-          { text: 'Sieć i Wi-Fi' },
-          { text: 'Drukarki' },
-          { text: 'Kopie i bezpieczeństwo' },
-          { text: 'Serwis' },
-        ],
-        watch: [
-          { label: 'Kopia z nocy', value: 'sprawdzona', tone: 'ok' },
-          { label: 'Przegląd kasy', value: 'za 43 dni', tone: 'accent' },
-          { label: 'Licencje Microsoft 365', value: 'do marca', tone: 'warn' },
-        ],
-      },
-      separateBubbles: [
-        { text: '„To nie u nas.”' },
-        { text: '„Oddzwonimy.”' },
-        { text: '„Podjadę w poniedziałek.”' },
-        { text: '„Proszę zgłosić przez formularz.”' },
-      ],
-      oneBubbles: [
-        { text: 'Sprawdzamy całość' },
-        { text: 'Licencja odnowiona przed terminem' },
-        { text: 'Nowy laptop gotowy do pracy' },
+        { text: '60 minut — oddzwaniamy w godzinach pracy' },
+        { text: 'Wycena na piśmie — bez zobowiązań, pod Twoją firmę' },
+        { text: 'Kasa gotowa do pracy — fiskalizacja, programowanie, szkolenie' },
+        // TODO(krystian): numer wpisany w tekst, jak wyżej.
+        { text: 'Jeden numer — 889 003 889 — oferty i serwis' },
       ],
     },
   ]

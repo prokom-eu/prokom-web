@@ -2593,7 +2593,7 @@ export interface BzPlanBlock {
             | 'brief';
           tone: 'green' | 'red' | 'blue' | 'violet';
           /**
-           * Na komputerze 9 widocznych, na telefonie pierwsze 5.
+           * Na komputerze 11 widocznych, na telefonie pierwsze 5.
            */
           visibleFirst?: boolean | null;
           /**
@@ -2698,6 +2698,9 @@ export interface BzStepsBlock {
     roleNote?: string | null;
     id?: string | null;
   }[];
+  /**
+   * Tytuł i opis oddziela pauza: „60 minut — oddzwaniamy w godzinach pracy”.
+   */
   guarantees?:
     | {
         text: string;

@@ -7,7 +7,7 @@ import { NEED_TONES } from '../BzNeeds/config'
 
 const MAX_TILES = 24
 /** Board: 9 tiles and „Pokaż wszystkie” fill two rows of five. */
-const MAX_VISIBLE_FIRST = 9
+const MAX_VISIBLE_FIRST = 11
 
 /**
  * „Plan Twojej firmy” of the Biznes home page (spec. §4 pkt 6, ZMIANY-v20 §2.4), stage 1: tabs
@@ -176,7 +176,7 @@ export const BzPlanBlock: Block = {
                   label: 'Widoczny od razu',
                   type: 'checkbox',
                   defaultValue: false,
-                  admin: { description: 'Na komputerze 9 widocznych, na telefonie pierwsze 5.' },
+                  admin: { description: 'Na komputerze 11 widocznych, na telefonie pierwsze 5.' },
                 },
               ],
             },

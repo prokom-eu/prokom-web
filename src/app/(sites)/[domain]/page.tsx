@@ -29,14 +29,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 /** Start page of a tenant: its published page with the `home` slug. */
 export default async function TenantHomePage({ params }: Props) {
   const tenant = await requireTenant(params)
-  const page = await getPublishedPage(tenant.id, HOME_SLUG)
+  const [page, settings] = await Promise.all([
+    getPublishedPage(tenant.id, HOME_SLUG),
+    getSiteSettings(tenant.id),
+  ])
   if (!page) notFound()
   // The floating section rail of the home page, from the blocks on it: Biznes (spec. §3.7)
   // from 1400 px, Software (spec. §3.3) above 1400 px.
   const blocks = renderableBlocks(tenant.line, page.layout)
   const rail: RailItem[] =
     tenant.line === 'biznes'
-      ? railItems(blocks.map((block) => block.blockType))
+      ? railItems(blocks, {
+          reviews: Boolean(settings?.biznes?.showReviews),
+          placeholders: process.env.NODE_ENV !== 'production',
+        })
       : tenant.line === 'software'
         ? softwareRailItems(blocks)
         : []

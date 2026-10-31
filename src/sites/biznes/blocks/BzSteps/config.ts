@@ -51,17 +51,26 @@ export const BzStepsBlock: Block = {
           type: 'row',
           fields: [
             { name: 'role', label: 'Kto za to odpowiada', type: 'text', maxLength: 40 },
-            { name: 'roleNote', label: 'Dopisek o osobie', type: 'text', maxLength: 70 },
+            {
+              name: 'roleNote',
+              // v150 (board `#s4-jak`): the label above the title; the column keeps its name.
+              label: 'Etykieta nad tytułem (np. „Pierwszy kontakt”)',
+              type: 'text',
+              maxLength: 70,
+            },
           ],
         },
       ],
     },
     {
       name: 'guarantees',
-      label: 'Gwarancje pod krokami',
+      label: 'Nasze zobowiązania (pas pod krokami)',
       type: 'array',
       maxRows: 6,
-      fields: [{ name: 'text', label: 'Tekst', type: 'text', required: true, maxLength: 60 }],
+      admin: {
+        description: 'Tytuł i opis oddziela pauza: „60 minut — oddzwaniamy w godzinach pracy”.',
+      },
+      fields: [{ name: 'text', label: 'Tekst', type: 'text', required: true, maxLength: 90 }],
     },
   ],
 }

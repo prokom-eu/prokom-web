@@ -14,6 +14,7 @@ import {
   upgradeHomeK4,
 } from './homeK4'
 import { planBlocks } from './homePlan'
+import { upgradeHomeV150 } from './homeV150'
 import { mergeLayout } from '../layout'
 
 /**
@@ -139,9 +140,10 @@ export function biznesHomeLayout(refs: HomeRefs = NO_REFS): HomeBlock[] {
     {
       blockType: 'bzOffer',
       eyebrow: 'Oferta',
-      heading: 'Wszystko dla firmy, w pięciu działach.',
-      lead: '{produkty} produktów i usług od {marki} marek. Cen nie ma na stronie: dodajesz pozycje do zapytania, a wycenę dostajesz na piśmie, pod swoją firmę.',
-      catalogLabel: 'Cały katalog',
+      // v150 (board `#s4-dz`); the label gets „· 5 działów · N pozycji” on the page.
+      heading: 'Kasy, komputery, programy, sieć i serwis — wybierz dział.',
+      lead: 'Sprzęt, programy i usługi od {marki} marek — każdy dział z doborem, wdrożeniem i serwisem. Cen nie ma na stronie: dodajesz pozycje do zapytania, a wycenę dostajesz na piśmie, pod swoją firmę.',
+      catalogLabel: 'Cała oferta',
       systemsHeading: 'Systemy, które wdrażamy od początku do końca',
       systemsNote: 'Dwa autoryzowane partnerstwa i nasza usługa opieki IT',
       systems: [
@@ -164,8 +166,9 @@ export function biznesHomeLayout(refs: HomeRefs = NO_REFS): HomeBlock[] {
         },
         {
           badge: 'Usługa PRO-KOM',
-          title: 'Opieka IT w abonamencie',
-          text: 'Informatyk na telefon w stałej opłacie: monitoring, kopie, aktualizacje i serwis. Zaczynamy od bezpłatnego przeglądu.',
+          // K4-FINAL §1: no pricing model of the IT care („Zakres ustalamy w umowie”).
+          title: 'Stała opieka IT',
+          text: 'Informatyk na telefon: monitoring, kopie, aktualizacje i serwis. Zakres ustalamy w umowie. Zaczynamy od bezpłatnego przeglądu.',
           link: { label: 'Umów bezpłatny przegląd IT', href: '/opieka-it' },
           mode: 'statuses',
           statuses: [
@@ -313,7 +316,9 @@ export async function seedBiznesHome(
   }
   const merged = mergeHomeLayout(home.layout, seed)
   // K4c: the v150 texts and order in a page the seed made earlier (`homeK4.ts`).
-  const layout = upgradeHomeK4(merged ?? home.layout) ?? merged
+  const k4 = upgradeHomeK4(merged ?? home.layout) ?? merged
+  // PR 3b: the v150 texts below the hero, without „Jedna firma czy pięć” and the news.
+  const layout = upgradeHomeV150(k4 ?? home.layout, seed) ?? k4
   report('pages home', layout !== null)
   if (layout) {
     await payload.update({

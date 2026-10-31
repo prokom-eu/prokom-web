@@ -69,7 +69,7 @@ export const BzFactsBlock: Block = {
       name: 'stats',
       label: 'Liczby',
       type: 'array',
-      maxRows: 2,
+      maxRows: 4,
       fields: [
         {
           type: 'row',
