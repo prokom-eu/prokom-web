@@ -64,6 +64,8 @@ function ChargerImage({ k, className }: { k: ChargerKey; className: string }) {
       height={m.image.height}
       alt={m.alt}
       className={className}
+      // Small WebP files already (4–28 KB); the repo does not use Next's optimizer.
+      unoptimized
     />
   )
 }

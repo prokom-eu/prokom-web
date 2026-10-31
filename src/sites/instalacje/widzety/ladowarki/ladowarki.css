@@ -674,6 +674,11 @@
       white-space: normal;
     }
   }
+  /* `next/image` sets width and height attributes; the prototype's `<img>` had none, so its
+     rules give only the height and the width follows the photo. */
+  & img.evi {
+    width: auto;
+  }
   /* Inline styles of `Ladowarki.body.html` as classes. */
   & .ev-note {
     color: var(--ink-2);
