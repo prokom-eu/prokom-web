@@ -22,6 +22,7 @@ import {
   solutionData,
   solutionsToImport,
 } from './map'
+import { seedSoftwareContact } from './contact'
 import { seedSoftwareHome } from './home'
 import { HOME_SECTION_TEXTS, homeWithPriceTokens, homeWithSections } from './homeExtras'
 
@@ -312,6 +313,8 @@ export async function seedSoftware(payload: Payload): Promise<void> {
 
   // --- start page (SW5): after the settings, its sections read their texts ---
   await seedSoftwareHome(payload, tenant.id, count)
+  // --- /kontakt (SW11a): replaces the generic sample page of `pnpm seed` ---
+  await seedSoftwareContact(payload, tenant.id, count)
 
   for (const [collection, { created, updated, skipped }] of Object.entries(counters)) {
     log(`${collection}: ${created} created, ${updated} updated, ${skipped} unchanged.`)
