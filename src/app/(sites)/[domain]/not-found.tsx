@@ -1,11 +1,20 @@
 import { Button } from '@/components/ui/Button'
 import { Heading } from '@/components/ui/Heading'
 import { Section } from '@/components/ui/Section'
+import { NotFoundSoftware } from '@/sites/software/components/NotFoundSoftware'
+
+import { tenantFromRequest } from './tenant'
 
 // Missing page on a known domain: inside the line's header and footer, with a way back.
 // An unknown domain never gets here — `requireTenant` in the layout falls back to the generic
 // `(sites)/not-found.tsx`, which reveals nothing about the sites we serve.
-export default function SiteNotFound() {
+// Software has its own page (board `NieZnaleziono`, spec. §6.11) while its texts are saved.
+export default async function SiteNotFound() {
+  const tenant = await tenantFromRequest()
+  if (tenant?.line === 'software') {
+    const page = await NotFoundSoftware({ tenantId: tenant.id })
+    if (page) return page
+  }
   return (
     <Section className="py-24">
       <Heading level={1} size="xl">

@@ -1,5 +1,7 @@
 import { z } from 'zod'
 
+import { ICON_NAMES } from '../catalog/options'
+
 import { firstIssue, href, label, obj, text } from './schema'
 
 /**
@@ -8,11 +10,14 @@ import { firstIssue, href, label, obj, text } from './schema'
  * Phone and e-mail come from the site settings, hours from the fact `[GODZINY]`.
  */
 
-const card = obj({ title: label, text, cta: label, href })
+const icon = z.enum(ICON_NAMES)
+const card = obj({ title: label, text, cta: label, href, icon: icon.optional() })
 
 /** `/dziekujemy` (`SoftwareSettings.thanks`). `**bold**` works in the steps. */
 export const thanksSchema = obj({
   title: label,
+  /** Second part of the H1 in the accent gradient („mamy to.”, board `Dziekujemy`). */
+  titleAccent: label.optional(),
   lead: text,
   /** Caption of the inquiry number from `?nr=` (shown only with a number). */
   numberLabel: label,
@@ -24,9 +29,14 @@ export const thanksSchema = obj({
   more: obj({ eyebrow: label, title: label, cards: z.array(card).max(3) }),
 })
 
-/** 404 of the Software line (`SoftwareSettings.notFound`). Prices in tile notes are panel text. */
+/**
+ * 404 of the Software line (`SoftwareSettings.notFound`). Tile notes take facts and
+ * `{cena:<slug>}`, so a price changed in the panel changes the tile too (decyzja 10).
+ */
 export const notFoundSchema = obj({
   title: label,
+  /** Second line of the H1 in the accent gradient („Reszta jest.”, board `NieZnaleziono`). */
+  titleAccent: label.optional(),
   lead: text,
   search: obj({
     label,
@@ -39,7 +49,7 @@ export const notFoundSchema = obj({
     eyebrow: label,
     title: label,
     tiles: z
-      .array(obj({ title: label, note: label, href }))
+      .array(obj({ title: label, note: label, href, icon: icon.optional() }))
       .min(1)
       .max(6),
   }),

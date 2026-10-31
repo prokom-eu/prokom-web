@@ -21,7 +21,7 @@ import {
   relatedCard,
   softwareOfferSchema,
 } from './offer'
-import { thanksSchema, type SoftwareThanks } from './pages'
+import { notFoundSchema, thanksSchema, type SoftwareNotFound, type SoftwareThanks } from './pages'
 import type { PricingSolution } from './pricing'
 import { buildIndustryPage, type IndustryDoc, type IndustryPageView } from './industryPage'
 import { buildSolutionPage, type SolutionPageDoc, type SolutionPageView } from './solutionPage'
@@ -65,6 +65,21 @@ export async function getSoftwareThanks(tenantId: number): Promise<SoftwareThank
     overrideAccess: true,
   })
   const parsed = thanksSchema.safeParse(docs[0]?.thanks)
+  return parsed.success ? parsed.data : null
+}
+
+/** Texts of the Software 404 (`SoftwareSettings.notFound`), or `null` (then the generic 404). */
+export async function getSoftwareNotFound(tenantId: number): Promise<SoftwareNotFound | null> {
+  const payload = await getPayload({ config })
+  const { docs } = await payload.find({
+    collection: 'software-settings',
+    where: { tenant: { equals: tenantId } },
+    limit: 1,
+    depth: 0,
+    select: { notFound: true },
+    overrideAccess: true,
+  })
+  const parsed = notFoundSchema.safeParse(docs[0]?.notFound)
   return parsed.success ? parsed.data : null
 }
 

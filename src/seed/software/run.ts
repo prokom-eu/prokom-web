@@ -282,6 +282,11 @@ export async function seedSoftware(payload: Payload): Promise<void> {
         // A home of an older shape (generic „12 rzeczy” cards before SWR5) hides the start page
         // sections: replaced; staging pastes `pnpm software:home-json`.
         if (key === 'home' && value != null) return !homeSchema.safeParse(value).success
+        // Thanks and 404 texts from before SW11b (no accent part, KSeF card, „5 kroków”):
+        // replaced; staging pastes `pnpm software:pages-json`.
+        if ((key === 'thanks' || key === 'notFound') && value != null) {
+          return !(value as { titleAccent?: unknown }).titleAccent
+        }
         return value === null || value === undefined
       }),
     )
