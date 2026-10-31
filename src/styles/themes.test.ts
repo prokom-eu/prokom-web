@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import { contrastRatio } from '@/lib/brand/contrast'
-import { DARK_THEME_LINES } from '@/lib/brand/theme'
+import { DARK_THEME_LINES, followsSystemTheme } from '@/lib/brand/theme'
 import { LINE_VALUES, type Line } from '@/lib/tenant/lines'
 
 import { darkMediaBlock, findRule, resolve, rule, type Declarations } from './parse-tokens'
@@ -144,6 +144,13 @@ describe.each(cases.filter(({ line }) => line === 'biznes'))(
 
     // Status pills of the footer sit on `bg-white/10` over the dark block (K4a-2: `--ok` reached
     // only 4.0 there, so partners use `--footer-ok` and services white).
+    // Konfigurator card of the mega menu (K35 7a): white text on the violet → blue gradient.
+    it('the Konfigurator card reaches 4.5:1 at both ends of its gradient', () => {
+      for (const stop of ['--c-software-text', '--c-biznes']) {
+        expect(contrastRatio('#ffffff', hex(stop, s)), stop).toBeGreaterThanOrEqual(4.5)
+      }
+    })
+
     it('status pills of the footer reach 4.5:1 on their pill', () => {
       const pill = mix('#ffffff', hex('--surface-dark', s), 0.1)
       expect(contrastRatio(hex('--footer-ok', s), pill), '--footer-ok').toBeGreaterThanOrEqual(4.5)
@@ -331,10 +338,11 @@ describe('dark theme definitions', () => {
     const media = darkMediaBlock()
     const expected = DARK_THEME_LINES.includes(line)
     expect(findRule(darkSelector(line)) !== null).toBe(expected)
-    expect(findRule(mediaSelector(line), media) !== null).toBe(expected)
+    // Biznes starts light (D-K4-5): no system rule, only an explicit choice.
+    expect(findRule(mediaSelector(line), media) !== null).toBe(followsSystemTheme(line))
   })
 
-  it.each([...DARK_THEME_LINES])(
+  it.each(DARK_THEME_LINES.filter(followsSystemTheme))(
     '%s: the system preference gives the same values as an explicit choice',
     (line) => {
       expect(rule(mediaSelector(line), darkMediaBlock())).toEqual(rule(darkSelector(line)))

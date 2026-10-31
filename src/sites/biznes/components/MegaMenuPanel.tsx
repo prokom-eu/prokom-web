@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
+import { type KeyboardEvent, useId, useRef, useState } from 'react'
 
 import { Container } from '@/components/ui/Container'
 import { cx } from '@/components/ui/cx'
@@ -35,6 +35,31 @@ const ALL_BRANDS_HREF = '/oferta'
  */
 export function MegaMenuPanel({ offer, phone, hours }: Props) {
   const [active, setActive] = useState(0)
+  const id = useId()
+  const tabs = useRef<(HTMLButtonElement | null)[]>([])
+  // Tabs pattern (WAI-ARIA APG): only the active department is in the Tab order, arrows move
+  // between departments and show them, so Tab goes on into the categories of the shown one.
+  const onTabKey = (event: KeyboardEvent<HTMLButtonElement>, i: number) => {
+    const last = offer.departments.length - 1
+    const next =
+      event.key === 'ArrowDown' || event.key === 'ArrowRight'
+        ? i === last
+          ? 0
+          : i + 1
+        : event.key === 'ArrowUp' || event.key === 'ArrowLeft'
+          ? i === 0
+            ? last
+            : i - 1
+          : event.key === 'Home'
+            ? 0
+            : event.key === 'End'
+              ? last
+              : null
+    if (next === null) return
+    event.preventDefault()
+    setActive(next)
+    tabs.current[next]?.focus()
+  }
   const department = offer.departments[active] ?? offer.departments[0]
   if (!department) return null
   const { totals } = offer
@@ -88,20 +113,35 @@ export function MegaMenuPanel({ offer, phone, hours }: Props) {
       >
         {/* Departments */}
         <div className="border-r border-border pr-6">
-          <p className="mb-3 px-3 text-xs font-extrabold tracking-[0.14em] text-ink-2 uppercase">
+          <p
+            id={`${id}-departments`}
+            className="mb-3 px-3 text-xs font-extrabold tracking-[0.14em] text-ink-2 uppercase"
+          >
             Działy
           </p>
-          <ul className="space-y-1">
+          <ul
+            role="tablist"
+            aria-orientation="vertical"
+            aria-labelledby={`${id}-departments`}
+            className="space-y-1"
+          >
             {offer.departments.map((item, i) => {
               const current = i === active
               return (
-                <li key={item.slug}>
+                <li key={item.slug} role="presentation">
                   <button
+                    ref={(element) => {
+                      tabs.current[i] = element
+                    }}
                     type="button"
-                    aria-current={current ? 'true' : undefined}
+                    role="tab"
+                    id={`${id}-tab-${i}`}
+                    aria-selected={current}
+                    aria-controls={`${id}-panel`}
+                    tabIndex={current ? 0 : -1}
                     onMouseEnter={() => setActive(i)}
-                    onFocus={() => setActive(i)}
                     onClick={() => setActive(i)}
+                    onKeyDown={(event) => onTabKey(event, i)}
                     className={cx(
                       'flex w-full items-center gap-3 rounded-xl border px-3 py-2.5 text-left',
                       current
@@ -134,16 +174,18 @@ export function MegaMenuPanel({ offer, phone, hours }: Props) {
         </div>
 
         {/* Categories of the department */}
-        <section aria-labelledby="mega-department" className="min-w-0">
+        <section
+          id={`${id}-panel`}
+          role="tabpanel"
+          aria-labelledby={`${id}-tab-${active}`}
+          className="min-w-0"
+        >
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div className="max-w-xl">
               <p className="text-xs font-extrabold tracking-[0.14em] text-ink-2 uppercase">
                 Dział {active + 1} z {offer.departments.length}
               </p>
-              <h2
-                id="mega-department"
-                className="font-display text-2xl leading-tight font-extrabold text-ink"
-              >
+              <h2 className="font-display text-2xl leading-tight font-extrabold text-ink">
                 {department.name}
               </h2>
               {department.description && (
@@ -240,7 +282,7 @@ export function MegaMenuPanel({ offer, phone, hours }: Props) {
                   className={cx(
                     'flex h-full items-center gap-3 rounded-2xl px-3.5 py-3',
                     card.featured
-                      ? 'bg-linear-to-br from-[var(--c-software)] to-accent text-white'
+                      ? 'bg-linear-to-br from-[var(--c-software-text)] to-[var(--c-biznes)] text-white'
                       : 'bg-surface-2 text-ink hover:bg-surface',
                   )}
                 >
@@ -260,7 +302,7 @@ export function MegaMenuPanel({ offer, phone, hours }: Props) {
                     <span
                       className={cx(
                         'block text-sm leading-snug',
-                        card.featured ? 'text-white/90' : 'text-ink-2',
+                        card.featured ? 'text-white' : 'text-ink-2',
                       )}
                     >
                       {card.text}

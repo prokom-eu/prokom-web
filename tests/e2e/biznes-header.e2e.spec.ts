@@ -58,7 +58,7 @@ test.describe('Biznes header', () => {
       'href',
       /^\/oferta\?grupa=/,
     )
-    await panel.getByRole('button', { name: /^Oprogramowanie/ }).hover()
+    await panel.getByRole('tab', { name: /^Oprogramowanie/ }).hover()
     await expect(heading).toHaveText('Oprogramowanie')
     await expect(panel.getByRole('link', { name: /^Konfigurator/ })).toHaveAttribute(
       'href',
@@ -67,6 +67,25 @@ test.describe('Biznes header', () => {
     await expect(panel.getByRole('link', { name: /^Gotowe zestawy/ })).toHaveAttribute(
       'href',
       '/zestawy',
+    )
+  })
+
+  // Tabs pattern: arrows switch the department, Tab goes on into the one shown (WCAG 2.1.1).
+  test('the departments work from the keyboard', async ({ page }) => {
+    await page.goto(site('biznes.localhost'))
+    const button = mainNav(page).getByRole('button', { name: 'Oferta' })
+    await button.click()
+    const panel = page.locator('[id$="-offer"]')
+    await page.keyboard.press('Tab')
+    await expect(panel.getByRole('tab', { selected: true })).toBeFocused()
+    await page.keyboard.press('ArrowDown')
+    const second = panel.getByRole('tab').nth(1)
+    await expect(second).toBeFocused()
+    await expect(second).toHaveAttribute('aria-selected', 'true')
+    await page.keyboard.press('Tab')
+    await expect(panel.getByRole('tabpanel').locator(':focus')).toHaveCount(1)
+    await expect(panel.getByRole('tabpanel').getByRole('heading', { level: 2 })).toHaveText(
+      'Komputery i biuro',
     )
   })
 
