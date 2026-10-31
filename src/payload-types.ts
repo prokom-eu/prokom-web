@@ -4909,7 +4909,7 @@ export interface SwLinesBlock {
             }[]
           | null;
         /**
-         * Np. „Zobacz ofertę →”.
+         * Tylko karta tej strony: link do katalogu rozwiązań, np. „Zobacz ofertę →”.
          */
         cta?: string | null;
         current?: boolean | null;
