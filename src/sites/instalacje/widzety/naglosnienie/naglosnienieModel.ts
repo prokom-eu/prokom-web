@@ -233,7 +233,7 @@ export function speakerCount({ area, height, mode }: CalcState) {
 // ── Mixer markup ─────────────────────────────────────────────────────────────────────────
 
 const escape = (text: string) =>
-  text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+  text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 
 /** Markup of the mixer SVG for a state: the venue's plan with its zones filled in. */
 export function mixerHtml(

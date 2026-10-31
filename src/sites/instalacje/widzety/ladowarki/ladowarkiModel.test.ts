@@ -152,6 +152,13 @@ describe('version configurator', () => {
     expect(v.href.startsWith('/zaplanuj#obiekt=firma&uslugi=ev&konf=')).toBe(true)
   })
 
+  it('konf: one form of the mounting for the planner (CC Home and CC Wall on a wall)', () => {
+    const montaz = (cfg: ConfigState) =>
+      decodeKonf(new URL(`https://x${configView(cfg).href}`).hash.split('&konf=')[1]!)?.montaz
+    expect(montaz({ ...INITIAL_CONFIG, cm: 0 })).toBe('na ścianie')
+    expect(montaz({ ...INITIAL_CONFIG, cm: 1, wm: 0 })).toBe('na ścianie')
+  })
+
   it('konf: Polish letters round-trip, anything else is not a configuration', () => {
     const config = {
       model: 'CC Home',

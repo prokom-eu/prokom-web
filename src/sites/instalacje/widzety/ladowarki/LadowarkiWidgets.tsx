@@ -54,15 +54,29 @@ const useEv = () =>
 /** „Dobierz wersję”: this model in the showcase and in the configurator. */
 const configure = (i: number) =>
   setEv((s) => ({ ...s, sh: i, shTouched: true, cfg: { ...s.cfg, cm: i } }))
+/** The store outlives client navigation: back to the start when the page is left (each user). */
+const useResetOnLeave = () => useEffect(() => () => setEv(() => SERVER), [])
 
-function ChargerImage({ k, className }: { k: ChargerKey; className: string }) {
+type ImageProps = {
+  k: ChargerKey
+  className: string
+  /** Stacked but not shown (the showcase): no alt text for a screen reader. */
+  hidden?: boolean
+  /** In the hero: loaded at once; the shown one with high priority (LCP, Next 16 `loading`). */
+  hero?: boolean
+}
+
+function ChargerImage({ k, className, hidden = false, hero = false }: ImageProps) {
   const m = M[k]
   return (
     <Image
       src={m.image.src}
       width={m.image.width}
       height={m.image.height}
-      alt={m.alt}
+      alt={hidden ? '' : m.alt}
+      aria-hidden={hidden || undefined}
+      loading={hero ? 'eager' : undefined}
+      fetchPriority={hero && !hidden ? 'high' : undefined}
       className={className}
       // Small WebP files already (4–28 KB); the repo does not use Next's optimizer.
       unoptimized
@@ -80,8 +94,7 @@ const SH = ladowarki.showcase
 export function ChargerShowcase() {
   const ref = useRef<HTMLDivElement>(null)
   const ev = useEv()
-  // The store outlives client navigation: back to the start when the page is left.
-  useEffect(() => () => setEv(() => SERVER), [])
+  useResetOnLeave()
   useInterval(() => setEv((s) => ({ ...s, sh: (s.sh + 1) % 3 })), SHOWCASE_MS, {
     enabled: !ev.shTouched,
     target: ref,
@@ -109,14 +122,21 @@ export function ChargerShowcase() {
       <div className="evstage">
         <div className="evglow" />
         {CHARGER_KEYS.map((k, i) => (
-          <ChargerImage key={k} k={k} className={M[k].imageClass + (ev.sh === i ? ' on' : '')} />
+          <ChargerImage
+            key={k}
+            k={k}
+            hero
+            hidden={ev.sh !== i}
+            className={M[k].imageClass + (ev.sh === i ? ' on' : '')}
+          />
         ))}
         <div className="evbadge">
           <b>{S.power}</b>
           <span>{S.powerSub}</span>
         </div>
       </div>
-      <div className="evinfo" aria-live="polite">
+      {/* Read out only after a touch: the autoplay does not talk. */}
+      <div className="evinfo" aria-live={ev.shTouched ? 'polite' : 'off'}>
         <div>
           <b className="h3">
             {SH.brand} {S.name}
@@ -203,6 +223,7 @@ const CF = ladowarki.config
  */
 export function ChargerConfigurator() {
   const { cfg } = useEv()
+  useResetOnLeave()
   const v = configView(cfg)
   const set = (patch: Partial<ConfigState>) => setEv((s) => ({ ...s, cfg: { ...s.cfg, ...patch } }))
   return (

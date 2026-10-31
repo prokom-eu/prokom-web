@@ -200,42 +200,45 @@ export function ApartFamilies() {
           </button>
         ))}
       </div>
-      <div key={key} className="card apd" aria-live="polite">
-        <span className="svk">{f.group}</span>
-        <b className="h3" style={{ fontSize: 26 }}>
-          {f.name}
-        </b>
-        <p>{f.text}</p>
-        <div className="apk">
-          {f.specs.map(([k, v]) => (
-            <div key={k}>
-              <span>{k}</span>
-              <b>{v}</b>
-            </div>
-          ))}
-        </div>
-        <div>
-          <span className="usl" style={{ width: 'auto' }}>
-            {AP.where}
-          </span>
-          <div className="tags" style={{ marginTop: 6 }}>
-            {f.where.map((t) => (
-              <span key={t} className="tag a">
-                {t}
-              </span>
+      {/* The live region stays; the keyed card inside re-mounts for its entry animation. */}
+      <div className="apdw" aria-live="polite">
+        <div key={key} className="card apd">
+          <span className="svk">{f.group}</span>
+          <b className="h3" style={{ fontSize: 26 }}>
+            {f.name}
+          </b>
+          <p>{f.text}</p>
+          <div className="apk">
+            {f.specs.map(([k, v]) => (
+              <div key={k}>
+                <span>{k}</span>
+                <b>{v}</b>
+              </div>
             ))}
           </div>
-        </div>
-        <div>
-          <span className="usl" style={{ width: 'auto' }}>
-            {AP.models}
-          </span>
-          <div className="tags" style={{ marginTop: 6 }}>
-            {f.models.map((t) => (
-              <span key={t} className="tag mono">
-                {t}
-              </span>
-            ))}
+          <div>
+            <span className="usl" style={{ width: 'auto' }}>
+              {AP.where}
+            </span>
+            <div className="tags" style={{ marginTop: 6 }}>
+              {f.where.map((t) => (
+                <span key={t} className="tag a">
+                  {t}
+                </span>
+              ))}
+            </div>
+          </div>
+          <div>
+            <span className="usl" style={{ width: 'auto' }}>
+              {AP.models}
+            </span>
+            <div className="tags" style={{ marginTop: 6 }}>
+              {f.models.map((t) => (
+                <span key={t} className="tag mono">
+                  {t}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       </div>

@@ -163,7 +163,8 @@ export function configView(s: ConfigState) {
       punkty: n,
       mocNaPunkt: `${kw} kW`,
       wyjscie: output,
-      montaz: mount,
+      // One form for the planner (Home and City say where it stands, not where it goes).
+      montaz: ['na ścianie', 'na podstawie'][s.wm]!,
       kolor: name,
     }
   } else {

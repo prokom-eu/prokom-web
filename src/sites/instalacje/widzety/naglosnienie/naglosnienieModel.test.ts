@@ -19,7 +19,7 @@ import {
   toggleMute,
   VENUE_KEYS,
 } from './naglosnienieModel'
-import { SND_MIXER } from './scena'
+import { APART_ICONS, SND_MIXER } from './scena'
 
 // The reference: the prototype's own class (`zrodlo/pages/Naglosnienie.js`, v4.2) with a
 // `setState` that really merges, so clicks and the autoplay run in the original too.
@@ -300,8 +300,14 @@ describe('mixer markup', () => {
     },
   )
 
-  it('the scene has no scripts or event handlers', () => {
-    const all = [SND_MIXER.base, SND_MIXER.priority, ...Object.values(SND_MIXER.venues)].join('')
-    expect(all).not.toMatch(/<script|\son\w+=/i)
+  // Set as markup: a regenerated constant must stay free of scripts (`przenies-svg.mjs`).
+  it('the scene and the APART pictograms have no scripts, event handlers or javascript: links', () => {
+    const all = [
+      SND_MIXER.base,
+      SND_MIXER.priority,
+      ...Object.values(SND_MIXER.venues),
+      ...Object.values(APART_ICONS),
+    ].join('')
+    expect(all).not.toMatch(/<script|\son\w+=|javascript:/i)
   })
 })
