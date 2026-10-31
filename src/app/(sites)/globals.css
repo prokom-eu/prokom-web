@@ -318,20 +318,21 @@
 }
 
 /*
- * Link of a PRO-KOM line card on a light card (`/kontakt`, SW11a): the line's text shade in the
- * light theme, its on-dark shade in the dark one (`--line-text` / `--line-on-dark` set inline).
+ * Link of a PRO-KOM line card (`/kontakt`, SW11a): the line's text shade in the light theme. In the
+ * dark one the on-dark shades of Biznes and Tech miss 4.5:1 on a card, so the text is `--ink` and
+ * the line colour stays on the top rule and the mark (`--lc`).
  */
 .line-ink {
   color: var(--line-text);
 }
 
 [data-theme='dark'] .line-ink {
-  color: var(--line-on-dark);
+  color: var(--ink);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) .line-ink {
-    color: var(--line-on-dark);
+    color: var(--ink);
   }
 }
 
