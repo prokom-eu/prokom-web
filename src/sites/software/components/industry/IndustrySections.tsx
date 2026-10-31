@@ -187,7 +187,12 @@ export function OfflineBox({ page }: Page) {
             )}
           </div>
           {box.steps.length > 0 && (
-            <ol className="-mx-6 mt-8 flex snap-x gap-3 overflow-x-auto px-6 pb-1 [scrollbar-width:none] min-[641px]:mx-0 min-[641px]:grid min-[641px]:grid-cols-3 min-[641px]:overflow-visible min-[641px]:px-0">
+            <ol
+              // Scrolled sideways on a phone: focusable so the keyboard can scroll it (axe).
+              tabIndex={0}
+              aria-label="Jak działa bez zasięgu"
+              className="-mx-6 mt-8 flex snap-x gap-3 overflow-x-auto px-6 pb-1 [scrollbar-width:none] min-[641px]:mx-0 min-[641px]:grid min-[641px]:grid-cols-3 min-[641px]:overflow-visible min-[641px]:px-0"
+            >
               {box.steps.map((step, i) => (
                 <li
                   key={step.title}

@@ -112,7 +112,7 @@ export function FieldCrewDemo({ demo, project }: Props) {
                     aria-hidden="true"
                     className={cx(
                       'inline-flex h-6 min-w-7 items-center justify-center rounded-full px-1.5 text-xs',
-                      on ? 'bg-surface/20' : 'bg-chip text-ink-2',
+                      on ? 'ring-1 ring-current/40' : 'bg-chip text-ink-2',
                     )}
                   >
                     {number}
@@ -233,7 +233,7 @@ function Phone({ state, texts, tasks, onToggle, onPhoto, onSign, onNext }: Phone
         <div className="bg-accent px-4 pb-3 pt-6 text-accent-ink">
           <p className="text-xs font-bold opacity-90">Zlecenie #{JOB_NUMBER}</p>
           <p className="text-base font-extrabold">Łazienka · Kowalscy</p>
-          <span className="mt-1.5 inline-block rounded-full bg-surface/20 px-2.5 py-0.5 text-xs font-extrabold">
+          <span className="mt-1.5 inline-block rounded-full px-2.5 py-0.5 text-xs font-extrabold ring-1 ring-current/50">
             {texts.status}
           </span>
         </div>
@@ -296,7 +296,7 @@ function Phone({ state, texts, tasks, onToggle, onPhoto, onSign, onNext }: Phone
                   </button>
                 )}
               </div>
-              <p className="inline-flex items-center gap-1.5 text-xs font-bold text-warn">
+              <p className="inline-flex items-center gap-1.5 text-xs font-bold text-ink-2">
                 <span aria-hidden="true" className="size-1.5 rounded-full bg-warn" />
                 Bez zasięgu · zapis w telefonie
               </p>

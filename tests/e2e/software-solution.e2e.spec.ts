@@ -24,7 +24,7 @@ test.describe('Software solution page', () => {
       /^Aplikacja dla ekip w\sterenie\. Działa bez zasięgu\.$/,
     )
     await expect(page.getByText('Zapytaj o wycenę').first()).toBeVisible()
-    await expect(page.getByText('Pierwszy etap')).toBeVisible()
+    await expect(page.getByText('Pierwszy etap', { exact: true })).toBeVisible()
     await expect(page.getByRole('heading', { name: 'W cenie wdrożenia' })).toBeVisible()
     await expect(page.getByText('+ Publikacja w App Store i Google Play')).toBeVisible()
     await expect(page.getByRole('heading', { name: 'Zanim zapytasz' })).toBeVisible()
