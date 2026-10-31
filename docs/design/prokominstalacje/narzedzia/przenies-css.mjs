@@ -54,7 +54,9 @@ const VARS = {
   '--accentLine': '--accent-line',
   '--accentInk': '--accent-ink',
   '--hdr': '--header-bg',
-  '--bad': '--inst-plan-err',
+  // Pages follow the theme (I8: `--inst-bad`, a light/dark pair); the home's dark plan section
+  // was ported with `--inst-plan-err` (I6) and is not regenerated.
+  '--bad': '--inst-bad',
 }
 
 const unknown = new Map()
