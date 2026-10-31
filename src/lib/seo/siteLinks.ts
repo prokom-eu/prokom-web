@@ -4,6 +4,7 @@ import { productHref } from '../catalog/card'
 import { categoryHref, subcategoryHref } from '../catalog/category'
 import { CATALOG_PATH } from '../catalog/filters'
 import { industryHref } from '../catalog/industry'
+import { objectHref } from '../instalacje/menu'
 import { HOME_SLUG, pagePath } from '../pages/slug'
 import { NEWS_PATH, postHref } from '../posts/list'
 import { CATALOG_PATH as SOLUTIONS_PATH } from '../software/catalog'
@@ -51,6 +52,8 @@ export type SiteMapInput = {
   solutions?: { items: readonly { slug: string; name: string }[] } | null
   /** Software: active industry pages `/dla-branz/[branza]` (SW10b); absent elsewhere. */
   industryPages?: readonly { slug: string; name: string }[] | null
+  /** Instalacje: published object pages `/dla-kogo/[obiekt]` (I10); absent elsewhere. */
+  objectPages?: readonly ({ slug: string; name: string } & Dated)[] | null
 }
 
 const byLabel = (a: SiteMapLink, b: SiteMapLink) => a.label.localeCompare(b.label, 'pl')
@@ -66,6 +69,7 @@ export function buildSiteMap({
   news,
   solutions,
   industryPages,
+  objectPages,
 }: SiteMapInput): SiteMapSection[] {
   const home = pages.find((page) => page.slug === HOME_SLUG)
   const sections: SiteMapSection[] = [
@@ -86,6 +90,18 @@ export function buildSiteMap({
       ],
     },
   ]
+
+  if (objectPages && objectPages.length > 0) {
+    sections.push({
+      id: 'dla-kogo',
+      title: 'Dla kogo',
+      links: objectPages.map((object) => ({
+        href: objectHref(object.slug),
+        label: object.name,
+        updatedAt: object.updatedAt,
+      })),
+    })
+  }
 
   if (catalog) {
     sections.push({
