@@ -76,6 +76,7 @@ describe('„Twój projekt” on /kontakt (spec. §6.10, ZMIANY-v21 §10.6, §11
         price: nb('od 2 490 zł'),
         ask: false,
         thumbnail: site.thumbnail,
+        tone: 'www',
         label: 'Strona firmowa z panelem',
       },
     ])

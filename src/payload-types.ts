@@ -1987,6 +1987,7 @@ export interface Page {
         | SwHeroBlock
         | SwHomeSectionBlock
         | SwContactBlock
+        | SwContactPageBlock
       )[]
     | null;
   seo?: {
@@ -4376,6 +4377,127 @@ export interface SwContactBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SwContactPageBlock".
+ */
+export interface SwContactPageBlock {
+  eyebrow: string;
+  title: string;
+  titleAccent?: string | null;
+  lead: string;
+  /**
+   * Po godzinach z Danych firmy, np. „formularz działa całą dobę”. Status otwarte / zamknięte liczy się sam (czas w Polsce).
+   */
+  hoursNote?: string | null;
+  /**
+   * Telefon i e-mail z Ustawień linii, adres salonu z Danych firmy. Fakty w nawiasach ([GODZINY], [CZAS ODPOWIEDZI]…) z Ustawień linii.
+   */
+  channels?:
+    | {
+        kind: 'phone' | 'email' | 'salon' | 'online';
+        label: string;
+        badge?: string | null;
+        /**
+         * Tylko salon i online; telefon i e-mail z ustawień.
+         */
+        value?: string | null;
+        text?: string | null;
+        href?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  stepsTitle: string;
+  steps?:
+    | {
+        when: string;
+        title: string;
+        text?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  shortcuts?:
+    | {
+        icon: 'wand' | 'search';
+        title: string;
+        href: string;
+        text?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  formEyebrow: string;
+  formTitle: string;
+  /**
+   * Tematy są stałe (spec. §7) — zapisują się w zgłoszeniu.
+   */
+  topicsLabel: string;
+  messageLabel: string;
+  messagePlaceholder?: string | null;
+  projectMessageLabel: string;
+  projectMessagePlaceholder?: string | null;
+  hintsLabel?: string | null;
+  /**
+   * Kliknięta dopisuje się do opisu. Bez tematu: podpowiedzi „Bez tematu”; ostatnia „Wszystkie tematy” dochodzi zawsze.
+   */
+  hints?:
+    | {
+        topic: 'none' | 'all' | 'strona' | 'system' | 'mobile' | 'laczenie' | 'opieka' | 'audyt';
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  nameLabel: string;
+  namePlaceholder?: string | null;
+  contactLabel: string;
+  contactPlaceholder?: string | null;
+  contactHint?: string | null;
+  talkLabel: string;
+  submit: string;
+  submitNote?: string | null;
+  linesEyebrow?: string | null;
+  linesTitle?: string | null;
+  /**
+   * Pusty nagłówek albo brak kart = bez sekcji.
+   */
+  linesText?: string | null;
+  lines?:
+    | {
+        line: 'biznes' | 'instalacje' | 'tech' | 'zakopane' | 'prokom';
+        label: string;
+        text: string;
+        linkLabel: string;
+        href: string;
+        id?: string | null;
+      }[]
+    | null;
+  linesMore?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  meetEyebrow?: string | null;
+  meetTitle?: string | null;
+  /**
+   * Pierwsze jest wyróżnione. Fakty w nawiasach ([GODZINY], [CZAS ODPOWIEDZI]…) z Ustawień linii.
+   */
+  places?:
+    | {
+        title: string;
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  mapCaption?: string | null;
+  navigateLabel?: string | null;
+  /**
+   * Pusty = bez mapy. Bez osadzania mapy (bez ciasteczek).
+   */
+  mapHref?: string | null;
+  companyTitle?: string | null;
+  companyNote?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'swContactPage';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -5886,6 +6008,7 @@ export interface PagesSelect<T extends boolean = true> {
         swHero?: T | SwHeroBlockSelect<T>;
         swHomeSection?: T | SwHomeSectionBlockSelect<T>;
         swContact?: T | SwContactBlockSelect<T>;
+        swContactPage?: T | SwContactPageBlockSelect<T>;
       };
   seo?:
     | T
@@ -6952,6 +7075,104 @@ export interface SwContactBlockSelect<T extends boolean = true> {
         label?: T;
         href?: T;
       };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SwContactPageBlock_select".
+ */
+export interface SwContactPageBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  title?: T;
+  titleAccent?: T;
+  lead?: T;
+  hoursNote?: T;
+  channels?:
+    | T
+    | {
+        kind?: T;
+        label?: T;
+        badge?: T;
+        value?: T;
+        text?: T;
+        href?: T;
+        id?: T;
+      };
+  stepsTitle?: T;
+  steps?:
+    | T
+    | {
+        when?: T;
+        title?: T;
+        text?: T;
+        id?: T;
+      };
+  shortcuts?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        href?: T;
+        text?: T;
+        id?: T;
+      };
+  formEyebrow?: T;
+  formTitle?: T;
+  topicsLabel?: T;
+  messageLabel?: T;
+  messagePlaceholder?: T;
+  projectMessageLabel?: T;
+  projectMessagePlaceholder?: T;
+  hintsLabel?: T;
+  hints?:
+    | T
+    | {
+        topic?: T;
+        text?: T;
+        id?: T;
+      };
+  nameLabel?: T;
+  namePlaceholder?: T;
+  contactLabel?: T;
+  contactPlaceholder?: T;
+  contactHint?: T;
+  talkLabel?: T;
+  submit?: T;
+  submitNote?: T;
+  linesEyebrow?: T;
+  linesTitle?: T;
+  linesText?: T;
+  lines?:
+    | T
+    | {
+        line?: T;
+        label?: T;
+        text?: T;
+        linkLabel?: T;
+        href?: T;
+        id?: T;
+      };
+  linesMore?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  meetEyebrow?: T;
+  meetTitle?: T;
+  places?:
+    | T
+    | {
+        title?: T;
+        text?: T;
+        id?: T;
+      };
+  mapCaption?: T;
+  navigateLabel?: T;
+  mapHref?: T;
+  companyTitle?: T;
+  companyNote?: T;
   id?: T;
   blockName?: T;
 }

@@ -318,6 +318,24 @@
 }
 
 /*
+ * Link of a PRO-KOM line card on a light card (`/kontakt`, SW11a): the line's text shade in the
+ * light theme, its on-dark shade in the dark one (`--line-text` / `--line-on-dark` set inline).
+ */
+.line-ink {
+  color: var(--line-text);
+}
+
+[data-theme='dark'] .line-ink {
+  color: var(--line-on-dark);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .line-ink {
+    color: var(--line-on-dark);
+  }
+}
+
+/*
  * The wizard's price bar on the phone (SWR4, ZMIANY-v21 §10.6): while it is on the page, the
  * bottom tab bar and the „Twój projekt” pill step aside, and come back when the wizard leaves
  * the screen (the bar is rendered only then). Same `:has()` pattern as the footer's CTA band.

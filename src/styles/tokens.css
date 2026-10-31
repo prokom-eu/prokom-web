@@ -135,6 +135,13 @@
   --c-software-light-glow-2: rgba(162, 75, 216, 0.14);
   --c-software-light-grid: rgba(110, 69, 212, 0.09);
   --c-software-light-dot: rgba(18, 22, 19, 0.09);
+  /* Map mock-up of /kontakt (board `Kontakt`, `.gmaps`): decoration, no text on it. */
+  --c-software-light-map-land: #eef1ea;
+  --c-software-light-map-water: #b9d7ec;
+  --c-software-light-map-road: #ffffff;
+  --c-software-light-map-block: #e1e4dc;
+  --c-software-light-map-park: #d7e8cf;
+  --c-software-light-map-pin: #c8432f;
   --c-software-light-header-bg: rgba(244, 245, 241, 0.8);
   --c-software-light-shadow: 0 36px 80px -30px rgba(40, 30, 80, 0.35);
   /* Software — dark theme of the visualisation. */
@@ -169,6 +176,12 @@
   --c-software-night-glow-2: rgba(201, 169, 255, 0.2);
   --c-software-night-grid: rgba(179, 155, 245, 0.09);
   --c-software-night-dot: rgba(244, 245, 241, 0.08);
+  --c-software-night-map-land: #1d221e;
+  --c-software-night-map-water: #24384a;
+  --c-software-night-map-road: #2c332d;
+  --c-software-night-map-block: #262c27;
+  --c-software-night-map-park: #23322a;
+  --c-software-night-map-pin: #e0563f;
   --c-software-night-header-bg: rgba(18, 22, 19, 0.78);
   --c-software-night-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.8);
 
@@ -2181,6 +2194,12 @@
   --glow-2: var(--c-software-light-glow-2);
   --grid: var(--c-software-light-grid);
   --dot: var(--c-software-light-dot);
+  --map-land: var(--c-software-light-map-land);
+  --map-water: var(--c-software-light-map-water);
+  --map-road: var(--c-software-light-map-road);
+  --map-block: var(--c-software-light-map-block);
+  --map-park: var(--c-software-light-map-park);
+  --map-pin: var(--c-software-light-map-pin);
   --header-bg: var(--c-software-light-header-bg);
   --shadow: var(--c-software-light-shadow);
   /* Boards: buttons on --accent with --accent-ink (SW4); follows the theme with --accent. */
@@ -2280,6 +2299,12 @@
   --glow-2: var(--c-software-night-glow-2);
   --grid: var(--c-software-night-grid);
   --dot: var(--c-software-night-dot);
+  --map-land: var(--c-software-night-map-land);
+  --map-water: var(--c-software-night-map-water);
+  --map-road: var(--c-software-night-map-road);
+  --map-block: var(--c-software-night-map-block);
+  --map-park: var(--c-software-night-map-park);
+  --map-pin: var(--c-software-night-map-pin);
   --header-bg: var(--c-software-night-header-bg);
   --pill-accent: var(--c-software-light-accent-text);
   /* ADR-015 v22 pkt 1: darker than the page in the dark theme, faintly violet. */
@@ -2512,6 +2537,12 @@
     --glow-2: var(--c-software-night-glow-2);
     --grid: var(--c-software-night-grid);
     --dot: var(--c-software-night-dot);
+    --map-land: var(--c-software-night-map-land);
+    --map-water: var(--c-software-night-map-water);
+    --map-road: var(--c-software-night-map-road);
+    --map-block: var(--c-software-night-map-block);
+    --map-park: var(--c-software-night-map-park);
+    --map-pin: var(--c-software-night-map-pin);
     --header-bg: var(--c-software-night-header-bg);
     --pill-accent: var(--c-software-light-accent-text);
     /* ADR-015 v22 pkt 1: darker than the page in the dark theme, faintly violet. */

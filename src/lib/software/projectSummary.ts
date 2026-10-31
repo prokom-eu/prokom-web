@@ -1,6 +1,6 @@
 import { normalizeText } from '../catalog/normalize'
 import type { SoftwareTopic } from '../inquiry/types'
-import type { SolutionCategory } from './options'
+import { type AreaKey, CATEGORY_AREA, type SolutionCategory } from './options'
 import { formatPrice, keepTogether } from './price'
 import type { ProjectItem } from './project'
 import type { IndexSolution } from './solutionsIndex'
@@ -26,6 +26,8 @@ export type ProjectRow = {
   /** Priced after a talk: „po rozmowie” / „do wyceny”. */
   ask: boolean
   thumbnail?: string
+  /** Area of the solution: the thumbnail's fallback gradient; absent for an item no longer offered. */
+  tone?: AreaKey
   /** Name in „Wysłane razem z: …” — with the level, without „poziom”. */
   label: string
 }
@@ -73,7 +75,12 @@ function lineOf(item: ProjectItem, solution: ProjectSolution | undefined): Line 
     const row = { id: item.id, name: item.name, sub: 'do omówienia', price: 'do wyceny' }
     return { row: { ...row, ask: true, label: item.name }, slug: null, oneTime: 0, monthly: 0 }
   }
-  const base = { id: item.id, name: solution.name, thumbnail: solution.thumbnail }
+  const base = {
+    id: item.id,
+    name: solution.name,
+    thumbnail: solution.thumbnail,
+    tone: CATEGORY_AREA[solution.category],
+  }
   const slug = solution.slug
   if (solution.priceFrom === null) {
     const row = { ...base, sub: 'wycena po krótkiej rozmowie', price: 'po rozmowie', ask: true }
