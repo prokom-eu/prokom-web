@@ -116,6 +116,14 @@ describe('Instalacje service page illustrations', () => {
 })
 
 describe('Instalacje service page colours', () => {
+  // Ładowarki (I9): the charger photos stand on a light tile in the light theme, a dark one in the dark.
+  it('put the charger photos on a tile that follows the theme', () => {
+    const vsWhite = (scope: Record<string, string>) =>
+      contrastRatio(resolve('var(--inst-il-evtile-2)', scope), '#ffffff')
+    expect(vsWhite(light)).toBeLessThan(1.5)
+    expect(vsWhite(dark)).toBeGreaterThan(10)
+  })
+
   it.each(FIXED)('%s on %s ≥ 4.5:1', (text, surface) => {
     expect(ratio(light, text, surface)).toBeGreaterThanOrEqual(4.5)
   })

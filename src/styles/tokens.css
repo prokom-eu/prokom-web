@@ -494,6 +494,13 @@
   --c-instalacje-il-kkey-sh: rgba(0, 0, 0, 0.35);
   --c-instalacje-light-il-evs-esk: #cfe3ea;
   --c-instalacje-night-il-evs-esk: #0b1a22;
+  /* Ładowarki (I9): background of the charger photos (pk.css --evT1/--evT2) and their glow (--evG). */
+  --c-instalacje-light-il-evtile-1: #ffffff;
+  --c-instalacje-night-il-evtile-1: #1a2220;
+  --c-instalacje-light-il-evtile-2: #e6eae3;
+  --c-instalacje-night-il-evtile-2: #0d1211;
+  --c-instalacje-light-il-evglow: rgba(95, 208, 176, 0.35);
+  --c-instalacje-night-il-evglow: rgba(95, 208, 176, 0.3);
   --c-instalacje-il-evsnow-fill: #e8eef0;
   --c-instalacje-il-evcab-line: #1a1f1c;
   --c-instalacje-il-evbody-fill: #e6ecee;
@@ -1344,6 +1351,9 @@
   --inst-il-kkey-bg: var(--c-instalacje-il-kkey-bg);
   --inst-il-kkey-sh: var(--c-instalacje-il-kkey-sh);
   --inst-il-evs-esk: var(--c-instalacje-light-il-evs-esk);
+  --inst-il-evtile-1: var(--c-instalacje-light-il-evtile-1);
+  --inst-il-evtile-2: var(--c-instalacje-light-il-evtile-2);
+  --inst-il-evglow: var(--c-instalacje-light-il-evglow);
   --inst-il-evsnow-fill: var(--c-instalacje-il-evsnow-fill);
   --inst-il-evcab-line: var(--c-instalacje-il-evcab-line);
   --inst-il-evbody-fill: var(--c-instalacje-il-evbody-fill);
@@ -2356,6 +2366,9 @@
   --inst-il-kin-fill: var(--c-instalacje-night-il-kin-fill);
   --inst-bad: var(--c-instalacje-night-bad);
   --inst-il-evs-esk: var(--c-instalacje-night-il-evs-esk);
+  --inst-il-evtile-1: var(--c-instalacje-night-il-evtile-1);
+  --inst-il-evtile-2: var(--c-instalacje-night-il-evtile-2);
+  --inst-il-evglow: var(--c-instalacje-night-il-evglow);
   --inst-il-shbl-fill: var(--c-instalacje-night-il-shbl-fill);
   --inst-il-ans-ask: var(--c-instalacje-night-il-ans-ask);
   --inst-il-anmt-fill: var(--c-instalacje-night-il-anmt-fill);
@@ -2585,6 +2598,9 @@
     --inst-il-kin-fill: var(--c-instalacje-night-il-kin-fill);
     --inst-bad: var(--c-instalacje-night-bad);
     --inst-il-evs-esk: var(--c-instalacje-night-il-evs-esk);
+    --inst-il-evtile-1: var(--c-instalacje-night-il-evtile-1);
+    --inst-il-evtile-2: var(--c-instalacje-night-il-evtile-2);
+    --inst-il-evglow: var(--c-instalacje-night-il-evglow);
     --inst-il-shbl-fill: var(--c-instalacje-night-il-shbl-fill);
     --inst-il-ans-ask: var(--c-instalacje-night-il-ans-ask);
     --inst-il-anmt-fill: var(--c-instalacje-night-il-anmt-fill);
