@@ -2,15 +2,11 @@
 // what the seed changes in a home page it created earlier. A field is replaced only while it
 // still holds the old seed value (edits in the panel win); the new value is the one of the
 // seed's own layout (`biznesHomeLayout`), so a fresh page and an upgraded one are the same.
+// Fields added by the cleanup migration (texts that were in the code) are filled while empty.
+// `bzOnePartner` and `bzNews` are gone with their tables (migration after PR 3b).
 
 type Block = { blockType: string }
 type Fields = Record<string, unknown>
-
-/** Blocks v150 drops from the home page (K36 §1, K4-FINAL §2), by the seed's own heading. */
-const DROPPED: Record<string, string> = {
-  bzOnePartner: 'Ile numerów masz w telefonie',
-  bzNews: 'Ostatnio w Aktualnościach',
-}
 
 /** A field by its path, e.g. `['industries', 'tiles']`. */
 type Path = readonly string[]
@@ -19,9 +15,12 @@ type Path = readonly string[]
  * Old seed values, by block type and field path. Arrays are compared by `key` of their rows
  * (the rows' other fields and ids may differ: relations, ids added by Payload). A matching array
  * is replaced whole: an edit of another field of its rows (e.g. a step's text while its
- * `roleNote` stayed) is lost — accepted, the seed runs locally only.
+ * `label` stayed) is lost — accepted, the seed runs locally only. `old: EMPTY` = the field is
+ * empty (null, missing or blank).
  */
 type Rule = { path: Path; old: unknown; key?: string }
+
+const EMPTY = Symbol('empty')
 
 const RULES: Record<string, Rule[]> = {
   bzOffer: [
@@ -31,6 +30,8 @@ const RULES: Record<string, Rule[]> = {
       old: '{produkty} produktów i usług od {marki} marek. Cen nie ma na stronie: dodajesz pozycje do zapytania, a wycenę dostajesz na piśmie, pod swoją firmę.',
     },
     { path: ['catalogLabel'], old: 'Cały katalog' },
+    { path: ['searchEyebrow'], old: EMPTY },
+    { path: ['searchHeading'], old: EMPTY },
     {
       path: ['systems'],
       old: ['GoPOS dla gastronomii', 'Subiekt i programy InsERT', 'Opieka IT w abonamencie'],
@@ -38,6 +39,7 @@ const RULES: Record<string, Rule[]> = {
     },
   ],
   bzPlan: [
+    { path: ['industries', 'eyebrow'], old: EMPTY },
     { path: ['industries', 'heading'], old: 'Nie widzisz swojej branży? Obsługujemy każdą firmę.' },
     {
       path: ['industries', 'lead'],
@@ -88,7 +90,8 @@ const RULES: Record<string, Rule[]> = {
         'partner InsERT, wdraża też Comarch ERP',
         'autoryzowany serwis Posnet i Elzab',
       ],
-      key: 'roleNote',
+      // The column `roleNote` became `label` (data kept by the migration).
+      key: 'label',
     },
     {
       path: ['guarantees'],
@@ -100,6 +103,8 @@ const RULES: Record<string, Rule[]> = {
       ],
       key: 'text',
     },
+    { path: ['commitmentsEyebrow'], old: EMPTY },
+    { path: ['commitmentsHeading'], old: EMPTY },
   ],
   bzReferences: [
     { path: ['eyebrow'], old: 'Dla kogo pracujemy' },
@@ -110,7 +115,6 @@ const RULES: Record<string, Rule[]> = {
     },
   ],
   bzFacts: [
-    { path: ['eyebrow'], old: 'PRO-KOM w faktach' },
     { path: ['heading'], old: 'Lokalna firma, która jest tu od lat — i będzie dalej.' },
     // K4-FINAL §1: „100+ klientów firmowych”, one wording everywhere.
     { path: ['stats'], old: ['firm pod stałą opieką', 'autoryzacje i partnerstwa'], key: 'label' },
@@ -157,6 +161,7 @@ function set(value: Fields, path: Path, next: unknown): Fields {
 }
 
 function holdsOld(current: unknown, rule: Rule): boolean {
+  if (rule.old === EMPTY) return current === null || current === undefined || current === ''
   if (!rule.key) return current === rule.old
   if (!Array.isArray(current)) return false
   const keys = current.map((row) => (row as Fields | null)?.[rule.key as string])
@@ -173,27 +178,20 @@ function upgradeBlock<T extends Block>(block: T, seed: Block | undefined): T {
   return next as unknown as T
 }
 
-function dropped(block: Block): boolean {
-  const heading = DROPPED[block.blockType]
-  return heading !== undefined && (block as Fields).heading === heading
-}
-
 /**
- * The home layout with the v150 texts below the hero and without the blocks v150 drops, or
- * `null` when nothing changes. `seed` is the seed's layout: the source of the new values.
+ * The home layout with the v150 texts below the hero, or `null` when nothing changes. `seed`
+ * is the seed's layout: the source of the new values.
  */
 export function upgradeHomeV150<T extends Block>(
   layout: readonly T[] | null | undefined,
   seed: readonly Block[],
 ): T[] | null {
   if (!layout || layout.length === 0) return null
-  const next = layout
-    .filter((block) => !dropped(block))
-    .map((block) =>
-      upgradeBlock(
-        block,
-        seed.find((own) => own.blockType === block.blockType),
-      ),
-    )
+  const next = layout.map((block) =>
+    upgradeBlock(
+      block,
+      seed.find((own) => own.blockType === block.blockType),
+    ),
+  )
   return same(next, layout) ? null : next
 }

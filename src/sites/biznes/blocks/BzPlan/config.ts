@@ -92,21 +92,6 @@ export const BzPlanBlock: Block = {
       ],
     },
     {
-      name: 'promises',
-      label: 'Punkty z ptaszkiem pod planem',
-      type: 'array',
-      maxRows: 6,
-      fields: [
-        {
-          type: 'row',
-          fields: [
-            { name: 'title', label: 'Tytuł', type: 'text', required: true, maxLength: 48 },
-            { name: 'text', label: 'Tekst', type: 'text', maxLength: 90 },
-          ],
-        },
-      ],
-    },
-    {
       name: 'industries',
       label: 'Siatka branż',
       type: 'group',
@@ -114,11 +99,21 @@ export const BzPlanBlock: Block = {
         {
           type: 'row',
           fields: [
-            { name: 'heading', label: 'Nagłówek', type: 'text' },
-            { name: 'lead', label: 'Wstęp', type: 'text' },
+            {
+              name: 'eyebrow',
+              label: 'Etykieta',
+              type: 'text',
+              admin: { description: 'Sekcja „Dla kogo” (#dla-kogo), np. „Dla kogo pracujemy”.' },
+            },
+            {
+              name: 'heading',
+              label: 'Nagłówek',
+              type: 'text',
+              admin: { description: 'Drugie zdanie dostaje kolor akcentu.' },
+            },
           ],
         },
-        linkGroup('button', 'Przycisk obok nagłówka'),
+        { name: 'lead', label: 'Wstęp', type: 'textarea', maxLength: 300 },
         {
           type: 'row',
           fields: [

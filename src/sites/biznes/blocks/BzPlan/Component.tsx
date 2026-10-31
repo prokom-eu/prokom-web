@@ -55,9 +55,6 @@ function accentTail(heading: string) {
   )
 }
 
-/** Board `#s4-real`: the label of the industries section has no field of its own (yet). */
-const INDUSTRIES_EYEBROW = 'Dla kogo pracujemy'
-
 /**
  * „Dla kogo” and „Plan Twojej firmy” (board v150 `#s4-real`, `#s4-plan`; K36 §1): the
  * industries grid (data of this block, ADR-012 rozstrz. 11) with the funding bar as a section
@@ -68,16 +65,18 @@ export function BzPlanBlock({ block, tenantId }: Props) {
   const grid = block.industries
   const funding = block.funding
   const hasTiles = tiles.visible.length > 0 || tiles.hidden.length > 0
+  // The section needs its heading (`aria-labelledby`); `rail.ts` follows the same rule.
+  const industriesHeading = grid?.heading ?? null
 
   return (
     <>
-      {(hasTiles || funding?.heading) && (
+      {industriesHeading && (hasTiles || funding?.heading) && (
         <section id="dla-kogo" aria-labelledby="dla-kogo-h" className="bg-surface-2 py-16 sm:py-24">
           <Container wide>
             <SectionHead
               id="dla-kogo-h"
-              eyebrow={INDUSTRIES_EYEBROW}
-              heading={grid?.heading ? accentTail(grid.heading) : INDUSTRIES_EYEBROW}
+              eyebrow={grid?.eyebrow}
+              heading={accentTail(industriesHeading)}
               lead={grid?.lead}
             />
             {hasTiles && (

@@ -52,14 +52,21 @@ export const BzStepsBlock: Block = {
           fields: [
             { name: 'role', label: 'Kto za to odpowiada', type: 'text', maxLength: 40 },
             {
-              name: 'roleNote',
-              // v150 (board `#s4-jak`): the label above the title; the column keeps its name.
-              label: 'Etykieta nad tytułem (np. „Pierwszy kontakt”)',
+              name: 'label',
+              label: 'Etykieta nad tytułem',
               type: 'text',
-              maxLength: 70,
+              maxLength: 40,
+              admin: { description: 'Np. „Pierwszy kontakt”.' },
             },
           ],
         },
+      ],
+    },
+    {
+      type: 'row',
+      fields: [
+        { name: 'commitmentsEyebrow', label: 'Pas zobowiązań — etykieta', type: 'text' },
+        { name: 'commitmentsHeading', label: 'Pas zobowiązań — nagłówek', type: 'text' },
       ],
     },
     {

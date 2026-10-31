@@ -301,14 +301,18 @@ export async function BzOfferBlock({ block, tenantId }: Props) {
                   <DepartmentCard group={group} />
                 </div>
               ))}
-              <SearchTile
-                searchLabel={`Szukaj w ${counts.products} ${plural(counts.products, ['pozycji', 'pozycjach', 'pozycjach'])}`}
-                popular={index.search.popular}
-                shortcuts={SHORTCUTS(
-                  counts.products,
-                  index.pages.some((page) => page.slug === BUNDLES_PAGE.slug),
-                )}
-              />
+              {block.searchHeading && (
+                <SearchTile
+                  eyebrow={block.searchEyebrow ?? null}
+                  heading={block.searchHeading}
+                  searchLabel={`Szukaj w ${counts.products} ${plural(counts.products, ['pozycji', 'pozycjach', 'pozycjach'])}`}
+                  popular={index.search.popular}
+                  shortcuts={SHORTCUTS(
+                    counts.products,
+                    index.pages.some((page) => page.slug === BUNDLES_PAGE.slug),
+                  )}
+                />
+              )}
             </div>
           </>
         )}

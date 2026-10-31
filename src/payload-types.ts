@@ -1962,10 +1962,8 @@ export interface Page {
         | BzFeaturedBlock
         | BzPlanBlock
         | BzStepsBlock
-        | BzOnePartnerBlock
         | BzReferencesBlock
         | BzFactsBlock
-        | BzNewsBlock
         | BzContactBlock
         | BzContactInfoBlock
         | BzQuickCardsBlock
@@ -2239,84 +2237,6 @@ export interface BzHeroBlock {
  * via the `definition` "BzNeedsBlock".
  */
 export interface BzNeedsBlock {
-  items: {
-    title: string;
-    icon:
-      | 'shield'
-      | 'cal'
-      | 'users'
-      | 'store'
-      | 'bolt'
-      | 'doc'
-      | 'life'
-      | 'arrow'
-      | 'check'
-      | 'phone'
-      | 'mail'
-      | 'pin'
-      | 'clock'
-      | 'monitor'
-      | 'remote'
-      | 'bell'
-      | 'wallet'
-      | 'chat'
-      | 'wrench'
-      | 'rocket'
-      | 'map'
-      | 'star'
-      | 'q'
-      | 'flash'
-      | 'grad'
-      | 'server'
-      | 'compass'
-      | 'panel'
-      | 'site'
-      | 'grid'
-      | 'plug'
-      | 'ticket'
-      | 'lifebuoy'
-      | 'chart'
-      | 'sign'
-      | 'cash'
-      | 'search'
-      | 'x'
-      | 'bed'
-      | 'food'
-      | 'refresh'
-      | 'globe'
-      | 'box'
-      | 'car'
-      | 'home'
-      | 'mountain'
-      | 'heart'
-      | 'bag'
-      | 'card'
-      | 'target'
-      | 'key'
-      | 'mega'
-      | 'mount'
-      | 'brief';
-    tone: 'green' | 'red' | 'blue' | 'violet';
-    text: string;
-    href: string;
-    /**
-     * Np. „0 zł przegląd”. Pusty = strzałka.
-     */
-    tag?: string | null;
-    /**
-     * Do tego dnia zamiast znacznika jest „N dni” (liczone w przeglądarce); potem wraca znacznik albo strzałka.
-     */
-    countdownTo?: string | null;
-    badges?:
-      | {
-          value: string;
-          text: string;
-          tone: 'promo' | 'accent';
-          id?: string | null;
-        }[]
-      | null;
-    id?: string | null;
-  }[];
   id?: string | null;
   blockName?: string | null;
   blockType: 'bzNeeds';
@@ -2339,6 +2259,14 @@ export interface BzOfferBlock {
    * Np. „Cały katalog” — liczba pozycji dochodzi sama. Pusty = bez przycisku.
    */
   catalogLabel?: string | null;
+  /**
+   * Np. „Nie wiesz, w którym dziale szukać?”.
+   */
+  searchEyebrow?: string | null;
+  /**
+   * Pusty = bez kafla wyszukiwania.
+   */
+  searchHeading?: string | null;
   systemsHeading?: string | null;
   systemsNote?: string | null;
   systems?:
@@ -2389,39 +2317,6 @@ export interface BzFeaturedBlock {
    * Np. „Cały katalog” — liczba pozycji dochodzi sama. Pusty = bez przycisku.
    */
   catalogLabel?: string | null;
-  /**
-   * Miniatury mozaiki biorą się z działów katalogu.
-   */
-  offerCard: {
-    eyebrow?: string | null;
-    heading: string;
-    text?: string | null;
-    button: {
-      label: string;
-      href: string;
-    };
-  };
-  wizardCard: {
-    eyebrow?: string | null;
-    heading: string;
-    text?: string | null;
-    button: {
-      label: string;
-      href: string;
-    };
-    /**
-     * Trzeci krok jest wyróżniony („w trakcie”).
-     */
-    steps?:
-      | {
-          label: string;
-          value: string;
-          id?: string | null;
-        }[]
-      | null;
-    summaryLabel?: string | null;
-    summary?: string | null;
-  };
   id?: string | null;
   blockName?: string | null;
   blockType: 'bzFeatured';
@@ -2513,20 +2408,16 @@ export interface BzPlanBlock {
       | null;
     id?: string | null;
   }[];
-  promises?:
-    | {
-        title: string;
-        text?: string | null;
-        id?: string | null;
-      }[]
-    | null;
   industries?: {
+    /**
+     * Sekcja „Dla kogo” (#dla-kogo), np. „Dla kogo pracujemy”.
+     */
+    eyebrow?: string | null;
+    /**
+     * Drugie zdanie dostaje kolor akcentu.
+     */
     heading?: string | null;
     lead?: string | null;
-    button?: {
-      label?: string | null;
-      href?: string | null;
-    };
     moreLabel?: string | null;
     /**
      * Np. „jeszcze 10 i każda inna firma”.
@@ -2695,9 +2586,14 @@ export interface BzStepsBlock {
     text: string;
     gets?: string | null;
     role?: string | null;
-    roleNote?: string | null;
+    /**
+     * Np. „Pierwszy kontakt”.
+     */
+    label?: string | null;
     id?: string | null;
   }[];
+  commitmentsEyebrow?: string | null;
+  commitmentsHeading?: string | null;
   /**
    * Tytuł i opis oddziela pauza: „60 minut — oddzwaniamy w godzinach pracy”.
    */
@@ -2713,204 +2609,15 @@ export interface BzStepsBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "BzOnePartnerBlock".
- */
-export interface BzOnePartnerBlock {
-  eyebrowA?: string | null;
-  eyebrowB?: string | null;
-  /**
-   * Sekcja ma kotwicę #jeden — ten blok wstaw na stronie tylko raz.
-   */
-  heading: string;
-  headingAccent?: string | null;
-  lead?: string | null;
-  separateLabel: string;
-  oneLabel: string;
-  separateTag?: string | null;
-  oneTag?: string | null;
-  rows?:
-    | {
-        label: string;
-        icon:
-          | 'shield'
-          | 'cal'
-          | 'users'
-          | 'store'
-          | 'bolt'
-          | 'doc'
-          | 'life'
-          | 'arrow'
-          | 'check'
-          | 'phone'
-          | 'mail'
-          | 'pin'
-          | 'clock'
-          | 'monitor'
-          | 'remote'
-          | 'bell'
-          | 'wallet'
-          | 'chat'
-          | 'wrench'
-          | 'rocket'
-          | 'map'
-          | 'star'
-          | 'q'
-          | 'flash'
-          | 'grad'
-          | 'server'
-          | 'compass'
-          | 'panel'
-          | 'site'
-          | 'grid'
-          | 'plug'
-          | 'ticket'
-          | 'lifebuoy'
-          | 'chart'
-          | 'sign'
-          | 'cash'
-          | 'search'
-          | 'x'
-          | 'bed'
-          | 'food'
-          | 'refresh'
-          | 'globe'
-          | 'box'
-          | 'car'
-          | 'home'
-          | 'mountain'
-          | 'heart'
-          | 'bag'
-          | 'card'
-          | 'target'
-          | 'key'
-          | 'mega'
-          | 'mount'
-          | 'brief';
-        separate: string;
-        one: string;
-        id?: string | null;
-      }[]
-    | null;
-  cta: {
-    label: string;
-    href: string;
-  };
-  phone?: {
-    groupLabel?: string | null;
-    proNote?: string | null;
-    watchLabel?: string | null;
-    contacts?:
-      | {
-          name: string;
-          note?: string | null;
-          id?: string | null;
-        }[]
-      | null;
-    chips?:
-      | {
-          text: string;
-          id?: string | null;
-        }[]
-      | null;
-    watch?:
-      | {
-          label: string;
-          value: string;
-          tone: 'ok' | 'accent' | 'warn';
-          id?: string | null;
-        }[]
-      | null;
-  };
-  separateBubbles?:
-    | {
-        text: string;
-        id?: string | null;
-      }[]
-    | null;
-  oneBubbles?:
-    | {
-        text: string;
-        id?: string | null;
-      }[]
-    | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'bzOnePartner';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "BzReferencesBlock".
  */
 export interface BzReferencesBlock {
   eyebrow?: string | null;
   /**
-   * Sekcja ma kotwicę #referencje — ten blok wstaw na stronie tylko raz.
+   * Sekcja ma kotwicę #opinie — ten blok wstaw na stronie tylko raz.
    */
   heading: string;
   lead?: string | null;
-  kinds?:
-    | {
-        title: string;
-        icon:
-          | 'shield'
-          | 'cal'
-          | 'users'
-          | 'store'
-          | 'bolt'
-          | 'doc'
-          | 'life'
-          | 'arrow'
-          | 'check'
-          | 'phone'
-          | 'mail'
-          | 'pin'
-          | 'clock'
-          | 'monitor'
-          | 'remote'
-          | 'bell'
-          | 'wallet'
-          | 'chat'
-          | 'wrench'
-          | 'rocket'
-          | 'map'
-          | 'star'
-          | 'q'
-          | 'flash'
-          | 'grad'
-          | 'server'
-          | 'compass'
-          | 'panel'
-          | 'site'
-          | 'grid'
-          | 'plug'
-          | 'ticket'
-          | 'lifebuoy'
-          | 'chart'
-          | 'sign'
-          | 'cash'
-          | 'search'
-          | 'x'
-          | 'bed'
-          | 'food'
-          | 'refresh'
-          | 'globe'
-          | 'box'
-          | 'car'
-          | 'home'
-          | 'mountain'
-          | 'heart'
-          | 'bag'
-          | 'card'
-          | 'target'
-          | 'key'
-          | 'mega'
-          | 'mount'
-          | 'brief';
-        examples?: string | null;
-        solutions?: string | null;
-        id?: string | null;
-      }[]
-    | null;
   /**
    * Tylko prawdziwe opinie, 1:1, ze źródłem i datą. [SZEF] zgody i wybór.
    */
@@ -2927,7 +2634,6 @@ export interface BzReferencesBlock {
    * Tylko logo z pisemną zgodą klienta (obraz bez „Wymaga zgody”).
    */
   logos?: (number | Media)[] | null;
-  note?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'bzReferences';
@@ -2937,7 +2643,6 @@ export interface BzReferencesBlock {
  * via the `definition` "BzFactsBlock".
  */
 export interface BzFactsBlock {
-  eyebrow?: string | null;
   /**
    * Sekcja ma kotwicę #fakty — ten blok wstaw na stronie tylko raz.
    */
@@ -2965,9 +2670,7 @@ export interface BzFactsBlock {
         id?: string | null;
       }[]
     | null;
-  authorizationsLabel?: string | null;
   authorizations?: (number | Partner)[] | null;
-  areaText?: string | null;
   contactLink?: {
     label?: string | null;
     href?: string | null;
@@ -2975,18 +2678,6 @@ export interface BzFactsBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'bzFacts';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "BzNewsBlock".
- */
-export interface BzNewsBlock {
-  heading: string;
-  allLabel?: string | null;
-  readLabel?: string | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'bzNews';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -6170,10 +5861,8 @@ export interface PagesSelect<T extends boolean = true> {
         bzFeatured?: T | BzFeaturedBlockSelect<T>;
         bzPlan?: T | BzPlanBlockSelect<T>;
         bzSteps?: T | BzStepsBlockSelect<T>;
-        bzOnePartner?: T | BzOnePartnerBlockSelect<T>;
         bzReferences?: T | BzReferencesBlockSelect<T>;
         bzFacts?: T | BzFactsBlockSelect<T>;
-        bzNews?: T | BzNewsBlockSelect<T>;
         bzContact?: T | BzContactBlockSelect<T>;
         bzContactInfo?: T | BzContactInfoBlockSelect<T>;
         bzQuickCards?: T | BzQuickCardsBlockSelect<T>;
@@ -6356,26 +6045,6 @@ export interface BzHeroBlockSelect<T extends boolean = true> {
  * via the `definition` "BzNeedsBlock_select".
  */
 export interface BzNeedsBlockSelect<T extends boolean = true> {
-  items?:
-    | T
-    | {
-        title?: T;
-        icon?: T;
-        tone?: T;
-        text?: T;
-        href?: T;
-        tag?: T;
-        countdownTo?: T;
-        badges?:
-          | T
-          | {
-              value?: T;
-              text?: T;
-              tone?: T;
-              id?: T;
-            };
-        id?: T;
-      };
   id?: T;
   blockName?: T;
 }
@@ -6388,6 +6057,8 @@ export interface BzOfferBlockSelect<T extends boolean = true> {
   heading?: T;
   lead?: T;
   catalogLabel?: T;
+  searchEyebrow?: T;
+  searchHeading?: T;
   systemsHeading?: T;
   systemsNote?: T;
   systems?:
@@ -6427,41 +6098,6 @@ export interface BzFeaturedBlockSelect<T extends boolean = true> {
   heading?: T;
   lead?: T;
   catalogLabel?: T;
-  offerCard?:
-    | T
-    | {
-        eyebrow?: T;
-        heading?: T;
-        text?: T;
-        button?:
-          | T
-          | {
-              label?: T;
-              href?: T;
-            };
-      };
-  wizardCard?:
-    | T
-    | {
-        eyebrow?: T;
-        heading?: T;
-        text?: T;
-        button?:
-          | T
-          | {
-              label?: T;
-              href?: T;
-            };
-        steps?:
-          | T
-          | {
-              label?: T;
-              value?: T;
-              id?: T;
-            };
-        summaryLabel?: T;
-        summary?: T;
-      };
   id?: T;
   blockName?: T;
 }
@@ -6494,24 +6130,12 @@ export interface BzPlanBlockSelect<T extends boolean = true> {
             };
         id?: T;
       };
-  promises?:
-    | T
-    | {
-        title?: T;
-        text?: T;
-        id?: T;
-      };
   industries?:
     | T
     | {
+        eyebrow?: T;
         heading?: T;
         lead?: T;
-        button?:
-          | T
-          | {
-              label?: T;
-              href?: T;
-            };
         moreLabel?: T;
         moreNote?: T;
         tiles?:
@@ -6565,82 +6189,12 @@ export interface BzStepsBlockSelect<T extends boolean = true> {
         text?: T;
         gets?: T;
         role?: T;
-        roleNote?: T;
+        label?: T;
         id?: T;
       };
+  commitmentsEyebrow?: T;
+  commitmentsHeading?: T;
   guarantees?:
-    | T
-    | {
-        text?: T;
-        id?: T;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "BzOnePartnerBlock_select".
- */
-export interface BzOnePartnerBlockSelect<T extends boolean = true> {
-  eyebrowA?: T;
-  eyebrowB?: T;
-  heading?: T;
-  headingAccent?: T;
-  lead?: T;
-  separateLabel?: T;
-  oneLabel?: T;
-  separateTag?: T;
-  oneTag?: T;
-  rows?:
-    | T
-    | {
-        label?: T;
-        icon?: T;
-        separate?: T;
-        one?: T;
-        id?: T;
-      };
-  cta?:
-    | T
-    | {
-        label?: T;
-        href?: T;
-      };
-  phone?:
-    | T
-    | {
-        groupLabel?: T;
-        proNote?: T;
-        watchLabel?: T;
-        contacts?:
-          | T
-          | {
-              name?: T;
-              note?: T;
-              id?: T;
-            };
-        chips?:
-          | T
-          | {
-              text?: T;
-              id?: T;
-            };
-        watch?:
-          | T
-          | {
-              label?: T;
-              value?: T;
-              tone?: T;
-              id?: T;
-            };
-      };
-  separateBubbles?:
-    | T
-    | {
-        text?: T;
-        id?: T;
-      };
-  oneBubbles?:
     | T
     | {
         text?: T;
@@ -6657,15 +6211,6 @@ export interface BzReferencesBlockSelect<T extends boolean = true> {
   eyebrow?: T;
   heading?: T;
   lead?: T;
-  kinds?:
-    | T
-    | {
-        title?: T;
-        icon?: T;
-        examples?: T;
-        solutions?: T;
-        id?: T;
-      };
   reviews?:
     | T
     | {
@@ -6676,7 +6221,6 @@ export interface BzReferencesBlockSelect<T extends boolean = true> {
         id?: T;
       };
   logos?: T;
-  note?: T;
   id?: T;
   blockName?: T;
 }
@@ -6685,7 +6229,6 @@ export interface BzReferencesBlockSelect<T extends boolean = true> {
  * via the `definition` "BzFactsBlock_select".
  */
 export interface BzFactsBlockSelect<T extends boolean = true> {
-  eyebrow?: T;
   heading?: T;
   owner?:
     | T
@@ -6706,26 +6249,13 @@ export interface BzFactsBlockSelect<T extends boolean = true> {
         label?: T;
         id?: T;
       };
-  authorizationsLabel?: T;
   authorizations?: T;
-  areaText?: T;
   contactLink?:
     | T
     | {
         label?: T;
         href?: T;
       };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "BzNewsBlock_select".
- */
-export interface BzNewsBlockSelect<T extends boolean = true> {
-  heading?: T;
-  allLabel?: T;
-  readLabel?: T;
   id?: T;
   blockName?: T;
 }

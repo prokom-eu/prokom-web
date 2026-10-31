@@ -46,9 +46,11 @@ const RAIL: Record<string, Entry[]> = {
       id: 'dla-kogo',
       label: 'Dla kogo',
       icon: 'users',
+      // As `BzPlan`: the heading, and tiles or the funding bar.
       shown: (block) =>
-        filled(field(field(block, 'industries'), 'tiles')) ||
-        Boolean(field(field(block, 'funding'), 'heading')),
+        Boolean(field(field(block, 'industries'), 'heading')) &&
+        (filled(field(field(block, 'industries'), 'tiles')) ||
+          Boolean(field(field(block, 'funding'), 'heading'))),
     },
     { id: 'plan', label: 'Plan Twojej firmy', icon: 'map' },
   ],
