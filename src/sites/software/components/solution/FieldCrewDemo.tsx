@@ -11,6 +11,7 @@ import {
   demoTexts,
   doneCount,
   INITIAL_DEMO,
+  MAX_PHOTOS,
   TASK_COUNT,
 } from '@/lib/software/fieldCrewDemo'
 import type { SolutionDemo } from '@/lib/software/solutionPage'
@@ -98,7 +99,7 @@ export function FieldCrewDemo({ demo, project }: Props) {
               const on = i === state.step
               return (
                 <button
-                  key={number}
+                  key={i}
                   type="button"
                   aria-pressed={on}
                   onClick={() => dispatch({ type: 'pick', step: i })}
@@ -127,10 +128,7 @@ export function FieldCrewDemo({ demo, project }: Props) {
               )
             })}
           </div>
-          <p
-            aria-live="polite"
-            className="inline-flex items-center gap-2 text-sm font-bold text-ink-2"
-          >
+          <p className="inline-flex items-center gap-2 text-sm font-bold text-ink-2">
             <span aria-hidden="true" className="size-2 rounded-full bg-ok" />
             {texts.hint}
           </p>
@@ -208,8 +206,9 @@ export function FieldCrewDemo({ demo, project }: Props) {
             <AddToProject id={project.id} name={project.name} />
           </div>
         </div>
+        {/* Announced only after a click: the demo playing on its own stays silent (WCAG 4.1.3). */}
         <p className="sr-only" aria-live="polite">
-          {`${demo.steps[state.step]?.[1] ?? ''}: ${texts.log}`}
+          {state.touched ? `${demo.steps[state.step]?.[1] ?? ''}: ${texts.log}` : ''}
         </p>
       </div>
     </section>
@@ -228,7 +227,6 @@ type PhoneProps = {
 
 /** The worker's phone — a mock-up (smaller text allowed, MOBILE-APLIKACJA §5), real buttons. */
 function Phone({ state, texts, tasks, onToggle, onPhoto, onSign, onNext }: PhoneProps) {
-  const done = doneCount(state)
   return (
     <div className="rounded-[34px] bg-surface-dark p-2 shadow-raised">
       <div className="overflow-hidden rounded-[28px] bg-card">
@@ -246,8 +244,8 @@ function Phone({ state, texts, tasks, onToggle, onPhoto, onSign, onNext }: Phone
               <p>ul. Orkana 12, Rabka-Zdrój</p>
               <p className="text-ink-2">Kod do bramy: 1234 · Pies w ogrodzie, łagodny</p>
               <p className="text-ink-2">Materiały: płytki 30×60 (12 m²), fuga grafit</p>
-              <p className="mt-auto rounded-xl border border-border px-3 py-2 text-center font-bold">
-                Zadzwoń do klienta
+              <p className="mt-auto inline-flex items-center gap-2 font-bold text-accent-text">
+                <Icon name="phone" className="size-4" /> Telefon do klienta w zleceniu
               </p>
             </>
           )}
@@ -257,7 +255,7 @@ function Phone({ state, texts, tasks, onToggle, onPhoto, onSign, onNext }: Phone
                 {tasks.map((task, i) => {
                   const on = state.tasks[i] ?? false
                   return (
-                    <li key={task}>
+                    <li key={i}>
                       <button
                         type="button"
                         aria-pressed={on}
@@ -280,7 +278,7 @@ function Phone({ state, texts, tasks, onToggle, onPhoto, onSign, onNext }: Phone
                 })}
               </ul>
               <div className="grid grid-cols-3 gap-1.5">
-                {PHOTOS.slice(0, Math.min(state.photos, 2)).map((tone, i) => (
+                {PHOTOS.slice(0, state.photos).map((tone, i) => (
                   <span
                     key={i}
                     aria-hidden="true"
@@ -288,13 +286,15 @@ function Phone({ state, texts, tasks, onToggle, onPhoto, onSign, onNext }: Phone
                     style={{ backgroundImage: `var(--grad-card-${tone})` }}
                   />
                 ))}
-                <button
-                  type="button"
-                  onClick={onPhoto}
-                  className="min-h-11 rounded-lg border border-dashed border-accent-line text-xs font-bold text-accent-text"
-                >
-                  + zdjęcie
-                </button>
+                {state.photos < MAX_PHOTOS && (
+                  <button
+                    type="button"
+                    onClick={onPhoto}
+                    className="min-h-11 rounded-lg border border-dashed border-accent-line text-xs font-bold text-accent-text"
+                  >
+                    + zdjęcie
+                  </button>
+                )}
               </div>
               <p className="inline-flex items-center gap-1.5 text-xs font-bold text-warn">
                 <span aria-hidden="true" className="size-1.5 rounded-full bg-warn" />
@@ -305,9 +305,7 @@ function Phone({ state, texts, tasks, onToggle, onPhoto, onSign, onNext }: Phone
           {state.step === 2 && (
             <>
               <p className="font-extrabold">Protokół odbioru</p>
-              <p className="text-ink-2">
-                {done}/{TASK_COUNT} zadania · {state.photos} zdjęcia · materiały zużyte
-              </p>
+              <p className="text-ink-2">{texts.protocol}</p>
               <button
                 type="button"
                 onClick={onSign}

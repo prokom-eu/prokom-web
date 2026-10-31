@@ -135,11 +135,11 @@ const FIELD_CREW_ICONS = [
 ] as const
 
 /** „Co dostajesz” of the field crew app (`page.deliverables`). */
-export const FIELD_CREW_DELIVERABLES = demo.included.map(([title, text], i) => ({
-  title: title!,
-  text: text ?? null,
-  icon: FIELD_CREW_ICONS[i] ?? null,
-}))
+export const FIELD_CREW_DELIVERABLES = demo.included.map(([title, text], i) => {
+  if (!title)
+    throw new Error(`Seed (Software): demo-aplikacja-ekip.json → included[${i}] has no title.`)
+  return { title, text: text ?? null, icon: FIELD_CREW_ICONS[i] ?? null }
+})
 
 /** „Wyceniane osobno” = `moreExamples` of the solution (spec. §6.1 v22). */
 export const FIELD_CREW_EXTRA = demo.extra

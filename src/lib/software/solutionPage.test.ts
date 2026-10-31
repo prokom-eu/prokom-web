@@ -116,6 +116,28 @@ describe('full solution page (board Rozwiazanie, field crew app)', () => {
   it('shows the demo instead of the window steps', () => {
     expect(page.demo?.kind).toBe('fieldCrew')
     expect(page.steps).toEqual([])
+    expect(page.howItWorks).toBe(true)
+  })
+
+  it('shows the demo only for a solution with a live preview (spec. §6.1)', () => {
+    const data = seeded.get(FIELD_CREW_SLUG)!
+    const solution = offerSolutionOf({ ...data, hasLivePreview: false } as OfferSolutionDoc)
+    const view = buildOfferView(solution, {
+      offer,
+      display,
+      related: [],
+      fill: (text, term) => text.replace('{termin}', term ?? ''),
+    })
+    const page = buildSolutionPage({
+      view,
+      page: data.page as SolutionPageDoc,
+      priceFrom: null,
+      price: 'Zapytaj o wycenę',
+      moreExamples: [],
+      isIcon: isIconName,
+    })
+    expect(page.demo).toBeNull()
+    expect(page.steps.length).toBeGreaterThan(0)
   })
 
   it('lists eight deliverables with icons and the extras', () => {
@@ -163,6 +185,28 @@ describe('template page (solution without its own texts)', () => {
     expect(page.faq.items.length).toBeGreaterThan(0)
     expect(page.choice).toBeNull()
     expect(page.compare).toEqual([])
+  })
+
+  it('drops items whose text went empty (a missing fact on production)', () => {
+    const page = pageOf('strona-firmowa-z-panelem', {
+      tiles: [
+        { label: 'Pierwszy etap', value: '' },
+        { label: 'Działa na', value: 'iOS' },
+      ],
+      compare: [{ label: 'Dziś', title: '' }],
+      deliverables: [{ title: '' }, { title: 'Panel' }],
+      faq: [{ q: 'Pytanie?', a: '' }],
+    })
+    expect(page.tiles.map((tile) => tile.label)).toEqual(['Cena', 'Działa na'])
+    expect(page.compare).toEqual([])
+    expect(page.deliverables.items.map((item) => item.title)).toEqual(['Panel'])
+    // No page question left → the window questions.
+    expect(page.faq.items.length).toBeGreaterThan(0)
+    expect(page.faq.items[0]!.question).not.toBe('Pytanie?')
+  })
+
+  it('links „Jak to działa” only when the page has its target', () => {
+    expect(page.howItWorks).toBe(true)
   })
 
   it('ignores a broken demo instead of failing the page', () => {

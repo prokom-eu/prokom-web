@@ -97,6 +97,8 @@ export type SolutionPageView = {
   example: string | null
   /** „Jak to wygląda” — only pages without the demo (the demo shows it). */
   steps: OfferView['steps']
+  /** The page has `#jak-dziala` (demo, steps or example): the hero links to it only then. */
+  howItWorks: boolean
   choice: {
     title: string
     note: string | null
@@ -144,13 +146,16 @@ function tilesOf(
     caption: clean(page?.priceCaption) ?? (priceFrom === null ? ASK_CAPTION : PRICE_CAPTION),
     accent: priceFrom === null,
   }
-  const own = (page?.tiles ?? []).map((tile) => ({
+  const own = (page?.tiles ?? []).flatMap((tile) =>
+    clean(tile.label) && clean(tile.value) ? [tile] : [],
+  )
+  const ownTiles = own.map((tile) => ({
     label: tile.label,
     value: tile.value,
     caption: clean(tile.caption),
     accent: false,
   }))
-  if (own.length > 0) return [priceTile, ...own.slice(0, 3)]
+  if (ownTiles.length > 0) return [priceTile, ...ownTiles.slice(0, 3)]
   const fallback: PageTile[] = [
     { label: view.termLabel, value: view.term, caption: null, accent: false },
   ]
@@ -165,11 +170,13 @@ function deliverablesOf(
   page: SolutionPageDoc | null,
   isIcon: BuildInput['isIcon'],
 ) {
-  const own = (page?.deliverables ?? []).map((item) => ({
-    title: item.title,
-    text: clean(item.text),
-    icon: item.icon && isIcon(item.icon) ? item.icon : null,
-  }))
+  const own = (page?.deliverables ?? [])
+    .flatMap((item) => (clean(item.title) ? [item] : []))
+    .map((item) => ({
+      title: item.title,
+      text: clean(item.text),
+      icon: item.icon && isIcon(item.icon) ? item.icon : null,
+    }))
   if (own.length > 0) return own
   const included = view.price.kind === 'included' ? view.price.items : []
   const titles = [...included, ...view.benefits.items]
@@ -177,12 +184,14 @@ function deliverablesOf(
 }
 
 function choiceOf(page: SolutionPageDoc | null): SolutionPageView['choice'] {
-  const options = (page?.choice?.options ?? []).map((option) => ({
-    name: option.name,
-    caption: clean(option.caption),
-    plus: [...(option.plus ?? [])],
-    minus: [...(option.minus ?? [])],
-  }))
+  const options = (page?.choice?.options ?? [])
+    .flatMap((option) => (clean(option.name) ? [option] : []))
+    .map((option) => ({
+      name: option.name,
+      caption: clean(option.caption),
+      plus: [...(option.plus ?? [])],
+      minus: [...(option.minus ?? [])],
+    }))
   const title = clean(page?.choice?.title)
   return title && options.length > 0 ? { title, note: clean(page?.choice?.note), options } : null
 }
@@ -201,8 +210,12 @@ export function buildSolutionPage({
   moreExamples,
   isIcon,
 }: BuildInput): SolutionPageView {
-  const demo = solutionDemoSchema.safeParse(page?.demo).data ?? null
-  const pageFaq = (page?.faq ?? []).map(({ q, a }) => ({ question: q, answer: a }))
+  // Spec. §6.1: the demo only for a solution with a live preview and its own demo.
+  const demo = view.hasLivePreview ? (solutionDemoSchema.safeParse(page?.demo).data ?? null) : null
+  const pageFaq = (page?.faq ?? []).flatMap(({ q, a }) =>
+    clean(q) && clean(a) ? [{ question: q, answer: a }] : [],
+  )
+  const steps = demo ? [] : view.steps
   const windowFaq = view.faq.map(({ q, a }) => ({ question: q, answer: a }))
   const eyebrow =
     clean(page?.eyebrow) ?? ([view.label, view.forWhom].filter(Boolean).join(' · ') || null)
@@ -216,11 +229,13 @@ export function buildSolutionPage({
     tone: view.tone,
     tiles: tilesOf(view, page, price, priceFrom),
     demo,
-    compare: (page?.compare ?? []).map((item) => ({
-      label: item.label,
-      title: item.title,
-      text: clean(item.text),
-    })),
+    compare: (page?.compare ?? [])
+      .flatMap((item) => (clean(item.label) && clean(item.title) ? [item] : []))
+      .map((item) => ({
+        label: item.label,
+        title: item.title,
+        text: clean(item.text),
+      })),
     deliverables: {
       title: clean(page?.deliverablesTitle) ?? view.benefits.title,
       badge: { value: price, caption: priceFrom === null ? ASK_CAPTION : view.term },
@@ -228,7 +243,8 @@ export function buildSolutionPage({
       extra: moreExamples.map((item) => item.trim()).filter(Boolean),
     },
     example: view.example,
-    steps: demo ? [] : view.steps,
+    steps,
+    howItWorks: demo !== null || steps.length > 0 || Boolean(view.example),
     choice: choiceOf(page),
     related: view.related,
     faq: {

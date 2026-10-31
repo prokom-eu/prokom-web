@@ -1,3 +1,5 @@
+import { plural } from '../plural'
+
 /**
  * State of the clickable field crew demo (board `Rozwiazanie`, `/rozwiazania/aplikacja-dla-ekip-w-terenie`):
  * one job through four steps — on the way, on site, signature, done. Pure: the component keeps
@@ -96,6 +98,8 @@ export type DemoTexts = {
   cardA: { title: string; text: string }
   cardB: { title: string; text: string }
   hint: string
+  /** The protocol line on the phone („4/4 zadania · 3 zdjęcia · materiały zużyte”). */
+  protocol: string
   /** Count of jobs per column: new, on the way, on site, done. */
   columns: [number, number, number, number]
 }
@@ -104,7 +108,7 @@ export type DemoTexts = {
 export function demoTexts(state: DemoState): DemoTexts {
   const done = doneCount(state)
   const { step, signed, photos } = state
-  const photosLabel = `${photos} zdjęć`
+  const photosLabel = `${photos} ${plural(photos, ['zdjęcie', 'zdjęcia', 'zdjęć'])}`
   return {
     status: ['W drodze', 'Na miejscu', 'Protokół', 'Zakończone'][step]!,
     button: [
@@ -138,6 +142,7 @@ export function demoTexts(state: DemoState): DemoTexts {
     hint: state.touched
       ? 'Twój wybór. Klikaj po telefonie.'
       : 'Przechodzi samo. Kliknij, żeby przejąć.',
+    protocol: `${done}/${TASK_COUNT} ${plural(done, ['zadanie', 'zadania', 'zadań'])} · ${photosLabel} · materiały zużyte`,
     columns: [2, step === 0 ? 2 : 1, step === 1 || step === 2 ? 2 : 1, step === 3 ? 4 : 3],
   }
 }

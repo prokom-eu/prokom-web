@@ -80,8 +80,17 @@ describe('field crew demo — texts', () => {
     const texts = demoTexts(INITIAL_DEMO)
     expect(texts.button).toBe('Odhacz zadania (2/4)')
     expect(texts.cardB.title).toBe('2/4 zadań odhaczonych')
-    expect(texts.log).toBe('08:05 · na miejscu · 2 zdjęć · 2/4 zadań')
+    expect(texts.log).toBe('08:05 · na miejscu · 2 zdjęcia · 2/4 zadań')
     expect(texts.hint).toBe('Przechodzi samo. Kliknij, żeby przejąć.')
+  })
+
+  it('declines „zdjęcie” with the count', () => {
+    const photos = (n: number) => demoTexts({ ...INITIAL_DEMO, photos: n }).cardA.text
+    expect(photos(1)).toBe('1 zdjęcie · bez zasięgu też')
+    expect(photos(4)).toBe('4 zdjęcia · bez zasięgu też')
+    expect(demoTexts({ ...INITIAL_DEMO, step: 2, photos: 1 }).protocol).toBe(
+      '2/4 zadania · 1 zdjęcie · materiały zużyte',
+    )
   })
 
   it('moves the job between the board columns', () => {

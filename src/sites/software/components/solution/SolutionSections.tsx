@@ -71,17 +71,19 @@ export function SolutionHero({ page }: Page) {
             )}
             <div className="mt-7 flex flex-col gap-2.5 min-[641px]:flex-row">
               <AddToProject id={page.slug} name={page.projectName} />
-              <a
-                href="#jak-dziala"
-                className="inline-flex min-h-14 items-center justify-center rounded-2xl border border-border bg-card px-6 font-extrabold active:scale-[0.98] motion-reduce:transition-none"
-              >
-                Jak to działa, krok po kroku
-              </a>
+              {page.howItWorks && (
+                <a
+                  href="#jak-dziala"
+                  className="inline-flex min-h-14 items-center justify-center rounded-2xl border border-border bg-card px-6 font-extrabold active:scale-[0.98] motion-reduce:transition-none"
+                >
+                  Jak to działa, krok po kroku
+                </a>
+              )}
             </div>
           </div>
           <dl className="grid grid-cols-2 gap-2.5">
-            {page.tiles.map((tile) => (
-              <div key={tile.label} className={cx(cardClass, 'flex flex-col p-4')}>
+            {page.tiles.map((tile, i) => (
+              <div key={i} className={cx(cardClass, 'flex flex-col p-4')}>
                 <dt className="text-xs font-extrabold uppercase tracking-[0.12em] text-ink-2">
                   {tile.label}
                 </dt>
@@ -286,7 +288,7 @@ export function SolutionOffer({ page }: Page) {
  * „Jak to wygląda” (`#jak-dziala`, the hero's second button).
  */
 export function SolutionHowItWorks({ page }: Page) {
-  if (page.demo || (page.steps.length === 0 && !page.example)) return null
+  if (page.demo || !page.howItWorks) return null
   return (
     <section
       id="jak-dziala"

@@ -92,6 +92,22 @@ export function fillText(
   return null
 }
 
+/**
+ * Every string of a stored document filled with `fill` (the page texts of `Solutions.page`,
+ * `Industries`): a text the fill drops (`null`, a missing value on production) becomes `''`, so
+ * the page builders skip it like an empty field.
+ */
+export function fillDeep(value: unknown, fill: (text: string) => string | null): unknown {
+  if (typeof value === 'string') return fill(value) ?? ''
+  if (Array.isArray(value)) return value.map((item) => fillDeep(item, fill))
+  if (value && typeof value === 'object') {
+    return Object.fromEntries(
+      Object.entries(value).map(([key, item]) => [key, fillDeep(item, fill)]),
+    )
+  }
+  return value
+}
+
 /** `SiteSettings.software.facts` rows → lookup by key; empty values are skipped. */
 export function factsMap(
   rows: readonly { key?: string | null; value?: string | null }[] | null | undefined,
