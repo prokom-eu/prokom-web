@@ -248,6 +248,15 @@ describe('decideRoute — site domains', () => {
     })
   })
 
+  it('serves the charger photos of Instalacje (I9) — only that folder', () => {
+    expect(route('instalacje.localhost', '/instalacje/ev/home.webp')).toEqual({ type: 'next' })
+    // `/instalacje` itself stays a page path of the tenant.
+    expect(route('instalacje.localhost', '/instalacje/cennik')).toEqual({
+      type: 'rewrite',
+      pathname: '/instalacje.localhost/instalacje/cennik',
+    })
+  })
+
   // Review of S3: a path ending in another domain must not reach that tenant's segment.
   it('rewrites a path that looks like another domain under the request host', () => {
     expect(route('instalacje.localhost', '/biznes.localhost')).toEqual({
