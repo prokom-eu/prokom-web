@@ -17,6 +17,7 @@ import {
 } from '@/lib/software/catalog'
 import { getOfferViews, getSoftwareFacts, getSolutionsIndex } from '@/lib/software/data'
 import { fillText, type TextContext } from '@/lib/software/facts'
+import { SOFTWARE_ROUTE_DESCRIPTIONS } from '@/lib/software/meta'
 import { Catalog } from '@/sites/software/components/catalog/Catalog'
 import { ContactBlock } from '@/sites/software/components/ContactBlock'
 
@@ -37,7 +38,7 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
   const seo = catalogSeo(parseCatalogState(query as ParamSource))
   return {
     title: TITLE,
-    description: LEAD,
+    description: SOFTWARE_ROUTE_DESCRIPTIONS.catalog,
     alternates: { canonical: seo.canonical },
     // Staging stays closed whatever the view; elsewhere a filtered view is not indexed.
     robots:
@@ -48,7 +49,7 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
       siteName: tenant.name,
       url: seo.canonical,
       title: TITLE,
-      description: LEAD,
+      description: SOFTWARE_ROUTE_DESCRIPTIONS.catalog,
       images: ogImages(settings?.seo.ogImage ?? null),
     },
   }
