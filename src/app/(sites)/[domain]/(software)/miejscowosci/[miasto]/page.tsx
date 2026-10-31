@@ -144,7 +144,7 @@ export default async function CityPage({ params }: Props) {
                     {city.hero.badges.map((badge) => (
                       <li
                         key={badge.title}
-                        className="rounded-[16px] border border-border bg-card px-4 py-3 shadow-raised min-[1081px]:w-fit min-[1081px]:even:ml-auto min-[1081px]:even:mt-20"
+                        className="rounded-[16px] border border-border bg-card px-4 py-3 shadow-raised min-[1081px]:w-fit min-[1081px]:self-start min-[1081px]:even:ml-auto min-[1081px]:even:mt-20"
                       >
                         <p className="text-sm font-extrabold">{badge.title}</p>
                         {badge.text ? <p className="text-xs text-ink-2">{badge.text}</p> : null}
