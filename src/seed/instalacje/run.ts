@@ -3,6 +3,7 @@ import type { Payload, Where } from 'payload'
 import { SETTINGS_DEFAULTS } from '../../lib/instalacje/options'
 import { hasSameValues } from '../compare'
 import { SEED_CONTEXT } from '../config'
+import { FORM_PAGE_BLOCKS } from './formPages'
 import { seedInstalacjeHome } from './home'
 import { SERVICE_PAGE_KEYS } from './servicePages'
 import {
@@ -251,6 +252,31 @@ export async function seedInstalacje(payload: Payload): Promise<void> {
       ...local,
     })
     count('service-pages', 'updated')
+  }
+
+  // --- form pages built in code (I11): an empty page gets its block and the package's SEO once
+  // and is published; a page an editor already laid out is left alone ---
+  const pageSeo = new Map(pagesToImport().map((page) => [page.slug, page.seo]))
+  for (const [slug, block] of Object.entries(FORM_PAGE_BLOCKS)) {
+    const { docs } = await payload.find({
+      collection: 'pages',
+      where: inTenant({ slug: { equals: slug } }),
+      draft: true,
+      limit: 1,
+      ...local,
+    })
+    const page = docs[0]
+    if (!page || (page.layout ?? []).length > 0) {
+      count('form-pages', 'skipped')
+      continue
+    }
+    await payload.update({
+      collection: 'pages',
+      id: page.id,
+      data: { layout: [block()], seo: pageSeo.get(slug), _status: 'published' },
+      ...local,
+    })
+    count('form-pages', 'updated')
   }
 
   for (const [name, c] of Object.entries(counters)) {

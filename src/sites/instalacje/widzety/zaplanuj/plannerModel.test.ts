@@ -214,6 +214,12 @@ describe('planner as the prototype', () => {
 })
 
 describe('planner rules of the site', () => {
+  it('takes the service of a service page link (`?usluga=`), the hash first', () => {
+    expect(plannerFromHash('', '?usluga=ant').services).toEqual(['ant'])
+    expect(plannerFromHash('', '?usluga=zle').services).toEqual([])
+    expect(plannerFromHash('#uslugi=kam', '?usluga=ant').services).toEqual(['kam'])
+  })
+
   it('asks for the name before the phone (the inquiry needs it)', () => {
     expect(stepError({ ...ready, name: ' ' }, 4)).toBe('name')
   })

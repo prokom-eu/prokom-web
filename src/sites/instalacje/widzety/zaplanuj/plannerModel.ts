@@ -4,6 +4,7 @@ import { HONEYPOT_FIELD } from '@/lib/inquiry/honeypot'
 import {
   answersOf,
   chargerLines,
+  isServiceKey,
   PLAN_QUESTIONS,
   PLAN_SIZES,
   PLAN_STAGES,
@@ -75,9 +76,14 @@ export const INITIAL_PLANNER: PlannerState = {
   charger: null,
 }
 
-/** The state after reading the address (`mountPage()`): object, services, charger. */
-export function plannerFromHash(hash: string): PlannerState {
+/**
+ * The state after reading the address (`mountPage()`): object, services, charger. The service
+ * pages link with `?usluga=<key>` (I4); the hash of the prototype wins when both are there.
+ */
+export function plannerFromHash(hash: string, search = ''): PlannerState {
+  const service = new URLSearchParams(search).get('usluga')
   const found = planHashState(hash)
+  if (!found.services && service && isServiceKey(service)) found.services = [service]
   return {
     ...INITIAL_PLANNER,
     ...(found.object && { object: found.object }),
