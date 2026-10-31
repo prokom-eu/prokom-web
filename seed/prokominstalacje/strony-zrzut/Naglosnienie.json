@@ -1,6 +1,6 @@
 {
  "_strona": "Naglosnienie",
- "_title": "Nagłośnienie APART dla lokali i kościołów, Podhale | PRO-KOM",
+ "_title": "Nagłośnienie lokali i kościołów, Podhale | PRO-KOM",
  "_description": "Nagłośnienie APART dla restauracji, hoteli, kościołów, szkół i sal obrad na Podhalu. Muzyka w strefach, zrozumiała mowa i transmisja sesji.",
  "_uwaga": "Zrzut danych z wizualizacji v4.0 (stan początkowy strony, motyw jasny). Teksty = treść do seeda. Klucze UI (cls, on, pick) pomijaj.",
  "dane": {
@@ -79,10 +79,6 @@
    {
     "href": "#licencje",
     "n": "Muzyka w lokalu"
-   },
-   {
-    "href": "#realizacje-n",
-    "n": "Realizacje"
    },
    {
     "href": "#faq",
