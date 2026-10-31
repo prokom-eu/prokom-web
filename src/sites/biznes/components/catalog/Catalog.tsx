@@ -1,7 +1,7 @@
 'use client'
 
 import { useSearchParams } from 'next/navigation'
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react'
 
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
@@ -17,7 +17,8 @@ import {
   updateState,
   type CatalogState,
 } from '@/lib/catalog/filters'
-import { catalogSlots, emptySuggestions, PARTNERS } from '@/lib/catalog/listing'
+import { emptySuggestions } from '@/lib/catalog/listing'
+import { NARROW_ROW_QUERY, ROW_NARROW, ROW_WIDE } from '@/lib/catalog/order'
 import { primeCatalogIndex } from '@/lib/catalog/useCatalogIndex'
 import { plural } from '@/lib/plural'
 import { prepareSearch } from '@/lib/search'
@@ -27,10 +28,18 @@ import { CatalogFilters } from './CatalogFilters'
 import { EmptyResult } from './EmptyResult'
 import { FilterSheet } from './FilterSheet'
 import { ProductCard } from './ProductCard'
-import { PartnersCard, WizardCard } from './PromoCards'
 
 /** The URL follows the search box after a short pause, not on every key. */
 const QUERY_DELAY_MS = 300
+
+/** Cards in a grid row (K36 §10): the server renders rows of 3, the browser follows its width. */
+function subscribeRow(onChange: () => void) {
+  const narrow = window.matchMedia(NARROW_ROW_QUERY)
+  narrow.addEventListener('change', onChange)
+  return () => narrow.removeEventListener('change', onChange)
+}
+const rowNow = () => (window.matchMedia(NARROW_ROW_QUERY).matches ? ROW_NARROW : ROW_WIDE)
+const rowOnServer = () => ROW_WIDE
 
 const positions = (n: number) => `${n} ${plural(n, ['pozycja', 'pozycje', 'pozycji'])}`
 
@@ -64,9 +73,11 @@ export function Catalog({ index }: { index: CatalogIndex }) {
     () => (typing ? updateState(state, { query: draft.trim() }) : state),
     [typing, state, draft],
   )
+  const rowWidth = useSyncExternalStore(subscribeRow, rowNow, rowOnServer)
+  const perRow = view.view === 'list' ? ROW_WIDE : rowWidth
   const { results, visible, facets } = useMemo(
-    () => runCatalog(index, search, view),
-    [index, search, view],
+    () => runCatalog(index, search, view, { perRow }),
+    [index, search, view, perRow],
   )
   const chips = activeFilters(view, index)
 
@@ -130,10 +141,6 @@ export function Catalog({ index }: { index: CatalogIndex }) {
       heading={!inSheet}
     />
   )
-  const partners = PARTNERS.map((partner) => partner.slug).filter((slug) =>
-    index.brands.some((brand) => brand.slug === slug),
-  )
-  const slots = catalogSlots(visible, view, partners)
   const list = view.view === 'list'
 
   const more = results.length - visible.length
@@ -390,37 +397,20 @@ export function Catalog({ index }: { index: CatalogIndex }) {
               data-catalog-grid
               className={cx(
                 'grid gap-2.5 sm:gap-3.5',
-                list ? 'grid-cols-1' : 'grid-cols-2 xl:grid-cols-3',
+                // 3 per row above 1100 px, as the department rows of „Polecane” (ROW_WIDE).
+                list ? 'grid-cols-1' : 'grid-cols-2 min-[1101px]:grid-cols-3',
               )}
             >
-              {slots.map((slot) =>
-                slot.type === 'product' ? (
-                  <li key={slot.product.slug} className="flex">
-                    <ProductCard
-                      product={slot.product}
-                      index={index}
-                      position={slot.position}
-                      layout={view.view}
-                    />
-                  </li>
-                ) : slot.type === 'wizard' ? (
-                  <li key="wizard" className={cx('flex', list ? '' : 'max-sm:col-span-2')}>
-                    <WizardCard index={index} />
-                  </li>
-                ) : (
-                  <li
-                    key="partners"
-                    className={cx(
-                      'flex',
-                      // Two partners take two columns; one fits a single column from 1280 px.
-                      !list &&
-                        (slot.partners.length > 1 ? 'col-span-2' : 'col-span-2 xl:col-span-1'),
-                    )}
-                  >
-                    <PartnersCard partners={slot.partners} index={index} />
-                  </li>
-                ),
-              )}
+              {visible.map((product, position) => (
+                <li key={product.slug} className="flex">
+                  <ProductCard
+                    product={product}
+                    index={index}
+                    position={position}
+                    layout={view.view}
+                  />
+                </li>
+              ))}
             </ul>
           )}
 

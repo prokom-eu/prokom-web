@@ -57,6 +57,8 @@ export type IndexProduct = {
   isNew: boolean
   authorized: boolean
   popularity: number
+  /** `pop9` (`Products.categoryOrder`): order inside the category under „Polecane” (K36 §10). */
+  order?: number
   registerTypes: NonNullable<Product['registerTypes']>
   /** Set for the products of the home page, in their order. */
   featuredOrder?: number
@@ -118,6 +120,8 @@ export type CatalogIndex = {
     showcase?: GroupShowcase
     /** Products next to the department on the home page wheel (K36 §12), listed ones only. */
     wheel?: string[]
+    /** Top of the department (`dzTop9`): first in its rows of „Polecane” (K36 §10). */
+    top?: string[]
   }[]
   industries: { slug: string; name: string; active: boolean }[]
   /** Published pages of the site but home (the special pages: `/opieka-it`, `/gopos`, …). */
@@ -147,6 +151,7 @@ export type IndexedProductDoc = Pick<
   | 'isNew'
   | 'authorized'
   | 'popularity'
+  | 'categoryOrder'
   | 'registerTypes'
   | 'featured'
   | 'featuredOrder'
@@ -312,6 +317,7 @@ export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
       isNew: Boolean(product.isNew),
       authorized: Boolean(product.authorized),
       popularity: product.popularity ?? 0,
+      ...(typeof product.categoryOrder === 'number' && { order: product.categoryOrder }),
       registerTypes: product.registerTypes ?? [],
       ...(product.featured && { featuredOrder: product.featuredOrder ?? 0 }),
       ...(product.featured && product.featuredGroup && { featuredGroup: product.featuredGroup }),
@@ -369,6 +375,9 @@ export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
         const wheel = docs(group.wheelProducts)
           .map((product) => product.slug)
           .filter((slug) => listedSlugs.has(slug))
+        const top = docs(group.topProducts)
+          .map((product) => product.slug)
+          .filter((slug) => listedSlugs.has(slug))
         return {
           slug: group.slug,
           name: group.name,
@@ -377,6 +386,7 @@ export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
           ...(description && { description }),
           ...(showcase && { showcase }),
           ...(wheel.length > 0 && { wheel }),
+          ...(top.length > 0 && { top }),
         }
       }),
     industries: source.industries.map((industry) => ({
@@ -411,9 +421,13 @@ export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
 
 /**
  * The index the browser fetches (`GET /api/catalog-index`: search, inquiry drawer — no cards):
- * without the „film” badge, which only server-rendered cards show (K31c), so it stays within
+ * without the „film” badge and the „Polecane” order, which only server-rendered views use
+ * (K31c, K4d), so it stays within
  * its 50 KB gzip budget (ADR-012 §2.4).
  */
 export function searchIndex(index: CatalogIndex): CatalogIndex {
-  return { ...index, products: index.products.map(({ video: _video, ...product }) => product) }
+  return {
+    ...index,
+    products: index.products.map(({ video: _video, order: _order, ...product }) => product),
+  }
 }

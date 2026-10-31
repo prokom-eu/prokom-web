@@ -1,5 +1,6 @@
 import { searchProducts, type PreparedSearch } from '../search'
 import type { CatalogIndex, IndexProduct } from './catalogIndex'
+import { departmentRows, menuOrder, ROW_WIDE } from './order'
 
 /**
  * Filters of the catalog `/oferta` (spec. §5, §8.3): the state lives only in the URL, so a link
@@ -12,8 +13,8 @@ export const CATALOG_PATH = '/oferta'
 /** Page of all brands (K33 §6). */
 export const BRANDS_PATH = '/marki'
 
-/** „Pokaż kolejne” adds this many (spec. §5.3). */
-export const CATALOG_PAGE_SIZE = 12
+/** „Pokaż kolejne” adds this many (K33 §4: 24 — whole rows of 3 and of 2). */
+export const CATALOG_PAGE_SIZE = 24
 
 /**
  * The company's own services are listed under the PRO-KOM brand: not a manufacturer, so it is
@@ -215,15 +216,40 @@ export type CatalogResult = {
   facets: CatalogFacets
 }
 
-function sortProducts(products: IndexProduct[], sort: CatalogSort): IndexProduct[] {
+/** Index data „Polecane” needs: departments with their tops and categories in menu order. */
+type OrderIndex = Pick<CatalogIndex, 'products' | 'groups' | 'categories'>
+
+/** Any filter on (not the phrase, sort or view): „Polecane” then follows the menu (K36 §10). */
+const filtered = (state: CatalogState) =>
+  Boolean(
+    state.kind ||
+    state.group ||
+    state.categories.length ||
+    state.brands.length ||
+    state.industries.length ||
+    state.authorized ||
+    state.isNew,
+  )
+
+function sortProducts(
+  products: IndexProduct[],
+  state: CatalogState,
+  index: OrderIndex,
+  perRow: number,
+): IndexProduct[] {
+  if (state.sort === 'popular') {
+    return filtered(state) ? menuOrder(products, index) : departmentRows(products, index, perRow)
+  }
   const byPopularity = (a: IndexProduct, b: IndexProduct) => b.popularity - a.popularity
-  const compare: Record<CatalogSort, (a: IndexProduct, b: IndexProduct) => number> = {
-    popular: byPopularity,
+  const compare: Record<
+    Exclude<CatalogSort, 'popular'>,
+    (a: IndexProduct, b: IndexProduct) => number
+  > = {
     new: (a, b) => Number(b.isNew) - Number(a.isNew) || byPopularity(a, b),
     az: (a, b) => a.name.localeCompare(b.name, 'pl'),
   }
   // Stable sort: equal products keep the index order.
-  return [...products].sort(compare[sort])
+  return [...products].sort(compare[state.sort])
 }
 
 function count(
@@ -243,19 +269,22 @@ function count(
 }
 
 /**
- * Results and counts of a view. Facet counts follow spec. §8.3: each filter group is counted
+ * Results and counts of a view. `perRow`: cards in a grid row, for the department rows of the
+ * plain offer (`ROW_NARROW` up to 1100 px). Facet counts follow spec. §8.3: each filter group is counted
  * with every other filter applied but not itself, so a count says how many the click shows.
  */
 export function runCatalog(
-  index: Pick<CatalogIndex, 'products'>,
+  index: OrderIndex,
   search: PreparedSearch,
   state: CatalogState,
+  { perRow = ROW_WIDE }: { perRow?: number } = {},
 ): CatalogResult {
   const found = state.query ? searchProducts(search, state.query) : null
   const base = found ?? index.products
   const matching = base.filter((product) => passes(product, state))
   // With a phrase, „Polecane” keeps the search's own order (best match first).
-  const results = found && state.sort === 'popular' ? matching : sortProducts(matching, state.sort)
+  const results =
+    found && state.sort === 'popular' ? matching : sortProducts(matching, state, index, perRow)
   return {
     results,
     visible: results.slice(0, state.page * CATALOG_PAGE_SIZE),
