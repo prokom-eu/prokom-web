@@ -1136,3 +1136,15 @@
   outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
+
+/* Like the service pages (`sekcje.css`): buttons keep the browser's `line-height: normal` of the
+   prototype (Tailwind makes them inherit), without specificity. The prototype has no box-sizing
+   reset: the ticket's service row counts its padding on top of `min-height` (ADR-I003 §5 p. 6). */
+[data-line='instalacje'] {
+  & :where(.zkh button) {
+    line-height: normal;
+  }
+  & .zktsv {
+    box-sizing: content-box;
+  }
+}

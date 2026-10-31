@@ -20,7 +20,7 @@ import {
 } from '@/lib/instalacje/plan'
 
 import type { ServiceKey } from '../../dane/types'
-import { PLANNER_HUES, PLANNER_OBJECT_ICONS, zaplanuj as Z } from '../../dane/zaplanuj'
+import { PLANNER_OBJECT_ICONS, zaplanuj as Z } from '../../dane/zaplanuj'
 import { InstIcon } from '../../InstIcon'
 import {
   answer,
@@ -144,7 +144,7 @@ export function PlannerWizard({ services, formToken, phone, hours }: Props) {
   const blocked = stepError(state, step) !== null
   const byKey = new Map(services.map((s) => [s.key, s]))
   const hue = (key: ServiceKey) =>
-    ({ '--h': byKey.get(key)?.color || PLANNER_HUES[key] }) as CSSProperties
+    ({ '--h': byKey.get(key)?.color || 'var(--accent)' }) as CSSProperties
   const invalid = (key: PlannerError) =>
     error?.key === key ? { 'aria-invalid': true as const, 'aria-describedby': 'zk-err' } : {}
 

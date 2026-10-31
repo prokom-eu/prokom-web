@@ -23,20 +23,6 @@ export const PLANNER_OBJECT_ICONS: Record<PlannerObject, InstIconName> = {
   dew: 'crane',
 }
 
-/** Service hues of the planner (`HUE`) — used when the panel has no colour. */
-export const PLANNER_HUES: Record<ServiceKey, string> = {
-  kam: '#12B6D8',
-  alarm: '#F07A6A',
-  kd: '#F2B84B',
-  wifi: '#5B8CF0',
-  tel: '#9AA8AD',
-  ant: '#B58CF0',
-  smart: '#7BD36A',
-  snd: '#F29A4B',
-  scr: '#E86FB0',
-  ev: '#5FD0B0',
-}
-
 export type PlannerPreset = {
   label: string
   description: string
