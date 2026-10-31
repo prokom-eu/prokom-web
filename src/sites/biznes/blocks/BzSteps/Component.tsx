@@ -93,7 +93,7 @@ export async function BzStepsBlock({ block, tenantId }: Props) {
                       {step.gets && (
                         <p className="rounded-xl bg-accent-soft px-3 py-2.5 text-[13.5px] leading-snug font-bold text-ink">
                           {block.getsLabel && (
-                            <span className="block text-[11px] font-extrabold tracking-[0.12em] text-accent-text uppercase">
+                            <span className="block text-[11px] font-extrabold tracking-[0.12em] text-ink-2 uppercase">
                               {block.getsLabel}
                             </span>
                           )}
