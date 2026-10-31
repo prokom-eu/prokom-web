@@ -102,9 +102,9 @@ function ModuleMap({ page }: Page) {
           </div>
         </div>
         <ul>
-          {page.modules.map((module) => (
+          {page.modules.map((module, i) => (
             <li
-              key={module.name}
+              key={i}
               className="absolute -translate-x-1/2 -translate-y-1/2 motion-safe:animate-float"
               style={{
                 left: `${module.x}%`,
@@ -128,9 +128,9 @@ function ModuleMap({ page }: Page) {
           <div className="rounded-2xl border border-accent-line bg-accent-soft p-4">{hub}</div>
         )}
         <ul className="mt-2.5 grid grid-cols-2 gap-2">
-          {page.modules.map((module) => (
+          {page.modules.map((module, i) => (
             <li
-              key={module.name}
+              key={i}
               className="flex min-h-12 items-center gap-2 rounded-xl border border-border bg-card px-3 text-sm font-extrabold"
             >
               {module.icon && (

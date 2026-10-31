@@ -90,6 +90,28 @@ describe('industry page — only published solutions of the tenant', () => {
   })
 })
 
+describe('industry page — texts emptied by a missing fact', () => {
+  it('drops a problem, a module and a step whose text went empty', () => {
+    const data = industries.find((item) => item.slug === 'budownictwo-i-wykonczenia')!
+    const software = data.software!
+    const page = pageOf('budownictwo-i-wykonczenia', {
+      software: {
+        ...software,
+        problems: software.problems!.map((problem, i) =>
+          i === 0 ? { ...problem, question: '' } : problem,
+        ),
+        moduleMap: software.moduleMap!.map((module, i) =>
+          i === 0 ? { ...module, name: '' } : module,
+        ),
+        offline: software.offline!.map((step, i) => (i === 0 ? { ...step, title: '' } : step)),
+      },
+    })!
+    expect(page.problems.items).toHaveLength(software.problems!.length - 1)
+    expect(page.modules).toHaveLength(software.moduleMap!.length - 1)
+    expect(page.offline?.steps).toHaveLength(software.offline!.length - 1)
+  })
+})
+
 describe('industry page — 404', () => {
   it('is not built for an inactive industry', () => {
     expect(pageOf('budownictwo-i-wykonczenia', { active: false })).toBeNull()

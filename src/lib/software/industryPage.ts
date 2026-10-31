@@ -93,23 +93,26 @@ export function buildIndustryPage({
   const page = software.page
   const group = INDUSTRY_GROUPS.find((item) => item.value === software.group)?.label
 
-  const problems: IndustryProblem[] = (software.problems ?? []).map((problem) => {
-    const solution = solutionOf(problem.solution)
-    const label = clean(problem.cta?.label)
-    const href = clean(problem.cta?.href)
-    return {
-      question: problem.question,
-      note: clean(problem.note),
-      icon: icon(problem.icon),
-      title: clean(problem.title),
-      text: clean(problem.text),
-      features: (problem.features ?? []).filter(Boolean),
-      solution: solution
-        ? { slug: solution.slug, name: solution.name, thumbnail: solution.thumbnail ?? null }
-        : null,
-      cta: label && href ? { label, href } : null,
-    }
-  })
+  // A text emptied by a missing fact (production) drops its element, never an empty button.
+  const problems: IndustryProblem[] = (software.problems ?? [])
+    .filter((problem) => clean(problem.question))
+    .map((problem) => {
+      const solution = solutionOf(problem.solution)
+      const label = clean(problem.cta?.label)
+      const href = clean(problem.cta?.href)
+      return {
+        question: problem.question,
+        note: clean(problem.note),
+        icon: icon(problem.icon),
+        title: clean(problem.title),
+        text: clean(problem.text),
+        features: (problem.features ?? []).filter(Boolean),
+        solution: solution
+          ? { slug: solution.slug, name: solution.name, thumbnail: solution.thumbnail ?? null }
+          : null,
+        cta: label && href ? { label, href } : null,
+      }
+    })
   // A page without its problems has no content yet (spec. §6.2: not published without text).
   if (problems.length === 0) return null
 
@@ -133,13 +136,15 @@ export function buildIndustryPage({
       href: industryWizardHref(software.wizardFirm),
     },
     hub: hubTitle ? { title: hubTitle, caption: clean(page?.hubCaption) } : null,
-    modules: (software.moduleMap ?? []).map((module) => ({
-      name: module.name,
-      icon: icon(module.icon),
-      x: module.x,
-      y: module.y,
-      delay: module.delay ?? 0,
-    })),
+    modules: (software.moduleMap ?? [])
+      .filter((module) => clean(module.name))
+      .map((module) => ({
+        name: module.name,
+        icon: icon(module.icon),
+        x: module.x,
+        y: module.y,
+        delay: module.delay ?? 0,
+      })),
     problems: {
       eyebrow: clean(page?.problemsEyebrow) ?? `Co boli w branży`,
       lead: clean(page?.problemsLead),
@@ -154,10 +159,12 @@ export function buildIndustryPage({
           note: noteValue
             ? { label: clean(box?.noteLabel), value: noteValue, caption: clean(box?.noteCaption) }
             : null,
-          steps: (software.offline ?? []).map((step) => ({
-            title: step.title,
-            text: clean(step.text),
-          })),
+          steps: (software.offline ?? [])
+            .filter((step) => clean(step.title))
+            .map((step) => ({
+              title: step.title,
+              text: clean(step.text),
+            })),
         }
       : null,
     solutions: {

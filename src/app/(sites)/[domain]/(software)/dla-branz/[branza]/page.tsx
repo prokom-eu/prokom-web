@@ -86,6 +86,18 @@ export default async function IndustryPage({ params }: Props) {
   const fill = (value: string) =>
     fillText(value, { tenantId: tenant.id, facts, prices: {}, strict })
   const tel = settings?.phone ? toTelHref(settings.phone) : null
+  // Only the windows of these cards and of their „Dobrze łączy się z” (the window switches to
+  // them) go to the browser, not all the tenant's solutions.
+  const cardSlugs = page.solutions.items.map((card) => card.slug)
+  const windowSlugs = new Set(
+    cardSlugs.flatMap((slug) => [slug, ...(offers[slug]?.related ?? []).map((card) => card.slug)]),
+  )
+  const cardOffers = Object.fromEntries(
+    [...windowSlugs].flatMap((slug) => {
+      const view = offers[slug]
+      return view ? [[slug, view] as const] : []
+    }),
+  )
   const firstTone = page.solutions.items[0] ? offers[page.solutions.items[0].slug]?.tone : undefined
 
   const jsonLd = breadcrumbJsonLd([
@@ -155,7 +167,7 @@ export default async function IndustryPage({ params }: Props) {
             <IndustryCards
               cards={page.solutions.items}
               display={index.priceDisplay}
-              offers={offers}
+              offers={cardOffers}
             />
           </Container>
         </section>

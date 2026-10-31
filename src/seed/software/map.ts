@@ -317,6 +317,7 @@ export function industryData(
   if (!content) throw new Error(`Seed (Software): industry "${page.slug}" → unknown content.`)
   const where = `industry "${page.slug}"`
   const texts = INDUSTRY_PAGE_TEXTS[page.content as keyof typeof INDUSTRY_PAGE_TEXTS]
+  if (!texts) throw new Error(`Seed (Software): ${where} → no page texts in industryPages.ts.`)
   return {
     ...base,
     hero: { ...texts.hero },

@@ -37,7 +37,7 @@ export function ProblemsExplorer({ problems, tone }: Props) {
         {problems.map((item, i) => {
           const on = i === active
           return (
-            <li key={item.question} className="w-[82%] shrink-0 snap-start min-[1081px]:w-auto">
+            <li key={i} className="w-[82%] shrink-0 snap-start min-[1081px]:w-auto">
               <button
                 type="button"
                 aria-pressed={on}
@@ -76,14 +76,16 @@ export function ProblemsExplorer({ problems, tone }: Props) {
 
       <div
         id="problem-panel"
-        aria-live="polite"
         className="grid overflow-hidden rounded-[24px] bg-card shadow-[inset_0_0_0_1px_var(--border)] min-[641px]:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]"
       >
         <div className="p-5 min-[641px]:p-7">
           <p className="text-xs font-extrabold uppercase tracking-[0.14em] text-accent-text">
             Na to mamy
           </p>
-          <h3 className="mt-2 font-display text-2xl font-extrabold leading-tight min-[641px]:text-[28px]">
+          <h3
+            aria-live="polite"
+            className="mt-2 font-display text-2xl font-extrabold leading-tight min-[641px]:text-[28px]"
+          >
             {problem.title ?? solution?.name ?? problem.question}
           </h3>
           {problem.text && <p className="mt-3 text-[15px] text-ink-2">{problem.text}</p>}
