@@ -20,9 +20,10 @@ async function fetchStatus(url: string): Promise<number | null> {
 
 /**
  * Weekly film check (ADR-016), run by the in-process job runner (`jobs.autoRun`, ADR-011):
- * films of products (`Products.videos`). Unavailable → `active = false` and one mail to the administrators; a product with an unpublished draft only in the
- * mail (switched off by hand). The page cache picks the change up within its
- * TTL — a job runs outside a request, where nothing can be revalidated.
+ * films of products (`Products.videos`). Unavailable → `active = false` and one mail to the
+ * administrators; a product with an unpublished draft only in the mail (switched off by hand).
+ * The page cache picks the change up within its TTL — a job runs outside a request, where
+ * nothing can be revalidated.
  */
 export const videoAvailabilityTask: TaskConfig<'videoAvailability'> = {
   slug: 'videoAvailability',
@@ -55,11 +56,8 @@ export const videoAvailabilityTask: TaskConfig<'videoAvailability'> = {
     // Checking takes minutes: each record is read again right before it is written, so an
     // edit made in the panel meanwhile is not overwritten.
     const report: CheckedRecord[] = []
-    const affected = <
-      T extends { videos?: { youtubeId: string; active?: boolean | null }[] | null },
-    >(
-      record: T | undefined | null,
-    ) => (record?.videos ?? []).some((video) => result.unavailable.has(video.youtubeId))
+    const affected = (product: (typeof products)[number]) =>
+      (product.videos ?? []).some((video) => result.unavailable.has(video.youtubeId))
     for (const { id } of products.filter(affected)) {
       const product = await payload.findByID({ collection: 'products', id, ...local })
       const { videos, switched } = switchOff(product.videos ?? [], result.unavailable)

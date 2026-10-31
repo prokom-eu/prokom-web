@@ -4,7 +4,8 @@ import type { K31Catalog } from './k31'
 
 /**
  * K31a-2: series of the cards from the showrooms of `marki-salony-k31.json` (the showrooms
- * themselves are salons 2.0 since K4f) and the scenes of `plansze-k31.json` (→ `FloorPlans`). Pure functions; `run.ts` gives them the product ids.
+ * themselves are salons 2.0 since K4f) and the scenes of `plansze-k31.json` (→ `FloorPlans`).
+ * Pure functions; `run.ts` gives them the product ids.
  * Cards are named by `slug_seed`; a card the K3.1 split replaced stands for all its new cards
  * (decision 27.10), the 301 target first.
  */

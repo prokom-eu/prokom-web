@@ -70,7 +70,7 @@ describe('floor plan SVG (FloorPlans.svg, rendered inline in K31d)', () => {
   })
 })
 
-describe('icon path (FloorPlans.iconPath, Partners.showroom)', () => {
+describe('icon path (FloorPlans.iconPath, Showrooms.family)', () => {
   it('accepts every icon of the package', () => {
     const icons = [
       ...plans.sceny.map((scene) => scene.ikona_path),
