@@ -81,6 +81,7 @@ describe('buildSiteMap', () => {
       '/oferta/komputery-monitory/laptopy',
     ])
     expect(map.find(({ id }) => id === 'marki')?.links).toEqual([
+      { href: '/marki', label: 'Wszystkie marki' },
       { href: '/marki/dibal', label: 'Dibal' },
     ])
   })

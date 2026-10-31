@@ -19,10 +19,13 @@ describe('upgradedMenu (K4)', () => {
   ]
   const v20 = legacy.map(({ partner: _partner, ...item }) => item)
 
-  it('gives the menus of earlier seeds the K4 menu, without „Gotowe zestawy”', () => {
-    for (const seeded of [k3c, v20]) {
+  const k4b = legacy
+
+  it('gives the menus of earlier seeds the K4 menu, without „Gotowe zestawy”, with „Marki”', () => {
+    for (const seeded of [k3c, v20, k4b]) {
       expect(upgradedMenu(seeded)?.map((item) => item.label)).toEqual([
         'Oferta',
+        'Marki',
         'Opieka IT',
         'GoPOS',
         'InsERT',
@@ -35,7 +38,6 @@ describe('upgradedMenu (K4)', () => {
   it('leaves a menu edited in the panel or already current', () => {
     expect(upgradedMenu([...k3c.slice(0, 6), { ...k3c[6]!, label: 'Kontakt i dojazd' }])).toBeNull()
     expect(upgradedMenu(menuData())).toBeNull()
-    expect(upgradedMenu(legacy)).toBeNull()
     expect(upgradedMenu(null)).toBeNull()
   })
 })

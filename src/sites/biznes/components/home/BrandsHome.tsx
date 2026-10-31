@@ -5,7 +5,7 @@ import { Container } from '@/components/ui/Container'
 import { Icon } from '@/components/ui/Icon'
 import { brandPageHref } from '@/lib/catalog/brand'
 import { getCatalogIndex } from '@/lib/catalog/data'
-import { OWN_BRAND_SLUG } from '@/lib/catalog/filters'
+import { BRANDS_PATH, OWN_BRAND_SLUG } from '@/lib/catalog/filters'
 import { partnerStatusLabel } from '@/lib/partners/badges'
 import { getHomeBrands, getPartners } from '@/lib/partners/data'
 import type { HomeBrand } from '@/lib/partners/homeBrands'
@@ -152,9 +152,8 @@ export async function BrandsHome({
                 ))}
                 {rest > 0 && <li className="text-sm font-extrabold text-ink-2">+{rest}</li>}
               </ul>
-              {/* TODO(krystian): /marki after K4f. */}
               <Link
-                href="/oferta"
+                href={BRANDS_PATH}
                 className="inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-xl bg-accent-text px-5 font-extrabold text-accent-ink"
               >
                 Wszystkie marki
