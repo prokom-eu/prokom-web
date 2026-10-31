@@ -18,6 +18,7 @@ const PAGES = [
   '/smart-home',
   '/naglosnienie',
   '/ekrany',
+  '/ladowarki-ev',
 ]
 
 // Known exceptions, each with its open question in docs/stan/STAN-instalacje.md.

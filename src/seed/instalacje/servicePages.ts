@@ -16,4 +16,5 @@ export const SERVICE_PAGE_KEYS: readonly ServiceKey[] = [
   'smart',
   'snd',
   'scr',
+  'ev',
 ]

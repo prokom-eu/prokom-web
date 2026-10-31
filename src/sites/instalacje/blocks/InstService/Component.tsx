@@ -38,6 +38,8 @@ import { SmartSections, SmartWarrantyNote } from '../../widzety/smart/SmartSecti
 import { SmartPlan } from '../../widzety/smart/SmartWidgets'
 import { EkranySections } from '../../widzety/ekrany/EkranySections'
 import { ScreenPreview } from '../../widzety/ekrany/EkranyWidgets'
+import { LadowarkiSections } from '../../widzety/ladowarki/LadowarkiSections'
+import { ChargerShowcase } from '../../widzety/ladowarki/LadowarkiWidgets'
 import { NaglosnienieSections } from '../../widzety/naglosnienie/NaglosnienieSections'
 import { ZoneMixer } from '../../widzety/naglosnienie/NaglosnienieWidgets'
 
@@ -100,6 +102,11 @@ const LAYOUTS: Partial<Record<string, (ctx: LayoutContext) => ServiceLayout>> = 
   scr: () => ({
     widget: <ScreenPreview />,
     sections: <EkranySections />,
+    folded: ['cena', 'faq'],
+  }),
+  ev: () => ({
+    widget: <ChargerShowcase />,
+    sections: <LadowarkiSections />,
     folded: ['cena', 'faq'],
   }),
   ant: () => ({

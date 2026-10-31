@@ -13,8 +13,9 @@ describe('service page anchors', () => {
     expect(unknownAnchors('ant', ['faq', 'nie-ma'])).toEqual(['nie-ma'])
   })
 
+  // Since I9 every service has its page: a key without one stands for a future service.
   it('gives a service without its own page only the shared sections', () => {
-    expect(sectionIdsOf('ev')).toEqual(['odbior', 'pakiety', 'cena', 'faq', 'powiazane'])
+    expect(sectionIdsOf('bez-strony')).toEqual(['odbior', 'pakiety', 'cena', 'faq', 'powiazane'])
   })
 
   it('builds the panel message, also from the saved document on a partial update', () => {
@@ -26,6 +27,8 @@ describe('service page anchors', () => {
   })
 
   it('leaves the services without a page in code alone', () => {
-    expect(anchorsError({ key: 'ev', anchors: [{ anchorId: 'nagrania' }] }, undefined)).toBeNull()
+    expect(
+      anchorsError({ key: 'bez-strony', anchors: [{ anchorId: 'nagrania' }] }, undefined),
+    ).toBeNull()
   })
 })

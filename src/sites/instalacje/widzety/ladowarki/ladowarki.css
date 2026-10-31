@@ -1,0 +1,742 @@
+/*
+ * Ładowarki EV page (I9): the Elzab EcoPower showcase in the hero, the model cards, the version
+ * configurator, the comparison table and the charging calculator with its winter scene. Rules of
+ * `pk.css` v4.2 for the classes of `Ladowarki.body.html` and `Ladowarki.js` not already in the
+ * other page sheets (one bundle for all service pages), ported by `narzedzia/przenies-css.mjs`
+ * (map `przenies-css.strony.json`, gradients from `IlDefs`), then: the light wall of the scene,
+ * inline styles as classes at the end, keyframes `inst-ev-`, reduced motion, touch targets.
+ */
+[data-line='instalacje'] {
+  & .evs {
+    display: block;
+    width: 100%;
+    height: auto;
+    --esk1: var(--inst-il-evs-esk);
+    --emt: var(--inst-il-house-hmtn);
+    --egd: var(--inst-il-house-hgnd);
+    --ewall: var(--inst-il-hwall-fill);
+  }
+  & .evsky {
+    fill: var(--esk1);
+  }
+  & .evmtn {
+    fill: var(--emt);
+  }
+  & .evsnow {
+    fill: var(--inst-il-evsnow-fill);
+  }
+  & .evgnd {
+    fill: var(--egd);
+  }
+  & .evwall {
+    fill: var(--ewall);
+    stroke: var(--inst-il-hwall-line);
+    stroke-width: 3;
+  }
+  & .evbox {
+    fill: var(--inst-deep-ink);
+    stroke: var(--inst-il-phh-c);
+    stroke-width: 2;
+  }
+  & .evlcd {
+    fill: var(--inst-plan-card);
+  }
+  & .evled {
+    fill: var(--inst-scene-beam-ok);
+    animation: inst-ev-pulse 1.4s infinite;
+  }
+  & .evcab {
+    fill: none;
+    stroke: var(--inst-il-evcab-line);
+    stroke-width: 6;
+    stroke-linecap: round;
+  }
+  & .evs .evcab {
+    stroke-dasharray: none;
+  }
+  & .evbody {
+    fill: var(--inst-il-evbody-fill);
+    stroke: var(--inst-scene-metal-line);
+    stroke-width: 2;
+  }
+  & .evglass {
+    fill: var(--inst-il-evglass-fill);
+  }
+  & .evwh {
+    fill: var(--inst-il-klock-fill);
+  }
+  & .evhub {
+    fill: var(--inst-scene-beam);
+  }
+  & .evport {
+    fill: var(--inst-plan-send-to);
+  }
+  & .evbat {
+    fill: var(--inst-il-evbat-fill);
+    stroke: var(--inst-plan-accent);
+    stroke-width: 2;
+  }
+  & .evfill {
+    fill: var(--inst-scene-beam-ok);
+    transition: width 0.6s;
+  }
+  & .evflake {
+    fill: var(--inst-plan-white);
+    opacity: 0.85;
+    animation: inst-ev-fall linear infinite;
+  }
+  & .evcalc {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px 18px;
+    padding: 16px 16px 6px;
+  }
+  & .evres {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+    padding: 10px 16px 12px;
+  }
+  & .evres div {
+    padding: 12px;
+    border-radius: 14px;
+    background: var(--inst-plan-card);
+    color: var(--inst-deep-ink);
+    box-shadow: inset 0 0 0 1px var(--inst-band-line);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  & .evres span {
+    font-size: 11.5px;
+    font-weight: 800;
+    color: var(--inst-plan-note);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  & .evres b {
+    font-family: var(--font-display);
+    font-stretch: 115%;
+    font-weight: 900;
+    font-size: 22px;
+    color: var(--inst-plan-accent);
+    line-height: 1.1;
+  }
+  @media (max-width: 760px) {
+    & .evcalc {
+      grid-template-columns: 1fr;
+    }
+    & .evres {
+      grid-template-columns: 1fr 1fr;
+    }
+    & .evres b {
+      font-size: 19px;
+    }
+  }
+  & .fot.evpct2 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 17px;
+    color: var(--inst-deep-ink);
+    text-align: center;
+    line-height: 22px;
+  }
+  & .fot.evkw2 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 10px;
+    color: var(--inst-plan-accent);
+    text-align: center;
+    line-height: 14px;
+  }
+  & .evs .evbody {
+    fill: url(#gCar);
+    filter: url(#fSh);
+  }
+  & .evs .evbox {
+    fill: url(#gMetal);
+    filter: url(#fSh);
+  }
+  & .evs .evwall {
+    fill: url(#gWallD);
+  }
+  & .evs .evport {
+    filter: url(#fGl);
+  }
+  & .seg button.xc-dis {
+    opacity: 0.4;
+    cursor: not-allowed;
+    text-decoration: line-through;
+  }
+  & .xc-swipe {
+    display: none;
+  }
+  @media (max-width: 760px) {
+    & .xc-swipe {
+      display: block;
+      margin: 8px 0 0;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+  }
+  & .evsh .illbar .seg button {
+    min-height: 36px;
+  }
+  & .evstage {
+    position: relative;
+    height: 340px;
+    background: radial-gradient(120% 90% at 50% 100%, var(--evT1), var(--evT2));
+    overflow: hidden;
+  }
+  & .evglow {
+    position: absolute;
+    left: 50%;
+    bottom: -60px;
+    width: 360px;
+    height: 220px;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: radial-gradient(closest-side, var(--evG), transparent);
+    pointer-events: none;
+  }
+  & .evstage .evi {
+    position: absolute;
+    left: 50%;
+    bottom: 22px;
+    transform: translate(-50%, 18px) scale(0.96);
+    opacity: 0;
+    transition:
+      opacity 0.55s ease,
+      transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+    filter: drop-shadow(0 26px 30px var(--inst-il-evstage-evi-filt));
+    max-width: none;
+  }
+  & .evstage .evi.on {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+  & .evi-h {
+    height: 290px;
+  }
+  & .evi-w {
+    height: 292px;
+  }
+  & .evi-c {
+    height: 300px;
+  }
+  & .evbadge {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding: 10px 14px;
+    border-radius: 14px;
+    background: var(--card);
+    box-shadow: inset 0 0 0 1px var(--border);
+  }
+  & .evbadge b {
+    font-family: var(--font-display);
+    font-stretch: 112%;
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  & .evbadge span {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ink-2);
+  }
+  & .evinfo {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 18px 20px 20px;
+    border-top: 1px solid var(--border);
+  }
+  & .evspec {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+  & .evspec li {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: var(--surface-3);
+  }
+  & .evspec li span {
+    font-size: 11.5px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+  & .evspec li b {
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--ink);
+    line-height: 1.25;
+  }
+  & .evgo {
+    min-height: 48px;
+    font-size: 15px;
+  }
+  & .evcards {
+    align-items: stretch;
+  }
+  & .evcard {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  & .evcards .hot {
+    grid-column: auto;
+  }
+  & .evtile {
+    position: relative;
+    height: 260px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 16px;
+    background: radial-gradient(120% 90% at 50% 100%, var(--evT1), var(--evT2));
+    border-bottom: 1px solid var(--border);
+  }
+  & .evtile img {
+    max-width: none;
+    filter: drop-shadow(0 20px 22px var(--inst-il-evtile-filt));
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  & .evtile .evi-h {
+    height: 220px;
+  }
+  & .evtile .evi-w {
+    height: 222px;
+  }
+  & .evtile .evi-c {
+    height: 232px;
+  }
+  @media (hover: hover) {
+    & .evcard:hover .evtile img {
+      transform: translateY(-6px);
+    }
+  }
+  & .evtk {
+    position: absolute;
+    left: 14px;
+    top: 14px;
+    padding: 5px 11px;
+    border-radius: 999px;
+    background: var(--card);
+    font-size: 12.5px;
+    font-weight: 800;
+    color: var(--ink-soft);
+    box-shadow: inset 0 0 0 1px var(--border);
+  }
+  & .evcb {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 24px;
+    flex: 1;
+  }
+  & .evpw {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    padding: 12px 14px;
+    border-radius: 14px;
+    background: var(--accent-soft);
+  }
+  & .evpw b {
+    font-family: var(--font-display);
+    font-stretch: 112%;
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: var(--accent-text);
+  }
+  & .evpw span {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink-soft);
+  }
+  & .evchips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  & .evcbtn {
+    margin-top: auto;
+    min-height: 48px;
+    font-size: 15px;
+  }
+  & .evx {
+    display: grid;
+    grid-template-columns: 150px repeat(4, minmax(0, 1fr));
+    gap: 14px;
+    align-items: center;
+    margin-top: 22px;
+    padding: 18px 20px;
+    border-radius: 22px;
+    background: var(--card);
+    box-shadow: inset 0 0 0 1px var(--border);
+  }
+  & .evxh {
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+  & .evxi {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  & .evxi .ico {
+    flex: none;
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    background: var(--accent-soft);
+    color: var(--accent-text);
+  }
+  & .evxi div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  & .evxi b {
+    font-size: 14.5px;
+    font-weight: 800;
+    color: var(--ink);
+  }
+  & .evxi div span {
+    font-size: 13px;
+    color: var(--ink-2);
+    line-height: 1.35;
+  }
+  & .evcfg {
+    display: grid;
+    grid-template-columns: 300px minmax(0, 1fr) 360px;
+    border-radius: 30px;
+    overflow: hidden;
+    background: var(--card);
+    box-shadow:
+      inset 0 0 0 1px var(--border),
+      var(--shadow);
+  }
+  & .evcv {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 24px 16px 28px;
+    min-height: 420px;
+    background: radial-gradient(120% 90% at 50% 100%, var(--evT1), var(--evT2));
+  }
+  & .evcv img {
+    position: relative;
+    max-width: none;
+    filter: drop-shadow(0 26px 28px var(--inst-il-evcv-filt));
+  }
+  & .evcv .evi-h {
+    height: 300px;
+  }
+  & .evcv .evi-w {
+    height: 320px;
+  }
+  & .evcv .evi-c {
+    height: 350px;
+  }
+  & .evcol {
+    position: absolute;
+    left: 14px;
+    top: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 11px 5px 6px;
+    border-radius: 999px;
+    background: var(--card);
+    font-size: 12.5px;
+    font-weight: 800;
+    color: var(--ink-soft);
+    box-shadow: inset 0 0 0 1px var(--border);
+  }
+  & .evcol i {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 1px var(--sx-panelw);
+  }
+  & .evco {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 26px 26px 28px;
+    border-left: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+  }
+  & .evsw {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  & .evswb {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 0;
+    cursor: pointer;
+    box-shadow:
+      inset 0 0 0 1px var(--sx-panelw),
+      0 0 0 3px var(--card),
+      0 0 0 4px var(--border);
+    transition: box-shadow 0.2s;
+  }
+  & .evswb.on {
+    box-shadow:
+      inset 0 0 0 1px var(--sx-panelw),
+      0 0 0 3px var(--card),
+      0 0 0 5px var(--accent);
+  }
+  & .evsm {
+    font-size: 12.5px;
+    color: var(--ink-2);
+  }
+  & .evcr {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 26px;
+    background: linear-gradient(180deg, var(--accent-soft), var(--card) 55%);
+  }
+  & .evcrn {
+    font-family: var(--font-display);
+    font-stretch: 108%;
+    font-size: 21px;
+    font-weight: 850;
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+    color: var(--ink);
+  }
+  & .evcr .evspec {
+    grid-template-columns: 1fr 1fr;
+  }
+  & .evinst {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 12px 14px;
+    border-radius: 14px;
+    background: var(--surface-3);
+    font-size: 13.5px;
+    line-height: 1.45;
+    color: var(--ink-soft);
+  }
+  & .evinst svg {
+    flex: none;
+    margin-top: 1px;
+    color: var(--accent-text);
+  }
+  & .evcr .btn {
+    margin-top: auto;
+  }
+  & .evtbl td:first-child {
+    white-space: nowrap;
+  }
+  & .evkalk {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: 48px;
+    align-items: center;
+  }
+  @media (max-width: 1100px) {
+    & .evcfg {
+      grid-template-columns: 260px minmax(0, 1fr);
+    }
+    & .evcr {
+      grid-column: 1 / -1;
+    }
+    & .evco {
+      border-right: 0;
+    }
+    & .evx {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    & .evxh {
+      grid-column: 1 / -1;
+    }
+    & .evkalk {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+  }
+  @media (max-width: 760px) {
+    & .evstage {
+      height: 280px;
+    }
+    & .evstage .evi-h {
+      height: 232px;
+    }
+    & .evstage .evi-w {
+      height: 236px;
+    }
+    & .evstage .evi-c {
+      height: 246px;
+    }
+    & .evspec {
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 6px;
+    }
+    & .evspec li {
+      padding: 8px 9px;
+    }
+    & .evspec li b {
+      font-size: 13px;
+    }
+    & .evcfg {
+      grid-template-columns: 1fr;
+    }
+    & .evcv {
+      min-height: 0;
+      padding: 20px 16px 22px;
+    }
+    & .evcv .evi-h {
+      height: 220px;
+    }
+    & .evcv .evi-w {
+      height: 230px;
+    }
+    & .evcv .evi-c {
+      height: 250px;
+    }
+    & .evco {
+      border-left: 0;
+      border-right: 0;
+      border-top: 1px solid var(--border);
+      padding: 20px;
+    }
+    & .evcr {
+      padding: 20px;
+    }
+    & .evx {
+      grid-template-columns: 1fr;
+      padding: 16px;
+    }
+    & .evtile {
+      height: 230px;
+    }
+    & .evtile .evi-h {
+      height: 196px;
+    }
+    & .evtile .evi-w {
+      height: 198px;
+    }
+    & .evtile .evi-c {
+      height: 206px;
+    }
+    & .evcb {
+      padding: 20px;
+    }
+  }
+  & .evcv {
+    align-items: center;
+  }
+  & .evkt .lead {
+    margin-top: 16px;
+  }
+  & .evco .seg {
+    align-self: flex-start;
+  }
+  & .evpw {
+    flex-wrap: wrap;
+    row-gap: 2px;
+  }
+  & .evpw b {
+    white-space: nowrap;
+  }
+  @media (max-width: 760px) {
+    & .evtbl td:first-child {
+      white-space: normal;
+    }
+  }
+  /* Inline styles of `Ladowarki.body.html` as classes. */
+  & .ev-note {
+    color: var(--ink-2);
+    padding: 0 16px 16px;
+    font-size: 13px;
+  }
+  & .ev-soft {
+    color: var(--ink-soft);
+  }
+  & .evswb {
+    background: var(--sw);
+  }
+  & .evcol i {
+    background: var(--sw);
+  }
+}
+
+@keyframes inst-ev-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes inst-ev-fall {
+  from {
+    transform: translateY(-30px);
+  }
+  to {
+    transform: translateY(270px);
+  }
+}
+
+/* Light scene wall (pk.css `.pk[data-theme=light] .evs .evwall`): a gradient cannot go through
+   `light-dark()`, so the same selectors as tokens.css. */
+[data-line='instalacje'][data-theme='light'] .evs .evwall {
+  fill: url(#gWallL);
+}
+@media (prefers-color-scheme: light) {
+  [data-line='instalacje']:not([data-theme='dark']) .evs .evwall {
+    fill: url(#gWallL);
+  }
+}
+
+/* Reduced motion (spec §5): the snow and the charging light stand still. */
+@media (prefers-reduced-motion: reduce) {
+  [data-line='instalacje'] {
+    & .evflake,
+    & .evled {
+      animation: none;
+    }
+  }
+}
+
+/* Phone: touch targets of at least 44 px (MOBILE-APLIKACJA §10; prototype 34 px swatches). */
+@media (pointer: coarse), (max-width: 760px) {
+  [data-line='instalacje'] {
+    & .evswb {
+      width: 44px;
+      height: 44px;
+    }
+  }
+}
