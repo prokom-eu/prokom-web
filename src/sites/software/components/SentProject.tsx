@@ -16,11 +16,12 @@ function readSent(): string | null {
 
 /**
  * „Wysłane razem z: …” on `/dziekujemy` after „Twój projekt” went with the inquiry (spec.
- * §6.10): the names the contact form left in this tab. Nothing on the server render.
+ * §6.10): the names the contact form left in this tab for this inquiry number. Nothing on the
+ * server render.
  */
-export function SentProject() {
+export function SentProject({ number }: { number: string | null }) {
   const raw = useSyncExternalStore(noSubscribe, readSent, () => null)
-  const names = parseSent(raw)
+  const names = parseSent(raw, number)
   if (names.length === 0) return null
   return (
     <p className="mt-3 text-ink-2">

@@ -79,7 +79,7 @@ export default async function ThanksPage({ params, searchParams }: Props) {
             {thanks.numberLabel}: <span data-testid="inquiry-number">{number}</span>
           </p>
         )}
-        <SentProject />
+        <SentProject number={number} />
         {stepsTitle && steps.length > 0 && (
           <>
             <Heading level={2} size="md" className="mt-10">

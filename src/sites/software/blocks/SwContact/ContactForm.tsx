@@ -22,7 +22,7 @@ import {
 import { linkInText, readOutcome } from '@/lib/inquiry/form'
 import { HONEYPOT_FIELD } from '@/lib/inquiry/honeypot'
 import type { SoftwareTopic } from '@/lib/inquiry/types'
-import { PROJECT_SENT_KEY } from '@/lib/software/project'
+import { PROJECT_SENT_KEY, sentRecord } from '@/lib/software/project'
 import { useProject, projectActions } from '@/lib/software/projectStore'
 import {
   careLevelFromParam,
@@ -226,16 +226,22 @@ export function ContactForm({
       outcome = readOutcome(0, null)
     }
     if (outcome.kind === 'sent') {
-      if (summary) {
-        const sent = summary.rows.filter((row) => summary.slugs.includes(row.id))
-        try {
-          if (sent.length > 0) {
-            sessionStorage.setItem(PROJECT_SENT_KEY, JSON.stringify(sent.map((row) => row.label)))
-          } else sessionStorage.removeItem(PROJECT_SENT_KEY)
-        } catch {
-          // Private mode: the thanks page just shows no list.
+      const sent = summary ? summary.rows.filter((row) => summary.slugs.includes(row.id)) : []
+      if (sent.length > 0) {
+        if (outcome.number) {
+          try {
+            sessionStorage.setItem(
+              PROJECT_SENT_KEY,
+              sentRecord(
+                outcome.number,
+                sent.map((row) => row.label),
+              ),
+            )
+          } catch {
+            // Private mode: the thanks page just shows no list.
+          }
         }
-        if (sent.length > 0) projectActions.clear()
+        projectActions.clear()
       }
       const query = outcome.number ? `?nr=${encodeURIComponent(outcome.number)}` : ''
       router.push(`/dziekujemy${query}`)

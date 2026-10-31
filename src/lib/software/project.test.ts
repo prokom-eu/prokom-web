@@ -66,14 +66,21 @@ describe('remove', () => {
 })
 
 describe('names sent with the last inquiry (SW11a, /dziekujemy)', () => {
-  it('reads the stored names and ignores anything else', () => {
-    expect(parseSent('["Strona wizytówka","Opieka · Rozszerzona"]')).toEqual([
-      'Strona wizytówka',
-      'Opieka · Rozszerzona',
-    ])
-    expect(parseSent('["A", 3, "", null]')).toEqual(['A'])
-    expect(parseSent('{')).toEqual([])
-    expect(parseSent(null)).toEqual([])
-    expect(parseSent('{"a":1}')).toEqual([])
+  const stored = JSON.stringify({
+    nr: 'PKS-2026-0042',
+    names: ['Strona wizytówka', 'Opieka · Rozszerzona', 3, ''],
+  })
+
+  it('shows the names only on the thanks page of that inquiry', () => {
+    expect(parseSent(stored, 'PKS-2026-0042')).toEqual(['Strona wizytówka', 'Opieka · Rozszerzona'])
+    // A later inquiry in the same tab (audit, wizard) has its own number: no stale list.
+    expect(parseSent(stored, 'PKS-2026-0043')).toEqual([])
+    expect(parseSent(stored, null)).toEqual([])
+  })
+
+  it('ignores anything else the tab holds', () => {
+    for (const raw of [null, '{', '["A"]', '{"nr":"PKS-2026-0042"}', '{"names":["A"]}']) {
+      expect(parseSent(raw, 'PKS-2026-0042')).toEqual([])
+    }
   })
 })
