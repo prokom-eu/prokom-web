@@ -101,6 +101,114 @@ export const industrySoftwareGroup: Field = {
       ],
     },
     {
+      name: 'page',
+      label: 'Teksty strony branży',
+      type: 'group',
+      admin: {
+        description:
+          'Plansza `Branza`: H1 i wstęp są w „Nagłówek strony branży”, pytania w „Pytania”. Puste pole = ta część bez tekstu albo tekst wspólny.',
+      },
+      fields: [
+        {
+          name: 'heroAccent',
+          label: 'H1 — wyróżnienie',
+          type: 'text',
+          maxLength: 60,
+          admin: { description: 'Dalsza część H1 w kolorze, np. „w terenie, nie przy biurku.”' },
+        },
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'hubTitle',
+              label: 'Środek mapy modułów',
+              type: 'text',
+              maxLength: 24,
+              admin: { description: 'Np. „3 ekipy”.' },
+            },
+            {
+              name: 'hubCaption',
+              label: 'Podpis środka',
+              type: 'text',
+              maxLength: 30,
+              admin: { description: 'Np. „jeden system”.' },
+            },
+          ],
+        },
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'problemsEyebrow',
+              label: 'Problemy — nadtytuł',
+              type: 'text',
+              maxLength: 40,
+              admin: { description: 'Np. „Co boli w budowlance”.' },
+            },
+            {
+              name: 'solutionsEyebrow',
+              label: 'Rozwiązania — nadtytuł',
+              type: 'text',
+              maxLength: 40,
+              admin: { description: 'Np. „Najczęściej w budowlance”.' },
+            },
+            {
+              name: 'faqEyebrow',
+              label: 'Pytania — nadtytuł',
+              type: 'text',
+              maxLength: 40,
+              admin: { description: 'Np. „Pytania z budowlanki”.' },
+            },
+          ],
+        },
+        { name: 'problemsLead', label: 'Problemy — wstęp', type: 'textarea', maxLength: 240 },
+        {
+          name: 'offlineBox',
+          label: 'Blok „bez zasięgu” (ciemny)',
+          type: 'group',
+          admin: { description: 'Pusty nagłówek = bez bloku. Kroki są w „Bez zasięgu (kroki)”.' },
+          fields: [
+            { name: 'eyebrow', label: 'Nadtytuł', type: 'text', maxLength: 40 },
+            {
+              type: 'row',
+              fields: [
+                { name: 'title', label: 'Nagłówek', type: 'text', maxLength: 90 },
+                { name: 'accent', label: 'Nagłówek — wyróżnienie', type: 'text', maxLength: 60 },
+              ],
+            },
+            { name: 'lead', label: 'Wstęp', type: 'textarea', maxLength: 300 },
+            {
+              type: 'row',
+              fields: [
+                { name: 'noteLabel', label: 'Karta — etykieta', type: 'text', maxLength: 40 },
+                { name: 'noteValue', label: 'Karta — wartość', type: 'text', maxLength: 30 },
+                { name: 'noteCaption', label: 'Karta — podpis', type: 'text', maxLength: 40 },
+              ],
+            },
+          ],
+        },
+        {
+          name: 'contact',
+          label: 'Kontakt na końcu (ciemny)',
+          type: 'group',
+          admin: { description: 'Puste = teksty wspólne bloku kontaktu.' },
+          fields: [
+            { name: 'eyebrow', label: 'Nadtytuł', type: 'text', maxLength: 60 },
+            { name: 'title', label: 'Nagłówek', type: 'text', maxLength: 90 },
+            { name: 'lead', label: 'Wstęp', type: 'textarea', maxLength: 300 },
+            {
+              name: 'points',
+              label: 'Punkty',
+              type: 'text',
+              hasMany: true,
+              maxRows: 3,
+              maxLength: 60,
+            },
+          ],
+        },
+      ],
+    },
+    {
       name: 'topSolutions',
       label: 'Rozwiązania dla branży',
       type: 'relationship',

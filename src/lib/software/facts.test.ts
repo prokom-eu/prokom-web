@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest'
 
 import fakty from '../../../seed/prokomsoftware/fakty.json'
-import { FACT_KEY, factsMap, fillText, resolveText, type TextContext } from './facts'
+import { FACT_KEY, factsMap, fillDeep, fillText, resolveText, type TextContext } from './facts'
 
 const NBSP = String.fromCharCode(0xa0) // non-breaking space
 
@@ -129,5 +129,22 @@ describe('factsMap', () => {
         fakty.facts[key as keyof typeof fakty.facts] ? [] : [`[${key}]`],
       )
     }
+  })
+})
+
+describe('fillDeep (page texts of SW10)', () => {
+  const fill = (text: string) => (text.includes('[BRAK]') ? null : text.replace('[A]', 'a'))
+
+  it('fills every string of a nested document, keeps other values', () => {
+    expect(
+      fillDeep({ title: 'x [A]', n: 3, ok: true, list: ['[A]', { q: '[A]?' }], empty: null }, fill),
+    ).toEqual({ title: 'x a', n: 3, ok: true, list: ['a', { q: 'a?' }], empty: null })
+  })
+
+  it('turns a text with a missing value into an empty string (the page drops it)', () => {
+    expect(fillDeep({ lead: 'Odpowiedź w [BRAK]', items: ['[BRAK]', 'b'] }, fill)).toEqual({
+      lead: '',
+      items: ['', 'b'],
+    })
   })
 })
