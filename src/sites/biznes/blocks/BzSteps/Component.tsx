@@ -63,9 +63,9 @@ export async function BzStepsBlock({ block, tenantId }: Props) {
                     </span>
                   </span>
                   <div className="-mt-6 flex w-full flex-1 flex-col rounded-[22px] bg-card px-4 pt-10 pb-4 text-center shadow-[inset_0_0_0_1px_var(--border)]">
-                    {step.roleNote && (
+                    {step.label && (
                       <p className="text-[11.5px] font-extrabold tracking-[0.1em] text-accent-text uppercase">
-                        {step.roleNote}
+                        {step.label}
                       </p>
                     )}
                     <h3 className="mt-1 font-display text-[22px] leading-tight font-extrabold">
@@ -93,7 +93,7 @@ export async function BzStepsBlock({ block, tenantId }: Props) {
                       {step.gets && (
                         <p className="rounded-xl bg-accent-soft px-3 py-2.5 text-[13.5px] leading-snug font-bold text-ink">
                           {block.getsLabel && (
-                            <span className="block text-[11px] font-extrabold tracking-[0.12em] text-accent-text uppercase">
+                            <span className="block text-[11px] font-extrabold tracking-[0.12em] text-ink-2 uppercase">
                               {block.getsLabel}
                             </span>
                           )}
@@ -119,15 +119,26 @@ export async function BzStepsBlock({ block, tenantId }: Props) {
             data-surface="dark"
             className="mt-8 grid items-center gap-6 rounded-[26px] bg-surface-dark p-6 text-white min-[1080px]:grid-cols-[minmax(0,15rem)_minmax(0,1fr)_auto] sm:p-7"
           >
-            <div>
-              <p className="text-[12px] font-extrabold tracking-[0.12em] text-accent-on-dark uppercase">
-                Nasze zobowiązania
-              </p>
-              <h3 className="mt-1.5 font-display text-[22px] leading-tight font-extrabold text-balance text-white">
-                Tak pracujemy — nie tylko na&nbsp;stronie.
-              </h3>
-            </div>
-            <ul className="grid gap-4 min-[640px]:grid-cols-2 min-[1240px]:grid-cols-4">
+            {(block.commitmentsEyebrow || block.commitmentsHeading) && (
+              <div>
+                {block.commitmentsEyebrow && (
+                  <p className="text-[12px] font-extrabold tracking-[0.12em] text-accent-on-dark uppercase">
+                    {block.commitmentsEyebrow}
+                  </p>
+                )}
+                {block.commitmentsHeading && (
+                  <h3 className="mt-1.5 font-display text-[22px] leading-tight font-extrabold text-balance text-white">
+                    {block.commitmentsHeading}
+                  </h3>
+                )}
+              </div>
+            )}
+            <ul
+              aria-label={
+                block.commitmentsHeading || block.commitmentsEyebrow || 'Nasze zobowiązania'
+              }
+              className="grid gap-4 min-[640px]:grid-cols-2 min-[1240px]:grid-cols-4"
+            >
               {commitments.map((item, i) => (
                 <li key={item.id ?? i} className="flex items-start gap-3">
                   <span

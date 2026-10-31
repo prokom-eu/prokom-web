@@ -95,47 +95,6 @@ export function biznesHomeLayout(refs: HomeRefs = NO_REFS): HomeBlock[] {
     },
     {
       blockType: 'bzNeeds',
-      items: [
-        {
-          title: 'Otwieram firmę lub lokal',
-          icon: 'store',
-          tone: 'green',
-          text: 'Kasa, terminal, program i komputery — od zera, gotowe na otwarcie.',
-          href: '/kreator',
-          // TODO(krystian): [SZEF] ulga 700 zł — potwierdzić w ustawie (spec. §13).
-          badges: [
-            { value: '700 zł', text: 'zwrotu za kasę online', tone: 'promo' },
-            { value: '0 zł', text: 'terminal przez 12 mies.', tone: 'accent' },
-          ],
-        },
-        {
-          // TODO(krystian): numer wpisany w tekst i link — po zmianie telefonu linii poprawić
-          // też tutaj (w panelu: Strony → Strona główna → Kafelki potrzeb).
-          title: 'Coś przestało działać',
-          icon: 'flash',
-          tone: 'red',
-          text: 'Kasa, komputer, drukarka, sieć. Zadzwoń: 889 003 889.',
-          href: 'tel:+48889003889',
-        },
-        {
-          // TODO(krystian): [SZEF] treść kafla KSeF do korekty przed publikacją (ZMIANY-v20 §5,
-          // spec. §13 pkt 11); link do wpisu KSeF po B11.
-          title: 'KSeF od 1 stycznia 2027',
-          icon: 'doc',
-          tone: 'blue',
-          text: 'Program, certyfikat i uprawnienia dla księgowej — przed terminem.',
-          href: '/aktualnosci',
-          countdownTo: '2027-01-01T00:00:00.000Z',
-        },
-        {
-          title: 'Stała opieka IT',
-          icon: 'life',
-          tone: 'violet',
-          text: 'Informatyk na telefon w stałej opłacie. Zaczynamy od bezpłatnego przeglądu IT.',
-          href: '/opieka-it',
-          tag: '0 zł przegląd',
-        },
-      ],
     },
     {
       blockType: 'bzOffer',
@@ -144,6 +103,9 @@ export function biznesHomeLayout(refs: HomeRefs = NO_REFS): HomeBlock[] {
       heading: 'Kasy, komputery, programy, sieć i serwis — wybierz dział.',
       lead: 'Sprzęt, programy i usługi od {marki} marek — każdy dział z doborem, wdrożeniem i serwisem. Cen nie ma na stronie: dodajesz pozycje do zapytania, a wycenę dostajesz na piśmie, pod swoją firmę.',
       catalogLabel: 'Cała oferta',
+      // Board `#s4-dz`: the sixth tile (hard space after a one-letter word, K4-FINAL §1).
+      searchEyebrow: 'Nie wiesz, w którym dziale szukać?',
+      searchHeading: 'Wpisz, czego potrzebujesz — znajdziemy to za\u00a0Ciebie.',
       systemsHeading: 'Systemy, które wdrażamy od początku do końca',
       systemsNote: 'Dwa autoryzowane partnerstwa i nasza usługa opieki IT',
       systems: [
@@ -192,26 +154,6 @@ export function biznesHomeLayout(refs: HomeRefs = NO_REFS): HomeBlock[] {
       heading: K4_FEATURED.heading,
       lead: K4_FEATURED.lead,
       catalogLabel: K4_FEATURED.catalogLabel,
-      offerCard: {
-        eyebrow: 'Cała oferta',
-        heading: 'Zobacz wszystko, co sprzedajemy, wdrażamy i serwisujemy.',
-        text: 'Filtry po dziale, marce i branży. Dodajesz do zapytania, a my wyceniamy na piśmie.',
-        button: { label: 'Poznaj całą ofertę', href: '/oferta' },
-      },
-      wizardCard: {
-        eyebrow: 'Nie wiesz, od czego zacząć?',
-        heading: 'Odpowiedz na 4 pytania. Dobierzemy zestaw pod Twoją firmę.',
-        text: 'Rodzaj firmy, skala, potrzeby i kontakt. Zestaw trafia do nas jako zapytanie, bez rejestracji.',
-        button: { label: 'Dobierz zestaw w 60 sekund', href: '/kreator' },
-        steps: [
-          { label: 'Branża', value: 'gastronomia' },
-          { label: 'Skala', value: '2 kasy · 3 komputery' },
-          { label: 'Potrzeby', value: 'dowozy, Wi-Fi, KSeF' },
-          { label: 'Kontakt', value: 'imię i telefon' },
-        ],
-        summaryLabel: 'Twój zestaw:',
-        summary: 'GoPOS · Sunmi D3 PRO · Posnet HX · terminal · Wi-Fi',
-      },
     },
     ...planBlocks(refs.industry),
     ...factsBlocks(refs.brand),

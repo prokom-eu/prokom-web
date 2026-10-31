@@ -4,9 +4,8 @@ import { linkGroup } from '../../../../blocks/fields'
 import { tenantIdOf } from '../../../../lib/tenant/id'
 
 /**
- * „PRO-KOM w faktach” of the Biznes home page (spec. §4 pkt 10, ZMIANY-v20 §2.6): the owner's
- * word and a navy facts card. Phone and e-mail come from the site settings, address and hours
- * from the company data, the authorization logos from Partners — nothing typed in twice.
+ * „Słowo od właściciela” of the Biznes home page (board v150 `#s4-fakty`): the owner's word,
+ * numbers, the authorization logos from Partners and a link (to the company page).
  */
 export const BzFactsBlock: Block = {
   slug: 'bzFacts',
@@ -14,17 +13,11 @@ export const BzFactsBlock: Block = {
   labels: { singular: 'Biznes: fakty i słowo właściciela', plural: 'Biznes: fakty' },
   fields: [
     {
-      type: 'row',
-      fields: [
-        { name: 'eyebrow', label: 'Etykieta', type: 'text' },
-        {
-          name: 'heading',
-          label: 'Nagłówek',
-          type: 'text',
-          required: true,
-          admin: { description: 'Sekcja ma kotwicę #fakty — ten blok wstaw na stronie tylko raz.' },
-        },
-      ],
+      name: 'heading',
+      label: 'Nagłówek (dla czytników ekranu)',
+      type: 'text',
+      required: true,
+      admin: { description: 'Sekcja ma kotwicę #fakty — ten blok wstaw na stronie tylko raz.' },
     },
     {
       name: 'owner',
@@ -81,11 +74,6 @@ export const BzFactsBlock: Block = {
       ],
     },
     {
-      name: 'authorizationsLabel',
-      label: 'Podpis nad logo autoryzacji',
-      type: 'text',
-    },
-    {
       name: 'authorizations',
       label: 'Logo autoryzacji',
       type: 'relationship',
@@ -97,7 +85,6 @@ export const BzFactsBlock: Block = {
         return tenant === null ? false : { tenants: { in: [tenant] } }
       },
     },
-    { name: 'areaText', label: 'Zdanie o dojeździe', type: 'text' },
-    linkGroup('contactLink', 'Link do kontaktu'),
+    linkGroup('contactLink', 'Link pod liczbami'),
   ],
 }

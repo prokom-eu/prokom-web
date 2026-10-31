@@ -1,18 +1,17 @@
 import type { Block } from 'payload'
 
 import { hrefField } from '../../../../blocks/fields'
-import { ICON_OPTIONS } from '../../../../lib/catalog/options'
 import { tenantImageFilter } from '../../../../lib/media/access'
 
 /**
- * „Dla kogo pracujemy” of the Biznes home page (spec. §4 pkt 9): kinds of companies, reviews
- * and client logos. Reviews show only with „Pokaż opinie klientów”, logos only with „Pokaż
- * logo klientów” (Site settings → Biznes) — and an image needing consent never renders.
+ * „Opinie” of the Biznes home page (board v150 `#s4-opinie`, ADR-017 D-K4-6): reviews and client
+ * logos. The section shows only with „Pokaż opinie klientów”, logos only with „Pokaż logo
+ * klientów” (Site settings → Biznes) — and an image needing consent never renders.
  */
 export const BzReferencesBlock: Block = {
   slug: 'bzReferences',
   interfaceName: 'BzReferencesBlock',
-  labels: { singular: 'Biznes: dla kogo pracujemy', plural: 'Biznes: dla kogo pracujemy' },
+  labels: { singular: 'Biznes: opinie', plural: 'Biznes: opinie' },
   fields: [
     {
       type: 'row',
@@ -24,29 +23,12 @@ export const BzReferencesBlock: Block = {
           type: 'text',
           required: true,
           admin: {
-            description: 'Sekcja ma kotwicę #referencje — ten blok wstaw na stronie tylko raz.',
+            description: 'Sekcja ma kotwicę #opinie — ten blok wstaw na stronie tylko raz.',
           },
         },
       ],
     },
     { name: 'lead', label: 'Wstęp', type: 'textarea', maxLength: 300 },
-    {
-      name: 'kinds',
-      label: 'Rodzaje firm',
-      type: 'array',
-      maxRows: 6,
-      fields: [
-        {
-          type: 'row',
-          fields: [
-            { name: 'title', label: 'Nazwa', type: 'text', required: true, maxLength: 40 },
-            { name: 'icon', label: 'Ikona', type: 'select', required: true, options: ICON_OPTIONS },
-          ],
-        },
-        { name: 'examples', label: 'Przykłady', type: 'text', maxLength: 90 },
-        { name: 'solutions', label: 'Co zwykle wdrażamy', type: 'text', maxLength: 90 },
-      ],
-    },
     {
       name: 'reviews',
       label: 'Opinie (widoczne po włączeniu w Ustawieniach strony)',
@@ -76,12 +58,6 @@ export const BzReferencesBlock: Block = {
       maxRows: 8,
       filterOptions: tenantImageFilter,
       admin: { description: 'Tylko logo z pisemną zgodą klienta (obraz bez „Wymaga zgody”).' },
-    },
-    {
-      name: 'note',
-      label: 'Notka, gdy logo są ukryte',
-      type: 'text',
-      maxLength: 160,
     },
   ],
 }

@@ -50,6 +50,23 @@ export const BzOfferBlock: Block = {
     {
       type: 'row',
       fields: [
+        {
+          name: 'searchEyebrow',
+          label: 'Kafel wyszukiwania — etykieta',
+          type: 'text',
+          admin: { description: 'Np. „Nie wiesz, w którym dziale szukać?”.' },
+        },
+        {
+          name: 'searchHeading',
+          label: 'Kafel wyszukiwania — nagłówek',
+          type: 'text',
+          admin: { description: 'Pusty = bez kafla wyszukiwania.' },
+        },
+      ],
+    },
+    {
+      type: 'row',
+      fields: [
         { name: 'systemsHeading', label: 'Podtytuł nad kartami systemów', type: 'text' },
         { name: 'systemsNote', label: 'Dopisek po prawej', type: 'text' },
       ],

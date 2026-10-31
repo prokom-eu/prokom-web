@@ -13,7 +13,7 @@ export type PostCard = {
   dateTime: string | null
 }
 
-/** Card of the news list: the home card plus the lead and the cover. */
+/** Card of the news list: the base card plus the lead and the cover. */
 export type PostListCard = PostCard & { lead: string | null; cover: PublicImage | null }
 
 type PostLike = {
@@ -58,14 +58,9 @@ const card = (post: PostLike): PostCard => {
 }
 
 /**
- * Cards of the latest posts (home page „Ostatnio w Aktualnościach”, spec. §4 pkt 11). Posts of
- * another tenant are dropped here too, whatever the query did.
+ * Cards of `/aktualnosci` and „Czytaj też”. Posts of another tenant are dropped here too,
+ * whatever the query did; the cover only when public.
  */
-export function postCards(posts: readonly PostLike[], tenantId: number): PostCard[] {
-  return ownPosts(posts, tenantId).map(card)
-}
-
-/** Cards of `/aktualnosci` and „Czytaj też”: same checks, the cover only when public. */
 export function postListCards(posts: readonly PostListLike[], tenantId: number): PostListCard[] {
   return ownPosts(posts, tenantId).map((post) => ({
     ...card(post),

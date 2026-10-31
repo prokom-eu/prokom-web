@@ -30,9 +30,7 @@ import { BzKitsBlock } from '@/sites/biznes/blocks/BzKits/Component'
 import { BzKsefBlock } from '@/sites/biznes/blocks/BzKsef/Component'
 import { BzModulesBlock } from '@/sites/biznes/blocks/BzModules/Component'
 import { QuickStart } from '@/sites/biznes/components/home/QuickStart'
-import { BzNewsBlock } from '@/sites/biznes/blocks/BzNews/Component'
 import { BzOfferBlock } from '@/sites/biznes/blocks/BzOffer/Component'
-import { BzOnePartnerBlock } from '@/sites/biznes/blocks/BzOnePartner/Component'
 import { BzOrderFlowBlock } from '@/sites/biznes/blocks/BzOrderFlow/Component'
 import { BzPanelsBlock } from '@/sites/biznes/blocks/BzPanels/Component'
 import { BzPlanBlock } from '@/sites/biznes/blocks/BzPlan/Component'
@@ -141,14 +139,10 @@ export function RenderBlocks({ page, tenant }: Props) {
             return <BzPlanBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzSteps':
             return <BzStepsBlock key={key} block={block} tenantId={tenant.id} />
-          case 'bzOnePartner':
-            return <BzOnePartnerBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzReferences':
             return <BzReferencesBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzFacts':
             return <BzFactsBlock key={key} block={block} tenantId={tenant.id} />
-          case 'bzNews':
-            return <BzNewsBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzContact':
             return <BzContactBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzContactInfo':

@@ -113,10 +113,7 @@ export function BzFactsBlock({ block, tenantId }: Props) {
               </dl>
             )}
             {logos.length > 0 && (
-              <ul
-                aria-label={block.authorizationsLabel || 'Autoryzacje i partnerstwa'}
-                className="mt-4 flex flex-wrap gap-2"
-              >
+              <ul aria-label="Autoryzacje i partnerstwa" className="mt-4 flex flex-wrap gap-2">
                 {logos.map((item) => (
                   <li
                     key={item.id}
