@@ -134,7 +134,7 @@ export default async function ProductPage({ params }: Props) {
 
   // The category page exists only for a listed category (rozstrzygnięcie 7).
   const categoryLink = category ? categoryHref(category.slug) : null
-  // The brand page (K3b′; the showroom of Lenovo and Dell in K31c), else the brand's catalog.
+  // The brand's salon 2.0 or page (K4f, K3b′), else the brand's catalog.
   const brandLink = product.brand
     ? (brandPageHref(index, product.brand.slug) ??
       catalogHref(

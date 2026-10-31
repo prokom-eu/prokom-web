@@ -1,7 +1,7 @@
 /**
  * SVG code stored in the panel (`FloorPlans.svg`, ADR-012 rozstrz. 15) and icon paths
- * (`FloorPlans.iconPath`, `Partners.showroom`). The plan renders the SVG inline (K31d), so the
- * check on save is what keeps scripts out of the page. An allowlist, not a blacklist (review
+ * (`FloorPlans.iconPath`, `Showrooms.family`, `BiznesSettings.brands`). The plan renders the
+ * SVG inline (K31d), so the check on save is what keeps scripts out of the page. An allowlist, not a blacklist (review
  * K31a-2): only drawing elements and attributes, every attribute `name="value"` after
  * whitespace, no entities or escapes, references only inside the document (`url(#…)`).
  * Colours come from our own CSS classes; `style` only as plain declarations.

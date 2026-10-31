@@ -63,16 +63,8 @@ import {
   k4Dictionaries,
   isRetiredTarget,
 } from './k4Categories'
-import {
-  K31_DIR,
-  k31Scenes,
-  k31Series,
-  k31SeriesVideos,
-  k31Showrooms,
-  k31Videos,
-  loadK31Catalog,
-} from './k31Data'
-import { cardsOf, floorPlanData, seriesMismatches, showroomData } from './k31Plans'
+import { K31_DIR, k31Scenes, k31Series, k31Videos, loadK31Catalog } from './k31Data'
+import { cardsOf, floorPlanData } from './k31Plans'
 import { bundleData, nextBundleStatus, sceneBundles, type K3Bundle } from './k3Bundles'
 import {
   hasK4Logo,
@@ -794,36 +786,8 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
       })
     }
   }
-  // --- K3.1 showrooms (Lenovo, Dell) and floor plans, after the cards they link to ---
-  const cardsFor = cardsOf(k31)
   const productId = (slug: string) => productIds.get(slug)
-  for (const [brand, showroom] of Object.entries(k31Showrooms)) {
-    const partnerId = brandIds.get(brand)
-    if (partnerId === undefined) throw new Error(`Seed (Biznes): partner "${brand}" missing.`)
-    const existing = await payload.findByID({ collection: 'partners', id: partnerId, ...local })
-    const data = showroomData(
-      brand,
-      showroom,
-      k31SeriesVideos[brand] ?? {},
-      cardsFor,
-      productId,
-      existing.showroom,
-    )
-    for (const item of seriesMismatches(showroom, k31Series))
-      note('seria karty ≠ seria salonu', item)
-    const same = hasSameValues(existing.showroom, data)
-    if (!same) {
-      await payload.update({
-        collection: 'partners',
-        id: partnerId,
-        data: { showroom: data },
-        ...local,
-      })
-    }
-    count('partners showroom', same ? false : 'updated')
-  }
-  // --- K4 showrooms 2.0 (D-K4-3) → `Showrooms`; Lenovo and Dell from K4 too. `Partners.showroom`
-  // stays as it is until K4f-2 (the brand page still renders it). ---
+  // --- K4 showrooms 2.0 (D-K4-3) → `Showrooms`; Lenovo and Dell from K4 too. ---
   const k4Salons = k4SalonsFile.salony as unknown as Record<string, K4Showroom>
   for (const [index, [key, salon]] of Object.entries(k4Salons).entries()) {
     const { data, unknown } = k4ShowroomData(key, salon, index, {

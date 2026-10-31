@@ -10,7 +10,7 @@ import { isProducerSource } from './sources'
 
 /**
  * Brand pages `/marki/[slug]` (K3-KATALOG §6, spec. §6.11, ADR-012 rozstrz. 15): the brand
- * template of K3b′ — the showrooms of Lenovo and Dell come with K31c on the same address.
+ * template of K3b′, for brands without a salon 2.0 (K4f — salons take the same address).
  */
 
 export const brandHref = (slug: string) => `/marki/${encodeURIComponent(slug)}`

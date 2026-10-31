@@ -59,6 +59,7 @@ import * as migration_20261031_204306_software_audit_block from './20261031_2043
 import * as migration_20261031_215351_software_about_blocks from './20261031_215351_software_about_blocks'
 import * as migration_20261031_220542_posts_author from './20261031_220542_posts_author'
 import * as migration_20261031_224625_inst_form_blocks from './20261031_224625_inst_form_blocks'
+import * as migration_20261031_231638_k4f_drop_partners_showroom from './20261031_231638_k4f_drop_partners_showroom'
 
 export const migrations = [
   {
@@ -365,5 +366,10 @@ export const migrations = [
     up: migration_20261031_224625_inst_form_blocks.up,
     down: migration_20261031_224625_inst_form_blocks.down,
     name: '20261031_224625_inst_form_blocks',
+  },
+  {
+    up: migration_20261031_231638_k4f_drop_partners_showroom.up,
+    down: migration_20261031_231638_k4f_drop_partners_showroom.down,
+    name: '20261031_231638_k4f_drop_partners_showroom',
   },
 ]

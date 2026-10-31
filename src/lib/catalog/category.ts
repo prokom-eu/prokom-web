@@ -3,10 +3,16 @@ import type { CatalogCategory } from '@/payload-types'
 import { publicImage, type PublicImage } from '../media/public'
 import { plural } from '../plural'
 import { isHttpsUrl, isValidNavHref } from '../site/link'
+import { normalizeText } from './normalize'
 import { tenantIdOf } from '../tenant/id'
 import type { CatalogIndex, IndexImage, IndexProduct, IndexSubcategory } from './catalogIndex'
 import type { IconName } from './options'
-import { seriesSlug } from './showroom'
+
+/** Address part of a series (`?seria=`): „ThinkPad T i X13” → `thinkpad-t-i-x13`. */
+export const seriesSlug = (name: string) =>
+  normalizeText(name)
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
 
 /**
  * Category page `/oferta/[kategoria]` (spec. §6.1, board `Kategoria`). Products come from the
