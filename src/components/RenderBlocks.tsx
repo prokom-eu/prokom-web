@@ -41,7 +41,7 @@ import { BzReferencesBlock } from '@/sites/biznes/blocks/BzReferences/Component'
 import { BzStepsBlock } from '@/sites/biznes/blocks/BzSteps/Component'
 import { BzTimelineBlock } from '@/sites/biznes/blocks/BzTimeline/Component'
 import { Breadcrumbs } from '@/sites/biznes/components/Breadcrumbs'
-import { BrandMarquee } from '@/sites/biznes/components/home/BrandMarquee'
+import { BrandsHome } from '@/sites/biznes/components/home/BrandsHome'
 import { FaqBiznes } from '@/sites/biznes/components/home/FaqBiznes'
 import { InstHomeBlock } from '@/sites/instalacje/blocks/InstHome/Component'
 import { InstServiceBlock } from '@/sites/instalacje/blocks/InstService/Component'
@@ -113,7 +113,7 @@ export function RenderBlocks({ page, tenant }: Props) {
             return <ContactBlock key={key} block={block} tenantId={tenant.id} />
           case 'partners':
             return biznes ? (
-              <BrandMarquee key={key} block={block} tenantId={tenant.id} />
+              <BrandsHome key={key} tenantId={tenant.id} />
             ) : (
               <PartnersBlock key={key} block={block} tenantId={tenant.id} />
             )

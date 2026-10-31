@@ -1,6 +1,7 @@
 import config from '@payload-config'
 import { cacheQuery } from '../cache'
 import { getPayload } from 'payload'
+import { cache } from 'react'
 
 import { PAGE_CACHE_SECONDS } from '../pages/data'
 import { pagesTag } from '../pages/tags'
@@ -24,7 +25,9 @@ const MAX_RECORDS = 200
  * pages tag (its page list), with the pages' TTL as a safety net. Every query filters by the
  * tenant; images are re-checked in `buildCatalogIndex` (`publicImage`).
  */
-export const getCatalogIndex = (tenantId: number): Promise<CatalogIndex> =>
+// `cache`: one build per request — the home page reads the index in several sections, and
+// `pnpm dev` has no data cache (`lib/cache.ts`).
+export const getCatalogIndex = cache((tenantId: number): Promise<CatalogIndex> =>
   cacheQuery(
     async () => {
       const payload = await getPayload({ config })
@@ -127,7 +130,8 @@ export const getCatalogIndex = (tenantId: number): Promise<CatalogIndex> =>
     },
     ['catalog-index', String(tenantId)],
     { tags: [catalogTag(tenantId), pagesTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
-  )()
+  )(),
+)
 
 /**
  * One published product of the tenant for `/produkt/[slug]`, as `ProductView` — or `null`
