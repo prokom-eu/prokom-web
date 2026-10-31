@@ -1,0 +1,769 @@
+/*
+ * Kontrola dostępu page (I8): the keypad lock with the week schedule in the hero, opening
+ * methods, apartments, identifiers, locks without power, failures and the checklist. Rules of
+ * `pk.css` v4.2 for the classes of `Dostep.body.html` and `Dostep.js` not already in the other
+ * page sheets (one bundle for all service pages), ported by `narzedzia/przenies-css.mjs` (map
+ * `przenies-css.strony.json`, gradients from `IlDefs`), then: inline styles as classes at the
+ * end, keyframes `inst-ds-`, reduced motion.
+ */
+[data-line='instalacje'] {
+  & .kdw {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: 16px;
+    padding: 18px;
+    align-items: center;
+    background: radial-gradient(ellipse at 30% 40%, var(--accent-soft), transparent 70%);
+  }
+  & .kdoor {
+    width: 100%;
+    max-width: 230px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    perspective: 600px;
+  }
+  & .kfr {
+    fill: var(--inst-il-hdoor-line);
+  }
+  & .kin {
+    fill: var(--inst-il-kin-fill);
+  }
+  & .klf {
+    fill: var(--inst-il-klf-fill);
+    stroke: var(--inst-scene-wall-line);
+    stroke-width: 2;
+  }
+  & .kpn {
+    fill: none;
+    stroke: var(--inst-il-hwall-line);
+    stroke-width: 3;
+  }
+  & .klock {
+    fill: var(--inst-il-klock-fill);
+    stroke: var(--inst-il-phone-sh);
+    stroke-width: 2;
+  }
+  & .kled {
+    fill: var(--inst-scene-beam);
+  }
+  & .kpad {
+    fill: var(--inst-plan-card);
+    stroke: var(--inst-plan-send-to);
+    stroke-width: 1.2;
+  }
+  & .kleaf {
+    transform-origin: 26px 160px;
+    transition: transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  & .kdoor.open .kleaf {
+    transform: scaleX(0.55) skewY(-6deg);
+  }
+  & .kdoor.open .kled {
+    fill: var(--inst-scene-beam-ok);
+  }
+  & .kdoor.bad .kled {
+    fill: var(--inst-il-nvrh-c);
+  }
+  & .kpbox {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 14px;
+    border-radius: 22px;
+    background: var(--inst-plan-card);
+    box-shadow: inset 0 0 0 1px var(--inst-band-line);
+    max-width: 260px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  & .kdisp {
+    height: 58px;
+    border-radius: 12px;
+    background: var(--sx-tyre);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--inst-il-tile-c);
+    box-shadow: inset 0 0 0 1px var(--inst-il-nvrh-bord);
+  }
+  & .kdisp span {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 24px;
+    letter-spacing: 0.35em;
+    line-height: 1;
+  }
+  & .kdisp small {
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--inst-scene-beam);
+    margin-top: 4px;
+  }
+  & .kdisp.ok {
+    color: var(--inst-scene-beam-ok);
+    box-shadow: inset 0 0 0 1.5px var(--inst-scene-beam-ok);
+  }
+  & .kdisp.ok small {
+    color: var(--inst-scene-beam-ok);
+  }
+  & .kdisp.bad {
+    color: var(--inst-il-nvrh-c);
+    box-shadow: inset 0 0 0 1.5px var(--inst-il-nvrh-c);
+    animation: inst-ds-shake 0.4s;
+  }
+  & .kdisp.bad small {
+    color: var(--inst-il-nvrh-c);
+  }
+  & .kkeys {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 7px;
+  }
+  & .kkey {
+    height: 46px;
+    border-radius: 12px;
+    border: 0;
+    background: var(--inst-il-kkey-bg);
+    color: var(--inst-il-nvr-c);
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 19px;
+    cursor: pointer;
+    box-shadow: inset 0 -2px 0 var(--inst-il-kkey-sh);
+  }
+  @media (hover: hover) {
+    & .kkey:hover {
+      background: var(--inst-il-nvr-sh);
+    }
+  }
+  & .kkey:active {
+    transform: translateY(1px);
+  }
+  & .kcal {
+    border-top: 1px solid var(--border);
+    padding: 16px 18px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  & .kcalh {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+    font-size: 14px;
+  }
+  & .kgrid {
+    display: grid;
+    grid-template-columns: 94px repeat(7, minmax(0, 1fr));
+    gap: 6px 0;
+    align-items: center;
+  }
+  & .kday {
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--ink-2);
+    text-align: center;
+    border-left: 1px dashed var(--border);
+  }
+  & .krn {
+    font-size: 12.5px;
+    font-weight: 800;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 6px;
+  }
+  & .krow {
+    grid-column: 2/-1;
+    position: relative;
+    height: 26px;
+    border-radius: 8px;
+    background: var(--surface-3);
+  }
+  /* No box-sizing reset in the prototype: the width plus the padding (ADR-I003 §5 p. 6). */
+  & .kbar {
+    box-sizing: content-box;
+    position: absolute;
+    top: 3px;
+    bottom: 3px;
+    border-radius: 6px;
+    background: var(--accent-soft);
+    box-shadow: inset 0 0 0 1px var(--accent-line);
+    font-size: 10.5px;
+    font-weight: 800;
+    color: var(--accent-text);
+    display: flex;
+    align-items: center;
+    padding: 0 6px;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  & .kbar.cur {
+    background: var(--accent);
+    color: var(--accent-ink);
+    box-shadow: none;
+  }
+  & .kbar.off {
+    background: var(--inst-plan-err-bg);
+    color: var(--inst-bad);
+    box-shadow: inset 0 0 0 1px var(--il-off-bar);
+  }
+  & .klog {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+  & .kl {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    padding: 9px 10px;
+    border-radius: 12px;
+    background: var(--surface-3);
+    font-size: 12px;
+    color: var(--ink-2);
+    animation: inst-ds-fadein 0.35s ease;
+  }
+  & .kl svg {
+    flex: none;
+    color: var(--accent-text);
+    margin-top: 1px;
+  }
+  & .kl b {
+    color: var(--ink);
+  }
+  & .kl.bad svg {
+    color: var(--inst-bad);
+  }
+  & .aptflow {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+    position: relative;
+  }
+  & .aptc {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 22px;
+    border-radius: 22px;
+    background: var(--card);
+    box-shadow: inset 0 0 0 1px var(--border);
+    position: relative;
+  }
+  & .aptc b {
+    font-size: 17px;
+  }
+  & .aptc > span:last-child {
+    font-size: 14.5px;
+    color: var(--ink-2);
+  }
+  & .aptc:not(:last-child):after {
+    content: '→';
+    position: absolute;
+    right: -13px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--accent-ink);
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    z-index: 1;
+  }
+  @media (max-width: 1100px) {
+    & .aptflow {
+      grid-template-columns: 1fr 1fr;
+    }
+    & .aptc:after {
+      display: none;
+    }
+  }
+  @media (max-width: 760px) {
+    & .kdw {
+      grid-template-columns: 1fr;
+    }
+    & .kdoor {
+      max-width: 150px;
+    }
+    & .klog {
+      grid-template-columns: 1fr;
+    }
+    & .kgrid {
+      grid-template-columns: 64px repeat(7, minmax(0, 1fr));
+    }
+    & .aptflow {
+      grid-template-columns: 1fr;
+    }
+  }
+  & .kl > svg {
+    flex: none;
+  }
+  & .fot.knum2 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 11px;
+    color: var(--inst-il-fot-knum2-c);
+    text-align: center;
+    letter-spacing: 0.1em;
+    line-height: 14px;
+  }
+  & .kdoor .klf {
+    fill: url(#gWoodL);
+    stroke: var(--inst-scene-wall-line);
+  }
+  & .kdoor .kfr {
+    fill: url(#gRoof);
+  }
+  & .kdoor .klock {
+    fill: url(#gMetal) !important;
+    filter: url(#fSh);
+  }
+  & .kdoor .kpn {
+    stroke: var(--inst-il-kdoor-kpn-line);
+    stroke-width: 3.5;
+  }
+  & .idw {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 300px minmax(0, 1fr);
+    gap: 18px;
+  }
+  & .idtabs {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  & .idtb {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    grid-template-rows: auto auto;
+    column-gap: 10px;
+    align-items: center;
+    padding: 10px;
+    border: 0;
+    border-radius: 14px;
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+    text-align: left;
+    font-family: inherit;
+    transition: background 0.2s;
+  }
+  & .idtb b {
+    font-size: 14.5px;
+  }
+  & .idtb > span:last-child {
+    grid-column: 2;
+    font-size: 12px;
+    color: var(--ink-2);
+  }
+  & .idti {
+    grid-row: 1/3;
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 11px;
+    background: var(--surface-3);
+    color: var(--ink-soft);
+  }
+  @media (hover: hover) {
+    & .idtb:hover {
+      background: var(--surface-2);
+    }
+  }
+  & .idtb.on {
+    background: var(--accent-soft);
+    box-shadow: inset 0 0 0 1.5px var(--accent-line);
+  }
+  & .idtb.on .idti {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+  & .idd {
+    display: grid;
+    grid-template-columns: 300px minmax(0, 1fr);
+    gap: 22px;
+    align-items: center;
+    animation: inst-ds-fadeUp 0.4s ease;
+  }
+  & .idvis {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 26px;
+    border-radius: 22px;
+    background: radial-gradient(
+      90% 90% at 80% 0%,
+      color-mix(in srgb, var(--h) 35%, var(--inst-hue-ink)),
+      var(--inst-hue-ink) 70%
+    );
+    color: var(--inst-plan-white);
+  }
+  /* The prototype has no box-sizing reset: the height plus the padding (ADR-I003 §5 p. 6). */
+  & .idcard {
+    box-sizing: content-box;
+    position: relative;
+    height: 150px;
+    border-radius: 16px;
+    background: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--h) 80%, var(--inst-plan-white)),
+      color-mix(in srgb, var(--h) 55%, var(--inst-hue-ink))
+    );
+    box-shadow:
+      0 20px 40px -20px var(--h),
+      inset 0 1px 0 var(--sx-sl);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    animation: inst-ds-idfl 4s ease-in-out infinite;
+  }
+  & .idcard b {
+    font: 900 18px var(--font-display);
+    color: var(--inst-hue-ink);
+  }
+  & .idchip {
+    position: absolute;
+    left: 16px;
+    top: 18px;
+    width: 38px;
+    height: 28px;
+    border-radius: 6px;
+    background: linear-gradient(135deg, var(--inst-il-idchip-bg), var(--inst-il-idchip-bg-2));
+    box-shadow: inset 0 0 0 1px var(--inst-il-idchip-sh);
+  }
+  & .idwave {
+    position: absolute;
+    right: 16px;
+    top: 14px;
+    width: 40px;
+    height: 40px;
+  }
+  & .idwave i {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 2px solid var(--inst-il-idwave-bd);
+    border-left-color: transparent;
+    border-bottom-color: transparent;
+    transform: rotate(45deg) scale(0.4);
+    animation: inst-ds-idw 1.8s ease-out infinite;
+  }
+  & .idwave i:nth-child(2) {
+    animation-delay: -0.6s;
+  }
+  & .idwave i:nth-child(3) {
+    animation-delay: -1.2s;
+  }
+  & .idmeter span {
+    font-size: 12px;
+    color: var(--inst-plan-note);
+    font-weight: 800;
+  }
+  & .idbar {
+    height: 10px;
+    border-radius: 5px;
+    background: var(--inst-ticket-dash);
+    margin: 6px 0;
+    overflow: hidden;
+  }
+  & .idbar i {
+    display: block;
+    height: 100%;
+    border-radius: 5px;
+    background: var(--h);
+    transition: width 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  & .idmeter b {
+    font: 900 18px var(--font-display);
+  }
+  & .idtx {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  & .idtx p {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  & .idg {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  & .idg div {
+    padding: 12px 14px;
+    border-radius: 14px;
+    background: var(--surface-2);
+  }
+  & .idg span {
+    display: block;
+    font-size: 11.5px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+  & .idg b {
+    font-size: 14px;
+  }
+  & .lkw {
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  & .lkbar {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  & .lkg {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+  }
+  & .lki {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 14px;
+    border-radius: 18px;
+    background: var(--surface-2);
+    box-shadow: inset 0 0 0 1px var(--border);
+    transition: box-shadow 0.3s;
+  }
+  & .lki svg {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    background: var(--sx-plan);
+    margin-bottom: 6px;
+  }
+  & .lkfr {
+    fill: var(--sx-frame);
+  }
+  & .lkleaf {
+    fill: var(--sx-leaf);
+  }
+  & .lkhd {
+    fill: var(--inst-plan-chip-ink);
+  }
+  & .lkdev {
+    fill: var(--sx-met);
+  }
+  & .lkled {
+    fill: var(--sx-rec);
+    transition: fill 0.3s;
+  }
+  & .lkdoor {
+    transform-origin: 28px 60px;
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  & .lki.open .lkdoor {
+    transform: perspective(300px) rotateY(-55deg);
+  }
+  & .lki.open .lkled {
+    fill: var(--sx-go);
+  }
+  & .lki.open {
+    box-shadow: inset 0 0 0 2px var(--inst-plan-ok);
+  }
+  & .lki.pw .lkled {
+    fill: var(--sx-rec);
+  }
+  & .lki b {
+    font-size: 14.5px;
+  }
+  & .lkst {
+    align-self: flex-start;
+    padding: 3px 9px;
+    border-radius: 8px;
+    font: 900 11.5px var(--font-sans);
+    background: var(--inst-il-dori-bg-3);
+    color: var(--inst-il-lkst-c);
+  }
+  & .lki.open .lkst {
+    background: var(--inst-switch-on-bg);
+    color: var(--inst-plan-ok);
+  }
+  & .lki p {
+    margin: 0;
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  & .lki em {
+    font-style: normal;
+    font-size: 12.5px;
+    color: var(--ink-2);
+    font-weight: 700;
+    margin-top: auto;
+  }
+  & .kdchk {
+    margin-top: 18px;
+    padding: 24px;
+    display: grid;
+    grid-template-columns: 280px minmax(0, 1fr);
+    gap: 24px;
+    align-items: start;
+  }
+  & .kdcg {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+  & .kdcg > div {
+    display: flex;
+    gap: 10px;
+    padding: 12px;
+    border-radius: 14px;
+    background: var(--surface-2);
+  }
+  & .kdcg em {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    color: var(--accent-text);
+    font: 900 12px var(--font-display);
+    font-style: normal;
+  }
+  & .kdcg b {
+    display: block;
+    font-size: 14px;
+  }
+  & .kdcg span span {
+    font-size: 12.5px;
+    color: var(--ink-soft);
+  }
+  @media (max-width: 1100px) {
+    & .idw,
+    & .idd,
+    & .kdchk {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    & .idtabs {
+      flex-direction: row;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    & .idtb {
+      flex: 0 0 180px;
+    }
+    & .lkg {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    & .kdcg {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 760px) {
+    & .lkg,
+    & .kdcg,
+    & .idg {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    & .idvis {
+      padding: 18px;
+    }
+    & .idcard {
+      height: 120px;
+    }
+  }
+  & .lkbar .usl {
+    width: auto;
+    display: block;
+  }
+
+  /* Inline styles of `Dostep.body.html` as classes. */
+  & .kdhint {
+    font-size: 12.5px;
+    text-align: center;
+    & b {
+      color: var(--accent-text);
+    }
+  }
+  & .lkhint {
+    font-size: 13.5px;
+  }
+}
+
+@keyframes inst-ds-fadein {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes inst-ds-shake {
+  0%,
+  100% {
+    transform: none;
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+@keyframes inst-ds-fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes inst-ds-idfl {
+  50% {
+    transform: translateY(-6px) rotate(-1.5deg);
+  }
+}
+
+@keyframes inst-ds-idw {
+  to {
+    transform: rotate(45deg) scale(1.1);
+    opacity: 0;
+  }
+}
+
+/* Reduced motion (spec §5): the keypad, the log and the identifier card stand still. */
+@media (prefers-reduced-motion: reduce) {
+  [data-line='instalacje'] {
+    & .kdisp.bad,
+    & .kl,
+    & .idd,
+    & .idcard,
+    & .idwave i {
+      animation: none;
+    }
+  }
+}

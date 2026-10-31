@@ -25,6 +25,8 @@ import { AntennaAim } from '../../widzety/anteny/AntennaAim'
 import { AlarmySections } from '../../widzety/alarmy/AlarmySections'
 import { HouseDemo } from '../../widzety/alarmy/HouseDemo'
 import { AntenySections } from '../../widzety/anteny/AntenySections'
+import { DostepSections } from '../../widzety/dostep/DostepSections'
+import { LockDemo } from '../../widzety/dostep/DostepWidgets'
 import { MonitoringSections } from '../../widzety/monitoring/MonitoringSections'
 import { NvrDemo } from '../../widzety/monitoring/NvrDemo'
 
@@ -34,7 +36,7 @@ type Props = { block: InstServiceBlockData; tenantId: number }
 type ServiceLayout = { widget: ReactNode; sections: ReactNode; folded: readonly string[] }
 type LayoutContext = { planHref: string }
 
-/** Pages built so far (I4, I7); the other services show the shared sections until I8–I9. */
+/** Pages built so far (I4, I7, I8); the other services show the shared sections until I9. */
 const LAYOUTS: Partial<Record<string, (ctx: LayoutContext) => ServiceLayout>> = {
   kam: ({ planHref }) => ({
     widget: <NvrDemo />,
@@ -44,6 +46,11 @@ const LAYOUTS: Partial<Record<string, (ctx: LayoutContext) => ServiceLayout>> = 
   alarm: () => ({
     widget: <HouseDemo />,
     sections: <AlarmySections />,
+    folded: ['cena', 'faq'],
+  }),
+  kd: () => ({
+    widget: <LockDemo />,
+    sections: <DostepSections />,
     folded: ['cena', 'faq'],
   }),
   ant: () => ({
