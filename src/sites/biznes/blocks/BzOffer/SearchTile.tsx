@@ -10,6 +10,8 @@ import { requestSearch } from '@/lib/site/searchOpen'
 type Shortcut = { label: string; note: string; href: string; icon: IconName }
 
 type Props = {
+  eyebrow: string | null
+  heading: string
   /** „Szukaj w 427 pozycjach”. */
   searchLabel: string
   /** `BiznesSettings.search.popular`: each phrase opens the search with it typed. */
@@ -18,10 +20,10 @@ type Props = {
 }
 
 /**
- * Sixth tile of the departments (board `#s4-dz`, „Nie wiesz, w którym dziale szukać?”): the site
- * search (same overlay as Ctrl K), popular phrases and three shortcuts.
+ * Sixth tile of the departments (board `#s4-dz`, „Nie wiesz, w którym dziale szukać?”, texts from
+ * the block): the site search (same overlay as Ctrl K), popular phrases and the shortcuts.
  */
-export function SearchTile({ searchLabel, popular, shortcuts }: Props) {
+export function SearchTile({ eyebrow, heading, searchLabel, popular, shortcuts }: Props) {
   const headingId = useId()
   return (
     <article
@@ -29,14 +31,16 @@ export function SearchTile({ searchLabel, popular, shortcuts }: Props) {
       aria-labelledby={headingId}
       className="flex flex-col rounded-[26px] bg-linear-160 from-surface-dark to-[color-mix(in_srgb,var(--accent)_35%,var(--surface-dark))] p-6 text-white"
     >
-      <p className="text-[12px] font-extrabold tracking-[0.1em] text-accent-on-dark uppercase">
-        Nie wiesz, w którym dziale szukać?
-      </p>
+      {eyebrow && (
+        <p className="text-[12px] font-extrabold tracking-[0.1em] text-accent-on-dark uppercase">
+          {eyebrow}
+        </p>
+      )}
       <h3
         id={headingId}
         className="mt-2 font-display text-[clamp(1.35rem,1.8vw,1.6rem)] leading-tight font-extrabold text-balance text-white"
       >
-        Wpisz, czego potrzebujesz — znajdziemy to za&nbsp;Ciebie.
+        {heading}
       </h3>
       <button
         type="button"

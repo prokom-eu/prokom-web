@@ -9,7 +9,11 @@ const HOME = [
   { blockType: 'bzOffer', systems: [{ title: 'GoPOS' }] },
   { blockType: 'partners' },
   { blockType: 'bzFeatured' },
-  { blockType: 'bzPlan', industries: { tiles: [{ name: 'Sklep' }] }, funding: {} },
+  {
+    blockType: 'bzPlan',
+    industries: { heading: 'Firmy każdej wielkości.', tiles: [{ name: 'Sklep' }] },
+    funding: {},
+  },
   { blockType: 'bzSteps' },
   { blockType: 'bzReferences', reviews: [{ quote: 'Polecam.', author: 'E. S.' }] },
   { blockType: 'bzFacts' },
@@ -72,17 +76,33 @@ describe('railItems', () => {
     const ids = railItems(
       [
         { blockType: 'bzOffer', systems: [] },
-        { blockType: 'bzPlan', industries: { tiles: [] }, funding: { heading: null } },
+        {
+          blockType: 'bzPlan',
+          industries: { heading: 'Firmy', tiles: [] },
+          funding: { heading: null },
+        },
       ],
       ON,
     ).map((item) => item.id)
     expect(ids).toEqual(['oferta', 'plan'])
     // The funding bar alone keeps „Dla kogo”.
     expect(
-      railItems([{ blockType: 'bzPlan', funding: { heading: 'Dofinansowania' } }], ON).map(
-        (item) => item.id,
-      ),
+      railItems(
+        [
+          {
+            blockType: 'bzPlan',
+            industries: { heading: 'Firmy' },
+            funding: { heading: 'Dofinansowania' },
+          },
+        ],
+        ON,
+      ).map((item) => item.id),
     ).toEqual(['dla-kogo', 'plan'])
+  })
+
+  it('leaves out „Dla kogo” without its heading (the section needs it)', () => {
+    const ids = railItems([{ blockType: 'bzPlan', industries: { tiles: [{ name: 'Sklep' }] } }], ON)
+    expect(ids.map((item) => item.id)).toEqual(['plan'])
   })
 
   it('names a section once, even when its block is there twice', () => {

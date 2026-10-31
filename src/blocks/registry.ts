@@ -8,9 +8,7 @@ import { BzFactsBlock } from '../sites/biznes/blocks/BzFacts/config'
 import { BzFeaturedBlock } from '../sites/biznes/blocks/BzFeatured/config'
 import { BzHeroBlock } from '../sites/biznes/blocks/BzHero/config'
 import { BzNeedsBlock } from '../sites/biznes/blocks/BzNeeds/config'
-import { BzNewsBlock } from '../sites/biznes/blocks/BzNews/config'
 import { BzOfferBlock } from '../sites/biznes/blocks/BzOffer/config'
-import { BzOnePartnerBlock } from '../sites/biznes/blocks/BzOnePartner/config'
 import { BzPlanBlock } from '../sites/biznes/blocks/BzPlan/config'
 import { BzQuickCardsBlock } from '../sites/biznes/blocks/BzQuickCards/config'
 import { BzReferencesBlock } from '../sites/biznes/blocks/BzReferences/config'
@@ -64,10 +62,8 @@ export const BIZNES_BLOCKS: Block[] = [
   BzFeaturedBlock,
   BzPlanBlock,
   BzStepsBlock,
-  BzOnePartnerBlock,
   BzReferencesBlock,
   BzFactsBlock,
-  BzNewsBlock,
   BzContactBlock,
   BzContactInfoBlock,
   BzQuickCardsBlock,
