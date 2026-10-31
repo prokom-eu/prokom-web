@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { MAX_PROJECT_ITEMS, parseProject, remove, toggle } from './project'
+import { MAX_PROJECT_ITEMS, parseProject, parseSent, remove, toggle } from './project'
 
 describe('parseProject', () => {
   it('reads { id, name } entries', () => {
@@ -62,5 +62,18 @@ describe('remove', () => {
       { id: 'a', name: 'A' },
       { id: 'c', name: 'C' },
     ])
+  })
+})
+
+describe('names sent with the last inquiry (SW11a, /dziekujemy)', () => {
+  it('reads the stored names and ignores anything else', () => {
+    expect(parseSent('["Strona wizytówka","Opieka · Rozszerzona"]')).toEqual([
+      'Strona wizytówka',
+      'Opieka · Rozszerzona',
+    ])
+    expect(parseSent('["A", 3, "", null]')).toEqual(['A'])
+    expect(parseSent('{')).toEqual([])
+    expect(parseSent(null)).toEqual([])
+    expect(parseSent('{"a":1}')).toEqual([])
   })
 })

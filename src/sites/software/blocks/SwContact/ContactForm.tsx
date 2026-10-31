@@ -22,6 +22,7 @@ import {
 import { linkInText, readOutcome } from '@/lib/inquiry/form'
 import { HONEYPOT_FIELD } from '@/lib/inquiry/honeypot'
 import type { SoftwareTopic } from '@/lib/inquiry/types'
+import { PROJECT_SENT_KEY } from '@/lib/software/project'
 import { useProject, projectActions } from '@/lib/software/projectStore'
 import {
   careLevelFromParam,
@@ -68,9 +69,6 @@ const TALK_WAYS: { value: SoftwareTalkWay; label: string }[] = [
   { value: 'meeting', label: 'Spotkanie w salonie' },
   { value: 'online', label: 'Online' },
 ]
-
-/** Names sent with the last inquiry, for `/dziekujemy` („Wysłane razem z: …”). */
-export const PROJECT_SENT_KEY = 'pk-project-sent'
 
 /** The hint under „Telefon albo e-mail”: what was recognised (board `Kontakt`). */
 function contactHintOf(value: string, empty: string | null): string | null {
@@ -228,14 +226,16 @@ export function ContactForm({
       outcome = readOutcome(0, null)
     }
     if (outcome.kind === 'sent') {
-      if (summary && hasItems) {
+      if (summary) {
         const sent = summary.rows.filter((row) => summary.slugs.includes(row.id))
         try {
-          sessionStorage.setItem(PROJECT_SENT_KEY, JSON.stringify(sent.map((row) => row.label)))
+          if (sent.length > 0) {
+            sessionStorage.setItem(PROJECT_SENT_KEY, JSON.stringify(sent.map((row) => row.label)))
+          } else sessionStorage.removeItem(PROJECT_SENT_KEY)
         } catch {
           // Private mode: the thanks page just shows no list.
         }
-        projectActions.clear()
+        if (sent.length > 0) projectActions.clear()
       }
       const query = outcome.number ? `?nr=${encodeURIComponent(outcome.number)}` : ''
       router.push(`/dziekujemy${query}`)

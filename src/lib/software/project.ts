@@ -10,6 +10,12 @@ export const MAX_PROJECT_ITEMS = 30
 
 /** „Wyślij do wyceny →”: the contact form with the project list (spec. §3.1, v21). */
 export const PROJECT_SEND_HREF = '/kontakt?projekt=1#formularz'
+
+/**
+ * Names sent with the last inquiry from `/kontakt`, for `/dziekujemy` („Wysłane razem z: …”):
+ * `sessionStorage`, this tab only; an inquiry without a list removes it.
+ */
+export const PROJECT_SENT_KEY = 'pk-project-sent'
 const MAX_NAME = 120
 
 export type ProjectItem = { id: string; name: string }
@@ -54,4 +60,17 @@ export function toggle(
 
 export function remove(project: Project, id: string): Project {
   return project.filter((item) => item.id !== id)
+}
+
+/** Names of `PROJECT_SENT_KEY`, whatever the tab holds: anything else is no list. */
+export function parseSent(raw: string | null): string[] {
+  let data: unknown
+  try {
+    data = raw ? JSON.parse(raw) : []
+  } catch {
+    return []
+  }
+  return Array.isArray(data)
+    ? data.filter((name): name is string => typeof name === 'string' && name.trim() !== '')
+    : []
 }

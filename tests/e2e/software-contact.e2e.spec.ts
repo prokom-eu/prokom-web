@@ -113,6 +113,9 @@ test.describe('Software /kontakt', () => {
     await send(page).click()
     await expect(page).toHaveURL(/\/dziekujemy\?nr=PKS-\d{4}-\d{4,}$/)
     expect(await page.evaluate(() => localStorage.getItem('pk-project'))).toBe('[]')
+    await expect(page.getByText('Wysłane razem z:')).toContainText(
+      'Strona firmowa z panelem, Opieka nad stroną i systemem · Rozszerzona',
+    )
 
     await loginAsAdmin(page)
     const { json } = await api(
