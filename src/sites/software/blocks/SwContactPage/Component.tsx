@@ -396,7 +396,6 @@ export async function SwContactPageBlock({ block, tenantId, isFirst }: Props) {
                       {
                         '--lc': `var(--c-${card.line})`,
                         '--line-text': `var(--c-${card.line}-text)`,
-                        '--line-on-dark': `var(--c-${card.line}-on-dark)`,
                       } as CSSProperties
                     }
                     className="relative flex h-full flex-col gap-3 rounded-[22px] border-t-4 border-(--lc) bg-card p-5 shadow-[inset_0_0_0_1px_var(--border)] transition-transform active:scale-[0.99] motion-reduce:transition-none"
