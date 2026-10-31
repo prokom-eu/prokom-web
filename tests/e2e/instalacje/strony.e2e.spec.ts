@@ -45,8 +45,10 @@ for (const path of PAGES) {
       const text = await page.locator('main').innerText()
       // „[SZEF: …]”, „[CENA]”, „[TELEFON]” of the prototype must never reach a page (spec §10).
       expect(text).not.toMatch(/\[[A-ZĄĆĘŁŃÓŚŹŻ][A-ZĄĆĘŁŃÓŚŹŻ ]{2,}[:\]]/)
-      // No lists of sources on the page (spec §2).
-      expect(text).not.toMatch(/^\s*Źródła\b/m)
+      // No lists of sources on the page (spec §2): a line that is only the heading „Źródła”.
+      // Sentences may start with the word (Nagłośnienie: „Źródła trafiają do miksera…”,
+      // „Źródła muzyki”, „Źródła i mikrofony” — sound sources, not references).
+      expect(text).not.toMatch(/^\s*Źródła\s*:?\s*$/m)
       const jsonLd = await page
         .locator('script[type="application/ld+json"]')
         .evaluateAll((els) => els.map((e) => e.textContent ?? ''))
