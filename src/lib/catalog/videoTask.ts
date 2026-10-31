@@ -20,8 +20,7 @@ async function fetchStatus(url: string): Promise<number | null> {
 
 /**
  * Weekly film check (ADR-016), run by the in-process job runner (`jobs.autoRun`, ADR-011):
- * films of products and of showrooms (`Partners.showroom.videos`). Unavailable → `active =
- * false` and one mail to the administrators; a product with an unpublished draft only in the
+ * films of products (`Products.videos`). Unavailable → `active = false` and one mail to the administrators; a product with an unpublished draft only in the
  * mail (switched off by hand). The page cache picks the change up within its
  * TTL — a job runs outside a request, where nothing can be revalidated.
  */
@@ -47,19 +46,9 @@ export const videoAvailabilityTask: TaskConfig<'videoAvailability'> = {
       pagination: false,
       ...local,
     })
-    const { docs: partners } = await payload.find({
-      collection: 'partners',
-      where: { 'showroom.videos.youtubeId': { exists: true } },
-      select: { showroom: { videos: true } },
-      pagination: false,
-      ...local,
-    })
 
     const result = await checkVideos(
-      [
-        ...products.flatMap((product) => product.videos ?? []),
-        ...partners.flatMap((partner) => partner.showroom?.videos ?? []),
-      ],
+      products.flatMap((product) => product.videos ?? []),
       fetchStatus,
     )
 
@@ -90,20 +79,6 @@ export const videoAvailabilityTask: TaskConfig<'videoAvailability'> = {
       }
       await payload.update({ collection: 'products', id, data: { videos }, ...local })
       report.push({ where, films: switched })
-    }
-    for (const { id } of partners.filter((partner) => affected(partner.showroom))) {
-      const partner = await payload.findByID({ collection: 'partners', id, ...local })
-      const showroom = partner.showroom
-      const { videos, switched } = switchOff(showroom?.videos ?? [], result.unavailable)
-      if (!showroom || switched.length === 0) continue
-      // The whole group as just read (depth 0: relations stay ids), only the films changed.
-      await payload.update({
-        collection: 'partners',
-        id,
-        data: { showroom: { ...showroom, videos } },
-        ...local,
-      })
-      report.push({ where: `Salon ${partner.name}`, films: switched })
     }
 
     const switchedOff = report

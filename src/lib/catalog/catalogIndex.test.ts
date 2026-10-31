@@ -422,7 +422,7 @@ describe('searchIndex (`GET /api/catalog-index`, K31c)', () => {
 })
 
 describe('buildCatalogIndex salon chooser (K4f) and films (K31c)', () => {
-  const brand = (id: number, slug: string, series: (number | { id: number })[]) =>
+  const brand = (id: number, slug: string) =>
     ({
       id,
       slug,
@@ -430,9 +430,6 @@ describe('buildCatalogIndex salon chooser (K4f) and films (K31c)', () => {
       partnerStatus: 'none',
       tenants: [TENANT],
       brandPage: { hasPage: true },
-      showroom: {
-        segments: [{ name: 'Laptopy', key: 'laptopy', series: [{ name: 'S', products: series }] }],
-      },
     }) as unknown as Partner
   const source = (products: Partial<Product>[]): CatalogSource => ({
     tenantId: TENANT,
@@ -453,8 +450,8 @@ describe('buildCatalogIndex salon chooser (K4f) and films (K31c)', () => {
   const build = (products: Partial<Product>[]) => buildCatalogIndex(source(products))
 
   it('a brand leads to „Pomóż mi wybrać” only when its salon 2.0 has it (K4f)', () => {
-    const lenovo = brand(30, 'lenovo', [1])
-    const dell = brand(31, 'dell', [1])
+    const lenovo = brand(30, 'lenovo')
+    const dell = brand(31, 'dell')
     const index = buildCatalogIndex({
       ...source([{ brand: lenovo }, { brand: dell }]),
       salons: [

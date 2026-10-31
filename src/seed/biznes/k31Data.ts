@@ -12,7 +12,7 @@ import supplements from '../../../seed/prokombiznes/k31/tresci-uzupelnienia-k31.
 import plans from '../../../seed/prokombiznes/k31/plansze-k31.json'
 import videos from '../../../seed/prokombiznes/k31/wideo-k31.json'
 import { k31Catalog, k31Gallery, type K31Input, type K31Video } from './k31'
-import { showroomSeries, type K31Scene, type K31SeriesVideo, type K31Showroom } from './k31Plans'
+import { showroomSeries, type K31Scene } from './k31Plans'
 
 /** The K3 + K3.1 packages as the import reads them (one place for `run.ts` and the tests). */
 export const k31Input: K31Input = {
@@ -37,10 +37,6 @@ export function loadK31Catalog() {
   const gallery = k31Gallery(k3Media.zdjecia, k31Media.zdjecia, catalog, k31Input.splitContents)
   return { catalog, gallery }
 }
-
-/** Showrooms (K31a-2): Lenovo and Dell, and the films of whole series (Lenovo only). */
-export const k31Showrooms: Record<string, K31Showroom> = showrooms.salony
-export const k31SeriesVideos: Record<string, Record<string, K31SeriesVideo>> = videos.serie
 
 /** Scenes of „Plan Twojej firmy” (K31a-2); `svg` is a file in `seed/prokombiznes/k31/`. */
 export const k31Scenes: K31Scene[] = plans.sceny

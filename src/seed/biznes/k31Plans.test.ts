@@ -2,8 +2,8 @@ import { readFileSync } from 'fs'
 import path from 'path'
 import { describe, expect, it } from 'vitest'
 
-import { k31Series, k31SeriesVideos, k31Scenes, k31Showrooms, loadK31Catalog } from './k31Data'
-import { cardsOf, floorPlanData, seriesMismatches, showroomData, showroomSeries } from './k31Plans'
+import { k31Series, k31Scenes, loadK31Catalog } from './k31Data'
+import { cardsOf, floorPlanData, showroomSeries } from './k31Plans'
 
 const { catalog } = loadK31Catalog()
 const cards = cardsOf(catalog)
@@ -11,8 +11,6 @@ const cards = cardsOf(catalog)
 const ids = new Map(catalog.cards.map((card, index) => [card.slug_seed, index + 1]))
 const id = (slug: string) => ids.get(slug)
 const slugOf = new Map([...ids].map(([slug, value]) => [value, slug]))
-const slugs = (values: (number | { id: number } | null | undefined)[] | null | undefined) =>
-  (values ?? []).map((value) => slugOf.get(typeof value === 'number' ? value : value!.id))
 const svgOf = (file: string) =>
   readFileSync(path.resolve(__dirname, '../../../seed/prokombiznes/k31', file), 'utf8')
 
@@ -30,57 +28,8 @@ describe('cards named by the K3.1 packages', () => {
   })
 })
 
-describe('showrooms (Partners.showroom)', () => {
-  const lenovo = showroomData(
-    'Lenovo',
-    k31Showrooms.Lenovo!,
-    k31SeriesVideos.Lenovo ?? {},
-    cards,
-    id,
-  )
-  const dell = showroomData('Dell', k31Showrooms.Dell!, k31SeriesVideos.Dell ?? {}, cards, id)
-
-  it('has the departments, questions, rules and services of the package', () => {
-    expect(lenovo.segments?.map((segment) => segment.key)).toEqual([
-      'laptopy',
-      'komputery',
-      'stacje-robocze',
-      'monitory',
-      'wideokonferencje',
-    ])
-    expect(dell.segments).toHaveLength(6)
-    expect(dell.segments?.find((segment) => segment.key === 'akcesoria')).toBeTruthy()
-    expect(lenovo.wizard).toHaveLength(3)
-    expect(lenovo.wizardRules).toHaveLength(6)
-    expect(dell.wizardRules).toHaveLength(4)
-    expect(lenovo.services).toHaveLength(6)
-    expect(slugs(lenovo.heroProducts)).toHaveLength(3)
-  })
-
-  it('lists both cards of a split series (Yoga Pro 7 and 9) and none of a split source', () => {
-    const yoga = lenovo.segments
-      ?.flatMap((segment) => segment.series ?? [])
-      .find((series) => series.name === 'Yoga')
-    const yogaSlugs = slugs(yoga?.products)
-    expect(yogaSlugs).not.toContain('lenovo-yoga-pro')
-    expect(yogaSlugs.filter((slug) => slug?.startsWith('lenovo-yoga-pro-'))).toHaveLength(2)
-    expect(yogaSlugs.every(Boolean)).toBe(true)
-  })
-
-  it('keeps the series films as in the package: 4 for Lenovo, none for Dell', () => {
-    expect(lenovo.videos?.map((video) => video.series)).toEqual([
-      'ThinkPad',
-      'ThinkBook',
-      'Yoga',
-      'IdeaPad',
-    ])
-    expect(lenovo.videos?.every((video) => video.active)).toBe(true)
-    expect(dell.videos).toEqual([])
-  })
-
+describe('series of the cards from the K3.1 showrooms', () => {
   it('the showroom series wins over `seria_karty` (decision 28.10: Dell Pro Max)', () => {
-    expect(seriesMismatches(k31Showrooms.Lenovo!, k31Series)).toEqual([])
-    expect(seriesMismatches(k31Showrooms.Dell!, k31Series)).toEqual([])
     expect(k31Series['dell-pro-max-desktop']).toBe('Dell Pro Max')
     expect(k31Series['dell-pro-max-plus']).toBe('Dell Pro Max')
     expect(k31Series['dell-pro-precision-7']).toBe('Dell Pro Max')
@@ -88,20 +37,11 @@ describe('showrooms (Partners.showroom)', () => {
   })
 
   it('showroomSeries: a card outside every showroom keeps its own series', () => {
-    const showroom = {
-      ...k31Showrooms.Dell!,
-      segs: [{ id: 'x', n: 'X', series: [{ n: 'Salon', prods: ['a'] }] }],
-    }
+    const showroom = { segs: [{ id: 'x', n: 'X', series: [{ n: 'Salon', prods: ['a'] }] }] }
     expect(showroomSeries({ a: 'Karta', b: 'Inna' }, { Dell: showroom })).toEqual({
       a: 'Salon',
       b: 'Inna',
     })
-  })
-
-  it('fails when a card has no record yet', () => {
-    expect(() => showroomData('Lenovo', k31Showrooms.Lenovo!, {}, cards, () => undefined)).toThrow(
-      /no record/,
-    )
   })
 })
 
@@ -128,16 +68,5 @@ describe('floor plans (FloorPlans)', () => {
     expect(() => floorPlanData(k31Scenes[0]!, 0, '<svg><script/></svg>', cards, id)).toThrow(
       /not a safe SVG/,
     )
-  })
-})
-
-describe('series films switched off by the weekly check', () => {
-  it('stay off on the next import', () => {
-    const thinkPad = k31SeriesVideos.Lenovo!.ThinkPad!.id
-    const data = showroomData('Lenovo', k31Showrooms.Lenovo!, k31SeriesVideos.Lenovo!, cards, id, {
-      videos: [{ series: 'ThinkPad', youtubeId: thinkPad, title: 'x', active: false }],
-    })
-    expect(data.videos?.find((video) => video.youtubeId === thinkPad)?.active).toBe(false)
-    expect(data.videos?.filter((video) => video.active)).toHaveLength(3)
   })
 })
