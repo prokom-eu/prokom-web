@@ -1079,14 +1079,16 @@
   }
 }
 
-/* Phone: touch targets of at least 44 px (MOBILE-APLIKACJA §10; prototype 31–34 px): the room
-   card steppers and the object tabs of the app. */
+/* Phone: touch targets of at least 44 px (MOBILE-APLIKACJA §10; prototype 31–38 px): the scene
+   pills, „Bez internetu”, the room card steppers and the object tabs of the app. */
 @media (pointer: coarse), (max-width: 760px) {
   [data-line='instalacje'] {
     & .shrow .stepper button {
       width: 44px;
       height: 44px;
     }
+    & .scp,
+    & .offb,
     & .objb {
       min-height: 44px;
     }

@@ -593,7 +593,7 @@ export function SmartApp() {
   const [index, setIndex] = useState(1)
   const o = A.objects[index] ?? A.objects[0]!
   return (
-    <div className="phone" role="img" aria-label={A.label}>
+    <div className="phone" role="group" aria-label={A.label}>
       <div className="phs">
         <div className="phh">
           <span>{A.title}</span>
@@ -605,6 +605,7 @@ export function SmartApp() {
               key={x.tab}
               type="button"
               className={index === i ? 'objb on' : 'objb'}
+              aria-pressed={index === i}
               onClick={() => setIndex(i)}
             >
               {x.tab}
