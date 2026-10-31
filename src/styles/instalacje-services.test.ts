@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import { contrastRatio } from '@/lib/brand/contrast'
 
-import { resolve, rule } from './parse-tokens'
+import { resolve, rule, tokensCss } from './parse-tokens'
 
 // I4: text colours of the service pages (meter, spectrum, switches, multiplex tags) on their own
 // surfaces, in both themes (WCAG AA, 4.5:1). Tinted surfaces (`rgba`) are laid over the card.
@@ -64,6 +64,14 @@ const ilRatio = (text: string, surface: string, base = '--il-cam') =>
   )
 
 describe('Instalacje service page illustrations', () => {
+  // `light-dark()` (light theme of the scenes, I6/I7) needs a declared scheme in both themes.
+  it('declares the light colour scheme on the line, the dark one in the dark rules', () => {
+    expect(tokensCss).toMatch(/\[data-line='instalacje'\] \{[^}]*color-scheme: light;/)
+    expect(tokensCss).toMatch(
+      /\[data-line='instalacje'\]\[data-theme='dark'\] \{\s*color-scheme: dark;/,
+    )
+  })
+
   it('keep their palette in one rule of tokens.css', () => {
     const palette = rule("[data-line='instalacje'] [data-inst-il]")
     expect(Object.keys(palette).every((k) => k.startsWith('--il-'))).toBe(true)

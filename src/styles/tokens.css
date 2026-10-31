@@ -807,6 +807,9 @@
 }
 
 [data-line='instalacje'] {
+  /* Explicit, so `light-dark()` follows a chosen light theme on a dark system (`normal` resolves
+     to the system's scheme in Chromium); the dark rules below set `dark`. */
+  color-scheme: light;
   --accent: var(--c-instalacje-light-accent);
   --accent-on-dark: var(--c-instalacje-on-dark);
   --accent-text: var(--c-instalacje-light-accent-text);
