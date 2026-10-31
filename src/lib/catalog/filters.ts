@@ -9,6 +9,9 @@ import type { CatalogIndex, IndexProduct } from './catalogIndex'
 
 export const CATALOG_PATH = '/oferta'
 
+/** Page of all brands (K33 §6). */
+export const BRANDS_PATH = '/marki'
+
 /** „Pokaż kolejne” adds this many (spec. §5.3). */
 export const CATALOG_PAGE_SIZE = 12
 

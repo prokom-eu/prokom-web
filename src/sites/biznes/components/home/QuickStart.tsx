@@ -4,7 +4,7 @@ import { Container } from '@/components/ui/Container'
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
 import { getCatalogIndex } from '@/lib/catalog/data'
-import { OWN_BRAND_SLUG } from '@/lib/catalog/filters'
+import { BRANDS_PATH, OWN_BRAND_SLUG } from '@/lib/catalog/filters'
 import type { IconName } from '@/lib/catalog/options'
 import { plural } from '@/lib/plural'
 import { getSiteSettings } from '@/lib/site/data'
@@ -108,8 +108,7 @@ export async function QuickStart({
       action: 'Zobacz marki',
       icon: 'star',
       tone: 'blue',
-      // TODO(krystian): /marki after K4f.
-      href: '/oferta',
+      href: BRANDS_PATH,
     },
     {
       title: 'Zapytaj o wycenę',

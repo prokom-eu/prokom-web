@@ -104,12 +104,15 @@ test.describe('Biznes header', () => {
     await expect(button).toHaveAttribute('aria-expanded', 'false')
   })
 
-  // K4 menu (K33 §2.2): „Gotowe zestawy” moved to the mega menu and the footer.
-  test('K4 menu: Oferta ▾, Opieka IT, GoPOS, InsERT, O firmie, Kontakt', async ({ page }) => {
+  // K4 menu (K33 §2.2): „Gotowe zestawy” moved to the mega menu and the footer; „Marki” (K4f).
+  test('K4 menu: Oferta ▾, Marki, Opieka IT, GoPOS, InsERT, O firmie, Kontakt', async ({
+    page,
+  }) => {
     await page.goto(site('biznes.localhost'))
     const items = mainNav(page).locator(':scope > ul > li')
     await expect(items).toHaveText([
       /^Oferta/,
+      'Marki',
       'Opieka IT',
       /^GoPOS/,
       /^InsERT/,
@@ -198,7 +201,7 @@ test.describe('Biznes header', () => {
     await page.setViewportSize({ width: 1440, height: 900 })
     await page.goto(site('biznes.localhost', '/kontakt'))
     const rail = page.getByRole('navigation', { name: 'Menu boczne' })
-    await expect(rail.getByRole('link')).toHaveCount(8)
+    await expect(rail.getByRole('link')).toHaveCount(9)
     await expect(rail.getByRole('link', { name: 'Kontakt' })).toHaveAttribute(
       'aria-current',
       'page',

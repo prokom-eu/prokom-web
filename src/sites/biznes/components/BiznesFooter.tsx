@@ -5,6 +5,7 @@ import { LocationAddress } from '@/components/ContactDetails'
 import { Container } from '@/components/ui/Container'
 import { brandAsset, HORIZONTAL_LOGO_SIZE } from '@/lib/brand/lines'
 import { BUNDLES_PATH } from '@/lib/catalog/bundle'
+import { BRANDS_PATH } from '@/lib/catalog/filters'
 import type { PartnerBadge } from '@/lib/partners/badges'
 import { toTelHref } from '@/lib/site/link'
 import type { PublicCompanyData, PublicSiteSettings } from '@/lib/site/public'
@@ -57,6 +58,7 @@ const OFFER_LINKS = [
   { label: 'Cała oferta', href: '/oferta' },
   { label: 'Gotowe zestawy', href: BUNDLES_PATH },
   { label: 'Plan Twojej firmy', href: '/#plan' },
+  { label: 'Wszystkie marki', href: BRANDS_PATH },
   { label: 'Konfigurator', href: '/kreator' },
 ]
 

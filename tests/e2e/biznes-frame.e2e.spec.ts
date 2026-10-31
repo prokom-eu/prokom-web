@@ -18,10 +18,13 @@ test.describe('Biznes on a phone', () => {
   test('the full-screen menu works from the keyboard', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
     const open = page.getByRole('button', { name: 'Menu' })
-    await open.focus()
-    await page.keyboard.press('Enter')
     const menu = page.getByRole('dialog', { name: 'Menu' })
-    await expect(menu).toBeVisible()
+    // Enter works once the page is hydrated: before that the key press does nothing.
+    await expect(async () => {
+      await open.focus()
+      await page.keyboard.press('Enter')
+      await expect(menu).toBeVisible({ timeout: 1000 })
+    }).toPass()
 
     // Groups fold out into their categories.
     await menu.getByText('Kasy i sprzedaż').click()

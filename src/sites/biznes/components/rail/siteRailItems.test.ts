@@ -7,6 +7,7 @@ describe('SITE_RAIL (K33 §2.4, plansza „Menu” na podstronach)', () => {
     expect(SITE_RAIL.map((item) => item.label)).toEqual([
       'Strona główna',
       'Oferta',
+      'Marki',
       'Konfigurator',
       'Plan Twojej firmy',
       'Gotowe zestawy',
@@ -24,12 +25,12 @@ describe('siteRailCurrent', () => {
     expect(siteRailCurrent('/kontakt')).toBe('/kontakt')
   })
 
-  it('marks „Oferta” on categories, products and brand pages', () => {
+  it('marks „Oferta” on categories and products, „Marki” on brands and showrooms', () => {
     expect(siteRailCurrent('/oferta')).toBe('/oferta')
     expect(siteRailCurrent('/oferta/laptopy/stacje-robocze')).toBe('/oferta')
     expect(siteRailCurrent('/produkt/posnet-ergo-online')).toBe('/oferta')
-    // „Marki” joins the menu with /marki (K4f); until then brands sit under the offer.
-    expect(siteRailCurrent('/marki/lenovo')).toBe('/oferta')
+    expect(siteRailCurrent('/marki')).toBe('/marki')
+    expect(siteRailCurrent('/marki/lenovo')).toBe('/marki')
   })
 
   it('marks „Gotowe zestawy” on a set page', () => {

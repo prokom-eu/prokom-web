@@ -48,16 +48,25 @@ const SEEDED_MENUS: MenuShape[][] = [
     link('O firmie', '/o-firmie'),
     link('Kontakt', '/kontakt'),
   ],
+  // K4b, before `/marki` (K4f).
+  [
+    OFFER,
+    link('Opieka IT', '/opieka-it'),
+    link('GoPOS', '/gopos', true),
+    link('InsERT', '/insert', true),
+    link('O firmie', '/o-firmie'),
+    link('Kontakt', '/kontakt'),
+  ],
 ]
 
 /**
- * Header menu of K4 (K33 §2.2, board `Web-Start`): Oferta ▾ · Opieka IT · GoPOS · InsERT ·
- * O firmie · Kontakt. „Gotowe zestawy” moved to the mega menu and the footer; „Marki” joins
- * with the `/marki` page (K4f).
+ * Header menu of K4 (K33 §2.2, board `Web-Start`): Oferta ▾ · Marki · Opieka IT · GoPOS ·
+ * InsERT · O firmie · Kontakt. „Gotowe zestawy” moved to the mega menu and the footer.
  */
 export function menuData(): MenuItem[] {
   return [
     { type: 'offer', label: 'Oferta', href: '/oferta' },
+    { type: 'link', label: 'Marki', href: '/marki' },
     { type: 'link', label: 'Opieka IT', href: '/opieka-it' },
     { type: 'link', label: 'GoPOS', href: '/gopos', partner: true },
     { type: 'link', label: 'InsERT', href: '/insert', partner: true },

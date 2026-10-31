@@ -8,6 +8,7 @@ import { Container } from '@/components/ui/Container'
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
 import { BUNDLES_PATH } from '@/lib/catalog/bundle'
+import { BRANDS_PATH } from '@/lib/catalog/filters'
 import type { OfferMenu } from '@/lib/catalog/menu'
 import type { IconName } from '@/lib/catalog/options'
 import { plural } from '@/lib/plural'
@@ -26,7 +27,7 @@ const items = (n: number) => `${n} ${plural(n, ['pozycja', 'pozycje', 'pozycji']
 // plan page (K31d′); the whole catalog until `/marki` (K4f).
 const CONFIGURATOR_HREF = '/kreator'
 const PLAN_HREF = '/#plan'
-const ALL_BRANDS_HREF = '/oferta'
+const ALL_BRANDS_HREF = BRANDS_PATH
 
 /**
  * Oferta ▾ of K4 (K35 7a, mega menu v147c): departments on the left (hover or focus switches the

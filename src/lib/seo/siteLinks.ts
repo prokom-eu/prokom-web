@@ -2,7 +2,7 @@ import { brandHref } from '../catalog/brand'
 import { BUNDLES_PATH, bundleHref } from '../catalog/bundle'
 import { productHref } from '../catalog/card'
 import { categoryHref, subcategoryHref } from '../catalog/category'
-import { CATALOG_PATH } from '../catalog/filters'
+import { BRANDS_PATH, CATALOG_PATH } from '../catalog/filters'
 import { industryHref } from '../catalog/industry'
 import { objectHref } from '../instalacje/menu'
 import { HOME_SLUG, pagePath } from '../pages/slug'
@@ -122,7 +122,10 @@ export function buildSiteMap({
       sections.push({
         id: 'marki',
         title: 'Marki',
-        links: brands.map((brand) => ({ href: brandHref(brand.slug), label: brand.name })),
+        links: [
+          { href: BRANDS_PATH, label: 'Wszystkie marki' },
+          ...brands.map((brand) => ({ href: brandHref(brand.slug), label: brand.name })),
+        ],
       })
     }
     if (catalog.bundles) {

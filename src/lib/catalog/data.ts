@@ -7,7 +7,8 @@ import { PAGE_CACHE_SECONDS } from '../pages/data'
 import { pagesTag } from '../pages/tags'
 import { buildBrandView, type BrandView } from './brand'
 import { buildBundleView, type BundleView } from './bundle'
-import { buildCatalogIndex, type CatalogIndex } from './catalogIndex'
+import type { BrandsPageInput } from './brandsPage'
+import { brandLogo, buildCatalogIndex, type CatalogIndex } from './catalogIndex'
 import { buildCategoryView, type CategoryView } from './category'
 import { buildIndustryView, type IndustryView } from './industry'
 import type { Wizard } from './wizard'
@@ -361,3 +362,75 @@ export const getBundles = (tenantId: number): Promise<BundleView[]> =>
     ['bundles', String(tenantId)],
     { tags: [catalogTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
   )()
+
+/**
+ * Data of `/marki` but the index (`buildBrandsPage`): the groups of `BiznesSettings.brands`,
+ * their brands (`Partners` is shared — tenant filter) and which brands each showroom of this
+ * tenant has. Cached under the catalog tag, which all three collections refresh.
+ */
+export const getBrandsPageInput = (tenantId: number): Promise<Omit<BrandsPageInput, 'index'>> =>
+  cacheQuery(
+    async () => {
+      const payload = await getPayload({ config })
+      // Server-side reads of public brand data; only the fields of the input leave here.
+      const read = { overrideAccess: true, depth: 0 } as const
+      const [settings, showrooms] = await Promise.all([
+        payload.find({
+          collection: 'biznes-settings',
+          where: { tenant: { equals: tenantId } },
+          limit: 1,
+          select: { brands: true },
+          ...read,
+        }),
+        payload.find({
+          collection: 'showrooms',
+          where: { tenant: { equals: tenantId } },
+          limit: MAX_RECORDS,
+          sort: 'order',
+          select: { slug: true, brands: true },
+          ...read,
+        }),
+      ])
+      const groups = (settings.docs[0]?.brands?.groups ?? []).map((group) => ({
+        title: group.title,
+        iconPath: group.iconPath?.trim() || null,
+        description: group.description?.trim() || null,
+        partnerIds: idsOf(group.partners),
+      }))
+      const ids = [...new Set(groups.flatMap((group) => group.partnerIds))]
+      const partners =
+        ids.length === 0
+          ? []
+          : (
+              await payload.find({
+                collection: 'partners',
+                where: { and: [{ id: { in: ids } }, { tenants: { in: [tenantId] } }] },
+                limit: ids.length,
+                ...read,
+              })
+            ).docs.map((partner) => ({
+              id: partner.id,
+              slug: partner.slug ?? null,
+              name: partner.name,
+              status: partner.partnerStatus,
+              description: partner.brandPage?.shortDescription?.trim() || null,
+              logo: brandLogo(partner) ?? null,
+            }))
+      return {
+        groups,
+        partners,
+        showrooms: showrooms.docs.flatMap((showroom) =>
+          showroom.slug ? [{ slug: showroom.slug, brandIds: idsOf(showroom.brands) }] : [],
+        ),
+      }
+    },
+    ['brands-page', String(tenantId)],
+    { tags: [catalogTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
+  )()
+
+/** Ids of a relationship read with `depth: 0` (or populated). */
+function idsOf(values: readonly (number | { id: number } | null | undefined)[] | null | undefined) {
+  return (values ?? []).flatMap((value) =>
+    typeof value === 'number' ? [value] : value ? [value.id] : [],
+  )
+}
