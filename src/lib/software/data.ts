@@ -22,6 +22,7 @@ import {
   softwareOfferSchema,
 } from './offer'
 import { thanksSchema, type SoftwareThanks } from './pages'
+import { buildIndustryPage, type IndustryDoc, type IndustryPageView } from './industryPage'
 import { buildSolutionPage, type SolutionPageDoc, type SolutionPageView } from './solutionPage'
 import { buildSolutionsIndex, DEFAULT_PRICE_DISPLAY, type SolutionsIndex } from './solutionsIndex'
 import { solutionsTag } from './tags'
@@ -419,5 +420,73 @@ export const getSolutionPage = cache(
       moreExamples: (doc.moreExamples ?? []).flatMap((item) => fill(item) ?? []),
       isIcon: isIconName,
     })
+  },
+)
+
+/**
+ * Page `/dla-branz/<slug>` of one Software tenant (spec. §6.2) — `null` when the industry is not
+ * active here or has no text yet. Industry, solutions and facts are all read with the tenant
+ * filter; cards and problems point only to the tenant's published solutions.
+ */
+export const getIndustryPage = cache(
+  async (tenantId: number, slug: string): Promise<IndustryPageView | null> => {
+    const payload = await getPayload({ config })
+    const inTenant = { tenant: { equals: tenantId } }
+    const [industries, published, index, facts] = await Promise.all([
+      payload.find({
+        collection: 'industries',
+        where: { and: [inTenant, { slug: { equals: slug } }, { active: { equals: true } }] },
+        limit: 1,
+        depth: 0,
+        select: { name: true, slug: true, active: true, hero: true, faq: true, software: true },
+        overrideAccess: true,
+      }),
+      payload.find({
+        collection: 'solutions',
+        where: { and: [inTenant, { _status: { equals: 'published' } }] },
+        draft: false,
+        limit: MAX_SOLUTIONS,
+        depth: 0,
+        select: { slug: true },
+        overrideAccess: true,
+      }),
+      getSolutionsIndex(tenantId),
+      getSoftwareFacts(tenantId),
+    ])
+    const doc = industries.docs[0]
+    if (!doc) return null
+    const strict = getEnv().SITE_ENV === 'production'
+    const prices = Object.fromEntries(
+      index.solutions.map((solution) => [solution.slug, solution.priceFrom ?? null]),
+    )
+    const fill = (text: string) => fillText(text, { tenantId, facts, prices, strict })
+    return buildIndustryPage({
+      industry: fillDeep(doc, fill) as IndustryDoc,
+      solutions: index.solutions,
+      slugById: new Map(published.docs.map((solution) => [solution.id, solution.slug])),
+      isIcon: isIconName,
+    })
+  },
+)
+
+/**
+ * Active Software industry pages of one tenant (name and address) for the site map — only those
+ * with a page (`buildIndustryPage` would build one).
+ */
+export const getIndustryPageList = cache(
+  async (tenantId: number): Promise<{ slug: string; name: string }[]> => {
+    const payload = await getPayload({ config })
+    const { docs } = await payload.find({
+      collection: 'industries',
+      where: { and: [{ tenant: { equals: tenantId } }, { active: { equals: true } }] },
+      limit: 50,
+      depth: 0,
+      sort: 'order',
+      select: { name: true, slug: true, software: { problems: true } },
+      overrideAccess: true,
+    })
+    return docs
+      .filter((doc) => (doc.software?.problems?.length ?? 0) > 0)
+      .map(({ slug, name }) => ({ slug, name }))
   },
 )

@@ -17,6 +17,7 @@ import type { City, Industry, Post, Solution, SolutionArea } from '../../payload
 import { h2, p, richText, ul } from '../biznes/lexical'
 import { SOFTWARE_NOT_FOUND, SOFTWARE_THANKS } from './pages'
 import { HOME_SECTION_TEXTS, REBUILD_BUTTON } from './homeExtras'
+import { INDUSTRY_PAGE_TEXTS } from './industryPages'
 import {
   FIELD_CREW_DELIVERABLES,
   FIELD_CREW_EXTRA,
@@ -315,11 +316,18 @@ export function industryData(
   const content = INDUSTRY_CONTENTS[page.content as keyof typeof INDUSTRY_CONTENTS]
   if (!content) throw new Error(`Seed (Software): industry "${page.slug}" → unknown content.`)
   const where = `industry "${page.slug}"`
+  const texts = INDUSTRY_PAGE_TEXTS[page.content as keyof typeof INDUSTRY_PAGE_TEXTS]
+  if (!texts) throw new Error(`Seed (Software): ${where} → no page texts in industryPages.ts.`)
   return {
     ...base,
+    hero: { ...texts.hero },
     faq: content.faq.map(({ q, a }) => ({ question: q, answer: a })),
     software: {
       ...base.software,
+      page: {
+        ...texts.page,
+        contact: { ...texts.page.contact, points: [...texts.page.contact.points] },
+      },
       wizardTitle: content.wizardTitle,
       problems: content.problems.map((problem) => ({
         question: problem.q,
