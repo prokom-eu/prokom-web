@@ -1,7 +1,9 @@
 import type { Partner, Showroom } from '@/payload-types'
 
+import { plural } from '../plural'
 import { isHttpsUrl } from '../site/link'
 import { tenantIdOf } from '../tenant/id'
+import { bindShortWords } from '../typography'
 import { brandLogo, type IndexLogo, type IndexProduct } from './catalogIndex'
 
 /**
@@ -107,6 +109,39 @@ export type SalonView = {
 }
 
 const text = (value: string | null | undefined) => value?.trim() || null
+/** A heading from the data, with no-break spaces after one-letter words (K4-FINAL §1). */
+const heading = (value: string | null | undefined) => {
+  const trimmed = text(value)
+  return trimmed && bindShortWords(trimmed)
+}
+
+/** A hero fact that is a count of the catalog („44 pozycje”, „16 modeli”, „17 serii”). */
+const COUNT_FACT = /^\d+\s+(pozycj|model|seri)/i
+
+const COUNT_FORMS: Record<string, [string, string, string]> = {
+  pozycj: ['pozycja', 'pozycje', 'pozycji'],
+  model: ['model', 'modele', 'modeli'],
+  seri: ['seria', 'serie', 'serii'],
+}
+
+/**
+ * Hero facts; a count of the catalog is counted from the listed products, never shown as typed
+ * (K4-FINAL §4.4) — and left out when there is nothing to count.
+ */
+export function salonFacts(
+  facts: Showroom['facts'],
+  counts: { products: number; series: number },
+): { value: string; label: string | null }[] {
+  return (facts ?? []).flatMap((fact) => {
+    const value = fact.value.trim()
+    if (!value) return []
+    const kind = COUNT_FACT.exec(value)?.[1]?.toLowerCase()
+    if (!kind) return [{ value, label: text(fact.label) }]
+    const count = kind === 'seri' ? counts.series : counts.products
+    if (count === 0) return []
+    return [{ value: `${count} ${plural(count, COUNT_FORMS[kind]!)}`, label: text(fact.label) }]
+  })
+}
 
 const items = <T extends { title: string; text?: string | null }>(
   list: readonly T[] | null | undefined,
@@ -154,6 +189,13 @@ export function buildSalonView(
   })
   const multi = brands.length > 1
   const brand = brands[0]?.name ?? doc.name
+  // Listed products of the salon's brands: the count facts of the hero.
+  const brandSlugs = new Set(brands.flatMap((item) => item.slug ?? []))
+  const brandProducts = listed.filter((product) => product.brand && brandSlugs.has(product.brand))
+  const brandCounts = {
+    products: brandProducts.length,
+    series: new Set(brandProducts.flatMap((product) => product.series ?? [])).size,
+  }
 
   const plansOf = (section: Showroom['plans']): PlanSection | null => {
     const cards = (section?.items ?? []).map((item) => ({
@@ -169,10 +211,10 @@ export function buildSalonView(
     if (cards.length === 0) return null
     return {
       eyebrow: text(section?.eyebrow),
-      title: text(section?.title),
+      title: heading(section?.title),
       lead: text(section?.lead),
       big: Boolean(section?.big),
-      altTitle: text(section?.altTitle),
+      altTitle: heading(section?.altTitle),
       main: cards.filter((card) => !card.alt).map(({ card }) => card),
       alt: cards.filter((card) => card.alt).map(({ card }) => ({ ...card, tag: null })),
     }
@@ -233,8 +275,8 @@ export function buildSalonView(
     multi,
     pill: text(doc.pill),
     pillMobile: text(doc.pillMobile),
-    h1a: doc.h1a.trim(),
-    h1b: text(doc.h1b),
+    h1a: bindShortWords(doc.h1a.trim()),
+    h1b: heading(doc.h1b),
     lead: text(doc.lead),
     hero: (doc.hero ?? [])
       .flatMap((item) => {
@@ -250,9 +292,7 @@ export function buildSalonView(
             chips: (doc.heroCard?.chips ?? []).map((chip) => chip.trim()).filter(Boolean),
           }
         : null,
-    facts: (doc.facts ?? []).flatMap((fact) =>
-      fact.value.trim() ? [{ value: fact.value.trim(), label: text(fact.label) }] : [],
-    ),
+    facts: salonFacts(doc.facts, brandCounts),
     plans: plansOf(doc.plans),
     morePlans: plansOf(doc.morePlans),
     compare:
@@ -262,12 +302,12 @@ export function buildSalonView(
     family,
     familyCount: new Set(family.flatMap((tab) => tab.products.map((product) => product.slug))).size,
     chooser: options.some((option) => option.products.length > 0 || option.why)
-      ? { question: text(doc.chooser?.question), options }
+      ? { question: heading(doc.chooser?.question), options }
       : null,
     service:
       serviceItems.length > 0
         ? {
-            title: text(doc.service?.title),
+            title: heading(doc.service?.title),
             description: text(doc.service?.description),
             items: serviceItems,
             product: pickAll(doc.service?.products)[0] ?? null,
@@ -276,7 +316,7 @@ export function buildSalonView(
     rollout:
       steps.length > 0 || text(doc.rollout?.title)
         ? {
-            title: text(doc.rollout?.title),
+            title: heading(doc.rollout?.title),
             description: text(doc.rollout?.description),
             steps,
             button: text(doc.rollout?.button),
@@ -294,11 +334,18 @@ export function buildSalonView(
         : [],
     ),
     headings: {
-      offer: text(headings.offer) ?? (multi ? 'Oferta' : `Oferta ${brand}`),
-      facts: text(headings.facts) ?? (multi ? 'W kilku faktach' : `${brand} w kilku faktach`),
-      faq: text(headings.faq) ?? (multi ? 'Najczęstsze pytania' : `Zanim wybierzesz ${brand}`),
-      ask: text(headings.ask) ?? (multi ? 'Zapytaj o ofertę' : `Zapytaj o ${brand}`),
-      more: text(headings.more) ?? (multi ? 'Więcej o markach' : `Więcej o marce ${brand}`),
+      offer: heading(headings.offer) ?? bindShortWords(multi ? 'Oferta' : `Oferta ${brand}`),
+      facts:
+        heading(headings.facts) ??
+        bindShortWords(multi ? 'W kilku faktach' : `${brand} w kilku faktach`),
+      faq:
+        heading(headings.faq) ??
+        bindShortWords(multi ? 'Najczęstsze pytania' : `Zanim wybierzesz ${brand}`),
+      ask:
+        heading(headings.ask) ?? bindShortWords(multi ? 'Zapytaj o ofertę' : `Zapytaj o ${brand}`),
+      more:
+        heading(headings.more) ??
+        bindShortWords(multi ? 'Więcej o markach' : `Więcej o marce ${brand}`),
     },
   }
 }

@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest'
 import type { Partner, Showroom } from '@/payload-types'
 
 import type { IndexProduct } from './catalogIndex'
-import { buildSalonView, salonTitle } from './salon'
+import { buildSalonView, salonFacts, salonTitle } from './salon'
 
 const T = 1
 const OTHER = 2
@@ -177,10 +177,10 @@ describe('buildSalonView', () => {
   it('names the headings after the brand, or neutrally for a salon of several brands', () => {
     expect(build()!.headings).toEqual({
       offer: 'Oferta Posnet',
-      facts: 'Posnet w kilku faktach',
+      facts: 'Posnet w kilku faktach',
       faq: 'Zanim wybierzesz Posnet',
-      ask: 'Zapytaj o Posnet',
-      more: 'Więcej o marce Posnet',
+      ask: 'Zapytaj o Posnet',
+      more: 'Więcej o marce Posnet',
     })
     const druk = build(
       showroom({
@@ -191,10 +191,10 @@ describe('buildSalonView', () => {
     )!
     expect(druk.headings).toEqual({
       offer: 'Oferta',
-      facts: 'W kilku faktach',
-      faq: 'Pytania o druk',
-      ask: 'Zapytaj o ofertę',
-      more: 'Więcej o markach',
+      facts: 'W kilku faktach',
+      faq: 'Pytania o druk',
+      ask: 'Zapytaj o ofertę',
+      more: 'Więcej o markach',
     })
   })
 
@@ -212,5 +212,51 @@ describe('salonTitle', () => {
     expect(salonTitle('a'.repeat(30), 'bardzo długi drugi człon tytułu salonu marki')).toBe(
       `${'a'.repeat(30)} bardzo długi drugi człon…`,
     )
+  })
+})
+
+describe('salonFacts (K4-FINAL §4.4: counts from the catalog)', () => {
+  const facts = [
+    { value: '44 pozycje', label: 'w ofercie' },
+    { value: '16 modeli', label: 'niszczarek' },
+    { value: '17 serii', label: 'w salonie' },
+    { value: '1993', label: 'na rynku' },
+    { value: ' ', label: 'pusty' },
+  ]
+
+  it('replaces a typed count with the count of listed products, with Polish forms', () => {
+    expect(salonFacts(facts, { products: 5, series: 2 })).toEqual([
+      { value: '5 pozycji', label: 'w ofercie' },
+      { value: '5 modeli', label: 'niszczarek' },
+      { value: '2 serie', label: 'w salonie' },
+      { value: '1993', label: 'na rynku' },
+    ])
+    expect(salonFacts(facts, { products: 1, series: 1 }).map((fact) => fact.value)).toEqual([
+      '1 pozycja',
+      '1 model',
+      '1 seria',
+      '1993',
+    ])
+  })
+
+  it('leaves a count fact out when nothing is listed', () => {
+    expect(salonFacts(facts, { products: 0, series: 0 })).toEqual([
+      { value: '1993', label: 'na rynku' },
+    ])
+  })
+})
+
+describe('buildSalonView headings', () => {
+  it('binds one-letter words in the H1 and the headings from the data', () => {
+    const view = build(
+      showroom({
+        facts: [{ value: '3 pozycje', label: 'w ofercie' }],
+        headings: { faq: 'Pytania o druk' },
+      }),
+    )!
+    expect(view.h1a).toBe('Kasy i drukarki Posnet.')
+    expect(view.headings.faq).toBe('Pytania o druk')
+    // The count of the brand's listed products (all five fixtures are Posnet).
+    expect(view.facts).toEqual([{ value: '5 pozycji', label: 'w ofercie' }])
   })
 })

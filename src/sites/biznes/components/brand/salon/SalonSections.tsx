@@ -169,10 +169,10 @@ export function SalonHero({ view, crumbs }: { view: SalonView; crumbs: Crumb[] }
             {view.facts.length > 0 && (
               <dl className="mt-2 grid grid-cols-3 gap-4 border-t border-white/15 pt-6">
                 {view.facts.map((fact) => (
-                  <div key={fact.value} className="flex flex-col gap-1">
-                    <dt className="sr-only">{fact.label ?? fact.value}</dt>
+                  // The label is the term, the value its description; the value shows on top.
+                  <div key={fact.value} className="flex flex-col-reverse justify-end gap-1">
+                    {fact.label && <dt className="text-sm text-white/70">{fact.label}</dt>}
                     <dd className="font-display text-xl font-extrabold">{fact.value}</dd>
-                    {fact.label && <dd className="text-sm text-white/70">{fact.label}</dd>}
                   </div>
                 ))}
               </dl>
@@ -366,7 +366,7 @@ export function SalonPlans({
         {section.alt.length > 0 && (
           <div className="order-3 flex flex-col gap-4 max-[760px]:order-2">
             <h3 className="font-display text-xl font-extrabold text-ink">
-              {section.altTitle ?? 'Też w ofercie'}
+              {section.altTitle ?? 'Też w ofercie'}
             </h3>
             <ul className={cx('grid gap-4', altCols, CAROUSEL)}>
               {section.alt.map((card) => (
@@ -683,9 +683,9 @@ export function familyHeading(view: SalonView) {
   return view.plans
     ? {
         eyebrow: `Pełna oferta · ${view.familyCount} ${plural(view.familyCount, ['pozycja', 'pozycje', 'pozycji'])}`,
-        title: 'Wszystko w ofercie, według rodzaju',
+        title: 'Wszystko w ofercie, według rodzaju',
       }
-    : { eyebrow: view.headings.offer, title: 'Wszystkie urządzenia w jednym miejscu' }
+    : { eyebrow: view.headings.offer, title: 'Wszystkie urządzenia w jednym miejscu' }
 }
 
 export { SectionHead }
