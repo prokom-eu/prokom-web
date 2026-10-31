@@ -56,6 +56,8 @@ const SITES: {
       '/mapa-strony',
       '/o-firmie',
       '/jedna-firma',
+      '/aktualnosci',
+      '/miejscowosci/rabka-zdroj',
     ],
   },
 ]

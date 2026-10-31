@@ -5,9 +5,9 @@ export type PostCategory = (typeof POST_CATEGORIES)[number]['value']
 
 /**
  * Lines with a news section. `/aktualnosci` is one route for all lines (ADR-012 rozstrz. 5,
- * change 22.10.2026): elsewhere it answers 404. Software is added with its look in SW11b.
+ * change 22.10.2026): elsewhere it answers 404. Software joined with its own look in SW11b.
  */
-export const NEWS_LINES: readonly Line[] = ['biznes']
+export const NEWS_LINES: readonly Line[] = ['biznes', 'software']
 
 export const NEWS_PATH = '/aktualnosci'
 
@@ -30,10 +30,17 @@ export function isPostCategory(value: unknown): value is PostCategory {
   return POST_CATEGORIES.some((category) => category.value === value)
 }
 
-/** The category of `?kategoria=`; unknown, empty or missing → `null` („Wszystkie”). */
-export function parseCategory(value: string | string[] | undefined): PostCategory | null {
+/**
+ * The category of `?kategoria=`; unknown, empty or missing → `null` („Wszystkie”). With `line`,
+ * another line's category is refused too (a Biznes category on the Software list).
+ */
+export function parseCategory(
+  value: string | string[] | undefined,
+  line?: Line,
+): PostCategory | null {
   const first = Array.isArray(value) ? value[0] : value
-  return isPostCategory(first) ? first : null
+  if (!isPostCategory(first)) return null
+  return line && !isCategoryOfLine(first, line) ? null : first
 }
 
 /** Whether a post of `line` may take `category` (the save refuses another line's category). */

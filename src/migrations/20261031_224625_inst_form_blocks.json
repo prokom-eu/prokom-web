@@ -40540,6 +40540,30 @@
           "primaryKey": false,
           "notNull": false
         },
+        "author_name": {
+          "name": "author_name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "author_role": {
+          "name": "author_role",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "author_bio": {
+          "name": "author_bio",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "author_photo_id": {
+          "name": "author_photo_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
         "aside_cta_eyebrow": {
           "name": "aside_cta_eyebrow",
           "type": "varchar",
@@ -40681,6 +40705,21 @@
           "method": "btree",
           "with": {}
         },
+        "posts_author_author_photo_idx": {
+          "name": "posts_author_author_photo_idx",
+          "columns": [
+            {
+              "expression": "author_photo_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
         "posts_updated_at_idx": {
           "name": "posts_updated_at_idx",
           "columns": [
@@ -40763,6 +40802,15 @@
           "tableFrom": "posts",
           "tableTo": "media",
           "columnsFrom": ["cover_id"],
+          "columnsTo": ["id"],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "posts_author_photo_id_media_id_fk": {
+          "name": "posts_author_photo_id_media_id_fk",
+          "tableFrom": "posts",
+          "tableTo": "media",
+          "columnsFrom": ["author_photo_id"],
           "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
@@ -41101,6 +41149,30 @@
           "primaryKey": false,
           "notNull": false
         },
+        "version_author_name": {
+          "name": "version_author_name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_author_role": {
+          "name": "version_author_role",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_author_bio": {
+          "name": "version_author_bio",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_author_photo_id": {
+          "name": "version_author_photo_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
         "version_aside_cta_eyebrow": {
           "name": "version_aside_cta_eyebrow",
           "type": "varchar",
@@ -41275,6 +41347,21 @@
           "method": "btree",
           "with": {}
         },
+        "_posts_v_version_author_version_author_photo_idx": {
+          "name": "_posts_v_version_author_version_author_photo_idx",
+          "columns": [
+            {
+              "expression": "version_author_photo_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
         "_posts_v_version_version_updated_at_idx": {
           "name": "_posts_v_version_version_updated_at_idx",
           "columns": [
@@ -41411,6 +41498,15 @@
           "tableFrom": "_posts_v",
           "tableTo": "media",
           "columnsFrom": ["version_cover_id"],
+          "columnsTo": ["id"],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "_posts_v_version_author_photo_id_media_id_fk": {
+          "name": "_posts_v_version_author_photo_id_media_id_fk",
+          "tableFrom": "_posts_v",
+          "tableTo": "media",
+          "columnsFrom": ["version_author_photo_id"],
           "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
@@ -62818,6 +62914,6 @@
     "tables": {},
     "columns": {}
   },
-  "id": "e2ba0842-9acc-43d7-b216-6869e4b7d3d3",
+  "id": "0bed36ba-8e59-4fdb-8a62-a5f46ed363ae",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }

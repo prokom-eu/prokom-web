@@ -57,6 +57,7 @@ import * as migration_20261031_204108_software_contact_page from './20261031_204
 import * as migration_20261031_204213_software_pricing_block from './20261031_204213_software_pricing_block'
 import * as migration_20261031_204306_software_audit_block from './20261031_204306_software_audit_block'
 import * as migration_20261031_215351_software_about_blocks from './20261031_215351_software_about_blocks'
+import * as migration_20261031_220542_posts_author from './20261031_220542_posts_author'
 import * as migration_20261031_224625_inst_form_blocks from './20261031_224625_inst_form_blocks'
 
 export const migrations = [
@@ -354,6 +355,11 @@ export const migrations = [
     up: migration_20261031_215351_software_about_blocks.up,
     down: migration_20261031_215351_software_about_blocks.down,
     name: '20261031_215351_software_about_blocks',
+  },
+  {
+    up: migration_20261031_220542_posts_author.up,
+    down: migration_20261031_220542_posts_author.down,
+    name: '20261031_220542_posts_author',
   },
   {
     up: migration_20261031_224625_inst_form_blocks.up,
