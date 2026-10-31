@@ -125,7 +125,7 @@ describe('solutionData', () => {
     })
   })
 
-  it('maps the card fields and the „12 rzeczy” card', () => {
+  it('maps the card fields', () => {
     const data = solutionData(site)
     expect(data).toMatchObject({
       legacyId: 1,
@@ -134,19 +134,8 @@ describe('solutionData', () => {
       category: 'strony',
       situations: ['Z'],
       cardGradient: null,
-      featured: { name: 'Strona firmowa z panelem', tag: 'PANEL TREŚCI' },
     })
-    expect(data.featured?.features).toHaveLength(3)
-  })
-
-  it('leaves the „12 rzeczy” card empty for a solution without one', () => {
-    const plain = rozwiazania.items.find((item) => !item.featuredName)!
-    expect(solutionData(plain).featured).toEqual({
-      name: null,
-      tag: null,
-      lead: null,
-      features: [],
-    })
+    expect(data).not.toHaveProperty('featured')
   })
 
   it('maps every solution of the package', () => {
@@ -383,7 +372,7 @@ describe('Software settings of the seed', () => {
     expect(settings.home.sections?.livePreviews?.eyebrow).toBe('Podglądy na żywo · zanim zapłacisz')
     expect(settings.home.sections?.process?.stage).toBe('Etap {num} · {t}')
     expect(settings.home.sections?.popular.after.items[0]?.text).toBe('od [OPIEKA OD] zł / mies.')
-    expect(settings.home.sections?.guarantees?.sayNo.title).toBe('Czasem powiemy: nie budujcie.')
+    expect(settings.home.sections?.guarantees?.sayNo.title).toBe('Czasem powiemy: tego nie buduj.')
   })
 
   it('take the rebuild price of „Dlaczego nie WordPress” from Solutions, not from the text', () => {

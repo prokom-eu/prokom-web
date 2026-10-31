@@ -33,8 +33,9 @@ describe('processStages', () => {
   it('drops only what has a missing fact on production', () => {
     const result = processStages(stages(), strict)
     const [, review, build, , care] = result
-    // „[DNI] dni” — no duration, the stage stays.
-    expect(review).toMatchObject({ num: '02', duration: null, pay: null, payNote: null })
+    // „[DNI] dni” — no duration, the stage stays; the payment note has no fact (board, SWR5).
+    expect(review).toMatchObject({ num: '02', duration: null, pay: null })
+    expect(review?.payNote).toMatch(/^Reszta: przy stronach \(70%\) po odbiorze/)
     // „Pierwszy etap działający po [CZAS PIERWSZEGO ETAPU]” — that one point goes.
     expect(build?.get).toEqual(['Wersję testową co tydzień', 'Listę zmian po każdym tygodniu'])
     expect(care?.pay).toBeNull()

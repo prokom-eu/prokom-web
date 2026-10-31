@@ -6,7 +6,7 @@
     },
     {
       "q": "Ile to trwa?",
-      "a": "Termin podajemy na piśmie przy wycenie. Wersję testową oglądasz co tydzień, więc widzisz postęp, a nie tylko termin końcowy."
+      "a": "Wizytówka i landing {termin:strona-wizytowka}, strona firmowa {termin:strona-firmowa-z-panelem}, system {termin:z-excela-do-systemu} (pierwszy moduł), rozbudowana strona i sklep {termin:sklep-internetowy}. Dokładny termin dostajesz na piśmie razem z wyceną, a postęp oglądasz co tydzień."
     },
     {
       "q": "Czy sam zmienię treści?",

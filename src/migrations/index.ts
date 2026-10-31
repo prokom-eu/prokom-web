@@ -48,6 +48,8 @@ import * as migration_20261030_200347_k4_products from './20261030_200347_k4_pro
 import * as migration_20261030_202637_inst_home_block from './20261030_202637_inst_home_block'
 import * as migration_20261030_212947_k4_brands_showrooms from './20261030_212947_k4_brands_showrooms'
 import * as migration_20261030_224518_software_offer from './20261030_224518_software_offer'
+import * as migration_20261031_171804_software_solutions_no_featured from './20261031_171804_software_solutions_no_featured'
+import * as migration_20261031_173018_software_home_sections_v21 from './20261031_173018_software_home_sections_v21'
 
 export const migrations = [
   {
@@ -299,5 +301,15 @@ export const migrations = [
     up: migration_20261030_224518_software_offer.up,
     down: migration_20261030_224518_software_offer.down,
     name: '20261030_224518_software_offer',
+  },
+  {
+    up: migration_20261031_171804_software_solutions_no_featured.up,
+    down: migration_20261031_171804_software_solutions_no_featured.down,
+    name: '20261031_171804_software_solutions_no_featured',
+  },
+  {
+    up: migration_20261031_173018_software_home_sections_v21.up,
+    down: migration_20261031_173018_software_home_sections_v21.down,
+    name: '20261031_173018_software_home_sections_v21',
   },
 ]

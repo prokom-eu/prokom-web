@@ -406,29 +406,6 @@ export const Solutions: CollectionConfig = {
             },
           ],
         },
-        {
-          label: '12 rzeczy',
-          description:
-            'Karta w sekcji „12 rzeczy” na stronie głównej. Puste pola = te z karty katalogu. Kolejność kart ustala się w Ustawieniach Software.',
-          fields: [
-            {
-              name: 'featured',
-              label: 'Karta na stronie głównej',
-              type: 'group',
-              fields: [
-                {
-                  type: 'row',
-                  fields: [
-                    { name: 'name', label: 'Nazwa', type: 'text', maxLength: 60 },
-                    { name: 'tag', label: 'Plakietka', type: 'text', maxLength: 30 },
-                  ],
-                },
-                { name: 'lead', label: 'Opis', type: 'textarea', maxLength: 240 },
-                features(),
-              ],
-            },
-          ],
-        },
       ],
     },
   ],

@@ -9,6 +9,7 @@ import {
   type OfferSolution,
   offerSolutionOf,
   type OfferSolutionDoc,
+  offerViewsFor,
   relatedCard,
   softwareOfferSchema,
   validateSoftwareOffer,
@@ -296,6 +297,31 @@ describe('offer windows sent with the catalog page', () => {
   it('stay under 20 KB gzip for the seed', () => {
     const views = [...solutions.keys()].map((slug) => viewOf(slug))
     expect(gzipSync(JSON.stringify(views)).length).toBeLessThan(20 * 1024)
+  })
+})
+
+describe('offer windows of „12 rzeczy” (SWR5)', () => {
+  const card = (slug: string) => ({ slug, name: slug, price: 'od 1 zł' })
+  const views = Object.fromEntries(
+    [
+      ['a', ['b']],
+      ['b', ['c']],
+      ['c', ['a']],
+      ['d', []],
+    ].map(([slug, related]) => [
+      slug as string,
+      { ...viewOf('landing-page'), slug: slug as string, related: (related as string[]).map(card) },
+    ]),
+  )
+
+  it('keep the cards and their related ones, one level deep', () => {
+    expect(Object.keys(offerViewsFor(views, ['a', 'nie-ma']))).toEqual(['a', 'b'])
+  })
+
+  it('drop related cards that would switch to a window not sent', () => {
+    const picked = offerViewsFor(views, ['a'])
+    expect(picked.a?.related.map((item) => item.slug)).toEqual(['b'])
+    expect(picked.b?.related).toEqual([])
   })
 })
 

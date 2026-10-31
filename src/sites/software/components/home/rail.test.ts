@@ -22,22 +22,41 @@ describe('Software section rail', () => {
     ])
   })
 
-  it('has 10 entries, without „Zasady” (board `Main`)', () => {
-    expect(Object.keys(RAIL_LABELS)).toHaveLength(10)
+  it('has the 11 entries of the board v22: with „Zasady”, without „Proces” and „Kontakt”', () => {
     const items = softwareRailItems(
-      [{ blockType: 'swHero' }, ...ALL.map((section) => ({ blockType: 'swHomeSection', section }))],
+      [
+        { blockType: 'swHero' },
+        ...[
+          'areas',
+          'popular',
+          'livePreviews',
+          'wizard',
+          'process',
+          'howWeBuild',
+          'whyNotWordpress',
+          'technologies',
+          'showcase',
+          'guarantees',
+        ].map((section) => ({ blockType: 'swHomeSection', section })),
+        { blockType: 'faq' },
+        { blockType: 'swContact' },
+      ],
       ALL,
     )
-    expect(items.map((item) => item.id)).not.toContain('zasady')
-  })
-
-  it('lists „Dlaczego nie WordPress” of SW8a, but not „Zasady” next to it', () => {
-    const items = softwareRailItems([
-      { blockType: 'swHomeSection', section: 'wizard' },
-      { blockType: 'swHomeSection', section: 'whyNotWordpress' },
-      { blockType: 'swHomeSection', section: 'guarantees' },
+    expect(items.map((item) => item.id)).toEqual([
+      'start',
+      'oferta',
+      'popularne',
+      'podglady',
+      'dobierz',
+      'jak-robimy',
+      'bez-wordpressa',
+      'technologie',
+      'realizacje',
+      'zasady',
+      'faq',
     ])
-    expect(items.map((item) => item.id)).toEqual(['dobierz', 'bez-wordpressa'])
+    expect(Object.keys(RAIL_LABELS)).toHaveLength(11)
   })
 
   it('skips a section without its component yet (no anchor on the page)', () => {
@@ -51,17 +70,17 @@ describe('Software section rail', () => {
     expect(items.map((item) => item.id)).toEqual(['oferta'])
   })
 
-  it('ends with „Realizacje”, the FAQ block and the contact block of SW8b', () => {
+  it('ends with „Realizacje”, „Zasady” and the FAQ block — the contact block is not listed', () => {
     const items = softwareRailItems([
-      { blockType: 'swHomeSection', section: 'guarantees' },
       { blockType: 'swHomeSection', section: 'showcase' },
+      { blockType: 'swHomeSection', section: 'guarantees' },
       { blockType: 'faq' },
       { blockType: 'swContact' },
     ])
     expect(items.map((item) => [item.id, item.label])).toEqual([
       ['realizacje', 'Realizacje'],
+      ['zasady', 'Zasady'],
       ['faq', 'Pytania'],
-      ['kontakt', 'Kontakt'],
     ])
   })
 
