@@ -164,7 +164,7 @@ test.describe('Biznes home page: offer and featured', () => {
 
   test('the sixth tile opens the search, a popular phrase typed in', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
-    const tile = page.getByRole('article', { name: /znajdziemy to za Ciebie/ })
+    const tile = page.getByRole('article', { name: /znajdziemy to za\sCiebie/ })
     await expect(tile.getByRole('button', { name: /Szukaj w \d+ pozycj/ })).toBeVisible()
     await expect(tile.getByRole('link', { name: /Gotowe zestawy/ })).toHaveAttribute(
       'href',
@@ -328,7 +328,7 @@ test.describe('Biznes home page: industries, plan, steps', () => {
       'Krok 2: Oferta',
       'Krok 3: Wdrożenie',
       'Krok 4: Opieka',
-      'Tak pracujemy — nie tylko na stronie.',
+      /^Tak pracujemy — nie tylko na\sstronie\.$/,
     ])
     await expect(steps).toContainText('Pierwszy kontakt')
     await expect(steps).toContainText('Nasze zobowiązania')

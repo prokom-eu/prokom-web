@@ -109,16 +109,14 @@ export function BzPlanBlock({ block, tenantId }: Props) {
                 </span>
                 <div className="min-w-0 flex-1 basis-[26rem]">
                   {funding.label && (
-                    <p className="text-[12px] font-extrabold tracking-[0.12em] text-white/85 uppercase">
+                    <p className="text-[12px] font-extrabold tracking-[0.12em] text-white uppercase">
                       {funding.label}
                     </p>
                   )}
                   <h3 className="mt-0.5 font-display text-[clamp(1.05rem,1.5vw,1.25rem)] leading-snug font-extrabold text-balance text-white">
                     {funding.heading}
                   </h3>
-                  {funding.text && (
-                    <p className="mt-1 text-[14.5px] text-white/85">{funding.text}</p>
-                  )}
+                  {funding.text && <p className="mt-1 text-[14.5px] text-white">{funding.text}</p>}
                   {(funding.chips ?? []).length > 0 && (
                     <ul className="mt-2.5 flex flex-wrap gap-1.5">
                       {(funding.chips ?? []).map((chip, i) => (
