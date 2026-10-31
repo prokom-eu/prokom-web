@@ -6,7 +6,7 @@ import { Icon } from '@/components/ui/Icon'
 type Props = {
   id: string
   eyebrow?: string | null
-  heading: string
+  heading: ReactNode
   lead?: string | null
   /** Outlined link on the right (e.g. „Cały katalog · 225 pozycji”). */
   action?: { label: ReactNode; href: string } | null
@@ -38,7 +38,7 @@ export function SectionHead({
         )}
         <h2
           id={id}
-          className="font-display text-[clamp(2rem,4vw,3.4rem)] leading-[1.02] font-extrabold tracking-[-0.02em] font-stretch-110%"
+          className="font-display text-[clamp(2rem,4vw,3.4rem)] leading-[1.02] font-extrabold tracking-[-0.02em] text-balance font-stretch-110%"
         >
           {heading}
         </h2>

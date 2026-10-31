@@ -12,7 +12,7 @@ type Props = {
   moreNote: string | null
 }
 
-/** Board: 5 tiles and „Pokaż wszystkie” on a phone, 9 and the tile on larger screens. */
+/** Board: 5 tiles and „Pokaż wszystkie” on a phone, 11 and the tile on larger screens (v150). */
 const PHONE_VISIBLE = 5
 
 /**
@@ -33,7 +33,7 @@ export function IndustryGrid({ visible, hidden, moreLabel, moreNote }: Props) {
   }, [open])
 
   return (
-    <ul className="grid grid-cols-2 gap-3 min-[900px]:grid-cols-3 min-[1080px]:grid-cols-5">
+    <ul className="grid grid-cols-2 gap-3 min-[640px]:grid-cols-3 min-[1080px]:grid-cols-4 min-[1240px]:grid-cols-6">
       {visible.map((item, i) => (
         <li
           key={item.key}
@@ -56,19 +56,24 @@ export function IndustryGrid({ visible, hidden, moreLabel, moreNote }: Props) {
             type="button"
             aria-expanded={false}
             onClick={() => setOpen(true)}
-            className="flex w-full flex-col items-start gap-3 rounded-[22px] bg-card p-4 text-left shadow-[inset_0_0_0_1.5px_var(--accent-text)] transition-shadow hover:shadow-[0_20px_40px_-26px_var(--glow),inset_0_0_0_1.5px_var(--accent-text)] sm:p-5"
+            data-surface="dark"
+            className="flex w-full flex-col items-start gap-3 rounded-[22px] bg-linear-145 from-accent-text to-surface-dark p-4 text-left text-white transition-shadow hover:shadow-[0_20px_40px_-22px_var(--glow)]"
           >
             <span
               aria-hidden="true"
-              className="flex size-[52px] items-center justify-center rounded-2xl bg-accent-text text-accent-ink"
+              className="flex size-11 items-center justify-center rounded-[14px] bg-white/15"
             >
-              <Icon name="arrow" className="size-6 rotate-90" />
+              <Icon name="grid" className="size-[22px]" />
             </span>
             <span className="flex flex-col gap-1">
-              <span className="font-display text-[17px] leading-tight font-extrabold text-accent-text">
+              <span className="font-display text-[16px] leading-tight font-extrabold text-white">
                 {moreLabel}
               </span>
-              {moreNote && <span className="text-[13.5px] text-ink-2">{moreNote}</span>}
+              {moreNote && <span className="text-[13px] text-white/80">{moreNote}</span>}
+            </span>
+            <span className="mt-auto inline-flex items-center gap-1 text-[13px] font-extrabold text-white">
+              Rozwiń listę
+              <Icon name="arrow" strokeWidth={2.4} className="size-3.5 rotate-90" />
             </span>
           </button>
         </li>
