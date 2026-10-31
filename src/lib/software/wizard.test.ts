@@ -72,7 +72,7 @@ describe('Software wizard schema', () => {
 
   it('maps contact preferences only to values of the inquiry', () => {
     const value = clone()
-    value.contactPrefs = [{ id: 'fax', n: 'Faks', inquiryValue: 'fax' }] as never
+    value.contactPrefs = [{ ...value.contactPrefs[0]!, inquiryValue: 'fax' }] as never
     expect(validateSoftwareWizard(value)).toMatch(/contactPrefs\.0\.inquiryValue/)
   })
 
@@ -133,8 +133,25 @@ describe('Software wizard schema', () => {
 
   it('needs a contact verb for the success steps', () => {
     const value = clone()
-    value.contactPrefs = [{ id: 'tel', n: 'Telefon', inquiryValue: 'phone' }] as never
+    const { verb: _verb, ...noVerb } = value.contactPrefs[0]!
+    value.contactPrefs = [noVerb] as never
     expect(validateSoftwareWizard(value)).toMatch(/contactPrefs\.0\.verb/)
+  })
+
+  it('needs the texts of every contact field a preference asks for, and known trust icons', () => {
+    const field = clone()
+    const { phone: _phone, ...contact } = field.send.contact
+    field.send = { ...field.send, contact } as never
+    expect(validateSoftwareWizard(field)).toMatch(/send\.contact\.phone/)
+    const trust = clone()
+    trust.send = { ...trust.send, trust: [{ icon: 'nie-ma', text: 'x' }] }
+    expect(validateSoftwareWizard(trust)).toMatch(/send\.trust\.0\.icon/)
+  })
+
+  it('keeps {imie} in the success title', () => {
+    const value = clone()
+    value.send = { ...value.send, success: { ...value.send.success, title: 'Dziękujemy.' } }
+    expect(validateSoftwareWizard(value)).toMatch(/send\.success\.title/)
   })
 
   it('keeps {nr} in the sent label', () => {

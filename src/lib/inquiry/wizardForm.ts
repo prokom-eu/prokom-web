@@ -1,5 +1,6 @@
 import type { WizardAnswers } from '../catalog/wizardKit'
 import { CONSENT_CLAUSE } from './consent'
+import type { ContactField } from '../software/wizard'
 import type { WizardAnswers as SoftwareAnswers } from '../software/wizardFlow'
 import { BIZNES_FIELD_MESSAGES, sourceFromHref, splitEmailOrPhone } from './form'
 import { HONEYPOT_FIELD } from './honeypot'
@@ -68,12 +69,23 @@ export type SoftwareWizardContact = {
   website: string
 }
 
-/** Errors of the board (`send.errors`): no usable contact, no consent. */
+/**
+ * Errors of the board: no contact of the kind the preference asks for (`send.contact.<field>`:
+ * a phone of at least 9 digits, an e-mail, or either), no consent.
+ */
 export function checkSoftwareWizardRequired(
   values: SoftwareWizardContact,
+  field: ContactField = 'any',
 ): Partial<Record<'contact' | 'consent', true>> {
   const errors: Partial<Record<'contact' | 'consent', true>> = {}
-  if (!splitEmailOrPhone(values.contact)) errors.contact = true
+  const contact = splitEmailOrPhone(values.contact)
+  const fits =
+    field === 'email'
+      ? !!contact && 'email' in contact
+      : field === 'phone'
+        ? !!contact && 'phone' in contact && contact.phone.replace(/\D/g, '').length >= 9
+        : !!contact
+  if (!fits) errors.contact = true
   if (!values.consent) errors.consent = true
   return errors
 }

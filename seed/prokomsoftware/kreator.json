@@ -1,5 +1,5 @@
 {
-  "_info": "Reguły kreatora „Dobierz rozwiązanie · 60 s” jako dane (nie if-y w komponentach). Logika doboru: docs/strony/prokomsoftware.md §6.3. Ikony: klucze z ikony.json. v21 (28.10): nowy układ kreatora (plansza Kreator, stany_k): 4 kroki (Potrzeba → Szczegóły → Zakres i termin z opcjonalnym opisem → Wynik), „Opisz po swojemu” = 3 kroki; wycena na żywo (kolumna na desktopie, belka nad dolnym paskiem na telefonie); nowe klucze: steps, stepsOwn, badges, tiers, recommend, honest, addOns, tileHints. Wizytówka i landing mają teraz wybór rozmiaru; aplikacje i automatyzacje — bez rozmiaru. **29.10 (v22): jedna cena „od” — bez wersji Na start / Standard.** Krok „Zakres i termin” = karta „W cenie od X zł netto · od N tygodni” (`scope.<wynik>.included`) + lista „Potrzebujesz czegoś więcej?” (`scope.<wynik>.moreExamples`, zaznaczenie NIE zmienia ceny — trafia do zgłoszenia jako „do wyceny”). Usunięte: sizes, tiers, recommend.size, badge „Polecamy / Dobrane dla Ciebie”, pole „Wersja” w bilecie. **29.10 (v22, po audycie):** funkcje rozbudowanej spoza ceny → „Do wyceny na piśmie”; firmowa: realizacje i opinie w cenie, dodatki „Więcej niż 5 podstron / Aktualności i blog / Kolejny język”; nota dodatków „Cena „od” to podstawa, dopłatę za dodatki zobaczysz w wycenie”; aplikacje i automatyzacje: „Zapytaj o wycenę” / „po krótkiej rozmowie”; podpowiedź sklepu (shopHint); systemy: „Dostęp z komputera i telefonu” w cenie. **31.10 (SWR4, poprawki repo):** reguły ze skryptu planszy jako dane — `recommend`, `honest` i `addOns.rules` to listy `{ when, text|items }` (pierwsza pasująca; warunki jak `scopeRules`: needs, options, results, kinds, haves, whens, minOptions, outsidePrice), `shopHint.when` jako warunek; kwoty i terminy z Solutions przez `{cena:<slug>}` / `{termin:<slug>}`, pozycje `addOns.items` ze `slug` (i `level` dla poziomu opieki) — cena liczona; `tileHints` usunięte (cena kafla = najniższa `priceFrom` wyników potrzeby); dopisany wynik `sklep` (z planszy); `whenNotes.zimaSmall` z `{data}` liczoną z `winterDeadline`; teksty `recommend.rozbudowana*` i `honest.app` wg planszy; usunięte notatki redakcyjne (`featuresNote`, `noPrice.mobileBar`, `priceDisplay.nowrap`, `whenNotes._rule`) i `noSize`.",
+  "_info": "Reguły kreatora „Dobierz rozwiązanie · 60 s” jako dane (nie if-y w komponentach). Logika doboru: docs/strony/prokomsoftware.md §6.3. Ikony: klucze z ikony.json. v21 (28.10): nowy układ kreatora (plansza Kreator, stany_k): 4 kroki (Potrzeba → Szczegóły → Zakres i termin z opcjonalnym opisem → Wynik), „Opisz po swojemu” = 3 kroki; wycena na żywo (kolumna na desktopie, belka nad dolnym paskiem na telefonie); nowe klucze: steps, stepsOwn, badges, tiers, recommend, honest, addOns, tileHints. Wizytówka i landing mają teraz wybór rozmiaru; aplikacje i automatyzacje — bez rozmiaru. **29.10 (v22): jedna cena „od” — bez wersji Na start / Standard.** Krok „Zakres i termin” = karta „W cenie od X zł netto · od N tygodni” (`scope.<wynik>.included`) + lista „Potrzebujesz czegoś więcej?” (`scope.<wynik>.moreExamples`, zaznaczenie NIE zmienia ceny — trafia do zgłoszenia jako „do wyceny”). Usunięte: sizes, tiers, recommend.size, badge „Polecamy / Dobrane dla Ciebie”, pole „Wersja” w bilecie. **29.10 (v22, po audycie):** funkcje rozbudowanej spoza ceny → „Do wyceny na piśmie”; firmowa: realizacje i opinie w cenie, dodatki „Więcej niż 5 podstron / Aktualności i blog / Kolejny język”; nota dodatków „Cena „od” to podstawa, dopłatę za dodatki zobaczysz w wycenie”; aplikacje i automatyzacje: „Zapytaj o wycenę” / „po krótkiej rozmowie”; podpowiedź sklepu (shopHint); systemy: „Dostęp z komputera i telefonu” w cenie. **31.10 (SWR4, poprawki repo):** reguły ze skryptu planszy jako dane — `recommend`, `honest` i `addOns.rules` to listy `{ when, text|items }` (pierwsza pasująca; warunki jak `scopeRules`: needs, options, results, kinds, haves, whens, minOptions, outsidePrice), `shopHint.when` jako warunek; kwoty i terminy z Solutions przez `{cena:<slug>}` / `{termin:<slug>}`, pozycje `addOns.items` ze `slug` (i `level` dla poziomu opieki) — cena liczona; `tileHints` usunięte (cena kafla = najniższa `priceFrom` wyników potrzeby); dopisany wynik `sklep` (z planszy); `whenNotes.zimaSmall` z `{data}` liczoną z `winterDeadline`; teksty `recommend.rozbudowana*` i `honest.app` wg planszy; usunięte notatki redakcyjne (`featuresNote`, `noPrice.mobileBar`, `priceDisplay.nowrap`, `whenNotes._rule`) i `noSize`. **31.10 (SWR4b):** blok wysyłki v22 z planszy (`send`: Ostatni krok, bilet, pole kontaktu zależne od sposobu kontaktu, przycisk z podpisem, 3 ikony zaufania, sukces z osią czasu; zgoda — klauzula z kodu, `consent.ts`), `contactPrefs[].ic` / `field`, szybkie słowa per potrzeba (`needPhrases`, skrypt planszy `PHM`).",
   "steps": [
     "Potrzeba",
     "Szczegóły",
@@ -630,22 +630,30 @@
     {
       "id": "tel",
       "n": "Telefon",
-      "inquiryValue": "phone"
+      "ic": "M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z",
+      "inquiryValue": "phone",
+      "field": "phone"
     },
     {
       "id": "mail",
       "n": "E-mail",
-      "inquiryValue": "email"
+      "ic": "M3 5h18v14H3zM3 7l9 6 9-6",
+      "inquiryValue": "email",
+      "field": "email"
     },
     {
       "id": "salon",
-      "n": "Spotkanie w salonie",
-      "inquiryValue": "meeting"
+      "n": "Spotkanie",
+      "ic": "M3 21h18M5 21V10l7-6 7 6v11M9 21v-5h6v5",
+      "inquiryValue": "meeting",
+      "field": "any"
     },
     {
       "id": "online",
       "n": "Online",
-      "inquiryValue": "online"
+      "ic": "M3 6h13v12H3zM16 10l5-3v10l-5-3",
+      "inquiryValue": "online",
+      "field": "any"
     }
   ],
   "needsChecklist": {
@@ -1038,22 +1046,77 @@
     "wycena na piśmie"
   ],
   "send": {
-    "fields": [
-      "Imię",
-      "Telefon albo e-mail"
-    ],
-    "consent": "Zgadzam się na kontakt w sprawie tej wyceny. Szczegóły w polityce prywatności.",
-    "errors": {
-      "contact": "Podaj telefon albo e-mail, żebyśmy mogli wysłać wycenę.",
-      "consent": "Zaznacz zgodę na kontakt w sprawie wyceny."
+    "eyebrow": "Ostatni krok",
+    "title": "Dokąd wysłać wycenę?",
+    "lead": "Dostaniesz ją na piśmie: zakres, cenę i termin. Decydujesz potem, bez zobowiązań.",
+    "ticket": {
+      "title": "Twoja wycena",
+      "draft": "szkic",
+      "accepted": "przyjęta"
     },
+    "prefQ": "Jak wolisz rozmawiać?",
+    "name": {
+      "label": "Imię",
+      "placeholder": "np. Anna"
+    },
+    "contact": {
+      "phone": {
+        "label": "Telefon",
+        "placeholder": "np. 600 000 000",
+        "error": "Wpisz numer telefonu (9 cyfr)."
+      },
+      "email": {
+        "label": "E-mail",
+        "placeholder": "np. anna@twojafirma.pl",
+        "error": "Wpisz adres e-mail, np. anna@twojafirma.pl"
+      },
+      "any": {
+        "label": "Telefon albo e-mail",
+        "placeholder": "telefon albo e-mail",
+        "error": "Wpisz telefon albo adres e-mail."
+      }
+    },
+    "errors": {
+      "consent": "Zaznacz zgodę, bez niej nie możemy odpowiedzieć."
+    },
+    "button": {
+      "title": "Poproś o wycenę",
+      "sub": "odezwiemy się w 1 dzień roboczy"
+    },
+    "trust": [
+      {
+        "icon": "clock",
+        "text": "Odpowiedź w 1 dzień roboczy"
+      },
+      {
+        "icon": "doc",
+        "text": "Wycena na piśmie w 5–7 dni"
+      },
+      {
+        "icon": "shield",
+        "text": "Bez zobowiązań, bez newslettera"
+      }
+    ],
+    "sentLabel": "Wysłane · {nr}",
     "success": {
-      "title": "Gotowe. Wycena jest w drodze.",
-      "steps": [
-        "W ciągu 1 dnia roboczego {kontakt} i dopytamy o szczegóły.",
-        "Dostaniesz szkic do klikania i wycenę na piśmie: zakres, cenę i termin.",
-        "Decydujesz Ty. Wycena jest ważna 30 dni, bez zobowiązań."
-      ]
+      "title": "Dziękujemy, {imie}. Zgłoszenie jest u nas.",
+      "titleNoName": "Dziękujemy. Zgłoszenie jest u nas.",
+      "lead": "Wycenę na piśmie dostaniesz w 5–7 dni. W ciągu 1 dnia roboczego {kontakt}.",
+      "timeline": [
+        {
+          "when": "Dziś",
+          "what": "Czytamy Twój wybór"
+        },
+        {
+          "when": "Do 1 dnia roboczego",
+          "what": "Rozmowa i doprecyzowanie"
+        },
+        {
+          "when": "W 5–7 dni",
+          "what": "Podgląd do klikania i wycena na piśmie"
+        }
+      ],
+      "note": "Wycena jest ważna 30 dni, bez zobowiązań. Pilne?"
     }
   },
   "stepsOwn": [
@@ -1813,5 +1876,55 @@
   "winterDeadline": {
     "day": 30,
     "month": 11
+  },
+  "needPhrases": {
+    "firm": [
+      "mało telefonów z internetu",
+      "chcę sam zmieniać treści",
+      "klienci pytają o cennik",
+      "przed sezonem zimowym"
+    ],
+    "rozb": [
+      "kilka osób ma edytować",
+      "goście z zagranicy",
+      "chcę pisać poradniki",
+      "przed sezonem zimowym"
+    ],
+    "wiz": [
+      "nie ma nas w Google",
+      "chcę szybko",
+      "tylko telefon i mapa",
+      "przed sezonem zimowym"
+    ],
+    "land": [
+      "ruszam z reklamą",
+      "jedna nowa usługa",
+      "zapisy do końca miesiąca",
+      "przed sezonem zimowym"
+    ],
+    "odsw": [
+      "strona jest wolna",
+      "nie da się nic zmienić",
+      "nie chcę stracić pozycji",
+      "przed sezonem zimowym"
+    ],
+    "prog": [
+      "za dużo przepisywania",
+      "gubią się zlecenia",
+      "chcę widzieć wszystko w telefonie",
+      "przed sezonem zimowym"
+    ],
+    "app": [
+      "ekipa bez zasięgu na budowie",
+      "zdjęcia i podpis klienta",
+      "klienci mają rezerwować sami",
+      "przed sezonem zimowym"
+    ],
+    "auto": [
+      "ręcznie wysyłamy SMS-y",
+      "faktury przepisujemy",
+      "raport robię w niedzielę",
+      "przed sezonem zimowym"
+    ]
   }
 }
