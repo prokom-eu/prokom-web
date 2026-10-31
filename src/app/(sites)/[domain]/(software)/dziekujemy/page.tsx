@@ -81,7 +81,7 @@ export default async function ThanksPage({ params, searchParams }: Props) {
       <section className="pt-6 min-[641px]:pt-10">
         <Container wide>
           <Breadcrumbs current={TITLE} />
-          <div className="mt-3 grid gap-6 rounded-[28px] border border-border bg-card p-[18px] shadow-raised min-[641px]:p-8 min-[1081px]:grid-cols-[minmax(0,1fr)_minmax(0,520px)] min-[1081px]:items-center min-[1081px]:gap-10 min-[1081px]:p-11">
+          <div className="mt-3 grid gap-6 rounded-[28px] border border-border bg-card p-[18px] shadow-raised min-[641px]:p-8 min-[1081px]:grid-cols-[minmax(0,1fr)_minmax(0,480px)] min-[1081px]:items-center min-[1081px]:gap-10 min-[1081px]:p-11">
             <div>
               <span
                 aria-hidden="true"

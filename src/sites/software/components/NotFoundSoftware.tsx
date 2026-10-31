@@ -33,7 +33,7 @@ export async function NotFoundSoftware({ tenantId }: { tenantId: number }) {
   const fill = (value: string | undefined) => fillText(value, context)
   const lead = fill(texts.lead)
   const wizardText = fill(texts.wizard.text)
-  const popular = index.search.popular.slice(0, 6)
+  const popular = index.search.popular.slice(0, 4)
   const tiles = texts.places.tiles.flatMap((tile) => {
     const note = fill(tile.note)
     return note ? [{ ...tile, note }] : []
