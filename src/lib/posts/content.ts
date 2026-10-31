@@ -58,3 +58,25 @@ export function readingMinutes(
   const words = text.split(/\s+/).filter(Boolean).length
   return Math.max(1, Math.ceil(words / WORDS_PER_MINUTE))
 }
+
+export type TextSection = { id: string; title: string; nodes: unknown[] }
+
+/**
+ * A rich text cut at its top-level h2 headings (Software legal pages: one numbered card per
+ * section, spec. §6.11): `intro` is what comes before the first h2; each section keeps the
+ * anchor of `postOutline` and its nodes without the heading itself.
+ */
+export function sectionsByH2(content: RichTextData | null | undefined): {
+  intro: unknown[]
+  sections: TextSection[]
+} {
+  const outline = postOutline(content)
+  const intro: unknown[] = []
+  const sections: TextSection[] = []
+  for (const node of childrenOf(content?.root)) {
+    const heading = outline.find((item) => item.node === node)
+    if (heading) sections.push({ id: heading.id, title: heading.title, nodes: [] })
+    else (sections.at(-1)?.nodes ?? intro).push(node)
+  }
+  return { intro, sections }
+}

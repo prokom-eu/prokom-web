@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { plainText, postOutline, readingMinutes, type RichTextData } from './content'
+import { plainText, postOutline, readingMinutes, sectionsByH2, type RichTextData } from './content'
 
 const text = (value: string) => ({ type: 'text', text: value })
 const heading = (tag: string, value: string) => ({ type: 'heading', tag, children: [text(value)] })
@@ -65,5 +65,25 @@ describe('readingMinutes', () => {
 
   it('is 1 for empty content', () => {
     expect(readingMinutes(null)).toBe(1)
+  })
+})
+
+describe('sectionsByH2', () => {
+  it('cuts the text at h2 headings and keeps what comes before as the intro', () => {
+    const intro = paragraph('Wstęp')
+    const body = paragraph('Treść')
+    const sub = heading('h3', 'Podtytuł')
+    const result = sectionsByH2(
+      doc(intro, heading('h2', 'Kto jest administratorem'), body, sub, heading('h2', 'Prawa')),
+    )
+    expect(result.intro).toEqual([intro])
+    expect(result.sections).toEqual([
+      { id: 'kto-jest-administratorem', title: 'Kto jest administratorem', nodes: [body, sub] },
+      { id: 'prawa', title: 'Prawa', nodes: [] },
+    ])
+  })
+
+  it('returns nothing for an empty text', () => {
+    expect(sectionsByH2(null)).toEqual({ intro: [], sections: [] })
   })
 })

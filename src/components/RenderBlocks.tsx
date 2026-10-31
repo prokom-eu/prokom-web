@@ -38,7 +38,10 @@ import { BzProgramPickerBlock } from '@/sites/biznes/blocks/BzProgramPicker/Comp
 import { BzReferencesBlock } from '@/sites/biznes/blocks/BzReferences/Component'
 import { BzStepsBlock } from '@/sites/biznes/blocks/BzSteps/Component'
 import { BzTimelineBlock } from '@/sites/biznes/blocks/BzTimeline/Component'
+import { getEnv } from '@/lib/env'
 import { Breadcrumbs } from '@/sites/biznes/components/Breadcrumbs'
+import { SwPageHero } from '@/sites/software/components/SwPageHero'
+import { SwRichText } from '@/sites/software/components/SwRichText'
 import { BrandsHome } from '@/sites/biznes/components/home/BrandsHome'
 import { FaqBiznes } from '@/sites/biznes/components/home/FaqBiznes'
 import { InstHomeBlock } from '@/sites/instalacje/blocks/InstHome/Component'
@@ -52,6 +55,9 @@ import { SwPricingBlock } from '@/sites/software/blocks/SwPricing/Component'
 import { FaqSoftware } from '@/sites/software/components/home/FaqSoftware'
 
 type Props = { page: PublicPage; tenant: SiteTenant }
+
+/** The Software privacy policy is a draft until the owner approves it (spec. §6.11, §13 pkt 24). */
+const PRIVACY_SLUG = 'polityka-prywatnosci'
 
 // Blocks that carry the page's H1 when they come first (otherwise the title is the H1).
 const HERO_BLOCKS = new Set([
@@ -102,8 +108,20 @@ export function RenderBlocks({ page, tenant }: Props) {
         const key = block.id ?? `${block.blockType}-${i}`
         switch (block.blockType) {
           case 'hero':
+            if (software) {
+              return (
+                <SwPageHero
+                  key={key}
+                  block={block}
+                  isFirst={i === 0}
+                  pageTitle={page.title}
+                  draft={page.slug === PRIVACY_SLUG && getEnv().SITE_ENV !== 'production'}
+                />
+              )
+            }
             return <HeroBlock key={key} block={block} isFirst={i === 0} tenantId={tenant.id} />
           case 'richText':
+            if (software) return <SwRichText key={key} block={block} />
             return <RichTextBlock key={key} block={block} />
           case 'serviceGrid':
             return <ServiceGridBlock key={key} block={block} />
