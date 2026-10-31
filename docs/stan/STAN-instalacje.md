@@ -1,10 +1,10 @@
 # STAN — prokominstalacje.pl (linia Instalacje)
 
-Ostatnia aktualizacja: 31.10.2026 (sesja I7 + I8 — część I7: Monitoring i Alarmy, gałąź `inst/i7-monitoring-alarmy` na `inst/wsp-tokeny-ilustracje` (#174))
+Ostatnia aktualizacja: 31.10.2026 (sesja I7 + I8 — część I7: Monitoring i Alarmy, gałąź `inst/i7-monitoring-alarmy` na develop 9bb4a5a)
 Worktree: `D:\PRO-KOM\repos\prokom-instal` · gałęzie `inst/*` · `PORT=3002`, baza `prokom_web_instalacje` we wspólnym kontenerze PostgreSQL prokom-web (54320), Mailpit wspólny (8025)
 
 ## W toku
-- Gałąź: `inst/i7-monitoring-alarmy` (PR „feat(instalacje): I7 — Monitoring i Alarmy” → develop), piętrowo na `inst/wsp-tokeny-ilustracje` = PR #174 (paleta `--il-*`, `color-scheme: light` jasnego motywu, klucz `palette` narzędzi; CI zielone, czeka na scalenie — auto-merge w repo nie działa). **Po scaleniu #174:** `git rebase --onto origin/develop inst/wsp-tokeny-ilustracje inst/i7-monitoring-alarmy` i force-push gałęzi I7 (PR I7 zmienia wtedy bazę sam).
+- Gałąź: `inst/i7-monitoring-alarmy` (PR „feat(instalacje): I7 — Monitoring i Alarmy” → develop). Strefa wspólna I7 już na develop: #174 (paleta `--il-*`, `color-scheme: light` jasnego motywu, klucz `palette` narzędzi).
 - Niedokończone I7: Lighthouse mobile ≥ 90 dla `/monitoring` i `/alarmy` i test na prawdziwym telefonie (MOBILE §10) — na stagingu; e2e „każda strona” (360/390/414, cele 44 px) dla obu stron — tylko w CI.
 - Niedokończone I6: `#architekci` (zaślepka do I16c), `#realizacje` (bez opublikowanych realizacji), Lighthouse i telefon `/`. Strona główna na telefonie (porównanie 31.10, 390 ciemny): `gory` +40, `proces` +40, `zaplanuj` +142 px — karty `#gory .gor` z `flex: 0 0 82%` w `border-box` (prototyp bez resetu box-sizing liczy 82% + padding, ADR-I003 §5 p. 6); sprzed I7, do poprawki osobno.
 - Niedokończone I5/I4 (bez zmian): Lighthouse i telefon `/anteny` oraz hero `/`; `TODO(krystian)` w `dane/anteny.ts` (karta „Dwie opłaty”) i w `lib/instalacje/seo.ts` (`areaServed`, `provider` → I13); `TODO(krystian)` w `dane/glownaSekcje.ts` (FAQ: zasady wizji lokalnej i dojazdu); nowe `TODO(krystian)` w `dane/alarmy.ts` (agencja partnerska).
