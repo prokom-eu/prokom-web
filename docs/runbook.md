@@ -21,10 +21,10 @@ staging="docker compose --env-file .env.staging -f docker/compose.prod.yml -f do
 
 ## 1. Jednorazowo na serwerze (S10)
 
-Serwer: VPS webh.pl, Ubuntu 24.04 (ADR-019). Strefa czasu serwera zostaje **UTC** — godziny w cronie niżej są w UTC. Katalogi: repo w `/srv/prokom/prokom-web`, obok `../backups` i `../secrets` (ścieżki względne w skryptach i `.env.*` wskazują tam). `<admin>` = Twój użytkownik z kroku 1.
+Serwer: VPS webh.pl, Ubuntu 24.04 (ADR-019). Strefa czasu serwera zostaje **UTC** — godziny w cronie niżej są w UTC. Katalogi: pliki wdrożenia w `/srv/prokom/prokom-web` (**nie** klon repo — tylko `docker/`, `scripts/`, `.env.example`, krok 2), obok `../backups` i `../secrets` (ścieżki względne w skryptach i `.env.*` wskazują tam). `<admin>` = Twój użytkownik z kroku 1 (31.10: `krystian`). Na komputerze: klucz `~/.ssh/prokom-vps` (z hasłem, w `ssh-agent`) i skrót `prokom-vps` w `~/.ssh/config`.
 
 0. **Konta:** panel webh.pl i Seohost na firmę, 2FA, hasła i kody w menedżerze haseł („VPS — webh.pl”, „Rejestrator domen — Seohost”). IP serwera wpisz w `docs/dns.md` (PR).
-1. **Utwardzenie** — z komputera, klucz SSH już na koncie root (z panelu webh.pl albo `ssh-copy-id root@<IP>`):
+1. **Utwardzenie** — z komputera, klucz SSH już na koncie root. Panel webh.pl → „Do panelu” (VMmanager) nie przyjmuje klucza: gdy nie znasz hasła roota, „⋯” → **Reinstall OS** (Ubuntu 24.04, bez skryptu, wygeneruj nowe hasło → menedżer haseł „VPS — root”), potem `type $HOME\.ssh\prokom-vps.pub | ssh root@<IP> "mkdir -p ~/.ssh && chmod 700 ~/.ssh && cat >> ~/.ssh/authorized_keys && chmod 600 ~/.ssh/authorized_keys"` (PowerShell). Faza 1 może iść przez nieinteraktywne `ssh` — hasło do sudo ustawiasz wtedy osobno: `ssh -t root@<IP> passwd <admin>`.
    ```bash
    scp scripts/server/bootstrap.sh root@<IP>:/root/
    ssh root@<IP>
@@ -33,17 +33,19 @@ Serwer: VPS webh.pl, Ubuntu 24.04 (ADR-019). Strefa czasu serwera zostaje **UTC*
    Skrypt: aktualizacja, użytkownik `<admin>` (sudo, docker, klucz skopiowany z roota, pyta o hasło do sudo), `ufw` (22, 80, 443), `fail2ban`, automatyczne poprawki bezpieczeństwa (bez automatycznego restartu), swap 4 GB, Docker z oficjalnego repozytorium, rotacja logów. **Nie zamykaj sesji roota.** W drugim oknie: `ssh <admin>@<IP>`, `sudo -v`, `docker run --rm hello-world`. Dopiero gdy działa — w oknie roota `bash /root/bootstrap.sh --lock-ssh <admin>` (tylko klucze, bez roota). Sprawdzenie z nowego okna: `ssh root@<IP>` odrzucone.
    **Gdy odetniesz się od SSH:** konsola (VNC) w panelu webh.pl → logowanie jako `<admin>` hasłem do sudo → `sudo rm /etc/ssh/sshd_config.d/10-prokom.conf && sudo systemctl reload ssh`. Przed fazą `--lock-ssh` sprawdź, że ta konsola w ogóle działa. Opcjonalnie `F2B_IGNOREIP="<IP biura>" bash /root/bootstrap.sh <admin>` — fail2ban nie zablokuje Twojego adresu.
    Restart po aktualizacji jądra robisz sam (komunikat `*** System restart required ***` przy logowaniu), poza godzinami kopii.
-2. **Repo** (prywatne): na serwerze `ssh-keygen -t ed25519 -f ~/.ssh/prokom-web-deploy -N ''`, klucz publiczny jako **Deploy key tylko do odczytu** w ustawieniach repo na GitHubie, potem:
+2. **Pliki wdrożenia** — serwer nie ma dostępu do repo (organizacja `prokom-eu` ma wyłączone klucze wdrożeniowe, a serwer kodu nie potrzebuje: aplikacja przychodzi jako obraz z GHCR). Katalogi:
    ```bash
    sudo install -d -o <admin> -g <admin> /srv/prokom /srv/prokom/backups
    install -d -m 700 /srv/prokom/secrets
-   GIT_SSH_COMMAND='ssh -i ~/.ssh/prokom-web-deploy' git clone git@github.com:prokom-eu/prokom-web.git /srv/prokom/prokom-web
-   git -C /srv/prokom/prokom-web config core.sshCommand 'ssh -i ~/.ssh/prokom-web-deploy'
    ```
-   Przy pierwszym połączeniu porównaj odcisk klucza hosta `github.com` z listą w dokumentacji GitHuba („GitHub's SSH key fingerprints”).
+   Pliki z komputera (Git Bash w katalogu repo, gałąź z wersją do wdrożenia; nadpisuje tylko pliki z repo, `.env.*` zostają):
+   ```bash
+   git archive --format=tar HEAD docker scripts .env.example | ssh prokom-vps 'tar -x -C /srv/prokom/prokom-web && echo "$(git rev-parse --short HEAD)" > /srv/prokom/prokom-web/REVISION'
+   ```
+   Wersja na serwerze: `ssh prokom-vps cat /srv/prokom/prokom-web/REVISION`. W S10b robi to pipeline przy każdym wdrożeniu.
 3. **Zmienne:** `.env.staging`, `.env.proxy` (później `.env.prod`, `.env.backup`) w katalogu repo wg `.env.example`, `chmod 600 .env.*`. Wartości z menedżera haseł — nie przez czat ani repo. Na start w `.env.proxy` tylko zmienne stagingu (`PROD_*` czyta dopiero nakładka produkcji).
 4. **GHCR:** `docker login ghcr.io -u <konto GitHub>` z tokenem **tylko** `read:packages` (osobny token, nie główny; w menedżerze haseł). Pakiet w GHCR jest prywatny.
-5. **DNS:** rekordy `staging` i panelu stagingu wg `docs/dns.md` (najpierw PR, potem panel Seohost). Sprawdzenie: `Resolve-DnsName staging.prokombiznes.pl -Type A` = IP serwera — dopiero wtedy certyfikaty.
+5. **DNS:** rekordy `staging` i panelu stagingu wg `docs/dns.md` (najpierw PR, potem panel Seohost: **DNS → Strefy DNS → Dodaj** z IP serwera, ⚙ → „Dodaj nowy rekord”, potem w domenie **Ustawienia DNS → delegacja `dns1/dns2.microhost.pl`** — strefy z panelu obsługują serwery microhost, a `ns1/ns2.seohost.pl` zwracają parking). Sprawdzenie: `Resolve-DnsName staging.prokombiznes.pl -Type A` = IP serwera — dopiero wtedy certyfikaty.
 6. `docker network create prokom-proxy`, plik hasła stagingu (`chmod 644` — Nginx w kontenerze czyta go jako inny użytkownik; hasło jest w nim zahaszowane) i certyfikat **tylko stagingu** (`prokom-staging`), Nginx bez nakładki produkcji — `docs/wdrozenia.md` → „Nginx i staging”. Domeny produkcji (rekordy `@`, panel, certyfikat `prokom-prod`) dochodzą przy pierwszym wdrożeniu produkcji (§3).
 7. Staging — §2.
 8. Kopie:

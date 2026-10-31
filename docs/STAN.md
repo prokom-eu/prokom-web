@@ -190,6 +190,7 @@ Instalacje: stan w docs/stan/STAN-instalacje.md (worktree prokom-instal, gałęz
 7. ~~**B11:** `/aktualnosci` budować od razu jako trasę wspólną dla linii, poza `(biznes)`.~~ — zrobione (B11a, #98: `NEWS_LINES` w `lib/posts/list.ts`; SW11b dopisuje `software` i swój wygląd w obu trasach).
 
 ## Pomysły na później (poza zakresem bieżących sesji)
+- **Gaming na tym samym VPS (31.10):** VPS webh.pl ma duży zapas (16 GB RAM). Gaming (osobne repo) może dołączyć do wspólnego Nginx (`prokom-proxy`) jako osobny stos Compose z własnym blokiem `server` i certyfikatem — decyzja (ADR) w repo Gaming, nie w S10.
 - Z przeglądu K4bc (31.10): pola panelu `biznes.navigation.shortcuts` i `cards` są od mega-menu v147c nieużywane i ukryte (`admin.hidden`) — usunąć kolumny migracją w osobnym PR. Menu telefonu (`MobileMenuContent`) czyta jeszcze stary `megaMenu` z `highlights` (etykiety „abonament”, „0 zł” — zakazane od K4-FINAL §1) → przerobić w M1′. Pasek linii Biznesu ma własną listę `LINES` obok wspólnego `BRAND_LINKS` (inne etykiety, „Zakopane”) — przy zmianie domen pilnować obu.
 - (30.10, z przeglądu SWR2) `BottomSheet` z `closeOnBack`: po kliknięciu linku w arkuszu zostaje wpis historii z tym samym adresem — drugie „wstecz” z nowej strony nic widocznie nie zmienia. Możliwa poprawka: `history.back()` przed nawigacją albo `router.replace` dla linków w arkuszu (ryzyko przerwania nawigacji — osobno, z testem).
 - (30.10, SWR2) Instalacje: `ShellProvider` może użyć wspólnego `useThemeColor('instalacje')` zamiast własnej kopii tej samej logiki `theme-color`.
