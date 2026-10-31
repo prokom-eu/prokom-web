@@ -22,6 +22,7 @@ import {
   solutionData,
   solutionsToImport,
 } from './map'
+import { seedSoftwareAbout } from './about'
 import { seedSoftwareAudit } from './audit'
 import { seedSoftwareLegal } from './legal'
 import { seedSoftwareContact } from './contact'
@@ -328,6 +329,8 @@ export async function seedSoftware(payload: Payload): Promise<void> {
   await seedSoftwareAudit(payload, tenant.id, count)
   // --- /polityka-prywatnosci (SW11b): a draft until the owner approves it ---
   await seedSoftwareLegal(payload, tenant.id, count)
+  // --- /o-firmie, /jedna-firma (SW11b): after the home texts — the comparison reads them ---
+  await seedSoftwareAbout(payload, tenant.id, count)
 
   for (const [collection, { created, updated, skipped }] of Object.entries(counters)) {
     log(`${collection}: ${created} created, ${updated} updated, ${skipped} unchanged.`)

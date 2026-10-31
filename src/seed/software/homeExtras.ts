@@ -106,6 +106,11 @@ export const HOME_SECTION_TEXTS: SoftwareHomeSections = {
     gainLabel: 'Co zyskujesz',
     whyLabel: 'Dlaczego tak:',
   },
+  compare: {
+    eyebrow: 'Dlaczego my',
+    title: 'Freelancer, agencja czy PRO-KOM?',
+    tabs: ['vs freelancer', 'vs agencja z miasta'],
+  },
 }
 
 /**

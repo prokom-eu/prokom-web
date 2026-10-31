@@ -120,6 +120,11 @@ export const homeSectionsSchema = obj({
     gainLabel: label,
     whyLabel: label,
   }).optional(),
+  /**
+   * SW11b — „Freelancer, agencja czy PRO-KOM?” on `/o-firmie` (spec. §6.6, stany/70): the
+   * heading and the two switch labels; the rows are `compare` of the package.
+   */
+  compare: obj({ eyebrow: label, title: label, tabs: z.tuple([label, label]) }).optional(),
 })
 
 export type SoftwareHomeSections = z.infer<typeof homeSectionsSchema>

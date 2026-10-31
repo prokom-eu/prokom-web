@@ -37,6 +37,8 @@ export const BUILT_HOME_SECTIONS: readonly HomeSectionValue[] = [
   'showcase',
   'howWeBuild',
   'technologies',
+  // SW11b: on `/o-firmie` only — not in the start page order (`homeOrder`), so not in the rail.
+  'compare',
 ]
 
 export function homeSectionAnchor(value: string): string | null {
