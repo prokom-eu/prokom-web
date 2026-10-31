@@ -1,5 +1,6 @@
 {
  "prefix": "sx",
+ "palette": "il",
  "ids": null,
  "colors": {
   "#4ccbe6": "--inst-plan-accent",
