@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { type CSSProperties, type KeyboardEvent, type MouseEvent, useEffect, useRef } from 'react'
+import { type CSSProperties, type MouseEvent, useEffect, useRef } from 'react'
 
 import { objectPage } from '../dane/obiekty'
 import { InstIcon } from '../InstIcon'
@@ -36,8 +36,8 @@ const hueOf = (color: string) => ({ '--c': color }) as CSSProperties
  * with numbered hotspots, the legend and the info box with previous/next. Walks through the
  * hotspots every 3.4 s until the first touch (paused off screen, in a hidden tab and with reduced
  * motion). The drawing is our constant set as markup once; its hotspot classes follow the state
- * from an effect, so a focused hotspot keeps its focus. The legend buttons are the same controls
- * for the keyboard and screen readers.
+ * from an effect. Its hotspots are for the mouse and touch; the legend buttons are the controls
+ * for the keyboard and screen readers (no second Tab stop per hotspot, review I10).
  */
 export function ObjectScene({ title, viewBox, html, hotspots }: Props) {
   const ref = useRef<HTMLDivElement>(null)
@@ -56,16 +56,10 @@ export function ObjectScene({ title, viewBox, html, hotspots }: Props) {
     })
   }, [scene, hotspots])
 
-  const pickFrom = (target: EventTarget) => {
-    const k = Number((target as Element).closest('[data-k]')?.getAttribute('data-k'))
+  // Hotspots on the drawing answer the mouse and touch; the legend is the keyboard control.
+  const onClick = (event: MouseEvent<SVGSVGElement>) => {
+    const k = Number((event.target as Element).closest('[data-k]')?.getAttribute('data-k'))
     if (Number.isInteger(k) && k >= 0 && k < n) setScene((s) => pickHotspot(s, k))
-    return Number.isInteger(k)
-  }
-  const onClick = (event: MouseEvent<SVGSVGElement>) => pickFrom(event.target)
-  const onKeyDown = (event: KeyboardEvent<SVGSVGElement>) => {
-    if ((event.key === 'Enter' || event.key === ' ') && pickFrom(event.target)) {
-      event.preventDefault()
-    }
   }
 
   const cur = hotspots[scene.hs] ?? hotspots[0]
@@ -100,10 +94,9 @@ export function ObjectScene({ title, viewBox, html, hotspots }: Props) {
           ref={art}
           className="sgsvg"
           viewBox={viewBox}
-          role="group"
+          role="img"
           aria-label={T.label}
           onClick={onClick}
-          onKeyDown={onKeyDown}
           dangerouslySetInnerHTML={{ __html: html }}
         />
       </div>

@@ -26,7 +26,14 @@ import { Related } from '../sekcje/Related'
 import { SectionHead } from '../sekcje/SectionHead'
 import { DayTimeline } from './DayTimeline'
 import { ObjectScene } from './ObjectScene'
-import { dayHotspots, INITIAL_SCENE, objectPlanHref, prepareLead, sceneHtml } from './objectModel'
+import {
+  dayHotspots,
+  INITIAL_SCENE,
+  objectPlanHref,
+  prepareLead,
+  safeColor,
+  sceneHtml,
+} from './objectModel'
 import { OBJECT_SCENE_ART } from './sceny'
 import { PrepChecklist } from './PrepChecklist'
 import type { DayMoment, ObjectHotspot, ServiceChip } from './types'
@@ -36,8 +43,6 @@ import './obiekty.css'
 type Props = { tenantId: number; object: InstObject; sceneKey: BuiltObjectKey; origin: string }
 
 const SECTION = { padding: '0 0 104px' } satisfies CSSProperties
-// A service without a panel colour (the panel validates `#rrggbb`) gets the line accent.
-const NO_COLOR = 'var(--accent)'
 const hueOf = (color: string) => ({ '--c': color }) as CSSProperties
 const WHO: Record<string, string> = { Instalator: 'i', Razem: 'r' }
 // The Podhale band (`#gory`): the same ridge as the prototype's `.sggm`.
@@ -68,14 +73,14 @@ export async function ObjectPage({ tenantId, object, sceneKey, origin }: Props) 
   const path = objectHref(object.slug)
   const crumb = object.hero?.crumb || object.name
 
-  // Services by key: the panel's name, address and colour (the line accent without one).
+  // Services by key: the panel's name, address and colour (the line accent without a valid one).
   const chip = (key: ServiceKey): ServiceChip => {
     const card = cards.services.find((s) => s.key === key)
     return {
       key,
       name: card?.name ?? serviceLabel(key),
       href: card?.slug ? `/${card.slug}` : null,
-      color: card?.color || NO_COLOR,
+      color: safeColor(card?.color),
     }
   }
   const scene = OBJECT_SCENES[sceneKey]
@@ -102,7 +107,10 @@ export async function ObjectPage({ tenantId, object, sceneKey, origin }: Props) 
       hotspots: dayHotspots(services, scene.hotspots),
     }
   })
-  const similar = scene.similar.flatMap((key) => cards.objects.filter((o) => o.key === key))
+  // Only objects with a page: no card to a 404 (the pensjonat page comes in its own PR).
+  const similar = scene.similar
+    .filter((key) => key in OBJECT_SCENES)
+    .flatMap((key) => cards.objects.filter((o) => o.key === key))
   const fold = new Map((object.foldOnPhone ?? []).map((f) => [f.anchorId, f.maxHeight]))
   const foldOf = (id: string) => ({
     fold: fold.has(id),

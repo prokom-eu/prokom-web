@@ -19,6 +19,7 @@ import {
   pickHotspot,
   pickLayer,
   prepareLead,
+  safeColor,
   type SceneState,
   sceneHtml,
   scenePosition,
@@ -215,8 +216,9 @@ describe.each(KEYS)('object page %s — the same as the prototype', (key) => {
     const html = sceneHtml(art.html, INITIAL_SCENE, hotspots, () => '#123456')
     expect(html).not.toMatch(/%[a-z]/)
     expect(html.match(/data-k="/g)).toHaveLength(hotspots.length)
-    expect(html).toContain('class="hs on" data-k="0" style="--c:#123456"')
-    hotspots.forEach((h, i) => expect(html).toContain(`aria-label="${i + 1}. ${h.title}"`))
+    expect(html).toContain('<g class="hs on" data-k="0" style="--c:#123456">')
+    // Mouse and touch only: the legend is the keyboard control (no Tab stop per hotspot).
+    expect(html).not.toMatch(/tabindex|role="button"/)
   })
 })
 
@@ -224,5 +226,21 @@ describe('layers', () => {
   it('lists „Wszystko” first, then only the layers of the object', () => {
     expect(LAYERS[0]?.key).toBe('')
     expect(visibleLayers([{ title: 'x', service: 'ev' }]).map((l) => l.key)).toEqual(['', 'kom'])
+  })
+})
+
+describe('colours in the scene markup', () => {
+  it('lets only #rrggbb through, anything else becomes the accent token', () => {
+    expect(safeColor('#7BD36A')).toBe('#7BD36A')
+    for (const bad of [null, '', 'red', '#fff', '#123456"><script>', 'url(x)']) {
+      expect(safeColor(bad)).toBe('var(--accent)')
+    }
+    const html = sceneHtml(
+      '<g style="--c:%c.0%"></g>',
+      INITIAL_SCENE,
+      [{ title: 'x', service: 'kam' }],
+      () => '#000000"><script>alert(1)</script>',
+    )
+    expect(html).toBe('<g style="--c:var(--accent)"></g>')
   })
 })

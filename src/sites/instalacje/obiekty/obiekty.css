@@ -30,12 +30,6 @@
     opacity: 0;
     animation: inst-arc 1.8s ease-out infinite;
   }
-  & .hsd {
-    fill: var(--inst-il-hsd-fill);
-  }
-  & .hsd {
-    fill: url(#gWoodL);
-  }
   & .sgsc {
     padding: 0;
     overflow: hidden;

@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const settings = await getSiteSettings(tenant.id)
   const path = objectHref(object.slug)
   const title = object.seo?.title?.trim() || object.name
-  const description = object.seo?.description ?? object.hero?.lead ?? undefined
+  const description = object.seo?.description || object.hero?.lead || undefined
   return {
     title,
     description,

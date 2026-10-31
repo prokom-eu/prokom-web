@@ -87,10 +87,14 @@ export const autoplayScene = (s: SceneState, n: number): SceneState => ({
 /** „3 z 11” under the info box. */
 export const scenePosition = (s: SceneState, n: number) => `${s.hs + 1} z ${n}`
 
+/** A colour safe to put in the markup: the panel's `#rrggbb`, else the line accent. */
+export const safeColor = (color: string | null | undefined) =>
+  color && /^#[0-9a-f]{6}$/i.test(color) ? color : 'var(--accent)'
+
 /**
  * The scene markup with this state: hotspot classes (`%hs.N%`) and their service colours
- * (`%c.N%`). Our own constant (`sceny/*.ts`); the colours are the panel's `#rrggbb` (validated
- * there) or a token, so nothing here needs escaping.
+ * (`%c.N%`). Our own constant (`sceny/*.ts`); a colour goes in only as `#rrggbb` or the accent
+ * token (`safeColor` — the panel validates too, this does not rely on it).
  */
 export function sceneHtml(
   html: string,
@@ -102,7 +106,7 @@ export function sceneHtml(
     .replace(/%hs\.(\d+)%/g, (_, i: string) => hotspotClass(Number(i), s, hotspots))
     .replace(/%c\.(\d+)%/g, (_, i: string) => {
       const h = hotspots[Number(i)]
-      return h ? colorOf(h.service) : ''
+      return safeColor(h ? colorOf(h.service) : null)
     })
 }
 

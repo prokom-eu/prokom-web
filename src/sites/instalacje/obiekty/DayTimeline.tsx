@@ -45,7 +45,7 @@ export function DayTimeline({ moments, hotspotColors }: Props) {
       <div className="sgdl">
         {moments.map((m, i) => (
           <button
-            key={`${m.time}-${m.name}`}
+            key={i}
             type="button"
             className={dayClass(i, dy)}
             aria-pressed={i === dy}
