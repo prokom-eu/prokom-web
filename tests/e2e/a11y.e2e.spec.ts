@@ -54,6 +54,8 @@ const SITES: {
       '/nie-ma-takiej-strony',
       '/polityka-prywatnosci',
       '/mapa-strony',
+      '/o-firmie',
+      '/jedna-firma',
     ],
   },
 ]

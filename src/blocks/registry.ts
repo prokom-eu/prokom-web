@@ -36,6 +36,10 @@ import { SwContactBlock } from '../sites/software/blocks/SwContact/config'
 import { SwContactPageBlock } from '../sites/software/blocks/SwContactPage/config'
 import { SwPricingBlock } from '../sites/software/blocks/SwPricing/config'
 import { SwAuditFormBlock } from '../sites/software/blocks/SwAuditForm/config'
+import { SwPageHeroBlock } from '../sites/software/blocks/SwPageHero/config'
+import { SwStepsBlock } from '../sites/software/blocks/SwSteps/config'
+import { SwTeamBlock } from '../sites/software/blocks/SwTeam/config'
+import { SwLinesBlock } from '../sites/software/blocks/SwLines/config'
 import { CallToActionBlock } from './CallToAction/config'
 import { ContactBlock } from './Contact/config'
 import { FaqBlock } from './Faq/config'
@@ -97,7 +101,8 @@ export const INSTALACJE_BLOCKS: Block[] = [InstServiceBlock, InstHomeBlock]
 /**
  * Sections of the Software pages (ADR-014 rozstrz. SW0 7, at most 10) — `src/sites/software/blocks/`.
  * The fixed start page sections are one block, `swHomeSection`, with the section picked; new
- * blocks go at the end (SW8b: `swContact`, SW11a: `swContactPage`, `swPricing`, `swAuditForm`).
+ * blocks go at the end (SW8b: `swContact`, SW11a: `swContactPage`, `swPricing`, `swAuditForm`;
+ * SW11b: `swPageHero`, `swSteps`, `swTeam`, `swLines`).
  */
 export const SOFTWARE_BLOCKS: Block[] = [
   SwHeroBlock,
@@ -106,6 +111,11 @@ export const SOFTWARE_BLOCKS: Block[] = [
   SwContactPageBlock,
   SwPricingBlock,
   SwAuditFormBlock,
+  // SW11b: /o-firmie, /jedna-firma — the limit of 10 is reached.
+  SwPageHeroBlock,
+  SwStepsBlock,
+  SwTeamBlock,
+  SwLinesBlock,
 ]
 
 /**

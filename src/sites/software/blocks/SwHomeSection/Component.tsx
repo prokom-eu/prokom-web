@@ -1,6 +1,7 @@
 import type { SwHomeSectionBlock as SwHomeSectionBlockData } from '@/payload-types'
 import {
   AreasSection,
+  CompareSection,
   GuaranteesSection,
   HowWeBuildSection,
   LivePreviewsSection,
@@ -40,6 +41,8 @@ export function SwHomeSectionBlock({ block, tenantId }: Props) {
       return <HowWeBuildSection tenantId={tenantId} />
     case 'technologies':
       return <TechnologiesSection tenantId={tenantId} />
+    case 'compare':
+      return <CompareSection tenantId={tenantId} />
     default:
       return null
   }
