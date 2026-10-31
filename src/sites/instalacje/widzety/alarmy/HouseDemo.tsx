@@ -155,7 +155,9 @@ export function HouseDemo() {
           ))}
         </div>
       </div>
-      <div className="nvrnote alnote">{v.note}</div>
+      <div className="nvrnote alnote" aria-live={own ? 'polite' : 'off'}>
+        {v.note}
+      </div>
     </div>
   )
 }

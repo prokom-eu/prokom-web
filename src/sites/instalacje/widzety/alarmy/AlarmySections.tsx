@@ -51,7 +51,7 @@ export function AlarmySections() {
               <thead>
                 <tr>
                   <th>
-                    <span className="sr-only">Cecha</span>
+                    <span className="sr-only">{compare.rowHead}</span>
                   </th>
                   {compare.columns.map((c) => (
                     <th key={c} scope="col">
@@ -63,9 +63,9 @@ export function AlarmySections() {
               <tbody>
                 {compare.rows.map((row) => (
                   <tr key={row.key}>
-                    <td>
+                    <th scope="row">
                       <b>{row.key}</b>
-                    </td>
+                    </th>
                     <td>{row.wired}</td>
                     <td>{row.wireless}</td>
                   </tr>

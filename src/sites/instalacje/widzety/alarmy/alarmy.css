@@ -53,14 +53,18 @@
     border-bottom: 1px solid var(--border);
     vertical-align: top;
   }
-  & .tbl th {
+  /* Column heads; row heads (`tbody th`, the first column) look like cells (prototype: `td b`). */
+  & .tbl thead th {
     font-size: 12.5px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--ink-2);
     font-weight: 800;
   }
-  & .tbl td b {
+  & .tbl tbody th {
+    font-weight: inherit;
+  }
+  & .tbl :is(td, th) b {
     display: block;
   }
   & .tblw {
@@ -69,7 +73,7 @@
     background: var(--card);
     box-shadow: inset 0 0 0 1px var(--border);
   }
-  & .glass {
+  & .alph.glass {
     background: var(--il-glass);
     color: var(--inst-deep-ink);
     backdrop-filter: blur(16px) saturate(140%);
@@ -78,15 +82,6 @@
       inset 0 0 0 1px var(--inst-plan-num),
       0 30px 70px -30px var(--il-glass-shadow);
     border-radius: 22px;
-  }
-  & .ring {
-    fill: none;
-    stroke: var(--inst-plan-send-to);
-    stroke-width: 1.5;
-    opacity: 0;
-    transform-box: fill-box;
-    transform-origin: center;
-    animation: inst-al-ring 2.7s ease-out infinite;
   }
   & .smw {
     display: grid;
@@ -631,7 +626,7 @@
   }
   & .sirg.on .sir {
     fill: var(--il-false);
-    animation: inst-strobe 0.6s steps(2) infinite;
+    animation: inst-mon-strobe 0.6s steps(2) infinite;
   }
   & .sirg.on .sirw {
     stroke: var(--il-false);
@@ -734,20 +729,6 @@
   }
 }
 
-@keyframes inst-al-ring {
-  0% {
-    opacity: 0;
-    transform: scale(0.3);
-  }
-  25% {
-    opacity: 0.8;
-  }
-  100% {
-    opacity: 0;
-    transform: scale(1);
-  }
-}
-
 @keyframes inst-al-fadeUp {
   from {
     opacity: 0;
@@ -777,6 +758,21 @@
     }
     & .hwin {
       fill: url(#gGlass);
+    }
+  }
+}
+
+/* Reduced motion (spec §5): the house, the phone screens and the feed stand still. */
+@media (prefers-reduced-motion: reduce) {
+  [data-line='instalacje'] {
+    & .phn,
+    & .amsg,
+    & .vdscr.ring,
+    & .dlf,
+    & .hroom.al,
+    & .sg.al .sring,
+    & .sirg.on .sir {
+      animation: none;
     }
   }
 }

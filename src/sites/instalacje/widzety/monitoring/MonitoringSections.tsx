@@ -97,7 +97,7 @@ export function MonitoringSections({ planHref }: { planHref: string }) {
                 ))}
               </ul>
             </div>
-            <div className="sign ri" role="img" aria-label={rodo.sign.label}>
+            <div className="sign ri" role="group" aria-label={rodo.sign.label}>
               <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
                 <span className="sgi">
                   <InstIcon name="cam" size={34} />

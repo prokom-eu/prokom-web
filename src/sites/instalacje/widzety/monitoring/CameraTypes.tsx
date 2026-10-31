@@ -82,14 +82,13 @@ export function CameraTypes() {
   const type = T.items[index] ?? T.items[0]!
   return (
     <div className="typw ri">
-      <div className="typl" role="tablist" aria-label={T.tabsLabel}>
+      <div className="typl" role="group" aria-label={T.tabsLabel}>
         {T.items.map((t, i) => (
           <button
             key={t.name}
             type="button"
-            role="tab"
             className={index === i ? 'typb on' : 'typb'}
-            aria-selected={index === i}
+            aria-pressed={index === i}
             onClick={() => setIndex(i)}
           >
             <span className="ico s">

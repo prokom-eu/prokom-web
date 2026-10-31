@@ -232,6 +232,8 @@ export const alarmy = {
       eyebrow: 'Przewodowy czy bezprzewodowy',
       heading: 'Dobieramy system do budynku, a nie odwrotnie.',
     },
+    /** Head of the first column, for screen readers only (the prototype leaves it empty). */
+    rowHead: 'Cecha',
     columns: ['Przewodowy', 'Bezprzewodowy'],
     rows: [
       {

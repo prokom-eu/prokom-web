@@ -27,14 +27,13 @@ export function AlarmVersions() {
   return (
     <div className="card alv ri">
       <div className="illbar" style={{ padding: '0 0 14px' }}>
-        <div className="seg" role="tablist" aria-label={T.tabsLabel}>
+        <div className="seg" role="group" aria-label={T.tabsLabel}>
           {T.items.map((v, i) => (
             <button
               key={v.name}
               type="button"
-              role="tab"
               className={index === i ? 'on' : ''}
-              aria-selected={index === i}
+              aria-pressed={index === i}
               onClick={() => setIndex(i)}
             >
               <InstIcon name={v.icon} size={15} />
