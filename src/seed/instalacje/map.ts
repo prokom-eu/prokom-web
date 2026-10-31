@@ -457,9 +457,15 @@ export function realizationsToImport(): (RealizationData & { legacyId: number })
 
 export type PageItem = { slug: string; title: string; seo: { title: string; description: string } }
 
-const PAGE_FILES: { slug: string; title: string; file: SeedPage }[] = [
+const PAGE_FILES: { slug: string; title: string; file: SeedPage; seoTitle?: string }[] = [
   { slug: 'uslugi', title: 'Pełna oferta', file: Oferta },
-  { slug: 'zaplanuj', title: 'Zaplanuj instalację', file: Zaplanuj },
+  // The package's title has 57 characters + „| PRO-KOM Instalacje” (SEO §2.2: ≤ 65 in all).
+  {
+    slug: 'zaplanuj',
+    title: 'Zaplanuj instalację',
+    file: Zaplanuj,
+    seoTitle: 'Zaplanuj instalację na Podhalu w 2 minuty',
+  },
   { slug: 'kontakt', title: 'Kontakt', file: Kontakt },
   { slug: 'serwis', title: 'Serwis', file: Serwis },
   { slug: 'o-firmie', title: 'O firmie', file: OFirmie },
@@ -483,6 +489,10 @@ export function pagesToImport(): PageItem[] {
       title: menu.n,
       seo: seo(page),
     })),
-    ...PAGE_FILES.map(({ slug, title, file }) => ({ slug, title, seo: seo(file) })),
+    ...PAGE_FILES.map(({ slug, title, file, seoTitle: own }) => ({
+      slug,
+      title,
+      seo: own ? { ...seo(file), title: own } : seo(file),
+    })),
   ]
 }
