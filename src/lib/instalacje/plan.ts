@@ -187,7 +187,7 @@ export function parsePlanAnswers(input: unknown): PlanAnswers | null {
 export const planContact = ({ via }: Pick<PlanAnswers, 'via'>) => PLAN_VIA[via]!.contact
 
 /** The prototype's `norm()`: lower case, no Polish letters, only letters, digits and spaces. */
-function norm(text: string): string {
+export function norm(text: string): string {
   const map: Record<string, string> = {
     ą: 'a',
     ć: 'c',
