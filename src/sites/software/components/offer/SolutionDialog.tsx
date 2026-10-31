@@ -167,6 +167,8 @@ export function SolutionDialog({
   const projectName = level ? level.projectName : view.name
 
   const add = () => {
+    // `toggle` also takes an item out: only an addition counts as `oferta_dodaj`.
+    const adding = !project.some((item) => item.id === view.slug)
     focusSend.current = true
     const changed = projectActions.toggle(view.slug, projectName)
     if (!changed) {
@@ -174,7 +176,7 @@ export function SolutionDialog({
       setFullFor(view.slug)
       return
     }
-    track('oferta_dodaj', { slug: view.slug })
+    if (adding) track('oferta_dodaj', { slug: view.slug })
   }
 
   const header = (

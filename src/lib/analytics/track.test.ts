@@ -48,12 +48,13 @@ describe('track (ADR-020)', () => {
 })
 
 describe('trackFormErrors', () => {
-  it('sends one event per rejected field, without the messages', () => {
+  it('sends one event per rejected field, without the messages or form failures', () => {
     const umamiTrack = stubUmami()
     trackFormErrors('audyt', {
       url: 'Wpisz adres strony.',
       name: undefined,
       consent: 'Zaznacz zgodę.',
+      form: 'Coś poszło nie tak.',
     })
     expect(umamiTrack.mock.calls).toEqual([
       ['formularz_blad', { formularz: 'audyt', pole: 'url' }],
@@ -89,6 +90,7 @@ describe('labelKey', () => {
     expect(labelKey('Łódź, żółć!')).toBe('lodz-zolc')
     expect(labelKey('24 h')).toBe('h')
     expect(labelKey('—')).toBe('bez-nazwy')
+    expect(labelKey(`${'a'.repeat(63)} b`)).toBe('a'.repeat(63))
     expect(isSafeEventData({ podglad: labelKey('Sklep internetowy') })).toBe(true)
   })
 })

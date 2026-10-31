@@ -1,6 +1,6 @@
 import Script from 'next/script'
 
-import { ANALYTICS_PATH, umamiWebsiteId } from '@/lib/analytics/config'
+import { umamiScriptAttributes, umamiWebsiteId } from '@/lib/analytics/config'
 import { getEnv } from '@/lib/env'
 import type { Line } from '@/lib/tenant/lines'
 
@@ -12,13 +12,5 @@ import type { Line } from '@/lib/tenant/lines'
 export function AnalyticsScript({ line }: { line: Line }) {
   const websiteId = umamiWebsiteId(getEnv(), line)
   if (!websiteId) return null
-  return (
-    <Script
-      src={`${ANALYTICS_PATH}/script.js`}
-      strategy="afterInteractive"
-      data-website-id={websiteId}
-      data-host-url={ANALYTICS_PATH}
-      data-do-not-track="true"
-    />
-  )
+  return <Script strategy="afterInteractive" {...umamiScriptAttributes(websiteId)} />
 }

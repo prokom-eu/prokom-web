@@ -26,7 +26,7 @@ export type AnalyticsEvents = {
   menu_otworz: undefined
   /** Item of the phone bottom bar (its key, e.g. `oferta`). */
   pasek_klik: { pozycja: string }
-  /** A form rejected a field: the form and the field name, without the value. */
+  /** A form rejected a field: the form and the field name, without the value (not failures). */
   formularz_blad: { formularz: AnalyticsForm; pole: string }
   /** The offer details window opened. */
   oferta_okno: { slug: string }
@@ -63,7 +63,7 @@ export function isSafeEventData(data: AnalyticsData | undefined): boolean {
 export function labelKey(label: string): string {
   const key = normalizeText(label)
     .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^[^a-z]+|-+$/g, '')
     .slice(0, 64)
+    .replace(/^[^a-z]+|-+$/g, '')
   return key || 'bez-nazwy'
 }

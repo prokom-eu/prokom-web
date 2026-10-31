@@ -35,9 +35,12 @@ export function track<N extends AnalyticsEvent>(name: N, ...[data]: DataArgs<N>)
   }
 }
 
-/** `formularz_blad` for every rejected field of a form — names only, never the messages. */
+/**
+ * `formularz_blad` for every rejected field of a form — names only, never the messages. The `form`
+ * key (network error, inquiry limit, server error) is a failure, not a field, so it is left out.
+ */
 export function trackFormErrors(form: AnalyticsForm, errors: Readonly<Record<string, unknown>>) {
   for (const [field, message] of Object.entries(errors)) {
-    if (message) track('formularz_blad', { formularz: form, pole: field })
+    if (message && field !== 'form') track('formularz_blad', { formularz: form, pole: field })
   }
 }
