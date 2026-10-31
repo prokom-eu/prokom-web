@@ -38,6 +38,11 @@ const anyOf = z.array(condition)
 /** A sentence shown when its conditions apply — the first matching rule of a list wins. */
 const sentenceRule = obj({ when: anyOf.min(1), text })
 
+/** What the contact field asks for: a phone, an e-mail or either (meeting, online). */
+export const CONTACT_FIELDS = ['phone', 'email', 'any'] as const
+
+export type ContactField = (typeof CONTACT_FIELDS)[number]
+
 /** Parts of the sample site in the live preview, switched by `preview.features`. */
 export const PREVIEW_FEATURES = [
   'lang',
@@ -125,7 +130,7 @@ const scopeEntry = obj({
   featuresInPrice: z.array(key).optional(),
 })
 
-const shopSwitch = obj({ title: label, sub: label, result: key })
+const shopSwitch = obj({ title: label, sub: label })
 
 export const softwareWizardSchema = obj({
   steps: z.array(label).length(4),
@@ -134,16 +139,22 @@ export const softwareWizardSchema = obj({
   needs: z.record(key, need),
   results: z.record(key, result),
   whens: z.array(obj({ id: key, n: label })).min(1),
+  /** Quick words for „Kilka słów od siebie” when the need has none in `needPhrases`. */
   phrases: z.array(label),
+  /** Quick words per need (board script `PHM`). */
+  needPhrases: z.record(key, z.array(label).max(6)),
   contactPrefs: z
     .array(
       obj({
         id: key,
         n: label,
+        ic: svgPath,
         /** Value of `Inquiries.preferredContact` (ADR-014 §3.1). */
         inquiryValue: z.enum(['phone', 'email', 'meeting', 'online']),
-        /** `{kontakt}` of the success steps: „zadzwonimy”. */
+        /** `{kontakt}` of the success: „zadzwonimy”. */
         verb: label,
+        /** Which contact the field asks for (`send.contact`). */
+        field: z.enum(CONTACT_FIELDS),
       }),
     )
     .min(1),
@@ -180,13 +191,23 @@ export const softwareWizardSchema = obj({
     /** The first rule that applies lists the add-ons of a result (`[]` = none). */
     rules: z.array(obj({ when: anyOf.min(1), items: z.array(key).max(4) })).min(1),
   }),
-  /** „Chcesz sprzedawać online?” — switches the result to the shop and back. */
-  shopHint: obj({ when: anyOf.min(1), toShop: shopSwitch, back: shopSwitch }),
+  /**
+   * „Chcesz sprzedawać online?” — switches the result to `toShop.result`; `back` returns to the
+   * result of `mapping` (its texts only).
+   */
+  shopHint: obj({
+    when: anyOf.min(1),
+    toShop: shopSwitch.extend({ result: key }),
+    back: shopSwitch,
+  }),
   /** Scope line under the price: the first rule that applies picks a `scopeNotes` key. */
   scopeRules: z.array(obj({ when: anyOf.min(1), note: key })),
   /** A bigger job: `whenNotes` uses `<when>Big` instead of `<when>Small`. */
   bigWhen: anyOf,
-  /** `{data}` of the term notes: the next such day from today („30 listopada”). */
+  /**
+   * `{data}` of the term notes, as words („30 listopada”): one rule instead of a fact to edit
+   * (decyzja SWD2 nr 11). The sentence has no year, so the words are the same every year.
+   */
   winterDeadline: obj({
     day: z.number().int().min(1).max(31),
     month: z.number().int().min(1).max(12),
@@ -219,30 +240,57 @@ export const softwareWizardSchema = obj({
     title: label,
     lead: text,
     needTitle: label,
+    needLead: label,
     /** Names of the tile rows of step 1, by `needs[].row`. */
     rows: z.array(label).min(1).max(4),
     own: obj({ title: label, text }),
     scopeTitle: label,
     whenQ: label,
+    /** Step „Twój opis” of „Opisz po swojemu”. */
     describe: obj({
       title: label,
       optional: label,
       prompts: z.array(label).max(3),
       placeholder: text,
-      skip: label,
     }),
+    /** „Kilka słów od siebie” in step „Zakres” (opened by a button). */
+    words: obj({ open: label, optional: label, title: label, placeholder: text }),
+    /** „Krok {n} z {z}” on the phone. */
+    stepOf: template('{n}'),
     next: label,
     back: label,
     showResult: label,
+    /** Button of the phone bar on the result: jumps to the quote block. */
+    sendJump: label,
+    restart: label,
+    /** Badge of the result: „Twoje rozwiązanie”. */
     recommend: label,
+    included: label,
     priceLabel: label,
     termLabel: label,
+    /** Under the term: priced („od podpisania umowy”) or free („od wysłania opisu”). */
+    termSub: obj({ priced: label, free: label }),
+    moreTitle: label,
+    /** Tag of each „więcej” position: „do wyceny”. */
+    moreTag: label,
+    toQuoteTitle: label,
     /** Choice chip of „Opisz po swojemu”. */
     ownChip: label,
-    checklist: obj({ title: label, hint: text }),
+    /** „Masz {n} z {z}”. */
+    checklist: obj({ title: label, hint: text, count: template('{n}') }),
+    addOns: obj({ title: label, add: label, added: label }),
+    /** „Twoje słowa” — the description in the result and the inquiry. */
     yourNeeds: label,
     yourChoice: label,
     choiceEmpty: label,
+    /** The live quote: column on the desktop, bar on the phone. */
+    live: obj({
+      title: label,
+      previewTitle: label,
+      label,
+      empty: label,
+      emptyText: text,
+    }),
     idle: obj({ title: label, text, steps: z.array(label).length(3) }),
   }),
   needsChecklist: z.record(key, z.array(label)),
@@ -277,20 +325,33 @@ export const softwareWizardSchema = obj({
   scopeNotes: notes,
   mobile: obj({ previewToggle: z.tuple([label, label]) }),
   badges: z.array(label).max(5),
+  /** The quote block of the result (ZMIANY-v21 §10.3): „Ostatni krok · Dokąd wysłać wycenę?”. */
   send: obj({
-    fields: z.array(label).min(1),
-    consent: text,
-    errors: obj({ contact: text, consent: text }),
-    success: obj({ title: label, steps: z.array(text).min(1) }),
+    eyebrow: label,
     title: label,
+    lead: text,
+    /** The ticket „Twoja wycena · szkic”, after sending „przyjęta”. */
+    ticket: obj({ title: label, draft: label, accepted: label }),
     prefQ: label,
-    button: label,
-    /** Under the button: „Odpowiadamy w ciągu [CZAS ODPOWIEDZI]…”. */
-    note: text,
+    name: obj({ label, placeholder: label }),
+    /** The contact field by `contactPrefs[].field`: label, placeholder, error. */
+    contact: z.record(z.enum(CONTACT_FIELDS), obj({ label, placeholder: label, error: text })),
+    errors: obj({ consent: text }),
+    button: obj({ title: label, sub: label }),
+    /** Icons (keys of `icons`) and texts under the button. */
+    trust: z.array(obj({ icon: key, text: label })).max(4),
     /** „Wysłane · {nr}”. */
     sentLabel: template('{nr}'),
-    /** Under the success steps (e-mail copy, phone of the line). */
-    copyNote: text,
+    success: obj({
+      /** „Dziękujemy, {imie}. …” — `titleNoName` when the name is empty. */
+      title: template('{imie}'),
+      titleNoName: label,
+      /** `{kontakt}` = the verb of the chosen preference. */
+      lead: text,
+      timeline: z.array(obj({ when: label, what: label })).length(3),
+      /** Under the timeline; the phone of the line follows it. */
+      note: text,
+    }),
   }),
 }).superRefine((wizard, ctx) => {
   const results = new Set(Object.keys(wizard.results))
@@ -359,10 +420,8 @@ export const softwareWizardSchema = obj({
   )
   wizard.honest.forEach((rule, index) => checkConditions(rule.when, ['honest', index, 'when']))
   checkConditions(wizard.shopHint.when, ['shopHint', 'when'])
-  for (const side of ['toShop', 'back'] as const) {
-    if (!results.has(wizard.shopHint[side].result)) {
-      issue(['shopHint', side, 'result'], 'Nieznany wynik.')
-    }
+  if (!results.has(wizard.shopHint.toShop.result)) {
+    issue(['shopHint', 'toShop', 'result'], 'Nieznany wynik.')
   }
 
   const addOnIds = wizard.addOns.items.map((item) => item.id)
@@ -406,6 +465,12 @@ export const softwareWizardSchema = obj({
     wizard.contactPrefs.map((pref) => pref.id),
     ['contactPrefs'],
   )
+  wizard.send.trust.forEach((item, index) => {
+    if (!(item.icon in wizard.icons)) issue(['send', 'trust', index, 'icon'], 'Brak w icons.')
+  })
+  for (const needId of Object.keys(wizard.needPhrases)) {
+    if (!needs.has(needId)) issue(['needPhrases', needId], 'Nieznana potrzeba.')
+  }
 })
 
 export type SoftwareWizard = z.infer<typeof softwareWizardSchema>

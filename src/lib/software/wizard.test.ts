@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import kreator from '../../../seed/prokomsoftware/kreator.json'
 import rozwiazania from '../../../seed/prokomsoftware/rozwiazania.json'
-import { isPreV22Wizard, wizardSeed } from '../../seed/software/wizardExtras'
+import { wizardSeed } from '../../seed/software/wizardExtras'
 import { softwareWizardSchema, validateSoftwareWizard, wizardSolutionSlugs } from './wizard'
 
 const seed = wizardSeed(kreator)
@@ -16,13 +16,9 @@ describe('Software wizard schema', () => {
 
   it('rejects the package alone: its rules lived in the board script', () => {
     expect(validateSoftwareWizard(kreator)).toMatch(/Reguły kreatora/)
-    expect(isPreV22Wizard(kreator)).toBe(true)
-    expect(isPreV22Wizard(seed)).toBe(false)
-    expect(isPreV22Wizard(null)).toBe(false)
   })
 
   it('treats a stored wizard with sizes (the SW7 shape) as old', () => {
-    expect(isPreV22Wizard({ ...clone(), sizes: [] })).toBe(true)
     expect(validateSoftwareWizard({ ...clone(), sizes: [] })).toMatch(/Reguły kreatora/)
   })
 
@@ -72,7 +68,7 @@ describe('Software wizard schema', () => {
 
   it('maps contact preferences only to values of the inquiry', () => {
     const value = clone()
-    value.contactPrefs = [{ id: 'fax', n: 'Faks', inquiryValue: 'fax' }] as never
+    value.contactPrefs = [{ ...value.contactPrefs[0]!, inquiryValue: 'fax' }] as never
     expect(validateSoftwareWizard(value)).toMatch(/contactPrefs\.0\.inquiryValue/)
   })
 
@@ -133,8 +129,25 @@ describe('Software wizard schema', () => {
 
   it('needs a contact verb for the success steps', () => {
     const value = clone()
-    value.contactPrefs = [{ id: 'tel', n: 'Telefon', inquiryValue: 'phone' }] as never
+    const { verb: _verb, ...noVerb } = value.contactPrefs[0]!
+    value.contactPrefs = [noVerb] as never
     expect(validateSoftwareWizard(value)).toMatch(/contactPrefs\.0\.verb/)
+  })
+
+  it('needs the texts of every contact field a preference asks for, and known trust icons', () => {
+    const field = clone()
+    const { phone: _phone, ...contact } = field.send.contact
+    field.send = { ...field.send, contact } as never
+    expect(validateSoftwareWizard(field)).toMatch(/send\.contact\.phone/)
+    const trust = clone()
+    trust.send = { ...trust.send, trust: [{ icon: 'nie-ma', text: 'x' }] }
+    expect(validateSoftwareWizard(trust)).toMatch(/send\.trust\.0\.icon/)
+  })
+
+  it('keeps {imie} in the success title', () => {
+    const value = clone()
+    value.send = { ...value.send, success: { ...value.send.success, title: 'Dziękujemy.' } }
+    expect(validateSoftwareWizard(value)).toMatch(/send\.success\.title/)
   })
 
   it('keeps {nr} in the sent label', () => {

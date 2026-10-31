@@ -155,7 +155,7 @@ export async function SwContactBlock({ block, tenantId }: Props) {
               initialTopic="system"
               errors={{
                 ...SOFTWARE_CONTACT_MESSAGES,
-                contact: wizard?.send.errors.contact ?? FIELD_MESSAGES.email,
+                contact: wizard?.send.contact.any.error ?? FIELD_MESSAGES.email,
                 consent: wizard?.send.errors.consent ?? FIELD_MESSAGES.consent,
               }}
               formToken={issueFormToken(getEnv().PAYLOAD_SECRET)}

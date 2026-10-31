@@ -6,12 +6,15 @@ import { wizardSeed } from '../../seed/software/wizardExtras'
 import { softwareWizardSchema } from './wizard'
 import {
   addOnSlugsOf,
+  contactFieldOf,
   EMPTY_ANSWERS,
   fillWizardTexts,
   orderedNeeds,
   parseSoftwareAnswers,
   parseWizardParams,
+  phrasesOf,
   previewOf,
+  pruneAnswers,
   resultIdOf,
   resultView,
   shopHintApplies,
@@ -394,11 +397,11 @@ describe('Software wizard answers on the server', () => {
       Szczegóły: ['Pensjonat, hotel, apartamenty'],
       'Co już masz?': 'Starą stronę',
       'Na kiedy?': 'Przed sezonem zimowym',
-      Polecamy: 'Strona dla pensjonatu lub hotelu',
+      'Twoje rozwiązanie': 'Strona dla pensjonatu lub hotelu',
       'Do wyceny': ['Rezerwacja z zaliczką online'],
       Dodatki: ['Opieka nad stroną'],
       'Już mam': ['Logo'],
-      'Twoje potrzeby': 'Goście dzwonią o wolne pokoje.',
+      'Twoje słowa': 'Goście dzwonią o wolne pokoje.',
       'Jak wolisz rozmawiać?': 'E-mail',
     })
     expect(wizardMessage(rules, parsed)).toBe(
@@ -423,12 +426,44 @@ describe('Software wizard answers on the server', () => {
   })
 })
 
+describe('pruneAnswers', () => {
+  it('drops what the result no longer offers after going back (recenzja: SMS → „Starą stronę”)', () => {
+    const before = answers({ need: 'wiz', options: ['bud'], addOns: ['sms', 'opieka'] })
+    expect(parseSoftwareAnswers(rules, { ...before, have: 'stara' })).toBeNull()
+    const pruned = pruneAnswers(rules, { ...before, have: 'stara' })
+    expect(pruned.addOns).toEqual(['opieka'])
+    expect(parseSoftwareAnswers(rules, pruned)).not.toBeNull()
+  })
+
+  it('drops „więcej”, checklist positions and the shop switch of another result', () => {
+    const shop = answers({ need: 'firm', options: ['handel'], shop: true, more: ['fv'] })
+    expect(pruneAnswers(rules, shop)).toMatchObject({ shop: true, more: ['fv'] })
+    const other = pruneAnswers(rules, { ...shop, options: ['bud'], checklist: [0, 3, 9] })
+    expect(other).toMatchObject({ shop: false, more: [], checklist: [0, 3] })
+  })
+})
+
+describe('Software wizard quick words and contact field', () => {
+  it('uses the need’s own quick words, else the general ones', () => {
+    expect(phrasesOf(rules, answers({ need: 'prog' }))[0]).toBe('za dużo przepisywania')
+    expect(phrasesOf(rules, answers({ own: true }))).toEqual(rules.phrases)
+  })
+
+  it('asks for a phone by default, an e-mail for „E-mail”, either for a meeting', () => {
+    expect(contactFieldOf(rules, EMPTY_ANSWERS)).toMatchObject({ field: 'phone', label: 'Telefon' })
+    expect(contactFieldOf(rules, answers({ contactPref: 'mail' })).field).toBe('email')
+    expect(contactFieldOf(rules, answers({ contactPref: 'salon' })).label).toBe(
+      'Telefon albo e-mail',
+    )
+  })
+})
+
 describe('fillWizardTexts', () => {
   it('fills facts in every text and empties a text that cannot be shown', () => {
     const filled = fillWizardTexts(rules, (text) =>
       text.includes('[CZAS ODPOWIEDZI]') ? text.replace('[CZAS ODPOWIEDZI]', '1 dnia') : null,
     )
-    expect(filled.send.note).toContain('Odpowiadamy w ciągu 1 dnia.')
+    expect(filled.free.term).toBe('Odpowiedź w ciągu 1 dnia')
     expect(filled.shopHint.toShop.sub).toBe('')
     // Only texts with a bracket go through `fill`; plain labels stay as they are.
     expect(filled.needs.firm?.n).toBe('Strona dla firmy')

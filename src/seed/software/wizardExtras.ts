@@ -110,15 +110,16 @@ export const WIZARD_EXTRAS = {
   },
   ui: {
     eyebrow: 'Dobierz rozwiązanie · 60 sekund',
-    title: 'Kliknij kilka razy. Zobacz, co dla Ciebie zbudujemy.',
-    lead: 'Bez formularzy na start. Telefon albo e-mail podajesz na końcu i tylko wtedy, gdy chcesz wycenę na piśmie.',
+    title: 'Kilka kliknięć. Cena, termin i podgląd od razu.',
+    lead: 'Bez formularzy na start. Kontakt podajesz na końcu i tylko wtedy, gdy chcesz wycenę na piśmie.',
     needTitle: 'Czego potrzebujesz?',
+    needLead: 'Wybierz jedno. Cenę i termin zobaczysz od razu.',
     rows: ['Nowa strona internetowa', 'Odświeżenie, program, aplikacja'],
     own: {
-      title: 'Wolisz opisać po swojemu?',
-      text: 'Napisz, co nie działa i czego oczekujesz. Doradzimy.',
+      title: 'Nie wiesz, co wybrać? Opisz po swojemu',
+      text: 'Napisz, co nie działa i czego oczekujesz. Doradzimy uczciwie, za darmo.',
     },
-    scopeTitle: 'Jeszcze trzy szczegóły',
+    scopeTitle: 'Zakres i termin',
     whenQ: 'Na kiedy?',
     describe: {
       title: 'Opisz po swojemu',
@@ -126,37 +127,50 @@ export const WIZARD_EXTRAS = {
       prompts: ['Co dziś nie działa?', 'Czego oczekujesz?', 'Do kiedy?'],
       placeholder:
         'np. Goście pytają telefonicznie o wolne pokoje, chcę żeby sprawdzali sami. Zależy mi przed feriami.',
-      skip: 'Pomiń',
     },
+    words: {
+      open: '+ Dodaj kilka słów od siebie',
+      optional: '(opcjonalnie)',
+      title: 'Kilka słów od siebie',
+      placeholder: 'np. Goście pytają telefonicznie o wolne pokoje. Zależy mi przed feriami.',
+    },
+    stepOf: 'Krok {n} z {z}',
     next: 'Dalej →',
     back: 'Wstecz',
     showResult: 'Pokaż wynik →',
-    recommend: 'Polecamy',
+    sendJump: 'Poproś o wycenę ↓',
+    restart: 'Zacznij od nowa',
+    recommend: 'Twoje rozwiązanie',
+    included: 'W cenie',
     priceLabel: 'Cena',
     termLabel: 'Termin',
+    termSub: { priced: 'od podpisania umowy', free: 'od wysłania opisu' },
+    moreTitle: 'Potrzebujesz czegoś więcej?',
+    moreTag: 'do wyceny',
+    toQuoteTitle: 'Do wyceny na piśmie',
     ownChip: 'Opis po swojemu',
     checklist: {
       title: 'Co będzie potrzebne od Ciebie',
       hint: 'Kliknij, co już masz. Czegoś brakuje? Pomożemy: teksty, zdjęcia, domena.',
+      count: 'Masz {n} z {z}',
     },
-    yourNeeds: 'Twoje potrzeby',
+    addOns: { title: 'Często dobierane razem', add: '+ Dodaj', added: '✓ Dodane' },
+    yourNeeds: 'Twoje słowa',
     yourChoice: 'Twój wybór',
     choiceEmpty: 'jeszcze nic',
+    live: {
+      title: 'Twoja wycena na żywo',
+      previewTitle: 'Podgląd Twojego projektu',
+      label: 'Twoja wycena',
+      empty: '— zł',
+      emptyText: 'Wybierz, czego potrzebujesz. Cena i termin pojawią się tutaj.',
+    },
     idle: {
       title: 'Tu zobaczysz swój projekt',
       text: 'Składa się sam, gdy klikasz po lewej.',
       steps: ['Wybierz', 'Doprecyzuj', 'Zobacz wynik'],
     },
   },
-}
-
-export const SEND_EXTRAS = {
-  title: 'Chcesz wycenę na piśmie?',
-  prefQ: 'Jak wolisz rozmawiać?',
-  button: 'Wyślij mi wycenę na piśmie →',
-  note: 'Odpowiadamy w ciągu [CZAS ODPOWIEDZI]. Dane tylko do tej wyceny, bez newslettera.',
-  sentLabel: 'Wysłane · {nr}',
-  copyNote: 'Kopia zgłoszenia przyjdzie na Twój e-mail, jeśli go podałeś. Pilne?',
 }
 
 /** The package's `kreator.json` with the rules above — the value of `SoftwareSettings.wizard`. */
@@ -178,18 +192,5 @@ export function wizardSeed(source: Kreator) {
     needs,
     contactPrefs,
     ...structuredClone(WIZARD_EXTRAS),
-    send: { ...value.send, ...SEND_EXTRAS },
   }
-}
-
-/** Keys a stored wizard must have to be the v22 shape (SW7 and older lack some of them). */
-const WIZARD_V22_KEYS = [...Object.keys(WIZARD_EXTRAS), 'scope', 'addOns', 'winterDeadline']
-
-/**
- * A stored wizard of an older shape — before SW7 (without the rules above) or before v22 (sizes,
- * no `scope`): the seed replaces it locally; staging pastes `pnpm software:wizard-json`.
- */
-export function isPreV22Wizard(value: unknown): boolean {
-  if (typeof value !== 'object' || value === null || Array.isArray(value)) return false
-  return 'sizes' in value || WIZARD_V22_KEYS.some((key) => !(key in value))
 }

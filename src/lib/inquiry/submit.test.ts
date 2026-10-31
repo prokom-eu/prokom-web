@@ -588,6 +588,32 @@ describe('submitInquiry (ADR-003)', () => {
       }
     })
 
+    it('asks for the contact the preference needs: a phone for „Telefon”, an e-mail for „E-mail”', async () => {
+      const phonePref = { ...wizardBody, wizard: { ...answers, contactPref: 'tel' } }
+      const d = software()
+      expect(await submitInquiryWith(d, { ...softwareRequest, body: phonePref })).toEqual({
+        ok: false,
+        error: 'invalid',
+        fields: ['phone'],
+      })
+      expect(d.save).not.toHaveBeenCalled()
+      const withPhone = { ...phonePref, email: undefined, phone: '600 100 200' }
+      expect(
+        (await submitInquiryWith(software(), { ...softwareRequest, body: withPhone })).ok,
+      ).toBe(true)
+      const mailPref = {
+        ...wizardBody,
+        email: undefined,
+        phone: '600 100 200',
+        wizard: { ...answers, contactPref: 'mail' },
+      }
+      expect(await submitInquiryWith(software(), { ...softwareRequest, body: mailPref })).toEqual({
+        ok: false,
+        error: 'invalid',
+        fields: ['email'],
+      })
+    })
+
     it('reads the rules of its own tenant only', async () => {
       const d = software()
       await submitInquiryWith(d, { ...softwareRequest, body: wizardBody })

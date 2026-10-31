@@ -3,7 +3,7 @@ import type { Inquiry } from '@/payload-types'
 import type { Wizard } from '../catalog/wizard'
 import { buildKit, parseWizardAnswers, proposedSlugs, wizardSummary } from '../catalog/wizardKit'
 import { errorFields, log } from '../log'
-import type { SoftwareWizard } from '../software/wizard'
+import type { ContactField, SoftwareWizard } from '../software/wizard'
 import {
   addOnSlugsOf,
   contactPrefOf,
@@ -145,6 +145,21 @@ type ComposedWizard = {
   message?: string
   preferredContact?: InquiryInput['preferredContact']
   auditUrl?: string
+  /** Software: what the chosen contact preference needs (`contactPrefs[].field`). */
+  contactField?: ContactField
+}
+
+/**
+ * The contact the wizard's preference needs, checked on the server too (the browser asks for it
+ * first): a phone of at least 9 digits for „Telefon”, an e-mail for „E-mail”. `null` = fine.
+ */
+function missingContact(
+  field: ContactField | undefined,
+  input: { phone?: string; email?: string },
+): 'phone' | 'email' | null {
+  if (field === 'phone' && (input.phone ?? '').replace(/\D/g, '').length < 9) return 'phone'
+  if (field === 'email' && !input.email) return 'email'
+  return null
 }
 
 /** `stara.pl` → `https://stara.pl/`; anything that is not a web address → `undefined`. */
@@ -187,6 +202,7 @@ async function composeSoftwareWizard(
     summary: softwareWizardSummary(rules, answers),
     message: wizardMessage(rules, answers),
     preferredContact: contactPrefOf(rules, answers)?.inquiryValue,
+    contactField: contactPrefOf(rules, answers)?.field,
     ...(when && { when }),
     ...(needOf(rules, answers)?.url && { auditUrl: siteUrl(answers.url) }),
   }
@@ -261,6 +277,9 @@ export async function submitInquiryWith(
       return { ok: false, error: 'unavailable' }
     }
     if (!composed) return { ok: false, error: 'invalid', fields: ['wizard'] }
+    // „Zadzwonimy” needs a phone, „napiszemy” an e-mail (the field of the chosen preference).
+    const contactError = missingContact(composed.contactField, input)
+    if (contactError) return { ok: false, error: 'invalid', fields: [contactError] }
     items = composed.items
     wizard = composed.summary
     deadline = composed.when ?? deadline

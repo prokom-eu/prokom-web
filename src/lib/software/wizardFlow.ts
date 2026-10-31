@@ -223,19 +223,21 @@ function priceOf(
   rules: SoftwareWizard,
   result: Result,
   solution: WizardSolution | undefined,
-): { price: string; priceSub: string; term: string; ask: boolean } {
+): { price: string; priceShort: string; priceSub: string; term: string; ask: boolean } {
   const display = rules.priceDisplay
   if (result.free) {
-    return { price: rules.free.price, priceSub: '', term: rules.free.term, ask: false }
+    const price = rules.free.price
+    return { price, priceShort: price, priceSub: '', term: rules.free.term, ask: false }
   }
   const amount = solution?.priceFrom ?? null
   if (amount === null) {
     const { price, priceSub, term } = display.noPrice
-    return { price, priceSub, term, ask: true }
+    return { price, priceShort: price, priceSub, term, ask: true }
   }
-  const template = result.month || solution?.priceMonthly ? display.monthTemplate : display.template
+  const monthly = result.month || solution?.priceMonthly
   return {
-    price: fill(template, amount),
+    price: fill(monthly ? display.monthTemplate : display.template, amount),
+    priceShort: shortPrice(display, solution),
     priceSub: display.priceSub,
     term: solution?.leadTime ?? display.termFallback,
     ask: false,
@@ -276,7 +278,10 @@ export type ResultView = {
   result: Result
   /** Slug of the solution that prices the result (`null` = none). */
   solutionSlug: string | null
+  /** „od 1 999 zł netto” — the ticket, the message. */
   price: string
+  /** „od 1 999 zł” — the big price, `priceSub` under it says „netto”. */
+  priceShort: string
   /** „netto · stała cena na piśmie”, or the no-price line. */
   priceSub: string
   term: string
@@ -392,6 +397,42 @@ export function resultView(
     }),
     choice: choiceOf(rules, answers, { withWhen: true }),
   }
+}
+
+/**
+ * The answers without what the current result no longer offers — after going back and changing a
+ * chip, a ticked „więcej”, an add-on, a checklist position or the shop switch of the previous
+ * result would stay hidden in the state and make the server refuse the inquiry.
+ */
+export function pruneAnswers(rules: SoftwareWizard, answers: WizardAnswers): WizardAnswers {
+  const next = { ...answers, shop: answers.shop && shopHintApplies(rules, answers) }
+  const resultId = resultIdOf(rules, next)
+  const more = new Set(scopeOf(rules, resultId)?.moreExamples.map((example) => example.id))
+  const addOns = new Set(addOnIdsOf(rules, next))
+  const items = rules.results[resultId]?.nd.length ?? 0
+  return {
+    ...next,
+    more: next.more.filter((id) => more.has(id)),
+    addOns: next.addOns.filter((id) => addOns.has(id)),
+    checklist: next.checklist.filter((index) => index < items),
+  }
+}
+
+/** Names of the chosen answers to the need's question (under the result's title). */
+export function optionNamesOf(rules: SoftwareWizard, answers: WizardAnswers): string[] {
+  return optionNames(needOf(rules, answers), answers.options)
+}
+
+/** Quick words under „Kilka słów od siebie”: the need's own, else the general ones. */
+export function phrasesOf(rules: SoftwareWizard, answers: WizardAnswers): string[] {
+  const own = answers.need === null ? undefined : rules.needPhrases[answers.need]
+  return own && own.length > 0 ? own : rules.phrases
+}
+
+/** Contact field of the chosen preference: label, placeholder, error and what it checks. */
+export function contactFieldOf(rules: SoftwareWizard, answers: WizardAnswers) {
+  const field = contactPrefOf(rules, answers)?.field ?? 'any'
+  return { field, ...rules.send.contact[field] }
 }
 
 /** Chips of „Twój wybór”; the term only once the scope step is passed. */
