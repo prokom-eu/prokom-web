@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { notFound } from 'next/navigation'
+import { notFound, permanentRedirect } from 'next/navigation'
 
 import { Container } from '@/components/ui/Container'
 import {
@@ -11,25 +11,30 @@ import {
 } from '@/lib/catalog/brand'
 import type { CatalogIndex } from '@/lib/catalog/catalogIndex'
 import { DEFAULTS } from '@/lib/catalog/category'
-import { getBrandView, getCatalogIndex, getShowroomView } from '@/lib/catalog/data'
-import { CATALOG_PATH } from '@/lib/catalog/filters'
-import { listShowroom, showroomStats } from '@/lib/catalog/showroom'
+import { getBrandView, getCatalogIndex, getSalonDoc, getSalonSlugOfBrand } from '@/lib/catalog/data'
+import { BRANDS_PATH } from '@/lib/catalog/filters'
+import { buildSalonView, salonTitle, type SalonView } from '@/lib/catalog/salon'
 import { getEnv } from '@/lib/env'
-import { ogImages } from '@/lib/pages/metadata'
 import { pickSource } from '@/lib/media/sizes'
-import { breadcrumbJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
+import { ogImages } from '@/lib/pages/metadata'
+import { breadcrumbJsonLd, faqJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
 import { robotsMeta } from '@/lib/seo/robots'
 import { getSiteSettings } from '@/lib/site/data'
 import { toTelHref } from '@/lib/site/link'
 import { isValidSlug } from '@/lib/tenant/uniqueSlug'
 import type { Crumb } from '@/sites/biznes/components/Breadcrumbs'
 import { BrandAbout, BrandHero } from '@/sites/biznes/components/brand/BrandSections'
-import { ShowroomBody } from '@/sites/biznes/components/brand/ShowroomBody'
+import { SalonChooser, SalonFamily } from '@/sites/biznes/components/brand/salon/SalonClient'
 import {
-  ShowroomCtaBand,
-  ShowroomHero,
-  ShowroomServices,
-} from '@/sites/biznes/components/brand/ShowroomSections'
+  familyHeading,
+  SalonAbout,
+  SalonFaq,
+  SalonHero,
+  SalonPlans,
+  SalonRollout,
+  SalonService,
+  SectionHead,
+} from '@/sites/biznes/components/brand/salon/SalonSections'
 import { CatalogContactPanel } from '@/sites/biznes/components/catalog/CatalogContactPanel'
 import { CategoryGrid } from '@/sites/biznes/components/category/CategoryGrid'
 import { HowInquiryWorks } from '@/sites/biznes/components/HowInquiryWorks'
@@ -40,27 +45,56 @@ type Props = { params: Promise<{ domain: string; slug: string }> }
 
 /** Logo width in JSON-LD: the original file when it is no larger. */
 const JSON_LD_LOGO_WIDTH = 600
+/** Meta description limit (K33 §8). */
+const DESCRIPTION_LIMIT = 155
 
+/**
+ * What `/marki/[slug]` shows: the salon 2.0 of that slug (K4f), else — for a brand inside a
+ * showroom — a redirect there (Kyocera → `/marki/druk`, ADR-017 D-K4-1), else the brand page of
+ * K3b′ (a brand with `hasPage` and listed products), else nothing (404).
+ */
 async function load(params: Props['params']) {
   const tenant = await requireLine(params, 'biznes')
   const { slug } = await params
-  if (!isValidSlug(slug)) return { tenant, index: null, brand: null }
-  const index = await getCatalogIndex(tenant.id)
+  if (!isValidSlug(slug)) return { tenant, index: null, salon: null, brand: null, redirect: null }
+  const [index, doc] = await Promise.all([getCatalogIndex(tenant.id), getSalonDoc(tenant.id, slug)])
+  const salon = doc && buildSalonView(doc, tenant.id, index.products)
+  if (salon) return { tenant, index, salon, brand: null, redirect: null }
+  const redirect = await getSalonSlugOfBrand(tenant.id, slug)
+  if (redirect && redirect !== slug) return { tenant, index, salon: null, brand: null, redirect }
   // A page only for a listed brand with `hasPage` (K3-KATALOG §6): Ingenico, PRO-KOM → 404.
   const brand = brandPageHref(index, slug) ? await getBrandView(tenant.id, slug) : null
-  return { tenant, index, brand }
+  return { tenant, index, salon: null, brand, redirect: null }
+}
+
+/** Cut on a word to `limit` characters with „…”; without a space in reach, on the limit. */
+function cut(text: string, limit: number) {
+  if (text.length <= limit) return text
+  const space = text.lastIndexOf(' ', limit - 1)
+  return `${text.slice(0, space > 0 ? space : limit - 1)}…`
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { tenant, brand } = await load(params)
-  if (!brand) return {}
+  const { tenant, salon, brand } = await load(params)
+  const page = salon
+    ? {
+        title: salonTitle(salon.h1a, salon.h1b),
+        description: salon.lead ? cut(salon.lead, DESCRIPTION_LIMIT) : undefined,
+        slug: salon.slug,
+      }
+    : brand
+      ? {
+          title: brandTitle(brand.name, brand.shortDescription),
+          description: brand.shortDescription ?? undefined,
+          slug: brand.slug,
+        }
+      : null
+  if (!page) return {}
   const settings = await getSiteSettings(tenant.id)
-  const title = brandTitle(brand.name, brand.shortDescription)
-  const description = brand.shortDescription ?? undefined
-  const canonical = brandHref(brand.slug)
+  const canonical = brandHref(page.slug)
   return {
-    title,
-    description,
+    title: page.title,
+    description: page.description,
     alternates: { canonical },
     robots: robotsMeta(getEnv().SITE_ENV),
     openGraph: {
@@ -68,42 +102,34 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       locale: 'pl_PL',
       siteName: tenant.name,
       url: canonical,
-      title,
-      description,
+      title: page.title,
+      description: page.description,
       // `openGraph` of a page replaces the layout's whole: the site's picture, as on the others.
       images: ogImages(settings?.seo.ogImage ?? null),
     },
   }
 }
 
-/**
- * Brand page `/marki/[slug]` (K3-KATALOG §6, spec. §6.11, `k3/screens/Web-Marka*`): the brand,
- * its description, lines and facts, then its products with a category filter (from 2
- * categories). A brand with a showroom (Lenovo, Dell — K31c, K31-ZMIANY §5) gets it instead:
- * segments, series, the comparison, the wizard, the film of a series and services.
- */
 export default async function BrandPage({ params }: Props) {
-  const { tenant, index, brand } = await load(params)
-  if (!index || !brand) notFound()
-  const [settings, origin, showroom] = await Promise.all([
-    getSiteSettings(tenant.id),
-    requestOrigin(),
-    getShowroomView(tenant.id, brand.slug),
-  ])
-  const callback = settings?.biznes?.promises.callbackTime ?? null
+  const { tenant, index, salon, brand, redirect } = await load(params)
+  if (redirect) permanentRedirect(brandHref(redirect))
+  if (!index) notFound()
+  if (salon) return <Salon tenantId={tenant.id} index={index} view={salon} />
+  if (!brand) notFound()
 
+  const [settings, origin] = await Promise.all([getSiteSettings(tenant.id), requestOrigin()])
+  const callback = settings?.biznes?.promises.callbackTime ?? null
   const products = brandProducts(index, brand.slug)
   const crumbs: Crumb[] = [
     { name: 'Strona główna', href: '/' },
-    { name: 'Oferta', href: CATALOG_PATH },
+    { name: 'Marki', href: BRANDS_PATH },
     { name: brand.name, href: brandHref(brand.slug) },
   ]
-  const url = origin + brandHref(brand.slug)
   const logo = brand.logo ? pickSource(brand.logo.sources, JSON_LD_LOGO_WIDTH) : null
   const jsonLd = [
     brandJsonLd({
       name: brand.name,
-      url,
+      url: origin + brandHref(brand.slug),
       description: brand.shortDescription,
       logo: logo && new URL(logo, origin).toString(),
       website: brand.website,
@@ -111,62 +137,17 @@ export default async function BrandPage({ params }: Props) {
     breadcrumbJsonLd(crumbs.map(({ name, href }) => ({ name, url: origin + href }))),
   ]
 
-  // The client island gets only this brand's products, not the whole catalog.
-  const islandIndex: CatalogIndex = {
-    ...index,
-    products,
-    industries: [],
-    pages: [],
-    search: { synonyms: {}, stopWords: [], popular: [] },
-  }
-
-  const jsonLdScript = (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
-    />
-  )
-
-  // Only the cards listed on this site: an unpublished card never shows in the showroom.
-  const listed = showroom && listShowroom(showroom, new Set(products.map(({ slug }) => slug)))
-  if (listed) {
-    const bySlug = new Map(products.map((product) => [product.slug, product]))
-    const hero = listed.hero.length > 0 ? listed.hero : products.map(({ slug }) => slug)
-    const photos = hero.flatMap((slug) => bySlug.get(slug)?.image ?? []).slice(0, 3)
-    const phoneLabel = settings?.phone ?? null
-    const tel = phoneLabel ? toTelHref(phoneLabel) : null
-    return (
-      <>
-        {jsonLdScript}
-        <ShowroomHero
-          brand={brand}
-          view={listed}
-          crumbs={crumbs}
-          stats={showroomStats(listed)}
-          photos={photos}
-        />
-        <Container wide className="flex flex-col gap-16 pt-10 pb-14 sm:gap-24 sm:pt-14 sm:pb-20">
-          <ShowroomBody
-            brand={brand.name}
-            view={listed}
-            index={islandIndex}
-            poster={photos[0] ?? null}
-          />
-          <ShowroomServices services={listed.services} />
-          <ShowroomCtaBand phone={phoneLabel && tel ? { label: phoneLabel, href: tel } : null} />
-        </Container>
-      </>
-    )
-  }
-
   return (
     <>
-      {jsonLdScript}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
+      />
       <BrandHero brand={brand} crumbs={crumbs} count={products.length} />
       <BrandAbout brand={brand} />
       <Container wide className="pb-14 sm:pb-20">
         <CategoryGrid
-          index={islandIndex}
+          index={islandIndex(index, products)}
           help={DEFAULTS.help}
           printersHref={null}
           segments="category"
@@ -181,6 +162,116 @@ export default async function BrandPage({ params }: Props) {
         lead={DEFAULTS.contact.lead}
         callbackTime={callback}
       />
+    </>
+  )
+}
+
+/** The client islands get only the products they show, not the whole catalog. */
+function islandIndex(index: CatalogIndex, products: CatalogIndex['products']): CatalogIndex {
+  return {
+    ...index,
+    products,
+    industries: [],
+    pages: [],
+    search: { synonyms: {}, stopWords: [], popular: [] },
+  }
+}
+
+/**
+ * Salon 2.0 (K4-FINAL §6, board „SALON MARKI 2.0”): hero → recommended models with the table →
+ * more models → full offer → „Pomóż mi wybrać” → service → rollout → about the brand → FAQ.
+ * A block without data has no section.
+ */
+async function Salon({
+  tenantId,
+  index,
+  view,
+}: {
+  tenantId: number
+  index: CatalogIndex
+  view: SalonView
+}) {
+  const [settings, origin] = await Promise.all([getSiteSettings(tenantId), requestOrigin()])
+  const url = origin + brandHref(view.slug)
+  const brand = view.multi ? view.name : (view.brands[0]?.name ?? view.name)
+  const crumbs: Crumb[] = [
+    { name: 'Strona główna', href: '/' },
+    { name: 'Marki', href: BRANDS_PATH },
+    { name: view.name, href: brandHref(view.slug) },
+  ]
+  const jsonLd = [
+    ...view.brands.map((item) =>
+      brandJsonLd({
+        name: item.name,
+        url,
+        description: item.description,
+        logo: item.logo && new URL(item.logo.url, origin).toString(),
+        website: item.website,
+      }),
+    ),
+    ...(view.faq.length > 0 ? [faqJsonLd(view.faq)] : []),
+    breadcrumbJsonLd(crumbs.map(({ name, href }) => ({ name, url: origin + href }))),
+  ]
+  const phoneLabel = settings?.phone ?? null
+  const tel = phoneLabel ? toTelHref(phoneLabel) : null
+  const phone = phoneLabel && tel ? { label: phoneLabel, href: tel } : null
+  const contact = [phoneLabel, settings?.email].filter((value): value is string => Boolean(value))
+  const shown = [
+    ...new Map(
+      view.family.flatMap((tab) => tab.products).map((product) => [product.slug, product]),
+    ).values(),
+  ]
+  const family = familyHeading(view)
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
+      />
+      <Container wide className="flex flex-col gap-16 pt-6 pb-14 sm:gap-24 sm:pt-8 sm:pb-20">
+        <div>
+          <SalonHero view={view} crumbs={crumbs} />
+        </div>
+        {view.plans && (
+          <SalonPlans
+            id="oferta"
+            section={view.plans}
+            compare={view.compare}
+            brand={brand}
+            eyebrow={view.headings.offer}
+          />
+        )}
+        {view.morePlans && (
+          <SalonPlans
+            id="oferta2"
+            section={view.morePlans}
+            compare={view.plans ? null : view.compare}
+            brand={brand}
+            eyebrow={view.headings.offer}
+          />
+        )}
+        {view.family.length > 0 && (
+          <section
+            id="oferta-cala"
+            aria-labelledby="oferta-cala-h"
+            className="flex scroll-mt-28 flex-col gap-8"
+          >
+            <SectionHead id="oferta-cala-h" eyebrow={family.eyebrow} title={family.title} note />
+            <SalonFamily family={view.family} index={islandIndex(index, shown)} />
+          </section>
+        )}
+        {view.chooser && <SalonChooser chooser={view.chooser} brand={brand} />}
+        {view.service && <SalonService service={view.service} phone={phone} />}
+        {view.rollout && <SalonRollout rollout={view.rollout} />}
+        {view.about && <SalonAbout about={view.about} headings={view.headings} />}
+        <SalonFaq
+          faq={view.faq}
+          headings={view.headings}
+          hasPlans={Boolean(view.plans)}
+          contact={contact}
+        />
+      </Container>
     </>
   )
 }

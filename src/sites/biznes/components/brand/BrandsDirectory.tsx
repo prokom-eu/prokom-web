@@ -100,7 +100,7 @@ export function BrandsDirectory({
                     href={tile.href}
                     className="flex w-full items-center gap-4 rounded-2xl bg-white/6 p-3 ring-1 ring-white/15 ring-inset transition-colors hover:bg-white/10"
                   >
-                    <Logo tile={tile} className="h-14 w-[86px] shrink-0 px-2" />
+                    <Logo tile={tile} eager className="h-14 w-[86px] shrink-0 px-2" />
                     <span className="flex min-w-0 flex-1 flex-col gap-0.5">
                       <span className="text-[11px] leading-tight font-black tracking-[0.08em] text-accent-on-dark uppercase">
                         {partnerStatusLabel(tile.status)}
@@ -232,7 +232,16 @@ function Tab({
   )
 }
 
-function Logo({ tile, className }: { tile: BrandTile; className: string }) {
+function Logo({
+  tile,
+  className,
+  eager = false,
+}: {
+  tile: BrandTile
+  className: string
+  /** The header cards: above the fold. */
+  eager?: boolean
+}) {
   return tile.logo ? (
     <span className={cx(PLATE, className)}>
       {/* The name is next to it: the logo is decoration here. */}
@@ -242,6 +251,7 @@ function Logo({ tile, className }: { tile: BrandTile; className: string }) {
         width={tile.logo.width}
         height={tile.logo.height}
         unoptimized
+        loading={eager ? 'eager' : 'lazy'}
         className="max-h-[60%] w-auto max-w-full object-contain"
       />
     </span>

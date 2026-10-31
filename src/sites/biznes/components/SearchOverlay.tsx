@@ -21,7 +21,7 @@ import { Icon } from '@/components/ui/Icon'
 import { ICON_BUTTON } from '@/components/ui/iconButton'
 import type { CatalogIndex, IndexProduct } from '@/lib/catalog/catalogIndex'
 import { useCatalogIndex } from '@/lib/catalog/useCatalogIndex'
-import { brandHref } from '@/lib/catalog/brand'
+import { brandHref, brandTarget } from '@/lib/catalog/brand'
 import { productHref } from '@/lib/catalog/card'
 import type { IconName } from '@/lib/catalog/options'
 import { plural } from '@/lib/plural'
@@ -324,8 +324,9 @@ function EmptySearch({
   })
   const logos = SHOWROOM_LOGOS.flatMap((slug) => {
     const brand = index.brands.find((item) => item.slug === slug)
-    // Only brands with their page (`/marki/[slug]`) — others would lead to a 404 until K4f.
-    return brand?.logo && brand.page ? [{ ...brand, logo: brand.logo }] : []
+    // Only brands with a salon or a page — the others have nowhere to lead.
+    const href = brand && brandTarget(brand)
+    return brand?.logo && href ? [{ ...brand, logo: brand.logo, href }] : []
   })
   return (
     <div className="flex flex-col gap-5 p-5 sm:p-6">
@@ -393,7 +394,7 @@ function EmptySearch({
           <ul className="flex flex-wrap gap-2">
             {logos.map((brand) => (
               <li key={brand.slug}>
-                <Link href={brandHref(brand.slug)} data-result className={LOGO}>
+                <Link href={brand.href} data-result className={LOGO}>
                   <Image
                     src={brand.logo.url}
                     alt={brand.name}
@@ -513,7 +514,11 @@ function Found({
             <ul className="flex flex-wrap gap-2">
               {brands.map((brand) => (
                 <li key={brand.slug}>
-                  <Link href={brandHref(brand.slug)} data-result className={LOGO}>
+                  <Link
+                    href={brandTarget(brand) ?? brandHref(brand.slug)}
+                    data-result
+                    className={LOGO}
+                  >
                     {brand.logo ? (
                       <Image
                         src={brand.logo.url}
