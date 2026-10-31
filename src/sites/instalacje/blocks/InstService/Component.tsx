@@ -25,16 +25,31 @@ import { AntennaAim } from '../../widzety/anteny/AntennaAim'
 import { AlarmySections } from '../../widzety/alarmy/AlarmySections'
 import { HouseDemo } from '../../widzety/alarmy/HouseDemo'
 import { AntenySections } from '../../widzety/anteny/AntenySections'
+import { DostepSections } from '../../widzety/dostep/DostepSections'
+import { LockDemo } from '../../widzety/dostep/DostepWidgets'
+import { SieciSections } from '../../widzety/sieci/SieciSections'
+import { CoverageMap } from '../../widzety/sieci/SieciWidgets'
+import { BuildingScene } from '../../widzety/teletechnika/BuildingScene'
+import { TeletechnikaSections } from '../../widzety/teletechnika/TeletechnikaSections'
+import { teletechnika } from '../../dane/teletechnika'
 import { MonitoringSections } from '../../widzety/monitoring/MonitoringSections'
 import { NvrDemo } from '../../widzety/monitoring/NvrDemo'
 
 type Props = { block: InstServiceBlockData; tenantId: number }
 
 /** What a service page adds to the shared sections: its widget and its own sections. */
-type ServiceLayout = { widget: ReactNode; sections: ReactNode; folded: readonly string[] }
+type ServiceLayout = {
+  widget: ReactNode
+  sections: ReactNode
+  folded: readonly string[]
+  /** Without the warranty section (Teletechnika: not in the prototype's page). */
+  guarantee?: false
+  /** Button of the CTA band instead of the planner (Teletechnika: to the quote form). */
+  bandButton?: { label: string; href: string }
+}
 type LayoutContext = { planHref: string }
 
-/** Pages built so far (I4, I7); the other services show the shared sections until I8–I9. */
+/** Pages built so far (I4, I7, I8); the other services show the shared sections until I9. */
 const LAYOUTS: Partial<Record<string, (ctx: LayoutContext) => ServiceLayout>> = {
   kam: ({ planHref }) => ({
     widget: <NvrDemo />,
@@ -45,6 +60,23 @@ const LAYOUTS: Partial<Record<string, (ctx: LayoutContext) => ServiceLayout>> = 
     widget: <HouseDemo />,
     sections: <AlarmySections />,
     folded: ['cena', 'faq'],
+  }),
+  kd: () => ({
+    widget: <LockDemo />,
+    sections: <DostepSections />,
+    folded: ['cena', 'faq'],
+  }),
+  wifi: () => ({
+    widget: <CoverageMap />,
+    sections: <SieciSections />,
+    folded: ['cena', 'faq'],
+  }),
+  tel: () => ({
+    widget: <BuildingScene />,
+    sections: <TeletechnikaSections />,
+    folded: ['faq'],
+    guarantee: false,
+    bandButton: teletechnika.bandButton,
   }),
   ant: () => ({
     widget: <AntennaAim />,
@@ -85,6 +117,7 @@ export async function InstServiceBlock({ block, tenantId }: Props) {
     eyebrow: service.cta?.eyebrow || navigation.ctaBand.eyebrow,
     title: service.cta?.heading || navigation.ctaBand.title,
     text: service.cta?.text || navigation.ctaBand.text,
+    button: layout?.bandButton ?? navigation.ctaBand.button,
   }
 
   return (
@@ -125,10 +158,12 @@ export async function InstServiceBlock({ block, tenantId }: Props) {
         widget={layout?.widget}
       />
       {layout?.sections}
-      <GuaranteeSection
-        warrantyMonths={settings.warrantyMonths}
-        responseText={settings.responseText}
-      />
+      {layout?.guarantee !== false && (
+        <GuaranteeSection
+          warrantyMonths={settings.warrantyMonths}
+          responseText={settings.responseText}
+        />
+      )}
       <Packages
         intro={service.packagesIntro}
         packages={service.packages}
