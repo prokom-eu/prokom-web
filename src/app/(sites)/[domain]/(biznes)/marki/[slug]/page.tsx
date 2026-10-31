@@ -67,8 +67,12 @@ async function load(params: Props['params']) {
   return { tenant, index, salon: null, brand, redirect: null }
 }
 
-const cut = (text: string, limit: number) =>
-  text.length <= limit ? text : `${text.slice(0, text.lastIndexOf(' ', limit - 1))}…`
+/** Cut on a word to `limit` characters with „…”; without a space in reach, on the limit. */
+function cut(text: string, limit: number) {
+  if (text.length <= limit) return text
+  const space = text.lastIndexOf(' ', limit - 1)
+  return `${text.slice(0, space > 0 ? space : limit - 1)}…`
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { tenant, salon, brand } = await load(params)

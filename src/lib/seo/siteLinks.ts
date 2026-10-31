@@ -6,6 +6,7 @@ import { categoryHref, subcategoryHref } from '../catalog/category'
 import { BRANDS_PATH, CATALOG_PATH } from '../catalog/filters'
 import { industryHref } from '../catalog/industry'
 import { HOME_SLUG, pagePath } from '../pages/slug'
+import { joinNames } from '../partners/badges'
 import { NEWS_PATH, postHref } from '../posts/list'
 import { CATALOG_PATH as SOLUTIONS_PATH } from '../software/catalog'
 import { industryPageHref } from '../software/industryPage'
@@ -227,7 +228,7 @@ export function brandLinks(brands: CatalogIndex['brands']): { slug: string; name
     if (brand.salon) salons.set(brand.salon, [...(salons.get(brand.salon) ?? []), brand.name])
   }
   return [
-    ...[...salons].map(([slug, names]) => ({ slug, name: names.join(' i ') })),
+    ...[...salons].map(([slug, names]) => ({ slug, name: joinNames(names) })),
     ...brands.filter((brand) => !brand.salon && brand.page),
   ]
 }

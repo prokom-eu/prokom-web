@@ -179,9 +179,9 @@ describe('buildCatalogIndex tenant isolation of relations', () => {
     const withSalons = buildCatalogIndex({
       ...source(relations),
       salons: [
-        { slug: 'inny', brandIds: [99] },
-        { slug: 'druk', brandIds: [31, 30] },
-        { slug: 'drugi', brandIds: [30] },
+        { slug: 'inny', brandIds: [99], chooser: true },
+        { slug: 'druk', brandIds: [31, 30], chooser: false },
+        { slug: 'drugi', brandIds: [30], chooser: true },
       ],
     })
     expect(withSalons.brands[0]).toMatchObject({ slug: 'marka', salon: 'druk' })
@@ -421,7 +421,7 @@ describe('searchIndex (`GET /api/catalog-index`, K31c)', () => {
   })
 })
 
-describe('buildCatalogIndex showroom brands and films (K31c)', () => {
+describe('buildCatalogIndex salon chooser (K4f) and films (K31c)', () => {
   const brand = (id: number, slug: string, series: (number | { id: number })[]) =>
     ({
       id,
@@ -434,29 +434,38 @@ describe('buildCatalogIndex showroom brands and films (K31c)', () => {
         segments: [{ name: 'Laptopy', key: 'laptopy', series: [{ name: 'S', products: series }] }],
       },
     }) as unknown as Partner
-  const build = (products: Partial<Product>[]) =>
-    buildCatalogIndex({
-      tenantId: TENANT,
-      products: products.map((fields, position) => ({
-        id: position + 1,
-        slug: `p${position + 1}`,
-        name: `P${position + 1}`,
-        kind: 'device',
-        categories: [],
-        ...fields,
-      })) as Product[],
+  const source = (products: Partial<Product>[]): CatalogSource => ({
+    tenantId: TENANT,
+    products: products.map((fields, position) => ({
+      id: position + 1,
+      slug: `p${position + 1}`,
+      name: `P${position + 1}`,
+      kind: 'device',
       categories: [],
-      groups: [],
-      industries: [],
-      pages: [],
-      settings: null,
-    })
+      ...fields,
+    })) as Product[],
+    categories: [],
+    groups: [],
+    industries: [],
+    pages: [],
+    settings: null,
+  })
+  const build = (products: Partial<Product>[]) => buildCatalogIndex(source(products))
 
-  it('a brand is a showroom only while a card of its showroom is listed', () => {
+  it('a brand leads to „Pomóż mi wybrać” only when its salon 2.0 has it (K4f)', () => {
     const lenovo = brand(30, 'lenovo', [1])
-    const dell = brand(31, 'dell', [{ id: 99 }])
-    const index = build([{ brand: lenovo }, { brand: dell }])
-    expect(index.brands.find((item) => item.slug === 'lenovo')).toMatchObject({ showroom: true })
+    const dell = brand(31, 'dell', [1])
+    const index = buildCatalogIndex({
+      ...source([{ brand: lenovo }, { brand: dell }]),
+      salons: [
+        { slug: 'lenovo', brandIds: [30], chooser: true },
+        { slug: 'dell', brandIds: [31], chooser: false },
+      ],
+    })
+    expect(index.brands.find((item) => item.slug === 'lenovo')).toMatchObject({
+      salon: 'lenovo',
+      showroom: true,
+    })
     expect(index.brands.find((item) => item.slug === 'dell')).not.toHaveProperty('showroom')
   })
 

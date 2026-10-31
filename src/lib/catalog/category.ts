@@ -259,23 +259,28 @@ export function categoryIndustries(
 }
 
 /**
- * „Nie wiesz, który?” → the wizard of a showroom (`/marki/<marka>#dobor`): the chosen brand when
- * it has a showroom, else the showroom brand with most cards here; `null` without any.
+ * „Nie wiesz, który?” → „Pomóż mi wybrać” of a salon 2.0 (`/marki/<salon>#dobor`): the salon of
+ * the chosen brand when it has one, else of the brand with most cards here; `null` without any.
  */
 export function showroomHelpHref(
   products: readonly IndexProduct[],
   index: Pick<CatalogIndex, 'brands'>,
   chosen: readonly string[],
 ): string | null {
-  const showrooms = new Set(index.brands.filter((brand) => brand.showroom).map(({ slug }) => slug))
+  const salonOf = new Map(
+    index.brands.flatMap((brand) =>
+      brand.showroom && brand.salon ? [[brand.slug, brand.salon] as const] : [],
+    ),
+  )
   const counts = new Map<string, number>()
   for (const { brand } of products)
-    if (brand && showrooms.has(brand)) counts.set(brand, (counts.get(brand) ?? 0) + 1)
+    if (brand && salonOf.has(brand)) counts.set(brand, (counts.get(brand) ?? 0) + 1)
   const pick =
     chosen.find((slug) => counts.has(slug)) ??
     [...counts].sort((a, b) => b[1] - a[1])[0]?.[0] ??
     null
-  return pick ? `/marki/${encodeURIComponent(pick)}#dobor` : null
+  const salon = pick && salonOf.get(pick)
+  return salon ? `/marki/${encodeURIComponent(salon)}#dobor` : null
 }
 
 /** Columns the „Nie wiesz, którą wybrać?” card takes: the rest of the last row, or a full row. */

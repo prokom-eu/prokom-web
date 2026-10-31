@@ -118,7 +118,7 @@ export const getCatalogIndex = cache((tenantId: number): Promise<CatalogIndex> =
             where: inTenant,
             limit: MAX_RECORDS,
             sort: 'order',
-            select: { slug: true, brands: true },
+            select: { slug: true, brands: true, chooser: { options: true } },
             ...read,
           }),
         ])
@@ -137,7 +137,11 @@ export const getCatalogIndex = cache((tenantId: number): Promise<CatalogIndex> =
             item.mandatory !== false && typeof item.product === 'number' ? [item.product] : [],
           ),
         })),
-        salons: salons.docs.map(({ slug, brands }) => ({ slug, brandIds: idsOf(brands) })),
+        salons: salons.docs.map(({ slug, brands, chooser }) => ({
+          slug,
+          brandIds: idsOf(brands),
+          chooser: (chooser?.options ?? []).length > 0,
+        })),
       })
     },
     ['catalog-index', String(tenantId)],
