@@ -76,6 +76,19 @@ describe('Software wizard form (SW7)', () => {
     })
   })
 
+  it('asks for the kind of contact the preference names (board: 9 digits of a phone)', () => {
+    expect(checkSoftwareWizardRequired(values, 'email')).toEqual({})
+    expect(checkSoftwareWizardRequired(values, 'phone')).toEqual({ contact: true })
+    expect(checkSoftwareWizardRequired({ ...values, contact: '600 100 200' }, 'phone')).toEqual({})
+    expect(checkSoftwareWizardRequired({ ...values, contact: '600 100' }, 'phone')).toEqual({
+      contact: true,
+    })
+    expect(checkSoftwareWizardRequired({ ...values, contact: '600 100 200' }, 'email')).toEqual({
+      contact: true,
+    })
+    expect(checkSoftwareWizardRequired({ ...values, contact: '600 100 200' }, 'any')).toEqual({})
+  })
+
   it('sends the contact as an e-mail or a phone, the answers and a valid body', () => {
     const href = 'https://software.localhost:3000/dobierz?potrzeba=firm'
     const email = buildSoftwareWizardBody(values, {

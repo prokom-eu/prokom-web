@@ -234,7 +234,7 @@ test.describe('Software start page', () => {
     await page.goto(site(HOST))
     const wizard = page.locator('#dobierz')
     await expect(wizard.getByRole('heading', { level: 2 })).toHaveText(
-      'Kliknij kilka razy. Zobacz, co dla Ciebie zbudujemy.',
+      'Kilka kliknięć. Cena, termin i podgląd od razu.',
     )
     await expect(wizard.getByRole('heading', { level: 3 }).first()).toBeVisible()
   })
@@ -376,9 +376,7 @@ test.describe('Software start page — contact form', () => {
     const section = contact(page)
     await send(page).click()
     await expect(section.getByLabel('Opisz krótko, po swojemu')).toBeFocused()
-    await expect(
-      section.getByText('Podaj telefon albo e-mail, żebyśmy mogli wysłać wycenę.').first(),
-    ).toBeVisible()
+    await expect(section.getByText('Wpisz telefon albo adres e-mail.').first()).toBeVisible()
 
     // stany/77: everything filled but the consent.
     // The radio is visually hidden; its label card is what people click.
@@ -390,7 +388,7 @@ test.describe('Software start page — contact form', () => {
     await send(page).click()
     await expect(section.getByRole('checkbox', { name: /Wyrażam zgodę/ })).toBeFocused()
     await expect(
-      section.getByText('Zaznacz zgodę na kontakt w sprawie wyceny.').first(),
+      section.getByText('Zaznacz zgodę, bez niej nie możemy odpowiedzieć.').first(),
     ).toBeVisible()
 
     await section.getByRole('checkbox', { name: /Wyrażam zgodę/ }).check()

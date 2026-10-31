@@ -45,6 +45,7 @@ export function TabBar({ items, homeHrefs, onMenu, menuOpen }: Props) {
   return (
     <nav
       aria-label="Pasek nawigacji"
+      data-tab-bar
       className="fixed inset-x-2.5 bottom-[calc(10px+env(safe-area-inset-bottom))] z-40 flex items-stretch rounded-[26px] border border-border bg-header-bg px-1 backdrop-blur-md backdrop-saturate-150 min-[1081px]:hidden"
     >
       {items.map(([label, href], i) => {

@@ -52,7 +52,7 @@ describe('cardPrice', () => {
   it('follows the templates of the panel', () => {
     const price = cardPrice(solution({ priceFrom: 999 }), {
       ...DEFAULT_PRICE_DISPLAY,
-      templateFrom: 'już od {cena} zł',
+      template: 'już od {cena} zł',
       termFallback: 'termin po rozmowie',
     })
     expect(price.head).toEqual({ before: 'już od', amount: '999', after: 'zł' })

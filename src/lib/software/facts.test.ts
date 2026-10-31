@@ -37,6 +37,17 @@ describe('resolveText', () => {
     expect(resolveText('Audyt od {cena:szybki-audyt}.', context()).text).toBe('Audyt od 0 zł.')
   })
 
+  it('puts the „od” term of a solution in place of {termin:<slug>}', () => {
+    const terms = { 'sklep-internetowy': 'od 5 tygodni', 'aplikacja-na-telefon': null }
+    expect(resolveText('Sklep, {termin:sklep-internetowy}', context({ terms })).text).toBe(
+      'Sklep, od 5 tygodni',
+    )
+    expect(resolveText('{termin:aplikacja-na-telefon}', context({ terms })).missing).toEqual([
+      '{termin:aplikacja-na-telefon}',
+    ])
+    expect(resolveText('{termin:sklep-internetowy}', context()).missing).toHaveLength(1)
+  })
+
   it('reports every token it cannot fill and keeps it visible', () => {
     const result = resolveText(
       '[NIEZNANY] · {cena:aplikacja-na-telefon} · {cena:nie-ma-takiego} · {termin}',

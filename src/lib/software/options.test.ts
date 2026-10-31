@@ -10,7 +10,6 @@ import {
   INDUSTRY_GROUPS,
   SITUATIONS,
   SOLUTION_CATEGORIES,
-  SOLUTION_SIZES,
   WIZARD_FIRMS,
 } from './options'
 
@@ -39,10 +38,6 @@ describe('Software options match the seed package (v20)', () => {
   it('has one card gradient key per gradient of the seed', () => {
     const used = new Set(rozwiazania.items.map((item) => item.cardGradient).filter(Boolean))
     expect(used.size).toBe(CARD_GRADIENTS.length)
-  })
-
-  it('has the wizard sizes', () => {
-    expect([...SOLUTION_SIZES]).toEqual(kreator.sizes.map((size) => size.id))
   })
 
   it('has the kinds of business of the wizard, with their names', () => {

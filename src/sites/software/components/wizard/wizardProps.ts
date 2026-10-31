@@ -31,20 +31,28 @@ export async function loadWizardProps(
   ])
   if (!rules) return null
 
+  // `{cena:<slug>}` / `{termin:<slug>}` in the rules (shop hint, sentences) — published only.
   const context: TextContext = {
     tenantId,
     facts,
-    prices: {},
+    prices: Object.fromEntries(index.solutions.map((s) => [s.slug, s.priceFrom])),
+    terms: Object.fromEntries(index.solutions.map((s) => [s.slug, s.leadTime])),
     strict: getEnv().SITE_ENV === 'production',
   }
-  // Only the solutions the results are priced with, published on this site.
+  // Only the solutions the results and add-ons are priced with, published on this site.
   const wanted = new Set(wizardSolutionSlugs(rules))
   const solutions: Record<string, WizardSolution> = Object.fromEntries(
     index.solutions
       .filter((solution) => wanted.has(solution.slug))
-      .map(({ slug, name, priceFrom, leadTime, priceMonthly }) => [
+      .map(({ slug, name, priceFrom, leadTime, priceMonthly, levels }) => [
         slug,
-        { name, priceFrom, leadTime, priceMonthly },
+        {
+          name,
+          priceFrom,
+          leadTime,
+          priceMonthly,
+          levels: levels.map((level) => ({ name: level.name, price: level.price })),
+        },
       ]),
   )
   const phone = settings?.phone ?? null

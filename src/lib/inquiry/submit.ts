@@ -3,8 +3,9 @@ import type { Inquiry } from '@/payload-types'
 import type { Wizard } from '../catalog/wizard'
 import { buildKit, parseWizardAnswers, proposedSlugs, wizardSummary } from '../catalog/wizardKit'
 import { errorFields, log } from '../log'
-import type { SoftwareWizard } from '../software/wizard'
+import type { ContactField, SoftwareWizard } from '../software/wizard'
 import {
+  addOnSlugsOf,
   contactPrefOf,
   needOf,
   parseSoftwareAnswers,
@@ -144,6 +145,21 @@ type ComposedWizard = {
   message?: string
   preferredContact?: InquiryInput['preferredContact']
   auditUrl?: string
+  /** Software: what the chosen contact preference needs (`contactPrefs[].field`). */
+  contactField?: ContactField
+}
+
+/**
+ * The contact the wizard's preference needs, checked on the server too (the browser asks for it
+ * first): a phone of at least 9 digits for „Telefon”, an e-mail for „E-mail”. `null` = fine.
+ */
+function missingContact(
+  field: ContactField | undefined,
+  input: { phone?: string; email?: string },
+): 'phone' | 'email' | null {
+  if (field === 'phone' && (input.phone ?? '').replace(/\D/g, '').length < 9) return 'phone'
+  if (field === 'email' && !input.email) return 'email'
+  return null
 }
 
 /** `stara.pl` → `https://stara.pl/`; anything that is not a web address → `undefined`. */
@@ -159,7 +175,7 @@ export function siteUrl(text: string): string | undefined {
 
 /**
  * The Software wizard's answers as an inquiry (spec. §6.3): checked against this site's rules,
- * the recommended solution as the item (published, this tenant), the answers named for people,
+ * the recommended solution and the added add-ons as items (published, this tenant), the answers named for people,
  * the message written here and the contact preference mapped — or `null` when the answers do
  * not fit the rules (or there are none).
  */
@@ -171,19 +187,22 @@ async function composeSoftwareWizard(
   const rules = await deps.findSoftwareWizard(tenantId)
   const answers = rules ? parseSoftwareAnswers(rules, input) : null
   if (!rules || !answers) return null
-  const slug = rules.resultToSolutionSlug[resultIdOf(rules, answers)] ?? null
-  const solutions = slug ? await deps.findSolutions(tenantId, [slug]) : []
-  const items = solutions.map((solution) => ({
-    solution: solution.id,
-    nameSnapshot: solution.name,
-    quantity: 1,
-  }))
+  // The recommended solution first, then the added add-ons (each solution once).
+  const result = rules.resultToSolutionSlug[resultIdOf(rules, answers)] ?? null
+  const slugs = [...new Set([...(result ? [result] : []), ...addOnSlugsOf(rules, answers)])]
+  const found = slugs.length > 0 ? await deps.findSolutions(tenantId, slugs) : []
+  const bySlug = new Map(found.map((solution) => [solution.slug, solution]))
+  const items = slugs.flatMap((slug) => {
+    const solution = bySlug.get(slug)
+    return solution ? [{ solution: solution.id, nameSnapshot: solution.name, quantity: 1 }] : []
+  })
   const when = rules.whens.find((option) => option.id === answers.when)?.n
   return {
     items,
     summary: softwareWizardSummary(rules, answers),
     message: wizardMessage(rules, answers),
     preferredContact: contactPrefOf(rules, answers)?.inquiryValue,
+    contactField: contactPrefOf(rules, answers)?.field,
     ...(when && { when }),
     ...(needOf(rules, answers)?.url && { auditUrl: siteUrl(answers.url) }),
   }
@@ -258,6 +277,9 @@ export async function submitInquiryWith(
       return { ok: false, error: 'unavailable' }
     }
     if (!composed) return { ok: false, error: 'invalid', fields: ['wizard'] }
+    // „Zadzwonimy” needs a phone, „napiszemy” an e-mail (the field of the chosen preference).
+    const contactError = missingContact(composed.contactField, input)
+    if (contactError) return { ok: false, error: 'invalid', fields: [contactError] }
     items = composed.items
     wizard = composed.summary
     deadline = composed.when ?? deadline

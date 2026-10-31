@@ -6,7 +6,8 @@ import { formatPrice } from './price'
  * - `[KLUCZ]` — a fact from `SiteSettings.software.facts` (uppercase key, one value per site);
  * - `{termin}` — the term of the solution the text belongs to (`Solutions.leadTime`);
  * - `{cena:<slug>}` — the „od” price of that solution, e.g. „4 990 zł” („od”/„netto” stay in
- *   the sentence).
+ *   the sentence);
+ * - `{termin:<slug>}` — the „od” term of that solution („od 5 tygodni”).
  * Other templates (`{cena}`, `{kontakt}`, `{n}` of the wizard) are left for their components.
  */
 export type TextContext = {
@@ -15,6 +16,8 @@ export type TextContext = {
   facts: Readonly<Record<string, string>>
   /** „Od” prices (`priceFrom`) of the tenant's solutions by slug; `null` = no price. */
   prices: Readonly<Record<string, number | null>>
+  /** „Od” terms (`leadTime`) of the tenant's solutions by slug, for `{termin:<slug>}`. */
+  terms?: Readonly<Record<string, string | null>>
   /** Term of the solution the text belongs to; absent outside solution texts. */
   term?: string | null
   /** Production (`SITE_ENV=production`): a text with a missing value is not shown at all. */
@@ -26,8 +29,10 @@ const FACT_KEY_SOURCE = String.raw`[A-ZĄĆĘŁŃÓŚŹŻ][A-ZĄĆĘŁŃÓŚŹŻ
 /** A fact key as typed in the panel, without brackets: `CZAS ODPOWIEDZI`. */
 export const FACT_KEY = new RegExp(String.raw`^${FACT_KEY_SOURCE}$`)
 
+const SLUG_SOURCE = String.raw`[a-z0-9]+(?:-[a-z0-9]+)*`
+
 const TOKEN = new RegExp(
-  String.raw`\[(${FACT_KEY_SOURCE})\]|\{termin\}|\{cena:([a-z0-9]+(?:-[a-z0-9]+)*)\}`,
+  String.raw`\[(${FACT_KEY_SOURCE})\]|\{termin\}|\{cena:(${SLUG_SOURCE})\}|\{termin:(${SLUG_SOURCE})\}`,
   'g',
 )
 
@@ -37,16 +42,20 @@ export function resolveText(
   context: TextContext,
 ): { text: string; missing: string[] } {
   const missing: string[] = []
-  const filled = text.replace(TOKEN, (token, factKey?: string, priceSlug?: string) => {
-    let value: string | null = null
-    if (factKey !== undefined) value = context.facts[factKey]?.trim() || null
-    else if (priceSlug !== undefined) {
-      const price = context.prices[priceSlug]
-      value = price === null || price === undefined ? null : `${formatPrice(price)} zł`
-    } else value = context.term?.trim() || null
-    if (value === null) missing.push(token)
-    return value ?? token
-  })
+  const filled = text.replace(
+    TOKEN,
+    (token, factKey?: string, priceSlug?: string, termSlug?: string) => {
+      let value: string | null = null
+      if (factKey !== undefined) value = context.facts[factKey]?.trim() || null
+      else if (priceSlug !== undefined) {
+        const price = context.prices[priceSlug]
+        value = price === null || price === undefined ? null : `${formatPrice(price)} zł`
+      } else if (termSlug !== undefined) value = context.terms?.[termSlug]?.trim() || null
+      else value = context.term?.trim() || null
+      if (value === null) missing.push(token)
+      return value ?? token
+    },
+  )
   return { text: filled, missing }
 }
 
