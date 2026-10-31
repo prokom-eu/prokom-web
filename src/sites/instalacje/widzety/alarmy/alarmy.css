@@ -1,0 +1,782 @@
+/*
+ * Alarmy page (I7): the house cross-section in the hero (rooms, sensors, siren, app panel),
+ * alarm versions, wired or wireless, the door phone, intercoms, the holiday house. Rules of
+ * `pk.css` v4.2 for the classes of `Alarmy.body.html` not already in `monitoring.css` (one bundle
+ * for all service pages), ported by `narzedzia/przenies-css.mjs` (map `przenies-css.strony.json`),
+ * then fixed by hand: the light theme of the house (`light-dark()` for colours, a theme rule at
+ * the end for the wall and window gradients), inline styles as classes, keyframes `inst-al-`.
+ */
+[data-line='instalacje'] {
+  & .list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  & .list li {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: 15.5px;
+  }
+  & .list li i {
+    width: 26px;
+    height: 26px;
+    border-radius: 8px;
+    background: var(--accent-soft);
+    color: var(--accent-text);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    margin-top: 1px;
+  }
+  & .list li b {
+    display: block;
+  }
+  & .list li span {
+    color: var(--ink-2);
+    font-size: 14.5px;
+  }
+  & .tbl {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 15px;
+  }
+  & .tbl th,
+  & .tbl td {
+    padding: 14px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  & .tbl th {
+    font-size: 12.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    font-weight: 800;
+  }
+  & .tbl td b {
+    display: block;
+  }
+  & .tblw {
+    overflow-x: auto;
+    border-radius: 22px;
+    background: var(--card);
+    box-shadow: inset 0 0 0 1px var(--border);
+  }
+  & .glass {
+    background: var(--il-glass);
+    color: var(--inst-deep-ink);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    box-shadow:
+      inset 0 0 0 1px var(--inst-plan-num),
+      0 30px 70px -30px var(--il-glass-shadow);
+    border-radius: 22px;
+  }
+  & .ring {
+    fill: none;
+    stroke: var(--inst-plan-send-to);
+    stroke-width: 1.5;
+    opacity: 0;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: inst-al-ring 2.7s ease-out infinite;
+  }
+  & .smw {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 420px;
+    gap: 56px;
+    align-items: center;
+  }
+  & .phone {
+    width: 340px;
+    margin: 0 auto;
+    border-radius: 44px;
+    background: var(--inst-il-phone-bg);
+    padding: 12px;
+    box-shadow:
+      0 0 0 1.5px var(--inst-il-phone-sh),
+      var(--shadow);
+  }
+  /* The prototype has no box-sizing reset: min-height plus the padding (ADR-I003 §5 p. 6). */
+  & .phs {
+    box-sizing: content-box;
+    border-radius: 34px;
+    background: var(--inst-il-phs-bg);
+    color: var(--inst-deep-ink);
+    padding: 22px 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-height: 560px;
+  }
+  & .phh {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: var(--inst-il-phh-c);
+    font-weight: 700;
+  }
+  & .pht {
+    font-family: var(--font-display);
+    font-stretch: 115%;
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 1.05;
+  }
+  & .phn {
+    border-radius: 16px;
+    background: var(--inst-il-tile-bg-2);
+    padding: 12px 13px;
+    font-size: 13px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    box-shadow: inset 0 0 0 1px var(--inst-band-line);
+    animation: inst-al-fadein 0.35s ease;
+  }
+  @media (max-width: 1100px) {
+    & .smw {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 760px) {
+    & .phone {
+      width: 300px;
+    }
+    & .phs {
+      min-height: 500px;
+    }
+  }
+  & .alw {
+    position: relative;
+  }
+  & .house {
+    display: block;
+    width: 100%;
+    height: auto;
+    --hsky1: var(--inst-il-house-hsky);
+    --hsky2: var(--inst-il-house-hsky-2);
+    --hmtn: var(--inst-il-house-hmtn);
+    --hgnd: var(--inst-il-house-hgnd);
+  }
+  & .hroof {
+    fill: var(--inst-il-hroof-fill);
+  }
+  & .hwall {
+    fill: var(--inst-il-hwall-fill);
+    stroke: var(--inst-il-hwall-line);
+    stroke-width: 3;
+  }
+  /* Light theme of the prototype: black at 2% / 8% (`--inst-mask` = black). */
+  & .hroom {
+    fill: light-dark(color-mix(in srgb, var(--inst-mask) 2%, transparent), var(--inst-plan-step));
+    stroke: light-dark(color-mix(in srgb, var(--inst-mask) 8%, transparent), var(--inst-plan-line));
+    transition: fill 0.5s;
+  }
+  & .hfloor {
+    stroke: var(--inst-il-hwall-line);
+    stroke-width: 5;
+  }
+  & .hdoor {
+    fill: var(--sx-leaf);
+    stroke: var(--inst-il-hdoor-line);
+    stroke-width: 2;
+  }
+  & .hgate {
+    fill: var(--inst-il-hgate-fill);
+    stroke: var(--inst-il-hgate-line);
+    stroke-width: 2;
+  }
+  & .hgl {
+    stroke: var(--inst-il-hgate-line);
+    stroke-width: 2;
+  }
+  & .hwin {
+    fill: var(--inst-il-hwin-fill);
+    opacity: 0.75;
+    stroke: var(--inst-il-hdoor-line);
+    stroke-width: 3;
+  }
+  & .hkp {
+    fill: var(--inst-plan-card);
+    stroke: var(--inst-plan-send-to);
+    stroke-width: 2;
+  }
+  & .sring {
+    fill: none;
+    stroke: transparent;
+    stroke-width: 2;
+  }
+  & .sdot {
+    fill: var(--inst-scene-beam);
+    stroke: var(--inst-il-nvr-bg);
+    stroke-width: 2;
+  }
+  & .sir {
+    fill: var(--inst-il-sir-fill);
+    stroke: var(--inst-scene-beam);
+    stroke-width: 2;
+  }
+  & .sirw {
+    fill: none;
+    stroke: transparent;
+    stroke-width: 3;
+  }
+  & .alph {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    padding: 12px;
+    border-radius: 0;
+    min-height: 76px;
+  }
+  & .alst {
+    flex-wrap: wrap;
+  }
+  & .alapp {
+    width: 100%;
+    display: block;
+    font-size: 10.5px !important;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    opacity: 0.8;
+    margin-bottom: 2px;
+  }
+  & .alst {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 10px 12px;
+    border-radius: 14px;
+    background: var(--inst-us-stage-ring);
+  }
+  & .alst b {
+    display: block;
+    font-size: 14.5px;
+  }
+  & .alst span {
+    display: block;
+    font-size: 12px;
+    color: var(--inst-deep-lead-2);
+  }
+  & .amsg {
+    padding: 9px 11px;
+    border-radius: 12px;
+    background: var(--inst-plan-tile-2);
+    font-size: 12.5px;
+    animation: inst-al-fadein 0.35s ease;
+  }
+  & .amsg b {
+    display: block;
+    font-size: 13px;
+  }
+  & .amsg span {
+    color: var(--inst-deep-lead-2);
+  }
+  & .flow {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    position: relative;
+  }
+  & .flowc {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+  }
+  & .flowc p {
+    margin: 0;
+    color: var(--ink-2);
+    font-size: 15px;
+  }
+  & .flowc .stn {
+    position: absolute;
+    right: 20px;
+    top: 16px;
+    font-size: 34px;
+    opacity: 0.5;
+  }
+  & .vdscr {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  & .vdscr svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  & .vdl {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 4px 8px;
+    border-radius: 7px;
+    background: var(--inst-ob-shadow);
+  }
+  & .vdscr.ring {
+    box-shadow: 0 0 0 3px var(--inst-plan-send-to);
+    animation: inst-al-pulse 1.2s infinite;
+  }
+  & .vdb {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  & .vdb button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 6px;
+    border-radius: 16px;
+    border: 0;
+    background: var(--inst-il-tile-bg);
+    color: var(--inst-deep-ink);
+    font-weight: 800;
+    font-size: 12.5px;
+    cursor: pointer;
+    font-family: inherit;
+    min-height: 44px;
+  }
+  @media (max-width: 1100px) {
+    & .flow {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 760px) {
+    & .flow {
+      grid-template-columns: 1fr;
+    }
+    & .alph {
+      grid-template-columns: 1fr;
+    }
+  }
+  & .fo-l {
+    transform: translateY(-10px);
+  }
+  & .fo-c {
+    transform: translate(-150px, -10px);
+  }
+  & .fo-c .fot {
+    text-align: center;
+  }
+  & .fot.stl2 {
+    font-size: 11px;
+    font-weight: 900;
+    color: var(--inst-band-button-ink);
+  }
+  & .labres {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 14px 16px;
+    border-radius: 16px;
+    background: var(--accent-soft);
+    color: var(--ink);
+  }
+  & .labres svg {
+    color: var(--accent-text);
+    flex: none;
+    margin-top: 2px;
+  }
+  & .labres b {
+    display: block;
+    font-size: 17px;
+  }
+  & .labres span {
+    font-size: 14px;
+    color: var(--ink-soft);
+  }
+  & .labres.ok {
+    background: var(--inst-il-labres-bg);
+  }
+  & .labres:not(:has(svg)) {
+    flex-direction: column;
+    gap: 4px;
+  }
+  & .alv {
+    padding: 20px;
+    border-radius: 28px;
+  }
+  & .alvg {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+  & .alvi {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 14px;
+    border-radius: 18px;
+    background: var(--surface-2);
+    box-shadow: inset 0 0 0 1px var(--border);
+    opacity: 0.35;
+    filter: saturate(0.2);
+    transition:
+      opacity 0.4s,
+      filter 0.4s,
+      box-shadow 0.4s,
+      transform 0.4s;
+  }
+  & .alvi b {
+    display: block;
+    font-size: 14.5px;
+  }
+  & .alvi span {
+    display: block;
+    font-size: 13px;
+    color: var(--ink-2);
+    line-height: 1.4;
+    margin-top: 2px;
+  }
+  & .alvi em {
+    display: block;
+    font-style: normal;
+    font-size: 11.5px;
+    font-weight: 800;
+    color: var(--accent-text);
+    margin-top: 6px;
+  }
+  & .dlw {
+    padding: 44px;
+    border-radius: 30px;
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) 330px;
+    gap: 36px;
+    align-items: center;
+  }
+  & .dlstat {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+  & .dls {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 12px;
+    border-radius: 14px;
+    background: var(--inst-plan-tile-2);
+    box-shadow: inset 0 0 0 1px var(--inst-plan-line);
+    color: var(--inst-deep-lead-2);
+    font-size: 12.5px;
+    font-weight: 800;
+    transition: all 0.4s;
+  }
+  & .dls svg {
+    color: var(--inst-plan-accent);
+  }
+  & .dls b {
+    font-family: var(--font-display);
+    font-size: 22px;
+    color: var(--inst-deep-ink);
+  }
+  & .dlf {
+    align-items: flex-start;
+    animation: inst-al-fadeUp 0.4s ease;
+  }
+  & .dlf div b {
+    display: block;
+    font-size: 13.5px;
+  }
+  & .dlf div span {
+    font-size: 12px;
+    opacity: 0.8;
+  }
+  & .dmw {
+    display: grid;
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+    gap: 16px;
+    align-items: start;
+  }
+  & .dmg {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  & .dmc {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  & .dmq {
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: sticky;
+    top: 96px;
+  }
+  @media (max-width: 1100px) {
+    & .alvg {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    & .dlw {
+      grid-template-columns: minmax(0, 1fr);
+      padding: 28px;
+    }
+    & .dlw .phone {
+      margin: 0 auto;
+    }
+    & .dmw {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    & .dmq {
+      position: static;
+    }
+  }
+  @media (max-width: 760px) {
+    & .alvg,
+    & .dmg {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    & .dlw {
+      padding: 22px;
+    }
+    & .dlstat {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  & .alv .illbar {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  & .alv .seg {
+    max-width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  & .alv .seg button {
+    flex: none;
+  }
+  & .hgate {
+    fill: var(--inst-il-hgate-fill);
+  }
+  & .house .hwall {
+    fill: url(#gWallD);
+    stroke: var(--inst-il-house-hwall-line);
+    stroke-width: 3;
+  }
+  & .house .hroof {
+    fill: url(#gRoof);
+    filter: url(#fSh);
+  }
+  & .house .hwin {
+    fill: url(#gLit);
+    opacity: 0.9;
+    stroke: var(--inst-il-hdoor-line);
+  }
+  & .house .hdoor {
+    fill: url(#gWoodL);
+  }
+  & .house .hgate {
+    fill: url(#gDark);
+  }
+  & .house .sdot {
+    filter: url(#fGl);
+  }
+  & .house .hfloor {
+    stroke: var(--inst-il-house-hfloor-line);
+  }
+  @media (max-width: 760px) {
+    & #urzadzenia .tbl td:first-child,
+    & #urzadzenia .tbl th:first-child {
+      position: sticky;
+      left: 0;
+      background: var(--card, var(--surface));
+      z-index: 1;
+    }
+  }
+
+  /* States added in JS (`Alarmy.js`: armed, alarm, warning, siren on, picked version). */
+  /* In the light theme the prototype's `.pk[data-theme=light] .hroom` outranks these: the
+     rooms stay faint, only the sensors and the panel show the state. */
+  & .hroom.arm {
+    fill: light-dark(color-mix(in srgb, var(--inst-mask) 2%, transparent), var(--il-arm-room));
+  }
+  & .hroom.al {
+    fill: light-dark(color-mix(in srgb, var(--inst-mask) 2%, transparent), var(--inst-spec-lte-2));
+    animation: inst-al-pulse 1s infinite;
+  }
+  & .sg.arm .sdot {
+    fill: var(--inst-plan-send-to);
+  }
+  & .sg.arm .sring {
+    stroke: var(--il-arm-ring);
+  }
+  & .sg.d24 .sdot {
+    fill: var(--inst-scene-beam-ok);
+  }
+  & .sg.al .sdot {
+    fill: var(--il-false);
+  }
+  & .sg.al .sring {
+    stroke: var(--il-false);
+    animation: inst-al-pulse 0.7s infinite;
+  }
+  & .sirg.on .sir {
+    fill: var(--il-false);
+    animation: inst-strobe 0.6s steps(2) infinite;
+  }
+  & .sirg.on .sirw {
+    stroke: var(--il-false);
+  }
+  & .alst.arm {
+    background: var(--il-arm-chip);
+    color: var(--il-arm-ink);
+  }
+  & .alst.al {
+    background: var(--il-al-chip);
+    color: var(--il-al-ink);
+  }
+  & .amsg.al {
+    box-shadow: inset 0 0 0 1px var(--il-al-line);
+  }
+  & .vdb button.on {
+    background: var(--inst-plan-send-to);
+    color: var(--inst-band-button-ink);
+  }
+  & .labres.warn {
+    background: var(--il-warn-res);
+  }
+  & .alvi.on {
+    opacity: 1;
+    filter: none;
+    box-shadow: inset 0 0 0 1.5px var(--accent-line);
+    transform: none;
+  }
+  & .dls.bad {
+    background: var(--inst-plan-err-bg);
+    box-shadow: inset 0 0 0 1.5px var(--il-false);
+  }
+  & .dls.bad svg {
+    color: var(--il-false);
+  }
+  & .dlf.warn {
+    background: var(--il-warn-feed);
+    color: var(--inst-promo-warm);
+  }
+  & .dlf.bad {
+    background: var(--il-bad-feed);
+    color: var(--il-bad-ink);
+  }
+  & .xb-alv .alvi:not(.on) {
+    opacity: 0.68;
+    filter: saturate(0.25);
+  }
+  & .xb-alv .alvi:not(.on) b {
+    color: var(--ink-2);
+  }
+
+  /* Inline styles of `Alarmy.body.html` as classes. */
+  & .altests {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  & .btn.altest {
+    min-height: 40px;
+    padding: 0 12px;
+    font-size: 13px;
+  }
+  & .ill .nvrnote.alnote {
+    color: var(--ink-2);
+    padding: 12px 16px 16px;
+    font-size: 13.5px;
+  }
+  & .phcap {
+    margin-top: auto;
+    font-size: 12px;
+    color: var(--il-caption);
+    text-align: center;
+  }
+  & .dleye {
+    color: var(--inst-plan-accent);
+  }
+  & .dlday {
+    color: var(--inst-deep-lead-2);
+  }
+}
+
+@keyframes inst-al-fadein {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes inst-al-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes inst-al-ring {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  25% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+@keyframes inst-al-fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Light theme of the house (pk.css `.pk[data-theme=light] .house …`): warm walls and cool glass
+   instead of the night's dark walls and lit windows. A gradient cannot go through `light-dark()`,
+   so the same selectors as tokens.css: the visitor's choice, or the system without one. */
+[data-line='instalacje'][data-theme='light'] .house {
+  & .hwall {
+    fill: url(#gWallL);
+  }
+  & .hwin {
+    fill: url(#gGlass);
+  }
+}
+@media (prefers-color-scheme: light) {
+  [data-line='instalacje']:not([data-theme='dark']) .house {
+    & .hwall {
+      fill: url(#gWallL);
+    }
+    & .hwin {
+      fill: url(#gGlass);
+    }
+  }
+}

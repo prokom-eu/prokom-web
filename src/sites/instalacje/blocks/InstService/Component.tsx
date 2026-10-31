@@ -22,6 +22,8 @@ import { PageHero } from '../../sekcje/PageHero'
 import { PriceFactors } from '../../sekcje/PriceFactors'
 import { Related } from '../../sekcje/Related'
 import { AntennaAim } from '../../widzety/anteny/AntennaAim'
+import { AlarmySections } from '../../widzety/alarmy/AlarmySections'
+import { HouseDemo } from '../../widzety/alarmy/HouseDemo'
 import { AntenySections } from '../../widzety/anteny/AntenySections'
 import { MonitoringSections } from '../../widzety/monitoring/MonitoringSections'
 import { NvrDemo } from '../../widzety/monitoring/NvrDemo'
@@ -37,6 +39,11 @@ const LAYOUTS: Partial<Record<string, (ctx: LayoutContext) => ServiceLayout>> = 
   kam: ({ planHref }) => ({
     widget: <NvrDemo />,
     sections: <MonitoringSections planHref={planHref} />,
+    folded: ['cena', 'faq'],
+  }),
+  alarm: () => ({
+    widget: <HouseDemo />,
+    sections: <AlarmySections />,
     folded: ['cena', 'faq'],
   }),
   ant: () => ({
