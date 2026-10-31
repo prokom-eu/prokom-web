@@ -1984,6 +1984,9 @@ export interface Page {
         | BzLocationBlock
         | InstServiceBlock
         | InstHomeBlock
+        | InstPlannerBlock
+        | InstContactBlock
+        | InstServiceDeskBlock
         | SwHeroBlock
         | SwHomeSectionBlock
         | SwContactBlock
@@ -4139,6 +4142,105 @@ export interface InstHomeBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InstPlannerBlock".
+ */
+export interface InstPlannerBlock {
+  hero: {
+    crumb?: string | null;
+    eyebrow?: string | null;
+    h1a: string;
+    h1b?: string | null;
+    lead?: string | null;
+    facts?:
+      | {
+          value: string;
+          label: string;
+          id?: string | null;
+        }[]
+      | null;
+    tags?: string[] | null;
+    cta?: {
+      text?: string | null;
+      href?: string | null;
+    };
+  };
+  cta?: {
+    eyebrow?: string | null;
+    heading?: string | null;
+    text?: string | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'instPlanner';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InstContactBlock".
+ */
+export interface InstContactBlock {
+  hero: {
+    crumb?: string | null;
+    eyebrow?: string | null;
+    h1a: string;
+    h1b?: string | null;
+    lead?: string | null;
+    facts?:
+      | {
+          value: string;
+          label: string;
+          id?: string | null;
+        }[]
+      | null;
+    tags?: string[] | null;
+    cta?: {
+      text?: string | null;
+      href?: string | null;
+    };
+  };
+  cta?: {
+    eyebrow?: string | null;
+    heading?: string | null;
+    text?: string | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'instContact';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InstServiceDeskBlock".
+ */
+export interface InstServiceDeskBlock {
+  hero: {
+    crumb?: string | null;
+    eyebrow?: string | null;
+    h1a: string;
+    h1b?: string | null;
+    lead?: string | null;
+    facts?:
+      | {
+          value: string;
+          label: string;
+          id?: string | null;
+        }[]
+      | null;
+    tags?: string[] | null;
+    cta?: {
+      text?: string | null;
+      href?: string | null;
+    };
+  };
+  cta?: {
+    eyebrow?: string | null;
+    heading?: string | null;
+    text?: string | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'instServiceDesk';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "SwHeroBlock".
  */
 export interface SwHeroBlock {
@@ -4994,7 +5096,7 @@ export interface SwLinesBlock {
             }[]
           | null;
         /**
-         * Np. „Zobacz ofertę →”.
+         * Tylko karta tej strony: link do katalogu rozwiązań, np. „Zobacz ofertę →”.
          */
         cta?: string | null;
         current?: boolean | null;
@@ -6596,6 +6698,9 @@ export interface PagesSelect<T extends boolean = true> {
         bzLocation?: T | BzLocationBlockSelect<T>;
         instService?: T | InstServiceBlockSelect<T>;
         instHome?: T | InstHomeBlockSelect<T>;
+        instPlanner?: T | InstPlannerBlockSelect<T>;
+        instContact?: T | InstContactBlockSelect<T>;
+        instServiceDesk?: T | InstServiceDeskBlockSelect<T>;
         swHero?: T | SwHeroBlockSelect<T>;
         swHomeSection?: T | SwHomeSectionBlockSelect<T>;
         swContact?: T | SwContactBlockSelect<T>;
@@ -7582,6 +7687,120 @@ export interface InstHomeBlockSelect<T extends boolean = true> {
               text?: T;
               id?: T;
             };
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InstPlannerBlock_select".
+ */
+export interface InstPlannerBlockSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        crumb?: T;
+        eyebrow?: T;
+        h1a?: T;
+        h1b?: T;
+        lead?: T;
+        facts?:
+          | T
+          | {
+              value?: T;
+              label?: T;
+              id?: T;
+            };
+        tags?: T;
+        cta?:
+          | T
+          | {
+              text?: T;
+              href?: T;
+            };
+      };
+  cta?:
+    | T
+    | {
+        eyebrow?: T;
+        heading?: T;
+        text?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InstContactBlock_select".
+ */
+export interface InstContactBlockSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        crumb?: T;
+        eyebrow?: T;
+        h1a?: T;
+        h1b?: T;
+        lead?: T;
+        facts?:
+          | T
+          | {
+              value?: T;
+              label?: T;
+              id?: T;
+            };
+        tags?: T;
+        cta?:
+          | T
+          | {
+              text?: T;
+              href?: T;
+            };
+      };
+  cta?:
+    | T
+    | {
+        eyebrow?: T;
+        heading?: T;
+        text?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InstServiceDeskBlock_select".
+ */
+export interface InstServiceDeskBlockSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        crumb?: T;
+        eyebrow?: T;
+        h1a?: T;
+        h1b?: T;
+        lead?: T;
+        facts?:
+          | T
+          | {
+              value?: T;
+              label?: T;
+              id?: T;
+            };
+        tags?: T;
+        cta?:
+          | T
+          | {
+              text?: T;
+              href?: T;
+            };
+      };
+  cta?:
+    | T
+    | {
+        eyebrow?: T;
+        heading?: T;
+        text?: T;
       };
   id?: T;
   blockName?: T;
