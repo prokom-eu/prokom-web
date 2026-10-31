@@ -1,4 +1,4 @@
-import { devices, expect, test } from '@playwright/test'
+import { expect, test } from '@playwright/test'
 
 import { site } from './helpers'
 
@@ -65,7 +65,8 @@ test.describe('Software /cennik', () => {
 })
 
 test.describe('Software /cennik on a phone', () => {
-  test.use({ ...devices['iPhone 13'] })
+  // Touch phone emulation in Chromium (`devices[...]` would switch the browser: not in a group).
+  test.use({ viewport: { width: 390, height: 844 }, hasTouch: true, isMobile: true })
 
   for (const width of [360, 390, 414]) {
     test(`fits ${width} px: no sideways scroll, the recommended care level first`, async ({
