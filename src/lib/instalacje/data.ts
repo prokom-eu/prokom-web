@@ -3,7 +3,7 @@ import { getPayload, type Where } from 'payload'
 import { cache } from 'react'
 
 import { log } from '@/lib/log'
-import type { InstService as InstServiceDoc } from '@/payload-types'
+import type { InstObject as InstObjectDoc, InstService as InstServiceDoc } from '@/payload-types'
 import { navigation } from '@/sites/instalacje/dane/nawigacja'
 
 import { buildMenu, type InstMenu, type MenuDoc } from './menu'
@@ -110,8 +110,8 @@ export const getInstalacjeService = cache(
 )
 
 /**
- * Published object pages of this tenant (`/dla-kogo/<slug>`) for the site map and
- * `generateStaticParams`, in the panel's order of keys. Deduplicated per request.
+ * Published object pages of this tenant (`/dla-kogo/<slug>`) for the site map (`sitemap.xml`,
+ * `/mapa-strony`), in the order they were created (the package order). Deduplicated per request.
  */
 export const getInstalacjeObjectList = cache(
   async (tenantId: number): Promise<{ slug: string; name: string; updatedAt: string }[]> => {
@@ -129,6 +129,68 @@ export const getInstalacjeObjectList = cache(
       overrideAccess: true,
     })
     return docs.flatMap(({ slug, name, updatedAt }) => (slug ? [{ slug, name, updatedAt }] : []))
+  },
+)
+
+/** Public fields of a service or object card (related services, similar objects). */
+const CARD_FIELDS = {
+  key: true,
+  slug: true,
+  name: true,
+  icon: true,
+  color: true,
+  menuCaption: true,
+  tenant: true,
+  _status: true,
+} as const
+
+/**
+ * One published object of this tenant by its address (`/dla-kogo/<slug>`), related services
+ * populated with their card fields. `null` → 404. Deduplicated per request (metadata + page).
+ */
+export const getInstalacjeObject = cache(
+  async (tenantId: number, slug: string): Promise<InstObjectDoc | null> => {
+    const payload = await getPayload({ config })
+    const { docs } = await payload.find({
+      collection: 'inst-objects',
+      where: {
+        and: [
+          { slug: { equals: slug } },
+          { tenant: { equals: tenantId } },
+          { _status: { equals: 'published' } },
+        ],
+      },
+      draft: false,
+      depth: 1,
+      limit: 1,
+      populate: { 'inst-services': CARD_FIELDS },
+      overrideAccess: true,
+    })
+    return docs[0] ?? null
+  },
+)
+
+type CardKeys =
+  'id' | 'key' | 'slug' | 'name' | 'icon' | 'color' | 'menuCaption' | 'tenant' | '_status'
+export type ServiceCard = Pick<InstServiceDoc, CardKeys>
+export type ObjectCard = Pick<InstObjectDoc, CardKeys>
+
+/**
+ * Cards of all published services and objects of this tenant: names, addresses and colours for
+ * the object pages (hotspot chips, „Podobne obiekty”). Deduplicated per request.
+ */
+export const getInstalacjeCards = cache(
+  async (tenantId: number): Promise<{ services: ServiceCard[]; objects: ObjectCard[] }> => {
+    const payload = await getPayload({ config })
+    const where: Where = {
+      and: [{ tenant: { equals: tenantId } }, { _status: { equals: 'published' } }],
+    }
+    const published = { where, draft: false, depth: 0, limit: LIMIT, overrideAccess: true } as const
+    const [services, objects] = await Promise.all([
+      payload.find({ collection: 'inst-services', ...published, select: CARD_FIELDS }),
+      payload.find({ collection: 'inst-objects', ...published, select: CARD_FIELDS }),
+    ])
+    return { services: services.docs, objects: objects.docs }
   },
 )
 
