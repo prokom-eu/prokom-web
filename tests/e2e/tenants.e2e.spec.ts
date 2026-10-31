@@ -11,8 +11,9 @@ const TENANTS = [
   {
     host: 'biznes.localhost',
     name: 'PRO-KOM Biznes',
-    h1: /^Kasy, komputery i opieka IT\./,
-    markers: ['Kasy, komputery i opieka IT'],
+    h1: /^Kasy, komputery i programy dla firm\./,
+    // No one-letter word: the H1 has hard spaces after them (K4-FINAL §1).
+    markers: ['programy dla firm.'],
   },
   {
     host: 'instalacje.localhost',
