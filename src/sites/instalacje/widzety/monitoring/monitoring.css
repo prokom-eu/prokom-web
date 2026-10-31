@@ -541,7 +541,7 @@
   }
   & .rz.nn li i {
     background: var(--inst-plan-err-bg);
-    color: var(--inst-plan-err);
+    color: var(--inst-bad);
   }
   & .sign {
     border-radius: 18px;
@@ -695,7 +695,8 @@
   & .fo {
     overflow: visible;
   }
-  & .fo .fot {
+  /* `:where` keeps the prototype’s weight of `.fot`, so `.fot.knum2` and the like still win. */
+  & :where(.fo) .fot {
     font-family: var(--font-sans);
     font-weight: 800;
     font-size: 11px;

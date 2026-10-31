@@ -7,7 +7,15 @@ import { site } from '../helpers'
 // else; page-specific behaviour stays in the page's own spec. Data from `pnpm seed`.
 const HOST = 'instalacje.localhost'
 
-const PAGES = ['/', '/anteny', '/monitoring', '/alarmy']
+const PAGES = [
+  '/',
+  '/anteny',
+  '/monitoring',
+  '/alarmy',
+  '/kontrola-dostepu',
+  '/sieci-wifi',
+  '/teletechnika',
+]
 
 // Known exceptions, each with its open question in docs/stan/STAN-instalacje.md.
 // TODO(krystian): the home title has 66 characters (SEO §2.2: ≤ 65) — shorten it in the panel.

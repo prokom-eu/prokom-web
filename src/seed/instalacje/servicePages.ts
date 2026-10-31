@@ -6,4 +6,4 @@ import type { ServiceKey } from '../../lib/instalacje/options'
  * here on purpose: CI restores a seeded database cached by a hash of `src/seed/**`, so a new page
  * must change a seed file, or the e2e tests get a snapshot without it (I7: /monitoring 404).
  */
-export const SERVICE_PAGE_KEYS: readonly ServiceKey[] = ['ant', 'kam', 'alarm']
+export const SERVICE_PAGE_KEYS: readonly ServiceKey[] = ['ant', 'kam', 'alarm', 'kd', 'wifi', 'tel']

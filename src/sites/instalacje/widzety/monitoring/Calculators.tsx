@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 
+import { LEGAL_NOTE } from '../../dane/prawo'
 import { monitoring } from '../../dane/monitoring'
 import { InstIcon } from '../../InstIcon'
 import { INST_ICONS } from '../../icons'
@@ -193,7 +194,9 @@ export function RecordingCalc() {
         </p>
         <div className="note cres-note">
           <InstIcon name="shield" size={20} />
-          <span>{R.law}</span>
+          <span>
+            {R.law} {LEGAL_NOTE}
+          </span>
         </div>
       </div>
     </div>

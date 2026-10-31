@@ -1,0 +1,742 @@
+/*
+ * Sieci i Wi-Fi page (I8): the coverage map in the hero, separate networks, the guest portal
+ * screen, cabling, the four „Sprawdź sam” tools, the hardware, Wi-Fi standards and NIS2. Rules of
+ * `pk.css` v4.2 for the classes of `Sieci.body.html` and `Sieci.js` not already in the other page
+ * sheets (one bundle for all service pages; without the `br`/`wl` widgets the markup does not
+ * render), ported by `narzedzia/przenies-css.mjs`, then: inline styles as classes at the end,
+ * keyframes `inst-si-`, reduced motion.
+ */
+[data-line='instalacje'] {
+  & .tile {
+    border-radius: 18px;
+    background: var(--inst-il-tile-bg);
+    padding: 13px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition:
+      background 0.4s,
+      box-shadow 0.4s;
+  }
+  & .tile.on {
+    background: var(--inst-il-tile-bg-2);
+    box-shadow: inset 0 0 0 1.5px var(--inst-plan-send-to);
+  }
+  & .tile i {
+    color: var(--inst-il-tile-c);
+  }
+  & .tile b {
+    font-size: 14px;
+  }
+  & .tile span {
+    font-size: 12.5px;
+    color: var(--inst-il-phh-c);
+  }
+  & .tile .big {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 26px;
+    line-height: 1;
+    color: var(--inst-deep-ink);
+  }
+  & .zpc {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  & .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 0 14px 0 12px;
+    border-radius: 13px;
+    border: 0;
+    background: var(--surface-3);
+    color: var(--ink-soft);
+    font-weight: 800;
+    font-size: 14px;
+    cursor: pointer;
+    transition:
+      background 0.2s,
+      color 0.2s,
+      box-shadow 0.2s;
+    font-family: inherit;
+  }
+  & .chip em {
+    font-style: normal;
+    width: 20px;
+    height: 20px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--border);
+    font-size: 13px;
+    line-height: 1;
+  }
+  @media (hover: hover) {
+    & .chip:hover {
+      box-shadow: inset 0 0 0 1.5px var(--accent);
+    }
+  }
+  & .chip.on {
+    background: var(--accent-soft);
+    color: var(--ink);
+    box-shadow: inset 0 0 0 1.5px var(--accent);
+  }
+  & .chip.on em {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+  & .fp {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  & .fp .wall {
+    fill: none;
+    stroke: var(--ink-soft);
+    stroke-width: 3;
+  }
+  & .fp .room {
+    fill: var(--card-2);
+    stroke: var(--border);
+    stroke-width: 1;
+  }
+  & .fp .room.on {
+    fill: var(--accent-soft);
+  }
+  & .fp .big {
+    fill: var(--ink);
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 16px;
+  }
+  & .heat {
+    opacity: 0.75;
+    transition: opacity 0.6s;
+  }
+  & .wfp .room {
+    fill: var(--card-2);
+    stroke: var(--border);
+    stroke-width: 1.5;
+  }
+  & .wfp .rm {
+    fill: transparent;
+    stroke: var(--ink-soft);
+    stroke-width: 2.5;
+    stroke-opacity: 0.55;
+  }
+  & .wq {
+    font-family: var(--font-sans);
+    font-weight: 900;
+    font-size: 12px;
+  }
+  & .wap .wapr {
+    fill: var(--accent);
+    opacity: 0.18;
+    animation: inst-si-pulse 2s infinite;
+  }
+  & .wap .wapc {
+    fill: var(--accent);
+    stroke: var(--card);
+    stroke-width: 3;
+  }
+  & .wdv .wdc {
+    fill: var(--card);
+    stroke: var(--border);
+    stroke-width: 1.5;
+  }
+  & .wdv .wdi {
+    fill: none;
+    stroke: var(--ink-2);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  & .wdv.on .wdc {
+    stroke: var(--vc);
+    stroke-width: 2.5;
+    fill: var(--card);
+  }
+  & .wdv.on .wdi {
+    stroke: var(--vc);
+  }
+  & .wdv.dim {
+    opacity: 0.25;
+  }
+  & .wvl {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    padding: 4px 16px 10px;
+  }
+  & .wvb {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 36px;
+    padding: 0 12px;
+    border-radius: 11px;
+    border: 0;
+    background: var(--surface-3);
+    color: var(--ink-soft);
+    font-weight: 800;
+    font-size: 13px;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  & .wvb i {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--vc);
+  }
+  & .wvb.on {
+    box-shadow: inset 0 0 0 1.5px var(--vc);
+    color: var(--ink);
+  }
+  & .netd {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+  & .netn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 20px;
+    border-radius: 18px;
+    background: var(--card);
+    box-shadow: inset 0 0 0 1px var(--border);
+    min-width: 320px;
+    color: var(--accent-text);
+  }
+  & .netn b {
+    color: var(--ink);
+    font-size: 16px;
+  }
+  & .netn span {
+    color: var(--ink-2);
+    font-size: 13.5px;
+    margin-left: auto;
+  }
+  & .netn.root {
+    background: var(--accent-soft);
+    box-shadow: inset 0 0 0 1.5px var(--accent);
+  }
+  & .netl {
+    width: 2px;
+    height: 26px;
+    background: var(--accent-line);
+  }
+  & .netl.split4 {
+    height: 20px;
+  }
+  & .netv {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+    width: 100%;
+    position: relative;
+    padding-top: 20px;
+    border-top: 2px solid var(--accent-line);
+  }
+  & .netvb {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 20px;
+    border-radius: 20px;
+    border: 0;
+    background: var(--card);
+    box-shadow: inset 0 0 0 1px var(--border);
+    cursor: pointer;
+    color: var(--vc);
+    text-align: left;
+    font-family: inherit;
+    transition:
+      transform 0.2s,
+      box-shadow 0.2s;
+  }
+  & .netvb b {
+    color: var(--ink);
+    font-size: 17px;
+  }
+  & .netvb span {
+    color: var(--ink-2);
+    font-size: 14px;
+  }
+  & .netvb em {
+    font-style: normal;
+    font-size: 12.5px;
+    font-weight: 800;
+    color: var(--vc);
+  }
+  & .netvb.on {
+    box-shadow:
+      inset 0 0 0 2px var(--vc),
+      var(--shadow);
+    transform: translateY(-3px);
+  }
+  @media (max-width: 1100px) {
+    & .netv {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (max-width: 760px) {
+    & .wvb {
+      min-height: 44px;
+    }
+    & .netv {
+      grid-template-columns: 1fr;
+    }
+    & .netn {
+      min-width: 0;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    & .netn span {
+      display: none;
+    }
+  }
+  & .fot.wapt2 {
+    font-size: 10.5px;
+    font-weight: 900;
+    color: var(--ink);
+  }
+  & .fot.wq {
+    font-size: 12px;
+    font-weight: 900;
+  }
+  & .labg {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+  & .labc {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border-radius: 28px;
+  }
+  & .labr {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 15px;
+    line-height: 1.5;
+    min-height: 46px;
+  }
+  & .wallv {
+    display: grid;
+    grid-template-columns: 1fr 34px 1.2fr;
+    gap: 12px;
+    align-items: center;
+    padding: 14px;
+    border-radius: 18px;
+    background: var(--surface-2);
+    box-shadow: inset 0 0 0 1px var(--border);
+  }
+  & .wv1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: var(--accent-text);
+    font-size: 12px;
+    font-weight: 800;
+  }
+  & .wv1 span {
+    color: var(--ink-2);
+  }
+  & .wallw {
+    height: 86px;
+    border-radius: 6px;
+    transition: all 0.4s;
+    background: var(--ink-2);
+  }
+  & .wv2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  & .wv2 b {
+    font-family: var(--font-display);
+    font-stretch: 112%;
+    font-size: 22px;
+    font-weight: 900;
+  }
+  & .wbars {
+    display: flex;
+    gap: 4px;
+    align-items: flex-end;
+    height: 40px;
+  }
+  & .wbars i {
+    width: 10px;
+    border-radius: 3px;
+    background: var(--surface-3);
+    box-shadow: inset 0 0 0 1px var(--border);
+  }
+  & .wbars i:nth-child(1) {
+    height: 20%;
+  }
+  & .wbars i:nth-child(2) {
+    height: 40%;
+  }
+  & .wbars i:nth-child(3) {
+    height: 60%;
+  }
+  & .wbars i:nth-child(4) {
+    height: 80%;
+  }
+  & .wbars i:nth-child(5) {
+    height: 100%;
+  }
+  & .wbars i.on {
+    background: var(--ok);
+    box-shadow: none;
+  }
+  & .wbars i.on.mid {
+    background: var(--warn);
+  }
+  & .wbars i.on.bad {
+    background: var(--inst-bad);
+  }
+  & .fov {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: auto auto;
+    gap: 10px;
+    padding: 14px;
+    border-radius: 18px;
+    background: var(--surface-2);
+    box-shadow: inset 0 0 0 1px var(--border);
+  }
+  & .fon {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    border-radius: 14px;
+    background: var(--card);
+    box-shadow: inset 0 0 0 1px var(--border);
+    font-weight: 800;
+    font-size: 14px;
+    transition: all 0.4s;
+  }
+  & .fon svg {
+    color: var(--accent-text);
+  }
+  & .fon b {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--ok);
+  }
+  & .fol {
+    position: absolute;
+    left: 50%;
+    bottom: -11px;
+    width: 3px;
+    height: 10px;
+    background: var(--ok);
+  }
+  & .fov .fon:nth-child(1) {
+    box-shadow: inset 0 0 0 1.5px var(--ok);
+  }
+  & .fov .fon:nth-child(2) {
+    opacity: 0.5;
+  }
+  & .fov.down .fon:nth-child(1) {
+    opacity: 0.4;
+    box-shadow: inset 0 0 0 1.5px var(--inst-bad);
+  }
+  & .fov.down .fon:nth-child(1) svg {
+    color: var(--inst-bad);
+  }
+  & .fov.down .fon:nth-child(1) .fol {
+    background: var(--inst-bad);
+  }
+  & .fov.down .fon:nth-child(2) {
+    opacity: 1;
+    box-shadow: inset 0 0 0 1.5px var(--warn);
+    animation: inst-si-fadeUp 0.5s ease;
+  }
+  & .fov:not(.down) .fon:nth-child(2) .fol {
+    background: var(--border);
+  }
+  & .fov.down .fon:nth-child(2) .fol {
+    background: var(--warn);
+  }
+  & .fov.down .fon.t b {
+    color: var(--warn);
+  }
+  @media (max-width: 1100px) {
+    & .labg {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+  @media (max-width: 760px) {
+    & .labc {
+      padding: 18px;
+    }
+  }
+  & .wfc {
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border-top: 4px solid var(--h);
+  }
+  & .wfc .uhl svg {
+    color: var(--h);
+  }
+  & .bkc {
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  & .hwcmp {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 18px;
+  }
+  & .hwk {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 26px;
+  }
+  & .hwk .uhl {
+    margin: 4px 0 0;
+  }
+  @media (max-width: 1100px) {
+    & .hwcmp {
+      grid-template-columns: 1fr;
+    }
+  }
+  & .hwflow {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+    position: relative;
+  }
+  & .hwrole {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 26px 24px;
+  }
+  & .hwrole p {
+    margin: 0;
+    color: var(--ink-2);
+    font-size: 14.5px;
+    line-height: 1.55;
+  }
+  & .hwrole .ico {
+    background: var(--accent-soft);
+    color: var(--accent-text);
+  }
+  & .hwno {
+    position: absolute;
+    right: 20px;
+    top: 18px;
+    font-family: var(--font-display);
+    font-stretch: 120%;
+    font-weight: 900;
+    font-size: 34px;
+    color: var(--border);
+  }
+  & .hwrole:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: -12px;
+    top: 50%;
+    width: 10px;
+    height: 10px;
+    border-top: 2.5px solid var(--accent-text);
+    border-right: 2.5px solid var(--accent-text);
+    transform: translateY(-50%) rotate(45deg);
+    z-index: 1;
+  }
+  & .hwtip {
+    margin-top: auto;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: var(--surface-2);
+  }
+  & .hwtip b {
+    color: var(--warn);
+  }
+  @media (max-width: 1100px) {
+    & .hwflow {
+      grid-template-columns: 1fr 1fr;
+    }
+    & .hwrole::after {
+      display: none;
+    }
+  }
+  @media (max-width: 700px) {
+    & .hwflow {
+      grid-template-columns: 1fr;
+    }
+  }
+  & .hwcmp.xb-hw2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  @media (max-width: 1100px) {
+    & .hwcmp.xb-hw2 {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Coverage quality of a room (`'wq q' + quality` in `Sieci.js`). */
+  & .wq.q3 {
+    fill: var(--ok);
+  }
+  & .wq.q2 {
+    fill: var(--accent-text);
+  }
+  & .wq.q1 {
+    fill: var(--warn);
+  }
+  & .wq.q0 {
+    fill: var(--inst-bad);
+  }
+  & .fot.q3 {
+    color: var(--ok);
+  }
+  & .fot.q2 {
+    color: var(--accent-text);
+  }
+  & .fot.q1 {
+    color: var(--warn);
+  }
+  & .fot.q0 {
+    color: var(--inst-bad);
+  }
+
+  /* Inline styles of `Sieci.body.html` as classes. */
+  & .wvlh {
+    font-size: 12.5px;
+    font-weight: 800;
+  }
+  & .ill .nvrnote.wfnote {
+    color: var(--ink-2);
+    padding: 4px 16px 16px;
+    font-size: 13.5px;
+  }
+  & .phs.ptphs {
+    min-height: 560px;
+    background: linear-gradient(180deg, var(--inst-il-tile-bg-2), var(--inst-il-phs-bg) 55%);
+  }
+  & .pthead {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 0 4px;
+  }
+  & .ptlogo {
+    width: 64px;
+    height: 64px;
+    border-radius: 18px;
+    background: var(--inst-deep-ink);
+    color: var(--inst-il-tile-bg-2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 22px;
+  }
+  & .ptsub {
+    font-size: 12.5px;
+    color: var(--inst-il-phh-c);
+    text-align: center;
+  }
+  & .ptcode {
+    letter-spacing: 0.2em;
+  }
+  & .tile.ptrow {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  & .ptbtn {
+    border-radius: 14px;
+    background: var(--inst-plan-send-to);
+    color: var(--inst-band-button-ink);
+    font-weight: 800;
+    text-align: center;
+    padding: 14px;
+  }
+  & .ptterms {
+    font-size: 11.5px;
+    color: var(--il-caption);
+    text-align: center;
+  }
+  & .hwkp {
+    color: var(--ink-2);
+    margin: 0;
+  }
+  & .hwkeye {
+    color: var(--inst-plan-accent);
+  }
+  /* The prototype's <p> keeps the browser margin (1em), the preflight resets it. */
+  & .bkp {
+    color: var(--inst-deep-lead-2);
+    margin: 1em 0;
+  }
+  & .uhl.bkl {
+    color: var(--inst-plan-text);
+  }
+  & .bknote {
+    color: var(--inst-plan-note);
+    font-size: 13.5px;
+  }
+}
+
+@keyframes inst-si-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes inst-si-fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Reduced motion (spec §5): the access points and the backup link stand still. */
+@media (prefers-reduced-motion: reduce) {
+  [data-line='instalacje'] {
+    & .wap .wapr,
+    & .fov.down .fon:nth-child(2) {
+      animation: none;
+    }
+  }
+}

@@ -1,0 +1,1056 @@
+/*
+ * Teletechnika page (I8): the building cross-section in the hero (`.ttx`: stages, layers,
+ * numbered elements), scope, for whom, the law and the quote form. Rules of `pk.css` v4.2 for the
+ * classes of `Teletechnika.body.html`, `Teletechnika.js` and the scene (`scena.ts`) not already in
+ * the other page sheets (one bundle for all service pages), ported by
+ * `narzedzia/przenies-css.mjs` (scene colours: `--inst-il-ttx-*` pairs, `--il-*`), then: without
+ * the scene's own `--ink` (declared, never used, and in the repo the text colour), inline styles
+ * as classes at the end, keyframes `inst-tt-`, reduced motion.
+ */
+[data-line='instalacje'] {
+  & .odi {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 14px;
+    border-radius: 16px;
+    background: var(--inst-foot-glow);
+    box-shadow: inset 0 0 0 1px var(--inst-il-odi-sh);
+    font-size: 14.5px;
+  }
+  & .odi i {
+    color: var(--inst-plan-accent);
+    flex: none;
+  }
+  & .zpw {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    gap: 22px;
+    align-items: start;
+  }
+  & .zp {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+  & .zpq {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  & .zpq h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 800;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  & .zpq h3 em {
+    font-style: normal;
+    width: 26px;
+    height: 26px;
+    border-radius: 8px;
+    background: var(--accent);
+    color: var(--accent-ink);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+  }
+  & .fl {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ink-soft);
+  }
+  & .zin {
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 52px;
+    border-radius: 14px;
+    border: 1.5px solid var(--border);
+    background: var(--surface);
+    color: var(--ink);
+    font: inherit;
+    font-size: 16px;
+    padding: 0 16px;
+  }
+  & textarea.zin {
+    padding: 14px 16px;
+    min-height: 120px;
+    resize: vertical;
+  }
+  & .zin:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+  & .zsum {
+    padding: 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  & .zsl {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 14.5px;
+  }
+  & .zsl div {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  & .zsl div span {
+    color: var(--ink-2);
+  }
+  & .drop {
+    border: 2px dashed var(--accent-line);
+    border-radius: 20px;
+    padding: 26px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+    background: var(--accent-soft);
+  }
+  & .pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  @media (max-width: 1100px) {
+    & .zpw {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 760px) {
+    & .zp,
+    & .zsum {
+      padding: 20px;
+    }
+  }
+  & .odi > svg {
+    flex: none;
+  }
+  & .lpill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 38px;
+    padding: 0 12px;
+    border-radius: 11px;
+    border: 0;
+    background: var(--surface-3);
+    color: var(--ink-2);
+    font-weight: 800;
+    font-size: 13px;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  & .lpill i {
+    width: 16px;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--vc);
+    opacity: 0.4;
+  }
+  & .lpill.on {
+    color: var(--ink);
+    box-shadow: inset 0 0 0 1.5px var(--vc);
+  }
+  & .lpill.on i {
+    opacity: 1;
+  }
+  & .ttsteps {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 6px;
+    padding: 12px 16px;
+  }
+  & .tts {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    padding: 10px;
+    border-radius: 12px;
+    border: 0;
+    background: var(--surface-3);
+    color: var(--ink-2);
+    font-weight: 800;
+    font-size: 12.5px;
+    cursor: pointer;
+    font-family: inherit;
+    text-align: left;
+    min-height: 44px;
+  }
+  & .tts em {
+    font-style: normal;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 16px;
+    color: var(--accent-text);
+  }
+  & .tts.done {
+    color: var(--ink-soft);
+  }
+  & .tts.on {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+  & .tts.on em {
+    color: var(--accent-ink);
+  }
+  @media (max-width: 760px) {
+    & .ttsteps {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  & .zp {
+    animation: inst-tt-fadein 0.35s ease;
+  }
+  & .flw {
+    padding: 20px;
+    border-radius: 28px;
+  }
+  & .ttw svg.ttx {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  & .ttx {
+    --sk0: var(--inst-il-ttx-sk);
+    --sk1: var(--inst-il-ttx-sk-2);
+    --sk2: var(--inst-il-ttx-sk-3);
+    --rm0: var(--inst-il-ttx-rm);
+    --rm1: var(--inst-il-ttx-rm-2);
+    --rw0: var(--inst-il-ttx-rw);
+    --rw1: var(--inst-il-ttx-rw-2);
+    --gl0: var(--inst-il-ttx-gl);
+    --gl1: var(--inst-il-ttx-gl-2);
+    --ln: var(--inst-il-ttx-ln);
+    --cut: var(--inst-il-ttx-cut);
+    --cutl: var(--inst-il-ttx-cutl);
+    --wood: var(--inst-il-ttx-wood);
+    --wood2: var(--inst-il-ttx-wood-2);
+    --sofa: var(--inst-il-ttx-sofa);
+    --sofa2: var(--inst-il-ttx-sofa-2);
+  }
+  & .ttx .txs0 {
+    stop-color: var(--sk0);
+  }
+  & .ttx .txs1 {
+    stop-color: var(--sk1);
+  }
+  & .ttx .txs2 {
+    stop-color: var(--sk2);
+  }
+  & .ttx .txr0 {
+    stop-color: var(--rm0);
+  }
+  & .ttx .txr1 {
+    stop-color: var(--rm1);
+  }
+  & .ttx .txw0 {
+    stop-color: var(--rw0);
+  }
+  & .ttx .txw1 {
+    stop-color: var(--rw1);
+  }
+  & .ttx .txg0 {
+    stop-color: var(--gl0);
+  }
+  & .ttx .txg1 {
+    stop-color: var(--gl1);
+  }
+  & .ttx .txh0 {
+    fill: var(--cut);
+  }
+  & .ttx .txh1 {
+    stroke: var(--cutl);
+    stroke-width: 1.2;
+  }
+  & .ttx .txso0 {
+    fill: var(--inst-il-ttx-txso0-fill);
+  }
+  & .ttx .txso1 {
+    fill: var(--inst-il-ttx-txso1-fill);
+  }
+  & .ttx .txbp {
+    opacity: 0;
+    transition: opacity 0.6s;
+  }
+  & .ttx .txbpg {
+    fill: none;
+    stroke: var(--inst-il-ttx-txbpg-line);
+    stroke-width: 1;
+  }
+  & .ttx .txmesh {
+    stroke: var(--ln);
+    stroke-width: 0.6;
+    opacity: 0.6;
+  }
+  & .ttx .txmoon {
+    fill: var(--inst-il-ttx-txmoon-fill);
+    opacity: 0.9;
+    filter: drop-shadow(0 0 14px var(--inst-il-ttx-txmoon-filt));
+  }
+  & .ttx .txm1 {
+    fill: var(--inst-il-ttx-txm1-fill);
+  }
+  & .ttx .txsnow,
+  & .ttx .txsnowR {
+    fill: light-dark(var(--inst-plan-white), var(--inst-il-sgsnow-fill));
+  }
+  & .ttx .txgl {
+    stroke: var(--inst-il-ttx-txgl-line);
+    stroke-width: 2;
+  }
+  & .ttx .txpave {
+    fill: var(--inst-il-ttx-txpave-fill);
+  }
+  & .ttx .txgrass {
+    fill: var(--inst-il-ttx-txgrass-fill);
+  }
+  & .ttx .txcon {
+    fill: var(--inst-il-ttx-txcon-fill);
+  }
+  & .ttx .txhole {
+    fill: var(--inst-il-ttx-txhole-fill);
+  }
+  & .ttx .txmet {
+    fill: url(#txMet);
+  }
+  & .ttx .txpipe {
+    stroke: var(--inst-il-ttx-txpipe-line);
+    stroke-width: 6;
+    stroke-linecap: round;
+    opacity: 0.85;
+  }
+  & .ttx .txtree {
+    fill: var(--inst-il-ttx-txtree-fill);
+  }
+  & .ttx .txtrunk {
+    fill: var(--inst-il-ttx-txtrunk-fill);
+  }
+  & .ttx .txglow {
+    mix-blend-mode: screen;
+  }
+  & .ttx .txroof {
+    fill: var(--inst-il-ttx-txroof-fill);
+  }
+  & .ttx .txatt {
+    fill: var(--inst-il-ttx-txatt-fill);
+  }
+  & .ttx .txcore {
+    fill: var(--inst-il-ttx-txcore-fill);
+  }
+  & .ttx .txshaft {
+    fill: var(--inst-il-ttx-txshaft-fill);
+    stroke: var(--inst-il-odi-sh);
+    stroke-dasharray: 3 3;
+  }
+  & .ttx .txstair {
+    fill: none;
+    stroke: var(--ln);
+    stroke-width: 1.4;
+  }
+  & .ttx .txrail {
+    stroke: var(--ln);
+    stroke-width: 1;
+    opacity: 0.6;
+  }
+  & .ttx .txfloor {
+    stroke: var(--wood);
+    stroke-width: 3;
+    opacity: 0.7;
+  }
+  & .ttx .txwf {
+    fill: var(--inst-il-ttx-txwf-fill);
+    stroke: light-dark(var(--il-frame-light), transparent);
+  }
+  & .ttx .txwm {
+    fill: var(--inst-il-ttx-txwm-fill);
+    opacity: 0.9;
+  }
+  & .ttx .txwx {
+    stroke: var(--inst-il-ttx-txwf-fill);
+    stroke-width: 2;
+  }
+  & .ttx .txwr {
+    stroke: var(--inst-foot-cta-icon);
+    stroke-width: 3;
+  }
+  & .ttx .txwg.shop {
+    fill: var(--inst-il-txwg-shop-fill);
+  }
+  & .ttx .txsign {
+    font: 900 8px var(--font-display);
+    letter-spacing: 0.2em;
+    fill: var(--inst-plan-accent);
+    text-anchor: middle;
+  }
+  & .ttx .txline {
+    fill: none;
+    stroke: var(--ln);
+    stroke-width: 1.2;
+  }
+  & .ttx .txshade {
+    fill: var(--inst-il-ttx-txshade-fill);
+  }
+  & .ttx .txsofa {
+    fill: var(--sofa);
+  }
+  & .ttx .txsofa2 {
+    fill: var(--sofa2);
+  }
+  & .ttx .txleg {
+    fill: var(--wood);
+  }
+  & .ttx .txwood {
+    fill: var(--wood);
+  }
+  & .ttx .txwood2 {
+    fill: var(--wood2);
+  }
+  & .ttx .txtop {
+    stroke: var(--inst-il-ttx-txtop-line);
+    stroke-width: 2;
+  }
+  & .ttx .txpill {
+    fill: var(--inst-il-ttx-txpill-fill);
+  }
+  & .ttx .txmon {
+    fill: var(--inst-il-ttx-txmon-fill);
+    stroke: var(--inst-il-ttx-txmon-line);
+  }
+  & .ttx .txpot {
+    fill: var(--inst-il-ttx-txpot-fill);
+  }
+  & .ttx .txleaf {
+    fill: var(--inst-il-ttx-txleaf-fill);
+  }
+  & .ttx .txtv {
+    fill: var(--inst-sat-tv);
+  }
+  & .ttx .txscr {
+    fill: var(--inst-il-ttx-txscr-fill);
+  }
+  & .ttx .txbox {
+    fill: var(--inst-il-ttx-txbox-fill);
+    stroke: var(--inst-il-ttx-txbox-line);
+  }
+  & .ttx .txdoor {
+    fill: var(--sx-leaf);
+  }
+  & .ttx .txopen {
+    fill: var(--rm0);
+  }
+  & .ttx .txcage {
+    stroke: var(--ln);
+  }
+  & .ttx .txrk {
+    fill: var(--inst-il-ttx-txrk-fill);
+    stroke: var(--inst-il-ttx-txrk-line);
+  }
+  & .ttx .txru {
+    fill: var(--inst-il-ttx-txru-fill);
+  }
+  & .ttx .txport {
+    fill: var(--inst-plan-accent);
+    opacity: 0.55;
+  }
+  & .ttx .txled {
+    fill: var(--inst-scene-beam-ok);
+    animation: inst-tt-txb 2.4s steps(2) infinite;
+  }
+  & .ttx .txled.b {
+    fill: var(--inst-plan-accent);
+    animation-delay: -1.2s;
+  }
+  & .ttx .txsp {
+    fill: var(--inst-il-ttx-txsp-fill);
+    stroke: var(--inst-il-ttx-txsp-line);
+  }
+  & .ttx .txsm {
+    fill: var(--sx-body);
+    stroke: var(--inst-sat-dish-line);
+  }
+  & .ttx .txuni {
+    fill: var(--inst-il-ttx-txuni-fill);
+    stroke: var(--inst-sat-dish-line);
+  }
+  & .ttx .txmast {
+    stroke: var(--inst-sat-dish-line);
+    stroke-width: 2.4;
+  }
+  & .ttx .txmast2 {
+    stroke: var(--inst-sat-dish-line);
+    stroke-width: 1.4;
+  }
+  & .ttx .txdish {
+    fill: var(--inst-sat-dish);
+    stroke: var(--inst-sat-dish-line);
+  }
+  & .ttx .txlnb {
+    fill: var(--sx-cord);
+  }
+  & .ttx .txpan {
+    fill: var(--inst-il-ttx-txpan-fill);
+    stroke: var(--inst-scene-beam-ok);
+  }
+  & .ttx .txcam {
+    fill: var(--inst-sat-tv);
+    stroke: var(--inst-scene-beam-ok);
+  }
+  & .ttx .txkey {
+    fill: var(--sx-cord);
+  }
+  & .ttx .txout {
+    fill: var(--sx-body);
+    stroke: var(--inst-il-ttx-txout-line);
+    transition:
+      fill 0.4s,
+      stroke 0.4s;
+  }
+  & .ttx .txlv {
+    font: 800 11px var(--font-sans);
+    fill: var(--ink-2);
+  }
+  & .ttx .k path {
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: opacity 0.5s;
+  }
+  & .ttx .k .cnd {
+    stroke: var(--inst-il-ctk-c);
+    stroke-width: 4.5;
+    stroke-dasharray: 1 5;
+    opacity: 0;
+  }
+  & .ttx .k .rt {
+    stroke: var(--inst-il-k-rt-line);
+    stroke-width: 1.4;
+    stroke-dasharray: 5 4;
+    opacity: 0;
+  }
+  & .ttx .k .cab {
+    stroke-width: 2.4;
+    opacity: 0;
+  }
+  & .ttx .k .flw {
+    stroke: var(--inst-plan-white);
+    stroke-width: 1.2;
+    stroke-dasharray: 2 10;
+    opacity: 0;
+    animation: inst-tt-txf 1.1s linear infinite;
+  }
+  & .ttx.s1 .k .rt {
+    opacity: 0.9;
+  }
+  & .ttx.s2 .k .cnd {
+    opacity: 0.9;
+  }
+  & .ttx.g3 .k .cab {
+    opacity: 1;
+  }
+  & .ttx.g3 .k .flw {
+    opacity: 0.55;
+  }
+  & .ttx .k {
+    transition: opacity 0.45s;
+  }
+  & .ttx:not(.Lfib) .kfib,
+  & .ttx:not(.Llan) .klan,
+  & .ttx:not(.Lrtv) .krtv,
+  & .ttx:not(.Ldom) .kdom {
+    opacity: 0;
+  }
+  & .ttx.g3.Llan .txout.olan {
+    fill: var(--inst-plan-send-to);
+    stroke: var(--il-out-lan);
+  }
+  & .ttx.g3.Lrtv .txout.ortv {
+    fill: var(--inst-hue-violet);
+    stroke: var(--il-out-rtv);
+  }
+  & .ttx.focus .k {
+    opacity: 0.18;
+  }
+  & .ttx.focus:not(.Lfib) .kfib,
+  & .ttx.focus:not(.Llan) .klan,
+  & .ttx.focus:not(.Lrtv) .krtv,
+  & .ttx.focus:not(.Ldom) .kdom {
+    opacity: 0;
+  }
+  & .ttx.bp .txsky {
+    fill: var(--inst-il-bp-txsky-fill);
+  }
+  & .ttx.bp .txbp {
+    opacity: 1;
+  }
+  & .ttx.bp .txbg,
+  & .ttx.bp .txglow,
+  & .ttx.bp .txmoon {
+    opacity: 0;
+  }
+  & .ttx .a,
+  & .ttx .a * {
+    transition:
+      fill 0.6s,
+      stroke 0.6s,
+      opacity 0.6s;
+  }
+  & .ttx.bp .a,
+  & .ttx.bp .a * {
+    fill: transparent !important;
+    stroke: var(--inst-il-bp-a-line) !important;
+    stroke-width: 0.9 !important;
+    stroke-dasharray: none !important;
+  }
+  & .ttx.bp .txcut rect {
+    fill: var(--inst-il-bp-txcut-fill) !important;
+  }
+  & .ttx.bp .txpipe {
+    stroke-width: 0.9 !important;
+  }
+  & .ttx.bp .txsign {
+    fill: var(--inst-il-bp-txsign-fill) !important;
+    stroke: none !important;
+  }
+  & .ttx.bp .txlv {
+    fill: var(--inst-il-bp-txlv-fill);
+  }
+  & .ttx .txdim,
+  & .ttx .txcol {
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+  & .ttx.bp .txdim {
+    opacity: 1;
+  }
+  & .ttx.s0 .txcol {
+    opacity: 1;
+  }
+  & .ttx .txdl {
+    fill: none;
+    stroke: var(--inst-il-ttx-txdl-line);
+    stroke-width: 1;
+  }
+  & .ttx .txdt {
+    font: 800 11px var(--font-sans);
+    fill: var(--inst-il-ttx-txdt-fill);
+    letter-spacing: 0.08em;
+  }
+  & .ttx .txdt.sm {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    opacity: 0.75;
+  }
+  & .ttx .txcc {
+    fill: var(--inst-il-ttx-txcc-fill);
+    stroke: var(--inst-il-ttx-txcc-line);
+    stroke-width: 1.6;
+    stroke-dasharray: 3 2;
+    animation: inst-tt-txpu 1.6s ease-in-out infinite;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  & .ttx .txct {
+    font: 900 13px var(--font-display);
+    fill: var(--inst-il-ttx-txct-fill);
+    text-anchor: middle;
+  }
+  & .ttx .txoks {
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+  & .ttx.g4 .txoks {
+    opacity: 1;
+  }
+  & .ttx .txok circle {
+    fill: var(--inst-plan-ok);
+    stroke: var(--inst-il-ttx-txok-line);
+    stroke-width: 1.2;
+  }
+  & .ttx .txok path {
+    fill: none;
+    stroke: var(--inst-plan-white);
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  & .ttx .txstamp {
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+  & .ttx.s5 .txstamp {
+    opacity: 1;
+  }
+  & .ttx .txstamp rect {
+    fill: var(--inst-plan-ok-bg);
+    stroke: var(--inst-il-ttx-txstamp-line);
+    stroke-width: 2;
+  }
+  & .ttx .txstamp text {
+    text-anchor: middle;
+    fill: var(--inst-il-ttx-txstamp-fill);
+  }
+  & .ttx .txstamp .t1 {
+    font: 900 15px var(--font-display);
+    letter-spacing: 0.18em;
+  }
+  & .ttx .txstamp .t2 {
+    font: 800 9.5px var(--font-sans);
+  }
+  & .ttx .tthl rect {
+    fill: var(--inst-ill-glow);
+    stroke: var(--inst-plan-accent);
+    stroke-width: 1.6;
+    stroke-dasharray: 4 3;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  & .ttx .tthl.on rect {
+    opacity: 1;
+    animation: inst-tt-txdash 1s linear infinite;
+  }
+  & .ttx .ttm {
+    cursor: pointer;
+  }
+  & .ttx .ttm .hit {
+    fill: transparent;
+  }
+  /* Light theme of the markers (pk.css `.pk[data-theme=light] .ttx .ttm …`): white dots. */
+  & .ttx .ttm .dot {
+    fill: light-dark(var(--inst-plan-white), var(--inst-plan-card));
+    stroke: light-dark(var(--inst-foot-cta-to), var(--inst-plan-accent));
+    stroke-width: 1.6;
+    transition: fill 0.25s;
+  }
+  & .ttx .ttm text {
+    font: 900 10.5px var(--font-display);
+    fill: var(--inst-il-ttx-ttm-fill);
+    text-anchor: middle;
+    pointer-events: none;
+  }
+  & .ttx .ttm .pul {
+    fill: none;
+    stroke: var(--inst-plan-accent);
+    stroke-width: 1.2;
+    opacity: 0;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: inst-tt-txring 2.4s ease-out infinite;
+  }
+  & .ttx .ttm:hover .dot,
+  & .ttx .ttm.on .dot {
+    fill: light-dark(var(--inst-foot-cta-to), var(--inst-plan-accent));
+  }
+  & .ttx .ttm:hover text,
+  & .ttx .ttm.on text {
+    fill: light-dark(var(--inst-plan-white), var(--inst-plan-on-ink));
+  }
+  & .ttx .ttm.on .pul {
+    animation-duration: 1.4s;
+  }
+  & .ttx.bp .ttm .dot {
+    fill: var(--inst-il-ttm-dot-fill);
+  }
+  & .ttx.bp .ttm.on .dot {
+    fill: var(--inst-plan-accent);
+  }
+  & .tthint {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12.5px;
+    font-weight: 800;
+    color: var(--ink-2);
+  }
+  & .ttmk {
+    display: inline-grid;
+    place-items: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1.5px solid var(--accent-text);
+    color: var(--accent-text);
+    font: 900 10.5px var(--font-display);
+  }
+  & .ttnote {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 2px 16px 16px;
+    min-height: 62px;
+  }
+  & .ttnote .ttnk {
+    flex: none;
+    display: grid;
+    place-items: center;
+    min-width: 28px;
+    height: 28px;
+    padding: 0 8px;
+    border-radius: 14px;
+    background: var(--surface-3);
+    color: var(--accent-text);
+    font: 900 12px var(--font-display);
+  }
+  & .ttnote .ttnk.el {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+  & .ttnote div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: 13.5px;
+    color: var(--ink-2);
+    line-height: 1.5;
+  }
+  & .ttnote b {
+    color: var(--ink);
+    font-size: 14.5px;
+  }
+  @media (max-width: 760px) {
+    & .tthint {
+      display: none;
+    }
+    & .ttx .txlv {
+      font-size: 14px;
+    }
+    & .ttx .ttm text {
+      font-size: 13px;
+    }
+    & .ttx .ttm .dot {
+      r: 12;
+    }
+    & .ttsteps {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  & .ttx .txm1 {
+    fill: var(--inst-il-ttx-txm1-fill);
+  }
+  & .ttx .txlv {
+    paint-order: stroke;
+    stroke: var(--sk2);
+    stroke-width: 3px;
+    stroke-linejoin: round;
+  }
+  & .ttx.bp .txlv {
+    stroke: var(--inst-il-ttm-dot-fill);
+  }
+  & .xc-ttnums {
+    display: none;
+  }
+  @media (max-width: 760px) {
+    & .xc-ttnums {
+      display: grid;
+      grid-template-columns: repeat(9, minmax(0, 1fr));
+      gap: 4px;
+      margin: 10px 0 2px;
+    }
+    & .xc-ttn {
+      min-height: 44px;
+      border-radius: 12px;
+      border: 1.5px solid var(--border);
+      background: transparent;
+      color: var(--ink);
+      font: 900 15px var(--font-display);
+      padding: 0;
+      cursor: pointer;
+    }
+    & .xc-ttn.on {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--inst-plan-on-ink);
+    }
+  }
+  & .xc-drop {
+    cursor: pointer;
+    position: relative;
+  }
+  & .xc-drop .xc-file {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    overflow: hidden;
+  }
+  & .xc-fn {
+    font-size: 13px;
+    color: var(--ink-2);
+    word-break: break-word;
+  }
+  & .zin.xc-bad {
+    border-color: var(--inst-il-xc-err-c);
+  }
+  /* The checkbox is visually hidden: its box shows the keyboard focus (like `.hzkcons`, I6). */
+  & .xc-chk:has(input:focus-visible) i {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  & .xc-chk {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    text-align: left;
+    background: none;
+    border: 0;
+    padding: 4px 0;
+    font: inherit;
+    font-size: 13.5px;
+    color: var(--ink-2);
+    cursor: pointer;
+    min-height: 44px;
+  }
+  & .xc-chk i {
+    flex: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 6px;
+    border: 1.5px solid var(--border);
+    margin-top: 1px;
+    box-sizing: border-box;
+    display: grid;
+    place-items: center;
+  }
+  & .xc-chk.on i {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  & .xc-chk.on i::after {
+    content: '';
+    width: 10px;
+    height: 6px;
+    border-left: 2.5px solid var(--inst-plan-on-ink);
+    border-bottom: 2.5px solid var(--inst-plan-on-ink);
+    transform: translateY(-1px) rotate(-45deg);
+  }
+  & .xc-chk.bad i {
+    border-color: var(--inst-il-xc-err-c);
+  }
+  & .xc-err {
+    font-size: 13.5px;
+    color: var(--inst-il-xc-err-c);
+    font-weight: 700;
+  }
+  & .xc-ok {
+    font-size: 13.5px;
+    color: var(--ink);
+    font-weight: 600;
+  }
+  @media (max-width: 760px) {
+    & .ill .xc-ttnums {
+      padding: 12px 16px 0;
+      margin: 0;
+      gap: 5px;
+    }
+    & .ill .xc-ttnums + .ttsteps {
+      padding-top: 8px;
+    }
+  }
+
+  /* Inline styles of `Teletechnika.body.html` as classes. */
+  & .card.tlaw {
+    padding: 44px;
+    border-radius: 30px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+    gap: 36px;
+  }
+  @media (max-width: 760px) {
+    & .card.tlaw {
+      grid-template-columns: 1fr;
+      padding: 26px;
+    }
+  }
+  & .tlaweye {
+    color: var(--inst-plan-accent);
+  }
+  & .tlawtx {
+    color: var(--inst-deep-lead-2);
+    font-size: 14px;
+  }
+  /* No upload in v1: the drop area only says how to send the bill of quantities. */
+  & .drop.tqfiles {
+    cursor: default;
+  }
+  & .zp.tqdone {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+@keyframes inst-tt-fadein {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes inst-tt-txb {
+  50% {
+    opacity: 0.25;
+  }
+}
+
+@keyframes inst-tt-txf {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+
+@keyframes inst-tt-txpu {
+  50% {
+    transform: scale(1.18);
+  }
+}
+
+@keyframes inst-tt-txdash {
+  to {
+    stroke-dashoffset: -14;
+  }
+}
+
+@keyframes inst-tt-txring {
+  0% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.9);
+  }
+}
+
+/* Reduced motion (spec §5): the scene, its markers and the form stand still. */
+@media (prefers-reduced-motion: reduce) {
+  [data-line='instalacje'] {
+    & .zp,
+    & .ttx .txled,
+    & .ttx .k .flw,
+    & .ttx .txcc,
+    & .ttx .tthl.on rect,
+    & .ttx .ttm .pul {
+      animation: none;
+    }
+  }
+}
