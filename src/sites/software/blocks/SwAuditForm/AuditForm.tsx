@@ -7,6 +7,7 @@ import { type FormEvent, useEffect, useId, useRef, useState } from 'react'
 import { FieldError } from '@/components/ui/Field'
 import { Icon } from '@/components/ui/Icon'
 import { cx } from '@/components/ui/cx'
+import { track, trackFormErrors } from '@/lib/analytics/track'
 import { type AuditField, buildAuditBody, checkAuditRequired } from '@/lib/inquiry/auditForm'
 import {
   CONSENT_CLAUSE,
@@ -74,6 +75,7 @@ export function AuditForm({ texts, errors: messages, formToken }: Props) {
 
   const showErrors = (next: Partial<Record<ErrorKey, string>>) => {
     setErrors(next)
+    trackFormErrors('audyt', next)
     const first = FIELDS.find((field) => next[field])
     if (first) refs[first].current?.focus()
     else if (next.form) setFocusBox((count) => count + 1)
@@ -115,6 +117,7 @@ export function AuditForm({ texts, errors: messages, formToken }: Props) {
       outcome = readOutcome(0, null, serverMessages)
     }
     if (outcome.kind === 'sent') {
+      track('audyt_wyslij')
       const query = outcome.number ? `?nr=${encodeURIComponent(outcome.number)}` : ''
       router.push(`/dziekujemy${query}`)
       return

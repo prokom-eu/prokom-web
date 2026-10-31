@@ -4,6 +4,7 @@ import { type ReactNode, useEffect, useId, useRef, useState } from 'react'
 
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
+import { track } from '@/lib/analytics/track'
 import { keepTogether } from '@/lib/software/price'
 import type { SoftwareWizard } from '@/lib/software/wizard'
 import {
@@ -260,6 +261,21 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
   // One level under the wizard's title: h2 on /dobierz, h3 as a section of the start page.
   const StepHeading = headingLevel === 'h1' ? 'h2' : 'h3'
   const view = resultView(rules, answers, solutions)
+  const resultId = view.resultId
+
+  // Analytics (ADR-020): only steps the visitor took — not the step a link opened (`?firma=`).
+  const started = useRef(false)
+  useEffect(() => {
+    if (!moved.current) return
+    if (!started.current) {
+      started.current = true
+      track('kreator_start')
+    }
+    track('kreator_krok', { krok: stepIndex + 1 })
+  }, [step, stepIndex])
+  useEffect(() => {
+    if (moved.current && isResult) track('kreator_wynik', { wynik: resultId })
+  }, [isResult, resultId])
   const preview = previewOf(rules, answers)
   const haveSet = need?.have ? rules.haves[need.have] : undefined
   const rows = [...new Set(Object.values(rules.needs).map((each) => each.row))].sort()
@@ -552,7 +568,10 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
                         <input
                           type="checkbox"
                           checked={each.on}
-                          onChange={() => update({ more: toggle(answers.more, each.id) })}
+                          onChange={() => {
+                            if (!each.on) track('kreator_dodatek', { id: each.id })
+                            update({ more: toggle(answers.more, each.id) })
+                          }}
                           className="size-[22px] shrink-0 accent-accent-text"
                         />
                         <span className="flex-1">{each.name}</span>
@@ -841,7 +860,10 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
                         key={addOn.id}
                         type="button"
                         aria-pressed={addOn.on}
-                        onClick={() => update({ addOns: toggle(answers.addOns, addOn.id) })}
+                        onClick={() => {
+                          if (!addOn.on) track('kreator_dodatek', { id: addOn.id })
+                          update({ addOns: toggle(answers.addOns, addOn.id) })
+                        }}
                         className={cx(
                           'flex items-start gap-3 rounded-2xl border-[1.5px] p-3.5 text-left active:scale-[0.99]',
                           addOn.on

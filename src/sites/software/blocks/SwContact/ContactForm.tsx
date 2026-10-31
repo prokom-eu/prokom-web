@@ -7,6 +7,7 @@ import { type FormEvent, useEffect, useId, useRef, useState } from 'react'
 import { FieldError } from '@/components/ui/Field'
 import { Icon } from '@/components/ui/Icon'
 import { cx } from '@/components/ui/cx'
+import { track, trackFormErrors } from '@/lib/analytics/track'
 import type { IconName } from '@/lib/catalog/options'
 import {
   CONSENT_CLAUSE,
@@ -179,6 +180,7 @@ export function ContactForm({
 
   const showErrors = (next: Partial<Record<ErrorKey, string>>) => {
     setErrors(next)
+    trackFormErrors('kontakt', next)
     const first = (['message', 'name', 'contact', 'consent'] as const).find((field) => next[field])
     if (first === 'message') messageRef.current?.focus()
     else if (first === 'name') nameRef.current?.focus()
@@ -230,6 +232,8 @@ export function ContactForm({
     }
     if (outcome.kind === 'sent') {
       const sent = summary ? summary.rows.filter((row) => summary.slugs.includes(row.id)) : []
+      track('kontakt_wyslij')
+      if (sent.length > 0) track('projekt_wyslij', { liczba: sent.length })
       if (sent.length > 0) {
         if (outcome.number) {
           try {

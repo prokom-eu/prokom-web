@@ -1,8 +1,10 @@
 'use client'
 
-import { type ReactNode, useId } from 'react'
+import { type ReactNode, useEffect, useId } from 'react'
 
 import { cx } from '@/components/ui/cx'
+import { labelKey } from '@/lib/analytics/events'
+import { track } from '@/lib/analytics/track'
 import { projectActions, useProject } from '@/lib/software/projectStore'
 
 import { TabPanels } from './TabPanels'
@@ -31,6 +33,11 @@ export function LivePreviewTabs({ tabs, panels, hint }: Props) {
     tabs.length,
     PREVIEWS_AUTO_MS,
   )
+  // `podglad_otworz` (ADR-020) only for the visitor's picks (click or arrows), not auto-switching.
+  const pickedLabel = picked ? tabs[active]?.label : undefined
+  useEffect(() => {
+    if (pickedLabel) track('podglad_otworz', { podglad: labelKey(pickedLabel) })
+  }, [pickedLabel])
 
   return (
     <div
