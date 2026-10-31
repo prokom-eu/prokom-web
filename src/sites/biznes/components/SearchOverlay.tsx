@@ -32,8 +32,8 @@ import {
   searchProducts,
 } from '@/lib/search'
 
-import { AddToCartButton } from './AddToCartButton'
 import { ProductThumb, productSubtitle } from './ProductThumb'
+import { QuickView } from './QuickView'
 import { SearchIcon } from './SearchIcon'
 
 const MAX_PRODUCTS = 7
@@ -405,8 +405,11 @@ function Found({
   const pages = matched.filter((page) => !page.slug.startsWith('zestawy/')).slice(0, MAX_PAGES)
   const bundles = matched.filter((page) => page.slug.startsWith('zestawy/')).slice(0, MAX_BUNDLES)
   const brands = matchBrands(index, query).slice(0, MAX_BRANDS)
+  const shown = results.slice(0, MAX_PRODUCTS)
+  const [preview, setPreview] = useState<number | null>(null)
   return (
     <div className="grid lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)]">
+      <QuickView products={shown} current={preview} index={index} onMove={setPreview} />
       <section
         aria-labelledby={`${ids}-products`}
         className="p-5 sm:p-6 lg:border-r lg:border-border"
@@ -418,9 +421,9 @@ function Found({
           </span>
         </h3>
         <ul className="flex flex-col gap-1">
-          {results.slice(0, MAX_PRODUCTS).map((product) => (
+          {shown.map((product, i) => (
             <li key={product.slug}>
-              <ProductResult product={product} index={index} />
+              <ProductResult product={product} index={index} onPreview={() => setPreview(i)} />
             </li>
           ))}
         </ul>
@@ -546,7 +549,15 @@ const TILE =
 const LOGO =
   'inline-flex h-12 w-[6.5rem] items-center justify-center rounded-xl border border-border bg-white px-3 hover:border-accent'
 
-function ProductResult({ product, index }: { product: IndexProduct; index: CatalogIndex }) {
+function ProductResult({
+  product,
+  index,
+  onPreview,
+}: {
+  product: IndexProduct
+  index: CatalogIndex
+  onPreview: () => void
+}) {
   const sub = productSubtitle(product, index)
   return (
     <div className="flex items-center gap-2 rounded-2xl p-2 hover:bg-surface-2">
@@ -561,7 +572,15 @@ function ProductResult({ product, index }: { product: IndexProduct; index: Catal
           {sub && <small className="block truncate text-sm text-ink-3">{sub}</small>}
         </span>
       </Link>
-      <AddToCartButton slug={product.slug} name={product.name} />
+      <button
+        type="button"
+        onClick={onPreview}
+        aria-label={`Podgląd: ${product.name}`}
+        className="inline-flex h-9 shrink-0 items-center gap-1.5 rounded-xl border border-border bg-card px-3 text-sm font-bold text-ink hover:bg-surface"
+      >
+        <Icon name="search" className="size-4" />
+        <span aria-hidden="true">Podgląd</span>
+      </button>
     </div>
   )
 }
