@@ -204,7 +204,8 @@ test.describe('inquiry list /zapytanie (B8b)', () => {
     await asNewVisitor(page)
     const [first] = (await fillCart(page)) as [Product]
     await page.goto(site('biznes.localhost'))
-    const drawer = page.getByRole('dialog', { name: /^Twoje zapytanie \(2\)$/ })
+    // The count in the title drops to 0 once the list is sent, so the name only starts with it.
+    const drawer = page.getByRole('dialog', { name: /^Twoje zapytanie/ })
     await expect(async () => {
       await page
         .getByRole('banner')
