@@ -38,7 +38,13 @@ describe('block registry', () => {
   })
 
   it('allows the Instalacje blocks on the Instalacje line only', () => {
-    expect(INSTALACJE_BLOCK_SLUGS).toEqual(['instService', 'instHome'])
+    expect(INSTALACJE_BLOCK_SLUGS).toEqual([
+      'instService',
+      'instHome',
+      'instPlanner',
+      'instContact',
+      'instServiceDesk',
+    ])
     expect([...ALLOWED_BLOCKS.instalacje].sort()).toEqual(
       [...GENERIC_BLOCK_SLUGS, ...INSTALACJE_BLOCK_SLUGS].sort(),
     )
