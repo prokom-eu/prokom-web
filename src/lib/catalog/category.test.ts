@@ -6,7 +6,9 @@ import {
   boughtWithTiles,
   buildCategoryView,
   categoryBrands,
+  categoryGuide,
   categoryPill,
+  choiceInquiryHref,
   categoryIndustries,
   categoryProducts,
   categorySeries,
@@ -68,6 +70,80 @@ describe('categoryProducts', () => {
 
   it('is empty for an unknown or empty category (the page is 404 then)', () => {
     expect(categoryProducts(index([product('ergo')]), 'automaty-vendingowe')).toEqual([])
+  })
+
+  it('puts the cards numbered in the panel (`pop9`) first, then the more popular (K36 §10)', () => {
+    const catalog = index([
+      product('popular', { popularity: 90 }),
+      product('second', { order: 1, popularity: 10 }),
+      product('first', { order: 0, popularity: 10 }),
+    ])
+    expect(categoryProducts(catalog, 'kasy-fiskalne').map((item) => item.slug)).toEqual([
+      'first',
+      'second',
+      'popular',
+    ])
+  })
+})
+
+describe('categoryGuide (K36 §13)', () => {
+  const none = { title: null, text: null, button: null, action: null }
+  const vending = {
+    title: 'Nie wiesz, jaki automat?',
+    text: 'Zacznij od produktu.',
+    button: 'Dobierz automat',
+    action: 'vending' as const,
+  }
+
+  it('laptops and computers: „Dobierz laptop” in the salon', () => {
+    const guide = categoryGuide({
+      slug: 'laptopy',
+      name: 'Laptopy',
+      data: [none],
+      showroomHref: '/marki/lenovo#dobor',
+      vendingPage: false,
+    })
+    expect(guide).toMatchObject({ button: 'Dobierz laptop', href: '/marki/lenovo#dobor' })
+  })
+
+  it('elsewhere without a panel card: „Zapytaj o dobór” with the name in the inquiry', () => {
+    const guide = categoryGuide({
+      slug: 'niszczarki',
+      name: 'Niszczarki',
+      data: [none],
+      showroomHref: '/marki/niszczarki#dobor',
+      vendingPage: false,
+    })
+    expect(guide).toEqual({
+      title: 'Nie wiesz, co wybrać?',
+      text: 'Napisz, do czego potrzebujesz — dobierzemy model i przygotujemy ofertę na piśmie.',
+      button: 'Zapytaj o dobór',
+      href: choiceInquiryHref('Niszczarki'),
+    })
+    expect(choiceInquiryHref('Niszczarki')).toBe('/zapytanie?fraza=Dob%C3%B3r%3A%20Niszczarki')
+  })
+
+  it('a panel card wins, the subcategory before the category', () => {
+    const ups = {
+      title: 'Nie wiesz, jaki UPS?',
+      text: 'Napisz.',
+      button: 'Zapytaj o dobór',
+      action: 'inquiry' as const,
+    }
+    const guide = categoryGuide({
+      slug: 'serwery-nas-ups',
+      name: 'UPS',
+      data: [ups, vending],
+      showroomHref: null,
+      vendingPage: true,
+    })
+    expect(guide).toMatchObject({ title: 'Nie wiesz, jaki UPS?', href: choiceInquiryHref('UPS') })
+  })
+
+  it('the vending button needs the vending page, else it asks', () => {
+    const args = { slug: 'automaty', name: 'Automaty', data: [vending], showroomHref: null }
+    expect(categoryGuide({ ...args, vendingPage: true }).href).toBe('/automaty-vendingowe')
+    expect(categoryGuide({ ...args, vendingPage: false }).button).toBe('Zapytaj o dobór')
   })
 })
 

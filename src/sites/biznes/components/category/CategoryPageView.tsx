@@ -2,20 +2,23 @@ import { Container } from '@/components/ui/Container'
 import {
   boughtWithTiles,
   categoryBrands,
+  categoryGuide,
   categoryHref,
   categoryPill,
   categoryProducts,
   registerOptions,
   seriesFilter,
+  showroomHelpHref,
   subcategoryHref,
   subcategoryLinks,
   subcategoryProducts,
   subcategoryTitle,
+  USE_CASE_CATEGORIES,
+  VENDING_PATH,
   type CategoryView,
 } from '@/lib/catalog/category'
 import type { CatalogIndex, IndexSubcategory } from '@/lib/catalog/catalogIndex'
 import { CATALOG_PATH } from '@/lib/catalog/filters'
-import { groupHref } from '@/lib/catalog/menu'
 import { breadcrumbJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
 import { getSiteSettings } from '@/lib/site/data'
 import { toTelHref } from '@/lib/site/link'
@@ -71,28 +74,28 @@ export async function CategoryPageView({
     ? subcategoryHref(category.slug, subcategory.slug)
     : categoryHref(category.slug)
 
-  // `indexed: false`: the group link is a filtered catalog view (`noindex`) — shown to people,
-  // left out of JSON-LD, where every item but the last needs its own address (Google).
-  const crumbs: (Crumb & { indexed?: false })[] = [
-    { name: 'Strona główna', href: '/' },
+  // K4 board: Start / Oferta / category [/ subcategory] — a subcategory named like its
+  // category is not repeated (K36 §13).
+  const crumbs: Crumb[] = [
+    { name: 'Start', href: '/' },
     { name: 'Oferta', href: CATALOG_PATH },
-    ...(group ? [{ name: group.name, href: groupHref(group.slug), indexed: false as const }] : []),
     { name: category.name, href: categoryHref(category.slug) },
-    ...(subcategory ? [{ name: subcategory.name, href: self }] : []),
+    ...(subcategory && subcategory.name !== category.name
+      ? [{ name: subcategory.name, href: self }]
+      : []),
   ]
   const breadcrumbs = breadcrumbJsonLd(
-    crumbs
-      .filter(({ indexed }) => indexed !== false)
-      .map(({ name, href }) => ({ name, url: origin + href })),
+    crumbs.map(({ name, href }) => ({ name, url: origin + href })),
   )
 
   // The client island gets only these products, not the whole catalog.
   const bySeries = seriesFilter(true, products).length > 0
-  // Industries only for „Do czego” of a category with series (K31c).
+  // „Do czego” (the cards' industries) only for laptops and computers (K36 §13).
+  const useCases = USE_CASE_CATEGORIES.has(category.slug)
   const islandIndex: CatalogIndex = {
     ...index,
     products,
-    industries: bySeries ? index.industries : [],
+    industries: useCases ? index.industries : [],
     pages: [],
     search: { synonyms: {}, stopWords: [], popular: [] },
   }
@@ -108,6 +111,20 @@ export async function CategoryPageView({
       ? categoryHref(PRINTERS_SLUG)
       : null
   const links = subcategoryLinks(listed)
+  // A category without subcategories shows the other categories of its department (K36 §4).
+  const siblings =
+    links.pages.length === 0 && (listed.subcategories ?? []).length === 0
+      ? index.categories
+          .filter((item) => item.group === listed.group && item.slug !== category.slug)
+          .map((item) => ({ name: item.name, href: categoryHref(item.slug), count: item.count }))
+      : []
+  const guide = categoryGuide({
+    slug: category.slug,
+    name: subcategory?.name ?? category.name,
+    data: [subcategory ? category.subcategoryGuides[subcategory.name] : null, category.guide],
+    showroomHref: showroomHelpHref(products, index, []),
+    vendingPage: index.pages.some(({ slug }) => `/${slug}` === VENDING_PATH),
+  })
   const hero = subcategory
     ? { ...category, title: subcategoryTitle(subcategory.name, brands), highlights: [] }
     : category
@@ -137,12 +154,21 @@ export async function CategoryPageView({
           items={links.pages}
           current={self}
         />
+        <SubcategoryNav
+          label="Inne kategorie działu"
+          category={{ name: category.name, href: categoryHref(category.slug), count: listed.count }}
+          items={siblings}
+          current={self}
+          withCurrent
+        />
         <CategoryGrid
           index={islandIndex}
           help={category.help}
           printersHref={printers}
           chips={subcategory ? null : { category: category.slug, items: links.chips }}
           bySeriesFilter={bySeries}
+          guide={guide}
+          useCases={useCases}
         />
       </Container>
       <IncludedCards included={category.included} />

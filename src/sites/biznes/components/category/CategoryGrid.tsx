@@ -18,8 +18,8 @@ import {
   SERIES_PARAM,
   seriesFilter,
   seriesFromParam,
-  showroomHelpHref,
   type CategoryChoice,
+  type CategoryGuide,
 } from '@/lib/catalog/category'
 import { CATALOG_PAGE_SIZE } from '@/lib/catalog/filters'
 import { plural } from '@/lib/plural'
@@ -42,8 +42,15 @@ type Props = {
   chips?: { category: string; items: IndexSubcategory[] } | null
   /** Visible heading of the grid (brand page: „W katalogu”); else a hidden „Produkty”. */
   title?: string
-  /** Series row and side panel (K31c) — category pages only, when the cards have 2+ series. */
+  /** Series row (K31c) — category pages only, when the cards have 2+ series. */
   bySeriesFilter?: boolean
+  /**
+   * Category pages (K4d): the side panel with brands, „Do czego” and this card, instead of the
+   * dark card at the end of the grid (brand pages keep it).
+   */
+  guide?: CategoryGuide | null
+  /** „Do czego” (the cards' industries) — laptops and computers only (K36 §13). */
+  useCases?: boolean
 }
 
 const SPAN_2: Record<number, string> = { 1: 'col-span-1', 2: 'col-span-2' }
@@ -73,6 +80,8 @@ export function CategoryGrid({
   chips = null,
   title,
   bySeriesFilter = false,
+  guide = null,
+  useCases = false,
 }: Props) {
   const products = index.products
   const [choice, setChoice] = useState<CategoryChoice>({})
@@ -86,9 +95,10 @@ export function CategoryGrid({
   const bySeries = seriesList.length > 0
   const series = bySeries ? seriesFromParam(searchParams.get(SERIES_PARAM), seriesList) : undefined
   const uses = useMemo(
-    () => (bySeries ? categoryIndustries(products, index) : []),
-    [bySeries, products, index],
+    () => (useCases ? categoryIndustries(products, index) : []),
+    [useCases, products, index],
   )
+  const aside = guide !== null
   const [shown, setShown] = useState(CATALOG_PAGE_SIZE)
   const focusCard = useRef<number | null>(null)
 
@@ -103,7 +113,6 @@ export function CategoryGrid({
     () => filterCategoryProducts(products, { ...choice, series }),
     [products, choice, series],
   )
-  const helpHref = bySeries ? showroomHelpHref(products, index, choice.brands ?? []) : null
   const visible = results.slice(0, shown)
   const more = results.length - visible.length
   const registers = options !== null
@@ -286,19 +295,23 @@ export function CategoryGrid({
 
       <div
         className={cx(
-          bySeries && 'lg:grid lg:grid-cols-[220px_minmax(0,1fr)] lg:items-start lg:gap-8',
+          aside && 'lg:grid lg:grid-cols-[220px_minmax(0,1fr)] lg:items-start lg:gap-8',
         )}
       >
-        {bySeries && (
-          <SeriesAside
+        {guide && (
+          <CategoryAside
             brands={segments === 'brand' ? segmentList : []}
             uses={uses}
             choice={choice}
             onToggle={toggle}
-            helpHref={helpHref}
+            guide={guide}
           />
         )}
         <div className="min-w-0">
+          {guide && (
+            // Phones and tablets: the side panel is hidden, its card goes above the grid.
+            <GuideCard guide={guide} className="mt-6 lg:hidden" />
+          )}
           <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
             <p role="status" className="text-ink-2">
               <b className="font-display text-2xl font-extrabold text-ink">{results.length}</b>{' '}
@@ -308,8 +321,8 @@ export function CategoryGrid({
               <fieldset
                 className={cx(
                   'flex flex-wrap gap-1 rounded-2xl bg-surface-2 p-1',
-                  // With the series filter the brands sit in the side panel (from 1024 px up).
-                  bySeries && 'lg:hidden',
+                  // With the side panel the brands sit there (from 1024 px up).
+                  aside && segmentList.length > 1 && segments === 'brand' && 'lg:hidden',
                 )}
               >
                 <legend className="sr-only">{segments === 'brand' ? 'Marka' : 'Kategoria'}</legend>
@@ -365,7 +378,7 @@ export function CategoryGrid({
                   />
                 </li>
               ))}
-              {more === 0 && (
+              {more === 0 && !guide && (
                 <li
                   className={cx(
                     'flex',
@@ -426,23 +439,40 @@ export function CategoryGrid({
 const CHECK =
   'flex min-h-10 cursor-pointer items-center gap-3 text-[15px] font-bold text-ink has-focus-visible:outline-3 has-focus-visible:outline-offset-2 has-focus-visible:outline-accent-text'
 
+/** „Nie wiesz, co wybrać?” of a category (K4 board): text and one button. */
+function GuideCard({ guide, className }: { guide: CategoryGuide; className?: string }) {
+  return (
+    <div
+      className={cx('flex flex-col items-start gap-3 rounded-3xl bg-accent-soft p-5', className)}
+    >
+      <p className="font-display text-lg font-extrabold">{guide.title}</p>
+      {guide.text && <p className="text-sm leading-relaxed text-ink-2">{guide.text}</p>}
+      <Link
+        href={guide.href}
+        className="inline-flex min-h-11 w-full items-center justify-center rounded-xl bg-accent-text px-3 text-center text-sm font-extrabold text-accent-ink hover:bg-ink hover:text-surface"
+      >
+        {guide.button}
+      </Link>
+    </div>
+  )
+}
+
 /**
- * Side panel of a category with series (`k31/screens/Web-Kategoria-1440`, from 1024 px up):
- * brands and „Do czego” as check boxes (any of the checked), and „Nie wiesz, który?” → the
- * wizard in the showroom.
+ * Side panel of a category (K4 board `Web-Kategoria`, from 1024 px up): brands and „Do czego” as
+ * check boxes (any of the checked), then „Nie wiesz, co wybrać?”.
  */
-function SeriesAside({
+function CategoryAside({
   brands,
   uses,
   choice,
   onToggle,
-  helpHref,
+  guide,
 }: {
   brands: { slug: string; name: string; count: number }[]
   uses: { slug: string; name: string; count: number }[]
   choice: CategoryChoice
   onToggle: (key: 'brands' | 'industries', slug: string) => void
-  helpHref: string | null
+  guide: CategoryGuide
 }) {
   const groups = [
     { key: 'brands' as const, legend: 'Marka', items: brands.length > 1 ? brands : [] },
@@ -475,20 +505,7 @@ function SeriesAside({
             </fieldset>
           ),
       )}
-      {helpHref && (
-        <div className="flex flex-col items-start gap-3 rounded-3xl bg-accent-soft p-5">
-          <p className="font-display text-lg font-extrabold">Nie wiesz, który?</p>
-          <p className="text-sm leading-relaxed text-ink-2">
-            Odpowiedz na 3 pytania w salonie marki — podpowiemy serię.
-          </p>
-          <Link
-            href={helpHref}
-            className="inline-flex min-h-11 w-full items-center justify-center rounded-xl bg-accent-text px-3 text-center text-sm font-extrabold text-accent-ink hover:bg-ink hover:text-surface"
-          >
-            Dobierz w 3 pytaniach
-          </Link>
-        </div>
-      )}
+      <GuideCard guide={guide} />
     </aside>
   )
 }

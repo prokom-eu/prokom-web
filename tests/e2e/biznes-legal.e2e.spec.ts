@@ -16,10 +16,7 @@ test.describe('Biznes legal pages', () => {
       expect(response?.status()).toBe(200)
       await expect(page.getByRole('heading', { level: 1 })).toHaveText(title)
       const crumbs = page.getByRole('navigation', { name: 'Okruszki' })
-      await expect(crumbs.getByRole('link', { name: title })).toHaveAttribute(
-        'aria-current',
-        'page',
-      )
+      await expect(crumbs.locator('[aria-current="page"]')).toHaveText(title)
     })
   }
 

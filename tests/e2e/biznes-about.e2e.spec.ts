@@ -14,9 +14,10 @@ test.describe('Biznes about page', () => {
     const h1 = page.getByRole('heading', { level: 1 })
     await expect(h1).toContainText(`${years} lat`)
     await expect(h1).not.toContainText('{lata}')
+    // The current page is text, not a link (K4d).
     await expect(
-      page.getByRole('navigation', { name: 'Okruszki' }).getByRole('link', { name: 'O firmie' }),
-    ).toHaveAttribute('aria-current', 'page')
+      page.getByRole('navigation', { name: 'Okruszki' }).locator('[aria-current="page"]'),
+    ).toHaveText('O firmie')
     await expect(page.getByText('rok założenia')).toBeVisible()
 
     const main = page.getByRole('main')

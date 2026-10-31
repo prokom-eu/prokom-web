@@ -20,21 +20,21 @@ export function Breadcrumbs({
             <Fragment key={item.href}>
               {position > 0 && <li aria-hidden="true">/</li>}
               <li>
-                <Link
-                  href={item.href}
-                  aria-current={current ? 'page' : undefined}
-                  className={
-                    current
-                      ? onDark
-                        ? 'text-white'
-                        : 'text-ink'
-                      : onDark
-                        ? 'hover:text-white hover:underline'
-                        : 'hover:text-ink hover:underline'
-                  }
-                >
-                  {item.name}
-                </Link>
+                {current ? (
+                  // The page itself: text, not a link to where you already are (K4 board).
+                  <span aria-current="page" className={onDark ? 'text-white' : 'text-ink'}>
+                    {item.name}
+                  </span>
+                ) : (
+                  <Link
+                    href={item.href}
+                    className={
+                      onDark ? 'hover:text-white hover:underline' : 'hover:text-ink hover:underline'
+                    }
+                  >
+                    {item.name}
+                  </Link>
+                )}
               </li>
             </Fragment>
           )

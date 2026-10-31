@@ -7,6 +7,7 @@ import { normalizeText } from './normalize'
 import { tenantIdOf } from '../tenant/id'
 import type { CatalogIndex, IndexImage, IndexProduct, IndexSubcategory } from './catalogIndex'
 import type { IconName } from './options'
+import { compareInCategory } from './order'
 
 /** Address part of a series (`?seria=`): „ThinkPad T i X13” → `thinkpad-t-i-x13`. */
 export const seriesSlug = (name: string) =>
@@ -73,9 +74,9 @@ export function subcategoryProducts(
   categorySlug: string,
   name: string,
 ): IndexProduct[] {
-  return index.products.filter(
-    (product) => product.categories[0] === categorySlug && product.subcategory === name,
-  )
+  return index.products
+    .filter((product) => product.categories[0] === categorySlug && product.subcategory === name)
+    .sort(compareInCategory)
 }
 
 /** Subcategory navigation: pages of the category's subcategories, chips for the others. */
@@ -120,9 +121,14 @@ export type BoughtWithTile = {
   image?: IndexImage
 }
 
-/** Listed products of the category, in index order (popularity) — any of their categories. */
+/**
+ * Listed products of the category — any of their categories — in its own order: `pop9`, then
+ * popularity (K36 §10: the same order as „Polecane” of the offer).
+ */
 export function categoryProducts(index: CatalogIndex, slug: string): IndexProduct[] {
-  return index.products.filter((product) => product.categories.includes(slug))
+  return index.products
+    .filter((product) => product.categories.includes(slug))
+    .sort(compareInCategory)
 }
 
 /** Brands of the products (the segments of the grid), most products first. */
@@ -289,6 +295,77 @@ export function showroomHelpHref(
   return salon ? `/marki/${encodeURIComponent(salon)}#dobor` : null
 }
 
+/**
+ * Categories with „Do czego” and „Dobierz laptop” (K4-FINAL §4.4, K36 §13): laptops and
+ * computers only. Slugs of `CATEGORY_SLUGS` (seed).
+ */
+export const USE_CASE_CATEGORIES: ReadonlySet<string> = new Set(['laptopy', 'komputery'])
+
+/** Card „Nie wiesz, co wybrać?” of the panel (`CatalogCategories.help`, category or subcategory). */
+export type GuideData = {
+  title: string | null
+  text: string | null
+  button: string | null
+  action: 'inquiry' | 'vending' | null
+}
+
+/** The card the side panel shows. */
+export type CategoryGuide = { title: string; text: string; button: string; href: string }
+
+/** Address of the vending page (K4j); its button needs the page published. */
+export const VENDING_PATH = '/automaty-vendingowe'
+
+/** `/zapytanie` with the message started: „Dobór: Niszczarki.” (the board's drawer text). */
+export const choiceInquiryHref = (name: string) =>
+  `/zapytanie?fraza=${encodeURIComponent(`Dobór: ${name}`)}`
+
+/**
+ * „Nie wiesz, co wybrać?” of a category page (K4 board, K36 §13):
+ * - laptops and computers — „Dobierz laptop” in the brand's salon (`#dobor`), when there is one;
+ * - a card with its button in the panel (subcategory first, then category) — that button;
+ * - else „Zapytaj o dobór”, the inquiry with the category's name.
+ */
+export function categoryGuide({
+  slug,
+  name,
+  data,
+  showroomHref,
+  vendingPage,
+}: {
+  slug: string
+  /** Name of the page: the subcategory on its page, else the category. */
+  name: string
+  /** Panel cards, most specific first (subcategory, category). */
+  data: readonly (GuideData | null | undefined)[]
+  showroomHref: string | null
+  /** `/automaty-vendingowe` is published (K4j): else the vending button asks instead. */
+  vendingPage: boolean
+}): CategoryGuide {
+  if (USE_CASE_CATEGORIES.has(slug) && showroomHref) {
+    return {
+      title: 'Nie wiesz, który?',
+      text: 'Odpowiedz na 3 pytania w salonie marki — podpowiemy serię.',
+      button: slug === 'komputery' ? 'Dobierz komputer' : 'Dobierz laptop',
+      href: showroomHref,
+    }
+  }
+  const own = data.find((card) => text(card?.button) && text(card?.title))
+  if (own && (own.action !== 'vending' || vendingPage)) {
+    return {
+      title: text(own.title)!,
+      text: text(own.text) ?? '',
+      button: text(own.button)!,
+      href: own.action === 'vending' ? VENDING_PATH : choiceInquiryHref(name),
+    }
+  }
+  return {
+    title: 'Nie wiesz, co wybrać?',
+    text: 'Napisz, do czego potrzebujesz — dobierzemy model i przygotujemy ofertę na piśmie.',
+    button: 'Zapytaj o dobór',
+    href: choiceInquiryHref(name),
+  }
+}
+
 /** Columns the „Nie wiesz, którą wybrać?” card takes: the rest of the last row, or a full row. */
 export function helpCardSpan(count: number, columns: number): number {
   return columns - (count % columns)
@@ -352,6 +429,9 @@ export type CategoryView = {
   facts: Heading & { items: CategoryFact[] }
   faq: Heading & { lead: string | null; items: { question: string; answer: string }[] }
   help: { title: string; text: string }
+  /** Panel cards „Nie wiesz, co wybrać?” as saved: the category's and each subcategory's (K4). */
+  guide: GuideData
+  subcategoryGuides: Record<string, GuideData>
   contact: { heading: string; lead: string }
   /** Slugs of the related products; the page keeps those in the index (published, own site). */
   boughtWith: string[]
@@ -378,6 +458,15 @@ export const DEFAULTS = {
 } as const
 
 const text = (value: string | null | undefined) => value?.trim() || null
+
+function guideData(help: CatalogCategory['help']): GuideData {
+  return {
+    title: text(help?.title),
+    text: text(help?.text),
+    button: text(help?.button),
+    action: help?.action ?? null,
+  }
+}
 
 export function buildCategoryView(category: CatalogCategory, tenantId: number): CategoryView {
   const ownCards = (category.includedSection?.cards ?? []).map(({ icon, title, text: body }) => ({
@@ -434,6 +523,10 @@ export function buildCategoryView(category: CatalogCategory, tenantId: number): 
       title: text(category.help?.title) ?? DEFAULTS.help.title,
       text: text(category.help?.text) ?? DEFAULTS.help.text,
     },
+    guide: guideData(category.help),
+    subcategoryGuides: Object.fromEntries(
+      (category.subcategories ?? []).map((row) => [row.name.trim(), guideData(row.help)]),
+    ),
     contact: {
       heading: text(category.contact?.heading) ?? DEFAULTS.contact.heading,
       lead: text(category.contact?.lead) ?? DEFAULTS.contact.lead,
