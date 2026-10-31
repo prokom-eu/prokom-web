@@ -18,6 +18,7 @@ import {
   checkSoftwareContactRequired,
   type SoftwareContactField,
   type SoftwareTalkWay,
+  talkWayFor,
 } from '@/lib/inquiry/contactForm'
 import { linkInText, readOutcome } from '@/lib/inquiry/form'
 import { HONEYPOT_FIELD } from '@/lib/inquiry/honeypot'
@@ -143,8 +144,10 @@ export function ContactForm({
   const [consent, setConsent] = useState(false)
   const [errors, setErrors] = useState<Partial<Record<ErrorKey, string>>>({})
   const [busy, setBusy] = useState(false)
-  const [talk, setTalk] = useState<SoftwareTalkWay>('phone')
+  // `null` until the customer picks: then the contact field decides (`talkWayFor`).
+  const [pickedTalk, setPickedTalk] = useState<SoftwareTalkWay | null>(null)
   const project = useProject()
+  const talk = talkWayFor(pickedTalk, contact)
   const summary = solutions ? summarizeProject(project, solutions) : null
   const hasItems = (summary?.slugs.length ?? 0) > 0
   const showProject = summary !== null && (summary.rows.length > 0 || projectAsked)
@@ -409,7 +412,7 @@ export function ContactForm({
                   value={way.value}
                   checked={talk === way.value}
                   onChange={() => {
-                    setTalk(way.value)
+                    setPickedTalk(way.value)
                     fixing('contact')
                   }}
                   className="sr-only"

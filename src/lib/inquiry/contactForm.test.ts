@@ -5,6 +5,7 @@ import {
   buildSoftwareContactBody,
   checkSoftwareContactRequired,
   type SoftwareContactValues,
+  talkWayFor,
 } from './contactForm'
 import { parseInquiryInput } from './schema'
 import { SOFTWARE_TOPIC_LABELS } from './types'
@@ -110,6 +111,19 @@ describe('Software contact form (SW8b)', () => {
           preferredContact: 'email',
         }),
       ).toEqual({ contact: true })
+    })
+  })
+
+  describe('the way to talk before the customer picks one (SW11a, z przeglądu)', () => {
+    it('follows what was typed: an e-mail address → e-mail, else phone', () => {
+      expect(talkWayFor(null, 'anna@example.com')).toBe('email')
+      expect(talkWayFor(null, '600 100 200')).toBe('phone')
+      expect(talkWayFor(null, '')).toBe('phone')
+    })
+
+    it('keeps the customer’s own choice', () => {
+      expect(talkWayFor('meeting', 'anna@example.com')).toBe('meeting')
+      expect(talkWayFor('phone', 'anna@example.com')).toBe('phone')
     })
   })
 })

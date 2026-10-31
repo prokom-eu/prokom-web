@@ -129,7 +129,8 @@ test.describe('Software /kontakt', () => {
         line: 'software',
         type: 'list',
         topics: ['strona'],
-        preferredContact: 'phone',
+        // Only an e-mail typed, no way picked: e-mail, never „woli telefon”.
+        preferredContact: 'email',
         message: 'Twój projekt (Strona): Strona firmowa z panelem, Opieka nad stroną i systemem',
       })
       const items = record?.items as { nameSnapshot: string; solution: number | null }[]

@@ -37,6 +37,17 @@ export const SOFTWARE_CONTACT_MESSAGES = {
   name: 'Podaj imię, żebyśmy wiedzieli, jak się zwracać.',
 } as const
 
+/**
+ * „Jak wolisz rozmawiać?” as sent: the customer's pick, else what the contact field holds — an
+ * e-mail address means e-mail, anything else the phone (board default). So a record with only an
+ * e-mail never says „woli telefon”.
+ */
+export function talkWayFor(picked: SoftwareTalkWay | null, contact: string): SoftwareTalkWay {
+  if (picked) return picked
+  const recognised = splitEmailOrPhone(contact)
+  return recognised && 'email' in recognised ? 'email' : 'phone'
+}
+
 const hasProject = (values: SoftwareContactValues) => (values.items?.length ?? 0) > 0
 
 /**
