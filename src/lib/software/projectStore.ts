@@ -1,5 +1,6 @@
 'use client'
 
+import { track } from '../analytics/track'
 import { createListStore } from '../list/store'
 import { PROJECT_KEY, type Project, parseProject, remove, toggle } from './project'
 
@@ -22,7 +23,10 @@ export const projectActions = {
     const result = toggle(before, id, name)
     if (result.project === before) return false
     store.write(result.project)
-    if (result.added) store.announce(id, name)
+    if (result.added) {
+      store.announce(id, name)
+      track('projekt_dodaj', { slug: id })
+    }
     return true
   },
   remove: (id: string) => store.write(remove(store.get(), id)),

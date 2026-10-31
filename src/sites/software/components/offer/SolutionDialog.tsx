@@ -5,6 +5,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 
 import { BottomSheet } from '@/components/BottomSheet'
 import { Icon } from '@/components/ui/Icon'
+import { track } from '@/lib/analytics/track'
 import type { OfferView } from '@/lib/software/offer'
 import { MAX_PROJECT_ITEMS, PROJECT_SEND_HREF } from '@/lib/software/project'
 import { projectActions, useProject } from '@/lib/software/projectStore'
@@ -115,6 +116,7 @@ export function SolutionDialog({
   // A new solution starts at the top (its default level: `pick` is per slug).
   useEffect(() => {
     if (!slug) return
+    track('oferta_okno', { slug })
     top.current?.scrollIntoView({ block: 'start' })
     // Focus left on a part of the previous window (gone now): to the new name.
     const active = document.activeElement
@@ -165,12 +167,16 @@ export function SolutionDialog({
   const projectName = level ? level.projectName : view.name
 
   const add = () => {
+    // `toggle` also takes an item out: only an addition counts as `oferta_dodaj`.
+    const adding = !project.some((item) => item.id === view.slug)
     focusSend.current = true
     const changed = projectActions.toggle(view.slug, projectName)
     if (!changed) {
       focusSend.current = false
       setFullFor(view.slug)
+      return
     }
+    if (adding) track('oferta_dodaj', { slug: view.slug })
   }
 
   const header = (

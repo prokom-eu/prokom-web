@@ -7,6 +7,8 @@ export type RouteDecision =
   | { type: 'notFoundPage'; pathname: string }
   | { type: 'redirect'; pathname: string }
   | { type: 'rewrite'; pathname: string }
+  /** Forward to the Umami container (ADR-020); `pathname` is the path there. */
+  | { type: 'analytics'; pathname: string }
 
 type RouteInput = {
   host: string | null
@@ -42,6 +44,11 @@ const SOLUTIONS_INDEX_PATH = '/api/solutions-index'
 // Liveness of the app and its database (S9): Docker, the smoke test and monitoring call it by
 // IP or any domain, so it answers on every host. Read only, returns no data.
 const HEALTH_PATH = '/api/health'
+// Cookieless statistics (ADR-020): the Umami script and its event endpoint, forwarded by the
+// proxy to the container on the same domain. Anything else under the prefix is not served (the
+// Umami API and panel stay off the sites).
+const ANALYTICS_PREFIX = '/_s'
+const ANALYTICS_PATHS: Record<string, string> = { '/script.js': 'GET', '/api/send': 'POST' }
 // Not a valid page slug, so `[domain]/[slug]` answers with the site's 404 page.
 export const NOT_FOUND_SEGMENT = '_404'
 
@@ -53,7 +60,7 @@ function startsWithSegment(pathname: string, prefix: string): boolean {
  * Decides what the proxy does with a request (ADR-006):
  * - panel domain: only the admin panel and the Payload API,
  * - any other domain: never the admin or the API (only uploaded image files, inquiries and their form token, the
- *   catalog and solutions indexes and the health check); pages are rewritten to
+ *   catalog and solutions indexes, the analytics proxy and the health check); pages are rewritten to
  *   `/<host>/<path>`, where the `[domain]` layout resolves the tenant (unknown → 404).
  */
 export function decideRoute({
@@ -74,6 +81,11 @@ export function decideRoute({
     return { type: 'notFound' }
   }
 
+  if (startsWithSegment(pathname, ANALYTICS_PREFIX)) {
+    const target = pathname.slice(ANALYTICS_PREFIX.length)
+    const allowed = Object.hasOwn(ANALYTICS_PATHS, target) && ANALYTICS_PATHS[target] === method
+    return allowed ? { type: 'analytics', pathname: target } : { type: 'notFound' }
+  }
   if (UPLOAD_FILE.test(pathname) && READ_METHODS.includes(method)) return { type: 'next' }
   if (pathname === INQUIRY_PATH && method === 'POST') return { type: 'next' }
   if (pathname === INQUIRY_TOKEN_PATH && READ_METHODS.includes(method)) return { type: 'next' }

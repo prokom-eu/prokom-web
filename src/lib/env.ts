@@ -1,6 +1,32 @@
 import { z } from 'zod'
 
 import { normalizeHost } from './tenant/host'
+import { isLine, type Line } from './tenant/lines'
+
+/**
+ * `UMAMI_WEBSITES` (ADR-020): `<line>=<website id>,…` — which Umami website counts the pages of
+ * a line. Empty or unset = no line is counted.
+ */
+const umamiWebsites = z
+  .string()
+  .default('')
+  .transform((value, ctx) => {
+    const websites: Partial<Record<Line, string>> = {}
+    for (const entry of value.split(',').map((part) => part.trim())) {
+      if (!entry) continue
+      const [line, id, ...rest] = entry.split('=').map((part) => part.trim())
+      if (!line || !isLine(line) || !id || rest.length > 0 || !z.uuid().safeParse(id).success) {
+        ctx.addIssue({ code: 'custom', message: 'expected <line>=<uuid>, e.g. software=<uuid>' })
+        return z.NEVER
+      }
+      if (websites[line]) {
+        ctx.addIssue({ code: 'custom', message: `line ${line} is listed twice` })
+        return z.NEVER
+      }
+      websites[line] = id
+    }
+    return websites
+  })
 
 const envSchema = z
   .object({
@@ -38,6 +64,15 @@ const envSchema = z
     MAIL_FROM_NAME: z.string().min(1).default('PRO-KOM'),
     // Closed inquiries are deleted this many months after their last status change (ADR-003).
     INQUIRY_RETENTION_MONTHS: z.coerce.number().int().min(1).default(24),
+    // Cookieless statistics (ADR-020): the Umami container's address as the app reaches it
+    // (e.g. http://umami:3000) — `proxy.ts` forwards `/_s/*` there. Origin only, no path.
+    // Unset = no analytics script and `/_s/*` answers 404.
+    UMAMI_URL: z
+      .url({ protocol: /^https?$/ })
+      .transform((value) => value.replace(/\/+$/, ''))
+      .refine((value) => new URL(value).pathname === '/', 'expected an origin without a path')
+      .optional(),
+    UMAMI_WEBSITES: umamiWebsites,
   })
   // SMTP login is both or neither: a half-set pair would fail only at the first e-mail.
   .refine((env) => Boolean(env.SMTP_USER) === Boolean(env.SMTP_PASS), {

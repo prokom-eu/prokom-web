@@ -7,6 +7,7 @@ import type { ReactNode } from 'react'
 import { HomeAwareLink } from '@/components/HomeAwareLink'
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
+import { track } from '@/lib/analytics/track'
 import { activeTab } from '@/lib/software/mobileNav'
 
 import { MenuIcon, WandIcon } from './FrameIcons'
@@ -29,6 +30,9 @@ const ICONS: readonly (ReactNode | null)[] = [
   <MenuIcon key="menu" className="size-6" />,
 ]
 const WIZARD = 2
+/** `pasek_klik` keys in the same order (ADR-020): labels come from the panel and may change. */
+const TAB_KEYS = ['start', 'oferta', 'kreator', 'kontakt', 'menu']
+const trackTab = (i: number) => track('pasek_klik', { pozycja: TAB_KEYS[i] ?? `pozycja-${i}` })
 
 const ITEM =
   'relative flex min-h-14 flex-1 flex-col items-center justify-end gap-1 pb-1.5 text-xs font-bold'
@@ -57,7 +61,10 @@ export function TabBar({ items, homeHrefs, onMenu, menuOpen }: Props) {
               type="button"
               aria-haspopup="dialog"
               aria-expanded={menuOpen}
-              onClick={onMenu}
+              onClick={() => {
+                trackTab(i)
+                onMenu()
+              }}
               className={cx(ITEM, 'text-ink-2')}
             >
               {ICONS[i]}
@@ -94,6 +101,7 @@ export function TabBar({ items, homeHrefs, onMenu, menuOpen }: Props) {
             homeHref={homeHref}
             aria-current={current ? 'page' : undefined}
             className={className}
+            onClick={() => trackTab(i)}
           >
             {content}
           </HomeAwareLink>
@@ -103,6 +111,7 @@ export function TabBar({ items, homeHrefs, onMenu, menuOpen }: Props) {
             href={href}
             aria-current={current ? 'page' : undefined}
             className={className}
+            onClick={() => trackTab(i)}
           >
             {content}
           </Link>

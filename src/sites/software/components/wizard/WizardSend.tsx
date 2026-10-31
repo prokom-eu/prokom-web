@@ -10,6 +10,7 @@ import {
   PRIVACY_POLICY_LINK_TEXT,
   PRIVACY_POLICY_PATH,
 } from '@/lib/inquiry/consent'
+import { track, trackFormErrors } from '@/lib/analytics/track'
 import { linkInText, readOutcome } from '@/lib/inquiry/form'
 import { HONEYPOT_FIELD } from '@/lib/inquiry/honeypot'
 import { buildSoftwareWizardBody, checkSoftwareWizardRequired } from '@/lib/inquiry/wizardForm'
@@ -245,10 +246,12 @@ export function WizardSend({
     const data = new FormData(event.currentTarget)
     const values = { name, contact, consent, website: String(data.get(HONEYPOT_FIELD) ?? '') }
     const missing = checkSoftwareWizardRequired(values, field.field)
-    setErrors({
+    const local = {
       ...(missing.contact && { contact: field.error }),
       ...(missing.consent && { consent: send.errors.consent }),
-    })
+    }
+    setErrors(local)
+    trackFormErrors('kreator', local)
     if (missing.contact) return contactRef.current?.focus()
     if (missing.consent) return consentRef.current?.focus()
 
@@ -272,17 +275,20 @@ export function WizardSend({
     }
     setBusy(false)
     if (outcome.kind === 'sent') {
+      track('kreator_wyslij')
       return onSent({ number: outcome.number, name: name.trim(), view, addOns })
     }
     const fields = outcome.kind === 'invalid' ? outcome.fields : {}
     const contactError = fields.email ?? fields.phone
-    setErrors({
+    const rejected = {
       ...(contactError && { contact: contactError }),
       ...(fields.consent && { consent: fields.consent }),
       ...(outcome.kind === 'error'
         ? { form: outcome.message }
         : outcome.formError && { form: outcome.formError }),
-    })
+    }
+    setErrors(rejected)
+    trackFormErrors('kreator', rejected)
     if (contactError) contactRef.current?.focus()
     else setFocusBox((count) => count + 1)
   }

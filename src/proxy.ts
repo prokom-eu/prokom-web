@@ -1,10 +1,12 @@
 import { NextResponse, type NextRequest } from 'next/server'
 
+import { analyticsRequestHeaders, umamiWebsiteId } from './lib/analytics/config'
 import { getEnv } from './lib/env'
 import { getRedirectsByHost } from './lib/redirects/byHost'
 import { matchRedirect } from './lib/redirects/rules'
 import { REQUEST_ID_HEADER, requestIdFrom } from './lib/requestId'
 import { siteOrigin } from './lib/seo/origin'
+import { getTenantByHost } from './lib/tenant/byHost'
 import { normalizeHost } from './lib/tenant/host'
 import { decideRoute } from './lib/tenant/routing'
 
@@ -43,6 +45,22 @@ async function route(request: NextRequest, upstream: { request: { headers: Heade
     }
     case 'redirect':
       return NextResponse.redirect(new URL(decision.pathname, request.url))
+    case 'analytics': {
+      // ADR-020: forwarded at run time (one image for staging and production), not by
+      // `rewrites()` in next.config, which are fixed at build time. Off = 404.
+      // Only a known site whose line is counted, like any other site path (unknown → 404).
+      const host = normalizeHost(request.headers.get('host'))
+      const tenant = host && env.UMAMI_URL ? await getTenantByHost(host) : null
+      if (!env.UMAMI_URL || !tenant || !umamiWebsiteId(env, tenant.line)) {
+        return new NextResponse('Not Found', { status: 404 })
+      }
+      const target = new URL(decision.pathname, env.UMAMI_URL)
+      target.search = request.nextUrl.search
+      // Only the headers Umami needs (no cookies, no staging password).
+      return NextResponse.rewrite(target, {
+        request: { headers: analyticsRequestHeaders(request.headers) },
+      })
+    }
     case 'rewrite': {
       // A site path: the tenant's redirect rules come first (ADR-006, S7b), then its pages.
       // `Location` must be absolute here; the origin comes from `Host` like canonical addresses,
