@@ -2,6 +2,9 @@ import type { Payload } from 'payload'
 
 import { upsertSoftwarePage, type PageBlock } from './page'
 
+export const SOFTWARE_ABOUT_SLUG = 'o-firmie'
+export const SOFTWARE_ONE_FIRM_SLUG = 'jedna-firma'
+
 type Count = (name: string, result: boolean | 'updated') => void
 
 type Of<T extends PageBlock['blockType']> = Extract<PageBlock, { blockType: T }>
@@ -388,14 +391,19 @@ export async function seedSoftwareAbout(payload: Payload, tenantId: number, coun
   await upsertSoftwarePage(
     payload,
     tenantId,
-    { slug: 'o-firmie', title: 'O firmie', block: 'swPageHero', layout: softwareAboutLayout },
+    {
+      slug: SOFTWARE_ABOUT_SLUG,
+      title: 'O firmie',
+      block: 'swPageHero',
+      layout: softwareAboutLayout,
+    },
     count,
   )
   await upsertSoftwarePage(
     payload,
     tenantId,
     {
-      slug: 'jedna-firma',
+      slug: SOFTWARE_ONE_FIRM_SLUG,
       title: 'Jedna firma do wszystkiego',
       block: 'swPageHero',
       layout: softwareOneCompanyLayout,

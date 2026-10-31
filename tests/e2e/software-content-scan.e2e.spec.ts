@@ -9,6 +9,10 @@ import { site } from './helpers'
 const HOST = 'software.localhost'
 
 test('no competitor names on the Software pages', async ({ request }) => {
+  test.skip(
+    COMPETITORS.length === 0,
+    'TODO(krystian): lista nazw konkurencji w scripts/content-scan.mjs',
+  )
   test.setTimeout(120_000)
   const sitemap = await request.get(site(HOST, '/sitemap.xml'))
   expect(sitemap.ok()).toBe(true)

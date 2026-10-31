@@ -17,5 +17,7 @@ describe('metaDescription', () => {
     )
     expect(metaDescription('ab, cd ef', 7)).toBe('ab, cd…')
     expect(metaDescription('abcdefghij', 5)).toBe('abcd…')
+    expect(metaDescription('Cena „ od 2 490 zł', 7)).toBe('Cena…')
+    expect(metaDescription('Termin ( od tygodnia', 9)).toBe('Termin…')
   })
 })

@@ -1,6 +1,7 @@
 import type { Payload } from 'payload'
 
 import { HOME_SLUG } from '../../lib/pages/slug'
+import { SOFTWARE_ABOUT_SLUG, SOFTWARE_ONE_FIRM_SLUG } from './about'
 import { SOFTWARE_AUDIT_SLUG } from './audit'
 import { SOFTWARE_CONTACT_SLUG } from './contact'
 import { SOFTWARE_PRIVACY_SLUG } from './legal'
@@ -36,11 +37,11 @@ export const SOFTWARE_PAGE_SEO: Readonly<Record<string, Seo>> = {
     description:
       'Napisz albo zadzwoń do PRO-KOM Software w Rabce-Zdroju. Odpowiadamy w sprawie stron, systemów i aplikacji, wycena na piśmie.',
   },
-  'o-firmie': {
+  [SOFTWARE_ABOUT_SLUG]: {
     description:
       'PRO-KOM Software z Rabki-Zdroju: kto zbuduje Twoją stronę albo system, jak pracujemy i z czego budujemy.',
   },
-  'jedna-firma': {
+  [SOFTWARE_ONE_FIRM_SLUG]: {
     description:
       'Strona, system, kasy, sieć i serwis od jednej firmy z Rabki-Zdroju. Jeden numer telefonu zamiast kilku dostawców.',
   },
