@@ -18,6 +18,7 @@ export const SERVICE_SECTION_IDS: Partial<Record<ServiceKey, readonly string[]>>
     'dom-letniskowy',
     'agencja',
   ],
+  kd: ['metody', 'apartamenty', 'firma', 'identyfikatory', 'zamki', 'awarie'],
   kam: ['co-dostajesz', 'system', 'typy', 'ile-widac', 'nagrania', 'rodo', 'sprzet-kamery'],
 }
 
