@@ -1,5 +1,5 @@
 {
-  "_info": "Rozwiązania z planszy Katalog (29 + 1 usunięte, patrz removed). Ceny netto zaakceptowane przez Krystiana 25.10.2026 (claude/software-cennik.md), przed publikacją akceptacja szefa. v22 (29.10.2026, decyzja Krystiana): JEDNA CENA „OD” — nie ma wersji Na start / Standard. priceFrom = cena „od” (dawna Na start), leadTime = termin „od” (np. „od 2 tygodni”); included = co jest w cenie „od” (okno oferty: karta „W cenie”), moreExamples = przykłady „Potrzebujesz więcej?” wyceniane na piśmie w 5–7 dni (dawne punkty Standardu — nigdy cena). Wyjątki z 3 pozycjami (inne usługi, nie wersje): opieka (levels: Podstawowa 149 / Rozszerzona 299 / Systemy 790 zł/mies., priceNote) i audyt (levels: szybki 0 / pełny 990 / strona+program albo dostępność 1 990 zł). Przejęcie po informatyku: od 990 zł jednorazowo (dokumentacja i przeniesienie — wycena po sprawdzeniu). Aplikacje i automatyzacje: priceFrom/leadTime = null → „Zapytaj o wycenę”. category = 5 kategorii katalogu. related = 3 powiązane rozwiązania („Dobrze łączy się z”). example = „Przykład z życia”. featured* = karty „12 rzeczy” na stronie głównej (te same nazwy i teksty co w katalogu). SWR1 (30.10.2026, seed/prokomsoftware): poprawki wg plansz (plansza wygrywa) — opieka „od poziomu Standard” → „od opieki Rozszerzonej” (lead, features), priceNote „Standard 299” → „Rozszerzona 299”; rozwiązanie 1: included i moreExamples z planszy Katalog (OM_INC, OM_MORE). Dopisane z planszy Katalog: thumbnail (plik w public/), levels[].description i shortName (OM_CARE), levelRows (OM_CMP: tak / nie / dochodzi albo tekst), nadpisania okna: benefits (OM_PLUS 23, 25, 28, 29, 30), needs (30), faq (28, 29, 30). levels[].reaction / leadTime → pole term, period „mies.” → priceMonthly.",
+  "_info": "Rozwiązania z planszy Katalog (29 + 1 usunięte, patrz removed). Ceny netto zaakceptowane przez Krystiana 25.10.2026 (claude/software-cennik.md), przed publikacją akceptacja szefa. v22 (29.10.2026, decyzja Krystiana): JEDNA CENA „OD” — nie ma wersji Na start / Standard. priceFrom = cena „od” (dawna Na start), leadTime = termin „od” (np. „od 2 tygodni”); included = co jest w cenie „od” (okno oferty: karta „W cenie”), moreExamples = przykłady „Potrzebujesz więcej?” wyceniane na piśmie w 5–7 dni (dawne punkty Standardu — nigdy cena). Wyjątki z 3 pozycjami (inne usługi, nie wersje): opieka (levels: Podstawowa 149 / Rozszerzona 299 / Systemy 790 zł/mies., priceNote) i audyt (levels: szybki 0 / pełny 990 / strona+program albo dostępność 1 990 zł). Przejęcie po informatyku: od 990 zł jednorazowo (dokumentacja i przeniesienie — wycena po sprawdzeniu). Aplikacje i automatyzacje: priceFrom/leadTime = null → „Zapytaj o wycenę”. category = 5 kategorii katalogu. related = 3 powiązane rozwiązania („Dobrze łączy się z”). example = „Przykład z życia”. SWR1 (30.10.2026, seed/prokomsoftware): poprawki wg plansz (plansza wygrywa) — opieka „od poziomu Standard” → „od opieki Rozszerzonej” (lead, features), priceNote „Standard 299” → „Rozszerzona 299”; rozwiązanie 1: included i moreExamples z planszy Katalog (OM_INC, OM_MORE). Dopisane z planszy Katalog: thumbnail (plik w public/), levels[].description i shortName (OM_CARE), levelRows (OM_CMP: tak / nie / dochodzi albo tekst), nadpisania okna: benefits (OM_PLUS 23, 25, 28, 29, 30), needs (30), faq (28, 29, 30). levels[].reaction / leadTime → pole term, period „mies.” → priceMonthly. SWR5 (31.10.2026): pola featured* usunięte — karty „12 rzeczy” biorą nazwę, opis, cenę i termin z rozwiązania (decyzja 8).",
   "situations": {
     "Z": "Zaczynam od zera",
     "R": "Mam już stronę lub program",
@@ -43,15 +43,6 @@
       "priceFrom": 2490,
       "leadTime": "od 2 tygodni",
       "cardGradient": null,
-      "featuredOrder": 2,
-      "featuredName": "Strona firmowa z panelem",
-      "featuredLead": "Oferta, realizacje, opinie, formularz prosto do Ciebie. Treści zmieniasz sam.",
-      "featuredFeatures": [
-        "Do 5 podstron i panel do zmian",
-        "Formularz prosto na Twoją skrzynkę",
-        "Przygotowana pod Google i AI"
-      ],
-      "featuredTag": "PANEL TREŚCI",
       "category": "strony",
       "priceNote": null,
       "related": [
@@ -97,15 +88,6 @@
       "priceFrom": 1999,
       "leadTime": "od 2 tygodni",
       "cardGradient": "135deg, #F3B07C, #F7D9B5",
-      "featuredOrder": 6,
-      "featuredName": "Strona dla pensjonatu lub hotelu",
-      "featuredLead": "Pokoje, zapytanie o termin, trzy języki. Gość pisze do Ciebie, nie przez portal z prowizją.",
-      "featuredFeatures": [
-        "3 języki, pokoje, galeria",
-        "Zapytanie o termin prosto do Ciebie",
-        "Panel: ceny i zdjęcia zmieniasz sam"
-      ],
-      "featuredTag": "PL · EN · DE",
       "category": "strony",
       "priceNote": "Zapytanie o termin w cenie. Rezerwacja z zaliczką online — osobna wycena.",
       "related": [
@@ -151,15 +133,6 @@
       "priceFrom": 1999,
       "leadTime": "od 2 tygodni",
       "cardGradient": "135deg, #D8C3A8, #A38363",
-      "featuredOrder": 5,
-      "featuredName": "Strona dla restauracji lub baru",
-      "featuredLead": "Menu zmieniasz sam w panelu. Gość sprawdza godziny w sezonie i rezerwuje stolik przez formularz.",
-      "featuredFeatures": [
-        "Menu zmieniasz sam w kilka minut",
-        "Formularz rezerwacji stolika",
-        "Mapa, dojazd i godziny w sezonie"
-      ],
-      "featuredTag": "MENU + STOLIK",
       "category": "strony",
       "priceNote": null,
       "related": [
@@ -207,15 +180,6 @@
       "priceFrom": 999,
       "leadTime": "od 1 tygodnia",
       "cardGradient": null,
-      "featuredOrder": 1,
-      "featuredName": "Strona wizytówka",
-      "featuredLead": "Jedna strona, z której klient od razu dzwoni albo pisze. Dobra na start w Google.",
-      "featuredFeatures": [
-        "Oferta, mapa, telefon i formularz",
-        "Wygodna na telefonie",
-        "Gotowa już od tygodnia"
-      ],
-      "featuredTag": "1 STRONA",
       "category": "strony",
       "priceNote": null,
       "related": [
@@ -315,15 +279,6 @@
       "priceFrom": 6990,
       "leadTime": "od 5 tygodni",
       "cardGradient": null,
-      "featuredOrder": 3,
-      "featuredName": "Rozbudowana strona firmowa",
-      "featuredLead": "Szeroka oferta, blog lub poradnik i kilka osób, które dodają treści. Języki, katalog albo strefę klienta dokładamy pod Twoją firmę.",
-      "featuredFeatures": [
-        "Wiele podstron i blog pod Google",
-        "Konta w panelu dla kilku osób",
-        "Gotowa pod Google i asystentów AI"
-      ],
-      "featuredTag": "WIELE PODSTRON",
       "category": "strony",
       "priceNote": null,
       "related": [
@@ -375,15 +330,6 @@
       "priceFrom": 1299,
       "leadTime": "od 1 tygodnia",
       "cardGradient": null,
-      "featuredOrder": 4,
-      "featuredName": "Landing page",
-      "featuredLead": "Jedna strona pod jedną usługę albo kampanię. Formularz i telefon w każdym miejscu.",
-      "featuredFeatures": [
-        "Jedna usługa, jeden cel",
-        "Formularz lub telefon pod ręką",
-        "Gotowa pod kampanię Google i Facebook"
-      ],
-      "featuredTag": "1 CEL · POMIAR",
       "category": "strony",
       "priceNote": null,
       "related": [
@@ -474,15 +420,6 @@
       "priceFrom": 3490,
       "leadTime": "od 3 tygodni",
       "cardGradient": null,
-      "featuredOrder": 9,
-      "featuredName": "System zleceń i grafik ekip",
-      "featuredLead": "Kto, gdzie, kiedy i z czym jedzie. Klient sprawdza status pod linkiem, a Ty nie dzwonisz po ekipach wieczorem.",
-      "featuredFeatures": [
-        "Kalendarz ekip i materiały",
-        "Status zlecenia dla klienta",
-        "Protokoły i zdjęcia przy zleceniu"
-      ],
-      "featuredTag": "EKIPY · STATUS",
       "category": "systemy",
       "priceNote": "W cenie „od”: jeden moduł na gotowym fundamencie, do 5 użytkowników. Połączenia z innymi programami — osobna wycena.",
       "related": [
@@ -531,15 +468,6 @@
       "priceFrom": 3490,
       "leadTime": "od 3 tygodni",
       "cardGradient": null,
-      "featuredOrder": 7,
-      "featuredName": "CRM dla małej i średniej firmy",
-      "featuredLead": "Klienci, zapytania, oferty i co dalej. Przypomina, do kogo zadzwonić.",
-      "featuredFeatures": [
-        "Klienci i cała historia",
-        "Oferty i przypomnienia",
-        "Raport: skąd przychodzą klienci"
-      ],
-      "featuredTag": "KLIENCI · OFERTY",
       "category": "systemy",
       "priceNote": "W cenie „od”: jeden moduł na gotowym fundamencie, do 5 użytkowników. Połączenia z innymi programami — osobna wycena.",
       "related": [
@@ -588,15 +516,6 @@
       "priceFrom": 2990,
       "leadTime": "od 2 tygodni",
       "cardGradient": null,
-      "featuredOrder": 10,
-      "featuredName": "Czas pracy i rozliczenia",
-      "featuredLead": "Godziny z telefonu pracownika, nie z kartek. Rozliczenie miesiąca robi się samo.",
-      "featuredFeatures": [
-        "Start/stop w telefonie",
-        "Rozliczenie miesiąca automatycznie",
-        "Eksport do kadr i księgowej"
-      ],
-      "featuredTag": "START / STOP",
       "category": "systemy",
       "priceNote": "W cenie „od”: jeden moduł na gotowym fundamencie, do 5 użytkowników. Połączenia z innymi programami — osobna wycena.",
       "related": [
@@ -691,15 +610,6 @@
       "priceFrom": 2990,
       "leadTime": "od 2 tygodni",
       "cardGradient": null,
-      "featuredOrder": 8,
-      "featuredName": "Z Excela do systemu",
-      "featuredLead": "Arkusze zamieniamy w panel, dane przenosimy, duplikaty usuwamy.",
-      "featuredFeatures": [
-        "Przeniesienie danych z arkuszy",
-        "Uprawnienia: kto co widzi",
-        "Historia zmian"
-      ],
-      "featuredTag": "KONIEC Z FINAL_v7",
       "category": "systemy",
       "priceNote": "W cenie „od”: jeden moduł na gotowym fundamencie, do 5 użytkowników. Połączenia z innymi programami — osobna wycena.",
       "related": [

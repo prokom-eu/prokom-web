@@ -133,7 +133,6 @@ export const getSolutionsIndex = (tenantId: number): Promise<SolutionsIndex> =>
             priceMonthly: true,
             thumbnail: true,
             levels: true,
-            featured: true,
           },
           ...read,
         }),
@@ -199,7 +198,7 @@ export const getSoftwareHome = (tenantId: number): Promise<SoftwareHome | null> 
       return parsed.success ? parsed.data : null
     },
     // The shape of the texts is part of the key: a schema change never serves a cached old shape.
-    ['software-home', 'sw5', String(tenantId)],
+    ['software-home', 'swr5', String(tenantId)],
     { tags: [solutionsTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
   )()
 

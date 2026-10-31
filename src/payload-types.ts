@@ -1721,12 +1721,6 @@ export interface Solution {
         id?: string | null;
       }[]
     | null;
-  featured?: {
-    name?: string | null;
-    tag?: string | null;
-    lead?: string | null;
-    features?: string[] | null;
-  };
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -8115,14 +8109,6 @@ export interface SolutionsSelect<T extends boolean = true> {
         q?: T;
         a?: T;
         id?: T;
-      };
-  featured?:
-    | T
-    | {
-        name?: T;
-        tag?: T;
-        lead?: T;
-        features?: T;
       };
   updatedAt?: T;
   createdAt?: T;

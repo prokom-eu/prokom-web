@@ -37,8 +37,6 @@ export type IndexSolution = {
   thumbnail?: string
   /** Levels of care and audit (pkt 2); empty for the other solutions. */
   levels: IndexLevel[]
-  /** Card of „12 rzeczy” (SW5): only the fields filled in the panel, absent when none is. */
-  featured?: FeaturedCard
   /** Normalized text the search matches (`normalizeText`). */
   hay: string
 }
@@ -51,9 +49,6 @@ export type IndexLevel = {
   term?: string
   recommended: boolean
 }
-
-/** Fields of the „12 rzeczy” card that differ from the catalog card (`Solutions.featured`). */
-export type FeaturedCard = { name?: string; tag?: string; lead?: string; features?: string[] }
 
 export type SolutionsIndex = {
   solutions: IndexSolution[]
@@ -113,7 +108,6 @@ export type IndexedSolutionDoc = Pick<
   | 'priceMonthly'
   | 'thumbnail'
   | 'levels'
-  | 'featured'
 >
 
 export type SolutionsSource = {
@@ -145,19 +139,6 @@ function indexLevels(levels: IndexedSolutionDoc['levels']): IndexLevel[] {
   )
 }
 
-function featuredCard(featured: IndexedSolutionDoc['featured']): FeaturedCard | undefined {
-  const card: FeaturedCard = {}
-  const name = text(featured?.name)
-  const tag = text(featured?.tag)
-  const lead = text(featured?.lead)
-  const features = (featured?.features ?? []).map((feature) => feature.trim()).filter(Boolean)
-  if (name) card.name = name
-  if (tag) card.tag = tag
-  if (lead) card.lead = lead
-  if (features.length > 0) card.features = features
-  return Object.keys(card).length > 0 ? card : undefined
-}
-
 function indexSolution(doc: IndexedSolutionDoc): IndexSolution {
   const features = (doc.features ?? []).map((feature) => feature.trim()).filter(Boolean)
   return {
@@ -180,7 +161,6 @@ function indexSolution(doc: IndexedSolutionDoc): IndexSolution {
     leadTime: text(doc.leadTime) ?? null,
     thumbnail: text(doc.thumbnail),
     levels: indexLevels(doc.levels),
-    featured: featuredCard(doc.featured),
     hay: normalizeText(
       [doc.name, doc.label, doc.tag, doc.lead, ...features, doc.forWhom, doc.keywords]
         .filter(Boolean)

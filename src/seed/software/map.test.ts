@@ -125,7 +125,7 @@ describe('solutionData', () => {
     })
   })
 
-  it('maps the card fields and the „12 rzeczy” card', () => {
+  it('maps the card fields', () => {
     const data = solutionData(site)
     expect(data).toMatchObject({
       legacyId: 1,
@@ -134,19 +134,8 @@ describe('solutionData', () => {
       category: 'strony',
       situations: ['Z'],
       cardGradient: null,
-      featured: { name: 'Strona firmowa z panelem', tag: 'PANEL TREŚCI' },
     })
-    expect(data.featured?.features).toHaveLength(3)
-  })
-
-  it('leaves the „12 rzeczy” card empty for a solution without one', () => {
-    const plain = rozwiazania.items.find((item) => !item.featuredName)!
-    expect(solutionData(plain).featured).toEqual({
-      name: null,
-      tag: null,
-      lead: null,
-      features: [],
-    })
+    expect(data).not.toHaveProperty('featured')
   })
 
   it('maps every solution of the package', () => {
