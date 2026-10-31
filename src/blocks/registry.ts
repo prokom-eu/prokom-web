@@ -28,8 +28,11 @@ import { BzPageHeroBlock } from '../sites/biznes/blocks/BzPageHero/config'
 import { BzLinesBlock } from '../sites/biznes/blocks/BzLines/config'
 import { BzBrandsBlock } from '../sites/biznes/blocks/BzBrands/config'
 import { BzLocationBlock } from '../sites/biznes/blocks/BzLocation/config'
+import { InstContactBlock } from '../sites/instalacje/blocks/InstContact/config'
 import { InstHomeBlock } from '../sites/instalacje/blocks/InstHome/config'
+import { InstPlannerBlock } from '../sites/instalacje/blocks/InstPlanner/config'
 import { InstServiceBlock } from '../sites/instalacje/blocks/InstService/config'
+import { InstServiceDeskBlock } from '../sites/instalacje/blocks/InstServiceDesk/config'
 import { SwHeroBlock } from '../sites/software/blocks/SwHero/config'
 import { SwHomeSectionBlock } from '../sites/software/blocks/SwHomeSection/config'
 import { SwContactBlock } from '../sites/software/blocks/SwContact/config'
@@ -94,9 +97,16 @@ export const BIZNES_BLOCKS: Block[] = [
 
 /**
  * Sections of the Instalacje pages (ADR-I002 §0) — `src/sites/instalacje/blocks/`; the blocks
- * come with their sessions (I4–I12); new ones at the end (I5: `instHome`).
+ * come with their sessions (I4–I12); new ones at the end (I5: `instHome`; I11: `instPlanner`,
+ * `instContact`, `instServiceDesk`).
  */
-export const INSTALACJE_BLOCKS: Block[] = [InstServiceBlock, InstHomeBlock]
+export const INSTALACJE_BLOCKS: Block[] = [
+  InstServiceBlock,
+  InstHomeBlock,
+  InstPlannerBlock,
+  InstContactBlock,
+  InstServiceDeskBlock,
+]
 
 /**
  * Sections of the Software pages (ADR-014 rozstrz. SW0 7, at most 10) — `src/sites/software/blocks/`.

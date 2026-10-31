@@ -49,7 +49,10 @@ import { SwPageHero } from '@/sites/software/components/SwPageHero'
 import { SwRichText } from '@/sites/software/components/SwRichText'
 import { BrandsHome } from '@/sites/biznes/components/home/BrandsHome'
 import { FaqBiznes } from '@/sites/biznes/components/home/FaqBiznes'
+import { InstContactBlock } from '@/sites/instalacje/blocks/InstContact/Component'
 import { InstHomeBlock } from '@/sites/instalacje/blocks/InstHome/Component'
+import { InstPlannerBlock } from '@/sites/instalacje/blocks/InstPlanner/Component'
+import { InstServiceDeskBlock } from '@/sites/instalacje/blocks/InstServiceDesk/Component'
 import { InstServiceBlock } from '@/sites/instalacje/blocks/InstService/Component'
 import { SwHeroBlock } from '@/sites/software/blocks/SwHero/Component'
 import { SwContactBlock } from '@/sites/software/blocks/SwContact/Component'
@@ -77,6 +80,9 @@ const HERO_BLOCKS = new Set([
   'swPageHero',
   'instService',
   'instHome',
+  'instPlanner',
+  'instContact',
+  'instServiceDesk',
 ])
 
 /**
@@ -265,6 +271,12 @@ export function RenderBlocks({ page, tenant }: Props) {
             return <InstServiceBlock key={key} block={block} tenantId={tenant.id} />
           case 'instHome':
             return <InstHomeBlock key={key} block={block} tenantId={tenant.id} />
+          case 'instPlanner':
+            return <InstPlannerBlock key={key} block={block} />
+          case 'instContact':
+            return <InstContactBlock key={key} block={block} />
+          case 'instServiceDesk':
+            return <InstServiceDeskBlock key={key} block={block} />
         }
       })}
     </>
