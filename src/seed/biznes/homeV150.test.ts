@@ -51,6 +51,11 @@ function oldLayout(): Block[] {
       ],
       contactLink: { label: 'Kontakt i dojazd', href: '/kontakt' },
     },
+    {
+      blockType: 'bzPlan',
+      id: 'p',
+      industries: { eyebrow: null, heading: 'Firmy każdej wielkości. Od straganu po urząd gminy.' },
+    },
     { blockType: 'faq', id: 'q', heading: 'Zanim zadzwonisz' },
   ]
 }
@@ -62,6 +67,7 @@ describe('upgradeHomeV150 (K4c PR 3b and the cleanup)', () => {
       'bzOffer',
       'bzSteps',
       'bzFacts',
+      'bzPlan',
       'faq',
     ])
   })
@@ -92,6 +98,10 @@ describe('upgradeHomeV150 (K4c PR 3b and the cleanup)', () => {
     expect(by('bzOffer')).toMatchObject({
       searchEyebrow: 'Nie wiesz, w którym dziale szukać?',
       searchHeading: seedOf('bzOffer').searchHeading,
+    })
+    expect(by('bzPlan').industries).toEqual({
+      eyebrow: 'Dla kogo pracujemy',
+      heading: 'Firmy każdej wielkości. Od straganu po urząd gminy.',
     })
     expect(by('bzSteps')).toMatchObject({
       commitmentsEyebrow: 'Nasze zobowiązania',

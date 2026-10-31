@@ -4,7 +4,7 @@ import { getPayload, type Where } from 'payload'
 
 import { catalogTag } from '../catalog/tags'
 import { PAGE_CACHE_SECONDS } from '../pages/data'
-import { postCards, postListCards, type PostCard, type PostListCard } from './cards'
+import { postListCards, type PostListCard } from './cards'
 import { ksefPanel, type KsefPanel } from './ksefPanel'
 import { publishedUntil } from './publishedAt'
 import type { PostCategory } from './list'
@@ -27,31 +27,6 @@ const publicPosts = (tenantId: number): Where => ({
     { publishedAt: { less_than_equal: publishedUntil(new Date()) } },
   ],
 })
-
-/**
- * The latest published posts of exactly one tenant (tenant filter mandatory, as for pages).
- * Marked stale on every change of a post (`Posts` hooks); the pages' TTL is the safety net.
- */
-export const getLatestPosts = (tenantId: number, limit = 3): Promise<PostCard[]> =>
-  cacheQuery(
-    async () => {
-      const payload = await getPayload({ config })
-      const { docs } = await payload.find({
-        collection: 'posts',
-        where: publicPosts(tenantId),
-        draft: false,
-        sort: '-publishedAt',
-        limit,
-        depth: 0,
-        select: { slug: true, title: true, tenant: true, category: true, publishedAt: true },
-        // Server-side read of public content; drafts never leave here.
-        overrideAccess: true,
-      })
-      return postCards(docs, tenantId)
-    },
-    ['latest-posts', String(tenantId), String(limit)],
-    { tags: [postsTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
-  )()
 
 export type PostListItem = PostListCard & {
   categoryValue: PostCategory

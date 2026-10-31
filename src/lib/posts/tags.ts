@@ -1,6 +1,6 @@
 import { tenantIdOf } from '../tenant/id'
 
-/** Cache tag of the posts of one tenant (`getLatestPosts`). */
+/** Cache tag of the posts of one tenant (news list and post pages). */
 export const postsTag = (tenantId: number) => `tenant:${tenantId}:posts`
 
 /** Tags to mark stale after a post changed: its tenant, and the previous one if it moved. */

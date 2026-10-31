@@ -20,6 +20,8 @@ type Path = readonly string[]
  */
 type Rule = { path: Path; old: unknown; key?: string }
 
+// A field cleared on purpose in the panel (e.g. no search tile) is filled again by the next
+// seed run — accepted, the seed runs locally only.
 const EMPTY = Symbol('empty')
 
 const RULES: Record<string, Rule[]> = {

@@ -119,19 +119,26 @@ export async function BzStepsBlock({ block, tenantId }: Props) {
             data-surface="dark"
             className="mt-8 grid items-center gap-6 rounded-[26px] bg-surface-dark p-6 text-white min-[1080px]:grid-cols-[minmax(0,15rem)_minmax(0,1fr)_auto] sm:p-7"
           >
-            <div>
-              {block.commitmentsEyebrow && (
-                <p className="text-[12px] font-extrabold tracking-[0.12em] text-accent-on-dark uppercase">
-                  {block.commitmentsEyebrow}
-                </p>
-              )}
-              {block.commitmentsHeading && (
-                <h3 className="mt-1.5 font-display text-[22px] leading-tight font-extrabold text-balance text-white">
-                  {block.commitmentsHeading}
-                </h3>
-              )}
-            </div>
-            <ul className="grid gap-4 min-[640px]:grid-cols-2 min-[1240px]:grid-cols-4">
+            {(block.commitmentsEyebrow || block.commitmentsHeading) && (
+              <div>
+                {block.commitmentsEyebrow && (
+                  <p className="text-[12px] font-extrabold tracking-[0.12em] text-accent-on-dark uppercase">
+                    {block.commitmentsEyebrow}
+                  </p>
+                )}
+                {block.commitmentsHeading && (
+                  <h3 className="mt-1.5 font-display text-[22px] leading-tight font-extrabold text-balance text-white">
+                    {block.commitmentsHeading}
+                  </h3>
+                )}
+              </div>
+            )}
+            <ul
+              aria-label={
+                block.commitmentsHeading || block.commitmentsEyebrow || 'Nasze zobowiązania'
+              }
+              className="grid gap-4 min-[640px]:grid-cols-2 min-[1240px]:grid-cols-4"
+            >
               {commitments.map((item, i) => (
                 <li key={item.id ?? i} className="flex items-start gap-3">
                   <span
