@@ -19,7 +19,7 @@ Sprawdzenie rekordu z PowerShell: `Resolve-DnsName prokombiznes.pl -Type A` (typ
 | prokomsoftware.pl | Seohost | PRO-KOM | TODO | TODO | strona Software (tenant `software`) |
 | pro-kom.eu | `TODO(krystian)`: nazwa.pl czy już Seohost? (migracja — ADR-002) | PRO-KOM | TODO | TODO | obecna strona + **poczta firmy**; panel `panel.pro-kom.eu` (S10) |
 
-Serwer: **VPS webh.pl** (ADR-019), IPv4 `TODO(krystian)`, IPv6 `TODO(krystian)` (jeśli VPS ma adres IPv6 — wtedy obok każdego A dopisujemy AAAA; bez działającego IPv6 na serwerze **nie** dodajemy AAAA, bo część klientów dostanie błąd). Kolumny TODO w tabeli wyżej — z panelu Seohost.
+Serwer: **VPS webh.pl** (ADR-019, `vm280605`, Łódź), IPv4 **`194.28.50.70`**, IPv6 — brak (nie dodajemy rekordów AAAA; gdyby VPS dostał IPv6, dopisujemy AAAA obok każdego A). Kolumny TODO w tabeli wyżej — z panelu Seohost.
 
 ## Rekordy
 Wpisujemy wszystkie rekordy, także te ustawione domyślnie przez dostawcę. TTL przy zwykłej pracy: 3600; dzień przed planowaną zmianą IP lub migracją obniżamy do 300, po zmianie wracamy do 3600.
@@ -31,6 +31,7 @@ Na start (S10) ustawiamy tylko **staging** — rekordy `@` i `www` dopiero przy 
 |---|---|---|---|---|---|
 | NS | @ | TODO (serwery DNS Seohost) | — | serwery DNS dostawcy | — |
 | A | staging | `<IP>` | 3600 | staging za hasłem (S10) | do ustawienia |
+| A | panel.staging | `<IP>` | 3600 | panel stagingu (S10) | do ustawienia |
 | A | @ | `<IP>` | 3600 | strona | przy produkcji |
 | CNAME | www | `prokombiznes.pl.` | 3600 | `www` → przekierowanie 301 na wersję bez `www` | przy produkcji |
 
@@ -51,7 +52,7 @@ Na start (S10) ustawiamy tylko **staging** — rekordy `@` i `www` dopiero przy 
 | CNAME | www | `prokomsoftware.pl.` | 3600 | `www` → 301 bez `www` | przy produkcji |
 
 ### Panel (Payload)
-Produkcja: `panel.pro-kom.eu` (`PANEL_HOST`, ADR-006). Panel stagingu: `TODO(krystian)` — jeśli strefa pro-kom.eu jest jeszcze w nazwa.pl, zmiana tam to rekord w strefie z pocztą firmy; prościej na start `panel.staging.prokombiznes.pl` (A → `<IP>`, strefa w Seohost), a `panel.pro-kom.eu` dopiero przy produkcji. Wybrany adres trafia do `STAGING_PANEL_HOST` w `.env.proxy` i `PANEL_HOST` w `.env.staging`, do certyfikatu `prokom-staging` i do tabeli niżej.
+Produkcja: `panel.pro-kom.eu` (`PANEL_HOST`, ADR-006). Panel stagingu: **`panel.staging.prokombiznes.pl`** (31.10, A → `<IP>` w strefie prokombiznes.pl). Dlaczego nie w pro-kom.eu — jeśli strefa pro-kom.eu jest jeszcze w nazwa.pl, zmiana tam to rekord w strefie z pocztą firmy; prościej na start `panel.staging.prokombiznes.pl` (A → `<IP>`, strefa w Seohost), a `panel.pro-kom.eu` dopiero przy produkcji. Wybrany adres trafia do `STAGING_PANEL_HOST` w `.env.proxy` i `PANEL_HOST` w `.env.staging`, do certyfikatu `prokom-staging` i do tabeli niżej.
 
 ### pro-kom.eu
 Strefa: `TODO(krystian)` — nazwa.pl albo Seohost (tabela „Domeny”). **Nie zmieniamy MX/SPF/DKIM/DMARC bez osobnego planu migracji poczty (ADR-002).** Przed pierwszą zmianą: przepisać tutaj aktualny stan strefy 1:1 (to jest nasz punkt powrotu).
