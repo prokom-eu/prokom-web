@@ -44,7 +44,7 @@ Formularze → `POST /api/inquiry` → `submitInquiry()` (Zod, honeypot, czas, l
 - PRO-KOM System (2027) — przyjmuje zapytania; pulpit szefa czyta analitykę stron.
 
 ## Infrastruktura (ADR-002, ADR-004)
-- VPS Seohost 4 vCPU / 8 GB: Docker Compose — `app`, `postgres`, `nginx` (+ certbot), kopie; staging i produkcja jako osobne stosy z osobnymi bazami.
+- VPS webh.pl 4 vCPU / 16 GB / 100 GB NVMe, Ubuntu 24.04 (ADR-019): Docker Compose — `app`, `postgres`, `nginx` (+ certbot), kopie; staging i produkcja jako osobne stosy z osobnymi bazami.
 - Obrazy budowane w GitHub Actions → GHCR (prywatnie).
 - Kopie: `pg_dump` co noc + media → poza serwer; próbne odtworzenie raz w miesiącu.
 - Monitoring: Sentry (błędy), zewnętrzny monitoring dostępności; analityka Umami (bez cookies) — po uruchomieniu serwera.

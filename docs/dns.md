@@ -14,26 +14,44 @@ Sprawdzenie rekordu z PowerShell: `Resolve-DnsName prokombiznes.pl -Type A` (typ
 ## Domeny
 | Domena | Rejestrator / DNS | Abonent | Autoodnawianie | Wygasa | Przeznaczenie |
 |---|---|---|---|---|---|
-| prokombiznes.pl | Seohost (ADR-002) | PRO-KOM | TODO | TODO | strona Biznes (tenant `biznes`) |
+| prokombiznes.pl | Seohost (ADR-019) | PRO-KOM | TODO | TODO | strona Biznes (tenant `biznes`) |
 | prokominstalacje.pl | Seohost | PRO-KOM | TODO | TODO | strona Instalacje (tenant `instalacje`) |
 | prokomsoftware.pl | Seohost | PRO-KOM | TODO | TODO | strona Software (tenant `software`) |
-| pro-kom.eu | nazwa.pl (do migracji, ADR-002) | PRO-KOM | TODO | TODO | obecna strona + **poczta firmy**; panel `panel.pro-kom.eu` (S10) |
+| pro-kom.eu | `TODO(krystian)`: nazwa.pl czy już Seohost? (migracja — ADR-002) | PRO-KOM | TODO | TODO | obecna strona + **poczta firmy**; panel `panel.pro-kom.eu` (S10) |
 
-Uzupełnić po zakupie 16.10.2026 (kolumny TODO).
+Serwer: **VPS webh.pl** (ADR-019), IPv4 `TODO(krystian)`, IPv6 `TODO(krystian)` (jeśli VPS ma adres IPv6 — wtedy obok każdego A dopisujemy AAAA; bez działającego IPv6 na serwerze **nie** dodajemy AAAA, bo część klientów dostanie błąd). Kolumny TODO w tabeli wyżej — z panelu Seohost.
 
 ## Rekordy
 Wpisujemy wszystkie rekordy, także te ustawione domyślnie przez dostawcę. TTL przy zwykłej pracy: 3600; dzień przed planowaną zmianą IP lub migracją obniżamy do 300, po zmianie wracamy do 3600.
 
-### prokombiznes.pl
-| Typ | Nazwa | Wartość | TTL | Po co |
-|---|---|---|---|---|
-| NS | @ | TODO | — | serwery DNS dostawcy |
-| A | @ | TODO (IP VPS, S10) | 3600 | strona |
-| A | www | TODO lub CNAME → @ | 3600 | `www` → przekierowanie 301 na wersję bez `www` |
-| A | staging | TODO (IP VPS) | 3600 | staging za hasłem |
+Na start (S10) ustawiamy tylko **staging** — rekordy `@` i `www` dopiero przy wdrożeniu produkcji danej strony (do tego czasu domena nie pokazuje niczego, a certyfikat produkcji nie jest potrzebny). `<IP>` = IPv4 VPS z akapitu „Serwer” wyżej.
 
-### prokominstalacje.pl, prokomsoftware.pl
-Ten sam układ co prokombiznes.pl — tabele dopisujemy przy wdrożeniu danej strony.
+### prokombiznes.pl
+| Typ | Nazwa | Wartość | TTL | Po co | Stan |
+|---|---|---|---|---|---|
+| NS | @ | TODO (serwery DNS Seohost) | — | serwery DNS dostawcy | — |
+| A | staging | `<IP>` | 3600 | staging za hasłem (S10) | do ustawienia |
+| A | @ | `<IP>` | 3600 | strona | przy produkcji |
+| CNAME | www | `prokombiznes.pl.` | 3600 | `www` → przekierowanie 301 na wersję bez `www` | przy produkcji |
+
+### prokominstalacje.pl
+| Typ | Nazwa | Wartość | TTL | Po co | Stan |
+|---|---|---|---|---|---|
+| NS | @ | TODO (serwery DNS Seohost) | — | serwery DNS dostawcy | — |
+| A | staging | `<IP>` | 3600 | staging za hasłem (S10) | do ustawienia |
+| A | @ | `<IP>` | 3600 | strona | przy produkcji |
+| CNAME | www | `prokominstalacje.pl.` | 3600 | `www` → 301 bez `www` | przy produkcji |
+
+### prokomsoftware.pl
+| Typ | Nazwa | Wartość | TTL | Po co | Stan |
+|---|---|---|---|---|---|
+| NS | @ | TODO (serwery DNS Seohost) | — | serwery DNS dostawcy | — |
+| A | staging | `<IP>` | 3600 | staging za hasłem (S10) | do ustawienia |
+| A | @ | `<IP>` | 3600 | strona | przy produkcji |
+| CNAME | www | `prokomsoftware.pl.` | 3600 | `www` → 301 bez `www` | przy produkcji |
+
+### Panel (Payload)
+Produkcja: `panel.pro-kom.eu` (`PANEL_HOST`, ADR-006). Panel stagingu: `TODO(krystian)` — jeśli strefa pro-kom.eu jest jeszcze w nazwa.pl, zmiana tam to rekord w strefie z pocztą firmy; prościej na start `panel.staging.prokombiznes.pl` (A → `<IP>`, strefa w Seohost), a `panel.pro-kom.eu` dopiero przy produkcji. Wybrany adres trafia do `STAGING_PANEL_HOST` w `.env.proxy` i `PANEL_HOST` w `.env.staging`, do certyfikatu `prokom-staging` i do tabeli niżej.
 
 ### pro-kom.eu
 Strefa na nazwa.pl. **Nie zmieniamy MX/SPF/DKIM/DMARC bez osobnego planu migracji poczty (ADR-002).** Przed pierwszą zmianą: przepisać tutaj aktualny stan strefy 1:1 (to jest nasz punkt powrotu).

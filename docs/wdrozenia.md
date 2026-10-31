@@ -1,6 +1,6 @@
 # Wdrożenia
 
-> Serwer: VPS Seohost (ADR-002). Adresy, użytkownik SSH i ścieżki uzupełniamy w S10.
+> Serwer: VPS webh.pl, Ubuntu 24.04 (ADR-019); repo na serwerze w `/srv/prokom/prokom-web`, przygotowanie serwera — `docs/runbook.md` §1. Domeny i DNS: Seohost (`docs/dns.md`).
 
 ## Środowiska
 | Środowisko | Gałąź | Adres | Baza | Indeksowanie |
@@ -55,7 +55,7 @@ Pierwsze uruchomienie na serwerze (S10, szczegóły w runbooku):
 Test lokalny (S9b-1, 17.10): certyfikaty self-signed, porty 18080/18443, `SMOKE_INSECURE=1` — smoke zielony, nagłówki jak wyżej, staging 401 bez hasła, obcy host 444, 413 dla dużego body, 429 na health, ten sam `requestId` w obu logach.
 
 ## Kopie zapasowe (S9b-2)
-- `scripts/backup.sh <prod|staging> [predeploy]`: `pg_dump -Fc` (sprawdzony `pg_restore --list`) + wolumen mediów + manifest (data, obraz, lista migracji) w jednym pliku, szyfrowanym `age` kluczem publicznym → `../backups/<stos>/<rodzaj>/` i `RCLONE_REMOTE/<stos>/<rodzaj>/` (poza serwerem, inny dostawca — ADR-002; cel: `TODO(S10)`).
+- `scripts/backup.sh <prod|staging> [predeploy]`: `pg_dump -Fc` (sprawdzony `pg_restore --list`) + wolumen mediów + manifest (data, obraz, lista migracji) w jednym pliku, szyfrowanym `age` kluczem publicznym → `../backups/<stos>/<rodzaj>/` i `RCLONE_REMOTE/<stos>/<rodzaj>/` (poza serwerem, inny dostawca niż serwer — ADR-019; cel: `TODO(krystian)`).
 - Rodzaje i retencja (usuwanie po wieku, lokalnie i zdalnie): `daily` 14 dni, `monthly` (kopia z 1. dnia miesiąca) 93 dni, `predeploy` 30 dni.
 - Co noc z crona (prod i staging); przed każdym wdrożeniem produkcji `backup.sh prod predeploy`.
 - `scripts/restore.sh <plik|zdalna ścieżka> <projekt> <baza>`: odszyfrowanie kluczem prywatnym (tylko menedżer haseł), baza od nowa (`pg_restore`), wolumen mediów od nowa, aplikacja z powrotem `healthy`. Na `prokom-prod`/`prokom-staging` pyta o nazwę projektu.
@@ -67,7 +67,7 @@ Test lokalny (S9b-1, 17.10): certyfikaty self-signed, porty 18080/18443, `SMOKE_
 Tylko obraz (migracje zgodne wstecz) albo obraz + baza z kopii `predeploy` — `docs/runbook.md` §4 i zasada migracji §5.
 
 ## Nowa domena — checklista
-1. Domena kupiona u Seohost (abonent: firma).
+1. Domena kupiona u Seohost (abonent: firma); rekordy wskazują VPS webh.pl.
 2. Najpierw wpis w `docs/dns.md` (PR), potem rekord A/AAAA → IP serwera. Przy istniejących domenach z pocztą **nie ruszamy MX/SPF/DKIM/DMARC** bez osobnego planu (ADR-002).
 2a. Domena wysyłająca powiadomienia z formularzy: SPF, DKIM, DMARC wg `docs/dns.md`, test w mail-tester.com.
 3. Domeny (prod + staging) w rekordzie `Tenants`.
