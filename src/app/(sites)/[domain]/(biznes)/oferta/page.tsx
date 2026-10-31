@@ -16,8 +16,6 @@ import { robotsMeta } from '@/lib/seo/robots'
 import { getSiteSettings } from '@/lib/site/data'
 import { Breadcrumbs } from '@/sites/biznes/components/Breadcrumbs'
 import { Catalog } from '@/sites/biznes/components/catalog/Catalog'
-import { CatalogContactPanel } from '@/sites/biznes/components/catalog/CatalogContactPanel'
-import { HowInquiryWorks } from '@/sites/biznes/components/HowInquiryWorks'
 
 import { requireLine } from '../../tenant'
 
@@ -26,9 +24,10 @@ type Props = {
   searchParams: Promise<Record<string, string | string[] | undefined>>
 }
 
-const TITLE = 'Oferta — katalog dla firm'
+const TITLE = 'Cała oferta dla firm'
+/** Lead of the K4 board `Web-Oferta`. */
 const LEAD =
-  'Kasy, POS, terminale, komputery, programy i usługi — to, co sprzedajemy, wdrażamy i serwisujemy. Dodaj do zapytania, co Cię interesuje, a przygotujemy wycenę pod Twoją firmę.'
+  'Sprzęt, programy i usługi dla firm i instytucji — z doborem, wdrożeniem i serwisem. Cen nie podajemy na stronie: dodaj pozycje do zapytania, a wycenę dostaniesz na piśmie.'
 
 export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
   const tenant = await requireLine(params, 'biznes')
@@ -59,93 +58,65 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
   }
 }
 
-/** Catalog `/oferta` (spec. §5): header on the server, the list as a client island. */
+/** Offer `/oferta` (K4 board `Web-Oferta`): header on the server, the list as a client island. */
 export default async function CatalogPage({ params }: Props) {
   const tenant = await requireLine(params, 'biznes')
-  const [index, settings] = await Promise.all([
-    getCatalogIndex(tenant.id),
-    getSiteSettings(tenant.id),
-  ])
+  const index = await getCatalogIndex(tenant.id)
   const brands = index.brands.filter((brand) => brand.slug !== OWN_BRAND_SLUG).length
-  const partnerships = index.brands.filter((brand) => brand.status === 'authorized-partner').length
-  const callback = settings?.biznes?.promises.callbackTime ?? null
+  // Counts from the database (K4-FINAL §4.4).
   const stats = [
     {
       value: index.products.length,
       label: plural(index.products.length, [
-        'produkt i usługa',
-        'produkty i usługi',
-        'produktów i usług',
+        'pozycja w ofercie',
+        'pozycje w ofercie',
+        'pozycji w ofercie',
       ]),
     },
-    { value: brands, label: plural(brands, ['marka', 'marki', 'marek i producentów']) },
+    { value: brands, label: plural(brands, ['marka', 'marki', 'marek']) },
     {
-      value: partnerships,
-      label: plural(partnerships, [
-        'autoryzacja partnerska',
-        'autoryzacje partnerskie',
-        'autoryzacji partnerskich',
-      ]),
+      value: index.groups.length,
+      label: plural(index.groups.length, ['dział', 'działy', 'działów']),
     },
   ].filter((stat) => stat.value > 0)
 
   return (
     <>
-      <div className="relative overflow-hidden bg-[radial-gradient(ellipse_at_85%_0%,var(--glow),transparent_55%)]">
-        <div className="mx-auto w-full max-w-7xl px-4 pb-6 pt-5 sm:px-6 sm:pt-9 lg:px-8">
-          <Breadcrumbs
-            items={[
-              { name: 'Strona główna', href: '/' },
-              { name: 'Oferta', href: CATALOG_PATH },
-            ]}
-          />
-          <div className="mt-5 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-            <div className="max-w-3xl">
-              <p className="flex items-center gap-2 text-sm font-bold text-ink-2">
-                <span aria-hidden="true" className="size-2.5 shrink-0 rounded-full bg-ok" />
-                Katalog PRO-KOM Biznes · bez cen, wycena na piśmie
-              </p>
-              <Heading level={1} className="mt-3">
-                Wszystko dla firmy.
-                <br />W jednym miejscu.
-              </Heading>
-              <p className="mt-4 text-lg leading-relaxed text-ink-2 sm:text-xl">{LEAD}</p>
-            </div>
-            {(stats.length > 0 || callback) && (
-              <dl className="grid grid-cols-2 gap-2 lg:min-w-[360px]">
-                {stats.map((stat) => (
-                  <div
-                    key={stat.label}
-                    className="flex flex-col-reverse gap-0.5 rounded-[18px] bg-card px-4 py-3.5 shadow-[inset_0_0_0_1px_var(--border)]"
-                  >
-                    <dt className="text-xs font-bold text-ink-3">{stat.label}</dt>
-                    <dd className="font-display text-[1.375rem] font-extrabold leading-none tracking-[-0.02em] text-accent-text font-stretch-112% sm:text-[1.75rem]">
-                      {stat.value}
-                    </dd>
-                  </div>
-                ))}
-                {callback && (
-                  <div className="flex flex-col justify-center rounded-[18px] bg-card px-4 py-3.5 shadow-[inset_0_0_0_1px_var(--border)]">
-                    <dt className="sr-only">Oddzwonienie</dt>
-                    <dd className="text-sm font-extrabold leading-snug text-accent-text">
-                      {callback}
-                    </dd>
-                  </div>
-                )}
-              </dl>
-            )}
+      <div className="mx-auto w-full max-w-7xl px-4 pb-6 pt-5 sm:px-6 sm:pt-7 lg:px-8">
+        <Breadcrumbs
+          items={[
+            { name: 'Start', href: '/' },
+            { name: 'Oferta', href: CATALOG_PATH },
+          ]}
+        />
+        <div className="mt-5 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-3xl">
+            <p className="text-xs font-extrabold uppercase tracking-[0.12em] text-accent-text">
+              Oferta
+            </p>
+            <Heading level={1} className="mt-2">
+              {TITLE}
+            </Heading>
+            <p className="mt-3 text-lg leading-relaxed text-ink-2">{LEAD}</p>
           </div>
+          {stats.length > 0 && (
+            <dl className="grid grid-cols-3 gap-2 lg:min-w-[380px]">
+              {stats.map((stat) => (
+                <div
+                  key={stat.label}
+                  className="flex flex-col-reverse gap-1 rounded-[18px] bg-card px-4 py-3.5 shadow-[inset_0_0_0_1px_var(--border)]"
+                >
+                  <dt className="text-xs font-bold text-ink-3">{stat.label}</dt>
+                  <dd className="font-display text-[1.375rem] font-extrabold leading-none tracking-[-0.02em] text-ink font-stretch-112% sm:text-[1.75rem]">
+                    {stat.value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          )}
         </div>
       </div>
       <Catalog index={index} />
-      <HowInquiryWorks callbackTime={callback} />
-      <CatalogContactPanel
-        tenantId={tenant.id}
-        id="szukasz"
-        heading="Szukasz czegoś, czego nie ma w katalogu?"
-        lead="Napisz albo zadzwoń — pracujemy z dystrybutorami i dobierzemy sprzęt lub program pod Twoją firmę."
-        callbackTime={callback}
-      />
     </>
   )
 }

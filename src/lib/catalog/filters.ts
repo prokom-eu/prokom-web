@@ -27,7 +27,7 @@ export const OWN_BRAND_SLUG = 'pro-kom'
 const MAX_QUERY = 100
 
 export type CatalogKind = IndexProduct['kind']
-export type CatalogSort = 'popular' | 'new' | 'az'
+export type CatalogSort = 'popular' | 'new' | 'az' | 'brand'
 export type CatalogView = 'grid' | 'list'
 
 export type CatalogState = {
@@ -69,7 +69,8 @@ export const KINDS: readonly { value: CatalogKind; param: string; label: string 
 export const SORTS: readonly { value: CatalogSort; param: string; label: string }[] = [
   { value: 'popular', param: 'polecane', label: 'Polecane' },
   { value: 'new', param: 'nowosci', label: 'Nowości' },
-  { value: 'az', param: 'a-z', label: 'A–Z' },
+  { value: 'az', param: 'a-z', label: 'Nazwa A–Z' },
+  { value: 'brand', param: 'marka-a-z', label: 'Marka A–Z' },
 ]
 
 const VIEW_LIST_PARAM = 'lista'
@@ -247,6 +248,11 @@ function sortProducts(
   > = {
     new: (a, b) => Number(b.isNew) - Number(a.isNew) || byPopularity(a, b),
     az: (a, b) => a.name.localeCompare(b.name, 'pl'),
+    // Brand slugs follow the names; no brand (own services) last.
+    brand: (a, b) =>
+      Number(!a.brand) - Number(!b.brand) ||
+      (a.brand ?? '').localeCompare(b.brand ?? '', 'pl') ||
+      a.name.localeCompare(b.name, 'pl'),
   }
   // Stable sort: equal products keep the index order.
   return [...products].sort(compare[state.sort])

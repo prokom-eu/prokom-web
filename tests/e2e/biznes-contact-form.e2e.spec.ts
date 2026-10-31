@@ -123,14 +123,4 @@ test.describe('Biznes contact form v20 (B8a)', () => {
     await expect(email).toHaveAccessibleDescription(/adres e-mail/)
     await expect(contact.getByRole('status')).toHaveCount(0)
   })
-
-  test('the catalog ends with the same form („Szukasz czegoś…”)', async ({ page }) => {
-    await page.goto(site('biznes.localhost', '/oferta'))
-    const section = page.locator('#szukasz')
-    await expect(section.getByRole('heading', { level: 2 })).toHaveText(
-      'Szukasz czegoś, czego nie ma w katalogu?',
-    )
-    await expect(section.getByLabel(/^Telefon/)).toHaveAccessibleDescription(/telefon albo e-mail/)
-    await expect(section.getByRole('button', { name: 'Wyślij zapytanie' })).toBeVisible()
-  })
 })

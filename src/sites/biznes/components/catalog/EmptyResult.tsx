@@ -15,8 +15,8 @@ type Props = {
 }
 
 /**
- * No positions for the view (spec. §5.3, board `Katalog`): with a phrase — we may still have
- * it, ask about it; with filters only — clear them. „Może chodziło o” offers three products.
+ * No positions for the view (K4 board `Web-Oferta`, K36 §13): with a phrase „Nie znaleźliśmy”
+ * — we may still have it, ask about it; with filters only — clear them. „Może chodziło o” offers three products.
  * No call-back time here: that promise is a panel field ([SZEF]).
  */
 export function EmptyResult({ query, suggestions, index, onClear }: Props) {
@@ -29,17 +29,11 @@ export function EmptyResult({ query, suggestions, index, onClear }: Props) {
         >
           <SearchIcon size={30} />
         </span>
-        <p className="text-xs font-extrabold uppercase tracking-[0.08em] text-ink-2">
-          Brak wyników
-        </p>
         <h3 className="font-display text-xl font-extrabold leading-tight sm:text-2xl">
-          {query
-            ? `Nie mamy „${query}” w katalogu. Ale to nie znaczy, że tego nie załatwimy.`
-            : 'Żadna pozycja nie spełnia wszystkich filtrów naraz.'}
+          {query ? `Nie znaleźliśmy „${query}”` : 'Nic nie pasuje do tych filtrów'}
         </h3>
         <p className="leading-relaxed text-ink-2">
-          Katalog to najczęściej wybierane pozycje. Pracujemy z dystrybutorami — napisz, czego
-          szukasz, a sprawdzimy dostępność i oddzwonimy.
+          Zmień filtry albo napisz, czego szukasz — dostarczamy więcej, niż pokazujemy na stronie.
         </p>
         <div className="mt-1 flex flex-wrap gap-2.5">
           {query && (
