@@ -1,6 +1,7 @@
 import { CONSENT_CLAUSE } from '@/lib/inquiry/consent'
 import { sourceFromHref } from '@/lib/inquiry/form'
 import { HONEYPOT_FIELD } from '@/lib/inquiry/honeypot'
+import { travelZone } from '@/lib/instalacje/plan'
 
 import { glownaSekcje, PLAN_OBJECTS, type PlanObject } from '../../dane/glownaSekcje'
 import type { ServiceKey } from '../../dane/types'
@@ -21,40 +22,6 @@ export type PlanState = {
 }
 
 export type PlanErrorKey = 'services' | 'name' | 'phone' | 'consent'
-
-/** The prototype's `norm()`: lower case, no Polish letters, only letters, digits and spaces. */
-function norm(text: string): string {
-  const map: Record<string, string> = {
-    ą: 'a',
-    ć: 'c',
-    ę: 'e',
-    ł: 'l',
-    ń: 'n',
-    ó: 'o',
-    ś: 's',
-    ź: 'z',
-    ż: 'z',
-  }
-  return text
-    .toLowerCase()
-    .replace(/[ąćęłńóśźż]/g, (c) => map[c] ?? c)
-    .replace(/[^a-z0-9 ]+/g, ' ')
-    .trim()
-}
-
-/** Travel zone of a town (1:1 with the prototype's patterns); `null` without a town. */
-export function travelZone(town: string): string | null {
-  const t = norm(town)
-  if (!t) return null
-  if (/rabk|chabow|jordan|mszan|raba|spytk|lubien|skomiel|niedzwi|ponic|olszow/.test(t)) {
-    return 'Rabka-Zdrój i okolice'
-  }
-  if (/zakop|poron|koscieli|bukow|bialk|bialy dun|murzas/.test(t)) return 'Zakopane i Tatry'
-  if (/nowy targ|nowy tar|szaflar|czarny dun|jablon|czorszt|szczawn|kroscien|orawa|spisz/.test(t)) {
-    return 'Podhale'
-  }
-  return 'Małopolska · dojazd ustalimy'
-}
 
 export const phoneDigits = (phone: string) => phone.replace(/\D/g, '').length
 
@@ -98,8 +65,9 @@ export function plannerHref({ object, services }: Pick<PlanState, 'object' | 'se
 
 /**
  * Body of `POST /api/inquiry`: a contact inquiry („Instalacje — strona główna”) — no new
- * inquiry type before I11 (ADR-I001). Services as their panel names in `topics`, the town in
- * `city`; the object and the zone go into the message, which a contact inquiry needs.
+ * inquiry type before I11 (ADR-I001). Services as their keys in `topics` (the server checks
+ * them and the e-mail names them, I11), the town in `city`; the object and the zone go into the
+ * message, which a contact inquiry needs.
  */
 export function planBody(
   state: PlanState,
@@ -107,12 +75,10 @@ export function planBody(
     href,
     formToken,
     website,
-    serviceNames,
   }: {
     href: string
     formToken: string
     website: string
-    serviceNames: Partial<Record<ServiceKey, string>>
   },
 ) {
   const town = state.town.trim()
@@ -129,8 +95,7 @@ export function planBody(
     type: 'contact' as const,
     category: glownaSekcje.plan.category,
     source: sourceFromHref(href),
-    // The schema takes at most 10 topics — exactly the 10 services today (`SERVICE_KEYS`).
-    topics: state.services.map((key) => serviceNames[key] ?? key),
+    topics: state.services,
     ...(town ? { city: town } : {}),
     name: state.name.trim(),
     phone: state.phone.trim(),

@@ -473,15 +473,30 @@ describe('series filter (K31c, `?seria=`)', () => {
     ])
   })
 
-  it('„Nie wiesz, który?” goes to the wizard of a showroom: the chosen brand, else the biggest', () => {
+  it('„Nie wiesz, który?” goes to the chooser of a salon: the chosen brand, else the biggest', () => {
     const brands: CatalogIndex['brands'] = [
-      { slug: 'lenovo', name: 'Lenovo', status: 'none', page: true, showroom: true },
-      { slug: 'dell', name: 'Dell', status: 'none', page: true, showroom: true },
-      { slug: 'asus', name: 'Asus', status: 'none', page: true },
+      {
+        slug: 'lenovo',
+        name: 'Lenovo',
+        status: 'none',
+        page: true,
+        salon: 'lenovo',
+        showroom: true,
+      },
+      {
+        slug: 'dell',
+        name: 'Dell',
+        status: 'none',
+        page: true,
+        salon: 'komputery',
+        showroom: true,
+      },
+      // A salon without „Pomóż mi wybrać” does not count.
+      { slug: 'asus', name: 'Asus', status: 'none', page: true, salon: 'asus' },
     ]
     const catalog = index(laptops, { brands })
     expect(showroomHelpHref(laptops, catalog, [])).toBe('/marki/lenovo#dobor')
-    expect(showroomHelpHref(laptops, catalog, ['dell'])).toBe('/marki/dell#dobor')
+    expect(showroomHelpHref(laptops, catalog, ['dell'])).toBe('/marki/komputery#dobor')
     expect(showroomHelpHref(laptops, catalog, ['asus'])).toBe('/marki/lenovo#dobor')
     expect(showroomHelpHref(laptops, index(laptops, { brands: brands.slice(2) }), [])).toBeNull()
   })

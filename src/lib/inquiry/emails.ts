@@ -1,3 +1,4 @@
+import { isServiceKey, serviceLabel } from '../instalacje/plan'
 import { LINES, type Line } from '../tenant/lines'
 import { RESPONSE_TIME } from './consent'
 import {
@@ -46,11 +47,15 @@ export type InquiryForEmail = {
   marketingConsent: boolean
 }
 
-/** Software topics by their names; a phrase of „Zapytaj o X” stays as typed. */
+/** Software topics and Instalacje services by their names; a phrase of „Zapytaj o X” as typed. */
 function topicsText({ line, type, topics }: InquiryForEmail): string {
   const named = line === 'software' && type !== 'search'
   return topics
-    .map((topic) => (named && isSoftwareTopic(topic) ? SOFTWARE_TOPIC_LABELS[topic] : topic))
+    .map((topic) => {
+      if (named && isSoftwareTopic(topic)) return SOFTWARE_TOPIC_LABELS[topic]
+      if (line === 'instalacje' && isServiceKey(topic)) return serviceLabel(topic)
+      return topic
+    })
     .join(', ')
 }
 

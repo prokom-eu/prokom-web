@@ -2,7 +2,8 @@ import type { Partner } from '@/payload-types'
 
 export type PartnerBadge = { label: string; kind: 'partner' | 'service' }
 
-const joinNames = (names: string[]) =>
+/** „A”, „A i B”, „A, B i C”. */
+export const joinNames = (names: readonly string[]) =>
   names.length < 2 ? (names[0] ?? '') : `${names.slice(0, -1).join(', ')} i ${names.at(-1)}`
 
 /**

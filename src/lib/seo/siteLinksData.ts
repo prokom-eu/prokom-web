@@ -6,7 +6,7 @@ import { getPostList } from '../posts/data'
 import { getCityList, getIndustryPageList, getSolutionsIndex } from '../software/data'
 import { hasNews } from '../posts/list'
 import type { Line } from '../tenant/lines'
-import { buildSiteMap, type SiteMapSection } from './siteLinks'
+import { brandLinks, buildSiteMap, type SiteMapSection } from './siteLinks'
 
 /**
  * The site map of one tenant from the cached loaders (each filters by the tenant): pages, on
@@ -38,7 +38,7 @@ export async function loadSiteMap(tenant: { id: number; line: Line }): Promise<S
     pages,
     catalog: index && {
       categories: index.categories,
-      brands: index.brands.filter((brand) => brand.page),
+      brands: brandLinks(index.brands),
       industries: index.industries,
       bundles: bundles.length
         ? bundles.filter((bundle) => bundle.indexable).map(({ slug, name }) => ({ slug, name }))

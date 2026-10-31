@@ -88,8 +88,10 @@ export type CatalogIndex = {
     status: Partner['partnerStatus']
     logo?: IndexLogo
     page?: true
-    /** The brand page is a showroom (K31c): „Nie wiesz, który?” leads to its wizard. */
+    /** Its salon 2.0 has „Pomóż mi wybrać”: „Nie wiesz, który?” of a category leads there. */
     showroom?: true
+    /** Slug of the salon 2.0 the brand belongs to (K4f): `/marki/<salon>`. */
+    salon?: string
   }[]
   /** Only categories with published products (rozstrzygnięcie 7); `count` = such products. */
   categories: {
@@ -166,6 +168,8 @@ export type CatalogSource = {
    */
   bundles?: { slug: string; name: string; required: number[] }[]
   settings: Pick<BiznesSetting, 'search' | 'wizard'> | null
+  /** Salons 2.0 of the site (K4f) with their brands: a brand's first salon in `brands[].salon`. */
+  salons?: { slug: string; brandIds: number[]; chooser: boolean }[]
 }
 
 /** The wizard is a route, not a page from blocks: listed in the search while it has rules. */
@@ -223,18 +227,6 @@ const subcategoryKey = (category: string, name: string) => `${category}/${name.t
 
 const optional = (value: string | null | undefined) => (value?.trim() ? value.trim() : undefined)
 
-/** The brand page is a showroom (K31c): its showroom lists at least one listed card. */
-function showsShowroom(brand: Partner, listedIds: ReadonlySet<number>): boolean {
-  return (brand.showroom?.segments ?? []).some((segment) =>
-    (segment.series ?? []).some((series) =>
-      (series.products ?? []).some((value) => {
-        const id = typeof value === 'number' ? value : value?.id
-        return id !== undefined && listedIds.has(id)
-      }),
-    ),
-  )
-}
-
 export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
   const { tenantId } = source
   const groupById = new Map(source.groups.map((group) => [group.id, group]))
@@ -251,6 +243,10 @@ export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
     required.some((id) => listedIds.has(id)),
   )
   const brands = new Map<string, CatalogIndex['brands'][number]>()
+  const salonOf = new Map<number, { slug: string; chooser: boolean }>()
+  for (const salon of source.salons ?? []) {
+    for (const id of salon.brandIds) if (!salonOf.has(id)) salonOf.set(id, salon)
+  }
   const products: IndexProduct[] = source.products.map((product) => {
     // Read with `overrideAccess`: relations are re-checked here like images in `publicImage`,
     // so a record of another site never reaches this index, whatever the panel allowed.
@@ -264,8 +260,8 @@ export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
         status: brand.partnerStatus,
         ...(logo && { logo }),
         ...(brand.brandPage?.hasPage && { page: true as const }),
-        ...(brand.brandPage?.hasPage &&
-          showsShowroom(brand, listedIds) && { showroom: true as const }),
+        ...(salonOf.has(brand.id) && { salon: salonOf.get(brand.id)!.slug }),
+        ...(salonOf.get(brand.id)?.chooser && { showroom: true as const }),
       })
     }
     const categories = docs(product.categories).filter(ownTenant)

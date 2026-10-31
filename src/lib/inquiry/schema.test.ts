@@ -277,3 +277,39 @@ describe('parseInquiryInput — Software forms (SW2b, ADR-014 §3)', () => {
     ).toContain('items')
   })
 })
+
+describe('parseInquiryInput — Instalacje (ADR-I002 §4, decided 31.10.2026)', () => {
+  const inst = {
+    ...valid,
+    email: undefined,
+    phone: '600 100 200',
+    source: { url: 'https://prokominstalacje.pl/kontakt' },
+  }
+
+  it('requires a phone of at least 9 digits, the e-mail stays optional', () => {
+    expect(errorsOf(inst, 'instalacje')).toEqual([])
+    expect(
+      errorsOf({ ...inst, phone: undefined, email: 'jan@example.test' }, 'instalacje'),
+    ).toEqual(['phone'])
+    expect(errorsOf({ ...inst, phone: '600 100' }, 'instalacje')).toEqual(['phone'])
+    expect(errorsOf({ ...inst, phone: '+48 600 100 200' }, 'instalacje')).toEqual([])
+  })
+
+  it('takes service keys as topics, nothing else', () => {
+    expect(errorsOf({ ...inst, topics: ['kam', 'ev'] }, 'instalacje')).toEqual([])
+    expect(errorsOf({ ...inst, topics: ['Monitoring'] }, 'instalacje')).toEqual(['topics'])
+    expect(errorsOf({ ...inst, topics: ['kam', 'kam'] }, 'instalacje')).toEqual(['topics'])
+  })
+
+  it('ignores the sent topics of the planner (the server takes them from the answers)', () => {
+    const wizard = { ...inst, type: 'wizard', message: undefined, wizard: { services: [] } }
+    expect(errorsOf({ ...wizard, topics: ['Monitoring'] }, 'instalacje')).toEqual([])
+  })
+
+  it('keeps the other lines as they were', () => {
+    expect(errorsOf({ ...inst, phone: undefined, email: 'jan@example.test' }, 'software')).toEqual(
+      [],
+    )
+    expect(errorsOf({ ...inst, topics: ['Monitoring'] }, 'biznes')).toEqual([])
+  })
+})

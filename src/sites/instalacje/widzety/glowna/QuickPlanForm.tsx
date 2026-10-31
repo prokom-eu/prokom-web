@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { travelZone } from '@/lib/instalacje/plan'
 import { type CSSProperties, type FormEvent, useEffect, useRef, useState } from 'react'
 
 import {
@@ -22,7 +23,6 @@ import {
   planError,
   planProgress,
   plannerHref,
-  travelZone,
 } from './quickPlan'
 
 export type PlanService = {
@@ -105,7 +105,6 @@ export function QuickPlanForm({ services, formToken }: Props) {
             href: window.location.href,
             formToken,
             website: honeypot.current?.value ?? '',
-            serviceNames: Object.fromEntries(services.map((s) => [s.key, s.label])),
           }),
         ),
       })

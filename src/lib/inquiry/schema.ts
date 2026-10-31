@@ -2,6 +2,7 @@ import { z } from 'zod'
 
 import { MAX_ITEMS, MAX_NOTE, MAX_QTY } from '../cart/cart'
 import { isValidNip, normalizeNip } from '../site/company'
+import { isServiceKey } from '../instalacje/plan'
 import type { Line } from '../tenant/lines'
 import { CONSENT_CLAUSE } from './consent'
 import { INQUIRY_TYPES, isSoftwareTopic, PREFERRED_CONTACTS, SOFTWARE_ONLY_CONTACTS } from './types'
@@ -116,6 +117,13 @@ function inquirySchemaFor(line: Line | undefined) {
       if (data.items.some((item) => item.quantity !== 1)) issue('items', 'one of each solution')
     }
 
+    // Instalacje (ADR-I002 §4): services as their keys, each once. The planner's topics come
+    // from its answers on the server, so the sent ones are not checked there.
+    if (line === 'instalacje' && data.type !== 'wizard') {
+      const unique = new Set(data.topics).size === data.topics.length
+      if (!unique || !data.topics.every(isServiceKey)) issue('topics', 'unknown service')
+    }
+
     // „Jak się skontaktować? E-mail” needs an address to write to.
     if (data.preferredContact === 'email' && data.email === undefined) {
       issue('email', 'e-mail required for e-mail contact')
@@ -123,8 +131,12 @@ function inquirySchemaFor(line: Line | undefined) {
 
     // A phone or an e-mail is enough (K4-FINAL §5). Biznes leads with the phone, so the issue
     // sits there; its wizard still requires the phone until Konfigurator 3.0 (B10c, K4g).
+    // Instalacje call back to arrange a site visit: a phone of at least 9 digits, always
+    // (decided 31.10.2026, ADR-I002 §4; the planner and the forms ask for it the same way).
     const biznes = line === 'biznes'
-    if (biznes && data.type === 'wizard') {
+    if (line === 'instalacje') {
+      if ((data.phone ?? '').replace(/\D/g, '').length < 9) issue('phone', 'phone required')
+    } else if (biznes && data.type === 'wizard') {
       if (data.phone === undefined) issue('phone', 'phone required')
     } else if (data.email === undefined && data.phone === undefined) {
       issue(biznes ? 'phone' : 'email', 'e-mail or phone required')

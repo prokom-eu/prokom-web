@@ -149,7 +149,14 @@ export function RenderBlocks({ page, tenant }: Props) {
               <PartnersBlock key={key} block={block} tenantId={tenant.id} />
             )
           case 'inquiryForm':
-            return <InquiryFormBlock key={key} block={block} phoneFirst={biznes} />
+            return (
+              <InquiryFormBlock
+                key={key}
+                block={block}
+                phoneFirst={biznes}
+                phoneRequired={tenant.line === 'instalacje'}
+              />
+            )
           case 'bzHero':
             return <BzHeroBlock key={key} block={block} isFirst={i === 0} tenantId={tenant.id} />
           case 'bzNeeds':

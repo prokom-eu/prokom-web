@@ -38,7 +38,7 @@ test.describe('Instalacje Teletechnika', () => {
     const send = form.getByRole('button', { name: 'Wyślij zapytanie' })
     await send.click()
     await expect(form.getByRole('alert')).toHaveText(
-      'Uzupełnij: imię i nazwisko lub firmę, telefon albo e-mail, zgodę na kontakt.',
+      'Uzupełnij: imię i nazwisko lub firmę, numer telefonu, zgodę na kontakt.',
     )
     // No file field in v1: the bill of quantities goes by e-mail.
     await expect(form.locator('input[type="file"]')).toHaveCount(0)
@@ -52,6 +52,10 @@ test.describe('Instalacje Teletechnika', () => {
     await form.getByLabel('Imię i nazwisko lub firma').fill(name)
     await form.getByLabel('E-mail').fill('biuro@example.test')
     await expect(form.locator('.zsum')).toContainText('Osiedle domów')
+    await send.click()
+    // The phone is required on Instalacje, an e-mail alone is not enough (I11).
+    await expect(form.getByRole('alert')).toHaveText('Uzupełnij: numer telefonu, zgodę na kontakt.')
+    await form.getByLabel('Telefon').fill('600 100 200')
     await send.click()
     await expect(form.getByRole('alert')).toHaveText('Uzupełnij: zgodę na kontakt.')
     // The box, not the middle of the label: the privacy policy link sits in the text.
@@ -78,8 +82,12 @@ test.describe('Instalacje Teletechnika', () => {
         city: 'Nowy Targ',
         deadline: 'II kwartał 2027',
         email: 'biuro@example.test',
+        phone: '600 100 200',
       })
-      expect(record?.topics).toEqual(['Okablowanie LAN', 'Światłowód', 'Domofony', 'Monitoring'])
+      expect(record?.topics).toEqual(['tel'])
+      expect(String(record?.message)).toContain(
+        'Zakres: Okablowanie LAN, Światłowód, Domofony, Monitoring',
+      )
       expect(String(record?.message)).toContain('Inwestycja: Osiedle domów')
       expect(String(record?.message)).toContain('Liczba lokali: 24')
     } finally {

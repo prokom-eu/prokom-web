@@ -19,12 +19,21 @@ export const brandHref = (slug: string) => `/marki/${encodeURIComponent(slug)}`
 export const TITLE_DESCRIPTION_LIMIT = 60
 
 /**
- * Address of the brand page — or `null` when the brand has none. A page exists for a brand with
- * `hasPage` that has listed products on this site (the index lists only such brands), like a
- * category without products (rozstrzygnięcie 7).
+ * Where a brand of the index leads: its salon 2.0 (K4f — a theme salon too: Kyocera → Druk),
+ * else its brand page (`hasPage`, K3b′), else nowhere (`null`).
+ */
+export function brandTarget(brand: CatalogIndex['brands'][number]): string | null {
+  if (brand.salon) return brandHref(brand.salon)
+  return brand.page ? brandHref(brand.slug) : null
+}
+
+/**
+ * Address of the brand's salon or page — or `null` when it has none. Only brands with listed
+ * products on this site are in the index, like a category without products (rozstrzygnięcie 7).
  */
 export function brandPageHref(index: Pick<CatalogIndex, 'brands'>, slug: string): string | null {
-  return index.brands.some((brand) => brand.slug === slug && brand.page) ? brandHref(slug) : null
+  const brand = index.brands.find((item) => item.slug === slug)
+  return brand ? brandTarget(brand) : null
 }
 
 export type BrandFact = { label: string; value: string; sourceUrl: string | null }

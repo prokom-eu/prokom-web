@@ -38,6 +38,8 @@ test.describe('inquiry form (S8b)', () => {
     const form = page.locator('#formularz')
     await form.getByLabel('Imię i nazwisko').fill(marker)
     await form.getByLabel(/^E-mail/).fill('formularz-e2e@example.test')
+    // Instalacje require the phone (I11).
+    await form.getByLabel(/^Telefon/).fill('600 100 200')
     await form.getByLabel('NIP').fill('526-000-12-46')
     await form.getByLabel('W czym możemy pomóc?').fill('Test formularza.')
     await form.getByLabel(/Wyrażam zgodę/).check()
@@ -84,7 +86,7 @@ test.describe('inquiry form (S8b)', () => {
     await expect(name).toBeFocused()
     await expect(name).toHaveAttribute('aria-invalid', 'true')
     await expect(name).toHaveAccessibleDescription(/Podaj imię i nazwisko/)
-    await expect(form.getByLabel(/^E-mail/)).toHaveAccessibleDescription(/e-mail albo telefon/)
+    await expect(form.getByLabel(/^Telefon/)).toHaveAccessibleDescription(/numer telefonu/)
     await expect(form.getByLabel(/Wyrażam zgodę/)).toHaveAttribute('aria-invalid', 'true')
     await expect(form.getByText('Napisz, w czym możemy pomóc')).toBeVisible()
 
