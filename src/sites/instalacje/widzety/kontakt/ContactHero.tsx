@@ -5,20 +5,19 @@ import { type ReactNode, useState } from 'react'
 import { kontakt as K } from '../../dane/kontakt'
 import { InstIcon } from '../../InstIcon'
 import { mapView } from './kontaktModel'
-import { KONTAKT_MAP_BASE, KONTAKT_MAP_TOP, KONTAKT_MAP_VIEWBOX } from './mapa'
+
+// The map's frame (`mapa.ts` holds its layers; not imported here, so they stay off the client).
+const VIEWBOX = '0 0 640 560'
 
 type Props = {
   /** Eyebrow, h1 and lead — rendered on the server from the panel. */
   intro: ReactNode
   /** Contact cards and the hours card — rendered on the server. */
   details: ReactNode
+  /** The fixed layers of the map under and over the towns (`mapa.ts`), rendered on the server. */
+  mapBase: ReactNode
+  mapTop: ReactNode
 }
-
-// Our own constant (narzedzia/przenies-svg.mjs); only the zone classes are filled in.
-const baseHtml = (zone: Record<'p' | 'r' | 'z', string>) =>
-  KONTAKT_MAP_BASE.replace('%kt.zc.p%', zone.p)
-    .replace('%kt.zc.r%', zone.r)
-    .replace('%kt.zc.z%', zone.z)
 
 /**
  * The contact hero (`Kontakt.body.html`): text, cards and hours on the left, the map of the
@@ -27,7 +26,7 @@ const baseHtml = (zone: Record<'p' | 'r' | 'z', string>) =>
  * town field with its result sits under the lead (`.xa-kmob`). The map is a picture for the
  * eye; the field and the result line carry the same for the keyboard and screen readers.
  */
-export function ContactHero({ intro, details }: Props) {
+export function ContactHero({ intro, details, mapBase, mapTop }: Props) {
   const [query, setQuery] = useState('')
   const view = mapView(query)
 
@@ -49,8 +48,10 @@ export function ContactHero({ intro, details }: Props) {
       />
     </label>
   )
-  const result = (id: string, live: boolean) => (
-    <div className="kres" id={id} aria-live={live ? 'polite' : undefined}>
+  // Both results are live regions: one of them is always hidden (phone or computer), and a
+  // hidden region says nothing, so the zone is read out once.
+  const result = (id: string) => (
+    <div className="kres" id={id} aria-live="polite">
       <span className="ico s">
         <InstIcon name="pin" />
       </span>
@@ -67,7 +68,7 @@ export function ContactHero({ intro, details }: Props) {
         {intro}
         <div className="xa-kmob in d3">
           {field('kt-q-m')}
-          {result('kt-q-m-res', false)}
+          {result('kt-q-m-res')}
         </div>
         {details}
       </div>
@@ -76,8 +77,14 @@ export function ContactHero({ intro, details }: Props) {
           <div className="illbar">
             <div style={{ flex: 1 }}>{field('kt-q')}</div>
           </div>
-          <svg className="kmap2" viewBox={KONTAKT_MAP_VIEWBOX} role="img" aria-label={K.map.label}>
-            <g dangerouslySetInnerHTML={{ __html: baseHtml(view.zoneClass) }} />
+          <svg
+            className="kmap2"
+            viewBox={VIEWBOX}
+            role="img"
+            aria-label={K.map.label}
+            data-zone={view.zone || undefined}
+          >
+            {mapBase}
             {view.route && (
               <>
                 <path d={view.route} className="kroute0" />
@@ -105,9 +112,9 @@ export function ContactHero({ intro, details }: Props) {
                 <path d="M-6 -24 h12 l-1.5 -4 h-9z M-5 -24 v6 h10 v-6" className="kpini" />
               </g>
             ))}
-            <g dangerouslySetInnerHTML={{ __html: KONTAKT_MAP_TOP }} />
+            {mapTop}
           </svg>
-          {result('kt-q-res', true)}
+          {result('kt-q-res')}
         </div>
       </div>
     </div>

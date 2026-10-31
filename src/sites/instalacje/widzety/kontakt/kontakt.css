@@ -204,7 +204,10 @@
       fill 0.4s,
       stroke 0.4s;
   }
-  & .kmap2 .kz2.on {
+  /* The lit zone (prototype `.kz2.on`): `data-zone` on the map, set by `ContactHero`. */
+  & .kmap2[data-zone='p'] .kz2.kz-p,
+  & .kmap2[data-zone='r'] .kz2.kz-r,
+  & .kmap2[data-zone='z'] .kz2.kz-z {
     fill: var(--inst-il-kmap2-kz2-fill);
     stroke: var(--inst-plan-accent);
     stroke-width: 2;
@@ -369,17 +372,6 @@
   & .xa-kmob {
     display: none;
   }
-  & .xa-ok {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 8px 0;
-  }
-  & .xa-ok .zkok {
-    width: 52px;
-    height: 52px;
-  }
   @media (max-width: 700px) {
     & .xa-kmob {
       display: flex;
@@ -394,16 +386,6 @@
     & .phv:has(.kmap2) {
       display: none;
     }
-  }
-  & .xa-ok .zkok {
-    width: auto;
-    height: auto;
-    display: block;
-  }
-  & .xa-ok .zkok svg {
-    width: 56px;
-    height: 56px;
-    display: block;
   }
   @media (max-width: 700px) {
     & .ctc2 {

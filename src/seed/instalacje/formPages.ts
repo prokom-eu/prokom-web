@@ -35,6 +35,12 @@ export const FORM_PAGE_BLOCKS: Record<string, () => Block> = {
   }),
 }
 
-/** A page still without a block of the line: empty, or the sample page of `pnpm seed`. */
+// Blocks of the sample `kontakt` page of `pnpm seed` (`src/seed/sample.ts`).
+const SAMPLE_BLOCKS = new Set(['contact', 'inquiryForm'])
+
+/**
+ * A page the seed may fill: empty, or exactly the sample page of `pnpm seed`. A page laid out
+ * in the panel — with the line's block or with other blocks — is left alone.
+ */
 export const needsFormBlock = (layout: readonly { blockType: string }[] | null | undefined) =>
-  !(layout ?? []).some((block) => block.blockType.startsWith('inst'))
+  (layout ?? []).every((block) => SAMPLE_BLOCKS.has(block.blockType))

@@ -10,7 +10,7 @@ import { siteOrigin } from '@/lib/seo/origin'
 import { getCompanyData, getSiteSettings } from '@/lib/site/data'
 import { openingStatus } from '@/lib/site/hours'
 import { hoursSummary } from '@/lib/site/hoursSummary'
-import { toTelHref, toWhatsAppHref } from '@/lib/site/link'
+import { toDirectionsHref, toTelHref, toWhatsAppHref } from '@/lib/site/link'
 import type { InstContactBlock as InstContactBlockData } from '@/payload-types'
 
 import { kontakt as K } from '../../dane/kontakt'
@@ -22,13 +22,11 @@ import { HoursLive } from '../../powloka/HoursLive'
 import { JsonLd } from '../../sekcje/JsonLd'
 import { ContactForm } from '../../widzety/kontakt/ContactForm'
 import { ContactHero } from '../../widzety/kontakt/ContactHero'
+import { KONTAKT_MAP_BASE, KONTAKT_MAP_TOP } from '../../widzety/kontakt/mapa'
 
 import '../../widzety/kontakt/kontakt.css'
 
 type Props = { block: InstContactBlockData; tenantId: number }
-
-const mapsSearch = (address: string) =>
-  `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`
 
 /**
  * The contact page `/kontakt` (ADR-I002 §0, `Kontakt.body.html`): hero with the contact cards,
@@ -56,10 +54,12 @@ export async function InstContactBlock({ block, tenantId }: Props) {
   const status = first?.hours?.length ? openingStatus(first.hours, new Date()) : null
   const { hero, cta } = block
   // One row per opening span, like the prototype: „Rabka-Zdrój, pn–pt” · „9:00–17:00”.
+  // One opening row per span from the data (days may be „pn, śr”, a day may have two spans).
   const hourRows = locations.flatMap((l) =>
-    (l.hours?.length ? hoursSummary(l.hours).split(' · ') : []).map((span) => {
-      const [days = '', time = ''] = span.split(' ')
-      return { label: `${l.city}, ${days}`, time }
+    (l.hours ?? []).map((row) => {
+      const text = hoursSummary([row])
+      const cut = text.lastIndexOf(' ')
+      return { label: `${l.city}, ${text.slice(0, cut)}`, time: text.slice(cut + 1) }
     }),
   )
   if (!locations.some((l) => l.hours?.some((row) => row.days.includes('sun')))) {
@@ -116,6 +116,9 @@ export async function InstContactBlock({ block, tenantId }: Props) {
             </span>
           </nav>
           <ContactHero
+            // Our own constants (narzedzia/przenies-svg.mjs): on the server, not in the page's JS.
+            mapBase={<g dangerouslySetInnerHTML={{ __html: KONTAKT_MAP_BASE }} />}
+            mapTop={<g dangerouslySetInnerHTML={{ __html: KONTAKT_MAP_TOP }} />}
             intro={
               <>
                 {hero?.eyebrow && <span className="eye in d1">{hero.eyebrow}</span>}
@@ -151,9 +154,9 @@ export async function InstContactBlock({ block, tenantId }: Props) {
                     style={{ padding: 22, display: 'flex', flexDirection: 'column', gap: 10 }}
                   >
                     <b style={{ fontSize: 16 }}>{K.hours.title}</b>
-                    {hourRows.map((row) => (
+                    {hourRows.map((row, i) => (
                       <div
-                        key={row.label}
+                        key={`${row.label}-${i}`}
                         style={{
                           display: 'flex',
                           justifyContent: 'space-between',
@@ -211,7 +214,7 @@ export async function InstContactBlock({ block, tenantId }: Props) {
                     <b style={{ fontSize: 17 }}>{l.city}</b>
                     <span className="mut">{address}</span>
                     <a
-                      href={mapsSearch(`${company?.name ?? 'PRO-KOM'}, ${address}`)}
+                      href={toDirectionsHref(`${company?.name ?? 'PRO-KOM'}, ${address}`)}
                       target="_blank"
                       rel="noopener noreferrer"
                       style={{ color: 'var(--accent-text)', fontWeight: 800, fontSize: 14 }}

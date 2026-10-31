@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 }
 
 /**
- * `/wyslane?nr=PKI-…&kontakt=telefon` — the thanks after an Instalacje form, in the look of the
+ * `/wyslane?nr=PKI-…&kontakt=phone` — the thanks after an Instalacje form, in the look of the
  * planner's last step (`.zkdone`). Only a number of its own format and a known contact way are
  * shown; the address never carries personal data. No CTA band after a sent inquiry.
  */
