@@ -5,6 +5,7 @@ import type {
   CollectionBeforeChangeHook,
   CollectionBeforeValidateHook,
   CollectionConfig,
+  Field,
 } from 'payload'
 
 import { linkGroup } from '../blocks/fields'
@@ -176,6 +177,27 @@ export const Posts: CollectionConfig = {
       hasMany: true,
       maxRows: 3,
       admin: { condition: onLine('software'), description: 'Karty pod wpisem (do 3).' },
+    },
+    {
+      // SW11b (decyzja Krystiana 31.10): „autor i data” and the author box of the board `Wpis`.
+      name: 'author',
+      label: 'Autor',
+      type: 'group',
+      admin: { condition: onLine('software') },
+      fields: [
+        {
+          type: 'row',
+          fields: [
+            { name: 'name', label: 'Imię i nazwisko', type: 'text', maxLength: 80 },
+            { name: 'role', label: 'Rola', type: 'text', maxLength: 80 },
+          ],
+        },
+        { name: 'bio', label: 'O autorze', type: 'textarea', maxLength: 240 },
+        {
+          ...imageField('photo', 'Zdjęcie'),
+          admin: { description: 'Tylko za zgodą osoby na zdjęciu.' },
+        } as Field,
+      ],
     },
     {
       name: 'aside',
