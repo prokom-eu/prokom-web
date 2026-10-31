@@ -149,19 +149,6 @@
     color: var(--inst-ticket-mut);
     margin-top: 6px;
   }
-  & .evbar {
-    height: 16px;
-    border-radius: 999px;
-    background: var(--surface-3);
-    overflow: hidden;
-    box-shadow: inset 0 0 0 1px var(--border);
-  }
-  & .evbar i {
-    display: block;
-    height: 100%;
-    background: linear-gradient(90deg, var(--accent), var(--accent-text));
-    transition: width 0.5s;
-  }
   & .segd {
     display: flex;
     gap: 3px;
@@ -460,31 +447,6 @@
     accent-color: var(--accent);
     height: 28px;
   }
-  & .stepper {
-    display: inline-flex;
-    align-items: center;
-    gap: 0;
-    border-radius: 13px;
-    background: var(--surface-3);
-    padding: 3px;
-  }
-  & .stepper button {
-    width: 40px;
-    height: 40px;
-    border: 0;
-    border-radius: 10px;
-    background: var(--card);
-    color: var(--ink);
-    font-size: 20px;
-    font-weight: 800;
-    cursor: pointer;
-    font-family: inherit;
-  }
-  & .stepper b {
-    min-width: 64px;
-    text-align: center;
-    font-size: 17px;
-  }
   & .dori {
     position: relative;
     height: 150px;
@@ -610,7 +572,7 @@
     justify-content: center;
   }
   & .sign span b {
-    font-family: Manrope, system-ui, sans-serif;
+    font-family: var(--font-sans);
     font-size: 13px;
     font-stretch: 100%;
   }
@@ -733,8 +695,8 @@
   & .fo {
     overflow: visible;
   }
-  & .fot {
-    font-family: Manrope, system-ui, sans-serif;
+  & .fo .fot {
+    font-family: var(--font-sans);
     font-weight: 800;
     font-size: 11px;
     line-height: 1.2;
@@ -1563,5 +1525,26 @@
   to {
     opacity: 1;
     transform: none;
+  }
+}
+
+/* Reduced motion (spec §5): scenes, timeline and diagram stand still; the widgets' JS pauses
+   on its own (`useInterval`). */
+@media (prefers-reduced-motion: reduce) {
+  [data-line='instalacje'] {
+    & .nvrh .rec:before,
+    & .tline b,
+    & .walkp,
+    & .carm,
+    & .sway,
+    & .strobe,
+    & .typc,
+    & .sycab,
+    & .syfib,
+    & .syled,
+    & .syupsf,
+    & .syinfo {
+      animation: none;
+    }
   }
 }

@@ -82,6 +82,7 @@ export function SystemDiagram({ planHref }: { planHref: string }) {
     },
     tabIndex: 0,
     role: 'button',
+    'aria-pressed': shown === key,
     'aria-label': T.elements[key].name,
   })
 
@@ -90,14 +91,13 @@ export function SystemDiagram({ planHref }: { planHref: string }) {
       <div className="syw ri">
         <div className="card sycard">
           <div className="illbar" style={{ padding: '0 0 12px' }}>
-            <div className="seg" role="tablist" aria-label={T.tabsLabel}>
+            <div className="seg" role="group" aria-label={T.tabsLabel}>
               {T.versions.map((v, i) => (
                 <button
                   key={v.name}
                   type="button"
-                  role="tab"
                   className={versionIndex === i ? 'on' : ''}
-                  aria-selected={versionIndex === i}
+                  aria-pressed={versionIndex === i}
                   onClick={() => setVersionIndex(i)}
                 >
                   <InstIcon name={v.icon} size={15} />
@@ -112,7 +112,7 @@ export function SystemDiagram({ planHref }: { planHref: string }) {
               <svg
                 className="sysvg"
                 viewBox="0 0 1120 470"
-                role="img"
+                role="group"
                 aria-label={`${T.diagramLabel} ${version.name}`}
               >
                 <rect x="270" y="26" width="830" height="300" rx="22" className="syzone" />
@@ -322,6 +322,7 @@ export function SystemDiagram({ planHref }: { planHref: string }) {
                   key={key}
                   type="button"
                   className={shown === key ? 'syli on' : 'syli'}
+                  aria-pressed={shown === key}
                   onClick={() => setPicked(key)}
                   aria-label={T.elements[key].name}
                   title={T.elements[key].name}
@@ -367,6 +368,7 @@ export function SystemDiagram({ planHref }: { planHref: string }) {
               key={key}
               type="button"
               className={shown === key ? 'syli on' : 'syli'}
+              aria-pressed={shown === key}
               onClick={() => setPicked(key)}
             >
               <i>
