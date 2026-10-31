@@ -44,10 +44,7 @@ test.describe('Biznes inquiry list', () => {
     await search.getByRole('button', { name: 'Podgląd: Terminal płatniczy PolCard' }).click()
     const preview = page.getByRole('dialog', { name: /Terminal płatniczy PolCard/ })
     await preview.getByRole('button', { name: '+ Do zapytania' }).click()
-    await expect(preview.getByRole('button', { name: '✓ W zapytaniu' })).toHaveAttribute(
-      'aria-pressed',
-      'true',
-    )
+    await expect(preview.getByRole('button', { name: '✓ W zapytaniu' })).toBeVisible()
     await page.keyboard.press('Escape')
     await page.keyboard.press('Escape')
 

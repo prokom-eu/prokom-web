@@ -41,6 +41,48 @@ test.describe('Biznes search', () => {
     await expect(overlay(page)).toBeHidden()
   })
 
+  // K33 §2.6: the quick preview steps through the results and closes with the search.
+  test('the quick preview steps with arrows and „Pełna karta” leaves a usable page', async ({
+    page,
+  }) => {
+    await page.goto(site('biznes.localhost'))
+    await openWithSlash(page)
+    await field(page).fill('kasa')
+    await overlay(page)
+      .getByRole('button', { name: /^Podgląd: / })
+      .first()
+      .click()
+    const preview = page.getByRole('dialog').filter({ hasText: 'Pełna karta →' })
+    await expect(preview).toContainText('1 / ')
+    await page.keyboard.press('ArrowRight')
+    await expect(preview).toContainText('2 / ')
+    await preview.getByRole('link', { name: 'Pełna karta →' }).click()
+    await expect(page).toHaveURL(/\/produkt\//)
+    await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
+    await expect(page.locator('dialog[open]')).toHaveCount(0)
+    // Nothing invisible in the top layer: the header still takes clicks.
+    await page
+      .getByRole('navigation', { name: 'Główna' })
+      .getByRole('button', { name: 'Oferta' })
+      .click()
+    await expect(page.locator('[id$="-offer"]')).toBeVisible()
+  })
+
+  test('a second click in the preview opens the inquiry drawer', async ({ page }) => {
+    await page.goto(site('biznes.localhost'))
+    await page.evaluate(() => localStorage.removeItem('pk-cart'))
+    await openWithSlash(page)
+    await field(page).fill('kasa')
+    await overlay(page)
+      .getByRole('button', { name: /^Podgląd: / })
+      .first()
+      .click()
+    const preview = page.getByRole('dialog').filter({ hasText: 'Pełna karta →' })
+    await preview.getByRole('button', { name: '+ Do zapytania' }).click()
+    await preview.getByRole('button', { name: '✓ W zapytaniu' }).click()
+    await expect(page.getByRole('dialog', { name: /Twoje zapytanie/ })).toBeVisible()
+  })
+
   test('"/" can be typed in the search field', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
     await openWithSlash(page)

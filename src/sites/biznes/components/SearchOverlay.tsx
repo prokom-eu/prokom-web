@@ -21,6 +21,7 @@ import { ICON_BUTTON } from '@/components/ui/iconButton'
 import type { CatalogIndex, IndexProduct } from '@/lib/catalog/catalogIndex'
 import { useCatalogIndex } from '@/lib/catalog/useCatalogIndex'
 import { brandHref } from '@/lib/catalog/brand'
+import { productHref } from '@/lib/catalog/card'
 import type { IconName } from '@/lib/catalog/options'
 import { plural } from '@/lib/plural'
 import {
@@ -131,7 +132,14 @@ export function SearchOverlay({ whatsapp }: Props) {
       <dialog
         ref={dialog}
         aria-labelledby={headingId}
-        onClose={() => setOpen(false)}
+        onClose={() => {
+          // A quick preview open inside (a nested modal) closes with the search — after a link
+          // or a route change it would otherwise stay in the top layer and block the page.
+          dialog.current
+            ?.querySelectorAll<HTMLDialogElement>('dialog[open]')
+            .forEach((nested) => nested.close())
+          setOpen(false)
+        }}
         onClick={(event) => {
           const box = dialog.current?.getBoundingClientRect()
           // The backdrop: a click outside the dialog box (the empty inside of it stays open).
@@ -230,6 +238,9 @@ type ResultsProps = {
 /** Arrow keys move between the result links (the field stays reachable with ↑ from the top). */
 function moveFocus(event: KeyboardEvent<HTMLElement>) {
   if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return
+  // Keys from the quick preview (a dialog inside this one) stay there: it scrolls with arrows.
+  const target = event.target as HTMLElement
+  if (target.closest('dialog') !== event.currentTarget.closest('dialog')) return
   const links = [...event.currentTarget.querySelectorAll<HTMLElement>('[data-result]')]
   const current = links.indexOf(document.activeElement as HTMLElement)
   const next = current + (event.key === 'ArrowDown' ? 1 : -1)
@@ -298,7 +309,8 @@ function EmptySearch({
   })
   const logos = SHOWROOM_LOGOS.flatMap((slug) => {
     const brand = index.brands.find((item) => item.slug === slug)
-    return brand?.logo ? [{ ...brand, logo: brand.logo }] : []
+    // Only brands with their page (`/marki/[slug]`) — others would lead to a 404 until K4f.
+    return brand?.logo && brand.page ? [{ ...brand, logo: brand.logo }] : []
   })
   return (
     <div className="flex flex-col gap-5 p-5 sm:p-6">
@@ -562,7 +574,7 @@ function ProductResult({
   return (
     <div className="flex items-center gap-2 rounded-2xl p-2 hover:bg-surface-2">
       <Link
-        href={`/produkt/${product.slug}`}
+        href={productHref(product.slug)}
         data-result
         className="flex min-w-0 flex-1 items-center gap-3 rounded-xl"
       >

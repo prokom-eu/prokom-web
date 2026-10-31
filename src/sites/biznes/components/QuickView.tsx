@@ -142,7 +142,6 @@ export function QuickView({ products, current, index, onMove }: Props) {
             <div className="mt-auto flex flex-wrap items-center gap-3">
               <button
                 type="button"
-                aria-pressed={on}
                 onClick={() =>
                   on ? openCartDrawer() : cartActions.add(product.slug, product.name)
                 }
