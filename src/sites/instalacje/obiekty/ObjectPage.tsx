@@ -231,7 +231,7 @@ export async function ObjectPage({ tenantId, object, sceneKey, origin }: Props) 
                 </article>
               ))}
             </div>
-            <p className="src ri" style={{ marginTop: 12 }}>
+            <p className="src ri" style={{ marginTop: 12, marginBottom: '1em' }}>
               {LEGAL_NOTE}
             </p>
           </div>
