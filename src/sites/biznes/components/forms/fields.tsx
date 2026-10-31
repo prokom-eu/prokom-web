@@ -11,7 +11,19 @@ import type { IconName } from '@/lib/catalog/options'
 const CONTROL =
   'block w-full rounded-[14px] border-[1.5px] border-border-input bg-card text-[15.5px] text-ink transition-[border-color,box-shadow] placeholder:text-ink-3 hover:border-ink-2 focus:border-accent-text focus:shadow-[0_0_0_4px_color-mix(in_srgb,var(--accent-text)_12%,transparent)] aria-invalid:border-[3px]'
 
-type Base = { id: string; label: string; required?: boolean; error?: string }
+type Base = {
+  id: string
+  label: string
+  required?: boolean
+  /**
+   * The star without `required`: one of two fields is needed (phone or e-mail, K4-FINAL §5),
+   * so neither may block the browser; the `hint` says it in words.
+   */
+  starred?: boolean
+  /** Short help under the field, read with it (`aria-describedby`). */
+  hint?: string
+  error?: string
+}
 
 function Label({ id, label, required }: Pick<Base, 'id' | 'label' | 'required'>) {
   return (
@@ -23,11 +35,21 @@ function Label({ id, label, required }: Pick<Base, 'id' | 'label' | 'required'>)
   )
 }
 
-function aria(id: string, error?: string) {
+function aria(id: string, error?: string, hint?: string) {
+  const describedBy = [hint ? `${id}-hint` : '', error ? `${id}-error` : ''].filter(Boolean)
   return {
     'aria-invalid': error ? true : undefined,
-    'aria-describedby': error ? `${id}-error` : undefined,
+    'aria-describedby': describedBy.length > 0 ? describedBy.join(' ') : undefined,
   }
+}
+
+function Hint({ id, hint }: { id: string; hint?: string }) {
+  if (!hint) return null
+  return (
+    <p id={`${id}-hint`} className="mt-1.5 text-[13px] text-ink-2">
+      {hint}
+    </p>
+  )
 }
 
 type IconFieldProps = Base & { icon?: IconName } & Omit<ComponentProps<'input'>, 'id' | 'required'>
@@ -37,6 +59,8 @@ export function IconField({
   id,
   label,
   required,
+  starred,
+  hint,
   error,
   icon,
   className,
@@ -44,7 +68,7 @@ export function IconField({
 }: IconFieldProps) {
   return (
     <div className={className}>
-      <Label id={id} label={label} required={required} />
+      <Label id={id} label={label} required={required || starred} />
       <span className="relative block">
         {icon && (
           <Icon
@@ -56,17 +80,19 @@ export function IconField({
         <input
           id={id}
           required={required}
-          {...aria(id, error)}
+          {...aria(id, error, hint)}
           {...rest}
           className={cx(CONTROL, 'h-[54px] pr-4', icon ? 'pl-11' : 'pl-4')}
         />
       </span>
+      <Hint id={id} hint={hint} />
       {error && <FieldError id={`${id}-error`}>{error}</FieldError>}
     </div>
   )
 }
 
-type AreaFieldProps = Base & Omit<ComponentProps<'textarea'>, 'id' | 'required'>
+type AreaFieldProps = Omit<Base, 'starred' | 'hint'> &
+  Omit<ComponentProps<'textarea'>, 'id' | 'required'>
 
 export function AreaField({ id, label, required, error, className, ...rest }: AreaFieldProps) {
   return (

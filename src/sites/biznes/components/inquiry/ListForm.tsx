@@ -4,9 +4,11 @@ import { useId, useRef, useState, type FormEvent } from 'react'
 
 import { Icon } from '@/components/ui/Icon'
 import { TextLink } from '@/components/ui/TextLink'
+import { cx } from '@/components/ui/cx'
 import type { Cart } from '@/lib/cart/cart'
 import {
   CONSENT_CLAUSE,
+  INQUIRY_ADMIN_NOTE,
   PRIVACY_POLICY_LINK_TEXT,
   PRIVACY_POLICY_PATH,
 } from '@/lib/inquiry/consent'
@@ -38,17 +40,23 @@ type Props = {
   /** Short promises under the button [SZEF from the panel where they hold a promise]. */
   promises: string[]
   onSent: (sent: { number: string | null; emailed: boolean }) => void
+  /**
+   * The drawer (K4-FINAL §5): only „Imię lub firma”, phone or e-mail, message and consent;
+   * `/zapytanie` adds company, city, the preferred contact and the deadline.
+   */
+  compact?: boolean
 }
 
 const FIELD_ORDER: ListFieldName[] = [
   'name',
   'phone',
+  'email',
   'company',
   'city',
-  'email',
   'message',
   'consent',
 ]
+const CONTACT_HINT = 'Wystarczy telefon albo e-mail.'
 const consentClause = linkInText(CONSENT_CLAUSE.text, PRIVACY_POLICY_LINK_TEXT)
 const CONTACT_OPTIONS = PREFERRED_CONTACTS.map((value) => ({
   value,
@@ -59,13 +67,17 @@ const DEADLINE_OPTIONS = LIST_DEADLINES.map((value) => ({ value, label: value })
 function readValues(form: HTMLFormElement): ListFormValues {
   const data = new FormData(form)
   const text = (name: string) => String(data.get(name) ?? '')
+  const phone = text('phone')
+  const email = text('email')
+  // The drawer has no choice of contact: with an e-mail only, the answer goes by e-mail.
+  const fallbackContact: PreferredContact = !phone.trim() && email.trim() ? 'email' : 'phone'
   return {
     name: text('name'),
-    phone: text('phone'),
+    phone,
     company: text('company'),
     city: text('city'),
-    email: text('email'),
-    preferredContact: (text('preferredContact') || 'phone') as PreferredContact,
+    email,
+    preferredContact: (text('preferredContact') || fallbackContact) as PreferredContact,
     deadline: text('deadline'),
     message: text('message'),
     consent: data.get('consent') === 'on',
@@ -80,10 +92,11 @@ function buttonLabel(count: number): string {
 }
 
 /**
- * „Dane do kontaktu” of `/zapytanie` (spec. §6.3, plansza Zapytanie): sends the list, a
- * „Zapytaj o X” phrase or — with nothing else — a plain contact (`lib/inquiry/listForm`).
+ * Inquiry form of the drawer and of `/zapytanie` (K4-FINAL §5, spec. §6.3): sends the list,
+ * a „Zapytaj o X” phrase or — with nothing else — a plain contact (`lib/inquiry/listForm`).
+ * A phone or an e-mail is enough.
  */
-export function ListForm({ formToken, cart, phrase, promises, onSent }: Props) {
+export function ListForm({ formToken, cart, phrase, promises, onSent, compact = false }: Props) {
   const id = useId()
   const fieldId = (name: string) => `${id}-${name}`
   const [errors, setErrors] = useState<Partial<Record<ListFieldName, string>>>({})
@@ -158,7 +171,7 @@ export function ListForm({ formToken, cart, phrase, promises, onSent }: Props) {
       noValidate
       onSubmit={onSubmit}
       aria-busy={sending}
-      className="relative flex flex-col gap-3.5 px-6 py-[22px]"
+      className={cx('relative flex flex-col gap-3.5', !compact && 'px-6 py-[22px]')}
     >
       <noscript>
         <p className="font-bold text-ink">
@@ -177,66 +190,79 @@ export function ListForm({ formToken, cart, phrase, promises, onSent }: Props) {
         <IconField
           id={fieldId('name')}
           name="name"
-          label="Imię"
-          autoComplete="given-name"
+          label="Imię lub firma"
+          placeholder="np. Anna Nowak, Kawiarnia Pod Turbaczem"
+          autoComplete="name"
           maxLength={120}
           required
           error={errors.name}
+          className="sm:col-span-2"
         />
         <IconField
           id={fieldId('phone')}
           name="phone"
           type="tel"
           label="Telefon"
+          placeholder="np. 600 100 200"
           autoComplete="tel"
           maxLength={30}
-          required
+          starred
+          hint={CONTACT_HINT}
           error={errors.phone}
-        />
-        <IconField
-          id={fieldId('company')}
-          name="company"
-          label="Firma / NIP"
-          autoComplete="organization"
-          maxLength={200}
-          error={errors.company}
-        />
-        <IconField
-          id={fieldId('city')}
-          name="city"
-          label="Miejscowość"
-          autoComplete="address-level2"
-          maxLength={100}
-          error={errors.city}
         />
         <IconField
           id={fieldId('email')}
           name="email"
           type="email"
-          label="E-mail (na wycenę)"
+          label="lub e-mail"
+          placeholder="np. anna@firma.pl"
           autoComplete="email"
           maxLength={254}
           error={errors.email}
-          className="sm:col-span-2"
         />
+        {!compact && (
+          <>
+            <IconField
+              id={fieldId('company')}
+              name="company"
+              label="Firma / NIP"
+              autoComplete="organization"
+              maxLength={200}
+              error={errors.company}
+            />
+            <IconField
+              id={fieldId('city')}
+              name="city"
+              label="Miejscowość"
+              autoComplete="address-level2"
+              maxLength={100}
+              error={errors.city}
+            />
+          </>
+        )}
       </div>
-      <ChoiceField
-        name="preferredContact"
-        legend="Jak się skontaktować?"
-        options={CONTACT_OPTIONS}
-        defaultValue="phone"
-      />
-      <ChoiceField
-        name="deadline"
-        legend="Na kiedy?"
-        options={DEADLINE_OPTIONS}
-        defaultValue="W tym miesiącu"
-      />
+      {!compact && (
+        <>
+          <ChoiceField
+            name="preferredContact"
+            legend="Jak się skontaktować?"
+            options={CONTACT_OPTIONS}
+            defaultValue="phone"
+          />
+          <ChoiceField
+            name="deadline"
+            legend="Na kiedy?"
+            options={DEADLINE_OPTIONS}
+            defaultValue="W tym miesiącu"
+          />
+        </>
+      )}
       <AreaField
         id={fieldId('message')}
         name="message"
-        label={type === 'contact' ? 'Czego potrzebujesz?' : 'Uwagi'}
-        placeholder="Co już masz, ile stanowisk, termin otwarcia…"
+        label={type === 'contact' ? 'Czego potrzebujesz?' : 'Wiadomość (opcjonalnie)'}
+        placeholder="Np. liczba stanowisk, termin otwarcia, co już masz"
+        rows={compact ? 3 : 5}
         maxLength={5000}
         required={type === 'contact'}
         error={errors.message}
@@ -273,7 +299,8 @@ export function ListForm({ formToken, cart, phrase, promises, onSent }: Props) {
         {sending ? 'Wysyłanie…' : buttonLabel(cart.length)}
         {!sending && <Icon name="arrow" strokeWidth={2.4} className="size-[18px]" />}
       </button>
-      {promises.length > 0 && (
+      <p className="text-[13px] leading-[1.45] text-ink-2">{INQUIRY_ADMIN_NOTE}</p>
+      {!compact && promises.length > 0 && (
         <ul className="flex flex-col gap-2 border-t border-border pt-3.5 text-sm text-ink-2">
           {promises.map((promise) => (
             <li key={promise} className="flex items-center gap-2.5">

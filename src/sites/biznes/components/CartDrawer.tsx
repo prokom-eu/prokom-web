@@ -11,7 +11,38 @@ import { useCatalogIndex } from '@/lib/catalog/useCatalogIndex'
 import { plural } from '@/lib/plural'
 
 import { AddToCartButton } from './AddToCartButton'
+import { ListForm } from './inquiry/ListForm'
 import { ProductThumb, productSubtitle } from './ProductThumb'
+
+type Sent = { number: string | null; emailed: boolean }
+type Token = { status: 'loading' | 'error' } | { status: 'ready'; value: string }
+
+const focusOnMount = (node: HTMLElement | null) => node?.focus()
+
+/**
+ * A fresh form token when the drawer opens (`/api/inquiry-token`): the drawer lives in the
+ * layout of cached pages, so a token rendered with it could be too old (ADR-003).
+ */
+function useFormToken(enabled: boolean): Token {
+  const [token, setToken] = useState<Token>({ status: 'loading' })
+  const ready = token.status === 'ready'
+  useEffect(() => {
+    if (!enabled || ready) return
+    let alive = true
+    fetch('/api/inquiry-token', { cache: 'no-store' })
+      .then((response) => (response.ok ? response.json() : null))
+      .then((data: unknown) => {
+        if (!alive) return
+        const value = (data as { formToken?: unknown } | null)?.formToken
+        setToken(typeof value === 'string' ? { status: 'ready', value } : { status: 'error' })
+      })
+      .catch(() => alive && setToken({ status: 'error' }))
+    return () => {
+      alive = false
+    }
+  }, [enabled, ready])
+  return token
+}
 
 type Props = {
   /** Main phone of the line (`tel:`) for "albo zadzwoń"; `null` hides it. */
@@ -22,10 +53,11 @@ const QTY_BUTTON =
   'inline-flex size-9 items-center justify-center rounded-lg text-lg font-bold text-ink hover:bg-surface-3 aria-disabled:opacity-40 aria-disabled:hover:bg-transparent'
 
 /**
- * Inquiry drawer from the right (spec. §3.2): the list with − / + and removal, "Często
- * dobierane" and the way to the inquiry form. A modal `<dialog>` — Esc closes it and focus
- * returns to the button that opened it. Names and pictures come from the catalog index; once
- * it loads, products the catalog no longer has leave the list (spec. §8.1).
+ * „Twoje zapytanie (n)” from the right (spec. §3.2, K4-FINAL §5): the list with − / + and
+ * removal, "Często dobierane" and the inquiry form under the list — sent without leaving the
+ * page. A modal `<dialog>` — Esc closes it and focus returns to the button that opened it.
+ * Names and pictures come from the catalog index; once it loads, products the catalog no
+ * longer has leave the list (spec. §8.1).
  */
 export function CartDrawer({ phone }: Props) {
   const dialog = useRef<HTMLDialogElement>(null)
@@ -67,12 +99,23 @@ export function CartDrawer({ phone }: Props) {
   )
   const suggestions = useMemo(() => (index ? suggestFor(cart, index) : []), [cart, index])
   const count = cartCount(cart)
+  const [sent, setSent] = useState<Sent | null>(null)
+  const token = useFormToken(open && count > 0)
+
+  function onSent(result: Sent) {
+    setSent(result)
+    cartActions.clear()
+  }
 
   return (
     <dialog
       ref={dialog}
       aria-labelledby={titleId}
-      onClose={() => setOpen(false)}
+      onClose={() => {
+        setOpen(false)
+        // The thanks belong to this opening; the next one starts with the list again.
+        setSent(null)
+      }}
       onClick={(event) => {
         // The backdrop: a pointer click on the dialog element outside its box (a keyboard
         // "click" on a button has no position, so the target decides). Links close it too.
@@ -95,9 +138,9 @@ export function CartDrawer({ phone }: Props) {
             tabIndex={-1}
             className="font-display text-xl font-extrabold outline-none"
           >
-            Twoje zapytanie
+            Twoje zapytanie ({count})
           </h2>
-          <p className="text-sm text-ink-3" aria-live="polite">
+          <p className="text-sm text-ink-2" aria-live="polite">
             {count > 0
               ? `${count} ${plural(count, ['pozycja', 'pozycje', 'pozycji'])} · bez cen, wycena na piśmie`
               : 'bez cen, wycena na piśmie'}
@@ -118,21 +161,54 @@ export function CartDrawer({ phone }: Props) {
       </div>
 
       <div className="flex flex-1 flex-col gap-2 overflow-y-auto px-4 py-3">
-        {count === 0 ? (
+        {sent ? (
+          <div
+            // Focused when it mounts, so screen readers announce the number at once.
+            ref={focusOnMount}
+            tabIndex={-1}
+            role="status"
+            className="m-auto flex flex-col items-center gap-3 px-5 py-10 text-center text-ink-2 outline-none"
+          >
+            {sent.number && (
+              <p className="text-[13.5px] font-extrabold">Zapytanie nr {sent.number}</p>
+            )}
+            <b className="font-display text-xl text-ink">Dziękujemy, zapytanie wysłane</b>
+            <p className="max-w-[34ch]">
+              Oddzwonimy w ciągu 60 minut w godzinach pracy. Poza godzinami — następnego dnia
+              roboczego. Ofertę dostaniesz na piśmie.
+              {sent.emailed && ' Kopię listy wysłaliśmy na Twój e-mail.'}
+            </p>
+            <button
+              type="button"
+              onClick={() => setSent(null)}
+              className="inline-flex min-h-12 items-center rounded-xl border-[1.5px] border-border-input px-5 font-extrabold text-ink hover:border-ink"
+            >
+              Nowe zapytanie
+            </button>
+          </div>
+        ) : count === 0 ? (
           <div className="m-auto flex flex-col items-center gap-3 px-5 py-10 text-center text-ink-2">
             <b className="text-lg text-ink">Lista jest pusta</b>
             <p className="max-w-[30ch]">
-              Dodawaj produkty i usługi przyciskiem „Do zapytania” — wyślesz je jednym formularzem,
-              a wycenę dostaniesz na piśmie.
+              Dodaj produkty z oferty albo po prostu opisz, czego potrzebujesz — dobierzemy resztę.
             </p>
-            <Link
-              href="/oferta"
-              className="inline-flex min-h-12 items-center rounded-xl bg-accent-text px-5 font-extrabold text-accent-ink"
-            >
-              Przeglądaj ofertę
-            </Link>
-            <Link href="/kontakt#kontakt" className="font-extrabold text-accent-text">
-              albo napisz do nas →
+            <div className="flex flex-wrap justify-center gap-2">
+              <Link
+                href="/oferta"
+                className="inline-flex min-h-12 items-center rounded-xl bg-accent-text px-5 font-extrabold text-accent-ink"
+              >
+                Przeglądaj ofertę
+              </Link>
+              {/* TODO(krystian): /konfigurator after K4g. */}
+              <Link
+                href="/kreator"
+                className="inline-flex min-h-12 items-center rounded-xl border-[1.5px] border-border-input px-5 font-extrabold text-ink hover:border-ink"
+              >
+                Konfigurator
+              </Link>
+            </div>
+            <Link href="/zapytanie" className="font-extrabold text-accent-text">
+              Opisz, czego potrzebujesz →
             </Link>
           </div>
         ) : !index ? (
@@ -246,21 +322,42 @@ export function CartDrawer({ phone }: Props) {
                 </ul>
               </section>
             )}
+
+            <section
+              aria-labelledby={`${titleId}-form`}
+              className="mt-2 rounded-2xl bg-surface-2 px-4 pt-4 pb-5"
+            >
+              <h3 id={`${titleId}-form`} className="mb-3 font-display text-lg font-extrabold">
+                Dokąd wysłać ofertę?
+              </h3>
+              {token.status === 'ready' ? (
+                <ListForm
+                  compact
+                  formToken={token.value}
+                  cart={cart}
+                  phrase={null}
+                  promises={[]}
+                  onSent={onSent}
+                />
+              ) : token.status === 'loading' ? (
+                <p className="text-ink-2" role="status">
+                  Wczytuję formularz…
+                </p>
+              ) : (
+                <p className="text-ink-2">
+                  Nie udało się wczytać formularza.{' '}
+                  <Link href="/zapytanie" className="font-extrabold text-accent-text">
+                    Wyślij listę ze strony zapytania →
+                  </Link>
+                </p>
+              )}
+            </section>
           </>
         )}
       </div>
 
-      {count > 0 && (
-        <div className="flex flex-col gap-2.5 border-t border-border px-5 pb-5 pt-4">
-          <p className="text-sm text-ink-2">
-            Bez cen na stronie: przygotujemy wycenę na piśmie, z wariantami.
-          </p>
-          <Link
-            href="/zapytanie"
-            className="inline-flex min-h-[54px] items-center justify-center rounded-xl bg-accent-text px-5 font-extrabold text-accent-ink"
-          >
-            Przejdź do zapytania ({count})
-          </Link>
+      {count > 0 && !sent && (
+        <div className="flex flex-col gap-2.5 border-t border-border px-5 pb-4 pt-3">
           <div className="flex items-center justify-between text-sm">
             <button
               type="button"
