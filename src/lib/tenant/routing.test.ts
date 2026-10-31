@@ -141,6 +141,30 @@ describe('decideRoute — site domains', () => {
     }
   })
 
+  it('hands out a fresh form token on site domains, read only (K4-FINAL §5, drawer form)', () => {
+    for (const method of ['GET', 'HEAD']) {
+      expect(
+        decideRoute({
+          host: 'biznes.localhost',
+          pathname: '/api/inquiry-token',
+          method,
+          panelHost,
+        }),
+      ).toEqual({ type: 'next' })
+    }
+    expect(
+      decideRoute({
+        host: 'biznes.localhost',
+        pathname: '/api/inquiry-token',
+        method: 'POST',
+        panelHost,
+      }),
+    ).toEqual(SITE_404)
+    for (const pathname of ['/api/inquiry-token/', '/api/inquiry-token/x']) {
+      expect(route('biznes.localhost', pathname)).toEqual(SITE_404)
+    }
+  })
+
   it('lets the catalog index through on site domains (its handler checks the line)', () => {
     for (const method of ['GET', 'HEAD']) {
       expect(

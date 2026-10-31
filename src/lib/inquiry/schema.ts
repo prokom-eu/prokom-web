@@ -121,13 +121,13 @@ function inquirySchemaFor(line: Line | undefined) {
       issue('email', 'e-mail required for e-mail contact')
     }
 
-    // Biznes calls back (ZMIANY-v20 §2.9, plansze Zapytanie i Kreator): every form requires
-    // a phone, the wizard too (B10c).
-    const phoneRequired = line === 'biznes'
-    if (phoneRequired) {
+    // A phone or an e-mail is enough (K4-FINAL §5). Biznes leads with the phone, so the issue
+    // sits there; its wizard still requires the phone until Konfigurator 3.0 (B10c, K4g).
+    const biznes = line === 'biznes'
+    if (biznes && data.type === 'wizard') {
       if (data.phone === undefined) issue('phone', 'phone required')
     } else if (data.email === undefined && data.phone === undefined) {
-      issue('email', 'e-mail or phone required')
+      issue(biznes ? 'phone' : 'email', 'e-mail or phone required')
     }
   })
 }

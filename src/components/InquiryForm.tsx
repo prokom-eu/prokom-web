@@ -29,8 +29,11 @@ type Props = {
   formToken: string
   /** Inquiry category set by the editor on the block, e.g. „Kasy fiskalne”. */
   category?: string | null
-  /** The Biznes line calls back: the server requires a phone there (`lib/inquiry/schema`). */
-  phoneRequired?: boolean
+  /**
+   * The Biznes line leads with the phone: a missing contact is reported on it, as the server
+   * does (`lib/inquiry/schema`).
+   */
+  phoneFirst?: boolean
 }
 
 type Status =
@@ -41,9 +44,9 @@ type Status =
 
 const consentClause = linkInText(CONSENT_CLAUSE.text, PRIVACY_POLICY_LINK_TEXT)
 
-// With a required phone the e-mail is optional, so both messages say so.
-const PHONE_REQUIRED: FormRules = {
-  phoneRequired: true,
+// Biznes: a phone or an e-mail, the missing one reported on the phone (K4-FINAL §5).
+const PHONE_FIRST: FormRules = {
+  phoneFirst: true,
   messages: {
     ...FIELD_MESSAGES,
     email: BIZNES_FIELD_MESSAGES.email,
@@ -75,8 +78,8 @@ function readValues(form: HTMLFormElement): FormValues {
  * server's verdict next to the fields. Required fields are checked here first, formats only
  * on the server — one set of rules.
  */
-export function InquiryForm({ formToken, category, phoneRequired = false }: Props) {
-  const rules: FormRules = phoneRequired ? PHONE_REQUIRED : {}
+export function InquiryForm({ formToken, category, phoneFirst = false }: Props) {
+  const rules: FormRules = phoneFirst ? PHONE_FIRST : {}
   const id = useId()
   const fieldId = (name: string) => `${id}-${name}`
   const [errors, setErrors] = useState<Partial<Record<FieldName, string>>>({})
@@ -209,7 +212,7 @@ export function InquiryForm({ formToken, category, phoneRequired = false }: Prop
         name="email"
         type="email"
         label="E-mail"
-        note={phoneRequired ? '(opcjonalnie)' : '(albo telefon)'}
+        note="(albo telefon)"
         autoComplete="email"
         maxLength={254}
         error={errors.email}
@@ -219,7 +222,7 @@ export function InquiryForm({ formToken, category, phoneRequired = false }: Prop
         name="phone"
         type="tel"
         label="Telefon"
-        {...(phoneRequired ? { required: true } : { note: '(albo e-mail)' })}
+        note="(albo e-mail)"
         autoComplete="tel"
         maxLength={30}
         error={errors.phone}

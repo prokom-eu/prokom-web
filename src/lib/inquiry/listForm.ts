@@ -29,7 +29,7 @@ export type ListFieldName =
   'name' | 'phone' | 'company' | 'city' | 'email' | 'message' | 'consent' | 'items' | 'topics'
 
 export const LIST_FIELD_MESSAGES: Record<ListFieldName, string> = {
-  name: BIZNES_FIELD_MESSAGES.name,
+  name: 'Podaj imię lub nazwę firmy.',
   phone: BIZNES_FIELD_MESSAGES.phone,
   company: 'Nazwa firmy jest za długa.',
   city: 'Nazwa miejscowości jest za długa.',
@@ -55,7 +55,8 @@ export function checkListRequired(
 ): Partial<Record<ListFieldName, string>> {
   const errors: Partial<Record<ListFieldName, string>> = {}
   if (!values.name.trim()) errors.name = LIST_FIELD_MESSAGES.name
-  if (!values.phone.trim()) errors.phone = LIST_FIELD_MESSAGES.phone
+  // A phone or an e-mail (K4-FINAL §5); the phone is the field shown first.
+  if (!values.phone.trim() && !values.email.trim()) errors.phone = LIST_FIELD_MESSAGES.phone
   if (values.preferredContact === 'email' && !values.email.trim()) {
     errors.email = LIST_FIELD_MESSAGES.email
   }

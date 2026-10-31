@@ -80,7 +80,7 @@ describe('buildListInquiryBody', () => {
 })
 
 describe('checkListRequired', () => {
-  it('requires name, phone and consent; notes only without items and phrase', () => {
+  it('requires name, a phone or an e-mail, and consent; notes only without items and phrase', () => {
     expect(checkListRequired(values, 'list')).toEqual({})
     expect(checkListRequired(values, 'search')).toEqual({})
     expect(checkListRequired(values, 'contact')).toEqual({ message: LIST_FIELD_MESSAGES.message })
@@ -89,6 +89,17 @@ describe('checkListRequired', () => {
       phone: LIST_FIELD_MESSAGES.phone,
       consent: LIST_FIELD_MESSAGES.consent,
     })
+  })
+
+  it('accepts an e-mail instead of a phone (K4-FINAL §5)', () => {
+    const emailOnly = {
+      ...values,
+      phone: ' ',
+      email: 'anna@firma.pl',
+      preferredContact: 'email' as const,
+    }
+    expect(checkListRequired(emailOnly, 'list')).toEqual({})
+    expect(LIST_FIELD_MESSAGES.phone).toMatch(/telefon albo e-mail/)
   })
 
   it('requires the e-mail when „E-mail” is the chosen contact', () => {
