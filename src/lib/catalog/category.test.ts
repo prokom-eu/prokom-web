@@ -16,6 +16,7 @@ import {
   registerOptions,
   seriesFilter,
   seriesFromParam,
+  seriesSlug,
   showroomHelpHref,
   subcategoryHref,
   subcategoryLinks,
@@ -499,5 +500,12 @@ describe('series filter (K31c, `?seria=`)', () => {
     expect(showroomHelpHref(laptops, catalog, ['dell'])).toBe('/marki/komputery#dobor')
     expect(showroomHelpHref(laptops, catalog, ['asus'])).toBe('/marki/lenovo#dobor')
     expect(showroomHelpHref(laptops, index(laptops, { brands: brands.slice(2) }), [])).toBeNull()
+  })
+})
+
+describe('seriesSlug', () => {
+  it('makes the address part of a series', () => {
+    expect(seriesSlug('ThinkPad T i X13')).toBe('thinkpad-t-i-x13')
+    expect(seriesSlug('ThinkPad 2-in-1')).toBe('thinkpad-2-in-1')
   })
 })

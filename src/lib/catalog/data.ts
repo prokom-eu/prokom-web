@@ -15,7 +15,6 @@ import { buildIndustryView, type IndustryView } from './industry'
 import type { Wizard } from './wizard'
 import { readWizardRules } from './wizardRules'
 import { buildProductView, isIndexableProduct, type ProductView } from './product'
-import { buildShowroomView, type ShowroomView } from './showroom'
 import { catalogTag } from './tags'
 
 /** Far above the catalog of stage 1 (~70); past ~500 the index is reconsidered (ADR-012 §2.4). */
@@ -226,30 +225,6 @@ export const getBrandView = (tenantId: number, slug: string): Promise<BrandView 
       return partner ? buildBrandView(partner, tenantId) : null
     },
     ['brand-view', String(tenantId), slug],
-    { tags: [catalogTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
-  )()
-
-/**
- * Showroom of a brand for `/marki/[slug]` (K31c) — or `null` (no showroom, not a brand of this
- * site). Of the related products only the slug and tenant; the page joins them with the index
- * (`listShowroom`), so unpublished cards never show. Cached under the catalog tag.
- */
-export const getShowroomView = (tenantId: number, slug: string): Promise<ShowroomView | null> =>
-  cacheQuery(
-    async () => {
-      const payload = await getPayload({ config })
-      const { docs } = await payload.find({
-        collection: 'partners',
-        where: { and: [{ slug: { equals: slug } }, { tenants: { in: [tenantId] } }] },
-        limit: 1,
-        depth: 1,
-        populate: { products: { slug: true, tenant: true } },
-        overrideAccess: true,
-      })
-      const partner = docs[0]
-      return partner ? buildShowroomView(partner, tenantId) : null
-    },
-    ['showroom-view', String(tenantId), slug],
     { tags: [catalogTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
   )()
 

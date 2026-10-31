@@ -159,7 +159,8 @@ export function SalonFamily({
         <div
           role="group"
           aria-label="Rodzaje"
-          className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1"
+          // Rows on a computer (board: up to 14 tabs in Lenovo), a sideways strip on a phone.
+          className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1 min-[761px]:flex-wrap min-[761px]:overflow-visible"
         >
           {family.map((item, i) => (
             <button
@@ -222,7 +223,10 @@ export function SalonChooser({
     >
       <div className="flex flex-col gap-4">
         <Eyebrow>Pomóż mi wybrać</Eyebrow>
-        <h2 id="dobor-h" className="font-display text-3xl font-extrabold text-balance text-ink">
+        <h2
+          id="dobor-h"
+          className="font-display text-[clamp(1.4rem,3vw,1.875rem)] font-extrabold text-balance text-ink"
+        >
           {chooser.question ?? 'Od czego zacząć?'}
         </h2>
         <p className="text-ink-2">

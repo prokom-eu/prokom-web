@@ -70,11 +70,11 @@ function SectionHead({
         <Eyebrow>{eyebrow}</Eyebrow>
         <h2
           id={id}
-          className="font-display text-[clamp(1.8rem,3vw,2.4rem)] leading-tight font-extrabold text-balance text-ink"
+          className="font-display text-[clamp(1.4rem,3vw,2.4rem)] leading-tight font-extrabold text-balance text-ink"
         >
           {title}
         </h2>
-        {lead && <p className="text-lg text-ink-2">{lead}</p>}
+        {lead && <p className="text-ink-2 sm:text-lg">{lead}</p>}
       </div>
       {note && (
         <span className="self-start rounded-full bg-surface-2 px-3 py-1.5 text-xs font-extrabold text-ink-2 sm:self-end">
@@ -87,9 +87,15 @@ function SectionHead({
 
 export function SalonHero({ view, crumbs }: { view: SalonView; crumbs: Crumb[] }) {
   const offer = view.plans
-    ? { href: '#oferta', label: 'Porównaj warianty' }
-    : { href: '#oferta-cala', label: `Zobacz ofertę · ${view.familyCount}` }
-  const photos = view.heroCard ? view.hero.slice(0, 2) : view.hero
+    ? { href: '#oferta', label: 'Porównaj warianty', short: 'Warianty' }
+    : {
+        href: '#oferta-cala',
+        label: `Zobacz ofertę · ${view.familyCount}`,
+        short: `Oferta · ${view.familyCount}`,
+      }
+  // With the card the board shows two photos: the first product large on the right, the second
+  // smaller on the left; without it up to three with their labels.
+  const photos = view.heroCard ? view.hero.slice(0, 2).reverse() : view.hero
   return (
     <>
       <Breadcrumbs items={crumbs} />
@@ -102,9 +108,11 @@ export function SalonHero({ view, crumbs }: { view: SalonView; crumbs: Crumb[] }
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(45%_70%_at_85%_15%,color-mix(in_srgb,var(--accent)_40%,transparent),transparent_70%),radial-gradient(40%_60%_at_10%_100%,color-mix(in_srgb,var(--accent)_22%,transparent),transparent_70%)]"
         />
-        <div className="relative grid items-center gap-8 min-[1080px]:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] min-[1080px]:gap-10">
-          <div className="flex flex-col gap-5">
-            <div className="flex flex-wrap items-center gap-2.5">
+        {/* Below 1080 px the left column dissolves (`contents`): photos and the card come right
+            after the lead, then the facts and the buttons (board `App-Salon-*`). */}
+        <div className="relative grid items-center gap-6 min-[1080px]:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] min-[1080px]:gap-10">
+          <div className="contents min-[1080px]:flex min-[1080px]:flex-col min-[1080px]:gap-5">
+            <div className="flex flex-wrap items-center gap-2.5 max-[1079px]:order-1">
               {view.brands.map((brand) => (
                 <span
                   key={brand.id}
@@ -137,7 +145,7 @@ export function SalonHero({ view, crumbs }: { view: SalonView; crumbs: Crumb[] }
             </div>
             <h1
               id="salon-h1"
-              className="font-display text-[clamp(2rem,3.3vw,3rem)] leading-[1.06] font-extrabold tracking-[-0.025em] text-balance"
+              className="font-display max-[1079px]:order-1 text-[clamp(2rem,3.3vw,3rem)] leading-[1.06] font-extrabold tracking-[-0.025em] text-balance"
             >
               {view.h1a}
               {view.h1b && (
@@ -148,37 +156,43 @@ export function SalonHero({ view, crumbs }: { view: SalonView; crumbs: Crumb[] }
               )}
             </h1>
             {view.lead && (
-              <p className="max-w-[58ch] text-[clamp(1rem,1.3vw,1.15rem)] leading-relaxed text-white/80">
+              <p className="max-w-[58ch] text-[clamp(0.95rem,1.3vw,1.15rem)] leading-relaxed text-white/80 max-[1079px]:order-1">
                 {view.lead}
               </p>
             )}
-            <div className="flex flex-wrap gap-3">
-              <a href={offer.href} className={LIGHT_BUTTON}>
-                {offer.label}
+            <div className="grid grid-cols-2 gap-3 max-[1079px]:order-4 min-[1080px]:flex min-[1080px]:flex-wrap">
+              <a href={offer.href} className={cx(LIGHT_BUTTON, 'max-sm:px-3')}>
+                <span className="max-sm:hidden">{offer.label}</span>
+                <span className="sm:hidden">{offer.short}</span>
               </a>
               {view.chooser ? (
-                <a href="#dobor" className={GLASS_BUTTON}>
-                  Pomóż mi wybrać
+                <a href="#dobor" className={cx(GLASS_BUTTON, 'max-sm:px-3')}>
+                  <span className="max-sm:hidden">Pomóż mi wybrać</span>
+                  <span className="sm:hidden">Pomóż wybrać</span>
                 </a>
               ) : (
-                <a href="#sl-ask" className={GLASS_BUTTON}>
+                <a href="#sl-ask" className={cx(GLASS_BUTTON, 'max-sm:px-3')}>
                   Zapytaj o ofertę
                 </a>
               )}
             </div>
             {view.facts.length > 0 && (
-              <dl className="mt-2 grid grid-cols-3 gap-4 border-t border-white/15 pt-6">
+              <dl className="grid grid-cols-3 gap-3 border-t border-white/15 pt-5 max-[1079px]:order-3 sm:gap-4 min-[1080px]:mt-2 min-[1080px]:pt-6">
                 {view.facts.map((fact) => (
                   // The label is the term, the value its description; the value shows on top.
-                  <div key={fact.value} className="flex flex-col-reverse justify-end gap-1">
-                    {fact.label && <dt className="text-sm text-white/70">{fact.label}</dt>}
-                    <dd className="font-display text-xl font-extrabold">{fact.value}</dd>
+                  <div key={fact.value} className="flex min-w-0 flex-col-reverse justify-end gap-1">
+                    {fact.label && (
+                      <dt className="text-xs text-white/70 sm:text-sm">{fact.label}</dt>
+                    )}
+                    <dd className="font-display text-base leading-tight font-extrabold break-words sm:text-xl">
+                      {fact.value}
+                    </dd>
                   </div>
                 ))}
               </dl>
             )}
           </div>
-          <div className="relative flex flex-col gap-4">
+          <div className="relative flex flex-col gap-4 max-[1079px]:order-2">
             {photos.length > 0 && (
               <div
                 className={cx(
@@ -250,7 +264,18 @@ export function SalonHero({ view, crumbs }: { view: SalonView; crumbs: Crumb[] }
   )
 }
 
-function PlanItem({ card, brand, compact }: { card: PlanCard; brand: string; compact: boolean }) {
+function PlanItem({
+  card,
+  brand,
+  compact,
+  big,
+}: {
+  card: PlanCard
+  brand: string
+  compact: boolean
+  /** A section with large photos (`big`): the photo across the card, 210 px high (board). */
+  big: boolean
+}) {
   const ask = card.product ? [{ id: card.product.slug, note: `${brand} — ${card.name}` }] : []
   return (
     <article
@@ -265,12 +290,16 @@ function PlanItem({ card, brand, compact }: { card: PlanCard; brand: string; com
           {card.tag}
         </span>
       )}
-      <div className={cx('flex gap-4', compact ? 'items-center' : 'flex-col')}>
+      <div className={cx('flex gap-4', compact && !big ? 'items-center' : 'flex-col')}>
         {card.product?.image && (
           <ProductStage
             className={cx(
               'shrink-0 rounded-2xl',
-              compact ? 'size-[76px]' : 'h-[168px] w-full min-[761px]:h-[96px]',
+              big
+                ? 'h-[168px] w-full min-[761px]:h-[210px]'
+                : compact
+                  ? 'size-[76px]'
+                  : 'h-[168px] w-full min-[761px]:h-[96px]',
             )}
           >
             <Photo product={card.product} className="max-h-[78%] max-w-[80%]" />
@@ -300,9 +329,17 @@ function PlanItem({ card, brand, compact }: { card: PlanCard; brand: string; com
         </ul>
       )}
       <div className="mt-auto flex items-center justify-between gap-3">
-        <SalonAsk items={ask} className={ASK_BUTTON}>
+        {/* On a phone a text link across the card with an arrow (board `App-Salon-*`). */}
+        <SalonAsk
+          items={ask}
+          className={cx(
+            ASK_BUTTON,
+            'max-[760px]:w-full max-[760px]:justify-between max-[760px]:bg-transparent max-[760px]:px-0 max-[760px]:text-accent-text max-[760px]:shadow-none max-[760px]:hover:bg-transparent',
+          )}
+        >
           <span className="max-[760px]:hidden">Zapytaj</span>
           <span className="min-[761px]:hidden">Zapytaj o ten wariant</span>
+          <Icon name="arrow" strokeWidth={2.4} className="size-4 min-[761px]:hidden" />
         </SalonAsk>
         {card.product && (
           <Link
@@ -353,7 +390,7 @@ export function SalonPlans({
           <ul className={cx('grid gap-4 pt-3 min-[761px]:grid-cols-2', mainCols, CAROUSEL)}>
             {section.main.map((card) => (
               <li key={card.name} className={cx('flex flex-col pt-3', CAROUSEL_ITEM)}>
-                <PlanItem card={card} brand={brand} compact={false} />
+                <PlanItem card={card} brand={brand} compact={false} big={section.big} />
               </li>
             ))}
           </ul>
@@ -371,7 +408,7 @@ export function SalonPlans({
             <ul className={cx('grid gap-4', altCols, CAROUSEL)}>
               {section.alt.map((card) => (
                 <li key={card.name} className={cx('flex flex-col', CAROUSEL_ITEM)}>
-                  <PlanItem card={card} brand={brand} compact />
+                  <PlanItem card={card} brand={brand} compact big={section.big} />
                 </li>
               ))}
             </ul>
@@ -420,7 +457,7 @@ function DarkPanel({
           <Eyebrow dark>{eyebrow}</Eyebrow>
           <h2
             id={`${id}-h`}
-            className="font-display text-[clamp(1.8rem,3vw,2.4rem)] leading-tight font-extrabold text-balance"
+            className="font-display text-[clamp(1.4rem,3vw,2.4rem)] leading-tight font-extrabold text-balance"
           >
             {title}
           </h2>
@@ -550,7 +587,7 @@ export function SalonAbout({
         <Eyebrow>O marce</Eyebrow>
         <h2
           id="o-marce-h"
-          className="font-display text-[clamp(1.8rem,3vw,2.4rem)] leading-tight font-extrabold text-balance text-ink"
+          className="font-display text-[clamp(1.4rem,3vw,2.4rem)] leading-tight font-extrabold text-balance text-ink"
         >
           {headings.facts}
         </h2>
@@ -568,7 +605,13 @@ export function SalonAbout({
             ))}
           </dl>
         )}
-        <div className="flex flex-col gap-4 text-ink-2">
+        <div
+          className={cx(
+            'flex flex-col gap-4 text-ink-2',
+            // Without facts the text keeps its column, as on the board.
+            about.facts.length === 0 && 'min-[1080px]:col-start-2',
+          )}
+        >
           {first && <p className="leading-relaxed">{first}</p>}
           {rest.length > 0 && (
             <details className="group">
@@ -630,7 +673,7 @@ export function SalonFaq({
           <Eyebrow>Pytania</Eyebrow>
           <h2
             id="pytania-h"
-            className="font-display text-[clamp(1.8rem,3vw,2.4rem)] leading-tight font-extrabold text-balance text-ink"
+            className="font-display text-[clamp(1.4rem,3vw,2.4rem)] leading-tight font-extrabold text-balance text-ink"
           >
             {faq.length > 0 ? headings.faq : 'Masz pytanie?'}
           </h2>

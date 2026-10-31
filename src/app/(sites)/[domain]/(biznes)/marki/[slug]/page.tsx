@@ -229,7 +229,7 @@ async function Salon({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
       />
-      <Container wide className="flex flex-col gap-16 pt-6 pb-14 sm:gap-24 sm:pt-8 sm:pb-20">
+      <Container wide className="flex flex-col gap-12 pt-6 pb-14 sm:gap-24 sm:pt-8 sm:pb-20">
         <div>
           <SalonHero view={view} crumbs={crumbs} />
         </div>
