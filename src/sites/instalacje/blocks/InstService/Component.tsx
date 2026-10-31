@@ -15,21 +15,37 @@ import { navigation } from '../../dane/nawigacja'
 import { CtaBandView } from '../../powloka/CtaBandView'
 import { Faq } from '../../sekcje/Faq'
 import { GuaranteeSection } from '../../sekcje/GuaranteeSection'
+import { IlDefs } from '../../sekcje/IlDefs'
 import { JsonLd } from '../../sekcje/JsonLd'
 import { Packages } from '../../sekcje/Packages'
 import { PageHero } from '../../sekcje/PageHero'
 import { PriceFactors } from '../../sekcje/PriceFactors'
 import { Related } from '../../sekcje/Related'
 import { AntennaAim } from '../../widzety/anteny/AntennaAim'
+import { AlarmySections } from '../../widzety/alarmy/AlarmySections'
+import { HouseDemo } from '../../widzety/alarmy/HouseDemo'
 import { AntenySections } from '../../widzety/anteny/AntenySections'
+import { MonitoringSections } from '../../widzety/monitoring/MonitoringSections'
+import { NvrDemo } from '../../widzety/monitoring/NvrDemo'
 
 type Props = { block: InstServiceBlockData; tenantId: number }
 
 /** What a service page adds to the shared sections: its widget and its own sections. */
 type ServiceLayout = { widget: ReactNode; sections: ReactNode; folded: readonly string[] }
+type LayoutContext = { planHref: string }
 
-/** Pages built so far (I4); the other services show the shared sections until I7–I9. */
-const LAYOUTS: Partial<Record<string, () => ServiceLayout>> = {
+/** Pages built so far (I4, I7); the other services show the shared sections until I8–I9. */
+const LAYOUTS: Partial<Record<string, (ctx: LayoutContext) => ServiceLayout>> = {
+  kam: ({ planHref }) => ({
+    widget: <NvrDemo />,
+    sections: <MonitoringSections planHref={planHref} />,
+    folded: ['cena', 'faq'],
+  }),
+  alarm: () => ({
+    widget: <HouseDemo />,
+    sections: <AlarmySections />,
+    folded: ['cena', 'faq'],
+  }),
   ant: () => ({
     widget: <AntennaAim />,
     sections: <AntenySections />,
@@ -59,10 +75,10 @@ export async function InstServiceBlock({ block, tenantId }: Props) {
   const telHref = site?.phone ? toTelHref(site.phone) : null
   const phone = site?.phone && telHref ? { label: site.phone, href: telHref } : null
   const salons = (company?.locations ?? []).map((l) => `${l.city}, ${l.street}`).join(' · ')
-  const layout = LAYOUTS[service.key]?.()
-  const folded = new Set(layout?.folded ?? [])
   const path = `/${service.slug}`
   const planHref = `/zaplanuj?usluga=${service.key}`
+  const layout = LAYOUTS[service.key]?.({ planHref })
+  const folded = new Set(layout?.folded ?? [])
   const crumb = service.hero?.crumb || service.name
   const band = {
     ...navigation.ctaBand,
@@ -72,7 +88,15 @@ export async function InstServiceBlock({ block, tenantId }: Props) {
   }
 
   return (
-    <div className="inst-svc" style={{ '--h': service.color || undefined } as CSSProperties}>
+    // Scene palettes of the illustrations (tokens.css: `--sx-*`, `--il-*`) and the shared
+    // gradients they paint with.
+    <div
+      className="inst-svc"
+      data-inst-sx=""
+      data-inst-il=""
+      style={{ '--h': service.color || undefined } as CSSProperties}
+    >
+      <IlDefs />
       {origin && (
         <>
           <JsonLd

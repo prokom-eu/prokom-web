@@ -14,7 +14,7 @@ describe('service page anchors', () => {
   })
 
   it('gives a service without its own page only the shared sections', () => {
-    expect(sectionIdsOf('kam')).toEqual(['odbior', 'pakiety', 'cena', 'faq', 'powiazane'])
+    expect(sectionIdsOf('ev')).toEqual(['odbior', 'pakiety', 'cena', 'faq', 'powiazane'])
   })
 
   it('builds the panel message, also from the saved document on a partial update', () => {
@@ -26,6 +26,6 @@ describe('service page anchors', () => {
   })
 
   it('leaves the services without a page in code alone', () => {
-    expect(anchorsError({ key: 'kam', anchors: [{ anchorId: 'nagrania' }] }, undefined)).toBeNull()
+    expect(anchorsError({ key: 'ev', anchors: [{ anchorId: 'nagrania' }] }, undefined)).toBeNull()
   })
 })
