@@ -31,6 +31,16 @@ export const SERVICE_SECTION_IDS: Partial<Record<ServiceKey, readonly string[]>>
     'zapas',
   ],
   smart: ['co-sterujesz', 'dlaczego', 'panele', 'integracje', 'obiekty', 'moduly', 'etapy'],
+  snd: [
+    'obiekty',
+    'apart',
+    'jak-dziala',
+    'kosciol',
+    'ile-glosnikow',
+    'sala-obrad',
+    'dso',
+    'licencje',
+  ],
   kam: ['co-dostajesz', 'system', 'typy', 'ile-widac', 'nagrania', 'rodo', 'sprzet-kamery'],
 }
 

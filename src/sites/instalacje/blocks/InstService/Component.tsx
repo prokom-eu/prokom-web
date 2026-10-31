@@ -36,6 +36,8 @@ import { MonitoringSections } from '../../widzety/monitoring/MonitoringSections'
 import { NvrDemo } from '../../widzety/monitoring/NvrDemo'
 import { SmartSections, SmartWarrantyNote } from '../../widzety/smart/SmartSections'
 import { SmartPlan } from '../../widzety/smart/SmartWidgets'
+import { NaglosnienieSections } from '../../widzety/naglosnienie/NaglosnienieSections'
+import { ZoneMixer } from '../../widzety/naglosnienie/NaglosnienieWidgets'
 
 type Props = { block: InstServiceBlockData; tenantId: number }
 
@@ -87,6 +89,11 @@ const LAYOUTS: Partial<Record<string, (ctx: LayoutContext) => ServiceLayout>> = 
     sections: <SmartSections planHref={planHref} />,
     folded: ['cena', 'faq'],
     afterGuarantee: <SmartWarrantyNote />,
+  }),
+  snd: () => ({
+    widget: <ZoneMixer />,
+    sections: <NaglosnienieSections />,
+    folded: ['cena', 'faq'],
   }),
   ant: () => ({
     widget: <AntennaAim />,
