@@ -30,7 +30,6 @@ export function factsBlocks(brand: (name: string) => number | undefined): HomeBl
     },
     {
       blockType: 'bzFacts',
-      eyebrow: 'O firmie',
       // For screen readers only (the board shows the label above the quote).
       heading: 'O firmie — słowo od właściciela',
       // TODO(krystian): [SZEF] treść cytatu, podpis (SVG) i decyzja: zdjęcie czy ikona.
@@ -53,7 +52,6 @@ export function factsBlocks(brand: (name: string) => number | undefined): HomeBl
         { value: '2', label: 'autoryzowane serwisy kas' },
         { value: '2', label: 'autoryzowane partnerstwa' },
       ],
-      authorizationsLabel: 'Autoryzowany serwis i partner',
       authorizations: ['Posnet', 'Elzab', 'GoPOS', 'InsERT'].flatMap((name) => brand(name) ?? []),
       contactLink: { label: 'Poznaj PRO-KOM i pozostałe linie firmy', href: '/o-firmie' },
     },

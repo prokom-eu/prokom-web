@@ -198,30 +198,11 @@ export function planBlocks(industry: (seedSlug: string) => number | undefined): 
           ],
         },
       ],
-      promises: [
-        {
-          title: 'Kasa w cenie z obsługą',
-          text: 'zgłoszenie, fiskalizacja, programowanie i szkolenie',
-        },
-        { title: 'Gotowe przed dostawą', text: 'konfigurujemy u siebie, Ty tylko podłączasz' },
-        { title: 'KSeF bez nerwów', text: 'program, certyfikat i uprawnienia dla księgowej' },
-        {
-          title: 'Przeglądy z przypomnieniem',
-          text: 'kasy co 2 lata — pilnujemy terminu za Ciebie',
-        },
-        {
-          title: 'Terminal z Polskiej Bezgotówkowej',
-          text: 'dla firm, które spełniają warunki programu',
-        },
-        // TODO(krystian): numer wpisany w tekst — po zmianie telefonu linii poprawić też tutaj.
-        { title: 'Jeden numer do wszystkiego', text: '889 003 889 — oferty, awarie, pytania' },
-      ],
       industries: {
         // v150 (board `#s4-real`): its own section „Dla kogo” before the plan.
+        eyebrow: 'Dla kogo pracujemy',
         heading: 'Firmy każdej wielkości. Od straganu po urząd gminy.',
         lead: 'Ponad 100 klientów firmowych — firm i instytucji z Podhala i Małopolski. Wybierz swoją branżę — pokażemy plan lokalu z urządzeniami albo dobierzemy rozwiązanie w konfiguratorze.',
-        // Not shown on v150 (the tile „Każda inna firma” is the way in) — cleanup PR after 3b.
-        button: { label: 'Opisz swoją firmę', href: '/kreator' },
         moreLabel: 'Pokaż wszystkie branże',
         moreNote: 'jeszcze 10 branż',
         // Board `KG5`: 11 at once, 10 after „Pokaż wszystkie”, then „Każda inna firma”.
@@ -318,8 +299,7 @@ export function planBlocks(industry: (seedSlug: string) => number | undefined): 
           text: 'Telefon, wiadomość albo wizyta w Rabce. Pytamy, jak pracuje firma i co ma się poprawić.',
           gets: 'listę potrzeb — także tego, czego nie musisz kupować',
           role: 'Doradca PRO-KOM',
-          // v150: the label above the title (the field keeps its old name).
-          roleNote: 'Pierwszy kontakt',
+          label: 'Pierwszy kontakt',
         },
         {
           title: 'Oferta',
@@ -327,7 +307,7 @@ export function planBlocks(industry: (seedSlug: string) => number | undefined): 
           text: 'Dobieramy sprzęt i programy do skali firmy. Kilka wariantów, każdy z uzasadnieniem.',
           gets: 'ofertę na piśmie, bez zobowiązań',
           role: 'ten sam doradca',
-          roleNote: 'Na piśmie',
+          label: 'Na piśmie',
         },
         {
           title: 'Wdrożenie',
@@ -335,7 +315,7 @@ export function planBlocks(industry: (seedSlug: string) => number | undefined): 
           text: 'Konfigurujemy przed dostawą, montujemy, fiskalizujemy kasy, przenosimy dane i szkolimy zespół.',
           gets: 'działające stanowiska od pierwszego dnia',
           role: 'Wdrożeniowiec',
-          roleNote: 'U Ciebie w firmie',
+          label: 'U Ciebie w firmie',
         },
         {
           title: 'Opieka',
@@ -344,9 +324,11 @@ export function planBlocks(industry: (seedSlug: string) => number | undefined): 
           // TODO(krystian): numer wpisany w tekst — po zmianie telefonu linii poprawić też tutaj.
           gets: 'jeden numer do wszystkiego: 889 003 889',
           role: 'Serwisant i opiekun IT',
-          roleNote: 'Na lata',
+          label: 'Na lata',
         },
       ],
+      commitmentsEyebrow: 'Nasze zobowiązania',
+      commitmentsHeading: 'Tak pracujemy — nie tylko na\u00a0stronie.',
       // „Nasze zobowiązania”: title — note (`BzSteps/commitment.ts`).
       guarantees: [
         { text: '60 minut — oddzwaniamy w godzinach pracy' },
