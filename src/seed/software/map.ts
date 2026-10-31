@@ -411,6 +411,13 @@ export function softwarePostData(item: SeedPost, ref: SolutionRef): PostData {
     relatedSolutions: item.relatedSolutions.map((slug) =>
       solutionRef(ref, slug, `post "${item.slug}"`),
     ),
+    // TODO(krystian): [SZEF] the author of the package's posts (the board `Wpis`); photo only
+    // with consent — uploaded in the panel.
+    author: {
+      name: 'Krystian Potaczek',
+      role: 'PRO-KOM Software',
+      bio: 'Prowadzi Software w PRO-KOM: buduje strony w Next.js i systemy w Django, w tym nasz prokomserwis.pl.',
+    },
     seo: { description: item.listLead },
   }
 }

@@ -183,6 +183,21 @@ describe('buildSiteMap — Software', () => {
     const map = buildSiteMap({ pages, catalog: null, news: null, industryPages: [] })
     expect(map.map(({ id }) => id)).not.toContain('dla-branz')
   })
+
+  it('lists the active city pages of Software only (SW11b)', () => {
+    const map = buildSiteMap({
+      pages,
+      catalog: null,
+      news: null,
+      cities: [{ slug: 'rabka-zdroj', name: 'Rabka-Zdrój' }],
+    })
+    expect(map.find(({ id }) => id === 'miejscowosci')?.links).toEqual([
+      { href: '/miejscowosci/rabka-zdroj', label: 'Rabka-Zdrój' },
+    ])
+    expect(
+      buildSiteMap({ pages, catalog: null, news: null, cities: [] }).map(({ id }) => id),
+    ).not.toContain('miejscowosci')
+  })
 })
 
 describe('buildSiteMap — Instalacje', () => {

@@ -21,6 +21,7 @@ import {
   relatedCard,
   softwareOfferSchema,
 } from './offer'
+import { buildCityView, type CityView } from './cities'
 import { notFoundSchema, thanksSchema, type SoftwareNotFound, type SoftwareThanks } from './pages'
 import type { PricingSolution } from './pricing'
 import { buildIndustryPage, type IndustryDoc, type IndustryPageView } from './industryPage'
@@ -580,5 +581,49 @@ export const getIndustryPageList = cache(
     return docs
       .filter((doc) => (doc.software?.problems?.length ?? 0) > 0)
       .map(({ slug, name }) => ({ slug, name }))
+  },
+)
+
+/**
+ * One city page of a Software tenant (`/miejscowosci/[miasto]`, SW11b), or `null` when the city
+ * is unknown, of another tenant, inactive or without its own hero text. Deduplicated per request.
+ */
+export const getCityView = cache(
+  async (tenantId: number, slug: string): Promise<CityView | null> => {
+    const payload = await getPayload({ config })
+    const { docs } = await payload.find({
+      collection: 'cities',
+      where: {
+        and: [
+          { tenant: { equals: tenantId } },
+          { slug: { equals: slug } },
+          { active: { equals: true } },
+        ],
+      },
+      limit: 1,
+      // 1: the solutions of the „Dla kogo” cards (slug and tenant only, re-checked in the view).
+      depth: 1,
+      populate: { solutions: { slug: true, tenant: true } },
+      overrideAccess: true,
+    })
+    return docs[0] ? buildCityView(docs[0], tenantId) : null
+  },
+)
+
+/** Active city pages of a Software tenant for the sitemaps (only those `getCityView` shows). */
+export const getCityList = cache(
+  async (tenantId: number): Promise<{ slug: string; name: string }[]> => {
+    const payload = await getPayload({ config })
+    const { docs } = await payload.find({
+      collection: 'cities',
+      where: { and: [{ tenant: { equals: tenantId } }, { active: { equals: true } }] },
+      limit: 50,
+      depth: 0,
+      sort: 'name',
+      overrideAccess: true,
+    })
+    return docs.flatMap((doc) =>
+      buildCityView(doc, tenantId) ? [{ slug: doc.slug, name: doc.name }] : [],
+    )
   },
 )

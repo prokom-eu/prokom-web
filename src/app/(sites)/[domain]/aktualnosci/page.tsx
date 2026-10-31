@@ -14,6 +14,8 @@ import { KsefPanel } from '@/sites/biznes/components/news/KsefPanel'
 import { NewsHero } from '@/sites/biznes/components/news/NewsHero'
 import { PostCards } from '@/sites/biznes/components/news/PostCards'
 import { NEWS_TEXTS } from '@/sites/biznes/components/news/texts'
+import { SoftwareNews } from '@/sites/software/components/news/SoftwareNews'
+import { SOFTWARE_NEWS_TEXTS } from '@/sites/software/components/news/texts'
 
 import { requestOrigin, requireNewsTenant } from '../tenant'
 
@@ -26,9 +28,10 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
   const tenant = await requireNewsTenant(params)
   const [settings, query] = await Promise.all([getSiteSettings(tenant.id), searchParams])
   const filtered = Boolean(query[CATEGORY_PARAM])
+  const texts = tenant.line === 'software' ? SOFTWARE_NEWS_TEXTS : NEWS_TEXTS
   return {
-    title: NEWS_TEXTS.title,
-    description: NEWS_TEXTS.description,
+    title: texts.title,
+    description: texts.description,
     alternates: { canonical: NEWS_PATH },
     // A category view is the list again, filtered: not indexed, the list is its canonical.
     robots:
@@ -38,22 +41,45 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
       locale: 'pl_PL',
       siteName: tenant.name,
       url: NEWS_PATH,
-      title: NEWS_TEXTS.title,
-      description: NEWS_TEXTS.description,
+      title: texts.title,
+      description: texts.description,
       images: ogImages(settings?.seo.ogImage ?? null),
     },
   }
 }
 
 /**
- * News list `/aktualnosci` (spec. §6.9, board `Aktualnosci`) — a route of all lines with news;
- * today only Biznes has them, so the Biznes look is the only one (Software adds its own in
- * SW11b). Posts of this tenant only; the category comes from `?kategoria=`.
+ * News list `/aktualnosci` (spec. §6.9, board `Aktualnosci`) — a route of all lines with news,
+ * each in its own look (Software: SW11b, spec. §6.8). Posts of this tenant only; the category
+ * comes from `?kategoria=`, only one of the tenant's line.
  */
 export default async function NewsPage({ params, searchParams }: Props) {
   const tenant = await requireNewsTenant(params)
-  // Only the Biznes look exists; a line added to `NEWS_LINES` without its own look stays 404
-  // instead of borrowing this one (Software adds its look in SW11b).
+  if (tenant.line === 'software') {
+    const [posts, query, origin] = await Promise.all([
+      getPostList(tenant.id),
+      searchParams,
+      requestOrigin(),
+    ])
+    return (
+      <>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: serializeJsonLd(
+              breadcrumbJsonLd([
+                { name: 'Strona główna', url: `${origin}/` },
+                { name: SOFTWARE_NEWS_TEXTS.title, url: origin + NEWS_PATH },
+              ]),
+            ),
+          }}
+        />
+        <SoftwareNews posts={posts} category={parseCategory(query[CATEGORY_PARAM], tenant.line)} />
+      </>
+    )
+  }
+  // Every line in `NEWS_LINES` has its own look; one added without it stays 404 instead of
+  // borrowing the Biznes one.
   if (tenant.line !== 'biznes') notFound()
   const [posts, panel, settings, query, origin] = await Promise.all([
     getPostList(tenant.id),
@@ -63,7 +89,7 @@ export default async function NewsPage({ params, searchParams }: Props) {
     requestOrigin(),
   ])
   const chips = categoryChips(posts.map((post) => post.categoryValue))
-  const category = parseCategory(query[CATEGORY_PARAM])
+  const category = parseCategory(query[CATEGORY_PARAM], tenant.line)
   const shown = category ? posts.filter((post) => post.categoryValue === category) : posts
 
   const breadcrumbs = breadcrumbJsonLd([

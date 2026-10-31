@@ -82,7 +82,10 @@ export const getPostView = (tenantId: number, slug: string): Promise<PostView | 
         // 1: cover and related products come populated (re-checked in the view); of a product
         // only what the view reads, not the whole document into the cache.
         depth: 1,
-        populate: { products: { slug: true, tenant: true } },
+        populate: {
+          products: { slug: true, tenant: true },
+          solutions: { slug: true, tenant: true },
+        },
         overrideAccess: true,
       })
       const post = docs[0]

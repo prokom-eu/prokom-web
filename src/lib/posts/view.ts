@@ -33,6 +33,15 @@ export type PostView = {
   contact: { heading: string | null; lead: string | null }
   /** Slugs of related products of the same tenant; the page shows those in its catalog index. */
   relatedProducts: string[]
+  /** Software (SW11b): slugs of related solutions of the same tenant, in the panel order. */
+  relatedSolutions: string[]
+  /** Software (SW11b): the author box of the board `Wpis`; `null` without a name. */
+  author: {
+    name: string
+    role: string | null
+    bio: string | null
+    photo: PublicImage | null
+  } | null
   seo: { title: string | null; description: string | null }
 }
 
@@ -121,6 +130,19 @@ export function buildPostView(post: Post, tenantId: number, now: Date): PostView
     relatedProducts: (post.relatedProducts ?? []).flatMap((product) =>
       typeof product === 'object' && tenantIdOf(product.tenant) === tenantId ? [product.slug] : [],
     ),
+    relatedSolutions: (post.relatedSolutions ?? []).flatMap((solution) =>
+      typeof solution === 'object' && tenantIdOf(solution.tenant) === tenantId
+        ? [solution.slug]
+        : [],
+    ),
+    author: text(post.author?.name)
+      ? {
+          name: text(post.author?.name) as string,
+          role: text(post.author?.role),
+          bio: text(post.author?.bio),
+          photo: publicImage(post.author?.photo, tenantId),
+        }
+      : null,
     seo: { title: text(post.seo?.title), description: text(post.seo?.description) },
   }
 }
