@@ -25,7 +25,6 @@ export type IndexSolution = {
   hasLivePreview: boolean
   /** Text of the toast after „+ Dodaj do wyceny”. */
   toast?: string
-  cardGradient?: NonNullable<Solution['cardGradient']>
   priceNote?: string
   /** Prices are per month (care): shown with `priceDisplay.monthTemplate`. */
   priceMonthly: boolean
@@ -101,7 +100,6 @@ export type IndexedSolutionDoc = Pick<
   | 'keywords'
   | 'hasLivePreview'
   | 'toast'
-  | 'cardGradient'
   | 'priceFrom'
   | 'leadTime'
   | 'priceNote'
@@ -154,7 +152,6 @@ function indexSolution(doc: IndexedSolutionDoc): IndexSolution {
     industryGroups: doc.industryGroups ?? [],
     hasLivePreview: Boolean(doc.hasLivePreview),
     toast: text(doc.toast),
-    cardGradient: doc.cardGradient ?? undefined,
     priceNote: text(doc.priceNote),
     priceMonthly: Boolean(doc.priceMonthly),
     priceFrom: isPrice(doc.priceFrom) ? doc.priceFrom : null,

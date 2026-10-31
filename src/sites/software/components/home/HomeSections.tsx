@@ -9,6 +9,7 @@ import {
   getSolutionsIndex,
 } from '@/lib/software/data'
 import { fillText } from '@/lib/software/facts'
+import { offerViewsFor } from '@/lib/software/offer'
 import { popularCards, popularTabs } from '@/lib/software/popular'
 import { livePreviews } from '@/lib/software/previews'
 import { processQuote, processStages } from '@/lib/software/process'
@@ -71,6 +72,11 @@ export async function PopularSection({ tenantId }: { tenantId: number }) {
   if (!home || !texts) return null
   const cards = popularCards(home.popular.order, index.solutions)
   if (cards.length === 0) return null
+  // Only the windows the 12 cards (and their „Dobrze łączy się z”) can open.
+  const views = offerViewsFor(
+    offers,
+    cards.map((card) => card.slug),
+  )
   const after = texts.after.items.flatMap((item) => {
     const text = fillText(item.text, context)
     return text ? [{ ...item, text }] : []
@@ -85,7 +91,7 @@ export async function PopularSection({ tenantId }: { tenantId: number }) {
           cards={cards}
           tabs={popularTabs(home.popular.tabs, cards)}
           display={index.priceDisplay}
-          offers={offers}
+          offers={views}
           count={texts.count}
           hint={texts.hint}
         />

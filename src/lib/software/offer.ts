@@ -590,3 +590,27 @@ export const EMPTY_OFFER: SoftwareOffer = {
   },
   solutions: {},
 }
+
+/**
+ * Windows a page sends for its cards (start page „12 rzeczy”, SWR5): those of `slugs` and of their
+ * „Dobrze łączy się z” (one level), not all of the tenant's — fewer bytes on the heaviest page. A
+ * related card that would switch to a window not sent is left out (the window never goes blank).
+ */
+export function offerViewsFor(
+  views: Readonly<Record<string, OfferView>>,
+  slugs: readonly string[],
+): Record<string, OfferView> {
+  const keep = new Set<string>()
+  for (const slug of slugs) {
+    const view = views[slug]
+    if (!view) continue
+    keep.add(slug)
+    for (const card of view.related) if (views[card.slug]) keep.add(card.slug)
+  }
+  return Object.fromEntries(
+    [...keep].map((slug) => {
+      const view = views[slug]!
+      return [slug, { ...view, related: view.related.filter((card) => keep.has(card.slug)) }]
+    }),
+  )
+}

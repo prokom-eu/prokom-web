@@ -126,7 +126,6 @@ export const getSolutionsIndex = (tenantId: number): Promise<SolutionsIndex> =>
             keywords: true,
             hasLivePreview: true,
             toast: true,
-            cardGradient: true,
             priceFrom: true,
             leadTime: true,
             priceNote: true,
