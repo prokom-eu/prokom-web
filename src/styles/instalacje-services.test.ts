@@ -98,6 +98,13 @@ describe('Instalacje service page illustrations', () => {
   ])('%s on %s (over %s) ≥ 4.5:1', (text, surface, base) => {
     expect(ilRatio(text, surface, base)).toBeGreaterThanOrEqual(4.5)
   })
+
+  // Ekrany (I9): the sky behind the screen gets brighter with each level of the brightness demo.
+  it('brighten the sky of the screen demo level by level', () => {
+    const levels = ['--inst-il-jsvis-bg', '--il-jsvis-p2-2', '--il-jsvis-p3-2', '--il-jsvis-p4-2']
+    const vsBlack = levels.map((t) => contrastRatio(resolve(`var(${t})`, il), '#000000'))
+    expect(vsBlack).toEqual([...vsBlack].sort((a, b) => a - b))
+  })
 })
 
 describe('Instalacje service page colours', () => {
