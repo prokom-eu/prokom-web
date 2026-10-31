@@ -3,22 +3,31 @@ import { expect, test } from '@playwright/test'
 
 import { api, loginAsAdmin, site, tenantId } from './helpers'
 
-// B7a: the Biznes home page — hero with the department wheel, need tiles, brands bar
-// (spec. §4 pkt 1–3, ZMIANY-v20 §2). Data from `pnpm seed` (catalog and `seedBiznesHome`).
+// B7a + K4c (v150): the Biznes home page — hero with the department wheel, „Szybki start”,
+// brands, „Najczęściej wybierane” (K36 §1, §11, §12; K35 7a). Data from `pnpm seed`.
 
 test.describe('Biznes home page', () => {
-  test('hero: one h1, wizard CTA, phone, trust line', async ({ page }) => {
+  test('hero: one h1, wizard CTA, the offer with its count, phone, trust line', async ({
+    page,
+  }) => {
     await page.goto(site('biznes.localhost'))
     const hero = page.locator('#start')
     await expect(page.locator('h1')).toHaveCount(1)
-    await expect(page.locator('h1')).toContainText('Kasy, komputery i opieka IT.')
-    await expect(page.locator('h1')).toContainText('Jeden telefon do')
-    await expect(hero.getByRole('link', { name: /Dobierz zestaw w 60 sekund/ })).toHaveAttribute(
+    await expect(page.locator('h1')).toContainText('Kasy, komputery i programy dla firm.')
+    await expect(page.locator('h1')).toContainText('Wszystko z jednego miejsca — z Rabki.')
+    await expect(hero.getByRole('link', { name: /Dobierz rozwiązanie dla firmy/ })).toHaveAttribute(
       'href',
       '/kreator',
     )
+    await expect(hero.getByRole('link', { name: /^Przeglądaj ofertę · \d+$/ })).toHaveAttribute(
+      'href',
+      '/oferta',
+    )
     await expect(hero.locator('a[href^="tel:"]')).toBeVisible()
-    await expect(hero).toContainText('Serwis Posnet i Elzab · partner GoPOS i InsERT')
+    await expect(hero).toContainText(
+      'Autoryzowany serwis Posnet i Elzab · Autoryzowany partner GoPOS i InsERT',
+    )
+    await expect(hero).toContainText('100+ klientów firmowych')
     await expect(hero.getByRole('link', { name: 'Zobacz plan Twojej firmy ↓' })).toHaveAttribute(
       'href',
       '#plan',
@@ -56,30 +65,43 @@ test.describe('Biznes home page', () => {
     await expect(pictures.first()).toHaveAttribute('href', /^\/produkt\//)
   })
 
-  test('four need tiles with their links, KSeF counting days', async ({ page }) => {
+  test('quick start: five ways in with counts from the database (K36 §11)', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
-    const tiles = page.getByTestId('need-tile')
-    await expect(tiles).toHaveCount(4)
-    await expect(tiles.nth(0)).toHaveAttribute('href', '/kreator')
-    await expect(tiles.nth(1)).toHaveAttribute('href', /^tel:/)
-    await expect(tiles.nth(3)).toHaveAttribute('href', '/opieka-it')
-    await expect(tiles.nth(0)).toContainText('700 zł')
-    await expect(tiles.nth(2)).toContainText(/\d+ dni|1 dzień|dziś/)
-    await expect(tiles.nth(3)).toContainText('0 zł przegląd')
+    const start = page.getByRole('region', { name: 'Od czego zaczynasz?' })
+    await expect(start.getByRole('listitem')).toHaveCount(5)
+    const offer = start.getByRole('link', { name: /Cała oferta/ })
+    await expect(offer).toHaveAttribute('href', '/oferta')
+    await expect(offer).toContainText(/\d+ pozycj/)
+    await expect(start.getByRole('link', { name: /Plan Twojej firmy/ })).toContainText(/\d+ rodza/)
+    await expect(start.getByRole('link', { name: /Salony marek/ })).toContainText(/\d+ mar/)
+    // „Zapytaj o wycenę” opens the inquiry drawer.
+    await expect(async () => {
+      await start.getByRole('button', { name: /Zapytaj o wycenę/ }).click()
+      await expect(page.getByRole('dialog', { name: /^Twoje zapytanie/ })).toBeVisible({
+        timeout: 1000,
+      })
+    }).toPass()
   })
 
-  test('brands bar: every logo once for screen readers, with alt', async ({ page }) => {
+  test('brands: sixteen from the panel with status and count, then all brands (K35 7a)', async ({
+    page,
+  }) => {
     await page.goto(site('biznes.localhost'))
+    const brands = page.locator('#marki')
     await expect(
-      page.getByRole('heading', { name: 'Marki, które sprzedajemy, wdrażamy i serwisujemy' }),
+      brands.getByRole('heading', { name: 'Marki, które znamy od środka.' }),
     ).toBeVisible()
-    const logos = page.locator('.animate-marquee > ul:not([aria-hidden]) img')
-    expect(await logos.count()).toBeGreaterThan(5)
-    for (const alt of await logos.evaluateAll((imgs) => imgs.map((i) => i.getAttribute('alt'))))
-      expect(alt).toMatch(/^Logo /)
+    const tiles = brands.locator('ul').first().locator(':scope > li > a')
+    await expect(tiles).toHaveCount(16)
+    await expect(tiles.first()).toHaveAccessibleName('Posnet')
+    await expect(tiles.first()).toContainText('Autoryzowany serwis')
+    await expect(tiles.first()).toContainText(/\d+ pozycj/)
+    await expect(brands.getByRole('link', { name: /Wszystkie marki/ })).toBeVisible()
+    // K4-FINAL §1: no shortened status anywhere.
+    await expect(brands).not.toContainText('Aut.')
   })
 
-  test('reduced motion: no turning wheel, no moving brands', async ({ browser }) => {
+  test('reduced motion: no turning wheel', async ({ browser }) => {
     const context = await browser.newContext({ reducedMotion: 'reduce' })
     const page = await context.newPage()
     await page.goto(site('biznes.localhost'))
@@ -88,9 +110,7 @@ test.describe('Biznes home page', () => {
         .locator(selector)
         .first()
         .evaluate((el) => getComputedStyle(el).animationName)
-    expect(await animation('.animate-marquee')).toBe('none')
     expect(await animation('[aria-label="Przykładowe produkty działów"]')).toBe('none')
-    // A static, wrapped set of logos: no scroll area that a keyboard cannot reach.
     const { violations } = await new AxeBuilder({ page })
       .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
       .analyze()
@@ -152,11 +172,11 @@ test.describe('Biznes home page: offer and featured', () => {
     await expect(offer).toContainText('Usługa PRO-KOM')
   })
 
-  test('featured: eight products, one badge at most, added to the inquiry', async ({ page }) => {
+  test('featured: sixteen products, one badge at most, added to the inquiry', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
     const featured = page.locator('#wybierane')
     const cards = featured.locator('[data-card]')
-    await expect(cards).toHaveCount(8)
+    await expect(cards).toHaveCount(16)
     for (const card of await cards.all()) {
       expect(await card.locator('ul li').count()).toBeLessThanOrEqual(1)
     }
@@ -168,17 +188,22 @@ test.describe('Biznes home page: offer and featured', () => {
     await add.click()
   })
 
-  test('featured: the whole offer and the wizard cards', async ({ page }) => {
+  test('featured: pills filter the cards by group (K35 7a)', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
     const featured = page.locator('#wybierane')
-    await expect(featured.getByRole('link', { name: 'Poznaj całą ofertę' })).toHaveAttribute(
-      'href',
-      '/oferta',
+    const pills = featured.getByRole('group', { name: 'Filtr najczęściej wybieranych' })
+    await expect(pills.getByRole('button', { name: /^Wszystkie/ })).toHaveAttribute(
+      'aria-pressed',
+      'true',
     )
-    await expect(
-      featured.getByRole('link', { name: 'Dobierz zestaw w 60 sekund' }),
-    ).toHaveAttribute('href', '/kreator')
-    await expect(featured).toContainText('Potrzeby')
+    const power = pills.getByRole('button', { name: /^Zasilanie awaryjne/ })
+    await expect(async () => {
+      await power.click()
+      await expect(power).toHaveAttribute('aria-pressed', 'true', { timeout: 1000 })
+    }).toPass()
+    await expect(featured.locator('[data-card]').filter({ visible: true })).toHaveCount(2)
+    // v150: no cards under the list (they repeated „Szybki start”).
+    await expect(featured.getByRole('link', { name: 'Poznaj całą ofertę' })).toHaveCount(0)
   })
 
   test.describe('on a phone', () => {
@@ -378,7 +403,8 @@ test.describe('Biznes home page: references, facts, news, FAQ, contact', () => {
     await page.setViewportSize({ width: 1440, height: 900 })
     await page.goto(site('biznes.localhost'))
     const rail = page.getByRole('navigation', { name: 'Na tej stronie' })
-    await expect(rail.getByRole('link')).toHaveCount(9)
+    // v150 so far: + Marki, Najczęściej wybierane (K36 §1; the rest with the next sections).
+    await expect(rail.getByRole('link')).toHaveCount(11)
     await rail.getByRole('link', { name: 'Fakty' }).click()
     await expect(page).toHaveURL(/#fakty$/)
     await expect(rail.getByRole('link', { name: 'Fakty' })).toHaveAttribute('aria-current', 'true')
