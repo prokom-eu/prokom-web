@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/Button'
 import { Heading } from '@/components/ui/Heading'
 import { Section } from '@/components/ui/Section'
+import { errorFields, log } from '@/lib/log'
 import { NotFoundSoftware } from '@/sites/software/components/NotFoundSoftware'
 
 import { tenantFromRequest } from './tenant'
@@ -10,9 +11,13 @@ import { tenantFromRequest } from './tenant'
 // `(sites)/not-found.tsx`, which reveals nothing about the sites we serve.
 // Software has its own page (board `NieZnaleziono`, spec. §6.11) while its texts are saved.
 export default async function SiteNotFound() {
-  const tenant = await tenantFromRequest()
+  const tenant = await tenantFromRequest().catch(() => null)
   if (tenant?.line === 'software') {
-    const page = await NotFoundSoftware({ tenantId: tenant.id })
+    // A database failure must not turn the 404 into a 500: the generic page instead.
+    const page = await NotFoundSoftware({ tenantId: tenant.id }).catch((error: unknown) => {
+      log.error({ tenant: tenant.id, ...errorFields(error) }, 'Software 404 page failed')
+      return null
+    })
     if (page) return page
   }
   return (

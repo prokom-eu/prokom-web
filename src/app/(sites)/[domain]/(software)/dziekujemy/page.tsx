@@ -157,7 +157,7 @@ export default async function ThanksPage({ params, searchParams }: Props) {
               {cards.map((card, index) => {
                 const strong = index === 0
                 return (
-                  <li key={card.href}>
+                  <li key={`${index}-${card.href}`}>
                     <Link
                       href={card.href}
                       className={cx(

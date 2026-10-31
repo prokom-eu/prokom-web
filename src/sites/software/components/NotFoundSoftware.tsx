@@ -31,13 +31,13 @@ export async function NotFoundSoftware({ tenantId }: { tenantId: number }) {
   if (!texts) return null
 
   const fill = (value: string | undefined) => fillText(value, context)
+  const title = fill(texts.title) ?? 'Tej strony tu nie ma.'
+  const accent = fill(texts.titleAccent)
   const lead = fill(texts.lead)
   const wizardText = fill(texts.wizard.text)
   const popular = index.search.popular.slice(0, 4)
-  const tiles = texts.places.tiles.flatMap((tile) => {
-    const note = fill(tile.note)
-    return note ? [{ ...tile, note }] : []
-  })
+  // A note with a missing fact or price goes; the tile stays.
+  const tiles = texts.places.tiles.map((tile) => ({ ...tile, note: fill(tile.note) }))
 
   return (
     <>
@@ -56,11 +56,11 @@ export async function NotFoundSoftware({ tenantId }: { tenantId: number }) {
                 Błąd 404 · strona nie istnieje
               </p>
               <h1 className="mt-3 font-display text-[36px] font-extrabold leading-[1.04] tracking-tight min-[641px]:text-[clamp(44px,5vw,64px)]">
-                {texts.title}
-                {texts.titleAccent ? (
+                {title}
+                {accent ? (
                   <>
                     {' '}
-                    <span className="text-grad-h1 min-[641px]:block">{texts.titleAccent}</span>
+                    <span className="text-grad-h1 min-[641px]:block">{accent}</span>
                   </>
                 ) : null}
               </h1>
@@ -127,7 +127,7 @@ export async function NotFoundSoftware({ tenantId }: { tenantId: number }) {
                   ) : null}
                   <span className="flex min-w-0 flex-1 flex-col">
                     <span className="font-extrabold">{tile.title}</span>
-                    <span className="text-sm text-ink-2">{tile.note}</span>
+                    {tile.note ? <span className="text-sm text-ink-2">{tile.note}</span> : null}
                   </span>
                   <Icon name="arrow" strokeWidth={2.2} className="size-5 text-accent-text" />
                 </Link>

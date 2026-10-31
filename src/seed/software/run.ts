@@ -283,10 +283,10 @@ export async function seedSoftware(payload: Payload): Promise<void> {
         // A home of an older shape (generic „12 rzeczy” cards before SWR5) hides the start page
         // sections: replaced; staging pastes `pnpm software:home-json`.
         if (key === 'home' && value != null) return !homeSchema.safeParse(value).success
-        // Thanks and 404 texts from before SW11b (no accent part, KSeF card, „5 kroków”):
-        // replaced; staging pastes `pnpm software:pages-json`.
+        // Thanks and 404 texts of the seed before SW11b (KSeF card, „5 krótkich kroków”):
+        // replaced; texts edited in the panel stay. Staging pastes `pnpm software:pages-json`.
         if ((key === 'thanks' || key === 'notFound') && value != null) {
-          return !(value as { titleAccent?: unknown }).titleAccent
+          return isPreSw11bPages(value)
         }
         return value === null || value === undefined
       }),
@@ -332,4 +332,10 @@ export async function seedSoftware(payload: Payload): Promise<void> {
   for (const [collection, { created, updated, skipped }] of Object.entries(counters)) {
     log(`${collection}: ${created} created, ${updated} updated, ${skipped} unchanged.`)
   }
+}
+
+/** Thanks or 404 texts exactly as the seed wrote them before SW11b (markers of that version). */
+export function isPreSw11bPages(value: unknown): boolean {
+  const json = JSON.stringify(value)
+  return json.includes('przygotować się do KSeF') || json.includes('5 krótkich kroków')
 }

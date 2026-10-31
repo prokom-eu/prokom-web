@@ -68,20 +68,29 @@ export async function getSoftwareThanks(tenantId: number): Promise<SoftwareThank
   return parsed.success ? parsed.data : null
 }
 
-/** Texts of the Software 404 (`SoftwareSettings.notFound`), or `null` (then the generic 404). */
-export async function getSoftwareNotFound(tenantId: number): Promise<SoftwareNotFound | null> {
-  const payload = await getPayload({ config })
-  const { docs } = await payload.find({
-    collection: 'software-settings',
-    where: { tenant: { equals: tenantId } },
-    limit: 1,
-    depth: 0,
-    select: { notFound: true },
-    overrideAccess: true,
-  })
-  const parsed = notFoundSchema.safeParse(docs[0]?.notFound)
-  return parsed.success ? parsed.data : null
-}
+/**
+ * Texts of the Software 404 (`SoftwareSettings.notFound`), or `null` (then the generic 404).
+ * Cached under `tenant:<id>:solutions` (the settings hooks revalidate it): bots probing
+ * addresses hit the 404 often.
+ */
+export const getSoftwareNotFound = (tenantId: number): Promise<SoftwareNotFound | null> =>
+  cacheQuery(
+    async () => {
+      const payload = await getPayload({ config })
+      const { docs } = await payload.find({
+        collection: 'software-settings',
+        where: { tenant: { equals: tenantId } },
+        limit: 1,
+        depth: 0,
+        select: { notFound: true },
+        overrideAccess: true,
+      })
+      const parsed = notFoundSchema.safeParse(docs[0]?.notFound)
+      return parsed.success ? parsed.data : null
+    },
+    ['software-not-found', String(tenantId)],
+    { tags: [solutionsTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
+  )()
 
 /**
  * Areas of one Software tenant for the menu sheet's tiles (name, key, icon, price) — public

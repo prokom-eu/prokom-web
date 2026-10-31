@@ -17,11 +17,12 @@ test.describe('Software /dziekujemy', () => {
     await expect(page.getByTestId('inquiry-number')).toHaveText('PKS-2026-0145')
     await expect(page.getByRole('heading', { name: 'Co dalej' })).toBeVisible()
     await expect(page.getByText('W ciągu 1 dnia roboczego')).toBeVisible()
-    await expect(page.getByRole('link', { name: /Podglądy do klikania/ })).toHaveAttribute(
-      'href',
-      '/#podglady',
-    )
-    await expect(page.getByRole('link', { name: /Aktualności i poradnik/ })).toBeVisible()
+    await expect(
+      page.locator('main').getByRole('link', { name: /Podglądy do klikania/ }),
+    ).toHaveAttribute('href', '/#podglady')
+    await expect(
+      page.locator('main').getByRole('link', { name: /Aktualności i poradnik/ }),
+    ).toBeVisible()
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/)
     await expect(page.locator('[data-footer-cta]')).toBeHidden()
     await expect(page.locator('main')).not.toContainText('KSeF')
@@ -36,13 +37,12 @@ test.describe('Software 404', () => {
     await expect(page.locator('header')).toBeVisible()
     const search = page.getByRole('search')
     await expect(search.getByRole('button', { name: 'Szukaj' })).toBeVisible()
-    await expect(page.getByRole('link', { name: /Uruchom kreator/ })).toHaveAttribute(
-      'href',
-      '/dobierz',
-    )
-    await expect(page.getByRole('link', { name: /Nie wiesz, czego szukać/ })).toContainText(
-      '4 krótkie kroki',
-    )
+    await expect(
+      page.locator('main').getByRole('link', { name: /Uruchom kreator/ }),
+    ).toHaveAttribute('href', '/dobierz')
+    await expect(
+      page.locator('main').getByRole('link', { name: /Nie wiesz, czego szukać/ }),
+    ).toContainText('4 krótkie kroki')
     const places = page.locator('section', {
       has: page.getByRole('heading', { name: 'Dokąd chcesz pójść?' }),
     })
@@ -96,7 +96,9 @@ test.describe('Software /mapa-strony', () => {
   test('lists the policy in the Software look', async ({ page }) => {
     await page.goto(site(HOST, '/mapa-strony'))
     await expect(page.locator('h1')).toHaveText('Mapa strony')
-    await expect(page.getByRole('link', { name: 'Polityka prywatności' }).first()).toBeVisible()
+    await expect(
+      page.locator('main').getByRole('link', { name: 'Polityka prywatności' }),
+    ).toBeVisible()
     await expect(page.locator('main a[href="/dziekujemy"]')).toHaveCount(0)
   })
 })

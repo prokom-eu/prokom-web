@@ -21,7 +21,7 @@ export const SOFTWARE_THANKS: SoftwareThanks = {
   hours: '[GODZINY]',
   more: {
     eyebrow: 'Zanim się odezwiemy',
-    title: 'W tym czasie możesz zajrzeć tutaj.',
+    title: 'Zobacz, jak to wygląda u innych.',
     cards: [
       {
         title: 'Podglądy do klikania',

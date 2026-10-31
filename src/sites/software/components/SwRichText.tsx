@@ -20,6 +20,8 @@ const pad = (n: number) => String(n).padStart(2, '0')
  */
 export function SwRichText({ block }: { block: RichTextBlockData }) {
   const content = block.content
+  // One id per block: a page may hold two long texts.
+  const tocId = `spis-tresci-${block.id ?? 'tekst'}`
   const { intro, sections } = sectionsByH2(content as unknown as RichTextData)
 
   if (sections.length < 2) {
@@ -39,11 +41,11 @@ export function SwRichText({ block }: { block: RichTextBlockData }) {
       <Container wide>
         <div className="grid gap-6 min-[1081px]:grid-cols-[260px_minmax(0,760px)] min-[1081px]:gap-12">
           <nav
-            aria-labelledby="spis-tresci-h"
+            aria-labelledby={tocId}
             className="min-w-0 min-[1081px]:sticky min-[1081px]:top-28 min-[1081px]:self-start min-[1081px]:rounded-[24px] min-[1081px]:border min-[1081px]:border-border min-[1081px]:bg-card min-[1081px]:p-[18px]"
           >
             <h2
-              id="spis-tresci-h"
+              id={tocId}
               className="text-xs font-extrabold uppercase tracking-[0.14em] text-ink-2"
             >
               Spis treści

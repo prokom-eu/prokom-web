@@ -15,7 +15,9 @@ export const SOFTWARE_PRIVACY_SLUG = 'polityka-prywatnosci'
 // visible on purpose (the draft notice asks to fill them): [E-MAIL SOFTWARE], [OKRES
 // PRZECHOWYWANIA], [DATA AKTUALIZACJI]. To confirm: „serwery w Polsce” (ADR-002 „przyjęta
 // wstępnie”), Umami for statistics (ADR-016 in SW12), the accounting office as a recipient, legal
-// bases. No newsletter (v21). Approving the text means a new consent clause version as well
+// bases. No newsletter (v21). The board's trust chips („Serwery w Polsce”, „Statystyki bez
+// cookies”, „Bez sprzedaży danych”) are left out until these sentences are approved — the hero
+// block has no chips; the RODO table is a list (the text editor has no tables). Approving the text means a new consent clause version as well
 // (`lib/inquiry/consent.ts`).
 const PRIVACY = [
   h2('Kto jest administratorem'),
