@@ -31,6 +31,7 @@
     "software:home-json": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/software/printHome.ts",
     "software:navigation-json": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/software/printNavigation.ts",
     "software:offer-json": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/software/printOffer.ts",
+    "software:pages-json": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/software/printPages.ts",
     "prepare": "husky"
   },
   "dependencies": {

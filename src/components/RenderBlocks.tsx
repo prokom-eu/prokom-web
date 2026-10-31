@@ -38,7 +38,15 @@ import { BzProgramPickerBlock } from '@/sites/biznes/blocks/BzProgramPicker/Comp
 import { BzReferencesBlock } from '@/sites/biznes/blocks/BzReferences/Component'
 import { BzStepsBlock } from '@/sites/biznes/blocks/BzSteps/Component'
 import { BzTimelineBlock } from '@/sites/biznes/blocks/BzTimeline/Component'
+import { getEnv } from '@/lib/env'
 import { Breadcrumbs } from '@/sites/biznes/components/Breadcrumbs'
+import { SwLinesBlock } from '@/sites/software/blocks/SwLines/Component'
+import { SwPageHeroBlock } from '@/sites/software/blocks/SwPageHero/Component'
+import { SwStepsBlock } from '@/sites/software/blocks/SwSteps/Component'
+import { SwTeamBlock } from '@/sites/software/blocks/SwTeam/Component'
+import { SwCallToAction } from '@/sites/software/components/SwCallToAction'
+import { SwPageHero } from '@/sites/software/components/SwPageHero'
+import { SwRichText } from '@/sites/software/components/SwRichText'
 import { BrandsHome } from '@/sites/biznes/components/home/BrandsHome'
 import { FaqBiznes } from '@/sites/biznes/components/home/FaqBiznes'
 import { InstHomeBlock } from '@/sites/instalacje/blocks/InstHome/Component'
@@ -53,6 +61,9 @@ import { FaqSoftware } from '@/sites/software/components/home/FaqSoftware'
 
 type Props = { page: PublicPage; tenant: SiteTenant }
 
+/** The Software privacy policy is a draft until the owner approves it (spec. §6.11, §13 pkt 24). */
+const PRIVACY_SLUG = 'polityka-prywatnosci'
+
 // Blocks that carry the page's H1 when they come first (otherwise the title is the H1).
 const HERO_BLOCKS = new Set([
   'hero',
@@ -63,6 +74,7 @@ const HERO_BLOCKS = new Set([
   'swContactPage',
   'swPricing',
   'swAuditForm',
+  'swPageHero',
   'instService',
   'instHome',
 ])
@@ -102,12 +114,27 @@ export function RenderBlocks({ page, tenant }: Props) {
         const key = block.id ?? `${block.blockType}-${i}`
         switch (block.blockType) {
           case 'hero':
+            if (software) {
+              return (
+                <SwPageHero
+                  key={key}
+                  block={block}
+                  isFirst={i === 0}
+                  pageTitle={page.title}
+                  draft={page.slug === PRIVACY_SLUG && getEnv().SITE_ENV !== 'production'}
+                />
+              )
+            }
             return <HeroBlock key={key} block={block} isFirst={i === 0} tenantId={tenant.id} />
           case 'richText':
+            if (software) return <SwRichText key={key} block={block} />
             return <RichTextBlock key={key} block={block} />
           case 'serviceGrid':
             return <ServiceGridBlock key={key} block={block} />
           case 'callToAction':
+            if (software) {
+              return <SwCallToAction key={key} block={block} final={i === blocks.length - 1} />
+            }
             return <CallToActionBlock key={key} block={block} />
           case 'faq':
             if (biznes) return <FaqBiznes key={key} block={block} tenantId={tenant.id} />
@@ -211,6 +238,22 @@ export function RenderBlocks({ page, tenant }: Props) {
             return (
               <SwContactPageBlock key={key} block={block} tenantId={tenant.id} isFirst={i === 0} />
             )
+          case 'swPageHero':
+            return (
+              <SwPageHeroBlock
+                key={key}
+                block={block}
+                tenantId={tenant.id}
+                isFirst={i === 0}
+                pageTitle={page.title}
+              />
+            )
+          case 'swSteps':
+            return <SwStepsBlock key={key} block={block} tenantId={tenant.id} />
+          case 'swTeam':
+            return <SwTeamBlock key={key} block={block} tenantId={tenant.id} />
+          case 'swLines':
+            return <SwLinesBlock key={key} block={block} tenantId={tenant.id} />
           case 'instService':
             return <InstServiceBlock key={key} block={block} tenantId={tenant.id} />
           case 'instHome':

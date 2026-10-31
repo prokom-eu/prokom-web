@@ -44,7 +44,20 @@ const SITES: {
     ],
   },
   { host: 'instalacje.localhost', line: 'instalacje', dark: true, themeSwitch: false },
-  { host: 'software.localhost', line: 'software', dark: true, extra: ['/dobierz'] },
+  {
+    host: 'software.localhost',
+    line: 'software',
+    dark: true,
+    extra: [
+      '/dobierz',
+      '/dziekujemy?nr=PKS-2026-0145',
+      '/nie-ma-takiej-strony',
+      '/polityka-prywatnosci',
+      '/mapa-strony',
+      '/o-firmie',
+      '/jedna-firma',
+    ],
+  },
 ]
 const PATHS = ['/', '/kontakt']
 const WCAG = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']

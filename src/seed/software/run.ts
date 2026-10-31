@@ -22,7 +22,9 @@ import {
   solutionData,
   solutionsToImport,
 } from './map'
+import { seedSoftwareAbout } from './about'
 import { seedSoftwareAudit } from './audit'
+import { seedSoftwareLegal } from './legal'
 import { seedSoftwareContact } from './contact'
 import { seedSoftwareHome } from './home'
 import { seedSoftwarePricing } from './pricing'
@@ -282,6 +284,11 @@ export async function seedSoftware(payload: Payload): Promise<void> {
         // A home of an older shape (generic „12 rzeczy” cards before SWR5) hides the start page
         // sections: replaced; staging pastes `pnpm software:home-json`.
         if (key === 'home' && value != null) return !homeSchema.safeParse(value).success
+        // Thanks and 404 texts of the seed before SW11b (KSeF card, „5 krótkich kroków”):
+        // replaced; texts edited in the panel stay. Staging pastes `pnpm software:pages-json`.
+        if ((key === 'thanks' || key === 'notFound') && value != null) {
+          return isPreSw11bPages(value)
+        }
         return value === null || value === undefined
       }),
     )
@@ -320,8 +327,18 @@ export async function seedSoftware(payload: Payload): Promise<void> {
   // --- /cennik (SW11a): after the solutions, its hero card points at one ---
   await seedSoftwarePricing(payload, tenant.id, count)
   await seedSoftwareAudit(payload, tenant.id, count)
+  // --- /polityka-prywatnosci (SW11b): a draft until the owner approves it ---
+  await seedSoftwareLegal(payload, tenant.id, count)
+  // --- /o-firmie, /jedna-firma (SW11b): after the home texts — the comparison reads them ---
+  await seedSoftwareAbout(payload, tenant.id, count)
 
   for (const [collection, { created, updated, skipped }] of Object.entries(counters)) {
     log(`${collection}: ${created} created, ${updated} updated, ${skipped} unchanged.`)
   }
+}
+
+/** Thanks or 404 texts exactly as the seed wrote them before SW11b (markers of that version). */
+export function isPreSw11bPages(value: unknown): boolean {
+  const json = JSON.stringify(value)
+  return json.includes('przygotować się do KSeF') || json.includes('5 krótkich kroków')
 }

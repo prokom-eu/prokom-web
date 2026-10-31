@@ -8,6 +8,7 @@ import {
   getSoftwareHome,
   getSolutionsIndex,
 } from '@/lib/software/data'
+import { compareView } from '@/lib/software/compare'
 import { fillText } from '@/lib/software/facts'
 import { howWeBuildView, technologiesView } from '@/lib/software/howWeBuild'
 import { offerViewsFor } from '@/lib/software/offer'
@@ -19,6 +20,7 @@ import { whyNotWordpressView } from '@/lib/software/whyNotWordpress'
 import { Wizard } from '@/sites/software/components/wizard/Wizard'
 import { loadWizardProps } from '@/sites/software/components/wizard/wizardProps'
 
+import { Compare } from '../about/Compare'
 import { softwareTextContext } from '../textContext'
 
 import { AreasExplorer } from './AreasExplorer'
@@ -252,4 +254,13 @@ export async function ShowcaseSection({ tenantId }: { tenantId: number }) {
   if (!home || !texts) return null
   const view = showcaseView(home.showcase, texts.eyebrow, (text) => fillText(text, context))
   return view ? <Showcase view={view} /> : null
+}
+
+/** SW11b — „Freelancer, agencja czy PRO-KOM?” on `/o-firmie` (spec. §6.6, stany/70). */
+export async function CompareSection({ tenantId }: { tenantId: number }) {
+  const home = await getSoftwareHome(tenantId)
+  const texts = home?.sections?.compare
+  const view = home && texts ? compareView(home.compare) : null
+  if (!texts || !view) return null
+  return <Compare view={view} eyebrow={texts.eyebrow} title={texts.title} tabs={texts.tabs} />
 }

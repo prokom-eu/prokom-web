@@ -52,6 +52,15 @@ export async function findTenant(params: Promise<{ domain: string }>): Promise<S
   return getTenantByHost(host)
 }
 
+/**
+ * Tenant of the request's `Host`, for `not-found.tsx`, which gets no `params` (Next.js 16 docs:
+ * file conventions → not-found → Data Fetching). The layout already checked the domain.
+ */
+export async function tenantFromRequest(): Promise<SiteTenant | null> {
+  const host = normalizeHost((await headers()).get('host'))
+  return host ? getTenantByHost(host) : null
+}
+
 /** Origin of the request's domain (`lib/seo/origin`), for canonical, sitemap and JSON-LD. */
 export async function requestOrigin(): Promise<string> {
   const origin = siteOrigin((await headers()).get('host'), getEnv().SITE_ENV)

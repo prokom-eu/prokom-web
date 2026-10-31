@@ -13,7 +13,6 @@ import { homeSchema } from '../../lib/software/home'
 import { navigationSchema } from '../../lib/software/navigation'
 import { notFoundSchema, thanksSchema } from '../../lib/software/pages'
 import { INDUSTRY_GROUPS, WIZARD_FIRMS } from '../../lib/software/options'
-import { formatPrice } from '../../lib/software/price'
 import {
   includedError,
   levelCellsError,
@@ -410,19 +409,21 @@ describe('Software settings of the seed', () => {
     expect(homeWithSections(null, HOME_SECTION_TEXTS)).toBeNull()
   })
 
-  it('keep the 404 tile prices equal to the lowest „od” price of their category', () => {
+  it('price the 404 tiles with the cheapest solution of their category', () => {
     const lowest = (category: string) =>
       Math.min(
         ...solutionsToImport()
           .filter((item) => item.category === category)
           .map((item) => item.priceFrom ?? Infinity),
       )
+    const priceOf = (slug: string | undefined) =>
+      solutionsToImport().find((item) => item.slug === slug)?.priceFrom
     const tiles = settings.notFound.places.tiles
-    const note = (href: string) => tiles.find((tile) => tile.href === href)?.note
-    // Panel text with a plain space; `formatPrice` groups with a no-break space.
-    const zl = (price: number) => `od ${formatPrice(price).replace(/ /g, ' ')} zł netto`
-    expect(note('/rozwiazania?kategoria=strony')).toBe(zl(lowest('strony')))
-    expect(note('/rozwiazania?kategoria=systemy')).toBe(zl(lowest('systemy')))
+    // `{cena:<slug>}` — a price changed in the panel changes the tile too (decyzja 10).
+    const slugIn = (href: string) =>
+      tiles.find((tile) => tile.href === href)?.note.match(/\{cena:([a-z0-9-]+)\}/)?.[1]
+    expect(priceOf(slugIn('/rozwiazania?kategoria=strony'))).toBe(lowest('strony'))
+    expect(priceOf(slugIn('/rozwiazania?kategoria=systemy'))).toBe(lowest('systemy'))
   })
 
   it('take the search settings as they are', () => {

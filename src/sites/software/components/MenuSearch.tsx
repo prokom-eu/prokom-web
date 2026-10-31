@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useId, useMemo, useState } from 'react'
 
+import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
 import { plural } from '@/lib/plural'
 import { prepareSolutionSearch, searchSolutions } from '@/lib/software/search'
@@ -16,12 +17,21 @@ const CATALOG = '/rozwiazania'
 type Index = { state: 'idle' | 'loading' | 'failed' } | { state: 'ready'; index: SolutionsIndex }
 
 /**
- * „Czego szukasz?” of the phone menu (spec. §3.2, §8.2): Enter opens the catalog with the query;
+ * „Czego szukasz?” of the phone menu and the 404 (spec. §3.2, §6.11, §8.2): Enter opens the catalog with the query;
  * while typing, up to 5 solutions from `/api/solutions-index` (fetched on first focus, matched on
  * the client — the shared engine and synonyms of the catalog). Hints are plain links reached with
  * Tab (no ARIA combobox); their count is announced. Without the index the form still works.
  */
-export function MenuSearch({ placeholder }: { placeholder: string }) {
+export function MenuSearch({
+  placeholder,
+  button,
+  className = 'mt-4',
+}: {
+  placeholder: string
+  /** Visible submit button („Szukaj” of the 404); the phone menu submits with Enter. */
+  button?: string
+  className?: string
+}) {
   const [query, setQuery] = useState('')
   const [index, setIndex] = useState<Index>({ state: 'idle' })
   const statusId = useId()
@@ -42,9 +52,13 @@ export function MenuSearch({ placeholder }: { placeholder: string }) {
   const hints = prepared ? (searchSolutions(prepared, query)?.slice(0, MAX_HINTS) ?? null) : null
 
   return (
-    <div className="mt-4">
-      <form action={CATALOG} role="search">
-        <label className="flex min-h-[52px] items-center gap-3 rounded-2xl border border-border bg-card px-4 focus-within:border-accent-text">
+    <div className={className}>
+      <form
+        action={CATALOG}
+        role="search"
+        className={cx('flex gap-2.5', button && 'flex-col min-[641px]:flex-row')}
+      >
+        <label className="flex min-h-[52px] min-w-0 flex-1 items-center gap-3 rounded-2xl border border-border bg-card px-4 focus-within:border-accent-text">
           <Icon name="search" strokeWidth={2.2} className="size-5 text-accent-text" />
           <span className="sr-only">Szukaj w ofercie</span>
           <input
@@ -59,6 +73,14 @@ export function MenuSearch({ placeholder }: { placeholder: string }) {
             className="min-w-0 flex-1 bg-transparent py-3 text-base text-ink outline-none placeholder:text-ink-2"
           />
         </label>
+        {button ? (
+          <button
+            type="submit"
+            className="min-h-[52px] shrink-0 rounded-2xl bg-button px-5 font-extrabold text-accent-ink shadow-raised transition-transform active:scale-[0.98] min-[641px]:px-7"
+          >
+            {button}
+          </button>
+        ) : null}
       </form>
       <p id={statusId} role="status" className="sr-only">
         {hints

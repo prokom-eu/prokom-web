@@ -1990,6 +1990,10 @@ export interface Page {
         | SwContactPageBlock
         | SwPricingBlock
         | SwAuditFormBlock
+        | SwPageHeroBlock
+        | SwStepsBlock
+        | SwTeamBlock
+        | SwLinesBlock
       )[]
     | null;
   seo?: {
@@ -4675,6 +4679,407 @@ export interface SwAuditFormBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SwPageHeroBlock".
+ */
+export interface SwPageHeroBlock {
+  eyebrow?: string | null;
+  title: string;
+  titleAccent?: string | null;
+  /**
+   * Fakty w nawiasach ([ROK ZAKOPANE], [GODZINY]…) z Ustawień linii.
+   */
+  lead?: string | null;
+  primary?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  secondary?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  visual: 'none' | 'photos' | 'lines';
+  photos?:
+    | {
+        /**
+         * Zdjęcia osób tylko za ich zgodą (spec. §6.6).
+         */
+        photo?: (number | null) | Media;
+        /**
+         * Tekst alternatywny po wgraniu; przed wgraniem — zaślepka, tylko poza produkcją.
+         */
+        photoCaption: string;
+        tone: 'violet' | 'teal' | 'copper';
+        id?: string | null;
+      }[]
+    | null;
+  badge?: {
+    status?: string | null;
+    title?: string | null;
+    text?: string | null;
+  };
+  hub?: {
+    title?: string | null;
+    text?: string | null;
+  };
+  nodes?:
+    | {
+        name: string;
+        icon?:
+          | (
+              | 'shield'
+              | 'cal'
+              | 'users'
+              | 'store'
+              | 'bolt'
+              | 'doc'
+              | 'life'
+              | 'arrow'
+              | 'check'
+              | 'phone'
+              | 'mail'
+              | 'pin'
+              | 'clock'
+              | 'monitor'
+              | 'remote'
+              | 'bell'
+              | 'wallet'
+              | 'chat'
+              | 'wrench'
+              | 'rocket'
+              | 'map'
+              | 'star'
+              | 'q'
+              | 'flash'
+              | 'grad'
+              | 'server'
+              | 'compass'
+              | 'panel'
+              | 'site'
+              | 'grid'
+              | 'plug'
+              | 'ticket'
+              | 'lifebuoy'
+              | 'chart'
+              | 'sign'
+              | 'cash'
+              | 'search'
+              | 'x'
+              | 'bed'
+              | 'food'
+              | 'refresh'
+              | 'globe'
+              | 'box'
+              | 'car'
+              | 'home'
+              | 'mountain'
+              | 'heart'
+              | 'bag'
+              | 'card'
+              | 'target'
+              | 'key'
+              | 'mega'
+              | 'mount'
+              | 'brief'
+            )
+          | null;
+        text?: string | null;
+        current?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'swPageHero';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SwStepsBlock".
+ */
+export interface SwStepsBlock {
+  variant: 'stats' | 'cards' | 'timeline';
+  eyebrow?: string | null;
+  heading: string;
+  lead?: string | null;
+  /**
+   * Fakty w nawiasach ([ROK ZAKOPANE], [GODZINY]…) z Ustawień linii.
+   */
+  items: {
+    /**
+     * Liczby i oś czasu: „2004”, „100+”, „[ROK ZAKOPANE]”.
+     */
+    marker?: string | null;
+    icon?:
+      | (
+          | 'shield'
+          | 'cal'
+          | 'users'
+          | 'store'
+          | 'bolt'
+          | 'doc'
+          | 'life'
+          | 'arrow'
+          | 'check'
+          | 'phone'
+          | 'mail'
+          | 'pin'
+          | 'clock'
+          | 'monitor'
+          | 'remote'
+          | 'bell'
+          | 'wallet'
+          | 'chat'
+          | 'wrench'
+          | 'rocket'
+          | 'map'
+          | 'star'
+          | 'q'
+          | 'flash'
+          | 'grad'
+          | 'server'
+          | 'compass'
+          | 'panel'
+          | 'site'
+          | 'grid'
+          | 'plug'
+          | 'ticket'
+          | 'lifebuoy'
+          | 'chart'
+          | 'sign'
+          | 'cash'
+          | 'search'
+          | 'x'
+          | 'bed'
+          | 'food'
+          | 'refresh'
+          | 'globe'
+          | 'box'
+          | 'car'
+          | 'home'
+          | 'mountain'
+          | 'heart'
+          | 'bag'
+          | 'card'
+          | 'target'
+          | 'key'
+          | 'mega'
+          | 'mount'
+          | 'brief'
+        )
+      | null;
+    title?: string | null;
+    text?: string | null;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'swSteps';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SwTeamBlock".
+ */
+export interface SwTeamBlock {
+  variant: 'people' | 'places';
+  eyebrow?: string | null;
+  heading: string;
+  lead?: string | null;
+  /**
+   * Fakty w nawiasach ([ROK ZAKOPANE], [GODZINY]…) z Ustawień linii.
+   */
+  members: {
+    role?: string | null;
+    name: string;
+    text?: string | null;
+    /**
+     * Miejsca: adres, telefon, godziny, NIP — każda w nowej linii.
+     */
+    details?: string | null;
+    /**
+     * Zdjęcia osób tylko za ich zgodą (spec. §6.6).
+     */
+    photo?: (number | null) | Media;
+    /**
+     * Tekst alternatywny po wgraniu; przed wgraniem — zaślepka, tylko poza produkcją.
+     */
+    photoCaption: string;
+    tone: 'violet' | 'teal' | 'copper';
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'swTeam';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SwLinesBlock".
+ */
+export interface SwLinesBlock {
+  variant: 'lines' | 'examples';
+  eyebrow?: string | null;
+  heading: string;
+  lead?: string | null;
+  /**
+   * Fakty w nawiasach ([ROK ZAKOPANE], [GODZINY]…) z Ustawień linii.
+   */
+  lines?:
+    | {
+        name: string;
+        icon?:
+          | (
+              | 'shield'
+              | 'cal'
+              | 'users'
+              | 'store'
+              | 'bolt'
+              | 'doc'
+              | 'life'
+              | 'arrow'
+              | 'check'
+              | 'phone'
+              | 'mail'
+              | 'pin'
+              | 'clock'
+              | 'monitor'
+              | 'remote'
+              | 'bell'
+              | 'wallet'
+              | 'chat'
+              | 'wrench'
+              | 'rocket'
+              | 'map'
+              | 'star'
+              | 'q'
+              | 'flash'
+              | 'grad'
+              | 'server'
+              | 'compass'
+              | 'panel'
+              | 'site'
+              | 'grid'
+              | 'plug'
+              | 'ticket'
+              | 'lifebuoy'
+              | 'chart'
+              | 'sign'
+              | 'cash'
+              | 'search'
+              | 'x'
+              | 'bed'
+              | 'food'
+              | 'refresh'
+              | 'globe'
+              | 'box'
+              | 'car'
+              | 'home'
+              | 'mountain'
+              | 'heart'
+              | 'bag'
+              | 'card'
+              | 'target'
+              | 'key'
+              | 'mega'
+              | 'mount'
+              | 'brief'
+            )
+          | null;
+        /**
+         * Np. „prokombiznes.pl”, „salon · [ADRES SALONU W ZAKOPANEM]”.
+         */
+        address?: string | null;
+        href?: string | null;
+        points?:
+          | {
+              text: string;
+              id?: string | null;
+            }[]
+          | null;
+        /**
+         * Np. „Zobacz ofertę →”.
+         */
+        cta?: string | null;
+        current?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  examples?:
+    | {
+        eyebrow?: string | null;
+        title: string;
+        text?: string | null;
+        rows?:
+          | {
+              line: string;
+              icon?:
+                | (
+                    | 'shield'
+                    | 'cal'
+                    | 'users'
+                    | 'store'
+                    | 'bolt'
+                    | 'doc'
+                    | 'life'
+                    | 'arrow'
+                    | 'check'
+                    | 'phone'
+                    | 'mail'
+                    | 'pin'
+                    | 'clock'
+                    | 'monitor'
+                    | 'remote'
+                    | 'bell'
+                    | 'wallet'
+                    | 'chat'
+                    | 'wrench'
+                    | 'rocket'
+                    | 'map'
+                    | 'star'
+                    | 'q'
+                    | 'flash'
+                    | 'grad'
+                    | 'server'
+                    | 'compass'
+                    | 'panel'
+                    | 'site'
+                    | 'grid'
+                    | 'plug'
+                    | 'ticket'
+                    | 'lifebuoy'
+                    | 'chart'
+                    | 'sign'
+                    | 'cash'
+                    | 'search'
+                    | 'x'
+                    | 'bed'
+                    | 'food'
+                    | 'refresh'
+                    | 'globe'
+                    | 'box'
+                    | 'car'
+                    | 'home'
+                    | 'mountain'
+                    | 'heart'
+                    | 'bag'
+                    | 'card'
+                    | 'target'
+                    | 'key'
+                    | 'mega'
+                    | 'mount'
+                    | 'brief'
+                  )
+                | null;
+              text: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'swLines';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -6188,6 +6593,10 @@ export interface PagesSelect<T extends boolean = true> {
         swContactPage?: T | SwContactPageBlockSelect<T>;
         swPricing?: T | SwPricingBlockSelect<T>;
         swAuditForm?: T | SwAuditFormBlockSelect<T>;
+        swPageHero?: T | SwPageHeroBlockSelect<T>;
+        swSteps?: T | SwStepsBlockSelect<T>;
+        swTeam?: T | SwTeamBlockSelect<T>;
+        swLines?: T | SwLinesBlockSelect<T>;
       };
   seo?:
     | T
@@ -7503,6 +7912,151 @@ export interface SwAuditFormBlockSelect<T extends boolean = true> {
     | {
         label?: T;
         href?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SwPageHeroBlock_select".
+ */
+export interface SwPageHeroBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  title?: T;
+  titleAccent?: T;
+  lead?: T;
+  primary?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  secondary?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  visual?: T;
+  photos?:
+    | T
+    | {
+        photo?: T;
+        photoCaption?: T;
+        tone?: T;
+        id?: T;
+      };
+  badge?:
+    | T
+    | {
+        status?: T;
+        title?: T;
+        text?: T;
+      };
+  hub?:
+    | T
+    | {
+        title?: T;
+        text?: T;
+      };
+  nodes?:
+    | T
+    | {
+        name?: T;
+        icon?: T;
+        text?: T;
+        current?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SwStepsBlock_select".
+ */
+export interface SwStepsBlockSelect<T extends boolean = true> {
+  variant?: T;
+  eyebrow?: T;
+  heading?: T;
+  lead?: T;
+  items?:
+    | T
+    | {
+        marker?: T;
+        icon?: T;
+        title?: T;
+        text?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SwTeamBlock_select".
+ */
+export interface SwTeamBlockSelect<T extends boolean = true> {
+  variant?: T;
+  eyebrow?: T;
+  heading?: T;
+  lead?: T;
+  members?:
+    | T
+    | {
+        role?: T;
+        name?: T;
+        text?: T;
+        details?: T;
+        photo?: T;
+        photoCaption?: T;
+        tone?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SwLinesBlock_select".
+ */
+export interface SwLinesBlockSelect<T extends boolean = true> {
+  variant?: T;
+  eyebrow?: T;
+  heading?: T;
+  lead?: T;
+  lines?:
+    | T
+    | {
+        name?: T;
+        icon?: T;
+        address?: T;
+        href?: T;
+        points?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
+        cta?: T;
+        current?: T;
+        id?: T;
+      };
+  examples?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+        text?: T;
+        rows?:
+          | T
+          | {
+              line?: T;
+              icon?: T;
+              text?: T;
+              id?: T;
+            };
+        id?: T;
       };
   id?: T;
   blockName?: T;
