@@ -53,6 +53,7 @@ import * as migration_20261031_173018_software_home_sections_v21 from './2026103
 import * as migration_20261031_181540_software_solution_page from './20261031_181540_software_solution_page'
 import * as migration_20261031_184442_software_industry_page from './20261031_184442_software_industry_page'
 import * as migration_20261031_194745_biznes_home_cleanup from './20261031_194745_biznes_home_cleanup'
+import * as migration_20261031_204108_software_contact_page from './20261031_204108_software_contact_page'
 
 export const migrations = [
   {
@@ -329,5 +330,10 @@ export const migrations = [
     up: migration_20261031_194745_biznes_home_cleanup.up,
     down: migration_20261031_194745_biznes_home_cleanup.down,
     name: '20261031_194745_biznes_home_cleanup',
+  },
+  {
+    up: migration_20261031_204108_software_contact_page.up,
+    down: migration_20261031_204108_software_contact_page.down,
+    name: '20261031_204108_software_contact_page',
   },
 ]
