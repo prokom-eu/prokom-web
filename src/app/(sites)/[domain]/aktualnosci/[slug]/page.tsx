@@ -26,6 +26,11 @@ import {
   PostTocMobile,
 } from '@/sites/biznes/components/news/PostParts'
 import { NEWS_TEXTS } from '@/sites/biznes/components/news/texts'
+import { SoftwarePost } from '@/sites/software/components/news/SoftwarePost'
+import { SOFTWARE_NEWS_TEXTS } from '@/sites/software/components/news/texts'
+import { getSolutionsIndex } from '@/lib/software/data'
+import type { PostView } from '@/lib/posts/view'
+import { isPostCategory, newsListHref } from '@/lib/posts/list'
 
 import { requestOrigin, requireNewsTenant } from '../../tenant'
 
@@ -36,8 +41,8 @@ const READ_ALSO = 3
 
 async function load(params: Props['params']) {
   const tenant = await requireNewsTenant(params)
-  // Only the Biznes look exists (see `/aktualnosci`); Software adds its own in SW11b.
-  if (tenant.line !== 'biznes') notFound()
+  // Each line with news has its own look (see `/aktualnosci`); Biznes and Software (SW11b).
+  if (tenant.line !== 'biznes' && tenant.line !== 'software') notFound()
   const { slug } = await params
   // Invalid, unknown, draft, future or another site's slug → 404.
   const post = isValidSlug(slug) ? await getPostView(tenant.id, slug) : null
@@ -76,6 +81,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function PostPage({ params }: Props) {
   const { tenant, post } = await load(params)
   if (!post) notFound()
+  if (tenant.line === 'software') return <SoftwarePostPage tenantId={tenant.id} post={post} />
   const [posts, index, settings, origin] = await Promise.all([
     getPostList(tenant.id),
     getCatalogIndex(tenant.id),
@@ -167,6 +173,64 @@ export default async function PostPage({ params }: Props) {
         heading={post.contact.heading ?? NEWS_TEXTS.contactHeading}
         lead={post.contact.lead ?? NEWS_TEXTS.contactLead}
         callbackTime={settings?.biznes?.promises.callbackTime ?? null}
+      />
+    </>
+  )
+}
+
+const WARSAW_DAY = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Warsaw' })
+
+/** The Software post (board `Wpis`, SW11b): JSON-LD like Biznes, the look of the line. */
+async function SoftwarePostPage({ tenantId, post }: { tenantId: number; post: PostView }) {
+  const [posts, index, origin] = await Promise.all([
+    getPostList(tenantId),
+    getSolutionsIndex(tenantId),
+    requestOrigin(),
+  ])
+  const own = posts.find((item) => item.slug === post.slug)
+  const category = own && isPostCategory(own.categoryValue) ? own.categoryValue : null
+  // Same category first, then the newest of the rest.
+  const others = posts.filter((item) => item.slug !== post.slug)
+  const readMore = [
+    ...others.filter((item) => item.categoryValue === category),
+    ...others.filter((item) => item.categoryValue !== category),
+  ].slice(0, READ_ALSO)
+  const coverUrl = post.cover?.sources.at(-1)?.url
+  const jsonLd = [
+    breadcrumbJsonLd([
+      { name: 'Strona główna', url: `${origin}/` },
+      { name: SOFTWARE_NEWS_TEXTS.title, url: origin + NEWS_PATH },
+      // The same levels as the breadcrumbs on the page (with the category).
+      ...(category && post.category
+        ? [{ name: post.category, url: origin + newsListHref(category) }]
+        : []),
+      { name: post.title, url: origin + post.href },
+    ]),
+    articleJsonLd({
+      headline: post.title,
+      description: post.seo.description ?? post.lead,
+      url: origin + post.href,
+      origin,
+      datePublished: post.published?.dateTime ?? null,
+      dateModified: post.updated?.dateTime ?? post.published?.dateTime ?? null,
+      images: coverUrl ? [new URL(coverUrl, origin).href] : [],
+    }),
+  ]
+  return (
+    <>
+      {jsonLd.map((data, position) => (
+        <script
+          key={position}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: serializeJsonLd(data) }}
+        />
+      ))}
+      <SoftwarePost
+        post={post}
+        category={category}
+        readMore={readMore}
+        index={index}
+        today={WARSAW_DAY.format(new Date())}
       />
     </>
   )

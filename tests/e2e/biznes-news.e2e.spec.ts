@@ -117,9 +117,9 @@ test.describe('Biznes news', () => {
   test('404 on lines without news and for unknown posts; the sitemap lists the news', async ({
     page,
   }) => {
+    // Software has its own news since SW11b (`software-news-city`); a Biznes post there is 404.
     for (const url of [
       site('instalacje.localhost', LIST),
-      site('software.localhost', LIST),
       site('instalacje.localhost', POST),
       site('software.localhost', POST),
       site('biznes.localhost', '/aktualnosci/nie-ma-takiego'),

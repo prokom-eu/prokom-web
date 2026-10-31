@@ -30166,6 +30166,667 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
+    "public.partners_showroom_segments_series": {
+      "name": "partners_showroom_segments_series",
+      "schema": "",
+      "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id": {
+          "name": "id",
+          "type": "varchar",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tier": {
+          "name": "tier",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "audience": {
+          "name": "audience",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "highlight": {
+          "name": "highlight",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "image_product_id": {
+          "name": "image_product_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "partners_showroom_segments_series_order_idx": {
+          "name": "partners_showroom_segments_series_order_idx",
+          "columns": [
+            {
+              "expression": "_order",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "partners_showroom_segments_series_parent_id_idx": {
+          "name": "partners_showroom_segments_series_parent_id_idx",
+          "columns": [
+            {
+              "expression": "_parent_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "partners_showroom_segments_series_image_product_idx": {
+          "name": "partners_showroom_segments_series_image_product_idx",
+          "columns": [
+            {
+              "expression": "image_product_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "partners_showroom_segments_series_image_product_id_products_id_fk": {
+          "name": "partners_showroom_segments_series_image_product_id_products_id_fk",
+          "tableFrom": "partners_showroom_segments_series",
+          "tableTo": "products",
+          "columnsFrom": ["image_product_id"],
+          "columnsTo": ["id"],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "partners_showroom_segments_series_parent_id_fk": {
+          "name": "partners_showroom_segments_series_parent_id_fk",
+          "tableFrom": "partners_showroom_segments_series",
+          "tableTo": "partners_showroom_segments",
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.partners_showroom_segments": {
+      "name": "partners_showroom_segments",
+      "schema": "",
+      "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id": {
+          "name": "id",
+          "type": "varchar",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "key": {
+          "name": "key",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "icon_path": {
+          "name": "icon_path",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "partners_showroom_segments_order_idx": {
+          "name": "partners_showroom_segments_order_idx",
+          "columns": [
+            {
+              "expression": "_order",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "partners_showroom_segments_parent_id_idx": {
+          "name": "partners_showroom_segments_parent_id_idx",
+          "columns": [
+            {
+              "expression": "_parent_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "partners_showroom_segments_parent_id_fk": {
+          "name": "partners_showroom_segments_parent_id_fk",
+          "tableFrom": "partners_showroom_segments",
+          "tableTo": "partners",
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.partners_showroom_wizard_options": {
+      "name": "partners_showroom_wizard_options",
+      "schema": "",
+      "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id": {
+          "name": "id",
+          "type": "varchar",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "label": {
+          "name": "label",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "key": {
+          "name": "key",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "partners_showroom_wizard_options_order_idx": {
+          "name": "partners_showroom_wizard_options_order_idx",
+          "columns": [
+            {
+              "expression": "_order",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "partners_showroom_wizard_options_parent_id_idx": {
+          "name": "partners_showroom_wizard_options_parent_id_idx",
+          "columns": [
+            {
+              "expression": "_parent_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "partners_showroom_wizard_options_parent_id_fk": {
+          "name": "partners_showroom_wizard_options_parent_id_fk",
+          "tableFrom": "partners_showroom_wizard_options",
+          "tableTo": "partners_showroom_wizard",
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.partners_showroom_wizard": {
+      "name": "partners_showroom_wizard",
+      "schema": "",
+      "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id": {
+          "name": "id",
+          "type": "varchar",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "question": {
+          "name": "question",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "partners_showroom_wizard_order_idx": {
+          "name": "partners_showroom_wizard_order_idx",
+          "columns": [
+            {
+              "expression": "_order",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "partners_showroom_wizard_parent_id_idx": {
+          "name": "partners_showroom_wizard_parent_id_idx",
+          "columns": [
+            {
+              "expression": "_parent_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "partners_showroom_wizard_parent_id_fk": {
+          "name": "partners_showroom_wizard_parent_id_fk",
+          "tableFrom": "partners_showroom_wizard",
+          "tableTo": "partners",
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.partners_showroom_wizard_rules": {
+      "name": "partners_showroom_wizard_rules",
+      "schema": "",
+      "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id": {
+          "name": "id",
+          "type": "varchar",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "series": {
+          "name": "series",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "why": {
+          "name": "why",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "partners_showroom_wizard_rules_order_idx": {
+          "name": "partners_showroom_wizard_rules_order_idx",
+          "columns": [
+            {
+              "expression": "_order",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "partners_showroom_wizard_rules_parent_id_idx": {
+          "name": "partners_showroom_wizard_rules_parent_id_idx",
+          "columns": [
+            {
+              "expression": "_parent_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "partners_showroom_wizard_rules_parent_id_fk": {
+          "name": "partners_showroom_wizard_rules_parent_id_fk",
+          "tableFrom": "partners_showroom_wizard_rules",
+          "tableTo": "partners",
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.partners_showroom_services": {
+      "name": "partners_showroom_services",
+      "schema": "",
+      "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id": {
+          "name": "id",
+          "type": "varchar",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "title": {
+          "name": "title",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "icon_path": {
+          "name": "icon_path",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "description": {
+          "name": "description",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "partners_showroom_services_order_idx": {
+          "name": "partners_showroom_services_order_idx",
+          "columns": [
+            {
+              "expression": "_order",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "partners_showroom_services_parent_id_idx": {
+          "name": "partners_showroom_services_parent_id_idx",
+          "columns": [
+            {
+              "expression": "_parent_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "partners_showroom_services_parent_id_fk": {
+          "name": "partners_showroom_services_parent_id_fk",
+          "tableFrom": "partners_showroom_services",
+          "tableTo": "partners",
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.partners_showroom_videos": {
+      "name": "partners_showroom_videos",
+      "schema": "",
+      "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id": {
+          "name": "id",
+          "type": "varchar",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "series": {
+          "name": "series",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "youtube_id": {
+          "name": "youtube_id",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "active": {
+          "name": "active",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": true
+        },
+        "title": {
+          "name": "title",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "channel": {
+          "name": "channel",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "lang": {
+          "name": "lang",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "partners_showroom_videos_order_idx": {
+          "name": "partners_showroom_videos_order_idx",
+          "columns": [
+            {
+              "expression": "_order",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "partners_showroom_videos_parent_id_idx": {
+          "name": "partners_showroom_videos_parent_id_idx",
+          "columns": [
+            {
+              "expression": "_parent_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "partners_showroom_videos_parent_id_fk": {
+          "name": "partners_showroom_videos_parent_id_fk",
+          "tableFrom": "partners_showroom_videos",
+          "tableTo": "partners",
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
     "public.partners": {
       "name": "partners",
       "schema": "",
@@ -30231,6 +30892,30 @@
         "brand_page_description": {
           "name": "brand_page_description",
           "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "showroom_h1": {
+          "name": "showroom_h1",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "showroom_lead": {
+          "name": "showroom_lead",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "showroom_compare_title": {
+          "name": "showroom_compare_title",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "showroom_wizard_title": {
+          "name": "showroom_wizard_title",
+          "type": "varchar",
           "primaryKey": false,
           "notNull": false
         },
@@ -30531,6 +31216,12 @@
           "type": "integer",
           "primaryKey": false,
           "notNull": false
+        },
+        "products_id": {
+          "name": "products_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
         }
       },
       "indexes": {
@@ -30593,6 +31284,21 @@
           "concurrently": false,
           "method": "btree",
           "with": {}
+        },
+        "partners_rels_products_id_idx": {
+          "name": "partners_rels_products_id_idx",
+          "columns": [
+            {
+              "expression": "products_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
         }
       },
       "foreignKeys": {
@@ -30610,6 +31316,15 @@
           "tableFrom": "partners_rels",
           "tableTo": "tenants",
           "columnsFrom": ["tenants_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "partners_rels_products_fk": {
+          "name": "partners_rels_products_fk",
+          "tableFrom": "partners_rels",
+          "tableTo": "products",
+          "columnsFrom": ["products_id"],
           "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
@@ -38181,6 +38896,30 @@
           "primaryKey": false,
           "notNull": false
         },
+        "author_name": {
+          "name": "author_name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "author_role": {
+          "name": "author_role",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "author_bio": {
+          "name": "author_bio",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "author_photo_id": {
+          "name": "author_photo_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
         "aside_cta_eyebrow": {
           "name": "aside_cta_eyebrow",
           "type": "varchar",
@@ -38322,6 +39061,21 @@
           "method": "btree",
           "with": {}
         },
+        "posts_author_author_photo_idx": {
+          "name": "posts_author_author_photo_idx",
+          "columns": [
+            {
+              "expression": "author_photo_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
         "posts_updated_at_idx": {
           "name": "posts_updated_at_idx",
           "columns": [
@@ -38404,6 +39158,15 @@
           "tableFrom": "posts",
           "tableTo": "media",
           "columnsFrom": ["cover_id"],
+          "columnsTo": ["id"],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "posts_author_photo_id_media_id_fk": {
+          "name": "posts_author_photo_id_media_id_fk",
+          "tableFrom": "posts",
+          "tableTo": "media",
+          "columnsFrom": ["author_photo_id"],
           "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
@@ -38742,6 +39505,30 @@
           "primaryKey": false,
           "notNull": false
         },
+        "version_author_name": {
+          "name": "version_author_name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_author_role": {
+          "name": "version_author_role",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_author_bio": {
+          "name": "version_author_bio",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_author_photo_id": {
+          "name": "version_author_photo_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
         "version_aside_cta_eyebrow": {
           "name": "version_aside_cta_eyebrow",
           "type": "varchar",
@@ -38916,6 +39703,21 @@
           "method": "btree",
           "with": {}
         },
+        "_posts_v_version_author_version_author_photo_idx": {
+          "name": "_posts_v_version_author_version_author_photo_idx",
+          "columns": [
+            {
+              "expression": "version_author_photo_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
         "_posts_v_version_version_updated_at_idx": {
           "name": "_posts_v_version_version_updated_at_idx",
           "columns": [
@@ -39052,6 +39854,15 @@
           "tableFrom": "_posts_v",
           "tableTo": "media",
           "columnsFrom": ["version_cover_id"],
+          "columnsTo": ["id"],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "_posts_v_version_author_photo_id_media_id_fk": {
+          "name": "_posts_v_version_author_photo_id_media_id_fk",
+          "tableFrom": "_posts_v",
+          "tableTo": "media",
+          "columnsFrom": ["version_author_photo_id"],
           "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
@@ -60459,6 +61270,6 @@
     "tables": {},
     "columns": {}
   },
-  "id": "fc2b80cc-0820-4d71-95be-1afa4fbbc89c",
+  "id": "44f1ae25-6e14-4860-a0cd-623f6b247285",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }

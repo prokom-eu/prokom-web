@@ -5151,6 +5151,15 @@ export interface Post {
    * Karty pod wpisem (do 3).
    */
   relatedSolutions?: (number | Solution)[] | null;
+  author?: {
+    name?: string | null;
+    role?: string | null;
+    bio?: string | null;
+    /**
+     * Tylko za zgodą osoby na zdjęciu.
+     */
+    photo?: (number | null) | Media;
+  };
   /**
    * Karta z przyciskiem i licznik dni obok treści (puste = bez nich).
    */
@@ -8682,6 +8691,14 @@ export interface PostsSelect<T extends boolean = true> {
       };
   relatedProducts?: T;
   relatedSolutions?: T;
+  author?:
+    | T
+    | {
+        name?: T;
+        role?: T;
+        bio?: T;
+        photo?: T;
+      };
   aside?:
     | T
     | {

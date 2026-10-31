@@ -13,10 +13,10 @@ import {
 
 describe('hasNews', () => {
   it('is true only for lines with a news section (Software joins in SW11b)', () => {
-    expect(NEWS_LINES).toEqual(['biznes'])
+    expect(NEWS_LINES).toEqual(['biznes', 'software'])
     expect(hasNews('biznes')).toBe(true)
+    expect(hasNews('software')).toBe(true)
     expect(hasNews('instalacje')).toBe(false)
-    expect(hasNews('software')).toBe(false)
     expect(hasNews('prokom')).toBe(false)
   })
 })
@@ -36,6 +36,12 @@ describe('parseCategory', () => {
     expect(parseCategory('nie-ma')).toBeNull()
     expect(parseCategory('')).toBeNull()
     expect(parseCategory(undefined)).toBeNull()
+  })
+
+  it('with a line, refuses another line’s category (SW11b)', () => {
+    expect(parseCategory('poradnik', 'software')).toBe('poradnik')
+    expect(parseCategory('kasy', 'software')).toBeNull()
+    expect(parseCategory('poradnik', 'biznes')).toBeNull()
   })
 })
 

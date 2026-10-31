@@ -126,4 +126,25 @@ describe('buildPostView', () => {
     expect(view.relatedProducts).toEqual(['p-1'])
     expect(view.cover).toBeNull()
   })
+
+  it('keeps related solutions of the same tenant only and the author with a name (SW11b)', () => {
+    const solution = (id: number, tenant: number) =>
+      ({ id, slug: `s-${id}`, tenant }) as unknown as NonNullable<Post['relatedSolutions']>[number]
+    const view = buildPostView(
+      post({
+        relatedSolutions: [solution(1, 1), solution(2, 2), 3],
+        author: { name: ' Krystian Potaczek ', role: 'PRO-KOM Software', bio: '', photo: null },
+      }),
+      1,
+      NOW,
+    )
+    expect(view.relatedSolutions).toEqual(['s-1'])
+    expect(view.author).toEqual({
+      name: 'Krystian Potaczek',
+      role: 'PRO-KOM Software',
+      bio: null,
+      photo: null,
+    })
+    expect(buildPostView(post({ author: { name: '  ' } }), 1, NOW).author).toBeNull()
+  })
 })
