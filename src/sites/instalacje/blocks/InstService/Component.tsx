@@ -27,6 +27,8 @@ import { HouseDemo } from '../../widzety/alarmy/HouseDemo'
 import { AntenySections } from '../../widzety/anteny/AntenySections'
 import { DostepSections } from '../../widzety/dostep/DostepSections'
 import { LockDemo } from '../../widzety/dostep/DostepWidgets'
+import { SieciSections } from '../../widzety/sieci/SieciSections'
+import { CoverageMap } from '../../widzety/sieci/SieciWidgets'
 import { MonitoringSections } from '../../widzety/monitoring/MonitoringSections'
 import { NvrDemo } from '../../widzety/monitoring/NvrDemo'
 
@@ -51,6 +53,11 @@ const LAYOUTS: Partial<Record<string, (ctx: LayoutContext) => ServiceLayout>> = 
   kd: () => ({
     widget: <LockDemo />,
     sections: <DostepSections />,
+    folded: ['cena', 'faq'],
+  }),
+  wifi: () => ({
+    widget: <CoverageMap />,
+    sections: <SieciSections />,
     folded: ['cena', 'faq'],
   }),
   ant: () => ({

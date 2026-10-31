@@ -11,6 +11,8 @@ type Props = {
   reveal?: boolean
   /** Folded on a phone (≤ 700 px) with a „Pokaż całą sekcję” button (`zrodlo/fold.json`). */
   fold?: boolean
+  /** Height of the folded part (`zrodlo/fold.json` „id:900”, the prototype's `--fmh`; default 640). */
+  foldHeight?: number
   className?: string
   style?: CSSProperties
   children: ReactNode
@@ -24,6 +26,7 @@ export function InstSection({
   id,
   reveal = true,
   fold = false,
+  foldHeight,
   className,
   style,
   children,
@@ -44,7 +47,7 @@ export function InstSection({
       className={classes || undefined}
       data-rv={reveal ? id : undefined}
       data-fo={fold ? (open ? '1' : '0') : undefined}
-      style={style}
+      style={foldHeight ? ({ ...style, '--fmh': `${foldHeight}px` } as CSSProperties) : style}
       onFocus={fold ? onFocus : undefined}
     >
       {children}
