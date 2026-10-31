@@ -8,7 +8,7 @@ import {
   autoStep,
   builderHint,
   buildItem,
-  complexity,
+  scope,
   DEFAULT_MODULES,
   moduleCountLabel,
   orderModules,
@@ -159,8 +159,10 @@ function Note({
 /**
  * „Twój system” in the hero (spec. §4 pkt 1): a panel mock-up that assembles itself from
  * modules until the visitor touches it (never with `prefers-reduced-motion`, paused while the
- * tab is hidden), the module switches, the count with complexity and a hint, and one
- * „Twój projekt” item for the chosen set. The mock-up itself is decorative.
+ * tab is hidden), the module switches, the count with its scope and a hint, and one
+ * „Twój projekt” item for the chosen set. The mock-up itself is decorative; on a phone it is left
+ * out (unreadable at that size) and the switches get the caption „Złóż swój system: dotknij
+ * modułu” instead (board `Main-390`, ZMIANY-v21 §10.6).
  */
 export function HeroBuilder({ modules }: Props) {
   const all = modules.map((module) => module.key)
@@ -183,7 +185,7 @@ export function HeroBuilder({ modules }: Props) {
 
   const has = (key: string) => on.includes(key)
   const n = on.length
-  const level = complexity(n)
+  const level = scope(n)
   const item = buildItem(on)
   const added = project.some((entry) => entry.id === item.id)
   const side = on.filter((key) => SIDE[key]).map((key) => SIDE[key])
@@ -191,7 +193,10 @@ export function HeroBuilder({ modules }: Props) {
 
   return (
     <div className="flex min-w-0 flex-col gap-5">
-      <div aria-hidden="true" className="relative mx-auto w-full max-w-[640px] pt-10">
+      <div
+        aria-hidden="true"
+        className="relative mx-auto hidden w-full max-w-[640px] pt-10 min-[640px]:block"
+      >
         <span className="absolute left-1/2 top-0 z-30 inline-flex -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full bg-card px-3 py-1.5 text-xs font-extrabold text-ink shadow-raised ring-1 ring-border">
           <i className="size-2 rounded-full bg-ok" />
           Twój system ·
@@ -272,6 +277,9 @@ export function HeroBuilder({ modules }: Props) {
         />
       </div>
 
+      <p className="-mb-3 text-sm font-extrabold text-ink-2 min-[640px]:hidden">
+        Złóż swój system: dotknij modułu
+      </p>
       <div
         role="group"
         aria-label="Moduły Twojego systemu"
@@ -321,7 +329,7 @@ export function HeroBuilder({ modules }: Props) {
         </div>
         <div className="flex items-center gap-3.5">
           <span className="flex min-w-36 flex-col gap-1.5 text-xs font-extrabold uppercase text-ink-2">
-            Złożoność · {level.level}
+            Zakres · {level.level}
             <span className="h-1.5 rounded-full bg-surface-2">
               <i
                 className="block h-full rounded-full bg-accent"

@@ -2,7 +2,7 @@ import { plural } from '../plural'
 
 /**
  * Rules of the „Twój system” mock-up in the start page hero (spec. §4 pkt 1, board `Main`): the
- * modules switched on, the complexity, the hint and the one item „Chcę taki system” adds to
+ * modules switched on, the scope, the hint and the one item „Chcę taki system” adds to
  * „Twój projekt”. Labels of the modules come from `SoftwareSettings.home.heroModules`.
  */
 
@@ -36,9 +36,10 @@ export function autoStep(
 
 export const moduleCountLabel = (n: number) => plural(n, ['moduł', 'moduły', 'modułów'])
 
-export function complexity(n: number): { level: string; width: number } {
+/** „Zakres” of the set (v21, ZMIANY-v21 §10.4 — instead of „złożoność”) and its bar width. */
+export function scope(n: number): { level: string; width: number } {
   return {
-    level: n <= 2 ? 'niska' : n <= 4 ? 'średnia' : 'wysoka',
+    level: n <= 2 ? 'na start' : n <= 4 ? 'średni' : 'etapami',
     width: Math.min(100, 10 + n * 13),
   }
 }

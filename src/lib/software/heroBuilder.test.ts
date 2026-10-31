@@ -4,7 +4,7 @@ import {
   autoStep,
   builderHint,
   buildItem,
-  complexity,
+  scope,
   moduleCountLabel,
   toggleModule,
 } from './heroBuilder'
@@ -27,11 +27,11 @@ describe('hero „Twój system” mock-up', () => {
     expect(counts).toEqual([4, 5, 6, 7, 7, 7, 1, 2])
   })
 
-  it('names the count, complexity and hint as the board does', () => {
+  it('names the count, scope and hint as the board does (v21: „Zakres”)', () => {
     expect([1, 3, 5].map(moduleCountLabel)).toEqual(['moduł', 'moduły', 'modułów'])
-    expect(complexity(2)).toEqual({ level: 'niska', width: 36 })
-    expect(complexity(4).level).toBe('średnia')
-    expect(complexity(7)).toEqual({ level: 'wysoka', width: 100 })
+    expect(scope(2)).toEqual({ level: 'na start', width: 36 })
+    expect(scope(4).level).toBe('średni')
+    expect(scope(7)).toEqual({ level: 'etapami', width: 100 })
     expect([0, 1, 3, 5, 7].map(builderHint)).toEqual([
       'dodaj pierwszy moduł',
       'może wystarczyć gotowe rozwiązanie',
