@@ -30,7 +30,7 @@ import { SoftwarePost } from '@/sites/software/components/news/SoftwarePost'
 import { SOFTWARE_NEWS_TEXTS } from '@/sites/software/components/news/texts'
 import { getSolutionsIndex } from '@/lib/software/data'
 import type { PostView } from '@/lib/posts/view'
-import { isPostCategory } from '@/lib/posts/list'
+import { isPostCategory, newsListHref } from '@/lib/posts/list'
 
 import { requestOrigin, requireNewsTenant } from '../../tenant'
 
@@ -200,6 +200,10 @@ async function SoftwarePostPage({ tenantId, post }: { tenantId: number; post: Po
     breadcrumbJsonLd([
       { name: 'Strona główna', url: `${origin}/` },
       { name: SOFTWARE_NEWS_TEXTS.title, url: origin + NEWS_PATH },
+      // The same levels as the breadcrumbs on the page (with the category).
+      ...(category && post.category
+        ? [{ name: post.category, url: origin + newsListHref(category) }]
+        : []),
       { name: post.title, url: origin + post.href },
     ]),
     articleJsonLd({

@@ -88,12 +88,12 @@ export default async function CityPage({ params }: Props) {
       areaServed: { '@type': 'City', name: city.name },
     },
   ]
-  // The photo of the salon is a placeholder until it is taken — never on production.
+  // A placeholder until a photo is chosen — never on production; no salon claimed here.
   const photo = context.strict
     ? null
     : {
         image: null,
-        caption: `Salon PRO-KOM, widok od ulicy — ${city.name}`,
+        caption: `Zdjęcie z miejscowości ${city.name}: firma klienta albo okolica`,
         tone: 'violet' as const,
       }
 
@@ -141,9 +141,9 @@ export default async function CityPage({ params }: Props) {
                 ) : null}
                 {city.hero.badges.length > 0 ? (
                   <ul className="mt-3 grid gap-2.5 min-[641px]:grid-cols-2 min-[1081px]:absolute min-[1081px]:inset-x-[-16px] min-[1081px]:top-4 min-[1081px]:mt-0">
-                    {city.hero.badges.map((badge) => (
+                    {city.hero.badges.map((badge, index) => (
                       <li
-                        key={badge.title}
+                        key={index}
                         className="rounded-[16px] border border-border bg-card px-4 py-3 shadow-raised min-[1081px]:w-fit min-[1081px]:self-start min-[1081px]:even:ml-auto min-[1081px]:even:mt-20"
                       >
                         <p className="text-sm font-extrabold">{badge.title}</p>

@@ -14,7 +14,8 @@ export const SOFTWARE_NEWS_TEXTS = {
   summary: 'Krótko',
   sources: 'Źródła',
   checkedOn: 'stan na',
-  lastChecked: 'Ostatnie sprawdzenie danych:',
+  /** `PostView.verified` is the earliest check of the sources — what the post may claim. */
+  lastChecked: 'Najstarsze sprawdzenie danych:',
   author: 'Autor',
   aboutLink: 'O firmie →',
   readMoreEyebrow: 'Czytaj dalej',

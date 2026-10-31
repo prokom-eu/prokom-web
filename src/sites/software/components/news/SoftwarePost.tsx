@@ -25,8 +25,11 @@ type Props = {
   today: string
 }
 
-const SUMMARY_ID = 'krotko'
-const SOURCES_ID = 'zrodla'
+// Prefixed: a heading „Krótko” or „Źródła” in the text gets the plain anchor (`postOutline`).
+const SUMMARY_ID = 'wpis-krotko'
+const SOURCES_ID = 'wpis-zrodla'
+
+const WARSAW_DAY = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Warsaw' })
 
 function initials(name: string): string {
   return name
@@ -66,8 +69,9 @@ export function SoftwarePost({ post, category, readMore, index, today }: Props) 
     ? { heading: post.cta.title, text: post.cta.text, link: post.cta.link }
     : { heading: T.audit.title, text: T.audit.text, link: T.audit.link }
   const date = post.updated ?? post.published
+  // Compared as days in Polish time, the way the date is shown.
   const checked = (value: { date: string; dateTime: string } | null) =>
-    value && value.dateTime.slice(0, 10) <= today ? value : null
+    value && WARSAW_DAY.format(new Date(value.dateTime)) <= today ? value : null
   const lastChecked = checked(post.verified)
   const bySlug = new Map(index.solutions.map((solution) => [solution.slug, solution]))
   const solutions = post.relatedSolutions.flatMap((slug) => bySlug.get(slug) ?? [])

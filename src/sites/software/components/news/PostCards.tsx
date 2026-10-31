@@ -71,9 +71,9 @@ export function FeaturedPost({ post }: { post: SoftwarePostCard }) {
       <PostScene category={post.categoryValue} className="aspect-[16/9] min-[861px]:aspect-auto" />
       <span className="flex flex-col gap-3 p-[22px] min-[641px]:p-10">
         <Meta post={post} />
-        <span className="font-display text-2xl font-extrabold leading-tight tracking-tight min-[641px]:text-[34px]">
+        <h2 className="font-display text-2xl font-extrabold leading-tight tracking-tight min-[641px]:text-[34px]">
           {post.title}
-        </span>
+        </h2>
         {post.lead ? <span className="text-ink-2">{post.lead}</span> : null}
         <span className="mt-1 font-extrabold text-accent-text">Czytaj →</span>
       </span>
