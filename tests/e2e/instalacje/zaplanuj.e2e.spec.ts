@@ -79,7 +79,10 @@ test.describe('Instalacje planner', () => {
     await card(page).getByRole('button', { name: 'WhatsApp' }).click()
     await next(page).click()
     await expect(card(page).getByRole('alert')).toContainText('Zaznacz zgodę')
-    await card(page).getByRole('checkbox').check()
+    // The checkbox is visually hidden (the prototype's box shows it): click the box, not the
+    // middle of the label — the privacy policy link sits in the text.
+    await card(page).locator('.zkcons em').click()
+    await expect(card(page).getByRole('checkbox')).toBeChecked()
 
     await page.waitForTimeout(FORM_MIN_FILL_MS + 500)
     await next(page).click()
