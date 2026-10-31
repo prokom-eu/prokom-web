@@ -18,7 +18,7 @@ export type HowWeBuildView = {
   result: string | null
 }
 
-/** Texts with their facts filled; without its heading the section is not rendered. */
+/** Texts with their facts filled; without its heading or any card the section is not rendered. */
 export function howWeBuildView(
   texts: NonNullable<SoftwareHomeSections['howWeBuild']>,
   fill: Fill,
@@ -35,6 +35,7 @@ export function howWeBuildView(
     if (!name || !text || !gain || !kind) return []
     return [{ kind, badge, name, text, gain }]
   })
+  if (cards.length === 0) return null
   return {
     eyebrow,
     title,

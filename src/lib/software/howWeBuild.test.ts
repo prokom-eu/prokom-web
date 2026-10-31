@@ -30,6 +30,11 @@ describe('„Jak robimy”', () => {
     expect(view?.result).toBeNull()
   })
 
+  it('is not rendered without a card (every card lost a fact on production)', () => {
+    const gains = new Set(howWeBuild.cards.map((card) => card.gain))
+    expect(howWeBuildView(howWeBuild, (text) => (gains.has(text) ? null : text))).toBe(null)
+  })
+
   it('is not rendered without its heading', () => {
     expect(howWeBuildView(howWeBuild, (text) => (text === howWeBuild.title ? null : text))).toBe(
       null,
