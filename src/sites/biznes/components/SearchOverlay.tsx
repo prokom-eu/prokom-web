@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import {
@@ -15,10 +16,13 @@ import {
 
 import { isSearchShortcut } from '@/lib/site/searchShortcut'
 import { cx } from '@/components/ui/cx'
+import { Icon } from '@/components/ui/Icon'
 import { ICON_BUTTON } from '@/components/ui/iconButton'
 import type { CatalogIndex, IndexProduct } from '@/lib/catalog/catalogIndex'
 import { useCatalogIndex } from '@/lib/catalog/useCatalogIndex'
 import { brandHref } from '@/lib/catalog/brand'
+import type { IconName } from '@/lib/catalog/options'
+import { plural } from '@/lib/plural'
 import {
   matchBrands,
   matchCategories,
@@ -32,10 +36,26 @@ import { AddToCartButton } from './AddToCartButton'
 import { ProductThumb, productSubtitle } from './ProductThumb'
 import { SearchIcon } from './SearchIcon'
 
-const MAX_PRODUCTS = 6
+const MAX_PRODUCTS = 7
 const MAX_CATEGORIES = 4
 const MAX_PAGES = 3
 const MAX_BRANDS = 3
+const MAX_BUNDLES = 2
+
+/** „Na skróty” of the empty search (K33 §2.5, `szybkie_kategorie` of the K4 home page). */
+const SHORTCUT_CATEGORIES = [
+  'kasy-fiskalne',
+  'laptopy',
+  'terminale-platnicze',
+  'programy-sprzedazowe-erp',
+  'siec-wifi',
+  'serwery-nas-ups',
+]
+/** „Salony marek” of the empty search, in the board's order; brands without a logo drop out. */
+const SHOWROOM_LOGOS = ['apple', 'samsung', 'lenovo', 'dell', 'posnet', 'elzab', 'sunmi', 'polcard']
+// `/kreator` until K4g, the home page plan until K31d′.
+const CONFIGURATOR_HREF = '/kreator'
+const PLAN_HREF = '/#plan'
 
 type Props = {
   /** wa.me link of the line; `null` hides "Napisz na WhatsApp" when nothing is found. */
@@ -129,16 +149,13 @@ export function SearchOverlay({ whatsapp }: Props) {
           const link = !newTab && (event.target as Element).closest('a')
           if (outside || link) dialog.current?.close()
         }}
-        className="fixed inset-x-0 top-0 m-0 max-h-dvh w-full max-sm:h-dvh max-w-none overflow-y-auto border-b border-border bg-card p-0 text-ink shadow-2xl backdrop:bg-surface-dark/60"
+        className="fixed inset-x-0 top-0 m-0 max-h-dvh w-full max-w-none overflow-y-auto bg-card p-0 text-ink shadow-2xl backdrop:bg-surface-dark/60 max-sm:h-dvh sm:top-[8vh] sm:mx-auto sm:max-h-[88vh] sm:w-[min(61rem,calc(100%-2rem))] sm:rounded-3xl sm:border sm:border-border"
       >
-        <div
-          onKeyDown={moveFocus}
-          className="mx-auto flex max-w-[76rem] flex-col gap-4 px-4 py-4 sm:px-8 sm:py-6"
-        >
+        <div onKeyDown={moveFocus} className="flex flex-col">
           <h2 id={headingId} className="sr-only">
             Szukaj w ofercie
           </h2>
-          <div className="flex h-14 items-center gap-3 rounded-2xl bg-surface-2 pl-4 pr-2 text-accent-text shadow-[inset_0_0_0_2px_var(--accent-text),0_0_0_6px_var(--glow)] sm:h-[3.875rem] sm:pl-5">
+          <div className="flex h-16 items-center gap-3 border-b border-border px-5 text-accent-text sm:h-[4.375rem] sm:px-6">
             <SearchIcon size={22} />
             <input
               ref={input}
@@ -152,16 +169,16 @@ export function SearchOverlay({ whatsapp }: Props) {
                   dialog.current?.close()
                 }
               }}
-              placeholder="Czego szukasz? np. kasa na baterie, program do faktur, terminal"
+              placeholder="Czego szukasz? np. kasa na baterie, Subiekt, Wi-Fi dla gości"
               aria-label="Szukaj w ofercie"
               autoComplete="off"
               enterKeyHint="search"
-              className="min-w-0 flex-1 bg-transparent text-base font-semibold text-ink outline-none placeholder:text-ink-3 sm:text-lg"
+              className="min-w-0 flex-1 bg-transparent text-base font-semibold text-ink outline-none placeholder:font-normal placeholder:text-ink-3 sm:text-xl [&::-webkit-search-cancel-button]:hidden"
             />
             <button
               type="button"
               onClick={() => dialog.current?.close()}
-              className="inline-flex h-10 items-center rounded-lg border border-border bg-card px-3 text-xs font-extrabold text-ink-2 hover:text-ink"
+              className="inline-flex h-9 items-center rounded-lg border border-border bg-surface-2 px-2.5 text-xs font-extrabold text-ink-2 hover:text-ink"
             >
               Esc<span className="sr-only"> — zamknij wyszukiwarkę</span>
             </button>
@@ -179,7 +196,7 @@ export function SearchOverlay({ whatsapp }: Props) {
               whatsapp={whatsapp}
             />
           ) : catalog.status === 'error' ? (
-            <p className="rounded-2xl bg-surface-2 p-5 text-ink-2">
+            <p className="m-5 rounded-2xl bg-surface-2 p-5 text-ink-2">
               Nie udało się wczytać katalogu.{' '}
               <button
                 type="button"
@@ -233,134 +250,303 @@ function SearchResults({ index, query, onPick, whatsapp }: ResultsProps) {
   const results = useMemo(() => searchProducts(prepared, deferred), [prepared, deferred])
   const trimmed = deferred.trim()
 
-  const products = results ?? [...index.products].sort((a, b) => b.popularity - a.popularity)
-  const categories = results
-    ? matchCategories(index, prepared, results, deferred).slice(0, MAX_CATEGORIES)
-    : [...index.categories]
-        .sort((a, b) => b.count - a.count)
-        .slice(0, MAX_CATEGORIES)
-        .map((category) => ({ ...category, hits: 0 }))
-  const pages = (results ? matchPages(index, deferred) : index.pages).slice(0, MAX_PAGES)
-  const brands = matchBrands(index, deferred).slice(0, MAX_BRANDS)
-  const nothing = results !== null && results.length === 0
-
   return (
-    <div className="flex flex-col gap-4">
-      {index.search.popular.length > 0 && (
-        <div className="flex flex-wrap items-center gap-2 text-sm font-bold text-ink-3">
-          <span>{trimmed ? 'Spróbuj też:' : 'Popularne:'}</span>
-          {index.search.popular.map((phrase) => (
-            <button
-              key={phrase}
-              type="button"
-              onClick={() => onPick(phrase)}
-              className="rounded-full border border-border bg-surface-2 px-3 py-1.5 text-ink-2 hover:text-ink"
-            >
-              {phrase}
-            </button>
-          ))}
-        </div>
-      )}
-
+    <div className="flex flex-col">
       {/* Results replace each other while typing: announce only the count. */}
       <p className="sr-only" aria-live="polite">
         {results === null ? '' : resultsLabel(results.length)}
       </p>
-
-      {nothing ? (
-        <NothingFound query={trimmed} whatsapp={whatsapp} />
-      ) : (
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
-          <section aria-labelledby={`${ids}-products`}>
-            <h3 id={`${ids}-products`} className={HEADING}>
-              <span>Produkty i usługi</span>
-              <span>{results ? resultsLabel(results.length) : 'najczęściej wybierane'}</span>
-            </h3>
-            <ul className="grid gap-1 sm:grid-cols-2">
-              {products.slice(0, MAX_PRODUCTS).map((product) => (
-                <li key={product.slug}>
-                  <ProductResult product={product} index={index} />
-                </li>
-              ))}
-            </ul>
-          </section>
-          <div className="flex flex-col gap-4">
-            {categories.length > 0 && (
-              <section aria-labelledby={`${ids}-categories`}>
-                <h3 id={`${ids}-categories`} className={HEADING}>
-                  Kategorie
-                </h3>
-                <ul className="flex flex-col gap-1">
-                  {categories.map((category) => (
-                    <li key={category.slug}>
-                      <Link href={`/oferta/${category.slug}`} data-result className={ROW}>
-                        {category.name}
-                        <small className="text-sm font-semibold text-ink-3">
-                          {category.hits ? `${category.hits} z ${category.count}` : category.count}
-                        </small>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            )}
-            {brands.length > 0 && (
-              <section aria-labelledby={`${ids}-brands`}>
-                <h3 id={`${ids}-brands`} className={HEADING}>
-                  Marki
-                </h3>
-                <ul className="flex flex-col gap-1">
-                  {brands.map((brand) => (
-                    <li key={brand.slug}>
-                      <Link href={brandHref(brand.slug)} data-result className={ROW}>
-                        {brand.name} w PRO-KOM
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            )}
-            {pages.length > 0 && (
-              <section aria-labelledby={`${ids}-pages`}>
-                <h3 id={`${ids}-pages`} className={HEADING}>
-                  Strony i poradniki
-                </h3>
-                <ul className="flex flex-col gap-1">
-                  {pages.map((page) => (
-                    <li key={page.slug}>
-                      <Link href={`/${page.slug}`} data-result className={ROW}>
-                        {page.title}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            )}
-          </div>
+      {results === null ? (
+        <EmptySearch index={index} onPick={onPick} ids={ids} />
+      ) : results.length === 0 ? (
+        <div className="p-5 sm:p-6">
+          <NothingFound query={trimmed} whatsapp={whatsapp} />
         </div>
+      ) : (
+        <Found index={index} prepared={prepared} results={results} query={deferred} ids={ids} />
       )}
-
-      <div className="flex flex-wrap items-center justify-between gap-3 border-t border-border pt-3.5 text-sm text-ink-3">
-        <span>
-          Szukamy w produktach, usługach, kategoriach, markach i stronach. Rozumiemy literówki i
-          potoczne nazwy („kasa na baterie”).
+      <div className="hidden flex-wrap items-center justify-between gap-3 border-t border-border bg-surface-2 px-6 py-3 text-sm text-ink-2 sm:flex">
+        <span className="flex items-center gap-2">
+          <Kbd>↑</Kbd>
+          <Kbd>↓</Kbd> wybór <Kbd>Enter</Kbd> otwórz <Kbd>Esc</Kbd> zamknij
         </span>
-        <Link
-          href={trimmed ? `/oferta?szukaj=${encodeURIComponent(trimmed)}` : '/oferta'}
-          data-result
-          className="font-extrabold text-accent-text hover:underline"
-        >
-          Wszystkie wyniki w katalogu →
-        </Link>
+        <span>Rozumiemy literówki, odmianę i brak polskich znaków</span>
       </div>
     </div>
   )
 }
 
+function Kbd({ children }: { children: string }) {
+  return (
+    <kbd className="inline-flex h-6 min-w-6 items-center justify-center rounded-md border border-border bg-card px-1.5 font-sans text-xs font-bold text-ink-2">
+      {children}
+    </kbd>
+  )
+}
+
+/** Empty field (K33 §2.5): most searched phrases, shortcuts and the brand showrooms. */
+function EmptySearch({
+  index,
+  onPick,
+  ids,
+}: {
+  index: CatalogIndex
+  onPick: (query: string) => void
+  ids: string
+}) {
+  const categories = SHORTCUT_CATEGORIES.flatMap((slug) => {
+    const category = index.categories.find((item) => item.slug === slug)
+    return category ? [category] : []
+  })
+  const logos = SHOWROOM_LOGOS.flatMap((slug) => {
+    const brand = index.brands.find((item) => item.slug === slug)
+    return brand?.logo ? [{ ...brand, logo: brand.logo }] : []
+  })
+  return (
+    <div className="flex flex-col gap-5 p-5 sm:p-6">
+      {index.search.popular.length > 0 && (
+        <section aria-labelledby={`${ids}-popular`}>
+          <h3 id={`${ids}-popular`} className={HEADING}>
+            Najczęściej szukane
+          </h3>
+          <div className="flex flex-wrap gap-2">
+            {index.search.popular.map((phrase) => (
+              <button
+                key={phrase}
+                type="button"
+                onClick={() => onPick(phrase)}
+                className="inline-flex items-center gap-2 rounded-full border border-border px-3.5 py-2 font-semibold text-ink hover:bg-surface-2"
+              >
+                <SearchIcon size={14} />
+                {phrase}
+              </button>
+            ))}
+          </div>
+        </section>
+      )}
+      <section aria-labelledby={`${ids}-shortcuts`}>
+        <h3 id={`${ids}-shortcuts`} className={HEADING}>
+          Na skróty
+        </h3>
+        <ul className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+          {categories.map((category) => (
+            <li key={category.slug}>
+              <Link href={`/oferta/${category.slug}`} data-result className={TILE}>
+                <TileIcon icon={category.icon ?? 'store'} />
+                <span className="min-w-0">
+                  <b className="block truncate font-extrabold text-ink">{category.name}</b>
+                  <small className="block text-sm text-ink-2">{itemsLabel(category.count)}</small>
+                </span>
+              </Link>
+            </li>
+          ))}
+          <li>
+            <Link href={CONFIGURATOR_HREF} data-result className={TILE}>
+              <TileIcon icon="star" />
+              <span className="min-w-0">
+                <b className="block font-extrabold text-ink">Konfigurator</b>
+                <small className="block text-sm text-ink-2">kilka pytań, około minuty</small>
+              </span>
+            </Link>
+          </li>
+          <li>
+            <Link href={PLAN_HREF} data-result className={TILE}>
+              <TileIcon icon="map" />
+              <span className="min-w-0">
+                <b className="block font-extrabold text-ink">Plan Twojej firmy</b>
+                <small className="block text-sm text-ink-2">kliknij urządzenie na planie</small>
+              </span>
+            </Link>
+          </li>
+        </ul>
+      </section>
+      {logos.length > 0 && (
+        <section aria-labelledby={`${ids}-showrooms`}>
+          <h3 id={`${ids}-showrooms`} className={HEADING}>
+            Salony marek
+          </h3>
+          <ul className="flex flex-wrap gap-2">
+            {logos.map((brand) => (
+              <li key={brand.slug}>
+                <Link href={brandHref(brand.slug)} data-result className={LOGO}>
+                  <Image
+                    src={brand.logo.url}
+                    alt={brand.name}
+                    width={brand.logo.width}
+                    height={brand.logo.height}
+                    unoptimized
+                    className="max-h-6 w-auto max-w-full object-contain"
+                  />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+    </div>
+  )
+}
+
+/** Live results (K33 §2.5): products on the left; pages, categories, brands, bundles right. */
+function Found({
+  index,
+  prepared,
+  results,
+  query,
+  ids,
+}: {
+  index: CatalogIndex
+  prepared: ReturnType<typeof prepareSearch>
+  results: IndexProduct[]
+  query: string
+  ids: string
+}) {
+  const trimmed = query.trim()
+  const categories = matchCategories(index, prepared, results, query).slice(0, MAX_CATEGORIES)
+  const matched = matchPages(index, query)
+  const pages = matched.filter((page) => !page.slug.startsWith('zestawy/')).slice(0, MAX_PAGES)
+  const bundles = matched.filter((page) => page.slug.startsWith('zestawy/')).slice(0, MAX_BUNDLES)
+  const brands = matchBrands(index, query).slice(0, MAX_BRANDS)
+  return (
+    <div className="grid lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)]">
+      <section
+        aria-labelledby={`${ids}-products`}
+        className="p-5 sm:p-6 lg:border-r lg:border-border"
+      >
+        <h3 id={`${ids}-products`} className={HEADING}>
+          <span>Produkty i usługi</span>
+          <span className="tracking-normal normal-case text-accent-text">
+            {resultsLabel(results.length)}
+          </span>
+        </h3>
+        <ul className="flex flex-col gap-1">
+          {results.slice(0, MAX_PRODUCTS).map((product) => (
+            <li key={product.slug}>
+              <ProductResult product={product} index={index} />
+            </li>
+          ))}
+        </ul>
+        <Link
+          href={`/oferta?szukaj=${encodeURIComponent(trimmed)}`}
+          data-result
+          className="mt-3 inline-flex items-center gap-2 rounded-lg px-2 py-1.5 font-extrabold text-ink hover:underline"
+        >
+          Pokaż wszystkie wyniki w ofercie · {resultsLabel(results.length)}
+          <span aria-hidden="true">→</span>
+        </Link>
+      </section>
+      <div className="flex flex-col gap-5 p-5 sm:p-6">
+        {pages.length > 0 && (
+          <section aria-labelledby={`${ids}-pages`}>
+            <h3 id={`${ids}-pages`} className={HEADING}>
+              Strony i usługi
+            </h3>
+            <ul className="flex flex-col gap-1">
+              {pages.map((page) => (
+                <li key={page.slug}>
+                  <Link href={`/${page.slug}`} data-result className={ROW}>
+                    <TileIcon icon="arrow" />
+                    <b className="font-extrabold text-ink">{page.title}</b>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+        {categories.length > 0 && (
+          <section aria-labelledby={`${ids}-categories`}>
+            <h3 id={`${ids}-categories`} className={HEADING}>
+              Kategorie
+            </h3>
+            <ul className="flex flex-col gap-1">
+              {categories.map((category) => (
+                <li key={category.slug}>
+                  <Link href={`/oferta/${category.slug}`} data-result className={ROW}>
+                    <TileIcon icon={category.icon ?? 'store'} />
+                    <span className="min-w-0">
+                      <b className="block font-extrabold text-ink">{category.name}</b>
+                      <small className="block text-sm text-ink-2">
+                        {category.hits && category.hits < category.count
+                          ? `${category.hits} z ${itemsLabel(category.count)}`
+                          : itemsLabel(category.count)}
+                      </small>
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+        {brands.length > 0 && (
+          <section aria-labelledby={`${ids}-brands`}>
+            <h3 id={`${ids}-brands`} className={HEADING}>
+              Marki
+            </h3>
+            <ul className="flex flex-wrap gap-2">
+              {brands.map((brand) => (
+                <li key={brand.slug}>
+                  <Link href={brandHref(brand.slug)} data-result className={LOGO}>
+                    {brand.logo ? (
+                      <Image
+                        src={brand.logo.url}
+                        alt={brand.name}
+                        width={brand.logo.width}
+                        height={brand.logo.height}
+                        unoptimized
+                        className="max-h-6 w-auto max-w-full object-contain"
+                      />
+                    ) : (
+                      <span className="font-extrabold text-ink">{brand.name}</span>
+                    )}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+        {bundles.length > 0 && (
+          <section aria-labelledby={`${ids}-bundles`}>
+            <h3 id={`${ids}-bundles`} className={HEADING}>
+              Gotowe zestawy
+            </h3>
+            <ul className="flex flex-col gap-1">
+              {bundles.map((page) => (
+                <li key={page.slug}>
+                  <Link href={`/${page.slug}`} data-result className={ROW}>
+                    <TileIcon icon="box" />
+                    <b className="truncate font-extrabold text-ink">{page.title}</b>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+      </div>
+    </div>
+  )
+}
+
+function TileIcon({ icon }: { icon: IconName }) {
+  return (
+    <span
+      aria-hidden="true"
+      className="inline-flex size-9 shrink-0 items-center justify-center rounded-lg bg-surface-2 text-accent-text"
+    >
+      <Icon name={icon} className="size-[18px]" strokeWidth={2} />
+    </span>
+  )
+}
+
+const itemsLabel = (n: number) => `${n} ${plural(n, ['pozycja', 'pozycje', 'pozycji'])}`
+
 const HEADING =
-  'mb-2 flex justify-between px-1 text-xs font-black uppercase tracking-[0.06em] text-ink-3'
+  'mb-3 flex justify-between px-1 text-xs font-extrabold uppercase tracking-[0.14em] text-ink-2'
 const ROW =
-  'flex items-center justify-between gap-3 rounded-xl px-3 py-2.5 font-bold text-ink-2 hover:bg-surface-2 hover:text-ink focus-visible:bg-surface-2'
+  'flex items-center gap-3 rounded-xl px-2 py-2 text-ink-2 hover:bg-surface-2 hover:text-ink focus-visible:bg-surface-2'
+const TILE =
+  'flex h-full items-center gap-3 rounded-2xl bg-surface-2 px-3 py-3 hover:bg-surface focus-visible:bg-surface'
+const LOGO =
+  'inline-flex h-12 w-[6.5rem] items-center justify-center rounded-xl border border-border bg-white px-3 hover:border-accent'
 
 function ProductResult({ product, index }: { product: IndexProduct; index: CatalogIndex }) {
   const sub = productSubtitle(product, index)
