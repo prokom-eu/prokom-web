@@ -184,6 +184,42 @@ describe('buildSiteMap — Software', () => {
   })
 })
 
+describe('buildSiteMap — Instalacje', () => {
+  it('lists the object pages „Dla kogo” after the pages, in the given order', () => {
+    const map = buildSiteMap({
+      pages,
+      catalog: null,
+      news: null,
+      objectPages: [
+        { slug: 'dom', name: 'Dom jednorodzinny', updatedAt: '2026-10-30T00:00:00.000Z' },
+        { slug: 'pensjonaty', name: 'Pensjonaty' },
+      ],
+    })
+    expect(map.map(({ id }) => id)).toEqual(['strony', 'dla-kogo'])
+    expect(map[1]).toEqual({
+      id: 'dla-kogo',
+      title: 'Dla kogo',
+      links: [
+        {
+          href: '/dla-kogo/dom',
+          label: 'Dom jednorodzinny',
+          updatedAt: '2026-10-30T00:00:00.000Z',
+        },
+        { href: '/dla-kogo/pensjonaty', label: 'Pensjonaty', updatedAt: undefined },
+      ],
+    })
+    expect(siteMapPaths(map)).toContainEqual({
+      path: '/dla-kogo/dom',
+      updatedAt: '2026-10-30T00:00:00.000Z',
+    })
+  })
+
+  it('has no object section without published objects', () => {
+    const map = buildSiteMap({ pages, catalog: null, news: null, objectPages: [] })
+    expect(map.map(({ id }) => id)).not.toContain('dla-kogo')
+  })
+})
+
 describe('siteMapPaths', () => {
   it('flattens the map for sitemap.xml, each address once, with its date', () => {
     const map = buildSiteMap({ pages, catalog: null, news: { posts: [] } })
