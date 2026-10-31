@@ -14,6 +14,7 @@ import {
   useState,
 } from 'react'
 
+import { onSearchRequest } from '@/lib/site/searchOpen'
 import { isSearchShortcut } from '@/lib/site/searchShortcut'
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
@@ -107,6 +108,9 @@ export function SearchOverlay({ whatsapp }: Props) {
     document.addEventListener('keydown', onKey)
     return () => document.removeEventListener('keydown', onKey)
   }, [show])
+
+  // „Szukaj” of the side rail (K33 §2.4).
+  useEffect(() => onSearchRequest(show), [show])
 
   return (
     <>

@@ -12,6 +12,7 @@ import type { SiteTenant } from '@/lib/tenant/byHost'
 import { BiznesFooter } from './components/BiznesFooter'
 import { BiznesHeader } from './components/BiznesHeader'
 import { MobileBar } from './components/MobileBar'
+import { SiteRail } from './components/rail/SiteRail'
 import { TopBar } from './components/TopBar'
 
 type Props = {
@@ -53,6 +54,7 @@ export async function BiznesFrame({ tenant, settings, biznes, company, promo, ch
         hours={hours ? hoursSummary(hours) : null}
         contact={contact}
       />
+      <SiteRail />
       {children}
       <BiznesFooter
         name={tenant.name}
