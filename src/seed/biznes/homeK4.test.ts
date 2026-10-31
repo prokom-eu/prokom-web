@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { K4_HERO, OLD_HERO, upgradeHomeK4 } from './homeK4'
+import { K4_FEATURED, K4_HERO, OLD_FEATURED, OLD_HERO, upgradeHomeK4 } from './homeK4'
 
 type Block = { blockType: string; [key: string]: unknown }
 
@@ -10,7 +10,7 @@ const layout: Block[] = [
   { blockType: 'bzNeeds' },
   { blockType: 'partners' },
   { blockType: 'bzOffer' },
-  { blockType: 'bzFeatured' },
+  { blockType: 'bzFeatured', ...OLD_FEATURED },
   { blockType: 'faq' },
 ]
 
@@ -20,6 +20,11 @@ describe('upgradeHomeK4 (K4c, K36 §1)', () => {
     expect(next?.[0]).toMatchObject({ ...K4_HERO, pill: 'Rabka-Zdrój' })
     expect(K4_HERO.heading).toBe('Kasy, komputery i programy dla firm.')
     expect(K4_HERO.headingAccent).toBe('Wszystko z jednego miejsca — z Rabki.')
+  })
+
+  it('puts the v150 texts into „Najczęściej wybierane”', () => {
+    const featured = upgradeHomeK4(layout)?.find((block) => block.blockType === 'bzFeatured')
+    expect(featured).toMatchObject(K4_FEATURED)
   })
 
   it('moves the brands after the departments, as on the board', () => {

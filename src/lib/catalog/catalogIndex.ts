@@ -12,7 +12,7 @@ import { publicImage } from '../media/public'
 import { imageSources, pickSource } from '../media/sizes'
 import { tenantIdOf } from '../tenant/id'
 import { HOME_SLUG } from '../pages/slug'
-import type { IconName } from './options'
+import type { FeaturedGroup, IconName } from './options'
 import { normalizeText } from './normalize'
 import { wizardSchema } from './wizard'
 
@@ -60,6 +60,8 @@ export type IndexProduct = {
   registerTypes: NonNullable<Product['registerTypes']>
   /** Set for the products of the home page, in their order. */
   featuredOrder?: number
+  /** Pill of „Najczęściej wybierane” on the home page (K35 7a); featured products only. */
+  featuredGroup?: FeaturedGroup
   image?: IndexImage
   /**
    * Normalized text the search matches against (spec. §8.2). Without the group name: the
@@ -146,6 +148,7 @@ export type IndexedProductDoc = Pick<
   | 'registerTypes'
   | 'featured'
   | 'featuredOrder'
+  | 'featuredGroup'
 >
 
 export type CatalogSource = {
@@ -315,6 +318,7 @@ export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
       popularity: product.popularity ?? 0,
       registerTypes: product.registerTypes ?? [],
       ...(product.featured && { featuredOrder: product.featuredOrder ?? 0 }),
+      ...(product.featured && product.featuredGroup && { featuredGroup: product.featuredGroup }),
       ...(image && { image }),
       hay,
     }

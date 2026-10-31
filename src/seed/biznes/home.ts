@@ -5,7 +5,7 @@ import { HOME_SLUG } from '../../lib/pages/slug'
 import type { Page } from '../../payload-types'
 import type { IconName } from '../../lib/catalog/options'
 import { factsBlocks } from './homeFacts'
-import { K4_HERO, K4_TRUST_LINE, OLD_TRUST_LINE, upgradeHomeK4 } from './homeK4'
+import { K4_FEATURED, K4_HERO, K4_TRUST_LINE, OLD_TRUST_LINE, upgradeHomeK4 } from './homeK4'
 import { planBlocks } from './homePlan'
 import { mergeLayout } from '../layout'
 
@@ -177,9 +177,10 @@ export function biznesHomeLayout(refs: HomeRefs = NO_REFS): HomeBlock[] {
     {
       blockType: 'bzFeatured',
       eyebrow: 'Najczęściej wybierane',
-      heading: 'Osiem pozycji, o które firmy pytają najczęściej.',
-      lead: 'Każdą dodasz do zapytania jednym kliknięciem. Resztę oferty znajdziesz w katalogu.',
-      catalogLabel: 'Cały katalog',
+      // v150 (K35 7a): the texts of the board.
+      heading: K4_FEATURED.heading,
+      lead: K4_FEATURED.lead,
+      catalogLabel: K4_FEATURED.catalogLabel,
       offerCard: {
         eyebrow: 'Cała oferta',
         heading: 'Zobacz wszystko, co sprzedajemy, wdrażamy i serwisujemy.',

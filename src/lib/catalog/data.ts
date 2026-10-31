@@ -66,6 +66,7 @@ export const getCatalogIndex = cache((tenantId: number): Promise<CatalogIndex> =
               registerTypes: true,
               featured: true,
               featuredOrder: true,
+              featuredGroup: true,
             },
             overrideAccess: true,
           }),

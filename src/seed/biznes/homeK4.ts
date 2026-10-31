@@ -33,6 +33,19 @@ export const K4_HERO = {
   ] as Trust[],
 }
 
+/** Texts of „Najczęściej wybierane” before K4 (B7) and in v150 (K35 7a, board `#s4-pop`). */
+export const OLD_FEATURED = {
+  heading: 'Osiem pozycji, o które firmy pytają najczęściej.',
+  lead: 'Każdą dodasz do zapytania jednym kliknięciem. Resztę oferty znajdziesz w katalogu.',
+  catalogLabel: 'Cały katalog',
+}
+export const K4_FEATURED = {
+  heading: 'O to firmy pytają najczęściej.',
+  // The board adds „obejrzysz w podglądzie” — the home cards have no quick view (yet).
+  lead: 'Od tego firmy zaczynają najczęściej: kasa i terminal, stanowisko POS, laptop do biura, Subiekt, ochrona, podpis i UPS. Każdą pozycję dodasz do zapytania jednym kliknięciem.',
+  catalogLabel: 'Cała oferta',
+}
+
 /** The hero's trust line (`SiteSettings.biznes.trustLine`) before K4 and now (K4-FINAL §1). */
 export const OLD_TRUST_LINE = 'Serwis Posnet i Elzab · partner GoPOS i InsERT'
 export const K4_TRUST_LINE =
@@ -62,6 +75,14 @@ function upgradeHero<T extends Block>(hero: T): T {
   return next as T
 }
 
+function upgradeFeatured<T extends Block>(block: T): T {
+  const next: Fields = { ...block }
+  for (const key of ['heading', 'lead', 'catalogLabel'] as const) {
+    if (next[key] === OLD_FEATURED[key]) next[key] = K4_FEATURED[key]
+  }
+  return next as T
+}
+
 /**
  * The home layout in the v150 shape, or `null` when nothing changes: the hero texts, and the
  * brands (`partners`) right after the departments (`bzOffer`), as on the board.
@@ -70,7 +91,13 @@ export function upgradeHomeK4<T extends Block>(
   layout: readonly T[] | null | undefined,
 ): T[] | null {
   if (!layout || layout.length === 0) return null
-  let next = layout.map((block) => (block.blockType === 'bzHero' ? upgradeHero(block) : block))
+  let next = layout.map((block) =>
+    block.blockType === 'bzHero'
+      ? upgradeHero(block)
+      : block.blockType === 'bzFeatured'
+        ? upgradeFeatured(block)
+        : block,
+  )
 
   const brands = next.findIndex((block) => block.blockType === 'partners')
   const offer = next.findIndex((block) => block.blockType === 'bzOffer')

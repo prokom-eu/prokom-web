@@ -322,6 +322,23 @@ describe('buildCatalogIndex group showcase (home page offer cards)', () => {
       settings: null,
     }).groups[0]
 
+  it('gives the pill group of a featured product only (K35 7a)', () => {
+    const products = (extra: Record<string, unknown>) =>
+      buildCatalogIndex({
+        tenantId: TENANT,
+        products: [{ ...product, ...extra } as unknown as Product],
+        categories: [category] as unknown as CatalogCategory[],
+        groups: [],
+        industries: [],
+        pages: [],
+        settings: null,
+      }).products[0]
+    expect(
+      products({ featured: true, featuredOrder: 2, featuredGroup: 'zasilanie' }),
+    ).toMatchObject({ featuredOrder: 2, featuredGroup: 'zasilanie' })
+    expect(products({ featured: false, featuredGroup: 'zasilanie' })?.featuredGroup).toBeUndefined()
+  })
+
   it('lists the wheel products of the department by slug, only the listed ones (K36 §12)', () => {
     const withWheel = buildCatalogIndex({
       tenantId: TENANT,
