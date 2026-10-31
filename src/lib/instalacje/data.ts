@@ -109,6 +109,29 @@ export const getInstalacjeService = cache(
   },
 )
 
+/**
+ * Published object pages of this tenant (`/dla-kogo/<slug>`) for the site map and
+ * `generateStaticParams`, in the panel's order of keys. Deduplicated per request.
+ */
+export const getInstalacjeObjectList = cache(
+  async (tenantId: number): Promise<{ slug: string; name: string; updatedAt: string }[]> => {
+    const payload = await getPayload({ config })
+    const { docs } = await payload.find({
+      collection: 'inst-objects',
+      where: {
+        and: [{ tenant: { equals: tenantId } }, { _status: { equals: 'published' } }],
+      },
+      draft: false,
+      depth: 0,
+      limit: LIMIT,
+      sort: 'createdAt',
+      select: { slug: true, name: true, updatedAt: true },
+      overrideAccess: true,
+    })
+    return docs.flatMap(({ slug, name, updatedAt }) => (slug ? [{ slug, name, updatedAt }] : []))
+  },
+)
+
 export type InstalacjeSiteSettings = {
   showPrices: boolean
   noPriceText: string
