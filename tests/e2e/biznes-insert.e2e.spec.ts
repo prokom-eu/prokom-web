@@ -43,7 +43,7 @@ test.describe('Biznes /insert (B9c)', () => {
 
   test('„Dodaj do zapytania” switches the program on the list', async ({ page }) => {
     await page.goto(site('biznes.localhost', '/insert'))
-    await expect(cartButton(page)).toHaveAccessibleName('Zapytanie')
+    await expect(cartButton(page)).toHaveAccessibleName(/^Zapytanie 0 pozycji$/)
     const result = page.getByTestId('program-result')
 
     await result.getByRole('button', { name: /^Dodaj do zapytania/ }).click()
@@ -54,7 +54,7 @@ test.describe('Biznes /insert (B9c)', () => {
     )
 
     await result.getByRole('button', { name: /^W zapytaniu/ }).click()
-    await expect(cartButton(page)).toHaveAccessibleName('Zapytanie')
+    await expect(cartButton(page)).toHaveAccessibleName(/^Zapytanie 0 pozycji$/)
   })
 
   test('the KSeF counter counts days in the browser', async ({ page }) => {

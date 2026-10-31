@@ -94,18 +94,16 @@ export function SearchOverlay({ whatsapp }: Props) {
         type="button"
         aria-haspopup="dialog"
         aria-keyshortcuts="Control+K Meta+K /"
-        aria-label="Szukaj w ofercie (Ctrl K lub /)"
         onClick={show}
         className={cx(ICON_BUTTON, 'sm:w-auto sm:gap-2.5 sm:bg-surface-2 sm:px-4 sm:font-bold')}
       >
         <SearchIcon size={18} />
-        <span aria-hidden="true" className="hidden sm:inline">
-          Szukaj
+        {/* The name comes from the visible text (WCAG 2.5.3): „Szukaj w ofercie Ctrl K”. On
+            phones the text is only for screen readers — the magnifier shows. */}
+        <span className="sr-only sm:not-sr-only">
+          Szukaj<span className="sr-only"> w ofercie</span>
         </span>
-        <kbd
-          aria-hidden="true"
-          className="hidden rounded-md border border-border bg-surface px-1.5 py-0.5 font-sans text-[11px] font-bold whitespace-nowrap text-ink-2 sm:inline"
-        >
+        <kbd className="sr-only rounded-md border border-border bg-surface px-1.5 py-0.5 font-sans text-[11px] font-bold whitespace-nowrap text-ink-2 sm:not-sr-only">
           Ctrl K
         </kbd>
       </button>

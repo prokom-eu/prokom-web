@@ -107,13 +107,10 @@ test.describe('Biznes subcategory pages (K3b′)', () => {
     }
   })
 
-  test('the mega menu lists the subcategory pages', async ({ page }) => {
-    await page.goto(biznes('/'))
-    await page
-      .getByRole('navigation', { name: 'Główna' })
-      .getByRole('button', { name: 'Oferta' })
-      .click()
-    await expect(page.locator('a[href="/oferta/serwery-nas-ups/ups"]').first()).toBeVisible()
+  // The K4 mega menu lists categories only (v147c); subcategory pages hang off their category.
+  test('the category page links its subcategory pages', async ({ page }) => {
+    await page.goto(biznes('/oferta/serwery-nas-ups'))
+    await expect(page.locator('main a[href="/oferta/serwery-nas-ups/ups"]').first()).toBeVisible()
   })
 
   test('the site map lists brand and subcategory pages', async ({ page }) => {
