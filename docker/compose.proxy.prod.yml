@@ -1,0 +1,12 @@
+# Production domains for the proxy (overlay on compose.proxy.yml, S10). Add it only when the
+# production DNS records point to the server and the `prokom-prod` certificate exists —
+# nginx does not start with a server block whose certificate is missing (docs/runbook.md §3).
+#   docker compose --env-file .env.proxy -f docker/compose.proxy.yml -f docker/compose.proxy.prod.yml up -d
+
+services:
+  nginx:
+    environment:
+      PROD_SITE_HOSTS: ${PROD_SITE_HOSTS:?set PROD_SITE_HOSTS}
+      PROD_PANEL_HOST: ${PROD_PANEL_HOST:?set PROD_PANEL_HOST}
+    volumes:
+      - ./nginx/templates/prod.conf.template:/etc/nginx/templates/prod.conf.template:ro
