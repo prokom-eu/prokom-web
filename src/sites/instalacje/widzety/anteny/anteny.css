@@ -251,7 +251,7 @@
     transform: translateX(12px);
     background: var(--accent-ink);
   }
-  & .nvrnote {
+  & .ill .nvrnote {
     color: var(--ink-2);
     padding: 0 16px 16px;
     font-size: 13.5px;

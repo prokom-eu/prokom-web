@@ -1,0 +1,1565 @@
+/*
+ * Monitoring page (I7): the recorder preview in the hero (camera scenes `.cs`, detection,
+ * timeline), installation versions (`.sy*`), camera types, the DORI and recording calculators,
+ * RODO and the brands. Rules of `pk.css` v4.2 for the classes of `Monitoring.body.html`, ported
+ * with the prototype's class names by `narzedzia/przenies-css.mjs` (map
+ * `przenies-css.strony.json`, scene colours from `--il-*` / `--sx-*` under `data-inst-il` /
+ * `data-inst-sx` on the service page), then fixed by hand: inline styles of the prototype as
+ * classes at the end, keyframes prefixed `inst-mon-`.
+ */
+[data-line='instalacje'] {
+  & .disp {
+    font-family: var(--font-display);
+    font-stretch: 122%;
+    font-weight: 900;
+    letter-spacing: -0.025em;
+  }
+  & .svk {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+  & .nvr {
+    background: var(--inst-il-nvr-bg);
+    color: var(--inst-il-nvr-c);
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow:
+      inset 0 0 0 1px var(--inst-il-nvr-sh),
+      var(--shadow);
+  }
+  & .nvrh {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    font-size: 12.5px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    border-bottom: 1px solid var(--inst-il-nvrh-bord);
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  & .nvrh .rec {
+    color: var(--inst-il-nvrh-c);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  & .nvrh .rec:before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--inst-il-nvrh-c);
+    animation: inst-mon-blink 1.2s infinite;
+  }
+  & .nvrg {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 3px;
+    background: var(--sx-tyre);
+    padding: 3px;
+  }
+  & .nvrg.one {
+    grid-template-columns: 1fr;
+  }
+  & .cam {
+    position: relative;
+    background: var(--il-cam);
+    cursor: pointer;
+    border: 0;
+    padding: 0;
+    display: block;
+    width: 100%;
+    font-family: inherit;
+    color: inherit;
+    text-align: left;
+  }
+  & .cam svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  & .cam .cl {
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 3px 7px;
+    border-radius: 6px;
+    background: var(--il-cam-label);
+    color: var(--inst-plan-white);
+  }
+  & .cam .ct2 {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    font-size: 10.5px;
+    font-weight: 700;
+    color: var(--il-cam-time);
+    background: var(--inst-us-bar-shadow);
+    padding: 3px 6px;
+    border-radius: 6px;
+  }
+  & .cam.sel {
+    outline: 2px solid var(--inst-plan-send-to);
+    outline-offset: -2px;
+  }
+  & .ir svg {
+    filter: grayscale(1) contrast(1.15) brightness(1.08);
+  }
+  & .nvrt {
+    padding: 12px 16px 14px;
+    border-top: 1px solid var(--inst-il-nvrh-bord);
+  }
+  & .tline {
+    position: relative;
+    height: 34px;
+    border-radius: 8px;
+    background: var(--inst-il-tline-bg);
+    overflow: hidden;
+  }
+  & .tline i {
+    position: absolute;
+    top: 6px;
+    bottom: 6px;
+    width: 5px;
+    border-radius: 3px;
+    background: var(--inst-plan-send-to);
+  }
+  & .tline i.p {
+    background: var(--inst-promo-warm);
+  }
+  & .tline b {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--inst-plan-white);
+    animation: inst-mon-scan 9s linear infinite;
+  }
+  & .tlx {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10.5px;
+    color: var(--inst-ticket-mut);
+    margin-top: 6px;
+  }
+  & .segd {
+    display: flex;
+    gap: 3px;
+    padding: 3px;
+    border-radius: 11px;
+    background: var(--sx-tyre);
+    box-shadow: inset 0 0 0 1px var(--inst-il-nvrh-bord);
+  }
+  & .segd button {
+    min-height: 34px;
+    padding: 0 11px;
+    border-radius: 8px;
+    border: 0;
+    background: transparent;
+    color: var(--inst-plan-note);
+    font-weight: 800;
+    font-size: 12.5px;
+    cursor: pointer;
+    font-family: inherit;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  & .segd button.on {
+    background: var(--inst-plan-send-to);
+    color: var(--inst-band-button-ink);
+  }
+  & .tgl {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    min-height: 38px;
+    padding: 0 12px 0 8px;
+    border-radius: 11px;
+    border: 0;
+    background: var(--inst-il-tline-bg);
+    color: var(--inst-il-tgl-c);
+    font-weight: 800;
+    font-size: 12.5px;
+    cursor: pointer;
+    font-family: inherit;
+    box-shadow: inset 0 0 0 1px var(--inst-il-nvr-sh);
+  }
+  & .tgl i {
+    width: 30px;
+    height: 18px;
+    border-radius: 999px;
+    background: var(--inst-meter-idle);
+    position: relative;
+    transition: background 0.2s;
+    flex: none;
+  }
+  & .tgl i:after {
+    content: '';
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--inst-il-tgl-c);
+    transition: transform 0.2s;
+  }
+  & .tgl.on {
+    color: var(--inst-plan-white);
+    box-shadow: inset 0 0 0 1px var(--inst-plan-send-to);
+  }
+  & .tgl.on i {
+    background: var(--inst-plan-send-to);
+  }
+  & .tgl.on i:after {
+    transform: translateX(12px);
+    background: var(--inst-band-button-ink);
+  }
+  & .nvrtools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 12px 16px;
+    border-top: 1px solid var(--inst-il-nvrh-bord);
+    align-items: center;
+  }
+  & .cam svg.cs {
+    transition: filter 0.5s;
+  }
+  & .cs.ir {
+    filter: grayscale(1) contrast(1.2) brightness(1.15);
+  }
+  & .cs .sky {
+    transition: fill 0.5s;
+  }
+  & .cs.day .sky {
+    fill: var(--il-day-sky);
+  }
+  & .cs.ir .sky,
+  & .cs.col .sky {
+    fill: var(--inst-hue-ink);
+  }
+  & .cs.day .gr {
+    fill: var(--il-day-grass);
+  }
+  & .cs.ir .gr,
+  & .cs.col .gr {
+    fill: var(--il-night-grass);
+  }
+  & .cs.day .pv {
+    fill: var(--il-day-pave);
+  }
+  & .cs.ir .pv,
+  & .cs.col .pv {
+    fill: var(--il-night-pave);
+  }
+  & .cs.day .wl {
+    fill: var(--il-day-wall);
+  }
+  & .cs.ir .wl,
+  & .cs.col .wl {
+    fill: var(--il-night-wall);
+  }
+  & .cs.day .wd {
+    fill: var(--il-day-wood);
+  }
+  & .cs.ir .wd,
+  & .cs.col .wd {
+    fill: var(--il-night-wood);
+  }
+  & .cs .lw {
+    fill: var(--il-window);
+  }
+  & .cs.ir .lw,
+  & .cs.col .lw {
+    fill: var(--il-lit);
+  }
+  & .cs .snow {
+    fill: var(--il-snow);
+  }
+  & .cs.ir .snow,
+  & .cs.col .snow {
+    fill: var(--il-night-snow);
+  }
+  & .cs .warm {
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+  & .cs.col .warm {
+    opacity: 0.55;
+  }
+  & .cs .ln {
+    stroke: var(--il-snow);
+    stroke-width: 2;
+  }
+  & .cs .car1 {
+    fill: var(--il-red);
+  }
+  & .cs .car2 {
+    fill: var(--il-blue);
+  }
+  & .cs .car3 {
+    fill: var(--il-silver);
+  }
+  & .cs .car4 {
+    fill: var(--il-green-car);
+  }
+  & .cs.ir .car1,
+  & .cs.ir .car2 {
+    fill: var(--il-ir-car);
+  }
+  & .dbox {
+    fill: none;
+    stroke: var(--inst-promo-warm);
+    stroke-width: 2;
+  }
+  & .dbox.car {
+    stroke: var(--inst-plan-accent);
+  }
+  & .dbox.fa {
+    stroke: var(--inst-il-nvrh-c);
+    stroke-dasharray: 5 3;
+  }
+  & .dlab {
+    font-family: var(--font-sans);
+    font-weight: 800;
+    font-size: 10px;
+  }
+  & .dlbg {
+    fill: var(--inst-promo-warm);
+  }
+  & .dlbg.car {
+    fill: var(--inst-plan-accent);
+  }
+  & .dlbg.fa {
+    fill: var(--inst-il-nvrh-c);
+  }
+  & .walkp {
+    animation: inst-mon-wkx 9s ease-in-out infinite;
+  }
+  & .carm {
+    animation: inst-mon-carx 12s ease-in-out infinite;
+  }
+  & .sway {
+    animation: inst-mon-sway 2.4s ease-in-out infinite;
+    transform-origin: 50% 100%;
+    transform-box: fill-box;
+  }
+  & .strobe {
+    animation: inst-mon-strobe 0.7s steps(2) infinite;
+  }
+  & .pmask {
+    fill: var(--il-mask);
+    stroke: var(--inst-promo-warm);
+    stroke-width: 1.5;
+    stroke-dasharray: 5 3;
+  }
+  & .pmask.day {
+    fill: var(--il-mask-day);
+  }
+  & .tlev {
+    position: absolute;
+    top: 4px;
+    bottom: 4px;
+    width: 22px;
+    margin-left: -11px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    font-weight: 900;
+    color: var(--inst-band-button-ink);
+  }
+  & .tlev.p {
+    background: var(--inst-promo-warm);
+  }
+  & .tlev.c {
+    background: var(--inst-plan-accent);
+  }
+  & .tlev.f {
+    background: var(--il-false);
+  }
+  & .tlx {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10.5px;
+    color: var(--inst-scene-beam);
+    font-weight: 700;
+    margin-top: 6px;
+  }
+  & .calc {
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  & .cq {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+  & .cq > span {
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+  & .cres {
+    border-radius: 20px;
+    padding: 22px;
+    background: var(--inst-plan-card);
+    color: var(--inst-deep-ink);
+    box-shadow: inset 0 0 0 1px var(--inst-band-line);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  & .cres .big {
+    font-family: var(--font-display);
+    font-stretch: 118%;
+    font-weight: 900;
+    font-size: 56px;
+    line-height: 1;
+    color: var(--inst-plan-accent);
+  }
+  & .cres .big small {
+    font-size: 20px;
+    color: var(--inst-deep-lead-2);
+    margin-left: 6px;
+  }
+  & .cres p {
+    margin: 0;
+    color: var(--inst-deep-lead-2);
+    font-size: 14.5px;
+  }
+  & .rng {
+    width: 100%;
+    accent-color: var(--accent);
+    height: 28px;
+  }
+  & .dori {
+    position: relative;
+    height: 150px;
+    border-radius: 16px;
+    background: linear-gradient(
+      90deg,
+      var(--inst-il-dori-bg),
+      var(--inst-il-dori-bg-2) 35%,
+      var(--inst-mux-old-bg) 65%,
+      var(--inst-il-dori-bg-3)
+    );
+    overflow: hidden;
+    box-shadow: inset 0 0 0 1px var(--inst-plan-line);
+  }
+  & .dori .z {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    border-right: 1px dashed var(--inst-plan-box);
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--inst-plan-card-ink);
+    padding: 8px;
+  }
+  & .dori .man {
+    position: absolute;
+    bottom: 14px;
+    transition:
+      left 0.4s ease,
+      transform 0.4s ease;
+    transform-origin: bottom center;
+  }
+  & .dori .cam0 {
+    position: absolute;
+    left: 6px;
+    bottom: 52px;
+  }
+  & .lvl {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  & .lvl span {
+    padding: 6px 10px;
+    border-radius: 9px;
+    font-size: 12.5px;
+    font-weight: 800;
+    background: var(--inst-us-stage-ring);
+    color: var(--inst-plan-note);
+  }
+  & .lvl span.on {
+    background: var(--inst-plan-send-to);
+    color: var(--inst-band-button-ink);
+  }
+  & .rodo {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 340px;
+    gap: 18px;
+  }
+  & .rz {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  & .rz ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+  & .rz li {
+    display: flex;
+    gap: 10px;
+    font-size: 15px;
+    align-items: flex-start;
+  }
+  & .rz li i {
+    flex: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 7px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  & .rz.ok li i {
+    background: var(--inst-mux-ok-bg);
+    color: var(--ok);
+  }
+  & .rz.nn li i {
+    background: var(--inst-plan-err-bg);
+    color: var(--inst-plan-err);
+  }
+  & .sign {
+    border-radius: 18px;
+    background: var(--inst-il-sign-bg);
+    color: var(--inst-il-sign-c);
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow: var(--shadow);
+    font-size: 13px;
+    line-height: 1.4;
+  }
+  & .sign b {
+    font-family: var(--font-display);
+    font-stretch: 118%;
+    font-size: 22px;
+    line-height: 1.05;
+  }
+  & .sign .sgi {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    background: var(--inst-il-sign-c);
+    color: var(--inst-il-sign-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  & .sign span b {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-stretch: 100%;
+  }
+  & .sign hr {
+    border: 0;
+    border-top: 1.5px solid var(--inst-il-sign-bord);
+    margin: 2px 0;
+    width: 100%;
+  }
+  & .typw {
+    display: grid;
+    grid-template-columns: 300px minmax(0, 1fr);
+    gap: 22px;
+    align-items: stretch;
+  }
+  & .typl {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  & .typb {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding: 14px 16px;
+    border-radius: 16px;
+    border: 0;
+    background: var(--card);
+    box-shadow: inset 0 0 0 1px var(--border);
+    cursor: pointer;
+    color: var(--ink);
+    font-family: inherit;
+    font-weight: 800;
+    font-size: 15px;
+    text-align: left;
+    min-height: 44px;
+  }
+  & .typb.on {
+    background: var(--accent-soft);
+    box-shadow: inset 0 0 0 1.5px var(--accent);
+  }
+  & .typc {
+    padding: 30px;
+    display: grid;
+    grid-template-columns: 260px minmax(0, 1fr);
+    gap: 28px;
+    align-items: center;
+    animation: inst-mon-fadein 0.35s ease;
+  }
+  & .typc svg {
+    width: 100%;
+    height: auto;
+  }
+  & .dev .b1 {
+    fill: var(--card-2);
+    stroke: var(--ink-soft);
+    stroke-width: 2.5;
+  }
+  & .dev .b2 {
+    fill: var(--surface-3);
+    stroke: var(--ink-soft);
+    stroke-width: 2.5;
+  }
+  & .dev .lens {
+    fill: var(--inst-il-nvr-bg);
+    stroke: var(--accent-text);
+    stroke-width: 3;
+  }
+  & .dev .ir {
+    fill: var(--warn);
+  }
+  @media (max-width: 1100px) {
+    & .rodo {
+      grid-template-columns: 1fr 1fr;
+    }
+    & .rodo .sign {
+      grid-column: 1/-1;
+    }
+    & .typw {
+      grid-template-columns: 1fr;
+    }
+    & .typl {
+      flex-direction: row;
+      overflow-x: auto;
+    }
+    & .typb {
+      flex: none;
+    }
+  }
+  @media (max-width: 760px) {
+    & .cam .ct2 {
+      display: none;
+    }
+    & .cam .cl {
+      font-size: 10px;
+      left: 5px;
+      top: 5px;
+    }
+    & .rodo {
+      grid-template-columns: 1fr;
+    }
+    & .typc {
+      grid-template-columns: 1fr;
+      padding: 22px;
+    }
+    & .typc svg {
+      max-width: 220px;
+      margin: 0 auto;
+    }
+    & .calc {
+      padding: 20px;
+    }
+    & .cres .big {
+      font-size: 44px;
+    }
+    & .nvrtools {
+      padding: 10px 12px;
+    }
+  }
+  & .fo {
+    overflow: visible;
+  }
+  & .fo .fot {
+    font-family: var(--font-sans);
+    font-weight: 800;
+    font-size: 11px;
+    line-height: 1.2;
+    white-space: nowrap;
+    color: var(--ink-2);
+  }
+  & .fot.big {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 16px;
+    color: var(--ink);
+  }
+  & .syw {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 360px;
+    gap: 18px;
+    align-items: start;
+  }
+  & .sycard {
+    padding: 20px;
+    border-radius: 28px;
+  }
+  & .syscroll {
+    overflow-x: auto;
+    border-radius: 20px;
+    background: var(--surface-2);
+    box-shadow: inset 0 0 0 1px var(--border);
+  }
+  & .syin {
+    min-width: 680px;
+  }
+  & .sysvg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  & .syhint {
+    display: none;
+    font-size: 12.5px;
+    color: var(--ink-2);
+    margin-top: 6px;
+  }
+  & .syzone {
+    fill: none;
+    stroke: var(--border);
+    stroke-width: 1.5;
+    stroke-dasharray: 6 6;
+  }
+  & .syzone.t {
+    stroke-dasharray: 2 6;
+  }
+  & .syzl {
+    color: var(--ink-2);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  & .syt {
+    color: var(--ink);
+    font-size: 13px;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+  & .sym {
+    color: var(--ink-2);
+    font-size: 11.5px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  & .syb {
+    fill: var(--card);
+    stroke: var(--border);
+    stroke-width: 2;
+  }
+  & .sya {
+    fill: var(--accent);
+  }
+  & .sys {
+    fill: none;
+    stroke: var(--ink-2);
+    stroke-width: 3;
+    stroke-linecap: round;
+  }
+  & .syw {
+    fill: none;
+    stroke: var(--warn);
+    stroke-width: 2.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  & .sycab {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-dasharray: 7 9;
+    animation: inst-mon-march 1.3s linear infinite;
+    opacity: 0.75;
+  }
+  & .sycab.net {
+    stroke: var(--ok);
+  }
+  & .syfib {
+    fill: none;
+    stroke: var(--warn);
+    stroke-width: 3;
+    stroke-dasharray: 10 6;
+    animation: inst-mon-march 1s linear infinite;
+  }
+  & .syrad {
+    fill: none;
+    stroke: var(--warn);
+    stroke-width: 2.4;
+    stroke-linecap: round;
+    opacity: 0.8;
+  }
+  & .syrack {
+    fill: none;
+    stroke: var(--accent-line);
+    stroke-width: 2;
+    stroke-dasharray: 3 5;
+  }
+  & .syports rect {
+    fill: var(--ok);
+    opacity: 0.7;
+  }
+  & .syled {
+    fill: var(--ok);
+    animation: inst-mon-ublk 1.2s steps(2) infinite;
+  }
+  & .syd {
+    fill: var(--surface-3);
+    stroke: var(--border);
+    stroke-width: 1.5;
+    transition: fill 0.4s;
+  }
+  & .syd.on {
+    fill: var(--accent);
+    fill-opacity: 0.85;
+  }
+  & .syups {
+    fill: none;
+    stroke: var(--ink-2);
+    stroke-width: 2;
+  }
+  & .syupsf {
+    fill: var(--ok);
+    width: 40px;
+    animation: inst-mon-umeter 3s ease-in-out infinite;
+    transform-box: fill-box;
+    transform-origin: left;
+  }
+  & .syvlan {
+    fill: var(--accent-soft);
+    stroke: var(--accent);
+    stroke-width: 1.2;
+  }
+  & .syvt {
+    color: var(--accent-text);
+    font-size: 11px;
+    font-weight: 900;
+    text-align: center;
+    width: 84px;
+  }
+  & .syph {
+    fill: var(--inst-il-syph-fill);
+    stroke: var(--border);
+    stroke-width: 2;
+  }
+  & .syscr {
+    fill: var(--inst-il-syscr-fill);
+  }
+  & .synote {
+    fill: var(--inst-il-synote-fill);
+  }
+  & .synote.o {
+    opacity: 0.6;
+  }
+  & .sylp {
+    fill: var(--inst-deep-ink);
+    stroke: var(--inst-il-sl-conf-c);
+    stroke-width: 1.5;
+  }
+  & .sye {
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      opacity 0.5s ease,
+      transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transform-box: fill-box;
+    transform-origin: center;
+    transform: scale(0.92);
+  }
+  & .sye.on {
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+  }
+  & .sye.on:hover .syb,
+  & .sye.sel .syb {
+    stroke: var(--accent);
+    stroke-width: 3;
+  }
+  & .sye.sel .syrack {
+    stroke: var(--accent);
+  }
+  & .syc {
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  & .syc.on {
+    opacity: 1;
+  }
+  & .systat {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 12px;
+  }
+  & .systat div {
+    padding: 12px;
+    border-radius: 14px;
+    background: var(--surface-2);
+    box-shadow: inset 0 0 0 1px var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  & .systat span {
+    font-size: 11.5px;
+    font-weight: 800;
+    color: var(--ink-2);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  & .systat b {
+    font-family: var(--font-display);
+    font-stretch: 112%;
+    font-size: 19px;
+    font-weight: 900;
+  }
+  & .sypanel {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    position: sticky;
+    top: 96px;
+  }
+  & .syinfo {
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    animation: inst-mon-fadeUp 0.4s ease;
+  }
+  & .syinfo p {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 15px;
+    line-height: 1.55;
+  }
+  & .syspec {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 12px 14px;
+    border-radius: 14px;
+    background: var(--accent-soft);
+  }
+  & .syspec span {
+    font-size: 11.5px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent-text);
+  }
+  & .syspec b {
+    font-size: 15px;
+  }
+  & .syli {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    text-align: left;
+    border: 0;
+    background: transparent;
+    color: var(--ink);
+    padding: 8px;
+    border-radius: 12px;
+    cursor: pointer;
+    font: inherit;
+    transition: background 0.2s;
+  }
+  @media (hover: hover) {
+    & .syli:hover {
+      background: var(--surface-3);
+    }
+  }
+  & .syli.on {
+    background: var(--accent-soft);
+  }
+  & .syli i {
+    flex: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 9px;
+    display: grid;
+    place-items: center;
+    background: var(--surface-3);
+    color: var(--accent-text);
+  }
+  & .syli b {
+    display: block;
+    font-size: 14px;
+  }
+  & .syli span span {
+    font-size: 12.5px;
+    color: var(--ink-2);
+    line-height: 1.35;
+  }
+  @media (max-width: 1100px) {
+    & .syw {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    & .sypanel {
+      position: static;
+    }
+    & .systat {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 760px) {
+    & .sycard {
+      padding: 14px;
+    }
+    & .syhint {
+      display: block;
+    }
+    & .systat {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    & .systat div:last-child {
+      grid-column: 1 / -1;
+    }
+  }
+  @media (max-width: 760px) {
+    & #ile-glosnikow .calc {
+      grid-template-columns: minmax(0, 1fr) !important;
+    }
+  }
+  & .sycard .illbar {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  & .sycard .seg {
+    max-width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  & .sycard .seg button {
+    flex: none;
+  }
+  & .sysvg .syb {
+    filter: url(#fSh);
+  }
+  & .syb {
+    fill: url(#gDarkUi);
+  }
+  & div.syw {
+    align-items: stretch;
+    fill: initial;
+    stroke: none;
+  }
+  & .sypanel {
+    position: static;
+    top: auto;
+  }
+  & .syinfo {
+    flex: 1;
+  }
+  & .synav {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+  }
+  & .synav span {
+    font-size: 13.5px;
+    color: var(--ink-2);
+  }
+  & .synav b {
+    color: var(--ink);
+    font-family: var(--font-display);
+  }
+  & .synav button {
+    width: 44px;
+    height: 40px;
+    border-radius: 12px;
+    border: 0;
+    background: var(--surface-3);
+    color: var(--ink);
+    font: 900 17px var(--font-sans);
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  @media (hover: hover) {
+    & .synav button:hover {
+      background: var(--accent);
+      color: var(--accent-ink);
+    }
+  }
+  & .sylist2 {
+    margin-top: 18px;
+    padding: 20px 22px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  & .sylh {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  & .sylh b {
+    font-size: 17px;
+  }
+  & .sylh span {
+    font-size: 13px;
+    color: var(--ink-2);
+  }
+  & .sylg {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+  }
+  & .sylg .syli {
+    position: relative;
+    padding: 12px;
+    border-radius: 14px;
+    background: var(--surface-2);
+    box-shadow: inset 0 0 0 1px var(--border);
+    min-height: 76px;
+  }
+  @media (hover: hover) {
+    & .sylg .syli:hover {
+      background: var(--surface-3);
+    }
+  }
+  & .sylg .syli.on {
+    background: var(--accent-soft);
+    box-shadow: inset 0 0 0 1.5px var(--accent-line);
+  }
+  & .sylg .syli em {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    font: 900 11px var(--font-display);
+    font-style: normal;
+    color: var(--ink-2);
+    opacity: 0.6;
+  }
+  & .sylg .syli > span {
+    padding-right: 18px;
+  }
+  @media (max-width: 1100px) {
+    & .sylg {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 760px) {
+    & .sylist2 {
+      padding: 16px;
+    }
+    & .sylg {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 6px;
+    }
+    & .sylg .syli {
+      min-height: 0;
+      padding: 10px;
+    }
+  }
+  & .sydots {
+    margin-top: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  & .sydots .syli {
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 11px;
+    background: var(--surface-3);
+    color: var(--ink-2);
+  }
+  @media (hover: hover) {
+    & .sydots .syli:hover {
+      color: var(--ink);
+    }
+  }
+  & .sydots .syli.on {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+  & .sydots + .synav {
+    margin-top: 0;
+  }
+  & .sycta {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    padding: 12px 14px;
+    border-radius: 14px;
+    background: var(--accent);
+    color: var(--accent-ink);
+    text-decoration: none;
+    min-height: 76px;
+    transition: transform 0.2s;
+  }
+  @media (hover: hover) {
+    & .sycta:hover {
+      transform: translateY(-2px);
+    }
+  }
+  & .sycta b {
+    font-size: 14.5px;
+  }
+  & .sycta span {
+    font-size: 12.5px;
+    opacity: 0.85;
+  }
+  @media (max-width: 760px) {
+    & .sylg {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    & .sylg .syli > span > span,
+    & .sylg .syli em {
+      display: none;
+    }
+    & .sylg .syli b {
+      font-size: 13px;
+      line-height: 1.3;
+    }
+    & .sylg .syli i {
+      width: 26px;
+      height: 26px;
+    }
+    & .sycta {
+      grid-column: 1/-1;
+      min-height: 0;
+    }
+    & .sylh span {
+      display: none;
+    }
+  }
+  & .axl {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  & .axl li {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    font-size: 14.5px;
+    line-height: 1.45;
+  }
+  & .axok {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 20px;
+    height: 20px;
+    margin-top: 1px;
+    border-radius: 50%;
+    color: var(--inst-plan-white);
+    background: var(--ok);
+  }
+  & .bmg {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+  }
+  & .bmc {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 24px;
+  }
+  & .bmh {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  & .bmd {
+    margin-top: 18px;
+    padding: 22px;
+    border-radius: 24px;
+    background: var(--surface-2);
+    box-shadow: inset 0 0 0 1px var(--border);
+  }
+  & .bmdg {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 12px;
+  }
+  & .bmdc {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  & .bmdc b {
+    font-size: 15px;
+  }
+  & .bmdc p {
+    font-size: 13.5px;
+    line-height: 1.5;
+    margin: 4px 0 0;
+    color: var(--ink-2);
+  }
+  @media (max-width: 1100px) {
+    & .bmg,
+    & .bmdg {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 760px) {
+    & .bmg {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      margin: 0 -16px;
+      padding: 4px 16px 12px;
+      scrollbar-width: none;
+    }
+    & .bmg::-webkit-scrollbar {
+      display: none;
+    }
+    /* The prototype has no box-sizing reset: 82% plus the padding (ADR-I003 §5 p. 6). */
+    & .bmc {
+      flex: none;
+      box-sizing: content-box;
+      width: 82%;
+      scroll-snap-align: start;
+    }
+    & .bmdg {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    & .bmd {
+      padding: 18px;
+    }
+  }
+  & .cq > span .xb-nu {
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 800;
+    color: inherit;
+  }
+  & .bmg.xb-bmg3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  @media (max-width: 760px) {
+    & .bmg.xb-bmg3 {
+      display: flex;
+    }
+  }
+  & .sye:focus {
+    outline: none;
+  }
+  & .sye:focus-visible {
+    outline: 2px solid var(--accent-line, var(--inst-plan-send-to));
+    outline-offset: 3px;
+  }
+  & .xb-lnk {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    font-weight: 700;
+  }
+
+  /* The recorder's note (pk.css `.nvrnote`; the Anteny meter has its own under `.ill`). */
+  & .nvr .nvrnote {
+    font-size: 12px;
+    color: var(--inst-plan-note);
+    padding: 0 16px 14px;
+  }
+
+  /* Inline styles of `Monitoring.body.html` as classes. */
+  & .nvrtools.nvrtop {
+    border-top: 0;
+    border-bottom: 1px solid var(--inst-il-nvrh-bord);
+  }
+  & .tlx.tlkey {
+    margin: 0 0 8px;
+    justify-content: flex-start;
+    gap: 14px;
+  }
+  & .cres-eye {
+    color: var(--inst-plan-accent);
+  }
+  & .evbar.cres-bar {
+    background: var(--inst-plan-line);
+  }
+  & .note.cres-note {
+    background: var(--inst-foot-glow);
+    color: var(--inst-plan-card-ink);
+  }
+}
+
+@keyframes inst-mon-fadein {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes inst-mon-blink {
+  0%,
+  60% {
+    opacity: 1;
+  }
+  61%,
+  100% {
+    opacity: 0.15;
+  }
+}
+
+@keyframes inst-mon-march {
+  to {
+    stroke-dashoffset: -22;
+  }
+}
+
+@keyframes inst-mon-scan {
+  from {
+    left: 0;
+  }
+  to {
+    left: 100%;
+  }
+}
+
+@keyframes inst-mon-wkx {
+  0% {
+    transform: translateX(0);
+  }
+  45%,
+  55% {
+    transform: translateX(120px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes inst-mon-carx {
+  0%,
+  10% {
+    transform: translateX(-140px);
+  }
+  45%,
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes inst-mon-sway {
+  0%,
+  100% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+}
+
+@keyframes inst-mon-strobe {
+  0% {
+    fill: var(--il-false);
+  }
+  100% {
+    fill: var(--il-strobe);
+  }
+}
+
+@keyframes inst-mon-ublk {
+  50% {
+    opacity: 0.25;
+  }
+}
+
+@keyframes inst-mon-umeter {
+  0% {
+    transform: scaleX(0.1);
+  }
+  60%,
+  100% {
+    transform: scaleX(0.92);
+  }
+}
+
+@keyframes inst-mon-fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Phone: touch targets of at least 44 px (MOBILE-APLIKACJA §10; prototype 34–38 px), like the
+   hero's time-of-day buttons in I5. */
+@media (max-width: 760px) {
+  [data-line='instalacje'] {
+    & .segd button,
+    & .nvr .tgl {
+      min-height: 44px;
+    }
+    & .sydots .syli {
+      width: 44px;
+      height: 44px;
+    }
+  }
+}
+
+/* Reduced motion (spec §5): scenes, timeline and diagram stand still; the widgets' JS pauses
+   on its own (`useInterval`). */
+@media (prefers-reduced-motion: reduce) {
+  [data-line='instalacje'] {
+    & .nvrh .rec:before,
+    & .tline b,
+    & .walkp,
+    & .carm,
+    & .sway,
+    & .strobe,
+    & .typc,
+    & .sycab,
+    & .syfib,
+    & .syled,
+    & .syupsf,
+    & .syinfo {
+      animation: none;
+    }
+  }
+}
