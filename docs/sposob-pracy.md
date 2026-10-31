@@ -131,8 +131,8 @@ Wszystko robi `scripts/setup-komputera.ps1` (można uruchamiać wielokrotnie —
 7. **Narzędzia zamrożone do 26.10:** nowe pomysły na narzędzia i automaty → „Pomysły na później”. Najpierw dowozimy strony.
 
 ## Bezpieczeństwo
-- Konto GitHub i menedżer haseł z 2FA. **Kody odzyskiwania 2FA** (GitHub, rejestrator domen, Seohost, menedżer haseł) zapisane w menedżerze haseł — zgubiony telefon nie może oznaczać utraty konta.
-- Domeny i konta dostawców (rejestrator, Seohost) na dane i e-mail firmy, nie prywatne — `docs/dns.md`.
+- Konto GitHub i menedżer haseł z 2FA. **Kody odzyskiwania 2FA** (GitHub, rejestrator domen — Seohost, VPS — webh.pl, menedżer haseł) zapisane w menedżerze haseł — zgubiony telefon nie może oznaczać utraty konta.
+- Domeny i konta dostawców (rejestrator Seohost, VPS webh.pl) na dane i e-mail firmy, nie prywatne — `docs/dns.md`.
 - Komputer: szyfrowanie dysku (BitLocker / szyfrowanie urządzenia), hasło do konta Windows, blokada ekranu.
 - `.env` nigdy w gicie (pilnuje `.gitignore`, gitleaks w haku przed commitem i w CI); wartości przenoszę tylko przez menedżer haseł.
 - Na komputery nie ściągamy kopii baz produkcyjnych ani danych klientów — praca na `pnpm seed` i stagingu.

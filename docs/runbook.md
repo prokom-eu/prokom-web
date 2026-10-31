@@ -8,7 +8,7 @@ Co robić krok po kroku przy wdrożeniu, cofnięciu, odtworzeniu z kopii i awari
 |---|---|---|
 | Stos produkcji | projekt `prokom-prod`: `docker/compose.prod.yml`, zmienne `.env.prod` | kontenery `prokom-prod-app-1`, `prokom-prod-postgres-1` |
 | Stos stagingu | projekt `prokom-staging`: `compose.prod.yml` + `compose.staging.yml`, zmienne `.env.staging` | baza `prokom_staging` |
-| Nginx + certbot | projekt `prokom-proxy`: `docker/compose.proxy.yml`, zmienne `.env.proxy` | jedyny z portami 80/443 |
+| Nginx + certbot | projekt `prokom-proxy`: `docker/compose.proxy.yml` (staging) + `compose.proxy.prod.yml` (domeny produkcji, od startu produkcji), zmienne `.env.proxy` | jedyny z portami 80/443 |
 | Kopie | `scripts/backup.sh`, `scripts/restore.sh`, zmienne `.env.backup` | lokalnie `../backups/`, poza serwerem `RCLONE_REMOTE` |
 | Sekrety | `.env.*` w repo (poza Gitem), plik hasła stagingu `../secrets/` | wartości w menedżerze haseł |
 | Klucz prywatny `age` | **tylko** menedżer haseł („prokom-web backup age”) | na serwerze jest tylko klucz publiczny |
@@ -21,13 +21,35 @@ staging="docker compose --env-file .env.staging -f docker/compose.prod.yml -f do
 
 ## 1. Jednorazowo na serwerze (S10)
 
-1. `docker login ghcr.io -u <konto GitHub>` z tokenem **tylko** `read:packages` (osobny token, nie główny; w menedżerze haseł). Pakiet w GHCR jest prywatny.
-2. `docker network create prokom-proxy`, plik hasła stagingu i pierwsze certyfikaty — `docs/wdrozenia.md` → „Nginx i staging”.
-3. Kopie:
-   - `sudo apt install age rclone`;
-   - `rclone config` — cel poza serwerem (`TODO(S10)`: dostawca inny niż Seohost, ADR-002), nazwa np. `offsite`;
+Serwer: VPS webh.pl, Ubuntu 24.04 (ADR-019). Strefa czasu serwera zostaje **UTC** — godziny w cronie niżej są w UTC. Katalogi: repo w `/srv/prokom/prokom-web`, obok `../backups` i `../secrets` (ścieżki względne w skryptach i `.env.*` wskazują tam). `<admin>` = Twój użytkownik z kroku 1.
+
+0. **Konta:** panel webh.pl i Seohost na firmę, 2FA, hasła i kody w menedżerze haseł („VPS — webh.pl”, „Rejestrator domen — Seohost”). IP serwera wpisz w `docs/dns.md` (PR).
+1. **Utwardzenie** — z komputera, klucz SSH już na koncie root (z panelu webh.pl albo `ssh-copy-id root@<IP>`):
+   ```bash
+   scp scripts/server/bootstrap.sh root@<IP>:/root/
+   ssh root@<IP>
+   bash /root/bootstrap.sh <admin>
+   ```
+   Skrypt: aktualizacja, użytkownik `<admin>` (sudo, docker, klucz skopiowany z roota, pyta o hasło do sudo), `ufw` (22, 80, 443), `fail2ban`, automatyczne poprawki bezpieczeństwa (bez automatycznego restartu), swap 4 GB, Docker z oficjalnego repozytorium, rotacja logów. **Nie zamykaj sesji roota.** W drugim oknie: `ssh <admin>@<IP>`, `sudo -v`, `docker run --rm hello-world`. Dopiero gdy działa — w oknie roota `bash /root/bootstrap.sh --lock-ssh <admin>` (tylko klucze, bez roota). Sprawdzenie z nowego okna: `ssh root@<IP>` odrzucone.
+   **Gdy odetniesz się od SSH:** konsola (VNC) w panelu webh.pl → logowanie jako `<admin>` hasłem do sudo → `sudo rm /etc/ssh/sshd_config.d/10-prokom.conf && sudo systemctl reload ssh`. Przed fazą `--lock-ssh` sprawdź, że ta konsola w ogóle działa. Opcjonalnie `F2B_IGNOREIP="<IP biura>" bash /root/bootstrap.sh <admin>` — fail2ban nie zablokuje Twojego adresu.
+   Restart po aktualizacji jądra robisz sam (komunikat `*** System restart required ***` przy logowaniu), poza godzinami kopii.
+2. **Repo** (prywatne): na serwerze `ssh-keygen -t ed25519 -f ~/.ssh/prokom-web-deploy -N ''`, klucz publiczny jako **Deploy key tylko do odczytu** w ustawieniach repo na GitHubie, potem:
+   ```bash
+   sudo install -d -o <admin> -g <admin> /srv/prokom /srv/prokom/backups
+   install -d -m 700 /srv/prokom/secrets
+   GIT_SSH_COMMAND='ssh -i ~/.ssh/prokom-web-deploy' git clone git@github.com:prokom-eu/prokom-web.git /srv/prokom/prokom-web
+   git -C /srv/prokom/prokom-web config core.sshCommand 'ssh -i ~/.ssh/prokom-web-deploy'
+   ```
+   Przy pierwszym połączeniu porównaj odcisk klucza hosta `github.com` z listą w dokumentacji GitHuba („GitHub's SSH key fingerprints”).
+3. **Zmienne:** `.env.staging`, `.env.proxy` (później `.env.prod`, `.env.backup`) w katalogu repo wg `.env.example`, `chmod 600 .env.*`. Wartości z menedżera haseł — nie przez czat ani repo. Na start w `.env.proxy` tylko zmienne stagingu (`PROD_*` czyta dopiero nakładka produkcji).
+4. **GHCR:** `docker login ghcr.io -u <konto GitHub>` z tokenem **tylko** `read:packages` (osobny token, nie główny; w menedżerze haseł). Pakiet w GHCR jest prywatny.
+5. **DNS:** rekordy `staging` i panelu stagingu wg `docs/dns.md` (najpierw PR, potem panel Seohost). Sprawdzenie: `Resolve-DnsName staging.prokombiznes.pl -Type A` = IP serwera — dopiero wtedy certyfikaty.
+6. `docker network create prokom-proxy`, plik hasła stagingu (`chmod 644` — Nginx w kontenerze czyta go jako inny użytkownik; hasło jest w nim zahaszowane) i certyfikat **tylko stagingu** (`prokom-staging`), Nginx bez nakładki produkcji — `docs/wdrozenia.md` → „Nginx i staging”. Domeny produkcji (rekordy `@`, panel, certyfikat `prokom-prod`) dochodzą przy pierwszym wdrożeniu produkcji (§3).
+7. Staging — §2.
+8. Kopie:
+   - `age` i `rclone` instaluje już `bootstrap.sh`;
+   - `rclone config` — cel poza serwerem (`TODO(krystian)`: dostawca inny niż serwer — ADR-019), nazwa np. `offsite`;
    - `.env.backup` wg `.env.example` (sekcja „Backup”): `AGE_RECIPIENT` = klucz publiczny z `age-keygen` (klucz prywatny od razu do menedżera haseł i usunąć z serwera), `RCLONE_REMOTE=offsite:prokom-backups`;
-   - `mkdir -p ../backups` (cron zapisuje log tam, zanim skrypt cokolwiek utworzy);
    - cron (`crontab -e`), noc, poza godziną zadania retencji zapytań (03:00):
      ```
      30 2 * * * cd <repo> && scripts/backup.sh prod >> ../backups/backup.log 2>&1
@@ -47,6 +69,8 @@ staging="docker compose --env-file .env.staging -f docker/compose.prod.yml -f do
 ## 3. Wdrożenie produkcji
 
 Tylko po akceptacji szefa w Asanie i tylko obraz, który przeszedł staging (ADR-004).
+
+**Pierwsze wdrożenie produkcji (raz):** rekordy `@`, `www` i panelu produkcji wg `docs/dns.md` (PR, potem Seohost) → certyfikat `prokom-prod` (`docs/wdrozenia.md` → „Nginx i staging”, krok 3) → zmienne `PROD_*` w `.env.proxy` → Nginx z nakładką: `docker compose --env-file .env.proxy -f docker/compose.proxy.yml -f docker/compose.proxy.prod.yml up -d`. Od tej chwili proxy uruchamiasz zawsze z oboma plikami.
 1. Kopia przed wdrożeniem: `scripts/backup.sh prod predeploy` — musi się skończyć `done`.
 2. Zapisz obecny tag (punkt powrotu): `grep APP_IMAGE_TAG .env.prod`.
 3. W `.env.prod`: `APP_IMAGE_TAG=<SHA ze stagingu>`.

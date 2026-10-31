@@ -5,7 +5,7 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 ## Cel października 2026
 | Etap | Termin | Status |
 |---|---|---|
-| Fundament (S1–S9 lokalnie, S10 na serwerze) — `docs/zadania/fundament.md` | S1–S9: 15–21.10 · S10: po dostawie VPS | ⏳ S1–S9 gotowe lokalnie; S10 po zakupie VPS (19.10) |
+| Fundament (S1–S9 lokalnie, S10 na serwerze) — `docs/zadania/fundament.md` | S1–S9: 15–21.10 · S10: po dostawie VPS | ⏳ S1–S9 gotowe lokalnie; **S10 w toku** (VPS webh.pl kupiony, ADR-019) — podsekcja „Fundament S10” |
 | prokombiznes.pl — specyfikacja i wzorzec wyglądu | 17.10 | ✅ `strony/prokombiznes.md`, `design/prokombiznes/` (#28) |
 | prokombiznes.pl — wdrożenie | ~~26.10~~ → po etapie K4 (TODO(krystian): termin po decyzji szefa Biznes vs Gaming do 20.11) | ⏳ etap 1 (B0–B11) i ścieżka K3/K3.1 do K3c scalone (#142); **od 30.10 etap K4 — wersja finalna v150** (paczka + ADR-017 w PR `docs/prokombiznes-k4`), dalej 17 sesji — `zadania/prokombiznes.md` §7 |
 | prokominstalacje.pl | 29.10 | ⏳ |
@@ -15,6 +15,11 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 ## W toku
 Dwie strony powstają równolegle, każda we własnym folderze (git worktree) — `docs/sposob-pracy.md` → „Dwie strony równolegle”. Każda sesja edytuje tylko podsekcję swojej strony.
 Instalacje: stan w docs/stan/STAN-instalacje.md (worktree prokom-instal, gałęzie inst/*)
+
+### Fundament S10 — serwer — folder `prokom-web-serwer`
+- **31.10 — S10a** (gałąź `chore/s10a-serwer-dns`): VPS kupiony w **webh.pl** (4 vCPU / 16 GB / 100 GB NVMe, Ubuntu 24.04), domeny w Seohost → **ADR-019** (zastępuje część „serwer” ADR-002). `scripts/server/bootstrap.sh` (utwardzenie w 2 fazach: pakiety, użytkownik, `ufw`, `fail2ban`, poprawki, swap, Docker → po teście drugiego okna `--lock-ssh`), runbook §1 krok po kroku (repo w `/srv/prokom/prokom-web`, deploy key tylko do odczytu, UTC), `docs/dns.md` (rekordy `staging` dla 3 domen; `@`/`www` przy produkcji). Po przeglądzie (wariant b, decyzja Krystiana 31.10): Nginx produkcji jako nakładka `docker/compose.proxy.prod.yml` — `compose.proxy.yml` sam obsługuje staging i nie potrzebuje certyfikatu `prokom-prod` ani zmiennych `PROD_*` (sprawdzone `docker compose config`; uruchomienie Nginx — na serwerze). Bez kodu aplikacji.
+- **Następny krok (Krystian, na serwerze):** runbook §1 kroki 0–1 (bootstrap + `--lock-ssh`), wpisać IPv4/IPv6 VPS w `docs/dns.md`, ustawić rekordy `staging` w Seohost, kroki 2–7 (repo, `.env.*`, GHCR, certyfikaty, staging ręcznie wg §2). Potem sesja **S10b** (`chore/s10b-wdrozenie-staging`): `scripts/deploy.sh` + workflow wdrożenia stagingu po `image.yml` z automatycznym powrotem, produkcja tylko ręcznie; `bootstrap.sh` ustawia `AllowUsers <admin>` — osobny użytkownik wdrożeń z GitHub Actions musi zostać dopisany do `/etc/ssh/sshd_config.d/10-prokom.conf`. **S10c:** Lighthouse CI, Sentry (ADR — usługa zewnętrzna), monitoring dostępności + alarm braku kopii. **S10d:** SPF/DKIM/DMARC, mail-tester.
+- **Do decyzji (TODO(krystian)):** (1) panel stagingu — `panel.staging.prokombiznes.pl` czy w pro-kom.eu; czy strefa pro-kom.eu jest już w Seohost; (2) cel kopii poza serwerem (Seohost / Backblaze B2 / inny — nie webh.pl); (3) usługi Sentry i monitoringu; (4) domena nadawcy maili. **Polityka prywatności:** projekt z B11b wymienia hosting Seohost (ADR-002) — dostawca serwera to teraz webh.pl, poprawić przed akceptacją prawnika.
 
 ### prokombiznes.pl — folder `prokom-web-biznes`
 - **Budowa wg `docs/zadania/prokombiznes.md`.** **Etap 1 zbudowany:** B0–B11 (z B3c, B4c, D1, K1) scalone (#45–#100); wydajność stron #81. **Od 25.10 przed produkcją dochodzi etap K3/K3.1** (pełna oferta, zestawy, marki i salony, produkt 2.0, Plan 2.0 z filmami, GoPOS/InsERT/O firmie/Kontakt 2.0, telefon jak aplikacja) — ścieżka skrócona z `docs/design/prokombiznes/START-TUTAJ.md` §3, plan sesji z kryteriami: `docs/zadania/prokombiznes.md` §6. Paczki wgrane (#110), dokumenty — KD (ten PR).
