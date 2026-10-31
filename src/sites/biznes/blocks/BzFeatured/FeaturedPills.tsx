@@ -44,7 +44,7 @@ export function FeaturedPills({ pills, cards }: Props) {
               )}
             >
               {option.label}
-              <span className={cx('text-xs font-extrabold', on ? 'opacity-80' : 'text-ink-3')}>
+              <span className={cx('text-xs font-extrabold', on ? 'text-accent-ink' : 'text-ink-2')}>
                 {option.count}
               </span>
             </button>
