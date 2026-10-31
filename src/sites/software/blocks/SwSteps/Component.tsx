@@ -33,14 +33,14 @@ export async function SwStepsBlock({ block, tenantId }: Props) {
               {items.map((item) => (
                 <li
                   key={item.key}
-                  className="relative grid gap-1 min-[641px]:grid-cols-[120px_minmax(0,1fr)] min-[641px]:gap-x-6"
+                  className="relative grid gap-1 min-[641px]:grid-cols-[140px_minmax(0,1fr)] min-[641px]:gap-x-6"
                 >
                   <span
                     aria-hidden="true"
                     className="absolute top-1.5 -left-[33px] size-4 rounded-full border-[3px] border-accent bg-surface"
                   />
                   {item.marker ? (
-                    <span className="font-display text-xl font-extrabold text-accent-text min-[641px]:text-2xl">
+                    <span className="min-w-0 break-words font-display text-xl font-extrabold text-accent-text min-[641px]:text-2xl">
                       {item.marker}
                     </span>
                   ) : (
