@@ -192,6 +192,7 @@
   --c-instalacje-light-accent-line: #b6dde6;
   --c-instalacje-light-ok: #2e7a1e;
   --c-instalacje-light-warn: #a86a00;
+  --c-instalacje-light-bad: #b3261e;
   --c-instalacje-light-glow: rgba(0, 122, 150, 0.24);
   --c-instalacje-light-dot: rgba(18, 22, 19, 0.08);
   --c-instalacje-light-header-bg: rgba(244, 245, 241, 0.86);
@@ -214,6 +215,7 @@
   --c-instalacje-night-accent-line: #1f4e57;
   --c-instalacje-night-ok: #7bd36a;
   --c-instalacje-night-warn: #f2b84b;
+  --c-instalacje-night-bad: #f07a6a;
   --c-instalacje-night-glow: rgba(18, 182, 216, 0.36);
   --c-instalacje-night-dot: rgba(244, 245, 241, 0.07);
   --c-instalacje-night-header-bg: rgba(16, 20, 18, 0.8);
@@ -1335,6 +1337,8 @@
   --inst-il-hwin-fill: var(--c-instalacje-light-il-hwin-fill);
   --inst-il-sir-fill: var(--c-instalacje-il-sir-fill);
   --inst-il-kin-fill: var(--c-instalacje-light-il-kin-fill);
+  /* Errors and „no” on cards that follow the theme (prototype `--bad`, I8). */
+  --inst-bad: var(--c-instalacje-light-bad);
   --inst-il-klf-fill: var(--c-instalacje-il-klf-fill);
   --inst-il-klock-fill: var(--c-instalacje-il-klock-fill);
   --inst-il-kkey-bg: var(--c-instalacje-il-kkey-bg);
@@ -2328,6 +2332,7 @@
   --inst-il-hwall-fill: var(--c-instalacje-night-il-hwall-fill);
   --inst-il-hwin-fill: var(--c-instalacje-night-il-hwin-fill);
   --inst-il-kin-fill: var(--c-instalacje-night-il-kin-fill);
+  --inst-bad: var(--c-instalacje-night-bad);
   --inst-il-evs-esk: var(--c-instalacje-night-il-evs-esk);
   --inst-il-shbl-fill: var(--c-instalacje-night-il-shbl-fill);
   --inst-il-ans-ask: var(--c-instalacje-night-il-ans-ask);
@@ -2556,6 +2561,7 @@
     --inst-il-hwall-fill: var(--c-instalacje-night-il-hwall-fill);
     --inst-il-hwin-fill: var(--c-instalacje-night-il-hwin-fill);
     --inst-il-kin-fill: var(--c-instalacje-night-il-kin-fill);
+    --inst-bad: var(--c-instalacje-night-bad);
     --inst-il-evs-esk: var(--c-instalacje-night-il-evs-esk);
     --inst-il-shbl-fill: var(--c-instalacje-night-il-shbl-fill);
     --inst-il-ans-ask: var(--c-instalacje-night-il-ans-ask);
