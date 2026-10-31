@@ -8,9 +8,12 @@ import { getCatalogIndex } from '@/lib/catalog/data'
 import { OWN_BRAND_SLUG } from '@/lib/catalog/filters'
 import { partnerStatusLabel } from '@/lib/partners/badges'
 import { getHomeBrands, getPartners } from '@/lib/partners/data'
+import type { HomeBrand } from '@/lib/partners/homeBrands'
 import { plural } from '@/lib/plural'
+import type { PartnersBlock as PartnersBlockData } from '@/payload-types'
 
-/** Logos in the „Salony marek” tile (board: 11 more, then „+N”). */
+/** Tiles of the section (K35 7a) and logos in the „Salony marek” tile (board: 11, then „+N”). */
+const HOME_BRANDS = 16
 const MORE_LOGOS = 11
 
 // Logos are made for a light background: a white plate in both themes, like the old bar.
@@ -22,13 +25,36 @@ const PLATE =
  * `BiznesSettings.brands.home` with their status and count, then the tile of all brands. It
  * replaces the moving logo bar on the Biznes line (the shared Partners block keeps its place).
  */
-export async function BrandsHome({ tenantId }: { tenantId: number }) {
-  const [brands, logos, index] = await Promise.all([
+export async function BrandsHome({
+  block,
+  tenantId,
+}: {
+  block: PartnersBlockData
+  tenantId: number
+}) {
+  const [chosen, logos, index] = await Promise.all([
     getHomeBrands(tenantId),
     getPartners(tenantId),
     getCatalogIndex(tenantId),
   ])
+  // Nothing chosen in the panel yet (staging, production): the first brands with a logo, so the
+  // section — and the rail's „Marki” — never disappear.
+  const brands: HomeBrand[] =
+    chosen.length > 0
+      ? chosen
+      : logos.slice(0, HOME_BRANDS).map(({ id, name, slug, logo }) => ({
+          id,
+          name,
+          slug,
+          logo,
+          description: null,
+          status: 'none',
+        }))
   if (brands.length === 0) return null
+  const heading = block.heading?.trim() || 'Marki, które znamy od środka.'
+  const lead =
+    block.lead?.trim() ||
+    'Autoryzowany serwis Posnet i Elzab, autoryzowany partner GoPOS i InsERT oraz salony producentów — każdy z doborem modelu, porównaniem i serwisem.'
   const counts = new Map<string, number>()
   for (const product of index.products) {
     if (product.brand) counts.set(product.brand, (counts.get(product.brand) ?? 0) + 1)
@@ -47,12 +73,9 @@ export async function BrandsHome({ tenantId }: { tenantId: number }) {
         <div className="flex max-w-3xl flex-col gap-2 pb-7">
           <p className="text-xs font-black tracking-[0.08em] text-accent-text uppercase">Marki</p>
           <h2 id="marki-h" className="font-display text-3xl font-extrabold text-balance text-ink">
-            Marki, które znamy od środka.
+            {heading}
           </h2>
-          <p className="text-ink-2">
-            Autoryzowany serwis Posnet i Elzab, autoryzowany partner GoPOS i InsERT oraz salony
-            producentów — każdy z doborem modelu, porównaniem i serwisem.
-          </p>
+          <p className="text-ink-2">{lead}</p>
         </div>
         <ul className="grid gap-3 min-[560px]:grid-cols-2 min-[900px]:grid-cols-3 min-[1200px]:grid-cols-4">
           {brands.map((brand) => {
@@ -62,20 +85,23 @@ export async function BrandsHome({ tenantId }: { tenantId: number }) {
               <li key={brand.id} className="flex">
                 <Link
                   href={hrefOf(brand.slug)}
-                  aria-label={brand.name}
                   className="flex w-full flex-col gap-3 rounded-3xl bg-card p-4 shadow-[0_20px_50px_-34px_var(--glow),inset_0_0_0_1px_var(--border)] transition-shadow hover:shadow-[0_20px_50px_-34px_var(--glow),inset_0_0_0_1.5px_var(--accent-text)]"
                 >
                   {brand.logo ? (
                     <span className={PLATE}>
+                      {/* The name is the text next to it: the logo is decoration here. */}
                       <MediaImage
-                        image={brand.logo}
+                        image={{ ...brand.logo, alt: '' }}
                         sizes="160px"
                         className="max-h-10 w-auto max-w-full object-contain"
                       />
                     </span>
                   ) : (
-                    // No logo (APC, Adobe): the name on a plate of the theme.
-                    <span className="flex h-16 items-center justify-center rounded-2xl bg-surface-2 px-4 font-display text-lg font-extrabold text-ink">
+                    // No logo (APC, Adobe): the name on a plate of the theme (once for readers).
+                    <span
+                      aria-hidden="true"
+                      className="flex h-16 items-center justify-center rounded-2xl bg-surface-2 px-4 font-display text-lg font-extrabold text-ink"
+                    >
                       {brand.name}
                     </span>
                   )}

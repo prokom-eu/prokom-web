@@ -3,10 +3,11 @@ import Link from 'next/link'
 import { Container } from '@/components/ui/Container'
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
-import { countFloorPlans, getCatalogIndex } from '@/lib/catalog/data'
+import { getCatalogIndex } from '@/lib/catalog/data'
 import { OWN_BRAND_SLUG } from '@/lib/catalog/filters'
 import type { IconName } from '@/lib/catalog/options'
 import { plural } from '@/lib/plural'
+import { getSiteSettings } from '@/lib/site/data'
 
 import { AskQuoteTile } from './AskQuoteTile'
 import { TONE_ICON, type Tone } from './tones'
@@ -55,8 +56,20 @@ function TileBody({ tile }: { tile: Tile }) {
  * the counts from the database. Replaces the need tiles (`bzNeeds`) — the block stays the
  * anchor in the layout, its old fields are no longer shown.
  */
-export async function QuickStart({ tenantId }: { tenantId: number }) {
-  const [index, scenes] = await Promise.all([getCatalogIndex(tenantId), countFloorPlans(tenantId)])
+export async function QuickStart({
+  tenantId,
+  planScenes: scenes,
+}: {
+  tenantId: number
+  /** Scenes of the plan section on the page — the tile promises what `#plan` shows. */
+  planScenes: number
+}) {
+  const [index, settings] = await Promise.all([
+    getCatalogIndex(tenantId),
+    getSiteSettings(tenantId),
+  ])
+  // A promise shows only once confirmed in the panel (`SiteSettings` → „Obietnice”).
+  const callback = settings?.biznes?.promises.callbackTime?.trim()
   const total = index.products.length
   const brands = index.brands.filter((brand) => brand.slug !== OWN_BRAND_SLUG).length
   const tiles: Tile[] = [
@@ -101,7 +114,7 @@ export async function QuickStart({ tenantId }: { tenantId: number }) {
     {
       title: 'Zapytaj o wycenę',
       text: 'Napisz, czego potrzebujesz — wycenę i dobór dostaniesz na piśmie.',
-      tag: 'oddzwonimy w 60 min',
+      tag: callback ? `${callback} w godzinach pracy` : 'wycena na piśmie',
       action: 'Wyślij zapytanie',
       icon: 'chat',
       tone: 'green',

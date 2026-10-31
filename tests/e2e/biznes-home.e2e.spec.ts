@@ -93,7 +93,8 @@ test.describe('Biznes home page', () => {
     ).toBeVisible()
     const tiles = brands.locator('ul').first().locator(':scope > li > a')
     await expect(tiles).toHaveCount(16)
-    await expect(tiles.first()).toHaveAccessibleName('Posnet')
+    // The whole tile is read: name, description, status, count.
+    await expect(tiles.first()).toHaveAccessibleName(/^Posnet .*Autoryzowany serwis/)
     await expect(tiles.first()).toContainText('Autoryzowany serwis')
     await expect(tiles.first()).toContainText(/\d+ pozycj/)
     await expect(brands.getByRole('link', { name: /Wszystkie marki/ })).toBeVisible()

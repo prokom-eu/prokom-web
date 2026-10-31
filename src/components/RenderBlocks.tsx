@@ -113,7 +113,7 @@ export function RenderBlocks({ page, tenant }: Props) {
             return <ContactBlock key={key} block={block} tenantId={tenant.id} />
           case 'partners':
             return biznes ? (
-              <BrandsHome key={key} tenantId={tenant.id} />
+              <BrandsHome key={key} block={block} tenantId={tenant.id} />
             ) : (
               <PartnersBlock key={key} block={block} tenantId={tenant.id} />
             )
@@ -123,7 +123,16 @@ export function RenderBlocks({ page, tenant }: Props) {
             return <BzHeroBlock key={key} block={block} isFirst={i === 0} tenantId={tenant.id} />
           case 'bzNeeds':
             // v150 (K36 §11): the need tiles became „Szybki start” — the block keeps its place.
-            return <QuickStart key={key} tenantId={tenant.id} />
+            return (
+              <QuickStart
+                key={key}
+                tenantId={tenant.id}
+                // The scenes of the plan section on this page (`bzPlan`) until K31d′.
+                planScenes={
+                  blocks.find((other) => other.blockType === 'bzPlan')?.scenes?.length ?? 0
+                }
+              />
+            )
           case 'bzOffer':
             return <BzOfferBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzFeatured':

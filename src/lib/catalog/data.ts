@@ -361,19 +361,3 @@ export const getBundles = (tenantId: number): Promise<BundleView[]> =>
     ['bundles', String(tenantId)],
     { tags: [catalogTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
   )()
-
-/** Scenes of „Plan Twojej firmy” of the tenant (home page „Szybki start”, K36 §11). */
-export const countFloorPlans = (tenantId: number): Promise<number> =>
-  cacheQuery(
-    async () => {
-      const payload = await getPayload({ config })
-      const { totalDocs } = await payload.count({
-        collection: 'floor-plans',
-        where: { tenant: { equals: tenantId } },
-        overrideAccess: true,
-      })
-      return totalDocs
-    },
-    ['floor-plans-count', String(tenantId)],
-    { tags: [catalogTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
-  )()

@@ -46,6 +46,16 @@ export const K4_FEATURED = {
   catalogLabel: 'Cała oferta',
 }
 
+/** Texts of the brands block (`partners`) before K4 (the logo bar) and in v150 (board `#s4-marki`). */
+export const OLD_BRANDS = {
+  heading: 'Marki, które sprzedajemy, wdrażamy i serwisujemy',
+  lead: 'Najedź, żeby zatrzymać',
+}
+export const K4_BRANDS = {
+  heading: 'Marki, które znamy od środka.',
+  lead: 'Autoryzowany serwis Posnet i Elzab, autoryzowany partner GoPOS i InsERT oraz salony producentów — każdy z doborem modelu, porównaniem i serwisem.',
+}
+
 /** The hero's trust line (`SiteSettings.biznes.trustLine`) before K4 and now (K4-FINAL §1). */
 export const OLD_TRUST_LINE = 'Serwis Posnet i Elzab · partner GoPOS i InsERT'
 export const K4_TRUST_LINE =
@@ -83,6 +93,14 @@ function upgradeFeatured<T extends Block>(block: T): T {
   return next as T
 }
 
+function upgradeBrands<T extends Block>(block: T): T {
+  const next: Fields = { ...block }
+  for (const key of ['heading', 'lead'] as const) {
+    if (next[key] === OLD_BRANDS[key]) next[key] = K4_BRANDS[key]
+  }
+  return next as T
+}
+
 /**
  * The home layout in the v150 shape, or `null` when nothing changes: the hero texts, and the
  * brands (`partners`) right after the departments (`bzOffer`), as on the board.
@@ -96,10 +114,16 @@ export function upgradeHomeK4<T extends Block>(
       ? upgradeHero(block)
       : block.blockType === 'bzFeatured'
         ? upgradeFeatured(block)
-        : block,
+        : block.blockType === 'partners'
+          ? upgradeBrands(block)
+          : block,
   )
 
-  const brands = next.findIndex((block) => block.blockType === 'partners')
+  // Moved only while the block still has the old seed heading (the logo bar): an order set in
+  // the panel later stays.
+  const brands = layout.findIndex(
+    (block) => block.blockType === 'partners' && (block as Fields).heading === OLD_BRANDS.heading,
+  )
   const offer = next.findIndex((block) => block.blockType === 'bzOffer')
   if (brands !== -1 && offer !== -1 && brands < offer) {
     const moved = next[brands] as T

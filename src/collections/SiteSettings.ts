@@ -102,7 +102,10 @@ const biznesGroup: Field = {
           name: 'trustLine',
           label: 'Linia zaufania',
           type: 'text',
-          admin: { description: '[SZEF] np. „Serwis Posnet i Elzab · partner GoPOS i InsERT”.' },
+          admin: {
+            description:
+              '[SZEF] np. „Autoryzowany serwis Posnet i Elzab · Autoryzowany partner GoPOS i InsERT” (K4-FINAL §1: pełne brzmienie statusów).',
+          },
         },
       ],
     },

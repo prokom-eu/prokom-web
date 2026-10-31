@@ -5,7 +5,14 @@ import { HOME_SLUG } from '../../lib/pages/slug'
 import type { Page } from '../../payload-types'
 import type { IconName } from '../../lib/catalog/options'
 import { factsBlocks } from './homeFacts'
-import { K4_FEATURED, K4_HERO, K4_TRUST_LINE, OLD_TRUST_LINE, upgradeHomeK4 } from './homeK4'
+import {
+  K4_BRANDS,
+  K4_FEATURED,
+  K4_HERO,
+  K4_TRUST_LINE,
+  OLD_TRUST_LINE,
+  upgradeHomeK4,
+} from './homeK4'
 import { planBlocks } from './homePlan'
 import { mergeLayout } from '../layout'
 
@@ -130,11 +137,6 @@ export function biznesHomeLayout(refs: HomeRefs = NO_REFS): HomeBlock[] {
       ],
     },
     {
-      blockType: 'partners',
-      heading: 'Marki, które sprzedajemy, wdrażamy i serwisujemy',
-      lead: 'Najedź, żeby zatrzymać',
-    },
-    {
       blockType: 'bzOffer',
       eyebrow: 'Oferta',
       heading: 'Wszystko dla firmy, w pięciu działach.',
@@ -173,6 +175,12 @@ export function biznesHomeLayout(refs: HomeRefs = NO_REFS): HomeBlock[] {
           ],
         },
       ],
+    },
+    {
+      blockType: 'partners',
+      // v150 (K36 §1): the brands section after the departments.
+      heading: K4_BRANDS.heading,
+      lead: K4_BRANDS.lead,
     },
     {
       blockType: 'bzFeatured',

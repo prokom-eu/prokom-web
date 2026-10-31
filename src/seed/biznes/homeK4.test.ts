@@ -1,6 +1,14 @@
 import { describe, expect, it } from 'vitest'
 
-import { K4_FEATURED, K4_HERO, OLD_FEATURED, OLD_HERO, upgradeHomeK4 } from './homeK4'
+import {
+  K4_BRANDS,
+  K4_FEATURED,
+  K4_HERO,
+  OLD_BRANDS,
+  OLD_FEATURED,
+  OLD_HERO,
+  upgradeHomeK4,
+} from './homeK4'
 
 type Block = { blockType: string; [key: string]: unknown }
 
@@ -8,7 +16,7 @@ const oldHero: Block = { blockType: 'bzHero', ...OLD_HERO, pill: 'Rabka-Zdrój' 
 const layout: Block[] = [
   oldHero,
   { blockType: 'bzNeeds' },
-  { blockType: 'partners' },
+  { blockType: 'partners', ...OLD_BRANDS },
   { blockType: 'bzOffer' },
   { blockType: 'bzFeatured', ...OLD_FEATURED },
   { blockType: 'faq' },
@@ -36,6 +44,14 @@ describe('upgradeHomeK4 (K4c, K36 §1)', () => {
       'bzFeatured',
       'faq',
     ])
+  })
+
+  it('gives the brands block the v150 texts and keeps an order set later in the panel', () => {
+    const once = upgradeHomeK4(layout) ?? []
+    expect(once.find((block) => block.blockType === 'partners')).toMatchObject(K4_BRANDS)
+    // The editor puts the brands back before the departments: the seed leaves it.
+    const reordered = [once[0], once[3], once[1], once[2], ...once.slice(4)] as typeof once
+    expect(upgradeHomeK4(reordered)).toBeNull()
   })
 
   it('keeps what the panel changed, field by field', () => {
