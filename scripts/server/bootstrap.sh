@@ -138,10 +138,24 @@ EOF
 systemctl enable --now unattended-upgrades
 
 step "Swap $SWAP_SIZE"
-# Some images already ship a swap (e.g. /swap.img) — then keep it instead of adding a second.
-if [ -z "$(swapon --show --noheadings)" ]; then
-  [ -f /swapfile ] || { fallocate -l "$SWAP_SIZE" /swapfile; chmod 600 /swapfile; mkswap /swapfile; }
+want_bytes="$(numfmt --from=iec "$SWAP_SIZE")"
+make_swapfile() {
+  rm -f /swapfile
+  fallocate -l "$SWAP_SIZE" /swapfile
+  chmod 600 /swapfile
+  mkswap /swapfile
   swapon /swapfile
+}
+if [ -z "$(swapon --show --noheadings)" ]; then
+  make_swapfile
+elif swapon --show=NAME --noheadings | grep -qx /swapfile &&
+  [ "$(stat -c %s /swapfile)" -lt "$want_bytes" ]; then
+  # The provider's image ships a small /swapfile (e.g. 512 MB) — grow it.
+  swapoff /swapfile
+  make_swapfile
+fi
+# Another swap from the image (e.g. /swap.img) is kept as it is — no second one is added.
+if swapon --show=NAME --noheadings | grep -qx /swapfile; then
   grep -q '^/swapfile ' /etc/fstab || echo '/swapfile none swap sw 0 0' >>/etc/fstab
 fi
 echo 'vm.swappiness=10' >/etc/sysctl.d/90-prokom-swap.conf
