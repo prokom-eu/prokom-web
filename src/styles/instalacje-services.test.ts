@@ -105,9 +105,25 @@ describe('Instalacje service page illustrations', () => {
     const vsBlack = levels.map((t) => contrastRatio(resolve(`var(${t})`, il), '#000000'))
     expect(vsBlack).toEqual([...vsBlack].sort((a, b) => a - b))
   })
+
+  // Ładowarki (I9): six housing colours of CC Wall, each its own swatch.
+  it('give CC Wall six distinct housing colours', () => {
+    const names = ['black', 'white', 'grey', 'blue', 'green', 'brown'].map((c) => `--il-evsw-${c}`)
+    const values = names.map((t) => resolve(`var(${t})`, il).toLowerCase())
+    expect(values.every((v) => /^#[0-9a-f]{6}$/.test(v))).toBe(true)
+    expect(new Set(values).size).toBe(6)
+  })
 })
 
 describe('Instalacje service page colours', () => {
+  // Ładowarki (I9): the charger photos stand on a light tile in the light theme, a dark one in the dark.
+  it('put the charger photos on a tile that follows the theme', () => {
+    const vsWhite = (scope: Record<string, string>) =>
+      contrastRatio(resolve('var(--inst-il-evtile-2)', scope), '#ffffff')
+    expect(vsWhite(light)).toBeLessThan(1.5)
+    expect(vsWhite(dark)).toBeGreaterThan(10)
+  })
+
   it.each(FIXED)('%s on %s ≥ 4.5:1', (text, surface) => {
     expect(ratio(light, text, surface)).toBeGreaterThanOrEqual(4.5)
   })
