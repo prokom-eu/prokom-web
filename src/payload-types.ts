@@ -1511,6 +1511,57 @@ export interface Industry {
         }[]
       | null;
     /**
+     * Plansza `Branza`: H1 i wstęp są w „Nagłówek strony branży”, pytania w „Pytania”. Puste pole = ta część bez tekstu albo tekst wspólny.
+     */
+    page?: {
+      /**
+       * Dalsza część H1 w kolorze, np. „w terenie, nie przy biurku.”
+       */
+      heroAccent?: string | null;
+      /**
+       * Np. „3 ekipy”.
+       */
+      hubTitle?: string | null;
+      /**
+       * Np. „jeden system”.
+       */
+      hubCaption?: string | null;
+      /**
+       * Np. „Co boli w budowlance”.
+       */
+      problemsEyebrow?: string | null;
+      /**
+       * Np. „Najczęściej w budowlance”.
+       */
+      solutionsEyebrow?: string | null;
+      /**
+       * Np. „Pytania z budowlanki”.
+       */
+      faqEyebrow?: string | null;
+      problemsLead?: string | null;
+      /**
+       * Pusty nagłówek = bez bloku. Kroki są w „Bez zasięgu (kroki)”.
+       */
+      offlineBox?: {
+        eyebrow?: string | null;
+        title?: string | null;
+        accent?: string | null;
+        lead?: string | null;
+        noteLabel?: string | null;
+        noteValue?: string | null;
+        noteCaption?: string | null;
+      };
+      /**
+       * Puste = teksty wspólne bloku kontaktu.
+       */
+      contact?: {
+        eyebrow?: string | null;
+        title?: string | null;
+        lead?: string | null;
+        points?: string[] | null;
+      };
+    };
+    /**
      * Karty z katalogu, w tej kolejności (ceny z rozwiązań).
      */
     topSolutions?: (number | Solution)[] | null;
@@ -7838,6 +7889,36 @@ export interface IndustriesSelect<T extends boolean = true> {
               title?: T;
               text?: T;
               id?: T;
+            };
+        page?:
+          | T
+          | {
+              heroAccent?: T;
+              hubTitle?: T;
+              hubCaption?: T;
+              problemsEyebrow?: T;
+              solutionsEyebrow?: T;
+              faqEyebrow?: T;
+              problemsLead?: T;
+              offlineBox?:
+                | T
+                | {
+                    eyebrow?: T;
+                    title?: T;
+                    accent?: T;
+                    lead?: T;
+                    noteLabel?: T;
+                    noteValue?: T;
+                    noteCaption?: T;
+                  };
+              contact?:
+                | T
+                | {
+                    eyebrow?: T;
+                    title?: T;
+                    lead?: T;
+                    points?: T;
+                  };
             };
         topSolutions?: T;
       };

@@ -51,6 +51,7 @@ import * as migration_20261030_224518_software_offer from './20261030_224518_sof
 import * as migration_20261031_171804_software_solutions_no_featured from './20261031_171804_software_solutions_no_featured'
 import * as migration_20261031_173018_software_home_sections_v21 from './20261031_173018_software_home_sections_v21'
 import * as migration_20261031_181540_software_solution_page from './20261031_181540_software_solution_page'
+import * as migration_20261031_184442_software_industry_page from './20261031_184442_software_industry_page'
 
 export const migrations = [
   {
@@ -317,5 +318,10 @@ export const migrations = [
     up: migration_20261031_181540_software_solution_page.up,
     down: migration_20261031_181540_software_solution_page.down,
     name: '20261031_181540_software_solution_page',
+  },
+  {
+    up: migration_20261031_184442_software_industry_page.up,
+    down: migration_20261031_184442_software_industry_page.down,
+    name: '20261031_184442_software_industry_page',
   },
 ]
