@@ -18,11 +18,15 @@ type Props = { block: SwTeamBlockData; tenantId: number }
 export async function SwTeamBlock({ block, tenantId }: Props) {
   const context = await softwareTextContext(tenantId)
   const fill = (value: string | null | undefined) => fillText(value ?? undefined, context)
-  const cards = teamCards(block.members, fill, (member) =>
-    photoView(member, (value) => publicImage(value, tenantId), context.strict),
+  const places = block.variant === 'places'
+  const cards = teamCards(
+    block.members,
+    fill,
+    (member) => photoView(member, (value) => publicImage(value, tenantId), context.strict),
+    // A detail line with a missing fact goes, the card stays; a missing name drops the card.
+    { keepCardWithoutLine: true },
   )
   if (cards.length === 0) return null
-  const places = block.variant === 'places'
 
   return (
     <section className="py-12 min-[641px]:py-20">
@@ -67,8 +71,8 @@ export async function SwTeamBlock({ block, tenantId }: Props) {
                   {card.text ? <p className="mt-2 text-ink-2">{card.text}</p> : null}
                   {card.details.length > 0 ? (
                     <p className="mt-2 flex flex-col gap-1 text-ink-2">
-                      {card.details.map((line) => (
-                        <span key={line}>{line}</span>
+                      {card.details.map((line, index) => (
+                        <span key={index}>{line}</span>
                       ))}
                     </p>
                   ) : null}

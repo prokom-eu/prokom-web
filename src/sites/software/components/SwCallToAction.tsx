@@ -11,9 +11,16 @@ const WIZARD = { label: 'Dobierz rozwiązanie · 60 s', href: '/dobierz' }
  * się…”): a light accent card, the block's button and the wizard. It is the page's last CTA,
  * so the footer drops its band (`data-final-cta`, spec. §3.4 / ZMIANY-v21 §10.4).
  */
-export function SwCallToAction({ block }: { block: CallToActionBlockData }) {
+export function SwCallToAction({
+  block,
+  final = true,
+}: {
+  block: CallToActionBlockData
+  /** The page's last block: the footer drops its CTA band. A CTA in the middle keeps it. */
+  final?: boolean
+}) {
   return (
-    <section data-final-cta className="py-12 min-[641px]:py-20">
+    <section data-final-cta={final ? '' : undefined} className="py-12 min-[641px]:py-20">
       <Container wide>
         <div className="flex flex-col gap-6 rounded-[28px] border border-accent-line bg-accent-soft p-[22px] min-[641px]:p-12 min-[1081px]:flex-row min-[1081px]:items-center min-[1081px]:justify-between">
           <div className="max-w-[620px]">

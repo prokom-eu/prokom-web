@@ -1,4 +1,4 @@
-import type { Block } from 'payload'
+import type { Block, Field } from 'payload'
 
 import { hrefField } from '../../../../blocks/fields'
 import { FACTS_NOTE, iconField, sectionHeadFields, textField } from '../fields'
@@ -56,7 +56,15 @@ export const SwLinesBlock: Block = {
           maxRows: 5,
           fields: [textField('text', 'Punkt', 80, true)],
         },
-        textField('cta', 'Napis linku na karcie', 40, false, 'Np. „Zobacz ofertę →”.'),
+        {
+          ...textField('cta', 'Napis linku na karcie', 40),
+          admin: {
+            condition: (_: unknown, sibling: { current?: unknown } | undefined) =>
+              Boolean(sibling?.current),
+            description:
+              'Tylko karta tej strony: link do katalogu rozwiązań, np. „Zobacz ofertę →”.',
+          },
+        } as Field,
         {
           name: 'current',
           label: 'To ta strona (karta wyróżniona)',

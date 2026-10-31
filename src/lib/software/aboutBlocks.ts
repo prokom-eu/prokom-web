@@ -94,6 +94,8 @@ export function teamCards<S extends TeamSource, P>(
   members: readonly S[] | null | undefined,
   fill: Fill,
   photo: (member: S) => P | null,
+  /** Places: a detail line with a missing fact goes, the card stays (the salon still exists). */
+  { keepCardWithoutLine = false }: { keepCardWithoutLine?: boolean } = {},
 ): TeamCard<P>[] {
   return (members ?? []).flatMap((member, index) => {
     const name = fill(member.name)
@@ -104,14 +106,15 @@ export function teamCards<S extends TeamSource, P>(
       .map((line) => line.trim())
       .filter(Boolean)
       .map((line) => fill(line))
-    if (!name || role === null || text === null || details.includes(null)) return []
+    if (!name || role === null || text === null) return []
+    if (details.includes(null) && !keepCardWithoutLine) return []
     return [
       {
         key: member.id ?? String(index),
         ...(role && { role }),
         name,
         ...(text && { text }),
-        details: details as string[],
+        details: details.filter((line): line is string => line !== null),
         photo: photo(member),
       },
     ]
@@ -147,6 +150,7 @@ export function lineCards(lines: readonly LineSource[] | null | undefined, fill:
     const name = fill(line.name)
     if (!name) return []
     const address = line.address ? fill(line.address) : null
+    const cta = line.cta ? fill(line.cta) : null
     return [
       {
         key: line.id ?? String(index),
@@ -158,7 +162,7 @@ export function lineCards(lines: readonly LineSource[] | null | undefined, fill:
           const text = fill(point.text)
           return text ? [text] : []
         }),
-        ...(line.cta && { cta: line.cta }),
+        ...(cta && { cta }),
         current: Boolean(line.current),
       },
     ]

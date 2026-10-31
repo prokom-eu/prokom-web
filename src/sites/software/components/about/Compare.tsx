@@ -57,7 +57,7 @@ export function Compare({ view, eyebrow, title, tabs }: Props) {
           >
             {tabs.map((tab, index) => (
               <button
-                key={tab}
+                key={index}
                 type="button"
                 aria-pressed={rival === index}
                 onClick={() => setRival(index as 0 | 1)}
@@ -78,7 +78,7 @@ export function Compare({ view, eyebrow, title, tabs }: Props) {
               <th scope="col" className="w-[36%] px-5 py-4">
                 <span className="sr-only">Kryterium</span>
               </th>
-              <th scope="col" className="px-5 py-4 text-ink-2" aria-live="polite">
+              <th scope="col" className="px-5 py-4 text-ink-2">
                 {view.rivals[rival]}
               </th>
               <th scope="col" className="bg-accent-soft px-5 py-4 text-accent-text">
@@ -87,8 +87,8 @@ export function Compare({ view, eyebrow, title, tabs }: Props) {
             </tr>
           </thead>
           <tbody>
-            {view.rows.map((row) => (
-              <tr key={row.criterion} className="border-t border-border">
+            {view.rows.map((row, index) => (
+              <tr key={index} className="border-t border-border">
                 <th scope="row" className="px-5 py-4 text-left font-extrabold">
                   {row.criterion}
                 </th>
@@ -110,8 +110,8 @@ export function Compare({ view, eyebrow, title, tabs }: Props) {
         </table>
 
         <ul className="mt-6 overflow-hidden rounded-[24px] border border-border bg-card min-[761px]:hidden">
-          {view.rows.map((row) => (
-            <li key={row.criterion} className="border-t border-border first:border-t-0">
+          {view.rows.map((row, index) => (
+            <li key={index} className="border-t border-border first:border-t-0">
               <p className="px-4 pt-4 pb-2 font-extrabold">{row.criterion}</p>
               <p className="flex items-center gap-2.5 px-4 pb-3 text-sm text-ink-2">
                 <MarkIcon mark={row.rivals[rival].mark} />

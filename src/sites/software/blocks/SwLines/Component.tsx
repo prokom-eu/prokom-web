@@ -30,7 +30,17 @@ export async function SwLinesBlock({ block, tenantId }: Props) {
   )
 
   if (block.variant === 'examples') {
-    const examples = block.examples ?? []
+    // Facts in every text; a row or an example with a missing one is left out on production.
+    const examples = (block.examples ?? []).flatMap((example) => {
+      const title = fill(example.title)
+      if (!title) return []
+      const rows = (example.rows ?? []).flatMap((row) => {
+        const line = fill(row.line)
+        const text = fill(row.text)
+        return line && text ? [{ ...row, line, text }] : []
+      })
+      return [{ ...example, title, eyebrow: fill(example.eyebrow), text: fill(example.text), rows }]
+    })
     if (examples.length === 0) return null
     return (
       <section className="py-12 min-[641px]:py-20">
@@ -54,9 +64,9 @@ export async function SwLinesBlock({ block, tenantId }: Props) {
                   {example.text ? <p className="mt-2 text-ink-2">{example.text}</p> : null}
                 </div>
                 <ul className="flex flex-col gap-2">
-                  {(example.rows ?? []).map((row) => (
+                  {example.rows.map((row, index) => (
                     <li
-                      key={row.id ?? row.line}
+                      key={row.id ?? index}
                       className="grid gap-1 rounded-[16px] border border-border bg-surface px-4 py-3 min-[641px]:grid-cols-[150px_minmax(0,1fr)] min-[641px]:items-center min-[641px]:gap-4"
                     >
                       <span className="flex items-center gap-2 text-sm font-extrabold text-accent-text">
@@ -117,8 +127,8 @@ export async function SwLinesBlock({ block, tenantId }: Props) {
               ) : null}
               {card.points.length > 0 ? (
                 <ul className="mt-2 flex flex-col gap-2 text-sm">
-                  {card.points.map((point) => (
-                    <li key={point} className="flex gap-2">
+                  {card.points.map((point, index) => (
+                    <li key={index} className="flex gap-2">
                       <Icon
                         name="check"
                         strokeWidth={2.4}

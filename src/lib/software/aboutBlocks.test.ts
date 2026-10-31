@@ -66,6 +66,22 @@ describe('teamCards', () => {
     expect(card?.details).toEqual(['ul. Orkana 16B', 'pn–pt 9:00–17:00'])
   })
 
+  it('places: keeps the card and drops only the line with a missing fact', () => {
+    const [card] = teamCards(
+      [
+        {
+          id: 'z',
+          name: 'Zakopane',
+          details: ['PRO-KOM Zakopane', '[ADRES SALONU W ZAKOPANEM]', '[GODZINY]'].join('\n'),
+        },
+      ],
+      strictFill,
+      () => null,
+      { keepCardWithoutLine: true },
+    )
+    expect(card?.details).toEqual(['PRO-KOM Zakopane', 'pn–pt 9:00–17:00'])
+  })
+
   it('leaves out a card with a missing name or address fact', () => {
     const cards = teamCards(
       [

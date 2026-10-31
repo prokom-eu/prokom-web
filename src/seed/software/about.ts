@@ -139,7 +139,8 @@ const ABOUT_TEAM: Of<'swTeam'> = {
   ],
 }
 
-// Phone numbers stay in the site settings (spec. §3): the salon cards give address and hours.
+// The salon cards: one fact per line — a line with a missing fact goes on production, the card
+// stays (`swTeam` places). The Rabka phone is in the site settings (spec. §3).
 const ABOUT_PLACES: Of<'swTeam'> = {
   blockType: 'swTeam',
   variant: 'places',
@@ -154,7 +155,7 @@ const ABOUT_PLACES: Of<'swTeam'> = {
     },
     {
       name: 'Zakopane',
-      details: 'PRO-KOM Zakopane\n[ADRES SALONU W ZAKOPANEM]\n[TELEFON ZAKOPANE] · [GODZINY]',
+      details: 'PRO-KOM Zakopane\n[ADRES SALONU W ZAKOPANEM]\n[TELEFON ZAKOPANE]\n[GODZINY]',
       photoCaption: 'Salon w Zakopanem, wnętrze i lada',
       tone: 'copper',
     },
@@ -356,7 +357,7 @@ const ONE_PLACES: Of<'swTeam'> = {
     },
     {
       name: 'Zakopane',
-      details: '[ADRES SALONU W ZAKOPANEM] · [GODZINY]',
+      details: '[ADRES SALONU W ZAKOPANEM]\n[GODZINY]',
       photoCaption: 'Salon PRO-KOM w Zakopanem: witryna i wnętrze',
       tone: 'copper',
     },

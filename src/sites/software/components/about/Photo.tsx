@@ -23,7 +23,7 @@ type Props = {
 
 /**
  * A photo of the boards `ONas` / `Wszystko`, or — until it is taken — its placeholder: the tone,
- * a camera and „Zdjęcie do zrobienia” with what it should show. The caller leaves the placeholder
+ * an icon and „Zdjęcie do zrobienia” with what it should show. The caller leaves the placeholder
  * out on production (`photoView` returns `null` there, spec. §13 pkt 25).
  */
 export function Photo({ photo, sizes, eager = false, className }: Props) {

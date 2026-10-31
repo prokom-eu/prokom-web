@@ -132,7 +132,9 @@ export function RenderBlocks({ page, tenant }: Props) {
           case 'serviceGrid':
             return <ServiceGridBlock key={key} block={block} />
           case 'callToAction':
-            if (software) return <SwCallToAction key={key} block={block} />
+            if (software) {
+              return <SwCallToAction key={key} block={block} final={i === blocks.length - 1} />
+            }
             return <CallToActionBlock key={key} block={block} />
           case 'faq':
             if (biznes) return <FaqBiznes key={key} block={block} tenantId={tenant.id} />

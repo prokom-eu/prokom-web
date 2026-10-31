@@ -26,8 +26,8 @@ test.describe('Software /o-firmie', () => {
         .getByRole('img', { name: /Zdjęcie do zrobienia/ })
         .first(),
     ).toBeVisible()
-    await expect(main(page).getByText('Kto z Tobą pracuje.')).toBeVisible()
-    await expect(main(page).getByText('Krystian Potaczek')).toBeVisible()
+    await expect(main(page).getByRole('heading', { name: 'Kto z Tobą pracuje.' })).toBeVisible()
+    await expect(main(page).getByRole('heading', { name: 'Krystian Potaczek' })).toBeVisible()
     // v21: „Jak robimy” and technologies are on the start page only.
     await expect(main(page)).not.toContainText('Jak robimy')
     await expect(page.locator('[data-footer-cta]')).toBeHidden()

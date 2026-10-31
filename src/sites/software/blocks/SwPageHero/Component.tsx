@@ -23,6 +23,9 @@ export async function SwPageHeroBlock({ block, tenantId, isFirst, pageTitle }: P
   const fill = (value: string | null | undefined) => fillText(value ?? undefined, context)
   const Heading = isFirst ? 'h1' : 'h2'
   const lead = fill(block.lead)
+  // Every text takes facts; on production a text with a missing one is not shown (ADR-014 §1.4).
+  const title = fill(block.title) ?? ''
+  const titleAccent = fill(block.titleAccent)
 
   const photos =
     block.visual === 'photos'
@@ -31,8 +34,19 @@ export async function SwPageHeroBlock({ block, tenantId, isFirst, pageTitle }: P
           return view ? [{ key: photo.id ?? photo.photoCaption, view }] : []
         })
       : []
-  const badge = block.visual === 'photos' && block.badge?.title ? block.badge : null
-  const nodes = block.visual === 'lines' ? (block.nodes ?? []) : []
+  const badgeTitle = block.visual === 'photos' ? fill(block.badge?.title) : null
+  const badge = badgeTitle
+    ? { title: badgeTitle, status: fill(block.badge?.status), text: fill(block.badge?.text) }
+    : null
+  const hub =
+    block.visual === 'lines' ? { title: fill(block.hub?.title), text: fill(block.hub?.text) } : null
+  const nodes =
+    block.visual === 'lines'
+      ? (block.nodes ?? []).flatMap((node) => {
+          const name = fill(node.name)
+          return name ? [{ ...node, name, text: fill(node.text) }] : []
+        })
+      : []
   const hasVisual = photos.length > 0 || nodes.length > 0
 
   return (
@@ -53,11 +67,11 @@ export async function SwPageHeroBlock({ block, tenantId, isFirst, pageTitle }: P
               </p>
             ) : null}
             <Heading className="mt-3 font-display text-[40px] font-extrabold leading-[1.02] tracking-tight min-[641px]:text-[clamp(44px,5vw,68px)]">
-              {block.title}
-              {block.titleAccent ? (
+              {title}
+              {titleAccent ? (
                 <>
                   {' '}
-                  <span className="text-grad-h1">{block.titleAccent}</span>
+                  <span className="text-grad-h1">{titleAccent}</span>
                 </>
               ) : null}
             </Heading>
@@ -105,18 +119,16 @@ export async function SwPageHeroBlock({ block, tenantId, isFirst, pageTitle }: P
 
           {nodes.length > 0 ? (
             <div className="relative grid grid-cols-2 gap-3 min-[641px]:gap-x-24 min-[641px]:gap-y-36 min-[641px]:px-4 min-[641px]:py-6">
-              {block.hub?.title ? (
+              {hub?.title ? (
                 <div
                   aria-hidden="true"
                   className="col-span-2 mx-auto grid size-40 place-items-center rounded-full bg-accent-soft ring-[18px] ring-accent-line/40 min-[641px]:absolute min-[641px]:top-1/2 min-[641px]:left-1/2 min-[641px]:col-span-1 min-[641px]:-translate-x-1/2 min-[641px]:-translate-y-1/2 min-[641px]:size-44"
                 >
                   <span className="grid size-32 place-items-center rounded-full border-2 border-accent bg-card text-center min-[641px]:size-36">
                     <span>
-                      <span className="block font-display text-xl font-extrabold">
-                        {block.hub.title}
-                      </span>
-                      {block.hub.text ? (
-                        <span className="block text-xs text-ink-2">{block.hub.text}</span>
+                      <span className="block font-display text-xl font-extrabold">{hub.title}</span>
+                      {hub.text ? (
+                        <span className="block text-xs text-ink-2">{hub.text}</span>
                       ) : null}
                     </span>
                   </span>
