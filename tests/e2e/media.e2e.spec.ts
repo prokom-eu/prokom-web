@@ -105,9 +105,15 @@ test.describe('media and partners', () => {
       expect(await hero.getAttribute('src')).not.toContain('/_next/image')
       expect(await hero.evaluate((img: HTMLImageElement) => img.naturalWidth)).toBeGreaterThan(0)
 
-      // Seed partner is shown on every line.
-      await expect(page.getByRole('heading', { name: 'Partnerzy E2E' })).toBeVisible()
-      await expect(page.getByRole('img', { name: 'Logo Partner przykładowy' })).toBeVisible()
+      // On Biznes the Partners block is the brands section (K4c): the heading from the block,
+      // logos served by Payload (the brand name is the text, so a logo has an empty alt there).
+      const brands = page.locator('#marki')
+      await expect(brands.getByRole('heading', { name: 'Partnerzy E2E' })).toBeVisible()
+      const logo = brands.locator('img[src*="/api/partners/file/"]').first()
+      await logo.scrollIntoViewIfNeeded()
+      await expect
+        .poll(() => logo.evaluate((img: HTMLImageElement) => img.naturalWidth))
+        .toBeGreaterThan(0)
     } finally {
       await page.goto('/admin/login')
       await api(page, 'DELETE', `/api/pages/${pageId}`)

@@ -29,7 +29,7 @@ import { BzHeroBlock } from '@/sites/biznes/blocks/BzHero/Component'
 import { BzKitsBlock } from '@/sites/biznes/blocks/BzKits/Component'
 import { BzKsefBlock } from '@/sites/biznes/blocks/BzKsef/Component'
 import { BzModulesBlock } from '@/sites/biznes/blocks/BzModules/Component'
-import { BzNeedsBlock } from '@/sites/biznes/blocks/BzNeeds/Component'
+import { QuickStart } from '@/sites/biznes/components/home/QuickStart'
 import { BzNewsBlock } from '@/sites/biznes/blocks/BzNews/Component'
 import { BzOfferBlock } from '@/sites/biznes/blocks/BzOffer/Component'
 import { BzOnePartnerBlock } from '@/sites/biznes/blocks/BzOnePartner/Component'
@@ -41,7 +41,7 @@ import { BzReferencesBlock } from '@/sites/biznes/blocks/BzReferences/Component'
 import { BzStepsBlock } from '@/sites/biznes/blocks/BzSteps/Component'
 import { BzTimelineBlock } from '@/sites/biznes/blocks/BzTimeline/Component'
 import { Breadcrumbs } from '@/sites/biznes/components/Breadcrumbs'
-import { BrandMarquee } from '@/sites/biznes/components/home/BrandMarquee'
+import { BrandsHome } from '@/sites/biznes/components/home/BrandsHome'
 import { FaqBiznes } from '@/sites/biznes/components/home/FaqBiznes'
 import { InstHomeBlock } from '@/sites/instalacje/blocks/InstHome/Component'
 import { InstServiceBlock } from '@/sites/instalacje/blocks/InstService/Component'
@@ -113,7 +113,7 @@ export function RenderBlocks({ page, tenant }: Props) {
             return <ContactBlock key={key} block={block} tenantId={tenant.id} />
           case 'partners':
             return biznes ? (
-              <BrandMarquee key={key} block={block} tenantId={tenant.id} />
+              <BrandsHome key={key} block={block} tenantId={tenant.id} />
             ) : (
               <PartnersBlock key={key} block={block} tenantId={tenant.id} />
             )
@@ -122,7 +122,17 @@ export function RenderBlocks({ page, tenant }: Props) {
           case 'bzHero':
             return <BzHeroBlock key={key} block={block} isFirst={i === 0} tenantId={tenant.id} />
           case 'bzNeeds':
-            return <BzNeedsBlock key={key} block={block} />
+            // v150 (K36 §11): the need tiles became „Szybki start” — the block keeps its place.
+            return (
+              <QuickStart
+                key={key}
+                tenantId={tenant.id}
+                // The scenes of the plan section on this page (`bzPlan`) until K31d′.
+                planScenes={
+                  blocks.find((other) => other.blockType === 'bzPlan')?.scenes?.length ?? 0
+                }
+              />
+            )
           case 'bzOffer':
             return <BzOfferBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzFeatured':

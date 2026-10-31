@@ -27,10 +27,13 @@ export function groupSummaries(
 ): GroupSummary[] {
   return index.groups.map((group) => {
     const products = index.products.filter((product) => product.group === group.slug)
+    const wheel = new Map((group.wheel ?? []).map((slug, i) => [slug, i]))
     const pictured = products
       .filter((product) => product.image)
       .sort(
         (a, b) =>
+          // The wheel products of the department first, in the panel's order (K36 §12).
+          (wheel.get(a.slug) ?? Infinity) - (wheel.get(b.slug) ?? Infinity) ||
           (a.featuredOrder ?? Infinity) - (b.featuredOrder ?? Infinity) ||
           b.popularity - a.popularity ||
           a.name.localeCompare(b.name, 'pl'),

@@ -1,9 +1,15 @@
 import type { RailItem } from '@/components/SectionRail'
 
-/** Board `Main` (`RAILI`): the sections with an anchor, by the block that renders them. */
+/**
+ * Board v150 (K36 §1, `g4rail` „Na tej stronie”): the sections with an anchor, by the block that
+ * renders them. The anchors of sections still in the B7 shape stay until they are reworked.
+ */
 const RAIL: Record<string, RailItem> = {
   bzHero: { id: 'start', label: 'Start', icon: 'rocket' },
-  bzOffer: { id: 'oferta', label: 'Oferta', icon: 'store' },
+  bzOffer: { id: 'oferta', label: 'Działy oferty', icon: 'store' },
+  // On Biznes the shared Partners block is the brands section (`BrandsHome`).
+  partners: { id: 'marki', label: 'Marki', icon: 'star' },
+  bzFeatured: { id: 'wybierane', label: 'Najczęściej wybierane', icon: 'grid' },
   bzPlan: { id: 'plan', label: 'Plan Twojej firmy', icon: 'map' },
   bzSteps: { id: 'jak-pracujemy', label: 'Jak pracujemy', icon: 'compass' },
   bzOnePartner: { id: 'jeden', label: 'Jedna firma czy pięć', icon: 'users' },

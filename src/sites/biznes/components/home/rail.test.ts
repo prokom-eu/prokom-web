@@ -4,8 +4,23 @@ import { railItems } from './rail'
 
 describe('railItems', () => {
   it('lists the anchors of the sections on the page, in the page order', () => {
-    const items = railItems(['bzHero', 'bzNeeds', 'partners', 'bzOffer', 'faq', 'bzContact'])
-    expect(items.map((item) => item.id)).toEqual(['start', 'oferta', 'faq', 'kontakt'])
+    const items = railItems([
+      'bzHero',
+      'bzNeeds',
+      'bzOffer',
+      'partners',
+      'bzFeatured',
+      'faq',
+      'bzContact',
+    ])
+    expect(items.map((item) => item.id)).toEqual([
+      'start',
+      'oferta',
+      'marki',
+      'wybierane',
+      'faq',
+      'kontakt',
+    ])
     expect(items[0]).toMatchObject({ label: 'Start' })
   })
 

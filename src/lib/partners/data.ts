@@ -4,6 +4,7 @@ import { cache } from 'react'
 
 import { imageSources } from '../media/sizes'
 import type { PublicImage } from '../media/public'
+import { orderHomeBrands, type HomeBrand } from './homeBrands'
 
 export type PublicPartner = {
   id: number
@@ -63,4 +64,34 @@ export const getPartnerStatuses = cache(async (tenantId: number) => {
     overrideAccess: true,
   })
   return docs.map((doc) => ({ name: doc.name, status: doc.partnerStatus }))
+})
+
+/**
+ * Brands of the home page (K35 7a): `BiznesSettings.brands.home` of the tenant, in that order,
+ * with logo, short description and status. Tenant filter on both reads.
+ */
+export const getHomeBrands = cache(async (tenantId: number): Promise<HomeBrand[]> => {
+  const payload = await getPayload({ config })
+  const {
+    docs: [settings],
+  } = await payload.find({
+    collection: 'biznes-settings',
+    where: { tenant: { equals: tenantId } },
+    limit: 1,
+    depth: 0,
+    select: { brands: true },
+    overrideAccess: true,
+  })
+  const ids = (settings?.brands?.home ?? []).flatMap((value) =>
+    typeof value === 'number' ? [value] : value ? [value.id] : [],
+  )
+  if (ids.length === 0) return []
+  const { docs } = await payload.find({
+    collection: 'partners',
+    where: { and: [{ id: { in: ids } }, { tenants: { in: [tenantId] } }] },
+    limit: ids.length,
+    depth: 0,
+    overrideAccess: true,
+  })
+  return orderHomeBrands(ids, docs)
 })

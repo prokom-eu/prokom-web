@@ -12,7 +12,7 @@ import { publicImage } from '../media/public'
 import { imageSources, pickSource } from '../media/sizes'
 import { tenantIdOf } from '../tenant/id'
 import { HOME_SLUG } from '../pages/slug'
-import type { IconName } from './options'
+import type { FeaturedGroup, IconName } from './options'
 import { normalizeText } from './normalize'
 import { wizardSchema } from './wizard'
 
@@ -60,6 +60,8 @@ export type IndexProduct = {
   registerTypes: NonNullable<Product['registerTypes']>
   /** Set for the products of the home page, in their order. */
   featuredOrder?: number
+  /** Pill of „Najczęściej wybierane” on the home page (K35 7a); featured products only. */
+  featuredGroup?: FeaturedGroup
   image?: IndexImage
   /**
    * Normalized text the search matches against (spec. §8.2). Without the group name: the
@@ -112,6 +114,8 @@ export type CatalogIndex = {
     description?: string
     /** Top of the department card on the home page: pictures or status rows. */
     showcase?: GroupShowcase
+    /** Products next to the department on the home page wheel (K36 §12), listed ones only. */
+    wheel?: string[]
   }[]
   industries: { slug: string; name: string; active: boolean }[]
   /** Published pages of the site but home (the special pages: `/opieka-it`, `/gopos`, …). */
@@ -144,6 +148,7 @@ export type IndexedProductDoc = Pick<
   | 'registerTypes'
   | 'featured'
   | 'featuredOrder'
+  | 'featuredGroup'
 >
 
 export type CatalogSource = {
@@ -313,6 +318,7 @@ export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
       popularity: product.popularity ?? 0,
       registerTypes: product.registerTypes ?? [],
       ...(product.featured && { featuredOrder: product.featuredOrder ?? 0 }),
+      ...(product.featured && product.featuredGroup && { featuredGroup: product.featuredGroup }),
       ...(image && { image }),
       hay,
     }
@@ -354,6 +360,7 @@ export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
   const usedGroups = new Set(categories.map((category) => category.group))
 
   const search = source.settings?.search
+  const listedSlugs = new Set(products.map((product) => product.slug))
   return {
     products,
     brands: [...brands.values()].sort((a, b) => a.name.localeCompare(b.name, 'pl')),
@@ -363,6 +370,9 @@ export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
       .map((group) => {
         const description = optional(group.description)
         const showcase = groupShowcase(group, source.tenantId)
+        const wheel = docs(group.wheelProducts)
+          .map((product) => product.slug)
+          .filter((slug) => listedSlugs.has(slug))
         return {
           slug: group.slug,
           name: group.name,
@@ -370,6 +380,7 @@ export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
           gradient: [group.gradientFrom, group.gradientTo] as [string, string],
           ...(description && { description }),
           ...(showcase && { showcase }),
+          ...(wheel.length > 0 && { wheel }),
         }
       }),
     industries: source.industries.map((industry) => ({

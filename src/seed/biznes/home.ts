@@ -3,7 +3,16 @@ import type { Payload } from 'payload'
 import type { ShowcaseStatus } from '../../lib/catalog/catalogIndex'
 import { HOME_SLUG } from '../../lib/pages/slug'
 import type { Page } from '../../payload-types'
+import type { IconName } from '../../lib/catalog/options'
 import { factsBlocks } from './homeFacts'
+import {
+  K4_BRANDS,
+  K4_FEATURED,
+  K4_HERO,
+  K4_TRUST_LINE,
+  OLD_TRUST_LINE,
+  upgradeHomeK4,
+} from './homeK4'
 import { planBlocks } from './homePlan'
 import { mergeLayout } from '../layout'
 
@@ -63,22 +72,23 @@ export const GROUP_DESCRIPTIONS: Record<string, string> = {
  * The call-back promise is not seeded: a promise shows only once entered in the panel
  * (`SiteSettings` → „Obietnice”; e2e `biznes-catalog` checks the fallback without it).
  */
-export const HOME_TRUST_LINE = 'Serwis Posnet i Elzab · partner GoPOS i InsERT'
+export const HOME_TRUST_LINE = K4_TRUST_LINE
 
 export function biznesHomeLayout(refs: HomeRefs = NO_REFS): HomeBlock[] {
   return [
     {
       blockType: 'bzHero',
       pill: 'Rabka-Zdrój · Podhale · Małopolska',
-      heading: 'Kasy, komputery i opieka IT.',
-      headingAccent: 'Jeden telefon do wszystkiego.',
-      lead: 'Dobieramy, wdrażamy i serwisujemy wszystko, na czym pracuje Twoja firma: od kasy fiskalnej po serwer. Jeden partner z Rabki zamiast kilku firm i infolinii.',
-      cta: { label: 'Dobierz zestaw w 60 sekund', href: '/kreator' },
+      // v150 (K36 §1): the texts of the board.
+      heading: K4_HERO.heading,
+      headingAccent: K4_HERO.headingAccent,
+      lead: K4_HERO.lead,
+      cta: { ...K4_HERO.cta },
       showPhone: true,
-      trustItems: [
-        { icon: 'cal', text: 'Na Podhalu od 2004' },
-        { icon: 'users', text: '100+ firm pod stałą opieką' },
-      ],
+      trustItems: K4_HERO.trustItems.map((item) => ({
+        icon: item.icon as IconName,
+        text: item.text,
+      })),
       wheelHint: 'Kliknij dział, żeby zobaczyć, co do niego należy',
       planLinkLabel: 'Zobacz plan Twojej firmy ↓',
     },
@@ -127,11 +137,6 @@ export function biznesHomeLayout(refs: HomeRefs = NO_REFS): HomeBlock[] {
       ],
     },
     {
-      blockType: 'partners',
-      heading: 'Marki, które sprzedajemy, wdrażamy i serwisujemy',
-      lead: 'Najedź, żeby zatrzymać',
-    },
-    {
       blockType: 'bzOffer',
       eyebrow: 'Oferta',
       heading: 'Wszystko dla firmy, w pięciu działach.',
@@ -172,11 +177,18 @@ export function biznesHomeLayout(refs: HomeRefs = NO_REFS): HomeBlock[] {
       ],
     },
     {
+      blockType: 'partners',
+      // v150 (K36 §1): the brands section after the departments.
+      heading: K4_BRANDS.heading,
+      lead: K4_BRANDS.lead,
+    },
+    {
       blockType: 'bzFeatured',
       eyebrow: 'Najczęściej wybierane',
-      heading: 'Osiem pozycji, o które firmy pytają najczęściej.',
-      lead: 'Każdą dodasz do zapytania jednym kliknięciem. Resztę oferty znajdziesz w katalogu.',
-      catalogLabel: 'Cały katalog',
+      // v150 (K35 7a): the texts of the board.
+      heading: K4_FEATURED.heading,
+      lead: K4_FEATURED.lead,
+      catalogLabel: K4_FEATURED.catalogLabel,
       offerCard: {
         eyebrow: 'Cała oferta',
         heading: 'Zobacz wszystko, co sprzedajemy, wdrażamy i serwisujemy.',
@@ -260,7 +272,8 @@ export async function seedBiznesHome(
     ...local,
   })
   if (settings) {
-    const missing = !settings.biznes?.trustLine
+    // Empty, or still the pre-K4 wording (K4-FINAL §1: „Autoryzowany serwis/partner”).
+    const missing = !settings.biznes?.trustLine || settings.biznes.trustLine === OLD_TRUST_LINE
     report('site-settings trust line', missing)
     if (missing) {
       await payload.update({
@@ -298,7 +311,9 @@ export async function seedBiznesHome(
     report('pages home', true)
     return
   }
-  const layout = mergeHomeLayout(home.layout, seed)
+  const merged = mergeHomeLayout(home.layout, seed)
+  // K4c: the v150 texts and order in a page the seed made earlier (`homeK4.ts`).
+  const layout = upgradeHomeK4(merged ?? home.layout) ?? merged
   report('pages home', layout !== null)
   if (layout) {
     await payload.update({

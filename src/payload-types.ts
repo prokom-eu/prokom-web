@@ -306,7 +306,7 @@ export interface SiteSetting {
      */
     whatsapp?: string | null;
     /**
-     * [SZEF] np. „Serwis Posnet i Elzab · partner GoPOS i InsERT”.
+     * [SZEF] np. „Autoryzowany serwis Posnet i Elzab · Autoryzowany partner GoPOS i InsERT” (K4-FINAL §1: pełne brzmienie statusów).
      */
     trustLine?: string | null;
     serviceAreas?: string[] | null;

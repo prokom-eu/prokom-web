@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 import { Container } from '@/components/ui/Container'
 import { Icon } from '@/components/ui/Icon'
 import { getCatalogIndex } from '@/lib/catalog/data'
@@ -45,12 +47,15 @@ export async function BzHeroBlock({ block, isFirst, tenantId }: Props) {
               {block.pill}
             </p>
           )}
-          <Title className="font-display text-[clamp(2.5rem,4.3vw,4rem)] leading-[0.98] font-extrabold tracking-[-0.025em] font-stretch-112%">
+          <Title className="font-display text-[clamp(2.5rem,4.1vw,3.625rem)] leading-[1.02] font-extrabold tracking-[-0.03em] text-balance font-stretch-112%">
             {block.heading}
             {block.headingAccent && (
               <>
                 {' '}
-                <span className="text-h1-accent">{block.headingAccent}</span>
+                {/* v150 (K36 §1): the second sentence on its own line, smaller (board `.s4h1 em`). */}
+                <span className="mt-3.5 block text-[0.56em] leading-[1.15] tracking-[-0.015em] text-h1-accent">
+                  {block.headingAccent}
+                </span>
               </>
             )}
           </Title>
@@ -73,6 +78,13 @@ export async function BzHeroBlock({ block, isFirst, tenantId }: Props) {
               {block.cta.label}
               <Icon name="arrow" strokeWidth={2.4} className="size-[18px]" />
             </a>
+            {/* v150 (K36 §1): the whole offer with its count from the catalog. */}
+            <Link
+              href="/oferta"
+              className="inline-flex min-h-14 items-center gap-2.5 rounded-2xl bg-card px-6 font-bold text-ink shadow-[inset_0_0_0_1.5px_var(--border)] transition-colors hover:shadow-[inset_0_0_0_1.5px_var(--ink-3)]"
+            >
+              Przeglądaj ofertę · {index.products.length}
+            </Link>
             {phone && tel && (
               <a
                 href={tel}
