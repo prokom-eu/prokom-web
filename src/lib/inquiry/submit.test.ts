@@ -335,23 +335,16 @@ describe('submitInquiry (ADR-003)', () => {
     )
   })
 
-  it('requires the phone on the Biznes contact form, not on other lines', async () => {
+  it('accepts a phone or an e-mail on the Biznes contact form (K4-FINAL §5)', async () => {
     const noPhone = { ...body, phone: '' }
-    expect(await submitInquiryWith(deps(), { ...request, body: noPhone })).toEqual({
+    expect(await submitInquiryWith(deps(), { ...request, body: noPhone })).toMatchObject({
+      ok: true,
+    })
+    const neither = { ...body, phone: '', email: '' }
+    expect(await submitInquiryWith(deps(), { ...request, body: neither })).toEqual({
       ok: false,
       error: 'invalid',
       fields: ['phone'],
-    })
-    const software = deps({
-      findTenant: vi.fn(async () => ({
-        id: 2,
-        name: 'PRO-KOM Software',
-        line: 'software' as const,
-        notificationEmail: 's@p.pl',
-      })),
-    })
-    expect(await submitInquiryWith(software, { ...request, body: noPhone })).toMatchObject({
-      ok: true,
     })
   })
 

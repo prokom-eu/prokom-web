@@ -95,16 +95,22 @@ export const FIELD_MESSAGES: FieldMessages = {
   consent: 'Zaznacz zgodę, abyśmy mogli odpowiedzieć.',
 }
 
-/** Biznes forms ask for a phone and an optional e-mail (ZMIANY-v20 §2.9, plansza Zapytanie). */
+/**
+ * Biznes forms lead with the phone; an e-mail instead is enough (K4-FINAL §5). The server
+ * reports a missing contact and a bad number alike on `phone`.
+ */
 export const BIZNES_FIELD_MESSAGES: FieldMessages = {
   ...FIELD_MESSAGES,
   name: 'Podaj imię.',
   email: 'Sprawdź adres e-mail albo zostaw to pole puste.',
-  phone: 'Podaj numer telefonu, np. 600 100 200.',
+  phone: 'Podaj poprawny telefon albo e-mail — wystarczy jedno, np. 600 100 200.',
 }
 
-/** Rules of one form: the Biznes line requires a phone (the server checks the same). */
-export type FormRules = { phoneRequired?: boolean; messages?: FieldMessages }
+/**
+ * Rules of one form. `phoneFirst` (Biznes): a phone or an e-mail, and a missing contact is
+ * reported on the phone, the field shown first (the server checks the same).
+ */
+export type FormRules = { phoneFirst?: boolean; messages?: FieldMessages }
 
 /**
  * Required fields only — the browser's quick check before a request. Formats (e-mail, NIP,
@@ -112,14 +118,13 @@ export type FormRules = { phoneRequired?: boolean; messages?: FieldMessages }
  */
 export function checkRequired(
   values: FormValues,
-  { phoneRequired = false, messages = FIELD_MESSAGES }: FormRules = {},
+  { phoneFirst = false, messages = FIELD_MESSAGES }: FormRules = {},
 ): Partial<Record<FieldName, string>> {
   const errors: Partial<Record<FieldName, string>> = {}
   if (!values.name.trim()) errors.name = messages.name
-  if (phoneRequired) {
-    if (!values.phone.trim()) errors.phone = messages.phone
-  } else if (!values.email.trim() && !values.phone.trim()) {
-    errors.email = messages.email
+  if (!values.email.trim() && !values.phone.trim()) {
+    if (phoneFirst) errors.phone = messages.phone
+    else errors.email = messages.email
   }
   if (!values.message.trim()) errors.message = messages.message
   if (!values.consent) errors.consent = messages.consent

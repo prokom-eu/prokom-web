@@ -29,6 +29,9 @@ const UPLOAD_FILE = /^\/api\/(media|partners)\/file\/[^/]+$/
 const READ_METHODS = ['GET', 'HEAD']
 // The inquiry endpoint (ADR-003): a Next route handler outside Payload, create only.
 const INQUIRY_PATH = '/api/inquiry'
+// A fresh form token for forms on cached pages (the Biznes drawer, K4-FINAL §5): read only,
+// returns a signed time, no data.
+const INQUIRY_TOKEN_PATH = '/api/inquiry-token'
 // Catalog index of the Biznes site (ADR-012 §2.4): a Next route handler outside Payload, read
 // only; the handler answers 404 on domains of other lines.
 const CATALOG_INDEX_PATH = '/api/catalog-index'
@@ -48,7 +51,7 @@ function startsWithSegment(pathname: string, prefix: string): boolean {
 /**
  * Decides what the proxy does with a request (ADR-006):
  * - panel domain: only the admin panel and the Payload API,
- * - any other domain: never the admin or the API (only uploaded image files, inquiries, the
+ * - any other domain: never the admin or the API (only uploaded image files, inquiries and their form token, the
  *   catalog and solutions indexes and the health check); pages are rewritten to
  *   `/<host>/<path>`, where the `[domain]` layout resolves the tenant (unknown → 404).
  */
@@ -72,6 +75,7 @@ export function decideRoute({
 
   if (UPLOAD_FILE.test(pathname) && READ_METHODS.includes(method)) return { type: 'next' }
   if (pathname === INQUIRY_PATH && method === 'POST') return { type: 'next' }
+  if (pathname === INQUIRY_TOKEN_PATH && READ_METHODS.includes(method)) return { type: 'next' }
   if (pathname === CATALOG_INDEX_PATH && READ_METHODS.includes(method)) return { type: 'next' }
   if (pathname === SOLUTIONS_INDEX_PATH && READ_METHODS.includes(method)) return { type: 'next' }
   if (panelOnly) return { type: 'notFoundPage', pathname: `/${host}/${NOT_FOUND_SEGMENT}` }

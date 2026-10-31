@@ -173,14 +173,15 @@ describe('checkRequired (instant feedback before sending)', () => {
   })
 })
 
-describe('Biznes contact form v20 (ZMIANY-v20 §2.9)', () => {
+describe('Biznes contact form (K4-FINAL §5)', () => {
   const biznes = { ...values, email: '', phone: '600 100 200' }
-  const rules = { phoneRequired: true, messages: BIZNES_FIELD_MESSAGES }
+  const rules = { phoneFirst: true, messages: BIZNES_FIELD_MESSAGES }
 
-  it('requires name, phone, message and consent; the e-mail is optional', () => {
+  it('requires name, a phone or an e-mail, message and consent; the error sits on the phone', () => {
     expect(checkRequired(biznes, rules)).toEqual({})
+    expect(checkRequired({ ...biznes, phone: '', email: 'jan@example.test' }, rules)).toEqual({})
     const errors = checkRequired(
-      { ...biznes, name: '', phone: ' ', message: '', consent: false, email: 'jan@example.test' },
+      { ...biznes, name: '', phone: ' ', message: '', consent: false, email: '' },
       rules,
     )
     expect(errors).toEqual({

@@ -28,3 +28,8 @@ export const PRIVACY_POLICY_PATH = '/polityka-prywatnosci'
 export const MARKETING_CONSENT_TEXT =
   'Chcę otrzymywać od PRO-KOM informacje o nowościach i promocjach (zgoda dobrowolna, ' +
   'można ją wycofać w każdej chwili).'
+
+/** Under the button of the Biznes inquiry forms (K4-FINAL §1 and §5: only confirmed promises). */
+export const INQUIRY_ADMIN_NOTE =
+  'Oddzwaniamy w ciągu 60 minut w godzinach pracy. Dane wykorzystamy tylko do przygotowania ' +
+  'oferty; administrator: PRO-KOM Tadeusz Wójciak, Rabka-Zdrój.'

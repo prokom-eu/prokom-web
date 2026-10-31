@@ -187,22 +187,27 @@ describe('parseInquiryInput — types of the Biznes forms (B8)', () => {
     expect(errorsOf({ ...valid, items: [item] })).toContain('items')
   })
 
-  it('requires the phone on every Biznes form, the wizard too (v20, plansze Zapytanie, Kreator)', () => {
+  it('requires a phone or an e-mail on the Biznes forms, reported on the phone (K4-FINAL §5)', () => {
+    const noContact = { phone: undefined, email: undefined }
+    expect(errorsOf({ ...list, phone: undefined, email: 'jan@example.test' }, 'biznes')).toEqual([])
+    expect(errorsOf({ ...list, ...noContact }, 'biznes')).toEqual(['phone'])
+    expect(errorsOf({ ...valid, phone: undefined }, 'biznes')).toEqual([])
+    expect(errorsOf({ ...valid, ...noContact }, 'biznes')).toEqual(['phone'])
     expect(
-      errorsOf({ ...valid, type: 'search', topics: ['wifi'], phone: undefined }, 'biznes'),
-    ).toContain('phone')
+      errorsOf({ ...valid, type: 'search', topics: ['wifi'], ...noContact }, 'biznes'),
+    ).toEqual(['phone'])
+    // Other lines keep „e-mail or phone”, reported on the e-mail.
+    expect(errorsOf({ ...valid, phone: undefined }, 'software')).toEqual([])
+    expect(errorsOf({ ...valid, ...noContact }, 'software')).toEqual(['email'])
+  })
+
+  it('still requires the phone in the Biznes wizard until Konfigurator 3.0 (B10c, K4g)', () => {
     expect(
       errorsOf(
         { ...valid, type: 'wizard', wizard: { firma: 'gastro' }, phone: undefined },
         'biznes',
       ),
-    ).toContain('phone')
-    expect(errorsOf({ ...valid, phone: undefined }, 'biznes')).toContain('phone')
-    expect(errorsOf({ ...list, phone: undefined, email: 'jan@example.test' }, 'biznes')).toContain(
-      'phone',
-    )
-    // Other lines keep „e-mail or phone”.
-    expect(errorsOf({ ...valid, phone: undefined }, 'software')).toEqual([])
+    ).toEqual(['phone'])
   })
 })
 

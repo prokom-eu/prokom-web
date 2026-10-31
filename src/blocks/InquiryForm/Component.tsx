@@ -13,11 +13,11 @@ import type { InquiryFormBlock as InquiryFormBlockData } from '@/payload-types'
  */
 export async function InquiryFormBlock({
   block,
-  phoneRequired = false,
+  phoneFirst = false,
 }: {
   block: InquiryFormBlockData
-  /** Biznes line: the phone is required (`lib/inquiry/schema`). */
-  phoneRequired?: boolean
+  /** Biznes line: a missing contact is reported on the phone (`lib/inquiry/schema`). */
+  phoneFirst?: boolean
 }) {
   await connection()
   const formToken = issueFormToken(getEnv().PAYLOAD_SECRET)
@@ -27,11 +27,7 @@ export async function InquiryFormBlock({
         {block.heading && <Heading level={2}>{block.heading}</Heading>}
         {block.text && <p className="mt-4 text-lg leading-relaxed text-ink-2">{block.text}</p>}
         <div className="mt-8">
-          <InquiryForm
-            formToken={formToken}
-            category={block.category}
-            phoneRequired={phoneRequired}
-          />
+          <InquiryForm formToken={formToken} category={block.category} phoneFirst={phoneFirst} />
         </div>
       </div>
     </Section>

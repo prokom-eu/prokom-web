@@ -421,7 +421,9 @@ export function InquiryPage({ breadcrumbs, formToken, phrase, callbackTime, hour
                 {sent ? 'Zapytanie wysłane' : 'Dane do kontaktu'}
               </h2>
               {!sent && (
-                <p className="mt-0.5 text-[13px] text-white/80">Imię i telefon wystarczą</p>
+                <p className="mt-0.5 text-[13px] text-white/80">
+                  Imię i telefon albo e-mail wystarczą
+                </p>
               )}
             </div>
             {!sent && count > 0 && (

@@ -36,8 +36,8 @@ type Props = {
 type Status =
   { kind: 'idle' } | { kind: 'sending' } | { kind: 'sent' } | { kind: 'failed'; message?: string }
 
-const RULES = { phoneRequired: true, messages: BIZNES_FIELD_MESSAGES }
-const FIELD_ORDER: FieldName[] = ['name', 'phone', 'company', 'email', 'message', 'consent']
+const RULES = { phoneFirst: true, messages: BIZNES_FIELD_MESSAGES }
+const FIELD_ORDER: FieldName[] = ['name', 'phone', 'email', 'company', 'message', 'consent']
 const consentClause = linkInText(CONSENT_CLAUSE.text, PRIVACY_POLICY_LINK_TEXT)
 // A stable function: an inline ref would run again on every render and steal the focus.
 const focusOnMount = (node: HTMLElement | null) => node?.focus()
@@ -213,6 +213,7 @@ export function ContactForm({ formToken, heading, note, promises = [], successTe
             maxLength={120}
             required
             error={errors.name}
+            className="sm:col-span-2"
           />
           <IconField
             id={fieldId('phone')}
@@ -223,8 +224,20 @@ export function ContactForm({ formToken, heading, note, promises = [], successTe
             placeholder="600 100 200"
             autoComplete="tel"
             maxLength={30}
-            required
+            starred
+            hint="Wystarczy telefon albo e-mail."
             error={errors.phone}
+          />
+          <IconField
+            id={fieldId('email')}
+            name="email"
+            type="email"
+            label="lub e-mail"
+            icon="mail"
+            placeholder="adres@firma.pl"
+            autoComplete="email"
+            maxLength={254}
+            error={errors.email}
           />
           <IconField
             id={fieldId('company')}
@@ -235,17 +248,7 @@ export function ContactForm({ formToken, heading, note, promises = [], successTe
             autoComplete="organization"
             maxLength={200}
             error={errors.company}
-          />
-          <IconField
-            id={fieldId('email')}
-            name="email"
-            type="email"
-            label="E-mail"
-            icon="mail"
-            placeholder="adres@firma.pl"
-            autoComplete="email"
-            maxLength={254}
-            error={errors.email}
+            className="sm:col-span-2"
           />
         </div>
         <AreaField

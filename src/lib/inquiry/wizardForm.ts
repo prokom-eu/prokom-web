@@ -23,7 +23,8 @@ export type WizardFieldName = 'name' | 'phone' | 'city' | 'message' | 'consent' 
 
 export const WIZARD_FIELD_MESSAGES: Record<WizardFieldName, string> = {
   name: BIZNES_FIELD_MESSAGES.name,
-  phone: BIZNES_FIELD_MESSAGES.phone,
+  // The wizard still requires the phone (B10c) until Konfigurator 3.0 (K4g).
+  phone: 'Podaj numer telefonu, np. 600 100 200.',
   city: 'Nazwa miejscowości jest za długa.',
   message: 'Wiadomość jest za długa.',
   consent: BIZNES_FIELD_MESSAGES.consent,

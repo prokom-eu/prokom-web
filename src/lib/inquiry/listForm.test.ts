@@ -40,6 +40,21 @@ describe('listInquiryType (plansza Zapytanie)', () => {
   })
 })
 
+describe('buildListInquiryBody — contact by e-mail only (K4-FINAL §5)', () => {
+  it('answers by e-mail when a phone contact is chosen but only an e-mail is given', () => {
+    for (const preferredContact of ['phone', 'whatsapp'] as const) {
+      const emailOnly = { ...values, phone: ' ', email: 'anna@firma.pl', preferredContact }
+      const body = buildListInquiryBody(emailOnly, { href, formToken: 't', cart, phrase: null })
+      expect(body.preferredContact).toBe('email')
+    }
+  })
+
+  it('keeps the chosen contact when the phone is there', () => {
+    const body = buildListInquiryBody(values, { href, formToken: 't', cart, phrase: null })
+    expect(body.preferredContact).toBe('whatsapp')
+  })
+})
+
 describe('buildListInquiryBody', () => {
   it('sends the list as items and the phrase as a topic — accepted by the server', () => {
     const body = buildListInquiryBody(values, { href, formToken: 't', cart, phrase: 'drukarka' })
@@ -80,7 +95,7 @@ describe('buildListInquiryBody', () => {
 })
 
 describe('checkListRequired', () => {
-  it('requires name, phone and consent; notes only without items and phrase', () => {
+  it('requires name, a phone or an e-mail, and consent; notes only without items and phrase', () => {
     expect(checkListRequired(values, 'list')).toEqual({})
     expect(checkListRequired(values, 'search')).toEqual({})
     expect(checkListRequired(values, 'contact')).toEqual({ message: LIST_FIELD_MESSAGES.message })
@@ -89,6 +104,17 @@ describe('checkListRequired', () => {
       phone: LIST_FIELD_MESSAGES.phone,
       consent: LIST_FIELD_MESSAGES.consent,
     })
+  })
+
+  it('accepts an e-mail instead of a phone (K4-FINAL §5)', () => {
+    const emailOnly = {
+      ...values,
+      phone: ' ',
+      email: 'anna@firma.pl',
+      preferredContact: 'email' as const,
+    }
+    expect(checkListRequired(emailOnly, 'list')).toEqual({})
+    expect(LIST_FIELD_MESSAGES.phone).toMatch(/telefon albo e-mail/)
   })
 
   it('requires the e-mail when „E-mail” is the chosen contact', () => {
