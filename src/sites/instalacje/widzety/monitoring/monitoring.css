@@ -1528,6 +1528,21 @@
   }
 }
 
+/* Phone: touch targets of at least 44 px (MOBILE-APLIKACJA §10; prototype 34–38 px), like the
+   hero's time-of-day buttons in I5. */
+@media (max-width: 760px) {
+  [data-line='instalacje'] {
+    & .segd button,
+    & .nvr .tgl {
+      min-height: 44px;
+    }
+    & .sydots .syli {
+      width: 44px;
+      height: 44px;
+    }
+  }
+}
+
 /* Reduced motion (spec §5): scenes, timeline and diagram stand still; the widgets' JS pauses
    on its own (`useInterval`). */
 @media (prefers-reduced-motion: reduce) {

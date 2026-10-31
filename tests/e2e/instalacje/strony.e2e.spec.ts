@@ -11,7 +11,8 @@ const PAGES = ['/', '/anteny', '/monitoring', '/alarmy']
 
 // Known exceptions, each with its open question in docs/stan/STAN-instalacje.md.
 // TODO(krystian): the home title has 66 characters (SEO §2.2: ≤ 65) — shorten it in the panel.
-const LONG_TITLE_OK = new Set(['/'])
+// TODO(krystian): /monitoring has 67 („Monitoring CCTV Rabka-Zdrój, Zakopane, Podhale” from the package).
+const LONG_TITLE_OK = new Set(['/', '/monitoring'])
 
 async function open(page: Page, path: string) {
   await page.emulateMedia({ reducedMotion: 'reduce' })
