@@ -107,7 +107,7 @@ export async function ObjectPage({ tenantId, object, sceneKey, origin }: Props) 
       hotspots: dayHotspots(services, scene.hotspots),
     }
   })
-  // Only objects with a page: no card to a 404 (the pensjonat page comes in its own PR).
+  // Only objects with a page (all of them since I10; guards a key added in the panel's options).
   const similar = scene.similar
     .filter((key) => key in OBJECT_SCENES)
     .flatMap((key) => cards.objects.filter((o) => o.key === key))

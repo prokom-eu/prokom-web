@@ -18,7 +18,7 @@ async function load(params: Props['params']) {
   const tenant = await requireLine(params, 'instalacje')
   const { obiekt } = await params
   const object = await getInstalacjeObject(tenant.id, obiekt)
-  // An object without its drawing yet (the pensjonat page comes in its own PR) is a 404 too.
+  // An object without its drawing in code (a key added later) is a 404 too.
   return { tenant, object: object && isBuilt(object.key) ? object : null }
 }
 

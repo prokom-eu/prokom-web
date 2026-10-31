@@ -1066,6 +1066,12 @@
   & .sgsiren {
     fill: var(--inst-il-nvrh-c);
   }
+  /* Skis in the ski room of the pensjonat scene (pk.css `.sgski`, the alarm red). */
+  & .sgski {
+    stroke: var(--inst-il-nvrh-c);
+    stroke-width: 3;
+    stroke-linecap: round;
+  }
   & .sgsofa {
     fill: var(--inst-hue-blue);
     opacity: 0.6;

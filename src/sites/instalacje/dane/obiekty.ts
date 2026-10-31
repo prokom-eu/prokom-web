@@ -3,7 +3,7 @@ import type { ObjectKey, ServiceKey } from './types'
 /**
  * Code data of the „Dla kogo” pages (`/dla-kogo/<slug>`, KOMPONENTY §5), from
  * `zrodlo/generator-obiektow/build_seg.py` (template texts, `SIM`, `LY`) and `lib.py` (`SV`
- * layers), hotspot titles from `zrodlo/pages/Seg*.js` (`D.hs`). Everything else of an
+ * layers), hotspot titles from `zrodlo/pages/Seg*.js` and `Noclegowe.js` (`D.hs`). Everything else of an
  * object page is in the panel (`InstObjects`, ADR-I002 §2): the hotspot descriptions there are
  * in the order of these titles (the numbers on the drawing).
  */
@@ -35,8 +35,11 @@ export const SERVICE_SCENE: Record<ServiceKey, { layer: Exclude<LayerKey, ''> }>
 
 export type SceneHotspot = { title: string; service: ServiceKey }
 
-/** Objects with a page built so far; the pensjonat page (`Noclegowe`) comes in its own PR. */
-export type BuiltObjectKey = Exclude<ObjectKey, 'pens'>
+/**
+ * Objects with a page (all 12 since I10). The pensjonat page (`Noclegowe.*`) is the same
+ * template as the others in prototype v4.2 — KOMPONENTY §5 „sekcje dodatkowe” is out of date.
+ */
+export type BuiltObjectKey = ObjectKey
 
 /**
  * Per object: the hotspot titles and services in the order of the numbers on the drawing, and
@@ -46,6 +49,22 @@ export const OBJECT_SCENES: Record<
   BuiltObjectKey,
   { hotspots: readonly SceneHotspot[]; similar: readonly ObjectKey[] }
 > = {
+  pens: {
+    hotspots: [
+      { title: 'Kod do drzwi i wideodomofon w telefonie', service: 'kd' },
+      { title: 'Kamera narciarni i suszarni', service: 'kam' },
+      { title: 'Kamera wjazdu i parkingu', service: 'kam' },
+      { title: 'Punkt Wi-Fi w każdym pokoju', service: 'wifi' },
+      { title: 'Telewizja w pokojach z jednej szafy', service: 'ant' },
+      { title: 'Czujka dymu w każdym pokoju', service: 'alarm' },
+      { title: 'Czujka czadu w kotłowni', service: 'alarm' },
+      { title: 'Ogrzewanie pokoi według obłożenia', service: 'smart' },
+      { title: 'Ekran w jadalni: pogoda i stoki', service: 'scr' },
+      { title: 'Most radiowy do dobudówki', service: 'wifi' },
+      { title: 'Ładowarka dla gości', service: 'ev' },
+    ],
+    similar: ['apt', 'hotel', 'rest'],
+  },
   dom: {
     hotspots: [
       { title: 'Czujki otwarcia i ruchu odporne na zwierzęta', service: 'alarm' },

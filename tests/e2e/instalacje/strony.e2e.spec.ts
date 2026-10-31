@@ -19,10 +19,11 @@ const PAGES = [
   '/naglosnienie',
   '/ekrany',
   '/ladowarki-ev',
-  // „Dla kogo” (I10); /dla-kogo/pensjonaty comes with its own page.
+  // „Dla kogo” (I10).
   ...[
     'dom',
     'apartamenty',
+    'pensjonaty',
     'hotele',
     'restauracje',
     'sklepy',
