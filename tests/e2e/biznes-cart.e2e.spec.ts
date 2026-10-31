@@ -36,17 +36,19 @@ test.describe('Biznes inquiry list', () => {
     page,
   }) => {
     await page.goto(site('biznes.localhost'))
-    await expect(cartButton(page)).toHaveAccessibleName('Zapytanie')
+    await expect(cartButton(page)).toHaveAccessibleName('Zapytanie 0 pozycji')
     await page.getByRole('banner').getByRole('button', { name: 'Szukaj w ofercie' }).first().click()
     const search = page.getByRole('dialog', { name: 'Szukaj w ofercie' })
     await search.getByRole('searchbox').fill('terminal')
-    const add = search.getByRole('button', {
-      name: 'Dodaj do zapytania: Terminal płatniczy PolCard',
-    })
-    await add.click()
-    await expect(
-      search.getByRole('button', { name: 'Usuń z zapytania: Terminal płatniczy PolCard' }),
-    ).toHaveAttribute('aria-pressed', 'true')
+    // K4: results add through the quick preview (K33 §2.6).
+    await search.getByRole('button', { name: 'Podgląd: Terminal płatniczy PolCard' }).click()
+    const preview = page.getByRole('dialog', { name: /Terminal płatniczy PolCard/ })
+    await preview.getByRole('button', { name: '+ Do zapytania' }).click()
+    await expect(preview.getByRole('button', { name: '✓ W zapytaniu' })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    )
+    await page.keyboard.press('Escape')
     await page.keyboard.press('Escape')
 
     await expect(cartButton(page)).toHaveAccessibleName('Zapytanie 1 pozycja')
@@ -97,7 +99,7 @@ test.describe('Biznes inquiry list', () => {
 
   test('the list is shared between tabs', async ({ page, context }) => {
     await page.goto(site('biznes.localhost'))
-    await expect(cartButton(page)).toHaveAccessibleName('Zapytanie')
+    await expect(cartButton(page)).toHaveAccessibleName('Zapytanie 0 pozycji')
 
     const other = await context.newPage()
     await other.goto(site('biznes.localhost'))

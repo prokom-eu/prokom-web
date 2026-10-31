@@ -51,7 +51,7 @@ test.describe('Biznes /gopos (B9b)', () => {
 
   test('„Dodaj zestaw do zapytania” puts the whole kit on the list', async ({ page }) => {
     await page.goto(site('biznes.localhost', '/gopos'))
-    await expect(cartButton(page)).toHaveAccessibleName('Zapytanie')
+    await expect(cartButton(page)).toHaveAccessibleName('Zapytanie 0 pozycji')
 
     const add = page
       .locator('#zestawy > div > ul > li')
