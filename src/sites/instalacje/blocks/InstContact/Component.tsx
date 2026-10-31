@@ -55,6 +55,16 @@ export async function InstContactBlock({ block, tenantId }: Props) {
   const first = locations[0]
   const status = first?.hours?.length ? openingStatus(first.hours, new Date()) : null
   const { hero, cta } = block
+  // One row per opening span, like the prototype: „Rabka-Zdrój, pn–pt” · „9:00–17:00”.
+  const hourRows = locations.flatMap((l) =>
+    (l.hours?.length ? hoursSummary(l.hours).split(' · ') : []).map((span) => {
+      const [days = '', time = ''] = span.split(' ')
+      return { label: `${l.city}, ${days}`, time }
+    }),
+  )
+  if (!locations.some((l) => l.hours?.some((row) => row.days.includes('sun')))) {
+    hourRows.push({ label: K.hours.sunday, time: K.hours.closed })
+  }
   const C = K.cards
 
   type Card = { icon: InstIconName; title: string; text: string; value: string; href: string }
@@ -141,9 +151,9 @@ export async function InstContactBlock({ block, tenantId }: Props) {
                     style={{ padding: 22, display: 'flex', flexDirection: 'column', gap: 10 }}
                   >
                     <b style={{ fontSize: 16 }}>{K.hours.title}</b>
-                    {locations.map((l) => (
+                    {hourRows.map((row) => (
                       <div
-                        key={l.name}
+                        key={row.label}
                         style={{
                           display: 'flex',
                           justifyContent: 'space-between',
@@ -153,10 +163,8 @@ export async function InstContactBlock({ block, tenantId }: Props) {
                           paddingBottom: 8,
                         }}
                       >
-                        <span className="mut">{l.city}</span>
-                        <b style={{ textAlign: 'right' }}>
-                          {l.hours?.length ? hoursSummary(l.hours) : '—'}
-                        </b>
+                        <span className="mut">{row.label}</span>
+                        <b style={{ textAlign: 'right' }}>{row.time}</b>
                       </div>
                     ))}
                     {first?.hours?.length && status ? (

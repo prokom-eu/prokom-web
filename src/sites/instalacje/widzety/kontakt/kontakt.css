@@ -453,3 +453,12 @@
     opacity: 0.25;
   }
 }
+
+/* The page shows the phone and the salons itself: the footer drops its contact row
+   (pk.css `.pk:has(.ctc2) .ftr2 .ftc`). */
+[data-line='instalacje'] .inst-page:has(.ctc2) .ftr2 {
+  padding-top: 56px;
+  & .ftc {
+    display: none;
+  }
+}
