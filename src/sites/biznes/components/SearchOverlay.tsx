@@ -116,15 +116,19 @@ export function SearchOverlay({ whatsapp }: Props) {
         aria-haspopup="dialog"
         aria-keyshortcuts="Control+K Meta+K /"
         onClick={show}
-        className={cx(ICON_BUTTON, 'sm:w-auto sm:gap-2.5 sm:bg-surface-2 sm:px-4 sm:font-bold')}
+        className={cx(
+          ICON_BUTTON,
+          'min-[1280px]:w-auto min-[1280px]:gap-2.5 min-[1280px]:bg-surface-2 min-[1280px]:px-4 min-[1280px]:font-bold',
+        )}
       >
         <SearchIcon size={18} />
-        {/* The name comes from the visible text (WCAG 2.5.3): „Szukaj w ofercie Ctrl K”. On
-            phones the text is only for screen readers — the magnifier shows. */}
-        <span className="sr-only sm:not-sr-only">
+        {/* The name comes from the visible text (WCAG 2.5.3): „Szukaj w ofercie Ctrl K”. Below
+            1280 px (phones and the 1080–1279 header row) the magnifier alone shows — the text
+            stays for screen readers, so the menu row fits. */}
+        <span className="sr-only min-[1280px]:not-sr-only">
           Szukaj<span className="sr-only"> w ofercie</span>
         </span>
-        <kbd className="sr-only rounded-md border border-border bg-surface px-1.5 py-0.5 font-sans text-[11px] font-bold whitespace-nowrap text-ink-2 sm:not-sr-only">
+        <kbd className="sr-only rounded-md border border-border bg-surface px-1.5 py-0.5 font-sans text-[11px] font-bold whitespace-nowrap text-ink-2 min-[1280px]:not-sr-only">
           Ctrl K
         </kbd>
       </button>

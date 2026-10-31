@@ -52,7 +52,8 @@ test.describe('Biznes search', () => {
       .getByRole('button', { name: /^Podgląd: / })
       .first()
       .click()
-    const preview = page.getByRole('dialog').filter({ hasText: 'Pełna karta →' })
+    // The preview is a dialog inside the search dialog: the inner one (last) is it.
+    const preview = page.locator('dialog[open]').last()
     await expect(preview).toContainText('1 / ')
     await page.keyboard.press('ArrowRight')
     await expect(preview).toContainText('2 / ')
@@ -77,7 +78,8 @@ test.describe('Biznes search', () => {
       .getByRole('button', { name: /^Podgląd: / })
       .first()
       .click()
-    const preview = page.getByRole('dialog').filter({ hasText: 'Pełna karta →' })
+    // The preview is a dialog inside the search dialog: the inner one (last) is it.
+    const preview = page.locator('dialog[open]').last()
     await preview.getByRole('button', { name: '+ Do zapytania' }).click()
     await preview.getByRole('button', { name: '✓ W zapytaniu' }).click()
     await expect(page.getByRole('dialog', { name: /Twoje zapytanie/ })).toBeVisible()
