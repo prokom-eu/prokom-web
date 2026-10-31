@@ -1,9 +1,11 @@
+import Kontakt from '../../../seed/prokominstalacje/strony-zrzut/Kontakt.json'
 import type { Page } from '../../payload-types'
 
 type Block = NonNullable<Page['layout']>[number]
 
 /**
- * Form pages built in code (I11): the seed gives their empty page its block once, with the hero
+ * Form pages built in code (I11): the seed gives their page its block once — an empty page or
+ * the sample page of `pnpm seed` (`kontakt`), never one with a block of the line — with the hero
  * texts of the prototype (`zrodlo/pages/<Strona>.body.html` — the package has no hero texts for
  * them), and publishes it. No band texts for `zaplanuj`: the page has no CTA band (prototype
  * meta `cta: false`). Changing this file also refreshes
@@ -20,4 +22,19 @@ export const FORM_PAGE_BLOCKS: Record<string, () => Block> = {
       lead: 'Powiedz, co planujesz, a resztę ustalimy na miejscu. Klikasz, zamiast pisać. Po drodze podpowiemy, na co zwrócić uwagę, a na końcu zostawiasz numer. Oddzwonimy i umówimy wizję lokalną.',
     },
   }),
+  kontakt: () => ({
+    blockType: 'instContact',
+    hero: {
+      crumb: 'Kontakt',
+      eyebrow: 'Kontakt · PRO-KOM Instalacje',
+      h1a: 'Kontakt:',
+      h1b: 'salony w Rabce-Zdroju i Zakopanem.',
+      lead: 'Zadzwoń, napisz albo wpadnij do salonu. Działamy na Podhalu i w okolicach, dalej w Małopolsce dojazd ustalamy indywidualnie. Sprawdź, w jakiej strefie jest Twój obiekt.',
+    },
+    cta: { eyebrow: Kontakt.dane.ctaEye, heading: Kontakt.dane.ctaH, text: Kontakt.dane.ctaP },
+  }),
 }
+
+/** A page still without a block of the line: empty, or the sample page of `pnpm seed`. */
+export const needsFormBlock = (layout: readonly { blockType: string }[] | null | undefined) =>
+  !(layout ?? []).some((block) => block.blockType.startsWith('inst'))

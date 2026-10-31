@@ -211,3 +211,10 @@ describe('page SEO (I11)', () => {
     expect(`${page?.seo.title} | PRO-KOM Instalacje`.length).toBeLessThanOrEqual(65)
   })
 })
+
+describe('page SEO of the contact page (I11)', () => {
+  it('keeps the contact title within 65 characters with the site name', () => {
+    const page = pagesToImport().find((item) => item.slug === 'kontakt')
+    expect(`${page?.seo.title} | PRO-KOM Instalacje`.length).toBeLessThanOrEqual(65)
+  })
+})

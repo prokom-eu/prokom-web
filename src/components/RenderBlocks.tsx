@@ -274,7 +274,7 @@ export function RenderBlocks({ page, tenant }: Props) {
           case 'instPlanner':
             return <InstPlannerBlock key={key} block={block} tenantId={tenant.id} />
           case 'instContact':
-            return <InstContactBlock key={key} block={block} />
+            return <InstContactBlock key={key} block={block} tenantId={tenant.id} />
           case 'instServiceDesk':
             return <InstServiceDeskBlock key={key} block={block} />
         }

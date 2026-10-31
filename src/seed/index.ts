@@ -143,8 +143,13 @@ try {
       }
       if ((tenant.line === 'software' || tenant.line === 'instalacje') && page.slug === HOME_SLUG)
         continue
-      // Software `/kontakt` has its own block (SW11a `seedSoftwareContact`).
-      if (tenant.line === 'software' && page.slug === CONTACT_SLUG) continue
+      // Software and Instalacje `/kontakt` have their own blocks (SW11a `seedSoftwareContact`,
+      // I11 `seedInstalacje`).
+      if (
+        (tenant.line === 'software' || tenant.line === 'instalacje') &&
+        page.slug === CONTACT_SLUG
+      )
+        continue
       const {
         docs: [existingPage],
       } = await payload.find({
