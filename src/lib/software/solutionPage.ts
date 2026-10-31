@@ -81,6 +81,8 @@ export type SolutionPageView = {
   title: { plain: string; accent: string | null }
   lead: string | null
   thumbnail: string | null
+  /** Background of a missing thumbnail (`--grad-area-<tone>`). */
+  tone: OfferView['tone']
   tiles: PageTile[]
   demo: SolutionDemo | null
   compare: { label: string; title: string; text: string | null }[]
@@ -211,6 +213,7 @@ export function buildSolutionPage({
     title: titleOf(view, page),
     lead: clean(page?.lead) ?? clean(view.lead),
     thumbnail: view.thumbnail ?? null,
+    tone: view.tone,
     tiles: tilesOf(view, page, price, priceFrom),
     demo,
     compare: (page?.compare ?? []).map((item) => ({

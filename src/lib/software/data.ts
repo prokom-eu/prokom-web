@@ -17,10 +17,12 @@ import {
   type FillText,
   offerSolutionOf,
   type OfferView,
+  priceLine,
   relatedCard,
   softwareOfferSchema,
 } from './offer'
 import { thanksSchema, type SoftwareThanks } from './pages'
+import { buildSolutionPage, type SolutionPageDoc, type SolutionPageView } from './solutionPage'
 import { buildSolutionsIndex, DEFAULT_PRICE_DISPLAY, type SolutionsIndex } from './solutionsIndex'
 import { solutionsTag } from './tags'
 import { priceDisplaySchema, type SoftwareWizard } from './wizard'
@@ -345,4 +347,71 @@ export async function getOfferViews(tenantId: number): Promise<Record<string, Of
       return [solution.slug, buildOfferView(solution, { offer, display, related: cards, fill })]
     }),
   )
+}
+
+/** Every string of the page texts filled with facts; a text with a missing fact becomes empty. */
+function fillDeep(value: unknown, fill: (text: string) => string | null): unknown {
+  if (typeof value === 'string') return fill(value) ?? ''
+  if (Array.isArray(value)) return value.map((item) => fillDeep(item, fill))
+  if (value && typeof value === 'object') {
+    return Object.fromEntries(
+      Object.entries(value).map(([key, item]) => [key, fillDeep(item, fill)]),
+    )
+  }
+  return value
+}
+
+/**
+ * Page `/rozwiazania/<slug>` of one Software tenant (spec. §6.1) — `null` when the solution is
+ * not published in this tenant. Its window view (`getOfferViews`, same tenant filter) is the
+ * base; the tab „Strona” adds the board's texts, filled with the facts like the window.
+ */
+export async function getSolutionPage(
+  tenantId: number,
+  slug: string,
+): Promise<SolutionPageView | null> {
+  const [views, source, facts] = await Promise.all([
+    getOfferViews(tenantId),
+    getOfferSource(tenantId),
+    getSoftwareFacts(tenantId),
+  ])
+  const view = views[slug]
+  if (!view) return null
+  const payload = await getPayload({ config })
+  const { docs } = await payload.find({
+    collection: 'solutions',
+    where: {
+      and: [
+        { tenant: { equals: tenantId } },
+        { slug: { equals: slug } },
+        { _status: { equals: 'published' } },
+      ],
+    },
+    draft: false,
+    limit: 1,
+    depth: 0,
+    select: { page: true, priceFrom: true, priceMonthly: true, leadTime: true, moreExamples: true },
+    overrideAccess: true,
+  })
+  const doc = docs[0]
+  if (!doc) return null
+  const display = priceDisplaySchema.safeParse(source.priceDisplay).data ?? DEFAULT_PRICE_DISPLAY
+  const strict = getEnv().SITE_ENV === 'production'
+  const prices = Object.fromEntries(
+    source.solutions.map((solution) => [solution.slug, solution.priceFrom ?? null]),
+  )
+  const fill = (text: string) =>
+    fillText(text, { tenantId, facts, prices, term: doc.leadTime ?? null, strict })
+  const priceFrom = doc.priceFrom ?? null
+  return buildSolutionPage({
+    view,
+    page: (doc.page ? fillDeep(doc.page, fill) : null) as SolutionPageDoc | null,
+    priceFrom,
+    price: priceLine(
+      { priceFrom, priceMonthly: doc.priceMonthly ?? false, leadTime: doc.leadTime ?? null },
+      display,
+    ),
+    moreExamples: (doc.moreExamples ?? []).flatMap((item) => fill(item) ?? []),
+    isIcon: isIconName,
+  })
 }
