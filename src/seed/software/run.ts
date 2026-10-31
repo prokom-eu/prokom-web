@@ -4,6 +4,7 @@ import miejscowosci from '../../../seed/prokomsoftware/miejscowosci.json'
 import obszary from '../../../seed/prokomsoftware/obszary.json'
 import { hasSameValues } from '../compare'
 import { SEED_CONTEXT } from '../config'
+import { homeSchema } from '../../lib/software/home'
 import { navigationSchema } from '../../lib/software/navigation'
 import { softwareOfferSchema } from '../../lib/software/offer'
 import { softwareWizardSchema } from '../../lib/software/wizard'
@@ -275,6 +276,9 @@ export async function seedSoftware(payload: Payload): Promise<void> {
         if (key === 'wizard' && value != null) return !softwareWizardSchema.safeParse(value).success
         // Window texts in an older shape would hide the window's shared parts: replaced (SWR3).
         if (key === 'offer' && value != null) return !softwareOfferSchema.safeParse(value).success
+        // A home of an older shape (generic „12 rzeczy” cards before SWR5) hides the start page
+        // sections: replaced; staging pastes `pnpm software:home-json`.
+        if (key === 'home' && value != null) return !homeSchema.safeParse(value).success
         return value === null || value === undefined
       }),
     )
@@ -289,9 +293,11 @@ export async function seedSoftware(payload: Payload): Promise<void> {
     if (!hasSameValues(stored, searchMissing)) missing.search = searchMissing
     // A home saved before SW5 / SW6 / SW8a lacks some section headings: only the missing ones
     // are added. The package's rebuild price written as text becomes the price token (SW8a).
-    const withSections = homeWithSections(softwareSettings.home, HOME_SECTION_TEXTS)
-    const home = homeWithPriceTokens(withSections ?? softwareSettings.home) ?? withSections
-    if (home) missing.home = home as typeof fields.home
+    if (!missing.home) {
+      const withSections = homeWithSections(softwareSettings.home, HOME_SECTION_TEXTS)
+      const home = homeWithPriceTokens(withSections ?? softwareSettings.home) ?? withSections
+      if (home) missing.home = home as typeof fields.home
+    }
     const changed = Object.keys(missing).length > 0
     if (changed) {
       await payload.update({

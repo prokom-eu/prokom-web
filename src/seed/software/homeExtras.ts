@@ -16,9 +16,9 @@ export const HOME_SECTION_TEXTS: SoftwareHomeSections = {
   popular: {
     eyebrow: 'Najczęściej zamawiane',
     title: '12 rzeczy, po które firmy przychodzą najczęściej.',
-    lead: 'Każda z ceną „od”, terminem i tym, co dokładnie dostajesz. Kliknij kartę, żeby ją rozwinąć. Nie ma Twojej? W pełnej ofercie jest ich więcej.',
+    lead: 'Każda z ceną „od”, terminem i tym, co dokładnie dostajesz. Otwórz kartę, a zobaczysz, co jest w cenie, przykład z życia i termin. Nie ma Twojej? W pełnej ofercie jest ich więcej.',
     count: ['{n} pozycja', '{n} pozycje', '{n} pozycji'],
-    hint: 'kliknij kartę, żeby rozwinąć',
+    hint: 'kliknij kartę, żeby zobaczyć szczegóły',
     after: {
       title: 'A gdy już masz stronę lub system',
       items: [
@@ -54,7 +54,7 @@ export const HOME_SECTION_TEXTS: SoftwareHomeSections = {
   },
   process: {
     eyebrow: 'Jak pracujemy i jak powstaje cena',
-    title: 'Od rozmowy do działającego systemu. Płacisz po każdym etapie.',
+    title: 'Od rozmowy do działającego systemu. Większość płacisz po odbiorze.',
     lead: 'Pięć etapów, zero niespodzianek. Kliknij etap: zobaczysz, co się dzieje, co dostajesz do ręki i kiedy płacisz.',
     stage: 'Etap {num} · {t}',
     get: 'Co dostajesz',
@@ -64,11 +64,48 @@ export const HOME_SECTION_TEXTS: SoftwareHomeSections = {
     eyebrow: 'Na piśmie, nie na słowo',
     title: 'Zasady, których się trzymamy.',
     sayNo: {
-      title: 'Czasem powiemy: nie budujcie.',
+      eyebrow: 'Uczciwa rada przed wyceną',
+      title: 'Czasem powiemy: tego nie buduj.',
       text: 'Jeśli gotowy program za kilkadziesiąt złotych miesięcznie rozwiąże Twój problem, powiemy Ci to wprost i pomożemy go wybrać. Budujemy tylko wtedy, gdy to się opłaca Tobie.',
+      link: ['Zapytaj, co się opłaca', '/#kontakt'],
     },
   },
   showcase: { eyebrow: 'Realizacje' },
+  howWeBuild: {
+    eyebrow: 'Jak robimy strony i systemy',
+    title: 'Nie składamy z gotowych klocków. Piszemy pod Twoją firmę.',
+    lead: 'Większość stron w Polsce powstaje z gotowego szablonu i kilkunastu wtyczek. Działa, dopóki ktoś to pilnuje. My piszemy stronę od podstaw, dlatego dostajesz trzy rzeczy, które da się zmierzyć.',
+    gainLabel: 'Zyskujesz',
+    cards: [
+      {
+        badge: '< 2,5 s',
+        name: 'Szybka',
+        text: 'Klient widzi stronę w mniej niż 2,5 sekundy, także na telefonie i na słabym zasięgu. Tyle wynosi próg, który mierzy Google.',
+        gain: 'Klient nie czeka i nie ucieka do konkurencji, zanim zobaczy ofertę.',
+      },
+      {
+        badge: '0 wtyczek',
+        name: 'Bezpieczna',
+        text: 'Nie ma obcych wtyczek, które trzeba co tydzień łatać. Kopie, aktualizacje i pilnowanie robimy my, Ty prowadzisz firmę.',
+        gain: 'Spokój. Żadnych telefonów „strona nie działa” w środku sezonu.',
+      },
+      {
+        name: 'Widoczna w Google i AI',
+        text: 'Szybka, wygodna na telefonie i dobrze opisana. Tak stronę czytają Google i asystenci AI, np. ChatGPT. W cenie, nie w osobnym pakiecie.',
+        gain: 'Klientów z Google, a nie tylko z polecenia.',
+      },
+    ],
+    source: 'Źródło progu szybkości: Google Search Central, „Core Web Vitals” i „Page experience”.',
+    result: 'Wynik szybkości każdej oddanej strony zapisujemy w protokole odbioru. Nasz: [WYNIK].',
+  },
+  technologies: {
+    eyebrow: 'Z czego budujemy i co z tego masz',
+    title: 'Twój system, warstwa po warstwie.',
+    lead: 'Nazw nie musisz znać. Kliknij warstwę i zobacz, co z niej masz.',
+    tabsLabel: 'Warstwy systemu',
+    gainLabel: 'Co zyskujesz',
+    whyLabel: 'Dlaczego tak:',
+  },
 }
 
 /**

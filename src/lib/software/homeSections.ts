@@ -13,13 +13,18 @@ export const HOME_SECTIONS = [
   { value: 'whyNotWordpress', label: 'Dlaczego nie WordPress', anchor: 'bez-wordpressa' },
   { value: 'guarantees', label: 'Zasady', anchor: 'zasady' },
   { value: 'showcase', label: 'Realizacje', anchor: 'realizacje' },
+  // SWR5 (v21): back from `/o-firmie` to the start page.
+  { value: 'howWeBuild', label: 'Jak robimy', anchor: 'jak-robimy' },
+  { value: 'technologies', label: 'Z czego budujemy', anchor: 'technologie' },
+  // SW11b: „Freelancer, agencja czy PRO-KOM?” on `/o-firmie` — the value goes in now (one migration).
+  { value: 'compare', label: 'Porównanie (O firmie)', anchor: 'porownanie' },
 ] as const
 
 export type HomeSectionValue = (typeof HOME_SECTIONS)[number]['value']
 
 /**
- * Sections whose components exist (SW5: 3, 4, 7; SW6: 5, 6; SW8a: 8, 9; SW8b: 10) — the seed places
- * only these blocks and the section rail lists only these.
+ * Sections whose components exist (SW5, SW6, SW8a, SW8b; SWR5: „Jak robimy”, „Z czego budujemy”)
+ * — the seed places only these blocks and the section rail lists only these.
  */
 export const BUILT_HOME_SECTIONS: readonly HomeSectionValue[] = [
   'areas',
@@ -30,6 +35,8 @@ export const BUILT_HOME_SECTIONS: readonly HomeSectionValue[] = [
   'whyNotWordpress',
   'guarantees',
   'showcase',
+  'howWeBuild',
+  'technologies',
 ]
 
 export function homeSectionAnchor(value: string): string | null {

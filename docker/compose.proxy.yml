@@ -2,6 +2,9 @@
 # One-time: docker network create prokom-proxy
 # Start (from the repo root, environment file next to it — never committed):
 #   docker compose --env-file .env.proxy -f docker/compose.proxy.yml up -d
+# This file serves staging only. Production domains need their DNS and the `prokom-prod`
+# certificate first, so they come with an overlay (added at the production launch):
+#   docker compose --env-file .env.proxy -f docker/compose.proxy.yml -f docker/compose.proxy.prod.yml up -d
 # `.env.proxy`: domains and the staging password file (.env.example, section "Proxy").
 # First certificates and renewals: docs/wdrozenia.md.
 
@@ -23,14 +26,13 @@ services:
     environment:
       # Rendered templates go here (nginx.conf includes only this directory).
       NGINX_ENVSUBST_OUTPUT_DIR: /etc/nginx/sites
-      PROD_SITE_HOSTS: ${PROD_SITE_HOSTS:?set PROD_SITE_HOSTS}
-      PROD_PANEL_HOST: ${PROD_PANEL_HOST:?set PROD_PANEL_HOST}
       STAGING_SITE_HOSTS: ${STAGING_SITE_HOSTS:?set STAGING_SITE_HOSTS}
       STAGING_PANEL_HOST: ${STAGING_PANEL_HOST:?set STAGING_PANEL_HOST}
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./nginx/snippets:/etc/nginx/snippets:ro
-      - ./nginx/templates:/etc/nginx/templates:ro
+      # One file per stack: compose.proxy.prod.yml adds prod.conf.template.
+      - ./nginx/templates/staging.conf.template:/etc/nginx/templates/staging.conf.template:ro
       - ./nginx/reload-certs.sh:/docker-entrypoint.d/90-reload-certs.sh:ro
       - ${STAGING_HTPASSWD_FILE:?set STAGING_HTPASSWD_FILE}:/etc/nginx/auth/staging.htpasswd:ro
       - ${LETSENCRYPT_DIR:-letsencrypt}:/etc/letsencrypt:ro

@@ -15,7 +15,7 @@ describe('livePreviews', () => {
     const result = livePreviews({ app: app!, auto: auto!, rez: rez!, sys: sys!, www: www! }, same)
     expect(result.map((preview) => [preview.kind, preview.label])).toEqual([
       ['www', 'Strona'],
-      ['rez', 'Rezerwacje'],
+      ['rez', 'Noclegi'],
       ['sys', 'System firmowy'],
       ['app', 'Aplikacja mobilna'],
       ['auto', 'Automatyzacje i AI'],

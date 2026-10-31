@@ -41,6 +41,11 @@ type Props = {
   onSwitch: (slug: string) => void
   /** `'link'`: a link in the window was followed (no history step back). */
   onClose: (reason?: 'link') => void
+  /**
+   * The window keeps no address of its own (start page, industry page): the phone's „back”
+   * closes it (`BottomSheet` `closeOnBack`). The catalog drives history itself (`?rozwiazanie=`).
+   */
+  closeOnBack?: boolean
 }
 
 function Chevron({ back = false }: { back?: boolean }) {
@@ -66,7 +71,14 @@ function Chevron({ back = false }: { back?: boolean }) {
  * focus back on the card), a tap on the backdrop, a pull down on the phone. ←/→ move along
  * `list`; „+ Dodaj do wyceny” turns into „Wyślij do wyceny →”, which takes the focus.
  */
-export function SolutionDialog({ views, slug, list, onSwitch, onClose }: Props) {
+export function SolutionDialog({
+  views,
+  slug,
+  list,
+  onSwitch,
+  onClose,
+  closeOnBack = false,
+}: Props) {
   const view = slug ? views[slug] : undefined
   const project = useProject()
   const [pick, setPick] = useState<{ slug: string; index: number } | null>(null)
@@ -302,6 +314,7 @@ export function SolutionDialog({ views, slug, list, onSwitch, onClose }: Props) 
       contentClassName={CONTENT}
       footer={footer}
       dragToClose
+      closeOnBack={closeOnBack}
     >
       <div ref={top} className="scroll-mt-24" />
       <div className="mt-5 grid gap-6 min-[981px]:grid-cols-[minmax(0,1fr)_440px]">

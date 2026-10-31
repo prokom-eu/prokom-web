@@ -12,10 +12,10 @@ describe('Software home texts schema', () => {
     expect(homeSchema.safeParse(seedHome()).error?.issues).toBeUndefined()
   })
 
-  it('points the 12 cards only to solutions of the package', () => {
+  it('points all 12 cards to solutions of the package (v22: no generic cards)', () => {
     const slugs = new Set(solutionsToImport().map((item) => item.slug))
     const cards = homeSolutionSlugs(homeSchema.parse(seedHome()))
-    expect(cards).toHaveLength(10)
+    expect(cards).toHaveLength(12)
     for (const slug of cards) expect(slugs.has(slug), slug).toBe(true)
   })
 

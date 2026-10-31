@@ -38,7 +38,14 @@ export const SwHeroBlock: Block = {
         },
       ],
     },
-    { name: 'lead', label: 'Wstęp', type: 'textarea', required: true, maxLength: 320 },
+    {
+      name: 'lead',
+      label: 'Wstęp',
+      type: 'textarea',
+      required: true,
+      maxLength: 320,
+      admin: { description: 'Wyróżnienie w **gwiazdkach**, np. „**zanim zapłacisz**”.' },
+    },
     {
       type: 'row',
       fields: [

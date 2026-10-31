@@ -106,8 +106,8 @@ function levelData(level: SeedLevel): NonNullable<SolutionData['levels']>[number
 /**
  * Card, one „od” price and term, levels and the texts of the offer window of one solution
  * (ADR-014 v22 pkt 1–4). „Dobrze łączy się z” (`related`) needs the ids of the other solutions —
- * `relatedIds`, written after all are imported. The order of the 12 cards is
- * `SoftwareSettings.home.popular`, not `featuredOrder`.
+ * `relatedIds`, written after all are imported. The 12 cards of the start page
+ * are these solutions in the order of `SoftwareSettings.home.popular` (v22: no card fields).
  */
 export function solutionData(item: SeedSolution): SolutionData {
   return {
@@ -140,12 +140,6 @@ export function solutionData(item: SeedSolution): SolutionData {
     benefits: item.benefits ?? [],
     needs: item.needs ?? [],
     faq: item.faq ?? [],
-    featured: {
-      name: item.featuredName ?? null,
-      tag: item.featuredTag ?? null,
-      lead: item.featuredLead ?? null,
-      features: item.featuredFeatures ?? [],
-    },
   }
 }
 

@@ -36,21 +36,11 @@ const https = z.string().refine(isHttpsUrl, { message: 'Adres https://.' })
 /** `{v: value, l: label}` — a figure with its caption. */
 const figure = obj({ v: label, l: label })
 
-/** Two generic cards of „12 rzeczy” that are not a single solution (spec. §4). */
-const genericCard = obj({
-  genericCard: label,
-  /** Catalog category the card filters by. */
-  area: key,
-  lead: text,
-  features: z.array(label).max(3),
-  variants: z.array(label),
-  tag: label,
-  order: z.number().int().min(1),
-  href,
-})
-
 /** Eyebrow, H2 and lead of a start page section. */
 const sectionHead = { eyebrow: label, title: label, lead: text }
+
+/** A card of „Jak robimy”: badge on the picture („< 2,5 s”; optional), name, text, the gain. */
+const howWeBuildCard = obj({ badge: label.optional(), name: label, text, gain: text })
 
 /**
  * Headings and small texts of the start page sections built in SW5 — the board `Main` keeps them
@@ -69,7 +59,7 @@ export const homeSectionsSchema = obj({
     ...sectionHead,
     /** Number of visible cards: [1, 2–4, 5+] with `{n}`. */
     count: z.tuple([label, label, label]),
-    /** Shown after the count („kliknij kartę, żeby rozwinąć”). */
+    /** Shown after the count („kliknij kartę, żeby zobaczyć szczegóły”). */
     hint: label,
     /** „A gdy już masz stronę lub system”: links under the cards and the button to the catalog. */
     after: obj({
@@ -103,10 +93,33 @@ export const homeSectionsSchema = obj({
   guarantees: obj({
     eyebrow: label,
     title: label,
-    sayNo: obj({ title: label, text }),
+    /** v21: eyebrow pill „Uczciwa rada przed wyceną” and the button „Zapytaj, co się opłaca”. */
+    sayNo: obj({ eyebrow: label, title: label, text, link }),
   }).optional(),
   /** SW8b — „Realizacje”: the eyebrow (title and lead are in `showcase` of the package). */
   showcase: obj({ eyebrow: label }).optional(),
+  /**
+   * SWR5 — „Jak robimy” (spec. §4 pkt 8): three cards in a fixed order (speed, safety, Google
+   * and AI — each with its own picture), the threshold source and the measured result apart:
+   * `[WYNIK]` empty on production drops `result`, never the source.
+   */
+  howWeBuild: obj({
+    ...sectionHead,
+    /** Caption over each card's gain („Zyskujesz”). */
+    gainLabel: label,
+    cards: z.tuple([howWeBuildCard, howWeBuildCard, howWeBuildCard]),
+    source: text,
+    result: text,
+  }).optional(),
+  /** SWR5 — „Z czego budujemy” (spec. §4 pkt 10): headings; the layers are `technologies`. */
+  technologies: obj({
+    ...sectionHead,
+    /** Name of the tab list for screen readers („Warstwy systemu”). */
+    tabsLabel: label,
+    /** „Co zyskujesz”, „Dlaczego tak:”. */
+    gainLabel: label,
+    whyLabel: label,
+  }).optional(),
 })
 
 export type SoftwareHomeSections = z.infer<typeof homeSectionsSchema>
@@ -189,11 +202,8 @@ export const homeSchema = obj({
     )
     .min(1),
   popular: obj({
-    /** The 12 cards in order: a solution slug or a generic card. */
-    order: z
-      .array(z.union([slug, genericCard]))
-      .min(1)
-      .max(12),
+    /** The 12 cards in order: solution slugs (v22 — no generic cards). */
+    order: z.array(slug).min(1).max(12),
     /** [category key, label] of the filter tabs. */
     tabs: z.array(z.tuple([key, label])).min(1),
   }),
@@ -205,7 +215,7 @@ export type SoftwareHome = z.infer<typeof homeSchema>
 
 /** Solution slugs the „12 rzeczy” cards point to (checked against `Solutions` on save). */
 export function homeSolutionSlugs(home: SoftwareHome): string[] {
-  return home.popular.order.filter((entry): entry is string => typeof entry === 'string')
+  return [...home.popular.order]
 }
 
 export function validateHome(value: unknown): true | string {
