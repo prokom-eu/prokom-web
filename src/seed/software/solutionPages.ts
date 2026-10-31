@@ -16,7 +16,7 @@ export const FIELD_CREW_PAGE = {
   title: 'Aplikacja dla ekip w terenie.',
   titleAccent: 'Działa bez zasięgu.',
   lead: 'Zlecenia, zdjęcia, lista zadań i podpis klienta w telefonie pracownika. Bez zasięgu zapisuje, a wysyła, gdy wróci sieć. Biuro widzi wszystko na żywo i od razu wystawia fakturę.',
-  priceCaption: 'odpowiedź w [CZAS ODPOWIEDZI], wycena na piśmie w 5–7 dni',
+  priceCaption: 'odpowiedź w ciągu [CZAS ODPOWIEDZI], wycena na piśmie w 5–7 dni',
   tiles: [
     { label: 'Pierwszy etap', value: '3–4 tyg.', caption: 'potem co tydzień wersja testowa' },
     { label: 'Działa na', value: 'iOS · Android', caption: 'albo z przeglądarki, bez sklepu' },
@@ -96,7 +96,7 @@ export const FIELD_CREW_PAGE = {
     eyebrow: 'Porozmawiajmy o Twoich ekipach',
     title: 'Pokaż nam, jak dziś wygląda dzień ekipy. Wycenimy aplikację pod niego.',
     lead: 'Krótka rozmowa, potem podgląd, cena i plan etapów na piśmie w 5–7 dni. Bez zobowiązań.',
-    quoteCaption: 'Opisz ekipy i zlecenia, odpiszemy w [CZAS ODPOWIEDZI]',
+    quoteCaption: 'Opisz ekipy i zlecenia, odpiszemy w ciągu [CZAS ODPOWIEDZI]',
   },
   demo: {
     kind: 'fieldCrew' as const,
