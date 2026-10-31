@@ -185,13 +185,17 @@ systemctl enable --now docker
 # Membership in `docker` is root-equivalent — only the admin user gets it.
 usermod -aG docker "$user"
 
+step "Time zone UTC"
+# Cron times in runbook §1 and backup names are UTC; provider images may ship a local zone.
+timedatectl set-timezone Etc/UTC
+
 step "Check"
 ufw status verbose | head -12
 fail2ban-client status sshd | head -4
 swapon --show
 docker version --format 'docker {{.Server.Version}}'
 docker compose version
-timedatectl show -p Timezone --value  # stays UTC: backups and cron use UTC (runbook §1)
+timedatectl show -p Timezone --value
 echo
 echo "Phase 1 done. Next, from a SECOND terminal on your computer:"
 echo "  ssh $user@<IP>   then   sudo -v   and   docker run --rm hello-world"
