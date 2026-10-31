@@ -11,7 +11,7 @@ const TERMINAL = 'terminal-platniczy-polcard'
 
 const cartButton = (page: Page) =>
   page.getByRole('banner').getByRole('button', { name: /^Zapytanie/ })
-const drawer = (page: Page) => page.getByRole('dialog', { name: /^Twoje zapytanie (d+)$/ })
+const drawer = (page: Page) => page.getByRole('dialog', { name: /^Twoje zapytanie \(\d+\)$/ })
 
 /** Sets the list before the page scripts run (as if added on an earlier visit). */
 async function withCart(page: Page, items: { id: string; q: number }[]) {

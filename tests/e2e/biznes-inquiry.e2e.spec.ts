@@ -204,7 +204,7 @@ test.describe('inquiry list /zapytanie (B8b)', () => {
     await asNewVisitor(page)
     const [first] = (await fillCart(page)) as [Product]
     await page.goto(site('biznes.localhost'))
-    const drawer = page.getByRole('dialog', { name: /^Twoje zapytanie (2)$/ })
+    const drawer = page.getByRole('dialog', { name: /^Twoje zapytanie \(2\)$/ })
     await expect(async () => {
       await page
         .getByRole('banner')
@@ -224,7 +224,9 @@ test.describe('inquiry list /zapytanie (B8b)', () => {
 
     const done = drawer.getByRole('status').filter({ hasText: 'Dziękujemy, zapytanie wysłane' })
     await expect(done).toBeFocused()
-    await expect(done).toContainText(/Zapytanie nr PKB-d{4}-d{4,}/)
+    await expect(done).toContainText(/Zapytanie nr PKB-\d{4}-\d{4,}/)
+    // No phone given: the answer comes by e-mail, not a call.
+    await expect(done).toContainText('Odpowiemy e-mailem w godzinach pracy')
     expect(await page.evaluate(() => localStorage.getItem('pk-cart'))).toBe('[]')
 
     await loginAsAdmin(page)

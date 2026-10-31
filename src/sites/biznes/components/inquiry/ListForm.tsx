@@ -38,8 +38,9 @@ type Props = {
   /** „Zapytaj o X” from the search, or `null`. */
   phrase: string | null
   /** Short promises under the button [SZEF from the panel where they hold a promise]. */
-  promises: string[]
-  onSent: (sent: { number: string | null; emailed: boolean }) => void
+  promises?: string[]
+  /** `phoned`: a phone was given, so the answer is a call (else an e-mail). */
+  onSent: (sent: { number: string | null; emailed: boolean; phoned: boolean }) => void
   /**
    * The drawer (K4-FINAL §5): only „Imię lub firma”, phone or e-mail, message and consent;
    * `/zapytanie` adds company, city, the preferred contact and the deadline.
@@ -67,17 +68,15 @@ const DEADLINE_OPTIONS = LIST_DEADLINES.map((value) => ({ value, label: value })
 function readValues(form: HTMLFormElement): ListFormValues {
   const data = new FormData(form)
   const text = (name: string) => String(data.get(name) ?? '')
-  const phone = text('phone')
-  const email = text('email')
-  // The drawer has no choice of contact: with an e-mail only, the answer goes by e-mail.
-  const fallbackContact: PreferredContact = !phone.trim() && email.trim() ? 'email' : 'phone'
   return {
     name: text('name'),
-    phone,
+    phone: text('phone'),
     company: text('company'),
     city: text('city'),
-    email,
-    preferredContact: (text('preferredContact') || fallbackContact) as PreferredContact,
+    email: text('email'),
+    // The drawer has no choice: phone by default, e-mail when only an e-mail is given
+    // (`buildListInquiryBody`).
+    preferredContact: (text('preferredContact') || 'phone') as PreferredContact,
     deadline: text('deadline'),
     message: text('message'),
     consent: data.get('consent') === 'on',
@@ -96,7 +95,14 @@ function buttonLabel(count: number): string {
  * a „Zapytaj o X” phrase or — with nothing else — a plain contact (`lib/inquiry/listForm`).
  * A phone or an e-mail is enough.
  */
-export function ListForm({ formToken, cart, phrase, promises, onSent, compact = false }: Props) {
+export function ListForm({
+  formToken,
+  cart,
+  phrase,
+  promises = [],
+  onSent,
+  compact = false,
+}: Props) {
   const id = useId()
   const fieldId = (name: string) => `${id}-${name}`
   const [errors, setErrors] = useState<Partial<Record<ListFieldName, string>>>({})
@@ -149,7 +155,11 @@ export function ListForm({ formToken, cart, phrase, promises, onSent, compact = 
     setSending(false)
 
     if (outcome.kind === 'sent') {
-      onSent({ number: outcome.number, emailed: values.email.trim() !== '' })
+      onSent({
+        number: outcome.number,
+        emailed: values.email.trim() !== '',
+        phoned: values.phone.trim() !== '',
+      })
       return
     }
     const fields = outcome.kind === 'invalid' ? outcome.fields : {}

@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useEffect, useId, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
 
 import { ICON_BUTTON } from '@/components/ui/iconButton'
 import { cartCount, MAX_QTY, suggestFor } from '@/lib/cart/cart'
@@ -14,7 +14,7 @@ import { AddToCartButton } from './AddToCartButton'
 import { ListForm } from './inquiry/ListForm'
 import { ProductThumb, productSubtitle } from './ProductThumb'
 
-type Sent = { number: string | null; emailed: boolean }
+type Sent = { number: string | null; emailed: boolean; phoned: boolean }
 type Token = { status: 'loading' | 'error' } | { status: 'ready'; value: string }
 
 const focusOnMount = (node: HTMLElement | null) => node?.focus()
@@ -23,11 +23,11 @@ const focusOnMount = (node: HTMLElement | null) => node?.focus()
  * A fresh form token when the drawer opens (`/api/inquiry-token`): the drawer lives in the
  * layout of cached pages, so a token rendered with it could be too old (ADR-003).
  */
-function useFormToken(enabled: boolean): Token {
+function useFormToken(enabled: boolean): [Token, () => void] {
   const [token, setToken] = useState<Token>({ status: 'loading' })
-  const ready = token.status === 'ready'
+  const loading = token.status === 'loading'
   useEffect(() => {
-    if (!enabled || ready) return
+    if (!enabled || !loading) return
     let alive = true
     fetch('/api/inquiry-token', { cache: 'no-store' })
       .then((response) => (response.ok ? response.json() : null))
@@ -40,8 +40,10 @@ function useFormToken(enabled: boolean): Token {
     return () => {
       alive = false
     }
-  }, [enabled, ready])
-  return token
+  }, [enabled, loading])
+  // Called when the drawer closes: the next opening fetches a fresh token (24 h, ADR-003).
+  const reset = useCallback(() => setToken({ status: 'loading' }), [])
+  return [token, reset]
 }
 
 type Props = {
@@ -100,7 +102,7 @@ export function CartDrawer({ phone }: Props) {
   const suggestions = useMemo(() => (index ? suggestFor(cart, index) : []), [cart, index])
   const count = cartCount(cart)
   const [sent, setSent] = useState<Sent | null>(null)
-  const token = useFormToken(open && count > 0)
+  const [token, resetToken] = useFormToken(open && count > 0)
 
   function onSent(result: Sent) {
     setSent(result)
@@ -115,6 +117,7 @@ export function CartDrawer({ phone }: Props) {
         setOpen(false)
         // The thanks belong to this opening; the next one starts with the list again.
         setSent(null)
+        resetToken()
       }}
       onClick={(event) => {
         // The backdrop: a pointer click on the dialog element outside its box (a keyboard
@@ -174,13 +177,19 @@ export function CartDrawer({ phone }: Props) {
             )}
             <b className="font-display text-xl text-ink">Dziękujemy, zapytanie wysłane</b>
             <p className="max-w-[34ch]">
-              Oddzwonimy w ciągu 60 minut w godzinach pracy. Poza godzinami — następnego dnia
-              roboczego. Ofertę dostaniesz na piśmie.
+              {/* K4-FINAL §7: the confirmation; by e-mail when no phone was given. */}
+              {sent.phoned
+                ? 'Oddzwonimy w ciągu 60 minut w godzinach pracy i przygotujemy ofertę na piśmie.'
+                : 'Odpowiemy e-mailem w godzinach pracy i przygotujemy ofertę na piśmie.'}
               {sent.emailed && ' Kopię listy wysłaliśmy na Twój e-mail.'}
             </p>
             <button
               type="button"
-              onClick={() => setSent(null)}
+              onClick={() => {
+                setSent(null)
+                // The button leaves with the thanks: the title (it stays) takes the focus first.
+                focusTitle()
+              }}
               className="inline-flex min-h-12 items-center rounded-xl border-[1.5px] border-border-input px-5 font-extrabold text-ink hover:border-ink"
             >
               Nowe zapytanie
@@ -336,7 +345,6 @@ export function CartDrawer({ phone }: Props) {
                   formToken={token.value}
                   cart={cart}
                   phrase={null}
-                  promises={[]}
                   onSent={onSent}
                 />
               ) : token.status === 'loading' ? (

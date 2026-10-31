@@ -40,6 +40,21 @@ describe('listInquiryType (plansza Zapytanie)', () => {
   })
 })
 
+describe('buildListInquiryBody — contact by e-mail only (K4-FINAL §5)', () => {
+  it('answers by e-mail when a phone contact is chosen but only an e-mail is given', () => {
+    for (const preferredContact of ['phone', 'whatsapp'] as const) {
+      const emailOnly = { ...values, phone: ' ', email: 'anna@firma.pl', preferredContact }
+      const body = buildListInquiryBody(emailOnly, { href, formToken: 't', cart, phrase: null })
+      expect(body.preferredContact).toBe('email')
+    }
+  })
+
+  it('keeps the chosen contact when the phone is there', () => {
+    const body = buildListInquiryBody(values, { href, formToken: 't', cart, phrase: null })
+    expect(body.preferredContact).toBe('whatsapp')
+  })
+})
+
 describe('buildListInquiryBody', () => {
   it('sends the list as items and the phrase as a topic — accepted by the server', () => {
     const body = buildListInquiryBody(values, { href, formToken: 't', cart, phrase: 'drukarka' })
