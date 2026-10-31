@@ -8,6 +8,7 @@ import { objectHref } from '../instalacje/menu'
 import { HOME_SLUG, pagePath } from '../pages/slug'
 import { NEWS_PATH, postHref } from '../posts/list'
 import { CATALOG_PATH as SOLUTIONS_PATH } from '../software/catalog'
+import { cityHref } from '../software/cities'
 import { industryPageHref } from '../software/industryPage'
 import { WIZARD_PATH } from '../software/wizardFlow'
 
@@ -52,6 +53,8 @@ export type SiteMapInput = {
   solutions?: { items: readonly { slug: string; name: string }[] } | null
   /** Software: active industry pages `/dla-branz/[branza]` (SW10b); absent elsewhere. */
   industryPages?: readonly { slug: string; name: string }[] | null
+  /** Software: active city pages `/miejscowosci/[miasto]` (SW11b); absent elsewhere. */
+  cities?: readonly { slug: string; name: string }[] | null
   /** Instalacje: published object pages `/dla-kogo/[obiekt]` (I10); absent elsewhere. */
   objectPages?: readonly ({ slug: string; name: string } & Dated)[] | null
 }
@@ -69,6 +72,7 @@ export function buildSiteMap({
   news,
   solutions,
   industryPages,
+  cities,
   objectPages,
 }: SiteMapInput): SiteMapSection[] {
   const home = pages.find((page) => page.slug === HOME_SLUG)
@@ -199,6 +203,14 @@ export function buildSiteMap({
         href: industryPageHref(industry.slug),
         label: industry.name,
       })),
+    })
+  }
+
+  if (cities && cities.length > 0) {
+    sections.push({
+      id: 'miejscowosci',
+      title: 'Miejscowości',
+      links: cities.map((city) => ({ href: cityHref(city.slug), label: city.name })),
     })
   }
 
