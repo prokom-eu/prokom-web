@@ -6,7 +6,7 @@ import { api, loginAsAdmin, site } from './helpers'
 
 // S8b acceptance: the form on a site page → record in the panel → e-mail in Mailpit, with
 // readable errors. Seed: the `kontakt` page of every line but Biznes (its own form since B8c,
-// `biznes-contact`) has the form block. Records made
+// `biznes-contact`) and Software (SW11a, `software-contact`) has the form block. Records made
 // here are deleted at the end. axe and 360 px of `/kontakt` (with the form) are in a11y.e2e.
 
 const MAILPIT = 'http://localhost:8025/api/v1'
@@ -97,7 +97,8 @@ test.describe('inquiry form (S8b)', () => {
 
   test('the server’s verdict on a field shows next to it', async ({ page }) => {
     await asNewVisitor(page)
-    await page.goto(site('software.localhost', '/kontakt'))
+    // SW11a: Software `/kontakt` has its own form; the generic one stays on Instalacje.
+    await page.goto(site('instalacje.localhost', '/kontakt'))
     const form = page.locator('#formularz')
     await form.getByLabel('Imię i nazwisko').fill('Test E2E')
     await form.getByLabel(/^Telefon/).fill('600 100 200')

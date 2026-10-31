@@ -15,6 +15,25 @@ const PAGES = [
   '/kontrola-dostepu',
   '/sieci-wifi',
   '/teletechnika',
+  '/smart-home',
+  '/naglosnienie',
+  '/ekrany',
+  '/ladowarki-ev',
+  // „Dla kogo” (I10).
+  ...[
+    'dom',
+    'apartamenty',
+    'pensjonaty',
+    'hotele',
+    'restauracje',
+    'sklepy',
+    'firmy',
+    'koscioly',
+    'szkoly',
+    'gminy',
+    'deweloperzy',
+    'budowy',
+  ].map((slug) => `/dla-kogo/${slug}`),
 ]
 
 // Known exceptions, each with its open question in docs/stan/STAN-instalacje.md.
@@ -41,8 +60,10 @@ for (const path of PAGES) {
       const text = await page.locator('main').innerText()
       // „[SZEF: …]”, „[CENA]”, „[TELEFON]” of the prototype must never reach a page (spec §10).
       expect(text).not.toMatch(/\[[A-ZĄĆĘŁŃÓŚŹŻ][A-ZĄĆĘŁŃÓŚŹŻ ]{2,}[:\]]/)
-      // No lists of sources on the page (spec §2).
-      expect(text).not.toMatch(/^\s*Źródła\b/m)
+      // No lists of sources on the page (spec §2): a line that is only the heading „Źródła”.
+      // Sentences may start with the word (Nagłośnienie: „Źródła trafiają do miksera…”,
+      // „Źródła muzyki”, „Źródła i mikrofony” — sound sources, not references).
+      expect(text).not.toMatch(/^\s*Źródła\s*:?\s*$/m)
       const jsonLd = await page
         .locator('script[type="application/ld+json"]')
         .evaluateAll((els) => els.map((e) => e.textContent ?? ''))
@@ -81,3 +102,17 @@ for (const path of PAGES) {
     })
   })
 }
+
+// Routes of the line (`(instalacje)`): only on its own domain, only for a known object (I10).
+test.describe('Instalacje line routes', () => {
+  test('an object page is a 404 on another line and for an unknown object', async ({ page }) => {
+    for (const url of [
+      site('biznes.localhost', '/dla-kogo/dom'),
+      site('software.localhost', '/dla-kogo/dom'),
+      site(HOST, '/dla-kogo/nie-ma-takiego'),
+    ]) {
+      const response = await page.goto(url)
+      expect(response?.status(), url).toBe(404)
+    }
+  })
+})

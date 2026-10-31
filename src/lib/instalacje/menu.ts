@@ -32,7 +32,7 @@ export type InstMenu = {
 
 /** Address of a service page (`/monitoring`) or an object page (`/dla-kogo/dom`), spec §3. */
 const serviceHref = (slug: string) => `/${slug}`
-const objectHref = (slug: string) => `/dla-kogo/${slug}`
+export const objectHref = (slug: string) => `/dla-kogo/${slug}`
 
 function columns(
   layout: { label: string; keys: readonly string[] }[],

@@ -30,6 +30,7 @@ import {
   isHoneypotFilled,
   rateLimitKey,
 } from './spam'
+import { isSoftwareTopic, SOFTWARE_TOPIC_LABELS } from './types'
 
 export type SubmitResult =
   | { ok: true; id: number; number: string | null }
@@ -76,6 +77,13 @@ export type SubmitRequest = {
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value)
+}
+
+/** „Twój projekt (Strona): Strona firmowa z panelem, …” — names as saved, not as sent. */
+function projectMessage(topics: readonly string[], items: readonly SavedItem[]): string {
+  const topic = topics.find(isSoftwareTopic)
+  const head = topic ? `Twój projekt (${SOFTWARE_TOPIC_LABELS[topic]})` : 'Twój projekt'
+  return `${head}: ${items.map((item) => item.nameSnapshot).join(', ')}`
 }
 
 type SavedItem = {
@@ -292,6 +300,11 @@ export async function submitInquiryWith(
   // The audit form sends the address only; the message says what is asked (rozstrz. SW0 6).
   if (input.type === 'audit' && message === undefined) {
     message = `Prośba o audyt strony: ${input.auditUrl}`
+  }
+
+  // „Twój projekt” sent without a description (spec. §6.10): the topic and the list say it all.
+  if (tenant.line === 'software' && input.type === 'list' && message === undefined) {
+    message = projectMessage(input.topics, items)
   }
 
   if (!deps.limiter.hit(rateLimitKey(ip ?? 'unknown', deps.secret))) {

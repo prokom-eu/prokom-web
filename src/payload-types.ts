@@ -1987,6 +1987,9 @@ export interface Page {
         | SwHeroBlock
         | SwHomeSectionBlock
         | SwContactBlock
+        | SwContactPageBlock
+        | SwPricingBlock
+        | SwAuditFormBlock
       )[]
     | null;
   seo?: {
@@ -4376,6 +4379,302 @@ export interface SwContactBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SwContactPageBlock".
+ */
+export interface SwContactPageBlock {
+  eyebrow: string;
+  title: string;
+  titleAccent?: string | null;
+  lead: string;
+  /**
+   * Po godzinach z Danych firmy, np. „formularz działa całą dobę”. Status otwarte / zamknięte liczy się sam (czas w Polsce).
+   */
+  hoursNote?: string | null;
+  /**
+   * Telefon i e-mail z Ustawień linii, adres salonu z Danych firmy. Fakty w nawiasach ([GODZINY], [CZAS ODPOWIEDZI]…) z Ustawień linii.
+   */
+  channels?:
+    | {
+        kind: 'phone' | 'email' | 'salon' | 'online';
+        label: string;
+        badge?: string | null;
+        /**
+         * Tylko salon i online; telefon i e-mail z ustawień.
+         */
+        value?: string | null;
+        text?: string | null;
+        href?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  stepsTitle: string;
+  steps?:
+    | {
+        when: string;
+        title: string;
+        text?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  shortcuts?:
+    | {
+        icon: 'wand' | 'search';
+        title: string;
+        href: string;
+        text?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  formEyebrow: string;
+  formTitle: string;
+  /**
+   * Tematy są stałe (spec. §7) — zapisują się w zgłoszeniu.
+   */
+  topicsLabel: string;
+  messageLabel: string;
+  messagePlaceholder?: string | null;
+  projectMessageLabel: string;
+  projectMessagePlaceholder?: string | null;
+  hintsLabel?: string | null;
+  /**
+   * Kliknięta dopisuje się do opisu. Bez tematu: podpowiedzi „Bez tematu”; ostatnia „Wszystkie tematy” dochodzi zawsze.
+   */
+  hints?:
+    | {
+        topic: 'none' | 'all' | 'strona' | 'system' | 'mobile' | 'laczenie' | 'opieka' | 'audyt';
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  nameLabel: string;
+  namePlaceholder?: string | null;
+  contactLabel: string;
+  contactPlaceholder?: string | null;
+  contactHint?: string | null;
+  talkLabel: string;
+  submit: string;
+  submitNote?: string | null;
+  linesEyebrow?: string | null;
+  linesTitle?: string | null;
+  /**
+   * Pusty nagłówek albo brak kart = bez sekcji.
+   */
+  linesText?: string | null;
+  lines?:
+    | {
+        line: 'biznes' | 'instalacje' | 'tech' | 'zakopane' | 'prokom';
+        label: string;
+        text: string;
+        linkLabel: string;
+        href: string;
+        id?: string | null;
+      }[]
+    | null;
+  linesMore?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  meetEyebrow?: string | null;
+  meetTitle?: string | null;
+  /**
+   * Pierwsze jest wyróżnione. Fakty w nawiasach ([GODZINY], [CZAS ODPOWIEDZI]…) z Ustawień linii.
+   */
+  places?:
+    | {
+        title: string;
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  mapCaption?: string | null;
+  navigateLabel?: string | null;
+  /**
+   * Pusty = bez mapy. Bez osadzania mapy (bez ciasteczek).
+   */
+  mapHref?: string | null;
+  companyTitle?: string | null;
+  companyNote?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'swContactPage';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SwPricingBlock".
+ */
+export interface SwPricingBlock {
+  eyebrow: string;
+  title: string;
+  titleAccent?: string | null;
+  /**
+   * {liczba} = liczba opublikowanych rozwiązań („Wszystkie {liczba} rozwiązań…”).
+   */
+  lead?: string | null;
+  primary?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  secondary?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  /**
+   * Cena i termin z rozwiązania. Puste = bez karty.
+   */
+  featured?: (number | null) | Solution;
+  featuredBadge?: string | null;
+  featuredPoints?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  tableEyebrow?: string | null;
+  tableTitle: string;
+  /**
+   * Kolejność i liczba pozycji z rozwiązań (kategoria). Bez wpisu zakładka ma nazwę kategorii i nie ma noty.
+   */
+  tabs?:
+    | {
+        category: 'strony' | 'systemy' | 'aplikacje' | 'automatyzacje' | 'opieka';
+        label?: string | null;
+        note?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  careEyebrow?: string | null;
+  careTitle?: string | null;
+  /**
+   * Poziomy, ceny i czasy reakcji z rozwiązania z poziomami miesięcznymi. Pusty nagłówek = bez sekcji.
+   */
+  careLead?: string | null;
+  /**
+   * „Zapytaj o opiekę” + nazwa poziomu.
+   */
+  careButton?: string | null;
+  careNote?: string | null;
+  auditEyebrow?: string | null;
+  auditTitle?: string | null;
+  /**
+   * Rodzaje z rozwiązania „audyt”. Pusty nagłówek = bez sekcji.
+   */
+  auditLead?: string | null;
+  auditButton?: string | null;
+  auditHref?: string | null;
+  includedEyebrow?: string | null;
+  includedTitle?: string | null;
+  includedItems?:
+    | {
+        title: string;
+        text?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  ctaTitle?: string | null;
+  ctaText?: string | null;
+  ctaPrimary?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  ctaSecondary?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'swPricing';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SwAuditFormBlock".
+ */
+export interface SwAuditFormBlock {
+  eyebrow: string;
+  title: string;
+  titleAccent?: string | null;
+  lead: string;
+  /**
+   * Fakty w nawiasach ([CZAS]…) z Ustawień linii.
+   */
+  formLabel?: string | null;
+  urlLabel: string;
+  urlPlaceholder?: string | null;
+  nameLabel: string;
+  namePlaceholder?: string | null;
+  contactLabel: string;
+  contactPlaceholder?: string | null;
+  submit: string;
+  submitNote?: string | null;
+  reportTitle?: string | null;
+  reportSubtitle?: string | null;
+  reportBadge?: string | null;
+  /**
+   * Pusty tytuł albo brak wierszy = bez przykładu.
+   */
+  reportRows?:
+    | {
+        icon: 'clock' | 'phone' | 'search' | 'shield' | 'users' | 'doc';
+        title: string;
+        status: 'good' | 'fix';
+        text?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  checksEyebrow?: string | null;
+  checksTitle?: string | null;
+  checksLead?: string | null;
+  /**
+   * Ostatnia karta jest wyróżniona (wynik: raport). Fakty w nawiasach ([CZAS]…) z Ustawień linii.
+   */
+  checks?:
+    | {
+        icon: 'clock' | 'phone' | 'search' | 'shield' | 'users' | 'doc';
+        title: string;
+        text?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  levelsEyebrow?: string | null;
+  levelsTitle?: string | null;
+  /**
+   * Ceny i terminy z rozwiązania „audyt” (poziomy). Pusty nagłówek = bez sekcji.
+   */
+  levelsLead?: string | null;
+  levelButtons?:
+    | {
+        label: string;
+        href: string;
+        id?: string | null;
+      }[]
+    | null;
+  stepsEyebrow?: string | null;
+  stepsTitle?: string | null;
+  /**
+   * Fakty w nawiasach ([CZAS]…) z Ustawień linii.
+   */
+  steps?:
+    | {
+        title: string;
+        text?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  ctaTitle?: string | null;
+  ctaText?: string | null;
+  ctaPrimary?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  ctaSecondary?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'swAuditForm';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -5886,6 +6185,9 @@ export interface PagesSelect<T extends boolean = true> {
         swHero?: T | SwHeroBlockSelect<T>;
         swHomeSection?: T | SwHomeSectionBlockSelect<T>;
         swContact?: T | SwContactBlockSelect<T>;
+        swContactPage?: T | SwContactPageBlockSelect<T>;
+        swPricing?: T | SwPricingBlockSelect<T>;
+        swAuditForm?: T | SwAuditFormBlockSelect<T>;
       };
   seo?:
     | T
@@ -6947,6 +7249,256 @@ export interface SwContactBlockSelect<T extends boolean = true> {
   submit?: T;
   alternative?: T;
   alternativeLink?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SwContactPageBlock_select".
+ */
+export interface SwContactPageBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  title?: T;
+  titleAccent?: T;
+  lead?: T;
+  hoursNote?: T;
+  channels?:
+    | T
+    | {
+        kind?: T;
+        label?: T;
+        badge?: T;
+        value?: T;
+        text?: T;
+        href?: T;
+        id?: T;
+      };
+  stepsTitle?: T;
+  steps?:
+    | T
+    | {
+        when?: T;
+        title?: T;
+        text?: T;
+        id?: T;
+      };
+  shortcuts?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        href?: T;
+        text?: T;
+        id?: T;
+      };
+  formEyebrow?: T;
+  formTitle?: T;
+  topicsLabel?: T;
+  messageLabel?: T;
+  messagePlaceholder?: T;
+  projectMessageLabel?: T;
+  projectMessagePlaceholder?: T;
+  hintsLabel?: T;
+  hints?:
+    | T
+    | {
+        topic?: T;
+        text?: T;
+        id?: T;
+      };
+  nameLabel?: T;
+  namePlaceholder?: T;
+  contactLabel?: T;
+  contactPlaceholder?: T;
+  contactHint?: T;
+  talkLabel?: T;
+  submit?: T;
+  submitNote?: T;
+  linesEyebrow?: T;
+  linesTitle?: T;
+  linesText?: T;
+  lines?:
+    | T
+    | {
+        line?: T;
+        label?: T;
+        text?: T;
+        linkLabel?: T;
+        href?: T;
+        id?: T;
+      };
+  linesMore?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  meetEyebrow?: T;
+  meetTitle?: T;
+  places?:
+    | T
+    | {
+        title?: T;
+        text?: T;
+        id?: T;
+      };
+  mapCaption?: T;
+  navigateLabel?: T;
+  mapHref?: T;
+  companyTitle?: T;
+  companyNote?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SwPricingBlock_select".
+ */
+export interface SwPricingBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  title?: T;
+  titleAccent?: T;
+  lead?: T;
+  primary?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  secondary?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  featured?: T;
+  featuredBadge?: T;
+  featuredPoints?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  tableEyebrow?: T;
+  tableTitle?: T;
+  tabs?:
+    | T
+    | {
+        category?: T;
+        label?: T;
+        note?: T;
+        id?: T;
+      };
+  careEyebrow?: T;
+  careTitle?: T;
+  careLead?: T;
+  careButton?: T;
+  careNote?: T;
+  auditEyebrow?: T;
+  auditTitle?: T;
+  auditLead?: T;
+  auditButton?: T;
+  auditHref?: T;
+  includedEyebrow?: T;
+  includedTitle?: T;
+  includedItems?:
+    | T
+    | {
+        title?: T;
+        text?: T;
+        id?: T;
+      };
+  ctaTitle?: T;
+  ctaText?: T;
+  ctaPrimary?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  ctaSecondary?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SwAuditFormBlock_select".
+ */
+export interface SwAuditFormBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  title?: T;
+  titleAccent?: T;
+  lead?: T;
+  formLabel?: T;
+  urlLabel?: T;
+  urlPlaceholder?: T;
+  nameLabel?: T;
+  namePlaceholder?: T;
+  contactLabel?: T;
+  contactPlaceholder?: T;
+  submit?: T;
+  submitNote?: T;
+  reportTitle?: T;
+  reportSubtitle?: T;
+  reportBadge?: T;
+  reportRows?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        status?: T;
+        text?: T;
+        id?: T;
+      };
+  checksEyebrow?: T;
+  checksTitle?: T;
+  checksLead?: T;
+  checks?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        text?: T;
+        id?: T;
+      };
+  levelsEyebrow?: T;
+  levelsTitle?: T;
+  levelsLead?: T;
+  levelButtons?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        id?: T;
+      };
+  stepsEyebrow?: T;
+  stepsTitle?: T;
+  steps?:
+    | T
+    | {
+        title?: T;
+        text?: T;
+        id?: T;
+      };
+  ctaTitle?: T;
+  ctaText?: T;
+  ctaPrimary?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  ctaSecondary?:
     | T
     | {
         label?: T;

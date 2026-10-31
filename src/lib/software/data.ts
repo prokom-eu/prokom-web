@@ -22,11 +22,12 @@ import {
   softwareOfferSchema,
 } from './offer'
 import { thanksSchema, type SoftwareThanks } from './pages'
+import type { PricingSolution } from './pricing'
 import { buildIndustryPage, type IndustryDoc, type IndustryPageView } from './industryPage'
 import { buildSolutionPage, type SolutionPageDoc, type SolutionPageView } from './solutionPage'
 import { buildSolutionsIndex, DEFAULT_PRICE_DISPLAY, type SolutionsIndex } from './solutionsIndex'
 import { solutionsTag } from './tags'
-import { priceDisplaySchema, type SoftwareWizard } from './wizard'
+import { type PriceDisplay, priceDisplaySchema, type SoftwareWizard } from './wizard'
 import { readSoftwareWizard } from './wizardRules'
 
 /**
@@ -310,6 +311,73 @@ const getOfferSource = (tenantId: number) =>
       }
     },
     ['offer-source', 'v22', String(tenantId)],
+    { tags: [solutionsTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
+  )()
+
+/**
+ * What the price list `/cennik` reads (SW11a, spec. §6.4): published solutions of one tenant with
+ * the price fields, „W cenie” and the levels, and the price templates. Cached with the index
+ * (same tag, revalidated by the hooks of `Solutions` and `SoftwareSettings`).
+ */
+export const getPricingSource = (
+  tenantId: number,
+): Promise<{ solutions: (PricingSolution & { id: number })[]; display: PriceDisplay }> =>
+  cacheQuery(
+    async () => {
+      const payload = await getPayload({ config })
+      const read = { overrideAccess: true, depth: 0 } as const
+      const inTenant = { tenant: { equals: tenantId } }
+      const [solutions, settings] = await Promise.all([
+        payload.find({
+          collection: 'solutions',
+          where: { and: [inTenant, { _status: { equals: 'published' } }] },
+          draft: false,
+          limit: MAX_SOLUTIONS,
+          sort: 'id',
+          select: {
+            slug: true,
+            name: true,
+            category: true,
+            lead: true,
+            priceFrom: true,
+            leadTime: true,
+            priceMonthly: true,
+            priceNote: true,
+            included: true,
+            levels: true,
+            levelRows: true,
+          },
+          ...read,
+        }),
+        payload.find({
+          collection: 'software-settings',
+          where: inTenant,
+          limit: 1,
+          select: { wizard: true },
+          ...read,
+        }),
+      ])
+      const priceDisplay = (settings.docs[0]?.wizard as { priceDisplay?: unknown } | null)
+        ?.priceDisplay
+      return {
+        solutions: solutions.docs.map((doc) => ({
+          id: doc.id,
+          slug: doc.slug,
+          name: doc.name,
+          category: doc.category,
+          lead: doc.lead ?? null,
+          priceFrom: doc.priceFrom ?? null,
+          leadTime: doc.leadTime ?? null,
+          priceMonthly: doc.priceMonthly ?? false,
+          priceNote: doc.priceNote ?? null,
+          included: doc.included ?? [],
+          levels: doc.levels ?? [],
+          levelRows: doc.levelRows ?? [],
+        })),
+        display: priceDisplaySchema.safeParse(priceDisplay).data ?? DEFAULT_PRICE_DISPLAY,
+      }
+    },
+    ['pricing-source', String(tenantId)],
     { tags: [solutionsTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
   )()
 

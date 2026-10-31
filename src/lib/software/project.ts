@@ -10,6 +10,13 @@ export const MAX_PROJECT_ITEMS = 30
 
 /** „Wyślij do wyceny →”: the contact form with the project list (spec. §3.1, v21). */
 export const PROJECT_SEND_HREF = '/kontakt?projekt=1#formularz'
+
+/**
+ * Names sent with the last inquiry from `/kontakt`, for `/dziekujemy` („Wysłane razem z: …”):
+ * `sessionStorage` (this tab only) as `{ nr, names }` — shown only on the thanks page of that
+ * inquiry number, so a later inquiry (audit, wizard) never shows a stale list.
+ */
+export const PROJECT_SENT_KEY = 'pk-project-sent'
 const MAX_NAME = 120
 
 export type ProjectItem = { id: string; name: string }
@@ -54,4 +61,24 @@ export function toggle(
 
 export function remove(project: Project, id: string): Project {
   return project.filter((item) => item.id !== id)
+}
+
+/** `PROJECT_SENT_KEY` as stored by the contact form. */
+export function sentRecord(number: string, names: readonly string[]): string {
+  return JSON.stringify({ nr: number, names })
+}
+
+/** Names of `PROJECT_SENT_KEY` for the inquiry `number`; anything else is no list. */
+export function parseSent(raw: string | null, number: string | null): string[] {
+  if (!raw || !number) return []
+  let data: unknown
+  try {
+    data = JSON.parse(raw)
+  } catch {
+    return []
+  }
+  if (typeof data !== 'object' || data === null || Array.isArray(data)) return []
+  const { nr, names } = data as Record<string, unknown>
+  if (nr !== number || !Array.isArray(names)) return []
+  return names.filter((name): name is string => typeof name === 'string' && name.trim() !== '')
 }
