@@ -2132,6 +2132,14 @@
   --il-jsvis-p4-1: #d9eef4;
   --il-jsvis-p4-2: #9dbcc6;
   --il-synfl-glow: rgba(76, 203, 230, 0.7);
+  /* Ładowarki (I9): housing colours of Elzab CC Wall in the configurator (`Ladowarki.js` COLS,
+     product colours, the same in both themes). */
+  --il-evsw-black: #1e2224;
+  --il-evsw-white: #f4f5f2;
+  --il-evsw-grey: #8e9599;
+  --il-evsw-blue: #2f5e9e;
+  --il-evsw-green: #5d9e46;
+  --il-evsw-brown: #7a5638;
 }
 
 [data-line='software'] {

@@ -105,6 +105,14 @@ describe('Instalacje service page illustrations', () => {
     const vsBlack = levels.map((t) => contrastRatio(resolve(`var(${t})`, il), '#000000'))
     expect(vsBlack).toEqual([...vsBlack].sort((a, b) => a - b))
   })
+
+  // Ładowarki (I9): six housing colours of CC Wall, each its own swatch.
+  it('give CC Wall six distinct housing colours', () => {
+    const names = ['black', 'white', 'grey', 'blue', 'green', 'brown'].map((c) => `--il-evsw-${c}`)
+    const values = names.map((t) => resolve(`var(${t})`, il).toLowerCase())
+    expect(values.every((v) => /^#[0-9a-f]{6}$/.test(v))).toBe(true)
+    expect(new Set(values).size).toBe(6)
+  })
 })
 
 describe('Instalacje service page colours', () => {
