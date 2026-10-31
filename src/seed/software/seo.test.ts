@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import { META_DESCRIPTION_MAX } from '../../lib/seo/description'
+import { HOME_SLUG } from '../../lib/pages/slug'
 import { SOFTWARE_PAGE_SEO, seoFill } from './seo'
 
 describe('SOFTWARE_PAGE_SEO (spec. §9)', () => {
@@ -12,8 +13,12 @@ describe('SOFTWARE_PAGE_SEO (spec. §9)', () => {
   })
 
   it('leaves the site name to the title template and has no placeholders', () => {
+    // The start page shares the layout's segment, so the template does not reach it.
+    expect(SOFTWARE_PAGE_SEO[HOME_SLUG]?.title).toBe(
+      'Strony, systemy i aplikacje dla firm — Rabka-Zdrój, Podhale | PRO-KOM Software',
+    )
     for (const [slug, { title, description }] of Object.entries(SOFTWARE_PAGE_SEO)) {
-      expect(title ?? '', slug).not.toContain('PRO-KOM Software')
+      if (slug !== HOME_SLUG) expect(title ?? '', slug).not.toContain('PRO-KOM Software')
       expect(`${title ?? ''} ${description}`, slug).not.toMatch(/\[[^\]]+\]/)
     }
   })

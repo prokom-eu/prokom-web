@@ -10,11 +10,12 @@ type Count = (name: string, result: boolean | 'updated') => void
 type Seo = { title?: string | null; description?: string | null }
 
 // TODO(krystian): opisy meta do akceptacji przed produkcją (spec. §9: „opisy pisze Krystian”) —
-// propozycje SW12 z tekstów plansz. Tytuł bez „| PRO-KOM Software”: dokłada go szablon tytułu.
+// propozycje SW12 z tekstów plansz. Tytuł podstron bez „| PRO-KOM Software” (dokłada go szablon
+// tytułu); strona główna leży w segmencie layoutu, którego szablon jej nie obejmuje — tytuł pełny.
 /** Titles and descriptions of the Software pages kept in the panel (spec. §9). */
 export const SOFTWARE_PAGE_SEO: Readonly<Record<string, Seo>> = {
   [HOME_SLUG]: {
-    title: 'Strony, systemy i aplikacje dla firm — Rabka-Zdrój, Podhale',
+    title: 'Strony, systemy i aplikacje dla firm — Rabka-Zdrój, Podhale | PRO-KOM Software',
     description:
       'Strony internetowe, systemy dla firm i aplikacje z Rabki-Zdroju. Cena „od” i termin od razu, wycena na piśmie, opieka po starcie.',
   },
