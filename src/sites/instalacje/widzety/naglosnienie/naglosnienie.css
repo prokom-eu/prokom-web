@@ -1401,7 +1401,10 @@
 @media (pointer: coarse), (max-width: 760px) {
   [data-line='instalacje'] {
     & .cmu,
-    & .csb {
+    & .csb,
+    & .mxw .seg button,
+    & .chw .seg button,
+    & #ile-glosnikow .seg button {
       min-height: 44px;
     }
   }

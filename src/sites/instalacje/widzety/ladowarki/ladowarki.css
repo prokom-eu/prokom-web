@@ -674,6 +674,20 @@
       white-space: normal;
     }
   }
+  /* Colours of the photo tiles and the glow (pk.css sets `--evT1`, `--evT2`, `--evG` on its
+     root, per theme — here the pair tokens). */
+  & .evstage,
+  & .evtile,
+  & .evcv {
+    --evT1: var(--inst-il-evtile-1);
+    --evT2: var(--inst-il-evtile-2);
+    --evG: var(--inst-il-evglow);
+  }
+  /* The prototype has no box-sizing reset (ADR-I003 §5 p. 6): the photo tile adds its padding
+     and border to the height. */
+  & .evtile {
+    box-sizing: content-box;
+  }
   /* `next/image` sets width and height attributes; the prototype's `<img>` had none, so its
      rules give only the height and the width follows the photo. */
   & img.evi {
@@ -736,12 +750,17 @@
   }
 }
 
-/* Phone: touch targets of at least 44 px (MOBILE-APLIKACJA §10; prototype 34 px swatches). */
+/* Phone: touch targets of at least 44 px (MOBILE-APLIKACJA §10; prototype 34 px swatches, 40 px switches). */
 @media (pointer: coarse), (max-width: 760px) {
   [data-line='instalacje'] {
     & .evswb {
       width: 44px;
       height: 44px;
+    }
+    & .evsh .seg button,
+    & .evco .seg button,
+    & .evkalk .seg button {
+      min-height: 44px;
     }
   }
 }
