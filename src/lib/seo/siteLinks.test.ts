@@ -162,6 +162,26 @@ describe('buildSiteMap — Software', () => {
       'rozwiazania',
     )
   })
+
+  it('lists the active industry pages of Software (SW10b)', () => {
+    const map = buildSiteMap({
+      pages,
+      catalog: null,
+      news: null,
+      solutions: { items: [] },
+      industryPages: [{ slug: 'budownictwo-i-wykonczenia', name: 'Budownictwo i wykończenia' }],
+    })
+    const section = map.find(({ id }) => id === 'dla-branz')
+    expect(section?.links).toEqual([
+      { href: '/dla-branz/budownictwo-i-wykonczenia', label: 'Budownictwo i wykończenia' },
+    ])
+    expect(siteMapPaths(map)).toContainEqual({ path: '/dla-branz/budownictwo-i-wykonczenia' })
+  })
+
+  it('has no industry section without active pages', () => {
+    const map = buildSiteMap({ pages, catalog: null, news: null, industryPages: [] })
+    expect(map.map(({ id }) => id)).not.toContain('dla-branz')
+  })
 })
 
 describe('siteMapPaths', () => {
