@@ -135,7 +135,7 @@ test.describe('Biznes header', () => {
     await page.goto(site('biznes.localhost'))
     const magnifier = page
       .getByRole('banner')
-      .getByRole('button', { name: 'Szukaj w ofercie (Ctrl K lub /)' })
+      .getByRole('button', { name: 'Szukaj w ofercie Ctrl K' })
     await expect(magnifier).toHaveAttribute('aria-keyshortcuts', 'Control+K Meta+K /')
     await magnifier.click()
     await expect(page.getByRole('dialog', { name: 'Szukaj w ofercie' })).toBeVisible()
