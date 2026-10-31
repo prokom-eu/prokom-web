@@ -47,6 +47,7 @@ import { SwHeroBlock } from '@/sites/software/blocks/SwHero/Component'
 import { SwContactBlock } from '@/sites/software/blocks/SwContact/Component'
 import { SwContactPageBlock } from '@/sites/software/blocks/SwContactPage/Component'
 import { SwHomeSectionBlock } from '@/sites/software/blocks/SwHomeSection/Component'
+import { SwPricingBlock } from '@/sites/software/blocks/SwPricing/Component'
 import { FaqSoftware } from '@/sites/software/components/home/FaqSoftware'
 
 type Props = { page: PublicPage; tenant: SiteTenant }
@@ -59,6 +60,7 @@ const HERO_BLOCKS = new Set([
   'bzPageHero',
   'swHero',
   'swContactPage',
+  'swPricing',
   'instService',
   'instHome',
 ])
@@ -197,6 +199,8 @@ export function RenderBlocks({ page, tenant }: Props) {
             return <SwHomeSectionBlock key={key} block={block} tenantId={tenant.id} />
           case 'swContact':
             return <SwContactBlock key={key} block={block} tenantId={tenant.id} />
+          case 'swPricing':
+            return <SwPricingBlock key={key} block={block} tenantId={tenant.id} isFirst={i === 0} />
           case 'swContactPage':
             return (
               <SwContactPageBlock key={key} block={block} tenantId={tenant.id} isFirst={i === 0} />

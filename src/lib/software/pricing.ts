@@ -132,3 +132,8 @@ export function levelPlans(solution: PricingSolution): LevelPlan[] {
     }
   })
 }
+
+/** „Zapytaj o opiekę Podstawową”: a name in -a takes -ą, any other stays as it is („Systemy”). */
+export function levelAccusative(name: string): string {
+  return name.endsWith('a') ? `${name.slice(0, -1)}ą` : name
+}

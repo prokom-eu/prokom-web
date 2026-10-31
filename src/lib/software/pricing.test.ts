@@ -1,7 +1,13 @@
 import { describe, expect, it } from 'vitest'
 
 import { solutionData, solutionsToImport } from '../../seed/software/map'
-import { findLevelSolution, levelPlans, pricingTabs, type PricingSolution } from './pricing'
+import {
+  findLevelSolution,
+  levelAccusative,
+  levelPlans,
+  pricingTabs,
+  type PricingSolution,
+} from './pricing'
 import { DEFAULT_PRICE_DISPLAY } from './solutionsIndex'
 
 const NBSP = String.fromCharCode(0xa0)
@@ -115,5 +121,15 @@ describe('levels of care and audit', () => {
     ])
     expect(plans[0]?.termLabel).toBe('Wynik')
     expect(plans[2]?.points[0]).toBe('Wszystko z poziomu Pełny')
+  })
+})
+
+describe('button of a care level (board „Zapytaj o opiekę Podstawową →”)', () => {
+  it('declines the names in -a, keeps the others', () => {
+    expect(['Podstawowa', 'Rozszerzona', 'Systemy'].map(levelAccusative)).toEqual([
+      'Podstawową',
+      'Rozszerzoną',
+      'Systemy',
+    ])
   })
 })
