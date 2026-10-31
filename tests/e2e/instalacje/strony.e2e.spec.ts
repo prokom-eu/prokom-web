@@ -15,6 +15,7 @@ const PAGES = [
   '/kontrola-dostepu',
   '/sieci-wifi',
   '/teletechnika',
+  '/smart-home',
 ]
 
 // Known exceptions, each with its open question in docs/stan/STAN-instalacje.md.

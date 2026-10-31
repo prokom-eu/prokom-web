@@ -5,7 +5,7 @@ export const SHARED_SECTION_IDS = ['odbior', 'pakiety', 'cena', 'faq', 'powiazan
 
 /**
  * Section ids of the service pages built so far (prototype ids, ADR-I003 §1). A service without
- * an entry has only the shared sections; I7–I9 add theirs with their pages.
+ * an entry has only the shared sections; each page session adds its own (I4, I7–I9).
  */
 export const SERVICE_SECTION_IDS: Partial<Record<ServiceKey, readonly string[]>> = {
   ant: ['co-robimy', 'gory', 'multipleksy', 'filtr-5g', 'satelita', 'pensjonat-tv'],
@@ -30,6 +30,7 @@ export const SERVICE_SECTION_IDS: Partial<Record<ServiceKey, readonly string[]>>
     'standardy',
     'zapas',
   ],
+  smart: ['co-sterujesz', 'dlaczego', 'panele', 'integracje', 'obiekty', 'moduly', 'etapy'],
   kam: ['co-dostajesz', 'system', 'typy', 'ile-widac', 'nagrania', 'rodo', 'sprzet-kamery'],
 }
 

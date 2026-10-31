@@ -34,6 +34,8 @@ import { TeletechnikaSections } from '../../widzety/teletechnika/TeletechnikaSec
 import { teletechnika } from '../../dane/teletechnika'
 import { MonitoringSections } from '../../widzety/monitoring/MonitoringSections'
 import { NvrDemo } from '../../widzety/monitoring/NvrDemo'
+import { SmartSections, SmartWarrantyNote } from '../../widzety/smart/SmartSections'
+import { SmartPlan } from '../../widzety/smart/SmartWidgets'
 
 type Props = { block: InstServiceBlockData; tenantId: number }
 
@@ -46,10 +48,12 @@ type ServiceLayout = {
   guarantee?: false
   /** Button of the CTA band instead of the planner (Teletechnika: to the quote form). */
   bandButton?: { label: string; href: string }
+  /** Under the warranty section (Smart home: the Ampio warranty note). */
+  afterGuarantee?: ReactNode
 }
 type LayoutContext = { planHref: string }
 
-/** Pages built so far (I4, I7, I8); the other services show the shared sections until I9. */
+/** Pages built so far (I4, I7–I9); the other services show the shared sections until theirs. */
 const LAYOUTS: Partial<Record<string, (ctx: LayoutContext) => ServiceLayout>> = {
   kam: ({ planHref }) => ({
     widget: <NvrDemo />,
@@ -77,6 +81,12 @@ const LAYOUTS: Partial<Record<string, (ctx: LayoutContext) => ServiceLayout>> = 
     folded: ['faq'],
     guarantee: false,
     bandButton: teletechnika.bandButton,
+  }),
+  smart: ({ planHref }) => ({
+    widget: <SmartPlan />,
+    sections: <SmartSections planHref={planHref} />,
+    folded: ['cena', 'faq'],
+    afterGuarantee: <SmartWarrantyNote />,
   }),
   ant: () => ({
     widget: <AntennaAim />,
@@ -164,6 +174,7 @@ export async function InstServiceBlock({ block, tenantId }: Props) {
           responseText={settings.responseText}
         />
       )}
+      {layout?.afterGuarantee}
       <Packages
         intro={service.packagesIntro}
         packages={service.packages}
