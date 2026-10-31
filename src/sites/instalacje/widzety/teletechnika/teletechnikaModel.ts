@@ -115,7 +115,22 @@ export const INITIAL_QUOTE: QuoteState = {
 /** Only digits, at most four (the prototype's `onLok`). */
 export const unitsValue = (raw: string) => raw.replace(/[^0-9]/g, '').slice(0, 4)
 
-export const phoneOk = (phone: string) => phone.replace(/[^0-9]/g, '').length >= 9
+/** Limits of the inquiry schema (`src/lib/inquiry/schema.ts`) for the fields of this form. */
+export const QUOTE_LIMITS = {
+  place: 100,
+  term: 100,
+  name: 120,
+  phone: 30,
+  email: 254,
+  // Goes into the message (5000); a stage is a short phrase.
+  stage: 300,
+} as const
+
+/** The server's phone format (`+48 600 100 200`, brackets and dashes) and at least 9 digits. */
+export const phoneOk = (phone: string) => {
+  const p = phone.trim()
+  return /^\+?[\d\s()-]{6,}$/.test(p) && p.replace(/[^0-9]/g, '').length >= 9
+}
 export const emailOk = (email: string) => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email.trim())
 
 export type QuoteErrorKey = 'name' | 'contact' | 'consent'

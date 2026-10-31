@@ -889,10 +889,6 @@
     opacity: 0;
     overflow: hidden;
   }
-  & .xc-drop:focus-within {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
   & .xc-fn {
     font-size: 13px;
     color: var(--ink-2);
@@ -900,6 +896,11 @@
   }
   & .zin.xc-bad {
     border-color: var(--inst-il-xc-err-c);
+  }
+  /* The checkbox is visually hidden: its box shows the keyboard focus (like `.hzkcons`, I6). */
+  & .xc-chk:has(input:focus-visible) i {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
   }
   & .xc-chk {
     display: flex;

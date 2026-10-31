@@ -218,12 +218,12 @@ export const dostep = {
       {
         name: 'Smoobu',
         locks: 'Nuki, TTLock, Yale, Salto KS, igloohome, Tedee i inne',
-        note: 'Funkcja w planie Pro, 4 € miesięcznie za zamek. Nuki wymaga też abonamentu Smart Hosting.',
+        note: 'Funkcja w płatnym planie, opłata za każdy zamek. Nuki wymaga też abonamentu Smart Hosting.',
       },
       {
         name: 'Beds24',
-        locks: '31 integracji, m.in. Nuki, TTLock, Salto, Yale, Igloohome',
-        note: 'Lista w dokumentacji Beds24.',
+        locks: 'M.in. Nuki, TTLock, Salto, Yale, Igloohome',
+        note: 'Integrację sprawdzamy przy wycenie.',
       },
       {
         name: 'Hotres',

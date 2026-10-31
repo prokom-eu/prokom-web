@@ -1,5 +1,6 @@
 import { type CSSProperties, Fragment, type ReactNode } from 'react'
 
+import { LEGAL_NOTE } from '../../dane/prawo'
 import { sieci } from '../../dane/sieci'
 import { InstIcon } from '../../InstIcon'
 import { InstSection } from '../../sekcje/InstSection'
@@ -114,7 +115,9 @@ export function SieciSections() {
             </div>
             <div className="note">
               <InstIcon name="lock" size={20} />
-              <span>{portal.rodo}</span>
+              <span>
+                {portal.rodo} {LEGAL_NOTE}
+              </span>
             </div>
           </div>
           <div className="ri">
@@ -242,7 +245,7 @@ export function SieciSections() {
           <div className="note ri" style={{ marginTop: 16 }}>
             <InstIcon name="doc" size={20} />
             <span>
-              <b>{standards.band.title}</b> {standards.band.text}
+              <b>{standards.band.title}</b> {standards.band.text} {LEGAL_NOTE}
             </span>
           </div>
         </div>
@@ -258,7 +261,9 @@ export function SieciSections() {
               </h2>
               <p className="bkp">{nis2.text}</p>
               <Checks items={nis2.items} className="bkl" />
-              <span className="bknote">{nis2.note}</span>
+              <span className="bknote">
+                {nis2.note} {LEGAL_NOTE}
+              </span>
             </div>
           </div>
         </div>

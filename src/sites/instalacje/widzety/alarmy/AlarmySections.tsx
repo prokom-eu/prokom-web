@@ -1,3 +1,4 @@
+import { LEGAL_NOTE } from '../../dane/prawo'
 import { alarmy } from '../../dane/alarmy'
 import { InstIcon } from '../../InstIcon'
 import { InstSection } from '../../sekcje/InstSection'
@@ -180,7 +181,9 @@ export function AlarmySections() {
             ))}
             <div className="note ri">
               <InstIcon name="doc" size={20} />
-              <span>{agency.licence}</span>
+              <span>
+                {agency.licence} {LEGAL_NOTE}
+              </span>
             </div>
           </div>
         </div>

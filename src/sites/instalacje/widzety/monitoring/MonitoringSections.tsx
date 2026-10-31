@@ -1,5 +1,6 @@
 import Link from 'next/link'
 
+import { LEGAL_NOTE } from '../../dane/prawo'
 import { monitoring } from '../../dane/monitoring'
 import { InstIcon } from '../../InstIcon'
 import { InstSection } from '../../sekcje/InstSection'
@@ -135,7 +136,7 @@ export function MonitoringSections({ planHref }: { planHref: string }) {
               <Link className="xb-lnk" href={rodo.employees.href}>
                 {rodo.employees.link}
               </Link>
-              .
+              . {LEGAL_NOTE}
             </span>
           </div>
         </div>

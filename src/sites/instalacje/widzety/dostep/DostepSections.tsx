@@ -1,3 +1,4 @@
+import { LEGAL_NOTE } from '../../dane/prawo'
 import { dostep } from '../../dane/dostep'
 import { InstIcon } from '../../InstIcon'
 import { InstSection } from '../../sekcje/InstSection'
@@ -108,7 +109,9 @@ export function DostepSections() {
             </div>
             <div className="note w">
               <InstIcon name="finger" size={20} />
-              <span>{company.biometrics}</span>
+              <span>
+                {company.biometrics} {LEGAL_NOTE}
+              </span>
             </div>
             <div className="note">
               <InstIcon name="battery" size={20} />
@@ -133,7 +136,7 @@ export function DostepSections() {
             <div className="note" style={{ margin: 0 }}>
               <InstIcon name="fire" />
               <span>
-                <b>{locks.fire.title}</b> {locks.fire.text}
+                <b>{locks.fire.title}</b> {locks.fire.text} {LEGAL_NOTE}
               </span>
             </div>
           </div>

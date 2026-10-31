@@ -1,12 +1,12 @@
 'use client'
 
-import { type CSSProperties, useRef, useState } from 'react'
+import { type CSSProperties, useEffect, useRef, useState } from 'react'
 
 import { sieci, type VlanKey } from '../../dane/sieci'
 import { INST_ICONS, isInstIconName } from '../../icons'
 import { InstIcon } from '../../InstIcon'
 import { useInterval } from '../../sekcje/useInterval'
-import { setNet, useNet } from './netStore'
+import { resetNet, setNet, useNet } from './netStore'
 import {
   AUTOPLAY_MS,
   cable,
@@ -39,6 +39,7 @@ const touchVlan = (key: VlanKey) => setNet((s) => ({ ...s, ...pickVlan(s, key), 
 export function CoverageMap() {
   const ref = useRef<HTMLDivElement>(null)
   const net = useNet()
+  useEffect(() => resetNet, [])
   useInterval(() => setNet((s) => ({ ...netAutoplayStep(s), touched: s.touched })), AUTOPLAY_MS, {
     enabled: !net.touched,
     target: ref,

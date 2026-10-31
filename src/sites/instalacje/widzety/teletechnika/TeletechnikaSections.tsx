@@ -1,6 +1,7 @@
 import { getEnv } from '@/lib/env'
 import { issueFormToken } from '@/lib/inquiry/spam'
 
+import { LEGAL_NOTE } from '../../dane/prawo'
 import { teletechnika } from '../../dane/teletechnika'
 import { InstIcon } from '../../InstIcon'
 import { InstSection } from '../../sekcje/InstSection'
@@ -81,6 +82,7 @@ export function TeletechnikaSections() {
                   </div>
                 </div>
               ))}
+              <span className="tlawtx">{LEGAL_NOTE}</span>
             </div>
           </div>
         </div>

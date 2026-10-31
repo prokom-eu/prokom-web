@@ -4,8 +4,9 @@
  * `narzedzia/przenies-svg.mjs` (ADR-I003 §4). Colours from tokens (`--inst-il-ttx-*` and the
  * scene classes in `teletechnika.css`); the build stage and layers are classes on the root.
  * `%tt.hl.kN%` / `%tt.mk.kN.cls%` = classes of the highlighted element and its marker, replaced
- * when rendering; markers carry `data-k` (1–9) for the click. Our own constant, rendered on the
- * server. Generated once, do not edit by hand.
+ * when rendering; markers carry `data-k` (1–9) for the click. Our own constant (no scripts, no
+ * `on*=`), part of the client widget, so it is in the HTML and in the JS bundle (~34 KB).
+ * Generated once, do not edit by hand.
  */
 export const TT_SCENE = {
   viewBox: '0 0 720 500',

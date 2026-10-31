@@ -16,7 +16,9 @@ import {
   emailOk,
   INITIAL_QUOTE,
   phoneOk,
+  QUOTE_LIMITS,
   quoteBody,
+  type QuoteErrorKey,
   quoteErrors,
   quoteErrorText,
   type QuoteState,
@@ -26,6 +28,17 @@ import {
 
 const Q = teletechnika.quote
 const consent = linkInText(CONSENT_CLAUSE.text, PRIVACY_POLICY_LINK_TEXT)
+const ERROR_ID = 'tq-error'
+/** Fields the server can reject, with the form's own words (the others: a general error). */
+const SERVER_FIELDS = {
+  name: `${Q.errors.prefix} ${Q.errors.name}.`,
+  phone: Q.errors.phoneFormat,
+  email: Q.errors.emailFormat,
+  city: Q.errors.placeLong,
+  deadline: Q.errors.termLong,
+  message: Q.errors.stageLong,
+}
+type ServerField = keyof typeof SERVER_FIELDS
 
 /**
  * Quote form of the Teletechnika page (`#zapytanie`, ADR-I002 §4): investment type, scope,
@@ -42,6 +55,14 @@ export function QuoteForm({ formToken }: { formToken: string }) {
   const [done, setDone] = useState<{ number: string | null } | null>(null)
   const honeypot = useRef<HTMLInputElement>(null)
   const doneTitle = useRef<HTMLElement>(null)
+  const nameField = useRef<HTMLInputElement>(null)
+  const phoneField = useRef<HTMLInputElement>(null)
+  const emailField = useRef<HTMLInputElement>(null)
+  const placeField = useRef<HTMLInputElement>(null)
+  const termField = useRef<HTMLInputElement>(null)
+  const stageField = useRef<HTMLInputElement>(null)
+  const consentField = useRef<HTMLInputElement>(null)
+  const [serverField, setServerField] = useState<ServerField | null>(null)
 
   useEffect(() => {
     if (done) doneTitle.current?.focus()
@@ -49,18 +70,44 @@ export function QuoteForm({ formToken }: { formToken: string }) {
 
   const set = (change: Partial<QuoteState>) => {
     setFailure(null)
+    setServerField(null)
     setState((s) => ({ ...s, ...change }))
   }
   const errors = quoteErrors(state)
   const errorText = tried ? quoteErrorText(errors) : ''
   const summary = quoteSummary(state)
-  const nameBad = tried && errors.includes('name')
+  const nameBad = (tried && errors.includes('name')) || serverField === 'name'
   const contactBad = tried && errors.includes('contact')
+  const phoneBad = (contactBad && !phoneOk(state.phone)) || serverField === 'phone'
+  const emailBad = (contactBad && !emailOk(state.email)) || serverField === 'email'
+  const shownError = failure ?? errorText
+  // A field with an error points at the message, so a screen reader reads why.
+  const invalid = (bad: boolean) =>
+    bad && shownError ? { 'aria-invalid': true as const, 'aria-describedby': ERROR_ID } : {}
+
+  /** Focus the first missing answer (the order of the form). */
+  const focusFirst = (keys: QuoteErrorKey[]) => {
+    if (keys[0] === 'name') nameField.current?.focus()
+    else if (keys[0] === 'contact') phoneField.current?.focus()
+    else if (keys[0] === 'consent') consentField.current?.focus()
+  }
+  const focusServer = (field: ServerField) =>
+    ({
+      name: nameField,
+      phone: phoneField,
+      email: emailField,
+      city: placeField,
+      deadline: termField,
+      message: stageField,
+    })[field].current?.focus()
 
   async function submit(event: FormEvent) {
     event.preventDefault()
     setTried(true)
-    if (errors.length > 0) return
+    if (errors.length > 0) {
+      focusFirst(errors)
+      return
+    }
     setBusy(true)
     try {
       const response = await fetch('/api/inquiry', {
@@ -74,14 +121,23 @@ export function QuoteForm({ formToken }: { formToken: string }) {
           }),
         ),
       })
-      const outcome = readOutcome(response.status, await response.json().catch(() => null), {
-        name: `${Q.errors.prefix} ${Q.errors.name}.`,
-        phone: `${Q.errors.prefix} ${Q.errors.contact}.`,
-      })
+      const outcome = readOutcome(
+        response.status,
+        await response.json().catch(() => null),
+        SERVER_FIELDS,
+      )
       if (outcome.kind === 'sent') setDone({ number: outcome.number })
-      else if (outcome.kind === 'invalid')
-        setFailure(outcome.formError ?? Object.values(outcome.fields)[0] ?? Q.errors.failed)
-      else setFailure(response.status === 429 ? Q.errors.limit : outcome.message)
+      else if (outcome.kind === 'invalid') {
+        // A stale form ("refresh the page") goes first: fixing a field would not help.
+        const field = outcome.formError
+          ? undefined
+          : (Object.keys(outcome.fields)[0] as ServerField | undefined)
+        setFailure(outcome.formError ?? (field ? SERVER_FIELDS[field] : Q.errors.failed))
+        if (field) {
+          setServerField(field)
+          focusServer(field)
+        }
+      } else setFailure(response.status === 429 ? Q.errors.limit : outcome.message)
     } catch {
       setFailure(Q.errors.failed)
     } finally {
@@ -173,6 +229,9 @@ export function QuoteForm({ formToken }: { formToken: string }) {
             <input
               className="zin"
               type="text"
+              ref={placeField}
+              maxLength={QUOTE_LIMITS.place}
+              {...invalid(serverField === 'city')}
               placeholder={Q.fields.place.placeholder}
               value={state.place}
               onChange={(e) => set({ place: e.target.value })}
@@ -183,6 +242,9 @@ export function QuoteForm({ formToken }: { formToken: string }) {
             <input
               className="zin"
               type="text"
+              ref={stageField}
+              maxLength={QUOTE_LIMITS.stage}
+              {...invalid(serverField === 'message')}
               placeholder={Q.fields.stage.placeholder}
               value={state.stage}
               onChange={(e) => set({ stage: e.target.value })}
@@ -193,6 +255,9 @@ export function QuoteForm({ formToken }: { formToken: string }) {
             <input
               className="zin"
               type="text"
+              ref={termField}
+              maxLength={QUOTE_LIMITS.term}
+              {...invalid(serverField === 'deadline')}
               placeholder={Q.fields.term.placeholder}
               value={state.term}
               onChange={(e) => set({ term: e.target.value })}
@@ -201,7 +266,7 @@ export function QuoteForm({ formToken }: { formToken: string }) {
         </div>
         <div className="drop xc-drop tqfiles">
           <span className="ico">
-            <InstIcon name="upload" size={22} />
+            <InstIcon name="mail" size={22} />
           </span>
           <b>{Q.files.title}</b>
           <span className="mut" style={{ fontSize: 13.5 }}>
@@ -224,33 +289,39 @@ export function QuoteForm({ formToken }: { formToken: string }) {
               autoComplete="organization"
               placeholder={Q.fields.name.placeholder}
               value={state.name}
-              aria-invalid={nameBad || undefined}
+              ref={nameField}
+              maxLength={QUOTE_LIMITS.name}
+              {...invalid(nameBad)}
               onChange={(e) => set({ name: e.target.value })}
             />
           </label>
           <label className="fl">
             {Q.fields.phone.label}
             <input
-              className={contactBad ? 'zin xc-bad' : 'zin'}
+              className={phoneBad ? 'zin xc-bad' : 'zin'}
               type="tel"
               name="phone"
               autoComplete="tel"
               placeholder={Q.fields.phone.placeholder}
               value={state.phone}
-              aria-invalid={(contactBad && !phoneOk(state.phone)) || undefined}
+              ref={phoneField}
+              maxLength={QUOTE_LIMITS.phone}
+              {...invalid(phoneBad)}
               onChange={(e) => set({ phone: e.target.value })}
             />
           </label>
           <label className="fl">
             {Q.fields.email.label}
             <input
-              className={contactBad ? 'zin xc-bad' : 'zin'}
+              className={emailBad ? 'zin xc-bad' : 'zin'}
               type="email"
               name="email"
               autoComplete="email"
               placeholder={Q.fields.email.placeholder}
               value={state.email}
-              aria-invalid={(contactBad && !emailOk(state.email)) || undefined}
+              ref={emailField}
+              maxLength={QUOTE_LIMITS.email}
+              {...invalid(emailBad)}
               onChange={(e) => set({ email: e.target.value })}
             />
           </label>
@@ -261,8 +332,9 @@ export function QuoteForm({ formToken }: { formToken: string }) {
           <input
             type="checkbox"
             className="sr-only"
+            ref={consentField}
             checked={state.consent}
-            aria-invalid={(tried && !state.consent) || undefined}
+            {...invalid(tried && !state.consent)}
             onChange={(e) => set({ consent: e.target.checked })}
           />
           <i aria-hidden="true" />
@@ -302,9 +374,9 @@ export function QuoteForm({ formToken }: { formToken: string }) {
         <button type="submit" className="btn btn-p" disabled={busy}>
           {busy ? Q.sending : Q.send}
         </button>
-        {(errorText || failure) && (
-          <span className="xc-err" role="alert">
-            {failure ?? errorText}
+        {shownError && (
+          <span id={ERROR_ID} className="xc-err" role="alert">
+            {shownError}
           </span>
         )}
       </div>

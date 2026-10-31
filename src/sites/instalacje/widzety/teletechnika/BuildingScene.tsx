@@ -23,7 +23,7 @@ const B = teletechnika.building
 /**
  * Building cross-section in the Teletechnika hero (`zrodlo/pages/Teletechnika.body.html`
  * #pheroA): four layers, six build stages and nine numbered elements. The scene is our constant
- * (`scena.ts`), rendered as markup; the numbers under it are the accessible controls, the
+ * (`scena.ts`) set as markup (only class names are filled in); the numbers under it are the accessible controls, the
  * markers on the drawing answer clicks too. Walks through the stages every 3.2 s until the first
  * touch (paused off screen, in a hidden tab and with reduced motion).
  */

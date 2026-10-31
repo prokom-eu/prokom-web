@@ -28,6 +28,11 @@ export function setNet(next: (s: NetStore) => NetStore) {
 
 const SERVER: NetStore = { ...INITIAL_NET_AUTOPLAY, touched: false }
 
+/** Back to the start (and the autoplay) when the page is left — the store outlives client navigation. */
+export function resetNet() {
+  setNet(() => SERVER)
+}
+
 export function useNet(): NetStore {
   return useSyncExternalStore(
     subscribe,

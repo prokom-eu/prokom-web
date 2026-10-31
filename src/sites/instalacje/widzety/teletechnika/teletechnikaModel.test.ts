@@ -17,6 +17,8 @@ import {
   quoteBody,
   quoteErrors,
   quoteErrorText,
+  phoneOk,
+  QUOTE_LIMITS,
   quoteSummary,
   sceneClass,
   sceneHtml,
@@ -159,6 +161,14 @@ describe('quote form', () => {
     expect(quoteErrorText(quoteErrors(s))).toBe(ref.err)
   })
 
+  it('accepts a phone only in the server format', () => {
+    expect(phoneOk('600 123 456')).toBe(true)
+    expect(phoneOk('+48 (12) 600-12-34')).toBe(true)
+    expect(phoneOk('600.123.456')).toBe(false)
+    expect(phoneOk('600 123 456 wew. 12')).toBe(false)
+    expect(phoneOk('600 12')).toBe(false)
+  })
+
   it('keeps only digits in the number of units', () => {
     expect(unitsValue('12a3 45')).toBe('1234')
   })
@@ -188,6 +198,22 @@ describe('quote form', () => {
     })
     expect(body).not.toHaveProperty('email')
     expect(body.message).toContain('Liczba lokali: 24')
+    expect(parseInquiryInput(body, 'instalacje').success).toBe(true)
+  })
+
+  it('the longest values the form lets through still pass the schema', () => {
+    const body = quoteBody(
+      {
+        ...INITIAL_QUOTE,
+        place: 'x'.repeat(QUOTE_LIMITS.place),
+        term: 'x'.repeat(QUOTE_LIMITS.term),
+        stage: 'x'.repeat(QUOTE_LIMITS.stage),
+        name: 'x'.repeat(QUOTE_LIMITS.name),
+        phone: `+48 ${'1'.repeat(QUOTE_LIMITS.phone - 4)}`,
+        consent: true,
+      },
+      { href: 'https://instalacje.localhost/teletechnika', formToken: 't', website: '' },
+    )
     expect(parseInquiryInput(body, 'instalacje').success).toBe(true)
   })
 })

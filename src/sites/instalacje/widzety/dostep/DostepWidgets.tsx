@@ -231,7 +231,6 @@ export function LocksPower() {
           type="button"
           className={power ? 'lkpw on' : 'lkpw'}
           onClick={() => setPower((p) => !p)}
-          aria-pressed={power}
         >
           <i />
           <b>{power ? T.on : T.off}</b>
