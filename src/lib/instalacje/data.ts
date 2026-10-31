@@ -110,8 +110,8 @@ export const getInstalacjeService = cache(
 )
 
 /**
- * Published object pages of this tenant (`/dla-kogo/<slug>`) for the site map and
- * `generateStaticParams`, in the panel's order of keys. Deduplicated per request.
+ * Published object pages of this tenant (`/dla-kogo/<slug>`) for the site map (`sitemap.xml`,
+ * `/mapa-strony`), in the order they were created (the package order). Deduplicated per request.
  */
 export const getInstalacjeObjectList = cache(
   async (tenantId: number): Promise<{ slug: string; name: string; updatedAt: string }[]> => {
