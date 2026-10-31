@@ -9,6 +9,9 @@ import { WandIcon } from './FrameIcons'
 type Card = { title: string; caption: string | null; href: string; icon: IconName | 'wand' }
 
 type Props = {
+  /** Own eyebrow and heading of a page (`Solutions.page.contact`); absent = the shared ones. */
+  eyebrow?: string | null
+  title?: string | null
   /** Texts with facts [SZEF] already filled (`fillText`); `null` = the line is hidden. */
   lead: string | null
   quoteCaption: string | null
@@ -20,7 +23,7 @@ type Props = {
  * three ways — the wizard, a free quote and the line's phone (`SiteSettings.phone`; without one
  * the card goes). Texts of the board; the promises [SZEF] come filled from the facts.
  */
-export function ContactBlock({ lead, quoteCaption, phone }: Props) {
+export function ContactBlock({ eyebrow, title, lead, quoteCaption, phone }: Props) {
   const cards: Card[] = [
     {
       title: 'Kreator w 60 sekund',
@@ -40,13 +43,13 @@ export function ContactBlock({ lead, quoteCaption, phone }: Props) {
         <div className="grid gap-8 rounded-[28px] border border-accent-line bg-accent-soft p-6 sm:p-10 min-[1081px]:grid-cols-[1fr_1.1fr] min-[1081px]:items-center">
           <div>
             <p className="text-xs font-extrabold uppercase tracking-[0.14em] text-accent-text">
-              Nie wiesz, co wybrać?
+              {eyebrow || 'Nie wiesz, co wybrać?'}
             </p>
             <h2
               id="kontakt-tytul"
               className="mt-2 font-display text-3xl font-extrabold leading-tight sm:text-4xl"
             >
-              Powiedz, co chcesz usprawnić. Resztę dobierzemy razem.
+              {title || 'Powiedz, co chcesz usprawnić. Resztę dobierzemy razem.'}
             </h2>
             {lead && <p className="mt-3 text-lg text-ink-2">{lead}</p>}
           </div>

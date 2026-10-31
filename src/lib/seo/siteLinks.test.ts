@@ -127,7 +127,7 @@ describe('buildSiteMap', () => {
 
 describe('buildSiteMap — Software', () => {
   it('lists the catalog of solutions, never its filtered views (SW9)', () => {
-    const map = buildSiteMap({ pages, catalog: null, news: null, solutions: true })
+    const map = buildSiteMap({ pages, catalog: null, news: null, solutions: { items: [] } })
     const section = map.find(({ id }) => id === 'rozwiazania')
     expect(section?.links).toEqual([
       { href: '/rozwiazania', label: 'Pełna oferta' },
@@ -137,10 +137,50 @@ describe('buildSiteMap — Software', () => {
     expect(siteMapPaths(map)).toContainEqual({ path: '/dobierz' })
   })
 
+  it('lists the page of every published solution, by name (SW10)', () => {
+    const map = buildSiteMap({
+      pages,
+      catalog: null,
+      news: null,
+      solutions: {
+        items: [
+          { slug: 'strona-wizytowka', name: 'Strona wizytówka' },
+          { slug: 'aplikacja-dla-ekip-w-terenie', name: 'Aplikacja dla ekip w terenie' },
+        ],
+      },
+    })
+    const section = map.find(({ id }) => id === 'rozwiazania')
+    expect(section?.links.slice(2)).toEqual([
+      { href: '/rozwiazania/aplikacja-dla-ekip-w-terenie', label: 'Aplikacja dla ekip w terenie' },
+      { href: '/rozwiazania/strona-wizytowka', label: 'Strona wizytówka' },
+    ])
+    expect(siteMapPaths(map)).toContainEqual({ path: '/rozwiazania/strona-wizytowka' })
+  })
+
   it('has no such section elsewhere', () => {
     expect(buildSiteMap({ pages, catalog: null, news: null }).map(({ id }) => id)).not.toContain(
       'rozwiazania',
     )
+  })
+
+  it('lists the active industry pages of Software (SW10b)', () => {
+    const map = buildSiteMap({
+      pages,
+      catalog: null,
+      news: null,
+      solutions: { items: [] },
+      industryPages: [{ slug: 'budownictwo-i-wykonczenia', name: 'Budownictwo i wykończenia' }],
+    })
+    const section = map.find(({ id }) => id === 'dla-branz')
+    expect(section?.links).toEqual([
+      { href: '/dla-branz/budownictwo-i-wykonczenia', label: 'Budownictwo i wykończenia' },
+    ])
+    expect(siteMapPaths(map)).toContainEqual({ path: '/dla-branz/budownictwo-i-wykonczenia' })
+  })
+
+  it('has no industry section without active pages', () => {
+    const map = buildSiteMap({ pages, catalog: null, news: null, industryPages: [] })
+    expect(map.map(({ id }) => id)).not.toContain('dla-branz')
   })
 })
 

@@ -2123,6 +2123,15 @@
   --il-g-floor-l-line: #e6ddce;
   --il-g-plank: #8a5e3a;
   --il-g-plank-line: #6e4628;
+  /* Ekrany (I9): sky behind the screen of the brightness demo (`.jsvis.p2`–`.p5`, classes built
+     in `Multimedia.js` from a number) and the glow of the synced screens (`@keyframes synfl`). */
+  --il-jsvis-p2-1: #6f8f99;
+  --il-jsvis-p2-2: #3e545c;
+  --il-jsvis-p3-1: #8fb3bf;
+  --il-jsvis-p3-2: #546e77;
+  --il-jsvis-p4-1: #d9eef4;
+  --il-jsvis-p4-2: #9dbcc6;
+  --il-synfl-glow: rgba(76, 203, 230, 0.7);
 }
 
 [data-line='software'] {

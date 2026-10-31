@@ -2,6 +2,7 @@ import { listBundles } from '../catalog/bundle'
 import { getBundles, getCatalogIndex, getPublishedProductList } from '../catalog/data'
 import { getPublishedPageList } from '../pages/data'
 import { getPostList } from '../posts/data'
+import { getIndustryPageList, getSolutionsIndex } from '../software/data'
 import { hasNews } from '../posts/list'
 import type { Line } from '../tenant/lines'
 import { buildSiteMap, type SiteMapSection } from './siteLinks'
@@ -12,12 +13,15 @@ import { buildSiteMap, type SiteMapSection } from './siteLinks'
  */
 export async function loadSiteMap(tenant: { id: number; line: Line }): Promise<SiteMapSection[]> {
   const catalog = tenant.line === 'biznes'
-  const [pages, index, products, posts, allBundles] = await Promise.all([
+  const software = tenant.line === 'software'
+  const [pages, index, products, posts, allBundles, solutions, industryPages] = await Promise.all([
     getPublishedPageList(tenant.id),
     catalog ? getCatalogIndex(tenant.id) : null,
     catalog ? getPublishedProductList(tenant.id) : [],
     hasNews(tenant.line) ? getPostList(tenant.id) : null,
     catalog ? getBundles(tenant.id) : [],
+    software ? getSolutionsIndex(tenant.id) : null,
+    software ? getIndustryPageList(tenant.id) : null,
   ])
   // Every published product is listed (as `sitemap.xml` always did); the index adds the
   // categories, the product list the dates for `<lastmod>`.
@@ -41,6 +45,9 @@ export async function loadSiteMap(tenant: { id: number; line: Line }): Promise<S
       })),
     },
     news: posts && { posts },
-    solutions: tenant.line === 'software',
+    solutions: solutions && {
+      items: solutions.solutions.map(({ slug, name }) => ({ slug, name })),
+    },
+    industryPages,
   })
 }

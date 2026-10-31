@@ -22,6 +22,7 @@ import {
 } from '../lib/software/solutionRules'
 import { onlyLineTenant } from '../lib/tenant/onlyLine'
 import { slugField } from './catalogFields'
+import { solutionPageTab } from './solutionPage'
 
 const features = (description?: string): Field => ({
   name: 'features',
@@ -65,7 +66,7 @@ const priceFromLevels: CollectionBeforeChangeHook = ({ data }) => {
  * Solutions of the Software catalog (ADR-014 §1.1, „Rozstrzygnięcia v21/v22”): one „od” price
  * and one „od” term, levels only for care and audit, texts of the offer window. Drafts: a
  * solution goes public only once published (the texts are checked then, not on a draft). The
- * full solution page (`page`) comes with SW10.
+ * tab „Strona” (`page`) holds the texts of the full solution page (SW10).
  */
 export const Solutions: CollectionConfig = {
   slug: 'solutions',
@@ -406,6 +407,7 @@ export const Solutions: CollectionConfig = {
             },
           ],
         },
+        solutionPageTab,
       ],
     },
   ],
