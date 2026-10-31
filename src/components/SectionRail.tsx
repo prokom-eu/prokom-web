@@ -26,8 +26,10 @@ export function railLinkClass(current: boolean): string {
 }
 
 type ShellProps = {
-  /** Name of the navigation and the small heading of the open rail. */
+  /** Name of the navigation landmark. */
   label: string
+  /** Small heading of the open rail, when it differs from `label` (board: „Menu”). */
+  heading?: string
   from?: RailFrom
   /** „Szukaj · Ctrl K lub /” on top (Biznes K33 §2.4): opens the site search. */
   search?: boolean
@@ -38,7 +40,13 @@ type ShellProps = {
  * The floating rail on the left of wide screens: icons, labels on hover or keyboard focus.
  * Shared by the section rail of a start page and the Biznes menu of subpages.
  */
-export function RailShell({ label, from = 1400, search = false, children }: ShellProps) {
+export function RailShell({
+  label,
+  heading = label,
+  from = 1400,
+  search = false,
+  children,
+}: ShellProps) {
   return (
     <nav
       aria-label={label}
@@ -66,7 +74,7 @@ export function RailShell({ label, from = 1400, search = false, children }: Shel
             aria-hidden="true"
             className="h-0 overflow-hidden px-2 text-[11px] font-black tracking-[0.06em] whitespace-nowrap text-ink-2 uppercase opacity-0 transition-opacity group-focus-within/rail:h-auto group-focus-within/rail:pt-1.5 group-focus-within/rail:opacity-100 group-hover/rail:h-auto group-hover/rail:pt-1.5 group-hover/rail:opacity-100 motion-reduce:transition-none"
           >
-            {label}
+            {heading}
           </p>
         )}
         <ul className="flex flex-col gap-1">{children}</ul>

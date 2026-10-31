@@ -17,7 +17,8 @@ export function SiteRail() {
   if (pathname === '/') return null
   const current = siteRailCurrent(pathname)
   return (
-    <RailShell label="Menu" search>
+    // „Menu boczne” as on the board: „Menu” alone is the phone's menu button and dialog.
+    <RailShell label="Menu boczne" heading="Menu" search>
       {SITE_RAIL.map((item) => {
         const here = item.href === current
         return (
