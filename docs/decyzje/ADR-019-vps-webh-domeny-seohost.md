@@ -10,7 +10,7 @@ ADR-002 zakładał jednego dostawcę (Seohost) na serwer, domeny i pocztę: VPS 
 ## Opcje
 | Opcja | Zalety | Wady | Koszt |
 |---|---|---|---|
-| A. VPS webh.pl (kupiony) + domeny Seohost | 2× więcej RAM, NVMe, Ubuntu 24.04 od razu; serwer i kopie u różnych dostawców z natury | dwa panele zamiast jednego; mniejszy dysk (100 GB); brak backupu dostawcy w pakiecie | VPS już opłacony |
+| A. VPS webh.pl (kupiony) + domeny Seohost | 2× więcej RAM, NVMe, Ubuntu 24.04 od razu; łatwiej trzymać kopie u innego dostawcy niż serwer | dwa panele zamiast jednego; mniejszy dysk (100 GB); brak backupu dostawcy w pakiecie | VPS już opłacony |
 | B. Zostać przy VPS Seohost (ADR-002) | jeden dostawca | drugi VPS do opłacenia, mniej RAM | dodatkowy abonament |
 
 ## Decyzja
