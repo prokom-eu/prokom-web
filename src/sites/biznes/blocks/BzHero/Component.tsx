@@ -47,12 +47,15 @@ export async function BzHeroBlock({ block, isFirst, tenantId }: Props) {
               {block.pill}
             </p>
           )}
-          <Title className="font-display text-[clamp(2.5rem,4.3vw,4rem)] leading-[0.98] font-extrabold tracking-[-0.025em] font-stretch-112%">
+          <Title className="font-display text-[clamp(2.5rem,4.1vw,3.625rem)] leading-[1.02] font-extrabold tracking-[-0.03em] text-balance font-stretch-112%">
             {block.heading}
             {block.headingAccent && (
               <>
                 {' '}
-                <span className="text-h1-accent">{block.headingAccent}</span>
+                {/* v150 (K36 §1): the second sentence on its own line, smaller (board `.s4h1 em`). */}
+                <span className="mt-3.5 block text-[0.56em] leading-[1.15] tracking-[-0.015em] text-h1-accent">
+                  {block.headingAccent}
+                </span>
               </>
             )}
           </Title>

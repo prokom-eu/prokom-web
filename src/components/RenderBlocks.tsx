@@ -29,7 +29,7 @@ import { BzHeroBlock } from '@/sites/biznes/blocks/BzHero/Component'
 import { BzKitsBlock } from '@/sites/biznes/blocks/BzKits/Component'
 import { BzKsefBlock } from '@/sites/biznes/blocks/BzKsef/Component'
 import { BzModulesBlock } from '@/sites/biznes/blocks/BzModules/Component'
-import { BzNeedsBlock } from '@/sites/biznes/blocks/BzNeeds/Component'
+import { QuickStart } from '@/sites/biznes/components/home/QuickStart'
 import { BzNewsBlock } from '@/sites/biznes/blocks/BzNews/Component'
 import { BzOfferBlock } from '@/sites/biznes/blocks/BzOffer/Component'
 import { BzOnePartnerBlock } from '@/sites/biznes/blocks/BzOnePartner/Component'
@@ -122,7 +122,8 @@ export function RenderBlocks({ page, tenant }: Props) {
           case 'bzHero':
             return <BzHeroBlock key={key} block={block} isFirst={i === 0} tenantId={tenant.id} />
           case 'bzNeeds':
-            return <BzNeedsBlock key={key} block={block} />
+            // v150 (K36 §11): the need tiles became „Szybki start” — the block keeps its place.
+            return <QuickStart key={key} tenantId={tenant.id} />
           case 'bzOffer':
             return <BzOfferBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzFeatured':
