@@ -117,8 +117,9 @@ function inquirySchemaFor(line: Line | undefined) {
       if (data.items.some((item) => item.quantity !== 1)) issue('items', 'one of each solution')
     }
 
-    // Instalacje (ADR-I002 §4): services as their keys, each once.
-    if (line === 'instalacje') {
+    // Instalacje (ADR-I002 §4): services as their keys, each once. The planner's topics come
+    // from its answers on the server, so the sent ones are not checked there.
+    if (line === 'instalacje' && data.type !== 'wizard') {
       const unique = new Set(data.topics).size === data.topics.length
       if (!unique || !data.topics.every(isServiceKey)) issue('topics', 'unknown service')
     }
@@ -131,7 +132,7 @@ function inquirySchemaFor(line: Line | undefined) {
     // A phone or an e-mail is enough (K4-FINAL §5). Biznes leads with the phone, so the issue
     // sits there; its wizard still requires the phone until Konfigurator 3.0 (B10c, K4g).
     // Instalacje call back to arrange a site visit: a phone of at least 9 digits, always
-    // (decyzja Krystiana 31.10; the planner and the forms ask for it the same way).
+    // (decided 31.10.2026, ADR-I002 §4; the planner and the forms ask for it the same way).
     const biznes = line === 'biznes'
     if (line === 'instalacje') {
       if ((data.phone ?? '').replace(/\D/g, '').length < 9) issue('phone', 'phone required')

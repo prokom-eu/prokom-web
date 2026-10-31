@@ -23,9 +23,6 @@ export type PlanState = {
 
 export type PlanErrorKey = 'services' | 'name' | 'phone' | 'consent'
 
-/** Travel zone of a town — shared with the planner and the server (`lib/instalacje/plan`). */
-export { travelZone }
-
 export const phoneDigits = (phone: string) => phone.replace(/\D/g, '').length
 
 /** At least 9 digits: a Polish number the office can call back (prototype `kDig >= 9`). */

@@ -157,7 +157,7 @@ describe('quote form', () => {
     }
     const sum = quoteSummary(s)
     expect([sum.type, sum.scope, sum.units]).toEqual([ref.sTyp, ref.sZak, ref.sLok])
-    // The phone is required on Instalacje (decyzja Krystiana 31.10); the prototype took a phone
+    // The phone is required on Instalacje (decided 31.10.2026, ADR-I002 §4); the prototype took a phone
     // or an e-mail — its message names „telefon albo e-mail”, ours „numer telefonu”.
     expect(quoteErrorText(quoteErrors(s))).toBe(
       ref.err.replace('telefon albo e-mail', 'numer telefonu'),

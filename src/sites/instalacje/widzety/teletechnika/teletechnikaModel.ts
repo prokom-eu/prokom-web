@@ -137,7 +137,7 @@ export type QuoteErrorKey = 'name' | 'phone' | 'consent'
 
 /**
  * Missing answers in the order of the form (the prototype's `errs`). The phone is required on
- * every Instalacje form (decyzja Krystiana 31.10) — the prototype took a phone or an e-mail.
+ * every Instalacje form (decided 31.10.2026, ADR-I002 §4) — the prototype took a phone or an e-mail.
  */
 export function quoteErrors(s: QuoteState): QuoteErrorKey[] {
   const errors: QuoteErrorKey[] = []

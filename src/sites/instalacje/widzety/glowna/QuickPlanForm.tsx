@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { travelZone } from '@/lib/instalacje/plan'
 import { type CSSProperties, type FormEvent, useEffect, useRef, useState } from 'react'
 
 import {
@@ -22,7 +23,6 @@ import {
   planError,
   planProgress,
   plannerHref,
-  travelZone,
 } from './quickPlan'
 
 export type PlanService = {

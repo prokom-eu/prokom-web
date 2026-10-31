@@ -114,14 +114,23 @@ export const PLAN_VIA = [
 
 export const PLAN_WHEN = ['Rano', 'Po południu', 'Obojętnie'] as const
 
+// One line of free text: the configurator's values go into the office e-mail line by line.
+const line = (max: number) =>
+  z
+    .string()
+    .trim()
+    .min(1)
+    .max(max)
+    .regex(/^[^\r\n]*$/)
+
 /** The configured charger from the Ładowarki page (`konf`, ADR-I002 §4). */
 const chargerSchema = z.strictObject({
-  model: z.string().trim().min(1).max(120),
+  model: line(120),
   punkty: z.number().int().min(1).max(50),
-  mocNaPunkt: z.string().trim().min(1).max(60),
-  wyjscie: z.string().trim().min(1).max(120),
-  montaz: z.string().trim().min(1).max(120),
-  kolor: z.string().trim().min(1).max(60).optional(),
+  mocNaPunkt: line(60),
+  wyjscie: line(120),
+  montaz: line(120),
+  kolor: line(60).optional(),
 })
 export type PlanCharger = z.infer<typeof chargerSchema>
 
@@ -149,8 +158,9 @@ const answersSchema = z
   })
   .superRefine((data, ctx) => {
     const services = data.services as ServiceKey[]
-    if (services.length === 0 && !data.unsure) {
-      ctx.addIssue({ code: 'custom', path: ['services'], message: 'service or unsure required' })
+    // „Nie wiem, doradźcie mi” clears the services in the planner: one or the other.
+    if ((services.length === 0) !== data.unsure) {
+      ctx.addIssue({ code: 'custom', path: ['services'], message: 'services or unsure' })
     }
     const asked = new Set<string>(questionKeys(services))
     for (const [key, value] of Object.entries(data.answers)) {

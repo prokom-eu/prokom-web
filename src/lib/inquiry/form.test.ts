@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest'
 import { CONSENT_CLAUSE, PRIVACY_POLICY_LINK_TEXT } from './consent'
 import {
   BIZNES_FIELD_MESSAGES,
+  INSTALACJE_FIELD_MESSAGES,
   buildInquiryBody,
   checkRequired,
   linkInText,
@@ -213,5 +214,29 @@ describe('splitEmailOrPhone', () => {
     ['zadzwoń', null],
   ])('%s', (text, expected) => {
     expect(splitEmailOrPhone(text)).toEqual(expected)
+  })
+})
+
+describe('Instalacje contact form (phone required, I11)', () => {
+  const inst = { ...values, email: '', phone: '600 100 200' }
+  const rules = { phoneRequired: true, messages: INSTALACJE_FIELD_MESSAGES }
+
+  it('requires a phone of at least 9 digits even with an e-mail', () => {
+    expect(checkRequired(inst, rules)).toEqual({})
+    expect(checkRequired({ ...inst, phone: '', email: 'jan@example.test' }, rules)).toEqual({
+      phone: INSTALACJE_FIELD_MESSAGES.phone,
+    })
+    expect(checkRequired({ ...inst, phone: '600 100' }, rules)).toEqual({
+      phone: INSTALACJE_FIELD_MESSAGES.phone,
+    })
+  })
+
+  it('sends a contact inquiry the server accepts on the Instalacje line', () => {
+    const body = buildInquiryBody(inst, {
+      href: 'https://prokominstalacje.pl/kontakt',
+      formToken: 't',
+      type: 'contact',
+    })
+    expect(parseInquiryInput(body, 'instalacje').success).toBe(true)
   })
 })

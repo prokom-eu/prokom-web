@@ -46,8 +46,9 @@ describe('parsePlanAnswers', () => {
     expect(parsePlanAnswers({ services: [], unsure: true, answers: {}, via: 0 })).not.toBeNull()
   })
 
-  it('needs a service or „Nie wiem”', () => {
+  it('needs a service or „Nie wiem”, not both', () => {
     expect(parsePlanAnswers({ services: [], answers: {}, via: 0 })).toBeNull()
+    expect(parsePlanAnswers({ ...minimal, unsure: true })).toBeNull()
   })
 
   it('rejects unknown and repeated services, objects and options', () => {
@@ -76,6 +77,8 @@ describe('parsePlanAnswers', () => {
     expect(parsePlanAnswers({ ...ev, charger: { ...charger, punkty: 0 } })).toBeNull()
     expect(parsePlanAnswers({ ...ev, charger: { ...charger, model: 'x'.repeat(121) } })).toBeNull()
     expect(parsePlanAnswers({ ...ev, charger: { ...charger, extra: 1 } })).toBeNull()
+    // Free text of the configurator goes into the office e-mail: one line each.
+    expect(parsePlanAnswers({ ...ev, charger: { ...charger, model: 'A\nTemat: x' } })).toBeNull()
   })
 
   it('rejects what is not an answers object', () => {

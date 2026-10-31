@@ -1,3 +1,4 @@
+import { travelZone } from '@/lib/instalacje/plan'
 import { describe, expect, it } from 'vitest'
 
 import { CONSENT_CLAUSE } from '@/lib/inquiry/consent'
@@ -9,7 +10,6 @@ import {
   planProgress,
   plannerHref,
   phoneDigits,
-  travelZone,
 } from './quickPlan'
 
 const EMPTY: PlanState = {

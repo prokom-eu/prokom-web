@@ -278,7 +278,7 @@ describe('parseInquiryInput — Software forms (SW2b, ADR-014 §3)', () => {
   })
 })
 
-describe('parseInquiryInput — Instalacje (ADR-I002 §4, decyzja Krystiana 31.10)', () => {
+describe('parseInquiryInput — Instalacje (ADR-I002 §4, decided 31.10.2026)', () => {
   const inst = {
     ...valid,
     email: undefined,
@@ -299,6 +299,11 @@ describe('parseInquiryInput — Instalacje (ADR-I002 §4, decyzja Krystiana 31.1
     expect(errorsOf({ ...inst, topics: ['kam', 'ev'] }, 'instalacje')).toEqual([])
     expect(errorsOf({ ...inst, topics: ['Monitoring'] }, 'instalacje')).toEqual(['topics'])
     expect(errorsOf({ ...inst, topics: ['kam', 'kam'] }, 'instalacje')).toEqual(['topics'])
+  })
+
+  it('ignores the sent topics of the planner (the server takes them from the answers)', () => {
+    const wizard = { ...inst, type: 'wizard', message: undefined, wizard: { services: [] } }
+    expect(errorsOf({ ...wizard, topics: ['Monitoring'] }, 'instalacje')).toEqual([])
   })
 
   it('keeps the other lines as they were', () => {
