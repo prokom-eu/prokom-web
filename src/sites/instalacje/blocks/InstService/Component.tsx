@@ -36,6 +36,8 @@ import { MonitoringSections } from '../../widzety/monitoring/MonitoringSections'
 import { NvrDemo } from '../../widzety/monitoring/NvrDemo'
 import { SmartSections, SmartWarrantyNote } from '../../widzety/smart/SmartSections'
 import { SmartPlan } from '../../widzety/smart/SmartWidgets'
+import { EkranySections } from '../../widzety/ekrany/EkranySections'
+import { ScreenPreview } from '../../widzety/ekrany/EkranyWidgets'
 import { NaglosnienieSections } from '../../widzety/naglosnienie/NaglosnienieSections'
 import { ZoneMixer } from '../../widzety/naglosnienie/NaglosnienieWidgets'
 
@@ -93,6 +95,11 @@ const LAYOUTS: Partial<Record<string, (ctx: LayoutContext) => ServiceLayout>> = 
   snd: () => ({
     widget: <ZoneMixer />,
     sections: <NaglosnienieSections />,
+    folded: ['cena', 'faq'],
+  }),
+  scr: () => ({
+    widget: <ScreenPreview />,
+    sections: <EkranySections />,
     folded: ['cena', 'faq'],
   }),
   ant: () => ({

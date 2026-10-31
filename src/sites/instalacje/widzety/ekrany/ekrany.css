@@ -1,0 +1,691 @@
+/*
+ * Ekrany page (I9): the screens preview in the hero, the two-salon demo, brightness, LED pitch and
+ * the outdoor card. Rules of `pk.css` v4.2 for the classes of `Multimedia.body.html` and
+ * `Multimedia.js` (with `p0…p5` glued from a number) not already in the other page sheets (one
+ * bundle for all service pages), ported by `narzedzia/przenies-css.mjs` (map
+ * `przenies-css.strony.json`), then: inline styles as classes at the end, keyframes `inst-scr-`,
+ * reduced motion.
+ */
+[data-line='instalacje'] {
+  & .tvstage {
+    padding: 22px 18px 10px;
+    display: flex;
+    justify-content: center;
+    background: radial-gradient(ellipse at 50% 40%, var(--accent-soft), transparent 70%);
+  }
+  & .tvf {
+    width: 100%;
+    max-width: 560px;
+    border-radius: 18px;
+    background: var(--sx-tyre);
+    padding: 12px 12px 10px;
+    box-shadow:
+      inset 0 0 0 1px var(--inst-il-nvr-sh),
+      var(--shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  & .tvf.port {
+    max-width: 250px;
+  }
+  & .tvsc {
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--inst-plan-card);
+    aspect-ratio: 16/9;
+    position: relative;
+    color: var(--inst-deep-ink);
+    animation: inst-scr-fadein 0.5s ease;
+  }
+  & .tvf.port .tvsc {
+    aspect-ratio: 9/16;
+  }
+  & .sl {
+    position: absolute;
+    inset: 0;
+    padding: 5% 6%;
+    display: flex;
+    flex-direction: column;
+    gap: 4%;
+  }
+  & .sl.rec {
+    background: linear-gradient(160deg, var(--inst-il-tile-bg-2), var(--sx-sky) 60%);
+  }
+  & .sl.menu {
+    background: linear-gradient(160deg, var(--inst-il-sl-menu-bg), var(--inst-il-sl-menu-bg-2));
+    color: var(--inst-il-sl-menu-c);
+  }
+  & .sl.win {
+    background: linear-gradient(135deg, var(--inst-plan-send-to), var(--inst-il-sl-win-bg));
+    align-items: flex-start;
+    justify-content: center;
+  }
+  & .sl.conf {
+    background: var(--inst-deep-ink);
+    color: var(--inst-il-sl-conf-c);
+  }
+  & .slh {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10px;
+  }
+  & .slh b {
+    font-family: var(--font-display);
+    font-stretch: 115%;
+    font-weight: 900;
+    font-size: clamp(14px, 2.1vw, 26px);
+    line-height: 1.05;
+  }
+  & .slh span {
+    font-size: clamp(9px, 1vw, 12px);
+    font-weight: 800;
+    opacity: 0.75;
+    white-space: nowrap;
+  }
+  & .slg {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4%;
+    flex: 1;
+  }
+  & .tvf.port .slg {
+    grid-template-columns: 1fr;
+  }
+  & .sli {
+    border-radius: 10px;
+    background: var(--inst-ticket-rule);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 4px;
+    padding: 8%;
+    color: var(--inst-il-tile-c);
+  }
+  & .sli b {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(13px, 1.9vw, 24px);
+    color: var(--inst-deep-ink);
+    line-height: 1;
+  }
+  & .sli span {
+    font-size: clamp(8px, 0.9vw, 11px);
+    color: var(--inst-deep-lead-2);
+    font-weight: 700;
+  }
+  & .slf {
+    font-size: clamp(8px, 0.95vw, 11.5px);
+    font-weight: 800;
+    opacity: 0.75;
+  }
+  & .mnl {
+    display: flex;
+    flex-direction: column;
+    gap: 6%;
+    flex: 1;
+    justify-content: center;
+  }
+  & .mni {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    font-size: clamp(10px, 1.35vw, 16px);
+    font-weight: 700;
+  }
+  & .mni i {
+    flex: 1;
+    border-bottom: 2px dotted var(--inst-il-mni-bord);
+  }
+  & .mni b {
+    font-family: var(--font-display);
+    font-weight: 900;
+    color: var(--inst-promo-warm);
+  }
+  & .wbig {
+    font-family: var(--font-display);
+    font-stretch: 120%;
+    font-weight: 900;
+    font-size: clamp(20px, 3.6vw, 46px);
+    line-height: 0.95;
+    color: var(--inst-band-button-ink);
+  }
+  & .wsub {
+    font-size: clamp(10px, 1.3vw, 15px);
+    font-weight: 800;
+    color: var(--inst-band-button-ink);
+    opacity: 0.8;
+  }
+  & .wcta {
+    margin-top: 3%;
+    padding: 2% 4%;
+    border-radius: 999px;
+    background: var(--inst-band-button-ink);
+    color: var(--inst-deep-ink);
+    font-size: clamp(9px, 1.1vw, 13px);
+    font-weight: 900;
+  }
+  & .cfbars {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    gap: 5%;
+    padding: 0 4%;
+  }
+  & .cfb {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    height: 100%;
+    justify-content: flex-end;
+  }
+  & .cfb i {
+    width: 100%;
+    border-radius: 6px 6px 0 0;
+    background: linear-gradient(180deg, var(--inst-plan-send-to), var(--inst-il-cfb-bg));
+  }
+  & .cfb span {
+    font-size: clamp(8px, 0.9vw, 11px);
+    font-weight: 800;
+  }
+  & .tvdots {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+  }
+  & .tvdots i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--inst-meter-idle);
+  }
+  & .tvdots i.on {
+    background: var(--inst-plan-send-to);
+    width: 16px;
+    border-radius: 3px;
+  }
+  & .tvsched {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+  }
+  & .tvtl {
+    flex: 1;
+    position: relative;
+    height: 30px;
+    border-radius: 9px;
+    background: var(--surface-3);
+    overflow: hidden;
+  }
+  & .tvtl span {
+    position: absolute;
+    top: 3px;
+    bottom: 3px;
+    border-radius: 7px;
+    background: var(--accent-soft);
+    box-shadow: inset 0 0 0 1px var(--accent-line);
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--accent-text);
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  & .tvtl span.on {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+  & .tvtl b {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--warn);
+  }
+  @media (max-width: 760px) {
+    & .tvsched {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
+  & .synw {
+    padding: 44px;
+    border-radius: 30px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    gap: 36px;
+    align-items: center;
+  }
+  & .synbtn {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  & .syns {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+  & .synsc {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  & .synf {
+    border-radius: 12px;
+    padding: 14px;
+    background: linear-gradient(160deg, var(--inst-deep-1), var(--inst-il-synf-bg));
+    box-shadow:
+      0 0 0 6px var(--inst-il-synf-sh),
+      0 0 0 7px var(--inst-il-synf-sh-2),
+      0 18px 40px -10px var(--inst-ob-shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-height: 220px;
+  }
+  & .synf.fl {
+    animation: inst-scr-synfl 0.9s ease;
+  }
+  & .synh {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+  & .synh b {
+    font-family: var(--font-display);
+    font-stretch: 115%;
+    font-weight: 900;
+    font-size: 15px;
+    color: var(--inst-deep-ink);
+  }
+  & .synh span {
+    font-size: 10.5px;
+    color: var(--inst-plan-note);
+    font-weight: 800;
+  }
+  & .synr {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    font-size: 12.5px;
+    color: var(--inst-il-synr-c);
+    padding: 4px 6px;
+    border-radius: 6px;
+    transition: background 0.4s;
+  }
+  & .synr i {
+    flex: 1;
+    border-bottom: 1px dotted var(--inst-plan-box);
+  }
+  & .synr b {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 14px;
+    color: var(--inst-promo-warm);
+  }
+  & .synr.hot {
+    background: var(--inst-orbit-2);
+    animation: inst-scr-fadeUp 0.5s ease;
+  }
+  & .synr.promo b {
+    color: var(--inst-scene-beam-ok);
+  }
+  & .synft {
+    margin-top: auto;
+    font-size: 10px;
+    color: var(--inst-il-synft-c);
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  & .synl {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--inst-scene-beam-ok);
+  }
+  & .synl i {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--inst-scene-beam-ok);
+    animation: inst-scr-ublk 2s steps(2) infinite;
+  }
+  & .jsw {
+    padding: 22px;
+    border-radius: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  & .jsg {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 22px;
+    align-items: center;
+  }
+  & .jsvwrap {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  & .jsvis {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/10;
+    border-radius: 18px;
+    overflow: hidden;
+    background: linear-gradient(180deg, var(--inst-il-syscr-fill), var(--inst-il-jsvis-bg));
+    box-shadow: inset 0 0 0 1px var(--border);
+    transition: background 0.6s;
+  }
+  & .jsvis.p2 {
+    background: linear-gradient(180deg, var(--il-jsvis-p2-1), var(--il-jsvis-p2-2));
+  }
+  & .jsvis.p3 {
+    background: linear-gradient(180deg, var(--il-jsvis-p3-1), var(--il-jsvis-p3-2));
+  }
+  & .jsvis.p4,
+  & .jsvis.p5 {
+    background: linear-gradient(180deg, var(--il-jsvis-p4-1), var(--il-jsvis-p4-2));
+  }
+  & .jssun {
+    position: absolute;
+    right: -40px;
+    top: -40px;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--inst-il-jssun-bg) 0%, var(--inst-il-jssun-bg-2) 70%);
+    opacity: 0;
+    transition: opacity 0.6s;
+  }
+  & .jsvis.p2 .jssun {
+    opacity: 0.4;
+  }
+  & .jsvis.p3 .jssun {
+    opacity: 0.55;
+  }
+  & .jsvis.p4 .jssun {
+    opacity: 1;
+  }
+  & .jsvis.p5 .jssun {
+    opacity: 1;
+    width: 220px;
+    height: 220px;
+  }
+  & .jsglass {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      115deg,
+      transparent 30%,
+      var(--inst-foot-cta-icon) 45%,
+      transparent 60%
+    );
+    opacity: 0;
+    transition: opacity 0.6s;
+  }
+  & .jsvis.p3 .jsglass,
+  & .jsvis.p4 .jsglass {
+    opacity: 1;
+  }
+  & .jsscr {
+    position: absolute;
+    left: 18%;
+    right: 18%;
+    top: 16%;
+    bottom: 16%;
+    border-radius: 8px;
+    background: linear-gradient(135deg, var(--inst-il-jsscr-bg), var(--inst-promo-warm));
+    box-shadow: 0 0 0 5px var(--inst-il-synf-sh);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    color: var(--inst-plan-white);
+    transition:
+      opacity 0.5s,
+      filter 0.5s;
+  }
+  & .jsscr b {
+    font-family: var(--font-display);
+    font-stretch: 120%;
+    font-weight: 900;
+    font-size: clamp(18px, 2.4vw, 30px);
+    letter-spacing: 0.04em;
+  }
+  & .jsscr span {
+    font-weight: 800;
+    font-size: 13px;
+  }
+  & .jsinfo {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  & .jsn {
+    font-family: var(--font-display);
+    font-stretch: 115%;
+    font-weight: 900;
+    font-size: clamp(30px, 3.2vw, 46px);
+    line-height: 1;
+  }
+  & .jsbar {
+    position: relative;
+    height: 12px;
+    border-radius: 99px;
+    background: var(--surface-3);
+    margin-bottom: 16px;
+  }
+  & .jsbar i {
+    display: block;
+    height: 100%;
+    border-radius: 99px;
+    background: linear-gradient(
+      90deg,
+      var(--inst-plan-accent),
+      var(--inst-promo-warm),
+      var(--inst-il-jssun-bg)
+    );
+    transition: width 0.5s;
+  }
+  & .jsbar em {
+    position: absolute;
+    top: 16px;
+    transform: translateX(-50%);
+    font-style: normal;
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--ink-2);
+  }
+  & .ldr {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+  & .ldr div {
+    padding: 12px;
+    border-radius: 14px;
+    background: var(--surface-2);
+    box-shadow: inset 0 0 0 1px var(--border);
+    display: flex;
+    flex-direction: column;
+  }
+  & .ldr span {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--ink-2);
+  }
+  & .ldr b {
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 900;
+  }
+  & .ldvis {
+    position: relative;
+    height: 34px;
+    border-radius: 12px;
+    background: var(--surface-2);
+    box-shadow: inset 0 0 0 1px var(--border);
+    overflow: hidden;
+  }
+  & .ldwall {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+    background: var(--accent);
+  }
+  & .ldz1 {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      var(--inst-il-ldz1-bg) 0 6px,
+      transparent 6px 12px
+    );
+    transition: width 0.3s;
+  }
+  & .ldz2 {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background: var(--sx-umb);
+    transition: all 0.3s;
+  }
+  & .odi2 {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  & .odi2 b {
+    display: block;
+    font-size: 15px;
+  }
+  & .odi2 span {
+    font-size: 14px;
+    color: var(--ink-2);
+    line-height: 1.45;
+  }
+  @media (max-width: 1100px) {
+    & .synw {
+      grid-template-columns: minmax(0, 1fr);
+      padding: 28px;
+    }
+    & .jsg {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+  @media (max-width: 760px) {
+    & .synw {
+      padding: 20px;
+    }
+    & .syns {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+  & #jasnosc .jsbar em:last-of-type {
+    transform: translateX(-100%);
+  }
+  /* The prototype has no box-sizing reset (ADR-I003 §5 p. 6): the screen frame and the salon
+     screens add their padding to the width and the minimum height. */
+  & .tvf,
+  & .synf {
+    box-sizing: content-box;
+  }
+  /* Inline styles of `Multimedia.body.html` as classes. */
+  & .ill .nvrnote.scr-note {
+    color: var(--ink-2);
+    padding: 0 16px 16px;
+    font-size: 13.5px;
+  }
+  & .scr-log {
+    color: var(--inst-band-note);
+    font-size: 14px;
+  }
+  & .scr-txt {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 15px;
+  }
+  & .scr-link {
+    color: var(--accent-text);
+    font-weight: 800;
+  }
+  & .card.tlaw.scr-out {
+    align-items: center;
+  }
+}
+
+@keyframes inst-scr-fadein {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes inst-scr-ublk {
+  50% {
+    opacity: 0.25;
+  }
+}
+
+@keyframes inst-scr-fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes inst-scr-synfl {
+  0% {
+    box-shadow:
+      0 0 0 6px var(--inst-il-synf-sh),
+      0 0 0 7px var(--inst-plan-accent),
+      0 0 40px var(--il-synfl-glow);
+  }
+  100% {
+    box-shadow:
+      0 0 0 6px var(--inst-il-synf-sh),
+      0 0 0 7px var(--inst-il-synf-sh-2),
+      0 18px 40px -10px var(--inst-ob-shadow);
+  }
+}
+
+/* Reduced motion (spec §5): slides, the flash of a price change and the live dot stand still. */
+@media (prefers-reduced-motion: reduce) {
+  [data-line='instalacje'] {
+    & .tvsc,
+    & .synr.hot,
+    & .synf.fl,
+    & .synl i {
+      animation: none;
+    }
+  }
+}

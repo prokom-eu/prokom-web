@@ -41,6 +41,7 @@ export const SERVICE_SECTION_IDS: Partial<Record<ServiceKey, readonly string[]>>
     'dso',
     'licencje',
   ],
+  scr: ['gdzie', 'dwa-salony', 'jasnosc', 'tv-czy-ekran', 'tresci', 'sciany-led', 'zewnatrz'],
   kam: ['co-dostajesz', 'system', 'typy', 'ile-widac', 'nagrania', 'rodo', 'sprzet-kamery'],
 }
 

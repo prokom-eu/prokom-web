@@ -17,6 +17,7 @@ const PAGES = [
   '/teletechnika',
   '/smart-home',
   '/naglosnienie',
+  '/ekrany',
 ]
 
 // Known exceptions, each with its open question in docs/stan/STAN-instalacje.md.
