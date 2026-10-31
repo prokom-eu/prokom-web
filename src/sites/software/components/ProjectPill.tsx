@@ -63,7 +63,10 @@ export function ProjectPill({ pill, texts }: Props) {
   return (
     <>
       {hasItems && !onContact && (
-        <div className="pointer-events-none fixed inset-x-0 bottom-[calc(88px+env(safe-area-inset-bottom))] z-40 flex justify-center px-4 min-[1081px]:hidden">
+        <div
+          data-project-pill
+          className="pointer-events-none fixed inset-x-0 bottom-[calc(88px+env(safe-area-inset-bottom))] z-40 flex justify-center px-4 min-[1081px]:hidden"
+        >
           <button
             type="button"
             aria-haspopup="dialog"

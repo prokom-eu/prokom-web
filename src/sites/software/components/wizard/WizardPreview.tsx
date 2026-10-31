@@ -134,7 +134,7 @@ function Site({ preview }: { preview: Extract<Preview, { kind: 'www' }> }) {
       <div className="rounded-2xl bg-[image:var(--grad-area-www)] p-5 text-white">
         <b className="block font-mock text-sm">{slogan}</b>
         <span className="mt-1.5 block text-xs opacity-90">{lead}</span>
-        <em className="mt-4 inline-block rounded-lg bg-white px-3 py-2 text-xs font-bold not-italic text-ink">
+        <em className="mt-4 inline-block rounded-lg bg-white px-3 py-2 text-xs font-bold not-italic text-surface-dark">
           {cta}
         </em>
       </div>

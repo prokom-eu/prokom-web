@@ -34,6 +34,6 @@ export function cardPrice(
   if (solution.priceFrom === 0) {
     return { head: { before: '', amount: '0', after: 'zł' }, term, ask: false }
   }
-  const template = solution.priceMonthly ? display.monthTemplate : display.templateFrom
+  const template = solution.priceMonthly ? display.monthTemplate : display.template
   return { head: split(template, formatPrice(solution.priceFrom)), term, ask: false }
 }

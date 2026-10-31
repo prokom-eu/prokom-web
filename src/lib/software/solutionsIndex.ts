@@ -71,11 +71,23 @@ export type SolutionsIndex = {
  * saved yet or no longer match the schema — the catalog still shows prices.
  */
 export const DEFAULT_PRICE_DISPLAY: PriceDisplay = {
-  template: '{cena} zł netto',
-  templateFrom: 'od {cena} zł netto',
+  template: 'od {cena} zł netto',
+  short: 'od {cena} zł',
+  monthTemplate: 'od {cena} zł / mies.',
+  levelMonthTemplate: '{cena} zł / mies.',
   fallback: 'Zapytaj o wycenę',
   termFallback: 'po krótkiej rozmowie',
-  monthTemplate: 'od {cena} zł / mies.',
+  priceSub: 'netto · stała cena na piśmie',
+  moreHint: 'Dodatki wycenimy na piśmie w 5–7 dni.',
+  moreSelectedNote: 'Dodatki wycenimy na piśmie w 5–7 dni.',
+  noPrice: {
+    price: 'Zapytaj o wycenę',
+    term: 'po krótkiej rozmowie',
+    priceSub: 'cena na piśmie w 5–7 dni',
+    termSub: 'cenę i termin dostaniesz na piśmie w 5–7 dni',
+    mobileBar: 'Zapytaj o wycenę',
+  },
+  scopeIntro: 'Tyle kosztuje podstawa.',
 }
 
 /** Fields of a solution the index reads (the `select` of `getSolutionsIndex`). */

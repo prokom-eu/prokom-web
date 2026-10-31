@@ -1,14 +1,13 @@
 import { z } from 'zod'
 
-import { SOLUTION_SIZES, type SolutionSize } from './options'
 import { formatPrice } from './price'
-import type { PREVIEW_FEATURES, SoftwareWizard, WizardCondition } from './wizard'
+import type { PREVIEW_FEATURES, PriceDisplay, SoftwareWizard, WizardCondition } from './wizard'
 
 /**
  * What the Software wizard shows and sends (`/dobierz`, spec. §6.3), computed from the rules in
  * `SoftwareSettings.wizard` only — the components and the server call these functions and never
  * test need ids themselves (SW7). The one fixed id is `own` („Opisz po swojemu”), the key the
- * schema reserves in `mapping`.
+ * schema reserves in `mapping`. v22: one „od” price, no sizes (ADR-014 v22 pkt 10).
  */
 
 export const OWN = 'own'
@@ -16,8 +15,17 @@ export const OWN = 'own'
 /** Address of the wizard page (the start page has it as section `#dobierz`, SW5). */
 export const WIZARD_PATH = '/dobierz'
 
-/** Steps by index: Potrzeba, Szczegóły, Zakres, Opis, Wynik. */
-export const STEP = { need: 0, detail: 1, scope: 2, describe: 3, result: 4 } as const
+/** Steps of the wizard: Potrzeba → Szczegóły → Zakres (z opisem) → Wynik. */
+export type WizardStep = 'need' | 'detail' | 'scope' | 'describe' | 'result'
+
+const STEPS: readonly WizardStep[] = ['need', 'detail', 'scope', 'result']
+/** „Opisz po swojemu”: Potrzeba → Twój opis → Wynik (`stepsOwn`). */
+const STEPS_OWN: readonly WizardStep[] = ['need', 'describe', 'result']
+
+/** The steps of this path, in order — names from `steps` / `stepsOwn` by the same index. */
+export function stepsOf(answers: Pick<WizardAnswers, 'own'>): readonly WizardStep[] {
+  return answers.own ? STEPS_OWN : STEPS
+}
 
 export type WizardAnswers = {
   /** Id of `needs`; `null` before the first click and in „Opisz po swojemu”. */
@@ -25,7 +33,6 @@ export type WizardAnswers = {
   own: boolean
   /** Answers to the need's question (one, or several when `multi`). */
   options: string[]
-  size: SolutionSize
   /** Chip of the need's `haves` set. */
   have: string | null
   /** Address of the current site (needs with `url`). */
@@ -37,6 +44,12 @@ export type WizardAnswers = {
    * texts: the browser gets the texts with facts filled in, the server compares with the rules.
    */
   checklist: number[]
+  /** Ticked „Potrzebujesz czegoś więcej?” (`scope.<result>.moreExamples[].id`) — to quote. */
+  more: string[]
+  /** Added „Często dobierane razem” (`addOns.items[].id`). */
+  addOns: string[]
+  /** „Chcesz sprzedawać online?” accepted: the result is `shopHint.toShop.result`. */
+  shop: boolean
   /** `contactPrefs[].id`; `null` = the first one. */
   contactPref: string | null
 }
@@ -45,28 +58,35 @@ export const EMPTY_ANSWERS: WizardAnswers = {
   need: null,
   own: false,
   options: [],
-  // The board starts with Standard chosen.
-  size: 'std',
   have: null,
   url: '',
   when: null,
   description: '',
   checklist: [],
+  more: [],
+  addOns: [],
+  shop: false,
   contactPref: null,
 }
 
-/** What the wizard needs of a solution priced by a result (from the solutions index). */
+/** A level of a solution (care): its own price. */
+export type WizardLevel = { name: string; price: number }
+
+/** What the wizard needs of a solution it prices with (from the solutions index). */
 export type WizardSolution = {
   name: string
-  /** The one „od” price (ADR-014 v22 pkt 1); `null` → „Zapytaj o wycenę”. */
+  /** The one „od” price (ADR-014 v22 pkt 1); `null` → „Zapytaj o wycenę”, `0` → free. */
   priceFrom: number | null
   /** „od 2 tygodni” as stored; `null` → `termFallback`. */
   leadTime: string | null
   priceMonthly: boolean
+  levels: WizardLevel[]
 }
 
+type Solutions = Readonly<Record<string, WizardSolution>>
 type Need = SoftwareWizard['needs'][string]
 type Result = SoftwareWizard['results'][string]
+type Scope = SoftwareWizard['scope'][string]
 
 /** The needs in their order (`needOrder`), as `[id, need]`. */
 export function orderedNeeds(rules: SoftwareWizard): [string, Need][] {
@@ -79,8 +99,8 @@ export function needOf(rules: SoftwareWizard, answers: WizardAnswers): Need | nu
   return answers.own || answers.need === null ? null : (rules.needs[answers.need] ?? null)
 }
 
-/** Id of the recommended result (`mapping`; per answer with `*` for any other). */
-export function resultIdOf(rules: SoftwareWizard, answers: WizardAnswers): string {
+/** Result of `mapping` (per answer, `*` = any other), before the shop switch. */
+function mappedResultId(rules: SoftwareWizard, answers: WizardAnswers): string {
   const key = answers.own || answers.need === null ? OWN : answers.need
   const target = rules.mapping[key] ?? rules.mapping[OWN]
   if (target === undefined) return OWN
@@ -94,68 +114,163 @@ type Context = {
   options: string[]
   result: string
   kind: string
-  size: SolutionSize
+  have: string | null
+  when: string | null
+  /** An answer outside `scope.<result>.featuresInPrice`. */
+  outsidePrice: boolean
 }
 
-function contextOf(rules: SoftwareWizard, answers: WizardAnswers): Context {
-  const result = resultIdOf(rules, answers)
+function contextFor(rules: SoftwareWizard, answers: WizardAnswers, result: string): Context {
+  const inPrice = scopeOf(rules, result)?.featuresInPrice
   return {
     need: answers.own ? null : answers.need,
     options: answers.options,
     result,
     kind: rules.results[result]?.kind ?? '',
-    size: answers.size,
+    have: answers.have,
+    when: answers.when,
+    outsidePrice: !!inPrice && answers.options.some((option) => !inPrice.includes(option)),
   }
 }
 
 function matches(condition: WizardCondition, context: Context): boolean {
-  const { needs, options, results, kinds, sizes } = condition
+  const { needs, options, results, kinds, haves, whens, minOptions, outsidePrice } = condition
   if (needs && (context.need === null || !needs.includes(context.need))) return false
   if (options && !options.some((option) => context.options.includes(option))) return false
   if (results && !results.includes(context.result)) return false
   if (kinds && !kinds.includes(context.kind)) return false
-  if (sizes && !sizes.includes(context.size)) return false
+  if (haves && (context.have === null || !haves.includes(context.have))) return false
+  if (whens && (context.when === null || !whens.includes(context.when))) return false
+  if (minOptions !== undefined && context.options.length < minOptions) return false
+  if (outsidePrice && !context.outsidePrice) return false
   return true
 }
 
 const anyMatches = (conditions: WizardCondition[], context: Context) =>
   conditions.some((condition) => matches(condition, context))
 
-/** The size step is shown (and the price is of the chosen size). */
-export function hasSize(rules: SoftwareWizard, answers: WizardAnswers): boolean {
-  const need = needOf(rules, answers)
-  return need !== null && !need.noSize
+/** The shop hint applies to these answers (shown with either side). */
+export function shopHintApplies(rules: SoftwareWizard, answers: WizardAnswers): boolean {
+  const base = mappedResultId(rules, answers)
+  return anyMatches(rules.shopHint.when, contextFor(rules, answers, base))
+}
+
+/** Id of the recommended result (`mapping`, then the accepted shop hint). */
+export function resultIdOf(rules: SoftwareWizard, answers: WizardAnswers): string {
+  if (answers.shop && shopHintApplies(rules, answers)) return rules.shopHint.toShop.result
+  return mappedResultId(rules, answers)
+}
+
+function contextOf(rules: SoftwareWizard, answers: WizardAnswers): Context {
+  return contextFor(rules, answers, resultIdOf(rules, answers))
+}
+
+function scopeOf(rules: SoftwareWizard, result: string): Scope | undefined {
+  return result === '_info' ? undefined : rules.scope[result]
 }
 
 const nameIn = (list: { id: string; n: string }[], id: string | null) =>
   id === null ? undefined : list.find((item) => item.id === id)?.n
 
+/**
+ * `{data}` of the term notes: the deadline as Polish words („30 listopada”). The text has no year,
+ * so it is the same every year — the point is one rule in the JSON instead of a fact to edit.
+ */
+export function winterDateText(deadline: SoftwareWizard['winterDeadline']): string {
+  return new Intl.DateTimeFormat('pl-PL', {
+    day: 'numeric',
+    month: 'long',
+    timeZone: 'UTC',
+  }).format(new Date(Date.UTC(2024, deadline.month - 1, deadline.day)))
+}
+
 function whenNoteOf(rules: SoftwareWizard, answers: WizardAnswers, context: Context): string {
   const notes: Record<string, string | undefined> = rules.whenNotes
   if (answers.when === null) return rules.whenNotes.default
   const big = anyMatches(rules.bigWhen, context)
-  const sized = notes[`${answers.when}${big ? 'Big' : 'Small'}`]
-  return sized ?? notes[answers.when] ?? rules.whenNotes.default
+  const note = notes[`${answers.when}${big ? 'Big' : 'Small'}`] ?? notes[answers.when]
+  return (note ?? rules.whenNotes.default).replace('{data}', winterDateText(rules.winterDeadline))
 }
 
-/**
- * Price and term of a result: the one „od” price and term of its solution (v22). Until the v22
- * wizard (SWR4) the size step stays, but every size shows the same „od” price — there are no
- * size prices any more.
- */
+const fill = (template: string, amount: number) => template.replace('{cena}', formatPrice(amount))
+
+/** A short price („od 999 zł”, „0 zł”, „od 149 zł / mies.”) — tiles and add-ons. */
+function shortPrice(display: PriceDisplay, solution: WizardSolution | undefined): string {
+  const amount = solution?.priceFrom ?? null
+  if (amount === null) return display.fallback
+  // Free (the quick audit): no „od” — just 0 zł, as on the cards.
+  if (amount === 0) return '0 zł'
+  return fill(solution?.priceMonthly ? display.monthTemplate : display.short, amount)
+}
+
+/** Price of step 1 tiles: the lowest „od” of the need's results, else „Zapytaj o wycenę”. */
+export function tileHintOf(rules: SoftwareWizard, needId: string, solutions: Solutions): string {
+  const target = rules.mapping[needId]
+  const results =
+    target === undefined ? [] : typeof target === 'string' ? [target] : Object.values(target)
+  const priced = results.flatMap((resultId) => {
+    const slug = rules.resultToSolutionSlug[resultId]
+    const solution = slug ? solutions[slug] : undefined
+    return solution && solution.priceFrom !== null && !solution.priceMonthly ? [solution] : []
+  })
+  if (priced.length === 0) return rules.priceDisplay.fallback
+  const lowest = priced.reduce((low, each) => (each.priceFrom! < low.priceFrom! ? each : low))
+  return shortPrice(rules.priceDisplay, lowest)
+}
+
+/** Price and term of a result: the one „od” price and term of its solution (v22). */
 function priceOf(
   rules: SoftwareWizard,
   result: Result,
   solution: WizardSolution | undefined,
-): { price: string; term: string; ask: boolean } {
+): { price: string; priceShort: string; priceSub: string; term: string; ask: boolean } {
   const display = rules.priceDisplay
-  if (result.free) return { price: rules.free.price, term: rules.free.term, ask: false }
+  if (result.free) {
+    const price = rules.free.price
+    return { price, priceShort: price, priceSub: '', term: rules.free.term, ask: false }
+  }
   const amount = solution?.priceFrom ?? null
-  const term = solution?.leadTime ?? display.termFallback
-  if (amount === null) return { price: display.fallback, term, ask: true }
-  const template =
-    result.month || solution?.priceMonthly ? display.monthTemplate : display.templateFrom
-  return { price: template.replace('{cena}', formatPrice(amount)), term, ask: false }
+  if (amount === null) {
+    const { price, priceSub, term } = display.noPrice
+    return { price, priceShort: price, priceSub, term, ask: true }
+  }
+  const monthly = result.month || solution?.priceMonthly
+  return {
+    price: fill(monthly ? display.monthTemplate : display.template, amount),
+    priceShort: shortPrice(display, solution),
+    priceSub: display.priceSub,
+    term: solution?.leadTime ?? display.termFallback,
+    ask: false,
+  }
+}
+
+export type WizardAddOn = {
+  id: string
+  name: string
+  description: string
+  /** SVG path of the icon (`icons`). */
+  icon: string
+  price: string
+  on: boolean
+}
+
+/** Ids of „Często dobierane razem” for these answers (the first rule that applies). */
+export function addOnIdsOf(rules: SoftwareWizard, answers: WizardAnswers): string[] {
+  const context = contextOf(rules, answers)
+  return rules.addOns.rules.find((rule) => anyMatches(rule.when, context))?.items ?? []
+}
+
+function addOnPrice(
+  display: PriceDisplay,
+  item: SoftwareWizard['addOns']['items'][number],
+  solutions: Solutions,
+): string {
+  const solution = solutions[item.slug]
+  const level = item.level ? solution?.levels.find((each) => each.name === item.level) : undefined
+  if (!level) return shortPrice(display, solution)
+  return solution?.priceMonthly
+    ? fill(display.levelMonthTemplate, level.price)
+    : `${formatPrice(level.price)} zł`
 }
 
 export type ResultView = {
@@ -163,71 +278,175 @@ export type ResultView = {
   result: Result
   /** Slug of the solution that prices the result (`null` = none). */
   solutionSlug: string | null
-  hasSize: boolean
+  /** „od 1 999 zł netto” — the ticket, the message. */
   price: string
+  /** „od 1 999 zł” — the big price, `priceSub` under it says „netto”. */
+  priceShort: string
+  /** „netto · stała cena na piśmie”, or the no-price line. */
+  priceSub: string
   term: string
   /** No price in the panel: „Zapytaj o wycenę”. */
   ask: boolean
+  /** Step „Zakres”: what the „od” price includes and what else may be quoted. */
+  included: string[]
+  more: { id: string; name: string; on: boolean }[]
+  /** „Do wyceny na piśmie”: answers outside the price and ticked „more”, by name. */
+  toQuote: string[]
   scope: string | null
   /** Line under the title from the chosen chip („+ przebudowa starej strony…”). */
   resultNote: string | null
   whenNote: string
+  recommend: string | null
+  honest: string | null
   gains: string[]
   checklist: string[]
-  /** „Twój wybór”: need, answers, size and term, in this order. */
+  addOns: WizardAddOn[]
+  /** „Twój wybór”: need, answers and term, in this order. */
   choice: string[]
+}
+
+function optionNames(need: Need | null, ids: string[]): string[] {
+  return need ? need.o.filter((option) => ids.includes(option.id)).map((option) => option.n) : []
+}
+
+/** Answers of the need's question outside `featuresInPrice` (rozbudowana: not the blog). */
+function featuresOutside(
+  rules: SoftwareWizard,
+  answers: WizardAnswers,
+  resultId: string,
+): string[] {
+  const inPrice = scopeOf(rules, resultId)?.featuresInPrice
+  if (!inPrice) return []
+  const outside = answers.options.filter((option) => !inPrice.includes(option))
+  return optionNames(needOf(rules, answers), outside)
+}
+
+function sentenceOf(
+  rule: { text: string } | undefined,
+  rules: SoftwareWizard,
+  answers: WizardAnswers,
+): string | null {
+  if (!rule) return null
+  return rule.text.replace(
+    '{lista}',
+    optionNames(needOf(rules, answers), answers.options).join(', '),
+  )
 }
 
 export function resultView(
   rules: SoftwareWizard,
   answers: WizardAnswers,
-  solutions: Readonly<Record<string, WizardSolution>>,
+  solutions: Solutions,
 ): ResultView {
   const context = contextOf(rules, answers)
   const result = rules.results[context.result] ?? rules.results[OWN]
   if (!result) throw new Error('Software wizard rules without the `own` result')
   const need = needOf(rules, answers)
-  const sized = hasSize(rules, answers)
   const solutionSlug = rules.resultToSolutionSlug[context.result] ?? null
   const solution = solutionSlug ? solutions[solutionSlug] : undefined
   const scopeRule = rules.scopeRules.find((rule) => anyMatches(rule.when, context))
   const set = need?.have ? rules.haves[need.have] : undefined
   const chip = set?.o.find((option) => option.id === answers.have)
+  const scope = scopeOf(rules, context.result)
+  const more = (scope?.moreExamples ?? []).map((example) => ({
+    id: example.id,
+    name: example.n,
+    on: answers.more.includes(example.id),
+  }))
+  const added = addOnIdsOf(rules, answers)
 
   return {
     resultId: context.result,
     result,
     solutionSlug,
-    hasSize: sized,
     ...priceOf(rules, result, solution),
+    included: scope?.included ?? [],
+    more,
+    toQuote: [
+      ...featuresOutside(rules, answers, context.result),
+      ...more.filter((each) => each.on).map((each) => each.name),
+    ],
     scope: scopeRule ? (rules.scopeNotes[scopeRule.note] ?? null) : null,
     resultNote: chip?.resultNote ?? null,
     whenNote: whenNoteOf(rules, answers, context),
-    gains: sized ? [...result.g, rules.sizeGains[answers.size]] : result.g,
+    recommend: sentenceOf(
+      rules.recommend.find((rule) => anyMatches(rule.when, context)),
+      rules,
+      answers,
+    ),
+    honest: sentenceOf(
+      rules.honest.find((rule) => anyMatches(rule.when, context)),
+      rules,
+      answers,
+    ),
+    gains: result.g,
     checklist: result.nd,
-    choice: choiceOf(rules, answers, { withScope: true }),
+    addOns: added.flatMap((id) => {
+      const item = rules.addOns.items.find((each) => each.id === id)
+      if (!item) return []
+      return [
+        {
+          id,
+          name: item.n,
+          description: item.d,
+          icon: rules.icons[item.icon] ?? '',
+          price: addOnPrice(rules.priceDisplay, item, solutions),
+          on: answers.addOns.includes(id),
+        },
+      ]
+    }),
+    choice: choiceOf(rules, answers, { withWhen: true }),
   }
 }
 
-/** Chips of „Twój wybór”; size and term only once the scope step is passed. */
+/**
+ * The answers without what the current result no longer offers — after going back and changing a
+ * chip, a ticked „więcej”, an add-on, a checklist position or the shop switch of the previous
+ * result would stay hidden in the state and make the server refuse the inquiry.
+ */
+export function pruneAnswers(rules: SoftwareWizard, answers: WizardAnswers): WizardAnswers {
+  const next = { ...answers, shop: answers.shop && shopHintApplies(rules, answers) }
+  const resultId = resultIdOf(rules, next)
+  const more = new Set(scopeOf(rules, resultId)?.moreExamples.map((example) => example.id))
+  const addOns = new Set(addOnIdsOf(rules, next))
+  const items = rules.results[resultId]?.nd.length ?? 0
+  return {
+    ...next,
+    more: next.more.filter((id) => more.has(id)),
+    addOns: next.addOns.filter((id) => addOns.has(id)),
+    checklist: next.checklist.filter((index) => index < items),
+  }
+}
+
+/** Names of the chosen answers to the need's question (under the result's title). */
+export function optionNamesOf(rules: SoftwareWizard, answers: WizardAnswers): string[] {
+  return optionNames(needOf(rules, answers), answers.options)
+}
+
+/** Quick words under „Kilka słów od siebie”: the need's own, else the general ones. */
+export function phrasesOf(rules: SoftwareWizard, answers: WizardAnswers): string[] {
+  const own = answers.need === null ? undefined : rules.needPhrases[answers.need]
+  return own && own.length > 0 ? own : rules.phrases
+}
+
+/** Contact field of the chosen preference: label, placeholder, error and what it checks. */
+export function contactFieldOf(rules: SoftwareWizard, answers: WizardAnswers) {
+  const field = contactPrefOf(rules, answers)?.field ?? 'any'
+  return { field, ...rules.send.contact[field] }
+}
+
+/** Chips of „Twój wybór”; the term only once the scope step is passed. */
 export function choiceOf(
   rules: SoftwareWizard,
   answers: WizardAnswers,
-  { withScope }: { withScope: boolean },
+  { withWhen }: { withWhen: boolean },
 ): string[] {
   const need = needOf(rules, answers)
   const chips: string[] = []
   if (answers.own) chips.push(rules.ui.ownChip)
-  if (need) {
-    chips.push(need.n)
-    for (const option of need.o) if (answers.options.includes(option.id)) chips.push(option.n)
-  }
-  if (withScope) {
-    const size = hasSize(rules, answers) ? nameIn(rules.sizes, answers.size) : undefined
-    const when = nameIn(rules.whens, answers.when)
-    if (size) chips.push(size)
-    if (when) chips.push(when)
-  }
+  if (need) chips.push(need.n, ...optionNames(need, answers.options))
+  const when = withWhen ? nameIn(rules.whens, answers.when) : undefined
+  if (when) chips.push(when)
   return chips
 }
 
@@ -314,9 +533,9 @@ const param = (params: Params, name: string) => {
 export function parseWizardParams(
   rules: SoftwareWizard,
   params: Params,
-): { step: number; answers: WizardAnswers } {
+): { step: WizardStep; answers: WizardAnswers } {
   if (param(params, 'tryb') === 'opis') {
-    return { step: STEP.describe, answers: { ...EMPTY_ANSWERS, own: true } }
+    return { step: 'describe', answers: { ...EMPTY_ANSWERS, own: true } }
   }
   const firma = param(params, 'firma')
   const asked = param(params, 'potrzeba')
@@ -327,10 +546,10 @@ export function parseWizardParams(
       : firma !== undefined
         ? rules.needOrder.find(hasOption)
         : undefined
-  if (needId === undefined) return { step: STEP.need, answers: EMPTY_ANSWERS }
+  if (needId === undefined) return { step: 'need', answers: EMPTY_ANSWERS }
   const options = firma !== undefined && hasOption(needId) ? [firma] : []
   return {
-    step: options.length > 0 ? STEP.scope : STEP.detail,
+    step: options.length > 0 ? 'scope' : 'detail',
     answers: { ...EMPTY_ANSWERS, need: needId, options },
   }
 }
@@ -338,17 +557,21 @@ export function parseWizardParams(
 const MAX_URL = 200
 const MAX_DESCRIPTION = 2000
 
-const answersShape = z.object({
-  need: z.string().max(40).nullable(),
+const id = z.string().max(40)
+
+const answersShape = z.strictObject({
+  need: id.nullable(),
   own: z.boolean(),
-  options: z.array(z.string().max(40)).max(20),
-  size: z.enum(SOLUTION_SIZES),
-  have: z.string().max(40).nullable(),
+  options: z.array(id).max(20),
+  have: id.nullable(),
   url: z.string().trim().max(MAX_URL),
-  when: z.string().max(40).nullable(),
+  when: id.nullable(),
   description: z.string().trim().max(MAX_DESCRIPTION),
   checklist: z.array(z.number().int().min(0).max(19)).max(20),
-  contactPref: z.string().max(40).nullable(),
+  more: z.array(id).max(10),
+  addOns: z.array(id).max(10),
+  shop: z.boolean(),
+  contactPref: id.nullable(),
 })
 
 /**
@@ -362,21 +585,27 @@ export function parseSoftwareAnswers(rules: SoftwareWizard, input: unknown): Wiz
   const unique = (list: (string | number)[]) => new Set(list).size === list.length
   if (answers.own) {
     if (answers.need !== null || answers.options.length > 0 || answers.have !== null) return null
-    if (answers.url !== '') return null
+    if (answers.url !== '' || answers.shop) return null
   } else {
     const need = answers.need === null ? undefined : rules.needs[answers.need]
     if (!need) return null
     const optionIds = new Set(need.o.map((option) => option.id))
-    if (!answers.options.every((id) => optionIds.has(id)) || !unique(answers.options)) return null
+    if (!answers.options.every((each) => optionIds.has(each)) || !unique(answers.options))
+      return null
     if (!need.multi && answers.options.length > 1) return null
     const set = need.have ? rules.haves[need.have] : undefined
     if (answers.have !== null && !set?.o.some((option) => option.id === answers.have)) return null
     if (!need.url && answers.url !== '') return null
+    if (answers.shop && !shopHintApplies(rules, answers)) return null
   }
   if (answers.when !== null && !rules.whens.some((when) => when.id === answers.when)) return null
-  const result = rules.results[resultIdOf(rules, answers)]
-  const items = result?.nd.length ?? 0
+  const resultId = resultIdOf(rules, answers)
+  const items = rules.results[resultId]?.nd.length ?? 0
   if (!answers.checklist.every((index) => index < items) || !unique(answers.checklist)) return null
+  const moreIds = new Set(scopeOf(rules, resultId)?.moreExamples.map((example) => example.id))
+  if (!answers.more.every((each) => moreIds.has(each)) || !unique(answers.more)) return null
+  const addOnIds = new Set(addOnIdsOf(rules, answers))
+  if (!answers.addOns.every((each) => addOnIds.has(each)) || !unique(answers.addOns)) return null
   if (
     answers.contactPref !== null &&
     !rules.contactPrefs.some((pref) => pref.id === answers.contactPref)
@@ -387,6 +616,27 @@ export function parseSoftwareAnswers(rules: SoftwareWizard, input: unknown): Wiz
 
 export function contactPrefOf(rules: SoftwareWizard, answers: WizardAnswers) {
   return rules.contactPrefs.find((pref) => pref.id === answers.contactPref) ?? rules.contactPrefs[0]
+}
+
+/** Solutions of the added add-ons (inquiry items), in the order of the rules. */
+export function addOnSlugsOf(rules: SoftwareWizard, answers: WizardAnswers): string[] {
+  const slugs = rules.addOns.items
+    .filter((item) => answers.addOns.includes(item.id))
+    .map((item) => item.slug)
+  return [...new Set(slugs)]
+}
+
+function addOnNames(rules: SoftwareWizard, answers: WizardAnswers): string[] {
+  return rules.addOns.items.filter((item) => answers.addOns.includes(item.id)).map((item) => item.n)
+}
+
+function toQuoteOf(rules: SoftwareWizard, answers: WizardAnswers): string[] {
+  const resultId = resultIdOf(rules, answers)
+  const more = scopeOf(rules, resultId)?.moreExamples ?? []
+  return [
+    ...featuresOutside(rules, answers, resultId),
+    ...more.filter((example) => answers.more.includes(example.id)).map((example) => example.n),
+  ]
 }
 
 /**
@@ -403,17 +653,18 @@ export function wizardSummary(
   const summary: Record<string, string | string[]> = {
     Potrzeba: need?.n ?? rules.ui.ownChip,
   }
-  const options = need?.o.filter((option) => answers.options.includes(option.id)) ?? []
-  if (options.length > 0) summary['Szczegóły'] = options.map((option) => option.n)
-  if (hasSize(rules, answers)) {
-    summary.Zakres = nameIn(rules.sizes, answers.size) ?? answers.size
-  }
+  const options = optionNames(need, answers.options)
+  if (options.length > 0) summary['Szczegóły'] = options
   const have = set ? nameIn(set.o, answers.have) : undefined
   if (set && have) summary[set.q] = have
   if (need?.url && answers.url) summary[need.url.q] = answers.url
   const when = nameIn(rules.whens, answers.when)
   if (when) summary[rules.ui.whenQ] = when
   summary[rules.ui.recommend] = rules.results[resultId]?.n ?? resultId
+  const toQuote = toQuoteOf(rules, answers)
+  if (toQuote.length > 0) summary['Do wyceny'] = toQuote
+  const addOns = addOnNames(rules, answers)
+  if (addOns.length > 0) summary['Dodatki'] = addOns
   const had = answers.checklist.flatMap((index) => rules.results[resultId]?.nd[index] ?? [])
   if (had.length > 0) summary['Już mam'] = had
   if (answers.description) summary[rules.ui.yourNeeds] = answers.description
@@ -421,18 +672,29 @@ export function wizardSummary(
   return summary
 }
 
-/** The inquiry's `message`, written by the server (spec. §6.3): the result and the description. */
+/**
+ * The inquiry's `message`, written by the server (spec. §6.3): the result, the choice, what is to
+ * be quoted („+ do wyceny: …”), the add-ons and the description.
+ */
 export function wizardMessage(rules: SoftwareWizard, answers: WizardAnswers): string {
   const result = rules.results[resultIdOf(rules, answers)]
-  const size = hasSize(rules, answers) ? nameIn(rules.sizes, answers.size) : undefined
-  const head = `Kreator: ${result?.n ?? rules.ui.ownChip}${size ? ` (${size})` : ''}`
-  const choice = choiceOf(rules, answers, { withScope: true }).join(', ')
-  return [head, choice, answers.description].filter(Boolean).join('\n')
+  const toQuote = toQuoteOf(rules, answers)
+  const addOns = addOnNames(rules, answers)
+  return [
+    `Kreator: ${result?.n ?? rules.ui.ownChip}`,
+    choiceOf(rules, answers, { withWhen: true }).join(', '),
+    toQuote.length > 0 ? `+ do wyceny: ${toQuote.join(', ')}` : '',
+    addOns.length > 0 ? `+ dodatki: ${addOns.join(', ')}` : '',
+    answers.description,
+  ]
+    .filter(Boolean)
+    .join('\n')
 }
 
 /**
- * Every text of the rules through `fill` (facts like `[CZAS ODPOWIEDZI]`, ADR-014 §1.4); a text
- * dropped on production (missing value) becomes `''`, which the component does not render.
+ * Every text of the rules through `fill` (facts like `[CZAS ODPOWIEDZI]`, `{cena:<slug>}`,
+ * ADR-014 §1.4); a text dropped on production (missing value) becomes `''`, which the component
+ * does not render.
  */
 export function fillWizardTexts(
   rules: SoftwareWizard,
