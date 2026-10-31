@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest'
 
-import { hasDarkTheme, THEME_SCRIPT, THEME_STORAGE_KEY } from './theme'
+import { hasDarkTheme, startsLight, THEME_SCRIPT, THEME_STORAGE_KEY, themeScript } from './theme'
 
 /** Runs the inline script against a fake `document` and `localStorage`. */
-function runScript(stored: string | null | Error): string | null {
+function runScript(stored: string | null | Error, script = THEME_SCRIPT): string | null {
   let theme: string | null = null
   const document = {
     documentElement: { setAttribute: (_: string, value: string) => (theme = value) },
@@ -15,7 +15,7 @@ function runScript(stored: string | null | Error): string | null {
       return stored
     },
   }
-  new Function('document', 'localStorage', THEME_SCRIPT)(document, localStorage)
+  new Function('document', 'localStorage', script)(document, localStorage)
   return theme
 }
 
@@ -35,6 +35,31 @@ describe('THEME_SCRIPT', () => {
 
   it('does not throw when storage is blocked', () => {
     expect(runScript(new Error('SecurityError'))).toBeNull()
+  })
+})
+
+describe('themeScript (D-K4-5: Biznes light by default)', () => {
+  const biznes = themeScript('biznes')
+
+  it('starts Biznes light without a stored choice, never from the system', () => {
+    expect(runScript(null, biznes)).toBe('light')
+    expect(runScript('"><script>', biznes)).toBe('light')
+    expect(runScript(new Error('SecurityError'), biznes)).toBe('light')
+  })
+
+  it('keeps the choice of the visitor on Biznes', () => {
+    expect(runScript('dark', biznes)).toBe('dark')
+  })
+
+  it('starts light only on Biznes', () => {
+    expect(startsLight('biznes')).toBe(true)
+    expect(startsLight('software')).toBe(false)
+    expect(startsLight(null)).toBe(false)
+  })
+
+  it('leaves the other lines on the system preference', () => {
+    expect(themeScript('software')).toBe(THEME_SCRIPT)
+    expect(themeScript('instalacje')).toBe(THEME_SCRIPT)
   })
 })
 

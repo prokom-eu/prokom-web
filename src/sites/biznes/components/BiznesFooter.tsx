@@ -3,10 +3,8 @@ import Link from 'next/link'
 
 import { LocationAddress } from '@/components/ContactDetails'
 import { Container } from '@/components/ui/Container'
-import { cx } from '@/components/ui/cx'
 import { brandAsset, HORIZONTAL_LOGO_SIZE } from '@/lib/brand/lines'
 import { BUNDLES_PATH } from '@/lib/catalog/bundle'
-import type { MegaMenu } from '@/lib/catalog/menu'
 import type { PartnerBadge } from '@/lib/partners/badges'
 import { toTelHref } from '@/lib/site/link'
 import type { PublicCompanyData, PublicSiteSettings } from '@/lib/site/public'
@@ -16,9 +14,6 @@ type Props = {
   company: PublicCompanyData | null
   settings: PublicSiteSettings
   biznes: NonNullable<PublicSiteSettings['biznes']>
-  menu: MegaMenu
-  /** „Salon Lenovo”, „Salon Dell” — only brands whose page exists. */
-  showrooms: { label: string; href: string }[]
   badges: PartnerBadge[]
   /** Main number and WhatsApp link, computed once in the layout (as for the header). */
   contact: { phone: { label: string; href: string } | null; whatsapp: string | null }
@@ -46,23 +41,32 @@ function LinkColumn({ title, links }: { title: string; links: { label: string; h
 }
 
 /**
- * Footer of the Biznes line, five columns of the `Main` design (spec. §3.4, layout chosen
- * 18.10, K3.1 links in K31-ZMIANY §11.4): the company with hours, status badges and towns
- * served; Oferta (the catalog, ready bundles — K3c, catalog groups and the brand showrooms; the
- * plan comes with its route in K31d); Najważniejsze and Branże i firma (panel); Kontakt with the line's e-mail.
- * Bottom row: copyright, NIP, legal links.
+ * „PRO-KOM w regionie” (K36 §1): the other lines of the company, as external links. Fixed here
+ * like the lines of the top bar.
+ */
+const REGION_LINKS = [
+  { label: 'Monitoring, sieci, smart home', href: 'https://prokominstalacje.pl' },
+  { label: 'Strony, sklepy i aplikacje', href: 'https://prokomsoftware.pl' },
+  { label: 'Serwis telefonów i laptopów', href: 'https://prokomserwis.pl' },
+  { label: 'Sklep w Zakopanem', href: 'https://prokomzakopane.pl' },
+]
+
+// The Konfigurator at `/kreator` until K4g, the plan on the home page until K31d′; „Wszystkie
+// marki” joins with `/marki` (K4f).
+const OFFER_LINKS = [
+  { label: 'Cała oferta', href: '/oferta' },
+  { label: 'Gotowe zestawy', href: BUNDLES_PATH },
+  { label: 'Plan Twojej firmy', href: '/#plan' },
+  { label: 'Konfigurator', href: '/kreator' },
+]
+
+/**
+ * Footer of the Biznes line, K4 six columns (K36 §1, board `Web-Start`): the company with the
+ * address, hours and status badges; Oferta; Usługi and Systemy i tematy (panel); PRO-KOM
+ * w regionie; Kontakt. Bottom row: copyright, NIP, legal links.
  * Extra bottom padding on phones keeps the last line above the sticky bar (`MobileBar`).
  */
-export function BiznesFooter({
-  name,
-  company,
-  settings,
-  biznes,
-  menu,
-  showrooms,
-  badges,
-  contact,
-}: Props) {
+export function BiznesFooter({ name, company, settings, biznes, badges, contact }: Props) {
   // One address on the whole site (K31-ZMIANY §11.4): the line's inbox, else the company's.
   const email = settings.email ?? company?.email ?? null
   // Only the first location (Rabka on Biznes, spec. §1) — never the list of all branches.
@@ -75,9 +79,9 @@ export function BiznesFooter({
     <footer data-surface="dark" className="mt-16 bg-surface-dark text-[0.94rem] text-white/80">
       <Container
         wide
-        className="grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr_1.1fr]"
+        className="grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-[1.35fr_repeat(5,1fr)]"
       >
-        <div className="space-y-4 sm:col-span-2 lg:col-span-1">
+        <div className="space-y-4 sm:col-span-2 lg:col-span-3 xl:col-span-1">
           <Image
             src={brandAsset('biznes', 'poziome_negatyw.svg')}
             alt={name}
@@ -90,23 +94,13 @@ export function BiznesFooter({
               <LocationAddress location={main} />
             </div>
           )}
-          {biznes.serviceAreas.length > 0 && (
-            <p className="text-sm">
-              <span className="font-bold text-white">Obsługujemy:</span>{' '}
-              {biznes.serviceAreas.join(', ')}
-            </p>
-          )}
           {badges.length > 0 && (
             <ul className="flex flex-wrap items-start gap-2">
               {badges.map((badge) => (
                 <li
                   key={badge.label}
-                  // Partners green, services white: small text on the dark footer needs 4.5:1
-                  // (`--ok` and the line blue reach 4.0 and 3.5 — K4a-2, statuses from K4).
-                  className={cx(
-                    'rounded-full bg-white/10 px-2.5 py-1 text-xs font-extrabold',
-                    badge.kind === 'partner' ? 'text-footer-ok' : 'text-white',
-                  )}
+                  // White on the dark footer, as on the board (small text needs 4.5:1).
+                  className="rounded-full bg-white/10 px-2.5 py-1 text-xs font-extrabold text-white ring-1 ring-white/15 ring-inset"
                 >
                   {badge.label}
                 </li>
@@ -115,17 +109,21 @@ export function BiznesFooter({
           )}
         </div>
 
-        <LinkColumn
-          title="Oferta"
-          links={[
-            { label: 'Cały katalog', href: '/oferta' },
-            { label: 'Gotowe zestawy', href: BUNDLES_PATH },
-            ...menu.columns.map((column) => ({ label: column.name, href: column.href })),
-            ...showrooms,
-          ]}
-        />
-        <LinkColumn title="Najważniejsze" links={biznes.footer.important} />
-        <LinkColumn title="Branże i firma" links={biznes.footer.company} />
+        <LinkColumn title="Oferta" links={OFFER_LINKS} />
+        <LinkColumn title="Usługi" links={biznes.footer.important} />
+        <LinkColumn title="Systemy i tematy" links={biznes.footer.company} />
+        <nav aria-label="PRO-KOM w regionie">
+          <h2 className={HEADING}>PRO-KOM w regionie</h2>
+          <ul>
+            {REGION_LINKS.map((link) => (
+              <li key={link.href}>
+                <a href={link.href} target="_blank" rel="noopener" className={LINK}>
+                  {link.label} ↗
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
         <section aria-labelledby="stopka-kontakt">
           <h2 id="stopka-kontakt" className={HEADING}>
@@ -133,17 +131,13 @@ export function BiznesFooter({
           </h2>
           <ul>
             {settings.phone && (
-              <li className="mt-1">
-                <span className="block text-sm">Oferty i serwis</span>
+              <li>
                 {contact.phone ? (
-                  <a
-                    href={contact.phone.href}
-                    className="text-lg font-extrabold text-white hover:underline"
-                  >
-                    {contact.phone.label}
+                  <a href={contact.phone.href} className={LINK}>
+                    {contact.phone.label} · oferty i serwis
                   </a>
                 ) : (
-                  <span className="text-lg font-extrabold text-white">{settings.phone}</span>
+                  <span>{settings.phone} · oferty i serwis</span>
                 )}
               </li>
             )}

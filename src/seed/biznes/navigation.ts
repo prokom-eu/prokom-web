@@ -19,21 +19,45 @@ function ref(lookup: (key: string) => number | undefined, key: string, kind: str
 
 type MenuItem = NonNullable<Navigation['menu']>[number]
 
-/** Menu of the first seed (v20): an untouched one gets „Gotowe zestawy” (K3c). */
-const LEGACY_MENU: Pick<MenuItem, 'type' | 'label' | 'href'>[] = [
-  { type: 'offer', label: 'Oferta', href: '/oferta' },
-  { type: 'link', label: 'Opieka IT', href: '/opieka-it' },
-  { type: 'link', label: 'GoPOS', href: '/gopos' },
-  { type: 'link', label: 'InsERT', href: '/insert' },
-  { type: 'link', label: 'O firmie', href: '/o-firmie' },
-  { type: 'link', label: 'Kontakt', href: '/kontakt' },
+type MenuShape = Pick<MenuItem, 'type' | 'label' | 'href' | 'partner'>
+
+const link = (label: string, href: string, partner?: true): MenuShape => ({
+  type: 'link',
+  label,
+  href,
+  ...(partner && { partner }),
+})
+const OFFER: MenuShape = { type: 'offer', label: 'Oferta', href: '/oferta' }
+
+/** Menus earlier seeds wrote: v20, then K3c with „Gotowe zestawy” and the partner dots. */
+const SEEDED_MENUS: MenuShape[][] = [
+  [
+    OFFER,
+    link('Opieka IT', '/opieka-it'),
+    link('GoPOS', '/gopos'),
+    link('InsERT', '/insert'),
+    link('O firmie', '/o-firmie'),
+    link('Kontakt', '/kontakt'),
+  ],
+  [
+    OFFER,
+    link('Gotowe zestawy', '/zestawy'),
+    link('Opieka IT', '/opieka-it'),
+    link('GoPOS', '/gopos', true),
+    link('InsERT', '/insert', true),
+    link('O firmie', '/o-firmie'),
+    link('Kontakt', '/kontakt'),
+  ],
 ]
 
-/** Header menu (`k31/screens/Web-*-1440`): Oferta, Gotowe zestawy, Opieka IT, GoPOS, InsERT… */
+/**
+ * Header menu of K4 (K33 §2.2, board `Web-Start`): Oferta ▾ · Opieka IT · GoPOS · InsERT ·
+ * O firmie · Kontakt. „Gotowe zestawy” moved to the mega menu and the footer; „Marki” joins
+ * with the `/marki` page (K4f).
+ */
 export function menuData(): MenuItem[] {
   return [
     { type: 'offer', label: 'Oferta', href: '/oferta' },
-    { type: 'link', label: 'Gotowe zestawy', href: '/zestawy' },
     { type: 'link', label: 'Opieka IT', href: '/opieka-it' },
     { type: 'link', label: 'GoPOS', href: '/gopos', partner: true },
     { type: 'link', label: 'InsERT', href: '/insert', partner: true },
@@ -42,20 +66,23 @@ export function menuData(): MenuItem[] {
   ]
 }
 
+const sameMenu = (a: readonly MenuShape[], b: readonly MenuShape[]) =>
+  a.length === b.length &&
+  a.every(
+    (item, i) =>
+      item.type === b[i]!.type &&
+      item.label === b[i]!.label &&
+      item.href === b[i]!.href &&
+      Boolean(item.partner) === Boolean(b[i]!.partner),
+  )
+
 /**
- * The new menu for one still as the first seed wrote it (types, labels, addresses); `null` when
- * anything was edited in the panel (the panel wins) or it is already current.
+ * The current menu for one still as an earlier seed wrote it; `null` when anything was edited
+ * in the panel (the panel wins) or it is already current.
  */
 export function upgradedMenu(current: readonly MenuItem[] | null | undefined): MenuItem[] | null {
-  const untouched =
-    current?.length === LEGACY_MENU.length &&
-    current.every(
-      (item, i) =>
-        item.type === LEGACY_MENU[i]!.type &&
-        item.label === LEGACY_MENU[i]!.label &&
-        item.href === LEGACY_MENU[i]!.href,
-    )
-  return untouched ? menuData() : null
+  if (!current || sameMenu(current, menuData())) return null
+  return SEEDED_MENUS.some((seeded) => sameMenu(current, seeded)) ? menuData() : null
 }
 
 /** Categories per mega menu column: the K4 menu (v147c) shows every category of a department. */

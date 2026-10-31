@@ -44,3 +44,21 @@ export async function tenantId(page: Page, slug: string): Promise<number> {
   if (!tenant) throw new Error(`Seed tenant "${slug}" not found — run pnpm seed.`)
   return tenant.id
 }
+
+/**
+ * The theme as a visitor gets it: the stored choice (`pk-theme`) and the system preference.
+ * Biznes starts light whatever the system says (D-K4-5), so emulating the system alone no
+ * longer shows its dark theme.
+ */
+export async function setTheme(
+  page: Page,
+  theme: 'light' | 'dark',
+  media: Parameters<Page['emulateMedia']>[0] = {},
+) {
+  await page.addInitScript((value) => {
+    try {
+      localStorage.setItem('pk-theme', value)
+    } catch {}
+  }, theme)
+  await page.emulateMedia({ ...media, colorScheme: theme })
+}

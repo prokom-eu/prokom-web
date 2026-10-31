@@ -2,7 +2,7 @@ import { SiteLogo } from '@/components/SiteLogo'
 import { ThemeToggle } from '@/components/ThemeToggle'
 import { Container } from '@/components/ui/Container'
 import { ICON_BUTTON } from '@/components/ui/iconButton'
-import type { MegaMenu } from '@/lib/catalog/menu'
+import type { MegaMenu, OfferMenu } from '@/lib/catalog/menu'
 import { type PublicBiznesNavigation, withoutEmptyDropdowns } from '@/lib/site/navigation'
 import type { SiteTenant } from '@/lib/tenant/byHost'
 
@@ -18,9 +18,12 @@ import { SearchOverlay } from './SearchOverlay'
 type Props = {
   tenant: SiteTenant
   navigation: PublicBiznesNavigation
+  /** Columns of the phone menu (`MobileMenuContent`). */
   menu: MegaMenu
-  /** Slug of the first active industry, for "Rozwiązania dla branż" in the mega menu. */
-  industrySlug: string | null
+  /** Oferta ▾ of K4 (mega menu v147c). */
+  offer: OfferMenu
+  /** Opening hours in short for the mega menu, e.g. „pn–pt 9–17”. */
+  hours: string | null
   /** Main phone (`tel:`) and WhatsApp (wa.me) of the line, for the phone menu. */
   contact: { phone: { label: string; href: string } | null; whatsapp: string | null }
 }
@@ -30,7 +33,7 @@ type Props = {
  * (`SearchOverlay`) and the inquiry list ("Zapytanie" with its counter, drawer and toast).
  * Below 1080 px the full-screen menu (`MobileMenu`) replaces the desktop navigation (v20).
  */
-export function BiznesHeader({ tenant, navigation, menu, industrySlug, contact }: Props) {
+export function BiznesHeader({ tenant, navigation, menu, offer, hours, contact }: Props) {
   const items = withoutEmptyDropdowns(navigation.menu, { offer: menu.columns.length > 0 })
   return (
     <>
@@ -47,14 +50,7 @@ export function BiznesHeader({ tenant, navigation, menu, industrySlug, contact }
             <HeaderNav
               menu={items}
               panels={{
-                offer: (
-                  <MegaMenuPanel
-                    menu={menu}
-                    shortcuts={navigation.shortcuts}
-                    cards={navigation.cards}
-                    industry={industrySlug}
-                  />
-                ),
+                offer: <MegaMenuPanel offer={offer} phone={contact.phone} hours={hours} />,
               }}
             />
           )}

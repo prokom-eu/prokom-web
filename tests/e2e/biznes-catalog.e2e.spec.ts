@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 
-import { site } from './helpers'
+import { setTheme, site } from './helpers'
 
 // B5a: catalog `/oferta` — filters in the URL with facet counts, sort, „Pokaż kolejne”,
 // cards with „+ Do zapytania”, SEO of filtered views (spec. §5, §8.3, §9 pkt 4; ADR-012 §2.2).
@@ -207,7 +207,7 @@ test.describe('Biznes catalog /oferta', () => {
 
   for (const theme of ['light', 'dark'] as const) {
     test(`axe without violations, ${theme} theme`, async ({ page }) => {
-      await page.emulateMedia({ colorScheme: theme })
+      await setTheme(page, theme)
       await page.goto(oferta('?marka=posnet'))
       await expect(cards(page).first()).toBeVisible()
       const { violations } = await new AxeBuilder({ page }).withTags(WCAG).analyze()

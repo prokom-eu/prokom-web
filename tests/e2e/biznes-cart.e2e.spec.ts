@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 
-import { site } from './helpers'
+import { setTheme, site } from './helpers'
 
 // B4b: inquiry list `pk-cart` — counter, drawer, toast, shared between tabs (spec. §3.2, §8.1,
 // §9 pkt 3 and 7). Catalog from `pnpm seed`.
@@ -153,7 +153,7 @@ test.describe('Biznes inquiry list', () => {
 
   for (const colorScheme of ['light', 'dark'] as const) {
     test(`axe passes with the drawer open — ${colorScheme}`, async ({ page }) => {
-      await page.emulateMedia({ colorScheme })
+      await setTheme(page, colorScheme)
       await withCart(page, [{ id: ERGO, q: 2 }])
       await page.goto(site('biznes.localhost'))
       await openDrawer(page)

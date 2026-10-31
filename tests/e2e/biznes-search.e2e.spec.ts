@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 
-import { site } from './helpers'
+import { setTheme, site } from './helpers'
 
 // B4a: search overlay of the Biznes header (spec. §3.2, §8.2, §9 pkt 2 and 7). Catalog from
 // `pnpm seed`; the cases do not rely on synonyms (BiznesSettings), which other tests replace.
@@ -91,7 +91,7 @@ test.describe('Biznes search', () => {
 
   for (const colorScheme of ['light', 'dark'] as const) {
     test(`axe passes with results open — ${colorScheme}`, async ({ page }) => {
-      await page.emulateMedia({ colorScheme })
+      await setTheme(page, colorScheme)
       await page.goto(site('biznes.localhost'))
       await openWithSlash(page)
       await field(page).fill('kasa')

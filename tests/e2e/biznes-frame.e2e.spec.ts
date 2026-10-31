@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 
-import { api, loginAsAdmin, site } from './helpers'
+import { api, loginAsAdmin, setTheme, site } from './helpers'
 
 // B3b: phone menu and bottom bar, the five-column footer and the closable seasonal bar of the
 // Biznes line (spec. §3.3, §3.4, §3.6). Data from `pnpm seed`.
@@ -59,7 +59,7 @@ test.describe('Biznes on a phone', () => {
 
   for (const colorScheme of ['light', 'dark'] as const) {
     test(`axe passes with the menu open — ${colorScheme}`, async ({ page }) => {
-      await page.emulateMedia({ colorScheme })
+      await setTheme(page, colorScheme)
       await page.goto(site('biznes.localhost'))
       await page.getByRole('button', { name: 'Menu' }).click()
       await expect(page.getByRole('dialog', { name: 'Menu' })).toBeVisible()
@@ -68,14 +68,24 @@ test.describe('Biznes on a phone', () => {
   }
 })
 
+test.describe('Biznes theme (D-K4-5)', () => {
+  // Keeping the choice after a reload: a11y.e2e.spec.ts („toggles, is announced and survives a reload”).
+  test('starts light even when the system is dark', async ({ page }) => {
+    await page.emulateMedia({ colorScheme: 'dark' })
+    await page.goto(site('biznes.localhost'))
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'light')
+  })
+})
+
 test.describe('Biznes footer', () => {
-  test('has the five columns and the bottom row', async ({ page }) => {
+  // K4 footer (K36 §1): six columns.
+  test('has the six columns and the bottom row', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
     const footer = page.locator('footer')
-    for (const name of ['Oferta', 'Najważniejsze', 'Branże i firma', 'Kontakt']) {
+    for (const name of ['Oferta', 'Usługi', 'Systemy i tematy', 'PRO-KOM w regionie', 'Kontakt']) {
       await expect(footer.getByRole('heading', { name, exact: true })).toBeVisible()
     }
-    await expect(footer.getByRole('link', { name: 'Cały katalog' })).toHaveAttribute(
+    await expect(footer.getByRole('link', { name: 'Cała oferta' })).toHaveAttribute(
       'href',
       '/oferta',
     )
@@ -85,19 +95,23 @@ test.describe('Biznes footer', () => {
     await expect(page.getByRole('navigation', { name: 'Szybki kontakt' })).toBeHidden()
   })
 
-  test('has the K3.1 links, one e-mail and only the first address (K31b)', async ({ page }) => {
+  test('has the K4 services and topics, one e-mail and only the first address', async ({
+    page,
+  }) => {
     await page.goto(site('biznes.localhost'))
     const footer = page.locator('footer')
-    const important = footer.getByRole('navigation', { name: 'Najważniejsze' })
-    await expect(important.getByRole('link')).toHaveText([
-      'Opieka IT',
-      'GoPOS',
-      'InsERT i KSeF',
-      'KSeF 2027',
-      'Dobierz zestaw w 60 s',
-    ])
-    // The IT review waits for the boss's approval — no link to it in the footer.
-    await expect(footer.locator('a[href*="przeglad"]')).toHaveCount(0)
+    const services = footer.getByRole('navigation', { name: 'Usługi' }).getByRole('link')
+    await expect(services).toHaveCount(7)
+    // The seed writes card addresses by hand: each must lead to a published card or page.
+    const hrefs = await services.evaluateAll((links) => links.map((a) => a.getAttribute('href')))
+    for (const href of hrefs) {
+      const response = await page.request.get(site('biznes.localhost', href ?? '/'))
+      expect(response.status(), href ?? '').toBe(200)
+    }
+    await expect(
+      footer.getByRole('navigation', { name: 'Systemy i tematy' }).getByRole('link').first(),
+    ).toHaveText('GoPOS')
+    await expect(footer).toContainText('Autoryzowany serwis Posnet i Elzab')
     // One e-mail on the whole footer: the line's inbox from its settings, not the company's.
     const mails = footer.locator('a[href^="mailto:"]')
     await expect(mails).toHaveCount(1)
@@ -108,7 +122,7 @@ test.describe('Biznes footer', () => {
   test('other lines keep their own footer', async ({ page }) => {
     await page.goto(site('instalacje.localhost'))
     await expect(
-      page.locator('footer').getByRole('heading', { name: 'Najważniejsze' }),
+      page.locator('footer').getByRole('heading', { name: 'Systemy i tematy' }),
     ).toHaveCount(0)
   })
 })

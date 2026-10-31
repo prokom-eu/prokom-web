@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 
-import { site } from './helpers'
+import { setTheme, site } from './helpers'
 
 // B3a + B3c (v20): top bar and header of the Biznes line, Oferta ▾ (spec. §3.1–3.2). Data
 // from `pnpm seed` (navigation of the design, catalog of B2).
@@ -41,29 +41,52 @@ test.describe('Biznes header', () => {
     await expect(button).toBeFocused()
   })
 
-  test('the mega menu lists categories up to the column limit and links them', async ({ page }) => {
+  // K4 mega menu v147c (K35 7a): departments switch the middle, categories link their pages.
+  test('the mega menu switches departments and links categories and shortcuts', async ({
+    page,
+  }) => {
     await page.goto(site('biznes.localhost'))
     await mainNav(page).getByRole('button', { name: 'Oferta' }).click()
     const panel = page.locator('[id$="-offer"]')
-
-    await expect(panel.getByRole('link', { name: 'Kasy i sprzedaż', exact: true })).toHaveAttribute(
-      'href',
-      /^\/oferta\?grupa=/,
-    )
+    const heading = panel.getByRole('heading', { level: 2 })
+    await expect(heading).toHaveText('Kasy i sprzedaż')
     await expect(panel.getByRole('link', { name: /^Kasy fiskalne \d+ pozycj/ })).toHaveAttribute(
       'href',
       '/oferta/kasy-fiskalne',
     )
-    // K4: 10 sales categories and the column limit from the panel (seed: 10, K4a-1b-2) — the
-    // whole department fits, so no „Wszystkie w grupie” (overflow: lib/catalog/menu.test.ts).
-    await expect(panel.getByRole('link', { name: /^Automaty vendingowe/ })).toHaveAttribute(
+    await expect(panel.getByRole('link', { name: /^Cały dział · \d+ pozycj/ })).toHaveAttribute(
       'href',
-      '/oferta/automaty-vendingowe',
+      /^\/oferta\?grupa=/,
     )
-    await expect(
-      panel.getByRole('link', { name: 'Wszystkie w grupie: Kasy i sprzedaż' }),
-    ).toHaveCount(0)
-    await expect(panel.getByRole('link', { name: /^Cały katalog · \d+ pozycj/ })).toBeVisible()
+    await panel.getByRole('tab', { name: /^Oprogramowanie/ }).hover()
+    await expect(heading).toHaveText('Oprogramowanie')
+    await expect(panel.getByRole('link', { name: /^Konfigurator/ })).toHaveAttribute(
+      'href',
+      '/kreator',
+    )
+    await expect(panel.getByRole('link', { name: /^Gotowe zestawy/ })).toHaveAttribute(
+      'href',
+      '/zestawy',
+    )
+  })
+
+  // Tabs pattern: arrows switch the department, Tab goes on into the one shown (WCAG 2.1.1).
+  test('the departments work from the keyboard', async ({ page }) => {
+    await page.goto(site('biznes.localhost'))
+    const button = mainNav(page).getByRole('button', { name: 'Oferta' })
+    await button.click()
+    const panel = page.locator('[id$="-offer"]')
+    await page.keyboard.press('Tab')
+    await expect(panel.getByRole('tab', { selected: true })).toBeFocused()
+    await page.keyboard.press('ArrowDown')
+    const second = panel.getByRole('tab').nth(1)
+    await expect(second).toBeFocused()
+    await expect(second).toHaveAttribute('aria-selected', 'true')
+    await page.keyboard.press('Tab')
+    await expect(panel.getByRole('tabpanel').locator(':focus')).toHaveCount(1)
+    await expect(panel.getByRole('tabpanel').getByRole('heading', { level: 2 })).toHaveText(
+      'Komputery i biuro',
+    )
   })
 
   test('stays open on a click inside the panel, closes on a click outside', async ({ page }) => {
@@ -73,7 +96,7 @@ test.describe('Biznes header', () => {
     const button = mainNav(page).getByRole('button', { name: 'Oferta' })
     await button.click()
     // Plain text of the panel: focus leaves the button without a new target.
-    await page.getByText('Bez cen na stronie').click()
+    await page.locator('[id$="-offer"]').getByText('Na skróty').click()
     await expect(button).toHaveAttribute('aria-expanded', 'true')
     // Below the panel, measured from its own bottom edge.
     const box = await page.locator(`#${await button.getAttribute('aria-controls')}`).boundingBox()
@@ -81,12 +104,12 @@ test.describe('Biznes header', () => {
     await expect(button).toHaveAttribute('aria-expanded', 'false')
   })
 
-  test('v20 menu: no Branże ▾, the industries are linked from the mega menu', async ({ page }) => {
+  // K4 menu (K33 §2.2): „Gotowe zestawy” moved to the mega menu and the footer.
+  test('K4 menu: Oferta ▾, Opieka IT, GoPOS, InsERT, O firmie, Kontakt', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
     const items = mainNav(page).locator(':scope > ul > li')
     await expect(items).toHaveText([
       /^Oferta/,
-      'Gotowe zestawy',
       'Opieka IT',
       /^GoPOS/,
       /^InsERT/,
@@ -94,32 +117,17 @@ test.describe('Biznes header', () => {
       'Kontakt',
     ])
     await expect(mainNav(page).getByRole('button', { name: 'Branże' })).toHaveCount(0)
-    await mainNav(page).getByRole('button', { name: 'Oferta' }).click()
-    await expect(
-      page.getByRole('link', { name: 'Rozwiązania dla branż: gastronomia, handel, hotele' }),
-    ).toHaveAttribute('href', '/branze/gastronomia')
   })
 
-  // ZMIANY-v20 §1.1: "Zgłoś awarię" → `#kontakt` on the home page (B7d), `/kontakt` elsewhere.
-  test('top bar: no remote help, "Zgłoś awarię" leads to the form or the contact page', async ({
-    page,
-  }) => {
+  // K4 (K33 §2.1, K36 §1): five lines with their colours, the Konfigurator, no „Zgłoś awarię”.
+  test('top bar: the PRO-KOM lines and the Konfigurator, no „Zgłoś awarię”', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
-    await expect(page.getByRole('link', { name: 'Pomoc zdalna' })).toHaveCount(0)
-    const report = page.getByRole('link', { name: 'Zgłoś awarię' })
-    await expect(report).toHaveAttribute('href', '#kontakt')
-    await expect(page.locator('#kontakt')).toBeAttached()
-    // Client-side navigation (no reload): the top bar stays mounted and must follow the route.
-    await mainNav(page).getByRole('link', { name: 'Kontakt' }).click()
-    await expect(page).toHaveURL(/\/kontakt$/)
-    await expect(page.getByRole('link', { name: 'Zgłoś awarię' })).toHaveAttribute(
+    const lines = page.getByRole('navigation', { name: 'Linie PRO-KOM' }).getByRole('link')
+    await expect(lines).toHaveText(['Biznes', 'Instalacje', 'Software', 'Tech', 'Zakopane'])
+    await expect(page.getByRole('link', { name: 'Zgłoś awarię' })).toHaveCount(0)
+    await expect(page.getByRole('link', { name: 'Konfigurator' }).first()).toHaveAttribute(
       'href',
-      '/kontakt',
-    )
-    await page.goto(site('biznes.localhost', '/oferta'))
-    await expect(page.getByRole('link', { name: 'Zgłoś awarię' })).toHaveAttribute(
-      'href',
-      '/kontakt',
+      '/kreator',
     )
   })
 
@@ -127,8 +135,8 @@ test.describe('Biznes header', () => {
     await page.goto(site('biznes.localhost'))
     const magnifier = page
       .getByRole('banner')
-      .getByRole('button', { name: 'Szukaj w ofercie (skrót /)' })
-    await expect(magnifier).toHaveAttribute('aria-keyshortcuts', '/')
+      .getByRole('button', { name: 'Szukaj w ofercie Ctrl K' })
+    await expect(magnifier).toHaveAttribute('aria-keyshortcuts', 'Control+K Meta+K /')
     await magnifier.click()
     await expect(page.getByRole('dialog', { name: 'Szukaj w ofercie' })).toBeVisible()
   })
@@ -163,7 +171,7 @@ test.describe('Biznes header', () => {
 
   for (const colorScheme of ['light', 'dark'] as const) {
     test(`axe passes with the mega menu open — ${colorScheme}`, async ({ page }) => {
-      await page.emulateMedia({ colorScheme })
+      await setTheme(page, colorScheme)
       await page.goto(site('biznes.localhost'))
       await mainNav(page).getByRole('button', { name: 'Oferta' }).click()
       await expect(page.locator('[id$="-offer"]')).toBeVisible()

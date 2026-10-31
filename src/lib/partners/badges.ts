@@ -6,8 +6,8 @@ const joinNames = (names: string[]) =>
   names.length < 2 ? (names[0] ?? '') : `${names.slice(0, -1).join(', ')} i ${names.at(-1)}`
 
 /**
- * Status badges of the footer (`Main` design): "Autoryzowany partner GoPOS" for each partner,
- * one "Serwis Posnet i Elzab" for the authorized services. Only statuses confirmed in the
+ * Status badges of the footer: "Autoryzowany partner GoPOS" for each partner, one
+ * "Autoryzowany serwis Posnet i Elzab" for the authorized services (K4-FINAL §1: full wording). Only statuses confirmed in the
  * panel ([SZEF], spec. §13) — a brand without a status gets no badge.
  */
 export function partnerBadges(
@@ -21,7 +21,7 @@ export function partnerBadges(
       kind: 'partner' as const,
     })),
     ...(services.length
-      ? [{ label: `Serwis ${joinNames(services)}`, kind: 'service' as const }]
+      ? [{ label: `Autoryzowany serwis ${joinNames(services)}`, kind: 'service' as const }]
       : []),
   ]
 }

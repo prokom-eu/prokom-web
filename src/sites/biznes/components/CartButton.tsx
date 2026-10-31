@@ -13,7 +13,7 @@ type Props = {
 
 /**
  * "Zapytanie" with the number of positions on the list (spec. §3.2, §8.1): opens the inquiry
- * drawer. In the header and in the phone's bottom bar; the count shows after hydration.
+ * drawer. In the header and in the phone's bottom bar; the stored count shows after hydration.
  */
 export function CartButton({ className, labelClassName, iconSize }: Props) {
   const count = cartCount(useCart())
@@ -29,15 +29,11 @@ export function CartButton({ className, labelClassName, iconSize }: Props) {
         />
       </svg>
       <span className={labelClassName}>Zapytanie</span>
-      {count > 0 && (
-        <span
-          // The button's colours swapped: white on blue by day, navy on light blue at night.
-          className="inline-flex h-[22px] min-w-[22px] items-center justify-center rounded-full bg-accent-ink px-1.5 text-[0.78rem] font-black text-accent-text"
-        >
-          {count}
-          <span className="sr-only"> {plural(count, ['pozycja', 'pozycje', 'pozycji'])}</span>
-        </span>
-      )}
+      {/* K4 board: the counter shows „0” too. Colours swapped: white on blue, navy at night. */}
+      <span className="inline-flex h-[22px] min-w-[22px] items-center justify-center rounded-full bg-accent-ink px-1.5 text-[0.78rem] font-black text-accent-text">
+        {count}
+        <span className="sr-only"> {plural(count, ['pozycja', 'pozycje', 'pozycji'])}</span>
+      </span>
     </button>
   )
 }

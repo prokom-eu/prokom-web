@@ -1,10 +1,10 @@
 import type { ReactNode } from 'react'
 
-import { brandPageHref } from '@/lib/catalog/brand'
 import { getCatalogIndex } from '@/lib/catalog/data'
-import { megaMenu } from '@/lib/catalog/menu'
+import { megaMenu, offerMenu } from '@/lib/catalog/menu'
 import { partnerBadges } from '@/lib/partners/badges'
 import { getPartnerStatuses } from '@/lib/partners/data'
+import { hoursSummary } from '@/lib/site/hoursSummary'
 import { toTelHref, toWhatsAppHref } from '@/lib/site/link'
 import type { PublicCompanyData, PublicSiteSettings } from '@/lib/site/public'
 import type { SiteTenant } from '@/lib/tenant/byHost'
@@ -24,9 +24,6 @@ type Props = {
   children: ReactNode
 }
 
-/** Brands with a showroom (K3.1): Lenovo and Dell, in the order of K31-ZMIANY §11.4. */
-const SHOWROOM_BRANDS = ['lenovo', 'dell'] as const
-
 /**
  * Page frame of the Biznes line (B3, ADR-014 rozstrz. 12): top bar, header with the mega menu
  * from the cached catalog index (it already hides empty categories — ADR-012, rozstrzygnięcie 7),
@@ -43,22 +40,17 @@ export async function BiznesFrame({ tenant, settings, biznes, company, promo, ch
     whatsapp: biznes.whatsapp ? toWhatsAppHref(biznes.whatsapp) : null,
   }
   const menu = megaMenu(index, biznes.navigation)
-  // „Salon Lenovo / Dell” in the footer once their brand pages exist (decision 27.10, K3b′).
-  const showrooms = SHOWROOM_BRANDS.flatMap((slug) => {
-    const brand = index.brands.find((item) => item.slug === slug)
-    const href = brandPageHref(index, slug)
-    return brand && href ? [{ label: `Salon ${brand.name}`, href }] : []
-  })
+  const hours = company?.locations[0]?.hours ?? null
   return (
     <>
-      <TopBar phone={settings.phone} hours={company?.locations[0]?.hours ?? null} />
+      <TopBar phone={settings.phone} hours={hours} />
       {promo}
       <BiznesHeader
         tenant={tenant}
         navigation={biznes.navigation}
         menu={menu}
-        // v20: Branże ▾ is gone; the mega menu links the first active industry page.
-        industrySlug={index.industries.find((industry) => industry.active)?.slug ?? null}
+        offer={offerMenu(index)}
+        hours={hours ? hoursSummary(hours) : null}
         contact={contact}
       />
       {children}
@@ -67,8 +59,6 @@ export async function BiznesFrame({ tenant, settings, biznes, company, promo, ch
         company={company}
         settings={settings}
         biznes={biznes}
-        menu={menu}
-        showrooms={showrooms}
         badges={partnerBadges(partners)}
         contact={contact}
       />

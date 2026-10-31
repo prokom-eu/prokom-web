@@ -21,6 +21,19 @@
       "runtimeArgs": ["dev"],
       "port": 3002,
       "url": "http://instalacje.localhost:3002"
+    },
+    {
+      "name": "biznes-3001",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["exec", "cross-env", "PORT=3001", "node", "scripts/dev.mjs"],
+      "port": 3001,
+      "url": "http://biznes.localhost:3001"
+    },
+    {
+      "name": "plansze-biznes",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8765", "--directory", "docs/design/prokombiznes/k4/boards"],
+      "port": 8765
     }
   ]
 }
