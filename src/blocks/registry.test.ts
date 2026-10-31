@@ -54,6 +54,7 @@ describe('block registry', () => {
       'swContact',
       'swContactPage',
       'swPricing',
+      'swAuditForm',
     ])
     expect([...ALLOWED_BLOCKS.software].sort()).toEqual(
       [...GENERIC_BLOCK_SLUGS, ...SOFTWARE_BLOCK_SLUGS].sort(),

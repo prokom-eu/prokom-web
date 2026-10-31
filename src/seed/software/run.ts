@@ -22,6 +22,7 @@ import {
   solutionData,
   solutionsToImport,
 } from './map'
+import { seedSoftwareAudit } from './audit'
 import { seedSoftwareContact } from './contact'
 import { seedSoftwareHome } from './home'
 import { seedSoftwarePricing } from './pricing'
@@ -318,6 +319,7 @@ export async function seedSoftware(payload: Payload): Promise<void> {
   await seedSoftwareContact(payload, tenant.id, count)
   // --- /cennik (SW11a): after the solutions, its hero card points at one ---
   await seedSoftwarePricing(payload, tenant.id, count)
+  await seedSoftwareAudit(payload, tenant.id, count)
 
   for (const [collection, { created, updated, skipped }] of Object.entries(counters)) {
     log(`${collection}: ${created} created, ${updated} updated, ${skipped} unchanged.`)
