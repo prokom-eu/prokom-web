@@ -75,6 +75,7 @@ describe('Instalacje service page illustrations', () => {
     ['--il-cam-time', '--il-mask'],
     ['--inst-promo-warm', '--il-mask'],
     ['--inst-band-button-ink', '--il-false'],
+    ['--il-caption', '--inst-il-phs-bg'],
   ])('%s on %s ≥ 4.5:1', (text, surface) => {
     expect(ilRatio(text, surface)).toBeGreaterThanOrEqual(4.5)
   })

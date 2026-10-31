@@ -1707,6 +1707,7 @@
   --il-metal-2: #4e585b;
   --il-glow-warm: #ffd58a;
   --il-glow-cyan: #5fd3ee;
+  --il-caption: #8c948e;
   --il-glass: rgba(12, 22, 25, 0.72);
   --il-glass-shadow: rgba(0, 0, 0, 0.7);
   /* Shared gradients and patterns of the prototype (`zrodlo/header.html` → `.pkdefs`) not
