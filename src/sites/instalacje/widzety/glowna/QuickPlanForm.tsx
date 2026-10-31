@@ -105,7 +105,6 @@ export function QuickPlanForm({ services, formToken }: Props) {
             href: window.location.href,
             formToken,
             website: honeypot.current?.value ?? '',
-            serviceNames: Object.fromEntries(services.map((s) => [s.key, s.label])),
           }),
         ),
       })

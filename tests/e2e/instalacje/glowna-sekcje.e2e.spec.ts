@@ -101,6 +101,8 @@ test.describe('Instalacje home sections', () => {
         phone: '600 100 200',
       })
       expect(record?.topics).toHaveLength(1)
+      // Service keys since I11 (the e-mail names them).
+      expect(String((record?.topics as string[])[0])).toMatch(/^[a-z]+$/)
       expect(String(record?.message)).toContain('Strefa dojazdu: Zakopane i Tatry')
     } finally {
       if (record) await api(page, 'DELETE', `/api/inquiries/${record.id}`)

@@ -13,9 +13,7 @@ import { HONEYPOT_FIELD } from '@/lib/inquiry/honeypot'
 import { teletechnika } from '../../dane/teletechnika'
 import { InstIcon } from '../../InstIcon'
 import {
-  emailOk,
   INITIAL_QUOTE,
-  phoneOk,
   QUOTE_LIMITS,
   quoteBody,
   type QuoteErrorKey,
@@ -42,7 +40,7 @@ type ServerField = keyof typeof SERVER_FIELDS
 
 /**
  * Quote form of the Teletechnika page (`#zapytanie`, ADR-I002 §4): investment type, scope,
- * units, place, stage and term, contact (name, phone or e-mail) and consent; the summary on the
+ * units, place, stage and term, contact (name, phone — required on Instalacje — and e-mail) and consent; the summary on the
  * side follows the answers. No file upload in v1 — the bill of quantities goes by e-mail after the
  * inquiry. Sends a contact inquiry „Teletechnika — przedmiar” through the inquiry endpoint
  * (honeypot, form token, minimum time and limit on the server); the thanks show the number.
@@ -77,9 +75,8 @@ export function QuoteForm({ formToken }: { formToken: string }) {
   const errorText = tried ? quoteErrorText(errors) : ''
   const summary = quoteSummary(state)
   const nameBad = (tried && errors.includes('name')) || serverField === 'name'
-  const contactBad = tried && errors.includes('contact')
-  const phoneBad = (contactBad && !phoneOk(state.phone)) || serverField === 'phone'
-  const emailBad = (contactBad && !emailOk(state.email)) || serverField === 'email'
+  const phoneBad = (tried && errors.includes('phone')) || serverField === 'phone'
+  const emailBad = serverField === 'email'
   const shownError = failure ?? errorText
   // A field with an error points at the message, so a screen reader reads why.
   const invalid = (bad: boolean) =>
@@ -88,7 +85,7 @@ export function QuoteForm({ formToken }: { formToken: string }) {
   /** Focus the first missing answer (the order of the form). */
   const focusFirst = (keys: QuoteErrorKey[]) => {
     if (keys[0] === 'name') nameField.current?.focus()
-    else if (keys[0] === 'contact') phoneField.current?.focus()
+    else if (keys[0] === 'phone') phoneField.current?.focus()
     else if (keys[0] === 'consent') consentField.current?.focus()
   }
   const focusServer = (field: ServerField) =>

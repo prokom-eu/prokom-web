@@ -133,13 +133,16 @@ export const phoneOk = (phone: string) => {
 }
 export const emailOk = (email: string) => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email.trim())
 
-export type QuoteErrorKey = 'name' | 'contact' | 'consent'
+export type QuoteErrorKey = 'name' | 'phone' | 'consent'
 
-/** Missing answers in the order of the form (the prototype's `errs`). */
+/**
+ * Missing answers in the order of the form (the prototype's `errs`). The phone is required on
+ * every Instalacje form (decyzja Krystiana 31.10) — the prototype took a phone or an e-mail.
+ */
 export function quoteErrors(s: QuoteState): QuoteErrorKey[] {
   const errors: QuoteErrorKey[] = []
   if (!s.name.trim()) errors.push('name')
-  if (!phoneOk(s.phone) && !emailOk(s.email)) errors.push('contact')
+  if (!phoneOk(s.phone)) errors.push('phone')
   if (!s.consent) errors.push('consent')
   return errors
 }
@@ -161,8 +164,9 @@ export function quoteSummary(s: QuoteState) {
 
 /**
  * Body of `POST /api/inquiry`: a contact inquiry „Teletechnika — przedmiar” (no new inquiry
- * type before I11, ADR-I001); scopes in `topics`, the place in `city`, the term in `deadline`,
- * the rest in the message, which a contact inquiry needs. Only a valid phone or e-mail is sent.
+ * type before I11, ADR-I001); the service `tel` in `topics` (service keys only, I11), the scope,
+ * investment and stage in the message, the place in `city`, the term in `deadline`. The phone is
+ * required; an e-mail is sent only when valid.
  */
 export function quoteBody(
   s: QuoteState,
@@ -174,6 +178,7 @@ export function quoteBody(
   const message = [
     'Zapytanie ofertowe — teletechnika.',
     `Inwestycja: ${summary.type}`,
+    s.scopes.length > 0 && `Zakres: ${summary.scope}`,
     s.units && `Liczba lokali: ${s.units}`,
     s.stage.trim() && `Etap budowy: ${s.stage.trim()}`,
     'Przedmiar: wyślemy mailem po zgłoszeniu.',
@@ -184,11 +189,11 @@ export function quoteBody(
     type: 'contact' as const,
     category: Q.category,
     source: sourceFromHref(href),
-    topics: Q.scopes.filter((z) => s.scopes.includes(z.key)).map((z) => z.label),
+    topics: ['tel'],
     ...(place ? { city: place } : {}),
     ...(term ? { deadline: term } : {}),
     name: s.name.trim(),
-    ...(phoneOk(s.phone) ? { phone: s.phone.trim() } : {}),
+    phone: s.phone.trim(),
     ...(emailOk(s.email) ? { email: s.email.trim() } : {}),
     message,
     consent: { accepted: s.consent, clauseVersion: CONSENT_CLAUSE.version },
