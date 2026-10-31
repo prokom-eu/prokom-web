@@ -282,3 +282,29 @@ describe('decideRoute — invalid host', () => {
     expect(route(host, '/')).toEqual({ type: 'notFound' })
   })
 })
+
+describe('decideRoute — analytics proxy (ADR-020)', () => {
+  const routeWith = (host: string, pathname: string, method: string) =>
+    decideRoute({ host, pathname, method, panelHost })
+
+  it('passes the Umami script and the event endpoint of a site domain', () => {
+    expect(routeWith('software.localhost', '/_s/script.js', 'GET')).toEqual({
+      type: 'analytics',
+      pathname: '/script.js',
+    })
+    expect(routeWith('software.localhost', '/_s/api/send', 'POST')).toEqual({
+      type: 'analytics',
+      pathname: '/api/send',
+    })
+  })
+
+  it('answers 404 for any other path, method or the panel domain', () => {
+    expect(routeWith('software.localhost', '/_s/script.js', 'POST')).toEqual({ type: 'notFound' })
+    expect(routeWith('software.localhost', '/_s/api/send', 'GET')).toEqual({ type: 'notFound' })
+    expect(routeWith('software.localhost', '/_s/api/websites', 'GET')).toEqual({
+      type: 'notFound',
+    })
+    expect(routeWith('software.localhost', '/_s', 'GET')).toEqual({ type: 'notFound' })
+    expect(routeWith('panel.localhost', '/_s/script.js', 'GET')).toEqual({ type: 'notFound' })
+  })
+})

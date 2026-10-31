@@ -43,6 +43,14 @@ async function route(request: NextRequest, upstream: { request: { headers: Heade
     }
     case 'redirect':
       return NextResponse.redirect(new URL(decision.pathname, request.url))
+    case 'analytics': {
+      // ADR-020: forwarded at run time (one image for staging and production), not by
+      // `rewrites()` in next.config, which are fixed at build time. Off = 404.
+      if (!env.UMAMI_URL) return new NextResponse('Not Found', { status: 404 })
+      const target = new URL(decision.pathname, env.UMAMI_URL)
+      target.search = request.nextUrl.search
+      return NextResponse.rewrite(target, upstream)
+    }
     case 'rewrite': {
       // A site path: the tenant's redirect rules come first (ADR-006, S7b), then its pages.
       // `Location` must be absolute here; the origin comes from `Host` like canonical addresses,
