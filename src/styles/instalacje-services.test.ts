@@ -79,6 +79,15 @@ describe('Instalacje service page illustrations', () => {
   ])('%s on %s ≥ 4.5:1', (text, surface) => {
     expect(ilRatio(text, surface)).toBeGreaterThanOrEqual(4.5)
   })
+
+  // Status chips of the alarm app panel (on the dark glass) and the alarm feed on the phone.
+  it.each([
+    ['--il-arm-ink', '--il-arm-chip', '--il-mask'],
+    ['--il-al-ink', '--il-al-chip', '--il-mask'],
+    ['--il-bad-ink', '--il-bad-feed', '--inst-il-phs-bg'],
+  ])('%s on %s (over %s) ≥ 4.5:1', (text, surface, base) => {
+    expect(ilRatio(text, surface, base)).toBeGreaterThanOrEqual(4.5)
+  })
 })
 
 describe('Instalacje service page colours', () => {

@@ -1708,6 +1708,20 @@
   --il-glow-warm: #ffd58a;
   --il-glow-cyan: #5fd3ee;
   --il-caption: #8c948e;
+  /* States drawn by the widgets (classes added in JS: armed, alarm, warning; I7–I8). */
+  --il-arm-room: rgba(18, 182, 216, 0.16);
+  --il-arm-ring: rgba(18, 182, 216, 0.45);
+  --il-arm-chip: rgba(18, 182, 216, 0.2);
+  --il-arm-ink: #8de7f8;
+  --il-al-chip: rgba(240, 122, 106, 0.25);
+  --il-al-ink: #ffb4a8;
+  --il-al-line: rgba(240, 122, 106, 0.5);
+  --il-off-bar: rgba(240, 122, 106, 0.4);
+  --il-warn-res: rgba(242, 184, 75, 0.14);
+  --il-warn-feed: rgba(242, 184, 75, 0.16);
+  --il-bad-feed: rgba(240, 122, 106, 0.18);
+  --il-bad-ink: #f7a193;
+  --il-cab-top: #3a4c57;
   --il-glass: rgba(12, 22, 25, 0.72);
   --il-glass-shadow: rgba(0, 0, 0, 0.7);
   /* Shared gradients and patterns of the prototype (`zrodlo/header.html` → `.pkdefs`) not
