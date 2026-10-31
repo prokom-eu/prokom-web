@@ -13,6 +13,8 @@ describe('openingStatus', () => {
     expect(openingStatus(WEEKDAYS, new Date('2026-10-19T08:30:00Z'))).toEqual({
       open: true,
       label: 'Otwarte teraz · do 17:00',
+      time: '17:00',
+      when: null,
     })
   })
 
@@ -21,6 +23,8 @@ describe('openingStatus', () => {
     expect(openingStatus(WEEKDAYS, new Date('2026-10-19T05:15:00Z'))).toEqual({
       open: false,
       label: 'Zamknięte · otwieramy dziś o 9:00',
+      time: '9:00',
+      when: 'dziś',
     })
   })
 

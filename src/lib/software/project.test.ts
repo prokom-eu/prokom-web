@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { MAX_PROJECT_ITEMS, parseProject, remove, toggle } from './project'
+import { MAX_PROJECT_ITEMS, parseProject, parseSent, remove, toggle } from './project'
 
 describe('parseProject', () => {
   it('reads { id, name } entries', () => {
@@ -62,5 +62,25 @@ describe('remove', () => {
       { id: 'a', name: 'A' },
       { id: 'c', name: 'C' },
     ])
+  })
+})
+
+describe('names sent with the last inquiry (SW11a, /dziekujemy)', () => {
+  const stored = JSON.stringify({
+    nr: 'PKS-2026-0042',
+    names: ['Strona wizytówka', 'Opieka · Rozszerzona', 3, ''],
+  })
+
+  it('shows the names only on the thanks page of that inquiry', () => {
+    expect(parseSent(stored, 'PKS-2026-0042')).toEqual(['Strona wizytówka', 'Opieka · Rozszerzona'])
+    // A later inquiry in the same tab (audit, wizard) has its own number: no stale list.
+    expect(parseSent(stored, 'PKS-2026-0043')).toEqual([])
+    expect(parseSent(stored, null)).toEqual([])
+  })
+
+  it('ignores anything else the tab holds', () => {
+    for (const raw of [null, '{', '["A"]', '{"nr":"PKS-2026-0042"}', '{"names":["A"]}']) {
+      expect(parseSent(raw, 'PKS-2026-0042')).toEqual([])
+    }
   })
 })

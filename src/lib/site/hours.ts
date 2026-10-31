@@ -1,7 +1,14 @@
 /** Opening hours of one branch, as in `CompanyData.locations[].hours`. */
 export type OpeningHours = { days: string[]; opens: string; closes: string }[]
 
-export type OpeningStatus = { open: boolean; label: string }
+export type OpeningStatus = {
+  open: boolean
+  label: string
+  /** Closing time when open, the next opening time when closed („9:00”). */
+  time: string
+  /** When it opens next („dziś”, „jutro”, „w poniedziałek”); `null` while open. */
+  when: string | null
+}
 
 const WEEK = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'] as const
 
@@ -58,7 +65,10 @@ export function openingStatus(hours: OpeningHours, now: Date): OpeningStatus | n
   const rowsOn = (weekday: number) => rows.filter((row) => row.days.includes(WEEK[weekday]!))
 
   const current = rowsOn(day).find((row) => row.from <= minutes && minutes < row.to)
-  if (current) return { open: true, label: `Otwarte teraz · do ${display(current.closes)}` }
+  if (current) {
+    const time = display(current.closes)
+    return { open: true, label: `Otwarte teraz · do ${time}`, time, when: null }
+  }
 
   for (let offset = 0; offset < 7; offset++) {
     const weekday = (day + offset) % 7
@@ -67,7 +77,8 @@ export function openingStatus(hours: OpeningHours, now: Date): OpeningStatus | n
       .sort((a, b) => a.from - b.from)[0]
     if (next) {
       const when = offset === 0 ? 'dziś' : offset === 1 ? 'jutro' : ON_DAY[WEEK[weekday]!]
-      return { open: false, label: `Zamknięte · otwieramy ${when} o ${display(next.opens)}` }
+      const time = display(next.opens)
+      return { open: false, label: `Zamknięte · otwieramy ${when} o ${time}`, time, when }
     }
   }
   return null

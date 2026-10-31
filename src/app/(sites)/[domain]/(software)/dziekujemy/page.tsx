@@ -11,6 +11,7 @@ import { toTelHref } from '@/lib/site/link'
 import { getSoftwareFacts, getSoftwareThanks } from '@/lib/software/data'
 import { fillText, type TextContext } from '@/lib/software/facts'
 import { inquiryNumberParam } from '@/lib/software/pages'
+import { SentProject } from '@/sites/software/components/SentProject'
 
 import { requireLine } from '../../tenant'
 
@@ -78,6 +79,7 @@ export default async function ThanksPage({ params, searchParams }: Props) {
             {thanks.numberLabel}: <span data-testid="inquiry-number">{number}</span>
           </p>
         )}
+        <SentProject number={number} />
         {stepsTitle && steps.length > 0 && (
           <>
             <Heading level={2} size="md" className="mt-10">

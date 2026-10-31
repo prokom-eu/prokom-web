@@ -33,6 +33,7 @@ import { InstServiceBlock } from '../sites/instalacje/blocks/InstService/config'
 import { SwHeroBlock } from '../sites/software/blocks/SwHero/config'
 import { SwHomeSectionBlock } from '../sites/software/blocks/SwHomeSection/config'
 import { SwContactBlock } from '../sites/software/blocks/SwContact/config'
+import { SwContactPageBlock } from '../sites/software/blocks/SwContactPage/config'
 import { CallToActionBlock } from './CallToAction/config'
 import { ContactBlock } from './Contact/config'
 import { FaqBlock } from './Faq/config'
@@ -94,9 +95,14 @@ export const INSTALACJE_BLOCKS: Block[] = [InstServiceBlock, InstHomeBlock]
 /**
  * Sections of the Software pages (ADR-014 rozstrz. SW0 7, at most 10) — `src/sites/software/blocks/`.
  * The fixed start page sections are one block, `swHomeSection`, with the section picked; new
- * blocks go at the end (SW8b: `swContact`).
+ * blocks go at the end (SW8b: `swContact`, SW11a: `swContactPage`).
  */
-export const SOFTWARE_BLOCKS: Block[] = [SwHeroBlock, SwHomeSectionBlock, SwContactBlock]
+export const SOFTWARE_BLOCKS: Block[] = [
+  SwHeroBlock,
+  SwHomeSectionBlock,
+  SwContactBlock,
+  SwContactPageBlock,
+]
 
 /**
  * Every block a page may contain (ADR-010). A block of one line only lives in

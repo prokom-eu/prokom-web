@@ -257,14 +257,14 @@ Wzorzec: `screens/Kontakt-*`, `stany/kontakt-90…99c`.
 | Formularz | Pola | Typ (`Inquiries.type`) | Gdzie trafia | Kto dostaje powiadomienie |
 |---|---|---|---|---|
 | Kontakt (główna, `/kontakt`) | temat (Strona, System lub panel, Aplikacja mobilna, Rozbudowa, Opieka lub ratunek, Audyt), opis, imię i firma, e-mail albo telefon, zgoda | `contact` (`topics`) | `Inquiries`, linia `software` | `software@pro-kom.eu` (+ kopia szefa — §13) |
-| Twój projekt (`/kontakt?projekt=1#formularz`, v21 — ten sam formularz z blokiem „Twój projekt”, §6.10) | jak wyżej + pozycje (`[{ id, name }]`); opis opcjonalny przy niepustej liście | `list` (`items[]` z `nameSnapshot` i relacją `solution`; temat w `topics`) — kształt potwierdzić w SW11a (dziś `list` nie niesie tematu) | jw. | jw. |
+| Twój projekt (`/kontakt?projekt=1#formularz`, v21 — ten sam formularz z blokiem „Twój projekt”, §6.10) | jak wyżej + pozycje (`[{ id, name }]`); opis opcjonalny przy niepustej liście | `list` (`items[]` z `nameSnapshot` i relacją `solution`; temat w `topics`, sposób rozmowy w `preferredContact`; bez opisu `message` składa serwer: „Twój projekt (<temat>): <nazwy>” — SW11a) | jw. | jw. |
 | Kreator (v22) | odpowiedzi (potrzeba, szczegóły, co już masz / adres, kiedy, **dodatki „do wyceny”**, opis), sposób kontaktu, imię, kontakt, zgoda | `wizard` | jw. | jw. |
 | Audyt | adres strony, imię, e-mail albo telefon, zgoda | `audit` (nowy) | jw. | jw. |
 
 ### 7.1 Zasady wspólne
 - Wszystko przez `submitInquiry()` i `POST /api/inquiry` (ADR-003): honeypot, podpisany token, limit, maile, retencja. Numer `PKS-RRRR-NNNN` (jest od B1b).
 - Jedno pole „E-mail albo telefon” → rozpoznanie po formacie, zapis do `email` albo `phone`.
-- Kontakt: temat to jeden wybór, **bez domyślnego zaznaczenia** (v21; zmienia doprecyzowanie SW8b pkt 4 — sesja SWR5 dla strony głównej, SW11a dla `/kontakt`); wymagane: temat, opis (poza listą „Twój projekt”), imię, kontakt, zgoda.
+- Kontakt: temat to jeden wybór, **bez domyślnego zaznaczenia** (v21; zmienia doprecyzowanie SW8b pkt 4 — sesja SWR5 dla strony głównej, SW11a dla `/kontakt`); wymagane: opis (poza listą „Twój projekt”), imię, kontakt, zgoda; **temat opcjonalny** (decyzja Krystiana 31.10, SW11a — jak plansza `kontakt-93`, bez błędu tematu; przy „Twoim projekcie” ustawia się sam).
 - `preferredContact`: rozszerzyć o `meeting` (spotkanie w salonie) i `online`; kreator mapuje `tel→phone`, `mail→email`, `salon→meeting`, `online→online`.
 - Bez danych osobowych w logach. Zgoda: treść z `consent.ts` (`TODO(krystian)` z S8b), checkbox przy **każdym** formularzu z linkiem do `/polityka-prywatnosci`.
 
