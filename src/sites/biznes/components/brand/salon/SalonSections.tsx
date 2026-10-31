@@ -26,7 +26,16 @@ const LIGHT_BUTTON =
 const GLASS_BUTTON =
   'inline-flex min-h-[52px] items-center justify-center gap-2 rounded-2xl bg-white/8 px-6 font-extrabold text-white ring-1 ring-white/25 ring-inset hover:bg-white/14'
 
-function Photo({ product, className }: { product: IndexProduct; className?: string }) {
+function Photo({
+  product,
+  className,
+  eager = false,
+}: {
+  product: IndexProduct
+  className?: string
+  /** In the hero: above the fold, loaded at once (LCP). */
+  eager?: boolean
+}) {
   if (!product.image) return null
   return (
     <Image
@@ -35,6 +44,8 @@ function Photo({ product, className }: { product: IndexProduct; className?: stri
       width={product.image.width}
       height={product.image.height}
       unoptimized
+      loading={eager ? 'eager' : 'lazy'}
+      fetchPriority={eager ? 'high' : undefined}
       className={cx('relative w-auto object-contain', STAGE_SHADOW, className)}
     />
   )
@@ -106,6 +117,7 @@ export function SalonHero({ view, crumbs }: { view: SalonView; crumbs: Crumb[] }
                       width={brand.logo.width}
                       height={brand.logo.height}
                       unoptimized
+                      loading="eager"
                       className="h-6 w-auto max-w-[140px] object-contain"
                     />
                   ) : (
@@ -182,6 +194,7 @@ export function SalonHero({ view, crumbs }: { view: SalonView; crumbs: Crumb[] }
                   <figure key={product.slug} className="flex flex-col items-center gap-2">
                     <Photo
                       product={product}
+                      eager
                       className={cx(
                         'max-h-[220px] drop-shadow-[0_30px_40px_rgba(0,0,0,0.45)]',
                         photos.length > 1 && i === 0 && 'max-h-[150px]',
