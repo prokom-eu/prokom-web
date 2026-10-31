@@ -40,7 +40,7 @@ export function DepartmentCategories({ groupName, categories, visible, allHref, 
                 className="flex w-full items-center justify-between gap-2 rounded-[10px] bg-surface-2 px-2.5 py-2 text-[13px] leading-snug font-bold text-ink transition-colors hover:bg-accent-soft hover:text-accent-text"
               >
                 {category.name}
-                <span className="shrink-0 text-xs font-bold text-ink-3">{category.count}</span>
+                <span className="shrink-0 text-xs font-bold text-ink-2">{category.count}</span>
               </Link>
             </li>
           ))}

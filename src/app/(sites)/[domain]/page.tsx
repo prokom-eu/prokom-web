@@ -39,10 +39,10 @@ export default async function TenantHomePage({ params }: Props) {
   const blocks = renderableBlocks(tenant.line, page.layout)
   const rail: RailItem[] =
     tenant.line === 'biznes'
-      ? railItems(
-          blocks.map((block) => block.blockType),
-          { reviews: Boolean(settings?.biznes?.showReviews) },
-        )
+      ? railItems(blocks, {
+          reviews: Boolean(settings?.biznes?.showReviews),
+          placeholders: process.env.NODE_ENV !== 'production',
+        })
       : tenant.line === 'software'
         ? softwareRailItems(blocks)
         : []

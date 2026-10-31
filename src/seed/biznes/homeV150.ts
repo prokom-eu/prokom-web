@@ -17,7 +17,9 @@ type Path = readonly string[]
 
 /**
  * Old seed values, by block type and field path. Arrays are compared by `key` of their rows
- * (the rows' other fields and ids may differ: relations, ids added by Payload).
+ * (the rows' other fields and ids may differ: relations, ids added by Payload). A matching array
+ * is replaced whole: an edit of another field of its rows (e.g. a step's text while its
+ * `roleNote` stayed) is lost — accepted, the seed runs locally only.
  */
 type Rule = { path: Path; old: unknown; key?: string }
 

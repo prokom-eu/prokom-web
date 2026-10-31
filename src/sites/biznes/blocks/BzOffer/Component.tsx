@@ -7,7 +7,7 @@ import { Container } from '@/components/ui/Container'
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
 import { brandAsset, HORIZONTAL_LOGO_SIZE } from '@/lib/brand/lines'
-import { brandLogo, type ShowcaseStatus } from '@/lib/catalog/catalogIndex'
+import { BUNDLES_PAGE, brandLogo, type ShowcaseStatus } from '@/lib/catalog/catalogIndex'
 import { fillCatalogCounts } from '@/lib/catalog/counts'
 import { getCatalogIndex } from '@/lib/catalog/data'
 import { groupSummaries, type GroupSummary } from '@/lib/catalog/groups'
@@ -228,19 +228,24 @@ function SystemCard({ system, tenantId, headingLevel: Title }: SystemCardProps) 
   )
 }
 
-const SHORTCUTS = (products: number) => [
+/** `bundles`: the site shows ready bundles (`/zestawy` exists only then). */
+const SHORTCUTS = (products: number, bundles: boolean) => [
   {
     label: 'Plan Twojej firmy',
     note: 'urządzenia na planie lokalu',
     href: '/#plan',
     icon: 'map' as const,
   },
-  {
-    label: 'Gotowe zestawy',
-    note: 'sklep, lokal, biuro, pensjonat',
-    href: BUNDLES_PATH,
-    icon: 'box' as const,
-  },
+  ...(bundles
+    ? [
+        {
+          label: 'Gotowe zestawy',
+          note: 'sklep, lokal, biuro, pensjonat',
+          href: BUNDLES_PATH,
+          icon: 'box' as const,
+        },
+      ]
+    : []),
   {
     label: `Cała oferta · ${products}`,
     note: 'filtry, marki, branże',
@@ -299,7 +304,10 @@ export async function BzOfferBlock({ block, tenantId }: Props) {
               <SearchTile
                 searchLabel={`Szukaj w ${counts.products} ${plural(counts.products, ['pozycji', 'pozycjach', 'pozycjach'])}`}
                 popular={index.search.popular}
-                shortcuts={SHORTCUTS(counts.products)}
+                shortcuts={SHORTCUTS(
+                  counts.products,
+                  index.pages.some((page) => page.slug === BUNDLES_PAGE.slug),
+                )}
               />
             </div>
           </>

@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { useId } from 'react'
 
 import { Icon } from '@/components/ui/Icon'
 import type { IconName } from '@/lib/catalog/options'
@@ -21,17 +22,18 @@ type Props = {
  * search (same overlay as Ctrl K), popular phrases and three shortcuts.
  */
 export function SearchTile({ searchLabel, popular, shortcuts }: Props) {
+  const headingId = useId()
   return (
     <article
       data-surface="dark"
-      aria-labelledby="dzial-szukaj-h"
+      aria-labelledby={headingId}
       className="flex flex-col rounded-[26px] bg-linear-160 from-surface-dark to-[color-mix(in_srgb,var(--accent)_35%,var(--surface-dark))] p-6 text-white"
     >
       <p className="text-[12px] font-extrabold tracking-[0.1em] text-accent-on-dark uppercase">
         Nie wiesz, w którym dziale szukać?
       </p>
       <h3
-        id="dzial-szukaj-h"
+        id={headingId}
         className="mt-2 font-display text-[clamp(1.35rem,1.8vw,1.6rem)] leading-tight font-extrabold text-balance text-white"
       >
         Wpisz, czego potrzebujesz — znajdziemy to za&nbsp;Ciebie.

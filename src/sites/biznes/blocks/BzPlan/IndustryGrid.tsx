@@ -57,7 +57,7 @@ export function IndustryGrid({ visible, hidden, moreLabel, moreNote }: Props) {
             aria-expanded={false}
             onClick={() => setOpen(true)}
             data-surface="dark"
-            className="flex w-full flex-col items-start gap-3 rounded-[22px] bg-linear-145 from-accent-text to-surface-dark p-4 text-left text-white transition-shadow hover:shadow-[0_20px_40px_-22px_var(--glow)]"
+            className="flex w-full flex-col items-start gap-3 rounded-[22px] bg-linear-145 from-surface-dark to-[color-mix(in_srgb,var(--accent)_35%,var(--surface-dark))] p-4 text-left text-white transition-shadow hover:shadow-[0_20px_40px_-22px_var(--glow)]"
           >
             <span
               aria-hidden="true"
@@ -69,7 +69,7 @@ export function IndustryGrid({ visible, hidden, moreLabel, moreNote }: Props) {
               <span className="font-display text-[16px] leading-tight font-extrabold text-white">
                 {moreLabel}
               </span>
-              {moreNote && <span className="text-[13px] text-white/80">{moreNote}</span>}
+              {moreNote && <span className="text-[13px] text-white">{moreNote}</span>}
             </span>
             <span className="mt-auto inline-flex items-center gap-1 text-[13px] font-extrabold text-white">
               Rozwiń listę

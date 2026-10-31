@@ -83,7 +83,7 @@ export async function BzStepsBlock({ block, tenantId }: Props) {
                             {step.role.charAt(0).toUpperCase()}
                           </span>
                           <span className="flex flex-col">
-                            <span className="text-[11.5px] text-ink-3">Zajmuje się</span>
+                            <span className="text-[11.5px] text-ink-2">Zajmuje się</span>
                             <span className="text-[13.5px] font-extrabold text-ink">
                               {step.role}
                             </span>
