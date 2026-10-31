@@ -2,7 +2,8 @@ import { describe, expect, it } from 'vitest'
 
 import factsPackage from '../../../seed/prokomsoftware/fakty.json'
 import { resolveText } from '../../lib/software/facts'
-import { SW_CONTACT_PAGE, softwareContactLayout, softwareContactUpdate } from './contact'
+import { SW_CONTACT_PAGE, softwareContactLayout } from './contact'
+import { softwarePageUpdate } from './page'
 
 describe('Software /kontakt of the seed (SW11a)', () => {
   it('is the contact page block and the 4 contact questions', () => {
@@ -13,11 +14,11 @@ describe('Software /kontakt of the seed (SW11a)', () => {
   })
 
   it('replaces the sample page, then leaves the page to the panel', () => {
-    expect(softwareContactUpdate([{ blockType: 'contact', heading: 'Kontakt' }])).toEqual(
-      softwareContactLayout(),
-    )
-    expect(softwareContactUpdate(null)).toEqual(softwareContactLayout())
-    expect(softwareContactUpdate(softwareContactLayout())).toBeNull()
+    const update = (layout: Parameters<typeof softwarePageUpdate>[0]) =>
+      softwarePageUpdate(layout, 'swContactPage', softwareContactLayout)
+    expect(update([{ blockType: 'contact', heading: 'Kontakt' }])).toEqual(softwareContactLayout())
+    expect(update(null)).toEqual(softwareContactLayout())
+    expect(update(softwareContactLayout())).toBeNull()
   })
 
   it('has 4 channels, 4 steps and the 5 other PRO-KOM lines, never Software itself', () => {

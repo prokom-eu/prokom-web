@@ -54,6 +54,8 @@ import * as migration_20261031_181540_software_solution_page from './20261031_18
 import * as migration_20261031_184442_software_industry_page from './20261031_184442_software_industry_page'
 import * as migration_20261031_194745_biznes_home_cleanup from './20261031_194745_biznes_home_cleanup'
 import * as migration_20261031_204108_software_contact_page from './20261031_204108_software_contact_page'
+import * as migration_20261031_204213_software_pricing_block from './20261031_204213_software_pricing_block'
+import * as migration_20261031_204306_software_audit_block from './20261031_204306_software_audit_block'
 
 export const migrations = [
   {
@@ -335,5 +337,15 @@ export const migrations = [
     up: migration_20261031_204108_software_contact_page.up,
     down: migration_20261031_204108_software_contact_page.down,
     name: '20261031_204108_software_contact_page',
+  },
+  {
+    up: migration_20261031_204213_software_pricing_block.up,
+    down: migration_20261031_204213_software_pricing_block.down,
+    name: '20261031_204213_software_pricing_block',
+  },
+  {
+    up: migration_20261031_204306_software_audit_block.up,
+    down: migration_20261031_204306_software_audit_block.down,
+    name: '20261031_204306_software_audit_block',
   },
 ]

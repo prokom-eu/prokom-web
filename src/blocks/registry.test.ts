@@ -48,7 +48,14 @@ describe('block registry', () => {
   })
 
   it('allows the Software blocks on the Software line only (ADR-014 rozstrz. 7)', () => {
-    expect(SOFTWARE_BLOCK_SLUGS).toEqual(['swHero', 'swHomeSection', 'swContact', 'swContactPage'])
+    expect(SOFTWARE_BLOCK_SLUGS).toEqual([
+      'swHero',
+      'swHomeSection',
+      'swContact',
+      'swContactPage',
+      'swPricing',
+      'swAuditForm',
+    ])
     expect([...ALLOWED_BLOCKS.software].sort()).toEqual(
       [...GENERIC_BLOCK_SLUGS, ...SOFTWARE_BLOCK_SLUGS].sort(),
     )

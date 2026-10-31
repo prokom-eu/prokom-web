@@ -1,6 +1,7 @@
 import type { Payload } from 'payload'
 
 import type { Page } from '../../payload-types'
+import { upsertSoftwarePage } from './page'
 
 type Block = NonNullable<Page['layout']>[number]
 type ContactPageBlock = Extract<Block, { blockType: 'swContactPage' }>
@@ -219,52 +220,19 @@ export function softwareContactLayout(): Block[] {
   return [structuredClone(SW_CONTACT_PAGE), structuredClone(SW_CONTACT_FAQ)]
 }
 
-/**
- * The layout to save, or `null` when nothing changes: a page without `swContactPage` (the
- * generic sample page of `pnpm seed`) gets the Software layout; once the block is there the
- * page belongs to the panel.
- */
-export function softwareContactUpdate(layout: Page['layout']): Block[] | null {
-  return (layout ?? []).some((block) => block.blockType === 'swContactPage')
-    ? null
-    : softwareContactLayout()
-}
-
 type Count = (name: string, result: boolean | 'updated') => void
-const local = { overrideAccess: true, context: { seed: true }, depth: 0 } as const
 
 /** Creates the published `/kontakt` of the tenant, or replaces the sample page with it. */
-export async function seedSoftwareContact(payload: Payload, tenantId: number, count: Count) {
-  const {
-    docs: [page],
-  } = await payload.find({
-    collection: 'pages',
-    where: { and: [{ tenant: { equals: tenantId } }, { slug: { equals: SOFTWARE_CONTACT_SLUG } }] },
-    limit: 1,
-    ...local,
-  })
-  if (!page) {
-    await payload.create({
-      collection: 'pages',
-      data: {
-        tenant: tenantId,
-        title: 'Kontakt',
-        slug: SOFTWARE_CONTACT_SLUG,
-        layout: softwareContactLayout(),
-        _status: 'published',
-      },
-      ...local,
-    })
-    count('pages kontakt', true)
-    return
-  }
-  const layout = softwareContactUpdate(page.layout)
-  count('pages kontakt', layout ? 'updated' : false)
-  if (!layout) return
-  await payload.update({
-    collection: 'pages',
-    id: page.id,
-    data: { layout, _status: 'published' },
-    ...local,
-  })
+export function seedSoftwareContact(payload: Payload, tenantId: number, count: Count) {
+  return upsertSoftwarePage(
+    payload,
+    tenantId,
+    {
+      slug: SOFTWARE_CONTACT_SLUG,
+      title: 'Kontakt',
+      block: 'swContactPage',
+      layout: softwareContactLayout,
+    },
+    count,
+  )
 }

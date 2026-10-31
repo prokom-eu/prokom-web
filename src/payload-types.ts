@@ -1988,6 +1988,8 @@ export interface Page {
         | SwHomeSectionBlock
         | SwContactBlock
         | SwContactPageBlock
+        | SwPricingBlock
+        | SwAuditFormBlock
       )[]
     | null;
   seo?: {
@@ -4498,6 +4500,181 @@ export interface SwContactPageBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SwPricingBlock".
+ */
+export interface SwPricingBlock {
+  eyebrow: string;
+  title: string;
+  titleAccent?: string | null;
+  /**
+   * {liczba} = liczba opublikowanych rozwiązań („Wszystkie {liczba} rozwiązań…”).
+   */
+  lead?: string | null;
+  primary?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  secondary?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  /**
+   * Cena i termin z rozwiązania. Puste = bez karty.
+   */
+  featured?: (number | null) | Solution;
+  featuredBadge?: string | null;
+  featuredPoints?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  tableEyebrow?: string | null;
+  tableTitle: string;
+  /**
+   * Kolejność i liczba pozycji z rozwiązań (kategoria). Bez wpisu zakładka ma nazwę kategorii i nie ma noty.
+   */
+  tabs?:
+    | {
+        category: 'strony' | 'systemy' | 'aplikacje' | 'automatyzacje' | 'opieka';
+        label?: string | null;
+        note?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  careEyebrow?: string | null;
+  careTitle?: string | null;
+  /**
+   * Poziomy, ceny i czasy reakcji z rozwiązania z poziomami miesięcznymi. Pusty nagłówek = bez sekcji.
+   */
+  careLead?: string | null;
+  /**
+   * „Zapytaj o opiekę” + nazwa poziomu.
+   */
+  careButton?: string | null;
+  careNote?: string | null;
+  auditEyebrow?: string | null;
+  auditTitle?: string | null;
+  /**
+   * Rodzaje z rozwiązania „audyt”. Pusty nagłówek = bez sekcji.
+   */
+  auditLead?: string | null;
+  auditButton?: string | null;
+  auditHref?: string | null;
+  includedEyebrow?: string | null;
+  includedTitle?: string | null;
+  includedItems?:
+    | {
+        title: string;
+        text?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  ctaTitle?: string | null;
+  ctaText?: string | null;
+  ctaPrimary?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  ctaSecondary?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'swPricing';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SwAuditFormBlock".
+ */
+export interface SwAuditFormBlock {
+  eyebrow: string;
+  title: string;
+  titleAccent?: string | null;
+  lead: string;
+  /**
+   * Fakty w nawiasach ([CZAS]…) z Ustawień linii.
+   */
+  formLabel?: string | null;
+  urlLabel: string;
+  urlPlaceholder?: string | null;
+  nameLabel: string;
+  namePlaceholder?: string | null;
+  contactLabel: string;
+  contactPlaceholder?: string | null;
+  submit: string;
+  submitNote?: string | null;
+  reportTitle?: string | null;
+  reportSubtitle?: string | null;
+  reportBadge?: string | null;
+  /**
+   * Pusty tytuł albo brak wierszy = bez przykładu.
+   */
+  reportRows?:
+    | {
+        icon: 'clock' | 'phone' | 'search' | 'shield' | 'users' | 'doc';
+        title: string;
+        status: 'good' | 'fix';
+        text?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  checksEyebrow?: string | null;
+  checksTitle?: string | null;
+  checksLead?: string | null;
+  /**
+   * Ostatnia karta jest wyróżniona (wynik: raport). Fakty w nawiasach ([CZAS]…) z Ustawień linii.
+   */
+  checks?:
+    | {
+        icon: 'clock' | 'phone' | 'search' | 'shield' | 'users' | 'doc';
+        title: string;
+        text?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  levelsEyebrow?: string | null;
+  levelsTitle?: string | null;
+  /**
+   * Ceny i terminy z rozwiązania „audyt” (poziomy). Pusty nagłówek = bez sekcji.
+   */
+  levelsLead?: string | null;
+  levelButtons?:
+    | {
+        label: string;
+        href: string;
+        id?: string | null;
+      }[]
+    | null;
+  stepsEyebrow?: string | null;
+  stepsTitle?: string | null;
+  /**
+   * Fakty w nawiasach ([CZAS]…) z Ustawień linii.
+   */
+  steps?:
+    | {
+        title: string;
+        text?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  ctaTitle?: string | null;
+  ctaText?: string | null;
+  ctaPrimary?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  ctaSecondary?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'swAuditForm';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -6009,6 +6186,8 @@ export interface PagesSelect<T extends boolean = true> {
         swHomeSection?: T | SwHomeSectionBlockSelect<T>;
         swContact?: T | SwContactBlockSelect<T>;
         swContactPage?: T | SwContactPageBlockSelect<T>;
+        swPricing?: T | SwPricingBlockSelect<T>;
+        swAuditForm?: T | SwAuditFormBlockSelect<T>;
       };
   seo?:
     | T
@@ -7173,6 +7352,158 @@ export interface SwContactPageBlockSelect<T extends boolean = true> {
   mapHref?: T;
   companyTitle?: T;
   companyNote?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SwPricingBlock_select".
+ */
+export interface SwPricingBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  title?: T;
+  titleAccent?: T;
+  lead?: T;
+  primary?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  secondary?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  featured?: T;
+  featuredBadge?: T;
+  featuredPoints?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  tableEyebrow?: T;
+  tableTitle?: T;
+  tabs?:
+    | T
+    | {
+        category?: T;
+        label?: T;
+        note?: T;
+        id?: T;
+      };
+  careEyebrow?: T;
+  careTitle?: T;
+  careLead?: T;
+  careButton?: T;
+  careNote?: T;
+  auditEyebrow?: T;
+  auditTitle?: T;
+  auditLead?: T;
+  auditButton?: T;
+  auditHref?: T;
+  includedEyebrow?: T;
+  includedTitle?: T;
+  includedItems?:
+    | T
+    | {
+        title?: T;
+        text?: T;
+        id?: T;
+      };
+  ctaTitle?: T;
+  ctaText?: T;
+  ctaPrimary?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  ctaSecondary?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SwAuditFormBlock_select".
+ */
+export interface SwAuditFormBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  title?: T;
+  titleAccent?: T;
+  lead?: T;
+  formLabel?: T;
+  urlLabel?: T;
+  urlPlaceholder?: T;
+  nameLabel?: T;
+  namePlaceholder?: T;
+  contactLabel?: T;
+  contactPlaceholder?: T;
+  submit?: T;
+  submitNote?: T;
+  reportTitle?: T;
+  reportSubtitle?: T;
+  reportBadge?: T;
+  reportRows?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        status?: T;
+        text?: T;
+        id?: T;
+      };
+  checksEyebrow?: T;
+  checksTitle?: T;
+  checksLead?: T;
+  checks?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        text?: T;
+        id?: T;
+      };
+  levelsEyebrow?: T;
+  levelsTitle?: T;
+  levelsLead?: T;
+  levelButtons?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        id?: T;
+      };
+  stepsEyebrow?: T;
+  stepsTitle?: T;
+  steps?:
+    | T
+    | {
+        title?: T;
+        text?: T;
+        id?: T;
+      };
+  ctaTitle?: T;
+  ctaText?: T;
+  ctaPrimary?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  ctaSecondary?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
   id?: T;
   blockName?: T;
 }
