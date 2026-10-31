@@ -115,6 +115,52 @@ describe('Instalacje service page illustrations', () => {
   })
 })
 
+describe('Instalacje object page scenes', () => {
+  // „Dla kogo” (I10): the cross-sections paint with --inst-sg-* (pk.css --sg*), night in the dark
+  // theme, day in the light one.
+  const SG = [
+    's1',
+    's2',
+    'mt1',
+    'mt2',
+    'gr',
+    'w',
+    'in',
+    'roof',
+    'fl',
+    'fu',
+    'pil',
+    'lb',
+    'ln',
+    'dev',
+    'win',
+    'pp',
+    'tree',
+  ]
+
+  it.each(SG)('--inst-sg-%s follows the theme', (name) => {
+    expect(resolve(`var(--inst-sg-${name})`, light)).not.toBe(
+      resolve(`var(--inst-sg-${name})`, dark),
+    )
+  })
+
+  it('keeps the lit windows the same amber in both themes', () => {
+    expect(resolve('var(--inst-sg-lit)', light)).toBe(resolve('var(--inst-sg-lit)', dark))
+  })
+
+  // Labels drawn in the scenes (`.sglb`, 11 px caps) stand on the sky.
+  it.each([
+    ['light', light],
+    ['dark', dark],
+  ] as const)('labels on the sky ≥ 4.5:1 (%s)', (_, scope) => {
+    for (const sky of ['--inst-sg-s1', '--inst-sg-s2']) {
+      expect(
+        contrastRatio(resolve('var(--inst-sg-lb)', scope), resolve(`var(${sky})`, scope)),
+      ).toBeGreaterThanOrEqual(4.5)
+    }
+  })
+})
+
 describe('Instalacje service page colours', () => {
   // Ładowarki (I9): the charger photos stand on a light tile in the light theme, a dark one in the dark.
   it('put the charger photos on a tile that follows the theme', () => {
