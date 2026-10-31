@@ -5,8 +5,9 @@
 #   scripts/smoke.sh https://127.0.0.1 prokombiznes.pl …         # through Nginx on the server
 # Every request goes to the address of <base-url>, but for the site's domain (curl --connect-to):
 # the right `Host` and TLS name (SNI), before DNS and behind Nginx alike.
-# Without hosts: the three local dev domains. A host with „biznes” in its name is the Biznes site:
-# its catalog and news routes must answer 200, on every other host 404 (route guards, B11b).
+# Without hosts: the three local dev domains. A host with „biznes” in its name is the Biznes site,
+# with „software” the Software site: their own routes must answer 200, on every other host 404
+# (route guards, B11b, SW12).
 # Only routes that work without content entered in the panel — a failed smoke test rolls the
 # deploy back (S10). Optional environment:
 #   PANEL_HOST       panel domain (default panel.localhost)
@@ -62,11 +63,20 @@ for host in "${hosts[@]}"; do
   check 200 "$host" /mapa-strony
   # The panel answers only on PANEL_HOST; a site domain must not expose it.
   check 404 "$host" /admin
-  # Biznes routes: 200 on Biznes, 404 elsewhere (`/aktualnosci` — until Software adds its news).
+  # Biznes routes: 200 on Biznes, 404 elsewhere.
   if [[ "$host" == *biznes* ]]; then expected=200; else expected=404; fi
-  for path in /oferta /zapytanie /aktualnosci; do
+  for path in /oferta /zapytanie; do
     check "$expected" "$host" "$path"
   done
+  # Software routes built in code (SW12): 200 on Software, 404 elsewhere. Not /dobierz, /kontakt,
+  # /cennik — they need the wizard rules or pages entered in the panel.
+  if [[ "$host" == *software* ]]; then expected=200; else expected=404; fi
+  for path in /rozwiazania /api/solutions-index; do
+    check "$expected" "$host" "$path"
+  done
+  # News: Biznes and Software (B11, SW11b).
+  if [[ "$host" == *biznes* || "$host" == *software* ]]; then expected=200; else expected=404; fi
+  check "$expected" "$host" /aktualnosci
 done
 
 if [ "$failures" -gt 0 ]; then
