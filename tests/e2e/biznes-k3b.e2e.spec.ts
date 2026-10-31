@@ -138,7 +138,8 @@ test.describe('Biznes search with brands (K3b′)', () => {
         .first(),
     ).toBeVisible()
     await field(page).fill('lenovo')
-    await expect(overlay(page).getByRole('link', { name: 'Lenovo w PRO-KOM' })).toHaveAttribute(
+    // K4: brands as logos — the link is named by the logo's alt text.
+    await expect(overlay(page).getByRole('link', { name: 'Lenovo', exact: true })).toHaveAttribute(
       'href',
       '/marki/lenovo',
     )
