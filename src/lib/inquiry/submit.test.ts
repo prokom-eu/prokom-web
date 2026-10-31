@@ -443,6 +443,36 @@ describe('submitInquiry (ADR-003)', () => {
       )
     })
 
+    it('writes the message of a project sent without a description: topic and names', async () => {
+      const d = software({
+        findSolutions: vi.fn(async () => [
+          { id: 11, slug: 'strona-firmowa-z-panelem', name: 'Strona firmowa z panelem' },
+          { id: 12, slug: 'opieka', name: 'Opieka nad stroną i systemem' },
+        ]),
+      })
+      const sent = {
+        ...project,
+        topics: ['strona'],
+        items: [
+          { slug: 'strona-firmowa-z-panelem', quantity: 1 },
+          { slug: 'opieka', quantity: 1 },
+        ],
+      }
+      expect((await submitInquiryWith(d, { ...softwareRequest, body: sent })).ok).toBe(true)
+      expect(d.save).toHaveBeenCalledWith(
+        expect.objectContaining({
+          message: 'Twój projekt (Strona): Strona firmowa z panelem, Opieka nad stroną i systemem',
+        }),
+      )
+    })
+
+    it('keeps the description of a project as written', async () => {
+      const d = software()
+      const sent = { ...project, message: 'Mamy 3 ekipy.' }
+      expect((await submitInquiryWith(d, { ...softwareRequest, body: sent })).ok).toBe(true)
+      expect(d.save).toHaveBeenCalledWith(expect.objectContaining({ message: 'Mamy 3 ekipy.' }))
+    })
+
     it('rejects a project with no solution of this site, without saving', async () => {
       const d = software()
       const result = await submitInquiryWith(d, {
