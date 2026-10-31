@@ -139,7 +139,6 @@ describe('quote form', () => {
   it.each([
     [{}],
     [{ rName: 'Firma', rTel: '600 000 000', rOk: true }],
-    [{ rName: 'Firma', rMail: 'biuro@firma.pl' }],
     [{ rTel: '12', rMail: 'zły', rOk: true }],
     [{ rTyp: 3, rZak: [], rLok: '120' }],
   ])('summary and errors for %o as the prototype', (st) => {
@@ -158,7 +157,17 @@ describe('quote form', () => {
     }
     const sum = quoteSummary(s)
     expect([sum.type, sum.scope, sum.units]).toEqual([ref.sTyp, ref.sZak, ref.sLok])
-    expect(quoteErrorText(quoteErrors(s))).toBe(ref.err)
+    // The phone is required on Instalacje (decided 31.10.2026, ADR-I002 §4); the prototype took a phone
+    // or an e-mail — its message names „telefon albo e-mail”, ours „numer telefonu”.
+    expect(quoteErrorText(quoteErrors(s))).toBe(
+      ref.err.replace('telefon albo e-mail', 'numer telefonu'),
+    )
+  })
+
+  it('asks for the phone even with an e-mail', () => {
+    const s = { ...INITIAL_QUOTE, name: 'Firma', email: 'biuro@firma.pl', consent: true }
+    expect(quoteErrors(s)).toEqual(['phone'])
+    expect(quoteErrors({ ...s, phone: '600 000 000' })).toEqual([])
   })
 
   it('accepts a phone only in the server format', () => {
@@ -191,13 +200,14 @@ describe('quote form', () => {
     expect(body).toMatchObject({
       type: 'contact',
       category: teletechnika.quote.category,
-      topics: ['Okablowanie LAN', 'Światłowód', 'Domofony'],
+      topics: ['tel'],
       city: 'Nowy Targ',
       deadline: 'II kwartał 2027',
       phone: '600 000 000',
     })
     expect(body).not.toHaveProperty('email')
     expect(body.message).toContain('Liczba lokali: 24')
+    expect(body.message).toContain('Zakres: Okablowanie LAN, Światłowód, Domofony')
     expect(parseInquiryInput(body, 'instalacje').success).toBe(true)
   })
 

@@ -106,11 +106,19 @@ export const BIZNES_FIELD_MESSAGES: FieldMessages = {
   phone: 'Podaj poprawny telefon albo e-mail — wystarczy jedno, np. 600 100 200.',
 }
 
+/** Instalacje call back to arrange a site visit: the phone is required, the e-mail optional. */
+export const INSTALACJE_FIELD_MESSAGES: FieldMessages = {
+  ...FIELD_MESSAGES,
+  email: 'Sprawdź adres e-mail albo zostaw to pole puste.',
+  phone: 'Podaj numer telefonu, żebyśmy mogli oddzwonić, np. 600 100 200.',
+}
+
 /**
  * Rules of one form. `phoneFirst` (Biznes): a phone or an e-mail, and a missing contact is
- * reported on the phone, the field shown first (the server checks the same).
+ * reported on the phone, the field shown first. `phoneRequired` (Instalacje): a phone of at
+ * least 9 digits, always. The server checks the same.
  */
-export type FormRules = { phoneFirst?: boolean; messages?: FieldMessages }
+export type FormRules = { phoneFirst?: boolean; phoneRequired?: boolean; messages?: FieldMessages }
 
 /**
  * Required fields only — the browser's quick check before a request. Formats (e-mail, NIP,
@@ -118,11 +126,13 @@ export type FormRules = { phoneFirst?: boolean; messages?: FieldMessages }
  */
 export function checkRequired(
   values: FormValues,
-  { phoneFirst = false, messages = FIELD_MESSAGES }: FormRules = {},
+  { phoneFirst = false, phoneRequired = false, messages = FIELD_MESSAGES }: FormRules = {},
 ): Partial<Record<FieldName, string>> {
   const errors: Partial<Record<FieldName, string>> = {}
   if (!values.name.trim()) errors.name = messages.name
-  if (!values.email.trim() && !values.phone.trim()) {
+  if (phoneRequired) {
+    if (values.phone.replace(/\D/g, '').length < 9) errors.phone = messages.phone
+  } else if (!values.email.trim() && !values.phone.trim()) {
     if (phoneFirst) errors.phone = messages.phone
     else errors.email = messages.email
   }

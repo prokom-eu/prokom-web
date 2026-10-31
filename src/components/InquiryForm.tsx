@@ -13,6 +13,7 @@ import {
 } from '@/lib/inquiry/consent'
 import {
   BIZNES_FIELD_MESSAGES,
+  INSTALACJE_FIELD_MESSAGES,
   buildInquiryBody,
   checkRequired,
   FIELD_MESSAGES,
@@ -34,6 +35,8 @@ type Props = {
    * does (`lib/inquiry/schema`).
    */
   phoneFirst?: boolean
+  /** The Instalacje line requires the phone (`lib/inquiry/schema`); the e-mail is optional. */
+  phoneRequired?: boolean
 }
 
 type Status =
@@ -53,6 +56,8 @@ const PHONE_FIRST: FormRules = {
     phone: BIZNES_FIELD_MESSAGES.phone,
   },
 }
+
+const PHONE_REQUIRED: FormRules = { phoneRequired: true, messages: INSTALACJE_FIELD_MESSAGES }
 
 // Order of the fields on screen: the first invalid one gets the focus.
 const FIELD_ORDER: FieldName[] = ['name', 'company', 'email', 'phone', 'nip', 'message', 'consent']
@@ -78,8 +83,13 @@ function readValues(form: HTMLFormElement): FormValues {
  * server's verdict next to the fields. Required fields are checked here first, formats only
  * on the server — one set of rules.
  */
-export function InquiryForm({ formToken, category, phoneFirst = false }: Props) {
-  const rules: FormRules = phoneFirst ? PHONE_FIRST : {}
+export function InquiryForm({
+  formToken,
+  category,
+  phoneFirst = false,
+  phoneRequired = false,
+}: Props) {
+  const rules: FormRules = phoneRequired ? PHONE_REQUIRED : phoneFirst ? PHONE_FIRST : {}
   const id = useId()
   const fieldId = (name: string) => `${id}-${name}`
   const [errors, setErrors] = useState<Partial<Record<FieldName, string>>>({})
@@ -212,7 +222,7 @@ export function InquiryForm({ formToken, category, phoneFirst = false }: Props) 
         name="email"
         type="email"
         label="E-mail"
-        note="(albo telefon)"
+        note={phoneRequired ? '(opcjonalnie)' : '(albo telefon)'}
         autoComplete="email"
         maxLength={254}
         error={errors.email}
@@ -222,7 +232,8 @@ export function InquiryForm({ formToken, category, phoneFirst = false }: Props) 
         name="phone"
         type="tel"
         label="Telefon"
-        note="(albo e-mail)"
+        note={phoneRequired ? undefined : '(albo e-mail)'}
+        required={phoneRequired}
         autoComplete="tel"
         maxLength={30}
         error={errors.phone}

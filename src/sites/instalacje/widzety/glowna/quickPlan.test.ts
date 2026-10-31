@@ -1,3 +1,4 @@
+import { travelZone } from '@/lib/instalacje/plan'
 import { describe, expect, it } from 'vitest'
 
 import { CONSENT_CLAUSE } from '@/lib/inquiry/consent'
@@ -9,7 +10,6 @@ import {
   planProgress,
   plannerHref,
   phoneDigits,
-  travelZone,
 } from './quickPlan'
 
 const EMPTY: PlanState = {
@@ -123,7 +123,6 @@ describe('planBody (POST /api/inquiry)', () => {
       href: 'https://instalacje.example/?utm_source=fb&gclid=x',
       formToken: 'token',
       website: '',
-      serviceNames: { kam: 'Monitoring', wifi: 'Sieci i Wi-Fi' },
     },
   )
 
@@ -131,7 +130,7 @@ describe('planBody (POST /api/inquiry)', () => {
     expect(body).toMatchObject({
       type: 'contact',
       category: 'Instalacje — strona główna',
-      topics: ['Monitoring', 'Sieci i Wi-Fi'],
+      topics: ['kam', 'wifi'],
       city: 'Zakopane',
       name: 'Anna',
       phone: '600 100 200',
@@ -151,7 +150,7 @@ describe('planBody (POST /api/inquiry)', () => {
   it('still has a message without object and town', () => {
     const bare = planBody(
       { ...EMPTY, services: ['ev'], name: 'Jan', phone: '600100200', consent: true },
-      { href: 'https://instalacje.example/', formToken: 't', website: '', serviceNames: {} },
+      { href: 'https://instalacje.example/', formToken: 't', website: '' },
     )
     expect(bare.message).toBe('Prośba o oddzwonienie ze strony głównej.')
     expect(bare.topics).toEqual(['ev'])

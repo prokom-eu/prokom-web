@@ -653,6 +653,98 @@ describe('submitInquiry (ADR-003)', () => {
       expect(d.save).toHaveBeenCalledWith(expect.objectContaining({ items: [] }))
     })
   })
+
+  describe('Instalacje planner (I11, ADR-I002 §4)', () => {
+    const instRequest = { host: 'instalacje.localhost:3002', ip: '203.0.113.9' }
+    const installations = () =>
+      deps({
+        findTenant: vi.fn(async () => ({
+          id: 3,
+          name: 'PRO-KOM Instalacje',
+          line: 'instalacje' as const,
+          notificationEmail: 'i@p.pl',
+        })),
+        save: vi.fn(async () => ({ id: 50, number: 'PKI-2026-0050' })),
+      })
+    const plan = {
+      services: ['kam', 'ev'],
+      object: 'pens',
+      answers: { kam: 0, ev: 1 },
+      via: 0,
+      when: 1,
+    }
+    const planBody = {
+      ...body,
+      type: 'wizard',
+      category: 'Instalacje — Zaplanuj',
+      email: undefined,
+      message: undefined,
+      city: 'Rabka-Zdrój',
+      topics: ['wifi'],
+      source: { url: 'https://prokominstalacje.pl/zaplanuj' },
+      wizard: plan,
+    }
+
+    it('saves the named answers, the services as topics and the contact preference', async () => {
+      const d = installations()
+      expect(await submitInquiryWith(d, { ...instRequest, body: planBody })).toEqual({
+        ok: true,
+        id: 50,
+        number: 'PKI-2026-0050',
+      })
+      expect(d.save).toHaveBeenCalledWith(
+        expect.objectContaining({
+          tenant: 3,
+          line: 'instalacje',
+          type: 'wizard',
+          // From the answers, not from the sent topics.
+          topics: ['kam', 'ev'],
+          preferredContact: 'phone',
+          items: [],
+          wizard: expect.objectContaining({
+            Instalacje: ['Monitoring i kamery', 'Ładowarki EV'],
+            Obiekt: 'Pensjonat',
+            'Strefa dojazdu': 'Rabka-Zdrój i okolice',
+            'Pora kontaktu': 'Po południu',
+          }),
+        }),
+      )
+      expect(d.findWizard).not.toHaveBeenCalled()
+      expect(d.findSoftwareWizard).not.toHaveBeenCalled()
+    })
+
+    it('names the services in the office e-mail', async () => {
+      const d = installations()
+      await submitInquiryWith(d, { ...instRequest, body: planBody })
+      expect(d.sendEmail).toHaveBeenCalledWith(
+        expect.objectContaining({
+          to: 'i@p.pl',
+          text: expect.stringContaining('Monitoring i kamery, Ładowarki EV'),
+        }),
+      )
+    })
+
+    it('rejects answers outside the rules and saves nothing', async () => {
+      const d = installations()
+      const wrong = { ...planBody, wizard: { ...plan, answers: { snd: 0 } } }
+      expect(await submitInquiryWith(d, { ...instRequest, body: wrong })).toEqual({
+        ok: false,
+        error: 'invalid',
+        fields: ['wizard'],
+      })
+      expect(d.save).not.toHaveBeenCalled()
+    })
+
+    it('asks for an e-mail when the customer chose „E-mail”', async () => {
+      const d = installations()
+      const byEmail = { ...planBody, wizard: { ...plan, via: 2 } }
+      expect(await submitInquiryWith(d, { ...instRequest, body: byEmail })).toEqual({
+        ok: false,
+        error: 'invalid',
+        fields: ['email'],
+      })
+    })
+  })
 })
 
 describe('siteUrl (the current site from the wizard)', () => {

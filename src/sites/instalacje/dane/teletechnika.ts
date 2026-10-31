@@ -234,7 +234,7 @@ export const teletechnika = {
     errors: {
       prefix: 'Uzupełnij:',
       name: 'imię i nazwisko lub firmę',
-      contact: 'telefon albo e-mail',
+      phone: 'numer telefonu',
       consent: 'zgodę na kontakt',
       phoneFormat: 'Sprawdź numer telefonu, np. 600 100 200.',
       emailFormat: 'Sprawdź adres e-mail.',
