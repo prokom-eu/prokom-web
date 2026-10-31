@@ -7,6 +7,7 @@ import { industryHref } from '../catalog/industry'
 import { HOME_SLUG, pagePath } from '../pages/slug'
 import { NEWS_PATH, postHref } from '../posts/list'
 import { CATALOG_PATH as SOLUTIONS_PATH } from '../software/catalog'
+import { industryPageHref } from '../software/industryPage'
 import { WIZARD_PATH } from '../software/wizardFlow'
 
 export const SITE_MAP_PATH = '/mapa-strony'
@@ -46,8 +47,10 @@ export type SiteMapInput = {
   } | null
   /** Posts of a line with news; `null` on lines without it. */
   news: { posts: readonly ({ slug: string; title: string } & Dated)[] } | null
-  /** Software: the catalog of solutions (its solution pages come with SW10). */
-  solutions?: boolean
+  /** Software: the catalog and the page of every published solution (SW10); absent elsewhere. */
+  solutions?: { items: readonly { slug: string; name: string }[] } | null
+  /** Software: active industry pages `/dla-branz/[branza]` (SW10b); absent elsewhere. */
+  industryPages?: readonly { slug: string; name: string }[] | null
 }
 
 const byLabel = (a: SiteMapLink, b: SiteMapLink) => a.label.localeCompare(b.label, 'pl')
@@ -57,7 +60,13 @@ const byLabel = (a: SiteMapLink, b: SiteMapLink) => a.label.localeCompare(b.labe
  * `sitemap.xml` writes out (`siteMapPaths`), so the two cannot drift apart. Built only from what
  * the loaders return for the site's own tenant; filtered views are never listed (`noindex`).
  */
-export function buildSiteMap({ pages, catalog, news, solutions }: SiteMapInput): SiteMapSection[] {
+export function buildSiteMap({
+  pages,
+  catalog,
+  news,
+  solutions,
+  industryPages,
+}: SiteMapInput): SiteMapSection[] {
   const home = pages.find((page) => page.slug === HOME_SLUG)
   const sections: SiteMapSection[] = [
     {
@@ -156,7 +165,21 @@ export function buildSiteMap({ pages, catalog, news, solutions }: SiteMapInput):
       links: [
         { href: SOLUTIONS_PATH, label: 'Pełna oferta' },
         { href: WIZARD_PATH, label: 'Dobierz rozwiązanie' },
+        ...solutions.items
+          .map((item) => ({ href: `${SOLUTIONS_PATH}/${item.slug}`, label: item.name }))
+          .sort(byLabel),
       ],
+    })
+  }
+
+  if (industryPages && industryPages.length > 0) {
+    sections.push({
+      id: 'dla-branz',
+      title: 'Dla branż',
+      links: industryPages.map((industry) => ({
+        href: industryPageHref(industry.slug),
+        label: industry.name,
+      })),
     })
   }
 

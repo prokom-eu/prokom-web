@@ -208,6 +208,45 @@ export function breadcrumbJsonLd(items: readonly { name: string; url: string | n
   }
 }
 
+/**
+ * One service with its page (Software solution page, spec. §6.1). `offers` only with a price:
+ * the „od” price as `minPrice`, net (prices on the site are net); no price → no `offers`.
+ */
+export function serviceJsonLd({
+  name,
+  description,
+  url,
+  provider,
+  priceFrom,
+}: {
+  name: string
+  description: string | undefined
+  url: string
+  provider: string
+  priceFrom: number | null
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name,
+    ...(description && { description }),
+    url,
+    provider: { '@type': 'Organization', name: provider },
+    ...(priceFrom !== null && {
+      offers: {
+        '@type': 'Offer',
+        priceCurrency: 'PLN',
+        priceSpecification: {
+          '@type': 'PriceSpecification',
+          minPrice: priceFrom,
+          priceCurrency: 'PLN',
+          valueAddedTaxIncluded: false,
+        },
+      },
+    }),
+  }
+}
+
 /** A list of services with their pages (the Software catalog, spec. §5). */
 export function serviceListJsonLd({
   name,

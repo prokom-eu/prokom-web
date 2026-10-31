@@ -17,6 +17,13 @@ import type { City, Industry, Post, Solution, SolutionArea } from '../../payload
 import { h2, p, richText, ul } from '../biznes/lexical'
 import { SOFTWARE_NOT_FOUND, SOFTWARE_THANKS } from './pages'
 import { HOME_SECTION_TEXTS, REBUILD_BUTTON } from './homeExtras'
+import { INDUSTRY_PAGE_TEXTS } from './industryPages'
+import {
+  FIELD_CREW_DELIVERABLES,
+  FIELD_CREW_EXTRA,
+  FIELD_CREW_PAGE,
+  FIELD_CREW_SLUG,
+} from './solutionPages'
 import { wizardSeed } from './wizardExtras'
 
 /**
@@ -135,12 +142,27 @@ export function solutionData(item: SeedSolution): SolutionData {
     levelRows: item.levelRows ?? [],
     thumbnail: item.thumbnail,
     included: item.included ?? [],
-    moreExamples: item.moreExamples ?? [],
+    moreExamples: item.moreExamples ?? solutionPageExtra(item.slug),
     example: item.example,
     benefits: item.benefits ?? [],
     needs: item.needs ?? [],
     faq: item.faq ?? [],
+    // Only a full page is written: the tab of the others belongs to the panel.
+    ...(item.slug === FIELD_CREW_SLUG && { page: fieldCrewPage() }),
   }
+}
+
+/**
+ * Tab „Strona” of the field crew app (SW10, spec. §6.1): the board's texts and demo. The other
+ * solutions have no page texts in the package — their page falls back to the card and window.
+ */
+function fieldCrewPage(): NonNullable<SolutionData['page']> {
+  return { ...FIELD_CREW_PAGE, deliverables: FIELD_CREW_DELIVERABLES }
+}
+
+/** „Wyceniane osobno” of a full page whose solution has no examples of its own. */
+function solutionPageExtra(slug: string): string[] {
+  return slug === FIELD_CREW_SLUG ? FIELD_CREW_EXTRA : []
 }
 
 /** „Dobrze łączy się z” as ids, in the package order; an unknown slug stops the seed. */
@@ -294,11 +316,18 @@ export function industryData(
   const content = INDUSTRY_CONTENTS[page.content as keyof typeof INDUSTRY_CONTENTS]
   if (!content) throw new Error(`Seed (Software): industry "${page.slug}" → unknown content.`)
   const where = `industry "${page.slug}"`
+  const texts = INDUSTRY_PAGE_TEXTS[page.content as keyof typeof INDUSTRY_PAGE_TEXTS]
+  if (!texts) throw new Error(`Seed (Software): ${where} → no page texts in industryPages.ts.`)
   return {
     ...base,
+    hero: { ...texts.hero },
     faq: content.faq.map(({ q, a }) => ({ question: q, answer: a })),
     software: {
       ...base.software,
+      page: {
+        ...texts.page,
+        contact: { ...texts.page.contact, points: [...texts.page.contact.points] },
+      },
       wizardTitle: content.wizardTitle,
       problems: content.problems.map((problem) => ({
         question: problem.q,
