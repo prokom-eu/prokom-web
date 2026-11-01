@@ -13,6 +13,7 @@ import type { InstServiceBlock as InstServiceBlockData } from '@/payload-types'
 
 import { navigation } from '../../dane/nawigacja'
 import { CtaBandView } from '../../powloka/CtaBandView'
+import { architekci } from '../../dane/architekci'
 import { Faq } from '../../sekcje/Faq'
 import { GuaranteeSection } from '../../sekcje/GuaranteeSection'
 import { IlDefs } from '../../sekcje/IlDefs'
@@ -220,6 +221,7 @@ export async function InstServiceBlock({ block, tenantId }: Props) {
         heading={service.relatedHeading}
         services={service.relatedServices}
         objects={service.similarObjects}
+        extraLink={architekci.related}
       />
       <CtaBandView band={band} phone={phone} salons={salons} titleId="cta-service-title" page />
     </div>

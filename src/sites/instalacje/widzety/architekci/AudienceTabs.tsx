@@ -4,12 +4,18 @@ import { useId, useState } from 'react'
 
 import { architekci as A } from '../../dane/architekci'
 import { InstIcon } from '../../InstIcon'
+import { chooseAudience } from './roleStore'
 import { onTabKey } from './tabs'
 
 /** „Dla kogo jest ta strona” (`#dla-ciebie`, `ar.aud`): 4 roles as tabs, the panel with points and a CTA. */
 export function AudienceTabs() {
   const id = useId()
-  const [i, setI] = useState(0)
+  const [i, setIndex] = useState(0)
+  const setI = (k: number) => {
+    setIndex(k)
+    const key = A.audience[k]?.key
+    if (key) chooseAudience(key)
+  }
   const cur = A.audience[i] ?? A.audience[0]
   if (!cur) return null
   const n = A.audience.length

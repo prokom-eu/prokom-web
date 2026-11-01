@@ -2,6 +2,7 @@ import { z } from 'zod'
 
 import { MAX_ITEMS, MAX_NOTE, MAX_QTY } from '../cart/cart'
 import { isValidNip, normalizeNip } from '../site/company'
+import { isEmailOnlyCategory } from '../instalacje/architects'
 import { isServiceKey } from '../instalacje/plan'
 import type { Line } from '../tenant/lines'
 import { CONSENT_CLAUSE } from './consent'
@@ -133,8 +134,11 @@ function inquirySchemaFor(line: Line | undefined) {
     // sits there; its wizard still requires the phone until Konfigurator 3.0 (B10c, K4g).
     // Instalacje call back to arrange a site visit: a phone of at least 9 digits, always
     // (decided 31.10.2026, ADR-I002 §4; the planner and the forms ask for it the same way).
+    // The architects' checklist PDF and news by e-mail need an e-mail instead (ADR-I005 §3).
     const biznes = line === 'biznes'
-    if (line === 'instalacje') {
+    if (line === 'instalacje' && data.type === 'contact' && isEmailOnlyCategory(data.category)) {
+      if (data.email === undefined) issue('email', 'e-mail required')
+    } else if (line === 'instalacje') {
       if ((data.phone ?? '').replace(/\D/g, '').length < 9) issue('phone', 'phone required')
     } else if (biznes && data.type === 'wizard') {
       if (data.phone === undefined) issue('phone', 'phone required')

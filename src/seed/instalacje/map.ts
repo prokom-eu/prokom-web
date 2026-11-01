@@ -1,4 +1,5 @@
 import adresy from '../../../seed/prokominstalacje/adresy.json'
+import noweRozwiazania from '../../../seed/prokominstalacje/architekci/nowe-rozwiazania.json'
 import apt from '../../../seed/prokominstalacje/obiekty/apt.json'
 import bud from '../../../seed/prokominstalacje/obiekty/bud.json'
 import dev from '../../../seed/prokominstalacje/obiekty/dev.json'
@@ -41,7 +42,13 @@ import {
   SERVICE_KEYS,
 } from '../../lib/instalacje/options'
 import { HOME_SLUG } from '../../lib/pages/slug'
-import type { InstObject, InstService, InstSolution, Realization } from '../../payload-types'
+import type {
+  InstArchNew,
+  InstObject,
+  InstService,
+  InstSolution,
+  Realization,
+} from '../../payload-types'
 
 /**
  * Pure mapping of the Instalacje package (`seed/prokominstalacje/`, v4.0) to the collections
@@ -431,6 +438,52 @@ export function solutionsToImport(): SolutionItem[] {
         data: { name: s.nazwa, description: s.opis, order: s.kolejnosc, categories },
       }
     })
+  })
+}
+
+// --- architects' „Nowe rozwiązania” (I16b, ADR-I005 §2) ---
+
+export type ArchNewsItem = {
+  legacyId: number
+  /** `doPotwierdzenia` of the package: a draft until the boss confirms (the note says what). */
+  draft: boolean
+  data: Omit<Data<InstArchNew>, 'publishedAt'>
+}
+
+type ArchCategory = InstArchNew['category']
+type ArchType = InstArchNew['type']
+const ARCH_CATEGORIES: readonly string[] = ['snd', 'scr', 'smart', 'wifi', 'kam', 'ev', 'sz']
+const ARCH_TYPES: readonly string[] = ['Nowość', 'Rozwiązanie', 'Szkolenie', 'Oferta']
+
+/**
+ * The 20 cards of `architekci/nowe-rozwiazania.json` in package order (the position is the
+ * import id, the order). The first card is featured (the prototype starts on it, the home's
+ * „Nowość”): while it is a draft, the page and the home take the first published card.
+ */
+export function archNewsToImport(): ArchNewsItem[] {
+  return noweRozwiazania.pozycje.map((p, index) => {
+    if (!ARCH_CATEGORIES.includes(p.kategoria) || !ARCH_TYPES.includes(p.typ)) {
+      throw new Error(`Seed (Instalacje): unknown category or type in „${p.tytul}”.`)
+    }
+    return {
+      legacyId: index + 1,
+      draft: Boolean(p.doPotwierdzenia),
+      data: {
+        legacyId: index + 1,
+        title: p.tytul,
+        category: p.kategoria as ArchCategory,
+        type: p.typ as ArchType,
+        description: p.opis,
+        params: p.parametry.map((x) => ({ label: x.nazwa, value: x.wartosc })),
+        planItems: p.wProjekcie.map((text) => ({ text })),
+        examples: p.przyklady || null,
+        places: p.gdzie.map((name) => ({ name })),
+        illustration: p.ilustracja,
+        order: index + 1,
+        featured: index === 0,
+        internalNote: p.doPotwierdzenia || null,
+      },
+    }
   })
 }
 

@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
+import { markerIn } from '@/lib/instalacje/archNews'
+
 import {
   OBJECT_KEYS,
   OFFER_CATEGORIES,
@@ -7,6 +9,7 @@ import {
   SERVICE_KEYS,
 } from '../../lib/instalacje/options'
 import {
+  archNewsToImport,
   mapHref,
   objectData,
   objectsToImport,
@@ -218,6 +221,27 @@ describe('page SEO of the contact and service pages (I11)', () => {
     for (const slug of ['kontakt', 'serwis', 'dla-architektow']) {
       const page = pagesToImport().find((item) => item.slug === slug)
       expect(`${page?.seo.title} | PRO-KOM Instalacje`.length, slug).toBeLessThanOrEqual(65)
+    }
+  })
+})
+
+describe('architects’ „Nowe rozwiązania” (I16b)', () => {
+  const items = archNewsToImport()
+
+  it('imports the 20 cards in order, the unconfirmed ones as drafts with the note', () => {
+    expect(items).toHaveLength(20)
+    expect(items.map((i) => i.legacyId)).toEqual(items.map((_, k) => k + 1))
+    const drafts = items.filter((i) => i.draft)
+    expect(drafts).toHaveLength(8)
+    for (const d of drafts) expect(d.data.internalNote).toMatch(/^\[SZEF/)
+    expect(items.filter((i) => i.data.featured).map((i) => i.legacyId)).toEqual([1])
+  })
+
+  it('has no marker in any visible field and drawable illustrations', () => {
+    for (const item of items) {
+      expect(markerIn(item.data), item.data.title).toBeNull()
+      expect(item.data.illustration).toMatch(/^[MmLlHhVvCcSsQqTtAaZz0-9\s.,-]+$/)
+      expect(item.data.params?.length).toBeGreaterThanOrEqual(2)
     }
   })
 })
