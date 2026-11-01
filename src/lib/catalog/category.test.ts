@@ -512,6 +512,15 @@ describe('categoryPill', () => {
     expect(categoryPill('Skanery', scanners, index(scanners, { brands: all }))).toBe(
       'Skanery · 3 modele',
     )
+    // K4-FINAL §1 wording „Posnet i Elzab”, also when Elzab has more models.
+    const registers = [
+      product('r1', { brand: 'elzab' }),
+      product('r2', { brand: 'elzab' }),
+      product('r3', { brand: 'posnet' }),
+    ]
+    expect(categoryPill('Kasy', registers, index(registers, { brands: all }))).toBe(
+      'Kasy · 3 modele · autoryzowany serwis Posnet i Elzab',
+    )
     const cooperation = [product('c1', { brand: 'comex' }), product('c2', { brand: 'zebra' })]
     expect(categoryPill(null, cooperation, index(cooperation, { brands: all }))).toBe(
       '2 modele · we współpracy z COMEX',

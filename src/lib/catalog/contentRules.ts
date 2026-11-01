@@ -16,7 +16,8 @@ const RULES: { name: string; pattern: RegExp }[] = [
   // K4-FINAL §1: the scope and reaction time are „ustalane” in the contract, not „zapisane”.
   {
     name: 'zapisujemy w umowie',
-    pattern: /(?<![\p{L}])zapis\p{L}*(?:\s+(?:go|je|ją))?\s+w\s+umowie/iu,
+    // The verb only („zapisujemy”, „zapisany”) — „zapisy w umowie” is a plain noun.
+    pattern: /(?<![\p{L}])zapis(?:uj|an)\p{L}*(?:\s+(?:go|je|ją))?\s+w\s+umowie/iu,
   },
   ...BANNED_BRANDS.map((brand) => ({
     name: `marka ${brand}`,

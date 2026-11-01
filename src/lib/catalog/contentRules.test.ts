@@ -47,6 +47,7 @@ describe('forbiddenContent (K3-KATALOG §10: zero prices, banned brands)', () =>
     expect(forbiddenContent('czas reakcji zapisany w umowie')).toEqual(['zapisujemy w umowie'])
     expect(forbiddenContent('Zakres i czas reakcji ustalamy w umowie.')).toEqual([])
     expect(forbiddenContent('Zapisujemy terminy przeglądów kas.')).toEqual([])
+    expect(forbiddenContent('Zapisy w umowie są jasne.')).toEqual([])
   })
 
   it('lets ordinary texts through', () => {

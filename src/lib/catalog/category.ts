@@ -154,6 +154,13 @@ const STATUS_LABEL = {
   cooperation: 'we współpracy z',
 } as const
 
+/** Brands named in the order of K4-FINAL §1 („Posnet i Elzab”, „GoPOS i InsERT”), the rest after. */
+const STATUS_BRAND_ORDER = ['posnet', 'elzab', 'gopos', 'insert']
+const statusRank = (slug: string) => {
+  const rank = STATUS_BRAND_ORDER.indexOf(slug)
+  return rank === -1 ? STATUS_BRAND_ORDER.length : rank
+}
+
 /** „Kasy, Elzab i Posnet”: commas, then „i” before the last name. */
 const listNames = (names: string[]) =>
   names.length < 2 ? (names[0] ?? '') : `${names.slice(0, -1).join(', ')} i ${names.at(-1)}`
@@ -163,7 +170,8 @@ const listNames = (names: string[]) =>
  * the group, the count — models when all are devices — and partner statuses confirmed in the
  * panel ([SZEF], spec. §13), most products first. A status shows only when the brands holding it
  * make at least half of the category (audit 01.11.2026): one Elzab scanner does not make
- * „Skanery” or „Automaty vendingowe” an authorized Elzab service.
+ * „Skanery” or „Automaty vendingowe” an authorized Elzab service. The share counts every
+ * position, services without a brand too, so a category of mostly services shows no status.
  */
 export function categoryPill(
   group: string | null,
@@ -179,7 +187,9 @@ export function categoryPill(
   const status = new Map(index.brands.map((brand) => [brand.slug, brand.status]))
   const brands = categoryBrands(products, index)
   for (const [key, label] of Object.entries(STATUS_LABEL)) {
-    const holding = brands.filter((brand) => status.get(brand.slug) === key)
+    const holding = brands
+      .filter((brand) => status.get(brand.slug) === key)
+      .sort((a, b) => statusRank(a.slug) - statusRank(b.slug))
     const share = holding.reduce((sum, brand) => sum + brand.count, 0)
     if (holding.length > 0 && share * 2 >= count) {
       parts.push(`${label} ${listNames(holding.map((brand) => brand.name))}`)
