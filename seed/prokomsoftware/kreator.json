@@ -1,5 +1,5 @@
 {
-  "_info": "Reguły kreatora „Dobierz rozwiązanie · 60 s” jako dane (nie if-y w komponentach). Logika doboru: docs/strony/prokomsoftware.md §6.3. Ikony: klucze z ikony.json. v21 (28.10): nowy układ kreatora (plansza Kreator, stany_k): 4 kroki (Potrzeba → Szczegóły → Zakres i termin z opcjonalnym opisem → Wynik), „Opisz po swojemu” = 3 kroki; wycena na żywo (kolumna na desktopie, belka nad dolnym paskiem na telefonie); nowe klucze: steps, stepsOwn, badges, tiers, recommend, honest, addOns, tileHints. Wizytówka i landing mają teraz wybór rozmiaru; aplikacje i automatyzacje — bez rozmiaru. **29.10 (v22): jedna cena „od” — bez wersji Na start / Standard.** Krok „Zakres i termin” = karta „W cenie od X zł netto · od N tygodni” (`scope.<wynik>.included`) + lista „Potrzebujesz czegoś więcej?” (`scope.<wynik>.moreExamples`, zaznaczenie NIE zmienia ceny — trafia do zgłoszenia jako „do wyceny”). Usunięte: sizes, tiers, recommend.size, badge „Polecamy / Dobrane dla Ciebie”, pole „Wersja” w bilecie. **29.10 (v22, po audycie):** funkcje rozbudowanej spoza ceny → „Do wyceny na piśmie”; firmowa: realizacje i opinie w cenie, dodatki „Więcej niż 5 podstron / Aktualności i blog / Kolejny język”; nota dodatków „Cena „od” to podstawa, dopłatę za dodatki zobaczysz w wycenie”; aplikacje i automatyzacje: „Zapytaj o wycenę” / „po krótkiej rozmowie”; podpowiedź sklepu (shopHint); systemy: „Dostęp z komputera i telefonu” w cenie. **31.10 (SWR4, poprawki repo):** reguły ze skryptu planszy jako dane — `recommend`, `honest` i `addOns.rules` to listy `{ when, text|items }` (pierwsza pasująca; warunki jak `scopeRules`: needs, options, results, kinds, haves, whens, minOptions, outsidePrice), `shopHint.when` jako warunek; kwoty i terminy z Solutions przez `{cena:<slug>}` / `{termin:<slug>}`, pozycje `addOns.items` ze `slug` (i `level` dla poziomu opieki) — cena liczona; `tileHints` usunięte (cena kafla = najniższa `priceFrom` wyników potrzeby); dopisany wynik `sklep` (z planszy); `whenNotes.zimaSmall` z `{data}` liczoną z `winterDeadline`; teksty `recommend.rozbudowana*` i `honest.app` wg planszy; usunięte notatki redakcyjne (`featuresNote`, `noPrice.mobileBar`, `priceDisplay.nowrap`, `whenNotes._rule`) i `noSize`. **31.10 (SWR4b):** blok wysyłki v22 z planszy (`send`: Ostatni krok, bilet, pole kontaktu zależne od sposobu kontaktu, przycisk z podpisem, 3 ikony zaufania, sukces z osią czasu; zgoda — klauzula z kodu, `consent.ts`), `contactPrefs[].ic` / `field`, szybkie słowa per potrzeba (`needPhrases`, skrypt planszy `PHM`).",
+  "_info": "Reguły kreatora „Dobierz rozwiązanie · 60 s” jako dane (nie if-y w komponentach). Logika doboru: docs/strony/prokomsoftware.md §6.3. Ikony: klucze z ikony.json. v21 (28.10): nowy układ kreatora (plansza Kreator, stany_k): 4 kroki (Potrzeba → Szczegóły → Zakres i termin z opcjonalnym opisem → Wynik), „Opisz po swojemu” = 3 kroki; wycena na żywo (kolumna na desktopie, belka nad dolnym paskiem na telefonie); nowe klucze: steps, stepsOwn, badges, tiers, recommend, honest, addOns, tileHints. Wizytówka i landing mają teraz wybór rozmiaru; aplikacje i automatyzacje — bez rozmiaru. **29.10 (v22): jedna cena „od” — bez wersji Na start / Standard.** Krok „Zakres i termin” = karta „W cenie od X zł netto · od N tygodni” (`scope.<wynik>.included`) + lista „Potrzebujesz czegoś więcej?” (`scope.<wynik>.moreExamples`, zaznaczenie NIE zmienia ceny — trafia do zgłoszenia jako „do wyceny”). Usunięte: sizes, tiers, recommend.size, badge „Polecamy / Dobrane dla Ciebie”, pole „Wersja” w bilecie. **29.10 (v22, po audycie):** funkcje rozbudowanej spoza ceny → „Do wyceny”; firmowa: realizacje i opinie w cenie, dodatki „Więcej niż 5 podstron / Aktualności i blog / Kolejny język”; nota dodatków „Cena „od” to podstawa, dopłatę za dodatki zobaczysz w wycenie”; aplikacje i automatyzacje: „Zapytaj o wycenę” / „po krótkiej rozmowie”; podpowiedź sklepu (shopHint); systemy: „Dostęp z komputera i telefonu” w cenie. **31.10 (SWR4, poprawki repo):** reguły ze skryptu planszy jako dane — `recommend`, `honest` i `addOns.rules` to listy `{ when, text|items }` (pierwsza pasująca; warunki jak `scopeRules`: needs, options, results, kinds, haves, whens, minOptions, outsidePrice), `shopHint.when` jako warunek; kwoty i terminy z Solutions przez `{cena:<slug>}` / `{termin:<slug>}`, pozycje `addOns.items` ze `slug` (i `level` dla poziomu opieki) — cena liczona; `tileHints` usunięte (cena kafla = najniższa `priceFrom` wyników potrzeby); dopisany wynik `sklep` (z planszy); `whenNotes.zimaSmall` z `{data}` liczoną z `winterDeadline`; teksty `recommend.rozbudowana*` i `honest.app` wg planszy; usunięte notatki redakcyjne (`featuresNote`, `noPrice.mobileBar`, `priceDisplay.nowrap`, `whenNotes._rule`) i `noSize`. **31.10 (SWR4b):** blok wysyłki v22 z planszy (`send`: Ostatni krok, bilet, pole kontaktu zależne od sposobu kontaktu, przycisk z podpisem, 3 ikony zaufania, sukces z osią czasu; zgoda — klauzula z kodu, `consent.ts`), `contactPrefs[].ic` / `field`, szybkie słowa per potrzeba (`needPhrases`, skrypt planszy `PHM`).",
   "steps": [
     "Potrzeba",
     "Szczegóły",
@@ -241,7 +241,7 @@
       "row": 1,
       "pv": "sys",
       "q": "Co dziś najbardziej przeszkadza?",
-      "h": "Wybierz jedno. Resztę omówimy.",
+      "h": "Wybierz jedno, resztę omówimy",
       "o": [
         {
           "id": "zlec",
@@ -293,7 +293,7 @@
     },
     "auto": {
       "n": "Automatyzacje",
-      "d": "SMS-y, faktury, raporty robią się same.",
+      "d": "SMS-y, faktury i raporty wysyłają się automatycznie.",
       "ic": "M13 2L4 14h7l-1 8 9-12h-7z",
       "row": 1,
       "pv": "auto",
@@ -471,7 +471,7 @@
       "pv": "sys",
       "g": [
         "Godziny z telefonu pracownika, nie z kartek",
-        "Rozliczenie miesiąca robi się samo",
+        "Rozliczenie miesiąca bez liczenia godzin z kartek",
         "Eksport dla księgowej"
       ],
       "nd": [
@@ -545,7 +545,7 @@
       "kind": "Automatyzacja",
       "pv": "auto",
       "g": [
-        "Powtarzalna robota robi się sama",
+        "SMS-y, faktury i raporty bez przepisywania",
         "Łączymy programy, które już masz",
         "Mniej przepisywania, mniej pomyłek"
       ],
@@ -571,7 +571,7 @@
       "month": true
     },
     "own": {
-      "n": "Rozmowa i propozycja na piśmie",
+      "n": "Rozmowa i propozycja zakresu",
       "kind": "Doradztwo",
       "pv": "www",
       "g": [
@@ -1002,12 +1002,12 @@
     "brief": "M4 7h16v13H4zM9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M4 12h16"
   },
   "whenNotes": {
-    "asap": "Zaczynamy od rozmowy jeszcze w tym tygodniu. Dokładny termin dostaniesz na piśmie.",
+    "asap": "Zaczynamy od rozmowy jeszcze w tym tygodniu. Dokładny termin podamy w wycenie.",
     "zimaBig": "Przed sezonem zimowym zdążymy z pierwszym etapem. Resztę dołożymy po sezonie, bez przestoju.",
     "zimaSmall": "Przed sezonem zimowym zdążymy, jeśli zaczniemy do {data}.",
     "lato": "Przed latem zdążymy spokojnie, z czasem na poprawki.",
     "brak": "Termin ustalimy razem i zapiszemy w umowie.",
-    "default": "Termin potwierdzimy na piśmie po krótkiej rozmowie."
+    "default": "Termin potwierdzimy po krótkiej rozmowie."
   },
   "priceDisplay": {
     "_info": "v22: zawsze „od”. Cena = Solutions.priceFrom, termin = Solutions.leadTime (np. „od 2 tygodni”). Bez ceny (aplikacje, automatyzacje): `noPrice`. `short` — kafle kroku 1 i dodatki; `monthTemplate` / `levelMonthTemplate` — opieka (od najniższego poziomu / cena wybranego poziomu).",
@@ -1017,14 +1017,14 @@
     "levelMonthTemplate": "{cena} zł / mies.",
     "fallback": "Zapytaj o wycenę",
     "termFallback": "po krótkiej rozmowie",
-    "priceSub": "netto · stała cena na piśmie",
-    "moreHint": "Dodatki wycenimy na piśmie w 5–7 dni. Cena „od” to podstawa, dopłatę za dodatki zobaczysz w wycenie.",
-    "moreSelectedNote": "Dodatki wycenimy na piśmie w 5–7 dni. Cena „od” to podstawa, dopłatę za dodatki zobaczysz w wycenie.",
+    "priceSub": "netto · stała cena za zakres",
+    "moreHint": "Dodatki wycenimy w 5–7 dni. Cena „od” to podstawa, dopłatę za dodatki zobaczysz w wycenie.",
+    "moreSelectedNote": "Dodatki wycenimy w 5–7 dni. Cena „od” to podstawa, dopłatę za dodatki zobaczysz w wycenie.",
     "noPrice": {
       "price": "Zapytaj o wycenę",
       "term": "po krótkiej rozmowie",
-      "priceSub": "cena na piśmie w 5–7 dni",
-      "termSub": "cenę i termin dostaniesz na piśmie w 5–7 dni",
+      "priceSub": "cena w 5–7 dni",
+      "termSub": "cenę i termin dostaniesz w 5–7 dni",
       "mobileBar": "Zapytaj o wycenę"
     },
     "scopeIntro": "Tyle kosztuje podstawa."
@@ -1048,7 +1048,7 @@
   "send": {
     "eyebrow": "Ostatni krok",
     "title": "Dokąd wysłać wycenę?",
-    "lead": "Dostaniesz ją na piśmie: zakres, cenę i termin. Decydujesz potem, bez zobowiązań.",
+    "lead": "Dostaniesz w niej zakres, cenę i termin. Decydujesz potem, bez zobowiązań.",
     "ticket": {
       "title": "Twoja wycena",
       "draft": "szkic",
@@ -1090,7 +1090,7 @@
       },
       {
         "icon": "doc",
-        "text": "Wycena na piśmie w 5–7 dni"
+        "text": "Wycena w 5–7 dni"
       },
       {
         "icon": "shield",
@@ -1101,7 +1101,7 @@
     "success": {
       "title": "Dziękujemy, {imie}. Zgłoszenie jest u nas.",
       "titleNoName": "Dziękujemy. Zgłoszenie jest u nas.",
-      "lead": "Wycenę na piśmie dostaniesz w 5–7 dni. W ciągu 1 dnia roboczego {kontakt}.",
+      "lead": "Wycenę dostaniesz w 5–7 dni. W ciągu 1 dnia roboczego {kontakt}.",
       "timeline": [
         {
           "when": "Dziś",
@@ -1113,7 +1113,7 @@
         },
         {
           "when": "W 5–7 dni",
-          "what": "Podgląd do klikania i wycena na piśmie"
+          "what": "Podgląd do klikania i wycena"
         }
       ],
       "note": "Wycena jest ważna 30 dni, bez zobowiązań. Pilne?"
@@ -1200,7 +1200,7 @@
           "outsidePrice": true
         }
       ],
-      "text": "Wybrane funkcje: {lista}. Wiele podstron i blog są w cenie, pozostałe wycenimy na piśmie w 5–7 dni."
+      "text": "Wybrane funkcje: {lista}. Wiele podstron i blog są w cenie, pozostałe wycenimy w 5–7 dni."
     },
     {
       "when": [
@@ -1548,7 +1548,7 @@
     ]
   },
   "scope": {
-    "_info": "v22 (29.10): co jest w cenie „od” i przykłady „więcej” (wycena na piśmie w 5–7 dni, cena „od” bez zmian). Zakres w cenie = dawny Na start; moreExamples = dawne punkty Standardu i typowe dodatki.",
+    "_info": "v22 (29.10): co jest w cenie „od” i przykłady „więcej” (wycena w 5–7 dni, cena „od” bez zmian). Zakres w cenie = dawny Na start; moreExamples = dawne punkty Standardu i typowe dodatki.",
     "wizytowka": {
       "included": [
         "Jedna strona: oferta, telefon, mapa i formularz",
