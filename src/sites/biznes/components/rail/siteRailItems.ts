@@ -4,7 +4,7 @@ export type SiteRailItem = { href: string; label: string; icon: IconName }
 
 /**
  * „Menu” of the side rail on Biznes subpages (K33 §2.4, board `g4rail`). Temporary addresses
- * like in the header: Konfigurator → `/kreator` until K4g, Plan → `/#plan` until K31d′.
+ * like in the header: Konfigurator → `/kreator` until K4g.
  */
 export const SITE_RAIL: readonly SiteRailItem[] = [
   { href: '/', label: 'Strona główna', icon: 'home' },
@@ -12,7 +12,7 @@ export const SITE_RAIL: readonly SiteRailItem[] = [
   { href: '/marki', label: 'Marki', icon: 'ticket' },
   // TODO(krystian): /konfigurator after K4g.
   { href: '/kreator', label: 'Konfigurator', icon: 'compass' },
-  { href: '/#plan', label: 'Plan Twojej firmy', icon: 'map' },
+  { href: '/plan-firmy', label: 'Plan Twojej firmy', icon: 'map' },
   { href: '/zestawy', label: 'Gotowe zestawy', icon: 'box' },
   { href: '/opieka-it', label: 'Opieka IT', icon: 'shield' },
   { href: '/o-firmie', label: 'O firmie', icon: 'users' },

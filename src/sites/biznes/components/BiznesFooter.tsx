@@ -1,3 +1,4 @@
+import { PLAN_PATH } from '@/lib/catalog/floorPlan'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -52,12 +53,11 @@ const REGION_LINKS = [
   { label: 'Sklep w Zakopanem', href: 'https://prokomzakopane.pl' },
 ]
 
-// The Konfigurator at `/kreator` until K4g, the plan on the home page until K31d′; „Wszystkie
-// marki” joins with `/marki` (K4f).
+// The Konfigurator at `/kreator` until K4g.
 const OFFER_LINKS = [
   { label: 'Cała oferta', href: '/oferta' },
   { label: 'Gotowe zestawy', href: BUNDLES_PATH },
-  { label: 'Plan Twojej firmy', href: '/#plan' },
+  { label: 'Plan Twojej firmy', href: PLAN_PATH },
   { label: 'Wszystkie marki', href: BRANDS_PATH },
   { label: 'Konfigurator', href: '/kreator' },
 ]
