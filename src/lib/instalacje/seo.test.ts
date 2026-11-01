@@ -29,6 +29,23 @@ describe('serviceJsonLd', () => {
   })
 })
 
+describe('serviceJsonLd — audience (architects, I16c)', () => {
+  it('names the business audience only when given', () => {
+    const base = {
+      origin: 'https://x.test',
+      path: '/a',
+      name: 'A',
+      description: null,
+      serviceType: 'T',
+    }
+    expect(serviceJsonLd(base)).not.toHaveProperty('audience')
+    expect(serviceJsonLd({ ...base, audience: ['architekci', 'deweloperzy'] }).audience).toEqual({
+      '@type': 'BusinessAudience',
+      audienceType: 'architekci, deweloperzy',
+    })
+  })
+})
+
 describe('websiteJsonLd', () => {
   it('names the site and points to the Organization of the layout', () => {
     expect(

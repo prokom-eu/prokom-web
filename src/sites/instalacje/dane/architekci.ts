@@ -980,4 +980,355 @@ export const architekci = {
     ev: 'Energia',
     sz: 'Dla pracowni',
   },
+  experienceSection: {
+    eyebrow: 'Nasze doświadczenie',
+    heading: 'Od 2004 roku na Podhalu.',
+    accent: 'Zostajemy po montażu.',
+    lead: 'PRO-KOM to firma z Rabki-Zdroju z salonem w Zakopanem. Instalacje, sprzęt, serwis i oprogramowanie w jednej firmie, blisko Twoich inwestycji.',
+    realizations: 'Wybrane realizacje',
+    realizationsAll: 'Wszystkie realizacje →',
+    brands: 'Sprzęt, z którym pracujemy',
+    brandsNote: 'Dobieramy sprzęt pod obiekt, nie pod markę. Sprzęt dostępny dla firm:',
+  },
+  experience: [
+    { value: 'od 2004', label: 'PRO-KOM w Rabce-Zdroju' },
+    { value: '2 salony', label: 'Rabka-Zdrój i Zakopane' },
+    { value: '10', label: 'rodzajów instalacji u jednego wykonawcy' },
+    { value: '100+', label: 'klientów firmowych całej PRO-KOM' },
+  ],
+  // The prototype's realizations name real clients (Blachotrapez, parafia, Empik…): shown only
+  // with consent, like the home page (decision I6) — the card lists published realizations.
+  // TODO(krystian): szef — lata, zgody, zdjęcia, 2–3 domy z projektem architekta; autoryzacje
+  // i certyfikaty (np. Ampio, Satel).
+  brands: [
+    'Ampio',
+    'Dahua',
+    'Hikvision',
+    'BCS',
+    'Ubiquiti',
+    'MikroTik',
+    'TP-Link Omada',
+    'Satel',
+    'Ajax',
+    'APART',
+    'JBL',
+    'RCF',
+    'Samsung',
+    'Elzab EcoPower',
+  ],
+  librarySection: {
+    eyebrow: 'Biblioteka projektanta',
+    heading: 'Materiały, które',
+    accent: 'skracają projekt.',
+    lead: 'Nasze materiały do pobrania i sprawdzone narzędzia producentów, z których korzystamy przy projektach.',
+    tools: 'Narzędzia producentów',
+  },
+  libraryOwn: [
+    {
+      icon: 'check',
+      title: 'Checklista projektanta',
+      text: 'Co przewidzieć w projekcie, etap po etapie. PDF, 1 strona na instalację.',
+      format: 'PDF',
+      status: 'Na e-mail',
+    },
+    {
+      icon: 'grid',
+      title: 'Symbole urządzeń do rzutów',
+      text: 'Kamery, czujki, głośniki, punkty Wi-Fi, panele, gniazda. Gotowe do wklejenia w rzut.',
+      format: 'DWG · PDF',
+      status: 'W przygotowaniu',
+    },
+    {
+      icon: 'doc',
+      title: 'Opisy systemów do projektu',
+      text: 'Krótkie opisy monitoringu, sieci, smart home i dźwięku do części opisowej projektu.',
+      format: 'DOCX',
+      status: 'W przygotowaniu',
+    },
+    {
+      icon: 'layers',
+      title: 'Wytyczne dla szafy rack',
+      text: 'Miejsce, wymiary, wentylacja, zasilanie i dostęp. Do pomieszczenia technicznego.',
+      format: 'PDF',
+      status: 'W przygotowaniu',
+    },
+  ] as { icon: InstIconName; title: string; text: string; format: string; status: string }[],
+  libraryTools: [
+    {
+      title: 'Ampio: katalog dla architekta',
+      text: 'System, panele, realizacje.',
+      href: 'https://www.ampio.com/assets/_catalogues/architect_pl.pdf',
+      kind: 'PDF',
+    },
+    {
+      title: 'Ampio: katalog dla dewelopera',
+      text: 'Smart apartament w inwestycji.',
+      href: 'https://www.ampio.com/assets/_catalogues/developer_pl.pdf',
+      kind: 'PDF',
+    },
+    {
+      title: 'Ampio: kreator paneli',
+      text: 'Kolor szkła, ikony, podpisy, podgląd.',
+      href: 'https://kreatorpaneli.ampio.pl/',
+      kind: 'Narzędzie',
+    },
+    {
+      title: 'UniFi Design Center',
+      text: 'Rzut, symulacja zasięgu Wi-Fi, 3D.',
+      href: 'https://design.ui.com/',
+      kind: 'Narzędzie',
+    },
+    {
+      title: 'Omada Design Hub',
+      text: 'Mapa zasięgu Wi-Fi i rozmieszczenie punktów.',
+      href: 'https://design.tplinkcloud.com',
+      kind: 'Narzędzie',
+    },
+    {
+      title: 'Dahua Project Design Tool',
+      text: 'Pole widzenia kamer i martwe strefy.',
+      href: 'https://support.dahuasecurity.com/en/ProjectDesignTool',
+      kind: 'Narzędzie',
+    },
+    {
+      title: 'Ajax: kalkulatory',
+      text: 'Zasięg radiowy, zasilanie, archiwum wideo.',
+      href: 'https://ajax.systems/tools/',
+      kind: 'Narzędzie',
+    },
+    {
+      title: 'Sonos dla architektów',
+      text: 'Materiały i broszura dla inwestora.',
+      href: 'https://www.sonos.com/pl-pl/trades/architects',
+      kind: 'Strona',
+    },
+  ],
+  presentationsSection: {
+    eyebrow: 'Zobacz i usłysz',
+    heading: 'Najlepiej przekonuje',
+    accent: 'pokaz na żywo.',
+    cta: 'Umów prezentację',
+  },
+  // TODO(krystian): szef — co mamy na pokazie w salonie (etykieta karty „W salonie PRO-KOM”).
+  presentations: [
+    {
+      icon: 'office',
+      title: 'W Twojej pracowni',
+      text: 'Przyjeżdżamy z próbkami: panel Ampio, głośnik sufitowy, kamera, punkt Wi-Fi. Pokazujemy, co zaplanować w projekcie.',
+      tag: 'Podhale i Kraków',
+    },
+    {
+      icon: 'shop',
+      title: 'W salonie PRO-KOM',
+      text: 'Rabka-Zdrój albo Zakopane. Zobaczysz i usłyszysz rozwiązania, które możesz pokazać inwestorowi.',
+      tag: null,
+    },
+    {
+      icon: 'crane',
+      title: 'Na budowie, z inwestorem',
+      text: 'Wizja lokalna z Tobą i inwestorem. Na miejscu ustalamy miejsca urządzeń i trasy kabli.',
+      tag: 'Przed tynkami',
+    },
+  ] as { icon: InstIconName; title: string; text: string; tag: string | null }[],
+  rulesSection: {
+    eyebrow: 'Zasady współpracy',
+    heading: 'Chętnie współpracujemy.',
+    accent: 'Na jasnych zasadach.',
+  },
+  // TODO(krystian): szef — „Warunki dla pracowni”: opisane jawnie albo „ustalamy indywidualnie”
+  // (6. karta prototypu, do tego czasu bez niej).
+  rules: [
+    {
+      icon: 'layers',
+      title: 'Twój projekt, Twoje decyzje',
+      text: 'Dobieramy technikę pod projekt, nie pod markę. Jeśli coś koliduje z wnętrzem, szukamy innego rozwiązania.',
+    },
+    {
+      icon: 'shield',
+      title: 'Grasz pierwsze skrzypce',
+      text: 'Z inwestorem rozmawiamy razem z Tobą albo za Twoją zgodą. Nie zmieniamy projektu za Twoimi plecami.',
+    },
+    {
+      icon: 'doc',
+      title: 'Wycena na piśmie',
+      text: 'Zakres, sprzęt i cena czarno na białym, w wariantach do wyboru. Inwestor wie, za co płaci.',
+    },
+    {
+      icon: 'users',
+      title: 'Jeden opiekun',
+      text: 'Jedna osoba od pierwszej rozmowy do odbioru. Nie tłumaczysz projektu od nowa każdemu monterowi.',
+    },
+    {
+      icon: 'check',
+      title: 'Gwarancja 24 miesiące',
+      text: 'Na montaż. Sprzęt według gwarancji producenta. Serwis i przeglądy po montażu.',
+    },
+  ] as { icon: InstIconName; title: string; text: string }[],
+  contactSection: {
+    eyebrow: 'Twój opiekun w PRO-KOM',
+    role: 'Opiekun architektów i wykonawców · instalacje niskoprądowe i smart home',
+    quote:
+      '„Zawsze pomożemy. Nawet jeśli to jedno pytanie o puszkę pod kamerę albo głębokość sufitu pod głośnik. Zadzwoń, zanim projekt pójdzie do druku.”',
+    response: 'Odpowiadamy do 24 h w dni robocze.',
+  },
+  faqSection: {
+    eyebrow: 'Pytania i odpowiedzi',
+    heading: 'Pytania architektów.',
+    aside: {
+      title: 'Jedno pytanie do projektu?',
+      text: 'Zadzwoń albo napisz. Zawsze pomożemy, nawet jeśli chodzi tylko o puszkę pod kamerę.',
+      cta: 'Wyślij rzuty',
+      href: '#wyslij',
+    },
+  },
+  // TODO(krystian): szef — potwierdzić odpowiedź „Czy pomożecie, jeśli inwestor wybierze innego
+  // wykonawcę?”.
+  faq: [
+    {
+      question: 'Kiedy najlepiej nas zaprosić?',
+      answer:
+        'Na etapie koncepcji albo projektu budowlanego. Wtedy miejsce na szafę rack, przepusty, moc pod ładowarkę i sufity pod głośniki nic nie kosztują. Pomożemy też później, ale przed tynkami to ostatni moment bez kucia.',
+    },
+    {
+      question: 'Czy muszę znać się na smart home i sieciach?',
+      answer:
+        'Nie. Wystarczą rzuty i rozmowa o potrzebach inwestora. Technikę bierzemy na siebie, a do projektu oddajemy proste wytyczne.',
+    },
+    {
+      question: 'Co dostanę do projektu?',
+      answer:
+        'Plan urządzeń na rzutach, wytyczne kablowe, wymagania dla szafy rack i opis systemów prostym językiem. Zakres ustalamy na początku, zależnie od etapu i obiektu.',
+    },
+    {
+      question: 'Czy pracujecie z projektem elektrycznym innego projektanta?',
+      answer:
+        'Tak. Instalacje niskoprądowe uzgadniamy z projektantem elektrycznym i wykonawcą. Zasilanie, moc i zabezpieczenia zostają w jego branży.',
+    },
+    {
+      question: 'Czy pomożecie, jeśli inwestor wybierze innego wykonawcę?',
+      answer:
+        'Jedno pytanie do projektu zawsze. Zadzwoń i zapytaj. Pełne wytyczne przygotowujemy do projektów, które realizujemy.',
+    },
+    {
+      question: 'Ile to kosztuje inwestora?',
+      answer:
+        'Zależy od obiektu i zakresu. Na etapie projektu podajemy orientacyjny budżet w wariantach, a dokładną wycenę na piśmie po wizji lokalnej.',
+    },
+    {
+      question: 'Jaki obszar obsługujecie?',
+      answer:
+        'Podhale i Małopolskę: salony w Rabce-Zdroju i Zakopanem. Przy większych inwestycjach jedziemy dalej, dojazd ustalamy indywidualnie.',
+    },
+    {
+      question: 'Według których przepisów projektować teletechnikę w 2026 r.?',
+      answer:
+        'Stare warunki techniczne straciły moc 20.09.2026. Do 20.03.2028 można projektować według nich, jeśli inwestor złoży oświadczenie. Nowe warunki nie zostały jeszcze ogłoszone, dlatego stan prawny sprawdzamy przy każdym projekcie.',
+    },
+    {
+      question: 'Czy dom jednorodzinny musi mieć światłowód?',
+      answer:
+        'Unijne rozporządzenie GIA obejmuje nowe budynki z wnioskiem o pozwolenie po 12.02.2026. Polska ustawa, która może zwolnić domy budowane na własne potrzeby, jest w przygotowaniu. Rura pod światłowód kosztuje niewiele, więc rekomendujemy ją w każdym projekcie.',
+    },
+    {
+      question: 'Kto zajmuje się serwisem po odbiorze?',
+      answer:
+        'My. Inwestor dostaje jeden numer do wszystkich instalacji. Na montaż dajemy 24 miesiące gwarancji, a przeglądy robimy przed sezonem.',
+    },
+  ],
+  formSection: {
+    eyebrow: 'Wyślij rzuty',
+    heading: 'Prześlij projekt.',
+    accent: 'Oddzwonimy z konkretami.',
+    lead: 'Opiekun przejrzy rzuty i zadzwoni z pierwszymi uwagami: co przewidzieć, gdzie miejsce na szafę rack, na co uważać w suficie i elewacji.',
+    steps: [
+      'Wysyłasz rzuty i etap projektu',
+      'Oddzwaniamy do 24 h w dni robocze',
+      'Dostajesz uwagi i propozycję zakresu',
+    ],
+  },
+  form: {
+    roles: ['Architekt', 'Projektant wnętrz', 'Generalny wykonawca', 'Deweloper', 'Inwestor'],
+    stages: ['Koncepcja', 'Projekt budowlany', 'Projekt wnętrz', 'Budowa', 'Wykończenie'],
+    objects: ['Dom', 'Apartamenty', 'Pensjonat, hotel', 'Lokal', 'Wielorodzinny', 'Inny'],
+  },
+  formTexts: {
+    region: 'Formularz: wyślij rzuty do opiekuna',
+    role: 'Kim jesteś',
+    stage: 'Etap projektu',
+    object: 'Obiekt',
+    name: 'Imię i nazwisko',
+    namePlaceholder: 'np. Anna Kowalska',
+    firm: 'Pracownia lub firma',
+    firmPlaceholder: 'np. Pracownia Architektury',
+    phone: 'Telefon *',
+    phonePlaceholder: 'np. 600 000 000',
+    town: 'Miejscowość inwestycji',
+    townPlaceholder: 'np. Zakopane',
+    // Spec §2.6: no upload in v1 — a link instead of the file field.
+    link: 'Link do rzutów (opcjonalnie)',
+    linkPlaceholder: 'np. dysk Google, WeTransfer',
+    linkNote: 'Pliki możesz też wysłać mailem w odpowiedzi na potwierdzenie.',
+    message: 'Wiadomość',
+    messagePlaceholder:
+      'Co projektujesz, jakie instalacje rozważa inwestor, na kiedy potrzebujesz uwag',
+    send: 'Wyślij do opiekuna',
+    sending: 'Wysyłamy…',
+    sentTitle: 'Dziękujemy. Mamy Twoje zgłoszenie.',
+    sentNumber: 'Numer zgłoszenia:',
+    sentText: 'Opiekun oddzwoni do 24 h w dni robocze. Jeśli projekt jest pilny, zadzwoń:',
+    sentMail: 'Rzuty możesz też wysłać na',
+    again: 'Wyślij kolejny projekt',
+    errors: {
+      name: 'Podaj imię, żebyśmy wiedzieli, jak się do Ciebie zwracać.',
+      phone: 'Podaj numer telefonu (9 cyfr), żebyśmy mogli oddzwonić.',
+      email: 'Podaj adres e-mail, na który wyślemy wiadomość.',
+      consent: 'Zaznacz zgodę na kontakt w sprawie zgłoszenia.',
+      marketing: 'Zaznacz zgodę na informacje handlowe e-mailem, żeby zapisać się na nowości.',
+      failed: 'Nie udało się wysłać. Spróbuj ponownie albo zadzwoń.',
+      limit: 'Za dużo zgłoszeń z tego adresu. Spróbuj za chwilę albo zadzwoń.',
+    },
+  },
+  emailForms: {
+    name: 'Imię',
+    namePlaceholder: 'np. Anna',
+    email: 'E-mail',
+    emailPlaceholder: 'adres@pracownia.pl',
+    pdfSend: 'Wyślij PDF',
+    pdfSent: 'Wysłane. Opiekun prześle checklistę na podany adres.',
+    newsSend: 'Zapisz pracownię',
+    newsSent: 'Zapisane. Pierwszy e-mail z nowościami wkrótce.',
+    // ADR-I005 §3 / spec §2.7: a separate consent for commercial e-mails, never pre-ticked.
+    marketing:
+      'Zgadzam się na otrzymywanie informacji handlowych PRO-KOM e-mailem (nowe rozwiązania, prezentacje). Zgodę mogę wycofać w każdej chwili.',
+  },
+  /** The home's `#architekci` (`Main.body.html`, `Main.js` → `arhm`, ADR-I005 §5). */
+  teaser: {
+    eyebrow: 'Dla architektów, projektantów i deweloperów',
+    heading: 'Projektujesz dom albo inwestycję?',
+    accent: 'Technikę zaplanujemy z Tobą.',
+    lead: 'Plan urządzeń na rzutach i proste wytyczne do projektu: monitoring, sieć, smart home Ampio, dźwięk, ekrany i ładowarki. Bez kucia po tynkach i bez urządzeń, które psują wnętrze.',
+    points: [
+      {
+        icon: 'ruler',
+        title: 'Plan urządzeń na rzutach',
+        text: 'Kamery, czujki, głośniki, Wi-Fi, panele i trasy kabli.',
+      },
+      {
+        icon: 'eye',
+        title: 'Technika, której nie widać',
+        text: 'Głośniki w suficie, szklane panele, TV w zabudowie.',
+      },
+      {
+        icon: 'users',
+        title: 'Jeden opiekun',
+        text: 'Od koncepcji, przez budowę, do serwisu po odbiorze.',
+      },
+      { icon: 'chat', title: 'Zawsze pomożemy', text: 'Nawet jeśli to jedno pytanie do projektu.' },
+    ] as { icon: InstIconName; title: string; text: string }[],
+    more: 'Współpraca dla architektów →',
+    send: 'Wyślij rzuty',
+    news: 'Nowość',
+  },
+  /** The link from service pages and „Dla kogo” pages (spec §7, ADR-I005). */
+  related: { label: 'Projektujesz? Współpraca dla architektów →', href: '/dla-architektow' },
 }
