@@ -95,7 +95,6 @@ export async function CareHero({
             </dl>
           </div>
           <figure
-            aria-label={data.report.title}
             className={cx(
               CARD,
               'flex flex-col gap-4 p-5 text-ink shadow-[0_30px_60px_-40px_var(--glow),inset_0_0_0_1px_var(--border)] sm:p-6',

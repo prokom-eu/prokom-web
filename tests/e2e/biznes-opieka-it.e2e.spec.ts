@@ -45,7 +45,7 @@ test.describe('Biznes /opieka-it (K4i)', () => {
     await expect(cartButton(page)).toHaveAccessibleName('Zapytanie 1 pozycja')
 
     await page.getByRole('button', { name: '4–10', exact: true }).click()
-    await page.getByRole('button', { name: /^Zapytaj o opiekę · 4–10/ }).click()
+    await page.getByRole('button', { name: /^Zapytaj o opiekę · stanowiska: 4–10/ }).click()
     const cart = await page.evaluate(() => JSON.parse(localStorage.getItem('pk-cart') ?? '[]'))
     expect(cart.map((item: { uwaga?: string }) => item.uwaga)).toContain('Stanowiska: 4–10')
   })

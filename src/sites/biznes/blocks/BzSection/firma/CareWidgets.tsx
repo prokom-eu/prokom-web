@@ -201,7 +201,7 @@ export function Seats({ data }: { data: SectionData<'seats'> }) {
         }
         className={cx(BTN_PRIMARY, 'self-start')}
       >
-        {picked ? `Zapytaj o opiekę · ${picked} stanowisk` : data.label}
+        {picked ? `Zapytaj o opiekę · stanowiska: ${picked}` : data.label}
       </button>
     </div>
   )

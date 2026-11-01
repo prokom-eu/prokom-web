@@ -187,6 +187,33 @@ export function InquiryForm({
   }
 
   const sending = status.kind === 'sending'
+  const emailField = (
+    <TextField
+      key="email"
+      id={fieldId('email')}
+      name="email"
+      type="email"
+      label="E-mail"
+      note={phoneRequired ? '(opcjonalnie)' : '(albo telefon)'}
+      autoComplete="email"
+      maxLength={254}
+      error={errors.email}
+    />
+  )
+  const phoneField = (
+    <TextField
+      key="phone"
+      id={fieldId('phone')}
+      name="phone"
+      type="tel"
+      label="Telefon"
+      note={phoneRequired ? undefined : '(albo e-mail)'}
+      required={phoneRequired}
+      autoComplete="tel"
+      maxLength={30}
+      error={errors.phone}
+    />
+  )
   return (
     <form
       noValidate
@@ -228,55 +255,7 @@ export function InquiryForm({
         error={errors.company}
       />
       {/* Biznes leads with the phone (K4-FINAL §5); other lines keep the e-mail first. */}
-      {phoneFirst ? (
-        <>
-          <TextField
-            id={fieldId('phone')}
-            name="phone"
-            type="tel"
-            label="Telefon"
-            note={phoneRequired ? undefined : '(albo e-mail)'}
-            required={phoneRequired}
-            autoComplete="tel"
-            maxLength={30}
-            error={errors.phone}
-          />
-          <TextField
-            id={fieldId('email')}
-            name="email"
-            type="email"
-            label="E-mail"
-            note={phoneRequired ? '(opcjonalnie)' : '(albo telefon)'}
-            autoComplete="email"
-            maxLength={254}
-            error={errors.email}
-          />
-        </>
-      ) : (
-        <>
-          <TextField
-            id={fieldId('email')}
-            name="email"
-            type="email"
-            label="E-mail"
-            note={phoneRequired ? '(opcjonalnie)' : '(albo telefon)'}
-            autoComplete="email"
-            maxLength={254}
-            error={errors.email}
-          />
-          <TextField
-            id={fieldId('phone')}
-            name="phone"
-            type="tel"
-            label="Telefon"
-            note={phoneRequired ? undefined : '(albo e-mail)'}
-            required={phoneRequired}
-            autoComplete="tel"
-            maxLength={30}
-            error={errors.phone}
-          />
-        </>
-      )}
+      {phoneFirst ? [phoneField, emailField] : [emailField, phoneField]}
       <TextField
         id={fieldId('nip')}
         name="nip"

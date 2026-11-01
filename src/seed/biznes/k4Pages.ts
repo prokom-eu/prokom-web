@@ -663,7 +663,7 @@ const CARE_CALENDAR: [string, string, string][] = [
 const trustLinks = (maps: string) => [
   {
     title: 'Dane w rejestrze',
-    text: 'Nazwa, adres i NIP 7352511447 — w publicznej wyszukiwarce firm CEIDG.',
+    text: 'Nazwa, adres i NIP — w publicznej wyszukiwarce firm CEIDG.',
     label: 'Sprawdź w CEIDG',
     href: 'https://www.biznes.gov.pl/pl/wyszukiwarka-firm',
   },

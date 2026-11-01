@@ -48,6 +48,7 @@ async function contactData(tenantId: number) {
     landlineTel: landline ? toTelHref(landline) : null,
     email: settings?.email ?? null,
     whatsapp: whatsapp ? toWhatsAppHref(whatsapp) : null,
+    whatsappNumber: whatsapp,
     location,
     hours: location?.hours ?? [],
     address: location ? `${location.street}, ${location.postalCode} ${location.city}` : null,
@@ -75,6 +76,7 @@ export async function AboutHero({
   const c = await contactData(tenantId)
   const logos = data.authorizations.map((item) => ({
     ...item,
+    name: item.brand.charAt(0).toUpperCase() + item.brand.slice(1),
     brand: index.brands.find((brand) => brand.slug === item.brand),
   }))
   return (
@@ -206,7 +208,7 @@ export async function AboutHero({
                         className="h-auto max-h-8 w-auto max-w-[96px] object-contain"
                       />
                     ) : (
-                      <b className="font-extrabold">{item.brand?.name ?? item.status}</b>
+                      <b className="font-extrabold">{item.brand?.name ?? item.name}</b>
                     )}
                   </span>
                   <small className="text-[12.5px] leading-tight font-bold text-ink-2">
@@ -398,10 +400,10 @@ export async function ContactHero({
       icon: 'phone',
     })
   }
-  if (c.whatsapp && c.phone) {
+  if (c.whatsapp && c.whatsappNumber) {
     channels.push({
       label: 'WhatsApp',
-      value: c.phone,
+      value: c.whatsappNumber,
       note: 'wyślij zdjęcie usterki albo tabliczki znamionowej',
       cta: 'Napisz',
       href: c.whatsapp,
@@ -511,7 +513,7 @@ export async function ContactHero({
               {c.company && (
                 <p className="flex flex-wrap gap-x-4 gap-y-1 border-t border-border pt-3 text-[13px] text-ink-3">
                   <span>{c.company.name}</span>
-                  <span>NIP {c.company.nip}</span>
+                  {c.company.nip && <span>NIP {c.company.nip}</span>}
                 </p>
               )}
             </div>
