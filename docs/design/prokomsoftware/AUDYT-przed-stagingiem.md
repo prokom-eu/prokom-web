@@ -87,3 +87,18 @@ Realizacja: sesja SWV8 (PR A = P0 + treści P1 1–11, PR B = wygląd P1 12–24
 3. Skrzynka kontakt@prokomsoftware.pl działa i odbiera powiadomienia z formularzy (S10d-1).
 4. Wpis „WordPress czy strona od zera”: sprawdzić liczby (Patchstack 2025: 7 966 luk w 2024 r., 96% we wtyczkach) i opublikować (P0 #3).
 5. Zdjęcie wejścia bez dominującego ALSEN (P1).
+
+## Prompt dla Claude Code (SWV8)
+```
+/zadanie SWV8 — poprawki z audytu przed stagingiem Software (docs/design/prokomsoftware/AUDYT-przed-stagingiem.md).
+Gałąź fix/software-swv8 od origin/develop (po scaleniu SWV7 B2). Dwa PR-y piętrowe: A = P0 + treści P1 (1–11), B = wygląd P1 (12–24) + P2.
+Zakres: dokładnie tabele P0, P1 i P2 z pliku audytu, w tej kolejności. Zasady:
+- Teksty zmieniasz w seedzie + migracja danych (jak SWV6), żeby staging/produkcja dostały je z pipeline'u.
+- P0 #1 (hydratacja): najpierw test e2e, który łapie błąd hydratacji w konsoli na /, /rozwiazania, /cennik, 404 — potem poprawka RevealObserver.
+- P0 #3: link „Aktualności” w menu i stopce tylko, gdy jest ≥ 1 opublikowany wpis (test). Wpisu nie publikujesz sam — to decyzja Krystiana po sprawdzeniu liczb.
+- P0 #4: obraz OG 1200×630 tylko z tokenów i znaku (bez nowych zależności); jeśli wymaga nowej biblioteki — zapytaj.
+- P1 #12–20: zrzuty przed/po w 1440 i 390, jasny i ciemny, w opisie PR.
+- Nie ruszaj: cen (zgodne z cennikiem 29.10), danych firmy, decyzji v23.
+- Polityka [OKRES PRZECHOWYWANIA]/[DATA AKTUALIZACJI] zostaje jako TODO(krystian) — decyzja szefa.
+Na koniec /przeglad, /pr, STAN.md (lista „Przed stagingiem SWV8”).
+```
