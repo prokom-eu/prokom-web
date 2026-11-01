@@ -42,7 +42,8 @@ test.describe('Konfigurator 3.0 (K4g)', () => {
     const prog = need(page, 'Program do sprzedaży i magazynu')
     await expect(prog.getByRole('link', { name: 'GoPOS GoHub' }).first()).toBeVisible()
     await expect(prog.getByRole('link', { name: 'GoPOS GoOrder' })).toBeVisible()
-    await expect(prog.getByRole('link', { name: 'GoPOS', exact: true })).toBeVisible()
+    // The product „GoPOS” among the options (the page link „GoPOS →” is the other one).
+    await expect(prog.getByRole('link', { name: 'GoPOS', exact: true }).first()).toBeVisible()
     await expect(prog).toContainText('dowozy i zamówienia online')
   })
 

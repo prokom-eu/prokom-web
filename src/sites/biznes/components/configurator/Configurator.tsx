@@ -308,7 +308,7 @@ export function Configurator({ data }: { data: ConfiguratorData }) {
                         ? 'bg-accent text-accent-ink'
                         : i < step
                           ? 'bg-ok-text text-white'
-                          : 'bg-surface-2 text-ink-3',
+                          : 'bg-surface-2 text-ink-2',
                     )}
                   >
                     {i < step ? <Icon name="check" strokeWidth={2.6} className="size-4" /> : i + 1}
@@ -504,7 +504,7 @@ export function Configurator({ data }: { data: ConfiguratorData }) {
                     >
                       <div className="min-w-0 flex-1 basis-56" id={`${formId}-q-${q.id}`}>
                         <p className="font-extrabold text-ink">{q.question}</p>
-                        <p className="text-[12.5px] text-ink-3">{q.caption}</p>
+                        <p className="text-[12.5px] text-ink-2">{q.caption}</p>
                       </div>
                       <div
                         role="group"
@@ -804,7 +804,7 @@ export function Configurator({ data }: { data: ConfiguratorData }) {
                       key={label}
                       className="flex items-center justify-between gap-3 rounded-xl bg-surface-2 px-3 py-2"
                     >
-                      <dt className="text-[12px] font-bold text-ink-3">{label}</dt>
+                      <dt className="text-[12px] font-bold text-ink-2">{label}</dt>
                       <dd className="text-right text-[13px] font-bold text-ink">{value || '—'}</dd>
                     </div>
                   ))}
@@ -990,7 +990,7 @@ function NeedCard({
           </Link>
           <div className="flex min-w-0 flex-col gap-2">
             {top.brand && (
-              <p className="text-[11.5px] font-extrabold tracking-[0.1em] text-ink-3 uppercase">
+              <p className="text-[11.5px] font-extrabold tracking-[0.1em] text-ink-2 uppercase">
                 {top.brand}
               </p>
             )}
@@ -1003,7 +1003,7 @@ function NeedCard({
             {top.benefit && <p className="text-[13.5px] text-ink-2">{top.benefit}</p>}
             {need.reasons.length > 0 && (
               <div className="flex flex-wrap items-center gap-1.5 text-[12px]">
-                <span className="font-bold text-ink-3">Dopasowane, bo:</span>
+                <span className="font-bold text-ink-2">Dopasowane, bo:</span>
                 {need.reasons.map((reason) => (
                   <span
                     key={reason}
