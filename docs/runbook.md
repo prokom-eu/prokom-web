@@ -66,6 +66,13 @@ Serwer: VPS webh.pl, Ubuntu 24.04 (ADR-019). Strefa czasu serwera zostaje **UTC*
      rotacja logu bez `sudo`: `../backups/logrotate.conf` z `/srv/prokom/backups/backup.log { monthly rotate 6 compress missingok notifempty }`;
    - kopia `monthly` powstaje tylko z przebiegu nocnego 1. dnia miesiąca (UTC) — jeśli ten się nie uda, w danym miesiącu jej nie ma; dlatego alarm o braku świeżej kopii (S10c);
    - Object Lock: pliku w B2 nie da się usunąć przez 14 dni od wysłania — także kluczem z serwera (sprawdzone 1.11). `backup.sh` usuwa kopie dopiero po 14/30/93 dniach, więc blokada mu nie przeszkadza; usunięty plik B2 najpierw ukrywa, a Lifecycle kasuje go po wygaśnięciu blokady.
+9. **Monitoring** (S10c, ADR-021):
+   - **Better Stack** (konto na firmę, 2FA, aplikacja na telefonie z powiadomieniami push):
+     - monitor HTTP `https://staging.prokombiznes.pl/api/health`, co 3 min, oczekiwany status 200, w „Advanced settings” → Request headers nagłówek z `ssh -t prokom-vps 'bash /srv/prokom/prokom-web/scripts/server/staging-login.sh monitor'` (osobny login `monitor`, hasło losowe, nagłówek pokazany raz); od produkcji: monitory `https://<domena>/api/health` bez hasła;
+     - heartbeat **„Kopia staging”**: okres 1 dzień, tolerancja 3 h → adres do `.env.backup` jako `BACKUP_HEARTBEAT_URL_STAGING=<adres>` (`backup.sh` pinguje po udanej kopii, `<adres>/fail` po błędzie); od produkcji drugi heartbeat `BACKUP_HEARTBEAT_URL_PROD`;
+     - próba alarmu: w Better Stack „Pause”/„Resume” nie wystarczy — zatrzymaj na chwilę aplikację stagingu (`$staging stop app`, po alercie `$staging start app`) i sprawdź powiadomienie na telefonie.
+   - **Sentry** (region EU, projekt `prokom-web`): `SENTRY_DSN=<DSN>` w `.env.staging` (później `.env.prod`), potem `$staging up -d app`. Próba: w logach aplikacji po starcie brak błędów Sentry, a pierwszy błąd 500 stagingu pojawia się w projekcie (bez adresu IP, ciasteczek i treści żądania). Do Sentry nie trafiają dane osobowe (`src/lib/sentry.ts`).
+   - **Lighthouse CI:** workflow „Lighthouse” po każdym udanym „Deploy staging”; raporty w artefakcie `lighthouse` przebiegu (30 dni). Login `lighthouse` w `../secrets/staging.htpasswd`, hasło tylko w sekrecie `STAGING_BASIC_AUTH` (wygenerowane na serwerze, przekazane wprost do `gh secret set`).
 
 ## 2. Wdrożenie stagingu (pipeline, S10b)
 
@@ -84,7 +91,7 @@ Dziennik: `../deploys.log` (`<czas> staging <stary> -> <nowy> ok | FAILED, rolle
 
 ## 3. Wdrożenie produkcji
 
-Tylko po akceptacji szefa w Asanie i tylko obraz, który przeszedł staging (ADR-004).
+Tylko po akceptacji szefa w Asanie i tylko obraz, który przeszedł staging (ADR-004). Warunek: ostatni przebieg „Lighthouse” dla tego obrazu zielony (budżet, ADR-021).
 
 **Pierwsze wdrożenie produkcji (raz):** rekordy `@`, `www` i panelu produkcji wg `docs/dns.md` (PR, potem Seohost) → certyfikat `prokom-prod` (`docs/wdrozenia.md` → „Nginx i staging”, krok 3) → zmienne `PROD_*` w `.env.proxy` → Nginx z nakładką: `docker compose --env-file .env.proxy -f docker/compose.proxy.yml -f docker/compose.proxy.prod.yml up -d`. Od tej chwili proxy uruchamiasz zawsze z oboma plikami. Do crona dopisz linię `backup.sh prod` (§1.8).
 1. Kopia przed wdrożeniem: `scripts/backup.sh prod predeploy` — musi się skończyć `done`.
