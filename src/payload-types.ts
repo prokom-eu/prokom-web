@@ -4552,7 +4552,7 @@ export interface BiznesSetting {
       | null;
   };
   /**
-   * Rodzaje firm, potrzeby, propozycje i plakietki kreatora (/kreator). Zmieniaj ostrożnie — zapis sprawdza, czy reguły się zgadzają.
+   * Konfigurator 3.0 (/konfigurator): rodzaje firm, sytuacje, skale, potrzeby z listami produktów, pytania Tak/Nie, grupy zestawów i sceny planu. Zmieniaj ostrożnie — zapis sprawdza, czy reguły się zgadzają.
    */
   wizard?:
     | {

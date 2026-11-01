@@ -177,8 +177,11 @@ export type CatalogSource = {
   salons?: { slug: string; brandIds: number[]; chooser: boolean }[]
 }
 
-/** The wizard is a route, not a page from blocks: listed in the search while it has rules. */
-export const WIZARD_PAGE = { slug: 'kreator', title: 'Dobierz zestaw w 60 s — kreator' }
+/** The configurator is a route, not a page from blocks: listed in the search while it has rules. */
+export const WIZARD_PAGE = {
+  slug: 'konfigurator',
+  title: 'Konfigurator — dobierz rozwiązanie dla firmy',
+}
 
 /** `/zestawy` in the search (K3c), with the bundles when there are any. */
 export const BUNDLES_PAGE = { slug: 'zestawy', title: 'Gotowe zestawy dla firm' }

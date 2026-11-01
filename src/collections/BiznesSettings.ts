@@ -144,12 +144,12 @@ export const BiznesSettings: CollectionConfig = {
     },
     {
       name: 'wizard',
-      label: 'Reguły kreatora',
+      label: 'Reguły konfiguratora',
       type: 'json',
       validate: validateWizard,
       admin: {
         description:
-          'Rodzaje firm, potrzeby, propozycje i plakietki kreatora (/kreator). Zmieniaj ostrożnie — zapis sprawdza, czy reguły się zgadzają.',
+          'Konfigurator 3.0 (/konfigurator): rodzaje firm, sytuacje, skale, potrzeby z listami produktów, pytania Tak/Nie, grupy zestawów i sceny planu. Zmieniaj ostrożnie — zapis sprawdza, czy reguły się zgadzają.',
       },
     },
   ],

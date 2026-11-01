@@ -202,13 +202,23 @@ describe('parseInquiryInput — types of the Biznes forms (B8)', () => {
     expect(errorsOf({ ...valid, ...noContact }, 'software')).toEqual(['email'])
   })
 
-  it('still requires the phone in the Biznes wizard until Konfigurator 3.0 (B10c, K4g)', () => {
-    expect(
-      errorsOf(
-        { ...valid, type: 'wizard', wizard: { firma: 'gastro' }, phone: undefined },
-        'biznes',
-      ),
-    ).toEqual(['phone'])
+  it('takes the chosen items in the Biznes Konfigurator only (K4g)', () => {
+    const wizard = {
+      ...valid,
+      type: 'wizard',
+      wizard: { kr: 'gastro|nowa|2||' },
+      items: [{ slug: 'posnet-ergo-online', quantity: 1 }],
+    }
+    expect(errorsOf(wizard, 'biznes')).toEqual([])
+    expect(errorsOf({ ...wizard, items: [] }, 'biznes')).toEqual([])
+    // Software computes its items from the answers; it never takes them as sent.
+    expect(errorsOf(wizard, 'software')).toContain('items')
+  })
+
+  it('takes a phone or an e-mail in the Konfigurator too (K4g, K4-FINAL §5)', () => {
+    const wizard = { ...valid, type: 'wizard', wizard: { kr: 'gastro|nowa|2||' } }
+    expect(errorsOf({ ...wizard, phone: undefined }, 'biznes')).toEqual([])
+    expect(errorsOf({ ...wizard, phone: undefined, email: undefined }, 'biznes')).toEqual(['phone'])
   })
 })
 

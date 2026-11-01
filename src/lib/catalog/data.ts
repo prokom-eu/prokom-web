@@ -264,7 +264,7 @@ export const getIndustryView = (tenantId: number, slug: string): Promise<Industr
   )()
 
 /**
- * Valid wizard rules of the tenant (`BiznesSettings.wizard`) for `/kreator` — or `null` (none
+ * Valid wizard rules of the tenant (`BiznesSettings.wizard`) for `/konfigurator` — or `null` (none
  * saved yet, or of an older format). Cached under the catalog tag (`BiznesSettings` hooks).
  */
 export const getWizardRules = (tenantId: number): Promise<Wizard | null> =>
