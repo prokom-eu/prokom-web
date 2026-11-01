@@ -52,7 +52,8 @@ test.describe('Software /o-firmie', () => {
     await page.goto(site(HOST, '/o-firmie'))
     await expect(main(page)).not.toContainText('Najpierw sprzęt i serwis')
     await expect(main(page)).not.toContainText(/Zakopan/i)
-    await expect(main(page).getByRole('heading', { name: 'Tadeusz Wójciak' })).toBeVisible()
+    // Hero portrait and team card both name him.
+    await expect(main(page).getByRole('heading', { name: 'Tadeusz Wójciak' }).last()).toBeVisible()
     await expect(
       main(page).getByRole('heading', { name: 'Rabka-Zdrój, ul. Orkana 16B.' }),
     ).toBeVisible()

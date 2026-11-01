@@ -131,7 +131,8 @@ test.describe('Software /miejscowosci/[miasto]', () => {
     const nearby = page.locator('section', {
       has: page.getByRole('heading', { name: 'Pracujemy też w okolicy' }),
     })
-    await expect(nearby.getByRole('listitem')).toHaveCount(9)
+    // v23: without Zakopane (Software works only in Rabka).
+    await expect(nearby.getByRole('listitem')).toHaveCount(8)
     await expect(nearby.getByRole('link')).toHaveCount(0)
     await expect(page.locator('[data-footer-cta]')).toBeHidden()
     const jsonLd = await page.locator('script[type="application/ld+json"]').allTextContents()
