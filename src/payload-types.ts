@@ -1893,6 +1893,10 @@ export interface Page {
         | InstContactBlock
         | InstServiceDeskBlock
         | InstArchitectsBlock
+        | InstOfferBlock
+        | InstRealizationsBlock
+        | InstAboutBlock
+        | InstGuideBlock
         | SwHeroBlock
         | SwHomeSectionBlock
         | SwContactBlock
@@ -3336,6 +3340,138 @@ export interface InstArchitectsBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InstOfferBlock".
+ */
+export interface InstOfferBlock {
+  hero: {
+    crumb?: string | null;
+    eyebrow?: string | null;
+    h1a: string;
+    h1b?: string | null;
+    lead?: string | null;
+    facts?:
+      | {
+          value: string;
+          label: string;
+          id?: string | null;
+        }[]
+      | null;
+    tags?: string[] | null;
+    cta?: {
+      text?: string | null;
+      href?: string | null;
+    };
+  };
+  cta?: {
+    eyebrow?: string | null;
+    heading?: string | null;
+    text?: string | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'instOffer';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InstRealizationsBlock".
+ */
+export interface InstRealizationsBlock {
+  hero: {
+    crumb?: string | null;
+    eyebrow?: string | null;
+    h1a: string;
+    h1b?: string | null;
+    lead?: string | null;
+    facts?:
+      | {
+          value: string;
+          label: string;
+          id?: string | null;
+        }[]
+      | null;
+    tags?: string[] | null;
+    cta?: {
+      text?: string | null;
+      href?: string | null;
+    };
+  };
+  cta?: {
+    eyebrow?: string | null;
+    heading?: string | null;
+    text?: string | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'instRealizations';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InstAboutBlock".
+ */
+export interface InstAboutBlock {
+  hero: {
+    crumb?: string | null;
+    eyebrow?: string | null;
+    h1a: string;
+    h1b?: string | null;
+    lead?: string | null;
+    facts?:
+      | {
+          value: string;
+          label: string;
+          id?: string | null;
+        }[]
+      | null;
+    tags?: string[] | null;
+    cta?: {
+      text?: string | null;
+      href?: string | null;
+    };
+  };
+  cta?: {
+    eyebrow?: string | null;
+    heading?: string | null;
+    text?: string | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'instAbout';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InstGuideBlock".
+ */
+export interface InstGuideBlock {
+  hero: {
+    crumb?: string | null;
+    eyebrow?: string | null;
+    h1a: string;
+    h1b?: string | null;
+    lead?: string | null;
+    facts?:
+      | {
+          value: string;
+          label: string;
+          id?: string | null;
+        }[]
+      | null;
+    tags?: string[] | null;
+    cta?: {
+      text?: string | null;
+      href?: string | null;
+    };
+  };
+  cta?: {
+    eyebrow?: string | null;
+    heading?: string | null;
+    text?: string | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'instGuide';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "SwHeroBlock".
  */
 export interface SwHeroBlock {
@@ -4392,9 +4528,22 @@ export interface Post {
    */
   slug: string;
   /**
-   * Biznes: KSeF, Kasy, Terminale, Dofinansowania, Programy. Software: Poradnik, Nowości, Realizacje.
+   * Biznes: KSeF, Kasy, Terminale, Dofinansowania, Programy. Software: Poradnik, Nowości, Realizacje. Instalacje: Przepisy, Monitoring, Obiekty noclegowe, Energia, Dźwięk i obraz.
    */
-  category: 'ksef' | 'kasy' | 'terminale' | 'dofinansowania' | 'programy' | 'poradnik' | 'nowosci' | 'realizacje';
+  category:
+    | 'ksef'
+    | 'kasy'
+    | 'terminale'
+    | 'dofinansowania'
+    | 'programy'
+    | 'poradnik'
+    | 'nowosci'
+    | 'realizacje'
+    | 'przepisy'
+    | 'monitoring'
+    | 'noclegi'
+    | 'energia'
+    | 'dzwiek-obraz';
   /**
    * Puste przy publikacji → dzisiejsza data.
    */
@@ -5085,6 +5234,10 @@ export interface Realization {
   scope?: string | null;
   description?: string | null;
   services?: ('kam' | 'alarm' | 'kd' | 'wifi' | 'tel' | 'ant' | 'smart' | 'snd' | 'scr' | 'ev')[] | null;
+  /**
+   * Filtr „Każdy obiekt” na /realizacje.
+   */
+  kind?: ('firma' | 'kosciol' | 'gastro' | 'sklep' | 'szkola' | 'dom') | null;
   photos?: (number | Media)[] | null;
   updatedAt: string;
   createdAt: string;
@@ -5863,6 +6016,10 @@ export interface PagesSelect<T extends boolean = true> {
         instContact?: T | InstContactBlockSelect<T>;
         instServiceDesk?: T | InstServiceDeskBlockSelect<T>;
         instArchitects?: T | InstArchitectsBlockSelect<T>;
+        instOffer?: T | InstOfferBlockSelect<T>;
+        instRealizations?: T | InstRealizationsBlockSelect<T>;
+        instAbout?: T | InstAboutBlockSelect<T>;
+        instGuide?: T | InstGuideBlockSelect<T>;
         swHero?: T | SwHeroBlockSelect<T>;
         swHomeSection?: T | SwHomeSectionBlockSelect<T>;
         swContact?: T | SwContactBlockSelect<T>;
@@ -6547,6 +6704,158 @@ export interface InstArchitectsBlockSelect<T extends boolean = true> {
               text?: T;
               href?: T;
             };
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InstOfferBlock_select".
+ */
+export interface InstOfferBlockSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        crumb?: T;
+        eyebrow?: T;
+        h1a?: T;
+        h1b?: T;
+        lead?: T;
+        facts?:
+          | T
+          | {
+              value?: T;
+              label?: T;
+              id?: T;
+            };
+        tags?: T;
+        cta?:
+          | T
+          | {
+              text?: T;
+              href?: T;
+            };
+      };
+  cta?:
+    | T
+    | {
+        eyebrow?: T;
+        heading?: T;
+        text?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InstRealizationsBlock_select".
+ */
+export interface InstRealizationsBlockSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        crumb?: T;
+        eyebrow?: T;
+        h1a?: T;
+        h1b?: T;
+        lead?: T;
+        facts?:
+          | T
+          | {
+              value?: T;
+              label?: T;
+              id?: T;
+            };
+        tags?: T;
+        cta?:
+          | T
+          | {
+              text?: T;
+              href?: T;
+            };
+      };
+  cta?:
+    | T
+    | {
+        eyebrow?: T;
+        heading?: T;
+        text?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InstAboutBlock_select".
+ */
+export interface InstAboutBlockSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        crumb?: T;
+        eyebrow?: T;
+        h1a?: T;
+        h1b?: T;
+        lead?: T;
+        facts?:
+          | T
+          | {
+              value?: T;
+              label?: T;
+              id?: T;
+            };
+        tags?: T;
+        cta?:
+          | T
+          | {
+              text?: T;
+              href?: T;
+            };
+      };
+  cta?:
+    | T
+    | {
+        eyebrow?: T;
+        heading?: T;
+        text?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InstGuideBlock_select".
+ */
+export interface InstGuideBlockSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        crumb?: T;
+        eyebrow?: T;
+        h1a?: T;
+        h1b?: T;
+        lead?: T;
+        facts?:
+          | T
+          | {
+              value?: T;
+              label?: T;
+              id?: T;
+            };
+        tags?: T;
+        cta?:
+          | T
+          | {
+              text?: T;
+              href?: T;
+            };
+      };
+  cta?:
+    | T
+    | {
+        eyebrow?: T;
+        heading?: T;
+        text?: T;
       };
   id?: T;
   blockName?: T;
@@ -8538,6 +8847,7 @@ export interface RealizationsSelect<T extends boolean = true> {
   scope?: T;
   description?: T;
   services?: T;
+  kind?: T;
   photos?: T;
   updatedAt?: T;
   createdAt?: T;

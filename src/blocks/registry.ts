@@ -22,6 +22,10 @@ import { InstPlannerBlock } from '../sites/instalacje/blocks/InstPlanner/config'
 import { InstServiceBlock } from '../sites/instalacje/blocks/InstService/config'
 import { InstArchitectsBlock } from '../sites/instalacje/blocks/InstArchitects/config'
 import { InstServiceDeskBlock } from '../sites/instalacje/blocks/InstServiceDesk/config'
+import { InstOfferBlock } from '../sites/instalacje/blocks/InstOffer/config'
+import { InstRealizationsBlock } from '../sites/instalacje/blocks/InstRealizations/config'
+import { InstAboutBlock } from '../sites/instalacje/blocks/InstAbout/config'
+import { InstGuideBlock } from '../sites/instalacje/blocks/InstGuide/config'
 import { SwHeroBlock } from '../sites/software/blocks/SwHero/config'
 import { SwHomeSectionBlock } from '../sites/software/blocks/SwHomeSection/config'
 import { SwContactBlock } from '../sites/software/blocks/SwContact/config'
@@ -76,7 +80,8 @@ export const BIZNES_BLOCKS: Block[] = [
 /**
  * Sections of the Instalacje pages (ADR-I002 §0) — `src/sites/instalacje/blocks/`; the blocks
  * come with their sessions (I4–I12); new ones at the end (I5: `instHome`; I11: `instPlanner`,
- * `instContact`, `instServiceDesk`; I16a: `instArchitects`).
+ * `instContact`, `instServiceDesk`; I16a: `instArchitects`; I12: `instOffer`, `instRealizations`,
+ * `instAbout`, `instGuide`).
  */
 export const INSTALACJE_BLOCKS: Block[] = [
   InstServiceBlock,
@@ -85,6 +90,10 @@ export const INSTALACJE_BLOCKS: Block[] = [
   InstContactBlock,
   InstServiceDeskBlock,
   InstArchitectsBlock,
+  InstOfferBlock,
+  InstRealizationsBlock,
+  InstAboutBlock,
+  InstGuideBlock,
 ]
 
 /**

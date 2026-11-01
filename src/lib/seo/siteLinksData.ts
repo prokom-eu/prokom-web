@@ -10,14 +10,14 @@ import { getInstalacjeObjectList } from '../instalacje/data'
 import { getPublishedPageList } from '../pages/data'
 import { getPostList } from '../posts/data'
 import { getCityList, getIndustryPageList, getSolutionsIndex } from '../software/data'
-import { hasNews } from '../posts/list'
+import { hasGuide, hasNews } from '../posts/list'
 import type { Line } from '../tenant/lines'
 import { brandLinks, buildSiteMap, type SiteMapSection } from './siteLinks'
 
 /**
  * The site map of one tenant from the cached loaders (each filters by the tenant): pages, on
- * Biznes the catalog, on Software the catalog of solutions, on Instalacje the object pages, on
- * lines with news the posts. Shared by `sitemap.xml` and `/mapa-strony`.
+ * Biznes the catalog, on Software the catalog of solutions, on Instalacje the object pages and
+ * the guide posts, on lines with news the posts. Shared by `sitemap.xml` and `/mapa-strony`.
  */
 export async function loadSiteMap(tenant: { id: number; line: Line }): Promise<SiteMapSection[]> {
   const catalog = tenant.line === 'biznes'
@@ -38,7 +38,7 @@ export async function loadSiteMap(tenant: { id: number; line: Line }): Promise<S
     getPublishedPageList(tenant.id),
     catalog ? getCatalogIndex(tenant.id) : null,
     catalog ? getPublishedProductList(tenant.id) : [],
-    hasNews(tenant.line) ? getPostList(tenant.id) : null,
+    hasNews(tenant.line) || hasGuide(tenant.line) ? getPostList(tenant.id, tenant.line) : null,
     catalog ? getBundles(tenant.id) : [],
     software ? getSolutionsIndex(tenant.id) : null,
     software ? getIndustryPageList(tenant.id) : null,
@@ -68,7 +68,8 @@ export async function loadSiteMap(tenant: { id: number; line: Line }): Promise<S
         updatedAt,
       })),
     },
-    news: posts && { posts },
+    news: hasNews(tenant.line) && posts ? { posts } : null,
+    guide: hasGuide(tenant.line) && posts ? { posts } : null,
     solutions: solutions && {
       items: solutions.solutions.map(({ slug, name }) => ({ slug, name })),
     },

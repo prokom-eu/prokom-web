@@ -54,6 +54,8 @@ export type SiteMapInput = {
   } | null
   /** Posts of a line with news; `null` on lines without it. */
   news: { posts: readonly ({ slug: string; title: string } & Dated)[] } | null
+  /** Instalacje: posts of the guide `/poradnik/<slug>` (I12); absent elsewhere. */
+  guide?: { posts: readonly ({ slug: string; title: string } & Dated)[] } | null
   /** Software: the catalog and the page of every published solution (SW10); absent elsewhere. */
   solutions?: { items: readonly { slug: string; name: string }[] } | null
   /** Software: active industry pages `/dla-branz/[branza]` (SW10b); absent elsewhere. */
@@ -75,6 +77,7 @@ export function buildSiteMap({
   pages,
   catalog,
   news,
+  guide,
   solutions,
   industryPages,
   cities,
@@ -238,6 +241,19 @@ export function buildSiteMap({
           updatedAt: post.updatedAt,
         })),
       ],
+    })
+  }
+
+  // The list `/poradnik` is a page (listed with the pages); here only the posts.
+  if (guide && guide.posts.length > 0) {
+    sections.push({
+      id: 'poradnik',
+      title: 'Poradnik',
+      links: guide.posts.map((post) => ({
+        href: postHref(post.slug, 'instalacje'),
+        label: post.title,
+        updatedAt: post.updatedAt,
+      })),
     })
   }
   return sections
