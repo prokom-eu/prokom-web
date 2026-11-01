@@ -184,6 +184,12 @@ describe.each(cases.filter(({ line }) => line === 'software'))(
     const s = scope(line, mode)
     const panels = ['--card-2', '--accent-soft', '--stage', '--chip']
 
+    it('the amber badge of the audit report reaches 4.5:1 (SW11a, axe on /audyt)', () => {
+      expect(
+        contrastRatio(hex('--badge-warn-ink', s), hex('--badge-warn', s)),
+      ).toBeGreaterThanOrEqual(4.5)
+    })
+
     it.each(['--ink', '--ink-soft', '--ink-2', '--accent-text', '--ok-text'])(
       '%s reaches 4.5:1 on panels, chips and stages',
       (text) => {

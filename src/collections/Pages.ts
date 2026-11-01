@@ -11,6 +11,7 @@ import { HOME_SLUG, isValidPageSlug } from '../lib/pages/slug'
 import { tagsToRevalidate } from '../lib/pages/tags'
 import { pagePreviewUrl } from '../lib/preview/url'
 import { tenantUniqueSlug } from '../lib/tenant/uniqueSlug'
+import { PAGE_SEO_TITLE_MAX } from '../lib/seo/title'
 
 /** The slug is unique per tenant: database index below + a readable message here. */
 const validateSlug = tenantUniqueSlug('pages', {
@@ -96,7 +97,7 @@ export const Pages: CollectionConfig = {
           name: 'title',
           label: 'Tytuł w wyszukiwarce',
           type: 'text',
-          maxLength: 70,
+          maxLength: PAGE_SEO_TITLE_MAX,
           admin: {
             description: 'Puste = tytuł podstrony. Szablon z ustawień strony dopisze nazwę.',
           },

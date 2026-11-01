@@ -115,7 +115,7 @@ export async function SwAuditFormBlock({ block, tenantId, isFirst }: Props) {
                   ) : null}
                 </div>
                 {block.reportBadge ? (
-                  <span className="absolute top-5 -right-9 rotate-45 bg-warn px-10 py-1 text-[11px] font-black uppercase tracking-[0.12em] text-ink">
+                  <span className="absolute top-5 -right-9 rotate-45 bg-(--badge-warn) px-10 py-1 text-[11px] font-black uppercase tracking-[0.12em] text-(--badge-warn-ink)">
                     {block.reportBadge}
                   </span>
                 ) : null}
