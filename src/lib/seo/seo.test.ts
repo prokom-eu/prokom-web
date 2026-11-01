@@ -6,6 +6,7 @@ import {
   serviceJsonLd,
   serviceListJsonLd,
   faqJsonLd,
+  openingHoursText,
   organizationJsonLd,
   productJsonLd,
   videoJsonLd,
@@ -151,6 +152,34 @@ describe('organizationJsonLd', () => {
         },
       ],
     })
+  })
+})
+
+describe('openingHoursText (audit 01.11: openingHours Mo-Fr 09:00-17:00)', () => {
+  it('writes consecutive days as a range', () => {
+    expect(
+      openingHoursText({
+        days: ['mon', 'tue', 'wed', 'thu', 'fri'],
+        opens: '09:00',
+        closes: '17:00',
+      }),
+    ).toBe('Mo-Fr 09:00-17:00')
+    expect(openingHoursText({ days: ['fri', 'mon'], opens: '08:00', closes: '16:00' })).toBe(
+      'Mo,Fr 08:00-16:00',
+    )
+    expect(openingHoursText({ days: ['sat'], opens: '09:00', closes: '13:00' })).toBe(
+      'Sa 09:00-13:00',
+    )
+  })
+
+  it('is set on each branch', () => {
+    const [, branch] = organizationJsonLd({
+      company,
+      tenant: { name: 'PRO-KOM Biznes', line: 'biznes' },
+      contact: { phone: null, email: null },
+      origin: 'https://prokombiznes.pl',
+    })['@graph']
+    expect(branch).toMatchObject({ openingHours: ['Mo,Fr 08:00-16:00'] })
   })
 })
 
