@@ -3,7 +3,12 @@ import { getPayload, type Where } from 'payload'
 import { cache } from 'react'
 
 import { log } from '@/lib/log'
-import type { InstObject as InstObjectDoc, InstService as InstServiceDoc } from '@/payload-types'
+import { publicImage, type PublicImage } from '@/lib/media/public'
+import type {
+  InstalacjeSetting as InstalacjeSettingsDoc,
+  InstObject as InstObjectDoc,
+  InstService as InstServiceDoc,
+} from '@/payload-types'
 import { navigation } from '@/sites/instalacje/dane/nawigacja'
 
 import { buildMenu, type InstMenu, type MenuDoc } from './menu'
@@ -201,6 +206,24 @@ export type InstalacjeSiteSettings = {
   responseText: string
   /** WhatsApp number of the line (the panel validates it), `null` when not set. */
   whatsapp: string | null
+  /** „Twój opiekun” of /dla-architektow; `null` = no name yet (or still a boss's marker). */
+  architects: ArchitectsContact | null
+}
+
+export type ArchitectsContact = {
+  name: string
+  role: string | null
+  photo: PublicImage | null
+  phone: string | null
+  email: string | null
+  quote: string | null
+  responseText: string | null
+}
+
+/** A panel text fit for the page: trimmed, never a boss's marker (`[SZEF…]`, spec §10). */
+const pageText = (value: string | null | undefined) => {
+  const text = value?.trim()
+  return text && !/\[\s*(SZEF|CENA)/i.test(text) ? text : null
 }
 
 /**
@@ -213,7 +236,7 @@ export const getInstalacjeSettings = cache(
     const { docs } = await payload.find({
       collection: 'instalacje-settings',
       where: { tenant: { equals: tenantId } },
-      depth: 0,
+      depth: 1,
       limit: 1,
       select: {
         showPrices: true,
@@ -221,6 +244,7 @@ export const getInstalacjeSettings = cache(
         warrantyMonths: true,
         responseText: true,
         whatsapp: true,
+        architects: true,
       },
       overrideAccess: true,
     })
@@ -231,9 +255,27 @@ export const getInstalacjeSettings = cache(
       warrantyMonths: doc?.warrantyMonths ?? SETTINGS_DEFAULTS.warrantyMonths,
       responseText: doc?.responseText || SETTINGS_DEFAULTS.responseText,
       whatsapp: doc?.whatsapp || null,
+      architects: architectsContact(doc?.architects, tenantId),
     }
   },
 )
+
+function architectsContact(
+  group: InstalacjeSettingsDoc['architects'] | undefined,
+  tenantId: number,
+): ArchitectsContact | null {
+  const name = pageText(group?.name)
+  if (!group || !name) return null
+  return {
+    name,
+    role: pageText(group.role),
+    photo: publicImage(group.photo, tenantId),
+    phone: pageText(group.phone),
+    email: pageText(group.email),
+    quote: pageText(group.quote),
+    responseText: pageText(group.responseText),
+  }
+}
 
 export type HomeRealization = {
   id: number

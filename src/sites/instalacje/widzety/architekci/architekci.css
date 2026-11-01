@@ -3008,6 +3008,29 @@
     color: light-dark(color-mix(in srgb, var(--hc) 60%, var(--inst-hue-ink)), var(--hc)) !important;
   }
 
+  /* Forms (I16c): the <form> sits between the card and the fields — it carries the card's
+     column and gap. The e-mail forms wrap name, e-mail and the button in a narrow column. */
+  & .arform {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  & .arpdf .arform,
+  & .arnl .arform {
+    gap: 10px;
+  }
+  & .arform .arpdff {
+    flex-wrap: wrap;
+  }
+  & .arform .arpdff {
+    align-items: flex-end;
+  }
+  & .arform .armail {
+    flex: 1 1 150px;
+    min-width: 0;
+    gap: 6px;
+  }
+
   /* Stage arrows at the first and last stage (disabled, review I16a). */
   & .aretph .arnav:disabled {
     opacity: 0.4;

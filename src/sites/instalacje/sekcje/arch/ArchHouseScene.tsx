@@ -35,6 +35,8 @@ import {
   sceneClass,
   showAllLayers,
   stepHotspot,
+  TEASER_MS,
+  teaserFrame,
   toggleLayer,
 } from './archScene'
 
@@ -77,14 +79,26 @@ export function ArchHouseScene({ viewBox, html, hues, compact = false }: Props) 
   const setScene = (next: (s: ArchSceneState) => ArchSceneState) =>
     setState((s) => next(calm && !s.touched ? CALM_ARCH_SCENE : s))
   const hs = currentHotspot(scene)
+  // The page: „Wszystkie instalacje” after 2.6 s, then hotspots. The home teaser: views and
+  // hotspots in turn (`teaserFrame`).
+  const [tick, setTick] = useState(0)
   useInterval(() => setScene(autoplayStart), ARCH_START_MS, {
-    enabled: !scene.touched && scene.view === 'kl',
+    enabled: !compact && !scene.touched && scene.view === 'kl',
     target: ref,
   })
   useInterval(() => setScene(autoplayStep), ARCH_STEP_MS, {
-    enabled: !scene.touched && scene.view !== 'kl',
+    enabled: !compact && !scene.touched && scene.view !== 'kl',
     target: ref,
   })
+  useInterval(
+    () => {
+      const k = tick + 1
+      setTick(k)
+      setScene((s) => ({ ...s, ...teaserFrame(k) }))
+    },
+    TEASER_MS,
+    { enabled: compact && !scene.touched, target: ref },
+  )
   useEffect(() => {
     art.current?.querySelectorAll<SVGGElement>('[data-k]').forEach((g) => {
       const k = Number(g.dataset.k)

@@ -1,13 +1,23 @@
 import { headers } from 'next/headers'
+import { connection } from 'next/server'
 import Link from 'next/link'
 import type { CSSProperties } from 'react'
 
 import { getEnv } from '@/lib/env'
-import { getInstalacjeCards, getInstArchNews } from '@/lib/instalacje/data'
+import { MediaImage } from '@/components/MediaImage'
+import { issueFormToken } from '@/lib/inquiry/spam'
+import {
+  getInstalacjeCards,
+  getInstalacjeHome,
+  getInstalacjeSettings,
+  getInstArchNews,
+} from '@/lib/instalacje/data'
 import type { ServiceKey } from '@/lib/instalacje/options'
 import { serviceJsonLd } from '@/lib/instalacje/seo'
-import { breadcrumbJsonLd } from '@/lib/seo/jsonLd'
+import { breadcrumbJsonLd, itemListJsonLd } from '@/lib/seo/jsonLd'
 import { siteOrigin } from '@/lib/seo/origin'
+import { getSiteSettings } from '@/lib/site/data'
+import { toTelHref } from '@/lib/site/link'
 import type { InstArchitectsBlock as InstArchitectsBlockData } from '@/payload-types'
 
 import { architekci as A } from '../../dane/architekci'
@@ -18,9 +28,12 @@ import { hotspotsHtml, INITIAL_ARCH_SCENE, safeHue } from '../../sekcje/arch/arc
 import { ARCH_SCENE } from '../../sekcje/arch/scene'
 import { InstSection } from '../../sekcje/InstSection'
 import { LEGAL_NOTE } from '../../dane/prawo'
+import { Faq } from '../../sekcje/Faq'
 import { JsonLd } from '../../sekcje/JsonLd'
 import { SectionHead } from '../../sekcje/SectionHead'
+import { ArchitectForm } from '../../widzety/architekci/ArchitectForm'
 import { AudienceTabs } from '../../widzety/architekci/AudienceTabs'
+import { EmailForm } from '../../widzety/architekci/EmailForm'
 import { DesignerChecklist } from '../../widzety/architekci/DesignerChecklist'
 import { DeveloperTabs } from '../../widzety/architekci/DeveloperTabs'
 import { type ArchService, InstallationsTabs } from '../../widzety/architekci/InstallationsTabs'
@@ -33,23 +46,6 @@ type Props = { block: InstArchitectsBlockData; tenantId: number }
 
 const PATH = '/dla-architektow'
 
-/*
- * Sections built so far (I16a); I16b and I16c add the rest in the prototype's order. The anchor
- * bar lists only these until the page is complete.
- */
-const BUILT = new Set([
-  'dla-ciebie',
-  'problemy',
-  'etapy',
-  'wymiana',
-  'checklista',
-  'liczby',
-  'instalacje',
-  'nowosci',
-  'deweloperzy',
-  'przepisy',
-])
-
 /**
  * The page for architects and developers `/dla-architektow` (ADR-I005, `Architekci.body.html`):
  * the hero from the panel with the house cross-section, anchors and the sections in the
@@ -57,11 +53,22 @@ const BUILT = new Set([
  * carries the page's h1.
  */
 export async function InstArchitectsBlock({ block, tenantId }: Props) {
-  const [cards, news, host] = await Promise.all([
+  // The form token carries the render time (minimum fill time), so never from a cache.
+  await connection()
+  const [cards, news, settings, site, home, host] = await Promise.all([
     getInstalacjeCards(tenantId),
     getInstArchNews(tenantId),
+    getInstalacjeSettings(tenantId),
+    getSiteSettings(tenantId),
+    getInstalacjeHome(tenantId),
     headers().then((h) => h.get('host')),
   ])
+  const formToken = issueFormToken(getEnv().PAYLOAD_SECRET)
+  const contact = settings.architects
+  const phoneLabel = contact?.phone || site?.phone || null
+  const phoneHref = phoneLabel ? toTelHref(phoneLabel) : null
+  const phone = phoneLabel && phoneHref ? { label: phoneLabel, href: phoneHref } : null
+  const mail = contact?.email || site?.email || null
   const origin = siteOrigin(host, getEnv().SITE_ENV)
   const hues: Partial<Record<ServiceKey, string>> = Object.fromEntries(
     cards.services.flatMap((s) => (s.key && s.color ? [[s.key, s.color]] : [])),
@@ -99,8 +106,17 @@ export async function InstArchitectsBlock({ block, tenantId }: Props) {
               name: crumb,
               description: hero?.lead,
               serviceType: 'Projekt instalacji niskoprądowych dla architektów i deweloperów',
+              audience: ['architekci', 'projektanci wnętrz', 'deweloperzy', 'generalni wykonawcy'],
             })}
           />
+          {news.length > 0 && (
+            <JsonLd
+              data={itemListJsonLd({
+                name: A.newsSection.eyebrow,
+                items: news.map((n) => ({ name: n.title, url: origin + PATH + '#nowosci' })),
+              })}
+            />
+          )}
           <JsonLd
             data={breadcrumbJsonLd([
               { name: 'Start', url: `${origin}/` },
@@ -157,11 +173,7 @@ export async function InstArchitectsBlock({ block, tenantId }: Props) {
           )}
         </div>
       </section>
-      <AnchorsBar
-        anchors={A.anchors.filter(
-          (a) => BUILT.has(a.id) && (a.id !== 'nowosci' || news.length > 0),
-        )}
-      />
+      <AnchorsBar anchors={A.anchors.filter((a) => a.id !== 'nowosci' || news.length > 0)} />
 
       <InstSection id="dla-ciebie" style={{ padding: '88px 0 0' }}>
         <div className="wrap">
@@ -279,7 +291,10 @@ export async function InstArchitectsBlock({ block, tenantId }: Props) {
             lead={A.checklistSection.lead}
             leadWidth={430}
           />
-          <DesignerChecklist hues={hues} />
+          <DesignerChecklist
+            hues={hues}
+            pdfForm={<EmailForm kind="checklist" formToken={formToken} />}
+          />
         </div>
       </InstSection>
 
@@ -334,7 +349,11 @@ export async function InstArchitectsBlock({ block, tenantId }: Props) {
               accent={A.newsSection.accent}
               lead={A.newsSection.lead}
             />
-            <SolutionsExplorer cards={news} hues={hues} />
+            <SolutionsExplorer
+              cards={news}
+              hues={hues}
+              newsletterForm={<EmailForm kind="news" formToken={formToken} />}
+            />
             <p className="src ri" style={{ marginTop: 14 }}>
               {A.newsSection.note}
             </p>
@@ -388,6 +407,268 @@ export async function InstArchitectsBlock({ block, tenantId }: Props) {
           <p className="src ri" style={{ marginTop: 16 }}>
             {LEGAL_NOTE} Stan na {A.lawAsOf}, aktualizujemy przy każdej zmianie.
           </p>
+        </div>
+      </InstSection>
+
+      <InstSection
+        id="doswiadczenie"
+        style={{ padding: '104px 0 96px' }}
+        {...fold('doswiadczenie')}
+      >
+        <div className="wrap">
+          <SectionHead
+            eyebrow={A.experienceSection.eyebrow}
+            heading={A.experienceSection.heading}
+            accent={A.experienceSection.accent}
+            lead={A.experienceSection.lead}
+            leadWidth={440}
+          />
+          <div className="arexkv ri">
+            {A.experience.map((k) => (
+              <div key={k.value}>
+                <b>{k.value}</b>
+                <span>{k.label}</span>
+              </div>
+            ))}
+          </div>
+          <div className="arexg">
+            {/* Only realizations published with the client's consent (decision I6). */}
+            {home.realizations.length > 0 && (
+              <div className="card arexr ri">
+                <span className="eye">{A.experienceSection.realizations}</span>
+                <div className="arexl">
+                  {home.realizations.map((r) => (
+                    <div key={r.id}>
+                      <b>{r.title}</b>
+                      <span>{[r.place, r.scope].filter(Boolean).join(' · ')}</span>
+                    </div>
+                  ))}
+                </div>
+                <Link
+                  href="/realizacje"
+                  className="btn btn-g btn-s"
+                  style={{ alignSelf: 'flex-start' }}
+                >
+                  {A.experienceSection.realizationsAll}
+                </Link>
+              </div>
+            )}
+            <div className="card arexb ri">
+              <span className="eye">{A.experienceSection.brands}</span>
+              <div className="arexbr">
+                {A.brands.map((b) => (
+                  <span key={b}>{b}</span>
+                ))}
+              </div>
+              <p className="mut" style={{ margin: 0, fontSize: 14.5 }}>
+                {A.experienceSection.brandsNote}{' '}
+                <a href="https://prokombiznes.pl" style={{ color: 'var(--accent-text)' }}>
+                  prokombiznes.pl
+                </a>
+                .
+              </p>
+            </div>
+          </div>
+        </div>
+      </InstSection>
+
+      <InstSection
+        id="biblioteka"
+        className="bnd bnd-soft"
+        style={{ padding: '104px 0 104px' }}
+        {...fold('biblioteka')}
+      >
+        <div className="wrap">
+          <SectionHead
+            eyebrow={A.librarySection.eyebrow}
+            heading={A.librarySection.heading}
+            accent={A.librarySection.accent}
+            lead={A.librarySection.lead}
+            leadWidth={440}
+          />
+          <div className="g4 arlibo">
+            {A.libraryOwn.map((o) => (
+              <div key={o.title} className="card arlibc ri">
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'flex-start',
+                  }}
+                >
+                  <span className="ico">
+                    <InstIcon name={o.icon} size={22} />
+                  </span>
+                  <span className="tag">{o.format}</span>
+                </div>
+                <b className="h3" style={{ fontSize: 19 }}>
+                  {o.title}
+                </b>
+                <p>{o.text}</p>
+                <span className="arlibs">{o.status}</span>
+              </div>
+            ))}
+          </div>
+          <div className="arlibe ri">
+            <span className="arckh">{A.librarySection.tools}</span>
+            <div className="arlibg">
+              {A.libraryTools.map((e) => (
+                <a
+                  key={e.href}
+                  href={e.href}
+                  className="arlibx"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span>
+                    <b>{e.title}</b>
+                    <span>{e.text}</span>
+                  </span>
+                  <em>{e.kind} ↗</em>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </InstSection>
+
+      <InstSection id="pokaz" style={{ padding: '104px 0 96px' }}>
+        <div className="wrap">
+          <div className="shead ri">
+            <div>
+              <span className="eye">{A.presentationsSection.eyebrow}</span>
+              <h2 className="h2">
+                {A.presentationsSection.heading}{' '}
+                <span className="acc">{A.presentationsSection.accent}</span>
+              </h2>
+            </div>
+            <a href="#wyslij" className="btn btn-p">
+              {A.presentationsSection.cta}
+            </a>
+          </div>
+          <div className="g3">
+            {A.presentations.map((p) => (
+              <div key={p.title} className="card arpk ri">
+                <span className="ico">
+                  <InstIcon name={p.icon} size={22} />
+                </span>
+                <b className="h3">{p.title}</b>
+                <p>{p.text}</p>
+                {p.tag && (
+                  <span className="tag" style={{ marginTop: 'auto', alignSelf: 'flex-start' }}>
+                    {p.tag}
+                  </span>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </InstSection>
+
+      <InstSection id="zasady" style={{ padding: '0 0 96px' }} {...fold('zasady')}>
+        <div className="wrap">
+          <SectionHead
+            eyebrow={A.rulesSection.eyebrow}
+            heading={A.rulesSection.heading}
+            accent={A.rulesSection.accent}
+          />
+          <div className="g3">
+            {A.rules.map((z) => (
+              <div key={z.title} className="card feat ri">
+                <span className="ico">
+                  <InstIcon name={z.icon} size={22} />
+                </span>
+                <b className="h3">{z.title}</b>
+                <p>{z.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </InstSection>
+
+      {/* „Twój opiekun”: only with a name in the panel (no boss's markers on the page, spec §10). */}
+      {contact && (
+        <InstSection id="opiekun" style={{ padding: '0 0 104px' }}>
+          <div className="wrap">
+            <div className="arop ri" data-surface="dark">
+              <div className="aropp">
+                {contact.photo ? (
+                  <MediaImage image={contact.photo} sizes="160px" className="aropi" />
+                ) : (
+                  <div className="aropa" aria-hidden="true">
+                    <svg viewBox="0 0 120 120">
+                      <circle cx="60" cy="46" r="22" />
+                      <path d="M18 116c4-26 22-38 42-38s38 12 42 38" />
+                    </svg>
+                  </div>
+                )}
+              </div>
+              <div className="aropt">
+                <span className="eye" style={{ color: 'var(--inst-dark-accent)' }}>
+                  {A.contactSection.eyebrow}
+                </span>
+                <h2 className="h2" style={{ fontSize: 'clamp(28px, 2.8vw, 40px)' }}>
+                  {contact.name}
+                </h2>
+                <span className="aropr">{contact.role || A.contactSection.role}</span>
+                <p className="aropq">{contact.quote || A.contactSection.quote}</p>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
+                  {phone && (
+                    <a href={phone.href} className="btn hbtn-p">
+                      <InstIcon name="phone" />
+                      <span>{phone.label}</span>
+                    </a>
+                  )}
+                  {mail && (
+                    <a href={'mailto:' + mail} className="btn hbtn-g">
+                      <InstIcon name="mail" />
+                      {mail}
+                    </a>
+                  )}
+                </div>
+                <span className="aropn">{contact.responseText || A.contactSection.response}</span>
+              </div>
+            </div>
+          </div>
+        </InstSection>
+      )}
+
+      <Faq
+        heading={A.faqSection.heading}
+        eyebrow={A.faqSection.eyebrow}
+        items={A.faq}
+        aside={{
+          title: A.faqSection.aside.title,
+          text: A.faqSection.aside.text,
+          button: A.faqSection.aside.cta,
+          href: A.faqSection.aside.href,
+        }}
+        phone={phone}
+        fold
+      />
+
+      <InstSection id="wyslij" className="bnd bnd-plan" style={{ padding: '104px 0 104px' }}>
+        <div className="wrap">
+          <div className="arfm ri">
+            <div className="arfml">
+              <span className="eye">{A.formSection.eyebrow}</span>
+              <h2 className="h2">
+                {A.formSection.heading} <span className="acc">{A.formSection.accent}</span>
+              </h2>
+              <p className="lead">{A.formSection.lead}</p>
+              <div className="arsteps">
+                {A.formSection.steps.map((s, i) => (
+                  <div key={s}>
+                    <em>{i + 1}</em>
+                    <span>{s}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="card arfmr">
+              <ArchitectForm formToken={formToken} phone={phone} email={mail} />
+            </div>
+          </div>
         </div>
       </InstSection>
     </div>

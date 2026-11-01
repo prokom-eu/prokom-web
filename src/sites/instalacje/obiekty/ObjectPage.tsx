@@ -37,6 +37,7 @@ import {
 import { OBJECT_SCENE_ART } from './sceny'
 import { PrepChecklist } from './PrepChecklist'
 import type { DayMoment, ObjectHotspot, ServiceChip } from './types'
+import { architekci } from '../dane/architekci'
 
 import './obiekty.css'
 
@@ -51,6 +52,7 @@ const RIDGE =
 
 const serviceLabel = (key: ServiceKey) => SERVICE_KEYS.find((s) => s.value === key)?.label ?? key
 
+const ARCH_OBJECTS = new Set(['dev', 'bud'])
 /**
  * Page of one object „Dla kogo” (`/dla-kogo/<slug>`, KOMPONENTY §5, `build_seg.py`): hero with
  * the cross-section, problems with what we do, day / year timeline, law (no sources, the legal
@@ -324,6 +326,8 @@ export async function ObjectPage({ tenantId, object, sceneKey, origin }: Props) 
         services={object.relatedServices}
         objects={similar}
         objectsHeading={objectPage.similarHeading}
+        // Developers and building sites lead to the page for architects (spec §7).
+        extraLink={ARCH_OBJECTS.has(object.key) ? architekci.related : undefined}
       />
       <CtaBandView band={band} phone={phone} salons={salons} titleId="cta-object-title" page />
     </div>

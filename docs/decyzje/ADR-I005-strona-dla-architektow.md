@@ -71,3 +71,9 @@ Sprawdzone na repo po I0–I2; pakiet dopasowany do stanu kodu:
 3. **Strona w seedzie:** `seed:instalacje` (I2) tworzy puste wersje robocze stron z listy `PAGE_FILES` w `src/seed/instalacje/map.ts`. `dla-architektow` dopisuje tam I16a (prompt I16a pkt 1) — W-A nie zmienia kodu.
 4. **Zrzuty seeda:** `strony-zrzut/Architekci.json` i nowe klucze `Main.json` (`arhm`, `arsc`) zapisane bez kluczy wspólnych (`K`, `SV`, `nav`, `mmore`…), tak jak pozostałe zrzuty — te są w `wspolne.json`. Import I2 czyta z `Main.json` tylko `dane.u` i `dane.rl`, więc nowe klucze go nie zmieniają.
 5. **Formularze:** bez zmian względem §3 — zgodne z „Poprawkami I0” (kategorie w `category`, bez nowych kolumn, bez uploadu w v1); reguły linii powstają w I11, dlatego formularze strony są w I16c.
+
+## Doprecyzowanie I16c (01.11.2026, decyzje Krystiana)
+1. **Formularze bez `wizard`:** schemat zapytań przyjmuje `wizard` tylko dla `type: 'wizard'`, a na Instalacjach to kreator I11. Wszystkie trzy formularze strony to `type: 'contact'` z kategorią z §3. „Wyślij rzuty”: pracownia → `company`, miejscowość → `city`, a rola, etap, obiekt i link do rzutów idą w treść (`message`, wiersze „Kim jestem: …”). Checklista PDF: obiekt i instalacje w treści. Nowości: `marketingConsent`.
+2. **Telefon:** „Wyślij rzuty” wymaga telefonu (reguła linii). Checklista PDF i nowości: imię + e-mail, bez telefonu (wyjątek w `lib/inquiry/schema.ts` tylko dla `type: 'contact'` i tych kategorii). Imię jest wymagane, bo `Inquiries.name` ma NOT NULL.
+3. **Opiekun:** seed nie wpisuje placeholderów. Bez imienia w panelu sekcja `#opiekun` jest ukryta, a loader odrzuca znaczniki `[SZEF…]`.
+4. **Rola w formularzu:** rola wybrana w `#dla-ciebie` ustawia „Kim jesteś”, dopóki odwiedzający nie wybierze jej sam (spec §4 p. 14).

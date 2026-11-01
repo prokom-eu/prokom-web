@@ -496,7 +496,7 @@ export const glownaSekcje = {
     ['start', 'Start', 'home'],
     ['dla-kogo', 'Dla kogo', 'users'],
     ['uslugi', 'Usługi', 'net'],
-    // „Architekci” (`ruler`) comes with its section in I16c (ADR-I005 §5).
+    ['architekci', 'Architekci', 'ruler'],
     ['realizacje', 'Realizacje', 'eye'],
     ['gory', 'Góry i zima', 'snow'],
     ['proces', 'Jak pracujemy', 'check'],

@@ -26,12 +26,15 @@ export function serviceJsonLd({
   name,
   description,
   serviceType,
+  audience,
 }: {
   origin: string
   path: string
   name: string
   description: string | null | undefined
   serviceType: string
+  /** Who the service is for (`BusinessAudience`, e.g. the page for architects, spec §7). */
+  audience?: readonly string[]
 }) {
   const url = `${origin}${path}`
   return {
@@ -41,6 +44,9 @@ export function serviceJsonLd({
     serviceType,
     ...(description && { description }),
     url,
+    ...(audience?.length && {
+      audience: { '@type': 'BusinessAudience', audienceType: audience.join(', ') },
+    }),
     provider: { '@id': `${origin}/#organization` },
     areaServed: AREA_SERVED.map((town) => ({ '@type': 'City', name: town })),
     offers: { '@type': 'Offer', url, availability: 'https://schema.org/InStock' },
