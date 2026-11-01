@@ -215,7 +215,15 @@ export async function SwContactPageBlock({ block, tenantId, isFirst }: Props) {
                           {channel.label}
                         </span>
                       ) : null}
-                      <b className="break-words font-display text-lg leading-tight min-[641px]:text-xl">
+                      <b
+                        className={cx(
+                          'break-words font-display leading-tight',
+                          // A long address fits one line, like the board (v23).
+                          channel.kind === 'email'
+                            ? 'text-base min-[641px]:text-[17px]'
+                            : 'text-lg min-[641px]:text-xl',
+                        )}
+                      >
                         {channel.value}
                       </b>
                       {channel.text ? (
