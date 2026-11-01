@@ -13,6 +13,7 @@ import type { InstHomeBlock as InstHomeBlockData } from '@/payload-types'
 import { glownaSekcje } from '../../dane/glownaSekcje'
 import type { ObjectKey, ServiceKey } from '../../dane/types'
 import { InstIcon } from '../../InstIcon'
+import { ArchTeaser } from '../../sekcje/arch/ArchTeaser'
 import { Faq } from '../../sekcje/Faq'
 import { ForWhoGrid } from '../../sekcje/glowna/ForWhoGrid'
 import {
@@ -36,13 +37,6 @@ type Props = { block: InstHomeBlockData; tenantId: number }
 export const HOME_PLAN_HREF = '/zaplanuj#obiekt=pens&uslugi=kam,wifi'
 
 const SITE_NAME = 'PRO-KOM Instalacje'
-
-/**
- * „Architekci” after „Usługi” comes with I16c (`ArchTeaser`, ADR-I005 §5); until then nothing.
- */
-function ArchTeaserSlot() {
-  return null
-}
 
 /**
  * Home page of the Instalacje line (ADR-I002 §0, KOMPONENTY §3): the hero „Twój obiekt na
@@ -140,7 +134,7 @@ export async function InstHomeBlock({ block, tenantId }: Props) {
         brands={home.brands}
         noPriceText={settings.noPriceText}
       />
-      <ArchTeaserSlot />
+      <ArchTeaser tenantId={tenantId} />
       <RealizationsTeaser items={home.realizations} />
       <MountainsSection />
       <ProcessSteps />

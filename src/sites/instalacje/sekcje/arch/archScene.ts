@@ -123,3 +123,14 @@ export function hotspotsHtml(hues: Partial<Record<ServiceKey, string>>, s: ArchS
 
 const escapeAttr = (text: string) =>
   text.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+
+/**
+ * Home teaser (`Main.js`: a tick every 1.3 s, `arTk = tick / 3`): views „Gotowy dom” →
+ * „Przed tynkami” → „Wszystkie instalacje” every 3.9 s, the next hotspot every three views,
+ * until the first touch (ADR-I005 §5).
+ */
+export const TEASER_MS = 3900
+export const teaserFrame = (k: number): Pick<ArchSceneState, 'view' | 'hs'> => ({
+  view: (['kl', 'ty', 'in'] as const)[k % 3] ?? 'kl',
+  hs: Math.floor(k / 3) % HOTSPOTS.length,
+})

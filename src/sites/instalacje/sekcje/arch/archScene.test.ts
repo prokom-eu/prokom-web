@@ -24,6 +24,8 @@ import {
   sceneClass,
   showAllLayers,
   stepHotspot,
+  TEASER_MS,
+  teaserFrame,
   toggleLayer,
   visibleHotspots,
 } from './archScene'
@@ -237,5 +239,21 @@ describe('ArchHouseScene — logic', () => {
     expect(html).toContain('class="arhs L-kam on"')
     expect(safeHue('var(--x)')).toBe('var(--accent)')
     expect(ARCH_SCENE.html).toContain('<g class="arhsg">%hotspots%</g>')
+  })
+})
+
+describe('ArchHouseScene — home teaser (Main.js)', () => {
+  it('cycles the views every step and the hotspot every three views', () => {
+    expect([0, 1, 2, 3, 4, 5, 6].map((k) => teaserFrame(k))).toEqual([
+      { view: 'kl', hs: 0 },
+      { view: 'ty', hs: 0 },
+      { view: 'in', hs: 0 },
+      { view: 'kl', hs: 1 },
+      { view: 'ty', hs: 1 },
+      { view: 'in', hs: 1 },
+      { view: 'kl', hs: 2 },
+    ])
+    expect(teaserFrame(3 * 17).hs).toBe(0)
+    expect(TEASER_MS).toBe(3 * 1300)
   })
 })
