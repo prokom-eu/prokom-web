@@ -8,6 +8,7 @@ import { HomeAwareLink } from '@/components/HomeAwareLink'
 import { useThemeColor } from '@/components/useThemeColor'
 
 import { Icon } from '@/components/ui/Icon'
+import { track } from '@/lib/analytics/track'
 import type { MenuTile } from '@/lib/software/mobileNav'
 import type { SoftwareNavigation } from '@/lib/software/navigation'
 
@@ -54,7 +55,10 @@ export function PhoneLayer({ navigation, tiles, homeHrefs, phone, footerLine }: 
       <TabBar
         items={navigation.tabBar.items}
         homeHrefs={homeHrefs}
-        onMenu={() => setMenuOpen(true)}
+        onMenu={() => {
+          track('menu_otworz')
+          setMenuOpen(true)
+        }}
         menuOpen={menuOpen}
       />
       <BottomSheet

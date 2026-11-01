@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation'
 import { Container } from '@/components/ui/Container'
 import { getEnv } from '@/lib/env'
 import { robotsMeta } from '@/lib/seo/robots'
+import { SOFTWARE_ROUTE_DESCRIPTIONS } from '@/lib/software/meta'
 import { WIZARD_PATH } from '@/lib/software/wizardFlow'
 import { Wizard } from '@/sites/software/components/wizard/Wizard'
 import { loadWizardProps } from '@/sites/software/components/wizard/wizardProps'
@@ -17,9 +18,7 @@ type Props = {
 }
 
 const TITLE = 'Dobierz rozwiązanie w 60 sekund'
-// TODO(krystian): opis meta /dobierz (spec. §9 — `TODO`, SW12); dziś lead kreatora z planszy.
-const DESCRIPTION =
-  'Kliknij kilka razy i zobacz, co dla Ciebie zbudujemy: rozwiązanie, cena wybranej wersji, termin i podgląd. Wycena na piśmie, gdy zechcesz.'
+const DESCRIPTION = SOFTWARE_ROUTE_DESCRIPTIONS.wizard
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const tenant = await requireLine(params, 'software')

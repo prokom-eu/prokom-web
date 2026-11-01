@@ -50,6 +50,8 @@ const SITES: {
     dark: true,
     extra: [
       '/dobierz',
+      '/audyt',
+      '/cennik',
       '/dziekujemy?nr=PKS-2026-0145',
       '/nie-ma-takiej-strony',
       '/polityka-prywatnosci',

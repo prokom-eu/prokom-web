@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 
+import { AnalyticsScript } from '@/components/AnalyticsScript'
 import { log } from '@/lib/log'
 import { toTelHref } from '@/lib/site/link'
 import type { PublicCompanyData, PublicSiteSettings } from '@/lib/site/public'
@@ -76,6 +77,7 @@ export async function SoftwareFrame({
         phone={settings.phone ? { label: settings.phone, href: toTelHref(settings.phone) } : null}
         footerLine={location ? `PRO-KOM · ${location.street}, ${location.city} · od 2004 r.` : null}
       />
+      <AnalyticsScript line={tenant.line} />
     </>
   )
 }

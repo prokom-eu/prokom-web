@@ -47,7 +47,7 @@ Formularze → `POST /api/inquiry` → `submitInquiry()` (Zod, honeypot, czas, l
 - VPS webh.pl 4 vCPU / 16 GB / 100 GB NVMe, Ubuntu 24.04 (ADR-019): Docker Compose — `app`, `postgres`, `nginx` (+ certbot), kopie; staging i produkcja jako osobne stosy z osobnymi bazami.
 - Obrazy budowane w GitHub Actions → GHCR (prywatnie).
 - Kopie: `pg_dump` co noc + media → poza serwer; próbne odtworzenie raz w miesiącu.
-- Monitoring: Sentry (błędy), zewnętrzny monitoring dostępności; analityka Umami (bez cookies) — po uruchomieniu serwera.
+- Monitoring: Sentry (błędy), zewnętrzny monitoring dostępności; analityka Umami (bez cookies, ADR-020): skrypt i zdarzenia przez tę samą domenę (`/_s/*` → kontener w `proxy.ts`), zmienne `UMAMI_URL` i `UMAMI_WEBSITES`; kontener — S10b/S10c.
 
 ## Czego świadomie NIE robimy (na teraz)
 Sklepu B2B (faza 2), mikroserwisów, Kubernetes, płatnych CMS-ów w chmurze, osobnych repozytoriów na każdą stronę, osobnej aplikacji panelu.

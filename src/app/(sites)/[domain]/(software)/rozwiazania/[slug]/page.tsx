@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 
 import { getEnv } from '@/lib/env'
 import { ogImages } from '@/lib/pages/metadata'
+import { metaDescription } from '@/lib/seo/description'
 import { breadcrumbJsonLd, serializeJsonLd, serviceJsonLd } from '@/lib/seo/jsonLd'
 import { robotsMeta } from '@/lib/seo/robots'
 import { getSiteSettings } from '@/lib/site/data'
@@ -27,7 +28,9 @@ import { requestOrigin, requireLine } from '../../../tenant'
 type Props = { params: Promise<{ domain: string; slug: string }> }
 
 const description = (lead: string | null, name: string) =>
-  lead ?? `${name} — cena „od” i termin na piśmie, podgląd na żywo, PRO-KOM Software.`
+  metaDescription(
+    lead ?? `${name} — cena „od” i termin na piśmie, podgląd na żywo, PRO-KOM Software.`,
+  )
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const tenant = await requireLine(params, 'software')

@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation'
 import { Container } from '@/components/ui/Container'
 import { getEnv } from '@/lib/env'
 import { ogImages } from '@/lib/pages/metadata'
+import { metaDescription } from '@/lib/seo/description'
 import { breadcrumbJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
 import { robotsMeta } from '@/lib/seo/robots'
 import { getSiteSettings } from '@/lib/site/data'
@@ -45,7 +46,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!page) return {}
   const url = `${origin}${industryPageHref(page.slug)}`
   const title = `${page.name}: oprogramowanie dla branży`
-  const description = page.lead ?? titleOf(page)
+  const description = metaDescription(page.lead ?? titleOf(page))
   return {
     title,
     description,

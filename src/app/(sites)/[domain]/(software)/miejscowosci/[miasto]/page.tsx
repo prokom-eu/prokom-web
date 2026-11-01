@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 
 import { Container } from '@/components/ui/Container'
 import { getEnv } from '@/lib/env'
+import { metaDescription } from '@/lib/seo/description'
 import { breadcrumbJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
 import { robotsMeta } from '@/lib/seo/robots'
 import { cardPrice } from '@/lib/software/cardPrice'
@@ -34,7 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { tenant, city } = await load(params)
   if (!city) return {}
   const title = city.seo.title ?? `Strony i systemy dla firm ${city.name}`
-  const description = city.seo.description ?? city.hero.lead
+  const description = metaDescription(city.seo.description ?? city.hero.lead)
   return {
     // The panel title is the whole `<title>` (spec. §9: „… | PRO-KOM Software”).
     title: city.seo.title ? { absolute: title } : title,

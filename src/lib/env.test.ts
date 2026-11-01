@@ -19,6 +19,7 @@ const defaults = {
   SMTP_SECURE: false,
   MAIL_FROM_NAME: 'PRO-KOM',
   INQUIRY_RETENTION_MONTHS: 24,
+  UMAMI_WEBSITES: {},
 }
 
 describe('parseEnv', () => {
@@ -109,5 +110,42 @@ describe('parseEnv', () => {
     expect(() => parseEnv({ ...valid, PANEL_HOST: 'https://panel.pro-kom.eu/' })).toThrow(
       /PANEL_HOST/,
     )
+  })
+  describe('Umami (ADR-020)', () => {
+    const SITE_ID = '7f3c2a1e-0b4d-4c6e-9a8f-1d2e3f4a5b6c'
+
+    it('is off by default: no address and no websites', () => {
+      const env = parseEnv(valid)
+      expect(env.UMAMI_URL).toBeUndefined()
+      expect(env.UMAMI_WEBSITES).toEqual({})
+    })
+
+    it('reads the address without a trailing slash', () => {
+      expect(parseEnv({ ...valid, UMAMI_URL: 'http://umami:3000/' }).UMAMI_URL).toBe(
+        'http://umami:3000',
+      )
+    })
+
+    it('rejects an address that is not http(s) or has a path', () => {
+      expect(() => parseEnv({ ...valid, UMAMI_URL: 'ftp://umami' })).toThrow(/UMAMI_URL/)
+      expect(() => parseEnv({ ...valid, UMAMI_URL: 'http://umami:3000/stats' })).toThrow(
+        /UMAMI_URL/,
+      )
+    })
+
+    it('maps lines to website ids', () => {
+      const env = parseEnv({ ...valid, UMAMI_WEBSITES: ` software=${SITE_ID} ` })
+      expect(env.UMAMI_WEBSITES).toEqual({ software: SITE_ID })
+    })
+
+    it('rejects an unknown line, a bad id or a repeated line', () => {
+      expect(() => parseEnv({ ...valid, UMAMI_WEBSITES: `sklep=${SITE_ID}` })).toThrow(
+        /UMAMI_WEBSITES/,
+      )
+      expect(() => parseEnv({ ...valid, UMAMI_WEBSITES: 'software=abc' })).toThrow(/UMAMI_WEBSITES/)
+      expect(() =>
+        parseEnv({ ...valid, UMAMI_WEBSITES: `software=${SITE_ID},software=${SITE_ID}` }),
+      ).toThrow(/UMAMI_WEBSITES/)
+    })
   })
 })

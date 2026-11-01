@@ -4,6 +4,7 @@ import { type ReactNode, useEffect, useId, useRef, useState } from 'react'
 
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
+import { track } from '@/lib/analytics/track'
 import { keepTogether } from '@/lib/software/price'
 import type { SoftwareWizard } from '@/lib/software/wizard'
 import {
@@ -176,6 +177,10 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
   const rootRef = useRef<HTMLDivElement>(null)
   const titleRef = useRef<HTMLHeadingElement>(null)
   const moved = useRef(false)
+  // Analytics (ADR-020): `kreator_start` once, the last counted step and result.
+  const started = useRef(false)
+  const trackedStep = useRef<WizardStep | null>(null)
+  const trackedResult = useRef<string | null>(null)
 
   // After a step change the new heading takes the focus (and the view); not on the first render.
   useEffect(() => {
@@ -221,6 +226,7 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
       ...patch,
     }))
     moved.current = true
+    trackedResult.current = null
     setStep(next)
     setMaxStep(1)
   }
@@ -247,6 +253,7 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
     setAnswers((current) => ({ ...EMPTY_ANSWERS, contactPref: current.contactPref }))
     setWordsOpen(false)
     moved.current = true
+    trackedResult.current = null
     setStep('need')
     setMaxStep(0)
   }
@@ -260,6 +267,25 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
   // One level under the wizard's title: h2 on /dobierz, h3 as a section of the start page.
   const StepHeading = headingLevel === 'h1' ? 'h2' : 'h3'
   const view = resultView(rules, answers, solutions)
+  const resultId = view.resultId
+
+  // Analytics (ADR-020): only steps the visitor took — not the step a link opened (`?firma=`).
+  // A step once per visit (not again when its number shifts), a result once per path — going
+  // back and forth does not repeat it; a new path (`startPath`, `restart`) counts again.
+  useEffect(() => {
+    if (!moved.current || trackedStep.current === step) return
+    trackedStep.current = step
+    if (!started.current) {
+      started.current = true
+      track('kreator_start')
+    }
+    track('kreator_krok', { krok: stepIndex + 1 })
+  }, [step, stepIndex])
+  useEffect(() => {
+    if (!moved.current || !isResult || trackedResult.current === resultId) return
+    trackedResult.current = resultId
+    track('kreator_wynik', { wynik: resultId })
+  }, [isResult, resultId])
   const preview = previewOf(rules, answers)
   const haveSet = need?.have ? rules.haves[need.have] : undefined
   const rows = [...new Set(Object.values(rules.needs).map((each) => each.row))].sort()
@@ -552,7 +578,10 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
                         <input
                           type="checkbox"
                           checked={each.on}
-                          onChange={() => update({ more: toggle(answers.more, each.id) })}
+                          onChange={() => {
+                            if (!each.on) track('kreator_dodatek', { id: each.id })
+                            update({ more: toggle(answers.more, each.id) })
+                          }}
                           className="size-[22px] shrink-0 accent-accent-text"
                         />
                         <span className="flex-1">{each.name}</span>
@@ -841,7 +870,10 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
                         key={addOn.id}
                         type="button"
                         aria-pressed={addOn.on}
-                        onClick={() => update({ addOns: toggle(answers.addOns, addOn.id) })}
+                        onClick={() => {
+                          if (!addOn.on) track('kreator_dodatek', { id: addOn.id })
+                          update({ addOns: toggle(answers.addOns, addOn.id) })
+                        }}
                         className={cx(
                           'flex items-start gap-3 rounded-2xl border-[1.5px] p-3.5 text-left active:scale-[0.99]',
                           addOn.on
