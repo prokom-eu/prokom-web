@@ -858,7 +858,8 @@
   @media (max-width: 760px) {
     & .xc-ttnums {
       display: grid;
-      grid-template-columns: repeat(9, minmax(0, 1fr));
+      /* Two rows (5 + 4): nine in one row are 32 px wide at 360 px, below the 44 px target. */
+      grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 4px;
       margin: 10px 0 2px;
     }

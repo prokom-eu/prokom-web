@@ -230,6 +230,13 @@
     cursor: pointer;
     font-family: inherit;
   }
+  /* Touch target on a phone (MOBILE-APLIKACJA §10; prototype 40 px). */
+  @media (pointer: coarse), (max-width: 760px) {
+    & .stepper button {
+      width: 44px;
+      height: 44px;
+    }
+  }
   & .stepper b {
     min-width: 64px;
     text-align: center;
@@ -526,6 +533,12 @@
     font-size: 13.5px;
     cursor: pointer;
     font-family: inherit;
+  }
+  /* Touch target on a phone (MOBILE-APLIKACJA §10; prototype 40 px). */
+  @media (pointer: coarse), (max-width: 760px) {
+    & .seg button {
+      min-height: 44px;
+    }
   }
   & .seg button.on {
     background: var(--card);

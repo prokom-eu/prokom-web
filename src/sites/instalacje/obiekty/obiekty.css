@@ -1231,6 +1231,12 @@
       cursor: pointer;
       scroll-snap-align: start;
     }
+    /* Touch target on a phone (MOBILE-APLIKACJA §10; prototype 40 px). */
+    @media (pointer: coarse), (max-width: 760px) {
+      & .sglgb {
+        min-height: 44px;
+      }
+    }
     & .sglgb span {
       overflow: hidden;
       text-overflow: ellipsis;

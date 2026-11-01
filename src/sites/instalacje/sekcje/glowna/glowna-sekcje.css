@@ -2018,6 +2018,12 @@
     cursor: pointer;
     transition: all 0.2s;
   }
+  /* Touch target on a phone (MOBILE-APLIKACJA §10; prototype 40 px). */
+  @media (pointer: coarse), (max-width: 760px) {
+    & .hzko {
+      min-height: 44px;
+    }
+  }
   & .hzko svg {
     color: var(--inst-plan-accent);
   }
