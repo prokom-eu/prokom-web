@@ -13,7 +13,8 @@ type Props = { block: SwStepsBlockData; tenantId: number }
 /**
  * A list section of a Software subpage (boards `ONas`, `Wszystko`): big numbers in 4 cards
  * (2 on the phone), cards with an icon in 3 columns, or a timeline beside its heading from
- * 1081 px. Nothing without items left after filling the facts.
+ * 1081 px. Nothing without items left after filling the facts. Big numbers without an eyebrow are
+ * the band right under the hero (SWV6, `/o-firmie`): tight top, the heading for screen readers.
  */
 export async function SwStepsBlock({ block, tenantId }: Props) {
   const context = await softwareTextContext(tenantId)
@@ -62,13 +63,14 @@ export async function SwStepsBlock({ block, tenantId }: Props) {
   }
 
   const stats = block.variant === 'stats'
+  const band = stats && !block.eyebrow
   return (
-    <section className="py-12 min-[641px]:py-20">
+    <section className={band ? 'pb-6 min-[641px]:pb-10' : 'py-12 min-[641px]:py-20'}>
       <Container wide>
-        {head}
+        {band ? <h2 className="sr-only">{block.heading}</h2> : head}
         <ul
           className={cx(
-            'mt-6 grid gap-2.5 min-[641px]:gap-3',
+            band ? 'grid gap-2.5 min-[641px]:gap-3' : 'mt-6 grid gap-2.5 min-[641px]:gap-3',
             stats ? 'grid-cols-2 min-[1081px]:grid-cols-4' : 'min-[761px]:grid-cols-3',
           )}
         >

@@ -14,20 +14,10 @@ type Count = (name: string, result: boolean | 'updated') => void
 export const SOFTWARE_MEDIA_DIR = path.join('seed', 'prokomsoftware', 'media')
 
 /**
- * Each photo with the captions it belongs to: a photo field whose caption matches gets it.
- * Portraits only with written consent (STAN „przed produkcją”); the seed runs locally only.
+ * Each photo with the captions it belongs to: a photo field whose caption matches gets it. Only
+ * the entrance since SWV6 (audyt 01.11: no portraits on the site).
  */
 export const SOFTWARE_PHOTOS = [
-  {
-    file: 'krystian.jpg',
-    alt: 'Krystian Potaczek, prowadzi PRO-KOM Software',
-    match: /Krystian Potaczek/,
-  },
-  {
-    file: 'tadeusz.jpg',
-    alt: 'Tadeusz Wójciak, właściciel PRO-KOM',
-    match: /Tadeusz Wójciak/,
-  },
   {
     file: 'wejscie.jpg',
     alt: 'Wejście do PRO-KOM przy ul. Orkana 16B w Rabce-Zdroju',

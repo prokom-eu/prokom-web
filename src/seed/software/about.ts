@@ -20,32 +20,72 @@ const ABOUT_HERO: Of<'swPageHero'> = {
   eyebrow: 'O firmie',
   title: 'Firma z Rabki.',
   titleAccent: 'Od 2004 roku.',
-  lead: 'PRO-KOM to sklep i serwis w Rabce-Zdroju, sprzęt i programy dla firm. Software to nasza linia od stron, systemów i aplikacji. Za każdym projektem stoi firma z historią, umową i fakturą VAT.',
+  lead: 'PRO-KOM to firma z Rabki-Zdroju: kasy i programy dla firm, instalacje, serwis sprzętu, a od tej strony także strony, systemy i aplikacje. Za każdym projektem stoi ta sama firma, umowa i faktura VAT.',
   primary: { label: 'Umów rozmowę', href: '/kontakt' },
   secondary: { label: 'Co jeszcze robi PRO-KOM', href: '/jedna-firma' },
-  visual: 'photos',
-  // Two portraits (board `ONas` v23); the photos: `seedSoftwarePhotos` (consent before production).
-  photos: [
-    { photoCaption: 'Krystian Potaczek, prowadzi Software' },
-    { photoCaption: 'Tadeusz Wójciak, właściciel PRO-KOM' },
-  ],
-  badge: {
-    status: 'działa na co dzień',
-    title: 'prokomserwis.pl',
-    text: 'nasz własny system serwisu',
-  },
+  // SWV6 (audyt 01.11): no portraits on the page — the only photo is the entrance, by the address.
+  visual: 'none',
 }
 
 const ABOUT_NUMBERS: Of<'swSteps'> = {
   blockType: 'swSteps',
   variant: 'stats',
-  eyebrow: 'W liczbach',
+  // No eyebrow: the numbers sit right under the hero as its band (SWV6); the heading stays for
+  // screen readers.
   heading: 'PRO-KOM w liczbach.',
   items: [
-    { marker: '2004', text: 'rok, od którego PRO-KOM działa na Podhalu' },
+    { marker: '2004', text: 'od tego roku działamy na Podhalu' },
     { marker: '100+', text: 'klientów biznesowych na Podhalu i w Małopolsce' },
-    { marker: '4', text: 'linie w jednej firmie: Software, Biznes, Instalacje i Tech (serwis)' },
-    { marker: '1', text: 'miejsce: biuro i salon przy ul. Orkana 16B w Rabce-Zdroju' },
+    { marker: '4', text: 'linie: Software, Biznes, Instalacje i Serwis' },
+    { marker: '1', text: 'miejsce: ul. Orkana 16B w Rabce-Zdroju' },
+  ],
+}
+
+// SWV6: the four lines of the firm, one sentence each and a link to their site (no Gaming until it
+// starts). One point = a plain description on the card (`swLines`).
+const ABOUT_LINES: Of<'swLines'> = {
+  blockType: 'swLines',
+  variant: 'lines',
+  eyebrow: 'Jedna firma',
+  heading: 'Jedna firma, cztery linie.',
+  lead: 'Każda linia robi swoje, a za wszystkimi stoi ta sama firma z Rabki i ci sami ludzie.',
+  lines: [
+    {
+      name: 'PRO-KOM Biznes',
+      icon: 'store',
+      address: 'prokombiznes.pl',
+      href: 'https://prokombiznes.pl',
+      points: [
+        { text: 'Kasy fiskalne, GoPOS, programy do sprzedaży i magazynu oraz opieka IT dla firm.' },
+      ],
+    },
+    {
+      name: 'PRO-KOM Instalacje',
+      icon: 'monitor',
+      address: 'prokominstalacje.pl',
+      href: 'https://prokominstalacje.pl',
+      points: [{ text: 'Monitoring, sieci, smart home i nagłośnienie: projekt, montaż i serwis.' }],
+    },
+    {
+      name: 'PRO-KOM Serwis',
+      icon: 'wrench',
+      address: 'prokomserwis.pl',
+      href: 'https://prokomserwis.pl',
+      points: [
+        {
+          text: 'Naprawy laptopów, komputerów i telefonów. Status w naszym własnym systemie.',
+        },
+      ],
+    },
+    {
+      name: 'PRO-KOM Software',
+      icon: 'site',
+      address: 'prokomsoftware.pl · ta strona',
+      current: true,
+      points: [
+        { text: 'Strony, systemy i aplikacje dla firm, z podglądem do klikania przed zakupem.' },
+      ],
+    },
   ],
 }
 
@@ -54,8 +94,8 @@ const ABOUT_COMPANY: Of<'swSteps'> = {
   blockType: 'swSteps',
   variant: 'cards',
   eyebrow: 'Co to znaczy dla Ciebie',
-  heading: 'Pracujesz z firmą, która działa od 2004 r.',
-  lead: 'Strona albo system to praca na lata. Liczy się, kto za nią odpowiada, kiedy coś się zmieni.',
+  heading: 'Jedna firma od strony, kas, sieci i serwisu.',
+  lead: 'Nie szukasz pięciu wykonawców. Stronę, kasę, sieć w biurze i naprawę laptopa załatwisz u nas, a cała historia współpracy jest w jednym miejscu.',
   items: [
     {
       icon: 'users',
@@ -81,18 +121,19 @@ const ABOUT_TEAM: Of<'swTeam'> = {
   eyebrow: 'Ludzie',
   heading: 'Kto z Tobą pracuje.',
   lead: 'Mała firma, więc rozmawiasz z ludźmi, którzy podejmują decyzje i budują projekt. Bez pośredników.',
+  // SWV6: no portraits — the cards show initials (KP, TW); the captions stay as the field asks.
   members: [
     {
       role: 'PRO-KOM Software',
       name: 'Krystian Potaczek',
       text: 'Prowadzi Software. Projektuje i buduje strony, systemy i aplikacje. Z nim ustalasz zakres, oglądasz podgląd i odbierasz kolejne etapy.',
-      photoCaption: 'Portret: Krystian Potaczek',
+      photoCaption: 'Krystian Potaczek',
     },
     {
       role: 'Właściciel',
       name: 'Tadeusz Wójciak',
       text: 'Właściciel PRO-KOM od 2004 r. Odpowiada za firmę i podpisuje umowy.',
-      photoCaption: 'Portret: Tadeusz Wójciak',
+      photoCaption: 'Tadeusz Wójciak',
     },
   ],
 }
@@ -108,7 +149,7 @@ const ABOUT_PLACES: Of<'swTeam'> = {
     {
       name: 'PRO-KOM Tadeusz Wójciak',
       details:
-        '[ADRES]\ntel. [TELEFON] · [TELEFON 2]\n[E-MAIL]\n[GODZINY] · sobota nieczynne\nNIP 7352511447',
+        '[ADRES]\ntel. [TELEFON] · [TELEFON 2]\n[E-MAIL]\n[GODZINY] · sobota i niedziela nieczynne\nNIP 7352511447',
       photoCaption: 'Tak wygląda wejście',
     },
   ],
@@ -121,11 +162,16 @@ const ABOUT_CTA: Of<'callToAction'> = {
   link: { label: 'Umów rozmowę', href: '/kontakt' },
 }
 
-/** `/o-firmie` (spec. §6.6): v23 — no timeline and no second salon, two people, one place. */
+/**
+ * `/o-firmie` (spec. §6.6; SWV6, audyt 01.11): hero with the numbers as its band, the four lines,
+ * what it means for you, the comparison, two people without portraits, one place with the
+ * entrance photo.
+ */
 export function softwareAboutLayout(): PageBlock[] {
   return structuredClone([
     ABOUT_HERO,
     ABOUT_NUMBERS,
+    ABOUT_LINES,
     ABOUT_COMPANY,
     { blockType: 'swHomeSection', section: 'compare' },
     ABOUT_TEAM,
@@ -148,11 +194,11 @@ const ONE_HERO: Of<'swPageHero'> = {
     { name: 'Software', icon: 'site', text: 'strony, systemy, aplikacje', current: true },
     { name: 'Biznes', icon: 'store', text: 'kasy, terminale, programy, opieka IT' },
     { name: 'Instalacje', icon: 'monitor', text: 'monitoring, sieci, smart home' },
-    { name: 'Tech', icon: 'wrench', text: 'serwis komputerów i telefonów' },
+    { name: 'Serwis', icon: 'wrench', text: 'serwis komputerów i telefonów' },
   ],
 }
 
-// Links only to sites that exist (spec. §6.7); „Tech” instead of „Serwis” (v21).
+// Links only to sites that exist (spec. §6.7); „Serwis”, not „Tech” (SWV6, audyt 01.11).
 const ONE_LINES: Of<'swLines'> = {
   blockType: 'swLines',
   variant: 'lines',
@@ -197,7 +243,7 @@ const ONE_LINES: Of<'swLines'> = {
       ],
     },
     {
-      name: 'PRO-KOM Tech',
+      name: 'PRO-KOM Serwis',
       icon: 'wrench',
       address: 'prokomserwis.pl · serwis',
       href: 'https://prokomserwis.pl',
@@ -235,7 +281,7 @@ const ONE_EXAMPLES: Of<'swLines'> = {
         },
         { line: 'Biznes', icon: 'store', text: 'Kasa fiskalna i terminal płatniczy w recepcji.' },
         {
-          line: 'Tech',
+          line: 'Serwis',
           icon: 'wrench',
           text: 'Naprawa laptopa i telefonu właściciela w salonie w Rabce.',
         },
@@ -253,7 +299,7 @@ const ONE_EXAMPLES: Of<'swLines'> = {
         },
         { line: 'Biznes', icon: 'store', text: 'Laptopy i telefony dla ekip, program do faktur.' },
         { line: 'Instalacje', icon: 'monitor', text: 'Monitoring magazynu i placu.' },
-        { line: 'Tech', icon: 'wrench', text: 'Szybka naprawa sprzętu, żeby ekipa nie stała.' },
+        { line: 'Serwis', icon: 'wrench', text: 'Szybka naprawa sprzętu, żeby ekipa nie stała.' },
       ],
     },
   ],
@@ -292,7 +338,8 @@ const ONE_PLACES: Of<'swTeam'> = {
   members: [
     {
       name: 'PRO-KOM, ul. Orkana 16B',
-      details: '34-700 Rabka-Zdrój\n[GODZINY] · sobota nieczynne\nSoftware: [TELEFON] · [E-MAIL]',
+      details:
+        '34-700 Rabka-Zdrój\n[GODZINY] · sobota i niedziela nieczynne\nSoftware: [TELEFON] · [E-MAIL]',
       photoCaption: 'Tak wygląda wejście',
     },
   ],

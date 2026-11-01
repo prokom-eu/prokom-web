@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import nawigacja from '../../../seed/prokomsoftware/nawigacja.json'
-import { isDeadIndustryHref, withoutIndustryLinks } from './industryLinks'
+import { isDeadIndustryHref, withoutIndustryLinks, withServiceLineName } from './industryLinks'
 
 // SWV6 A1: no menu or footer link may lead to a 404 industry page.
 
@@ -43,5 +43,14 @@ describe('withoutIndustryLinks', () => {
     const before = hrefs(nawigacja).filter((href) => !href.startsWith('/dla-branz'))
     const after = hrefs(navigation).filter((href) => !href.startsWith('/dla-branz'))
     expect(after).toEqual(before)
+  })
+})
+
+describe('withServiceLineName', () => {
+  it('names the service line card „Serwis” and keeps its colour key', () => {
+    const card = withServiceLineName(structuredClone(nawigacja)).footer.lines.find(
+      (line) => line.color === 'tech',
+    )
+    expect(card).toMatchObject({ name: 'Serwis', label: 'SERWIS', href: 'https://prokomserwis.pl' })
   })
 })

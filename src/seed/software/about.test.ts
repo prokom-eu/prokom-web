@@ -46,7 +46,7 @@ describe('Software /o-firmie and /jedna-firma seed', () => {
     expect(JSON.stringify([...about, ...oneCompany])).not.toMatch(/Zakopan/i)
   })
 
-  it('/jedna-firma: four lines with „Tech”, links only to sites that exist', () => {
+  it('/jedna-firma: four lines with „Serwis” (not „Tech”), links only to sites that exist', () => {
     const items = oneCompany.flatMap((block) =>
       block.blockType === 'swLines' && block.variant === 'lines' ? (block.lines ?? []) : [],
     )
@@ -54,12 +54,40 @@ describe('Software /o-firmie and /jedna-firma seed', () => {
       'PRO-KOM Software',
       'PRO-KOM Biznes',
       'PRO-KOM Instalacje',
-      'PRO-KOM Tech',
+      'PRO-KOM Serwis',
     ])
     expect(items.flatMap((line) => (line.href ? [line.href] : []))).toEqual([
       'https://prokombiznes.pl',
       'https://prokominstalacje.pl',
       'https://prokomserwis.pl',
     ])
+  })
+
+  it('/o-firmie (SWV6): numbers right under the hero, four lines, no portraits', () => {
+    expect(about.slice(0, 3).map((block) => block.blockType)).toEqual([
+      'swPageHero',
+      'swSteps',
+      'swLines',
+    ])
+    const hero = about[0]
+    expect(hero?.blockType === 'swPageHero' && hero.visual).toBe('none')
+    const numbers = about[1]
+    expect(
+      numbers?.blockType === 'swSteps' && numbers.variant === 'stats' && !numbers.eyebrow,
+    ).toBe(true)
+    const lines = about.flatMap((block) =>
+      block.blockType === 'swLines' && block.variant === 'lines' ? (block.lines ?? []) : [],
+    )
+    expect(lines.map((line) => line.name)).toEqual([
+      'PRO-KOM Biznes',
+      'PRO-KOM Instalacje',
+      'PRO-KOM Serwis',
+      'PRO-KOM Software',
+    ])
+    expect(lines.filter((line) => line.current).map((line) => line.name)).toEqual([
+      'PRO-KOM Software',
+    ])
+    const json = JSON.stringify([...about, ...oneCompany])
+    expect(json).not.toMatch(/Tech|Gaming|Portret/)
   })
 })

@@ -43,7 +43,7 @@ export const SwStepsBlock: Block = {
               'Liczba albo rok',
               30,
               false,
-              'Liczby i oś czasu: „2004”, „100+”, „[ROK SERWIS KAS]”.',
+              'Liczby i oś czasu: „2004”, „100+”, „[ROK SERWIS KAS]”. Duże liczby bez etykiety = pasek tuż pod hero.',
             ),
             iconField(),
           ],

@@ -4006,7 +4006,7 @@ export interface SwStepsBlock {
    */
   items: {
     /**
-     * Liczby i oś czasu: „2004”, „100+”, „[ROK SERWIS KAS]”.
+     * Liczby i oś czasu: „2004”, „100+”, „[ROK SERWIS KAS]”. Duże liczby bez etykiety = pasek tuż pod hero.
      */
     marker?: string | null;
     icon?:

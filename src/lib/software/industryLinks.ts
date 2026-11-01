@@ -39,3 +39,19 @@ function walk(value: unknown, active: ReadonlySet<string>): unknown {
   }
   return value
 }
+
+/**
+ * The footer card of the service line is „Serwis”, not „Tech” (SWV6, audyt 01.11 — a mistake of
+ * the board); the colour key `tech` stays (it names the line's colour tokens).
+ */
+export function withServiceLineName<T>(navigation: T): T {
+  if (!navigation || typeof navigation !== 'object') return navigation
+  const footer = (navigation as { footer?: { lines?: unknown } }).footer
+  if (!footer || !Array.isArray(footer.lines)) return navigation
+  const lines = footer.lines.map((card: unknown) =>
+    card && typeof card === 'object' && (card as { color?: unknown }).color === 'tech'
+      ? { ...card, name: 'Serwis', label: 'SERWIS' }
+      : card,
+  )
+  return { ...navigation, footer: { ...footer, lines } }
+}

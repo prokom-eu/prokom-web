@@ -4,7 +4,7 @@ import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres'
  * SWV6 A1 — data only, no schema change: the saved Software navigation (`site_settings.
  * software_navigation`) loses its links to the industries index `/dla-branz` (no page) and to
  * industry pages that are not active in that tenant (404): mega menu chips, „Dla branż” in the
- * phone menu and in the footer. Links are `[label, href, …]` tuples wherever they sit. The same
+ * phone menu and in the footer; the footer card of the service line becomes „Serwis” (not „Tech”). Links are `[label, href, …]` tuples wherever they sit. The same
  * rule as `src/lib/software/industryLinks.ts` (kept here as is, so the migration never changes).
  * `down` restores nothing: the removed links led to 404 pages; an industry switched on later gets
  * its link back in the panel.
@@ -34,6 +34,19 @@ function clean(value: unknown, active: Set<string>): unknown {
   return value
 }
 
+/** The footer card of the service line: „Serwis”, not „Tech” (colour key `tech` stays). */
+function serviceLine(navigation: unknown): unknown {
+  if (!navigation || typeof navigation !== 'object') return navigation
+  const footer = (navigation as { footer?: { lines?: unknown } }).footer
+  if (!footer || !Array.isArray(footer.lines)) return navigation
+  const lines = footer.lines.map((card: unknown) =>
+    card && typeof card === 'object' && (card as { color?: unknown }).color === 'tech'
+      ? { ...card, name: 'Serwis', label: 'SERWIS' }
+      : card,
+  )
+  return { ...navigation, footer: { ...footer, lines } }
+}
+
 type Row = { id: number; tenant_id: number | null; software_navigation: unknown }
 
 export async function up({ db }: MigrateUpArgs): Promise<void> {
@@ -45,7 +58,7 @@ export async function up({ db }: MigrateUpArgs): Promise<void> {
       SELECT "slug" FROM "industries" WHERE "tenant_id" = ${row.tenant_id} AND "active" = true`)
     const active = new Set((industries as { slug: string }[]).map((item) => item.slug))
     const before = row.software_navigation
-    const after = clean(before, active)
+    const after = serviceLine(clean(before, active))
     if (JSON.stringify(after) === JSON.stringify(before)) continue
     await db.execute(sql`
       UPDATE "site_settings" SET "software_navigation" = ${JSON.stringify(after)}::jsonb

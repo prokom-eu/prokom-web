@@ -17,7 +17,7 @@ import type { City, Industry, Post, Solution, SolutionArea } from '../../payload
 import { h2, p, richText, ul } from '../biznes/lexical'
 import { SOFTWARE_NOT_FOUND, SOFTWARE_THANKS } from './pages'
 import { HOME_SECTION_TEXTS, REBUILD_BUTTON } from './homeExtras'
-import { withoutIndustryLinks } from '../../lib/software/industryLinks'
+import { withoutIndustryLinks, withServiceLineName } from '../../lib/software/industryLinks'
 import { INDUSTRY_PAGE_TEXTS } from './industryPages'
 import {
   FIELD_CREW_DELIVERABLES,
@@ -476,8 +476,11 @@ export function softwareSettingsData() {
     button[0] === REBUILD_BUTTON.package ? [REBUILD_BUTTON.token, ...button.slice(1)] : button,
   )
   return {
-    // Only links to industry pages that exist: the index and inactive industries 404 (SWV6 A1).
-    navigation: withoutIndustryLinks(structuredClone(nawigacja), activeIndustrySlugs()),
+    // Only links to industry pages that exist (the index and inactive industries 404) and „Serwis”
+    // for the service line (SWV6).
+    navigation: withServiceLineName(
+      withoutIndustryLinks(structuredClone(nawigacja), activeIndustrySlugs()),
+    ),
     search: {
       synonyms: wyszukiwarka.synonyms.map(({ phrase, expansions }) => ({ phrase, expansions })),
       stopWords: wyszukiwarka.stopWords,
