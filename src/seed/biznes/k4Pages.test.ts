@@ -170,9 +170,7 @@ describe('/opieka-it (K4i)', () => {
   })
 
   it('drops the review and care buttons when the database lacks the products', () => {
-    const { layout: without } = opiekaK4Layout(firma, (id) =>
-      id === 'opieka' || id === 'przeglad' ? undefined : id,
-    )
+    const { layout: without } = opiekaK4Layout(firma, (id) => (id === 'przeglad' ? undefined : id))
     const kinds = sections(without).map((block) => block.variant)
     expect(kinds).not.toContain('care-hero')
     expect(kinds).not.toContain('seats')

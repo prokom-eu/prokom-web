@@ -38,16 +38,20 @@ test.describe('Biznes /opieka-it (K4i)', () => {
     await expect(page.getByText('Diagnoza zdalna')).toBeVisible()
   })
 
-  test('the free review and the number of seats go to the inquiry', async ({ page }) => {
+  test('„Umów bezpłatny przegląd IT” lists the free review', async ({ page }) => {
     await page.goto(site('biznes.localhost', '/opieka-it'))
     await expect(cartButton(page)).toHaveAccessibleName('Zapytanie 0 pozycji')
     await page.getByRole('button', { name: 'Umów bezpłatny przegląd IT' }).first().click()
     await expect(cartButton(page)).toHaveAccessibleName('Zapytanie 1 pozycja')
+  })
 
+  test('the number of seats goes into the note of the inquiry', async ({ page }) => {
+    await page.goto(site('biznes.localhost', '/opieka-it'))
     await page.getByRole('button', { name: '4–10', exact: true }).click()
     await page.getByRole('button', { name: /^Zapytaj o opiekę · stanowiska: 4–10/ }).click()
+    await expect(cartButton(page)).toHaveAccessibleName('Zapytanie 1 pozycja')
     const cart = await page.evaluate(() => JSON.parse(localStorage.getItem('pk-cart') ?? '[]'))
-    expect(cart.map((item: { uwaga?: string }) => item.uwaga)).toContain('Stanowiska: 4–10')
+    expect(cart.map((item: { uwaga?: string }) => item.uwaga)).toEqual(['Stanowiska: 4–10'])
   })
 
   test('no prices, no price model and no calculator (K4-FINAL §1)', async ({ page }) => {

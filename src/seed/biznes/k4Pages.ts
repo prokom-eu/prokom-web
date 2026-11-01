@@ -717,8 +717,10 @@ function linesData(file: K4FirmaFile) {
 export function opiekaK4Layout(file: K4FirmaFile, slugOf: SlugOf): K4Layout {
   const o = file.opieka_it
   const r = resolver(slugOf)
-  const care = r.one('opieka')
-  const review = r.one('przeglad') ?? care
+  // The care card (`opieka`) is a draft that redirects to this page, so the inquiry would drop
+  // it: every button lists the published free IT review, the note says what it is about.
+  const review = r.one('przeglad')
+  const care = review
   const layout: PageBlock[] = []
   if (review) {
     layout.push(
