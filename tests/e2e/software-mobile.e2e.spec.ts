@@ -44,7 +44,8 @@ test.describe('Software phone header and bottom bar', () => {
     page,
   }) => {
     await page.goto(site(HOST))
-    await expect(bar(page).locator(':scope > *')).toHaveText([
+    // Items only — the sliding mark under the active one is `aria-hidden` (SWV7 B1).
+    await expect(bar(page).locator(':scope > :not([aria-hidden="true"])')).toHaveText([
       'Start',
       'Oferta',
       'Kreator',
@@ -258,6 +259,10 @@ test.describe('Software frame on a touch screen', () => {
     await bar(page).getByRole('button', { name: 'Menu' }).tap()
     const sheet = menuSheet(page)
     await expect(sheet).toBeVisible()
+    // The sheet slides up (SWV7): grab its top where it stops, not mid-way.
+    await sheet.evaluate((element) =>
+      Promise.all(element.getAnimations({ subtree: true }).map((animation) => animation.finished)),
+    )
     const heading = (await sheet.getByRole('heading', { name: 'Menu' }).boundingBox())!
     const x = heading.x + heading.width / 2
     const y = heading.y + heading.height / 2
@@ -350,7 +355,7 @@ test.describe('Software phone layout', () => {
       expect(await pageWidth(page)).toBe(width)
 
       const sizes = await bar(page)
-        .locator(':scope > *')
+        .locator(':scope > :not([aria-hidden="true"])')
         .evaluateAll((items) =>
           items.map((item) => {
             const box = item.getBoundingClientRect()
