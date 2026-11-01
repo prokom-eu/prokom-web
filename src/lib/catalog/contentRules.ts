@@ -13,6 +13,11 @@ const RULES: { name: string; pattern: RegExp }[] = [
   { name: 'w cenie', pattern: /\bw cenie\b/iu },
   { name: 'raty', pattern: /(?<![\p{L}])rat(y|ach|ami|alna|alny)?(?![\p{L}])/iu },
   { name: 'leasing', pattern: /leasing/iu },
+  // K4-FINAL §1: the scope and reaction time are „ustalane” in the contract, not „zapisane”.
+  {
+    name: 'zapisujemy w umowie',
+    pattern: /(?<![\p{L}])zapis\p{L}*(?:\s+(?:go|je|ją))?\s+w\s+umowie/iu,
+  },
   ...BANNED_BRANDS.map((brand) => ({
     name: `marka ${brand}`,
     pattern: new RegExp(`(?<![\\p{L}])${brand}(?![\\p{L}])`, 'iu'),

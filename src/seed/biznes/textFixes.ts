@@ -14,6 +14,12 @@ export const TEXT_FIXES: readonly (readonly [from: string, to: string])[] = [
   ['biuro@pro-kom.eu', BIZNES_CONTACT.email],
   ['18 267 65 11', BIZNES_CONTACT.phone2],
   ['tel:+48182676511', BIZNES_CONTACT.phone2Href],
+  // K4-FINAL §1: „ustalamy w umowie”, never „zapisujemy w umowie” (audit of 01.11.2026).
+  ['Zapisujemy go w umowie', 'Ustalamy go w umowie'],
+  ['zapisujemy w umowie', 'ustalamy w umowie'],
+  ['zapisanym w umowie', 'ustalonym w umowie'],
+  ['zapisany w umowie', 'ustalony w umowie'],
+  ['zapisane w umowie', 'ustalone w umowie'],
 ]
 
 /** `value` with every fix applied to each string inside it (objects and arrays copied). */

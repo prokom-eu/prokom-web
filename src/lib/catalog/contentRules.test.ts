@@ -37,6 +37,18 @@ describe('forbiddenContent (K3-KATALOG §10: zero prices, banned brands)', () =>
     expect(forbiddenContent('Ulga do 700 zł')).toEqual(['kwota w zł'])
   })
 
+  it('finds „zapisujemy w umowie” — the contract „ustala” (K4-FINAL §1)', () => {
+    expect(forbiddenContent('Zakres i czas reakcji zapisujemy w umowie.')).toEqual([
+      'zapisujemy w umowie',
+    ])
+    expect(forbiddenContent('Zapisujemy go w umowie razem z czasem reakcji.')).toEqual([
+      'zapisujemy w umowie',
+    ])
+    expect(forbiddenContent('czas reakcji zapisany w umowie')).toEqual(['zapisujemy w umowie'])
+    expect(forbiddenContent('Zakres i czas reakcji ustalamy w umowie.')).toEqual([])
+    expect(forbiddenContent('Zapisujemy terminy przeglądów kas.')).toEqual([])
+  })
+
   it('lets ordinary texts through', () => {
     expect(forbiddenContent('Kasa z 2 drukarkami, 5 lat gwarancji, PLU 10 000')).toEqual([])
     expect(forbiddenContent('Wiraty, ratunek i karaty — nie raty')).toEqual(['raty'])

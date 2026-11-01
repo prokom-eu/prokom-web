@@ -124,7 +124,7 @@
   [
    "M12 7v5l3 2 M12 21a9 9 0 100-18 9 9 0 000 18z",
    "Uczciwe terminy",
-   "Czas reakcji w godzinach roboczych zapisujemy w umowie. Nie obiecujemy terminów, których nie da się dotrzymać."
+   "Czas reakcji w godzinach roboczych ustalamy w umowie. Nie obiecujemy terminów, których nie da się dotrzymać."
   ],
   [
    "M7 3h7l5 5v13H7z M14 3v5h5 M10 13h6 M10 17h6",
@@ -262,7 +262,7 @@
   },
   {
    "q": "Jak szybko odpowiadacie?",
-   "a": "W godzinach pracy najszybciej, jak to możliwe. Klienci z umową opieki IT mają czas reakcji zapisany w umowie."
+   "a": "W godzinach pracy najszybciej, jak to możliwe. Klienci z umową opieki IT mają czas reakcji ustalony w umowie."
   },
   {
    "q": "Czy dostanę wycenę bez wizyty?",

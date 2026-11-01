@@ -731,7 +731,7 @@ export function opiekaK4Layout(file: K4FirmaFile, slugOf: SlugOf): K4Layout {
         anchor: 'przeglad',
         heading: 'Komputery, sieć i kasy pod jedną opieką.',
         headingAccent: 'Jeden numer, gdy coś stanie.',
-        lead: 'Przejmujemy IT w firmie: komputery, serwer, kopie danych, sieć, pocztę, kasy i programy. Zakres i czas reakcji zapisujemy w umowie. Pomagamy zdalnie i na miejscu — z Rabki-Zdroju na całe Podhale i Małopolskę.',
+        lead: 'Przejmujemy IT w firmie: komputery, serwer, kopie danych, sieć, pocztę, kasy i programy. Zakres i czas reakcji ustalamy w umowie. Pomagamy zdalnie i na miejscu — z Rabki-Zdroju na całe Podhale i Małopolskę.',
         data: {
           trail: [OFFER_CRUMB],
           pill: 'Opieka informatyczna · Podhale i Małopolska',
