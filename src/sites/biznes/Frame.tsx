@@ -14,6 +14,7 @@ import { BiznesHeader } from './components/BiznesHeader'
 import { SiteRail } from './components/rail/SiteRail'
 import { TabBar } from './components/mobile/TabBar'
 import { TopBar } from './components/TopBar'
+import { PageTransition } from './PageTransition'
 
 type Props = {
   tenant: SiteTenant
@@ -54,7 +55,7 @@ export async function BiznesFrame({ tenant, settings, biznes, company, promo, ch
         contact={contact}
       />
       <SiteRail />
-      {children}
+      <PageTransition>{children}</PageTransition>
       <BiznesFooter
         name={tenant.name}
         company={company}
