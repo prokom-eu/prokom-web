@@ -189,13 +189,14 @@ test.describe('Biznes catalog /oferta', () => {
       'href',
       /\/oferta\?strona=2$/,
     )
-    await expect(cards(page)).toHaveCount(24)
+    // Pages are cumulative: page 2 lists the first 2 × 24.
+    await expect(cards(page)).toHaveCount(48)
 
-    // Past the end: the same list as the last page, so the canonical points there.
+    // Past the end: the same list as the last page (433 positions, 24 per page).
     await page.goto(oferta('?strona=999'))
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
       'href',
-      /\/oferta\?strona=37$/,
+      /\/oferta\?strona=19$/,
     )
   })
 

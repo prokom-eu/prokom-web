@@ -216,7 +216,6 @@ export function CatalogFilters({
               className={cx(
                 'min-h-9 min-w-0 flex-auto rounded-[9px] px-1 text-[0.72rem] font-extrabold',
                 on ? 'bg-card text-ink shadow-sm' : 'text-ink-2 hover:text-ink',
-                count === 0 && !on && 'text-ink-3',
               )}
             >
               {kind.label}

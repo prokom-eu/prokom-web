@@ -21,7 +21,7 @@ export function ColorPicker({ colors }: { colors: { name: string; hex: string }[
         <b aria-live="polite" className="font-extrabold text-ink">
           {chosen ? chosen.name : 'wybierz'}
         </b>
-        <span className="block text-xs font-bold text-ink-3">
+        <span className="block text-xs font-bold text-ink-2">
           {colors.length} {plural(colors.length, ['kolor', 'kolory', 'kolorów'])}
         </span>
       </p>
