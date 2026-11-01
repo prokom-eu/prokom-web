@@ -5,10 +5,10 @@
  "nip": "7352511447",
  "tel": "889 003 889",
  "telHref": "tel:+48889003889",
- "tel2": "18 267 65 11",
- "tel2Href": "tel:+48182676511",
+ "tel2": "883 200 151",
+ "tel2Href": "tel:+48883200151",
  "wa": "https://wa.me/48889003889",
- "mail": "biznes@pro-kom.eu",
+ "mail": "kontakt@prokombiznes.pl",
  "godz": "pn–pt 9:00–17:00",
  "maps": "https://www.google.com/maps/search/?api=1&query=PRO-KOM+ul.+Orkana+16B+Rabka-Zdr%C3%B3j",
  "rabka": [
@@ -273,6 +273,6 @@
   "mapa": "rabka/cities = współrzędne w viewBox 640×420 (rzut lon/lat); w kodzie komponent <ServiceAreaMap> z tych samych danych",
   "obietnice": "bez „oddzwaniamy w 60 minut” i innych terminów — czas reakcji tylko z umowy opieki IT",
   "adres": "na Biznesie tylko Rabka-Zdrój",
-  "email": "biznes@pro-kom.eu na całej stronie"
+  "email": "kontakt@prokombiznes.pl na całej stronie"
  }
 }
