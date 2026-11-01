@@ -114,9 +114,8 @@ export const naglosnienie = {
       {
         icon: 'shop',
         title: 'Sklepy i salony',
-        // TODO(krystian): the prototype names Empik salons in Zakopane and Kraków — only with the
-        // client's consent (spec §12); without it the card has no references.
-        text: 'Muzyka i komunikaty marketingowe, sterowanie z zaplecza.',
+        // The client agreed to the publication (boss 01.11.2026).
+        text: 'Muzyka i komunikaty marketingowe, sterowanie z zaplecza. Między innymi salony Empik w Zakopanem i Krakowie.',
         tags: ['muzyka', 'reklamy audio'],
       },
       {
@@ -541,5 +540,59 @@ export const naglosnienie = {
     ] satisfies IconText[],
     /** After the legal note (spec §2.10) instead of the prototype's „To informacja, nie porada prawna.” */
     fees: 'Wysokość opłat ustalasz z organizacjami zbiorowego zarządzania albo dostawcą licencjonowanej muzyki.',
+  },
+
+  /**
+   * „Realizacje nagłośnienia” (`#realizacje-n`, `rn` of the prototype): the clients agreed to the
+   * publication (boss 01.11.2026). 1:1 without the `[SZEF…]` note; `art` = the prototype's icon.
+   */
+  realizations: {
+    eyebrow: 'Realizacje nagłośnienia',
+    heading: 'Kościoły, sklepy i lokale od Krakowa po Zakopane.',
+    all: { label: 'Wszystkie realizacje →', href: '/realizacje' },
+    items: [
+      {
+        kind: 'Sklep',
+        name: 'Empik Zakopane i Kraków',
+        place: 'Nagłośnienie sal sprzedaży',
+        art: 'snd',
+      },
+      {
+        kind: 'Kościół',
+        name: 'Parafia św. Teresy',
+        place: 'Rabka-Zdrój · instalacja audiowizualna i nagłośnienie chóru',
+        art: 'ch',
+      },
+      {
+        kind: 'Kościół',
+        name: 'Jasna Górka, Ślemień',
+        place: 'Parafia Narodzenia św. Jana Chrzciciela · nagłośnienie',
+        art: 'ch',
+      },
+      {
+        kind: 'Kaplica',
+        name: 'Kaplica Sióstr Nazaretanek',
+        place: 'Rabka-Zdrój · nagłośnienie',
+        art: 'ch',
+      },
+      {
+        kind: 'Gastronomia',
+        name: 'Restauracja „Aleksandra”',
+        place: 'Mszana Dolna · instalacja audiowizualna',
+        art: 'cf',
+      },
+      {
+        kind: 'Gastronomia',
+        name: 'Caffe Europa i FitBar',
+        place: 'Nowy Sącz · nagłośnienie lokali',
+        art: 'cf',
+      },
+    ],
+    /** The prototype's `ART` (`Naglosnienie.js`). */
+    art: {
+      snd: 'M30 120v-40h28l34-26v92l-34-26zM120 70a40 40 0 0 1 0 60M145 50a70 70 0 0 1 0 100M170 30a100 100 0 0 1 0 140',
+      ch: 'M120 30v26M108 42h24M70 160V96l50-40 50 40v64M106 160v-34h28v34M30 160h180',
+      cf: 'M50 80h100v44a36 36 0 0 1-36 36H86a36 36 0 0 1-36-36zM150 92h16a18 18 0 0 1 0 36h-16M80 40c-8 10 8 18 0 28M110 40c-8 10 8 18 0 28',
+    },
   },
 } as const

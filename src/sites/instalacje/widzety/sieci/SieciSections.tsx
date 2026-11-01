@@ -173,6 +173,9 @@ export function SieciSections() {
             <InstIcon name="globe" size={20} />
             <span>{cabling.uke}</span>
           </div>
+          <p className="src ri" style={{ marginTop: 12 }}>
+            {cabling.realization}
+          </p>
         </div>
       </InstSection>
 

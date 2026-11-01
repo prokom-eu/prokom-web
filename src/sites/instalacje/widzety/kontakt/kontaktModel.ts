@@ -10,7 +10,8 @@ import { kontakt as K } from '../../dane/kontakt'
  * `kontaktModel.test.ts` runs the original and compares. The map: a typed town → its zone, the
  * route from the nearest salon, the town marks. The form: errors in the order of the fields and
  * the request body. Differences on purpose: the name is required (the inquiry needs it), the
- * zone texts without the prototype's `[SZEF…]` notes.
+ * zone texts without the prototype's `[SZEF…]` notes, one salon (Rabka) instead of two — the
+ * company has no salon in Zakopane (boss 01.11.2026), Zakopane stays a town of its zone.
  */
 
 export type ZoneKey = 'r' | 'z' | 'p' | 'm'
@@ -24,7 +25,7 @@ const pr = (lat: number, lon: number): [number, number] => [
 /** Towns on the map (`T`): name, latitude, longitude, zone, salon. */
 const TOWNS: [string, number, number, ZoneKey, boolean][] = [
   ['Rabka-Zdrój', 49.61, 19.96, 'r', true],
-  ['Zakopane', 49.3, 19.95, 'z', true],
+  ['Zakopane', 49.3, 19.95, 'z', false],
   ['Nowy Targ', 49.48, 20.03, 'p', false],
   ['Jordanów', 49.65, 19.83, 'r', false],
   ['Mszana Dolna', 49.68, 20.08, 'r', false],
@@ -41,10 +42,7 @@ const TOWNS: [string, number, number, ZoneKey, boolean][] = [
   ['Myślenice', 49.83, 19.94, 'm', false],
   ['Nowy Sącz', 49.62, 20.69, 'm', false],
 ]
-const SALONS: [string, number, number][] = [
-  ['Rabka-Zdrój', 49.61, 19.96],
-  ['Zakopane', 49.3, 19.95],
-]
+const SALONS: [string, number, number][] = [['Rabka-Zdrój', 49.61, 19.96]]
 const LEFT = [
   'Chabówka',
   'Kościelisko',

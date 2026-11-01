@@ -936,7 +936,7 @@
     "Zamki z kodem: gość wchodzi sam, kod ważny tylko w czasie pobytu",
     "Wi-Fi dla gości i telewizja w każdym lokalu",
     "Ogrzewanie w trybie oszczędnym, gdy lokal stoi pusty",
-    "Zdalny podgląd i serwis z Rabki i Zakopanego"
+    "Zdalny podgląd i serwis z Rabki-Zdroju"
    ],
    "why": "W Zakopanem działa ok. 3,5 tys. ofert najmu krótkoterminowego, średnie obłożenie ok. 48%. Od 20.05.2026 każdy lokal potrzebuje numeru rejestrowego."
   },
@@ -1067,8 +1067,8 @@
     "s": "PRO-KOM w Rabce-Zdroju"
    },
    {
-    "b": "2 salony",
-    "s": "Rabka-Zdrój i Zakopane"
+    "b": "24 mies.",
+    "s": "gwarancji na montaż"
    },
    {
     "b": "10",
@@ -1250,7 +1250,7 @@
   {
    "ic": "ikona:shop",
    "t": "W salonie PRO-KOM",
-   "d": "Rabka-Zdrój albo Zakopane. Zobaczysz i usłyszysz rozwiązania, które możesz pokazać inwestorowi.",
+   "d": "W Rabce-Zdroju. Zobaczysz i usłyszysz rozwiązania, które możesz pokazać inwestorowi.",
    "tag": "[SZEF: co mamy na pokazie]"
   },
   {
@@ -1319,7 +1319,7 @@
   },
   {
    "q": "Jaki obszar obsługujecie?",
-   "a": "Podhale i Małopolskę: salony w Rabce-Zdroju i Zakopanem. Przy większych inwestycjach jedziemy dalej, dojazd ustalamy indywidualnie."
+   "a": "Podhale i Małopolskę, z salonu w Rabce-Zdroju. Przy większych inwestycjach jedziemy dalej, dojazd ustalamy indywidualnie."
   },
   {
    "q": "Według których przepisów projektować teletechnikę w 2026 r.?",

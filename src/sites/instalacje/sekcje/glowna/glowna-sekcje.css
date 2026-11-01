@@ -670,6 +670,22 @@
     & .steps::-webkit-scrollbar {
       display: none;
     }
+    & #realizacje .g4 {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      margin: 0 -16px;
+      padding: 4px 16px 10px;
+      gap: 12px;
+      scrollbar-width: none;
+    }
+    & #realizacje .g4 > * {
+      flex: 0 0 78%;
+      scroll-snap-align: start;
+    }
+    & #realizacje .g4::-webkit-scrollbar {
+      display: none;
+    }
   }
   & .zkok svg {
     width: 88px;

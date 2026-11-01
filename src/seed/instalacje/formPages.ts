@@ -29,7 +29,7 @@ export const FORM_PAGE_BLOCKS: Record<string, () => Block> = {
       crumb: 'Kontakt',
       eyebrow: 'Kontakt · PRO-KOM Instalacje',
       h1a: 'Kontakt:',
-      h1b: 'salony w Rabce-Zdroju i Zakopanem.',
+      h1b: 'salon w Rabce-Zdroju.',
       lead: 'Zadzwoń, napisz albo wpadnij do salonu. Działamy na Podhalu i w okolicach, dalej w Małopolsce dojazd ustalamy indywidualnie. Sprawdź, w jakiej strefie jest Twój obiekt.',
     },
     cta: { eyebrow: Kontakt.dane.ctaEye, heading: Kontakt.dane.ctaH, text: Kontakt.dane.ctaP },
@@ -38,12 +38,12 @@ export const FORM_PAGE_BLOCKS: Record<string, () => Block> = {
     blockType: 'instServiceDesk',
     hero: {
       crumb: 'Serwis i przeglądy',
-      eyebrow: 'Serwis instalacji · Rabka-Zdrój, Zakopane, Podhale',
+      eyebrow: 'Serwis instalacji · Rabka-Zdrój, Podhale i Tatry',
       h1a: 'Coś nie działa?',
       h1b: 'Zgłoś. Sprawdzimy zdalnie albo przyjedziemy.',
       lead: 'Serwisujemy kamery, alarmy, sieci, zamki, smart home, nagłośnienie, ekrany i ładowarki. Także instalacje, które montowała inna firma. Przed sezonem robimy przeglądy, żeby awarie nie trafiały się w pełnym obłożeniu.',
       facts: [
-        { value: '2 salony', label: 'Rabka-Zdrój i Zakopane' },
+        { value: 'Rabka-Zdrój', label: 'salon i serwis' },
         { value: 'zdalnie', label: 'diagnoza wielu usterek' },
         { value: 'od 2004', label: 'PRO-KOM na Podhalu' },
       ],

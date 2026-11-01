@@ -5,9 +5,9 @@ import type { SectionHead } from './anteny'
  * the widgets. Transcribed from `zrodlo/pages/Multimedia.js` + `Multimedia.body.html` (v4.2) the
  * way `cleanPrototype` cleans a snapshot: without UI keys and without the source list (`src`) —
  * spec §2: no source lists on the site. The digital signage demo with sample phone prices is an
- * illustration of a screen, not an offer: it stays, captioned „Demo”. Without the prototype's
- * client references (Blachotrapez, the school in Rabka, Caffe Europa — no client consent) and
- * without the `[SZEF…]` notes (TODO below). Edited by hand from now on.
+ * illustration of a screen, not an offer: it stays, captioned „Demo”. With the prototype's client
+ * references (the clients agreed, boss 01.11.2026), without the `[SZEF…]` notes (TODO below).
+ * Edited by hand from now on.
  */
 
 export type ScreenKey = 'rec' | 'menu' | 'win' | 'conf'
@@ -265,25 +265,23 @@ export const ekrany = {
       {
         icon: 'school',
         title: 'Projektory w salach i szkołach',
-        // TODO(krystian): the prototype names Blachotrapez and the school in Rabka-Zdrój — only
-        // with the clients' consent (spec §12).
-        text: 'Sprzęt projekcyjny w salach szkoleniowych, konferencyjnych i klasach.',
+        text: 'Sprzęt projekcyjny w salach szkoleniowych, konferencyjnych i klasach. Robiliśmy to m.in. w Blachotrapezie i w szkole w Rabce-Zdroju.',
       },
     ] satisfies IconText[],
-    // TODO(krystian): references of the prototype's note (Blachotrapez, SP im. Adama Mickiewicza
-    // w Rabce-Zdroju, Caffe Europa) and „Zobacz realizacje →” — after the clients' consent.
-    tvBefore: 'Telewizję w pokojach gości robimy w ramach ',
+    tvBefore:
+      'Realizacje: sale Blachotrapezu (konferencyjna, szkoleniowa i marketingowa), Szkoła Podstawowa im. Adama Mickiewicza w Rabce-Zdroju, Caffe Europa w Nowym Sączu. Telewizję w pokojach gości robimy w ramach ',
     tvLink: { label: 'instalacji antenowych', href: '/anteny' },
-    tvAfter: '.',
+    tvAfter: '. ',
+    realizationsLink: { label: 'Zobacz realizacje →', href: '/realizacje' },
   },
 
-  /** Demo: one price change, two salons (`sy`). */
+  /** Demo: one price change, two screens of the salon (`sy`; the prototype: two salons). */
   sync: {
     eyebrow: 'Wdrażamy to u siebie',
-    heading: 'Jedna zmiana ceny. Dwa salony. Kilka sekund.',
+    heading: 'Jedna zmiana ceny. Dwa ekrany. Kilka sekund.',
     // TODO(krystian): confirm the state of the rollout in our salons (the prototype:
     // „[SZEF: potwierdź stan wdrożenia w salonach]”).
-    lead: 'Taki system wdrażamy w naszych salonach w Rabce-Zdroju i Zakopanem: ceny telefonów zmieniamy w jednym miejscu, a ekrany w obu salonach odświeżają się same. Kliknij w demo i sprawdź, jak to działa.',
+    lead: 'Taki system wdrażamy w naszym salonie w Rabce-Zdroju: ceny telefonów zmieniamy w jednym miejscu, a ekrany w witrynie i przy ladzie odświeżają się same. Kliknij w demo i sprawdź, jak to działa.',
     lowerPhone: 'Obniż cenę smartfona o 100 zł',
     promo: 'Promocja na słuchawki',
     reset: 'Przywróć ceny',
@@ -297,7 +295,7 @@ export const ekrany = {
     pricesOfDay: 'Ceny dnia',
     salon: 'Demo · PRO-KOM · salon',
     synced: 'zsynchronizowano',
-    salons: ['Rabka-Zdrój', 'Zakopane'],
+    salons: ['Rabka-Zdrój · witryna', 'Rabka-Zdrój · lada'],
     products: ['Smartfon 128 GB', 'Smartfon 256 GB', 'Tablet 11 cali', 'Słuchawki bezprzewodowe'],
     prices: [1899, 2599, 1499, 349],
   },

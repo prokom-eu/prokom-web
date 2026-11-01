@@ -21,7 +21,8 @@ const requireConsent: CollectionBeforeChangeHook = ({ data, originalDoc }) => {
 
 /**
  * Realizations of the Instalacje site (ADR-I002 §2). They name real clients, so publishing needs
- * the client's consent (hook); the import keeps them all as drafts without it.
+ * the client's consent (hook); the import publishes them with it (the clients agreed, 01.11.2026)
+ * and taking the consent back in the panel unpublishes nothing by itself — set a draft too.
  */
 export const Realizations: CollectionConfig = {
   slug: 'realizations',

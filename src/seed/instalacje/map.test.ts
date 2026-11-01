@@ -150,9 +150,9 @@ describe('offer', () => {
 describe('realizations', () => {
   const realizations = realizationsToImport()
 
-  it('imports them all without the client consent, the home page ones featured', () => {
+  it('imports them all with the client consent (boss 01.11), the home page ones featured', () => {
     expect(realizations).toHaveLength(11)
-    expect(realizations.every((r) => r.clientConsent === false)).toBe(true)
+    expect(realizations.every((r) => r.clientConsent === true)).toBe(true)
     // The home page ones (`Main.rl`, shorter names) are the first of `Realizacje.json`.
     expect(realizations.filter((r) => r.featured).map((r) => r.title)).toEqual([
       'Blachotrapez',
