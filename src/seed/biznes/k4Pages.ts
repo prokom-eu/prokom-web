@@ -899,7 +899,7 @@ export function aboutK4Layout(file: K4FirmaFile): K4Layout {
       surface: 'muted',
       eyebrow: 'Jak pracujemy',
       heading: 'Osiem zasad, które łatwo sprawdzić',
-      lead: 'Bez obietnic z ulotki. Tak pracujemy na co dzień.',
+      lead: 'Bez obietnic z ulotki, tylko to, jak pracujemy.',
       items: f.zasady.map(([, title, text], i) => ({
         title,
         text,

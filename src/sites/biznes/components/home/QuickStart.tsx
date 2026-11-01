@@ -93,7 +93,7 @@ export async function QuickStart({
     },
     {
       title: 'Konfigurator',
-      text: 'Kilka pytań o Twoją firmę, a dostajesz rozwiązania dobrane do niej.',
+      text: 'Odpowiesz na kilka pytań o firmę i dostaniesz rozwiązania dobrane do niej.',
       tag: 'ok. 1 minuta',
       action: 'Dobierz teraz',
       icon: 'compass',

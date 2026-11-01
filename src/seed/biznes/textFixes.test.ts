@@ -1,6 +1,36 @@
 import { describe, expect, it } from 'vitest'
 
-import { fixTexts } from './textFixes'
+import { fixIndustryTexts, fixTexts } from './textFixes'
+
+describe('fixIndustryTexts (audit 01.11.2026)', () => {
+  const day = { heading: 'Od otwarcia do raportu dobowego.', steps: [] }
+
+  it('gives the same old heading a different text on each industry page', () => {
+    expect(fixIndustryTexts('gastronomia', { day }).day).toEqual({
+      heading: 'Dzień w restauracji',
+      steps: [],
+    })
+    expect(fixIndustryTexts('handel', { day }).day).toEqual({
+      heading: 'Dzień w sklepie',
+      steps: [],
+    })
+  })
+
+  it('keeps the restaurant H1 and gives the H2 that repeated it its own text', () => {
+    const h1 = 'Restauracja, która nie gubi zamówień. Nawet w sezonie.'
+    const fixed = fixIndustryTexts('gastronomia', { hero: { title: h1 }, flow: { heading: h1 } })
+    expect(fixed.hero).toEqual({ title: h1 })
+    expect(fixed.flow).toEqual({ heading: 'Jak wygląda zamówienie w restauracji z GoPOS' })
+  })
+
+  it('drops „5 minut rozmowy” from the cash register category', () => {
+    expect(
+      fixTexts({
+        contact: { heading: 'Nie wiesz, która kasa? Zadzwoń — dobierzemy w 5 minut rozmowy.' },
+      }),
+    ).toEqual({ contact: { heading: 'Nie wiesz, która kasa? Zadzwoń, pomożemy wybrać.' } })
+  })
+})
 
 describe('fixTexts', () => {
   it('replaces the old contact inside nested blocks and rich text', () => {
@@ -61,6 +91,15 @@ describe('fixTexts', () => {
       note: 'pro-kom.eu: wspólne wejście.',
     })
     expect(fixTexts(after)).toEqual(after)
+  })
+
+  it('changes a short heading only as a whole field, never inside another text', () => {
+    expect(fixTexts({ h1b: 'Bez obsługi.', label: 'Na piśmie' })).toEqual({
+      h1b: 'Sprzedaż przez całą dobę.',
+      label: 'Warianty',
+    })
+    const panel = 'Automat sprzedaje nocą. Bez obsługi. Na piśmie dostaniesz ofertę.'
+    expect(fixTexts(panel)).toBe(panel)
   })
 
   it('leaves other texts untouched', () => {

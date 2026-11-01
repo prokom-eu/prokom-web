@@ -36,7 +36,7 @@ export function HowInquiryWorks({ callbackTime }: Props) {
         >
           <div className="flex flex-col gap-3.5">
             <p className="text-sm font-extrabold uppercase tracking-[0.08em] text-accent-on-dark">
-              Bez cen na stronie i dobrze
+              Bez cen na stronie. I dobrze.
             </p>
             <h2
               id="jak-zapytac"

@@ -151,7 +151,7 @@ export function planBlocks(industry: (seedSlug: string) => number | undefined): 
           tile('Firma transportowa', 'laptopy, Microsoft 365, podpis', 'car', 'blue', false),
           tile('Sklep internetowy', 'Subiekt, KSeF, drukarka fiskalna', 'site', 'blue', false),
           tile('Stacja paliw, myjnia', 'terminal, sieć, UPS', 'bolt', 'red', false),
-          tile('Każda inna firma', 'opisz ją, dobierzemy rozwiązanie', 'q', 'violet', false),
+          tile('Każda inna firma', 'opisz ją, a dobierzemy rozwiązanie', 'q', 'violet', false),
         ],
       },
       funding: {

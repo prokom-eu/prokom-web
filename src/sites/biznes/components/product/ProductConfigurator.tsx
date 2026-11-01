@@ -17,7 +17,7 @@ import { CONFIGURATOR_ID } from './ProductVersionPicker'
 
 const STEPS = [
   'Zacznij od gotowej konfiguracji albo wybieraj po kolei',
-  'Czego nie wiesz, zostaw na „Doradźcie”',
+  'Czego nie wiesz, zaznacz „Doradźcie”',
   'Dodaj do zapytania, a przygotujemy wycenę',
 ]
 
