@@ -1,5 +1,4 @@
-/** Address of the news list; posts live under it (`/aktualnosci/<slug>`). */
-export const NEWS_PATH = '/aktualnosci'
+import { NEWS_PATH } from '../posts/list'
 
 const isNewsHref = (href: unknown): boolean =>
   typeof href === 'string' &&

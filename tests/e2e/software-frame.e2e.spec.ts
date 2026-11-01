@@ -36,7 +36,10 @@ test.describe('Software header', () => {
       'O firmie',
       'Kontakt',
     ])
-    await expect(page.locator('a[href="/aktualnosci"]')).toHaveCount(0)
+    // Header and footer only — `/dziekujemy` has its own content card to the news.
+    await expect(
+      page.locator('header a[href="/aktualnosci"], footer a[href="/aktualnosci"]'),
+    ).toHaveCount(0)
     await expect(mainNav(page).getByRole('link', { name: /Kreator/ })).toHaveAttribute(
       'href',
       '/dobierz',
