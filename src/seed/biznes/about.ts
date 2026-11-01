@@ -1,8 +1,4 @@
-import type { Payload } from 'payload'
-
-import { upsertBiznesPage, type PageBlock } from './page'
-
-type Report = (name: string, changed: boolean) => void
+import type { PageBlock } from './page'
 
 export const ABOUT_SLUG = 'o-firmie'
 
@@ -139,24 +135,4 @@ export function biznesAboutLayout(): PageBlock[] {
         'Oddzwonimy w ciągu 60 minut w godzinach pracy. Poza godzinami pracy odezwiemy się następnego dnia roboczego rano.',
     },
   ]
-}
-
-/** `/o-firmie` (B11c): created when missing; later only block types it lacks are added. */
-export async function seedBiznesAbout(
-  payload: Payload,
-  tenantId: number,
-  report: Report,
-): Promise<void> {
-  await upsertBiznesPage(
-    payload,
-    tenantId,
-    {
-      slug: ABOUT_SLUG,
-      title: 'O firmie',
-      layout: biznesAboutLayout(),
-      description:
-        'PRO-KOM Tadeusz Wójciak z Rabki-Zdroju: od 2004 kasy, POS, programy i opieka IT dla firm z Podhala. Zasady, linie PRO-KOM, marki i dojazd.',
-    },
-    report,
-  )
 }

@@ -1,61 +1,69 @@
-import { expect, test } from '@playwright/test'
+import { expect, test, type Page } from '@playwright/test'
 
 import { site } from './helpers'
 
-// B9a: `/opieka-it` of the Biznes line from its own blocks (spec. §6.4, plansza Dzial): hero with
-// the „Jak to działa” card, sample care panel, downtime calculator (counted in the browser), the
-// free IT audit `#przeglad`, ten questions and the v20 form. Axe at 360 px in `a11y`.
+// K4i: `/opieka-it` from K4 sections (K34 §6, K35 §0, plansza Web-Opieka): hero with the sample
+// IT review report, areas as tabs, „Z opieką i bez”, the steps switch, FAQ and „Ile masz
+// stanowisk?”. No price model, no downtime calculator (K4-FINAL §1). Axe in `a11y`.
 
-test.describe('Biznes /opieka-it (B9a)', () => {
-  test('shows the hero, the panel, the audit, the FAQ and the form', async ({ page }) => {
+const cartButton = (page: Page) =>
+  page.getByRole('banner').getByRole('button', { name: /^Zapytanie/ })
+
+test.describe('Biznes /opieka-it (K4i)', () => {
+  test('shows the hero with the report, the areas, the steps and the FAQ', async ({ page }) => {
     await page.goto(site('biznes.localhost', '/opieka-it'))
 
     await expect(page.locator('h1')).toHaveCount(1)
-    await expect(page.locator('h1')).toContainText('Informatyk, który zna Twoją firmę')
-    await expect(page.getByRole('navigation', { name: 'Okruszki' })).toContainText('Opieka IT')
-
-    await expect(page.getByText('Panel opieki PRO-KOM')).toBeVisible()
-    await expect(page.locator('#przeglad')).toContainText('Raport z przeglądu IT')
-    // The report summary is counted from its rows (3 urgent, 4 to improve, 1 fine).
-    await expect(page.locator('#przeglad dl').first()).toContainText(
-      /pilne\s*3.*do poprawy\s*4.*w porządku\s*1/,
-    )
-    await expect(page.locator('#faq details')).toHaveCount(10)
-    await expect(page.locator('#kontakt form')).toBeVisible()
+    await expect(page.locator('h1')).toContainText('pod jedną opieką')
+    await expect(page.getByRole('figure', { name: 'Raport z przeglądu IT' })).toBeVisible()
+    await expect(page.locator('#zakres').getByRole('tab')).toHaveCount(8)
+    await expect(page.locator('#faq details')).toHaveCount(8)
   })
 
-  test('the hero button leads to the free audit', async ({ page }) => {
+  test('the areas switch with a click and the arrow keys', async ({ page }) => {
     await page.goto(site('biznes.localhost', '/opieka-it'))
-    await page.getByRole('link', { name: 'Umów bezpłatny przegląd IT' }).first().click()
-    await expect(page).toHaveURL(/\/opieka-it#przeglad$/)
-    await expect(page.getByRole('heading', { name: /Sprawdzimy Twoją firmę/ })).toBeInViewport()
+    const tabs = page.locator('#zakres').getByRole('tab')
+    await expect(tabs.first()).toHaveAttribute('aria-selected', 'true')
+    await tabs.nth(2).click()
+    await expect(tabs.nth(2)).toHaveAttribute('aria-selected', 'true')
+    await page.keyboard.press('ArrowDown')
+    await expect(tabs.nth(3)).toBeFocused()
+    await page.keyboard.press('Home')
+    await expect(tabs.first()).toHaveAttribute('aria-selected', 'true')
   })
 
-  test('the calculator counts the cost of a failure in the browser', async ({ page }) => {
+  test('„Gdy coś się dzieje” shows the other steps', async ({ page }) => {
     await page.goto(site('biznes.localhost', '/opieka-it'))
-    const result = page.getByTestId('downtime-result')
-    // Start: 5 000 zł a day, 10 h, a whole day → 500 zł an hour, 5 000 zł.
-    await expect(result).toContainText('5 000 zł')
-    await expect(result).toContainText('ok. 500 zł')
-
-    // 8 h and a weekend: 625 zł an hour × 16 h = 10 000 zł.
-    await page.getByRole('radio', { name: '8 h' }).check()
-    await page.getByRole('radio', { name: 'Weekend' }).check()
-    await expect(result).toContainText('10 000 zł')
-    await expect(result).toContainText('Weekend przestoju')
-
-    // Keyboard on the slider: one step up = +500 zł a day → 5 500 / 8 × 16 = 11 000 zł.
-    const slider = page.getByRole('slider', { name: 'Dzienny utarg' })
-    await slider.focus()
-    await page.keyboard.press('ArrowRight')
-    await expect(slider).toHaveValue('5500')
-    await expect(result).toContainText('11 000 zł')
+    await page.getByRole('button', { name: 'Gdy coś się dzieje' }).click()
+    await expect(page.getByText('Diagnoza zdalna')).toBeVisible()
   })
 
-  test('no prices, leasing or instalments on the page', async ({ page }) => {
+  test('the free review and the number of seats go to the inquiry', async ({ page }) => {
+    await page.goto(site('biznes.localhost', '/opieka-it'))
+    await expect(cartButton(page)).toHaveAccessibleName('Zapytanie 0 pozycji')
+    await page.getByRole('button', { name: 'Umów bezpłatny przegląd IT' }).first().click()
+    await expect(cartButton(page)).toHaveAccessibleName('Zapytanie 1 pozycja')
+
+    await page.getByRole('button', { name: '4–10', exact: true }).click()
+    await page.getByRole('button', { name: /^Zapytaj o opiekę · 4–10/ }).click()
+    const cart = await page.evaluate(() => JSON.parse(localStorage.getItem('pk-cart') ?? '[]'))
+    expect(cart.map((item: { uwaga?: string }) => item.uwaga)).toContain('Stanowiska: 4–10')
+  })
+
+  test('no prices, no price model and no calculator (K4-FINAL §1)', async ({ page }) => {
     await page.goto(site('biznes.localhost', '/opieka-it'))
     const text = await page.locator('main').innerText()
-    expect(text).not.toMatch(/leasing|\braty\b|\d+[,.]\d{2}\s*zł/i)
+    expect(text).not.toMatch(/leasing|\braty\b|\d\s?zł|\bAut\./i)
+    expect(text).not.toMatch(/abonament|stała opłata|przestoju/i)
+  })
+
+  test('no horizontal scroll on a phone', async ({ page }) => {
+    await page.setViewportSize({ width: 360, height: 800 })
+    await page.goto(site('biznes.localhost', '/opieka-it'))
+    const overflow = await page.evaluate(
+      () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+    )
+    expect(overflow).toBeLessThanOrEqual(0)
   })
 
   test('the page belongs to the Biznes line only', async ({ page }) => {

@@ -11,11 +11,22 @@ import {
   type SectionVariant,
 } from '../../lib/biznes/pages/sections'
 import { forbiddenContent } from '../../lib/catalog/contentRules'
+import { hardSpaces } from '../../lib/text/hardSpace'
 import type { BzSectionBlock } from '../../payload-types'
-import { goposK4Layout, insertK4Layout, sourceLink, type K4PagesFile } from './k4Pages'
+import {
+  aboutK4Layout,
+  contactK4Layout,
+  goposK4Layout,
+  insertK4Layout,
+  opiekaK4Layout,
+  sourceLink,
+  type K4FirmaFile,
+  type K4PagesFile,
+} from './k4Pages'
 import type { PageBlock } from './page'
 
 const pages = file as unknown as K4PagesFile
+const firma = file as unknown as K4FirmaFile
 /** Every board id is known (the seed maps them to slugs; here the id stands for the slug). */
 const identity = (id: string) => id
 
@@ -30,6 +41,9 @@ const dataOf = <V extends SectionVariant>(layout: PageBlock[], variant: V) => {
 describe.each([
   ['gopos', goposK4Layout(pages, identity).layout],
   ['insert', insertK4Layout(pages, identity).layout],
+  ['opieka-it', opiekaK4Layout(firma, identity).layout],
+  ['o-firmie', aboutK4Layout(firma).layout],
+  ['kontakt', contactK4Layout(firma).layout],
 ])('K4 layout of /%s (K4h)', (_page, layout) => {
   it('uses Biznes blocks only and opens with a hero kind (the H1)', () => {
     expect(layout.every((block) => isBlockAllowed('biznes', block.blockType))).toBe(true)
@@ -132,5 +146,76 @@ describe('sourceLink', () => {
       'https://ksef.podatki.gov.pl',
     )
     expect(sourceLink('Dane producenta')).toBeUndefined()
+  })
+})
+
+describe('/opieka-it (K4i)', () => {
+  const { layout, missing } = opiekaK4Layout(firma, identity)
+  const text = JSON.stringify(layout)
+
+  it('has no price model and no downtime calculator (K4-FINAL §1, K35 §0)', () => {
+    expect(text).not.toMatch(/abonament|stała opłata|paszport IT/i)
+    expect(text).not.toMatch(/przestoju|kalkulator/i)
+    expect(missing).toEqual([])
+  })
+
+  it('opens with the K34 H1 (decyzja Krystiana 01.11)', () => {
+    const hero = layout[0] as BzSectionBlock
+    expect(hero.variant).toBe('care-hero')
+    expect(hero.heading).toContain('pod jedną opieką')
+  })
+
+  it('writes the hours as „pn–pt 9:00–17:00”, never „9–17”', () => {
+    expect(text).not.toMatch(/9–17(?!:)/)
+  })
+
+  it('drops the review and care buttons when the database lacks the products', () => {
+    const { layout: without } = opiekaK4Layout(firma, (id) =>
+      id === 'opieka' || id === 'przeglad' ? undefined : id,
+    )
+    const kinds = sections(without).map((block) => block.variant)
+    expect(kinds).not.toContain('care-hero')
+    expect(kinds).not.toContain('seats')
+  })
+})
+
+describe('/o-firmie (K4i)', () => {
+  const { layout } = aboutK4Layout(firma)
+
+  it('shows 4 lines (decyzja Krystiana 01.11) and „100+ klientów firmowych”', () => {
+    expect(dataOf(layout, 'lines')?.lines).toHaveLength(4)
+    const lines = sections(layout).find((block) => block.variant === 'lines')
+    expect(lines?.heading).toBe('Jedna firma, cztery linie.')
+    expect(JSON.stringify(layout)).toContain('100+')
+    expect(JSON.stringify(layout)).not.toContain('firm i instytucji pod opieką')
+  })
+
+  it('names the statuses in full words and groups the other brands', () => {
+    const hero = dataOf(layout, 'about-hero')!
+    expect(hero.authorizations.map((a) => a.status)).toEqual([
+      'Autoryzowany serwis',
+      'Autoryzowany serwis',
+      'Autoryzowany partner',
+      'Autoryzowany partner',
+    ])
+    expect(dataOf(layout, 'brands')?.groups.map((g) => g.k)).toContain(
+      hardSpaces('Pozostałe marki w ofercie'),
+    )
+  })
+})
+
+describe('/kontakt (K4i)', () => {
+  const { layout } = contactK4Layout(firma)
+
+  it('has the form with the topic chips at #formularz', () => {
+    const form = sections(layout).find((block) => block.variant === 'contact-form')
+    expect(form?.anchor).toBe('formularz')
+    expect(dataOf(layout, 'contact-form')?.topics).toContain('Kasa fiskalna')
+  })
+
+  it('names only Rabka and biznes@ (K4-FINAL §1)', () => {
+    const emails = JSON.stringify(layout).match(/[w.+-]+@[w.-]+/g) ?? []
+    expect(emails.every((email) => email === 'biznes@pro-kom.eu')).toBe(true)
+    expect(JSON.stringify(layout)).not.toMatch(/ul. [^"]*Zakopane/)
   })
 })

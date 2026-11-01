@@ -558,3 +558,444 @@ export function insertK4Layout(file: K4PagesFile, slugOf: SlugOf): K4Layout {
   ]
   return { layout, missing: [...r.missing] }
 }
+
+/** The parts of `strony-k4.json` the K4i pages use. */
+export type K4FirmaFile = {
+  opieka_it: {
+    lead: string
+    areas: { t: string; img?: string; co: string[]; p: string[] }[]
+    steps: Pair[]
+    dla: [string, string, string[], string | null][]
+    start: Pair[]
+    stan: string[]
+    faq: { q: string; a: string }[]
+  }
+  firma: {
+    stats: Pair[]
+    zasady: [string, string, string][]
+    linie: [string, string, string, string, boolean][]
+    aut: [string, string[]][]
+    tematy: [string, string, string, string, string][]
+    need: string[]
+    faq: { q: string; a: string }[]
+    maps: string
+  }
+}
+
+// Texts of the board (`Strona.dc.html`, views `opieka`, `ofirmie`, `kontakt`) that the data file
+// does not carry — copied 1:1, the hours as „pn–pt 9:00–17:00” (K4-FINAL §1).
+type ReportTone = 'ok' | 'warn' | 'urgent' | 'due'
+const CARE_REPORT_ROWS: { t: string; d: string; s: string; tone: ReportTone }[] = [
+  {
+    t: 'Kopie zapasowe',
+    d: 'wykonywane, ale nikt nie sprawdził odtworzenia',
+    s: 'do poprawy',
+    tone: 'warn',
+  },
+  {
+    t: 'Aktualizacje Windows',
+    d: '2 z 6 komputerów bez aktualizacji',
+    s: 'do poprawy',
+    tone: 'warn',
+  },
+  { t: 'Antywirus ESET', d: 'aktywny na wszystkich stanowiskach', s: 'w porządku', tone: 'ok' },
+  { t: 'Konta i dostępy', d: 'aktywne konto byłego pracownika', s: 'pilne', tone: 'urgent' },
+  { t: 'Licencje i podpis', d: 'odnowienie ESET za 41 dni', s: 'termin', tone: 'due' },
+  { t: 'Kasa fiskalna', d: 'przegląd techniczny za 43 dni', s: 'termin', tone: 'due' },
+]
+
+const CARE_SITUATIONS: [string, string, string][] = [
+  [
+    'Dysk w komputerze przestaje działać',
+    'Szukasz serwisu. Dane z ostatnich tygodni mogą przepaść, bo nikt nie sprawdzał kopii.',
+    'Wymieniamy sprzęt i odtwarzamy dane z kopii, którą wcześniej przetestowaliśmy.',
+  ],
+  [
+    'Pracownik odchodzi z firmy',
+    'Jego hasła, poczta i dostępy do programów zostają aktywne — czasem miesiącami.',
+    'Zamykamy dostępy od razu, a skrzynkę i pliki przekazujemy następcy.',
+  ],
+  [
+    'Kasa nie łączy się z terminalem',
+    'Serwis kas odsyła do informatyka, informatyk do serwisu kas. Klienci czekają.',
+    'Jedno zgłoszenie. Znamy kasę, terminal i sieć, więc szukamy przyczyny, nie winnego.',
+  ],
+  [
+    'Kończy się licencja albo podpis',
+    'Dowiadujesz się, gdy program przestaje działać albo nie da się podpisać dokumentu.',
+    'Pilnujemy terminów w kalendarzu firmy i odnawiamy, zanim coś stanie.',
+  ],
+  [
+    'Przychodzi nowy pracownik',
+    'Komputer, poczta i program konfigurowane w pierwszym tygodniu jego pracy.',
+    'Stanowisko, konto i uprawnienia gotowe pierwszego dnia.',
+  ],
+]
+
+const CARE_ON_CALL: Pair[] = [
+  [
+    'Zgłaszasz',
+    'Telefon 889 003 889 albo e-mail biznes@pro-kom.eu, pn–pt 9:00–17:00. Rozmawiasz z zespołem, który zna Twoją firmę.',
+  ],
+  [
+    'Diagnoza zdalna',
+    'Za Twoją zgodą łączymy się z komputerem. Większość spraw kończy się na tym etapie.',
+  ],
+  [
+    'Na miejscu, gdy trzeba',
+    'Gdy trzeba wymienić sprzęt albo coś sprawdzić — przyjeżdżamy z Rabki-Zdroju.',
+  ],
+  [
+    'Zamknięte i zapisane',
+    'Wpisujemy, co zostało zrobione, do dokumentacji firmy. Dokumentacja jest Twoja.',
+  ],
+]
+
+// TODO(krystian): [SZEF] przykładowy kalendarz z planszy (miesiące i terminy) — do akceptacji.
+const CARE_CALENDAR: [string, string, string][] = [
+  ['STY', 'Licencja ESET', 'odnowienie'],
+  ['MAR', 'Podpis kwalifikowany', 'koniec ważności certyfikatu'],
+  ['MAJ', 'Kasa fiskalna', 'przegląd techniczny'],
+  ['WRZ', 'Microsoft 365', 'liczba licencji po sezonie'],
+  ['LIS', 'Serwer', 'koniec gwarancji — decyzja'],
+]
+
+const trustLinks = (maps: string) => [
+  {
+    title: 'Dane w rejestrze',
+    text: 'Nazwa, adres i NIP 7352511447 — w publicznej wyszukiwarce firm CEIDG.',
+    label: 'Sprawdź w CEIDG',
+    href: 'https://www.biznes.gov.pl/pl/wyszukiwarka-firm',
+  },
+  {
+    title: 'Autoryzowany serwis Posnet i Elzab',
+    text: 'Autoryzację serwisu kas potwierdzają producenci — na swoich stronach.',
+    label: 'Strona Posnet',
+    href: 'https://www.posnet.com.pl',
+  },
+  {
+    title: 'Autoryzowany partner GoPOS i InsERT',
+    text: 'Status partnera sprawdzisz u producentów systemów, z którymi pracujemy.',
+    label: 'Strona InsERT',
+    href: 'https://www.insert.com.pl',
+  },
+  {
+    title: 'Opinie klientów',
+    text: 'Opinie o PRO-KOM w Google i Panoramie Firm — pisane przez klientów, nie przez nas.',
+    label: 'Opinie w Google',
+    href: maps,
+  },
+]
+
+/** Who each line is for (board `LN4`; the data file has the other texts). */
+const LINE_AUDIENCE: Record<string, string> = {
+  Biznes: 'dla firm, gastronomii, biur i instytucji',
+  Instalacje: 'domy, firmy, pensjonaty, szkoły',
+  Software: 'firmy z Podhala i całej Polski',
+  Tech: 'Rabka-Zdrój i okolice',
+}
+
+const CARE_NOTE = 'Opieka IT'
+
+function linesData(file: K4FirmaFile) {
+  // Decyzja Krystiana 01.11: the 4 lines of the data file (the board's Zakopane is left out).
+  // TODO(krystian): linia Zakopane — dopisać, gdy będzie jej tekst i adres.
+  return {
+    lines: file.firma.linie.map(([n, t, d, u, here]) => ({
+      n,
+      t,
+      d,
+      w: LINE_AUDIENCE[n] ?? 'firmy i klienci indywidualni',
+      u,
+      here,
+    })),
+    note: 'pro-kom.eu — wspólne wejście do wszystkich linii, aktualności i realizacji. Nowa strona PRO-KOM — wkrótce.',
+  }
+}
+
+/** `/opieka-it` (K4i, K34 §6, K35 §0, plansza Web-Opieka; H1 z planszy — decyzja Krystiana 01.11). */
+export function opiekaK4Layout(file: K4FirmaFile, slugOf: SlugOf): K4Layout {
+  const o = file.opieka_it
+  const r = resolver(slugOf)
+  const care = r.one('opieka')
+  const review = r.one('przeglad') ?? care
+  const layout: PageBlock[] = []
+  if (review) {
+    layout.push(
+      section({
+        variant: 'care-hero',
+        heading: 'Komputery, sieć i kasy pod jedną opieką.',
+        headingAccent: 'Jeden numer, gdy coś stanie.',
+        lead: 'Przejmujemy IT w firmie: komputery, serwer, kopie danych, sieć, pocztę, kasy i programy. Zakres i czas reakcji zapisujemy w umowie. Pomagamy zdalnie i na miejscu — z Rabki-Zdroju na całe Podhale i Małopolskę.',
+        data: {
+          trail: [OFFER_CRUMB],
+          pill: 'Opieka informatyczna · Podhale i Małopolska',
+          review: {
+            slug: review,
+            label: 'Umów bezpłatny przegląd IT',
+            note: 'Bezpłatny przegląd IT',
+          },
+          stats: [
+            { v: '8', k: 'obszarów pod jedną opieką' },
+            { v: '60 min', k: 'oddzwaniamy w godzinach pracy' },
+            { v: '1', k: 'numer do komputerów, sieci i kas' },
+          ],
+          report: {
+            title: 'Raport z przeglądu IT',
+            sub: 'Przykładowa firma · 6 stanowisk',
+            rows: CARE_REPORT_ROWS,
+            summary: {
+              n: '3',
+              t: '3 sprawy do poprawy',
+              d: 'Plan naprawy i wycenę opieki dostajesz na piśmie.',
+            },
+            badges: ['Bezpłatny przegląd na start', 'Licencje i przeglądy kas — przypominamy'],
+          },
+        },
+      }),
+    )
+  }
+  layout.push(
+    section({
+      variant: 'care-areas',
+      anchor: 'zakres',
+      eyebrow: 'Zakres opieki',
+      heading: 'Osiem obszarów, jeden numer telefonu',
+      lead: 'Wybierz obszar i zobacz, czym się zajmujemy i na jakim sprzęcie pracujemy.',
+      data: {
+        areas: o.areas.map((area) => ({
+          t: area.t,
+          co: area.co,
+          products: r.many(area.p).slice(0, 4),
+        })),
+      },
+    }),
+    section({
+      variant: 'table',
+      surface: 'muted',
+      eyebrow: 'Z opieką i bez',
+      heading: 'Te same sytuacje. Dwa różne dni w firmie.',
+      lead: 'Sytuacje, które zdarzają się w każdej firmie. Różnica jest w tym, czy ktoś był przygotowany, zanim się wydarzyły.',
+      data: {
+        head: ['Sytuacja', 'Bez stałej opieki', 'Z opieką PRO-KOM'],
+        rows: CARE_SITUATIONS.map(([k, without, withCare]) => ({ k, v: [without, withCare] })),
+      },
+    }),
+    section({
+      variant: 'switch-steps',
+      eyebrow: 'Jak to działa',
+      heading: 'Od rozmowy do spokojnej pracy',
+      data: {
+        modes: [
+          { t: 'Start opieki', steps: o.steps.map(([t, d]) => ({ t, d })) },
+          { t: 'Gdy coś się dzieje', steps: CARE_ON_CALL.map(([t, d]) => ({ t, d })) },
+        ],
+      },
+    }),
+    section({
+      variant: 'audience',
+      surface: 'muted',
+      eyebrow: 'Dla kogo',
+      heading: 'Opieka dopasowana do rodzaju firmy',
+      data: {
+        items: o.dla.map(([t, k, l, img]) => {
+          const image = img ? r.one(img) : undefined
+          return { t, k, l, ...(image ? { image } : {}) }
+        }),
+      },
+    }),
+    section({
+      variant: 'start-calendar',
+      data: {
+        start: {
+          eyebrow: 'Na start',
+          heading: 'Co porządkujemy w pierwszych tygodniach',
+          items: o.start.map(([t, d]) => ({ t, d })),
+        },
+        calendar: {
+          eyebrow: 'Terminy',
+          heading: 'Pilnujemy dat, które łatwo przegapić',
+          items: CARE_CALENDAR.map(([m, t, d]) => ({ m, t, d })),
+          note: 'Przykładowy kalendarz firmy. Daty ustalamy dla Twojego sprzętu i licencji.',
+        },
+      },
+    }),
+    faq('Pytania', 'Zanim podpiszesz umowę', o.faq),
+  )
+  if (care) {
+    layout.push(
+      section({
+        variant: 'seats',
+        eyebrow: 'Wycena od zakresu',
+        heading: 'Ile masz stanowisk?',
+        lead: 'Zaznacz — dopiszemy to do zapytania, a wycenę od zakresu dostaniesz na piśmie.',
+        data: { slug: care, options: o.stan, label: 'Zapytaj o opiekę IT', note: CARE_NOTE },
+      }),
+      section({
+        variant: 'band',
+        eyebrow: 'Opieka IT z Rabki-Zdroju',
+        heading: 'Porozmawiajmy o Twojej firmie.',
+        lead: 'Opowiedz, ile masz stanowisk i co Cię dziś niepokoi. Zaproponujemy zakres opieki i przygotujemy wycenę na piśmie.',
+        data: {
+          actions: [
+            { label: 'Dodaj opiekę IT do zapytania', add: care, note: CARE_NOTE, primary: true },
+            OFFICE_PHONE,
+          ],
+        },
+      }),
+    )
+  }
+  return { layout, missing: [...r.missing] }
+}
+
+/** `/o-firmie` (K4i, K34 §7, plansza Web-OFirmie). */
+export function aboutK4Layout(file: K4FirmaFile): K4Layout {
+  const f = file.firma
+  const location: PageBlock = {
+    blockType: 'bzLocation',
+    eyebrow: 'Gdzie nas znaleźć',
+    lead: 'Biuro, salon i serwis w jednym miejscu. Dojeżdżamy do firm na całym Podhalu i w Małopolsce.',
+    areaLabel: 'Dojeżdżamy na całe Podhale i Małopolskę',
+    phoneNote: 'oferty i serwis',
+  }
+  const layout: PageBlock[] = [
+    section({
+      variant: 'about-hero',
+      heading: 'Lokalna firma IT,',
+      headingAccent: 'która zostaje z klientem na lata.',
+      lead: 'Od 2004 roku sprzedajemy, wdrażamy i serwisujemy kasy fiskalne, komputery, programy i sieci dla firm i instytucji z Podhala i Małopolski. Biuro, salon i serwis mamy w jednym miejscu — w Rabce-Zdroju. Telefon odbiera zespół, który zna Twoją firmę, a nie infolinia.',
+      data: {
+        pill: 'O firmie · PRO-KOM Tadeusz Wójciak',
+        actions: [{ label: 'Jak pracujemy', href: '#zasady' }],
+        // „100+ klientów firmowych” (K4-FINAL §1) — the data file, not the board's wording.
+        stats: f.stats.map(([v, k]) => ({ v, k })),
+        authorizations: [
+          { brand: 'posnet', status: 'Autoryzowany serwis' },
+          { brand: 'elzab', status: 'Autoryzowany serwis' },
+          { brand: 'gopos', status: 'Autoryzowany partner' },
+          { brand: 'insert', status: 'Autoryzowany partner' },
+        ],
+        register: {
+          label: 'Dane sprawdzisz w CEIDG po numerze NIP',
+          href: 'https://www.biznes.gov.pl/pl/wyszukiwarka-firm',
+        },
+      },
+    }),
+    section({
+      variant: 'cards',
+      eyebrow: 'Zaufanie',
+      heading: 'Nie musisz wierzyć nam na słowo.',
+      lead: 'Wszystko, co piszemy o sobie, możesz sprawdzić w niezależnych źródłach — zanim do nas zadzwonisz.',
+      items: trustLinks(f.maps),
+    }),
+    section({
+      variant: 'cards',
+      anchor: 'zasady',
+      surface: 'muted',
+      eyebrow: 'Jak pracujemy',
+      heading: 'Osiem zasad, które łatwo sprawdzić.',
+      lead: 'Bez obietnic z ulotki — tak pracujemy na co dzień.',
+      items: f.zasady.map(([, title, text], i) => ({
+        title,
+        text,
+        label: String(i + 1).padStart(2, '0'),
+      })),
+    }),
+    section({
+      variant: 'lines',
+      anchor: 'linie',
+      eyebrow: 'Rodzina PRO-KOM',
+      heading: f.linie.length === 4 ? 'Jedna firma, cztery linie.' : 'Jedna firma, kilka linii.',
+      lead: 'Każda linia ma swoją stronę i swoich specjalistów — a za wszystkim stoi ta sama firma z Rabki-Zdroju.',
+      data: linesData(file),
+    }),
+    section({
+      variant: 'brands',
+      surface: 'muted',
+      eyebrow: 'Autoryzacje i partnerzy',
+      heading: 'Marki, które sprzedajemy, wdrażamy i serwisujemy',
+      data: {
+        groups: f.aut.map(([k, names]) => ({ k, names })),
+        note: 'Logotypy należą do ich właścicieli.',
+        action: { label: 'Cała oferta', href: '/oferta' },
+      },
+    }),
+    location,
+    section({
+      variant: 'band',
+      eyebrow: 'Porozmawiajmy',
+      heading: 'Opowiedz, jak pracuje Twoja firma.',
+      lead: 'Przyjedziemy albo zadzwonimy. Wycenę dostajesz na piśmie, bez zobowiązań.',
+      data: {
+        actions: [
+          { label: 'Napisz do nas', href: '/kontakt#formularz', primary: true },
+          OFFICE_PHONE,
+        ],
+      },
+    }),
+  ]
+  return { layout, missing: [] }
+}
+
+/** Where „Z czym dzwonisz?” cards lead (data file: `tel`, `kreator`, `form`). */
+const TOPIC_LINKS: Record<string, string> = {
+  tel: OFFICE_PHONE.href,
+  kreator: '/kreator',
+  form: '#formularz',
+}
+
+/** `/kontakt` (K4i, K34 §8, K4-FINAL §5, plansza Web-Kontakt). */
+export function contactK4Layout(file: K4FirmaFile): K4Layout {
+  const f = file.firma
+  const layout: PageBlock[] = [
+    section({
+      variant: 'contact-hero',
+      heading: 'Zadzwoń, napisz',
+      headingAccent: 'albo wpadnij do Rabki.',
+      lead: 'Jeden numer do ofert, serwisu, programów i awarii. Odbiera zespół z Rabki-Zdroju, który zna Twoją firmę — w godzinach pracy oddzwaniamy w ciągu 60 minut.',
+      data: {
+        bringNote:
+          'Z kasą do przeglądu możesz przyjechać sam — zadzwoń wcześniej, przygotujemy części i papier.',
+      },
+    }),
+    section({
+      variant: 'cards',
+      eyebrow: 'Z czym dzwonisz?',
+      heading: 'Najczęstsze sprawy — od razu wiesz, co dalej',
+      // TODO(krystian): [SZEF] „przegląd kasy co najmniej raz na 2 lata” — fakt prawny bez źródła.
+      items: f.tematy.map(([, title, text, label, go]) => ({
+        title,
+        text,
+        label,
+        href: TOPIC_LINKS[go] ?? '#formularz',
+      })),
+    }),
+    section({
+      variant: 'contact-form',
+      anchor: 'formularz',
+      eyebrow: 'Napisz do nas',
+      heading: 'Powiedz, czego potrzebujesz.',
+      headingAccent: 'Resztą zajmiemy się my.',
+      lead: 'Oddzwonimy w godzinach pracy z konkretną propozycją. Wycena na piśmie, bez zobowiązań.',
+      data: {
+        topics: f.need,
+        bullets: [
+          'Bez zakładania konta',
+          'Bez newslettera i spamu',
+          'Odpowiada człowiek z Rabki, nie infolinia',
+        ],
+        successText: 'Oddzwaniamy w ciągu 60 minut w godzinach pracy.',
+      },
+    }),
+    faq('Pytania o kontakt', 'Dojazd, godziny, wyceny', f.faq),
+    section({
+      variant: 'lines',
+      surface: 'muted',
+      eyebrow: 'Inne linie PRO-KOM',
+      heading: 'Szukasz monitoringu, strony albo naprawy telefonu?',
+      lead: 'To też my — każda linia ma swoją stronę i swoich specjalistów.',
+      data: linesData(file),
+    }),
+  ]
+  return { layout, missing: [] }
+}
