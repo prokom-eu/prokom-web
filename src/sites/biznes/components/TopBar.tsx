@@ -28,7 +28,6 @@ const LINES = [
   { label: 'Instalacje', href: 'https://prokominstalacje.pl', color: 'bg-[var(--c-instalacje)]' },
   { label: 'Software', href: 'https://prokomsoftware.pl', color: 'bg-[var(--c-software)]' },
   { label: 'Tech', href: 'https://prokomserwis.pl', color: 'bg-[var(--c-tech)]' },
-  { label: 'Zakopane', href: 'https://prokomzakopane.pl', color: 'bg-[var(--c-zakopane)]' },
 ] as const
 
 // K4 (K36 §1): no „Zgłoś awarię” or „Aktualności” here — the Konfigurator is the one quick link.
