@@ -291,3 +291,61 @@ export const getInstalacjeHome = cache(
     }
   },
 )
+
+/** A card of „Nowe rozwiązania” on `/dla-architektow` (public fields only, no internal note). */
+export type ArchNewsCard = {
+  id: number
+  title: string
+  category: 'snd' | 'scr' | 'smart' | 'wifi' | 'kam' | 'ev' | 'sz'
+  type: 'Nowość' | 'Rozwiązanie' | 'Szkolenie' | 'Oferta'
+  description: string
+  params: { label: string; value: string }[]
+  plan: string[]
+  examples: string | null
+  places: string[]
+  illustration: string | null
+  featured: boolean
+}
+
+/**
+ * Published „Nowe rozwiązania” of this tenant (`InstArchNews`, ADR-I005 §2) in panel order.
+ * Read on every request (no cache), so a card shows right after it is published. Without the
+ * internal note. Deduplicated per request.
+ */
+export const getInstArchNews = cache(async (tenantId: number): Promise<ArchNewsCard[]> => {
+  const payload = await getPayload({ config })
+  const { docs } = await payload.find({
+    collection: 'inst-arch-news',
+    where: { and: [{ tenant: { equals: tenantId } }, { _status: { equals: 'published' } }] },
+    sort: ['order', 'id'],
+    draft: false,
+    depth: 0,
+    limit: LIMIT,
+    overrideAccess: true,
+    select: {
+      title: true,
+      category: true,
+      type: true,
+      description: true,
+      params: true,
+      planItems: true,
+      examples: true,
+      places: true,
+      illustration: true,
+      featured: true,
+    },
+  })
+  return docs.map((d) => ({
+    id: d.id,
+    title: d.title,
+    category: d.category,
+    type: d.type,
+    description: d.description,
+    params: (d.params ?? []).map((p) => ({ label: p.label, value: p.value })),
+    plan: (d.planItems ?? []).map((p) => p.text),
+    examples: d.examples ?? null,
+    places: (d.places ?? []).map((p) => p.name),
+    illustration: d.illustration ?? null,
+    featured: d.featured ?? false,
+  }))
+})
