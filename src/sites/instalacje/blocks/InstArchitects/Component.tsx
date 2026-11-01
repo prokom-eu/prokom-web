@@ -137,15 +137,13 @@ export async function InstArchitectsBlock({ block, tenantId }: Props) {
             <span aria-current="page">{crumb}</span>
           </nav>
           <div className="arhead">
-            <h1 className="h1 in d2">
-              {hero?.eyebrow && (
-                <>
-                  <span className="eye h1k">{hero.eyebrow}</span>
-                  <span className="vh">: </span>
-                </>
-              )}
-              {hero?.h1a || crumb} {hero?.h1b && <span className="acc">{hero.h1b}</span>}
-            </h1>
+            {/* The audience stays above, outside the h1 (redakcja §1): a short h1 without it. */}
+            <div className="in d2">
+              {hero?.eyebrow && <p className="eye h1k">{hero.eyebrow}</p>}
+              <h1 className="h1">
+                {hero?.h1a || crumb} {hero?.h1b && <span className="acc">{hero.h1b}</span>}
+              </h1>
+            </div>
             <div className="arheadr in d3">
               {hero?.lead && <p className="lead">{hero.lead}</p>}
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>

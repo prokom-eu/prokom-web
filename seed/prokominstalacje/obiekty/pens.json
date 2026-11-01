@@ -9,8 +9,8 @@
  "hero": {
   "crumb": "Pensjonat",
   "eye": "Instalacje dla pensjonatów i pokoi gościnnych · Zakopane, Kościelisko, Rabka, Podhale",
-  "h1a": "Pensjonat, który działa sam,",
-  "h1b": "gdy Ty śpisz albo jesteś na stoku.",
+  "h1a": "Gość wchodzi kodem, Wi-Fi działa w każdym pokoju,",
+  "h1b": "a Ty możesz być na stoku.",
   "lead": "Wi-Fi w każdym pokoju, kamery tam, gdzie są spory: wjazd, parking, narciarnia. Wejście z kodem i wideodomofon w telefonie, telewizja w pokojach z jednej szafy, czujki dymu w pokojach i ogrzewanie, które nie grzeje pustych pokoi.",
   "kv": [
    [
@@ -235,7 +235,7 @@
    {
     "ic": "wifi",
     "t": "Grube mury i stropy",
-    "d": "Stare domy z pokojami gościnnymi mają grube ściany, które tłumią Wi-Fi. Dlatego punkt w pokoju albo nad drzwiami, kablem od szafy."
+    "d": "Stare domy z pokojami gościnnymi mają grube ściany, które tłumią Wi-Fi. Punkt w pokoju albo nad drzwiami, kablem od szafy."
    },
    {
     "ic": "fiber",

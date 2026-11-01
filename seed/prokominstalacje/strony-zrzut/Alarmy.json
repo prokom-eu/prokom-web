@@ -5,7 +5,7 @@
  "_uwaga": "Zrzut danych z wizualizacji v4.0 (stan początkowy strony, motyw jasny). Teksty = treść do seeda. Klucze UI (cls, on, pick) pomijaj.",
  "dane": {
   "ctaEye": "Alarm na Podhalu",
-  "ctaH": "Zaprojektujemy alarm, który chroni, a nie denerwuje.",
+  "ctaH": "Strefy, tryb nocny i czujki, które nie reagują na kota.",
   "ctaP": "Strefy, tryb nocny, czujki całodobowe i wideodomofon. Montaż, test czujek razem z Tobą i serwis.",
   "hero": {
    "mid": true,
@@ -320,7 +320,7 @@
     "cta": "Zaplanuj instalację",
     "href": "Zaplanuj.dc.html"
    },
-   "faqH": "Zanim zadzwonisz.",
+   "faqH": "Pytania o alarmy i wideodomofony",
    "relH": "Alarm, kamery i dostęp w jednej aplikacji.",
    "pkg": {
     "eye": "Przykładowe zestawy",

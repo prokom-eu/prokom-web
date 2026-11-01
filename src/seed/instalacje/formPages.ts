@@ -91,8 +91,8 @@ export const FORM_PAGE_BLOCKS: Record<string, () => Block> = {
     hero: {
       crumb: 'Realizacje',
       eyebrow: 'Realizacje · Podhale, Małopolska i okolice',
-      h1a: 'Wybrane realizacje',
-      h1b: 'PRO-KOM.',
+      h1a: 'Realizacje: nagłośnienie, multimedia i sieci',
+      h1b: 'od Krakowa po Zakopane.',
       lead: 'Nagłośnienie, multimedia, projekcja, sieci i anteny dla firm, parafii, szkół i lokali na Podhalu, w Małopolsce i okolicach. Wybierz rodzaj instalacji albo obiektu.',
     },
     cta: {
