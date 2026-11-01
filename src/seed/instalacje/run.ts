@@ -122,7 +122,8 @@ export async function seedInstalacje(payload: Payload): Promise<void> {
       ...local,
     })
   }
-  count('site-settings contact', siteUpdate || footer ? 'updated' : 'skipped')
+  count('site-settings contact', siteUpdate ? 'updated' : 'skipped')
+  count('site-settings footer', footer ? 'updated' : 'skipped')
 
   // --- services and objects: ids first, then full data with the relations ---
   const services = servicesToImport()

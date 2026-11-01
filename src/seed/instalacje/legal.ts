@@ -88,7 +88,7 @@ const PRIVACY = [
 
 // TODO(krystian): [SZEF/prawnik] DRAFT — the keys are the only browser storage of the Instalacje
 // site (`lib/brand/theme.ts` `pk-theme`, `widzety/architekci/checklistStore.ts`
-// `inst-arch-checklist`); no cookies, no embeds (the contact map is our own drawing, routes open
+// `inst-arch-checklist`, `lib/site/promo.ts` `pk-sz-closed`); no cookies, no embeds (the contact map is our own drawing, routes open
 // Google Maps in a new tab). Check again whenever a key, an embed or analytics is added.
 const COOKIES = [
   p(
@@ -96,7 +96,7 @@ const COOKIES = [
   ),
   h2('Co zapisujemy w przeglądarce'),
   p(
-    'Dwa ustawienia trzymamy w pamięci przeglądarki (localStorage). Zostają na Twoim urządzeniu i nie są wysyłane na serwer.',
+    'Kilka ustawień trzymamy w pamięci przeglądarki (localStorage). Zostają na Twoim urządzeniu i nie są wysyłane na serwer.',
   ),
   ul(
     [{ bold: 'pk-theme' }, ' — wybrany motyw strony: jasny albo ciemny.'],
@@ -104,10 +104,11 @@ const COOKIES = [
       { bold: 'inst-arch-checklist' },
       ' — punkty odhaczone na checkliście projektanta na stronie dla architektów.',
     ],
+    [{ bold: 'pk-sz-closed' }, ' — informacja, że zamknąłeś pasek z akcją sezonową.'],
   ),
   h2('Jak to usunąć'),
   p(
-    'Dane te usuniesz, czyszcząc dane witryny w ustawieniach przeglądarki. Strona działa też bez nich — motyw i odhaczone punkty nie zostaną wtedy zapamiętane.',
+    'Dane te usuniesz, czyszcząc dane witryny w ustawieniach przeglądarki. Strona działa też bez nich — motyw, odhaczone punkty i zamknięty pasek nie zostaną wtedy zapamiętane.',
   ),
   h2('Dane osobowe'),
   p(
@@ -119,7 +120,9 @@ const COOKIES = [
 
 // TODO(krystian): [SZEF] a short statement of what the site does for accessibility; every point is
 // checked in the repo (axe in `tests/e2e/a11y.e2e.spec.ts`, touch targets and scrolling in
-// `tests/e2e/instalacje/strony.e2e.spec.ts`, docs/jakosc.md).
+// `tests/e2e/instalacje/strony.e2e.spec.ts` — buttons ≥ 40 px, MOBILE §10 aims at 44, docs/jakosc.md).
+// The retention „24 miesiącach” of the privacy policy = the default `INQUIRY_RETENTION_MONTHS`;
+// change the text together with the variable.
 const ACCESSIBILITY = [
   p(
     'Chcemy, żeby ze strony wygodnie korzystał każdy — także z czytnikiem ekranu, samą klawiaturą, w powiększeniu albo na telefonie.',
@@ -134,7 +137,7 @@ const ACCESSIBILITY = [
     [
       'Interaktywne rysunki (przekroje obiektów, kalkulatory) mają opis tekstowy i sterowanie przyciskami.',
     ],
-    ['Przyciski na telefonie mają co najmniej 44 piksele wysokości.'],
+    ['Przyciski na telefonie mają co najmniej 40 pikseli wysokości, a większość 44.'],
     ['Animacje wyłączają się, gdy w systemie ustawisz ograniczenie ruchu.'],
     ['Zmiany strony sprawdzamy automatycznym testem dostępności.'],
   ),
