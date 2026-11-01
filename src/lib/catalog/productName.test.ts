@@ -62,6 +62,15 @@ describe('variants', () => {
       'Lenovo ThinkBook 14 G8 / G9 — G8 IRL, G8 IAL, G9 IRL',
     )
     expect(productTitle('Posnet Ergo', ['Ergo Online'])).toBe('Posnet Ergo')
+    // Models only while the title fits before „ | PRO-KOM Biznes” (audit 01.11).
+    expect(
+      productTitle('Dell Pro 14 / Dell Pro 16 dla firm i biur', [
+        'PC14250 (i5)',
+        'PC16250',
+        'PC14255',
+      ]),
+    ).toBe('Dell Pro 14 / Dell Pro 16 dla firm i biur — PC14250')
+    expect(productTitle('A'.repeat(60), ['X1', 'X2'])).toBe('A'.repeat(60))
     expect(productTitle('Model A i B', ['A', 'B'])).toBe('Model A i B')
   })
 })

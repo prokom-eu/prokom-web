@@ -89,7 +89,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const title =
     product.seo.title ??
     productTitle(
-      product.heading,
+      product.shortName ?? product.heading,
       product.variants.map((variant) => variant.name),
     )
   // Panel texts can run long: cut to what results show in full (audit 01.11, as Software).
