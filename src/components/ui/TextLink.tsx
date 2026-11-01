@@ -9,6 +9,7 @@ import { cx } from './cx'
 export function TextLink({ className, ...props }: ComponentProps<'a'>) {
   return (
     <a
+      data-motion="link"
       className={cx(
         'font-semibold text-accent-text underline decoration-2 underline-offset-4 hover:decoration-accent',
         'in-data-[surface=dark]:text-accent-on-dark in-data-[surface=dark]:hover:decoration-white',

@@ -61,6 +61,11 @@ type Props = {
    * another way takes it back off.
    */
   closeOnBack?: boolean
+  /**
+   * How it opens on the lines with a motion system (Software `motion.css`): `sheet` slides up
+   * from the bottom, `dialog` grows in the middle from 641 px and slides up below.
+   */
+  motion?: 'sheet' | 'dialog'
   children: ReactNode
 }
 
@@ -85,6 +90,7 @@ export function BottomSheet({
   footer,
   dragToClose = false,
   closeOnBack = false,
+  motion = 'sheet',
   children,
 }: Props) {
   const dialog = useRef<HTMLDialogElement>(null)
@@ -214,6 +220,7 @@ export function BottomSheet({
   return (
     <dialog
       ref={dialog}
+      data-motion={motion}
       aria-label={title}
       // Esc, `close()` from the effect or a form: keep the parent's state in step.
       onClose={() => onClose()}

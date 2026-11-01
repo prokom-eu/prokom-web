@@ -10,6 +10,7 @@ import type { SoftwareNavigation } from '@/lib/software/navigation'
 import type { SiteTenant } from '@/lib/tenant/byHost'
 
 import { PageTransition } from './PageTransition'
+import { RevealObserver } from './RevealObserver'
 import { PhoneLayer } from './components/PhoneLayer'
 import { ProjectToast } from './components/ProjectToast'
 import { SoftwareFooter } from './components/SoftwareFooter'
@@ -60,6 +61,7 @@ export async function SoftwareFrame({
       {promo}
       <SoftwareHeader tenant={tenant} navigation={navigation} />
       <PageTransition>{children}</PageTransition>
+      <RevealObserver />
       <SoftwareFooter
         name={tenant.name}
         footer={navigation.footer}

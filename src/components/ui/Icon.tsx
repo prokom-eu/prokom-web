@@ -25,6 +25,7 @@ export function Icon({ name, title, strokeWidth = 1.9, className }: Props) {
       strokeLinecap="round"
       strokeLinejoin="round"
       className={cx('size-5 shrink-0', className)}
+      data-icon={name}
       {...(title ? { role: 'img', 'aria-label': title } : { 'aria-hidden': true })}
       focusable="false"
     >

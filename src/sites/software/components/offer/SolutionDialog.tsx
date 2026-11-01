@@ -147,7 +147,7 @@ export function SolutionDialog({
 
   if (!view) {
     return (
-      <BottomSheet open={false} onClose={onClose} title="" panelClassName={PANEL}>
+      <BottomSheet open={false} onClose={onClose} title="" panelClassName={PANEL} motion="dialog">
         {null}
       </BottomSheet>
     )
@@ -305,6 +305,7 @@ export function SolutionDialog({
 
   return (
     <BottomSheet
+      motion="dialog"
       open
       onClose={onClose}
       title={view.name}

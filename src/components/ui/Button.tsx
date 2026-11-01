@@ -17,6 +17,9 @@ const VARIANT: Record<ButtonVariant, string> = {
     'border-2 border-accent-text text-accent-text hover:bg-surface-2 in-data-[surface=dark]:border-white in-data-[surface=dark]:text-white in-data-[surface=dark]:hover:bg-white in-data-[surface=dark]:hover:text-surface-dark',
 }
 
+/** Hover and press of the line's motion system (Software: `src/styles/motion.css`). */
+const MOTION: Record<ButtonVariant, string> = { primary: 'button', secondary: 'button-outline' }
+
 type Common = { variant?: ButtonVariant }
 type AsLink = Common & ComponentProps<'a'> & { href: string }
 type AsButton = Common & ComponentProps<'button'> & { href?: undefined }
@@ -25,8 +28,21 @@ type AsButton = Common & ComponentProps<'button'> & { href?: undefined }
 export function Button(props: AsLink | AsButton) {
   if (props.href !== undefined) {
     const { variant = 'primary', className, ...rest } = props
-    return <a className={cx(BASE, VARIANT[variant], className)} {...rest} />
+    return (
+      <a
+        className={cx(BASE, VARIANT[variant], className)}
+        data-motion={MOTION[variant]}
+        {...rest}
+      />
+    )
   }
   const { variant = 'primary', className, type = 'button', ...rest } = props
-  return <button type={type} className={cx(BASE, VARIANT[variant], className)} {...rest} />
+  return (
+    <button
+      type={type}
+      className={cx(BASE, VARIANT[variant], className)}
+      data-motion={MOTION[variant]}
+      {...rest}
+    />
+  )
 }

@@ -89,7 +89,12 @@ export function SwHeaderNav({ items, mega }: Props) {
                   <ChevronIcon open={open} className="size-3.5" />
                 </button>
                 {/* Positioned against the sticky header: the panel takes the page width. */}
-                <div id={panelId} hidden={!open} className="absolute inset-x-0 top-full pt-1">
+                <div
+                  id={panelId}
+                  hidden={!open}
+                  data-mega-panel
+                  className="absolute inset-x-0 top-full pt-1"
+                >
                   <Container wide>{mega}</Container>
                 </div>
               </li>

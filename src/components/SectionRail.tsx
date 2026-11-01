@@ -1,6 +1,14 @@
 'use client'
 
-import { useEffect, useState, useSyncExternalStore, type ReactNode } from 'react'
+import {
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+  type ReactNode,
+  type RefObject,
+} from 'react'
 
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
@@ -19,11 +27,19 @@ const FROM = {
 
 export type RailFrom = keyof typeof FROM
 
-/** One entry of the rail: icon always, label once the rail opens. */
-export function railLinkClass(current: boolean): string {
+/**
+ * One entry of the rail: icon always, label once the rail opens. With `marker` the current entry
+ * has no background of its own — the sliding marker of `SectionRail` sits behind it.
+ */
+export function railLinkClass(current: boolean, marker = false): string {
   return cx(
     'flex h-9 items-center gap-3 rounded-[14px] px-2 text-sm font-bold whitespace-nowrap',
-    current ? 'bg-accent-text text-accent-ink' : 'text-ink-2 hover:bg-surface-2 hover:text-ink',
+    marker && 'relative z-[1]',
+    current
+      ? marker
+        ? 'text-accent-ink'
+        : 'bg-accent-text text-accent-ink'
+      : 'text-ink-2 hover:bg-surface-2 hover:text-ink',
   )
 }
 
@@ -35,6 +51,10 @@ type ShellProps = {
   from?: RailFrom
   /** „Szukaj · Ctrl K lub /” on top (Biznes K33 §2.4): opens the site search. */
   search?: boolean
+  /** Drawn first inside the rail box (the sliding marker of `SectionRail`). */
+  marker?: ReactNode
+  /** The rail box, for measuring the current entry. */
+  boxRef?: RefObject<HTMLDivElement | null>
   children: ReactNode
 }
 
@@ -47,6 +67,8 @@ export function RailShell({
   heading = label,
   from = 1400,
   search = false,
+  marker,
+  boxRef,
   children,
 }: ShellProps) {
   return (
@@ -54,7 +76,11 @@ export function RailShell({
       aria-label={label}
       className={cx('group/rail fixed top-1/2 left-4 z-30 hidden -translate-y-1/2', FROM[from])}
     >
-      <div className="flex w-11 flex-col gap-1 overflow-hidden rounded-[22px] bg-card p-1 shadow-[0_20px_40px_-28px_var(--glow),inset_0_0_0_1px_var(--border)] transition-[width] duration-200 group-focus-within/rail:w-[214px] group-hover/rail:w-[214px] motion-reduce:transition-none">
+      <div
+        ref={boxRef}
+        className="relative flex w-11 flex-col gap-1 overflow-hidden rounded-[22px] bg-card p-1 shadow-[0_20px_40px_-28px_var(--glow),inset_0_0_0_1px_var(--border)] transition-[width] duration-200 group-focus-within/rail:w-[214px] group-hover/rail:w-[214px] motion-reduce:transition-none"
+      >
+        {marker}
         {search && (
           <button
             type="button"
@@ -144,11 +170,36 @@ export function SectionRail({ items, from = 1400, search = false, glide = false 
     }
   }, [items])
 
+  // Software (`glide`): one marker slides to the current entry instead of the background jumping
+  // (SWV7); measured from the rail box after each change.
+  const box = useRef<HTMLDivElement>(null)
+  const [markerTop, setMarkerTop] = useState<number | null>(null)
+  useLayoutEffect(() => {
+    if (!glide) return
+    const link = box.current?.querySelector<HTMLElement>('a[aria-current="true"]')
+    if (link) setMarkerTop(link.offsetTop)
+  }, [glide, active, present])
+
   const shown =
     present === null ? items : items.filter((item) => present.split(' ').includes(item.id))
   if (shown.length < 2) return null
   return (
-    <RailShell label="Na tej stronie" from={from} search={search}>
+    <RailShell
+      label="Na tej stronie"
+      from={from}
+      search={search}
+      boxRef={box}
+      marker={
+        markerTop === null ? null : (
+          <span
+            aria-hidden="true"
+            data-rail-marker
+            className="pointer-events-none absolute inset-x-1 top-0 h-9 rounded-[14px] bg-accent-text transition-transform duration-(--dur-state) ease-(--ease-out) motion-reduce:transition-none"
+            style={{ transform: `translateY(${markerTop}px)` }}
+          />
+        )
+      }
+    >
       {shown.map((item) => {
         const current = item.id === active
         return (
@@ -156,7 +207,7 @@ export function SectionRail({ items, from = 1400, search = false, glide = false 
             <a
               href={`#${item.id}`}
               aria-current={current ? 'true' : undefined}
-              className={railLinkClass(current)}
+              className={railLinkClass(current, markerTop !== null)}
               onClick={
                 glide
                   ? (event) => {

@@ -3,6 +3,7 @@
 import { useTheme } from '@/components/useTheme'
 import { cx } from '@/components/ui/cx'
 import type { Theme } from '@/lib/brand/theme'
+import { centreOf, revealTheme } from '@/lib/motion/themeReveal'
 
 const OPTIONS: { value: Theme; label: string; icon: string }[] = [
   {
@@ -16,7 +17,8 @@ const OPTIONS: { value: Theme; label: string; icon: string }[] = [
 /**
  * „Wygląd strony” of the phone menu (spec. §3.2, §3.5; `stany/80b`): the Jasny / Ciemny segment
  * on the same choice as the header's switch (`useTheme`, `pk-theme`). Two buttons with
- * `aria-pressed` in a labelled group.
+ * `aria-pressed` in a labelled group; one pill slides under the chosen one (SWV7) and the new
+ * theme opens in a circle from it (`revealTheme`).
  */
 export function ThemeSegment({ label }: { label: string }) {
   const [theme, setTheme] = useTheme()
@@ -25,7 +27,12 @@ export function ThemeSegment({ label }: { label: string }) {
       <span aria-hidden="true" className="font-bold">
         {label}
       </span>
-      <div className="flex rounded-2xl bg-chip p-1">
+      <div className="relative grid grid-cols-2 rounded-2xl bg-chip p-1">
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-y-1 left-1 w-[calc(50%-4px)] rounded-xl bg-card shadow-raised transition-[translate] duration-(--dur-state) ease-(--ease-out) motion-reduce:transition-none"
+          style={{ translate: theme === 'dark' ? '100% 0' : '0 0' }}
+        />
         {OPTIONS.map((option) => {
           const active = theme === option.value
           return (
@@ -33,10 +40,12 @@ export function ThemeSegment({ label }: { label: string }) {
               key={option.value}
               type="button"
               aria-pressed={active}
-              onClick={() => setTheme(option.value)}
+              onClick={(event) => {
+                if (!active) revealTheme(option.value, setTheme, centreOf(event.currentTarget))
+              }}
               className={cx(
-                'inline-flex min-h-11 items-center gap-2 rounded-xl px-3.5 font-bold',
-                active ? 'bg-card text-ink shadow-raised' : 'text-ink-2',
+                'relative inline-flex min-h-11 items-center justify-center gap-2 rounded-xl px-3.5 font-bold',
+                active ? 'text-ink' : 'text-ink-2',
               )}
             >
               <svg
