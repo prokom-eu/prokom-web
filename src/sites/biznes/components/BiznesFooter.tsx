@@ -3,12 +3,12 @@ import { PLAN_PATH } from '@/lib/catalog/floorPlan'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { LocationAddress } from '@/components/ContactDetails'
 import { Container } from '@/components/ui/Container'
 import { brandAsset, HORIZONTAL_LOGO_SIZE } from '@/lib/brand/lines'
 import { BUNDLES_PATH } from '@/lib/catalog/bundle'
 import { BRANDS_PATH } from '@/lib/catalog/filters'
 import type { PartnerBadge } from '@/lib/partners/badges'
+import { hoursSummary } from '@/lib/site/hoursSummary'
 import { toTelHref } from '@/lib/site/link'
 import type { PublicCompanyData, PublicSiteSettings } from '@/lib/site/public'
 
@@ -91,7 +91,19 @@ export function BiznesFooter({ name, company, settings, biznes, badges, contact 
           {settings.footer.text && <p className="leading-relaxed">{settings.footer.text}</p>}
           {main && (
             <div className="text-sm">
-              <LocationAddress location={main} />
+              {/* Short hours „pn–pt 9:00–17:00” (audit 01.11), not the long form of the shared
+                  `LocationAddress` the other lines keep. */}
+              <address className="not-italic">
+                <strong className="font-bold">{main.name}</strong>
+                <br />
+                {main.street}, {main.postalCode} {main.city}
+                {main.hours.length > 0 && (
+                  <>
+                    <br />
+                    {hoursSummary(main.hours)}
+                  </>
+                )}
+              </address>
             </div>
           )}
           {badges.length > 0 && (
