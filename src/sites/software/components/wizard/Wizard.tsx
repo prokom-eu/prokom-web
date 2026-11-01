@@ -169,6 +169,8 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
   const id = useId()
   const [answers, setAnswers] = useState<WizardAnswers>(initial.answers)
   const [step, setStep] = useState<WizardStep>(initial.step)
+  /** Which way the last step change went: the next step slides in from the right, back from the left (SWV7). */
+  const [direction, setDirection] = useState<'next' | 'back'>('next')
   const [maxStep, setMaxStep] = useState(() => stepsOf(initial.answers).indexOf(initial.step))
   const [previewOpen, setPreviewOpen] = useState(false)
   const [wordsOpen, setWordsOpen] = useState(false)
@@ -207,6 +209,7 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
     setAnswers((current) => pruneAnswers(rules, { ...current, ...patch }))
   const go = (next: WizardStep) => {
     moved.current = true
+    setDirection(steps.indexOf(next) < stepIndex ? 'back' : 'next')
     setStep(next)
     setMaxStep((current) => Math.max(current, steps.indexOf(next)))
   }
@@ -227,6 +230,7 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
     }))
     moved.current = true
     trackedResult.current = null
+    setDirection('next')
     setStep(next)
     setMaxStep(1)
   }
@@ -338,7 +342,7 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
 
       <div className="mt-8 grid gap-6 min-[1081px]:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] min-[1081px]:gap-8">
         {/* Left column: steps. */}
-        <div data-wizard-column="left" className="min-w-0">
+        <div data-wizard-column="left" data-wizard-dir={direction} className="min-w-0">
           <nav aria-label={rules.ui.eyebrow}>
             <div className="flex items-center gap-2">
               <ol className="hidden min-w-0 flex-1 gap-1.5 min-[1081px]:flex">
@@ -391,9 +395,10 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
               )}
             </div>
             <div className="mt-3 h-1 overflow-hidden rounded-full bg-chip" aria-hidden="true">
+              {/* Grows by scale, not width (SWV7: transform only). */}
               <div
-                className="h-full rounded-full bg-accent transition-[width] duration-300"
-                style={{ width: `${Math.round(((stepIndex + 1) / stepNames.length) * 100)}%` }}
+                className="h-full w-full origin-left rounded-full bg-accent transition-transform duration-(--dur-state) ease-(--ease-out) motion-reduce:transition-none"
+                style={{ transform: `scaleX(${(stepIndex + 1) / stepNames.length})` }}
               />
             </div>
           </nav>
@@ -734,7 +739,11 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
           )}
 
           {isResult && (
-            <section aria-labelledby={`${id}-title`} className="mt-6 flex flex-col gap-4">
+            <section
+              aria-labelledby={`${id}-title`}
+              data-wizard-result
+              className="mt-6 flex flex-col gap-4"
+            >
               <div className="flex items-center gap-3">
                 <span className="inline-flex items-center gap-1.5 rounded-full bg-ok-text px-3 py-1 text-xs font-extrabold uppercase tracking-[0.1em] text-surface">
                   <PathIcon d={tick} className="size-3.5" />
@@ -831,10 +840,8 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
                     aria-hidden="true"
                   >
                     <div
-                      className="h-full rounded-full bg-ok transition-[width]"
-                      style={{
-                        width: `${Math.round((checkedCount / view.checklist.length) * 100)}%`,
-                      }}
+                      className="h-full w-full origin-left rounded-full bg-ok transition-transform duration-(--dur-state) ease-(--ease-out) motion-reduce:transition-none"
+                      style={{ transform: `scaleX(${checkedCount / view.checklist.length})` }}
                     />
                   </div>
                   <div className="mt-3 flex flex-wrap gap-2">

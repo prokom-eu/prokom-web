@@ -369,6 +369,34 @@
     animation: sw-tile var(--dur-state) var(--ease-spring);
   }
 
+  /* Wizard: the next step slides in from the right, a step back from the left; the result's
+     parts pop in one after another (60 ms). */
+  [data-line='software'] [data-wizard-dir='next'] > section {
+    animation: sw-step-next var(--dur-state) var(--ease-out);
+  }
+  [data-line='software'] [data-wizard-dir='back'] > section {
+    animation: sw-step-back var(--dur-state) var(--ease-out);
+  }
+  [data-line='software'] [data-wizard-result] > * {
+    animation: sw-reveal var(--dur-enter) var(--ease-out) backwards;
+    --reveal-y: 10px;
+  }
+  [data-line='software'] [data-wizard-result] > :nth-child(2) {
+    animation-delay: 60ms;
+  }
+  [data-line='software'] [data-wizard-result] > :nth-child(3) {
+    animation-delay: 120ms;
+  }
+  [data-line='software'] [data-wizard-result] > :nth-child(n + 4) {
+    animation-delay: 180ms;
+  }
+
+  /* Toasts (phone, e-mail, „Twój projekt”) slide up from the bottom. */
+  [data-line='software'] [data-toast] {
+    animation: sw-reveal var(--dur-state) var(--ease-out);
+    --reveal-y: 12px;
+  }
+
   /* A field found wrong shakes once (±4 px) and its message slides in. */
   [data-line='software'] [aria-invalid='true'] {
     animation: sw-shake 300ms var(--ease-out);
@@ -481,6 +509,20 @@
   40%,
   80% {
     translate: 4px 0;
+  }
+}
+
+@keyframes sw-step-next {
+  from {
+    opacity: 0;
+    translate: 24px 0;
+  }
+}
+
+@keyframes sw-step-back {
+  from {
+    opacity: 0;
+    translate: -24px 0;
   }
 }
 
