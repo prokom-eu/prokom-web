@@ -27,7 +27,10 @@ export function SoftwareHeader({ tenant, navigation }: Props) {
   const { header, headerRight, headerMobile, mega, projectDrawer } = navigation
   const [mobileLabel, mobileHref] = headerMobile.cta
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-header-bg backdrop-blur-md backdrop-saturate-150">
+    <header
+      data-sw-header
+      className="sticky top-0 z-40 border-b border-border bg-header-bg backdrop-blur-md backdrop-saturate-150"
+    >
       <Container
         wide
         className="flex min-h-[66px] items-center justify-between gap-2 sm:min-h-[76px] min-[1360px]:gap-3"

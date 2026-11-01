@@ -11,6 +11,8 @@
 #   RCLONE_REMOTE  off-server target, e.g. offsite:prokom-backups (rclone config on the server)
 #   BACKUP_DIR     local copies (default ../backups, next to the repo)
 #   BACKUP_LOCAL_ONLY=1  skip the off-server copy (local tests only)
+#   BACKUP_HEARTBEAT_URL_<STACK>  Better Stack heartbeat (S10c): pinged after a good backup, <url>/fail
+#                  on a failed one; no ping for a day = alert on the phone (runbook §1.8)
 # Restore: scripts/restore.sh, procedure: docs/runbook.md.
 set -euo pipefail
 export MSYS_NO_PATHCONV=1 # Git Bash on Windows (local test): keep container paths as they are
@@ -28,6 +30,23 @@ if [ -f "$env_file" ]; then
   . "$env_file"
   set +a
 fi
+log() { echo "$(date -u +%Y-%m-%dT%H:%M:%SZ) backup prokom-$stack: $*"; }
+
+heartbeat_var="BACKUP_HEARTBEAT_URL_$(echo "$stack" | tr '[:lower:]' '[:upper:]')"
+heartbeat="${!heartbeat_var:-}"
+ping_heartbeat() {
+  [ -n "$heartbeat" ] || return 0
+  curl -fsS -m 10 --retry 3 -o /dev/null "$heartbeat$1" || log "heartbeat ping failed"
+}
+
+# A failed backup (any error under set -e) reports itself at once, not only after a silent day.
+on_exit() {
+  local status=$?
+  rm -rf "${work:-}"
+  if [ "$status" -ne 0 ]; then ping_heartbeat /fail; fi
+}
+trap on_exit EXIT
+
 : "${AGE_RECIPIENT:?set AGE_RECIPIENT (public age key) in .env.backup}"
 backup_dir="${BACKUP_DIR:-$root/../backups}"
 if [ -z "${RCLONE_REMOTE:-}" ] && [ "${BACKUP_LOCAL_ONLY:-}" != 1 ]; then
@@ -42,13 +61,10 @@ media_volume="${project}_media"
 # The PostgreSQL image of the stack also serves as the throwaway container for the media volume.
 helper_image="$(docker inspect -f '{{.Config.Image}}' "$pg")"
 
-log() { echo "$(date -u +%Y-%m-%dT%H:%M:%SZ) backup $project: $*"; }
-
 # The unencrypted dump holds personal data (inquiries): kept next to the backups (not in /tmp)
 # and removed on exit.
 mkdir -p "$backup_dir"
 work="$(mktemp -d "$backup_dir/.backup-XXXXXX")"
-trap 'rm -rf "$work"' EXIT
 
 stamp="$(date -u +%Y%m%dT%H%M%SZ)"
 name="$project-$stamp.tar.age"
@@ -98,4 +114,5 @@ for k in "${kinds[@]}"; do
   find "$backup_dir/$stack/$k" -name '*.tar.age' -mtime +"$days" -delete
 done
 
+ping_heartbeat ""
 log "done"

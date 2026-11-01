@@ -1,146 +1,152 @@
 import { z } from 'zod'
 
-import { WIZARD_BUSINESS_TYPES } from './options'
+import { isSvgPath } from './svg'
 
 /**
- * Rules of the offer wizard (`/kreator`, spec. §6.8), kept as one JSON value in
+ * Rules of Konfigurator 3.0 (`/konfigurator`, K35 §1, ADR-017 D-K4-4), kept as one JSON value in
  * `BiznesSettings.wizard` (B1b decision: nested rules, rarely edited — a JSON field checked by
- * this schema instead of panel forms). B10c: every condition of the board is data here —
- * proposals are product slugs, badges and included services say which needs they follow.
+ * this schema instead of panel forms). Everything the board's engine reads is data here: kinds of
+ * firm, situations, scales, needs with their product lists, presets, yes/no questions with the
+ * needs they add and the products they put first, bundle groups and plan scenes. Products are
+ * catalog slugs; the engine (`wizardEngine.ts`) skips those not listed on the site.
  */
 
-const BUSINESS_TYPE_IDS = WIZARD_BUSINESS_TYPES.map((type) => type.value) as [
-  (typeof WIZARD_BUSINESS_TYPES)[number]['value'],
-  ...(typeof WIZARD_BUSINESS_TYPES)[number]['value'][],
-]
+const id = z.string().regex(/^[a-z0-9-]{1,40}$/, 'Identyfikator: małe litery, cyfry i myślniki.')
+const text = (max: number) => z.string().trim().min(1).max(max)
+const iconPath = z.string().max(400).refine(isSvgPath, 'Ikona: ścieżka SVG („d”).')
+const slugs = z.array(id).max(12)
 
-export type BusinessTypeId = (typeof BUSINESS_TYPE_IDS)[number]
+/** Scales of the board: 1 stanowisko, 2–3, 4–10, ponad 10 — the engine's rules read them. */
+export const WIZARD_SCALES = ['1', '2', '4', '10'] as const
+export type WizardScale = (typeof WIZARD_SCALES)[number]
 
-/** Line icons of the wizard tiles (board `Kreator`), drawn by `WizardIcon`. */
-export const WIZARD_ICONS = [
-  'cart',
-  'fork',
-  'bed',
-  'calc',
-  'car',
-  'cross',
-  'cap',
-  'factory',
-  'truck',
-  'plus',
-  'register',
-  'pos',
-  'terminal',
-  'program',
-  'booking',
-  'ksef',
-  'laptop',
-  'wifi',
-  'backup',
-  'shield',
-  'screen',
-  'care',
-  'signature',
+/** Situations the engine knows (K35 §1.2 pkt 1 — `etap`). */
+export const WIZARD_STAGES = ['nowa', 'wymiana', 'awaria', 'ksef'] as const
+export type WizardStage = (typeof WIZARD_STAGES)[number]
+
+/** Needs the engine adds by itself (situation, scale) — they must be in the list of needs. */
+export const ENGINE_NEEDS = ['ksef', 'opieka', 'plat', 'kopie', 'ups'] as const
+
+/** Where a result link of a need leads (`l` of the board): a brand, a page, the offer. */
+export const WIZARD_LINK_KINDS = [
+  'marka',
+  'gopos',
+  'insert',
+  'oferta',
+  'vending',
+  'opieka',
 ] as const
 
-export type WizardIconName = (typeof WIZARD_ICONS)[number]
+const option = z.object({ id, name: text(60), caption: text(120) })
 
-/** Colours of the business type tiles: the tone tokens of the Biznes line (`tokens.css`). */
-export const WIZARD_TONES = ['green', 'red', 'blue', 'violet'] as const
+const question = z.object({
+  id,
+  question: text(120),
+  caption: text(160),
+  /** The usual answer, shown ticked (board: „Zaznaczyliśmy najczęstsze odpowiedzi”). */
+  default: z.boolean(),
+  add: z.array(id).max(8),
+  /** Need → products put first when the answer is „Tak”. */
+  overrides: z.record(id, slugs),
+  /** Reason shown under the pick („Dopasowane, bo: dowozy i zamówienia online”). */
+  tag: text(60),
+})
 
-const businessTypeId = z.enum(BUSINESS_TYPE_IDS)
-const id = z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/)
-const label = z.string().trim().min(1).max(120)
-const caption = z.string().trim().max(200).optional()
-const icon = z.enum(WIZARD_ICONS)
+const recommendation = z.object({
+  title: text(80),
+  why: text(400),
+  /** Default list of the need. */
+  products: slugs,
+  byFirm: z.record(id, slugs),
+  byScale: z.partialRecord(z.enum(WIZARD_SCALES), slugs),
+  links: z
+    .array(
+      z.object({
+        label: text(60),
+        kind: z.enum(WIZARD_LINK_KINDS),
+        /** `marka`: brand slug; `oferta`: category slug (empty = the whole offer). */
+        target: z.string().max(60).optional(),
+      }),
+    )
+    .max(4),
+})
 
 export const wizardSchema = z
   .object({
-    steps: z.array(label).min(1),
-    businessTypes: z
-      .array(
-        z.object({ id: businessTypeId, name: label, caption, icon, tone: z.enum(WIZARD_TONES) }),
-      )
-      .min(1),
-    needs: z.array(z.object({ id, name: label, caption, icon })).min(1),
-    /** Needs ticked at the start for a business type. */
-    defaultNeeds: z.partialRecord(businessTypeId, z.array(id)),
-    /** Answers of the „Skala” step; `default` is chosen at the start. */
-    scale: z.object({
-      salesPoints: z.object({ options: z.array(label).min(1), default: label }),
-      computers: z.object({ options: z.array(label).min(1), default: label }),
-      premises: z.object({
-        options: z.array(z.object({ id, name: label, caption })).min(1),
-        default: id,
-      }),
-      when: z.array(z.object({ name: label, caption })),
-    }),
-    /** Product slug per need and business type (`*` = any other type). */
-    proposals: z.record(id, z.partialRecord(z.union([businessTypeId, z.literal('*')]), id)),
-    /** Needs counted per sales point („2 × kasa”). */
-    multiplyBySalesPoints: z.array(id),
-    includedServices: z.object({
-      always: z.array(label),
-      /** Added when any of `needs` is chosen (and the business type matches, when set). */
-      rules: z.array(
-        z.object({
-          needs: z.array(id).min(1),
-          text: label,
-          businessTypes: z.array(businessTypeId).optional(),
-          exceptBusinessTypes: z.array(businessTypeId).optional(),
-        }),
-      ),
-    }),
-    /**
-     * Shown when all `needs` are chosen (and the premises match, when set). A legal fact only
-     * with its source in the caption (plan B §4).
-     */
-    badges: z.array(
-      z.object({
-        needs: z.array(id).min(1),
-        premises: id.optional(),
-        value: z.string().trim().min(1).max(8),
-        text: label,
-        caption,
-      }),
+    version: z.literal(3),
+    firms: z.array(option.extend({ iconPath })).min(1).max(12),
+    stages: z.array(option.extend({ id: z.enum(WIZARD_STAGES) })).length(WIZARD_STAGES.length),
+    scales: z.array(option.extend({ id: z.enum(WIZARD_SCALES) })).length(WIZARD_SCALES.length),
+    /** Needs in the order of the result (board `ORD`). */
+    needs: z
+      .array(z.object({ id, name: text(60), iconPath }))
+      .min(1)
+      .max(24),
+    presets: z.record(id, z.array(id).max(8)),
+    recommendations: z.record(id, recommendation),
+    questions: z.record(id, z.array(question).max(6)),
+    /** Note on the result for a situation (board `etapNote`). */
+    stageNotes: z.partialRecord(
+      z.enum(WIZARD_STAGES),
+      z.object({ title: text(80), text: text(400) }),
     ),
+    /** Firm → bundle area (`Bundles.area`): the matching ready bundle. */
+    bundleAreas: z.record(id, id),
+    /** Firm → scene of „Plan Twojej firmy” (`FloorPlans.slug`). */
+    scenes: z.record(id, id),
   })
   .superRefine((wizard, ctx) => {
+    const firms = new Set(wizard.firms.map((firm) => firm.id))
     const needs = new Set(wizard.needs.map((need) => need.id))
-    const check = (needId: string, path: (string | number)[]) => {
-      if (!needs.has(needId)) {
-        ctx.addIssue({ code: 'custom', path, message: `Nieznana potrzeba „${needId}”.` })
-      }
+    const issue = (path: (string | number)[], message: string) =>
+      ctx.addIssue({ code: 'custom', path, message })
+    const unique = (values: string[], path: string) => {
+      if (new Set(values).size !== values.length) issue([path], 'Identyfikatory się powtarzają.')
     }
-    for (const [type, list] of Object.entries(wizard.defaultNeeds)) {
-      list?.forEach((needId, index) => check(needId, ['defaultNeeds', type, index]))
+    unique([...firms], 'firms')
+    unique(
+      wizard.needs.map((need) => need.id),
+      'needs',
+    )
+    for (const need of ENGINE_NEEDS) {
+      if (!needs.has(need)) issue(['needs'], `Brak potrzeby „${need}” (dodaje ją silnik).`)
     }
-    for (const needId of Object.keys(wizard.proposals)) check(needId, ['proposals', needId])
-    wizard.multiplyBySalesPoints.forEach((needId, index) =>
-      check(needId, ['multiplyBySalesPoints', index]),
-    )
-    wizard.includedServices.rules.forEach((rule, index) =>
-      rule.needs.forEach((needId, n) => check(needId, ['includedServices', 'rules', index, n])),
-    )
-    wizard.badges.forEach((badge, index) =>
-      badge.needs.forEach((needId, n) => check(needId, ['badges', index, 'needs', n])),
-    )
-    const { salesPoints, computers, premises } = wizard.scale
-    const notIn = (value: string, options: string[], path: string[]) => {
-      if (!options.includes(value)) {
-        ctx.addIssue({ code: 'custom', path, message: `„${value}” nie ma na liście.` })
-      }
+    const knownFirm = (key: string, path: string) => {
+      if (!firms.has(key)) issue([path, key], `Nieznany rodzaj firmy „${key}”.`)
     }
-    notIn(salesPoints.default, salesPoints.options, ['scale', 'salesPoints', 'default'])
-    notIn(computers.default, computers.options, ['scale', 'computers', 'default'])
-    const premisesIds = premises.options.map((option) => option.id)
-    notIn(premises.default, premisesIds, ['scale', 'premises', 'default'])
-    wizard.badges.forEach((badge, index) => {
-      if (badge.premises) notIn(badge.premises, premisesIds, ['badges', String(index), 'premises'])
-    })
+    const knownNeeds = (list: readonly string[], path: (string | number)[]) => {
+      for (const need of list) if (!needs.has(need)) issue(path, `Nieznana potrzeba „${need}”.`)
+    }
+    for (const [firm, list] of Object.entries(wizard.presets)) {
+      knownFirm(firm, 'presets')
+      knownNeeds(list, ['presets', firm])
+    }
+    for (const [need, rec] of Object.entries(wizard.recommendations)) {
+      knownNeeds([need], ['recommendations'])
+      for (const firm of Object.keys(rec.byFirm)) knownFirm(firm, `recommendations.${need}.byFirm`)
+    }
+    for (const need of needs) {
+      if (!wizard.recommendations[need]) issue(['recommendations'], `Brak listy dla „${need}”.`)
+    }
+    for (const [firm, list] of Object.entries(wizard.questions)) {
+      knownFirm(firm, 'questions')
+      unique(
+        list.map((q) => q.id),
+        `questions.${firm}`,
+      )
+      list.forEach((q, i) => {
+        knownNeeds(q.add, ['questions', firm, i, 'add'])
+        knownNeeds(Object.keys(q.overrides), ['questions', firm, i, 'overrides'])
+      })
+    }
+    for (const firm of Object.keys(wizard.bundleAreas)) knownFirm(firm, 'bundleAreas')
+    for (const firm of Object.keys(wizard.scenes)) knownFirm(firm, 'scenes')
   })
 
 export type Wizard = z.infer<typeof wizardSchema>
+export type WizardQuestion = z.infer<typeof question>
+export type WizardRecommendation = z.infer<typeof recommendation>
+export type WizardLinkKind = (typeof WIZARD_LINK_KINDS)[number]
 
 /** `validate` of the JSON field: `true` or the first problem, readable in the panel. */
 export function validateWizard(value: unknown): true | string {
@@ -148,167 +154,5 @@ export function validateWizard(value: unknown): true | string {
   const result = wizardSchema.safeParse(value)
   if (result.success) return true
   const [issue] = result.error.issues
-  return `Reguły kreatora: ${issue?.path.join('.') || '(całość)'} — ${issue?.message ?? 'błąd'}`
-}
-
-/** Shape of `seed/prokombiznes/kreator.json` (Polish keys of the design package). */
-type SeedWizard = {
-  kroki: string[]
-  rodzaje_firm: { id: string; nazwa: string; podpis?: string }[]
-  potrzeby: { id: string; nazwa: string; podpis?: string }[]
-  domyslne_potrzeby: Record<string, string[]>
-  skala: {
-    stanowiska_sprzedazy: string[]
-    komputery: string[]
-    lokal: Record<string, string>
-    kiedy: string[]
-  }
-  propozycja_dla_potrzeby: Record<string, Record<string, string>>
-  uslugi_w_cenie: Record<string, string | string[]>
-}
-
-/**
- * What the package leaves to the board `Kreator` (its script): icons and tones of the tiles,
- * captions of the choices, defaults, the badges and the services that depend on the type.
- */
-const BOARD = {
-  businessTypes: {
-    sklep: ['cart', 'green'],
-    gastro: ['fork', 'red'],
-    hotel: ['bed', 'violet'],
-    biuro: ['calc', 'green'],
-    warsztat: ['car', 'blue'],
-    gabinet: ['cross', 'red'],
-    szkola: ['cap', 'blue'],
-    produkcja: ['factory', 'blue'],
-    truck: ['truck', 'violet'],
-    inna: ['plus', 'blue'],
-  } as Record<string, [WizardIconName, (typeof WIZARD_TONES)[number]]>,
-  needIcons: {
-    kasa: 'register',
-    pos: 'pos',
-    term: 'terminal',
-    prog: 'program',
-    hotel: 'booking',
-    ksef: 'ksef',
-    komp: 'laptop',
-    siec: 'wifi',
-    kopie: 'backup',
-    bezp: 'shield',
-    av: 'screen',
-    opieka: 'care',
-    podpis: 'signature',
-  } as Record<string, WizardIconName>,
-  premisesCaptions: {
-    nowy: 'otwieram firmę lub pierwszy raz kasa',
-    dziala: 'firma już pracuje, coś zmieniamy',
-  } as Record<string, string>,
-  whenCaptions: {
-    'Otwarcie lokalu': 'nowy start, wszystko od zera',
-    'Przed sezonem': 'zima albo lato na Podhalu',
-    'Jak najszybciej': 'coś nie działa albo pilna zmiana',
-    'Na spokojnie': 'planuję na najbliższe miesiące',
-  } as Record<string, string>,
-  defaults: { salesPoints: '1', computers: '1–3', premises: 'nowy' },
-  multiplyBySalesPoints: ['kasa', 'pos'],
-  // „pos”: one string in the package („Wgranie menu (gastro) / Wgranie towarów”).
-  posServices: [
-    { needs: ['pos'], businessTypes: ['gastro' as const], text: 'Wgranie menu' },
-    { needs: ['pos'], exceptBusinessTypes: ['gastro' as const], text: 'Wgranie towarów' },
-  ],
-  // TODO(krystian): [SZEF] „Terminal 0 zł przez 12 miesięcy (Polska Bezgotówkowa)” — warunki
-  // programu bez źródła, plakietka pominięta; KSeF bez daty 1.01.2027 (ZMIANY-v20 §5); ulga
-  // 700 zł — w paczce „DO POTWIERDZENIA”, spec. §11 chce linku do aktu.
-  badges: [
-    {
-      needs: ['kasa'],
-      premises: 'nowy',
-      value: '700',
-      text: 'Ulga do 700 zł na kasę online',
-      caption: '90% ceny netto kasy, art. 111 ust. 4 ustawy o VAT',
-    },
-    {
-      needs: ['ksef'],
-      value: 'KSeF',
-      text: 'Gotowe na KSeF',
-      caption: 'program, certyfikat i uprawnienia',
-    },
-  ],
-} as const
-
-/** „gopos (GoPOS na Sunmi D3 PRO)” → `gopos`; names the package uses for its short ids. */
-const SHORT_ID_ALIASES: Record<string, string> = {
-  nfhotel: 'nfh',
-  thinkpad: 'tp',
-  thinkcentre: 'tc',
-}
-
-const shortIdOf = (value: string) => {
-  const first = value.trim().split(/[\s(]/, 1)[0] ?? ''
-  return SHORT_ID_ALIASES[first] ?? first
-}
-
-/**
- * Seed package + board → wizard rules in code names. `productSlug` turns a short id of the
- * package (`katalog.json`) into the product's slug; a proposal without a product is left out.
- */
-export function wizardFromSeed(
-  seed: SeedWizard,
-  productSlug: (shortId: string) => string | undefined,
-): unknown {
-  const { zawsze, ...byNeed } = seed.uslugi_w_cenie
-  const option = ({ id, nazwa, podpis }: { id: string; nazwa: string; podpis?: string }) => ({
-    id,
-    name: nazwa,
-    ...(podpis && { caption: podpis }),
-  })
-  const proposals = Object.fromEntries(
-    Object.entries(seed.propozycja_dla_potrzeby).map(([need, byType]) => [
-      need,
-      Object.fromEntries(
-        Object.entries(byType).flatMap(([type, value]) => {
-          const slug = productSlug(shortIdOf(value))
-          return slug ? [[type, slug]] : []
-        }),
-      ),
-    ]),
-  )
-  const serviceRules = Object.entries(byNeed).flatMap(([key, text]) =>
-    key === 'pos' || typeof text !== 'string' ? [] : [{ needs: key.split('|'), text }],
-  )
-  return {
-    steps: seed.kroki,
-    businessTypes: seed.rodzaje_firm.map((type) => {
-      const [typeIcon, tone] = BOARD.businessTypes[type.id] ?? ['plus', 'blue']
-      return { ...option(type), icon: typeIcon, tone }
-    }),
-    needs: seed.potrzeby.map((need) => ({
-      ...option(need),
-      icon: BOARD.needIcons[need.id] ?? 'plus',
-    })),
-    defaultNeeds: seed.domyslne_potrzeby,
-    scale: {
-      salesPoints: {
-        options: seed.skala.stanowiska_sprzedazy,
-        default: BOARD.defaults.salesPoints,
-      },
-      computers: { options: seed.skala.komputery, default: BOARD.defaults.computers },
-      premises: {
-        options: Object.entries(seed.skala.lokal).map(([premisesId, name]) => ({
-          id: premisesId,
-          name,
-          caption: BOARD.premisesCaptions[premisesId],
-        })),
-        default: BOARD.defaults.premises,
-      },
-      when: seed.skala.kiedy.map((name) => ({ name, caption: BOARD.whenCaptions[name] })),
-    },
-    proposals,
-    multiplyBySalesPoints: [...BOARD.multiplyBySalesPoints],
-    includedServices: {
-      always: Array.isArray(zawsze) ? zawsze : zawsze ? [zawsze] : [],
-      rules: [...serviceRules.slice(0, 1), ...BOARD.posServices, ...serviceRules.slice(1)],
-    },
-    badges: BOARD.badges,
-  }
+  return `Reguły konfiguratora: ${issue?.path.join('.') || '(całość)'} — ${issue?.message ?? 'błąd'}`
 }

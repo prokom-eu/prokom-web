@@ -17,7 +17,7 @@ test.describe('Biznes home page', () => {
     await expect(page.locator('h1')).toContainText('Wszystko z jednego miejsca — z Rabki.')
     await expect(hero.getByRole('link', { name: /Dobierz rozwiązanie dla firmy/ })).toHaveAttribute(
       'href',
-      '/kreator',
+      '/konfigurator',
     )
     await expect(hero.getByRole('link', { name: /^Przeglądaj ofertę · \d+$/ })).toHaveAttribute(
       'href',
@@ -277,24 +277,25 @@ test.describe('Biznes blocks on other lines', () => {
 
 // K4c PR 3b (v150): „Dla kogo”, „Plan Twojej firmy”, „Jak pracujemy” (K36 §1).
 test.describe('Biznes home page: industries, plan, steps', () => {
-  test('plan: tabs switch the scene, from the keyboard too', async ({ page }) => {
+  test('plan 2.0: the scenes of „Plany firmy”, a tile sets the scene (K31d′)', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
     const plan = page.locator('#plan')
-    const tabs = plan.getByRole('tab')
-    await expect(tabs).toHaveCount(8)
-    await expect(tabs.first()).toHaveAttribute('aria-selected', 'true')
-    const panel = plan.getByRole('tabpanel')
-    await expect(panel.getByRole('heading', { level: 3 })).toHaveText('Sklep spożywczy')
-    await expect(panel.getByRole('listitem')).toHaveCount(12)
+    const scenes = plan.getByRole('group', { name: 'Rodzaj firmy' }).getByRole('button')
+    await expect(scenes).toHaveCount(12)
+    await expect(scenes.first()).toHaveAttribute('aria-pressed', 'true')
+    await expect(plan.getByRole('heading', { level: 3, name: 'Sklep spożywczy' })).toBeVisible()
+    await expect(plan).toContainText('186')
 
-    await tabs.nth(1).click()
-    await expect(panel.getByRole('heading', { level: 3 })).toHaveText('Restauracja')
-    await page.keyboard.press('ArrowRight')
-    await expect(tabs.nth(2)).toBeFocused()
-    await expect(tabs.nth(2)).toHaveAttribute('aria-selected', 'true')
-    await expect(
-      panel.getByRole('link', { name: 'Przygotuj zapytanie: Pensjonat' }),
-    ).toHaveAttribute('href', '/kreator')
+    await scenes.filter({ hasText: 'Biuro' }).click()
+    await expect(plan.getByRole('heading', { level: 3, name: /^Biuro/ })).toBeVisible()
+    await expect(page).toHaveURL(/\?scena=biuro/)
+
+    await page
+      .locator('#dla-kogo')
+      .getByRole('link', { name: /Apteka/ })
+      .click()
+    await expect(plan.getByRole('heading', { level: 3, name: 'Apteka' })).toBeVisible()
+    await expect(page).toHaveURL(/\?scena=apteka/)
   })
 
   test('industries: eleven tiles and the funding bar, the rest unfolds in place', async ({
@@ -308,16 +309,20 @@ test.describe('Biznes home page: industries, plan, steps', () => {
     const tiles = grid.getByRole('link')
     await expect(tiles).toHaveCount(11)
     await expect(tiles.filter({ hasText: 'Fryzjer, kosmetyka, beauty' })).toBeVisible()
+    // A tile with a scene of the plan shows it (K31d′); without JavaScript it opens the plan page.
     await expect(tiles.filter({ hasText: 'Restauracja, bar, kawiarnia' })).toHaveAttribute(
       'href',
-      '/branze/gastronomia',
+      '/plan-firmy?scena=gastro',
     )
     await expect(section).toContainText('Masz dofinansowanie na sprzęt lub oprogramowanie?')
     await grid.getByRole('button', { name: /Pokaż wszystkie branże/ }).click()
     await expect(tiles).toHaveCount(22)
     // First of the rest in the order of the board (`KG5`).
     await expect(tiles.filter({ hasText: 'Zakład produkcyjny' })).toBeFocused()
-    await expect(tiles.filter({ hasText: 'Każda inna firma' })).toHaveAttribute('href', '/kreator')
+    await expect(tiles.filter({ hasText: 'Każda inna firma' })).toHaveAttribute(
+      'href',
+      '/konfigurator',
+    )
   })
 
   test('steps and „Nasze zobowiązania”', async ({ page }) => {

@@ -228,8 +228,8 @@ export function InquiryPage({ breadcrumbs, formToken, phrase, callbackTime, hour
                 >
                   Przejdź do katalogu
                 </Link>
-                <Link href="/kreator" className={LINK}>
-                  Dobierz zestaw w 60 s
+                <Link href="/konfigurator" className={LINK}>
+                  Otwórz konfigurator
                 </Link>
               </div>
             </div>
@@ -361,8 +361,8 @@ export function InquiryPage({ breadcrumbs, formToken, phrase, callbackTime, hour
                   <Link href="/oferta" className={LINK}>
                     + Dodaj z katalogu
                   </Link>
-                  <Link href="/kreator" className={LINK}>
-                    Dobierz zestaw w 60 s
+                  <Link href="/konfigurator" className={LINK}>
+                    Otwórz konfigurator
                   </Link>
                 </p>
               </div>

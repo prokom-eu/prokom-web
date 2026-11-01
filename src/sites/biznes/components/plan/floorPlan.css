@@ -1,0 +1,285 @@
+/* Floor plan drawings of „Plan Twojej firmy” (K31d′): the class rules of `fp.css` from the K3.1
+   package, colours from the tokens of `.fp-stage` (tokens.css). The drawing is the inline SVG of
+   the scene; the stage keeps its aspect ratio. */
+.fp-stage .fpsvg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.fp-stage .fpout {
+  fill: var(--fpo);
+}
+.fp-stage .ft {
+  fill: var(--fp1);
+}
+.fp-stage .ftl {
+  stroke: var(--fp1l);
+  stroke-width: 1.2;
+}
+.fp-stage .fw {
+  fill: var(--fp2);
+}
+.fp-stage .fwl {
+  stroke: var(--fp2l);
+  stroke-width: 1.2;
+}
+.fp-stage .fc {
+  fill: var(--fp3);
+}
+.fp-stage .fcd {
+  fill: var(--fp3l);
+}
+.fp-stage .fk {
+  fill: var(--fp4);
+}
+.fp-stage .fkl {
+  stroke: var(--fp4l);
+  stroke-width: 1;
+}
+.fp-stage .wl rect {
+  fill: var(--fpw);
+}
+.fp-stage .wl .ow {
+  fill: none;
+  stroke: var(--fpw);
+  stroke-width: 14;
+}
+.fp-stage .dg {
+  fill: var(--fpdg);
+}
+.fp-stage .dl {
+  stroke: var(--fpw);
+  stroke-width: 3;
+  fill: none;
+  stroke-linecap: round;
+}
+.fp-stage .da {
+  stroke: var(--fpw);
+  stroke-width: 1.4;
+  fill: none;
+  stroke-dasharray: 4 4;
+  opacity: 0.6;
+}
+.fp-stage .win rect {
+  fill: var(--fpwin);
+}
+.fp-stage .win line {
+  stroke: var(--fpw);
+  stroke-width: 1.6;
+}
+.fp-stage .fl rect {
+  fill: var(--fpf);
+  stroke: var(--fps);
+  stroke-width: 1;
+}
+.fp-stage .fl circle {
+  fill: var(--accent);
+}
+.fp-stage .fl text {
+  font: 800 14px var(--font-display);
+  letter-spacing: 0.1em;
+  fill: var(--fplab);
+}
+.fp-stage .tire {
+  fill: var(--fpw);
+  opacity: 0.85;
+}
+.fp-stage .tire2 {
+  fill: var(--fpo);
+}
+.fp-stage .ent rect {
+  fill: var(--accent);
+}
+.fp-stage .ent text {
+  font: 800 12.5px var(--font-display);
+  letter-spacing: 0.12em;
+  fill: var(--fpent);
+  text-anchor: middle;
+}
+.fp-stage :is(.fu, .dk, .sh, .ct, .tw, .bd, .sf, .rk, .pr, .mc2, .cv, .st, .lift, .car, .fr) {
+  stroke-width: 1.5;
+}
+.fp-stage .fu {
+  fill: var(--fpf);
+  stroke: var(--fps);
+}
+.fp-stage .dk {
+  fill: var(--fpd);
+  stroke: var(--fpds);
+}
+.fp-stage .mn {
+  fill: var(--fpw);
+}
+.fp-stage :is(.ch, .chc) {
+  fill: var(--fpc);
+  stroke: var(--fps);
+  stroke-width: 1.2;
+}
+.fp-stage .tw {
+  fill: var(--fpd);
+  stroke: var(--fpds);
+}
+.fp-stage .sh {
+  fill: var(--fpf);
+  stroke: var(--fps);
+}
+.fp-stage .p1 {
+  fill: var(--fpp1);
+  opacity: var(--fpp-opacity);
+}
+.fp-stage .p2 {
+  fill: var(--fpp2);
+  opacity: var(--fpp-opacity);
+}
+.fp-stage .p3 {
+  fill: var(--fpp3);
+  opacity: var(--fpp-opacity);
+}
+.fp-stage .p4 {
+  fill: var(--fpp4);
+  opacity: var(--fpp-opacity);
+}
+.fp-stage .p5 {
+  fill: var(--fpp5);
+  opacity: var(--fpp-opacity);
+}
+.fp-stage .fr {
+  fill: var(--fpfr);
+  stroke: var(--fpfrs);
+}
+.fp-stage .fl2 {
+  stroke: var(--fpfrs);
+  stroke-width: 1.2;
+}
+.fp-stage .ct {
+  fill: var(--fpct);
+  stroke: var(--fpcts);
+}
+.fp-stage .bd {
+  fill: var(--fpf);
+  stroke: var(--fps);
+}
+.fp-stage .pl {
+  fill: var(--fpc);
+  stroke: var(--fps);
+}
+.fp-stage .bl {
+  fill: var(--fpbl);
+  stroke: none;
+}
+.fp-stage .sf {
+  fill: var(--fpsf);
+  stroke: var(--fpsfs);
+}
+.fp-stage .sfb {
+  fill: var(--fpsfs);
+  stroke: none;
+}
+.fp-stage .pt {
+  fill: var(--fppt);
+}
+.fp-stage .pt2 {
+  fill: var(--fppt2);
+}
+.fp-stage .car {
+  fill: var(--fpcar);
+  stroke: var(--fpcars);
+}
+.fp-stage .gl {
+  fill: var(--fpgl);
+  stroke: none;
+}
+.fp-stage .roof {
+  fill: var(--fpcars);
+  stroke: none;
+  opacity: 0.35;
+}
+.fp-stage .lift {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-dasharray: 8 6;
+  opacity: 0.6;
+}
+.fp-stage .post {
+  fill: var(--accent);
+  stroke: none;
+  opacity: 0.55;
+}
+.fp-stage .rk {
+  fill: var(--fpw);
+  stroke: none;
+}
+.fp-stage .rkl {
+  stroke: var(--fpo);
+  stroke-width: 2;
+  opacity: 0.6;
+}
+.fp-stage .pr {
+  fill: var(--fpf);
+  stroke: var(--fps);
+}
+.fp-stage .bx {
+  fill: var(--fpbx);
+  stroke: var(--fpbxs);
+  stroke-width: 1;
+}
+.fp-stage .mc2 {
+  fill: var(--fpd);
+  stroke: var(--fpds);
+}
+.fp-stage .mc3 {
+  fill: var(--fpc);
+  stroke: var(--fps);
+  stroke-width: 1.2;
+}
+.fp-stage .cv {
+  fill: var(--fpc);
+  stroke: var(--fps);
+}
+.fp-stage .cvl {
+  stroke: var(--fps);
+  stroke-width: 1.5;
+}
+.fp-stage .st {
+  fill: var(--fpd);
+  stroke: var(--fpds);
+}
+.fp-stage .stc {
+  fill: none;
+  stroke: var(--fpw);
+  stroke-width: 2.2;
+  opacity: 0.7;
+}
+.fp-stage .snk {
+  fill: var(--fpgl);
+  stroke: var(--fps);
+  stroke-width: 1.2;
+}
+.fp-stage .brd {
+  fill: var(--fpw);
+  stroke: none;
+}
+
+/* Pulse of the active point (spec. §6.12) — none with reduced motion. */
+@keyframes fp-pulse {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 45%, transparent);
+  }
+  70% {
+    box-shadow: 0 0 0 14px color-mix(in srgb, var(--accent) 0%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 0%, transparent);
+  }
+}
+.fp-stage .fp-active {
+  animation: fp-pulse 1.8s ease-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .fp-stage .fp-active {
+    animation: none;
+  }
+}

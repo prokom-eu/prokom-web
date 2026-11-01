@@ -1,3 +1,4 @@
+import { PLAN_PATH } from '@/lib/catalog/floorPlan'
 import Image from 'next/image'
 import Link from 'next/link'
 import type { CSSProperties } from 'react'
@@ -233,7 +234,7 @@ const SHORTCUTS = (products: number, bundles: boolean) => [
   {
     label: 'Plan Twojej firmy',
     note: 'urządzenia na planie lokalu',
-    href: '/#plan',
+    href: PLAN_PATH,
     icon: 'map' as const,
   },
   ...(bundles

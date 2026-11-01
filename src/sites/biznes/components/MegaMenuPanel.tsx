@@ -1,5 +1,7 @@
 'use client'
 
+import { CONFIGURATOR_PATH } from '@/lib/catalog/wizardEngine'
+import { PLAN_PATH } from '@/lib/catalog/floorPlan'
 import Image from 'next/image'
 import Link from 'next/link'
 import { type KeyboardEvent, useId, useRef, useState } from 'react'
@@ -23,10 +25,8 @@ type Props = {
 
 const items = (n: number) => `${n} ${plural(n, ['pozycja', 'pozycje', 'pozycji'])}`
 
-// `/kreator` until K4g moves it to `/konfigurator`; the plan section of the home page until the
-// plan page (K31d′); the whole catalog until `/marki` (K4f).
-const CONFIGURATOR_HREF = '/kreator'
-const PLAN_HREF = '/#plan'
+const CONFIGURATOR_HREF = CONFIGURATOR_PATH
+const PLAN_HREF = PLAN_PATH
 const ALL_BRANDS_HREF = BRANDS_PATH
 
 /**

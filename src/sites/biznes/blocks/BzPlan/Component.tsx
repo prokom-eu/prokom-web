@@ -7,18 +7,22 @@ import type { BzPlanBlock as BzPlanBlockData } from '@/payload-types'
 
 import { SectionHead } from '../../components/home/SectionHead'
 import { TONE_ICON } from '../../components/home/tones'
+import { FloorPlan } from '../../components/plan/FloorPlan'
+import { loadFloorPlan } from '../../components/plan/planData'
+import { PlanStats } from '../../components/plan/PlanStats'
+import { DEFAULT_PLAN_LABELS } from '../../components/plan/types'
 import { IndustryGrid } from './IndustryGrid'
-import { PlanScenes } from './PlanScenes'
+import { PlanSceneLink } from './PlanSceneLink'
 import { industryTiles, WIZARD_HREF, type IndustryTile } from './tiles'
 
 type Props = { block: BzPlanBlockData; tenantId: number }
 
+const TILE_CLASS =
+  'flex w-full flex-col items-start gap-3 rounded-[22px] bg-card p-4 shadow-[inset_0_0_0_1px_var(--border)] transition-[translate,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_-26px_var(--glow),inset_0_0_0_1px_var(--border)] motion-reduce:transition-none motion-reduce:hover:translate-y-0'
+
 function Tile({ tile }: { tile: IndustryTile }) {
-  return (
-    <Link
-      href={tile.href}
-      className="flex w-full flex-col items-start gap-3 rounded-[22px] bg-card p-4 shadow-[inset_0_0_0_1px_var(--border)] transition-[translate,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_-26px_var(--glow),inset_0_0_0_1px_var(--border)] motion-reduce:transition-none motion-reduce:hover:translate-y-0"
-    >
+  const body = (
+    <>
       <span
         aria-hidden="true"
         className={cx(
@@ -34,12 +38,25 @@ function Tile({ tile }: { tile: IndustryTile }) {
         </span>
         {tile.note && <span className="text-[13px] leading-snug text-ink-3">{tile.note}</span>}
       </span>
-      {/* Board: „Zobacz plan” scrolls to the plan — on the site a tile leads to its industry's
-          page, or to the wizard. */}
       <span className="mt-auto inline-flex items-center gap-1 text-[13px] font-extrabold text-accent-text">
-        {tile.href === WIZARD_HREF ? 'Dobierz rozwiązanie' : 'Zobacz branżę'}
+        {tile.scene
+          ? 'Zobacz plan'
+          : tile.href === WIZARD_HREF
+            ? 'Dobierz rozwiązanie'
+            : 'Zobacz branżę'}
         <Icon name="arrow" strokeWidth={2.4} className="size-3.5" />
       </span>
+    </>
+  )
+  // Board: „Zobacz plan” sets the scene and scrolls to the plan; a tile without a scene leads to
+  // its industry's page, or to the configurator.
+  return tile.scene ? (
+    <PlanSceneLink scene={tile.scene} className={TILE_CLASS}>
+      {body}
+    </PlanSceneLink>
+  ) : (
+    <Link href={tile.href} className={TILE_CLASS}>
+      {body}
     </Link>
   )
 }
@@ -58,10 +75,15 @@ function accentTail(heading: string) {
 /**
  * „Dla kogo” and „Plan Twojej firmy” (board v150 `#s4-real`, `#s4-plan`; K36 §1): the
  * industries grid (data of this block, ADR-012 rozstrz. 11) with the funding bar as a section
- * of its own, then the plan — stage 1 tabs with the points of each kind of company (K31d′ later).
+ * of its own, then the plan 2.0 — the same component as `/plan-firmy` (K31d′, spec. §6.12).
  */
-export function BzPlanBlock({ block, tenantId }: Props) {
-  const tiles = industryTiles(block.industries?.tiles, tenantId)
+export async function BzPlanBlock({ block, tenantId }: Props) {
+  const plan = await loadFloorPlan(tenantId)
+  const tiles = industryTiles(
+    block.industries?.tiles,
+    tenantId,
+    new Set(plan?.scenes.map((scene) => scene.slug)),
+  )
   const grid = block.industries
   const funding = block.funding
   const hasTiles = tiles.visible.length > 0 || tiles.hidden.length > 0
@@ -144,35 +166,37 @@ export function BzPlanBlock({ block, tenantId }: Props) {
         </section>
       )}
 
-      <section id="plan" aria-labelledby="plan-h" className="py-16 sm:py-24">
-        <Container wide>
-          <SectionHead
-            id="plan-h"
-            eyebrow={block.eyebrow}
-            heading={block.heading}
-            lead={block.lead}
-          />
-          <div className="mt-10">
-            <PlanScenes
-              scenes={block.scenes.map((scene) => ({
-                tab: scene.tab,
-                icon: scene.icon,
-                title: scene.title,
-                lead: scene.lead ?? null,
-                moreHref: scene.moreHref ?? null,
-                inquiryHref: scene.inquiryHref,
-                points: (scene.points ?? []).map(({ name, note }) => ({
-                  name,
-                  note: note ?? null,
-                })),
-              }))}
-              sceneNote={block.sceneNote ?? null}
-              moreLabel={block.moreLabel ?? null}
-              inquiryLabel={block.inquiryLabel ?? null}
+      {plan && (
+        <section
+          id="plan"
+          aria-labelledby="plan-h"
+          tabIndex={-1}
+          className="scroll-mt-20 py-16 outline-none sm:py-24"
+        >
+          <Container wide>
+            <SectionHead
+              id="plan-h"
+              eyebrow={block.eyebrow}
+              heading={block.heading}
+              lead={block.lead}
             />
-          </div>
-        </Container>
-      </section>
+            <div className="mt-5">
+              <PlanStats scenes={plan.scenes} />
+            </div>
+            <div className="mt-8">
+              <FloorPlan
+                data={plan}
+                headingLevel="h3"
+                labels={{
+                  listNote: block.sceneNote || DEFAULT_PLAN_LABELS.listNote,
+                  inquiryLabel: block.inquiryLabel || DEFAULT_PLAN_LABELS.inquiryLabel,
+                  bundlesLabel: block.moreLabel || DEFAULT_PLAN_LABELS.bundlesLabel,
+                }}
+              />
+            </div>
+          </Container>
+        </section>
+      )}
     </>
   )
 }

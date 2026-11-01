@@ -1,60 +1,69 @@
-import type { WizardAnswers } from '../catalog/wizardKit'
+import type { Cart } from '../cart/cart'
 import { CONSENT_CLAUSE } from './consent'
 import type { ContactField } from '../software/wizard'
 import type { WizardAnswers as SoftwareAnswers } from '../software/wizardFlow'
 import { BIZNES_FIELD_MESSAGES, sourceFromHref, splitEmailOrPhone } from './form'
 import { HONEYPOT_FIELD } from './honeypot'
 
-// Browser side of the wizard's last step (`/kreator`, spec. §6.8, plansza Kreator): what it
-// sends to `POST /api/inquiry`. Only the answers — the server computes the kit (B10c).
+// Browser side of Konfigurator 3.0 (`/konfigurator`, K35 §1, K4-FINAL §5): the form on the
+// result sends the `?kr=` link and the items the customer chose; the server names the profile.
 
 export type WizardContact = {
   name: string
   phone: string
-  city: string
-  /** Optional words about the firm („Inna firma — opiszesz ją na końcu”). */
+  email: string
+  /** „Dodatkowe informacje” (board: e.g. opening date, number of rooms). */
   message: string
   consent: boolean
   /** Honeypot: hidden from people, filled in by bots. */
   website: string
 }
 
-export type WizardFieldName = 'name' | 'phone' | 'city' | 'message' | 'consent' | 'wizard'
+export type WizardFieldName =
+  'name' | 'phone' | 'email' | 'message' | 'consent' | 'wizard' | 'items'
 
 export const WIZARD_FIELD_MESSAGES: Record<WizardFieldName, string> = {
   name: BIZNES_FIELD_MESSAGES.name,
-  // The wizard still requires the phone (B10c) until Konfigurator 3.0 (K4g).
-  phone: 'Podaj numer telefonu, np. 600 100 200.',
-  city: 'Nazwa miejscowości jest za długa.',
+  phone: BIZNES_FIELD_MESSAGES.phone,
+  email: 'Podaj poprawny adres e-mail.',
   message: 'Wiadomość jest za długa.',
   consent: BIZNES_FIELD_MESSAGES.consent,
   // The rules changed in the panel while the page was open.
-  wizard: 'Kreator się zmienił — odśwież stronę i wybierz jeszcze raz.',
+  wizard: 'Konfigurator się zmienił — odśwież stronę i wybierz jeszcze raz.',
+  items: 'Lista się zmieniła — odśwież stronę i sprawdź pozycje.',
 }
 
-/** Required fields of the board: name, phone and the consent (decision 24.10, B10c). */
+/** Required: the name, a phone or an e-mail (K4-FINAL §5), the consent. */
 export function checkWizardRequired(
   values: WizardContact,
 ): Partial<Record<WizardFieldName, string>> {
   const errors: Partial<Record<WizardFieldName, string>> = {}
   if (!values.name.trim()) errors.name = WIZARD_FIELD_MESSAGES.name
-  if (!values.phone.trim()) errors.phone = WIZARD_FIELD_MESSAGES.phone
+  if (!values.phone.trim() && !values.email.trim()) errors.phone = WIZARD_FIELD_MESSAGES.phone
   if (!values.consent) errors.consent = WIZARD_FIELD_MESSAGES.consent
   return errors
 }
 
 export function buildWizardInquiryBody(
   values: WizardContact,
-  { href, formToken, answers }: { href: string; formToken: string; answers: WizardAnswers },
+  { href, formToken, kr, cart }: { href: string; formToken: string; kr: string; cart: Cart },
 ) {
   return {
     type: 'wizard',
     source: sourceFromHref(href),
     name: values.name,
     phone: values.phone,
-    city: values.city,
+    email: values.email,
+    // An e-mail only: the answer goes by e-mail (like the drawer, K4-FINAL §5).
+    preferredContact: values.phone.trim() ? 'phone' : 'email',
     message: values.message,
-    wizard: answers,
+    wizard: { kr },
+    // Only the slug, quantity and note: the server takes the name from the catalog.
+    items: cart.map((item) => ({
+      slug: item.id,
+      quantity: item.q,
+      ...(item.uwaga ? { note: item.uwaga } : {}),
+    })),
     consent: { accepted: values.consent, clauseVersion: CONSENT_CLAUSE.version },
     [HONEYPOT_FIELD]: values.website,
     formToken,

@@ -101,6 +101,16 @@ describe('buildSiteMap', () => {
     expect(none.find(({ id }) => id === 'zestawy')).toBeUndefined()
   })
 
+  it('lists /plan-firmy only when the plan has a scene (K31d′)', () => {
+    const catalog = { categories: [], industries: [], products: [] }
+    const map = buildSiteMap({ pages: [], catalog: { ...catalog, plan: true }, news: null })
+    expect(map.find(({ id }) => id === 'plan')?.links).toEqual([
+      { href: '/plan-firmy', label: 'Plan Twojej firmy' },
+    ])
+    const none = buildSiteMap({ pages: [], catalog, news: null })
+    expect(none.find(({ id }) => id === 'plan')).toBeUndefined()
+  })
+
   it('keeps a published product whose category is not listed, under „Pozostałe”', () => {
     const map = buildSiteMap({
       pages: [],

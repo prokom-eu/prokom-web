@@ -24,7 +24,7 @@ const ABOUT_HERO: Of<'swPageHero'> = {
   primary: { label: 'Umów rozmowę', href: '/kontakt' },
   secondary: { label: 'Co jeszcze robi PRO-KOM', href: '/jedna-firma' },
   visual: 'photos',
-  // Two portraits (board `ONas` v23); the photos come in SWV4, with consent.
+  // Two portraits (board `ONas` v23); the photos: `seedSoftwarePhotos` (consent before production).
   photos: [
     { photoCaption: 'Krystian Potaczek, prowadzi Software' },
     { photoCaption: 'Tadeusz Wójciak, właściciel PRO-KOM' },
@@ -98,7 +98,7 @@ const ABOUT_TEAM: Of<'swTeam'> = {
 }
 
 // One place (v23): one fact per line — a line with a missing fact goes on production, the card
-// stays (`swTeam` places). The entrance photo comes in SWV4.
+// stays (`swTeam` places). The entrance photo: `seedSoftwarePhotos`.
 const ABOUT_PLACES: Of<'swTeam'> = {
   blockType: 'swTeam',
   variant: 'places',

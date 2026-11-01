@@ -1,6 +1,6 @@
 import type { Block } from 'payload'
 
-import { hrefField, linkGroup } from '../../../../blocks/fields'
+import { linkGroup } from '../../../../blocks/fields'
 import { ICON_OPTIONS } from '../../../../lib/catalog/options'
 import { tenantIdOf } from '../../../../lib/tenant/id'
 import { NEED_TONES } from '../BzNeeds/config'
@@ -10,10 +10,9 @@ const MAX_TILES = 24
 const MAX_VISIBLE_FIRST = 11
 
 /**
- * „Plan Twojej firmy” of the Biznes home page (spec. §4 pkt 6, ZMIANY-v20 §2.4), stage 1: tabs
- * with numbered points (the floor plan and its pop-up are stage 2), the six promises, the grid
- * of industries (ADR-012 rozstrz. 11: tiles are data of this block, `Industries` unchanged) and
- * the funding bar.
+ * „Plan Twojej firmy” of the Biznes home page (spec. §4 pkt 6, §6.12): the heading and labels of
+ * the plan — its scenes come from „Plany firmy” (`FloorPlans`, K31d′) — the grid of industries
+ * (ADR-012 rozstrz. 11: tiles are data of this block, `Industries` unchanged) and the funding bar.
  */
 export const BzPlanBlock: Block = {
   slug: 'bzPlan',
@@ -42,52 +41,16 @@ export const BzPlanBlock: Block = {
       fields: [
         {
           name: 'sceneNote',
-          label: 'Dopisek przy liczbie rozwiązań',
+          label: 'Podpis listy „Na tym planie”',
           type: 'text',
-          admin: { description: 'Np. „z jednej ręki · rzut poglądowy” — liczba dochodzi sama.' },
+          admin: { description: 'Np. „Kliknij urządzenie — otworzy się film i szczegóły”.' },
         },
-        { name: 'moreLabel', label: 'Link „Więcej o branży”', type: 'text' },
-        { name: 'inquiryLabel', label: 'Przycisk zapytania (przed nazwą sceny)', type: 'text' },
-      ],
-    },
-    {
-      name: 'scenes',
-      label: 'Rodzaje firm (zakładki)',
-      type: 'array',
-      minRows: 1,
-      maxRows: 8,
-      required: true,
-      fields: [
+        { name: 'moreLabel', label: 'Przycisk „Gotowe zestawy”', type: 'text' },
         {
-          type: 'row',
-          fields: [
-            { name: 'tab', label: 'Zakładka', type: 'text', required: true, maxLength: 20 },
-            { name: 'icon', label: 'Ikona', type: 'select', required: true, options: ICON_OPTIONS },
-            { name: 'title', label: 'Tytuł sceny', type: 'text', required: true },
-          ],
-        },
-        { name: 'lead', label: 'Opis sceny', type: 'textarea', maxLength: 220 },
-        {
-          type: 'row',
-          fields: [
-            hrefField('moreHref', 'Link „Więcej o branży” (pusty = bez linku)'),
-            hrefField('inquiryHref', 'Link przycisku zapytania', true),
-          ],
-        },
-        {
-          name: 'points',
-          label: 'Punkty (urządzenia i programy)',
-          type: 'array',
-          maxRows: 16,
-          fields: [
-            {
-              type: 'row',
-              fields: [
-                { name: 'name', label: 'Nazwa', type: 'text', required: true, maxLength: 48 },
-                { name: 'note', label: 'Podpis', type: 'text', maxLength: 60 },
-              ],
-            },
-          ],
+          name: 'inquiryLabel',
+          label: 'Przycisk „Dodaj cały plan do zapytania”',
+          type: 'text',
+          admin: { description: 'Liczba pozycji dochodzi sama („· 17 poz.”).' },
         },
       ],
     },
@@ -184,7 +147,17 @@ export const BzPlanBlock: Block = {
                 const tenant = tenantIdOf(data?.tenant)
                 return tenant === null ? false : { tenant: { equals: tenant } }
               },
-              admin: { description: 'Pusta = kafel prowadzi do kreatora.' },
+              admin: { description: 'Pusta = kafel prowadzi do konfiguratora.' },
+            },
+            {
+              name: 'planScene',
+              label: 'Scena planu',
+              type: 'text',
+              maxLength: 60,
+              admin: {
+                description:
+                  'Adres sceny z „Plany firmy” (np. „sklep”) — kafel pokazuje ją na planie. Pusta = link do branży.',
+              },
             },
           ],
         },

@@ -1,5 +1,11 @@
 import { listBundles } from '../catalog/bundle'
-import { getBundles, getCatalogIndex, getPublishedProductList } from '../catalog/data'
+import {
+  getBundles,
+  getCatalogIndex,
+  getFloorPlans,
+  getPublishedProductList,
+} from '../catalog/data'
+import { buildPlanScenes } from '../catalog/floorPlan'
 import { getInstalacjeObjectList } from '../instalacje/data'
 import { getPublishedPageList } from '../pages/data'
 import { getPostList } from '../posts/data'
@@ -17,18 +23,29 @@ export async function loadSiteMap(tenant: { id: number; line: Line }): Promise<S
   const catalog = tenant.line === 'biznes'
   const software = tenant.line === 'software'
   const instalacje = tenant.line === 'instalacje'
-  const [pages, index, products, posts, allBundles, solutions, industryPages, objectPages, cities] =
-    await Promise.all([
-      getPublishedPageList(tenant.id),
-      catalog ? getCatalogIndex(tenant.id) : null,
-      catalog ? getPublishedProductList(tenant.id) : [],
-      hasNews(tenant.line) || hasGuide(tenant.line) ? getPostList(tenant.id, tenant.line) : null,
-      catalog ? getBundles(tenant.id) : [],
-      software ? getSolutionsIndex(tenant.id) : null,
-      software ? getIndustryPageList(tenant.id) : null,
-      instalacje ? getInstalacjeObjectList(tenant.id) : null,
-      software ? getCityList(tenant.id) : null,
-    ])
+  const [
+    pages,
+    index,
+    products,
+    posts,
+    allBundles,
+    solutions,
+    industryPages,
+    objectPages,
+    cities,
+    plans,
+  ] = await Promise.all([
+    getPublishedPageList(tenant.id),
+    catalog ? getCatalogIndex(tenant.id) : null,
+    catalog ? getPublishedProductList(tenant.id) : [],
+    hasNews(tenant.line) || hasGuide(tenant.line) ? getPostList(tenant.id, tenant.line) : null,
+    catalog ? getBundles(tenant.id) : [],
+    software ? getSolutionsIndex(tenant.id) : null,
+    software ? getIndustryPageList(tenant.id) : null,
+    instalacje ? getInstalacjeObjectList(tenant.id) : null,
+    software ? getCityList(tenant.id) : null,
+    catalog ? getFloorPlans(tenant.id) : null,
+  ])
   // Every published product is listed (as `sitemap.xml` always did); the index adds the
   // categories, the product list the dates for `<lastmod>`.
   const indexed = new Map((index?.products ?? []).map((product) => [product.slug, product]))
@@ -43,6 +60,7 @@ export async function loadSiteMap(tenant: { id: number; line: Line }): Promise<S
       bundles: bundles.length
         ? bundles.filter((bundle) => bundle.indexable).map(({ slug, name }) => ({ slug, name }))
         : null,
+      plan: Boolean(plans && buildPlanScenes(plans.records, new Set(indexed.keys())).length),
       products: products.map(({ slug, name, updatedAt }) => ({
         slug,
         name: indexed.get(slug)?.name ?? name,

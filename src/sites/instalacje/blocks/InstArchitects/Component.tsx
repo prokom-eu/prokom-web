@@ -432,7 +432,7 @@ export async function InstArchitectsBlock({ block, tenantId }: Props) {
             ))}
           </div>
           <div className="arexg">
-            {/* Only realizations published with the client's consent (decision I6). */}
+            {/* Only realizations published with the client's consent (I2 hook). */}
             {home.realizations.length > 0 && (
               <div className="card arexr ri">
                 <span className="eye">{A.experienceSection.realizations}</span>
@@ -465,7 +465,7 @@ export async function InstArchitectsBlock({ block, tenantId }: Props) {
                 <a href="https://prokombiznes.pl" style={{ color: 'var(--accent-text)' }}>
                   prokombiznes.pl
                 </a>
-                .
+                . {A.experienceSection.brandsAuth}
               </p>
             </div>
           </div>

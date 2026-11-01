@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 import { naglosnienie } from '../../dane/naglosnienie'
 import { LEGAL_NOTE } from '../../dane/prawo'
 import { InstIcon } from '../../InstIcon'
@@ -12,12 +14,12 @@ const SECTION = { padding: '0 0 104px' }
 /**
  * The Nagłośnienie sections between the hero and the shared ones
  * (`zrodlo/pages/Naglosnienie.body.html`): venues, APART, the zone system, the church, the speaker
- * calculator, council rooms, DSO and music licences. Without the prototype's „Realizacje
- * nagłośnienia” (client references without consent, decision of I6). Folded on a phone as in
- * `zrodlo/fold.json` (`cena` and `faq` by the shared sections).
+ * calculator, council rooms, DSO, music licences and „Realizacje nagłośnienia” (the clients
+ * agreed, boss 01.11.2026). Folded on a phone as in `zrodlo/fold.json` (`cena` and `faq` by the
+ * shared sections).
  */
 export function NaglosnienieSections() {
-  const { objects, apart, chain, church, council, dso, licences } = naglosnienie
+  const { objects, apart, chain, church, council, dso, licences, realizations } = naglosnienie
   return (
     <>
       <InstSection id="obiekty" fold foldHeight={900} style={{ padding: '96px 0 104px' }}>
@@ -179,6 +181,49 @@ export function NaglosnienieSections() {
             <span className="src ri">
               {LEGAL_NOTE} {licences.fees}
             </span>
+          </div>
+        </div>
+      </InstSection>
+
+      <InstSection id="realizacje-n" fold style={SECTION}>
+        <div className="wrap">
+          <div className="shead ri">
+            <div>
+              <span className="eye">{realizations.eyebrow}</span>
+              <h2 className="h2">{realizations.heading}</h2>
+            </div>
+            <Link href={realizations.all.href} className="btn btn-g">
+              {realizations.all.label}
+            </Link>
+          </div>
+          <div className="g3">
+            {realizations.items.map((r) => (
+              <div key={r.name} className="card rl ri">
+                <div className="rlimg" aria-hidden="true">
+                  <svg viewBox="0 0 300 190">
+                    <rect width="300" height="190" style={{ fill: 'var(--bg3)' }} />
+                    <path
+                      d={realizations.art[r.art]}
+                      transform="translate(75 30) scale(.62)"
+                      style={{
+                        fill: 'none',
+                        stroke: 'var(--accent-text)',
+                        strokeWidth: 5,
+                        strokeLinecap: 'round',
+                        strokeLinejoin: 'round',
+                      }}
+                    />
+                  </svg>
+                </div>
+                <div className="rlb">
+                  <span className="tag a" style={{ alignSelf: 'flex-start' }}>
+                    {r.kind}
+                  </span>
+                  <b className="h3">{r.name}</b>
+                  <span>{r.place}</span>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </InstSection>

@@ -1,7 +1,7 @@
 import type { Inquiry } from '@/payload-types'
 
 import type { Wizard } from '../catalog/wizard'
-import { buildKit, parseWizardAnswers, proposedSlugs, wizardSummary } from '../catalog/wizardKit'
+import { parseKr, wizardProfile } from '../catalog/wizardEngine'
 import { parsePlanAnswers, planContact, planSummary } from '../instalacje/plan'
 import { errorFields, log } from '../log'
 import type { ContactField, SoftwareWizard } from '../software/wizard'
@@ -63,6 +63,8 @@ export type SubmitDeps = {
   save: (data: NewInquiry) => Promise<{ id: number; number?: string | null }>
   sendEmail: (email: Email) => Promise<unknown>
   panelUrl: (id: number) => string
+  /** The site's address for a `Host` (`siteOrigin`), or `null` — links to the site in a record. */
+  siteOrigin: (host: string) => string | null
   // Structured fields only: ids, tenant, `errorFields()` of a caught error — never form data
   // (ADR-003); database errors quote the query parameters, SMTP errors the recipients.
   log: Record<'info' | 'warn' | 'error', (fields: Record<string, unknown>, msg: string) => void>
@@ -121,34 +123,28 @@ function matchItems(
 }
 
 /**
- * The wizard's answers as an inquiry: the kit's products of this tenant as items (with the
- * quantity per sales point) and the answers named for people — or `null` when the answers do
- * not fit the rules of this site (or it has none).
+ * Konfigurator 3.0 (K4g, K35 §1.3): the browser sends the `?kr=` link of the result and the items
+ * the customer chose (matched like a list — published products of this tenant). The link is
+ * checked against this site's rules and named for people as the profile — or `null` when it does
+ * not fit them (or the site has none).
  */
 async function composeWizard(
   deps: SubmitDeps,
   tenantId: number,
   input: unknown,
-): Promise<{ items: SavedItem[]; summary: Record<string, unknown>; when?: string } | null> {
+  host: string,
+): Promise<ComposedWizard | null> {
+  const kr = isRecord(input) && typeof input.kr === 'string' ? input.kr : null
+  if (kr === null) return null
   const rules = await deps.findWizard(tenantId)
-  const answers = rules ? parseWizardAnswers(rules, input) : null
-  if (!rules || !answers) return null
-  // Which products the rules propose, then only the published ones of this tenant.
-  const proposed = proposedSlugs(rules, answers)
-  const products = proposed.length > 0 ? await deps.findProducts(tenantId, proposed) : []
-  const bySlug = new Map(products.map((product) => [product.slug, product]))
-  const kit = buildKit(rules, answers, (slug) => bySlug.get(slug))
-  const items = kit.items.flatMap((item) => {
-    const product = item.slug ? bySlug.get(item.slug) : undefined
-    return product
-      ? [{ product: product.id, nameSnapshot: product.name, quantity: item.quantity }]
-      : []
-  })
-  return { items, summary: wizardSummary(rules, answers, kit), when: answers.when }
+  const state = rules ? parseKr(rules, kr) : null
+  if (!rules || !state) return null
+  return { summary: wizardProfile(rules, state, deps.siteOrigin(host) ?? '') }
 }
 
 type ComposedWizard = {
-  items: SavedItem[]
+  /** Absent: the items sent by the browser stand (Konfigurator 3.0). */
+  items?: SavedItem[]
   summary: Record<string, unknown>
   when?: string
   message?: string
@@ -284,13 +280,15 @@ export async function submitInquiryWith(
       deps.log.error({ tenant: tenant.id, ...errorFields(error) }, 'Inquiry products lookup failed')
       return { ok: false, error: 'unavailable' }
     }
-    if (input.type === 'list' && items.length === 0) {
+    // A list whose every item is gone (products removed meanwhile) is the customer's to fix —
+    // also in the Biznes Konfigurator, which sends what was chosen.
+    if ((input.type === 'list' || input.type === 'wizard') && items.length === 0) {
       return { ok: false, error: 'invalid', fields: ['items'] }
     }
   }
 
-  // The wizard sends its answers only: they are checked against this site's rules and the kit
-  // is computed here, from published products of this tenant (B10c) — never taken as sent.
+  // The wizard's answers are checked against this site's rules and named here — never taken as
+  // sent; Software and Instalacje also compute the items from them, Biznes keeps the chosen ones.
   let wizard = input.wizard
   let deadline = input.deadline
   let topics = input.topics
@@ -303,7 +301,7 @@ export async function submitInquiryWith(
           ? await composeSoftwareWizard(deps, tenant.id, input.wizard)
           : tenant.line === 'instalacje'
             ? composeInstalacjePlan(input.wizard, input.city)
-            : await composeWizard(deps, tenant.id, input.wizard)
+            : await composeWizard(deps, tenant.id, input.wizard, host ?? '')
     } catch (error) {
       deps.log.error({ tenant: tenant.id, ...errorFields(error) }, 'Inquiry wizard lookup failed')
       return { ok: false, error: 'unavailable' }
@@ -312,7 +310,7 @@ export async function submitInquiryWith(
     // „Zadzwonimy” needs a phone, „napiszemy” an e-mail (the field of the chosen preference).
     const contactError = missingContact(composed.contactField, input)
     if (contactError) return { ok: false, error: 'invalid', fields: [contactError] }
-    items = composed.items
+    items = composed.items ?? items
     wizard = composed.summary
     deadline = composed.when ?? deadline
     // Software: the server writes the message and maps the preference (spec. §6.3).
@@ -514,6 +512,7 @@ export async function submitInquiry(
       save: (data) =>
         payload.create({ collection: 'inquiries', data, depth: 0, overrideAccess: true }),
       sendEmail: (email) => payload.sendEmail(email),
+      siteOrigin: (host) => siteOrigin(host, env.SITE_ENV),
       panelUrl: (id) => {
         // Same scheme rules as the sites; locally the panel runs on the request's port.
         const port = request.host?.trim().match(/:(\d+)$/)?.[1]

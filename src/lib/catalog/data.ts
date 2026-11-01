@@ -11,11 +11,14 @@ import { buildBundleView, type BundleView } from './bundle'
 import type { BrandsPageInput } from './brandsPage'
 import { brandLogo, buildCatalogIndex, type CatalogIndex } from './catalogIndex'
 import { buildCategoryView, type CategoryView } from './category'
+import { planParams, type FloorPlanRecord, type PlanProductDetails } from './floorPlan'
 import { buildIndustryView, type IndustryView } from './industry'
 import type { Wizard } from './wizard'
 import { readWizardRules } from './wizardRules'
 import { buildProductView, isIndexableProduct, type ProductView } from './product'
+import { isSafeSvg } from './svg'
 import { catalogTag } from './tags'
+import { tenantIdOf } from '../tenant/id'
 
 /** Far above the catalog of stage 1 (~70); past ~500 the index is reconsidered (ADR-012 §2.4). */
 const MAX_PRODUCTS = 1000
@@ -261,7 +264,7 @@ export const getIndustryView = (tenantId: number, slug: string): Promise<Industr
   )()
 
 /**
- * Valid wizard rules of the tenant (`BiznesSettings.wizard`) for `/kreator` — or `null` (none
+ * Valid wizard rules of the tenant (`BiznesSettings.wizard`) for `/konfigurator` — or `null` (none
  * saved yet, or of an older format). Cached under the catalog tag (`BiznesSettings` hooks).
  */
 export const getWizardRules = (tenantId: number): Promise<Wizard | null> =>
@@ -350,6 +353,111 @@ export const getBundles = (tenantId: number): Promise<BundleView[]> =>
       return docs.flatMap((doc) => buildBundleView(doc, tenantId) ?? [])
     },
     ['bundles', String(tenantId)],
+    { tags: [catalogTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
+  )()
+
+/**
+ * Scenes of „Plan Twojej firmy” (K31d′), in their order, without the drawings (they are big —
+ * `getFloorPlanSvg` reads one), plus the popup details of every product on a point: 4 key
+ * parameters and the first active film. Products of another tenant are dropped here; hidden
+ * cards drop out in `buildPlanScenes` against the catalog index. Cached under the catalog tag.
+ */
+export const getFloorPlans = (
+  tenantId: number,
+): Promise<{ records: FloorPlanRecord[]; details: Record<string, PlanProductDetails> }> =>
+  cacheQuery(
+    async () => {
+      const payload = await getPayload({ config })
+      const { docs } = await payload.find({
+        collection: 'floor-plans',
+        where: { tenant: { equals: tenantId } },
+        limit: MAX_RECORDS,
+        sort: 'order',
+        depth: 1,
+        populate: {
+          products: { slug: true, tenant: true, keyParams: true, specs: true, videos: true },
+          bundles: { slug: true, tenant: true },
+        },
+        select: {
+          slug: true,
+          name: true,
+          title: true,
+          lead: true,
+          iconPath: true,
+          viewBox: true,
+          bundles: true,
+          points: true,
+        },
+        overrideAccess: true,
+      })
+      const details: Record<string, PlanProductDetails> = {}
+      const ownSlug = (value: unknown) => {
+        if (!value || typeof value !== 'object') return null
+        const { slug, tenant } = value as { slug?: unknown; tenant?: unknown }
+        return typeof slug === 'string' && tenantIdOf(tenant) === tenantId ? slug : null
+      }
+      const records = docs.map((doc): FloorPlanRecord => ({
+        slug: doc.slug,
+        name: doc.name,
+        title: doc.title,
+        lead: doc.lead,
+        iconPath: doc.iconPath,
+        viewBox: doc.viewBox,
+        bundles: (doc.bundles ?? []).map((bundle) => {
+          const slug = ownSlug(bundle)
+          return slug ? { slug } : null
+        }),
+        points: (doc.points ?? []).map((point) => {
+          const slug = ownSlug(point.product)
+          if (slug && typeof point.product === 'object' && point.product && !details[slug]) {
+            const video = (point.product.videos ?? []).find((v) => v.active !== false)
+            details[slug] = {
+              params: planParams(point.product.keyParams, point.product.specs),
+              video: video
+                ? {
+                    id: video.youtubeId,
+                    title: video.title,
+                    channel: video.channel ?? null,
+                    lang: video.lang ?? null,
+                  }
+                : null,
+            }
+          }
+          return {
+            x: point.x,
+            y: point.y,
+            product: slug ? { slug } : null,
+            label: point.label,
+            description: point.description,
+          }
+        }),
+      }))
+      return { records, details }
+    },
+    ['floor-plans', String(tenantId)],
+    { tags: [catalogTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
+  )()
+
+/**
+ * The drawing of one scene, or `null` — checked again as a drawing here (`isSafeSvg`), the one gate
+ * for the page and the route: a record saved before the allowlist or past the panel never goes out.
+ */
+export const getFloorPlanSvg = (tenantId: number, slug: string): Promise<string | null> =>
+  cacheQuery(
+    async () => {
+      const payload = await getPayload({ config })
+      const { docs } = await payload.find({
+        collection: 'floor-plans',
+        where: { and: [{ tenant: { equals: tenantId } }, { slug: { equals: slug } }] },
+        limit: 1,
+        depth: 0,
+        select: { svg: true },
+        overrideAccess: true,
+      })
+      const svg = docs[0]?.svg
+      return svg && isSafeSvg(svg) ? svg : null
+    },
+    ['floor-plan-svg', String(tenantId), slug],
     { tags: [catalogTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
   )()
 

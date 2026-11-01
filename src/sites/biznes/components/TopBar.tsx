@@ -32,8 +32,7 @@ const LINES = [
 ] as const
 
 // K4 (K36 §1): no „Zgłoś awarię” or „Aktualności” here — the Konfigurator is the one quick link.
-// `/kreator` until K4g moves it to `/konfigurator` (with a 301 from the old address).
-const CONFIGURATOR_HREF = '/kreator'
+const CONFIGURATOR_HREF = '/konfigurator'
 
 /**
  * Top bar of the Biznes line (spec. §3.1, K4 one row): the PRO-KOM lines, the live opening status,

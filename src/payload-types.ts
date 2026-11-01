@@ -1893,10 +1893,6 @@ export interface Page {
         | InstContactBlock
         | InstServiceDeskBlock
         | InstArchitectsBlock
-        | InstOfferBlock
-        | InstRealizationsBlock
-        | InstAboutBlock
-        | InstGuideBlock
         | SwHeroBlock
         | SwHomeSectionBlock
         | SwContactBlock
@@ -2253,81 +2249,14 @@ export interface BzPlanBlock {
   heading: string;
   lead?: string | null;
   /**
-   * Np. „z jednej ręki · rzut poglądowy” — liczba dochodzi sama.
+   * Np. „Kliknij urządzenie — otworzy się film i szczegóły”.
    */
   sceneNote?: string | null;
   moreLabel?: string | null;
+  /**
+   * Liczba pozycji dochodzi sama („· 17 poz.”).
+   */
   inquiryLabel?: string | null;
-  scenes: {
-    tab: string;
-    icon:
-      | 'shield'
-      | 'cal'
-      | 'users'
-      | 'store'
-      | 'bolt'
-      | 'doc'
-      | 'life'
-      | 'arrow'
-      | 'check'
-      | 'phone'
-      | 'mail'
-      | 'pin'
-      | 'clock'
-      | 'monitor'
-      | 'remote'
-      | 'bell'
-      | 'wallet'
-      | 'chat'
-      | 'wrench'
-      | 'rocket'
-      | 'map'
-      | 'star'
-      | 'q'
-      | 'flash'
-      | 'grad'
-      | 'server'
-      | 'compass'
-      | 'panel'
-      | 'site'
-      | 'grid'
-      | 'plug'
-      | 'ticket'
-      | 'lifebuoy'
-      | 'chart'
-      | 'sign'
-      | 'cash'
-      | 'search'
-      | 'x'
-      | 'bed'
-      | 'food'
-      | 'refresh'
-      | 'globe'
-      | 'box'
-      | 'car'
-      | 'home'
-      | 'mountain'
-      | 'heart'
-      | 'bag'
-      | 'card'
-      | 'target'
-      | 'key'
-      | 'mega'
-      | 'mount'
-      | 'brief';
-    title: string;
-    lead?: string | null;
-    moreHref?: string | null;
-    inquiryHref: string;
-    points?:
-      | {
-          name: string;
-          note?: string | null;
-          id?: string | null;
-        }[]
-      | null;
-    id?: string | null;
-  }[];
   industries?: {
     /**
      * Sekcja „Dla kogo” (#dla-kogo), np. „Dla kogo pracujemy”.
@@ -2408,9 +2337,13 @@ export interface BzPlanBlock {
            */
           visibleFirst?: boolean | null;
           /**
-           * Pusta = kafel prowadzi do kreatora.
+           * Pusta = kafel prowadzi do konfiguratora.
            */
           industry?: (number | null) | Industry;
+          /**
+           * Adres sceny z „Plany firmy” (np. „sklep”) — kafel pokazuje ją na planie. Pusta = link do branży.
+           */
+          planScene?: string | null;
           id?: string | null;
         }[]
       | null;
@@ -3403,138 +3336,6 @@ export interface InstArchitectsBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "InstOfferBlock".
- */
-export interface InstOfferBlock {
-  hero: {
-    crumb?: string | null;
-    eyebrow?: string | null;
-    h1a: string;
-    h1b?: string | null;
-    lead?: string | null;
-    facts?:
-      | {
-          value: string;
-          label: string;
-          id?: string | null;
-        }[]
-      | null;
-    tags?: string[] | null;
-    cta?: {
-      text?: string | null;
-      href?: string | null;
-    };
-  };
-  cta?: {
-    eyebrow?: string | null;
-    heading?: string | null;
-    text?: string | null;
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'instOffer';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "InstRealizationsBlock".
- */
-export interface InstRealizationsBlock {
-  hero: {
-    crumb?: string | null;
-    eyebrow?: string | null;
-    h1a: string;
-    h1b?: string | null;
-    lead?: string | null;
-    facts?:
-      | {
-          value: string;
-          label: string;
-          id?: string | null;
-        }[]
-      | null;
-    tags?: string[] | null;
-    cta?: {
-      text?: string | null;
-      href?: string | null;
-    };
-  };
-  cta?: {
-    eyebrow?: string | null;
-    heading?: string | null;
-    text?: string | null;
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'instRealizations';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "InstAboutBlock".
- */
-export interface InstAboutBlock {
-  hero: {
-    crumb?: string | null;
-    eyebrow?: string | null;
-    h1a: string;
-    h1b?: string | null;
-    lead?: string | null;
-    facts?:
-      | {
-          value: string;
-          label: string;
-          id?: string | null;
-        }[]
-      | null;
-    tags?: string[] | null;
-    cta?: {
-      text?: string | null;
-      href?: string | null;
-    };
-  };
-  cta?: {
-    eyebrow?: string | null;
-    heading?: string | null;
-    text?: string | null;
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'instAbout';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "InstGuideBlock".
- */
-export interface InstGuideBlock {
-  hero: {
-    crumb?: string | null;
-    eyebrow?: string | null;
-    h1a: string;
-    h1b?: string | null;
-    lead?: string | null;
-    facts?:
-      | {
-          value: string;
-          label: string;
-          id?: string | null;
-        }[]
-      | null;
-    tags?: string[] | null;
-    cta?: {
-      text?: string | null;
-      href?: string | null;
-    };
-  };
-  cta?: {
-    eyebrow?: string | null;
-    heading?: string | null;
-    text?: string | null;
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'instGuide';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "SwHeroBlock".
  */
 export interface SwHeroBlock {
@@ -3875,6 +3676,10 @@ export interface SwContactPageBlock {
   meetEyebrow?: string | null;
   meetTitle?: string | null;
   /**
+   * Fakty w nawiasach ([GODZINY], [CZAS ODPOWIEDZI]…) z Ustawień linii.
+   */
+  meetLead?: string | null;
+  /**
    * Pierwsze jest wyróżnione. Fakty w nawiasach ([GODZINY], [CZAS ODPOWIEDZI]…) z Ustawień linii.
    */
   places?:
@@ -3886,10 +3691,13 @@ export interface SwContactPageBlock {
     | null;
   mapCaption?: string | null;
   navigateLabel?: string | null;
+  mapZoomLabel?: string | null;
   /**
-   * Pusty = bez mapy. Bez osadzania mapy (bez ciasteczek).
+   * Pusty = bez mapy. Mapa to rysunek z danych OpenStreetMap w kodzie; Mapy Google otwierają się dopiero po kliknięciu (bez ciasteczek).
    */
   mapHref?: string | null;
+  entrancePhoto?: (number | null) | Media;
+  entranceCaption?: string | null;
   companyTitle?: string | null;
   companyNote?: string | null;
   id?: string | null;
@@ -4757,7 +4565,7 @@ export interface BiznesSetting {
       | null;
   };
   /**
-   * Rodzaje firm, potrzeby, propozycje i plakietki kreatora (/kreator). Zmieniaj ostrożnie — zapis sprawdza, czy reguły się zgadzają.
+   * Konfigurator 3.0 (/konfigurator): rodzaje firm, sytuacje, skale, potrzeby z listami produktów, pytania Tak/Nie, grupy zestawów i sceny planu. Zmieniaj ostrożnie — zapis sprawdza, czy reguły się zgadzają.
    */
   wizard?:
     | {
@@ -5290,10 +5098,6 @@ export interface Realization {
   scope?: string | null;
   description?: string | null;
   services?: ('kam' | 'alarm' | 'kd' | 'wifi' | 'tel' | 'ant' | 'smart' | 'snd' | 'scr' | 'ev')[] | null;
-  /**
-   * Filtr „Każdy obiekt” na /realizacje.
-   */
-  kind?: ('firma' | 'kosciol' | 'gastro' | 'sklep' | 'szkola' | 'dom') | null;
   photos?: (number | Media)[] | null;
   updatedAt: string;
   createdAt: string;
@@ -6072,10 +5876,6 @@ export interface PagesSelect<T extends boolean = true> {
         instContact?: T | InstContactBlockSelect<T>;
         instServiceDesk?: T | InstServiceDeskBlockSelect<T>;
         instArchitects?: T | InstArchitectsBlockSelect<T>;
-        instOffer?: T | InstOfferBlockSelect<T>;
-        instRealizations?: T | InstRealizationsBlockSelect<T>;
-        instAbout?: T | InstAboutBlockSelect<T>;
-        instGuide?: T | InstGuideBlockSelect<T>;
         swHero?: T | SwHeroBlockSelect<T>;
         swHomeSection?: T | SwHomeSectionBlockSelect<T>;
         swContact?: T | SwContactBlockSelect<T>;
@@ -6312,24 +6112,6 @@ export interface BzPlanBlockSelect<T extends boolean = true> {
   sceneNote?: T;
   moreLabel?: T;
   inquiryLabel?: T;
-  scenes?:
-    | T
-    | {
-        tab?: T;
-        icon?: T;
-        title?: T;
-        lead?: T;
-        moreHref?: T;
-        inquiryHref?: T;
-        points?:
-          | T
-          | {
-              name?: T;
-              note?: T;
-              id?: T;
-            };
-        id?: T;
-      };
   industries?:
     | T
     | {
@@ -6347,6 +6129,7 @@ export interface BzPlanBlockSelect<T extends boolean = true> {
               tone?: T;
               visibleFirst?: T;
               industry?: T;
+              planScene?: T;
               id?: T;
             };
       };
@@ -6783,158 +6566,6 @@ export interface InstArchitectsBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "InstOfferBlock_select".
- */
-export interface InstOfferBlockSelect<T extends boolean = true> {
-  hero?:
-    | T
-    | {
-        crumb?: T;
-        eyebrow?: T;
-        h1a?: T;
-        h1b?: T;
-        lead?: T;
-        facts?:
-          | T
-          | {
-              value?: T;
-              label?: T;
-              id?: T;
-            };
-        tags?: T;
-        cta?:
-          | T
-          | {
-              text?: T;
-              href?: T;
-            };
-      };
-  cta?:
-    | T
-    | {
-        eyebrow?: T;
-        heading?: T;
-        text?: T;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "InstRealizationsBlock_select".
- */
-export interface InstRealizationsBlockSelect<T extends boolean = true> {
-  hero?:
-    | T
-    | {
-        crumb?: T;
-        eyebrow?: T;
-        h1a?: T;
-        h1b?: T;
-        lead?: T;
-        facts?:
-          | T
-          | {
-              value?: T;
-              label?: T;
-              id?: T;
-            };
-        tags?: T;
-        cta?:
-          | T
-          | {
-              text?: T;
-              href?: T;
-            };
-      };
-  cta?:
-    | T
-    | {
-        eyebrow?: T;
-        heading?: T;
-        text?: T;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "InstAboutBlock_select".
- */
-export interface InstAboutBlockSelect<T extends boolean = true> {
-  hero?:
-    | T
-    | {
-        crumb?: T;
-        eyebrow?: T;
-        h1a?: T;
-        h1b?: T;
-        lead?: T;
-        facts?:
-          | T
-          | {
-              value?: T;
-              label?: T;
-              id?: T;
-            };
-        tags?: T;
-        cta?:
-          | T
-          | {
-              text?: T;
-              href?: T;
-            };
-      };
-  cta?:
-    | T
-    | {
-        eyebrow?: T;
-        heading?: T;
-        text?: T;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "InstGuideBlock_select".
- */
-export interface InstGuideBlockSelect<T extends boolean = true> {
-  hero?:
-    | T
-    | {
-        crumb?: T;
-        eyebrow?: T;
-        h1a?: T;
-        h1b?: T;
-        lead?: T;
-        facts?:
-          | T
-          | {
-              value?: T;
-              label?: T;
-              id?: T;
-            };
-        tags?: T;
-        cta?:
-          | T
-          | {
-              text?: T;
-              href?: T;
-            };
-      };
-  cta?:
-    | T
-    | {
-        eyebrow?: T;
-        heading?: T;
-        text?: T;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "SwHeroBlock_select".
  */
 export interface SwHeroBlockSelect<T extends boolean = true> {
@@ -7104,6 +6735,7 @@ export interface SwContactPageBlockSelect<T extends boolean = true> {
       };
   meetEyebrow?: T;
   meetTitle?: T;
+  meetLead?: T;
   places?:
     | T
     | {
@@ -7113,7 +6745,10 @@ export interface SwContactPageBlockSelect<T extends boolean = true> {
       };
   mapCaption?: T;
   navigateLabel?: T;
+  mapZoomLabel?: T;
   mapHref?: T;
+  entrancePhoto?: T;
+  entranceCaption?: T;
   companyTitle?: T;
   companyNote?: T;
   id?: T;
@@ -8916,7 +8551,6 @@ export interface RealizationsSelect<T extends boolean = true> {
   scope?: T;
   description?: T;
   services?: T;
-  kind?: T;
   photos?: T;
   updatedAt?: T;
   createdAt?: T;

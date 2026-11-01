@@ -55,6 +55,23 @@ export function hoursSummary(hours: OpeningHours): string {
 }
 
 /**
+ * Days without opening hours, under the hours of the Software contact card (v23): "sobota
+ * i niedziela nieczynne". Empty when every day is open or there are no hours.
+ */
+export function closedDays(hours: OpeningHours): string {
+  if (hours.length === 0) return ''
+  const open = new Set(hours.flatMap((row) => row.days))
+  const days = ORDER.filter((day) => !open.has(day))
+  const closed = days.map((day) => LONG[day])
+  if (closed.length === 0) return ''
+  if (closed.length === 1) {
+    const feminine = days[0] === 'wed' || days[0] === 'sat' || days[0] === 'sun'
+    return `${closed[0]} ${feminine ? 'nieczynna' : 'nieczynny'}`
+  }
+  return `${closed.slice(0, -1).join(', ')} i ${closed.at(-1)} nieczynne`
+}
+
+/**
  * Opening hours as the table of the board `Kontakt`: open rows with full day names, then one
  * „nieczynne” row with the remaining days and holidays. „święta” comes from the board, not
  * from the panel — TODO(krystian): [SZEF] potwierdzić (czy zawsze nieczynne w święta).

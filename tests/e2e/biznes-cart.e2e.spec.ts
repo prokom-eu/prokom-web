@@ -136,7 +136,7 @@ test.describe('Biznes inquiry list', () => {
     // Board K4: „Przeglądaj ofertę”, „Konfigurator” and a plain description of the need.
     await expect(drawer(page).getByRole('link', { name: 'Konfigurator' })).toHaveAttribute(
       'href',
-      '/kreator',
+      '/konfigurator',
     )
     await expect(
       drawer(page).getByRole('link', { name: /Opisz, czego potrzebujesz/ }),

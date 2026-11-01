@@ -7,7 +7,7 @@ import { HoursLive } from './HoursLive'
 
 type Props = {
   topBar: Navigation['topBar']
-  /** „Rabka-Zdrój, ul. Orkana 16B · Zakopane, …” — salons from the company data. */
+  /** „Rabka-Zdrój, ul. Orkana 16B” — salons from the company data. */
   salons: string
   hours: OpeningHours | null
   status: OpeningStatus | null

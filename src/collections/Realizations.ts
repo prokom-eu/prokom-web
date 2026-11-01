@@ -2,7 +2,7 @@ import { APIError } from 'payload'
 import type { CollectionBeforeChangeHook, CollectionConfig } from 'payload'
 
 import { adminOnly } from '../lib/auth/access'
-import { REALIZATION_KINDS, SERVICE_KEYS } from '../lib/instalacje/options'
+import { SERVICE_KEYS } from '../lib/instalacje/options'
 import { publishWithoutConsent } from '../lib/instalacje/realizations'
 import { onlyLineTenant } from '../lib/tenant/onlyLine'
 import { imageField } from './catalogFields'
@@ -21,7 +21,8 @@ const requireConsent: CollectionBeforeChangeHook = ({ data, originalDoc }) => {
 
 /**
  * Realizations of the Instalacje site (ADR-I002 §2). They name real clients, so publishing needs
- * the client's consent (hook); the import keeps them all as drafts without it.
+ * the client's consent (hook); the import publishes them with it (the clients agreed, 01.11.2026)
+ * and taking the consent back in the panel unpublishes nothing by itself — set a draft too.
  */
 export const Realizations: CollectionConfig = {
   slug: 'realizations',
@@ -88,13 +89,6 @@ export const Realizations: CollectionConfig = {
       type: 'select',
       hasMany: true,
       options: [...SERVICE_KEYS],
-    },
-    {
-      name: 'kind',
-      label: 'Rodzaj obiektu (filtr)',
-      type: 'select',
-      options: [...REALIZATION_KINDS],
-      admin: { description: 'Filtr „Każdy obiekt” na /realizacje.' },
     },
     imageField('photos', 'Zdjęcia', true),
   ],

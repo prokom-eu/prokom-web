@@ -5,7 +5,7 @@ import type { Navigation } from '../dane/types'
 export type CtaBandProps = {
   band: Navigation['ctaBand']
   phone: { label: string; href: string } | null
-  /** „Salony: Rabka-Zdrój, ul. Orkana 16B · Zakopane, …” */
+  /** „Salony: Rabka-Zdrój, ul. Orkana 16B” (every location of the company data) */
   salons: string
   /** Id of the heading (two bands in one HTML must not share it). */
   titleId: string

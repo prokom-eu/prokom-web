@@ -68,6 +68,7 @@ Wszystkie z polem tenanta (wtyczka multi-tenant). Nazwy pól poniżej są opisow
 **`Realizations`**
 - `tytul`, `uslugi[]`, `obiekt`, `miejscowosc`, `rok`, `opis`, `zdjecia[]` (media), `zgodaKlienta` (bool, wymagane do publikacji — hook blokuje publikację bez zgody), `wyrozniona`.
 - Seed (`Main.json → rl`, `Realizacje.json`) zawiera **prawdziwe nazwy klientów** z dawnych realizacji. Import: wszystkie jako **wersje robocze z `zgodaKlienta = false`**. Na stronie głównej i w `/realizacje` do czasu zgód: placeholdery z prototypu (bez nazw klientów). Lista do zgód — `docs/strony/prokominstalacje-do-uzupelnienia.md`.
+- **Rozstrzygnięcie 01.11.2026 (odpowiedź szefa: zgody są):** import tworzy realizacje **opublikowane z `zgodaKlienta = true`**; wersja robocza starego seeda, nietknięta w panelu (równa paczce), jest publikowana, zmieniona w panelu zostaje bez zmian. Realizacje wracają na stronę główną, `/dla-architektow`, strony „Dla kogo” (`InstObjects.realizations`) i strony Nagłośnienia, Ekranów i Sieci. **Świadome odstępstwo:** na stronach usług (karty `#realizacje-n` Nagłośnienia, notki Ekranów i Sieci) nazwy klientów są w kodzie (`dane/*.ts`, 1:1 z prototypem), poza przełącznikiem zgody — wycofanie zgody = zmiana w kodzie i wdrożenie; przeniesienie do panelu w „Pomysłach” STAN.
 
 **`InstArchNews`** (nowe rozwiązania dla architektów, panel) — pola, hook znaczników i seed: **ADR-I005 §2**, sesja I16b.
 

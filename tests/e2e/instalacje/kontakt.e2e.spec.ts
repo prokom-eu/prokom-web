@@ -31,7 +31,7 @@ test.describe('Instalacje contact page', () => {
     const field = page.locator('#kt-q')
     await field.fill('Szczaw')
     await expect(page.locator('#kt-q-res')).toContainText('Podhale')
-    await expect(page.locator('#kt-q-res')).toContainText('najbliżej z salonu: Zakopane')
+    await expect(page.locator('#kt-q-res')).toContainText('najbliżej z salonu: Rabka-Zdrój')
     await expect(page.locator('svg.kmap2 .kroute')).toHaveCount(1)
     // A town outside the map still gets its zone.
     await field.fill('Kraków')
