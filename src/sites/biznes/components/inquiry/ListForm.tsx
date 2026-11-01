@@ -28,6 +28,8 @@ import {
   PREFERRED_CONTACTS,
   type PreferredContact,
 } from '@/lib/inquiry/types'
+
+import { STICKY_ACTION_BUTTON, StickyAction } from '../mobile/StickyAction'
 import { plural } from '@/lib/plural'
 
 import { AreaField, ChoiceField, ConsentField, IconField } from '../forms/fields'
@@ -88,6 +90,11 @@ function readValues(form: HTMLFormElement): ListFormValues {
 function buttonLabel(count: number): string {
   if (count === 0) return 'Wyślij zapytanie'
   return `Wyślij zapytanie (${count} ${plural(count, ['pozycja', 'pozycje', 'pozycji'])})`
+}
+
+/** The phone's sticky button (K4-FINAL §7): „Wyślij zapytanie · 2 poz.”. */
+function barLabel(count: number): string {
+  return count === 0 ? 'Wyślij zapytanie' : `Wyślij zapytanie · ${count} poz.`
 }
 
 /**
@@ -178,6 +185,7 @@ export function ListForm({
 
   return (
     <form
+      id={`${id}-form`}
       noValidate
       onSubmit={onSubmit}
       aria-busy={sending}
@@ -319,6 +327,20 @@ export function ListForm({
             </li>
           ))}
         </ul>
+      )}
+      {/* Phone, the page form only (MOBILE-APLIKACJA §1): the send button sticks to the bottom;
+          `form` ties it to this form, so it runs the same checks. */}
+      {!compact && (
+        <StickyAction>
+          <button
+            type="submit"
+            form={`${id}-form`}
+            disabled={sending}
+            className={STICKY_ACTION_BUTTON}
+          >
+            {sending ? 'Wysyłanie…' : barLabel(cart.length)}
+          </button>
+        </StickyAction>
       )}
     </form>
   )

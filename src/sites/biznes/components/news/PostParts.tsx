@@ -6,6 +6,7 @@ import type { OutlineItem } from '@/lib/posts/content'
 import type { PostView } from '@/lib/posts/view'
 
 import { DayCount } from '../../blocks/BzKsef/DayCount'
+import { STICKY_ACTION_BUTTON, StickyAction } from '../mobile/StickyAction'
 import { PageLink } from '../PageLink'
 import { NEWS_TEXTS } from './texts'
 
@@ -108,6 +109,15 @@ export function PostAside({ post, outline, related }: AsideProps) {
             {post.cta.link.label}
           </PageLink>
         </div>
+      )}
+      {/* Phone (MOBILE-APLIKACJA §1): the post's CTA sticks to the bottom of the screen —
+          outside the dark card, whose `data-surface` would recolour the bar. */}
+      {post.cta && (
+        <StickyAction>
+          <Link href={post.cta.link.href} className={STICKY_ACTION_BUTTON}>
+            {post.cta.link.label}
+          </Link>
+        </StickyAction>
       )}
       {post.countdown && (
         <div className={CARD}>
