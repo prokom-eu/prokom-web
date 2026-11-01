@@ -2,6 +2,7 @@ import type { Block, Field } from 'payload'
 
 import { hrefField, linkGroup } from '../../../../blocks/fields'
 import { SOFTWARE_TOPIC_LABELS } from '../../../../lib/inquiry/types'
+import { tenantImageFilter } from '../../../../lib/media/access'
 
 /** Lines of „Inne linie PRO-KOM” (`--c-<line>`, `--c-<line>-text`, `--c-<line>-on-dark`). */
 export const CONTACT_LINE_COLORS = ['biznes', 'instalacje', 'tech', 'prokom'] as const
@@ -317,6 +318,7 @@ export const SwContactPageBlock: Block = {
             text('meetTitle', 'Nagłówek (H2)', 80),
           ],
         },
+        text('meetLead', 'Opis pod nagłówkiem', 240, false, FACTS_NOTE),
         {
           name: 'places',
           label: 'Miejsca',
@@ -333,12 +335,29 @@ export const SwContactPageBlock: Block = {
         {
           type: 'row',
           fields: [
-            text('mapCaption', 'Mapa — podpis', 30),
-            text('navigateLabel', 'Mapa — przycisk', 20),
+            text('mapCaption', 'Mapa — podpis nad adresem', 30),
+            text('navigateLabel', 'Mapa — przycisk trasy', 20),
+            text('mapZoomLabel', 'Mapa — przycisk powiększenia', 20),
+          ],
+        },
+        {
+          ...hrefField('mapHref', 'Mapa — link trasy (Mapy Google)'),
+          admin: {
+            description:
+              'Pusty = bez mapy. Mapa to rysunek z danych OpenStreetMap w kodzie; Mapy Google otwierają się dopiero po kliknięciu (bez ciasteczek).',
+          },
+        },
+        {
+          type: 'row',
+          fields: [
             {
-              ...hrefField('mapHref', 'Mapa — link (Mapy Google)'),
-              admin: { description: 'Pusty = bez mapy. Bez osadzania mapy (bez ciasteczek).' },
+              name: 'entrancePhoto',
+              label: 'Zdjęcie wejścia',
+              type: 'upload',
+              relationTo: 'media',
+              filterOptions: tenantImageFilter,
             },
+            text('entranceCaption', 'Zdjęcie wejścia — podpis', 60),
           ],
         },
         {

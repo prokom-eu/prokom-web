@@ -44,10 +44,21 @@ test.describe('Software /kontakt', () => {
     // v23: Software only in Rabka; the phone card names the second number.
     await expect(page.locator('main')).not.toContainText(/Zakopan/i)
     await expect(page.locator('main')).toContainText('albo 788 986 074')
-    await expect(page.getByRole('link', { name: /Nawiguj/ })).toHaveAttribute(
+    // v23 map from OpenStreetMap: a drawing, Google only on click, the OSM credit (ODbL).
+    const where = page.locator('#gdzie')
+    await expect(where.getByRole('img', { name: /Mapa: .*Orkana 16B/ })).toBeVisible()
+    await expect(where.getByRole('link', { name: /Wyznacz trasę/ })).toHaveAttribute(
       'href',
       /google\.com\/maps/,
     )
+    await expect(where.getByRole('link', { name: /Powiększ mapę/ })).toHaveAttribute(
+      'href',
+      /openstreetmap\.org/,
+    )
+    await expect(where).toContainText('© autorzy OpenStreetMap')
+    await expect(where.locator('iframe, script')).toHaveCount(0)
+    await expect(where.getByRole('img', { name: /Wejście do PRO-KOM/ })).toBeVisible()
+    await expect(where).toContainText('sobota i niedziela nieczynne')
     await expect(page.locator('#faq')).toContainText('Czy rozmowa i wycena coś kosztują?')
     // v21: no topic picked at first.
     const topics = form(page).getByRole('group', { name: 'Czego dotyczy sprawa?' })

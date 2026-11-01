@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { hoursSummary, hoursTable, weekHours } from './hoursSummary'
+import { closedDays, hoursSummary, hoursTable, weekHours } from './hoursSummary'
 
 describe('hoursSummary', () => {
   it('joins consecutive days into a range, as in the design', () => {
@@ -65,5 +65,38 @@ describe('weekHours (K4 Kontakt)', () => {
     expect(week[0]).toEqual({ day: 'mon', name: 'Poniedziałek', time: '9:00–17:00' })
     expect(week[5]).toEqual({ day: 'sat', name: 'Sobota', time: 'nieczynne' })
     expect(week[6]!.day).toBe('sun')
+  })
+})
+
+describe('closedDays', () => {
+  const weekdays = ['mon', 'tue', 'wed', 'thu', 'fri']
+  it('names the days without hours, as the v23 contact card', () => {
+    expect(closedDays([{ days: weekdays, opens: '09:00', closes: '17:00' }])).toBe(
+      'sobota i niedziela nieczynne',
+    )
+  })
+
+  it('lists one or three closed days', () => {
+    expect(
+      closedDays([
+        { days: weekdays, opens: '09:00', closes: '17:00' },
+        { days: ['sat'], opens: '09:00', closes: '13:00' },
+      ]),
+    ).toBe('niedziela nieczynna')
+    expect(
+      closedDays([
+        { days: ['tue', 'wed', 'thu', 'fri', 'sat', 'sun'], opens: '09:00', closes: '17:00' },
+      ]),
+    ).toBe('poniedziałek nieczynny')
+    expect(
+      closedDays([{ days: ['tue', 'wed', 'thu', 'fri'], opens: '09:00', closes: '17:00' }]),
+    ).toBe('poniedziałek, sobota i niedziela nieczynne')
+  })
+
+  it('is empty when every day is open or there are no hours', () => {
+    expect(
+      closedDays([{ days: [...weekdays, 'sat', 'sun'], opens: '09:00', closes: '17:00' }]),
+    ).toBe('')
+    expect(closedDays([])).toBe('')
   })
 })

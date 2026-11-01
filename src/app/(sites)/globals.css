@@ -141,6 +141,18 @@
   }
 }
 
+/* Pulse of the pin on the Software contact map (SWV4; only with motion-safe). */
+@keyframes map-pulse {
+  from {
+    transform: scale(0.4);
+    opacity: 0.45;
+  }
+  to {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
 /* Brand marquee of the Biznes home page (`BrandMarquee`): the list is rendered twice. */
 @theme {
   --animate-marquee: marquee 50s linear infinite;

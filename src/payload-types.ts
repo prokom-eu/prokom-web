@@ -3739,6 +3739,10 @@ export interface SwContactPageBlock {
   meetEyebrow?: string | null;
   meetTitle?: string | null;
   /**
+   * Fakty w nawiasach ([GODZINY], [CZAS ODPOWIEDZI]…) z Ustawień linii.
+   */
+  meetLead?: string | null;
+  /**
    * Pierwsze jest wyróżnione. Fakty w nawiasach ([GODZINY], [CZAS ODPOWIEDZI]…) z Ustawień linii.
    */
   places?:
@@ -3750,10 +3754,13 @@ export interface SwContactPageBlock {
     | null;
   mapCaption?: string | null;
   navigateLabel?: string | null;
+  mapZoomLabel?: string | null;
   /**
-   * Pusty = bez mapy. Bez osadzania mapy (bez ciasteczek).
+   * Pusty = bez mapy. Mapa to rysunek z danych OpenStreetMap w kodzie; Mapy Google otwierają się dopiero po kliknięciu (bez ciasteczek).
    */
   mapHref?: string | null;
+  entrancePhoto?: (number | null) | Media;
+  entranceCaption?: string | null;
   companyTitle?: string | null;
   companyNote?: string | null;
   id?: string | null;
@@ -6795,6 +6802,7 @@ export interface SwContactPageBlockSelect<T extends boolean = true> {
       };
   meetEyebrow?: T;
   meetTitle?: T;
+  meetLead?: T;
   places?:
     | T
     | {
@@ -6804,7 +6812,10 @@ export interface SwContactPageBlockSelect<T extends boolean = true> {
       };
   mapCaption?: T;
   navigateLabel?: T;
+  mapZoomLabel?: T;
   mapHref?: T;
+  entrancePhoto?: T;
+  entranceCaption?: T;
   companyTitle?: T;
   companyNote?: T;
   id?: T;

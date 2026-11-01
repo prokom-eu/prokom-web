@@ -29,6 +29,7 @@ import { seedSoftwareAudit } from './audit'
 import { seedSoftwareLegal } from './legal'
 import { seedSoftwareContact } from './contact'
 import { seedSoftwareHome } from './home'
+import { seedSoftwarePhotos } from './photos'
 import { seedSoftwarePricing } from './pricing'
 import { HOME_SECTION_TEXTS, homeWithPriceTokens, homeWithSections } from './homeExtras'
 
@@ -337,6 +338,8 @@ export async function seedSoftware(payload: Payload): Promise<void> {
   await seedSoftwareLegal(payload, tenant.id, count)
   // --- /o-firmie, /jedna-firma (SW11b): after the home texts — the comparison reads them ---
   await seedSoftwareAbout(payload, tenant.id, count)
+  // --- photos of /o-firmie, /jedna-firma, /kontakt (SWV4): only empty photo fields ---
+  await seedSoftwarePhotos(payload, tenant.id, count)
   // --- titles and descriptions of those pages (SW12, spec. §9): only empty fields ---
   await seedSoftwareSeo(payload, tenant.id, count)
 
