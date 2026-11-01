@@ -4,7 +4,7 @@ import { FaqBlock } from '@/blocks/Faq/Component'
 import { HeroBlock } from '@/blocks/Hero/Component'
 import { InquiryFormBlock } from '@/blocks/InquiryForm/Component'
 import { PartnersBlock } from '@/blocks/Partners/Component'
-import { renderableBlocks } from '@/blocks/registry'
+import { INSTALACJE_BLOCK_SLUGS, renderableBlocks } from '@/blocks/registry'
 import { RichTextBlock } from '@/blocks/RichText/Component'
 import { ServiceGridBlock } from '@/blocks/ServiceGrid/Component'
 import { Heading } from '@/components/ui/Heading'
@@ -108,7 +108,9 @@ export function RenderBlocks({ page, tenant }: Props) {
   return (
     <>
       {/* Linked only where an Instalacje block renders, not on the other lines. */}
-      {blocks.some((block) => block.blockType.startsWith('inst')) && <InstalacjeBlockStyles />}
+      {blocks.some((block) => INSTALACJE_BLOCK_SLUGS.includes(block.blockType)) && (
+        <InstalacjeBlockStyles />
+      )}
       {!opensWithHero(blocks[0]) && (
         <Section className="pb-0 sm:pb-0">
           {/* Biznes subpages open with breadcrumbs, like every other Biznes page (B11b). */}

@@ -2,10 +2,9 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 import { sentNumber, sentVia, wyslane as W } from '@/sites/instalacje/dane/wyslane'
+import { SentPageStyles } from '@/sites/instalacje/style/LineStyles'
 
 import { requireLine } from '../../tenant'
-
-import '@/sites/instalacje/widzety/zaplanuj/zaplanuj.css'
 
 type Props = {
   params: Promise<{ domain: string }>
@@ -30,6 +29,7 @@ export default async function SentPage({ params, searchParams }: Props) {
   const via = sentVia(query.kontakt)
   return (
     <section id="hero" className="phero zkh" style={{ paddingBottom: 96 }}>
+      <SentPageStyles />
       <div className="hgrid" />
       <div className="hglow" />
       <div className="wrap" style={{ position: 'relative' }}>

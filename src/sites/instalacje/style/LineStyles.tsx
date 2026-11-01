@@ -8,10 +8,14 @@ import dynamic from 'next/dynamic'
  * A `next/dynamic` import inside a Client Component gets its own chunk instead: the server
  * renders its CSS as `<link rel="stylesheet" precedence>` only where the component renders,
  * React hoists it into <head> and the page paints after it loads (no flash of unstyled content).
- * Any new Instalacje stylesheet goes into `frame.tsx` or `blocks.tsx` (`style.test.ts`).
+ * All of the line's stylesheets go through here, so they share one cascade group, in render
+ * order (frame first). A new stylesheet goes into one of these modules (`style.test.ts`).
  */
 const Frame = dynamic(() => import('./frame'))
 const Blocks = dynamic(() => import('./blocks'))
+const Objects = dynamic(() => import('./obiekty'))
+const Guide = dynamic(() => import('./poradnik'))
+const Sent = dynamic(() => import('./wyslane'))
 
 /** Frame and shared sections — rendered by `InstalacjeFrame`, so on every Instalacje page. */
 export function FrameStyles() {
@@ -21,4 +25,19 @@ export function FrameStyles() {
 /** Page blocks (`inst*`) and their widgets — rendered by `RenderBlocks` for such blocks. */
 export function BlockStyles() {
   return <Blocks />
+}
+
+/** The „Dla kogo” pages (`ObjectPage`). */
+export function ObjectPageStyles() {
+  return <Objects />
+}
+
+/** A guide post (`GuidePost`). */
+export function GuidePostStyles() {
+  return <Guide />
+}
+
+/** The thanks page after a form (`/wyslane`). */
+export function SentPageStyles() {
+  return <Sent />
 }
