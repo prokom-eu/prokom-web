@@ -54,9 +54,11 @@ export function SwMegaMenu({ mega }: Props) {
             {mega.card.cta[0]}
           </Link>
 
-          <h2 className="mt-6 text-sm font-extrabold uppercase tracking-[0.1em] text-ink-2">
-            {mega.branze.label}
-          </h2>
+          {mega.branze.links.length > 0 && (
+            <h2 className="mt-6 text-sm font-extrabold uppercase tracking-[0.1em] text-ink-2">
+              {mega.branze.label}
+            </h2>
+          )}
           <ul className="mt-3 flex flex-wrap gap-2">
             {mega.branze.links.map(([label, href]) => (
               <li key={href}>
