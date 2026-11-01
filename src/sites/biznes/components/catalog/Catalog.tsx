@@ -159,7 +159,7 @@ export function Catalog({ index }: { index: CatalogIndex }) {
               type="search"
               value={draft}
               onChange={(event) => setDraft(event.target.value)}
-              placeholder="Szukaj w ofercie: nazwa, marka albo potrzeba — np. kasa mobilna, Wi-Fi dla gości, Subiekt"
+              placeholder="Szukaj w ofercie: nazwa, marka albo potrzeba, np. kasa mobilna, Wi-Fi dla gości, Subiekt"
               autoComplete="off"
               enterKeyHint="search"
               className="h-14 w-full rounded-2xl border border-border-input bg-card pl-14 pr-4 text-base text-ink shadow-[0_18px_40px_-30px_var(--glow)] placeholder:text-ink-3 sm:h-[66px] sm:text-lg"
@@ -443,7 +443,7 @@ export function Catalog({ index }: { index: CatalogIndex }) {
                 Nie widzisz tego, czego szukasz?
               </p>
               <p className="mt-1 text-sm leading-relaxed text-ink-2">
-                Dostarczamy też sprzęt i programy spoza listy — sprawdzimy u dystrybutorów i
+                Dostarczamy też sprzęt i programy spoza listy. Sprawdzimy u dystrybutorów i
                 odezwiemy się z ofertą.
               </p>
             </div>

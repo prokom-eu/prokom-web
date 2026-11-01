@@ -66,11 +66,11 @@ export function BrandsDirectory({
               id="marki-h1"
               className="font-display text-[clamp(2.1rem,4vw,3.6rem)] leading-[1.02] font-extrabold tracking-[-0.025em] text-balance"
             >
-              Marki, które znamy od&nbsp;środka.
+              Wszystkie marki w&nbsp;ofercie
             </h1>
             <p className="max-w-[56ch] text-[clamp(1rem,1.3vw,1.15rem)] leading-relaxed text-white/80">
               {total} {plural(total, ['marka', 'marki', 'marek'])}: od kas fiskalnych po serwery.
-              Przy każdej pomożemy wybrać model, wdrożymy i&nbsp;zajmiemy się serwisem —
+              Przy każdej pomożemy wybrać model, wdrożymy i&nbsp;zajmiemy się serwisem,
               a&nbsp;salony producentów pokazują serie, porównania i&nbsp;gotowe konfiguracje.
             </p>
             <label htmlFor={searchId} className="sr-only">
@@ -183,7 +183,7 @@ export function BrandsDirectory({
               Nie mamy jeszcze salonu tej marki
             </h2>
             <p className="max-w-[60ch] text-ink-2">
-              Dostarczamy więcej marek, niż pokazujemy. Napisz, czego szukasz — sprawdzimy
+              Dostarczamy więcej marek, niż pokazujemy. Napisz, czego szukasz, a sprawdzimy
               u&nbsp;dystrybutorów.
             </p>
             <AskButton />
@@ -194,8 +194,8 @@ export function BrandsDirectory({
           <div className="flex flex-col gap-1">
             <h2 className="font-display text-xl font-extrabold text-ink">Szukasz innej marki?</h2>
             <p className="max-w-[70ch] text-ink-2">
-              Współpracujemy z&nbsp;dystrybutorami sprzętu i&nbsp;oprogramowania w&nbsp;całej Polsce
-              — sprawdzimy dostępność i&nbsp;przygotujemy ofertę.
+              Współpracujemy z&nbsp;dystrybutorami sprzętu i&nbsp;oprogramowania w&nbsp;całej
+              Polsce. Sprawdzimy dostępność i&nbsp;przygotujemy ofertę.
             </p>
           </div>
           <AskButton />

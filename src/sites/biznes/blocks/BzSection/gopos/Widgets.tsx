@@ -494,8 +494,7 @@ export function GoposPackage({ data }: { data: SectionData<'gopos-package'> }) {
               ))}
             </ul>
             <p className="text-[13px] text-ink-2">
-              Dostępność części funkcji zależy od pakietu — przy wycenie zaznaczymy, co jest w
-              Twoim.
+              Dostępność części funkcji zależy od pakietu. Przy wycenie zaznaczymy, co jest w Twoim.
             </p>
           </div>
         </div>

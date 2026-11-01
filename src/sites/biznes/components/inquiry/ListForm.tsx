@@ -192,7 +192,7 @@ export function ListForm({
     >
       <noscript>
         <p className="font-bold text-ink">
-          Formularz wymaga włączonego JavaScriptu. Zadzwoń do nas — numer jest w nagłówku strony.
+          Formularz wymaga włączonego JavaScriptu. Zadzwoń do nas. Numer jest w nagłówku strony.
         </p>
       </noscript>
       {formError && (

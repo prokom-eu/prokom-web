@@ -13,11 +13,11 @@ type HomeBlock = NonNullable<Page['layout']>[number]
 
 /** Lead of the plan section, board v150 `#s4-plan`. */
 export const PLAN_LEAD =
-  'Wybierz rodzaj firmy i kliknij urządzenie. Obok zobaczysz film i szczegóły — a całość dodasz do zapytania jednym kliknięciem.'
+  'Wybierz rodzaj firmy i kliknij urządzenie. Obok zobaczysz film i szczegóły, a całość dodasz do zapytania jednym kliknięciem.'
 
 /** Labels of the plan (board `Web-Plan`): list note, „Gotowe zestawy”, „Dodaj cały plan…”. */
 export const PLAN_LABELS = {
-  sceneNote: 'Kliknij urządzenie — otworzy się film i szczegóły',
+  sceneNote: 'Kliknij urządzenie, a otworzy się film i szczegóły',
   moreLabel: 'Gotowe zestawy',
   inquiryLabel: 'Dodaj cały plan do zapytania',
 }
@@ -82,8 +82,8 @@ export function planBlocks(industry: (seedSlug: string) => number | undefined): 
       industries: {
         // v150 (board `#s4-real`): its own section „Dla kogo” before the plan.
         eyebrow: 'Dla kogo pracujemy',
-        heading: 'Firmy każdej wielkości. Od straganu po urząd gminy.',
-        lead: 'Ponad 100 klientów firmowych — firm i instytucji z Podhala i Małopolski. Wybierz swoją branżę — pokażemy plan lokalu z urządzeniami albo dobierzemy rozwiązanie w konfiguratorze.',
+        heading: 'Firmy każdej wielkości, od straganu po urząd gminy',
+        lead: 'Ponad 100 klientów firmowych: firm i instytucji z Podhala i Małopolski. Wybierz swoją branżę, a pokażemy plan lokalu z urządzeniami albo dobierzemy rozwiązanie w konfiguratorze.',
         moreLabel: 'Pokaż wszystkie branże',
         moreNote: 'jeszcze 10 branż',
         // Board `KG5`: 11 at once, 10 after „Pokaż wszystkie”, then „Każda inna firma”.
@@ -151,7 +151,7 @@ export function planBlocks(industry: (seedSlug: string) => number | undefined): 
           tile('Firma transportowa', 'laptopy, Microsoft 365, podpis', 'car', 'blue', false),
           tile('Sklep internetowy', 'Subiekt, KSeF, drukarka fiskalna', 'site', 'blue', false),
           tile('Stacja paliw, myjnia', 'terminal, sieć, UPS', 'bolt', 'red', false),
-          tile('Każda inna firma', 'opisz ją — dobierzemy rozwiązanie', 'q', 'violet', false),
+          tile('Każda inna firma', 'opisz ją, dobierzemy rozwiązanie', 'q', 'violet', false),
         ],
       },
       funding: {
@@ -170,7 +170,7 @@ export function planBlocks(industry: (seedSlug: string) => number | undefined): 
       blockType: 'bzSteps',
       // v150 (board `#s4-jak`).
       eyebrow: 'Jak pracujemy · ludzie, nie infolinia',
-      heading: 'Od pierwszej rozmowy do serwisu — bez niespodzianek.',
+      heading: 'Od pierwszej rozmowy do serwisu',
       lead: 'Cztery kroki i ten sam zespół z Rabki-Zdroju. Na każdym etapie wiesz, kto się Tobą zajmuje i co dostajesz.',
       getsLabel: 'Dostajesz',
       steps: [
@@ -178,7 +178,7 @@ export function planBlocks(industry: (seedSlug: string) => number | undefined): 
           title: 'Rozmowa',
           icon: 'phone',
           text: 'Telefon, wiadomość albo wizyta w Rabce. Pytamy, jak pracuje firma i co ma się poprawić.',
-          gets: 'listę potrzeb — także tego, czego nie musisz kupować',
+          gets: 'listę potrzeb, także tego, czego nie musisz kupować',
           role: 'Doradca PRO-KOM',
           label: 'Pierwszy kontakt',
         },
@@ -186,9 +186,9 @@ export function planBlocks(industry: (seedSlug: string) => number | undefined): 
           title: 'Oferta',
           icon: 'doc',
           text: 'Dobieramy sprzęt i programy do skali firmy. Kilka wariantów, każdy z uzasadnieniem.',
-          gets: 'ofertę na piśmie, bez zobowiązań',
+          gets: 'kilka wariantów z uzasadnieniem',
           role: 'ten sam doradca',
-          label: 'Na piśmie',
+          label: 'Warianty',
         },
         {
           title: 'Wdrożenie',
@@ -208,13 +208,13 @@ export function planBlocks(industry: (seedSlug: string) => number | undefined): 
         },
       ],
       commitmentsEyebrow: 'Nasze zobowiązania',
-      commitmentsHeading: 'Tak pracujemy — nie tylko na\u00a0stronie.',
+      commitmentsHeading: 'Tak pracujemy na co dzień',
       // „Nasze zobowiązania”: title — note (`BzSteps/commitment.ts`).
       guarantees: [
         { text: '60 minut — oddzwaniamy w godzinach pracy' },
-        { text: 'Wycena na piśmie — bez zobowiązań, pod Twoją firmę' },
+        { text: 'Wycena — pod Twoją firmę, w kilku wariantach' },
         { text: 'Kasa gotowa do pracy — fiskalizacja, programowanie, szkolenie' },
-        { text: `Jeden numer — ${BIZNES_CONTACT.phone} — oferty i serwis` },
+        { text: `Jeden numer — ${BIZNES_CONTACT.phone}, oferty i serwis` },
       ],
     },
   ]

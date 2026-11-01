@@ -116,7 +116,7 @@ describe('categoryGuide (K36 §13)', () => {
     })
     expect(guide).toEqual({
       title: 'Nie wiesz, co wybrać?',
-      text: 'Napisz, do czego potrzebujesz — dobierzemy model i przygotujemy ofertę na piśmie.',
+      text: 'Napisz, do czego potrzebujesz, a dobierzemy model i przygotujemy ofertę.',
       button: 'Zapytaj o dobór',
       href: choiceInquiryHref('Niszczarki'),
     })

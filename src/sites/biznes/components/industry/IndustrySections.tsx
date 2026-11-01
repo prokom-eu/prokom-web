@@ -78,7 +78,7 @@ export function IndustryBundles({ bundles }: { bundles: BundleCardData[] }) {
           id="gotowe-zestawy-h"
           eyebrow="Gotowe zestawy"
           heading="Sprzęt, program i usługi, które działają razem."
-          lead="Każdy element możesz zamienić — doradzimy, co i kiedy."
+          lead="Każdy element możesz zamienić, a doradzimy, co i kiedy."
         />
         <div className="mt-8">
           <BundleGrid bundles={bundles} />

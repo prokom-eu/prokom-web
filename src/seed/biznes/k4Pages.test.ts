@@ -172,7 +172,8 @@ describe('/opieka-it (K4i)', () => {
   it('opens with the K34 H1 (decyzja Krystiana 01.11)', () => {
     const hero = layout[0] as BzSectionBlock
     expect(hero.variant).toBe('care-hero')
-    expect(hero.heading).toContain('pod jedną opieką')
+    expect(hero.heading).toBe('Opieka IT dla firm:')
+    expect(hero.headingAccent).toContain('pod jedną opieką')
   })
 
   it('writes the hours as „pn–pt 9:00–17:00”, never „9–17”', () => {
@@ -193,7 +194,7 @@ describe('/o-firmie (K4i)', () => {
   it('shows 4 lines (decyzja Krystiana 01.11) and „100+ klientów firmowych”', () => {
     expect(dataOf(layout, 'lines')?.lines).toHaveLength(4)
     const lines = sections(layout).find((block) => block.variant === 'lines')
-    expect(lines?.heading).toBe('Jedna firma, cztery linie.')
+    expect(lines?.heading).toBe('Jedna firma, cztery linie')
     expect(JSON.stringify(layout)).toContain('100+')
     expect(JSON.stringify(layout)).not.toContain('firm i instytucji pod opieką')
   })

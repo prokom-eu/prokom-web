@@ -75,12 +75,12 @@ export default async function PlanPage({ params }: Props) {
               Plan Twojej firmy
             </p>
             <h1 className="mt-2 font-display text-[clamp(2rem,4.6vw,3.4rem)] leading-[1.02] font-extrabold tracking-tight text-balance text-ink">
-              Zobacz, co ustawimy w Twoim lokalu.
+              Plan Twojej firmy: kliknij urządzenie i zobacz, co pasuje
             </h1>
           </div>
           <div>
             <p className="text-[16px] leading-relaxed text-ink-2">
-              Wybierz rodzaj firmy i kliknij urządzenie. Obok zobaczysz film i szczegóły — a całość
+              Wybierz rodzaj firmy. Przy każdym urządzeniu zobaczysz film i szczegóły, a całość
               dodasz do zapytania jednym kliknięciem.
             </p>
             <div className="mt-4">

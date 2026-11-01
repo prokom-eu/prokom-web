@@ -15,8 +15,8 @@ export function factsBlocks(brand: (name: string) => number | undefined): HomeBl
     {
       blockType: 'bzReferences',
       eyebrow: 'Opinie',
-      heading: 'Co mówią klienci.',
-      lead: 'Publikujemy opinie w oryginalnym brzmieniu — z podpisem i źródłem.',
+      heading: 'Co mówią klienci',
+      lead: 'Publikujemy opinie w oryginalnym brzmieniu, z podpisem i źródłem.',
       // Only the real, public review of the board; the section shows after „Pokaż opinie
       // klientów” in the site settings, placeholders never in production (ADR-017 D-K4-6).
       // TODO(krystian): [SZEF] wybór opinii i zgody (spec. §13).
@@ -32,12 +32,13 @@ export function factsBlocks(brand: (name: string) => number | undefined): HomeBl
     {
       blockType: 'bzFacts',
       // For screen readers only (the board shows the label above the quote).
-      heading: 'O firmie — słowo od właściciela',
-      // TODO(krystian): [SZEF] treść cytatu, podpis (SVG) i decyzja: zdjęcie czy ikona.
+      heading: 'Słowo od właściciela',
+      // TODO(krystian): cytat do akceptacji szefa (napisany przez nas). Na stronie dopiero po
+      // „Pokaż słowo od właściciela” w Ustawieniach strony. [SZEF] też podpis (SVG) i zdjęcie.
       owner: {
         label: 'Słowo od właściciela',
         quote:
-          'Prowadzę PRO-KOM w Rabce od 2004 roku. Nie chodzi nam o to, żeby sprzedać jak najwięcej, tylko żeby u klienta po prostu działało. Dlatego zostajemy z firmami na lata — a telefon odbiera ktoś, kto zna Twoją firmę.',
+          'Prowadzę PRO-KOM w Rabce od 2004 roku. Nie chodzi nam o to, żeby sprzedać jak najwięcej, tylko żeby u klienta po prostu działało. Dlatego zostajemy z firmami na lata, a telefon odbiera ktoś, kto zna Twoją firmę.',
         highlight: 'u klienta po prostu działało',
         name: 'Tadeusz Wójciak',
         role: 'właściciel PRO-KOM · Rabka-Zdrój',
@@ -59,8 +60,8 @@ export function factsBlocks(brand: (name: string) => number | undefined): HomeBl
     {
       blockType: 'faq',
       eyebrow: 'Pytania i odpowiedzi',
-      heading: 'Zanim zadzwonisz.',
-      lead: 'Najczęstsze pytania od firm z Podhala. Nie ma tu Twojego? Zadzwoń albo napisz — odpowiemy od ręki.',
+      heading: 'Zanim zadzwonisz',
+      lead: 'Najczęstsze pytania od firm z Podhala. Nie ma tu Twojego? Zadzwoń albo napisz. Oddzwonimy w ciągu 60 minut w godzinach pracy.',
       // Board `FAQ4` (v150).
       items: [
         {
@@ -72,13 +73,13 @@ export function factsBlocks(brand: (name: string) => number | undefined): HomeBl
           // K4-FINAL §1: no pricing model of the IT care.
           question: 'Ile kosztuje opieka informatyczna?',
           answer:
-            'Zależy od liczby stanowisk, serwera i zakresu. Zaczynamy od bezpłatnego przeglądu IT, a potem dostajesz wycenę na piśmie.',
+            'Zależy od liczby stanowisk, serwera i zakresu. Zaczynamy od bezpłatnego przeglądu IT, a potem przygotowujemy wycenę.',
         },
         {
           // TODO(krystian): [SZEF] daty KSeF do sprawdzenia przed publikacją (ZMIANY-v20 §5).
           question: 'Czy pomożecie przygotować firmę do KSeF?',
           answer:
-            'Tak. Sprawdzimy program do faktur, nadamy uprawnienia księgowej, przygotujemy certyfikat i procedurę awaryjną — przed obowiązkowym terminem 1 stycznia 2027 r. dla najmniejszych firm.',
+            'Tak. Sprawdzimy program do faktur, nadamy uprawnienia księgowej, przygotujemy certyfikat i procedurę awaryjną przed obowiązkowym terminem 1 stycznia 2027 r. dla najmniejszych firm.',
         },
         {
           // The number comes from `contact.ts`; the hours in the sentence follow BIZNES_COMPANY.
@@ -87,18 +88,18 @@ export function factsBlocks(brand: (name: string) => number | undefined): HomeBl
         },
         {
           question: 'Czy przejmujecie serwis kasy od innej firmy?',
-          answer: `Tak. Wystarczy telefon na ${BIZNES_CONTACT.phone}. Formalności i termin najbliższego przeglądu bierzemy na siebie — jesteśmy autoryzowanym serwisem Posnet i Elzab.`,
+          answer: `Tak. Wystarczy telefon na ${BIZNES_CONTACT.phone}. Formalności i termin najbliższego przeglądu bierzemy na siebie, bo jesteśmy autoryzowanym serwisem Posnet i Elzab.`,
         },
         {
-          question: 'Prowadzę biuro rachunkowe — jak możemy współpracować?',
-          answer: `Pomagamy Twoim klientom przejść na KSeF: program do faktur, certyfikat i uprawnienia dla biura. Zadzwoń na ${BIZNES_CONTACT.phone} — ustalimy, jak najprościej przekazywać nam sprawy klientów.`,
+          question: 'Prowadzę biuro rachunkowe. Jak możemy współpracować?',
+          answer: `Pomagamy Twoim klientom przejść na KSeF: program do faktur, certyfikat i uprawnienia dla biura. Zadzwoń na ${BIZNES_CONTACT.phone}, a ustalimy, jak najprościej przekazywać nam sprawy klientów.`,
         },
       ],
     },
     {
       blockType: 'bzContact',
-      heading: 'Napisz, czego potrzebujesz. Odezwiemy się szybko.',
-      lead: 'Jedna wiadomość wystarczy. Oddzwonimy w ciągu 60 minut w godzinach pracy, a wycenę przygotujemy na piśmie.',
+      heading: 'Napisz, czego potrzebujesz. Oddzwonimy w ciągu 60 minut w godzinach pracy.',
+      lead: 'Jedna wiadomość wystarczy. Oddzwonimy z pytaniami i przygotujemy wycenę.',
       formHeading: 'Formularz zapytania',
       formNote: 'Pola z gwiazdką są wymagane. Resztę dopiszemy razem przez telefon.',
       // TODO(krystian): [SZEF] obietnica „60 min” — ta sama co w Ustawieniach strony (spec. §13).

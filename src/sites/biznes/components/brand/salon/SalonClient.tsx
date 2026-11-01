@@ -230,7 +230,7 @@ export function SalonChooser({
           {chooser.question ?? 'Od czego zacząć?'}
         </h2>
         <p className="text-ink-2">
-          Jedno pytanie — podpowiemy, od czego zacząć. Ostateczny model dobierzemy po krótkiej
+          Jedno pytanie, a podpowiemy, od czego zacząć. Ostateczny model dobierzemy po krótkiej
           rozmowie.
         </p>
         <fieldset className="flex flex-col gap-2.5">

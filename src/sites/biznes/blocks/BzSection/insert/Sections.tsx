@@ -205,7 +205,7 @@ export function InsertKsef({
           className={BTN_PRIMARY}
         />
         <a href="#inspunkty" className={BTN_OUTLINE}>
-          InsPunkty — opłaty za KSeF
+          InsPunkty: opłaty za KSeF
         </a>
       </div>
     </SectionShell>

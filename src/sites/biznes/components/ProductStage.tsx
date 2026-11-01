@@ -115,8 +115,8 @@ export function StageFallback({
         )}
       >
         {size === 'lg'
-          ? 'Zdjęcie producenta pojawi się wkrótce. Pełna specyfikacja — poniżej.'
-          : 'Zdjęcie producenta wkrótce'}
+          ? 'Zdjęcia producenta jeszcze nie ma. Pełna specyfikacja jest poniżej.'
+          : 'Bez zdjęcia producenta'}
       </span>
     </span>
   )

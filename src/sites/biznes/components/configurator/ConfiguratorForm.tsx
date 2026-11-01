@@ -139,7 +139,7 @@ export function ConfiguratorForm({
         <p className="text-[14.5px] text-ink-2">
           Dziękujemy!{' '}
           {callbackTime ? `${callbackTime} w godzinach pracy` : 'Odezwiemy się w godzinach pracy'} i
-          przygotujemy ofertę na piśmie.
+          przygotujemy ofertę.
         </p>
         <button
           type="button"
@@ -166,7 +166,7 @@ export function ConfiguratorForm({
           Wyślij zapytanie
         </h2>
         <p className="mt-1 text-[13.5px] text-ink-2">
-          Opis firmy i potrzeb dołączymy automatycznie. Wycena bez zobowiązań, na piśmie.
+          Opis firmy i potrzeb dołączymy automatycznie. Wycena bez zobowiązań.
         </p>
       </div>
       <div className="rounded-xl bg-surface-2 px-3.5 py-3 text-[13.5px]">
@@ -178,7 +178,7 @@ export function ConfiguratorForm({
           <>
             <p className="font-bold text-ink">Nic jeszcze nie wybrano</p>
             <p className="text-ink-2">
-              Nie musisz nic wybierać — dobierzemy sami na podstawie opisu.
+              Nie musisz nic wybierać. Dobierzemy sami na podstawie opisu.
             </p>
           </>
         )}

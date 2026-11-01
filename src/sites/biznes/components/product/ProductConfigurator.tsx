@@ -17,8 +17,8 @@ import { CONFIGURATOR_ID } from './ProductVersionPicker'
 
 const STEPS = [
   'Zacznij od gotowej konfiguracji albo wybieraj po kolei',
-  'Czego nie wiesz — kliknij „Doradźcie”',
-  'Dodaj do zapytania — wycenę dostaniesz na piśmie',
+  'Czego nie wiesz, zostaw na „Doradźcie”',
+  'Dodaj do zapytania, a przygotujemy wycenę',
 ]
 
 const CHIP =
@@ -52,7 +52,7 @@ export function ProductConfigurator({ config }: { config: Configurator }) {
       eyebrow="Konfigurator"
       heading="Wybierz wersję"
       lead={lead}
-      aside="bez cen i bez zobowiązań"
+      aside="bez cen na stronie"
     >
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_340px] lg:items-start lg:gap-7">
         <div className="flex min-w-0 flex-col gap-7">
@@ -73,7 +73,7 @@ export function ProductConfigurator({ config }: { config: Configurator }) {
           {config.presets.length > 0 && (
             <div className="flex flex-col gap-3">
               <h3 className="text-xs font-extrabold tracking-[0.1em] text-ink-2 uppercase">
-                Gotowe konfiguracje — najczęściej wybierane
+                Najczęściej wybierane konfiguracje
               </h3>
               <ul className="grid gap-3 sm:grid-cols-[repeat(auto-fit,minmax(220px,1fr))]">
                 {config.presets.map((preset, position) => {
@@ -255,7 +255,7 @@ export function ProductConfigurator({ config }: { config: Configurator }) {
             </button>
           </div>
           <p className="text-[0.82rem] leading-relaxed text-white/70">
-            Wybrana wersja trafi do zapytania jako notatka. Gdy coś zostawisz do doradzenia —
+            Wybrana wersja trafi do zapytania jako notatka. Gdy coś zostawisz do doradzenia,
             dobierzemy to do Twojej pracy i wpiszemy w ofercie.
           </p>
         </aside>

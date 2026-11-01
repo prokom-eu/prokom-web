@@ -46,6 +46,23 @@ describe('fixTexts', () => {
     )
   })
 
+  it('rewrites the old headings of the redaction (audit 01.11.2026) and is idempotent', () => {
+    const before = {
+      heading: 'Komputery, sieć i kasy pod jedną opieką.',
+      headingAccent: 'Jeden numer, gdy coś stanie.',
+      faq: { heading: 'Zanim zadzwonisz.' },
+      note: 'pro-kom.eu: wspólne wejście. Nowa strona PRO-KOM — wkrótce.',
+    }
+    const after = fixTexts(before)
+    expect(after).toEqual({
+      heading: 'Opieka IT dla firm:',
+      headingAccent: 'komputery, sieć i kasy pod jedną opieką',
+      faq: { heading: 'Zanim zadzwonisz' },
+      note: 'pro-kom.eu: wspólne wejście.',
+    })
+    expect(fixTexts(after)).toEqual(after)
+  })
+
   it('leaves other texts untouched', () => {
     const block = { heading: 'pro-kom.eu — wspólne wejście', lead: 'Rabka-Zdrój' }
     expect(fixTexts(block)).toEqual(block)

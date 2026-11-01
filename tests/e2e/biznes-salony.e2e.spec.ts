@@ -30,7 +30,7 @@ test.describe('Biznes salon 2.0 (K4f)', () => {
       page.getByRole('heading', { level: 2, name: /^Autoryzowany serwis/ }),
     ).toBeVisible()
     await expect(
-      page.getByRole('heading', { level: 2, name: 'Zanim wybierzesz Posnet' }),
+      page.getByRole('heading', { level: 2, name: 'Pytania o kasy Posnet' }),
     ).toBeVisible()
     expect(await jsonLdTypes(page)).toEqual(
       expect.arrayContaining(['Brand', 'FAQPage', 'BreadcrumbList']),

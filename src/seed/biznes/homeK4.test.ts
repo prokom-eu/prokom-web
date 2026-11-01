@@ -27,7 +27,7 @@ describe('upgradeHomeK4 (K4c, K36 §1)', () => {
     const next = upgradeHomeK4(layout)
     expect(next?.[0]).toMatchObject({ ...K4_HERO, pill: 'Rabka-Zdrój' })
     expect(K4_HERO.heading).toBe('Kasy, komputery i programy dla firm.')
-    expect(K4_HERO.headingAccent).toBe('Wszystko z jednego miejsca — z Rabki.')
+    expect(K4_HERO.headingAccent).toBe('Wszystko z jednego miejsca w Rabce.')
   })
 
   it('puts the v150 texts into „Najczęściej wybierane”', () => {

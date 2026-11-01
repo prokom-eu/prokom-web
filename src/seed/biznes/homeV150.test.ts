@@ -88,7 +88,7 @@ describe('upgradeHomeV150 (K4c PR 3b and the cleanup)', () => {
       label: 'Poznaj PRO-KOM i pozostałe linie firmy',
       href: '/o-firmie',
     })
-    expect(by('faq').heading).toBe('Zanim zadzwonisz.')
+    expect(by('faq').heading).toBe('Zanim zadzwonisz')
     expect(JSON.stringify(next)).not.toContain('firm pod stałą opieką')
   })
 

@@ -11,9 +11,7 @@ test.describe('Biznes /marki (K4f)', () => {
   }) => {
     const response = await page.goto(biznes('/marki'))
     expect(response?.status()).toBe(200)
-    await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-      'Marki, które znamy od środka.',
-    )
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Wszystkie marki w ofercie')
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', /\/marki$/)
     await expect(
       page.getByRole('heading', { level: 2, name: 'Kasy, POS i płatności' }),

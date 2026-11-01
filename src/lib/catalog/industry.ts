@@ -90,7 +90,7 @@ const DEFAULTS = {
   products: { eyebrow: 'Zestaw dla branży', title: 'Sprzęt i programy, które wdrażamy.' },
   faq: { eyebrow: 'Pytania i odpowiedzi', title: 'Zanim zdecydujesz' },
   contact: {
-    heading: 'Powiedz, czego potrzebujesz. Resztę dobierzemy.',
+    heading: 'Powiedz, czego potrzebujesz, a resztę dobierzemy',
     lead: 'Przygotujemy zestaw na piśmie, bez zobowiązań.',
   },
 } as const

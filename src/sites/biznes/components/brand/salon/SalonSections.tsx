@@ -83,7 +83,7 @@ function SectionHead({
       </div>
       {note && (
         <span className="self-start rounded-full bg-surface-2 px-3 py-1.5 text-xs font-extrabold text-ink-2 sm:self-end">
-          bez cen — oferta na piśmie
+          bez cen · oferta na piśmie
         </span>
       )}
     </div>
@@ -388,7 +388,7 @@ export function SalonPlans({
       <SectionHead
         id={`${id}-h`}
         eyebrow={section.eyebrow ?? eyebrow}
-        title={section.title ?? `${brand} — polecane modele`}
+        title={section.title ?? `Polecane modele ${brand}`}
         lead={section.lead}
         note
       />
@@ -712,7 +712,7 @@ export function SalonFaq({
           {hasPlans ? 'Nie wiesz, co wybrać?' : 'Nie wiesz, który model?'}
         </h3>
         <p className="text-ink-2">
-          Napisz, czego potrzebujesz — dobierzemy model i przygotujemy ofertę na piśmie.
+          Napisz, czego potrzebujesz, a dobierzemy model i przygotujemy ofertę.
         </p>
         <SalonAsk
           items={[]}

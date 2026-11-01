@@ -207,7 +207,7 @@ function render(
             block={block}
             aside={
               <span className="rounded-full bg-surface-2 px-3.5 py-2 text-[14px] font-extrabold text-ink-2">
-                bez cen — wycena na piśmie
+                bez cen · wycena na piśmie
               </span>
             }
           >

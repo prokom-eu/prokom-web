@@ -335,12 +335,10 @@ export function buildSalonView(
     ),
     headings: {
       offer: heading(headings.offer) ?? bindShortWords(multi ? 'Oferta' : `Oferta ${brand}`),
-      facts:
-        heading(headings.facts) ??
-        bindShortWords(multi ? 'W kilku faktach' : `${brand} w kilku faktach`),
+      facts: heading(headings.facts) ?? bindShortWords(multi ? 'O markach' : `O marce ${brand}`),
       faq:
         heading(headings.faq) ??
-        bindShortWords(multi ? 'Najczęstsze pytania' : `Zanim wybierzesz ${brand}`),
+        bindShortWords(multi ? 'Najczęstsze pytania' : `Pytania o ${brand}`),
       ask:
         heading(headings.ask) ?? bindShortWords(multi ? 'Zapytaj o ofertę' : `Zapytaj o ${brand}`),
       more:

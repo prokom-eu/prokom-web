@@ -11,7 +11,7 @@ test.describe('Biznes plan of the company (K31d′)', () => {
     const response = await page.goto(biznes('/plan-firmy'))
     expect(response?.status()).toBe(200)
     await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-      'Zobacz, co ustawimy w Twoim lokalu.',
+      'Plan Twojej firmy: kliknij urządzenie i zobacz, co pasuje',
     )
     await expect(page.locator('main dl').first()).toContainText('12')
     await expect(page.locator('main dl').first()).toContainText('186')

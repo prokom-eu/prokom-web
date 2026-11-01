@@ -69,8 +69,8 @@ const RECS: [string, string, string] = ['rekomendacja', 'rekomendacje', 'rekomen
 
 /** Where the note of a situation leads on the result (K35 §1.4). */
 const NOTE_LINKS: Partial<Record<WizardStage, { label: string; href: string }>> = {
-  nowa: { label: 'Ulga na kasę — szczegóły', href: '/ulga-na-kase-fiskalna' },
-  ksef: { label: 'KSeF — co zrobić przed 2027', href: '/ksef' },
+  nowa: { label: 'Ulga na kasę: szczegóły', href: '/ulga-na-kase-fiskalna' },
+  ksef: { label: 'KSeF: co zrobić przed 2027', href: '/ksef' },
 }
 
 const CARD = 'rounded-[24px] bg-card shadow-[inset_0_0_0_1px_var(--border)]'
@@ -349,7 +349,7 @@ export function Configurator({ data }: { data: ConfiguratorData }) {
                 Jaką firmę prowadzisz?
               </StepHeading>
               <p className="mt-1 text-[14.5px] text-ink-2">
-                Wybierz najbliższą — od tego zależą kolejne pytania i typowe potrzeby. Przejdziemy
+                Wybierz najbliższą. Od tego zależą kolejne pytania i typowe potrzeby. Przejdziemy
                 dalej sami.
               </p>
               <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
@@ -450,7 +450,7 @@ export function Configurator({ data }: { data: ConfiguratorData }) {
                 Ile stanowisk lub kas?
               </h3>
               <p className="mt-1 text-[14px] text-ink-2">
-                Pomoże dobrać skalę — od jednej kasy po kilka budynków.
+                Pomoże dobrać skalę: od jednej kasy po kilka budynków.
               </p>
               <div className="mt-3 grid grid-cols-2 gap-3 lg:grid-cols-4">
                 {rules.scales.map((option, i) => (
@@ -477,9 +477,9 @@ export function Configurator({ data }: { data: ConfiguratorData }) {
                 </button>
                 <p className="text-[13px] text-ink-3">
                   {!state.stage
-                    ? 'Wybierz sytuację i skalę — przejdziemy dalej sami.'
+                    ? 'Wybierz sytuację i skalę, a przejdziemy dalej sami.'
                     : !state.scale
-                      ? 'Jeszcze skala — i przechodzimy dalej.'
+                      ? 'Jeszcze skala i przechodzimy dalej.'
                       : ''}
                 </p>
               </div>
@@ -492,7 +492,7 @@ export function Configurator({ data }: { data: ConfiguratorData }) {
                 Kilka szczegółów o {FIRM_LOCATIVE[state.firm ?? ''] ?? 'Twojej firmie'}
               </StepHeading>
               <p className="mt-1 text-[14.5px] text-ink-2">
-                Zaznaczyliśmy najczęstsze odpowiedzi — popraw tylko to, co się nie zgadza.
+                Zaznaczyliśmy najczęstsze odpowiedzi. Popraw tylko to, co się nie zgadza.
               </p>
               <ul className="mt-4 flex flex-col gap-2.5">
                 {result.questions.map((q) => {
@@ -752,7 +752,7 @@ export function Configurator({ data }: { data: ConfiguratorData }) {
                 <ol className="mt-3 grid gap-3 sm:grid-cols-3">
                   {(
                     [
-                      ['Wysyłasz zapytanie', 'z listą i opisem firmy — bez rejestracji'],
+                      ['Wysyłasz zapytanie', 'z listą i opisem firmy, bez rejestracji'],
                       [data.callbackTime ?? 'Odezwiemy się', 'w godzinach pracy'],
                       ['Oferta na piśmie', 'warianty do wyboru, bez zobowiązań'],
                     ] as const
@@ -840,7 +840,7 @@ export function Configurator({ data }: { data: ConfiguratorData }) {
                   </>
                 ) : (
                   <p className="rounded-xl bg-surface-2 p-3 text-[13.5px] text-ink-2">
-                    Wybierz branżę — tutaj zobaczysz, jak powstaje Twój zestaw.
+                    Wybierz branżę, a tutaj zobaczysz, jak powstaje Twój zestaw.
                   </p>
                 )}
                 {data.phone && (

@@ -26,13 +26,13 @@ test.describe('Biznes industry page', () => {
       page.getByRole('link', { name: 'Przygotuj zapytanie dla lokalu' }),
     ).toHaveAttribute('href', '/konfigurator?firma=gastro')
 
-    const kit = page.getByRole('region', { name: 'Od lady po kuchnię. Wszystko ze sobą rozmawia.' })
+    const kit = page.getByRole('region', { name: 'Od sali po kuchnię w jednym systemie' })
     await expect(kit.getByRole('article')).toHaveCount(9)
     await expect(
       kit.getByRole('link', { name: 'Wszystko dla tej branży w katalogu' }),
     ).toHaveAttribute('href', '/oferta?branza=gastronomia')
 
-    const day = page.getByRole('region', { name: 'Od otwarcia do raportu dobowego.' })
+    const day = page.getByRole('region', { name: 'Dzień w restauracji' })
     await expect(day.getByRole('heading', { name: '11:00 — Otwarcie' })).toBeVisible()
     await expect(page.locator('#jak-to-dziala')).toBeVisible()
     await expect(page.getByRole('heading', { name: 'Zanim zdecydujesz' })).toBeVisible()

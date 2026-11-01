@@ -79,15 +79,15 @@ export function serviceStrip(input: PurchaseInput): ServiceItem[] {
 /** „Co robimy przy zakupie” in one sentence (the board's `coRob9`). */
 export function purchaseSentence(input: PurchaseInput): string {
   if (input.category === VENDING_CATEGORY) {
-    return 'Dobór automatu, uruchomienie z Optivendi i szkolenie — w jednej ofercie.'
+    return 'Dobór automatu, uruchomienie z Optivendi i szkolenie w jednej ofercie.'
   }
   if (movesData(input)) {
-    return 'Dobór wersji, konfiguracja, przeniesienie danych, szkolenie i serwis — w jednej ofercie.'
+    return 'Dobór wersji, konfiguracja, przeniesienie danych, szkolenie i serwis w jednej ofercie.'
   }
   if (input.category && FISCAL_CATEGORIES.has(input.category)) {
-    return 'Dobór, fiskalizacja, szkolenie i serwis — w jednej ofercie.'
+    return 'Dobór, fiskalizacja, szkolenie i serwis w jednej ofercie.'
   }
-  return 'Dobór, dostawa, uruchomienie, szkolenie i serwis — w jednej ofercie.'
+  return 'Dobór, dostawa, uruchomienie, szkolenie i serwis w jednej ofercie.'
 }
 
 /**

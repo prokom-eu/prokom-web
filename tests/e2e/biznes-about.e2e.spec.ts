@@ -15,7 +15,7 @@ test.describe('Biznes about page (K4i)', () => {
     expect(response?.status()).toBe(200)
 
     await expect(page.locator('h1')).toHaveCount(1)
-    await expect(page.locator('h1')).toContainText('Lokalna firma IT')
+    await expect(page.locator('h1')).toContainText('PRO-KOM z Rabki-Zdroju')
     await expect(
       page.getByRole('navigation', { name: 'Okruszki' }).locator('[aria-current="page"]'),
     ).toHaveText('O firmie')

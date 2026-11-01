@@ -22,7 +22,7 @@ export const OLD_HERO = {
 export const K4_HERO = {
   // Hard spaces after one-letter words in headings (K4-FINAL §1).
   heading: 'Kasy, komputery i programy dla firm.',
-  headingAccent: 'Wszystko z jednego miejsca — z Rabki.',
+  headingAccent: 'Wszystko z jednego miejsca w Rabce.',
   lead: 'Dobieramy, wdrażamy i serwisujemy wszystko, na czym pracuje firma: od kasy fiskalnej i terminala, przez komputery i programy, po sieć i serwer. Jeden partner z Rabki zamiast kilku firm i infolinii.',
   cta: { label: 'Dobierz rozwiązanie dla firmy', href: '/konfigurator' },
   // K4-FINAL §1: one wording of the client count.
@@ -52,7 +52,7 @@ export const OLD_BRANDS = {
 }
 export const K4_BRANDS = {
   heading: 'Marki, które znamy od środka.',
-  lead: 'Autoryzowany serwis Posnet i Elzab, autoryzowany partner GoPOS i InsERT oraz salony producentów — każdy z doborem modelu, porównaniem i serwisem.',
+  lead: 'Autoryzowany serwis Posnet i Elzab, autoryzowany partner GoPOS i InsERT oraz salony producentów, każdy z doborem modelu, porównaniem i serwisem.',
 }
 
 /** The hero's trust line (`SiteSettings.biznes.trustLine`) before K4 and now (K4-FINAL §1). */
