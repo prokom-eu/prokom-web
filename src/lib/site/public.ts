@@ -74,6 +74,8 @@ export type PublicBiznesSettings = {
   }
   showReviews: boolean
   showClientLogos: boolean
+  /** „Słowo od właściciela” on the home page: only after the owner approved the quote. */
+  showOwnerQuote: boolean
   navigation: PublicBiznesNavigation
   /** Link columns of the footer (spec. §3.4). */
   footer: { important: Link[]; company: Link[] }
@@ -100,6 +102,7 @@ function toPublicBiznes(group: SiteSetting['biznes'], tenantId: number): PublicB
     },
     showReviews: group?.showReviews ?? false,
     showClientLogos: group?.showClientLogos ?? false,
+    showOwnerQuote: group?.showOwnerQuote ?? false,
     navigation: toPublicNavigation(group?.navigation, tenantId),
     footer: {
       important: toValidLinks(group?.footer?.important),

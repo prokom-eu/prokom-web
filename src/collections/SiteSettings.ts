@@ -152,6 +152,16 @@ const biznesGroup: Field = {
           defaultValue: false,
           admin: { description: 'Tylko logo z pisemną zgodą (obrazy bez „Wymaga zgody”).' },
         },
+        {
+          name: 'showOwnerQuote',
+          label: 'Pokaż słowo od właściciela',
+          type: 'checkbox',
+          defaultValue: false,
+          admin: {
+            description:
+              'Cytat właściciela na stronie głównej. Włącz dopiero, gdy szef zatwierdzi treść.',
+          },
+        },
       ],
     },
     biznesNavigation,

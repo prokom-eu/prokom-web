@@ -76,6 +76,7 @@ import * as migration_20261101_155018_software_swv6_industry_links from './20261
 import * as migration_20261101_200251_software_swv8_texts from './20261101_200251_software_swv8_texts'
 import * as migration_20261101_205557_software_swv8_seo from './20261101_205557_software_swv8_seo'
 import * as migration_20261101_212117_software_swv9_copy from './20261101_212117_software_swv9_copy'
+import * as migration_20261101_225103_biznes_owner_quote from './20261101_225103_biznes_owner_quote'
 
 export const migrations = [
   {
@@ -467,5 +468,10 @@ export const migrations = [
     up: migration_20261101_212117_software_swv9_copy.up,
     down: migration_20261101_212117_software_swv9_copy.down,
     name: '20261101_212117_software_swv9_copy',
+  },
+  {
+    up: migration_20261101_225103_biznes_owner_quote.up,
+    down: migration_20261101_225103_biznes_owner_quote.down,
+    name: '20261101_225103_biznes_owner_quote',
   },
 ]
