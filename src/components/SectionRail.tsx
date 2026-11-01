@@ -6,6 +6,7 @@ import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
 import type { IconName } from '@/lib/catalog/options'
 import { requestSearch } from '@/lib/site/searchOpen'
+import { glideTo } from '@/lib/software/smoothScroll'
 
 export type RailItem = { id: string; label: string; icon: IconName }
 
@@ -83,16 +84,22 @@ export function RailShell({
   )
 }
 
-type Props = { items: RailItem[]; from?: RailFrom; search?: boolean }
+type Props = {
+  items: RailItem[]
+  from?: RailFrom
+  search?: boolean
+  /** Software (SWV5): glide to the section with braking instead of the browser jump. */
+  glide?: boolean
+}
 
 const noSubscription = () => () => {}
 
 /**
  * Floating section rail of a start page (Biznes spec. §3.7, K36 §1; Software spec. §3.3): the
  * current section marked while scrolling (IntersectionObserver). Plain anchor links — they work
- * without JavaScript too.
+ * without JavaScript too; with `glide` a click glides there instead (`lib/software/smoothScroll`).
  */
-export function SectionRail({ items, from = 1400, search = false }: Props) {
+export function SectionRail({ items, from = 1400, search = false, glide = false }: Props) {
   const [active, setActive] = useState(items[0]?.id ?? '')
   // Sections found on the page: a block may render nothing (texts missing in the panel), and
   // the rail must not link to a section that is not there (Software spec. §3.3). The anchors do
@@ -134,6 +141,21 @@ export function SectionRail({ items, from = 1400, search = false }: Props) {
               href={`#${item.id}`}
               aria-current={current ? 'true' : undefined}
               className={railLinkClass(current)}
+              onClick={
+                glide
+                  ? (event) => {
+                      const section = document.getElementById(item.id)
+                      if (!section) return
+                      event.preventDefault()
+                      // As a plain anchor would: a history entry, and keyboard focus moves on
+                      // to the section (the next Tab starts there, not back in the rail).
+                      history.pushState(null, '', `#${item.id}`)
+                      if (!section.hasAttribute('tabindex')) section.setAttribute('tabindex', '-1')
+                      section.focus({ preventScroll: true })
+                      glideTo(section)
+                    }
+                  : undefined
+              }
             >
               <Icon name={item.icon} className="size-5 shrink-0" />
               {item.label}

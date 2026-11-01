@@ -488,7 +488,7 @@ export async function SwContactPageBlock({ block, tenantId, isFirst }: Props) {
           className="scroll-mt-24 py-10 min-[641px]:py-14"
         >
           <Container wide className="flex flex-col gap-6">
-            <div className="flex max-w-[62ch] flex-col gap-2">
+            <div data-reveal className="flex max-w-[62ch] flex-col gap-2">
               <p className={eyebrowClass}>{block.meetEyebrow}</p>
               <h2
                 id="gdzie-h"
@@ -539,7 +539,7 @@ export async function SwContactPageBlock({ block, tenantId, isFirst }: Props) {
                     ) : null}
                   </div>
                 ) : null}
-                <ul className="grid gap-3 min-[641px]:grid-cols-2">
+                <ul data-reveal-cards className="grid gap-3 min-[641px]:grid-cols-2">
                   {facts.map((fact) => (
                     <li
                       key={fact.label}

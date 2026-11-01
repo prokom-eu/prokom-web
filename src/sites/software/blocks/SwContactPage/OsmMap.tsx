@@ -25,7 +25,10 @@ export function OsmMap({ routeHref, routeLabel, zoomLabel, pin, label }: Props) 
   const { layers } = OSM_MAP
   const [pinX, pinY] = OSM_MAP.pin
   return (
-    <div className="relative min-h-[340px] overflow-hidden rounded-[26px] bg-(--map-land) shadow-[inset_0_0_0_1px_var(--border)] min-[641px]:min-h-[520px] min-[641px]:rounded-[30px]">
+    <div
+      data-reveal
+      className="relative min-h-[340px] overflow-hidden rounded-[26px] bg-(--map-land) shadow-[inset_0_0_0_1px_var(--border)] min-[641px]:min-h-[520px] min-[641px]:rounded-[30px]"
+    >
       <svg
         role="img"
         aria-label={label}

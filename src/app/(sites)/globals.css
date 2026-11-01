@@ -357,7 +357,120 @@
      the button while pressed, and a press elsewhere on the card would never click. The card
      (`data-card`, the positioned box of the `::after`) answers instead. */
   [data-line='software'] [data-card]:has([data-stretched]:active) {
-    transform: scale(0.99);
+    transform: scale(0.985);
+  }
+}
+
+/*
+ * Motion of Software v23 (SWV5, MOBILE-APLIKACJA §4 pkt 10, ZMIANY-v23 §5): transform and opacity
+ * only, nothing at all with reduced motion. The room under the sticky header for anchors is the
+ * sections' own `scroll-mt-24`.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  html[data-line='software'] {
+    scroll-behavior: smooth;
+  }
+
+  /* The rail glided to a section (`lib/software/smoothScroll`): its heading arrives. */
+  [data-line='software'] [data-arrive] h2 {
+    animation: sw-arrive 1.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  /* An FAQ answer opens softly (the `<details>` content is rendered on open). */
+  [data-line='software'] details[open] > :not(summary) {
+    animation: sw-faq 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  /* Section headings, FAQ questions and the map rise in while scrolling; browsers without
+     scroll-driven animations show them as they are. Cards follow one by one from 1081 px only
+     (on a phone the carousels scroll on their own). */
+  @supports (animation-timeline: view()) {
+    [data-line='software'] [data-reveal] {
+      animation: sw-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 2% cover 18%;
+    }
+
+    @media (min-width: 1081px) {
+      [data-line='software'] [data-reveal-cards] > * {
+        animation: sw-rise linear both;
+        animation-timeline: view();
+        animation-range: entry 2% cover 18%;
+      }
+      [data-line='software'] [data-reveal-cards] > :nth-child(4n + 2) {
+        animation-range: entry 6% cover 22%;
+      }
+      [data-line='software'] [data-reveal-cards] > :nth-child(4n + 3) {
+        animation-range: entry 10% cover 26%;
+      }
+      [data-line='software'] [data-reveal-cards] > :nth-child(4n + 4) {
+        animation-range: entry 14% cover 30%;
+      }
+    }
+  }
+
+  /* Page transitions (`PageTransition`, class `sw-page` of the content): the content fades out
+     and rises in; header and bottom bar have their own names, so they stay. */
+  [data-line='software'] [data-sw-header] {
+    view-transition-name: sw-header;
+  }
+  [data-line='software'] [data-tab-bar] {
+    view-transition-name: sw-tab-bar;
+  }
+  html[data-line='software']::view-transition-old(.sw-page) {
+    animation: sw-vt-out 0.22s ease both;
+  }
+  html[data-line='software']::view-transition-new(.sw-page) {
+    animation: sw-vt-in 0.32s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+}
+
+/* Reduced motion: every part of a page transition (the content, the root, header and bar)
+   swaps without the browser's default cross-fade or move. */
+@media (prefers-reduced-motion: reduce) {
+  html[data-line='software']::view-transition-group(*),
+  html[data-line='software']::view-transition-old(*),
+  html[data-line='software']::view-transition-new(*) {
+    animation: none;
+  }
+}
+
+@keyframes sw-rise {
+  from {
+    opacity: 0;
+    transform: translateY(26px) scale(0.985);
+  }
+}
+
+@keyframes sw-arrive {
+  0% {
+    opacity: 0.35;
+    transform: translateY(10px);
+  }
+  35% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes sw-faq {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes sw-vt-out {
+  to {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes sw-vt-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
   }
 }
 
