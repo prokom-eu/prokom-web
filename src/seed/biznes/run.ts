@@ -77,6 +77,7 @@ import {
 import { k4ShowroomData, type K4Showroom } from './k4Showrooms'
 import { k4Bundle, k4Scene, k4ServiceSlugs, type K4Bundle, type K4Scene } from './k4Plans'
 import { K4_FEATURED, k4CategoryOrder, k4GroupProducts, k4HomeProductFields } from './k4Home'
+import { seedBiznesK4Pages } from './k4PagesRun'
 import {
   brandLogoFile,
   galleryFileName,
@@ -103,11 +104,7 @@ import { seedBiznesCategoryContent } from './category'
 import { seedBiznesIndustries } from './industries'
 import { seedBiznesNews } from './posts'
 import { seedBiznesLegal } from './legal'
-import { seedBiznesAbout } from './about'
-import { SERVICE_AREAS, seedBiznesContact } from './contact'
-import { seedBiznesGopos } from './gopos'
-import { seedBiznesInsert } from './insert'
-import { seedBiznesOpiekaIt } from './opiekaIt'
+import { SERVICE_AREAS } from './contact'
 import { seedBiznesHome } from './home'
 import { navigationData, upgradedColumnLimit, upgradedHighlights, upgradedMenu } from './navigation'
 
@@ -1160,23 +1157,15 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     (name, changed) => count(name, changed ? 'updated' : false),
   )
 
-  // --- contact page (B8c): Biznes blocks instead of the sample ---
-  await seedBiznesContact(payload, tenant.id, (name, changed) =>
-    count(name, changed ? 'updated' : false),
-  )
-
   // --- subpages from Biznes blocks (B9) ---
-  await seedBiznesOpiekaIt(payload, tenant.id, (name, changed) =>
-    count(name, changed ? 'updated' : false),
-  )
   const pageRefs = {
     image: (file: string) => imageIds.get(file),
     brand: (name: string) => brandIds.get(name),
     product: (shortId: string) => productIds.get(shortId),
   }
   const pageReport = (name: string, changed: boolean) => count(name, changed ? 'updated' : false)
-  await seedBiznesGopos(payload, tenant.id, pageRefs, pageReport)
-  await seedBiznesInsert(payload, tenant.id, pageRefs, pageReport)
+  // K4h: /gopos and /insert from the K4 package (B9 layout replaced while untouched).
+  await seedBiznesK4Pages(payload, tenant.id, (id) => slugByKey.get(id), pageReport, note)
 
   // --- category page content (B10a): the cash registers from the board ---
   await seedBiznesCategoryContent(payload, tenant.id, pageRefs.product, pageReport)
@@ -1189,9 +1178,6 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
 
   // --- legal pages (B11b): privacy policy, cookies, accessibility (drafts to approve) ---
   await seedBiznesLegal(payload, tenant.id, pageReport)
-
-  // --- about page (B11c) ---
-  await seedBiznesAbout(payload, tenant.id, pageReport)
 
   for (const [collection, { created, updated, skipped }] of Object.entries(counters)) {
     log(`${collection}: ${created} created, ${updated} updated, ${skipped} unchanged.`)

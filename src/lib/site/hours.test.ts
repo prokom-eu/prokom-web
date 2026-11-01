@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { openingStatus, type OpeningHours } from './hours'
+import { openingStatus, type OpeningHours, warsawWeekday } from './hours'
 
 const WEEKDAYS: OpeningHours = [
   { days: ['mon', 'tue', 'wed', 'thu', 'fri'], opens: '09:00', closes: '17:00' },
@@ -77,5 +77,14 @@ describe('openingStatus', () => {
   it('returns null without opening hours or with invalid times', () => {
     expect(openingStatus([], new Date())).toBeNull()
     expect(openingStatus([{ days: ['mon'], opens: 'x', closes: '17:00' }], new Date())).toBeNull()
+  })
+})
+
+describe('warsawWeekday', () => {
+  it('reads the day in Poland, not in UTC', () => {
+    // 23:30 UTC on Sunday is already Monday in Warsaw (summer and winter time).
+    expect(warsawWeekday(new Date('2026-11-01T23:30:00Z'))).toBe('mon')
+    expect(warsawWeekday(new Date('2026-11-02T10:00:00Z'))).toBe('mon')
+    expect(warsawWeekday(new Date('2026-11-01T10:00:00Z'))).toBe('sun')
   })
 })

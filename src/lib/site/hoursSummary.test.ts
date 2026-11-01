@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { hoursSummary, hoursTable } from './hoursSummary'
+import { hoursSummary, hoursTable, weekHours } from './hoursSummary'
 
 describe('hoursSummary', () => {
   it('joins consecutive days into a range, as in the design', () => {
@@ -53,5 +53,17 @@ describe('hoursTable (Kontakt)', () => {
       { days: 'niedziela, święta', time: 'nieczynne' },
     ])
     expect(hoursTable([])).toEqual([])
+  })
+})
+
+describe('weekHours (K4 Kontakt)', () => {
+  it('lists seven days from Monday, closed days as „nieczynne”', () => {
+    const week = weekHours([
+      { days: ['mon', 'tue', 'wed', 'thu', 'fri'], opens: '09:00', closes: '17:00' },
+    ])
+    expect(week).toHaveLength(7)
+    expect(week[0]).toEqual({ day: 'mon', name: 'Poniedziałek', time: '9:00–17:00' })
+    expect(week[5]).toEqual({ day: 'sat', name: 'Sobota', time: 'nieczynne' })
+    expect(week[6]!.day).toBe('sun')
   })
 })

@@ -62,6 +62,9 @@ import * as migration_20261031_224625_inst_form_blocks from './20261031_224625_i
 import * as migration_20261031_231638_k4f_drop_partners_showroom from './20261031_231638_k4f_drop_partners_showroom'
 import * as migration_20261101_012645_inst_architects_block from './20261101_012645_inst_architects_block'
 import * as migration_20261101_013140_software_v23_flat_colors from './20261101_013140_software_v23_flat_colors'
+import * as migration_20261101_014223_k4h_gopos_insert from './20261101_014223_k4h_gopos_insert'
+import * as migration_20261101_021959_k4i_firma from './20261101_021959_k4i_firma'
+import * as migration_20261101_023959_k4j_strony from './20261101_023959_k4j_strony'
 
 export const migrations = [
   {
@@ -383,5 +386,20 @@ export const migrations = [
     up: migration_20261101_013140_software_v23_flat_colors.up,
     down: migration_20261101_013140_software_v23_flat_colors.down,
     name: '20261101_013140_software_v23_flat_colors',
+  },
+  {
+    up: migration_20261101_014223_k4h_gopos_insert.up,
+    down: migration_20261101_014223_k4h_gopos_insert.down,
+    name: '20261101_014223_k4h_gopos_insert',
+  },
+  {
+    up: migration_20261101_021959_k4i_firma.up,
+    down: migration_20261101_021959_k4i_firma.down,
+    name: '20261101_021959_k4i_firma',
+  },
+  {
+    up: migration_20261101_023959_k4j_strony.up,
+    down: migration_20261101_023959_k4j_strony.down,
+    name: '20261101_023959_k4j_strony',
   },
 ]

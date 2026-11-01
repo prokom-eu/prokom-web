@@ -1,6 +1,4 @@
-import type { Payload } from 'payload'
-
-import { type PageBlock, upsertBiznesPage } from './page'
+import type { PageBlock } from './page'
 
 export const OPIEKA_IT_SLUG = 'opieka-it'
 
@@ -398,26 +396,4 @@ export function biznesOpiekaItLayout(): PageBlock[] {
         'Oddzwonimy w ciągu 60 minut w godzinach pracy. Poza godzinami pracy odezwiemy się następnego dnia roboczego rano.',
     },
   ]
-}
-
-type Report = (name: string, changed: boolean) => void
-
-/** `/opieka-it` of the Biznes tenant (B9a) — created, or only missing block types added. */
-export async function seedBiznesOpiekaIt(
-  payload: Payload,
-  tenantId: number,
-  report: Report,
-): Promise<void> {
-  await upsertBiznesPage(
-    payload,
-    tenantId,
-    {
-      slug: OPIEKA_IT_SLUG,
-      title: 'Opieka IT',
-      layout: biznesOpiekaItLayout(),
-      description:
-        'Opieka IT w abonamencie: komputery, serwer, sieć, kopie, poczta, kasy i POS pod jedną opieką, z czasem reakcji w umowie. Bezpłatny przegląd IT.',
-    },
-    report,
-  )
 }
