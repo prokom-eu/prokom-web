@@ -2249,81 +2249,14 @@ export interface BzPlanBlock {
   heading: string;
   lead?: string | null;
   /**
-   * Np. „z jednej ręki · rzut poglądowy” — liczba dochodzi sama.
+   * Np. „Kliknij urządzenie — otworzy się film i szczegóły”.
    */
   sceneNote?: string | null;
   moreLabel?: string | null;
+  /**
+   * Liczba pozycji dochodzi sama („· 17 poz.”).
+   */
   inquiryLabel?: string | null;
-  scenes: {
-    tab: string;
-    icon:
-      | 'shield'
-      | 'cal'
-      | 'users'
-      | 'store'
-      | 'bolt'
-      | 'doc'
-      | 'life'
-      | 'arrow'
-      | 'check'
-      | 'phone'
-      | 'mail'
-      | 'pin'
-      | 'clock'
-      | 'monitor'
-      | 'remote'
-      | 'bell'
-      | 'wallet'
-      | 'chat'
-      | 'wrench'
-      | 'rocket'
-      | 'map'
-      | 'star'
-      | 'q'
-      | 'flash'
-      | 'grad'
-      | 'server'
-      | 'compass'
-      | 'panel'
-      | 'site'
-      | 'grid'
-      | 'plug'
-      | 'ticket'
-      | 'lifebuoy'
-      | 'chart'
-      | 'sign'
-      | 'cash'
-      | 'search'
-      | 'x'
-      | 'bed'
-      | 'food'
-      | 'refresh'
-      | 'globe'
-      | 'box'
-      | 'car'
-      | 'home'
-      | 'mountain'
-      | 'heart'
-      | 'bag'
-      | 'card'
-      | 'target'
-      | 'key'
-      | 'mega'
-      | 'mount'
-      | 'brief';
-    title: string;
-    lead?: string | null;
-    moreHref?: string | null;
-    inquiryHref: string;
-    points?:
-      | {
-          name: string;
-          note?: string | null;
-          id?: string | null;
-        }[]
-      | null;
-    id?: string | null;
-  }[];
   industries?: {
     /**
      * Sekcja „Dla kogo” (#dla-kogo), np. „Dla kogo pracujemy”.
@@ -2404,9 +2337,13 @@ export interface BzPlanBlock {
            */
           visibleFirst?: boolean | null;
           /**
-           * Pusta = kafel prowadzi do kreatora.
+           * Pusta = kafel prowadzi do konfiguratora.
            */
           industry?: (number | null) | Industry;
+          /**
+           * Adres sceny z „Plany firmy” (np. „sklep”) — kafel pokazuje ją na planie. Pusta = link do branży.
+           */
+          planScene?: string | null;
           id?: string | null;
         }[]
       | null;
@@ -6162,24 +6099,6 @@ export interface BzPlanBlockSelect<T extends boolean = true> {
   sceneNote?: T;
   moreLabel?: T;
   inquiryLabel?: T;
-  scenes?:
-    | T
-    | {
-        tab?: T;
-        icon?: T;
-        title?: T;
-        lead?: T;
-        moreHref?: T;
-        inquiryHref?: T;
-        points?:
-          | T
-          | {
-              name?: T;
-              note?: T;
-              id?: T;
-            };
-        id?: T;
-      };
   industries?:
     | T
     | {
@@ -6197,6 +6116,7 @@ export interface BzPlanBlockSelect<T extends boolean = true> {
               tone?: T;
               visibleFirst?: T;
               industry?: T;
+              planScene?: T;
               id?: T;
             };
       };
