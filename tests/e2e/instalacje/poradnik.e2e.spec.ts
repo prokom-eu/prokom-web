@@ -34,10 +34,17 @@ test.describe('Instalacje guide', () => {
     const checks = page.locator('.qz .chk')
     for (const index of [1, 3, 4, 5, 6]) await checks.nth(index).click()
     await expect(page.locator('.qz')).toContainText('Wygląda dobrze.')
-    const types = await page
-      .locator('script[type="application/ld+json"]')
-      .evaluateAll((els) => els.map((e) => JSON.parse(e.textContent ?? '{}')['@type']))
-    expect(types.flat()).toEqual(expect.arrayContaining(['Article', 'BreadcrumbList']))
+    const types = await page.locator('script[type="application/ld+json"]').evaluateAll((els) =>
+      // A script holds one object, an array of them (`JsonLd` with a list) or a `@graph`.
+      els.flatMap((e) => {
+        const data = JSON.parse(e.textContent ?? '{}') as unknown
+        const nodes = (Array.isArray(data) ? data : [data]) as Record<string, unknown>[]
+        return nodes
+          .flatMap((n) => [n, ...((n['@graph'] as Record<string, unknown>[]) ?? [])])
+          .map((n) => n['@type'])
+      }),
+    )
+    expect(types).toEqual(expect.arrayContaining(['Article', 'BreadcrumbList']))
   })
 
   test('a post of another line or an unknown slug is a 404', async ({ page }) => {
