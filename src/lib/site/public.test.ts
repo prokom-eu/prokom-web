@@ -66,6 +66,20 @@ describe('toPublicCompanyData', () => {
 })
 
 describe('toPublicSiteSettings', () => {
+  it('keeps the second phone of the line (Software v23: two numbers)', () => {
+    const doc: SiteSetting = {
+      id: 8,
+      tenant: 4,
+      phone: '+48 883 200 151',
+      phone2: '788 986 074',
+      updatedAt: '',
+      createdAt: '',
+    }
+    const result = toPublicSiteSettings(doc, 'software')
+    expect(result.phone).toBe('+48 883 200 151')
+    expect(result.phone2).toBe('788 986 074')
+  })
+
   it('drops the tenant and ids, fills missing parts', () => {
     const doc: SiteSetting = {
       id: 7,
@@ -77,6 +91,7 @@ describe('toPublicSiteSettings', () => {
     }
     expect(toPublicSiteSettings(doc, 'instalacje')).toEqual({
       phone: '+48 18 111 11 11',
+      phone2: null,
       email: null,
       navigation: [{ label: 'Kontakt', href: '/kontakt' }],
       footer: { text: null, links: [] },

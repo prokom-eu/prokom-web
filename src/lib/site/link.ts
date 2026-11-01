@@ -20,12 +20,16 @@ export function isHttpsUrl(href: string): boolean {
   return href.startsWith('https://') && isValidNavHref(href)
 }
 
-/** `tel:` link for a phone number as typed by the editor, e.g. `+48 18 267-70 00`. */
+/**
+ * `tel:` link for a phone number as typed by the editor, e.g. `+48 18 267-70 00`. A bare 9-digit
+ * number (`883 200 151`, as the boards print it) is Polish, so it gets `+48`.
+ */
 export function toTelHref(phone: string): string | null {
   const trimmed = phone.trim()
   const digits = trimmed.replace(/\D/g, '')
   if (!digits) return null
-  return `tel:${trimmed.startsWith('+') ? '+' : ''}${digits}`
+  if (trimmed.startsWith('+')) return `tel:+${digits}`
+  return `tel:${digits.length === 9 ? '+48' : ''}${digits}`
 }
 
 /**

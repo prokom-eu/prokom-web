@@ -197,16 +197,20 @@ test.describe('Software footer', () => {
     await expect(footer).toContainText('Kod, domena i dane należą do Ciebie')
     await expect(footer).toContainText('Podhale, Małopolska i zdalnie w całej Polsce')
     // The line's own contact from its site settings (seed), never the package (spec. §3.4).
-    await expect(footer.getByRole('link', { name: 'software@example.test' })).toHaveAttribute(
+    // SWV2: the real contact (ZMIANY-v23 §1) — two phones, the bare number gets +48.
+    await expect(footer.getByRole('link', { name: 'kontakt@prokomsoftware.pl' })).toHaveAttribute(
       'href',
-      'mailto:software@example.test',
+      'mailto:kontakt@prokomsoftware.pl',
     )
-    await expect(footer.locator('a[href^="tel:"]')).toHaveCount(1)
+    await expect(footer.locator('a[href^="tel:"]')).toHaveCount(2)
+    await expect(footer.locator('a[href="tel:+48883200151"]')).toHaveText('883 200 151')
+    // Software works only in Rabka (v23): no other salon of the company under the address.
+    await expect(footer).not.toContainText(/Zakopan/i)
     await expect(footer).toContainText(/NIP \d{10}/)
 
-    // „Jedna firma, sześć adresów” replaces the v20 cross link to Biznes.
-    const lines = footer.getByRole('region', { name: 'Jedna firma, sześć adresów' })
-    await expect(lines.getByRole('link')).toHaveCount(6)
+    // „Jedna firma, pięć linii” (v23: without Zakopane) replaces the v20 cross link to Biznes.
+    const lines = footer.getByRole('region', { name: 'Jedna firma, pięć linii' })
+    await expect(lines.getByRole('link')).toHaveCount(5)
     await expect(lines.getByRole('link', { name: /^PRO-KOM Biznes/ })).toHaveAttribute(
       'href',
       'https://prokombiznes.pl',
@@ -227,7 +231,7 @@ test.describe('Software footer', () => {
     test(`no CTA band where the page ends with its own CTA (${path})`, async ({ page }) => {
       await page.goto(site(HOST, path))
       const footer = page.locator('footer')
-      await expect(footer.getByRole('region', { name: 'Jedna firma, sześć adresów' })).toBeVisible()
+      await expect(footer.getByRole('region', { name: 'Jedna firma, pięć linii' })).toBeVisible()
       await expect(footer.locator('[data-footer-cta]')).toBeHidden()
     })
   }

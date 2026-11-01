@@ -23,12 +23,12 @@ test.describe('Software start page', () => {
   test('sections in the order of the blocks, hero with the H1', async ({ page }) => {
     await page.goto(site(HOST))
     await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-      'Strony, systemy i aplikacje szyte pod Twoją firmę.',
+      'Strony i programy dla firm. Zobaczysz, zanim zapłacisz.',
     )
     const ids = await page
       .locator('main section[id]')
       .evaluateAll((sections) => sections.map((section) => section.id))
-    // v21: 14 sections (the intent tiles are part of the hero), the wizard before the process.
+    // v23: 13 sections (the intent tiles are part of the hero), no „Realizacje”.
     expect(ids).toEqual([
       'start',
       'oferta',
@@ -39,7 +39,6 @@ test.describe('Software start page', () => {
       'jak-robimy',
       'bez-wordpressa',
       'technologie',
-      'realizacje',
       'zasady',
       'faq',
       'kontakt',
@@ -336,24 +335,6 @@ test.describe('Software start page', () => {
     await expect(panel.getByRole('heading', { level: 3 })).toHaveText('Serwer')
   })
 
-  test('„Realizacje”: 3 own systems with their status and the figures', async ({ page }) => {
-    await page.goto(site(HOST))
-    const section = page.locator('#realizacje')
-    await expect(section.getByRole('heading', { level: 2 })).toHaveText(
-      'Najpierw zbudowaliśmy to dla siebie.',
-    )
-    const systems = section.getByRole('link')
-    await expect(systems).toHaveCount(3)
-    await expect(systems.nth(0)).toHaveAttribute('href', 'https://prokomserwis.pl')
-    await expect(systems.nth(0)).toContainText('działa')
-    await expect(systems.nth(2)).toContainText('prokombiznes.pl')
-    await expect(systems.nth(2)).toContainText('w budowie')
-    // Locally the empty fact `[WYNIK]` stays visible; production drops that figure.
-    await expect(section.locator('ul').last().getByRole('listitem')).toHaveCount(4)
-    await expect(section).toContainText('2004')
-    await expect(section).toContainText('100+')
-  })
-
   test('FAQ: 6 questions, the first open, facts filled, FAQPage JSON-LD', async ({ page }) => {
     await page.goto(site(HOST))
     const section = page.locator('#faq')
@@ -390,7 +371,6 @@ test.describe('Software start page', () => {
       'Jak robimy',
       'Dlaczego nie WordPress',
       'Z czego budujemy',
-      'Realizacje',
       'Zasady',
       'Pytania',
     ])
@@ -412,14 +392,16 @@ test.describe('Software start page — contact form', () => {
     await page.goto(site(HOST))
     const section = contact(page)
     await expect(section.getByRole('heading', { level: 2 })).toHaveText(
-      'Powiedz, co Cię boli. Resztą zajmiemy się my.',
+      'Napisz, czego potrzebujesz. Odpowiemy w 1 dzień roboczy.',
     )
     await expect(section).toContainText('Odpowiadamy w ciągu 1 dnia roboczego')
     await expect(section.getByRole('link', { name: /Masz już stronę\?/ })).toHaveAttribute(
       'href',
       '/audyt',
     )
-    await expect(section.locator('a[href^="tel:"]')).toHaveCount(1)
+    // Both numbers of the line (v23); the empty „najbliższy wolny termin” is gone.
+    await expect(section.locator('a[href^="tel:"]')).toHaveCount(2)
+    await expect(section).not.toContainText('[MIESIĄC]')
     await expect(section.getByRole('radio')).toHaveCount(6)
     // v21: no topic picked at first.
     await expect(section.getByRole('radio', { checked: true })).toHaveCount(0)
@@ -535,16 +517,6 @@ test.describe('Software start page on a phone', () => {
       expect(ours?.y ?? 0).toBeGreaterThan(theirs?.y ?? 0)
       const header = await why.getByRole('row').first().boundingBox()
       expect(header?.height ?? 0).toBeLessThanOrEqual(1)
-      // Realizacje: a carousel of systems, the figures 2×2.
-      const showcase = page.locator('#realizacje')
-      const system = await showcase.getByRole('link').first().boundingBox()
-      expect(system?.width ?? 0).toBeLessThan(width * 0.9)
-      const figures = showcase.locator('ul').last().getByRole('listitem')
-      const [first, second, third] = await Promise.all(
-        [0, 1, 2].map((index) => figures.nth(index).boundingBox()),
-      )
-      expect(Math.round(second?.y ?? 0)).toBe(Math.round(first?.y ?? 0))
-      expect(third?.y ?? 0).toBeGreaterThan(first?.y ?? 0)
       // Hero: no mock-up on a phone, the switches with their caption; trust points wrap.
       await expect(
         page.locator('#start').getByText('Złóż swój system: dotknij modułu'),

@@ -1,7 +1,15 @@
 import { describe, expect, it, vi } from 'vitest'
 
 import fakty from '../../../seed/prokomsoftware/fakty.json'
-import { FACT_KEY, factsMap, fillDeep, fillText, resolveText, type TextContext } from './facts'
+import {
+  contactFacts,
+  FACT_KEY,
+  factsMap,
+  fillDeep,
+  fillText,
+  resolveText,
+  type TextContext,
+} from './facts'
 
 const NBSP = String.fromCharCode(0xa0) // non-breaking space
 
@@ -146,5 +154,26 @@ describe('fillDeep (page texts of SW10)', () => {
       lead: '',
       items: ['', 'b'],
     })
+  })
+})
+
+// SWV2: the line's phones and e-mail as facts, one source in the panel (`SiteSettings`).
+describe('contactFacts', () => {
+  it('names the phones and the e-mail of the line', () => {
+    expect(
+      contactFacts({
+        phone: '883 200 151',
+        phone2: '788 986 074',
+        email: 'kontakt@prokomsoftware.pl',
+      }),
+    ).toEqual({
+      TELEFON: '883 200 151',
+      'TELEFON 2': '788 986 074',
+      'E-MAIL': 'kontakt@prokomsoftware.pl',
+    })
+  })
+
+  it('skips what is empty', () => {
+    expect(contactFacts({ phone: ' ', phone2: null })).toEqual({})
   })
 })

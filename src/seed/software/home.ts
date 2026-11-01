@@ -23,10 +23,10 @@ type Block = NonNullable<Page['layout']>[number]
 /** Hero and intent tiles — texts of the board `Main` (HTML, not in the package files). */
 export const SW_HERO: Extract<Block, { blockType: 'swHero' }> = {
   blockType: 'swHero',
-  eyebrow: 'Rabka-Zdrój · Podhale · zdalnie w całej Polsce',
-  title: 'Strony, systemy i aplikacje',
-  titleAccent: 'szyte pod Twoją firmę.',
-  lead: 'Opowiadasz, jak pracuje Twoja firma. Pokazujemy, jak będzie wyglądać Twoja strona, system albo aplikacja, **zanim zapłacisz**. Cena i termin na piśmie. Firma z Rabki, od 2004 r.',
+  eyebrow: 'Rabka-Zdrój · zdalnie w całej Polsce',
+  title: 'Strony i programy dla firm.',
+  titleAccent: 'Zobaczysz, zanim zapłacisz.',
+  lead: 'Opowiadasz, jak pracujecie. W 5–7 dni dostajesz podgląd do klikania oraz **cenę i termin na piśmie**. Strona, system do zleceń albo aplikacja na telefon. Firma z Rabki-Zdroju, od 2004 r.',
   primary: { label: 'Dobierz rozwiązanie', href: '/#dobierz' },
   primaryBadge: '60 s',
   secondary: { label: 'Zobacz podglądy', href: '/#podglady' },
@@ -78,21 +78,19 @@ export const SW_FAQ: Extract<Block, { blockType: 'faq' }> = {
 }
 
 /**
- * Contact block of the start page (spec. §4 pkt 12) — texts of the board `Main`; promises with
- * facts (`[MIESIĄC]` is empty in the package, so that one stays hidden on production).
+ * Contact block of the start page (spec. §4 pkt 12) — texts of the board `Main` v23; two
+ * promises, no empty „najbliższy wolny termin” (ZMIANY-v23 §2: we don't know, we don't write).
  */
 export const SW_CONTACT: Extract<Block, { blockType: 'swContact' }> = {
   blockType: 'swContact',
   eyebrow: 'Kontakt',
-  title: 'Powiedz, co Cię boli. Resztą zajmiemy się my.',
+  title: 'Napisz, czego potrzebujesz. Odpowiemy w 1 dzień roboczy.',
   sideTitle: 'Najpierw zobaczysz, potem zapłacisz.',
   sideText:
     'Po krótkiej rozmowie dostajesz: szkic rozwiązania, zakres, cenę i termin. Wszystko na piśmie. Bez zobowiązań.',
   promises: [
     { text: 'Odpowiadamy w ciągu [CZAS ODPOWIEDZI]' },
-    { text: 'Spotkanie w Rabce, Zakopanem, u Ciebie albo online' },
-    // TODO(krystian): wording not in the package — taken from spec. §13 pkt 11.
-    { text: 'Najbliższy wolny termin: [MIESIĄC]' },
+    { text: 'Spotkanie w Rabce-Zdroju, u Ciebie w firmie albo online' },
   ],
   auditTitle: 'Masz już stronę?',
   auditHref: '/audyt',

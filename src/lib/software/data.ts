@@ -7,7 +7,7 @@ import { getEnv } from '../env'
 import { log } from '../log'
 import { PAGE_CACHE_SECONDS } from '../pages/data'
 import { isIconName } from '../catalog/options'
-import { factsMap, fillDeep, fillText } from './facts'
+import { contactFacts, factsMap, fillDeep, fillText } from './facts'
 import { homeSchema, type SoftwareHome } from './home'
 import { type HomeArea, homeAreas } from './homeAreas'
 import type { MenuArea } from './mobileNav'
@@ -45,10 +45,12 @@ export const getSoftwareFacts = cache(async (tenantId: number): Promise<Record<s
     where: { tenant: { equals: tenantId } },
     limit: 1,
     depth: 0,
-    select: { software: { facts: true } },
+    select: { phone: true, phone2: true, email: true, software: { facts: true } },
     overrideAccess: true,
   })
-  return factsMap(docs[0]?.software?.facts)
+  const doc = docs[0]
+  // The settings' own phones and e-mail win over a fact typed with the same key.
+  return { ...factsMap(doc?.software?.facts), ...(doc ? contactFacts(doc) : {}) }
 })
 
 /**
@@ -226,7 +228,7 @@ export const getSoftwareHome = (tenantId: number): Promise<SoftwareHome | null> 
       return parsed.success ? parsed.data : null
     },
     // The shape of the texts is part of the key: a schema change never serves a cached old shape.
-    ['software-home', 'swr5', String(tenantId)],
+    ['software-home', 'swv2', String(tenantId)],
     { tags: [solutionsTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
   )()
 

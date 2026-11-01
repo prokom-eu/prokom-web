@@ -9,7 +9,7 @@ import { tenantImageFilter } from '../../../lib/media/access'
  * boards (`ONas`, `Wszystko`: „Zdjęcie do zrobienia” with what the photo should show).
  */
 
-export const FACTS_NOTE = 'Fakty w nawiasach ([ROK ZAKOPANE], [GODZINY]…) z Ustawień linii.'
+export const FACTS_NOTE = 'Fakty w nawiasach ([GODZINY], [ADRES]…) z Ustawień linii.'
 
 export function textField(
   name: string,

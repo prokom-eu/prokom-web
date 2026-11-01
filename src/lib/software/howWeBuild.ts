@@ -14,7 +14,7 @@ export type HowWeBuildView = {
   gainLabel: string
   cards: { kind: HowWeBuildKind; badge?: string; name: string; text: string; gain: string }[]
   source: string | null
-  /** „Nasz: [WYNIK]” — left out on production while the score is not measured. */
+  /** The line about the speed record of each handed-over site; left out with a missing fact. */
   result: string | null
 }
 
@@ -72,7 +72,7 @@ export type TechnologiesView = {
 
 /**
  * Headings and the layers of `technologies` with their facts filled. On production a figure
- * without its value (`[WYNIK]`) is left out, the layer stays; a layer without its gain is dropped.
+ * without its fact is left out, the layer stays; a layer without its gain is dropped.
  */
 export function technologiesView(
   texts: NonNullable<SoftwareHomeSections['technologies']>,
