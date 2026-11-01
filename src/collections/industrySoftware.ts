@@ -42,7 +42,7 @@ export const industrySoftwareGroup: Field = {
       label: 'Nagłówek sekcji kreatora',
       type: 'text',
       maxLength: 90,
-      admin: { description: 'Np. „Złóż system dla swojej firmy. W 60 sekund.”' },
+      admin: { description: 'Np. „Złóż system dla swojej firmy w 60 sekund”.' },
     },
     {
       name: 'problems',

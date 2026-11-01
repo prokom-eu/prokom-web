@@ -1281,7 +1281,7 @@ export interface Industry {
     wizardFirm?:
       ('nocleg' | 'gastro' | 'bud' | 'turyst' | 'uroda' | 'moto' | 'handel' | 'biuro' | 'prod' | 'inna') | null;
     /**
-     * Np. „Złóż system dla swojej firmy. W 60 sekund.”
+     * Np. „Złóż system dla swojej firmy w 60 sekund”.
      */
     wizardTitle?: string | null;
     problems?:
