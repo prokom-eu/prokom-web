@@ -136,7 +136,7 @@ function inquirySchemaFor(line: Line | undefined) {
     // (decided 31.10.2026, ADR-I002 §4; the planner and the forms ask for it the same way).
     // The architects' checklist PDF and news by e-mail need an e-mail instead (ADR-I005 §3).
     const biznes = line === 'biznes'
-    if (line === 'instalacje' && isEmailOnlyCategory(data.category)) {
+    if (line === 'instalacje' && data.type === 'contact' && isEmailOnlyCategory(data.category)) {
       if (data.email === undefined) issue('email', 'e-mail required')
     } else if (line === 'instalacje') {
       if ((data.phone ?? '').replace(/\D/g, '').length < 9) issue('phone', 'phone required')

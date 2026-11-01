@@ -321,6 +321,19 @@ describe('parseInquiryInput — Instalacje (ADR-I002 §4, decided 31.10.2026)', 
     expect(errorsOf({ ...emailForm, category: 'Architekci · projekt' }, 'instalacje')).toEqual([
       'phone',
     ])
+    // Only for a contact: the planner keeps its phone whatever the category says.
+    expect(
+      errorsOf(
+        {
+          ...emailForm,
+          category: 'Architekci · nowości',
+          type: 'wizard',
+          message: undefined,
+          wizard: { services: [] },
+        },
+        'instalacje',
+      ),
+    ).toEqual(['phone'])
     // Only on Instalacje: elsewhere the category is a plain label.
     expect(
       errorsOf({ ...emailForm, category: 'Architekci · nowości', email: undefined }, 'biznes'),
