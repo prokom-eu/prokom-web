@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { Suspense } from 'react'
+import { connection } from 'next/server'
 
 import { Container } from '@/components/ui/Container'
 import { getEnv } from '@/lib/env'
@@ -28,7 +28,8 @@ type Props = {
   searchParams: Promise<Record<string, string | string[] | undefined>>
 }
 
-const TITLE = 'Pełna oferta: strony, systemy i aplikacje dla firm'
+// ≤ 65 characters with „ | PRO-KOM Software” (audyt 01.11 P2).
+const TITLE = 'Pełna oferta: strony, systemy, aplikacje'
 const LEAD =
   'Zawęź listę do swojej sytuacji i branży. Przy stronach i systemach od razu widzisz cenę „od” i termin, aplikacje i automatyzacje wyceniamy po krótkiej rozmowie. Otwórz kartę, a zobaczysz, co jest w cenie, przykład z życia i termin.'
 
@@ -61,6 +62,9 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
  * of this tenant (`getSolutionsIndex`).
  */
 export default async function SolutionsCatalogPage({ params }: Props) {
+  // Rendered per request, so the catalog reads the URL on the server: all cards and one H1 in
+  // the HTML, no `Suspense` fallback with a second copy of the header (audyt 01.11 P2).
+  await connection()
   const tenant = await requireLine(params, 'software')
   const [index, offers, facts, settings, origin] = await Promise.all([
     getSolutionsIndex(tenant.id),
@@ -140,10 +144,7 @@ export default async function SolutionsCatalogPage({ params }: Props) {
       ))}
       <div className="overflow-x-clip pt-8 sm:pt-12">
         <Container wide>
-          {/* `useSearchParams` in the island: the shell around it renders without waiting. */}
-          <Suspense fallback={hero}>
-            <Catalog index={index} offers={offers} hero={hero} />
-          </Suspense>
+          <Catalog index={index} offers={offers} hero={hero} />
         </Container>
       </div>
       <ContactBlock

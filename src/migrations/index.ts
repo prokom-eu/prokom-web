@@ -74,6 +74,7 @@ import * as migration_20261101_152600_inst_post_categories from './20261101_1526
 import * as migration_20261101_152645_inst_i12_blocks from './20261101_152645_inst_i12_blocks'
 import * as migration_20261101_155018_software_swv6_industry_links from './20261101_155018_software_swv6_industry_links'
 import * as migration_20261101_200251_software_swv8_texts from './20261101_200251_software_swv8_texts'
+import * as migration_20261101_205557_software_swv8_seo from './20261101_205557_software_swv8_seo'
 
 export const migrations = [
   {
@@ -455,5 +456,10 @@ export const migrations = [
     up: migration_20261101_200251_software_swv8_texts.up,
     down: migration_20261101_200251_software_swv8_texts.down,
     name: '20261101_200251_software_swv8_texts',
+  },
+  {
+    up: migration_20261101_205557_software_swv8_seo.up,
+    down: migration_20261101_205557_software_swv8_seo.down,
+    name: '20261101_205557_software_swv8_seo',
   },
 ]
