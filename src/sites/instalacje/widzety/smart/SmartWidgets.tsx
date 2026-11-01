@@ -163,6 +163,7 @@ export function SmartPlan() {
                 touch((st) => ({ ...st, sel: r.key }))
               }}
             >
+              <rect className="shhit" x={r.hit.x} y={r.hit.y} width={r.hit.w} height={r.hit.h} />
               <rect
                 className={r.terrace ? 'shr ext' : 'shr'}
                 x={r.x}
