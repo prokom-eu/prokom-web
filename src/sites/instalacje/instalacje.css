@@ -779,12 +779,7 @@ html[data-line='instalacje'].pk-lock body {
   & .mshf .btn {
     width: 100%;
   }
-  & .mgrid a:active,
-  & .mshl a:active,
-  & .mshc:active,
-  & .btn:active {
-    transform: scale(0.97);
-  }
+  /* Press of buttons and sheet items: the shared `scale(.97)` of motion.css (I-M). */
 }
 
 /* Hover only with a pointer: on touch it sticks after a tap (MOBILE-APLIKACJA §5). */
@@ -991,10 +986,7 @@ html[data-line='instalacje'].pk-lock body {
       background: transparent;
       color: inherit;
     }
-    & .bnav a:active,
-    & .bnav button:active {
-      transform: scale(0.94);
-    }
+    /* Press: `scale(.94)` in ruch.css (I-M). */
   }
   /* The header out of view: the anchor bar moves up without a gap. */
   [data-line='instalacje'][data-hdr-hidden] .anchors {
