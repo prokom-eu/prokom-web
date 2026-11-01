@@ -8,18 +8,19 @@ import {
   ksefQuizResult,
   timelineStatus,
   visibleQuestions,
+  type TimelineStatus,
   type KsefQuiz,
 } from '@/lib/biznes/pages/ksef'
 import { cartActions, useCart } from '@/lib/cart/store'
 
-import { CARD } from '../ui'
+import { CARD, TAB_KEYS } from '../ui'
 
 const noop = () => () => {}
 
 /**
  * Phase of the KSeF texts (D-K4-7): after the switch day in Poland, or earlier with `?ksefpo=1`.
- * Read in the browser (the page is cached; the address is the browser's), the server's phase for
- * the first paint, so hydration matches and the page switches right after it if it must.
+ * The server renders the phase of the day; the browser also reads `?ksefpo=1` (the address is
+ * the browser's) and switches right after hydration, which matches thanks to the server snapshot.
  */
 export function useAfterSwitch(date: string, serverAfter: boolean): boolean {
   return useSyncExternalStore(
@@ -44,27 +45,29 @@ export function PhaseText({
   return <>{useAfterSwitch(date, serverAfter) ? after : before}</>
 }
 
-/** Timeline of the KSeF dates with their status, counted in the browser in Polish time. */
+/** Timeline of the KSeF dates with their status; the server's statuses for the first paint. */
 export function KsefTimeline({
   points,
   switchDate,
   serverAfter,
+  serverStatuses,
 }: {
   points: readonly { date: string; d: string; t: string; s: string }[]
   switchDate: string
   serverAfter: boolean
+  serverStatuses: readonly TimelineStatus[]
 }) {
   const after = useAfterSwitch(switchDate, serverAfter)
-  const now = useSyncExternalStore(
-    noop,
-    () => new Date().toDateString(),
-    () => null,
-  )
   const dates = points.map((point) => point.date)
+  const statuses = useSyncExternalStore(
+    noop,
+    () => dates.map((_, i) => timelineStatus(dates, i, new Date())).join('|'),
+    () => serverStatuses.join('|'),
+  ).split('|') as TimelineStatus[]
   return (
     <ol className="flex flex-col gap-2.5">
       {points.map((point, i) => {
-        const status = after ? 'obowiązuje' : now ? timelineStatus(dates, i, new Date()) : 'wkrótce'
+        const status: TimelineStatus = after ? 'obowiązuje' : (statuses[i] ?? 'wkrótce')
         return (
           <li
             key={point.date}
@@ -199,7 +202,7 @@ export function KsefChecklist({
     () => memory.get(storageKey) ?? readTicked(storageKey),
     () => '',
   )
-  const current = ticked ? ticked.split(',').map(Number) : []
+  const current = (ticked ? ticked.split(',').map(Number) : []).filter((n) => n < steps.length)
   const toggle = (i: number) =>
     writeTicked(storageKey, current.includes(i) ? current.filter((n) => n !== i) : [...current, i])
   return (
@@ -224,7 +227,7 @@ export function KsefChecklist({
                 )}
               >
                 <span className="flex items-center justify-between">
-                  <span className="font-display text-[13px] font-extrabold text-ink-3">
+                  <span className="font-display text-[13px] font-extrabold text-ink-2">
                     {String(i + 1).padStart(2, '0')}
                   </span>
                   <span
@@ -239,7 +242,7 @@ export function KsefChecklist({
                 </span>
                 <b className="font-extrabold">{step.t}</b>
                 <span className="text-[14.5px] leading-relaxed text-ink-2">{step.d}</span>
-                <small className="mt-auto pt-1 text-[13px] text-ink-3">{step.w}</small>
+                <small className="mt-auto pt-1 text-[13px] text-ink-2">{step.w}</small>
               </button>
             </li>
           )
@@ -276,6 +279,7 @@ export function ClientTabs({
         aria-label={label}
         className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-2"
         onKeyDown={(event) => {
+          if (TAB_KEYS.has(event.key)) event.preventDefault()
           if (event.key === 'ArrowRight') go(current + 1)
           if (event.key === 'ArrowLeft') go(current - 1)
           if (event.key === 'Home') go(0)

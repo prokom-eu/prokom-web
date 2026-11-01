@@ -10,7 +10,7 @@ import { cartActions } from '@/lib/cart/store'
 import type { IndexImage } from '@/lib/catalog/catalogIndex'
 import { productHref } from '@/lib/catalog/card'
 
-import { BTN_PRIMARY, CARD } from '../ui'
+import { BTN_PRIMARY, CARD, TAB_KEYS } from '../ui'
 
 export type AreaProduct = { slug: string; name: string; image?: IndexImage }
 
@@ -42,6 +42,7 @@ export function CareAreas({
         aria-orientation="vertical"
         className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 min-[1080px]:mx-0 min-[1080px]:flex-col min-[1080px]:overflow-visible min-[1080px]:px-0"
         onKeyDown={(event) => {
+          if (TAB_KEYS.has(event.key)) event.preventDefault()
           if (event.key === 'ArrowDown' || event.key === 'ArrowRight') go(current + 1)
           if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') go(current - 1)
           if (event.key === 'Home') go(0)

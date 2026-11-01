@@ -1378,6 +1378,11 @@ export function ksefK4Layout(slugOf: SlugOf): K4Layout {
             url: 'https://www.podatki.biz/artykuly/ksef-2-0-w-pytaniach-i-odpowiedziach-mf-czesc-i_34_59974.htm',
           },
           {
+            t: 'Ustawa o VAT, art. 106ni — kary (ISAP)',
+            url: 'https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20040540535',
+          },
+          // TODO(krystian): [SZEF] źródło z planszy (artykuł branżowy) — zostaje obok ISAP?
+          {
             t: 'Kary od 2027 r. (art. 106ni ustawy o VAT)',
             url: 'https://bnbn.pl/ksef-zpp-apel-kary-od-stycznia-2027/',
           },

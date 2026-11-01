@@ -3,12 +3,11 @@ import Link from 'next/link'
 
 import { Container } from '@/components/ui/Container'
 import { cx } from '@/components/ui/cx'
-import { isAfterSwitch } from '@/lib/biznes/pages/ksef'
+import { isAfterSwitch, timelineStatus } from '@/lib/biznes/pages/ksef'
 import type { SectionData } from '@/lib/biznes/pages/sections'
 import type { CatalogIndex } from '@/lib/catalog/catalogIndex'
 import { productHref } from '@/lib/catalog/card'
 import { getSiteSettings } from '@/lib/site/data'
-import { daysUntil } from '@/lib/site/days'
 import { toTelHref } from '@/lib/site/link'
 import type { BzSectionBlock as BzSectionData } from '@/payload-types'
 
@@ -30,6 +29,15 @@ import { AddMachineButton, ClientTabs, KsefTimeline, PhaseText } from './Client'
 
 const HERO_H1 =
   'font-display text-[clamp(2.2rem,4.2vw,3.8rem)] leading-[1] font-extrabold tracking-[-0.025em] font-stretch-110% text-balance'
+
+/** „1 stycznia 2027” from an ISO day (the day in Poland). */
+const dayLabel = (iso: string) =>
+  new Date(`${iso}T12:00:00Z`).toLocaleDateString('pl-PL', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    timeZone: 'Europe/Warsaw',
+  })
 
 const plainSpaces = (text: string) => text.replace(/\s+/g, ' ').trim()
 
@@ -54,9 +62,8 @@ export function VendingHero({
   index: CatalogIndex
   crumbs: readonly Crumb[]
 }) {
-  const logo = data.logoBrand
-    ? index.brands.find((b) => b.slug === data.logoBrand)?.logo
-    : undefined
+  const brand = data.logoBrand ? index.brands.find((b) => b.slug === data.logoBrand) : undefined
+  const logo = brand?.logo
   const machines = productsBySlug(index, data.collage).filter((p) => p.image)
   return (
     <section aria-labelledby="vending-h" className="bg-surface-2 pt-6 pb-14 sm:pt-8 sm:pb-20">
@@ -72,7 +79,7 @@ export function VendingHero({
                   <Image
                     unoptimized
                     src={logo.url}
-                    alt="Optivendi"
+                    alt={brand?.name ?? ''}
                     width={logo.width}
                     height={logo.height}
                     className="h-auto max-h-7 w-auto max-w-[120px] object-contain"
@@ -101,15 +108,19 @@ export function VendingHero({
               </p>
             )}
             <div className="flex flex-wrap gap-3">
-              {data.actions.map((action, i) => (
-                <a
-                  key={action.href}
-                  href={action.href}
-                  className={i === 0 ? BTN_PRIMARY : BTN_OUTLINE}
-                >
-                  {action.label}
-                </a>
-              ))}
+              {data.actions.map((action, i) => {
+                const style = i === 0 ? BTN_PRIMARY : BTN_OUTLINE
+                // An anchor stays a plain link; another page goes through the client router.
+                return action.href.startsWith('#') ? (
+                  <a key={action.href} href={action.href} className={style}>
+                    {action.label}
+                  </a>
+                ) : (
+                  <Link key={action.href} href={action.href} className={style}>
+                    {action.label}
+                  </Link>
+                )
+              })}
             </div>
             <ul className="grid gap-x-6 gap-y-3 min-[640px]:grid-cols-2">
               {data.proof.map((proof) => (
@@ -257,7 +268,7 @@ export function AppMockup({
             <div className="grid grid-cols-2 gap-2">
               {data.screen.figures.map((figure) => (
                 <div key={figure.k} className="rounded-xl bg-surface-2 p-3">
-                  <small className="text-[12px] text-ink-3">{figure.k}</small>
+                  <small className="text-[12px] text-ink-2">{figure.k}</small>
                   <b className="block font-display text-lg font-extrabold">{figure.v}</b>
                 </div>
               ))}
@@ -345,7 +356,7 @@ export function SourcesSection({
             </li>
           ))}
         </ul>
-        {data.note && <p className="text-[13px] text-ink-3">{data.note}</p>}
+        {data.note && <p className="text-[13px] text-ink-2">{data.note}</p>}
       </div>
     </SectionShell>
   )
@@ -366,7 +377,7 @@ export async function KsefHero({
 }) {
   const now = new Date()
   const serverAfter = isAfterSwitch(data.switchDate, now)
-  const counting = daysUntil(data.switchDate, now) !== null
+  const dates = data.timeline.map((point) => point.date)
   const { phone, tel } = await officePhone(tenantId)
   const version = (v: SectionData<'ksef-hero'>['before']) => (
     <>
@@ -393,7 +404,7 @@ export async function KsefHero({
             <p
               className={cx(
                 EYEBROW,
-                'inline-flex items-center gap-2 self-start rounded-full bg-white/10 px-3.5 py-2 text-accent-on-dark ring-1 ring-white/20',
+                'inline-flex items-center gap-2 self-start rounded-full bg-white/10 px-3.5 py-2 text-white ring-1 ring-white/20',
               )}
             >
               {data.pill}
@@ -423,15 +434,16 @@ export async function KsefHero({
               date={data.switchDate}
               serverAfter={serverAfter}
               before={
-                counting ? (
-                  <p className="flex items-baseline gap-3">
-                    <DayCount
-                      date={data.switchDate}
-                      className="font-display text-[clamp(3.4rem,6vw,4.6rem)] leading-none font-extrabold tabular-nums"
-                    />
-                    <span className="text-lg font-bold">dni do KSeF bez wyjątków</span>
-                  </p>
-                ) : null
+                // Counted in the browser; DayCount shows nothing once the day has come.
+                <p className="flex items-baseline gap-3">
+                  <DayCount
+                    date={data.switchDate}
+                    className="font-display text-[clamp(3.4rem,6vw,4.6rem)] leading-none font-extrabold tabular-nums"
+                  />
+                  <span className="text-lg font-bold">
+                    dni do {dayLabel(data.switchDate)} · KSeF bez wyjątków
+                  </span>
+                </p>
               }
               after={
                 <p className="flex items-center gap-3 text-lg font-extrabold">
@@ -441,7 +453,7 @@ export async function KsefHero({
                   >
                     ✓
                   </span>
-                  KSeF · obowiązuje od 1 stycznia 2027
+                  KSeF · obowiązuje od {dayLabel(data.switchDate)}
                 </p>
               }
             />
@@ -449,6 +461,7 @@ export async function KsefHero({
               points={data.timeline}
               switchDate={data.switchDate}
               serverAfter={serverAfter}
+              serverStatuses={dates.map((_, i) => timelineStatus(dates, i, now))}
             />
           </div>
         </div>
@@ -608,7 +621,7 @@ export async function UlgaHero({
           <dl className="grid grid-cols-2 gap-3">
             {data.cards.map((card) => (
               <div key={card.k} className={cx(CARD, 'flex flex-col gap-1 p-5 text-ink')}>
-                <dt className="text-[13px] font-extrabold text-ink-3">{card.k}</dt>
+                <dt className="text-[13px] font-extrabold text-ink-2">{card.k}</dt>
                 <dd className="font-display text-[clamp(1.5rem,2.6vw,2.2rem)] leading-tight font-extrabold">
                   {card.v}
                 </dd>
@@ -630,7 +643,7 @@ export function YesNo({ block, data }: { block: BzSectionData; data: SectionData
       <ul className="flex flex-col gap-2.5">
         {items.map((item) => (
           <li key={item} className="flex gap-2.5 leading-relaxed text-ink-2">
-            <span aria-hidden="true" className={ok ? 'text-ok-text' : 'text-ink-3'}>
+            <span aria-hidden="true" className={ok ? 'text-ok-text' : 'text-ink-2'}>
               {ok ? '✓' : '✕'}
             </span>
             {item}
