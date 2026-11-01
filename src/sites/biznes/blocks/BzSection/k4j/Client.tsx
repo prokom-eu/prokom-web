@@ -85,9 +85,7 @@ export function KsefTimeline({
               )}
             />
             <span className="flex min-w-0 flex-1 flex-col">
-              <em className="text-[13px] font-extrabold text-accent-on-dark not-italic">
-                {point.d}
-              </em>
+              <em className="text-[13px] font-extrabold text-white not-italic">{point.d}</em>
               <b className="font-extrabold">{point.t}</b>
               <small className="text-[13.5px] text-white/75">{point.s}</small>
             </span>

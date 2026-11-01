@@ -53,14 +53,17 @@ export function withTrail(crumbs: readonly Crumb[], trail: readonly Crumb[]): Cr
 export const sectionId = (block: BzSectionData) => block.anchor || `sekcja-${block.id ?? 'k4'}`
 
 /** Heading with the accented second part („… <em>Jeden system.</em>”). */
-export function HeadingText({ block }: { block: BzSectionData }) {
+/** H2 text with the accented part; `onDark`: on navy (the light accent reads only on white). */
+export function HeadingText({ block, onDark = false }: { block: BzSectionData; onDark?: boolean }) {
   return (
     <>
       {block.heading}
       {block.headingAccent && (
         <>
           {' '}
-          <em className="text-accent-text not-italic">{block.headingAccent}</em>
+          <em className={cx(onDark ? 'text-accent-on-dark' : 'text-accent-text', 'not-italic')}>
+            {block.headingAccent}
+          </em>
         </>
       )}
     </>
@@ -108,7 +111,7 @@ export function SectionShell({
               )}
               {block.heading && (
                 <h2 id={`${id}-h`} className={H2}>
-                  <HeadingText block={block} />
+                  <HeadingText block={block} onDark={dark} />
                 </h2>
               )}
             </div>

@@ -37,7 +37,7 @@ export function WeekHours({ week }: { week: { day: WeekDay; name: string; time: 
           >
             <span>
               {row.name}
-              {isToday && <span className="ml-2 text-[12px] text-accent-text uppercase">dziś</span>}
+              {isToday && <span className="ml-2 text-[12px] text-h1-accent uppercase">dziś</span>}
             </span>
             <b className={isToday ? 'font-extrabold' : 'font-bold'}>{row.time}</b>
           </li>

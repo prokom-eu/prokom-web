@@ -17,7 +17,7 @@ const TONE: Record<SectionData<'care-hero'>['report']['rows'][number]['tone'], s
   ok: 'bg-ok/15 text-ok-text',
   warn: 'bg-promo/25 text-ink',
   urgent: 'bg-[color-mix(in_srgb,var(--c-biznes-tone-red)_18%,transparent)] text-ink',
-  due: 'bg-accent-text/12 text-accent-text',
+  due: 'bg-accent-text/12 text-h1-accent',
 }
 
 /**

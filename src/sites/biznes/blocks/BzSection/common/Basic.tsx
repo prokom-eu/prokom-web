@@ -176,11 +176,11 @@ export function BandSection({ block, data }: Props & { data: SectionData<'band'>
                 <PhaseText
                   date={data.after.date}
                   serverAfter={isAfterSwitch(data.after.date, new Date())}
-                  before={<HeadingText block={block} />}
+                  before={<HeadingText block={block} onDark />}
                   after={data.after.heading}
                 />
               ) : (
-                <HeadingText block={block} />
+                <HeadingText block={block} onDark />
               )}
             </h2>
           )}

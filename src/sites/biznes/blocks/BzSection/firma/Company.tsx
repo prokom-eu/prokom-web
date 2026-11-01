@@ -551,7 +551,7 @@ export async function ContactFormSection({
           >
             {block.eyebrow && <p className={cx(EYEBROW, 'text-accent-on-dark')}>{block.eyebrow}</p>}
             <h2 id={`${id}-h`} className={cx(H2, 'text-white')}>
-              <HeadingText block={block} />
+              <HeadingText block={block} onDark />
             </h2>
             {block.lead && <p className="leading-relaxed text-white/80">{block.lead}</p>}
             <ul className="flex flex-col gap-2">
