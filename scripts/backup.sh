@@ -31,7 +31,7 @@ fi
 : "${AGE_RECIPIENT:?set AGE_RECIPIENT (public age key) in .env.backup}"
 backup_dir="${BACKUP_DIR:-$root/../backups}"
 if [ -z "${RCLONE_REMOTE:-}" ] && [ "${BACKUP_LOCAL_ONLY:-}" != 1 ]; then
-  echo "Set RCLONE_REMOTE (off-server copy, ADR-002) or BACKUP_LOCAL_ONLY=1 for a local test." >&2
+  echo "Set RCLONE_REMOTE (off-server copy, ADR-019) or BACKUP_LOCAL_ONLY=1 for a local test." >&2
   exit 2
 fi
 
