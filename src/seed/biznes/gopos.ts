@@ -1,6 +1,4 @@
-import type { Payload } from 'payload'
-
-import { type PageBlock, upsertBiznesPage } from './page'
+import type { PageBlock } from './page'
 
 export const GOPOS_SLUG = 'gopos'
 
@@ -372,27 +370,4 @@ export function biznesGoposLayout(refs: GoposRefs = NO_REFS): PageBlock[] {
         'Oddzwonimy w ciągu 60 minut w godzinach pracy. Poza godzinami pracy odezwiemy się następnego dnia roboczego rano.',
     },
   ]
-}
-
-type Report = (name: string, changed: boolean) => void
-
-/** `/gopos` of the Biznes tenant (B9b) — created, or only missing block types added. */
-export async function seedBiznesGopos(
-  payload: Payload,
-  tenantId: number,
-  refs: GoposRefs,
-  report: Report,
-): Promise<void> {
-  await upsertBiznesPage(
-    payload,
-    tenantId,
-    {
-      slug: GOPOS_SLUG,
-      title: 'GoPOS',
-      layout: biznesGoposLayout(refs),
-      description:
-        'GoPOS dla gastronomii z PRO-KOM: sprzęt, menu, fiskalizacja, szkolenie w lokalu i serwis w sezonie z Rabki. Zestawy dla kawiarni, restauracji i fast foodu.',
-    },
-    report,
-  )
 }

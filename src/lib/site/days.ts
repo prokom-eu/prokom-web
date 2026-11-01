@@ -14,6 +14,9 @@ function warsawDay(date: Date): number {
   return Date.parse(`${WARSAW_DAY.format(date)}T00:00:00Z`)
 }
 
+/** Calendar day in Poland of a moment, as a UTC midnight timestamp (compare with `Date.parse(day)`). */
+export const warsawDayOf = (date: Date): number => warsawDay(date)
+
 /**
  * Whole calendar days in Poland from `now` to `target` (a date or an ISO instant from the
  * panel, read in Polish time). `null` once the day has passed or when the date is invalid.

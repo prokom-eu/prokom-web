@@ -1,6 +1,4 @@
-import type { Payload } from 'payload'
-
-import { type PageBlock, upsertBiznesPage } from './page'
+import type { PageBlock } from './page'
 
 type ContactBlock = PageBlock
 
@@ -108,25 +106,4 @@ export function biznesContactLayout(): ContactBlock[] {
       ],
     },
   ]
-}
-
-type Report = (name: string, changed: boolean) => void
-
-/**
- * `/kontakt` of the Biznes tenant: the sample page (generic blocks only) is replaced, a page
- * edited in the panel only gets the block types it lacks (`upsertBiznesPage`).
- */
-export async function seedBiznesContact(
-  payload: Payload,
-  tenantId: number,
-  report: Report,
-): Promise<void> {
-  // TODO(krystian): [SZEF] opis strony (SEO → Opis) — bez niego /kontakt ma opis strony
-  // głównej z Ustawień; treść do panelu, seed jej nie wymyśla (jak strona główna).
-  await upsertBiznesPage(
-    payload,
-    tenantId,
-    { slug: CONTACT_SLUG, title: 'Kontakt', layout: biznesContactLayout() },
-    report,
-  )
 }

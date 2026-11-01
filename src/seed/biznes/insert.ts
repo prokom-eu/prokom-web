@@ -1,7 +1,5 @@
-import type { Payload } from 'payload'
-
 import type { GoposRefs } from './gopos'
-import { type PageBlock, upsertBiznesPage } from './page'
+import type { PageBlock } from './page'
 
 export const INSERT_SLUG = 'insert'
 
@@ -289,27 +287,4 @@ export function biznesInsertLayout(refs: InsertRefs = NO_REFS): PageBlock[] {
         'Oddzwonimy w ciągu 60 minut w godzinach pracy. Poza godzinami pracy odezwiemy się następnego dnia roboczego rano.',
     },
   ]
-}
-
-type Report = (name: string, changed: boolean) => void
-
-/** `/insert` of the Biznes tenant (B9c) — created, or only missing block types added. */
-export async function seedBiznesInsert(
-  payload: Payload,
-  tenantId: number,
-  refs: InsertRefs,
-  report: Report,
-): Promise<void> {
-  await upsertBiznesPage(
-    payload,
-    tenantId,
-    {
-      slug: INSERT_SLUG,
-      title: 'InsERT',
-      layout: biznesInsertLayout(refs),
-      description:
-        'Subiekt i programy InsERT z PRO-KOM: dobór programu, instalacja, przeniesienie danych, połączenie z kasą, KSeF i szkolenie na Twoich dokumentach.',
-    },
-    report,
-  )
 }

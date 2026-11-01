@@ -12,7 +12,7 @@ export function Breadcrumbs({
   onDark?: boolean
 }) {
   return (
-    <nav aria-label="Okruszki" className={onDark ? 'text-sm text-white/75' : 'text-sm text-ink-3'}>
+    <nav aria-label="Okruszki" className={onDark ? 'text-sm text-white/75' : 'text-sm text-ink-2'}>
       <ol className="flex flex-wrap gap-2">
         {items.map((item, position) => {
           const current = position === items.length - 1

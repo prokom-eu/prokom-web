@@ -19,7 +19,27 @@ const RULES: { name: string; pattern: RegExp }[] = [
   })),
 ]
 
-/** Names of the rules a public text breaks; empty when the text may be shown. */
-export function forbiddenContent(text: string): string[] {
-  return RULES.filter((rule) => rule.pattern.test(text)).map((rule) => rule.name)
+/**
+ * Amounts that are not prices (K4-FINAL §1): the cash register relief „do 700 zł” (always with
+ * „rozlicza księgowa”), the KSeF thresholds 10 000 zł and 200 mln zł, the terminal that „bywa za
+ * 0 zł”. Only on the K4 subpages, where they stand with their explanation (`legalAmounts`); a
+ * card badge like „Ulga do 700 zł” is still a price-like promise and is dropped.
+ */
+const ALLOWED_AMOUNTS: readonly RegExp[] = [
+  /(?<![\p{L}])(?:do|maks\.?|maksymalnie)\s700\s?zł/giu,
+  /(?<!\d)(?<!\d\s)10\s000\s?zł/giu,
+  /(?<!\d)200\s?mln\s?zł/giu,
+  /bywa za 0\s?zł/giu,
+]
+
+/**
+ * Names of the rules a public text breaks; empty when the text may be shown. `legalAmounts`: the
+ * K4 subpages (KSeF, ulga, InsERT) — the thresholds above are cut out before the check, any other
+ * amount is still an error.
+ */
+export function forbiddenContent(text: string, { legalAmounts = false } = {}): string[] {
+  const checked = legalAmounts
+    ? ALLOWED_AMOUNTS.reduce((rest, allowed) => rest.replace(allowed, ' '), text)
+    : text
+  return RULES.filter((rule) => rule.pattern.test(checked)).map((rule) => rule.name)
 }
