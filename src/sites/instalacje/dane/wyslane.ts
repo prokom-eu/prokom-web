@@ -22,8 +22,10 @@ export const wyslane = {
     { title: 'Wizja lokalna', text: 'Oglądamy obiekt, mierzymy, sprawdzamy kable.' },
     { title: 'Wycena na piśmie', text: 'Zwykle w wariantach do wyboru.' },
   ],
-  // TODO(krystian): add „Poczytaj poradnik” → `/poradnik` (prototype) with I12; a 404 until then.
-  links: [{ label: 'Wróć na stronę główną', href: '/' }],
+  links: [
+    { label: 'Wróć na stronę główną', href: '/' },
+    { label: 'Poczytaj poradnik', href: '/poradnik' },
+  ],
 } as const
 
 /** The inquiry number of an Instalacje form (`PKI-2026-0007`), or `null`. */

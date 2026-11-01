@@ -112,7 +112,7 @@ export const FORM_PAGE_BLOCKS: Record<string, () => Block> = {
       lead: 'PRO-KOM z Rabki-Zdroju montuje monitoring, alarmy, sieci i smart home, a w tej samej firmie dostarcza kasy, komputery, serwis i oprogramowanie. Od 2004 roku obsługujemy domy, firmy i obiekty turystyczne na Podhalu. Salon mamy w Rabce-Zdroju.',
       facts: [
         { value: 'od 2004', label: 'na Podhalu' },
-        { value: 'Rabka-Zdrój', label: 'salon · ul. Orkana 16B' },
+        { value: '1 salon', label: 'Rabka-Zdrój, ul. Orkana 16B' },
         { value: '4 linie', label: 'Biznes, Software, Tech, Instalacje' },
       ],
     },

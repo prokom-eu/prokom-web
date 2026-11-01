@@ -35,8 +35,11 @@ function routeSegments(): string[] {
   )
 }
 
+/** Route directories that hold only nested routes: their own path is a page (ADR-I002 §0). */
+const PAGE_LISTS = new Set(['poradnik'])
+
 describe('RESERVED_PAGE_SLUGS', () => {
-  it.each(routeSegments().filter((name) => !name.includes('.')))(
+  it.each(routeSegments().filter((name) => !name.includes('.') && !PAGE_LISTS.has(name)))(
     'covers the route /%s',
     (segment) => {
       expect(RESERVED_PAGE_SLUGS).toContain(segment)

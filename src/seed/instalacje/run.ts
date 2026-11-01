@@ -5,6 +5,7 @@ import { hasSameValues } from '../compare'
 import { SEED_CONTEXT } from '../config'
 import { lineSettingsUpdate, siteContactUpdate } from './contact'
 import { FORM_PAGE_BLOCKS, needsFormBlock } from './formPages'
+import { seedInstalacjeGuide } from './guide'
 import { seedInstalacjeHome } from './home'
 import { SERVICE_PAGE_KEYS } from './servicePages'
 import {
@@ -295,6 +296,9 @@ export async function seedInstalacje(payload: Payload): Promise<void> {
       count('realizations', 'skipped')
     }
   }
+
+  // --- guide posts (I12): `/poradnik/<slug>`, created while missing ---
+  await seedInstalacjeGuide(payload, tenantId, count)
 
   // --- home page (I5): the `instHome` block and SEO, also over the sample page ---
   await seedInstalacjeHome(payload, tenantId, count)
