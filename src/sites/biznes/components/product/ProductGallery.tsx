@@ -177,14 +177,17 @@ export function ProductGallery({
               <StageFallback icon={icon} size="lg" name={name} service={service} />
             )}
           </ProductStage>
+          {/* Audit 01.11: below 640 px the brand chip under the gallery names it, and the lazy
+              logo left an empty white badge until it loaded. */}
           {brand && (
-            <span className="absolute top-4 left-4 inline-flex h-10 items-center rounded-xl bg-white px-3 shadow-[0_8px_20px_-14px_var(--shd),inset_0_0_0_1px_var(--border)] sm:top-5 sm:left-5">
+            <span className="absolute top-5 left-5 hidden h-10 items-center rounded-xl bg-white px-3 shadow-[0_8px_20px_-14px_var(--shd),inset_0_0_0_1px_var(--border)] sm:inline-flex">
               {brand.logo ? (
                 <Image
                   src={brand.logo.url}
                   alt={brand.name}
                   width={brand.logo.width}
                   height={brand.logo.height}
+                  loading="eager"
                   unoptimized
                   className="h-auto max-h-[18px] w-auto max-w-[96px] object-contain"
                 />
