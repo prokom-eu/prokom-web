@@ -425,6 +425,14 @@
   }
 }
 
+/* Biznes phone app (M1′, MOBILE-APLIKACJA §4 pkt 9, WCAG 2.4.11): a focused field or a scrolled-to
+   target never ends up under the bottom bar (tab bar or sticky action). */
+@media (max-width: 767px) {
+  html[data-line='biznes'] {
+    scroll-padding-bottom: calc(5.5rem + env(safe-area-inset-bottom));
+  }
+}
+
 /* Reduced motion: every part of a page transition (the content, the root, header and bar)
    swaps without the browser's default cross-fade or move. */
 @media (prefers-reduced-motion: reduce) {

@@ -45,18 +45,46 @@ test.describe('Biznes on a phone', () => {
     await expect(page.getByRole('dialog', { name: 'Menu' })).toBeHidden()
   })
 
-  test('the bottom bar calls and opens the inquiry list', async ({ page }) => {
+  // M1′ (MOBILE-APLIKACJA §1): Start · Oferta · Szukaj · Zapytanie · Kontakt.
+  test('the tab bar follows the address and opens the search', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
-    const bar = page.getByRole('navigation', { name: 'Szybki kontakt' })
-    await expect(bar.getByRole('link', { name: 'Zadzwoń' })).toHaveAttribute('href', /^tel:/)
-    await expect(bar.getByRole('link', { name: 'WhatsApp' })).toHaveAttribute(
+    const bar = page.getByRole('navigation', { name: 'Pasek aplikacji' })
+    await expect(bar.getByRole('link')).toHaveText(['Start', 'Oferta', 'Zapytanie', 'Kontakt'])
+    await expect(bar.getByRole('link', { name: 'Start' })).toHaveAttribute('aria-current', 'page')
+
+    await bar.getByRole('link', { name: 'Oferta' }).click()
+    await expect(page).toHaveURL(/\/oferta$/)
+    await expect(bar.getByRole('link', { name: 'Oferta' })).toHaveAttribute('aria-current', 'page')
+    await expect(bar.getByRole('link', { name: 'Start' })).not.toHaveAttribute('aria-current')
+
+    await bar.getByRole('button', { name: 'Szukaj' }).click()
+    await expect(page.getByRole('dialog', { name: /Szukaj/ })).toBeVisible()
+  })
+
+  test('a subpage shows „Wstecz” and its title instead of the logo', async ({ page }) => {
+    await page.goto(site('biznes.localhost'))
+    const header = page.locator('header')
+    await expect(header.getByRole('link', { name: 'Wstecz' })).toHaveCount(0)
+
+    await page
+      .getByRole('navigation', { name: 'Pasek aplikacji' })
+      .getByRole('link', { name: 'Kontakt' })
+      .click()
+    await expect(page).toHaveURL(/\/kontakt$/)
+    const back = header.getByRole('link', { name: 'Wstecz' })
+    await expect(back).toBeVisible()
+    const h1 = (await page.locator('main h1').first().textContent())?.trim() ?? ''
+    await expect(header.getByText(h1, { exact: true })).toBeVisible()
+    // After a move inside the site „Wstecz” is the browser's back.
+    await back.click()
+    await expect(page).toHaveURL(/biznes\.localhost:\d+\/$/)
+  })
+
+  test('a landing subpage goes one level up', async ({ page }) => {
+    await page.goto(site('biznes.localhost', '/oferta/laptopy'))
+    await expect(page.locator('header').getByRole('link', { name: 'Wstecz' })).toHaveAttribute(
       'href',
-      /^https:\/\/wa\.me\/\d{11,}$/,
-    )
-    // B4b: "Zapytanie" opens the inquiry drawer (biznes-cart.e2e.spec.ts).
-    await expect(bar.getByRole('button', { name: /^Zapytanie/ })).toHaveAttribute(
-      'aria-haspopup',
-      'dialog',
+      '/oferta',
     )
   })
 
@@ -94,8 +122,8 @@ test.describe('Biznes footer', () => {
     )
     await expect(footer.getByRole('link', { name: 'Kontakt i dojazd →' })).toBeVisible()
     await expect(footer).toContainText(/NIP \d{10}/)
-    // No bottom bar on a desktop.
-    await expect(page.getByRole('navigation', { name: 'Szybki kontakt' })).toBeHidden()
+    // No tab bar on a desktop.
+    await expect(page.getByRole('navigation', { name: 'Pasek aplikacji' })).toBeHidden()
   })
 
   test('has the K4 services and topics, one e-mail and only the first address', async ({

@@ -143,14 +143,17 @@ test.describe('Biznes inquiry list', () => {
     ).toHaveAttribute('href', '/zapytanie')
   })
 
-  test('the bottom bar opens it on a phone', async ({ page }) => {
+  // M1′: on a phone „Zapytanie” is a tab of the app bar and leads to the inquiry page.
+  test('the tab bar counts it and leads to the inquiry page on a phone', async ({ page }) => {
     await page.setViewportSize({ width: 360, height: 780 })
     await withCart(page, [{ id: ERGO, q: 1 }])
     await page.goto(site('biznes.localhost'))
-    const bar = page.getByRole('navigation', { name: 'Szybki kontakt' })
-    await expect(bar.getByRole('button', { name: 'Zapytanie 1 pozycja' })).toBeVisible()
-    await bar.getByRole('button', { name: /^Zapytanie/ }).click()
-    await expect(drawer(page)).toBeVisible()
+    const tab = page
+      .getByRole('navigation', { name: 'Pasek aplikacji' })
+      .getByRole('link', { name: 'Zapytanie · 1 pozycja' })
+    await expect(tab).toHaveAttribute('href', '/zapytanie')
+    // The header's „Zapytanie” is for wider screens.
+    await expect(page.locator('header').getByRole('button', { name: /^Zapytanie/ })).toBeHidden()
     const width = await page.evaluate(() => document.documentElement.scrollWidth)
     expect(width).toBeLessThanOrEqual(360)
   })

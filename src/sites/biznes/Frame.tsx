@@ -11,8 +11,8 @@ import type { SiteTenant } from '@/lib/tenant/byHost'
 
 import { BiznesFooter } from './components/BiznesFooter'
 import { BiznesHeader } from './components/BiznesHeader'
-import { MobileBar } from './components/MobileBar'
 import { SiteRail } from './components/rail/SiteRail'
+import { TabBar } from './components/mobile/TabBar'
 import { TopBar } from './components/TopBar'
 
 type Props = {
@@ -28,7 +28,7 @@ type Props = {
 /**
  * Page frame of the Biznes line (B3, ADR-014 rozstrz. 12): top bar, header with the mega menu
  * from the cached catalog index (it already hides empty categories — ADR-012, rozstrzygnięcie 7),
- * footer with the partner badges confirmed in the panel, and the phone's bottom bar.
+ * footer with the partner badges confirmed in the panel, and the phone app's tab bar.
  */
 export async function BiznesFrame({ tenant, settings, biznes, company, promo, children }: Props) {
   const [index, partners] = await Promise.all([
@@ -64,7 +64,7 @@ export async function BiznesFrame({ tenant, settings, biznes, company, promo, ch
         badges={partnerBadges(partners)}
         contact={contact}
       />
-      <MobileBar tel={contact.phone?.href ?? null} whatsapp={contact.whatsapp} />
+      <TabBar />
     </>
   )
 }

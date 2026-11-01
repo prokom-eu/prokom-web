@@ -47,8 +47,19 @@ describe('lineViewport', () => {
     })
   })
 
+  // Biznes MOBILE-APLIKACJA §4 pkt 4 (M1′): the same mechanism, content under the notch.
+  it('gives Biznes the safe area and a theme colour per system theme', () => {
+    expect(lineViewport('biznes')).toEqual({
+      viewportFit: 'cover',
+      themeColor: [
+        { media: '(prefers-color-scheme: light)', color: LINE_THEME_COLORS.biznes?.light },
+        { media: '(prefers-color-scheme: dark)', color: LINE_THEME_COLORS.biznes?.dark },
+      ],
+    })
+  })
+
   it('leaves lines without an entry as they are', () => {
-    expect(lineViewport('biznes')).toEqual({})
+    expect(lineViewport('prokom')).toEqual({})
   })
 })
 
@@ -88,6 +99,6 @@ describe('lineManifest', () => {
   })
 
   it('has no manifest for lines without an entry', () => {
-    expect(lineManifest('biznes', 'PRO-KOM Biznes')).toBeNull()
+    expect(lineManifest('prokom', 'PRO-KOM')).toBeNull()
   })
 })

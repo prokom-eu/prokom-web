@@ -13,12 +13,14 @@ type ThemeColors = { light: string; dark: string }
  * they drift apart. Lines without an entry keep the browser's defaults.
  */
 export const LINE_THEME_COLORS: Partial<Record<Line, ThemeColors>> = {
+  biznes: { light: '#ffffff', dark: '#060a15' },
   instalacje: { light: '#f4f5f1', dark: '#101412' },
   software: { light: '#f4f5f1', dark: '#121613' },
 }
 
 /** Name under the icon on a phone's home screen: short, or Android cuts it (~12 characters). */
 const SHORT_NAMES: Partial<Record<Line, string>> = {
+  biznes: 'Biznes',
   instalacje: 'Instalacje',
   software: 'Software',
 }
