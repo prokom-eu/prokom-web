@@ -36,12 +36,37 @@ export const TEXT_FIXES: readonly (readonly [from: string, to: string])[] = [
   ],
 ]
 
+/**
+ * A fix as a pattern whose spaces also match the hard space of the seed (`hardSpaces`:
+ * „w&nbsp;umowie”). The replacement keeps the matched separators in order while their counts
+ * agree, so a hard space stays hard; otherwise it uses the plain text of the fix.
+ */
+const SEPARATOR = '[ \\u00a0]'
+const escape = (part: string) => part.replace(/[.*+?^${}()|[\]\\]/g, (char) => `\\${char}`)
+const PATTERNS = TEXT_FIXES.map(([from, to]) => ({
+  pattern: new RegExp(from.split(' ').map(escape).join(SEPARATOR), 'g'),
+  to,
+}))
+
+function fixText(text: string): string {
+  return PATTERNS.reduce(
+    (current, { pattern, to }) =>
+      current.replace(pattern, (match) => {
+        const separators = match.match(/[ \u00a0]/g) ?? []
+        const words = to.split(' ')
+        if (separators.length !== words.length - 1) return to
+        return words.reduce(
+          (out, word, i) => (i === 0 ? word : `${out}${separators[i - 1]}${word}`),
+          '',
+        )
+      }),
+    text,
+  )
+}
+
 /** `value` with every fix applied to each string inside it (objects and arrays copied). */
 export function fixTexts<T>(value: T): T {
-  if (typeof value === 'string') {
-    const fixed = TEXT_FIXES.reduce<string>((text, [from, to]) => text.split(from).join(to), value)
-    return fixed as T
-  }
+  if (typeof value === 'string') return fixText(value) as T
   if (Array.isArray(value)) return value.map((item: unknown) => fixTexts(item)) as T
   if (value && typeof value === 'object') {
     return Object.fromEntries(

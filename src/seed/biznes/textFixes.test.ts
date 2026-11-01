@@ -39,6 +39,13 @@ describe('fixTexts', () => {
     expect(fixTexts('czas reakcji zapisany w umowie')).toBe('czas reakcji ustalony w umowie')
   })
 
+  it('also fixes a phrase written with hard spaces by the seed, keeping them', () => {
+    const nbsp = '\u00a0'
+    expect(fixTexts(`Zakres i${nbsp}czas reakcji zapisujemy w${nbsp}umowie.`)).toBe(
+      `Zakres i${nbsp}czas reakcji ustalamy w${nbsp}umowie.`,
+    )
+  })
+
   it('leaves other texts untouched', () => {
     const block = { heading: 'pro-kom.eu — wspólne wejście', lead: 'Rabka-Zdrój' }
     expect(fixTexts(block)).toEqual(block)

@@ -31,6 +31,7 @@ import { SOFTWARE_NEWS_TEXTS } from '@/sites/software/components/news/texts'
 import { getSolutionsIndex } from '@/lib/software/data'
 import type { PostView } from '@/lib/posts/view'
 import { isPostCategory, newsListHref } from '@/lib/posts/list'
+import { metaDescription } from '@/lib/seo/description'
 
 import { requestOrigin, requireNewsTenant } from '../../tenant'
 
@@ -54,7 +55,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!post) return {}
   const settings = await getSiteSettings(tenant.id)
   const title = post.seo.title ?? post.title
-  const description = post.seo.description ?? post.lead ?? undefined
+  // Cut to what results show in full (audit 01.11: the KSeF post had 210 characters).
+  const descriptionSource = post.seo.description ?? post.lead
+  const description = descriptionSource ? metaDescription(descriptionSource) : undefined
   return {
     title,
     description,
