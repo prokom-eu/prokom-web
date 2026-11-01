@@ -129,7 +129,7 @@ export const naglosnienie = {
 
   apart: {
     head: {
-      eyebrow: 'APART · nasz mocny punkt',
+      eyebrow: 'APART · nagłośnienie montowane na stałe',
       heading: 'Sprzęt zrobiony do nagłośnienia na stałe.',
       accent: 'Od głośnika w suficie po kolumnę w kościele.',
       lead: 'APART to marka nagłośnienia instalacyjnego założona w Belgii, od 2019 część amerykańskiej grupy Biamp. Głośniki, wzmacniacze, strefy, mikrofony i źródła muzyki od jednego producenta. Kliknij rodzinę, żeby zobaczyć, gdzie ją montujemy.',

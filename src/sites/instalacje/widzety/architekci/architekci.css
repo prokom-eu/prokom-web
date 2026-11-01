@@ -1861,6 +1861,12 @@
     align-items: end;
     margin: 22px 0 34px;
   }
+  /* The eyebrow above the h1 (outside it since I-T): the same look as `.h1 .h1k`. */
+  & .arhead .h1k {
+    display: block;
+    margin: 0 0 20px;
+    line-height: 1.45;
+  }
   & .arhead .h1 {
     font-size: clamp(42px, 5vw, 76px);
   }

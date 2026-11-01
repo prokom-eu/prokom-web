@@ -154,7 +154,7 @@ export const dostep = {
   methods: {
     head: {
       eyebrow: 'Czym się otwiera',
-      heading: 'Kod, karta, telefon. Klucz zostaje na wszelki wypadek.',
+      heading: 'Czym otworzysz drzwi i co zostaje na wypadek awarii.',
       lead: 'Dobieramy sposób otwierania do ludzi, którzy będą wchodzić: gości, pracowników, mieszkańców, serwisu.',
     } satisfies SectionHead,
     items: [
@@ -241,7 +241,7 @@ export const dostep = {
 
   company: {
     eyebrow: 'Firma, hala, wspólnota',
-    heading: 'Każdy wchodzi tam, gdzie powinien. I o tej porze.',
+    heading: 'Magazynier do magazynu od 6:00, ekipa sprzątająca do biura po 18:00.',
     lead: 'Karty albo breloki dla pracowników i mieszkańców, strefy, harmonogramy i historia wejść. W systemach online zgubioną kartę blokujesz od razu, bez wymiany zamków.',
     list: [
       {

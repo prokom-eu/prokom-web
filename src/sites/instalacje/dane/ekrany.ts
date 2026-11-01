@@ -233,7 +233,7 @@ export const ekrany = {
   where: {
     head: {
       eyebrow: 'Gdzie montujemy ekrany',
-      heading: 'Ekran, który pracuje, a nie tylko świeci.',
+      heading: 'Witryna, kasa, recepcja. Każde miejsce potrzebuje innego ekranu.',
       lead: 'Dobieramy ekran do miejsca, montujemy go, podłączamy odtwarzacz i ustawiamy harmonogram treści. Treść zmieniasz z telefonu albo zlecasz nam.',
     } satisfies SectionHead,
     items: [

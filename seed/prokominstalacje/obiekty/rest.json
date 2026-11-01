@@ -9,8 +9,8 @@
  "hero": {
   "crumb": "Restauracja i sala weselna",
   "eye": "Instalacje dla restauracji i domów weselnych · Zakopane, Rabka, Podhale",
-  "h1a": "Muzyka tam, gdzie trzeba.",
-  "h1b": "Kasa i Wi-Fi mają zapas także w sobotę o 21:00.",
+  "h1a": "Sobota, 21:00, pełna sala.",
+  "h1b": "Muzyka gra, terminal przyjmuje karty, Wi-Fi nie zwalnia.",
   "lead": "Nagłośnienie w strefach i mikrofony na wesele bez pisków, menu na ekranach zmieniane z telefonu, Wi-Fi dla gości oddzielone od kasy i terminala, kamery przy kasie i na zapleczu. Jeden wykonawca i jeden numer do serwisu.",
   "kv": [
    [
@@ -72,7 +72,7 @@
   "eye": "Co słyszymy od restauratorów",
   "h": "Sześć rzeczy, które psują sobotni wieczór,",
   "ha": "i jak je naprawiamy.",
-  "lead": "Lokal w szczycie sezonu nie może czekać na serwis. Dlatego projektujemy tak, żeby awarii było mało, a większość ustawień dało się sprawdzić zdalnie."
+  "lead": "Lokal w szczycie sezonu nie może czekać na serwis. Projektujemy tak, żeby awarii było mało, a większość ustawień dało się sprawdzić zdalnie."
  },
  "prob": [
   {

@@ -230,7 +230,7 @@ export const alarmy = {
   compare: {
     head: {
       eyebrow: 'Przewodowy czy bezprzewodowy',
-      heading: 'Dobieramy system do budynku, a nie odwrotnie.',
+      heading: 'Przewody tam, gdzie się da. Radio tam, gdzie szkoda ścian.',
     },
     /** Head of the first column, for screen readers only (the prototype leaves it empty). */
     rowHead: 'Cecha',

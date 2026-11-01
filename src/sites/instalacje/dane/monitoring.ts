@@ -105,8 +105,8 @@ export const monitoring = {
   whatYouGet: {
     head: {
       eyebrow: 'Monitoring od PRO-KOM',
-      heading: 'Kamery, które widzą to, co trzeba. I nie widzą tego, czego nie wolno.',
-      lead: 'Dobieramy kamery do miejsca, a nie do katalogu. Ustawiamy wykrywanie, strefy i czas nagrań, a potem uczymy Cię obsługi aplikacji.',
+      heading: 'Twarz przy furtce, tablica przy bramie. Bez podglądania sąsiada.',
+      lead: 'Każdą kamerę dobieramy do jej miejsca: furtki, podjazdu, parkingu, wejścia. Ustawiamy wykrywanie, strefy i czas nagrań, a potem uczymy Cię obsługi aplikacji.',
     } satisfies SectionHead,
     items: [
       {
@@ -145,8 +145,8 @@ export const monitoring = {
   system: {
     head: {
       eyebrow: 'Wersje instalacji',
-      heading: 'Monitoring to cały system.',
-      accent: 'Zobacz, co wchodzi w skład.',
+      heading: 'Kamery, rejestrator, dyski, zasilanie i aplikacja.',
+      accent: 'Zobacz cały system.',
       lead: 'Kamera to tylko początek. Żeby nagrania nie ginęły przy burzy, mrozie czy zaniku prądu, potrzebny jest rejestrator, dyski do pracy 24/7, zasilanie, sieć i porządna aplikacja. Wybierz wersję i kliknij element schematu.',
     } satisfies SectionHead,
     tabsLabel: 'Wersja instalacji',
@@ -238,7 +238,7 @@ export const monitoring = {
         icon: 'wifi',
         place: 'Bezpieczeństwo',
         text: 'Kamery mają własną sieć (VLAN), oddzieloną od Wi-Fi gości, kas i komputerów. Goście korzystają z internetu, ale nie zobaczą kamer.',
-        tip: 'Zmieniamy hasła fabryczne, aktualizujemy oprogramowanie i nie wystawiamy rejestratora wprost do internetu. Podatności w kamerach to realny problem, a nie straszak.',
+        tip: 'Zmieniamy hasła fabryczne, aktualizujemy oprogramowanie i nie wystawiamy rejestratora wprost do internetu. Podatności w kamerach to realny problem.',
       },
       app: {
         name: 'Aplikacja i powiadomienia',
@@ -460,7 +460,7 @@ export const monitoring = {
   recording: {
     head: {
       eyebrow: 'Kalkulator: ile dni nagrań',
-      heading: 'Dysk dobieramy do liczby kamer. I do przepisów.',
+      heading: 'Ile dni nagrań zmieści dysk przy Twoich kamerach.',
       lead: 'Nagrania zostają na rejestratorze w Twoim obiekcie. Policz, na ile dni wystarczy dysk przy nagrywaniu ciągłym.',
     } satisfies SectionHead,
     cameras: 'Liczba kamer',
