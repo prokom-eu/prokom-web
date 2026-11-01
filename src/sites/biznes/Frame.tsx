@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react'
 
 import { getCatalogIndex } from '@/lib/catalog/data'
-import { megaMenu, offerMenu } from '@/lib/catalog/menu'
-import { partnerBadges } from '@/lib/partners/badges'
+import { offerMenu } from '@/lib/catalog/menu'
+import { partnerBadges, partnerStatusLabel } from '@/lib/partners/badges'
 import { getPartnerStatuses } from '@/lib/partners/data'
 import { hoursSummary } from '@/lib/site/hoursSummary'
 import { toTelHref, toWhatsAppHref } from '@/lib/site/link'
@@ -40,7 +40,12 @@ export async function BiznesFrame({ tenant, settings, biznes, company, promo, ch
     phone: settings.phone && tel ? { label: settings.phone, href: tel } : null,
     whatsapp: biznes.whatsapp ? toWhatsAppHref(biznes.whatsapp) : null,
   }
-  const menu = megaMenu(index, biznes.navigation)
+  const partnerStatuses = Object.fromEntries(
+    partners.flatMap(({ name, status }) => {
+      const label = partnerStatusLabel(status)
+      return label ? [[name, label]] : []
+    }),
+  )
   const hours = company?.locations[0]?.hours ?? null
   return (
     <>
@@ -49,8 +54,8 @@ export async function BiznesFrame({ tenant, settings, biznes, company, promo, ch
       <BiznesHeader
         tenant={tenant}
         navigation={biznes.navigation}
-        menu={menu}
         offer={offerMenu(index)}
+        partnerStatuses={partnerStatuses}
         hours={hours ? hoursSummary(hours) : null}
         contact={contact}
       />

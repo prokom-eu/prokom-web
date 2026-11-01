@@ -1,44 +1,28 @@
 'use client'
 
-import { usePathname } from 'next/navigation'
-import { type ReactNode, useEffect, useRef } from 'react'
+import { type ReactNode, useState } from 'react'
 
+import { BottomSheet } from '@/components/BottomSheet'
 import { ICON_BUTTON } from '@/components/ui/iconButton'
 
 /** Where `BiznesHeader` shows the desktop navigation instead (spec. §3.2, v20). */
 const DESKTOP_QUERY = '(min-width: 1080px)'
 
 /**
- * Full-screen menu below 1080 px (spec. §3.3) on a native modal `<dialog>`: the browser keeps
- * focus inside, closes it on Esc and returns focus to the hamburger. It also closes when a
- * link inside is followed (route change), so it never stays open over the next page.
+ * Menu below 1080 px as a sheet from the bottom (MOBILE-APLIKACJA §1, board `App-Menu`) on the
+ * shared `BottomSheet`: a native modal `<dialog>` (focus stays inside, Esc, focus back to the
+ * hamburger), closed by the backdrop, ×, a pull down, the browser's „back”, a followed link and
+ * when the desktop navigation takes over (a rotated tablet).
  */
 export function MobileMenu({ children }: { children: ReactNode }) {
-  const dialog = useRef<HTMLDialogElement>(null)
-  const pathname = usePathname()
-
-  useEffect(() => {
-    dialog.current?.close()
-  }, [pathname])
-
-  // Past 1080 px the desktop navigation takes over and this menu is hidden
-  // (`min-[1080px]:hidden`); an open modal would leave the page inert with no way out on a
-  // touch screen (tablet rotated).
-  useEffect(() => {
-    const desktop = window.matchMedia(DESKTOP_QUERY)
-    const onChange = () => {
-      if (desktop.matches) dialog.current?.close()
-    }
-    desktop.addEventListener('change', onChange)
-    return () => desktop.removeEventListener('change', onChange)
-  }, [])
-
+  const [open, setOpen] = useState(false)
   return (
     <>
       <button
         type="button"
         aria-haspopup="dialog"
-        onClick={() => dialog.current?.showModal()}
+        aria-expanded={open}
+        onClick={() => setOpen(true)}
         className={ICON_BUTTON}
       >
         <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
@@ -52,32 +36,16 @@ export function MobileMenu({ children }: { children: ReactNode }) {
         </svg>
         <span className="sr-only">Menu</span>
       </button>
-      <dialog
-        ref={dialog}
-        aria-label="Menu"
-        // A link to the current page does not change the route: close on any followed link.
-        onClick={(event) => {
-          if ((event.target as Element).closest('a')) dialog.current?.close()
-        }}
-        className="fixed inset-0 m-0 h-dvh max-h-none w-full max-w-none overflow-y-auto bg-surface p-0 text-ink backdrop:bg-surface-dark/60"
+      <BottomSheet
+        open={open}
+        onClose={() => setOpen(false)}
+        title="Menu"
+        desktopQuery={DESKTOP_QUERY}
+        dragToClose
+        closeOnBack
       >
-        <div className="sticky top-0 z-10 flex min-h-[66px] items-center justify-between border-b border-border bg-surface px-4">
-          <span className="font-display text-lg font-extrabold">Menu</span>
-          <button type="button" onClick={() => dialog.current?.close()} className={ICON_BUTTON}>
-            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
-              <path
-                d="M6 6l12 12M18 6L6 18"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-              />
-            </svg>
-            <span className="sr-only">Zamknij menu</span>
-          </button>
-        </div>
-        <div className="px-4 pb-8 pt-2">{children}</div>
-      </dialog>
+        {children}
+      </BottomSheet>
     </>
   )
 }
