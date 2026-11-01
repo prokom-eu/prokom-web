@@ -9,7 +9,8 @@ import { categoryHref } from '@/lib/catalog/category'
 import { getBundles, getCatalogIndex, getProductView } from '@/lib/catalog/data'
 import { CATALOG_PATH, catalogHref, parseCatalogState, updateState } from '@/lib/catalog/filters'
 import { productTitle, uniqueVersions, variantKey, variantSlug } from '@/lib/catalog/productName'
-import { familyProducts, suggestedProducts } from '@/lib/catalog/related'
+import { productGallery } from '@/lib/catalog/product'
+import { familyProducts, recommendedProducts, suggestedProducts } from '@/lib/catalog/related'
 import { getEnv } from '@/lib/env'
 import { pickSource } from '@/lib/media/sizes'
 import { ogImages } from '@/lib/pages/metadata'
@@ -146,12 +147,15 @@ export default async function ProductPage({ params }: Props) {
 
   const tiles = bentoTiles(product.specs)
   const variantNames = uniqueVersions(product.variants.map((variant) => variant.name))
-  const suggestions = suggestedProducts(
-    index,
-    prepareSearch(index),
-    product.slug,
-    product.suggestions,
-  )
+  // „Do tego zwykle dobierają”: `polecane` of K4, then „pasuje do”; a card without them keeps
+  // the phrase matching of K31b (K36 §13 W14).
+  const recommended = recommendedProducts(index, product.slug, product.recommended)
+  const suggestions =
+    recommended.length > 0
+      ? { cards: recommended, chips: [] }
+      : suggestedProducts(index, prepareSearch(index), product.slug, product.suggestions)
+  // Colours (K32 §9): their pictures open the gallery, then the card's own photos.
+  const gallery = productGallery(product.colors, product.images)
   const family = familyProducts(index, product.slug)
   // „W zestawach” (spec. §6.2 pkt 7, K3c): up to 3 bundles listing this card.
   const products = new Map(index.products.map((item) => [item.slug, item]))
@@ -177,7 +181,7 @@ export default async function ProductPage({ params }: Props) {
   ]
 
   const crumbs: Crumb[] = [
-    { name: 'Strona główna', href: '/' },
+    { name: 'Start', href: '/' },
     { name: 'Oferta', href: CATALOG_PATH },
     ...(category && categoryLink ? [{ name: category.name, href: categoryLink }] : []),
     { name: product.heading, href: productHref(product.slug) },
@@ -214,6 +218,7 @@ export default async function ProductPage({ params }: Props) {
       name={product.name}
       config={product.configurator}
       variants={variantNames}
+      colors={product.colors.map((color) => color.name)}
     >
       {jsonLd.map((data, position) => (
         <script
@@ -232,6 +237,8 @@ export default async function ProductPage({ params }: Props) {
             categoryHref={categoryLink}
             phone={phone}
             videoTarget={video ? ID.video : null}
+            gallery={gallery.images}
+            colorSlides={gallery.colorSlides}
           />
         </div>
       </div>

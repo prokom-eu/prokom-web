@@ -2,7 +2,13 @@ import { describe, expect, it } from 'vitest'
 
 import { prepareSearch } from '../search'
 import type { CatalogIndex, IndexProduct } from './catalogIndex'
-import { FAMILY_LIMIT, familyProducts, suggestedProducts } from './related'
+import {
+  FAMILY_LIMIT,
+  familyProducts,
+  recommendedProducts,
+  SUGGESTION_LIMIT,
+  suggestedProducts,
+} from './related'
 
 const product = (slug: string, fields: Partial<IndexProduct> = {}): IndexProduct => ({
   slug,
@@ -125,5 +131,39 @@ describe('suggestedProducts', () => {
   it('never suggests the product itself', () => {
     const { cards } = suggestedProducts(catalog, prepared, 'szuflada', ['szuflada kasowa'])
     expect(cards).toEqual([])
+  })
+})
+
+describe('recommendedProducts (K4 `polecane`)', () => {
+  const catalog = index([
+    product('ergo', { fits: ['szuflada', 'papier'] }),
+    product('szuflada'),
+    product('skaner'),
+    product('papier'),
+  ])
+
+  it('cards from the panel with labels, once each, then „pasuje do” without repeats', () => {
+    const cards = recommendedProducts(catalog, 'ergo', [
+      { slug: 'skaner', label: 'Skaner kodów' },
+      { slug: 'szuflada', label: 'Szuflada' },
+      { slug: 'skaner', label: 'Znowu skaner' },
+      { slug: 'ergo', label: 'Ona sama' },
+      { slug: 'szkic', label: 'Nieopublikowana' },
+    ])
+    expect(cards.map(({ label, product: card }) => [card.slug, label])).toEqual([
+      ['skaner', 'Skaner kodów'],
+      ['szuflada', 'Szuflada'],
+      ['papier', null],
+    ])
+  })
+
+  it('nothing listed → empty (the page falls back to the phrases)', () => {
+    expect(recommendedProducts(catalog, 'ergo', [{ slug: 'szkic', label: 'X' }])).toEqual([])
+  })
+
+  it('at most one row and a half', () => {
+    const many = index([product('a'), ...Array.from({ length: 12 }, (_, i) => product(`p${i}`))])
+    const list = Array.from({ length: 12 }, (_, i) => ({ slug: `p${i}`, label: `P${i}` }))
+    expect(recommendedProducts(many, 'a', list)).toHaveLength(SUGGESTION_LIMIT)
   })
 })

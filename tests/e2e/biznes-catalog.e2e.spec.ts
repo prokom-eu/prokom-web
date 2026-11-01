@@ -23,13 +23,13 @@ async function clickUntilUrl(page: Page, click: () => Promise<void>, url: RegExp
 }
 
 test.describe('Biznes catalog /oferta', () => {
-  test('renders 12 of 433 positions on the server', async ({ page }) => {
+  test('renders 24 of 433 positions on the server', async ({ page }) => {
     await page.route('**/*.js', (route) => route.abort())
     const response = await page.goto(oferta())
     expect(response?.status()).toBe(200)
-    await expect(page.locator('h1')).toContainText('Wszystko dla firmy.')
+    await expect(page.locator('h1')).toHaveText('Cała oferta dla firm')
     await expect(count(page)).toHaveText('433 pozycje')
-    await expect(cards(page)).toHaveCount(12)
+    await expect(cards(page)).toHaveCount(24)
     // Without JavaScript „Pokaż kolejne” is a plain link to the next page (spec. §5.3).
     await expect(page.getByRole('link', { name: /Pokaż kolejne/ })).toHaveAttribute(
       'href',
@@ -105,7 +105,7 @@ test.describe('Biznes catalog /oferta', () => {
       /grupa=sprzedaz/,
     )
     await expect(count(page)).toHaveText('115 pozycji')
-    await page.getByRole('button', { name: 'A–Z' }).click()
+    await page.getByRole('combobox', { name: /Sortuj/ }).selectOption('az')
     await expect(page).toHaveURL(/sortuj=a-z/)
     // The list follows the URL a moment later: retry until it is sorted.
     await expect(async () => {
@@ -122,7 +122,7 @@ test.describe('Biznes catalog /oferta', () => {
     await expect(cards(page).first()).toContainText(/Terminal/i)
 
     await page.goto(oferta('?szukaj=zzzbrak'))
-    await expect(page.getByText('Nie mamy „zzzbrak” w katalogu')).toBeVisible()
+    await expect(page.getByRole('heading', { name: 'Nie znaleźliśmy „zzzbrak”' })).toBeVisible()
     await expect(page.getByRole('link', { name: 'Zapytaj o „zzzbrak”' })).toHaveAttribute(
       'href',
       '/zapytanie?fraza=zzzbrak',
@@ -144,15 +144,15 @@ test.describe('Biznes catalog /oferta', () => {
     expect(top.some((name) => /Online/.test(name))).toBe(true)
   })
 
-  test('„Pokaż kolejne” adds 12, writes ?strona=2 and moves focus to the first new card', async ({
+  test('„Pokaż kolejne” adds 24, writes ?strona=2 and moves focus to the first new card', async ({
     page,
   }) => {
     await page.goto(oferta())
     const more = page.getByRole('link', { name: /Pokaż kolejne/ })
     await clickUntilUrl(page, () => more.click(), /strona=2/)
-    await expect(cards(page)).toHaveCount(24)
-    await expect(cards(page).nth(12).locator('h3 a')).toBeFocused()
-    await expect(page.getByText('Widzisz 24 z 433')).toBeVisible()
+    await expect(cards(page)).toHaveCount(48)
+    await expect(cards(page).nth(24).locator('h3 a')).toBeFocused()
+    await expect(page.getByText('Widzisz 48 z 433')).toBeVisible()
   })
 
   test('„+ Do zapytania” on a card switches, shows the toast and counts', async ({ page }) => {
@@ -189,13 +189,14 @@ test.describe('Biznes catalog /oferta', () => {
       'href',
       /\/oferta\?strona=2$/,
     )
-    await expect(cards(page)).toHaveCount(24)
+    // Pages are cumulative: page 2 lists the first 2 × 24.
+    await expect(cards(page)).toHaveCount(48)
 
-    // Past the end: the same list as the last page, so the canonical points there.
+    // Past the end: the same list as the last page (433 positions, 24 per page).
     await page.goto(oferta('?strona=999'))
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
       'href',
-      /\/oferta\?strona=37$/,
+      /\/oferta\?strona=19$/,
     )
   })
 
@@ -215,31 +216,21 @@ test.describe('Biznes catalog /oferta', () => {
     })
   }
 
-  test('promo cards: the wizard after the 5th card, GoPOS and InsERT after the 11th (B5b)', async ({
-    page,
-  }) => {
+  test('„Polecane”: the first rows take turns between departments (K36 §10)', async ({ page }) => {
     await page.goto(oferta())
-    const items = page.locator('ul[data-catalog-grid] > li')
-    await expect(items.nth(5)).toContainText('Nie wiesz, co wybrać?')
-    await expect(items.nth(5).getByRole('link', { name: 'Dobierz w 60 sekund' })).toHaveAttribute(
+    const names = await cards(page).locator('h3').allTextContents()
+    expect(names.slice(0, 4)).toEqual([
+      'Posnet Ergo Online',
+      'Elzab K10 Online',
+      'Sunmi D3 PRO',
+      'Lenovo ThinkBook 14 G8 / G9',
+    ])
+    // No promo cards between the products (v150).
+    await expect(page.locator('ul[data-catalog-grid] > li')).toHaveCount(24)
+    await expect(page.getByRole('link', { name: 'Opisz, czego potrzebujesz' })).toHaveAttribute(
       'href',
-      '/kreator',
+      '/zapytanie',
     )
-    await expect(items.nth(12).getByRole('link', { name: /Poznaj GoPOS/ })).toHaveAttribute(
-      'href',
-      '/gopos',
-    )
-    await expect(items.nth(12).getByRole('link', { name: /Który Subiekt/ })).toHaveAttribute(
-      'href',
-      '/insert',
-    )
-    // Statuses of K4-FINAL §1 (K4a-2 seed): GoPOS and InsERT are authorized partners.
-    await expect(items.nth(12).getByText('Autoryzowany partner', { exact: true })).toHaveCount(2)
-
-    // A search shows only what was asked for.
-    await page.goto(oferta('?szukaj=kasa'))
-    await expect(cards(page).first()).toBeVisible()
-    await expect(page.getByRole('link', { name: 'Dobierz w 60 sekund' })).toHaveCount(0)
   })
 
   test('the list view is a switch in the URL and survives a refresh (B5b)', async ({ page }) => {
@@ -261,19 +252,6 @@ test.describe('Biznes catalog /oferta', () => {
     await expect(page.getByRole('button', { name: /^Dodaj do zapytania:/ })).toHaveCount(3)
   })
 
-  test('„Jedna lista, jeden formularz” under the list, no call-back time without the panel', async ({
-    page,
-  }) => {
-    await page.goto(oferta())
-    const how = page.getByRole('region', {
-      name: 'Jedna lista, jeden formularz, wycena na piśmie.',
-    })
-    await expect(how.getByRole('listitem')).toHaveCount(3)
-    // The seed sets no call-back promise ([SZEF]): the neutral step 3, no „60 minut”.
-    await expect(how).toContainText('Oddzwaniamy z wyceną')
-    await expect(how).not.toContainText('60 minut')
-  })
-
   test.describe('phone (360 px)', () => {
     test.use({ viewport: { width: 360, height: 740 } })
 
@@ -293,10 +271,10 @@ test.describe('Biznes catalog /oferta', () => {
       }).toPass()
 
       // A choice applies at once; the button says how many it shows and closes the sheet.
-      const uslugi = sheet.getByRole('radio', { name: /^Usługi/ })
+      const uslugi = sheet.getByRole('button', { name: /^Usługi/ })
       await uslugi.click()
       await expect(page).toHaveURL(/rodzaj=uslugi/)
-      await expect(uslugi).toBeChecked()
+      await expect(uslugi).toHaveAttribute('aria-pressed', 'true')
       await sheet.getByRole('button', { name: 'Pokaż 21 pozycji' }).click()
       await expect(sheet).toBeHidden()
       await expect(count(page)).toHaveText('21 pozycji')
@@ -304,7 +282,7 @@ test.describe('Biznes catalog /oferta', () => {
 
       // „Wyczyść” inside the sheet disappears with the filters: focus stays in the sheet.
       await page.getByRole('button', { name: 'Filtry (1)', exact: true }).click()
-      await sheet.getByRole('button', { name: 'Wyczyść (1)' }).click()
+      await sheet.getByRole('button', { name: 'Wyczyść', exact: true }).click()
       await expect(page).not.toHaveURL(/rodzaj=/)
       await expect(sheet.getByText('Filtry', { exact: true })).toBeFocused()
       await page.keyboard.press('Escape')

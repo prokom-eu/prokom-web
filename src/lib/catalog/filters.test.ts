@@ -28,7 +28,7 @@ describe('parseCatalogState', () => {
     expect(
       parse(
         'szukaj=kasa&rodzaj=urzadzenia&grupa=sprzedaz&kategoria=kasy-fiskalne,drukarki-fiskalne' +
-          '&marka=posnet&branza=gastronomia&autoryzacja=1&nowosci=1&sortuj=a-z&widok=lista&strona=2',
+          '&marka=posnet&branza=gastronomia&nowosci=1&sortuj=a-z&widok=lista&strona=2',
       ),
     ).toEqual({
       query: 'kasa',
@@ -37,7 +37,6 @@ describe('parseCatalogState', () => {
       categories: ['kasy-fiskalne', 'drukarki-fiskalne'],
       brands: ['posnet'],
       industries: ['gastronomia'],
-      authorized: true,
       isNew: true,
       sort: 'az',
       view: 'list',
@@ -129,11 +128,18 @@ describe('updateState', () => {
 })
 
 describe('runCatalog on the seed package', () => {
-  it('lists all 225 products by popularity without filters', () => {
+  it('lists all 225 products without filters, the departments taking turns by rows of 3', () => {
     const { results } = run({})
     expect(results).toHaveLength(225)
-    const popularity = results.map((product) => product.popularity)
-    expect(popularity).toEqual([...popularity].sort((a, b) => b - a))
+    const groups = results.slice(0, 6).map((product) => product.group)
+    expect(groups.slice(0, 3)).toEqual([groups[0], groups[0], groups[0]])
+    expect(groups[3]).not.toBe(groups[0])
+  })
+
+  it('with a filter, „Polecane” keeps the menu order of the departments', () => {
+    const groups = run({ kind: 'device' }).results.map((product) => product.group)
+    const blocks = groups.filter((group, i) => group !== groups[i - 1])
+    expect(blocks).toEqual([...new Set(groups)])
   })
 
   it('counts kinds and groups of katalog v2 (ZMIANY-katalog-v2 §1)', () => {
@@ -177,15 +183,23 @@ describe('runCatalog on the seed package', () => {
     expect(facets.kinds.service).toBe(run({ brands: ['posnet'], kind: 'service' }).results.length)
   })
 
-  it('filters by industry, authorization and news', () => {
+  it('filters by industry and news', () => {
     const gastro = run({ industries: ['gastronomia'] }).results
     expect(gastro.length).toBeGreaterThan(0)
     expect(gastro.every((p) => p.industries.includes('gastronomia'))).toBe(true)
-    expect(run({ authorized: true }).results.every((p) => p.authorized)).toBe(true)
     const news = run({ isNew: true })
     expect(news.results.every((p) => p.isNew)).toBe(true)
     expect(news.facets.isNew).toBe(news.results.length)
-    expect(news.facets.authorized).toBe(run({ isNew: true, authorized: true }).results.length)
+  })
+
+  it('„Marka A–Z”: by brand name, own services last', () => {
+    const names = new Map(index.brands.map((brand) => [brand.slug, brand.name]))
+    const brands = run({ sort: 'brand', page: 99 }).results.map((p) =>
+      p.brand && p.brand !== 'pro-kom' ? (names.get(p.brand) ?? '') : null,
+    )
+    const named = brands.filter((name): name is string => name !== null)
+    expect(named).toEqual([...named].sort((a, b) => a.localeCompare(b, 'pl')))
+    expect(brands.slice(named.length).every((name) => name === null)).toBe(true)
   })
 
   it('counts group tiles as their click shows them: without the categories it clears', () => {
@@ -220,11 +234,11 @@ describe('runCatalog on the seed package', () => {
     expect(news.slice(firstOld).some((p) => p.isNew)).toBe(false)
   })
 
-  it('shows pages cumulatively: page N = the first N × 12', () => {
+  it('shows pages cumulatively: page N = the first N × 24', () => {
     expect(run({}).visible).toHaveLength(CATALOG_PAGE_SIZE)
     expect(run({ page: 2 }).visible).toHaveLength(2 * CATALOG_PAGE_SIZE)
     expect(run({ page: 99 }).visible).toHaveLength(225)
-    expect(run({ page: 2 }).visible).toEqual(run({}).results.slice(0, 24))
+    expect(run({ page: 2 }).visible).toEqual(run({}).results.slice(0, 48))
   })
 })
 
@@ -238,7 +252,6 @@ describe('activeFilters', () => {
       categories: ['kasy-fiskalne', 'drukarki-fiskalne'],
       brands: ['posnet'],
       industries: ['gastronomia'],
-      authorized: true,
       isNew: true,
       page: 2,
     }
@@ -251,7 +264,6 @@ describe('activeFilters', () => {
       'Drukarki fiskalne',
       'Posnet',
       'Gastronomia',
-      'Autoryzacja PRO-KOM',
       'Nowości',
     ])
     const kasy = chips.find((chip) => chip.label === 'Kasy fiskalne')!
@@ -302,9 +314,9 @@ describe('catalogSeo (ADR-012 §2.2)', () => {
   })
 
   it('points a page past the end to the last page (no duplicate of it in the index)', () => {
-    // 67 positions: pages 1–6.
-    expect(catalogSeo({ ...DEFAULT_STATE, page: 6 }, 67).canonical).toBe('/oferta?strona=6')
-    expect(catalogSeo({ ...DEFAULT_STATE, page: 999 }, 67).canonical).toBe('/oferta?strona=6')
+    // 67 positions: pages 1–3.
+    expect(catalogSeo({ ...DEFAULT_STATE, page: 3 }, 67).canonical).toBe('/oferta?strona=3')
+    expect(catalogSeo({ ...DEFAULT_STATE, page: 999 }, 67).canonical).toBe('/oferta?strona=3')
     expect(catalogSeo({ ...DEFAULT_STATE, page: 3 }, 5).canonical).toBe('/oferta')
   })
 

@@ -9,23 +9,29 @@ const CHIP =
 
 /**
  * Subcategories with their own page (K3-KATALOG §9, `k31/screens/Web-Kategoria-1440`): links,
- * „Wszystkie” to the category; the current page is marked (`aria-current`).
+ * „Wszystkie” to the category; the current page is marked (`aria-current`). With
+ * `withCurrent`: the categories of the department instead (K36 §4), this one first.
  */
 export function SubcategoryNav({
   category,
   items,
   current,
+  label = 'Podkategorie',
+  withCurrent = false,
 }: {
   category: Item
   items: Item[]
   /** Address of the page shown (the category or one subcategory). */
   current: string
+  label?: string
+  /** The category under its own name (sibling categories), not as „Wszystkie”. */
+  withCurrent?: boolean
 }) {
   if (items.length === 0) return null
   return (
-    <nav aria-label="Podkategorie" className="mb-8">
+    <nav aria-label={label} className="mb-8">
       <ul className="flex flex-wrap gap-2">
-        {[{ ...category, name: 'Wszystkie' }, ...items].map((item) => {
+        {[withCurrent ? category : { ...category, name: 'Wszystkie' }, ...items].map((item) => {
           const on = item.href === current
           return (
             <li key={item.href}>

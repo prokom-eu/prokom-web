@@ -406,18 +406,21 @@ describe('buildCatalogIndex group showcase (home page offer cards)', () => {
 })
 
 describe('searchIndex (`GET /api/catalog-index`, K31c)', () => {
-  it('leaves out what only server-rendered cards use: the „film” badge', () => {
+  it('leaves out what only server-rendered views use: the „film” badge, the „Polecane” order', () => {
     const index = {
       products: [
-        { slug: 'a', video: true, name: 'A' },
+        { slug: 'a', video: true, order: 0, name: 'A' },
         { slug: 'b', name: 'B' },
       ],
+      groups: [{ slug: 'g', name: 'G', top: ['a'] }],
       brands: [],
     } as unknown as CatalogIndex
-    expect(searchIndex(index).products).toEqual([
+    const result = searchIndex(index)
+    expect(result.products).toEqual([
       { slug: 'a', name: 'A' },
       { slug: 'b', name: 'B' },
     ])
+    expect(result.groups).toEqual([{ slug: 'g', name: 'G' }])
   })
 })
 

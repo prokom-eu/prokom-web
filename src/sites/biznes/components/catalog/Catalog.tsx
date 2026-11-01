@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 
@@ -17,7 +18,7 @@ import {
   updateState,
   type CatalogState,
 } from '@/lib/catalog/filters'
-import { catalogSlots, emptySuggestions, PARTNERS } from '@/lib/catalog/listing'
+import { emptySuggestions } from '@/lib/catalog/listing'
 import { primeCatalogIndex } from '@/lib/catalog/useCatalogIndex'
 import { plural } from '@/lib/plural'
 import { prepareSearch } from '@/lib/search'
@@ -27,7 +28,6 @@ import { CatalogFilters } from './CatalogFilters'
 import { EmptyResult } from './EmptyResult'
 import { FilterSheet } from './FilterSheet'
 import { ProductCard } from './ProductCard'
-import { PartnersCard, WizardCard } from './PromoCards'
 
 /** The URL follows the search box after a short pause, not on every key. */
 const QUERY_DELAY_MS = 300
@@ -64,6 +64,8 @@ export function Catalog({ index }: { index: CatalogIndex }) {
     () => (typing ? updateState(state, { query: draft.trim() }) : state),
     [typing, state, draft],
   )
+  // Rows of 3 at every width (the server's order): re-ordering after hydration on a phone moved
+  // every card (layout shift) — the 2-column grid there keeps the departments in turns of 3.
   const { results, visible, facets } = useMemo(
     () => runCatalog(index, search, view),
     [index, search, view],
@@ -130,10 +132,6 @@ export function Catalog({ index }: { index: CatalogIndex }) {
       heading={!inSheet}
     />
   )
-  const partners = PARTNERS.map((partner) => partner.slug).filter((slug) =>
-    index.brands.some((brand) => brand.slug === slug),
-  )
-  const slots = catalogSlots(visible, view, partners)
   const list = view.view === 'list'
 
   const more = results.length - visible.length
@@ -161,7 +159,7 @@ export function Catalog({ index }: { index: CatalogIndex }) {
               type="search"
               value={draft}
               onChange={(event) => setDraft(event.target.value)}
-              placeholder="Szukaj: kasa na baterie, program do faktur, terminal, laptop…"
+              placeholder="Szukaj w ofercie: nazwa, marka albo potrzeba — np. kasa mobilna, Wi-Fi dla gości, Subiekt"
               autoComplete="off"
               enterKeyHint="search"
               className="h-14 w-full rounded-2xl border border-border-input bg-card pl-14 pr-4 text-base text-ink shadow-[0_18px_40px_-30px_var(--glow)] placeholder:text-ink-3 sm:h-[66px] sm:text-lg"
@@ -189,7 +187,7 @@ export function Catalog({ index }: { index: CatalogIndex }) {
 
         <ul className="-mx-4 mt-6 flex snap-x scroll-px-4 gap-2.5 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:px-0 lg:grid-cols-6">
           {[
-            { slug: null, name: 'Wszystko', count: facets.groups.all ?? 0, group: null },
+            { slug: null, name: 'Wszystkie działy', count: facets.groups.all ?? 0, group: null },
             ...index.groups.map((group) => ({
               slug: group.slug,
               name: group.name,
@@ -277,6 +275,7 @@ export function Catalog({ index }: { index: CatalogIndex }) {
               >
                 <b className="mr-1 font-display text-[1.375rem] text-ink">{results.length}</b>{' '}
                 {plural(results.length, ['pozycja', 'pozycje', 'pozycji'])}
+                {view.query && <span className="ml-1.5">dla „{view.query}”</span>}
               </p>
               {chips.length > 0 && (
                 <ul className="flex flex-wrap items-center gap-1.5">
@@ -313,28 +312,23 @@ export function Catalog({ index }: { index: CatalogIndex }) {
                 </ul>
               )}
             </div>
-            <div
-              role="group"
-              aria-label="Sortowanie"
-              className="inline-flex gap-0.5 rounded-[13px] bg-surface-2 p-1"
-            >
-              {SORTS.map((sort) => (
-                <button
-                  key={sort.value}
-                  type="button"
-                  aria-pressed={view.sort === sort.value}
-                  onClick={() => change({ sort: sort.value })}
-                  className={cx(
-                    'min-h-9 rounded-[10px] px-3 text-[0.82rem] font-extrabold',
-                    view.sort === sort.value
-                      ? 'bg-card text-ink shadow-sm'
-                      : 'text-ink-2 hover:text-ink',
-                  )}
-                >
-                  {sort.label}
-                </button>
-              ))}
-            </div>
+            <label className="ml-auto inline-flex min-h-10 items-center gap-2 rounded-[13px] bg-surface-2 pl-3 pr-1 text-[0.82rem] font-bold text-ink-2">
+              Sortuj:
+              <select
+                value={view.sort}
+                onChange={(event) =>
+                  change({ sort: SORTS.find((s) => s.value === event.target.value)!.value })
+                }
+                className="min-h-9 rounded-[10px] bg-card px-2 font-extrabold text-ink shadow-sm"
+              >
+                {SORTS.map((sort) => (
+                  <option key={sort.value} value={sort.value}>
+                    {/* With a phrase „Polecane” keeps the search's order (K33 §4). */}
+                    {sort.value === 'popular' && view.query ? 'Najtrafniejsze' : sort.label}
+                  </option>
+                ))}
+              </select>
+            </label>
             <div
               role="group"
               aria-label="Widok"
@@ -390,37 +384,20 @@ export function Catalog({ index }: { index: CatalogIndex }) {
               data-catalog-grid
               className={cx(
                 'grid gap-2.5 sm:gap-3.5',
-                list ? 'grid-cols-1' : 'grid-cols-2 xl:grid-cols-3',
+                // 3 per row above 1100 px, 2 below (K36 §10).
+                list ? 'grid-cols-1' : 'grid-cols-2 min-[1101px]:grid-cols-3',
               )}
             >
-              {slots.map((slot) =>
-                slot.type === 'product' ? (
-                  <li key={slot.product.slug} className="flex">
-                    <ProductCard
-                      product={slot.product}
-                      index={index}
-                      position={slot.position}
-                      layout={view.view}
-                    />
-                  </li>
-                ) : slot.type === 'wizard' ? (
-                  <li key="wizard" className={cx('flex', list ? '' : 'max-sm:col-span-2')}>
-                    <WizardCard index={index} />
-                  </li>
-                ) : (
-                  <li
-                    key="partners"
-                    className={cx(
-                      'flex',
-                      // Two partners take two columns; one fits a single column from 1280 px.
-                      !list &&
-                        (slot.partners.length > 1 ? 'col-span-2' : 'col-span-2 xl:col-span-1'),
-                    )}
-                  >
-                    <PartnersCard partners={slot.partners} index={index} />
-                  </li>
-                ),
-              )}
+              {visible.map((product, position) => (
+                <li key={product.slug} className="flex">
+                  <ProductCard
+                    product={product}
+                    index={index}
+                    position={position}
+                    layout={view.view}
+                  />
+                </li>
+              ))}
             </ul>
           )}
 
@@ -459,6 +436,26 @@ export function Catalog({ index }: { index: CatalogIndex }) {
               </a>
             </div>
           )}
+
+          <div className="mt-8 flex flex-col gap-4 rounded-[22px] bg-surface-2 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+            <div>
+              <p className="font-display text-lg font-extrabold text-ink">
+                Nie widzisz tego, czego szukasz?
+              </p>
+              <p className="mt-1 text-sm leading-relaxed text-ink-2">
+                Dostarczamy też sprzęt i programy spoza listy — sprawdzimy u dystrybutorów i
+                odezwiemy się z ofertą.
+              </p>
+            </div>
+            <Link
+              href={
+                view.query ? `/zapytanie?fraza=${encodeURIComponent(view.query)}` : '/zapytanie'
+              }
+              className="inline-flex min-h-11 shrink-0 items-center justify-center rounded-xl bg-accent-text px-5 font-bold text-accent-ink hover:bg-ink hover:text-surface"
+            >
+              Opisz, czego potrzebujesz
+            </Link>
+          </div>
         </section>
       </div>
     </>

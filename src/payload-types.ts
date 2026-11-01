@@ -358,7 +358,7 @@ export interface SiteSetting {
        */
       columnLimit?: number | null;
       /**
-       * Np. GoPOS „partner” w Oprogramowaniu, Opieka IT „abonament”.
+       * Np. GoPOS „partner” w Oprogramowaniu. Bez cen i bez „abonament”.
        */
       highlights?:
         | {

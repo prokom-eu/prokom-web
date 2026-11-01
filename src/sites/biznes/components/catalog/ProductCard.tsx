@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { cx } from '@/components/ui/cx'
 import { cardIcon, productBadges, productHref, type BadgeTone } from '@/lib/catalog/card'
 import type { CatalogIndex, IndexProduct } from '@/lib/catalog/catalogIndex'
+import { serviceTile } from '@/lib/catalog/purchase'
 
 import { AddToCartButton } from '../AddToCartButton'
 import { ProductStage, STAGE_SHADOW, StageFallback } from '../ProductStage'
@@ -79,7 +80,7 @@ export function ProductCard({
             )}
           />
         ) : (
-          <StageFallback icon={cardIcon(product, index)} />
+          <StageFallback icon={cardIcon(product, index)} service={serviceTile(product)} />
         )}
         {(badges.length > 0 || film) && (
           // One row: badges on the left, „film” at the right end — never on top of each other.

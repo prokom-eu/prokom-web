@@ -107,7 +107,8 @@ export const biznesNavigation: Field = {
       label: 'Wyróżnione na górze kolumny',
       type: 'array',
       maxRows: 10,
-      admin: { description: 'Np. GoPOS „partner” w Oprogramowaniu, Opieka IT „abonament”.' },
+      // K4-FINAL §1: no prices („0 zł”) and no „abonament” at Opieka IT.
+      admin: { description: 'Np. GoPOS „partner” w Oprogramowaniu. Bez cen i bez „abonament”.' },
       fields: [
         {
           type: 'row',

@@ -1,6 +1,12 @@
 import { describe, expect, it } from 'vitest'
 
-import { K4_COLUMN_LIMIT, menuData, upgradedColumnLimit, upgradedMenu } from './navigation'
+import {
+  K4_COLUMN_LIMIT,
+  menuData,
+  upgradedColumnLimit,
+  upgradedHighlights,
+  upgradedMenu,
+} from './navigation'
 
 const legacy = [
   { id: 'a', type: 'offer' as const, label: 'Oferta', href: '/oferta' },
@@ -51,5 +57,27 @@ describe('upgradedColumnLimit (K4a-1b-2)', () => {
     expect(upgradedColumnLimit(8)).toBeNull()
     expect(upgradedColumnLimit(K4_COLUMN_LIMIT)).toBeNull()
     expect(upgradedColumnLimit(null)).toBeNull()
+  })
+})
+
+describe('upgradedHighlights (K4-FINAL §1)', () => {
+  const old = [
+    { id: '1', group: 4, label: 'GoPOS', href: '/gopos', badge: 'partner' },
+    { id: '2', group: 5, label: 'Opieka IT', href: '/opieka-it', badge: 'abonament' },
+    { id: '3', group: 5, label: 'Przegląd IT', href: '/opieka-it#przeglad', badge: '0 zł' },
+  ]
+
+  it('rewrites only the rows the earlier seed wrote', () => {
+    expect(upgradedHighlights(old)).toEqual([
+      old[0],
+      { ...old[1], badge: null },
+      { ...old[2], label: 'Bezpłatny przegląd IT', badge: null },
+    ])
+  })
+
+  it('leaves the panel alone: nothing to change → null', () => {
+    expect(upgradedHighlights([old[0]!])).toBeNull()
+    expect(upgradedHighlights([{ ...old[2]!, badge: 'nowość' }])).toBeNull()
+    expect(upgradedHighlights(null)).toBeNull()
   })
 })

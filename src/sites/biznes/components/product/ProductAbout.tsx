@@ -2,10 +2,7 @@ import { RichText } from '@payloadcms/richtext-lexical/react'
 
 import { Icon } from '@/components/ui/Icon'
 import type { ProductView } from '@/lib/catalog/product'
-
-/** „Co robimy przy zakupie” without the card's own list — the board's sentence for every card. */
-const PURCHASE_DEFAULT =
-  'Dobór wersji, konfiguracja, przeniesienie danych, szkolenie i serwis — w jednej ofercie.'
+import { purchaseSentence } from '@/lib/catalog/purchase'
 
 const LABEL = 'text-xs font-extrabold tracking-[0.1em] text-ink-2 uppercase'
 
@@ -15,8 +12,15 @@ const LABEL = 'text-xs font-extrabold tracking-[0.1em] text-ink-2 uppercase'
  * card's „W cenie” when set — replaces „W PRO-KOM w cenie” of stage 1).
  */
 export function ProductAbout({ id, product }: { id: string; product: ProductView }) {
+  // Without the card's own list: the board's sentence for its category (K36 §13).
   const purchase =
-    product.included.length > 0 ? `${product.included.join(', ')}.` : PURCHASE_DEFAULT
+    product.included.length > 0
+      ? `${product.included.join(', ')}.`
+      : purchaseSentence({
+          category: product.category?.slug ?? null,
+          subcategory: product.subcategory,
+          brand: product.brand?.slug ?? null,
+        })
   return (
     <section
       id={id}

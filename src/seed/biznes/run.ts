@@ -109,7 +109,7 @@ import { seedBiznesGopos } from './gopos'
 import { seedBiznesInsert } from './insert'
 import { seedBiznesOpiekaIt } from './opiekaIt'
 import { seedBiznesHome } from './home'
-import { navigationData, upgradedColumnLimit, upgradedMenu } from './navigation'
+import { navigationData, upgradedColumnLimit, upgradedHighlights, upgradedMenu } from './navigation'
 
 /** Files of the design package, relative to the repo root (where `pnpm seed` runs). */
 const MEDIA_DIR = path.join('docs', 'design', 'prokombiznes', 'boards', 'media')
@@ -1037,15 +1037,19 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
       ...local,
     })
     const menu = upgradedMenu(current.biznes?.navigation?.menu)
+    // K4de: highlights with „0 zł” / „abonament” written by an earlier seed (K4-FINAL §1).
+    const highlights = upgradedHighlights(current.biznes?.navigation?.highlights)
     // K4a-1b-2: the K4 menu shows every category of a department (v147c).
     const columnLimit = upgradedColumnLimit(current.biznes?.navigation?.columnLimit)
     count('site-settings menu K4', menu ? 'updated' : false)
     count('site-settings menu K4 (column)', columnLimit ? 'updated' : false)
-    if ((menu || columnLimit) && current.biznes?.navigation) {
+    count('site-settings menu highlights K4', highlights ? 'updated' : false)
+    if ((menu || columnLimit || highlights) && current.biznes?.navigation) {
       const navigation = {
         ...current.biznes.navigation,
         ...(menu && { menu }),
         ...(columnLimit && { columnLimit }),
+        ...(highlights && { highlights }),
       }
       await payload.update({
         collection: 'site-settings',

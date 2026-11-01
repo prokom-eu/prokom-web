@@ -94,6 +94,31 @@ export function upgradedMenu(current: readonly MenuItem[] | null | undefined): M
   return SEEDED_MENUS.some((seeded) => sameMenu(current, seeded)) ? menuData() : null
 }
 
+type Highlight = NonNullable<Navigation['highlights']>[number]
+
+/**
+ * Highlights an earlier seed wrote with words K4-FINAL §1 forbids: „Przegląd IT · 0 zł” and
+ * „Opieka IT · abonament”. Only these exact rows change — anything set in the panel stays.
+ * `null` when nothing changes.
+ */
+export function upgradedHighlights(
+  current: readonly Highlight[] | null | undefined,
+): Highlight[] | null {
+  let changed = false
+  const next = (current ?? []).map((item) => {
+    if (item.label === 'Przegląd IT' && item.badge === '0 zł') {
+      changed = true
+      return { ...item, label: 'Bezpłatny przegląd IT', badge: null }
+    }
+    if (item.label === 'Opieka IT' && item.badge === 'abonament') {
+      changed = true
+      return { ...item, badge: null }
+    }
+    return item
+  })
+  return changed ? next : null
+}
+
 /** Categories per mega menu column: the K4 menu (v147c) shows every category of a department. */
 export const K4_COLUMN_LIMIT = 10
 /** What the seed wrote before K4a-1b-2. */
@@ -127,8 +152,9 @@ export function navigationData(refs: Refs): Navigation {
     highlights: [
       { group: group('prog'), label: 'GoPOS', href: '/gopos', badge: 'partner' },
       { group: group('prog'), label: 'InsERT', href: '/insert', badge: 'partner' },
-      { group: group('usl'), label: 'Opieka IT', href: '/opieka-it', badge: 'abonament' },
-      { group: group('usl'), label: 'Przegląd IT', href: '/opieka-it#przeglad', badge: '0 zł' },
+      // K4-FINAL §1: no „abonament” at Opieka IT, never „przegląd 0 zł” — „bezpłatny przegląd”.
+      { group: group('usl'), label: 'Opieka IT', href: '/opieka-it' },
+      { group: group('usl'), label: 'Bezpłatny przegląd IT', href: '/opieka-it#przeglad' },
     ],
     cards: [
       {

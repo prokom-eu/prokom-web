@@ -21,9 +21,15 @@ test.describe('Biznes category page', () => {
     const grid = page.locator('[data-category-grid]')
     await expect(grid.getByRole('article')).toHaveCount(11)
     await expect(page.getByRole('status').filter({ hasText: 'pasuje' })).toHaveText('11 kas pasuje')
-    await expect(
-      grid.getByRole('heading', { name: /Nie wiesz, którą wybrać\?|dobierzemy/ }),
-    ).toBeVisible()
+    // K4: „Nie wiesz, co wybrać?” in the side panel asks with the category's name (K36 §13).
+    const panel = page.getByRole('complementary', { name: 'Filtry' })
+    await expect(panel.getByRole('link', { name: 'Zapytaj o dobór' })).toHaveAttribute(
+      'href',
+      /^\/zapytanie\?fraza=Dob%C3%B3r%3A%20Kasy%20fiskalne/,
+    )
+    await expect(page.getByRole('navigation', { name: 'Okruszki' })).toHaveText(
+      /^Start\s*\/\s*Oferta\s*\/\s*Kasy fiskalne$/,
+    )
 
     const scripts = await page.locator('script[type="application/ld+json"]').allTextContents()
     const data = scripts.map((text) => JSON.parse(text) as JsonLd)
@@ -31,7 +37,6 @@ test.describe('Biznes category page', () => {
     expect(crumbs?.itemListElement).toEqual([
       expect.objectContaining({ position: 1, item: site('biznes.localhost', '/') }),
       expect.objectContaining({ position: 2, item: site('biznes.localhost', '/oferta') }),
-      // The group link is a filtered catalog view (`noindex`): only in the visible breadcrumbs.
       expect.objectContaining({ position: 3, item: site('biznes.localhost', KASY) }),
     ])
     expect(JSON.stringify(data)).not.toMatch(/offers|price/i)

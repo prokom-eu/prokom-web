@@ -36,7 +36,8 @@ test.describe('Biznes category series filter (K31c)', () => {
     await page.locator('label', { hasText: /^ThinkBook\s*\d+$/ }).click()
     await expect(page).toHaveURL(biznes(`${LAPTOPS}?seria=thinkbook`))
     await expect(page.getByRole('complementary', { name: 'Filtry' })).toBeVisible()
-    await expect(page.getByRole('link', { name: 'Dobierz w 3 pytaniach' })).toHaveAttribute(
+    // K4: „Dobierz laptop” — only laptops and computers lead to the salon (K36 §13).
+    await expect(page.getByRole('link', { name: 'Dobierz laptop' }).first()).toHaveAttribute(
       'href',
       /^\/marki\/(lenovo|dell)#dobor$/,
     )

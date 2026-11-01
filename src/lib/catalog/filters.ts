@@ -1,5 +1,6 @@
 import { searchProducts, type PreparedSearch } from '../search'
 import type { CatalogIndex, IndexProduct } from './catalogIndex'
+import { departmentRows, menuOrder, ROW_WIDE } from './order'
 
 /**
  * Filters of the catalog `/oferta` (spec. §5, §8.3): the state lives only in the URL, so a link
@@ -12,8 +13,8 @@ export const CATALOG_PATH = '/oferta'
 /** Page of all brands (K33 §6). */
 export const BRANDS_PATH = '/marki'
 
-/** „Pokaż kolejne” adds this many (spec. §5.3). */
-export const CATALOG_PAGE_SIZE = 12
+/** „Pokaż kolejne” adds this many (K33 §4: 24 — whole rows of 3 and of 2). */
+export const CATALOG_PAGE_SIZE = 24
 
 /**
  * The company's own services are listed under the PRO-KOM brand: not a manufacturer, so it is
@@ -26,7 +27,7 @@ export const OWN_BRAND_SLUG = 'pro-kom'
 const MAX_QUERY = 100
 
 export type CatalogKind = IndexProduct['kind']
-export type CatalogSort = 'popular' | 'new' | 'az'
+export type CatalogSort = 'popular' | 'new' | 'az' | 'brand'
 export type CatalogView = 'grid' | 'list'
 
 export type CatalogState = {
@@ -36,7 +37,6 @@ export type CatalogState = {
   categories: string[]
   brands: string[]
   industries: string[]
-  authorized: boolean
   isNew: boolean
   sort: CatalogSort
   view: CatalogView
@@ -51,7 +51,6 @@ export const DEFAULT_STATE: CatalogState = {
   categories: [],
   brands: [],
   industries: [],
-  authorized: false,
   isNew: false,
   sort: 'popular',
   view: 'grid',
@@ -68,7 +67,8 @@ export const KINDS: readonly { value: CatalogKind; param: string; label: string 
 export const SORTS: readonly { value: CatalogSort; param: string; label: string }[] = [
   { value: 'popular', param: 'polecane', label: 'Polecane' },
   { value: 'new', param: 'nowosci', label: 'Nowości' },
-  { value: 'az', param: 'a-z', label: 'A–Z' },
+  { value: 'az', param: 'a-z', label: 'Nazwa A–Z' },
+  { value: 'brand', param: 'marka-a-z', label: 'Marka A–Z' },
 ]
 
 const VIEW_LIST_PARAM = 'lista'
@@ -81,7 +81,6 @@ const PARAM = {
   categories: 'kategoria',
   brands: 'marka',
   industries: 'branza',
-  authorized: 'autoryzacja',
   isNew: 'nowosci',
   sort: 'sortuj',
   view: 'widok',
@@ -133,7 +132,6 @@ export function parseCatalogState(
     categories: known(allValues(params, PARAM.categories), slugs(categories)),
     brands: known(allValues(params, PARAM.brands), slugs(index.brands)),
     industries: known(allValues(params, PARAM.industries), slugs(index.industries)),
-    authorized: firstValue(params, PARAM.authorized) === FLAG_ON,
     isNew: firstValue(params, PARAM.isNew) === FLAG_ON,
     sort: SORTS.find((sort) => sort.param === firstValue(params, PARAM.sort))?.value ?? 'popular',
     view: firstValue(params, PARAM.view) === VIEW_LIST_PARAM ? 'list' : 'grid',
@@ -153,7 +151,6 @@ export function catalogQueryString(state: CatalogState): string {
   set(PARAM.categories, state.categories.join(','))
   set(PARAM.brands, state.brands.join(','))
   set(PARAM.industries, state.industries.join(','))
-  set(PARAM.authorized, state.authorized && FLAG_ON)
   set(PARAM.isNew, state.isNew && FLAG_ON)
   set(PARAM.sort, state.sort !== 'popular' && SORTS.find((s) => s.value === state.sort)!.param)
   set(PARAM.view, state.view === 'list' && VIEW_LIST_PARAM)
@@ -175,7 +172,7 @@ export function updateState(state: CatalogState, change: Partial<CatalogState>):
   return { ...state, ...(keepsPage ? {} : { page: 1 }), ...change }
 }
 
-type Facet = 'kind' | 'group' | 'categories' | 'brands' | 'industries' | 'authorized' | 'isNew'
+type Facet = 'kind' | 'group' | 'categories' | 'brands' | 'industries' | 'isNew'
 
 /**
  * Does the product pass every filter but `skip` (for that filter's own counts)? Skipping the
@@ -191,7 +188,6 @@ function passes(product: IndexProduct, state: CatalogState, skip?: Facet): boole
     (skip === 'categories' || skip === 'group' || anyOf(state.categories, product.categories)) &&
     (skip === 'brands' || anyOf(state.brands, product.brand ? [product.brand] : [])) &&
     (skip === 'industries' || anyOf(state.industries, product.industries)) &&
-    (skip === 'authorized' || !state.authorized || product.authorized) &&
     (skip === 'isNew' || !state.isNew || product.isNew)
   )
 }
@@ -203,7 +199,6 @@ export type CatalogFacets = {
   categories: Record<string, number>
   brands: Record<string, number>
   industries: Record<string, number>
-  authorized: number
   isNew: number
 }
 
@@ -215,15 +210,51 @@ export type CatalogResult = {
   facets: CatalogFacets
 }
 
-function sortProducts(products: IndexProduct[], sort: CatalogSort): IndexProduct[] {
+/** Index data „Polecane” needs: departments with their tops and categories in menu order. */
+type OrderIndex = Pick<CatalogIndex, 'products' | 'groups' | 'categories' | 'brands'>
+
+/** Any filter on (not the phrase, sort or view): „Polecane” then follows the menu (K36 §10). */
+const filtered = (state: CatalogState) =>
+  Boolean(
+    state.kind ||
+    state.group ||
+    state.categories.length ||
+    state.brands.length ||
+    state.industries.length ||
+    state.isNew,
+  )
+
+function sortProducts(
+  products: IndexProduct[],
+  state: CatalogState,
+  index: OrderIndex,
+  perRow: number,
+): IndexProduct[] {
+  if (state.sort === 'popular') {
+    return filtered(state) ? menuOrder(products, index) : departmentRows(products, index, perRow)
+  }
   const byPopularity = (a: IndexProduct, b: IndexProduct) => b.popularity - a.popularity
-  const compare: Record<CatalogSort, (a: IndexProduct, b: IndexProduct) => number> = {
-    popular: byPopularity,
+  // „Marka A–Z” by the brand's name; own services (PRO-KOM) and cards without a brand last.
+  const names = new Map(index.brands.map((brand) => [brand.slug, brand.name]))
+  const brandName = (product: IndexProduct) =>
+    product.brand && product.brand !== OWN_BRAND_SLUG ? (names.get(product.brand) ?? null) : null
+  const compare: Record<
+    Exclude<CatalogSort, 'popular'>,
+    (a: IndexProduct, b: IndexProduct) => number
+  > = {
     new: (a, b) => Number(b.isNew) - Number(a.isNew) || byPopularity(a, b),
     az: (a, b) => a.name.localeCompare(b.name, 'pl'),
+    brand: (a, b) => {
+      const [x, y] = [brandName(a), brandName(b)]
+      return (
+        Number(x === null) - Number(y === null) ||
+        (x ?? '').localeCompare(y ?? '', 'pl') ||
+        a.name.localeCompare(b.name, 'pl')
+      )
+    },
   }
   // Stable sort: equal products keep the index order.
-  return [...products].sort(compare[sort])
+  return [...products].sort(compare[state.sort])
 }
 
 function count(
@@ -243,19 +274,22 @@ function count(
 }
 
 /**
- * Results and counts of a view. Facet counts follow spec. §8.3: each filter group is counted
+ * Results and counts of a view. `perRow`: cards in a grid row, for the department rows of the
+ * plain offer (the page uses rows of 3 at every width). Facet counts follow spec. §8.3: each filter group is counted
  * with every other filter applied but not itself, so a count says how many the click shows.
  */
 export function runCatalog(
-  index: Pick<CatalogIndex, 'products'>,
+  index: OrderIndex,
   search: PreparedSearch,
   state: CatalogState,
+  { perRow = ROW_WIDE }: { perRow?: number } = {},
 ): CatalogResult {
   const found = state.query ? searchProducts(search, state.query) : null
   const base = found ?? index.products
   const matching = base.filter((product) => passes(product, state))
   // With a phrase, „Polecane” keeps the search's own order (best match first).
-  const results = found && state.sort === 'popular' ? matching : sortProducts(matching, state.sort)
+  const results =
+    found && state.sort === 'popular' ? matching : sortProducts(matching, state, index, perRow)
   return {
     results,
     visible: results.slice(0, state.page * CATALOG_PAGE_SIZE),
@@ -274,7 +308,6 @@ export function runCatalog(
       categories: count(base, state, 'categories', (product) => product.categories),
       brands: count(base, state, 'brands', (product) => [product.brand]),
       industries: count(base, state, 'industries', (product) => product.industries),
-      authorized: base.filter((p) => p.authorized && passes(p, state, 'authorized')).length,
       isNew: base.filter((p) => p.isNew && passes(p, state, 'isNew')).length,
     },
   }
@@ -317,9 +350,6 @@ export function activeFilters(
       label: name(index.industries, slug),
       remove: { industries: without(state.industries, slug) },
     })
-  }
-  if (state.authorized) {
-    chips.push({ key: 'authorized', label: 'Autoryzacja PRO-KOM', remove: { authorized: false } })
   }
   if (state.isNew) chips.push({ key: 'isNew', label: 'Nowości', remove: { isNew: false } })
   return chips

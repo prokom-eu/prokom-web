@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import { optionHelp } from './configHelp'
 import {
+  colorNote,
   ADVISE,
   EMPTY_STATE,
   addAction,
@@ -171,5 +172,15 @@ describe('optionHelp', () => {
     expect(optionHelp('Łączność z CRK')).toContain('Centralnego Repozytorium Kas')
     expect(optionHelp('Model / szerokość druku')).toContain('Czym różnią się wersje')
     expect(optionHelp('Rozdzielczość')).toBeNull()
+  })
+})
+
+describe('colorNote (K32 §9)', () => {
+  it('puts the colour first and drops the configurator „Kolor” option', () => {
+    expect(colorNote('burgund', 'Wersja: 256 GB · Kolor: czarny')).toBe(
+      'Kolor: burgund · Wersja: 256 GB',
+    )
+    expect(colorNote('lawendowy', '')).toBe('Kolor: lawendowy')
+    expect(colorNote(null, 'Wersja: 256 GB')).toBe('Wersja: 256 GB')
   })
 })
