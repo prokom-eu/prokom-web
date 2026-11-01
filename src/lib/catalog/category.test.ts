@@ -512,6 +512,14 @@ describe('categoryPill', () => {
     expect(categoryPill('Skanery', scanners, index(scanners, { brands: all }))).toBe(
       'Skanery · 3 modele',
     )
+    // Wagi sklepowe: mostly scales of other brands, one Elzab model.
+    const scales = [
+      product('w1', { brand: 'zebra' }),
+      product('w2', { brand: 'zebra' }),
+      product('w3', { brand: 'fawag' }),
+      product('w4', { brand: 'elzab' }),
+    ]
+    expect(categoryPill('Wagi', scales, index(scales, { brands: all }))).toBe('Wagi · 4 modele')
     // K4-FINAL §1 wording „Posnet i Elzab”, also when Elzab has more models.
     const registers = [
       product('r1', { brand: 'elzab' }),
