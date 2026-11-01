@@ -266,6 +266,8 @@ Tabela wyżej to **zakres**; **kolejność i grupowanie** sesji od K4b idą wg t
 | 6 | **M1′-reszta** | tylko to, czego nie zrobiły sesje UI (dolny pasek aplikacji, przejścia) | |
 | 7 | **Odbiór** | PROD′ + QA-K4 na stagingu → import treści (ADR-018) → akceptacja szefa → produkcja | |
 
+**Po audycie 01.11 — zobacz §7.2** (dwie sesje BX-WYGLAD i BX-RUCH+ przed „Odbiorem”).
+
 **Równolegle, poza kodem:** S10 (serwer i staging) jak najwcześniej; Lighthouse na stagingu po każdej sesji z UI; szef przegląda staging na bieżąco.
 
 Telefon (`MOBILE-APLIKACJA.md` §4) zostaje Definition of Done **każdej** sesji z UI, dlatego M1′ kurczy się do resztek. Kolejność cięcia — bez zmian.
@@ -273,3 +275,40 @@ Telefon (`MOBILE-APLIKACJA.md` §4) zostaje Definition of Done **każdej** sesji
 **Wspólne kryteria:** §6.3 + `K4-FINAL.md` §8 (0 poziomego przewijania na 390/768/1024/1280/1440, kontrast w obu motywach, zero cen / zakazane marki / „abonament” przy Opiece IT / „Aut.”, jedno H1, `alt`). **Dopiski do promptów:** §6.2 + blok K4 z `PRZEKAZANIE-K4.md` §4.
 
 **Kolejność cięcia** (od końca, nie jakość): 1) strona ulgi → wpis w Aktualnościach; 2) salony Sharp/NEC, Avtek, EuroCert, PolCard → strona marki z K3b′; 3) `/automaty-vendingowe` → kategoria `vend`; 4) K4g → kreator z B10c pod `/konfigurator`. **Bez cięć:** K4a-1, K4a-2, K4b, K4c, K4d, K4e, K4f-1, K31d′, M1′, PROD′, QA-K4.
+
+### 7.2 Kolejka po audycie 01.11 (decyzja Krystiana 01.11.2026: dwie duże sesje)
+
+Audyt przed stagingiem (`docs/design/prokombiznes/AUDYT-PRZED-STAGINGIEM.md`) dał pięć promptów (`docs/design/prokombiznes/PROMPTY-PO-AUDYCIE-0111.md`). Prompt 1 (dane firmy, treść, SEO) jest zrobiony w PR #267 (z #272 i #275). Prompty 2–5 idą w **dwóch sesjach** zamiast 4–6. **Wyjątek od §7.1 i `CLAUDE.md` („2–3 PR-y na sesję”):** sesja A może wydać do 6 PR-ów piętrowo, każdy ≤ ~400 linii diffu, z `/przeglad` przed `/pr` każdego PR-a z logiką. Między PR-ami bez rytuału startu i końca. Pełne zakresy i kryteria odbioru: prompty w pliku wyżej. Połączone prompty niżej mówią tylko, co z nich wchodzi i w jakiej kolejności.
+
+| # | Sesja | Zakres | Uwagi |
+|---|---|---|---|
+| A | **BX-WYGLAD** | redakcja tekstów (prompt 5) → desktop W1–W3 (prompt 2) → ekrany telefonu E1–E3 (prompt 3: Start, oferta/kategoria/filtry, produkt) | do 6 PR-ów; jeden przystanek: tabela tekstów „przed → po” do akceptacji Krystiana |
+| B | **BX-RUCH+** | ekrany telefonu E4–E5 (salony, pozostałe strony) → wydajność W4 (prompt 2) → ruch R1–R2 (prompt 4) | 4 PR-y; wydajność i ruch mierzone na gotowym układzie telefonu |
+
+**Dlaczego tak:** w A wszystko, co zmienia układ i treść tych samych sekcji (tekst przed rozmiarem nagłówków, desktop przed telefonem, bo telefon bierze karty i nagłówki z W1). W B to, co mierzy się Lighthouse i CPU 4×: najpierw reszta ekranów telefonu, potem przyspieszenie, na końcu ruch, który nie może pogorszyć LCP. Równolegle nie — obie sesje dotykają tych samych komponentów Biznesu.
+
+**Prompt sesji A:**
+
+```
+/zadanie BX-WYGLAD — teksty, desktop v150 i ekrany telefonu (prompty 5, 2 W1–W3, 3 E1–E3 z PROMPTY-PO-AUDYCIE-0111.md)
+Gałęzie od origin/develop (po scaleniu #267), PR-y piętrowe, każdy ≤ ~400 linii, do 6 PR-ów (wyjątek §7.2):
+PR 1 fix/prokombiznes-redakcja — prompt 5 w całości. NAJPIERW tabela „przed → po” do mojej akceptacji (jedyny przystanek sesji), potem kod; test pauz i powtórek nagłówków.
+PR 2 feat/prokombiznes-v150-typografia — prompt 2 W1 (H2 i lead wg Strona.dc.html, H1 podstron, karta produktu jak Web-oferta z nazwą krótką).
+PR 3 feat/prokombiznes-v150-glowna — prompt 2 W2 (koło z aktywnym działem, telefon pod przyciskami, Szybki start jako pasek, marki z planszy, chipy formularza).
+PR 4 feat/prokombiznes-v150-podstrony — prompt 2 W3 (kategoria wg Web-kategoria-*, /kontakt, /opieka-it, KSeF „Kary”, /zapytanie wg K4-FINAL §5). Przy wątpliwości co do sekcji K3 na kategorii — pytanie z 2 opcjami.
+PR 5 feat/prokombiznes-m1-start — prompt 3 E1 (App-Start) + tytuł ekranu w górnym pasku z krótkiej nazwy.
+PR 6 feat/prokombiznes-m1-katalog — prompt 3 E2 + E3 (oferta, kategoria, filtry w arkuszu, produkt).
+DoD każdego PR-a: jak w promptach (porównanie z planszą 1440 i 390, jasny i ciemny, lista różnic; MOBILE-APLIKACJA §4 dla telefonu; Software i Instalacje bez zmian); lint/typecheck/test; /przeglad przed /pr PR-ów z logiką; na końcu /koniec-sesji.
+```
+
+**Prompt sesji B:**
+
+```
+/zadanie BX-RUCH+ — reszta ekranów telefonu, wydajność i ruch (prompty 3 E4–E5, 2 W4, 4 z PROMPTY-PO-AUDYCIE-0111.md)
+Gałęzie od origin/develop (po scaleniu sesji A), 4 PR-y piętrowo:
+PR 1 feat/prokombiznes-m1-salony — prompt 3 E4 (salony i marki: karuzele, porównanie jako przewijana tabela).
+PR 2 feat/prokombiznes-m1-reszta-ekranow — prompt 3 E5 (GoPOS, InsERT, Opieka, KSeF, Ulga, Vending, Kontakt, O firmie, Zestawy, Plan, Konfigurator, Zapytanie, Szukaj, Aktualności, Branża).
+PR 3 perf/prokombiznes-wydajnosc — prompt 2 W4 (Lighthouse mobile ≥ 90 dla /, /oferta, produktu, /marki/apple, /kontakt, /plan-firmy; wynik przed i po na `pnpm build && pnpm start`).
+PR 4 feat/prokombiznes-ruch — prompt 4 R1 + R2 (system ruchu SWV7 dla Biznesu i sekcje; e2e biznes-transitions i software-transitions; pomiar CPU 4×, nagrania). Jeśli diff R1+R2 > ~400 linii — dwa PR-y.
+DoD: jak w promptach; Lighthouse po ruchu bez spadku względem PR 3; /przeglad; /koniec-sesji.
+```
