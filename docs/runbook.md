@@ -55,8 +55,8 @@ Serwer: VPS webh.pl, Ubuntu 24.04 (ADR-019). Strefa czasu serwera zostaje **UTC*
      ssh -t prokom-vps 'bash /srv/prokom/prokom-web/scripts/server/b2-key.sh prokom-backups-r7k2'
      ```
      W PowerShell komenda w **pojedynczych** cudzysłowach (w podwójnych PowerShell podmienia `$zmienne` na puste), klucz wklejasz prawym przyciskiem.
-   - klucz szyfrujący: `ssh -t prokom-vps 'bash /srv/prokom/prokom-web/scripts/server/age-new.sh'` — klucz prywatny raz na ekranie → menedżer haseł „prokom-web backup age”; na serwerze zostaje tylko publiczny `../secrets/age.pub`. Nowa para = tylko nowe kopie (stare czyta stary klucz).
-   - `.env.backup` (600): `AGE_RECIPIENT=<zawartość ../secrets/age.pub>`, `RCLONE_REMOTE=offsite:prokom-backups-r7k2`; próba: `scripts/backup.sh staging` → `done`, plik w `rclone lsf offsite:prokom-backups-r7k2/staging/daily/`.
+   - klucz szyfrujący: `ssh -t prokom-vps 'bash /srv/prokom/prokom-web/scripts/server/age-new.sh'` — **tylko przy pierwszej konfiguracji** (przy odbudowie serwera nie — §6 „Serwer stracony”); klucz prywatny raz na ekranie → menedżer haseł „prokom-web backup age”; na serwerze zostaje tylko publiczny `../secrets/age.pub`. Skrypt odmawia, gdy `age.pub` już jest; planowana zmiana klucza: `--force` (nowa para = tylko nowe kopie, starsze czyta stary klucz — zostaw go w menedżerze haseł, dopóki są kopie nim zaszyfrowane, czyli ~93 dni).
+   - `.env.backup` (600): `AGE_RECIPIENT="$(cat /srv/prokom/secrets/age.pub)"` (plik jest wczytywany przez powłokę, więc klucz publiczny ma jedno źródło — `age.pub`), `RCLONE_REMOTE=offsite:prokom-backups-r7k2`; próba: `scripts/backup.sh staging` → `done`, plik w `rclone lsf offsite:prokom-backups-r7k2/staging/daily/`.
    - cron użytkownika `<admin>` (`crontab -e`), noc w UTC, poza godziną zadania retencji zapytań (03:00); linia `prod` dochodzi przy pierwszym wdrożeniu produkcji (§3):
      ```
      30 2 * * * cd /srv/prokom/prokom-web && scripts/backup.sh prod >> ../backups/backup.log 2>&1
@@ -111,7 +111,7 @@ Nieudana migracja: kontener działa, ale `/api/health` = 503, a healthcheck co 1
 
 ## 6. Odtworzenie z kopii
 
-1. Klucz prywatny z menedżera haseł do pliku tylko na czas odtworzenia: `ssh -t prokom-vps 'bash /srv/prokom/prokom-web/scripts/server/age-key-temp.sh'` (sprawdza, czy pasuje do `age.pub`), potem `AGE_IDENTITY=../secrets/age.key` przed komendą `restore.sh` albo w `.env.backup`. **Po odtworzeniu: `shred -u ../secrets/age.key`.**
+1. Klucz prywatny z menedżera haseł do pliku tylko na czas odtworzenia: `ssh -t prokom-vps 'bash /srv/prokom/prokom-web/scripts/server/age-key-temp.sh'` (sprawdza, czy pasuje do `age.pub`), potem z katalogu `/srv/prokom/prokom-web`: `AGE_IDENTITY=../secrets/age.key` przed komendą `restore.sh` albo w `.env.backup`. **Po odtworzeniu: `shred -u ../secrets/age.key`.**
 2. Wybór kopii: lokalnie `ls ../backups/prod/{daily,monthly,predeploy}/`, poza serwerem `rclone lsf offsite:prokom-backups-r7k2/prod/daily/`.
 3. `scripts/restore.sh <plik albo offsite:prokom-backups-r7k2/prod/daily/<plik>> prokom-prod prokom_prod`
    - uruchamia potem **ten sam kontener** (obraz, z którego powstał); jeśli w `.env.prod` jest inny tag, użyj `--no-start` i `$prod up -d app`;
@@ -121,7 +121,9 @@ Nieudana migracja: kontener działa, ale `/api/health` = 503, a healthcheck co 1
    - zatrzymuje aplikację, odtwarza bazę (`pg_restore` na nowo utworzoną) i wolumen mediów, uruchamia aplikację i czeka na `healthy`.
 4. Smoke (krok 3.5).
 
-Serwer stracony w całości: nowy serwer wg 1 → stosy wg 2/3 z ostatnim tagiem z manifestu (`app_image`) → 6.
+Serwer stracony w całości: nowy serwer wg 1 → stosy wg 2/3 z ostatnim tagiem z manifestu (`app_image`) → 6. W kroku 1.8 **nie** uruchamiaj `age-new.sh`: najpierw klucz B2 (`b2-key.sh`), potem `age-key-temp.sh` z kluczem z menedżera haseł (bez `age.pub` zostawi go bez porównania), `age-keygen -y ../secrets/age.key > ../secrets/age.pub`, `.env.backup` jak w 1.8 — nowe kopie szyfruje ten sam klucz.
+
+**Podejrzenie przejęcia serwera albo klucza B2:** Object Lock blokuje usunięcie kopii przez 14 dni, ale nie ich **ukrycie** — kluczem z serwera da się ukryć wszystkie pliki (`rclone lsf` i `restore.sh offsite:…` ich nie widzą), a reguła Lifecycle usuwa ukrytą wersję dzień po końcu blokady. Od razu w panelu B2: **Application Keys → usuń `prokom-vps-backup`** i **Lifecycle Settings kosza → „Keep all versions”**. Ukryte kopie: `rclone lsf --b2-versions offsite:prokom-backups-r7k2/prod/daily/` (nowym kluczem, z komputera albo nowego serwera), pobranie wersji: `rclone copyto --b2-version-at <czas sprzed ataku> offsite:prokom-backups-r7k2/prod/daily/<plik> <plik>` albo w panelu B2 (Browse Files → pokaż wersje → przywróć). Kopie `monthly` (93 dni) blokada chroni tylko przez pierwsze 14 dni. Po sprzątaniu: nowy klucz (`b2-key.sh`) i Lifecycle z powrotem.
 
 ## 7. Comiesięczny test odtworzenia
 

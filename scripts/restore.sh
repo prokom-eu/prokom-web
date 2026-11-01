@@ -2,7 +2,7 @@
 # Restores a backup made by scripts/backup.sh into a running stack (S9b-2). DESTRUCTIVE for the
 # target: its database is dropped and recreated, its media volume emptied.
 # Usage: scripts/restore.sh [--no-start] <backup file | rclone remote path> <project> <database>
-#   monthly test, on a fresh stack:  scripts/restore.sh offsite:prokom-backups/prod/daily/<file> prokom-restoretest prokom_prod
+#   monthly test, on a fresh stack:  scripts/restore.sh offsite:prokom-backups-r7k2/prod/daily/<file> prokom-restoretest prokom_prod
 #   rollback with the database:      scripts/restore.sh --no-start ../backups/prod/predeploy/<file> prokom-prod prokom_prod
 #                                    then `docker compose … up -d app` (the image from .env.prod)
 # The target stack must exist (its postgres running). The app is stopped for the restore. Without
