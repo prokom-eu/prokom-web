@@ -10,6 +10,9 @@
 - **Odbiorcy:** właściciele małych i średnich firm (pensjonaty, hotele, gastronomia, budowlanka i ekipy, warsztaty, gabinety, biura, producenci). Nie znają nazw technologii. Chcą zobaczyć efekt, cenę i termin.
 - **Pojemność:** 2–3 projekty miesięcznie. Strona ma przyciągać dopasowane zapytania, nie maksymalną liczbę.
 
+
+> **v23 (01.11.2026, wizualizacja finalna):** kolory, dane firmy, usunięcie Zakopanego i sekcji Realizacje, O firmie, hero na telefonie, mapa i ruch — `docs/design/prokomsoftware/ZMIANY-v23.md` **wygrywa z tą specyfikacją tam, gdzie się różnią** (kolejność wprowadzania: `PRZEKAZANIE-v23.md`, decyzje kolorów: ADR-015 „Rozstrzygnięcia v23”).
+
 ## 1. Twarde zasady
 1. **Jedna cena „od” i jeden termin „od”, netto, z panelu** (v22: `Solutions.priceFrom`, `Solutions.leadTime` — np. „od 2 tygodni”; nigdy w kodzie ani na sztywno w JSON-ie kreatora). **Wersji Na start / Standard / Pełna nie ma** — ani w kreatorze, ani w oknie oferty, katalogu, na kartach, w cenniku czy w kontakcie. To, co jest w cenie „od”, opisuje lista „W cenie” (`Solutions.included`); więcej → „Potrzebujesz więcej? Np. … — wycenimy na piśmie w 5–7 dni.” (`Solutions.moreExamples`, nigdy z ceną). **Wyjątki z trzema pozycjami to usługi, nie wersje:** opieka (poziomy Podstawowa / **Rozszerzona** / Systemy) i audyt (3 rodzaje) — `Solutions.levels`. Puste pole ceny → **„Zapytaj o wycenę”**, pusty termin → „po krótkiej rozmowie” (`priceDisplay.fallback` / `termFallback`, decyzja SWD1 D1). Aplikacje i automatyzacje mają cenę celowo pustą (decyzja Krystiana 25.10).
 2. **Nie podajemy liczby godzin pracy.** Wyceny są od projektu. Poziomy opieki mają „[X] h zmian w miesiącu” tylko wtedy, gdy szef tak zdecyduje.
