@@ -98,14 +98,14 @@ test.describe('inquiry inbox (ADR-003)', () => {
     expect(sent.json.number).toBe(record?.number)
 
     try {
-      // Notification to the line inbox (seed: biznes@example.test), customer as Reply-To.
+      // Notification to the line inbox (seed:biznes: kontakt@prokombiznes.pl, Mailpit locally and in CI), customer as Reply-To.
       await expect
         .poll(async () => mails(request, marker), { timeout: 15_000 })
         .toEqual(
           expect.arrayContaining([
             expect.objectContaining({
               Subject: `Zapytanie ${String(record?.number)} — Biznes — ${marker}`,
-              To: [expect.objectContaining({ Address: 'biznes@example.test' })],
+              To: [expect.objectContaining({ Address: 'kontakt@prokombiznes.pl' })],
               ReplyTo: [
                 expect.objectContaining({ Address: `${marker.toLowerCase()}@example.test` }),
               ],

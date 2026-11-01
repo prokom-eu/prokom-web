@@ -18,7 +18,9 @@ test.describe('Biznes /kontakt (K4i)', () => {
     await expect(page.getByRole('navigation', { name: 'Okruszki' })).toContainText('Kontakt')
 
     await expect(page.locator('main a[href^="tel:"]').first()).toBeVisible()
-    await expect(page.locator('main a[href^="mailto:biznes@"]').first()).toBeVisible()
+    await expect(
+      page.locator('main a[href^="mailto:kontakt@prokombiznes.pl"]').first(),
+    ).toBeVisible()
     // Seven days, today marked in Polish time (the browser decides, the page is cached).
     const week = page.locator('main li', { hasText: /^(Poniedziałek|Niedziela)/ })
     await expect(week).toHaveCount(2)
