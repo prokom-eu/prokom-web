@@ -40,7 +40,11 @@ export async function CareHero({
   const phone = settings?.phone ?? null
   const tel = phone ? toTelHref(phone) : null
   return (
-    <section aria-labelledby="opieka-h" className="bg-surface-2 pt-6 pb-14 sm:pt-8 sm:pb-20">
+    <section
+      id={block.anchor || undefined}
+      aria-labelledby="opieka-h"
+      className="scroll-mt-28 bg-surface-2 pt-6 pb-14 sm:pt-8 sm:pb-20"
+    >
       <Container wide>
         <div className="mb-7">
           <Breadcrumbs items={withTrail(crumbs, data.trail)} />

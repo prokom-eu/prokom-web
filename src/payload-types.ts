@@ -3706,7 +3706,19 @@ export interface BzSectionBlock {
     | 'lines'
     | 'brands'
     | 'contact-hero'
-    | 'contact-form';
+    | 'contact-form'
+    | 'vending-hero'
+    | 'vending-picker'
+    | 'app-mockup'
+    | 'catalog-tabs'
+    | 'sources'
+    | 'ksef-hero'
+    | 'ksef-quiz'
+    | 'ksef-steps'
+    | 'ksef-penalties'
+    | 'ulga-hero'
+    | 'yes-no'
+    | 'notice';
   /**
    * Adres sekcji po #, np. „pakiet” → /gopos#pakiet.
    */
