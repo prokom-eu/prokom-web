@@ -81,7 +81,8 @@ export function SolutionHero({ page }: Page) {
               )}
             </div>
           </div>
-          <dl className="grid grid-cols-2 gap-2.5">
+          {/* An odd last tile takes the whole row: no 2 + 1 with a hole (audyt P1 #16). */}
+          <dl className="grid grid-cols-2 gap-2.5 [&>*:last-child:nth-child(odd)]:col-span-2">
             {page.tiles.map((tile, i) => (
               <div key={i} className={cx(cardClass, 'flex flex-col p-4')}>
                 <dt className="text-xs font-extrabold uppercase tracking-[0.12em] text-ink-2">
@@ -158,7 +159,9 @@ export function SolutionCompare({ page }: Page) {
  */
 export function SolutionOffer({ page }: Page) {
   const { deliverables, choice, related } = page
-  const side = choice !== null || related.length > 0
+  // Only the variant choice is tall enough for a side column; „Często łączone z” alone sits
+  // under „Co dostajesz” in a row, so no empty half stays beside it (audyt 01.11 P1 #16).
+  const side = choice !== null
   return (
     <section aria-labelledby="co-dostajesz-h" className="py-8 min-[641px]:py-12">
       <Container
@@ -187,7 +190,12 @@ export function SolutionOffer({ page }: Page) {
             </p>
           </div>
           {deliverables.items.length > 0 && (
-            <ul className="mt-5 grid gap-2.5 min-[641px]:grid-cols-2">
+            <ul
+              className={cx(
+                'mt-5 grid gap-2.5 min-[641px]:grid-cols-2',
+                !side && 'min-[1081px]:grid-cols-3',
+              )}
+            >
               {deliverables.items.map((item) => (
                 <li
                   key={item.title}
@@ -258,28 +266,38 @@ export function SolutionOffer({ page }: Page) {
                 {choice.note && <p className="mt-3 text-sm text-ink-2">{choice.note}</p>}
               </div>
             )}
-            {related.length > 0 && (
-              <div className={cx(cardClass, 'p-5')}>
-                <h2 className={eyebrowClass}>Często łączone z</h2>
-                <ul className="mt-3 flex flex-col gap-2">
-                  {related.map((card) => (
-                    <li key={card.slug}>
-                      <Link
-                        href={`${CATALOG_PATH}/${card.slug}`}
-                        className="flex min-h-12 items-center justify-between gap-3 rounded-xl px-3 shadow-[inset_0_0_0_1px_var(--border)] hover:shadow-[inset_0_0_0_1.5px_var(--accent-line)] active:scale-[0.99] motion-reduce:transition-none"
-                      >
-                        <b className="font-extrabold">{card.name}</b>
-                        <span className="shrink-0 text-xs font-bold text-ink-2">{card.price}</span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
+            {related.length > 0 && <Related related={related} row={false} />}
           </div>
         )}
+        {!side && related.length > 0 && <Related related={related} row />}
       </Container>
     </section>
+  )
+}
+
+function Related({ related, row }: { related: Page['page']['related']; row: boolean }) {
+  return (
+    <div className={cx(cardClass, 'p-5')}>
+      <h2 className={eyebrowClass}>Często łączone z</h2>
+      <ul
+        className={cx(
+          'mt-3 flex flex-col gap-2',
+          row && 'min-[641px]:grid min-[641px]:grid-cols-3',
+        )}
+      >
+        {related.map((card) => (
+          <li key={card.slug}>
+            <Link
+              href={`${CATALOG_PATH}/${card.slug}`}
+              className="flex min-h-12 items-center justify-between gap-3 rounded-xl px-3 shadow-[inset_0_0_0_1px_var(--border)] hover:shadow-[inset_0_0_0_1.5px_var(--accent-line)] active:scale-[0.99] motion-reduce:transition-none"
+            >
+              <b className="font-extrabold">{card.name}</b>
+              <span className="shrink-0 text-xs font-bold text-ink-2">{card.price}</span>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
   )
 }
 

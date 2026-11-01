@@ -179,7 +179,7 @@ export async function SwHeroBlock({ block, tenantId, isFirst = true }: Props) {
                   <b className="col-start-2 row-start-1 font-display text-[15.5px] font-extrabold leading-snug min-[640px]:text-lg">
                     {intent.title}
                   </b>
-                  <span className="col-start-2 row-start-2 line-clamp-2 text-[13px] text-ink-2 min-[640px]:text-sm">
+                  <span className="col-start-2 row-start-2 text-[13px] text-ink-2 min-[640px]:text-sm">
                     {intent.text}
                   </span>
                 </Link>

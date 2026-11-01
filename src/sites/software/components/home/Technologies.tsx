@@ -39,7 +39,7 @@ function LayerIcon({ path, size }: { path: string; size: number }) {
  */
 export function Technologies({ view }: { view: TechnologiesView }) {
   const id = useId()
-  const { active, picked, paused, pick, onKeyDown, tabRef, region } = useAutoTabs(
+  const { active, rotating, pick, onKeyDown, tabRef, region } = useAutoTabs(
     view.layers.length,
     LAYERS_AUTO_MS,
   )
@@ -89,14 +89,14 @@ export function Technologies({ view }: { view: TechnologiesView }) {
                     </b>
                     <small
                       className={cx(
-                        'truncate text-xs font-extrabold',
+                        'text-xs font-extrabold text-pretty',
                         selected ? 'text-white/90' : 'text-accent-text',
                       )}
                     >
                       {layer.tools.join(' · ')}
                     </small>
                   </span>
-                  {selected && !picked && !paused ? (
+                  {selected && rotating ? (
                     <i
                       aria-hidden="true"
                       className="absolute bottom-0 left-0 hidden h-[3px] w-full origin-left bg-white/75 motion-safe:animate-layer-progress min-[1081px]:block"

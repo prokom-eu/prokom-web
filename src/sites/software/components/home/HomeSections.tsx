@@ -122,7 +122,7 @@ export async function PopularSection({ tenantId }: { tenantId: number }) {
           </div>
           <Link
             href={buttonHref}
-            className="inline-flex min-h-12 items-center justify-center rounded-xl bg-button px-5 text-sm font-extrabold text-accent-ink"
+            className="inline-flex min-h-12 shrink-0 items-center justify-center rounded-xl bg-button px-5 text-sm font-extrabold whitespace-nowrap text-accent-ink"
           >
             {buttonLabel}
           </Link>
