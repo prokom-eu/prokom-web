@@ -25,6 +25,9 @@ type Props = {
 }
 
 const TITLE = 'Cała oferta dla firm'
+/** Meta description (≤ 155 characters, audit 01.11); the lead below is longer. */
+const DESCRIPTION =
+  'Sprzęt, programy i usługi dla firm z doborem, wdrożeniem i serwisem. Dodaj pozycje do zapytania, a wycenę dostaniesz na piśmie.'
 /** Lead of the K4 board `Web-Oferta`. */
 const LEAD =
   'Sprzęt, programy i usługi dla firm i instytucji — z doborem, wdrożeniem i serwisem. Cen nie podajemy na stronie: dodaj pozycje do zapytania, a wycenę dostaniesz na piśmie.'
@@ -41,7 +44,7 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
   )
   return {
     title: TITLE,
-    description: LEAD,
+    description: DESCRIPTION,
     alternates: { canonical: seo.canonical },
     // Staging stays closed whatever the view; elsewhere a filtered view is not indexed.
     robots:
@@ -52,8 +55,8 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
       siteName: tenant.name,
       url: seo.canonical,
       title: TITLE,
-      description: LEAD,
-      images: ogImages(settings?.seo.ogImage ?? null),
+      description: DESCRIPTION,
+      images: ogImages(settings?.seo.ogImage ?? null, 'biznes'),
     },
   }
 }

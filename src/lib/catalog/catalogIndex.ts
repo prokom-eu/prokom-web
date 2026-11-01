@@ -135,6 +135,7 @@ export type IndexedProductDoc = Pick<
   | 'id'
   | 'slug'
   | 'name'
+  | 'shortName'
   | 'kind'
   | 'brand'
   | 'categories'
@@ -304,7 +305,9 @@ export function buildCatalogIndex(source: CatalogSource): CatalogIndex {
     )
     return {
       slug: product.slug,
-      name: product.name,
+      // Cards and lists show the short name (K4 `krotka`, audit 01.11); the full one stays in
+      // the hay above, so model codes are still found.
+      name: optional(product.shortName) ?? product.name,
       brand: brand?.slug ?? null,
       kind: product.kind,
       categories: categories.map((category) => category.slug),

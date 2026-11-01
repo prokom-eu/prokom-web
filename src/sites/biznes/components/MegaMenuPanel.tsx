@@ -254,6 +254,9 @@ export function MegaMenuPanel({ offer, phone, hours }: Props) {
                     alt={brand.name}
                     width={brand.logo.width}
                     height={brand.logo.height}
+                    // Small logos, loaded with the panel: lazy left empty white tiles for ~1 s
+                    // when the menu opened (audit 01.11).
+                    loading="eager"
                     unoptimized
                     className="max-h-5 w-auto object-contain"
                   />

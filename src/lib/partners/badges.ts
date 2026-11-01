@@ -6,6 +6,15 @@ export type PartnerBadge = { label: string; kind: 'partner' | 'service' }
 export const joinNames = (names: readonly string[]) =>
   names.length < 2 ? (names[0] ?? '') : `${names.slice(0, -1).join(', ')} i ${names.at(-1)}`
 
+/** Names in the order K4-FINAL §1 writes them („Posnet i Elzab”, „GoPOS i InsERT”), the rest after. */
+const K4_ORDER = ['posnet', 'elzab', 'gopos', 'insert']
+const k4Rank = (name: string) => {
+  const rank = K4_ORDER.indexOf(name.toLowerCase())
+  return rank === -1 ? K4_ORDER.length : rank
+}
+const byK4Order = <T extends { name: string }>(items: readonly T[]) =>
+  [...items].sort((a, b) => k4Rank(a.name) - k4Rank(b.name))
+
 /**
  * Status badges of the footer: "Autoryzowany partner GoPOS" for each partner, one
  * "Autoryzowany serwis Posnet i Elzab" for the authorized services (K4-FINAL §1: full wording). Only statuses confirmed in the
@@ -14,8 +23,10 @@ export const joinNames = (names: readonly string[]) =>
 export function partnerBadges(
   partners: { name: string; status: Partner['partnerStatus'] }[],
 ): PartnerBadge[] {
-  const partnerNames = partners.filter((p) => p.status === 'authorized-partner')
-  const services = partners.filter((p) => p.status === 'authorized-service').map((p) => p.name)
+  // The panel's list is alphabetical („Elzab i Posnet”); the badges follow K4-FINAL §1 (audit 01.11).
+  const ordered = byK4Order(partners)
+  const partnerNames = ordered.filter((p) => p.status === 'authorized-partner')
+  const services = ordered.filter((p) => p.status === 'authorized-service').map((p) => p.name)
   return [
     ...partnerNames.map((p) => ({
       label: `Autoryzowany partner ${p.name}`,

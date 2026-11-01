@@ -20,7 +20,7 @@ type Props = { params: Promise<{ domain: string }> }
 
 const TITLE = 'Plan Twojej firmy — co ustawimy w Twoim lokalu'
 const DESCRIPTION =
-  'Wybierz rodzaj firmy i zobacz na planie lokalu, gdzie stanie kasa, terminal, komputer czy router. Film i szczegóły każdego urządzenia, całość do zapytania jednym kliknięciem.'
+  'Wybierz rodzaj firmy i zobacz na planie lokalu, gdzie stanie kasa, terminal, komputer czy router. Całość dodasz do zapytania jednym kliknięciem.'
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const tenant = await requireLine(params, 'biznes')
@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: PLAN_PATH,
       title: TITLE,
       description: DESCRIPTION,
-      images: ogImages(settings?.seo.ogImage ?? null),
+      images: ogImages(settings?.seo.ogImage ?? null, 'biznes'),
     },
   }
 }

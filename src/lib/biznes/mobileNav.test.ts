@@ -55,6 +55,10 @@ describe('parentPath', () => {
     expect(parentPath('/produkt/lenovo-thinkbook-14')).toBe('/oferta')
   })
 
+  it('sends an industry to „Dla kogo” on the home page (there is no /branze page)', () => {
+    expect(parentPath('/branze/gastronomia')).toBe('/#dla-kogo')
+  })
+
   it('ignores a trailing slash', () => {
     expect(parentPath('/oferta/laptopy/')).toBe('/oferta')
   })
