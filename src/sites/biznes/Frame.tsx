@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react'
 
 import { getCatalogIndex } from '@/lib/catalog/data'
-import { megaMenu, offerMenu } from '@/lib/catalog/menu'
-import { partnerBadges } from '@/lib/partners/badges'
+import { offerMenu } from '@/lib/catalog/menu'
+import { partnerBadges, partnerStatusesByName } from '@/lib/partners/badges'
 import { getPartnerStatuses } from '@/lib/partners/data'
 import { hoursSummary } from '@/lib/site/hoursSummary'
 import { toTelHref, toWhatsAppHref } from '@/lib/site/link'
@@ -14,6 +14,7 @@ import { BiznesHeader } from './components/BiznesHeader'
 import { SiteRail } from './components/rail/SiteRail'
 import { TabBar } from './components/mobile/TabBar'
 import { TopBar } from './components/TopBar'
+import { PageTransition } from './PageTransition'
 
 type Props = {
   tenant: SiteTenant
@@ -40,7 +41,6 @@ export async function BiznesFrame({ tenant, settings, biznes, company, promo, ch
     phone: settings.phone && tel ? { label: settings.phone, href: tel } : null,
     whatsapp: biznes.whatsapp ? toWhatsAppHref(biznes.whatsapp) : null,
   }
-  const menu = megaMenu(index, biznes.navigation)
   const hours = company?.locations[0]?.hours ?? null
   return (
     <>
@@ -49,13 +49,13 @@ export async function BiznesFrame({ tenant, settings, biznes, company, promo, ch
       <BiznesHeader
         tenant={tenant}
         navigation={biznes.navigation}
-        menu={menu}
         offer={offerMenu(index)}
+        partnerStatuses={partnerStatusesByName(partners)}
         hours={hours ? hoursSummary(hours) : null}
         contact={contact}
       />
       <SiteRail />
-      {children}
+      <PageTransition>{children}</PageTransition>
       <BiznesFooter
         name={tenant.name}
         company={company}

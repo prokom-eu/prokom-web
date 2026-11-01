@@ -3,7 +3,7 @@ import { expect, test, type Page } from '@playwright/test'
 
 import { api, loginAsAdmin, setTheme, site } from './helpers'
 
-// B3b: phone menu and bottom bar, the five-column footer and the closable seasonal bar of the
+// B3b, M1′: phone menu sheet, tab bar and top bar, the five-column footer and the closable seasonal bar of the
 // Biznes line (spec. §3.3, §3.4, §3.6). Data from `pnpm seed`.
 const WCAG = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']
 
@@ -15,9 +15,10 @@ async function expectNoViolations(page: Page) {
 test.describe('Biznes on a phone', () => {
   test.use({ viewport: { width: 390, height: 800 } })
 
-  test('the full-screen menu works from the keyboard', async ({ page }) => {
+  // M1′ (MOBILE-APLIKACJA §1, board `App-Menu`): the menu is a sheet from the bottom.
+  test('the menu sheet works from the keyboard', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
-    const open = page.getByRole('button', { name: 'Menu' })
+    const open = page.getByRole('banner').getByRole('button', { name: 'Menu' })
     const menu = page.getByRole('dialog', { name: 'Menu' })
     // Enter works once the page is hydrated: before that the key press does nothing.
     await expect(async () => {
@@ -26,11 +27,18 @@ test.describe('Biznes on a phone', () => {
       await expect(menu).toBeVisible({ timeout: 1000 })
     }).toPass()
 
-    // Groups fold out into their categories.
-    await menu.getByText('Kasy i sprzedaż').click()
-    await expect(menu.getByRole('link', { name: 'Kasy fiskalne' })).toBeVisible()
+    // Departments as tiles with their counts, then the app's shortcuts.
+    await expect(menu.getByRole('link', { name: /^Kasy i sprzedaż\s*\d+ pozycj/ })).toBeVisible()
+    await expect(menu.getByRole('link', { name: 'Plan Twojej firmy' })).toHaveAttribute(
+      'href',
+      '/plan-firmy',
+    )
+    // Partner statuses in full wording (K4-FINAL §1), no labels of the old mega menu.
+    await expect(menu.getByRole('link', { name: /^GoPOS\s*Autoryzowany partner$/ })).toBeVisible()
+    await expect(menu).not.toContainText(/abonament|0 zł/i)
     // On phones the theme switch is in the menu, not in the header.
-    await expect(menu.getByRole('button', { name: 'Tryb ciemny' })).toBeVisible()
+    await expect(menu.getByRole('button', { name: 'Tryb ciemny' })).toBeAttached()
+    await expect(menu.getByRole('link', { name: /^Zadzwoń · / })).toHaveAttribute('href', /^tel:/)
 
     await page.keyboard.press('Escape')
     await expect(menu).toBeHidden()
@@ -39,10 +47,36 @@ test.describe('Biznes on a phone', () => {
 
   test('the menu closes when a link is followed', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
-    await page.getByRole('button', { name: 'Menu' }).click()
-    await page.getByRole('dialog', { name: 'Menu' }).getByRole('link', { name: 'Kontakt' }).click()
+    await page.getByRole('banner').getByRole('button', { name: 'Menu' }).click()
+    await page
+      .getByRole('dialog', { name: 'Menu' })
+      .getByRole('link', { name: 'Kontakt i dojazd' })
+      .click()
     await expect(page).toHaveURL(/\/kontakt$/)
     await expect(page.getByRole('dialog', { name: 'Menu' })).toBeHidden()
+  })
+
+  // The sheet's history entry is replaced by the next page: one „←” leads back.
+  test('„Wstecz” after a menu link returns to the previous page at once', async ({ page }) => {
+    await page.goto(site('biznes.localhost', '/oferta'))
+    await page.getByRole('banner').getByRole('button', { name: 'Menu' }).click()
+    await page
+      .getByRole('dialog', { name: 'Menu' })
+      .getByRole('link', { name: 'Kontakt i dojazd' })
+      .click()
+    await expect(page).toHaveURL(/\/kontakt$/)
+    await page.getByRole('banner').getByRole('link', { name: 'Wstecz' }).click()
+    await expect(page).toHaveURL(/\/oferta$/)
+  })
+
+  test('the browser’s back closes the menu and stays on the page', async ({ page }) => {
+    await page.goto(site('biznes.localhost', '/oferta'))
+    await page.getByRole('banner').getByRole('button', { name: 'Menu' }).click()
+    const menu = page.getByRole('dialog', { name: 'Menu' })
+    await expect(menu).toBeVisible()
+    await page.goBack()
+    await expect(menu).toBeHidden()
+    await expect(page).toHaveURL(/\/oferta$/)
   })
 
   // M1′ (MOBILE-APLIKACJA §1): Start · Oferta · Szukaj · Zapytanie · Kontakt.
@@ -92,7 +126,7 @@ test.describe('Biznes on a phone', () => {
     test(`axe passes with the menu open — ${colorScheme}`, async ({ page }) => {
       await setTheme(page, colorScheme)
       await page.goto(site('biznes.localhost'))
-      await page.getByRole('button', { name: 'Menu' }).click()
+      await page.getByRole('banner').getByRole('button', { name: 'Menu' }).click()
       await expect(page.getByRole('dialog', { name: 'Menu' })).toBeVisible()
       await expectNoViolations(page)
     })

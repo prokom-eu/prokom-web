@@ -2,7 +2,7 @@ import { SiteLogo } from '@/components/SiteLogo'
 import { ThemeToggle } from '@/components/ThemeToggle'
 import { Container } from '@/components/ui/Container'
 import { ICON_BUTTON } from '@/components/ui/iconButton'
-import type { MegaMenu, OfferMenu } from '@/lib/catalog/menu'
+import type { OfferMenu } from '@/lib/catalog/menu'
 import { type PublicBiznesNavigation, withoutEmptyDropdowns } from '@/lib/site/navigation'
 import type { SiteTenant } from '@/lib/tenant/byHost'
 
@@ -19,10 +19,10 @@ import { SearchOverlay } from './SearchOverlay'
 type Props = {
   tenant: SiteTenant
   navigation: PublicBiznesNavigation
-  /** Columns of the phone menu (`MobileMenuContent`). */
-  menu: MegaMenu
-  /** Oferta ▾ of K4 (mega menu v147c). */
+  /** Oferta ▾ of K4 (mega menu v147c); the phone menu shows its departments. */
   offer: OfferMenu
+  /** Status confirmed in the panel per partner name, for the phone menu. */
+  partnerStatuses: Readonly<Record<string, string>>
   /** Opening hours in short for the mega menu, e.g. „pn–pt 9–17”. */
   hours: string | null
   /** Main phone (`tel:`) and WhatsApp (wa.me) of the line, for the phone menu. */
@@ -35,11 +35,21 @@ type Props = {
  * Below 1080 px the full-screen menu (`MobileMenu`) replaces the desktop navigation (v20);
  * below 768 px it is the top bar of the phone app (`ScreenTitle`, MOBILE-APLIKACJA §1).
  */
-export function BiznesHeader({ tenant, navigation, menu, offer, hours, contact }: Props) {
-  const items = withoutEmptyDropdowns(navigation.menu, { offer: menu.columns.length > 0 })
+export function BiznesHeader({
+  tenant,
+  navigation,
+  offer,
+  partnerStatuses,
+  hours,
+  contact,
+}: Props) {
+  const items = withoutEmptyDropdowns(navigation.menu, { offer: offer.departments.length > 0 })
   return (
     <>
-      <header className="sticky top-0 z-40 border-b border-border bg-surface/85 backdrop-blur-md backdrop-saturate-150">
+      <header
+        data-bz-header
+        className="sticky top-0 z-40 border-b border-border bg-surface/85 backdrop-blur-md backdrop-saturate-150"
+      >
         <Container
           wide
           className="flex min-h-[60px] items-center justify-between gap-3 sm:min-h-[76px] sm:gap-4"
@@ -74,9 +84,9 @@ export function BiznesHeader({ tenant, navigation, menu, offer, hours, contact }
                 <MobileMenu>
                   <MobileMenuContent
                     items={items}
-                    menu={menu}
+                    offer={offer}
+                    partnerStatuses={partnerStatuses}
                     phone={contact.phone}
-                    whatsapp={contact.whatsapp}
                   />
                 </MobileMenu>
               </div>

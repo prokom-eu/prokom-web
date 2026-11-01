@@ -29,12 +29,20 @@ export function ScreenTitle({ logo }: { logo: ReactNode }) {
   const canGoBack = pathname !== landing
 
   useEffect(() => {
-    const main = document.querySelector('main')
-    const update = () => setTitle(readTitle())
-    // Streamed pages insert the heading later; follow the content until the next address.
-    const observer = new MutationObserver(update)
-    if (main) observer.observe(main, { childList: true, subtree: true })
-    const frame = requestAnimationFrame(update)
+    let frame = 0
+    // One read per frame, however many nodes change.
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(update)
+    }
+    const update = () => {
+      frame = 0
+      setTitle(readTitle())
+    }
+    // Streamed pages insert the heading later, and the page transition swaps `<main>` itself:
+    // follow the body, which stays.
+    const observer = new MutationObserver(schedule)
+    observer.observe(document.body, { childList: true, subtree: true })
+    schedule()
     return () => {
       observer.disconnect()
       cancelAnimationFrame(frame)

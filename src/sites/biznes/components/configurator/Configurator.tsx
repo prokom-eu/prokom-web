@@ -867,8 +867,12 @@ export function Configurator({ data }: { data: ConfiguratorData }) {
         </aside>
       </div>
 
-      {/* Phone: the step, the count and the main button, above the site's own bar. */}
-      <div className="sticky bottom-[calc(4.5rem+env(safe-area-inset-bottom))] z-20 mt-6 flex items-center gap-3 rounded-2xl bg-card p-3 shadow-[0_18px_40px_-20px_var(--shd),inset_0_0_0_1px_var(--border)] md:bottom-4 lg:hidden">
+      {/* Phone: the step, the count and the main button. It is the screen's sticky action
+          (MOBILE-APLIKACJA §1), so the tab bar hides on this page (`data-sticky-action`). */}
+      <div
+        data-sticky-action
+        className="sticky bottom-[calc(0.75rem+env(safe-area-inset-bottom))] z-20 mt-6 flex items-center gap-3 rounded-2xl bg-card p-3 shadow-[0_18px_40px_-20px_var(--shd),inset_0_0_0_1px_var(--border)] md:bottom-4 lg:hidden"
+      >
         <div className="min-w-0 flex-1">
           <p className="text-[14px] font-extrabold text-ink">
             {step === 3 ? 'Wynik' : `Pytanie ${Math.min(step + 1, 3)} z 3`}

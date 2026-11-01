@@ -31,6 +31,8 @@ import { BundleGrid } from '@/sites/biznes/components/bundle/BundleCard'
 import { PageLink } from '@/sites/biznes/components/PageLink'
 import { ProductAbout } from '@/sites/biznes/components/product/ProductAbout'
 import { ProductBento } from '@/sites/biznes/components/product/ProductBento'
+import { StickyAction } from '@/sites/biznes/components/mobile/StickyAction'
+import { ProductAddButton } from '@/sites/biznes/components/product/ProductAddButton'
 import { ProductConfigProvider } from '@/sites/biznes/components/product/ProductConfig'
 import { ProductConfigurator } from '@/sites/biznes/components/product/ProductConfigurator'
 import { ProductHero } from '@/sites/biznes/components/product/ProductHero'
@@ -247,6 +249,10 @@ export default async function ProductPage({ params }: Props) {
         name={product.heading}
         image={product.images[0] ?? null}
       />
+      {/* Phone (MOBILE-APLIKACJA §1): „Dodaj do zapytania” sticks to the bottom of the screen. */}
+      <StickyAction>
+        <ProductAddButton className="w-full" />
+      </StickyAction>
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-20 px-4 pt-14 pb-16 sm:gap-28 sm:px-6 sm:pt-20 sm:pb-24 lg:px-8">
         <ProductBento id={ID.overview} heading={product.heading} tiles={tiles} />
         <ProductAbout id={ID.about} product={product} />
