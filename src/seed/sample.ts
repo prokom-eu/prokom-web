@@ -5,7 +5,8 @@ import type { CompanyDatum, Page, SiteSetting } from '../payload-types'
  * Data for local development. The seed never overwrites a global or settings that already exist;
  * staging and production get theirs in the panel. The company name, NIP and the Rabka office
  * (address, hours pn–pt 9:00–17:00) are real (prokomsoftware ZMIANY-v23 §1); phone numbers and
- * e-mails stay deliberately fake (+48 000 …, example.test), like the Zakopane salon.
+ * e-mails stay deliberately fake (+48 000 …, example.test). One office only: the company has no
+ * salon in Zakopane (Software v23, Instalacje — boss's answer 01.11.2026).
  */
 export const SAMPLE_COMPANY: Omit<CompanyDatum, 'id'> = {
   name: 'PRO-KOM Tadeusz Wójciak',
@@ -21,13 +22,6 @@ export const SAMPLE_COMPANY: Omit<CompanyDatum, 'id'> = {
       street: 'ul. Orkana 16B',
       postalCode: '34-700',
       city: 'Rabka-Zdrój',
-      hours: [{ days: ['mon', 'tue', 'wed', 'thu', 'fri'], opens: '09:00', closes: '17:00' }],
-    },
-    {
-      name: 'Zakopane (przykład)',
-      street: 'ul. Przykładowa 2',
-      postalCode: '00-000',
-      city: 'Zakopane',
       hours: [{ days: ['mon', 'tue', 'wed', 'thu', 'fri'], opens: '09:00', closes: '17:00' }],
     },
   ],

@@ -22,7 +22,9 @@ const TENANTS = [
     name: 'PRO-KOM Instalacje',
     title: 'Monitoring, alarmy, Wi-Fi, smart home Podhale | PRO-KOM Instalacje',
     h1: /Twój obiekt na żywo\.$/,
-    markers: ['instalacje@example.test', 'Wybierz obiekt obok'],
+    // Not the line's e-mail: the Instalacje seed writes its real contact over the sample one
+    // (boss's answer 01.11.2026), so the markers are texts of the home page.
+    markers: ['Wybierz obiekt obok', 'Pokaż na żywo'],
   },
   {
     host: 'software.localhost',

@@ -67,13 +67,20 @@ Serwer: VPS webh.pl, Ubuntu 24.04 (ADR-019). Strefa czasu serwera zostaje **UTC*
    - kopia `monthly` powstaje tylko z przebiegu nocnego 1. dnia miesiąca (UTC) — jeśli ten się nie uda, w danym miesiącu jej nie ma; dlatego alarm o braku świeżej kopii (S10c);
    - Object Lock: pliku w B2 nie da się usunąć przez 14 dni od wysłania — także kluczem z serwera (sprawdzone 1.11). `backup.sh` usuwa kopie dopiero po 14/30/93 dniach, więc blokada mu nie przeszkadza; usunięty plik B2 najpierw ukrywa, a Lifecycle kasuje go po wygaśnięciu blokady.
 
-## 2. Wdrożenie stagingu (ręcznie, zanim zrobi to pipeline w S10)
+## 2. Wdrożenie stagingu (pipeline, S10b)
 
-1. Tag obrazu = SHA commita z `develop` (lista: zakładka Actions → „Image” albo GHCR).
-2. W `.env.staging`: `APP_IMAGE_TAG=<SHA>`.
-3. `$staging pull app && $staging up -d`
-4. Czekaj na zdrowie (migracje uruchamia aplikacja przy starcie): `docker inspect -f '{{.State.Health.Status}}' prokom-staging-app-1` → `healthy`.
-5. `SMOKE_AUTH=szef:<hasło> PANEL_HOST=<panel stagingu> bash scripts/smoke.sh https://127.0.0.1 <domeny stagingu…>`
+Każdy merge do `develop`: „Image” buduje obraz `<SHA>` (z plikami wdrożenia tego commita w `/deploy`: `docker/`, `scripts/`, `.env.example`) → **„Deploy staging”** (`.github/workflows/deploy-staging.yml`) łączy się z serwerem kluczem, który może wywołać tylko bramkę `deploy staging <SHA>` — **nie wysyła żadnych plików**. Bramka (`~/bin/prokom-deploy-gate` = `scripts/server/deploy-gate.sh`) pod blokadą `../.deploy.lock` pobiera obraz, kopiuje z niego `/deploy` w miejsce `docker/` i `scripts/` (`.env.*` zostają; `REVISION` = wersja plików) i uruchamia `scripts/deploy.sh staging <SHA>`: pobranie obrazu → `APP_IMAGE_TAG` w `.env.staging` → `up -d app` → `healthy` (migracje przy starcie, do 5 min) → pełny smoke test tego commita na porcie aplikacji (`127.0.0.1:<APP_PORT>`, domeny z `STAGING_SITE_HOSTS` w `.env.proxy`, bez hasła stagingu). Błąd po zmianie tagu:
+- **bez nowych migracji** → automatyczny powrót do poprzedniego tagu (tylko aplikacja), sprawdzony podstawowym smoke testem (`SMOKE_CORE=1`: zdrowie, panel, strony główne — trasy, które ma każda wersja); przebieg w Actions czerwony;
+- **nowe migracje już weszły** → **bez powrotu**: stary obraz może nie działać na nowym schemacie (1.11: obraz z 31.10 na bazie po 13 migracjach dawał 500). Nowy obraz zostaje, przebieg czerwony — sprawdź go i zdecyduj: poprawka w nowym PR albo §4B z kopią;
+- **powrót się nie udał** → skrypt wraca do nowego obrazu, żeby staging nie leżał, i kończy się błędem.
+
+Dziennik: `../deploys.log` (`<czas> staging <stary> -> <nowy> ok | FAILED, rolled back | FAILED, not rolled back (migrations applied) | FAILED, rollback failed, …`), pełny przebieg: `../deploy-output.log`. Zerwane połączenie z GitHubem nie przerywa wdrożenia. Po udanym wdrożeniu usuwane są obrazy aplikacji inne niż obecny, poprzedni i te z `.env.staging`/`.env.prod` (starszy obraz pobiera się z GHCR przy cofnięciu).
+
+- **Ręcznie z GitHuba:** Actions → „Deploy staging” → Run workflow → pełny SHA z `develop` (ponowne wdrożenie albo cofnięcie do starszego obrazu). Workflow sprawdza, że commit jest w historii `develop`.
+- **Ręcznie na serwerze** (ta sama droga co pipeline): `ssh prokom-vps 'SSH_ORIGINAL_COMMAND="deploy staging <SHA>" ~/bin/prokom-deploy-gate'`. Obrazy sprzed S10b nie mają `/deploy` — bramka odmawia; wtedy pliki z komputera (`git archive <SHA> docker scripts .env.example | ssh prokom-vps 'cd /srv/prokom/prokom-web && rm -rf docker scripts && tar -x'`) i `scripts/deploy.sh staging <SHA>`. `deploy.sh` i smoke test muszą być z **tego samego** commita co obraz.
+- **Test powrotu:** `scripts/deploy.sh staging <SHA> --fail-smoke-for-test` (udaje błąd smoke testu po starcie nowego obrazu). Powrót następuje tylko, gdy nowy obraz nie dodał migracji (`git diff --stat <stary> <nowy> -- src/migrations`). Wynik 1.11: `a7c8856 -> 51ab27a` — powrót do `a7c8856`, podstawowy smoke zielony, potem `51ab27a` wdrożony normalnie.
+
+**Klucz pipeline'u (raz, zrobione 1.11):** środowisko GitHub `staging` (Settings → Environments; wdrożenia tylko z gałęzi `develop`) z sekretem `STAGING_SSH_KEY` (klucz prywatny ed25519, wygenerowany na serwerze i przekazany wprost do `gh secret set` — nigdzie nie zapisany) oraz zmiennymi `STAGING_SSH_TARGET=<admin>@<IP>` i `STAGING_SSH_KNOWN_HOSTS=<IP> ssh-ed25519 …` (z `/etc/ssh/ssh_host_ed25519_key.pub` serwera — przypięty klucz hosta). Na serwerze w `~/.ssh/authorized_keys` admina: `restrict,command="/home/<admin>/bin/prokom-deploy-gate" ssh-ed25519 … github-deploy-staging` (`restrict` wyłącza też scp/sftp, przekierowania i terminal). Bramka leży poza plikami wdrożenia, więc wdrożenie jej nie podmienia — zmiana bramki: `install -m 700 scripts/server/deploy-gate.sh ~/bin/prokom-deploy-gate` ręcznie. Klucz pozwala tylko wybrać obraz z GHCR (zbudowany przez „Image” z `develop`); kto może scalić do `develop`, ten wdraża kod na serwer — dlatego `develop` tylko przez PR z zielonym CI. Nowy klucz: usuń linię `github-deploy-staging`, wygeneruj parę jak wyżej.
 
 ## 3. Wdrożenie produkcji
 
@@ -90,7 +97,7 @@ Tylko po akceptacji szefa w Asanie i tylko obraz, który przeszedł staging (ADR
 ## 4. Cofnięcie wdrożenia
 
 **A. Tylko obraz** (migracje nowej wersji były zgodne wstecz — patrz 5):
-1. W `.env.prod` poprzedni `APP_IMAGE_TAG` (z kroku 3.2).
+1. W `.env.prod` poprzedni `APP_IMAGE_TAG` (z kroku 3.2). Staging: „Deploy staging” → Run workflow z poprzednim SHA (§2) — nic więcej.
 2. `$prod up -d app`, zdrowie, smoke.
 
 **B. Obraz + baza** (migracja niezgodna wstecz albo zepsute dane):
