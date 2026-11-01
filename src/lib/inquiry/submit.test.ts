@@ -95,10 +95,15 @@ describe('submitInquiry (ADR-003)', () => {
       }),
     )
     expect(d.sendEmail).toHaveBeenCalledTimes(2)
+    // Both from the sender of the tenant's line (S10d).
     expect(d.sendEmail).toHaveBeenCalledWith(
       expect.objectContaining({ to: 'b@p.pl', replyTo: 'jan@example.test' }),
+      'biznes',
     )
-    expect(d.sendEmail).toHaveBeenCalledWith(expect.objectContaining({ to: 'jan@example.test' }))
+    expect(d.sendEmail).toHaveBeenCalledWith(
+      expect.objectContaining({ to: 'jan@example.test' }),
+      'biznes',
+    )
   })
 
   it('never takes the tenant or line from the body', async () => {
@@ -277,6 +282,7 @@ describe('submitInquiry (ADR-003)', () => {
           subject: 'Zapytanie PKB-2026-0042 — Biznes — Lista zapytania — Kasy fiskalne',
           text: expect.stringContaining('- 1 × Szuflada Posnet SKL'),
         }),
+        'biznes',
       )
     })
 
@@ -749,6 +755,7 @@ describe('submitInquiry (ADR-003)', () => {
           to: 'i@p.pl',
           text: expect.stringContaining('Monitoring i kamery, Ładowarki EV'),
         }),
+        'instalacje',
       )
     })
 
