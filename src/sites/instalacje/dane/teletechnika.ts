@@ -162,7 +162,7 @@ export const teletechnika = {
   law: {
     eyebrow: 'Co się zmieniło w 2026 · stan na październik 2026',
     heading: 'Nowy budynek musi być gotowy na światłowód.',
-    lead: 'Pilnujemy, żeby to, co zaprojektowano, dało się odebrać. A gdy przepisy się zmieniają, mówimy o tym na etapie oferty, a nie na odbiorze.',
+    lead: 'Pilnujemy, żeby to, co zaprojektowano, dało się odebrać. A gdy przepisy się zmieniają, mówimy o tym już w ofercie.',
     items: [
       {
         title: 'Od 12.02.2026: światłowód w nowym budynku',
