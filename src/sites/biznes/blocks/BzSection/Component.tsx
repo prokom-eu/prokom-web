@@ -21,6 +21,15 @@ import {
 } from './common/Basic'
 import { TabsPicker, VideoPicker } from './common/Interactive'
 import { ProductGrid, productsBySlug } from './common/Products'
+import { Audience, CareHero, StartCalendar } from './firma/Care'
+import { CareAreas, Seats, SwitchSteps } from './firma/CareWidgets'
+import {
+  AboutHero,
+  BrandsSection,
+  ContactFormSection,
+  ContactHero,
+  LinesSection,
+} from './firma/Company'
 import { GoposHero } from './gopos/Hero'
 import { GoposAreas, GoposHub, GoposPackage, GoposVenues } from './gopos/Widgets'
 import { InsertHero, InsertKsef, InsertRequirements } from './insert/Sections'
@@ -42,6 +51,10 @@ const NEEDS_INDEX: ReadonlySet<SectionVariant> = new Set([
   'insert-hero',
   'insert-picker',
   'insert-requirements',
+  'care-areas',
+  'audience',
+  'about-hero',
+  'brands',
 ])
 
 const imagesOf = (index: CatalogIndex, slugs: readonly (string | undefined)[]) => {
@@ -63,7 +76,7 @@ export async function BzSectionBlock({ block, tenantId, crumbs }: Props) {
   const variant = block.variant
   if (!isSectionVariant(variant)) return null
   const index = NEEDS_INDEX.has(variant) ? await getCatalogIndex(tenantId) : null
-  return render(block, variant, index, crumbs)
+  return render(block, variant, index, crumbs, tenantId)
 }
 
 function render(
@@ -71,6 +84,7 @@ function render(
   variant: SectionVariant,
   index: CatalogIndex | null,
   crumbs: readonly Crumb[],
+  tenantId: number,
 ): ReactNode {
   switch (variant) {
     case 'stats':
@@ -223,6 +237,78 @@ function render(
     case 'insert-requirements': {
       const data = parseSectionData('insert-requirements', block.data)
       return data && index && <InsertRequirements block={block} data={data} index={index} />
+    }
+    case 'care-hero': {
+      const data = parseSectionData('care-hero', block.data)
+      return data && <CareHero block={block} data={data} crumbs={crumbs} tenantId={tenantId} />
+    }
+    case 'care-areas': {
+      const data = parseSectionData('care-areas', block.data)
+      if (!data || !index) return null
+      const products = Object.fromEntries(
+        productsBySlug(
+          index,
+          data.areas.flatMap((area) => area.products),
+        ).map((p) => [p.slug, { slug: p.slug, name: p.name, image: p.image }]),
+      )
+      return (
+        <SectionShell block={block}>
+          <CareAreas data={data} products={products} />
+        </SectionShell>
+      )
+    }
+    case 'switch-steps': {
+      const data = parseSectionData('switch-steps', block.data)
+      return (
+        data && (
+          <SectionShell block={block}>
+            <SwitchSteps data={data} />
+          </SectionShell>
+        )
+      )
+    }
+    case 'audience': {
+      const data = parseSectionData('audience', block.data)
+      return data && index && <Audience block={block} data={data} index={index} />
+    }
+    case 'start-calendar': {
+      const data = parseSectionData('start-calendar', block.data)
+      return data && <StartCalendar block={block} data={data} />
+    }
+    case 'seats': {
+      const data = parseSectionData('seats', block.data)
+      return (
+        data && (
+          <SectionShell block={block}>
+            <Seats data={data} />
+          </SectionShell>
+        )
+      )
+    }
+    case 'about-hero': {
+      const data = parseSectionData('about-hero', block.data)
+      return (
+        data &&
+        index && (
+          <AboutHero block={block} data={data} index={index} crumbs={crumbs} tenantId={tenantId} />
+        )
+      )
+    }
+    case 'lines': {
+      const data = parseSectionData('lines', block.data)
+      return data && <LinesSection block={block} data={data} />
+    }
+    case 'brands': {
+      const data = parseSectionData('brands', block.data)
+      return data && index && <BrandsSection block={block} data={data} index={index} />
+    }
+    case 'contact-hero': {
+      const data = parseSectionData('contact-hero', block.data)
+      return data && <ContactHero block={block} data={data} crumbs={crumbs} tenantId={tenantId} />
+    }
+    case 'contact-form': {
+      const data = parseSectionData('contact-form', block.data)
+      return data && <ContactFormSection block={block} data={data} tenantId={tenantId} />
     }
   }
 }

@@ -1,6 +1,19 @@
 import { z } from 'zod'
 
 import {
+  aboutHeroSchema,
+  audienceSchema,
+  brandsSchema,
+  careAreasSchema,
+  careHeroSchema,
+  contactFormSchema,
+  contactHeroSchema,
+  linesSchema,
+  seatsSchema,
+  startCalendarSchema,
+  switchStepsSchema,
+} from './firma'
+import {
   goposAreasSchema,
   goposHeroSchema,
   goposHubSchema,
@@ -111,6 +124,18 @@ export const SECTION_SCHEMAS = {
   'insert-ksef': insertKsefSchema,
   'insert-points': insertPointsSchema,
   'insert-requirements': insertRequirementsSchema,
+  // Opieka IT, O firmie, Kontakt (K4i).
+  'care-hero': careHeroSchema,
+  'care-areas': careAreasSchema,
+  'switch-steps': switchStepsSchema,
+  audience: audienceSchema,
+  'start-calendar': startCalendarSchema,
+  seats: seatsSchema,
+  'about-hero': aboutHeroSchema,
+  lines: linesSchema,
+  brands: brandsSchema,
+  'contact-hero': contactHeroSchema,
+  'contact-form': contactFormSchema,
 } as const
 
 export type SectionVariant = keyof typeof SECTION_SCHEMAS
@@ -137,10 +162,27 @@ export const SECTION_VARIANTS: readonly { value: SectionVariant; label: string }
   { value: 'insert-ksef', label: 'InsERT: KSeF' },
   { value: 'insert-points', label: 'InsERT: InsPunkty' },
   { value: 'insert-requirements', label: 'InsERT: wymagania' },
+  { value: 'care-hero', label: 'Opieka IT: hero z raportem' },
+  { value: 'care-areas', label: 'Opieka IT: obszary' },
+  { value: 'switch-steps', label: 'Kroki z przełącznikiem' },
+  { value: 'audience', label: 'Dla kogo' },
+  { value: 'start-calendar', label: 'Na start i terminy' },
+  { value: 'seats', label: 'Ile masz stanowisk?' },
+  { value: 'about-hero', label: 'O firmie: hero z wizytówką' },
+  { value: 'lines', label: 'Linie PRO-KOM' },
+  { value: 'brands', label: 'Marki i autoryzacje' },
+  { value: 'contact-hero', label: 'Kontakt: hero' },
+  { value: 'contact-form', label: 'Kontakt: formularz' },
 ]
 
 /** Kinds that open the page: they carry the H1 and the breadcrumbs. */
-export const HERO_VARIANTS: ReadonlySet<SectionVariant> = new Set(['gopos-hero', 'insert-hero'])
+export const HERO_VARIANTS: ReadonlySet<SectionVariant> = new Set([
+  'gopos-hero',
+  'insert-hero',
+  'care-hero',
+  'about-hero',
+  'contact-hero',
+])
 
 export const isSectionVariant = (value: unknown): value is SectionVariant =>
   typeof value === 'string' && Object.hasOwn(SECTION_SCHEMAS, value)
