@@ -1,4 +1,5 @@
-type Link = readonly [string, string, ...unknown[]]
+/** A navigation link `[label, href]` (`link` in `./schema`). */
+type Link = [string, string]
 
 /** From this many active industries the mega menu shows its own „Dla branż” group. */
 export const MIN_INDUSTRY_GROUP = 3
@@ -8,19 +9,18 @@ export const MIN_INDUSTRY_GROUP = 3
  * unfinished, so below `MIN_INDUSTRY_GROUP` each industry is a plain link in the offer card
  * („Dla branży: Budowlanka i ekipy”) and the group appears once there are enough.
  */
-export function megaIndustries<L extends Link>(
-  industries: readonly L[],
-  cardLinks: readonly L[],
-): { group: L[]; cardLinks: L[] } {
-  if (industries.length >= MIN_INDUSTRY_GROUP)
+export function megaIndustries(
+  industries: readonly Link[],
+  cardLinks: readonly Link[],
+): { group: Link[]; cardLinks: Link[] } {
+  if (industries.length >= MIN_INDUSTRY_GROUP) {
     return { group: [...industries], cardLinks: [...cardLinks] }
+  }
   return {
     group: [],
     cardLinks: [
       ...cardLinks,
-      ...industries.map(
-        ([label, href, ...rest]) => [`Dla branży: ${label}`, href, ...rest] as unknown as L,
-      ),
+      ...industries.map(([label, href]): Link => [`Dla branży: ${label}`, href]),
     ],
   }
 }
