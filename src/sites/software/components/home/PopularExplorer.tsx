@@ -116,7 +116,10 @@ export function PopularExplorer({ cards, tabs, display, offers, count, hint }: P
       </div>
 
       <div id={`${id}-list`} role="tabpanel" aria-labelledby={`${id}-tab-${tab}`}>
-        <ul className="-mx-4 flex snap-x snap-mandatory items-start gap-3 overflow-x-auto px-4 pb-2 [scrollbar-width:none] min-[640px]:mx-0 min-[640px]:grid min-[640px]:grid-cols-2 min-[640px]:gap-4 min-[640px]:overflow-visible min-[640px]:px-0 min-[640px]:pb-0 min-[1081px]:grid-cols-4">
+        <ul
+          data-reveal-cards
+          className="-mx-4 flex snap-x snap-mandatory items-start gap-3 overflow-x-auto px-4 pb-2 [scrollbar-width:none] min-[640px]:mx-0 min-[640px]:grid min-[640px]:grid-cols-2 min-[640px]:gap-4 min-[640px]:overflow-visible min-[640px]:px-0 min-[640px]:pb-0 min-[1081px]:grid-cols-4"
+        >
           {shown.map((card, i) => (
             <li
               key={card.slug}

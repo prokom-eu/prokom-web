@@ -25,11 +25,17 @@ export function Guarantees({ texts, cards }: Props) {
             <p className="text-xs font-extrabold uppercase tracking-[0.14em] text-accent-text min-[640px]:text-sm">
               {texts.eyebrow}
             </p>
-            <h2 className="font-display text-[32px] font-extrabold leading-[1.02] tracking-tight min-[640px]:text-5xl min-[1081px]:text-[56px]">
+            <h2
+              data-reveal
+              className="font-display text-[32px] font-extrabold leading-[1.02] tracking-tight min-[640px]:text-5xl min-[1081px]:text-[56px]"
+            >
               {texts.title}
             </h2>
           </div>
-          <ul className="grid gap-3 [grid-template-columns:repeat(auto-fit,minmax(240px,1fr))]">
+          <ul
+            data-reveal-cards
+            className="grid gap-3 [grid-template-columns:repeat(auto-fit,minmax(240px,1fr))]"
+          >
             {cards.map((card, index) => (
               <li
                 key={`${index}-${card.title}`}

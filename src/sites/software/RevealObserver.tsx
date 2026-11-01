@@ -40,7 +40,8 @@ export function RevealObserver() {
           element.setAttribute('data-revealed', '')
         }
       },
-      { rootMargin: '0px 0px -8% 0px' },
+      // Wide sideways: cards of a phone carousel beyond the right edge count as seen with it.
+      { rootMargin: '0px 100% -8% 100%' },
     )
     const height = window.innerHeight
     for (const element of targets) {

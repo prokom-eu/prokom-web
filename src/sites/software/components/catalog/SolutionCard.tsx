@@ -23,9 +23,10 @@ export function SolutionCard({ solution, display, eager = false, onOpen }: Props
   const price = cardPrice(solution, display)
   return (
     <article
-      // `data-card`: takes the press state of its stretched name button (globals.css).
+      // `data-card`: lifts on hover and takes the press state of its stretched name button
+      // (`src/styles/motion.css`).
       data-card
-      className="relative grid h-full grid-cols-[128px_1fr] gap-x-4 rounded-[22px] border border-border bg-card p-3.5 transition-shadow hover:shadow-raised sm:flex sm:flex-col"
+      className="relative grid h-full grid-cols-[128px_1fr] gap-x-4 rounded-[22px] border border-border bg-card p-3.5 sm:flex sm:flex-col"
     >
       <OfferThumb src={solution.thumbnail} eager={eager} className="self-start" />
       <div className="flex min-w-0 flex-col sm:mt-4 sm:px-1.5">
@@ -48,7 +49,7 @@ export function SolutionCard({ solution, display, eager = false, onOpen }: Props
             type="button"
             aria-haspopup="dialog"
             onClick={onOpen}
-            // `data-stretched`: no press transform on it (globals.css), the card takes it.
+            // `data-stretched`: no press transform on it (motion.css), the card takes it.
             data-stretched
             className="text-left after:absolute after:inset-0 after:rounded-[22px] after:content-['']"
           >

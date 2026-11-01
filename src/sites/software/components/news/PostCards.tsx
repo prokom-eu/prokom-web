@@ -30,7 +30,12 @@ const FALLBACK = { icon: 'doc' as IconName }
 export function PostScene({ category, className }: { category: string; className?: string }) {
   const scene = SCENES[category] ?? FALLBACK
   return (
-    <div aria-hidden="true" className={cx('relative overflow-hidden bg-accent-soft', className)}>
+    // `data-card-media`: grows a little when its card is hovered; the card clips it (SWV7).
+    <div
+      aria-hidden="true"
+      data-card-media
+      className={cx('relative overflow-hidden bg-accent-soft', className)}
+    >
       <span className="absolute top-[18%] left-[8%] h-[120%] w-[46%] rotate-[-6deg] rounded-xl bg-white/85 p-3 shadow-raised">
         <span className="block h-1.5 w-1/2 rounded-full bg-accent" />
         {[0, 1, 2, 3, 4].map((line) => (
@@ -66,7 +71,8 @@ export function FeaturedPost({ post }: { post: SoftwarePostCard }) {
   return (
     <Link
       href={post.href}
-      className="group grid overflow-hidden rounded-[28px] border border-border bg-card shadow-raised transition-transform active:scale-[0.99] min-[861px]:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]"
+      data-card
+      className="group grid overflow-hidden rounded-[28px] border border-border bg-card shadow-raised min-[861px]:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]"
     >
       <PostScene category={post.categoryValue} className="aspect-[16/9] min-[861px]:aspect-auto" />
       <span className="flex flex-col gap-3 p-[22px] min-[641px]:p-10">
@@ -94,12 +100,16 @@ export function PostCardList({
 }) {
   const Title = headingLevel
   return (
-    <ul className="grid gap-2.5 min-[641px]:grid-cols-2 min-[641px]:gap-3 min-[1081px]:grid-cols-3">
+    <ul
+      data-reveal-cards
+      className="grid gap-2.5 min-[641px]:grid-cols-2 min-[641px]:gap-3 min-[1081px]:grid-cols-3"
+    >
       {posts.map((post) => (
         <li key={post.slug}>
           <Link
             href={post.href}
-            className="grid h-full grid-cols-[88px_minmax(0,1fr)] overflow-hidden rounded-[22px] border border-border bg-card transition-transform active:scale-[0.99] min-[641px]:flex min-[641px]:flex-col"
+            data-card
+            className="grid h-full grid-cols-[88px_minmax(0,1fr)] overflow-hidden rounded-[22px] border border-border bg-card min-[641px]:flex min-[641px]:flex-col"
           >
             <PostScene category={post.categoryValue} className="min-[641px]:aspect-[16/6]" />
             <span className="flex flex-col gap-2 p-3.5 min-[641px]:p-5">

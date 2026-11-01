@@ -69,6 +69,7 @@ export async function SwStepsBlock({ block, tenantId }: Props) {
       <Container wide>
         {band ? <h2 className="sr-only">{block.heading}</h2> : head}
         <ul
+          data-reveal-cards
           className={cx(
             band ? 'grid gap-2.5 min-[641px]:gap-3' : 'mt-6 grid gap-2.5 min-[641px]:gap-3',
             stats ? 'grid-cols-2 min-[1081px]:grid-cols-4' : 'min-[761px]:grid-cols-3',

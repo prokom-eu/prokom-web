@@ -93,6 +93,13 @@
     transform: scale(0.985);
   }
 
+  /* The picture of a card grows inside its frame (`data-card-media`: the frame of an `<img>`, or
+     a drawn scene clipped by its card). */
+  [data-line='software'] [data-card-media] img,
+  [data-line='software'] [data-card-media]:not(:has(img)) {
+    transition: scale var(--dur-state) var(--ease-out);
+  }
+
   /* Arrows in links and buttons, icons in cards. */
   [data-line='software'] [data-icon='arrow'],
   [data-line='software'] [data-card] [data-card-icon] {
@@ -131,6 +138,10 @@
   }
   [data-line='software'] [data-card]:hover [data-card-icon] {
     scale: 1.06;
+  }
+  [data-line='software'] [data-card]:hover [data-card-media] img,
+  [data-line='software'] [data-card]:hover [data-card-media]:not(:has(img)) {
+    scale: 1.03;
   }
 
   /* Text links keep their real underline (WCAG 1.4.1: not told apart by colour alone); on

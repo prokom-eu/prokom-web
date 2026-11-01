@@ -16,7 +16,10 @@ export function HowWeBuild({ view }: { view: HowWeBuildView }) {
       <Container wide>
         <div className="flex flex-col gap-6 overflow-hidden rounded-[28px] border border-accent-line bg-accent-soft p-[18px] min-[641px]:gap-8 min-[641px]:rounded-[36px] min-[641px]:p-[clamp(22px,4vw,60px)]">
           <SectionHead eyebrow={view.eyebrow} title={view.title} lead={view.lead} />
-          <ul className="-mx-[18px] flex snap-x snap-mandatory gap-3 overflow-x-auto px-[18px] pb-2 [scrollbar-width:none] min-[641px]:mx-0 min-[641px]:grid min-[641px]:grid-cols-2 min-[641px]:gap-4 min-[641px]:overflow-visible min-[641px]:px-0 min-[641px]:pb-0 min-[1081px]:grid-cols-3">
+          <ul
+            data-reveal-cards
+            className="-mx-[18px] flex snap-x snap-mandatory gap-3 overflow-x-auto px-[18px] pb-2 [scrollbar-width:none] min-[641px]:mx-0 min-[641px]:grid min-[641px]:grid-cols-2 min-[641px]:gap-4 min-[641px]:overflow-visible min-[641px]:px-0 min-[641px]:pb-0 min-[1081px]:grid-cols-3"
+          >
             {view.cards.map((card) => (
               <li
                 key={card.kind}
