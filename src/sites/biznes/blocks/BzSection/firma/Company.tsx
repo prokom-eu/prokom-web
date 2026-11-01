@@ -134,29 +134,29 @@ export async function AboutHero({
             </dl>
           </div>
           <div className={cx(CARD, 'flex flex-col gap-5 p-6 text-ink sm:p-7')}>
-            <p className={cx(EYEBROW, 'text-ink-3')}>Dane firmy</p>
+            <p className={cx(EYEBROW, 'text-ink-2')}>Dane firmy</p>
             <dl className="grid gap-x-5 gap-y-2.5 text-[15px] min-[480px]:grid-cols-[110px_1fr]">
               {c.company?.name && (
                 <>
-                  <dt className="text-ink-3">Firma</dt>
+                  <dt className="text-ink-2">Firma</dt>
                   <dd className="font-bold">{c.company.name}</dd>
                 </>
               )}
               {c.address && (
                 <>
-                  <dt className="text-ink-3">Adres</dt>
+                  <dt className="text-ink-2">Adres</dt>
                   <dd className="font-bold">{c.address}</dd>
                 </>
               )}
               {c.company?.nip && (
                 <>
-                  <dt className="text-ink-3">NIP</dt>
+                  <dt className="text-ink-2">NIP</dt>
                   <dd className="font-bold">{c.company.nip}</dd>
                 </>
               )}
               {(c.phone || c.landline) && (
                 <>
-                  <dt className="text-ink-3">Telefon</dt>
+                  <dt className="text-ink-2">Telefon</dt>
                   <dd className="font-bold">
                     {c.phone && c.tel && (
                       <a href={c.tel} className="hover:underline">
@@ -176,7 +176,7 @@ export async function AboutHero({
               )}
               {c.email && (
                 <>
-                  <dt className="text-ink-3">E-mail</dt>
+                  <dt className="text-ink-2">E-mail</dt>
                   <dd className="font-bold">
                     <a href={`mailto:${c.email}`} className="hover:underline">
                       {c.email}
@@ -186,7 +186,7 @@ export async function AboutHero({
               )}
               {c.hours.length > 0 && (
                 <>
-                  <dt className="text-ink-3">Godziny</dt>
+                  <dt className="text-ink-2">Godziny</dt>
                   <dd className="font-bold">{hoursSummary(c.hours)}</dd>
                 </>
               )}
@@ -227,7 +227,7 @@ export async function AboutHero({
               <span className="sr-only"> (otwiera się w nowej karcie)</span>
             </a>
             {data.photoNote && (
-              <p className="rounded-2xl bg-surface-2 px-4 py-3 text-[14px] text-ink-3">
+              <p className="rounded-2xl bg-surface-2 px-4 py-3 text-[14px] text-ink-2">
                 {data.photoNote}
               </p>
             )}
@@ -264,7 +264,7 @@ export function LinesSection({
               </span>
               <b className="font-display text-[1.15rem] leading-tight font-extrabold">{line.t}</b>
               <span className="text-[15px] leading-relaxed text-ink-2">{line.d}</span>
-              <small className="text-[13px] text-ink-3">{line.w}</small>
+              <small className="text-[13px] text-ink-2">{line.w}</small>
               <span className="mt-auto pt-2 text-[14px] font-extrabold text-accent-text">
                 {line.u}
               </span>
@@ -299,7 +299,7 @@ export function LinesSection({
           )
         })}
       </ul>
-      {data.note && <p className="mt-5 text-[14px] text-ink-3">{data.note}</p>}
+      {data.note && <p className="mt-5 text-[14px] text-ink-2">{data.note}</p>}
     </SectionShell>
   )
 }
@@ -357,7 +357,7 @@ export function BrandsSection({
           </div>
         ))}
       </div>
-      {data.note && <p className="mt-5 text-[13px] text-ink-3">{data.note}</p>}
+      {data.note && <p className="mt-5 text-[13px] text-ink-2">{data.note}</p>}
     </SectionShell>
   )
 }
@@ -469,7 +469,7 @@ export async function ContactHero({
                     >
                       <Icon name={channel.icon} className="size-5" />
                     </span>
-                    <small className="text-[13px] text-ink-3">{channel.label}</small>
+                    <small className="text-[13px] text-ink-2">{channel.label}</small>
                     <b className="text-[17px] font-extrabold break-words">{channel.value}</b>
                     <span className="text-[14px] text-ink-2">{channel.note}</span>
                     <em className="mt-2 text-[14px] font-extrabold text-accent-text not-italic">
@@ -511,7 +511,7 @@ export async function ContactHero({
                 <p className="text-[14px] leading-relaxed text-ink-2">{data.bringNote}</p>
               )}
               {c.company && (
-                <p className="flex flex-wrap gap-x-4 gap-y-1 border-t border-border pt-3 text-[13px] text-ink-3">
+                <p className="flex flex-wrap gap-x-4 gap-y-1 border-t border-border pt-3 text-[13px] text-ink-2">
                   <span>{c.company.name}</span>
                   {c.company.nip && <span>NIP {c.company.nip}</span>}
                 </p>

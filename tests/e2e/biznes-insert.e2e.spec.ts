@@ -1,5 +1,6 @@
 import { expect, test, type Page } from '@playwright/test'
 
+import { forbiddenContent } from '../../src/lib/catalog/contentRules'
 import { site } from './helpers'
 
 // K4h: `/insert` of the Biznes line from K4 sections (K33 §7, K34 §5, plansza Web-InsERT): hero
@@ -73,7 +74,8 @@ test.describe('Biznes /insert (K4h)', () => {
     await page.goto(site('biznes.localhost', '/insert'))
     const text = await page.locator('main').innerText()
     // „do 10 000 zł brutto” is the KSeF threshold, not a price (K4-FINAL §1).
-    expect(text.replace(/10\s000 zł/g, '')).not.toMatch(/leasing|\braty\b|\d\s?zł|\bAut\./i)
+    expect(forbiddenContent(text, { legalAmounts: true })).toEqual([])
+    expect(text).not.toMatch(/\bAut\./)
   })
 
   test('no horizontal scroll on a phone', async ({ page }) => {

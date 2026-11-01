@@ -18,7 +18,9 @@ test.describe('Biznes /gopos (K4h)', () => {
     await expect(page.getByRole('navigation', { name: 'Okruszki' })).toHaveText(
       /Strona główna\s*\/\s*Oferta\s*\/\s*GoPOS/,
     )
-    await expect(page.getByText('Autoryzowany partner GoPOS')).toBeVisible()
+    await expect(
+      page.locator('section[aria-labelledby="gopos-h"]').getByText(/Autoryzowany partner GoPOS/),
+    ).toBeVisible()
     await expect(page.locator('#lokal').getByRole('tab')).toHaveCount(5)
     await expect(page.locator('#pakiet')).toContainText('bez cen — wycena na piśmie')
     await expect(page.locator('#faq details')).toHaveCount(8)
@@ -30,11 +32,11 @@ test.describe('Biznes /gopos (K4h)', () => {
     await page.goto(site('biznes.localhost', '/gopos'))
     const hero = page.locator('section[aria-labelledby="gopos-h"]')
     await hero.getByRole('button', { name: /Kuchnia.*Od razu na ekranie/ }).click()
-    await expect(hero.getByRole('button', { name: /^Kuchnia — / })).toHaveAttribute(
+    await expect(hero.getByRole('button', { name: /Kuchnia — / })).toHaveAttribute(
       'aria-pressed',
       'true',
     )
-    await expect(hero.getByRole('button', { name: /^Sala — / })).toHaveAttribute(
+    await expect(hero.getByRole('button', { name: /Sala — / })).toHaveAttribute(
       'aria-pressed',
       'false',
     )

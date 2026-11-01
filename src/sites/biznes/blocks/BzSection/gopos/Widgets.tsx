@@ -110,7 +110,7 @@ export function GoposVenues({
           </h3>
           <p className="leading-relaxed text-pretty text-ink-2">{venue.lead}</p>
           <div>
-            <p className={cx(EYEBROW, 'mb-2 text-ink-3')}>Pakiet na start</p>
+            <p className={cx(EYEBROW, 'mb-2 text-ink-2')}>Pakiet na start</p>
             <ul className="flex flex-wrap gap-2">
               {['GoPOS', ...venue.modules.map((module) => module.name)].map((name) => (
                 <li
@@ -220,10 +220,9 @@ export function GoposAreas({ data }: { data: SectionData<'gopos-areas'> }) {
                   {item.slug && (
                     <Link
                       href={productHref(item.slug)}
-                      aria-label={`Zobacz kartę: ${item.t}`}
                       className="inline-flex min-h-11 items-center px-2 text-[14px] font-extrabold text-accent-text hover:underline"
                     >
-                      Karta →
+                      Karta<span className="sr-only">: {item.t}</span> →
                     </Link>
                   )}
                 </li>
@@ -295,7 +294,7 @@ export function GoposAreas({ data }: { data: SectionData<'gopos-areas'> }) {
                   {picked.has(extra.slug) ? 'W Twoim pakiecie ✓' : `Dodaj ${extra.t} do pakietu`}
                 </button>
               )}
-              {data.ext.source && <p className="text-[13px] text-ink-3">{data.ext.source}</p>}
+              {data.ext.source && <p className="text-[13px] text-ink-2">{data.ext.source}</p>}
             </div>
           </div>
         </details>
@@ -466,7 +465,7 @@ export function GoposPackage({ data }: { data: SectionData<'gopos-package'> }) {
               </tbody>
             </table>
             {data.compare.source && (
-              <p className="px-4 py-3 text-[13px] text-ink-3">{data.compare.source}</p>
+              <p className="px-4 py-3 text-[13px] text-ink-2">{data.compare.source}</p>
             )}
           </div>
           <div className={cx(CARD, 'flex flex-col gap-3 p-6 text-ink')}>
@@ -492,7 +491,7 @@ export function GoposPackage({ data }: { data: SectionData<'gopos-package'> }) {
                 </li>
               ))}
             </ul>
-            <p className="text-[13px] text-ink-3">
+            <p className="text-[13px] text-ink-2">
               Dostępność części funkcji zależy od pakietu — przy wycenie zaznaczymy, co jest w
               Twoim.
             </p>

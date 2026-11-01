@@ -76,7 +76,7 @@ export function CareAreas({
         className={cx(CARD, 'flex flex-col gap-5 p-6 text-ink sm:p-7')}
       >
         <div>
-          <p className="text-[13px] font-extrabold text-ink-3">
+          <p className="text-[13px] font-extrabold text-ink-2">
             Obszar {current + 1} z {data.areas.length}
           </p>
           <h3 className="font-display text-[1.5rem] leading-tight font-extrabold">{area.t}</h3>
@@ -93,7 +93,7 @@ export function CareAreas({
         </ul>
         {listed.length > 0 && (
           <div>
-            <p className="mb-2 text-[13px] font-extrabold text-ink-3">Na czym pracujemy</p>
+            <p className="mb-2 text-[13px] font-extrabold text-ink-2">Na czym pracujemy</p>
             <ul className="grid grid-cols-2 gap-3 min-[640px]:grid-cols-3">
               {listed.map((product) => (
                 <li key={product.slug}>

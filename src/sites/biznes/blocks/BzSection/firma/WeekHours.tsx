@@ -31,7 +31,7 @@ export function WeekHours({ week }: { week: { day: WeekDay; name: string; time: 
             className={cx(
               'flex items-center justify-between gap-4 rounded-xl px-3 py-2 text-[15px]',
               isToday && 'bg-accent-text/10 font-extrabold text-ink',
-              !isToday && closed && 'text-ink-3',
+              !isToday && closed && 'text-ink-2',
               !isToday && !closed && 'text-ink-2',
             )}
           >
