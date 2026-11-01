@@ -41,6 +41,9 @@ export function isSeedLayout(current: Page['layout'], seed: readonly PageBlock[]
   return [...textsOf(seed)].every((text) => texts.has(text))
 }
 
+const replacesDescription = (current: string | null | undefined, legacy: readonly string[] = []) =>
+  !current?.trim() || legacy.includes(current)
+
 /**
  * A K4 page (K4hij): created when missing; a page that still has the layout of an older seed
  * (`legacy` — same blocks and all of its texts, see `isSeedLayout`) gets the
@@ -50,7 +53,11 @@ export function isSeedLayout(current: Page['layout'], seed: readonly PageBlock[]
 export async function upsertK4Page(
   payload: Payload,
   tenantId: number,
-  page: SeedPage & { legacy: readonly PageBlock[][] },
+  page: SeedPage & {
+    legacy: readonly PageBlock[][]
+    /** Descriptions of the older seed: replaced too; any other text was written in the panel. */
+    legacyDescriptions?: readonly string[]
+  },
   report: Report,
 ): Promise<boolean> {
   const {
@@ -71,7 +78,15 @@ export async function upsertK4Page(
     await payload.update({
       collection: 'pages',
       id: found.id,
-      data: { layout: page.layout, _status: 'published' },
+      data: {
+        layout: page.layout,
+        // The older seed's description goes with its layout (the B9 one of Opieka IT said
+        // „abonament”); an empty one is filled; one written in the panel stays.
+        ...(page.description && replacesDescription(found.seo?.description, page.legacyDescriptions)
+          ? { seo: { ...found.seo, description: page.description } }
+          : {}),
+        _status: 'published',
+      },
       ...local,
     })
     report(`pages ${page.slug}`, true)

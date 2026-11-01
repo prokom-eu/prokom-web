@@ -41,6 +41,10 @@ const SITES: {
       '/marki/lenovo',
       '/marki/dell',
       '/oferta/serwery-nas-ups/ups',
+      // K4j
+      '/automaty-vendingowe',
+      '/ksef',
+      '/ulga-na-kase-fiskalna',
     ],
   },
   { host: 'instalacje.localhost', line: 'instalacje', dark: true, themeSwitch: false },

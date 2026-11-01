@@ -1,6 +1,30 @@
 import { z } from 'zod'
 
 import {
+  aboutHeroSchema,
+  audienceSchema,
+  brandsSchema,
+  careAreasSchema,
+  careHeroSchema,
+  contactFormSchema,
+  contactHeroSchema,
+  linesSchema,
+  seatsSchema,
+  startCalendarSchema,
+  switchStepsSchema,
+} from './firma'
+import {
+  appMockupSchema,
+  catalogTabsSchema,
+  noticeSchema,
+  sourcesSchema,
+  ulgaHeroSchema,
+  vendingHeroSchema,
+  vendingPickerSchema,
+  yesNoSchema,
+} from './k4j'
+import { ksefHeroSchema, ksefPenaltiesSchema, ksefQuizSchema, ksefStepsSchema } from './ksef'
+import {
   goposAreasSchema,
   goposHeroSchema,
   goposHubSchema,
@@ -33,7 +57,13 @@ export const sectionActionSchema = z.union([
 ])
 export type SectionAction = z.infer<typeof sectionActionSchema>
 
-const actionsSchema = z.object({ actions: z.array(sectionActionSchema).max(3).default([]) })
+const actionsSchema = z.object({
+  actions: z.array(sectionActionSchema).max(3).default([]),
+  /** From this day (Poland) the band shows another heading (KSeF after 1.01.2027 — D-K4-7). */
+  after: z
+    .object({ date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/), heading: z.string().trim().min(1) })
+    .optional(),
+})
 
 /** `videos`: producer's films behind a facade (ADR-016). */
 const videosSchema = z.object({
@@ -111,6 +141,31 @@ export const SECTION_SCHEMAS = {
   'insert-ksef': insertKsefSchema,
   'insert-points': insertPointsSchema,
   'insert-requirements': insertRequirementsSchema,
+  // Opieka IT, O firmie, Kontakt (K4i).
+  'care-hero': careHeroSchema,
+  'care-areas': careAreasSchema,
+  'switch-steps': switchStepsSchema,
+  audience: audienceSchema,
+  'start-calendar': startCalendarSchema,
+  seats: seatsSchema,
+  'about-hero': aboutHeroSchema,
+  lines: linesSchema,
+  brands: brandsSchema,
+  'contact-hero': contactHeroSchema,
+  'contact-form': contactFormSchema,
+  // Automaty, KSeF, ulga (K4j).
+  'vending-hero': vendingHeroSchema,
+  'vending-picker': vendingPickerSchema,
+  'app-mockup': appMockupSchema,
+  'catalog-tabs': catalogTabsSchema,
+  sources: sourcesSchema,
+  'ksef-hero': ksefHeroSchema,
+  'ksef-quiz': ksefQuizSchema,
+  'ksef-steps': ksefStepsSchema,
+  'ksef-penalties': ksefPenaltiesSchema,
+  'ulga-hero': ulgaHeroSchema,
+  'yes-no': yesNoSchema,
+  notice: noticeSchema,
 } as const
 
 export type SectionVariant = keyof typeof SECTION_SCHEMAS
@@ -137,10 +192,42 @@ export const SECTION_VARIANTS: readonly { value: SectionVariant; label: string }
   { value: 'insert-ksef', label: 'InsERT: KSeF' },
   { value: 'insert-points', label: 'InsERT: InsPunkty' },
   { value: 'insert-requirements', label: 'InsERT: wymagania' },
+  { value: 'care-hero', label: 'Opieka IT: hero z raportem' },
+  { value: 'care-areas', label: 'Opieka IT: obszary' },
+  { value: 'switch-steps', label: 'Kroki z przełącznikiem' },
+  { value: 'audience', label: 'Dla kogo' },
+  { value: 'start-calendar', label: 'Na start i terminy' },
+  { value: 'seats', label: 'Ile masz stanowisk?' },
+  { value: 'about-hero', label: 'O firmie: hero z wizytówką' },
+  { value: 'lines', label: 'Linie PRO-KOM' },
+  { value: 'brands', label: 'Marki i autoryzacje' },
+  { value: 'contact-hero', label: 'Kontakt: hero' },
+  { value: 'contact-form', label: 'Kontakt: formularz' },
+  { value: 'vending-hero', label: 'Automaty: hero' },
+  { value: 'vending-picker', label: 'Automaty: co sprzedawać' },
+  { value: 'app-mockup', label: 'Aplikacja w telefonie' },
+  { value: 'catalog-tabs', label: 'Produkty kategorii w zakładkach' },
+  { value: 'sources', label: 'Źródła' },
+  { value: 'ksef-hero', label: 'KSeF: hero (dwie wersje)' },
+  { value: 'ksef-quiz', label: 'KSeF: czy mnie dotyczy' },
+  { value: 'ksef-steps', label: 'KSeF: 6 kroków' },
+  { value: 'ksef-penalties', label: 'KSeF: kary i pomoc' },
+  { value: 'ulga-hero', label: 'Ulga: hero' },
+  { value: 'yes-no', label: 'Przysługuje / nie przysługuje' },
+  { value: 'notice', label: 'Lista z kartą boczną' },
 ]
 
 /** Kinds that open the page: they carry the H1 and the breadcrumbs. */
-export const HERO_VARIANTS: ReadonlySet<SectionVariant> = new Set(['gopos-hero', 'insert-hero'])
+export const HERO_VARIANTS: ReadonlySet<SectionVariant> = new Set([
+  'gopos-hero',
+  'insert-hero',
+  'care-hero',
+  'about-hero',
+  'contact-hero',
+  'vending-hero',
+  'ksef-hero',
+  'ulga-hero',
+])
 
 export const isSectionVariant = (value: unknown): value is SectionVariant =>
   typeof value === 'string' && Object.hasOwn(SECTION_SCHEMAS, value)
