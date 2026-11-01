@@ -17,6 +17,7 @@ export const RESERVED_PAGE_SLUGS: readonly string[] = [
   'branze',
   'aktualnosci',
   'kreator',
+  'konfigurator',
   'plan-firmy',
   'zapytanie',
   'rozwiazania',

@@ -944,7 +944,7 @@ export function aboutK4Layout(file: K4FirmaFile): K4Layout {
 /** Where „Z czym dzwonisz?” cards lead (data file: `tel`, `kreator`, `form`). */
 const TOPIC_LINKS: Record<string, string> = {
   tel: OFFICE_PHONE.href,
-  kreator: '/kreator',
+  kreator: '/konfigurator',
   form: '#formularz',
 }
 

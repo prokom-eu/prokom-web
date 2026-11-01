@@ -24,8 +24,7 @@ export const K4_HERO = {
   heading: 'Kasy, komputery i programy dla firm.',
   headingAccent: 'Wszystko z jednego miejsca — z Rabki.',
   lead: 'Dobieramy, wdrażamy i serwisujemy wszystko, na czym pracuje firma: od kasy fiskalnej i terminala, przez komputery i programy, po sieć i serwer. Jeden partner z Rabki zamiast kilku firm i infolinii.',
-  // TODO(krystian): /konfigurator after K4g.
-  cta: { label: 'Dobierz rozwiązanie dla firmy', href: '/kreator' },
+  cta: { label: 'Dobierz rozwiązanie dla firmy', href: '/konfigurator' },
   // K4-FINAL §1: one wording of the client count.
   trustItems: [
     { icon: 'cal', text: 'Na Podhalu od 2004' },

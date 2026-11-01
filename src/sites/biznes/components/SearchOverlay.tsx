@@ -1,5 +1,6 @@
 'use client'
 
+import { CONFIGURATOR_PATH } from '@/lib/catalog/wizardEngine'
 import { PLAN_PATH } from '@/lib/catalog/floorPlan'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -56,8 +57,7 @@ const SHORTCUT_CATEGORIES = [
 ]
 /** „Salony marek” of the empty search, in the board's order; brands without a logo drop out. */
 const SHOWROOM_LOGOS = ['apple', 'samsung', 'lenovo', 'dell', 'posnet', 'elzab', 'sunmi', 'polcard']
-// `/kreator` until K4g.
-const CONFIGURATOR_HREF = '/kreator'
+const CONFIGURATOR_HREF = CONFIGURATOR_PATH
 const PLAN_HREF = PLAN_PATH
 
 type Props = {

@@ -14,9 +14,9 @@ export const INDUSTRY_PATH = '/branze'
 
 export const industryHref = (slug: string) => `${INDUSTRY_PATH}/${encodeURIComponent(slug)}`
 
-const WIZARD_PATH = '/kreator'
+const WIZARD_PATH = '/konfigurator'
 
-/** `/kreator?firma=<type>`; without a type the wizard starts at step 1. */
+/** `/konfigurator?firma=<type>`; without a type the configurator starts at step 1. */
 export function wizardHref(businessType: string | null | undefined): string {
   return businessType ? `${WIZARD_PATH}?firma=${encodeURIComponent(businessType)}` : WIZARD_PATH
 }

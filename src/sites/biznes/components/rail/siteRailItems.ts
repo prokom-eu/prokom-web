@@ -1,18 +1,17 @@
 import { PLAN_PATH } from '@/lib/catalog/floorPlan'
+import { CONFIGURATOR_PATH } from '@/lib/catalog/wizardEngine'
 import type { IconName } from '@/lib/catalog/options'
 
 export type SiteRailItem = { href: string; label: string; icon: IconName }
 
 /**
- * „Menu” of the side rail on Biznes subpages (K33 §2.4, board `g4rail`). Temporary addresses
- * like in the header: Konfigurator → `/kreator` until K4g.
+ * „Menu” of the side rail on Biznes subpages (K33 §2.4, board `g4rail`).
  */
 export const SITE_RAIL: readonly SiteRailItem[] = [
   { href: '/', label: 'Strona główna', icon: 'home' },
   { href: '/oferta', label: 'Oferta', icon: 'store' },
   { href: '/marki', label: 'Marki', icon: 'ticket' },
-  // TODO(krystian): /konfigurator after K4g.
-  { href: '/kreator', label: 'Konfigurator', icon: 'compass' },
+  { href: CONFIGURATOR_PATH, label: 'Konfigurator', icon: 'compass' },
   { href: PLAN_PATH, label: 'Plan Twojej firmy', icon: 'map' },
   { href: '/zestawy', label: 'Gotowe zestawy', icon: 'box' },
   { href: '/opieka-it', label: 'Opieka IT', icon: 'shield' },
