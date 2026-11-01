@@ -31,7 +31,7 @@ type Props = {
 export function LivePreviewTabs({ tabs, panels, hint }: Props) {
   const id = useId()
   const tablist = useRef<HTMLDivElement>(null)
-  const { active, picked, onKeyDown, pick, tabRef, region } = useAutoTabs(
+  const { active, picked, selfSwitching, onKeyDown, pick, tabRef, region } = useAutoTabs(
     tabs.length,
     PREVIEWS_AUTO_MS,
   )
@@ -95,10 +95,13 @@ export function LivePreviewTabs({ tabs, panels, hint }: Props) {
         </div>
         <p className="inline-flex items-center gap-2 px-1 text-[13px] font-bold text-ink-2">
           <span aria-hidden="true" className="relative grid size-3 place-items-center">
-            <span className="absolute size-3 rounded-full bg-ok/30 motion-safe:animate-ping" />
+            {selfSwitching && (
+              <span className="absolute size-3 rounded-full bg-ok/30 motion-safe:animate-ping" />
+            )}
             <span className="size-2 rounded-full bg-ok" />
           </span>
-          {picked ? hint[1] : hint[0]}
+          {/* „Switches by itself” only where it does (desktop, motion on, not stopped). */}
+          {selfSwitching ? hint[0] : hint[1]}
         </p>
       </div>
       <TabPanels id={id} panels={panels} active={active} />
