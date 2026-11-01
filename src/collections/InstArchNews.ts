@@ -103,7 +103,7 @@ export const InstArchNews: CollectionConfig = {
       name: 'params',
       label: 'Parametry (pierwszy = kluczowy, na liście)',
       type: 'array',
-      minRows: 1,
+      minRows: 2,
       maxRows: 6,
       fields: [
         {
@@ -144,6 +144,7 @@ export const InstArchNews: CollectionConfig = {
           name: 'illustration',
           label: 'Ścieżka SVG (200×120, obrys)',
           type: 'textarea',
+          maxLength: 4000,
           // Only path commands and numbers: it is drawn as the `d` of an SVG path.
           validate: (value: unknown) =>
             value == null || value === '' || /^[MmLlHhVvCcSsQqTtAaZz0-9\s.,-]+$/.test(String(value))

@@ -241,7 +241,7 @@ describe('architects’ „Nowe rozwiązania” (I16b)', () => {
     for (const item of items) {
       expect(markerIn(item.data), item.data.title).toBeNull()
       expect(item.data.illustration).toMatch(/^[MmLlHhVvCcSsQqTtAaZz0-9\s.,-]+$/)
-      expect(item.data.params?.length).toBeGreaterThanOrEqual(1)
+      expect(item.data.params?.length).toBeGreaterThanOrEqual(2)
     }
   })
 })

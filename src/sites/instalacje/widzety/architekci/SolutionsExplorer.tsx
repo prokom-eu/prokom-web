@@ -56,7 +56,7 @@ export function SolutionsExplorer({ cards, hues, newsletterForm }: Props) {
 
   return (
     <>
-      <div className="arnf ri" role="group" aria-label={A.newsFilters[0]?.name}>
+      <div className="arnf ri" role="group" aria-label={T.filterLabel}>
         {/* A category without published cards has no button (the prototype never has 0). */}
         {A.newsFilters
           .filter((f) => f.key === 'all' || newsCount(cards, f.key) > 0)
@@ -116,8 +116,8 @@ export function SolutionsExplorer({ cards, hues, newsletterForm }: Props) {
               <h3 className="h3 arnxt">{cur.title}</h3>
               <p className="arnxdsc">{cur.description}</p>
               <div className="arnxsp">
-                {cur.params.map((p) => (
-                  <div key={p.label}>
+                {cur.params.map((p, i) => (
+                  <div key={i}>
                     <span>{p.label}</span>
                     <b>{p.value}</b>
                   </div>
@@ -128,8 +128,8 @@ export function SolutionsExplorer({ cards, hues, newsletterForm }: Props) {
                   <InstIcon name="ruler" size={15} />
                   {T.plan}
                 </em>
-                {cur.plan.map((x) => (
-                  <p key={x}>
+                {cur.plan.map((x, i) => (
+                  <p key={i}>
                     <span className="arok">
                       <InstIcon name="check" size={12} strokeWidth={3} />
                     </span>
@@ -147,8 +147,8 @@ export function SolutionsExplorer({ cards, hues, newsletterForm }: Props) {
                 <div>
                   <em>{T.places}</em>
                   <span className="arnxdl">
-                    {cur.places.map((p) => (
-                      <span key={p} className="tag">
+                    {cur.places.map((p, i) => (
+                      <span key={i} className="tag">
                         {p}
                       </span>
                     ))}

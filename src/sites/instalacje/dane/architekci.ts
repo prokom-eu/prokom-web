@@ -662,6 +662,8 @@ export const architekci = {
     lead: 'Z kart katalogowych producentów i norm, z którymi pracujemy. Konkretny model może się różnić, dlatego ostateczne wartości podajemy w wytycznych do Twojego projektu.',
     note: 'Stan na październik 2026. Wartości orientacyjne do wstępnego projektu, nie zastępują karty katalogowej wybranego modelu.',
   },
+  // Without three numbers of the package that have no source (review I16b, spec §2.3): the
+  // motorised-zoom camera's 12 W, Ampio 90×160 mm / 2–18 fields, the rental law's fines.
   numbers: [
     {
       service: 'wifi',
@@ -691,7 +693,7 @@ export const architekci = {
       service: 'kam',
       value: '6–12 W',
       title: 'pobór kamery IP',
-      text: 'Np. Hikvision ColorVu 8 MP maks. 6,5 W, kamera z motozoomem ok. 12 W. Wystarczy PoE 802.3af.',
+      text: 'Np. Hikvision ColorVu 8 MP maks. 6,5 W. Wystarczy PoE 802.3af.',
     },
     {
       service: 'snd',
@@ -733,7 +735,7 @@ export const architekci = {
       service: 'smart',
       value: '90×90',
       title: 'mm panelu Ampio M-DOT',
-      text: 'Także 90×160 mm, od 2 do 18 pól dotykowych. Puszka osadzona głębiej niż standardowo.',
+      text: 'Puszka osadzona głębiej niż standardowo.',
     },
     {
       service: 'ant',
@@ -920,7 +922,7 @@ export const architekci = {
       status: 'Obowiązuje',
       tone: 'ok',
       title: 'Rejestr najmu krótkoterminowego',
-      text: 'Unijne rozporządzenie: każdy lokal na wynajem krótkoterminowy potrzebuje numeru rejestracyjnego. Polska ustawa z karami do 50 tys. zł przeszła przez Sejm 8.10.2026.',
+      text: 'Unijne rozporządzenie: każdy lokal na wynajem krótkoterminowy potrzebuje numeru rejestracyjnego. Polska ustawa o najmie krótkoterminowym przeszła przez Sejm 8.10.2026.',
       inProject:
         'Apartamenty inwestycyjne projektuj od razu pod zdalną obsługę: zamek z kodem, Wi-Fi dla gości, podgląd i serwis zdalny.',
     },
@@ -946,6 +948,7 @@ export const architekci = {
     accent: 'w tym sezonie.',
     lead: 'Rozwiązania, które sprawdzamy i montujemy. Przy każdym: parametry z karty katalogowej i to, co trzeba przewidzieć w projekcie. Dodajemy nowe na bieżąco.',
     listLabel: 'Lista rozwiązań',
+    filterLabel: 'Filtr kategorii',
     plan: 'W projekcie zaplanuj',
     examples: 'Przykłady',
     places: 'Gdzie się sprawdza',

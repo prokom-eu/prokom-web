@@ -157,7 +157,11 @@ export async function InstArchitectsBlock({ block, tenantId }: Props) {
           )}
         </div>
       </section>
-      <AnchorsBar anchors={A.anchors.filter((a) => BUILT.has(a.id))} />
+      <AnchorsBar
+        anchors={A.anchors.filter(
+          (a) => BUILT.has(a.id) && (a.id !== 'nowosci' || news.length > 0),
+        )}
+      />
 
       <InstSection id="dla-ciebie" style={{ padding: '88px 0 0' }}>
         <div className="wrap">
@@ -320,20 +324,23 @@ export async function InstArchitectsBlock({ block, tenantId }: Props) {
         </div>
       </InstSection>
 
-      <InstSection id="nowosci" className="bnd bnd-tint" style={{ padding: '104px 0 104px' }}>
-        <div className="wrap">
-          <SectionHead
-            eyebrow={A.newsSection.eyebrow}
-            heading={A.newsSection.heading}
-            accent={A.newsSection.accent}
-            lead={A.newsSection.lead}
-          />
-          <SolutionsExplorer cards={news} hues={hues} />
-          <p className="src ri" style={{ marginTop: 14 }}>
-            {A.newsSection.note}
-          </p>
-        </div>
-      </InstSection>
+      {/* No published card (a fresh database, all withdrawn): no section and no anchor. */}
+      {news.length > 0 && (
+        <InstSection id="nowosci" className="bnd bnd-tint" style={{ padding: '104px 0 104px' }}>
+          <div className="wrap">
+            <SectionHead
+              eyebrow={A.newsSection.eyebrow}
+              heading={A.newsSection.heading}
+              accent={A.newsSection.accent}
+              lead={A.newsSection.lead}
+            />
+            <SolutionsExplorer cards={news} hues={hues} />
+            <p className="src ri" style={{ marginTop: 14 }}>
+              {A.newsSection.note}
+            </p>
+          </div>
+        </InstSection>
+      )}
 
       <InstSection id="deweloperzy" style={{ padding: '104px 0 104px' }}>
         <div className="wrap">
