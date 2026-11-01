@@ -128,7 +128,7 @@ export const SW_CONTACT_PAGE: ContactPageBlock = {
   contactHint: 'Telefon albo e-mail, jak wolisz.',
   talkLabel: 'Jak wolisz rozmawiać?',
   submit: 'Wyślij zgłoszenie',
-  submitNote: 'Odpowiemy w [CZAS ODPOWIEDZI]. Dane tylko do tej sprawy, bez newslettera.',
+  submitNote: 'Odpowiemy w ciągu [CZAS ODPOWIEDZI]. Dane tylko do tej sprawy, bez newslettera.',
   linesEyebrow: 'Inne linie PRO-KOM',
   linesTitle: 'Potrzebujesz czegoś innego niż oprogramowanie?',
   linesText:
@@ -150,14 +150,14 @@ export const SW_CONTACT_PAGE: ContactPageBlock = {
     },
     {
       line: 'tech',
-      label: 'TECH',
+      label: 'SERWIS',
       text: 'Serwis komputerów, laptopów i telefonów.',
       linkLabel: 'prokomserwis.pl',
       href: 'https://prokomserwis.pl',
     },
     {
       line: 'prokom',
-      label: 'GŁÓWNA',
+      label: 'PRO-KOM.EU',
       text: 'Wszystkie linie PRO-KOM w jednym miejscu. Od 2004 r. w Rabce-Zdroju.',
       linkLabel: 'pro-kom.eu',
       href: 'https://pro-kom.eu',

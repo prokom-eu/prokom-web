@@ -2,11 +2,13 @@ import type { ReactNode } from 'react'
 
 import { AnalyticsScript } from '@/components/AnalyticsScript'
 import { log } from '@/lib/log'
+import { hasPublicPosts } from '@/lib/posts/data'
 import { toTelHref } from '@/lib/site/link'
 import type { PublicCompanyData, PublicSiteSettings } from '@/lib/site/public'
 import { getMenuAreas } from '@/lib/software/data'
 import { menuTiles } from '@/lib/software/mobileNav'
 import type { SoftwareNavigation } from '@/lib/software/navigation'
+import { withoutNewsLinks } from '@/lib/software/newsLinks'
 import type { SiteTenant } from '@/lib/tenant/byHost'
 
 import { PageTransition } from './PageTransition'
@@ -36,12 +38,14 @@ type Props = {
 export async function SoftwareFrame({
   tenant,
   settings,
-  navigation,
+  navigation: panelNavigation,
   company,
   promo,
   children,
 }: Props) {
-  const areas = await getMenuAreas(tenant.id)
+  const [areas, anyPost] = await Promise.all([getMenuAreas(tenant.id), hasPublicPosts(tenant.id)])
+  // No published post yet: no menu leads to an empty „Aktualności” (SWV8 P0 #3).
+  const navigation = anyPost ? panelNavigation : withoutNewsLinks(panelNavigation)
   // Header items with a section of the start page (Kreator → `#dobierz`) lend it to the same
   // address elsewhere (bottom bar, menu card).
   const homeHrefs: Record<string, string> = {}
