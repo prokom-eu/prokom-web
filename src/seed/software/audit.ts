@@ -82,7 +82,7 @@ export const SW_AUDIT: AuditBlock = {
     },
     {
       icon: 'doc',
-      title: 'Wynik: raport',
+      title: 'Wynik: raport na piśmie',
       text: 'Co działa, co poprawić i co jest pilne. Do [CZAS].',
     },
   ],

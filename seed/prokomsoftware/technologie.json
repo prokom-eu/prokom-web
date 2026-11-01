@@ -59,7 +59,7 @@
         "Redis"
       ],
       "ic": "M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1",
-      "gain": "SMS-y, przypomnienia, raporty i kopie wysyłają się automatycznie, także w nocy. Jedna baza zamiast kilku Exceli.",
+      "gain": "SMS-y, przypomnienia, raporty i kopie zapasowe działają automatycznie, także w nocy. Jedna baza zamiast kilku Exceli.",
       "why": "sprawdzone narzędzia do danych i uprawnień, zadania w tle i API do innych programów.",
       "m": [
         {

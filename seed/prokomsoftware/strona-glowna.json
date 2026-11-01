@@ -120,7 +120,7 @@
   "guarantees": [
     {
       "title": "Stała cena za zakres",
-      "text": "Stała wycena przed startem. Zmiany spoza zakresu tylko po Twojej zgodzie.",
+      "text": "Cenę ustalamy przed startem. Zmiany spoza zakresu tylko po Twojej zgodzie.",
       "icon": "M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"
     },
     {

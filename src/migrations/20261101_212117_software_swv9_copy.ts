@@ -89,7 +89,7 @@ const PAIRS: [string, string][] = [
   ['Większość klientów wchodzi z komórki.', 'Klienci coraz częściej wchodzą z telefonu.'],
   [
     'SMS-y, przypomnienia, raporty i kopie robią się same, także w nocy.',
-    'SMS-y, przypomnienia, raporty i kopie wysyłają się automatycznie, także w nocy.',
+    'SMS-y, przypomnienia, raporty i kopie zapasowe działają automatycznie, także w nocy.',
   ],
   [
     'SMS-y, maile, faktury i raporty robią się same.',
@@ -140,7 +140,7 @@ const PAIRS: [string, string][] = [
   ['(wycena na piśmie w 5–7 dni', '(wycena w 5–7 dni'],
   ['wycenę na piśmie: zakres', 'wycenę: zakres'],
   ['Zakres, cena i termin na piśmie.', 'Zakres, cena i termin w wycenie.'],
-  ['Wycena na piśmie przed startem.', 'Stała wycena przed startem.'],
+  ['Wycena na piśmie przed startem.', 'Cenę ustalamy przed startem.'],
   ['Przykład wyceny na piśmie', 'Przykład wyceny'],
   ['dostajesz na piśmie po krótkiej rozmowie', 'dostajesz po krótkiej rozmowie'],
   [
@@ -151,7 +151,6 @@ const PAIRS: [string, string][] = [
   ['a dokładna na piśmie po rozmowie', 'a dokładna po rozmowie'],
   ['Darmowy audyt strony · wynik na piśmie', 'Darmowy audyt strony · raport w 2 dni robocze'],
   ['twojafirma.pl · raport na piśmie', 'twojafirma.pl · raport'],
-  ['Wynik: raport na piśmie', 'Wynik: raport'],
   ['podgląd i wycena na piśmie są bez zobowiązań', 'podgląd i wycena są bez zobowiązań'],
   ['cenę i termin. Wszystko na piśmie. Bez zobowiązań.', 'cenę i termin. Bez zobowiązań.'],
   ['Wynik na piśmie.', 'Raport w 2 dni robocze.'],
@@ -172,10 +171,18 @@ const PAIRS: [string, string][] = [
   ['podgląd i cenę na piśmie dostajesz w 5–7 dni', 'podgląd i cenę dostajesz w 5–7 dni'],
   ['cena i plan etapów na piśmie w 5–7 dni', 'cena i plan etapów w 5–7 dni'],
   ['gdy chcesz wycenę na piśmie.', 'gdy chcesz wycenę.'],
+  // review of SWV9: one „A. B.” on the industry page; the care lead repeated its heading
+  ['Złóż system dla swojej firmy. W 60 sekund.', 'Złóż system dla swojej firmy w 60 sekund'],
+  ['Wybierasz poziom, zmieniasz, kiedy chcesz. ', ''],
+  ['ceny „od”, na piśmie', 'ceny „od” i terminy'],
 ]
 
 /** `[old, new]` whole values (the two halves of a split heading). */
 const EXACT: [string, string][] = [
+  // The care eyebrow repeated the new heading N4 word for word (review of SWV9).
+  ['Opieka po wdrożeniu', 'Opieka i rozwój'],
+  // A point of the wizard's list, „na piśmie” over the budget.
+  ['wycena na piśmie', 'wycena w 5–7 dni'],
   ['Ceny bez gwiazdek.', 'Ile to kosztuje'],
   ['Na piśmie.', '— bez małego druku'],
   ['Firma z Rabki.', 'Robimy dla firm z Podhala'],

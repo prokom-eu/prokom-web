@@ -61,10 +61,9 @@ export function swPricing(featured: number | null): PricingBlock {
         note: 'Opieka miesięcznie, bez długich umów. Przejęcie i audyt jednorazowo. Ceny netto.',
       },
     ],
-    careEyebrow: 'Opieka po wdrożeniu',
+    careEyebrow: 'Opieka i rozwój',
     careTitle: 'Opieka po wdrożeniu: wybierasz poziom, rezygnujesz, kiedy chcesz',
-    careLead:
-      'Serwer w Polsce, kopie i aktualizacje. Wybierasz poziom, zmieniasz, kiedy chcesz. Ceny netto.',
+    careLead: 'Serwer w Polsce, kopie i aktualizacje. Ceny netto.',
     careButton: 'Zapytaj o opiekę',
     careNote: 'Przejdziesz do formularza kontaktu',
     auditEyebrow: 'Audyt strony lub programu',

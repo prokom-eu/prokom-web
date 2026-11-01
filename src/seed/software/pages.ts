@@ -84,7 +84,7 @@ export const SOFTWARE_NOT_FOUND: SoftwareNotFound = {
         href: '/rozwiazania?kategoria=systemy',
         icon: 'panel',
       },
-      { title: 'Cennik', note: 'ceny „od”, na piśmie', href: '/cennik', icon: 'cash' },
+      { title: 'Cennik', note: 'ceny „od” i terminy', href: '/cennik', icon: 'cash' },
       {
         title: 'Podglądy do klikania',
         note: 'zobacz, zanim zamówisz',
