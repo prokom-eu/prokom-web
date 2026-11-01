@@ -69,6 +69,8 @@ const PRIVACY = [
     ],
   ),
   h2('Jak długo przechowujemy dane'),
+  // TODO(krystian): [SZEF] Jak długo trzymamy wiadomości z formularzy i zgłoszenia, z których nie
+  // powstała umowa (np. 12 miesięcy? do końca roku następnego?) — decyzja szefa, nie zgadujemy.
   p(
     'Wiadomości i zgłoszenia, z których nie powstała umowa: ',
     { bold: '[OKRES PRZECHOWYWANIA]' },
@@ -122,6 +124,8 @@ const PRIVACY = [
     { bold: '[E-MAIL SOFTWARE]' },
     ' albo przyjdź do salonu przy ul. Orkana 16B w Rabce-Zdroju.',
   ),
+  // TODO(krystian): [SZEF] Od kiedy obowiązuje ta wersja polityki — data akceptacji tekstu przez
+  // szefa/prawnika (ta sama data idzie do wersji klauzuli zgody w `lib/inquiry/consent.ts`).
   p('Ostatnia aktualizacja: [DATA AKTUALIZACJI]'),
 ]
 
