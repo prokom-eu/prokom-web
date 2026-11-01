@@ -134,7 +134,11 @@ export async function SwContactBlock({ block, tenantId }: Props) {
                   {phone}
                 </a>
                 {phone2 && tel2 ? (
-                  <a href={tel2} className="text-[15px] font-bold hover:underline">
+                  // Full touch target on a phone (MOBILE-APLIKACJA, 44 px), compact on a desktop.
+                  <a
+                    href={tel2}
+                    className="inline-flex min-h-11 items-center self-start text-[15px] font-bold hover:underline min-[1081px]:min-h-0"
+                  >
                     {phone2}
                   </a>
                 ) : null}

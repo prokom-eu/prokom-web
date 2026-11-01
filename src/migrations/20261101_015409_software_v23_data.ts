@@ -56,7 +56,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
     "software_navigation",
     '{footer,columns}',
     (
-      SELECT jsonb_agg(
+      SELECT coalesce(jsonb_agg(
         CASE
           WHEN jsonb_typeof(col->'links') = 'array' THEN jsonb_set(
             col,
@@ -70,7 +70,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
           ELSE col
         END
         ORDER BY n
-      )
+      ), '[]'::jsonb)
       FROM jsonb_array_elements("software_navigation"->'footer'->'columns') WITH ORDINALITY AS c(col, n)
     )
   )

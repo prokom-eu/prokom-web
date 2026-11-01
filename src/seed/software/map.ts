@@ -421,7 +421,6 @@ export function factsData(): FactRow[] {
   return Object.entries(fakty.facts).map(([key, value]) => ({ key, value }))
 }
 
-/** Facts of the package missing in the panel: values saved there are never changed. */
 /** Contact of the Software line (ZMIANY-v23 §1); the panel stays the source on staging. */
 export const SOFTWARE_CONTACT = {
   phone: '883 200 151',
@@ -449,6 +448,7 @@ export function softwareContactUpdate(current: Contact): Contact | null {
   return Object.keys(update).length > 0 ? update : null
 }
 
+/** Facts of the package missing in the panel: values saved there are never changed. */
 export function missingFacts(
   stored: readonly { key?: string | null }[] | null | undefined,
   facts: FactRow[],
