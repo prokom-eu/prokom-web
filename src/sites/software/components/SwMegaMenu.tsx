@@ -2,6 +2,7 @@ import Link from 'next/link'
 
 import { Icon } from '@/components/ui/Icon'
 import type { IconName } from '@/lib/catalog/options'
+import { megaIndustries } from '@/lib/software/megaIndustries'
 import type { SoftwareNavigation } from '@/lib/software/navigation'
 
 type Props = { mega: SoftwareNavigation['mega'] }
@@ -21,6 +22,7 @@ const HEADING =
  * the full-offer card and the „Dla branż” chips.
  */
 export function SwMegaMenu({ mega }: Props) {
+  const industries = megaIndustries(mega.branze.links, mega.card.links)
   return (
     <div className="rounded-3xl border border-border bg-card shadow-raised">
       <div className="grid grid-cols-[1fr_1fr_1fr_minmax(300px,1.15fr)] gap-6 p-5 pl-8">
@@ -55,14 +57,14 @@ export function SwMegaMenu({ mega }: Props) {
             {mega.card.cta[0]}
           </Link>
 
-          {/* Only active industries (SWV6 A1): none — no group at all. */}
-          {mega.branze.links.length > 0 && (
+          {/* Only active industries (SWV6 A1); fewer than three sit in the card's links. */}
+          {industries.group.length > 0 && (
             <>
               <h2 className="mt-6 text-sm font-extrabold uppercase tracking-[0.1em] text-ink-2">
                 {mega.branze.label}
               </h2>
               <ul className="mt-3 flex flex-wrap gap-2">
-                {mega.branze.links.map(([label, href]) => (
+                {industries.group.map(([label, href]) => (
                   <li key={href}>
                     <Link
                       href={href}
@@ -76,9 +78,9 @@ export function SwMegaMenu({ mega }: Props) {
             </>
           )}
 
-          {mega.card.links.length > 0 && (
+          {industries.cardLinks.length > 0 && (
             <ul className="mt-5 space-y-2.5">
-              {mega.card.links.map(([label, href], i) => (
+              {industries.cardLinks.map(([label, href], i) => (
                 <li key={href}>
                   <Link
                     href={href}

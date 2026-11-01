@@ -4,14 +4,11 @@ import { toTelHref } from '@/lib/site/link'
 
 type Props = { phone: string | null }
 
-/** Lines linked from Software (spec. §3.0): Tech stays hidden until it has a site. */
-const OTHER_LINES = BRAND_LINKS.filter(
-  (link) => link.line === 'biznes' || link.line === 'instalacje',
-)
-
+/** One link to the hub of all lines (audyt 01.11 P1 #10): a partial list looked incomplete. */
+const ALL_LINES = BRAND_LINKS.find((link) => link.line === 'prokom')
 /**
  * Top bar of the Software line (spec. §3.0, `Main` 01): who we are on the left, the other
- * PRO-KOM lines and the line's phone on the right. Desktop only — above 1080 px.
+ * PRO-KOM lines (pro-kom.eu) and the line's phone on the right. Desktop only — above 1080 px.
  */
 export function SwTopBar({ phone }: Props) {
   const tel = phone ? toTelHref(phone) : null
@@ -20,17 +17,13 @@ export function SwTopBar({ phone }: Props) {
       <Container wide className="flex min-h-9 items-center justify-between gap-6">
         <p>Linia firmy PRO-KOM · od 2004 r. · Rabka-Zdrój</p>
         <div className="flex items-center gap-5">
-          <nav aria-label="Linie PRO-KOM">
-            <ul className="flex items-center gap-5">
-              {OTHER_LINES.map((link) => (
-                <li key={link.href}>
-                  <a href={link.href} className="hover:text-ink">
-                    {link.line === 'biznes' ? 'PRO-KOM Biznes' : link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
+          {ALL_LINES && (
+            <nav aria-label="Linie PRO-KOM">
+              <a href={ALL_LINES.href} className="hover:text-ink">
+                Wszystkie linie PRO-KOM →
+              </a>
+            </nav>
+          )}
           {phone &&
             (tel ? (
               <a href={tel} className="font-bold text-ink hover:underline">
