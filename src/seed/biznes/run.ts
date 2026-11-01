@@ -20,6 +20,7 @@ import media from '../../../seed/prokombiznes/media.json'
 import gallery from '../../../seed/prokombiznes/media-produkty-v2.json'
 import search from '../../../seed/prokombiznes/wyszukiwarka.json'
 import { wizardSchema } from '../../lib/catalog/wizard'
+import { seedBiznesTextFixes } from './textFixes'
 import { k4Wizard, type K4WizardFile } from './k4Wizard'
 import { mapConcurrent } from '../concurrency'
 import { parseGalleryLimit, SEED_CONTEXT } from '../config'
@@ -105,7 +106,7 @@ import { seedBiznesCategoryContent } from './category'
 import { seedBiznesIndustries } from './industries'
 import { seedBiznesNews } from './posts'
 import { seedBiznesLegal } from './legal'
-import { SERVICE_AREAS } from './contact'
+import { SERVICE_AREAS, upsertBiznesContact } from './contact'
 import { seedBiznesHome } from './home'
 import { navigationData, upgradedColumnLimit, upgradedHighlights, upgradedMenu } from './navigation'
 
@@ -1113,6 +1114,9 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     }
   }
 
+  // --- contact data of the line (decision 01.11.2026): settings, inbox, the shared office ---
+  await upsertBiznesContact(payload, tenant.id, count)
+
   // --- WhatsApp: the line's own (sample) number, spec. §1 "ten sam numer na WhatsApp" ---
   if (siteSettings) {
     const current = await payload.findByID({
@@ -1185,6 +1189,9 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
 
   // --- legal pages (B11b): privacy policy, cookies, accessibility (drafts to approve) ---
   await seedBiznesLegal(payload, tenant.id, pageReport)
+
+  // --- corrected wording in pages seeded earlier (old contact, 01.11.2026) ---
+  await seedBiznesTextFixes(payload, tenant.id, pageReport)
 
   for (const [collection, { created, updated, skipped }] of Object.entries(counters)) {
     log(`${collection}: ${created} created, ${updated} updated, ${skipped} unchanged.`)

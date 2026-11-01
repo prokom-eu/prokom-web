@@ -1,4 +1,5 @@
 import type { Page } from '../../payload-types'
+import { BIZNES_CONTACT } from './contact'
 
 /**
  * Start content of the lower home page, v150 (K4c, board `Strona.dc.html` start: `#s4-opinie`,
@@ -80,21 +81,17 @@ export function factsBlocks(brand: (name: string) => number | undefined): HomeBl
             'Tak. Sprawdzimy program do faktur, nadamy uprawnienia księgowej, przygotujemy certyfikat i procedurę awaryjną — przed obowiązkowym terminem 1 stycznia 2027 r. dla najmniejszych firm.',
         },
         {
-          // TODO(krystian): numer i godziny wpisane w tekst odpowiedzi (tu i w pytaniach 05–06) —
-          // po zmianie w Ustawieniach strony / Danych firmy poprawić też tutaj.
+          // The number comes from `contact.ts`; the hours in the sentence follow BIZNES_COMPANY.
           question: 'Co, gdy coś przestanie działać?',
-          answer:
-            'Dzwonisz na 889 003 889 w godzinach pracy (pn–pt 9–17). Ustalamy przyczynę i naprawiamy, a gdy trzeba, przyjeżdża serwisant z Rabki. Klienci z umową opieki mają czas reakcji zapisany w umowie.',
+          answer: `Dzwonisz na ${BIZNES_CONTACT.phone} w godzinach pracy (pn–pt 9–17). Ustalamy przyczynę i naprawiamy, a gdy trzeba, przyjeżdża serwisant z Rabki. Klienci z umową opieki mają czas reakcji zapisany w umowie.`,
         },
         {
           question: 'Czy przejmujecie serwis kasy od innej firmy?',
-          answer:
-            'Tak. Wystarczy telefon na 889 003 889. Formalności i termin najbliższego przeglądu bierzemy na siebie — jesteśmy autoryzowanym serwisem Posnet i Elzab.',
+          answer: `Tak. Wystarczy telefon na ${BIZNES_CONTACT.phone}. Formalności i termin najbliższego przeglądu bierzemy na siebie — jesteśmy autoryzowanym serwisem Posnet i Elzab.`,
         },
         {
           question: 'Prowadzę biuro rachunkowe — jak możemy współpracować?',
-          answer:
-            'Pomagamy Twoim klientom przejść na KSeF: program do faktur, certyfikat i uprawnienia dla biura. Zadzwoń na 889 003 889 — ustalimy, jak najprościej przekazywać nam sprawy klientów.',
+          answer: `Pomagamy Twoim klientom przejść na KSeF: program do faktur, certyfikat i uprawnienia dla biura. Zadzwoń na ${BIZNES_CONTACT.phone} — ustalimy, jak najprościej przekazywać nam sprawy klientów.`,
         },
       ],
     },

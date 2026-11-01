@@ -4,7 +4,8 @@ type SeedTenant = Pick<Tenant, 'name' | 'slug' | 'line'> & { localHost: string }
 
 /**
  * Inquiry notifications of a local site. Fake on purpose: locally every mail lands in Mailpit;
- * the real line inboxes (`biznes@pro-kom.eu`, ADR-003) are set in the panel per environment.
+ * Biznes gets its real inbox from `seed:biznes` (`biznes/contact.ts`); staging and production
+ * set the inboxes in the panel (ADR-003).
  */
 export function seedNotificationEmail(slug: string): string {
   return `${slug}@example.test`

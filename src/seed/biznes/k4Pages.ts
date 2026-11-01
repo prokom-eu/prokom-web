@@ -3,6 +3,7 @@ import type { IconName } from '../../lib/catalog/options'
 import { hardSpaces, hardSpacesDeep } from '../../lib/text/hardSpace'
 import type { BzSectionBlock, FaqBlock } from '../../payload-types'
 import type { PageBlock } from './page'
+import { BIZNES_CONTACT } from './contact'
 
 /**
  * Subpages of the K4 package (K4hij, `seed/prokombiznes/k4/strony-k4.json`) as page layouts
@@ -103,7 +104,7 @@ export type K4Layout = { layout: PageBlock[]; missing: string[] }
 
 const GOPOS_PRESENTATION_NOTE = 'Prezentacja GoPOS w lokalu'
 const OFFER_CRUMB = { name: 'Oferta', href: '/oferta' }
-const OFFICE_PHONE = { label: '889 003 889', href: 'tel:+48889003889' }
+const OFFICE_PHONE = { label: BIZNES_CONTACT.phone, href: BIZNES_CONTACT.phoneHref }
 
 /**
  * Sources are shown only as links (K4-FINAL §1): the address is the first domain (with a path)
@@ -635,7 +636,7 @@ const CARE_SITUATIONS: [string, string, string][] = [
 const CARE_ON_CALL: Pair[] = [
   [
     'Zgłaszasz',
-    'Telefon 889 003 889 albo e-mail biznes@pro-kom.eu, pn–pt 9:00–17:00. Rozmawiasz z zespołem, który zna Twoją firmę.',
+    `Telefon ${BIZNES_CONTACT.phone} albo e-mail ${BIZNES_CONTACT.email}, ${BIZNES_CONTACT.hoursText}. Rozmawiasz z zespołem, który zna Twoją firmę.`,
   ],
   [
     'Diagnoza zdalna',

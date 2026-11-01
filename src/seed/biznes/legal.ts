@@ -1,6 +1,7 @@
 import type { Payload } from 'payload'
 
 import type { RichTextBlock } from '../../payload-types'
+import { BIZNES_CONTACT } from './contact'
 import { h2, p, richText, ul } from './lexical'
 import { upsertBiznesPage } from './page'
 
@@ -11,7 +12,7 @@ const text = (children: object[]) => ({
   content: richText<RichTextBlock['content']>(children),
 })
 
-const CONTACT_EMAIL = 'biuro@pro-kom.eu'
+const CONTACT_EMAIL = BIZNES_CONTACT.email
 
 // TODO(krystian): [SZEF/prawnik] DRAFT of the privacy policy, built only from facts in the code
 // and ADRs: administrator and address (board), form fields (`Inquiries`), the IP hash of the
@@ -19,7 +20,7 @@ const CONTACT_EMAIL = 'biuro@pro-kom.eu'
 // (`docker/nginx/nginx.conf`, `docker/compose.proxy.yml`), retention (`INQUIRY_RETENTION_MONTHS`,
 // default 24 — open inquiries are not deleted automatically) and backups up to ~3 months
 // (ADR-003, S9b-2), no analytics. To confirm before production: legal bases; NIP (spec. §13 pkt 1)
-// and the e-mail for data matters (biuro@ or biznes@, ZMIANY-v20 §1.3 — also in `CompanyData`);
+// and the e-mail for data matters (the line inbox since 01.11.2026, `contact.ts`);
 // the providers of hosting and mail (Seohost, ADR-002 „przyjęta wstępnie”) and of the off-site
 // backups (`docs/runbook.md`, not chosen yet), where they keep data and whether anything leaves
 // the EEA; the effective date. Approving the text means a new consent clause version as well
