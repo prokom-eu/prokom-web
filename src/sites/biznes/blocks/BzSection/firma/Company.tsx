@@ -35,10 +35,8 @@ async function contactData(tenantId: number) {
   const [settings, company] = await Promise.all([getSiteSettings(tenantId), getCompanyData()])
   const phone = settings?.phone ?? null
   const location = company?.locations[0] ?? null
-  // The landline: a company phone other than the line's main number.
-  const landline =
-    company?.phones.find((item) => item.number.replace(/\D/g, '') !== phone?.replace(/\D/g, ''))
-      ?.number ?? null
+  // The line's second phone; `CompanyData` phones are shared by all lines.
+  const landline = settings?.phone2 ?? null
   const whatsapp = settings?.biznes?.whatsapp ?? null
   return {
     company,

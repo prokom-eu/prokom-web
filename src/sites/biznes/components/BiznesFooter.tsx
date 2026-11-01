@@ -73,10 +73,8 @@ export function BiznesFooter({ name, company, settings, biznes, badges, contact 
   const email = settings.email ?? company?.email ?? null
   // Only the first location (Rabka on Biznes, spec. §1) — never the list of all branches.
   const main = company?.locations[0]
-  // `CompanyData` phones are shared by all lines and may repeat the main number shown above.
-  const otherPhones = (company?.phones ?? []).filter(
-    (phone) => !contact.phone || toTelHref(phone.number) !== contact.phone.href,
-  )
+  // The line's second phone (`SiteSettings.phone2`); `CompanyData` phones are shared by all lines.
+  const otherPhones = settings.phone2 ? [{ label: null, number: settings.phone2 }] : []
   return (
     <footer data-surface="dark" className="mt-16 bg-surface-dark text-[0.94rem] text-white/80">
       <Container
