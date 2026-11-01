@@ -29,7 +29,7 @@ Plan sesji i prompty: `PRZEKAZANIE-K4.md`. Instrukcja dla Krystiana: `START-K4.m
 
 - **Zero cen** produktów i usług; bez leasingu, rat, finansowania, „gratis”, „w cenie”. Wyjątki: „terminal bywa za 0 zł” (Polska Bezgotówkowa — warunki przy ofercie); ulga „do 700 zł” / „90% ceny netto” zawsze z dopiskiem, że rozlicza księgowa klienta. Nigdzie „przegląd 0 zł” — tylko „bezpłatny przegląd”.
 - **Statusy** (wyłącznie te): Posnet i Elzab — „Autoryzowany serwis”; GoPOS i InsERT — „Autoryzowany partner”; Optivendi — „Partner”; COMEX — „We współpracy”. Żadna inna marka nie ma statusu — w O firmie trzecia grupa to „Pozostałe marki w ofercie”. Skrótów „Aut.” nie używamy.
-- **Tylko Rabka:** PRO-KOM Tadeusz Wójciak, ul. Orkana 16B, 34-700 Rabka-Zdrój, NIP 7352511447, tel. 889 003 889 / 18 267 65 11, pn–pt 9:00–17:00, e-mail wyłącznie `biznes@pro-kom.eu`. U innych firm (fakty w salonach) — tylko miasto, bez ulic.
+- **Tylko Rabka:** PRO-KOM Tadeusz Wójciak, ul. Orkana 16B, 34-700 Rabka-Zdrój, NIP 7352511447, tel. 889 003 889 (główny, też WhatsApp) / 883 200 151, pn–pt 9:00–17:00 (sobota i niedziela zamknięte), e-mail wyłącznie `kontakt@prokombiznes.pl` (**decyzja Krystiana 01.11.2026** — zastępuje `biznes@pro-kom.eu`, `biuro@pro-kom.eu` i numer stacjonarny 18 267 65 11; dane w seedzie: `src/seed/biznes/contact.ts`). U innych firm (fakty w salonach) — tylko miasto, bez ulic.
 - **Zakazane marki** w treściach publicznych: Novitus, Honeywell, Verifone, Datalogic. Nie wspominamy o Strefie Klienta.
 - **HP — tylko oryginalne wkłady** (karty HP, „Serwis drukarek”, „Tusze i tonery”, „Do tego zwykle dobierają”).
 - **Opieka IT bez modelu cenowego:** bez „abonamentu”, „stałej opłaty”, pakietów; „Zakres ustalamy w umowie”, „wycena na piśmie”, „bezpłatny przegląd IT”.
