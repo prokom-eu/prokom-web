@@ -103,7 +103,7 @@ export async function CareHero({
             <figcaption className="flex items-start justify-between gap-3">
               <span className="flex flex-col">
                 <b className="font-display text-lg font-extrabold">{data.report.title}</b>
-                <small className="text-[14px] text-ink-3">{data.report.sub}</small>
+                <small className="text-[14px] text-ink-2">{data.report.sub}</small>
               </span>
               <em className="rounded-full bg-surface-2 px-2.5 py-1 text-[12px] font-extrabold text-ink-2 not-italic">
                 przykład
@@ -183,7 +183,7 @@ export function Audience({
                 </span>
               )}
               <b className="font-display text-lg leading-tight font-extrabold">{item.t}</b>
-              <small className="text-[14px] text-ink-3">{item.k}</small>
+              <small className="text-[14px] text-ink-2">{item.k}</small>
               <ul className="mt-1 flex flex-col gap-1.5">
                 {item.l.map((line) => (
                   <li key={line} className="flex gap-2 text-[15px] text-ink-2">
@@ -253,7 +253,7 @@ export function StartCalendar({
               </li>
             ))}
           </ul>
-          {data.calendar.note && <p className="text-[13px] text-ink-3">{data.calendar.note}</p>}
+          {data.calendar.note && <p className="text-[13px] text-ink-2">{data.calendar.note}</p>}
         </div>
       </div>
     </SectionShell>
