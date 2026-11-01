@@ -265,36 +265,38 @@ test.describe('Biznes product page 2.0', () => {
     ).toHaveCount(0)
   })
 
-  test('„Do tego zwykle dobierają” shows the products of „pasuje do” from the panel', async ({
+  test('„Do tego zwykle dobierają” lists `polecane` of K4 with their labels (K36 §13)', async ({
     page,
   }) => {
-    await loginAsAdmin(page)
-    const { json } = await api(
-      page,
-      'GET',
-      '/api/products?where[slug][in]=posnet-ergo-online,szuflada-posnet-skl&depth=0&limit=5',
+    await page.goto(site('biznes.localhost', ERGO))
+    const suggestions = page.getByRole('region', { name: 'Do tego zwykle dobierają' })
+    await expect(
+      suggestions.getByRole('link', { name: 'Szuflada kasowa Posnet SKL' }),
+    ).toHaveAttribute('href', '/produkt/szuflada-posnet-skl')
+    await expect(suggestions).toContainText('Szuflada')
+    // A cash register: fiscalisation in the strip and in „Co robimy przy zakupie”.
+    await expect(page.getByText('— fiskalizacja i szkolenie na miejscu')).toBeVisible()
+    await expect(
+      page.getByText('Dobór, fiskalizacja, szkolenie i serwis — w jednej ofercie.'),
+    ).toBeVisible()
+  })
+
+  test('colour → add → the colour in the note of the inquiry item (K32 §9)', async ({ page }) => {
+    await page.goto(site('biznes.localhost', '/produkt/apple-iphone-17'))
+    const colours = page.getByRole('group', { name: 'Kolor' })
+    await expect(colours.getByRole('button')).toHaveCount(5)
+    const second = colours.getByRole('button').nth(1)
+    const name = (await second.getAttribute('aria-label'))!
+    await expect(async () => {
+      await second.click({ timeout: 1000 })
+      await expect(second).toHaveAttribute('aria-pressed', 'true', { timeout: 1000 })
+    }).toPass()
+    await expect(colours).toContainText(`Kolor: ${name}`)
+    await addToInquiry(page, 'Apple iPhone 17')
+    const note = await page.evaluate(
+      () => (JSON.parse(localStorage.getItem('pk-cart') ?? '[]') as { uwaga?: string }[])[0]?.uwaga,
     )
-    const id = Object.fromEntries(
-      (json.docs as { id: number; slug: string }[]).map((doc) => [doc.slug, doc.id]),
-    )
-    const ergo = id['posnet-ergo-online']!
-    const before = (await api(page, 'GET', `/api/products/${ergo}?depth=0`)).json as {
-      fitsWith?: number[] | null
-    }
-    expect(
-      (await api(page, 'PATCH', `/api/products/${ergo}`, { fitsWith: [id['szuflada-posnet-skl']] }))
-        .status,
-    ).toBe(200)
-    try {
-      await page.goto(site('biznes.localhost', ERGO))
-      const suggestions = page.getByRole('region', { name: 'Do tego zwykle dobierają' })
-      await expect(
-        suggestions.getByRole('link', { name: 'Szuflada kasowa Posnet SKL' }),
-      ).toHaveAttribute('href', '/produkt/szuflada-posnet-skl')
-    } finally {
-      await page.goto('/admin/login')
-      await api(page, 'PATCH', `/api/products/${ergo}`, { fitsWith: before.fitsWith ?? [] })
-    }
+    expect(note).toBe(`Kolor: ${name}`)
   })
 
   for (const width of [360, 390, 414]) {
@@ -311,6 +313,8 @@ test.describe('Biznes product page 2.0', () => {
   test('a service without a photo still has a page, without WCAG violations', async ({ page }) => {
     await page.goto(site('biznes.localhost', '/produkt/przeglad-kasy-fiskalnej'))
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('Przegląd kasy fiskalnej')
+    // The navy tile instead of „Zdjęcie producenta pojawi się wkrótce” (K36 §5).
+    await expect(page.getByText('Usługa PRO-KOM · u Ciebie w firmie')).toBeVisible()
     const results = await new AxeBuilder({ page }).withTags(WCAG).analyze()
     expect(results.violations).toEqual([])
   })

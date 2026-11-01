@@ -3,7 +3,10 @@ import Link from 'next/link'
 import type { IconName } from '@/lib/catalog/options'
 import type { ProductView } from '@/lib/catalog/product'
 import { featureIcon } from '@/lib/catalog/productIcons'
+import { serviceStrip, serviceTile } from '@/lib/catalog/purchase'
+import type { PublicImage } from '@/lib/media/public'
 
+import { ColorPicker } from './ColorPicker'
 import { ProductAddButton } from './ProductAddButton'
 import { PathIcon, productIconPath } from './PathIcon'
 import { ProductGallery } from './ProductGallery'
@@ -11,28 +14,6 @@ import { VersionChips, YourVersion } from './ProductVersionPicker'
 
 /** Three highlights from `features` (K31-ZMIANY §4 pkt 1). */
 const HIGHLIGHTS = 3
-
-/**
- * The service strip under the CTA: the same for every card of the line (board `Strona`, `svc`)
- * — copy of the page, not data of the product.
- */
-const SERVICES: { icon: string; title: string; text: string }[] = [
-  {
-    icon: 'M9 12l2 2 4-4 M12 3l7 3v5c0 4.6-3 8.6-7 10-4-1.4-7-5.4-7-10V6l7-3z',
-    title: 'Gwarancja producenta',
-    text: 'zgłoszenia prowadzimy za Ciebie',
-  },
-  {
-    icon: 'M4 17l6-6 4 4 6-6 M14 9h6v6',
-    title: 'Gotowe do pracy',
-    text: 'konfiguracja i przeniesienie danych',
-  },
-  {
-    icon: 'M12 21s-7-6-7-11a7 7 0 1114 0c0 5-7 11-7 11z M12 12a2 2 0 100-4 2 2 0 000 4z',
-    title: 'Serwis na miejscu',
-    text: 'Rabka-Zdrój i cała Małopolska',
-  },
-]
 
 const CHIP =
   'inline-flex min-h-8 items-center rounded-xl px-2.5 text-[0.82rem] font-extrabold transition-colors'
@@ -45,6 +26,10 @@ type Props = {
   categoryHref: string | null
   phone: { label: string; href: string } | null
   videoTarget: string | null
+  /** Photos of the gallery: the colours' pictures first (K32 §9), then the card's own. */
+  gallery: PublicImage[]
+  /** Gallery slide of each colour (`null`: a colour without a picture). */
+  colorSlides: (number | null)[]
 }
 
 /**
@@ -52,17 +37,34 @@ type Props = {
  * H1, „W tej karcie”, subtitle, 3 highlights with icons, „Twoja wersja” (or the benefit), CTA
  * with the phone and the service strip.
  */
-export function ProductHero({ product, icon, brandHref, categoryHref, phone, videoTarget }: Props) {
+export function ProductHero({
+  product,
+  icon,
+  brandHref,
+  categoryHref,
+  phone,
+  videoTarget,
+  gallery,
+  colorSlides,
+}: Props) {
   const { brand, category } = product
   const highlights = product.features.slice(0, HIGHLIGHTS)
+  // The strip follows the category (K4-FINAL §4.4, K36 §13): copy of the page, not product data.
+  const services = serviceStrip({
+    category: category?.slug ?? null,
+    subcategory: product.subcategory,
+    brand: brand?.slug ?? null,
+  })
   return (
     <div className="grid gap-7 lg:grid-cols-[minmax(0,1.08fr)_minmax(0,1fr)] lg:items-start lg:gap-14">
       <ProductGallery
         name={product.name}
-        images={product.images}
+        images={gallery}
         brand={brand}
         icon={icon}
         videoTarget={videoTarget}
+        colorSlides={colorSlides}
+        service={serviceTile({ kind: product.kind, brand: brand?.slug ?? null })}
       />
 
       <div className="flex min-w-0 flex-col gap-5">
@@ -126,6 +128,8 @@ export function ProductHero({ product, icon, brandHref, categoryHref, phone, vid
           </ul>
         )}
 
+        <ColorPicker colors={product.colors} />
+
         <YourVersion benefit={product.subtitle ? product.benefit : null} />
 
         <div className="flex flex-col gap-2.5">
@@ -147,7 +151,7 @@ export function ProductHero({ product, icon, brandHref, categoryHref, phone, vid
         </div>
 
         <ul className="grid gap-4 border-t border-border pt-5 sm:grid-cols-3">
-          {SERVICES.map((service) => (
+          {services.map((service) => (
             <li key={service.title} className="flex gap-3 text-sm">
               <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-surface-2 text-ok-text">
                 <PathIcon d={service.icon} className="size-4" />

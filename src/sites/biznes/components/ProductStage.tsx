@@ -71,12 +71,16 @@ export function StageFallback({
   icon,
   size = 'md',
   name,
+  service = false,
 }: {
   icon: IconName
   size?: FallbackSize
   /** Gallery only: the product name above the note. */
   name?: string
+  /** A PRO-KOM service: the navy tile „Usługa PRO-KOM” over the whole stage (K36 §5, §10). */
+  service?: boolean
 }) {
+  if (service) return <ServiceTile icon={icon} size={size} name={name} />
   const tile = (
     <span
       aria-hidden="true"
@@ -114,6 +118,48 @@ export function StageFallback({
           ? 'Zdjęcie producenta pojawi się wkrótce. Pełna specyfikacja — poniżej.'
           : 'Zdjęcie producenta wkrótce'}
       </span>
+    </span>
+  )
+}
+
+/**
+ * A service without a photo (K4-FINAL §4.3 pkt 6, K36 §5): a navy tile with the icon and
+ * „Usługa PRO-KOM” — the gallery adds where the service is done. Never an empty picture.
+ */
+function ServiceTile({ icon, size, name }: { icon: IconName; size: FallbackSize; name?: string }) {
+  return (
+    <span
+      data-surface="dark"
+      className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-surface-dark bg-[radial-gradient(ellipse_at_85%_0%,var(--glow),transparent_60%)] px-4 text-center text-white"
+    >
+      <span
+        aria-hidden="true"
+        className={cx(
+          'flex shrink-0 items-center justify-center bg-white/10 text-white',
+          TILE[size],
+        )}
+      >
+        <Icon name={icon} className={ICON[size]} strokeWidth={2} />
+      </span>
+      {size === 'lg' && name && (
+        <span className="max-w-[420px] font-display text-xl font-extrabold leading-tight sm:text-2xl">
+          {name}
+        </span>
+      )}
+      {size !== 'sm' && (
+        <span
+          className={cx(
+            'font-extrabold text-white/85',
+            size === 'lg'
+              ? 'max-w-[340px] text-sm leading-normal'
+              : 'text-xs uppercase tracking-[0.08em]',
+          )}
+        >
+          {size === 'lg'
+            ? 'Usługa PRO-KOM · u Ciebie w firmie albo w serwisie w Rabce-Zdroju'
+            : 'Usługa PRO-KOM'}
+        </span>
+      )}
     </span>
   )
 }

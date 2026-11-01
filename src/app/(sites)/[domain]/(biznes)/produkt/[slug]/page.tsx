@@ -146,12 +146,26 @@ export default async function ProductPage({ params }: Props) {
 
   const tiles = bentoTiles(product.specs)
   const variantNames = uniqueVersions(product.variants.map((variant) => variant.name))
-  const suggestions = suggestedProducts(
-    index,
-    prepareSearch(index),
-    product.slug,
-    product.suggestions,
-  )
+  // „Do tego zwykle dobierają”: `polecane` of K4 (published cards of this site); a card without
+  // them keeps the phrase matching of K31b (K36 §13 W14).
+  const recommended = product.recommended.flatMap(({ slug, label }) => {
+    const card = index.products.find((item) => item.slug === slug && item.slug !== product.slug)
+    return card ? [{ label, product: card }] : []
+  })
+  const suggestions =
+    recommended.length > 0
+      ? { cards: recommended, chips: [] }
+      : suggestedProducts(index, prepareSearch(index), product.slug, product.suggestions)
+  // Colours (K32 §9): their pictures open the gallery, then the card's own photos.
+  const colorImages = product.colors.flatMap((color) => (color.image ? [color.image] : []))
+  const gallery = [
+    ...colorImages,
+    ...product.images.filter(
+      (image) => !colorImages.some((own) => own.sources[0]?.url === image.sources[0]?.url),
+    ),
+  ]
+  let next = 0
+  const colorSlides = product.colors.map((color) => (color.image ? next++ : null))
   const family = familyProducts(index, product.slug)
   // „W zestawach” (spec. §6.2 pkt 7, K3c): up to 3 bundles listing this card.
   const products = new Map(index.products.map((item) => [item.slug, item]))
@@ -177,7 +191,7 @@ export default async function ProductPage({ params }: Props) {
   ]
 
   const crumbs: Crumb[] = [
-    { name: 'Strona główna', href: '/' },
+    { name: 'Start', href: '/' },
     { name: 'Oferta', href: CATALOG_PATH },
     ...(category && categoryLink ? [{ name: category.name, href: categoryLink }] : []),
     { name: product.heading, href: productHref(product.slug) },
@@ -214,6 +228,7 @@ export default async function ProductPage({ params }: Props) {
       name={product.name}
       config={product.configurator}
       variants={variantNames}
+      colors={product.colors.map((color) => color.name)}
     >
       {jsonLd.map((data, position) => (
         <script
@@ -232,6 +247,8 @@ export default async function ProductPage({ params }: Props) {
             categoryHref={categoryLink}
             phone={phone}
             videoTarget={video ? ID.video : null}
+            gallery={gallery}
+            colorSlides={colorSlides}
           />
         </div>
       </div>
