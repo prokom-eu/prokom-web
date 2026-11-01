@@ -3,30 +3,17 @@ import type { Block, BlocksField, PayloadRequest } from 'payload'
 import { tenantIdOf } from '../lib/tenant/id'
 import { isLine, type Line } from '../lib/tenant/lines'
 import { BzContactBlock } from '../sites/biznes/blocks/BzContact/config'
-import { BzContactInfoBlock } from '../sites/biznes/blocks/BzContactInfo/config'
 import { BzFactsBlock } from '../sites/biznes/blocks/BzFacts/config'
 import { BzFeaturedBlock } from '../sites/biznes/blocks/BzFeatured/config'
 import { BzHeroBlock } from '../sites/biznes/blocks/BzHero/config'
 import { BzNeedsBlock } from '../sites/biznes/blocks/BzNeeds/config'
 import { BzOfferBlock } from '../sites/biznes/blocks/BzOffer/config'
 import { BzPlanBlock } from '../sites/biznes/blocks/BzPlan/config'
-import { BzQuickCardsBlock } from '../sites/biznes/blocks/BzQuickCards/config'
 import { BzReferencesBlock } from '../sites/biznes/blocks/BzReferences/config'
 import { BzStepsBlock } from '../sites/biznes/blocks/BzSteps/config'
 import { BzKsefBlock } from '../sites/biznes/blocks/BzKsef/config'
-import { BzProgramPickerBlock } from '../sites/biznes/blocks/BzProgramPicker/config'
-import { BzKitsBlock } from '../sites/biznes/blocks/BzKits/config'
-import { BzModulesBlock } from '../sites/biznes/blocks/BzModules/config'
 import { BzOrderFlowBlock } from '../sites/biznes/blocks/BzOrderFlow/config'
-import { BzPanelsBlock } from '../sites/biznes/blocks/BzPanels/config'
 import { BzTimelineBlock } from '../sites/biznes/blocks/BzTimeline/config'
-import { BzAuditBlock } from '../sites/biznes/blocks/BzAudit/config'
-import { BzCardsBlock } from '../sites/biznes/blocks/BzCards/config'
-import { BzDowntimeCalcBlock } from '../sites/biznes/blocks/BzDowntimeCalc/config'
-import { BzMonitoringBlock } from '../sites/biznes/blocks/BzMonitoring/config'
-import { BzPageHeroBlock } from '../sites/biznes/blocks/BzPageHero/config'
-import { BzLinesBlock } from '../sites/biznes/blocks/BzLines/config'
-import { BzBrandsBlock } from '../sites/biznes/blocks/BzBrands/config'
 import { BzSectionBlock } from '../sites/biznes/blocks/BzSection/config'
 import { BzLocationBlock } from '../sites/biznes/blocks/BzLocation/config'
 import { InstContactBlock } from '../sites/instalacje/blocks/InstContact/config'
@@ -77,23 +64,10 @@ export const BIZNES_BLOCKS: Block[] = [
   BzReferencesBlock,
   BzFactsBlock,
   BzContactBlock,
-  BzContactInfoBlock,
-  BzQuickCardsBlock,
-  BzPageHeroBlock,
-  BzCardsBlock,
-  BzMonitoringBlock,
-  BzDowntimeCalcBlock,
-  BzAuditBlock,
-  BzModulesBlock,
   BzOrderFlowBlock,
-  BzKitsBlock,
   BzTimelineBlock,
-  BzPanelsBlock,
-  BzProgramPickerBlock,
   BzKsefBlock,
   // B11c: /o-firmie
-  BzLinesBlock,
-  BzBrandsBlock,
   BzLocationBlock,
   // K4hij: the K4 subpages (one block, the section kind picked — decyzja Krystiana 01.11)
   BzSectionBlock,

@@ -66,6 +66,7 @@ import * as migration_20261101_014223_k4h_gopos_insert from './20261101_014223_k
 import * as migration_20261101_021959_k4i_firma from './20261101_021959_k4i_firma'
 import * as migration_20261101_023959_k4j_strony from './20261101_023959_k4j_strony'
 import * as migration_20261101_131202_software_v23_data from './20261101_131202_software_v23_data'
+import * as migration_20261101_131620_drop_bloki_b9 from './20261101_131620_drop_bloki_b9'
 
 export const migrations = [
   {
@@ -407,5 +408,10 @@ export const migrations = [
     up: migration_20261101_131202_software_v23_data.up,
     down: migration_20261101_131202_software_v23_data.down,
     name: '20261101_131202_software_v23_data',
+  },
+  {
+    up: migration_20261101_131620_drop_bloki_b9.up,
+    down: migration_20261101_131620_drop_bloki_b9.down,
+    name: '20261101_131620_drop_bloki_b9',
   },
 ]
