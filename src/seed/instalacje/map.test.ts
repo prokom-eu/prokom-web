@@ -181,6 +181,7 @@ describe('pages', () => {
         'zaplanuj',
         'kontakt',
         'serwis',
+        'dla-architektow',
         'o-firmie',
         'realizacje',
         'poradnik',
@@ -214,7 +215,7 @@ describe('page SEO (I11)', () => {
 
 describe('page SEO of the contact and service pages (I11)', () => {
   it('keeps their titles within 65 characters with the site name', () => {
-    for (const slug of ['kontakt', 'serwis']) {
+    for (const slug of ['kontakt', 'serwis', 'dla-architektow']) {
       const page = pagesToImport().find((item) => item.slug === slug)
       expect(`${page?.seo.title} | PRO-KOM Instalacje`.length, slug).toBeLessThanOrEqual(65)
     }

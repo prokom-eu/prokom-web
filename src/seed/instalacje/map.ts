@@ -13,6 +13,7 @@ import sklep from '../../../seed/prokominstalacje/obiekty/sklep.json'
 import szk from '../../../seed/prokominstalacje/obiekty/szk.json'
 import oferta from '../../../seed/prokominstalacje/oferta-76.json'
 import Alarmy from '../../../seed/prokominstalacje/strony-zrzut/Alarmy.json'
+import Architekci from '../../../seed/prokominstalacje/strony-zrzut/Architekci.json'
 import Anteny from '../../../seed/prokominstalacje/strony-zrzut/Anteny.json'
 import Dostep from '../../../seed/prokominstalacje/strony-zrzut/Dostep.json'
 import Kontakt from '../../../seed/prokominstalacje/strony-zrzut/Kontakt.json'
@@ -457,7 +458,14 @@ export function realizationsToImport(): (RealizationData & { legacyId: number })
 
 export type PageItem = { slug: string; title: string; seo: { title: string; description: string } }
 
-const PAGE_FILES: { slug: string; title: string; file: SeedPage; seoTitle?: string }[] = [
+const PAGE_FILES: {
+  slug: string
+  title: string
+  file: SeedPage
+  seoTitle?: string
+  /** Own description when the package's is over 160 characters. */
+  seoDescription?: string
+}[] = [
   { slug: 'uslugi', title: 'Pełna oferta', file: Oferta },
   // The package's title has 57 characters + „| PRO-KOM Instalacje” (SEO §2.2: ≤ 65 in all).
   {
@@ -480,6 +488,16 @@ const PAGE_FILES: { slug: string; title: string; file: SeedPage; seoTitle?: stri
     file: Serwis,
     seoTitle: 'Serwis kamer, alarmów i sieci na Podhalu',
   },
+  // The package's title (spec §3) without „| PRO-KOM” + „| PRO-KOM Instalacje” has 71 characters.
+  {
+    slug: 'dla-architektow',
+    title: 'Dla architektów',
+    file: Architekci,
+    seoTitle: 'Dla architektów: smart home i teletechnika',
+    // The package's description has 211 characters (the field: ≤ 160).
+    seoDescription:
+      'Współpraca z architektami na Podhalu i w Małopolsce: plan urządzeń na rzutach, wytyczne do projektu, smart home Ampio, głośniki do zabudowy, monitoring.',
+  },
   { slug: 'o-firmie', title: 'O firmie', file: OFirmie },
   { slug: 'realizacje', title: 'Realizacje', file: Realizacje },
   { slug: 'poradnik', title: 'Poradnik', file: Poradnik },
@@ -501,10 +519,13 @@ export function pagesToImport(): PageItem[] {
       title: menu.n,
       seo: seo(page),
     })),
-    ...PAGE_FILES.map(({ slug, title, file, seoTitle: own }) => ({
+    ...PAGE_FILES.map(({ slug, title, file, seoTitle: ownTitle, seoDescription: ownText }) => ({
       slug,
       title,
-      seo: own ? { ...seo(file), title: own } : seo(file),
+      seo: {
+        title: ownTitle ?? seo(file).title,
+        description: ownText ?? seo(file).description,
+      },
     })),
   ]
 }

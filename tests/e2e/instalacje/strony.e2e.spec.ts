@@ -38,6 +38,8 @@ const PAGES = [
   '/zaplanuj',
   '/kontakt',
   '/serwis',
+  // Dla architektów (I16a).
+  '/dla-architektow',
 ]
 
 // Known exceptions, each with its open question in docs/stan/STAN-instalacje.md.

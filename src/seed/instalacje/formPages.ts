@@ -52,6 +52,23 @@ export const FORM_PAGE_BLOCKS: Record<string, () => Block> = {
     },
     cta: { eyebrow: Serwis.dane.ctaEye, heading: Serwis.dane.ctaH, text: Serwis.dane.ctaP },
   }),
+  // The architects' page (I16a, ADR-I005): hero of `Architekci.body.html`; no band (meta `cta: false`).
+  'dla-architektow': () => ({
+    blockType: 'instArchitects',
+    hero: {
+      crumb: 'Dla architektów',
+      eyebrow: 'Dla architektów, projektantów wnętrz, deweloperów i wykonawców',
+      h1a: 'Technika, która nie psuje projektu.',
+      h1b: 'Zaplanujmy ją przed tynkami.',
+      lead: 'Monitoring, sieć, smart home Ampio, dźwięk, ekrany, anteny i ładowarki. Dostajesz plan urządzeń na rzutach i wytyczne, które da się wpisać w projekt. Inwestor dostaje technikę, której nie widać, i jednego wykonawcę od koncepcji do serwisu.',
+      facts: [
+        { value: 'od 2004', label: 'instalacje na Podhalu' },
+        { value: '10 instalacji', label: 'jeden wykonawca, jeden opiekun' },
+        { value: '17 punktów', label: 'do zaplanowania w typowym domu' },
+        { value: '24 miesiące', label: 'gwarancji na montaż' },
+      ],
+    },
+  }),
 }
 
 // Blocks of the sample `kontakt` page of `pnpm seed` (`src/seed/sample.ts`).
