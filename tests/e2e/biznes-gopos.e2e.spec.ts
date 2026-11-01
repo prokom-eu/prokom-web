@@ -2,79 +2,90 @@ import { expect, test, type Page } from '@playwright/test'
 
 import { site } from './helpers'
 
-// B9b: `/gopos` of the Biznes line from its own blocks (spec. §6.5, plansza Gopos): navy hero
-// over a photo (partner figures only with a source — the seed has none), the module explorer
-// (ARIA tabs), one order in four steps, three kits added to the inquiry list at once, the steps,
-// two panels, the FAQ and the v20 form. Axe at 360 px in `a11y`.
+// K4h: `/gopos` of the Biznes line from K4 sections (K32 §3, plansza Web-GoPOS): hero with the
+// stage of devices and the 4-step flow, „Twój lokal”, areas, GoHub, the package configurator,
+// films behind a facade, FAQ. Axe at 360 px in `a11y`.
 
 const cartButton = (page: Page) =>
   page.getByRole('banner').getByRole('button', { name: /^Zapytanie/ })
 
-test.describe('Biznes /gopos (B9b)', () => {
-  test('shows the hero, the explorer, the kits, the FAQ and the form', async ({ page }) => {
+test.describe('Biznes /gopos (K4h)', () => {
+  test('shows the hero, the venues, the package and the FAQ', async ({ page }) => {
     await page.goto(site('biznes.localhost', '/gopos'))
 
     await expect(page.locator('h1')).toHaveCount(1)
-    await expect(page.locator('h1')).toContainText('GoPOS w Twoim lokalu.')
+    await expect(page.locator('h1')).toContainText('Sala, kuchnia i dowozy.')
     await expect(page.getByRole('navigation', { name: 'Okruszki' })).toHaveText(
       /Strona główna\s*\/\s*Oferta\s*\/\s*GoPOS/,
     )
-    // No source in the panel → no partner figures (plan §4).
-    await expect(page.locator('main')).not.toContainText(/6000\+|14 dni/)
-
-    await expect(page.locator('#jak-to-dziala')).toContainText('Restauracja, która nie gubi')
-    await expect(page.locator('#zestawy').getByRole('heading', { level: 3 })).toHaveText([
-      'Kawiarnia, food truck',
-      'Restauracja',
-      'Fast food, samoobsługa',
-    ])
-    await expect(page.locator('#faq details')).toHaveCount(6)
-    await expect(page.locator('#kontakt form')).toBeVisible()
+    await expect(page.getByText('Autoryzowany partner GoPOS')).toBeVisible()
+    await expect(page.locator('#lokal').getByRole('tab')).toHaveCount(5)
+    await expect(page.locator('#pakiet')).toContainText('bez cen — wycena na piśmie')
+    await expect(page.locator('#faq details')).toHaveCount(8)
+    // No YouTube request before „▶” (ADR-016).
+    await expect(page.locator('#film-gopos iframe')).toHaveCount(0)
   })
 
-  test('the explorer switches modules with a click and the arrow keys', async ({ page }) => {
+  test('clicking „Kuchnia” lights the KDS screen up', async ({ page }) => {
     await page.goto(site('biznes.localhost', '/gopos'))
-    const tabs = page.getByRole('tablist', { name: 'Moduły' }).getByRole('tab')
-    await expect(tabs).toHaveCount(8)
-    await expect(tabs.first()).toHaveAttribute('aria-selected', 'true')
-    await expect(page.getByRole('tabpanel')).toContainText('Plan sali i stolików')
-
-    await page.getByRole('tab', { name: /Dowozy GoHub/ }).click()
-    await expect(page.getByRole('tabpanel')).toContainText('Jedna kolejka na kuchni')
-
-    await page.keyboard.press('ArrowDown')
-    await expect(page.getByRole('tab', { name: /E-Menu QR/ })).toBeFocused()
-    await expect(page.getByRole('tabpanel')).toContainText('Kod QR na stoliku')
-    await page.keyboard.press('Home')
-    await expect(tabs.first()).toHaveAttribute('aria-selected', 'true')
+    const hero = page.locator('section[aria-labelledby="gopos-h"]')
+    await hero.getByRole('button', { name: /Kuchnia.*Od razu na ekranie/ }).click()
+    await expect(hero.getByRole('button', { name: /^Kuchnia — / })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    )
+    await expect(hero.getByRole('button', { name: /^Sala — / })).toHaveAttribute(
+      'aria-pressed',
+      'false',
+    )
   })
 
-  test('„Dodaj zestaw do zapytania” puts the whole kit on the list', async ({ page }) => {
+  test('a package of 3 modules gives 3 positions with the note', async ({ page }) => {
     await page.goto(site('biznes.localhost', '/gopos'))
     await expect(cartButton(page)).toHaveAccessibleName('Zapytanie 0 pozycji')
 
-    const add = page
-      .locator('#zestawy > div > ul > li')
-      .filter({ has: page.getByRole('heading', { name: 'Restauracja', exact: true }) })
-      .getByRole('button')
-    await expect(add).toHaveText('Dodaj zestaw do zapytania (7)')
-    await add.click()
-    await expect(cartButton(page)).toHaveAccessibleName('Zapytanie 7 pozycji')
-    await expect(add).toContainText('Zestaw jest w zapytaniu')
+    // „Food truck i sezon” starts with GoPOS + the number system; KDS makes it three.
+    await page.locator('#lokal').getByRole('tab', { name: 'Food truck i sezon' }).click()
+    const pack = page.locator('#pakiet')
+    await pack.getByRole('button', { name: /^✓?\s*KDS/ }).click()
+    await expect(
+      pack.getByRole('complementary', { name: 'Twój pakiet GoPOS' }).locator('dd'),
+    ).toHaveCount(3)
 
-    // The café kit shares GoPOS and the terminal: only the 2 new products are added.
-    const cafe = page
-      .locator('#zestawy > div > ul > li')
-      .filter({ has: page.getByRole('heading', { name: 'Kawiarnia, food truck' }) })
-      .getByRole('button')
-    await cafe.click()
-    await expect(cartButton(page)).toHaveAccessibleName('Zapytanie 9 pozycji')
+    await pack.getByRole('button', { name: 'Zapytaj o ten pakiet' }).click()
+    await expect(cartButton(page)).toHaveAccessibleName('Zapytanie 3 pozycje')
+    const cart = await page.evaluate(() => JSON.parse(localStorage.getItem('pk-cart') ?? '[]'))
+    expect(cart.map((item: { uwaga?: string }) => item.uwaga)).toEqual([
+      'Pakiet GoPOS',
+      'Pakiet GoPOS',
+      'Pakiet GoPOS',
+    ])
+  })
+
+  test('„Dodaj GoHub do pakietu” marks GoHub in the package', async ({ page }) => {
+    await page.goto(site('biznes.localhost', '/gopos'))
+    await page.locator('#lokal').getByRole('tab', { name: 'Kawiarnia' }).click()
+    const hub = page.getByRole('button', { name: 'Dodaj GoHub do pakietu' })
+    await hub.click()
+    await expect(page.getByRole('button', { name: 'GoHub jest w pakiecie ✓' })).toBeVisible()
+    await expect(
+      page.locator('#pakiet').getByRole('complementary', { name: 'Twój pakiet GoPOS' }),
+    ).toContainText('GoHub')
   })
 
   test('no prices, leasing or instalments on the page', async ({ page }) => {
     await page.goto(site('biznes.localhost', '/gopos'))
     const text = await page.locator('main').innerText()
-    expect(text).not.toMatch(/leasing|\braty\b|\d+[,.]\d{2}\s*zł/i)
+    expect(text).not.toMatch(/leasing|\braty\b|\d+[,.]\d{2}\s*zł|\bAut\./i)
+  })
+
+  test('no horizontal scroll on a phone', async ({ page }) => {
+    await page.setViewportSize({ width: 360, height: 800 })
+    await page.goto(site('biznes.localhost', '/gopos'))
+    const overflow = await page.evaluate(
+      () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+    )
+    expect(overflow).toBeLessThanOrEqual(0)
   })
 
   test('the page belongs to the Biznes line only', async ({ page }) => {
