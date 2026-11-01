@@ -341,11 +341,11 @@
         "reach": "Podhale, Małopolska i zdalnie w całej Polsce"
       }
     ],
-    "linesTitle": "Jedna firma, pięć linii",
+    "linesTitle": "Jedna firma, cztery linie",
     "lines": [
       {
         "name": "PRO-KOM",
-        "label": "GŁÓWNA",
+        "label": "PRO-KOM.EU",
         "text": "wszystkie linie",
         "href": "https://pro-kom.eu",
         "color": "prokom"

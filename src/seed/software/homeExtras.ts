@@ -16,7 +16,7 @@ export const HOME_SECTION_TEXTS: SoftwareHomeSections = {
   popular: {
     eyebrow: 'Najczęściej zamawiane',
     title: '12 rzeczy, po które firmy przychodzą najczęściej.',
-    lead: 'Każda z ceną „od”, terminem i listą tego, co jest w cenie. Kliknij kartę, żeby zobaczyć szczegóły. Wszystkie 29 rozwiązań są w pełnej ofercie.',
+    lead: 'Każda z ceną „od”, terminem i listą tego, co jest w cenie. Wszystkie 29 rozwiązań znajdziesz w pełnej ofercie.',
     count: ['{n} pozycja', '{n} pozycje', '{n} pozycji'],
     hint: 'kliknij kartę, żeby zobaczyć szczegóły',
     after: {

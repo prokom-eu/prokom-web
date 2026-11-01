@@ -11,18 +11,20 @@ type Props = {
   active: unknown
   /** Background of the pill (`bg-button`, `bg-card shadow-raised`…) and its corner radius. */
   className: string
-  /** Corner radius of the chosen item, for the clip. */
+  /** Corner radius of the chosen item. */
   radius?: number
 }
 
-type Box = { width: number; height: number; clip: string }
+type Box = { width: number; height: number; left: number; top: number }
 
 /**
- * One background that flows under the chosen tab or button instead of jumping (SWV7): it covers
- * the whole list and is clipped to the chosen item with `clip-path: inset(…)`, so only the clip
- * moves — no width or position is animated. Measured in the list's own coordinates (offsets), so
- * a list that scrolls sideways keeps it under the item. The chosen item needs `relative z-[1]`
- * and no background of its own; without JavaScript it keeps its own look (the pill is not drawn).
+ * One background that flows under the chosen tab or button instead of jumping (SWV7): as big as
+ * the chosen item and moved with `translate` (its size follows). It used to cover the whole list
+ * clipped with `clip-path`, but contrast checkers (axe) ignore the clip and saw its colour under
+ * every other tab — so it lies only under the chosen one. One absolute element: resizing it moves
+ * nothing else. Measured in the list's own coordinates (offsets), so a list that scrolls sideways
+ * keeps it under the item. The chosen item needs `relative z-[1]` and no background of its own;
+ * without JavaScript it keeps its own look (the pill is not drawn).
  */
 export function SlidingPill({ container, active, className, radius = 12 }: Props) {
   const [box, setBox] = useState<Box | null>(null)
@@ -35,23 +37,18 @@ export function SlidingPill({ container, active, className, radius = 12 }: Props
     const measure = () => {
       const item = list.querySelector<HTMLElement>('[aria-selected="true"], [aria-pressed="true"]')
       if (!item) return setBox(null)
-      const width = list.scrollWidth
-      const height = list.scrollHeight
-      const top = item.offsetTop
-      const left = item.offsetLeft
-      const right = width - left - item.offsetWidth
-      const bottom = height - top - item.offsetHeight
       setBox({
-        width,
-        height,
-        clip: `inset(${top}px ${right}px ${bottom}px ${left}px round ${radius}px)`,
+        width: item.offsetWidth,
+        height: item.offsetHeight,
+        left: item.offsetLeft,
+        top: item.offsetTop,
       })
     }
     measure()
     const observer = new ResizeObserver(measure)
     observer.observe(list)
     return () => observer.disconnect()
-  }, [container, active, radius])
+  }, [container, active])
 
   if (!box) return null
   return (
@@ -59,10 +56,15 @@ export function SlidingPill({ container, active, className, radius = 12 }: Props
       aria-hidden="true"
       data-sliding-pill
       className={cx(
-        'pointer-events-none absolute top-0 left-0 transition-[clip-path] duration-(--dur-state) ease-(--ease-out) motion-reduce:transition-none',
+        'pointer-events-none absolute top-0 left-0 transition-[translate,width,height] duration-(--dur-state) ease-(--ease-out) motion-reduce:transition-none',
         className,
       )}
-      style={{ width: box.width, height: box.height, clipPath: box.clip }}
+      style={{
+        width: box.width,
+        height: box.height,
+        translate: `${box.left}px ${box.top}px`,
+        borderRadius: radius,
+      }}
     />
   )
 }

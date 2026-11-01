@@ -26,6 +26,7 @@ const TWO = [
 test.describe('Software header', () => {
   test('menu in the order of the panel, other lines without Tech', async ({ page }) => {
     await page.goto(site(HOST, SUBPAGE))
+    // „Aktualności” only with a published post — the seed has none (SWV8 P0 #3).
     // The first element of each item: the hidden mega panel sits in the „Oferta” item too.
     const items = mainNav(page).locator(':scope > ul > li > :first-child')
     await expect(items).toHaveText([
@@ -33,15 +34,19 @@ test.describe('Software header', () => {
       'Kreator60 s',
       'Darmowy audyt',
       'O firmie',
-      'Aktualności',
       'Kontakt',
     ])
+    // Header and footer only — `/dziekujemy` has its own content card to the news.
+    await expect(
+      page.locator('header a[href="/aktualnosci"], footer a[href="/aktualnosci"]'),
+    ).toHaveCount(0)
     await expect(mainNav(page).getByRole('link', { name: /Kreator/ })).toHaveAttribute(
       'href',
       '/dobierz',
     )
     const lines = page.getByRole('navigation', { name: 'Linie PRO-KOM' })
-    await expect(lines.getByRole('link')).toHaveText(['PRO-KOM Biznes', 'Instalacje'])
+    await expect(lines.getByRole('link')).toHaveText(['Wszystkie linie PRO-KOM →'])
+    await expect(lines.getByRole('link')).toHaveAttribute('href', 'https://pro-kom.eu')
     await expect(page.getByRole('link', { name: 'Bezpłatna wycena' })).toHaveAttribute(
       'href',
       '/kontakt',
@@ -73,7 +78,11 @@ test.describe('Software header', () => {
       'href',
       '/rozwiazania/strona-wizytowka',
     )
-    await expect(panel.getByRole('link', { name: 'Budowlanka i ekipy' })).toBeVisible()
+    // One active industry (seed): a link in the offer card, no „Dla branż” group (SWV8 P1 #11).
+    await expect(
+      panel.getByRole('link', { name: 'Dla branży: Budowlanka i ekipy' }),
+    ).toHaveAttribute('href', '/dla-branz/budownictwo-i-wykonczenia')
+    await expect(panel.getByRole('heading', { name: 'Dla branż' })).toHaveCount(0)
     await expect(panel.getByRole('link', { name: 'Zobacz pełną ofertę →' })).toHaveAttribute(
       'href',
       '/rozwiazania',
@@ -208,8 +217,8 @@ test.describe('Software footer', () => {
     await expect(footer).not.toContainText(/Zakopan/i)
     await expect(footer).toContainText(/NIP \d{10}/)
 
-    // „Jedna firma, pięć linii” (v23: without Zakopane) replaces the v20 cross link to Biznes.
-    const lines = footer.getByRole('region', { name: 'Jedna firma, pięć linii' })
+    // „Jedna firma, cztery linie” (SWV8: four lines + the pro-kom.eu card) replaces the v20 cross link to Biznes.
+    const lines = footer.getByRole('region', { name: 'Jedna firma, cztery linie' })
     await expect(lines.getByRole('link')).toHaveCount(5)
     await expect(lines.getByRole('link', { name: /^PRO-KOM Biznes/ })).toHaveAttribute(
       'href',
@@ -237,7 +246,7 @@ test.describe('Software footer', () => {
     test(`no CTA band where the page ends with its own CTA (${path})`, async ({ page }) => {
       await page.goto(site(HOST, path))
       const footer = page.locator('footer')
-      await expect(footer.getByRole('region', { name: 'Jedna firma, pięć linii' })).toBeVisible()
+      await expect(footer.getByRole('region', { name: 'Jedna firma, cztery linie' })).toBeVisible()
       await expect(footer.locator('[data-footer-cta]')).toBeHidden()
     })
   }
