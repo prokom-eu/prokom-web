@@ -1898,6 +1898,7 @@ export interface Page {
         | InstPlannerBlock
         | InstContactBlock
         | InstServiceDeskBlock
+        | InstArchitectsBlock
         | SwHeroBlock
         | SwHomeSectionBlock
         | SwContactBlock
@@ -4149,6 +4150,34 @@ export interface InstServiceDeskBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'instServiceDesk';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InstArchitectsBlock".
+ */
+export interface InstArchitectsBlock {
+  hero: {
+    crumb?: string | null;
+    eyebrow?: string | null;
+    h1a: string;
+    h1b?: string | null;
+    lead?: string | null;
+    facts?:
+      | {
+          value: string;
+          label: string;
+          id?: string | null;
+        }[]
+      | null;
+    tags?: string[] | null;
+    cta?: {
+      text?: string | null;
+      href?: string | null;
+    };
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'instArchitects';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -6609,6 +6638,7 @@ export interface PagesSelect<T extends boolean = true> {
         instPlanner?: T | InstPlannerBlockSelect<T>;
         instContact?: T | InstContactBlockSelect<T>;
         instServiceDesk?: T | InstServiceDeskBlockSelect<T>;
+        instArchitects?: T | InstArchitectsBlockSelect<T>;
         swHero?: T | SwHeroBlockSelect<T>;
         swHomeSection?: T | SwHomeSectionBlockSelect<T>;
         swContact?: T | SwContactBlockSelect<T>;
@@ -7709,6 +7739,37 @@ export interface InstServiceDeskBlockSelect<T extends boolean = true> {
         eyebrow?: T;
         heading?: T;
         text?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InstArchitectsBlock_select".
+ */
+export interface InstArchitectsBlockSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        crumb?: T;
+        eyebrow?: T;
+        h1a?: T;
+        h1b?: T;
+        lead?: T;
+        facts?:
+          | T
+          | {
+              value?: T;
+              label?: T;
+              id?: T;
+            };
+        tags?: T;
+        cta?:
+          | T
+          | {
+              text?: T;
+              href?: T;
+            };
       };
   id?: T;
   blockName?: T;
