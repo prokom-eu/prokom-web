@@ -296,7 +296,7 @@ export function FaultForm({ formToken, phone }: Props) {
         {F.name}
         <input
           ref={nameField}
-          className="zin"
+          className={'zin' + (error?.key === 'name' ? ' xa-bad' : '')}
           type="text"
           placeholder={F.namePlaceholder}
           autoComplete="given-name"

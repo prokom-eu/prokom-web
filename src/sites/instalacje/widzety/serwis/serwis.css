@@ -1,14 +1,14 @@
 /*
- * Service desk page (I11): care plans, the report tracker and the urgent note. Rules of
- * `pk.css` v4.2 for the classes of `Serwis.body.html` the line's CSS does not have yet, ported by
- * `narzedzia/przenies-css.mjs` (map `przenies-css.strony.json`), colours only from tokens. The
- * hero, form fields, steps, FAQ and related cards come from `sekcje.css`. The plan cards are
- * scoped to `.plans`: the footer's „Zaplanuj” card is `.ftci.plan` too.
+ * Service desk page (I11): care plans, the report tracker, the urgent note and the phone rules of
+ * its sections. Rules of `pk.css` v4.2 for the classes of `Serwis.body.html` the line's CSS does
+ * not have yet, ported by `narzedzia/przenies-css.mjs` (map `przenies-css.strony.json`), colours
+ * only from tokens. The rest comes from other files of the one CSS bundle of `Pages`: hero, FAQ,
+ * related cards, `.seg`, `.note` (`sekcje.css`); `.steps`, `.step` (`glowna-sekcje.css`); `.zp`,
+ * `.zpq`, `.zsl`, `.fl`, `.zin`, `.odi` (`teletechnika.css`); `.zpc`, `.chip` (`sieci.css`);
+ * `.zkerr` (`zaplanuj.css`); `.consent` (`kontakt.css`) — check `/serwis` when changing those.
+ * The plan cards are scoped to `.plans`: the footer's „Zaplanuj” card is `.ftci.plan` too.
  */
 [data-line='instalacje'] {
-  & .trk {
-    fill: var(--trk);
-  }
   & .plans .plan {
     padding: 28px;
     display: flex;
@@ -38,15 +38,7 @@
     flex: none;
     margin-top: 2px;
   }
-  @media (max-width: 1100px) {
-    & .plans {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
   @media (max-width: 760px) {
-    & .plans {
-      grid-template-columns: 1fr;
-    }
     & .plans .plan {
       padding: 20px;
     }
@@ -102,9 +94,23 @@
     box-shadow: 0 0 0 5px var(--il-arm-chip);
     animation: inst-pulse 1.4s infinite;
   }
+  /* pk.css: the sections' grids are inline styles in the markup, so the phone rules win with
+     `!important`, as in the prototype. */
   @media (max-width: 1100px) {
     & #plany .plans {
       grid-template-columns: 1fr !important;
+    }
+    & #przejecie .steps {
+      grid-template-columns: 1fr 1fr !important;
+    }
+  }
+  @media (max-width: 760px) {
+    & #przejecie .steps {
+      grid-template-columns: 1fr !important;
+    }
+    & #zdalnie .card {
+      grid-template-columns: 1fr !important;
+      padding: 26px !important;
     }
   }
   & .zin.xa-bad {
@@ -132,5 +138,12 @@
 @media (max-width: 760px) {
   [data-line='instalacje'] #zglos .seg button {
     min-height: 44px;
+  }
+}
+
+/* Each page stops its own animations when motion is reduced (STAN, I7). */
+@media (prefers-reduced-motion: reduce) {
+  [data-line='instalacje'] .trs.on em {
+    animation: none;
   }
 }

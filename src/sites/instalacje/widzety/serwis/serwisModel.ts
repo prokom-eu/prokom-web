@@ -48,12 +48,18 @@ export const pickSystem = (s: FaultState, sys: number): FaultState => ({ ...s, s
 /** „Pilne” shows the phone note (`sv.urgent`). */
 export const isUrgent = (s: FaultState) => s.urg === 0
 
+/** The server's phone format (`+48 600 100 200`, brackets and dashes) and at least 9 digits. */
+export const phoneOk = (phone: string) => {
+  const p = phone.trim()
+  return /^\+?[\d\s()-]{6,}$/.test(p) && p.replace(/\D/g, '').length >= 9
+}
+
 export type FaultError = 'name' | 'phone' | 'consent'
 
-/** The first missing answer: name, phone of 9 digits (`send`), consent. */
+/** The first missing answer: name, a phone the server takes (`send`: 9 digits), consent. */
 export function faultError(s: FaultState): FaultError | null {
   if (!s.name.trim()) return 'name'
-  if (s.phone.replace(/\D/g, '').length < 9) return 'phone'
+  if (!phoneOk(s.phone)) return 'phone'
   if (!s.consent) return 'consent'
   return null
 }

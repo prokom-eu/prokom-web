@@ -4,7 +4,7 @@ import type { CSSProperties } from 'react'
 
 import { getEnv } from '@/lib/env'
 import { issueFormToken } from '@/lib/inquiry/spam'
-import { getInstalacjeCards } from '@/lib/instalacje/data'
+import { getInstalacjeCards, getInstalacjeSettings } from '@/lib/instalacje/data'
 import { serviceJsonLd } from '@/lib/instalacje/seo'
 import { breadcrumbJsonLd } from '@/lib/seo/jsonLd'
 import { siteOrigin } from '@/lib/seo/origin'
@@ -38,10 +38,11 @@ const PATH = '/serwis'
 export async function InstServiceDeskBlock({ block, tenantId }: Props) {
   // The form token carries the render time (minimum fill time), so never from a cache.
   await connection()
-  const [site, company, cards, host] = await Promise.all([
+  const [site, company, cards, settings, host] = await Promise.all([
     getSiteSettings(tenantId),
     getCompanyData(),
     getInstalacjeCards(tenantId),
+    getInstalacjeSettings(tenantId),
     headers().then((h) => h.get('host')),
   ])
   const formToken = issueFormToken(getEnv().PAYLOAD_SECRET)
@@ -65,7 +66,8 @@ export async function InstServiceDeskBlock({ block, tenantId }: Props) {
   const hueColor = cards.services.find((s) => s.key === 'kam')?.color ?? 'var(--accent)'
 
   return (
-    <div className="inst-svc" style={{ '--h': hueColor } as CSSProperties}>
+    // `data-inst-il`: the illustration palette, like the service pages (the tracker's ring).
+    <div className="inst-svc" data-inst-il="" style={{ '--h': hueColor } as CSSProperties}>
       {origin && (
         <>
           <JsonLd
@@ -129,7 +131,7 @@ export async function InstServiceDeskBlock({ block, tenantId }: Props) {
                   ))}
                 </ul>
                 <span className="prc" style={{ fontSize: 22, marginTop: 'auto' }}>
-                  {S.plans.price}
+                  {settings.noPriceText}
                 </span>
               </div>
             ))}

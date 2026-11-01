@@ -116,12 +116,18 @@ describe('fault form as the prototype', () => {
     ref.state = ref.initState()
     const plans = ref.page(P, {}).plans
     expect(serwis.plans.items.map((p) => p.name)).toEqual(plans.map((p) => p.n))
-    expect(plans.every((p) => p.pr === serwis.plans.price)).toBe(true)
+    // Without prices the prototype shows no amount; the page takes the panel's no-price text.
+    expect(plans.every((p) => !/\d|CENA/.test(p.pr))).toBe(true)
   })
 })
 
 describe('fault form rules of the site', () => {
   const ready = ours({ name: 'Anna', phone: '600 100 200', consent: true })
+
+  it('takes only a phone the server accepts', () => {
+    expect(faultError({ ...ready, phone: '+48 (12) 600-12-34' })).toBeNull()
+    expect(faultError({ ...ready, phone: '600 100 200 wew. 5' })).toBe('phone')
+  })
 
   it('asks for the name first and the consent last', () => {
     expect(faultError({ ...ready, name: '' })).toBe('name')

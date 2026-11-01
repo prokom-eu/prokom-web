@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 import { SERVICE_KEYS } from '@/lib/instalacje/options'
 import { tenantIdOf } from '@/lib/tenant/id'
-import type { InstObject, InstService } from '@/payload-types'
+import type { ObjectCard, ServiceCard } from '@/lib/instalacje/data'
 
 import { hue } from '../hue'
 import { InstIcon } from '../InstIcon'
@@ -12,9 +12,9 @@ type Props = {
   tenantId: number
   heading: string | null | undefined
   /** Populated services; only their card fields are used (`/serwis` passes `getInstalacjeCards`). */
-  services: (number | ServiceChip)[] | null | undefined
+  services: (number | ServiceCard)[] | null | undefined
   /** Populated objects; only their card fields are used (object pages pass `getInstalacjeCards`). */
-  objects: (number | ObjectChip)[] | null | undefined
+  objects: (number | ObjectCard)[] | null | undefined
   /** Heading of the „Podobne obiekty” strip (prototype `segRelH`). */
   objectsHeading?: string
   /** One more link under the cards (I16c: „Projektujesz? Współpraca dla architektów →”). */
@@ -22,16 +22,6 @@ type Props = {
 }
 
 const ORDER: readonly string[] = SERVICE_KEYS.map(({ value }) => value)
-
-type ObjectChip = Pick<
-  InstObject,
-  'id' | 'slug' | 'name' | 'icon' | 'color' | 'menuCaption' | '_status' | 'tenant'
->
-
-type ServiceChip = Pick<
-  InstService,
-  'id' | 'key' | 'slug' | 'name' | 'icon' | 'color' | 'menuCaption' | '_status' | 'tenant'
->
 
 type Entry = { _status?: 'draft' | 'published' | null; tenant?: unknown }
 
@@ -60,10 +50,10 @@ export function Related({
   objectsHeading,
   extraLink,
 }: Props) {
-  const cards = shown<ServiceChip>(services, tenantId)
+  const cards = shown<ServiceCard>(services, tenantId)
     .filter((service) => service.slug)
     .sort((a, b) => ORDER.indexOf(a.key) - ORDER.indexOf(b.key))
-  const chips = shown<ObjectChip>(objects, tenantId).filter((object) => object.slug)
+  const chips = shown<ObjectCard>(objects, tenantId).filter((object) => object.slug)
   if (cards.length === 0 && chips.length === 0 && !extraLink) return null
   return (
     <InstSection id="powiazane" style={{ padding: '0 0 104px' }}>

@@ -6,7 +6,7 @@ import type { InstIconName } from '../icons'
  * Texts of the service desk page `/serwis` (`zrodlo/pages/Serwis.body.html` + `Serwis.js`), 1:1
  * with the prototype except: no `[SZEF…]` / `[CENA]` notes on the page (travel rules and rates,
  * after-hours rules, how often remote checks run — open questions for the boss), no prices of
- * the care plans (spec §2: „Cena po rozmowie” as the prototype shows without prices), the
+ * the care plans (spec §2), the
  * consent is `CONSENT_CLAUSE`, the form asks for a name (the inquiry needs it). The hero and the
  * band before the footer are edited in the panel (`instServiceDesk` block).
  */
@@ -141,7 +141,6 @@ export const serwis = {
     heading: 'Instalacja ma działać w sezonie, a nie tylko w dniu odbioru.',
     lead: 'Wybierz poziom opieki. Zakres i terminy przyjazdu zapisujemy w umowie.',
     hot: 'Najczęściej wybierany',
-    price: 'Cena po rozmowie',
     items: [
       {
         name: 'Przegląd',
