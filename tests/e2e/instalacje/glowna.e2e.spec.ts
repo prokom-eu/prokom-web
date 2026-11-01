@@ -63,7 +63,7 @@ test.describe('Instalacje home hero', () => {
     page,
   }) => {
     await open(page)
-    await page.getByRole('tab', { name: 'Dom' }).click()
+    await page.getByRole('tab', { name: 'Dom', exact: true }).click()
     await page.getByRole('button', { name: 'Zima' }).click()
     await expect(hero(page)).toHaveAttribute('data-hx-time', 'winter')
     await expect(page.locator('.hxsh b')).toHaveText('Na żywo · Dom')
@@ -98,7 +98,10 @@ test.describe('Instalacje home hero', () => {
     await page.keyboard.press('End')
     await expect(page.getByRole('tab', { name: 'Firma' })).toBeFocused()
     await page.keyboard.press('Home')
-    await expect(page.getByRole('tab', { name: 'Dom' })).toHaveAttribute('aria-selected', 'true')
+    await expect(page.getByRole('tab', { name: 'Dom', exact: true })).toHaveAttribute(
+      'aria-selected',
+      'true',
+    )
   })
 
   test('plays by itself without reduced motion and stops at the first touch', async ({ page }) => {

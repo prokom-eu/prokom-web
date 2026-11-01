@@ -173,7 +173,10 @@ test.describe('Instalacje page for architects', () => {
       category: 'wifi',
       type: 'Nowość',
       description: 'Karta dodana przez test e2e.',
-      params: [{ label: 'Parametr', value: '1 m' }],
+      params: [
+        { label: 'Parametr', value: '1 m' },
+        { label: 'Drugi', value: '2 m' },
+      ],
       planItems: [{ text: 'Kabel do szafy' }],
       places: [{ name: 'Dom' }],
       order: 999,
