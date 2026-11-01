@@ -119,7 +119,7 @@ export function SoftwarePost({ post, category, readMore, index, today }: Props) 
                 <p className="mt-6 flex items-center gap-3">
                   <span
                     aria-hidden="true"
-                    className="grid size-11 place-items-center rounded-xl bg-(image:--grad-say-no) text-sm font-extrabold text-white"
+                    className="grid size-11 place-items-center rounded-xl bg-cta text-sm font-extrabold text-white"
                   >
                     {initials(post.author.name)}
                   </span>
@@ -180,7 +180,7 @@ export function SoftwarePost({ post, category, readMore, index, today }: Props) 
               <div className={post.summary ? 'mt-8' : undefined}>
                 <PostContent content={part(post.content, before)} outline={outline} />
               </div>
-              <div className="my-8 flex flex-col items-start gap-3 rounded-[24px] bg-(image:--grad-say-no) p-[22px] text-white shadow-raised min-[641px]:p-7">
+              <div className="my-8 flex flex-col items-start gap-3 rounded-[24px] bg-cta p-[22px] text-white shadow-raised min-[641px]:p-7">
                 <p className="font-display text-xl font-extrabold">{cta.heading}</p>
                 {cta.text ? <p className="text-white/90">{cta.text}</p> : null}
                 <Link
@@ -249,7 +249,7 @@ export function SoftwarePost({ post, category, readMore, index, today }: Props) 
                   ) : (
                     <span
                       aria-hidden="true"
-                      className="hidden aspect-square place-items-center rounded-[18px] bg-(image:--grad-say-no) font-display text-4xl font-extrabold text-white min-[641px]:grid"
+                      className="hidden aspect-square place-items-center rounded-[18px] bg-cta font-display text-4xl font-extrabold text-white min-[641px]:grid"
                     >
                       {initials(post.author.name)}
                     </span>

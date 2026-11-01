@@ -28,7 +28,6 @@ import {
 } from './homeExtras'
 import {
   areaData,
-  cardGradientKey,
   cityData,
   factsData,
   industriesToImport,
@@ -132,7 +131,6 @@ describe('solutionData', () => {
       name: 'Strona firmowa z panelem',
       category: 'strony',
       situations: ['Z'],
-      cardGradient: null,
     })
     expect(data).not.toHaveProperty('featured')
   })
@@ -195,19 +193,6 @@ describe('solutions v22 of the package', () => {
   it('never name a version', () => {
     const text = JSON.stringify({ items: rozwiazania.items, areas: obszary.items })
     expect(text).not.toMatch(/Na start|Standard|Pełna wersja/)
-  })
-})
-
-describe('cardGradientKey', () => {
-  it('maps the CSS gradients of the package to the card keys', () => {
-    expect(cardGradientKey('135deg, #F3B07C, #F7D9B5')).toBe('peach')
-    expect(cardGradientKey('135deg, #D8C3A8, #A38363')).toBe('sand')
-    expect(cardGradientKey('135deg, #BFD9CF, #7FA898')).toBe('sage')
-    expect(cardGradientKey(null)).toBeNull()
-  })
-
-  it('refuses an unknown gradient instead of losing it', () => {
-    expect(() => cardGradientKey('90deg, #000, #fff')).toThrow(/gradient/)
   })
 })
 

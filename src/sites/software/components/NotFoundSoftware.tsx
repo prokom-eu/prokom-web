@@ -90,7 +90,7 @@ export async function NotFoundSoftware({ tenantId }: { tenantId: number }) {
             {wizardText ? (
               <Link
                 href={texts.wizard.href}
-                className="flex flex-col gap-3 rounded-[26px] bg-(image:--grad-say-no) p-[22px] text-white shadow-raised transition-transform active:scale-[0.99] min-[641px]:p-7"
+                className="flex flex-col gap-3 rounded-[26px] bg-cta p-[22px] text-white shadow-raised transition-transform active:scale-[0.99] min-[641px]:p-7"
               >
                 <span
                   aria-hidden="true"

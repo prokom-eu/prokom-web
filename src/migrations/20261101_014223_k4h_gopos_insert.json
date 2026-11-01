@@ -12181,14 +12181,6 @@
           "primaryKey": false,
           "notNull": false
         },
-        "tone": {
-          "name": "tone",
-          "type": "enum_pages_blocks_sw_hero_intents_tone",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'www'"
-        },
         "text": {
           "name": "text",
           "type": "varchar",
@@ -14904,14 +14896,6 @@
           "type": "varchar",
           "primaryKey": false,
           "notNull": false
-        },
-        "tone": {
-          "name": "tone",
-          "type": "enum_pages_blocks_sw_page_hero_photos_tone",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'violet'"
         }
       },
       "indexes": {
@@ -15549,14 +15533,6 @@
           "type": "varchar",
           "primaryKey": false,
           "notNull": false
-        },
-        "tone": {
-          "name": "tone",
-          "type": "enum_pages_blocks_sw_team_members_tone",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'violet'"
         }
       },
       "indexes": {
@@ -27570,14 +27546,6 @@
           "primaryKey": false,
           "notNull": false
         },
-        "tone": {
-          "name": "tone",
-          "type": "enum__pages_v_blocks_sw_hero_intents_tone",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'www'"
-        },
         "text": {
           "name": "text",
           "type": "varchar",
@@ -30420,14 +30388,6 @@
           "primaryKey": false,
           "notNull": false
         },
-        "tone": {
-          "name": "tone",
-          "type": "enum__pages_v_blocks_sw_page_hero_photos_tone",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'violet'"
-        },
         "_uuid": {
           "name": "_uuid",
           "type": "varchar",
@@ -31094,14 +31054,6 @@
           "type": "varchar",
           "primaryKey": false,
           "notNull": false
-        },
-        "tone": {
-          "name": "tone",
-          "type": "enum__pages_v_blocks_sw_team_members_tone",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'violet'"
         },
         "_uuid": {
           "name": "_uuid",
@@ -43517,13 +43469,6 @@
           "primaryKey": false,
           "notNull": false
         },
-        "card_gradient": {
-          "name": "card_gradient",
-          "type": "enum_solutions_card_gradient",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false
-        },
         "price_from": {
           "name": "price_from",
           "type": "numeric",
@@ -44990,13 +44935,6 @@
         "version_toast": {
           "name": "version_toast",
           "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "version_card_gradient": {
-          "name": "version_card_gradient",
-          "type": "enum__solutions_v_version_card_gradient",
-          "typeSchema": "public",
           "primaryKey": false,
           "notNull": false
         },
@@ -60746,11 +60684,6 @@
         "brief"
       ]
     },
-    "public.enum_pages_blocks_sw_hero_intents_tone": {
-      "name": "enum_pages_blocks_sw_hero_intents_tone",
-      "schema": "public",
-      "values": ["www", "sys", "app", "cal", "plug", "auto", "care", "aud"]
-    },
     "public.enum_pages_blocks_sw_home_section_section": {
       "name": "enum_pages_blocks_sw_home_section_section",
       "schema": "public",
@@ -60807,11 +60740,6 @@
       "name": "enum_pages_blocks_sw_audit_form_checks_icon",
       "schema": "public",
       "values": ["clock", "phone", "search", "shield", "users", "doc"]
-    },
-    "public.enum_pages_blocks_sw_page_hero_photos_tone": {
-      "name": "enum_pages_blocks_sw_page_hero_photos_tone",
-      "schema": "public",
-      "values": ["violet", "teal", "copper"]
     },
     "public.enum_pages_blocks_sw_page_hero_nodes_icon": {
       "name": "enum_pages_blocks_sw_page_hero_nodes_icon",
@@ -60942,11 +60870,6 @@
       "name": "enum_pages_blocks_sw_steps_variant",
       "schema": "public",
       "values": ["stats", "cards", "timeline"]
-    },
-    "public.enum_pages_blocks_sw_team_members_tone": {
-      "name": "enum_pages_blocks_sw_team_members_tone",
-      "schema": "public",
-      "values": ["violet", "teal", "copper"]
     },
     "public.enum_pages_blocks_sw_team_variant": {
       "name": "enum_pages_blocks_sw_team_variant",
@@ -62074,11 +61997,6 @@
         "brief"
       ]
     },
-    "public.enum__pages_v_blocks_sw_hero_intents_tone": {
-      "name": "enum__pages_v_blocks_sw_hero_intents_tone",
-      "schema": "public",
-      "values": ["www", "sys", "app", "cal", "plug", "auto", "care", "aud"]
-    },
     "public.enum__pages_v_blocks_sw_home_section_section": {
       "name": "enum__pages_v_blocks_sw_home_section_section",
       "schema": "public",
@@ -62135,11 +62053,6 @@
       "name": "enum__pages_v_blocks_sw_audit_form_checks_icon",
       "schema": "public",
       "values": ["clock", "phone", "search", "shield", "users", "doc"]
-    },
-    "public.enum__pages_v_blocks_sw_page_hero_photos_tone": {
-      "name": "enum__pages_v_blocks_sw_page_hero_photos_tone",
-      "schema": "public",
-      "values": ["violet", "teal", "copper"]
     },
     "public.enum__pages_v_blocks_sw_page_hero_nodes_icon": {
       "name": "enum__pages_v_blocks_sw_page_hero_nodes_icon",
@@ -62270,11 +62183,6 @@
       "name": "enum__pages_v_blocks_sw_steps_variant",
       "schema": "public",
       "values": ["stats", "cards", "timeline"]
-    },
-    "public.enum__pages_v_blocks_sw_team_members_tone": {
-      "name": "enum__pages_v_blocks_sw_team_members_tone",
-      "schema": "public",
-      "values": ["violet", "teal", "copper"]
     },
     "public.enum__pages_v_blocks_sw_team_variant": {
       "name": "enum__pages_v_blocks_sw_team_variant",
@@ -63014,11 +62922,6 @@
       "schema": "public",
       "values": ["strony", "systemy", "aplikacje", "automatyzacje", "opieka"]
     },
-    "public.enum_solutions_card_gradient": {
-      "name": "enum_solutions_card_gradient",
-      "schema": "public",
-      "values": ["peach", "sand", "sage"]
-    },
     "public.enum_solutions_status": {
       "name": "enum_solutions_status",
       "schema": "public",
@@ -63107,11 +63010,6 @@
       "name": "enum__solutions_v_version_category",
       "schema": "public",
       "values": ["strony", "systemy", "aplikacje", "automatyzacje", "opieka"]
-    },
-    "public.enum__solutions_v_version_card_gradient": {
-      "name": "enum__solutions_v_version_card_gradient",
-      "schema": "public",
-      "values": ["peach", "sand", "sage"]
     },
     "public.enum__solutions_v_version_status": {
       "name": "enum__solutions_v_version_status",

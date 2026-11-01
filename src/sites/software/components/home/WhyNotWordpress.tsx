@@ -15,7 +15,7 @@ export function WhyNotWordpress({ view }: { view: WhyNotWordpressView }) {
   return (
     <section id="bez-wordpressa" className="scroll-mt-24 py-10 min-[640px]:py-14">
       <Container wide>
-        <div className="flex flex-col gap-4 overflow-hidden rounded-[28px] border border-border bg-card bg-[radial-gradient(ellipse_at_0%_0%,var(--accent-soft),transparent_50%)] p-[18px] shadow-raised min-[641px]:gap-[22px] min-[641px]:rounded-[36px] min-[641px]:p-[clamp(22px,4vw,52px)]">
+        <div className="flex flex-col gap-4 overflow-hidden rounded-[28px] border border-border bg-card p-[18px] shadow-raised min-[641px]:gap-[22px] min-[641px]:rounded-[36px] min-[641px]:p-[clamp(22px,4vw,52px)]">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div className="flex max-w-[720px] flex-col gap-2.5">
               <p className="text-xs font-extrabold uppercase tracking-[0.14em] text-accent-text min-[640px]:text-sm">
@@ -39,9 +39,7 @@ export function WhyNotWordpress({ view }: { view: WhyNotWordpressView }) {
                     key={`${index}-${fact.value}`}
                     className={cx(
                       'flex shrink-0 basis-[84%] snap-start flex-col gap-2 rounded-[22px] p-4 min-[641px]:p-5',
-                      ours
-                        ? 'bg-[image:var(--grad-say-no)] text-white shadow-raised'
-                        : 'border border-border bg-card-2',
+                      ours ? 'bg-cta text-white shadow-raised' : 'border border-border bg-card-2',
                     )}
                   >
                     <b

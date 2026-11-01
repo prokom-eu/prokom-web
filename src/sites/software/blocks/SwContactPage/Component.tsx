@@ -224,7 +224,7 @@ export async function SwContactPageBlock({ block, tenantId, isFirst }: Props) {
                 const className = cx(
                   'flex h-full min-h-[180px] flex-col rounded-[22px] p-4 transition-transform active:scale-[0.98] motion-reduce:transition-none min-[641px]:p-5',
                   strong
-                    ? 'bg-(image:--grad-say-no) text-white shadow-raised'
+                    ? 'bg-cta text-white shadow-raised'
                     : 'bg-card shadow-[inset_0_0_0_1px_var(--border)]',
                 )
                 return (
@@ -297,7 +297,7 @@ export async function SwContactPageBlock({ block, tenantId, isFirst }: Props) {
             </div>
             <aside
               aria-labelledby="co-dalej-h"
-              className="order-2 flex flex-col gap-6 bg-surface-dark bg-[radial-gradient(ellipse_80%_50%_at_0%_0%,var(--glow),transparent_70%)] px-[18px] py-[26px] text-white min-[641px]:p-[clamp(28px,4vw,46px)] min-[1081px]:order-1"
+              className="order-2 flex flex-col gap-6 bg-surface-dark px-[18px] py-[26px] text-white min-[641px]:p-[clamp(28px,4vw,46px)] min-[1081px]:order-1"
             >
               <h2
                 id="co-dalej-h"
@@ -319,7 +319,7 @@ export async function SwContactPageBlock({ block, tenantId, isFirst }: Props) {
                     ) : null}
                     <span
                       aria-hidden="true"
-                      className="inline-flex size-[34px] items-center justify-center rounded-full bg-button font-extrabold text-accent-ink shadow-[0_0_0_5px_var(--glow)]"
+                      className="inline-flex size-[34px] items-center justify-center rounded-full bg-button font-extrabold text-accent-ink"
                     >
                       {i + 1}
                     </span>

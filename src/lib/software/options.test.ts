@@ -6,7 +6,6 @@ import obszary from '../../../seed/prokomsoftware/obszary.json'
 import rozwiazania from '../../../seed/prokomsoftware/rozwiazania.json'
 import {
   AREA_KEYS,
-  CARD_GRADIENTS,
   INDUSTRY_GROUPS,
   SITUATIONS,
   SOLUTION_CATEGORIES,
@@ -33,11 +32,6 @@ describe('Software options match the seed package (v20)', () => {
 
   it('has every area key', () => {
     expect(values(AREA_KEYS).sort()).toEqual(obszary.items.map((area) => area.key).sort())
-  })
-
-  it('has one card gradient key per gradient of the seed', () => {
-    const used = new Set(rozwiazania.items.map((item) => item.cardGradient).filter(Boolean))
-    expect(used.size).toBe(CARD_GRADIENTS.length)
   })
 
   it('has the kinds of business of the wizard, with their names', () => {

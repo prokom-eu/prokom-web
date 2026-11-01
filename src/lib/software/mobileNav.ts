@@ -46,7 +46,7 @@ export type MenuTile = {
   name: string
   price: string
   href: string
-  /** Area key for the icon tile's gradient (`--grad-area-<key>`); `null` without an area. */
+  /** Key of the matched area; `null` when no area has the tile's name (the frame logs it). */
   key: string | null
   icon: IconName | null
 }

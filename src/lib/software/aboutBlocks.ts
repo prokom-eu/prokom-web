@@ -9,15 +9,12 @@
 
 export type Fill = (value: string | null | undefined) => string | null
 
-type Tone = 'violet' | 'teal' | 'copper'
-
 export type PhotoSource = {
   photo?: unknown
   photoCaption: string
-  tone?: Tone | null
 }
 
-export type PhotoViewOf<I> = { image: I | null; caption: string; tone: Tone }
+export type PhotoViewOf<I> = { image: I | null; caption: string }
 
 /** The photo, its placeholder off production, or `null` (placeholder on production). */
 export function photoView<I>(
@@ -27,7 +24,7 @@ export function photoView<I>(
 ): PhotoViewOf<I> | null {
   const image = resolve(source.photo)
   if (!image && strict) return null
-  return { image, caption: source.photoCaption, tone: source.tone ?? 'violet' }
+  return { image, caption: source.photoCaption }
 }
 
 /** Optional text: empty stays `undefined`, a missing fact makes the whole thing fail (`null`). */
