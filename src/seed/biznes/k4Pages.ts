@@ -1,5 +1,6 @@
 import type { SectionData, SectionVariant } from '../../lib/biznes/pages/sections'
 import type { IconName } from '../../lib/catalog/options'
+import { hardSpaces, hardSpacesDeep } from '../../lib/text/hardSpace'
 import type { BzSectionBlock, FaqBlock } from '../../payload-types'
 import type { PageBlock } from './page'
 
@@ -128,14 +129,15 @@ type SectionInput<V extends SectionVariant> = {
 
 function section<V extends SectionVariant>(input: SectionInput<V>): BzSectionBlock {
   const { variant, data, source, surface = 'default', items, ...texts } = input
+  // Hard spaces after one-letter words in every text (K4-FINAL §1); slugs and links have none.
   return {
     blockType: 'bzSection',
     variant,
     surface,
-    ...texts,
-    ...(items ? { items } : {}),
-    ...(source ? { source, sourceUrl: sourceLink(source) } : {}),
-    ...(data ? { data: data as BzSectionBlock['data'] } : {}),
+    ...hardSpacesDeep(texts),
+    ...(items ? { items: hardSpacesDeep(items) } : {}),
+    ...(source ? { source: hardSpaces(source), sourceUrl: sourceLink(source) } : {}),
+    ...(data ? { data: hardSpacesDeep(data) as BzSectionBlock['data'] } : {}),
   }
 }
 
@@ -143,7 +145,7 @@ const faq = (eyebrow: string, heading: string, items: { q: string; a: string }[]
   blockType: 'faq',
   eyebrow,
   heading,
-  items: items.map(({ q, a }) => ({ question: q, answer: a })),
+  items: items.map(({ q, a }) => ({ question: hardSpaces(q), answer: hardSpaces(a) })),
 })
 
 /** Resolves board ids, remembering the unknown ones. */

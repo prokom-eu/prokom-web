@@ -18,14 +18,6 @@ export type StageDevice = {
 
 type Flow = readonly { k: string; t: string; d: string }[]
 
-// Places of up to four devices on the stage (board `stage[].pos`), whole class names.
-const PLACES = [
-  'right-0 top-[19%] w-[44%] h-[42%] z-[1]',
-  'left-[13%] top-[12%] w-[60%] h-[66%] z-[2]',
-  'left-0 bottom-0 w-[30%] h-[40%] z-[3]',
-  'right-[6%] bottom-0 w-[30%] h-[40%] z-[3]',
-]
-
 /** The order ticket: venue, dishes and four statuses up to the current step. */
 export function Ticket({
   ticket,
@@ -68,8 +60,9 @@ export function Ticket({
 }
 
 /**
- * Stage of the hero: the devices of the venue; the one of the picked step is lit, the rest dim.
- * Below 760 px the floating ticket hides (K4-FINAL §7) and the devices stay.
+ * Stage of the hero: the devices as white tiles (their photos have a white studio background),
+ * the one of the picked step lit, the rest dim; the ticket under them hides below 760 px
+ * (K4-FINAL §7).
  */
 export function GoposStage({
   devices,
@@ -83,53 +76,47 @@ export function GoposStage({
   const { step } = useGopos()
   if (devices.length === 0) return null
   return (
-    <div className="relative aspect-[5/4] w-full">
-      <span
-        aria-hidden="true"
-        className="absolute inset-[8%] -z-10 rounded-full bg-[radial-gradient(closest-side,color-mix(in_srgb,var(--ok)_30%,transparent),transparent)]"
-      />
-      {devices.slice(0, PLACES.length).map((device, i) => {
-        const on = step === device.step
-        const dim = step !== null && !on
-        return (
-          <button
-            key={device.slug}
-            type="button"
-            aria-pressed={on}
-            aria-label={`${device.label} — ${device.name}`}
-            onClick={() => goposActions.pickStep(device.step)}
-            className={cx(
-              'absolute flex items-center justify-center rounded-2xl transition-[opacity,scale] duration-300 motion-reduce:transition-none',
-              PLACES[i],
-              on && 'scale-[1.04]',
-              dim && 'opacity-45',
-            )}
-          >
-            <Image
-              unoptimized
-              src={device.image.url}
-              alt=""
-              width={device.image.width}
-              height={device.image.height}
-              className="max-h-full w-auto object-contain drop-shadow-[0_24px_30px_rgba(0,0,0,0.45)]"
-            />
-            <span
-              className={cx(
-                'absolute -bottom-2 left-1/2 inline-flex -translate-x-1/2 items-center gap-1.5 rounded-full px-2.5 py-1 text-[12px] font-extrabold whitespace-nowrap',
-                on ? 'bg-ok text-surface-dark' : 'bg-white/12 text-white',
-              )}
-            >
-              <i className="not-italic opacity-75">{device.step + 1}</i>
-              {device.label}
-            </span>
-          </button>
-        )
-      })}
-      <Ticket
-        ticket={ticket}
-        flow={flow}
-        className="absolute bottom-[6%] left-[2%] z-[4] hidden w-[46%] min-[761px]:flex"
-      />
+    <div className="flex flex-col gap-4">
+      <ul className="grid grid-cols-2 gap-3">
+        {devices.slice(0, 4).map((device) => {
+          const on = step === device.step
+          const dim = step !== null && !on
+          return (
+            <li key={device.slug}>
+              <button
+                type="button"
+                aria-pressed={on}
+                aria-label={`${device.label} — ${device.name}`}
+                onClick={() => goposActions.pickStep(device.step)}
+                className={cx(
+                  'relative flex aspect-[4/3] w-full items-center justify-center rounded-2xl bg-white p-4 transition-[opacity,box-shadow] duration-300 motion-reduce:transition-none',
+                  on ? 'shadow-[0_0_0_3px_var(--ok)]' : 'shadow-[0_18px_40px_-24px_black]',
+                  dim && 'opacity-50',
+                )}
+              >
+                <Image
+                  unoptimized
+                  src={device.image.url}
+                  alt=""
+                  width={device.image.width}
+                  height={device.image.height}
+                  className="max-h-full w-auto object-contain"
+                />
+                <span
+                  className={cx(
+                    'absolute top-2 left-2 inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[12px] font-extrabold whitespace-nowrap',
+                    on ? 'bg-ok text-surface-dark' : 'bg-surface-dark text-white',
+                  )}
+                >
+                  <i className="not-italic opacity-75">{device.step + 1}</i>
+                  {device.label}
+                </span>
+              </button>
+            </li>
+          )
+        })}
+      </ul>
+      <Ticket ticket={ticket} flow={flow} className="hidden min-[761px]:flex" />
     </div>
   )
 }
