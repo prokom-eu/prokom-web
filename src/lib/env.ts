@@ -73,6 +73,11 @@ const envSchema = z
       .refine((value) => new URL(value).pathname === '/', 'expected an origin without a path')
       .optional(),
     UMAMI_WEBSITES: umamiWebsites,
+    // Server error reports (ADR-021): Sentry project DSN, EU region. Unset = no reporting.
+    SENTRY_DSN: z
+      .url({ protocol: /^https$/ })
+      .optional()
+      .or(z.literal('').transform(() => undefined)),
   })
   // SMTP login is both or neither: a half-set pair would fail only at the first e-mail.
   .refine((env) => Boolean(env.SMTP_USER) === Boolean(env.SMTP_PASS), {
