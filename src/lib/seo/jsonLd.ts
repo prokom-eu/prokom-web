@@ -1,4 +1,5 @@
 import { brandAsset } from '../brand/lines'
+import { toTelHref } from '../site/link'
 import type { PublicCompanyData } from '../site/public'
 import type { Line } from '../tenant/lines'
 
@@ -20,6 +21,22 @@ type OrganizationInput = {
   origin: string
 }
 
+/** Where the Software line works (its texts: Podhale, Małopolska and remotely in Poland). */
+export const SOFTWARE_AREA_SERVED = ['Rabka-Zdrój', 'Podhale', 'Małopolska', 'Polska'] as const
+
+/**
+ * The Software office for search engines (audyt 01.11 P2): its place on the map — the same point
+ * as the contact map (`scripts/software-osm-map.mjs`, ul. Orkana 16B) — and the line's image.
+ * `CompanyData` has no coordinates; Software has one office, so they live here.
+ */
+const SOFTWARE_OFFICE = {
+  geo: { '@type': 'GeoCoordinates', latitude: 49.60994, longitude: 19.95339 },
+  image: '/brand/prokom-software_og.png',
+} as const
+
+/** `tel:+48…` from the panel's number as schema.org wants it (E.164): `+48883200151`. */
+const e164 = (phone: string | undefined) => (phone ? toTelHref(phone)?.slice(4) : undefined)
+
 /**
  * `Organization` (the line as the public face of the company) plus one `LocalBusiness` per
  * branch with its opening hours — all from `CompanyData`, so a change in the panel updates it.
@@ -27,7 +44,8 @@ type OrganizationInput = {
  */
 export function organizationJsonLd({ company, tenant, contact, origin }: OrganizationInput) {
   const orgId = `${origin}/#organization`
-  const telephone = contact.phone ?? company.phones[0]?.number
+  const telephone = e164(contact.phone ?? company.phones[0]?.number)
+  const email = contact.email ?? company.email
   const organization = {
     '@type': 'Organization',
     '@id': orgId,
@@ -36,7 +54,7 @@ export function organizationJsonLd({ company, tenant, contact, origin }: Organiz
     url: `${origin}/`,
     logo: origin + brandAsset(tenant.line, 'poziome_kolor.svg'),
     telephone,
-    email: contact.email ?? company.email,
+    email,
     taxID: company.nip,
   }
   // Software works only in Rabka (prokomsoftware ZMIANY-v23 §1): its pages name only the main
@@ -50,6 +68,12 @@ export function organizationJsonLd({ company, tenant, contact, origin }: Organiz
     parentOrganization: { '@id': orgId },
     url: `${origin}/`,
     telephone,
+    email,
+    ...(tenant.line === 'software' && {
+      geo: SOFTWARE_OFFICE.geo,
+      image: origin + SOFTWARE_OFFICE.image,
+      areaServed: SOFTWARE_AREA_SERVED,
+    }),
     address: {
       '@type': 'PostalAddress',
       streetAddress: location.street,
@@ -222,12 +246,15 @@ export function serviceJsonLd({
   url,
   provider,
   priceFrom,
+  areaServed,
 }: {
   name: string
   description: string | undefined
   url: string
   provider: string
   priceFrom: number | null
+  /** Places the service is offered in (`SOFTWARE_AREA_SERVED`). */
+  areaServed?: readonly string[]
 }) {
   return {
     '@context': 'https://schema.org',
@@ -236,6 +263,7 @@ export function serviceJsonLd({
     ...(description && { description }),
     url,
     provider: { '@type': 'Organization', name: provider },
+    ...(areaServed && { areaServed }),
     ...(priceFrom !== null && {
       offers: {
         '@type': 'Offer',

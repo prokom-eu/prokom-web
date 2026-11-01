@@ -437,19 +437,23 @@ export function ContactForm({
 
       <div>
         <div className="flex items-start gap-3">
-          <input
-            id={`${id}-consent`}
-            ref={consentRef}
-            type="checkbox"
-            checked={consent}
-            onChange={(event) => {
-              setConsent(event.target.checked)
-              fixing('consent')
-            }}
-            aria-invalid={errors.consent ? true : undefined}
-            aria-describedby={describe('consent')}
-            className="mt-0.5 size-[22px] shrink-0 accent-accent-text"
-          />
+          {/* A 44 px hit area around the 22 px box (audyt 01.11 P2); the text label below
+              ticks it too. No text here, so the box keeps one accessible name. */}
+          <label className="-m-[11px] shrink-0 cursor-pointer p-[11px]">
+            <input
+              id={`${id}-consent`}
+              ref={consentRef}
+              type="checkbox"
+              checked={consent}
+              onChange={(event) => {
+                setConsent(event.target.checked)
+                fixing('consent')
+              }}
+              aria-invalid={errors.consent ? true : undefined}
+              aria-describedby={describe('consent')}
+              className="mt-0.5 block size-[22px] accent-accent-text"
+            />
+          </label>
           <label htmlFor={`${id}-consent`} className="text-sm leading-normal text-ink-2">
             {consentClause ? (
               <>

@@ -4,7 +4,12 @@ import { notFound } from 'next/navigation'
 
 import { getEnv } from '@/lib/env'
 import { ogImages } from '@/lib/pages/metadata'
-import { breadcrumbJsonLd, serializeJsonLd, serviceJsonLd } from '@/lib/seo/jsonLd'
+import {
+  breadcrumbJsonLd,
+  serializeJsonLd,
+  serviceJsonLd,
+  SOFTWARE_AREA_SERVED,
+} from '@/lib/seo/jsonLd'
 import { robotsMeta } from '@/lib/seo/robots'
 import { getSiteSettings } from '@/lib/site/data'
 import { toTelHref } from '@/lib/site/link'
@@ -96,6 +101,7 @@ export default async function SolutionPage({ params }: Props) {
       url,
       provider: tenant.name,
       priceFrom: page.priceFrom,
+      areaServed: SOFTWARE_AREA_SERVED,
     }),
   ]
 
