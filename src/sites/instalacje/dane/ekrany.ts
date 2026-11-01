@@ -269,7 +269,7 @@ export const ekrany = {
       },
     ] satisfies IconText[],
     tvBefore:
-      'Realizacje: sale konferencyjna, szkoleniowa i marketingowa Blachotrapezu, Szkoła Podstawowa im. Adama Mickiewicza w Rabce-Zdroju, Caffe Europa w Nowym Sączu. Telewizję w pokojach gości robimy w ramach ',
+      'Realizacje: sale Blachotrapezu (konferencyjna, szkoleniowa i marketingowa), Szkoła Podstawowa im. Adama Mickiewicza w Rabce-Zdroju, Caffe Europa w Nowym Sączu. Telewizję w pokojach gości robimy w ramach ',
     tvLink: { label: 'instalacji antenowych', href: '/anteny' },
     tvAfter: '. ',
     realizationsLink: { label: 'Zobacz realizacje →', href: '/realizacje' },

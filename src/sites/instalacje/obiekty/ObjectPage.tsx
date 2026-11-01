@@ -290,7 +290,9 @@ export async function ObjectPage({ tenantId, object, sceneKey, origin }: Props) 
             <div className="shead ri">
               <div>
                 <span className="eye">{objectPage.realizations.eyebrow}</span>
-                {object.realizationsHeading && <h2 className="h2">{object.realizationsHeading}</h2>}
+                <h2 className="h2">
+                  {object.realizationsHeading || objectPage.realizations.heading}
+                </h2>
               </div>
               <Link href={objectPage.realizations.all.href} className="btn btn-g btn-s">
                 {objectPage.realizations.all.label}
@@ -298,18 +300,14 @@ export async function ObjectPage({ tenantId, object, sceneKey, origin }: Props) 
             </div>
             <div className="sgrg">
               {object.realizations.map((r) => (
-                <Link
-                  key={r.id ?? r.title}
-                  href={objectPage.realizations.all.href}
-                  className="card sgrc ri"
-                >
+                <div key={r.id ?? r.title} className="card sgrc ri">
                   <span className="sgrph" aria-hidden="true">
                     <InstIcon name="camera2" size={26} strokeWidth={1.6} />
                   </span>
                   <b className="h3">{r.title}</b>
                   {r.place && <span className="mut">{r.place}</span>}
                   {r.description && <p>{r.description}</p>}
-                </Link>
+                </div>
               ))}
             </div>
           </div>

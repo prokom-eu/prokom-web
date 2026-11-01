@@ -250,6 +250,8 @@ export const objectPage = {
   /** `#realizacje-s` (the clients agreed, boss 01.11.2026); the heading comes from the panel. */
   realizations: {
     eyebrow: 'Nasze realizacje',
+    /** When the panel has no heading (`realizationsHeading`). */
+    heading: 'Realizacje w podobnych obiektach.',
     all: { label: 'Wszystkie realizacje →', href: '/realizacje' },
   },
   prepare: {
