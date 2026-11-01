@@ -69,3 +69,21 @@ export function hoursTable(hours: OpeningHours): { days: string; time: string }[
   const closed = ORDER.filter((day) => !open.has(day)).map((day) => LONG[day])
   return [...rows, { days: [...closed, 'święta'].join(', '), time: 'nieczynne' }]
 }
+
+export type WeekDay = (typeof ORDER)[number]
+
+/**
+ * Seven days from Monday with their hours (K4 Kontakt: the week with today marked): the open
+ * time of the first row naming the day, „nieczynne” otherwise. The day names start upper-case.
+ */
+export function weekHours(hours: OpeningHours): { day: WeekDay; name: string; time: string }[] {
+  return ORDER.map((day) => {
+    const row = hours.find((item) => item.days.includes(day))
+    const name = LONG[day].charAt(0).toUpperCase() + LONG[day].slice(1)
+    return {
+      day,
+      name,
+      time: row ? `${display(row.opens)}–${display(row.closes)}` : 'nieczynne',
+    }
+  })
+}

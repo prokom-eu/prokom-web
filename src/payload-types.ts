@@ -1895,6 +1895,7 @@ export interface Page {
         | BzLinesBlock
         | BzBrandsBlock
         | BzLocationBlock
+        | BzSectionBlock
         | InstServiceBlock
         | InstHomeBlock
         | InstPlannerBlock
@@ -3667,6 +3668,155 @@ export interface BzLocationBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'bzLocation';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzSectionBlock".
+ */
+export interface BzSectionBlock {
+  variant:
+    | 'stats'
+    | 'cards'
+    | 'steps'
+    | 'cases'
+    | 'band'
+    | 'videos'
+    | 'table'
+    | 'tabs'
+    | 'chips'
+    | 'products'
+    | 'gopos-hero'
+    | 'gopos-venues'
+    | 'gopos-areas'
+    | 'gopos-hub'
+    | 'gopos-package'
+    | 'insert-hero'
+    | 'insert-picker'
+    | 'insert-ksef'
+    | 'insert-points'
+    | 'insert-requirements'
+    | 'care-hero'
+    | 'care-areas'
+    | 'switch-steps'
+    | 'audience'
+    | 'start-calendar'
+    | 'seats'
+    | 'about-hero'
+    | 'lines'
+    | 'brands'
+    | 'contact-hero'
+    | 'contact-form'
+    | 'vending-hero'
+    | 'vending-picker'
+    | 'app-mockup'
+    | 'catalog-tabs'
+    | 'sources'
+    | 'ksef-hero'
+    | 'ksef-quiz'
+    | 'ksef-steps'
+    | 'ksef-penalties'
+    | 'ulga-hero'
+    | 'yes-no'
+    | 'notice';
+  /**
+   * Adres sekcji po #, np. „pakiet” → /gopos#pakiet.
+   */
+  anchor?: string | null;
+  surface: 'default' | 'muted' | 'dark';
+  eyebrow?: string | null;
+  heading?: string | null;
+  /**
+   * Wyróżniona kolorem, np. „Jeden system.”
+   */
+  headingAccent?: string | null;
+  lead?: string | null;
+  /**
+   * Karty, liczby, kroki albo pytania FAQ — zależnie od rodzaju sekcji.
+   */
+  items?:
+    | {
+        title: string;
+        label?: string | null;
+        icon?:
+          | (
+              | 'shield'
+              | 'cal'
+              | 'users'
+              | 'store'
+              | 'bolt'
+              | 'doc'
+              | 'life'
+              | 'arrow'
+              | 'check'
+              | 'phone'
+              | 'mail'
+              | 'pin'
+              | 'clock'
+              | 'monitor'
+              | 'remote'
+              | 'bell'
+              | 'wallet'
+              | 'chat'
+              | 'wrench'
+              | 'rocket'
+              | 'map'
+              | 'star'
+              | 'q'
+              | 'flash'
+              | 'grad'
+              | 'server'
+              | 'compass'
+              | 'panel'
+              | 'site'
+              | 'grid'
+              | 'plug'
+              | 'ticket'
+              | 'lifebuoy'
+              | 'chart'
+              | 'sign'
+              | 'cash'
+              | 'search'
+              | 'x'
+              | 'bed'
+              | 'food'
+              | 'refresh'
+              | 'globe'
+              | 'box'
+              | 'car'
+              | 'home'
+              | 'mountain'
+              | 'heart'
+              | 'bag'
+              | 'card'
+              | 'target'
+              | 'key'
+              | 'mega'
+              | 'mount'
+              | 'brief'
+            )
+          | null;
+        text?: string | null;
+        href?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  source?: string | null;
+  sourceUrl?: string | null;
+  /**
+   * Moduły, reguły, kalkulator — zapis sprawdza, czy dane pasują do rodzaju sekcji. Zmieniaj ostrożnie.
+   */
+  data?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bzSection';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -6709,6 +6859,7 @@ export interface PagesSelect<T extends boolean = true> {
         bzLines?: T | BzLinesBlockSelect<T>;
         bzBrands?: T | BzBrandsBlockSelect<T>;
         bzLocation?: T | BzLocationBlockSelect<T>;
+        bzSection?: T | BzSectionBlockSelect<T>;
         instService?: T | InstServiceBlockSelect<T>;
         instHome?: T | InstHomeBlockSelect<T>;
         instPlanner?: T | InstPlannerBlockSelect<T>;
@@ -7669,6 +7820,34 @@ export interface BzLocationBlockSelect<T extends boolean = true> {
   lead?: T;
   areaLabel?: T;
   phoneNote?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzSectionBlock_select".
+ */
+export interface BzSectionBlockSelect<T extends boolean = true> {
+  variant?: T;
+  anchor?: T;
+  surface?: T;
+  eyebrow?: T;
+  heading?: T;
+  headingAccent?: T;
+  lead?: T;
+  items?:
+    | T
+    | {
+        title?: T;
+        label?: T;
+        icon?: T;
+        text?: T;
+        href?: T;
+        id?: T;
+      };
+  source?: T;
+  sourceUrl?: T;
+  data?: T;
   id?: T;
   blockName?: T;
 }

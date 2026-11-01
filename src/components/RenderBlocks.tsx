@@ -27,6 +27,8 @@ import { BzFactsBlock } from '@/sites/biznes/blocks/BzFacts/Component'
 import { BzFeaturedBlock } from '@/sites/biznes/blocks/BzFeatured/Component'
 import { BzHeroBlock } from '@/sites/biznes/blocks/BzHero/Component'
 import { BzKitsBlock } from '@/sites/biznes/blocks/BzKits/Component'
+import { BzSectionBlock } from '@/sites/biznes/blocks/BzSection/Component'
+import { HERO_VARIANTS, parseSectionData, type SectionVariant } from '@/lib/biznes/pages/sections'
 import { BzKsefBlock } from '@/sites/biznes/blocks/BzKsef/Component'
 import { BzModulesBlock } from '@/sites/biznes/blocks/BzModules/Component'
 import { QuickStart } from '@/sites/biznes/components/home/QuickStart'
@@ -87,6 +89,17 @@ const HERO_BLOCKS = new Set([
   'instArchitects',
 ])
 
+/** First block carries the H1: a hero block, or a K4 section of a hero kind (K4hij). */
+function opensWithHero(block: NonNullable<PublicPage['layout']>[number] | undefined): boolean {
+  if (!block) return false
+  if (block.blockType === 'bzSection') {
+    // A hero whose data no longer fits renders nothing: the page title stays the H1 then.
+    const variant = block.variant as SectionVariant
+    return HERO_VARIANTS.has(variant) && parseSectionData(variant, block.data) !== null
+  }
+  return HERO_BLOCKS.has(block.blockType)
+}
+
 /**
  * Page body from blocks. A block not allowed for the tenant's line is skipped (ADR-010), so
  * removing a block from a line's list hides it at once, before editors clean up the pages.
@@ -100,7 +113,7 @@ export function RenderBlocks({ page, tenant }: Props) {
   const software = tenant.line === 'software'
   return (
     <>
-      {!HERO_BLOCKS.has(blocks[0]?.blockType ?? '') && (
+      {!opensWithHero(blocks[0]) && (
         <Section className="pb-0 sm:pb-0">
           {/* Biznes subpages open with breadcrumbs, like every other Biznes page (B11b). */}
           {biznes && page.slug !== HOME_SLUG && (
@@ -237,6 +250,18 @@ export function RenderBlocks({ page, tenant }: Props) {
             return <BzProgramPickerBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzKsef':
             return <BzKsefBlock key={key} block={block} />
+          case 'bzSection':
+            return (
+              <BzSectionBlock
+                key={key}
+                block={block}
+                tenantId={tenant.id}
+                crumbs={[
+                  { name: 'Strona główna', href: '/' },
+                  { name: page.title, href: pagePath(page.slug) },
+                ]}
+              />
+            )
           case 'swHero':
             return <SwHeroBlock key={key} block={block} isFirst={i === 0} tenantId={tenant.id} />
           case 'swHomeSection':

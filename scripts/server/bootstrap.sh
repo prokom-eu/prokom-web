@@ -96,8 +96,13 @@ if [ ! -s "$keys" ] && [ -s /root/.ssh/authorized_keys ]; then
 fi
 [ -s "$keys" ] || echo "WARNING: $keys is empty — add your public key before phase 2."
 if ! has_password "$user"; then
-  echo "Set a password for sudo (store it in the password manager: \"VPS — webh.pl\"):"
-  passwd "$user"
+  if [ -t 0 ]; then
+    echo "Set a password for sudo (store it in the password manager: \"VPS — webh.pl\"):"
+    passwd "$user"
+  else
+    # Run over a non-interactive ssh: the person sets it later (phase 2 refuses without it).
+    echo "NOTE: $user has no password yet — set it with: ssh -t root@<IP> passwd $user"
+  fi
 fi
 
 step "Firewall (ufw): SSH, HTTP, HTTPS"
@@ -133,10 +138,24 @@ EOF
 systemctl enable --now unattended-upgrades
 
 step "Swap $SWAP_SIZE"
-# Some images already ship a swap (e.g. /swap.img) — then keep it instead of adding a second.
-if [ -z "$(swapon --show --noheadings)" ]; then
-  [ -f /swapfile ] || { fallocate -l "$SWAP_SIZE" /swapfile; chmod 600 /swapfile; mkswap /swapfile; }
+want_bytes="$(numfmt --from=iec "$SWAP_SIZE")"
+make_swapfile() {
+  rm -f /swapfile
+  fallocate -l "$SWAP_SIZE" /swapfile
+  chmod 600 /swapfile
+  mkswap /swapfile
   swapon /swapfile
+}
+if [ -z "$(swapon --show --noheadings)" ]; then
+  make_swapfile
+elif swapon --show=NAME --noheadings | grep -qx /swapfile &&
+  [ "$(stat -c %s /swapfile)" -lt "$want_bytes" ]; then
+  # The provider's image ships a small /swapfile (e.g. 512 MB) — grow it.
+  swapoff /swapfile
+  make_swapfile
+fi
+# Another swap from the image (e.g. /swap.img) is kept as it is — no second one is added.
+if swapon --show=NAME --noheadings | grep -qx /swapfile; then
   grep -q '^/swapfile ' /etc/fstab || echo '/swapfile none swap sw 0 0' >>/etc/fstab
 fi
 echo 'vm.swappiness=10' >/etc/sysctl.d/90-prokom-swap.conf
@@ -166,13 +185,17 @@ systemctl enable --now docker
 # Membership in `docker` is root-equivalent — only the admin user gets it.
 usermod -aG docker "$user"
 
+step "Time zone UTC"
+# Cron times in runbook §1 and backup names are UTC; provider images may ship a local zone.
+timedatectl set-timezone Etc/UTC
+
 step "Check"
 ufw status verbose | head -12
 fail2ban-client status sshd | head -4
 swapon --show
 docker version --format 'docker {{.Server.Version}}'
 docker compose version
-timedatectl show -p Timezone --value  # stays UTC: backups and cron use UTC (runbook §1)
+timedatectl show -p Timezone --value
 echo
 echo "Phase 1 done. Next, from a SECOND terminal on your computer:"
 echo "  ssh $user@<IP>   then   sudo -v   and   docker run --rm hello-world"
