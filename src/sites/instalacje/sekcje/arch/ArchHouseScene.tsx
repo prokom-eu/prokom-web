@@ -11,8 +11,8 @@ import {
   useSyncExternalStore,
 } from 'react'
 
-import type { ServiceKey } from '@/lib/instalacje/options'
 import { SlidingPill } from '@/components/motion/SlidingPill'
+import type { ServiceKey } from '@/lib/instalacje/options'
 
 import { type ArchView, przekroj as T } from '../../dane/przekroj'
 import { InstIcon } from '../../InstIcon'

@@ -9,6 +9,8 @@ import {
   useState,
 } from 'react'
 
+import { SlidingPill } from '@/components/motion/SlidingPill'
+
 import {
   glowna,
   HERO_LAYERS,
@@ -17,7 +19,6 @@ import {
   type HeroLayer,
   type HeroObject,
 } from '../../dane/glowna'
-import { SlidingPill } from '@/components/motion/SlidingPill'
 
 import { InstIcon } from '../../InstIcon'
 import { INST_ICONS, isInstIconName } from '../../icons'

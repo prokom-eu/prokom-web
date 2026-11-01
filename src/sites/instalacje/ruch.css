@@ -6,6 +6,7 @@
  * added. Only transform / translate / scale, opacity and filter move — no height changes
  * (`porownaj.mjs`). Rules start with `html[data-line='instalacje']`: one step more specific than
  * the prototype's `[data-line='instalacje'] .x`, so the order of the stylesheets does not matter.
+ * The press rules (§1) also out-rank the shared press of motion.css (0,4,0) with `:not(...)`.
  * With `prefers-reduced-motion: reduce` nothing moves (§9).
  */
 
@@ -61,7 +62,8 @@ html[data-line='instalacje']
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  /* Cards answer a press a little less than buttons (`scale(.97)` of motion.css). */
+  /* Cards answer a press a little less than buttons (`scale(.97)` of motion.css) — not while a
+     link or a button inside them is pressed (that one shrinks, not both). */
   html[data-line='instalacje']
     :is(
       .sgrc,
@@ -84,11 +86,11 @@ html[data-line='instalacje']
       .axc,
       .zksb,
       .pkg
-    ):active {
+    ):not(:disabled, :has(:is(a, button):active)):active {
     scale: 0.98;
   }
   /* The bottom bar presses deeper, as in the prototype (`scale(.94)`). */
-  html[data-line='instalacje'] :is(.bnav a, .bnav button):active {
+  html[data-line='instalacje'] :is(.bnav a, .bnav button):not(:disabled):active {
     scale: 0.94;
   }
 }
@@ -215,6 +217,15 @@ html[data-line='instalacje'] .rv .ri {
   transition:
     opacity var(--dur-enter) var(--ease-out),
     transform var(--dur-enter) var(--ease-out);
+}
+
+/* --- 3b. Counting figures (`Count`): the spans of the count keep the look of the figure, not
+   the caption style the prototype gives every `span` of a fact (`.kv span`, `.arbri span`). */
+html[data-line='instalacje'] b > [data-count],
+html[data-line='instalacje'] b > [data-count] span {
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
 }
 
 /* --- 4. FAQ and folded sections ---------------------------------------------------------------
@@ -439,7 +450,11 @@ html[data-line='instalacje'] :is(input, textarea, select, .zkfl, .zktown, .hzkf,
       .zksb,
       .zkob
     ):is(:hover, :active) {
-    transform: none;
+    /* `!important`: some lifts of the prototype are more specific (`.inst-svc .card.feat:hover`,
+       `.hx .hbtn-p:hover`), as in its own reduced-motion rule (sekcje.css). */
+    transform: none !important;
+    translate: none !important;
+    scale: none !important;
   }
   html[data-line='instalacje'] .fq summary > svg,
   html[data-line='instalacje'] .foldb svg,
