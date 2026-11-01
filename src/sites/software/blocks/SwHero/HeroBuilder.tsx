@@ -272,7 +272,9 @@ export function HeroBuilder({ modules }: Props) {
         />
         <Note
           show={has('sms')}
-          className="right-0 top-[14%]"
+          // Over the mock-up's side menu, between the other two notes — never over a widget's
+          // text, whichever modules are on (audyt 01.11 P1 #20).
+          className="left-0 top-[46%]"
           title="SMS wysłany"
           text="klient wie, kiedy przyjedziecie"
         />
