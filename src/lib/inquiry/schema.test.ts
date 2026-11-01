@@ -153,6 +153,7 @@ describe('parseInquiryInput — types of the Biznes forms (B8)', () => {
 
   it('requires the message for a contact only (the phrase or the list says the rest)', () => {
     expect(errorsOf({ ...valid, message: '' })).toContain('message')
+    expect(errorsOf({ ...valid, message: '' }, 'software')).toContain('message')
     expect(errorsOf({ ...valid, type: 'search', topics: ['wifi'], message: '' })).toEqual([])
     expect(errorsOf({ ...list, message: '' })).toEqual([])
   })
@@ -218,6 +219,21 @@ describe('parseInquiryInput — Software forms (SW2b, ADR-014 §3)', () => {
     type: 'list',
     items: [{ slug: 'strona-firmowa-z-panelem', quantity: 1 }],
   }
+
+  it('Biznes contact: the message is optional, the topics and the town may go with it (K4-FINAL §5)', () => {
+    const contact = {
+      ...valid,
+      email: undefined,
+      phone: '600 100 200',
+      message: '',
+      city: 'Nowy Targ',
+      topics: ['Kasa fiskalna', 'KSeF'],
+    }
+    const result = parseInquiryInput(contact, 'biznes')
+    expect(result.success).toBe(true)
+    expect(result.data).toMatchObject({ city: 'Nowy Targ', topics: ['Kasa fiskalna', 'KSeF'] })
+    expect(result.data?.message).toBeUndefined()
+  })
 
   it('accepts an audit with the address of the site, without a message', () => {
     expect(errorsOf(audit, 'software')).toEqual([])

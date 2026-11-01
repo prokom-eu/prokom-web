@@ -61,6 +61,16 @@ const PHONE_REQUIRED: FormRules = { phoneRequired: true, messages: INSTALACJE_FI
 
 // Order of the fields on screen: the first invalid one gets the focus.
 const FIELD_ORDER: FieldName[] = ['name', 'company', 'email', 'phone', 'nip', 'message', 'consent']
+/** Focus order when the phone comes first: the same as on the screen. */
+const PHONE_FIRST_ORDER: FieldName[] = [
+  'name',
+  'company',
+  'phone',
+  'email',
+  'nip',
+  'message',
+  'consent',
+]
 
 function readValues(form: HTMLFormElement): FormValues {
   const data = new FormData(form)
@@ -98,7 +108,7 @@ export function InquiryForm({
 
   function showErrors(fields: Partial<Record<FieldName, string>>, form: HTMLFormElement) {
     setErrors(fields)
-    const first = FIELD_ORDER.find((name) => fields[name])
+    const first = (phoneFirst ? PHONE_FIRST_ORDER : FIELD_ORDER).find((name) => fields[name])
     if (first) form.querySelector<HTMLElement>(`#${CSS.escape(fieldId(first))}`)?.focus()
   }
 
@@ -177,6 +187,33 @@ export function InquiryForm({
   }
 
   const sending = status.kind === 'sending'
+  const emailField = (
+    <TextField
+      key="email"
+      id={fieldId('email')}
+      name="email"
+      type="email"
+      label="E-mail"
+      note={phoneRequired ? '(opcjonalnie)' : '(albo telefon)'}
+      autoComplete="email"
+      maxLength={254}
+      error={errors.email}
+    />
+  )
+  const phoneField = (
+    <TextField
+      key="phone"
+      id={fieldId('phone')}
+      name="phone"
+      type="tel"
+      label="Telefon"
+      note={phoneRequired ? undefined : '(albo e-mail)'}
+      required={phoneRequired}
+      autoComplete="tel"
+      maxLength={30}
+      error={errors.phone}
+    />
+  )
   return (
     <form
       noValidate
@@ -217,27 +254,8 @@ export function InquiryForm({
         maxLength={200}
         error={errors.company}
       />
-      <TextField
-        id={fieldId('email')}
-        name="email"
-        type="email"
-        label="E-mail"
-        note={phoneRequired ? '(opcjonalnie)' : '(albo telefon)'}
-        autoComplete="email"
-        maxLength={254}
-        error={errors.email}
-      />
-      <TextField
-        id={fieldId('phone')}
-        name="phone"
-        type="tel"
-        label="Telefon"
-        note={phoneRequired ? undefined : '(albo e-mail)'}
-        required={phoneRequired}
-        autoComplete="tel"
-        maxLength={30}
-        error={errors.phone}
-      />
+      {/* Biznes leads with the phone (K4-FINAL §5); other lines keep the e-mail first. */}
+      {phoneFirst ? [phoneField, emailField] : [emailField, phoneField]}
       <TextField
         id={fieldId('nip')}
         name="nip"

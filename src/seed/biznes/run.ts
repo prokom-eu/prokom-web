@@ -104,9 +104,7 @@ import { seedBiznesCategoryContent } from './category'
 import { seedBiznesIndustries } from './industries'
 import { seedBiznesNews } from './posts'
 import { seedBiznesLegal } from './legal'
-import { seedBiznesAbout } from './about'
-import { SERVICE_AREAS, seedBiznesContact } from './contact'
-import { seedBiznesOpiekaIt } from './opiekaIt'
+import { SERVICE_AREAS } from './contact'
 import { seedBiznesHome } from './home'
 import { navigationData, upgradedColumnLimit, upgradedHighlights, upgradedMenu } from './navigation'
 
@@ -1159,15 +1157,7 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     (name, changed) => count(name, changed ? 'updated' : false),
   )
 
-  // --- contact page (B8c): Biznes blocks instead of the sample ---
-  await seedBiznesContact(payload, tenant.id, (name, changed) =>
-    count(name, changed ? 'updated' : false),
-  )
-
   // --- subpages from Biznes blocks (B9) ---
-  await seedBiznesOpiekaIt(payload, tenant.id, (name, changed) =>
-    count(name, changed ? 'updated' : false),
-  )
   const pageRefs = {
     image: (file: string) => imageIds.get(file),
     brand: (name: string) => brandIds.get(name),
@@ -1188,9 +1178,6 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
 
   // --- legal pages (B11b): privacy policy, cookies, accessibility (drafts to approve) ---
   await seedBiznesLegal(payload, tenant.id, pageReport)
-
-  // --- about page (B11c) ---
-  await seedBiznesAbout(payload, tenant.id, pageReport)
 
   for (const [collection, { created, updated, skipped }] of Object.entries(counters)) {
     log(`${collection}: ${created} created, ${updated} updated, ${skipped} unchanged.`)

@@ -2,9 +2,11 @@ import Link from 'next/link'
 
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
+import { isAfterSwitch } from '@/lib/biznes/pages/ksef'
 import type { SectionData } from '@/lib/biznes/pages/sections'
 import type { BzSectionBlock as BzSectionData } from '@/payload-types'
 
+import { PhaseText } from '../k4j/Client'
 import { CARD, EYEBROW, HeadingText, SectionActions, SectionShell, sectionId } from '../ui'
 
 type Props = { block: BzSectionData }
@@ -33,6 +35,34 @@ export function StatsSection({ block }: Props) {
   )
 }
 
+/**
+ * Link under a card: the label is its text („Sprawdź w CEIDG”, „Zadzwoń teraz”). Another site
+ * opens in a new tab; a phone, an e-mail or an anchor stays a plain link.
+ */
+function CardLink({ href, label }: { href: string; label: string }) {
+  const className =
+    'mt-auto inline-flex min-h-11 items-center pt-2 font-extrabold text-accent-text hover:underline'
+  if (/^https?:/.test(href)) {
+    return (
+      <a href={href} rel="noopener" target="_blank" className={className}>
+        {label} ↗<span className="sr-only"> (otwiera się w nowej karcie)</span>
+      </a>
+    )
+  }
+  if (/^(tel|mailto):|^#/.test(href)) {
+    return (
+      <a href={href} className={className}>
+        {label} →
+      </a>
+    )
+  }
+  return (
+    <Link href={href} className={className}>
+      {label} →
+    </Link>
+  )
+}
+
 /** `cards`: three or four cards with an optional icon, label and link. */
 export function CardsSection({ block }: Props) {
   const list = items(block)
@@ -54,19 +84,14 @@ export function CardsSection({ block }: Props) {
                 <Icon name={item.icon} strokeWidth={2.2} className="size-5" />
               </span>
             )}
-            {item.label && <p className={cx(EYEBROW, 'text-accent-text')}>{item.label}</p>}
+            {item.label && !item.href && (
+              <p className={cx(EYEBROW, 'text-accent-text')}>{item.label}</p>
+            )}
             <h3 className="font-display text-[1.2rem] leading-tight font-extrabold text-balance">
               {item.title}
             </h3>
             {item.text && <p className="leading-relaxed text-pretty text-ink-2">{item.text}</p>}
-            {item.href && (
-              <Link
-                href={item.href}
-                className="mt-auto pt-2 font-extrabold text-accent-text hover:underline"
-              >
-                Zobacz więcej →
-              </Link>
-            )}
+            {item.href && <CardLink href={item.href} label={item.label || 'Zobacz więcej'} />}
           </li>
         ))}
       </ul>
@@ -147,7 +172,16 @@ export function BandSection({ block, data }: Props & { data: SectionData<'band'>
               id={`${id}-h`}
               className="font-display text-[clamp(1.8rem,3.2vw,2.6rem)] leading-tight font-extrabold text-balance"
             >
-              <HeadingText block={block} />
+              {data.after ? (
+                <PhaseText
+                  date={data.after.date}
+                  serverAfter={isAfterSwitch(data.after.date, new Date())}
+                  before={<HeadingText block={block} />}
+                  after={data.after.heading}
+                />
+              ) : (
+                <HeadingText block={block} />
+              )}
             </h2>
           )}
           {block.lead && <p className="mt-3 leading-relaxed text-white/80">{block.lead}</p>}

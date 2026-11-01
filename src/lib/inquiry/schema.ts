@@ -84,8 +84,11 @@ function inquirySchemaFor(line: Line | undefined) {
     const issue = (path: string, message: string) =>
       ctx.addIssue({ code: 'custom', path: [path], message })
 
-    // The phrase of „Zapytaj o X” and the list items say what is needed; a contact must.
-    if (data.type === 'contact' && data.message === undefined) issue('message', 'message required')
+    // The phrase of „Zapytaj o X” and the list items say what is needed; a contact must —
+    // except on Biznes, where „Wiadomość (opcjonalnie)” and a call back are enough (K4-FINAL §5).
+    if (data.type === 'contact' && data.message === undefined && line !== 'biznes') {
+      issue('message', 'message required')
+    }
     if (data.type === 'list' && data.items.length === 0) issue('items', 'items required')
     // Items belong to the list only; elsewhere they would be saved without anyone asking.
     if (data.type !== 'list' && data.items.length > 0) issue('items', 'items only on a list')

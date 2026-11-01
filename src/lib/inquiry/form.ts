@@ -12,6 +12,10 @@ export type FormValues = {
   email: string
   phone: string
   message: string
+  /** „Miejscowość (opcjonalnie)” of the Biznes contact form (K4-FINAL §5). */
+  city?: string
+  /** „Czego potrzebujesz?” chips of the Biznes contact form. */
+  topics?: readonly string[]
   consent: boolean
   marketingConsent: boolean
   /** Honeypot: hidden from people, filled in by bots. */
@@ -77,6 +81,8 @@ export function buildInquiryBody(
     email: values.email,
     phone: values.phone,
     message: values.message,
+    ...(values.city !== undefined ? { city: values.city } : {}),
+    ...(values.topics?.length ? { topics: [...values.topics] } : {}),
     consent: { accepted: values.consent, clauseVersion: CONSENT_CLAUSE.version },
     marketingConsent: values.marketingConsent,
     [HONEYPOT_FIELD]: values.website,
@@ -101,7 +107,7 @@ export const FIELD_MESSAGES: FieldMessages = {
  */
 export const BIZNES_FIELD_MESSAGES: FieldMessages = {
   ...FIELD_MESSAGES,
-  name: 'Podaj imię.',
+  name: 'Podaj imię albo nazwę firmy.',
   email: 'Sprawdź adres e-mail albo zostaw to pole puste.',
   phone: 'Podaj poprawny telefon albo e-mail — wystarczy jedno, np. 600 100 200.',
 }
@@ -118,7 +124,13 @@ export const INSTALACJE_FIELD_MESSAGES: FieldMessages = {
  * reported on the phone, the field shown first. `phoneRequired` (Instalacje): a phone of at
  * least 9 digits, always. The server checks the same.
  */
-export type FormRules = { phoneFirst?: boolean; phoneRequired?: boolean; messages?: FieldMessages }
+export type FormRules = {
+  phoneFirst?: boolean
+  phoneRequired?: boolean
+  /** Biznes contact: „Wiadomość (opcjonalnie)” — the server takes a contact without it too. */
+  messageOptional?: boolean
+  messages?: FieldMessages
+}
 
 /**
  * Required fields only — the browser's quick check before a request. Formats (e-mail, NIP,
@@ -126,7 +138,12 @@ export type FormRules = { phoneFirst?: boolean; phoneRequired?: boolean; message
  */
 export function checkRequired(
   values: FormValues,
-  { phoneFirst = false, phoneRequired = false, messages = FIELD_MESSAGES }: FormRules = {},
+  {
+    phoneFirst = false,
+    phoneRequired = false,
+    messageOptional = false,
+    messages = FIELD_MESSAGES,
+  }: FormRules = {},
 ): Partial<Record<FieldName, string>> {
   const errors: Partial<Record<FieldName, string>> = {}
   if (!values.name.trim()) errors.name = messages.name
@@ -136,7 +153,7 @@ export function checkRequired(
     if (phoneFirst) errors.phone = messages.phone
     else errors.email = messages.email
   }
-  if (!values.message.trim()) errors.message = messages.message
+  if (!messageOptional && !values.message.trim()) errors.message = messages.message
   if (!values.consent) errors.consent = messages.consent
   return errors
 }

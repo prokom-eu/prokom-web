@@ -176,9 +176,9 @@ describe('checkRequired (instant feedback before sending)', () => {
 
 describe('Biznes contact form (K4-FINAL §5)', () => {
   const biznes = { ...values, email: '', phone: '600 100 200' }
-  const rules = { phoneFirst: true, messages: BIZNES_FIELD_MESSAGES }
+  const rules = { phoneFirst: true, messageOptional: true, messages: BIZNES_FIELD_MESSAGES }
 
-  it('requires name, a phone or an e-mail, message and consent; the error sits on the phone', () => {
+  it('requires name, a phone or an e-mail and consent; the error sits on the phone', () => {
     expect(checkRequired(biznes, rules)).toEqual({})
     expect(checkRequired({ ...biznes, phone: '', email: 'jan@example.test' }, rules)).toEqual({})
     const errors = checkRequired(
@@ -188,9 +188,19 @@ describe('Biznes contact form (K4-FINAL §5)', () => {
     expect(errors).toEqual({
       name: BIZNES_FIELD_MESSAGES.name,
       phone: BIZNES_FIELD_MESSAGES.phone,
-      message: BIZNES_FIELD_MESSAGES.message,
       consent: BIZNES_FIELD_MESSAGES.consent,
     })
+  })
+
+  it('sends the town and the picked topics; an empty message is fine', () => {
+    const body = buildInquiryBody(
+      { ...biznes, message: '', city: ' Nowy Targ ', topics: ['KSeF', 'Kasa fiskalna'] },
+      { href: 'https://prokombiznes.pl/kontakt', formToken: 't', type: 'contact' },
+    )
+    expect(body).toMatchObject({ city: ' Nowy Targ ', topics: ['KSeF', 'Kasa fiskalna'] })
+    const parsed = parseInquiryInput(body, 'biznes')
+    expect(parsed.success).toBe(true)
+    expect(parsed.data?.city).toBe('Nowy Targ')
   })
 
   it('sends a contact inquiry the server accepts on the Biznes line', () => {

@@ -3696,7 +3696,30 @@ export interface BzSectionBlock {
     | 'insert-picker'
     | 'insert-ksef'
     | 'insert-points'
-    | 'insert-requirements';
+    | 'insert-requirements'
+    | 'care-hero'
+    | 'care-areas'
+    | 'switch-steps'
+    | 'audience'
+    | 'start-calendar'
+    | 'seats'
+    | 'about-hero'
+    | 'lines'
+    | 'brands'
+    | 'contact-hero'
+    | 'contact-form'
+    | 'vending-hero'
+    | 'vending-picker'
+    | 'app-mockup'
+    | 'catalog-tabs'
+    | 'sources'
+    | 'ksef-hero'
+    | 'ksef-quiz'
+    | 'ksef-steps'
+    | 'ksef-penalties'
+    | 'ulga-hero'
+    | 'yes-no'
+    | 'notice';
   /**
    * Adres sekcji po #, np. „pakiet” → /gopos#pakiet.
    */

@@ -48,6 +48,11 @@ function warsawNow(now: Date): { day: number; minutes: number } {
   return { day, minutes: Number(parts.hour) * 60 + Number(parts.minute) }
 }
 
+/** Day of the week in Poland (`mon`…`sun`): „dziś” on the contact page, never the server's zone. */
+export function warsawWeekday(now: Date): (typeof WEEK)[number] {
+  return WEEK[warsawNow(now).day] ?? 'mon'
+}
+
 /**
  * Live status for the top bar (spec. §3.1): "Otwarte teraz · do 17:00" or "Zamknięte ·
  * otwieramy dziś|jutro|w poniedziałek o 9:00". `null` without valid hours — the bar then

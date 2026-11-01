@@ -8,7 +8,7 @@ import type { SectionData } from '@/lib/biznes/pages/sections'
 import { productHref } from '@/lib/catalog/card'
 
 import { VideoFacade } from '../../../components/VideoFacade'
-import { CARD } from '../ui'
+import { CARD, TAB_KEYS } from '../ui'
 
 /** `videos`: the picked film behind the facade (ADR-016) and the list of films next to it. */
 export function VideoPicker({ data }: { data: SectionData<'videos'> }) {
@@ -65,6 +65,7 @@ export function TabsPicker({ data }: { data: SectionData<'tabs'> }) {
         aria-label="Obszary"
         className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-2"
         onKeyDown={(event) => {
+          if (TAB_KEYS.has(event.key)) event.preventDefault()
           if (event.key === 'ArrowRight') move(1)
           if (event.key === 'ArrowLeft') move(-1)
           if (event.key === 'Home') move(-current)
