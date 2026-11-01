@@ -385,3 +385,29 @@
     filter: brightness(0.86);
   }
 }
+
+/*
+ * Scrollbar of Software in the page's colours (ADR-015 v23 pkt 7): thin, the thumb is the accent
+ * mixed into the border, the full accent on hover. `data-line` sits on <html>, so it styles the
+ * page's own scrollbar too.
+ */
+[data-line='software'] {
+  --scrollbar-thumb: color-mix(in srgb, var(--accent) 45%, var(--border));
+  scrollbar-color: var(--scrollbar-thumb) transparent;
+  scrollbar-width: thin;
+}
+[data-line='software'] ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+[data-line='software'] ::-webkit-scrollbar-track {
+  background: transparent;
+}
+[data-line='software'] ::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background: var(--scrollbar-thumb) padding-box;
+}
+[data-line='software'] ::-webkit-scrollbar-thumb:hover {
+  background: var(--accent) padding-box;
+}
