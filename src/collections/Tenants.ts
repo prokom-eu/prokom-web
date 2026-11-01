@@ -79,6 +79,7 @@ const TENANT_CONTENT: readonly { collection: CollectionSlug; label: string }[] =
   { collection: 'inst-objects', label: 'obiekty' },
   { collection: 'inst-solutions', label: 'rozwiązania oferty' },
   { collection: 'realizations', label: 'realizacje' },
+  { collection: 'inst-arch-news', label: 'nowe rozwiązania (architekci)' },
 ]
 
 const refuse = (message: string) => new APIError(message, 400, null, true)
