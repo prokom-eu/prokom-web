@@ -477,8 +477,8 @@ function BookingPhone() {
           <span>TWÓJ PENSJONAT</span>
           <span>teraz</span>
         </span>
-        <b className="mt-[0.3em] block text-[1.1em]">Nowa rezerwacja</b>
-        Pokój z widokiem · 12–15 stycznia · 2 osoby. Zaliczka opłacona online.
+        <b className="mt-[0.3em] block text-[1.1em]">Nowe zapytanie o termin</b>
+        Pokój z widokiem · 12–15 stycznia · 2 osoby.
         <span className="mt-[0.8em] flex gap-[0.6em] text-center font-extrabold">
           <span className="flex-1 rounded-[0.8em] bg-button p-[0.6em] text-accent-ink">
             Potwierdź

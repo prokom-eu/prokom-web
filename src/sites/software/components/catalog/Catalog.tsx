@@ -24,6 +24,7 @@ import { prepareSolutionSearch } from '@/lib/software/search'
 import type { SolutionsIndex } from '@/lib/software/solutionsIndex'
 
 import { DESKTOP_QUERY } from '../layer'
+import { useRevealCards } from '../../RevealObserver'
 import { DeviceIcon } from '../FrameIcons'
 import { SolutionDialog } from '../offer/SolutionDialog'
 import { CatalogFilters } from './CatalogFilters'
@@ -68,6 +69,7 @@ type Props = {
  */
 export function Catalog({ index, offers, hero }: Props) {
   const searchParams = useSearchParams()
+  const revealCards = useRevealCards()
   const state = useMemo(() => parseCatalogState(searchParams), [searchParams])
   const search = useMemo(() => prepareSolutionSearch(index), [index])
 
@@ -327,7 +329,7 @@ export function Catalog({ index, offers, hero }: Props) {
               </div>
             </div>
           ) : (
-            <ul data-reveal-cards className="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+            <ul {...revealCards} className="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
               {results.map((solution, i) => (
                 <li key={solution.slug}>
                   <SolutionCard

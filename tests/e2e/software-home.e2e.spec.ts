@@ -339,7 +339,7 @@ test.describe('Software start page', () => {
     await page.goto(site(HOST))
     const section = page.locator('#faq')
     await expect(section.getByRole('heading', { level: 2 })).toHaveText(
-      'Pytania, które słyszymy najczęściej',
+      'Pytania, które słyszymy najczęściej.',
     )
     const items = section.locator('details')
     await expect(items).toHaveCount(6)

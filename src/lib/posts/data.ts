@@ -73,6 +73,25 @@ export const getPostList = (tenantId: number, line?: Line | null): Promise<PostL
     { tags: [postsTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
   )()
 
+/**
+ * Has the tenant at least one public post? The Software menu shows „Aktualności” only then
+ * (SWV8 P0 #3) — same filter and cache tag as the list, so publishing a post shows the link.
+ */
+export const hasPublicPosts = (tenantId: number): Promise<boolean> =>
+  cacheQuery(
+    async () => {
+      const payload = await getPayload({ config })
+      const { totalDocs } = await payload.count({
+        collection: 'posts',
+        where: publicPosts(tenantId),
+        overrideAccess: true,
+      })
+      return totalDocs > 0
+    },
+    ['post-any', String(tenantId)],
+    { tags: [postsTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
+  )()
+
 /** One public post of the tenant as `PostView`, or `null` (unknown, draft, future, other site). */
 export const getPostView = (
   tenantId: number,

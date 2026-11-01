@@ -27,7 +27,7 @@ export function ContactBlock({ eyebrow, title, lead, quoteCaption, phone }: Prop
   const cards: Card[] = [
     {
       title: 'Kreator w 60 sekund',
-      caption: '5 krótkich pytań, widełki ceny od razu',
+      caption: '4 krótkie kroki, cena „od” od razu',
       href: '/dobierz',
       icon: 'wand',
     },
