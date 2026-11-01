@@ -26,6 +26,8 @@ const TENANTS = [
   {
     host: 'software.localhost',
     name: 'PRO-KOM Software',
+    // The start page's full SEO title from the seed (SW12b, `src/seed/software/seo.ts`).
+    title: 'Strony, systemy i aplikacje dla firm — Rabka-Zdrój, Podhale | PRO-KOM Software',
     h1: 'Strony, systemy i aplikacje szyte pod Twoją firmę.',
     markers: [
       'software@example.test',
