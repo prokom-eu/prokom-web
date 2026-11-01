@@ -343,6 +343,50 @@
   }
 }
 
+/* --- 4b. Forms ------------------------------------------------------------------------------
+   Focus: border and a soft accent glow grow in (the transition of §1); the label of the field
+   darkens. Always, also with reduced motion — it is a state, not a movement. */
+[data-line='software']
+  :is(input:not([type='radio'], [type='checkbox'], [type='hidden']), textarea, select):focus {
+  box-shadow: 0 0 0 4px var(--accent-soft);
+}
+[data-line='software'] :has(> :is(input, textarea, select):focus) > label {
+  color: var(--ink);
+}
+
+/* Spinner in a sending button. */
+[data-line='software'] [data-spinner] {
+  animation: sw-spin 0.8s linear infinite;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* A tick draws itself (chosen topic, sent form); the chosen tile answers with a small spring. */
+  [data-line='software'] [data-check] {
+    stroke-dasharray: 1;
+    animation: sw-check var(--dur-state) var(--ease-out) both;
+  }
+  [data-line='software'] [data-tile]:has(input:checked) {
+    animation: sw-tile var(--dur-state) var(--ease-spring);
+  }
+
+  /* A field found wrong shakes once (±4 px) and its message slides in. */
+  [data-line='software'] [aria-invalid='true'] {
+    animation: sw-shake 300ms var(--ease-out);
+  }
+  [data-line='software'] form [id$='-error'] {
+    animation: sw-faq var(--dur-state) var(--ease-out);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* A still marker instead of a spinning one. */
+  [data-line='software'] [data-spinner] {
+    animation: none;
+    border-right-color: currentColor;
+    opacity: 0.6;
+  }
+}
+
 /* --- 5. Page and theme transitions ---------------------------------------------------------- */
 @media (prefers-reduced-motion: no-preference) {
   /* `PageTransition`: the old page `sw-page-out`, the new `sw-page-in`; header and bottom bar
@@ -405,6 +449,38 @@
   }
   to {
     scale: 1 1;
+  }
+}
+
+@keyframes sw-spin {
+  to {
+    rotate: 1turn;
+  }
+}
+
+@keyframes sw-check {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes sw-tile {
+  0% {
+    scale: 0.96;
+  }
+}
+
+@keyframes sw-shake {
+  20%,
+  60% {
+    translate: -4px 0;
+  }
+  40%,
+  80% {
+    translate: 4px 0;
   }
 }
 

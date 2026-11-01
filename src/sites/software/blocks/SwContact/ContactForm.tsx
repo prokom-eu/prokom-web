@@ -145,6 +145,8 @@ export function ContactForm({
   const [consent, setConsent] = useState(false)
   const [errors, setErrors] = useState<Partial<Record<ErrorKey, string>>>({})
   const [busy, setBusy] = useState(false)
+  /** Sent: the button shows a tick for the moment before the thanks page (SWV7). */
+  const [sent, setSent] = useState(false)
   // `null` until the customer picks: then the contact field decides (`talkWayFor`).
   const [pickedTalk, setPickedTalk] = useState<SoftwareTalkWay | null>(null)
   const project = useProject()
@@ -251,6 +253,7 @@ export function ContactForm({
         projectActions.clear()
       }
       const query = outcome.number ? `?nr=${encodeURIComponent(outcome.number)}` : ''
+      setSent(true)
       router.push(`/dziekujemy${query}`)
       return
     }
@@ -284,6 +287,7 @@ export function ContactForm({
           {topics.map((option) => (
             <label
               key={option.value}
+              data-tile
               className={cx(
                 'flex min-h-12 cursor-pointer items-center gap-2 rounded-[14px] border-[1.5px] px-3 py-2 text-sm font-bold leading-tight has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-accent-text',
                 currentTopic === option.value
@@ -301,6 +305,9 @@ export function ContactForm({
               />
               <Icon name={option.icon} className="size-[18px] shrink-0" />
               {option.label}
+              {currentTopic === option.value ? (
+                <DrawnCheck className="ml-auto size-4 shrink-0" />
+              ) : null}
             </label>
           ))}
         </div>
@@ -505,10 +512,40 @@ export function ContactForm({
           )}
         >
           {texts.submit}
-          <Icon name="arrow" className="size-[18px]" />
+          {/* Sending: a spinner; sent: a tick drawn before the thanks page (SWV7). */}
+          {sent ? (
+            <DrawnCheck className="size-[18px]" />
+          ) : busy ? (
+            <span
+              aria-hidden="true"
+              data-spinner
+              className="size-[18px] rounded-full border-2 border-current border-r-transparent"
+            />
+          ) : (
+            <Icon name="arrow" className="size-[18px]" />
+          )}
         </button>
       </div>
     </form>
+  )
+}
+
+/** A tick that draws itself when it appears (`data-check`, motion.css): a chosen topic, sent. */
+function DrawnCheck({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2.6}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      focusable="false"
+      className={className}
+    >
+      <path data-check pathLength={1} d="M5 12.5l4.5 4.5L19 7" />
+    </svg>
   )
 }
 
