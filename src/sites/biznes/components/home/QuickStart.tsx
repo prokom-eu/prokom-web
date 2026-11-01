@@ -3,7 +3,8 @@ import Link from 'next/link'
 import { Container } from '@/components/ui/Container'
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
-import { getCatalogIndex } from '@/lib/catalog/data'
+import { getCatalogIndex, getFloorPlans } from '@/lib/catalog/data'
+import { buildPlanScenes, PLAN_PATH } from '@/lib/catalog/floorPlan'
 import { BRANDS_PATH, OWN_BRAND_SLUG } from '@/lib/catalog/filters'
 import type { IconName } from '@/lib/catalog/options'
 import { plural } from '@/lib/plural'
@@ -58,16 +59,23 @@ function TileBody({ tile }: { tile: Tile }) {
  */
 export async function QuickStart({
   tenantId,
-  planScenes: scenes,
+  planOnPage,
 }: {
   tenantId: number
-  /** Scenes of the plan section on the page — the tile promises what `#plan` shows. */
-  planScenes: number
+  /** The page has the plan section (`bzPlan`): the tile scrolls to it, else opens `/plan-firmy`. */
+  planOnPage: boolean
 }) {
-  const [index, settings] = await Promise.all([
+  const [index, settings, plans] = await Promise.all([
     getCatalogIndex(tenantId),
     getSiteSettings(tenantId),
+    getFloorPlans(tenantId),
   ])
+  // Scenes the plan really shows (points of listed cards only, K31d′).
+  const scenes = buildPlanScenes(
+    plans.records,
+    new Set(index.products.map((product) => product.slug)),
+  ).length
+  const planHrefHere = planOnPage ? '#plan' : PLAN_PATH
   // A promise shows only once confirmed in the panel (`SiteSettings` → „Obietnice”).
   const callback = settings?.biznes?.promises.callbackTime?.trim()
   const total = index.products.length
@@ -99,7 +107,7 @@ export async function QuickStart({
       action: 'Otwórz plan',
       icon: 'map',
       tone: 'green',
-      href: '#plan',
+      href: planHrefHere,
     },
     {
       title: 'Salony marek',
@@ -121,7 +129,7 @@ export async function QuickStart({
     },
   ]
   // A plan with no scenes has nothing to open.
-  const shown = tiles.filter((tile) => tile.href !== '#plan' || scenes > 0)
+  const shown = tiles.filter((tile) => tile.href !== planHrefHere || scenes > 0)
 
   return (
     <section aria-labelledby="szybki-start-h" className="pb-12">

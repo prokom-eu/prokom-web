@@ -14,6 +14,7 @@ import {
   upgradeHomeK4,
 } from './homeK4'
 import { planBlocks } from './homePlan'
+import { upgradeHomePlan } from './homePlanK31d'
 import { upgradeHomeV150 } from './homeV150'
 import { mergeLayout } from '../layout'
 
@@ -260,7 +261,9 @@ export async function seedBiznesHome(
   // K4c: the v150 texts and order in a page the seed made earlier (`homeK4.ts`).
   const k4 = upgradeHomeK4(merged ?? home.layout) ?? merged
   // PR 3b: the v150 texts below the hero, without „Jedna firma czy pięć” and the news.
-  const layout = upgradeHomeV150(k4 ?? home.layout, seed) ?? k4
+  const v150 = upgradeHomeV150(k4 ?? home.layout, seed) ?? k4
+  // K31d′: the plan 2.0 texts and the scenes of the industry tiles.
+  const layout = upgradeHomePlan(v150 ?? home.layout) ?? v150
   report('pages home', layout !== null)
   if (layout) {
     await payload.update({

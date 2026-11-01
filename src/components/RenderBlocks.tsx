@@ -171,10 +171,7 @@ export function RenderBlocks({ page, tenant }: Props) {
               <QuickStart
                 key={key}
                 tenantId={tenant.id}
-                // The scenes of the plan section on this page (`bzPlan`) until K31d′.
-                planScenes={
-                  blocks.find((other) => other.blockType === 'bzPlan')?.scenes?.length ?? 0
-                }
+                planOnPage={blocks.some((other) => other.blockType === 'bzPlan')}
               />
             )
           case 'bzOffer':
