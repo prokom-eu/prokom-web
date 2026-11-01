@@ -2,6 +2,7 @@
 
 import { type KeyboardEvent, useId, useRef, useState } from 'react'
 
+import { SlidingPill } from '@/components/motion/SlidingPill'
 import { cx } from '@/components/ui/cx'
 import { plural } from '@/lib/plural'
 import type { OfferView } from '@/lib/software/offer'
@@ -11,7 +12,6 @@ import type { PriceDisplay } from '@/lib/software/wizard'
 
 import { SolutionCard } from '../catalog/SolutionCard'
 import { SolutionDialog } from '../offer/SolutionDialog'
-import { SlidingPill } from '../SlidingPill'
 import { CarouselDots } from '../CarouselDots'
 
 type Props = {

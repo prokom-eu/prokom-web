@@ -24,7 +24,7 @@ import { prepareSolutionSearch } from '@/lib/software/search'
 import type { SolutionsIndex } from '@/lib/software/solutionsIndex'
 
 import { DESKTOP_QUERY } from '../layer'
-import { useRevealCards } from '../../RevealObserver'
+import { useRevealCards } from '@/components/motion/RevealObserver'
 import { DeviceIcon } from '../FrameIcons'
 import { SolutionDialog } from '../offer/SolutionDialog'
 import { CatalogFilters } from './CatalogFilters'

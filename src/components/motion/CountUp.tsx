@@ -5,7 +5,8 @@ import { useEffect, useRef, useState } from 'react'
 import { COUNT_MS, countAt, countStart, parseCount } from '@/lib/motion/countUp'
 
 /**
- * A figure that counts up once when it comes into view (SWV7, „PRO-KOM w liczbach”): 900 ms,
+ * A figure that counts up once when it comes into view (SWV7 „PRO-KOM w liczbach”; Instalacje
+ * counters, I-M): 900 ms,
  * ease-out. The server renders the final text (search engines, no JavaScript); a text that does
  * not start with a number, reduced motion or no `IntersectionObserver` — it just stays. The
  * final text is also what screen readers get (the counting copy is hidden from them).

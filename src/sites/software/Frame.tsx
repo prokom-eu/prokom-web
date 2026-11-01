@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 
 import { AnalyticsScript } from '@/components/AnalyticsScript'
+import { RevealObserver } from '@/components/motion/RevealObserver'
 import { log } from '@/lib/log'
 import { hasPublicPosts } from '@/lib/posts/data'
 import { toTelHref } from '@/lib/site/link'
@@ -12,7 +13,6 @@ import { withoutNewsLinks } from '@/lib/software/newsLinks'
 import type { SiteTenant } from '@/lib/tenant/byHost'
 
 import { PageTransition } from './PageTransition'
-import { RevealObserver } from './RevealObserver'
 import { ContactToast } from './components/ContactToast'
 import { PhoneLayer } from './components/PhoneLayer'
 import { ProjectToast } from './components/ProjectToast'

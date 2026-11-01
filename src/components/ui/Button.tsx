@@ -17,7 +17,7 @@ const VARIANT: Record<ButtonVariant, string> = {
     'border-2 border-accent-text text-accent-text hover:bg-surface-2 in-data-[surface=dark]:border-white in-data-[surface=dark]:text-white in-data-[surface=dark]:hover:bg-white in-data-[surface=dark]:hover:text-surface-dark',
 }
 
-/** Hover and press of the line's motion system (Software: `src/styles/motion.css`). */
+/** Hover and press of the line's motion system (Software, Instalacje: `src/styles/motion.css`). */
 const MOTION: Record<ButtonVariant, string> = { primary: 'button', secondary: 'button-outline' }
 
 type Common = { variant?: ButtonVariant }

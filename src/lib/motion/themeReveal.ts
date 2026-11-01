@@ -1,9 +1,12 @@
 import type { Theme } from '../brand/theme'
 
+/** Lines whose `motion.css` draws the circle (`[data-theme-reveal]`). */
+const LINES_WITH_REVEAL = new Set(['software', 'instalacje'])
+
 /**
  * Theme switch with the new theme opening in a circle from the button (SWV7, `motion.css` §5):
- * a View Transition of the root, clipped from the click point. Software only — other lines keep
- * the instant switch — and never with reduced motion or without browser support.
+ * a View Transition of the root, clipped from the click point. Software and Instalacje only —
+ * other lines keep the instant switch — and never with reduced motion or without browser support.
  */
 export function revealTheme(
   next: Theme,
@@ -12,7 +15,7 @@ export function revealTheme(
 ): void {
   const root = document.documentElement
   const canReveal =
-    root.getAttribute('data-line') === 'software' &&
+    LINES_WITH_REVEAL.has(root.getAttribute('data-line') ?? '') &&
     typeof document.startViewTransition === 'function' &&
     !window.matchMedia('(prefers-reduced-motion: reduce)').matches
   if (!canReveal) {

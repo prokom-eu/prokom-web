@@ -18,8 +18,8 @@ type Props = {
 type Box = { width: number; height: number; left: number; top: number }
 
 /**
- * One background that flows under the chosen tab or button instead of jumping (SWV7): as big as
- * the chosen item and moved with `translate` (its size follows). It used to cover the whole list
+ * One background that flows under the chosen tab or button instead of jumping (SWV7; Instalacje
+ * I-M): as big as the chosen item and moved with `translate` (its size follows). It used to cover the whole list
  * clipped with `clip-path`, but contrast checkers (axe) ignore the clip and saw its colour under
  * every other tab — so it lies only under the chosen one. One absolute element: resizing it moves
  * nothing else. Measured in the list's own coordinates (offsets), so a list that scrolls sideways

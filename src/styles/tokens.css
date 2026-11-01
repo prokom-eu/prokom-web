@@ -1048,8 +1048,9 @@
   /* Ticks of the guarantees and the „0 zł” badge — the dark palette's green on the footer. */
   --footer-ok: var(--c-software-night-ok-text);
 
-  /* Motion (SWV7, `src/styles/motion.css`): one set of curves and times for the whole Software
-     line. Out: entries and hover; in-out: state changes; spring: small accents (≤ 4 px past). */
+  /* Motion (SWV7, `src/styles/motion.css`): one set of curves and times for the Software and
+     Instalacje lines (I-M). Out: entries and hover; in-out: state changes; spring: small
+     accents (≤ 4 px past). */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
