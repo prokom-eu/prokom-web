@@ -133,13 +133,25 @@ export const K4_SUBCATEGORY_PAGES: ReadonlySet<string> = new Set(['serw', 'av', 
  * written yet: its button and action reach the page only in K4d, and the vending text points to
  * a page K4j builds (the B10a texts of the cash registers stay as they are).
  */
+/**
+ * SEO titles of categories whose name is also the title of a page (audit 01.11.2026): the
+ * category /oferta/automaty-vendingowe and the page /automaty-vendingowe were both
+ * „Automaty vendingowe”.
+ */
+const K4_CATEGORY_TITLES: Readonly<Record<string, string>> = {
+  'automaty-vendingowe': 'Automaty vendingowe — modele Optivendi',
+}
+
 export function k4CategoryData(
   category: K4Category,
   groupId: number,
   icons: Record<string, string>,
 ) {
+  const base = categoryData(category, groupId, icons)
+  const title = K4_CATEGORY_TITLES[base.slug]
   return {
-    ...categoryData(category, groupId, icons),
+    ...base,
+    ...(title && { seo: { title } }),
     useCases: category.do_czego,
     subcategories: category.podkategorie.map((row) => ({
       name: row.nazwa,

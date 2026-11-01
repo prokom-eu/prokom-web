@@ -45,12 +45,12 @@ test.describe('Biznes about page (K4i)', () => {
     await expect(page.locator('iframe')).toHaveCount(0)
   })
 
-  test('no prices, „Aut.” or another e-mail than biznes@', async ({ page }) => {
+  test('no prices, „Aut.” or another e-mail than the line inbox', async ({ page }) => {
     await page.goto(site('biznes.localhost', ABOUT))
     const text = await page.locator('main').innerText()
     expect(text).not.toMatch(/leasing|\braty\b|\d\s?zł|\bAut\./i)
     const emails = text.match(/[\w.+-]+@[\w.-]+\.\w+/g) ?? []
-    expect(emails.every((email) => email.startsWith('biznes@'))).toBe(true)
+    expect(emails.every((email) => email === 'kontakt@prokombiznes.pl')).toBe(true)
   })
 
   test('no horizontal scroll on a phone', async ({ page }) => {

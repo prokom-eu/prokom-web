@@ -51,6 +51,7 @@ export const getCatalogIndex = cache((tenantId: number): Promise<CatalogIndex> =
             select: {
               slug: true,
               name: true,
+              shortName: true,
               kind: true,
               brand: true,
               categories: true,

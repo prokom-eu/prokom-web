@@ -180,7 +180,7 @@ test.describe('Biznes footer', () => {
     // One e-mail on the whole footer: the line's inbox from its settings, not the company's.
     const mails = footer.locator('a[href^="mailto:"]')
     await expect(mails).toHaveCount(1)
-    await expect(mails).toHaveAttribute('href', /^mailto:biznes@/)
+    await expect(mails).toHaveAttribute('href', /^mailto:kontakt@prokombiznes.pl$/)
     await expect(footer.locator('address')).toHaveCount(1)
   })
 

@@ -5,10 +5,10 @@
  "nip": "7352511447",
  "tel": "889 003 889",
  "telHref": "tel:+48889003889",
- "tel2": "18 267 65 11",
- "tel2Href": "tel:+48182676511",
+ "tel2": "883 200 151",
+ "tel2Href": "tel:+48883200151",
  "wa": "https://wa.me/48889003889",
- "mail": "biznes@pro-kom.eu",
+ "mail": "kontakt@prokombiznes.pl",
  "godz": "pn–pt 9:00–17:00",
  "maps": "https://www.google.com/maps/search/?api=1&query=PRO-KOM+ul.+Orkana+16B+Rabka-Zdr%C3%B3j",
  "rabka": [
@@ -124,7 +124,7 @@
   [
    "M12 7v5l3 2 M12 21a9 9 0 100-18 9 9 0 000 18z",
    "Uczciwe terminy",
-   "Czas reakcji w godzinach roboczych zapisujemy w umowie. Nie obiecujemy terminów, których nie da się dotrzymać."
+   "Czas reakcji w godzinach roboczych ustalamy w umowie. Nie obiecujemy terminów, których nie da się dotrzymać."
   ],
   [
    "M7 3h7l5 5v13H7z M14 3v5h5 M10 13h6 M10 17h6",
@@ -262,7 +262,7 @@
   },
   {
    "q": "Jak szybko odpowiadacie?",
-   "a": "W godzinach pracy najszybciej, jak to możliwe. Klienci z umową opieki IT mają czas reakcji zapisany w umowie."
+   "a": "W godzinach pracy najszybciej, jak to możliwe. Klienci z umową opieki IT mają czas reakcji ustalony w umowie."
   },
   {
    "q": "Czy dostanę wycenę bez wizyty?",
@@ -273,6 +273,6 @@
   "mapa": "rabka/cities = współrzędne w viewBox 640×420 (rzut lon/lat); w kodzie komponent <ServiceAreaMap> z tych samych danych",
   "obietnice": "bez „oddzwaniamy w 60 minut” i innych terminów — czas reakcji tylko z umowy opieki IT",
   "adres": "na Biznesie tylko Rabka-Zdrój",
-  "email": "biznes@pro-kom.eu na całej stronie"
+  "email": "kontakt@prokombiznes.pl na całej stronie"
  }
 }

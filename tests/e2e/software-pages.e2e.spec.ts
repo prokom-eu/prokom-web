@@ -60,10 +60,11 @@ test.describe('Software 404', () => {
     await expect(page).toHaveURL(/\/rozwiazania\?q=pensjonat$/)
   })
 
-  test('another line keeps its own generic 404', async ({ page }) => {
+  test('another line keeps its own 404, not the Software one', async ({ page }) => {
     const response = await page.goto(site('biznes.localhost', '/nie-ma-takiej-strony'))
     expect(response?.status()).toBe(404)
-    await expect(page.locator('h1')).toHaveText('Nie znaleziono strony')
+    // Biznes has its own 404 since the audit of 01.11 (search and popular places).
+    await expect(page.locator('h1')).toHaveText('Tej strony tu nie ma.')
   })
 })
 

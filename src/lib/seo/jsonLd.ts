@@ -13,6 +13,37 @@ const DAYS: Record<string, string> = {
   sun: 'Sunday',
 }
 
+const WEEK = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'] as const
+const SHORT: Record<string, string> = {
+  mon: 'Mo',
+  tue: 'Tu',
+  wed: 'We',
+  thu: 'Th',
+  fri: 'Fr',
+  sat: 'Sa',
+  sun: 'Su',
+}
+
+/**
+ * One row of hours in the schema.org text form: „Mo-Fr 09:00-17:00”, consecutive days as a range
+ * („Mo,We 09:00-12:00” otherwise). Search engines read it next to `openingHoursSpecification`.
+ */
+export function openingHoursText(row: { days: readonly string[]; opens: string; closes: string }) {
+  const indexes = [...new Set(row.days.map((day) => WEEK.indexOf(day as (typeof WEEK)[number])))]
+    .filter((index) => index >= 0)
+    .sort((a, b) => a - b)
+  const ranges: string[] = []
+  for (let i = 0; i < indexes.length; i++) {
+    const start = indexes[i]!
+    let end = start
+    while (indexes[i + 1] === end + 1) end = indexes[++i]!
+    const from = SHORT[WEEK[start]!]
+    const to = SHORT[WEEK[end]!]
+    ranges.push(end - start >= 1 ? `${from}-${to}` : `${from}`)
+  }
+  return `${ranges.join(',')} ${row.opens}-${row.closes}`
+}
+
 type OrganizationInput = {
   company: PublicCompanyData
   tenant: { name: string; line: Line }
@@ -81,6 +112,7 @@ export function organizationJsonLd({ company, tenant, contact, origin }: Organiz
       addressLocality: location.city,
       addressCountry: 'PL',
     },
+    openingHours: location.hours.map(openingHoursText),
     openingHoursSpecification: location.hours.map(({ days, opens, closes }) => ({
       '@type': 'OpeningHoursSpecification',
       dayOfWeek: days.flatMap((day) => (DAYS[day] ? [`https://schema.org/${DAYS[day]}`] : [])),

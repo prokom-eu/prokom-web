@@ -11,6 +11,7 @@ import { brandAsset, HORIZONTAL_LOGO_SIZE } from '@/lib/brand/lines'
 import { BUNDLES_PAGE, brandLogo, type ShowcaseStatus } from '@/lib/catalog/catalogIndex'
 import { fillCatalogCounts } from '@/lib/catalog/counts'
 import { getCatalogIndex } from '@/lib/catalog/data'
+import { brandCount } from '@/lib/catalog/filters'
 import { groupSummaries, type GroupSummary } from '@/lib/catalog/groups'
 import { BUNDLES_PATH } from '@/lib/catalog/bundle'
 import { groupHref } from '@/lib/catalog/menu'
@@ -269,7 +270,7 @@ export async function BzOfferBlock({ block, tenantId }: Props) {
       .filter((category) => category.group === group.slug)
       .map(({ slug, name, count }) => ({ slug, name, count })),
   }))
-  const counts = { products: index.products.length, brands: index.brands.length }
+  const counts = { products: index.products.length, brands: brandCount(index) }
   const systems = block.systems ?? []
   const eyebrow = block.eyebrow
     ? `${block.eyebrow} · ${departments.length} ${plural(departments.length, ['dział', 'działy', 'działów'])} · ${positions(counts.products)}`

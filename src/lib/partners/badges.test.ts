@@ -19,6 +19,21 @@ describe('partnerBadges', () => {
     ])
   })
 
+  it('names the services as K4-FINAL §1 does, whatever the panel order', () => {
+    expect(
+      partnerBadges([
+        { name: 'Elzab', status: 'authorized-service' },
+        { name: 'InsERT', status: 'authorized-partner' },
+        { name: 'GoPOS', status: 'authorized-partner' },
+        { name: 'Posnet', status: 'authorized-service' },
+      ]),
+    ).toEqual([
+      { label: 'Autoryzowany partner GoPOS', kind: 'partner' },
+      { label: 'Autoryzowany partner InsERT', kind: 'partner' },
+      { label: 'Autoryzowany serwis Posnet i Elzab', kind: 'service' },
+    ])
+  })
+
   it('lists three or more services with commas', () => {
     expect(
       partnerBadges([

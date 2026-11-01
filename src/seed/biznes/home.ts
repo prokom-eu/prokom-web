@@ -13,6 +13,7 @@ import {
   OLD_TRUST_LINE,
   upgradeHomeK4,
 } from './homeK4'
+import { nextDescription } from './description'
 import { planBlocks } from './homePlan'
 import { upgradeHomePlan } from './homePlanK31d'
 import { upgradeHomeV150 } from './homeV150'
@@ -75,6 +76,10 @@ export const GROUP_DESCRIPTIONS: Record<string, string> = {
  * (`SiteSettings` → „Obietnice”; e2e `biznes-catalog` checks the fallback without it).
  */
 export const HOME_TRUST_LINE = K4_TRUST_LINE
+
+/** SEO → Opis of the home page (audit 01.11.2026; ≤ 155 characters, unique on the site). */
+export const HOME_DESCRIPTION =
+  'Kasy fiskalne, komputery, programy i opieka IT dla firm z Podhala i Małopolski. Dobór, wdrożenie i serwis z Rabki-Zdroju — wycena na piśmie.'
 
 export function biznesHomeLayout(refs: HomeRefs = NO_REFS): HomeBlock[] {
   return [
@@ -245,9 +250,8 @@ export async function seedBiznesHome(
       collection: 'pages',
       data: {
         title: 'Strona główna',
-        // TODO(krystian): meta description strony głównej (SEO → Opis) — Lighthouse SEO 92 bez
-        // niej (B7d); treść do panelu, seed jej nie wymyśla.
         slug: HOME_SLUG,
+        seo: { description: HOME_DESCRIPTION },
         layout: seed,
         tenant: tenantId,
         _status: 'published',
@@ -264,12 +268,16 @@ export async function seedBiznesHome(
   const v150 = upgradeHomeV150(k4 ?? home.layout, seed) ?? k4
   // K31d′: the plan 2.0 texts and the scenes of the industry tiles.
   const layout = upgradeHomePlan(v150 ?? home.layout) ?? v150
-  report('pages home', layout !== null)
-  if (layout) {
+  const seo = nextDescription(home.seo?.description, HOME_DESCRIPTION)
+  report('pages home', layout !== null || seo !== null)
+  if (layout || seo) {
     await payload.update({
       collection: 'pages',
       id: home.id,
-      data: { layout, _status: 'published' },
+      data: {
+        ...(layout && { layout, _status: 'published' as const }),
+        ...(seo && { seo: { ...home.seo, description: seo } }),
+      },
       ...local,
     })
   }

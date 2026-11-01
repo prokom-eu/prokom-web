@@ -1,5 +1,6 @@
 import type { IconName } from '../../lib/catalog/options'
 import type { Page } from '../../payload-types'
+import { BIZNES_CONTACT } from './contact'
 
 /**
  * Start content of B7c, v150 (K4c): „Plan Twojej firmy” with „Dla kogo”, „Jak pracujemy”. Texts 1:1
@@ -201,8 +202,7 @@ export function planBlocks(industry: (seedSlug: string) => number | undefined): 
           title: 'Opieka',
           icon: 'shield',
           text: 'Serwis, przeglądy kas z przypomnieniem, aktualizacje i pomoc, gdy coś przestaje działać.',
-          // TODO(krystian): numer wpisany w tekst — po zmianie telefonu linii poprawić też tutaj.
-          gets: 'jeden numer do wszystkiego: 889 003 889',
+          gets: `jeden numer do wszystkiego: ${BIZNES_CONTACT.phone}`,
           role: 'Serwisant i opiekun IT',
           label: 'Na lata',
         },
@@ -214,8 +214,7 @@ export function planBlocks(industry: (seedSlug: string) => number | undefined): 
         { text: '60 minut — oddzwaniamy w godzinach pracy' },
         { text: 'Wycena na piśmie — bez zobowiązań, pod Twoją firmę' },
         { text: 'Kasa gotowa do pracy — fiskalizacja, programowanie, szkolenie' },
-        // TODO(krystian): numer wpisany w tekst, jak wyżej.
-        { text: 'Jeden numer — 889 003 889 — oferty i serwis' },
+        { text: `Jeden numer — ${BIZNES_CONTACT.phone} — oferty i serwis` },
       ],
     },
   ]

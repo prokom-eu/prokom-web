@@ -23,6 +23,10 @@ export const CATALOG_PAGE_SIZE = 24
  */
 export const OWN_BRAND_SLUG = 'pro-kom'
 
+/** Number of brands on the site — one count for every place that names it (spec. §1, audit 01.11). */
+export const brandCount = (index: Pick<CatalogIndex, 'brands'>) =>
+  index.brands.filter((brand) => brand.slug !== OWN_BRAND_SLUG).length
+
 /** Longest search phrase read from the URL. */
 const MAX_QUERY = 100
 

@@ -28,6 +28,7 @@ import {
   type K4PagesFile,
   type K4VendingFile,
 } from './k4Pages'
+import { BIZNES_CONTACT } from './contact'
 import type { PageBlock } from './page'
 
 const pages = file as unknown as K4PagesFile
@@ -220,9 +221,9 @@ describe('/kontakt (K4i)', () => {
     expect(dataOf(layout, 'contact-form')?.topics).toContain('Kasa fiskalna')
   })
 
-  it('names only Rabka and biznes@ (K4-FINAL §1)', () => {
-    const emails = JSON.stringify(layout).match(/[w.+-]+@[w.-]+/g) ?? []
-    expect(emails.every((email) => email === 'biznes@pro-kom.eu')).toBe(true)
+  it('names only Rabka and the line inbox (K4-FINAL §1, contact of 01.11.2026)', () => {
+    const emails = JSON.stringify(layout).match(/[\w.+-]+@[\w.-]+/g) ?? []
+    expect(emails.every((email) => email === BIZNES_CONTACT.email)).toBe(true)
     expect(JSON.stringify(layout)).not.toMatch(/ul. [^"]*Zakopane/)
   })
 })

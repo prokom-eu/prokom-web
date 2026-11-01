@@ -3,12 +3,12 @@ import { PLAN_PATH } from '@/lib/catalog/floorPlan'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { LocationAddress } from '@/components/ContactDetails'
 import { Container } from '@/components/ui/Container'
 import { brandAsset, HORIZONTAL_LOGO_SIZE } from '@/lib/brand/lines'
 import { BUNDLES_PATH } from '@/lib/catalog/bundle'
 import { BRANDS_PATH } from '@/lib/catalog/filters'
 import type { PartnerBadge } from '@/lib/partners/badges'
+import { hoursSummary } from '@/lib/site/hoursSummary'
 import { toTelHref } from '@/lib/site/link'
 import type { PublicCompanyData, PublicSiteSettings } from '@/lib/site/public'
 
@@ -51,7 +51,6 @@ const REGION_LINKS = [
   { label: 'Monitoring, sieci, smart home', href: 'https://prokominstalacje.pl' },
   { label: 'Strony, sklepy i aplikacje', href: 'https://prokomsoftware.pl' },
   { label: 'Serwis telefonów i laptopów', href: 'https://prokomserwis.pl' },
-  { label: 'Sklep w Zakopanem', href: 'https://prokomzakopane.pl' },
 ]
 
 const OFFER_LINKS = [
@@ -73,10 +72,8 @@ export function BiznesFooter({ name, company, settings, biznes, badges, contact 
   const email = settings.email ?? company?.email ?? null
   // Only the first location (Rabka on Biznes, spec. §1) — never the list of all branches.
   const main = company?.locations[0]
-  // `CompanyData` phones are shared by all lines and may repeat the main number shown above.
-  const otherPhones = (company?.phones ?? []).filter(
-    (phone) => !contact.phone || toTelHref(phone.number) !== contact.phone.href,
-  )
+  // The line's second phone (`SiteSettings.phone2`); `CompanyData` phones are shared by all lines.
+  const otherPhones = settings.phone2 ? [{ label: null, number: settings.phone2 }] : []
   return (
     <footer data-surface="dark" className="mt-16 bg-surface-dark text-[0.94rem] text-white/80">
       <Container
@@ -93,7 +90,19 @@ export function BiznesFooter({ name, company, settings, biznes, badges, contact 
           {settings.footer.text && <p className="leading-relaxed">{settings.footer.text}</p>}
           {main && (
             <div className="text-sm">
-              <LocationAddress location={main} />
+              {/* Short hours „pn–pt 9:00–17:00” (audit 01.11), not the long form of the shared
+                  `LocationAddress` the other lines keep. */}
+              <address className="not-italic">
+                <strong className="font-bold">{main.name}</strong>
+                <br />
+                {main.street}, {main.postalCode} {main.city}
+                {main.hours.length > 0 && (
+                  <>
+                    <br />
+                    {hoursSummary(main.hours)}
+                  </>
+                )}
+              </address>
             </div>
           )}
           {badges.length > 0 && (

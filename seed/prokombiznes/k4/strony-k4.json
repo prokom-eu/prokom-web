@@ -1724,11 +1724,11 @@
  "opieka_it": {
   "h1a": "Opieka IT dla firm.",
   "h1b": "Od komputera po kasę.",
-  "lead": "Komputery, serwer, sieć, kopie, poczta, kasy i POS pod jedną opieką z Rabki-Zdroju. Zakres i czas reakcji zapisujemy w umowie, pomagamy zdalnie i na miejscu — na Podhalu i w Małopolsce.",
+  "lead": "Komputery, serwer, sieć, kopie, poczta, kasy i POS pod jedną opieką z Rabki-Zdroju. Zakres i czas reakcji ustalamy w umowie, pomagamy zdalnie i na miejscu — na Podhalu i w Małopolsce.",
   "chips": [
    "Pomoc zdalna i na miejscu",
    "Komputery, sieć i kasy w jednym zgłoszeniu",
-   "Zakres zapisany w umowie",
+   "Zakres ustalony w umowie",
    "Dokumentacja należy do Ciebie"
   ],
   "areas": [
@@ -1960,11 +1960,11 @@
   "faq": [
    {
     "q": "Co obejmuje opieka IT?",
-    "a": "Zakres ustalamy po rozmowie i spisie sprzętu: komputery, serwer, sieć, kopie, poczta, kasy i programy. Zapisujemy go w umowie razem z czasem reakcji. To, co wykracza poza zakres, wyceniamy przed wykonaniem."
+    "a": "Zakres ustalamy po rozmowie i spisie sprzętu: komputery, serwer, sieć, kopie, poczta, kasy i programy. Ustalamy go w umowie razem z czasem reakcji. To, co wykracza poza zakres, wyceniamy przed wykonaniem."
    },
    {
     "q": "Jak zgłaszam problem?",
-    "a": "Telefonicznie pod numerem 889 003 889 albo mailem na biznes@pro-kom.eu, pn–pt 9:00–17:00. Rozmawiasz z zespołem, który zna Twoją firmę i jej sprzęt."
+    "a": "Telefonicznie pod numerem 889 003 889 albo mailem na kontakt@prokombiznes.pl, pn–pt 9:00–17:00. Rozmawiasz z zespołem, który zna Twoją firmę i jej sprzęt."
    },
    {
     "q": "Pomagacie zdalnie czy przyjeżdżacie?",
@@ -2247,10 +2247,10 @@
   "nip": "7352511447",
   "tel": "889 003 889",
   "telHref": "tel:+48889003889",
-  "tel2": "18 267 65 11",
-  "tel2Href": "tel:+48182676511",
+  "tel2": "883 200 151",
+  "tel2Href": "tel:+48883200151",
   "wa": "https://wa.me/48889003889",
-  "mail": "biznes@pro-kom.eu",
+  "mail": "kontakt@prokombiznes.pl",
   "godz": "pn–pt 9:00–17:00",
   "maps": "https://www.google.com/maps/search/?api=1&query=PRO-KOM+ul.+Orkana+16B+Rabka-Zdr%C3%B3j",
   "rabka": [
@@ -2366,7 +2366,7 @@
    [
     "M12 7v5l3 2 M12 21a9 9 0 100-18 9 9 0 000 18z",
     "Uczciwe terminy",
-    "Czas reakcji w godzinach roboczych zapisujemy w umowie. Nie obiecujemy terminów, których nie da się dotrzymać."
+    "Czas reakcji w godzinach roboczych ustalamy w umowie. Nie obiecujemy terminów, których nie da się dotrzymać."
    ],
    [
     "M7 3h7l5 5v13H7z M14 3v5h5 M10 13h6 M10 17h6",
@@ -2504,7 +2504,7 @@
    },
    {
     "q": "Jak szybko odpowiadacie?",
-    "a": "Oddzwaniamy w ciągu 60 minut w godzinach pracy (pn–pt 9:00–17:00). Klienci z umową opieki IT mają dodatkowo czas reakcji zapisany w umowie."
+    "a": "Oddzwaniamy w ciągu 60 minut w godzinach pracy (pn–pt 9:00–17:00). Klienci z umową opieki IT mają dodatkowo czas reakcji ustalony w umowie."
    },
    {
     "q": "Czy dostanę wycenę bez wizyty?",
@@ -2516,7 +2516,7 @@
   "opieka": {
    "h1a": "Informatyk, który zna Twoją firmę.",
    "h1b": "W stałej opiece.",
-   "lead": "Komputery, serwer, sieć, kopie, poczta, kasy i POS — pod jedną opieką, z zakresem i czasem reakcji zapisanym w umowie. Pomoc zdalna i serwisant z Rabki.",
+   "lead": "Komputery, serwer, sieć, kopie, poczta, kasy i POS — pod jedną opieką, z zakresem i czasem reakcji ustalonym w umowie. Pomoc zdalna i serwisant z Rabki.",
    "chips": [
     "Czas reakcji w umowie",
     "Jeden opiekun",
@@ -2530,7 +2530,7 @@
     ],
     [
      "Umowa dopasowana do firmy",
-     "Od jednego stanowiska po kilka lokalizacji z serwerem. Zakres i czas reakcji zapisane w umowie."
+     "Od jednego stanowiska po kilka lokalizacji z serwerem. Zakres i czas reakcji ustalone w umowie."
     ],
     [
      "Przejęcie bez przestoju",
@@ -2617,7 +2617,7 @@
     },
     {
      "q": "Reakcja to naprawa?",
-     "a": "Nie — reakcja to kontakt i rozpoczęcie działania w godzinach pracy. Czas reakcji zapisujemy w umowie; czas naprawy zależy od usterki i części."
+     "a": "Nie — reakcja to kontakt i rozpoczęcie działania w godzinach pracy. Czas reakcji ustalamy w umowie; czas naprawy zależy od usterki i części."
     },
     {
      "q": "Mam już informatyka. Jak wygląda przejęcie?",
