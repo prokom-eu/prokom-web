@@ -1,14 +1,21 @@
 #!/usr/bin/env bash
 # Deploy one image (commit SHA from GHCR) to a stack, with automatic rollback (S10b, ADR-004).
 # Usage: scripts/deploy.sh <staging|prod> <sha> [--fail-smoke-for-test]
-#   run by the pipeline (deploy-staging.yml through scripts/server/deploy-gate.sh) or by hand.
+#   run by scripts/server/deploy-gate.sh (pipeline) with the deploy files of the same commit.
 # Steps: (prod: backup predeploy) → pull → APP_IMAGE_TAG in .env.<stack> → up -d app → healthy
-# → smoke test on the app port. Any failure after the tag change: the previous tag back, app
-# restarted and checked, exit 1. Only the app goes back — the database stays as the new version
-# left it (migrations must be backward compatible, runbook §5; otherwise runbook §4B).
+# → smoke test on the app port. A failure after the tag change:
+#   - no new migrations ran → previous tag back, checked with the core smoke test (SMOKE_CORE=1:
+#     health, panel, home pages — the full test of this commit may expect routes the old image
+#     does not have), exit 1;
+#   - new migrations ran → NO rollback: the old image may not work on the new schema (1.11: 500
+#     after 13 migrations); the new image stays, exit 1 — decide by hand (runbook §2, §4B);
+#   - rollback itself fails → forward to the new image again, so the stack does not stay down.
 # --fail-smoke-for-test: pretend the smoke test failed (test of the rollback, runbook §2).
-# Log: ../deploys.log (one line per deploy). Never prints the content of .env files.
+# Log: ../deploys.log (one line per deploy), output also in ../deploy-output.log.
+# Never prints the content of .env files.
 set -euo pipefail
+# The pipeline's SSH session may drop (cancel, timeout): keep going instead of dying half way.
+trap '' PIPE HUP
 
 stack="${1:?usage: scripts/deploy.sh <staging|prod> <sha> [--fail-smoke-for-test]}"
 sha="${2:?usage: scripts/deploy.sh <staging|prod> <sha> [--fail-smoke-for-test]}"
@@ -23,16 +30,25 @@ env_file=".env.$stack"
 [ -f "$env_file" ] || { echo "Missing $root/$env_file" >&2; exit 2; }
 image="ghcr.io/prokom-eu/prokom-web"
 app="prokom-$stack-app-1"
+pg="prokom-$stack-postgres-1"
+db="prokom_$stack"
 compose=(docker compose --env-file "$env_file" -f docker/compose.prod.yml)
 [ "$stack" = staging ] && compose+=(-f docker/compose.staging.yml)
 
-log() { echo "$(date -u +%Y-%m-%dT%H:%M:%SZ) deploy $stack: $*"; }
+log() {
+  local line
+  line="$(date -u +%Y-%m-%dT%H:%M:%SZ) deploy $stack: $*"
+  echo "$line" >>"$root/../deploy-output.log"
+  echo "$line" 2>/dev/null || true
+}
 # One value from an env file, without sourcing it (the file holds secrets).
 env_value() { sed -n "s/^$2=//p" "$1" | tail -1; }
 
-# One deploy at a time per server (pipeline and a manual run must not overlap).
-exec 9>"$root/../.deploy.lock"
-flock -w 600 9 || { log "another deploy still running"; exit 1; }
+# One deploy at a time per server (the gate already holds the lock for a pipeline deploy).
+if [ "${DEPLOY_LOCK_HELD:-}" != 1 ]; then
+  exec 9>"$root/../.deploy.lock"
+  flock -w 600 9 || { log "another deploy still running"; exit 1; }
+fi
 
 prev="$(env_value "$env_file" APP_IMAGE_TAG)"
 port="$(env_value "$env_file" APP_PORT)"
@@ -50,6 +66,10 @@ set_tag() {
   [ "$(env_value "$env_file" APP_IMAGE_TAG)" = "$1" ]
 }
 
+migrations() {
+  docker exec "$pg" psql -U prokom -d "$db" -tAc 'select name from payload_migrations order by name'
+}
+
 wait_healthy() {
   local status=''
   for _ in $(seq 1 60); do # migrations run at start: up to 5 minutes
@@ -61,22 +81,39 @@ wait_healthy() {
   return 1
 }
 
+# smoke [core]: the full smoke test of this commit, or with `core` only the routes every version has.
 smoke() {
-  PANEL_HOST="$panel" bash scripts/smoke.sh "http://127.0.0.1:$port" "${hosts[@]}"
+  SMOKE_CORE="$([ "${1:-}" = core ] && echo 1 || true)" PANEL_HOST="$panel" bash scripts/smoke.sh "http://127.0.0.1:$port" "${hosts[@]}" 2>&1 |
+    while IFS= read -r l; do log "$l"; done
+  return "${PIPESTATUS[0]}"
 }
 
 start() {
-  "${compose[@]}" up -d app && wait_healthy
+  "${compose[@]}" up -d app 2>&1 | while IFS= read -r l; do log "$l"; done
+  [ "${PIPESTATUS[0]}" -eq 0 ] && wait_healthy
 }
 
-rollback() {
+fail() {
+  local applied
+  applied="$(migrations 2>/dev/null || echo unknown)"
+  if [ "$applied" != "$migrations_before" ]; then
+    log "FAILED — new migrations ran, so NO rollback (old image may not run on the new schema);"
+    log "${sha:0:7} stays — check it and decide by hand: runbook §2, §4B"
+    record "FAILED, not rolled back (migrations applied)"
+    exit 1
+  fi
   log "FAILED — back to ${prev:0:7}"
-  if set_tag "$prev" && start && smoke; then
+  if set_tag "$prev" && start && smoke core; then
     log "rollback done, ${prev:0:7} is running"
     record "FAILED, rolled back"
   else
-    log "ROLLBACK FAILED — manual action: runbook §4 / §8"
-    record "FAILED, rollback failed"
+    log "ROLLBACK FAILED — forward to ${sha:0:7} again, so $stack does not stay down"
+    if set_tag "$sha" && start; then
+      record "FAILED, rollback failed, ${sha:0:7} running again"
+    else
+      record "FAILED, rollback failed, $stack DOWN"
+    fi
+    log "manual action: runbook §4 / §8"
   fi
   exit 1
 }
@@ -86,21 +123,30 @@ log "${prev:0:7} -> ${sha:0:7}"
 
 if [ "$stack" = prod ]; then
   log "backup before the deploy"
-  scripts/backup.sh prod predeploy
+  scripts/backup.sh prod predeploy || { log "backup failed — nothing changed"; record "FAILED, backup"; exit 1; }
 fi
 
 # Pull first: a missing image stops the deploy before anything changes.
-docker pull -q "$image:$sha" >/dev/null || { log "image $image:$sha not found"; exit 1; }
+docker pull -q "$image:$sha" >/dev/null ||
+  { log "image $image:$sha not found — nothing changed"; record "FAILED, no image"; exit 1; }
+migrations_before="$(migrations)"
 
-set_tag "$sha" || rollback
-start || rollback
+set_tag "$sha" || fail
+start || fail
 if [ "$fail_smoke" = --fail-smoke-for-test ]; then
   log "smoke test failure forced (--fail-smoke-for-test)"
-  rollback
+  fail
 fi
-smoke || rollback
+smoke || fail
 
 log "done, ${sha:0:7} is running"
 record "ok"
-# Old images fill the disk: keep the running one and anything from the last 14 days.
-docker image prune -af --filter "until=336h" >/dev/null 2>&1 || true
+
+# Old app images fill the disk: keep the images both stacks name in their .env files.
+keep=" $sha $prev "
+for f in .env.staging .env.prod; do
+  [ -f "$f" ] && keep+="$(env_value "$f" APP_IMAGE_TAG) "
+done
+docker image ls "$image" --format '{{.Tag}}' | while read -r tag; do
+  case "$keep" in *" $tag "*) ;; *) docker image rm "$image:$tag" >/dev/null 2>&1 || true ;; esac
+done

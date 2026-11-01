@@ -13,6 +13,8 @@
 #   PANEL_HOST       panel domain (default panel.localhost)
 #   SMOKE_AUTH       user:password for a server behind basic auth (staging)
 #   SMOKE_INSECURE=1 accept a self-signed certificate (local test of Nginx)
+#   SMOKE_CORE=1     only health, panel and the home page of each site — routes every version
+#                    has (deploy.sh checks a rolled-back older image with it)
 # Exit code 1 on any failure.
 set -euo pipefail
 
@@ -58,6 +60,7 @@ check 200 "${hosts[0]}" /api/health
 check 200 "$panel" /admin/login
 for host in "${hosts[@]}"; do
   check 200 "$host" /
+  [ "${SMOKE_CORE:-}" = 1 ] && continue
   check 200 "$host" /sitemap.xml
   check 200 "$host" /robots.txt
   check 200 "$host" /mapa-strony

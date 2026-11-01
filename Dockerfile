@@ -39,6 +39,11 @@ RUN mkdir -p /app/media && chown node:node /app/media
 COPY --from=build --chown=node:node /app/.next/standalone ./
 COPY --from=build --chown=node:node /app/.next/static ./.next/static
 COPY --from=build --chown=node:node /app/public ./public
+# Deploy files of this commit (S10b): the server's deploy gate copies them out of the image, so
+# the pipeline's SSH key can only pick an image built from develop — never send files itself.
+COPY docker /deploy/docker
+COPY scripts /deploy/scripts
+COPY .env.example /deploy/.env.example
 USER node
 EXPOSE 3000
 # Node's own fetch: the slim image has no curl. The first check starts Payload (and migrations).
