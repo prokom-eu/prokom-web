@@ -86,7 +86,6 @@ export function GoposStage({
               <button
                 type="button"
                 aria-pressed={on}
-                aria-label={`${device.label} — ${device.name}`}
                 onClick={() => goposActions.pickStep(device.step)}
                 className={cx(
                   'relative flex aspect-[4/3] w-full items-center justify-center rounded-2xl bg-white p-4 transition-[opacity,box-shadow] duration-300 motion-reduce:transition-none',
@@ -110,6 +109,7 @@ export function GoposStage({
                 >
                   <i className="not-italic opacity-75">{device.step + 1}</i>
                   {device.label}
+                  <span className="sr-only"> — {device.name}</span>
                 </span>
               </button>
             </li>

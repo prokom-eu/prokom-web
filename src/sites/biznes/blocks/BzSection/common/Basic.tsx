@@ -116,7 +116,7 @@ export function StepsSection({ block }: Props) {
             >
               {i + 1}
             </span>
-            {item.label && <p className={cx(EYEBROW, 'text-ink-3')}>{item.label}</p>}
+            {item.label && <p className={cx(EYEBROW, 'text-ink-2')}>{item.label}</p>}
             <h3 className="font-display text-[1.1rem] leading-tight font-extrabold">
               {item.title}
             </h3>
@@ -220,7 +220,7 @@ export function TableSection({ block, data }: Props & { data: SectionData<'table
             <dl className="mt-3 flex flex-col gap-3">
               {data.rows.map((row) => (
                 <div key={row.k}>
-                  <dt className="text-[13px] font-extrabold text-ink-3">{row.k}</dt>
+                  <dt className="text-[13px] font-extrabold text-ink-2">{row.k}</dt>
                   <dd className="text-ink-2">{row.v[c] ?? '—'}</dd>
                 </div>
               ))}

@@ -71,7 +71,7 @@ export function InsertHero({
               <span
                 className={cx(
                   EYEBROW,
-                  'inline-flex rounded-full bg-white/10 px-3.5 py-2 text-accent-on-dark ring-1 ring-white/20 ring-inset',
+                  'inline-flex rounded-full bg-white/10 px-3.5 py-2 text-white ring-1 ring-white/20 ring-inset',
                 )}
               >
                 {data.pill}
@@ -229,7 +229,7 @@ export function InsertRequirements({
       <dl className="flex flex-col gap-2.5">
         {rows.map((row) => (
           <div key={row.k} className="grid gap-1 min-[480px]:grid-cols-[120px_1fr]">
-            <dt className="text-[14px] text-ink-3">{row.k}</dt>
+            <dt className="text-[14px] text-ink-2">{row.k}</dt>
             <dd className="font-bold">{row.v}</dd>
           </div>
         ))}

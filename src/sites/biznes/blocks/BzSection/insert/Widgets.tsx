@@ -214,7 +214,7 @@ export function InsertPoints({ data }: { data: SectionData<'insert-points'> }) {
           {row('Faktury zakupu', 'pobierane z KSeF w miesiącu', purchases, setPurchases)}
           <div className="grid grid-cols-2 gap-3" aria-live="polite">
             <div className="rounded-2xl bg-surface-2 p-4">
-              <small className="text-[13px] text-ink-3">Miesięcznie</small>
+              <small className="text-[13px] text-ink-2">Miesięcznie</small>
               <b
                 data-testid="inspunkty-month"
                 className="block font-display text-xl font-extrabold"
@@ -223,14 +223,14 @@ export function InsertPoints({ data }: { data: SectionData<'insert-points'> }) {
               </b>
             </div>
             <div className="rounded-2xl bg-surface-2 p-4">
-              <small className="text-[13px] text-ink-3">W skali roku</small>
+              <small className="text-[13px] text-ink-2">W skali roku</small>
               <b data-testid="inspunkty-year" className="block font-display text-xl font-extrabold">
                 {insPointsLabel(year)}
               </b>
             </div>
           </div>
           <div>
-            <div className="flex justify-between text-[13px] text-ink-3">
+            <div className="flex justify-between text-[13px] text-ink-2">
               <span>Pula z Abonamentu · {data.pool}</span>
               <span>Zużycie roczne · {insPointsLabel(year)}</span>
             </div>
@@ -292,7 +292,7 @@ export function InsertPoints({ data }: { data: SectionData<'insert-points'> }) {
               </li>
             ))}
           </ol>
-          {data.rulesSource && <p className="mt-3 text-[13px] text-ink-3">{data.rulesSource}</p>}
+          {data.rulesSource && <p className="mt-3 text-[13px] text-ink-2">{data.rulesSource}</p>}
         </details>
       )}
     </>
