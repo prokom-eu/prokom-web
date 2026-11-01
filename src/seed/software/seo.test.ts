@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import { META_DESCRIPTION_MAX } from '../../lib/seo/description'
+import { PAGE_SEO_TITLE_MAX } from '../../lib/seo/title'
 import { HOME_SLUG } from '../../lib/pages/slug'
 import { SOFTWARE_PAGE_SEO, seoFill } from './seo'
 
@@ -9,6 +10,12 @@ describe('SOFTWARE_PAGE_SEO (spec. §9)', () => {
     for (const [slug, { description }] of Object.entries(SOFTWARE_PAGE_SEO)) {
       expect(description, slug).toBeTruthy()
       expect(description!.length, slug).toBeLessThanOrEqual(META_DESCRIPTION_MAX)
+    }
+  })
+
+  it('has titles the panel accepts (`Pages.seo.title`), or the seed fails on save', () => {
+    for (const [slug, { title }] of Object.entries(SOFTWARE_PAGE_SEO)) {
+      expect((title ?? '').length, slug).toBeLessThanOrEqual(PAGE_SEO_TITLE_MAX)
     }
   })
 
