@@ -22,7 +22,8 @@ export function GuaranteeSection({ warrantyMonths, responseText }: Props) {
           <div>
             <span className="eye">Gwarancja i serwis</span>
             <h2 className="h2">
-              Po montażu nie znikamy. <span className="acc">Masz numer, pod który dzwonisz.</span>
+              {warrantyMonths} {plural(warrantyMonths, ['miesiąc', 'miesiące', 'miesięcy'])}{' '}
+              gwarancji na montaż. <span className="acc">Serwis pod jednym numerem.</span>
             </h2>
           </div>
           <p className="lead" style={{ maxWidth: 460 }}>

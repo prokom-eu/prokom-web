@@ -353,7 +353,7 @@ export async function ObjectPage({ tenantId, object, sceneKey, origin }: Props) 
       />
       <Related
         tenantId={tenantId}
-        heading={objectPage.relatedHeading}
+        heading={objectPage.relatedHeadings[object.key]}
         services={object.relatedServices}
         objects={similar}
         objectsHeading={objectPage.similarHeading}
