@@ -23,9 +23,6 @@ type Props = {
   project: { id: string; name: string }
 }
 
-/** Photo placeholders: the card gradients of the theme (`--grad-card-*`), never new colours. */
-const PHOTOS = ['sage', 'sand', 'peach', 'sage'] as const
-
 const AUTO_MS = 7000
 
 /** Number of the fictitious job on the board. */
@@ -278,13 +275,8 @@ function Phone({ state, texts, tasks, onToggle, onPhoto, onSign, onNext }: Phone
                 })}
               </ul>
               <div className="grid grid-cols-3 gap-1.5">
-                {PHOTOS.slice(0, state.photos).map((tone, i) => (
-                  <span
-                    key={i}
-                    aria-hidden="true"
-                    className="h-11 rounded-lg"
-                    style={{ backgroundImage: `var(--grad-card-${tone})` }}
-                  />
+                {Array.from({ length: state.photos }, (_, i) => (
+                  <span key={i} aria-hidden="true" className="h-11 rounded-lg bg-accent-soft" />
                 ))}
                 {state.photos < MAX_PHOTOS && (
                   <button

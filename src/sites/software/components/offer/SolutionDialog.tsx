@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { BottomSheet } from '@/components/BottomSheet'
 import { Icon } from '@/components/ui/Icon'
@@ -95,10 +95,6 @@ export function SolutionDialog({
     current.current = slug
   }, [slug])
 
-  const tones = useMemo(
-    () => Object.fromEntries(Object.values(views).map((item) => [item.slug, item.tone])),
-    [views],
-  )
   const position = view ? list.indexOf(view.slug) : -1
   const added = view ? project.some((item) => item.id === view.slug) : false
 
@@ -326,7 +322,7 @@ export function SolutionDialog({
       <div className="mt-5 grid gap-6 min-[981px]:grid-cols-[minmax(0,1fr)_440px]">
         <div className="min-w-0">
           <div className="flex flex-wrap gap-2">
-            {view.label && <OfferBadge tone={view.tone}>{view.label}</OfferBadge>}
+            {view.label && <OfferBadge>{view.label}</OfferBadge>}
             {view.hasLivePreview && <LiveBadge />}
           </div>
           <h2
@@ -357,7 +353,7 @@ export function SolutionDialog({
 
         <div className="min-w-0 space-y-4">
           <div className="relative">
-            <OfferThumb src={view.thumbnail} tone={view.tone} eager className="rounded-[22px]" />
+            <OfferThumb src={view.thumbnail} eager className="rounded-[22px]" />
             {view.toast && (
               <span
                 aria-hidden="true"
@@ -447,7 +443,7 @@ export function SolutionDialog({
 
       {view.related.length > 0 && (
         <OfferSection title="Dobrze łączy się z" className="mt-4">
-          <RelatedCards cards={view.related} tones={tones} onPick={onSwitch} />
+          <RelatedCards cards={view.related} onPick={onSwitch} />
         </OfferSection>
       )}
     </BottomSheet>

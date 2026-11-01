@@ -3,7 +3,6 @@
 import { useState } from 'react'
 
 import type { OfferView } from '@/lib/software/offer'
-import { CATEGORY_AREA } from '@/lib/software/options'
 import type { IndexSolution } from '@/lib/software/solutionsIndex'
 import type { PriceDisplay } from '@/lib/software/wizard'
 
@@ -33,7 +32,6 @@ export function IndustryCards({ cards, display, offers }: Props) {
             <SolutionCard
               solution={card}
               display={display}
-              tone={offers[card.slug]?.tone ?? CATEGORY_AREA[card.category]}
               eager={i < 3}
               onOpen={() => setOpen(card.slug)}
             />

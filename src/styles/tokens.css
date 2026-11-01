@@ -119,20 +119,16 @@
   --c-software-light-ok-text: #256a18;
   /* ADR-015: white on the brand book's #8b61e3 is only 4.27, too little for a button label. */
   --c-software-light-accent: #6e45d4;
-  --c-software-light-accent-2: #a24bd8;
   /* ADR-015: also --c-software-text (was #7e58cd). */
   --c-software-light-accent-text: #5b33c4;
   --c-software-light-accent-ink: #ffffff;
   --c-software-light-accent-soft: #ece7fb;
   --c-software-light-accent-line: #cfc2f5;
-  --c-software-light-stage: #e9e3fa;
   --c-software-light-chip: #e8eae5;
-  --c-software-light-surface-dark: #171226;
   --c-software-light-ok: #2e7a1e;
   --c-software-light-warn: #a86a00;
-  --c-software-light-glow: rgba(110, 69, 212, 0.26);
-  /* ADR-015: violet (the boards: a light blue rgba(40, 150, 200, 0.14)). */
-  --c-software-light-glow-2: rgba(162, 75, 216, 0.14);
+  /* ADR-015 v23 pkt 2: a neutral shadow, no violet glow. */
+  --c-software-light-glow: rgba(18, 22, 19, 0.16);
   --c-software-light-grid: rgba(110, 69, 212, 0.09);
   --c-software-light-dot: rgba(18, 22, 19, 0.09);
   /* Map mock-up of /kontakt (board `Kontakt`, `.gmaps`): decoration, no text on it. */
@@ -166,14 +162,10 @@
   --c-software-night-accent-ink: #121613;
   --c-software-night-accent-soft: #241e36;
   --c-software-night-accent-line: #4a3c74;
-  --c-software-night-stage: #1e1a2b;
   --c-software-night-chip: #232823;
-  --c-software-night-surface-dark: #0e0b18;
   --c-software-night-ok: #7bd36a;
   --c-software-night-warn: #f2b84b;
-  --c-software-night-glow: rgba(150, 112, 238, 0.42);
-  /* ADR-015: violet (the boards: a light blue rgba(80, 180, 220, 0.22)). */
-  --c-software-night-glow-2: rgba(201, 169, 255, 0.2);
+  --c-software-night-glow: rgba(0, 0, 0, 0.34);
   --c-software-night-grid: rgba(179, 155, 245, 0.09);
   --c-software-night-dot: rgba(244, 245, 241, 0.08);
   --c-software-night-map-land: #1d221e;
@@ -1026,6 +1018,8 @@
   --h1-accent: var(--accent-text);
   /* Background of the primary button: the text accent; Software uses its button accent. */
   --button-bg: var(--accent-text);
+  /* Flat CTA block with white text (Software); the text accent elsewhere. */
+  --cta-bg: var(--accent-text);
   /* Accent on the inverted pill (--ink background): plain pill text where a line has no pill. */
   --pill-accent: var(--surface);
   /* Dark footer of Software v21 (ADR-015 v22 pkt 1) — defaults for every line, so the footer
@@ -2236,13 +2230,16 @@
   --ink-3: var(--c-software-light-ink-3);
   --border: var(--c-software-light-border);
   --border-input: var(--c-software-light-border-input);
-  --accent-2: var(--c-software-light-accent-2);
+  /* ADR-015 v23: one flat accent. */
+  --accent-2: var(--accent);
   --accent-ink: var(--c-software-light-accent-ink);
   --accent-soft: var(--c-software-light-accent-soft);
   --accent-line: var(--c-software-light-accent-line);
-  --stage: var(--c-software-light-stage);
+  /* ADR-015 v23 pkt 5: neutral stage. */
+  --stage: var(--surface-2);
   --chip: var(--c-software-light-chip);
-  --surface-dark: var(--c-software-light-surface-dark);
+  /* ADR-015 v23 pkt 4: grafit in both themes (the visualisation: #151a16). */
+  --surface-dark: var(--c-software-night-surface-2);
   --ok: var(--c-software-light-ok);
   --ok-text: var(--c-software-light-ok-text);
   --warn: var(--c-software-light-warn);
@@ -2251,7 +2248,6 @@
   --badge-warn: var(--c-software-night-warn);
   --badge-warn-ink: var(--c-software-light-ink);
   --glow: var(--c-software-light-glow);
-  --glow-2: var(--c-software-light-glow-2);
   --grid: var(--c-software-light-grid);
   --dot: var(--c-software-light-dot);
   --map-land: var(--c-software-light-map-land);
@@ -2269,34 +2265,11 @@
   --pill-accent: var(--c-software-night-accent-text);
   --footer-eyebrow: var(--c-software-night-accent-text);
 
-  /* ADR-015: H1 fragment on 5 pages, without the light blue of the boards. */
-  --grad-h1: linear-gradient(
-    100deg,
-    var(--accent-text) 5%,
-    var(--accent-2) 55%,
-    var(--accent) 110%
-  );
-  /* Icon tiles of the 8 areas (seed/prokomsoftware/obszary.json), only behind white icons. */
-  --grad-area-www: linear-gradient(135deg, #6e45d4, #a24bd8);
-  --grad-area-sys: linear-gradient(135deg, #1f6f8b, #2e9a76);
-  --grad-area-app: linear-gradient(135deg, #3a7bd5, #6e45d4);
-  --grad-area-cal: linear-gradient(135deg, #e8955a, #c2577a);
-  --grad-area-plug: linear-gradient(135deg, #24324a, #5e74a6);
-  --grad-area-auto: linear-gradient(135deg, #b7791f, #e8955a);
-  --grad-area-care: linear-gradient(135deg, #2e8a1e, #4fb3a0);
-  --grad-area-aud: linear-gradient(135deg, #b9506f, #e59a7e);
-  /* Card gradients of solutions (`Solutions.cardGradient`, seed `rozwiazania.json`), only as the
-     colour of the card's scene — never behind text (ADR-015 rozstrz. 4). */
-  --grad-card-peach: linear-gradient(135deg, #f3b07c, #f7d9b5);
-  --grad-card-sand: linear-gradient(135deg, #d8c3a8, #a38363);
-  --grad-card-sage: linear-gradient(135deg, #bfd9cf, #7fa898);
-  /* „Czasem powiemy: nie budujcie” and our fact in „Dlaczego nie WordPress” — the light palette's
-     accent in both themes, white text ≥ 4.5:1 at both ends (ADR-015 v20 pkt 5, themes.test.ts). */
-  --grad-say-no: linear-gradient(
-    135deg,
-    var(--c-software-light-accent-text),
-    var(--c-software-light-accent)
-  );
+  /* Footer and dark blocks: the same grafit as --surface-dark (ADR-015 v23 pkt 4). */
+  --footer-bg: var(--surface-dark);
+  /* Flat CTA blocks with white text („Czasem powiemy”, quote ticket, footer CTA): the light
+     palette's text accent in both themes, ≥ 4.5:1 (ADR-015 v23 pkt 1, themes.test.ts). */
+  --cta-bg: var(--c-software-light-accent-text);
 }
 
 /* Dark theme — chosen by the visitor (`data-theme`, see lib/brand/theme.ts)… */
@@ -2345,18 +2318,16 @@
   --ink-3: var(--c-software-night-ink-3);
   --border: var(--c-software-night-border);
   --border-input: var(--c-software-night-border-input);
-  --accent-2: var(--c-software-night-accent-2);
+  --accent-2: var(--accent);
   --accent-ink: var(--c-software-night-accent-ink);
   --accent-soft: var(--c-software-night-accent-soft);
   --accent-line: var(--c-software-night-accent-line);
-  --stage: var(--c-software-night-stage);
+  --stage: var(--surface-2);
   --chip: var(--c-software-night-chip);
-  --surface-dark: var(--c-software-night-surface-dark);
   --ok: var(--c-software-night-ok);
   --ok-text: var(--c-software-night-ok-text);
   --warn: var(--c-software-night-warn);
   --glow: var(--c-software-night-glow);
-  --glow-2: var(--c-software-night-glow-2);
   --grid: var(--c-software-night-grid);
   --dot: var(--c-software-night-dot);
   --map-land: var(--c-software-night-map-land);
@@ -2367,8 +2338,6 @@
   --map-pin: var(--c-software-night-map-pin);
   --header-bg: var(--c-software-night-header-bg);
   --pill-accent: var(--c-software-light-accent-text);
-  /* ADR-015 v22 pkt 1: darker than the page in the dark theme, faintly violet. */
-  --footer-bg: var(--c-software-night-surface-dark);
   --shadow: var(--c-software-night-shadow);
 }
 
@@ -2601,18 +2570,16 @@
     --ink-3: var(--c-software-night-ink-3);
     --border: var(--c-software-night-border);
     --border-input: var(--c-software-night-border-input);
-    --accent-2: var(--c-software-night-accent-2);
+    --accent-2: var(--accent);
     --accent-ink: var(--c-software-night-accent-ink);
     --accent-soft: var(--c-software-night-accent-soft);
     --accent-line: var(--c-software-night-accent-line);
-    --stage: var(--c-software-night-stage);
+    --stage: var(--surface-2);
     --chip: var(--c-software-night-chip);
-    --surface-dark: var(--c-software-night-surface-dark);
     --ok: var(--c-software-night-ok);
     --ok-text: var(--c-software-night-ok-text);
     --warn: var(--c-software-night-warn);
     --glow: var(--c-software-night-glow);
-    --glow-2: var(--c-software-night-glow-2);
     --grid: var(--c-software-night-grid);
     --dot: var(--c-software-night-dot);
     --map-land: var(--c-software-night-map-land);
@@ -2623,8 +2590,6 @@
     --map-pin: var(--c-software-night-map-pin);
     --header-bg: var(--c-software-night-header-bg);
     --pill-accent: var(--c-software-light-accent-text);
-    /* ADR-015 v22 pkt 1: darker than the page in the dark theme, faintly violet. */
-    --footer-bg: var(--c-software-night-surface-dark);
     --shadow: var(--c-software-night-shadow);
   }
 

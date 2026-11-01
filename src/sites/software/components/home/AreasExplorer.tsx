@@ -69,8 +69,10 @@ export function AreasExplorer({ areas, priceCaption, wizardButton }: Props) {
             >
               <span
                 aria-hidden="true"
-                className="grid size-9 shrink-0 place-items-center rounded-full text-white min-[1081px]:size-[52px] min-[1081px]:rounded-[15px]"
-                style={{ backgroundImage: `var(--grad-area-${item.key})` }}
+                className={cx(
+                  'grid size-9 shrink-0 place-items-center rounded-full transition-colors min-[1081px]:size-[52px] min-[1081px]:rounded-[15px]',
+                  selected ? 'bg-accent text-accent-ink' : 'bg-accent-soft text-accent-text',
+                )}
               >
                 {item.icon && <Icon name={item.icon} className="size-5 min-[1081px]:size-6" />}
               </span>

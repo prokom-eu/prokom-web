@@ -157,10 +157,10 @@ function ShowcaseMock({ kind }: { kind: number }) {
             </span>
           </div>
           <div className="grid w-[110px] shrink-0 grid-cols-2 gap-1.5">
-            <i className="h-[34px] rounded-md bg-[image:var(--grad-area-www)]" />
-            <i className="h-[34px] rounded-md bg-[image:var(--grad-area-sys)]" />
-            <i className="h-[34px] rounded-md bg-[image:var(--grad-area-app)]" />
-            <i className="h-[34px] rounded-md bg-[image:var(--grad-area-plug)]" />
+            <i className="h-[34px] rounded-md bg-accent-soft" />
+            <i className="h-[34px] rounded-md bg-accent-soft" />
+            <i className="h-[34px] rounded-md bg-accent-soft" />
+            <i className="h-[34px] rounded-md bg-accent-soft" />
           </div>
         </div>
       </div>

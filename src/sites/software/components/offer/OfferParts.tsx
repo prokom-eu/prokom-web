@@ -9,7 +9,6 @@ import type {
   OfferStep,
   RelatedCard,
 } from '@/lib/software/offer'
-import type { AreaKey } from '@/lib/software/options'
 
 import { OfferThumb } from './OfferThumb'
 
@@ -17,13 +16,10 @@ import { OfferThumb } from './OfferThumb'
 
 export const EYEBROW = 'text-xs font-extrabold uppercase tracking-[0.14em] text-ink-2'
 
-/** Category badge on its area gradient (ADR-015 v22 pkt 3: colour only as a background). */
-export function OfferBadge({ tone, children }: { tone: AreaKey; children: ReactNode }) {
+/** Category badge: one flat accent for every category (ADR-015 v23 pkt 3). */
+export function OfferBadge({ children }: { children: ReactNode }) {
   return (
-    <span
-      className="inline-flex min-h-7 items-center rounded-lg px-2.5 text-xs font-extrabold uppercase tracking-[0.12em] text-white"
-      style={{ backgroundImage: `var(--grad-area-${tone})` }}
-    >
+    <span className="inline-flex min-h-7 items-center rounded-lg bg-accent px-2.5 text-xs font-extrabold uppercase tracking-[0.12em] text-accent-ink">
       {children}
     </span>
   )
@@ -376,11 +372,9 @@ export function Questions({ faq }: { faq: { q: string; a: string }[] }) {
 /** „Dobrze łączy się z”: a click switches the window to that solution. */
 export function RelatedCards({
   cards,
-  tones,
   onPick,
 }: {
   cards: RelatedCard[]
-  tones: Readonly<Record<string, AreaKey>>
   onPick: (slug: string) => void
 }) {
   return (
@@ -392,7 +386,7 @@ export function RelatedCards({
             onClick={() => onPick(card.slug)}
             className="grid w-full grid-cols-[112px_1fr] items-center gap-3 rounded-2xl bg-surface-2 p-2.5 text-left hover:shadow-raised"
           >
-            <OfferThumb src={card.thumbnail} tone={tones[card.slug] ?? 'www'} />
+            <OfferThumb src={card.thumbnail} />
             <span className="min-w-0">
               {card.label && (
                 <span className="block text-xs font-extrabold uppercase tracking-[0.12em] text-accent-text">

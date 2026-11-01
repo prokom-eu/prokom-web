@@ -16,21 +16,21 @@ export type SoftwarePostCard = {
 }
 
 /**
- * Each category has its own picture (spec. §6.8): a token gradient and an icon — no stock
- * images, the same in both themes.
+ * Each category has its own picture (spec. §6.8): one flat accent background (ADR-015 v23) and
+ * the category's icon — no stock images.
  */
-const SCENES: Record<string, { background: string; icon: IconName }> = {
-  poradnik: { background: 'bg-(image:--grad-area-sys)', icon: 'doc' },
-  nowosci: { background: 'bg-(image:--grad-say-no)', icon: 'star' },
-  realizacje: { background: 'bg-(image:--grad-area-auto)', icon: 'brief' },
+const SCENES: Record<string, { icon: IconName }> = {
+  poradnik: { icon: 'doc' },
+  nowosci: { icon: 'star' },
+  realizacje: { icon: 'brief' },
 }
-const FALLBACK = { background: 'bg-(image:--grad-area-plug)', icon: 'doc' as IconName }
+const FALLBACK = { icon: 'doc' as IconName }
 
 /** The category picture of a post card. Decorative: the card's text says it all. */
 export function PostScene({ category, className }: { category: string; className?: string }) {
   const scene = SCENES[category] ?? FALLBACK
   return (
-    <div aria-hidden="true" className={cx('relative overflow-hidden', scene.background, className)}>
+    <div aria-hidden="true" className={cx('relative overflow-hidden bg-accent-soft', className)}>
       <span className="absolute top-[18%] left-[8%] h-[120%] w-[46%] rotate-[-6deg] rounded-xl bg-white/85 p-3 shadow-raised">
         <span className="block h-1.5 w-1/2 rounded-full bg-accent" />
         {[0, 1, 2, 3, 4].map((line) => (

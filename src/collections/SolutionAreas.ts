@@ -9,8 +9,8 @@ import { orderField } from './catalogFields'
 
 /**
  * The 8 areas of the Software start page (ADR-014 §1.2) — a marketing grouping, not the catalog
- * categories, so their labels and prices are typed here, not counted. The tile gradient follows
- * the key (`--grad-area-<key>`, ADR-015 rozstrz. 4): one source, no colour field.
+ * categories, so their labels and prices are typed here, not counted. The key picks the
+ * illustration; every tile has the same flat accent (ADR-015 v23 pkt 3), so no colour field.
  */
 export const SolutionAreas: CollectionConfig = {
   slug: 'solution-areas',

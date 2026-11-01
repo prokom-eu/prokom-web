@@ -132,8 +132,7 @@ export async function SwHeroBlock({ block, tenantId, isFirst = true }: Props) {
                 >
                   <span
                     aria-hidden="true"
-                    className="grid size-11 place-items-center rounded-2xl text-white min-[640px]:size-13"
-                    style={{ backgroundImage: `var(--grad-area-${intent.tone})` }}
+                    className="grid size-11 place-items-center rounded-2xl bg-accent-soft text-accent-text transition-colors group-hover:bg-accent group-hover:text-accent-ink min-[640px]:size-13"
                   >
                     {isIconName(intent.icon) && <Icon name={intent.icon} className="size-6" />}
                   </span>

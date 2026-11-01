@@ -15,25 +15,14 @@ import type { PreviewKind } from '@/lib/software/previews'
 const box = 'rounded-[0.8em] border border-border bg-card'
 const pill = 'rounded-full px-[0.8em] py-[0.3em] text-[1em] font-extrabold'
 
-/** Hills and a house — the „photo” of the sample sites, on an area gradient. */
-function Picture({
-  area,
-  className,
-  children,
-}: {
-  area: string
-  className?: string
-  children?: ReactNode
-}) {
+/** Hills and a house — the „photo” of the sample sites, on the flat accent tint (ADR-015 v23). */
+function Picture({ className, children }: { className?: string; children?: ReactNode }) {
   return (
-    <div
-      className={cx('relative overflow-hidden rounded-[1.2em]', className)}
-      style={{ backgroundImage: `var(--grad-area-${area})` }}
-    >
+    <div className={cx('relative overflow-hidden rounded-[1.2em] bg-accent-soft', className)}>
       <svg
         viewBox="0 0 300 200"
         preserveAspectRatio="none"
-        className="absolute inset-0 size-full text-white"
+        className="absolute inset-0 size-full text-accent"
         fill="currentColor"
       >
         <path d="M0 140L60 78L110 118L170 46L232 108L300 66V200H0Z" opacity="0.28" />
@@ -126,7 +115,7 @@ function SiteLaptop() {
             </span>
           </span>
         </div>
-        <Picture area="www" className="h-[22em] flex-1">
+        <Picture className="h-[22em] flex-1">
           <span
             className={cx(
               box,
@@ -170,7 +159,7 @@ function BookingLaptop() {
           </span>
         </span>
       </div>
-      <Picture area="cal" className="mx-[2.8em] h-[19em]">
+      <Picture className="mx-[2.8em] h-[19em]">
         <span className="absolute bottom-[1.6em] left-[1.6em] max-w-[60%] font-mock text-[2.2em] leading-tight font-bold text-white">
           Cisza, widok na Tatry i śniadanie z lokalnych produktów
         </span>
@@ -195,15 +184,12 @@ function BookingLaptop() {
       </div>
       <div className="grid grid-cols-3 gap-[1.2em] px-[2.8em] pt-[1.8em]">
         {[
-          ['Pokój z widokiem', 'Wolny w tym terminie', 'cal'],
-          ['Apartament rodzinny', 'Wolny w tym terminie', 'care'],
-          ['Pokój dwuosobowy', 'Ostatni wolny', 'www'],
-        ].map(([name, state, area]) => (
+          ['Pokój z widokiem', 'Wolny w tym terminie'],
+          ['Apartament rodzinny', 'Wolny w tym terminie'],
+          ['Pokój dwuosobowy', 'Ostatni wolny'],
+        ].map(([name, state]) => (
           <span key={name} className={cx(box, 'flex items-center gap-[1em] p-[1em]')}>
-            <span
-              className="size-[4.4em] shrink-0 rounded-[0.8em]"
-              style={{ backgroundImage: `var(--grad-area-${area})` }}
-            />
+            <span className="size-[4.4em] shrink-0 rounded-[0.8em] bg-accent-soft" />
             <span className="flex flex-col">
               <b className="text-[1.2em]">{name}</b>
               <span
@@ -421,12 +407,7 @@ function AutomationLaptop() {
                         : 'border-white/15 bg-white/5',
                     )}
                   >
-                    <span
-                      className="mb-[0.6em] block size-[1.8em] rounded-[0.5em]"
-                      style={{
-                        backgroundImage: `var(--grad-area-${['www', 'auto', 'sys', 'app'][i % 4]})`,
-                      }}
-                    />
+                    <span className="mb-[0.6em] block size-[1.8em] rounded-[0.5em] bg-accent-soft" />
                     <b>{step}</b>
                   </span>
                 </span>
@@ -469,7 +450,7 @@ function SitePhone() {
           <span className="h-[0.2em] w-[1.6em] bg-ink" />
         </span>
       </div>
-      <Picture area="www" className="mx-[1.2em] h-[12em]" />
+      <Picture className="mx-[1.2em] h-[12em]" />
       <div className="flex flex-col gap-[0.5em] px-[1.4em]">
         <b className="font-display text-[2em] leading-[1.05]">Remonty i wykończenia pod klucz</b>
         <span className="text-ink-2">Łazienki, kuchnie i poddasza.</span>
@@ -580,12 +561,8 @@ function FieldPhone() {
         )}
       </div>
       <div className="grid grid-cols-3 gap-[0.6em] px-[1.2em]">
-        {['www', 'cal', 'care'].map((area) => (
-          <span
-            key={area}
-            className="h-[4.4em] rounded-[0.8em]"
-            style={{ backgroundImage: `var(--grad-area-${area})` }}
-          />
+        {[0, 1, 2].map((tile) => (
+          <span key={tile} className="h-[4.4em] rounded-[0.8em] bg-accent-soft" />
         ))}
       </div>
       <div className={cx(box, 'relative mx-[1.2em] mt-[0.8em] h-[4.8em]')}>
@@ -618,10 +595,7 @@ function AssistantPhone() {
   return (
     <div className="flex h-full flex-col">
       <div className="flex items-center gap-[0.8em] border-b border-border px-[1.2em] pt-[3.8em] pb-[1em]">
-        <span
-          className="size-[2.6em] rounded-full"
-          style={{ backgroundImage: 'var(--grad-area-auto)' }}
-        />
+        <span className="size-[2.6em] rounded-full bg-accent-soft" />
         <span>
           <b className="block text-[1.2em]">Asystent</b>
           <span className="text-ink-2">Twoja Firma</span>

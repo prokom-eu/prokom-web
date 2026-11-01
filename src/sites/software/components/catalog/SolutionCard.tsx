@@ -1,5 +1,4 @@
 import { cardPrice } from '@/lib/software/cardPrice'
-import type { AreaKey } from '@/lib/software/options'
 import type { IndexSolution } from '@/lib/software/solutionsIndex'
 import type { PriceDisplay } from '@/lib/software/wizard'
 
@@ -8,8 +7,6 @@ import { OfferThumb } from '../offer/OfferThumb'
 type Props = {
   solution: IndexSolution
   display: PriceDisplay
-  /** Badge colour (`--grad-area-<tone>`) when the solution has no thumbnail. */
-  tone: AreaKey
   /** First row of the list: the thumbnail loads at once. */
   eager?: boolean
   /** The card opens the offer window (spec. §5.1). */
@@ -22,7 +19,7 @@ type Props = {
  * the name is a button stretched over the card that opens the offer window; „+ Dodaj do wyceny”
  * lives there. Phone: thumbnail beside the name, the lead under both (board).
  */
-export function SolutionCard({ solution, display, tone, eager = false, onOpen }: Props) {
+export function SolutionCard({ solution, display, eager = false, onOpen }: Props) {
   const price = cardPrice(solution, display)
   return (
     <article
@@ -30,7 +27,7 @@ export function SolutionCard({ solution, display, tone, eager = false, onOpen }:
       data-card
       className="relative grid h-full grid-cols-[128px_1fr] gap-x-4 rounded-[22px] border border-border bg-card p-3.5 transition-shadow hover:shadow-raised sm:flex sm:flex-col"
     >
-      <OfferThumb src={solution.thumbnail} tone={tone} eager={eager} className="self-start" />
+      <OfferThumb src={solution.thumbnail} eager={eager} className="self-start" />
       <div className="flex min-w-0 flex-col sm:mt-4 sm:px-1.5">
         {/* Fixed height: the names of cards in one row start on one line (spec. §5). */}
         <div className="flex min-h-7 items-center justify-between gap-2">

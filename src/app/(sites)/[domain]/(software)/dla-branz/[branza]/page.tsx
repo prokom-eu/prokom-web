@@ -99,7 +99,6 @@ export default async function IndustryPage({ params }: Props) {
       return view ? [[slug, view] as const] : []
     }),
   )
-  const firstTone = page.solutions.items[0] ? offers[page.solutions.items[0].slug]?.tone : undefined
 
   const jsonLd = breadcrumbJsonLd([
     { name: 'Strona główna', url: `${origin}/` },
@@ -137,7 +136,7 @@ export default async function IndustryPage({ params }: Props) {
               <p className="text-lg text-ink-2 min-[641px]:text-xl">{page.problems.lead}</p>
             )}
           </div>
-          <ProblemsExplorer problems={page.problems.items} tone={firstTone ?? 'sys'} />
+          <ProblemsExplorer problems={page.problems.items} />
         </Container>
       </section>
 

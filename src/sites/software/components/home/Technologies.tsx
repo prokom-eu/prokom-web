@@ -71,7 +71,7 @@ export function Technologies({ view }: { view: TechnologiesView }) {
                   className={cx(
                     'relative flex min-h-14 items-center gap-2.5 overflow-hidden rounded-[18px] border p-2.5 text-left transition-colors',
                     selected
-                      ? 'border-transparent bg-[image:var(--grad-say-no)] text-white shadow-raised'
+                      ? 'border-transparent bg-cta text-white shadow-raised'
                       : 'border-border bg-card hover:border-accent-line',
                   )}
                 >
@@ -112,10 +112,10 @@ export function Technologies({ view }: { view: TechnologiesView }) {
             panels={view.layers.map((layer) => (
               <div
                 key={layer.name}
-                className="grid h-full gap-4 rounded-[28px] border border-accent-line bg-card bg-[radial-gradient(ellipse_at_100%_0%,var(--accent-soft),transparent_55%)] p-4 shadow-raised min-[641px]:p-6 min-[1081px]:grid-cols-[minmax(0,0.9fr)_minmax(0,1.4fr)_minmax(0,1fr)] min-[1081px]:items-start min-[1081px]:gap-6 min-[1081px]:p-7"
+                className="grid h-full gap-4 rounded-[28px] border border-accent-line bg-card p-4 shadow-raised min-[641px]:p-6 min-[1081px]:grid-cols-[minmax(0,0.9fr)_minmax(0,1.4fr)_minmax(0,1fr)] min-[1081px]:items-start min-[1081px]:gap-6 min-[1081px]:p-7"
               >
                 <div className="flex flex-col gap-2">
-                  <span className="grid size-14 place-items-center rounded-[18px] bg-[image:var(--grad-say-no)] text-white shadow-raised">
+                  <span className="grid size-14 place-items-center rounded-[18px] bg-cta text-white shadow-raised">
                     <LayerIcon path={layer.icon} size={28} />
                   </span>
                   <h3 className="mt-2 font-display text-[26px] font-extrabold leading-tight">

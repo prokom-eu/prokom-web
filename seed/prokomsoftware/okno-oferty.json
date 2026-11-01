@@ -194,7 +194,6 @@
       }
     },
     "przejecie-po-innym-wykonawcy": {
-      "tone": "plug",
       "benefitsTitle": "Co dostajesz",
       "more": "Dokumentacja i przeniesienie na nasz serwer? Wycenimy po sprawdzeniu, co zastaliśmy.",
       "ownership": "Dostępy zapisane na Twoją firmę",
@@ -207,7 +206,6 @@
       ]
     },
     "audyt-strony-lub-programu": {
-      "tone": "aud",
       "note": "Pełny audyt odliczamy od projektu zamówionego w ciągu 60 dni.",
       "benefitsTitle": "Przy każdym audycie",
       "cardFeatures": false,

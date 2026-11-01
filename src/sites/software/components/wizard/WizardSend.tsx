@@ -82,7 +82,7 @@ function Ticket({
     <div
       data-wizard-ticket
       aria-label={title}
-      className="relative rounded-[22px] bg-(image:--grad-say-no) p-5 text-white shadow-raised"
+      className="relative rounded-[22px] bg-cta p-5 text-white shadow-raised"
     >
       {/* The ticket's punched edges. */}
       <span aria-hidden="true" className="absolute top-10 -left-2 size-4 rounded-full bg-card" />

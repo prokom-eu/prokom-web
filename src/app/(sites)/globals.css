@@ -46,6 +46,8 @@
   --color-h1-accent: var(--h1-accent);
   --color-button: var(--button-bg);
   --color-pill-accent: var(--pill-accent);
+  /* Flat CTA block with white text (Software, ADR-015 v23 pkt 1). */
+  --color-cta: var(--cta-bg);
   /* Dark footer of Software v21 (ADR-015 v22 pkt 1). */
   --color-footer: var(--footer-bg);
   --color-footer-text: var(--footer-text);
