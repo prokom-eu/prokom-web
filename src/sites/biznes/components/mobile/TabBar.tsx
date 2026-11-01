@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation'
 import type { ReactNode } from 'react'
 
 import { cx } from '@/components/ui/cx'
+import { useThemeColor } from '@/components/useThemeColor'
 import { Icon } from '@/components/ui/Icon'
 import {
   type BiznesTab,
@@ -18,8 +19,7 @@ import { CATALOG_PATH } from '@/lib/catalog/filters'
 import { plural } from '@/lib/plural'
 import { requestSearch } from '@/lib/site/searchOpen'
 
-const ITEM =
-  'flex min-h-14 flex-1 flex-col items-center justify-center gap-0.5 text-[0.72rem] font-bold'
+const ITEM = 'flex min-h-14 flex-1 flex-col items-center justify-center gap-0.5 text-xs font-bold'
 /** The active tab's icon sits in a pill (board `App-Kategoria`). */
 const PILL = 'inline-flex h-8 w-12 items-center justify-center rounded-full'
 
@@ -64,13 +64,16 @@ export function TabBar() {
   const pathname = usePathname()
   const active = activeBiznesTab(pathname)
   const count = cartCount(useCart())
+  // The browser bar follows the theme chosen on the site, not only the system's (always mounted).
+  useThemeColor('biznes')
 
   const link = (tab: BiznesTab, href: string, icon: ReactNode, label: ReactNode) => {
     const current = active === tab
     return (
       <Link
         href={href}
-        aria-current={current ? 'page' : undefined}
+        // The tab's own page is „page”; a product or brand under Oferta is just „true”.
+        aria-current={current ? (pathname === href ? 'page' : 'true') : undefined}
         className={cx(ITEM, current ? 'text-accent-text' : 'text-ink-2')}
       >
         <TabContent icon={icon} label={label} active={current} />
@@ -106,7 +109,7 @@ export function TabBar() {
           {count > 0 && (
             <span
               aria-hidden="true"
-              className="absolute -right-2.5 -top-1.5 inline-flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-accent-text px-1 text-[0.68rem] font-black text-accent-ink"
+              className="absolute -right-2.5 -top-1.5 inline-flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-accent-text px-1 text-xs font-black text-accent-ink"
             >
               {count}
             </span>

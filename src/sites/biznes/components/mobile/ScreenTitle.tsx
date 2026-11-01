@@ -6,8 +6,11 @@ import { type ReactNode, useEffect, useState } from 'react'
 
 import { parentPath } from '@/lib/biznes/mobileNav'
 
-/** The page's own heading, shortened by CSS when long. */
-const readTitle = () => document.querySelector('main h1')?.textContent?.trim() ?? ''
+/** The page's own heading on one line (a `<br>` in it becomes a space), shortened by CSS. */
+const readTitle = () => {
+  const heading = document.querySelector<HTMLElement>('main h1')
+  return heading?.innerText.replace(/\s+/g, ' ').trim() ?? ''
+}
 
 /**
  * Left side of the phone header (MOBILE-APLIKACJA §1): the logo on the start page; on subpages
@@ -47,7 +50,10 @@ export function ScreenTitle({ logo }: { logo: ReactNode }) {
         <Link
           href={parentPath(pathname)}
           onClick={(event) => {
-            if (!canGoBack) return
+            // „Open in a new tab” (modifier or middle button) keeps the link's own behaviour.
+            const newTab =
+              event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+            if (!canGoBack || newTab) return
             event.preventDefault()
             router.back()
           }}
