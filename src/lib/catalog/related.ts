@@ -88,3 +88,25 @@ export function suggestedProducts(
   }
   return { cards: cards.slice(0, SUGGESTION_LIMIT), chips }
 }
+
+/**
+ * „Do tego zwykle dobierają” of K4 (`polecane`, K36 §13 W14): the panel's cards with their
+ * labels, each once, listed only — then „pasuje do” (`fitsWith`), up to `SUGGESTION_LIMIT`.
+ * Empty when none of the `polecane` is listed: the page then falls back to the phrases.
+ */
+export function recommendedProducts(
+  index: CatalogIndex,
+  slug: string,
+  recommended: readonly { slug: string; label: string }[],
+): Suggestion[] {
+  const labels = new Map<string, string>()
+  for (const item of recommended) if (!labels.has(item.slug)) labels.set(item.slug, item.label)
+  const cards = listed(index, slug, [...labels.keys()])
+  if (cards.length === 0) return []
+  const fits = index.products.find((product) => product.slug === slug)?.fits ?? []
+  const extra = listed(index, slug, fits).filter((product) => !labels.has(product.slug))
+  return [
+    ...cards.map((product) => ({ label: labels.get(product.slug)!, product })),
+    ...extra.map((product) => ({ label: null, product })),
+  ].slice(0, SUGGESTION_LIMIT)
+}

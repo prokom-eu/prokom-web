@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { sourceLabel, sourceLinks, sourceMeta } from './sourceLabels'
+import { labeledSourceLinks, sourceLabel, sourceLinks, sourceMeta } from './sourceLabels'
 
 const PSREF =
   'https://psref.lenovo.com/syspool/Sys/PDF/ThinkBook/ThinkBook_14_G8_IRL/ThinkBook_14_G8_IRL_Spec.pdf'
@@ -71,5 +71,23 @@ describe('sourceLinks', () => {
     expect(
       sourceLinks({ productPages: ['https://sklep.example.pl/x'], datasheets: [] }, null),
     ).toEqual([])
+  })
+})
+
+describe('labeledSourceLinks (K4 `zrodla`)', () => {
+  it('keeps producers with a label, once each; a price page only as the last resort', () => {
+    expect(
+      labeledSourceLinks([
+        { label: '', url: 'https://www.posnet.com.pl/a' },
+        { label: 'Cennik', url: 'https://www.gopos.pl/cennik' },
+        { label: 'GoPOS', url: 'https://www.gopos.pl/' },
+        { label: 'GoPOS 2', url: 'https://www.gopos.pl/' },
+      ]).map(({ label }) => label),
+    ).toEqual(['GoPOS'])
+    expect(
+      labeledSourceLinks([{ label: 'Cennik', url: 'https://www.gopos.pl/cennik' }]).map(
+        ({ label }) => label,
+      ),
+    ).toEqual(['Cennik'])
   })
 })

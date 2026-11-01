@@ -10,6 +10,7 @@ import type { IconName } from '@/lib/catalog/options'
 import type { PublicImage } from '@/lib/media/public'
 
 import { ProductStage, STAGE_SHADOW, StageFallback } from '../ProductStage'
+import { useProductConfig } from './ProductConfig'
 
 type Props = {
   name: string
@@ -19,6 +20,10 @@ type Props = {
   icon: IconName
   /** Id of the video section: „Zobacz film” and the „Film” thumbnail lead there. */
   videoTarget: string | null
+  /** Slide of each colour (K32 §9): a picked colour shows its picture. */
+  colorSlides?: (number | null)[]
+  /** No photo: the navy „Usługa PRO-KOM” tile instead of the stand-in (K36 §5). */
+  service?: boolean
 }
 
 const SWIPE = 40
@@ -34,8 +39,24 @@ const MAX_DOTS = 6
  * column with a „Film” one when there is a video, the brand logo, „1 / N” only with 2+ photos.
  * On a phone: swipe and dots instead of thumbnails. Without photos: the stand-in, no counter.
  */
-export function ProductGallery({ name, images, brand, icon, videoTarget }: Props) {
+export function ProductGallery({
+  name,
+  images,
+  brand,
+  icon,
+  videoTarget,
+  colorSlides = [],
+  service = false,
+}: Props) {
   const [active, setActive] = useState(0)
+  // A colour picked in the hero turns the gallery to its picture (adjusted while rendering).
+  const { color } = useProductConfig()
+  const [shownColor, setShownColor] = useState(color)
+  if (shownColor !== color) {
+    setShownColor(color)
+    const slide = color === null ? null : colorSlides[color]
+    if (slide !== null && slide !== undefined) setActive(slide)
+  }
   const touch = useRef<number | null>(null)
   const count = images.length
   const image = images[active]
@@ -153,7 +174,7 @@ export function ProductGallery({ name, images, brand, icon, videoTarget }: Props
                 )}
               />
             ) : (
-              <StageFallback icon={icon} size="lg" name={name} />
+              <StageFallback icon={icon} size="lg" name={name} service={service} />
             )}
           </ProductStage>
           {brand && (

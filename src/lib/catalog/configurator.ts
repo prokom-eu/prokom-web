@@ -184,6 +184,16 @@ export function configNote(config: Configurator, state: ConfigState): string {
   return parts.join(' · ')
 }
 
+/**
+ * The note with the chosen colour first (K32 §9): „Kolor: burgund · Wersja: …”. A „Kolor”
+ * option of the configurator gives way to it — one colour per item.
+ */
+export function colorNote(color: string | null, note: string): string {
+  if (!color) return note
+  const rest = note.split(' · ').filter((part) => part && !/^Kolor:/i.test(part))
+  return [`Kolor: ${color}`, ...rest].join(' · ')
+}
+
 export type AddAction = 'add' | 'update' | 'remove'
 
 /** A note as the inquiry list keeps it (`setNote`: trimmed, at most `MAX_NOTE`). */

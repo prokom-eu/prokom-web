@@ -37,9 +37,11 @@ const ADVISE_OFF =
  * long values as rows, „W każdej wersji” and a sticky summary „Wybrano X z N”. Not a cart.
  */
 export function ProductConfigurator({ config }: { config: Configurator }) {
-  const { state, setState } = useProductConfig()
-  const chosen = chosenValues(config, state).length
-  const total = config.options.length
+  const { state, setState, colors } = useProductConfig()
+  // With colour dots in the hero (K32 §9) the configurator's own „Kolor” is not offered twice.
+  const hidden = (name: string) => colors.length > 0 && /^kolor/i.test(name.trim())
+  const chosen = chosenValues(config, state).filter(({ name }) => !hidden(name)).length
+  const total = config.options.filter(({ name }) => !hidden(name)).length
   const lead = [config.description, 'Nie musisz znać wszystkich parametrów.']
     .filter(Boolean)
     .join(' ')
@@ -115,6 +117,7 @@ export function ProductConfigurator({ config }: { config: Configurator }) {
 
           <ol className="flex flex-col">
             {config.options.map((option, index) => {
+              if (hidden(option.name)) return null
               const value = state.selection[index]
               const labelId = `opcja-${index}`
               const status = !value ? 'do wyboru' : value === ADVISE ? 'doradźcie' : '✓ wybrano'
@@ -224,6 +227,7 @@ export function ProductConfigurator({ config }: { config: Configurator }) {
               </div>
             )}
             {config.options.map((option, index) => {
+              if (hidden(option.name)) return null
               const value = state.selection[index]
               return (
                 <div key={option.name} className="flex justify-between gap-4 py-2.5">

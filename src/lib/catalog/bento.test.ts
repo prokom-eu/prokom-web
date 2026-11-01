@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { bentoTiles, shortenValue } from './bento'
+import { bentoTiles, modelValues, shortenValue } from './bento'
 import { featureIcon, paramIcon } from './productIcons'
 
 // Values of the ThinkBook 14 G8 / G9 card, as in `k31/screens/Web-Produkt-1440`.
@@ -33,6 +33,31 @@ describe('shortenValue', () => {
 
   it('removes an unclosed bracket', () => {
     expect(shortenValue('Intel Core Ultra 5 (seria 1; i 2)')).toBe('Intel Core Ultra 5')
+  })
+})
+
+describe('a value per model (K4-FINAL §4.4)', () => {
+  it('reads „Model: wartość; Model: wartość”, nothing else', () => {
+    expect(modelValues('V3: 6,75" 1600×720; V3 Mix i D3 Mini: 10,1" 1280×800')).toEqual([
+      '6,75" 1600×720',
+      '10,1" 1280×800',
+    ])
+    // A ratio or a bracket is not a model name; one part is not a list.
+    expect(modelValues(SCREEN)).toBeNull()
+    expect(modelValues('do wyboru: Intel Core 5 210H, Intel Core 7 240H')).toBeNull()
+    expect(modelValues('SSD M.2 PCIe 4.0 NVMe; 2 gniazda M.2')).toBeNull()
+  })
+
+  it('shows every value, never the first model alone or a cut after „:”', () => {
+    expect(shortenValue('QL-820NWB: 300 dpi; QL-1110NWB: 203 dpi')).toBe('300 dpi / 203 dpi')
+    expect(shortenValue('A: 12 miesięcy; B: 12 miesięcy')).toBe('12 miesięcy')
+  })
+
+  it('too long together → „zależnie od modelu (N wersji)”', () => {
+    const value =
+      'Pol 1: 3G/4G i Wi-Fi 2,4/5 GHz z Bluetooth; Pol 2: Ethernet i 3G z zapasowym modemem; Pol 3: przez telefon'
+    expect(shortenValue(value)).toBe('zależnie od modelu (3 wersje)')
+    expect(shortenValue(`${value}; Pol 4: x; Pol 5: y`)).toBe('zależnie od modelu (5 wersji)')
   })
 })
 

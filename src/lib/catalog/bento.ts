@@ -1,3 +1,4 @@
+import { plural } from '../plural'
 import { paramIcon, type ProductIcon } from './productIcons'
 
 type Row = { label: string; value: string }
@@ -35,11 +36,47 @@ function closeBrackets(text: string): string {
 }
 
 /**
- * A parameter value fit for a tile (K31-ZMIANY §4 pkt 3): the first part up to „;”, at most
+ * A value per model: „V3: 6,75"; V3 Mix i D3 Mini: 10,1"” → the values, or `null` when the
+ * value is not of that form (every part „Model: wartość”, at least two parts). A model name has
+ * no bracket or comma and ends with „: ” — so „16:10” or „(G8: 300 nitów)” is not one.
+ */
+export function modelValues(value: string): string[] | null {
+  const parts = value
+    .split(';')
+    .map((part) => part.trim())
+    .filter(Boolean)
+  if (parts.length < 2) return null
+  const values: string[] = []
+  for (const part of parts) {
+    const colon = part.indexOf(': ')
+    const model = colon > 0 ? part.slice(0, colon) : ''
+    if (!model || model.length > 40 || /[(),]/.test(model)) return null
+    values.push(part.slice(colon + 2).trim())
+  }
+  return values.every(Boolean) ? values : null
+}
+
+/**
+ * A value per model on a tile (K4-FINAL §4.4): every value („203 / 300 dpi”), or „zależnie od
+ * modelu (N wersji)” when together they are longer than `max` — never the first model alone.
+ */
+function modelTile(values: string[], max: number): string {
+  const distinct = [...new Set(values)]
+  const joined = distinct.join(' / ')
+  if (joined.length <= max) return joined
+  const n = values.length
+  return `zależnie od modelu (${n} ${plural(n, ['wersja', 'wersje', 'wersji'])})`
+}
+
+/**
+ * A parameter value fit for a tile (K31-ZMIANY §4 pkt 3): a value per model as `modelTile`;
+ * else the first part up to „;”, at most
  * `max` characters, cut at the last „, ” / „ (” / „ — ” / „ / ” without an ellipsis; „…” only
  * when the cut falls inside a phrase. An unclosed bracket is removed.
  */
 export function shortenValue(value: string, max = TILE_MAX): string {
+  const models = modelValues(value)
+  if (models) return modelTile(models, max)
   const first = value.split(';')[0]!.trim()
   if (first.length <= max) return closeBrackets(first)
   const head = first.slice(0, max + 1)

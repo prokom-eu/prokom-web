@@ -76,3 +76,21 @@ export function sourceLinks(
     meta: sourceMeta(url),
   }))
 }
+
+/**
+ * Sources with labels from the panel (`Products.sources.links`, K4 `zrodla`): the same filter
+ * as `sourceLinks` (producers only, price pages last resort), each address once, the panel's
+ * label instead of one computed from the address.
+ */
+export function labeledSourceLinks(links: readonly { label: string; url: string }[]): SourceLink[] {
+  const { urls } = publicSources({ urls: links.map((link) => link.url.trim()) })
+  const allowed = new Set(urls)
+  const seen = new Set<string>()
+  return links.flatMap(({ label, url }) => {
+    const address = url.trim()
+    const name = label.trim()
+    if (!name || !allowed.has(address) || seen.has(address)) return []
+    seen.add(address)
+    return [{ url: address, label: name, meta: sourceMeta(address) }]
+  })
+}
