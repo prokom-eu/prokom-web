@@ -10,10 +10,11 @@ type Props = {
   className?: string
 }
 
-/** Eyebrow, H2 and lead of a start page section (board `Main`). */
+/** Eyebrow, H2 and lead of a start page section (board `Main`); rises in on scroll (SWV5). */
 export function SectionHead({ eyebrow, title, lead, aside = false, className }: Props) {
   return (
     <div
+      data-reveal
       className={cx(
         'flex flex-col gap-4',
         aside &&

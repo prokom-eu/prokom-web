@@ -33,6 +33,7 @@ export async function SwTeamBlock({ block, tenantId }: Props) {
       <Container wide>
         <SectionHead eyebrow={block.eyebrow ?? ''} title={block.heading} lead={fill(block.lead)} />
         <ul
+          data-reveal-cards
           className={cx(
             'mt-6 grid gap-3',
             places || cards.length === 2 ? 'min-[761px]:grid-cols-2' : 'min-[761px]:grid-cols-3',
