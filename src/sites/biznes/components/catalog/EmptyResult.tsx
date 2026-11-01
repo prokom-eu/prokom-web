@@ -33,7 +33,7 @@ export function EmptyResult({ query, suggestions, index, onClear }: Props) {
           {query ? `Nie znaleźliśmy „${query}”` : 'Nic nie pasuje do tych filtrów'}
         </h3>
         <p className="leading-relaxed text-ink-2">
-          Zmień filtry albo napisz, czego szukasz — dostarczamy więcej, niż pokazujemy na stronie.
+          Zmień filtry albo napisz, czego szukasz. Dostarczamy więcej, niż pokazujemy na stronie.
         </p>
         <div className="mt-1 flex flex-wrap gap-2.5">
           {query && (

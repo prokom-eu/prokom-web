@@ -53,18 +53,18 @@ export const INDUSTRIES: SeedIndustry[] = [
     content: (refs) => ({
       hero: {
         title: 'Restauracja, która nie gubi zamówień. Nawet w sezonie.',
-        lead: 'GoPOS na sprzęcie Sunmi, drukarka fiskalna Posnet, terminal PolCard, ekran kuchenny i Wi-Fi dla gości — wdrożone z Twoim menu, z zespołem przeszkolonym na miejscu i serwisem, który dojeżdża z Rabki, a nie z Warszawy.',
+        lead: 'GoPOS na sprzęcie Sunmi, drukarka fiskalna Posnet, terminal PolCard, ekran kuchenny i Wi-Fi dla gości. Wdrażamy je z Twoim menu, szkolimy zespół na miejscu, a serwis dojeżdża z Rabki.',
         chips: ['Dowozy Wolt, Glovo, Pyszne', 'KSeF z systemu'],
         ctaLabel: 'Przygotuj zapytanie dla lokalu',
       },
       productsSection: {
         eyebrow: 'Zestaw dla gastronomii',
-        title: 'Od lady po kuchnię. Wszystko ze sobą rozmawia.',
-        lead: 'Każdy element ma własną stronę ze specyfikacją. Zestaw składamy pod lokal — kawiarnia nie potrzebuje tego, co restauracja na 120 miejsc.',
+        title: 'Od sali po kuchnię w jednym systemie',
+        lead: 'Każdy element ma własną stronę ze specyfikacją. Zestaw składamy pod lokal, bo kawiarnia nie potrzebuje tego, co restauracja na 120 miejsc.',
       },
       day: {
         eyebrow: 'Dzień w lokalu z GoPOS',
-        heading: 'Od otwarcia do raportu dobowego.',
+        heading: 'Dzień w restauracji',
         steps: [
           {
             label: '11:00',
@@ -79,7 +79,7 @@ export const INDUSTRIES: SeedIndustry[] = [
           {
             label: '17:00',
             title: 'Awaria?',
-            text: 'Internet padł — GoPOS pracuje offline, Posnet drukuje, terminal łączy się przez LTE. Dzwonisz do nas: zdalnie w kilka minut, serwisant z Rabki też.',
+            text: 'Internet padł? GoPOS pracuje offline, Posnet drukuje, terminal łączy się przez LTE. Dzwonisz do nas: zdalnie w kilka minut, serwisant z Rabki też.',
           },
           {
             label: '23:00',
@@ -90,8 +90,8 @@ export const INDUSTRIES: SeedIndustry[] = [
       },
       flow: {
         eyebrow: 'Gastronomia · wdrażamy GoPOS',
-        heading: 'Restauracja, która nie gubi zamówień. Nawet w sezonie.',
-        lead: 'GoPOS na sprzęcie Sunmi, z drukarką fiskalną Posnet i terminalem PolCard. Wgrywamy Twoje menu, szkolimy zespół na miejscu i zostajemy na serwis — w Rabce, Zakopanem i na całym Podhalu.',
+        heading: 'Jak wygląda zamówienie w restauracji z GoPOS',
+        lead: 'GoPOS na sprzęcie Sunmi, z drukarką fiskalną Posnet i terminalem PolCard. Wgrywamy Twoje menu, szkolimy zespół na miejscu i zostajemy na serwis w Rabce, Zakopanem i na całym Podhalu.',
         badges: [{ text: 'dowozy Wolt, Glovo, Pyszne' }],
         ...image(refs, 'image', 'p-gopos-zestaw.webp'),
         ticket: 'Stolik 4 · 2× pierogi',
@@ -105,7 +105,7 @@ export const INDUSTRIES: SeedIndustry[] = [
           {
             label: '2 · Kuchnia',
             title: 'Od razu na ekranie',
-            text: 'Danie pojawia się na ekranie kuchni — bez karteczek.',
+            text: 'Danie pojawia się na ekranie kuchni, bez karteczek.',
             ...image(refs, 'image', 'p-sunmi-kds.webp'),
           },
           {
@@ -121,9 +121,9 @@ export const INDUSTRIES: SeedIndustry[] = [
             ...image(refs, 'image', 'p-gopos-zestaw.webp'),
           },
         ],
-        note: 'Tak wygląda jedno zamówienie w Twoim lokalu — od sali do raportu.',
+        note: 'Tak wygląda jedno zamówienie w Twoim lokalu, od sali do raportu.',
         primary: { label: 'Zestaw dla gastronomii', href: '/branze/gastronomia#zestaw' },
-        secondary: { label: 'GoPOS — cała oferta', href: '/gopos' },
+        secondary: { label: 'Cała oferta GoPOS', href: '/gopos' },
       },
       faqIntro: { eyebrow: 'Pytania właścicieli lokali', title: 'Zanim zdecydujesz' },
       faq: [
@@ -140,17 +140,17 @@ export const INDUSTRIES: SeedIndustry[] = [
         {
           question: 'Co z dowozami z Wolt, Glovo, Pyszne?',
           answer:
-            'GoPOS integruje się z platformami dostaw — zamówienia wpadają do tej samej kolejki co z sali, bez przepisywania z tabletu.',
+            'GoPOS integruje się z platformami dostaw: zamówienia wpadają do tej samej kolejki co z sali, bez przepisywania z tabletu.',
         },
         {
           question: 'Co, gdy w sezonie coś się zepsuje?',
           answer:
-            'Dzwonisz do nas. Najpierw pomagamy zdalnie, a gdy trzeba — przyjeżdża serwisant z Rabki. Zakres pomocy w sezonie i sprzęt zastępczy możemy zapisać w umowie opieki.',
+            'Dzwonisz do nas. Najpierw pomagamy zdalnie, a gdy trzeba, przyjeżdża serwisant z Rabki. Zakres pomocy w sezonie i sprzęt zastępczy możemy ustalić w umowie opieki.',
         },
         {
           question: 'Czy GoPOS to zakup licencji na zawsze?',
           answer:
-            'Nie — GoPOS działa w abonamencie miesięcznym (umowa z GoPOS), a sprzęt Sunmi i Posnet kupujesz u nas.',
+            'Nie. GoPOS działa w abonamencie miesięcznym (umowa z GoPOS), a sprzęt Sunmi i Posnet kupujesz u nas.',
         },
         {
           question: 'A KSeF w restauracji?',
@@ -158,10 +158,10 @@ export const INDUSTRIES: SeedIndustry[] = [
             'Faktury dla firm wystawiasz z GoPOS prosto do KSeF. Konfigurujemy to przy wdrożeniu, razem z certyfikatem i uprawnieniami dla księgowej.',
         },
       ],
-      seo: { title: 'Systemy dla gastronomii — GoPOS, Sunmi, Posnet' },
+      seo: { title: 'Systemy dla gastronomii: GoPOS, Sunmi, Posnet' },
       contact: {
-        heading: 'Powiedz, jaki masz lokal. Resztę dobierzemy.',
-        lead: 'Ile miejsc, czy są dowozy, czy jest ogródek — i dostajesz zestaw na piśmie.',
+        heading: 'Powiedz, jaki masz lokal, a resztę dobierzemy',
+        lead: 'Ile masz miejsc, czy są dowozy i ogródek? Na tej podstawie dobierzemy zestaw.',
       },
     }),
   },
@@ -171,19 +171,19 @@ export const INDUSTRIES: SeedIndustry[] = [
     heroImage: 'p-posnet-neo.webp',
     content: () => ({
       hero: {
-        title: 'Sklep, w którym kolejka idzie sprawnie. Także w sezonie.',
+        title: 'Sklep, w którym kolejka idzie sprawnie także w sezonie',
         lead: 'Kasa albo drukarka fiskalna Posnet i Elzab, skaner, waga, terminal PolCard i program z magazynem — zaprogramowane z Twoimi towarami, z zespołem przeszkolonym na miejscu i serwisem z Rabki.',
         chips: ['Kasy Posnet i Elzab', 'Program z magazynem', 'KSeF z programu'],
         ctaLabel: 'Przygotuj zapytanie dla sklepu',
       },
       productsSection: {
         eyebrow: 'Zestaw dla handlu',
-        title: 'Od kasy po magazyn. Wszystko ze sobą rozmawia.',
-        lead: 'Każdy element ma własną stronę ze specyfikacją. Zestaw składamy pod sklep — mały sklep osiedlowy nie potrzebuje tego, co market z tysiącami kodów.',
+        title: 'Kasa, waga i magazyn połączone ze sobą',
+        lead: 'Każdy element ma własną stronę ze specyfikacją. Zestaw składamy pod sklep, bo mały sklep osiedlowy nie potrzebuje tego, co market z tysiącami kodów.',
       },
       day: {
         eyebrow: 'Dzień w sklepie',
-        heading: 'Od otwarcia do raportu dobowego.',
+        heading: 'Dzień w sklepie',
         steps: [
           {
             label: '8:00',
@@ -198,7 +198,7 @@ export const INDUSTRIES: SeedIndustry[] = [
           {
             label: '15:00',
             title: 'Awaria?',
-            text: 'Coś przestało działać — dzwonisz do nas: najpierw pomoc zdalna, a gdy trzeba, serwisant z Rabki.',
+            text: 'Coś przestało działać? Dzwonisz do nas: najpierw pomoc zdalna, a gdy trzeba, serwisant z Rabki.',
           },
           {
             label: '19:00',
@@ -212,12 +212,12 @@ export const INDUSTRIES: SeedIndustry[] = [
         {
           question: 'Kasa czy drukarka fiskalna do sklepu?',
           answer:
-            'Kasa wystarczy, gdy sprzedajesz kilkaset towarów i nie prowadzisz magazynu. Gdy pracujesz na programie (np. Subiekt nexo), wybierz drukarkę fiskalną — program pilnuje stanów i cen. Doradzimy po krótkiej rozmowie.',
+            'Kasa wystarczy, gdy sprzedajesz kilkaset towarów i nie prowadzisz magazynu. Gdy pracujesz na programie (np. Subiekt nexo), wybierz drukarkę fiskalną, bo program pilnuje stanów i cen. Doradzimy po krótkiej rozmowie.',
         },
         {
           question: 'Czy kasa połączy się z wagą i skanerem?',
           answer:
-            'Tak — dobieramy wagę i skaner, które współpracują z wybraną kasą albo programem, i konfigurujemy je przed dostawą.',
+            'Tak. Dobieramy wagę i skaner, które współpracują z wybraną kasą albo programem, i konfigurujemy je przed dostawą.',
         },
         {
           question: 'Ile trwa wdrożenie i czy sklep musi być zamknięty?',
@@ -227,13 +227,13 @@ export const INDUSTRIES: SeedIndustry[] = [
         {
           question: 'Mam kasę z innego serwisu. Przejmiecie ją?',
           answer:
-            'Tak. Zmiana serwisu to formalność, którą załatwiamy po naszej stronie — Ty podpisujesz jeden dokument.',
+            'Tak. Zmiana serwisu to formalność, którą załatwiamy po naszej stronie. Ty podpisujesz jeden dokument.',
         },
       ],
-      seo: { title: 'Systemy dla sklepów — kasy, wagi, skanery, program' },
+      seo: { title: 'Systemy dla sklepów: kasy, wagi, skanery, program' },
       contact: {
-        heading: 'Powiedz, jaki masz sklep. Resztę dobierzemy.',
-        lead: 'Ile stanowisk, ile towarów, czy jest waga — i dostajesz zestaw na piśmie.',
+        heading: 'Powiedz, jaki masz sklep, a resztę dobierzemy',
+        lead: 'Ile masz stanowisk i towarów, czy jest waga? Na tej podstawie dobierzemy zestaw.',
       },
     }),
   },
@@ -244,18 +244,18 @@ export const INDUSTRIES: SeedIndustry[] = [
     content: () => ({
       hero: {
         title: 'Pensjonat, w którym recepcja ma czas dla gości.',
-        lead: 'System rezerwacji NFHotel, kasa albo drukarka fiskalna Posnet, terminal PolCard i Wi-Fi dla gości osobno od firmy — wdrożone przed sezonem, z recepcją przeszkoloną na miejscu i serwisem z Rabki.',
+        lead: 'System rezerwacji NFHotel, kasa albo drukarka fiskalna Posnet, terminal PolCard i Wi-Fi dla gości osobno od firmy. Wdrażamy je przed sezonem, szkolimy recepcję na miejscu i serwisujemy z Rabki.',
         chips: ['NFHotel i GoPOS razem', 'Wi-Fi dla gości osobno', 'KSeF z systemu'],
         ctaLabel: 'Przygotuj zapytanie dla obiektu',
       },
       productsSection: {
         eyebrow: 'Zestaw dla hoteli i pensjonatów',
-        title: 'Od recepcji po restaurację. Wszystko ze sobą rozmawia.',
-        lead: 'Każdy element ma własną stronę ze specyfikacją. Zestaw składamy pod obiekt — pensjonat na 10 pokoi nie potrzebuje tego, co hotel z restauracją.',
+        title: 'Recepcja i restauracja na jednym rachunku gościa',
+        lead: 'Każdy element ma własną stronę ze specyfikacją. Zestaw składamy pod obiekt, bo pensjonat na 10 pokoi nie potrzebuje tego, co hotel z restauracją.',
       },
       day: {
         eyebrow: 'Dzień w pensjonacie',
-        heading: 'Od śniadania do raportu dobowego.',
+        heading: 'Dzień w pensjonacie',
         steps: [
           {
             label: '7:00',
@@ -284,7 +284,7 @@ export const INDUSTRIES: SeedIndustry[] = [
         {
           question: 'Czy NFHotel połączy się z restauracją?',
           answer:
-            'Tak — GoPOS i NFHotel mają integrację. Wdrażamy oba systemy, recepcję i restaurację, z jednym zespołem i jednym telefonem do serwisu.',
+            'Tak. GoPOS i NFHotel mają integrację. Wdrażamy oba systemy, recepcję i restaurację, z jednym zespołem i jednym telefonem do serwisu.',
         },
         {
           question: 'Kiedy najlepiej wdrożyć system?',
@@ -293,18 +293,18 @@ export const INDUSTRIES: SeedIndustry[] = [
         },
         {
           question: 'Czy goście mogą mieć osobne Wi-Fi?',
-          answer: 'Tak — stawiamy sieć dla gości oddzieloną od sieci firmy, recepcji i kas.',
+          answer: 'Tak. Stawiamy sieć dla gości oddzieloną od sieci firmy, recepcji i kas.',
         },
         {
           question: 'Co, gdy w sezonie coś się zepsuje?',
           answer:
-            'Dzwonisz do nas. Najpierw pomagamy zdalnie, a gdy trzeba — przyjeżdża serwisant z Rabki. Zakres pomocy w sezonie możemy zapisać w umowie opieki.',
+            'Dzwonisz do nas. Najpierw pomagamy zdalnie, a gdy trzeba, przyjeżdża serwisant z Rabki. Zakres pomocy w sezonie możemy ustalić w umowie opieki.',
         },
       ],
-      seo: { title: 'Systemy dla hoteli i pensjonatów — NFHotel, kasy, Wi-Fi' },
+      seo: { title: 'Systemy dla hoteli i pensjonatów: NFHotel, kasy, Wi-Fi' },
       contact: {
-        heading: 'Powiedz, jaki masz obiekt. Resztę dobierzemy.',
-        lead: 'Ile pokoi, czy jest restauracja, skąd przychodzą rezerwacje — i dostajesz zestaw na piśmie.',
+        heading: 'Powiedz, jaki masz obiekt, a resztę dobierzemy',
+        lead: 'Ile masz pokoi, czy jest restauracja, skąd przychodzą rezerwacje? Na tej podstawie dobierzemy zestaw.',
       },
     }),
   },

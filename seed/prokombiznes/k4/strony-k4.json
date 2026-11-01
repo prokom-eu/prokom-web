@@ -10,7 +10,7 @@
      "Drukarka fiskalna Posnet Thermal HD",
      "Terminal PolCard"
     ],
-    "n": "GoPOS — sprzedaż, sala, raporty",
+    "n": "GoPOS: sprzedaż, sala, raporty",
     "d": "Prowadzisz sprzedaż, salę, kuchnię i dowozy w jednym systemie, a wyniki sprawdzasz w telefonie."
    },
    {
@@ -105,7 +105,7 @@
     "k": "Kuchnia",
     "s": "kds",
     "t": "Od razu na ekranie",
-    "d": "Danie pojawia się na ekranie kuchni — bez papierowych bonów."
+    "d": "Danie pojawia się na ekranie kuchni, bez papierowych bonów."
    },
    {
     "k": "Płatność",
@@ -138,7 +138,7 @@
   "steps": [
    [
     "Prezentacja u Ciebie",
-    "Pokazujemy GoPOS na sprzęcie w Twoim lokalu — z kilkoma Twoimi daniami na ekranie."
+    "Pokazujemy GoPOS na sprzęcie w Twoim lokalu, z kilkoma Twoimi daniami na ekranie."
    ],
    [
     "Konfiguracja u nas",
@@ -146,7 +146,7 @@
    ],
    [
     "Montaż i fiskalizacja",
-    "Sprzęt, drukarka fiskalna, terminal i Wi-Fi — w terminie, który nie zatrzymuje lokalu."
+    "Sprzęt, drukarka fiskalna, terminal i Wi-Fi montujemy w terminie, który nie zatrzymuje lokalu."
    ],
    [
     "Szkolenie zespołu",
@@ -160,7 +160,7 @@
   "faq": [
    {
     "q": "GoPOS to zakup czy abonament?",
-    "a": "GoPOS działa w abonamencie (umowa z GoPOS): pakiet Basic albo Pro i wybrane moduły. Sprzęt — stanowiska Sunmi, drukarkę fiskalną, terminal — kupujesz u nas, a my wdrażamy całość."
+    "a": "GoPOS działa w abonamencie (umowa z GoPOS): pakiet Basic albo Pro i wybrane moduły. Sprzęt (stanowiska Sunmi, drukarkę fiskalną, terminal) kupujesz u nas, a my wdrażamy całość."
    },
    {
     "q": "Co, jeśli padnie internet w szczycie?",
@@ -168,19 +168,19 @@
    },
    {
     "q": "Na jakim sprzęcie działa GoPOS?",
-    "a": "Na urządzeniach Sunmi z Androidem — stanowisku D3 PRO, terminalach V3 i V3 MIX, ekranie kuchni FLEX 3 — oraz na GoPOS All in One. Do tego drukarka fiskalna Posnet i terminal płatniczy. Sprzęt dobieramy do lokalu i konfigurujemy przed dostawą."
+    "a": "Na urządzeniach Sunmi z Androidem (stanowisku D3 PRO, terminalach V3 i V3 MIX, ekranie kuchni FLEX 3) oraz na GoPOS All in One. Do tego drukarka fiskalna Posnet i terminal płatniczy. Sprzęt dobieramy do lokalu i konfigurujemy przed dostawą."
    },
    {
     "q": "Czy muszę od razu brać wszystkie moduły?",
-    "a": "Nie. Na start wystarczy GoPOS — sprzedaż, sala i raporty. Kuchnię na ekranach, dowozy czy program dla stałych gości dokładasz wtedy, kiedy są potrzebne."
+    "a": "Nie. Na start wystarczy GoPOS: sprzedaż, sala i raporty. Kuchnię na ekranach, dowozy czy program dla stałych gości dokładasz wtedy, kiedy są potrzebne."
    },
    {
     "q": "Czy wystawię fakturę do KSeF?",
-    "a": "Tak — GoPOS wystawia faktury, które trafiają do KSeF. Przy wdrożeniu ustawimy uprawnienia i przetestujemy wysyłkę."
+    "a": "Tak. GoPOS wystawia faktury, które trafiają do KSeF. Przy wdrożeniu ustawimy uprawnienia i przetestujemy wysyłkę."
    },
    {
     "q": "Mam zamówienia z Pyszne.pl, Glovo, Wolt…",
-    "a": "Moduł GoHub zbiera zamówienia z Pyszne.pl, Glovo, Uber Eats, Wolt i Bolt Food w jednym systemie — bez kilku tabletów na ladzie."
+    "a": "Moduł GoHub zbiera zamówienia z Pyszne.pl, Glovo, Uber Eats, Wolt i Bolt Food w jednym systemie, bez kilku tabletów na ladzie."
    },
    {
     "q": "Czy zobaczę utarg, gdy nie ma mnie w lokalu?",
@@ -188,7 +188,7 @@
    },
    {
     "q": "Mam już inny system. Jak przejść?",
-    "a": "Przygotowujemy GoPOS równolegle: menu, stoliki, drukarki. Stary system wyłączamy dopiero wtedy, gdy nowy działa — najlepiej poza sezonem."
+    "a": "Przygotowujemy GoPOS równolegle: menu, stoliki, drukarki. Stary system wyłączamy dopiero wtedy, gdy nowy działa, najlepiej poza sezonem."
    }
   ],
   "vids": [
@@ -219,8 +219,8 @@
    }
   ],
   "hero": {
-   "h1a": "Sala, kuchnia i dowozy.",
-   "h1b": "Jeden system.",
+   "h1a": "GoPOS dla gastronomii:",
+   "h1b": "sala, kuchnia i dowozy w jednym systemie",
    "lead": "Wdrażamy GoPOS w restauracjach, kawiarniach, food truckach i hotelach. Dobieramy sprzęt, wgrywamy Twoje menu, fiskalizujemy drukarkę i szkolimy zespół w lokalu.",
    "proof": [
     {
@@ -305,8 +305,8 @@
    {
     "k": "rest",
     "t": "Restauracja",
-    "h1a": "Sala, kuchnia i dowozy.",
-    "h1b": "Jeden system.",
+    "h1a": "GoPOS dla gastronomii:",
+    "h1b": "sala, kuchnia i dowozy w jednym systemie",
     "lead": "Kelner przyjmuje zamówienie przy stoliku, kuchnia widzi je na ekranie, a rachunek zamykasz kartą przy gościu. Dobieramy sprzęt, wgrywamy Twoje menu i szkolimy zespół w lokalu.",
     "leadM": "Zamówienie przy stoliku, kuchnia na ekranie, płatność kartą przy gościu.",
     "mods": [
@@ -328,8 +328,8 @@
    {
     "k": "kaw",
     "t": "Kawiarnia",
-    "h1a": "Lada, kolejka i zamówienia online.",
-    "h1b": "Jeden system.",
+    "h1a": "Lada, kolejka i zamówienia online",
+    "h1b": "w jednym systemie",
     "lead": "Szybka sprzedaż przy ladzie na dużym ekranie, zamówienia z własnego sklepu online i program dla stałych gości. Wszystko w jednym systemie, z drukarką fiskalną i terminalem.",
     "leadM": "Sprzedaż przy ladzie, zamówienia online i program dla stałych gości.",
     "mods": [
@@ -351,9 +351,9 @@
    {
     "k": "dow",
     "t": "Pizzeria i dowozy",
-    "h1a": "Telefon, aplikacje i kierowcy.",
-    "h1b": "Jedna kolejka zamówień.",
-    "lead": "Zamówienia z Pyszne.pl, Glovo, Uber Eats, Wolt, Bolt Food i z własnego sklepu trafiają do jednej kolejki — na kasę i ekran kuchni. Bez kilku tabletów na ladzie.",
+    "h1a": "Telefon, aplikacje i kierowcy",
+    "h1b": "w jednej kolejce zamówień",
+    "lead": "Zamówienia z Pyszne.pl, Glovo, Uber Eats, Wolt, Bolt Food i z własnego sklepu trafiają do jednej kolejki: na kasę i ekran kuchni. Bez kilku tabletów na ladzie.",
     "leadM": "Zamówienia z aplikacji dostaw i własnego sklepu w jednej kolejce.",
     "mods": [
      "gohub",
@@ -374,9 +374,9 @@
    {
     "k": "ft",
     "t": "Food truck i sezon",
-    "h1a": "Sprzedaż, paragon i karta.",
-    "h1b": "Z jednego urządzenia.",
-    "lead": "GoPOS All in One łączy system sprzedaży, wirtualną kasę fiskalną i terminal płatniczy w jednym urządzeniu — tam, gdzie liczy się miejsce i szybki start sezonu.",
+    "h1a": "Sprzedaż, paragon i karta",
+    "h1b": "z jednego urządzenia",
+    "lead": "GoPOS All in One łączy system sprzedaży, wirtualną kasę fiskalną i terminal płatniczy w jednym urządzeniu. Sprawdza się tam, gdzie liczy się miejsce i szybki start sezonu.",
     "leadM": "System sprzedaży, kasa fiskalna i terminal w jednym urządzeniu.",
     "mods": [
      "numerki"
@@ -582,7 +582,7 @@
     ]
    }
   ],
-  "areasSrc": "Moduły według gopos.pl · stan na 26.10.2026. Część modułów działa w wybranych pakietach — dobierzemy je do lokalu.",
+  "areasSrc": "Moduły według gopos.pl · stan na 26.10.2026. Część modułów działa w wybranych pakietach, dobierzemy je do lokalu.",
   "hub": {
    "plat": [
     "Uber Eats",
@@ -609,7 +609,7 @@
    "src": "Integracje według gopos.pl/gohub · stan na 26.10.2026"
   },
   "ksef": [
-   "Faktury sprzedażowe, zaliczkowe i korekty — z terminala POS i z aplikacji webowej",
+   "Faktury sprzedażowe, zaliczkowe i korekty z terminala POS i z aplikacji webowej",
    "Po wpisaniu NIP dane firmy pobierają się z bazy GUS",
    "Podgląd statusu wysyłki każdej faktury",
    "Wysyłka do KSeF automatyczna albo ręczna"
@@ -696,7 +696,7 @@
     "Drukarki bonowe i własne szablony wydruku",
     "Faktury do rachunków, proformy, zaliczkowe i korygujące",
     "Wiele walut",
-    "Live Orders — zamówienia na żywo",
+    "Live Orders: zamówienia na żywo",
     "Zewnętrzni kurierzy",
     "GoPOS Now i raporty",
     "Rejestracja czasu pracy i logi pracowników",
@@ -866,7 +866,7 @@
     "Płatności",
     [
      "Terminale płatnicze",
-     "SoftPOS — płatność telefonem",
+     "SoftPOS: płatność telefonem",
      "Płatności GoPOS"
     ]
    ],
@@ -899,7 +899,7 @@
     ]
    ]
   ],
-  "integSrc": "Według gopos.pl · stan na 26.10.2026. GoPOS podaje ponad 30 integracji — dobierzemy te, których potrzebuje Twój lokal.",
+  "integSrc": "Według gopos.pl · stan na 26.10.2026. GoPOS podaje ponad 30 integracji, a my dobierzemy te, których potrzebuje Twój lokal.",
   "segImg": {
    "rest": "d3",
    "kaw": "v3mix",
@@ -994,26 +994,26 @@
      "web"
     ],
     "s": "s123",
-    "why": "Faktury i KSeF z przeglądarki — logujesz się z dowolnego komputera, nic nie instalujesz. Dobre dla małej firmy usługowej i handlowej."
+    "why": "Faktury i KSeF z przeglądarki: logujesz się z dowolnego komputera, nic nie instalujesz. Dobre dla małej firmy usługowej i handlowej."
    },
    {
     "when": [
      "multi"
     ],
     "s": "nexo",
-    "why": "Kilka magazynów, oddziały i uprawnienia pracowników — to zadanie dla linii nexo (w wersji PRO dla większych firm)."
+    "why": "Kilka magazynów, oddziały i uprawnienia pracowników to zadanie dla linii nexo (w wersji PRO dla większych firm)."
    },
    {
     "when": [
      "gt"
     ],
     "s": "gt",
-    "why": "Jeśli GT działa i znasz go — możesz zostać. GT obsługuje KSeF, a licencja obejmuje 3 stanowiska."
+    "why": "Jeśli GT działa i znasz go, możesz zostać. GT obsługuje KSeF, a licencja obejmuje 3 stanowiska."
    },
    {
     "when": [],
     "s": "nexo",
-    "why": "Nową firmę stawiamy od razu na nexo — nowoczesny program z KSeF, który rośnie razem z firmą."
+    "why": "Nową firmę stawiamy od razu na nexo: program z KSeF, wieloma magazynami i sklepem internetowym, który rośnie razem z firmą."
    }
   ],
   "cmpH": [
@@ -1043,13 +1043,13 @@
     "v": [
      "moduł magazyn",
      "sprzedaż i magazyn, 10 poziomów cen",
-     "wiele magazynów; PRO — oddziały i uprawnienia"
+     "wiele magazynów; PRO: oddziały i uprawnienia"
     ]
    },
    {
     "k": "KSeF",
     "v": [
-     "tak — bez InsPunktów",
+     "tak, bez InsPunktów",
      "tak",
      "tak"
     ]
@@ -1059,7 +1059,7 @@
     "v": [
      "mała firma usługowa lub handlowa",
      "firmy, które znają GT i chcą przy nim zostać",
-     "sklep, hurtownia, warsztat — firma, która rośnie"
+     "sklep, hurtownia, warsztat: firma, która rośnie"
     ]
    }
   ],
@@ -1097,7 +1097,7 @@
     "g": "Biura rachunkowe"
    }
   ],
-  "ksefLead": "KSeF obowiązuje już większość firm. Najmniejsi i faktury z kas mają czas do końca 2026 roku. Program InsERT jest gotowy — trzeba jeszcze przygotować firmę.",
+  "ksefLead": "KSeF obowiązuje już większość firm. Najmniejsi i faktury z kas mają czas do końca 2026 roku. Program InsERT jest gotowy, trzeba jeszcze przygotować firmę.",
   "kt": [
    {
     "d": "1 lutego 2026",
@@ -1119,7 +1119,7 @@
   "chk": [
    [
     "Uwierzytelnienie firmy",
-    "profil zaufany, podpis lub pieczęć — dobierzemy"
+    "profil zaufany, podpis lub pieczęć: dobierzemy"
    ],
    [
     "Uprawnienia dla księgowej",
@@ -1146,7 +1146,7 @@
    {
     "ic": "M4 4h7v7H4z M13 4h7v7h-7z M4 13h7v7H4z M13 13h7v7h-7z",
     "t": "Instalacja i konfiguracja",
-    "d": "Program, stanowiska, użytkownicy i uprawnienia — gotowe do pracy pierwszego dnia."
+    "d": "Program, stanowiska, użytkownicy i uprawnienia gotowe do pracy pierwszego dnia."
    },
    {
     "ic": "M4 7h16 M4 12h10 M4 17h7 M17 14l3 3-3 3",
@@ -1166,7 +1166,7 @@
    {
     "ic": "M4 4v6h6 M20 20v-6h-6 M5 15a8 8 0 0014 3 M19 9A8 8 0 005 6",
     "t": "Aktualizacje i odnowienia",
-    "d": "Pilnujemy terminów pakietów aktualizacji — zmiany przepisów nie zaskoczą programu."
+    "d": "Pilnujemy terminów pakietów aktualizacji, więc zmiany przepisów nie zaskoczą programu."
    },
    {
     "ic": "M4 5h16v11H4z M8 20h8 M12 16v4",
@@ -1176,12 +1176,12 @@
   ],
   "faq": [
    {
-    "q": "Subiekt GT czy nexo — co wybrać?",
-    "a": "Jeśli pracujesz na GT i wszystko działa — możesz zostać, GT obsługuje KSeF. Nową firmę albo firmę, która rośnie (więcej magazynów, stanowisk, integracji), stawiamy od razu na nexo."
+    "q": "Subiekt GT czy nexo: co wybrać?",
+    "a": "Jeśli pracujesz na GT i wszystko działa, możesz zostać. GT obsługuje KSeF. Nową firmę albo firmę, która rośnie (więcej magazynów, stanowisk, integracji), stawiamy od razu na nexo."
    },
    {
     "q": "Czy mogę przetestować program przed zakupem?",
-    "a": "Tak. Programy stacjonarne InsERT mają 45-dniową wersję testową z pełną funkcjonalnością, a Subiekt 123 — miesiąc bezpłatnego testu. Pomożemy zainstalować wersję testową i wgrać kilka Twoich towarów."
+    "a": "Tak. Programy stacjonarne InsERT mają 45-dniową wersję testową z pełną funkcjonalnością, a Subiekt 123 miesiąc bezpłatnego testu. Pomożemy zainstalować wersję testową i wgrać kilka Twoich towarów."
    },
    {
     "q": "Jaki komputer jest potrzebny do Subiekta nexo?",
@@ -1189,7 +1189,7 @@
    },
    {
     "q": "Czy przeniesiecie dane z mojego obecnego programu?",
-    "a": "Tak — kartoteki towarów i kontrahentów przenosimy z innego programu albo z Excela. Zakres ustalamy przed wdrożeniem."
+    "a": "Tak. Kartoteki towarów i kontrahentów przenosimy z innego programu albo z Excela. Zakres ustalamy przed wdrożeniem."
    },
    {
     "q": "Czy Subiekt będzie współpracował z moją drukarką fiskalną?",
@@ -1201,7 +1201,7 @@
    },
    {
     "q": "Pracuję z biurem rachunkowym. Czy to ma znaczenie?",
-    "a": "Tak — ustawimy program tak, żeby biuro dostawało dane w wygodnej formie, i nadamy księgowej uprawnienia w KSeF."
+    "a": "Tak. Ustawimy program tak, żeby biuro dostawało dane w wygodnej formie, i nadamy księgowej uprawnienia w KSeF."
    }
   ],
   "vids": [
@@ -1280,7 +1280,7 @@
    "notes": [
     [
      "Subiekt 123",
-     "kupiony przez firmę nie korzysta z InsPunktów — KSeF działa w nim w ramach limitu dokumentów licencji."
+     "kupiony przez firmę nie korzysta z InsPunktów. KSeF działa w nim w ramach limitu dokumentów licencji."
     ],
     [
      "Biuro rachunkowe",
@@ -1303,7 +1303,7 @@
      "rachmistrz"
     ],
     "h": "Dla sklepu",
-    "d": "Subiekt nexo z drukarką fiskalną i skanerem kodów, a księga przychodów w Rachmistrzu — albo dane prosto do biura rachunkowego."
+    "d": "Subiekt nexo z drukarką fiskalną i skanerem kodów, a księga przychodów w Rachmistrzu albo dane prosto do biura rachunkowego."
    },
    {
     "k": "hurt",
@@ -1324,7 +1324,7 @@
      "nexo"
     ],
     "h": "Dla usług i warsztatu",
-    "d": "Mała firma usługowa wystawia faktury i wysyła je do KSeF z przeglądarki w Subiekcie 123. Warsztat z magazynem części — Subiekt nexo."
+    "d": "Mała firma usługowa wystawia faktury i wysyła je do KSeF z przeglądarki w Subiekcie 123. Warsztat z magazynem części pracuje w Subiekcie nexo."
    },
    {
     "k": "biuro",
@@ -1425,7 +1425,7 @@
     "aplikacja mobilna InsERT"
    ],
    [
-    "POS — interfejs dotykowy",
+    "POS: interfejs dotykowy",
     "sprzedaż na ekranie dotykowym"
    ],
    [
@@ -1637,7 +1637,7 @@
       null
      ],
      [
-      "POS — interfejs dotykowy",
+      "POS: interfejs dotykowy",
       "moduł",
       "sprzedaż na ekranie dotykowym",
       null
@@ -1676,7 +1676,7 @@
    ],
    [
     "InsERT nexo",
-    "nowoczesna linia",
+    "linia z KSeF i sklepem internetowym",
     [
      "małe i średnie firmy",
      "wiele programów w jednym oknie",
@@ -1712,19 +1712,19 @@
    ],
    [
     "Gdy Portfel wygaśnie",
-    "Przez miesiąc trwa karencja — zakup abonamentu przywraca Portfel ze wszystkimi punktami. Po karencji niewykorzystane punkty przepadają."
+    "Przez miesiąc trwa karencja: zakup abonamentu przywraca Portfel ze wszystkimi punktami. Po karencji niewykorzystane punkty przepadają."
    ],
    [
     "Punkty na start",
     "Bezpłatne InsPunkty są w abonamencie Subiekta, Rachmistrza i Rewizora; 25 punktów dostajesz za aktywację Portfela przez Portal Dokumentów lub Sello NX."
    ]
   ],
-  "portfelSrc": "Źródło: insert.com.pl — „Portfel InsERT i InsPunkty” · stan na 26.10.2026"
+  "portfelSrc": "Źródło: insert.com.pl, „Portfel InsERT i InsPunkty” · stan na 26.10.2026"
  },
  "opieka_it": {
   "h1a": "Opieka IT dla firm.",
   "h1b": "Od komputera po kasę.",
-  "lead": "Komputery, serwer, sieć, kopie, poczta, kasy i POS pod jedną opieką z Rabki-Zdroju. Zakres i czas reakcji ustalamy w umowie, pomagamy zdalnie i na miejscu — na Podhalu i w Małopolsce.",
+  "lead": "Komputery, serwer, sieć, kopie, poczta, kasy i POS pod jedną opieką z Rabki-Zdroju. Zakres i czas reakcji ustalamy w umowie, pomagamy zdalnie i na miejscu na Podhalu i w Małopolsce.",
   "chips": [
    "Pomoc zdalna i na miejscu",
    "Komputery, sieć i kasy w jednym zgłoszeniu",
@@ -1741,7 +1741,7 @@
      "Konfiguracja nowych komputerów i przeniesienie danych",
      "Aktualizacje Windows i programów",
      "Konta użytkowników i uprawnienia",
-     "Diagnoza i naprawa — zdalnie albo na miejscu"
+     "Diagnoza i naprawa zdalnie albo na miejscu"
     ],
     "p": [
      "lenovo-thinkcentre-neo-50s-55s",
@@ -1756,7 +1756,7 @@
     "img": "synology-diskstation-plus-2-4",
     "co": [
      "Serwer plików albo NAS dla zespołu",
-     "Uprawnienia do folderów — każdy widzi to, co powinien",
+     "Uprawnienia do folderów: każdy widzi to, co powinien",
      "UPS, który chroni serwer przy zaniku prądu",
      "Plan wymiany sprzętu przed końcem gwarancji"
     ],
@@ -1773,7 +1773,7 @@
     "img": "synology-diskstation-value-j",
     "co": [
      "Kopie według zasady 3-2-1: trzy kopie, dwa nośniki, jedna poza firmą",
-     "Test odtworzenia — nie tylko komunikat „kopia wykonana”",
+     "Test odtworzenia, nie tylko komunikat „kopia wykonana”",
      "Kopie poczty i plików z Microsoft 365",
      "Plan na dzień, w którym dysk odmówi posłuszeństwa"
     ],
@@ -1807,7 +1807,7 @@
      "Wi-Fi dla zespołu i osobna sieć dla gości",
      "Kasa i terminal w swojej, stabilnej części sieci",
      "VPN do biura dla pracy zdalnej",
-     "Ubiquiti UniFi albo TP-Link Omada — zarządzane z jednego panelu"
+     "Ubiquiti UniFi albo TP-Link Omada zarządzane z jednego panelu"
     ],
     "p": [
      "u7",
@@ -1840,7 +1840,7 @@
      "Kasy i drukarki fiskalne Posnet i Elzab",
      "Systemy POS, GoPOS i terminale płatnicze",
      "Programy InsERT i KSeF",
-     "Jedno zgłoszenie — także gdy problem jest na styku kasy i komputera"
+     "Jedno zgłoszenie, także gdy problem jest na styku kasy i komputera"
     ],
     "p": [
      "srvkas",
@@ -1857,7 +1857,7 @@
      "Spis sprzętu, programów i licencji",
      "Kto ma dostęp do czego",
      "Terminy licencji, gwarancji, przeglądów kas i podpisu kwalifikowanego",
-     "Dokumentację przekazujemy firmie — jest Twoja"
+     "Dokumentację przekazujemy firmie, jest Twoja"
     ],
     "p": [
      "euro",
@@ -1872,11 +1872,11 @@
    ],
    [
     "Porządki na start",
-    "Kopie, aktualizacje, antywirus, dostępy i dokumentacja — doprowadzamy do stanu, który da się utrzymać."
+    "Kopie, aktualizacje, antywirus, dostępy i dokumentację doprowadzamy do stanu, który da się utrzymać."
    ],
    [
     "Bieżąca opieka",
-    "Zgłoszenia telefonem albo mailem. Pomagamy zdalnie, a gdy trzeba — przyjeżdżamy."
+    "Zgłoszenia telefonem albo mailem. Pomagamy zdalnie, a gdy trzeba, przyjeżdżamy."
    ],
    [
     "Planowanie z wyprzedzeniem",
@@ -1968,7 +1968,7 @@
    },
    {
     "q": "Pomagacie zdalnie czy przyjeżdżacie?",
-    "a": "Jedno i drugie. Większość spraw rozwiązujemy zdalnie, za Twoją zgodą. Gdy trzeba wymienić sprzęt albo coś sprawdzić na miejscu, przyjeżdżamy z Rabki-Zdroju — na Podhale i do Małopolski."
+    "a": "Jedno i drugie. Większość spraw rozwiązujemy zdalnie, za Twoją zgodą. Gdy trzeba wymienić sprzęt albo coś sprawdzić na miejscu, przyjeżdżamy z Rabki-Zdroju na Podhale i do Małopolski."
    },
    {
     "q": "Mam już informatyka albo inną firmę. Jak wygląda przejęcie?",
@@ -1976,11 +1976,11 @@
    },
    {
     "q": "Czy zajmujecie się też kasami i programami?",
-    "a": "Tak — kasy i drukarki fiskalne, POS, terminale, programy InsERT i GoPOS. Nie musisz szukać osobnej firmy do kasy i osobnej do komputerów."
+    "a": "Tak: kasy i drukarki fiskalne, POS, terminale, programy InsERT i GoPOS. Nie musisz szukać osobnej firmy do kasy i osobnej do komputerów."
    },
    {
     "q": "Czy kopie są sprawdzane?",
-    "a": "Tak. W opiece planujemy test odtworzenia — kopia, której nikt nie odtworzył, nie daje pewności, że dane wrócą."
+    "a": "Tak. W opiece planujemy test odtworzenia. Kopia, której nikt nie odtworzył, nie daje pewności, że dane wrócą."
    },
    {
     "q": "Czy pomożecie przy KSeF?",
@@ -1988,14 +1988,14 @@
    },
    {
     "q": "Ile kosztuje opieka IT?",
-    "a": "Wycenę przygotowujemy od zakresu: liczby stanowisk, serwera, sieci i kas. Dostajesz ją na piśmie po rozmowie."
+    "a": "Wycenę przygotowujemy od zakresu: liczby stanowisk, serwera, sieci i kas. Przygotowujemy ją po rozmowie."
    }
   ]
  },
  "automaty_vendingowe": {
   "pill": "Automaty vendingowe · jako partner Optivendi",
-  "h1a": "Sprzedaż, która działa całą dobę.",
-  "h1b": "Bez obsługi.",
+  "h1a": "Automaty vendingowe dla firm.",
+  "h1b": "Sprzedaż przez całą dobę.",
   "lead": "Pieczywo o świcie, obiad na zmianie, pizza w nocy, klucz do pokoju po północy. Dobieramy automat do Twojego produktu i miejsca, a Optivendi dostarcza maszynę z polskim oprogramowaniem i serwisem.",
   "hero": [
    "/_blob/8bc594a86271d80dbfc1a831bd54b647",
@@ -2039,7 +2039,7 @@
    {
     "t": "Świeża żywność",
     "img": "/_blob/bd9f2fb3aa4f7481599368e618d3a20f",
-    "d": "Sałatki, kanapki, nabiał, owoce — w chłodzonych automatach z windą i mikromarketach, które mieszczą od kilkuset do ponad tysiąca produktów.",
+    "d": "Sałatki, kanapki, nabiał i owoce w chłodzonych automatach z windą i mikromarketach, które mieszczą od kilkuset do ponad tysiąca produktów.",
     "p": [
      "optivendi-winda-2026",
      "optivendi-micromarket",
@@ -2050,7 +2050,7 @@
    {
     "t": "Pieczywo i ciasta",
     "img": "/_blob/52dfdef91f925ffd3e740368907cdcdd",
-    "d": "Piekarnia i cukiernia sprzedają także przed otwarciem i po zamknięciu — pieczywo w skrytkach, torty w chłodzonych witrynach.",
+    "d": "Piekarnia i cukiernia sprzedają także przed otwarciem i po zamknięciu: pieczywo w skrytkach, torty w chłodzonych witrynach.",
     "p": [
      "optivendi-chlebomat",
      "optivendi-tortomat",
@@ -2078,7 +2078,7 @@
    {
     "t": "Mrożonki",
     "img": "/_blob/b0d4117ed848a9088004184694d5eb12",
-    "d": "Lody, pierogi, mięso, owoce morza — w stałej temperaturze −18 °C, z odbiorem na wysokości pasa.",
+    "d": "Lody, pierogi, mięso i owoce morza w stałej temperaturze −18 °C, z odbiorem na wysokości pasa.",
     "p": [
      "optivendi-mrozonki"
     ]
@@ -2104,7 +2104,7 @@
    ],
    [
     "Konfiguracja",
-    "Płatności, temperatura, oklejenie w Twoich barwach, ekran i oferta — Optivendi przygotowuje maszynę pod Ciebie."
+    "Płatności, temperatura, oklejenie w Twoich barwach, ekran i oferta: Optivendi przygotowuje maszynę pod Ciebie."
    ],
    [
     "Dostawa i uruchomienie",
@@ -2177,7 +2177,7 @@
     "/_blob/8bc594a86271d80dbfc1a831bd54b647"
    ]
   ],
-  "ref": "Według Optivendi ich automaty pracują m.in. w piekarniach Kastelik, Byrdziak i Petra, w Piernikowej Chacie w Ustroniu, u Zakręconych Słoików, a obiadomaty — na wybranych stacjach paliw Grosar.",
+  "ref": "Według Optivendi ich automaty pracują m.in. w piekarniach Kastelik, Byrdziak i Petra, w Piernikowej Chacie w Ustroniu, u Zakręconych Słoików, a obiadomaty na wybranych stacjach paliw Grosar.",
   "refSrc": "Źródło: optivendi.pl/strona/o-firmie · stan na 26.10.2026",
   "grp": [
    [
@@ -2200,15 +2200,15 @@
    },
    {
     "q": "Kto uzupełnia towar?",
-    "a": "Ty albo Twój dostawca — Optivendi dostarcza maszynę i oprogramowanie, ale nie zaopatruje automatów. System w telefonie podpowiada, czego brakuje i kiedy przyjechać."
+    "a": "Ty albo Twój dostawca. Optivendi dostarcza maszynę i oprogramowanie, ale nie zaopatruje automatów. System w telefonie podpowiada, czego brakuje i kiedy przyjechać."
    },
    {
     "q": "Czy automat może stać na zewnątrz?",
-    "a": "Większość maszyn jest przeznaczona do wnętrz (przedsionek sklepu, hol, korytarz). Na zewnątrz — tylko w pełnej obudowie ochronnej; wyjątkiem jest Pelletomat, zbudowany do pracy na zewnątrz. Miejsce zawsze oglądamy przed ofertą."
+    "a": "Większość maszyn jest przeznaczona do wnętrz (przedsionek sklepu, hol, korytarz). Na zewnątrz tylko w pełnej obudowie ochronnej; wyjątkiem jest Pelletomat, zbudowany do pracy na zewnątrz. Miejsce zawsze oglądamy przed ofertą."
    },
    {
     "q": "Jak płacą klienci?",
-    "a": "W standardzie gotówką, kartą i BLIK-iem (poszczególne modele mogą się różnić — np. Pelletomat przyjmuje kartę i BLIK). Klient może dostać e-paragon lub e-fakturę na e-mail."
+    "a": "W standardzie gotówką, kartą i BLIK-iem (poszczególne modele mogą się różnić, np. Pelletomat przyjmuje kartę i BLIK). Klient może dostać e-paragon lub e-fakturę na e-mail."
    },
    {
     "q": "A paragon fiskalny?",
@@ -2216,11 +2216,11 @@
    },
    {
     "q": "Jak wygląda serwis?",
-    "a": "Serwis prowadzi Optivendi: zdalne łączenie z maszyną i diagnostyka, przeglądy i naprawy, a według firmy — pomoc serwisanta 24/7. Szczegóły serwisu w Twojej okolicy ustalamy przy ofercie."
+    "a": "Serwis prowadzi Optivendi: zdalne łączenie z maszyną i diagnostyka, przeglądy i naprawy, a według firmy także pomoc serwisanta 24/7. Szczegóły serwisu w Twojej okolicy ustalamy przy ofercie."
    },
    {
     "q": "Ile trwa dostawa?",
-    "a": "Optivendi podaje, że ma w magazynie ok. 100 automatów, a część jest dostępna od ręki. Termin dla konkretnej konfiguracji potwierdzamy przy ofercie."
+    "a": "Optivendi podaje, że ma w magazynie ok. 100 automatów, a część jest dostępna od razu. Termin dla konkretnej konfiguracji potwierdzamy przy ofercie."
    }
   ],
   "src": [
@@ -2356,7 +2356,7 @@
    [
     "M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2",
     "Jeden telefon do wszystkiego",
-    "Kasa, komputer, sieć, program, podpis — ten sam numer i ludzie, którzy znają Twoją firmę."
+    "Kasa, komputer, sieć, program, podpis: ten sam numer i ludzie, którzy znają Twoją firmę."
    ],
    [
     "M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11z M12 12a2 2 0 100-4 2 2 0 000 4z",
@@ -2386,7 +2386,7 @@
    [
     "M3 7l9-4 9 4-9 4-9-4z M7 9v5c0 1.7 2.2 3 5 3s5-1.3 5-3V9",
     "Szkolimy, nie tylko instalujemy",
-    "Zespół umie obsłużyć kasę, program i serwer, zanim wyjedziemy. Nowy pracownik — doszkolimy."
+    "Zespół umie obsłużyć kasę, program i serwer, zanim wyjedziemy. Nowego pracownika doszkolimy."
    ]
   ],
   "linie": [
@@ -2407,7 +2407,7 @@
    [
     "Software",
     "Strony, panele i aplikacje na zamówienie",
-    "Strony firmowe, panele klienta i integracje — także ta strona powstała u nas.",
+    "Strony firmowe, panele klienta i integracje. Ta strona też powstała u nas.",
     "prokomsoftware.pl",
     false
    ],
@@ -2464,21 +2464,21 @@
    [
     "M12 9v4 M12 17h.01 M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z",
     "Awaria kasy lub komputera",
-    "Zadzwoń na 889 003 889. Najpierw próbujemy zdalnie, a jeśli trzeba — serwisant jedzie z Rabki.",
+    "Zadzwoń na 889 003 889. Najpierw próbujemy zdalnie, a jeśli trzeba, serwisant jedzie z Rabki.",
     "Zadzwoń teraz",
     "tel"
    ],
    [
     "M3 21h18 M5 21V8l7-5 7 5v13 M9 21v-6h6v6",
     "Nowa firma, nowy lokal",
-    "Kasa, terminal, program, komputery i sieć — z fiskalizacją i szkoleniem. Opisz firmę, przygotujemy zestaw.",
+    "Kasa, terminal, program, komputery i sieć z fiskalizacją i szkoleniem. Opisz firmę, przygotujemy zestaw.",
     "Dobierz zestaw",
     "kreator"
    ],
    [
     "M8 3v3 M16 3v3 M4 8h16 M5 5h14v16H5z M9 13l2 2 4-4",
     "Przegląd kasy fiskalnej",
-    "Obowiązkowy co najmniej raz na 2 lata. Podaj numer unikatowy kasy albo nazwę firmy — sprawdzimy termin i umówimy serwisanta.",
+    "Obowiązkowy co najmniej raz na 2 lata. Podaj numer unikatowy kasy albo nazwę firmy, a sprawdzimy termin i umówimy serwisanta.",
     "Umów przegląd",
     "form"
    ]
@@ -2491,16 +2491,16 @@
    "KSeF",
    "Opieka IT / komputery",
    "Sieć i kopie danych",
-   "Nie wiem — doradźcie"
+   "Nie wiem, doradźcie"
   ],
   "faq": [
    {
     "q": "Dojeżdżacie do mnie?",
-    "a": "Tak — na całe Podhale i Małopolskę: Nowy Targ, Zakopane, Limanowa, Mszana Dolna, Myślenice, Nowy Sącz, Kraków. Dalej też, po ustaleniu."
+    "a": "Tak, na całe Podhale i Małopolskę: Nowy Targ, Zakopane, Limanowa, Mszana Dolna, Myślenice, Nowy Sącz, Kraków. Dalej też, po ustaleniu."
    },
    {
     "q": "Czy mogę przyjechać z kasą do serwisu?",
-    "a": "Tak, ul. Orkana 16B w Rabce-Zdroju, pn–pt 9:00–17:00. Warto zadzwonić wcześniej — przygotujemy części i papier do kasy."
+    "a": "Tak, ul. Orkana 16B w Rabce-Zdroju, pn–pt 9:00–17:00. Warto zadzwonić wcześniej, przygotujemy części i papier do kasy."
    },
    {
     "q": "Jak szybko odpowiadacie?",
@@ -2508,7 +2508,7 @@
    },
    {
     "q": "Czy dostanę wycenę bez wizyty?",
-    "a": "Tak. Opisz firmę w formularzu albo zadzwoń — większość wycen przygotowujemy zdalnie, na piśmie."
+    "a": "Tak. Opisz firmę w formularzu albo zadzwoń. Większość wycen przygotowujemy zdalnie."
    }
   ]
  },
@@ -2607,7 +2607,7 @@
    ],
    "przeglad": [
     "Komputery, kasa, sieć i dane — sprawdzone w całości",
-    "Raport na piśmie: co pilne, co może poczekać",
+    "Raport: co pilne, co może poczekać",
     "Mówimy też, czego nie musisz kupować"
    ],
    "faq": [
@@ -2821,7 +2821,7 @@
  "wyszukiwarka": {
   "strony": [
    {
-    "n": "GoPOS — system dla gastronomii",
+    "n": "GoPOS: system dla gastronomii",
     "d": "Autoryzowany partner · wdrożenie i serwis",
     "go": {
      "w": "gopos"
@@ -2829,7 +2829,7 @@
     "kw": "gopos gastronomia restauracja kawiarnia bar pos kds dowozy pizzeria"
    },
    {
-    "n": "InsERT — Subiekt i programy",
+    "n": "InsERT: Subiekt i programy",
     "d": "Autoryzowany partner · KSeF i wdrożenia",
     "go": {
      "w": "insert"
@@ -2853,7 +2853,7 @@
     "kw": "automat vending chlebomat pizzomat obiadomat kawomat lodomat boxomat skrytki"
    },
    {
-    "n": "Konfigurator — dobierz rozwiązanie",
+    "n": "Konfigurator: dobierz rozwiązanie",
     "d": "3 pytania · rekomendacje dla Twojej firmy",
     "go": {
      "w": "kreator"
@@ -2902,14 +2902,14 @@
    },
    {
     "n": "Awaria? Zadzwoń: 889 003 889",
-    "d": "Kasa, komputer, drukarka, sieć — 889 003 889",
+    "d": "Kasa, komputer, drukarka, sieć: 889 003 889",
     "go": {
      "w": "kontakt"
     },
     "kw": "awaria naprawa serwis nie dziala zepsula zglos"
    },
    {
-    "n": "KSeF — koniec wyjątków 1 stycznia 2027",
+    "n": "KSeF: koniec wyjątków 1 stycznia 2027",
     "d": "Kogo dotyczy, terminy, kary i 6 kroków",
     "go": {
      "w": "ksef"
@@ -2917,7 +2917,7 @@
     "kw": "ksef e-faktura krajowy system e-faktur 2027 kary certyfikat"
    },
    {
-    "n": "Ulga na kasę fiskalną — do 700 zł",
+    "n": "Ulga na kasę fiskalną: do 700 zł",
     "d": "Kto może skorzystać, warunki, kiedy trzeba oddać",
     "go": {
      "w": "ulga"

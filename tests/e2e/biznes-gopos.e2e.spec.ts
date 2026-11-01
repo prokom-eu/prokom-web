@@ -14,7 +14,7 @@ test.describe('Biznes /gopos (K4h)', () => {
     await page.goto(site('biznes.localhost', '/gopos'))
 
     await expect(page.locator('h1')).toHaveCount(1)
-    await expect(page.locator('h1')).toContainText('Sala, kuchnia i dowozy.')
+    await expect(page.locator('h1')).toContainText('GoPOS dla gastronomii')
     await expect(page.getByRole('navigation', { name: 'Okruszki' })).toHaveText(
       /Strona główna\s*\/\s*Oferta\s*\/\s*GoPOS/,
     )
@@ -22,7 +22,7 @@ test.describe('Biznes /gopos (K4h)', () => {
       page.locator('section[aria-labelledby="gopos-h"]').getByText(/Autoryzowany partner GoPOS/),
     ).toBeVisible()
     await expect(page.locator('#lokal').getByRole('tab')).toHaveCount(5)
-    await expect(page.locator('#pakiet')).toContainText('bez cen — wycena na piśmie')
+    await expect(page.locator('#pakiet')).toContainText('bez cen · wycena na piśmie')
     await expect(page.locator('#faq details')).toHaveCount(8)
     // No YouTube request before „▶” (ADR-016).
     await expect(page.locator('#film-gopos iframe')).toHaveCount(0)

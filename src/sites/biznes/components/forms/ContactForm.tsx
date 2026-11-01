@@ -213,7 +213,7 @@ export function ContactForm({
       >
         <noscript>
           <p className="font-bold text-ink">
-            Formularz wymaga włączonego JavaScriptu. Zadzwoń albo napisz do nas — dane są obok.
+            Formularz wymaga włączonego JavaScriptu. Zadzwoń albo napisz do nas. Dane są obok.
           </p>
         </noscript>
         {status.kind === 'failed' && status.message && (

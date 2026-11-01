@@ -179,8 +179,8 @@ export function CartDrawer({ phone }: Props) {
             <p className="max-w-[34ch]">
               {/* K4-FINAL §7: the confirmation; by e-mail when no phone was given. */}
               {sent.phoned
-                ? 'Oddzwonimy w ciągu 60 minut w godzinach pracy i przygotujemy ofertę na piśmie.'
-                : 'Odpowiemy e-mailem w godzinach pracy i przygotujemy ofertę na piśmie.'}
+                ? 'Oddzwonimy w ciągu 60 minut w godzinach pracy i przygotujemy ofertę.'
+                : 'Odpowiemy e-mailem w godzinach pracy i przygotujemy ofertę.'}
               {sent.emailed && ' Kopię listy wysłaliśmy na Twój e-mail.'}
             </p>
             <button
@@ -199,7 +199,7 @@ export function CartDrawer({ phone }: Props) {
           <div className="m-auto flex flex-col items-center gap-3 px-5 py-10 text-center text-ink-2">
             <b className="text-lg text-ink">Lista jest pusta</b>
             <p className="max-w-[30ch]">
-              Dodaj produkty z oferty albo po prostu opisz, czego potrzebujesz — dobierzemy resztę.
+              Dodaj produkty z oferty albo po prostu opisz, czego potrzebujesz, a dobierzemy resztę.
             </p>
             <div className="flex flex-wrap justify-center gap-2">
               <Link

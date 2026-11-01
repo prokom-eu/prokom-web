@@ -134,6 +134,7 @@ describe('toPublicSiteSettings', () => {
       },
       showReviews: true,
       showClientLogos: false,
+      showOwnerQuote: false,
       navigation: {
         menu: [],
         shortcuts: [],

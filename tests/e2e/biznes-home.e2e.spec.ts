@@ -14,7 +14,7 @@ test.describe('Biznes home page', () => {
     const hero = page.locator('#start')
     await expect(page.locator('h1')).toHaveCount(1)
     await expect(page.locator('h1')).toContainText('Kasy, komputery i programy dla firm.')
-    await expect(page.locator('h1')).toContainText('Wszystko z jednego miejsca — z Rabki.')
+    await expect(page.locator('h1')).toContainText('Wszystko z jednego miejsca w Rabce.')
     await expect(hero.getByRole('link', { name: /Dobierz rozwiązanie dla firmy/ })).toHaveAttribute(
       'href',
       '/konfigurator',
@@ -131,7 +131,7 @@ test.describe('Biznes home page: offer and featured', () => {
   test('departments: catalog numbers, categories unfold, „Cały dział”', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
     const offer = page.getByRole('region', {
-      name: 'Kasy, komputery, programy, sieć i serwis — wybierz dział.',
+      name: 'Kasy, komputery, programy, sieć i serwis',
     })
     await expect(offer).toContainText(/OFERTA · 5 DZIAŁÓW · \d+ POZYCJ/i)
     await expect(offer).toContainText(/Sprzęt, programy i usługi od \d+ marek/)
@@ -303,7 +303,7 @@ test.describe('Biznes home page: industries, plan, steps', () => {
   }) => {
     await page.goto(site('biznes.localhost'))
     const section = page.getByRole('region', {
-      name: 'Firmy każdej wielkości. Od straganu po urząd gminy.',
+      name: 'Firmy każdej wielkości, od straganu po urząd gminy',
     })
     const grid = section.getByRole('list').filter({ hasText: 'Sklep spożywczy' })
     const tiles = grid.getByRole('link')
@@ -333,7 +333,7 @@ test.describe('Biznes home page: industries, plan, steps', () => {
       'Krok 2: Oferta',
       'Krok 3: Wdrożenie',
       'Krok 4: Opieka',
-      /^Tak pracujemy — nie tylko na\sstronie\.$/,
+      /^Tak pracujemy na co dzień$/,
     ])
     await expect(steps).toContainText('Pierwszy kontakt')
     await expect(steps).toContainText('Nasze zobowiązania')
@@ -373,12 +373,14 @@ test.describe('Biznes home page: reviews, owner, FAQ, contact', () => {
     await expect(page.getByText('[do podmiany]')).toHaveCount(0)
   })
 
-  test('owner: quote, four numbers, authorization logos, the company page', async ({ page }) => {
+  test('owner: no quote until approved, four numbers, logos, the company page', async ({
+    page,
+  }) => {
     await page.goto(site('biznes.localhost'))
     const facts = page.locator('#fakty')
-    await expect(facts.locator('blockquote')).toContainText('u klienta po prostu działało')
-    await expect(facts).toContainText('Słowo od właściciela')
-    await expect(facts).not.toContainText('Zdjęcie właściciela')
+    // Seed: „Pokaż słowo od właściciela” off — the quote waits for the owner (audit 01.11).
+    await expect(facts.locator('blockquote')).toHaveCount(0)
+    await expect(facts).not.toContainText('u klienta po prostu działało')
     await expect(facts.locator('dd')).toHaveText(['2004', '100+', '2', '2'])
     await expect(facts).toContainText('klientów firmowych')
     await expect(facts).not.toContainText('pod stałą opieką')
@@ -393,7 +395,7 @@ test.describe('Biznes home page: reviews, owner, FAQ, contact', () => {
   test('FAQ: numbered cards, the first open, FAQPage data', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
     const faq = page.locator('#faq')
-    await expect(faq.getByRole('heading', { level: 2 })).toHaveText('Zanim zadzwonisz.')
+    await expect(faq.getByRole('heading', { level: 2 })).toHaveText('Zanim zadzwonisz')
     const items = faq.locator('details')
     await expect(items).toHaveCount(6)
     await expect(items.first()).toHaveAttribute('open', '')
@@ -401,7 +403,7 @@ test.describe('Biznes home page: reviews, owner, FAQ, contact', () => {
     await items.nth(1).locator('summary').click()
     await expect(items.nth(1)).toHaveAttribute('open', '')
     // K4-FINAL §1: no pricing model of the IT care.
-    await expect(items.nth(1)).toContainText('wycenę na piśmie')
+    await expect(items.nth(1)).toContainText('przygotowujemy wycenę')
     await expect(faq).not.toContainText('miesięczną opłatą')
     const jsonLd = await faq.locator('script[type="application/ld+json"]').textContent()
     expect(JSON.parse(jsonLd ?? '{}')['@type']).toBe('FAQPage')
@@ -411,7 +413,7 @@ test.describe('Biznes home page: reviews, owner, FAQ, contact', () => {
     await page.goto(site('biznes.localhost', '/#kontakt'))
     const contact = page.locator('#kontakt')
     await expect(contact.getByRole('heading', { level: 2 })).toHaveText(
-      'Napisz, czego potrzebujesz. Odezwiemy się szybko.',
+      'Napisz, czego potrzebujesz. Oddzwonimy w ciągu 60 minut w godzinach pracy.',
     )
     await expect(contact.locator('a[href^="tel:"]')).toBeVisible()
     await expect(contact.locator('form')).toBeVisible()

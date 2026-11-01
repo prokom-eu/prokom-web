@@ -4,7 +4,7 @@
    "id": "sklep",
    "name": "Sklep",
    "title": "Sklep spożywczy",
-   "lead": "Kasa, waga, skaner i program, które ze sobą rozmawiają. Ceny zmieniasz raz — w programie.",
+   "lead": "Kasa, waga, skaner i program, które ze sobą rozmawiają. Ceny zmieniasz raz, w programie.",
    "ic": "M3 9l2-5h14l2 5 M4 9v11h16V9 M9 20v-6h6v6",
    "pts": [
     {
@@ -256,7 +256,7 @@
    "id": "hotel",
    "name": "Pensjonat",
    "title": "Pensjonat z restauracją",
-   "lead": "Recepcja, pokoje i restauracja w jednej sieci — rachunek z baru dopisany do pokoju.",
+   "lead": "Recepcja, pokoje i restauracja w jednej sieci, a rachunek z baru dopisany do pokoju.",
    "ic": "M3 21V7l9-4 9 4v14 M9 21v-6h6v6 M8 10h.01 M12 10h.01 M16 10h.01",
    "pts": [
     {
@@ -368,7 +368,7 @@
    "id": "biuro",
    "name": "Biuro",
    "title": "Biuro firmy (10–20 osób)",
-   "lead": "Stanowiska, serwer, kopie, druk i sala spotkań — zarządzane z jednego miejsca.",
+   "lead": "Stanowiska, serwer, kopie, druk i sala spotkań zarządzane z jednego miejsca.",
    "ic": "M4 5h16v10H4z M2 19h20",
    "pts": [
     {
@@ -1047,7 +1047,7 @@
    "id": "bilety",
    "name": "Atrakcja",
    "title": "Atrakcja turystyczna z kasą biletową",
-   "lead": "Kasy biletowe, bramki, bistro i Wi-Fi na placu — wyciąg, termy, park linowy, muzeum.",
+   "lead": "Kasy biletowe, bramki, bistro i Wi-Fi na placu: wyciąg, termy, park linowy, muzeum.",
    "ic": "M3 8a2 2 0 002-2h14a2 2 0 002 2v2a2 2 0 000 4v2a2 2 0 00-2 2H5a2 2 0 00-2-2v-2a2 2 0 000-4z M13 6v12",
    "pts": [
     {

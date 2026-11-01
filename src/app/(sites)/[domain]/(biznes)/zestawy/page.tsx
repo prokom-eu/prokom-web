@@ -105,7 +105,7 @@ export default async function BundlesPage({ params }: Props) {
           // No bundle to show (none yet, or their cards hidden): say so, point to the catalog.
           <div className="flex flex-col items-start gap-4 rounded-[26px] bg-surface-2 p-6 sm:p-8">
             <p className="text-lg leading-relaxed text-ink-2">
-              Zestawy właśnie przygotowujemy. Sprzęt i programy znajdziesz w katalogu — dobierzemy
+              Zestawy właśnie przygotowujemy. Sprzęt i programy znajdziesz w katalogu. Dobierzemy
               komplet pod Twoją firmę.
             </p>
             <PageLink href={CATALOG_PATH} arrow>

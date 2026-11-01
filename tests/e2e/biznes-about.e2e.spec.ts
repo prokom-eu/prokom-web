@@ -15,7 +15,7 @@ test.describe('Biznes about page (K4i)', () => {
     expect(response?.status()).toBe(200)
 
     await expect(page.locator('h1')).toHaveCount(1)
-    await expect(page.locator('h1')).toContainText('Lokalna firma IT')
+    await expect(page.locator('h1')).toContainText('PRO-KOM z Rabki-Zdroju')
     await expect(
       page.getByRole('navigation', { name: 'Okruszki' }).locator('[aria-current="page"]'),
     ).toHaveText('O firmie')
@@ -31,7 +31,7 @@ test.describe('Biznes about page (K4i)', () => {
 
     await expect(page.locator('#zasady li')).toHaveCount(8)
     const lines = page.locator('#linie')
-    await expect(lines.getByRole('heading', { level: 2 })).toHaveText('Jedna firma, cztery linie.')
+    await expect(lines.getByRole('heading', { level: 2 })).toHaveText('Jedna firma, cztery linie')
     await expect(lines.getByText('Jesteś tutaj')).toHaveCount(1)
 
     const brands = page.getByRole('region', {

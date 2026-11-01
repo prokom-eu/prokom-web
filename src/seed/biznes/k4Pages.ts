@@ -221,7 +221,7 @@ export function goposK4Layout(file: K4PagesFile, slugOf: SlugOf): K4Layout {
       anchor: 'lokal',
       eyebrow: 'Twój lokal',
       heading: 'GoPOS ustawiony pod to, jak pracujesz',
-      lead: 'Wybierz rodzaj lokalu — pokażemy, jak wygląda dzień pracy i od jakiego pakietu zacząć.',
+      lead: 'Wybierz rodzaj lokalu. Pokażemy, jak wygląda dzień pracy i od jakiego pakietu zacząć.',
       data: {
         venues: g.seg.map((venue) => {
           const image = g.segImg[venue.k] ? r.one(g.segImg[venue.k]!) : undefined
@@ -274,7 +274,7 @@ export function goposK4Layout(file: K4PagesFile, slugOf: SlugOf): K4Layout {
     section({
       variant: 'gopos-hub',
       eyebrow: 'Dowozy · GoHub',
-      heading: 'Pięć aplikacji z zamówieniami. Jedna kolejka.',
+      heading: 'Pięć aplikacji z zamówieniami w jednej kolejce',
       lead: g.hub.lead,
       source: g.hub.src,
       data: {
@@ -294,12 +294,12 @@ export function goposK4Layout(file: K4PagesFile, slugOf: SlugOf): K4Layout {
         { title: 'Faktury do KSeF prosto z kasy', text: `${g.ksef.join('. ')}.`, icon: 'doc' },
         {
           title: 'Gdy padnie internet',
-          text: 'System działa także przy chwilowym braku internetu — sprzedaż się nie przerywa, a dane zsynchronizują się, gdy połączenie wróci.',
+          text: 'System działa także przy chwilowym braku internetu: sprzedaż się nie przerywa, a dane zsynchronizują się, gdy połączenie wróci.',
           icon: 'refresh',
         },
         {
           title: 'Lokal w telefonie',
-          text: 'Aplikacja GoPOS Now pokazuje sprzedaż i raporty w telefonie — z dowolnego miejsca, także gdy nie ma Cię w lokalu.',
+          text: 'Aplikacja GoPOS Now pokazuje sprzedaż i raporty w telefonie z dowolnego miejsca, także gdy nie ma Cię w lokalu.',
           icon: 'chart',
         },
       ],
@@ -444,7 +444,7 @@ export function insertK4Layout(file: K4PagesFile, slugOf: SlugOf): K4Layout {
             variant: 'insert-picker',
             anchor: 'ktory',
             eyebrow: 'Który Subiekt dla mnie?',
-            heading: 'Trzy pytania — i wiesz, od czego zacząć',
+            heading: 'Trzy pytania, żeby wiedzieć, od czego zacząć',
             data: {
               questions: i.q.map((question) => ({ q: question.q, options: question.o })),
               rules,
@@ -465,7 +465,7 @@ export function insertK4Layout(file: K4PagesFile, slugOf: SlugOf): K4Layout {
             variant: 'insert-ksef',
             anchor: 'ksef',
             eyebrow: 'KSeF w programach InsERT',
-            heading: 'Program jest gotowy. Przygotujmy firmę.',
+            heading: 'Program jest gotowy, przygotujmy firmę',
             lead: i.ksefLead,
             source: i.ksefSrc,
             data: {
@@ -521,7 +521,7 @@ export function insertK4Layout(file: K4PagesFile, slugOf: SlugOf): K4Layout {
       variant: 'cards',
       surface: 'muted',
       eyebrow: 'Wdrożenie z PRO-KOM',
-      heading: 'Program to licencja. Spokój to wdrożenie.',
+      heading: 'Licencja to dopiero początek. Liczy się wdrożenie.',
       items: i.tiles.map(({ t, d }) => ({ title: t, text: d })),
     }),
     section({
@@ -548,7 +548,7 @@ export function insertK4Layout(file: K4PagesFile, slugOf: SlugOf): K4Layout {
         videos: i.vids.map(({ id, t, k }) => ({ id, t, k })),
       },
     }),
-    faq('Pytania', 'Zanim wybierzesz program', i.faq),
+    faq('Pytania', 'Pytania o programy InsERT', i.faq),
     section({
       variant: 'band',
       eyebrow: 'Opieka nad programem',
@@ -613,7 +613,7 @@ const CARE_SITUATIONS: [string, string, string][] = [
   ],
   [
     'Pracownik odchodzi z firmy',
-    'Jego hasła, poczta i dostępy do programów zostają aktywne — czasem miesiącami.',
+    'Jego hasła, poczta i dostępy do programów zostają aktywne, czasem miesiącami.',
     'Zamykamy dostępy od razu, a skrzynkę i pliki przekazujemy następcy.',
   ],
   [
@@ -644,7 +644,7 @@ const CARE_ON_CALL: Pair[] = [
   ],
   [
     'Na miejscu, gdy trzeba',
-    'Gdy trzeba wymienić sprzęt albo coś sprawdzić — przyjeżdżamy z Rabki-Zdroju.',
+    'Gdy trzeba wymienić sprzęt albo coś sprawdzić, przyjeżdżamy z Rabki-Zdroju.',
   ],
   [
     'Zamknięte i zapisane',
@@ -658,19 +658,19 @@ const CARE_CALENDAR: [string, string, string][] = [
   ['MAR', 'Podpis kwalifikowany', 'koniec ważności certyfikatu'],
   ['MAJ', 'Kasa fiskalna', 'przegląd techniczny'],
   ['WRZ', 'Microsoft 365', 'liczba licencji po sezonie'],
-  ['LIS', 'Serwer', 'koniec gwarancji — decyzja'],
+  ['LIS', 'Serwer', 'koniec gwarancji: decyzja'],
 ]
 
 const trustLinks = (maps: string) => [
   {
     title: 'Dane w rejestrze',
-    text: 'Nazwa, adres i NIP — w publicznej wyszukiwarce firm CEIDG.',
+    text: 'Nazwa, adres i NIP w publicznej wyszukiwarce firm CEIDG.',
     label: 'Sprawdź w CEIDG',
     href: 'https://www.biznes.gov.pl/pl/wyszukiwarka-firm',
   },
   {
     title: 'Autoryzowany serwis Posnet i Elzab',
-    text: 'Autoryzację serwisu kas potwierdzają producenci — na swoich stronach.',
+    text: 'Autoryzację serwisu kas potwierdzają producenci na swoich stronach.',
     label: 'Strona Posnet',
     href: 'https://www.posnet.com.pl',
   },
@@ -682,7 +682,7 @@ const trustLinks = (maps: string) => [
   },
   {
     title: 'Opinie klientów',
-    text: 'Opinie o PRO-KOM w Google i Panoramie Firm — pisane przez klientów, nie przez nas.',
+    text: 'Opinie o PRO-KOM w Google i Panoramie Firm, pisane przez klientów, nie przez nas.',
     label: 'Opinie w Google',
     href: maps,
   },
@@ -710,7 +710,7 @@ function linesData(file: K4FirmaFile) {
       u,
       here,
     })),
-    note: 'pro-kom.eu — wspólne wejście do wszystkich linii, aktualności i realizacji. Nowa strona PRO-KOM — wkrótce.',
+    note: 'pro-kom.eu: wspólne wejście do wszystkich linii, aktualności i realizacji.',
   }
 }
 
@@ -729,9 +729,9 @@ export function opiekaK4Layout(file: K4FirmaFile, slugOf: SlugOf): K4Layout {
         variant: 'care-hero',
         // „Bezpłatny przegląd IT” in the menu shortcuts and the footer leads here.
         anchor: 'przeglad',
-        heading: 'Komputery, sieć i kasy pod jedną opieką.',
-        headingAccent: 'Jeden numer, gdy coś stanie.',
-        lead: 'Przejmujemy IT w firmie: komputery, serwer, kopie danych, sieć, pocztę, kasy i programy. Zakres i czas reakcji ustalamy w umowie. Pomagamy zdalnie i na miejscu — z Rabki-Zdroju na całe Podhale i Małopolskę.',
+        heading: 'Opieka IT dla firm:',
+        headingAccent: 'komputery, sieć i kasy pod jedną opieką',
+        lead: 'Przejmujemy IT w firmie: komputery, serwer, kopie danych, sieć, pocztę, kasy i programy. Zakres i czas reakcji ustalamy w umowie. Pomagamy zdalnie i na miejscu, z Rabki-Zdroju na całe Podhale i Małopolskę.',
         data: {
           trail: [OFFER_CRUMB],
           pill: 'Opieka informatyczna · Podhale i Małopolska',
@@ -752,9 +752,9 @@ export function opiekaK4Layout(file: K4FirmaFile, slugOf: SlugOf): K4Layout {
             summary: {
               n: '3',
               t: '3 sprawy do poprawy',
-              d: 'Plan naprawy i wycenę opieki dostajesz na piśmie.',
+              d: 'Plan naprawy i wycenę opieki dostajesz po przeglądzie.',
             },
-            badges: ['Bezpłatny przegląd na start', 'Licencje i przeglądy kas — przypominamy'],
+            badges: ['Bezpłatny przegląd na start', 'Przypominamy o licencjach i przeglądach kas'],
           },
         },
       }),
@@ -779,7 +779,7 @@ export function opiekaK4Layout(file: K4FirmaFile, slugOf: SlugOf): K4Layout {
       variant: 'table',
       surface: 'muted',
       eyebrow: 'Z opieką i bez',
-      heading: 'Te same sytuacje. Dwa różne dni w firmie.',
+      heading: 'Te same sytuacje w firmie z opieką i bez niej',
       lead: 'Sytuacje, które zdarzają się w każdej firmie. Różnica jest w tym, czy ktoś był przygotowany, zanim się wydarzyły.',
       data: {
         head: ['Sytuacja', 'Bez stałej opieki', 'Z opieką PRO-KOM'],
@@ -833,7 +833,7 @@ export function opiekaK4Layout(file: K4FirmaFile, slugOf: SlugOf): K4Layout {
         variant: 'seats',
         eyebrow: 'Wycena od zakresu',
         heading: 'Ile masz stanowisk?',
-        lead: 'Zaznacz — dopiszemy to do zapytania, a wycenę od zakresu dostaniesz na piśmie.',
+        lead: 'Zaznacz, a dopiszemy to do zapytania. Wycenę przygotujemy od zakresu.',
         data: { slug: care, options: o.stan, label: 'Zapytaj o opiekę IT', note: CARE_NOTE },
       }),
       section({
@@ -866,9 +866,9 @@ export function aboutK4Layout(file: K4FirmaFile): K4Layout {
   const layout: PageBlock[] = [
     section({
       variant: 'about-hero',
-      heading: 'Lokalna firma IT,',
-      headingAccent: 'która zostaje z klientem na lata.',
-      lead: 'Od 2004 roku sprzedajemy, wdrażamy i serwisujemy kasy fiskalne, komputery, programy i sieci dla firm i instytucji z Podhala i Małopolski. Biuro, salon i serwis mamy w jednym miejscu — w Rabce-Zdroju. Telefon odbiera zespół, który zna Twoją firmę, a nie infolinia.',
+      heading: 'PRO-KOM z Rabki-Zdroju:',
+      headingAccent: 'kasy, komputery i IT dla firm od 2004 roku',
+      lead: 'Od 2004 roku sprzedajemy, wdrażamy i serwisujemy kasy fiskalne, komputery, programy i sieci dla firm i instytucji z Podhala i Małopolski. Biuro, salon i serwis mamy w jednym miejscu, w Rabce-Zdroju. Telefon odbiera zespół, który zna Twoją firmę, a nie infolinia.',
       data: {
         pill: 'O firmie · PRO-KOM Tadeusz Wójciak',
         actions: [{ label: 'Jak pracujemy', href: '#zasady' }],
@@ -889,8 +889,8 @@ export function aboutK4Layout(file: K4FirmaFile): K4Layout {
     section({
       variant: 'cards',
       eyebrow: 'Zaufanie',
-      heading: 'Nie musisz wierzyć nam na słowo.',
-      lead: 'Wszystko, co piszemy o sobie, możesz sprawdzić w niezależnych źródłach — zanim do nas zadzwonisz.',
+      heading: 'Sprawdź nas w niezależnych źródłach',
+      lead: 'Wszystko, co piszemy o sobie, możesz sprawdzić, zanim do nas zadzwonisz.',
       items: trustLinks(f.maps),
     }),
     section({
@@ -898,8 +898,8 @@ export function aboutK4Layout(file: K4FirmaFile): K4Layout {
       anchor: 'zasady',
       surface: 'muted',
       eyebrow: 'Jak pracujemy',
-      heading: 'Osiem zasad, które łatwo sprawdzić.',
-      lead: 'Bez obietnic z ulotki — tak pracujemy na co dzień.',
+      heading: 'Osiem zasad, które łatwo sprawdzić',
+      lead: 'Bez obietnic z ulotki, tylko to, jak pracujemy.',
       items: f.zasady.map(([, title, text], i) => ({
         title,
         text,
@@ -910,8 +910,8 @@ export function aboutK4Layout(file: K4FirmaFile): K4Layout {
       variant: 'lines',
       anchor: 'linie',
       eyebrow: 'Rodzina PRO-KOM',
-      heading: f.linie.length === 4 ? 'Jedna firma, cztery linie.' : 'Jedna firma, kilka linii.',
-      lead: 'Każda linia ma swoją stronę i swoich specjalistów — a za wszystkim stoi ta sama firma z Rabki-Zdroju.',
+      heading: f.linie.length === 4 ? 'Jedna firma, cztery linie' : 'Jedna firma, kilka linii',
+      lead: 'Każda linia ma swoją stronę i swoich specjalistów, a za wszystkim stoi ta sama firma z Rabki-Zdroju.',
       data: linesData(file),
     }),
     section({
@@ -930,7 +930,7 @@ export function aboutK4Layout(file: K4FirmaFile): K4Layout {
       variant: 'band',
       eyebrow: 'Porozmawiajmy',
       heading: 'Opowiedz, jak pracuje Twoja firma.',
-      lead: 'Przyjedziemy albo zadzwonimy. Wycenę dostajesz na piśmie, bez zobowiązań.',
+      lead: 'Przyjedziemy albo zadzwonimy. Wycena jest bez zobowiązań.',
       data: {
         actions: [
           { label: 'Napisz do nas', href: '/kontakt#formularz', primary: true },
@@ -957,16 +957,16 @@ export function contactK4Layout(file: K4FirmaFile): K4Layout {
       variant: 'contact-hero',
       heading: 'Zadzwoń, napisz',
       headingAccent: 'albo wpadnij do Rabki.',
-      lead: 'Jeden numer do ofert, serwisu, programów i awarii. Odbiera zespół z Rabki-Zdroju, który zna Twoją firmę — w godzinach pracy oddzwaniamy w ciągu 60 minut.',
+      lead: 'Jeden numer do ofert, serwisu, programów i awarii. Odbiera zespół z Rabki-Zdroju, który zna Twoją firmę. W godzinach pracy oddzwaniamy w ciągu 60 minut.',
       data: {
         bringNote:
-          'Z kasą do przeglądu możesz przyjechać sam — zadzwoń wcześniej, przygotujemy części i papier.',
+          'Z kasą do przeglądu możesz przyjechać sam. Zadzwoń wcześniej, przygotujemy części i papier.',
       },
     }),
     section({
       variant: 'cards',
       eyebrow: 'Z czym dzwonisz?',
-      heading: 'Najczęstsze sprawy — od razu wiesz, co dalej',
+      heading: 'Najczęstsze sprawy i co dalej',
       // TODO(krystian): [SZEF] „przegląd kasy co najmniej raz na 2 lata” — fakt prawny bez źródła.
       items: f.tematy.map(([, title, text, label, go]) => ({
         title,
@@ -979,8 +979,8 @@ export function contactK4Layout(file: K4FirmaFile): K4Layout {
       variant: 'contact-form',
       anchor: 'formularz',
       eyebrow: 'Napisz do nas',
-      heading: 'Powiedz, czego potrzebujesz.',
-      headingAccent: 'Resztą zajmiemy się my.',
+      heading: 'Powiedz, czego potrzebujesz,',
+      headingAccent: 'a resztą zajmiemy się my',
       lead: 'Oddzwonimy w godzinach pracy z konkretną propozycją. Wycena na piśmie, bez zobowiązań.',
       data: {
         topics: f.need,
@@ -998,7 +998,7 @@ export function contactK4Layout(file: K4FirmaFile): K4Layout {
       surface: 'muted',
       eyebrow: 'Inne linie PRO-KOM',
       heading: 'Szukasz monitoringu, strony albo naprawy telefonu?',
-      lead: 'To też my — każda linia ma swoją stronę i swoich specjalistów.',
+      lead: 'To też my. Każda linia ma swoją stronę i swoich specjalistów.',
       data: linesData(file),
     }),
   ]
@@ -1028,7 +1028,7 @@ export type K4VendingFile = {
 /** The KSeF and relief texts switch on this day (D-K4-7, Europe/Warsaw). */
 export const KSEF_SWITCH_DATE = '2027-01-01'
 
-const VENDING_NOTE = 'Automat vendingowy — dobór'
+const VENDING_NOTE = 'Automat vendingowy: dobór'
 
 /** `/automaty-vendingowe` (K4j, K32 §2, plansza Web-Vending). */
 export function vendingK4Layout(file: K4VendingFile, slugOf: SlugOf): K4Layout {
@@ -1058,8 +1058,8 @@ export function vendingK4Layout(file: K4VendingFile, slugOf: SlugOf): K4Layout {
       variant: 'vending-picker',
       anchor: 'co',
       eyebrow: 'Co chcesz sprzedawać?',
-      heading: 'Zacznij od produktu. Automat dobierzemy.',
-      lead: 'Wybierz, co ma się sprzedawać — pokażemy maszyny, które się do tego nadają.',
+      heading: 'Zacznij od produktu, automat dobierzemy',
+      lead: 'Wybierz, co ma się sprzedawać, a pokażemy maszyny, które się do tego nadają.',
       data: {
         tabs: v.co.flatMap((tab) => {
           const slugs = r.many(tab.p)
@@ -1078,7 +1078,7 @@ export function vendingK4Layout(file: K4VendingFile, slugOf: SlugOf): K4Layout {
     section({
       variant: 'app-mockup',
       eyebrow: 'Oprogramowanie Optivendi',
-      heading: 'Automat w Twoim telefonie.',
+      heading: 'Automat w Twoim telefonie',
       lead: v.soft.lead,
       source: v.soft.src,
       data: {
@@ -1115,7 +1115,7 @@ export function vendingK4Layout(file: K4VendingFile, slugOf: SlugOf): K4Layout {
       data: {
         category: 'automaty-vendingowe',
         tabs: v.grp.map(([t]) => ({ t, subcategory: t })),
-        note: 'bez cen — oferta na piśmie',
+        note: 'bez cen · oferta na piśmie',
       },
     }),
     faq('Pytania', 'Zanim postawisz automat', v.faq),
@@ -1126,8 +1126,8 @@ export function vendingK4Layout(file: K4VendingFile, slugOf: SlugOf): K4Layout {
     section({
       variant: 'band',
       eyebrow: 'Automaty vendingowe',
-      heading: 'Sprzedawaj także wtedy, gdy Cię nie ma.',
-      lead: 'Pokażemy, który automat pasuje do Twojego miejsca, i przygotujemy ofertę razem z Optivendi — jako jej partner.',
+      heading: 'Sprzedawaj także wtedy, gdy Cię nie ma',
+      lead: 'Pokażemy, który automat pasuje do Twojego miejsca, i przygotujemy ofertę razem z Optivendi jako jej partner.',
       data: {
         actions: [
           { label: 'Zapytaj o automat', href: '/kontakt#formularz', primary: true },
@@ -1201,7 +1201,7 @@ export function ksefK4Layout(slugOf: SlugOf): K4Layout {
       variant: 'ksef-quiz',
       eyebrow: 'Sprawdź w 30 sekund',
       heading: 'Czy KSeF dotyczy mojej firmy?',
-      lead: 'Trzy pytania — i wiesz, co musisz zrobić i do kiedy.',
+      lead: 'Trzy pytania, po których wiesz, co musisz zrobić i do kiedy.',
       data: {
         switchDate: KSEF_SWITCH_DATE,
         questions: [
@@ -1235,13 +1235,13 @@ export function ksefK4Layout(slugOf: SlugOf): K4Layout {
           consumer: {
             t: 'Faktury dla konsumentów nie muszą trafiać do KSeF',
             l: [
-              'Możesz je wysyłać do KSeF dobrowolnie. Pamiętaj, że faktury od dostawców odbierasz już w KSeF — potrzebny jest dostęp do systemu.',
+              'Możesz je wysyłać do KSeF dobrowolnie. Pamiętaj, że faktury od dostawców odbierasz już w KSeF, więc potrzebny jest dostęp do systemu.',
             ],
           },
           now: {
             t: 'Już teraz wystawiasz faktury w KSeF',
             l: [
-              'Obowiązek dla Twojej firmy działa od 1 kwietnia 2026 r. Sprawdź program, uprawnienia i procedurę na wypadek awarii — od 1 stycznia 2027 r. za błędy grożą kary.',
+              'Obowiązek dla Twojej firmy działa od 1 kwietnia 2026 r. Sprawdź program, uprawnienia i procedurę na wypadek awarii. Od 1 stycznia 2027 r. za błędy grożą kary.',
             ],
           },
           soon: {
@@ -1258,7 +1258,7 @@ export function ksefK4Layout(slugOf: SlugOf): K4Layout {
             ],
           },
           registerNote:
-            'Faktury z kasy fiskalnej do końca 2026 r. mogą być poza KSeF. Od 2027 r. faktura dla firmy do paragonu z kasy online trafia do KSeF — program sprzedaży musi to obsłużyć.',
+            'Faktury z kasy fiskalnej do końca 2026 r. mogą być poza KSeF. Od 2027 r. faktura dla firmy do paragonu z kasy online trafia do KSeF, a program sprzedaży musi to obsłużyć.',
         },
       },
     }),
@@ -1282,7 +1282,7 @@ export function ksefK4Layout(slugOf: SlugOf): K4Layout {
           },
           {
             t: 'Certyfikat KSeF',
-            d: 'Certyfikat jest potrzebny w trybie offline — do drugiego kodu QR na fakturze.',
+            d: 'Certyfikat jest potrzebny w trybie offline, do drugiego kodu QR na fakturze.',
             w: 'tryb offline i awaria',
           },
           {
@@ -1292,7 +1292,7 @@ export function ksefK4Layout(slugOf: SlugOf): K4Layout {
           },
           {
             t: 'Procedura na awarię',
-            d: 'Offline24 — dosłanie do następnego dnia roboczego, awaria KSeF — w ciągu 7 dni roboczych. Ustal, kto to robi.',
+            d: 'Offline24: dosłanie do następnego dnia roboczego; awaria KSeF: w ciągu 7 dni roboczych. Ustal, kto to robi.',
             w: 'kto, kiedy, jak',
           },
           {
@@ -1314,7 +1314,7 @@ export function ksefK4Layout(slugOf: SlugOf): K4Layout {
             { v: 'do 100%', k: 'kwoty VAT wykazanej na fakturze' },
             { v: 'do 18,7%', k: 'kwoty brutto, gdy faktura jest bez VAT' },
           ],
-          text: 'Kary przewiduje art. 106ni ustawy o VAT — m.in. za wystawienie faktury poza KSeF albo za niedosłanie w terminie faktury z trybu offline.',
+          text: 'Kary przewiduje art. 106ni ustawy o VAT, m.in. za wystawienie faktury poza KSeF albo za niedosłanie w terminie faktury z trybu offline.',
           before: 'W 2026 r. obowiązuje okres przejściowy bez tych kar.',
           after: 'Okres przejściowy bez kar skończył się 31 grudnia 2026 r.',
         },
@@ -1324,7 +1324,7 @@ export function ksefK4Layout(slugOf: SlugOf): K4Layout {
           items: [
             {
               t: 'Programy InsERT z KSeF',
-              d: 'Subiekt, Rachmistrz i Rewizor — wybór, wdrożenie i szkolenie (autoryzowany partner).',
+              d: 'Subiekt, Rachmistrz i Rewizor: wybór, wdrożenie i szkolenie (autoryzowany partner).',
             },
             {
               t: 'Uprawnienia i certyfikat',
@@ -1332,11 +1332,11 @@ export function ksefK4Layout(slugOf: SlugOf): K4Layout {
             },
             {
               t: 'Kasy i POS',
-              d: 'Kasy online Posnet i Elzab, GoPOS — żeby faktury do paragonów szły tak, jak wymagają przepisy.',
+              d: 'Kasy online Posnet i Elzab oraz GoPOS, żeby faktury do paragonów szły tak, jak wymagają przepisy.',
             },
             {
               t: 'Podpis kwalifikowany',
-              d: 'EuroCert — podpis lub pieczęć do e-deklaracji i dokumentów.',
+              d: 'EuroCert: podpis lub pieczęć do e-deklaracji i dokumentów.',
             },
           ],
           products: r.many(['ksef', 'nexo', 'euro']),
@@ -1355,15 +1355,15 @@ export function ksefK4Layout(slugOf: SlugOf): K4Layout {
       },
       {
         q: 'Czy faktury dla konsumentów też muszą być w KSeF?',
-        a: 'Nie muszą — można je wysyłać do KSeF dobrowolnie.',
+        a: 'Nie muszą. Można je wysyłać do KSeF dobrowolnie.',
       },
       {
         q: 'Co, jeśli KSeF nie działa?',
-        a: 'Fakturę wystawiasz w trybie offline lub awaryjnym i dosyłasz: w trybie offline24 do następnego dnia roboczego, przy awarii KSeF — w ciągu 7 dni roboczych od jej zakończenia.',
+        a: 'Fakturę wystawiasz w trybie offline lub awaryjnym i dosyłasz: w trybie offline24 do następnego dnia roboczego, przy awarii KSeF w ciągu 7 dni roboczych od jej zakończenia.',
       },
       {
         q: 'Czy pomożecie, jeśli mamy inny program niż InsERT?',
-        a: 'Tak — sprawdzimy, czy Twój program obsługuje KSeF, i pomożemy z uprawnieniami. Jeśli program nie daje rady, zaproponujemy zmianę.',
+        a: 'Tak. Sprawdzimy, czy Twój program obsługuje KSeF, i pomożemy z uprawnieniami. Jeśli program nie daje rady, zaproponujemy zmianę.',
       },
     ]),
     section({
@@ -1388,7 +1388,7 @@ export function ksefK4Layout(slugOf: SlugOf): K4Layout {
             url: 'https://bnbn.pl/ksef-zpp-apel-kary-od-stycznia-2027/',
           },
         ],
-        note: 'Stan na 28.10.2026. To informacja ogólna, nie porada podatkowa — szczegóły potwierdź z księgową.',
+        note: 'Stan na 28.10.2026. To informacja ogólna, nie porada podatkowa. Szczegóły potwierdź z księgową.',
       },
     }),
   )
@@ -1398,7 +1398,7 @@ export function ksefK4Layout(slugOf: SlugOf): K4Layout {
         variant: 'band',
         eyebrow: 'KSeF z PRO-KOM',
         heading: 'Zdążmy przed 1 stycznia.',
-        lead: 'Sprawdzimy program, nadamy uprawnienia, przygotujemy certyfikat i przetestujemy pierwsze faktury — u Ciebie w firmie albo zdalnie.',
+        lead: 'Sprawdzimy program, nadamy uprawnienia, przygotujemy certyfikat i przetestujemy pierwsze faktury u Ciebie w firmie albo zdalnie.',
         data: {
           after: { date: KSEF_SWITCH_DATE, heading: 'Sprawdźmy Twój KSeF.' },
           actions: [
@@ -1424,9 +1424,9 @@ export function ulgaK4Layout(slugOf: SlugOf): K4Layout {
   const layout: PageBlock[] = [
     section({
       variant: 'ulga-hero',
-      heading: 'Ulga na kasę fiskalną.',
-      headingAccent: 'Do 700 zł zwrotu za każdą kasę.',
-      lead: 'Jeśli zaczynasz ewidencję sprzedaży na kasie online, odliczysz 90% ceny netto każdej kasy zgłoszonej na start — maksymalnie 700 zł na kasę. Ulgę rozlicza Twoja księgowa, a my dbamy o to, żeby kasa była zafiskalizowana i gotowa w terminie.',
+      heading: 'Ulga na kasę fiskalną:',
+      headingAccent: 'do 700 zł zwrotu za każdą kasę',
+      lead: 'Jeśli zaczynasz ewidencję sprzedaży na kasie online, odliczysz 90% ceny netto każdej kasy zgłoszonej na start, maksymalnie 700 zł na kasę. Ulgę rozlicza Twoja księgowa, a my dbamy o to, żeby kasa była zafiskalizowana i gotowa w terminie.',
       data: {
         trail: [{ name: 'Kasy fiskalne', href: '/oferta/kasy-fiskalne' }],
         pill: 'Nowa firma · pierwsza kasa fiskalna',
@@ -1437,7 +1437,7 @@ export function ulgaK4Layout(slugOf: SlugOf): K4Layout {
           {
             k: 'Kto rozlicza',
             v: 'Księgowa',
-            d: 'Czynny podatnik VAT — w JPK_V7; zwolniony z VAT — wniosek do urzędu skarbowego',
+            d: 'Czynny podatnik VAT: w JPK_V7; zwolniony z VAT: wniosek do urzędu skarbowego',
           },
         ],
         actions: [{ label: 'Zobacz kasy fiskalne', href: '/oferta/kasy-fiskalne' }],
@@ -1453,7 +1453,7 @@ export function ulgaK4Layout(slugOf: SlugOf): K4Layout {
           items: [
             'Zaczynasz ewidencję sprzedaży na kasie online w obowiązującym terminie.',
             'Zaczynasz ewidencję dobrowolnie, a firma wcześniej nie używała kasy rejestrującej.',
-            'Każda kasa zgłoszona w dniu rozpoczęcia ewidencji — ulga na każdą z nich.',
+            'Każda kasa zgłoszona w dniu rozpoczęcia ewidencji. Ulga przysługuje na każdą z nich.',
           ],
         },
         no: {
@@ -1475,7 +1475,7 @@ export function ulgaK4Layout(slugOf: SlugOf): K4Layout {
         {
           title: 'Kupujesz kasę online',
           label: 'Ty',
-          text: 'Na fakturę — i płacisz całą kwotę. Dobieramy model do Twojej sprzedaży.',
+          text: 'Na fakturę, płacisz całą kwotę. Dobieramy model do Twojej sprzedaży.',
         },
         {
           title: 'Fiskalizacja i zgłoszenie',
@@ -1490,7 +1490,7 @@ export function ulgaK4Layout(slugOf: SlugOf): K4Layout {
         {
           title: 'Rozliczenie ulgi',
           label: 'Twoja księgowa',
-          text: 'Czynny podatnik VAT — w pliku JPK_V7. Zwolniony z VAT — wniosek do urzędu skarbowego o zwrot na konto.',
+          text: 'Czynny podatnik VAT rozlicza ulgę w pliku JPK_V7. Zwolniony z VAT składa wniosek do urzędu skarbowego o zwrot na konto.',
         },
       ],
     }),
@@ -1522,7 +1522,7 @@ export function ulgaK4Layout(slugOf: SlugOf): K4Layout {
           }),
         ]
       : []),
-    faq('Pytania', 'Ulga na kasę — pytania', [
+    faq('Pytania', 'Pytania o ulgę na kasę', [
       {
         q: 'Ile wynosi ulga na kasę fiskalną?',
         a: '90% ceny netto kasy, maksymalnie do 700 zł na każdą kasę zgłoszoną w dniu rozpoczęcia ewidencji. Ulgę rozlicza Twoja księgowa.',
@@ -1561,7 +1561,7 @@ export function ulgaK4Layout(slugOf: SlugOf): K4Layout {
             url: 'https://www.infakt.pl/blog/zwrot-ulgi-na-kase-fiskalna-2/',
           },
         ],
-        note: 'Stan na 28.10.2026. To informacja ogólna, nie porada podatkowa — ulgę rozlicza Twoja księgowa.',
+        note: 'Stan na 28.10.2026. To informacja ogólna, nie porada podatkowa. Ulgę rozlicza Twoja księgowa.',
       },
     }),
     section({

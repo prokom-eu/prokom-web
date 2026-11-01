@@ -79,7 +79,7 @@ export const HOME_TRUST_LINE = K4_TRUST_LINE
 
 /** SEO → Opis of the home page (audit 01.11.2026; ≤ 155 characters, unique on the site). */
 export const HOME_DESCRIPTION =
-  'Kasy fiskalne, komputery, programy i opieka IT dla firm z Podhala i Małopolski. Dobór, wdrożenie i serwis z Rabki-Zdroju — wycena na piśmie.'
+  'Kasy fiskalne, komputery, programy i opieka IT dla firm z Podhala i Małopolski. Dobór, wdrożenie i serwis z Rabki-Zdroju.'
 
 export function biznesHomeLayout(refs: HomeRefs = NO_REFS): HomeBlock[] {
   return [
@@ -106,12 +106,12 @@ export function biznesHomeLayout(refs: HomeRefs = NO_REFS): HomeBlock[] {
       blockType: 'bzOffer',
       eyebrow: 'Oferta',
       // v150 (board `#s4-dz`); the label gets „· 5 działów · N pozycji” on the page.
-      heading: 'Kasy, komputery, programy, sieć i serwis — wybierz dział.',
-      lead: 'Sprzęt, programy i usługi od {marki} marek — każdy dział z doborem, wdrożeniem i serwisem. Cen nie ma na stronie: dodajesz pozycje do zapytania, a wycenę dostajesz na piśmie, pod swoją firmę.',
+      heading: 'Kasy, komputery, programy, sieć i serwis',
+      lead: 'Sprzęt, programy i usługi od {marki} marek. Każdy dział z doborem, wdrożeniem i serwisem. Cen nie ma na stronie: dodajesz pozycje do zapytania, a wycenę przygotujemy pod Twoją firmę.',
       catalogLabel: 'Cała oferta',
       // Board `#s4-dz`: the sixth tile (hard space after a one-letter word, K4-FINAL §1).
       searchEyebrow: 'Nie wiesz, w którym dziale szukać?',
-      searchHeading: 'Wpisz, czego potrzebujesz — znajdziemy to za\u00a0Ciebie.',
+      searchHeading: 'Wpisz, czego potrzebujesz, a znajdziemy to za\u00a0Ciebie.',
       systemsHeading: 'Systemy, które wdrażamy od początku do końca',
       systemsNote: 'Dwa autoryzowane partnerstwa i nasza usługa opieki IT',
       systems: [

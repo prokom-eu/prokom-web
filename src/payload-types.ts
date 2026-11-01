@@ -334,6 +334,10 @@ export interface SiteSetting {
      */
     showClientLogos?: boolean | null;
     /**
+     * Cytat właściciela na stronie głównej. Włącz dopiero, gdy szef zatwierdzi treść.
+     */
+    showOwnerQuote?: boolean | null;
+    /**
      * Nagłówek: kolejność menu i mega menu Oferta.
      */
     navigation?: {
@@ -5907,6 +5911,7 @@ export interface SiteSettingsSelect<T extends boolean = true> {
             };
         showReviews?: T;
         showClientLogos?: T;
+        showOwnerQuote?: T;
         navigation?:
           | T
           | {

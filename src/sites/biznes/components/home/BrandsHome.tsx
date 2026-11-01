@@ -54,7 +54,7 @@ export async function BrandsHome({
   const heading = block.heading?.trim() || 'Marki, które znamy od środka.'
   const lead =
     block.lead?.trim() ||
-    'Autoryzowany serwis Posnet i Elzab, autoryzowany partner GoPOS i InsERT oraz salony producentów — każdy z doborem modelu, porównaniem i serwisem.'
+    'Autoryzowany serwis Posnet i Elzab, autoryzowany partner GoPOS i InsERT oraz salony producentów, każdy z doborem modelu, porównaniem i serwisem.'
   const counts = new Map<string, number>()
   for (const product of index.products) {
     if (product.brand) counts.set(product.brand, (counts.get(product.brand) ?? 0) + 1)

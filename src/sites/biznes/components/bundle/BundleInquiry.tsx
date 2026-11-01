@@ -59,9 +59,9 @@ export function BundleInquiry({
     )
     setNotice(
       result.skipped > 0
-        ? `Lista zapytania jest pełna — ${result.skipped} ${plural(result.skipped, ['pozycja nie zmieściła', 'pozycje nie zmieściły', 'pozycji nie zmieściło'])} się. Usuń coś z listy i kliknij jeszcze raz.`
+        ? `Lista zapytania jest pełna: ${result.skipped} ${plural(result.skipped, ['pozycja nie zmieściła', 'pozycje nie zmieściły', 'pozycji nie zmieściło'])} się. Usuń coś z listy i kliknij jeszcze raz.`
         : result.added === 0 && result.noted > 0
-          ? 'Te pozycje już były w zapytaniu — dopisaliśmy przy nich zestaw.'
+          ? 'Te pozycje już były w zapytaniu. Dopisaliśmy przy nich zestaw.'
           : null,
     )
   }
@@ -177,7 +177,7 @@ export function BundleInquiry({
         </p>
         {listed ? (
           <Link href="/zapytanie" className={STICKY_ACTION_BUTTON}>
-            Zestaw w zapytaniu — przejdź
+            Przejdź do zapytania
             <Icon name="arrow" strokeWidth={2.4} className="size-4" />
           </Link>
         ) : (

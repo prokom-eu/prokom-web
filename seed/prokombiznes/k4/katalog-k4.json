@@ -8502,7 +8502,7 @@
    "nazwa": "Elzab zewnętrzny wyświetlacz klienta",
    "krotka": "Elzab zewnętrzny wyświetlacz klienta",
    "podtytul": "Kolorowy wyświetlacz TFT na regulowanym słupku",
-   "korzysc": "Kolorowy wyświetlacz na regulowanym słupku — klient widzi cenę i kwotę do zapłaty, a w przerwach Twoje logo.",
+   "korzysc": "Kolorowy wyświetlacz na regulowanym słupku: klient widzi cenę i kwotę do zapłaty, a w przerwach Twoje logo.",
    "opis": [
     "Zewnętrzny wyświetlacz klienta ELZAB stoi na ladzie i pokazuje klientowi ceny i kwotę do zapłaty. Przydaje się tam, gdzie wbudowany wyświetlacz kasy jest dla klienta słabo widoczny — np. przy wysokiej ladzie w sklepie, piekarni czy barze.",
     "To kolorowy ekran TFT 480 × 272 pikseli na słupku z regulacją wysokości od 16,5 do 42,7 cm. Kolory tła i czcionki ustawisz sam (do 65 tys. barw), a gdy nikt nie płaci, wyświetla się kolorowa grafika wygaszacza, np. z Twoim logo. Podstawa ma 8 × 8 cm, więc zajmuje mało miejsca; w zestawie są podkładki i taśma rzepowa do przyklejenia jej do blatu.",
@@ -8776,7 +8776,7 @@
    "nazwa": "Elzab szuflada aktywna ELZ-350 / ELZ-410",
    "krotka": "Elzab szuflada aktywna ELZ-350 / ELZ-410",
    "podtytul": "Szuflady do kasy K10 i drukarek Zeta / D10 (wtyk DC)",
-   "korzysc": "Metalowa szuflada na gotówkę z wtykiem DC — do kasy ELZAB K10 i drukarek ELZAB Zeta oraz D10.",
+   "korzysc": "Metalowa szuflada na gotówkę z wtykiem DC, do kasy ELZAB K10 i drukarek ELZAB Zeta oraz D10.",
    "opis": [
     "Szuflady aktywne ELZ-350 (średnia) i ELZ-410 (duża) to metalowe szuflady kasowe do wybranych urządzeń ELZAB: kasy K10 oraz drukarek fiskalnych Zeta i D10. W tych urządzeniach szufladę i zasilacz podłącza się bezpośrednio do gniazda zasilania urządzenia — dlatego szuflada ma przewód 1,4 m zakończony wtykiem DC 2.1/5.5, a nie zwykłą wtyczką RJ.",
     "Mają zamek trzypozycyjny (otwieranie kluczem, otwieranie elektromagnesem, blokada), według poradnika Elzab z 20 kombinacjami. Szerokość przegródek na banknoty jest regulowana, a dociski trzymają banknoty na miejscu. Podwójna szczelina pozwala wsunąć czek, bon lub talon bez otwierania szuflady. W razie awarii otworzysz ją dźwignią od spodu.",
@@ -8983,7 +8983,7 @@
    "nazwa": "Elzab szuflada kasowa ELZ-240 / ELZ-350 / ELZ-350 PRO (RJ)",
    "krotka": "Elzab szuflada kasowa ELZ-240 / ELZ-350 / ELZ-350 PRO",
    "podtytul": "Szuflady mała i średnia z gniazdem RJ, grafit",
-   "korzysc": "Metalowa szuflada na gotówkę z kablem RJ — mała do ciasnego stanowiska, średnia lub PRO do ruchliwego sklepu.",
+   "korzysc": "Metalowa szuflada na gotówkę z kablem RJ: mała do ciasnego stanowiska, średnia lub PRO do ruchliwego sklepu.",
    "opis": [
     "Szuflady kasowe ELZAB z gniazdem RJ to metalowe szuflady na gotówkę w kolorze grafitowym, podłączane do kasy lub drukarki fiskalnej kablem z wtyczką RJ (w zestawie). Kasa otwiera je elektromagnesem przy zamknięciu paragonu. Mała ELZ-240 pasuje do kiosku, gabinetu czy punktu usług, średnie ELZ-350 do sklepu i baru.",
     "ELZ-240 to rozsądny kompromis do małego obrotu: metalowa obudowa, wkład z tworzywa, 5 przegródek na banknoty i 5 na bilon, zamek z 10 kombinacjami. ELZ-350 ma metalowy wózek na teflonowych rolkach, metalowe dociski banknotów, 9 przegródek na bilon, podwójną szczelinę na czeki i bony, dźwignię awaryjną i zamek z 20 kombinacjami. Wersja PRO jedzie na prowadnicach kulkowych (jak w meblach kuchennych) — jest cichsza, płynniejsza i ma 5+2 przegródki na banknoty.",
@@ -10373,7 +10373,7 @@
    "nazwa": "Elzab drukarka paragonowa ELZ-MAX RS/USB/LAN/WIFI",
    "krotka": "Elzab drukarka paragonowa ELZ-MAX RS/USB/LAN/WIFI",
    "podtytul": "Niefiskalna drukarka bonów 80 mm, 4 złącza",
-   "korzysc": "Szybka drukarka bonów 80 mm z obcinaczem i Wi-Fi — do zamówień na kuchnię, rachunków i biletów.",
+   "korzysc": "Szybka drukarka bonów 80 mm z obcinaczem i Wi-Fi, do zamówień na kuchnię, rachunków i biletów.",
    "opis": [
     "ELZ-MAX to niefiskalna drukarka paragonowa, czyli drukarka do wydruków, które nie są paragonem fiskalnym. W restauracji drukuje zamówienia na kuchnię i rachunki przed zapłatą, w kantorze potwierdzenia wymiany, w gabinecie czy punkcie usług potwierdzenia wizyty lub wypożyczenia, a w sklepie kupony i stan konta lojalnościowego. Nada się też do biletów wstępu.",
     "Drukuje do 250 mm/s na papierze 80 mm i sama obcina wydruk (całkowicie lub częściowo). Ma w standardzie cztery złącza: RS232, USB, LAN i Wi-Fi, więc podłączysz ją do komputera, systemu POS albo do sieci bez kabla. Drukuje kody kreskowe i kody QR, obsługuje polskie strony kodowe, a wbudowany głośnik i dioda LED dają znać o nowym zamówieniu. Można ją powiesić na ścianie.",
@@ -10533,7 +10533,7 @@
    "nazwa": "Elzab drukarka paragonowa ELZ-RP332A",
    "krotka": "Elzab drukarka paragonowa ELZ-RP332A",
    "podtytul": "Niefiskalna drukarka bonów 80 mm, RS232/USB/LAN",
-   "korzysc": "Szybka drukarka bonów 80 mm z obcinaczem i złączami RS232, USB i LAN — na kuchnię, do biura i kasy.",
+   "korzysc": "Szybka drukarka bonów 80 mm z obcinaczem i złączami RS232, USB i LAN, na kuchnię, do biura i kasy.",
    "opis": [
     "ELZ-RP332A to niefiskalna drukarka paragonowa (bonowa). Drukuje zamówienia na kuchnię, rachunki przed zapłatą, potwierdzenia usług, wyniki z laboratorium, kupony czy bilety wstępu — wszystko, co nie jest paragonem fiskalnym. Sprawdzi się w restauracji, aptece, kantorze i w punkcie usługowym.",
     "Drukuje do 250 mm/s na papierze 80 mm i sama obcina wydruk. Ma w standardzie trzy złącza: RS232, USB i LAN, więc podłączysz ją do komputera, systemu POS albo do sieci przewodowej. Drukuje kody kreskowe i kody QR, a wbudowany głośnik działa jak dzwonek przy nowym zamówieniu. Można ją powiesić na ścianie. Jest cięższa i większa od ELZ-MAX (2,3 kg), ale nie ma Wi-Fi.",
@@ -10685,7 +10685,7 @@
    "nazwa": "Elzab mobilna drukarka paragonowa ELZ-RPP02B",
    "krotka": "Elzab mobilna drukarka paragonowa ELZ-RPP02B",
    "podtytul": "Mobilna drukarka 58 mm, Bluetooth i USB",
-   "korzysc": "Lekka drukarka do noszenia przy sobie — drukuje ze smartfona, tabletu lub laptopa przez Bluetooth.",
+   "korzysc": "Lekka drukarka do noszenia przy sobie: drukuje ze smartfona, tabletu lub laptopa przez Bluetooth.",
    "opis": [
     "ELZ-RPP02B to mała, mobilna drukarka termiczna na papier 58 mm. Przyda się wszędzie, gdzie drukujesz w ruchu: w taksówce, przy dostawach, w sprzedaży na targu czy podczas wizyty u klienta. Waży 294 g razem z baterią i papierem.",
     "Łączy się przez Bluetooth albo USB, więc drukuje z komputera, laptopa, tabletu i smartfona. Elzab przetestował ją z kasą Elzab w postaci oprogramowania (kasą wirtualną) dla taksówek — m.in. pod kątem poprawności wydruku paragonu, kontroli papieru i połączenia ze smartfonem. Wytrzymuje upadek z 1,2 m i pracuje od −10 °C do 50 °C. Drukuje kody kreskowe i QR.",
@@ -11174,7 +11174,7 @@
    "nazwa": "Dibal D-545 / S-545",
    "krotka": "Dibal D-545 / S-545",
    "podtytul": "Wagi etykietujące 6/15 kg, praca w sieci",
-   "korzysc": "Waga sklepowa, która waży i od razu drukuje etykietę z ceną — do lady, samoobsługi i działu ważenia.",
+   "korzysc": "Waga sklepowa, która waży i od razu drukuje etykietę z ceną, do lady, samoobsługi i działu ważenia.",
    "opis": [
     "Wagi DIBAL serii 545 ważą towar i drukują etykietę albo paragon z wagą i ceną. Są dla średnich i dużych sklepów — z działem mięsnym, serami, warzywami — w których kilka wag pracuje w sieci i pobiera ceny z programu sprzedaży. Wersja samoobsługowa D-545SS pozwala klientom samym ważyć owoce i warzywa.",
     "Mają zakres 6/15 kg (działka 2/5 g), legalizację, bazę 10 000 towarów i 20 sprzedawców. Do każdego towaru zapiszesz długi tekst o składzie i alergenach (wymóg rozporządzenia UE 1169/2011). Drukarka termiczna 203 dpi drukuje etykiety od 30 × 30 do 60 × 100 mm, paragony albo na papierze ciągłym; etykiety zmienia się kasetowo, a w D-545DB mechanizm wysuwa się w szufladzie. Łączą się przez Ethernet, opcjonalnie Wi-Fi.",
@@ -11804,7 +11804,7 @@
    "nazwa": "Dibal D-955",
    "krotka": "Dibal D-955",
    "podtytul": "Waga etykietująca z ekranem dotykowym",
-   "korzysc": "Waga etykietująca z dużym ekranem dotykowym — szybka obsługa przy ladzie i druk etykiet z ceną.",
+   "korzysc": "Waga etykietująca z dużym ekranem dotykowym: szybka obsługa przy ladzie i druk etykiet z ceną.",
    "opis": [
     "DIBAL D-955 to waga etykietująca z ekranem dotykowym od strony obsługi i kolorowym wyświetlaczem TFT dla klienta. Waży towar i drukuje etykietę, paragon albo wydruk na papierze ciągłym. Jest dla średnich i dużych sklepów z ladą mięsną, serową czy garmażeryjną, w których wagi pracują w sieci.",
     "Klawisze ustawiasz na ekranie dotykowym, więc dopasujesz je do swojego asortymentu, a na ekranie klienta wyświetlisz zdjęcia towarów polecanych. Waga ma zakres 6/15 kg, bazę 10 000 towarów, Ethernet (opcjonalnie Wi-Fi) i złącze skanera. Drukuje do 100 mm/s na etykietach od 30 × 30 do 60 × 100 mm, papier zakłada się kasetowo, a waga ostrzega o kończących się etykietach. Raporty wyeksportujesz na pendrive.",
@@ -13360,7 +13360,7 @@
    "rodzaj": "Urządzenia",
    "nazwa": "Zebra DS2208 / DS2278",
    "krotka": "Zebra DS2208 / DS2278",
-   "korzysc": "Zeskanujesz kody kreskowe i 2D — przewodowo lub bez kabla — skanerem Zebra z 5-letnią gwarancją.",
+   "korzysc": "Zeskanujesz kody kreskowe i 2D (przewodowo lub bez kabla) skanerem Zebra z 5-letnią gwarancją.",
    "opis": [
     "Zebra DS2208 (przewodowy) i DS2278 (bezprzewodowy) to ręczne skanery 2D do sklepu, apteki, gastronomii, hotelu, biura, biblioteki i urzędu. Skanujesz towary, faktury z kodem, karty lojalnościowe i dokumenty z kodem QR.",
     "Czytają kody 1D i 2D (QR, Data Matrix, PDF417, Aztec i inne) w dowolnym ułożeniu, także słabej jakości. DS2208 czyta również kody z ekranów urządzeń. Wytrzymują wielokrotne upadki z 1,5 m na beton i mają szczelność IP52. DS2208 przychodzi gotowy do pracy z kablem i podstawką; kabel sam rozpoznaje rodzaj złącza, a skaner pasuje do kabli starszego LS2208. DS2278 łączy się przez Bluetooth — do 10 m, a z podstawką-ładowarką CR2278 do 100 m — i na baterii 2400 mAh robi do 50 000 skanów.",
@@ -13568,7 +13568,7 @@
    "nazwa": "Skaner Sunmi 2D",
    "krotka": "Skaner Sunmi 2D",
    "podtytul": "Ręczny skaner kodów (USB)",
-   "korzysc": "Zeskanujesz kody kreskowe i QR z towarów, kuponów i ekranów telefonów — przy kasie lub komputerze.",
+   "korzysc": "Zeskanujesz kody kreskowe i QR z towarów, kuponów i ekranów telefonów, przy kasie lub komputerze.",
    "opis": [
     "Ręczny skaner kodów Sunmi do sklepu, kawiarni, apteki czy punktu usługowego. Podłączasz go kablem USB do kasy, terminala POS albo komputera i od razu skanujesz towary, bez instalowania dodatkowych programów.",
     "Czyta zwykłe kody kreskowe (1D) i kody 2D, czyli także QR, Data Matrix i PDF417. Odczyta kody wyświetlane na ekranie telefonu i z kart lojalnościowych. Kod EAN z opakowania złapie z odległości od 5,5 do 30 cm, w dowolnym ułożeniu. Po odczycie daje sygnał dźwiękiem, diodą i wibracją, więc kasjer wie, że kod wszedł, nawet w głośnym lokalu. Wytrzymuje upadek z 1,2 m.",
@@ -13762,7 +13762,7 @@
    "nazwa": "Zebra ZD421",
    "krotka": "Zebra ZD421",
    "podtytul": "Biurkowa drukarka etykiet",
-   "korzysc": "Wydrukujesz etykiety kurierskie, produktowe i apteczne — Zebra z łatwą wymianą taśmy i opcją 300 dpi.",
+   "korzysc": "Wydrukujesz etykiety kurierskie, produktowe i apteczne: Zebra z łatwą wymianą taśmy i opcją 300 dpi.",
    "opis": [
     "Biurkowa drukarka etykiet Zebra ZD421 dla sklepu internetowego, magazynu, apteki, przychodni czy biura. Drukujesz etykiety kurierskie 100 × 150 mm, produktowe, adresowe i kody. Zastępuje popularne Zebry GK420.",
     "Masz trzy wersje: ZD421d (termiczna, bez taśmy), ZD421t (termotransfer z rolki taśmy 74 lub 300 m) i ZD421c (taśma w kasecie, którą wkłada się w kilka sekund). Standardowo 203 dpi, opcjonalnie 300 dpi do małych kodów. Szerokość druku 104 mm, prędkość do 152 mm/s. Obudowa otwiera się jak muszla, a ikony stanu pokazują, co się dzieje.",
@@ -14170,7 +14170,7 @@
    "nazwa": "Godex G500 / G530",
    "krotka": "Godex G500 / G530",
    "podtytul": "Biurkowe drukarki etykiet z termotransferem",
-   "korzysc": "Wydrukujesz trwałe etykiety z taśmą 300 m — produkty, regały, jubilerskie i apteczne.",
+   "korzysc": "Wydrukujesz trwałe etykiety z taśmą 300 m: produkty, regały, jubilerskie i apteczne.",
    "opis": [
     "Biurkowe drukarki termotransferowe Godex dla sklepu, piekarni, apteki, jubilera, optyka czy małej produkcji. Drukujesz etykiety produktowe z składem i datą, kody na regały, metki jubilerskie i etykiety na opakowania. Mogą też drukować termicznie, bez taśmy.",
     "Mieszczą taśmę barwiącą 300 m, więc wymieniasz ją rzadziej niż przy krótkich taśmach. Podwójny czujnik odstępu pozwala drukować na etykietach ułożonych w dwóch lub więcej rzędach. G500 ma 203 dpi i drukuje do 127 mm/s, G530 ma 300 dpi do bardzo drobnych kodów, np. na biżuterię czy okulary. Szerokość druku to ok. 108 mm, więc obsłużą też etykiety 100 mm. W standardzie są USB, RS-232 i Ethernet.",
@@ -14396,7 +14396,7 @@
    "rodzaj": "Urządzenia",
    "nazwa": "Zebra TC22 / TC27",
    "krotka": "Zebra TC22 / TC27",
-   "korzysc": "Zeskanujesz kody i obsłużysz klienta w sklepie, magazynie lub w trasie — wytrzymały kolektor Zebra.",
+   "korzysc": "Zeskanujesz kody i obsłużysz klienta w sklepie, magazynie lub w trasie: wytrzymały kolektor Zebra.",
    "opis": [
     "Zebra TC22 i TC27 to wytrzymałe komputery mobilne wyglądające jak smartfon, dla handlu, magazynu, gastronomii, hoteli i serwisu w terenie. Sprawdzają ceny i stany, przyjmują dostawy, zbierają zamówienia, a z odpowiednią aplikacją mogą przyjmować płatności zbliżeniowe.",
     "Mają ekran 6 cali Full HD+ czytelny na zewnątrz, obsługę w lekkich rękawiczkach, dwa przyciski skanowania i profesjonalny skaner Zebra (SE4710 albo SE55 o zwiększonym zasięgu). Wytrzymują wielokrotne upadki z 1,5 m na beton (w etui) i mają szczelność IP68/IP65. Akumulator jest wymienny — standardowy 3800 mAh lub powiększony 5200 mAh na długą zmianę. TC22 pracuje w Wi-Fi 6E i Bluetooth, a TC27 ma dodatkowo modem 5G/4G (nano-SIM i eSIM) do pracy poza firmą.",
@@ -14633,7 +14633,7 @@
    "nazwa": "Godex DT2x / DT4x / DT200",
    "krotka": "Godex DT2x / DT4x / DT200",
    "podtytul": "Biurkowe drukarki etykiet",
-   "korzysc": "Wydrukujesz etykiety z ceną, kodem lub adresem bez taśmy barwiącej — na półkę, paczkę lub próbkę.",
+   "korzysc": "Wydrukujesz etykiety z ceną, kodem lub adresem bez taśmy barwiącej, na półkę, paczkę lub próbkę.",
    "opis": [
     "Termiczne drukarki etykiet Godex na biurko: do sklepu, apteki, gabinetu, biura i małego magazynu. Drukujesz etykiety cenowe, kody kreskowe i QR, naklejki na słoiki czy etykiety do wysyłek. Druk termiczny nie potrzebuje taśmy barwiącej — wkładasz tylko rolkę etykiet.",
     "Seria ma dwie szerokości: DT2x i DT200 drukują na etykietach do 54 mm (np. ceny, kody na półkę), a DT4x do 108 mm (np. etykiety kurierskie 100 × 150 mm). Wszystkie drukują do ok. 177 mm/s, mają w standardzie USB, RS-232 i Ethernet (praca w sieci) oraz zegar czasu rzeczywistego do dat ważności. Rozumieją języki EZPL, GEPL i GZPL, czyli zgodny z drukarkami Zebra. Nowszy DT200 ma przycisk autokalibracji, można go powiesić na ścianie i dołożyć Wi-Fi lub Bluetooth.",
@@ -14889,7 +14889,7 @@
    "nazwa": "Godex EZ2250i / EZ2350i",
    "krotka": "Godex EZ2250i / EZ2350i",
    "podtytul": "Przemysłowe drukarki etykiet",
-   "korzysc": "Wydrukujesz dużo trwałych etykiet dziennie w magazynie lub produkcji — metalowa drukarka na rolki 450 m.",
+   "korzysc": "Wydrukujesz dużo trwałych etykiet dziennie w magazynie lub produkcji: metalowa drukarka na rolki 450 m.",
    "opis": [
     "Przemysłowe drukarki etykiet Godex do magazynu, hurtowni, produkcji i dużego sklepu z własnym zapleczem. Gdy drukujesz setki lub tysiące etykiet dziennie — na kartony, palety, regały czy produkty — biurkowa drukarka szybko się męczy, a ta jest zbudowana do ciągłej pracy.",
     "Mechanizm i obudowa są metalowe. Drukarka przyjmuje duże rolki etykiet (do 203 mm średnicy) i długie taśmy barwiące 450 m, więc rzadziej wymieniasz materiały. Drukuje termicznie albo termotransferowo, czyli z taśmą — etykiety są wtedy odporne na ścieranie i wilgoć. EZ2250i ma 203 dpi i drukuje do 177 mm/s, EZ2350i ma 300 dpi do ostrzejszych, małych kodów. Szerokość druku to 104 mm. Kolorowy wyświetlacz ułatwia obsługę, a po podłączeniu zwykłej klawiatury USB drukarka może pracować bez komputera.",
@@ -15092,7 +15092,7 @@
    "rodzaj": "Urządzenia",
    "nazwa": "Godex GE300 / GE330",
    "krotka": "Godex GE300 / GE330",
-   "korzysc": "Wydrukujesz trwałe etykiety i ceny z taśmą lub bez — kompaktowa drukarka z opcją Wi-Fi.",
+   "korzysc": "Wydrukujesz trwałe etykiety i ceny z taśmą lub bez: kompaktowa drukarka z opcją Wi-Fi.",
    "opis": [
     "Biurkowe drukarki termotransferowe Godex dla sklepu, apteki, gabinetu, biura i małego magazynu. Drukujesz etykiety produktowe, adresowe, kody na półki i opakowania. Mogą też drukować termicznie, bez taśmy barwiącej.",
     "GE300/GE330 to następcy popularnych G300/G330: szybsze, mniejsze i lżejsze (1,8 kg), z przyciskiem kalibracji, który ułatwia zmianę rozmiaru etykiet. GE300 ma 203 dpi i drukuje do 127 mm/s, GE330 ma 300 dpi do drobnych kodów, np. u jubilera czy optyka. Szerokość druku ok. 108 mm wystarczy na etykiety 100 mm. W standardzie są USB, RS-232 i Ethernet, a jako opcje: obcinak, Bluetooth, Wi-Fi i zegar czasu rzeczywistego.",
@@ -15317,7 +15317,7 @@
    "rodzaj": "Urządzenia",
    "nazwa": "Godex GX4200i / GX4300i / GX4600i",
    "krotka": "Godex GX4200i / GX4300i / GX4600i",
-   "korzysc": "Wydrukujesz tysiące etykiet dziennie do 406 mm/s — przemysłowa drukarka z ekranem dotykowym.",
+   "korzysc": "Wydrukujesz tysiące etykiet dziennie do 406 mm/s: przemysłowa drukarka z ekranem dotykowym.",
    "opis": [
     "Przemysłowe drukarki Godex z serii GX4000i do magazynów, centrów wysyłkowych, hurtowni i zakładów produkcyjnych, w których etykiety drukuje się bez przerwy przez całą zmianę. Sprawdzą się przy etykietach logistycznych, paletowych, produktowych i znamionowych.",
     "Mają metalową obudowę, duży 5-calowy ekran dotykowy z regulacją kąta i filmami instruktażowymi (np. jak założyć taśmę) oraz przycisk szybkiej kalibracji. Przyjmują rolki etykiet do 203 mm i taśmy do 450 m. Model GX4200i (203 dpi) drukuje do 406 mm/s, GX4300i (300 dpi) do 305 mm/s, a GX4600i (600 dpi) pozwala drukować bardzo małe etykiety, np. na elektronikę i podzespoły. Szerokość druku to ok. 104 mm.",
@@ -15526,7 +15526,7 @@
    "rodzaj": "Urządzenia",
    "nazwa": "Godex RT200 / RT200i",
    "krotka": "Godex RT200 / RT200i",
-   "korzysc": "Wydrukujesz małe, trwałe etykiety 54 mm — ceny, próbki, opaski dla pacjentów — z taśmą lub bez.",
+   "korzysc": "Wydrukujesz małe, trwałe etykiety 54 mm (ceny, próbki, opaski dla pacjentów) z taśmą lub bez.",
    "opis": [
     "Kompaktowe drukarki etykiet Godex do etykiet o szerokości do 54 mm: ceny w sklepie, oznaczenia próbek w laboratorium, etykiety apteczne, metki, opaski identyfikacyjne dla pacjentów. Zmieszczą się na zatłoczonej ladzie czy w recepcji gabinetu.",
     "Drukują termotransferowo (z taśmą — trwalej) albo termicznie. RT200 to wersja podstawowa z diodami stanu, drukująca do 127 mm/s. RT200i ma kolorowy wyświetlacz z przyciskami, port USB Host i szybszy druk do 177 mm/s, a po podłączeniu klawiatury USB może drukować bez komputera. Oba modele mają w standardzie USB, RS-232, Ethernet oraz zegar czasu rzeczywistego, a przycisk kalibracji ułatwia częstą zmianę rozmiaru etykiet.",
@@ -15765,7 +15765,7 @@
    "rodzaj": "Urządzenia",
    "nazwa": "Godex RT230 / RT230i",
    "krotka": "Godex RT230 / RT230i",
-   "korzysc": "Wydrukujesz bardzo drobne, ostre etykiety do 57 mm — dla jubilera, optyka, apteki i laboratorium.",
+   "korzysc": "Wydrukujesz bardzo drobne, ostre etykiety do 57 mm, dla jubilera, optyka, apteki i laboratorium.",
    "opis": [
     "Kompaktowe drukarki Godex z głowicą 300 dpi do małych etykiet, na których liczy się ostrość: metki jubilerskie, etykiety na oprawki okularów, małe kody w aptece, oznaczenia probówek w laboratorium. Mało miejsca na ladzie — tyle co RT200.",
     "Drukują termotransferowo (z taśmą) lub termicznie, na szerokość do 56,9 mm. RT230 to wersja z diodami stanu, drukująca do 102 mm/s. RT230i ma kolorowy wyświetlacz z przyciskami, port USB Host i druk do 127 mm/s, a z klawiaturą USB może drukować bez komputera. Obie mają USB, RS-232 i Ethernet w standardzie, zegar czasu rzeczywistego oraz przycisk kalibracji.",
@@ -15990,7 +15990,7 @@
    "rodzaj": "Urządzenia",
    "nazwa": "SATO metkownice JUDO 26 / KENDO 26",
    "krotka": "SATO metkownice JUDO 26 / KENDO 26",
-   "korzysc": "Ręcznie ometkujesz towar ceną lub datą — bez prądu, komputera i drukarki.",
+   "korzysc": "Ręcznie ometkujesz towar ceną lub datą, bez prądu, komputera i drukarki.",
    "opis": [
     "Ręczne metkownice SATO do szybkiego oznaczania towaru ceną, datą lub krótkim kodem. Przydadzą się w małym sklepie spożywczym, piekarni, kiosku, sklepie z odzieżą czy na stoisku targowym — wszędzie tam, gdzie ceny nakleja się na towar ręcznie, a drukarka etykiet byłaby przesadą.",
     "KENDO 26 drukuje jeden rząd znaków na etykiecie 26 × 12 mm, z większymi znakami (4,5–5 mm), a w rolce ma 1500 etykiet. JUDO 26 drukuje dwa rzędy — np. cenę w górnym i datę w dolnym — i mieści 1200 etykiet w rolce. Liczba pól w rzędzie zależy od wybranej głowicy (6, 8 lub 10). Tusz jest w wałku nasączonym, który wymienia się jednym ruchem. Metkownice ważą ok. 280–300 g.",
@@ -16162,7 +16162,7 @@
    "nazwa": "Zebra ZD230",
    "krotka": "Zebra ZD230",
    "podtytul": "Biurkowa drukarka etykiet",
-   "korzysc": "Wydrukujesz etykiety adresowe, produktowe i kurierskie 100 mm — prosta drukarka Zebra na biurko.",
+   "korzysc": "Wydrukujesz etykiety adresowe, produktowe i kurierskie 100 mm: prosta drukarka Zebra na biurko.",
    "opis": [
     "Biurkowa drukarka etykiet Zebra ZD230 do sklepu internetowego, biura, magazynu czy apteki. Drukujesz etykiety kurierskie 100 × 150 mm, adresowe, produktowe i kody kreskowe. To prosta, podstawowa drukarka z jedną diodą stanu i jednym przyciskiem.",
     "Jest w dwóch wersjach: ZD230d drukuje termicznie (bez taśmy, mniejsza obudowa), a ZD230t termotransferowo, z taśmą 74 m lub 300 m — etykiety są wtedy trwalsze. Rozdzielczość 203 dpi, szerokość druku 104 mm, prędkość do 152 mm/s. Używa języków ZPL i EPL, które obsługuje większość programów sprzedaży i platform kurierskich.",
@@ -16395,7 +16395,7 @@
    "nazwa": "Brother P-touch PT-D610BTVP",
    "krotka": "Brother P-touch PT-D610BTVP",
    "podtytul": "Biurkowa drukarka etykiet P-touch na taśmy TZe 3,5–24 mm, klawiatura QWERTY, Bluetooth i USB, automatyczna obcinarka",
-   "korzysc": "Trwałe etykiety na półki, segregatory, kable i urządzenia drukujesz od ręki — z klawiatury, komputera lub telefonu.",
+   "korzysc": "Trwałe etykiety na półki, segregatory, kable i urządzenia drukujesz od razu, z klawiatury, komputera lub telefonu.",
    "opis": [
     "PT-D610BTVP to profesjonalna drukarka etykiet z klawiaturą QWERTY i podświetlanym wyświetlaczem. Drukuje na taśmach TZe od 3,5 do 24 mm, a automatyczna obcinarka odcina gotową etykietę. Możesz pisać wprost na urządzeniu albo projektować etykiety na komputerze (P-touch Editor) lub w telefonie (aplikacja iPrint&Label) i wysyłać je przez Bluetooth lub USB.",
     "Taśmy TZe są laminowane, więc etykiety są odporne na wodę, ścieranie, chemię i wysokie temperatury. Sprawdzą się na regałach w magazynie i sklepie, na pojemnikach w kuchni, w szafie serwerowej czy przy oznaczaniu sprzętu w szkole i gabinecie.",
@@ -16705,7 +16705,7 @@
    "nazwa": "Brother PJ-822 / PJ-862 / PJ-883 (seria PJ-800)",
    "krotka": "Brother PJ-822 / PJ-862 / PJ-883",
    "podtytul": "Przenośna termiczna drukarka A4 bez tuszu, do 13,5 str./min, 480 g, USB-C; wersje z Bluetooth i Wi-Fi",
-   "korzysc": "Protokół, umowę czy fakturę drukujesz u klienta albo w aucie — drukarka mieści się w torbie na laptopa.",
+   "korzysc": "Protokół, umowę czy fakturę drukujesz u klienta albo w aucie: drukarka mieści się w torbie na laptopa.",
    "opis": [
     "Seria PJ-800 to najmniejsze drukarki A4 Brother: mają 25,5 cm długości, 3 cm wysokości i ważą ok. 480 g bez akumulatora. Drukują termicznie, więc nie potrzebują tuszu, tonera ani taśmy — tylko papieru termicznego. Wydruk A4 trwa kilka sekund, maksymalnie 13,5 strony na minutę.",
     "To narzędzie dla serwisantów, instalatorów, przedstawicieli handlowych i opieki domowej: protokół odbioru, umowa czy dokument dostawy wychodzi od razu na miejscu. Z opcjonalnym akumulatorem drukarka robi do ok. 600 kartek A4 na jednym ładowaniu i pracuje w temperaturze od -10 do 50 °C. Można ją zamontować w samochodzie.",
@@ -16873,7 +16873,7 @@
    "nazwa": "Brother RJ-3055WB / RJ-3035B",
    "krotka": "Brother RJ-3055WB / RJ-3035B",
    "podtytul": "Mobilna drukarka paragonów i etykiet do 72 mm (rolki 58 i 79 mm), 101 mm/s, Bluetooth i Wi-Fi, 375 g",
-   "korzysc": "Paragon, potwierdzenie dostawy czy etykieta z ceną drukowane od razu przy kliencie — przy stoliku, na sali sprzedaży lub w trasie.",
+   "korzysc": "Paragon, potwierdzenie dostawy czy etykieta z ceną drukowane od razu przy kliencie, przy stoliku, na sali sprzedaży lub w trasie.",
    "opis": [
     "RJ-3055WB to lekka (375 g) drukarka noszona przy pasku lub na ramieniu. Drukuje termicznie paragony i etykiety o szerokości druku do 72 mm — pasują rolki paragonowe 58 i 79 mm oraz etykiety, np. 76 × 44 mm. Prędkość to do 101 mm na sekundę.",
     "Łączy się z telefonem, terminalem lub tabletem przez Bluetooth albo Wi-Fi (2,4 i 5 GHz), a z komputerem przez USB. Obsługuje popularne języki drukarek (ESC/POS, CPCL, emulacje ZPL2 i EPL2) i ma darmowe SDK, więc łatwo ją połączyć z aplikacją do sprzedaży, zamówień czy dostaw.",
@@ -17032,7 +17032,7 @@
    "nazwa": "Elzab BS80 2D USB KIT",
    "krotka": "Elzab BS80 2D USB KIT",
    "podtytul": "Z podstawką",
-   "korzysc": "Zeskanujesz kody kreskowe i QR z towarów i telefonów — ręcznie lub automatycznie na podstawce.",
+   "korzysc": "Zeskanujesz kody kreskowe i QR z towarów i telefonów: ręcznie lub automatycznie na podstawce.",
    "opis": [
     "ELZAB BS80 2D USB KIT to ręczny czytnik kodów w zestawie z podstawką — do sklepu, apteki, kawiarni, punktu usługowego i biura. Podłączasz go przez USB do kasy, terminala POS lub komputera i skanujesz towary, karty lojalnościowe czy kupony. Jest niewielki, lekki i ma ergonomiczny kształt, a zasilanie (5 V) bierze prosto z portu USB.",
     "Czyta kody kreskowe (1D) i kody 2D: QR, Data Matrix, PDF417 i inne, także wyświetlane na ekranie telefonu klienta. Kod EAN-13 odczyta z odległości 3–20 cm, a kod QR z 2–15 cm. Ma białe podświetlenie i czerwony celownik, który pomaga trafić w kod, a każdy udany odczyt potwierdza sygnałem dźwiękowym i świetlnym.",
@@ -17181,7 +17181,7 @@
    "rodzaj": "Urządzenia",
    "nazwa": "FAWAGscan",
    "krotka": "FAWAGscan",
-   "korzysc": "Zeskanujesz kody z towarów, kart i telefonów do 32 cm — skaner z podstawką, odporny na upadki z 3 m.",
+   "korzysc": "Zeskanujesz kody z towarów, kart i telefonów do 32 cm: skaner z podstawką, odporny na upadki z 3 m.",
    "opis": [
     "FAWAGscan to ręczny skaner kodów marki Fawag (Lubelskie Fabryki Wag należące do Posnet), przeznaczony do sklepów, punktów usługowych, gastronomii, lekkiej produkcji, banków i urzędów. Podłączasz go do kasy, drukarki fiskalnej lub komputera i od razu skanujesz — producent podkreśla, że nie wymaga dodatkowej integracji.",
     "Czyta kody kreskowe i 2D (QR, Data Matrix, PDF417 i inne) z odległości do 32 cm, także kody słabej jakości i wyświetlane na ekranie telefonu, np. karty lojalnościowe w aplikacji. Obudowa z tworzywa ABS+PC wytrzymuje wielokrotne upadki na beton z 3 m, a skaner pracuje od -20 do 60 °C, więc poradzi sobie też na stoisku zewnętrznym. Kabel wyjmuje się bez narzędzi.",
@@ -17331,7 +17331,7 @@
    "rodzaj": "Urządzenia",
    "nazwa": "Sunmi Blink / Blink 2",
    "krotka": "Sunmi Blink / Blink 2",
-   "korzysc": "Klient sam zeskanuje kod QR z telefonu lub kartę lojalnościową — stojący czytnik przy kasie.",
+   "korzysc": "Klient sam zeskanuje kod QR z telefonu lub kartę lojalnościową: stojący czytnik przy kasie.",
    "opis": [
     "Sunmi Blink to mały, stojący czytnik ustawiany przy kasie przodem do klienta. Klient sam przykłada do niego telefon z kodem QR (kupon, bilet, karta lojalnościowa w aplikacji) albo plastikową kartę. Sprawdzi się w kawiarni, restauracji z aplikacją lojalnościową, kinie, przy wejściu na wydarzenie czy w sklepie z programem rabatowym.",
     "Okienko 7,5 × 7,5 cm jest pochylone pod kątem 45°, a ramka pokazuje, gdzie przyłożyć kod. Odczyt sygnalizuje dioda i dźwięk. Metalowa rama z gumową stopką stoi stabilnie. Blink 2 ma lepszą kamerę (1 Mpx, 60 klatek/s), czyta kod w ok. 0,1 s i według producenta obsługuje więcej rodzajów kodów, także popularne kody kreskowe. Pierwszy Blink czyta tylko QR i Code 128.",
@@ -17546,7 +17546,7 @@
    "rodzaj": "Urządzenia",
    "nazwa": "Sunmi L2s Pro / L2Ks",
    "krotka": "Sunmi L2s Pro / L2Ks",
-   "korzysc": "Zrobisz inwentaryzację, przyjmiesz dostawę i sprawdzisz ceny — mobilny kolektor z Androidem i skanerem 2D.",
+   "korzysc": "Zrobisz inwentaryzację, przyjmiesz dostawę i sprawdzisz ceny: mobilny kolektor z Androidem i skanerem 2D.",
    "opis": [
     "Kolektory danych Sunmi, czyli „telefony do pracy” z wbudowanym skanerem kodów. Dla sklepu, hurtowni, apteki, magazynu i firmy kurierskiej: inwentaryzacja, przyjęcie dostawy, kompletowanie zamówień, sprawdzanie cen na sali sprzedaży. Działają na Androidzie (SUNMI OS), więc instalujesz na nich program magazynowy albo aplikację kolektorową, np. elzAPP MAG.",
     "L2s Pro ma duży ekran dotykowy 5,5 cala, bez fizycznej klawiatury — wygodny do aplikacji z wieloma polami. L2Ks ma mniejszy ekran 4 cale i podświetlaną klawiaturę, którą szybko wpiszesz ilość czy lokalizację, także w rękawiczkach. Oba mają skaner 2D (czyta kody kreskowe i QR), Wi-Fi 2,4/5 GHz, 4G na kartę SIM, Bluetooth 5.0, GPS i wymienny akumulator 5000 mAh na całą zmianę. L2Ks wytrzymuje upadki z 1,8 m i ma szczelność IP68.",
@@ -17787,7 +17787,7 @@
    "rodzaj": "Urządzenia",
    "nazwa": "Sunmi L3",
    "krotka": "Sunmi L3",
-   "korzysc": "Zeskanujesz i zinwentaryzujesz towar na dużym ekranie 6,75\" — kolektor Sunmi z Androidem 14 i 4G.",
+   "korzysc": "Zeskanujesz i zinwentaryzujesz towar na dużym ekranie 6,75\": kolektor Sunmi z Androidem 14 i 4G.",
    "opis": [
     "Sunmi L3 to nowy kolektor danych z dużym ekranem dla sklepu, hurtowni, magazynu, apteki i firm kurierskich. Robisz nim inwentaryzację, przyjmujesz dostawy, kompletujesz zamówienia online i sprawdzasz ceny na sali. Działa na Androidzie 14 z usługami Google, więc zainstalujesz na nim aplikację magazynową lub kolektorową.",
     "Ma ekran 6,75 cala czytelny także w rękawicach, skaner 2D, który radzi sobie z uszkodzonymi kodami, i ośmiordzeniowy procesor. Akumulator 5000 mAh jest wymienny i wystarcza na ok. 10 godzin pracy. Obudowa ma szczelność IP68 i wytrzymuje upadek z 1,5 m na beton. W środku są Wi-Fi 2,4/5 GHz, 4G, Bluetooth 5.2, NFC i GPS (także Galileo).",
@@ -17990,7 +17990,7 @@
    "rodzaj": "Urządzenia",
    "nazwa": "Zebra ZC100 / ZC300",
    "krotka": "Zebra ZC100 / ZC300",
-   "korzysc": "Wydrukujesz karty lojalnościowe, identyfikatory i karty dostępu w kolorze — u siebie, bez zlecania drukarni.",
+   "korzysc": "Wydrukujesz karty lojalnościowe, identyfikatory i karty dostępu w kolorze, u siebie, bez zlecania drukarni.",
    "opis": [
     "Drukarki kart plastikowych Zebra do drukowania kart lojalnościowych, podarunkowych, członkowskich (np. siłownia, klub), identyfikatorów pracowników, legitymacji i kart dostępu w hotelu. Zamiast zamawiać karty w drukarni, drukujesz je u siebie, pojedynczo lub w małych seriach.",
     "ZC100 drukuje jednostronnie, w kolorze lub na czarno, w rozdzielczości 300 dpi — to model do małych nakładów. ZC300 drukuje jedno- lub dwustronnie (wersja dwustronna), szybciej (do 900 kart/h na czarno), ma Ethernet w standardzie i może kodować karty zbliżeniowe MIFARE i stykowe (chipowe). Obie mają taśmy Load-N-Go, które łatwo się wymienia, wyświetlacz stanu i podajnik na 100 kart.",
@@ -18218,9 +18218,9 @@
    "seria": "Automaty z windą",
    "rodzaj": "Urządzenia",
    "nazwa": "Automat z windą model 2026 — chłodzony, do świeżych produktów",
-   "krotka": "Optivendi — automat z windą model 2026",
+   "krotka": "Optivendi · automat z windą model 2026",
    "podtytul": "Automat vendingowy z windą i popychaczami, chłodzenie 4–8 °C, 270–300 produktów, ekran dotykowy 21,5\"",
-   "korzysc": "Sprzedaje także delikatne produkty — sałatki, nabiał, owoce — bo winda podaje je łagodnie, bez spadania z półki.",
+   "korzysc": "Sprzedaje także delikatne produkty (sałatki, nabiał, owoce), bo winda podaje je łagodnie, bez spadania z półki.",
    "opis": [
     "Automat z windą to najnowsza wersja klasycznej maszyny vendingowej. Zamiast zrzucać produkt na dół, winda podjeżdża pod półkę, odbiera go i podaje do okienka. Dzięki temu w automacie można sprzedawać kruche i delikatne opakowania: sałatki, jogurty, kanapki, owoce, desery w pojemnikach.",
     "Komora jest chłodzona w zakresie 4–8 °C, a szyba nie paruje i jest odporna na wilgoć. Na 6 półkach mieści się 270–300 produktów, a podajniki można ustawić jako taśmowe, spiralne lub z popychaczem — zależnie od opakowania. Klient wybiera na ekranie dotykowym 21,5\", który w przerwach wyświetla reklamy i promocje.",
@@ -18520,7 +18520,7 @@
    "nazwa": "Chlebomat — świeże pieczywo przez całą dobę",
    "krotka": "Optivendi Chlebomat",
    "podtytul": "Szafy z boxami na pieczywo sterowane jednym ekranem 21,5\"; opcjonalnie z chłodzonym automatem z windą",
-   "korzysc": "Piekarnia sprzedaje pieczywo także w nocy i w niedzielę — klient odbiera bułki ze skrytki, płacąc kartą lub BLIK-iem.",
+   "korzysc": "Piekarnia sprzedaje pieczywo także w nocy i w niedzielę: klient odbiera bułki ze skrytki, płacąc kartą lub BLIK-iem.",
    "opis": [
     "Chlebomat to zestaw szaf z boxami (skrytkami) na pieczywo, sterowany wspólnym ekranem dotykowym. Rano piekarz wkłada pieczywo do skrytek, a klienci kupują je o dowolnej porze — także przed otwarciem i po zamknięciu sklepu. Skrytki sprawdzą się też na ciasta, mąkę, zestawy prezentowe czy odbiór zamówień internetowych.",
     "Są dwie konfiguracje: jednostka sterująca z szafami z boxami albo chłodzony automat z windą (4–8 °C) połączony z szafami — wtedy obok chleba sprzedasz nabiał, wędliny czy napoje. Jedna jednostka obsługuje do 3 szaf po 19, 20, 40 lub 64 skrytki. Szafy mają stalową, wzmocnioną konstrukcję, LED i zamki elektromagnetyczne.",
@@ -18787,9 +18787,9 @@
    "seria": "Automaty z windą",
    "rodzaj": "Urządzenia",
    "nazwa": "Automat podwójny z windą — dwie komory, jeden ekran",
-   "krotka": "Optivendi — automat podwójny z windą",
+   "krotka": "Optivendi · automat podwójny z windą",
    "podtytul": "Dwie niezależne komory z windami, 120 slotów, 540–600 produktów, wspólne płatności i ekran 21,5\"",
-   "korzysc": "Dwa automaty w jednym: napoje w jednej komorze, świeże przekąski w drugiej — wspólny ekran i jedna płatność.",
+   "korzysc": "Dwa automaty w jednym: napoje w jednej komorze, świeże przekąski w drugiej: wspólny ekran i jedna płatność.",
    "opis": [
     "Automat podwójny to dwie komory z niezależnymi windami, połączone jednym ekranem dotykowym i jednym systemem płatności. Każda komora ma osobno ustawiane podajniki, więc w jednej sprzedasz napoje, a w drugiej desery, kanapki albo kosmetyki.",
     "Łącznie automat ma 120 slotów (po 60 w komorze) i mieści 540–600 produktów. Chłodzenie 4–8 °C, podświetlana witryna LED, czujnik wydania produktu (drop sensor) i płyta antykradzieżowa. Klient płaci gotówką, kartą lub BLIK-iem.",
@@ -18939,9 +18939,9 @@
    "seria": "Automaty z windą",
    "rodzaj": "Urządzenia",
    "nazwa": "Automat z windą „PUSH” — napoje, przekąski i drobne produkty",
-   "krotka": "Optivendi — automat z windą PUSH",
+   "krotka": "Optivendi · automat z windą PUSH",
    "podtytul": "Winda, podajniki taśmowe i spiralne, ok. 300 produktów, chłodzenie 4–25 °C, ekran 22\", głębokość 87 cm",
-   "korzysc": "Automat z windą i podajnikami taśmowymi lub spiralnymi — napoje, przekąski, kosmetyki i drobne produkty w jednej maszynie.",
+   "korzysc": "Automat z windą i podajnikami taśmowymi lub spiralnymi: napoje, przekąski, kosmetyki i drobne produkty w jednej maszynie.",
    "opis": [
     "Automat „PUSH” to uniwersalna maszyna z windą do sprzedaży napojów, przekąsek, kosmetyków, akcesoriów i innych drobnych produktów. Platforma windy odbiera produkt z półki i podaje go do okienka, więc nawet szklane butelki i delikatne opakowania nie spadają.",
     "Chłodzenie kompresorowe (SECOP lub Embraco) można ustawić w zakresie 4–25 °C — od zimnych napojów po produkty w temperaturze pokojowej. Na 6 półkach mieści się ok. 300 produktów. Klient płaci gotówką, kartą lub BLIK-iem i może dostać e-paragon albo e-fakturę na e-mail; automat można też zintegrować z e-drukarką fiskalną.",
@@ -19091,9 +19091,9 @@
    "seria": "Automaty z windą",
    "rodzaj": "Urządzenia",
    "nazwa": "Automat z windą „PULL” — napoje, przekąski i drobne produkty",
-   "krotka": "Optivendi — automat z windą PULL",
+   "krotka": "Optivendi · automat z windą PULL",
    "podtytul": "Winda, podajniki taśmowe i z popychaczem, ok. 300 produktów, chłodzenie 4–25 °C, ekran 22\", głębokość 79 cm",
-   "korzysc": "Automat z windą i podajnikami z popychaczem — płytszy od wersji PUSH (79 cm), więc łatwiej go zmieścić w korytarzu.",
+   "korzysc": "Automat z windą i podajnikami z popychaczem: płytszy od wersji PUSH (79 cm), więc łatwiej go zmieścić w korytarzu.",
    "opis": [
     "Automat „PULL” to uniwersalna maszyna z windą do sprzedaży napojów, przekąsek, kosmetyków, akcesoriów i innych drobnych produktów. Platforma windy odbiera produkt z półki i podaje go do okienka, więc nawet szklane butelki i delikatne opakowania nie spadają.",
     "Chłodzenie kompresorowe (SECOP lub Embraco) można ustawić w zakresie 4–25 °C — od zimnych napojów po produkty w temperaturze pokojowej. Na 6 półkach mieści się ok. 300 produktów. Klient płaci gotówką, kartą lub BLIK-iem i może dostać e-paragon albo e-fakturę na e-mail; automat można też zintegrować z e-drukarką fiskalną.",
@@ -19245,7 +19245,7 @@
    "nazwa": "Chłodnia podwójna — duży automat z windą do 1120 produktów",
    "krotka": "Optivendi Chłodnia podwójna",
    "podtytul": "Podwójny automat chłodniczy z inteligentną windą, do 140 wnęk, panoramiczne okno, e-paragon i opcja e-kasy",
-   "korzysc": "Największy automat w ofercie — jedna maszyna zastępuje mały sklepik z przekąskami i świeżą żywnością.",
+   "korzysc": "Największy automat w ofercie: jedna maszyna zastępuje mały sklepik z przekąskami i świeżą żywnością.",
    "opis": [
     "Chłodnia podwójna to największy automat z windą w ofercie Optivendi: ma ponad 3 m szerokości, do 140 wnęk i mieści od 84 do 1120 produktów — zależnie od ich wielkości i ustawienia półek. Panoramiczne okno pokazuje cały asortyment jak witryna sklepu.",
     "Inteligentna winda podaje produkty do okienka odbioru z zabezpieczeniem przed przytrzaśnięciem palców. Podajniki są taśmowe i spiralne, z regulowaną szerokością przegród. Chłodzenie 4–25 °C, ekran dotykowy 21,5\", płatność gotówką, kartą lub BLIK-iem, e-paragony i e-faktury oraz możliwość podpięcia e-kasy fiskalnej.",
@@ -19547,7 +19547,7 @@
    "nazwa": "SmartVend 49 — automat z ekranem dotykowym 49\"",
    "krotka": "Optivendi SmartVend 49",
    "podtytul": "Automat vendingowy z ogromnym ekranem 49\" na produkty, reklamy i wideo, chłodzenie 2–25 °C, do 180 napojów",
-   "korzysc": "Automat, który sam się reklamuje: cały front to ekran 49\" — dla marek, eventów i miejsc, gdzie liczy się wrażenie.",
+   "korzysc": "Automat, który sam się reklamuje: cały front to ekran 49\", dla marek, eventów i miejsc, gdzie liczy się wrażenie.",
    "opis": [
     "SmartVend 49 zamiast szyby ma ogromny ekran dotykowy 49\". Klient przegląda na nim produkty jak w sklepie internetowym, a między zakupami ekran wyświetla reklamy, promocje i filmy. To automat do miejsc, w których liczy się wizerunek: salonów marek, eventów, samplingu, fan store’ów czy recepcji.",
     "W środku jest 36 slotów na 6 półkach — do 180 napojów — z regulowanym rozstawem półek i szerokością kanałów. Chłodzenie ustawisz od 2 do 25 °C. Płatność gotówką, kartą lub BLIK-iem. Obudowę i treści na ekranie można w pełni dostosować do Twojej marki.",
@@ -19690,9 +19690,9 @@
    "seria": "Zestawy",
    "rodzaj": "Urządzenia",
    "nazwa": "Automat z windą + boxomat — zestaw sterowany jednym ekranem",
-   "krotka": "Optivendi — automat z windą + boxomat",
+   "krotka": "Optivendi · automat z windą + boxomat",
    "podtytul": "Automat z windą (4–25 °C, ok. 300 produktów) połączony z szafkami 19–80 skrytek; jeden ekran, jedna płatność",
-   "korzysc": "Drobne produkty sprzedaje automat, a duże i nietypowe — skrytki obok. Wszystko z jednego ekranu.",
+   "korzysc": "Drobne produkty sprzedaje automat, a duże i nietypowe: skrytki obok. Wszystko z jednego ekranu.",
    "opis": [
     "Zestaw łączy klasyczny automat z windą z jedną lub kilkoma szafkami z boxami (skrytkami). Ekran dotykowy automatu steruje całością: klient w jednym koszyku kupuje napój z windy i np. zestaw prezentowy czy większe opakowanie ze skrytki.",
     "Automat z windą ma chłodzenie 4–25 °C i mieści ok. 300 produktów na 6 półkach. Szafki z boxami (bez chłodzenia) są dostępne w wersjach z 19, 20, 27, 40, 64 lub 80 skrytkami, z podświetleniem LED i elektrozamkami. Płatność gotówką, kartą lub BLIK-iem.",
@@ -19826,9 +19826,9 @@
    "seria": "Mikromarkety",
    "rodzaj": "Urządzenia",
    "nazwa": "Sklep samoobsługowy 24/7 — ściana automatów w jednym punkcie",
-   "krotka": "Optivendi — sklep samoobsługowy 24/7",
+   "krotka": "Optivendi · sklep samoobsługowy 24/7",
    "podtytul": "Kilka automatów zestawionych w jeden punkt sprzedaży: wspólny ekran i koszyk, płatność gotówką, zbliżeniowo i BLIK",
-   "korzysc": "Twój sklep działa w nocy i w weekendy — bez personelu, z asortymentem dobranym do miejsca.",
+   "korzysc": "Twój sklep działa w nocy i w weekendy, bez personelu, z asortymentem dobranym do miejsca.",
    "opis": [
     "Sklep samoobsługowy to kilka automatów ustawionych obok siebie w jedną „ścianę” — na przykład automat z napojami, mikromarket ze świeżą żywnością, obiadomat i szafki z boxami. Zależnie od typu maszyn klient korzysta z jednego wyświetlacza i jednego koszyka.",
     "To sposób na sprzedaż poza godzinami otwarcia sklepu stacjonarnego, w zakładzie pracującym na zmiany, na osiedlu, w kompleksie sportowym, na uczelni czy w szpitalu. Pojemność zależy od wybranych maszyn, a płatność odbywa się gotówką, zbliżeniowo lub BLIK-iem.",
@@ -20097,7 +20097,7 @@
    "nazwa": "Pizzomat — gorąca pizza z automatu w 2–3 minuty",
    "krotka": "Optivendi Pizzomat",
    "podtytul": "Automat chłodzi pizzę (2–4 °C) i piecze ją na zamówienie (220–350 °C); 80 pudełek, ekran 32\"",
-   "korzysc": "Pizzeria czynna całą dobę bez obsługi — klient patrzy przez szybę, jak automat piecze jego pizzę.",
+   "korzysc": "Pizzeria czynna całą dobę bez obsługi: klient patrzy przez szybę, jak automat piecze jego pizzę.",
    "opis": [
     "Pizzomat przechowuje pizze w chłodzonej komorze (2–4 °C), a po zamówieniu piecze wybraną w temperaturze 220–350 °C. Cały proces trwa 2–3 minuty, a przez przezroczyste drzwi widać, co dzieje się w środku — to przyciąga klientów.",
     "Automat mieści 80 pudełek z pizzą 9–10 cali. Winda i system półek przenoszą pizzę do pieca i do bezpiecznych drzwiczek odbioru. Klient zamawia na dużym ekranie 32\" i płaci gotówką, kartą lub BLIK-iem.",
@@ -20381,9 +20381,9 @@
    "seria": "Automaty spożywcze",
    "rodzaj": "Urządzenia",
    "nazwa": "Automat do mrożonek −18 °C — lody, pierogi, mięso, owoce morza",
-   "krotka": "Optivendi — automat do mrożonek",
+   "krotka": "Optivendi · automat do mrożonek",
    "podtytul": "Mroźniczy automat vendingowy: 54 sloty, 270–594 produkty, drzwi z potrójnego szkła, odbiór na wysokości pasa",
-   "korzysc": "Sprzedaż mrożonek całą dobę: od lodów po pierogi i mięso — w stałej temperaturze −18 °C.",
+   "korzysc": "Sprzedaż mrożonek całą dobę: od lodów po pierogi i mięso, w stałej temperaturze −18 °C.",
    "opis": [
     "Automat do mrożonek utrzymuje −18 °C i sprzedaje produkty, których zwykły automat nie obsłuży: lody, mrożone pierogi i dania, mięso, ryby, owoce morza. Drzwi z potrójnego szkła próżniowego trzymają zimno, a okienko odbioru jest na wysokości pasa — nie trzeba się schylać.",
     "Automat ma 54 sloty i mieści 270–594 produkty w ponad 30 kategoriach. Konsola dotykowa działa jak sklep internetowy: koszyk, rabaty, programy lojalnościowe i interfejs w barwach Twojej marki. Płatność gotówką, kartą lub BLIK-iem, e-paragon i e-faktura na e-mail, a także możliwość integracji z e-drukarką fiskalną.",
@@ -20532,7 +20532,7 @@
    "nazwa": "Tortomat — torty i ciasta 24/7, każdy box w swojej temperaturze",
    "krotka": "Optivendi Tortomat",
    "podtytul": "16 przeszklonych boxów z indywidualną temperaturą 4–25 °C, podświetlane witryny, ekran 21,5\" z czytnikiem kart",
-   "korzysc": "Cukiernia sprzedaje torty także po zamknięciu — każdy wystawiony w podświetlanej, chłodzonej witrynie.",
+   "korzysc": "Cukiernia sprzedaje torty także po zamknięciu: każdy wystawiony w podświetlanej, chłodzonej witrynie.",
    "opis": [
     "Tortomat to 16 przeszklonych, podświetlanych boxów (szafa sterująca i dwa moduły po 8 boxów), w których torty i ciasta wyglądają jak w witrynie cukierni. Temperaturę każdego boxu ustawiasz osobno w zakresie 4–25 °C z dokładnością do 1 °C, a chłodzenie można wyłączyć, gdy nie jest potrzebne.",
     "Box ma ok. 280 × 356 × 491 mm — zmieści cały tort. Klient wybiera na ekranie dotykowym i płaci gotówką, kartą lub BLIK-iem. System powiadamia, gdy trzeba uzupełnić towar, a zdalnie widać stany, temperatury i sprzedaż.",
@@ -20936,7 +20936,7 @@
    "nazwa": "Książkomat — wypożyczanie i sprzedaż książek 24/7",
    "krotka": "Optivendi Książkomat",
    "podtytul": "Jednostka z ekranem 22\" i szafy po 80 skrytek; tryb wypożyczania lub sprzedaży, e-paragon i opcja e-kasy",
-   "korzysc": "Biblioteka czy księgarnia wydaje książki także po godzinach — czytelnik odbiera je ze skrytki.",
+   "korzysc": "Biblioteka czy księgarnia wydaje książki także po godzinach: czytelnik odbiera je ze skrytki.",
    "opis": [
     "Książkomat to jednostka sterująca z ekranem dotykowym 22\" i szafy z 80 wąskimi skrytkami (wnęka ok. 280 × 55 × 300 mm). Działa w trybie wypożyczania — czytelnik odbiera zamówioną książkę o dowolnej porze — albo w trybie sprzedaży.",
     "Do jednej jednostki podłączysz do 3 szaf. Skrytki zamykają zamki elektromagnetyczne, a automat prowadzi użytkownika komunikatami i sygnałami dźwiękowymi. Przy sprzedaży klient płaci gotówką, kartą lub BLIK-iem; automat wystawia e-paragony i faktury, a można też podłączyć e-kasę fiskalną.",
@@ -21071,7 +21071,7 @@
    "nazwa": "Kluczomat — depozytor na klucze dla hoteli, firm i wypożyczalni",
    "krotka": "Optivendi Kluczomat",
    "podtytul": "Boxomat z 19–40 skrytkami i ekranem 21,5\": wydawanie i zwrot kluczy bez recepcji",
-   "korzysc": "Gość odbiera klucz do pokoju o 2 w nocy, a kierowca kluczyki do auta — bez czekania na recepcję.",
+   "korzysc": "Gość odbiera klucz do pokoju o 2 w nocy, a kierowca kluczyki do auta, bez czekania na recepcję.",
    "opis": [
     "Kluczomat to boxomat do bezobsługowego wydawania i zwrotu kluczy: do pokoi hotelowych i apartamentów, samochodów służbowych, szafek, pomieszczeń czy rowerów. Klucz czeka w zamkniętej skrytce, a uprawniona osoba odbiera go przez ekran dotykowy.",
     "Do jednej jednostki sterującej podłączysz do 3 szaf po 19–40 skrytek. Każda skrytka ma szybkę, a wydawany box podświetla się i sygnalizuje dźwiękiem. System działa na Androidzie.",
@@ -21206,7 +21206,7 @@
    "nazwa": "Pelletomat — zewnętrzny automat do sprzedaży pelletu w workach",
    "krotka": "Optivendi Pelletomat",
    "podtytul": "25 dużych skrytek na worki, konstrukcja zewnętrzna z dachem, LED, ekran 22\", płatność kartą i BLIK",
-   "korzysc": "Klient podjeżdża autem i sam odbiera worki z pelletem — także wieczorem i w weekend, bez magazyniera.",
+   "korzysc": "Klient podjeżdża autem i sam odbiera worki z pelletem, także wieczorem i w weekend, bez magazyniera.",
    "opis": [
     "Pelletomat to boxomat przystosowany do pracy na zewnątrz: ma dach chroniący przed opadami, materiały odporne na wilgoć i mróz oraz oświetlenie LED z przodu i z tyłu. W 25 dużych skrytkach (450 × 590 × 590 mm) mieszczą się worki z pelletem.",
     "Klient wybiera na ekranie 22\" liczbę worków, płaci kartą lub BLIK-iem, a skrytki otwierają się elektrozamkami. Sprzedawca zdalnie zmienia ceny, sprawdza stany i może zdalnie wydać produkt; automat wystawia e-paragony i e-faktury.",
@@ -22077,7 +22077,7 @@
    "rodzaj": "Urządzenia",
    "nazwa": "Apple MacBook Air 13\" / 15\" (M5)",
    "krotka": "Apple MacBook Air 13\" / 15\"",
-   "podtytul": "Cichy, bezwentylatorowy laptop z chipem M5 — od 16 GB RAM i 512 GB SSD, do 18 h na baterii",
+   "podtytul": "Cichy, bezwentylatorowy laptop z chipem M5, od 16 GB RAM i 512 GB SSD, do 18 h na baterii",
    "korzysc": "Laptop do biura i w podróż, który pracuje cały dzień bez ładowarki i nie wydaje żadnego dźwięku.",
    "opis": [
     "MacBook Air z chipem M5 (marzec 2026) to laptop dla właściciela firmy, księgowej, handlowca czy menedżera — wszędzie tam, gdzie liczy się lekkość i długa praca na baterii. Nie ma wentylatora, więc pracuje bezgłośnie. Do wyboru jest wersja 13,6\" (1,23 kg) i 15,3\" (1,51 kg) z większym ekranem do arkuszy i dwóch okien obok siebie.",
@@ -22357,7 +22357,7 @@
    "rodzaj": "Urządzenia",
    "nazwa": "Lenovo ThinkPad T14 Gen 7 (Intel / AMD)",
    "krotka": "Lenovo ThinkPad T14 Gen 7",
-   "podtytul": "Biznesowy laptop 14\" — standard korporacyjny z wymienną pamięcią i opcją 4G/5G",
+   "podtytul": "Biznesowy laptop 14\": standard korporacyjny z wymienną pamięcią i opcją 4G/5G",
    "korzysc": "Codzienny laptop firmowy 14\" na lata: biuro, wyjazdy, praca zdalna, z opcją internetu 4G/5G.",
    "opis": [
     "ThinkPad T14 to podstawowy laptop biznesowy Lenovo — taki, jaki duże firmy kupują pracownikom biurowym, handlowcom i kierownikom. Sprawdzi się w biurze rachunkowym, kancelarii, gabinecie czy w dziale sprzedaży: programy księgowe, ERP, Office, wideorozmowy i wiele okien naraz.",
@@ -22968,8 +22968,8 @@
    "rodzaj": "Urządzenia",
    "nazwa": "Lenovo ThinkPad T14s Gen 7 (Intel / AMD / Snapdragon)",
    "krotka": "Lenovo ThinkPad T14s Gen 7",
-   "podtytul": "Lekki i cienki ThinkPad 14\" od 1,07 kg — Intel, AMD lub Snapdragon, opcja 5G",
-   "korzysc": "Lekki laptop 14\" dla osób w ciągłym ruchu — cały dzień pracy na baterii, opcjonalnie z internetem 5G.",
+   "podtytul": "Lekki i cienki ThinkPad 14\" od 1,07 kg: Intel, AMD lub Snapdragon, opcja 5G",
+   "korzysc": "Lekki laptop 14\" dla osób w ciągłym ruchu: cały dzień pracy na baterii, opcjonalnie z internetem 5G.",
    "opis": [
     "ThinkPad T14s to cieńsza i lżejsza odmiana T14 — dla właściciela firmy, handlowca, przedstawiciela czy menedżera, który codziennie nosi laptopa między biurem, klientem i domem. Waży od ok. 1,07 kg i ma niecałe 11–16 mm grubości.",
     "Generacja 7 występuje w trzech platformach: Intel Core Ultra (seria 3), AMD Ryzen AI 400 oraz Snapdragon X2 (procesor typu ARM — bardzo długa praca na baterii, ale niektóre starsze programy i sterowniki mogą nie działać, trzeba to sprawdzić przed zakupem). Wersje Intel i AMD mają trzy porty USB-C (w tym Thunderbolt 4), HDMI i USB-A, Wi-Fi 7 oraz opcjonalny modem 4G lub 5G na kartę SIM/eSIM. Do wyboru ekran matowy WUXGA, dotykowy, z filtrem prywatyzującym albo OLED 2,8K 120 Hz.",
@@ -23892,7 +23892,7 @@
    "rodzaj": "Urządzenia",
    "nazwa": "Lenovo ThinkPad X13 Gen 7",
    "krotka": "Lenovo ThinkPad X13 Gen 7",
-   "podtytul": "Lekki laptop 13,3\" poniżej 1 kg, opcjonalnie z modemem 4G lub 5G — do pracy w drodze",
+   "podtytul": "Lekki laptop 13,3\" poniżej 1 kg, opcjonalnie z modemem 4G lub 5G, do pracy w drodze",
    "korzysc": "Laptop poniżej 1 kg do pracy w podróży, z opcją internetu 5G bez szukania Wi-Fi.",
    "opis": [
     "ThinkPad X13 Gen 7 jest dla osób, które dużo jeżdżą: właściciela firmy, handlowca, doradcy, menedżera kilku obiektów. Waży od 930 g, ma ekran 13,3\" i mieści się w każdej torbie, a mimo to ma klawiaturę ThinkPad z TrackPointem, wygodną przy dłuższym pisaniu.",
@@ -24188,7 +24188,7 @@
    "nazwa": "Lenovo ThinkPad T16 Gen 5 (Intel / AMD)",
    "krotka": "Lenovo ThinkPad T16 Gen 5",
    "podtytul": "Biznesowy laptop 16\" z dużym ekranem, wymienną pamięcią, RJ-45 i opcją 4G/5G",
-   "korzysc": "Duży ekran 16\" do tabel, programów magazynowych i pracy na kilku oknach — zamiast komputera przy biurku.",
+   "korzysc": "Duży ekran 16\" do tabel, programów magazynowych i pracy na kilku oknach: zamiast komputera przy biurku.",
    "opis": [
     "ThinkPad T16 to ta sama klasa co T14, ale z dużym ekranem 16\". To dobry wybór dla księgowości, działu kadr, biura obsługi i kierowników, którzy dużo pracują w arkuszach, programach księgowych i systemach magazynowych, a laptop głównie stoi na biurku.",
     "Generacja 5 ma porty RJ-45, HDMI, dwa Thunderbolt 4 i dwa USB-A, Wi-Fi 7 i opcjonalny modem 4G lub 5G. Pamięć nie jest wlutowana: Intel ma wymienny moduł LPCAMM2 do 64 GB, AMD dwa gniazda DDR5 do 96 GB. Bateria 60 lub 75 Wh z szybkim ładowaniem. Wersja Intel może mieć ekran OLED 2,8K 120 Hz, wersja AMD tylko ekrany WUXGA.",
@@ -25080,7 +25080,7 @@
    "rodzaj": "Urządzenia",
    "nazwa": "Lenovo ThinkPad X1 Carbon Gen 14 Aura Edition",
    "krotka": "Lenovo ThinkPad X1 Carbon Gen 14 Aura Edition",
-   "podtytul": "Flagowy ultralekki laptop 14\" poniżej 1 kg — dla zarządu i osób w ciągłej podróży",
+   "podtytul": "Flagowy ultralekki laptop 14\" poniżej 1 kg, dla zarządu i osób w ciągłej podróży",
    "korzysc": "Laptop dla zarządu: poniżej 1 kg, ekran OLED, kamera 10 Mpix na wideokonferencje i opcja 5G w każdej podróży.",
    "opis": [
     "ThinkPad X1 Carbon to flagowy laptop biznesowy Lenovo — dla właściciela firmy, zarządu, dyrektora czy doradcy, który dużo podróżuje i prowadzi spotkania online. Waży od ok. 0,98 kg i jest bardzo cienki (od 7,7 mm z przodu), a mimo to ma pełnowymiarową klawiaturę ThinkPad i TrackPoint.",
@@ -29760,7 +29760,7 @@
    "nazwa": "Lenovo ThinkPad P1 Gen 9",
    "krotka": "Lenovo ThinkPad P1 Gen 9",
    "podtytul": "Laptop 16\" z kartą NVIDIA RTX PRO, procesorem Intel Core Ultra seria 3 i pamięcią do 96 GB",
-   "korzysc": "Mobilna stacja robocza 16\" dla projektanta, architekta i montażysty wideo — mocna jak komputer stacjonarny, a mieści się w torbie.",
+   "korzysc": "Mobilna stacja robocza 16\" dla projektanta, architekta i montażysty wideo: mocna jak komputer stacjonarny, a mieści się w torbie.",
    "opis": [
     "ThinkPad P1 Gen 9 to mobilna stacja robocza, czyli laptop do programów, z którymi zwykły komputer sobie nie radzi: CAD, BIM, wizualizacje, modele 3D, obróbka zdjęć i wideo. Pasuje do biura projektowego, pracowni architektonicznej, firmy budowlanej z działem technicznym i studia graficznego. Ma ekran 16 cali 16:10 i waży od 1,77 kg.",
     "W środku są procesory Intel Core Ultra seria 3 (16 rdzeni) i profesjonalne karty graficzne NVIDIA RTX PRO 1000 lub RTX PRO 2000 (Blackwell, 8 GB). Pamięć do 96 GB siedzi na wymiennym module LPCAMM2, więc można ją później wymienić na większą. Są dwa gniazda na dyski SSD (łącznie do 8 TB) z obsługą RAID, czyli np. kopii lustrzanej na dwóch dyskach. Ekran wybierasz: Full HD+ (WUXGA), 4K (3840×2400) albo dotykowy 3.2K Tandem OLED 120 Hz z wiernymi kolorami.",
@@ -30040,7 +30040,7 @@
    "nazwa": "Lenovo ThinkPad T14s 2-in-1 Gen 2",
    "krotka": "Lenovo ThinkPad T14s 2-in-1 Gen 2",
    "podtytul": "ThinkPad 14\" 2 w 1 z ekranem dotykowym, zawiasem 360° i procesorem Intel Core Ultra seria 3",
-   "korzysc": "Biznesowy laptop z obracanym ekranem dotykowym i piórem chowanym w obudowie — do notatek, podpisów i prezentacji przy kliencie.",
+   "korzysc": "Biznesowy laptop z obracanym ekranem dotykowym i piórem chowanym w obudowie, do notatek, podpisów i prezentacji przy kliencie.",
    "opis": [
     "T14s 2-in-1 to ThinkPad, którego ekran obrócisz o 360°. Pracujesz jak na laptopie, stawiasz go „w namiot” do prezentacji albo składasz w tablet. To dobry wybór dla handlowca, kierownika budowy, menedżera hotelu czy lekarza, który zbiera podpisy, robi odręczne notatki albo pokazuje klientowi ofertę na ekranie. Waży od 1,35 kg.",
     "Ma procesory Intel Core Ultra seria 3 z układem AI (Copilot+ PC), do 64 GB pamięci i dysk do 2 TB. Ekran dotykowy 14\" WUXGA ma do 500 nitów, a w jednej z wersji filtr ThinkPad Privacy Guard, który utrudnia podglądanie ekranu z boku. W obudowie jest schowek na pióro Lenovo Garaged Pen, które ładuje się po schowaniu. Pióro wybierasz w konfiguracji.",
@@ -30333,7 +30333,7 @@
    "nazwa": "Lenovo ThinkPad L13 2-in-1 Gen 6 (Intel / AMD)",
    "krotka": "Lenovo ThinkPad L13 2-in-1 Gen 6",
    "podtytul": "13,3\" ThinkPad z ekranem dotykowym i zawiasem 360°, na Intel Core Ultra lub AMD Ryzen PRO",
-   "korzysc": "Mały, wytrzymały laptop 2 w 1 z ekranem dotykowym — do recepcji, szkoły i pracy w terenie.",
+   "korzysc": "Mały, wytrzymały laptop 2 w 1 z ekranem dotykowym, do recepcji, szkoły i pracy w terenie.",
    "opis": [
     "L13 2-in-1 to kompaktowy ThinkPad z dotykowym ekranem 13,3 cala, który obracasz o 360°. Sprawdzi się w recepcji pensjonatu, w gabinecie, w szkole i u pracownika w terenie, który wypełnia protokoły i zbiera podpisy na ekranie. Waży od 1,30 kg.",
     "Wybierasz platformę Intel Core Ultra (seria 2) albo AMD Ryzen PRO 200. Ekran WUXGA 1920×1200 ma jasność 400 nitów i 100% sRGB. W obudowie jest schowek na pióro Lenovo Integrated Pen, które ładuje się po schowaniu (pióro kupujesz osobno). Opcjonalnie laptop ma też tylną kamerę 5 Mpix z autofocusem — przyda się do zdjęć dokumentów czy usterek.",
@@ -30620,7 +30620,7 @@
    "nazwa": "Lenovo ThinkPad X13 Detachable Gen 1",
    "krotka": "Lenovo ThinkPad X13 Detachable Gen 1",
    "podtytul": "13\" tablet ThinkPad 2.8K 120 Hz z Intel Core Ultra seria 3, opcjonalną klawiaturą Folio i modemem 5G",
-   "korzysc": "Tablet z pełnym Windows 11 i odpinaną klawiaturą — jeden sprzęt do biura, spotkań i pracy w terenie.",
+   "korzysc": "Tablet z pełnym Windows 11 i odpinaną klawiaturą: jeden sprzęt do biura, spotkań i pracy w terenie.",
    "opis": [
     "X13 Detachable to tablet z pełnym Windows 11, do którego przypinasz klawiaturę ThinkPad Folio. Bez klawiatury waży ok. 0,89 kg, z klawiaturą ok. 1,25 kg. Pasuje do pracy w terenie (oględziny, protokoły, zdjęcia tylną kamerą 8 Mpix), na spotkaniach i w recepcji.",
     "Ekran 13\" w proporcjach 3:2 jest wyższy niż w typowym laptopie, co ułatwia czytanie dokumentów. Ma rozdzielczość 2880×1920, jasność 500 nitów i płynne odświeżanie 120 Hz. W środku są procesory Intel Core Ultra seria 3 z układem AI (Copilot+ PC), pamięć 16, 32 lub 64 GB (wlutowana) i dysk do 1 TB. Opcjonalnie modem 5G z eSIM.",
@@ -30905,7 +30905,7 @@
    "nazwa": "Lenovo ThinkBook 14 2-in-1 G6",
    "krotka": "Lenovo ThinkBook 14 2-in-1 G6",
    "podtytul": "14\" ThinkBook 2 w 1 z Intel Core Ultra seria 3, zawiasem 360° i ekranem dotykowym WUXGA",
-   "korzysc": "Laptop z obracanym ekranem dotykowym do biura, recepcji i szkoły — z pamięcią, którą rozbudujesz później.",
+   "korzysc": "Laptop z obracanym ekranem dotykowym do biura, recepcji i szkoły, z pamięcią, którą rozbudujesz później.",
    "opis": [
     "ThinkBook 14 2-in-1 G6 to laptop z ekranem dotykowym, który obracasz o 360°: do pracy przy biurku, do prezentacji „w namiot” albo w trybie tabletu. Dobry dla biura, recepcji, szkoły czy salonu usługowego, gdzie przyda się pokazanie czegoś klientowi na ekranie albo podpis rysikiem.",
     "Ma procesory Intel Core Ultra 5 325 lub Core Ultra 7 355 z układem AI (Copilot+ PC), ekran 14\" WUXGA 1920×1200 o jasności 400 nitów, Wi-Fi 7 i kamerę Full HD z podczerwienią do logowania twarzą. Pamięć RAM siedzi w dwóch gniazdach (do 32 GB), a w środku są dwa gniazda M.2 na dyski.",
@@ -32884,7 +32884,7 @@
    "nazwa": "Apple MacBook Pro 14\" / 16\" (M5, M5 Pro, M5 Max)",
    "krotka": "Apple MacBook Pro 14\" / 16\"",
    "podtytul": "Mobilna stacja robocza: ekran Liquid Retina XDR 120 Hz, do 128 GB RAM i 8 TB SSD, HDMI i czytnik SD",
-   "korzysc": "Laptop dla tych, którym zwykły komputer nie wystarcza — CAD, montaż wideo, duże zdjęcia czy lokalne modele AI — bez przywiązania do biurka.",
+   "korzysc": "Laptop dla tych, którym zwykły komputer nie wystarcza (CAD, montaż wideo, duże zdjęcia czy lokalne modele AI), bez przywiązania do biurka.",
    "opis": [
     "MacBook Pro występuje w dwóch rozmiarach i z trzema chipami. Model 14\" z podstawowym M5 pochodzi z października 2025 r., a wersje z M5 Pro i M5 Max (14\" i 16\") weszły w marcu 2026 r. Wszystkie mają ekran Liquid Retina XDR z odświeżaniem do 120 Hz, jasnością 1000 nitów (1600 nitów w HDR) i opcją matowego szkła nano-texture, które przydaje się przy oknie lub mocnym oświetleniu biura.",
     "Wybór chipu zależy od pracy: M5 wystarczy do wymagających zadań biurowych i obróbki zdjęć, M5 Pro do CAD, programowania i montażu wideo, a M5 Max do renderingu, wideo w wysokiej rozdzielczości i lokalnych modeli AI. Pamięć RAM sięga od 16 GB do 128 GB, a dysk od 1 TB do 8 TB (8 TB tylko z M5 Max). Na baterii laptop wytrzymuje do 24 h odtwarzania wideo.",
@@ -34343,7 +34343,7 @@
    "nazwa": "Apple Mac mini (M6 / M5 Pro)",
    "krotka": "Apple Mac mini",
    "podtytul": "Komputer stacjonarny 12,7 × 12,7 cm z chipem M6 lub M5 Pro, Ethernet 2,5 Gb i obsługą do 3 monitorów",
-   "korzysc": "Pełnowartościowy komputer biurowy, który zmieści się na każdym biurku, ladzie czy recepcji — podłączasz własny monitor, klawiaturę i mysz.",
+   "korzysc": "Pełnowartościowy komputer biurowy, który zmieści się na każdym biurku, ladzie czy recepcji: podłączasz własny monitor, klawiaturę i mysz.",
    "opis": [
     "Mac mini to najmniejszy komputer stacjonarny Apple: 12,7 × 12,7 cm i 5 cm wysokości, około 0,7 kg. Wersja z sierpnia 2026 r. jako pierwszy Mac dostała chip M6. Sprawdzi się na stanowisku biurowym, w recepcji, w punkcie obsługi klienta czy jako komputer do sali konferencyjnej — schowany za monitorem albo stojący obok niego.",
     "Do wyboru są dwa chipy. M6 (CPU 12 rdzeni, GPU 12 rdzeni) z 16–32 GB RAM i dyskiem od 256 GB do 2 TB wystarczy do pracy biurowej, księgowości i programów sprzedażowych w przeglądarce. M5 Pro (CPU 15 lub 18 rdzeni, GPU 16 lub 20) z 24–64 GB RAM i dyskiem do 8 TB to już mała stacja robocza do grafiki, CAD i montażu wideo.",
@@ -35954,7 +35954,7 @@
    "nazwa": "Lenovo ThinkCentre M70t / M70s / M75s Gen 6 (Tower i SFF)",
    "krotka": "Lenovo ThinkCentre M70t / M70s / M75s Gen 6",
    "podtytul": "Komputer biznesowy w obudowie tower lub SFF, z procesorem Intel Core Ultra (seria 2) albo AMD Ryzen / Ryzen AI",
-   "korzysc": "Biurowy komputer stacjonarny na lata — z miejscem na rozbudowę, dodatkowe porty i napęd DVD, gdy są potrzebne.",
+   "korzysc": "Biurowy komputer stacjonarny na lata, z miejscem na rozbudowę, dodatkowe porty i napęd DVD, gdy są potrzebne.",
    "opis": [
     "ThinkCentre M to komputery stacjonarne dla firm, które potrzebują więcej niż oferuje seria neo: więcej portów, łatwiejszą rozbudowę i dodatkowe zabezpieczenia. Sprawdzą się w biurze, księgowości, sklepie z programem sprzedażowym, w szkole i urzędzie. M70t to obudowa tower (13,6 l). M70s i M75s to niższa obudowa SFF (8,2 l), którą łatwiej zmieścić pod biurkiem lub obok monitora.",
     "M70t i M70s mają procesory Intel Core Ultra (seria 2), od Core Ultra 3 205 do Core Ultra 7 265. M75s Gen 6 ma procesory AMD: Ryzen 8000G albo nowsze Ryzen AI 400 z układem NPU do zadań sztucznej inteligencji. Pamięć DDR5: do 128 GB w M70t i M70s (4 gniazda) oraz do 64 GB w M75s. W środku są dwa gniazda M.2 na dyski SSD i miejsce na dysk 3,5\". Opcjonalnie dobierzesz kartę graficzną, napęd DVD i czytnik kart.",
@@ -36277,7 +36277,7 @@
    "nazwa": "Lenovo ThinkCentre M70q / M75q / M90q Tiny Gen 6",
    "krotka": "Lenovo ThinkCentre M70q / M75q / M90q Tiny Gen 6",
    "podtytul": "Mini komputer 1 litr: Intel Core Ultra (seria 2) lub AMD Ryzen AI 400, do 4 monitorów i opcjonalne porty COM / VGA",
-   "korzysc": "Komputer wielkości książki, który przykręcisz za monitorem — z mocą biurowego PC i miejscem na dwa dyski.",
+   "korzysc": "Komputer wielkości książki, który przykręcisz za monitorem, z mocą biurowego PC i miejscem na dwa dyski.",
    "opis": [
     "ThinkCentre M Tiny to komputery o objętości 1 litra (179 × 183 × 37 mm). Przykręcisz je z tyłu monitora, pod blatem albo postawisz pionowo na podstawce. Pasują do recepcji, stanowisk sprzedaży w sklepie, gabinetów, sal lekcyjnych i biur, gdzie liczy się porządek i mało kabli na biurku.",
     "M70q Gen 6 ma procesory Intel Core Ultra (seria 2). M75q Gen 6 ma nowe AMD Ryzen AI 400 z układem NPU do 50 TOPS, czyli z obsługą funkcji AI na samym komputerze. M90q Gen 6 to mocniejsza wersja: Intel Core Ultra do Core Ultra 9 i trzy gniazda na dyski SSD. We wszystkich pamięć DDR5 siedzi w dwóch gniazdach (do 64 GB), a do komputera podłączysz do 4 monitorów.",
@@ -36593,7 +36593,7 @@
    "nazwa": "Lenovo ThinkCentre M70a / M90a Gen 6 All-in-One 23,8\"",
    "krotka": "Lenovo ThinkCentre M70a / M90a Gen 6 All-in-One 23,8\"",
    "podtytul": "Biznesowy komputer All-in-One 23,8\" Full HD z Intel Core Ultra (seria 2), opcjonalnym ekranem dotykowym i kamerą z zasłonką",
-   "korzysc": "Komputer schowany w monitorze — jedno urządzenie i jeden kabel zasilający na biurku recepcji czy gabinetu.",
+   "korzysc": "Komputer schowany w monitorze: jedno urządzenie i jeden kabel zasilający na biurku recepcji czy gabinetu.",
    "opis": [
     "ThinkCentre M70a i M90a to komputery All-in-One: cały komputer jest schowany w obudowie 23,8-calowego monitora Full HD. Na biurku masz jedno urządzenie i mniej kabli, co docenisz w recepcji hotelu, gabinecie, sekretariacie szkoły czy biurze obsługi klienta. Ekran może być dotykowy.",
     "M70a Gen 6 ma energooszczędne procesory Intel Core Ultra (seria 2, wersje T) i zasilacz 90 W. M90a Gen 6 to mocniejsza wersja: procesory do Core Ultra 9 285, opcjonalna karta NVIDIA GeForce RTX 4050 lub RTX 5060, port Thunderbolt 4 z ładowaniem laptopa (do 65 W), do trzech dysków SSD, ekran 120 Hz i głośniki 2× 3 W. Oba mają pamięć DDR5 do 64 GB w dwóch gniazdach.",
@@ -37145,7 +37145,7 @@
    "nazwa": "Dell Pro Max Micro / Tower T2 — stacjonarne stacje robocze (FCM2250 / FCT2250)",
    "krotka": "Dell Pro Max Micro / Tower T2",
    "podtytul": "Stacje robocze na Intel Core Ultra (seria 2) z profesjonalnymi kartami NVIDIA i AMD, pamięcią ECC w opcji",
-   "korzysc": "Stacjonarna stacja robocza do CAD i grafiki — mała jak książka albo w obudowie tower z mocną kartą RTX PRO.",
+   "korzysc": "Stacjonarna stacja robocza do CAD i grafiki: mała jak książka albo w obudowie tower z mocną kartą RTX PRO.",
    "opis": [
     "Dell Pro Max to stacjonarne komputery dla biur projektowych, pracowni architektonicznych, grafików i działów technicznych. Micro jest mały (206 × 79 × 178 mm) — postawisz go na biurku albo przykręcisz za monitorem — a mimo to zmieści profesjonalną kartę graficzną. Tower T2 to klasyczna obudowa wieżowa dla najcięższych zadań.",
     "Oba mają procesory Intel Core Ultra (seria 2) i karty NVIDIA RTX PRO lub AMD Radeon Pro. W Micro wybierzesz do RTX PRO 4000 Blackwell SFF (24 GB), w Tower T2 — aż do RTX PRO 6000 Blackwell z 96 GB pamięci, także dwie karty. Pamięć ECC (z korekcją błędów, ważna przy długich obliczeniach) jest dostępna w obu modelach.",
@@ -37430,7 +37430,7 @@
    "nazwa": "Dell stacje dokujące — Dell Pro Dock i Smart Dock (WD25, SD25, WD25TB4, SD25TB4, WD25TB5, SD25TB5)",
    "krotka": "Dell Pro Dock i Smart Dock",
    "podtytul": "Stacje dokujące Dell Pro do laptopów z USB-C i Thunderbolt: do 4 monitorów, sieć 2,5 Gb/s, zdalne zarządzanie",
-   "korzysc": "Jeden kabel od laptopa do biurka: monitory, sieć, USB i ładowanie — z wyborem USB-C, Thunderbolt 4 lub 5.",
+   "korzysc": "Jeden kabel od laptopa do biurka: monitory, sieć, USB i ładowanie, z wyborem USB-C, Thunderbolt 4 lub 5.",
    "opis": [
     "Stacja dokująca zamienia laptop w komputer biurowy: wkładasz jeden kabel i od razu masz monitory, sieć przewodową, klawiaturę, mysz i ładowanie. To wygodne przy biurkach współdzielonych i dla osób, które codziennie zabierają laptop do domu lub do klienta.",
     "Dell Pro Dock (WD25) to podstawowa stacja USB-C do większości laptopów biurowych. Wersje Thunderbolt 4 i Thunderbolt 5 dobierasz do laptopów z tymi portami i do mocniejszych komputerów — Thunderbolt 5 ładuje stacje robocze mocą do 300 W i obsługuje cztery monitory 4K 120 Hz. Wszystkie mają gniazdo sieciowe 2,5 Gb/s, HDMI, dwa DisplayPort i sześć portów USB.",
@@ -37676,8 +37676,8 @@
    "rodzaj": "Urządzenia",
    "nazwa": "Apple iMac 24\" (M4)",
    "krotka": "Apple iMac 24\"",
-   "podtytul": "Komputer All-in-One z ekranem Retina 4,5K, chipem M4 i kamerą 12 MP — w siedmiu kolorach",
-   "korzysc": "Komputer i monitor w jednym, bez plątaniny kabli — eleganckie stanowisko na recepcję, do biura obsługi klienta czy gabinetu.",
+   "podtytul": "Komputer All-in-One z ekranem Retina 4,5K, chipem M4 i kamerą 12 MP, w siedmiu kolorach",
+   "korzysc": "Komputer i monitor w jednym, bez plątaniny kabli: eleganckie stanowisko na recepcję, do biura obsługi klienta czy gabinetu.",
    "opis": [
     "iMac 24\" to komputer zabudowany w monitorze — na biurku stoi jedno urządzenie, a do gniazdka idzie jeden przewód zasilający. Ekran Retina 4,5K (23,5\", 4480 × 2520, 500 nitów) jest ostry i jasny, a w opcji można zamówić szkło nanostrukturalne ograniczające odblaski. Siedem kolorów obudowy pozwala dopasować stanowisko do wnętrza recepcji, salonu czy gabinetu.",
     "Chip M4 występuje w dwóch wersjach: z 8-rdzeniowym procesorem i dwoma portami Thunderbolt / USB 4 albo z 10-rdzeniowym procesorem i czterema portami Thunderbolt 4. Pamięć RAM to 16, 24 lub 32 GB, a dysk od 256 GB do 2 TB. Gniazdo Ethernet (1 Gb) znajduje się w zasilaczu — w wersji podstawowej jest opcją, więc przy stanowisku na kablu trzeba je zamówić.",
@@ -37925,8 +37925,8 @@
    "rodzaj": "Urządzenia",
    "nazwa": "Apple Mac Studio (M5 Max / M5 Ultra)",
    "krotka": "Apple Mac Studio",
-   "podtytul": "Stacja robocza z chipem M5 Max lub M5 Ultra — do 512 GB pamięci zunifikowanej, Thunderbolt 5 i Ethernet 10 Gb",
-   "korzysc": "Moc do najcięższej pracy — BIM i CAD, montaż wideo, rendering czy lokalne modele AI — w obudowie o boku niecałych 20 cm.",
+   "podtytul": "Stacja robocza z chipem M5 Max lub M5 Ultra, do 512 GB pamięci zunifikowanej, Thunderbolt 5 i Ethernet 10 Gb",
+   "korzysc": "Moc do najcięższej pracy (BIM i CAD, montaż wideo, rendering czy lokalne modele AI) w obudowie o boku niecałych 20 cm.",
    "opis": [
     "Mac Studio to najmocniejszy komputer stacjonarny Apple w aktualnej ofercie (wersja z sierpnia 2026 r.). Mieści się na biurku obok monitora: 19,7 × 19,7 × 9,5 cm. To stacja robocza dla pracowni architektonicznych, biur projektowych, studiów wideo i firm, które chcą uruchamiać modele AI lokalnie, bez wysyłania danych do chmury.",
     "M5 Max ma 18-rdzeniowy procesor, grafikę 32 lub 40 rdzeni i 36–128 GB pamięci. M5 Ultra to 30 lub 36 rdzeni CPU, 64 lub 80 rdzeni GPU, 32-rdzeniowy Neural Engine i od 96 do 512 GB pamięci zunifikowanej — tyle, ile potrzeba do bardzo dużych modeli BIM czy sieci neuronowych. Dysk można zamówić od 512 GB do 16 TB.",
@@ -40536,7 +40536,7 @@
    "nazwa": "Lenovo ThinkVision M14d / M14t Gen 2 / M16 — monitory przenośne",
    "krotka": "Lenovo ThinkVision M14d / M14t Gen 2 / M16",
    "podtytul": "Lekkie monitory przenośne 14\" i 16\" na USB-C, w wersji dotykowej z rysikiem (M14t Gen 2)",
-   "korzysc": "Drugi ekran do laptopa, który wrzucisz do torby — podłączasz go jednym kablem USB-C.",
+   "korzysc": "Drugi ekran do laptopa, który wrzucisz do torby: podłączasz go jednym kablem USB-C.",
    "opis": [
     "Monitor przenośny to lekki, cienki ekran, który podłączasz do laptopa jednym kablem USB-C — przesyła on obraz i zasilanie. Przyda się handlowcowi na spotkaniu, księgowej pracującej na dwóch dokumentach naraz, w recepcji i przy pracy w domu albo w hotelu.",
     "M14d ma ekran 14\" 2240×1400 (16:10), jasność 300 nitów i 100% sRGB. Waży 0,6 kg z podstawką. M14t Gen 2 ma tę samą rozdzielczość, ale ekran dotykowy, rysik w zestawie i podstawkę, którą obrócisz do pionu; waży 0,7 kg. Oba mają dwa porty USB-C: do jednego podłączasz laptop, do drugiego możesz podłączyć zasilacz, który zasili też laptop (w M14t Gen 2 do 65 W).",
@@ -40746,9 +40746,9 @@
    "seria": "Dell Plus",
    "rodzaj": "Urządzenia",
    "nazwa": "Monitory Dell Plus — do recepcji, domu i biura (S2425HSM, S2725DSM, S2725QS, S3225QC)",
-   "krotka": "Dell Plus — monitory",
+   "krotka": "Dell Plus · monitory",
    "podtytul": "Monitory Full HD, QHD i 4K (także QD-OLED) z linii Dell Plus, z regulowaną podstawą i wbudowanymi głośnikami",
-   "korzysc": "Monitory 24–32\" z regulacją wysokości i głośnikami — do recepcji, biura domowego i stanowisk bez USB-C.",
+   "korzysc": "Monitory 24–32\" z regulacją wysokości i głośnikami, do recepcji, biura domowego i stanowisk bez USB-C.",
    "opis": [
     "Monitory Dell Plus to dobry wybór do recepcji pensjonatu, biura domowego właściciela, gabinetu czy stanowiska w sklepie, gdzie nie potrzebujesz koncentratora USB-C. Wszystkie mają regulację wysokości i pochylenia oraz wbudowane głośniki, więc nie musisz dokupywać osobnych.",
     "Wybierasz rozmiar i ostrość obrazu: 24\" Full HD lub 27\" QHD do pracy biurowej, 27\" 4K do zdjęć i dokumentów z drobnym tekstem, albo 32\" 4K QD-OLED z bardzo głęboką czernią i nasyconymi kolorami — do pokazywania klientom projektów i zdjęć. Ekrany mają certyfikat TÜV 4 gwiazdki (komfort dla oczu) lub obniżoną emisję światła niebieskiego.",
@@ -40968,8 +40968,8 @@
    "rodzaj": "Urządzenia",
    "nazwa": "Apple Studio Display 27\" (2. generacja)",
    "krotka": "Apple Studio Display 27\"",
-   "podtytul": "Monitor 27\" 5K z kamerą 12 MP, sześcioma głośnikami i Thunderbolt 5 — ładuje laptop jednym kablem (96 W)",
-   "korzysc": "Jeden kabel od MacBooka daje obraz, dźwięk, kamerę i ładowanie — biurko od razu gotowe do pracy i wideorozmów.",
+   "podtytul": "Monitor 27\" 5K z kamerą 12 MP, sześcioma głośnikami i Thunderbolt 5: ładuje laptop jednym kablem (96 W)",
+   "korzysc": "Jeden kabel od MacBooka daje obraz, dźwięk, kamerę i ładowanie: biurko od razu gotowe do pracy i wideorozmów.",
    "opis": [
     "Studio Display drugiej generacji (marzec 2026) to 27-calowy monitor 5K (5120 × 2880, 218 ppi) o jasności 600 nitów i szerokiej palecie barw P3. Tekst, arkusze i zdjęcia są na nim bardzo ostre, a do jasnych pomieszczeń można zamówić szkło nanostrukturalne ograniczające odblaski.",
     "Monitor ma wbudowaną kamerę 12 MP Center Stage z Widokiem blatu, trzy mikrofony i sześć głośników z Dolby Atmos — do wideorozmów nie potrzeba osobnej kamery ani zestawu głośnomówiącego. Z tyłu są dwa porty Thunderbolt 5: wejście, które jednocześnie ładuje laptop mocą 96 W, i port do połączenia kolejnego monitora, oraz dwa porty USB-C (10 Gb/s) na akcesoria.",
@@ -41157,7 +41157,7 @@
    "nazwa": "Apple Studio Display XDR 27\"",
    "krotka": "Apple Studio Display XDR 27\"",
    "podtytul": "Monitor 27\" 5K mini-LED: 120 Hz, do 2000 nitów w HDR, P3 i Adobe RGB, Thunderbolt 5 z ładowaniem do 140 W",
-   "korzysc": "Wierne kolory i ogromna jasność do pracy, w której liczy się każdy odcień — grafika, zdjęcia, wideo i przygotowanie do druku.",
+   "korzysc": "Wierne kolory i ogromna jasność do pracy, w której liczy się każdy odcień: grafika, zdjęcia, wideo i przygotowanie do druku.",
    "opis": [
     "Studio Display XDR (marzec 2026) to profesjonalny monitor 27\" 5K (5120 × 2880) z podświetleniem mini-LED podzielonym na 2304 strefy. Osiąga 1000 nitów dla zwykłych treści i 2000 nitów w HDR, odświeża obraz z częstotliwością do 120 Hz (adaptacyjnie) i pokrywa palety P3 oraz Adobe RGB. To ekran dla grafików, fotografów, montażystów i drukarni, którzy muszą widzieć dokładnie to, co trafi do klienta.",
     "Tak jak zwykły Studio Display ma kamerę 12 MP Center Stage, sześć głośników i trzy mikrofony. Dwa porty Thunderbolt 5 mogą ładować podłączony komputer mocą do 140 W — wystarczy jeden kabel nawet do MacBooka Pro 16\". Do akcesoriów są dwa porty USB-C (10 Gb/s). Stopka reguluje nachylenie i wysokość (105 mm); zamiast niej można zamówić mocowanie VESA.",
@@ -41352,7 +41352,7 @@
    "nazwa": "Apple iPad Air (M4) 11\" / 13\"",
    "krotka": "Apple iPad Air 11\" / 13\"",
    "podtytul": "Tablet z chipem M4 i 12 GB RAM, ekran 11\" lub 13\", Wi-Fi 7 i opcja 5G na eSIM",
-   "korzysc": "Lekki tablet do pracy z klientem, na spotkaniach i w terenie — z rysikiem Apple Pencil i internetem 5G, jeśli go potrzebujesz.",
+   "korzysc": "Lekki tablet do pracy z klientem, na spotkaniach i w terenie, z rysikiem Apple Pencil i internetem 5G, jeśli go potrzebujesz.",
    "opis": [
     "iPad Air z chipem M4 (marzec 2026) to tablet, który w firmie zastępuje papierowe formularze, katalogi i prezentacje. Sprawdzi się u handlowca pokazującego ofertę, w recepcji hotelu, w gabinecie, na budowie czy przy odbiorze prac. Do wyboru są dwa rozmiary: poręczny 11\" (464 g) i 13\" (616 g) z większym ekranem do rysunków i dokumentów.",
     "Chip M4 z 12 GB pamięci RAM ma duży zapas mocy na aplikacje firmowe, wideorozmowy i pracę w kilku oknach. Wszystkie modele mają Wi-Fi 7 i Bluetooth 6, a wersja Wi-Fi + Cellular dodaje 5G (wyłącznie eSIM) i GPS — tablet ma internet tam, gdzie nie ma sieci Wi-Fi. Port USB-C (10 Gb/s) pozwala podłączyć monitor do 6K.",
@@ -41888,7 +41888,7 @@
    "nazwa": "Samsung Galaxy Tab S12+ / Galaxy Tab S12 Ultra",
    "krotka": "Samsung Galaxy Tab S12+ / Galaxy Tab S12 Ultra",
    "podtytul": "Tablety 12,6\" i 14,6\" AMOLED 120 Hz z rysikiem S Pen w zestawie, IP68, opcją 5G i do 7 generacji aktualizacji",
-   "korzysc": "Duży, wodoszczelny tablet z rysikiem do pracy w terenie i u klienta — protokoły, podpisy, rysunki i prezentacje bez laptopa.",
+   "korzysc": "Duży, wodoszczelny tablet z rysikiem do pracy w terenie i u klienta: protokoły, podpisy, rysunki i prezentacje bez laptopa.",
    "opis": [
     "Galaxy Tab S12+ i Tab S12 Ultra to najnowsze tablety premium Samsunga, zapowiedziane 30 września 2026 r. i dostępne w polskiej sprzedaży. Oba mają szczelność IP68, rzadko spotykaną w tabletach tej wielkości, i rysik S Pen w zestawie. Dzięki temu sprawdzą się tam, gdzie zwykły tablet by nie wytrzymał: na budowie, przy montażu instalacji, w magazynie czy przy odbiorze prac u klienta.",
     "Tab S12+ ma ekran 12,6\" (2800 × 1752), a Tab S12 Ultra — duży 14,6\" (2960 × 1848), wygodny do rysunków technicznych, planów i pracy w dwóch oknach. Oba ekrany Dynamic AMOLED 2X odświeżają obraz z częstotliwością 120 Hz i osiągają do 1600 nitów. Pracuje w nich 3-nanometrowy procesor MediaTek Dimensity 9500 z 12 lub 16 GB RAM, a pamięć rozszerzysz kartą microSD do 2 TB. Wersje 5G pozwalają pracować bez Wi-Fi.",
@@ -42145,7 +42145,7 @@
    "rodzaj": "Urządzenia",
    "nazwa": "Apple iPhone 17",
    "krotka": "Apple iPhone 17",
-   "podtytul": "Smartfon 6,3\" z ekranem 120 Hz, chipem A19, Wi-Fi 7 i obsługą dwóch eSIM — od 256 GB",
+   "podtytul": "Smartfon 6,3\" z ekranem 120 Hz, chipem A19, Wi-Fi 7 i obsługą dwóch eSIM, od 256 GB",
    "korzysc": "Sprawdzony iPhone dla całego zespołu: szybki, szczelny i z numerem służbowym oraz prywatnym na jednym telefonie.",
    "opis": [
     "iPhone 17 to podstawowy model numerowany w aktualnej ofercie Apple i dobry wybór, gdy telefony dostaje cały zespół — handlowcy, kierownicy zmian, recepcja czy ekipy w terenie. Ekran ma tę samą wielkość i rozdzielczość co w iPhonie 18 Pro: 6,3-calowy OLED z odświeżaniem do 120 Hz, trybem Always-On i szkłem Ceramic Shield 2.",
@@ -42399,7 +42399,7 @@
    "nazwa": "Samsung Galaxy S26 / Galaxy S26+",
    "krotka": "Samsung Galaxy S26 / Galaxy S26+",
    "podtytul": "Smartfony 6,3\" i 6,7\" z ekranem 120 Hz, Wi-Fi 7, Samsung Knox i do 7 generacji aktualizacji Androida",
-   "korzysc": "Lekki, szczelny Android dla zespołu, z zabezpieczeniami Knox i długim wsparciem aktualizacjami — flotę wymieniasz rzadziej.",
+   "korzysc": "Lekki, szczelny Android dla zespołu, z zabezpieczeniami Knox i długim wsparciem aktualizacjami: flotę wymieniasz rzadziej.",
    "opis": [
     "Galaxy S26 i S26+ to podstawowe modele flagowej serii Samsunga na 2026 r. (premiera na Galaxy Unpacked 25 lutego 2026 r.). Galaxy S26 z ekranem 6,3\" i masą 167 g to poręczny telefon do jednej ręki, a S26+ z ekranem 6,7\" w rozdzielczości QHD+ i większą baterią lepiej sprawdzi się u osób, które dużo pracują na telefonie. W Polsce oba pracują na 2-nanometrowym procesorze Samsung Exynos 2600 z 12 GB RAM.",
     "Ekrany Dynamic AMOLED 2X odświeżają obraz z częstotliwością do 120 Hz. Oba telefony mają 5G, Wi-Fi 7 i NFC, szczelność IP68 oraz zestaw trzech aparatów z teleobiektywem 3× — przydatnym do zdjęć tabliczek znamionowych, liczników czy dokumentacji prac. S26 ładuje się mocą 25 W przewodowo i 15 W bezprzewodowo, S26+ — 45 W i 20 W.",
@@ -42656,7 +42656,7 @@
    "nazwa": "Apple iPhone 18 Pro / iPhone 18 Pro Max",
    "krotka": "Apple iPhone 18 Pro / iPhone 18 Pro Max",
    "podtytul": "Najmocniejsze iPhone'y z chipem A20 Pro: ekran 6,3\" lub 6,9\", trzy aparaty 48 MP, pamięć do 2 TB",
-   "korzysc": "Telefon dla właściciela i kadry, którzy pracują cały dzień z dala od biura — duży zapas mocy, pamięci i baterii.",
+   "korzysc": "Telefon dla właściciela i kadry, którzy pracują cały dzień z dala od biura: duży zapas mocy, pamięci i baterii.",
    "opis": [
     "iPhone 18 Pro i 18 Pro Max to najwyższe modele Apple z września 2026 r. Mają ten sam chip A20 Pro, te same aparaty i łączność — różnią się wielkością ekranu, baterią i wagą. 18 Pro z ekranem 6,3\" łatwo mieści się w kieszeni, a 18 Pro Max z ekranem 6,9\" to najdłużej pracujący iPhone w ofercie i wygodniejszy ekran do dokumentów, arkuszy czy podglądu z kamer monitoringu.",
     "Łączność obsługują układy Apple: modem C2 (5G) oraz N1 (Wi-Fi 7, Bluetooth 6, Thread). Port USB-C pracuje w standardzie USB 3 do 10 Gb/s, więc duże pliki wideo i zdjęcia szybko przeniesiesz na komputer. Trzy aparaty 48 MP — w tym teleobiektyw 4× i główny z regulowaną przysłoną — przydadzą się do dokumentacji prac, inwentaryzacji i zdjęć produktów. Obudowa z aluminium ma szczelność IP68, a pamięć można wybrać aż do 2 TB.",
@@ -42924,7 +42924,7 @@
    "nazwa": "Samsung Galaxy S26 Ultra",
    "krotka": "Samsung Galaxy S26 Ultra",
    "podtytul": "Smartfon 6,9\" z ekranem Privacy Display, wbudowanym rysikiem S Pen, aparatem 200 MP i do 7 lat aktualizacji",
-   "korzysc": "Telefon dla kadry i osób pracujących z poufnymi danymi — ekranu nie podejrzy sąsiad w pociągu, a rysik zawsze jest pod ręką.",
+   "korzysc": "Telefon dla kadry i osób pracujących z poufnymi danymi: ekranu nie podejrzy sąsiad w pociągu, a rysik zawsze jest pod ręką.",
    "opis": [
     "Galaxy S26 Ultra to najwyższy model serii S na 2026 r. i telefon, który Samsung na polskiej stronie dla firm stawia na pierwszym miejscu. Jego wyróżnikiem jest Privacy Display — sprzętowe zawężenie kąta widzenia ekranu. Osoba obok widzi tylko ciemną powierzchnię, a funkcja może włączać się sama, np. przy wpisywaniu PIN-u, w aplikacji bankowej czy w poczcie. To realna ochrona danych klientów w pociągu, poczekalni czy na targach.",
     "Ekran Dynamic AMOLED 2X ma 6,9\", rozdzielczość QHD+, odświeżanie do 120 Hz i jasność do 2600 nitów, a chroni go szkło Gorilla Armor 2. W środku pracuje Snapdragon 8 Elite Gen 5 for Galaxy, a w obudowie schowany jest rysik S Pen — do notatek na spotkaniu, podpisów i adnotacji na dokumentach. Cztery aparaty (200 MP główny, 50 MP ultraszerokokątny, teleobiektywy 3× i 5×) przydadzą się przy dokumentowaniu prac i oględzinach.",
@@ -43178,7 +43178,7 @@
    "nazwa": "Logitech MK370 Combo for Business",
    "krotka": "Logitech MK370 Combo for Business",
    "podtytul": "Bezprzewodowy zestaw dla firm: pełnowymiarowa klawiatura odporna na zachlapanie + cicha mysz, Logi Bolt + Bluetooth, fabrycznie sparowany",
-   "korzysc": "Niedrogi i bezpieczny zestaw do wyposażenia wielu stanowisk naraz — klawiatura i mysz są fabrycznie sparowane z szyfrowanym odbiornikiem Logi Bolt.",
+   "korzysc": "Niedrogi i bezpieczny zestaw do wyposażenia wielu stanowisk naraz: klawiatura i mysz są fabrycznie sparowane z szyfrowanym odbiornikiem Logi Bolt.",
    "opis": [
     "MK370 Combo for Business to podstawowy zestaw bezprzewodowy Logitech dla firm. Producent nazywa go swoim najlepiej sprzedającym się zestawem biznesowym. Klawiatura i mysz są fabrycznie sparowane z jednym odbiornikiem Logi Bolt, więc przy wymianie sprzętu na kilku stanowiskach nie tracisz czasu na konfigurację.",
     "Klawiatura ma pełny układ ze 112 klawiszami, klawiaturę numeryczną, 8 klawiszy skrótów i konstrukcję odporną na zachlapanie. Mysz ma kliknięcia wyciszone technologią Silent Touch (według producenta o 90% cichsze niż w M185) i symetryczny kształt dla prawej lub lewej ręki.",
@@ -44516,7 +44516,7 @@
    "nazwa": "Logitech K120 + M100 — przewodowa klawiatura i mysz USB",
    "krotka": "Logitech K120 + M100",
    "podtytul": "Przewodowa klawiatura USB z klawiaturą numeryczną i symetryczna mysz optyczna USB, podłączana bez sterowników",
-   "korzysc": "Najprostsze, bezobsługowe stanowisko bez baterii, parowania i sterowników — na kasę, zaplecze, do pracowni szkolnej czy recepcji.",
+   "korzysc": "Najprostsze, bezobsługowe stanowisko bez baterii, parowania i sterowników, na kasę, zaplecze, do pracowni szkolnej czy recepcji.",
    "opis": [
     "K120 i M100 to podstawowy, przewodowy duet Logitech na stanowiska, gdzie liczy się niezawodność, a nie dodatki. Wpinasz oba kable USB i sprzęt od razu działa — nie ma baterii do wymiany, odbiorników do zgubienia ani parowania.",
     "Klawiatura K120 ma pełny układ z klawiaturą numeryczną (wygodną przy kasie i fakturach), konstrukcję odporną na zachlapanie i regulowane nóżki. Mysz M100 jest pełnowymiarowa i symetryczna, więc obsłuży ją zarówno osoba prawo-, jak i leworęczna; ma optyczny czujnik, 3 przyciski i kółko.",
@@ -45250,7 +45250,7 @@
    "nazwa": "Logitech MX Brio 705 for Business",
    "krotka": "Logitech MX Brio 705 for Business",
    "podtytul": "Kamera 4K z matrycą Sony STARVIS 8,5 MP, RightLight 5 z HDR, auto-kadrowaniem, mikrofonami kierunkowymi i osłoną na pierścieniu, USB-C, zarządzanie Logitech Sync",
-   "korzysc": "Obraz 4K z dużą matrycą, wyraźny także przy słabym świetle — dla osób, które spędzają dużo czasu na wideorozmowach z klientami i chcą wyglądać profesjonalnie.",
+   "korzysc": "Obraz 4K z dużą matrycą, wyraźny także przy słabym świetle, dla osób, które spędzają dużo czasu na wideorozmowach z klientami i chcą wyglądać profesjonalnie.",
    "opis": [
     "MX Brio 705 for Business to najbardziej zaawansowana kamera osobista w tym zestawieniu. Ma matrycę Sony STARVIS 8,5 MP i obraz do 4K przy 30 kl./s (1080p i 720p przy 30 lub 60 kl./s). Producent podaje, że piksele są o 70% większe niż w Logitech Brio, co ma poprawiać obraz przy słabym świetle.",
     "RightLight 5 z HDR i korekcją opartą na twarzy dba o naturalne odcienie skóry. Funkcja RightSight sama kadruje osobę, a Show Mode pozwala pokazać dokument na biurku (obie wymagają Logi Tune). Dwa mikrofony formujące wiązkę wyłapują głos z odległości do 1,2 m, a osłonę prywatności zamyka się pokrętłem na pierścieniu obiektywu.",
@@ -45392,7 +45392,7 @@
    "nazwa": "Logitech Zone Wireless 2",
    "krotka": "Logitech Zone Wireless 2",
    "podtytul": "Słuchawki premium z hybrydowym ANC, 5 mikrofonami MEMS i usuwaniem szumów AI, Bluetooth + odbiornik USB, zasięg do 50 m, do 40 h słuchania",
-   "korzysc": "Słuchawki z aktywną redukcją hałasu i AI wycinającym szum z rozmów — dla osób pracujących w głośnym biurze, sklepie czy w podróży.",
+   "korzysc": "Słuchawki z aktywną redukcją hałasu i AI wycinającym szum z rozmów, dla osób pracujących w głośnym biurze, sklepie czy w podróży.",
    "opis": [
     "Zone Wireless 2 to najwyższa półka słuchawek biznesowych Logitech. Hybrydowa aktywna redukcja hałasu (ANC, dwa poziomy) wycisza otoczenie, a tryb przejrzystości pozwala usłyszeć współpracownika bez zdejmowania słuchawek. Pięć mikrofonów MEMS i algorytmy AI usuwają szumy z rozmowy po obu stronach.",
     "Na jednym ładowaniu, według producenta, działają do 18 godzin rozmów (do 15 h z ANC) i do 40 godzin słuchania (do 22 h z ANC). Pięć minut ładowania daje około godziny rozmowy. Łączą się przez Bluetooth, odbiornik USB-C z adapterem USB-A (zasięg do 50 m) albo kablem USB-C.",
@@ -45702,7 +45702,7 @@
    "nazwa": "Logitech H570e — przewodowy zestaw słuchawkowy USB",
    "krotka": "Logitech H570e",
    "podtytul": "Przewodowy zestaw słuchawkowy USB-A / USB-C w wersji mono lub stereo, mikrofon z redukcją szumów, pilot na kablu 1,9 m, wersje Teams i UC",
-   "korzysc": "Przewodowy zestaw słuchawkowy bez baterii i parowania — na stanowiska, gdzie przez komputer rozmawia się cały dzień, np. rejestracja, call center, biuro obsługi.",
+   "korzysc": "Przewodowy zestaw słuchawkowy bez baterii i parowania, na stanowiska, gdzie przez komputer rozmawia się cały dzień, np. rejestracja, call center, biuro obsługi.",
    "opis": [
     "H570e to prosty, przewodowy zestaw słuchawkowy do komputera. Podłączasz go do portu USB i działa bez instalowania sterowników — w Windows, macOS i ChromeOS. Nie trzeba go ładować, więc nadaje się na wspólne stanowiska i do pracy zmianowej.",
     "Jest w wersji mono (jedno ucho wolne — słyszysz, co dzieje się na sali) i stereo. Mikrofon redukuje szumy, a układ tłumi echo; wysięgnik można przełożyć na lewą lub prawą stronę. Na kablu jest pilot do głośności i wyciszania.",
@@ -49339,7 +49339,7 @@
    "nazwa": "Synology RackStation (RS422+, RS826RP+, RS1221+, RS1226RP+)",
    "krotka": "Synology RackStation",
    "podtytul": "Serwery NAS rack 1U i 2U na 4 lub 8 dysków, opcja podwójnego zasilacza",
-   "korzysc": "NAS do szafy rack 19\" — kopie, pliki i monitoring obok serwera i sieci.",
+   "korzysc": "NAS do szafy rack 19\": kopie, pliki i monitoring obok serwera i sieci.",
    "opis": [
     "RackStation to ten sam NAS co w wersji biurkowej, ale w obudowie do szafy rack 19\". To dobry wybór, gdy w firmie, hotelu czy szkole jest już szafa z serwerem, przełącznikami i rejestratorem — urządzenie montuje się obok, a kable i zasilanie awaryjne są w jednym miejscu. Robi kopie zapasowe komputerów i serwerów, trzyma wspólne pliki i nagrania z kamer.",
     "Do wyboru są modele 1U na 4 dyski (RS422+, RS826RP+) i 2U na 8 dysków (RS1221+, RS1226RP+). Nowsze modele serii 26 mają procesor AMD Ryzen V1500B, pamięć ECC do 32 GB i gniazdo PCIe na kartę 10 lub 25 GbE; RS1226RP+ ma też 2 gniazda M.2 i porty 2,5 GbE. Litery „RP” oznaczają dwa zasilacze — gdy jeden się zepsuje, NAS pracuje dalej.",
@@ -51325,7 +51325,7 @@
    "nazwa": "QNAP TS-855X",
    "krotka": "QNAP TS-855X",
    "podtytul": "NAS wolnostojący na 8 dysków z 10 GbE i 8-rdzeniowym procesorem Intel Atom",
-   "korzysc": "Duża pojemność i sieć 10 GbE w obudowie na biurko — bez szafy rack.",
+   "korzysc": "Duża pojemność i sieć 10 GbE w obudowie na biurko, bez szafy rack.",
    "opis": [
     "TS-855X to NAS dla firmy, która potrzebuje dużej przestrzeni i szybkiej sieci, ale nie ma szafy rack: biura projektowego, studia foto lub wideo, firmy z dużym archiwum.",
     "Mieści 6 dysków 3,5\" i 2 dyski 2,5\" SATA, a do tego 2 dyski M.2 2280 PCIe Gen3 x4. Ma 8-rdzeniowy Intel Atom C5125 (2,8 GHz), 8 GB RAM DDR4 z rozbudową do 128 GB (4 gniazda, obsługa ECC), port 10GBASE-T, dwa porty 2,5 GbE i dwa gniazda PCIe Gen3 x4 — np. na kartę 25 GbE.",
@@ -51695,7 +51695,7 @@
    "nazwa": "COVER WINTER 3K — UPS line-interactive rack/wieża z czystą sinusoidą",
    "krotka": "COMEX COVER WINTER 3K",
    "podtytul": "Zasilacz UPS line-interactive 3000 VA / 2700 W, sinusoida także z baterii, 2U do szafy lub na stojąco, wymiana baterii bez wyłączania",
-   "korzysc": "Mocny UPS do szafy z serwerem, NAS-em i siecią — czysta sinusoida, 12 minut przy połowie obciążenia i baterie wymieniane bez wyłączania sprzętu.",
+   "korzysc": "Mocny UPS do szafy z serwerem, NAS-em i siecią: czysta sinusoida, 12 minut przy połowie obciążenia i baterie wymieniane bez wyłączania sprzętu.",
    "opis": [
     "WINTER 3K to jedyny zasilacz line-interactive w ofercie COMEX. W odróżnieniu od tanich UPS-ów biurkowych daje pełną sinusoidę zarówno z sieci, jak i z baterii, więc bez problemu zasili serwer, NAS, macierz czy zasilacze z korekcją PFC. Gdy napięcie w sieci jest w normie, pracuje z wysoką sprawnością 97%, a przy zaniku przełącza się na baterie w 1,5–6 ms.",
     "Obudowa ma 2U i pracuje w szafie rack 19\" albo na stojąco — panel LCD da się obrócić do wybranej pozycji. Z tyłu jest 8 gniazd IEC C13 i jedno C19 (16 A) na mocniejsze urządzenie. Baterie wymienisz w trakcie pracy (hot-swap), bez wyłączania podłączonych urządzeń — to ważne w firmie, która nie może sobie pozwolić na przerwę.",
@@ -52492,7 +52492,7 @@
    "nazwa": "COVER CORE 6K / 10K — UPS on-line rack 2U z modułami bateryjnymi",
    "krotka": "COMEX COVER CORE 6K / 10K",
    "podtytul": "Zasilacze UPS on-line 6 i 10 kVA (VA = W) w obudowie 2U, listwa zaciskowa, moduły bateryjne 3U",
-   "korzysc": "Duża moc w płaskiej obudowie 2U — do serwerowni w firmie, hotelu czy przychodni, z czasem pracy dobieranym liczbą modułów baterii.",
+   "korzysc": "Duża moc w płaskiej obudowie 2U, do serwerowni w firmie, hotelu czy przychodni, z czasem pracy dobieranym liczbą modułów baterii.",
    "opis": [
     "CORE 6K i 10K to jednofazowe UPS-y on-line o mocy 6 i 10 kVA, a przy tym tylko 2U wysokości. Moc w watach równa się mocy w VA, więc 10K naprawdę udźwignie 10 kW. Baterie są w osobnych modułach 3U (do 20 akumulatorów w module), dlatego czas pracy dobierasz do potrzeb, a sam zasilacz zajmuje w szafie niewiele miejsca.",
     "Wyjście jest na listwie zaciskowej — elektryk podłącza do niej obwód albo listwę z gniazdami C13, C19 lub Schuko. Sprawność w trybie on-line przekracza 95%, w trybie ECO 99%. UPS ma złącze baterii zewnętrznych, start z baterii, zdalny wyłącznik REPO, slot na kartę SNMP i program ViewPower.",
@@ -52709,7 +52709,7 @@
    "nazwa": "COVER JR 10K — UPS on-line 10 kVA, 3-fazowy lub 1-fazowy",
    "krotka": "COMEX COVER JR 10K",
    "podtytul": "Zasilacz UPS on-line 10 kVA / 10 kW, konfiguracja 3:3, 3:1 lub 1:1, do 40 baterii w obudowie, praca równoległa",
-   "korzysc": "Jedno urządzenie do zasilenia całego biura, sklepu albo małej serwerowni z sieci trójfazowej — z bateriami w środku i zapasem na rozbudowę.",
+   "korzysc": "Jedno urządzenie do zasilenia całego biura, sklepu albo małej serwerowni z sieci trójfazowej, z bateriami w środku i zapasem na rozbudowę.",
    "opis": [
     "JR 10K to UPS on-line 10 kVA w obudowie wieży na kółkach. Można go podłączyć do sieci trójfazowej albo jednofazowej i oddawać napięcie trójfazowe lub jednofazowe (3:3, 3:1, 1:1) — dlatego sprawdza się zarówno przy zasilaniu całej rozdzielnicy, jak i dużej grupy komputerów i serwerów.",
     "W obudowie zmieszczą się do 40 akumulatorów 9 Ah, więc dla wielu firm nie trzeba osobnej szafy bateryjnej. UPS pracuje z akumulatorami VRLA, AGM i żelowymi, ma ładowarkę do 12 A i opcjonalną kompensację temperaturową napięcia ładowania (dłuższe życie baterii). Sprawność w trybie on-line przekracza 96%.",
@@ -53081,7 +53081,7 @@
    "nazwa": "COVER PS 10K–40K — modułowy UPS on-line do szafy rack",
    "krotka": "COMEX COVER PS 10K–40K",
    "podtytul": "Zasilacze UPS on-line 10–40 kVA w modułach rack 19\" 3U, konfiguracje 1:1, 3:1, 3:3, moduły bateryjne 3U",
-   "korzysc": "Trójfazowy UPS, który mieści się w zwykłej szafie rack razem z serwerami — od 10 do 40 kW w modułach 3U.",
+   "korzysc": "Trójfazowy UPS, który mieści się w zwykłej szafie rack razem z serwerami, od 10 do 40 kW w modułach 3U.",
    "opis": [
     "Seria PS to UPS-y on-line w modułach rack 19\" o wysokości 3U, w mocach 10, 20, 30 i 40 kVA. Zamiast osobnej szafy UPS stawiasz zasilacz w tej samej szafie co serwery i sieć — oszczędzasz miejsce w serwerowni.",
     "W zależności od modelu UPS pracuje w konfiguracji 1:1, 3:1, 3:3 lub 1:3. Baterie są w modułach rack 3U po 20 akumulatorów — zasilacz potrzebuje minimum dwóch takich modułów (razem 6U). Ładowarka ma regulowany prąd 1–13 A, a sprawność w trybie on-line przekracza 96%.",
@@ -53254,7 +53254,7 @@
    "nazwa": "COVER MY 30K — wąski UPS on-line 30 kVA z bateriami w środku",
    "krotka": "COMEX COVER MY 30K",
    "podtytul": "Zasilacz UPS on-line 30 kVA / 30 kW, 3:3 lub 3:1, szerokość 30 cm, do 80 baterii w obudowie, panel dotykowy 4,3\"",
-   "korzysc": "30 kW mocy w obudowie szerokiej na 30 cm — zmieści się w małym pomieszczeniu technicznym, a baterie ma w środku.",
+   "korzysc": "30 kW mocy w obudowie szerokiej na 30 cm: zmieści się w małym pomieszczeniu technicznym, a baterie ma w środku.",
    "opis": [
     "MY 30K to trójfazowy UPS on-line o mocy 30 kVA / 30 kW w wyjątkowo wąskiej obudowie — ma tylko 30 cm szerokości. Mieści od 48 do 80 akumulatorów 7 lub 9 Ah, więc w wielu obiektach wystarczy sam zasilacz, bez szafy bateryjnej obok.",
     "Wyjście możesz ustawić jako trójfazowe albo jednofazowe (3:3 lub 3:1). UPS ma wbudowany bypass ręczny i automatyczny bypass statyczny, start z baterii, regulowaną ładowarkę 1–20 A i dotykowy wyświetlacz 4,3\". Sprawność wynosi 96% w trybie on-line i 99% w trybie ECO.",
@@ -53416,7 +53416,7 @@
    "nazwa": "COVER FRAME 60K–200K — UPS on-line dużej mocy",
    "krotka": "COMEX COVER FRAME 60K–200K",
    "podtytul": "Zasilacze UPS on-line 60–200 kVA (kVA = kW), 3:3, baterie VRLA, AGM, żelowe lub Li-Ion, praca równoległa",
-   "korzysc": "Ochrona zasilania dla dużych obiektów — hoteli, zakładów, przychodni i szkół — od 60 do 200 kW w jednej szafie.",
+   "korzysc": "Ochrona zasilania dla dużych obiektów (hoteli, zakładów, przychodni i szkół): od 60 do 200 kW w jednej szafie.",
    "opis": [
     "FRAME to trójfazowe UPS-y on-line dużej mocy: 60, 80, 100, 120, 160 i 200 kVA. Współczynnik mocy 1,0 daje pełną moc w kilowatach. To klasa urządzeń, które zabezpieczają cały budynek lub linię technologiczną, a nie pojedyncze stanowisko.",
     "UPS współpracuje z akumulatorami VRLA, AGM, żelowymi i litowo-jonowymi, w łańcuchu 32–44 sztuk. Ładowarka ma do 48 A (zależnie od modelu) i kompensację temperaturową. Sprawność w trybie on-line przekracza 96%, w trybie ECO 99%.",
@@ -53929,7 +53929,7 @@
    "seria": "Akcesoria UPS",
    "rodzaj": "Urządzenia",
    "nazwa": "Karty sieciowe SNMP do UPS COVER — NetAgent, USHA, WiseWay",
-   "krotka": "COMEX — karty sieciowe SNMP do UPS COVER",
+   "krotka": "COMEX · karty sieciowe SNMP do UPS COVER",
    "podtytul": "Karty i adaptery SNMP do zdalnego nadzoru UPS: podgląd w przeglądarce, powiadomienia e-mail, automatyczne wyłączanie serwerów",
    "korzysc": "Widzisz stan UPS-a z dowolnego miejsca, dostajesz e-mail przy zaniku prądu, a serwery same się bezpiecznie wyłączą, zanim padną baterie.",
    "opis": [
@@ -54064,9 +54064,9 @@
    "seria": "Akcesoria UPS",
    "rodzaj": "Urządzenia",
    "nazwa": "Akumulatory VRLA 7STARS 12 V (5–230 Ah) do UPS i systemów buforowych",
-   "krotka": "COMEX — akumulatory VRLA 7STARS 12 V",
+   "krotka": "COMEX · akumulatory VRLA 7STARS 12 V",
    "podtytul": "Bezobsługowe akumulatory AGM 12 V: SHL5, SHL7, SHR250, SHL12, SHL18, SHL26, SHL45, SHL65, SHL100, SHL230",
-   "korzysc": "Nowe baterie przywracają UPS-owi pełny czas pracy — wymieniamy je, zanim zawiodą w czasie awarii.",
+   "korzysc": "Nowe baterie przywracają UPS-owi pełny czas pracy: wymieniamy je, zanim zawiodą w czasie awarii.",
    "opis": [
     "Akumulatory w UPS-ie zużywają się z czasem, nawet jeśli prąd prawie nigdy nie znika. COMEX podaje, że standardowa żywotność baterii w UPS to 3–5 lat, a optymalna temperatura pracy to 15–20 °C. Po tym czasie UPS może nie utrzymać sprzętu nawet przez minutę — dlatego baterie warto wymieniać profilaktycznie.",
     "7STARS to szczelne, bezobsługowe akumulatory AGM (VRLA) 12 V, które nie wymagają uzupełniania elektrolitu. Pasują do UPS-ów, systemów buforowych, oświetlenia awaryjnego i instalacji alarmowych. W ofercie są pojemności od 5 do 230 Ah — od małych UPS-ów biurowych po zasilacze z szafami bateryjnymi.",
@@ -54408,7 +54408,7 @@
    "nazwa": "HP LaserJet Pro MFP 3102fdn / 3102fdw — mono 4 w 1 z faksem i podajnikiem ADF",
    "krotka": "HP LaserJet Pro MFP 3102fdn / 3102fdw",
    "podtytul": "Czarno-białe urządzenie wielofunkcyjne A4: druk, kopia, skan, faks; do 33 str./min, dupleks, ADF 50 arkuszy, ekran dotykowy 2,7\"",
-   "korzysc": "Jedno urządzenie zamiast drukarki, skanera, kopiarki i faksu — wkładasz plik dokumentów do podajnika i skanujesz albo kopiujesz bez stania przy szybie.",
+   "korzysc": "Jedno urządzenie zamiast drukarki, skanera, kopiarki i faksu: wkładasz plik dokumentów do podajnika i skanujesz albo kopiujesz bez stania przy szybie.",
    "opis": [
     "MFP 3102 to czarno-białe urządzenie wielofunkcyjne dla małego biura, kancelarii, gabinetu czy recepcji hotelu. Drukuje, kopiuje, skanuje i faksuje, a HP przeznacza je dla zespołów do 7 osób przy 350–2500 stronach miesięcznie.",
     "Drukuje do 33 stron A4 na minutę, od razu dwustronnie. Automatyczny podajnik dokumentów mieści 50 kartek, więc wielostronicową umowę czy plik faktur skanujesz lub kopiujesz za jednym razem (skaner w podajniku czyta jedną stronę kartki). Obsługa odbywa się z kolorowego ekranu dotykowego 2,7\".",
@@ -55093,7 +55093,7 @@
    "nazwa": "Brother HL-L2460DN / HL-L2442DW / HL-L2402D",
    "krotka": "Brother HL-L2460DN / HL-L2442DW / HL-L2402D",
    "podtytul": "Kompaktowa drukarka laserowa mono A4, do 34 str./min, automatyczny druk dwustronny, kaseta 250 ark.",
-   "korzysc": "Tania w eksploatacji, niezawodna drukarka do faktur, umów i dokumentów — bez kłopotu z zasychającym tuszem.",
+   "korzysc": "Tania w eksploatacji, niezawodna drukarka do faktur, umów i dokumentów, bez kłopotu z zasychającym tuszem.",
    "opis": [
     "To najprostszy sposób na szybki czarno-biały druk w sklepie, biurze czy na recepcji. HL-L2460DN drukuje do 34 stron na minutę, sama drukuje po obu stronach kartki i mieści 250 kartek w kasecie. Jest mała — zajmuje mniej miejsca niż kartka A3 z marginesem.",
     "Model DN podłączasz kablem sieciowym, więc drukuje z niego kilka komputerów, a także telefony przez AirPrint, Mopria i aplikację Brother Mobile Connect. Toner i bęben są osobno, co obniża koszt strony.",
@@ -55426,7 +55426,7 @@
    "nazwa": "HP Color LaserJet Pro MFP 4302dw / 4302fdn / 4302fdw — kolorowe MFP do biura",
    "krotka": "HP Color LaserJet Pro MFP 4302dw / 4302fdn / 4302fdw",
    "podtytul": "Kolorowe urządzenie wielofunkcyjne laserowe A4, do 33 str./min, dupleks, ADF 50 ark., ekran dotykowy 4,3\", rozbudowa do 850 ark., faks w fdn/fdw",
-   "korzysc": "Jedno urządzenie obsłuży kolorowy druk, kopie i skanowanie dla całego biura do 10 osób — szybko, dwustronnie i z dużym zapasem papieru.",
+   "korzysc": "Jedno urządzenie obsłuży kolorowy druk, kopie i skanowanie dla całego biura do 10 osób: szybko, dwustronnie i z dużym zapasem papieru.",
    "opis": [
     "MFP 4302 to kolorowe urządzenie wielofunkcyjne do biura, szkoły, przychodni czy biura nieruchomości. Drukuje, kopiuje i skanuje, a wersje fdn i fdw także faksują. HP przeznacza je dla zespołów do 10 osób przy 750–4000 stronach miesięcznie.",
     "Drukuje i kopiuje do 33 stron A4 na minutę w kolorze i w czerni, a dwustronnie do 29 stron na minutę. Podajnik dokumentów mieści 50 kartek; w wersjach fdn i fdw skanuje obie strony kartki. Papier ładujesz do podajników na 50 i 250 kartek, a z opcjonalnym trzecim podajnikiem urządzenie mieści do 850 arkuszy.",
@@ -56099,7 +56099,7 @@
    "nazwa": "Brother MFC-L2802DW / MFC-L2802DN",
    "krotka": "Brother MFC-L2802DW / MFC-L2802DN",
    "podtytul": "Laserowe urządzenie 4 w 1 A4 z faksem, do 32 str./min, ADF 50 ark., druk dwustronny, Wi-Fi i LAN",
-   "korzysc": "Druk, kopia, skan i faks w jednym kompaktowym urządzeniu — wystarczy jedno miejsce na biurku zamiast trzech.",
+   "korzysc": "Druk, kopia, skan i faks w jednym kompaktowym urządzeniu: wystarczy jedno miejsce na biurku zamiast trzech.",
    "opis": [
     "MFC-L2802DW to urządzenie dla firm, które wciąż wysyłają lub odbierają faksy, a do tego potrzebują szybkiego druku i skanera. Drukuje do 32 stron na minutę, sam drukuje dwustronnie i ma podajnik ADF na 50 kartek do skanowania i kopiowania wielostronicowych dokumentów.",
     "Podłączysz je przez Wi-Fi, kabel sieciowy albo USB, więc pasuje i do biura z siecią, i do recepcji, gdzie nie ma gniazdka LAN. Faksy można też wysyłać i odbierać bezpośrednio z komputera (PC-Fax), bez drukowania.",
@@ -56264,7 +56264,7 @@
    "nazwa": "Brother MFC-B7810DW",
    "krotka": "Brother MFC-B7810DW",
    "podtytul": "Laserowe urządzenie 4 w 1 A4 z tonerem na ok. 2000 stron w zestawie, do 34 str./min, ADF 50 ark., Wi-Fi i LAN",
-   "korzysc": "Niski koszt strony przy codziennym druku dokumentów — w pudełku od razu toner na ok. 2000 stron.",
+   "korzysc": "Niski koszt strony przy codziennym druku dokumentów, w pudełku od razu toner na ok. 2000 stron.",
    "opis": [
     "MFC-B7810DW to wielofunkcyjne urządzenie laserowe zaprojektowane z myślą o niskim koszcie wydruku. Już w zestawie dostajesz toner na ok. 2000 stron, a bęben wytrzymuje ok. 12 000 stron. Drukuje do 34 stron na minutę i automatycznie po obu stronach kartki.",
     "Ma pełen zestaw funkcji biurowych: drukarkę, kopiarkę, skaner z podajnikiem ADF na 50 kartek i faks, także wysyłany z komputera lub jako faks internetowy. Podłączysz je przez Wi-Fi (2,4 i 5 GHz), kabel sieciowy lub USB.",
@@ -56898,7 +56898,7 @@
    "nazwa": "Brother HL-L6210DW / HL-L6410DN",
    "krotka": "Brother HL-L6210DW / HL-L6410DN",
    "podtytul": "Wydajna drukarka laserowa mono A4, do 50 str./min, kaseta 520 ark., Wi-Fi i Gigabit LAN",
-   "korzysc": "Drukarka dla działu, który drukuje dużo każdego dnia — mniej dokładania papieru i mniej przestojów.",
+   "korzysc": "Drukarka dla działu, który drukuje dużo każdego dnia: mniej dokładania papieru i mniej przestojów.",
    "opis": [
     "HL-L6210DW to drukarka do intensywnej pracy: do 50 stron na minutę, druk dwustronny i duża kaseta na 520 kartek plus podajnik uniwersalny na 100. Z dodatkowymi szufladami pojemność rośnie do 1560 arkuszy, więc papier dokłada się rzadko.",
     "Łączy się przez Gigabit LAN, dwuzakresowe Wi-Fi i USB, obsługuje druk z telefonów i ma funkcje bezpieczeństwa klasy biznesowej, m.in. druk poufny i blokadę funkcji. Producent zaleca ją do 8000 stron miesięcznie.",
@@ -57063,7 +57063,7 @@
    "nazwa": "HP LaserJet Pro 3002dn / 3002dw — kompaktowa drukarka mono do małego biura",
    "krotka": "HP LaserJet Pro 3002dn / 3002dw",
    "podtytul": "Czarno-biała drukarka laserowa A4, do 33 str./min, automatyczny druk dwustronny, Ethernet (3002dw także dwuzakresowe Wi-Fi)",
-   "korzysc": "Faktury, umowy i dokumenty drukują się szybko i od razu dwustronnie — bez zajmowania pół biurka i bez kombinowania z obsługą.",
+   "korzysc": "Faktury, umowy i dokumenty drukują się szybko i od razu dwustronnie, bez zajmowania pół biurka i bez kombinowania z obsługą.",
    "opis": [
     "LaserJet Pro 3002 to prosta drukarka laserowa do biura, sklepu czy recepcji, gdzie drukuje się głównie czarno-białe dokumenty. HP przeznacza ją dla zespołów do 7 osób i zaleca od 350 do 2500 stron miesięcznie, więc spokojnie obsłuży codzienne faktury, umowy, zamówienia i pisma.",
     "Drukuje do 33 stron A4 na minutę, a pierwsza strona wychodzi po ok. 7 sekundach od stanu gotowości. Druk dwustronny jest automatyczny w standardzie, więc oszczędzasz papier bez ręcznego przekładania kartek. Podajnik mieści 250 arkuszy, czyli pół ryzy — nie trzeba co chwilę dokładać papieru.",
@@ -57883,7 +57883,7 @@
    "nazwa": "Brother HL-L9430CDN / HL-L9470CDN",
    "krotka": "Brother HL-L9430CDN / HL-L9470CDN",
    "podtytul": "Wydajna kolorowa drukarka laserowa A4 dla grup roboczych, do 40 str./min, kaseta 520 ark., rozbudowa do 2600 ark.",
-   "korzysc": "Kolorowy druk na dużą skalę — dla firm, które drukują tysiące stron miesięcznie i chcą niskiego kosztu wydruku.",
+   "korzysc": "Kolorowy druk na dużą skalę, dla firm, które drukują tysiące stron miesięcznie i chcą niskiego kosztu wydruku.",
    "opis": [
     "HL-L9430CDN to najwydajniejsza klasa kolorowych drukarek laserowych Brother A4. Drukuje do 40 stron na minutę w kolorze, ma kasetę na 520 kartek i podajnik uniwersalny na 100, a z dodatkowymi szufladami lub wieżą papieru mieści do 2600 arkuszy. Producent zaleca ją do 12 000 stron miesięcznie.",
     "Wbudowany czytnik NFC pozwala logować się kartą, a funkcje druku poufnego chronią dokumenty. Łączy się przez Gigabit LAN i USB; Wi-Fi to opcjonalny moduł. Można dołożyć sorter na kilka tac — przydatny, gdy z jednej drukarki korzysta kilka działów.",
@@ -58530,7 +58530,7 @@
    "nazwa": "Brother MFC-L9630CDN",
    "krotka": "Brother MFC-L9630CDN",
    "podtytul": "Wydajne kolorowe urządzenie laserowe 4 w 1 A4, do 40 str./min, ADF 100 ark., skanowanie do 100 obr./min, do 2600 ark. papieru",
-   "korzysc": "Kolorowe centrum dokumentów dla całego biura — druk, kopia, skan i faks na dużą skalę w jednym urządzeniu.",
+   "korzysc": "Kolorowe centrum dokumentów dla całego biura: druk, kopia, skan i faks na dużą skalę w jednym urządzeniu.",
    "opis": [
     "MFC-L9630CDN to kolorowe urządzenie wielofunkcyjne dla średniej firmy lub działu, w którym z jednego sprzętu korzysta wiele osób. Drukuje do 40 stron na minutę w kolorze, a podajnik ADF na 100 kartek skanuje obie strony dokumentu do 100 obrazów na minutę.",
     "Duży ekran dotykowy 17,6 cm, 2 GB pamięci i wbudowany czytnik NFC do logowania kartą ułatwiają pracę w zespole i chronią poufne wydruki. Kaseta mieści 520 kartek, podajnik uniwersalny 100, a z dodatkowymi szufladami lub wieżą — do 2600 arkuszy. Można je ustawić na szafce jako urządzenie podłogowe.",
@@ -58848,7 +58848,7 @@
    "nazwa": "HP Color LaserJet Pro MFP 3302sdw / 3302fdn — kolorowe 3 w 1 lub 4 w 1 z ADF",
    "krotka": "HP Color LaserJet Pro MFP 3302sdw / 3302fdn",
    "podtytul": "Kolorowe urządzenie wielofunkcyjne laserowe A4: druk, kopia, skan (3302fdn także faks); do 25 str./min, dupleks, ADF 50 ark., ekran dotykowy 4,3\"",
-   "korzysc": "Kolorowe oferty drukujesz, a dokumenty skanujesz i kopiujesz na jednym kompaktowym urządzeniu — bez osobnej drukarki i skanera.",
+   "korzysc": "Kolorowe oferty drukujesz, a dokumenty skanujesz i kopiujesz na jednym kompaktowym urządzeniu, bez osobnej drukarki i skanera.",
    "opis": [
     "MFP 3302 to kolorowe urządzenie wielofunkcyjne dla małej firmy, która drukuje w kolorze materiały dla klientów, a przy tym codziennie skanuje i kopiuje dokumenty. HP przeznacza je dla zespołów do 7 osób przy 150–2500 stronach miesięcznie.",
     "Drukuje i kopiuje do 25 stron A4 na minutę, w kolorze tak samo szybko jak w czerni, z automatycznym dupleksem. Podajnik dokumentów mieści 50 kartek (skanuje jedną stronę kartki), a z szyby skanujesz do 1200 dpi — np. dowody wpłat, zdjęcia czy dokumenty klienta. Wszystko obsługujesz z kolorowego ekranu dotykowego 4,3\".",
@@ -59352,7 +59352,7 @@
    "nazwa": "Brother MFC-T930DW / DCP-T730DW",
    "krotka": "Brother MFC-T930DW / DCP-T730DW",
    "podtytul": "Atramentowe urządzenie z systemem stałego zasilania (InkBenefit Plus), butelki w zestawie na 15 000 str. czarnych, ADF, Wi-Fi",
-   "korzysc": "Bardzo tani kolorowy druk przy małych nakładach — butelki z zestawu starczają na tysiące stron.",
+   "korzysc": "Bardzo tani kolorowy druk przy małych nakładach: butelki z zestawu starczają na tysiące stron.",
    "opis": [
     "MFC-T930DW to urządzenie z serii InkBenefit, w którym tusz uzupełnia się z butelek zamiast wymieniać kartridże. W zestawie są dwie butelki czarnego tuszu (łącznie na ok. 15 000 stron) i po jednej kolorowej (ok. 5000 stron każda), więc długo nie trzeba niczego kupować.",
     "To urządzenie 4 w 1 z faksem, automatycznym drukiem dwustronnym i podajnikiem ADF na 20 kartek. Ma kasetę na 150 kartek i podajnik uniwersalny na 80, kolorowy wyświetlacz i łączność Wi-Fi, LAN oraz USB. Drukuje do 17 stron na minutę w czerni.",
@@ -59667,7 +59667,7 @@
    "nazwa": "HP Smart Tank 750 / 790 — atramentowe 3 w 1/4 w 1 ze zbiornikami tuszu, ADF i Ethernetem",
    "krotka": "HP Smart Tank 750 / 790",
    "podtytul": "Kolorowe urządzenie wielofunkcyjne z uzupełnianymi zbiornikami tuszu: druk, kopia, skan (790 także faks); dupleks, ADF 35 ark., Wi-Fi i Ethernet",
-   "korzysc": "Kolorowe wydruki w małym biurze czy recepcji bez częstej wymiany wkładów — tusz dolewasz z butelek do zbiorników.",
+   "korzysc": "Kolorowe wydruki w małym biurze czy recepcji bez częstej wymiany wkładów: tusz dolewasz z butelek do zbiorników.",
    "opis": [
     "Smart Tank 750 i 790 to urządzenia atramentowe z systemem zbiorników na tusz, które napełnia się z butelek zamiast wymieniać kartridże. HP podaje dla modelu 790, że tusz z zestawu wystarcza na do 18 000 stron w czerni lub 8000 w kolorze. To rozsądny wybór dla małej recepcji, pensjonatu, punktu usługowego czy szkolnego pokoju nauczycielskiego, gdzie drukuje się niewiele, ale często w kolorze.",
     "Oba modele drukują do 15 stron A4 na minutę w czerni i 9 w kolorze, mają automatyczny druk dwustronny, podajnik na 250 kartek i podajnik dokumentów ADF na 35 kartek do kopiowania i skanowania plików. Łączą się przez dwuzakresowe Wi-Fi, Wi-Fi Direct, Ethernet lub USB, więc łatwo podłączysz je do sieci w biurze.",
@@ -62288,7 +62288,7 @@
    "nazwa": "Kyocera ECOSYS M8124cidn / M8130cidn",
    "krotka": "Kyocera ECOSYS M8124cidn / M8130cidn",
    "podtytul": "Kompaktowe kolorowe urządzenia wielofunkcyjne A3, 24–30 str./min",
-   "korzysc": "Kolor A3 w rozmiarze urządzenia biurkowego — bez dużej kopiarki w biurze.",
+   "korzysc": "Kolor A3 w rozmiarze urządzenia biurkowego, bez dużej kopiarki w biurze.",
    "opis": [
     "Kolorowe urządzenia A3 dla małej firmy, która czasem drukuje plakaty, zestawienia czy rysunki A3, ale nie ma miejsca ani potrzeby na dużą kopiarkę.",
     "M8124cidn drukuje 24 strony A4 (12 A3), a M8130cidn — 30 stron A4 (15 A3) na minutę. Podajnik dokumentów na 50 arkuszy i druk dwustronny (60–256 g/m²) są w standardzie. M8130cidn skanuje do 50 obrazów na minutę do e-maila, na serwer FTP, do folderu sieciowego lub na pamięć USB.",
@@ -62728,8 +62728,8 @@
    "rodzaj": "Urządzenia",
    "nazwa": "Tusze i tonery",
    "krotka": "Tusze i tonery do drukarek firmowych",
-   "podtytul": "Materiały do drukarek i urządzeń wielofunkcyjnych w firmie — dobrane do modelu",
-   "korzysc": "Tusz albo toner do Twojej drukarki: oryginał albo sprawdzony przez nas zamiennik. Do HP — wyłącznie oryginały.",
+   "podtytul": "Materiały do drukarek i urządzeń wielofunkcyjnych w firmie: dobrane do modelu",
+   "korzysc": "Tusz albo toner do Twojej drukarki: oryginał albo sprawdzony przez nas zamiennik. Do HP: wyłącznie oryginały.",
    "opis": [
     "Mamy dostęp do oryginalnych tuszy i tonerów oraz do zamienników, które sprawdziliśmy w praktyce — drukują poprawnie i nie psują drukarki.",
     "Podaj model drukarki, a dobierzemy materiały i powiemy, przy jakim nakładzie bardziej opłaca się oryginał, a przy jakim zamiennik. Stałym klientom przypominamy o zamówieniu, zanim toner się skończy."
@@ -63236,7 +63236,7 @@
    "nazwa": "Fellowes LX211",
    "krotka": "Fellowes LX211",
    "podtytul": "Niszczarka do małego biura, mikrościnki 2 × 12 mm (P-5), 15 kartek, kosz 23 l, IntelliBar",
-   "korzysc": "Dokumentacja pacjentów i teczki kadrowe cięte na mikrościnki P-5 — praktycznie nie do odtworzenia, a urządzenie mieści się przy biurku.",
+   "korzysc": "Dokumentacja pacjentów i teczki kadrowe cięte na mikrościnki P-5: praktycznie nie do odtworzenia, a urządzenie mieści się przy biurku.",
    "opis": [
     "LX211 to wersja serii LX z mikrościnkami 2 × 12 mm, czyli poziomem P-5. Według opisu w sklepie jedna kartka A4 zamienia się w ponad 2500 drobnych kawałków. To dobry wybór do gabinetu lekarskiego, rejestracji przychodni, działu kadr czy kancelarii, gdzie na biurku leżą dane wrażliwe.",
     "Przyjmuje do 15 kartek naraz, pracuje do 20 minut bez przerwy (potem ok. 15 minut stygnie), kosz ma 23 litry. Niszczy też zszywki, spinacze i karty plastikowe.",
@@ -63391,7 +63391,7 @@
    "nazwa": "Kobra +2 CC2 ES",
    "krotka": "Kobra +2 CC2 ES",
    "podtytul": "Niszczarka z mikrościnkami, P-5, 7–8 kartek, kosz 38,5 l + 1,5 l, osobne wejście na CD i karty",
-   "korzysc": "Dla stanowisk, gdzie trafiają dokumenty szczególnie wrażliwe — drobne ścinki P-5 praktycznie uniemożliwiają odtworzenie treści.",
+   "korzysc": "Dla stanowisk, gdzie trafiają dokumenty szczególnie wrażliwe: drobne ścinki P-5 praktycznie uniemożliwiają odtworzenie treści.",
    "opis": [
     "Kobra +2 CC2 ES to kompaktowa niszczarka dla osoby lub małego zespołu, który pracuje z danymi wymagającymi wyższej ochrony — np. dokumentacją medyczną, kadrową, umowami czy danymi finansowymi. Tnie papier na bardzo drobne ścinki 1,9 × 13 mm, co odpowiada poziomowi P-5 według DIN 66399.",
     "Ma dwa osobne zestawy noży: do papieru oraz do płyt CD/DVD i kart plastikowych. Ścinki trafiają do dwóch oddzielnych pojemników, które nie wymagają worków. Ze względu na drobne cięcie przyjmuje mniej kartek naraz (7–8 przy 70 g) — to model do bieżącego niszczenia, nie do dużych archiwów.",
@@ -63821,7 +63821,7 @@
    "nazwa": "Kobra AF+1 40",
    "krotka": "Kobra AF+1 40",
    "podtytul": "Niszczarka z automatycznym podajnikiem na 300 kartek, ścinki P-4, kosz 40 l, bez oliwienia",
-   "korzysc": "Wkładasz stos do 300 kartek, zamykasz pokrywę i wracasz do pracy — niszczarka sama poda i potnie dokumenty.",
+   "korzysc": "Wkładasz stos do 300 kartek, zamykasz pokrywę i wracasz do pracy: niszczarka sama poda i potnie dokumenty.",
    "opis": [
     "Kobra AF+1 40 to rozwiązanie dla biura, w którym czas pracowników jest cenniejszy niż stanie przy niszczarce. Zamiast podawać kartki partiami, wkłada się cały stos — podajnik mieści 300 kartek 80 g (350 kartek 70 g) — a urządzenie samo pobiera je i tnie na ścinki 3,5 × 40 mm (poziom P-4).",
     "Pojedyncze dokumenty można niszczyć od ręki przez osobny otwór. Noże pracują w systemie bez oliwienia, więc odpada regularne smarowanie. Kosz 40 l znajduje się w obudowie na kółkach.",
@@ -64244,7 +64244,7 @@
    "nazwa": "Fellowes AutoMax 100M",
    "krotka": "Fellowes AutoMax 100M",
    "podtytul": "Niszczarka z automatycznym podajnikiem na 100 kartek, miniścinki 4 × 10 mm (P-4), kosz 23 l",
-   "korzysc": "Wkładasz stos do 100 kartek, zamykasz pokrywę i wracasz do pracy — niszczarka sama podaje kartki.",
+   "korzysc": "Wkładasz stos do 100 kartek, zamykasz pokrywę i wracasz do pracy: niszczarka sama podaje kartki.",
    "opis": [
     "AutoMax 100M to najmniejsza niszczarka Fellowes z automatycznym podajnikiem. Ma dwa wejścia: tacę na stos do 100 kartek oraz zwykłą szczelinę na 10 kartek, karty i dokumenty zszyte.",
     "Tnie na miniścinki 4 × 10 mm (P-4). Pracuje do 15 minut bez przerwy, potem potrzebuje ok. 35 minut przerwy, a po 2 minutach bezczynności sama się usypia. Technologia SilentShred ma ograniczać hałas, więc nadaje się do pokoju, w którym ktoś rozmawia z klientem.",
@@ -64381,7 +64381,7 @@
    "nazwa": "Fellowes AutoMax 350C",
    "krotka": "Fellowes AutoMax 350C",
    "podtytul": "Niszczarka z automatycznym podajnikiem na 350 kartek, ścinki 4 × 38 mm (P-4), kosz 68 l, 45 min pracy",
-   "korzysc": "Duże porządki w archiwum bez angażowania pracownika — stos 350 kartek niszczy się sam, a zamek z kodem chroni go w trakcie.",
+   "korzysc": "Duże porządki w archiwum bez angażowania pracownika: stos 350 kartek niszczy się sam, a zamek z kodem chroni go w trakcie.",
    "opis": [
     "AutoMax 350C to automatyczna niszczarka dla większego biura lub działu (wg opisu producenta w sklepie — 3–5 osób). Na tacę mieści się stos do 350 kartek, a osobna szczelina ręczna przyjmuje do 12 kartek, karty plastikowe i płyty CD/DVD.",
     "Tnie na ścinki 4 × 38 mm (P-4), pracuje do 45 minut bez przerwy, a potem potrzebuje ok. 30 minut na ostygnięcie. Kosz ma 68 litrów, więc opróżnia się go rzadko.",
@@ -64520,7 +64520,7 @@
    "nazwa": "Fellowes Powershred 225Ci",
    "krotka": "Fellowes Powershred 225Ci",
    "podtytul": "Niszczarka działowa do pracy ciągłej, ścinki 4 × 38 mm (P-4), 22–24 kartki, kosz 60 l, niszczy CD",
-   "korzysc": "Jedna maszyna dla całego działu lub firmy powyżej 5 osób — pracuje bez przerw na chłodzenie, więc archiwum znika w jeden dzień.",
+   "korzysc": "Jedna maszyna dla całego działu lub firmy powyżej 5 osób: pracuje bez przerw na chłodzenie, więc archiwum znika w jeden dzień.",
    "opis": [
     "Powershred 225Ci to niszczarka dla większego zespołu — producent przeznacza ją dla 5 i więcej użytkowników. Silnik jest przystosowany do pracy ciągłej, więc nie trzeba robić przerw nawet przy niszczeniu całych segregatorów.",
     "Przyjmuje 22 kartki (80 g/m²) lub 24 kartki (70 g/m²) naraz i tnie je na ścinki 4 × 38 mm (P-4). Przez osobne wejście niszczy też płyty CD/DVD i karty, a kosz ma 60 litrów. Instrukcja podaje maksymalne zalecane użycie: 5500 kartek dziennie.",
@@ -64670,7 +64670,7 @@
    "nazwa": "Kobra 300.1 C4 ES",
    "krotka": "Kobra 300.1 C4 ES",
    "podtytul": "Szafkowa niszczarka ze ścinkami, P-4, 20–22 kartki, kosz 110 l, wejście 310 mm, praca ciągła 24 h",
-   "korzysc": "Centralna niszczarka dla działu lub całej firmy — duży kosz i szerokie wejście ograniczają opróżnianie i kolejki przy niszczeniu.",
+   "korzysc": "Centralna niszczarka dla działu lub całej firmy: duży kosz i szerokie wejście ograniczają opróżnianie i kolejki przy niszczeniu.",
    "opis": [
     "Kobra 300.1 C4 ES to niszczarka do miejsca, gdzie dokumenty niszczy cały dział albo firma w jednym punkcie — np. w księgowości, kadrach, przychodni czy biurze obsługi klienta. Tnie papier na ścinki 3,9 × 40 mm (poziom P-4) i przyjmuje 20–22 kartki naraz.",
     "Szerokie wejście 310 mm przyjmie kartkę A4 także włożoną poziomo, a kosz 110 l w szafce na kółkach rzadko wymaga opróżniania. Napęd ze stalowymi kołami zębatymi i metalowym łańcuchem oraz silnik do pracy ciągłej są przygotowane na codzienne, długie niszczenie.",
@@ -64811,7 +64811,7 @@
    "nazwa": "Fellowes Powershred 225Mi",
    "krotka": "Fellowes Powershred 225Mi",
    "podtytul": "Niszczarka działowa P-5 do pracy ciągłej, mikrościnki 2 × 12 mm, 16–18 kartek, kosz 60 l, niszczy CD",
-   "korzysc": "Poziom P-5 dla dokumentów wrażliwych połączony z wydajnością działu — bez przerw na chłodzenie i z dużym koszem.",
+   "korzysc": "Poziom P-5 dla dokumentów wrażliwych połączony z wydajnością działu, bez przerw na chłodzenie i z dużym koszem.",
    "opis": [
     "Powershred 225Mi to niszczarka dla przychodni, działu kadr, kancelarii czy biura rachunkowego, które codziennie niszczą dużo dokumentów z danymi wrażliwymi. Tnie na mikrościnki 2 × 12 mm (P-5), a silnik jest przystosowany do pracy ciągłej.",
     "Przyjmuje 18 kartek (70 g/m²) lub 16 kartek (80 g/m²) naraz, przez osobne wejście niszczy też płyty CD/DVD i karty, a kosz ma 60 litrów. Instrukcja podaje maksymalne zalecane użycie: 4400 kartek dziennie.",
@@ -64948,7 +64948,7 @@
    "nazwa": "Kobra 240.1 C2 ES",
    "krotka": "Kobra 240.1 C2 ES",
    "podtytul": "Szafkowa niszczarka z mikrościnkami, P-5, 10–12 kartek, kosz 40 l, praca ciągła 24 h",
-   "korzysc": "Wysoki poziom ochrony P-5 w solidnej szafce na kółkach — dla biura, które codziennie niszczy wrażliwe dokumenty kilku osób.",
+   "korzysc": "Wysoki poziom ochrony P-5 w solidnej szafce na kółkach, dla biura, które codziennie niszczy wrażliwe dokumenty kilku osób.",
    "opis": [
     "Kobra 240.1 C2 ES łączy drobne cięcie z wytrzymałą konstrukcją szafkową. Papier zamienia w mikrościnki 1,9 × 15 mm (poziom P-5), dlatego dobrze pasuje do kancelarii, biur rachunkowych, kadr czy placówek medycznych, gdzie niszczy się dane wymagające wyższej ochrony.",
     "W odróżnieniu od małych niszczarek biurkowych ma napęd ze stalowymi kołami zębatymi i metalowym łańcuchem, silnik do pracy ciągłej i kosz 40 l w szafce na kółkach. Dzięki temu dobrze znosi codzienne użytkowanie przez kilka osób.",
@@ -65382,7 +65382,7 @@
    "nazwa": "Avtek TouchScreen 8 Lite G (65\", 75\", 86\", 98\")",
    "krotka": "Avtek TouchScreen 8 Lite G",
    "podtytul": "Monitory interaktywne 4K 65–98\", Android 14 z certyfikatem Google EDLA, 32 punkty dotyku, slot OPS",
-   "korzysc": "Zastąpisz tablicę i projektor dotykowym ekranem 4K z Google Play — do klasy, sali szkoleń i narad.",
+   "korzysc": "Zastąpisz tablicę i projektor dotykowym ekranem 4K z Google Play, do klasy, sali szkoleń i narad.",
    "opis": [
     "Avtek TS 8 Lite G to monitor interaktywny, czyli duży ekran dotykowy zamiast tablicy i projektora. Sprawdzi się w klasie, sali szkoleniowej pensjonatu czy sali narad w firmie. Piszesz po nim jak po tablicy, pokazujesz prezentacje i filmy, a notatki zapisujesz i udostępniasz uczestnikom.",
     "Ekran ma rozdzielczość 4K i jasność 420 cd/m². Modele 65\" i 75\" mają matrycę VA (kontrast 6000:1), a 86\" i 98\" matrycę IPS (kontrast 5000:1). Dotyk na podczerwień rozpoznaje do 32 punktów w Androidzie i 50 w Windows, więc przy ekranie może pisać kilka osób. Wbudowany Android 14 ma certyfikat Google EDLA, czyli dostęp do Sklepu Play; producent podaje możliwość aktualizacji do Androida 16. Bezprzewodowo podłączysz do 8 laptopów lub telefonów i pokażesz do 4 obrazów naraz.",
@@ -66308,7 +66308,7 @@
    "nazwa": "Avtek TouchScreen 9 Mate G (65\", 75\", 86\") i TS 8.1 Mate G 65",
    "krotka": "Avtek TouchScreen 9 Mate G i TS 8.1 Mate G 65",
    "podtytul": "Monitory interaktywne 4K 65–86\", Android 16 EDLA, 50 punktów dotyku, Wi-Fi 6, start w 35 s",
-   "korzysc": "Dotykowy ekran 4K z Androidem 16, Google Play i Wi-Fi 6 — do sali lekcyjnej i sali spotkań.",
+   "korzysc": "Dotykowy ekran 4K z Androidem 16, Google Play i Wi-Fi 6, do sali lekcyjnej i sali spotkań.",
    "opis": [
     "Seria Mate to monitory interaktywne Avtek do klas i sal spotkań, gdzie ekran ma działać od razu po włączeniu. Prowadzisz na nim lekcję lub prezentację, piszesz notatki na dowolnym obrazie, uruchamiasz aplikacje ze Sklepu Play i przeprowadzasz szybkie głosowanie wśród uczestników.",
     "TS 9 Mate G ma matrycę VA 4K o jasności 500 cd/m², Android 16 z certyfikatem Google EDLA i procesor Rockchip 3576 z układem AI (NPU 6 TOPS). Producent podaje start monitora w 35 sekund i dwukrotnie większą wydajność niż w poprzedniej generacji. Dotyk rozpoznaje 50 punktów, łączność to Wi-Fi 6 i Bluetooth 5.4, głośniki mają 2× 25 W. Aplikacja do udostępniania łączy do 254 urządzeń i pokazuje obraz z 9 naraz.",
@@ -67296,7 +67296,7 @@
    "nazwa": "Komputery Avtek OPS (Intel Core i5 / i7, Windows 11 Pro)",
    "krotka": "Komputery Avtek OPS",
    "podtytul": "Moduły OPS do monitorów Avtek TS: Intel Core i5-13505H lub i7-13650HX, 8–16 GB RAM, SSD 256–512 GB",
-   "korzysc": "Windows wsunięty w monitor interaktywny — bez laptopa i kabli na biurku prowadzącego.",
+   "korzysc": "Windows wsunięty w monitor interaktywny, bez laptopa i kabli na biurku prowadzącego.",
    "opis": [
     "Komputer OPS to mały komputer z Windows, który wsuwasz w gniazdo z tyłu monitora interaktywnego. Ekran staje się wtedy jednym zestawem „wszystko w jednym”: nauczyciel czy prowadzący szkolenie nie musi podłączać laptopa, a w sali nie ma luźnych kabli. Przydaje się, gdy pracujesz na programach windowsowych, np. dzienniku, pakiecie biurowym czy oprogramowaniu do lekcji.",
     "Avtek ma trzy moduły z Windows 11 Pro i procesorami Intel 13. generacji: i5-13505H (12 rdzeni) z 8 GB RAM i dyskiem SSD 256 GB oraz i7-13650HX (14 rdzeni) z 16 GB RAM i SSD 256 lub 512 GB. Mają po 2 wyjścia HDMI 2.0 (do 4K), USB 3.0, USB-C i port sieciowy RJ-45. Pamięć jest w dwóch gniazdach SO-DIMM. Moduły są przystosowane do pracy 24/7.",
@@ -69176,7 +69176,7 @@
    "nazwa": "Lenovo ThinkSmart Core Gen 2 — zestawy do sal konferencyjnych (Microsoft Teams Rooms / Zoom Rooms)",
    "krotka": "Lenovo ThinkSmart Core Gen 2",
    "podtytul": "Komputer do sali konferencyjnej z Microsoft Teams Rooms lub Zoom Rooms, panelem dotykowym i listwą wideo ThinkSmart Bar 180",
-   "korzysc": "Sala spotkań, w której wideokonferencję zaczynasz jednym dotknięciem — bez podłączania laptopa i szukania kabli.",
+   "korzysc": "Sala spotkań, w której wideokonferencję zaczynasz jednym dotknięciem, bez podłączania laptopa i szukania kabli.",
    "opis": [
     "ThinkSmart Core Gen 2 to mały komputer do sali konferencyjnej z zainstalowanym oprogramowaniem Microsoft Teams Rooms albo Zoom Rooms. Razem z panelem dotykowym na stole i listwą z kamerą i mikrofonami tworzy stałe stanowisko do wideospotkań. Wchodzisz do sali, dotykasz „Dołącz” i spotkanie się zaczyna. Pasuje do sali spotkań w biurze, hotelu z salą konferencyjną, szkoły czy urzędu.",
     "Możesz kupić sam komputer albo gotowy zestaw: z panelem ThinkSmart Controller (ekran dotykowy 10,1\") lub Lenovo IP Controller, a w zestawach FRK / IPFRK także z listwą ThinkSmart Bar 180. Bar 180 ma trzy kamery, które razem widzą 180° w poziomie, więc w kadrze są też osoby siedzące z boku. Ma też osiem mikrofonów i cztery głośniki.",
@@ -69418,7 +69418,7 @@
    "seria": "Wideokonferencje",
    "rodzaj": "Urządzenia",
    "nazwa": "Dell — kamery i zestaw głośnomówiący do wideokonferencji (Pro 5 WB526, Pro 7 WB726, Pro Plus SL525)",
-   "krotka": "Dell — kamery i zestaw głośnomówiący",
+   "krotka": "Dell · kamery i zestaw głośnomówiący",
    "podtytul": "Kamery internetowe Dell Pro z AI i zestaw głośnomówiący Dell Pro Plus z certyfikatem Microsoft Teams i Zoom",
    "korzysc": "Kamera 2K lub 4K z automatycznym kadrowaniem i bezprzewodowy głośnik konferencyjny do Teams i Zoom.",
    "opis": [
@@ -70093,7 +70093,7 @@
    "nazwa": "InsERT Subiekt nexo / nexo PRO",
    "krotka": "InsERT Subiekt nexo / nexo PRO",
    "podtytul": "System sprzedaży i magazynu, licencja na 1 lub 3 stanowiska, pełna obsługa KSeF, interfejs dotykowy POS",
-   "korzysc": "Sprzedaż, faktury, KSeF i kilka magazynów w nowoczesnym programie dla sklepu, hurtowni i warsztatu.",
+   "korzysc": "Sprzedaż, faktury, KSeF i kilka magazynów w programie dla sklepu, hurtowni i warsztatu.",
    "opis": [
     "Subiekt nexo to najnowsza linia programu do sprzedaży i magazynu InsERT, dla małych i średnich firm: sklepów, hurtowni, warsztatów i firm usługowych. Wersja nexo PRO dokłada funkcje dla firm z kilkoma oddziałami, magazynami i pracownikami o różnych uprawnieniach. Program instalujesz na komputerach w firmie, licencję kupujesz na 1 albo 3 stanowiska.",
     "Obsługuje wszystkie dokumenty handlowe i magazynowe, faktury z kilku magazynów, zamówienia z terminem dostawy dla każdej pozycji, cenniki i rabaty dla klientów oraz rozrachunki z przypomnieniami o płatnościach. KSeF jest wbudowany: e-fakturę wysyłasz ręcznie albo automatycznie po zapisaniu, przed wysyłką widzisz jej podgląd, a numer KSeF pojawia się przy dokumencie. Faktury od dostawców program pobiera sam, cyklicznie. Paragony nie trafiają do KSeF — obsługuje je drukarka fiskalna.",
@@ -71076,7 +71076,7 @@
    "rodzaj": "Oprogramowanie",
    "nazwa": "Comarch ERP Optima",
    "krotka": "Comarch ERP Optima",
-   "korzysc": "Poprowadzisz księgowość, faktury z KSeF, magazyn i kadry w jednym programie — na komputerze lub w chmurze.",
+   "korzysc": "Poprowadzisz księgowość, faktury z KSeF, magazyn i kadry w jednym programie, na komputerze lub w chmurze.",
    "opis": [
     "Comarch ERP Optima to program do prowadzenia firmy dla małych i średnich przedsiębiorstw oraz biur rachunkowych. Wystawisz w nim faktury, poprowadzisz magazyn i sprzedaż detaliczną, kasę i bank, księgowość (KPiR lub pełną), kadry i płace oraz środki trwałe. Kupujesz tylko potrzebne moduły i dokładasz kolejne, gdy firma rośnie — np. sklep zaczyna od faktur i magazynu, a później dodaje księgowość.",
     "Program jest zintegrowany z KSeF: wysyła faktury sprzedaży, odbiera UPO i pobiera faktury zakupowe, które przeniesiesz do rejestru VAT lub do magazynu. Obsługuje tryby offline i awaryjne KSeF, a logować się możesz tokenem, certyfikatem KSeF lub podpisem kwalifikowanym. Faktury z KSeF są oznaczane w pliku JPK_V7. Asystent AI (ChatERP) podpowiada, jak coś zrobić, i odpowiada na pytania o dane w programie.",
@@ -71793,7 +71793,7 @@
    "nazwa": "InsERT Gestor nexo / nexo PRO / GT",
    "krotka": "InsERT Gestor nexo / nexo PRO / GT",
    "podtytul": "CRM dla firm handlowych i usługowych: kontakty, zadania, oferty, zlecenia serwisowe i umowy, połączony z Subiektem",
-   "korzysc": "Masz w jednym miejscu klientów, zadania, oferty i korespondencję — nic nie ucieka handlowcom.",
+   "korzysc": "Masz w jednym miejscu klientów, zadania, oferty i korespondencję: nic nie ucieka handlowcom.",
    "opis": [
     "Gestor to program CRM, czyli do pracy z klientami: kontakty, historia rozmów, zadania dla pracowników i kalendarz. Przyda się firmie handlowej i usługowej, która chce wiedzieć, kto, kiedy i co ustalił z klientem, i nie gubić terminów.",
     "Planujesz i przydzielasz zadania, a program przypomina o terminach. Ma wbudowaną pocztę z wysyłką masową, oferty i raporty. W wersjach nexo jest moduł zleceń serwisowych (naprawy, reklamacje) z powiadomieniami e-mail i SMS, który pokazuje potrzebne części i opłacalność zlecenia. Nexo PRO dokłada moduł umów — z przypomnieniami o kończących się umowach i cyklicznym wystawianiem dokumentów.",
@@ -72657,7 +72657,7 @@
    "rodzaj": "Oprogramowanie",
    "nazwa": "Insoft PC-POS 7",
    "krotka": "Insoft PC-POS 7",
-   "korzysc": "Sprzedasz szybko przy kasie POS — także bez łączności z serwerem — z kaucjami, rabatami i fakturami KSeF.",
+   "korzysc": "Sprzedasz szybko przy kasie POS (także bez łączności z serwerem), z kaucjami, rabatami i fakturami KSeF.",
    "opis": [
     "Insoft PC-POS 7 to program kasowy na stanowisko POS: komputer z monitorem (często dotykowym), drukarką fiskalną, skanerem, wagą i klawiaturą. Sprawdzi się w sklepie spożywczym, supermarkecie (z serwerem kasowym), sklepie branżowym — odzieżowym, obuwniczym, AGD — i w gastronomii.",
     "Ekran kasjera dopasujesz do branży, a klawisze szybkiej sprzedaży ustawisz zdalnie lub na miejscu. Kasa synchronizuje lokalną bazę z serwerem: gdy połączenie zniknie, dalej sprzedaje i dośle dane po jego powrocie. Obsługuje rabaty, kody ważone, kilka paragonów naraz, sprzedaż w wielu walutach, karty lojalnościowe i płatnicze, system kaucyjny oraz rozliczenie kasjerów. Wystawia faktury, także do paragonów (z PC-Market), i wysyła je do KSeF w trybie online, wsadowym i offline24.",
@@ -73668,7 +73668,7 @@
    "rodzaj": "Oprogramowanie",
    "nazwa": "GoPOS E-Menu (menu z kodu QR)",
    "krotka": "GoPOS E-Menu",
-   "podtytul": "Elektroniczna karta menu w telefonie gościa — do przeglądania albo z zamawianiem i płatnością",
+   "podtytul": "Elektroniczna karta menu w telefonie gościa, do przeglądania albo z zamawianiem i płatnością",
    "korzysc": "Gość skanuje kod QR na stoliku, ogląda menu ze zdjęciami i alergenami, a w wersji z zamawianiem zamawia sam.",
    "opis": [
     "E-Menu to karta dań, którą gość otwiera telefonem po zeskanowaniu kodu QR na stoliku, w pokoju hotelowym czy przy ladzie. Sprawdzi się w restauracji, kawiarni, barze i hotelu — wszędzie tam, gdzie drukowane menu szybko się dezaktualizuje albo goście mówią w różnych językach.",
@@ -73881,7 +73881,7 @@
    "rodzaj": "Oprogramowanie",
    "nazwa": "Insoft PC-Gastronom",
    "krotka": "Insoft PC-Gastronom",
-   "korzysc": "Obsłużysz stoliki, rachunki, kuchnię i kelnerów w restauracji lub barze — na jednej kasie albo w sieci lokali.",
+   "korzysc": "Obsłużysz stoliki, rachunki, kuchnię i kelnerów w restauracji lub barze, na jednej kasie albo w sieci lokali.",
    "opis": [
     "Insoft PC-Gastronom to program kasowy dla restauracji, barów, pubów, kawiarni i hoteli z gastronomią. Działa na komputerze POS z Windows lub Linuksem, z ekranem dotykowym albo zwykłym monitorem i klawiaturą. Sprawdzi się jako jedna kasa, system kilku kas i sieć lokali zarządzana z centrali.",
     "Obsługuje stoliki, zamrażanie, dzielenie i przenoszenie rachunków między kelnerami, rachunki wstępne, zestawy i komentarze do zamówień. Kelner loguje się kodem lub kartą i widzi tylko swoje rachunki. Ceny mogą zmieniać się wg godzin (happy hours), a promocje typu „3 za 2” program podpowiada sam. Zamówienia trafiają na drukarkę kuchenną albo ekran kuchenny (KDS), a kelnerzy mogą przyjmować je mobilnym bonownikiem na Androidzie. Płatność kartą przyjmiesz przez terminal lub bezpośrednio przez stanowisko POS.",
@@ -74289,7 +74289,7 @@
    "rodzaj": "Oprogramowanie",
    "nazwa": "GoPOS GoKiosk",
    "krotka": "GoPOS GoKiosk",
-   "podtytul": "Program do kiosku samoobsługowego w systemie GoPOS — kiosk stojący lub na blat",
+   "podtytul": "Program do kiosku samoobsługowego w systemie GoPOS: kiosk stojący lub na blat",
    "korzysc": "Goście sami zamawiają i płacą na ekranie, a zamówienie od razu trafia do kasy i na kuchnię.",
    "opis": [
     "GoKiosk to program do kiosku samoobsługowego dla lokali na GoPOS: szybka gastronomia, bistro, strefy gastronomiczne, a także obiekty sprzedające bilety (siłownia, kino, park rozrywki). Przydaje się tam, gdzie w szczycie tworzy się kolejka do kasy.",
@@ -74912,7 +74912,7 @@
    "rodzaj": "Oprogramowanie",
    "nazwa": "GoPOS KDS (GoKDS)",
    "krotka": "GoPOS KDS",
-   "podtytul": "Ekran kuchenny zamiast papierowych bonów — osobno dla kuchni i baru",
+   "podtytul": "Ekran kuchenny zamiast papierowych bonów: osobno dla kuchni i baru",
    "korzysc": "Zamówienia z sali i dowozu od razu na ekranie w kuchni, a kelner dostaje sygnał, gdy danie jest gotowe.",
    "opis": [
     "GoKDS to ekran kuchenny dla lokali pracujących na GoPOS: restauracji, pizzerii, barów szybkiej obsługi, food trucków i kuchni hotelowych. Zamiast papierowych bonów kuchnia widzi zamówienia na monitorze — z kasy, z terminali kelnerów, z kiosku, ze sklepu GoOrder i z portali dostaw.",
@@ -75879,7 +75879,7 @@
    "nazwa": "Posnet POS-UP",
    "krotka": "Posnet POS-UP",
    "podtytul": "Aplikacja sprzedażowa na tablet TrioTAB oraz urządzenia Posnet Evo i Pospay2",
-   "korzysc": "Sprzedaż z ekranu dotykowego — z listy, kategorii albo szybkiego menu — ze skanerem kodów i e-paragonem w jednej aplikacji.",
+   "korzysc": "Sprzedaż z ekranu dotykowego (z listy, kategorii albo szybkiego menu) ze skanerem kodów i e-paragonem w jednej aplikacji.",
    "opis": [
     "POS-UP to aplikacja kasowa Posnet na tablet TrioTAB (Android 14) oraz urządzenia Posnet Evo i Pospay2. Przyda się w sklepie, punkcie usługowym i wszędzie tam, gdzie sprzedaje się usługi na czas — parking, wypożyczalnię czy atrakcję turystyczną — bo ma do tego osobny moduł.",
     "Kasjer wybiera towar z listy, kategorii albo szybkiego menu lub skanuje kod kreskowy. Aplikacja obsługuje e-paragon i płatności zbliżeniowe, a z jej poziomu skonfigurujesz drukarkę fiskalną. Bazę towarów przygotujesz w bezpłatnym programie Posnet OPS.",
@@ -77158,7 +77158,7 @@
    "rodzaj": "Urządzenia",
    "nazwa": "Ubiquiti UniFi Dream Router 7 (UDR7)",
    "krotka": "Ubiquiti UniFi Dream Router 7",
-   "korzysc": "Masz internet, Wi-Fi 7 i zaporę w jednym urządzeniu na biurko — dla kawiarni, gabinetu, małego biura.",
+   "korzysc": "Masz internet, Wi-Fi 7 i zaporę w jednym urządzeniu na biurko, dla kawiarni, gabinetu, małego biura.",
    "opis": [
     "UniFi Dream Router 7 to router z wbudowanym Wi-Fi 7 i konsolą UniFi, stawiany na biurku lub półce. Dobry wybór dla małego sklepu, kawiarni, gabinetu, salonu urody czy biura, gdzie jedno urządzenie ma obsłużyć internet, Wi-Fi i zabezpieczenia — bez szafy rack.",
     "Nadaje na trzech pasmach (2,4, 5 i 6 GHz), pokrywa ok. 160 m² i obsługuje ponad 300 użytkowników. Ma 4 porty 2,5 Gb/s (jeden zasila PoE np. dodatkowy punkt Wi-Fi lub kamerę) i port 10 Gb/s SFP+. Zapora z wykrywaniem ataków (IDS/IPS) działa do 2,3 Gb/s, a VPN pozwala bezpiecznie łączyć się z firmą z domu. Do routera podłączysz do 4 łączy internetowych.",
@@ -77304,7 +77304,7 @@
    "rodzaj": "Urządzenia",
    "nazwa": "Ubiquiti UniFi U7 Pro",
    "krotka": "Ubiquiti UniFi U7 Pro",
-   "korzysc": "Dasz szybkie Wi-Fi 7 dla ponad 300 urządzeń na ok. 140 m² — jeden kabel do sufitu, bez gniazdka.",
+   "korzysc": "Dasz szybkie Wi-Fi 7 dla ponad 300 urządzeń na ok. 140 m²: jeden kabel do sufitu, bez gniazdka.",
    "opis": [
     "UniFi U7 Pro to punkt dostępowy Wi-Fi montowany na suficie lub ścianie. Pasuje do restauracji, sklepu, pensjonatu, biura, gabinetu czy szkoły — wszędzie tam, gdzie z sieci korzysta jednocześnie wiele telefonów, terminali płatniczych, tabletów kelnerskich i komputerów. Jeden punkt pokrywa ok. 140 m² i obsługuje ponad 300 urządzeń; większy obiekt pokrywasz kilkoma punktami, a goście przechodzą między nimi bez zrywania połączenia.",
     "Pracuje w standardzie Wi-Fi 7 na trzech pasmach: 2,4, 5 i 6 GHz (6 strumieni). Pasmo 6 GHz jest mniej zatłoczone, ale działa tylko z nowszymi telefonami i laptopami. Zasilasz go jednym kablem sieciowym (PoE+), a port 2,5 Gb/s pozwala wykorzystać jego szybkość. Ma funkcje dla firm: osobną sieć dla gości z izolacją, portal logowania z voucherami lub własnym logo, limity prędkości i harmonogramy Wi-Fi.",
@@ -77470,7 +77470,7 @@
    "rodzaj": "Urządzenia",
    "nazwa": "Ubiquiti UniFi Express 7 (UX7)",
    "krotka": "Ubiquiti UniFi Express 7",
-   "podtytul": "Kompaktowa konsola UniFi z Wi-Fi 7 i portem 10 GbE — router lub punkt dostępowy",
+   "podtytul": "Kompaktowa konsola UniFi z Wi-Fi 7 i portem 10 GbE: router lub punkt dostępowy",
    "korzysc": "Internet, zapora i trójpasmowe Wi-Fi 7 dla małego lokalu w jednym urządzeniu na półkę.",
    "opis": [
     "UniFi Express 7 to nowsza wersja konsoli UniFi Express: mała brama UniFi z wbudowanym Wi-Fi 7. Pasuje do kawiarni, butiku, gabinetu, salonu czy małego biura — obsłuży ponad 300 urządzeń jednocześnie i ponad 30 urządzeń UniFi. Stoi na półce (117 × 117 mm) i jest zasilana przez USB-C.",
@@ -77619,7 +77619,7 @@
    "rodzaj": "Urządzenia",
    "nazwa": "Ubiquiti UniFi Cloud Gateway Max (UCG-Max)",
    "krotka": "Ubiquiti UniFi Cloud Gateway Max",
-   "korzysc": "Postawisz router z zaporą, VPN i konsolą UniFi dla ok. 300 urządzeń — także nagrywanie kamer.",
+   "korzysc": "Postawisz router z zaporą, VPN i konsolą UniFi dla ok. 300 urządzeń, także nagrywanie kamer.",
    "opis": [
     "UniFi Cloud Gateway Max to niewielki router z zaporą i wbudowaną konsolą do zarządzania całą siecią UniFi. Dla sklepu, restauracji, pensjonatu, gabinetu czy biura — do ok. 300 urządzeń jednocześnie. Stawiasz go na półce lub w szafce, a punktami Wi-Fi, przełącznikami i kamerami zarządzasz z jednej aplikacji, także zdalnie z telefonu.",
     "Ma 5 portów 2,5 Gb/s, wykrywanie i blokowanie ataków (IDS/IPS) do 2,3 Gb/s oraz VPN do łączenia oddziałów i bezpiecznej pracy zdalnej (WireGuard, OpenVPN, IPsec). Możesz podłączyć do 4 łączy internetowych, także zapasowe LTE, które przejmie ruch, gdy główne łącze padnie — terminal płatniczy dalej działa. Zarządza ponad 30 urządzeniami UniFi.",
@@ -78029,7 +78029,7 @@
    "rodzaj": "Urządzenia",
    "nazwa": "Ubiquiti UniFi Dream Machine Special Edition (UDM-SE)",
    "krotka": "Ubiquiti UniFi Dream Machine Special Edition",
-   "korzysc": "Masz router, zaporę, przełącznik PoE i rejestrator kamer w jednym urządzeniu rack — dla hotelu, szkoły, biura.",
+   "korzysc": "Masz router, zaporę, przełącznik PoE i rejestrator kamer w jednym urządzeniu rack, dla hotelu, szkoły, biura.",
    "opis": [
     "UniFi Dream Machine SE to centrum sieci dla większej firmy lub obiektu: hotelu, pensjonatu z kilkudziesięcioma pokojami, restauracji z salą, szkoły czy biura z wieloma stanowiskami. Montuje się go w szafie rack (1U) i obsługuje ponad 1000 urządzeń jednocześnie.",
     "W jednym urządzeniu masz router z zaporą (IDS/IPS do 3,5 Gb/s), 8 portów z zasilaniem PoE dla punktów Wi-Fi i kamer (łącznie 180 W, do 30 W na port PoE+), porty 10 Gb/s SFP+ i port 2,5 Gb/s. Dwa łącza internetowe (10G i 2,5G) możesz rozszerzyć do 8. Wbudowana kieszeń na dysk 3,5\" i dysk SSD 128 GB pozwalają nagrywać obraz z kamer UniFi Protect (np. do 24 kamer HD lub 8 kamer 4K) bez osobnego rejestratora. Mały ekran dotykowy pokazuje stan urządzenia.",
@@ -78190,7 +78190,7 @@
    "rodzaj": "Urządzenia",
    "nazwa": "Ubiquiti UniFi Switch Pro 24 PoE (USW-Pro-24-PoE)",
    "krotka": "Ubiquiti UniFi Switch Pro 24 PoE",
-   "korzysc": "Podłączysz i zasilisz kablem do 24 urządzeń — punkty Wi-Fi, kamery, telefony — budżet PoE 400 W.",
+   "korzysc": "Podłączysz i zasilisz kablem do 24 urządzeń (punkty Wi-Fi, kamery, telefony), budżet PoE 400 W.",
    "opis": [
     "UniFi Switch Pro 24 PoE to przełącznik sieciowy do szafy rack dla firm i obiektów z większą liczbą urządzeń: hoteli, szkół, biur, restauracji z monitoringiem. Jednym kablem daje urządzeniom internet i zasilanie (PoE), więc punktów Wi-Fi, kamer czy telefonów IP nie trzeba podłączać do gniazdek.",
     "Ma 24 porty gigabitowe: 16 z PoE+ (do 30 W) i 8 z PoE++ (do 64 W) dla mocniejszych urządzeń, np. kamer z obrotem czy dużych punktów dostępowych, łącznie 400 W. Dwa porty 10G SFP+ łączą go szybko z routerem lub drugim przełącznikiem. Obsługuje funkcje warstwy 3 — routing między sieciami VLAN, trasy statyczne i serwer DHCP — co pozwala np. oddzielić sieć gości od kas i monitoringu. Ma ekran dotykowy 1,3\" ze stanem portów.",
@@ -78330,7 +78330,7 @@
    "rodzaj": "Urządzenia",
    "nazwa": "Ubiquiti UniFi Switch Pro Max 24 PoE (USW-Pro-Max-24-PoE)",
    "krotka": "Ubiquiti UniFi Switch Pro Max 24 PoE",
-   "korzysc": "Zasilisz i podłączysz punkty Wi-Fi 7 z pełną szybkością 2,5 Gb/s oraz kamery — 24 porty, 400 W PoE.",
+   "korzysc": "Zasilisz i podłączysz punkty Wi-Fi 7 z pełną szybkością 2,5 Gb/s oraz kamery: 24 porty, 400 W PoE.",
    "opis": [
     "UniFi Switch Pro Max 24 PoE to przełącznik do szafy rack dla obiektów z nowoczesnym Wi-Fi i monitoringiem: hoteli, szkół, biur, większych restauracji i sklepów. Zasila urządzenia przez kabel sieciowy (PoE), łącznie do 400 W, więc punkty dostępowe, kamery i telefony IP nie potrzebują gniazdek.",
     "Ma 16 portów 1 Gb/s i 8 portów 2,5 Gb/s — te ostatnie są potrzebne, żeby punkty dostępowe Wi-Fi 7 (np. U7 Pro, U7 Pro Max) działały z pełną szybkością. 16 portów obsługuje mocne PoE++ (do 64 W), np. dla kamer z obrotem. Dwa porty 10G SFP+ łączą go z routerem lub innym przełącznikiem. Funkcje warstwy 3 (routing między VLAN, trasy statyczne, DHCP) pozwalają rozdzielić sieć gości, kas i monitoringu.",
@@ -78497,7 +78497,7 @@
    "rodzaj": "Urządzenia",
    "nazwa": "Ubiquiti UniFi U7 Pro Max",
    "krotka": "Ubiquiti UniFi U7 Pro Max",
-   "korzysc": "Dasz stabilne Wi-Fi 7 dla ponad 500 urządzeń naraz — na sale weselne, konferencyjne i hotele.",
+   "korzysc": "Dasz stabilne Wi-Fi 7 dla ponad 500 urządzeń naraz, na sale weselne, konferencyjne i hotele.",
    "opis": [
     "UniFi U7 Pro Max to punkt dostępowy Wi-Fi 7 do miejsc, gdzie z sieci korzysta naraz bardzo dużo urządzeń: sale konferencyjne i weselne, hotele, szkoły, większe restauracje i sklepy. Montujesz go na suficie lub ścianie i zasilasz jednym kablem sieciowym (PoE+).",
     "W porównaniu z U7 Pro ma mocniejsze pasmo 5 GHz (4 × 4, do 8,6 Gb/s), łącznie 8 strumieni, obsługuje ponad 500 urządzeń i pokrywa ok. 160 m². Ma też osobny moduł, który na bieżąco skanuje zakłócenia radiowe i pomaga wybrać najlepszy kanał — to ważne w gęsto zabudowanych miejscach, np. w centrum miasta czy w hotelu. Port 2,5 Gb/s pozwala wykorzystać pełną szybkość.",
@@ -79389,8 +79389,8 @@
    "rodzaj": "Urządzenia",
    "nazwa": "TP-Link Omada kontrolery sieci (OC200, OC220, OC300, OC400, Omada w chmurze)",
    "krotka": "TP-Link Omada kontrolery sieci",
-   "podtytul": "Sprzętowe kontrolery Omada — od małego pudełka zasilanego PoE po model rack dla 1000 punktów dostępowych — i kontroler w chmurze (Essentials bezpłatny, Standard z licencją)",
-   "korzysc": "Całą sieć firmy — Wi-Fi, przełączniki i router — ustawiasz i podglądasz z jednego panelu i aplikacji.",
+   "podtytul": "Sprzętowe kontrolery Omada (od małego pudełka zasilanego PoE po model rack dla 1000 punktów dostępowych) i kontroler w chmurze (Essentials bezpłatny, Standard z licencją)",
+   "korzysc": "Całą sieć firmy (Wi-Fi, przełączniki i router) ustawiasz i podglądasz z jednego panelu i aplikacji.",
    "opis": [
     "Kontroler to „mózg” sieci Omada. Zamiast logować się do każdego punktu Wi-Fi osobno, wszystkie urządzenia — punkty dostępowe, przełączniki i router — widzisz w jednym panelu i w aplikacji Omada na telefonie. Tu ustawiasz sieć dla gości ze stroną logowania, aktualizujesz oprogramowanie wszystkich urządzeń naraz i dostajesz ostrzeżenia, gdy coś przestanie działać.",
     "OC200 i OC220 to małe pudełka zasilane przez PoE (lub micro USB), które obsługują do 100 punktów dostępowych, 20 przełączników i 10 routerów; OC200 według producenta do 1000 klientów. OC220 ma porty 1 Gb/s (OC200 — 100 Mb/s). OC300 to wersja do szafy rack dla do 500 urządzeń i 15 000 klientów. Producent podaje, że dostęp zdalny przez chmurę przy kontrolerze sprzętowym jest bez opłat licencyjnych.",
@@ -79618,8 +79618,8 @@
    "rodzaj": "Urządzenia",
    "nazwa": "Ubiquiti UniFi Cloud Gateway Ultra / Cloud Gateway Fiber (UCG-Ultra, UCG-Fiber)",
    "krotka": "Ubiquiti UniFi Cloud Gateway Ultra / Cloud Gateway Fiber",
-   "podtytul": "Kompaktowe routery z zaporą i konsolą UniFi — Ultra na start, Fiber pod światłowód do 10 Gb/s",
-   "korzysc": "Router z zaporą, VPN i panelem do całej sieci UniFi — bez licencji na urządzenie.",
+   "podtytul": "Kompaktowe routery z zaporą i konsolą UniFi: Ultra na start, Fiber pod światłowód do 10 Gb/s",
+   "korzysc": "Router z zaporą, VPN i panelem do całej sieci UniFi, bez licencji na urządzenie.",
    "opis": [
     "Cloud Gateway to router z wbudowaną konsolą UniFi: z jednej aplikacji zarządzasz punktami Wi-Fi, przełącznikami, a w wersji Fiber także kamerami. Ultra to najmniejszy model na start w małym biurze, sklepie czy pensjonacie; Fiber jest dla firmy ze światłowodem 2,5–10 Gb/s, która chce przy okazji nagrywać obraz z kamer.",
     "Ultra ma 4 porty 1 Gb/s i port 2,5 Gb/s na internet, wykrywa i blokuje ataki (IDS/IPS) do 1 Gb/s i obsłuży ponad 30 urządzeń UniFi i ponad 300 klientów. Fiber ma 2 gniazda 10G SFP+, port 10 GbE RJ45 i 4 porty 2,5 GbE, IDS/IPS do 5 Gb/s, budżet PoE 30 W i miejsce na dysk NVMe do 2 TB na nagrania; obsłuży ponad 50 urządzeń i 500 użytkowników.",
@@ -79949,7 +79949,7 @@
    "rodzaj": "Urządzenia",
    "nazwa": "Ubiquiti UniFi U7 Lite / U7 Long-Range / U6+",
    "krotka": "Ubiquiti UniFi U7 Lite / U7 Long-Range / U6+",
-   "podtytul": "Sufitowe punkty dostępowe Wi-Fi 7 i Wi-Fi 6 — dwupasmowe, zasilane PoE",
+   "podtytul": "Sufitowe punkty dostępowe Wi-Fi 7 i Wi-Fi 6: dwupasmowe, zasilane PoE",
    "korzysc": "Szybkie Wi-Fi w biurze, sklepie lub pensjonacie tam, gdzie flagowy U7 Pro byłby na wyrost.",
    "opis": [
     "Ekonomiczne punkty dostępowe UniFi do montażu na suficie lub ścianie: dla biur, sklepów, kawiarni i pensjonatów, gdzie wystarczy Wi-Fi w pasmach 2,4 i 5 GHz. Zarządzasz nimi w aplikacji UniFi Network razem z resztą sieci.",
@@ -80532,7 +80532,7 @@
    "nazwa": "Ubiquiti UniFi Switch 16 / 24 / 48 PoE (USW-16-POE, USW-24-POE, USW-48-POE)",
    "krotka": "Ubiquiti UniFi Switch 16 / 24 / 48 PoE",
    "podtytul": "Przełączniki rack 1U z PoE+, bezwentylatorowe, zarządzane w UniFi",
-   "korzysc": "Ekonomiczny przełącznik do szafy rack, który zasili punkty Wi-Fi i kamery — gdy nie potrzebujesz portów 2,5G ani routingu.",
+   "korzysc": "Ekonomiczny przełącznik do szafy rack, który zasili punkty Wi-Fi i kamery: gdy nie potrzebujesz portów 2,5G ani routingu.",
    "opis": [
     "Seria Standard to przełączniki UniFi do szafy rack dla biura, sklepu czy pensjonatu, gdy wystarczą porty 1 Gb/s i nie są potrzebne funkcje warstwy 3 ani porty 2,5G z serii Pro.",
     "USW-24-POE ma 24 porty 1 Gb/s, z czego 16 z PoE+ (do 32 W na port), 2 gniazda 1G SFP i przepustowość 52 Gb/s. Budżety PoE wynoszą 42 W (16 PoE), 95 W (24 PoE) i 195 W (48 PoE). Na froncie jest dotykowy ekran 1,3\" ze stanem portów, a chłodzenie jest pasywne.",
@@ -80718,8 +80718,8 @@
    "rodzaj": "Urządzenia",
    "nazwa": "TP-Link Omada bramy Fusion z wbudowanym kontrolerem (Fusion 2.5G PoE, Fusion 2.5G, Fusion G+)",
    "krotka": "TP-Link Omada bramy Fusion z wbudowanym kontrolerem",
-   "podtytul": "Router VPN, kontroler Omada i — w wersji PoE — przełącznik z zasilaniem w jednym urządzeniu z ekranem dotykowym",
-   "korzysc": "Jedno urządzenie zamiast routera, kontrolera i przełącznika PoE — z ekranem, na którym sprawdzisz stan sieci na miejscu.",
+   "podtytul": "Router VPN, kontroler Omada i (w wersji PoE) przełącznik z zasilaniem w jednym urządzeniu z ekranem dotykowym",
+   "korzysc": "Jedno urządzenie zamiast routera, kontrolera i przełącznika PoE, z ekranem, na którym sprawdzisz stan sieci na miejscu.",
    "opis": [
     "Omada Fusion to nowa seria bram TP-Link dla małych firm, które chcą postawić całą sieć na jednym urządzeniu. Fusion 2.5G PoE łączy router VPN, wbudowany kontroler Omada i przełącznik z 8 portami PoE+, który zasili punkty Wi-Fi i kamery bez dodatkowego sprzętu.",
     "Fusion 2.5G PoE ma 9 portów 2,5 Gb/s (1 WAN + 8 LAN/WAN, do 8 łączy WAN), budżet PoE 110 W i IPS/IDS do ok. 2,1 Gb/s. VPN: IPsec ok. 1 Gb/s, WireGuard ok. 605 Mb/s, serwery WireGuard, OpenVPN, IPsec, SSL, L2TP i PPTP oraz SD-WAN. Wbudowany kontroler obsłuży do 30 urządzeń Omada i ok. 300 klientów — zarządzasz nim z chmury lub aplikacji bez opłat licencyjnych. Na froncie jest kolorowy ekran dotykowy 3,69\".",
@@ -80899,7 +80899,7 @@
    "rodzaj": "Urządzenia",
    "nazwa": "TP-Link Omada bramy 4G/5G z zapasowym internetem (ER706W-4G, ER706WP-4G, ER703WP-4G-Outdoor, ER603WP-4G-Outdoor, ER701-5G-Outdoor)",
    "krotka": "TP-Link Omada bramy 4G/5G z zapasowym internetem",
-   "podtytul": "Routery VPN z modemem LTE lub 5G — do budynku i na zewnątrz",
+   "podtytul": "Routery VPN z modemem LTE lub 5G, do budynku i na zewnątrz",
    "korzysc": "Gdy padnie światłowód albo łącze radiowe, router sam przełączy firmę na LTE lub 5G, a kasa i terminal działają dalej.",
    "opis": [
     "Bramy Omada z wbudowanym modemem komórkowym są dla firm, w których stałe łącze bywa zawodne — np. w terenie górskim — albo w ogóle go nie ma. Router automatycznie przechodzi na LTE lub 5G, gdy główny internet przestanie działać, i może równoważyć ruch między łączami.",
@@ -81269,7 +81269,7 @@
    "nazwa": "TP-Link Omada przełączniki Access Plus L2+/L3 z uplinkiem 10G (SG3428XMP, SG3452XP, SG5428XMPP i inne)",
    "krotka": "TP-Link Omada przełączniki Access Plus L2+/L3 z uplinkiem 10G",
    "podtytul": "Przełączniki rack 24/48 portów z PoE i routingiem L3 w seriach SG5/SG6",
-   "korzysc": "Większa sieć z wieloma VLAN-ami i dziesiątkami urządzeń PoE w jednej szafie — z routingiem między sieciami.",
+   "korzysc": "Większa sieć z wieloma VLAN-ami i dziesiątkami urządzeń PoE w jednej szafie, z routingiem między sieciami.",
    "opis": [
     "Seria Access Plus to przełączniki do szafy rack dla firm z większą siecią: wielu VLAN-ów, kilkudziesięciu punktów Wi-Fi i kamer, czasem kilku budynków. Modele SG5 i SG6 mają routing warstwy 3, a SG6 w wersjach XHP — zasilacze redundantne.",
     "Mają 24 lub 48 portów 1 Gb/s i 4 gniazda 10G SFP+ (SG66xx — 6). Budżety PoE: SG3428XMP 384 W, SG3452XP 500 W, SG3452XMPP 750 W, SG5428XMPP 500 W, SG6428XHP do 720 W i SG6654XHP do 1440 W; modele XMPP mają 8 portów PoE++. Wersje bez PoE to SG3428X, SG3452X, SG5428X, SG5452X, SG6428X i SG6654X.",
@@ -81460,8 +81460,8 @@
    "rodzaj": "Urządzenia",
    "nazwa": "TP-Link Omada przełączniki Agile Easy Managed (ES205GP, ES210GMP, ES220GMP, ES228GMP i inne)",
    "krotka": "TP-Link Omada przełączniki Agile Easy Managed",
-   "podtytul": "Łatwo zarządzalne przełączniki PoE z chmury Omada — od 5 do 28 portów",
-   "korzysc": "Prosty przełącznik PoE dla kamer i małego biura, który i tak widzisz w chmurze Omada — z VLAN-ami i ochroną przed pętlami.",
+   "podtytul": "Łatwo zarządzalne przełączniki PoE z chmury Omada, od 5 do 28 portów",
+   "korzysc": "Prosty przełącznik PoE dla kamer i małego biura, który i tak widzisz w chmurze Omada, z VLAN-ami i ochroną przed pętlami.",
    "opis": [
     "Seria Agile (Easy Managed) to krok od zwykłego, niezarządzanego przełącznika do sieci zarządzanej z chmury. Dla małego biura, sklepu i sieci kamer, gdy nie potrzeba pełnych funkcji serii Access.",
     "Modele mają od 5 do 28 portów 1 Gb/s, a wersje M2 — porty 2,5 Gb/s. Budżety PoE: ES205GP i ES206GP 65 W, ES210GMP 123 W, ES220GMP 250 W, ES228GMP 384 W, ES206XPP-M2 120 W. Uplink to 1G RJ45/SFP; ES210X-M2 ma 2 gniazda 10G SFP+, a ES206XPP-M2 jedno.",
@@ -81631,7 +81631,7 @@
    "rodzaj": "Urządzenia",
    "nazwa": "ESET PROTECT",
    "krotka": "ESET PROTECT",
-   "korzysc": "Ochronisz komputery, serwer i telefony firmy przed wirusami i ransomware — wszystko z jednej konsoli.",
+   "korzysc": "Ochronisz komputery, serwer i telefony firmy przed wirusami i ransomware: wszystko z jednej konsoli.",
    "opis": [
     "ESET PROTECT to pakiety ochrony dla firm: od kilku komputerów w biurze, sklepie czy gabinecie po szkoły i placówki medyczne. Chronią komputery z Windows, macOS i Linuksem, serwery plików oraz telefony z Androidem (iOS w zakresie zarządzania). Wszystkie urządzenia widzisz w jednej konsoli — w chmurze albo na własnym serwerze — więc od razu wiesz, gdzie jest problem.",
     "Dla małej firmy wybór sprowadza się zwykle do trzech pakietów kupowanych online na 5–99 stanowisk i 1–3 lata. Entry to antywirus, zapora, antyspam i kontrola stron na komputerach, telefonach i serwerze plików. Advanced dokłada sprawdzanie podejrzanych plików w chmurze ESET (LiveGuard Advanced), pełne szyfrowanie dysków (ważne przy laptopach z danymi klientów — RODO) i odtwarzanie plików po ataku ransomware. Complete dodaje ochronę serwera poczty, Microsoft 365 i Google Workspace oraz zarządzanie podatnościami i łatkami.",
@@ -81916,7 +81916,7 @@
    "rodzaj": "Urządzenia",
    "nazwa": "Stormshield Network Security SN170 / SN220 / SN320 / SN520 / SN720",
    "krotka": "Stormshield Network Security SN170 / SN220 / SN320 / SN520 / SN720",
-   "korzysc": "Postawisz europejską zaporę między internetem a siecią firmy — z antywirusem, filtrem stron i VPN.",
+   "korzysc": "Postawisz europejską zaporę między internetem a siecią firmy, z antywirusem, filtrem stron i VPN.",
    "opis": [
     "Stormshield Network Security (SN) to europejskie zapory sieciowe, czyli firewalle, które stają między internetem a siecią firmy i decydują, jaki ruch może wejść i wyjść. Dla biur rachunkowych, gabinetów, przychodni, szkół, urzędów i firm z oddziałami — wszędzie tam, gdzie chronisz dane klientów i pacjentów, a pracownicy łączą się zdalnie.",
     "Zapora wykrywa i blokuje ataki (IPS), skanuje ruch antywirusem, filtruje strony WWW i ocenia reputację adresów IP. Łączy oddziały i pracowników zdalnych przez VPN (IPsec i SSL), a funkcja SD-WAN rozkłada ruch na kilka łączy. Modele różnią się wydajnością: od SN170 dla małego biura (bez wentylatora, pełna ochrona do 400 Mb/s) przez SN220/SN320 dla małej firmy po SN520/SN720 do szafy rack dla większych organizacji. SN220 można później podnieść do SN320 samą licencją. Zapory Stormshield mają kwalifikację francuskiej agencji ANSSI.",
@@ -82157,7 +82157,7 @@
    "rodzaj": "Urządzenia",
    "nazwa": "Kwalifikowany podpis elektroniczny EuroCert",
    "krotka": "Kwalifikowany podpis elektroniczny EuroCert",
-   "korzysc": "Podpiszesz umowy, JPK i dokumenty do ZUS czy KRS z mocą podpisu odręcznego — na karcie lub w telefonie.",
+   "korzysc": "Podpiszesz umowy, JPK i dokumenty do ZUS czy KRS z mocą podpisu odręcznego, na karcie lub w telefonie.",
    "opis": [
     "Kwalifikowany podpis elektroniczny ma taką samą moc jak podpis odręczny. Przyda się każdemu właścicielowi firmy, księgowej, członkowi zarządu i osobie, która podpisuje umowy lub dokumenty dla urzędów: ZUS (Płatnik), e-KRS, e-deklaracje i JPK, ePUAP, przetargi i umowy elektroniczne. Pozwala też logować się do KSeF, jeśli masz nadane uprawnienia.",
     "Możesz go mieć na karcie: w zestawie Token (mały czytnik USB z kartą SIM, jak pendrive) lub Classic (czytnik i karta wielkości karty płatniczej), samą kartę do posiadanego czytnika albo nowy certyfikat na kartę, którą już masz. Druga opcja to podpis w chmurze ECSigner — bez karty i czytnika, podpisujesz w aplikacji na komputerze, potwierdzając kodem z telefonu. Certyfikat wydaje się na 1, 2 lub 3 lata.",
@@ -82647,7 +82647,7 @@
    "rodzaj": "Usługi",
    "nazwa": "Bezpłatny przegląd IT",
    "krotka": "Bezpłatny przegląd IT",
-   "podtytul": "Komputery, sieć, kopie, licencje i kasy sprawdzone w całości — z raportem na piśmie",
+   "podtytul": "Komputery, sieć, kopie, licencje i kasy sprawdzone w całości, z raportem na piśmie",
    "korzysc": "Wiesz, co w IT firmy jest pilne, co może poczekać i czego nie musisz kupować.",
    "opis": [
     "Przegląd to pierwszy krok, zanim zaproponujemy cokolwiek do kupienia. Przychodzimy do firmy i sprawdzamy komputery, sieć i Wi-Fi, kopie zapasowe, antywirus, licencje, kasy i terminy (np. przeglądy kas, odnowienia licencji i podpisu).",
@@ -82745,8 +82745,8 @@
    "rodzaj": "Usługi",
    "nazwa": "Kopie zapasowe z testem odtworzenia",
    "krotka": "Kopie zapasowe z testem odtworzenia",
-   "podtytul": "Kopie danych na dysku sieciowym (NAS) i poza firmą — sprawdzane, czy da się je odtworzyć",
-   "korzysc": "Awaria dysku, kradzież laptopa albo atak ransomware nie zatrzymają firmy — dane wracają z kopii.",
+   "podtytul": "Kopie danych na dysku sieciowym (NAS) i poza firmą: sprawdzane, czy da się je odtworzyć",
+   "korzysc": "Awaria dysku, kradzież laptopa albo atak ransomware nie zatrzymają firmy: dane wracają z kopii.",
    "opis": [
     "Wiele firm ma „jakąś kopię”, ale nikt nie sprawdził, czy da się z niej odtworzyć dane. Wychodzi to dopiero przy awarii.",
     "Ustawiamy kopie automatyczne: komputery, program i poczta trafiają na dysk sieciowy (NAS) w firmie i dodatkowo poza firmę — do chmury albo na drugi NAS. Dzięki temu pożar, kradzież czy ransomware nie zabierają wszystkich kopii naraz.",
@@ -82844,8 +82844,8 @@
    "rodzaj": "Usługi",
    "nazwa": "Poczta firmowa i wdrożenie Microsoft 365",
    "krotka": "Poczta firmowa i wdrożenie Microsoft 365",
-   "podtytul": "Poczta na własnej domenie, Teams i OneDrive — z przeniesieniem starej poczty",
-   "korzysc": "Poczta firmowa na domenie firmy, wspólne pliki i kalendarze — na komputerze i w telefonie.",
+   "podtytul": "Poczta na własnej domenie, Teams i OneDrive, z przeniesieniem starej poczty",
+   "korzysc": "Poczta firmowa na domenie firmy, wspólne pliki i kalendarze, na komputerze i w telefonie.",
    "opis": [
     "Skrzynki na darmowych serwisach albo stara poczta u dostawcy strony to częsty kłopot: brak miejsca, brak kopii i trudność, gdy pracownik odchodzi.",
     "Wdrażamy Microsoft 365: zakładamy konta na domenie firmy, przenosimy starą pocztę, kontakty i kalendarze, ustawiamy pocztę w komputerach i telefonach, wspólne foldery w OneDrive/SharePoint i Teams do rozmów. Włączamy podstawowe zabezpieczenia, np. logowanie dwuetapowe.",
@@ -83083,7 +83083,7 @@
    "nazwa": "Przygotowanie komputera do pracy",
    "krotka": "Przygotowanie komputera do pracy",
    "podtytul": "Nowy komputer gotowy pierwszego dnia: system, konta, programy i dane ze starego komputera",
-   "korzysc": "Pracownik siada do nowego komputera i od razu pracuje — z pocztą, programami i swoimi plikami.",
+   "korzysc": "Pracownik siada do nowego komputera i od razu pracuje, z pocztą, programami i swoimi plikami.",
    "opis": [
     "Nowy laptop prosto z pudełka to dopiero początek: aktualizacje, konto, programy, drukarki, poczta i przeniesienie plików potrafią zająć dzień pracy.",
     "Przygotowujemy komputer przed dostawą: aktualizujemy system, zakładamy konta, instalujemy programy i antywirus, podłączamy drukarki i pocztę, przenosimy pliki i ustawienia ze starego komputera. Stary komputer możemy bezpiecznie wyczyścić z danych.",
@@ -83412,8 +83412,8 @@
    "rodzaj": "Usługi",
    "nazwa": "Montaż i konfiguracja sieci oraz Wi-Fi dla gości",
    "krotka": "Montaż i konfiguracja sieci oraz Wi-Fi dla gości",
-   "podtytul": "Sieć firmowa i osobne Wi-Fi dla gości — zaprojektowane, zamontowane i skonfigurowane",
-   "korzysc": "Szybkie Wi-Fi w całym lokalu, a goście w osobnej sieci — odciętej od kasy, komputerów i monitoringu.",
+   "podtytul": "Sieć firmowa i osobne Wi-Fi dla gości: zaprojektowane, zamontowane i skonfigurowane",
+   "korzysc": "Szybkie Wi-Fi w całym lokalu, a goście w osobnej sieci: odciętej od kasy, komputerów i monitoringu.",
    "opis": [
     "Wi-Fi z routera od operatora rzadko obejmuje cały lokal, a goście często korzystają z tej samej sieci co kasa i komputery. To kłopot z zasięgiem i ryzyko dla danych firmy.",
     "Dobieramy i montujemy punkty dostępowe i przełączniki (UniFi albo Omada), robimy osobną sieć dla gości i oddzielamy od niej kasę, terminal, komputery i monitoring. Wszystko konfigurujemy tak, żeby dało się nim zarządzać zdalnie i szybko pomóc, gdy coś przestanie działać.",
@@ -83504,7 +83504,7 @@
    "rodzaj": "Usługi",
    "nazwa": "Pomoc zdalna",
    "krotka": "Pomoc zdalna",
-   "podtytul": "Szybka pomoc przez internet — bez czekania na dojazd serwisanta",
+   "podtytul": "Szybka pomoc przez internet, bez czekania na dojazd serwisanta",
    "korzysc": "Większość problemów z komputerem, pocztą czy drukarką rozwiązujemy zdalnie, bez czekania na dojazd.",
    "opis": [
     "Wiele usterek nie wymaga przyjazdu: zawieszony program, problem z pocztą, drukarka, która nagle nie drukuje, aktualizacja albo nowy użytkownik. Łączymy się z komputerem za Twoją zgodą i naprawiamy na Twoich oczach.",
@@ -83849,7 +83849,7 @@
    "nazwa": "Fiskalizacja kasy i zaprogramowanie towarów",
    "krotka": "Fiskalizacja kasy i zaprogramowanie towarów",
    "podtytul": "Uruchomienie kasy online: fiskalizacja, połączenie z CRK, towary, stawki VAT i szkolenie",
-   "korzysc": "Kasa gotowa do sprzedaży w dniu otwarcia — z towarami, stawkami VAT i nagłówkiem paragonu.",
+   "korzysc": "Kasa gotowa do sprzedaży w dniu otwarcia, z towarami, stawkami VAT i nagłówkiem paragonu.",
    "opis": [
     "Nowa kasa zaczyna pracę dopiero po fiskalizacji, którą wykonuje serwisant. Kasa online łączy się wtedy z Centralnym Repozytorium Kas (CRK) i od tej chwili sama wysyła do niego dane o sprzedaży.",
     "Przy okazji programujemy wszystko, czego potrzebujesz od pierwszego paragonu: nazwy towarów i usług, stawki VAT, formy płatności, nagłówek z danymi firmy i — jeśli trzeba — połączenie z terminalem płatniczym albo programem sprzedaży. Na koniec pokazujemy obsługę kasy Tobie i pracownikom.",
@@ -84493,8 +84493,8 @@
    "rodzaj": "Usługi",
    "nazwa": "Wymiana kasy i zakończenie pracy starej kasy",
    "krotka": "Wymiana kasy i zakończenie pracy starej kasy",
-   "podtytul": "Przejście na nową kasę albo zakończenie działalności — z odczytem pamięci i formalnościami",
-   "korzysc": "Stara kasa wycofana zgodnie z przepisami, a nowa gotowa do sprzedaży — bez przerwy w pracy.",
+   "podtytul": "Przejście na nową kasę albo zakończenie działalności, z odczytem pamięci i formalnościami",
+   "korzysc": "Stara kasa wycofana zgodnie z przepisami, a nowa gotowa do sprzedaży, bez przerwy w pracy.",
    "opis": [
     "Gdy wymieniasz kasę na nową albo kończysz działalność, starej kasy nie można po prostu odłączyć. Trzeba zakończyć jej pracę w trybie fiskalnym, wykonać odczyt pamięci i przekazać dokumenty zgodnie z przepisami.",
     "Przeprowadzimy cały proces: przygotujemy raporty, wykonamy odczyt pamięci kasy, przekażemy protokół i podpowiemy, co zgłosić w urzędzie skarbowym. Przy wymianie od razu fiskalizujemy i programujemy nową kasę, żeby sprzedaż nie stała.",
@@ -84691,8 +84691,8 @@
    "rodzaj": "Usługi",
    "nazwa": "Modernizacja komputera: dysk SSD i pamięć RAM",
    "krotka": "Modernizacja komputera: dysk SSD i pamięć RAM",
-   "podtytul": "Szybszy komputer bez kupowania nowego — wymiana dysku i rozbudowa pamięci",
-   "korzysc": "Kilkuletni komputer z dyskiem SSD i większą pamięcią często znów działa szybko — zamiast kupować nowy.",
+   "podtytul": "Szybszy komputer bez kupowania nowego: wymiana dysku i rozbudowa pamięci",
+   "korzysc": "Kilkuletni komputer z dyskiem SSD i większą pamięcią często znów działa szybko: zamiast kupować nowy.",
    "opis": [
     "Wolny start systemu i zawieszanie przy kilku programach to zwykle wina starego dysku albo za małej pamięci. Wymiana dysku na SSD i rozbudowa RAM potrafią dodać komputerowi kilka lat pracy.",
     "Sprawdzamy, czy modernizacja ma sens w Twoim modelu, przenosimy system i dane na nowy dysk albo instalujemy system od nowa. Jeśli komputer nie nadaje się do rozbudowy, powiemy to wprost."

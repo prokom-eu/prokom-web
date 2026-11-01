@@ -30,7 +30,7 @@ const DESCRIPTION =
   'Sprzęt, programy i usługi dla firm z doborem, wdrożeniem i serwisem. Dodaj pozycje do zapytania, a wycenę dostaniesz na piśmie.'
 /** Lead of the K4 board `Web-Oferta`. */
 const LEAD =
-  'Sprzęt, programy i usługi dla firm i instytucji — z doborem, wdrożeniem i serwisem. Cen nie podajemy na stronie: dodaj pozycje do zapytania, a wycenę dostaniesz na piśmie.'
+  'Sprzęt, programy i usługi dla firm i instytucji, z doborem, wdrożeniem i serwisem. Cen nie podajemy na stronie: dodaj pozycje do zapytania, a przygotujemy wycenę.'
 
 export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
   const tenant = await requireLine(params, 'biznes')

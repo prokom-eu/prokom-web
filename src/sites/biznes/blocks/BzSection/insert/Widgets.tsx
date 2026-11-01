@@ -246,7 +246,7 @@ export function InsertPoints({ data }: { data: SectionData<'insert-points'> }) {
           </div>
           <p className="text-[15px] leading-relaxed text-ink-2">
             {coverage
-              ? `${data.pool} InsPunktów z Abonamentu wystarczy przy takiej liczbie faktur na ${coverage}. Resztę dobierzemy w paczce — sprzedajemy paczki InsPunktów jako partner InsERT.`
+              ? `${data.pool} InsPunktów z Abonamentu wystarczy przy takiej liczbie faktur na ${coverage}. Resztę dobierzemy w paczce, bo sprzedajemy paczki InsPunktów jako partner InsERT.`
               : 'Podaj liczbę faktur, żeby zobaczyć wynik.'}
           </p>
           <div className="flex flex-wrap gap-3">

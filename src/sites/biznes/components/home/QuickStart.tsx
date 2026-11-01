@@ -84,7 +84,7 @@ export async function QuickStart({
   const tiles: Tile[] = [
     {
       title: 'Cała oferta',
-      text: 'Kasy, komputery, programy, sieć i serwis — z filtrami po branży i marce.',
+      text: 'Kasy, komputery, programy, sieć i serwis, z filtrami po branży i marce.',
       tag: `${total} ${plural(total, ['pozycja', 'pozycje', 'pozycji'])}`,
       action: 'Przeglądaj ofertę',
       icon: 'grid',
@@ -93,7 +93,7 @@ export async function QuickStart({
     },
     {
       title: 'Konfigurator',
-      text: 'Kilka pytań o Twoją firmę — dostajesz rozwiązania dobrane do niej.',
+      text: 'Odpowiesz na kilka pytań o firmę i dostaniesz rozwiązania dobrane do niej.',
       tag: 'ok. 1 minuta',
       action: 'Dobierz teraz',
       icon: 'compass',
@@ -111,7 +111,7 @@ export async function QuickStart({
     },
     {
       title: 'Salony marek',
-      text: 'Posnet, Elzab, Apple, Lenovo, Brother i inne — serie, porównania, dobór.',
+      text: 'Posnet, Elzab, Apple, Lenovo, Brother i inne: serie, porównania, dobór.',
       tag: `${brands} ${plural(brands, ['marka', 'marki', 'marek'])}`,
       action: 'Zobacz marki',
       icon: 'star',
@@ -120,7 +120,7 @@ export async function QuickStart({
     },
     {
       title: 'Zapytaj o wycenę',
-      text: 'Napisz, czego potrzebujesz — wycenę i dobór dostaniesz na piśmie.',
+      text: 'Napisz, czego potrzebujesz. Dobierzemy i wycenimy.',
       tag: callback ? `${callback} w godzinach pracy` : 'wycena na piśmie',
       action: 'Wyślij zapytanie',
       icon: 'chat',

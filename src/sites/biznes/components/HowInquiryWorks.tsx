@@ -15,7 +15,7 @@ export function HowInquiryWorks({ callbackTime }: Props) {
   const steps = [
     {
       title: 'Dodaj do zapytania',
-      text: 'Produkty i usługi z katalogu — ile chcesz, z różnych działów.',
+      text: 'Produkty i usługi z katalogu, ile chcesz, z różnych działów.',
     },
     {
       title: 'Wyślij listę',
@@ -36,17 +36,17 @@ export function HowInquiryWorks({ callbackTime }: Props) {
         >
           <div className="flex flex-col gap-3.5">
             <p className="text-sm font-extrabold uppercase tracking-[0.08em] text-accent-on-dark">
-              Bez cen na stronie — i dobrze
+              Bez cen na stronie. I dobrze.
             </p>
             <h2
               id="jak-zapytac"
               className="font-display text-[clamp(1.75rem,3vw,2.625rem)] font-extrabold leading-[1.05] text-white font-stretch-110%"
             >
-              Jedna lista, jeden formularz, wycena na piśmie.
+              Jedna lista, jeden formularz, jedna wycena.
             </h2>
             <p className="leading-relaxed text-white/80">
               Ceny kas, programów i usług zależą od konfiguracji, ilości i tego, co już masz.
-              Dlatego nie pokazujemy cen z sufitu — przygotowujemy wycenę pod Twoją firmę.
+              Dlatego nie pokazujemy cen z sufitu. Przygotowujemy wycenę pod Twoją firmę.
             </p>
           </div>
           <ol className="grid gap-3 sm:grid-cols-3">

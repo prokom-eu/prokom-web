@@ -195,7 +195,7 @@ test.describe('Biznes product page 2.0', () => {
     await page.waitForTimeout(FORM_MIN_FILL_MS + 500)
     await contact.getByRole('button', { name: /^Wyślij zapytanie/ }).click()
     await expect(
-      page.getByRole('status').filter({ hasText: 'Dziękujemy — mamy Twoją listę.' }),
+      page.getByRole('status').filter({ hasText: 'Dziękujemy, mamy Twoją listę.' }),
     ).toBeVisible()
 
     await loginAsAdmin(page)
@@ -275,9 +275,11 @@ test.describe('Biznes product page 2.0', () => {
     ).toHaveAttribute('href', '/produkt/szuflada-posnet-skl')
     await expect(suggestions).toContainText('Szuflada')
     // A cash register: fiscalisation in the strip and in „Co robimy przy zakupie”.
-    await expect(page.getByText('— fiskalizacja i szkolenie na miejscu')).toBeVisible()
     await expect(
-      page.getByText('Dobór, fiskalizacja, szkolenie i serwis — w jednej ofercie.'),
+      page.getByText('fiskalizacja i szkolenie na miejscu', { exact: true }),
+    ).toBeVisible()
+    await expect(
+      page.getByText('Dobór, fiskalizacja, szkolenie i serwis w jednej ofercie.'),
     ).toBeVisible()
   })
 

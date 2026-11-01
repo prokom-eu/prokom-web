@@ -260,7 +260,7 @@ test.describe('product pictures', () => {
 
   test('a product without a photo shows the stand-in, not an image', async ({ page }) => {
     await page.goto(site('biznes.localhost', '/produkt/lenovo-thinkpad-p1-gen-9'))
-    const note = page.getByText('Zdjęcie producenta pojawi się wkrótce.')
+    const note = page.getByText('Zdjęcia producenta jeszcze nie ma.')
     await expect(note).toBeVisible()
     // The gallery stage holds the stand-in only: no <img> next to the note.
     const stage = note.locator('xpath=ancestor::div[contains(@class,"isolate")][1]')

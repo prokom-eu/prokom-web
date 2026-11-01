@@ -361,7 +361,7 @@ export function categoryGuide({
   if (USE_CASE_CATEGORIES.has(slug) && showroomHref) {
     return {
       title: 'Nie wiesz, który?',
-      text: 'Odpowiedz na 3 pytania w salonie marki — podpowiemy serię.',
+      text: 'Odpowiedz na 3 pytania w salonie marki, a podpowiemy serię.',
       button: slug === 'komputery' ? 'Dobierz komputer' : 'Dobierz laptop',
       href: showroomHref,
     }
@@ -381,7 +381,7 @@ export function categoryGuide({
   }
   return {
     title: 'Nie wiesz, co wybrać?',
-    text: 'Napisz, do czego potrzebujesz — dobierzemy model i przygotujemy ofertę na piśmie.',
+    text: 'Napisz, do czego potrzebujesz, a dobierzemy model i przygotujemy ofertę.',
     button: 'Zapytaj o dobór',
     href: choiceInquiryHref(name),
   }
@@ -466,14 +466,14 @@ export type CategoryView = {
 export const DEFAULTS = {
   // Without „w cenie” (spec. §1, K3b′) — the name of the product page's panel (K31b).
   included: { eyebrow: 'Co robimy przy zakupie', title: 'Kupujesz u nas, dostajesz spokój.' },
-  facts: { eyebrow: 'Przepisy w pigułce', title: 'Co warto wiedzieć przed zakupem.' },
+  facts: { eyebrow: 'Przepisy w pigułce', title: 'Co warto wiedzieć przed zakupem' },
   faq: { eyebrow: 'Pytania i odpowiedzi', title: 'Zanim zdecydujesz' },
   help: {
-    title: 'Powiedz, czego potrzebujesz — dobierzemy w 5 minut rozmowy.',
+    title: 'Powiedz, czego potrzebujesz, a dobierzemy sprzęt',
     text: 'Bez przepłacania za funkcje, których nie użyjesz.',
   },
   contact: {
-    heading: 'Nie wiesz, co wybrać? Zadzwoń — dobierzemy w 5 minut rozmowy.',
+    heading: 'Nie wiesz, co wybrać? Zadzwoń, pomożemy wybrać.',
     lead: 'Powiedz, czego potrzebujesz. Przygotujemy propozycję na piśmie, bez zobowiązań.',
   },
 } as const

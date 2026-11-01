@@ -147,7 +147,7 @@ export function ProductHero({
             )}
           </div>
           <p className="text-sm text-ink-2">
-            Bez cen na stronie — ofertę z wybraną wersją dostajesz na piśmie.
+            Bez cen na stronie. Ofertę z wybraną wersją przygotujemy pod Twoją firmę.
           </p>
         </div>
 
@@ -159,7 +159,7 @@ export function ProductHero({
               </span>
               <span className="leading-snug">
                 <span className="block font-extrabold text-ink">{service.title}</span>
-                <span className="text-ink-2">— {service.text}</span>
+                <span className="text-ink-2">{service.text}</span>
               </span>
             </li>
           ))}

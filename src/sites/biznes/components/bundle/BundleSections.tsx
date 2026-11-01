@@ -219,11 +219,11 @@ export function BundlesHero({
               id="zestawy-h1"
               className="font-display text-[clamp(2.1rem,4vw,3.75rem)] leading-[1.02] font-extrabold tracking-[-0.025em] font-stretch-112%"
             >
-              Gotowe zestawy — sprzęt, program i usługi, które działają razem.
+              Gotowe zestawy: sprzęt, program i usługi, które działają razem
             </h1>
             <p className="max-w-[52ch] leading-relaxed text-white/80">
-              Elementy zestawu sprawdzamy pod kątem zgodności. Każdy możesz zmienić — doradzimy, co
-              i kiedy.
+              Sprawdzamy, czy elementy zestawu działają razem: złącza, sterowniki i zgodność z
+              programem. Każdy możesz zmienić, a my doradzimy, co i kiedy.
             </p>
           </div>
           {photos.length > 0 && (

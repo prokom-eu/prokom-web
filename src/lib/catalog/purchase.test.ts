@@ -50,11 +50,11 @@ describe('purchaseSentence', () => {
   it('follows the category', () => {
     expect(purchaseSentence(card('telefony'))).toMatch(/przeniesienie danych/)
     expect(purchaseSentence(card('kasy-fiskalne'))).toBe(
-      'Dobór, fiskalizacja, szkolenie i serwis — w jednej ofercie.',
+      'Dobór, fiskalizacja, szkolenie i serwis w jednej ofercie.',
     )
     expect(purchaseSentence(card('automaty-vendingowe'))).toMatch(/Optivendi/)
     expect(purchaseSentence(card('monitory'))).toBe(
-      'Dobór, dostawa, uruchomienie, szkolenie i serwis — w jednej ofercie.',
+      'Dobór, dostawa, uruchomienie, szkolenie i serwis w jednej ofercie.',
     )
     expect(purchaseSentence(card(null))).not.toMatch(/przeniesienie danych/)
   })

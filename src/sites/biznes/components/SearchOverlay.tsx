@@ -629,7 +629,7 @@ function NothingFound({ query, whatsapp }: { query: string; whatsapp: string | n
       </span>
       <div className="flex flex-col gap-2">
         <p className="font-extrabold text-ink">
-          Nie znaleźliśmy „{query}” w katalogu — ale pewnie załatwimy.
+          Nie znaleźliśmy „{query}” w katalogu, ale pewnie załatwimy.
         </p>
         <p className="text-ink-2">
           Katalog to nie wszystko, co dostarczamy. Napisz, czego szukasz: sprawdzimy u dystrybutorów

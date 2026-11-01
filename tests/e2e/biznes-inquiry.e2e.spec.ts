@@ -82,7 +82,7 @@ test.describe('inquiry list /zapytanie (B8b)', () => {
     await waitMinimumFillTime(page)
     await contact.getByRole('button', { name: 'Wyślij zapytanie (2 pozycje)' }).click()
 
-    const done = page.getByRole('status').filter({ hasText: 'Dziękujemy — mamy Twoją listę.' })
+    const done = page.getByRole('status').filter({ hasText: 'Dziękujemy, mamy Twoją listę.' })
     await expect(done).toBeFocused()
     await expect(done).toContainText(/Zapytanie nr PKB-\d{4}-\d{4,}/)
     await expect(done).toContainText(`${first.name} ×2, ${second.name}`)

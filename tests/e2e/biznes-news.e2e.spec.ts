@@ -15,7 +15,7 @@ test.describe('Biznes news', () => {
     const response = await page.goto(site('biznes.localhost', LIST))
     expect(response?.status()).toBe(200)
     await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-      'Przepisy, terminy, programy — po ludzku.',
+      'Przepisy, terminy i programy po ludzku',
     )
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
       'href',
