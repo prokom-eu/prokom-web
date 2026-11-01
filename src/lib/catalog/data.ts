@@ -176,7 +176,7 @@ export const getProductView = (tenantId: number, slug: string): Promise<ProductV
       return product ? buildProductView(product, tenantId) : null
     },
     // The key names the shape of `ProductView`: a cached entry of an older shape is never read.
-    ['product-view-2.0', String(tenantId), slug],
+    ['product-view-k4e', String(tenantId), slug],
     { tags: [catalogTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
   )()
 

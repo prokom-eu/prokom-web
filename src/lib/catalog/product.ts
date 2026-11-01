@@ -4,8 +4,9 @@ import { publicImage, type PublicImage } from '../media/public'
 import { tenantIdOf } from '../tenant/id'
 import { brandLogo, type IndexLogo } from './catalogIndex'
 import { buildConfigurator, type Configurator } from './configurator'
+import { isHexColor } from './options'
 import { displayName } from './productName'
-import { sourceLinks, type SourceLink } from './sourceLabels'
+import { labeledSourceLinks, sourceLinks, type SourceLink } from './sourceLabels'
 
 type LabelValue = { label: string; value: string }
 
@@ -39,6 +40,8 @@ export type ProductView = {
   series: string | null
   industries: { slug: string; name: string }[]
   images: PublicImage[]
+  /** Colour versions (K32 §9): the gallery shows their pictures, the choice goes to the note. */
+  colors: ProductColor[]
   /** „Pełne parametry” and the „W skrócie” tiles, in the panel's order. */
   specs: LabelValue[]
   description: Product['description'] | null
@@ -50,7 +53,9 @@ export type ProductView = {
   configurator: Configurator | null
   /** Active videos of official producer channels, at most 2 (ADR-016). */
   videos: ProductVideo[]
-  /** „Do tego zwykle dobierają”: phrases the page matches to catalog cards. */
+  /** „Do tego zwykle dobierają” (K4 `polecane`): cards with a short label, in the panel's order. */
+  recommended: { slug: string; label: string }[]
+  /** Before K4: phrases the page matches to catalog cards — used while `recommended` is empty. */
   suggestions: string[]
   /** Producers' sources only, with labels (K31-ZMIANY §4 pkt 9). */
   sources: SourceLink[]
@@ -59,6 +64,8 @@ export type ProductView = {
   seo: { title: string | null; description: string | null }
   indexable: boolean
 }
+
+export type ProductColor = { name: string; hex: string; image: PublicImage | null }
 
 export type ProductVideo = {
   id: string
@@ -119,6 +126,14 @@ export function buildProductView(product: Product, tenantId: number): ProductVie
     return image ? [image] : []
   })
   const description = hasRichText(product.description) ? product.description : null
+  const colors = (product.colors ?? []).flatMap(({ name, hex, image }) => {
+    const label = name.trim()
+    // Read with `overrideAccess`: a swatch saved past the panel's validation is dropped here.
+    return label && isHexColor(hex)
+      ? [{ name: label, hex, image: publicImage(image, tenantId) }]
+      : []
+  })
+  const labeled = labeledSourceLinks(product.sources?.links ?? [])
   const specs = (product.specs ?? [])
     .map(({ label, value }) => ({ label: label.trim(), value: value.trim() }))
     .filter((row) => row.label && row.value)
@@ -157,6 +172,7 @@ export function buildProductView(product: Product, tenantId: number): ProductVie
       .filter(ownTenant)
       .map(({ slug, name }) => ({ slug, name })),
     images,
+    colors,
     specs,
     description,
     included: ownIncluded.length > 0 ? ownIncluded : unique(main?.included),
@@ -164,14 +180,22 @@ export function buildProductView(product: Product, tenantId: number): ProductVie
     variants: uniqueVariants(product.variants),
     configurator: buildConfigurator(product.configurator),
     videos,
-    suggestions: unique(product.suggestions),
-    sources: sourceLinks(
-      {
-        datasheets: unique(product.sources?.datasheets),
-        productPages: unique(product.sources?.productPages),
-      },
-      brand?.name ?? null,
+    recommended: (product.recommended ?? []).flatMap(({ product: card, label }) =>
+      typeof card === 'object' && card !== null && ownTenant(card) && label.trim()
+        ? [{ slug: card.slug, label: label.trim() }]
+        : [],
     ),
+    suggestions: unique(product.suggestions),
+    sources:
+      labeled.length > 0
+        ? labeled
+        : sourceLinks(
+            {
+              datasheets: unique(product.sources?.datasheets),
+              productPages: unique(product.sources?.productPages),
+            },
+            brand?.name ?? null,
+          ),
     checkedAt: product.sources?.checkedAt ?? null,
     seo: { title: text(product.seo?.title), description: text(product.seo?.description) },
     indexable: isIndexableProduct(product),

@@ -107,6 +107,50 @@ describe('buildProductView content', () => {
     expect(view.checkedAt).toBe('2026-10-25T00:00:00.000Z')
   })
 
+  it('uses the labelled sources of K4 when set — producers only, labels from the panel', () => {
+    const view = build({
+      sources: {
+        datasheets: ['https://www.posnet.com.pl/a.pdf'],
+        links: [
+          { label: 'Strona producenta — Apple', url: 'https://www.apple.com/pl/iphone-17/' },
+          { label: 'Sklep', url: 'https://sklep.example.pl/iphone' },
+          { label: 'Duplikat', url: 'https://www.apple.com/pl/iphone-17/' },
+        ],
+      },
+    })
+    expect(view.sources).toEqual([
+      {
+        url: 'https://www.apple.com/pl/iphone-17/',
+        label: 'Strona producenta — Apple',
+        meta: 'apple.com/pl/iphone-17',
+      },
+    ])
+  })
+
+  it('keeps colours with a valid swatch, and recommendations of this site only (K4)', () => {
+    const own = { id: 5, slug: 'szuflada', tenant: TENANT } as Product
+    const foreign = { id: 6, slug: 'obca', tenant: OTHER_TENANT } as Product
+    const view = build({
+      colors: [
+        { name: 'Lawendowy', hex: '#C9B8E8', image: image(7, 'lawenda.webp') },
+        { name: 'Zły', hex: 'red', image: null },
+      ],
+      recommended: [
+        { product: own, label: 'Szuflada' },
+        { product: foreign, label: 'Obca' },
+        { product: 9, label: 'Niewczytana' },
+      ],
+    })
+    expect(view.colors).toEqual([
+      {
+        name: 'Lawendowy',
+        hex: '#C9B8E8',
+        image: expect.objectContaining({ alt: 'Obraz lawenda.webp' }),
+      },
+    ])
+    expect(view.recommended).toEqual([{ slug: 'szuflada', label: 'Szuflada' }])
+  })
+
   it('takes „W cenie” from the product, else from the main category', () => {
     expect(build({ included: ['Fiskalizacja'] }).included).toEqual(['Fiskalizacja'])
     expect(build({ categories: [category(TENANT, ['Szkolenie'])] }).included).toEqual(['Szkolenie'])

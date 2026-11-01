@@ -68,6 +68,18 @@ const PRODUCER_DOMAINS = [
   'satoeurope.com',
   'ricelake.com',
   'adobe.com',
+  // K4 (K36 §13: sources of Apple, Brother, HP, Logitech, Fellowes, Kobra; COMEX, Optivendi,
+  // PolCard salons). Brother Polska by its exact host: `store.brother.pl` is its shop.
+  'apple.com',
+  'brother.eu',
+  'www.brother.pl',
+  'hp.com',
+  'logitech.com',
+  'fellowes.com',
+  'kobra.com',
+  'comex.com.pl',
+  'optivendi.pl',
+  'polcard.pl',
 ]
 
 /** Paths of pages with prices (`K31-ZMIANY` §4 pkt 9): shown only when nothing else is left. */
