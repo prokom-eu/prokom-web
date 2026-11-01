@@ -43,6 +43,10 @@ const PAGES = [
   // Oferta i Realizacje (I12).
   '/uslugi',
   '/realizacje',
+  // O firmie, Poradnik i wpis RODO (I12).
+  '/o-firmie',
+  '/poradnik',
+  '/poradnik/monitoring-a-rodo',
 ]
 
 // Known exceptions, each with its open question in docs/stan/STAN-instalacje.md.
