@@ -60,7 +60,7 @@ export function AreasExplorer({ areas, priceCaption, wizardButton }: Props) {
               tabIndex={selected ? 0 : -1}
               onClick={() => pick(i)}
               className={cx(
-                'relative flex shrink-0 snap-start items-center gap-3 overflow-hidden border text-left transition-colors',
+                'group relative flex shrink-0 snap-start items-center gap-3 overflow-hidden border text-left transition-colors',
                 'min-h-12 rounded-full py-1.5 pl-1.5 pr-4 min-[1081px]:min-h-[150px] min-[1081px]:rounded-[18px] min-[1081px]:p-4',
                 selected
                   ? 'border-accent-text bg-accent-soft'
@@ -71,7 +71,9 @@ export function AreasExplorer({ areas, priceCaption, wizardButton }: Props) {
                 aria-hidden="true"
                 className={cx(
                   'grid size-9 shrink-0 place-items-center rounded-full transition-colors min-[1081px]:size-[52px] min-[1081px]:rounded-[15px]',
-                  selected ? 'bg-accent text-accent-ink' : 'bg-accent-soft text-accent-text',
+                  selected
+                    ? 'bg-accent text-accent-ink'
+                    : 'bg-accent-soft text-accent-text group-hover:bg-accent group-hover:text-accent-ink',
                 )}
               >
                 {item.icon && <Icon name={item.icon} className="size-5 min-[1081px]:size-6" />}

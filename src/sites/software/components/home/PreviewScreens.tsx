@@ -160,7 +160,7 @@ function BookingLaptop() {
         </span>
       </div>
       <Picture className="mx-[2.8em] h-[19em]">
-        <span className="absolute bottom-[1.6em] left-[1.6em] max-w-[60%] font-mock text-[2.2em] leading-tight font-bold text-white">
+        <span className="absolute bottom-[1.6em] left-[1.6em] max-w-[60%] font-mock text-[2.2em] leading-tight font-bold text-ink">
           Cisza, widok na Tatry i śniadanie z lokalnych produktów
         </span>
       </Picture>

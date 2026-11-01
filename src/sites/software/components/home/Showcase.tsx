@@ -28,7 +28,7 @@ export function Showcase({ view }: { view: ShowcaseView }) {
                 >
                   <div
                     aria-hidden="true"
-                    className="h-[170px] overflow-hidden bg-[linear-gradient(160deg,var(--stage),var(--surface-2))] px-[22px] pt-[22px] min-[641px]:h-[200px]"
+                    className="h-[170px] overflow-hidden bg-surface-2 px-[22px] pt-[22px] min-[641px]:h-[200px]"
                   >
                     <ShowcaseMock kind={index % 3} />
                   </div>

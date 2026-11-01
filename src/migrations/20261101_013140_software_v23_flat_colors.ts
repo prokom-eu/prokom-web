@@ -4,12 +4,20 @@ import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres'
  * SWV1 (ADR-015 „Rozstrzygnięcia v23”, decision of Krystian 01.11): Software has one flat accent,
  * so the colour keys go — the intents' area colour, the tone of photo placeholders and the
  * unused card gradient of solutions. Only colour keys are lost, no content; `down` brings the
- * columns back with their defaults.
+ * columns back with their defaults. The offer JSON loses its per-solution `tone` too: the strict
+ * schema would otherwise reject the saved JSON (empty offer windows, the settings unsavable).
  */
 
 export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   await db.execute(sql`
-   ALTER TABLE "pages_blocks_sw_hero_intents" DROP COLUMN "tone";
+  UPDATE "software_settings"
+  SET "offer" = jsonb_set(
+    "offer",
+    '{solutions}',
+    (SELECT coalesce(jsonb_object_agg(k, v - 'tone'), '{}'::jsonb) FROM jsonb_each("offer"->'solutions') AS e(k, v))
+  )
+  WHERE jsonb_typeof("offer"->'solutions') = 'object';
+  ALTER TABLE "pages_blocks_sw_hero_intents" DROP COLUMN "tone";
   ALTER TABLE "pages_blocks_sw_page_hero_photos" DROP COLUMN "tone";
   ALTER TABLE "pages_blocks_sw_team_members" DROP COLUMN "tone";
   ALTER TABLE "_pages_v_blocks_sw_hero_intents" DROP COLUMN "tone";

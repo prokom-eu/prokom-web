@@ -7,7 +7,7 @@
 // new thumbnail made from the v22 template. The functions are also used by a test (Vitest).
 import { readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { pathToFileURL } from 'node:url'
+import { fileURLToPath, pathToFileURL } from 'node:url'
 
 const FIRST_STOP = '#F2F3EF'
 const SECOND_STOP = '#E3E6DE'
@@ -43,7 +43,8 @@ export function recolorThumb(svg) {
 }
 
 function main() {
-  const dir = join('public', 'software', 'rozwiazania')
+  // From the script's own place, so it works from any working directory.
+  const dir = fileURLToPath(new URL('../public/software/rozwiazania/', import.meta.url))
   const check = process.argv.includes('--check')
   const stale = []
   for (const name of readdirSync(dir).filter((file) => file.endsWith('.svg'))) {

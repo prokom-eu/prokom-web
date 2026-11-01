@@ -95,7 +95,6 @@ export default async function CityPage({ params }: Props) {
     : {
         image: null,
         caption: `Zdjęcie z miejscowości ${city.name}: firma klienta albo okolica`,
-        tone: 'violet' as const,
       }
 
   return (
