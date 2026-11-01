@@ -512,7 +512,8 @@ test.describe('Software start page on a phone', () => {
       // 12 rzeczy as a carousel: a card is 84% wide, the next one peeks in.
       const card = await page.getByTestId('popular-card').first().boundingBox()
       expect(card?.width ?? 0).toBeLessThan(width * 0.9)
-      // Previews: the laptop only, no phone and no floating notes; process without the sketch.
+      // Previews: the phone screen only (audyt P1 #22), no laptop and no floating notes;
+      // process without the sketch.
       await expect(previewPanel(page).getByText('Nowe zapytanie z formularza')).toBeHidden()
       const stage = await previewPanel(page).locator('[aria-hidden="true"]').first().boundingBox()
       expect(stage?.width ?? 0).toBeGreaterThan(width * 0.8)

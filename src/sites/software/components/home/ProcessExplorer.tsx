@@ -6,6 +6,7 @@ import { cx } from '@/components/ui/cx'
 
 import { TabPanels, usePanelActive } from './TabPanels'
 import { useAutoTabs } from './useAutoTabs'
+import { CarouselDots } from '../CarouselDots'
 
 /** Board `Main`: the stages change every 5,2 s until the visitor picks one (spec. §8.3). */
 export const PROCESS_AUTO_MS = 5200
@@ -35,6 +36,7 @@ export function ProcessExplorer({ stages, panels }: { stages: Stage[]; panels: R
           />
         </div>
         <div
+          id={`${id}-tabs`}
           role="tablist"
           aria-label="Etapy"
           onKeyDown={onKeyDown}
@@ -80,6 +82,7 @@ export function ProcessExplorer({ stages, panels }: { stages: Stage[]; panels: R
             )
           })}
         </div>
+        <CarouselDots listId={`${id}-tabs`} count={stages.length} className="min-[641px]:hidden" />
       </div>
       <TabPanels id={id} panels={panels} active={active} />
     </div>

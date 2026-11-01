@@ -18,17 +18,17 @@ const NOTE_ICONS = [
 /**
  * One panel of „Podglądy na żywo” (spec. §4 pkt 5), rendered on the server: the laptop and the
  * phone living together with two floating notes, 3 steps and the card with the links. From
- * 641 px the stage keeps the board's proportions (1060 × 560); on a phone only the laptop
- * stays, as wide as the screen — no phone, no floating notes (spec. §4, telefon).
+ * 641 px the stage keeps the board's proportions (1060 × 560); on a phone only the phone screen
+ * stays — a shrunk laptop was unreadable there (audyt 01.11 P1 #22) — without floating notes.
  */
 export function LivePreviewPanel({ preview, texts }: { preview: LivePreview; texts: Texts }) {
   return (
     <div className="flex flex-col gap-4 min-[640px]:gap-5">
       <div aria-hidden="true" data-parallax className="relative min-[641px]:aspect-[1060/560]">
-        <div className="min-[641px]:absolute min-[641px]:top-[3%] min-[641px]:left-[8.5%] min-[641px]:w-[78%]">
+        <div className="hidden min-[641px]:absolute min-[641px]:top-[3%] min-[641px]:left-[8.5%] min-[641px]:block min-[641px]:w-[78%]">
           <PreviewLaptop kind={preview.kind} />
         </div>
-        <div className="absolute top-[14%] right-[3%] hidden w-[21%] motion-safe:animate-float min-[641px]:block">
+        <div className="mx-auto w-[64%] max-w-[260px] min-[641px]:absolute min-[641px]:top-[14%] min-[641px]:right-[3%] min-[641px]:mx-0 min-[641px]:w-[21%] min-[641px]:max-w-none min-[641px]:motion-safe:animate-float">
           <PreviewPhone kind={preview.kind} />
         </div>
         {preview.notes.map((note, i) => (
