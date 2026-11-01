@@ -466,7 +466,13 @@ const PAGE_FILES: { slug: string; title: string; file: SeedPage; seoTitle?: stri
     file: Zaplanuj,
     seoTitle: 'Zaplanuj instalację na Podhalu w 2 minuty',
   },
-  { slug: 'kontakt', title: 'Kontakt', file: Kontakt },
+  // The package's title (52 characters, no „|”) + „| PRO-KOM Instalacje” is over 65.
+  {
+    slug: 'kontakt',
+    title: 'Kontakt',
+    file: Kontakt,
+    seoTitle: 'Kontakt i dojazd: Rabka-Zdrój i Zakopane',
+  },
   { slug: 'serwis', title: 'Serwis', file: Serwis },
   { slug: 'o-firmie', title: 'O firmie', file: OFirmie },
   { slug: 'realizacje', title: 'Realizacje', file: Realizacje },

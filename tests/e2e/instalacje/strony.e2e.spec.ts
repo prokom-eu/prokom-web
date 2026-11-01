@@ -36,6 +36,7 @@ const PAGES = [
   ].map((slug) => `/dla-kogo/${slug}`),
   // Formularze (I11).
   '/zaplanuj',
+  '/kontakt',
 ]
 
 // Known exceptions, each with its open question in docs/stan/STAN-instalacje.md.

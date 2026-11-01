@@ -57,7 +57,8 @@ test.describe('Biznes /kontakt (B8c)', () => {
 
   test('other lines keep their own contact page', async ({ page }) => {
     await page.goto(site('instalacje.localhost', '/kontakt'))
-    await expect(page.locator('#formularz')).toBeVisible()
+    // Instalacje: their own contact page with the form `#napisz` (I11).
+    await expect(page.locator('#napisz form')).toBeVisible()
     // The Biznes contact page title; Instalacje has its own „Kontakt i dojazd” menu item (I3).
     await expect(page.getByRole('heading', { level: 1, name: 'Kontakt i dojazd' })).toHaveCount(0)
   })

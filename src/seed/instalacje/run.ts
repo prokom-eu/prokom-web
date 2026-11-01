@@ -3,7 +3,7 @@ import type { Payload, Where } from 'payload'
 import { SETTINGS_DEFAULTS } from '../../lib/instalacje/options'
 import { hasSameValues } from '../compare'
 import { SEED_CONTEXT } from '../config'
-import { FORM_PAGE_BLOCKS } from './formPages'
+import { FORM_PAGE_BLOCKS, needsFormBlock } from './formPages'
 import { seedInstalacjeHome } from './home'
 import { SERVICE_PAGE_KEYS } from './servicePages'
 import {
@@ -200,8 +200,7 @@ export async function seedInstalacje(payload: Payload): Promise<void> {
   await seedInstalacjeHome(payload, tenantId, count)
 
   // --- pages: missing ones as empty drafts with title and SEO; existing ones untouched ---
-  // `kontakt` is the sample page of `pnpm seed`, which the tenant isolation test reads; I11,
-  // which builds it, sets its SEO.
+  // `kontakt` of an older `pnpm seed` is its sample page; the form pages below replace it (I11).
   for (const page of pagesToImport()) {
     const { totalDocs } = await payload.count({
       collection: 'pages',
@@ -254,8 +253,9 @@ export async function seedInstalacje(payload: Payload): Promise<void> {
     count('service-pages', 'updated')
   }
 
-  // --- form pages built in code (I11): an empty page gets its block and the package's SEO once
-  // and is published; a page an editor already laid out is left alone ---
+  // --- form pages built in code (I11): a page without a block of the line (empty, or the sample
+  // `kontakt` of `pnpm seed`) gets its block and the package's SEO once and is published; a page
+  // with the line's block (laid out in the panel) is left alone ---
   const pageSeo = new Map(pagesToImport().map((page) => [page.slug, page.seo]))
   for (const [slug, block] of Object.entries(FORM_PAGE_BLOCKS)) {
     const { docs } = await payload.find({
@@ -266,7 +266,7 @@ export async function seedInstalacje(payload: Payload): Promise<void> {
       ...local,
     })
     const page = docs[0]
-    if (!page || (page.layout ?? []).length > 0) {
+    if (!page || !needsFormBlock(page.layout)) {
       count('form-pages', 'skipped')
       continue
     }

@@ -1,0 +1,446 @@
+/*
+ * Contact page (I11): the zone map, contact cards, hours, the form and the salons. Rules of
+ * `pk.css` v4.2 for the classes of `Kontakt.body.html` and the state classes of `Kontakt.js`,
+ * ported by `narzedzia/przenies-css.mjs` (map `przenies-css.strony.json`); the map's light/dark
+ * colours are token pairs (`--inst-il-kmap2-*`). Classes already in `sekcje.css` (form fields,
+ * `.zp*`, `.zsum`, `.phv`, `.ill`) are not repeated.
+ */
+[data-line='instalacje'] {
+  & .consent {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    font-size: 13.5px;
+    color: var(--ink-2);
+  }
+  & .consent input {
+    width: 20px;
+    height: 20px;
+    margin: 2px 0 0;
+    accent-color: var(--accent);
+    flex: none;
+  }
+  & .ctc2 {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  & .ctc2 .ct {
+    transition: box-shadow 0.2s;
+  }
+  @media (hover: hover) {
+    & .ctc2 .ct:hover {
+      box-shadow: inset 0 0 0 1.5px var(--accent);
+    }
+  }
+  & .kt {
+    fill: var(--ink-soft);
+  }
+  & .kres {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding: 14px 16px;
+    border-top: 1px solid var(--border);
+  }
+  & .kres b {
+    display: block;
+    font-size: 16px;
+  }
+  & .kres span span {
+    display: block;
+  }
+  & .kres div span {
+    color: var(--ink-2);
+    font-size: 14px;
+  }
+  @media (max-width: 760px) {
+    & .ctc2 {
+      grid-template-columns: 1fr;
+    }
+  }
+  & .fo-r {
+    transform: translate(-300px, -10px);
+  }
+  & .kmap2 {
+    display: block;
+    width: 100%;
+    height: auto;
+    --k0: var(--inst-il-kmap2-k);
+    --kt: var(--inst-il-kmap2-kt);
+    --kmut: var(--inst-il-kmap2-kmut);
+    --kcl: var(--inst-il-kmap2-kcl);
+    --kriv: var(--inst-il-kmap2-kriv);
+    --krd: var(--inst-il-kmap2-krd);
+    --krd0: var(--inst-il-kmap2-krd-2);
+  }
+  & .kmap2 .kbg2 {
+    fill: var(--k0);
+  }
+  & .kmap2 .kr {
+    fill-rule: evenodd;
+  }
+  & .kmap2 .kr0 {
+    fill: var(--inst-il-kmap2-kr0-fill);
+  }
+  & .kmap2 .kr1 {
+    fill: var(--inst-il-kmap2-kr1-fill);
+  }
+  & .kmap2 .kr2 {
+    fill: var(--inst-il-kmap2-kr2-fill);
+  }
+  & .kmap2 .kr3 {
+    fill: var(--inst-il-kmap2-kr3-fill);
+  }
+  & .kmap2 .kr4 {
+    fill: var(--inst-il-kmap2-kr4-fill);
+  }
+  & .kmap2 .kr5 {
+    fill: var(--inst-il-kmap2-kr5-fill);
+  }
+  & .kmap2 .kr6 {
+    fill: var(--inst-il-kmap2-kr6-fill);
+  }
+  & .kmap2 .kr7 {
+    fill: var(--inst-il-kmap2-kr7-fill);
+  }
+  & .kmap2 .kr8 {
+    fill: var(--inst-il-kmap2-kr8-fill);
+  }
+  & .kmap2 .kc {
+    fill: none;
+    stroke: var(--kcl);
+    stroke-width: 0.8;
+  }
+  & .kmap2 .kc.kcb {
+    stroke-width: 1.3;
+  }
+  & .kmap2 .kgr {
+    stroke: var(--kcl);
+    stroke-width: 0.6;
+    stroke-dasharray: 2 4;
+  }
+  & .kmap2 .kgt {
+    font: 700 9px var(--font-sans);
+    fill: var(--kmut);
+    opacity: 0.75;
+  }
+  & .kmap2 .kgt.e {
+    text-anchor: end;
+  }
+  & .kmap2 .kriv {
+    fill: none;
+    stroke: var(--kriv);
+    stroke-width: 1.4;
+    stroke-linecap: round;
+    opacity: 0.75;
+  }
+  & .kmap2 .kriv.k1 {
+    stroke-width: 2.4;
+  }
+  & .kmap2 .klake {
+    fill: var(--kriv);
+    opacity: 0.75;
+  }
+  & .kmap2 .kriv-t {
+    font: italic 700 10px var(--font-sans);
+    fill: var(--kriv);
+    letter-spacing: 0.06em;
+  }
+  & .kmap2 .krd0 {
+    fill: none;
+    stroke: var(--krd0);
+    stroke-width: 3.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0.9;
+  }
+  & .kmap2 .krd0.m {
+    stroke-width: 5.6;
+  }
+  & .kmap2 .krd {
+    fill: none;
+    stroke: var(--krd);
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0.85;
+  }
+  & .kmap2 .krd.m {
+    stroke-width: 3;
+  }
+  & .kmap2 .kreg {
+    font: 800 11px var(--font-sans);
+    letter-spacing: 0.32em;
+    fill: var(--kmut);
+    text-anchor: middle;
+    opacity: 0.8;
+  }
+  & .kmap2 .kreg.big {
+    font-size: 15px;
+    letter-spacing: 0.6em;
+    fill: var(--inst-il-kmap2-kreg-fill);
+    opacity: 0.75;
+  }
+  & .kmap2 .kreg.sm {
+    font-size: 9.5px;
+    letter-spacing: 0.24em;
+  }
+  & .kmap2 .kreg.i {
+    font-style: italic;
+    letter-spacing: 0.04em;
+    text-transform: none;
+  }
+  & .kmap2 .kpk {
+    fill: var(--kmut);
+    opacity: 0.8;
+  }
+  & .kmap2 .kz2 {
+    fill: transparent;
+    stroke: var(--inst-il-kmap2-kz2-line);
+    stroke-width: 1.2;
+    stroke-dasharray: 5 5;
+    transition:
+      fill 0.4s,
+      stroke 0.4s;
+  }
+  /* The lit zone (prototype `.kz2.on`): `data-zone` on the map, set by `ContactHero`. */
+  & .kmap2[data-zone='p'] .kz2.kz-p,
+  & .kmap2[data-zone='r'] .kz2.kz-r,
+  & .kmap2[data-zone='z'] .kz2.kz-z {
+    fill: var(--inst-il-kmap2-kz2-fill);
+    stroke: var(--inst-plan-accent);
+    stroke-width: 2;
+    stroke-dasharray: none;
+    animation: inst-kzin 0.5s ease;
+  }
+  & .kmap2 .kroute0 {
+    fill: none;
+    stroke: var(--krd0);
+    stroke-width: 5;
+    stroke-linecap: round;
+    opacity: 0.8;
+  }
+  & .kmap2 .kroute {
+    fill: none;
+    stroke: var(--inst-plan-accent);
+    stroke-width: 2.4;
+    stroke-linecap: round;
+    stroke-dasharray: 7 6;
+    animation: inst-krt 1s linear infinite;
+  }
+  & .kmap2 .ktg2 {
+    cursor: pointer;
+  }
+  & .kmap2 .khit {
+    fill: transparent;
+  }
+  & .kmap2 .kt2 {
+    fill: var(--kt);
+    stroke: var(--k0);
+    stroke-width: 2;
+    transition:
+      r 0.25s,
+      fill 0.25s;
+  }
+  & .kmap2 .ktg2:hover .kt2,
+  & .kmap2 .ktg2.on .kt2 {
+    fill: var(--inst-plan-accent);
+  }
+  & .kmap2 .ktl3 {
+    font: 800 12px var(--font-sans);
+    color: var(--kt);
+    white-space: nowrap;
+    text-shadow:
+      0 0 3px var(--k0),
+      0 0 6px var(--k0),
+      0 0 10px var(--k0);
+    line-height: 26px;
+  }
+  & .kmap2 .ktg2.hq .ktl3 {
+    font: 900 15px var(--font-display);
+  }
+  & .kmap2 .ktg2.on .ktl3 {
+    color: var(--inst-il-ttx-ttm-fill);
+  }
+  & .kmap2 .ktg2.mn .ktl3 {
+    font-weight: 700;
+    color: var(--kmut);
+  }
+  & .kmap2 .kpin {
+    fill: var(--inst-plan-send-to);
+    stroke: var(--inst-plan-white);
+    stroke-width: 1.6;
+  }
+  & .kmap2 .kpini {
+    fill: none;
+    stroke: var(--inst-plan-on-ink);
+    stroke-width: 1.6;
+    stroke-linejoin: round;
+  }
+  & .kmap2 .kpul {
+    fill: none;
+    stroke: var(--inst-plan-accent);
+    stroke-width: 1.5;
+    opacity: 0;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: inst-txring 2.4s ease-out infinite;
+  }
+  & .kmap2 .kshop {
+    pointer-events: none;
+  }
+  & .kmap2 .ksb {
+    stroke: var(--kt);
+    stroke-width: 4;
+  }
+  & .kmap2 .ksb.w {
+    stroke: var(--k0);
+  }
+  & .kmap2 .kst {
+    font: 800 9.5px var(--font-sans);
+    fill: var(--kt);
+  }
+  & .kmap2 .kst.e {
+    text-anchor: end;
+  }
+  & .kmap2 .kcr {
+    fill: var(--k0);
+    stroke: var(--kcl);
+    opacity: 0.9;
+  }
+  & .kmap2 .kcn {
+    fill: var(--inst-plan-accent);
+  }
+  & .kmap2 .kcnt {
+    font: 900 10px var(--font-display);
+    fill: var(--kt);
+    text-anchor: middle;
+  }
+  @media (max-width: 760px) {
+    & .kmap2 .ktg2.mn .ktl3 {
+      display: none;
+    }
+    & .kmap2 .ktl3 {
+      font-size: 15px;
+    }
+    & .kmap2 .ktg2.hq .ktl3 {
+      font-size: 19px;
+    }
+    & .kmap2 .kgt {
+      display: none;
+    }
+  }
+  & .kmap2 .fo-r .ktl3 {
+    text-align: right;
+  }
+  & .kmap2 .kr0 {
+    fill: var(--inst-il-kmap2-kr0-fill);
+  }
+  & .kmap2 .kr1 {
+    fill: var(--inst-il-kmap2-kr1-fill);
+  }
+  & .kmap2 .kr2 {
+    fill: var(--inst-il-kmap2-kr2-fill);
+  }
+  & .kmap2 .kr3 {
+    fill: var(--inst-il-kmap2-kr3-fill);
+  }
+  & .kmap2 .kr4 {
+    fill: var(--inst-il-kmap2-kr4-fill);
+  }
+  & .kmap2 .kr5 {
+    fill: var(--inst-il-kmap2-kr5-fill);
+  }
+  & .kmap2 .kr6 {
+    fill: var(--inst-il-kmap2-kr6-fill);
+  }
+  & .kmap2 .kr7 {
+    fill: var(--inst-il-kmap2-kr7-fill);
+  }
+  & .kmap2 .kr8 {
+    fill: var(--inst-il-kmap2-kr8-fill);
+  }
+  & .kmap2 .kz2 {
+    stroke: var(--inst-il-kmap2-kz2-line);
+    stroke-width: 1;
+    stroke-dasharray: 3 5;
+  }
+  & .kmap2 .ktg2.nl:not(.on) .ktl3 {
+    display: none;
+  }
+  & .xa-kmob {
+    display: none;
+  }
+  @media (max-width: 700px) {
+    & .xa-kmob {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    & .phv .kmap2 {
+      display: none;
+    }
+  }
+  @media (max-width: 700px) {
+    & .phv:has(.kmap2) {
+      display: none;
+    }
+  }
+  @media (max-width: 700px) {
+    & .ctc2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+    & .ctc2 .ct {
+      padding: 14px;
+      gap: 4px;
+    }
+    & .ctc2 .ct > span:not(.ico):not(.ph) {
+      font-size: 12.5px;
+    }
+  }
+}
+
+@keyframes inst-txring {
+  0% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.9);
+  }
+}
+
+@keyframes inst-kzin {
+  from {
+    fill: transparent;
+  }
+}
+
+@keyframes inst-krt {
+  to {
+    stroke-dashoffset: -26;
+  }
+}
+
+/* Day map (pk.css `.pk[data-theme="light"] .kmap2 .kvig`): a fainter vignette. */
+[data-line='instalacje'][data-theme='light'] .kmap2 .kvig {
+  opacity: 0.25;
+}
+@media (prefers-color-scheme: light) {
+  [data-line='instalacje']:not([data-theme='dark']) .kmap2 .kvig {
+    opacity: 0.25;
+  }
+}
+
+/* The page shows the phone and the salons itself: the footer drops its contact row
+   (pk.css `.pk:has(.ctc2) .ftr2 .ftc`). */
+[data-line='instalacje'] .inst-page:has(.ctc2) .ftr2 {
+  padding-top: 56px;
+  & .ftc {
+    display: none;
+  }
+}
