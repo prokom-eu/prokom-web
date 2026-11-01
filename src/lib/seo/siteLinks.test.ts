@@ -179,6 +179,22 @@ describe('buildSiteMap — Software', () => {
     expect(siteMapPaths(map)).toContainEqual({ path: '/dla-branz/budownictwo-i-wykonczenia' })
   })
 
+  it('lists the guide posts of Instalacje under /poradnik (I12), none without posts', () => {
+    const map = buildSiteMap({
+      pages,
+      catalog: null,
+      news: null,
+      guide: { posts: [{ slug: 'monitoring-a-rodo', title: 'Monitoring a RODO' }] },
+    })
+    expect(map.find(({ id }) => id === 'poradnik')?.links).toEqual([
+      { href: '/poradnik/monitoring-a-rodo', label: 'Monitoring a RODO', updatedAt: undefined },
+    ])
+    expect(map.map(({ id }) => id)).not.toContain('aktualnosci')
+    expect(
+      buildSiteMap({ pages, catalog: null, news: null, guide: { posts: [] } }).map(({ id }) => id),
+    ).not.toContain('poradnik')
+  })
+
   it('has no industry section without active pages', () => {
     const map = buildSiteMap({ pages, catalog: null, news: null, industryPages: [] })
     expect(map.map(({ id }) => id)).not.toContain('dla-branz')

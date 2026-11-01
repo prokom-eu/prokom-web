@@ -4448,9 +4448,22 @@ export interface Post {
    */
   slug: string;
   /**
-   * Biznes: KSeF, Kasy, Terminale, Dofinansowania, Programy. Software: Poradnik, Nowości, Realizacje.
+   * Biznes: KSeF, Kasy, Terminale, Dofinansowania, Programy. Software: Poradnik, Nowości, Realizacje. Instalacje: Przepisy, Monitoring, Obiekty noclegowe, Energia, Dźwięk i obraz.
    */
-  category: 'ksef' | 'kasy' | 'terminale' | 'dofinansowania' | 'programy' | 'poradnik' | 'nowosci' | 'realizacje';
+  category:
+    | 'ksef'
+    | 'kasy'
+    | 'terminale'
+    | 'dofinansowania'
+    | 'programy'
+    | 'poradnik'
+    | 'nowosci'
+    | 'realizacje'
+    | 'przepisy'
+    | 'monitoring'
+    | 'noclegi'
+    | 'energia'
+    | 'dzwiek-obraz';
   /**
    * Puste przy publikacji → dzisiejsza data.
    */
