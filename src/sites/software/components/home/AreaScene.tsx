@@ -32,10 +32,7 @@ function Site() {
           <i className="size-1.5 rounded-full bg-border" />
           <span className="ml-2">twojafirma.pl</span>
         </div>
-        <div
-          className="rounded-lg p-4 text-white"
-          style={{ backgroundImage: 'var(--grad-area-sys)' }}
-        >
+        <div className="rounded-lg bg-cta p-4 text-white">
           <b className="font-mock text-lg">Remonty łazienek</b>
           <span className="block text-[11px] opacity-85">Rabka-Zdrój i okolice</span>
           <span className="mt-2.5 inline-block rounded-md bg-card px-2.5 py-1 text-[11px] font-extrabold text-ink">
@@ -139,7 +136,7 @@ function Plug() {
     <div className="flex w-[80%] flex-col items-center gap-3">
       <div className="flex w-full items-center gap-2">
         <span className={cx(card, 'px-3 py-2 text-xs font-extrabold')}>Twój obecny program</span>
-        <i className="h-0.5 flex-1 border-t-2 border-dashed border-white/80" />
+        <i className="h-0.5 flex-1 border-t-2 border-dashed border-accent-line" />
         <span className="rounded-xl bg-accent px-3 py-2 text-xs font-extrabold text-accent-ink shadow-raised">
           + nowy moduł
         </span>
@@ -159,7 +156,7 @@ function Flow() {
   return (
     <div className="flex w-[80%] items-center gap-3">
       <span className={cx(card, 'px-3 py-2 text-xs font-extrabold')}>Nowe zlecenie</span>
-      <i className="h-0.5 w-8 bg-white/80" />
+      <i className="h-0.5 w-8 bg-accent-line" />
       <div className="flex flex-col gap-1.5">
         {['SMS do klienta', 'Faktura w programie', 'Raport dla szefa w poniedziałek'].map(
           (text) => (
@@ -244,12 +241,8 @@ export function AreaScene({ areaKey }: { areaKey: HomeArea['key'] }) {
   return (
     <div
       aria-hidden="true"
-      className="relative grid h-56 place-items-center overflow-hidden rounded-t-[26px] min-[640px]:h-[270px]"
-      style={{
-        // Dots of the board's stage over the area's gradient (`--grad-area-<key>`).
-        backgroundImage: `radial-gradient(var(--dot) 1px, transparent 1.2px), var(--grad-area-${areaKey})`,
-        backgroundSize: '22px 22px, 100% 100%',
-      }}
+      // Dotted stage, one flat colour for every area (ADR-015 v23, board `Main` `.oxs`).
+      className="relative grid h-56 place-items-center overflow-hidden rounded-t-[26px] bg-surface-2 bg-dots min-[640px]:h-[270px]"
     >
       <Scene />
     </div>

@@ -81,7 +81,7 @@ function Idle({ idle }: { idle: SoftwareWizard['ui']['idle'] }) {
           <span className="mt-5 flex items-center justify-center gap-1.5">
             <i className="size-5 rounded-full bg-accent" />
             <i className="h-0.5 w-4 bg-accent-line" />
-            <i className="size-5 rounded-full bg-accent-2" />
+            <i className="size-5 rounded-full bg-accent" />
             <i className="h-0.5 w-4 bg-accent-line" />
             <i className="size-5 rounded-full bg-ok" />
           </span>
@@ -131,7 +131,7 @@ function Site({ preview }: { preview: Extract<Preview, { kind: 'www' }> }) {
           <span className="rounded bg-chip px-2 py-0.5 text-[11px] font-bold">Zaloguj</span>
         )}
       </div>
-      <div className="rounded-2xl bg-[image:var(--grad-area-www)] p-5 text-white">
+      <div className="rounded-2xl bg-cta p-5 text-white">
         <b className="block font-mock text-sm">{slogan}</b>
         <span className="mt-1.5 block text-xs opacity-90">{lead}</span>
         <em className="mt-4 inline-block rounded-lg bg-white px-3 py-2 text-xs font-bold not-italic text-surface-dark">
@@ -174,14 +174,14 @@ function Site({ preview }: { preview: Extract<Preview, { kind: 'www' }> }) {
           <span className="rounded-lg bg-card p-2.5">
             <b className="block">Godziny</b>pn–pt 8–16
           </span>
-          <i className="rounded-lg bg-[image:var(--grad-card-sage)]" />
+          <i className="rounded-lg bg-accent-soft" />
         </div>
       )}
       {has('cards') && cards.length > 0 && (
         <div className="grid grid-cols-3 gap-2">
           {cards.map((card) => (
             <span key={card} className="rounded-xl bg-card p-2 text-xs font-bold shadow-raised">
-              <i className="mb-2 block h-14 rounded-lg bg-[image:var(--grad-card-peach)]" />
+              <i className="mb-2 block h-14 rounded-lg bg-accent-soft" />
               {card}
             </span>
           ))}
@@ -299,7 +299,7 @@ function System({ view }: { view: SoftwareWizard['systemViews'][string] }) {
         )}
         {view.v === 'xls' && (
           <div className="mt-6 flex flex-wrap items-center gap-3">
-            <i aria-hidden="true" className="h-16 w-20 rounded bg-[image:var(--grad-card-sage)]" />
+            <i aria-hidden="true" className="h-16 w-20 rounded bg-accent-soft" />
             <em className="not-italic">→</em>
             {[
               ['48', 'klientów'],

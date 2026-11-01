@@ -67,7 +67,6 @@ describe('offer window (board Katalog, stany/okno-90…98)', () => {
   it('strona firmowa: „W cenie” card with the „od” price, examples and guarantees', () => {
     const view = viewOf('strona-firmowa-z-panelem')
     expect(view.categoryName).toBe('Strony')
-    expect(view.tone).toBe('www')
     expect(view.termLabel).toBe('Termin')
     expect(view.term).toBe('od 2 tygodni')
     expect(view.price).toEqual({
@@ -227,7 +226,6 @@ describe('offer window (board Katalog, stany/okno-90…98)', () => {
   it('audyt: the quick one chosen, 0 zł is a price (not „Zapytaj”), steps per kind', () => {
     const view = viewOf('audyt-strony-lub-programu')
     expect(view.termLabel).toBe('Wynik')
-    expect(view.tone).toBe('aud')
     if (view.price.kind !== 'levels') throw new Error('levels expected')
     expect(view.price.defaultIndex).toBe(0)
     expect(view.price.levels[0]).toMatchObject({

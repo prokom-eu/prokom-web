@@ -60,28 +60,11 @@ export const photoFields: Field[] = [
     filterOptions: tenantImageFilter,
     admin: { description: 'Zdjęcia osób tylko za ich zgodą (spec. §6.6).' },
   },
-  {
-    type: 'row',
-    fields: [
-      textField(
-        'photoCaption',
-        'Co ma być na zdjęciu',
-        140,
-        true,
-        'Tekst alternatywny po wgraniu; przed wgraniem — zaślepka, tylko poza produkcją.',
-      ),
-      {
-        name: 'tone',
-        label: 'Kolor tła',
-        type: 'select',
-        defaultValue: 'violet',
-        required: true,
-        options: [
-          { label: 'Fiolet', value: 'violet' },
-          { label: 'Morski', value: 'teal' },
-          { label: 'Miedź', value: 'copper' },
-        ],
-      },
-    ],
-  },
+  textField(
+    'photoCaption',
+    'Co ma być na zdjęciu',
+    140,
+    true,
+    'Tekst alternatywny po wgraniu; przed wgraniem — zaślepka, tylko poza produkcją.',
+  ),
 ]

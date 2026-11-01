@@ -5,7 +5,6 @@ import { type KeyboardEvent, useId, useRef, useState } from 'react'
 import { cx } from '@/components/ui/cx'
 import { plural } from '@/lib/plural'
 import type { OfferView } from '@/lib/software/offer'
-import { CATEGORY_AREA } from '@/lib/software/options'
 import { type PopularTab, visibleCards } from '@/lib/software/popular'
 import type { IndexSolution } from '@/lib/software/solutionsIndex'
 import type { PriceDisplay } from '@/lib/software/wizard'
@@ -127,7 +126,6 @@ export function PopularExplorer({ cards, tabs, display, offers, count, hint }: P
               <SolutionCard
                 solution={card}
                 display={display}
-                tone={offers[card.slug]?.tone ?? CATEGORY_AREA[card.category]}
                 eager={i < 4}
                 onOpen={() => setOpen(card.slug)}
               />

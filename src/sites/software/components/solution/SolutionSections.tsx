@@ -300,7 +300,7 @@ export function SolutionHowItWorks({ page }: Page) {
         className="grid gap-3 min-[1081px]:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] min-[1081px]:items-start"
       >
         <div className={cx(cardClass, 'p-5')}>
-          <OfferThumb src={page.thumbnail ?? undefined} tone={page.tone} eager />
+          <OfferThumb src={page.thumbnail ?? undefined} eager />
           {page.example && (
             <>
               <p className={cx(eyebrowClass, 'mt-4')}>Przykład z życia</p>

@@ -392,7 +392,7 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
             </div>
             <div className="mt-3 h-1 overflow-hidden rounded-full bg-chip" aria-hidden="true">
               <div
-                className="h-full rounded-full bg-linear-to-r from-accent to-accent-2 transition-[width] duration-300"
+                className="h-full rounded-full bg-accent transition-[width] duration-300"
                 style={{ width: `${Math.round(((stepIndex + 1) / stepNames.length) * 100)}%` }}
               />
             </div>
@@ -417,13 +417,20 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
                           aria-pressed={answers.need === needId}
                           onClick={() => startPath({ need: needId }, 'detail')}
                           className={cx(
-                            'flex flex-col items-start gap-2 rounded-[20px] border-[1.5px] bg-card p-4 text-left shadow-raised transition-colors active:scale-[0.98]',
+                            'group flex flex-col items-start gap-2 rounded-[20px] border-[1.5px] bg-card p-4 text-left shadow-raised transition-colors active:scale-[0.98]',
                             answers.need === needId
                               ? 'border-accent'
                               : 'border-border hover:border-ink-2',
                           )}
                         >
-                          <span className="inline-flex size-12 items-center justify-center rounded-2xl bg-linear-to-br from-accent to-accent-2 text-white">
+                          <span
+                            className={cx(
+                              'inline-flex size-12 items-center justify-center rounded-2xl transition-colors',
+                              answers.need === needId
+                                ? 'bg-accent text-accent-ink'
+                                : 'bg-accent-soft text-accent-text group-hover:bg-accent group-hover:text-accent-ink',
+                            )}
+                          >
                             <PathIcon d={each.ic} className="size-6" />
                           </span>
                           <b className="mt-1 font-display text-[17px] leading-tight">{each.n}</b>

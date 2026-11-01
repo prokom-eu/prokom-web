@@ -3,14 +3,7 @@ import { z } from 'zod'
 import type { Solution } from '@/payload-types'
 
 import { cardPrice } from './cardPrice'
-import {
-  AREA_KEYS,
-  type AreaKey,
-  CATEGORY_AREA,
-  SITUATIONS,
-  SOLUTION_CATEGORIES,
-  type SolutionCategory,
-} from './options'
+import { SITUATIONS, SOLUTION_CATEGORIES, type SolutionCategory } from './options'
 import { formatPrice } from './price'
 import { firstIssue, label, obj, slug, text } from './schema'
 import type { PriceDisplay } from './wizard'
@@ -59,8 +52,6 @@ const override = template.partial().extend({
   cardFeatures: z.boolean().optional(),
   /** Level chosen when the window opens; default = the recommended one, else the first. */
   defaultLevel: z.number().int().min(0).max(2).optional(),
-  /** Colour of the badge (`--grad-area-<key>`) when not the category's (audyt, przejęcie). */
-  tone: z.enum(AREA_KEYS.map(({ value }) => value) as [AreaKey, ...AreaKey[]]).optional(),
 })
 
 export const softwareOfferSchema = obj({
@@ -197,8 +188,6 @@ export type OfferView = {
   category: SolutionCategory
   /** „Strony”, „Opieka i audyt” — the breadcrumb „Oferta · …”. */
   categoryName: string
-  /** Badge background `--grad-area-<tone>` (ADR-015 v22 pkt 3) — never a text colour. */
-  tone: AreaKey
   label?: string
   lead?: string
   hasLivePreview: boolean
@@ -413,7 +402,6 @@ export function buildOfferView(solution: OfferSolution, options: BuildOptions): 
     categoryName:
       SOLUTION_CATEGORIES.find(({ value }) => value === solution.category)?.label ??
       solution.category,
-    tone: t.tone ?? CATEGORY_AREA[solution.category],
     label: solution.label,
     lead: solution.lead,
     hasLivePreview: solution.hasLivePreview,

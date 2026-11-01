@@ -74,7 +74,7 @@ export function PhoneLayer({ navigation, tiles, homeHrefs, phone, footerLine }: 
         <HomeAwareLink
           href={kreatorHref}
           homeHref={homeHrefs[kreatorHref] ?? kreatorHref}
-          className="mt-4 flex items-center gap-4 rounded-3xl bg-linear-to-br from-accent to-accent-2 p-4 text-accent-ink shadow-raised"
+          className="mt-4 flex items-center gap-4 rounded-3xl bg-accent p-4 text-accent-ink shadow-raised"
         >
           <span className="inline-flex size-12 shrink-0 items-center justify-center rounded-2xl bg-surface/20">
             <WandIcon className="size-6" />
@@ -96,13 +96,12 @@ export function PhoneLayer({ navigation, tiles, homeHrefs, phone, footerLine }: 
                     href={tile.href}
                     className="flex h-full flex-col rounded-3xl border border-border bg-card p-4"
                   >
-                    {tile.key && (
+                    {tile.icon && (
                       <span
                         aria-hidden="true"
-                        className="inline-flex size-11 items-center justify-center rounded-2xl text-white"
-                        style={{ backgroundImage: `var(--grad-area-${tile.key})` }}
+                        className="inline-flex size-11 items-center justify-center rounded-2xl bg-accent-soft text-accent-text"
                       >
-                        {tile.icon && <Icon name={tile.icon} className="size-5" />}
+                        <Icon name={tile.icon} className="size-5" />
                       </span>
                     )}
                     <span className="mt-3 font-bold leading-snug">{tile.name}</span>

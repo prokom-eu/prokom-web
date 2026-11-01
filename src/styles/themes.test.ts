@@ -233,15 +233,16 @@ describe.each(cases.filter(({ line }) => line === 'software'))(
       }
     })
 
-    // ADR-015 v20 pkt 3: the Kreator button of the bottom bar and the „Dobierz rozwiązanie” card
-    // use the gradient --accent → --accent-2 with --accent-ink on it — both ends must hold.
-    it('label on the accent gradient reaches 4.5:1 at both ends', () => {
-      for (const end of ['--accent', '--accent-2']) {
-        expect(
-          contrastRatio(hex('--accent-ink', s), hex(end, s)),
-          `--accent-ink on ${end}`,
-        ).toBeGreaterThanOrEqual(4.5)
-      }
+    // ADR-015 v23 pkt 1, 3: the Kreator button, the „Dobierz rozwiązanie” card and active icon
+    // tiles are flat --accent with --accent-ink; idle icon tiles --accent-text on --accent-soft.
+    it('label on the flat accent reaches 4.5:1', () => {
+      expect(contrastRatio(hex('--accent-ink', s), hex('--accent', s))).toBeGreaterThanOrEqual(4.5)
+    })
+
+    it('icon on its tile (--accent-text on --accent-soft) reaches 3:1', () => {
+      expect(
+        contrastRatio(hex('--accent-text', s), hex('--accent-soft', s)),
+      ).toBeGreaterThanOrEqual(3)
     })
   },
 )
@@ -275,20 +276,24 @@ describe.each(cases.filter(({ line }) => line === 'instalacje'))(
   },
 )
 
-// ADR-015 v20 pkt 5: the „Czasem powiemy: nie budujcie” block keeps the light palette's
-// gradient in both themes, with a white label.
-it('Software: white on the „Czasem powiemy” gradient reaches 4.5:1 at both ends', () => {
+// ADR-015 v23 pkt 1: flat CTA blocks („Czasem powiemy”, quote ticket, footer CTA) on --cta-bg
+// with a white label in both themes; no gradient tokens are left.
+it.each(['light', 'dark'] as const)(
+  'Software, %s theme: white on --cta-bg reaches 4.5:1',
+  (mode) => {
+    const s = scope('software', mode)
+    expect(contrastRatio(hex('--c-white', s), hex('--cta-bg', s))).toBeGreaterThanOrEqual(4.5)
+  },
+)
+
+it('Software has no gradient tokens left (ADR-015 v23)', () => {
   const s = scope('software', 'light')
-  for (const end of ['--c-software-light-accent-text', '--c-software-light-accent']) {
-    expect(
-      contrastRatio(hex('--c-white', s), hex(end, s)),
-      `white on ${end}`,
-    ).toBeGreaterThanOrEqual(4.5)
-  }
+  for (const token of Object.keys(s)) expect(token).not.toMatch(/^--grad-(area|card|say-no)/)
+  expect(resolve('var(--glow-2)', s)).toBe('transparent')
 })
 
-// ADR-015 v22 pkt 1, 7: the dark footer of Software (SWR2) — texts on `--footer-bg`, the line
-// colours of „Jedna firma, sześć adresów” as rules (3:1), white on the CTA button's gradient.
+// ADR-015 v22 pkt 7, v23 pkt 4: the grafit footer of Software (SWR2) — texts on `--footer-bg`,
+// the line colours of „Jedna firma” as rules (3:1).
 describe.each(cases.filter(({ line }) => line === 'software'))(
   'Software dark footer, $mode theme',
   ({ line, mode }) => {
@@ -327,15 +332,6 @@ describe.each(cases.filter(({ line }) => line === 'software'))(
         expect(contrastRatio(hex(text, s), card)).toBeGreaterThanOrEqual(4.5)
       },
     )
-
-    it('white on the CTA button gradient reaches 4.5:1 at both ends', () => {
-      for (const end of ['--c-software-light-accent-text', '--c-software-light-accent']) {
-        expect(
-          contrastRatio(hex('--c-white', s), hex(end, s)),
-          `white on ${end}`,
-        ).toBeGreaterThanOrEqual(4.5)
-      }
-    })
   },
 )
 

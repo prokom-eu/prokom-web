@@ -70,20 +70,6 @@ export function removedSolutions(pkg: SeedSolutions = rozwiazania) {
   return pkg.removed.map(({ legacyId, slug, name }) => ({ legacyId, slug, name }))
 }
 
-/** CSS gradients of the package → card keys (ADR-014 doprecyzowania SW2a 3). */
-const CARD_GRADIENT_KEYS: Record<string, NonNullable<Solution['cardGradient']>> = {
-  '135deg, #F3B07C, #F7D9B5': 'peach',
-  '135deg, #D8C3A8, #A38363': 'sand',
-  '135deg, #BFD9CF, #7FA898': 'sage',
-}
-
-export function cardGradientKey(css: string | null): Solution['cardGradient'] {
-  if (css === null) return null
-  const key = CARD_GRADIENT_KEYS[css]
-  if (!key) throw new Error(`Seed (Software): unknown card gradient "${css}" — add its key.`)
-  return key
-}
-
 /** A level of the package (care: `period` + `reaction`; audit: `leadTime`). */
 type SeedLevel = {
   name: string
@@ -132,7 +118,6 @@ export function solutionData(item: SeedSolution): SolutionData {
     keywords: item.keywords,
     hasLivePreview: item.hasLivePreview,
     toast: item.toast,
-    cardGradient: cardGradientKey(item.cardGradient),
     priceFrom: item.priceFrom,
     leadTime: item.leadTime,
     priceNote: item.priceNote,
@@ -191,7 +176,7 @@ function iconOf(path: string, where: string): NonNullable<SolutionArea['icon']> 
   return name
 }
 
-/** One area of the start page; its colour is the token `--grad-area-<key>` (no gradient field). */
+/** One area of the start page; one flat accent for every area (ADR-015 v23, no colour field). */
 export function areaData(item: SeedArea, ref: SolutionRef): AreaData {
   return {
     key: item.key as SolutionArea['key'],

@@ -93,7 +93,7 @@ export function SoftwareFooter({ name, footer, phone, email, company }: Props) {
   return (
     <footer
       data-surface="dark"
-      className="relative mt-16 overflow-hidden bg-footer bg-[radial-gradient(ellipse_70%_60%_at_85%_0%,var(--glow),transparent_60%),radial-gradient(ellipse_50%_50%_at_0%_100%,var(--glow-2),transparent_60%)] text-[14.5px] text-footer-text"
+      className="relative mt-16 overflow-hidden bg-footer text-[14.5px] text-footer-text"
     >
       <div data-footer-cta className="border-b border-footer-line">
         <Container
@@ -112,7 +112,7 @@ export function SoftwareFooter({ name, footer, phone, email, company }: Props) {
           <div className="flex w-full flex-col gap-2.5 sm:w-auto sm:shrink-0 sm:flex-row sm:flex-wrap">
             <Link
               href={cta.primary.href}
-              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-(image:--grad-say-no) px-6 font-extrabold text-white"
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-cta px-6 font-extrabold text-white"
             >
               <WandIcon className="size-[18px]" />
               {cta.primary.label}

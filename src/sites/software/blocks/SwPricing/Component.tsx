@@ -263,7 +263,7 @@ export async function SwPricingBlock({ block, tenantId, isFirst }: Props) {
         // `data-final-cta`: the page ends with its own CTA (spec. §6.0) — no footer band.
         <section data-final-cta aria-labelledby="cennik-cta-h" className="py-10 min-[641px]:py-14">
           <Container wide>
-            <div className="flex flex-col gap-6 rounded-[30px] bg-linear-to-br from-accent-soft to-card p-6 shadow-[inset_0_0_0_1px_var(--accent-line)] min-[641px]:p-12 min-[1081px]:flex-row min-[1081px]:items-center min-[1081px]:justify-between">
+            <div className="flex flex-col gap-6 rounded-[30px] bg-accent-soft p-6 shadow-[inset_0_0_0_1px_var(--accent-line)] min-[641px]:p-12 min-[1081px]:flex-row min-[1081px]:items-center min-[1081px]:justify-between">
               <div className="max-w-[56ch]">
                 <h2
                   id="cennik-cta-h"

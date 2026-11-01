@@ -61,8 +61,8 @@ import * as migration_20261031_220542_posts_author from './20261031_220542_posts
 import * as migration_20261031_224625_inst_form_blocks from './20261031_224625_inst_form_blocks'
 import * as migration_20261031_231638_k4f_drop_partners_showroom from './20261031_231638_k4f_drop_partners_showroom'
 import * as migration_20261101_012645_inst_architects_block from './20261101_012645_inst_architects_block'
-import * as migration_20261101_091531_inst_arch_news from './20261101_091531_inst_arch_news'
-import * as migration_20261101_112825_inst_settings_architects from './20261101_112825_inst_settings_architects'
+import * as migration_20261101_013140_software_v23_flat_colors from './20261101_013140_software_v23_flat_colors'
+import * as migration_20261101_125318_inst_architects_news_settings from './20261101_125318_inst_architects_news_settings'
 
 export const migrations = [
   {
@@ -381,13 +381,13 @@ export const migrations = [
     name: '20261101_012645_inst_architects_block',
   },
   {
-    up: migration_20261101_091531_inst_arch_news.up,
-    down: migration_20261101_091531_inst_arch_news.down,
-    name: '20261101_091531_inst_arch_news',
+    up: migration_20261101_013140_software_v23_flat_colors.up,
+    down: migration_20261101_013140_software_v23_flat_colors.down,
+    name: '20261101_013140_software_v23_flat_colors',
   },
   {
-    up: migration_20261101_112825_inst_settings_architects.up,
-    down: migration_20261101_112825_inst_settings_architects.down,
-    name: '20261101_112825_inst_settings_architects',
+    up: migration_20261101_125318_inst_architects_news_settings.up,
+    down: migration_20261101_125318_inst_architects_news_settings.down,
+    name: '20261101_125318_inst_architects_news_settings',
   },
 ]

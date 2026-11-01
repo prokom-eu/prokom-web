@@ -3,16 +3,7 @@ import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
 import type { PublicImage } from '@/lib/media/public'
 
-export type PhotoTone = 'violet' | 'teal' | 'copper'
-
-/** Gradients of the placeholders — existing Software tokens (ADR-015), never behind body text. */
-const TONES: Record<PhotoTone, string> = {
-  violet: 'bg-(image:--grad-say-no)',
-  teal: 'bg-(image:--grad-area-sys)',
-  copper: 'bg-(image:--grad-area-auto)',
-}
-
-export type PhotoView = { image: PublicImage | null; caption: string; tone: PhotoTone }
+export type PhotoView = { image: PublicImage | null; caption: string }
 
 type Props = {
   photo: PhotoView
@@ -22,8 +13,8 @@ type Props = {
 }
 
 /**
- * A photo of the boards `ONas` / `Wszystko`, or — until it is taken — its placeholder: the tone,
- * an icon and „Zdjęcie do zrobienia” with what it should show. The caller leaves the placeholder
+ * A photo of the boards `ONas` / `Wszystko`, or — until it is taken — its neutral placeholder
+ * (ADR-015 v23): an icon and „Zdjęcie do zrobienia” with what it should show. The caller leaves the placeholder
  * out on production (`photoView` returns `null` there, spec. §13 pkt 25).
  */
 export function Photo({ photo, sizes, eager = false, className }: Props) {
@@ -44,23 +35,20 @@ export function Photo({ photo, sizes, eager = false, className }: Props) {
       role="img"
       aria-label={`Zdjęcie do zrobienia: ${photo.caption}`}
       className={cx(
-        'relative flex flex-col justify-between overflow-hidden rounded-[22px] p-4 text-white',
-        TONES[photo.tone],
+        'relative flex flex-col justify-between overflow-hidden rounded-[22px] bg-surface-3 p-4 text-ink-2 shadow-[inset_0_0_0_1.5px_var(--border)]',
         className,
       )}
     >
-      <span aria-hidden="true" className="grid size-10 place-items-center rounded-xl bg-white/16">
+      <span aria-hidden="true" className="grid size-10 place-items-center rounded-xl bg-card">
         <Icon name="monitor" className="size-5" />
       </span>
-      <span
-        aria-hidden="true"
-        className="absolute inset-x-0 bottom-0 h-2/3 bg-linear-to-t from-surface-dark/75 to-transparent"
-      />
       <span aria-hidden="true" className="relative flex flex-col gap-1">
-        <span className="text-[11px] font-extrabold uppercase tracking-[0.12em] text-white/85">
+        <span className="text-[11px] font-extrabold uppercase tracking-[0.12em]">
           Zdjęcie do zrobienia
         </span>
-        <span className="font-display text-base font-extrabold leading-snug">{photo.caption}</span>
+        <span className="font-display text-base font-extrabold leading-snug text-ink">
+          {photo.caption}
+        </span>
       </span>
     </div>
   )

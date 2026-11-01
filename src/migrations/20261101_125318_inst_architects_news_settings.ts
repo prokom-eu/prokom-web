@@ -97,6 +97,13 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"latest" boolean
   );
   
+  ALTER TABLE "instalacje_settings" ADD COLUMN "architects_name" varchar;
+  ALTER TABLE "instalacje_settings" ADD COLUMN "architects_role" varchar;
+  ALTER TABLE "instalacje_settings" ADD COLUMN "architects_photo_id" integer;
+  ALTER TABLE "instalacje_settings" ADD COLUMN "architects_phone" varchar;
+  ALTER TABLE "instalacje_settings" ADD COLUMN "architects_email" varchar;
+  ALTER TABLE "instalacje_settings" ADD COLUMN "architects_quote" varchar;
+  ALTER TABLE "instalacje_settings" ADD COLUMN "architects_response_text" varchar;
   ALTER TABLE "payload_locked_documents_rels" ADD COLUMN "inst_arch_news_id" integer;
   ALTER TABLE "inst_arch_news_params" ADD CONSTRAINT "inst_arch_news_params_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."inst_arch_news"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "inst_arch_news_plan_items" ADD CONSTRAINT "inst_arch_news_plan_items_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."inst_arch_news"("id") ON DELETE cascade ON UPDATE no action;
@@ -133,7 +140,9 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "_inst_arch_news_v_updated_at_idx" ON "_inst_arch_news_v" USING btree ("updated_at");
   CREATE INDEX "_inst_arch_news_v_latest_idx" ON "_inst_arch_news_v" USING btree ("latest");
   CREATE INDEX "version_tenant_version_legacyId_3_idx" ON "_inst_arch_news_v" USING btree ("version_tenant_id","version_legacy_id");
+  ALTER TABLE "instalacje_settings" ADD CONSTRAINT "instalacje_settings_architects_photo_id_media_id_fk" FOREIGN KEY ("architects_photo_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_inst_arch_news_fk" FOREIGN KEY ("inst_arch_news_id") REFERENCES "public"."inst_arch_news"("id") ON DELETE cascade ON UPDATE no action;
+  CREATE INDEX "instalacje_settings_architects_architects_photo_idx" ON "instalacje_settings" USING btree ("architects_photo_id");
   CREATE INDEX "payload_locked_documents_rels_inst_arch_news_id_idx" ON "payload_locked_documents_rels" USING btree ("inst_arch_news_id");`)
 }
 
@@ -155,9 +164,19 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   DROP TABLE "_inst_arch_news_v_version_plan_items" CASCADE;
   DROP TABLE "_inst_arch_news_v_version_places" CASCADE;
   DROP TABLE "_inst_arch_news_v" CASCADE;
+  ALTER TABLE "instalacje_settings" DROP CONSTRAINT "instalacje_settings_architects_photo_id_media_id_fk";
+  
   ALTER TABLE "payload_locked_documents_rels" DROP CONSTRAINT "payload_locked_documents_rels_inst_arch_news_fk";
   
+  DROP INDEX "instalacje_settings_architects_architects_photo_idx";
   DROP INDEX "payload_locked_documents_rels_inst_arch_news_id_idx";
+  ALTER TABLE "instalacje_settings" DROP COLUMN "architects_name";
+  ALTER TABLE "instalacje_settings" DROP COLUMN "architects_role";
+  ALTER TABLE "instalacje_settings" DROP COLUMN "architects_photo_id";
+  ALTER TABLE "instalacje_settings" DROP COLUMN "architects_phone";
+  ALTER TABLE "instalacje_settings" DROP COLUMN "architects_email";
+  ALTER TABLE "instalacje_settings" DROP COLUMN "architects_quote";
+  ALTER TABLE "instalacje_settings" DROP COLUMN "architects_response_text";
   ALTER TABLE "payload_locked_documents_rels" DROP COLUMN "inst_arch_news_id";
   DROP TYPE "public"."enum_inst_arch_news_category";
   DROP TYPE "public"."enum_inst_arch_news_type";

@@ -15,8 +15,8 @@ export const SOLUTION_CATEGORIES = [
 export type SolutionCategory = (typeof SOLUTION_CATEGORIES)[number]['value']
 
 /**
- * Area key of each category (`AREA_KEYS`): the gradient of its scenes (`--grad-area-<key>`) and
- * the tab keys of „12 rzeczy” (`popularne.json` → `tabs`).
+ * Area key of each category (`AREA_KEYS`): the tab keys of „12 rzeczy” (`popularne.json` →
+ * `tabs`).
  */
 export const CATEGORY_AREA: Record<SolutionCategory, AreaKey> = {
   strony: 'www',
@@ -46,8 +46,8 @@ export const INDUSTRY_GROUPS = [
 ] as const
 
 /**
- * The 8 areas of the start page (`obszary.json` → `key`). The key also picks the tile gradient
- * (`--grad-area-<key>` in `tokens.css`, ADR-015 rozstrz. 4) and the illustration scene.
+ * The 8 areas of the start page (`obszary.json` → `key`). The key also picks the illustration
+ * scene; the colour is one flat accent for every area (ADR-015 v23 pkt 3).
  */
 export const AREA_KEYS = [
   { label: 'Strony internetowe', value: 'www' },
@@ -60,18 +60,8 @@ export const AREA_KEYS = [
   { label: 'Audyt', value: 'aud' },
 ] as const
 
-/** Key of an area gradient (`--grad-area-<key>`). */
+/** Key of an area: its illustration and the unique key of `SolutionAreas`. */
 export type AreaKey = (typeof AREA_KEYS)[number]['value']
-
-/**
- * Thumbnail gradients of solution cards (ADR-015 rozstrz. 4) — keys only; the colours become
- * `--grad-card-<key>` tokens with the card itself (SW9). Empty = the card has no thumbnail.
- */
-export const CARD_GRADIENTS = [
-  { label: 'Brzoskwiniowy', value: 'peach' },
-  { label: 'Piaskowy', value: 'sand' },
-  { label: 'Szałwiowy', value: 'sage' },
-] as const
 
 /**
  * Kinds of business in the wizard (`kreator.json` → `needs.firm.o`): an industry page opens the
