@@ -83,6 +83,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       : null
   if (!page) return {}
   const settings = await getSiteSettings(tenant.id)
+  // TODO(krystian): zdjęcie hero ma rozmiar karty (indeks), nie ~1200 px — podgląd w komunikatorach
+  // bywa mały; większy plik (pole salonu albo `sources` z Media) przy pracy nad salonami.
   const salonImage = salon?.hero.find((item) => item.product.image)?.product.image
   const canonical = brandHref(page.slug)
   return {

@@ -25,7 +25,9 @@ const GROUP_HIT = 0.05
  * A token in the name of the product's main category (audit 01.11): „kasa” lifts the fiscal
  * registers above a UPS whose name says „kasa i komputer”, „laptop” the laptops. Any kind of hit
  * there (as is, synonym, typo) counts, just above a hit in the name of a product elsewhere; inside
- * the category a name hit still comes first (`CATEGORY_HIT + NAME_IN_CATEGORY`).
+ * the category a name hit still comes first (`CATEGORY_HIT + NAME_IN_CATEGORY`). A typo counts in
+ * full on purpose: Polish inflection („kasa” → „Kasy fiskalne”, „laptop” → „Laptopy”) reaches the
+ * category name only as a typo of one letter.
  */
 const CATEGORY_HIT = 3.2
 const NAME_IN_CATEGORY = 0.5

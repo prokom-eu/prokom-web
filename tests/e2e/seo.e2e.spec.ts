@@ -158,7 +158,9 @@ test.describe('not found', () => {
       // Biznes 404 (audit 01.11): the search and the popular places.
       await expect(page.getByRole('heading', { level: 1 })).toHaveText('Tej strony tu nie ma.')
       await expect(page.locator('header')).toBeVisible()
-      await expect(page.getByRole('button', { name: 'Szukaj w ofercie' })).toBeVisible()
+      await expect(
+        page.locator('main').getByRole('button', { name: 'Szukaj w ofercie', exact: true }),
+      ).toBeVisible()
       await expect(page.locator('main').getByRole('link', { name: /Strona główna/ })).toBeVisible()
     })
   }
