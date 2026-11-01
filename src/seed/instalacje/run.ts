@@ -7,6 +7,7 @@ import { FORM_PAGE_BLOCKS, needsFormBlock } from './formPages'
 import { seedInstalacjeHome } from './home'
 import { SERVICE_PAGE_KEYS } from './servicePages'
 import {
+  archNewsToImport,
   objectData,
   objectsToImport,
   pagesToImport,
@@ -119,7 +120,7 @@ export async function seedInstalacje(payload: Payload): Promise<void> {
 
   /** Writes `data` as published when the stored record differs (or is not published). */
   async function publishIfChanged(
-    collection: 'inst-services' | 'inst-objects' | 'inst-solutions',
+    collection: 'inst-services' | 'inst-objects' | 'inst-solutions' | 'inst-arch-news',
     id: number,
     data: object,
   ): Promise<boolean> {
@@ -174,6 +175,34 @@ export async function seedInstalacje(payload: Payload): Promise<void> {
     } else {
       const changed = await publishIfChanged('inst-solutions', existing.id, data)
       count('inst-solutions', changed ? 'updated' : 'skipped')
+    }
+  }
+
+  // --- architects' „Nowe rozwiązania” (I16b): confirmed cards published, the package wins;
+  // cards waiting for the boss (`internalNote`) created as drafts once, then left to the panel ---
+  for (const item of archNewsToImport()) {
+    const {
+      docs: [existing],
+    } = await payload.find({
+      collection: 'inst-arch-news',
+      where: inTenant({ legacyId: { equals: item.legacyId } }),
+      limit: 1,
+      draft: true,
+      ...local,
+    })
+    if (!existing) {
+      await payload.create({
+        collection: 'inst-arch-news',
+        data: { ...item.data, tenant: tenantId, _status: item.draft ? 'draft' : 'published' },
+        draft: item.draft,
+        ...local,
+      })
+      count('inst-arch-news', 'created')
+    } else if (item.draft) {
+      count('inst-arch-news', 'skipped')
+    } else {
+      const changed = await publishIfChanged('inst-arch-news', existing.id, item.data)
+      count('inst-arch-news', changed ? 'updated' : 'skipped')
     }
   }
 

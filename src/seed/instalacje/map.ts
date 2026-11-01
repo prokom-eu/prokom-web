@@ -1,4 +1,5 @@
 import adresy from '../../../seed/prokominstalacje/adresy.json'
+import noweRozwiazania from '../../../seed/prokominstalacje/architekci/nowe-rozwiazania.json'
 import apt from '../../../seed/prokominstalacje/obiekty/apt.json'
 import bud from '../../../seed/prokominstalacje/obiekty/bud.json'
 import dev from '../../../seed/prokominstalacje/obiekty/dev.json'
@@ -13,6 +14,7 @@ import sklep from '../../../seed/prokominstalacje/obiekty/sklep.json'
 import szk from '../../../seed/prokominstalacje/obiekty/szk.json'
 import oferta from '../../../seed/prokominstalacje/oferta-76.json'
 import Alarmy from '../../../seed/prokominstalacje/strony-zrzut/Alarmy.json'
+import Architekci from '../../../seed/prokominstalacje/strony-zrzut/Architekci.json'
 import Anteny from '../../../seed/prokominstalacje/strony-zrzut/Anteny.json'
 import Dostep from '../../../seed/prokominstalacje/strony-zrzut/Dostep.json'
 import Kontakt from '../../../seed/prokominstalacje/strony-zrzut/Kontakt.json'
@@ -40,7 +42,13 @@ import {
   SERVICE_KEYS,
 } from '../../lib/instalacje/options'
 import { HOME_SLUG } from '../../lib/pages/slug'
-import type { InstObject, InstService, InstSolution, Realization } from '../../payload-types'
+import type {
+  InstArchNew,
+  InstObject,
+  InstService,
+  InstSolution,
+  Realization,
+} from '../../payload-types'
 
 /**
  * Pure mapping of the Instalacje package (`seed/prokominstalacje/`, v4.0) to the collections
@@ -433,6 +441,52 @@ export function solutionsToImport(): SolutionItem[] {
   })
 }
 
+// --- architects' „Nowe rozwiązania” (I16b, ADR-I005 §2) ---
+
+export type ArchNewsItem = {
+  legacyId: number
+  /** `doPotwierdzenia` of the package: a draft until the boss confirms (the note says what). */
+  draft: boolean
+  data: Omit<Data<InstArchNew>, 'publishedAt'>
+}
+
+type ArchCategory = InstArchNew['category']
+type ArchType = InstArchNew['type']
+const ARCH_CATEGORIES: readonly string[] = ['snd', 'scr', 'smart', 'wifi', 'kam', 'ev', 'sz']
+const ARCH_TYPES: readonly string[] = ['Nowość', 'Rozwiązanie', 'Szkolenie', 'Oferta']
+
+/**
+ * The 20 cards of `architekci/nowe-rozwiazania.json` in package order (the position is the
+ * import id, the order). The first card is featured (the prototype starts on it, the home's
+ * „Nowość”): while it is a draft, the page and the home take the first published card.
+ */
+export function archNewsToImport(): ArchNewsItem[] {
+  return noweRozwiazania.pozycje.map((p, index) => {
+    if (!ARCH_CATEGORIES.includes(p.kategoria) || !ARCH_TYPES.includes(p.typ)) {
+      throw new Error(`Seed (Instalacje): unknown category or type in „${p.tytul}”.`)
+    }
+    return {
+      legacyId: index + 1,
+      draft: Boolean(p.doPotwierdzenia),
+      data: {
+        legacyId: index + 1,
+        title: p.tytul,
+        category: p.kategoria as ArchCategory,
+        type: p.typ as ArchType,
+        description: p.opis,
+        params: p.parametry.map((x) => ({ label: x.nazwa, value: x.wartosc })),
+        planItems: p.wProjekcie.map((text) => ({ text })),
+        examples: p.przyklady || null,
+        places: p.gdzie.map((name) => ({ name })),
+        illustration: p.ilustracja,
+        order: index + 1,
+        featured: index === 0,
+        internalNote: p.doPotwierdzenia || null,
+      },
+    }
+  })
+}
+
 // --- realizations ---
 
 /**
@@ -457,7 +511,14 @@ export function realizationsToImport(): (RealizationData & { legacyId: number })
 
 export type PageItem = { slug: string; title: string; seo: { title: string; description: string } }
 
-const PAGE_FILES: { slug: string; title: string; file: SeedPage; seoTitle?: string }[] = [
+const PAGE_FILES: {
+  slug: string
+  title: string
+  file: SeedPage
+  seoTitle?: string
+  /** Own description when the package's is over 160 characters. */
+  seoDescription?: string
+}[] = [
   { slug: 'uslugi', title: 'Pełna oferta', file: Oferta },
   // The package's title has 57 characters + „| PRO-KOM Instalacje” (SEO §2.2: ≤ 65 in all).
   {
@@ -480,6 +541,16 @@ const PAGE_FILES: { slug: string; title: string; file: SeedPage; seoTitle?: stri
     file: Serwis,
     seoTitle: 'Serwis kamer, alarmów i sieci na Podhalu',
   },
+  // The package's title (spec §3) without „| PRO-KOM” + „| PRO-KOM Instalacje” has 71 characters.
+  {
+    slug: 'dla-architektow',
+    title: 'Dla architektów',
+    file: Architekci,
+    seoTitle: 'Dla architektów: smart home i teletechnika',
+    // The package's description has 211 characters (the field: ≤ 160).
+    seoDescription:
+      'Współpraca z architektami na Podhalu i w Małopolsce: plan urządzeń na rzutach, wytyczne do projektu, smart home Ampio, głośniki do zabudowy, monitoring.',
+  },
   { slug: 'o-firmie', title: 'O firmie', file: OFirmie },
   { slug: 'realizacje', title: 'Realizacje', file: Realizacje },
   { slug: 'poradnik', title: 'Poradnik', file: Poradnik },
@@ -501,10 +572,13 @@ export function pagesToImport(): PageItem[] {
       title: menu.n,
       seo: seo(page),
     })),
-    ...PAGE_FILES.map(({ slug, title, file, seoTitle: own }) => ({
+    ...PAGE_FILES.map(({ slug, title, file, seoTitle: ownTitle, seoDescription: ownText }) => ({
       slug,
       title,
-      seo: own ? { ...seo(file), title: own } : seo(file),
+      seo: {
+        title: ownTitle ?? seo(file).title,
+        description: ownText ?? seo(file).description,
+      },
     })),
   ]
 }

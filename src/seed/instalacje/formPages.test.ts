@@ -20,5 +20,19 @@ describe('form pages of the seed (I11)', () => {
       blockType: 'instServiceDesk',
       hero: { h1a: 'Coś nie działa?', cta: { href: '#plany' } },
     })
+    const architects = FORM_PAGE_BLOCKS['dla-architektow']?.()
+    // The 4 hero numbers of the prototype (spec §4).
+    expect(architects).toMatchObject({
+      blockType: 'instArchitects',
+      hero: {
+        h1b: 'Zaplanujmy ją przed tynkami.',
+        facts: [
+          { value: 'od 2004' },
+          { value: '10 instalacji' },
+          { value: '17 punktów' },
+          { value: '24 miesiące' },
+        ],
+      },
+    })
   })
 })

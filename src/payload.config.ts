@@ -14,6 +14,7 @@ import { Cities } from './collections/Cities'
 import { Bundles } from './collections/Bundles'
 import { FloorPlans } from './collections/FloorPlans'
 import { Industries } from './collections/Industries'
+import { InstArchNews } from './collections/InstArchNews'
 import { InstObjects } from './collections/InstObjects'
 import { InstServices } from './collections/InstServices'
 import { InstSolutions } from './collections/InstSolutions'
@@ -89,6 +90,8 @@ export default buildConfig({
     Bundles,
     // Biznes K4 (showrooms 2.0, D-K4-3). Last, so the unique-index names of the others stay.
     Showrooms,
+    // Instalacje I16b (architects' „Nowe rozwiązania”, ADR-I005 §2). Last, for the same reason.
+    InstArchNews,
   ],
   globals: [CompanyData],
   editor: lexicalEditor(),
@@ -182,6 +185,7 @@ export default buildConfig({
         'inst-objects': {},
         'inst-solutions': {},
         realizations: {},
+        'inst-arch-news': {},
       },
       // Deleting a tenant must never silently delete its content.
       cleanupAfterTenantDelete: false,

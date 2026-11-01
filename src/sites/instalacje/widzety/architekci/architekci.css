@@ -1,0 +1,3107 @@
+/*
+ * „Dla architektów” page (I16a–c) and the house cross-section `ArchHouseScene` (also the home's
+ * `#architekci`): rules of `pk.css` v4.2 blocks „Dla architektów (ar-)” and „przekrój domu (ars)”,
+ * ported by `narzedzia/przenies-css.mjs` (map `przenies-css.strony.json` with prefix `ar`, classes
+ * of `Architekci.body.html`, `inc/arscene.html`, `Main.body.html` and the classes the scripts
+ * join: `m-kl|ty|in`, `off-<service>`, `L-<service>`), colours only from tokens (scene:
+ * `--inst-sg-*`, prototype `--sg*`). Left out: rules of other pages caught by the prefix
+ * (`.arm`, `.arc`) and `inst-fadein` (already in `obiekty.css`, the same bundle). The rest (hero,
+ * `.shead`, `.card`, `.btn`, `.tag`, `.zin`, FAQ) comes from the line's shared CSS.
+ */
+[data-line='instalacje'] {
+  & .arbar {
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    top: 11px;
+    z-index: 3;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    pointer-events: none;
+  }
+  & .arlbl {
+    pointer-events: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: var(--header-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--ink-soft);
+    box-shadow: inset 0 0 0 1px var(--border);
+  }
+  & .arlbl i {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--ink-2);
+  }
+  & .arsvg {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin-top: 60px;
+  }
+  & .arhero .h1 {
+    font-size: clamp(40px, 4.3vw, 64px);
+  }
+  & .arhero .kv b {
+    font-size: 30px;
+  }
+  & .arfile input[type='file'] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    overflow: hidden;
+  }
+  & .arslab {
+    fill: var(--inst-sg-pil);
+  }
+  & .arwall {
+    fill: var(--inst-sg-w);
+  }
+  & .arin {
+    fill: var(--inst-sg-in);
+  }
+  & .arceil {
+    fill: var(--inst-sg-w);
+  }
+  & .arsk1 {
+    stop-color: var(--inst-sg-s2);
+  }
+  & .arsk2 {
+    stop-color: var(--inst-sg-s1);
+  }
+  & .armt {
+    fill: var(--inst-sg-mt2);
+  }
+  & .arsnow {
+    fill: var(--inst-scene-snow);
+    opacity: 0.85;
+  }
+  & .arfrm {
+    fill: none;
+    stroke: var(--inst-sg-ln);
+    stroke-width: 5;
+  }
+  & .arwood {
+    fill: var(--inst-sg-fu);
+    opacity: 0.7;
+  }
+  & .arlam {
+    stroke: var(--inst-sg-fl);
+    stroke-width: 2.2;
+    opacity: 0.9;
+  }
+  & .artv {
+    fill: var(--inst-il-artv-fill);
+    stroke: var(--inst-il-artv-line);
+    stroke-width: 2;
+  }
+  & .artvr {
+    fill: var(--inst-plan-tile-2);
+  }
+  & .arsofa {
+    fill: var(--inst-sg-lb);
+    opacity: 0.55;
+  }
+  & .arsofa2 {
+    fill: var(--inst-sg-lb);
+    opacity: 0.75;
+  }
+  & .arcord {
+    stroke: var(--inst-sg-ln);
+    stroke-width: 1.5;
+  }
+  & .arlamp {
+    fill: var(--inst-sg-lit);
+  }
+  & .arglow {
+    fill: var(--inst-sg-lit);
+    opacity: 0.12;
+  }
+  & .arplant {
+    fill: var(--inst-sg-tree);
+  }
+  & .arpanel {
+    fill: var(--inst-il-arpanel-fill);
+    stroke: var(--inst-sg-ln);
+    stroke-width: 1;
+  }
+  & .ardev {
+    fill: var(--inst-sg-w);
+    stroke: var(--inst-sg-ln);
+    stroke-width: 0.8;
+    opacity: 0.6;
+    transition:
+      opacity 0.6s,
+      fill 0.6s;
+  }
+  & .arbpl {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 0.5;
+    opacity: 0.25;
+  }
+  & .arheat {
+    fill: none;
+    stroke: var(--inst-il-nvrh-c);
+    stroke-width: 2.2;
+    opacity: 0.85;
+  }
+  & .arrack {
+    fill: var(--inst-plan-card);
+    stroke: var(--accent);
+    stroke-width: 2;
+  }
+  & .arrackl {
+    stroke: var(--inst-il-arrackl-line);
+    stroke-width: 5;
+  }
+  & .arled {
+    fill: var(--inst-scene-beam-ok);
+    animation: inst-arblink 1.2s steps(2) infinite;
+  }
+  & .arled.b {
+    fill: var(--inst-plan-send-to);
+    animation-delay: 0.6s;
+  }
+  & .arhs {
+    cursor: pointer;
+    outline: none;
+  }
+  & .arhsr {
+    fill: var(--hc);
+    opacity: 0.18;
+    transform-origin: center;
+    transform-box: fill-box;
+  }
+  & .arhsc {
+    fill: var(--hc);
+    stroke: var(--card);
+    stroke-width: 2.5;
+  }
+  & .arhst {
+    font: 900 12px var(--font-sans);
+    fill: var(--inst-band-button-ink);
+  }
+  & .arhs.on .arhsr {
+    opacity: 0.35;
+    animation: inst-arring 1.6s ease-out infinite;
+  }
+  & .arhs.on .arhsc {
+    stroke: var(--inst-plan-white);
+    stroke-width: 3;
+  }
+  & .arhs:focus-visible .arhsc {
+    stroke: var(--accent-text);
+    stroke-width: 4;
+  }
+  & .arinfo {
+    padding: 16px 20px 18px;
+    border-top: 1px solid var(--border);
+    background: var(--card-2);
+    min-height: 118px;
+    box-sizing: border-box;
+  }
+  & .arinfoh {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  & .arinfoh b {
+    font-size: 16.5px;
+  }
+  & .arnum {
+    width: 30px;
+    height: 30px;
+    flex: none;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--hc);
+    color: var(--inst-band-button-ink);
+    font-weight: 900;
+    font-size: 14px;
+  }
+  & .arinfog {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  & .arinfog em {
+    display: block;
+    font-style: normal;
+    font-size: 11.5px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--hc, var(--accent-text));
+    margin-bottom: 4px;
+  }
+  & .arinfog span {
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  & .arnav {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    border: 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface-3);
+    color: var(--ink);
+  }
+  @media (hover: hover) {
+    & .arnav:hover {
+      background: var(--accent-soft);
+      color: var(--accent-text);
+    }
+  }
+  & .arprc {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  & .arprd {
+    margin: 0;
+    color: var(--ink-2);
+    font-size: 15px;
+  }
+  & .arpra {
+    margin-top: auto;
+    padding: 14px;
+    border-radius: 16px;
+    background: var(--accent-soft);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  & .arpra em {
+    font-style: normal;
+    font-size: 11.5px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-text);
+  }
+  & .arpra span {
+    font-size: 14.5px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.45;
+  }
+  & .arbr {
+    margin-top: 22px;
+    display: grid;
+    grid-template-columns: 1.2fr repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    align-items: center;
+    padding: 22px 26px;
+    border-radius: 22px;
+    background: var(--surface-2);
+    box-shadow: inset 0 0 0 1px var(--border);
+  }
+  & .arbrl {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  & .arbrl b {
+    font-size: 17px;
+  }
+  & .arbrl span {
+    font-size: 13px;
+    color: var(--ink-2);
+  }
+  & .arbri {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  & .arbri b {
+    font-family: var(--font-display);
+    font-stretch: 118%;
+    font-weight: 900;
+    font-size: 38px;
+    color: var(--accent-text);
+    line-height: 1;
+  }
+  & .arbri span {
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    line-height: 1.4;
+  }
+  & .artabs {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  & .artrack {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 3px;
+    border-radius: 3px;
+    background: var(--border);
+  }
+  & .artrack i {
+    display: block;
+    height: 100%;
+    border-radius: 3px;
+    background: var(--accent);
+    transition: width 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  & .artab {
+    text-align: left;
+    cursor: pointer;
+    border: 0;
+    background: transparent;
+    color: var(--ink-2);
+    padding: 18px 6px 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    font-family: inherit;
+    border-radius: 0;
+  }
+  & .artab em {
+    font-style: normal;
+    font: 900 13px var(--font-display);
+    color: var(--ink-2);
+  }
+  & .artab b {
+    font-size: 16px;
+    color: var(--ink-soft);
+  }
+  & .artab span {
+    font-size: 12.5px;
+  }
+  & .artab.on b,
+  & .artab.on em {
+    color: var(--accent-text);
+  }
+  & .aretp {
+    padding: 30px;
+  }
+  & .aretph {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 22px;
+    flex-wrap: wrap;
+  }
+  & .aretph > div {
+    display: flex;
+    flex-direction: column;
+  }
+  & .arbig {
+    font-family: var(--font-display);
+    font-stretch: 125%;
+    font-weight: 900;
+    font-size: 64px;
+    line-height: 0.9;
+    color: var(--accent-text);
+    opacity: 0.9;
+  }
+  & .aretg {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+  & .aretg > div {
+    padding: 20px;
+    border-radius: 18px;
+    background: var(--surface-2);
+    box-shadow: inset 0 0 0 1px var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  & .aretg > div:nth-child(2) {
+    background: var(--accent-soft);
+    box-shadow: inset 0 0 0 1.5px var(--accent-line);
+  }
+  & .aretg em {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-style: normal;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-text);
+  }
+  & .aretg p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+  & .arwy {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 56px minmax(0, 1fr);
+    gap: 16px;
+    align-items: stretch;
+  }
+  & .arwyc {
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    border-radius: 26px;
+  }
+  & .arwyc.hi {
+    color: var(--inst-deep-ink);
+    background: radial-gradient(
+      90% 120% at 100% 0%,
+      var(--inst-deep-1) 0%,
+      var(--inst-deep-2) 55%,
+      var(--inst-deep-3) 100%
+    );
+    box-shadow:
+      inset 0 0 0 1px var(--inst-il-clcd-sh),
+      0 30px 70px -40px var(--inst-band-button-glow);
+  }
+  & .arwyc.hi .eye {
+    color: var(--inst-plan-accent);
+  }
+  & .arwyc.hi .arwyi span {
+    color: var(--inst-plan-soft);
+  }
+  & .arwyi {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  & .arwyi > i {
+    width: 10px;
+    height: 10px;
+    margin-top: 7px;
+    flex: none;
+    border-radius: 3px;
+    background: var(--border);
+    box-shadow: inset 0 0 0 2px var(--ink-2);
+  }
+  & .arwyi div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  & .arwyi b {
+    font-size: 16px;
+  }
+  & .arwyi span {
+    font-size: 14.5px;
+    color: var(--ink-2);
+  }
+  & .arok {
+    width: 24px;
+    height: 24px;
+    flex: none;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--inst-plan-send-to);
+    color: var(--inst-band-button-ink);
+  }
+  & .arwya {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent-text);
+  }
+  & .arwyn {
+    margin: 6px 0 0;
+    font-size: 13.5px;
+    color: var(--inst-plan-soft);
+    padding-top: 14px;
+    border-top: 1px solid var(--inst-plan-num);
+  }
+  & .arck {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: 18px;
+    align-items: start;
+  }
+  & .arckl {
+    padding: 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    position: sticky;
+    top: 130px;
+  }
+  & .arckh {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+  & .archips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  & .arsyss {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  & .arsys {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 40px;
+    padding: 0 13px;
+    border-radius: 12px;
+    border: 0;
+    cursor: pointer;
+    font: 800 13.5px var(--font-sans);
+    background: var(--surface-3);
+    color: var(--ink-2);
+    transition: all 0.2s;
+  }
+  & .arsys i {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--ink-2);
+    opacity: 0.5;
+  }
+  & .arsys.on {
+    color: var(--ink);
+    background: var(--card-2);
+    box-shadow: inset 0 0 0 1.5px var(--hc);
+  }
+  & .arsys.on i {
+    background: var(--hc);
+    opacity: 1;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--hc) 25%, transparent);
+  }
+  & .arpdf {
+    margin-top: 8px;
+    padding: 18px;
+    border-radius: 18px;
+    background: var(--accent-soft);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  & .arpdff {
+    display: flex;
+    gap: 8px;
+  }
+  & .arpdff .zin {
+    min-height: 46px;
+  }
+  & .arckr {
+    padding: 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  & .arckt {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  & .arckt > div:first-child {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  & .arckp {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 160px;
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--ink-2);
+    text-align: right;
+  }
+  & .arckp i {
+    display: block;
+    height: 8px;
+    border-radius: 8px;
+    background: var(--surface-3);
+    overflow: hidden;
+  }
+  & .arckp s {
+    display: block;
+    height: 100%;
+    background: var(--ok);
+    transition: width 0.4s;
+    text-decoration: none;
+  }
+  & .arckg {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  & .arckgh {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12.5px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-text);
+    margin-bottom: 2px;
+  }
+  & button.arci {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    text-align: left;
+    padding: 12px 14px;
+    border-radius: 14px;
+    border: 0;
+    cursor: pointer;
+    background: var(--surface-2);
+    color: var(--ink);
+    font: 600 14.5px var(--font-sans);
+    box-shadow: inset 3px 0 0 var(--hc);
+    transition:
+      background 0.2s,
+      opacity 0.2s;
+  }
+  @media (hover: hover) {
+    & button.arci:hover {
+      background: var(--surface-3);
+    }
+  }
+  & .arbox {
+    width: 22px;
+    height: 22px;
+    flex: none;
+    border-radius: 7px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 0 0 2px var(--border);
+    color: transparent;
+    transition: all 0.2s;
+  }
+  & button.arci.on .arbox {
+    background: var(--ok);
+    color: var(--inst-band-button-ink);
+    box-shadow: none;
+  }
+  & button.arci.on .arckx {
+    text-decoration: line-through;
+    text-decoration-color: var(--ink-2);
+    color: var(--ink-2);
+  }
+  & .arckx {
+    flex: 1;
+    line-height: 1.45;
+  }
+  & button.arci em {
+    font-style: normal;
+    font-size: 11.5px;
+    font-weight: 800;
+    color: var(--hc);
+    white-space: nowrap;
+  }
+  & .arin2 {
+    display: grid;
+    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+    gap: 18px;
+    align-items: start;
+  }
+  & .arsvl {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  & .arsv {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    text-align: left;
+    padding: 12px;
+    border-radius: 16px;
+    border: 0;
+    cursor: pointer;
+    background: var(--card);
+    color: var(--ink);
+    box-shadow: inset 0 0 0 1px var(--border);
+    font-family: inherit;
+    transition:
+      box-shadow 0.2s,
+      transform 0.2s,
+      background 0.2s;
+  }
+  @media (hover: hover) {
+    & .arsv:hover {
+      transform: translateY(-1px);
+    }
+  }
+  & .arsv.big {
+    grid-column: span 2;
+    padding: 16px;
+  }
+  & .arsv.big .arsvt b {
+    font-size: 17px;
+  }
+  & .arsv.on {
+    background: var(--card-2);
+    box-shadow:
+      inset 0 0 0 2px var(--hc),
+      0 18px 40px -26px var(--hc);
+  }
+  & .arsvi {
+    width: 40px;
+    height: 40px;
+    flex: none;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--hc);
+    background: color-mix(in srgb, var(--hc) 15%, transparent);
+  }
+  & .arsvi.lg {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+  }
+  & .arsvt {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+  & .arsvt b {
+    font-size: 14.5px;
+    line-height: 1.25;
+  }
+  & .arsvt span {
+    font-size: 12.5px;
+    color: var(--ink-2);
+    line-height: 1.35;
+  }
+  & .arsvd {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-height: 100%;
+    box-sizing: border-box;
+    position: sticky;
+    top: 130px;
+    background:
+      radial-gradient(
+        80% 60% at 100% 0%,
+        color-mix(in srgb, var(--hc) 14%, transparent),
+        transparent 70%
+      ),
+      var(--card);
+  }
+  & .arsvdh {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  & .arsvdt {
+    font-size: clamp(22px, 2.2vw, 30px);
+  }
+  & .arsvdd {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  & .arsvdg {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 20px;
+    padding: 20px 0 4px;
+    border-top: 1px solid var(--border);
+  }
+  & .arsvdg em {
+    display: block;
+    font-style: normal;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--hc);
+    margin-bottom: 10px;
+  }
+  & .arsvdg p {
+    margin: 0 0 10px;
+    display: flex;
+    gap: 10px;
+    font-size: 14.5px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+  & .arsvdg .arok {
+    width: 20px;
+    height: 20px;
+    border-radius: 6px;
+    background: var(--hc);
+    margin-top: 1px;
+  }
+  & .arlook {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  & .arnf {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 22px;
+  }
+  & .arty {
+    position: absolute;
+    left: 14px;
+    top: 14px;
+    padding: 5px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 800;
+    background: var(--card);
+    color: var(--hc);
+    box-shadow: inset 0 0 0 1px var(--border);
+  }
+  & .arnl {
+    margin-top: 22px;
+    display: grid;
+    grid-template-columns: 1fr minmax(0, 440px);
+    gap: 24px;
+    align-items: center;
+    padding: 26px 28px;
+    border-radius: 24px;
+    background: var(--card);
+    box-shadow: inset 0 0 0 1.5px var(--accent-line);
+  }
+  & .arnl > div:first-child {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  & .arpk {
+    padding: 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-height: 250px;
+  }
+  & .arpk p {
+    margin: 0;
+    color: var(--ink-2);
+    font-size: 15px;
+  }
+  & .arop {
+    display: grid;
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: 40px;
+    align-items: center;
+    padding: 40px;
+    border-radius: 30px;
+    color: var(--inst-deep-ink);
+    background: radial-gradient(
+      90% 140% at 100% 0%,
+      var(--inst-deep-1) 0%,
+      var(--inst-deep-2) 55%,
+      var(--inst-deep-3) 100%
+    );
+    box-shadow: inset 0 0 0 1px var(--inst-deep-ring);
+  }
+  & .aropp {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  & .aropa {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: linear-gradient(160deg, var(--inst-il-aropa-bg), var(--inst-deep-2));
+    box-shadow:
+      0 0 0 6px var(--inst-il-aropa-sh),
+      0 30px 60px -30px var(--inst-band-button-glow);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    overflow: hidden;
+  }
+  & .aropa svg {
+    width: 80%;
+    fill: var(--inst-il-aropa-fill);
+  }
+  & .aropt {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  & .aropr {
+    font-size: 15px;
+    color: var(--inst-plan-soft);
+    font-weight: 700;
+  }
+  & .aropq {
+    margin: 4px 0;
+    font-size: clamp(18px, 1.6vw, 22px);
+    line-height: 1.5;
+    font-weight: 600;
+    color: var(--inst-il-evsnow-fill);
+    max-width: 60ch;
+    padding-left: 18px;
+    border-left: 3px solid var(--inst-plan-send-to);
+  }
+  & .aropn {
+    font-size: 13.5px;
+    color: var(--inst-plan-muted);
+  }
+  & .arfm {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: 44px;
+    align-items: start;
+  }
+  & .arfml {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: sticky;
+    top: 130px;
+  }
+  & .arsteps {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 6px;
+  }
+  & .arsteps > div {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    font-weight: 700;
+    color: var(--ink-soft);
+  }
+  & .arsteps em {
+    width: 36px;
+    height: 36px;
+    flex: none;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-style: normal;
+    font: 900 15px var(--font-display);
+    background: var(--accent-soft);
+    color: var(--accent-text);
+    box-shadow: inset 0 0 0 1.5px var(--accent-line);
+  }
+  & .arfmr {
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  & .arfg {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  & .arfl {
+    font-size: 12.5px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+  & .arf2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  & .arfile {
+    position: relative;
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    padding: 18px;
+    border-radius: 16px;
+    cursor: pointer;
+    border: 1.5px dashed var(--accent-line);
+    background: var(--accent-soft);
+    transition: border-color 0.2s;
+  }
+  @media (hover: hover) {
+    & .arfile:hover {
+      border-color: var(--accent);
+    }
+  }
+  & .arfile > span:last-child {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  & .arfiles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  & .arerr {
+    margin: 0;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: var(--inst-il-arerr-bg);
+    color: var(--inst-il-nvrh-c);
+    font-weight: 700;
+    font-size: 14px;
+  }
+  & .arsent {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 10px 0;
+  }
+  & .arsent p {
+    margin: 0;
+    color: var(--ink-soft);
+  }
+  & .arokb {
+    width: 60px;
+    height: 60px;
+    border-radius: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--ok);
+    color: var(--inst-band-button-ink);
+  }
+  & .arhm {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: 44px;
+    align-items: center;
+    padding: 48px;
+    border-radius: 32px;
+    overflow: hidden;
+    background:
+      radial-gradient(
+        70% 90% at 0% 0%,
+        color-mix(in srgb, var(--accent) 16%, transparent),
+        transparent 65%
+      ),
+      var(--card);
+    box-shadow:
+      inset 0 0 0 1px var(--border),
+      var(--shadow);
+  }
+  & .arhm::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--dot) 1px, transparent 1px),
+      linear-gradient(90deg, var(--dot) 1px, transparent 1px);
+    background-size: 28px 28px;
+    mask-image: radial-gradient(60% 70% at 0% 0%, var(--inst-mask), transparent);
+    -webkit-mask-image: radial-gradient(60% 70% at 0% 0%, var(--inst-mask), transparent);
+    pointer-events: none;
+  }
+  & .arhmt {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  & .arhml {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  & .arhml > div {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 14px;
+    border-radius: 16px;
+    background: var(--surface-2);
+    box-shadow: inset 0 0 0 1px var(--border);
+  }
+  & .arhml b {
+    display: block;
+    font-size: 15px;
+    line-height: 1.3;
+  }
+  & .arhml span {
+    font-size: 13px;
+    color: var(--ink-2);
+    line-height: 1.4;
+  }
+  & .arhmv {
+    position: relative;
+  }
+  & .arhmn {
+    position: relative;
+    margin: 14px 0 0 auto;
+    z-index: 4;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    max-width: 300px;
+    padding: 12px 14px;
+    border-radius: 16px;
+    background: var(--card);
+    box-shadow:
+      inset 0 0 0 1px var(--border),
+      0 24px 50px -24px var(--inst-ob-shadow);
+  }
+  & .arhmn .arty {
+    position: static;
+    flex: none;
+  }
+  & .arhmn span:last-child {
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.35;
+  }
+  @media (max-width: 1100px) {
+    & .arbr {
+      grid-template-columns: 1fr 1fr;
+    }
+    & .arbrl {
+      grid-column: span 2;
+    }
+    & .artabs {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    & .artrack {
+      display: none;
+    }
+    & .artab {
+      background: var(--card);
+      border-radius: 14px;
+      padding: 12px;
+      box-shadow: inset 0 0 0 1px var(--border);
+    }
+    & .artab.on {
+      box-shadow: inset 0 0 0 2px var(--accent);
+    }
+    & .aretg {
+      grid-template-columns: 1fr;
+    }
+    & .arwy {
+      grid-template-columns: 1fr;
+    }
+    & .arwya {
+      transform: rotate(90deg);
+      height: 40px;
+    }
+    & .arck,
+    & .arin2,
+    & .arfm {
+      grid-template-columns: 1fr;
+    }
+    & .arckl,
+    & .arsvd,
+    & .arfml {
+      position: static;
+    }
+    & .arop {
+      grid-template-columns: 1fr;
+      text-align: left;
+    }
+    & .aropp {
+      align-items: flex-start;
+    }
+    & .arnl {
+      grid-template-columns: 1fr;
+    }
+    & .arhm {
+      grid-template-columns: 1fr;
+      padding: 32px;
+    }
+  }
+  @media (max-width: 760px) {
+    & .arbar {
+      left: 10px;
+      right: 10px;
+      top: 10px;
+    }
+    & .arlbl {
+      font-size: 11.5px;
+      padding: 6px 10px;
+    }
+    & .arinfo {
+      padding: 14px 16px;
+    }
+    & .arinfog {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    & .arpr {
+      display: grid !important;
+      grid-template-columns: 1fr !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow: visible !important;
+    }
+    & .arbr {
+      grid-template-columns: 1fr;
+      padding: 18px;
+    }
+    & .arbrl {
+      grid-column: auto;
+    }
+    & .arbri b {
+      font-size: 32px;
+    }
+    & .artabs {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      margin: 0 -16px 14px;
+      padding: 2px 16px 8px;
+      scrollbar-width: none;
+    }
+    & .artab {
+      flex: 0 0 46%;
+      scroll-snap-align: start;
+    }
+    & .aretp {
+      padding: 20px;
+    }
+    & .arbig {
+      font-size: 40px;
+    }
+    & .arsvl {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      margin: 0 -16px;
+      padding: 2px 16px 10px;
+      gap: 8px;
+      scrollbar-width: none;
+    }
+    & .arsv,
+    & .arsv.big {
+      flex: 0 0 auto;
+      grid-column: auto;
+      padding: 8px 14px 8px 8px;
+      gap: 8px;
+      scroll-snap-align: start;
+      border-radius: 14px;
+    }
+    & .arsvi {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+    }
+    & .arsvt span {
+      display: none;
+    }
+    & .arsvt b,
+    & .arsv.big .arsvt b {
+      font-size: 13.5px;
+      white-space: nowrap;
+    }
+    & .aretph {
+      gap: 12px;
+      margin-bottom: 16px;
+      flex-wrap: nowrap;
+    }
+    & .arckl .chip {
+      min-height: 38px;
+      font-size: 13px;
+    }
+    & .aretph .arnav {
+      display: none;
+    }
+    & .aretph > span:last-child {
+      display: none;
+    }
+    & .arhml span span {
+      display: none;
+    }
+    & .arhml > div {
+      padding: 12px;
+      align-items: center;
+    }
+    & .arckp {
+      min-width: 0;
+      width: 100%;
+      text-align: left;
+    }
+    & .arsvd {
+      padding: 22px;
+    }
+    & .arsvdg {
+      grid-template-columns: 1fr;
+    }
+    & .arnf {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      margin: 0 -16px 16px;
+      padding: 0 16px 4px;
+      scrollbar-width: none;
+    }
+    & .arnf .chip {
+      flex: none;
+    }
+    & .arpdff {
+      flex-direction: column;
+    }
+    & .arop {
+      padding: 26px;
+      gap: 22px;
+    }
+    & .aropa {
+      width: 120px;
+      height: 120px;
+    }
+    & .arf2 {
+      grid-template-columns: 1fr;
+    }
+    & .arfmr {
+      padding: 20px;
+    }
+    & .arhm {
+      padding: 22px;
+      border-radius: 24px;
+      gap: 26px;
+    }
+    & .arhml {
+      grid-template-columns: 1fr;
+    }
+    & .arhmn {
+      position: relative;
+      right: auto;
+      bottom: auto;
+      margin-top: 12px;
+      max-width: none;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    & .arled,
+    & .arhs.on .arhsr {
+      animation: none;
+    }
+  }
+  & .ars {
+    position: relative;
+    border-radius: 28px;
+    overflow: hidden;
+    background: var(--card);
+    box-shadow:
+      inset 0 0 0 1px var(--border),
+      var(--shadow);
+  }
+  & .ars .arbar {
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    top: 12px;
+    z-index: 3;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    pointer-events: none;
+  }
+  & .armodes {
+    pointer-events: auto;
+    display: flex;
+    gap: 4px;
+    padding: 4px;
+    border-radius: 14px;
+    background: var(--header-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: inset 0 0 0 1px var(--border);
+  }
+  & .armode {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    min-height: 38px;
+    padding: 0 12px;
+    border-radius: 10px;
+    border: 0;
+    cursor: pointer;
+    font: 800 13px var(--font-sans);
+    background: transparent;
+    color: var(--ink-2);
+    transition:
+      background 0.2s,
+      color 0.2s;
+  }
+  @media (hover: hover) {
+    & .armode:hover {
+      color: var(--ink);
+    }
+  }
+  & .armode.on {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+  & .ars .arlbl {
+    font-size: 12.5px;
+  }
+  & .ars.m-in .arlbl i,
+  & .ars.m-ty .arlbl i {
+    background: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-soft);
+    animation: inst-arpulse 1.6s ease-in-out infinite;
+  }
+  & .ars .arsvg {
+    margin-top: 62px;
+  }
+  & .ars text {
+    font-family: var(--font-sans);
+  }
+  & .arsoilb {
+    fill: var(--inst-sg-pil);
+  }
+  & .arsd {
+    fill: var(--inst-sg-ln);
+  }
+  & .argrass {
+    fill: var(--inst-sg-tree);
+    opacity: 0.75;
+  }
+  & .artree {
+    fill: var(--inst-sg-tree);
+  }
+  & .artree2 {
+    fill: var(--inst-sg-tree);
+    opacity: 0.75;
+  }
+  & .artrunk {
+    fill: var(--inst-sg-fu);
+  }
+  & .arfence {
+    stroke: var(--inst-sg-ln);
+    stroke-width: 3;
+  }
+  & .arpost {
+    fill: var(--inst-sg-ln);
+  }
+  & .arterr {
+    fill: var(--inst-sg-fu);
+  }
+  & .arrock {
+    fill: var(--inst-sg-lb);
+    opacity: 0.85;
+  }
+  & .arroof {
+    fill: var(--inst-sg-roof);
+  }
+  & .arattic {
+    fill: var(--inst-sg-pil);
+  }
+  & .armast {
+    stroke: var(--inst-sg-lb);
+    stroke-width: 3;
+    fill: none;
+  }
+  & .ardish {
+    fill: var(--inst-sg-lb);
+  }
+  & .arwall2 {
+    fill: var(--inst-sg-w);
+    opacity: 0.9;
+  }
+  & .arwin {
+    fill: url(#arsky);
+  }
+  & .ardoor {
+    fill: var(--inst-sg-fu);
+  }
+  & .arcar {
+    fill: var(--inst-il-arcar-fill);
+  }
+  & .arwheel {
+    fill: var(--inst-il-arwheel-fill);
+  }
+  & .arbath {
+    fill: var(--inst-scene-snow);
+    opacity: 0.8;
+  }
+  & .armirror {
+    fill: var(--inst-sg-win);
+  }
+  & .arwood2 {
+    fill: var(--inst-sg-fu);
+  }
+  & .arbox2 {
+    fill: var(--inst-sg-lb);
+    opacity: 0.5;
+  }
+  & .arboxl {
+    stroke: var(--inst-sg-in);
+    stroke-width: 2;
+  }
+  & .ardev2 {
+    fill: var(--inst-sg-dev);
+    opacity: 0.85;
+  }
+  & .arev {
+    fill: var(--inst-deep-ink);
+    stroke: var(--inst-il-sgev-fill);
+    stroke-width: 1.5;
+  }
+  & .arblue {
+    fill: url(#arbp);
+    opacity: 0;
+    transition: opacity 0.6s;
+  }
+  & .arring {
+    fill: none;
+    stroke: var(--warn);
+    stroke-width: 2;
+    stroke-dasharray: 4 3;
+  }
+  & .arpipe {
+    fill: none;
+    stroke: var(--inst-sg-lb);
+    stroke-width: 9;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0.55;
+  }
+  & .arfib {
+    fill: none;
+    stroke: var(--inst-il-sgtbox-fill);
+    stroke-width: 2.2;
+    stroke-dasharray: 3 5;
+    stroke-linecap: round;
+    animation: inst-arflow 1.8s linear infinite;
+  }
+  & .arw {
+    fill: none;
+    stroke-width: 2;
+    stroke-dasharray: 6 5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    animation: inst-arflow 1.4s linear infinite;
+    transition: opacity 0.4s;
+  }
+  & .arw.L-kam {
+    stroke: var(--inst-plan-send-to);
+  }
+  & .arw.L-smart {
+    stroke: var(--inst-scene-beam-ok);
+  }
+  & .arw.L-snd {
+    stroke: var(--inst-il-sgloop-line);
+  }
+  & .arw.L-wifi {
+    stroke: var(--inst-hue-blue);
+  }
+  & .arw.L-ant {
+    stroke: var(--inst-hue-violet);
+  }
+  & .arw.L-alarm {
+    stroke: var(--inst-il-nvrh-c);
+  }
+  & .arw.L-kd {
+    stroke: var(--inst-promo-warm);
+  }
+  & .arw.L-scr {
+    stroke: var(--inst-il-sgtx-line);
+  }
+  & .arw.L-ev {
+    stroke: var(--inst-il-sgev-fill);
+  }
+  & .arheat {
+    fill: none;
+    stroke: var(--inst-il-nvrh-c);
+    stroke-width: 2;
+    opacity: 0.8;
+  }
+  & .arrn text {
+    font-size: 11.5px;
+    font-weight: 800;
+    fill: var(--ink-2);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  & .ars .fin,
+  & .ars .arcabs,
+  & .ars .arbox,
+  & .ars .arhsg,
+  & .ars .arblue,
+  & .ars .ardevs,
+  & .ars .arrackg {
+    transition: opacity 0.6s ease;
+  }
+  & .ars.m-kl .arcabs,
+  & .ars.m-kl .arbox,
+  & .ars.m-kl .arhsg {
+    opacity: 0;
+    pointer-events: none;
+  }
+  & .ars.m-kl .ardevs {
+    opacity: 0.45;
+  }
+  & .ars.m-kl .arrackg {
+    opacity: 0.35;
+  }
+  & .ars.m-ty .fin {
+    opacity: 0.18;
+  }
+  & .ars.m-ty .arblue {
+    opacity: 0.55;
+  }
+  & .ars.m-ty .ardevs {
+    opacity: 0.25;
+  }
+  & .ars.m-ty .arbox {
+    opacity: 1;
+  }
+  & .ars.m-ty .artv {
+    opacity: 0.25;
+  }
+  & .ars.m-in .fin {
+    opacity: 0.5;
+  }
+  & .ars.m-in .arbox {
+    opacity: 0;
+  }
+  & .ars.m-in .arblue {
+    opacity: 0.25;
+  }
+  & .ars.m-in .ardev,
+  & .ars.m-in .ardev2 {
+    fill: var(--accent-text);
+    opacity: 1;
+  }
+  & .ars .arhs {
+    transition: opacity 0.35s;
+  }
+  & .off-kam .L-kam,
+  & .off-alarm .L-alarm,
+  & .off-kd .L-kd,
+  & .off-wifi .L-wifi,
+  & .off-smart .L-smart,
+  & .off-snd .L-snd,
+  & .off-scr .L-scr,
+  & .off-ant .L-ant,
+  & .off-ev .L-ev,
+  & .off-tel .L-tel {
+    opacity: 0.06 !important;
+    pointer-events: none;
+  }
+  & .off-tel .arpipe,
+  & .off-tel .arfib {
+    opacity: 0.08;
+  }
+  & .arlayers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+    padding: 12px 16px;
+    border-top: 1px solid var(--border);
+    background: var(--card);
+  }
+  & .arlayers > span {
+    font-size: 11.5px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    margin-right: 4px;
+  }
+  & .arsys.sm {
+    min-height: 32px;
+    padding: 0 10px;
+    font-size: 12px;
+    border-radius: 10px;
+  }
+  & .arlall {
+    min-height: 32px;
+    padding: 0 10px;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    font: 800 12px var(--font-sans);
+    color: var(--accent-text);
+  }
+  & .ars .arinfo {
+    min-height: 0;
+  }
+  & .arinfot {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+  }
+  & .arinfot > span {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  & .arsvt2,
+  & .arstg {
+    font-style: normal;
+    font-size: 11.5px;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: 999px;
+  }
+  & .arsvt2 {
+    color: var(--hc);
+    background: color-mix(in srgb, var(--hc) 14%, transparent);
+  }
+  & .arstg {
+    color: var(--warn);
+    background: color-mix(in srgb, var(--warn) 14%, transparent);
+  }
+  & .arinfon {
+    margin-left: auto;
+    display: flex;
+    gap: 6px;
+  }
+  & .ars .arinfog {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  & .arspec {
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: var(--surface-2);
+    box-shadow: inset 0 0 0 1px var(--border);
+  }
+  & .arspec span {
+    font-weight: 700;
+    color: var(--ink) !important;
+  }
+  @media (max-width: 1100px) {
+    & .ars .arinfog {
+      grid-template-columns: 1fr 1fr;
+    }
+    & .ars .arspec {
+      grid-column: span 2;
+    }
+  }
+  @media (max-width: 760px) {
+    & .ars .arbar {
+      left: 8px;
+      right: 8px;
+      top: 8px;
+    }
+    & .ars .arlbl {
+      display: none;
+    }
+    & .armode {
+      min-height: 34px;
+      padding: 0 9px;
+      font-size: 11.5px;
+      gap: 5px;
+    }
+    & .armode svg {
+      display: none;
+    }
+    & .ars .arsvg {
+      margin-top: 52px;
+    }
+    & .arlayers {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding: 10px 12px;
+    }
+    & .arlayers .arsys {
+      flex: none;
+    }
+    & .ars .arinfog {
+      grid-template-columns: 1fr;
+    }
+    & .ars .arspec {
+      grid-column: auto;
+    }
+    & .arrn {
+      display: none;
+    }
+  }
+  & .arhead {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: 48px;
+    align-items: end;
+    margin: 22px 0 34px;
+  }
+  & .arhead .h1 {
+    font-size: clamp(42px, 5vw, 76px);
+  }
+  & .arheadr {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+  & .arstage {
+    position: relative;
+  }
+  & .arcore {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 360px;
+  }
+  & .arsvgw {
+    position: relative;
+    min-width: 0;
+    background: linear-gradient(180deg, var(--surface-2), var(--card));
+  }
+  & .ars .arsvg {
+    margin-top: 64px;
+  }
+  & .arcore .arinfo {
+    border-top: 0;
+    border-left: 1px solid var(--border);
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    background: var(--card-2);
+  }
+  & .arcore .arinfoh {
+    align-items: flex-start;
+    margin: 0;
+  }
+  & .arcore .arinfog {
+    grid-template-columns: 1fr !important;
+    gap: 14px;
+  }
+  & .arcore .arspec {
+    grid-column: auto !important;
+  }
+  & .arcore .arinfon {
+    margin-left: 0;
+  }
+  & .arinfoh {
+    flex-wrap: wrap;
+  }
+  & .arkvs {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+  }
+  & .arkvs .kv b {
+    font-size: 34px;
+  }
+  @media (max-width: 1100px) {
+    & .arhead {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    & .arcore {
+      grid-template-columns: 1fr;
+    }
+    & .arcore .arinfo {
+      border-left: 0;
+      border-top: 1px solid var(--border);
+    }
+    & .arkvs {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (max-width: 760px) {
+    & .ars .arsvg {
+      margin-top: 54px;
+    }
+    & .arkvs .kv b {
+      font-size: 26px;
+    }
+    & .arhead {
+      margin: 14px 0 22px;
+    }
+  }
+  & .araudw {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: 22px;
+    align-items: stretch;
+  }
+  & .araudl {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 6px 0;
+  }
+  & .araudtabs {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  & .araud {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 16px 12px 12px;
+    border-radius: 18px;
+    border: 0;
+    cursor: pointer;
+    background: var(--card);
+    color: var(--ink);
+    font: 800 16px var(--font-sans);
+    text-align: left;
+    box-shadow: inset 0 0 0 1px var(--border);
+    transition: all 0.2s;
+  }
+  & .araud > svg:last-child {
+    margin-left: auto;
+    opacity: 0;
+    transition:
+      opacity 0.2s,
+      transform 0.2s;
+  }
+  @media (hover: hover) {
+    & .araud:hover {
+      box-shadow: inset 0 0 0 1.5px var(--accent-line);
+    }
+  }
+  & .araud.on {
+    background: var(--accent-soft);
+    box-shadow: inset 0 0 0 2px var(--accent);
+  }
+  & .araud.on > svg:last-child {
+    opacity: 1;
+    transform: translateX(3px);
+    color: var(--accent-text);
+  }
+  & .araudr {
+    padding: 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    background:
+      radial-gradient(70% 80% at 100% 0%, var(--accent-soft), transparent 70%), var(--card);
+  }
+  & .araudp {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  & .araudp > div {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 14px;
+    border-radius: 16px;
+    background: var(--surface-2);
+    box-shadow: inset 0 0 0 1px var(--border);
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.45;
+  }
+  & .arlz {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+  }
+  & .arlzc {
+    position: relative;
+    padding: 22px;
+    border-radius: 22px;
+    background: var(--card);
+    box-shadow: inset 0 0 0 1px var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    overflow: hidden;
+    transition:
+      transform 0.25s,
+      box-shadow 0.25s;
+  }
+  & .arlzc::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    height: 3px;
+    background: var(--hc);
+  }
+  @media (hover: hover) {
+    & .arlzc:hover {
+      transform: translateY(-3px);
+      box-shadow:
+        inset 0 0 0 1.5px var(--hc),
+        0 22px 50px -32px var(--hc);
+    }
+  }
+  & .arlzc b {
+    font-family: var(--font-display);
+    font-stretch: 118%;
+    font-weight: 900;
+    font-size: 34px;
+    line-height: 1.05;
+    color: var(--hc);
+    letter-spacing: -0.01em;
+  }
+  & .arlzt {
+    font-size: 13.5px;
+    font-weight: 800;
+    color: var(--ink);
+  }
+  & .arlzc p {
+    margin: 6px 0 0;
+    font-size: 14px;
+    color: var(--ink-2);
+    line-height: 1.5;
+  }
+  & .ardvb {
+    position: relative;
+    padding: 48px;
+    border-radius: 34px;
+    color: var(--inst-deep-ink);
+    background:
+      radial-gradient(60% 70% at 100% 0%, var(--inst-deep-1) 0%, transparent 70%),
+      radial-gradient(50% 60% at 0% 100%, var(--inst-plan-2) 0%, transparent 70%),
+      var(--inst-deep-3);
+    box-shadow: inset 0 0 0 1px var(--inst-orbit-2);
+    overflow: hidden;
+    --card: var(--inst-plan-card);
+    --border: var(--inst-il-ardvb-line);
+    --ink-2: var(--inst-il-ardvb-mute);
+    --ink-soft: var(--inst-il-ardvb-soft);
+    --ink: var(--inst-deep-ink);
+    --surface-2: var(--inst-plan-bg-2);
+    --surface-3: var(--inst-plan-bg-3);
+    --accent-text: var(--inst-plan-accent);
+    --accent-soft: var(--inst-il-ardvb-acce);
+    --accent: var(--inst-plan-send-to);
+    --accent-ink: var(--inst-band-button-ink);
+  }
+  & .ardvb .lead {
+    color: var(--inst-il-ardvb-lead-c);
+  }
+  & .ardvd {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+  & .ardvd > div {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    padding: 16px 18px;
+    border-radius: 18px;
+    background: var(--inst-plan-tile);
+    box-shadow: inset 0 0 0 1px var(--inst-plan-line);
+  }
+  & .ardvd b {
+    font-family: var(--font-display);
+    font-stretch: 118%;
+    font-weight: 900;
+    font-size: 34px;
+    color: var(--inst-plan-accent);
+    line-height: 1;
+    flex: none;
+  }
+  & .ardvd span {
+    font-size: 13.5px;
+    color: var(--inst-plan-soft);
+    line-height: 1.4;
+  }
+  & .ardvw {
+    display: grid;
+    grid-template-columns: 260px minmax(0, 1fr);
+    gap: 18px;
+  }
+  & .ardvtabs {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  & .ardvt {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border-radius: 16px;
+    border: 0;
+    cursor: pointer;
+    background: transparent;
+    color: var(--inst-plan-soft);
+    font: 800 15px var(--font-sans);
+    text-align: left;
+    transition: all 0.2s;
+  }
+  @media (hover: hover) {
+    & .ardvt:hover {
+      background: var(--inst-plan-tile-2);
+      color: var(--inst-plan-white);
+    }
+  }
+  & .ardvt.on {
+    background: var(--inst-plan-send-to);
+    color: var(--inst-band-button-ink);
+  }
+  & .ardvp {
+    padding: 28px;
+    border-radius: 24px;
+    background: var(--inst-plan-card);
+    box-shadow: inset 0 0 0 1px var(--inst-deep-ring);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  & .ardvph {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+  }
+  & .ardvi {
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--inst-il-ardvi-bg);
+    color: var(--inst-plan-accent);
+    flex: none;
+  }
+  & .ardvl {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  & .ardvl > div {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 14px;
+    border-radius: 14px;
+    background: var(--inst-plan-tile);
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.45;
+  }
+  & .ardvwhy {
+    padding: 16px 18px;
+    border-radius: 16px;
+    background: var(--inst-res-bad-bg);
+    box-shadow: inset 0 0 0 1px var(--inst-il-ardvwhy-sh);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  & .ardvwhy em {
+    font-style: normal;
+    font-size: 11.5px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--inst-promo-warm);
+  }
+  & .ardvwhy span {
+    font-size: 15px;
+    color: var(--inst-il-evbody-fill);
+    line-height: 1.5;
+  }
+  & .ardvf {
+    margin-top: 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding-top: 22px;
+    border-top: 1px solid var(--inst-plan-num);
+  }
+  & .ardvf span {
+    max-width: 70ch;
+    font-size: 14.5px;
+    color: var(--inst-il-ardvb-lead-c);
+  }
+  & .arexkv {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+  & .arexkv > div {
+    padding: 22px;
+    border-radius: 22px;
+    background: var(--card);
+    box-shadow: inset 0 0 0 1px var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  & .arexkv b {
+    font-family: var(--font-display);
+    font-stretch: 118%;
+    font-weight: 900;
+    font-size: 40px;
+    line-height: 1;
+    color: var(--accent-text);
+  }
+  & .arexkv span {
+    font-size: 14px;
+    color: var(--ink-2);
+  }
+  & .arexg {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    gap: 18px;
+  }
+  & .arexr,
+  & .arexb {
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  & .arexl {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  & .arexl > div {
+    padding: 14px;
+    border-radius: 14px;
+    background: var(--surface-2);
+    box-shadow: inset 0 0 0 1px var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  & .arexl b {
+    font-size: 15px;
+  }
+  & .arexl span {
+    font-size: 13px;
+    color: var(--ink-2);
+  }
+  & .arexbr {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  & .arexbr span {
+    padding: 9px 13px;
+    border-radius: 12px;
+    background: var(--surface-2);
+    box-shadow: inset 0 0 0 1px var(--border);
+    font: 800 14px var(--font-display);
+    font-stretch: 112%;
+    color: var(--ink-soft);
+  }
+  & .arlibc {
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  & .arlibc p {
+    margin: 0;
+    color: var(--ink-2);
+    font-size: 14.5px;
+  }
+  & .arlibs {
+    margin-top: auto;
+    font-size: 12.5px;
+    font-weight: 800;
+    color: var(--warn);
+  }
+  & .arlibe {
+    margin-top: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  & .arlibg {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+  }
+  & .arlibx {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 16px;
+    border-radius: 16px;
+    background: var(--card);
+    box-shadow: inset 0 0 0 1px var(--border);
+    transition:
+      box-shadow 0.2s,
+      transform 0.2s;
+  }
+  @media (hover: hover) {
+    & .arlibx:hover {
+      box-shadow: inset 0 0 0 1.5px var(--accent);
+      transform: translateY(-2px);
+    }
+  }
+  & .arlibx > span {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  & .arlibx b {
+    font-size: 14.5px;
+  }
+  & .arlibx > span > span {
+    font-size: 13px;
+    color: var(--ink-2);
+  }
+  & .arlibx em {
+    font-style: normal;
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--accent-text);
+    white-space: nowrap;
+  }
+  @media (max-width: 1100px) {
+    & .araudw,
+    & .ardvw,
+    & .arexg {
+      grid-template-columns: 1fr;
+    }
+    & .arlz,
+    & .arlibg {
+      grid-template-columns: 1fr 1fr;
+    }
+    & .ardvd {
+      grid-template-columns: 1fr;
+    }
+    & .arexkv {
+      grid-template-columns: 1fr 1fr;
+    }
+    & .ardvtabs {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+  }
+  @media (max-width: 760px) {
+    & .araudtabs {
+      flex-direction: row;
+      overflow-x: auto;
+      margin: 8px -16px 0;
+      padding: 0 16px 6px;
+      scrollbar-width: none;
+    }
+    & .araud {
+      flex: none;
+      font-size: 14px;
+      padding: 8px 12px 8px 8px;
+    }
+    & .araud > svg:last-child {
+      display: none;
+    }
+    & .araudr {
+      padding: 22px;
+    }
+    & .araudp {
+      grid-template-columns: 1fr;
+    }
+    & .arlz {
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    & .arlzc {
+      padding: 16px;
+    }
+    & .arlzc b {
+      font-size: 26px;
+    }
+    & .arlzc p {
+      font-size: 13px;
+    }
+    & .ardvb {
+      padding: 22px;
+      border-radius: 24px;
+      margin: 0 -4px;
+    }
+    & .ardvtabs {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    & .ardvt {
+      flex: none;
+      padding: 10px 12px;
+      font-size: 14px;
+    }
+    & .ardvl {
+      grid-template-columns: 1fr;
+    }
+    & .ardvp {
+      padding: 18px;
+    }
+    & .arexkv b {
+      font-size: 30px;
+    }
+    & .arexl {
+      grid-template-columns: 1fr;
+    }
+    & .arlibg {
+      grid-template-columns: 1fr;
+    }
+    & .arlibo {
+      display: grid !important;
+      grid-template-columns: 1fr !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+  }
+  & .arnf .chip em {
+    background: var(--card);
+    color: var(--ink-2);
+    font-size: 11.5px;
+    width: auto;
+    min-width: 20px;
+    padding: 0 5px;
+    margin-left: 2px;
+  }
+  & .arnf .chip.on em {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+  & .arnx {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
+    gap: 18px;
+    align-items: start;
+  }
+  & .arnxl {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    max-height: 820px;
+    overflow-y: auto;
+    padding: 2px 6px 2px 2px;
+    scrollbar-width: thin;
+  }
+  & .arnwi {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    text-align: left;
+    padding: 10px;
+    border-radius: 18px;
+    border: 0;
+    cursor: pointer;
+    background: var(--card);
+    color: var(--ink);
+    box-shadow: inset 0 0 0 1px var(--border);
+    font-family: inherit;
+    transition:
+      box-shadow 0.2s,
+      transform 0.2s,
+      background 0.2s;
+  }
+  @media (hover: hover) {
+    & .arnwi:hover {
+      transform: translateY(-2px);
+      box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--hc) 60%, transparent);
+    }
+  }
+  & .arnwi.on {
+    background: var(--card-2);
+    box-shadow:
+      inset 0 0 0 2px var(--hc),
+      0 18px 40px -28px var(--hc);
+  }
+  & .arnwth {
+    width: 76px;
+    height: 64px;
+    flex: none;
+    border-radius: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+      radial-gradient(
+        80% 90% at 30% 20%,
+        color-mix(in srgb, var(--hc) 26%, transparent),
+        transparent 75%
+      ),
+      var(--surface-2);
+  }
+  & .arnwth svg {
+    width: 92%;
+    height: 92%;
+  }
+  & .arnwth path,
+  & .arnxa path {
+    fill: none;
+    stroke: var(--hc);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  & .arnwtx {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+  }
+  & .arnwm {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+  & .arnwm em {
+    font-style: normal;
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--hc);
+  }
+  & .arnwm .arty {
+    position: static;
+    padding: 2px 7px;
+    font-size: 10.5px;
+  }
+  & .arnwtx b {
+    font-size: 14.5px;
+    line-height: 1.25;
+  }
+  & .arnwk {
+    font-size: 12px;
+    color: var(--ink-2);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  & .arnxd {
+    position: sticky;
+    top: 130px;
+    border-radius: 28px;
+    overflow: hidden;
+    background: var(--card);
+    box-shadow:
+      inset 0 0 0 1px var(--border),
+      var(--shadow);
+  }
+  & .arnxa {
+    position: relative;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+      radial-gradient(
+        60% 90% at 30% 10%,
+        color-mix(in srgb, var(--hc) 30%, transparent),
+        transparent 70%
+      ),
+      linear-gradient(180deg, var(--surface-2), var(--card));
+    border-bottom: 1px solid var(--border);
+    animation: inst-fadein 0.35s ease;
+  }
+  & .arnxa svg {
+    height: 84%;
+    width: auto;
+  }
+  & .arnxa .arty {
+    position: absolute;
+    left: 18px;
+    top: 18px;
+  }
+  & .arnxpos {
+    position: absolute;
+    right: 18px;
+    top: 18px;
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--ink-2);
+    background: var(--card);
+    padding: 5px 10px;
+    border-radius: 999px;
+    box-shadow: inset 0 0 0 1px var(--border);
+  }
+  & .arnxb {
+    padding: 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  & .arnxt {
+    font-size: clamp(22px, 2.1vw, 30px);
+  }
+  & .arnxdsc {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  & .arnxsp {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  & .arnxsp > div {
+    padding: 12px 14px;
+    border-radius: 14px;
+    background: var(--surface-2);
+    box-shadow: inset 0 0 0 1px var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  & .arnxsp span {
+    font-size: 11.5px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+  & .arnxsp b {
+    font-size: 15px;
+    line-height: 1.35;
+  }
+  & .arnxpl {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px;
+    border-radius: 16px;
+    background: color-mix(in srgb, var(--hc) 9%, transparent);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--hc) 30%, transparent);
+  }
+  & .arnxpl em {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-style: normal;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--hc);
+  }
+  & .arnxpl p {
+    margin: 0;
+    display: flex;
+    gap: 10px;
+    font-size: 14.5px;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+  & .arnxpl .arok {
+    width: 20px;
+    height: 20px;
+    border-radius: 6px;
+    background: var(--hc);
+    margin-top: 1px;
+  }
+  & .arnxm {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  & .arnxm > div {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  & .arnxm em {
+    font-style: normal;
+    font-size: 11.5px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+  & .arnxm > div > span {
+    font-size: 14.5px;
+    font-weight: 700;
+  }
+  & .arnxdl {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  & .arnxf {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-top: 6px;
+    border-top: 1px solid var(--border);
+  }
+  @media (max-width: 1100px) {
+    & .arnx {
+      grid-template-columns: 1fr;
+    }
+    & .arnxd {
+      position: static;
+      order: -1;
+    }
+    & .arnxl {
+      max-height: none;
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (max-width: 760px) {
+    & .arnxl {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      margin: 0 -16px;
+      padding: 4px 16px 10px;
+      gap: 10px;
+      scrollbar-width: none;
+      max-height: none;
+    }
+    & .arnwi {
+      flex: 0 0 78%;
+      scroll-snap-align: start;
+    }
+    & .arnxa {
+      height: 150px;
+    }
+    & .arnxb {
+      padding: 20px;
+    }
+    & .arnxsp,
+    & .arnxm {
+      grid-template-columns: 1fr;
+    }
+  }
+  & .artlw {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 10px;
+    margin-bottom: 26px;
+    padding-top: 6px;
+  }
+  & .artlline {
+    position: absolute;
+    left: 8px;
+    right: 8px;
+    top: 14px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--border), var(--accent), var(--border));
+  }
+  & .artl {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-top: 22px;
+  }
+  & .artl i {
+    position: absolute;
+    left: 0;
+    top: 2px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--card);
+    box-shadow: inset 0 0 0 3px var(--accent-line);
+  }
+  & .artl b {
+    font: 900 17px var(--font-display);
+    font-stretch: 115%;
+    color: var(--ink);
+  }
+  & .artl span {
+    font-size: 12.5px;
+    color: var(--ink-2);
+    line-height: 1.35;
+  }
+  & .arprz {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+  & .arprc2 {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  & .arprc2 p {
+    margin: 0;
+    color: var(--ink-2);
+    font-size: 15px;
+    line-height: 1.55;
+  }
+  & .arprh {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
+  & .arprst {
+    font-size: 12px;
+    font-weight: 800;
+    padding: 5px 10px;
+    border-radius: 999px;
+  }
+  & .arprst.ok {
+    color: var(--ok);
+    background: color-mix(in srgb, var(--ok) 14%, transparent);
+  }
+  & .arprst.warn {
+    color: var(--warn);
+    background: color-mix(in srgb, var(--warn) 14%, transparent);
+  }
+  & .arprst.mut {
+    color: var(--ink-2);
+    background: var(--surface-3);
+  }
+  & .arprd2 {
+    font: 800 13px var(--font-display);
+    color: var(--ink-2);
+  }
+  & .arprp {
+    margin-top: auto;
+    padding: 12px 14px;
+    border-radius: 14px;
+    background: var(--accent-soft);
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  & .arprp em {
+    font-style: normal;
+    font-size: 11.5px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-text);
+  }
+  & .arprp span {
+    font-size: 14.5px;
+    font-weight: 700;
+    line-height: 1.45;
+  }
+  @media (max-width: 1100px) {
+    & .artlw {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      row-gap: 18px;
+    }
+    & .artlline {
+      display: none;
+    }
+  }
+  @media (max-width: 760px) {
+    & .artlw {
+      display: flex;
+      overflow-x: auto;
+      margin: 0 -16px 20px;
+      padding: 6px 16px 6px;
+      scrollbar-width: none;
+    }
+    & .artl {
+      flex: 0 0 46%;
+    }
+    & .arprz {
+      grid-template-columns: 1fr;
+    }
+  }
+  & .arnxl > * {
+    min-width: 0;
+  }
+  & .arnwi {
+    min-width: 0;
+    width: 100%;
+  }
+  & .arnwth {
+    width: 58px;
+    height: 54px;
+  }
+  & .arhmv .ars .arcore {
+    grid-template-columns: 1fr;
+  }
+  & .arhmv .ars .arcore .arinfo {
+    border-left: 0;
+    border-top: 1px solid var(--border);
+  }
+  & .arhmv .ars .arinfog {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  & .arhmv .ars .arspec {
+    grid-column: span 2 !important;
+  }
+  & .arhmv .arlayers {
+    display: none;
+  }
+  @media (max-width: 760px) {
+    & .arsvgw {
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    & .ars .arbar {
+      position: sticky;
+      left: 8px;
+      top: auto;
+      right: auto;
+      width: calc(100vw - 50px);
+      margin: 8px 0 0;
+    }
+    & .ars .arsvg {
+      width: 820px;
+      max-width: none;
+      margin-top: 4px;
+    }
+    & .arsvgw::after {
+      content: 'Przesuń w bok, żeby zobaczyć cały dom →';
+      position: sticky;
+      left: 12px;
+      display: block;
+      width: max-content;
+      margin: -30px 0 10px 12px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--header-bg);
+      font-size: 11.5px;
+      font-weight: 800;
+      color: var(--ink-soft);
+    }
+  }
+
+  /* Light theme: the service colour of small labels darkened like the prototype
+     (`.pk[data-theme=light]`, mixed 60–62% with black), via light-dark() like I6. */
+  & .arsvd .eye,
+  & .arsvdg em,
+  & button.arci em,
+  & .arinfog em {
+    color: light-dark(color-mix(in srgb, var(--hc) 52%, var(--inst-hue-ink)), var(--hc));
+  }
+  & .arsvt2,
+  & .arnwm em,
+  & .arnxpl em,
+  & .arnxd .eye {
+    color: light-dark(color-mix(in srgb, var(--hc) 52%, var(--inst-hue-ink)), var(--hc)) !important;
+  }
+  /* AA in the light theme (axe, e2e I16a): the prototype's 60–62% mix and the stage chip in
+     plain `--warn` fall to 3.5–4.4:1 on the tinted card. */
+  & .arstg {
+    color: light-dark(color-mix(in srgb, var(--warn) 62%, var(--inst-hue-ink)), var(--warn));
+  }
+  /* Section eyebrows: the service-page rule mixes the page hue (`--h`, 3.7:1 on light); this
+     page has no service of its own — the accent text colour like the prototype. */
+  & .inst-ar > section[data-rv] .shead .eye {
+    color: var(--accent-text);
+  }
+
+  /* Forms (I16c): the <form> sits between the card and the fields — it carries the card's
+     column and gap. The e-mail forms wrap name, e-mail and the button in a narrow column. */
+  & .arform {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  & .arpdf .arform,
+  & .arnl .arform {
+    gap: 10px;
+  }
+  & .arform .arpdff {
+    flex-wrap: wrap;
+  }
+  & .arform .arpdff {
+    align-items: flex-end;
+  }
+  & .arform .armail {
+    flex: 1 1 150px;
+    min-width: 0;
+    gap: 6px;
+  }
+
+  /* Stage arrows at the first and last stage (disabled, review I16a). */
+  & .aretph .arnav:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
+
+  /* Reduced motion: also the cable flow and the label dot (the prototype stops only the LEDs and
+     the hotspot ring; spec §4 promises no motion, review I16a). */
+  @media (prefers-reduced-motion: reduce) {
+    & .arw,
+    & .arfib,
+    & .arlbl i {
+      animation: none;
+    }
+  }
+
+  /* Phone: touch targets of 44 px (MOBILE §10, like I9/I10; the prototype has 32–40 px). The
+     hotspots on the drawing stay as drawn (~28 px at 820 px): previous/next in the card reach
+     every one of them. */
+  @media (pointer: coarse), (max-width: 760px) {
+    & .armode,
+    & .arlayers .arsys,
+    & .arlall,
+    & .arck .chip,
+    & .arsyss .arsys,
+    & .arnf .chip,
+    & .ardvt {
+      min-height: 44px;
+    }
+    & .arnav {
+      min-width: 44px;
+      min-height: 44px;
+    }
+  }
+}
+
+@keyframes inst-arflow {
+  to {
+    stroke-dashoffset: -22;
+  }
+}
+
+@keyframes inst-arpulse {
+  50% {
+    box-shadow: 0 0 0 8px transparent;
+  }
+}
+
+@keyframes inst-arring {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+@keyframes inst-arblink {
+  50% {
+    opacity: 0.25;
+  }
+}

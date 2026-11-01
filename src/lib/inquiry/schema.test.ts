@@ -322,6 +322,40 @@ describe('parseInquiryInput — Instalacje (ADR-I002 §4, decided 31.10.2026)', 
     expect(errorsOf({ ...wizard, topics: ['Monitoring'] }, 'instalacje')).toEqual([])
   })
 
+  // Architects' checklist PDF and news by e-mail (ADR-I005 §3, decided 01.11.2026): an e-mail
+  // instead of the phone; „Wyślij rzuty” keeps the phone.
+  it('takes an e-mail instead of the phone for the architects’ e-mail forms', () => {
+    const emailForm = { ...inst, phone: undefined, email: 'anna@pracownia.test' }
+    for (const category of ['Architekci · checklista PDF', 'Architekci · nowości']) {
+      expect(errorsOf({ ...emailForm, category }, 'instalacje'), category).toEqual([])
+      expect(errorsOf({ ...emailForm, category, email: undefined }, 'instalacje')).toEqual([
+        'email',
+      ])
+      // A phone, if given, still has to be a number.
+      expect(errorsOf({ ...emailForm, category, phone: 'abc' }, 'instalacje')).toEqual(['phone'])
+    }
+    expect(errorsOf({ ...emailForm, category: 'Architekci · projekt' }, 'instalacje')).toEqual([
+      'phone',
+    ])
+    // Only for a contact: the planner keeps its phone whatever the category says.
+    expect(
+      errorsOf(
+        {
+          ...emailForm,
+          category: 'Architekci · nowości',
+          type: 'wizard',
+          message: undefined,
+          wizard: { services: [] },
+        },
+        'instalacje',
+      ),
+    ).toEqual(['phone'])
+    // Only on Instalacje: elsewhere the category is a plain label.
+    expect(
+      errorsOf({ ...emailForm, category: 'Architekci · nowości', email: undefined }, 'biznes'),
+    ).toEqual(['phone'])
+  })
+
   it('keeps the other lines as they were', () => {
     expect(errorsOf({ ...inst, phone: undefined, email: 'jan@example.test' }, 'software')).toEqual(
       [],
