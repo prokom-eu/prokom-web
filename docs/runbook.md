@@ -48,17 +48,24 @@ Serwer: VPS webh.pl, Ubuntu 24.04 (ADR-019). Strefa czasu serwera zostaje **UTC*
 5. **DNS:** rekordy `staging` i panelu stagingu wg `docs/dns.md` (najpierw PR, potem panel Seohost: **DNS → Strefy DNS → Dodaj** z IP serwera, ⚙ → „Dodaj nowy rekord”, potem w domenie **Ustawienia DNS → delegacja `dns1/dns2.microhost.pl`** — strefy z panelu obsługują serwery microhost, a `ns1/ns2.seohost.pl` zwracają parking). Sprawdzenie: `Resolve-DnsName staging.prokombiznes.pl -Type A` = IP serwera — dopiero wtedy certyfikaty.
 6. `docker network create prokom-proxy`, plik hasła stagingu (`chmod 644` — Nginx w kontenerze czyta go jako inny użytkownik; hasło jest w nim zahaszowane) i certyfikat **tylko stagingu** (`prokom-staging`), Nginx bez nakładki produkcji — `docs/wdrozenia.md` → „Nginx i staging”. Domeny produkcji (rekordy `@`, panel, certyfikat `prokom-prod`) dochodzą przy pierwszym wdrożeniu produkcji (§3).
 7. Staging — §2.
-8. Kopie:
-   - `age` i `rclone` instaluje już `bootstrap.sh`;
-   - `rclone config` — cel poza serwerem (`TODO(krystian)`: dostawca inny niż serwer — ADR-019), nazwa np. `offsite`;
-   - `.env.backup` wg `.env.example` (sekcja „Backup”): `AGE_RECIPIENT` = klucz publiczny z `age-keygen` (klucz prywatny od razu do menedżera haseł i usunąć z serwera), `RCLONE_REMOTE=offsite:prokom-backups`;
-   - cron (`crontab -e`), noc, poza godziną zadania retencji zapytań (03:00):
+8. **Kopie** (ustawione 1.11.2026; `age` i `rclone` instaluje `bootstrap.sh`):
+   - **Backblaze B2** (ADR-019 „Rozstrzygnięcie”): konto na firmę w regionie **EU Central** (wybór przy rejestracji, potem nie do zmiany), 2FA, wpis „Backblaze B2”. Kosz `prokom-backups-r7k2`: Private, szyfrowanie, **Object Lock** (tylko przy tworzeniu) z domyślną retencją **Compliance 14 dni**, Lifecycle „Keep only the last version”. Klucz aplikacji `prokom-vps-backup`: tylko ten kosz, Read and Write → keyID i applicationKey do menedżera haseł.
+   - klucz B2 w rclone (remote `offsite`, plik `~/.config/rclone/rclone.conf`, 600) — wpisujesz sam, klucz nie trafia do historii ani czatu:
+     ```bash
+     ssh -t prokom-vps 'bash /srv/prokom/prokom-web/scripts/server/b2-key.sh prokom-backups-r7k2'
      ```
-     30 2 * * * cd <repo> && scripts/backup.sh prod >> ../backups/backup.log 2>&1
-     45 2 * * * cd <repo> && scripts/backup.sh staging >> ../backups/backup.log 2>&1
+     W PowerShell komenda w **pojedynczych** cudzysłowach (w podwójnych PowerShell podmienia `$zmienne` na puste), klucz wklejasz prawym przyciskiem.
+   - klucz szyfrujący: `ssh -t prokom-vps 'bash /srv/prokom/prokom-web/scripts/server/age-new.sh'` — **tylko przy pierwszej konfiguracji** (przy odbudowie serwera nie — §6 „Serwer stracony”); klucz prywatny raz na ekranie → menedżer haseł „prokom-web backup age”; na serwerze zostaje tylko publiczny `../secrets/age.pub`. Skrypt odmawia, gdy `age.pub` już jest; planowana zmiana klucza: `--force` (nowa para = tylko nowe kopie, starsze czyta stary klucz — zostaw go w menedżerze haseł, dopóki są kopie nim zaszyfrowane, czyli ~93 dni).
+   - `.env.backup` (600): `AGE_RECIPIENT="$(cat /srv/prokom/secrets/age.pub)"` (plik jest wczytywany przez powłokę, więc klucz publiczny ma jedno źródło — `age.pub`), `RCLONE_REMOTE=offsite:prokom-backups-r7k2`; próba: `scripts/backup.sh staging` → `done`, plik w `rclone lsf offsite:prokom-backups-r7k2/staging/daily/`.
+   - cron użytkownika `<admin>` (`crontab -e`), noc w UTC, poza godziną zadania retencji zapytań (03:00); linia `prod` dochodzi przy pierwszym wdrożeniu produkcji (§3):
      ```
-   - rotacja logu: `/etc/logrotate.d/prokom-backup` z `<repo>/../backups/backup.log { monthly rotate 6 compress missingok notifempty }`;
-   - kopia `monthly` powstaje tylko z przebiegu nocnego 1. dnia miesiąca (UTC) — jeśli ten się nie uda, w danym miesiącu jej nie ma; dlatego alarm o braku świeżej kopii (S10).
+     30 2 * * * cd /srv/prokom/prokom-web && scripts/backup.sh prod >> ../backups/backup.log 2>&1
+     45 2 * * * cd /srv/prokom/prokom-web && scripts/backup.sh staging >> ../backups/backup.log 2>&1
+     10 4 * * * /usr/sbin/logrotate -s /srv/prokom/backups/.logrotate.state /srv/prokom/backups/logrotate.conf
+     ```
+     rotacja logu bez `sudo`: `../backups/logrotate.conf` z `/srv/prokom/backups/backup.log { monthly rotate 6 compress missingok notifempty }`;
+   - kopia `monthly` powstaje tylko z przebiegu nocnego 1. dnia miesiąca (UTC) — jeśli ten się nie uda, w danym miesiącu jej nie ma; dlatego alarm o braku świeżej kopii (S10c);
+   - Object Lock: pliku w B2 nie da się usunąć przez 14 dni od wysłania — także kluczem z serwera (sprawdzone 1.11). `backup.sh` usuwa kopie dopiero po 14/30/93 dniach, więc blokada mu nie przeszkadza; usunięty plik B2 najpierw ukrywa, a Lifecycle kasuje go po wygaśnięciu blokady.
 
 ## 2. Wdrożenie stagingu (ręcznie, zanim zrobi to pipeline w S10)
 
@@ -72,7 +79,7 @@ Serwer: VPS webh.pl, Ubuntu 24.04 (ADR-019). Strefa czasu serwera zostaje **UTC*
 
 Tylko po akceptacji szefa w Asanie i tylko obraz, który przeszedł staging (ADR-004).
 
-**Pierwsze wdrożenie produkcji (raz):** rekordy `@`, `www` i panelu produkcji wg `docs/dns.md` (PR, potem Seohost) → certyfikat `prokom-prod` (`docs/wdrozenia.md` → „Nginx i staging”, krok 3) → zmienne `PROD_*` w `.env.proxy` → Nginx z nakładką: `docker compose --env-file .env.proxy -f docker/compose.proxy.yml -f docker/compose.proxy.prod.yml up -d`. Od tej chwili proxy uruchamiasz zawsze z oboma plikami.
+**Pierwsze wdrożenie produkcji (raz):** rekordy `@`, `www` i panelu produkcji wg `docs/dns.md` (PR, potem Seohost) → certyfikat `prokom-prod` (`docs/wdrozenia.md` → „Nginx i staging”, krok 3) → zmienne `PROD_*` w `.env.proxy` → Nginx z nakładką: `docker compose --env-file .env.proxy -f docker/compose.proxy.yml -f docker/compose.proxy.prod.yml up -d`. Od tej chwili proxy uruchamiasz zawsze z oboma plikami. Do crona dopisz linię `backup.sh prod` (§1.8).
 1. Kopia przed wdrożeniem: `scripts/backup.sh prod predeploy` — musi się skończyć `done`.
 2. Zapisz obecny tag (punkt powrotu): `grep APP_IMAGE_TAG .env.prod`.
 3. W `.env.prod`: `APP_IMAGE_TAG=<SHA ze stagingu>`.
@@ -104,9 +111,9 @@ Nieudana migracja: kontener działa, ale `/api/health` = 503, a healthcheck co 1
 
 ## 6. Odtworzenie z kopii
 
-1. Klucz prywatny z menedżera haseł do pliku tylko na czas odtworzenia: `install -m 600 /dev/null ../secrets/age.key`, wklej, w `.env.backup` `AGE_IDENTITY=../secrets/age.key`. **Po odtworzeniu usuń plik.**
-2. Wybór kopii: lokalnie `ls ../backups/prod/{daily,monthly,predeploy}/`, poza serwerem `rclone ls offsite:prokom-backups/prod/`.
-3. `scripts/restore.sh <plik albo offsite:prokom-backups/prod/daily/<plik>> prokom-prod prokom_prod`
+1. Klucz prywatny z menedżera haseł do pliku tylko na czas odtworzenia: `ssh -t prokom-vps 'bash /srv/prokom/prokom-web/scripts/server/age-key-temp.sh'` (sprawdza, czy pasuje do `age.pub`), potem z katalogu `/srv/prokom/prokom-web`: `AGE_IDENTITY=../secrets/age.key` przed komendą `restore.sh` albo w `.env.backup`. **Po odtworzeniu: `shred -u ../secrets/age.key`.**
+2. Wybór kopii: lokalnie `ls ../backups/prod/{daily,monthly,predeploy}/`, poza serwerem `rclone lsf offsite:prokom-backups-r7k2/prod/daily/`.
+3. `scripts/restore.sh <plik albo offsite:prokom-backups-r7k2/prod/daily/<plik>> prokom-prod prokom_prod`
    - uruchamia potem **ten sam kontener** (obraz, z którego powstał); jeśli w `.env.prod` jest inny tag, użyj `--no-start` i `$prod up -d app`;
    - baza z manifestu musi się zgadzać z podaną (`prokom_prod`) — kopia stagingu nie trafi na produkcję przez pomyłkę;
    - pokazuje manifest (data, obraz, lista migracji) i pyta o nazwę projektu;
@@ -114,16 +121,24 @@ Nieudana migracja: kontener działa, ale `/api/health` = 503, a healthcheck co 1
    - zatrzymuje aplikację, odtwarza bazę (`pg_restore` na nowo utworzoną) i wolumen mediów, uruchamia aplikację i czeka na `healthy`.
 4. Smoke (krok 3.5).
 
-Serwer stracony w całości: nowy serwer wg 1 → stosy wg 2/3 z ostatnim tagiem z manifestu (`app_image`) → 6.
+Serwer stracony w całości: nowy serwer wg 1 → stosy wg 2/3 z ostatnim tagiem z manifestu (`app_image`) → 6. W kroku 1.8 **nie** uruchamiaj `age-new.sh`: najpierw klucz B2 (`b2-key.sh`), potem `age-key-temp.sh` z kluczem z menedżera haseł (bez `age.pub` zostawi go bez porównania), `age-keygen -y ../secrets/age.key > ../secrets/age.pub`, `.env.backup` jak w 1.8 — nowe kopie szyfruje ten sam klucz.
+
+**Podejrzenie przejęcia serwera albo klucza B2:** Object Lock blokuje usunięcie kopii przez 14 dni, ale nie ich **ukrycie** — kluczem z serwera da się ukryć wszystkie pliki (`rclone lsf` i `restore.sh offsite:…` ich nie widzą), a reguła Lifecycle usuwa ukrytą wersję dzień po końcu blokady. Od razu w panelu B2: **Application Keys → usuń `prokom-vps-backup`** i **Lifecycle Settings kosza → „Keep all versions”**. Ukryte kopie: `rclone lsf --b2-versions offsite:prokom-backups-r7k2/prod/daily/` (nowym kluczem, z komputera albo nowego serwera), pobranie wersji: `rclone copyto --b2-version-at <czas sprzed ataku> offsite:prokom-backups-r7k2/prod/daily/<plik> <plik>` albo w panelu B2 (Browse Files → pokaż wersje → przywróć). Kopie `monthly` (93 dni) blokada chroni tylko przez pierwsze 14 dni. Po sprzątaniu: nowy klucz (`b2-key.sh`) i Lifecycle z powrotem.
 
 ## 7. Comiesięczny test odtworzenia
 
 Na osobnym stosie — produkcja i staging zostają nietknięte.
 1. `.env.restoretest` = kopia `.env.prod` z `APP_PORT=3200`, dopisanym `ENV_FILE=../.env.restoretest` (żeby kontener nie czytał `.env.prod`) i **`SMTP_HOST=127.0.0.1`** — odtworzona baza ma prawdziwe zapytania, a stos testowy nie może wysyłać maili do klientów ani skrzynek. Inne hasło bazy dozwolone, byle zgodne z `DATABASE_URL`.
 2. `docker compose -p prokom-restoretest --env-file .env.restoretest -f docker/compose.prod.yml up -d`, czekaj na `healthy` (`prokom-restoretest-app-1`).
-3. `scripts/restore.sh offsite:prokom-backups/prod/daily/<najnowszy> prokom-restoretest prokom_prod` (klucz jak w 6.1).
+3. `scripts/restore.sh offsite:prokom-backups-r7k2/prod/daily/<najnowszy> prokom-restoretest prokom_prod` (klucz jak w 6.1; bez pytania: `RESTORE_CONFIRM=prokom-restoretest`).
 4. `PANEL_HOST=<panel> bash scripts/smoke.sh http://127.0.0.1:3200 <domeny…>` i porównanie liczby stron/zapytań z produkcją (`docker exec prokom-prod-postgres-1 psql -U prokom -d prokom_prod -c 'select count(*) from pages'`).
-5. **Od razu** `docker compose -p prokom-restoretest … down -v` — stos zajmuje do ~2,3 GB RAM obok produkcji i stagingu, a jego zadania w tle (np. retencja zapytań) działają na kopii danych osobowych. Usuń klucz, wpisz datę testu w `docs/STAN.md`.
+5. **Od razu** `docker compose -p prokom-restoretest … down -v` — stos zajmuje do ~2,3 GB RAM obok produkcji i stagingu, a jego zadania w tle (np. retencja zapytań) działają na kopii danych osobowych. Potem `rm .env.restoretest`, `shred -u ../secrets/age.key` i wpis w tabeli niżej.
+
+**Dopóki nie ma produkcji — test na kopii stagingu:** `.env.restoretest` = kopia `.env.staging` z `APP_PORT=3200` (`SMTP_HOST` stagingu i tak wskazuje `127.0.0.1`), stos `docker compose -p prokom-restoretest --env-file .env.restoretest -f docker/compose.prod.yml -f docker/compose.staging.yml up -d` (baza `prokom_staging`), `restore.sh offsite:prokom-backups-r7k2/staging/daily/<najnowszy> prokom-restoretest prokom_staging`, smoke na `http://127.0.0.1:3200` z domenami stagingu, porównanie liczby rekordów z `prokom-staging-postgres-1`; sprzątanie jak w 5 (`down -v` z oboma plikami compose). Nginx nie widzi stosu testowego — kieruje ruch po nazwach kontenerów `prokom-staging-app-1` / `prokom-prod-app-1`.
+
+| Data | Kopia | Wynik |
+|---|---|---|
+| 1.11.2026 | `staging/daily/prokom-staging-20261101T133300Z` z B2 | zgodne: 3 tenanty, 29 stron, 437 produktów, 1370 mediów (3641 plików), 54 migracje; smoke zielony |
 
 ## 8. „Strona nie działa”
 
