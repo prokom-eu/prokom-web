@@ -159,9 +159,10 @@ Sekcje i elementy, które linia ma dziś w kodzie albo w zaakceptowanej wizualiz
 |---|---|---|
 | PRO-KOM główna | `prokom-glowna_poziome_kolor.svg`, `_negatyw.svg` (+ sygnet, favicony) | **jest zielona kreska pod napisem** (`#45A02C`, negatyw `#4FB034`), bez nazwy linii — zgodnie ze spec §5 `LineLogo` |
 | Biznes, Instalacje, Software | `prokom-<linia>_poziome_kolor.svg` / `_negatyw.svg` (+ sygnet, favicony; Software też `_og.png`) | są, jasny i ciemny |
-| **TECH** | — | **brak** (potrzebny tylko przy kafelku Tech w `LinesBand` / przełączniku; do czasu pliku: kreska w kolorze + tekst „TECH”) |
-| Gaming | — | brak (spec §2.4: plik z repo `prokom-gaming`; do czasu pliku tekst „PRO-KOM / GAMING”) |
-| Zakopane | — | brak (linia `published: false`) |
+| **TECH** | nie ma w `public/brand/`; **komplet jest w paczce znaku** (poza repo, `docs/marka.md`): `01_wektor/SVG/tech/prokom-tech_poziome_kolor.svg` / `_negatyw.svg` (+ pionowe, sygnet, slogan, `03_ikony/tech/`) | F2 kopiuje `prokom-tech_poziome_kolor.svg` i `_negatyw.svg` do `public/brand/` (kafelek Tech w `LinesBand`, przełącznik) |
+| Gaming | nie ma w `public/brand/`; jest w repo `prokom-gaming`: `docs/design/prokomgaming/marka/prokom-gaming-znak-ciemne.svg` (wersja na ciemne tło; w kodzie Gaming — `src/components/Logo.tsx`) | F2 kopiuje `prokom-gaming-znak-ciemne.svg` do `public/brand/` (kafelek Gaming §2.4 ma ciemne tło `#080C0B`) |
+| Zakopane | nie ma w `public/brand/`; jest w paczce znaku (`01_wektor/SVG/zakopane/`) | niepotrzebny, dopóki linia `published: false` |
+| Księga znaku | `PRO-KOM_ksiega_znaku.pdf` w folderze marki (poza repo, `docs/marka.md`; też `05_ksiega/` paczki) | źródło zasad znaku; minimum 220 px — druk (decyzja F0: ekran 180×36) |
 
 Proporcje plików poziomych: 836×167 (`src/lib/brand/lines.ts:28`) → **180×36** w nagłówku (decyzja 01.11).
 
