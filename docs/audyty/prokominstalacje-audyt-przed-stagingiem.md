@@ -160,3 +160,73 @@ Potem I15 bez zmian (staging, dane w panelu, lista SEO §6, telefony, Lighthouse
 5. Akceptacja polityki prywatności, cookies i deklaracji dostępności.
 
 **Przed produkcją:** pozostałe pozycje z tabeli TODO w §2.
+
+## 7. Teksty i nagłówki — redakcja (dopisane 01.11, wieczór)
+
+Przejrzane: wszystkie H1, H2 i H3 na 36 stronach (ok. 43 tys. słów) oraz cały tekst pod kątem schematów typowych dla tekstów pisanych przez AI.
+
+**Werdykt:** treść jest dobra. Jest konkretna, lokalna, z liczbami, scenami z życia klienta (23:00, sobota 21:00, ferie, halny) i przepisami. Nie ma korporacyjnej waty: „kompleksowo”, „innowacyjny”, „bezproblemowo” i „idealny” pojawiają się 0 razy, „profesjonalny” tylko 7 razy na 43 tys. słów.
+
+To, co zdradza AI, to nie słownictwo, tylko **rytm**: te same konstrukcje powtarzane w kółko. Pojedynczo wyglądają świetnie, razem brzmią jak szablon.
+
+### Schematy do ograniczenia
+| Schemat | Ile razy | Co zrobić |
+|---|---|---|
+| „X, a nie Y” / „nie na oko” / „nie pod markę” | 32 + 12 | zostawić 6–8 najlepszych, resztę zamienić na zdanie twierdzące z konkretem |
+| Dwa zdania-antyteza w nagłówku („Widzą to, co trzeba. I nie widzą tego, czego nie wolno.”) | ok. 15 H2 | zamienić część na konkret: kto, gdzie, kiedy |
+| „…sam” („pilnuje się sam”, „wchodzi sam”, „działa sam”) | 34 | zostawić w 2–3 miejscach |
+| „Dlatego…” na początku zdania | 32 | połowę wyciąć albo połączyć ze zdaniem wcześniej |
+| „Sześć rzeczy / problemów / spraw…” | 7 stron Dla kogo | zostawić, ale różnić słowa po liczbie |
+| Ten sam H2 na wielu stronach | 21× „Po montażu nie znikamy…”, 12× „Przygotuj to…”, 12× „Usługi, które łączymy…”, 10× „Zanim zadzwonisz.” | H2 z nazwą usługi lub obiektu (lepiej też dla SEO), np. „Pytania o monitoring”, „Co jeszcze montujemy w pensjonatach” |
+
+### Konkretne poprawki nagłówków (propozycje)
+**Zostają, bo są najlepsze:**
+- „Alarm, który budzi złodzieja, a nie Ciebie o trzeciej w nocy.”
+- „Antena ustawiona miernikiem, nie na oko.”
+- „Twój obiekt na żywo.”
+- „Teletechnika budynku od pionu do gniazdka.”
+- „Głośniej nie znaczy wyraźniej.”
+- „Na Podhalu instalacja ma trudniej.”
+
+**Do zmiany:**
+
+| Strona / sekcja | Jest | Propozycja |
+|---|---|---|
+| Kontrola dostępu — H1 | Gość wchodzi sam o 23:00. Ty śpisz spokojnie. | Kod, karta albo telefon zamiast klucza pod wycieraczką. (dziś to samo zdanie jest w H1 Apartamentów) |
+| Apartamenty — H1 | …Ty widzisz, że dotarł, i śpisz spokojnie. | Gość wchodzi sam o 23:00, a Ty dostajesz powiadomienie, że dotarł. |
+| Nagłośnienie — H1 | Muzyka tam, gdzie trzeba. Cisza tam, gdzie ma być cicho. | Muzyka na sali, komunikat w holu, cisza na zapleczu. Każda strefa osobno. |
+| Restauracje — H1 | Muzyka tam, gdzie trzeba. Kasa i Wi-Fi mają zapas… | Sobota, 21:00, pełna sala. Muzyka gra, kasa przyjmuje karty, Wi-Fi działa. |
+| Ekrany — H1 | Ekrany, które mówią za Ciebie. Menu, pogoda, oferta. | Menu, cena dnia i warunki na stokach. Zmieniasz je z telefonu. |
+| Ekrany — #gdzie | Ekran, który pracuje, a nie tylko świeci. | Witryna, kasa, recepcja. Każde miejsce potrzebuje innego ekranu. |
+| Monitoring — #co-dostajesz | Kamery, które widzą to, co trzeba. I nie widzą tego, czego nie wolno. | Twarz przy furtce, tablica przy bramie. Bez podglądania sąsiada. |
+| Kontrola dostępu — #firma | Każdy wchodzi tam, gdzie powinien. I o tej porze. | Magazynier do magazynu od 6:00, ekipa sprzątająca do biura po 18:00. |
+| Alarmy — #przewod | Dobieramy system do budynku, a nie odwrotnie. | Przewody tam, gdzie się da. Radio tam, gdzie szkoda ścian. |
+| Alarmy — baner | Zaprojektujemy alarm, który chroni, a nie denerwuje. | Strefy, tryb nocny i czujki, które nie reagują na kota. |
+| Smart home — #integracje | …Wszystko się dogada. | Pompa ciepła, rekuperacja, alarm i kamery w jednej aplikacji Ampio. |
+| Nagłośnienie — eyebrow | APART · nasz mocny punkt | APART · nagłośnienie montowane na stałe |
+| Architekci — H1 (128 znaków) | Dla architektów, projektantów wnętrz, deweloperów i wykonawców: Technika… | H1: „Technika, która nie psuje projektu. Zaplanujmy ją przed tynkami.”; grupa odbiorców w nadtytule poza H1 (fraza jest w title) |
+| Architekci — #pokaz | Najlepiej przekonuje pokaz na żywo. | Posłuchaj głośników w suficie, zanim wpiszesz je w projekt. (po potwierdzeniu, co jest w salonie) |
+| Teletechnika — nadtytuł | Teletechnika · dla deweloperów… (słowo 2× w H1) | Dla deweloperów i wykonawców · Małopolska |
+| Ładowarki — nadtytuł | Elzab EcoPower · … (marka 2× w H1) | Ładowarki do aut elektrycznych · Podhale |
+| Realizacje — H1 | Wybrane realizacje PRO-KOM. | Realizacje: nagłośnienie, multimedia i sieci od Krakowa po Zakopane. |
+| Kontrola dostępu — #cena | Od czego zależy cena. | Od czego zależy cena kontroli dostępu. |
+| Usługi — FAQ (10×) | Zanim zadzwonisz. | Pytania o monitoring / alarm / … („Zanim zadzwonisz.” zostaje na głównej) |
+| Dla kogo — #powiazane (12×) | Usługi, które łączymy w tym obiekcie. | Co jeszcze montujemy w pensjonatach / hotelach / … |
+| Usługi — #odbior (21×) | Po montażu nie znikamy. Masz numer, pod który dzwonisz. | 24 miesiące gwarancji na montaż. Serwis pod jednym numerem. (konkret zamiast hasła; powtarzalność bloku jest OK) |
+
+### Reguły dla każdej przyszłej treści (do `docs/strony/prokominstalacje.md` §8)
+1. Najpierw konkret (kto, gdzie, kiedy, ile), potem obietnica. Hasło bez konkretu wyrzucamy.
+2. Najwyżej jedna antyteza „X, a nie Y” na ekran.
+3. Bez „śpisz spokojnie”, „mówi za Ciebie”, „wszystko się dogada”, „mocny punkt”, „najlepiej przekonuje”.
+4. H2 sekcji powtarzalnej zawiera nazwę usługi albo obiektu.
+5. H1 bez powtórzonego słowa i maks. ok. 90 znaków razem z nadtytułem, jeśli ten jest w H1.
+6. Zdanie zaczynające się od „Dlatego” — tylko gdy naprawdę wynika z poprzedniego.
+
+### Jak to wdrożyć
+Teksty siedzą w trzech miejscach: `src/sites/instalacje/dane/*.ts`; seed (`seed/prokominstalacje/obiekty/*.json`, `strony-zrzut`); panel (tytuły i SEO).
+
+1. Czat przygotowuje plik `docs/tresci/prokominstalacje-redakcja.md` z każdą zmianą: strona, pole, jest → ma być.
+2. Claude Code w jednej sesji **I-T** nanosi zmiany w `dane/` i seedzie i puszcza `pnpm seed:instalacje`.
+3. Na stagingu teksty z panelu poprawia się ręcznie według tej samej listy.
+
+Szacunek: 0,5 wieczoru w kodzie. Kolejność: **I14b → I-T → I-M → I15**.
