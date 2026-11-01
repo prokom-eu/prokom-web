@@ -49,6 +49,10 @@ describe('publicSources (K31-ZMIANY §4 pkt 9, ADR-012 rozstrz. 19)', () => {
     expect(isProducerSource('https://support.apple.com/pl-pl/111')).toBe(true)
     expect(isProducerSource('https://www.brother.pl/drukarki')).toBe(true)
     expect(isProducerSource('https://store.brother.pl/mfc-l2922dw')).toBe(false)
+    // Producers' shops: prices (K4-FINAL §1).
+    expect(isProducerSource('https://eu.store.ui.com/eu/en/products/u7-pro')).toBe(false)
+    expect(isProducerSource('https://sklep.eurocert.pl/podpis')).toBe(false)
+    expect(isProducerSource('https://www.ui.com/wi-fi')).toBe(true)
     expect(isProducerSource('nie-adres')).toBe(false)
   })
 

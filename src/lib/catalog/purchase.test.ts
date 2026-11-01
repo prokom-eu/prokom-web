@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
-import { purchaseSentence, serviceStrip, type PurchaseInput } from './purchase'
+import dictionaries from '../../../seed/prokombiznes/k4/slowniki-k4.json'
+import { purchaseSentence, serviceStrip, serviceTile, type PurchaseInput } from './purchase'
 
 const card = (category: string | null, fields: Partial<PurchaseInput> = {}): PurchaseInput => ({
   category,
@@ -56,5 +57,22 @@ describe('purchaseSentence', () => {
       'Dobór, dostawa, uruchomienie, szkolenie i serwis — w jednej ofercie.',
     )
     expect(purchaseSentence(card(null))).not.toMatch(/przeniesienie danych/)
+  })
+})
+
+describe('serviceTile', () => {
+  it('a service, or any card of the own brand („Tusze i tonery”)', () => {
+    expect(serviceTile({ kind: 'service', brand: null })).toBe(true)
+    expect(serviceTile({ kind: 'device', brand: 'pro-kom' })).toBe(true)
+    expect(serviceTile({ kind: 'device', brand: 'posnet' })).toBe(false)
+  })
+})
+
+describe('subcategory names the strip relies on', () => {
+  it('servers and NAS are named as in the K4 package (a rename turns data transfer off)', () => {
+    const servers = dictionaries.kategorie.find((category) => category.kod === 'serw')!
+    expect(servers.podkategorie.map((row) => row.nazwa)).toEqual(
+      expect.arrayContaining(['Serwery', 'Serwery plików NAS']),
+    )
   })
 })

@@ -69,10 +69,10 @@ const PRODUCER_DOMAINS = [
   'ricelake.com',
   'adobe.com',
   // K4 (K36 §13: sources of Apple, Brother, HP, Logitech, Fellowes, Kobra; COMEX, Optivendi,
-  // PolCard salons). Brother Polska by its exact host: `store.brother.pl` is its shop.
+  // PolCard salons). Producers' shops are left out by `SHOP_HOST`.
   'apple.com',
   'brother.eu',
-  'www.brother.pl',
+  'brother.pl',
   'hp.com',
   'logitech.com',
   'fellowes.com',
@@ -87,9 +87,16 @@ const PRICE_PATH = /pricing|cennik|\/price|\/ceny/i
 
 const isPricePage = (link: string) => PRICE_PATH.test(new URL(link).pathname)
 
+/**
+ * A producer's own shop (`store.brother.pl`, `eu.store.ui.com`, `sklep.eurocert.pl`): pages with
+ * prices (K4-FINAL §1), never a source on the page.
+ */
+const SHOP_HOST = /^(?:[a-z0-9-]+.)?(?:store|sklep|shop)./
+
 export function isProducerSource(link: string): boolean {
   if (!isHttpUrl(link)) return false
   const host = new URL(link).hostname.toLowerCase()
+  if (SHOP_HOST.test(host)) return false
   return PRODUCER_DOMAINS.some((domain) => host === domain || host.endsWith(`.${domain}`))
 }
 

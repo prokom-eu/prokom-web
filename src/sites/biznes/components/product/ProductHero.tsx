@@ -128,7 +128,7 @@ export function ProductHero({
           </ul>
         )}
 
-        <ColorPicker colors={product.colors} />
+        <ColorPicker colors={product.colors.map(({ name, hex }) => ({ name, hex }))} />
 
         <YourVersion benefit={product.subtitle ? product.benefit : null} />
 

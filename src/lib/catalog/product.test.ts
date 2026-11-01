@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import type { CatalogCategory, Industry, Partner, Product } from '@/payload-types'
 
-import { buildProductView, hasRichText, isIndexableProduct } from './product'
+import { buildProductView, hasRichText, isIndexableProduct, productGallery } from './product'
 import { image, TENANT } from './seedSource.fixture'
 
 const OTHER_TENANT = 2
@@ -284,5 +284,22 @@ describe('isIndexableProduct', () => {
   it('keeps a product „Do sprawdzenia” out of search engines and site maps (K3a)', () => {
     expect(isIndexableProduct({ contentStatus: 'ready' })).toBe(true)
     expect(isIndexableProduct({ contentStatus: 'needs-review' })).toBe(false)
+  })
+})
+
+describe('productGallery (K32 §9)', () => {
+  const view = build({
+    colors: [
+      { name: 'A', hex: '#111111', image: image(7, 'a.webp') },
+      { name: 'B', hex: '#222222', image: image(7, 'a.webp') },
+      { name: 'C', hex: '#333333', image: null },
+    ],
+    images: [image(8, 'own.webp'), image(9, 'a.webp')],
+  })
+
+  it('colours first, each picture once, then the own photos', () => {
+    const { images, colorSlides } = productGallery(view.colors, view.images)
+    expect(images.map((item) => item.alt)).toEqual(['Obraz a.webp', 'Obraz own.webp'])
+    expect(colorSlides).toEqual([0, 0, null])
   })
 })

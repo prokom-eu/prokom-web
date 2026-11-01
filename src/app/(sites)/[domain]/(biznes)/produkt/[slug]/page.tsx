@@ -9,7 +9,8 @@ import { categoryHref } from '@/lib/catalog/category'
 import { getBundles, getCatalogIndex, getProductView } from '@/lib/catalog/data'
 import { CATALOG_PATH, catalogHref, parseCatalogState, updateState } from '@/lib/catalog/filters'
 import { productTitle, uniqueVersions, variantKey, variantSlug } from '@/lib/catalog/productName'
-import { familyProducts, suggestedProducts } from '@/lib/catalog/related'
+import { productGallery } from '@/lib/catalog/product'
+import { familyProducts, recommendedProducts, suggestedProducts } from '@/lib/catalog/related'
 import { getEnv } from '@/lib/env'
 import { pickSource } from '@/lib/media/sizes'
 import { ogImages } from '@/lib/pages/metadata'
@@ -146,26 +147,15 @@ export default async function ProductPage({ params }: Props) {
 
   const tiles = bentoTiles(product.specs)
   const variantNames = uniqueVersions(product.variants.map((variant) => variant.name))
-  // „Do tego zwykle dobierają”: `polecane` of K4 (published cards of this site); a card without
-  // them keeps the phrase matching of K31b (K36 §13 W14).
-  const recommended = product.recommended.flatMap(({ slug, label }) => {
-    const card = index.products.find((item) => item.slug === slug && item.slug !== product.slug)
-    return card ? [{ label, product: card }] : []
-  })
+  // „Do tego zwykle dobierają”: `polecane` of K4, then „pasuje do”; a card without them keeps
+  // the phrase matching of K31b (K36 §13 W14).
+  const recommended = recommendedProducts(index, product.slug, product.recommended)
   const suggestions =
     recommended.length > 0
       ? { cards: recommended, chips: [] }
       : suggestedProducts(index, prepareSearch(index), product.slug, product.suggestions)
   // Colours (K32 §9): their pictures open the gallery, then the card's own photos.
-  const colorImages = product.colors.flatMap((color) => (color.image ? [color.image] : []))
-  const gallery = [
-    ...colorImages,
-    ...product.images.filter(
-      (image) => !colorImages.some((own) => own.sources[0]?.url === image.sources[0]?.url),
-    ),
-  ]
-  let next = 0
-  const colorSlides = product.colors.map((color) => (color.image ? next++ : null))
+  const gallery = productGallery(product.colors, product.images)
   const family = familyProducts(index, product.slug)
   // „W zestawach” (spec. §6.2 pkt 7, K3c): up to 3 bundles listing this card.
   const products = new Map(index.products.map((item) => [item.slug, item]))
@@ -247,8 +237,8 @@ export default async function ProductPage({ params }: Props) {
             categoryHref={categoryLink}
             phone={phone}
             videoTarget={video ? ID.video : null}
-            gallery={gallery}
-            colorSlides={colorSlides}
+            gallery={gallery.images}
+            colorSlides={gallery.colorSlides}
           />
         </div>
       </div>

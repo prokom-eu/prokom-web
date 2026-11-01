@@ -133,6 +133,7 @@ export function buildProductView(product: Product, tenantId: number): ProductVie
       ? [{ name: label, hex, image: publicImage(image, tenantId) }]
       : []
   })
+  // K4 `zrodla` (labelled, `sources.links`) replace the K3 lists when set — never mixed.
   const labeled = labeledSourceLinks(product.sources?.links ?? [])
   const specs = (product.specs ?? [])
     .map(({ label, value }) => ({ label: label.trim(), value: value.trim() }))
@@ -200,4 +201,27 @@ export function buildProductView(product: Product, tenantId: number): ProductVie
     seo: { title: text(product.seo?.title), description: text(product.seo?.description) },
     indexable: isIndexableProduct(product),
   }
+}
+
+/**
+ * Photos of the gallery (K32 §9): the colours' pictures first, then the card's own photos —
+ * each picture once — and the slide of each colour (`null`: a colour without a picture).
+ */
+export function productGallery(
+  colors: readonly ProductColor[],
+  images: readonly PublicImage[],
+): { images: PublicImage[]; colorSlides: (number | null)[] } {
+  const key = (image: PublicImage) => image.sources[0]?.url ?? ''
+  const gallery: PublicImage[] = []
+  const slideOf = new Map<string, number>()
+  const add = (image: PublicImage) => {
+    const at = slideOf.get(key(image))
+    if (at !== undefined) return at
+    slideOf.set(key(image), gallery.length)
+    gallery.push(image)
+    return gallery.length - 1
+  }
+  const colorSlides = colors.map((color) => (color.image ? add(color.image) : null))
+  for (const image of images) add(image)
+  return { images: gallery, colorSlides }
 }
