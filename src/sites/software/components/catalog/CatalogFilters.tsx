@@ -2,11 +2,10 @@
 
 import { useRef } from 'react'
 
+import { SlidingPill } from '@/components/motion/SlidingPill'
 import { cx } from '@/components/ui/cx'
 import type { CatalogFacets, SoftwareCatalogState } from '@/lib/software/catalog'
 import type { SolutionsIndex } from '@/lib/software/solutionsIndex'
-
-import { SlidingPill } from '../SlidingPill'
 
 type Props = {
   index: Pick<SolutionsIndex, 'situations' | 'industryGroups'>

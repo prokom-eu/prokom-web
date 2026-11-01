@@ -2,12 +2,12 @@
 
 import { type ReactNode, useEffect, useId, useRef } from 'react'
 
+import { SlidingPill } from '@/components/motion/SlidingPill'
 import { cx } from '@/components/ui/cx'
 import { labelKey } from '@/lib/analytics/events'
 import { track } from '@/lib/analytics/track'
 import { projectActions, useProject } from '@/lib/software/projectStore'
 
-import { SlidingPill } from '../SlidingPill'
 import { TabPanels } from './TabPanels'
 import { useAutoTabs } from './useAutoTabs'
 

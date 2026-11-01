@@ -2,11 +2,11 @@
 
 import { useRef, useState } from 'react'
 
+import { SlidingPill } from '@/components/motion/SlidingPill'
 import { Container } from '@/components/ui/Container'
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
 import type { CompareView, Mark } from '@/lib/software/compare'
-import { SlidingPill } from '@/sites/software/components/SlidingPill'
 
 type Props = { view: CompareView; eyebrow: string; title: string; tabs: [string, string] }
 
