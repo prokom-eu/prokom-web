@@ -132,7 +132,7 @@ export default async function IndustryPage({ params }: Props) {
                 id="problemy-h"
                 className="mt-2 font-display text-[32px] font-extrabold leading-[1.02] tracking-tight min-[641px]:text-5xl min-[1081px]:text-[56px]"
               >
-                Kliknij swój problem. Pokażemy, co na to mamy.
+                Kliknij swój problem, a pokażemy, co na to mamy
               </h2>
             </div>
             {page.problems.lead && (
@@ -157,7 +157,7 @@ export default async function IndustryPage({ params }: Props) {
                   id="rozwiazania-h"
                   className="mt-2 max-w-[22ch] font-display text-[32px] font-extrabold leading-[1.02] tracking-tight min-[641px]:text-5xl"
                 >
-                  Sześć rzeczy, od których zaczynają firmy takie jak Twoja.
+                  Sześć rzeczy, od których zaczynają firmy takie jak Twoja
                 </h2>
               </div>
               <Link

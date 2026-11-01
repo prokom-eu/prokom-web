@@ -5,7 +5,7 @@ import { FACTS_NOTE, iconField, sectionHeadFields, textField } from '../fields'
 /**
  * A list section of a Software subpage (ADR-014 rozstrz. SW0 7 `swSteps`; boards `ONas`,
  * `Wszystko`): big numbers („Konkretnie, bez dmuchania.”), cards with an icon („Pracujesz z
- * firmą…”, „Jeden kontakt zamiast pięciu.”) or a timeline with years („Najpierw sprzęt…”).
+ * firmą…”, „Jeden kontakt zamiast pięciu”) or a timeline with years („Najpierw sprzęt…”).
  * An item whose text has a missing fact is left out on production (e.g. `[ROK SERWIS KAS]`).
  */
 export const SwStepsBlock: Block = {

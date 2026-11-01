@@ -59,7 +59,7 @@ test.describe('Software /cennik', () => {
   }) => {
     await page.goto(site(HOST, '/cennik'))
     await expect(page.locator('#audyt')).toContainText(`990${NBSP}zł`)
-    await expect(page.getByText('Tego nie dopłacasz.')).toBeVisible()
+    await expect(page.getByText('Tego nie dopłacasz')).toBeVisible()
     await expect(page.locator('#faq')).toContainText('Co oznacza cena „od”?')
     await expect(page.locator('[data-footer-cta]')).toBeHidden()
   })

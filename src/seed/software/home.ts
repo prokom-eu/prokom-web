@@ -72,7 +72,7 @@ export const SW_HERO: Extract<Block, { blockType: 'swHero' }> = {
 export const SW_FAQ: Extract<Block, { blockType: 'faq' }> = {
   blockType: 'faq',
   eyebrow: 'Zanim napiszesz',
-  heading: 'Pytania, które słyszymy najczęściej.',
+  heading: 'Pytania, które słyszymy najczęściej',
   lead: 'Nie ma Twojego? Zadaj je w formularzu poniżej, odpowiadamy konkretnie.',
   items: faqPackage.homeFaq.map(({ q, a }) => ({ question: q, answer: a })),
 }
@@ -84,7 +84,7 @@ export const SW_FAQ: Extract<Block, { blockType: 'faq' }> = {
 export const SW_CONTACT: Extract<Block, { blockType: 'swContact' }> = {
   blockType: 'swContact',
   eyebrow: 'Kontakt',
-  title: 'Napisz, czego potrzebujesz, a odpowiemy w 1 dzień roboczy.',
+  title: 'Napisz, czego potrzebujesz, a odpowiemy w 1 dzień roboczy',
   sideTitle: 'Najpierw zobaczysz, potem zapłacisz.',
   sideText:
     'Po krótkiej rozmowie dostajesz: szkic rozwiązania, zakres, cenę i termin. Bez zobowiązań.',

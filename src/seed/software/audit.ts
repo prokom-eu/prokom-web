@@ -50,7 +50,7 @@ export const SW_AUDIT: AuditBlock = {
     { icon: 'users', title: 'Dostępność', text: 'zbyt słaby kontrast przycisków', status: 'fix' },
   ],
   checksEyebrow: 'Co sprawdzamy',
-  checksTitle: 'Pięć rzeczy, które decydują, czy strona zarabia.',
+  checksTitle: 'Pięć rzeczy, które decydują, czy strona zarabia',
   checksLead:
     'Wynik każdej z nich trafia do raportu na piśmie. Możesz z nim pójść do nas albo do kogokolwiek.',
   checks: [

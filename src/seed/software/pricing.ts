@@ -33,7 +33,7 @@ export function swPricing(featured: number | null): PricingBlock {
       { text: 'Kod, domena i dane są Twoje' },
     ],
     tableEyebrow: 'Cennik rozwiązań',
-    tableTitle: 'Wybierz, czego szukasz.',
+    tableTitle: 'Wybierz, czego szukasz',
     tabs: [
       {
         category: 'strony',
@@ -72,7 +72,7 @@ export function swPricing(featured: number | null): PricingBlock {
     auditButton: 'Zamów audyt →',
     auditHref: '/audyt',
     includedEyebrow: 'W cenie każdej strony',
-    includedTitle: 'Tego nie dopłacasz.',
+    includedTitle: 'Tego nie dopłacasz',
     includedItems: [
       { title: 'Projekt pod Twoją firmę', text: 'Bez gotowego szablonu.' },
       { title: 'Wersja na telefon', text: 'Wygodna na każdym ekranie.' },

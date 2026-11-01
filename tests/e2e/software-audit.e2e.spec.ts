@@ -27,7 +27,7 @@ test.describe('Software /audyt', () => {
     )
     await expect(form(page).getByLabel('Imię')).toBeVisible()
     await expect(
-      page.getByRole('heading', { name: 'Pięć rzeczy, które decydują, czy strona zarabia.' }),
+      page.getByRole('heading', { name: 'Pięć rzeczy, które decydują, czy strona zarabia' }),
     ).toBeVisible()
     const kinds = page.locator('#rodzaje')
     await expect(kinds.getByRole('heading', { level: 3 })).toHaveCount(3)

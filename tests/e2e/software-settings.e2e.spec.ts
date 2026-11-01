@@ -19,7 +19,7 @@ const thanks = {
   stepsTitle: 'Co dalej',
   steps: ['**Krótka rozmowa, 30 minut**: u Ciebie, w salonie albo online.'],
   urgent: 'Pilna sprawa? Zadzwoń:',
-  more: { eyebrow: 'Zanim się odezwiemy', title: 'Zobacz, jak to wygląda u innych.', cards: [] },
+  more: { eyebrow: 'Zanim się odezwiemy', title: 'Zobacz, jak to wygląda u innych', cards: [] },
 }
 
 /** Home texts as the seed stores them, with the 12 cards pointing at `slugs`. */

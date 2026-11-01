@@ -8,7 +8,7 @@ type SQL = ReturnType<typeof sql>
  * the seed no longer writes (staging, production). Same list and order as the seed change.
  * Every text column of the Software blocks and collections is rewritten in one statement with
  * nested `replace` (substrings, `PAIRS`); split headings change only as whole values (`EXACT`).
- * Shared tables (pages, their FAQ, industries, site settings) change only for the Software
+ * Shared tables (pages and their blocks, FAQ, industries, site settings) change only for the Software
  * tenants. A text edited in the panel no longer contains the old words and stays as it is.
  * `down` restores nothing.
  */
@@ -56,7 +56,7 @@ const PAIRS: [string, string][] = [
   ],
   [
     'Napisz, czego potrzebujesz. Odpowiemy w 1 dzień roboczy.',
-    'Napisz, czego potrzebujesz, a odpowiemy w 1 dzień roboczy.',
+    'Napisz, czego potrzebujesz, a odpowiemy w 1 dzień roboczy',
   ],
   [
     'Ekipa widzi zlecenie w telefonie. Biuro widzi ekipę na tablicy.',
@@ -179,6 +179,43 @@ const PAIRS: [string, string][] = [
 
 /** `[old, new]` whole values (the two halves of a split heading). */
 const EXACT: [string, string][] = [
+  // H2 without a full stop at the end (decision of Krystian 01.11, SWV9).
+  [
+    'Napisz, czego potrzebujesz, a odpowiemy w 1 dzień roboczy.',
+    'Napisz, czego potrzebujesz, a odpowiemy w 1 dzień roboczy',
+  ],
+  ['Tak może wyglądać Twoja strona albo system.', 'Tak może wyglądać Twoja strona albo system'],
+  ['Zasady, których się trzymamy.', 'Zasady, których się trzymamy'],
+  ['Pytania, które słyszymy najczęściej.', 'Pytania, które słyszymy najczęściej'],
+  ['Porozmawiajmy o Twojej firmie.', 'Porozmawiajmy o Twojej firmie'],
+  ['Wybierz, czego szukasz.', 'Wybierz, czego szukasz'],
+  ['Tego nie dopłacasz.', 'Tego nie dopłacasz'],
+  [
+    'Pięć rzeczy, które decydują, czy strona zarabia.',
+    'Pięć rzeczy, które decydują, czy strona zarabia',
+  ],
+  ['Dwa przykłady z Podhala.', 'Dwa przykłady z Podhala'],
+  ['Jeden kontakt zamiast pięciu.', 'Jeden kontakt zamiast pięciu'],
+  ['Wszystko pod jednym adresem w Rabce-Zdroju.', 'Wszystko pod jednym adresem w Rabce-Zdroju'],
+  ['Opowiedz, co masz i czego brakuje.', 'Opowiedz, co masz i czego brakuje'],
+  ['Opisz, co chcesz usprawnić.', 'Opisz, co chcesz usprawnić'],
+  ['Rabka-Zdrój, ul. Orkana 16B.', 'Rabka-Zdrój, ul. Orkana 16B'],
+  ['PRO-KOM w liczbach.', 'PRO-KOM w liczbach'],
+  ['Jedna firma, cztery linie.', 'Jedna firma, cztery linie'],
+  ['Jedna firma od strony, kas, sieci i serwisu.', 'Jedna firma od strony, kas, sieci i serwisu'],
+  ['Kto z Tobą pracuje.', 'Kto z Tobą pracuje'],
+  [
+    'Poznajmy się. Kawa w Rabce albo 30 minut online.',
+    'Poznajmy się. Kawa w Rabce albo 30 minut online',
+  ],
+  ['Aplikacja o tym wie.', 'Aplikacja o tym wie'],
+  ['Pokaż, jak dziś pracują Twoje ekipy.', 'Pokaż, jak dziś pracują Twoje ekipy'],
+  ['Dla kogo pracujemy najczęściej.', 'Dla kogo pracujemy najczęściej'],
+  ['Blisko, czyli prościej.', 'Blisko, czyli prościej'],
+  ['Wpadnij do salonu przy Orkana 16B.', 'Wpadnij do salonu przy Orkana 16B'],
+  ['W tym czasie możesz zajrzeć tutaj.', 'W tym czasie możesz zajrzeć tutaj'],
+  ['Zobacz, jak to wygląda u innych.', 'Zobacz, jak to wygląda u innych'],
+  ['W tym czasie możesz zajrzeć tutaj.', 'W tym czasie możesz zajrzeć tutaj'],
   // The care eyebrow repeated the new heading N4 word for word (review of SWV9).
   ['Opieka po wdrożeniu', 'Opieka i rozwój'],
   // A point of the wizard's list, „na piśmie” over the budget.
@@ -199,7 +236,7 @@ const SOFTWARE_VERSIONS = `SELECT "id" FROM "_pages_v" WHERE "version_tenant_id"
  * The rows of a table that belong to Software, as SQL, or `null` for a table not touched.
  * Software-only blocks and collections need no condition. Static SQL, no input.
  */
-function softwareScope(table: string, parent: string): string | null {
+function softwareScope(table: string, parent: string, pageBlock: boolean): string | null {
   // Relation tables hold ids and paths only (and no `_parent_id`).
   if (table.endsWith('_rels')) return null
   if (/^_?pages(_v)?_blocks_sw_/.test(table)) return 'TRUE'
@@ -222,6 +259,11 @@ function softwareScope(table: string, parent: string): string | null {
   if (table === '_pages_v_blocks_faq_items') {
     return `"_parent_id" IN (SELECT "id" FROM "_pages_v_blocks_faq" WHERE "_parent_id" IN (${SOFTWARE_VERSIONS}))`
   }
+  // Any other shared block placed straight on a page (call to action…): its `_parent_id` is the
+  // page (a number), only on Software pages. Their nested lists are left alone.
+  if (pageBlock && table.startsWith('pages_blocks_')) return `"_parent_id" IN (${SOFTWARE_PAGES})`
+  if (pageBlock && table.startsWith('_pages_v_blocks_'))
+    return `"_parent_id" IN (${SOFTWARE_VERSIONS})`
   return null
 }
 
@@ -240,9 +282,19 @@ export async function up({ db }: MigrateUpArgs): Promise<void> {
   const withUnderscore = new Set(
     columns.filter((c) => c.column_name === '_parent_id').map((c) => c.table_name),
   )
+  // A block table straight on a page points at it by number; a nested list by the block's text id.
+  const onPage = new Set(
+    columns
+      .filter((c) => c.column_name === '_parent_id' && c.data_type === 'integer')
+      .map((c) => c.table_name),
+  )
   for (const { table_name: table, column_name: column, data_type: type } of columns) {
     if (!['character varying', 'text', 'jsonb'].includes(type)) continue
-    const scope = softwareScope(table, withUnderscore.has(table) ? '_parent_id' : 'parent_id')
+    const scope = softwareScope(
+      table,
+      withUnderscore.has(table) ? '_parent_id' : 'parent_id',
+      onPage.has(table),
+    )
     if (!scope || column === 'id' || column === 'path' || column.startsWith('_')) continue
     const json = type === 'jsonb'
     const col = json ? sql`${sql.identifier(column)}::text` : sql`${sql.identifier(column)}`

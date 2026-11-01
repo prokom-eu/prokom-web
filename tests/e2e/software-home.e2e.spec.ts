@@ -290,7 +290,7 @@ test.describe('Software start page', () => {
     await page.goto(site(HOST))
     const section = page.locator('#zasady')
     await expect(section.getByRole('heading', { level: 2 })).toHaveText(
-      'Zasady, których się trzymamy.',
+      'Zasady, których się trzymamy',
     )
     await expect(section.getByRole('listitem')).toHaveCount(6)
     await expect(section.getByRole('listitem').first()).toContainText('Stała cena za zakres')
@@ -339,7 +339,7 @@ test.describe('Software start page', () => {
     await page.goto(site(HOST))
     const section = page.locator('#faq')
     await expect(section.getByRole('heading', { level: 2 })).toHaveText(
-      'Pytania, które słyszymy najczęściej.',
+      'Pytania, które słyszymy najczęściej',
     )
     const items = section.locator('details')
     await expect(items).toHaveCount(6)
@@ -405,7 +405,7 @@ test.describe('Software start page — contact form', () => {
     await page.goto(site(HOST))
     const section = contact(page)
     await expect(section.getByRole('heading', { level: 2 })).toHaveText(
-      'Napisz, czego potrzebujesz, a odpowiemy w 1 dzień roboczy.',
+      'Napisz, czego potrzebujesz, a odpowiemy w 1 dzień roboczy',
     )
     await expect(section).toContainText('Odpowiadamy w ciągu 1 dnia roboczego')
     await expect(section.getByRole('link', { name: /Masz już stronę\?/ })).toHaveAttribute(

@@ -184,9 +184,7 @@ test.describe('Software footer', () => {
     const footer = page.locator('footer')
     await expect(footer).toHaveAttribute('data-surface', 'dark')
     const band = footer.locator('[data-footer-cta]')
-    await expect(
-      band.getByRole('heading', { name: 'Porozmawiajmy o Twojej firmie.' }),
-    ).toBeVisible()
+    await expect(band.getByRole('heading', { name: 'Porozmawiajmy o Twojej firmie' })).toBeVisible()
     await expect(band.getByRole('link', { name: 'Dobierz rozwiązanie · 60 s' })).toHaveAttribute(
       'href',
       '/dobierz',

@@ -13,7 +13,7 @@ import { OfferThumb } from '../offer/OfferThumb'
 type Props = { problems: IndustryProblem[] }
 
 /**
- * „Kliknij swój problem. Pokażemy, co na to mamy.” (spec. §6.2, board `Branza`): the problems as
+ * „Kliknij swój problem, a pokażemy, co na to mamy” (spec. §6.2, board `Branza`): the problems as
  * buttons, the panel shows the answer — what we have, its points, the link and „+ Dodaj do
  * wyceny” (the problem's solution). The illustration is the solution's thumbnail (spec. §5.2).
  * Phone: the problems in a scrolled row above the panel.

@@ -46,7 +46,7 @@ export const HOME_SECTION_TEXTS: SoftwareHomeSections = {
   },
   livePreviews: {
     eyebrow: 'Podglądy na żywo · kliknij i sprawdź',
-    title: 'Tak może wyglądać Twoja strona albo system.',
+    title: 'Tak może wyglądać Twoja strona albo system',
     lead: 'Wybierz rodzaj rozwiązania. Laptop to Twoje biuro, telefon to Twój pracownik albo klient. Oba ekrany działają razem.',
     hint: ['Przełącza się samo. Kliknij, żeby wybrać.', 'Twój wybór. Klikaj po ekranach.'],
     open: 'Otwórz pełny podgląd',
@@ -62,7 +62,7 @@ export const HOME_SECTION_TEXTS: SoftwareHomeSections = {
   },
   guarantees: {
     eyebrow: 'Na piśmie, nie na słowo',
-    title: 'Zasady, których się trzymamy.',
+    title: 'Zasady, których się trzymamy',
     sayNo: {
       eyebrow: 'Uczciwa rada przed wyceną',
       title: 'Czasem powiemy: tego nie buduj.',

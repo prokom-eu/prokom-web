@@ -11,7 +11,7 @@ import { softwareTextContext } from '@/sites/software/components/textContext'
 type Props = { block: SwTeamBlockData; tenantId: number }
 
 /**
- * People and places of a Software subpage (boards `ONas`, `Wszystko`): „Kto z Tobą pracuje.” —
+ * People and places of a Software subpage (boards `ONas`, `Wszystko`): „Kto z Tobą pracuje” —
  * photo on top, role, name, text (3 columns); a person without a photo gets their initials in an
  * accent circle instead of a placeholder (SWV6, no portraits) — or a place: name, address lines,
  * photo (2 columns). On the phone one column.

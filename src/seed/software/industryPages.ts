@@ -24,7 +24,7 @@ export const INDUSTRY_PAGE_TEXTS = {
       offlineBox: {
         eyebrow: 'Działa bez zasięgu',
         title: 'Na budowie w górach zasięg bywa słaby.',
-        accent: 'Aplikacja o tym wie.',
+        accent: 'Aplikacja o tym wie',
         lead: 'Pracownik robi swoje: odhacza, fotografuje, zbiera podpis. Telefon zapisuje wszystko u siebie i wysyła, gdy złapie sieć. Nikt nie musi o tym pamiętać.',
         noteLabel: 'Aplikacja ekipy może mówić',
         noteValue: 'PL · UA · EN',
@@ -32,7 +32,7 @@ export const INDUSTRY_PAGE_TEXTS = {
       },
       contact: {
         eyebrow: 'Porozmawiajmy o Twojej firmie',
-        title: 'Pokaż, jak dziś pracują Twoje ekipy.',
+        title: 'Pokaż, jak dziś pracują Twoje ekipy',
         lead: '30 minut rozmowy u Ciebie, w salonie w Rabce albo online. Potem szkic do klikania i wycena, bez zobowiązań.',
         points: [
           'Odpowiadamy w ciągu [CZAS ODPOWIEDZI]',

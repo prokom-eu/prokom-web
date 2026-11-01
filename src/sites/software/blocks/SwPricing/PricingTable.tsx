@@ -11,7 +11,7 @@ type Props = {
 }
 
 /**
- * „Wybierz, czego szukasz.” (board `Cennik`, stan `89b`): the solutions in the catalog's tabs —
+ * „Wybierz, czego szukasz” (board `Cennik`, stan `89b`): the solutions in the catalog's tabs —
  * a table on the desktop (rozwiązanie · cena i termin · W cenie), cards on the phone. ARIA tabs
  * with the start page's keyboard (arrows, Home, End).
  */

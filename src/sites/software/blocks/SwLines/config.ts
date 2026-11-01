@@ -9,7 +9,7 @@ const when = (variant: string) => (_: unknown, sibling: { variant?: unknown } | 
 /**
  * The PRO-KOM lines on a Software subpage (ADR-014 rozstrz. SW0 7 `swLines`; board `Wszystko`):
  * „Co załatwisz w PRO-KOM poza stroną” — a card per line with its address and what it does (links only to sites
- * that exist, spec. §6.7) — or „Dwa przykłady z Podhala.” — what each line did for one client.
+ * that exist, spec. §6.7) — or „Dwa przykłady z Podhala” — what each line did for one client.
  */
 export const SwLinesBlock: Block = {
   slug: 'swLines',
