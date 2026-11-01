@@ -29,7 +29,8 @@ test.describe('Software motion', () => {
     expect(await scrollBehavior(page)).toBe('smooth')
     // SWV7: sections below the screen wait hidden and rise in once seen (`RevealObserver`).
     const pending = page.locator('[data-reveal-pending]')
-    expect(await pending.count()).toBeGreaterThan(0)
+    // The observer marks them after hydration — wait for it, not just for the load.
+    await expect.poll(() => pending.count()).toBeGreaterThan(0)
     await page
 
       .getByRole('navigation', { name: 'Na tej stronie' })
