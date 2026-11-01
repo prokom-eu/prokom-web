@@ -160,9 +160,9 @@ function Note({
  * „Twój system” in the hero (spec. §4 pkt 1): a panel mock-up that assembles itself from
  * modules until the visitor touches it (never with `prefers-reduced-motion`, paused while the
  * tab is hidden), the module switches, the count with its scope and a hint, and one
- * „Twój projekt” item for the chosen set. The mock-up itself is decorative; on a phone it is left
- * out (unreadable at that size) and the switches get the caption „Złóż swój system: dotknij
- * modułu” instead (board `Main-390`, ZMIANY-v21 §10.6).
+ * „Twój projekt” item for the chosen set. The mock-up itself is decorative. Not on a phone (v23,
+ * MOBILE-APLIKACJA §3a pkt 7): hidden below 640 px and it does not assemble itself there — the
+ * server does not know the width, so CSS hides it instead of a second, client-only tree.
  */
 export function HeroBuilder({ modules }: Props) {
   const all = modules.map((module) => module.key)
@@ -171,7 +171,12 @@ export function HeroBuilder({ modules }: Props) {
   const project = useProject()
 
   useEffect(() => {
-    if (touched || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    if (
+      touched ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+      !window.matchMedia('(min-width: 640px)').matches
+    )
+      return
     let state = { count: Math.min(DEFAULT_MODULES.length, all.length), hold: 0 }
     const timer = window.setInterval(() => {
       if (document.hidden) return
@@ -192,11 +197,8 @@ export function HeroBuilder({ modules }: Props) {
   const panel = widgets(has)
 
   return (
-    <div className="flex min-w-0 flex-col gap-5">
-      <div
-        aria-hidden="true"
-        className="relative mx-auto hidden w-full max-w-[640px] pt-10 min-[640px]:block"
-      >
+    <div className="hidden min-w-0 flex-col gap-5 min-[640px]:flex">
+      <div aria-hidden="true" className="relative mx-auto w-full max-w-[640px] pt-10">
         <span className="absolute left-1/2 top-0 z-30 inline-flex -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full bg-card px-3 py-1.5 text-xs font-extrabold text-ink shadow-raised ring-1 ring-border">
           <i className="size-2 rounded-full bg-ok" />
           Twój system ·
@@ -206,7 +208,7 @@ export function HeroBuilder({ modules }: Props) {
         </span>
         <div className="relative mx-[4%] rounded-t-[14px] border-[6px] border-b-0 border-surface-dark bg-surface-dark">
           <div className="grid aspect-[16/10] grid-cols-[26%_1fr] overflow-hidden rounded-t-[8px]">
-            <div className="flex flex-col gap-1 bg-surface-dark p-2.5 text-[10px] font-bold text-white/70 min-[640px]:p-3">
+            <div className="flex flex-col gap-1 bg-surface-dark p-3 text-[10px] font-bold text-white/70">
               <span className="mb-2 flex items-center gap-1.5 text-[11px] font-extrabold text-white">
                 <i className="size-3 rounded bg-accent" />
                 Twoja Firma
@@ -276,13 +278,10 @@ export function HeroBuilder({ modules }: Props) {
         />
       </div>
 
-      <p className="-mb-3 text-sm font-extrabold text-ink-2 min-[640px]:hidden">
-        Złóż swój system: dotknij modułu
-      </p>
       <div
         role="group"
         aria-label="Moduły Twojego systemu"
-        className="-mx-4 flex snap-x gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] min-[640px]:mx-0 min-[640px]:flex-wrap min-[640px]:justify-center min-[640px]:overflow-visible min-[640px]:px-0"
+        className="flex flex-wrap justify-center gap-2"
       >
         {modules.map((module) => {
           const active = has(module.key)
@@ -296,7 +295,7 @@ export function HeroBuilder({ modules }: Props) {
                 setOn((current) => toggleModule(current, module.key, all))
               }}
               className={cx(
-                'inline-flex min-h-11 shrink-0 snap-start items-center gap-2 rounded-full border px-3.5 text-sm font-bold transition-colors',
+                'inline-flex min-h-11 items-center gap-2 rounded-full border px-3.5 text-sm font-bold transition-colors',
                 active
                   ? 'border-accent-line bg-accent-soft text-ink'
                   : 'border-border bg-card text-ink hover:border-accent-line',
@@ -318,7 +317,7 @@ export function HeroBuilder({ modules }: Props) {
         })}
       </div>
 
-      <div className="flex flex-col gap-4 rounded-2xl border border-border bg-card p-4 min-[640px]:flex-row min-[640px]:items-center min-[640px]:justify-between">
+      <div className="flex flex-row items-center justify-between gap-4 rounded-2xl border border-border bg-card p-4">
         <div className="flex items-center gap-3.5">
           <span className="font-display text-3xl font-black text-grad-h1">{n}</span>
           <span className="flex flex-col leading-tight">

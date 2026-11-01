@@ -36,6 +36,22 @@ describe('Software home texts schema', () => {
     expect(validateHome(value)).toMatch(/whyNotWordpress\.facts\.0\.src/)
   })
 
+  it('keeps the phone hero card „Twoja Firma · panel” with at most 3 notifications (SWV3)', () => {
+    const value = seedHome()
+    const panel = value.sections?.heroPanel
+    expect(panel?.items.map((item) => item.title)).toEqual([
+      'Nowe zapytanie ze strony',
+      'Ekipa Marka na miejscu',
+      'Faktura wysłana sama',
+    ])
+    const withoutPanel = seedHome()
+    delete withoutPanel.sections?.heroPanel
+    expect(validateHome(withoutPanel)).toBe(true)
+    if (!panel) return
+    panel.items.push(panel.items[0])
+    expect(validateHome(value)).toMatch(/sections\.heroPanel\.items/)
+  })
+
   it('allows at most 12 cards', () => {
     const value = seedHome()
     value.popular.order = [...value.popular.order, 'strona-wizytowka']

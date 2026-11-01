@@ -3493,7 +3493,7 @@ export interface SwHeroBlock {
       }[]
     | null;
   /**
-   * Pod hero. Na telefonie bez opisów (2×2).
+   * Pod hero. Na telefonie lista z dwiema liniami opisu.
    */
   intents?:
     | {
