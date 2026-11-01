@@ -15,7 +15,15 @@ const ART = {
   ch: 'M150 30v26M138 42h24M100 160V96l50-40 50 40v64M136 160v-34h28v34M60 160h180',
   wed: 'M150 40l20 30h-40zM150 70v90M110 160h80M100 100c20-20 80-20 100 0',
 }
-const artOf = (index: number) => Object.values(ART)[index % 4]
+/** The prototype's art of a card, picked from what the realization is (a church, a wedding
+ * hall, a conference room) — the panel has no field for it. */
+function artOf(item: HomeRealization): string {
+  const text = `${item.category ?? ''} ${item.place ?? ''}`.toLowerCase()
+  if (/kości|kaplic|parafi/.test(text)) return ART.ch
+  if (/wesel|restaur/.test(text)) return ART.wed
+  if (/projekc|konferenc|sale/.test(text)) return ART.conf
+  return ART.snd
+}
 
 /**
  * „Realizacje” (`#realizacje`): up to 4 published, featured realizations of this tenant. The
@@ -38,13 +46,13 @@ export function RealizationsTeaser({ items }: { items: HomeRealization[] }) {
           </Link>
         </div>
         <div className="g4">
-          {items.map((item, index) => (
+          {items.map((item) => (
             <Link key={item.id} href="/realizacje" className="card rl ri">
               <div className="rlimg dots" aria-hidden="true">
                 <svg viewBox="0 0 300 190" preserveAspectRatio="xMidYMid slice">
                   <rect width="300" height="190" style={{ fill: 'var(--accent-soft)' }} />
                   <path
-                    d={artOf(index)}
+                    d={artOf(item)}
                     style={{
                       fill: 'none',
                       stroke: 'var(--accent-text)',

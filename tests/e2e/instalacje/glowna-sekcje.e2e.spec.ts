@@ -4,9 +4,19 @@ import { FORM_MIN_FILL_MS } from '../../../src/lib/inquiry/spam'
 import { api, loginAsAdmin, site } from '../helpers'
 
 // I6: the home sections below the hero (KOMPONENTY §3, spec §5.1/§6, MOBILE-APLIKACJA §10).
-// Data from `pnpm seed`. Realizations are left out until one is published with consent.
+// Data from `pnpm seed`: realizations published with the clients' consent (boss 01.11.2026).
 const HOST = 'instalacje.localhost'
-const SECTIONS = ['start', 'dla-kogo', 'uslugi', 'gory', 'proces', 'serwis', 'faq', 'zaplanuj']
+const SECTIONS = [
+  'start',
+  'dla-kogo',
+  'uslugi',
+  'realizacje',
+  'gory',
+  'proces',
+  'serwis',
+  'faq',
+  'zaplanuj',
+]
 
 // Own client address per run: the inquiry limit keys on `X-Real-IP` (see software-home spec).
 const clientIp = `198.19.${Math.floor(Math.random() * 250)}.${Math.floor(Math.random() * 250)}`
@@ -28,6 +38,7 @@ test.describe('Instalacje home sections', () => {
     await expect(page.locator('h1')).toHaveCount(1)
     await expect(page.locator('.ut2')).toHaveCount(10)
     await expect(page.locator('.obc')).toHaveCount(12)
+    await expect(page.locator('#realizacje .rl')).toHaveCount(4)
     expect(await page.locator('main').innerText()).not.toMatch(/\[[A-ZĄĆĘŁŃÓŚŹŻ ]{3,}[:\]]/)
     const types = await page
       .locator('script[type="application/ld+json"]')

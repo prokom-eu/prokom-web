@@ -58,8 +58,8 @@ const ARCH_OBJECTS = new Set(['dev', 'bud'])
  * the cross-section, problems with what we do, day / year timeline, law (no sources, the legal
  * sentence), Podhale, checklist „Przed wizytą”, warranty, packages, FAQ, related services and
  * similar objects, the CTA band — all texts from the panel (`InstObjects`), hotspot titles and
- * the drawing from code. Realizations of the prototype are real clients without consent: not
- * shown (decision I6, like I9).
+ * the drawing from code. Realizations („Nasze realizacje”, the clients agreed — boss 01.11.2026)
+ * from the panel; the photo slot keeps the icon without the prototype's „Miejsce na zdjęcie”.
  */
 export async function ObjectPage({ tenantId, object, sceneKey, origin }: Props) {
   const [cards, settings, site, company] = await Promise.all([
@@ -279,6 +279,38 @@ export async function ObjectPage({ tenantId, object, sceneKey, origin }: Props) 
                   </div>
                 ))}
               </div>
+            </div>
+          </div>
+        </InstSection>
+      )}
+
+      {object.realizations && object.realizations.length > 0 && (
+        <InstSection id="realizacje-s" style={SECTION} {...foldOf('realizacje-s')}>
+          <div className="wrap">
+            <div className="shead ri">
+              <div>
+                <span className="eye">{objectPage.realizations.eyebrow}</span>
+                {object.realizationsHeading && <h2 className="h2">{object.realizationsHeading}</h2>}
+              </div>
+              <Link href={objectPage.realizations.all.href} className="btn btn-g btn-s">
+                {objectPage.realizations.all.label}
+              </Link>
+            </div>
+            <div className="sgrg">
+              {object.realizations.map((r) => (
+                <Link
+                  key={r.id ?? r.title}
+                  href={objectPage.realizations.all.href}
+                  className="card sgrc ri"
+                >
+                  <span className="sgrph" aria-hidden="true">
+                    <InstIcon name="camera2" size={26} strokeWidth={1.6} />
+                  </span>
+                  <b className="h3">{r.title}</b>
+                  {r.place && <span className="mut">{r.place}</span>}
+                  {r.description && <p>{r.description}</p>}
+                </Link>
+              ))}
             </div>
           </div>
         </InstSection>

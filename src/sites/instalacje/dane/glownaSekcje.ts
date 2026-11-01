@@ -285,7 +285,8 @@ export const glownaSekcje = {
   },
   realizations: {
     eyebrow: 'Realizacje',
-    heading: 'Wybrane realizacje.',
+    // The prototype's heading: the featured realizations are sound and multimedia.
+    heading: 'Wybrane realizacje: nagłośnienie i multimedia.',
     all: 'Wszystkie realizacje →',
   },
   mountains: {
