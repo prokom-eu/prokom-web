@@ -1,5 +1,6 @@
 'use client'
 
+import { track } from '@/lib/analytics/track'
 import { type FormEvent, useEffect, useRef, useState } from 'react'
 
 import {
@@ -123,8 +124,10 @@ export function QuoteForm({ formToken }: { formToken: string }) {
         await response.json().catch(() => null),
         SERVER_FIELDS,
       )
-      if (outcome.kind === 'sent') setDone({ number: outcome.number })
-      else if (outcome.kind === 'invalid') {
+      if (outcome.kind === 'sent') {
+        track('kontakt_wyslij')
+        setDone({ number: outcome.number })
+      } else if (outcome.kind === 'invalid') {
         // A stale form ("refresh the page") goes first: fixing a field would not help.
         const field = outcome.formError
           ? undefined

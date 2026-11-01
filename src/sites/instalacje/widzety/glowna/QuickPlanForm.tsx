@@ -1,5 +1,6 @@
 'use client'
 
+import { track } from '@/lib/analytics/track'
 import Link from 'next/link'
 import { travelZone } from '@/lib/instalacje/plan'
 import { type CSSProperties, type FormEvent, useEffect, useRef, useState } from 'react'
@@ -112,8 +113,10 @@ export function QuickPlanForm({ services, formToken }: Props) {
         name: t.errors.name,
         phone: t.errors.phone,
       })
-      if (outcome.kind === 'sent') setDone({ number: outcome.number })
-      else if (outcome.kind === 'invalid') {
+      if (outcome.kind === 'sent') {
+        track('kontakt_wyslij')
+        setDone({ number: outcome.number })
+      } else if (outcome.kind === 'invalid') {
         // A stale form ("refresh the page") goes first: fixing a field would not help.
         const [key, text] = outcome.formError ? [] : (Object.entries(outcome.fields)[0] ?? [])
         setError(

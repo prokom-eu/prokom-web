@@ -1,5 +1,6 @@
 'use client'
 
+import { track } from '@/lib/analytics/track'
 import { type FormEvent, useEffect, useId, useRef, useState } from 'react'
 
 import { readOutcome } from '@/lib/inquiry/form'
@@ -76,8 +77,10 @@ export function EmailForm({ kind, formToken }: Props) {
         email: E.email,
         consent: E.consent,
       })
-      if (outcome.kind === 'sent') setSent(true)
-      else if (outcome.kind === 'invalid') {
+      if (outcome.kind === 'sent') {
+        track('kontakt_wyslij')
+        setSent(true)
+      } else if (outcome.kind === 'invalid') {
         const [key, text] = outcome.formError ? [] : (Object.entries(outcome.fields)[0] ?? [])
         if (key && text) fail(key as EmailError, text)
         else fail('form', outcome.formError ?? E.failed)

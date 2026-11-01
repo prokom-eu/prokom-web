@@ -1,5 +1,7 @@
 'use client'
 
+import { labelKey } from '@/lib/analytics/events'
+import { track } from '@/lib/analytics/track'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
@@ -37,6 +39,7 @@ export function TabBar({ navigation, menu }: Props) {
               href={item.href}
               className={item.featured ? 'mid' : active ? 'act' : undefined}
               aria-current={active ? 'page' : undefined}
+              onClick={() => track('pasek_klik', { pozycja: labelKey(item.label) })}
             >
               {icon}
               <span>{item.label}</span>
@@ -51,7 +54,12 @@ export function TabBar({ navigation, menu }: Props) {
             className={active ? 'act' : undefined}
             aria-haspopup="dialog"
             aria-expanded={sheet === item.sheet}
-            onClick={() => toggleSheet(item.sheet)}
+            onClick={() => {
+              // Statistics (ADR-020): the tab by its label key; opening a sheet is „menu_otworz”.
+              track('pasek_klik', { pozycja: labelKey(item.label) })
+              if (sheet !== item.sheet) track('menu_otworz')
+              toggleSheet(item.sheet)
+            }}
           >
             {icon}
             <span>{item.label}</span>
