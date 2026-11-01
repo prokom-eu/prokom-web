@@ -13,9 +13,11 @@ type Props = {
    * `primary`: the big switch of the product box, "Dodaj do zapytania" / "✓ Na liście" (§6.2);
    * `onDark`: the same on a navy panel, "Dodaj do zapytania" / "✓ W zapytaniu" (/insert picker).
    */
-  variant?: 'icon' | 'label' | 'primary' | 'onDark'
+  variant?: 'icon' | 'label' | 'primary' | 'onDark' | 'card'
   /** After the switch, e.g. to move focus when this button leaves the page. */
   onToggle?: () => void
+  /** `card`: only the „+” on a phone (the label stays for screen readers). */
+  compact?: boolean
 }
 
 const PLUS = 'M12 5v14M5 12h14'
@@ -37,7 +39,14 @@ function Mark({ on, size, stroke }: { on: boolean; size: number; stroke: number 
 }
 
 /** Switch of a product on the inquiry list: adds, or removes when already there. */
-export function AddToCartButton({ slug, name, className, variant = 'icon', onToggle }: Props) {
+export function AddToCartButton({
+  slug,
+  name,
+  className,
+  variant = 'icon',
+  onToggle,
+  compact = false,
+}: Props) {
   const on = useCart().some((item) => item.id === slug)
   const toggle = () => {
     cartActions.toggle(slug, name)
@@ -85,6 +94,29 @@ export function AddToCartButton({ slug, name, className, variant = 'icon', onTog
       >
         <Mark on={on} size={16} stroke={2.6} />
         {label}
+      </button>
+    )
+  }
+
+  if (variant === 'card') {
+    // Board `.addb`: in the corner of the card picture, accent until added, then green.
+    const label = on ? 'W zapytaniu' : 'Do zapytania'
+    return (
+      <button
+        type="button"
+        aria-pressed={on}
+        aria-label={`${label}: ${name}`}
+        onClick={toggle}
+        className={cx(
+          'inline-flex min-h-11 items-center justify-center gap-1.5 rounded-[13px] px-3.5 text-sm font-extrabold whitespace-nowrap transition-colors',
+          on
+            ? 'bg-ok-text text-surface'
+            : 'bg-accent-text text-accent-ink hover:bg-ink hover:text-surface',
+          className,
+        )}
+      >
+        <Mark on={on} size={15} stroke={2.6} />
+        <span className={compact ? 'max-sm:sr-only' : undefined}>{label}</span>
       </button>
     )
   }
