@@ -28,7 +28,7 @@ import { softwareTextContext } from '@/sites/software/components/textContext'
 import { ContactForm } from '../SwContact/ContactForm'
 import { ContactHours } from './ContactHours'
 import { OsmMap } from './OsmMap'
-import type { CONTACT_CHANNELS } from './config'
+import { ENTRANCE_CAPTION, type CONTACT_CHANNELS } from './config'
 
 type ContactChannel = (typeof CONTACT_CHANNELS)[number]
 
@@ -150,7 +150,7 @@ export async function SwContactPageBlock({ block, tenantId, isFirst }: Props) {
     return text ? [{ key: place.id ?? place.title, title: place.title, text }] : []
   })
   const meetLead = fill(block.meetLead)
-  const entranceCaption = block.entranceCaption ?? 'Tak wygląda wejście'
+  const entranceCaption = block.entranceCaption ?? ENTRANCE_CAPTION
   const entranceImage = publicImage(block.entrancePhoto, tenantId)
   // Placeholder only off production (spec. §13 pkt 25), like the photos of `/o-firmie`.
   const entrance =

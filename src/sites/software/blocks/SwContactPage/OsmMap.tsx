@@ -114,18 +114,9 @@ export function OsmMap({ routeHref, routeLabel, zoomLabel, pin, label }: Props) 
           <span className="text-[13px] text-ink-2">{pin.city}</span>
         </div>
       ) : null}
-      <span className="absolute top-3 right-3 rounded-full bg-card/85 px-2 py-0.5 text-[11px] text-ink-2">
-        ©{' '}
-        <a
-          href="https://www.openstreetmap.org/copyright"
-          rel="noopener"
-          target="_blank"
-          className="underline-offset-2 hover:underline"
-        >
-          autorzy OpenStreetMap
-        </a>
-      </span>
-      <div className="absolute right-3.5 bottom-3.5 left-3.5 flex flex-wrap gap-2">
+      {/* Buttons and the credit share the bottom row (the credit wraps under the buttons on a
+          narrow phone), so the address card on top never covers the credit. */}
+      <div className="absolute right-3.5 bottom-3.5 left-3.5 flex flex-wrap items-end gap-2">
         <a
           href={routeHref}
           rel="noopener"
@@ -145,6 +136,18 @@ export function OsmMap({ routeHref, routeLabel, zoomLabel, pin, label }: Props) 
           {zoomLabel}
           <span className="sr-only"> (OpenStreetMap, nowe okno)</span>
         </a>
+        <span className="ml-auto rounded-full bg-card/85 px-2 py-0.5 text-[11px] text-ink-2">
+          ©{' '}
+          <a
+            href="https://www.openstreetmap.org/copyright"
+            rel="noopener"
+            target="_blank"
+            className="underline-offset-2 hover:underline"
+          >
+            autorzy OpenStreetMap
+            <span className="sr-only"> (nowe okno)</span>
+          </a>
+        </span>
       </div>
     </div>
   )

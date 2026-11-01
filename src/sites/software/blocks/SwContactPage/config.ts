@@ -7,6 +7,9 @@ import { tenantImageFilter } from '../../../../lib/media/access'
 /** Lines of „Inne linie PRO-KOM” (`--c-<line>`, `--c-<line>-text`, `--c-<line>-on-dark`). */
 export const CONTACT_LINE_COLORS = ['biznes', 'instalacje', 'tech', 'prokom'] as const
 
+/** Caption of the entrance photo when the panel leaves it empty (board `Kontakt` v23). */
+export const ENTRANCE_CAPTION = 'Tak wygląda wejście'
+
 /** The four contact cards of the hero (spec. §6.10). */
 export const CONTACT_CHANNELS = ['phone', 'email', 'salon', 'online'] as const
 

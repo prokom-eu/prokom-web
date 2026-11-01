@@ -2,6 +2,7 @@ import path from 'node:path'
 
 import type { Payload } from 'payload'
 
+import { ENTRANCE_CAPTION } from '../../sites/software/blocks/SwContactPage/config'
 import { findImportedFile } from '../biznes/map'
 import { SOFTWARE_ABOUT_SLUG, SOFTWARE_ONE_FIRM_SLUG } from './about'
 import { SOFTWARE_CONTACT_SLUG } from './contact'
@@ -68,7 +69,7 @@ export function layoutWithPhotos(
     if (block.blockType === 'swTeam' && block.members)
       return { ...block, members: block.members.map(fill) }
     if (block.blockType === 'swContactPage' && !block.entrancePhoto) {
-      const id = photoFor(block.entranceCaption ?? 'Tak wygląda wejście', ids)
+      const id = photoFor(block.entranceCaption ?? ENTRANCE_CAPTION, ids)
       if (id === undefined) return block
       changed = true
       return { ...block, entrancePhoto: id }

@@ -8,6 +8,8 @@ import {
   insideRing,
   joinRings,
   labelAngle,
+  num,
+  pathData,
   project,
   TARGET,
   WIDTH,
@@ -38,6 +40,24 @@ describe('software-osm-map', () => {
     expect(classify({ natural: 'wood' })).toBe('wood')
     expect(classify({ highway: 'bus_stop' })).toBeNull()
     expect(classify(undefined)).toBeNull()
+  })
+
+  it('writes short relative path data', () => {
+    expect(num(0.5)).toBe('.5')
+    expect(num(-0.5)).toBe('-.5')
+    expect(num(12.04)).toBe('12')
+    expect(
+      pathData(
+        [
+          [
+            [10, 10],
+            [12.5, 9],
+            [12.5, 15],
+          ],
+        ],
+        true,
+      ),
+    ).toBe('M10 10l2.5-1 0 6z')
   })
 
   it('keeps labels readable (never upside down)', () => {
@@ -99,7 +119,7 @@ describe('software-osm-map', () => {
         },
       ],
     })
-    expect(map.target).toMatch(/^M.*Z$/)
+    expect(map.target).toMatch(/^M.*z$/)
     expect(map.pin).toEqual([WIDTH / 2, HEIGHT / 2])
     expect(map.labels.map((label) => label.text)).toEqual(['ul. Orkana'])
     expect(map.osmHref).toContain('openstreetmap.org')
