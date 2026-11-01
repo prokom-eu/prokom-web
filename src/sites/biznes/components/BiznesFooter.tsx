@@ -51,7 +51,6 @@ const REGION_LINKS = [
   { label: 'Monitoring, sieci, smart home', href: 'https://prokominstalacje.pl' },
   { label: 'Strony, sklepy i aplikacje', href: 'https://prokomsoftware.pl' },
   { label: 'Serwis telefonów i laptopów', href: 'https://prokomserwis.pl' },
-  { label: 'Sklep w Zakopanem', href: 'https://prokomzakopane.pl' },
 ]
 
 const OFFER_LINKS = [

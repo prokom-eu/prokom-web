@@ -1,5 +1,6 @@
 import { categoryHref } from './category'
 import type { CatalogIndex, IndexImage, IndexLogo } from './catalogIndex'
+import { brandCount } from './filters'
 import type { IconName } from './options'
 
 /** Catalog filtered to one group (mega menu, home page department cards). */
@@ -87,7 +88,7 @@ export function offerMenu(
     departments,
     totals: {
       products: index.products.length,
-      brands: index.brands.length,
+      brands: brandCount(index),
       bundles: index.pages.filter((page) => page.slug.startsWith('zestawy/')).length,
     },
   }

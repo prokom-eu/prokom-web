@@ -486,6 +486,55 @@ describe('categoryPill', () => {
     )
   })
 
+  it('shows a status only when its brands make at least half of the category', () => {
+    const all: CatalogIndex['brands'] = [
+      ...brands,
+      { slug: 'optivendi', name: 'Optivendi', status: 'partner' },
+      { slug: 'comex', name: 'COMEX', status: 'cooperation' },
+      { slug: 'zebra', name: 'Zebra', status: 'none' },
+    ]
+    // Automaty vendingowe: Optivendi machines and one Elzab module.
+    const vending = [
+      product('v1', { brand: 'optivendi' }),
+      product('v2', { brand: 'optivendi' }),
+      product('v3', { brand: 'optivendi' }),
+      product('v4', { brand: 'elzab' }),
+    ]
+    expect(categoryPill('Automaty', vending, index(vending, { brands: all }))).toBe(
+      'Automaty · 4 modele · partner Optivendi',
+    )
+    // Skanery, etykiety i kolektory: mostly other brands, one Elzab scanner.
+    const scanners = [
+      product('s1', { brand: 'zebra' }),
+      product('s2', { brand: 'zebra' }),
+      product('s3', { brand: 'elzab' }),
+    ]
+    expect(categoryPill('Skanery', scanners, index(scanners, { brands: all }))).toBe(
+      'Skanery · 3 modele',
+    )
+    // Wagi sklepowe: mostly scales of other brands, one Elzab model.
+    const scales = [
+      product('w1', { brand: 'zebra' }),
+      product('w2', { brand: 'zebra' }),
+      product('w3', { brand: 'fawag' }),
+      product('w4', { brand: 'elzab' }),
+    ]
+    expect(categoryPill('Wagi', scales, index(scales, { brands: all }))).toBe('Wagi · 4 modele')
+    // K4-FINAL §1 wording „Posnet i Elzab”, also when Elzab has more models.
+    const registers = [
+      product('r1', { brand: 'elzab' }),
+      product('r2', { brand: 'elzab' }),
+      product('r3', { brand: 'posnet' }),
+    ]
+    expect(categoryPill('Kasy', registers, index(registers, { brands: all }))).toBe(
+      'Kasy · 3 modele · autoryzowany serwis Posnet i Elzab',
+    )
+    const cooperation = [product('c1', { brand: 'comex' }), product('c2', { brand: 'zebra' })]
+    expect(categoryPill(null, cooperation, index(cooperation, { brands: all }))).toBe(
+      '2 modele · we współpracy z COMEX',
+    )
+  })
+
   it('counts positions when not everything is a device, and skips missing statuses', () => {
     const products = [product('a', { kind: 'service' }), product('b', { brand: 'gopos' })]
     expect(categoryPill(null, products, index(products, { brands }))).toBe(

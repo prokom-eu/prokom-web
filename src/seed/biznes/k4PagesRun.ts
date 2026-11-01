@@ -24,30 +24,27 @@ const pages = file as unknown as K4PagesFile
 const firma = file as unknown as K4FirmaFile
 const vending = file as unknown as K4VendingFile
 
-/**
- * K4 subpages (K4hij) from `strony-k4.json`. A page without K4 sections was edited in the
- * panel: it stays and goes to the report, like board ids the database does not know.
- */
-export async function seedBiznesK4Pages(
-  payload: Payload,
-  tenantId: number,
-  slugOf: SlugOf,
-  report: Report,
-  note: Note,
-): Promise<void> {
-  const k4 = [
+/** The K4 subpages with their title, SEO description and layout (descriptions tested). */
+export function k4PageSeeds(slugOf: SlugOf) {
+  return [
     {
       slug: 'gopos',
       title: 'GoPOS',
       description:
+        'GoPOS dla gastronomii z wdrożeniem w lokalu: sala, kuchnia i dowozy w jednym systemie. Autoryzowany partner GoPOS z Rabki-Zdroju.',
+      replaces: [
         'GoPOS dla gastronomii z PRO-KOM: sprzęt, menu, fiskalizacja, szkolenie w lokalu i serwis w sezonie z Rabki. Sala, kuchnia i dowozy w jednym systemie.',
+      ],
       built: goposK4Layout(pages, slugOf),
     },
     {
       slug: 'insert',
       title: 'InsERT',
       description:
+        'Subiekt, Rachmistrz i Rewizor z wdrożeniem i KSeF. Dobór programu InsERT, przeniesienie danych i szkolenie — autoryzowany partner z Rabki.',
+      replaces: [
         'Subiekt i programy InsERT z PRO-KOM: dobór programu, instalacja, przeniesienie danych, połączenie z kasą, KSeF i szkolenie na Twoich dokumentach.',
+      ],
       built: insertK4Layout(pages, slugOf),
     },
     {
@@ -95,7 +92,20 @@ export async function seedBiznesK4Pages(
       built: ulgaK4Layout(slugOf),
     },
   ]
-  for (const { slug, title, description, built } of k4) {
+}
+
+/**
+ * K4 subpages (K4hij) from `strony-k4.json`. A page without K4 sections was edited in the
+ * panel: it stays and goes to the report, like board ids the database does not know.
+ */
+export async function seedBiznesK4Pages(
+  payload: Payload,
+  tenantId: number,
+  slugOf: SlugOf,
+  report: Report,
+  note: Note,
+): Promise<void> {
+  for (const { slug, title, description, replaces, built } of k4PageSeeds(slugOf)) {
     for (const id of built.missing) note('strona K4: produkt spoza bazy', `${slug}: ${id}`)
     const done = await upsertK4Page(
       payload,
@@ -104,6 +114,7 @@ export async function seedBiznesK4Pages(
         slug,
         title,
         description,
+        replaces,
         layout: built.layout,
       },
       report,

@@ -83,7 +83,7 @@ export function factsBlocks(brand: (name: string) => number | undefined): HomeBl
         {
           // The number comes from `contact.ts`; the hours in the sentence follow BIZNES_COMPANY.
           question: 'Co, gdy coś przestanie działać?',
-          answer: `Dzwonisz na ${BIZNES_CONTACT.phone} w godzinach pracy (pn–pt 9–17). Ustalamy przyczynę i naprawiamy, a gdy trzeba, przyjeżdża serwisant z Rabki. Klienci z umową opieki mają czas reakcji zapisany w umowie.`,
+          answer: `Dzwonisz na ${BIZNES_CONTACT.phone} w godzinach pracy (pn–pt 9–17). Ustalamy przyczynę i naprawiamy, a gdy trzeba, przyjeżdża serwisant z Rabki. Klienci z umową opieki mają czas reakcji ustalony w umowie.`,
         },
         {
           question: 'Czy przejmujecie serwis kasy od innej firmy?',

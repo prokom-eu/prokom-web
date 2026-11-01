@@ -3,6 +3,7 @@ import Link from 'next/link'
 
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
+import { NoBreak } from '@/components/ui/NoBreak'
 import { productHref } from '@/lib/catalog/card'
 import type { IndexProduct } from '@/lib/catalog/catalogIndex'
 import type { PlanCard, PlanSection, SalonView } from '@/lib/catalog/salon'
@@ -72,9 +73,13 @@ function SectionHead({
           id={id}
           className="font-display text-[clamp(1.4rem,3vw,2.4rem)] leading-tight font-extrabold text-balance text-ink"
         >
-          {title}
+          <NoBreak text={title} />
         </h2>
-        {lead && <p className="text-ink-2 sm:text-lg">{lead}</p>}
+        {lead && (
+          <p className="text-ink-2 sm:text-lg">
+            <NoBreak text={lead} />
+          </p>
+        )}
       </div>
       {note && (
         <span className="self-start rounded-full bg-surface-2 px-3 py-1.5 text-xs font-extrabold text-ink-2 sm:self-end">
@@ -147,17 +152,19 @@ export function SalonHero({ view, crumbs }: { view: SalonView; crumbs: Crumb[] }
               id="salon-h1"
               className="font-display max-[1079px]:order-1 text-[clamp(2rem,3.3vw,3rem)] leading-[1.06] font-extrabold tracking-[-0.025em] text-balance"
             >
-              {view.h1a}
+              <NoBreak text={view.h1a} />
               {view.h1b && (
                 <>
                   {' '}
-                  <em className="block text-accent-on-dark not-italic">{view.h1b}</em>
+                  <em className="block text-accent-on-dark not-italic">
+                    <NoBreak text={view.h1b} />
+                  </em>
                 </>
               )}
             </h1>
             {view.lead && (
               <p className="max-w-[58ch] text-[clamp(0.95rem,1.3vw,1.15rem)] leading-relaxed text-white/80 max-[1079px]:order-1">
-                {view.lead}
+                <NoBreak text={view.lead} />
               </p>
             )}
             <div className="grid grid-cols-2 gap-3 max-[1079px]:order-4 min-[1080px]:flex min-[1080px]:flex-wrap">

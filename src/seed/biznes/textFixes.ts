@@ -14,6 +14,26 @@ export const TEXT_FIXES: readonly (readonly [from: string, to: string])[] = [
   ['biuro@pro-kom.eu', BIZNES_CONTACT.email],
   ['18 267 65 11', BIZNES_CONTACT.phone2],
   ['tel:+48182676511', BIZNES_CONTACT.phone2Href],
+  // K4-FINAL §1: „ustalamy w umowie”, never „zapisujemy w umowie” (audit of 01.11.2026).
+  ['Zapisujemy go w umowie', 'Ustalamy go w umowie'],
+  ['zapisujemy w umowie', 'ustalamy w umowie'],
+  ['zapisanym w umowie', 'ustalonym w umowie'],
+  ['zapisany w umowie', 'ustalony w umowie'],
+  ['zapisane w umowie', 'ustalone w umowie'],
+  // /aktualnosci: no „EuroCert na miejscu” and no MF draft without a source (audit 01.11.2026).
+  [
+    ' (MF zapowiedziało projekt przedłużenia do końca 2027 — projekt, nie prawo). Ale terminy',
+    '. Ale terminy',
+  ],
+  [
+    'Podpis i pieczęć EuroCert wydajemy w Rabce — jedno spotkanie, bez jazdy do Krakowa.',
+    'Pomożemy wyrobić podpis albo pieczęć EuroCert.',
+  ],
+  ['Wydajemy EuroCert na miejscu.', 'Pomożemy wyrobić podpis EuroCert.'],
+  [
+    '; Ministerstwo Finansów zapowiedziało projekt przedłużenia do końca 2027 (stan na 15.10.2026, projekt nieuchwalony). Terminy',
+    '. Terminy',
+  ],
 ]
 
 /** `value` with every fix applied to each string inside it (objects and arrays copied). */
@@ -33,26 +53,67 @@ export function fixTexts<T>(value: T): T {
 
 type Report = (name: string, changed: boolean) => void
 
-/** Applies `TEXT_FIXES` to the layouts of the line's pages; a page is saved only when it changed. */
+/**
+ * Applies `TEXT_FIXES` to the line's pages (layout), posts (lead, summary, content) and the
+ * KSeF panel of the Biznes settings; a record is saved only when it changed.
+ */
 export async function seedBiznesTextFixes(
   payload: Payload,
   tenantId: number,
   report: Report,
 ): Promise<void> {
   const local = { overrideAccess: true, context: SEED_CONTEXT, depth: 0 } as const
-  const { docs } = await payload.find({
+  const inTenant = { tenant: { equals: tenantId } }
+  const changedOf = (before: unknown, after: unknown) =>
+    JSON.stringify(before) !== JSON.stringify(after)
+
+  const pages = await payload.find({
     collection: 'pages',
-    where: { tenant: { equals: tenantId } },
+    where: inTenant,
     limit: 0,
     pagination: false,
     ...local,
   })
-  for (const page of docs) {
+  for (const page of pages.docs) {
     const layout = fixTexts(page.layout)
-    const changed = JSON.stringify(layout) !== JSON.stringify(page.layout)
+    const changed = changedOf(page.layout, layout)
     report('pages text fixes', changed)
     if (changed) {
       await payload.update({ collection: 'pages', id: page.id, data: { layout }, ...local })
+    }
+  }
+
+  const posts = await payload.find({
+    collection: 'posts',
+    where: inTenant,
+    limit: 0,
+    pagination: false,
+    ...local,
+  })
+  for (const post of posts.docs) {
+    const before = { lead: post.lead, summary: post.summary, content: post.content }
+    const after = fixTexts(before)
+    const changed = changedOf(before, after)
+    report('posts text fixes', changed)
+    if (changed) {
+      await payload.update({ collection: 'posts', id: post.id, data: after, ...local })
+    }
+  }
+
+  const {
+    docs: [settings],
+  } = await payload.find({ collection: 'biznes-settings', where: inTenant, limit: 1, ...local })
+  if (settings?.news?.ksef) {
+    const ksef = fixTexts(settings.news.ksef)
+    const changed = changedOf(settings.news.ksef, ksef)
+    report('biznes-settings text fixes', changed)
+    if (changed) {
+      await payload.update({
+        collection: 'biznes-settings',
+        id: settings.id,
+        data: { news: { ...settings.news, ksef } },
+        ...local,
+      })
     }
   }
 }

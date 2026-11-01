@@ -32,6 +32,13 @@ describe('fixTexts', () => {
     ])
   })
 
+  it('turns „zapisujemy w umowie” into „ustalamy w umowie” (K4-FINAL §1)', () => {
+    expect(fixTexts('Zakres i czas reakcji zapisujemy w umowie. Zapisujemy go w umowie.')).toBe(
+      'Zakres i czas reakcji ustalamy w umowie. Ustalamy go w umowie.',
+    )
+    expect(fixTexts('czas reakcji zapisany w umowie')).toBe('czas reakcji ustalony w umowie')
+  })
+
   it('leaves other texts untouched', () => {
     const block = { heading: 'pro-kom.eu — wspólne wejście', lead: 'Rabka-Zdrój' }
     expect(fixTexts(block)).toEqual(block)

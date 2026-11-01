@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest'
 import { prepareSearch } from '../search'
 import { buildCatalogIndex } from './catalogIndex'
 import {
+  brandCount,
   activeFilters,
   CATALOG_PAGE_SIZE,
   catalogQueryString,
@@ -334,5 +335,16 @@ describe('catalogSeo (ADR-012 §2.2)', () => {
         canonical: '/oferta',
       })
     }
+  })
+})
+
+describe('brandCount (audit 01.11: one number for the home page and Szybki start)', () => {
+  it('counts the brands without the company itself', () => {
+    const brands = [
+      { slug: 'posnet', name: 'Posnet', status: 'authorized-service' as const },
+      { slug: 'pro-kom', name: 'PRO-KOM', status: 'none' as const },
+      { slug: 'dell', name: 'Dell', status: 'none' as const },
+    ]
+    expect(brandCount({ brands })).toBe(2)
   })
 })

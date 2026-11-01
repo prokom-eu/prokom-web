@@ -391,3 +391,21 @@ describe('mapa-slugow-k4.json', () => {
     }
   })
 })
+
+describe('HP only with original supplies (K4-FINAL §1, audit 01.11)', () => {
+  const cards = (k4Catalog as unknown as { produkty: K4Card[] }).produkty
+  const bySlug = new Map(cards.map((card) => [card.slug_seed, card]))
+  const hp = cards.filter((card) => card.slug_seed.startsWith('hp-'))
+
+  it.each(hp.map((card) => card.slug_seed))(
+    '%s names no „zamiennik”, nor do its suggestions',
+    (slug) => {
+      const card = bySlug.get(slug)!
+      const suggested = (card.polecane ?? []).map((item) => [
+        item.etykieta,
+        bySlug.get(item.slug)?.nazwa,
+      ])
+      expect(JSON.stringify([card, suggested])).not.toMatch(/zamiennik/i)
+    },
+  )
+})
