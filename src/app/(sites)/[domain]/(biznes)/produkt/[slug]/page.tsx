@@ -26,6 +26,7 @@ import { pageRobots } from '@/lib/seo/robots'
 import { getSiteSettings } from '@/lib/site/data'
 import { toTelHref } from '@/lib/site/link'
 import { isValidSlug } from '@/lib/tenant/uniqueSlug'
+import { metaDescription } from '@/lib/seo/description'
 import { Breadcrumbs, type Crumb } from '@/sites/biznes/components/Breadcrumbs'
 import { BundleGrid } from '@/sites/biznes/components/bundle/BundleCard'
 import { PageLink } from '@/sites/biznes/components/PageLink'
@@ -91,7 +92,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       product.heading,
       product.variants.map((variant) => variant.name),
     )
-  const description = product.seo.description ?? product.benefit ?? undefined
+  // Panel texts can run long: cut to what results show in full (audit 01.11, as Software).
+  const descriptionSource = product.seo.description ?? product.benefit
+  const description = descriptionSource ? metaDescription(descriptionSource) : undefined
   const settings = await getSiteSettings(tenant.id)
   // One canonical per card: `?wersja=` only picks the configurator (K31-ZMIANY §13.5).
   const canonical = productHref(product.slug)
