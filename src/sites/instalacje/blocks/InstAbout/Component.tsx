@@ -14,6 +14,8 @@ import { InstSection } from '../../sekcje/InstSection'
 import { JsonLd } from '../../sekcje/JsonLd'
 import { PageCtaBand } from '../../sekcje/PageCtaBand'
 
+import { Count } from '../../sekcje/Count'
+
 type Props = { block: InstAboutBlockData; tenantId: number }
 
 /**
@@ -70,7 +72,9 @@ export async function InstAboutBlock({ block, tenantId }: Props) {
                 <div className="pkv in d4">
                   {hero.facts.map((k) => (
                     <div key={k.id ?? k.value} className="kv">
-                      <b>{k.value}</b>
+                      <b>
+                        <Count text={k.value} />
+                      </b>
                       <span>{k.label}</span>
                     </div>
                   ))}

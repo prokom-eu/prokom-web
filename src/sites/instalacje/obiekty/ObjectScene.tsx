@@ -19,6 +19,7 @@ import {
 } from './objectModel'
 import { resetScene, setScene, useScene } from './sceneStore'
 import type { ObjectHotspot } from './types'
+import { Arrow } from '../Arrow'
 
 type Props = {
   title: string | null | undefined
@@ -127,7 +128,7 @@ export function ObjectScene({ title, viewBox, html, hotspots }: Props) {
           {cur.serviceHref && (
             <Link href={cur.serviceHref} className="sgchip">
               <i />
-              {cur.serviceName} →
+              {cur.serviceName} <Arrow />
             </Link>
           )}
         </div>

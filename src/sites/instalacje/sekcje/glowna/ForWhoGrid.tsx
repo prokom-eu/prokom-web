@@ -9,6 +9,7 @@ import { InstSection } from '../InstSection'
 import { SectionHead } from '../SectionHead'
 import { LiveButton } from './LiveButton'
 import { ShowAll } from './ShowAll'
+import { Arrow } from '../../Arrow'
 
 const t = glownaSekcje.forWho
 
@@ -54,7 +55,7 @@ export function ForWhoGrid({ objects }: { objects: Map<ObjectKey, MenuEntry> }) 
               <div className="obf">
                 {live && <LiveButton object={live} label={t.live} />}
                 <Link href={object.href} className="obl2">
-                  {t.more} →
+                  {t.more} <Arrow />
                 </Link>
               </div>
             </div>

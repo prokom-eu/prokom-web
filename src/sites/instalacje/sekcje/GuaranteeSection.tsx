@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { plural } from '@/lib/plural'
 
 import { InstIcon } from '../InstIcon'
+import { Arrow } from '../Arrow'
 
 type Props = { warrantyMonths: number; responseText: string }
 
@@ -70,7 +71,9 @@ export function GuaranteeSection({ warrantyMonths, responseText }: Props) {
               Przejmujemy serwis po innych firmach: sprawdzamy instalację i pomagamy odzyskać dostęp
               do urządzeń (za zgodą właściciela, także procedurą producenta).
             </p>
-            <span className="odba">Serwis i przejęcie →</span>
+            <span className="odba">
+              Serwis i przejęcie <Arrow />
+            </span>
           </Link>
         </div>
       </div>

@@ -14,6 +14,7 @@ import { HoursLive } from './HoursLive'
 import { solutionsText } from './offerText'
 import { useShell } from './ShellProvider'
 import { ThemeTile } from './ThemeButton'
+import { Arrow } from '../Arrow'
 
 /** The sheet serves phones and tablets; from 1101 px the header has the mega menu (spec §4). */
 const DESKTOP_QUERY = '(min-width: 1101px)'
@@ -115,7 +116,7 @@ export function MenuSheet({ navigation, menu, hours, status, phone }: Props) {
           <>
             <Tiles columns={menu.services} />
             <Link href="/uslugi" className="mall">
-              Pełna oferta: {solutionsText(menu.offer.solutions)} →
+              Pełna oferta: {solutionsText(menu.offer.solutions)} <Arrow />
             </Link>
           </>
         )}

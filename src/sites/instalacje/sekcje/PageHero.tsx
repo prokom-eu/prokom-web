@@ -6,6 +6,7 @@ import type { InstService } from '@/payload-types'
 import { InstIcon } from '../InstIcon'
 import { AnchorsBar } from '../powloka/AnchorsBar'
 import type { Phone } from './types'
+import { Count } from './Count'
 
 type Props = {
   hero: InstService['hero']
@@ -92,7 +93,9 @@ export function PageHero({ hero, name, anchors, phone, widget, parent = SERVICES
                 <div className="pkv in d5">
                   {hero.facts.map((fact) => (
                     <div key={fact.id ?? fact.value} className="kv">
-                      <b>{fact.value}</b>
+                      <b>
+                        <Count text={fact.value} />
+                      </b>
                       <span>{fact.label}</span>
                     </div>
                   ))}
