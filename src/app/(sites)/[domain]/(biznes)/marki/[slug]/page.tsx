@@ -22,7 +22,7 @@ import { robotsMeta } from '@/lib/seo/robots'
 import { getSiteSettings } from '@/lib/site/data'
 import { toTelHref } from '@/lib/site/link'
 import { isValidSlug } from '@/lib/tenant/uniqueSlug'
-import { metaDescription } from '@/lib/seo/description'
+import { biznesDescription } from '@/lib/biznes/seo'
 import type { Crumb } from '@/sites/biznes/components/Breadcrumbs'
 import { BrandAbout, BrandHero } from '@/sites/biznes/components/brand/BrandSections'
 import { SalonChooser, SalonFamily } from '@/sites/biznes/components/brand/salon/SalonClient'
@@ -71,13 +71,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const page = salon
     ? {
         title: salonTitle(salon.h1a, salon.h1b),
-        description: salon.lead ? metaDescription(salon.lead) : undefined,
+        description: salon.lead ? biznesDescription(salon.lead) : undefined,
         slug: salon.slug,
       }
     : brand
       ? {
           title: brandTitle(brand.name, brand.shortDescription),
-          description: brand.shortDescription ? metaDescription(brand.shortDescription) : undefined,
+          description: brand.shortDescription
+            ? biznesDescription(brand.shortDescription)
+            : undefined,
           slug: brand.slug,
         }
       : null

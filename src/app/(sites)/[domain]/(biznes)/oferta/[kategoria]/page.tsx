@@ -8,7 +8,7 @@ import { ogImages } from '@/lib/pages/metadata'
 import { robotsMeta } from '@/lib/seo/robots'
 import { getSiteSettings } from '@/lib/site/data'
 import { isValidSlug } from '@/lib/tenant/uniqueSlug'
-import { metaDescription } from '@/lib/seo/description'
+import { biznesDescription } from '@/lib/biznes/seo'
 import { CategoryPageView } from '@/sites/biznes/components/category/CategoryPageView'
 
 import { requestOrigin, requireLine } from '../../../tenant'
@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const title = category.seo.title ?? category.name
   // Panel texts can run long: cut to what results show in full (audit 01.11, as Software).
   const descriptionSource = category.seo.description ?? category.lead
-  const description = descriptionSource ? metaDescription(descriptionSource) : undefined
+  const description = descriptionSource ? biznesDescription(descriptionSource) : undefined
   const canonical = categoryHref(category.slug)
   return {
     title,

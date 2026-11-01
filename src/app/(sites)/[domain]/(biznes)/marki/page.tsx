@@ -16,7 +16,7 @@ import { requestOrigin, requireLine } from '../../tenant'
 
 type Props = { params: Promise<{ domain: string }> }
 
-const TITLE = 'Marki i salony producentów — kasy, komputery, sieć, programy'
+const TITLE = 'Marki i salony producentów dla firm'
 const DESCRIPTION =
   'Posnet, Elzab, GoPOS, InsERT, Lenovo, Dell, Apple i inne: salony marek z doborem modelu, porównaniem serii, wdrożeniem i serwisem w Rabce-Zdroju.'
 
