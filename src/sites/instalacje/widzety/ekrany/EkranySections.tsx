@@ -43,12 +43,15 @@ export function EkranySections() {
                 {where.tvLink.label}
               </Link>
               {where.tvAfter}
+              <Link href={where.realizationsLink.href} className="scr-link">
+                {where.realizationsLink.label}
+              </Link>
             </span>
           </div>
         </div>
       </InstSection>
 
-      <InstSection id="dwa-salony" style={SECTION}>
+      <InstSection id="dwa-ekrany" style={SECTION}>
         <div className="wrap">
           <div className="card dark ri synw" data-surface="dark">
             <TwoSalons />

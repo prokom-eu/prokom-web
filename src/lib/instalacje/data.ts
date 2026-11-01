@@ -312,7 +312,8 @@ export const getInstalacjeHome = cache(
         draft: false,
         depth: 0,
         limit: 4,
-        sort: '-year',
+        // Newest first; without a year the package order (`legacyId`), as in the prototype.
+        sort: ['-year', 'legacyId'],
         select: { title: true, category: true, place: true, scope: true },
         overrideAccess: true,
       }),

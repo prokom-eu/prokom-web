@@ -1,7 +1,7 @@
 {
  "_strona": "Main",
  "_title": "Monitoring, alarmy, Wi-Fi, smart home Podhale | PRO-KOM Instalacje",
- "_description": "Monitoring, alarmy, zamki, Wi-Fi, smart home Ampio i nagłośnienie na Podhalu. Projekt, montaż i serwis z Rabki-Zdroju i Zakopanego. 24 mies. gwarancji.",
+ "_description": "Monitoring, alarmy, zamki, Wi-Fi, smart home Ampio i nagłośnienie na Podhalu. Projekt, montaż i serwis z Rabki-Zdroju. 24 mies. gwarancji.",
  "_uwaga": "Zrzut danych z wizualizacji v4.2 (stan początkowy strony, motyw jasny). Teksty = treść do seeda. Klucze UI (cls, on, pick) pomijaj.",
  "dane": {
   "ctaEye": "Zaplanuj instalację",
@@ -407,7 +407,7 @@
     "d": "Ekrany w witrynie, menu board, recepcja i ściany wideo. Treść zmieniasz z komputera na wszystkich ekranach naraz.",
     "parts": "ekrany profesjonalne · odtwarzacz w ekranie · uchwyty · zarządzanie treścią · szablony",
     "hl": [
-     "Wdrażamy to w naszych salonach w Rabce i Zakopanem",
+     "Wdrażamy to w naszym salonie w Rabce-Zdroju",
      "Harmonogram: rano śniadania, wieczorem kolacje"
     ],
     "pl": [

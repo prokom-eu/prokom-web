@@ -174,7 +174,7 @@ const today = () => {
 const stamp = () => new Date().toTimeString().slice(0, 8)
 
 /**
- * Demo „one price change, two salons” (`#dwa-salony`): three buttons change the sample prices
+ * Demo „one price change, two screens” (`#dwa-ekrany`, the prototype: `#dwa-salony`): three buttons change the sample prices
  * on both screens at once. Sample prices of an illustration, not an offer (captioned „Demo”).
  */
 export function TwoSalons() {

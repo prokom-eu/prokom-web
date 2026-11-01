@@ -20,17 +20,17 @@ export function instalacjeHomeBlock(): InstHome {
   return {
     blockType: 'instHome',
     hero: {
-      eyebrow: 'Rabka-Zdrój · Zakopane · Podhale i Małopolska',
+      eyebrow: 'Rabka-Zdrój · Podhale i Małopolska',
       kicker: `Monitoring, alarmy, Wi-Fi i${NBSP}smart home na Podhalu`,
       h1a: 'Twój obiekt',
       h1b: `na${NBSP}żywo.`,
       lead:
         `Kamery, alarm, sieć, zamki, ładowarka, nagłośnienie i${NBSP}sterowanie budynkiem. ` +
         `Projektujemy wszystko razem, montujemy i${NBSP}serwisujemy jako jedna firma ` +
-        `z${NBSP}Rabki i${NBSP}Zakopanego. Wybierz obiekt obok i${NBSP}zobacz, co robi każda instalacja.`,
+        `z${NBSP}Rabki-Zdroju. Wybierz obiekt obok i${NBSP}zobacz, co robi każda instalacja.`,
       trust: [
         { icon: 'check', text: 'Na Podhalu od 2004 r.' },
-        { icon: 'pin', text: 'Salony w Rabce i Zakopanem' },
+        { icon: 'pin', text: 'Salon w Rabce-Zdroju' },
         { icon: 'doc', text: 'Wycena na piśmie' },
       ],
     },

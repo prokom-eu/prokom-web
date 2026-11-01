@@ -741,11 +741,10 @@ export const smartHome = {
   },
 
   /**
-   * Note under the warranty section (`.xc-gwn`). Spec §2.7: no Ampio warranty period until the
-   * authorisation is confirmed.
-   * TODO(krystian): szef potwierdza autoryzację Ampio (spec §12) — wtedy zdanie o okresie
-   * gwarancji producenta albo o zakupie przez partnera (zdanie „[SZEF…]” z prototypu pominięte).
+   * Note under the warranty section (`.xc-gwn`). The prototype's „[SZEF: potwierdź autoryzację
+   * Ampio…]”: confirmed (boss 01.11.2026). No warranty period of the producer — spec §2.7, we do
+   * not promise 5 years.
    */
   warrantyNote:
-    'Gwarancja na moduły Ampio: według warunków producenta. Warunki gwarancji Ampio zależą m.in. od montażu przez instalatora autoryzowanego przez producenta.',
+    'PRO-KOM ma autoryzację Ampio. Gwarancja na moduły Ampio: według warunków producenta.',
 }

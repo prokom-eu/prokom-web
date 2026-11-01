@@ -490,8 +490,9 @@ export function archNewsToImport(): ArchNewsItem[] {
 // --- realizations ---
 
 /**
- * The 11 realizations of `Realizacje.json`: real client names, so drafts without consent
- * (ADR-I002 §2). The home page shows the first ones (`Main.rl`, shorter names) → featured.
+ * The 11 realizations of `Realizacje.json`: real client names — the clients agreed to the
+ * publication (boss 01.11.2026, ADR-I002 §2). The home page shows the first ones (`Main.rl`,
+ * shorter names) → featured.
  */
 export function realizationsToImport(): (RealizationData & { legacyId: number })[] {
   const featured = Main.dane.rl.length
@@ -502,7 +503,8 @@ export function realizationsToImport(): (RealizationData & { legacyId: number })
     place: r.m,
     scope: r.z,
     description: r.ph || undefined,
-    clientConsent: false,
+    // The clients agreed to the publication (boss 01.11.2026).
+    clientConsent: true,
     featured: index < featured,
   }))
 }
@@ -532,7 +534,7 @@ const PAGE_FILES: {
     slug: 'kontakt',
     title: 'Kontakt',
     file: Kontakt,
-    seoTitle: 'Kontakt i dojazd: Rabka-Zdrój i Zakopane',
+    seoTitle: 'Kontakt i dojazd: Rabka-Zdrój i Podhale',
   },
   // The package's title + „| PRO-KOM Instalacje” has 66 characters.
   {

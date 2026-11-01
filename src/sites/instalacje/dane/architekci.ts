@@ -821,7 +821,7 @@ export const architekci = {
         'Zamki z kodem: gość wchodzi sam, kod ważny tylko w czasie pobytu',
         'Wi-Fi dla gości i telewizja w każdym lokalu',
         'Ogrzewanie w trybie oszczędnym, gdy lokal stoi pusty',
-        'Zdalny podgląd i serwis z Rabki i Zakopanego',
+        'Zdalny podgląd i serwis z Rabki-Zdroju',
       ],
       why: 'W Zakopanem działa ok. 3,5 tys. ofert najmu krótkoterminowego, średnie obłożenie ok. 48%. Od 20.05.2026 każdy lokal potrzebuje numeru rejestrowego.',
     },
@@ -984,22 +984,24 @@ export const architekci = {
     eyebrow: 'Nasze doświadczenie',
     heading: 'Od 2004 roku na Podhalu.',
     accent: 'Zostajemy po montażu.',
-    lead: 'PRO-KOM to firma z Rabki-Zdroju z salonem w Zakopanem. Instalacje, sprzęt, serwis i oprogramowanie w jednej firmie, blisko Twoich inwestycji.',
+    lead: 'PRO-KOM to firma z Rabki-Zdroju. Instalacje, sprzęt, serwis i oprogramowanie w jednej firmie, blisko Twoich inwestycji.',
     realizations: 'Wybrane realizacje',
     realizationsAll: 'Wszystkie realizacje →',
     brands: 'Sprzęt, z którym pracujemy',
     brandsNote: 'Dobieramy sprzęt pod obiekt, nie pod markę. Sprzęt dostępny dla firm:',
+    // The prototype's „[SZEF: autoryzacje i certyfikaty, np. Ampio, Satel]”: Ampio confirmed
+    // (boss 01.11.2026); Satel still open (STAN „Pytania”).
+    brandsAuth: 'Mamy autoryzację Ampio.',
   },
   experience: [
     { value: 'od 2004', label: 'PRO-KOM w Rabce-Zdroju' },
-    { value: '2 salony', label: 'Rabka-Zdrój i Zakopane' },
+    { value: '24 mies.', label: 'gwarancji na montaż' },
     { value: '10', label: 'rodzajów instalacji u jednego wykonawcy' },
     { value: '100+', label: 'klientów firmowych całej PRO-KOM' },
   ],
-  // The prototype's realizations name real clients (Blachotrapez, parafia, Empik…): shown only
-  // with consent, like the home page (decision I6) — the card lists published realizations.
-  // TODO(krystian): szef — lata, zgody, zdjęcia, 2–3 domy z projektem architekta; autoryzacje
-  // i certyfikaty (np. Ampio, Satel).
+  // Realizations: the card lists the published (featured) ones — the clients agreed (boss
+  // 01.11.2026), the seed publishes them.
+  // TODO(krystian): szef — zdjęcia, 2–3 domy z projektem architekta; autoryzacja Satel.
   brands: [
     'Ampio',
     'Dahua',
@@ -1120,7 +1122,7 @@ export const architekci = {
     {
       icon: 'shop',
       title: 'W salonie PRO-KOM',
-      text: 'Rabka-Zdrój albo Zakopane. Zobaczysz i usłyszysz rozwiązania, które możesz pokazać inwestorowi.',
+      text: 'W Rabce-Zdroju. Zobaczysz i usłyszysz rozwiązania, które możesz pokazać inwestorowi.',
       tag: null,
     },
     {
@@ -1217,7 +1219,7 @@ export const architekci = {
     {
       question: 'Jaki obszar obsługujecie?',
       answer:
-        'Podhale i Małopolskę: salony w Rabce-Zdroju i Zakopanem. Przy większych inwestycjach jedziemy dalej, dojazd ustalamy indywidualnie.',
+        'Podhale i Małopolskę, z salonu w Rabce-Zdroju. Przy większych inwestycjach jedziemy dalej, dojazd ustalamy indywidualnie.',
     },
     {
       question: 'Według których przepisów projektować teletechnikę w 2026 r.?',
