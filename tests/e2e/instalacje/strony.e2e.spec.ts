@@ -57,6 +57,18 @@ test.describe('Instalacje line routes', () => {
       expect(response?.status(), url).toBe(404)
     }
   })
+
+  // Audit before staging, P2 5: own title and the ways on, inside the line's frame.
+  test('a missing page has its title and links to the main pages', async ({ page }) => {
+    const response = await page.goto(site(HOST, '/nie-ma-takiej-strony'))
+    expect(response?.status()).toBe(404)
+    await expect(page).toHaveTitle(/^Nie znaleziono strony/)
+    await expect(page.locator('h1')).toHaveCount(1)
+    const links = page.locator('[data-not-found] a')
+    for (const href of ['/uslugi', '/#dla-kogo', '/zaplanuj', '/kontakt']) {
+      await expect(links.and(page.locator(`[href="${href}"]`))).toHaveCount(1)
+    }
+  })
 })
 
 // I13: the footer's legal links and `llms.txt` (SEO §2.4).
