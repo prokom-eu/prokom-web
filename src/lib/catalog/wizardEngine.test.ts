@@ -207,5 +207,8 @@ describe('wizardProfile (the profile in the inquiry, K35 §1.3)', () => {
       ],
       Link: '/konfigurator?kr=gastro%7Cnowa%7C2%7C%7Cdowozy%3A1',
     })
+    expect(wizardProfile(rules, s, 'https://prokombiznes.pl').Link).toBe(
+      'https://prokombiznes.pl/konfigurator?kr=gastro%7Cnowa%7C2%7C%7Cdowozy%3A1',
+    )
   })
 })

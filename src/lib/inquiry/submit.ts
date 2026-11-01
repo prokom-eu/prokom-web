@@ -63,6 +63,8 @@ export type SubmitDeps = {
   save: (data: NewInquiry) => Promise<{ id: number; number?: string | null }>
   sendEmail: (email: Email) => Promise<unknown>
   panelUrl: (id: number) => string
+  /** The site's address for a `Host` (`siteOrigin`), or `null` — links to the site in a record. */
+  siteOrigin: (host: string) => string | null
   // Structured fields only: ids, tenant, `errorFields()` of a caught error — never form data
   // (ADR-003); database errors quote the query parameters, SMTP errors the recipients.
   log: Record<'info' | 'warn' | 'error', (fields: Record<string, unknown>, msg: string) => void>
@@ -130,13 +132,14 @@ async function composeWizard(
   deps: SubmitDeps,
   tenantId: number,
   input: unknown,
+  host: string,
 ): Promise<ComposedWizard | null> {
   const kr = isRecord(input) && typeof input.kr === 'string' ? input.kr : null
   if (kr === null) return null
   const rules = await deps.findWizard(tenantId)
   const state = rules ? parseKr(rules, kr) : null
   if (!rules || !state) return null
-  return { summary: wizardProfile(rules, state) }
+  return { summary: wizardProfile(rules, state, deps.siteOrigin(host) ?? '') }
 }
 
 type ComposedWizard = {
@@ -277,7 +280,9 @@ export async function submitInquiryWith(
       deps.log.error({ tenant: tenant.id, ...errorFields(error) }, 'Inquiry products lookup failed')
       return { ok: false, error: 'unavailable' }
     }
-    if (input.type === 'list' && items.length === 0) {
+    // A list whose every item is gone (products removed meanwhile) is the customer's to fix —
+    // also in the Biznes Konfigurator, which sends what was chosen.
+    if ((input.type === 'list' || input.type === 'wizard') && items.length === 0) {
       return { ok: false, error: 'invalid', fields: ['items'] }
     }
   }
@@ -296,7 +301,7 @@ export async function submitInquiryWith(
           ? await composeSoftwareWizard(deps, tenant.id, input.wizard)
           : tenant.line === 'instalacje'
             ? composeInstalacjePlan(input.wizard, input.city)
-            : await composeWizard(deps, tenant.id, input.wizard)
+            : await composeWizard(deps, tenant.id, input.wizard, host ?? '')
     } catch (error) {
       deps.log.error({ tenant: tenant.id, ...errorFields(error) }, 'Inquiry wizard lookup failed')
       return { ok: false, error: 'unavailable' }
@@ -507,6 +512,7 @@ export async function submitInquiry(
       save: (data) =>
         payload.create({ collection: 'inquiries', data, depth: 0, overrideAccess: true }),
       sendEmail: (email) => payload.sendEmail(email),
+      siteOrigin: (host) => siteOrigin(host, env.SITE_ENV),
       panelUrl: (id) => {
         // Same scheme rules as the sites; locally the panel runs on the request's port.
         const port = request.host?.trim().match(/:(\d+)$/)?.[1]

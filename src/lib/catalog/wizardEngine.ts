@@ -300,6 +300,8 @@ export const configuratorHref = (kr?: string) =>
 export function wizardProfile(
   rules: Wizard,
   state: WizardState,
+  /** The site's address: the link becomes clickable in the panel and the e-mail. */
+  origin = '',
 ): Record<string, string | string[]> {
   const result = runWizard(rules, state, () => true, [])
   const needName = (id: string) => rules.needs.find((need) => need.id === id)?.name ?? id
@@ -311,6 +313,6 @@ export function wizardProfile(
       (q) => `${q.question} — ${result.answers[q.id] ? 'Tak' : 'Nie'}`,
     ),
     Potrzeby: result.selected.map(needName),
-    Link: configuratorHref(formatKr(state, result.selected)),
+    Link: origin + configuratorHref(formatKr(state, result.selected)),
   }
 }

@@ -65,6 +65,7 @@ function deps(overrides: Partial<SubmitDeps> = {}): SubmitDeps {
     findSoftwareWizard: vi.fn(async (tenantId: number) => (tenantId === 2 ? softwareRules : null)),
     sendEmail: vi.fn(async () => undefined),
     panelUrl: (id: number) => `http://panel.localhost:3000/admin/collections/inquiries/${id}`,
+    siteOrigin: (host: string) => `http://${host.toLowerCase()}`,
     log: { info: vi.fn(), warn: vi.fn(), error: vi.fn() },
     ...overrides,
   }
@@ -379,13 +380,24 @@ describe('submitInquiry (ADR-003)', () => {
             'Rodzaj firmy': 'Gastronomia',
             Sytuacja: 'Otwieram firmę lub lokal',
             Skala: '2–3 stanowiska',
-            Link: '/konfigurator?kr=gastro%7Cnowa%7C2%7C%7Cdowozy%3A1',
+            // Clickable in the panel and the e-mail: the site's address from `Host`.
+            Link: 'http://biznes.localhost:3000/konfigurator?kr=gastro%7Cnowa%7C2%7C%7Cdowozy%3A1',
           }),
         }),
       )
       const notification = vi.mocked(d.sendEmail).mock.calls[0]?.[0]
       expect(notification?.text).toContain('Gastronomia')
       expect(notification?.text).toContain('Posnet Ergo Online')
+    })
+
+    it('refuses a list whose every item is gone, like the list form', async () => {
+      const d = deps()
+      const result = await submitInquiryWith(d, {
+        ...request,
+        body: { ...wizardBody, items: [{ slug: 'cudza-karta', quantity: 1 }] },
+      })
+      expect(result).toEqual({ ok: false, error: 'invalid', fields: ['items'] })
+      expect(d.save).not.toHaveBeenCalled()
     })
 
     it('accepts a profile without items — „Nie musisz nic wybierać”', async () => {

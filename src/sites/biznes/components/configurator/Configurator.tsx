@@ -298,7 +298,7 @@ export function Configurator({ data }: { data: ConfiguratorData }) {
                 onClick={() => go(i)}
                 disabled={!can}
                 aria-current={i === step ? 'step' : undefined}
-                className="flex w-full flex-col items-start gap-2 text-left disabled:cursor-default"
+                className="flex min-h-11 w-full flex-col items-start justify-end gap-2 text-left disabled:cursor-default"
               >
                 <span className="flex items-center gap-2.5">
                   <span
@@ -365,7 +365,8 @@ export function Configurator({ data }: { data: ConfiguratorData }) {
                           // Another firm: its own questions and needs.
                           ...(state.firm !== option.id ? { answers: {}, manual: {} } : {}),
                         },
-                        1,
+                        // Situation and scale already given: straight to the details (board).
+                        state.stage && state.scale ? 2 : 1,
                       )
                     }
                     className={cx(TILE, 'min-h-[76px]')}
@@ -402,7 +403,10 @@ export function Configurator({ data }: { data: ConfiguratorData }) {
                     key={option.id}
                     type="button"
                     aria-pressed={state.stage === option.id}
-                    onClick={() => update({ stage: option.id }, 2)}
+                    // „Coś nie działa” stays here: the service panel shows first (board).
+                    onClick={() =>
+                      update({ stage: option.id }, option.id === 'awaria' ? undefined : 2)
+                    }
                     className={TILE}
                   >
                     <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-surface-2 text-accent-text">
@@ -622,7 +626,7 @@ export function Configurator({ data }: { data: ConfiguratorData }) {
                       <button
                         type="button"
                         onClick={() => go(target)}
-                        className="inline-flex min-h-9 items-center gap-1.5 rounded-full bg-surface-2 px-3 text-[13px] font-bold text-ink"
+                        className="inline-flex min-h-11 items-center gap-1.5 rounded-full bg-surface-2 px-3 text-[13px] font-bold text-ink"
                       >
                         {label}
                         <em className="text-[12px] font-extrabold text-accent-text not-italic">

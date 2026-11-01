@@ -15,6 +15,7 @@ import {
   CONFIGURATOR_PATH,
   emptyWizardState,
   parseKr,
+  runWizard,
   type WizardState,
 } from '@/lib/catalog/wizardEngine'
 import { getEnv } from '@/lib/env'
@@ -84,7 +85,6 @@ export default async function ConfiguratorPage({ params, searchParams }: Props) 
     ...emptyWizardState(),
     firm: firm && rules.firms.some((f) => f.id === firm) ? firm : null,
   }
-  const step = linked ? 3 : state.firm ? 1 : 0
 
   const wanted = ruleSlugs(rules)
   const brands = new Map(index.brands.map((brand) => [brand.slug, brand.name]))
@@ -104,6 +104,12 @@ export default async function ConfiguratorPage({ params, searchParams }: Props) 
   }
 
   const bySlug = new Map(index.products.map((product) => [product.slug, product]))
+  // A link whose result is empty here (its products unpublished meanwhile): the details, not an
+  // empty „Twój zestaw jest gotowy”.
+  const linkedNeeds = linked
+    ? runWizard(rules, linked, (slug) => slug in products, []).needs.length
+    : 0
+  const step = linked ? (linkedNeeds > 0 ? 3 : 2) : state.firm ? 1 : 0
   const listed = listBundles(allBundles, new Set(bySlug.keys()))
   const bundleCards = Object.fromEntries(
     listed.map((bundle) => [bundle.slug, bundleCard(bundle, bySlug)]),
