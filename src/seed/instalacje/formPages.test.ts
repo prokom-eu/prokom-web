@@ -16,5 +16,9 @@ describe('form pages of the seed (I11)', () => {
     expect(FORM_PAGE_BLOCKS.zaplanuj?.()).toMatchObject({ blockType: 'instPlanner' })
     const contact = FORM_PAGE_BLOCKS.kontakt?.()
     expect(contact).toMatchObject({ blockType: 'instContact', hero: { h1a: 'Kontakt:' } })
+    expect(FORM_PAGE_BLOCKS.serwis?.()).toMatchObject({
+      blockType: 'instServiceDesk',
+      hero: { h1a: 'Coś nie działa?', cta: { href: '#plany' } },
+    })
   })
 })

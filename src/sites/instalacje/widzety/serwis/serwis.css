@@ -1,0 +1,149 @@
+/*
+ * Service desk page (I11): care plans, the report tracker, the urgent note and the phone rules of
+ * its sections. Rules of `pk.css` v4.2 for the classes of `Serwis.body.html` the line's CSS does
+ * not have yet, ported by `narzedzia/przenies-css.mjs` (map `przenies-css.strony.json`), colours
+ * only from tokens. The rest comes from other files of the one CSS bundle of `Pages`: hero, FAQ,
+ * related cards, `.seg`, `.note` (`sekcje.css`); `.steps`, `.step` (`glowna-sekcje.css`); `.zp`,
+ * `.zpq`, `.zsl`, `.fl`, `.zin`, `.odi` (`teletechnika.css`); `.zpc`, `.chip` (`sieci.css`);
+ * `.zkerr` (`zaplanuj.css`); `.consent` (`kontakt.css`) — check `/serwis` when changing those.
+ * The plan cards are scoped to `.plans`: the footer's „Zaplanuj” card is `.ftci.plan` too.
+ */
+[data-line='instalacje'] {
+  & .plans .plan {
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  & .plans .plan.hot {
+    box-shadow:
+      inset 0 0 0 2px var(--accent),
+      var(--shadow);
+  }
+  & .plans .plan ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  & .plans .plan li {
+    display: flex;
+    gap: 10px;
+    font-size: 15px;
+  }
+  & .plans .plan li i {
+    color: var(--accent-text);
+    flex: none;
+    margin-top: 2px;
+  }
+  @media (max-width: 760px) {
+    & .plans .plan {
+      padding: 20px;
+    }
+  }
+  & .trk {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    position: relative;
+  }
+  & .trs {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 12px;
+    border-radius: 14px;
+    color: var(--ink-2);
+  }
+  & .trs em {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--surface-3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    box-shadow: inset 0 0 0 2px var(--border);
+  }
+  & .trs b {
+    display: block;
+    font-size: 15px;
+  }
+  & .trs span span {
+    display: block;
+    font-size: 13.5px;
+  }
+  & .trs.done {
+    color: var(--ink-soft);
+  }
+  & .trs.done em {
+    background: var(--accent-soft);
+    color: var(--accent-text);
+    box-shadow: none;
+  }
+  & .trs.on {
+    background: var(--accent-soft);
+    color: var(--ink);
+  }
+  & .trs.on em {
+    background: var(--accent);
+    color: var(--accent-ink);
+    box-shadow: 0 0 0 5px var(--il-arm-chip);
+    animation: inst-pulse 1.4s infinite;
+  }
+  /* pk.css: the sections' grids are inline styles in the markup, so the phone rules win with
+     `!important`, as in the prototype. */
+  @media (max-width: 1100px) {
+    & #plany .plans {
+      grid-template-columns: 1fr !important;
+    }
+    & #przejecie .steps {
+      grid-template-columns: 1fr 1fr !important;
+    }
+  }
+  @media (max-width: 760px) {
+    & #przejecie .steps {
+      grid-template-columns: 1fr !important;
+    }
+    & #zdalnie .card {
+      grid-template-columns: 1fr !important;
+      padding: 26px !important;
+    }
+  }
+  & .zin.xa-bad {
+    box-shadow: inset 0 0 0 2px var(--inst-il-zkin-xa-bad-sh);
+  }
+  & .xa-urg {
+    align-items: flex-start;
+  }
+  & .xa-urg a {
+    color: inherit;
+  }
+}
+
+@keyframes inst-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Touch targets of 44 px on a phone (MOBILE-APLIKACJA §10; `.seg` is 40 px in sekcje.css, I9). */
+@media (max-width: 760px) {
+  [data-line='instalacje'] #zglos .seg button {
+    min-height: 44px;
+  }
+}
+
+/* Each page stops its own animations when motion is reduced (STAN, I7). */
+@media (prefers-reduced-motion: reduce) {
+  [data-line='instalacje'] .trs.on em {
+    animation: none;
+  }
+}

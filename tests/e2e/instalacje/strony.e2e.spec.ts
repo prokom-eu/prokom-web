@@ -37,6 +37,7 @@ const PAGES = [
   // Formularze (I11).
   '/zaplanuj',
   '/kontakt',
+  '/serwis',
 ]
 
 // Known exceptions, each with its open question in docs/stan/STAN-instalacje.md.

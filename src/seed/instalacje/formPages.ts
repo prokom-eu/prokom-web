@@ -1,4 +1,5 @@
 import Kontakt from '../../../seed/prokominstalacje/strony-zrzut/Kontakt.json'
+import Serwis from '../../../seed/prokominstalacje/strony-zrzut/Serwis.json'
 import type { Page } from '../../payload-types'
 
 type Block = NonNullable<Page['layout']>[number]
@@ -32,6 +33,24 @@ export const FORM_PAGE_BLOCKS: Record<string, () => Block> = {
       lead: 'Zadzwoń, napisz albo wpadnij do salonu. Działamy na Podhalu i w okolicach, dalej w Małopolsce dojazd ustalamy indywidualnie. Sprawdź, w jakiej strefie jest Twój obiekt.',
     },
     cta: { eyebrow: Kontakt.dane.ctaEye, heading: Kontakt.dane.ctaH, text: Kontakt.dane.ctaP },
+  }),
+  serwis: () => ({
+    blockType: 'instServiceDesk',
+    hero: {
+      crumb: 'Serwis i przeglądy',
+      eyebrow: 'Serwis instalacji · Rabka-Zdrój, Zakopane, Podhale',
+      h1a: 'Coś nie działa?',
+      h1b: 'Zgłoś. Sprawdzimy zdalnie albo przyjedziemy.',
+      lead: 'Serwisujemy kamery, alarmy, sieci, zamki, smart home, nagłośnienie, ekrany i ładowarki. Także instalacje, które montowała inna firma. Przed sezonem robimy przeglądy, żeby awarie nie trafiały się w pełnym obłożeniu.',
+      facts: [
+        { value: '2 salony', label: 'Rabka-Zdrój i Zakopane' },
+        { value: 'zdalnie', label: 'diagnoza wielu usterek' },
+        { value: 'od 2004', label: 'PRO-KOM na Podhalu' },
+      ],
+      tags: ['Awarie', 'Przeglądy sezonowe', 'Przejęcie instalacji', 'Umowy serwisowe'],
+      cta: { text: 'Umów przegląd', href: '#plany' },
+    },
+    cta: { eyebrow: Serwis.dane.ctaEye, heading: Serwis.dane.ctaH, text: Serwis.dane.ctaP },
   }),
 }
 
