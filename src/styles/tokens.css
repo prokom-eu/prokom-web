@@ -2246,6 +2246,10 @@
   --ok: var(--c-software-light-ok);
   --ok-text: var(--c-software-light-ok-text);
   --warn: var(--c-software-light-warn);
+  /* The amber badge of the audit report (SwAuditForm): `--warn` is for status dots only, so the
+     badge has its own pair — light amber with dark text in both themes (10:1). */
+  --badge-warn: var(--c-software-night-warn);
+  --badge-warn-ink: var(--c-software-light-ink);
   --glow: var(--c-software-light-glow);
   --glow-2: var(--c-software-light-glow-2);
   --grid: var(--c-software-light-grid);
