@@ -201,7 +201,7 @@ export function NaglosnienieSections() {
               <div key={r.name} className="card rl ri">
                 <div className="rlimg" aria-hidden="true">
                   <svg viewBox="0 0 300 190">
-                    <rect width="300" height="190" style={{ fill: 'var(--bg3)' }} />
+                    <rect width="300" height="190" style={{ fill: 'var(--surface-3)' }} />
                     <path
                       d={realizations.art[r.art]}
                       transform="translate(75 30) scale(.62)"

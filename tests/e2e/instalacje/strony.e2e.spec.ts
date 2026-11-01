@@ -40,6 +40,9 @@ const PAGES = [
   '/serwis',
   // Dla architektów (I16a).
   '/dla-architektow',
+  // Oferta i Realizacje (I12).
+  '/uslugi',
+  '/realizacje',
 ]
 
 // Known exceptions, each with its open question in docs/stan/STAN-instalacje.md.
