@@ -5,6 +5,7 @@ import { isIconName } from '@/lib/catalog/options'
 import { stepItems } from '@/lib/software/aboutBlocks'
 import { fillText } from '@/lib/software/facts'
 import type { SwStepsBlock as SwStepsBlockData } from '@/payload-types'
+import { CountUp } from '@/sites/software/components/CountUp'
 import { SectionHead } from '@/sites/software/components/home/SectionHead'
 import { softwareTextContext } from '@/sites/software/components/textContext'
 
@@ -69,6 +70,7 @@ export async function SwStepsBlock({ block, tenantId }: Props) {
       <Container wide>
         {band ? <h2 className="sr-only">{block.heading}</h2> : head}
         <ul
+          data-reveal-cards
           className={cx(
             band ? 'grid gap-2.5 min-[641px]:gap-3' : 'mt-6 grid gap-2.5 min-[641px]:gap-3',
             stats ? 'grid-cols-2 min-[1081px]:grid-cols-4' : 'min-[761px]:grid-cols-3',
@@ -86,7 +88,8 @@ export async function SwStepsBlock({ block, tenantId }: Props) {
                 <>
                   {item.marker ? (
                     <span className="block font-display text-[34px] font-extrabold leading-none text-grad-h1 min-[641px]:text-5xl">
-                      {item.marker}
+                      {/* Counts up once when seen (SWV7). */}
+                      <CountUp text={item.marker} />
                     </span>
                   ) : null}
                   {item.text ? (

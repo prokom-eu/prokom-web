@@ -93,6 +93,13 @@
     transform: scale(0.985);
   }
 
+  /* The picture of a card grows inside its frame (`data-card-media`: the frame of an `<img>`, or
+     a drawn scene clipped by its card). */
+  [data-line='software'] [data-card-media] img,
+  [data-line='software'] [data-card-media]:not(:has(img)) {
+    transition: scale var(--dur-state) var(--ease-out);
+  }
+
   /* Arrows in links and buttons, icons in cards. */
   [data-line='software'] [data-icon='arrow'],
   [data-line='software'] [data-card] [data-card-icon] {
@@ -132,9 +139,29 @@
   [data-line='software'] [data-card]:hover [data-card-icon] {
     scale: 1.06;
   }
+  [data-line='software'] [data-card]:hover [data-card-media] img,
+  [data-line='software'] [data-card]:hover [data-card-media]:not(:has(img)) {
+    scale: 1.03;
+  }
+
+  /* Contact map: a slight zoom of the drawing while the visitor points at „Wyznacz trasę”. */
+  [data-line='software'] [data-osm-map]:has([data-route]:hover) > svg {
+    scale: 1.04;
+  }
 
   /* Text links keep their real underline (WCAG 1.4.1: not told apart by colour alone); on
      hover only its colour changes — the transition of §1. */
+}
+
+/* The map drawing zooms from its centre (see hover above). */
+[data-line='software'] [data-osm-map] > svg {
+  transition: scale var(--dur-enter) var(--ease-out);
+}
+
+/* Reading progress starts empty; without scroll-driven animations (or with reduced motion) it
+   stays hidden. */
+[data-line='software'] [data-reading-progress] {
+  scale: 0 1;
 }
 
 /* Pseudo-elements of the hover effects (also without hover, to sit still). */
@@ -182,6 +209,26 @@
     [data-line='software'] [data-revealed] {
       --reveal-y: 10px;
       animation-delay: calc(min(var(--reveal-i, 0), 2) * 60ms);
+    }
+  }
+
+  /* Mock-ups of the hero and the live previews drift a little against the page (≤ 20 px),
+     scroll-driven, desktop only. */
+  @supports (animation-timeline: view()) {
+    @media (min-width: 1081px) {
+      [data-line='software'] [data-parallax] {
+        animation: sw-parallax linear both;
+        animation-timeline: view();
+        animation-range: cover;
+      }
+    }
+  }
+
+  /* Reading progress of a post: the line grows with the scroll. */
+  @supports (animation-timeline: scroll()) {
+    [data-line='software'] [data-reading-progress] {
+      animation: sw-progress linear both;
+      animation-timeline: scroll(root);
     }
   }
 
@@ -296,6 +343,78 @@
   }
 }
 
+/* --- 4b. Forms ------------------------------------------------------------------------------
+   Focus: border and a soft accent glow grow in (the transition of §1); the label of the field
+   darkens. Always, also with reduced motion — it is a state, not a movement. */
+[data-line='software']
+  :is(input:not([type='radio'], [type='checkbox'], [type='hidden']), textarea, select):focus {
+  box-shadow: 0 0 0 4px var(--accent-soft);
+}
+[data-line='software'] :has(> :is(input, textarea, select):focus) > label {
+  color: var(--ink);
+}
+
+/* Spinner in a sending button. */
+[data-line='software'] [data-spinner] {
+  animation: sw-spin 0.8s linear infinite;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* A tick draws itself (chosen topic, sent form); the chosen tile answers with a small spring. */
+  [data-line='software'] [data-check] {
+    stroke-dasharray: 1;
+    animation: sw-check var(--dur-state) var(--ease-out) both;
+  }
+  [data-line='software'] [data-tile]:has(input:checked) {
+    animation: sw-tile var(--dur-state) var(--ease-spring);
+  }
+
+  /* Wizard: the next step slides in from the right, a step back from the left; the result's
+     parts pop in one after another (60 ms). */
+  [data-line='software'] [data-wizard-dir='next'] > section {
+    animation: sw-step-next var(--dur-state) var(--ease-out);
+  }
+  [data-line='software'] [data-wizard-dir='back'] > section {
+    animation: sw-step-back var(--dur-state) var(--ease-out);
+  }
+  [data-line='software'] [data-wizard-result] > * {
+    animation: sw-reveal var(--dur-enter) var(--ease-out) backwards;
+    --reveal-y: 10px;
+  }
+  [data-line='software'] [data-wizard-result] > :nth-child(2) {
+    animation-delay: 60ms;
+  }
+  [data-line='software'] [data-wizard-result] > :nth-child(3) {
+    animation-delay: 120ms;
+  }
+  [data-line='software'] [data-wizard-result] > :nth-child(n + 4) {
+    animation-delay: 180ms;
+  }
+
+  /* Toasts (phone, e-mail, „Twój projekt”) slide up from the bottom. */
+  [data-line='software'] [data-toast] {
+    animation: sw-reveal var(--dur-state) var(--ease-out);
+    --reveal-y: 12px;
+  }
+
+  /* A field found wrong shakes once (±4 px) and its message slides in. */
+  [data-line='software'] [aria-invalid='true'] {
+    animation: sw-shake 300ms var(--ease-out);
+  }
+  [data-line='software'] form [id$='-error'] {
+    animation: sw-faq var(--dur-state) var(--ease-out);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* A still marker instead of a spinning one. */
+  [data-line='software'] [data-spinner] {
+    animation: none;
+    border-right-color: currentColor;
+    opacity: 0.6;
+  }
+}
+
 /* --- 5. Page and theme transitions ---------------------------------------------------------- */
 @media (prefers-reduced-motion: no-preference) {
   /* `PageTransition`: the old page `sw-page-out`, the new `sw-page-in`; header and bottom bar
@@ -340,6 +459,70 @@
   from {
     opacity: 0;
     translate: 0 var(--reveal-y, 16px);
+  }
+}
+
+@keyframes sw-parallax {
+  from {
+    translate: 0 20px;
+  }
+  to {
+    translate: 0 -20px;
+  }
+}
+
+@keyframes sw-progress {
+  from {
+    scale: 0 1;
+  }
+  to {
+    scale: 1 1;
+  }
+}
+
+@keyframes sw-spin {
+  to {
+    rotate: 1turn;
+  }
+}
+
+@keyframes sw-check {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes sw-tile {
+  0% {
+    scale: 0.96;
+  }
+}
+
+@keyframes sw-shake {
+  20%,
+  60% {
+    translate: -4px 0;
+  }
+  40%,
+  80% {
+    translate: 4px 0;
+  }
+}
+
+@keyframes sw-step-next {
+  from {
+    opacity: 0;
+    translate: 24px 0;
+  }
+}
+
+@keyframes sw-step-back {
+  from {
+    opacity: 0;
+    translate: -24px 0;
   }
 }
 

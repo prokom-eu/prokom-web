@@ -1,12 +1,13 @@
 'use client'
 
-import { type ReactNode, useEffect, useId } from 'react'
+import { type ReactNode, useEffect, useId, useRef } from 'react'
 
 import { cx } from '@/components/ui/cx'
 import { labelKey } from '@/lib/analytics/events'
 import { track } from '@/lib/analytics/track'
 import { projectActions, useProject } from '@/lib/software/projectStore'
 
+import { SlidingPill } from '../SlidingPill'
 import { TabPanels } from './TabPanels'
 import { useAutoTabs } from './useAutoTabs'
 
@@ -29,6 +30,7 @@ type Props = {
  */
 export function LivePreviewTabs({ tabs, panels, hint }: Props) {
   const id = useId()
+  const tablist = useRef<HTMLDivElement>(null)
   const { active, picked, onKeyDown, pick, tabRef, region } = useAutoTabs(
     tabs.length,
     PREVIEWS_AUTO_MS,
@@ -46,11 +48,13 @@ export function LivePreviewTabs({ tabs, panels, hint }: Props) {
     >
       <div className="flex flex-col gap-3 min-[1081px]:flex-row min-[1081px]:items-center min-[1081px]:justify-between">
         <div
+          ref={tablist}
           role="tablist"
           aria-label="Rodzaj rozwiązania"
           onKeyDown={onKeyDown}
-          className="-mx-3 flex snap-x gap-1.5 overflow-x-auto px-3 pb-1 [scrollbar-width:none] min-[640px]:mx-0 min-[640px]:flex-wrap min-[640px]:overflow-visible min-[640px]:px-0 min-[1081px]:w-fit min-[1081px]:rounded-2xl min-[1081px]:bg-card min-[1081px]:p-1.5 min-[1081px]:shadow-raised"
+          className="group/pills relative -mx-3 flex snap-x gap-1.5 overflow-x-auto px-3 pb-1 [scrollbar-width:none] min-[640px]:mx-0 min-[640px]:flex-wrap min-[640px]:overflow-visible min-[640px]:px-0 min-[1081px]:w-fit min-[1081px]:rounded-2xl min-[1081px]:bg-card min-[1081px]:p-1.5 min-[1081px]:shadow-raised"
         >
+          <SlidingPill container={tablist} active={active} className="bg-button" />
           {tabs.map((tab, i) => {
             const selected = i === active
             return (
@@ -65,9 +69,10 @@ export function LivePreviewTabs({ tabs, panels, hint }: Props) {
                 tabIndex={selected ? 0 : -1}
                 onClick={() => pick(i)}
                 className={cx(
-                  'inline-flex min-h-11 shrink-0 snap-start items-center gap-2 rounded-xl px-4 text-sm font-extrabold transition-colors',
+                  'relative z-[1] inline-flex min-h-11 shrink-0 snap-start items-center gap-2 rounded-xl px-4 text-sm font-extrabold transition-colors',
+                  // `SlidingPill` is the chosen tab's background once drawn.
                   selected
-                    ? 'bg-button text-accent-ink'
+                    ? 'bg-button text-accent-ink group-has-[[data-sliding-pill]]/pills:bg-transparent'
                     : 'bg-card text-ink hover:text-accent-text min-[1081px]:bg-transparent',
                 )}
               >

@@ -83,6 +83,12 @@ export function SoftwarePost({ post, category, readMore, index, today }: Props) 
 
   return (
     <>
+      {/* Reading progress: a thin accent line on top, driven by the scroll (SWV7, motion.css). */}
+      <div
+        aria-hidden="true"
+        data-reading-progress
+        className="pointer-events-none fixed inset-x-0 top-0 z-50 h-[3px] origin-left bg-accent"
+      />
       <article aria-labelledby="post-h">
         <header className="pt-6 pb-8 min-[641px]:pt-10 min-[641px]:pb-12">
           <Container wide>
