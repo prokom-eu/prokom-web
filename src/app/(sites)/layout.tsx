@@ -18,7 +18,15 @@ export default async function SitesRootLayout({ children }: { children: React.Re
   const line = host ? await lineFor(host) : undefined
   return (
     // The theme script may set `data-theme` before hydration (ADR-013), hence the suppression.
-    <html lang="pl" data-line={line} className={fontVariables} suppressHydrationWarning>
+    // `data-scroll-behavior`: Software scrolls smoothly to anchors (SWV5); the attribute tells
+    // Next.js 16 to jump instantly on a route change instead of gliding to the top.
+    <html
+      lang="pl"
+      data-line={line}
+      data-scroll-behavior={line === 'software' ? 'smooth' : undefined}
+      className={fontVariables}
+      suppressHydrationWarning
+    >
       {line && hasDarkTheme(line) && (
         <head>
           <script dangerouslySetInnerHTML={{ __html: themeScript(line) }} />

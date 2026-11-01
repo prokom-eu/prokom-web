@@ -6,38 +6,47 @@ import { site } from './helpers'
 // glides, sections rise in on scroll, and with reduced motion nothing moves at all.
 const HOST = 'software.localhost'
 
-/** Names of the CSS animations running on the page (scroll-driven ones included). */
-const animationNames = (page: Page) =>
+/** CSS animations running on the page (scroll-driven and view transition ones included). */
+const animations = (page: Page) =>
   page.evaluate(() =>
-    document
-      .getAnimations()
-      .map((animation) => (animation as CSSAnimation).animationName ?? '')
-      .filter(Boolean),
+    document.getAnimations().map((animation) => ({
+      name: (animation as CSSAnimation).animationName ?? '',
+      pseudo: (animation.effect as KeyframeEffect | null)?.pseudoElement ?? '',
+    })),
   )
+
+/** Our animations: sections, the phone panel card, the map pin, page transitions. */
+const OURS = /^(sw-|panel-in|map-pulse)/
+
+const scrollBehavior = (page: Page) =>
+  page.evaluate(() => getComputedStyle(document.documentElement).scrollBehavior)
 
 test.describe('Software motion', () => {
   test.use({ viewport: { width: 1500, height: 900 } })
 
-  test('the rail glides to a section and its heading arrives', async ({ page }) => {
+  test('the rail glides to a section, focuses it and its heading arrives', async ({ page }) => {
     await page.goto(site(HOST))
-    expect(
-      await page.evaluate(() => getComputedStyle(document.documentElement).scrollBehavior),
-    ).toBe('smooth')
+    expect(await scrollBehavior(page)).toBe('smooth')
     // Section headings rise in while scrolling (Chromium supports `animation-timeline`).
-    expect(await animationNames(page)).toContain('sw-rise')
+    expect((await animations(page)).map((a) => a.name)).toContain('sw-rise')
     await page
       .getByRole('navigation', { name: 'Na tej stronie' })
       .locator('a[href="#jak-robimy"]')
       .click()
     await expect(page).toHaveURL(/#jak-robimy$/)
+    await expect(page.locator('#jak-robimy')).toBeFocused()
+    // Lands where a plain anchor jump would (the section's scroll margin), marked as arrived.
     await expect
       .poll(() =>
-        page.evaluate(() =>
-          Math.round(document.getElementById('jak-robimy')?.getBoundingClientRect().top ?? -1),
-        ),
+        page.evaluate(() => {
+          const section = document.getElementById('jak-robimy')
+          if (!section) return 'missing'
+          const top = Math.round(section.getBoundingClientRect().top)
+          const margin = Math.round(Number.parseFloat(getComputedStyle(section).scrollMarginTop))
+          return top === margin && section.hasAttribute('data-arrive') ? 'arrived' : top
+        }),
       )
-      .toBe(84)
-    await expect(page.locator('#jak-robimy')).toHaveAttribute('data-arrive', '')
+      .toBe('arrived')
   })
 })
 
@@ -46,12 +55,24 @@ test.describe('Software motion with reduced motion', () => {
 
   test('the start page does not move', async ({ page }) => {
     await page.goto(site(HOST))
-    expect(
-      await page.evaluate(() => getComputedStyle(document.documentElement).scrollBehavior),
-    ).toBe('auto')
+    expect(await scrollBehavior(page)).toBe('auto')
     await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight / 2))
-    const names = await animationNames(page)
-    expect(names.filter((name) => /^(sw-|panel-in|map-pulse)/.test(name))).toEqual([])
+    expect((await animations(page)).filter((a) => OURS.test(a.name))).toEqual([])
+  })
+
+  test('the phone hero card shows its notifications at once', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    await page.goto(site(HOST))
+    await expect(page.locator('#start').getByText('Faktura wysłana sama')).toBeVisible()
+    expect((await animations(page)).filter((a) => OURS.test(a.name))).toEqual([])
+  })
+
+  test('a page change swaps without a transition', async ({ page }) => {
+    await page.goto(site(HOST))
+    await page.locator('header').getByRole('link', { name: 'Kontakt' }).first().click()
+    const during = await animations(page)
+    expect(during.filter((a) => a.pseudo.includes('view-transition'))).toEqual([])
+    await expect(page).toHaveURL(/\/kontakt$/)
   })
 
   test('the contact map pin does not pulse and an FAQ answer opens at once', async ({ page }) => {
@@ -60,7 +81,6 @@ test.describe('Software motion with reduced motion', () => {
     const faq = page.locator('#faq details').nth(1)
     await faq.locator('summary').click()
     await expect(faq).toHaveAttribute('open', '')
-    const names = await animationNames(page)
-    expect(names.filter((name) => /^(sw-|map-pulse)/.test(name))).toEqual([])
+    expect((await animations(page)).filter((a) => OURS.test(a.name))).toEqual([])
   })
 })

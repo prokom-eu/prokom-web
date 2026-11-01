@@ -409,25 +409,28 @@
     }
   }
 
-  /* Page transitions (`PageTransition`): a short cross-fade; header and bottom bar stay. */
+  /* Page transitions (`PageTransition`, class `sw-page` of the content): the content fades out
+     and rises in; header and bottom bar have their own names, so they stay. */
   [data-line='software'] [data-sw-header] {
     view-transition-name: sw-header;
   }
   [data-line='software'] [data-tab-bar] {
     view-transition-name: sw-tab-bar;
   }
-  html[data-line='software']::view-transition-old(root) {
+  html[data-line='software']::view-transition-old(.sw-page) {
     animation: sw-vt-out 0.22s ease both;
   }
-  html[data-line='software']::view-transition-new(root) {
+  html[data-line='software']::view-transition-new(.sw-page) {
     animation: sw-vt-in 0.32s cubic-bezier(0.2, 0.8, 0.2, 1) both;
   }
 }
 
-/* Reduced motion: the page swaps without the browser's default cross-fade. */
+/* Reduced motion: every part of a page transition (the content, the root, header and bar)
+   swaps without the browser's default cross-fade or move. */
 @media (prefers-reduced-motion: reduce) {
-  html[data-line='software']::view-transition-old(root),
-  html[data-line='software']::view-transition-new(root) {
+  html[data-line='software']::view-transition-group(*),
+  html[data-line='software']::view-transition-old(*),
+  html[data-line='software']::view-transition-new(*) {
     animation: none;
   }
 }

@@ -147,7 +147,11 @@ export function SectionRail({ items, from = 1400, search = false, glide = false 
                       const section = document.getElementById(item.id)
                       if (!section) return
                       event.preventDefault()
-                      history.replaceState(null, '', `#${item.id}`)
+                      // As a plain anchor would: a history entry, and keyboard focus moves on
+                      // to the section (the next Tab starts there, not back in the rail).
+                      history.pushState(null, '', `#${item.id}`)
+                      if (!section.hasAttribute('tabindex')) section.setAttribute('tabindex', '-1')
+                      section.focus({ preventScroll: true })
                       glideTo(section)
                     }
                   : undefined
