@@ -49,6 +49,7 @@ import { SwPageHero } from '@/sites/software/components/SwPageHero'
 import { SwRichText } from '@/sites/software/components/SwRichText'
 import { BrandsHome } from '@/sites/biznes/components/home/BrandsHome'
 import { FaqBiznes } from '@/sites/biznes/components/home/FaqBiznes'
+import { InstArchitectsBlock } from '@/sites/instalacje/blocks/InstArchitects/Component'
 import { InstContactBlock } from '@/sites/instalacje/blocks/InstContact/Component'
 import { InstHomeBlock } from '@/sites/instalacje/blocks/InstHome/Component'
 import { InstPlannerBlock } from '@/sites/instalacje/blocks/InstPlanner/Component'
@@ -83,6 +84,7 @@ const HERO_BLOCKS = new Set([
   'instPlanner',
   'instContact',
   'instServiceDesk',
+  'instArchitects',
 ])
 
 /**
@@ -277,6 +279,8 @@ export function RenderBlocks({ page, tenant }: Props) {
             return <InstContactBlock key={key} block={block} tenantId={tenant.id} />
           case 'instServiceDesk':
             return <InstServiceDeskBlock key={key} block={block} tenantId={tenant.id} />
+          case 'instArchitects':
+            return <InstArchitectsBlock key={key} block={block} tenantId={tenant.id} />
         }
       })}
     </>
