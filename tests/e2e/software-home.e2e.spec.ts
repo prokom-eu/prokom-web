@@ -163,7 +163,7 @@ test.describe('Software start page', () => {
     ])
     await expect(previewTabs(page).first()).toHaveAttribute('aria-selected', 'true')
     await expect(previewPanel(page).getByRole('heading', { level: 3 })).toHaveText(
-      'Strona, która zbiera zapytania, a nie kurz',
+      'Strona, z której klienci dzwonią i piszą',
     )
     await expect(previewPanel(page)).toContainText('w mniej niż 2,5 sekundy') // Google LCP
     await expect(page.locator('#podglady')).toContainText('Przełącza się samo.')
@@ -181,7 +181,7 @@ test.describe('Software start page', () => {
     await page.keyboard.press('ArrowRight')
     await expect(previewTabs(page).nth(2)).toBeFocused()
     await expect(previewPanel(page).getByRole('heading', { level: 3 })).toHaveText(
-      'Cała firma w jednym panelu',
+      'Zlecenia, ekipy i faktury w jednym miejscu',
     )
     await expect(page.locator('#podglady')).toContainText('Twój wybór. Klikaj po ekranach.')
     await page.mouse.move(0, 0)
@@ -211,7 +211,7 @@ test.describe('Software start page', () => {
     await expect(stageTabs(page)).toHaveCount(5)
     await expect(stageTabs(page).first()).toContainText('Rozmowa')
     await expect(stagePanel(page).getByRole('heading', { level: 3 })).toHaveText(
-      'Opowiadasz, jak pracuje firma. My słuchamy.',
+      'Najpierw słuchamy, jak pracuje Twoja firma',
     )
     await expect(stagePanel(page)).toContainText('Płacisz: 0 zł')
     await expect(stageTabs(page).nth(2)).toContainText('od 1 tyg.')
@@ -260,7 +260,7 @@ test.describe('Software start page', () => {
     await page.goto(site(HOST))
     const section = page.locator('#bez-wordpressa')
     await expect(section.getByRole('heading', { level: 2 })).toHaveText(
-      'Bez wtyczek do łatania. Bez nocnych aktualizacji.',
+      'Dlaczego nie robimy stron na WordPressie',
     )
     const facts = section.getByRole('listitem')
     await expect(facts).toHaveCount(3)
@@ -307,7 +307,7 @@ test.describe('Software start page', () => {
     await page.goto(site(HOST))
     const section = page.locator('#jak-robimy')
     await expect(section.getByRole('heading', { level: 2 })).toHaveText(
-      'Nie składamy z gotowych klocków. Piszemy pod Twoją firmę.',
+      'Piszemy stronę pod Twoją firmę, nie składamy jej z szablonu',
     )
     await expect(section.getByRole('heading', { level: 3 })).toHaveText([
       'Szybka',
@@ -405,7 +405,7 @@ test.describe('Software start page — contact form', () => {
     await page.goto(site(HOST))
     const section = contact(page)
     await expect(section.getByRole('heading', { level: 2 })).toHaveText(
-      'Napisz, czego potrzebujesz. Odpowiemy w 1 dzień roboczy.',
+      'Napisz, czego potrzebujesz, a odpowiemy w 1 dzień roboczy.',
     )
     await expect(section).toContainText('Odpowiadamy w ciągu 1 dnia roboczego')
     await expect(section.getByRole('link', { name: /Masz już stronę\?/ })).toHaveAttribute(

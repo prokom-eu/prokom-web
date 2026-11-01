@@ -16,7 +16,7 @@ export const INDUSTRY_PAGE_TEXTS = {
       heroAccent: 'w terenie, nie przy biurku.',
       hubTitle: '3 ekipy',
       hubCaption: 'jeden system',
-      problemsEyebrow: 'Co boli w budowlance',
+      problemsEyebrow: 'Co zabiera czas w budowlance',
       problemsLead:
         'Cztery rzeczy, które słyszymy od właścicieli firm remontowych i instalacyjnych. Do każdej mamy gotowe rozwiązanie.',
       solutionsEyebrow: 'Najczęściej w budowlance',
@@ -33,10 +33,10 @@ export const INDUSTRY_PAGE_TEXTS = {
       contact: {
         eyebrow: 'Porozmawiajmy o Twojej firmie',
         title: 'Pokaż, jak dziś pracują Twoje ekipy.',
-        lead: '30 minut rozmowy u Ciebie, w salonie w Rabce albo online. Potem szkic do klikania i wycena na piśmie, bez zobowiązań.',
+        lead: '30 minut rozmowy u Ciebie, w salonie w Rabce albo online. Potem szkic do klikania i wycena, bez zobowiązań.',
         points: [
           'Odpowiadamy w ciągu [CZAS ODPOWIEDZI]',
-          'Cena i termin na piśmie, raty po etapach',
+          'Cena i termin w umowie, raty po etapach',
           'Kod, dane i dostępy należą do Ciebie',
         ],
       },

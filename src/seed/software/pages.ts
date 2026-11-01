@@ -15,7 +15,7 @@ export const SOFTWARE_THANKS: SoftwareThanks = {
   steps: [
     '**W ciągu [CZAS ODPOWIEDZI]** oddzwonimy albo odpiszemy, jak wolisz. Dopytamy o szczegóły.',
     '**Krótka rozmowa, 30 minut**: u Ciebie, w salonie w Rabce albo online. Pokażesz, jak dziś pracujesz.',
-    '**Podgląd do klikania i wycena na piśmie w [DNI] dni**, ważna 30 dni. Decydujesz Ty, bez zobowiązań.',
+    '**Podgląd do klikania i wycena w [DNI] dni**, ważna 30 dni. Decydujesz Ty, bez zobowiązań.',
   ],
   urgent: 'Pilna sprawa? Zadzwoń:',
   hours: '[GODZINY]',

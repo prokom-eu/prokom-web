@@ -4,8 +4,8 @@
       "num": "01",
       "n": "Rozmowa",
       "t": "30 min",
-      "h": "Opowiadasz, jak pracuje firma. My słuchamy.",
-      "p": "U Ciebie w firmie, w Rabce-Zdroju albo online. Nie musisz nic przygotowywać ani znać nazw technologii. Pytamy o to, co boli, i o programy, które już masz.",
+      "h": "Najpierw słuchamy, jak pracuje Twoja firma",
+      "p": "U Ciebie w firmie, w Rabce-Zdroju albo online. Nie musisz nic przygotowywać ani znać nazw technologii. Pytamy, co dziś zabiera Wam czas, i jakich programów już używacie.",
       "get": [
         "Jasną odpowiedź: budować czy kupić gotowe",
         "Listę programów, które zostają",
@@ -22,8 +22,8 @@
       "num": "02",
       "n": "Podgląd i wycena",
       "t": "[DNI] dni",
-      "h": "Zobaczysz, jak to będzie wyglądać. Zanim zapłacisz.",
-      "p": "Dostajesz szkic rozwiązania do klikania i wycenę na piśmie: zakres, stała cena, etapy, termin. Zmiany spoza zakresu tylko po Twojej zgodzie.",
+      "h": "Najpierw szkic do klikania i wycena, potem decyzja",
+      "p": "Dostajesz szkic rozwiązania do klikania i wycenę: zakres, stała cena, etapy, termin. Zmiany spoza zakresu tylko po Twojej zgodzie.",
       "get": [
         "Szkic systemu do klikania",
         "Wycenę na piśmie, ważną 30 dni",
@@ -40,7 +40,7 @@
       "num": "03",
       "n": "Budowa",
       "t": "od 1 tyg.",
-      "h": "Co tydzień klikasz nową wersję. Nie czytasz raportów.",
+      "h": "Co tydzień dostajesz nową wersję do klikania",
       "p": "Budujemy etapami. Co tydzień dostajesz link do wersji testowej: klikasz, zgłaszasz uwagi, my poprawiamy. Pierwszy etap zaczyna pracować, zanim skończymy ostatni.",
       "get": [
         "Wersję testową co tydzień",
@@ -76,7 +76,7 @@
       "num": "05",
       "n": "Opieka",
       "t": "co miesiąc",
-      "h": "Działa także za rok. I rośnie z firmą.",
+      "h": "Po starcie nie zostajesz sam",
       "p": "Kopie codziennie, aktualizacje, monitoring, który często widzi problem przed Tobą, i czas reakcji zapisany w umowie. Gdy firma rośnie, dokładamy kolejny moduł na tym samym fundamencie.",
       "get": [
         "Kopie, aktualizacje, monitoring",
@@ -94,12 +94,12 @@
     {
       "num": "01",
       "title": "Rozmowa",
-      "text": "Opowiadasz, jak pracuje firma i co boli."
+      "text": "Opowiadasz, jak pracuje firma i co nie działa."
     },
     {
       "num": "02",
       "title": "Podgląd i wycena",
-      "text": "Pokazujemy, jak to może wyglądać. Zakres, cena i termin na piśmie."
+      "text": "Pokazujemy, jak to może wyglądać. Zakres, cena i termin w wycenie."
     },
     {
       "num": "03",
@@ -120,7 +120,7 @@
   "guarantees": [
     {
       "title": "Stała cena za zakres",
-      "text": "Wycena na piśmie przed startem. Zmiany spoza zakresu tylko po Twojej zgodzie.",
+      "text": "Stała wycena przed startem. Zmiany spoza zakresu tylko po Twojej zgodzie.",
       "icon": "M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"
     },
     {
@@ -251,7 +251,7 @@
       "label": "Strona",
       "icon": "M3 5h18v14H3zM3 9h18M7 7h.01M10 7h.01",
       "tag": "Strony internetowe",
-      "title": "Strona, która zbiera zapytania, a nie kurz",
+      "title": "Strona, z której klienci dzwonią i piszą",
       "text": "Szybka, czytelna na telefonie i przygotowana pod Google. Treści zmieniasz sam w prostym panelu.",
       "href": "/rozwiazania",
       "a": "Nowe zapytanie z formularza",
@@ -303,7 +303,7 @@
       "label": "System firmowy",
       "icon": "M3 4h18v16H3zM3 9h18M9 9v11",
       "tag": "Systemy i panele",
-      "title": "Cała firma w jednym panelu",
+      "title": "Zlecenia, ekipy i faktury w jednym miejscu",
       "text": "Zlecenia, kalendarz, klienci, magazyn i raporty. Zbudowane pod to, jak pracujecie, a nie odwrotnie.",
       "href": "/rozwiazania",
       "a": "Zlecenie przypisane",
@@ -329,7 +329,7 @@
       "label": "Aplikacja mobilna",
       "icon": "M8 2h8a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zM11 18h2",
       "tag": "Aplikacje mobilne",
-      "title": "Aplikacja w kieszeni każdego pracownika",
+      "title": "Ekipa ma zlecenie w telefonie, biuro od razu ma protokół",
       "text": "iOS i Android z jednego kodu. Działa bez zasięgu, robi zdjęcia, zbiera podpisy i od razu aktualizuje biuro.",
       "href": "/rozwiazania/aplikacja-dla-ekip-w-terenie",
       "a": "Działa bez zasięgu",
@@ -355,7 +355,7 @@
       "label": "Automatyzacje i AI",
       "icon": "M13 2L4 14h7l-1 8 9-12h-7z",
       "tag": "Automatyzacje i AI",
-      "title": "Powtarzalna robota robi się sama",
+      "title": "SMS-y, faktury i raporty bez przepisywania",
       "text": "Formularz, SMS, faktura, raport. Łączymy programy, których już używasz, i dokładamy asystenta AI tam, gdzie oszczędza czas.",
       "href": "/rozwiazania",
       "a": "Faktura przekazana",
@@ -382,7 +382,7 @@
   "whyNotWordpress": {
     "_info": "v20 (25.10.2026, prośba Krystiana; treść na podstawie pro-kom.eu/tworzenie-stron-internetowych). Sekcja między kreatorem a zasadami. Fakty ze źródłem.",
     "eyebrow": "Dlaczego nie WordPress i PHP",
-    "title": "Bez wtyczek do łatania. Bez nocnych aktualizacji.",
+    "title": "Dlaczego nie robimy stron na WordPressie",
     "lead": "WordPress to dobre narzędzie do bloga. Strona firmy, której nikt na co dzień nie pilnuje, płaci za niego bezpieczeństwem i szybkością. Dlatego piszemy strony od podstaw, bez PHP.",
     "facts": [
       {
@@ -481,7 +481,7 @@
     ]
   },
   "proceduralMock": {
-    "_info": "Makieta wyceny w sekcji procesu (przykład, wyraźnie fikcyjny klient). Przykład wyceny na piśmie dla większego zakresu (kwoty powyżej cen „od” — zakres klienta po rozmowie); połączenie z programem bez ceny publicznej (automatyzacje = „Zapytaj o wycenę”).",
+    "_info": "Makieta wyceny w sekcji procesu (przykład, wyraźnie fikcyjny klient). Przykład wyceny dla większego zakresu (kwoty powyżej cen „od” — zakres klienta po rozmowie); połączenie z programem bez ceny publicznej (automatyzacje = „Zapytaj o wycenę”).",
     "number": "PKS-2026-0142",
     "title": "System zleceń + czas pracy",
     "rows": [

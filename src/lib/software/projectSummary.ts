@@ -143,7 +143,7 @@ export function summarizeProject(
     rows: lines.map((line) => line.row),
     sumLabel: lines.length > 1 ? 'Razem (netto)' : 'Cena (netto)',
     sum: parts.length > 0 ? parts.join(' + ') : 'po rozmowie',
-    note: `${askNote}Lista pójdzie razem ze zgłoszeniem. Dokładną cenę i termin dostaniesz na piśmie w 5–7 dni.`,
+    note: `${askNote}Lista pójdzie razem ze zgłoszeniem. Dokładną cenę i termin dostaniesz w 5–7 dni.`,
     topic: first ? topicOf(first) : null,
     slugs: lines.flatMap((line) => (line.slug ? [line.slug] : [])),
   }

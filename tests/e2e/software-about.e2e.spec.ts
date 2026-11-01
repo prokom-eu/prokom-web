@@ -94,7 +94,7 @@ test.describe('Software /jedna-firma', () => {
       'Strona, program, sprzęt i serwis. W jednej firmie.',
     )
     const lines = page.locator('section', {
-      has: page.getByRole('heading', { name: 'Każda robi swoje. Razem robią całość.' }),
+      has: page.getByRole('heading', { name: 'Co załatwisz w PRO-KOM poza stroną' }),
     })
     await expect(lines.getByRole('heading', { level: 3 })).toHaveCount(4)
     await expect(main(page)).not.toContainText(/Zakopan/i)

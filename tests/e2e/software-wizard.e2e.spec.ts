@@ -276,7 +276,7 @@ for (const viewport of [
       await main(page).getByRole('textbox').fill('Goście dzwonią o wolne pokoje.')
       if (!isPhone(page)) await expect(button(page, /^3\s*Wynik/)).toBeDisabled()
       await next(page, 'Pokaż wynik →')
-      await expect(title(page)).toHaveText('Rozmowa i propozycja na piśmie')
+      await expect(title(page)).toHaveText('Rozmowa i propozycja zakresu')
       await expect(price(page)).toHaveText('Bezpłatnie')
       await expect(main(page).getByText('„Goście dzwonią o wolne pokoje.”')).toBeVisible()
     })

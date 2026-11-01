@@ -81,7 +81,7 @@ const result = obj({
   pv: key,
   g: z.array(label).min(1),
   nd: z.array(label),
-  /** Free of charge („Rozmowa i propozycja na piśmie”). */
+  /** Free of charge („Rozmowa i propozycja zakresu”). */
   free: z.boolean().optional(),
   /** Monthly price (care) — shown with `priceDisplay.monthTemplate`. */
   month: z.boolean().optional(),

@@ -69,7 +69,7 @@ export function IndustryHero({ page }: Page) {
                 href="#problemy"
                 className="inline-flex min-h-14 items-center justify-center rounded-2xl border border-border bg-card px-6 font-extrabold active:scale-[0.98] motion-reduce:transition-none"
               >
-                Zobacz, co boli i co na to mamy
+                Typowe kłopoty w branży i co na nie mamy
               </a>
             </div>
           </div>

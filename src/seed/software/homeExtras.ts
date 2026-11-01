@@ -8,14 +8,14 @@ import type { SoftwareHomeSections } from '../../lib/software/home'
 export const HOME_SECTION_TEXTS: SoftwareHomeSections = {
   areas: {
     eyebrow: 'Oferta · 8 obszarów',
-    title: 'Osiem rzeczy, które robimy dla firm.',
-    lead: 'Kliknij obszar: zobaczysz, co dokładnie robimy, co z tego masz i od ilu kosztuje.',
+    title: 'Co możemy dla Ciebie zrobić',
+    lead: 'Kliknij obszar: zobaczysz, co dokładnie robimy, co z tego masz i ile kosztuje.',
     priceCaption: 'Cena',
     wizardButton: 'Dobierz w 60 s',
   },
   popular: {
     eyebrow: 'Najczęściej zamawiane',
-    title: '12 rzeczy, po które firmy przychodzą najczęściej.',
+    title: 'Najczęściej zamawiane — z ceną i terminem',
     lead: 'Każda z ceną „od”, terminem i listą tego, co jest w cenie. Wszystkie 29 rozwiązań znajdziesz w pełnej ofercie.',
     count: ['{n} pozycja', '{n} pozycje', '{n} pozycji'],
     hint: 'kliknij kartę, żeby zobaczyć szczegóły',
@@ -36,7 +36,7 @@ export const HOME_SECTION_TEXTS: SoftwareHomeSections = {
         },
         {
           title: 'Darmowy audyt strony',
-          text: 'wynik na piśmie',
+          text: 'raport w 2 dni robocze',
           href: '/audyt',
           icon: 'search',
         },
@@ -45,7 +45,7 @@ export const HOME_SECTION_TEXTS: SoftwareHomeSections = {
     },
   },
   livePreviews: {
-    eyebrow: 'Podglądy na żywo · zanim zapłacisz',
+    eyebrow: 'Podglądy na żywo · kliknij i sprawdź',
     title: 'Tak może wyglądać Twoja strona albo system.',
     lead: 'Wybierz rodzaj rozwiązania. Laptop to Twoje biuro, telefon to Twój pracownik albo klient. Oba ekrany działają razem.',
     hint: ['Przełącza się samo. Kliknij, żeby wybrać.', 'Twój wybór. Klikaj po ekranach.'],
@@ -54,7 +54,7 @@ export const HOME_SECTION_TEXTS: SoftwareHomeSections = {
   },
   process: {
     eyebrow: 'Jak pracujemy i jak powstaje cena',
-    title: 'Od rozmowy do działającego systemu. Większość płacisz po odbiorze.',
+    title: 'Od rozmowy do działającego systemu — większość płacisz po odbiorze',
     lead: 'Pięć etapów. Przy każdym wiesz, co dostajesz do ręki i kiedy płacisz.',
     stage: 'Etap {num} · {t}',
     get: 'Co dostajesz',
@@ -72,8 +72,8 @@ export const HOME_SECTION_TEXTS: SoftwareHomeSections = {
   },
   howWeBuild: {
     eyebrow: 'Jak robimy strony i systemy',
-    title: 'Nie składamy z gotowych klocków. Piszemy pod Twoją firmę.',
-    lead: 'Większość stron w Polsce powstaje z gotowego szablonu i kilkunastu wtyczek. Działa, dopóki ktoś to pilnuje. My piszemy stronę od podstaw, dlatego dostajesz trzy rzeczy, które da się zmierzyć.',
+    title: 'Piszemy stronę pod Twoją firmę, nie składamy jej z szablonu',
+    lead: 'Wiele firmowych stron powstaje z gotowego szablonu i kilkunastu wtyczek. Działa, dopóki ktoś to pilnuje. My piszemy stronę od podstaw, dlatego dostajesz trzy rzeczy, które da się zmierzyć.',
     gainLabel: 'Zyskujesz',
     cards: [
       {
@@ -99,7 +99,7 @@ export const HOME_SECTION_TEXTS: SoftwareHomeSections = {
   },
   technologies: {
     eyebrow: 'Z czego budujemy i co z tego masz',
-    title: 'Twój system, warstwa po warstwie.',
+    title: 'Z czego budujemy — i co z tego masz',
     lead: 'Nazw nie musisz znać. Kliknij warstwę i zobacz, co z niej masz.',
     tabsLabel: 'Warstwy systemu',
     gainLabel: 'Co zyskujesz',

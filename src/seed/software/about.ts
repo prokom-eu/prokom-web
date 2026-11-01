@@ -18,8 +18,8 @@ type Of<T extends PageBlock['blockType']> = Extract<PageBlock, { blockType: T }>
 const ABOUT_HERO: Of<'swPageHero'> = {
   blockType: 'swPageHero',
   eyebrow: 'O firmie',
-  title: 'Firma z Rabki.',
-  titleAccent: 'Od 2004 roku.',
+  title: 'Robimy dla firm z Podhala',
+  titleAccent: 'od 2004 roku',
   lead: 'PRO-KOM to firma z Rabki-Zdroju: kasy i programy dla firm, instalacje i serwis sprzętu. Software to nasza linia od stron, systemów i aplikacji dla firm. Za każdym projektem stoi ta sama firma, umowa i faktura VAT.',
   primary: { label: 'Umów rozmowę', href: '/kontakt' },
   secondary: { label: 'Co jeszcze robi PRO-KOM', href: '/jedna-firma' },
@@ -183,8 +183,8 @@ export function softwareAboutLayout(): PageBlock[] {
 const ONE_HERO: Of<'swPageHero'> = {
   blockType: 'swPageHero',
   eyebrow: 'PRO-KOM · jedna firma, cztery linie',
-  title: 'Strona, program, sprzęt i serwis.',
-  titleAccent: 'W jednej firmie.',
+  title: 'Stronę, kasę, sieć i naprawę laptopa',
+  titleAccent: 'załatwisz w jednej firmie',
   lead: 'Software robi strony i systemy. Resztę, czego potrzebuje firma, załatwisz w PRO-KOM obok: kasy i sprzęt, monitoring i sieci, serwis. Jeden telefon i jedna firma, która zna całość.',
   primary: { label: 'Porozmawiajmy o całości', href: '/kontakt' },
   secondary: { label: 'Dobierz rozwiązanie', href: '/dobierz' },
@@ -203,7 +203,7 @@ const ONE_LINES: Of<'swLines'> = {
   blockType: 'swLines',
   variant: 'lines',
   eyebrow: 'Linie PRO-KOM',
-  heading: 'Każda robi swoje. Razem robią całość.',
+  heading: 'Co załatwisz w PRO-KOM poza stroną',
   lines: [
     {
       name: 'PRO-KOM Software',

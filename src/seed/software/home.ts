@@ -84,17 +84,17 @@ export const SW_FAQ: Extract<Block, { blockType: 'faq' }> = {
 export const SW_CONTACT: Extract<Block, { blockType: 'swContact' }> = {
   blockType: 'swContact',
   eyebrow: 'Kontakt',
-  title: 'Napisz, czego potrzebujesz. Odpowiemy w 1 dzień roboczy.',
+  title: 'Napisz, czego potrzebujesz, a odpowiemy w 1 dzień roboczy.',
   sideTitle: 'Najpierw zobaczysz, potem zapłacisz.',
   sideText:
-    'Po krótkiej rozmowie dostajesz: szkic rozwiązania, zakres, cenę i termin. Wszystko na piśmie. Bez zobowiązań.',
+    'Po krótkiej rozmowie dostajesz: szkic rozwiązania, zakres, cenę i termin. Bez zobowiązań.',
   promises: [
     { text: 'Odpowiadamy w ciągu [CZAS ODPOWIEDZI]' },
     { text: 'Spotkanie w Rabce-Zdroju, u Ciebie w firmie albo online' },
   ],
   auditTitle: 'Masz już stronę?',
   auditHref: '/audyt',
-  auditText: 'Zrób darmowy audyt: szybkość, telefon, Google i AI. Wynik na piśmie.',
+  auditText: 'Zrób darmowy audyt: szybkość, telefon, Google i AI. Raport w 2 dni robocze.',
   phoneCaption: '[GODZINY]',
   topicsLabel: 'Czego dotyczy sprawa?',
   messageLabel: 'Opisz krótko, po swojemu',

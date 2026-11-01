@@ -16,7 +16,7 @@ export const FIELD_CREW_PAGE = {
   title: 'Aplikacja dla ekip w terenie.',
   titleAccent: 'Działa bez zasięgu.',
   lead: 'Zlecenia, zdjęcia, lista zadań i podpis klienta w telefonie pracownika. Bez zasięgu zapisuje, a wysyła, gdy wróci sieć. Biuro widzi wszystko na żywo i od razu wystawia fakturę.',
-  priceCaption: 'odpowiedź w ciągu [CZAS ODPOWIEDZI], wycena na piśmie w 5–7 dni',
+  priceCaption: 'odpowiedź w ciągu [CZAS ODPOWIEDZI], wycena w 5–7 dni',
   tiles: [
     { label: 'Pierwszy etap', value: '3–4 tyg.', caption: 'potem co tydzień wersja testowa' },
     { label: 'Działa na', value: 'iOS · Android', caption: 'albo z przeglądarki, bez sklepu' },
@@ -34,12 +34,12 @@ export const FIELD_CREW_PAGE = {
     },
     {
       label: 'Z aplikacją',
-      title: 'Ekipa widzi zlecenie w telefonie. Biuro widzi ekipę na tablicy.',
+      title: 'Ekipa ma zlecenie w telefonie, a biuro widzi ją na tablicy',
       text: 'Zdjęcia i podpis lądują w biurze w sekundę. Klient dostaje SMS sam. Faktura jednym kliknięciem.',
     },
     {
       label: 'Efekt (mierzymy po wdrożeniu)',
-      title: 'Zero przepisywania wieczorem. Zero zgubionych protokołów.',
+      title: 'Bez przepisywania wieczorem i bez zgubionych protokołów',
       text: 'Ile godzin tygodniowo odzyskasz, policzymy razem na Twoich zleceniach. Nie obiecujemy procentów z internetu.',
     },
   ],
@@ -89,13 +89,13 @@ export const FIELD_CREW_PAGE = {
     },
     {
       q: 'Ile to kosztuje i kiedy płacę?',
-      a: 'Aplikację wyceniamy po jednej krótkiej rozmowie, podgląd i cenę na piśmie dostajesz w 5–7 dni. Przy podpisaniu 30% zaliczki, resztę płacisz w ratach po odbiorze każdego etapu. Pierwszy etap działa po 3–4 tygodniach. Faktura VAT, przelew 7 dni.',
+      a: 'Aplikację wyceniamy po jednej krótkiej rozmowie, podgląd i cenę dostajesz w 5–7 dni. Przy podpisaniu 30% zaliczki, resztę płacisz w ratach po odbiorze każdego etapu. Pierwszy etap działa po 3–4 tygodniach. Faktura VAT, przelew 7 dni.',
     },
   ],
   contact: {
     eyebrow: 'Porozmawiajmy o Twoich ekipach',
-    title: 'Pokaż nam, jak dziś wygląda dzień ekipy. Wycenimy aplikację pod niego.',
-    lead: 'Krótka rozmowa, potem podgląd, cena i plan etapów na piśmie w 5–7 dni. Bez zobowiązań.',
+    title: 'Pokaż nam dzień ekipy, a wycenimy aplikację pod niego',
+    lead: 'Krótka rozmowa, potem podgląd, cena i plan etapów w 5–7 dni. Bez zobowiązań.',
     quoteCaption: 'Opisz ekipy i zlecenia, odpiszemy w ciągu [CZAS ODPOWIEDZI]',
   },
   demo: {
@@ -112,7 +112,7 @@ export const FIELD_CREW_PAGE = {
     ],
     intro: {
       eyebrow: 'To nie jest film. Klikaj po telefonie.',
-      title: 'Odhaczaj zadania, dodaj zdjęcie, podpisz. Tablica w biurze zmieni się sama.',
+      title: 'Odhaczaj zadania, dodaj zdjęcie i podpis — tablica w biurze zmieni się od razu',
       lead: 'Tak będzie wyglądać praca Twojej ekipy. Dane są fikcyjne, mechanika prawdziwa.',
     },
   },
