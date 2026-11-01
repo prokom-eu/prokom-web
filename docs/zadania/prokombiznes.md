@@ -252,6 +252,8 @@ Listy: `START-TUTAJ.md` §5, `PRZEKAZANIE-K3.md` §6, `PRZEKAZANIE-K31.md` §5, 
 | 16 | **QA-K4** | odbiór całości vs plansze i audyty `k4/audyty/` |
 | 17 | **Staging** | jak w §6.1 → akceptacja szefa → produkcja |
 
+**Elementy wspólne (01.11, `docs/zadania/wspolne-elementy.md` §1):** **L1-B** zastępuje pasek linii i stopkę z K4b oraz dolny pasek M1′; **L2-B** zastępuje O firmie i Kontakt z K4i (Opieka IT zostaje w K4i).
+
 ### 7.1 Kolejka sesji (od 30.10, decyzje Krystiana: maksymalne przyspieszenie, jeden folder)
 
 Tabela wyżej to **zakres**; **kolejność i grupowanie** sesji od K4b idą wg tej kolejki (szczegóły: `docs/zadania/przyspieszenie.md`). Jeden folder `prokom-web-biznes`, sesje po kolei; sesja może wydać 2–3 PR-y piętrowo.

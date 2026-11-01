@@ -78,7 +78,7 @@ Rozpoznanie kodu na `develop` @ `76f6060` (po SWV9). Wejście do F1–F3 (fundam
 | Wspólne | `src/lib/brand/lines.ts` `BRAND_LINKS` (PRO-KOM, Biznes, Instalacje, Software, „Tech · naprawy”) |||
 
 **Literały w kodzie renderującym** (do usunięcia w L1/L2 — dane z loadera `src/lib/shared`):
-- wspólne: `src/lib/inquiry/consent.ts:11, 34, 35` („PRO-KOM Tadeusz Wójciak”, „Rabka-Zdrój”, obietnica „Oddzwaniamy w ciągu 60 minut” — **obietnica do potwierdzenia [SZEF]**, docelowo `responsePromise` z panelu).
+- wspólne: `src/lib/inquiry/consent.ts:11, 34, 35` („PRO-KOM Tadeusz Wójciak”, „Rabka-Zdrój”, obietnica „Oddzwaniamy w ciągu 60 minut” — potwierdzona przez szefa 27.10 dla Biznesu (`docs/design/prokombiznes/INDEKS.md`), docelowo `responsePromise` linii z panelu).
 - Biznes: `src/lib/biznes/seo.ts:7` („Rabka-Zdrój”).
 - Instalacje: `dane/oFirmie.ts:24` („salon · ul. Orkana 16B”), `dane/glownaSekcje.ts:486` (fallback „pn–pt 9:00–17:00”), `dane/nawigacja.ts:51, 104` („Rabka-Zdrój”, „Tadeusz Wójciak, od 2004”).
 - Software: `SwTopBar.tsx:19` („od 2004 r. · Rabka-Zdrój”).
