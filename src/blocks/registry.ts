@@ -33,6 +33,7 @@ import { InstContactBlock } from '../sites/instalacje/blocks/InstContact/config'
 import { InstHomeBlock } from '../sites/instalacje/blocks/InstHome/config'
 import { InstPlannerBlock } from '../sites/instalacje/blocks/InstPlanner/config'
 import { InstServiceBlock } from '../sites/instalacje/blocks/InstService/config'
+import { InstArchitectsBlock } from '../sites/instalacje/blocks/InstArchitects/config'
 import { InstServiceDeskBlock } from '../sites/instalacje/blocks/InstServiceDesk/config'
 import { SwHeroBlock } from '../sites/software/blocks/SwHero/config'
 import { SwHomeSectionBlock } from '../sites/software/blocks/SwHomeSection/config'
@@ -101,7 +102,7 @@ export const BIZNES_BLOCKS: Block[] = [
 /**
  * Sections of the Instalacje pages (ADR-I002 §0) — `src/sites/instalacje/blocks/`; the blocks
  * come with their sessions (I4–I12); new ones at the end (I5: `instHome`; I11: `instPlanner`,
- * `instContact`, `instServiceDesk`).
+ * `instContact`, `instServiceDesk`; I16a: `instArchitects`).
  */
 export const INSTALACJE_BLOCKS: Block[] = [
   InstServiceBlock,
@@ -109,6 +110,7 @@ export const INSTALACJE_BLOCKS: Block[] = [
   InstPlannerBlock,
   InstContactBlock,
   InstServiceDeskBlock,
+  InstArchitectsBlock,
 ]
 
 /**

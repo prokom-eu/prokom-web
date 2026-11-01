@@ -44,6 +44,7 @@ describe('block registry', () => {
       'instPlanner',
       'instContact',
       'instServiceDesk',
+      'instArchitects',
     ])
     expect([...ALLOWED_BLOCKS.instalacje].sort()).toEqual(
       [...GENERIC_BLOCK_SLUGS, ...INSTALACJE_BLOCK_SLUGS].sort(),
