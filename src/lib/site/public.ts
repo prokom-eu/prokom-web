@@ -7,6 +7,7 @@ import type { Department } from './departments'
 import type { Line } from '../tenant/lines'
 import { toPublicNavigation, type PublicBiznesNavigation } from './navigation'
 import { isValidNavHref } from './link'
+import { defaultOgImage } from './ogDefault'
 import { isPromoActive } from './promo'
 
 type Link = { label: string; href: string }
@@ -159,7 +160,10 @@ export function toPublicSiteSettings(doc: SiteSetting, line: Line | null): Publi
       titleTemplate: doc.seo?.titleTemplate ?? null,
       description: doc.seo?.description ?? null,
       // Populated when read with depth 1; only a public image of this tenant (`publicImage`).
-      ogImage: tenantId === null ? null : publicImage(doc.seo?.ogImage, tenantId),
+      // Without one, the line's own file (`defaultOgImage`), so a shared link is never bare.
+      ogImage:
+        (tenantId === null ? null : publicImage(doc.seo?.ogImage, tenantId)) ??
+        defaultOgImage(line),
     },
     biznes: line === 'biznes' && tenantId !== null ? toPublicBiznes(doc.biznes, tenantId) : null,
     software: line === 'software' ? toPublicSoftware(doc.software) : null,

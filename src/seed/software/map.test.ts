@@ -225,7 +225,9 @@ describe('areaData', () => {
     })
     const textOnly = obszary.items.flatMap((item) => item.chips).find((chip) => !chip.solution)
     if (textOnly) {
-      const area = obszary.items.find((item) => item.chips.includes(textOnly))!
+      const area = obszary.items.find((item) =>
+        item.chips.some((chip) => chip.label === textOnly.label),
+      )!
       const chip = areaData(area, solutionId).chips?.find((c) => c.label === textOnly.label)
       expect(chip).toEqual({ label: textOnly.label, solution: null })
     }

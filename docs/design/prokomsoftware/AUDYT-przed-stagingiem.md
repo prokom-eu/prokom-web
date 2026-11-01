@@ -7,6 +7,8 @@ Wersja lokalna `software.localhost:3000` (develop po SWV6 + SWV7 B1, serwer dev)
 - jasny i ciemny motyw, kontrast, formularz (walidacja bez wysyłki), kreator, menu telefonu;
 - SEO (title, description, canonical, OG, JSON-LD), konsola.
 
+Realizacja: sesja SWV8 (PR A = P0 + treści P1 1–11, PR B = wygląd P1 12–24 + P2). Decyzje Krystiana 01.11: Rabka bez zdjęcia — hero bez wizualu (nie `wejscie.jpg`); style Instalacji na Software — osobny PR strefy wspólnej `inst/wsp-*`, nie w SWV8.
+
 ## Werdykt
 **Staging: tak, po sesji P0 (pół dnia).** Fundament jest bardzo dobry:
 - 0 martwych linków;
@@ -44,6 +46,7 @@ Wersja lokalna `software.localhost:3000` (develop po SWV6 + SWV7 B1, serwer dev)
 11. Mega menu „Dla branż” ma jedną pozycję (Budowlanka) i wygląda na niedokończone. Do czasu kolejnych branż: przenieść link do kolumny „Oferta” jako „Dla budowlanki i ekip” albo pokazać kolumnę przy ≥ 3 branżach. `/dla-branz` (lista) daje 404, ale nic tam nie linkuje — OK.
 
 **Wygląd (desktop 1440)**
+
 12. **Ucięte opisy z wielokropkiem w miejscach, gdzie tekst sprzedaje.** Dotyczy 4 intencji pod hero („Szybka, w kilku językach,…”, „Koniec z Excelem, kartka…”), kafli obszarów („Sprawdzimy i powiemy uczciwie…”) i zakładek warstw („Python · Django · R…”, „Docker · VPS w Pol…”). Pokazać pełny tekst (2–3 linie) albo skrócić tekst w seedzie, zamiast obcinać.
 13. **Zawijanie w przyciskach:** „Dobierz w 60 **s**” (s w drugiej linii, desktop i telefon), „Pełna oferta **→**”, „Zapytaj o **wycenę**” w kafelkach kreatora. Dać `white-space: nowrap` w przyciskach, a „60 s” zapisać z twardą spacją.
 14. Karty „12 rzeczy”: różne wysokości, przez co cena i termin nie stoją w jednej linii. Wyrównać (flex, cena na dole).
@@ -55,6 +58,7 @@ Wersja lokalna `software.localhost:3000` (develop po SWV6 + SWV7 B1, serwer dev)
 20. Makieta hero: dymek „SMS wysłany” nachodzi na tekst karty „Zlecenia”. Przesunąć.
 
 **Telefon (390)**
+
 21. Kontakt: e-mail łamie się w środku słowa („kontakt@prokom|software.pl”); na desktopie „prokomsoftware.|pl”. Dać `overflow-wrap: anywhere` tylko po „@” albo mniejszą czcionkę i `white-space: nowrap`.
 22. Podglądy: makieta to zmniejszony zrzut desktopu, a tekst w niej jest nieczytelny. Na telefonie pokazać ekran telefonu (już jest w makiecie) zamiast laptopa.
 23. Proces: kroki 04 i 05 są poza ekranem bez żadnej wskazówki. Dać kropki/licznik albo zawinąć w 2 rzędy.

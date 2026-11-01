@@ -72,7 +72,7 @@ export const SW_HERO: Extract<Block, { blockType: 'swHero' }> = {
 export const SW_FAQ: Extract<Block, { blockType: 'faq' }> = {
   blockType: 'faq',
   eyebrow: 'Zanim napiszesz',
-  heading: 'Pytania, które słyszymy najczęściej',
+  heading: 'Pytania, które słyszymy najczęściej.',
   lead: 'Nie ma Twojego? Zadaj je w formularzu poniżej, odpowiadamy konkretnie.',
   items: faqPackage.homeFaq.map(({ q, a }) => ({ question: q, answer: a })),
 }
