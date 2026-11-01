@@ -3997,6 +3997,9 @@ export interface SwPageHeroBlock {
  * via the `definition` "SwStepsBlock".
  */
 export interface SwStepsBlock {
+  /**
+   * Duże liczby bez etykiety (pole „Etykieta” puste) = pasek tuż pod hero: nagłówek tylko dla czytników ekranu, mniejszy odstęp.
+   */
   variant: 'stats' | 'cards' | 'timeline';
   eyebrow?: string | null;
   heading: string;
@@ -4006,7 +4009,7 @@ export interface SwStepsBlock {
    */
   items: {
     /**
-     * Liczby i oś czasu: „2004”, „100+”, „[ROK SERWIS KAS]”. Duże liczby bez etykiety = pasek tuż pod hero.
+     * Liczby i oś czasu: „2004”, „100+”, „[ROK SERWIS KAS]”.
      */
     marker?: string | null;
     icon?:

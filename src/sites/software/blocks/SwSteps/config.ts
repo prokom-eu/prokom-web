@@ -24,6 +24,10 @@ export const SwStepsBlock: Block = {
         { label: 'Karty z ikoną', value: 'cards' },
         { label: 'Oś czasu', value: 'timeline' },
       ],
+      admin: {
+        description:
+          'Duże liczby bez etykiety (pole „Etykieta” puste) = pasek tuż pod hero: nagłówek tylko dla czytników ekranu, mniejszy odstęp.',
+      },
     },
     ...sectionHeadFields,
     {
@@ -43,7 +47,7 @@ export const SwStepsBlock: Block = {
               'Liczba albo rok',
               30,
               false,
-              'Liczby i oś czasu: „2004”, „100+”, „[ROK SERWIS KAS]”. Duże liczby bez etykiety = pasek tuż pod hero.',
+              'Liczby i oś czasu: „2004”, „100+”, „[ROK SERWIS KAS]”.',
             ),
             iconField(),
           ],

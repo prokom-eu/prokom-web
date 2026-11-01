@@ -20,7 +20,7 @@ const ABOUT_HERO: Of<'swPageHero'> = {
   eyebrow: 'O firmie',
   title: 'Firma z Rabki.',
   titleAccent: 'Od 2004 roku.',
-  lead: 'PRO-KOM to firma z Rabki-Zdroju: kasy i programy dla firm, instalacje, serwis sprzętu, a od tej strony także strony, systemy i aplikacje. Za każdym projektem stoi ta sama firma, umowa i faktura VAT.',
+  lead: 'PRO-KOM to firma z Rabki-Zdroju: kasy i programy dla firm, instalacje, serwis sprzętu, a w PRO-KOM Software strony, systemy i aplikacje. Za każdym projektem stoi ta sama firma, umowa i faktura VAT.',
   primary: { label: 'Umów rozmowę', href: '/kontakt' },
   secondary: { label: 'Co jeszcze robi PRO-KOM', href: '/jedna-firma' },
   // SWV6 (audyt 01.11): no portraits on the page — the only photo is the entrance, by the address.
