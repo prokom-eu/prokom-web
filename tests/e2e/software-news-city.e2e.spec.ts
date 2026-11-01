@@ -125,7 +125,7 @@ test.describe('Software /miejscowosci/[miasto]', () => {
     expect(response?.status()).toBe(200)
     await expect(page.locator('h1')).toHaveText('Strony i systemy dla firm z Rabki-Zdroju.')
     await expect(
-      page.getByRole('heading', { name: 'Dla kogo pracujemy najczęściej.' }),
+      page.getByRole('heading', { name: 'Dla kogo pracujemy najczęściej' }),
     ).toBeVisible()
     await expect(page.locator('#pytania')).toContainText('Czy przyjedziecie do mnie?')
     const nearby = page.locator('section', {

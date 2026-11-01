@@ -355,8 +355,10 @@ describe('Software settings of the seed', () => {
   })
 
   it('add the SW5 and SW6 section headings from the board to the home texts', () => {
-    expect(settings.home.sections?.areas.title).toBe('Osiem rzeczy, które robimy dla firm.')
-    expect(settings.home.sections?.livePreviews?.eyebrow).toBe('Podglądy na żywo · zanim zapłacisz')
+    expect(settings.home.sections?.areas.title).toBe('Co możemy dla Ciebie zrobić')
+    expect(settings.home.sections?.livePreviews?.eyebrow).toBe(
+      'Podglądy na żywo · kliknij i sprawdź',
+    )
     expect(settings.home.sections?.process?.stage).toBe('Etap {num} · {t}')
     expect(settings.home.sections?.popular.after.items[0]?.text).toBe('od [OPIEKA OD] zł / mies.')
     expect(settings.home.sections?.guarantees?.sayNo.title).toBe('Czasem powiemy: tego nie buduj.')

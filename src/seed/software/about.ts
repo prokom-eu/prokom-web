@@ -18,8 +18,8 @@ type Of<T extends PageBlock['blockType']> = Extract<PageBlock, { blockType: T }>
 const ABOUT_HERO: Of<'swPageHero'> = {
   blockType: 'swPageHero',
   eyebrow: 'O firmie',
-  title: 'Firma z Rabki.',
-  titleAccent: 'Od 2004 roku.',
+  title: 'Robimy dla firm z Podhala',
+  titleAccent: 'od 2004 roku',
   lead: 'PRO-KOM to firma z Rabki-Zdroju: kasy i programy dla firm, instalacje i serwis sprzętu. Software to nasza linia od stron, systemów i aplikacji dla firm. Za każdym projektem stoi ta sama firma, umowa i faktura VAT.',
   primary: { label: 'Umów rozmowę', href: '/kontakt' },
   secondary: { label: 'Co jeszcze robi PRO-KOM', href: '/jedna-firma' },
@@ -32,7 +32,7 @@ const ABOUT_NUMBERS: Of<'swSteps'> = {
   variant: 'stats',
   // No eyebrow: the numbers sit right under the hero as its band (SWV6); the heading stays for
   // screen readers.
-  heading: 'PRO-KOM w liczbach.',
+  heading: 'PRO-KOM w liczbach',
   items: [
     { marker: '2004', text: 'od tego roku działamy na Podhalu' },
     { marker: '100+', text: 'klientów biznesowych na Podhalu i w Małopolsce' },
@@ -47,7 +47,7 @@ const ABOUT_LINES: Of<'swLines'> = {
   blockType: 'swLines',
   variant: 'lines',
   eyebrow: 'Jedna firma',
-  heading: 'Jedna firma, cztery linie.',
+  heading: 'Jedna firma, cztery linie',
   lead: 'Każda linia robi swoje, a za wszystkimi stoi ta sama firma z Rabki i ci sami ludzie.',
   lines: [
     {
@@ -94,7 +94,7 @@ const ABOUT_COMPANY: Of<'swSteps'> = {
   blockType: 'swSteps',
   variant: 'cards',
   eyebrow: 'Co to znaczy dla Ciebie',
-  heading: 'Jedna firma od strony, kas, sieci i serwisu.',
+  heading: 'Jedna firma od strony, kas, sieci i serwisu',
   lead: 'Nie szukasz pięciu wykonawców. Stronę, kasę, sieć w biurze i naprawę laptopa załatwisz u nas, a cała historia współpracy jest w jednym miejscu.',
   items: [
     {
@@ -119,7 +119,7 @@ const ABOUT_TEAM: Of<'swTeam'> = {
   blockType: 'swTeam',
   variant: 'people',
   eyebrow: 'Ludzie',
-  heading: 'Kto z Tobą pracuje.',
+  heading: 'Kto z Tobą pracuje',
   lead: 'Mała firma, więc rozmawiasz z ludźmi, którzy podejmują decyzje i budują projekt. Bez pośredników.',
   // SWV6: no portraits — the cards show initials (KP, TW); the captions stay as the field asks.
   members: [
@@ -144,7 +144,7 @@ const ABOUT_PLACES: Of<'swTeam'> = {
   blockType: 'swTeam',
   variant: 'places',
   eyebrow: 'Gdzie nas znaleźć',
-  heading: 'Rabka-Zdrój, ul. Orkana 16B.',
+  heading: 'Rabka-Zdrój, ul. Orkana 16B',
   members: [
     {
       name: 'PRO-KOM Tadeusz Wójciak',
@@ -157,7 +157,7 @@ const ABOUT_PLACES: Of<'swTeam'> = {
 
 const ABOUT_CTA: Of<'callToAction'> = {
   blockType: 'callToAction',
-  heading: 'Poznajmy się. Kawa w Rabce albo 30 minut online.',
+  heading: 'Poznajmy się. Kawa w Rabce albo 30 minut online',
   text: 'Pokaż, jak dziś pracujesz. Powiemy, co da się uprościć, ile to kosztuje i kiedy może działać. Bez zobowiązań.',
   link: { label: 'Umów rozmowę', href: '/kontakt' },
 }
@@ -183,8 +183,8 @@ export function softwareAboutLayout(): PageBlock[] {
 const ONE_HERO: Of<'swPageHero'> = {
   blockType: 'swPageHero',
   eyebrow: 'PRO-KOM · jedna firma, cztery linie',
-  title: 'Strona, program, sprzęt i serwis.',
-  titleAccent: 'W jednej firmie.',
+  title: 'Stronę, kasę, sieć i naprawę laptopa',
+  titleAccent: 'załatwisz w jednej firmie',
   lead: 'Software robi strony i systemy. Resztę, czego potrzebuje firma, załatwisz w PRO-KOM obok: kasy i sprzęt, monitoring i sieci, serwis. Jeden telefon i jedna firma, która zna całość.',
   primary: { label: 'Porozmawiajmy o całości', href: '/kontakt' },
   secondary: { label: 'Dobierz rozwiązanie', href: '/dobierz' },
@@ -203,7 +203,7 @@ const ONE_LINES: Of<'swLines'> = {
   blockType: 'swLines',
   variant: 'lines',
   eyebrow: 'Linie PRO-KOM',
-  heading: 'Każda robi swoje. Razem robią całość.',
+  heading: 'Co załatwisz w PRO-KOM poza stroną',
   lines: [
     {
       name: 'PRO-KOM Software',
@@ -262,7 +262,7 @@ const ONE_EXAMPLES: Of<'swLines'> = {
   blockType: 'swLines',
   variant: 'examples',
   eyebrow: 'Jak to wygląda w praktyce',
-  heading: 'Dwa przykłady z Podhala.',
+  heading: 'Dwa przykłady z Podhala',
   examples: [
     {
       eyebrow: 'Przykład',
@@ -309,7 +309,7 @@ const ONE_GAINS: Of<'swSteps'> = {
   blockType: 'swSteps',
   variant: 'cards',
   eyebrow: 'Co zyskujesz',
-  heading: 'Jeden kontakt zamiast pięciu.',
+  heading: 'Jeden kontakt zamiast pięciu',
   items: [
     {
       icon: 'chat',
@@ -333,7 +333,7 @@ const ONE_PLACES: Of<'swTeam'> = {
   blockType: 'swTeam',
   variant: 'people',
   eyebrow: 'Na miejscu',
-  heading: 'Wszystko pod jednym adresem w Rabce-Zdroju.',
+  heading: 'Wszystko pod jednym adresem w Rabce-Zdroju',
   lead: 'Przyjdź z laptopem do serwisu, z kasą do przeglądu albo z pomysłem na stronę.',
   members: [
     {
@@ -347,7 +347,7 @@ const ONE_PLACES: Of<'swTeam'> = {
 
 const ONE_CTA: Of<'callToAction'> = {
   blockType: 'callToAction',
-  heading: 'Opowiedz, co masz i czego brakuje.',
+  heading: 'Opowiedz, co masz i czego brakuje',
   text: 'Przejrzymy całość i powiemy, co zrobić najpierw. Konkretnie i bez sprzedawania na siłę.',
   link: { label: 'Umów rozmowę', href: '/kontakt' },
 }

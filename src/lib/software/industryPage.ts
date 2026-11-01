@@ -146,7 +146,7 @@ export function buildIndustryPage({
         delay: module.delay ?? 0,
       })),
     problems: {
-      eyebrow: clean(page?.problemsEyebrow) ?? `Co boli w branży`,
+      eyebrow: clean(page?.problemsEyebrow) ?? 'Co zabiera czas w branży',
       lead: clean(page?.problemsLead),
       items: problems,
     },

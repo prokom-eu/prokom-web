@@ -2,7 +2,7 @@
   "_info": "SWR3 (30.10.2026): wspólne teksty okna szczegółów oferty → SoftwareSettings.offer (ADR-014 v22 pkt 4, decyzja SWD2 2A). Przeniesione 1:1 z planszy Katalog (skrypt: OM_PLUS, OM_SITK, OM_NOTE, kroki, need, needHint, pay, faqL, ownT/payT). Klucze categories = Solutions.category; solutions.<slug> = nadpisanie dla jednego rozwiązania (opieka, przejęcie, audyt, uwagi pensjonatu itd.). Tokeny okna: {cena} = cena „od” rozwiązania („2 490 zł”), {wCenie} = punkty „W cenie” jednym zdaniem, {wiecej} = przykłady „Potrzebujesz więcej?”, {platnosc} = pełny tekst płatności kategorii, {budowa} = termin budowy (termin „od”, przy poziomach termin wybranego poziomu, albo budowaFallback). Domyślny poziom = „Polecamy”, chyba że defaultLevel (audyt: Szybki). Tekst z pustym tokenem bierze aFallback albo znika. Dalej działają tokeny stron: [FAKT], {termin}, {cena:<slug>} — ceny tylko z Rozwiązań. Pola, których plansza nie ma w szablonach (W cenie, przykłady, Przykład z życia, poziomy, tabela, „Co dostajesz” 23/25/28/29/30, „Co od Ciebie” audytu, pytania 28–30), są w Rozwiązaniach (SWR1).",
   "common": {
     "quote": "Wycena na piśmie, ważna 30 dni",
-    "more": "Potrzebujesz więcej? Np. {wiecej} — wycenimy na piśmie w 5–7 dni.",
+    "more": "Potrzebujesz więcej? Np. {wiecej} — wycenimy w 5–7 dni.",
     "budowaFallback": "po wycenie",
     "askNote": "Odpowiadamy w ciągu [CZAS ODPOWIEDZI]."
   },
@@ -21,7 +21,7 @@
       },
       "steps": [
         { "name": "Rozmowa", "text": "30 minut: u Ciebie, w salonie w Rabce albo online.", "time": "dziś lub jutro" },
-        { "name": "Podgląd i wycena", "text": "Szkic do klikania i stała cena za ustalony zakres, na piśmie.", "time": "5–7 dni" },
+        { "name": "Podgląd i wycena", "text": "Szkic do klikania i stała cena za ustalony zakres.", "time": "5–7 dni" },
         { "name": "Budowa etapami", "text": "Co tydzień klikasz podgląd na serwerze testowym. Zmiany na bieżąco.", "time": "{budowa}" },
         { "name": "Odbiór i opieka", "text": "Szkolenie, kod i dane na Ciebie. Opieka, jeśli chcesz.", "time": "od {cena:opieka-nad-strona-i-systemem} / mies." }
       ],
@@ -37,8 +37,8 @@
         },
         {
           "q": "A jeśli potrzebuję więcej?",
-          "a": "Np. {wiecej} — wycenimy na piśmie w 5–7 dni. Cena zależy od zakresu, który ustalimy razem.",
-          "aFallback": "Większy zakres wycenimy na piśmie w 5–7 dni. Cena zależy od zakresu, który ustalimy razem."
+          "a": "Np. {wiecej} — wycenimy w 5–7 dni. Cena zależy od zakresu, który ustalimy razem.",
+          "aFallback": "Większy zakres wycenimy w 5–7 dni. Cena zależy od zakresu, który ustalimy razem."
         },
         { "q": "Ile płacę i kiedy?", "a": "{platnosc}" }
       ]
@@ -58,7 +58,7 @@
       },
       "steps": [
         { "name": "Rozmowa", "text": "30 minut: u Ciebie, w salonie w Rabce albo online.", "time": "dziś lub jutro" },
-        { "name": "Podgląd i wycena", "text": "Szkic do klikania i stała cena za ustalony zakres, na piśmie.", "time": "5–7 dni" },
+        { "name": "Podgląd i wycena", "text": "Szkic do klikania i stała cena za ustalony zakres.", "time": "5–7 dni" },
         { "name": "Budowa etapami", "text": "Co tydzień klikasz podgląd na serwerze testowym. Zmiany na bieżąco.", "time": "{budowa}" },
         { "name": "Odbiór i opieka", "text": "Szkolenie, kod i dane na Ciebie. Opieka, jeśli chcesz.", "time": "od {cena:opieka-nad-strona-i-systemem} / mies." }
       ],
@@ -70,11 +70,11 @@
       "faq": [
         {
           "q": "Co jest w cenie od {cena}?",
-          "a": "Jeden moduł na gotowym fundamencie, do 5 użytkowników, dostęp z komputera i telefonu. Kolejne moduły, role i połączenia z innymi programami wycenimy na piśmie."
+          "a": "Jeden moduł na gotowym fundamencie, do 5 użytkowników, dostęp z komputera i telefonu. Kolejne moduły, role i połączenia z innymi programami wycenimy osobno."
         },
         {
           "q": "Kiedy zacznie działać?",
-          "a": "Podgląd i wycena na piśmie w 5–7 dni. Pierwszy etap pracuje po 3–4 tygodniach, kolejne dokładamy bez przestoju."
+          "a": "Podgląd i wycena w 5–7 dni. Pierwszy etap pracuje po 3–4 tygodniach, kolejne dokładamy bez przestoju."
         },
         { "q": "Ile płacę i kiedy?", "a": "{platnosc}" },
         {
@@ -94,7 +94,7 @@
       },
       "steps": [
         { "name": "Rozmowa", "text": "30 minut: u Ciebie, w salonie w Rabce albo online.", "time": "dziś lub jutro" },
-        { "name": "Wycena na piśmie", "text": "Zakres, cena i termin na piśmie, bez zobowiązań.", "time": "5–7 dni" },
+        { "name": "Wycena na piśmie", "text": "Zakres, cena i termin, bez zobowiązań.", "time": "5–7 dni" },
         { "name": "Budowa etapami", "text": "Co tydzień klikasz podgląd na serwerze testowym. Zmiany na bieżąco.", "time": "{budowa}" },
         { "name": "Odbiór i opieka", "text": "Szkolenie, kod i dane na Ciebie. Opieka, jeśli chcesz.", "time": "od {cena:opieka-nad-strona-i-systemem} / mies." }
       ],
@@ -103,11 +103,11 @@
       "payment": "30% zaliczki po podpisaniu umowy, potem raty po odbiorze każdego etapu, ostatnia po wdrożeniu. Faktura VAT, przelew 7 dni.",
       "paymentShort": "30% zaliczki, reszta ratami po etapach",
       "ownership": "Kod, aplikacja i dane są Twoje",
-      "askText": "Cena zależy od ekranów i programów, które już masz. Po krótkiej rozmowie dostajesz cenę i termin na piśmie.",
+      "askText": "Cena zależy od ekranów i programów, które już masz. Po krótkiej rozmowie dostajesz cenę i termin.",
       "faq": [
         {
           "q": "Dlaczego nie ma ceny?",
-          "a": "Bo zależy od ekranów i programów, które już masz. Po krótkiej rozmowie podajemy cenę i termin na piśmie."
+          "a": "Bo zależy od ekranów i programów, które już masz. Po krótkiej rozmowie podajemy cenę i termin."
         },
         { "q": "Ile płacę i kiedy?", "a": "{platnosc}" },
         {
@@ -125,7 +125,7 @@
       },
       "steps": [
         { "name": "Rozmowa", "text": "30 minut: u Ciebie, w salonie w Rabce albo online.", "time": "dziś lub jutro" },
-        { "name": "Wycena na piśmie", "text": "Zakres, cena i termin na piśmie, bez zobowiązań.", "time": "5–7 dni" },
+        { "name": "Wycena na piśmie", "text": "Zakres, cena i termin, bez zobowiązań.", "time": "5–7 dni" },
         { "name": "Budowa etapami", "text": "Co tydzień klikasz podgląd na serwerze testowym. Zmiany na bieżąco.", "time": "{budowa}" },
         { "name": "Odbiór i opieka", "text": "Szkolenie, kod i dane na Ciebie. Opieka, jeśli chcesz.", "time": "od {cena:opieka-nad-strona-i-systemem} / mies." }
       ],
@@ -134,11 +134,11 @@
       "payment": "30% zaliczki po podpisaniu umowy, potem raty po odbiorze każdego etapu, ostatnia po wdrożeniu. Faktura VAT, przelew 7 dni.",
       "paymentShort": "30% zaliczki, reszta ratami po etapach",
       "ownership": "Kod, panel i dane są Twoje",
-      "askText": "Cena zależy od programów, które już masz. Po krótkiej rozmowie dostajesz cenę i termin na piśmie.",
+      "askText": "Cena zależy od programów, które już masz. Po krótkiej rozmowie dostajesz cenę i termin.",
       "faq": [
         {
           "q": "Dlaczego nie ma ceny?",
-          "a": "Bo zależy od programów, które już masz, i od tego, co ma między nimi płynąć. Po krótkiej rozmowie podajemy cenę i termin na piśmie."
+          "a": "Bo zależy od programów, które już masz, i od tego, co ma między nimi płynąć. Po krótkiej rozmowie podajemy cenę i termin."
         },
         {
           "q": "Kto płaci za SMS i AI?",

@@ -10,7 +10,7 @@
         "eyebrow": "Rabka-Zdrój · strony, systemy, aplikacje",
         "title": "Strony i systemy dla firm",
         "titleAccent": "z Rabki-Zdroju.",
-        "lead": "Salon mamy przy ul. Orkana 16B. Spotkasz się z nami na miejscu, pokażesz, jak pracujesz, a my pokażemy, jak to może wyglądać, zanim zapłacisz.",
+        "lead": "Salon mamy przy ul. Orkana 16B. Spotkasz się z nami na miejscu, pokażesz, jak pracujesz, a my pokażemy, jak to może u Ciebie wyglądać.",
         "ctas": [
           [
             "Dobierz rozwiązanie · 60 s",
@@ -32,7 +32,7 @@
           ]
         ]
       },
-      "whoTitle": "Dla kogo pracujemy najczęściej.",
+      "whoTitle": "Dla kogo pracujemy najczęściej",
       "whoLead": "Rabka-Zdrój to uzdrowisko i turystyka, ale też usługi i handel dla mieszkańców. Każda z tych firm potrzebuje czegoś innego.",
       "who": [
         {
@@ -60,7 +60,7 @@
           "solution": "strona-firmowa-z-panelem"
         }
       ],
-      "localTitle": "Blisko, czyli prościej.",
+      "localTitle": "Blisko, czyli prościej",
       "local": [
         [
           "Spotkanie w 10 minut",
@@ -90,7 +90,7 @@
         },
         {
           "q": "Ile kosztuje strona w Rabce?",
-          "a": "Tyle samo co gdzie indziej: cena „od” jest w cenniku, a dokładna na piśmie po rozmowie."
+          "a": "Tyle samo co gdzie indziej: cena „od” jest w cenniku, a dokładna po rozmowie."
         }
       ],
       "nearby": [
@@ -104,7 +104,7 @@
         "Skomielna Biała"
       ],
       "cta": {
-        "title": "Wpadnij do salonu przy Orkana 16B.",
+        "title": "Wpadnij do salonu przy Orkana 16B",
         "text": "Pokaż, jak dziś pracujesz. Wyjdziesz z pomysłem, ceną i terminem. Bez zobowiązań.",
         "buttons": [
           [

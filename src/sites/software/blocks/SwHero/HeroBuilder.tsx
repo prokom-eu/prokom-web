@@ -222,7 +222,7 @@ export function HeroBuilder({ modules }: Props) {
             </div>
             <div className="flex min-w-0 flex-col gap-2 bg-surface-2 p-2.5 min-[640px]:p-3">
               <div className="flex items-center justify-between text-[11px] font-extrabold text-ink">
-                <span>Dzień dobry, Anna</span>
+                <span>Dzień dobry, Anno</span>
                 <span className="inline-flex items-center gap-1 text-[10px] text-ok-text">
                   <i className="size-1.5 rounded-full bg-ok" />
                   na żywo

@@ -39,7 +39,7 @@ describe('buildCityView', () => {
     const view = buildCityView(
       city({
         who: {
-          title: 'Dla kogo pracujemy najczęściej.',
+          title: 'Dla kogo pracujemy najczęściej',
           items: [
             { name: 'Pensjonaty', solution: solution(1, 3), cta: 'Strona →' },
             { name: 'Obca', solution: solution(2, 1), cta: 'Nie →' },

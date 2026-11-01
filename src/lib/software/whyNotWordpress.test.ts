@@ -15,7 +15,7 @@ const strict = (text: string) => (/\{cena:[^}]+\}|\[[^\]]+\]/.test(text) ? null 
 describe('whyNotWordpressView', () => {
   it('keeps the 3 facts with their sources, the 6 rows and the CTA of the package', () => {
     const view = whyNotWordpressView(section(), filled)
-    expect(view?.title).toBe('Bez wtyczek do łatania. Bez nocnych aktualizacji.')
+    expect(view?.title).toBe('Dlaczego nie robimy stron na WordPressie')
     expect(view?.facts.map((fact) => fact.value)).toEqual(['7 966', '72 h', '0'])
     expect(view?.facts[1]?.source).toBe('RODO, art. 33 i art. 83 ust. 4')
     expect(view?.columns).toEqual(['WordPress z wtyczkami', 'Strona od PRO-KOM'])

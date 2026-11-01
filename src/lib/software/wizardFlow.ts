@@ -282,7 +282,7 @@ export type ResultView = {
   price: string
   /** „od 1 999 zł” — the big price, `priceSub` under it says „netto”. */
   priceShort: string
-  /** „netto · stała cena na piśmie”, or the no-price line. */
+  /** „netto · stała cena za zakres”, or the no-price line. */
   priceSub: string
   term: string
   /** No price in the panel: „Zapytaj o wycenę”. */
@@ -290,7 +290,7 @@ export type ResultView = {
   /** Step „Zakres”: what the „od” price includes and what else may be quoted. */
   included: string[]
   more: { id: string; name: string; on: boolean }[]
-  /** „Do wyceny na piśmie”: answers outside the price and ticked „more”, by name. */
+  /** „Do wyceny”: answers outside the price and ticked „more”, by name. */
   toQuote: string[]
   scope: string | null
   /** Line under the title from the chosen chip („+ przebudowa starej strony…”). */

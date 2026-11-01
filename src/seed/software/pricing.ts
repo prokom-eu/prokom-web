@@ -20,8 +20,8 @@ export function swPricing(featured: number | null): PricingBlock {
   return {
     blockType: 'swPricing',
     eyebrow: 'Cennik · ceny netto',
-    title: 'Ceny bez gwiazdek.',
-    titleAccent: 'Na piśmie.',
+    title: 'Ile to kosztuje',
+    titleAccent: '— bez małego druku',
     lead: 'Wszystkie {liczba} rozwiązań w jednym miejscu. Każde z ceną „od” i terminem. Dokładną kwotę za Twój zakres dostajesz na piśmie w 5–7 dni, zmiany poza zakresem tylko za Twoją zgodą. Aplikacje i automatyzacje wyceniamy po krótkiej rozmowie.',
     primary: { label: 'Dobierz rozwiązanie · 60 s', href: '/dobierz' },
     secondary: { label: 'Zapytaj o wycenę', href: '/kontakt#formularz' },
@@ -33,17 +33,17 @@ export function swPricing(featured: number | null): PricingBlock {
       { text: 'Kod, domena i dane są Twoje' },
     ],
     tableEyebrow: 'Cennik rozwiązań',
-    tableTitle: 'Wybierz, czego szukasz.',
+    tableTitle: 'Wybierz, czego szukasz',
     tabs: [
       {
         category: 'strony',
         label: 'Strony',
-        note: 'Cena „od” to podstawowy zakres opisany w polu „W cenie”. Więcej podstron albo języków wyceniamy na piśmie. Ceny netto.',
+        note: 'Cena „od” to podstawowy zakres opisany w polu „W cenie”. Więcej podstron albo języków wyceniamy osobno. Ceny netto.',
       },
       {
         category: 'systemy',
         label: 'Systemy i panele',
-        note: 'Cena „od” to jeden moduł na gotowym fundamencie, do 5 użytkowników. Kolejne moduły i połączenia z innymi programami wyceniamy na piśmie.',
+        note: 'Cena „od” to jeden moduł na gotowym fundamencie, do 5 użytkowników. Kolejne moduły i połączenia z innymi programami wyceniamy osobno.',
       },
       {
         category: 'aplikacje',
@@ -61,19 +61,18 @@ export function swPricing(featured: number | null): PricingBlock {
         note: 'Opieka miesięcznie, bez długich umów. Przejęcie i audyt jednorazowo. Ceny netto.',
       },
     ],
-    careEyebrow: 'Opieka po wdrożeniu',
-    careTitle: 'Spokój co miesiąc. Bez długich umów.',
-    careLead:
-      'Serwer w Polsce, kopie i aktualizacje. Wybierasz poziom, zmieniasz, kiedy chcesz. Ceny netto.',
+    careEyebrow: 'Opieka i rozwój',
+    careTitle: 'Opieka po wdrożeniu: wybierasz poziom, rezygnujesz, kiedy chcesz',
+    careLead: 'Serwer w Polsce, kopie i aktualizacje. Ceny netto.',
     careButton: 'Zapytaj o opiekę',
     careNote: 'Przejdziesz do formularza kontaktu',
     auditEyebrow: 'Audyt strony lub programu',
-    auditTitle: 'Zacznij za darmo. Głębiej, gdy trzeba.',
+    auditTitle: 'Trzy poziomy audytu — pierwszy za darmo',
     auditLead: 'Pełny audyt odliczamy od projektu zamówionego w ciągu 60 dni.',
     auditButton: 'Zamów audyt →',
     auditHref: '/audyt',
     includedEyebrow: 'W cenie każdej strony',
-    includedTitle: 'Tego nie dopłacasz.',
+    includedTitle: 'Tego nie dopłacasz',
     includedItems: [
       { title: 'Projekt pod Twoją firmę', text: 'Bez gotowego szablonu.' },
       { title: 'Wersja na telefon', text: 'Wygodna na każdym ekranie.' },
@@ -86,7 +85,7 @@ export function swPricing(featured: number | null): PricingBlock {
     ],
     ctaTitle: 'Nie wiesz, co wybrać?',
     ctaText:
-      'Dobierz rozwiązanie w 60 sekund: cenę i termin zobaczysz od razu, a wycenę na piśmie dostaniesz po krótkiej rozmowie.',
+      'Dobierz rozwiązanie w 60 sekund: cenę i termin zobaczysz od razu, a wycenę dostaniesz po krótkiej rozmowie.',
     ctaPrimary: { label: 'Dobierz rozwiązanie', href: '/dobierz' },
     ctaSecondary: { label: 'Darmowy audyt strony', href: '/audyt' },
   }
@@ -105,7 +104,7 @@ export const SW_PRICING_FAQ: FaqBlock = {
     {
       question: 'Co oznacza cena „od”?',
       answer:
-        'To cena za podstawowy zakres opisany przy każdym rozwiązaniu. Więcej podstron, języków, modułów albo połączeń z innymi programami wyceniamy na piśmie w 5–7 dni, zanim cokolwiek zapłacisz.',
+        'To cena za podstawowy zakres opisany przy każdym rozwiązaniu. Więcej podstron, języków, modułów albo połączeń z innymi programami wyceniamy w 5–7 dni, zanim cokolwiek zapłacisz.',
     },
     {
       question: 'Jak wygląda płatność?',
@@ -115,7 +114,7 @@ export const SW_PRICING_FAQ: FaqBlock = {
     {
       question: 'Dlaczego aplikacje i automatyzacje nie mają ceny?',
       answer:
-        'Bo zależą od ekranów i programów, które już masz. Po krótkiej rozmowie podajemy cenę i termin na piśmie.',
+        'Bo zależą od ekranów i programów, które już masz. Po krótkiej rozmowie podajemy cenę i termin.',
     },
     {
       question: 'Czy opieka jest obowiązkowa?',

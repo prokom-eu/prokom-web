@@ -49,7 +49,7 @@ export function ContactBlock({ eyebrow, title, lead, quoteCaption, phone }: Prop
               id="kontakt-tytul"
               className="mt-2 font-display text-3xl font-extrabold leading-tight sm:text-4xl"
             >
-              {title || 'Powiedz, co chcesz usprawnić. Resztę dobierzemy razem.'}
+              {title || 'Powiedz, co chcesz usprawnić, a resztę dobierzemy razem'}
             </h2>
             {lead && <p className="mt-3 text-lg text-ink-2">{lead}</p>}
           </div>

@@ -82,7 +82,7 @@ describe('„Twój projekt” on /kontakt (spec. §6.10, ZMIANY-v21 §10.6, §11
     expect(summary.sumLabel).toBe('Cena (netto)')
     expect(summary.sum).toBe(nb('od 2 490 zł'))
     expect(summary.note).toBe(
-      'Lista pójdzie razem ze zgłoszeniem. Dokładną cenę i termin dostaniesz na piśmie w 5–7 dni.',
+      'Lista pójdzie razem ze zgłoszeniem. Dokładną cenę i termin dostaniesz w 5–7 dni.',
     )
     expect(summary.slugs).toEqual([site.slug])
     expect(summary.topic).toBe('strona')

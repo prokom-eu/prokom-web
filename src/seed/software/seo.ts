@@ -19,12 +19,12 @@ export const SOFTWARE_PAGE_SEO: Readonly<Record<string, Seo>> = {
     // ≤ 60 characters: longer titles are cut in results (audyt 01.11 P2).
     title: 'Strony i systemy dla firm — Rabka-Zdrój | PRO-KOM Software',
     description:
-      'Strony internetowe, systemy dla firm i aplikacje z Rabki-Zdroju. Cena „od” i termin od razu, wycena na piśmie, opieka po starcie.',
+      'Strony internetowe, systemy dla firm i aplikacje z Rabki-Zdroju. Cena „od” i termin od razu, stała wycena, opieka po starcie.',
   },
   [SOFTWARE_PRICING_SLUG]: {
     title: 'Cennik stron, systemów i opieki',
     description:
-      'Ceny „od” stron, sklepów i systemów dla firm oraz poziomy opieki po starcie. Stała cena na piśmie przed rozpoczęciem pracy.',
+      'Ceny „od” stron, sklepów i systemów dla firm oraz poziomy opieki po starcie. Stała cena przed rozpoczęciem pracy.',
   },
   [SOFTWARE_AUDIT_SLUG]: {
     description:
@@ -36,7 +36,7 @@ export const SOFTWARE_PAGE_SEO: Readonly<Record<string, Seo>> = {
   },
   [SOFTWARE_CONTACT_SLUG]: {
     description:
-      'Napisz albo zadzwoń do PRO-KOM Software w Rabce-Zdroju. Odpowiadamy w sprawie stron, systemów i aplikacji, wycena na piśmie.',
+      'Napisz albo zadzwoń do PRO-KOM Software w Rabce-Zdroju. Odpowiadamy w sprawie stron, systemów i aplikacji, wycena w 5–7 dni.',
   },
   [SOFTWARE_ABOUT_SLUG]: {
     description:

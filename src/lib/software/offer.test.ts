@@ -77,7 +77,7 @@ describe('offer window (board Katalog, stany/okno-90…98)', () => {
         'Panel do zmian i formularz prosto do Ciebie',
         'Gotowa pod Google i AI',
       ],
-      more: 'Potrzebujesz więcej? Np. więcej niż 5 podstron, aktualności i blog, kolejny język — wycenimy na piśmie w 5–7 dni.',
+      more: 'Potrzebujesz więcej? Np. więcej niż 5 podstron, aktualności i blog, kolejny język — wycenimy w 5–7 dni.',
     })
     expect(view.guarantees).toEqual([
       'Wycena na piśmie, ważna 30 dni',
@@ -155,7 +155,7 @@ describe('offer window (board Katalog, stany/okno-90…98)', () => {
       kind: 'ask',
       title: 'Zapytaj o wycenę',
       note: 'Odpowiadamy w ciągu [CZAS ODPOWIEDZI].',
-      text: 'Cena zależy od ekranów i programów, które już masz. Po krótkiej rozmowie dostajesz cenę i termin na piśmie.',
+      text: 'Cena zależy od ekranów i programów, które już masz. Po krótkiej rozmowie dostajesz cenę i termin.',
     })
     expect(view.term).toBe('po krótkiej rozmowie')
     expect(view.steps[1]?.name).toBe('Wycena na piśmie')

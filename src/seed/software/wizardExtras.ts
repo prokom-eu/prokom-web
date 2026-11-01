@@ -110,8 +110,8 @@ export const WIZARD_EXTRAS = {
   },
   ui: {
     eyebrow: 'Dobierz rozwiązanie · 60 sekund',
-    title: 'Kilka kliknięć. Cena, termin i podgląd od razu.',
-    lead: 'Bez formularzy na start. Kontakt podajesz na końcu i tylko wtedy, gdy chcesz wycenę na piśmie.',
+    title: 'Kilka kliknięć i od razu widzisz cenę, termin i podgląd',
+    lead: 'Bez formularzy na start. Kontakt podajesz na końcu i tylko wtedy, gdy chcesz wycenę.',
     needTitle: 'Czego potrzebujesz?',
     needLead: 'Wybierz jedno. Cenę i termin zobaczysz od razu.',
     rows: ['Nowa strona internetowa', 'Odświeżenie, program, aplikacja'],
@@ -147,7 +147,7 @@ export const WIZARD_EXTRAS = {
     termSub: { priced: 'od podpisania umowy', free: 'od wysłania opisu' },
     moreTitle: 'Potrzebujesz czegoś więcej?',
     moreTag: 'do wyceny',
-    toQuoteTitle: 'Do wyceny na piśmie',
+    toQuoteTitle: 'Do wyceny',
     ownChip: 'Opis po swojemu',
     checklist: {
       title: 'Co będzie potrzebne od Ciebie',

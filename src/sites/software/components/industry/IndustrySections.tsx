@@ -11,7 +11,7 @@ const eyebrowClass = 'text-xs font-extrabold uppercase tracking-[0.14em] text-ac
 
 /**
  * Hero of an industry page (board `Branza`): breadcrumbs, eyebrow, H1 with its accent, lead,
- * „Złóż system…” (the wizard with the kind of firm) and „Zobacz, co boli…”; on the right the
+ * „Złóż system…” (the wizard with the kind of firm) and „Typowe kłopoty w branży…”; on the right the
  * modules around the firm (positions from the panel, floating; still with reduced motion). On a
  * phone the modules are a 2-column grid under the hub card (spec. §6.2).
  */
@@ -69,7 +69,7 @@ export function IndustryHero({ page }: Page) {
                 href="#problemy"
                 className="inline-flex min-h-14 items-center justify-center rounded-2xl border border-border bg-card px-6 font-extrabold active:scale-[0.98] motion-reduce:transition-none"
               >
-                Zobacz, co boli i co na to mamy
+                Typowe kłopoty w branży i co na nie mamy
               </a>
             </div>
           </div>

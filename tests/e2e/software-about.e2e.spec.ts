@@ -13,16 +13,16 @@ const main = (page: Page) => page.locator('main')
 test.describe('Software /o-firmie', () => {
   test('hero, numbers, four lines, people without portraits, own CTA (SWV6)', async ({ page }) => {
     await page.goto(site(HOST, '/o-firmie'))
-    await expect(page.locator('h1')).toHaveText('Firma z Rabki. Od 2004 roku.')
+    await expect(page.locator('h1')).toHaveText('Robimy dla firm z Podhala od 2004 roku')
     await expect(main(page).getByRole('link', { name: 'Umów rozmowę' }).first()).toHaveAttribute(
       'href',
       '/kontakt',
     )
-    await expect(main(page).getByRole('heading', { name: 'PRO-KOM w liczbach.' })).toBeVisible()
+    await expect(main(page).getByRole('heading', { name: 'PRO-KOM w liczbach' })).toBeVisible()
     await expect(main(page)).toContainText('100+')
     // „Jedna firma, cztery linie”: Biznes, Instalacje, Serwis with their sites, Software here.
     const lines = page.locator('section', {
-      has: page.getByRole('heading', { name: 'Jedna firma, cztery linie.' }),
+      has: page.getByRole('heading', { name: 'Jedna firma, cztery linie' }),
     })
     await expect(lines.getByRole('heading', { level: 3 })).toHaveText([
       'PRO-KOM Biznes',
@@ -43,7 +43,7 @@ test.describe('Software /o-firmie', () => {
     await expect(main(page).getByRole('img', { name: /Zdjęcie do zrobienia/ })).toHaveCount(0)
     await expect(main(page).getByRole('img', { name: /Wejście do PRO-KOM/ })).toBeVisible()
     const team = page.locator('section', {
-      has: page.getByRole('heading', { name: 'Kto z Tobą pracuje.' }),
+      has: page.getByRole('heading', { name: 'Kto z Tobą pracuje' }),
     })
     await expect(team.getByRole('heading', { level: 3 })).toHaveText([
       'Krystian Potaczek',
@@ -79,7 +79,7 @@ test.describe('Software /o-firmie', () => {
     await expect(main(page)).not.toContainText('Najpierw sprzęt i serwis')
     await expect(main(page)).not.toContainText(/Zakopan/i)
     await expect(
-      main(page).getByRole('heading', { name: 'Rabka-Zdrój, ul. Orkana 16B.' }),
+      main(page).getByRole('heading', { name: 'Rabka-Zdrój, ul. Orkana 16B' }),
     ).toBeVisible()
     // Phones and e-mail come from the line's settings as facts.
     await expect(main(page)).toContainText('883 200 151 · 788 986 074')
@@ -91,10 +91,10 @@ test.describe('Software /jedna-firma', () => {
   test('hero with the lines, four line cards, two examples, gains, CTA', async ({ page }) => {
     await page.goto(site(HOST, '/jedna-firma'))
     await expect(page.locator('h1')).toHaveText(
-      'Strona, program, sprzęt i serwis. W jednej firmie.',
+      'Stronę, kasę, sieć i naprawę laptopa załatwisz w jednej firmie',
     )
     const lines = page.locator('section', {
-      has: page.getByRole('heading', { name: 'Każda robi swoje. Razem robią całość.' }),
+      has: page.getByRole('heading', { name: 'Co załatwisz w PRO-KOM poza stroną' }),
     })
     await expect(lines.getByRole('heading', { level: 3 })).toHaveCount(4)
     await expect(main(page)).not.toContainText(/Zakopan/i)
@@ -104,12 +104,10 @@ test.describe('Software /jedna-firma', () => {
     )
     await expect(lines).toContainText('PRO-KOM Serwis')
     await expect(main(page)).not.toContainText(/Tech/)
-    await expect(
-      main(page).getByRole('heading', { name: 'Dwa przykłady z Podhala.' }),
-    ).toBeVisible()
+    await expect(main(page).getByRole('heading', { name: 'Dwa przykłady z Podhala' })).toBeVisible()
     await expect(main(page).getByRole('article')).toHaveCount(2)
     await expect(
-      main(page).getByRole('heading', { name: 'Jeden kontakt zamiast pięciu.' }),
+      main(page).getByRole('heading', { name: 'Jeden kontakt zamiast pięciu' }),
     ).toBeVisible()
     await expect(page.locator('[data-footer-cta]')).toBeHidden()
   })

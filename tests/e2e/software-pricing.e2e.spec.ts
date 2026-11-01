@@ -11,7 +11,8 @@ test.describe('Software /cennik', () => {
   test('hero card, 5 tabs with counts, one „od” price per solution', async ({ page }) => {
     await page.goto(site(HOST, '/cennik'))
     await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-      'Ceny bez gwiazdek. Na piśmie.',
+      // A non-breaking space after the dash (SWV9 N3).
+      /^Ile to kosztuje —\sbez małego druku$/,
     )
     await expect(page.getByText(/^Wszystkie 29 rozwiązań/)).toBeVisible()
     await expect(page.getByText('Najczęściej wybierana')).toBeVisible()
@@ -58,7 +59,7 @@ test.describe('Software /cennik', () => {
   }) => {
     await page.goto(site(HOST, '/cennik'))
     await expect(page.locator('#audyt')).toContainText(`990${NBSP}zł`)
-    await expect(page.getByText('Tego nie dopłacasz.')).toBeVisible()
+    await expect(page.getByText('Tego nie dopłacasz')).toBeVisible()
     await expect(page.locator('#faq')).toContainText('Co oznacza cena „od”?')
     await expect(page.locator('[data-footer-cta]')).toBeHidden()
   })

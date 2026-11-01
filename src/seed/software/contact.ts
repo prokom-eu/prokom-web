@@ -108,7 +108,7 @@ export const SW_CONTACT_PAGE: ContactPageBlock = {
     },
   ],
   formEyebrow: 'Formularz',
-  formTitle: 'Opisz, co chcesz usprawnić.',
+  formTitle: 'Opisz, co chcesz usprawnić',
   topicsLabel: 'Czego dotyczy sprawa?',
   messageLabel: 'Opisz krótko, po swojemu',
   messagePlaceholder: 'np. Mamy 3 ekipy, zlecenia idą SMS-em, a protokoły piszemy na kartkach…',
@@ -165,7 +165,7 @@ export const SW_CONTACT_PAGE: ContactPageBlock = {
   ],
   linesMore: { label: 'Jedna firma do wszystkiego: jak to działa', href: '/jedna-firma' },
   meetEyebrow: 'Mapa i dojazd',
-  meetTitle: 'Rabka-Zdrój, ul. Orkana 16B.',
+  meetTitle: 'Rabka-Zdrój, ul. Orkana 16B',
   meetLead:
     'Sto metrów od dworca autobusowego i kolejowego przy placu św. Mikołaja. Przyjdź bez umawiania w godzinach otwarcia albo umów się na konkretną godzinę.',
   places: [
@@ -192,7 +192,7 @@ export const SW_CONTACT_FAQ: FaqBlock = {
     {
       question: 'Czy rozmowa i wycena coś kosztują?',
       answer:
-        'Nie. Pierwsza rozmowa, podgląd i wycena na piśmie są bez zobowiązań. Płacisz dopiero po podpisaniu umowy: 30% zaliczki, reszta po odbiorze strony albo w ratach po etapach systemu.',
+        'Nie. Pierwsza rozmowa, podgląd i wycena są bez zobowiązań. Płacisz dopiero po podpisaniu umowy: 30% zaliczki, reszta po odbiorze strony albo w ratach po etapach systemu.',
     },
     {
       question: 'Nie wiem dokładnie, czego potrzebuję. Czy to problem?',

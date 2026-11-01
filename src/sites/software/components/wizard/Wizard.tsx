@@ -161,7 +161,7 @@ function Phrases({ phrases, onPick }: { phrases: string[]; onPick: (phrase: stri
  * The Software wizard v22 (spec. §6.3, ZMIANY-v21 §3, §10.3, §11.2, board `Kreator`, stany
  * kreator-d-*, kreator-m-*): four short steps (three for „opisz po swojemu”) on the left; the
  * live quote on the right (desktop) or in a bar at the bottom edge (≤ 1080 px); the result with
- * „W cenie”, „Do wyceny na piśmie”, the add-ons and the quote block. One component for
+ * „W cenie”, „Do wyceny”, the add-ons and the quote block. One component for
  * `/dobierz` and the start page section (SW5). Everything it shows comes from `rules` through
  * `lib/software/wizardFlow` — no need ids here.
  */

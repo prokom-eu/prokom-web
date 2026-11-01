@@ -54,6 +54,20 @@ export function HowWeBuild({ view }: { view: HowWeBuildView }) {
               </li>
             ))}
           </ul>
+          {/* The one proof instead of a promise (SWV9 §4): PRO-KOM's own service system.
+              TODO(krystian): add since when it runs („od 2025 r.”) if you want a date. */}
+          <p className="text-[15.5px] font-bold leading-relaxed text-ink">
+            Tak budujemy też dla siebie: nasz serwis działa na własnym systemie —{' '}
+            <a
+              href="https://prokomserwis.pl"
+              target="_blank"
+              rel="noopener"
+              className="text-accent-text underline underline-offset-4"
+            >
+              sprawdź status naprawy na prokomserwis.pl <span aria-hidden="true">→</span>
+              <span className="sr-only"> (nowe okno)</span>
+            </a>
+          </p>
           {view.source || view.result ? (
             <p className="text-xs text-ink-2">
               {[view.source, view.result].filter(Boolean).join(' ')}

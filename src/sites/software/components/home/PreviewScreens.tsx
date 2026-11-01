@@ -253,7 +253,7 @@ function PanelLaptop() {
       </div>
       <div className="flex min-w-0 flex-1 flex-col gap-[1.4em] px-[2.2em] py-[1.8em]">
         <div className="flex items-center justify-between">
-          <b className="text-[1.8em]">Dzień dobry, Anna</b>
+          <b className="text-[1.8em]">Dzień dobry, Anno</b>
           <span className="flex items-center gap-[0.8em]">
             <span className={cx(box, 'h-[3em] w-[18em]')} />
             <span className="size-[3em] rounded-full bg-accent-soft" />
@@ -511,7 +511,7 @@ function BookingPhone() {
 function PanelPhone() {
   return (
     <div className="flex h-full flex-col">
-      <PhoneTop caption="Pulpit" title="Dzień dobry, Anna" />
+      <PhoneTop caption="Pulpit" title="Dzień dobry, Anno" />
       <div className="grid grid-cols-2 gap-[0.8em] p-[1.2em]">
         {[
           ['W toku', '14'],

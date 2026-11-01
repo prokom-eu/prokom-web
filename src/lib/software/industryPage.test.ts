@@ -71,7 +71,7 @@ describe('industry page (board Branza v22, construction)', () => {
   })
 
   it('ends with the dark contact of the board', () => {
-    expect(page.contact.title).toBe('Pokaż, jak dziś pracują Twoje ekipy.')
+    expect(page.contact.title).toBe('Pokaż, jak dziś pracują Twoje ekipy')
     expect(page.contact.points).toHaveLength(3)
   })
 })
