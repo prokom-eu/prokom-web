@@ -118,18 +118,6 @@
   }
 }
 
-/* A tab panel of the Software start page coming in (previews, process; off with reduced motion). */
-@theme {
-  --animate-pane: pane 0.35s ease-out both;
-
-  @keyframes pane {
-    from {
-      opacity: 0;
-      translate: 0 8px;
-    }
-  }
-}
-
 /* Notifications of the phone hero card „Twoja Firma · panel” (SWV3); delays set per item. */
 @theme {
   --animate-panel-in: panel-in 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;

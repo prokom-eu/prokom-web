@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { tabKeyTarget } from './tabs'
+import { autoRotates, tabKeyTarget } from './tabs'
 
 describe('tabKeyTarget', () => {
   it('moves by one with the arrows and wraps around', () => {
@@ -18,5 +18,35 @@ describe('tabKeyTarget', () => {
   it('ignores other keys and an empty list', () => {
     expect(tabKeyTarget('Enter', 1, 5)).toBeNull()
     expect(tabKeyTarget('ArrowRight', 0, 0)).toBeNull()
+  })
+})
+
+describe('autoRotates (audyt 01.11 P1 #19)', () => {
+  const base = {
+    count: 4,
+    reducedMotion: false,
+    desktop: true,
+    picked: false,
+    stopped: false,
+    paused: false,
+  }
+
+  it('switches by itself only on the desktop, before any pick or hover', () => {
+    expect(autoRotates(base)).toBe(true)
+  })
+
+  it('never on the phone and tablet — the visitor is reading', () => {
+    expect(autoRotates({ ...base, desktop: false })).toBe(false)
+  })
+
+  it('stops for good after a pick or the first hover, waits while focused', () => {
+    expect(autoRotates({ ...base, picked: true })).toBe(false)
+    expect(autoRotates({ ...base, stopped: true })).toBe(false)
+    expect(autoRotates({ ...base, paused: true })).toBe(false)
+  })
+
+  it('never with reduced motion or a single tab', () => {
+    expect(autoRotates({ ...base, reducedMotion: true })).toBe(false)
+    expect(autoRotates({ ...base, count: 1 })).toBe(false)
   })
 })
