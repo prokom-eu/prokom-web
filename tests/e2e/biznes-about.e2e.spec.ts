@@ -20,8 +20,10 @@ test.describe('Biznes about page (K4i)', () => {
       page.getByRole('navigation', { name: 'Okruszki' }).locator('[aria-current="page"]'),
     ).toHaveText('O firmie')
     await expect(page.getByText('100+')).toBeVisible()
-    await expect(page.getByText('Autoryzowany serwis').first()).toBeVisible()
-    await expect(page.getByText('Autoryzowany partner').first()).toBeVisible()
+    // In the page content: the phone menu (closed) shows partner statuses too (M1′).
+    const main = page.locator('main')
+    await expect(main.getByText('Autoryzowany serwis').first()).toBeVisible()
+    await expect(main.getByText('Autoryzowany partner').first()).toBeVisible()
     await expect(page.getByRole('link', { name: /CEIDG/ }).first()).toHaveAttribute(
       'href',
       /biznes\.gov\.pl/,
