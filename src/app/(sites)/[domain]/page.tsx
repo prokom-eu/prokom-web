@@ -22,7 +22,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     getSiteSettings(tenant.id),
   ])
   return page
-    ? pageMetadata(page, { name: tenant.name, ogImage: settings?.seo.ogImage ?? null })
+    ? pageMetadata(page, {
+        name: tenant.name,
+        ogImage: settings?.seo.ogImage ?? null,
+        ...(tenant.line === 'biznes' && { line: tenant.line }),
+      })
     : {}
 }
 

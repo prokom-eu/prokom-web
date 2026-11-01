@@ -22,7 +22,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { tenant, page } = await load(params)
   if (!page) return {}
   const settings = await getSiteSettings(tenant.id)
-  return pageMetadata(page, { name: tenant.name, ogImage: settings?.seo.ogImage ?? null })
+  return pageMetadata(page, {
+    name: tenant.name,
+    ogImage: settings?.seo.ogImage ?? null,
+    ...(tenant.line === 'biznes' && { line: tenant.line }),
+  })
 }
 
 /** Subpage of a tenant (flat addresses: `/kontakt`). Unknown or unpublished → 404. */

@@ -23,6 +23,7 @@ import { JsonLd } from '../../sekcje/JsonLd'
 import { ContactForm } from '../../widzety/kontakt/ContactForm'
 import { ContactHero } from '../../widzety/kontakt/ContactHero'
 import { KONTAKT_MAP_BASE, KONTAKT_MAP_TOP } from '../../widzety/kontakt/mapa'
+import { salonLabel, salonsNote } from '../../powloka/salons'
 
 import '../../widzety/kontakt/kontakt.css'
 
@@ -92,7 +93,7 @@ export async function InstContactBlock({ block, tenantId }: Props) {
     title: cta?.heading || navigation.ctaBand.title,
     text: cta?.text || navigation.ctaBand.text,
   }
-  const salons = locations.map((l) => `${l.city}, ${l.street}`).join(' · ')
+  const salons = salonsNote(locations)
 
   return (
     <>
@@ -197,7 +198,7 @@ export async function InstContactBlock({ block, tenantId }: Props) {
           <div className="zpw">
             <ContactForm formToken={formToken} />
             <div className="card zsum ri sticky">
-              <span className="eye">{K.salons.eyebrow}</span>
+              <span className="eye">{salonLabel(locations.length)}</span>
               {locations.map((l) => {
                 const address = `${l.street}, ${l.postalCode} ${l.city}`
                 return (

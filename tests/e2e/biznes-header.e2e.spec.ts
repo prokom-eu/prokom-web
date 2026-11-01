@@ -126,7 +126,7 @@ test.describe('Biznes header', () => {
   test('top bar: the PRO-KOM lines and the Konfigurator, no „Zgłoś awarię”', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
     const lines = page.getByRole('navigation', { name: 'Linie PRO-KOM' }).getByRole('link')
-    await expect(lines).toHaveText(['Biznes', 'Instalacje', 'Software', 'Tech', 'Zakopane'])
+    await expect(lines).toHaveText(['Biznes', 'Instalacje', 'Software', 'Tech'])
     await expect(page.getByRole('link', { name: 'Zgłoś awarię' })).toHaveCount(0)
     await expect(page.getByRole('link', { name: 'Konfigurator' }).first()).toHaveAttribute(
       'href',

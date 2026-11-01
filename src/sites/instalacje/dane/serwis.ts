@@ -138,7 +138,7 @@ export const serwis = {
   },
   plans: {
     eyebrow: 'Opieka serwisowa',
-    heading: 'Instalacja ma działać w sezonie, a nie tylko w dniu odbioru.',
+    heading: 'Przegląd przed sezonem, zanim przyjadą goście.',
     lead: 'Wybierz poziom opieki. Zakres i terminy przyjazdu zapisujemy w umowie.',
     hot: 'Najczęściej wybierany',
     items: [

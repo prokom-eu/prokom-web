@@ -70,12 +70,26 @@ export function uniqueVersions(names: readonly string[]): string[] {
 }
 
 /**
- * `<title>` of the page: the H1, plus 2–3 models for a card with many of them
- * („Lenovo ThinkBook 14 G8 / G9 — G8 IRL, G8 IAL, G9 IRL”).
+ * Longest `<title>` before the site's template („ | PRO-KOM Biznes”, 17 characters): search
+ * results cut titles above ~70 characters (audit 01.11).
  */
-export function productTitle(heading: string, variants: readonly string[]): string {
+export const PRODUCT_TITLE_MAX = 53
+
+/**
+ * `<title>` of the page: the name (short when the panel has one), plus 2–3 models for a card
+ * with many of them („Lenovo ThinkBook 14 G8 / G9 — G8 IRL, G8 IAL, G9 IRL”) while that fits.
+ */
+export function productTitle(
+  heading: string,
+  variants: readonly string[],
+  max = PRODUCT_TITLE_MAX,
+): string {
   if (variants.length < 2) return heading
   const models = variants.slice(0, 3).map(variantKey)
   const fresh = models.filter((model) => !heading.includes(model))
-  return fresh.length > 0 ? `${heading} — ${fresh.join(', ')}` : heading
+  for (let count = fresh.length; count > 0; count--) {
+    const title = `${heading} — ${fresh.slice(0, count).join(', ')}`
+    if (title.length <= max) return title
+  }
+  return heading
 }

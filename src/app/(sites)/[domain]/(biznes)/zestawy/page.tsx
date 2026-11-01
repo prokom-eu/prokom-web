@@ -28,7 +28,7 @@ type Props = { params: Promise<{ domain: string }> }
 
 const TITLE = 'Gotowe zestawy dla firm — sprzęt, program i usługi'
 const DESCRIPTION =
-  'Zestawy dla sklepu, gastronomii, noclegów, biura, gabinetu i szkoły: sprzęt, program i wdrożenie, które działają razem. Zapytaj o zestaw — odpowiemy na piśmie.'
+  'Zestawy dla sklepu, gastronomii, noclegów, biura, gabinetu i szkoły: sprzęt, program i wdrożenie, które działają razem. Wycena na piśmie.'
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const tenant = await requireLine(params, 'biznes')
@@ -45,7 +45,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: BUNDLES_PATH,
       title: TITLE,
       description: DESCRIPTION,
-      images: ogImages(settings?.seo.ogImage ?? null),
+      images: ogImages(settings?.seo.ogImage ?? null, 'biznes'),
     },
   }
 }

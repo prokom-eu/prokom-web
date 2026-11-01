@@ -104,7 +104,7 @@ export function HeaderNav({ menu, panels }: Props) {
                     <span aria-hidden="true" className="size-1.5 rounded-full bg-ok" />
                   )}
                   {item.label}
-                  {item.partner && <span className="sr-only">(partner)</span>}
+                  {item.partner && <span className="sr-only">(autoryzowany partner)</span>}
                 </Link>
               </li>
             )

@@ -20,8 +20,9 @@ const KSEF_DATE = '2027-01-01T00:00:00.000Z'
 // TODO(krystian): [SZEF] facts as of 15.10.2026 (board `Wpis`) — check again before the post goes
 // to production (MF communications change). The board also names the MF communication of
 // 16.09.2026, pit.pl (2.10.2026) and infor.pl (KSeF 2.0 authentication) as sources: add their
-// links in the panel — a source without an https address cannot be saved. Until then „W skrócie”
-// (MF's draft extending the no-penalty period to 2027) rests on that missing MF communication.
+// links in the panel — a source without an https address cannot be saved.
+// TODO(krystian): projekt MF przedłużenia braku kar KSeF do końca 2027 — usunięty z wpisu i panelu
+// KSeF (audyt 01.11, brak źródła na stronie); wrócić ze zdaniem tylko z linkiem do komunikatu MF.
 const VERIFIED_AT = '2026-10-15T00:00:00.000Z'
 
 /** The KSeF post from the board `Wpis`, texts 1:1. */
@@ -36,13 +37,13 @@ function ksefPost(refs: Refs) {
     lead: 'Od 1 kwietnia 2026 KSeF obowiązuje większość firm. 1 stycznia 2027 dołączają najmniejsze — i tego samego dnia kończą się faktury dla firm wystawiane z kasy. Oto checklista, którą przechodzimy z każdym klientem.',
     ...(cover !== undefined && { cover }),
     summary:
-      'do końca 2026 r. nie ma kar za błędy w KSeF (MF zapowiedziało projekt przedłużenia do końca 2027 — projekt, nie prawo). Ale terminy wystawiania faktur, numer KSeF w przelewach i koniec faktur z kasy w B2B od 1.01.2027 zostają.',
+      'do końca 2026 r. nie ma kar za błędy w KSeF. Ale terminy wystawiania faktur, numer KSeF w przelewach i koniec faktur z kasy w B2B od 1.01.2027 zostają.',
     content: richText<Post['content']>([
       h2('1. Uwierzytelnienie — kto i czym się loguje'),
       p(
         'Jednoosobowa działalność: Profil Zaufany, podpis kwalifikowany albo (od 1.04.2026) login.gov — mObywatel, bank, e-Dowód. Spółka: kwalifikowana pieczęć elektroniczna z NIP albo osoba uprawniona swoim podpisem w kontekście NIP spółki. Podpis bez NIP/PESEL wymaga zgłoszenia odcisku w ZAW-FA.',
       ),
-      p('Podpis i pieczęć EuroCert wydajemy w Rabce — jedno spotkanie, bez jazdy do Krakowa.'),
+      p('Pomożemy wyrobić podpis albo pieczęć EuroCert.'),
       h2('2. Uprawnienia dla księgowej i pracowników'),
       p(
         'Właściciel nadaje uprawnienia w Aplikacji Podatnika KSeF 2.0: kto wystawia, kto odbiera, kto może nadawać dalej. Bez tego biuro rachunkowe nie zobaczy faktur zakupu.',
@@ -116,7 +117,7 @@ const KSEF_PANEL: KsefGroup = {
   steps: [
     {
       title: 'Uwierzytelnienie',
-      text: 'JDG: Profil Zaufany lub podpis kwalifikowany. Spółka: pieczęć kwalifikowana z NIP. Wydajemy EuroCert na miejscu.',
+      text: 'JDG: Profil Zaufany lub podpis kwalifikowany. Spółka: pieczęć kwalifikowana z NIP. Pomożemy wyrobić podpis EuroCert.',
     },
     {
       title: 'Uprawnienia',
@@ -139,7 +140,7 @@ const KSEF_PANEL: KsefGroup = {
       text: 'Kto i jak wysyła faktury po awarii internetu lub KSeF. Spisana, przećwiczona, w szufladzie.',
     },
   ],
-  note: 'Brak kar za błędy w KSeF do 31.12.2026; Ministerstwo Finansów zapowiedziało projekt przedłużenia do końca 2027 (stan na 15.10.2026, projekt nieuchwalony). Terminy wystawiania faktur i numeru KSeF w przelewach od 1.01.2027 bez zmian.',
+  note: 'Brak kar za błędy w KSeF do 31.12.2026. Terminy wystawiania faktur i numeru KSeF w przelewach od 1.01.2027 bez zmian.',
 }
 
 /**

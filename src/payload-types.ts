@@ -348,6 +348,9 @@ export interface SiteSetting {
              * Wymagany dla zwykłej pozycji.
              */
             href?: string | null;
+            /**
+             * Tylko autoryzowani partnerzy (GoPOS, InsERT) — czytnik ekranu czyta „autoryzowany partner”.
+             */
             partner?: boolean | null;
             id?: string | null;
           }[]

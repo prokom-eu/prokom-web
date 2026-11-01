@@ -1,6 +1,7 @@
 import type { Payload } from 'payload'
 
 import type { Page } from '../../payload-types'
+import { nextDescription } from './description'
 import { mergeHomeLayout } from './home'
 
 export type PageBlock = NonNullable<Page['layout']>[number]
@@ -13,8 +14,12 @@ type SeedPage = {
   slug: string
   title: string
   layout: PageBlock[]
-  /** SEO → Opis, set only when the page is created (later it belongs to the panel). */
+  /**
+   * SEO → Opis: set on create, and later only while the page has none or still an earlier seed
+   * wording (`replaces`) — a description written in the panel stays.
+   */
   description?: string
+  replaces?: readonly string[]
 }
 
 /**
@@ -52,7 +57,7 @@ export async function upsertK4Page(
 export async function upsertBiznesPage(
   payload: Payload,
   tenantId: number,
-  { slug, title, layout: seed, description }: SeedPage,
+  { slug, title, layout: seed, description, replaces }: SeedPage,
   report: Report,
 ): Promise<void> {
   const {
@@ -80,12 +85,16 @@ export async function upsertBiznesPage(
     return
   }
   const layout = mergeHomeLayout(page.layout, seed)
-  report(`pages ${slug}`, layout !== null)
-  if (layout) {
+  const seo = nextDescription(page.seo?.description, description, replaces)
+  report(`pages ${slug}`, layout !== null || seo !== null)
+  if (layout || seo) {
     await payload.update({
       collection: 'pages',
       id: page.id,
-      data: { layout, _status: 'published' },
+      data: {
+        ...(layout && { layout, _status: 'published' as const }),
+        ...(seo && { seo: { ...page.seo, description: seo } }),
+      },
       ...local,
     })
   }

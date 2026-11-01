@@ -6,7 +6,7 @@ import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
 import { getCatalogIndex, getFloorPlans } from '@/lib/catalog/data'
 import { buildPlanScenes, PLAN_PATH } from '@/lib/catalog/floorPlan'
-import { BRANDS_PATH, OWN_BRAND_SLUG } from '@/lib/catalog/filters'
+import { BRANDS_PATH, brandCount } from '@/lib/catalog/filters'
 import type { IconName } from '@/lib/catalog/options'
 import { plural } from '@/lib/plural'
 import { getSiteSettings } from '@/lib/site/data'
@@ -80,7 +80,7 @@ export async function QuickStart({
   // A promise shows only once confirmed in the panel (`SiteSettings` → „Obietnice”).
   const callback = settings?.biznes?.promises.callbackTime?.trim()
   const total = index.products.length
-  const brands = index.brands.filter((brand) => brand.slug !== OWN_BRAND_SLUG).length
+  const brands = brandCount(index)
   const tiles: Tile[] = [
     {
       title: 'Cała oferta',

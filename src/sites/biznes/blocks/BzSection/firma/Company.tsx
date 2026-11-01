@@ -35,17 +35,15 @@ async function contactData(tenantId: number) {
   const [settings, company] = await Promise.all([getSiteSettings(tenantId), getCompanyData()])
   const phone = settings?.phone ?? null
   const location = company?.locations[0] ?? null
-  // The landline: a company phone other than the line's main number.
-  const landline =
-    company?.phones.find((item) => item.number.replace(/\D/g, '') !== phone?.replace(/\D/g, ''))
-      ?.number ?? null
+  // The line's second phone; `CompanyData` phones are shared by all lines.
+  const phone2 = settings?.phone2 ?? null
   const whatsapp = settings?.biznes?.whatsapp ?? null
   return {
     company,
     phone,
     tel: phone ? toTelHref(phone) : null,
-    landline,
-    landlineTel: landline ? toTelHref(landline) : null,
+    phone2,
+    phone2Tel: phone2 ? toTelHref(phone2) : null,
     email: settings?.email ?? null,
     whatsapp: whatsapp ? toWhatsAppHref(whatsapp) : null,
     whatsappNumber: whatsapp,
@@ -154,7 +152,7 @@ export async function AboutHero({
                   <dd className="font-bold">{c.company.nip}</dd>
                 </>
               )}
-              {(c.phone || c.landline) && (
+              {(c.phone || c.phone2) && (
                 <>
                   <dt className="text-ink-2">Telefon</dt>
                   <dd className="font-bold">
@@ -163,11 +161,11 @@ export async function AboutHero({
                         {c.phone}
                       </a>
                     )}
-                    {c.landline && c.landlineTel && (
+                    {c.phone2 && c.phone2Tel && (
                       <>
                         {' · '}
-                        <a href={c.landlineTel} className="hover:underline">
-                          {c.landline}
+                        <a href={c.phone2Tel} className="hover:underline">
+                          {c.phone2}
                         </a>
                       </>
                     )}
@@ -374,7 +372,7 @@ type Channel = {
 
 /**
  * Kontakt hero (K34 §8, plansza Web-Kontakt): live status, H1, the 60-minute promise in the lead,
- * four channels and the landline; on the right the area map, the address and the week of hours
+ * four channels and the second phone; on the right the area map, the address and the week of hours
  * with today marked, the company data. Everything from the panel — one source for every page.
  */
 export async function ContactHero({
@@ -482,9 +480,9 @@ export async function ContactHero({
                 </li>
               ))}
             </ul>
-            {c.landline && c.landlineTel && (
-              <a href={c.landlineTel} className="self-start text-[15px] text-ink-2 hover:underline">
-                Telefon stacjonarny: <b className="text-ink">{c.landline}</b>
+            {c.phone2 && c.phone2Tel && (
+              <a href={c.phone2Tel} className="self-start text-[15px] text-ink-2 hover:underline">
+                Drugi telefon: <b className="text-ink">{c.phone2}</b>
               </a>
             )}
           </div>

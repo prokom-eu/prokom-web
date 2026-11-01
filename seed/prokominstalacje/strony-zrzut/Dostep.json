@@ -15,8 +15,8 @@
    "ctaHref": "Zaplanuj.dc.html",
    "crumb": "Kontrola dostępu i zamki",
    "eye": "Kontrola dostępu · Zakopane, Rabka-Zdrój, Podhale",
-   "h1a": "Gość wchodzi sam o 23:00.",
-   "h1b": "Ty śpisz spokojnie.",
+   "h1a": "Kod, karta albo telefon",
+   "h1b": "zamiast klucza pod wycieraczką.",
    "lead": "Zamki z kodem do apartamentów i pensjonatów, karty dla pracowników, breloki dla wspólnot. Łączymy je z systemem rezerwacji, alarmem i domofonem, żeby klucze przestały być problemem.",
    "kv": [
     {
@@ -310,7 +310,7 @@
     "cta": "Zaplanuj instalację",
     "href": "Zaplanuj.dc.html"
    },
-   "faqH": "Zanim zadzwonisz.",
+   "faqH": "Pytania o kontrolę dostępu",
    "relH": "Dostęp działa najlepiej razem z resztą.",
    "pkg": {
     "eye": "Przykładowe zestawy",
@@ -321,7 +321,7 @@
    "cena": {
     "btn": "Wyślij zdjęcia do wyceny",
     "eye": "Wycena",
-    "h": "Od czego zależy cena.",
+    "h": "Od czego zależy cena kontroli dostępu.",
     "p": "Najwięcej zmieniają drzwi i integracje. Zrób zdjęcie drzwi z obu stron i boku skrzydła, a powiemy, jaki zamek pasuje."
    }
   },

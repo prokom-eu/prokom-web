@@ -19,6 +19,7 @@ import { pageRobots } from '@/lib/seo/robots'
 import { getSiteSettings } from '@/lib/site/data'
 import { toTelHref } from '@/lib/site/link'
 import { isValidSlug } from '@/lib/tenant/uniqueSlug'
+import { biznesDescription } from '@/lib/biznes/seo'
 import type { Crumb } from '@/sites/biznes/components/Breadcrumbs'
 import { BundleInquiry, type BundleRow } from '@/sites/biznes/components/bundle/BundleInquiry'
 import {
@@ -35,7 +36,7 @@ import { requestOrigin, requireLine } from '../../../tenant'
 type Props = { params: Promise<{ domain: string; slug: string }> }
 
 /** Title in search results: the bundle name, cut to fit with the site name (≤ 70). */
-const TITLE_LENGTH = 52
+const TITLE_LENGTH = 45
 
 async function load(params: Props['params']) {
   const tenant = await requireLine(params, 'biznes')
@@ -57,9 +58,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const settings = await getSiteSettings(tenant.id)
   const title = `Zestaw: ${cut(bundle.name, TITLE_LENGTH)}`
   const canonical = bundleHref(bundle.slug)
+  const description = bundle.benefit ? biznesDescription(bundle.benefit) : undefined
   return {
     title,
-    description: bundle.benefit,
+    description,
     alternates: { canonical },
     // „Do sprawdzenia”: shown, but out of the index until Krystian checks the list (K3-KATALOG §7).
     robots: pageRobots(getEnv().SITE_ENV, bundle.indexable),
@@ -69,8 +71,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       siteName: tenant.name,
       url: canonical,
       title,
-      description: bundle.benefit,
-      images: ogImages(settings?.seo.ogImage ?? null),
+      description,
+      images: ogImages(settings?.seo.ogImage ?? null, 'biznes'),
     },
   }
 }

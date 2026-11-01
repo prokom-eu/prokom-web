@@ -55,7 +55,7 @@ Krystian pracuje na jednym komputerze. **GitHub to kopia kodu i jedyna droga na 
 - Nie zakładaj, że lokalna baza ma jakieś dane — dane testowe tylko z `pnpm seed` (powtarzalny, idempotentny). Każda migracja w repo, bo CI, staging i produkcja odtwarzają bazę z migracji.
 - Żadnych ścieżek bezwzględnych (`D:\...`, `C:\Users\...`) w kodzie, skryptach ani dokumentacji — tylko ścieżki względne do katalogu repo.
 - Nowa zmienna środowiskowa → `.env.example` z opisem (Krystian przenosi wartości przez menedżer haseł).
-- **Biznes w jednym folderze (decyzja Krystiana 30.10):** sesje po kolei wg kolejki `docs/zadania/prokombiznes.md` §7.1 — sesje połączone, 2–3 PR-y piętrowo w jednej sesji, bez drugiego folderu. Najwyżej dwie sesje piszące kod naraz we wszystkich liniach (Biznes, Software, Instalacje).
+- **Biznes w jednym folderze (decyzja Krystiana 30.10):** sesje po kolei wg kolejki `docs/zadania/prokombiznes.md` §7.1 — sesje połączone, 2–3 PR-y piętrowo w jednej sesji, bez drugiego folderu. Po audycie 01.11 (decyzja 01.11): prompty 2–5 w dwóch sesjach §7.2, sesja A do 6 PR-ów. Najwyżej dwie sesje piszące kod naraz we wszystkich liniach (Biznes, Software, Instalacje).
 - **Dwie strony równolegle = dwa foldery (git worktree)**, każdy z własną gałęzią, `PORT` i bazą (`docs/sposob-pracy.md` → „Dwie strony równolegle”). Pracujesz tylko w folderze swojej sesji: nie przełączasz go na gałąź drugiej strony, nie otwierasz `develop`, nowe gałęzie zakładasz od `origin/develop`. W `docs/STAN.md` edytujesz tylko podsekcję swojej strony.
 
 ## Zasady kodu
@@ -121,7 +121,7 @@ Krystian pracuje na jednym komputerze. **GitHub to kopia kodu i jedyna droga na 
 - **Od 30.10.2026 etap K4 (wersja finalna v150):** `docs/design/prokombiznes/K4-FINAL.md` + `PRZEKAZANIE-K4.md`, decyzje — ADR-017, plan sesji — `docs/zadania/prokombiznes.md` §7.
 - Wzorzec: `docs/design/prokombiznes/INDEKS.md` (kolejność ważności dokumentów); decyzje repo (adresy `/oferta/…`, model per tenant) — ADR-017 i ADR-012 „Rozstrzygnięcia”, plan sesji — `docs/zadania/prokombiznes.md` §7 (historia: §6).
 - Telefon = osobny układ jak aplikacja (`MOBILE-APLIKACJA.md`), jego §4 to Definition of Done każdej sesji z UI.
-- Zero cen, tylko Rabka, biznes@pro-kom.eu; statusy tylko: Posnet/Elzab „Autoryzowany serwis”, GoPOS/InsERT „Autoryzowany partner”, Optivendi „Partner”, COMEX „We współpracy”; HP tylko oryginalne wkłady (K4-FINAL §1).
+- Zero cen, tylko Rabka, kontakt@prokombiznes.pl, tel. 889 003 889 i 883 200 151, pn–pt 9–17 (decyzja 01.11.2026); statusy tylko: Posnet/Elzab „Autoryzowany serwis”, GoPOS/InsERT „Autoryzowany partner”, Optivendi „Partner”, COMEX „We współpracy”; HP tylko oryginalne wkłady (K4-FINAL §1).
 
 <!-- BEGIN:nextjs-agent-rules -->
 
