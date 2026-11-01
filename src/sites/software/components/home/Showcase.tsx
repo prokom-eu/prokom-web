@@ -28,7 +28,7 @@ export function Showcase({ view }: { view: ShowcaseView }) {
                 >
                   <div
                     aria-hidden="true"
-                    className="h-[170px] overflow-hidden bg-[linear-gradient(160deg,var(--stage),var(--surface-2))] px-[22px] pt-[22px] min-[641px]:h-[200px]"
+                    className="h-[170px] overflow-hidden bg-surface-2 px-[22px] pt-[22px] min-[641px]:h-[200px]"
                   >
                     <ShowcaseMock kind={index % 3} />
                   </div>
@@ -157,10 +157,10 @@ function ShowcaseMock({ kind }: { kind: number }) {
             </span>
           </div>
           <div className="grid w-[110px] shrink-0 grid-cols-2 gap-1.5">
-            <i className="h-[34px] rounded-md bg-[image:var(--grad-area-www)]" />
-            <i className="h-[34px] rounded-md bg-[image:var(--grad-area-sys)]" />
-            <i className="h-[34px] rounded-md bg-[image:var(--grad-area-app)]" />
-            <i className="h-[34px] rounded-md bg-[image:var(--grad-area-plug)]" />
+            <i className="h-[34px] rounded-md bg-accent-soft" />
+            <i className="h-[34px] rounded-md bg-accent-soft" />
+            <i className="h-[34px] rounded-md bg-accent-soft" />
+            <i className="h-[34px] rounded-md bg-accent-soft" />
           </div>
         </div>
       </div>

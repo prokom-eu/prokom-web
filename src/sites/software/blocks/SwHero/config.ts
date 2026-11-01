@@ -2,7 +2,6 @@ import type { Block } from 'payload'
 
 import { hrefField, linkGroup } from '../../../../blocks/fields'
 import { ICON_OPTIONS } from '../../../../lib/catalog/options'
-import { AREA_KEYS } from '../../../../lib/software/options'
 
 /**
  * Hero of the Software start page with the „Twój system” mock-up and the 4 intent tiles
@@ -94,14 +93,6 @@ export const SwHeroBlock: Block = {
           fields: [
             { name: 'title', label: 'Tytuł', type: 'text', required: true, maxLength: 60 },
             { name: 'icon', label: 'Ikona', type: 'select', required: true, options: ICON_OPTIONS },
-            {
-              name: 'tone',
-              label: 'Kolor (obszar)',
-              type: 'select',
-              required: true,
-              defaultValue: 'www',
-              options: [...AREA_KEYS],
-            },
           ],
         },
         { name: 'text', label: 'Opis', type: 'textarea', required: true, maxLength: 160 },

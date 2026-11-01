@@ -108,7 +108,7 @@ export async function SwAuditFormBlock({ block, tenantId, isFirst }: Props) {
                 aria-hidden="true"
                 className="relative mx-auto w-full max-w-[520px] overflow-hidden rounded-[26px] bg-card shadow-[inset_0_0_0_1px_var(--border),var(--shadow)]"
               >
-                <div className="bg-(image:--grad-say-no) px-5 py-4 text-white">
+                <div className="bg-cta px-5 py-4 text-white">
                   <p className="font-display text-lg font-extrabold">{block.reportTitle}</p>
                   {block.reportSubtitle ? (
                     <p className="text-xs text-white/85">{block.reportSubtitle}</p>
@@ -172,7 +172,7 @@ export async function SwAuditFormBlock({ block, tenantId, isFirst }: Props) {
                     className={cx(
                       'flex items-start gap-3.5 rounded-[24px] p-4 min-[641px]:flex-col min-[641px]:p-6',
                       strong
-                        ? 'bg-(image:--grad-say-no) text-white shadow-raised'
+                        ? 'bg-cta text-white shadow-raised'
                         : 'bg-card shadow-[inset_0_0_0_1px_var(--border)]',
                     )}
                   >
@@ -264,7 +264,7 @@ export async function SwAuditFormBlock({ block, tenantId, isFirst }: Props) {
         // `data-final-cta`: the page ends with its own CTA (spec. §6.0) — no footer band.
         <section data-final-cta aria-labelledby="audyt-cta-h" className="py-10 min-[641px]:py-14">
           <Container wide>
-            <div className="flex flex-col gap-6 rounded-[30px] bg-linear-to-br from-accent-soft to-card p-6 shadow-[inset_0_0_0_1px_var(--accent-line)] min-[641px]:p-12 min-[1081px]:flex-row min-[1081px]:items-center min-[1081px]:justify-between">
+            <div className="flex flex-col gap-6 rounded-[30px] bg-accent-soft p-6 shadow-[inset_0_0_0_1px_var(--accent-line)] min-[641px]:p-12 min-[1081px]:flex-row min-[1081px]:items-center min-[1081px]:justify-between">
               <div className="max-w-[56ch]">
                 <h2
                   id="audyt-cta-h"

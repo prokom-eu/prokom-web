@@ -16,13 +16,12 @@ const strictFill: Fill = (value) => {
 }
 
 describe('photoView', () => {
-  const source = { photo: null, photoCaption: 'Salon w Rabce', tone: 'teal' as const }
+  const source = { photo: null, photoCaption: 'Salon w Rabce' }
 
   it('shows the placeholder off production', () => {
     expect(photoView(source, () => null, false)).toEqual({
       image: null,
       caption: 'Salon w Rabce',
-      tone: 'teal',
     })
   })
 

@@ -1611,10 +1611,6 @@ export interface Solution {
    * Np. „Nowe zapytanie z formularza”.
    */
   toast?: string | null;
-  /**
-   * Puste = karta bez miniatury.
-   */
-  cardGradient?: ('peach' | 'sand' | 'sage') | null;
   priceFrom?: number | null;
   /**
    * Np. „od 2 tygodni”, „2 dni robocze”.
@@ -4339,7 +4335,6 @@ export interface SwHeroBlock {
           | 'mega'
           | 'mount'
           | 'brief';
-        tone: 'www' | 'sys' | 'app' | 'cal' | 'plug' | 'auto' | 'care' | 'aud';
         text: string;
         href: string;
         id?: string | null;
@@ -4754,7 +4749,6 @@ export interface SwPageHeroBlock {
          * Tekst alternatywny po wgraniu; przed wgraniem — zaślepka, tylko poza produkcją.
          */
         photoCaption: string;
-        tone: 'violet' | 'teal' | 'copper';
         id?: string | null;
       }[]
     | null;
@@ -4948,7 +4942,6 @@ export interface SwTeamBlock {
      * Tekst alternatywny po wgraniu; przed wgraniem — zaślepka, tylko poza produkcją.
      */
     photoCaption: string;
-    tone: 'violet' | 'teal' | 'copper';
     id?: string | null;
   }[];
   id?: string | null;
@@ -7816,7 +7809,6 @@ export interface SwHeroBlockSelect<T extends boolean = true> {
     | {
         title?: T;
         icon?: T;
-        tone?: T;
         text?: T;
         href?: T;
         id?: T;
@@ -8147,7 +8139,6 @@ export interface SwPageHeroBlockSelect<T extends boolean = true> {
     | {
         photo?: T;
         photoCaption?: T;
-        tone?: T;
         id?: T;
       };
   badge?:
@@ -8214,7 +8205,6 @@ export interface SwTeamBlockSelect<T extends boolean = true> {
         details?: T;
         photo?: T;
         photoCaption?: T;
-        tone?: T;
         id?: T;
       };
   id?: T;
@@ -9108,7 +9098,6 @@ export interface SolutionsSelect<T extends boolean = true> {
   keywords?: T;
   hasLivePreview?: T;
   toast?: T;
-  cardGradient?: T;
   priceFrom?: T;
   leadTime?: T;
   priceMonthly?: T;

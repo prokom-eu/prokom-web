@@ -20,7 +20,6 @@ import {
 import type { SolutionCategory } from '@/lib/software/options'
 import { useProject } from '@/lib/software/projectStore'
 import type { OfferView } from '@/lib/software/offer'
-import { CATEGORY_AREA } from '@/lib/software/options'
 import { prepareSolutionSearch } from '@/lib/software/search'
 import type { SolutionsIndex } from '@/lib/software/solutionsIndex'
 
@@ -334,7 +333,6 @@ export function Catalog({ index, offers, hero }: Props) {
                   <SolutionCard
                     solution={solution}
                     display={index.priceDisplay}
-                    tone={offers[solution.slug]?.tone ?? CATEGORY_AREA[solution.category]}
                     eager={i < 3}
                     onOpen={() => openWindow(solution.slug)}
                   />

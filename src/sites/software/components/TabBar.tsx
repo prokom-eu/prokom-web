@@ -75,7 +75,7 @@ export function TabBar({ items, homeHrefs, onMenu, menuOpen }: Props) {
         const content =
           i === WIZARD ? (
             <>
-              <span className="-mt-7 inline-flex size-14 items-center justify-center rounded-[20px] bg-linear-to-br from-accent to-accent-2 text-accent-ink shadow-raised ring-4 ring-surface">
+              <span className="-mt-7 inline-flex size-14 items-center justify-center rounded-[20px] bg-accent text-accent-ink shadow-raised ring-4 ring-surface">
                 <WandIcon className="size-7" />
               </span>
               {label}

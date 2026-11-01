@@ -26,10 +26,9 @@ const ABOUT_HERO: Of<'swPageHero'> = {
   photos: [
     {
       photoCaption: 'Salon PRO-KOM przy ul. Orkana 16B w Rabce-Zdroju, witryna od ulicy',
-      tone: 'violet',
     },
-    { photoCaption: 'Rozmowa z klientem w salonie, przy biurku', tone: 'teal' },
-    { photoCaption: 'Salon PRO-KOM w Zakopanem', tone: 'copper' },
+    { photoCaption: 'Rozmowa z klientem w salonie, przy biurku' },
+    { photoCaption: 'Salon PRO-KOM w Zakopanem' },
   ],
   badge: {
     status: 'działa na co dzień',
@@ -123,21 +122,18 @@ const ABOUT_TEAM: Of<'swTeam'> = {
       name: 'Krystian Potaczek',
       text: 'Prowadzi Software: strony, systemy i aplikacje (Python, Django, Next.js). Z nim ustalasz zakres i odbierasz etapy.',
       photoCaption: 'Portret: Krystian Potaczek',
-      tone: 'violet',
     },
     {
       role: 'Właściciel',
       name: 'Tadeusz Wójciak',
       text: 'Właściciel PRO-KOM od 2004 r. Odpowiada za firmę i umowy.',
       photoCaption: 'Portret: Tadeusz Wójciak',
-      tone: 'teal',
     },
     {
       role: 'Obsługa i salon',
       name: '[IMIĘ I NAZWISKO]',
       text: 'Pierwszy kontakt na miejscu w Rabce. Umówi spotkanie i przekaże sprawę dalej.',
       photoCaption: 'Portret: obsługa klienta w salonie',
-      tone: 'copper',
     },
   ],
 }
@@ -154,13 +150,11 @@ const ABOUT_PLACES: Of<'swTeam'> = {
       name: 'Rabka-Zdrój',
       details: 'PRO-KOM Tadeusz Wójciak\n[ADRES]\n[GODZINY]\nNIP 7352511447',
       photoCaption: 'Salon w Rabce-Zdroju, wejście od ul. Orkana',
-      tone: 'violet',
     },
     {
       name: 'Zakopane',
       details: 'PRO-KOM Zakopane\n[ADRES SALONU W ZAKOPANEM]\n[TELEFON ZAKOPANE]\n[GODZINY]',
       photoCaption: 'Salon w Zakopanem, wnętrze i lada',
-      tone: 'copper',
     },
   ],
 }
@@ -356,13 +350,11 @@ const ONE_PLACES: Of<'swTeam'> = {
       name: 'Rabka-Zdrój',
       details: 'ul. Orkana 16B · [GODZINY]',
       photoCaption: 'Salon PRO-KOM w Rabce-Zdroju: lada, sprzęt i miejsce na rozmowę',
-      tone: 'violet',
     },
     {
       name: 'Zakopane',
       details: '[ADRES SALONU W ZAKOPANEM]\n[GODZINY]',
       photoCaption: 'Salon PRO-KOM w Zakopanem: witryna i wnętrze',
-      tone: 'copper',
     },
   ],
 }

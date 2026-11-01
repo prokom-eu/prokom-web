@@ -162,9 +162,7 @@ export default async function ThanksPage({ params, searchParams }: Props) {
                       href={card.href}
                       className={cx(
                         'flex h-full flex-col gap-3 rounded-[24px] p-[22px] transition-transform active:scale-[0.99]',
-                        strong
-                          ? 'bg-(image:--grad-say-no) text-white shadow-raised'
-                          : 'border border-border bg-card',
+                        strong ? 'bg-cta text-white shadow-raised' : 'border border-border bg-card',
                       )}
                     >
                       {card.icon ? (

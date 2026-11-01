@@ -37,7 +37,7 @@ export function ProjectBox({ summary }: { summary: ProjectSummary }) {
   return (
     <section
       aria-labelledby="twoj-projekt-h"
-      className="rounded-[22px] bg-linear-to-b from-accent-soft to-card p-4 shadow-[inset_0_0_0_1.5px_var(--accent-line)] min-[641px]:p-[18px]"
+      className="rounded-[22px] bg-accent-soft p-4 shadow-[inset_0_0_0_1.5px_var(--accent-line)] min-[641px]:p-[18px]"
     >
       <div className="flex items-center gap-2.5">
         <h3
@@ -76,11 +76,7 @@ export function ProjectBox({ summary }: { summary: ProjectSummary }) {
                 key={row.id}
                 className="grid grid-cols-[64px_minmax(0,1fr)_auto] items-center gap-x-3 rounded-2xl bg-card p-2.5 shadow-[inset_0_0_0_1px_var(--border)] min-[641px]:grid-cols-[72px_minmax(0,1fr)_auto_auto]"
               >
-                {row.tone ? (
-                  <OfferThumb src={row.thumbnail} tone={row.tone} className="rounded-[10px]" />
-                ) : (
-                  <span aria-hidden="true" className="aspect-[280/170] rounded-[10px] bg-chip" />
-                )}
+                <OfferThumb src={row.thumbnail} className="rounded-[10px]" />
                 <span className="min-w-0">
                   <b className="block text-[15px] leading-snug">{row.name}</b>
                   <span className="block text-[13px] text-ink-2">{row.sub}</span>

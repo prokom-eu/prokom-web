@@ -7,11 +7,10 @@ import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
 import type { IndustryProblem } from '@/lib/software/industryPage'
 import { projectActions, useProject } from '@/lib/software/projectStore'
-import type { AreaKey } from '@/lib/software/options'
 
 import { OfferThumb } from '../offer/OfferThumb'
 
-type Props = { problems: IndustryProblem[]; tone: AreaKey }
+type Props = { problems: IndustryProblem[] }
 
 /**
  * „Kliknij swój problem. Pokażemy, co na to mamy.” (spec. §6.2, board `Branza`): the problems as
@@ -19,7 +18,7 @@ type Props = { problems: IndustryProblem[]; tone: AreaKey }
  * wyceny” (the problem's solution). The illustration is the solution's thumbnail (spec. §5.2).
  * Phone: the problems in a scrolled row above the panel.
  */
-export function ProblemsExplorer({ problems, tone }: Props) {
+export function ProblemsExplorer({ problems }: Props) {
   const [active, setActive] = useState(0)
   const project = useProject()
   const [full, setFull] = useState(false)
@@ -139,7 +138,7 @@ export function ProblemsExplorer({ problems, tone }: Props) {
           </div>
         </div>
         <div className="flex items-center bg-stage p-5 min-[641px]:p-7">
-          <OfferThumb src={solution?.thumbnail ?? undefined} tone={tone} className="w-full" />
+          <OfferThumb src={solution?.thumbnail ?? undefined} className="w-full" />
         </div>
       </div>
     </div>

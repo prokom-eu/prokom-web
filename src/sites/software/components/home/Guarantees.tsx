@@ -12,7 +12,7 @@ type Props = {
 
 /**
  * „Zasady, których się trzymamy” (`#zasady`, spec. §4 pkt 12, board `Main`): the guarantee cards
- * and the „Czasem powiemy: tego nie buduj.” block on `--grad-say-no` (ADR-015 v20 pkt 5) — v21:
+ * and the „Czasem powiemy: tego nie buduj.” block on the flat `bg-cta` (ADR-015 v23 pkt 1) — v21:
  * centred, with its eyebrow pill and „Zapytaj, co się opłaca →”. Icons are SVG paths from
  * `SoftwareSettings.home.guarantees`, like the board. One column on a phone.
  */
@@ -58,7 +58,7 @@ export function Guarantees({ texts, cards }: Props) {
             ))}
           </ul>
         </div>
-        <div className="flex min-w-0 flex-[1_1_320px] flex-col items-start justify-center gap-3.5 rounded-[28px] bg-[image:var(--grad-say-no)] p-[22px] text-white shadow-raised min-[641px]:p-8">
+        <div className="flex min-w-0 flex-[1_1_320px] flex-col items-start justify-center gap-3.5 rounded-[28px] bg-cta p-[22px] text-white shadow-raised min-[641px]:p-8">
           <p className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1.5 text-[13px] font-extrabold">
             <svg
               width="14"

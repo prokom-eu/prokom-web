@@ -204,7 +204,6 @@ export function HeroBuilder({ modules }: Props) {
             {touched ? 'Twój wybór' : 'składa się samo · kliknij, żeby przejąć'}
           </span>
         </span>
-        <div className="absolute inset-x-[6%] top-4 bottom-[-6%] rounded-full bg-[radial-gradient(circle,var(--glow),transparent_68%)]" />
         <div className="relative mx-[4%] rounded-t-[14px] border-[6px] border-b-0 border-surface-dark bg-surface-dark">
           <div className="grid aspect-[16/10] grid-cols-[26%_1fr] overflow-hidden rounded-t-[8px]">
             <div className="flex flex-col gap-1 bg-surface-dark p-2.5 text-[10px] font-bold text-white/70 min-[640px]:p-3">

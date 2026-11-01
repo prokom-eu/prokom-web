@@ -6,12 +6,7 @@ import {
 } from 'payload/shared'
 
 import { adminOnly } from '../lib/auth/access'
-import {
-  CARD_GRADIENTS,
-  INDUSTRY_GROUPS,
-  SITUATIONS,
-  SOLUTION_CATEGORIES,
-} from '../lib/software/options'
+import { INDUSTRY_GROUPS, SITUATIONS, SOLUTION_CATEGORIES } from '../lib/software/options'
 import { solutionsRevalidationHooks } from '../lib/software/revalidate'
 import {
   includedError,
@@ -180,13 +175,6 @@ export const Solutions: CollectionConfig = {
                   type: 'text',
                   maxLength: 80,
                   admin: { description: 'Np. „Nowe zapytanie z formularza”.' },
-                },
-                {
-                  name: 'cardGradient',
-                  label: 'Tło miniatury karty',
-                  type: 'select',
-                  options: [...CARD_GRADIENTS],
-                  admin: { description: 'Puste = karta bez miniatury.' },
                 },
               ],
             },
