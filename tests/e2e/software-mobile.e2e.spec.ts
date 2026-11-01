@@ -80,7 +80,10 @@ test.describe('Software phone header and bottom bar', () => {
     await setProject(page, TWO)
     await page.reload()
     await expect(pill(page)).toBeVisible()
-    await page.evaluate(() => window.scrollTo(0, document.scrollingElement!.scrollHeight))
+    // `instant`: Software scrolls smoothly (SWV5), the measure needs the end of the page now.
+    await page.evaluate(() =>
+      window.scrollTo({ top: document.scrollingElement!.scrollHeight, behavior: 'instant' }),
+    )
     // The dark footer runs under the bar (v21); its last content — the bottom bar's links and
     // notes — must end above the pill and the bar.
     const footerBottom = await page

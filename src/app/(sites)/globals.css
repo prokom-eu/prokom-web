@@ -409,7 +409,7 @@
     }
   }
 
-  /* Page transitions (`PageTransition`, class `sw-page` of the content): the content fades out
+  /* Page transitions (`PageTransition`: the old page `sw-page-out`, the new `sw-page-in`): the content fades out
      and rises in; header and bottom bar have their own names, so they stay. */
   [data-line='software'] [data-sw-header] {
     view-transition-name: sw-header;
@@ -417,10 +417,10 @@
   [data-line='software'] [data-tab-bar] {
     view-transition-name: sw-tab-bar;
   }
-  html[data-line='software']::view-transition-old(.sw-page) {
+  html[data-line='software']::view-transition-old(.sw-page-out) {
     animation: sw-vt-out 0.22s ease both;
   }
-  html[data-line='software']::view-transition-new(.sw-page) {
+  html[data-line='software']::view-transition-new(.sw-page-in) {
     animation: sw-vt-in 0.32s cubic-bezier(0.2, 0.8, 0.2, 1) both;
   }
 }
