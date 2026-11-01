@@ -12,7 +12,7 @@ type Props = { view: CompareView; eyebrow: string; title: string; tabs: [string,
 
 const MARK_LABEL: Record<Mark, string> = { no: 'nie', maybe: 'nie zawsze', yes: 'tak' }
 
-function MarkIcon({ mark }: { mark: Mark }) {
+function MarkIcon({ mark, alone }: { mark: Mark; alone: boolean }) {
   return (
     <span
       className="grid size-[22px] shrink-0 place-items-center rounded-full bg-chip text-xs font-black text-ink-2"
@@ -20,16 +20,23 @@ function MarkIcon({ mark }: { mark: Mark }) {
     >
       <span aria-hidden="true">{mark === 'no' ? '–' : mark === 'maybe' ? '?' : '✓'}</span>
       {/* „nie, …” — a comma and a space, or a screen reader runs it into the text (SWV6). */}
-      <span className="sr-only">{MARK_LABEL[mark]}, </span>
+      <span className="sr-only">
+        {MARK_LABEL[mark]}
+        {alone ? '' : ', '}
+      </span>
     </span>
   )
 }
 
-function Ours() {
+/** `alone`: the cell has no text — the icon is all (`withoutMarkWord`), no comma after it. */
+function Ours({ alone }: { alone: boolean }) {
   return (
     <span className="grid size-[22px] shrink-0 place-items-center rounded-full bg-ok text-white">
       <Icon name="check" strokeWidth={2.6} className="size-3.5" />
-      <span className="sr-only">{MARK_LABEL.yes}, </span>
+      <span className="sr-only">
+        {MARK_LABEL.yes}
+        {alone ? '' : ', '}
+      </span>
     </span>
   )
 }
@@ -102,13 +109,13 @@ export function Compare({ view, eyebrow, title, tabs }: Props) {
                 </th>
                 <td className="px-5 py-4 text-ink-2">
                   <span className="flex items-center gap-2.5">
-                    <MarkIcon mark={row.rivals[rival].mark} />
+                    <MarkIcon mark={row.rivals[rival].mark} alone={!row.rivals[rival].text} />
                     {row.rivals[rival].text}
                   </span>
                 </td>
                 <td className="bg-accent-soft px-5 py-4 font-extrabold">
                   <span className="flex items-center gap-2.5">
-                    <Ours />
+                    <Ours alone={!row.ours} />
                     {row.ours}
                   </span>
                 </td>
@@ -124,12 +131,12 @@ export function Compare({ view, eyebrow, title, tabs }: Props) {
               <p className="flex items-center gap-2.5 px-4 pb-3 text-sm text-ink-2">
                 {/* Read as „Freelancer: nie, …” — the name before the mark. */}
                 <span className="sr-only">{view.rivals[rival]}: </span>
-                <MarkIcon mark={row.rivals[rival].mark} />
+                <MarkIcon mark={row.rivals[rival].mark} alone={!row.rivals[rival].text} />
                 <span>{row.rivals[rival].text}</span>
               </p>
               <p className="flex items-center gap-2.5 bg-accent-soft px-4 py-3 text-sm font-extrabold">
                 <span className="sr-only">{view.ours}: </span>
-                <Ours />
+                <Ours alone={!row.ours} />
                 <span>{row.ours}</span>
               </p>
             </li>
