@@ -54,6 +54,7 @@ export default async function TenantHomePage({ params }: Props) {
           from={tenant.line === 'software' ? 1401 : 1400}
           // Biznes: „Szukaj” on top of the rail (K33 §2.4).
           search={tenant.line === 'biznes'}
+          glide={tenant.line === 'software'}
         />
       )}
       <RenderBlocks page={page} tenant={tenant} />

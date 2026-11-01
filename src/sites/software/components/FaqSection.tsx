@@ -63,6 +63,7 @@ export function FaqSection({ id, eyebrow, heading, lead, aside, items, band = fa
           {items.map((item, i) => (
             <li key={item.question}>
               <details
+                data-reveal
                 open={i === 0}
                 className="group rounded-2xl bg-card shadow-[inset_0_0_0_1px_var(--border)] open:shadow-[inset_0_0_0_1.5px_var(--accent-line)]"
               >

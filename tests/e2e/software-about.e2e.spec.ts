@@ -19,11 +19,18 @@ test.describe('Software /o-firmie', () => {
       '/kontakt',
     )
     await expect(main(page).getByRole('heading', { name: 'PRO-KOM w liczbach.' })).toBeVisible()
+    // SWV4: real portraits in the hero (the seed puts them in Media), no placeholders.
     await expect(
       main(page)
-        .getByRole('img', { name: /Zdjęcie do zrobienia/ })
+        .getByRole('img', { name: /Krystian Potaczek/ })
         .first(),
     ).toBeVisible()
+    await expect(
+      main(page)
+        .getByRole('img', { name: /Tadeusz Wójciak/ })
+        .first(),
+    ).toBeVisible()
+    await expect(main(page).getByRole('img', { name: /Zdjęcie do zrobienia/ })).toHaveCount(0)
     await expect(main(page).getByRole('heading', { name: 'Kto z Tobą pracuje.' })).toBeVisible()
     await expect(main(page).getByRole('heading', { name: 'Krystian Potaczek' })).toBeVisible()
     // v21: „Jak robimy” and technologies are on the start page only.

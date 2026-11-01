@@ -7,26 +7,28 @@ import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
 import type { IconName } from '@/lib/catalog/options'
 import { getEnv } from '@/lib/env'
+import { publicImage } from '@/lib/media/public'
 import { SOFTWARE_CONTACT_MESSAGES } from '@/lib/inquiry/contactForm'
-import { PRIVACY_POLICY_PATH } from '@/lib/inquiry/consent'
 import { FIELD_MESSAGES } from '@/lib/inquiry/form'
 import { issueFormToken } from '@/lib/inquiry/spam'
 import { SOFTWARE_TOPIC_LABELS, type SoftwareTopic } from '@/lib/inquiry/types'
 import { getCompanyData, getSiteSettings } from '@/lib/site/data'
 import { openingStatus } from '@/lib/site/hours'
-import { hoursSummary } from '@/lib/site/hoursSummary'
+import { closedDays, hoursSummary } from '@/lib/site/hoursSummary'
 import { toTelHref } from '@/lib/site/link'
 import { getSoftwareWizard, getSolutionsIndex } from '@/lib/software/data'
 import { fillText } from '@/lib/software/facts'
 import type { ProjectSolution } from '@/lib/software/projectSummary'
 import type { SwContactPageBlock as SwContactPageData } from '@/payload-types'
 import { Breadcrumbs } from '@/sites/software/components/Breadcrumbs'
+import { Photo } from '@/sites/software/components/about/Photo'
 import { WandIcon } from '@/sites/software/components/FrameIcons'
 import { softwareTextContext } from '@/sites/software/components/textContext'
 
 import { ContactForm } from '../SwContact/ContactForm'
 import { ContactHours } from './ContactHours'
-import type { CONTACT_CHANNELS } from './config'
+import { OsmMap } from './OsmMap'
+import { ENTRANCE_CAPTION, type CONTACT_CHANNELS } from './config'
 
 type ContactChannel = (typeof CONTACT_CHANNELS)[number]
 
@@ -147,6 +149,34 @@ export async function SwContactPageBlock({ block, tenantId, isFirst }: Props) {
     const text = fill(place.text)
     return text ? [{ key: place.id ?? place.title, title: place.title, text }] : []
   })
+  const meetLead = fill(block.meetLead)
+  const entranceCaption = block.entranceCaption ?? ENTRANCE_CAPTION
+  const entranceImage = publicImage(block.entrancePhoto, tenantId)
+  // Placeholder only off production (spec. §13 pkt 25), like the photos of `/o-firmie`.
+  const entrance =
+    entranceImage || !context.strict ? { image: entranceImage, caption: entranceCaption } : null
+  const emailNote = fill((block.channels ?? []).find((c) => c.kind === 'email')?.text)
+  // Data cards next to the map (v23): the names are labels of the data, like „NIP”.
+  const facts = [
+    main && main.hours.length > 0
+      ? {
+          label: 'Godziny',
+          value: hoursSummary(main.hours),
+          note: closedDays(main.hours),
+          href: null,
+        }
+      : null,
+    phone ? { label: 'Telefon', value: phone, note: phone2, href: toTelHref(phone) } : null,
+    email ? { label: 'E-mail', value: email, note: emailNote, href: `mailto:${email}` } : null,
+    company
+      ? {
+          label: block.companyTitle ?? 'Dane firmy',
+          value: company.name,
+          note: [`NIP ${company.nip}`, block.companyNote].filter(Boolean).join(' · '),
+          href: null,
+        }
+      : null,
+  ].filter((fact) => fact !== null)
   const linesMore =
     block.linesMore?.label && block.linesMore.href
       ? { label: block.linesMore.label, href: block.linesMore.href }
@@ -457,80 +487,103 @@ export async function SwContactPageBlock({ block, tenantId, isFirst }: Props) {
           aria-labelledby="gdzie-h"
           className="scroll-mt-24 py-10 min-[641px]:py-14"
         >
-          <Container
-            wide
-            className="grid gap-6 min-[1081px]:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]"
-          >
-            {block.mapHref ? (
-              <MapMock
-                href={block.mapHref}
-                caption={block.mapCaption ?? null}
-                navigate={block.navigateLabel ?? 'Nawiguj'}
-                pin={
-                  main
-                    ? {
-                        title: company?.name ?? '',
-                        address: `${main.street}, ${main.postalCode} ${main.city}`,
-                      }
-                    : null
-                }
-              />
-            ) : null}
-            <div className="flex flex-col gap-4">
-              <div>
-                <p className={eyebrowClass}>{block.meetEyebrow}</p>
-                <h2
-                  id="gdzie-h"
-                  className="mt-2 font-display text-[30px] font-extrabold leading-[1.05] tracking-tight min-[641px]:text-[clamp(28px,2.8vw,40px)]"
-                >
-                  {block.meetTitle}
-                </h2>
-              </div>
-              {places.length > 0 ? (
-                <ul className="grid gap-2.5 min-[641px]:grid-cols-2">
-                  {places.map((place, i) => (
+          <Container wide className="flex flex-col gap-6">
+            <div data-reveal className="flex max-w-[62ch] flex-col gap-2">
+              <p className={eyebrowClass}>{block.meetEyebrow}</p>
+              <h2
+                id="gdzie-h"
+                className="font-display text-[30px] font-extrabold leading-[1.05] tracking-tight min-[641px]:text-[clamp(32px,3.4vw,48px)]"
+              >
+                {block.meetTitle}
+              </h2>
+              {meetLead ? (
+                <p className="text-base leading-relaxed text-ink-2 min-[641px]:text-lg">
+                  {meetLead}
+                </p>
+              ) : null}
+            </div>
+            <div className="grid gap-4 min-[1081px]:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]">
+              {block.mapHref ? (
+                <OsmMap
+                  routeHref={block.mapHref}
+                  routeLabel={block.navigateLabel ?? 'Wyznacz trasę'}
+                  zoomLabel={block.mapZoomLabel ?? 'Powiększ mapę'}
+                  label={
+                    main
+                      ? `Mapa: ${company?.name ?? ''}, ${main.street}, ${main.postalCode} ${main.city}`
+                      : 'Mapa dojazdu'
+                  }
+                  pin={
+                    main
+                      ? {
+                          eyebrow: block.mapCaption ?? null,
+                          street: main.street,
+                          city: `${main.postalCode} ${main.city}`,
+                        }
+                      : null
+                  }
+                />
+              ) : null}
+              <div className="flex flex-col gap-3">
+                {entrance ? (
+                  <div className="relative">
+                    <Photo
+                      photo={entrance}
+                      sizes="(min-width: 1081px) 40vw, 100vw"
+                      className="aspect-[16/10] w-full rounded-[26px]"
+                    />
+                    {entrance.image ? (
+                      <span className="absolute bottom-3 left-3 rounded-xl bg-surface-dark/85 px-3 py-1.5 text-[13px] font-extrabold text-white">
+                        {entrance.caption}
+                      </span>
+                    ) : null}
+                  </div>
+                ) : null}
+                <ul data-reveal-cards className="grid gap-3 min-[641px]:grid-cols-2">
+                  {facts.map((fact) => (
                     <li
-                      key={place.key}
-                      className={cx(
-                        'flex flex-col gap-1 rounded-2xl bg-card px-4 py-3.5',
-                        i === 0
-                          ? 'shadow-[inset_0_0_0_1.5px_var(--accent)]'
-                          : 'shadow-[inset_0_0_0_1px_var(--border)]',
-                      )}
+                      key={fact.label}
+                      className="flex flex-col gap-1 rounded-[20px] bg-card px-4 py-3.5 shadow-[inset_0_0_0_1px_var(--border)]"
                     >
-                      <b className="text-[15px]">{place.title}</b>
-                      <span className="text-[13px] text-ink-2">{place.text}</span>
+                      <span className="text-xs font-extrabold uppercase tracking-[0.1em] text-accent-text">
+                        {fact.label}
+                      </span>
+                      {fact.href ? (
+                        <a
+                          href={fact.href}
+                          className="font-extrabold break-words hover:text-accent-text"
+                        >
+                          {fact.value}
+                        </a>
+                      ) : (
+                        <b className="break-words">{fact.value}</b>
+                      )}
+                      {fact.note ? (
+                        <span className="text-[13px] text-ink-2">{fact.note}</span>
+                      ) : null}
                     </li>
                   ))}
                 </ul>
-              ) : null}
-              {company ? (
-                <div className="flex flex-col gap-1.5 rounded-[22px] bg-surface-2 p-5 shadow-[inset_0_0_0_1px_var(--border)]">
-                  {block.companyTitle ? (
-                    <p className="text-xs font-extrabold uppercase tracking-[0.12em] text-accent-text">
-                      {block.companyTitle}
-                    </p>
-                  ) : null}
-                  <b>{company.name}</b>
-                  {main ? (
-                    <span className="text-sm text-ink-2">
-                      {main.street}, {main.postalCode} {main.city}
-                    </span>
-                  ) : null}
-                  <span className="text-sm text-ink-2">
-                    NIP {company.nip}
-                    {block.companyNote ? ` · ${block.companyNote}` : ''}
-                  </span>
-                  <Link
-                    href={PRIVACY_POLICY_PATH}
-                    className="mt-1 inline-flex min-h-11 items-center gap-1.5 text-sm font-extrabold text-accent-text"
-                  >
-                    Polityka prywatności
-                    <Icon name="arrow" className="size-3.5" />
-                  </Link>
-                </div>
-              ) : null}
+              </div>
             </div>
+            {places.length > 0 ? (
+              <ul className="grid gap-2.5 min-[641px]:grid-cols-3">
+                {places.map((place, i) => (
+                  <li
+                    key={place.key}
+                    className={cx(
+                      'flex flex-col gap-1 rounded-2xl bg-card px-4 py-3.5',
+                      i === 0
+                        ? 'shadow-[inset_0_0_0_1.5px_var(--accent)]'
+                        : 'shadow-[inset_0_0_0_1px_var(--border)]',
+                    )}
+                  >
+                    <b className="text-[15px]">{place.title}</b>
+                    <span className="text-[13px] text-ink-2">{place.text}</span>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
           </Container>
         </section>
       ) : null}
@@ -553,79 +606,5 @@ function ExternalIcon() {
     >
       <path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" />
     </svg>
-  )
-}
-
-/**
- * Map mock-up with „Nawiguj” (spec. §6.10): a drawing in tokens (board `.gmaps`) and a plain
- * link to Google Maps — no embedded map, so no third-party cookies.
- */
-function MapMock({
-  href,
-  caption,
-  navigate,
-  pin,
-}: {
-  href: string
-  caption: string | null
-  navigate: string
-  pin: { title: string; address: string } | null
-}) {
-  return (
-    <div className="relative min-h-[300px] overflow-hidden rounded-[26px] bg-(--map-land) shadow-[inset_0_0_0_1px_var(--border)] min-[641px]:min-h-[420px] min-[641px]:rounded-[30px]">
-      <svg
-        aria-hidden="true"
-        viewBox="0 0 600 420"
-        preserveAspectRatio="xMidYMid slice"
-        className="absolute inset-0 size-full"
-      >
-        <rect width="600" height="420" className="fill-(--map-land)" />
-        <path
-          d="M-20 300 C 120 280 220 330 330 300 S 520 250 640 270"
-          className="fill-none stroke-(--map-water) [stroke-linecap:round] [stroke-width:16]"
-        />
-        <g className="fill-none stroke-(--map-road)">
-          <path d="M60 -10 L 140 440" strokeWidth="8" />
-          <path d="M-10 120 L 610 170" strokeWidth="14" />
-          <path d="M300 -10 C 290 120 330 220 310 440" strokeWidth="14" />
-          <path d="M420 -10 L 470 440" strokeWidth="8" />
-          <path d="M-10 380 L 610 340" strokeWidth="8" />
-          <path d="M180 200 L 430 230" strokeWidth="8" />
-        </g>
-        <g className="fill-(--map-block)">
-          <rect x="350" y="40" width="90" height="60" rx="6" />
-          <rect x="90" y="190" width="70" height="80" rx="6" />
-          <rect x="470" y="300" width="90" height="70" rx="6" />
-        </g>
-        <rect x="200" y="40" width="70" height="55" rx="6" className="fill-(--map-park)" />
-      </svg>
-      {caption ? (
-        <span className="absolute top-3.5 left-3.5 rounded-full bg-card px-3 py-1.5 text-xs font-extrabold shadow-raised">
-          {caption}
-        </span>
-      ) : null}
-      {pin ? (
-        <div className="absolute top-[40%] left-1/2 flex -translate-x-1/2 -translate-y-full flex-col items-center gap-2">
-          <span className="rounded-xl bg-card px-3.5 py-2.5 text-center shadow-raised">
-            <b className="block text-sm">{pin.title}</b>
-            <span className="block text-xs text-ink-2">{pin.address}</span>
-          </span>
-          <span
-            aria-hidden="true"
-            className="size-5 rotate-[-45deg] rounded-[50%_50%_50%_0] bg-(--map-pin)"
-          />
-        </div>
-      ) : null}
-      <a
-        href={href}
-        rel="noopener"
-        target="_blank"
-        className="absolute right-4 bottom-4 inline-flex min-h-12 items-center gap-2 rounded-2xl bg-button px-5 font-extrabold text-accent-ink shadow-raised active:scale-[0.98] motion-reduce:transition-none"
-      >
-        <Icon name="pin" className="size-4" />
-        {navigate}
-        <span className="sr-only"> (Mapy Google, nowe okno)</span>
-      </a>
-    </div>
   )
 }
