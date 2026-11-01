@@ -66,7 +66,7 @@ const OFFER_LINKS = [
  * Footer of the Biznes line, K4 six columns (K36 §1, board `Web-Start`): the company with the
  * address, hours and status badges; Oferta; Usługi and Systemy i tematy (panel); PRO-KOM
  * w regionie; Kontakt. Bottom row: copyright, NIP, legal links.
- * Extra bottom padding on phones keeps the last line above the sticky bar (`MobileBar`).
+ * Extra bottom padding on phones keeps the last line above the phone tab bar (`TabBar`).
  */
 export function BiznesFooter({ name, company, settings, biznes, badges, contact }: Props) {
   // One address on the whole site (K31-ZMIANY §11.4): the line's inbox, else the company's.
@@ -184,7 +184,7 @@ export function BiznesFooter({ name, company, settings, biznes, badges, contact 
       <div className="border-t border-white/15">
         <Container
           wide
-          className="flex flex-wrap justify-between gap-x-6 gap-y-2 pb-24 pt-5 text-[0.8rem] sm:pb-6"
+          className="flex flex-wrap justify-between gap-x-6 gap-y-2 pb-[calc(6rem+env(safe-area-inset-bottom))] pt-5 text-[0.8rem] md:pb-6"
         >
           <p>
             © {new Date().getFullYear()} {company?.name ?? name}

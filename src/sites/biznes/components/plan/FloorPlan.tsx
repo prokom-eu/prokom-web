@@ -154,7 +154,7 @@ export function FloorPlan({
       <div
         role="group"
         aria-label="Rodzaj firmy"
-        className="sticky top-[67px] z-20 -mx-4 flex snap-x gap-2 overflow-x-auto bg-surface/90 px-4 py-2 backdrop-blur-md [scrollbar-width:none] sm:static sm:mx-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:bg-transparent sm:px-0 sm:py-0 sm:backdrop-blur-none lg:grid-cols-6"
+        className="sticky top-[61px] z-20 -mx-4 flex snap-x gap-2 overflow-x-auto bg-surface/90 px-4 py-2 backdrop-blur-md [scrollbar-width:none] sm:static sm:mx-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:bg-transparent sm:px-0 sm:py-0 sm:backdrop-blur-none lg:grid-cols-6"
       >
         {scenes.map((item) => {
           const active = item.slug === scene.slug

@@ -37,7 +37,7 @@ export function CartToast() {
   return (
     <div
       role="status"
-      className="pointer-events-none fixed inset-x-0 bottom-[5.5rem] z-50 flex justify-center px-4 sm:bottom-7"
+      className="pointer-events-none fixed inset-x-0 bottom-[calc(5rem+env(safe-area-inset-bottom))] z-50 flex justify-center px-4 md:bottom-7"
     >
       {added && (
         <div

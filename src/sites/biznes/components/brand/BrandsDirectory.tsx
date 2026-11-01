@@ -125,7 +125,7 @@ export function BrandsDirectory({
         </div>
       </section>
 
-      <div className="sticky top-[74px] z-20 sm:top-[84px] mt-6 rounded-2xl bg-card/95 p-1.5 shadow-[inset_0_0_0_1px_var(--border)] backdrop-blur">
+      <div className="sticky top-[68px] z-20 sm:top-[84px] mt-6 rounded-2xl bg-card/95 p-1.5 shadow-[inset_0_0_0_1px_var(--border)] backdrop-blur">
         <div role="group" aria-label="Grupy marek" className="flex gap-1 overflow-x-auto">
           <Tab
             active={tab === ALL}
