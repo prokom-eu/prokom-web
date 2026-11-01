@@ -279,6 +279,18 @@ export async function seedInstalacje(payload: Payload): Promise<void> {
         ...local,
       })
       count('realizations', 'updated')
+    } else if (!existing.kind || !existing.services?.length) {
+      // I12: the filters of /realizacje (new fields) — only while the panel left them empty.
+      await payload.update({
+        collection: 'realizations',
+        id: existing.id,
+        data: {
+          ...(!existing.kind && { kind: data.kind }),
+          ...(!existing.services?.length && { services: data.services }),
+        },
+        ...local,
+      })
+      count('realizations', 'updated')
     } else {
       count('realizations', 'skipped')
     }

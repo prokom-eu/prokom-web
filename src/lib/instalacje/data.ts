@@ -12,7 +12,7 @@ import type {
 import { navigation } from '@/sites/instalacje/dane/nawigacja'
 
 import { buildMenu, type InstMenu, type MenuDoc } from './menu'
-import { SETTINGS_DEFAULTS } from './options'
+import { OFFER_FAMILIES, SERVICE_KEYS, SETTINGS_DEFAULTS } from './options'
 
 /** Far above the 10 services, 12 objects and 76 solutions of the package. */
 const LIMIT = 500
@@ -392,3 +392,113 @@ export const getInstArchNews = cache(async (tenantId: number): Promise<ArchNewsC
     featured: d.featured ?? false,
   }))
 })
+
+/** One area of the full offer `/uslugi` (I12): a published service and its published solutions. */
+export type OfferAreaData = {
+  key: string
+  name: string
+  icon: string | null
+  href: string | null
+  family: string
+  description: string
+  brands: string[]
+  solutions: { name: string; description: string; categories: string[] }[]
+}
+
+/**
+ * The full offer of this tenant (I12): published services in the menu order with their offer
+ * texts, each with its published solutions (`InstSolutions`, by `order`). Public fields only;
+ * fresh on every request like the menu.
+ */
+export const getInstalacjeOffer = cache(async (tenantId: number): Promise<OfferAreaData[]> => {
+  const payload = await getPayload({ config })
+  const where: Where = {
+    and: [{ tenant: { equals: tenantId } }, { _status: { equals: 'published' } }],
+  }
+  const published = { where, draft: false, depth: 0, limit: LIMIT, overrideAccess: true } as const
+  const [services, solutions] = await Promise.all([
+    payload.find({
+      collection: 'inst-services',
+      ...published,
+      select: { key: true, name: true, icon: true, slug: true, offer: true },
+    }),
+    payload.find({
+      collection: 'inst-solutions',
+      ...published,
+      sort: ['order', 'legacyId'],
+      select: { name: true, description: true, service: true, categories: true },
+    }),
+  ])
+  const order = new Map(SERVICE_KEYS.map((s, index) => [s.value as string, index]))
+  return [...services.docs]
+    .sort((a, b) => (order.get(a.key) ?? 99) - (order.get(b.key) ?? 99))
+    .map((s) => ({
+      key: s.key,
+      name: s.name,
+      icon: s.icon ?? null,
+      href: s.slug ? `/${s.slug}` : null,
+      family: OFFER_FAMILIES.find((f) => f.value === s.offer?.family)?.label ?? '',
+      description: s.offer?.description ?? '',
+      brands: (s.offer?.brands ?? []).map((b) => b.trim()).filter(Boolean),
+      solutions: solutions.docs
+        .filter((x) => (typeof x.service === 'object' ? x.service?.id : x.service) === s.id)
+        .map((x) => ({
+          name: x.name,
+          description: x.description ?? '',
+          categories: x.categories ?? [],
+        })),
+    }))
+})
+
+/** A published realization for `/realizacje` (I12): public fields only, no photos yet. */
+export type RealizationCard = {
+  id: number
+  title: string
+  category: string | null
+  place: string | null
+  scope: string | null
+  description: string | null
+  year: number | null
+  services: string[]
+  kind: string | null
+}
+
+/**
+ * The published realizations of this tenant (published = with the client's consent, the hook of
+ * `Realizations`), newest first, otherwise in the package order. Fresh on every request.
+ */
+export const getInstalacjeRealizations = cache(
+  async (tenantId: number): Promise<RealizationCard[]> => {
+    const payload = await getPayload({ config })
+    const { docs } = await payload.find({
+      collection: 'realizations',
+      where: { and: [{ tenant: { equals: tenantId } }, { _status: { equals: 'published' } }] },
+      draft: false,
+      depth: 0,
+      limit: LIMIT,
+      sort: ['-year', 'legacyId'],
+      select: {
+        title: true,
+        category: true,
+        place: true,
+        scope: true,
+        description: true,
+        year: true,
+        services: true,
+        kind: true,
+      },
+      overrideAccess: true,
+    })
+    return docs.map((d) => ({
+      id: d.id,
+      title: d.title,
+      category: d.category ?? null,
+      place: d.place ?? null,
+      scope: d.scope ?? null,
+      description: d.description ?? null,
+      year: d.year ?? null,
+      services: d.services ?? [],
+      kind: d.kind ?? null,
+    }))
+  },
+)
