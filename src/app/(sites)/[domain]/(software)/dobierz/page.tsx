@@ -4,7 +4,9 @@ import { notFound } from 'next/navigation'
 
 import { Container } from '@/components/ui/Container'
 import { getEnv } from '@/lib/env'
+import { ogImages } from '@/lib/pages/metadata'
 import { robotsMeta } from '@/lib/seo/robots'
+import { getSiteSettings } from '@/lib/site/data'
 import { SOFTWARE_ROUTE_DESCRIPTIONS } from '@/lib/software/meta'
 import { WIZARD_PATH } from '@/lib/software/wizardFlow'
 import { Wizard } from '@/sites/software/components/wizard/Wizard'
@@ -22,7 +24,7 @@ const DESCRIPTION = SOFTWARE_ROUTE_DESCRIPTIONS.wizard
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const tenant = await requireLine(params, 'software')
-  const origin = await requestOrigin()
+  const [origin, settings] = await Promise.all([requestOrigin(), getSiteSettings(tenant.id)])
   return {
     title: TITLE,
     description: DESCRIPTION,
@@ -36,6 +38,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: `${origin}${WIZARD_PATH}`,
       title: TITLE,
       description: DESCRIPTION,
+      images: ogImages(settings?.seo.ogImage ?? null),
     },
   }
 }

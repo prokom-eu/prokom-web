@@ -4,9 +4,11 @@ import { notFound } from 'next/navigation'
 
 import { Container } from '@/components/ui/Container'
 import { getEnv } from '@/lib/env'
+import { ogImages } from '@/lib/pages/metadata'
 import { metaDescription } from '@/lib/seo/description'
 import { breadcrumbJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
 import { robotsMeta } from '@/lib/seo/robots'
+import { getSiteSettings } from '@/lib/site/data'
 import { cardPrice } from '@/lib/software/cardPrice'
 import { cityHref } from '@/lib/software/cities'
 import { getCityView, getSolutionsIndex } from '@/lib/software/data'
@@ -33,6 +35,7 @@ async function load(params: Props['params']) {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { tenant, city } = await load(params)
   if (!city) return {}
+  const settings = await getSiteSettings(tenant.id)
   const title = city.seo.title ?? `Strony i systemy dla firm ${city.name}`
   const description = metaDescription(city.seo.description ?? city.hero.lead)
   return {
@@ -48,6 +51,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: cityHref(city.slug),
       title,
       description,
+      images: ogImages(settings?.seo.ogImage ?? null),
     },
   }
 }
