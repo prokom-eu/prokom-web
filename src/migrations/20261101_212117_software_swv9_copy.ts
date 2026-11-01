@@ -75,6 +75,10 @@ const PAIRS: [string, string][] = [
     'Odhaczaj zadania, dodaj zdjęcie i podpis — tablica w biurze zmieni się od razu',
   ],
   ['Wybierz jedno. Resztę omówimy.', 'Wybierz jedno, resztę omówimy'],
+  [
+    'Kilka kliknięć. Cena, termin i podgląd od razu.',
+    'Kilka kliknięć i od razu widzisz cenę, termin i podgląd',
+  ],
   ['co z tego masz i od ilu kosztuje.', 'co z tego masz i ile kosztuje.'],
   [
     'Pytamy o to, co boli, i o programy, które już masz.',

@@ -110,7 +110,7 @@ export const WIZARD_EXTRAS = {
   },
   ui: {
     eyebrow: 'Dobierz rozwiązanie · 60 sekund',
-    title: 'Kilka kliknięć. Cena, termin i podgląd od razu.',
+    title: 'Kilka kliknięć i od razu widzisz cenę, termin i podgląd',
     lead: 'Bez formularzy na start. Kontakt podajesz na końcu i tylko wtedy, gdy chcesz wycenę.',
     needTitle: 'Czego potrzebujesz?',
     needLead: 'Wybierz jedno. Cenę i termin zobaczysz od razu.',

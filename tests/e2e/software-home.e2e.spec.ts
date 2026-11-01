@@ -249,7 +249,7 @@ test.describe('Software start page', () => {
     await page.goto(site(HOST))
     const wizard = page.locator('#dobierz')
     await expect(wizard.getByRole('heading', { level: 2 })).toHaveText(
-      'Kilka kliknięć. Cena, termin i podgląd od razu.',
+      'Kilka kliknięć i od razu widzisz cenę, termin i podgląd',
     )
     await expect(wizard.getByRole('heading', { level: 3 }).first()).toBeVisible()
   })
