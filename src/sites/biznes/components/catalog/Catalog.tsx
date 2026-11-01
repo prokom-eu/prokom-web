@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
-import { useEffect, useLayoutEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
@@ -19,7 +19,6 @@ import {
   type CatalogState,
 } from '@/lib/catalog/filters'
 import { emptySuggestions } from '@/lib/catalog/listing'
-import { NARROW_ROW_QUERY, ROW_NARROW, ROW_WIDE } from '@/lib/catalog/order'
 import { primeCatalogIndex } from '@/lib/catalog/useCatalogIndex'
 import { plural } from '@/lib/plural'
 import { prepareSearch } from '@/lib/search'
@@ -32,15 +31,6 @@ import { ProductCard } from './ProductCard'
 
 /** The URL follows the search box after a short pause, not on every key. */
 const QUERY_DELAY_MS = 300
-
-/** Cards in a grid row (K36 §10): the server renders rows of 3, the browser follows its width. */
-function subscribeRow(onChange: () => void) {
-  const narrow = window.matchMedia(NARROW_ROW_QUERY)
-  narrow.addEventListener('change', onChange)
-  return () => narrow.removeEventListener('change', onChange)
-}
-const rowNow = () => (window.matchMedia(NARROW_ROW_QUERY).matches ? ROW_NARROW : ROW_WIDE)
-const rowOnServer = () => ROW_WIDE
 
 const positions = (n: number) => `${n} ${plural(n, ['pozycja', 'pozycje', 'pozycji'])}`
 
@@ -74,11 +64,11 @@ export function Catalog({ index }: { index: CatalogIndex }) {
     () => (typing ? updateState(state, { query: draft.trim() }) : state),
     [typing, state, draft],
   )
-  const rowWidth = useSyncExternalStore(subscribeRow, rowNow, rowOnServer)
-  const perRow = view.view === 'list' ? ROW_WIDE : rowWidth
+  // Rows of 3 at every width (the server's order): re-ordering after hydration on a phone moved
+  // every card (layout shift) — the 2-column grid there keeps the departments in turns of 3.
   const { results, visible, facets } = useMemo(
-    () => runCatalog(index, search, view, { perRow }),
-    [index, search, view, perRow],
+    () => runCatalog(index, search, view),
+    [index, search, view],
   )
   const chips = activeFilters(view, index)
 
@@ -394,7 +384,7 @@ export function Catalog({ index }: { index: CatalogIndex }) {
               data-catalog-grid
               className={cx(
                 'grid gap-2.5 sm:gap-3.5',
-                // 3 per row above 1100 px, as the department rows of „Polecane” (ROW_WIDE).
+                // 3 per row above 1100 px, 2 below (K36 §10).
                 list ? 'grid-cols-1' : 'grid-cols-2 min-[1101px]:grid-cols-3',
               )}
             >

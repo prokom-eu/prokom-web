@@ -28,7 +28,7 @@ describe('parseCatalogState', () => {
     expect(
       parse(
         'szukaj=kasa&rodzaj=urzadzenia&grupa=sprzedaz&kategoria=kasy-fiskalne,drukarki-fiskalne' +
-          '&marka=posnet&branza=gastronomia&autoryzacja=1&nowosci=1&sortuj=a-z&widok=lista&strona=2',
+          '&marka=posnet&branza=gastronomia&nowosci=1&sortuj=a-z&widok=lista&strona=2',
       ),
     ).toEqual({
       query: 'kasa',
@@ -37,7 +37,6 @@ describe('parseCatalogState', () => {
       categories: ['kasy-fiskalne', 'drukarki-fiskalne'],
       brands: ['posnet'],
       industries: ['gastronomia'],
-      authorized: true,
       isNew: true,
       sort: 'az',
       view: 'list',
@@ -184,15 +183,23 @@ describe('runCatalog on the seed package', () => {
     expect(facets.kinds.service).toBe(run({ brands: ['posnet'], kind: 'service' }).results.length)
   })
 
-  it('filters by industry, authorization and news', () => {
+  it('filters by industry and news', () => {
     const gastro = run({ industries: ['gastronomia'] }).results
     expect(gastro.length).toBeGreaterThan(0)
     expect(gastro.every((p) => p.industries.includes('gastronomia'))).toBe(true)
-    expect(run({ authorized: true }).results.every((p) => p.authorized)).toBe(true)
     const news = run({ isNew: true })
     expect(news.results.every((p) => p.isNew)).toBe(true)
     expect(news.facets.isNew).toBe(news.results.length)
-    expect(news.facets.authorized).toBe(run({ isNew: true, authorized: true }).results.length)
+  })
+
+  it('„Marka A–Z”: by brand name, own services last', () => {
+    const names = new Map(index.brands.map((brand) => [brand.slug, brand.name]))
+    const brands = run({ sort: 'brand', page: 99 }).results.map((p) =>
+      p.brand && p.brand !== 'pro-kom' ? (names.get(p.brand) ?? '') : null,
+    )
+    const named = brands.filter((name): name is string => name !== null)
+    expect(named).toEqual([...named].sort((a, b) => a.localeCompare(b, 'pl')))
+    expect(brands.slice(named.length).every((name) => name === null)).toBe(true)
   })
 
   it('counts group tiles as their click shows them: without the categories it clears', () => {
@@ -245,7 +252,6 @@ describe('activeFilters', () => {
       categories: ['kasy-fiskalne', 'drukarki-fiskalne'],
       brands: ['posnet'],
       industries: ['gastronomia'],
-      authorized: true,
       isNew: true,
       page: 2,
     }
@@ -258,7 +264,6 @@ describe('activeFilters', () => {
       'Drukarki fiskalne',
       'Posnet',
       'Gastronomia',
-      'Autoryzacja PRO-KOM',
       'Nowości',
     ])
     const kasy = chips.find((chip) => chip.label === 'Kasy fiskalne')!

@@ -79,7 +79,12 @@ export async function CategoryPageView({
   const crumbs: Crumb[] = [
     { name: 'Start', href: '/' },
     { name: 'Oferta', href: CATALOG_PATH },
-    { name: category.name, href: categoryHref(category.slug) },
+    // A subcategory named like its category: one item, with the address of this page (the
+    // last item of BreadcrumbList is the page itself).
+    {
+      name: category.name,
+      href: subcategory?.name === category.name ? self : categoryHref(category.slug),
+    },
     ...(subcategory && subcategory.name !== category.name
       ? [{ name: subcategory.name, href: self }]
       : []),
@@ -163,7 +168,6 @@ export async function CategoryPageView({
         />
         <CategoryGrid
           index={islandIndex}
-          help={category.help}
           printersHref={printers}
           chips={subcategory ? null : { category: category.slug, items: links.chips }}
           bySeriesFilter={bySeries}

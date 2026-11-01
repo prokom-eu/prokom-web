@@ -429,5 +429,6 @@ export function searchIndex(index: CatalogIndex): CatalogIndex {
   return {
     ...index,
     products: index.products.map(({ video: _video, order: _order, ...product }) => product),
+    groups: index.groups.map(({ top: _top, ...group }) => group),
   }
 }

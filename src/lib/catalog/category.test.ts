@@ -144,6 +144,16 @@ describe('categoryGuide (K36 §13)', () => {
     const args = { slug: 'automaty', name: 'Automaty', data: [vending], showroomHref: null }
     expect(categoryGuide({ ...args, vendingPage: true }).href).toBe('/automaty-vendingowe')
     expect(categoryGuide({ ...args, vendingPage: false }).button).toBe('Zapytaj o dobór')
+    // Without the page, a card of the category behind the subcategory's vending card still wins.
+    const own = {
+      title: 'Nie wiesz, jaki?',
+      text: 'Napisz.',
+      button: 'Zapytaj',
+      action: 'inquiry' as const,
+    }
+    expect(categoryGuide({ ...args, data: [vending, own], vendingPage: false }).title).toBe(
+      'Nie wiesz, jaki?',
+    )
   })
 })
 

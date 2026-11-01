@@ -25,10 +25,12 @@ export type OrderSource = {
   categories: { slug: string; group: string }[]
 }
 
-/** Cards in one grid row: 3 on a computer, 2 up to 1100 px (K36 §10). */
+/**
+ * Cards in one grid row: 3 on a computer, 2 up to 1100 px (K36 §10). The offer renders rows of
+ * 3 at every width — a second order for phones moved the cards after hydration.
+ */
 export const ROW_WIDE = 3
 export const ROW_NARROW = 2
-export const NARROW_ROW_QUERY = '(max-width: 1100px)'
 
 /** Order inside a category: `pop9`, then popularity; equal ones keep their input order. */
 export function compareInCategory(a: OrderedProduct, b: OrderedProduct): number {
@@ -67,11 +69,13 @@ function departmentList<T extends OrderedProduct>(
   for (const product of products) {
     if (used.has(product.slug)) continue
     const key = product.categories[0] ?? ''
-    queues.set(key, [...(queues.get(key) ?? []), product])
+    const queue = queues.get(key)
+    if (queue) queue.push(product)
+    else queues.set(key, [product])
   }
   // Categories of the menu first, then any other (a card whose category is not listed).
   const keys = [...new Set([...categories.filter((slug) => queues.has(slug)), ...queues.keys()])]
-  const sorted = keys.map((key) => [...queues.get(key)!].sort(compareInCategory))
+  const sorted = keys.map((key) => queues.get(key)!.sort(compareInCategory))
   while (sorted.some((queue) => queue.length > 0)) {
     for (const queue of sorted) {
       const next = queue.shift()

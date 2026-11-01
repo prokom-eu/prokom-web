@@ -349,8 +349,12 @@ export function categoryGuide({
       href: showroomHref,
     }
   }
-  const own = data.find((card) => text(card?.button) && text(card?.title))
-  if (own && (own.action !== 'vending' || vendingPage)) {
+  // The first card that can be shown: a vending button needs the vending page.
+  const own = data.find(
+    (card) =>
+      text(card?.button) && text(card?.title) && (card?.action !== 'vending' || vendingPage),
+  )
+  if (own) {
     return {
       title: text(own.title)!,
       text: text(own.text) ?? '',

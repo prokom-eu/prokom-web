@@ -37,7 +37,6 @@ export type CatalogState = {
   categories: string[]
   brands: string[]
   industries: string[]
-  authorized: boolean
   isNew: boolean
   sort: CatalogSort
   view: CatalogView
@@ -52,7 +51,6 @@ export const DEFAULT_STATE: CatalogState = {
   categories: [],
   brands: [],
   industries: [],
-  authorized: false,
   isNew: false,
   sort: 'popular',
   view: 'grid',
@@ -83,7 +81,6 @@ const PARAM = {
   categories: 'kategoria',
   brands: 'marka',
   industries: 'branza',
-  authorized: 'autoryzacja',
   isNew: 'nowosci',
   sort: 'sortuj',
   view: 'widok',
@@ -135,7 +132,6 @@ export function parseCatalogState(
     categories: known(allValues(params, PARAM.categories), slugs(categories)),
     brands: known(allValues(params, PARAM.brands), slugs(index.brands)),
     industries: known(allValues(params, PARAM.industries), slugs(index.industries)),
-    authorized: firstValue(params, PARAM.authorized) === FLAG_ON,
     isNew: firstValue(params, PARAM.isNew) === FLAG_ON,
     sort: SORTS.find((sort) => sort.param === firstValue(params, PARAM.sort))?.value ?? 'popular',
     view: firstValue(params, PARAM.view) === VIEW_LIST_PARAM ? 'list' : 'grid',
@@ -155,7 +151,6 @@ export function catalogQueryString(state: CatalogState): string {
   set(PARAM.categories, state.categories.join(','))
   set(PARAM.brands, state.brands.join(','))
   set(PARAM.industries, state.industries.join(','))
-  set(PARAM.authorized, state.authorized && FLAG_ON)
   set(PARAM.isNew, state.isNew && FLAG_ON)
   set(PARAM.sort, state.sort !== 'popular' && SORTS.find((s) => s.value === state.sort)!.param)
   set(PARAM.view, state.view === 'list' && VIEW_LIST_PARAM)
@@ -177,7 +172,7 @@ export function updateState(state: CatalogState, change: Partial<CatalogState>):
   return { ...state, ...(keepsPage ? {} : { page: 1 }), ...change }
 }
 
-type Facet = 'kind' | 'group' | 'categories' | 'brands' | 'industries' | 'authorized' | 'isNew'
+type Facet = 'kind' | 'group' | 'categories' | 'brands' | 'industries' | 'isNew'
 
 /**
  * Does the product pass every filter but `skip` (for that filter's own counts)? Skipping the
@@ -193,7 +188,6 @@ function passes(product: IndexProduct, state: CatalogState, skip?: Facet): boole
     (skip === 'categories' || skip === 'group' || anyOf(state.categories, product.categories)) &&
     (skip === 'brands' || anyOf(state.brands, product.brand ? [product.brand] : [])) &&
     (skip === 'industries' || anyOf(state.industries, product.industries)) &&
-    (skip === 'authorized' || !state.authorized || product.authorized) &&
     (skip === 'isNew' || !state.isNew || product.isNew)
   )
 }
@@ -205,7 +199,6 @@ export type CatalogFacets = {
   categories: Record<string, number>
   brands: Record<string, number>
   industries: Record<string, number>
-  authorized: number
   isNew: number
 }
 
@@ -218,7 +211,7 @@ export type CatalogResult = {
 }
 
 /** Index data „Polecane” needs: departments with their tops and categories in menu order. */
-type OrderIndex = Pick<CatalogIndex, 'products' | 'groups' | 'categories'>
+type OrderIndex = Pick<CatalogIndex, 'products' | 'groups' | 'categories' | 'brands'>
 
 /** Any filter on (not the phrase, sort or view): „Polecane” then follows the menu (K36 §10). */
 const filtered = (state: CatalogState) =>
@@ -228,7 +221,6 @@ const filtered = (state: CatalogState) =>
     state.categories.length ||
     state.brands.length ||
     state.industries.length ||
-    state.authorized ||
     state.isNew,
   )
 
@@ -242,17 +234,24 @@ function sortProducts(
     return filtered(state) ? menuOrder(products, index) : departmentRows(products, index, perRow)
   }
   const byPopularity = (a: IndexProduct, b: IndexProduct) => b.popularity - a.popularity
+  // „Marka A–Z” by the brand's name; own services (PRO-KOM) and cards without a brand last.
+  const names = new Map(index.brands.map((brand) => [brand.slug, brand.name]))
+  const brandName = (product: IndexProduct) =>
+    product.brand && product.brand !== OWN_BRAND_SLUG ? (names.get(product.brand) ?? null) : null
   const compare: Record<
     Exclude<CatalogSort, 'popular'>,
     (a: IndexProduct, b: IndexProduct) => number
   > = {
     new: (a, b) => Number(b.isNew) - Number(a.isNew) || byPopularity(a, b),
     az: (a, b) => a.name.localeCompare(b.name, 'pl'),
-    // Brand slugs follow the names; no brand (own services) last.
-    brand: (a, b) =>
-      Number(!a.brand) - Number(!b.brand) ||
-      (a.brand ?? '').localeCompare(b.brand ?? '', 'pl') ||
-      a.name.localeCompare(b.name, 'pl'),
+    brand: (a, b) => {
+      const [x, y] = [brandName(a), brandName(b)]
+      return (
+        Number(x === null) - Number(y === null) ||
+        (x ?? '').localeCompare(y ?? '', 'pl') ||
+        a.name.localeCompare(b.name, 'pl')
+      )
+    },
   }
   // Stable sort: equal products keep the index order.
   return [...products].sort(compare[state.sort])
@@ -276,7 +275,7 @@ function count(
 
 /**
  * Results and counts of a view. `perRow`: cards in a grid row, for the department rows of the
- * plain offer (`ROW_NARROW` up to 1100 px). Facet counts follow spec. §8.3: each filter group is counted
+ * plain offer (the page uses rows of 3 at every width). Facet counts follow spec. §8.3: each filter group is counted
  * with every other filter applied but not itself, so a count says how many the click shows.
  */
 export function runCatalog(
@@ -309,7 +308,6 @@ export function runCatalog(
       categories: count(base, state, 'categories', (product) => product.categories),
       brands: count(base, state, 'brands', (product) => [product.brand]),
       industries: count(base, state, 'industries', (product) => product.industries),
-      authorized: base.filter((p) => p.authorized && passes(p, state, 'authorized')).length,
       isNew: base.filter((p) => p.isNew && passes(p, state, 'isNew')).length,
     },
   }
@@ -352,9 +350,6 @@ export function activeFilters(
       label: name(index.industries, slug),
       remove: { industries: without(state.industries, slug) },
     })
-  }
-  if (state.authorized) {
-    chips.push({ key: 'authorized', label: 'Autoryzacja PRO-KOM', remove: { authorized: false } })
   }
   if (state.isNew) chips.push({ key: 'isNew', label: 'Nowości', remove: { isNew: false } })
   return chips

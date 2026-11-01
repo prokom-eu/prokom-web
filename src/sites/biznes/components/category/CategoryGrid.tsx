@@ -30,7 +30,8 @@ import { ProductStage, STAGE_SHADOW } from '../ProductStage'
 type Props = {
   /** Index with only this category's products (the page never sends the whole catalog). */
   index: CatalogIndex
-  help: { title: string; text: string }
+  /** Dark card at the end of the grid — brand pages; category pages use `guide` instead. */
+  help?: { title: string; text: string }
   /** „…potrzebujesz drukarki fiskalnej, nie kasy →” — only when that category is listed. */
   printersHref: string | null
   /** Segments above the grid: brands (category page) or main categories (brand page, K3b′). */
@@ -378,7 +379,7 @@ export function CategoryGrid({
                   />
                 </li>
               ))}
-              {more === 0 && !guide && (
+              {more === 0 && !guide && help && (
                 <li
                   className={cx(
                     'flex',
