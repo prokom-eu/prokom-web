@@ -62,6 +62,8 @@ export async function SwContactBlock({ block, tenantId }: Props) {
   const audit = auditTitle && block.auditHref ? { title: auditTitle, href: block.auditHref } : null
   const phone = settings?.phone ?? null
   const tel = phone ? toTelHref(phone) : null
+  const phone2 = settings?.phone2 ?? null
+  const tel2 = phone2 ? toTelHref(phone2) : null
   const email = settings?.email ?? null
   const phoneCaption = [fill(block.phoneCaption), email].filter(Boolean).join(' · ')
   const alternativeLink =
@@ -131,6 +133,11 @@ export async function SwContactBlock({ block, tenantId }: Props) {
                 <a href={tel} className="text-2xl font-extrabold hover:underline">
                   {phone}
                 </a>
+                {phone2 && tel2 ? (
+                  <a href={tel2} className="text-[15px] font-bold hover:underline">
+                    {phone2}
+                  </a>
+                ) : null}
                 {phoneCaption ? (
                   <span className="text-[13px] text-white/80">{phoneCaption}</span>
                 ) : null}

@@ -15,7 +15,6 @@ import { offerViewsFor } from '@/lib/software/offer'
 import { popularCards, popularTabs } from '@/lib/software/popular'
 import { livePreviews } from '@/lib/software/previews'
 import { processQuote, processStages } from '@/lib/software/process'
-import { showcaseView } from '@/lib/software/showcase'
 import { whyNotWordpressView } from '@/lib/software/whyNotWordpress'
 import { Wizard } from '@/sites/software/components/wizard/Wizard'
 import { loadWizardProps } from '@/sites/software/components/wizard/wizardProps'
@@ -32,7 +31,6 @@ import { ProcessExplorer } from './ProcessExplorer'
 import { ProcessPanel } from './ProcessVisuals'
 import { PopularExplorer } from './PopularExplorer'
 import { SectionHead } from './SectionHead'
-import { Showcase } from './Showcase'
 import { Technologies } from './Technologies'
 import { WhyNotWordpress } from './WhyNotWordpress'
 
@@ -243,17 +241,6 @@ export async function TechnologiesSection({ tenantId }: { tenantId: number }) {
   if (!home || !texts) return null
   const view = technologiesView(texts, home.technologies, (text) => fillText(text, context))
   return view ? <Technologies view={view} /> : null
-}
-
-export async function ShowcaseSection({ tenantId }: { tenantId: number }) {
-  const [home, context] = await Promise.all([
-    getSoftwareHome(tenantId),
-    softwareTextContext(tenantId),
-  ])
-  const texts = home?.sections?.showcase
-  if (!home || !texts) return null
-  const view = showcaseView(home.showcase, texts.eyebrow, (text) => fillText(text, context))
-  return view ? <Showcase view={view} /> : null
 }
 
 /** SW11b — „Freelancer, agencja czy PRO-KOM?” on `/o-firmie` (spec. §6.6, stany/70). */

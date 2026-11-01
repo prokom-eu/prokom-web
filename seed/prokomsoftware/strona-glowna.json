@@ -5,7 +5,7 @@
       "n": "Rozmowa",
       "t": "30 min",
       "h": "Opowiadasz, jak pracuje firma. My słuchamy.",
-      "p": "U Ciebie w firmie, w Rabce, Zakopanem albo online. Nie musisz nic przygotowywać ani znać nazw technologii. Pytamy o to, co boli, i o programy, które już masz.",
+      "p": "U Ciebie w firmie, w Rabce-Zdroju albo online. Nie musisz nic przygotowywać ani znać nazw technologii. Pytamy o to, co boli, i o programy, które już masz.",
       "get": [
         "Jasną odpowiedź: budować czy kupić gotowe",
         "Listę programów, które zostają",
@@ -189,7 +189,7 @@
         "jedna osoba, jeden telefon",
         "✓",
         "tak",
-        "biuro w Rabce i Zakopanem, od 2004 r."
+        "biuro w Rabce-Zdroju, od 2004 r."
       ],
       [
         "Spotkanie u Ciebie w firmie",
@@ -378,49 +378,6 @@
       ]
     }
   },
-  "showcase": {
-    "title": "Najpierw zbudowaliśmy to dla siebie.",
-    "lead": "Na tych systemach na co dzień pracuje PRO-KOM: sklepy, serwis i biuro. Możesz je otworzyć i sprawdzić.",
-    "items": [
-      {
-        "name": "prokomserwis.pl",
-        "status": "działa",
-        "text": "System serwisu: przyjęcia napraw, status dla klienta, SMS o gotowości, panel pracowników.",
-        "url": "https://prokomserwis.pl"
-      },
-      {
-        "name": "pro-kom.eu",
-        "status": "działa",
-        "text": "Strona firmy przeniesiona ze starego systemu na nowoczesny, z prostym panelem treści dla pracowników.",
-        "url": "https://pro-kom.eu"
-      },
-      {
-        "name": "prokombiznes.pl",
-        "status": "w budowie",
-        "text": "Katalog sprzętu i programów z wyszukiwarką, filtrami i listą zapytań ofertowych.",
-        "url": "https://prokombiznes.pl"
-      }
-    ],
-    "stats": [
-      {
-        "v": "2004",
-        "l": "Od tego roku PRO-KOM działa na Podhalu. Software to nowa linia firmy, która istnieje naprawdę."
-      },
-      {
-        "v": "100+",
-        "l": "klientów biznesowych PRO-KOM na Podhalu i w Małopolsce."
-      },
-      {
-        "v": "[WYNIK]",
-        "l": "szybkość tej strony na telefonie (Lighthouse, mierzone, nie obiecywane)."
-      },
-      {
-        "v": "0",
-        "l": "banerów cookies na tej stronie. Analityka bez śledzenia Twoich klientów."
-      }
-    ],
-    "_info": "Sekcja #realizacje. Statystyka „0 banerów cookies” prawdziwa tylko przy analityce bez ciasteczek (spec. §1 pkt 6). [WYNIK] = zmierzony wynik produkcji. Opis prokombiznes.pl bez „porównywarki” i liczby produktów (SW0, spec. §13 pkt 22)."
-  },
   "_info": "Treści sekcji strony głównej. process = 5 etapów sekcji #proces (ST w Main.dc.html; etap 3 nazywa się „Budowa”). processShort = wersja skrócona (inne miejsca); etap 3 ujednolicony do „Budowa”. guarantees = #zasady, compare = #porownanie, livePreviews = #podglady, heroModules = makieta hero, showcase = #realizacje. Gdzie w Payload: pola bloków sw* (ADR-014 §2). Placeholdery w tekstach rozwiązuje SiteSettings.software.facts. v21 (29.10): homeOrder wg ZMIANY-v21 §2 — kreator przed procesem, „Jak robimy” i „Z czego budujemy” wróciły na główną, realizacje przed zasadami. SWR5 (31.10.2026): przeniesione z seed-v22; proces wg planszy Main (ST): etap 02 — reszta płatności (strony 70% po odbiorze, systemy ratami), etap 03 — „od 1 tyg.” i płatność po odbiorze.",
   "whyNotWordpress": {
     "_info": "v20 (25.10.2026, prośba Krystiana; treść na podstawie pro-kom.eu/tworzenie-stron-internetowych). Sekcja między kreatorem a zasadami. Fakty ze źródłem.",
@@ -515,7 +472,6 @@
       "howWeBuild",
       "whyNotWordpress",
       "technologies",
-      "showcase",
       "guarantees",
       "faq",
       "contact"

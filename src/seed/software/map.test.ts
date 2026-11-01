@@ -33,6 +33,7 @@ import {
   industriesToImport,
   industryData,
   missingFacts,
+  softwareContactUpdate,
   relatedIds,
   type SeedCity,
   softwarePostData,
@@ -352,7 +353,7 @@ describe('Software settings of the seed', () => {
   })
 
   it('add the SW5 and SW6 section headings from the board to the home texts', () => {
-    expect(settings.home.sections?.areas.title).toBe('Wszystko dla firmy, w ośmiu obszarach.')
+    expect(settings.home.sections?.areas.title).toBe('Osiem rzeczy, które robimy dla firm.')
     expect(settings.home.sections?.livePreviews?.eyebrow).toBe('Podglądy na żywo · zanim zapłacisz')
     expect(settings.home.sections?.process?.stage).toBe('Etap {num} · {t}')
     expect(settings.home.sections?.popular.after.items[0]?.text).toBe('od [OPIEKA OD] zł / mies.')
@@ -502,5 +503,36 @@ describe('softwarePostData', () => {
     const nodes = (post.content as { root: { children: { type: string }[] } }).root.children
     expect(nodes.filter((node) => node.type === 'heading')).toHaveLength(item!.sections.length)
     expect(nodes.filter((node) => node.type === 'list')).toHaveLength(3)
+  })
+})
+
+// SWV2 (ZMIANY-v23 §1): the line's real contact replaces only the sample of `pnpm seed`.
+describe('softwareContactUpdate', () => {
+  it('replaces the sample phone and e-mail and adds the second phone', () => {
+    expect(
+      softwareContactUpdate({
+        phone: '+48 000 000 103',
+        phone2: null,
+        email: 'software@example.test',
+      }),
+    ).toEqual({ phone: '883 200 151', phone2: '788 986 074', email: 'kontakt@prokomsoftware.pl' })
+  })
+
+  it('fills empty fields', () => {
+    expect(softwareContactUpdate({})).toEqual({
+      phone: '883 200 151',
+      phone2: '788 986 074',
+      email: 'kontakt@prokomsoftware.pl',
+    })
+  })
+
+  it('keeps what the editor typed in the panel', () => {
+    expect(
+      softwareContactUpdate({
+        phone: '18 267 70 00',
+        phone2: '600 100 200',
+        email: 'a@pro-kom.eu',
+      }),
+    ).toBeNull()
   })
 })

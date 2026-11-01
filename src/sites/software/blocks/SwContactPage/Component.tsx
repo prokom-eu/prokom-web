@@ -86,6 +86,7 @@ export async function SwContactPageBlock({ block, tenantId, isFirst }: Props) {
     : ''
 
   const phone = settings?.phone ?? null
+  const phone2 = settings?.phone2 ?? null
   const email = settings?.email ?? null
   const channels = (block.channels ?? []).flatMap((channel, i) => {
     const value =
@@ -109,7 +110,11 @@ export async function SwContactPageBlock({ block, tenantId, isFirst }: Props) {
         label: fill(channel.label),
         badge: fill(channel.badge),
         value,
-        text: fill(channel.text),
+        // The second number goes first under the main one: „albo 788 986 074 · pn–pt…” (v23).
+        text:
+          [channel.kind === 'phone' && phone2 ? `albo ${phone2}` : null, fill(channel.text)]
+            .filter(Boolean)
+            .join(' · ') || null,
         href,
       },
     ]

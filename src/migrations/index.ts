@@ -61,6 +61,7 @@ import * as migration_20261031_220542_posts_author from './20261031_220542_posts
 import * as migration_20261031_224625_inst_form_blocks from './20261031_224625_inst_form_blocks'
 import * as migration_20261031_231638_k4f_drop_partners_showroom from './20261031_231638_k4f_drop_partners_showroom'
 import * as migration_20261101_013140_software_v23_flat_colors from './20261101_013140_software_v23_flat_colors'
+import * as migration_20261101_015409_software_v23_data from './20261101_015409_software_v23_data'
 
 export const migrations = [
   {
@@ -377,5 +378,10 @@ export const migrations = [
     up: migration_20261101_013140_software_v23_flat_colors.up,
     down: migration_20261101_013140_software_v23_flat_colors.down,
     name: '20261101_013140_software_v23_flat_colors',
+  },
+  {
+    up: migration_20261101_015409_software_v23_data.up,
+    down: migration_20261101_015409_software_v23_data.down,
+    name: '20261101_015409_software_v23_data',
   },
 ]

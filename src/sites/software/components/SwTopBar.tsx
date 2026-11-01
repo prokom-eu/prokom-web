@@ -18,7 +18,7 @@ export function SwTopBar({ phone }: Props) {
   return (
     <div className="hidden border-b border-border bg-surface-2 text-[13px] text-ink-2 min-[1081px]:block">
       <Container wide className="flex min-h-9 items-center justify-between gap-6">
-        <p>Linia firmy PRO-KOM · od 2004 r. · Rabka-Zdrój i Zakopane</p>
+        <p>Linia firmy PRO-KOM · od 2004 r. · Rabka-Zdrój</p>
         <div className="flex items-center gap-5">
           <nav aria-label="Linie PRO-KOM">
             <ul className="flex items-center gap-5">

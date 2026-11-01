@@ -39,6 +39,11 @@ describe('toTelHref', () => {
   it('returns null when there are no digits', () => {
     expect(toTelHref('brak')).toBeNull()
   })
+
+  it('adds the Polish code to a bare 9-digit number (Software v23: „883 200 151”)', () => {
+    expect(toTelHref('883 200 151')).toBe('tel:+48883200151')
+    expect(toTelHref('0048 883 200 151')).toBe('tel:0048883200151')
+  })
 })
 
 describe('toWhatsAppHref', () => {

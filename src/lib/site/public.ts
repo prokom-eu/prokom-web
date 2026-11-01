@@ -31,6 +31,8 @@ export type PublicCompanyData = {
 /** What the public site shows from one tenant's `SiteSettings`. */
 export type PublicSiteSettings = {
   phone: string | null
+  /** Second number of the line, shown next to the main one (Software v23). */
+  phone2: string | null
   email: string | null
   navigation: Link[]
   footer: { text: string | null; links: Link[] }
@@ -149,6 +151,7 @@ export function toPublicSiteSettings(doc: SiteSetting, line: Line | null): Publi
   const tenantId = tenantIdOf(doc.tenant)
   return {
     phone: doc.phone ?? null,
+    phone2: doc.phone2 ?? null,
     email: doc.email ?? null,
     navigation: toLinks(doc.navigation),
     footer: { text: doc.footer?.text ?? null, links: toLinks(doc.footer?.links) },

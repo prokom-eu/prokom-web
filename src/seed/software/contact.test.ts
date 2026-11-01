@@ -21,7 +21,7 @@ describe('Software /kontakt of the seed (SW11a)', () => {
     expect(update(softwareContactLayout())).toBeNull()
   })
 
-  it('has 4 channels, 4 steps and the 5 other PRO-KOM lines, never Software itself', () => {
+  it('has 4 channels, 4 steps and the 4 other PRO-KOM lines, never Software itself', () => {
     expect(SW_CONTACT_PAGE.channels?.map((channel) => channel.kind)).toEqual([
       'phone',
       'email',
@@ -33,12 +33,11 @@ describe('Software /kontakt of the seed (SW11a)', () => {
       'biznes',
       'instalacje',
       'tech',
-      'zakopane',
       'prokom',
     ])
   })
 
-  it('uses only facts the package knows; the Zakopane address stays empty (hidden)', () => {
+  it('uses only facts the package knows, all of them filled', () => {
     const facts = factsPackage.facts as Record<string, string | null>
     const texts = [
       ...(SW_CONTACT_PAGE.channels ?? []).map((channel) => channel.text ?? ''),
@@ -46,14 +45,17 @@ describe('Software /kontakt of the seed (SW11a)', () => {
       ...(SW_CONTACT_PAGE.places ?? []).map((place) => place.text),
       SW_CONTACT_PAGE.submitNote ?? '',
     ]
-    for (const text of texts) {
-      for (const [, key] of text.matchAll(/\[([^\]]+)\]/g)) expect(facts).toHaveProperty(key!)
-    }
     const known = Object.fromEntries(
       Object.entries(facts).filter((entry): entry is [string, string] => entry[1] !== null),
     )
     const context = { tenantId: 1, facts: known, prices: {}, terms: {}, strict: true }
-    const zakopane = SW_CONTACT_PAGE.places?.[1]?.text ?? ''
-    expect(resolveText(zakopane, context).missing).toEqual(['[ADRES SALONU W ZAKOPANEM]'])
+    for (const text of texts) {
+      for (const [, key] of text.matchAll(/\[([^\]]+)\]/g)) expect(facts).toHaveProperty(key!)
+      expect(resolveText(text, context).missing).toEqual([])
+    }
+  })
+
+  it('names Software only in Rabka — no Zakopane anywhere on the page (v23)', () => {
+    expect(JSON.stringify(softwareContactLayout())).not.toMatch(/Zakopan/i)
   })
 })

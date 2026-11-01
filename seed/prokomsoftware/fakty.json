@@ -1,5 +1,5 @@
 {
-  "_info": "Wartości [SZEF] i inne placeholdery używane w tekstach plansz i seedów. Trafiają do SiteSettings.software.facts (klucz → wartość). Renderer podmienia [KLUCZ] w tekstach; tekst z nierozwiązanym placeholderem na produkcji nie jest wyświetlany (ADR-014 §1.4). Jeden klucz = jedna wartość w całej stronie (ADR-014 rozstrz. 4): ceny i terminy rozwiązań są w Solutions ({termin} = leadTime), telefon i e-mail linii w SiteSettings.phone/email, poziomy opieki w bloku cennika. Wszystkie wartości = null do decyzji (spec. §13). Wartości wpisane 25.10.2026 (zaakceptowane przez Krystiana, przed publikacją akceptacja szefa). null = linia/element ukryty. Zostają do decyzji szefa: ADRES SALONU W ZAKOPANEM, IMIĘ I NAZWISKO; WYNIK = po pomiarze na produkcji. v20: dochodzą TELEFON ZAKOPANE, OKRES PRZECHOWYWANIA, DATA AKTUALIZACJI (puste — decyzja szefa). SWR4: bez [DATA] — datę „jeśli zaczniemy do …” kreator liczy z `winterDeadline`. SW11b: dochodzą ROK ZAKOPANE i ROK SERWIS KAS (oś czasu /o-firmie, spec. §13 pkt 32 — dwa klucze, bo lata mogą być różne; puste = pozycja osi znika na produkcji, decyzja szefa).",
+  "_info": "Wartości [SZEF] i inne placeholdery używane w tekstach plansz i seedów. Trafiają do SiteSettings.software.facts (klucz → wartość). Renderer podmienia [KLUCZ] w tekstach; tekst z nierozwiązanym placeholderem na produkcji nie jest wyświetlany (ADR-014 §1.4). Jeden klucz = jedna wartość w całej stronie (ADR-014 rozstrz. 4): ceny i terminy rozwiązań są w Solutions ({termin} = leadTime), telefon i e-mail linii w SiteSettings.phone/email, poziomy opieki w bloku cennika. Wszystkie wartości = null do decyzji (spec. §13). Wartości wpisane 25.10.2026 (zaakceptowane przez Krystiana, przed publikacją akceptacja szefa). null = linia/element ukryty. Zostają do decyzji szefa: ADRES SALONU W ZAKOPANEM, IMIĘ I NAZWISKO; WYNIK = po pomiarze na produkcji. v20: dochodzą TELEFON ZAKOPANE, OKRES PRZECHOWYWANIA, DATA AKTUALIZACJI (puste — decyzja szefa). SWR4: bez [DATA] — datę „jeśli zaczniemy do …” kreator liczy z `winterDeadline`. SW11b: dochodzą ROK ZAKOPANE i ROK SERWIS KAS (oś czasu /o-firmie, spec. §13 pkt 32 — dwa klucze, bo lata mogą być różne; puste = pozycja osi znika na produkcji, decyzja szefa). SWV2 (v23): bez MIESIĄC i WYNIK (nie wiemy — nie piszemy) i bez kluczy Zakopanego (Software tylko w Rabce).",
   "facts": {
     "OPIEKA OD": "149",
     "CZAS PIERWSZEGO ETAPU": "3–4 tygodniach",
@@ -11,16 +11,11 @@
     "TYGODNIE": "1–14",
     "ZALICZKA": "30%",
     "ZASADY PŁATNOŚCI": "Przy stronach 70% po odbiorze, przy systemach raty po każdym etapie. Faktura VAT, przelew 7 dni.",
-    "MIESIĄC": null,
-    "WYNIK": null,
     "ADRES": "ul. Orkana 16B, 34-700 Rabka-Zdrój",
-    "ADRES SALONU W ZAKOPANEM": null,
     "IMIĘ I NAZWISKO": null,
     "PRZYCHÓD": "48 200 zł",
-    "TELEFON ZAKOPANE": null,
     "OKRES PRZECHOWYWANIA": null,
     "DATA AKTUALIZACJI": null,
-    "ROK ZAKOPANE": null,
     "ROK SERWIS KAS": null
   }
 }

@@ -1,7 +1,6 @@
 import { z } from 'zod'
 
 import { ICON_NAMES } from '../catalog/options'
-import { isHttpsUrl } from '../site/link'
 import { firstIssue, href, key, label, link, obj, slug, svgPath, text } from './schema'
 
 /**
@@ -30,8 +29,6 @@ const table = obj({
     }
   })
 })
-
-const https = z.string().refine(isHttpsUrl, { message: 'Adres https://.' })
 
 /** `{v: value, l: label}` — a figure with its caption. */
 const figure = obj({ v: label, l: label })
@@ -96,12 +93,10 @@ export const homeSectionsSchema = obj({
     /** v21: eyebrow pill „Uczciwa rada przed wyceną” and the button „Zapytaj, co się opłaca”. */
     sayNo: obj({ eyebrow: label, title: label, text, link }),
   }).optional(),
-  /** SW8b — „Realizacje”: the eyebrow (title and lead are in `showcase` of the package). */
-  showcase: obj({ eyebrow: label }).optional(),
   /**
    * SWR5 — „Jak robimy” (spec. §4 pkt 8): three cards in a fixed order (speed, safety, Google
-   * and AI — each with its own picture), the threshold source and the measured result apart:
-   * `[WYNIK]` empty on production drops `result`, never the source.
+   * and AI — each with its own picture), the threshold source and the result line apart: a fact
+   * empty on production drops `result`, never the source (v23: no `[WYNIK]`, we don't know it).
    */
   howWeBuild: obj({
     ...sectionHead,
@@ -168,12 +163,6 @@ export const homeSchema = obj({
       steps: z.array(z.tuple([label, text])),
     }),
   ),
-  showcase: obj({
-    title: label,
-    lead: text,
-    items: z.array(obj({ name: label, status: label, text, url: https })),
-    stats: z.array(figure),
-  }),
   whyNotWordpress: obj({
     eyebrow: label,
     title: label,

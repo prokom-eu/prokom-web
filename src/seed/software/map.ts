@@ -422,6 +422,33 @@ export function factsData(): FactRow[] {
 }
 
 /** Facts of the package missing in the panel: values saved there are never changed. */
+/** Contact of the Software line (ZMIANY-v23 §1); the panel stays the source on staging. */
+export const SOFTWARE_CONTACT = {
+  phone: '883 200 151',
+  phone2: '788 986 074',
+  email: 'kontakt@prokomsoftware.pl',
+} as const
+
+type Contact = { phone?: string | null; phone2?: string | null; email?: string | null }
+
+/** A value `pnpm seed` wrote as a sample (`src/seed/sample.ts`), or nothing at all. */
+function isSample(value: string | null | undefined): boolean {
+  const text = value?.trim() ?? ''
+  return text === '' || text.startsWith('+48 000') || text.endsWith('@example.test')
+}
+
+/**
+ * The fields of the line's real contact to write: only where the settings still hold the sample
+ * or nothing — what an editor typed in the panel wins. `null` = nothing to change.
+ */
+export function softwareContactUpdate(current: Contact): Contact | null {
+  const update: Contact = {}
+  for (const key of ['phone', 'phone2', 'email'] as const) {
+    if (isSample(current[key])) update[key] = SOFTWARE_CONTACT[key]
+  }
+  return Object.keys(update).length > 0 ? update : null
+}
+
 export function missingFacts(
   stored: readonly { key?: string | null }[] | null | undefined,
   facts: FactRow[],

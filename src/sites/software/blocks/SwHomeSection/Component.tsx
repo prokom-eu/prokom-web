@@ -7,7 +7,6 @@ import {
   LivePreviewsSection,
   PopularSection,
   ProcessSection,
-  ShowcaseSection,
   TechnologiesSection,
   WhyNotWordpressSection,
   WizardSection,
@@ -35,8 +34,6 @@ export function SwHomeSectionBlock({ block, tenantId }: Props) {
       return <WhyNotWordpressSection tenantId={tenantId} />
     case 'guarantees':
       return <GuaranteesSection tenantId={tenantId} />
-    case 'showcase':
-      return <ShowcaseSection tenantId={tenantId} />
     case 'howWeBuild':
       return <HowWeBuildSection tenantId={tenantId} />
     case 'technologies':

@@ -47,19 +47,19 @@ const HINTS: Record<string, string[]> = {
  */
 export const SW_CONTACT_PAGE: ContactPageBlock = {
   blockType: 'swContactPage',
-  eyebrow: 'Kontakt · Rabka-Zdrój · Zakopane · online',
+  eyebrow: 'Kontakt · Rabka-Zdrój · online',
   title: 'Napisz, zadzwoń albo wpadnij.',
   titleAccent: 'Odpowiemy z konkretem.',
   lead: 'Nie musisz znać technologii ani mieć specyfikacji. Napisz kilka zdań po swojemu, a w 1 dzień roboczy odezwie się osoba, która potem buduje Twój projekt.',
   hoursNote: 'formularz działa całą dobę',
   channels: [
     { kind: 'phone', label: 'Zadzwoń', badge: 'Najszybciej', text: '[GODZINY]' },
-    { kind: 'email', label: 'Napisz', text: 'odpowiedź w ciągu [CZAS ODPOWIEDZI]' },
+    { kind: 'email', label: 'Napisz', text: 'odpowiedź w 1 dzień roboczy' },
     {
       kind: 'salon',
-      label: 'Przyjdź do salonu',
+      label: 'Przyjdź do nas',
       value: 'Rabka-Zdrój, ul. Orkana 16B',
-      text: 'albo Zakopane · [ADRES SALONU W ZAKOPANEM]',
+      text: '100 m od dworca · [GODZINY]',
       href: '/kontakt#gdzie',
     },
     {
@@ -80,7 +80,7 @@ export const SW_CONTACT_PAGE: ContactPageBlock = {
     {
       when: '30 minut',
       title: 'Krótka rozmowa',
-      text: 'U Ciebie w firmie, w salonie w Rabce lub w Zakopanem albo online.',
+      text: 'U Ciebie w firmie, w biurze w Rabce-Zdroju albo online.',
     },
     {
       when: '5–7 dni',
@@ -156,16 +156,9 @@ export const SW_CONTACT_PAGE: ContactPageBlock = {
       href: 'https://prokomserwis.pl',
     },
     {
-      line: 'zakopane',
-      label: 'ZAKOPANE',
-      text: 'Salon PRO-KOM w Zakopanem.',
-      linkLabel: 'Gdzie nas znaleźć',
-      href: '/kontakt#gdzie',
-    },
-    {
       line: 'prokom',
       label: 'GŁÓWNA',
-      text: 'Wszystkie linie PRO-KOM w jednym miejscu. Od 2004 r. w Rabce-Zdroju i Zakopanem.',
+      text: 'Wszystkie linie PRO-KOM w jednym miejscu. Od 2004 r. w Rabce-Zdroju.',
       linkLabel: 'pro-kom.eu',
       href: 'https://pro-kom.eu',
     },
@@ -174,10 +167,9 @@ export const SW_CONTACT_PAGE: ContactPageBlock = {
   meetEyebrow: 'Gdzie się spotkamy',
   meetTitle: 'U nas, u Ciebie albo online.',
   places: [
-    { title: 'Rabka-Zdrój', text: 'salon · ul. Orkana 16B · [GODZINY]' },
-    { title: 'Zakopane', text: 'salon · [ADRES SALONU W ZAKOPANEM]' },
+    { title: 'W Rabce-Zdroju', text: 'ul. Orkana 16B · [GODZINY]' },
     { title: 'U Ciebie w firmie', text: 'na Podhalu i w Małopolsce, dojeżdżamy' },
-    { title: 'Online', text: 'wideorozmowa, z całej Polski' },
+    { title: 'Online', text: 'wideorozmowa 30 min, z całej Polski' },
   ],
   mapCaption: 'Mapa Google',
   navigateLabel: 'Nawiguj',
@@ -206,7 +198,7 @@ export const SW_CONTACT_FAQ: FaqBlock = {
     {
       question: 'Pracujecie tylko na Podhalu?',
       answer:
-        'Spotykamy się w Rabce-Zdroju, w Zakopanem albo u Ciebie w firmie. Zdalnie pracujemy z firmami z całej Polski.',
+        'Spotykamy się w Rabce-Zdroju albo u Ciebie w firmie. Zdalnie pracujemy z firmami z całej Polski.',
     },
     {
       question: 'Co przygotować na rozmowę?',

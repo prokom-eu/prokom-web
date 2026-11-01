@@ -255,6 +255,10 @@ export interface SiteSetting {
   tenant?: (number | null) | Tenant;
   line?: ('prokom' | 'biznes' | 'instalacje' | 'software') | null;
   phone?: string | null;
+  /**
+   * Opcjonalny, pokazywany obok głównego (Software).
+   */
+  phone2?: string | null;
   email?: string | null;
   navigation?:
     | {
@@ -4331,7 +4335,6 @@ export interface SwHomeSectionBlock {
     | 'wizard'
     | 'whyNotWordpress'
     | 'guarantees'
-    | 'showcase'
     | 'howWeBuild'
     | 'technologies'
     | 'compare';
@@ -4478,7 +4481,7 @@ export interface SwContactPageBlock {
   linesText?: string | null;
   lines?:
     | {
-        line: 'biznes' | 'instalacje' | 'tech' | 'zakopane' | 'prokom';
+        line: 'biznes' | 'instalacje' | 'tech' | 'prokom';
         label: string;
         text: string;
         linkLabel: string;
@@ -4698,7 +4701,7 @@ export interface SwPageHeroBlock {
   title: string;
   titleAccent?: string | null;
   /**
-   * Fakty w nawiasach ([ROK ZAKOPANE], [GODZINY]…) z Ustawień linii.
+   * Fakty w nawiasach ([GODZINY], [ADRES]…) z Ustawień linii.
    */
   lead?: string | null;
   primary?: {
@@ -4812,11 +4815,11 @@ export interface SwStepsBlock {
   heading: string;
   lead?: string | null;
   /**
-   * Fakty w nawiasach ([ROK ZAKOPANE], [GODZINY]…) z Ustawień linii.
+   * Fakty w nawiasach ([GODZINY], [ADRES]…) z Ustawień linii.
    */
   items: {
     /**
-     * Liczby i oś czasu: „2004”, „100+”, „[ROK ZAKOPANE]”.
+     * Liczby i oś czasu: „2004”, „100+”, „[ROK SERWIS KAS]”.
      */
     marker?: string | null;
     icon?:
@@ -4895,7 +4898,7 @@ export interface SwTeamBlock {
   heading: string;
   lead?: string | null;
   /**
-   * Fakty w nawiasach ([ROK ZAKOPANE], [GODZINY]…) z Ustawień linii.
+   * Fakty w nawiasach ([GODZINY], [ADRES]…) z Ustawień linii.
    */
   members: {
     role?: string | null;
@@ -4929,7 +4932,7 @@ export interface SwLinesBlock {
   heading: string;
   lead?: string | null;
   /**
-   * Fakty w nawiasach ([ROK ZAKOPANE], [GODZINY]…) z Ustawień linii.
+   * Fakty w nawiasach ([GODZINY], [ADRES]…) z Ustawień linii.
    */
   lines?:
     | {
@@ -4993,7 +4996,7 @@ export interface SwLinesBlock {
             )
           | null;
         /**
-         * Np. „prokombiznes.pl”, „salon · [ADRES SALONU W ZAKOPANEM]”.
+         * Np. „prokombiznes.pl”, „ul. Orkana 16B · [GODZINY]”.
          */
         address?: string | null;
         href?: string | null;
@@ -5609,7 +5612,7 @@ export interface SoftwareSetting {
     | boolean
     | null;
   /**
-   * Proces, zasady, porównania, podglądy, realizacje, „Dlaczego nie WordPress”, technologie i „12 rzeczy”. Kolejność sekcji = kolejność bloków na stronie.
+   * Proces, zasady, porównania, podglądy, „Dlaczego nie WordPress”, technologie i „12 rzeczy”. Kolejność sekcji = kolejność bloków na stronie.
    */
   home?:
     | {
@@ -6430,6 +6433,7 @@ export interface SiteSettingsSelect<T extends boolean = true> {
   tenant?: T;
   line?: T;
   phone?: T;
+  phone2?: T;
   email?: T;
   navigation?:
     | T

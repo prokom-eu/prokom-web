@@ -44,7 +44,7 @@ export const SwLinesBlock: Block = {
               'Adres / podpis',
               80,
               false,
-              'Np. „prokombiznes.pl”, „salon · [ADRES SALONU W ZAKOPANEM]”.',
+              'Np. „prokombiznes.pl”, „ul. Orkana 16B · [GODZINY]”.',
             ),
             hrefField('href', 'Link (tylko istniejąca strona)'),
           ],
