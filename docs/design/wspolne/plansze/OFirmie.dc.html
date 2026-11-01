@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>O firmie — szablon wspólny dla linii PRO-KOM</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&amp;family=Manrope:wght@400..800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:inherit}
+</style>
+</helmet>
+<div style="background: {{t.surface}}; color: {{t.ink}}; font-family: Manrope, system-ui, sans-serif; padding-bottom: 80px">
+
+  <section style="position: relative; overflow: hidden; background: {{t.dark}}; color: {{t.darkText}}">
+    <svg viewBox="0 0 1440 760" preserveAspectRatio="xMidYMid slice" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%">
+      <path d="{{contours}}" fill="none" stroke="{{t.onDark}}" stroke-width="1.2" opacity="0.15"/>
+    </svg>
+    <span aria-hidden="true" style="position: absolute; right: -20px; bottom: -70px; font-family: Archivo, sans-serif; font-stretch: 118%; font-weight: 800; font-size: 360px; line-height: 1; letter-spacing: -0.04em; color: transparent; -webkit-text-stroke: 1.5px rgba(255,255,255,0.1)">2004</span>
+    <div style="position: relative; max-width: 1280px; margin: 0 auto; padding: 26px 32px 80px">
+      <div style="display: flex; align-items: center; gap: 8px; font-size: 13px">
+        <a href="#" style="text-decoration: none">Strona główna</a><span style="opacity: 0.5">/</span><span style="font-weight: 700; color: #FFFFFF">O firmie</span>
+        <span style="margin-left: auto; display: flex; align-items: center; gap: 8px; font-weight: 700; color: #FFFFFF"><span style="width: 18px; height: 4px; border-radius: 2px; background: {{t.onDark}}"></span>Podgląd linii: {{t.name}}</span>
+      </div>
+      <div style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 520px), 1fr)); gap: 48px; align-items: center">
+        <div style="display: flex; flex-direction: column; gap: 24px">
+          <span style="align-self: flex-start; display: flex; align-items: center; gap: 9px; padding: 8px 14px; border-radius: 999px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.14); color: #FFFFFF; font-size: 13.5px; font-weight: 800"><span style="width: 8px; height: 8px; border-radius: 50%; background: {{t.onDark}}"></span>PRO-KOM Tadeusz Wójciak · Rabka-Zdrój, od 2004</span>
+          <h1 style="margin: 0; font-family: Archivo, sans-serif; font-stretch: 112%; font-weight: 800; font-size: clamp(42px, 5.4vw, 74px); line-height: 0.96; letter-spacing: -0.03em; color: #FFFFFF">{{L.h1}}</h1>
+          <p style="margin: 0; font-size: 18px; line-height: 1.6; max-width: 560px">{{L.lead}}</p>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap">
+            <a href="#" style="height: 58px; padding: 0 26px; border-radius: 16px; background: {{t.onDark}}; color: {{t.onDarkInk}}; font-weight: 800; font-size: 16px; display: flex; align-items: center; gap: 10px; text-decoration: none; box-shadow: 0 16px 36px -14px {{t.onDark}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>{{L.phone}}</a>
+            <a href="#wspolpraca" style="height: 58px; padding: 0 24px; border-radius: 16px; border: 1.5px solid rgba(255,255,255,0.26); color: #FFFFFF; font-weight: 800; font-size: 16px; display: flex; align-items: center; text-decoration: none">Jak pracujemy</a>
+          </div>
+        </div>
+
+        <aside aria-label="Wizytówka firmy" style="display: flex; flex-direction: column; gap: 18px; padding: 28px; border-radius: 28px; background: {{t.card}}; color: {{t.ink}}; box-shadow: 0 40px 80px -30px rgba(0,0,0,0.6)">
+          <div style="display: flex; justify-content: space-between; align-items: center">
+            <span style="font-size: 12px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: {{t.accentText}}">Wizytówka firmy</span>
+            <dc-import name="Logo" label="{{t.label}}" accent="{{t.brand}}" dark="{{false}}" size="{{19}}" hint-size="110px,26px"></dc-import>
+          </div>
+          <div style="display: flex; flex-direction: column; border-top: 1px solid {{t.border}}">
+            <sc-for list="{{card}}" as="r" hint-placeholder-count="6">
+              <div style="display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px solid {{t.border}}; font-size: 14.5px">
+                <span style="color: {{t.ink2}}">{{r.k}}</span>
+                <span style="font-weight: 800; text-align: right">{{r.v}}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 10px">
+            <span style="font-size: 12px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: {{t.ink2}}">{{L.authTitle}}</span>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px">
+              <sc-for list="{{L.auth}}" as="a" hint-placeholder-count="3">
+                <span style="height: 40px; padding: 0 14px; border-radius: 12px; background: {{t.surface2}}; display: flex; align-items: center; gap: 8px; font-size: 13.5px; font-weight: 800"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="{{t.accentText}}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>{{a}}</span>
+              </sc-for>
+            </div>
+          </div>
+          <a href="#" style="font-size: 14px; font-weight: 800; color: {{t.accentText}}">Dane sprawdzisz w CEIDG po numerze NIP →</a>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section style="max-width: 1280px; margin: 0 auto; padding: 0 32px">
+    <div style="position: relative; margin-top: -36px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 12px">
+      <sc-for list="{{stats}}" as="s" hint-placeholder-count="4">
+        <div style="display: flex; flex-direction: column; gap: 8px; padding: 24px 24px 22px; border-radius: 22px; background: {{t.card}}; border: 1px solid {{t.border}}; box-shadow: 0 24px 50px -36px rgba(18,22,19,0.5)">
+          <span style="width: 32px; height: 4px; border-radius: 2px; background: {{t.accent}}"></span>
+          <span style="font-family: Archivo, sans-serif; font-stretch: 112%; font-weight: 800; font-size: 54px; line-height: 1; letter-spacing: -0.03em">{{s.v}}</span>
+          <span style="font-size: 14.5px; line-height: 1.45; color: {{t.ink2}}">{{s.k}}</span>
+          <sc-if value="{{s.flag}}" hint-placeholder-val="{{ false }}"><span style="align-self: flex-start; font-size: 11.5px; font-weight: 800; padding: 3px 8px; border-radius: 999px; background: #FFF4E0; color: #7A4A00">{{s.flag}}</span></sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="max-width: 1280px; margin: 0 auto; padding: 80px 32px 0; display: flex; flex-direction: column; gap: 22px">
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap">
+      <div style="display: flex; flex-direction: column; gap: 10px">
+        <span style="font-size: 12px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: {{t.accentText}}">Dlaczego PRO-KOM</span>
+        <h2 style="margin: 0; font-family: Archivo, sans-serif; font-stretch: 108%; font-weight: 800; font-size: clamp(32px, 3.8vw, 48px); line-height: 1; letter-spacing: -0.025em">Czego możesz od nas oczekiwać</h2>
+      </div>
+      <span style="font-size: 15px; color: {{t.ink2}}; max-width: 360px">Zasady, które sprawdzisz przy pierwszej rozmowie — nie slogany.</span>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; gap: 14px">
+      <div style="flex: 1 1 480px; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; gap: 40px; padding: 34px; border-radius: 28px; background: {{t.accent}}; color: #FFFFFF; min-height: 380px; box-sizing: border-box">
+        <svg viewBox="0 0 1440 760" preserveAspectRatio="xMidYMid slice" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%"><path d="{{contours}}" fill="none" stroke="#FFFFFF" stroke-width="2.2" opacity="0.12"/></svg>
+        <span style="position: relative; font-family: Archivo, sans-serif; font-weight: 800; font-size: 15px; opacity: 0.85">01</span>
+        <div style="position: relative; display: flex; flex-direction: column; gap: 14px">
+          <span style="font-family: Archivo, sans-serif; font-stretch: 110%; font-weight: 800; font-size: clamp(32px, 3.6vw, 46px); line-height: 1; letter-spacing: -0.025em">{{big.t}}</span>
+          <span style="font-size: 17px; line-height: 1.55; opacity: 0.9; max-width: 460px">{{big.d}}</span>
+        </div>
+      </div>
+      <div style="flex: 1 1 480px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 14px">
+        <sc-for list="{{small}}" as="r" hint-placeholder-count="4">
+          <div style="display: flex; flex-direction: column; gap: 12px; padding: 24px; border-radius: 24px; background: {{t.card}}; border: 1px solid {{t.border}}">
+            <span style="display: flex; justify-content: space-between; align-items: center"><span style="font-family: Archivo, sans-serif; font-weight: 800; font-size: 14px; color: {{t.accentText}}">{{r.n}}</span><span style="width: 30px; height: 30px; border-radius: 10px; background: {{t.accentSoft}}; color: {{t.accentText}}; display: flex; align-items: center; justify-content: center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span></span>
+            <span style="font-family: Archivo, sans-serif; font-weight: 800; font-size: 20px; line-height: 1.15">{{r.t}}</span>
+            <span style="font-size: 14.5px; line-height: 1.55; color: {{t.ink2}}">{{r.d}}</span>
+          </div>
+        </sc-for>
+      </div>
+      <div style="flex: 1 1 100%; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; padding: 22px 28px; border-radius: 22px; background: {{t.dark}}; color: {{t.darkText}}">
+        <span style="display: flex; align-items: center; gap: 16px"><span style="font-family: Archivo, sans-serif; font-weight: 800; font-size: 14px; color: {{t.onDarkText}}">06</span><span style="font-family: Archivo, sans-serif; font-weight: 800; font-size: 21px; color: #FFFFFF">{{wide.t}}</span></span>
+        <span style="font-size: 15px">{{wide.d}}</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="wspolpraca" style="max-width: 1280px; margin: 0 auto; padding: 80px 32px 0; display: flex; flex-direction: column; gap: 26px">
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <span style="font-size: 12px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: {{t.accentText}}">Współpraca</span>
+      <h2 style="margin: 0; font-family: Archivo, sans-serif; font-stretch: 108%; font-weight: 800; font-size: clamp(32px, 3.8vw, 48px); line-height: 1; letter-spacing: -0.025em">Jak to wygląda krok po kroku</h2>
+    </div>
+    <div style="position: relative; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 14px">
+      <sc-for list="{{steps}}" as="s" hint-placeholder-count="4">
+        <div style="display: flex; flex-direction: column; gap: 14px">
+          <div style="display: flex; align-items: center; gap: 12px">
+            <span style="width: 52px; height: 52px; border-radius: 17px; background: {{s.bg}}; color: {{s.fg}}; font-family: Archivo, sans-serif; font-weight: 800; font-size: 20px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: {{s.sh}}">{{s.n}}</span>
+            <span style="flex-grow: 1; height: 2px; background: {{s.line}}"></span>
+          </div>
+          <span style="font-family: Archivo, sans-serif; font-weight: 800; font-size: 20px; line-height: 1.15">{{s.t}}</span>
+          <span style="font-size: 14.5px; line-height: 1.55; color: {{t.ink2}}">{{s.d}}</span>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="max-width: 1280px; margin: 0 auto; padding: 80px 32px 0; display: flex; flex-direction: column; gap: 22px">
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap">
+      <div style="display: flex; flex-direction: column; gap: 10px">
+        <span style="font-size: 12px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: {{t.accentText}}">Rodzina PRO-KOM</span>
+        <h2 style="margin: 0; font-family: Archivo, sans-serif; font-stretch: 108%; font-weight: 800; font-size: clamp(32px, 3.8vw, 48px); line-height: 1; letter-spacing: -0.025em">Pięć linii i marka PRO-KOM Gaming</h2>
+      </div>
+      <span style="font-size: 15px; color: {{t.ink2}}; max-width: 380px">Kasy, instalacje, oprogramowanie, serwis i komputery gamingowe — jeden adres, jeden NIP, jedna odpowiedzialność.</span>
+    </div>
+    <div style="display: flex; height: 10px; border-radius: 999px; overflow: hidden; gap: 4px">
+      <sc-for list="{{family}}" as="f" hint-placeholder-count="5">
+        <span style="flex-grow: {{f.grow}}; background: {{f.c}}; opacity: {{f.op}}"></span>
+      </sc-for>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); gap: 12px">
+      <sc-for list="{{family}}" as="f" hint-placeholder-count="6">
+        <a href="#" aria-current="{{f.aria}}" style="display: flex; flex-direction: column; gap: 14px; padding: 22px; border-radius: 22px; background: {{f.bg}}; color: {{f.fg}}; border: 1.5px solid {{f.bd}}; text-decoration: none; min-height: 190px; box-sizing: border-box">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 8px">
+            <sc-if value="{{f.line}}" hint-placeholder-val="{{ true }}"><dc-import name="Logo" label="{{f.label}}" accent="{{f.c}}" dark="{{false}}" size="{{17}}" hint-size="100px,24px"></dc-import></sc-if>
+            <sc-if value="{{f.gaming}}" hint-placeholder-val="{{ false }}"><span style="display: flex; flex-direction: column; gap: 3px; line-height: 1"><span style="font-family: Archivo, sans-serif; font-stretch: 118%; font-weight: 800; font-size: 16px; color: #ECE4D0">PRO-KOM</span><span style="font-family: Archivo, sans-serif; font-stretch: 118%; font-weight: 800; font-size: 11px; letter-spacing: 0.34em; color: #F2C230">GAMING</span></span></sc-if>
+            <sc-if value="{{f.cur}}" hint-placeholder-val="{{ false }}"><span style="font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 999px; background: {{f.c}}; color: #FFFFFF">Jesteś tutaj</span></sc-if>
+          </div>
+          <span style="font-size: 14px; line-height: 1.5; color: {{f.sub}}">{{f.d}}</span>
+          <span style="margin-top: auto; display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 800">{{f.dom}}<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="max-width: 1280px; margin: 0 auto; padding: 80px 32px 0; display: flex; flex-direction: column; gap: 22px">
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <span style="font-size: 12px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: {{t.accentText}}">Sprawdź sam</span>
+      <h2 style="margin: 0; font-family: Archivo, sans-serif; font-stretch: 108%; font-weight: 800; font-size: clamp(32px, 3.8vw, 48px); line-height: 1; letter-spacing: -0.025em">Nie musisz wierzyć nam na słowo</h2>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 12px">
+      <sc-for list="{{L.verify}}" as="v" hint-placeholder-count="4">
+        <a href="#" style="display: flex; flex-direction: column; gap: 12px; padding: 24px; border-radius: 22px; background: {{t.card}}; border: 1px solid {{t.border}}; text-decoration: none">
+          <span style="display: flex; justify-content: space-between; align-items: center"><span style="font-family: Archivo, sans-serif; font-weight: 800; font-size: 19px">{{v.t}}</span><span style="width: 38px; height: 38px; border-radius: 50%; background: {{t.accentSoft}}; color: {{t.accentText}}; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span></span>
+          <span style="font-size: 14.5px; line-height: 1.5; color: {{t.ink2}}">{{v.d}}</span>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="max-width: 1280px; margin: 0 auto; padding: 80px 32px 0">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr)); border-radius: 30px; overflow: hidden; background: {{t.dark}}; box-shadow: 0 40px 80px -50px rgba(18,22,19,0.6)">
+      <div style="position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: center; gap: 18px; padding: 44px; color: {{t.darkText}}">
+        <svg viewBox="0 0 1440 760" preserveAspectRatio="xMidYMid slice" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%"><path d="{{contours}}" fill="none" stroke="{{t.onDark}}" stroke-width="2" opacity="0.1"/></svg>
+        <span style="position: relative; font-size: 12px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: {{t.onDarkText}}">Odwiedź nas</span>
+        <span style="position: relative; font-family: Archivo, sans-serif; font-stretch: 110%; font-weight: 800; font-size: clamp(32px, 3.6vw, 46px); line-height: 1; letter-spacing: -0.025em; color: #FFFFFF">Wpadnij do Rabki, ul. Orkana 16B.</span>
+        <span style="position: relative; font-size: 16px; line-height: 1.6">{{L.visit}}</span>
+        <div style="position: relative; display: flex; gap: 10px; flex-wrap: wrap; padding-top: 4px">
+          <a href="#" style="height: 56px; padding: 0 24px; border-radius: 16px; background: {{t.onDark}}; color: {{t.onDarkInk}}; font-weight: 800; font-size: 16px; display: flex; align-items: center; gap: 8px; text-decoration: none">Wyznacz trasę<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+          <a href="#" style="height: 56px; padding: 0 22px; border-radius: 16px; border: 1.5px solid rgba(255,255,255,0.26); color: #FFFFFF; font-weight: 800; font-size: 16px; display: flex; align-items: center; text-decoration: none">Kontakt</a>
+        </div>
+      </div>
+      <div style="padding: 12px">
+        <dc-import name="Mapa" accent="{{t.onDark}}" dark="{{true}}" label="{{true}}" h="{{400}}" radius="{{22}}" hint-size="100%,400px"></dc-import>
+      </div>
+    </div>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"linia":{"editor":"enum","options":["Biznes","Instalacje","Software","Tech"],"default":"Biznes"},"$preview":{"width":1440,"height":3500}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const line = this.props.linia ?? 'Biznes';
+    const T = {
+      Biznes: { name: 'Biznes', label: 'BIZNES', brand: '#244FB0', accent: '#244FB0', accentText: '#244FB0', accentSoft: '#E9EDF6', surface: '#FFFFFF', surface2: '#F3F5FA', card: '#FFFFFF', ink: '#0D1326', ink2: '#4A5470', border: '#E2E6EF', dark: '#0A1430', darkText: '#AEB8D2', onDarkText: '#8DADF0', onDark: '#4A7BE0', onDarkInk: '#06102A' },
+      Instalacje: { name: 'Instalacje', label: 'INSTALACJE', brand: '#0093B3', accent: '#007A96', accentText: '#006A82', accentSoft: '#E1F2F6', surface: '#F4F5F1', surface2: '#ECEEE8', card: '#FFFFFF', ink: '#121613', ink2: '#4F5650', border: '#DCDFD8', dark: '#071214', darkText: '#9FB0B4', onDarkText: '#4CCBE6', onDark: '#12B6D8', onDarkInk: '#06181C' },
+      Software: { name: 'Software', label: 'SOFTWARE', brand: '#8B61E3', accent: '#6E45D4', accentText: '#5B33C4', accentSoft: '#ECE7FB', surface: '#F4F5F1', surface2: '#ECEEE8', card: '#FFFFFF', ink: '#121613', ink2: '#4F5650', border: '#E3E6DF', dark: '#161A17', darkText: '#A9AFA9', onDarkText: '#B49BF5', onDark: '#9670EE', onDarkInk: '#120A26' },
+      Tech: { name: 'Tech', label: 'TECH', brand: '#D13A2E', accent: '#C4362B', accentText: '#B3301F', accentSoft: '#FBE9E6', surface: '#F4F5F1', surface2: '#ECEEE8', card: '#FFFFFF', ink: '#121613', ink2: '#4F5650', border: '#E3E6DF', dark: '#1A1312', darkText: '#B9AEAC', onDarkText: '#F29185', onDark: '#E2483A', onDarkInk: '#1A0806' }
+    };
+    const D = {
+      Biznes: {
+        h1: 'Lokalna firma IT, która zostaje z klientem na lata.', lead: 'Kasy fiskalne, programy, komputery i opieka IT dla firm z Podhala i Małopolski. Jeden numer do wszystkiego, ten sam adres od lat.',
+        phone: '889 003 889', email: 'biznes@pro-kom.eu', hours: 'pn–pt 9:00–17:00',
+        authTitle: 'Autoryzacje i partnerstwa', auth: ['Serwis Posnet', 'Serwis Elzab', 'Partner GoPOS', 'Partner InsERT'],
+        stats: [{ v: '100+', k: 'klientów firmowych pod stałą opieką', flag: 'do potwierdzenia przez szefa' }, { v: '2', k: 'autoryzowane serwisy kas: Posnet i Elzab', flag: '' }],
+        rules: [['Wycena na piśmie, zanim zdecydujesz', 'Zakres, termin i warunki dostajesz czarno na białym. Bez niespodzianek po fakcie.'], ['Tylko to, czego potrzebujesz', 'Dobieramy sprzęt i program pod firmę, nie odwrotnie.'], ['Jeden numer', 'Kasa, komputer, program i sieć — jedna rozmowa.'], ['Serwis na miejscu', 'Salon i serwis w Rabce-Zdroju.'], ['Jawne dane firmy', 'NIP, adres i autoryzacje sprawdzisz sam.'], ['Mówimy wprost, gdy coś się nie opłaca', 'Wolimy stracić sprzedaż niż klienta.']],
+        steps: [['Rozmowa', 'Dopytamy o branżę i to, co już masz.'], ['Dobór', 'Sprzęt i program pod Twoją firmę.'], ['Wycena na piśmie', 'Bez zobowiązań, z terminem.'], ['Wdrożenie i serwis', 'Na miejscu, a potem stała opieka.']],
+        verify: [{ t: 'CEIDG', d: 'Dane firmy po numerze NIP 7352511447.' }, { t: 'Lista serwisów Posnet', d: '[Krystian: link do listy u producenta]' }, { t: 'Partnerzy InsERT', d: '[Krystian: link do wyszukiwarki partnerów]' }, { t: 'Opinie Google', d: 'Wizytówka PRO-KOM w Mapach Google.' }],
+        visit: 'Salon czynny pn–pt 9:00–17:00. Przyjdź z kasą, laptopem albo pytaniem — doradzimy na miejscu.'
+      },
+      Instalacje: {
+        h1: 'Firma z Podhala, która zostaje po montażu.', lead: 'Projektujemy, montujemy i serwisujemy monitoring, alarmy, sieci, smart home i nagłośnienie. Salon w Rabce-Zdroju, od 2004 r.',
+        phone: '889 003 889', email: 'kontakt@prokominstalacje.pl', hours: 'pn–pt 9:00–17:00',
+        authTitle: 'Autoryzacje', auth: ['[SZEF: Satel]', '[SZEF: Ampio]', 'Elzab EcoPower'],
+        stats: [{ v: '24', k: 'miesiące gwarancji na montaż', flag: '' }, { v: '12', k: 'rodzajów obiektów — od domu po gminę', flag: '' }],
+        rules: [['Pod obiekt, nie pod markę', 'Najpierw wizja lokalna, potem dobór sprzętu. Tak, żeby działało latami, a nie tylko w dniu odbioru.'], ['Wycena na piśmie', 'Zakres i termin, zanim zaczniemy.'], ['24 miesiące gwarancji', 'Na montaż. Sprzęt według gwarancji producenta.'], ['Odpowiedź do 24 h', 'Na zgłoszenie w dni robocze.'], ['Bezpieczne od pierwszego dnia', 'Zmieniamy hasła fabryczne w każdym urządzeniu.'], ['Zostajemy po montażu', 'Przeglądy, serwis i przejęcie instalacji po innej firmie.']],
+        steps: [['Rozmowa', 'Odpowiedź do 24 h w dni robocze.'], ['Wizja lokalna', 'Termin ustalamy w rozmowie.'], ['Projekt i wycena', 'Na piśmie, pod Twój obiekt.'], ['Montaż i odbiór', '24 miesiące gwarancji na montaż.']],
+        verify: [{ t: 'CEIDG', d: 'Dane firmy po numerze NIP 7352511447.' }, { t: 'Opinie Google', d: 'Wizytówka PRO-KOM w Mapach Google.' }, { t: 'Autoryzacje producentów', d: '[SZEF: potwierdzenia Satel / Ampio]' }, { t: 'Realizacje', d: 'Wybrane obiekty — tylko za zgodą klienta.' }],
+        visit: 'Salon czynny pn–pt 9:00–17:00. Zobaczysz kamery, wideodomofony i smart home na żywo.'
+      },
+      Software: {
+        h1: 'Strony i systemy z Rabki. Firma, która jest tu od 2004 roku.', lead: 'Piszemy strony, panele i aplikacje dla firm. Za nami stoi cała PRO-KOM: salon, serwis i lata pracy na Podhalu.',
+        phone: '883 200 151', email: 'kontakt@prokomsoftware.pl', hours: 'pn–pt 9:00–17:00',
+        authTitle: 'Na czym budujemy', auth: ['Next.js', 'Django', 'Serwer w Polsce'],
+        stats: [{ v: '29', k: 'gotowych rozwiązań z ceną „od”', flag: '' }, { v: '1 dzień', k: 'roboczy na odpowiedź', flag: '' }],
+        rules: [['Zobaczysz, zanim zapłacisz', 'Klikalny podgląd, zakres, cena i termin na piśmie — zanim wydasz złotówkę.'], ['Cena i termin na piśmie', 'Za stały zakres, bez dopłat w trakcie.'], ['Kod i dane są Twoje', 'Kod, domena i dane należą do Ciebie.'], ['Serwer w Polsce', 'Kopia co noc, aktualizacje w opiece.'], ['Bez wtyczek do łatania', 'Piszemy pod firmę, nie składamy z gotowych klocków.'], ['Odpowiedź w 1 dzień roboczy', 'Telefonem albo e-mailem.']],
+        steps: [['Rozmowa', 'Odpowiedź w 1 dzień roboczy.'], ['Podgląd i wycena', '5–7 dni, wszystko na piśmie.'], ['Budowa etapami', 'Każdy etap widzisz na żywo.'], ['Wdrożenie i opieka', 'Serwer w Polsce, kopie co noc.']],
+        verify: [{ t: 'CEIDG', d: 'Dane firmy po numerze NIP 7352511447.' }, { t: 'Podglądy na żywo', d: 'Klikalne przykłady stron i systemów.' }, { t: 'Systemy własne PRO-KOM', d: 'np. prokomserwis.pl — działa produkcyjnie.' }, { t: 'Opinie Google', d: 'Wizytówka PRO-KOM w Mapach Google.' }],
+        visit: 'Spotkamy się w Rabce, u Ciebie w firmie albo online — jak Ci wygodniej.'
+      },
+      Tech: {
+        h1: 'Serwis elektroniki w Rabce-Zdroju. Od 2004 roku.', lead: 'Naprawiamy telefony, laptopy, tablety, drukarki i konsole. Za serwisem stoi cała PRO-KOM — ten sam adres od lat.',
+        phone: '883 200 151', email: 'sklep@pro-kom.eu', hours: 'pn–pt 9:00–17:00 · sob 9:00–14:00',
+        authTitle: 'Naprawiamy', auth: ['Telefony i tablety', 'Laptopy i komputery', 'Drukarki i konsole'],
+        stats: [{ v: '10 000+', k: 'naprawionych urządzeń', flag: 'z obecnej strony — do potwierdzenia' }, { v: '8', k: 'rodzajów urządzeń w serwisie', flag: '' }],
+        rules: [['Najpierw diagnoza i wycena', 'Bez Twojej zgody nic nie naprawiamy. Znasz cenę, zanim zaczniemy.'], ['Uczciwa wycena', 'Cena przed naprawą, bez dopłat po fakcie.'], ['Mówimy, co montujemy', 'Wiesz, jaką część dostaje Twój sprzęt.'], ['Szanujemy Twoje dane', 'Nie zaglądamy do plików, jeśli naprawa tego nie wymaga.'], ['Kurier z całej Polski', 'Wyślij sprzęt, odeślemy go po naprawie.'], ['Otwarte także w soboty', 'Serwis czynny w soboty 9:00–14:00.']],
+        steps: [['Zgłoszenie', 'Online albo przy ladzie w Rabce.'], ['Diagnostyka', 'Sprawdzamy, co naprawdę się zepsuło.'], ['Wycena i decyzja', 'Bez Twojej zgody nic nie robimy.'], ['Naprawa i odbiór', 'Osobiście albo kurierem.']],
+        verify: [{ t: 'CEIDG', d: 'Dane firmy po numerze NIP 7352511447.' }, { t: 'Opinie Google', d: 'Wizytówka PRO-KOM w Mapach Google.' }, { t: 'Regulamin serwisu', d: 'Zasady napraw, gwarancji i odbioru — jawnie.' }, { t: 'Hammer Glass CUT', d: 'Ploter i folie — informacje u producenta.' }],
+        visit: 'Serwis czynny pn–pt 9:00–17:00 i w soboty 9:00–14:00. Przynieś sprzęt — zdiagnozujemy go na miejscu.'
+      }
+    };
+    const t = T[line] || T.Biznes;
+    const L = D[line] || D.Biznes;
+    const ring = (cx, cy, sx, sy, base, step, count, pts) => {
+      let d = '';
+      for (let k = 1; k <= count; k++) {
+        const r = base + k * step;
+        for (let i = 0; i <= pts; i++) {
+          const th = i / pts * Math.PI * 2;
+          const rr = r * (1 + 0.075 * Math.sin(3 * th + k * 0.7) + 0.045 * Math.sin(5 * th - k * 1.1));
+          d += (i === 0 ? 'M' : 'L') + (cx + rr * Math.cos(th) * sx).toFixed(1) + ' ' + (cy + rr * Math.sin(th) * sy).toFixed(1) + ' ';
+        }
+        d += 'Z ';
+      }
+      return d;
+    };
+    const rules = L.rules.map((r, i) => ({ n: '0' + (i + 1), t: r[0], d: r[1] }));
+    const all = [
+      { n: 'PRO-KOM', label: '', c: '#45A02C', d: 'Strona główna firmy — wszystkie linie PRO-KOM w jednym miejscu.', dom: 'pro-kom.eu' },
+      { n: 'Biznes', label: 'BIZNES', c: '#244FB0', d: 'Kasy, programy, komputery i opieka IT dla firm.', dom: 'prokombiznes.pl' },
+      { n: 'Instalacje', label: 'INSTALACJE', c: '#0093B3', d: 'Monitoring, alarmy, sieci, smart home, nagłośnienie.', dom: 'prokominstalacje.pl' },
+      { n: 'Software', label: 'SOFTWARE', c: '#8B61E3', d: 'Strony, systemy, aplikacje i automatyzacje.', dom: 'prokomsoftware.pl' },
+      { n: 'Tech', label: 'TECH', c: '#D13A2E', d: 'Naprawy telefonów, laptopów i komputerów.', dom: 'prokomserwis.pl' },
+      { n: 'Gaming', label: '', c: '#F2C230', d: 'Komputery gamingowe składane i testowane w Rabce.', dom: 'prokomgaming.pl', isGaming: true }
+    ];
+    return {
+      t: t, L: L,
+      contours: ring(1100, 320, 1.3, 0.82, 40, 64, 13, 96),
+      card: [
+        { k: 'Firma', v: 'PRO-KOM Tadeusz Wójciak' }, { k: 'Adres', v: 'ul. Orkana 16B, 34-700 Rabka-Zdrój' },
+        { k: 'NIP', v: '7352511447' }, { k: 'Telefon', v: L.phone }, { k: 'E-mail', v: L.email }, { k: 'Godziny', v: L.hours }
+      ],
+      stats: [{ v: '2004', k: 'na Podhalu, w Rabce-Zdroju', flag: '' }].concat(L.stats).concat([{ v: '5', k: 'linii w jednej firmie', flag: '' }]),
+      big: rules[0], small: rules.slice(1, 5), wide: rules[5],
+      steps: L.steps.map((s, i) => ({ n: String(i + 1), t: s[0], d: s[1],
+        bg: i === 0 ? t.accent : t.card, fg: i === 0 ? '#FFFFFF' : t.ink,
+        sh: i === 0 ? '0 14px 28px -14px ' + t.accent : '0 0 0 1.5px ' + t.border,
+        line: i === L.steps.length - 1 ? 'transparent' : t.border })),
+      family: all.map((f) => {
+        const cur = f.n === line;
+        const g = !!f.isGaming;
+        return { ...f, cur: cur, gaming: g, line: !g, aria: cur ? 'page' : 'false',
+          bg: g ? '#080C0B' : (cur ? t.accentSoft : t.card), fg: g ? '#ECE4D0' : t.ink, sub: g ? '#C2BAA4' : t.ink2,
+          bd: g ? 'rgba(242,194,48,0.45)' : (cur ? f.c : t.border), grow: cur ? 3 : 1, op: cur ? 1 : 0.55 };
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>

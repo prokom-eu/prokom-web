@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Moduły wspólne: status, przyciski, formularz, FAQ, kroki</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&amp;family=Manrope:wght@400..800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:inherit}
+</style>
+</helmet>
+<div style="width: 1440px; height: 1900px; box-sizing: border-box; background: #E3E6DF; color: #121613; font-family: Manrope, system-ui, sans-serif; padding: 48px 80px; display: flex; flex-direction: column; gap: 28px">
+
+  <div style="display: flex; flex-direction: column; gap: 10px">
+    <span style="font-size: 12px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #367E23">03 · Moduły wspólne</span>
+    <h2 style="margin: 0; font-family: Archivo, sans-serif; font-stretch: 108%; font-weight: 800; font-size: 44px; line-height: 1; letter-spacing: -0.02em">Klocki, z których składa się każda strona</h2>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 0.9fr 1.6fr; gap: 16px">
+    <div style="display: flex; flex-direction: column; gap: 14px; padding: 24px; border-radius: 22px; background: #FFFFFF">
+      <div style="display: flex; justify-content: space-between; align-items: baseline"><span style="font-family: Archivo, sans-serif; font-weight: 800; font-size: 20px">Status godzin</span><span style="font-size: 12px; font-weight: 800; padding: 4px 9px; border-radius: 999px; background: #121613; color: #F4F5F1">1:1</span></div>
+      <span style="align-self: flex-start; display: flex; align-items: center; gap: 9px; padding: 8px 13px; border-radius: 999px; background: #EAF5E6; color: #1F5C14; font-size: 14px; font-weight: 800"><span style="width: 9px; height: 9px; border-radius: 50%; background: #2E7A1E; box-shadow: 0 0 0 3px rgba(46,122,30,0.18)"></span>Otwarte · do 17:00</span>
+      <span style="align-self: flex-start; display: flex; align-items: center; gap: 9px; padding: 8px 13px; border-radius: 999px; background: #FFF4E0; color: #7A4A00; font-size: 14px; font-weight: 800"><span style="width: 9px; height: 9px; border-radius: 50%; background: #C77800; box-shadow: 0 0 0 3px rgba(199,120,0,0.18)"></span>Zamykamy za 25 min · do 17:00</span>
+      <span style="align-self: flex-start; display: flex; align-items: center; gap: 9px; padding: 8px 13px; border-radius: 999px; background: #FBEDE6; color: #8A3A0B; font-size: 14px; font-weight: 800"><span style="width: 9px; height: 9px; border-radius: 50%; background: #B45309; box-shadow: 0 0 0 3px rgba(180,83,9,0.18)"></span>Zamknięte · otwieramy jutro o 9:00</span>
+      <span style="font-size: 13px; line-height: 1.5; color: #4F5650">Liczony w strefie Europe/Warsaw z godzin w panelu. Święta z listy w panelu.</span>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 14px; padding: 24px; border-radius: 22px; background: #FFFFFF">
+      <div style="display: flex; justify-content: space-between; align-items: baseline"><span style="font-family: Archivo, sans-serif; font-weight: 800; font-size: 20px">Przyciski</span><span style="font-size: 13px; color: #4F5650">56 · 44 · 40 px · waga 800 · promień 16 / 14</span></div>
+      <sc-for list="{{btnRows}}" as="b" hint-placeholder-count="3">
+        <div style="display: flex; align-items: center; gap: 12px">
+          <span style="width: 86px; font-family: Archivo, sans-serif; font-weight: 800; font-size: 14px">{{b.n}}</span>
+          <a href="#" style="height: 56px; padding: 0 24px; border-radius: 16px; background: {{b.a}}; color: #FFFFFF; font-weight: 800; font-size: 16px; display: flex; align-items: center; gap: 10px; text-decoration: none; box-shadow: 0 12px 24px -14px {{b.a}}">{{b.cta}}<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a href="#" style="height: 56px; padding: 0 22px; border-radius: 16px; background: #FFFFFF; border: 1.5px solid {{b.border}}; color: {{b.ink}}; font-weight: 800; font-size: 16px; display: flex; align-items: center; text-decoration: none">Zadzwoń</a>
+          <a href="#" style="height: 44px; padding: 0 18px; border-radius: 14px; background: {{b.a}}; color: #FFFFFF; font-weight: 800; font-size: 15px; display: flex; align-items: center; text-decoration: none">Średni 44</a>
+          <a href="#" style="height: 40px; padding: 0 14px; border-radius: 14px; background: {{b.soft}}; color: {{b.t}}; font-weight: 800; font-size: 14px; display: flex; align-items: center; text-decoration: none">Mały 40</a>
+          <a href="#" style="height: 44px; padding: 0 18px; border-radius: 14px; background: {{b.dark}}; color: #FFFFFF; font-weight: 800; font-size: 15px; display: flex; align-items: center; gap: 8px; text-decoration: none; border: 1px solid rgba(255,255,255,0.18)">Na ciemnym<span style="width: 8px; height: 8px; border-radius: 50%; background: {{b.od}}"></span></a>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 12px">
+    <div style="display: flex; justify-content: space-between; align-items: baseline">
+      <span style="font-family: Archivo, sans-serif; font-weight: 800; font-size: 24px">Formularz — jeden rdzeń, trzy stany</span>
+      <span style="font-size: 13px; color: #4F5650">Tematy (chipy) i obietnica czasu odpowiedzi — z linii. Pola, zgoda, walidacja, ochrona przed spamem — wspólne.</span>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px">
+
+      <form style="display: flex; flex-direction: column; gap: 14px; padding: 24px; border-radius: 22px; background: #FFFFFF; box-shadow: 0 1px 0 #E2E6EF">
+        <div style="display: flex; justify-content: space-between; align-items: center"><span style="font-weight: 800; font-size: 15px">Biznes · wypełnianie</span><span style="width: 18px; height: 4px; border-radius: 2px; background: #244FB0"></span></div>
+        <fieldset style="border: 0; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px">
+          <legend style="font-size: 13px; font-weight: 800; color: #0D1326; padding: 0; margin-bottom: 8px">Czego dotyczy sprawa?</legend>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px">
+            <sc-for list="{{chipsB}}" as="c" hint-placeholder-count="5">
+              <span style="height: 34px; padding: 0 12px; border-radius: 999px; display: flex; align-items: center; font-size: 13px; font-weight: 700; background: {{c.bg}}; color: {{c.fg}}; border: 1.5px solid {{c.bd}}">{{c.t}}</span>
+            </sc-for>
+          </div>
+        </fieldset>
+        <label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 800; color: #0D1326">Imię i firma *<input type="text" value="Anna Nowak, Kawiarnia Pod Turbaczem" style="height: 50px; border-radius: 14px; border: 1.5px solid #767C74; padding: 0 14px; font: 600 15px Manrope, sans-serif; color: #0D1326"></label>
+        <label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 800; color: #0D1326">Telefon lub e-mail *<input type="text" value="600 100 200" style="height: 50px; border-radius: 14px; border: 2px solid #244FB0; box-shadow: 0 0 0 4px rgba(36,79,176,0.14); padding: 0 14px; font: 600 15px Manrope, sans-serif; color: #0D1326"></label>
+        <label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 800; color: #0D1326">Wiadomość<textarea style="height: 78px; border-radius: 14px; border: 1.5px solid #767C74; padding: 12px 14px; font: 600 15px Manrope, sans-serif; color: #4A5470; resize: none">Otwieramy w grudniu, potrzebujemy kasy i terminala.</textarea></label>
+        <label style="display: flex; gap: 10px; font-size: 12.5px; line-height: 1.45; color: #4A5470"><input type="checkbox" checked style="width: 20px; height: 20px; margin: 0; accent-color: #244FB0; flex-shrink: 0">Zgadzam się na przetwarzanie danych przez PRO-KOM Tadeusz Wójciak w celu odpowiedzi. Szczegóły w polityce prywatności.</label>
+        <button type="button" style="height: 56px; border: 0; border-radius: 16px; background: #244FB0; color: #FFFFFF; font: 800 16px Manrope, sans-serif">Wyślij zapytanie</button>
+        <span style="display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 13px; font-weight: 700; color: #1F5C14"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2E7A1E" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Oddzwaniamy w godzinach pracy · wycena na piśmie</span>
+      </form>
+
+      <form style="display: flex; flex-direction: column; gap: 14px; padding: 24px; border-radius: 22px; background: #FFFFFF">
+        <div style="display: flex; justify-content: space-between; align-items: center"><span style="font-weight: 800; font-size: 15px">Instalacje · błędy</span><span style="width: 18px; height: 4px; border-radius: 2px; background: #0093B3"></span></div>
+        <div role="alert" style="display: flex; flex-direction: column; gap: 6px; padding: 12px 14px; border-radius: 14px; background: #FBEAE8; border: 1px solid #F1C4BF; color: #8C1D16; font-size: 13px">
+          <span style="font-weight: 800">Popraw 2 pola, żeby wysłać:</span>
+          <a href="#" style="font-weight: 700">Telefon lub e-mail — wpisz numer albo adres</a>
+          <a href="#" style="font-weight: 700">Zgoda — zaznacz, żebyśmy mogli odpowiedzieć</a>
+        </div>
+        <label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 800">Imię i firma *<input type="text" value="Marek, Pensjonat Hala" style="height: 50px; border-radius: 14px; border: 1.5px solid #767C74; padding: 0 14px; font: 600 15px Manrope, sans-serif; color: #121613"></label>
+        <label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 800">Telefon lub e-mail *<input type="text" value="600 10" aria-invalid="true" style="height: 50px; border-radius: 14px; border: 2px solid #B3261E; padding: 0 14px; font: 600 15px Manrope, sans-serif; color: #121613"><span style="display: flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 700; color: #B3261E"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>Numer jest za krótki — wpisz 9 cyfr</span></label>
+        <label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 800">Miejscowość (opcjonalnie)<input type="text" value="Szaflary" style="height: 50px; border-radius: 14px; border: 1.5px solid #767C74; padding: 0 14px; font: 600 15px Manrope, sans-serif; color: #121613"><span style="font-size: 12.5px; font-weight: 700; color: #006A82">Podhale · dojazd w cenie wizji lokalnej</span></label>
+        <label style="display: flex; gap: 10px; font-size: 12.5px; line-height: 1.45; color: #8C1D16; padding: 10px; border-radius: 12px; border: 1.5px solid #B3261E"><input type="checkbox" style="width: 20px; height: 20px; margin: 0; flex-shrink: 0">Zgadzam się na przetwarzanie danych przez PRO-KOM Tadeusz Wójciak w celu odpowiedzi. Szczegóły w polityce prywatności.</label>
+        <button type="button" style="height: 56px; border: 0; border-radius: 16px; background: #007A96; color: #FFFFFF; font: 800 16px Manrope, sans-serif">Zamów oddzwonienie</button>
+        <span style="text-align: center; font-size: 13px; font-weight: 700; color: #4F5650">Odpowiedź do 24 h w dni robocze</span>
+      </form>
+
+      <div style="display: flex; flex-direction: column; gap: 16px; padding: 24px; border-radius: 22px; background: #FFFFFF">
+        <div style="display: flex; justify-content: space-between; align-items: center"><span style="font-weight: 800; font-size: 15px">Software · wysłane</span><span style="width: 18px; height: 4px; border-radius: 2px; background: #8B61E3"></span></div>
+        <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 14px; padding: 22px; border-radius: 18px; background: #F4F5F1">
+          <span style="width: 52px; height: 52px; border-radius: 16px; background: #6E45D4; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
+          <span style="font-family: Archivo, sans-serif; font-weight: 800; font-size: 24px; line-height: 1.1">Dziękujemy. Zgłoszenie przyjęte.</span>
+          <span style="font-size: 14px; color: #4F5650">Numer zgłoszenia <strong style="color: #121613; font-family: ui-monospace, monospace">SW-2026-0142</strong>. Potwierdzenie wysłaliśmy na podany adres.</span>
+        </div>
+        <span style="font-size: 12px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #5B33C4">Co dalej</span>
+        <sc-for list="{{nextS}}" as="s" hint-placeholder-count="3">
+          <div style="display: flex; gap: 12px; align-items: flex-start">
+            <span style="flex-shrink: 0; width: 30px; height: 30px; border-radius: 10px; background: #ECE7FB; color: #5B33C4; font-family: Archivo, sans-serif; font-weight: 800; font-size: 14px; display: flex; align-items: center; justify-content: center">{{s.n}}</span>
+            <span style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 800; font-size: 15px">{{s.t}}</span><span style="font-size: 13px; color: #4F5650">{{s.d}}</span></span>
+          </div>
+        </sc-for>
+        <a href="#" style="margin-top: auto; height: 44px; border-radius: 14px; border: 1.5px solid #E3E6DF; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 15px; text-decoration: none; color: #121613">Wyślij kolejne</a>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 1.25fr 1fr; gap: 16px; flex-grow: 1">
+    <div style="display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 20px; padding: 26px; border-radius: 22px; background: #ECEEE8">
+      <div style="display: flex; flex-direction: column; gap: 14px">
+        <span style="font-size: 12px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #006A82">Pytania i odpowiedzi</span>
+        <span style="font-family: Archivo, sans-serif; font-weight: 800; font-size: 34px; line-height: 1.02; letter-spacing: -0.02em">Zanim zadzwonisz</span>
+        <span style="font-size: 14px; line-height: 1.55; color: #4F5650">Nie ma tu Twojego pytania? Zadzwoń albo napisz.</span>
+        <div style="display: flex; flex-direction: column; gap: 10px; padding: 16px; border-radius: 18px; background: #FFFFFF">
+          <span style="display: flex; align-items: center; gap: 7px; font-size: 12.5px; font-weight: 800; color: #1F5C14"><span style="width: 8px; height: 8px; border-radius: 50%; background: #2E7A1E"></span>Otwarte · do 17:00</span>
+          <a href="#" style="height: 48px; border-radius: 14px; background: #007A96; color: #FFFFFF; font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center; text-decoration: none">889 003 889</a>
+          <a href="#" style="font-size: 13.5px; font-weight: 700; color: #006A82">kontakt@prokominstalacje.pl</a>
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px">
+        <sc-for list="{{faq}}" as="f" hint-placeholder-count="4">
+          <div style="display: flex; flex-direction: column; gap: 10px; padding: 16px 18px; border-radius: 16px; background: #FFFFFF; border: 1.5px solid {{f.bd}}; box-shadow: {{f.sh}}">
+            <div style="display: flex; align-items: center; gap: 12px">
+              <span style="font-family: Archivo, sans-serif; font-weight: 800; font-size: 13px; color: #006A82">{{f.n}}</span>
+              <span style="flex-grow: 1; font-weight: 800; font-size: 15.5px">{{f.q}}</span>
+              <span style="width: 32px; height: 32px; border-radius: 50%; background: {{f.btn}}; color: {{f.btnFg}}; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="{{f.icon}}"/></svg></span>
+            </div>
+            <sc-if value="{{f.open}}" hint-placeholder-val="{{ false }}">
+              <span style="font-size: 14px; line-height: 1.6; color: #2E342F; padding-left: 30px">{{f.a}}</span>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 18px; padding: 26px; border-radius: 22px; background: #161A17; color: #F4F5F1">
+      <span style="font-size: 12px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #B49BF5">Jak pracujemy</span>
+      <span style="font-family: Archivo, sans-serif; font-weight: 800; font-size: 34px; line-height: 1.02; letter-spacing: -0.02em">Od rozmowy do działającego systemu</span>
+      <div style="display: flex; flex-direction: column; gap: 0">
+        <sc-for list="{{steps}}" as="s" hint-placeholder-count="4">
+          <div style="display: flex; gap: 16px">
+            <div style="display: flex; flex-direction: column; align-items: center">
+              <span style="width: 40px; height: 40px; border-radius: 13px; background: {{s.bg}}; color: {{s.fg}}; font-family: Archivo, sans-serif; font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0">{{s.n}}</span>
+              <span style="width: 2px; flex-grow: 1; min-height: 18px; background: {{s.lineC}}"></span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 4px; padding-bottom: 18px">
+              <span style="display: flex; align-items: baseline; gap: 10px"><span style="font-weight: 800; font-size: 17px">{{s.t}}</span><span style="font-size: 12px; font-weight: 800; color: #B49BF5">{{s.time}}</span></span>
+              <span style="font-size: 14px; line-height: 1.5; color: #A9AFA9">{{s.d}}</span>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <span style="margin-top: auto; font-size: 12.5px; color: #A9AFA9">Ten sam komponent: liczba kroków, czasy i teksty z linii.</span>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const chip = (t, on) => ({ t: t, bg: on ? '#244FB0' : '#FFFFFF', fg: on ? '#FFFFFF' : '#0D1326', bd: on ? '#244FB0' : '#E2E6EF' });
+    const faqRaw = [
+      { q: 'Ile kosztuje wycena i wizja lokalna?', a: 'Wycena jest bezpłatna i na piśmie. Zasady wizji lokalnej i dojazdu ustalamy w pierwszej rozmowie.', open: true },
+      { q: 'Na jakim obszarze pracujecie?', open: false },
+      { q: 'Czy serwisujecie instalacje po innej firmie?', open: false },
+      { q: 'Jak szybko odpowiadacie na zgłoszenie?', open: false }
+    ];
+    return {
+      btnRows: [
+        { n: 'Biznes', a: '#244FB0', t: '#244FB0', soft: '#E9EDF6', border: '#E2E6EF', ink: '#0D1326', dark: '#0A1430', od: '#4A7BE0', cta: 'Wyślij zapytanie' },
+        { n: 'Instalacje', a: '#007A96', t: '#006A82', soft: '#E1F2F6', border: '#DCDFD8', ink: '#121613', dark: '#071214', od: '#12B6D8', cta: 'Zaplanuj instalację' },
+        { n: 'Software', a: '#6E45D4', t: '#5B33C4', soft: '#ECE7FB', border: '#E3E6DF', ink: '#121613', dark: '#161A17', od: '#9670EE', cta: 'Dobierz rozwiązanie' },
+        { n: 'Tech', a: '#C4362B', t: '#B3301F', soft: '#FBE9E6', border: '#E3E6DF', ink: '#121613', dark: '#1A1312', od: '#E2483A', cta: 'Zgłoś naprawę' }
+      ],
+      chipsB: [chip('Kasa fiskalna', true), chip('Komputery', false), chip('Opieka IT', false), chip('Programy', false), chip('Inne', false)],
+      nextS: [
+        { n: '1', t: 'Odpowiadamy w 1 dzień roboczy', d: 'Telefonem albo e-mailem — tak, jak wybrałeś.' },
+        { n: '2', t: 'Krótka rozmowa', d: 'Ustalamy zakres i to, co już masz.' },
+        { n: '3', t: 'Podgląd i wycena na piśmie', d: 'Cena i termin, zanim cokolwiek zapłacisz.' }
+      ],
+      faq: faqRaw.map((f, i) => ({ ...f, n: '0' + (i + 1),
+        bd: f.open ? '#007A96' : 'transparent', sh: f.open ? '0 14px 30px -20px rgba(0,122,150,0.6)' : 'none',
+        btn: f.open ? '#007A96' : '#ECEEE8', btnFg: f.open ? '#FFFFFF' : '#121613',
+        icon: f.open ? 'M6 6l12 12M18 6 6 18' : 'M12 5v14M5 12h14' })),
+      steps: [
+        { n: '1', t: 'Rozmowa', time: '1 dzień roboczy', d: 'Odpowiadamy i umawiamy krótką rozmowę.', bg: '#9670EE', fg: '#120A26', lineC: 'rgba(255,255,255,0.14)' },
+        { n: '2', t: 'Podgląd i wycena', time: '5–7 dni', d: 'Klikalny podgląd, zakres, cena i termin na piśmie.', bg: 'rgba(255,255,255,0.1)', fg: '#F4F5F1', lineC: 'rgba(255,255,255,0.14)' },
+        { n: '3', t: 'Budowa', time: 'od 1 tygodnia', d: 'Pracujemy etapami, każdy etap widzisz na żywo.', bg: 'rgba(255,255,255,0.1)', fg: '#F4F5F1', lineC: 'rgba(255,255,255,0.14)' },
+        { n: '4', t: 'Wdrożenie i opieka', time: 'po odbiorze', d: 'Serwer w Polsce, kopie co noc, poprawki w ramach opieki.', bg: 'rgba(255,255,255,0.1)', fg: '#F4F5F1', lineC: 'transparent' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>
