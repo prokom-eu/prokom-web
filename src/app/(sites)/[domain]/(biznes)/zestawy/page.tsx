@@ -45,7 +45,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: BUNDLES_PATH,
       title: TITLE,
       description: DESCRIPTION,
-      images: ogImages(settings?.seo.ogImage ?? null),
+      images: ogImages(settings?.seo.ogImage ?? null, 'biznes'),
     },
   }
 }

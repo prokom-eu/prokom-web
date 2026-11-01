@@ -83,6 +83,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       : null
   if (!page) return {}
   const settings = await getSiteSettings(tenant.id)
+  const salonImage = salon?.hero.find((item) => item.product.image)?.product.image
   const canonical = brandHref(page.slug)
   return {
     title: page.title,
@@ -96,8 +97,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: canonical,
       title: page.title,
       description: page.description,
-      // `openGraph` of a page replaces the layout's whole: the site's picture, as on the others.
-      images: ogImages(settings?.seo.ogImage ?? null),
+      // `openGraph` of a page replaces the layout's whole. A salon shows its first hero photo
+      // (audit 01.11), the rest the site's picture or the line mark.
+      images: salonImage ? [{ ...salonImage }] : ogImages(settings?.seo.ogImage ?? null, 'biznes'),
     },
   }
 }

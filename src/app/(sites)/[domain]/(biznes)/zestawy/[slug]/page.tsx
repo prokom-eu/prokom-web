@@ -70,7 +70,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: canonical,
       title,
       description: bundle.benefit,
-      images: ogImages(settings?.seo.ogImage ?? null),
+      images: ogImages(settings?.seo.ogImage ?? null, 'biznes'),
     },
   }
 }

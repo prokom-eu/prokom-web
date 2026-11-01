@@ -111,7 +111,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: canonical,
       title,
       description,
-      images: ogImages(product.images[0] ?? settings?.seo.ogImage ?? null),
+      images: ogImages(product.images[0] ?? settings?.seo.ogImage ?? null, 'biznes'),
     },
   }
 }

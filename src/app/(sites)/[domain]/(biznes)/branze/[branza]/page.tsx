@@ -67,7 +67,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: canonical,
       title,
       description,
-      images: ogImages(industry.image ?? settings?.seo.ogImage ?? null),
+      images: ogImages(industry.image ?? settings?.seo.ogImage ?? null, 'biznes'),
     },
   }
 }
