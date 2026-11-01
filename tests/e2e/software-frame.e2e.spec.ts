@@ -26,6 +26,7 @@ const TWO = [
 test.describe('Software header', () => {
   test('menu in the order of the panel, other lines without Tech', async ({ page }) => {
     await page.goto(site(HOST, SUBPAGE))
+    // „Aktualności” only with a published post — the seed has none (SWV8 P0 #3).
     // The first element of each item: the hidden mega panel sits in the „Oferta” item too.
     const items = mainNav(page).locator(':scope > ul > li > :first-child')
     await expect(items).toHaveText([
@@ -33,9 +34,9 @@ test.describe('Software header', () => {
       'Kreator60 s',
       'Darmowy audyt',
       'O firmie',
-      'Aktualności',
       'Kontakt',
     ])
+    await expect(page.locator('a[href="/aktualnosci"]')).toHaveCount(0)
     await expect(mainNav(page).getByRole('link', { name: /Kreator/ })).toHaveAttribute(
       'href',
       '/dobierz',
