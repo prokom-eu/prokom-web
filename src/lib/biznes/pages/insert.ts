@@ -38,7 +38,13 @@ export const insertHeroSchema = z.object({
 /** `insert-picker` (#ktory): „Który Subiekt dla mnie?”. */
 export const insertPickerSchema = z.object({
   questions: z.array(programQuestionSchema).min(1).max(4),
-  rules: z.array(programRuleSchema).min(1).max(8),
+  rules: z
+    .array(programRuleSchema)
+    .min(1)
+    .max(8)
+    .refine((rules) => rules.some((rule) => rule.when.length === 0), {
+      message: 'brak reguły domyślnej (bez warunków)',
+    }),
 })
 
 /** `insert-ksef` (#ksef): timeline, the six steps and the actions. */
@@ -85,7 +91,9 @@ export function pickProgram(
     return (question.options[answer] ?? question.options[0])!.k
   })
   return (
-    rules.find((rule) => rule.when.every((key) => keys.includes(key))) ?? rules[rules.length - 1]!
+    rules.find((rule) => rule.when.length > 0 && rule.when.every((key) => keys.includes(key))) ??
+    rules.find((rule) => rule.when.length === 0) ??
+    rules[rules.length - 1]!
   )
 }
 

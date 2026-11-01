@@ -28,7 +28,7 @@ import { BzFeaturedBlock } from '@/sites/biznes/blocks/BzFeatured/Component'
 import { BzHeroBlock } from '@/sites/biznes/blocks/BzHero/Component'
 import { BzKitsBlock } from '@/sites/biznes/blocks/BzKits/Component'
 import { BzSectionBlock } from '@/sites/biznes/blocks/BzSection/Component'
-import { HERO_VARIANTS, type SectionVariant } from '@/lib/biznes/pages/sections'
+import { HERO_VARIANTS, parseSectionData, type SectionVariant } from '@/lib/biznes/pages/sections'
 import { BzKsefBlock } from '@/sites/biznes/blocks/BzKsef/Component'
 import { BzModulesBlock } from '@/sites/biznes/blocks/BzModules/Component'
 import { QuickStart } from '@/sites/biznes/components/home/QuickStart'
@@ -90,7 +90,11 @@ const HERO_BLOCKS = new Set([
 /** First block carries the H1: a hero block, or a K4 section of a hero kind (K4hij). */
 function opensWithHero(block: NonNullable<PublicPage['layout']>[number] | undefined): boolean {
   if (!block) return false
-  if (block.blockType === 'bzSection') return HERO_VARIANTS.has(block.variant as SectionVariant)
+  if (block.blockType === 'bzSection') {
+    // A hero whose data no longer fits renders nothing: the page title stays the H1 then.
+    const variant = block.variant as SectionVariant
+    return HERO_VARIANTS.has(variant) && parseSectionData(variant, block.data) !== null
+  }
   return HERO_BLOCKS.has(block.blockType)
 }
 

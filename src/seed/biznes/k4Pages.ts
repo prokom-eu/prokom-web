@@ -185,6 +185,7 @@ export function goposK4Layout(file: K4PagesFile, slugOf: SlugOf): K4Layout {
     statuses: tk[2],
   })
   const presentation = { slug: core, note: GOPOS_PRESENTATION_NOTE }
+  const devices = r.many(g.devs)
 
   const layout: PageBlock[] = [
     section({
@@ -303,12 +304,17 @@ export function goposK4Layout(file: K4PagesFile, slugOf: SlugOf): K4Layout {
       ],
       source: 'Źródło: gopos.pl · stan na 26.10.2026',
     }),
-    section({
-      variant: 'products',
-      eyebrow: 'Sprzęt pod GoPOS',
-      heading: 'Urządzenia, które wdrażamy z GoPOS',
-      data: { slugs: r.many(g.devs), visible: 4 },
-    }),
+    // A list with nothing known is left out: the panel would refuse it (at least one product).
+    ...(devices.length > 0
+      ? [
+          section({
+            variant: 'products',
+            eyebrow: 'Sprzęt pod GoPOS',
+            heading: 'Urządzenia, które wdrażamy z GoPOS',
+            data: { slugs: devices, visible: 4 },
+          }),
+        ]
+      : []),
     section({
       variant: 'gopos-package',
       anchor: 'pakiet',
@@ -393,6 +399,10 @@ export function insertK4Layout(file: K4PagesFile, slugOf: SlugOf): K4Layout {
   const r = resolver(slugOf)
   const ksefSlug = r.one('ksef')
   const pointsSlug = r.one('insert-inspunkty-ksef')
+  const rules = i.rules.flatMap((rule) => {
+    const slug = r.one(rule.s)
+    return slug ? [{ when: rule.when, slug, why: rule.why }] : []
+  })
 
   const layout: PageBlock[] = [
     section({
@@ -426,19 +436,21 @@ export function insertK4Layout(file: K4PagesFile, slugOf: SlugOf): K4Layout {
       items: i.stats.map(([title, text]) => ({ title, text })),
       source: i.statsSrc,
     }),
-    section({
-      variant: 'insert-picker',
-      anchor: 'ktory',
-      eyebrow: 'Który Subiekt dla mnie?',
-      heading: 'Trzy pytania — i wiesz, od czego zacząć',
-      data: {
-        questions: i.q.map((question) => ({ q: question.q, options: question.o })),
-        rules: i.rules.flatMap((rule) => {
-          const slug = r.one(rule.s)
-          return slug ? [{ when: rule.when, slug, why: rule.why }] : []
-        }),
-      },
-    }),
+    // Without the fallback rule (no conditions) the picker could name a program by chance.
+    ...(rules.some((rule) => rule.when.length === 0)
+      ? [
+          section({
+            variant: 'insert-picker',
+            anchor: 'ktory',
+            eyebrow: 'Który Subiekt dla mnie?',
+            heading: 'Trzy pytania — i wiesz, od czego zacząć',
+            data: {
+              questions: i.q.map((question) => ({ q: question.q, options: question.o })),
+              rules,
+            },
+          }),
+        ]
+      : []),
     section({
       variant: 'table',
       surface: 'muted',

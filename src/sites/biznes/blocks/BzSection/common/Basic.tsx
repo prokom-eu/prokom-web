@@ -134,7 +134,7 @@ export function BandSection({ block, data }: Props & { data: SectionData<'band'>
   return (
     <section
       id={id}
-      aria-labelledby={`${id}-h`}
+      aria-labelledby={block.heading ? `${id}-h` : undefined}
       className="scroll-mt-28 px-4 py-12 sm:px-6 sm:py-16 lg:px-8"
     >
       <div className="mx-auto flex max-w-7xl flex-col gap-6 rounded-[28px] bg-surface-dark px-6 py-10 text-white sm:px-10 min-[900px]:flex-row min-[900px]:items-center min-[900px]:justify-between">
@@ -142,12 +142,14 @@ export function BandSection({ block, data }: Props & { data: SectionData<'band'>
           {block.eyebrow && (
             <p className={cx(EYEBROW, 'mb-3 text-accent-on-dark')}>{block.eyebrow}</p>
           )}
-          <h2
-            id={`${id}-h`}
-            className="font-display text-[clamp(1.8rem,3.2vw,2.6rem)] leading-tight font-extrabold text-balance"
-          >
-            <HeadingText block={block} />
-          </h2>
+          {block.heading && (
+            <h2
+              id={`${id}-h`}
+              className="font-display text-[clamp(1.8rem,3.2vw,2.6rem)] leading-tight font-extrabold text-balance"
+            >
+              <HeadingText block={block} />
+            </h2>
+          )}
           {block.lead && <p className="mt-3 leading-relaxed text-white/80">{block.lead}</p>}
         </div>
         <SectionActions actions={data.actions} onDark className="shrink-0" />

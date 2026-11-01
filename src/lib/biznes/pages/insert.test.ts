@@ -58,6 +58,12 @@ describe('„Który Subiekt” (K4h, K33 §7)', () => {
     expect(pickProgram(QUESTIONS, RULES, [1, 1, 1]).slug).toBe('subiekt-123')
   })
 
+  it('the fallback is the rule without conditions, wherever it stands', () => {
+    const shuffled = [RULES[3]!, RULES[0]!, RULES[1]!, RULES[2]!]
+    expect(pickProgram(QUESTIONS, shuffled, [0, 0, 0]).slug).toBe('subiekt-nexo')
+    expect(pickProgram(QUESTIONS, shuffled, [1, 0, 0]).slug).toBe('subiekt-123')
+  })
+
   it('an answer out of range falls back to the first option', () => {
     expect(pickProgram(QUESTIONS, RULES, [9, -1, 0]).slug).toBe('subiekt-nexo')
   })

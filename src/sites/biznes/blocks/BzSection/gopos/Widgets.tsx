@@ -21,9 +21,8 @@ import { BTN_OUTLINE, BTN_PRIMARY, CARD, EYEBROW } from '../ui'
 import { Ticket } from './Stage'
 import { goposActions, pickedOr, useGopos } from './store'
 
-const FLOW_FOR_TICKET = (venues: SectionData<'gopos-venues'>['venues']) =>
-  // The ticket names the step; the venue section has no flow of its own, so the statuses do.
-  venues[0]!.ticket.statuses.map((k) => ({ k, t: k, d: '' }))
+/** The ticket names the step; the venue section has no flow of its own, so its statuses do. */
+const flowOfTicket = (statuses: readonly string[]) => statuses.map((k) => ({ k, t: k, d: '' }))
 
 /** Tabs with arrow keys: returns the props of the tab list and of each tab. */
 function useTabs(count: number) {
@@ -71,6 +70,8 @@ export function GoposVenues({
         onKeyDown={(event) => {
           if (event.key === 'ArrowDown' || event.key === 'ArrowRight') pick(tabs.go(index + 1))
           if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') pick(tabs.go(index - 1))
+          if (event.key === 'Home') pick(tabs.go(0))
+          if (event.key === 'End') pick(tabs.go(data.venues.length - 1))
         }}
       >
         {data.venues.map((item, i) => (
@@ -140,7 +141,7 @@ export function GoposVenues({
           )}
           <Ticket
             ticket={venue.ticket}
-            flow={FLOW_FOR_TICKET(data.venues)}
+            flow={flowOfTicket(venue.ticket.statuses)}
             className="absolute inset-x-4 bottom-4 hidden min-[761px]:flex"
           />
         </div>
@@ -167,6 +168,8 @@ export function GoposAreas({ data }: { data: SectionData<'gopos-areas'> }) {
           onKeyDown={(event) => {
             if (event.key === 'ArrowDown' || event.key === 'ArrowRight') tabs.go(tabs.current + 1)
             if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') tabs.go(tabs.current - 1)
+            if (event.key === 'Home') tabs.go(0)
+            if (event.key === 'End') tabs.go(data.areas.length - 1)
           }}
         >
           {data.areas.map((item, i) => (
@@ -191,39 +194,43 @@ export function GoposAreas({ data }: { data: SectionData<'gopos-areas'> }) {
             </button>
           ))}
         </div>
-        <ul
+        <div
           id={`${tabs.base}-p`}
           role="tabpanel"
           aria-labelledby={`${tabs.base}-t${tabs.current}`}
-          className={cx(CARD, 'flex flex-col divide-y divide-border p-2 text-ink')}
         >
-          {area.items.map((item) => {
-            const inPackage =
-              item.slug !== undefined && (item.slug === data.core || picked.has(item.slug))
-            return (
-              <li key={item.t} className="flex flex-wrap items-center gap-x-4 gap-y-1 px-4 py-3.5">
-                <span className="flex min-w-0 flex-1 flex-col">
-                  <b className="font-extrabold">{item.t}</b>
-                  <small className="text-[14px] text-ink-2">{item.d}</small>
-                </span>
-                {inPackage && (
-                  <em className="rounded-full bg-ok/15 px-2.5 py-1 text-[12px] font-extrabold text-ok-text not-italic">
-                    w pakiecie
-                  </em>
-                )}
-                {item.slug && (
-                  <Link
-                    href={productHref(item.slug)}
-                    aria-label={`Zobacz kartę: ${item.t}`}
-                    className="inline-flex min-h-11 items-center px-2 text-[14px] font-extrabold text-accent-text hover:underline"
-                  >
-                    Karta →
-                  </Link>
-                )}
-              </li>
-            )
-          })}
-        </ul>
+          <ul className={cx(CARD, 'flex flex-col divide-y divide-border p-2 text-ink')}>
+            {area.items.map((item) => {
+              const inPackage =
+                item.slug !== undefined && (item.slug === data.core || picked.has(item.slug))
+              return (
+                <li
+                  key={item.t}
+                  className="flex flex-wrap items-center gap-x-4 gap-y-1 px-4 py-3.5"
+                >
+                  <span className="flex min-w-0 flex-1 flex-col">
+                    <b className="font-extrabold">{item.t}</b>
+                    <small className="text-[14px] text-ink-2">{item.d}</small>
+                  </span>
+                  {inPackage && (
+                    <em className="rounded-full bg-ok/15 px-2.5 py-1 text-[12px] font-extrabold text-ok-text not-italic">
+                      w pakiecie
+                    </em>
+                  )}
+                  {item.slug && (
+                    <Link
+                      href={productHref(item.slug)}
+                      aria-label={`Zobacz kartę: ${item.t}`}
+                      className="inline-flex min-h-11 items-center px-2 text-[14px] font-extrabold text-accent-text hover:underline"
+                    >
+                      Karta →
+                    </Link>
+                  )}
+                </li>
+              )
+            })}
+          </ul>
+        </div>
       </div>
       {data.ext.items.length > 0 && extra && (
         <details className="group mt-6">

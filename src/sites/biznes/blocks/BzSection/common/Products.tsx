@@ -12,7 +12,7 @@ export function productsBySlug(index: CatalogIndex, slugs: readonly string[]): I
 }
 
 /**
- * Catalog cards in a grid (3 in a row, so 6 or 9 cards leave no orphan); the cards after
+ * Catalog cards in a grid (4 in a row, like „Najczęściej wybierane”); the cards after
  * `visible` wait under „Pokaż wszystkie” (`<details>` — works without JavaScript).
  */
 export function ProductGrid({

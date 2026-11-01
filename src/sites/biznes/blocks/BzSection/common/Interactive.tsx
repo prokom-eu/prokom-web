@@ -67,6 +67,8 @@ export function TabsPicker({ data }: { data: SectionData<'tabs'> }) {
         onKeyDown={(event) => {
           if (event.key === 'ArrowRight') move(1)
           if (event.key === 'ArrowLeft') move(-1)
+          if (event.key === 'Home') move(-current)
+          if (event.key === 'End') move(data.tabs.length - 1 - current)
         }}
       >
         {data.tabs.map((item, i) => (
@@ -91,28 +93,25 @@ export function TabsPicker({ data }: { data: SectionData<'tabs'> }) {
           </button>
         ))}
       </div>
-      <ul
-        id={`${base}-p`}
-        role="tabpanel"
-        aria-labelledby={`${base}-t${current}`}
-        className="mt-5 grid gap-4 min-[640px]:grid-cols-2 min-[1080px]:grid-cols-3"
-      >
-        {tab.items.map((item) => (
-          <li key={item.t} className={cx(CARD, 'flex flex-col gap-1.5 p-5 text-ink')}>
-            {item.l && <span className="text-[13px] font-extrabold text-ink-3">{item.l}</span>}
-            <b className="font-display text-[1.1rem] font-extrabold">{item.t}</b>
-            <span className="text-[15px] leading-relaxed text-ink-2">{item.d}</span>
-            {item.slug && (
-              <Link
-                href={productHref(item.slug)}
-                className="mt-auto pt-2 font-extrabold text-accent-text hover:underline"
-              >
-                Zobacz kartę →
-              </Link>
-            )}
-          </li>
-        ))}
-      </ul>
+      <div id={`${base}-p`} role="tabpanel" aria-labelledby={`${base}-t${current}`}>
+        <ul className="mt-5 grid gap-4 min-[640px]:grid-cols-2 min-[1080px]:grid-cols-3">
+          {tab.items.map((item) => (
+            <li key={item.t} className={cx(CARD, 'flex flex-col gap-1.5 p-5 text-ink')}>
+              {item.l && <span className="text-[13px] font-extrabold text-ink-3">{item.l}</span>}
+              <b className="font-display text-[1.1rem] font-extrabold">{item.t}</b>
+              <span className="text-[15px] leading-relaxed text-ink-2">{item.d}</span>
+              {item.slug && (
+                <Link
+                  href={productHref(item.slug)}
+                  className="mt-auto pt-2 font-extrabold text-accent-text hover:underline"
+                >
+                  Zobacz kartę →
+                </Link>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   )
 }

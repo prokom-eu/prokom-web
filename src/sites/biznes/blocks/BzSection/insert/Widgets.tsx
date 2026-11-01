@@ -98,26 +98,29 @@ export function InsertPicker({
           </ul>
         )}
         <p className="leading-relaxed text-white/85">{rule.why}</p>
-        <div className="flex flex-wrap gap-3">
-          <button
-            type="button"
-            onClick={() =>
-              cartActions.addItems(
-                [{ id: rule.slug, q: 1, uwaga: 'Dobór Subiekta' }],
-                () => program?.name ?? rule.slug,
-              )
-            }
-            className={BTN_PRIMARY}
-          >
-            Dodaj do zapytania
-          </button>
-          <Link
-            href={productHref(rule.slug)}
-            className="inline-flex min-h-12 items-center px-3 font-extrabold text-white hover:underline"
-          >
-            Szczegóły →
-          </Link>
-        </div>
+        {/* A program missing from the catalog (hidden, draft): no position to add, no card. */}
+        {program && (
+          <div className="flex flex-wrap gap-3">
+            <button
+              type="button"
+              onClick={() =>
+                cartActions.addItems(
+                  [{ id: rule.slug, q: 1, uwaga: 'Dobór Subiekta' }],
+                  () => program.name,
+                )
+              }
+              className={BTN_PRIMARY}
+            >
+              Dodaj do zapytania
+            </button>
+            <Link
+              href={productHref(rule.slug)}
+              className="inline-flex min-h-12 items-center px-3 font-extrabold text-white hover:underline"
+            >
+              Szczegóły →
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   )

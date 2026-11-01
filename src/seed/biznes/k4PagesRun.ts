@@ -27,22 +27,26 @@ export async function seedBiznesK4Pages(
     {
       slug: GOPOS_SLUG,
       title: 'GoPOS',
+      description:
+        'GoPOS dla gastronomii z PRO-KOM: sprzęt, menu, fiskalizacja, szkolenie w lokalu i serwis w sezonie z Rabki. Sala, kuchnia i dowozy w jednym systemie.',
       built: goposK4Layout(pages, slugOf),
       legacy: [biznesGoposLayout()],
     },
     {
       slug: INSERT_SLUG,
       title: 'InsERT',
+      description:
+        'Subiekt i programy InsERT z PRO-KOM: dobór programu, instalacja, przeniesienie danych, połączenie z kasą, KSeF i szkolenie na Twoich dokumentach.',
       built: insertK4Layout(pages, slugOf),
       legacy: [biznesInsertLayout()],
     },
   ]
-  for (const { slug, title, built, legacy } of k4) {
+  for (const { slug, title, description, built, legacy } of k4) {
     for (const id of built.missing) note('strona K4: produkt spoza bazy', `${slug}: ${id}`)
     const done = await upsertK4Page(
       payload,
       tenantId,
-      { slug, title, layout: built.layout, legacy },
+      { slug, title, description, layout: built.layout, legacy },
       report,
     )
     if (!done) note('strona K4 edytowana w panelu — bez zmian', slug)

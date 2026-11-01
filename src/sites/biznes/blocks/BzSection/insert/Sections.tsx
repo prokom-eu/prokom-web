@@ -81,7 +81,10 @@ export function InsertHero({
               id="insert-h"
               className="font-display text-[clamp(2.3rem,4.4vw,4rem)] leading-[0.98] font-extrabold tracking-[-0.025em] font-stretch-112% text-balance"
             >
-              {block.heading} <span className="text-accent-on-dark">{block.headingAccent}</span>
+              {block.heading || crumbs.at(-1)?.name}{' '}
+              {block.headingAccent && (
+                <span className="text-accent-on-dark">{block.headingAccent}</span>
+              )}
             </h1>
             {block.lead && (
               <p className="max-w-[56ch] text-[clamp(1.0625rem,1.4vw,1.25rem)] leading-relaxed text-pretty text-white/85">
@@ -139,6 +142,15 @@ export function InsertHero({
   )
 }
 
+/** „1 stycznia 2027” from the ISO date of the panel (the day in Poland). */
+const dateLabel = (iso: string) =>
+  new Date(`${iso}T12:00:00Z`).toLocaleDateString('pl-PL', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    timeZone: 'Europe/Warsaw',
+  })
+
 /** KSeF in InsERT (#ksef): days to the end of the transition, the timeline, six steps. */
 export function InsertKsef({
   block,
@@ -158,7 +170,7 @@ export function InsertKsef({
               date={data.date}
               className="font-display text-4xl font-extrabold tabular-nums"
             />
-            <span className="text-[14px] text-white/80">dni do 1 stycznia 2027</span>
+            <span className="text-[14px] text-white/80">dni do {dateLabel(data.date)}</span>
           </p>
         ) : null
       }

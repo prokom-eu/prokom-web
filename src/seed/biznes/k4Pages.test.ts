@@ -85,6 +85,15 @@ describe('/gopos (K4h)', () => {
     expect(hero.stage.find((device) => device.step === 1)?.slug).toBe('kds')
   })
 
+  it('leaves the device list out when no device is known (the panel needs one)', () => {
+    const devices = new Set(pages.gopos.devs)
+    const { layout: without } = goposK4Layout(pages, (id) => (devices.has(id) ? undefined : id))
+    expect(dataOf(without, 'products')).toBeNull()
+    for (const block of sections(without)) {
+      expect(parseSectionData(block.variant, block.data), block.variant).not.toBeNull()
+    }
+  })
+
   it('leaves the gastronomy bundles out (K32 §3) and knows every board id', () => {
     expect(JSON.stringify(layout)).not.toContain('zestaw-gastro')
     expect(missing).toEqual([])
