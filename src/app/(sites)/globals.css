@@ -438,7 +438,14 @@
 @media (prefers-reduced-motion: reduce) {
   html[data-line='software']::view-transition-group(*),
   html[data-line='software']::view-transition-old(*),
-  html[data-line='software']::view-transition-new(*),
+  html[data-line='software']::view-transition-new(*) {
+    animation: none;
+  }
+}
+
+/* Biznes: the same with reduced motion, and on wider screens — the phone app moves, the desktop
+   stays as it was (MOBILE-APLIKACJA, „Desktop się nie zmienia”). */
+@media (prefers-reduced-motion: reduce), (min-width: 768px) {
   html[data-line='biznes']::view-transition-group(*),
   html[data-line='biznes']::view-transition-old(*),
   html[data-line='biznes']::view-transition-new(*) {
@@ -452,9 +459,9 @@
   display: none;
 }
 
-/* Biznes page transitions (`PageTransition`, the same motion as Software): the content fades out
-   and rises in; header and tab bar keep their own names, so they stay. */
-@media (prefers-reduced-motion: no-preference) {
+/* Biznes page transitions on phones (`PageTransition`, the same motion as Software): the content
+   fades out and rises in; header and tab bar keep their own names, so they stay. */
+@media (max-width: 767px) and (prefers-reduced-motion: no-preference) {
   [data-line='biznes'] [data-bz-header] {
     view-transition-name: bz-header;
   }

@@ -132,12 +132,15 @@ export function BundleInquiry({
           {plural(items.length, ['pozycja trafi', 'pozycje trafią', 'pozycji trafi'])} do zapytania.
           Ofertę dostaniesz na piśmie.
         </p>
-        <div className="mt-5">{ask}</div>
-        {notice && (
-          <p role="status" className="mt-3 text-sm leading-relaxed font-bold text-white">
-            {notice}
-          </p>
-        )}
+        {/* On a phone the sticky bar carries the action and its notice. */}
+        <div className="mt-5 max-md:hidden">{ask}</div>
+        {/* Always in the page, so screen readers announce a new text. */}
+        <p
+          role="status"
+          className="mt-3 text-sm leading-relaxed font-bold text-white empty:hidden max-md:hidden"
+        >
+          {notice}
+        </p>
         {listed && (
           <Link
             href="/zapytanie"
@@ -169,6 +172,9 @@ export function BundleInquiry({
       {/* Phone (MOBILE-APLIKACJA §1): the same action sticks to the bottom; once the set is on
           the list it leads to the inquiry. */}
       <StickyAction>
+        <p role="status" className="mb-2 text-sm leading-snug font-bold text-ink empty:hidden">
+          {notice}
+        </p>
         {listed ? (
           <Link href="/zapytanie" className={STICKY_ACTION_BUTTON}>
             Zestaw w zapytaniu — przejdź

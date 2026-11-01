@@ -127,8 +127,8 @@ test.describe('inquiry list /zapytanie (B8b)', () => {
     // The list comes from the browser after hydration: wait for it, then send.
     await expect(page.getByRole('link', { name: first.name })).toBeVisible()
     const contact = form(page)
-    // The form's own button; the phone's sticky one says „· N poz.” (M1′).
-    await contact.getByRole('button', { name: /^Wyślij zapytanie \(/ }).click()
+    // At 390 px only the sticky „Wyślij zapytanie · N poz.” shows (M1′).
+    await contact.getByRole('button', { name: /^Wyślij zapytanie · / }).click()
 
     const name = contact.getByLabel(/^Imię/)
     await expect(name).toBeFocused()

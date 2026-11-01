@@ -134,7 +134,8 @@ export function ProductHero({
 
         <div className="flex flex-col gap-2.5">
           <div className="flex flex-wrap gap-2.5">
-            <ProductAddButton className="min-w-0 flex-1 basis-56" />
+            {/* On a phone the sticky bar carries it (M1′). */}
+            <ProductAddButton className="min-w-0 flex-1 basis-56 max-md:hidden" />
             {phone && (
               <a
                 href={phone.href}

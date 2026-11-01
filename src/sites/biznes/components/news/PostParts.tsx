@@ -105,7 +105,7 @@ export function PostAside({ post, outline, related }: AsideProps) {
           {post.cta.text && (
             <p className="mt-3 text-[14px] leading-snug text-white/75">{post.cta.text}</p>
           )}
-          <PageLink href={post.cta.link.href} kind="light" className="mt-5 w-full">
+          <PageLink href={post.cta.link.href} kind="light" className="mt-5 w-full max-md:hidden">
             {post.cta.link.label}
           </PageLink>
         </div>
