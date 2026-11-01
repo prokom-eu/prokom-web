@@ -1,0 +1,56 @@
+# Performance budget (S10, docs/jakosc.md): after every successful staging deploy, Lighthouse
+# (mobile, 3 runs, median) on the home page and one subpage of each site. Budget: Performance,
+# Accessibility, Best Practices, SEO ≥ 90, LCP ≤ 2.5 s, CLS ≤ 0.1 — over budget = red run, which
+# blocks a production deploy (runbook §3). Staging sends noindex on purpose, so the SEO audit
+# "is-crawlable" is skipped. Pages: lighthouserc.json. Reports: artifact "lighthouse".
+# Staging is behind basic auth: a separate login only for this (secret STAGING_BASIC_AUTH,
+# environment `staging`, runbook §2).
+
+name: Lighthouse
+
+on:
+  workflow_run:
+    workflows: [Deploy staging]
+    types: [completed]
+    branches: [develop]
+  workflow_dispatch:
+
+concurrency:
+  group: lighthouse-staging
+  cancel-in-progress: true # only the newest staging matters
+
+permissions:
+  contents: read
+
+jobs:
+  lighthouse:
+    name: budget · staging
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    environment: staging
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+
+      - name: Lighthouse CI
+        env:
+          BASIC_AUTH: ${{ secrets.STAGING_BASIC_AUTH }}
+        run: |
+          auth="$(printf '%s' "$BASIC_AUTH" | base64 -w0)"
+          npx --yes @lhci/cli@0.15.1 autorun \
+            --collect.settings.extraHeaders="{\"Authorization\":\"Basic $auth\"}"
+
+      - name: Reports
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: lighthouse
+          path: .lighthouseci/reports
+          retention-days: 30
+          if-no-files-found: ignore
