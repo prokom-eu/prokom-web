@@ -175,9 +175,18 @@ export function SectionRail({ items, from = 1400, search = false, glide = false 
   const box = useRef<HTMLDivElement>(null)
   const [markerTop, setMarkerTop] = useState<number | null>(null)
   useLayoutEffect(() => {
-    if (!glide) return
-    const link = box.current?.querySelector<HTMLElement>('a[aria-current="true"]')
-    if (link) setMarkerTop(link.offsetTop)
+    const rail = box.current
+    if (!glide || !rail) return
+    // A hidden rail (narrow window) measures 0: no marker then — the entry keeps its own
+    // background — and measure again once the rail shows (its size changes).
+    const measure = () => {
+      const link = rail.querySelector<HTMLElement>('a[aria-current="true"]')
+      setMarkerTop(link && link.offsetParent ? link.offsetTop : null)
+    }
+    measure()
+    const observer = new ResizeObserver(measure)
+    observer.observe(rail)
+    return () => observer.disconnect()
   }, [glide, active, present])
 
   const shown =

@@ -5,23 +5,46 @@
  * pointer; on touch the press state instead. With `prefers-reduced-motion: reduce` nothing moves:
  * colours still change, quickly.
  * Hooks in the markup: `data-reveal`, `data-reveal-cards` (sections and card lists rising in,
- * `RevealObserver`), `data-motion="button|button-outline|link|card"`, `data-icon="arrow"`,
+ * `RevealObserver`), `data-motion="button|button-outline"`, `data-card`, `data-icon="arrow"`,
  * `data-mega-panel`, `data-motion` on sheets (`BottomSheet`), `data-sw-header`, `data-tab-bar`.
  */
 
 /* --- 1. Every clickable element changes smoothly --------------------------------------------
-   Zero specificity (`:where`), so a component's own `transition-*` utility still wins. The
-   transform family springs back after a press; colours and shadows ease out. */
-:where([data-line='software'])
-  :where(a, button, summary, [role='tab'], [role='switch'], input, select, textarea, label) {
-  transition-property:
-    color, background-color, border-color, box-shadow, outline-color, outline-offset, opacity,
-    filter, text-decoration-color, translate, scale, transform;
-  transition-duration: var(--dur-hover);
-  transition-timing-function:
-    var(--ease-out), var(--ease-out), var(--ease-out), var(--ease-out), var(--ease-out),
-    var(--ease-out), var(--ease-out), var(--ease-out), var(--ease-out), var(--ease-spring),
-    var(--ease-spring), var(--ease-spring);
+   In the `base` layer: Tailwind's utilities (`@layer utilities`) win over it, so a component's
+   own `transition-*` or `motion-reduce:transition-none` still decides (a style outside any layer
+   would beat every utility). The transform family springs back after a press; colours and
+   shadows ease out. With reduced motion only colours, shadows and outlines change, quickly. */
+@layer base {
+  :where([data-line='software'])
+    :where(a, button, summary, [role='tab'], [role='switch'], input, select, textarea, label) {
+    transition-property:
+      color, background-color, border-color, box-shadow, outline-color, outline-offset, opacity,
+      filter, text-decoration-color, translate, scale, transform;
+    transition-duration: var(--dur-hover);
+    transition-timing-function:
+      var(--ease-out), var(--ease-out), var(--ease-out), var(--ease-out), var(--ease-out),
+      var(--ease-out), var(--ease-out), var(--ease-out), var(--ease-out), var(--ease-spring),
+      var(--ease-spring), var(--ease-spring);
+  }
+
+  /* Focus ring grows into place (outline-offset 0 → 3 px), never hidden (WCAG 2.4.7). */
+  :where([data-line='software']) :where(a, button, summary, [role='tab'], input, select, textarea) {
+    outline-offset: 0;
+  }
+  :where([data-line='software']) :focus-visible {
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :where([data-line='software'])
+      :where(a, button, summary, [role='tab'], [role='switch'], input, select, textarea, label) {
+      transition-property:
+        color, background-color, border-color, box-shadow, outline-color, opacity,
+        text-decoration-color;
+      transition-duration: 150ms;
+      transition-timing-function: var(--ease-out);
+    }
+  }
 }
 
 /* Buttons of the system (`Button`, `data-motion`): their own `transition-colors` would leave the
@@ -35,18 +58,17 @@
     var(--ease-spring), var(--ease-spring), var(--ease-spring);
 }
 
+@media (prefers-reduced-motion: reduce) {
+  [data-line='software'] :is([data-motion='button'], [data-motion='button-outline']) {
+    transition-property: color, background-color, border-color, box-shadow;
+    transition-duration: 150ms;
+  }
+}
+
 /* No grey tap rectangle, no double-tap zoom delay (MOBILE-APLIKACJA §4 pkt 1). */
 [data-line='software'] :is(a, button, summary, [role='tab'], label) {
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
-}
-
-/* Focus ring grows into place (outline-offset 0 → 3 px), never hidden (WCAG 2.4.7). */
-:where([data-line='software']) :where(a, button, summary, [role='tab'], input, select, textarea) {
-  outline-offset: 0;
-}
-[data-line='software'] :focus-visible {
-  outline-offset: 3px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -111,10 +133,8 @@
     scale: 1.06;
   }
 
-  /* Text links: the underline draws from the left. */
-  [data-line='software'] [data-motion='link']:hover::after {
-    scale: 1 1;
-  }
+  /* Text links keep their real underline (WCAG 1.4.1: not told apart by colour alone); on
+     hover only its colour changes — the transition of §1. */
 }
 
 /* Pseudo-elements of the hover effects (also without hover, to sit still). */
@@ -135,26 +155,10 @@
     opacity var(--dur-hover) var(--ease-out),
     scale var(--dur-hover) var(--ease-out);
 }
-[data-line='software'] [data-motion='link'] {
-  position: relative;
-  text-decoration: none;
-}
-[data-line='software'] [data-motion='link']::after {
-  content: '';
-  position: absolute;
-  inset-inline: 0;
-  bottom: -2px;
-  height: 2px;
-  border-radius: 1px;
-  background: currentColor;
-  scale: 0 1;
-  transform-origin: left;
-  transition: scale var(--dur-state) var(--ease-out);
-}
-@media (hover: none), (pointer: coarse) {
-  /* Touch: the underline stays (no hover to draw it). */
-  [data-line='software'] [data-motion='link']::after {
-    scale: 1 1;
+/* Printed: nothing waits hidden for a rise-in that never comes. */
+@media print {
+  [data-line='software'] [data-reveal-pending] {
+    opacity: 1 !important;
   }
 }
 
