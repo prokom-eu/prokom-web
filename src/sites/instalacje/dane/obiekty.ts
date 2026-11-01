@@ -247,6 +247,13 @@ export const objectPage = {
   day: { onScene: 'Na przekroju:', showPoint: 'Pokaż punkt' },
   law: { eyebrow: 'Przepisy i obowiązki' },
   mountains: { eyebrow: 'Specyfika Podhala' },
+  /** `#realizacje-s` (the clients agreed, boss 01.11.2026); the heading comes from the panel. */
+  realizations: {
+    eyebrow: 'Nasze realizacje',
+    /** When the panel has no heading (`realizationsHeading`). */
+    heading: 'Realizacje w podobnych obiektach.',
+    all: { label: 'Wszystkie realizacje →', href: '/realizacje' },
+  },
   prepare: {
     eyebrow: 'Przed wizytą',
     heading: 'Przygotuj to, a wycena będzie szybsza.',
