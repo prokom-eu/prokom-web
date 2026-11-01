@@ -38,6 +38,7 @@ import { OBJECT_SCENE_ART } from './sceny'
 import { PrepChecklist } from './PrepChecklist'
 import type { DayMoment, ObjectHotspot, ServiceChip } from './types'
 import { architekci } from '../dane/architekci'
+import { salonsNote } from '../powloka/salons'
 
 import './obiekty.css'
 
@@ -70,7 +71,7 @@ export async function ObjectPage({ tenantId, object, sceneKey, origin }: Props) 
   ])
   const telHref = site?.phone ? toTelHref(site.phone) : null
   const phone = site?.phone && telHref ? { label: site.phone, href: telHref } : null
-  const salons = (company?.locations ?? []).map((l) => `${l.city}, ${l.street}`).join(' · ')
+  const salons = salonsNote(company?.locations ?? [])
   const planHref = objectPlanHref(object.key)
   const path = objectHref(object.slug)
   const crumb = object.hero?.crumb || object.name

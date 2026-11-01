@@ -16,6 +16,7 @@ import { CtaBandView } from '../powloka/CtaBandView'
 import { JsonLd } from '../sekcje/JsonLd'
 import { GuideQuiz } from '../widzety/poradnik/GuideQuiz'
 import { updatedLabel } from '../widzety/poradnik/guideMeta'
+import { salonsNote } from '../powloka/salons'
 
 import '../widzety/firma/firma.css'
 
@@ -69,7 +70,7 @@ export async function GuidePost({ post, tenantId, origin }: Props) {
   })
   const telHref = site?.phone ? toTelHref(site.phone) : null
   const phone = site?.phone && telHref ? { label: site.phone, href: telHref } : null
-  const salons = (company?.locations ?? []).map((l) => `${l.city}, ${l.street}`).join(' · ')
+  const salons = salonsNote(company?.locations ?? [])
   const band = extras
     ? {
         ...navigation.ctaBand,

@@ -18,6 +18,7 @@ import { PageTransition } from './powloka/PageTransition'
 import { ShellProvider } from './powloka/ShellProvider'
 import { TabBar } from './powloka/TabBar'
 import { TopBar } from './powloka/TopBar'
+import { salonsList, salonsNote } from './powloka/salons'
 import './instalacje.css'
 import './sekcje/sekcje.css'
 
@@ -42,7 +43,7 @@ export async function InstalacjeFrame({ tenant, settings, promo, children }: Pro
   const locations = company?.locations ?? []
   const hours = locations[0]?.hours ?? null
   const status = hours ? openingStatus(hours, new Date()) : null
-  const salons = locations.map((l) => `${l.city}, ${l.street}`).join(' · ')
+  const salons = salonsList(locations)
   const legal = settings?.footer.links ?? []
 
   return (
@@ -63,7 +64,7 @@ export async function InstalacjeFrame({ tenant, settings, promo, children }: Pro
           phone={phone}
         />
         <PageTransition>{children}</PageTransition>
-        <CtaBand band={navigation.ctaBand} phone={phone} salons={salons} />
+        <CtaBand band={navigation.ctaBand} phone={phone} salons={salonsNote(locations)} />
         <Footer navigation={navigation} menu={menu} company={company} phone={phone} legal={legal} />
         <TabBar navigation={navigation} menu={menu} />
         <MenuSheet

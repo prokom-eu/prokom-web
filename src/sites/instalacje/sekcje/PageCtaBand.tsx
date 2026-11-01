@@ -3,6 +3,7 @@ import { toTelHref } from '@/lib/site/link'
 
 import { navigation } from '../dane/nawigacja'
 import { CtaBandView } from '../powloka/CtaBandView'
+import { salonsNote } from '../powloka/salons'
 
 type Props = {
   tenantId: number
@@ -19,7 +20,7 @@ export async function PageCtaBand({ tenantId, cta, titleId }: Props) {
   const [site, company] = await Promise.all([getSiteSettings(tenantId), getCompanyData()])
   const telHref = site?.phone ? toTelHref(site.phone) : null
   const phone = site?.phone && telHref ? { label: site.phone, href: telHref } : null
-  const salons = (company?.locations ?? []).map((l) => `${l.city}, ${l.street}`).join(' · ')
+  const salons = salonsNote(company?.locations ?? [])
   const band = {
     ...navigation.ctaBand,
     eyebrow: cta?.eyebrow || navigation.ctaBand.eyebrow,
