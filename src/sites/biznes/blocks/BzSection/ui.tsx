@@ -10,6 +10,16 @@ import type { Crumb } from '../../components/Breadcrumbs'
 
 import { AddActionButton } from './AddActionButton'
 
+/** Keys a K4 tab list handles: they move the selection, not the page. */
+export const TAB_KEYS: ReadonlySet<string> = new Set([
+  'ArrowLeft',
+  'ArrowRight',
+  'ArrowUp',
+  'ArrowDown',
+  'Home',
+  'End',
+])
+
 // Whole class names, so Tailwind finds them.
 export const BTN =
   'inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl px-5 text-[15.5px] font-extrabold transition-colors'

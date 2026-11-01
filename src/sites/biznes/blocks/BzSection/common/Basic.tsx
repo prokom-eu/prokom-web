@@ -2,9 +2,11 @@ import Link from 'next/link'
 
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
+import { isAfterSwitch } from '@/lib/biznes/pages/ksef'
 import type { SectionData } from '@/lib/biznes/pages/sections'
 import type { BzSectionBlock as BzSectionData } from '@/payload-types'
 
+import { PhaseText } from '../k4j/Client'
 import { CARD, EYEBROW, HeadingText, SectionActions, SectionShell, sectionId } from '../ui'
 
 type Props = { block: BzSectionData }
@@ -170,7 +172,16 @@ export function BandSection({ block, data }: Props & { data: SectionData<'band'>
               id={`${id}-h`}
               className="font-display text-[clamp(1.8rem,3.2vw,2.6rem)] leading-tight font-extrabold text-balance"
             >
-              <HeadingText block={block} />
+              {data.after ? (
+                <PhaseText
+                  date={data.after.date}
+                  serverAfter={isAfterSwitch(data.after.date, new Date())}
+                  before={<HeadingText block={block} />}
+                  after={data.after.heading}
+                />
+              ) : (
+                <HeadingText block={block} />
+              )}
             </h2>
           )}
           {block.lead && <p className="mt-3 leading-relaxed text-white/80">{block.lead}</p>}

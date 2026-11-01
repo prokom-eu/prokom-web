@@ -39,19 +39,30 @@ export function footerServices(): Link[] {
 }
 
 /**
- * „Systemy i tematy” of the K4 footer (K36 §1, kept in `footer.company`). KSeF leads to its post
- * until the `/ksef` page and „Ulga na kasę” joins with its page (both K4j).
+ * „Systemy i tematy” of the K4 footer (K36 §1, kept in `footer.company`): the K4j pages —
+ * „KSeF” (no year: it stays true after 1.01.2027), „Ulga na kasę”, „Automaty vendingowe”.
  */
 export function footerTopics(): Link[] {
   return [
     { label: 'GoPOS', href: '/gopos' },
     { label: 'InsERT i KSeF', href: '/insert' },
-    { label: 'KSeF 2027', href: postHref(KSEF_POST_SLUG) },
-    { label: 'Automaty vendingowe', href: '/oferta/automaty-vendingowe' },
+    { label: 'KSeF', href: '/ksef' },
+    { label: 'Ulga na kasę', href: '/ulga-na-kase-fiskalna' },
+    { label: 'Automaty vendingowe', href: '/automaty-vendingowe' },
     { label: 'O firmie', href: '/o-firmie' },
     { label: 'Aktualności', href: '/aktualnosci' },
   ]
 }
+
+/** The topics as K4b wrote them, before the K4j pages (KSeF to its post, vending category). */
+const K4B_TOPICS: Link[] = [
+  { label: 'GoPOS', href: '/gopos' },
+  { label: 'InsERT i KSeF', href: '/insert' },
+  { label: 'KSeF 2027', href: postHref(KSEF_POST_SLUG) },
+  { label: 'Automaty vendingowe', href: '/oferta/automaty-vendingowe' },
+  { label: 'O firmie', href: '/o-firmie' },
+  { label: 'Aktualności', href: '/aktualnosci' },
+]
 
 /** „Najważniejsze” of K3.1 (K31-ZMIANY §11.4), the column before K4. */
 function k31Important(): Link[] {
@@ -107,7 +118,7 @@ const LEGACY_COMPANY_TAIL: Link[] = [
 
 /**
  * „Systemy i tematy” for the column still as the seed wrote „Branże i firma” (industries + the
- * three links); `null` when edited in the panel or already current.
+ * three links) or the K4b topics; `null` when edited in the panel or already current.
  */
 export function upgradedCompany(current: readonly Link[] | null | undefined): Link[] | null {
   if (!current || current.length < LEGACY_COMPANY_TAIL.length) return null
@@ -115,7 +126,7 @@ export function upgradedCompany(current: readonly Link[] | null | undefined): Li
   const tail = current.slice(-LEGACY_COMPANY_TAIL.length)
   const untouched =
     sameLinks(tail, LEGACY_COMPANY_TAIL) && head.every((link) => link.href.startsWith('/branze/'))
-  return untouched ? footerTopics() : null
+  return untouched || sameLinks(current, K4B_TOPICS) ? footerTopics() : null
 }
 
 /** Link columns of the Biznes footer (K4, K36 §1). Editable in the panel afterwards. */

@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 
+import { isAfterSwitch } from '@/lib/biznes/pages/ksef'
 import {
   isSectionVariant,
   parseSectionData,
@@ -31,6 +32,19 @@ import {
   LinesSection,
 } from './firma/Company'
 import { GoposHero } from './gopos/Hero'
+import { KsefChecklist, KsefQuizWidget } from './k4j/Client'
+import {
+  AppMockup,
+  CatalogTabs,
+  KsefHero,
+  KsefPenalties,
+  Notice,
+  SourcesSection,
+  UlgaHero,
+  VendingHero,
+  VendingPicker,
+  YesNo,
+} from './k4j/Sections'
 import { GoposAreas, GoposHub, GoposPackage, GoposVenues } from './gopos/Widgets'
 import { InsertHero, InsertKsef, InsertRequirements } from './insert/Sections'
 import { InsertPicker, InsertPoints } from './insert/Widgets'
@@ -55,6 +69,10 @@ const NEEDS_INDEX: ReadonlySet<SectionVariant> = new Set([
   'audience',
   'about-hero',
   'brands',
+  'vending-hero',
+  'vending-picker',
+  'catalog-tabs',
+  'ksef-penalties',
 ])
 
 const imagesOf = (index: CatalogIndex, slugs: readonly (string | undefined)[]) => {
@@ -309,6 +327,72 @@ function render(
     case 'contact-form': {
       const data = parseSectionData('contact-form', block.data)
       return data && <ContactFormSection block={block} data={data} tenantId={tenantId} />
+    }
+    case 'vending-hero': {
+      const data = parseSectionData('vending-hero', block.data)
+      return (
+        data && index && <VendingHero block={block} data={data} index={index} crumbs={crumbs} />
+      )
+    }
+    case 'vending-picker': {
+      const data = parseSectionData('vending-picker', block.data)
+      return data && index && <VendingPicker block={block} data={data} index={index} />
+    }
+    case 'app-mockup': {
+      const data = parseSectionData('app-mockup', block.data)
+      return data && <AppMockup block={block} data={data} />
+    }
+    case 'catalog-tabs': {
+      const data = parseSectionData('catalog-tabs', block.data)
+      return data && index && <CatalogTabs block={block} data={data} index={index} />
+    }
+    case 'sources': {
+      const data = parseSectionData('sources', block.data)
+      return data && <SourcesSection block={block} data={data} />
+    }
+    case 'ksef-hero': {
+      const data = parseSectionData('ksef-hero', block.data)
+      return data && <KsefHero data={data} crumbs={crumbs} tenantId={tenantId} />
+    }
+    case 'ksef-quiz': {
+      const data = parseSectionData('ksef-quiz', block.data)
+      return (
+        data && (
+          <SectionShell block={block}>
+            <KsefQuizWidget
+              quiz={data}
+              switchDate={data.switchDate}
+              serverAfter={isAfterSwitch(data.switchDate, new Date())}
+            />
+          </SectionShell>
+        )
+      )
+    }
+    case 'ksef-steps': {
+      const data = parseSectionData('ksef-steps', block.data)
+      return (
+        data && (
+          <SectionShell block={block}>
+            <KsefChecklist steps={data.steps} storageKey={data.storageKey} />
+          </SectionShell>
+        )
+      )
+    }
+    case 'ksef-penalties': {
+      const data = parseSectionData('ksef-penalties', block.data)
+      return data && index && <KsefPenalties block={block} data={data} index={index} />
+    }
+    case 'ulga-hero': {
+      const data = parseSectionData('ulga-hero', block.data)
+      return data && <UlgaHero block={block} data={data} crumbs={crumbs} tenantId={tenantId} />
+    }
+    case 'yes-no': {
+      const data = parseSectionData('yes-no', block.data)
+      return data && <YesNo block={block} data={data} />
+    }
+    case 'notice': {
+      const data = parseSectionData('notice', block.data)
+      return data && <Notice block={block} data={data} />
     }
   }
 }

@@ -14,6 +14,17 @@ import {
   switchStepsSchema,
 } from './firma'
 import {
+  appMockupSchema,
+  catalogTabsSchema,
+  noticeSchema,
+  sourcesSchema,
+  ulgaHeroSchema,
+  vendingHeroSchema,
+  vendingPickerSchema,
+  yesNoSchema,
+} from './k4j'
+import { ksefHeroSchema, ksefPenaltiesSchema, ksefQuizSchema, ksefStepsSchema } from './ksef'
+import {
   goposAreasSchema,
   goposHeroSchema,
   goposHubSchema,
@@ -46,7 +57,13 @@ export const sectionActionSchema = z.union([
 ])
 export type SectionAction = z.infer<typeof sectionActionSchema>
 
-const actionsSchema = z.object({ actions: z.array(sectionActionSchema).max(3).default([]) })
+const actionsSchema = z.object({
+  actions: z.array(sectionActionSchema).max(3).default([]),
+  /** From this day (Poland) the band shows another heading (KSeF after 1.01.2027 — D-K4-7). */
+  after: z
+    .object({ date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/), heading: z.string().trim().min(1) })
+    .optional(),
+})
 
 /** `videos`: producer's films behind a facade (ADR-016). */
 const videosSchema = z.object({
@@ -136,6 +153,19 @@ export const SECTION_SCHEMAS = {
   brands: brandsSchema,
   'contact-hero': contactHeroSchema,
   'contact-form': contactFormSchema,
+  // Automaty, KSeF, ulga (K4j).
+  'vending-hero': vendingHeroSchema,
+  'vending-picker': vendingPickerSchema,
+  'app-mockup': appMockupSchema,
+  'catalog-tabs': catalogTabsSchema,
+  sources: sourcesSchema,
+  'ksef-hero': ksefHeroSchema,
+  'ksef-quiz': ksefQuizSchema,
+  'ksef-steps': ksefStepsSchema,
+  'ksef-penalties': ksefPenaltiesSchema,
+  'ulga-hero': ulgaHeroSchema,
+  'yes-no': yesNoSchema,
+  notice: noticeSchema,
 } as const
 
 export type SectionVariant = keyof typeof SECTION_SCHEMAS
@@ -173,6 +203,18 @@ export const SECTION_VARIANTS: readonly { value: SectionVariant; label: string }
   { value: 'brands', label: 'Marki i autoryzacje' },
   { value: 'contact-hero', label: 'Kontakt: hero' },
   { value: 'contact-form', label: 'Kontakt: formularz' },
+  { value: 'vending-hero', label: 'Automaty: hero' },
+  { value: 'vending-picker', label: 'Automaty: co sprzedawać' },
+  { value: 'app-mockup', label: 'Aplikacja w telefonie' },
+  { value: 'catalog-tabs', label: 'Produkty kategorii w zakładkach' },
+  { value: 'sources', label: 'Źródła' },
+  { value: 'ksef-hero', label: 'KSeF: hero (dwie wersje)' },
+  { value: 'ksef-quiz', label: 'KSeF: czy mnie dotyczy' },
+  { value: 'ksef-steps', label: 'KSeF: 6 kroków' },
+  { value: 'ksef-penalties', label: 'KSeF: kary i pomoc' },
+  { value: 'ulga-hero', label: 'Ulga: hero' },
+  { value: 'yes-no', label: 'Przysługuje / nie przysługuje' },
+  { value: 'notice', label: 'Lista z kartą boczną' },
 ]
 
 /** Kinds that open the page: they carry the H1 and the breadcrumbs. */
@@ -182,6 +224,9 @@ export const HERO_VARIANTS: ReadonlySet<SectionVariant> = new Set([
   'care-hero',
   'about-hero',
   'contact-hero',
+  'vending-hero',
+  'ksef-hero',
+  'ulga-hero',
 ])
 
 export const isSectionVariant = (value: unknown): value is SectionVariant =>

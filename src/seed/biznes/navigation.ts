@@ -145,8 +145,8 @@ export function navigationData(refs: Refs): Navigation {
       { label: 'Kasy fiskalne', href: '/oferta/kasy-fiskalne' },
       { label: 'Terminale', href: '/oferta/terminale-platnicze' },
       { label: 'Bezpłatny przegląd IT', href: '/opieka-it#przeglad' },
-      // TODO(krystian): address of the KSeF post once it exists (B11).
-      { label: 'KSeF 2027', href: '/aktualnosci' },
+      // K4j: the KSeF page (a panel set up before K4j keeps its own link — STAN, produkcja).
+      { label: 'KSeF', href: '/ksef' },
     ],
     columnLimit: K4_COLUMN_LIMIT,
     highlights: [

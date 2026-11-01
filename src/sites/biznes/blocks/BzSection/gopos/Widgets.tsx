@@ -17,7 +17,7 @@ import { cartActions } from '@/lib/cart/store'
 import type { IndexImage } from '@/lib/catalog/catalogIndex'
 import { productHref } from '@/lib/catalog/card'
 
-import { BTN_OUTLINE, BTN_PRIMARY, CARD, EYEBROW } from '../ui'
+import { BTN_OUTLINE, BTN_PRIMARY, CARD, EYEBROW, TAB_KEYS } from '../ui'
 import { Ticket } from './Stage'
 import { goposActions, pickedOr, useGopos } from './store'
 
@@ -68,6 +68,7 @@ export function GoposVenues({
         aria-orientation="vertical"
         className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 min-[1080px]:mx-0 min-[1080px]:flex-col min-[1080px]:overflow-visible min-[1080px]:px-0"
         onKeyDown={(event) => {
+          if (TAB_KEYS.has(event.key)) event.preventDefault()
           if (event.key === 'ArrowDown' || event.key === 'ArrowRight') pick(tabs.go(index + 1))
           if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') pick(tabs.go(index - 1))
           if (event.key === 'Home') pick(tabs.go(0))
@@ -166,6 +167,7 @@ export function GoposAreas({ data }: { data: SectionData<'gopos-areas'> }) {
           aria-label="Obszary GoPOS"
           className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 min-[1080px]:mx-0 min-[1080px]:flex-col min-[1080px]:overflow-visible min-[1080px]:px-0"
           onKeyDown={(event) => {
+            if (TAB_KEYS.has(event.key)) event.preventDefault()
             if (event.key === 'ArrowDown' || event.key === 'ArrowRight') tabs.go(tabs.current + 1)
             if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') tabs.go(tabs.current - 1)
             if (event.key === 'Home') tabs.go(0)
