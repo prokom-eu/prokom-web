@@ -12,31 +12,18 @@ import { Section } from '@/components/ui/Section'
 import type { PublicPage } from '@/lib/pages/data'
 import { HOME_SLUG, pagePath } from '@/lib/pages/slug'
 import type { SiteTenant } from '@/lib/tenant/byHost'
-import { BzAuditBlock } from '@/sites/biznes/blocks/BzAudit/Component'
-import { BzCardsBlock } from '@/sites/biznes/blocks/BzCards/Component'
 import { BzContactBlock } from '@/sites/biznes/blocks/BzContact/Component'
-import { BzContactInfoBlock } from '@/sites/biznes/blocks/BzContactInfo/Component'
-import { BzDowntimeCalcBlock } from '@/sites/biznes/blocks/BzDowntimeCalc/Component'
-import { BzMonitoringBlock } from '@/sites/biznes/blocks/BzMonitoring/Component'
-import { BzPageHeroBlock } from '@/sites/biznes/blocks/BzPageHero/Component'
-import { BzLinesBlock } from '@/sites/biznes/blocks/BzLines/Component'
-import { BzBrandsBlock } from '@/sites/biznes/blocks/BzBrands/Component'
 import { BzLocationBlock } from '@/sites/biznes/blocks/BzLocation/Component'
-import { BzQuickCardsBlock } from '@/sites/biznes/blocks/BzQuickCards/Component'
 import { BzFactsBlock } from '@/sites/biznes/blocks/BzFacts/Component'
 import { BzFeaturedBlock } from '@/sites/biznes/blocks/BzFeatured/Component'
 import { BzHeroBlock } from '@/sites/biznes/blocks/BzHero/Component'
-import { BzKitsBlock } from '@/sites/biznes/blocks/BzKits/Component'
 import { BzSectionBlock } from '@/sites/biznes/blocks/BzSection/Component'
 import { HERO_VARIANTS, parseSectionData, type SectionVariant } from '@/lib/biznes/pages/sections'
 import { BzKsefBlock } from '@/sites/biznes/blocks/BzKsef/Component'
-import { BzModulesBlock } from '@/sites/biznes/blocks/BzModules/Component'
 import { QuickStart } from '@/sites/biznes/components/home/QuickStart'
 import { BzOfferBlock } from '@/sites/biznes/blocks/BzOffer/Component'
 import { BzOrderFlowBlock } from '@/sites/biznes/blocks/BzOrderFlow/Component'
-import { BzPanelsBlock } from '@/sites/biznes/blocks/BzPanels/Component'
 import { BzPlanBlock } from '@/sites/biznes/blocks/BzPlan/Component'
-import { BzProgramPickerBlock } from '@/sites/biznes/blocks/BzProgramPicker/Component'
 import { BzReferencesBlock } from '@/sites/biznes/blocks/BzReferences/Component'
 import { BzStepsBlock } from '@/sites/biznes/blocks/BzSteps/Component'
 import { BzTimelineBlock } from '@/sites/biznes/blocks/BzTimeline/Component'
@@ -74,8 +61,6 @@ const PRIVACY_SLUG = 'polityka-prywatnosci'
 const HERO_BLOCKS = new Set([
   'hero',
   'bzHero',
-  'bzContactInfo',
-  'bzPageHero',
   'swHero',
   'swContactPage',
   'swPricing',
@@ -206,48 +191,12 @@ export function RenderBlocks({ page, tenant }: Props) {
             return <BzFactsBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzContact':
             return <BzContactBlock key={key} block={block} tenantId={tenant.id} />
-          case 'bzContactInfo':
-            return (
-              <BzContactInfoBlock key={key} block={block} isFirst={i === 0} tenantId={tenant.id} />
-            )
-          case 'bzQuickCards':
-            return <BzQuickCardsBlock key={key} block={block} />
-          case 'bzLines':
-            return <BzLinesBlock key={key} block={block} />
-          case 'bzBrands':
-            return <BzBrandsBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzLocation':
             return <BzLocationBlock key={key} block={block} tenantId={tenant.id} />
-          case 'bzPageHero':
-            return (
-              <BzPageHeroBlock
-                key={key}
-                block={block}
-                isFirst={i === 0}
-                page={page}
-                tenantId={tenant.id}
-              />
-            )
-          case 'bzCards':
-            return <BzCardsBlock key={key} block={block} />
-          case 'bzMonitoring':
-            return <BzMonitoringBlock key={key} block={block} />
-          case 'bzDowntimeCalc':
-            return <BzDowntimeCalcBlock key={key} block={block} />
-          case 'bzAudit':
-            return <BzAuditBlock key={key} block={block} tenantId={tenant.id} />
-          case 'bzModules':
-            return <BzModulesBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzOrderFlow':
             return <BzOrderFlowBlock key={key} block={block} tenantId={tenant.id} />
-          case 'bzKits':
-            return <BzKitsBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzTimeline':
             return <BzTimelineBlock key={key} block={block} />
-          case 'bzPanels':
-            return <BzPanelsBlock key={key} block={block} />
-          case 'bzProgramPicker':
-            return <BzProgramPickerBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzKsef':
             return <BzKsefBlock key={key} block={block} />
           case 'bzSection':
