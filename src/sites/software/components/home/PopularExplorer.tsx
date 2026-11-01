@@ -11,6 +11,7 @@ import type { PriceDisplay } from '@/lib/software/wizard'
 
 import { SolutionCard } from '../catalog/SolutionCard'
 import { SolutionDialog } from '../offer/SolutionDialog'
+import { SlidingPill } from '../SlidingPill'
 
 type Props = {
   cards: IndexSolution[]
@@ -41,6 +42,7 @@ export function PopularExplorer({ cards, tabs, display, offers, count, hint }: P
   const [tab, setTab] = useState(tabs[0]?.key ?? 'all')
   const [open, setOpen] = useState<string | null>(null)
   const buttons = useRef<(HTMLButtonElement | null)[]>([])
+  const tablist = useRef<HTMLDivElement>(null)
   const shown = visibleCards(cards, tab)
   // Only cards with a window: a solution without one (cannot happen with the seed) has no ←/→ stop.
   const list = shown.map((card) => card.slug).filter((slug) => offers[slug])
@@ -70,11 +72,13 @@ export function PopularExplorer({ cards, tabs, display, offers, count, hint }: P
     <div className="flex flex-col gap-5">
       <div className="flex flex-col gap-3 min-[640px]:flex-row min-[640px]:items-center min-[640px]:justify-between">
         <div
+          ref={tablist}
           role="tablist"
           aria-label="Rodzaj"
           onKeyDown={onKeyDown}
-          className="-mx-4 flex gap-1.5 overflow-x-auto px-4 [scrollbar-width:none] min-[640px]:mx-0 min-[640px]:w-fit min-[640px]:rounded-2xl min-[640px]:border min-[640px]:border-border min-[640px]:bg-card min-[640px]:p-1.5"
+          className="group/pills relative -mx-4 flex gap-1.5 overflow-x-auto px-4 [scrollbar-width:none] min-[640px]:mx-0 min-[640px]:w-fit min-[640px]:rounded-2xl min-[640px]:border min-[640px]:border-border min-[640px]:bg-card min-[640px]:p-1.5"
         >
+          <SlidingPill container={tablist} active={active} className="bg-button" />
           {tabs.map((item, i) => {
             const selected = i === active
             return (
@@ -91,10 +95,12 @@ export function PopularExplorer({ cards, tabs, display, offers, count, hint }: P
                 tabIndex={selected ? 0 : -1}
                 onClick={() => choose(i)}
                 className={cx(
-                  'inline-flex min-h-11 shrink-0 items-center gap-2 rounded-xl px-4 text-[15px] font-extrabold transition-colors',
+                  'relative z-[1] inline-flex min-h-11 shrink-0 items-center gap-2 rounded-xl px-4 text-[15px] font-extrabold transition-colors',
+                  // The pill (`SlidingPill`) is the background of the chosen tab; until it is
+                  // drawn (or without JavaScript) the tab keeps a background of its own.
                   selected
-                    ? 'bg-button text-accent-ink'
-                    : 'border border-border bg-card text-ink hover:bg-surface-2 min-[640px]:border-0',
+                    ? 'bg-button text-accent-ink group-has-[[data-sliding-pill]]/pills:bg-transparent'
+                    : 'border border-border bg-card text-ink hover:bg-surface-2 min-[640px]:border-0 min-[640px]:bg-transparent',
                 )}
               >
                 {item.label}

@@ -1,11 +1,12 @@
 'use client'
 
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
 import { Container } from '@/components/ui/Container'
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
 import type { CompareView, Mark } from '@/lib/software/compare'
+import { SlidingPill } from '@/sites/software/components/SlidingPill'
 
 type Props = { view: CompareView; eyebrow: string; title: string; tabs: [string, string] }
 
@@ -40,6 +41,7 @@ function Ours() {
  */
 export function Compare({ view, eyebrow, title, tabs }: Props) {
   const [rival, setRival] = useState<0 | 1>(0)
+  const group = useRef<HTMLDivElement>(null)
   return (
     <section id="porownanie" className="scroll-mt-24 py-12 min-[641px]:py-20">
       <Container wide>
@@ -53,10 +55,12 @@ export function Compare({ view, eyebrow, title, tabs }: Props) {
             </h2>
           </div>
           <div
+            ref={group}
             role="group"
             aria-label="Porównaj z"
-            className="inline-flex self-start rounded-full border border-border bg-card p-1 min-[1081px]:self-auto"
+            className="group/pills relative inline-flex self-start rounded-full border border-border bg-card p-1 min-[1081px]:self-auto"
           >
+            <SlidingPill container={group} active={rival} className="bg-button" radius={22} />
             {tabs.map((tab, index) => (
               <button
                 key={index}
@@ -64,8 +68,10 @@ export function Compare({ view, eyebrow, title, tabs }: Props) {
                 aria-pressed={rival === index}
                 onClick={() => setRival(index as 0 | 1)}
                 className={cx(
-                  'min-h-11 rounded-full px-5 text-sm font-extrabold transition-colors',
-                  rival === index ? 'bg-button text-accent-ink' : 'text-ink-2',
+                  'relative z-[1] min-h-11 rounded-full px-5 text-sm font-extrabold transition-colors',
+                  rival === index
+                    ? 'bg-button text-accent-ink group-has-[[data-sliding-pill]]/pills:bg-transparent'
+                    : 'text-ink-2',
                 )}
               >
                 {tab}
