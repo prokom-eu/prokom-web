@@ -27,6 +27,7 @@ import { BzMonitoringBlock } from '../sites/biznes/blocks/BzMonitoring/config'
 import { BzPageHeroBlock } from '../sites/biznes/blocks/BzPageHero/config'
 import { BzLinesBlock } from '../sites/biznes/blocks/BzLines/config'
 import { BzBrandsBlock } from '../sites/biznes/blocks/BzBrands/config'
+import { BzSectionBlock } from '../sites/biznes/blocks/BzSection/config'
 import { BzLocationBlock } from '../sites/biznes/blocks/BzLocation/config'
 import { InstContactBlock } from '../sites/instalacje/blocks/InstContact/config'
 import { InstHomeBlock } from '../sites/instalacje/blocks/InstHome/config'
@@ -93,6 +94,8 @@ export const BIZNES_BLOCKS: Block[] = [
   BzLinesBlock,
   BzBrandsBlock,
   BzLocationBlock,
+  // K4hij: the K4 subpages (one block, the section kind picked — decyzja Krystiana 01.11)
+  BzSectionBlock,
 ]
 
 /**
