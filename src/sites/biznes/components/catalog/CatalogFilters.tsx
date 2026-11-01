@@ -378,9 +378,8 @@ export function CatalogFilters({
         <p className="text-sm leading-snug text-ink-2">
           Odpowiedz na kilka prostych pytań — pokażemy rozwiązania dobrane do Twojej firmy.
         </p>
-        {/* TODO(krystian): K4g moves the wizard to /konfigurator (301 from /kreator). */}
         <Link
-          href="/kreator"
+          href="/konfigurator"
           className="inline-flex min-h-10 items-center rounded-xl bg-accent-text px-4 text-sm font-bold text-accent-ink hover:bg-ink hover:text-surface"
         >
           Otwórz konfigurator

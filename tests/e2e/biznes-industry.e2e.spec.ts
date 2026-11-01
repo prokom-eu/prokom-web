@@ -24,7 +24,7 @@ test.describe('Biznes industry page', () => {
     // The way to the wizard with the business type of the industry (ADR-012 rozstrz. 8).
     await expect(
       page.getByRole('link', { name: 'Przygotuj zapytanie dla lokalu' }),
-    ).toHaveAttribute('href', '/kreator?firma=gastro')
+    ).toHaveAttribute('href', '/konfigurator?firma=gastro')
 
     const kit = page.getByRole('region', { name: 'Od lady po kuchnię. Wszystko ze sobą rozmawia.' })
     await expect(kit.getByRole('article')).toHaveCount(9)
@@ -62,7 +62,7 @@ test.describe('Biznes industry page', () => {
     await expect(other).toContainText('beauty i usługi')
     await expect(
       page.getByRole('link', { name: 'Przygotuj zapytanie dla sklepu' }),
-    ).toHaveAttribute('href', '/kreator?firma=sklep')
+    ).toHaveAttribute('href', '/konfigurator?firma=sklep')
   })
 
   test('no prices, leasing or instalments on the page', async ({ page }) => {

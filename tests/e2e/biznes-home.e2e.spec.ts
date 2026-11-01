@@ -17,7 +17,7 @@ test.describe('Biznes home page', () => {
     await expect(page.locator('h1')).toContainText('Wszystko z jednego miejsca — z Rabki.')
     await expect(hero.getByRole('link', { name: /Dobierz rozwiązanie dla firmy/ })).toHaveAttribute(
       'href',
-      '/kreator',
+      '/konfigurator',
     )
     await expect(hero.getByRole('link', { name: /^Przeglądaj ofertę · \d+$/ })).toHaveAttribute(
       'href',
@@ -319,7 +319,10 @@ test.describe('Biznes home page: industries, plan, steps', () => {
     await expect(tiles).toHaveCount(22)
     // First of the rest in the order of the board (`KG5`).
     await expect(tiles.filter({ hasText: 'Zakład produkcyjny' })).toBeFocused()
-    await expect(tiles.filter({ hasText: 'Każda inna firma' })).toHaveAttribute('href', '/kreator')
+    await expect(tiles.filter({ hasText: 'Każda inna firma' })).toHaveAttribute(
+      'href',
+      '/konfigurator',
+    )
   })
 
   test('steps and „Nasze zobowiązania”', async ({ page }) => {

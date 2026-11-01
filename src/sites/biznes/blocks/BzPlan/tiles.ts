@@ -3,8 +3,8 @@ import { tenantIdOf } from '@/lib/tenant/id'
 
 import type { Tone } from '../../components/home/tones'
 
-/** A tile without an industry page leads to the wizard (spec. §4 pkt 6: „Każda inna firma”). */
-export const WIZARD_HREF = '/kreator'
+/** A tile without an industry page leads to the configurator (spec. §4 pkt 6: „Każda inna firma”). */
+export const WIZARD_HREF = '/konfigurator'
 
 type TileInput = {
   id?: string | null

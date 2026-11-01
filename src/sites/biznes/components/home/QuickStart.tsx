@@ -1,3 +1,4 @@
+import { CONFIGURATOR_PATH } from '@/lib/catalog/wizardEngine'
 import Link from 'next/link'
 
 import { Container } from '@/components/ui/Container'
@@ -97,8 +98,7 @@ export async function QuickStart({
       action: 'Dobierz teraz',
       icon: 'compass',
       tone: 'violet',
-      // TODO(krystian): /konfigurator after K4g.
-      href: '/kreator',
+      href: CONFIGURATOR_PATH,
     },
     {
       title: 'Plan Twojej firmy',

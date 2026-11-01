@@ -91,8 +91,10 @@ function inquirySchemaFor(line: Line | undefined) {
       issue('message', 'message required')
     }
     if (data.type === 'list' && data.items.length === 0) issue('items', 'items required')
-    // Items belong to the list only; elsewhere they would be saved without anyone asking.
-    if (data.type !== 'list' && data.items.length > 0) issue('items', 'items only on a list')
+    // Items belong to the list only; elsewhere they would be saved without anyone asking. The
+    // Biznes Konfigurator sends what the customer added on the result (K4g).
+    const itemsAllowed = data.type === 'list' || (line === 'biznes' && data.type === 'wizard')
+    if (!itemsAllowed && data.items.length > 0) issue('items', 'items only on a list')
     if (data.type === 'search' && data.topics.length === 0) issue('topics', 'phrase required')
     if (data.type === 'wizard' && data.wizard === undefined) issue('wizard', 'answers required')
     // Wizard answers belong to the wizard only, like items to the list (B10c).
@@ -133,8 +135,8 @@ function inquirySchemaFor(line: Line | undefined) {
       issue('email', 'e-mail required for e-mail contact')
     }
 
-    // A phone or an e-mail is enough (K4-FINAL §5). Biznes leads with the phone, so the issue
-    // sits there; its wizard still requires the phone until Konfigurator 3.0 (B10c, K4g).
+    // A phone or an e-mail is enough (K4-FINAL §5), the Konfigurator too (K4g). Biznes leads
+    // with the phone, so the issue sits there.
     // Instalacje call back to arrange a site visit: a phone of at least 9 digits, always
     // (decided 31.10.2026, ADR-I002 §4; the planner and the forms ask for it the same way).
     // The architects' checklist PDF and news by e-mail need an e-mail instead (ADR-I005 §3).
@@ -143,8 +145,6 @@ function inquirySchemaFor(line: Line | undefined) {
       if (data.email === undefined) issue('email', 'e-mail required')
     } else if (line === 'instalacje') {
       if ((data.phone ?? '').replace(/\D/g, '').length < 9) issue('phone', 'phone required')
-    } else if (biznes && data.type === 'wizard') {
-      if (data.phone === undefined) issue('phone', 'phone required')
     } else if (data.email === undefined && data.phone === undefined) {
       issue(biznes ? 'phone' : 'email', 'e-mail or phone required')
     }

@@ -208,9 +208,8 @@ export function CartDrawer({ phone }: Props) {
               >
                 Przeglądaj ofertę
               </Link>
-              {/* TODO(krystian): /konfigurator after K4g. */}
               <Link
-                href="/kreator"
+                href="/konfigurator"
                 className="inline-flex min-h-12 items-center rounded-xl border-[1.5px] border-border-input px-5 font-extrabold text-ink hover:border-ink"
               >
                 Konfigurator

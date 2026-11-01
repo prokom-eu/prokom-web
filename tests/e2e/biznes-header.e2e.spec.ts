@@ -62,7 +62,7 @@ test.describe('Biznes header', () => {
     await expect(heading).toHaveText('Oprogramowanie')
     await expect(panel.getByRole('link', { name: /^Konfigurator/ })).toHaveAttribute(
       'href',
-      '/kreator',
+      '/konfigurator',
     )
     await expect(panel.getByRole('link', { name: /^Gotowe zestawy/ })).toHaveAttribute(
       'href',
@@ -130,7 +130,7 @@ test.describe('Biznes header', () => {
     await expect(page.getByRole('link', { name: 'Zgłoś awarię' })).toHaveCount(0)
     await expect(page.getByRole('link', { name: 'Konfigurator' }).first()).toHaveAttribute(
       'href',
-      '/kreator',
+      '/konfigurator',
     )
   })
 

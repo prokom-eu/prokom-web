@@ -1,5 +1,6 @@
 'use client'
 
+import { CONFIGURATOR_PATH } from '@/lib/catalog/wizardEngine'
 import { PLAN_PATH } from '@/lib/catalog/floorPlan'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -24,8 +25,7 @@ type Props = {
 
 const items = (n: number) => `${n} ${plural(n, ['pozycja', 'pozycje', 'pozycji'])}`
 
-// `/kreator` until K4g moves it to `/konfigurator`.
-const CONFIGURATOR_HREF = '/kreator'
+const CONFIGURATOR_HREF = CONFIGURATOR_PATH
 const PLAN_HREF = PLAN_PATH
 const ALL_BRANDS_HREF = BRANDS_PATH
 
