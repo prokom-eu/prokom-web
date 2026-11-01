@@ -477,16 +477,17 @@ test.describe('Software start page — contact form', () => {
 
 test.describe('Software start page on a phone', () => {
   for (const width of [390, 360]) {
-    test(`fits ${width} px: no sideways scroll, intents without texts`, async ({ page }) => {
+    test(`fits ${width} px: no sideways scroll, intents as a list with texts`, async ({ page }) => {
       await page.setViewportSize({ width, height: 844 })
       await page.goto(site(HOST))
       const scroll = await page.evaluate(() => document.scrollingElement?.scrollWidth)
       expect(scroll).toBe(width)
       const intent = page.locator('#start ul').last().getByRole('link').first()
-      await expect(intent.locator('span').last()).toBeHidden()
+      // v23: one list, every row with its two-line text and ≥ 72 px.
+      await expect(intent.locator('span').last()).toBeVisible()
+      expect((await intent.boundingBox())?.height ?? 0).toBeGreaterThanOrEqual(72)
       // Touch targets of the sections ≥ 44 px.
       for (const target of [
-        modules(page).first(),
         areaTabs(page).first(),
         page.locator('#popularne').getByRole('tab').first(),
         previewTabs(page).first(),
@@ -517,10 +518,16 @@ test.describe('Software start page on a phone', () => {
       expect(ours?.y ?? 0).toBeGreaterThan(theirs?.y ?? 0)
       const header = await why.getByRole('row').first().boundingBox()
       expect(header?.height ?? 0).toBeLessThanOrEqual(1)
-      // Hero: no mock-up on a phone, the switches with their caption; trust points wrap.
-      await expect(
-        page.locator('#start').getByText('Złóż swój system: dotknij modułu'),
-      ).toBeVisible()
+      // Hero v23 (MOBILE-APLIKACJA §3a): no „Twój system” at all, „Zadzwoń” next to the
+      // previews, the panel card with 3 notifications, trust in 3 columns on one row.
+      const hero = page.locator('#start')
+      await expect(modules(page).first()).toBeHidden()
+      await expect(hero.getByRole('link', { name: 'Zadzwoń' })).toHaveAttribute('href', /^tel:\+48/)
+      await expect(hero.getByText('Twoja Firma · panel')).toBeVisible()
+      await expect(hero.getByText('Faktura wysłana sama')).toBeVisible()
+      const trust = hero.locator('ul').nth(1).getByRole('listitem')
+      const [t1, t3] = await Promise.all([trust.nth(0).boundingBox(), trust.nth(2).boundingBox()])
+      expect(Math.round(t3?.y ?? 0)).toBe(Math.round(t1?.y ?? 0))
       // „Jak robimy”: a carousel of cards; „Z czego budujemy”: the 6 layers in a 2×3 grid.
       const how = await page.locator('#jak-robimy li').first().boundingBox()
       expect(how?.width ?? 0).toBeLessThan(width * 0.9)

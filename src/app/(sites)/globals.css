@@ -129,6 +129,18 @@
   }
 }
 
+/* Notifications of the phone hero card „Twoja Firma · panel” (SWV3); delays set per item. */
+@theme {
+  --animate-panel-in: panel-in 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+
+  @keyframes panel-in {
+    from {
+      opacity: 0;
+      translate: 0 10px;
+    }
+  }
+}
+
 /* Brand marquee of the Biznes home page (`BrandMarquee`): the list is rendered twice. */
 @theme {
   --animate-marquee: marquee 50s linear infinite;

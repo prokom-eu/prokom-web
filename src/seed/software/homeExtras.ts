@@ -110,6 +110,31 @@ export const HOME_SECTION_TEXTS: SoftwareHomeSections = {
     title: 'Freelancer, agencja czy PRO-KOM?',
     tabs: ['vs freelancer', 'vs agencja z miasta'],
   },
+  heroPanel: {
+    title: 'Twoja Firma · panel',
+    live: 'na żywo',
+    items: [
+      {
+        icon: 'mail',
+        title: 'Nowe zapytanie ze strony',
+        sub: 'Remont łazienki · Kowalscy',
+        time: 'teraz',
+      },
+      {
+        icon: 'pin',
+        title: 'Ekipa Marka na miejscu',
+        sub: 'Poddasze · zdjęcia w zleceniu',
+        time: '8:05',
+      },
+      {
+        icon: 'check',
+        title: 'Faktura wysłana sama',
+        sub: 'Zlecenie #128 · 5 990 zł',
+        time: '9:12',
+      },
+    ],
+    footer: { label: 'Podgląd do klikania', value: 'w 5–7 dni' },
+  },
 }
 
 /**

@@ -120,6 +120,20 @@ export const homeSectionsSchema = obj({
    * heading and the two switch labels; the rows are `compare` of the package.
    */
   compare: obj({ eyebrow: label, title: label, tabs: z.tuple([label, label]) }).optional(),
+  /**
+   * SWV3 — card „Twoja Firma · panel” of the phone hero (MOBILE-APLIKACJA §3a pkt 5): a sample
+   * of what the client's panel shows, notifications sliding in one by one, and the footer pair.
+   */
+  heroPanel: obj({
+    title: label,
+    /** Status next to the title („na żywo”). */
+    live: label,
+    items: z
+      .array(obj({ icon: z.enum(ICON_NAMES), title: label, sub: label, time: label }))
+      .min(1)
+      .max(3),
+    footer: obj({ label, value: label }),
+  }).optional(),
 })
 
 export type SoftwareHomeSections = z.infer<typeof homeSectionsSchema>

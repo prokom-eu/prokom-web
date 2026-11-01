@@ -86,7 +86,7 @@ export const SwHeroBlock: Block = {
       label: 'Kafle intencji',
       type: 'array',
       maxRows: 4,
-      admin: { description: 'Pod hero. Na telefonie bez opisów (2×2).' },
+      admin: { description: 'Pod hero. Na telefonie lista z dwiema liniami opisu.' },
       fields: [
         {
           type: 'row',
