@@ -37,12 +37,12 @@ export function VideoPicker({ data }: { data: SectionData<'videos'> }) {
                 )}
               >
                 <span className="leading-snug font-extrabold text-ink">{item.t}</span>
-                <span className="text-[13px] text-ink-3">{item.k}</span>
+                <span className="text-[13px] text-ink-2">{item.k}</span>
               </button>
             </li>
           ))}
         </ul>
-        {data.note && <p className="mt-2 text-[13px] text-ink-3">{data.note}</p>}
+        {data.note && <p className="mt-2 text-[13px] text-ink-2">{data.note}</p>}
       </div>
     </div>
   )
@@ -97,7 +97,7 @@ export function TabsPicker({ data }: { data: SectionData<'tabs'> }) {
         <ul className="mt-5 grid gap-4 min-[640px]:grid-cols-2 min-[1080px]:grid-cols-3">
           {tab.items.map((item) => (
             <li key={item.t} className={cx(CARD, 'flex flex-col gap-1.5 p-5 text-ink')}>
-              {item.l && <span className="text-[13px] font-extrabold text-ink-3">{item.l}</span>}
+              {item.l && <span className="text-[13px] font-extrabold text-ink-2">{item.l}</span>}
               <b className="font-display text-[1.1rem] font-extrabold">{item.t}</b>
               <span className="text-[15px] leading-relaxed text-ink-2">{item.d}</span>
               {item.slug && (

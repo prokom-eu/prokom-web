@@ -130,7 +130,7 @@ export function SourceLine({ block, className }: { block: BzSectionData; classNa
     <p
       className={cx(
         'mt-6 text-[13px] leading-relaxed',
-        dark ? 'text-white/70' : 'text-ink-3',
+        dark ? 'text-white/70' : 'text-ink-2',
         className,
       )}
     >
