@@ -29,7 +29,8 @@ export function HeroPanelCard({ panel }: { panel: Panel }) {
       <ul className="flex flex-col gap-2">
         {panel.items.map((item, index) => (
           <li
-            key={item.title}
+            // A sample list that never reorders; titles in the panel need not be unique.
+            key={index}
             className={`grid animate-panel-in grid-cols-[34px_minmax(0,1fr)_auto] items-center gap-2.5 rounded-2xl bg-white/6 p-2.5 motion-reduce:animate-none ${DELAYS[index] ?? ''}`}
           >
             <span

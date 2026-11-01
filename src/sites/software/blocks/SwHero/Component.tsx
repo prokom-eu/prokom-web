@@ -102,6 +102,8 @@ export async function SwHeroBlock({ block, tenantId, isFirst = true }: Props) {
                   className={cx(
                     BUTTON,
                     'border-2 border-border bg-card text-ink hover:border-accent-line',
+                    // Alone on its row of the phone grid when the line has no phone.
+                    !tel && 'col-span-2',
                   )}
                 >
                   {block.secondary.label}
