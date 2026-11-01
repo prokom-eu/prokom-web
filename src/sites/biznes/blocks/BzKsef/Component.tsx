@@ -5,6 +5,7 @@ import type { BzKsefBlock as BzKsefBlockData } from '@/payload-types'
 
 import { hasLink, PageLink } from '../../components/PageLink'
 import { DayCount } from './DayCount'
+import { BZ_H2 } from '@/sites/biznes/typography'
 
 /**
  * KSeF with a day counter (spec. §6.6 pkt 4, plansza Insert), `#ksef`: a navy card with the big
@@ -37,10 +38,7 @@ export function BzKsefBlock({ block }: { block: BzKsefBlockData }) {
                 </h2>
               </>
             ) : (
-              <h2
-                id="ksef-h"
-                className="font-display text-[clamp(1.8rem,3vw,2.4rem)] leading-tight font-extrabold"
-              >
+              <h2 id="ksef-h" className={BZ_H2}>
                 {block.eyebrow || 'KSeF'}
               </h2>
             )}

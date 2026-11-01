@@ -29,6 +29,7 @@ import {
   sectionId,
 } from '../ui'
 import { WeekHours } from './WeekHours'
+import { BZ_LEAD } from '@/sites/biznes/typography'
 
 /** Contact data of the panel the K4i sections share: phones, e-mail, address, hours. */
 async function contactData(tenantId: number) {
@@ -104,9 +105,7 @@ export async function AboutHero({
               )}
             </h1>
             {block.lead && (
-              <p className="max-w-[60ch] text-[clamp(1.0625rem,1.3vw,1.2rem)] leading-relaxed text-pretty text-ink-2">
-                {block.lead}
-              </p>
+              <p className={`${BZ_LEAD} max-w-[60ch] text-pretty text-ink-2`}>{block.lead}</p>
             )}
             <div className="flex flex-wrap gap-3">
               {c.phone && c.tel && (
@@ -446,9 +445,7 @@ export async function ContactHero({
               )}
             </h1>
             {block.lead && (
-              <p className="max-w-[60ch] text-[clamp(1.0625rem,1.3vw,1.2rem)] leading-relaxed text-pretty text-ink-2">
-                {block.lead}
-              </p>
+              <p className={`${BZ_LEAD} max-w-[60ch] text-pretty text-ink-2`}>{block.lead}</p>
             )}
             <ul className="grid gap-3 min-[640px]:grid-cols-2">
               {channels.map((channel) => (

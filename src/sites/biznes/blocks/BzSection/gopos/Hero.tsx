@@ -10,6 +10,7 @@ import { Breadcrumbs, type Crumb } from '../../../components/Breadcrumbs'
 import { BTN_ON_DARK, BTN_PRIMARY, EYEBROW, withTrail } from '../ui'
 import { AddActionButton } from '../AddActionButton'
 import { GoposFlow, GoposStage, type StageDevice } from './Stage'
+import { BZ_LEAD } from '@/sites/biznes/typography'
 
 type Props = {
   block: BzSectionData
@@ -83,9 +84,7 @@ export function GoposHero({ block, data, index, crumbs }: Props) {
               {block.headingAccent && <em className="text-ok not-italic">{block.headingAccent}</em>}
             </h1>
             {block.lead && (
-              <p className="max-w-[56ch] text-[clamp(1.0625rem,1.4vw,1.25rem)] leading-relaxed text-pretty text-white/85">
-                {block.lead}
-              </p>
+              <p className={`${BZ_LEAD} max-w-[56ch] text-pretty text-white/85`}>{block.lead}</p>
             )}
             <div className="flex flex-wrap gap-3">
               <AddActionButton

@@ -5,6 +5,7 @@ import { toTelHref } from '@/lib/site/link'
 import type { BzLocationBlock as BzLocationBlockData } from '@/payload-types'
 
 import { AreaMap } from '../../components/AreaMap'
+import { BZ_H2 } from '@/sites/biznes/typography'
 
 type Props = { block: BzLocationBlockData; tenantId: number }
 
@@ -39,10 +40,7 @@ export async function BzLocationBlock({ block, tenantId }: Props) {
                 {block.eyebrow}
               </p>
             )}
-            <h2
-              id={headingId}
-              className="font-display text-[clamp(2rem,4vw,3.25rem)] leading-[1.02] font-extrabold tracking-[-0.02em] font-stretch-112%"
-            >
+            <h2 id={headingId} className={BZ_H2}>
               {heading ?? 'Gdzie nas znaleźć'}
             </h2>
             {block.lead && (

@@ -4,6 +4,7 @@ import { daysUntil } from '@/lib/site/days'
 
 import { DayCount } from '../../blocks/BzKsef/DayCount'
 import { PageLink } from '../PageLink'
+import { BZ_H2 } from '@/sites/biznes/typography'
 
 /**
  * The KSeF panel above the news list (board `Aktualnosci`), from the Biznes settings: the days
@@ -39,10 +40,7 @@ export function KsefPanel({ panel }: { panel: KsefPanelData }) {
                   </h2>
                 </>
               ) : (
-                <h2
-                  id="ksef-h"
-                  className="font-display text-[clamp(1.8rem,3vw,2.4rem)] leading-tight font-extrabold"
-                >
+                <h2 id="ksef-h" className={BZ_H2}>
                   {panel.eyebrow || 'KSeF'}
                 </h2>
               )}

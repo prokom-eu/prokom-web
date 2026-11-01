@@ -12,6 +12,7 @@ import { Breadcrumbs, type Crumb } from '../../../components/Breadcrumbs'
 import { AddActionButton } from '../AddActionButton'
 import { productsBySlug } from '../common/Products'
 import { BTN_OUTLINE, BTN_PRIMARY, CARD, EYEBROW, SectionShell, withTrail } from '../ui'
+import { BZ_LEAD } from '@/sites/biznes/typography'
 
 const TONE: Record<SectionData<'care-hero'>['report']['rows'][number]['tone'], string> = {
   ok: 'bg-ok/15 text-ok-text',
@@ -70,9 +71,7 @@ export async function CareHero({
               )}
             </h1>
             {block.lead && (
-              <p className="max-w-[58ch] text-[clamp(1.0625rem,1.3vw,1.2rem)] leading-relaxed text-pretty text-ink-2">
-                {block.lead}
-              </p>
+              <p className={`${BZ_LEAD} max-w-[58ch] text-pretty text-ink-2`}>{block.lead}</p>
             )}
             <div className="flex flex-wrap gap-3">
               <AddActionButton

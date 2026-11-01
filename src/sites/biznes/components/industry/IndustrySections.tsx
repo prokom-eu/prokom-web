@@ -10,6 +10,7 @@ import type { IndustryView, OtherIndustries } from '@/lib/catalog/industry'
 import { BundleGrid } from '../bundle/BundleCard'
 import { ProductCard } from '../catalog/ProductCard'
 import { SectionHead } from '../home/SectionHead'
+import { BZ_H2 } from '@/sites/biznes/typography'
 
 type ProductsProps = {
   section: IndustryView['products']
@@ -106,10 +107,7 @@ export function OtherIndustriesSection({
   return (
     <section aria-labelledby="inne-branze-h" className="bg-surface-2 py-12 sm:py-16">
       <Container wide>
-        <h2
-          id="inne-branze-h"
-          className="font-display text-[clamp(1.75rem,3vw,2.5rem)] leading-[1.05] font-extrabold tracking-[-0.02em] font-stretch-110%"
-        >
+        <h2 id="inne-branze-h" className={BZ_H2}>
           Inne branże
         </h2>
         <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">

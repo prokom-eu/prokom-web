@@ -10,6 +10,7 @@ import { plural } from '@/lib/plural'
 
 import { SectionHead } from '../home/SectionHead'
 import { ProductStage } from '../ProductStage'
+import { BZ_H2 } from '@/sites/biznes/typography'
 
 /** „W cenie” (board: „Kupujesz kasę, dostajesz spokój.”): cards with an icon, title and text. */
 export function IncludedCards({ included }: { included: CategoryView['included'] }) {
@@ -120,10 +121,7 @@ export function BoughtWith({ heading, tiles }: { heading: string; tiles: BoughtW
   return (
     <section aria-labelledby="dobierane-h" className="pb-14 sm:pb-20">
       <Container wide>
-        <h2
-          id="dobierane-h"
-          className="font-display text-[clamp(1.75rem,3vw,2.5rem)] leading-[1.05] font-extrabold tracking-[-0.02em] font-stretch-110%"
-        >
+        <h2 id="dobierane-h" className={BZ_H2}>
           {heading}
         </h2>
         <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">

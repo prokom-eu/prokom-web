@@ -4,6 +4,7 @@ import { publicImage } from '@/lib/media/public'
 import type { BzOrderFlowBlock as BzOrderFlowBlockData } from '@/payload-types'
 
 import { hasLink, PageLink } from '../../components/PageLink'
+import { BZ_H2 } from '@/sites/biznes/typography'
 
 type Props = { block: BzOrderFlowBlockData; tenantId: number }
 
@@ -32,10 +33,7 @@ export function BzOrderFlowBlock({ block, tenantId }: Props) {
                   {block.eyebrow}
                 </p>
               )}
-              <h2
-                id="jak-to-dziala-h"
-                className="font-display text-[clamp(2.1rem,4.2vw,3.6rem)] leading-[1.02] font-extrabold tracking-[-0.02em] font-stretch-110%"
-              >
+              <h2 id="jak-to-dziala-h" className={BZ_H2}>
                 {block.heading}
               </h2>
               {block.lead && (

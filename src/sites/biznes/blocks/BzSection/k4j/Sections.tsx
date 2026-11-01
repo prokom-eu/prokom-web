@@ -26,6 +26,7 @@ import {
   withTrail,
 } from '../ui'
 import { AddMachineButton, ClientTabs, KsefTimeline, PhaseText } from './Client'
+import { BZ_LEAD } from '@/sites/biznes/typography'
 
 const HERO_H1 =
   'font-display text-[clamp(2.2rem,4.2vw,3.8rem)] leading-[1] font-extrabold tracking-[-0.025em] font-stretch-110% text-balance'
@@ -103,9 +104,7 @@ export function VendingHero({
               )}
             </h1>
             {block.lead && (
-              <p className="max-w-[58ch] text-[clamp(1.0625rem,1.3vw,1.2rem)] leading-relaxed text-pretty text-ink-2">
-                {block.lead}
-              </p>
+              <p className={`${BZ_LEAD} max-w-[58ch] text-pretty text-ink-2`}>{block.lead}</p>
             )}
             <div className="flex flex-wrap gap-3">
               {data.actions.map((action, i) => {
@@ -384,9 +383,7 @@ export async function KsefHero({
       <h1 id="ksef-h" className={HERO_H1}>
         {v.h1a} <em className="text-accent-on-dark not-italic">{v.h1b}</em>
       </h1>
-      <p className="max-w-[60ch] text-[clamp(1.0625rem,1.3vw,1.2rem)] leading-relaxed text-pretty text-white/85">
-        {v.lead}
-      </p>
+      <p className={`${BZ_LEAD} max-w-[60ch] text-pretty text-white/85`}>{v.lead}</p>
     </>
   )
   return (
@@ -597,9 +594,7 @@ export async function UlgaHero({
               )}
             </h1>
             {block.lead && (
-              <p className="max-w-[60ch] text-[clamp(1.0625rem,1.3vw,1.2rem)] leading-relaxed text-pretty text-ink-2">
-                {block.lead}
-              </p>
+              <p className={`${BZ_LEAD} max-w-[60ch] text-pretty text-ink-2`}>{block.lead}</p>
             )}
             <div className="flex flex-wrap gap-3">
               {data.actions.map((action, i) => (

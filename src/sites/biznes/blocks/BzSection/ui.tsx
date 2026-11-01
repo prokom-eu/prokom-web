@@ -9,6 +9,7 @@ import type { BzSectionBlock as BzSectionData } from '@/payload-types'
 import type { Crumb } from '../../components/Breadcrumbs'
 
 import { AddActionButton } from './AddActionButton'
+import { BZ_H2, BZ_LEAD } from '@/sites/biznes/typography'
 
 /** Keys a K4 tab list handles: they move the selection, not the page. */
 export const TAB_KEYS: ReadonlySet<string> = new Set([
@@ -34,8 +35,8 @@ export const BTN_OUTLINE = cx(
 export const BTN_ON_DARK = cx(BTN, 'bg-white/10 text-white ring-1 ring-white/25 hover:bg-white/20')
 export const CARD = 'rounded-[22px] bg-card shadow-[inset_0_0_0_1px_var(--border)]'
 export const EYEBROW = 'text-[13px] font-extrabold tracking-[0.08em] uppercase'
-export const H2 =
-  'font-display text-[clamp(1.9rem,3.6vw,3rem)] leading-[1.04] font-extrabold tracking-[-0.02em] font-stretch-110% text-balance'
+/** Section heading of the K4 pages: the board `.h2` (`typography.ts`). */
+export const H2 = BZ_H2
 
 const SURFACE: Record<BzSectionData['surface'], string> = {
   default: '',
@@ -118,7 +119,8 @@ export function SectionShell({
             {block.lead && (
               <p
                 className={cx(
-                  'max-w-[44ch] min-w-0 basis-[22rem] text-[1.0625rem] leading-relaxed text-pretty',
+                  BZ_LEAD,
+                  'max-w-[44ch] min-w-0 basis-[22rem] text-pretty',
                   dark ? 'text-white/80' : 'text-ink-2',
                 )}
               >

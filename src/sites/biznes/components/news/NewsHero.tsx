@@ -6,6 +6,7 @@ import { newsListHref, type PostCategory } from '@/lib/posts/list'
 
 import { Breadcrumbs } from '../Breadcrumbs'
 import { NEWS_TEXTS } from './texts'
+import { BZ_LEAD } from '@/sites/biznes/typography'
 
 type Props = {
   chips: { value: PostCategory; label: string }[]
@@ -36,9 +37,7 @@ export function NewsHero({ chips, current }: Props) {
         <h1 className="mt-6 max-w-[16ch] font-display text-[clamp(2.4rem,5vw,4.5rem)] leading-[0.98] font-extrabold tracking-[-0.025em] font-stretch-112%">
           {NEWS_TEXTS.heading}
         </h1>
-        <p className="mt-6 max-w-[60ch] text-[clamp(1.0625rem,1.4vw,1.25rem)] leading-relaxed text-ink-2">
-          {NEWS_TEXTS.lead}
-        </p>
+        <p className={`${BZ_LEAD} mt-6 max-w-[60ch] text-ink-2`}>{NEWS_TEXTS.lead}</p>
         {chips.length > 1 && (
           <nav aria-label="Kategorie wpisów" className="mt-8">
             <ul className="flex flex-wrap gap-2.5">

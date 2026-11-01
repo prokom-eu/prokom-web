@@ -22,6 +22,7 @@ import {
   SectionShell,
   withTrail,
 } from '../ui'
+import { BZ_H1, BZ_LEAD } from '@/sites/biznes/typography'
 
 /**
  * InsERT hero (K33 §7, plansza Web-InsERT): partner pill, H1 with the accented part, lead, two
@@ -77,19 +78,14 @@ export function InsertHero({
                 {data.pill}
               </span>
             </div>
-            <h1
-              id="insert-h"
-              className="font-display text-[clamp(2.3rem,4.4vw,4rem)] leading-[0.98] font-extrabold tracking-[-0.025em] font-stretch-112% text-balance"
-            >
+            <h1 id="insert-h" className={BZ_H1}>
               {block.heading || crumbs.at(-1)?.name}{' '}
               {block.headingAccent && (
                 <span className="text-accent-on-dark">{block.headingAccent}</span>
               )}
             </h1>
             {block.lead && (
-              <p className="max-w-[56ch] text-[clamp(1.0625rem,1.4vw,1.25rem)] leading-relaxed text-pretty text-white/85">
-                {block.lead}
-              </p>
+              <p className={`${BZ_LEAD} max-w-[56ch] text-pretty text-white/85`}>{block.lead}</p>
             )}
             <div className="flex flex-wrap gap-3">
               {data.actions.map((action, i) => (

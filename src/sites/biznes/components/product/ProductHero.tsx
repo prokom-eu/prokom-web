@@ -11,6 +11,7 @@ import { ProductAddButton } from './ProductAddButton'
 import { PathIcon, productIconPath } from './PathIcon'
 import { ProductGallery } from './ProductGallery'
 import { VersionChips, YourVersion } from './ProductVersionPicker'
+import { BZ_H1_COMPACT } from '@/sites/biznes/typography'
 
 /** Three highlights from `features` (K31-ZMIANY §4 pkt 1). */
 const HIGHLIGHTS = 3
@@ -98,9 +99,7 @@ export function ProductHero({
             ))}
         </div>
 
-        <h1 className="font-display text-[clamp(2rem,4.2vw,3.5rem)] leading-[1.02] font-extrabold tracking-[-0.025em] text-ink font-stretch-110%">
-          {product.heading}
-        </h1>
+        <h1 className={`${BZ_H1_COMPACT} text-ink`}>{product.heading}</h1>
 
         <VersionChips />
 

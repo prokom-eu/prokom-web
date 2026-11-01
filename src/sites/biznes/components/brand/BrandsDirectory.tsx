@@ -14,6 +14,7 @@ import { plural } from '@/lib/plural'
 
 import { PathIcon } from '../product/PathIcon'
 import { ProductStage, STAGE_SHADOW } from '../ProductStage'
+import { BZ_H1, BZ_LEAD } from '@/sites/biznes/typography'
 
 const ALL = 'all'
 
@@ -62,13 +63,10 @@ export function BrandsDirectory({
               <span aria-hidden="true" className="h-px w-4 bg-current" />
               Salony marek
             </p>
-            <h1
-              id="marki-h1"
-              className="font-display text-[clamp(2.1rem,4vw,3.6rem)] leading-[1.02] font-extrabold tracking-[-0.025em] text-balance"
-            >
+            <h1 id="marki-h1" className={BZ_H1}>
               Wszystkie marki w&nbsp;ofercie
             </h1>
-            <p className="max-w-[56ch] text-[clamp(1rem,1.3vw,1.15rem)] leading-relaxed text-white/80">
+            <p className={`${BZ_LEAD} max-w-[56ch] text-white/80`}>
               {total} {plural(total, ['marka', 'marki', 'marek'])}: od kas fiskalnych po serwery.
               Przy każdej pomożemy wybrać model, wdrożymy i&nbsp;zajmiemy się serwisem,
               a&nbsp;salony producentów pokazują serie, porównania i&nbsp;gotowe konfiguracje.

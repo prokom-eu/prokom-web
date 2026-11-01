@@ -7,6 +7,7 @@ import { plural } from '@/lib/plural'
 
 import { Breadcrumbs, type Crumb } from '../Breadcrumbs'
 import { PageLink } from '../PageLink'
+import { BZ_LEAD } from '@/sites/biznes/typography'
 
 const LABEL = 'text-xs font-extrabold tracking-[0.1em] text-ink-2 uppercase'
 
@@ -39,9 +40,7 @@ export function BrandHero({
               {brand.name} w PRO-KOM
             </h1>
             {brand.shortDescription && (
-              <p className="max-w-[54ch] text-[clamp(1.0625rem,1.4vw,1.25rem)] leading-relaxed text-ink-2">
-                {brand.shortDescription}
-              </p>
+              <p className={`${BZ_LEAD} max-w-[54ch] text-ink-2`}>{brand.shortDescription}</p>
             )}
             <div className="flex flex-wrap gap-3">
               <PageLink href="#produkty" arrow>

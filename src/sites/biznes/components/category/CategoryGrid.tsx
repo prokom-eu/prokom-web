@@ -26,6 +26,7 @@ import { plural } from '@/lib/plural'
 
 import { ProductCard } from '../catalog/ProductCard'
 import { ProductStage, STAGE_SHADOW } from '../ProductStage'
+import { BZ_H2, BZ_LEAD } from '@/sites/biznes/typography'
 
 type Props = {
   /** Index with only this category's products (the page never sends the whole catalog). */
@@ -160,14 +161,11 @@ export function CategoryGrid({
           <p className="mb-3 text-[13px] font-extrabold tracking-[0.08em] text-accent-text uppercase">
             Krok 1 · Jak pracujesz?
           </p>
-          <h2
-            id="produkty-h"
-            className="font-display text-[clamp(2rem,4vw,3.4rem)] leading-[1.02] font-extrabold tracking-[-0.02em] font-stretch-110%"
-          >
+          <h2 id="produkty-h" className={BZ_H2}>
             Wybierz, a pokażemy pasujące kasy.
           </h2>
           {printersHref && (
-            <p className="mt-4 text-[clamp(1.0625rem,1.3vw,1.2rem)] leading-relaxed text-ink-2">
+            <p className={`${BZ_LEAD} mt-4 text-ink-2`}>
               Masz program sprzedażowy albo planujesz GoPOS? Wtedy potrzebujesz{' '}
               <Link href={printersHref} className="font-extrabold text-accent-text hover:underline">
                 drukarki fiskalnej, nie kasy →
@@ -176,14 +174,7 @@ export function CategoryGrid({
           )}
         </div>
       ) : (
-        <h2
-          id="produkty-h"
-          className={
-            title
-              ? 'font-display text-[clamp(1.8rem,3vw,2.6rem)] leading-tight font-extrabold tracking-[-0.02em]'
-              : 'sr-only'
-          }
-        >
+        <h2 id="produkty-h" className={title ? BZ_H2 : 'sr-only'}>
           {title ?? 'Produkty'}
         </h2>
       )}

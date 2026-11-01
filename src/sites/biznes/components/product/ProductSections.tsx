@@ -12,6 +12,7 @@ import { AddToCartButton } from '../AddToCartButton'
 import { ProductStage, STAGE_SHADOW, StageFallback } from '../ProductStage'
 import { ProductAddButton } from './ProductAddButton'
 import { ProductSection } from './ProductSection'
+import { BZ_H2 } from '@/sites/biznes/typography'
 
 /** „Czym różnią się wersje” (K31-ZMIANY §4 pkt 7): cards that never stretch alone. */
 export function ProductVersions({
@@ -321,10 +322,7 @@ export function ProductCtaBand({ phone }: { phone: { label: string; href: string
             <span aria-hidden="true" className="h-0.5 w-4 rounded-full bg-current" />
             Wycena na piśmie
           </p>
-          <h2
-            id="pas-cta"
-            className="font-display text-[clamp(1.7rem,3.2vw,2.6rem)] leading-[1.05] font-extrabold tracking-[-0.02em] font-stretch-110%"
-          >
+          <h2 id="pas-cta" className={BZ_H2}>
             Potrzebujesz kilku sztuk albo całego stanowiska?
           </h2>
           <p className="mt-3 text-[1.05rem] leading-relaxed text-white/80">

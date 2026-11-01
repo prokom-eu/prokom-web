@@ -3,6 +3,7 @@ import type { PostView } from '@/lib/posts/view'
 
 import { Breadcrumbs, type Crumb } from '../Breadcrumbs'
 import { NEWS_TEXTS } from './texts'
+import { BZ_LEAD } from '@/sites/biznes/typography'
 
 type Props = { post: PostView; crumbs: Crumb[] }
 
@@ -51,11 +52,7 @@ export function PostHeader({ post, crumbs }: Props) {
           >
             {post.title}
           </h1>
-          {post.lead && (
-            <p className="mt-6 max-w-[62ch] text-[clamp(1.0625rem,1.4vw,1.25rem)] leading-relaxed text-ink-2">
-              {post.lead}
-            </p>
-          )}
+          {post.lead && <p className={`${BZ_LEAD} mt-6 max-w-[62ch] text-ink-2`}>{post.lead}</p>}
           {(post.sources.length > 0 || post.verified) && (
             <ul className="mt-6 flex flex-wrap gap-2.5">
               {post.sources.length > 0 && (
