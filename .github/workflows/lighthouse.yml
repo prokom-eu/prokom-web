@@ -39,16 +39,23 @@ jobs:
         with:
           node-version-file: .nvmrc
 
-      - name: Lighthouse CI
+      # collect → upload → assert as separate steps: `autorun` skips the reports when the budget
+      # fails, and a red run is exactly when they are needed.
+      - name: Lighthouse — collect
         env:
           BASIC_TOKEN: ${{ secrets.STAGING_BASIC_AUTH }}
         run: |
-          npx --yes @lhci/cli@0.15.1 autorun \
-            --collect.settings.extraHeaders="{\"Authorization\":\"Basic $BASIC_TOKEN\"}"
+          # The login goes into a copy of lighthouserc.json: a settings flag on the command line
+          # replaces `settings` from the file (1.11: skipAudits was lost, SEO 0.78 for noindex).
+          jq --arg auth "Basic $BASIC_TOKEN" '.ci.collect.settings.extraHeaders = {Authorization: $auth}' \
+            lighthouserc.json > "$RUNNER_TEMP/lighthouserc.json"
+          npx --yes @lhci/cli@0.15.1 collect --config="$RUNNER_TEMP/lighthouserc.json"
+          rm -f "$RUNNER_TEMP/lighthouserc.json"
 
       - name: Reports without the staging login
         if: always()
         run: |
+          npx --yes @lhci/cli@0.15.1 upload || true
           # A report keeps its settings (extraHeaders = the login); the HTML embeds the same data.
           shopt -s nullglob
           for f in .lighthouseci/reports/*.json; do
@@ -69,3 +76,6 @@ jobs:
           path: .lighthouseci/reports
           retention-days: 30
           if-no-files-found: ignore
+
+      - name: Lighthouse — budget
+        run: npx --yes @lhci/cli@0.15.1 assert
