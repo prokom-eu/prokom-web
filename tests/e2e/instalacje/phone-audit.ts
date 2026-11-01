@@ -91,7 +91,7 @@ export async function auditPhone(page: Page, width: number): Promise<PhoneProble
     )
     // A honeypot (hidden from readers and out of the tab order) is not for people.
     const hidden = (el: Element) =>
-      el.getAttribute('aria-hidden') === 'true' && el.getAttribute('tabindex') === '-1'
+      el.closest('[aria-hidden="true"]') !== null && el.getAttribute('tabindex') === '-1'
     // Scenes whose drawn points have 44 px buttons doing the same (WCAG 2.5.8 „equivalent
     // control”): the architects' cross-section (arrows of the point card, I16a) and the
     // Monitoring diagram (arrows and dots under it). Their points are notes, not failures.
