@@ -3,7 +3,7 @@ import Link from 'next/link'
 import type { CSSProperties } from 'react'
 
 import { getEnv } from '@/lib/env'
-import { getInstalacjeCards } from '@/lib/instalacje/data'
+import { getInstalacjeCards, getInstArchNews } from '@/lib/instalacje/data'
 import type { ServiceKey } from '@/lib/instalacje/options'
 import { serviceJsonLd } from '@/lib/instalacje/seo'
 import { breadcrumbJsonLd } from '@/lib/seo/jsonLd'
@@ -17,10 +17,14 @@ import { ArchHouseScene } from '../../sekcje/arch/ArchHouseScene'
 import { hotspotsHtml, INITIAL_ARCH_SCENE, safeHue } from '../../sekcje/arch/archScene'
 import { ARCH_SCENE } from '../../sekcje/arch/scene'
 import { InstSection } from '../../sekcje/InstSection'
+import { LEGAL_NOTE } from '../../dane/prawo'
 import { JsonLd } from '../../sekcje/JsonLd'
 import { SectionHead } from '../../sekcje/SectionHead'
 import { AudienceTabs } from '../../widzety/architekci/AudienceTabs'
+import { DesignerChecklist } from '../../widzety/architekci/DesignerChecklist'
+import { DeveloperTabs } from '../../widzety/architekci/DeveloperTabs'
 import { type ArchService, InstallationsTabs } from '../../widzety/architekci/InstallationsTabs'
+import { SolutionsExplorer } from '../../widzety/architekci/SolutionsExplorer'
 import { StageTabs } from '../../widzety/architekci/StageTabs'
 
 import '../../widzety/architekci/architekci.css'
@@ -33,7 +37,18 @@ const PATH = '/dla-architektow'
  * Sections built so far (I16a); I16b and I16c add the rest in the prototype's order. The anchor
  * bar lists only these until the page is complete.
  */
-const BUILT = new Set(['dla-ciebie', 'problemy', 'etapy', 'wymiana', 'instalacje'])
+const BUILT = new Set([
+  'dla-ciebie',
+  'problemy',
+  'etapy',
+  'wymiana',
+  'checklista',
+  'liczby',
+  'instalacje',
+  'nowosci',
+  'deweloperzy',
+  'przepisy',
+])
 
 /**
  * The page for architects and developers `/dla-architektow` (ADR-I005, `Architekci.body.html`):
@@ -42,8 +57,9 @@ const BUILT = new Set(['dla-ciebie', 'problemy', 'etapy', 'wymiana', 'instalacje
  * carries the page's h1.
  */
 export async function InstArchitectsBlock({ block, tenantId }: Props) {
-  const [cards, host] = await Promise.all([
+  const [cards, news, host] = await Promise.all([
     getInstalacjeCards(tenantId),
+    getInstArchNews(tenantId),
     headers().then((h) => h.get('host')),
   ])
   const origin = siteOrigin(host, getEnv().SITE_ENV)
@@ -245,6 +261,52 @@ export async function InstArchitectsBlock({ block, tenantId }: Props) {
         </div>
       </InstSection>
 
+      <InstSection
+        id="checklista"
+        className="bnd bnd-soft"
+        style={{ padding: '104px 0 104px' }}
+        {...fold('checklista')}
+      >
+        <div className="wrap">
+          <SectionHead
+            eyebrow={A.checklistSection.eyebrow}
+            heading={A.checklistSection.heading}
+            accent={A.checklistSection.accent}
+            lead={A.checklistSection.lead}
+            leadWidth={430}
+          />
+          <DesignerChecklist hues={hues} />
+        </div>
+      </InstSection>
+
+      <InstSection id="liczby" style={{ padding: '104px 0 96px' }} {...fold('liczby')}>
+        <div className="wrap">
+          <SectionHead
+            eyebrow={A.numbersSection.eyebrow}
+            heading={A.numbersSection.heading}
+            accent={A.numbersSection.accent}
+            lead={A.numbersSection.lead}
+            leadWidth={440}
+          />
+          <div className="arlz">
+            {A.numbers.map((z) => (
+              <div
+                key={z.value + z.title}
+                className="arlzc ri"
+                style={{ '--hc': safeHue(hues[z.service]) } as CSSProperties}
+              >
+                <b>{z.value}</b>
+                <span className="arlzt">{z.title}</span>
+                <p>{z.text}</p>
+              </div>
+            ))}
+          </div>
+          <p className="src ri" style={{ marginTop: 16 }}>
+            {A.numbersSection.note}
+          </p>
+        </div>
+      </InstSection>
+
       <InstSection id="instalacje" style={{ padding: '104px 0 104px' }}>
         <div className="wrap">
           <SectionHead
@@ -255,6 +317,70 @@ export async function InstArchitectsBlock({ block, tenantId }: Props) {
             leadWidth={440}
           />
           <InstallationsTabs services={services} />
+        </div>
+      </InstSection>
+
+      <InstSection id="nowosci" className="bnd bnd-tint" style={{ padding: '104px 0 104px' }}>
+        <div className="wrap">
+          <SectionHead
+            eyebrow={A.newsSection.eyebrow}
+            heading={A.newsSection.heading}
+            accent={A.newsSection.accent}
+            lead={A.newsSection.lead}
+          />
+          <SolutionsExplorer cards={news} hues={hues} />
+          <p className="src ri" style={{ marginTop: 14 }}>
+            {A.newsSection.note}
+          </p>
+        </div>
+      </InstSection>
+
+      <InstSection id="deweloperzy" style={{ padding: '104px 0 104px' }}>
+        <div className="wrap">
+          <DeveloperTabs />
+        </div>
+      </InstSection>
+
+      <InstSection id="przepisy" style={{ padding: '0 0 104px' }} {...fold('przepisy')}>
+        <div className="wrap">
+          <SectionHead
+            eyebrow={A.lawSection.eyebrow}
+            heading={A.lawSection.heading}
+            accent={A.lawSection.accent}
+            lead={A.lawSection.lead}
+            leadWidth={440}
+          />
+          <div className="artlw ri">
+            <div className="artlline" />
+            {A.timeline.map((t) => (
+              <div key={t.date} className={t.now ? 'artl now' : 'artl'}>
+                <i />
+                <b>{t.date}</b>
+                <span>{t.label}</span>
+              </div>
+            ))}
+          </div>
+          <div className="arprz">
+            {A.law.map((r) => (
+              <div key={r.title} className="card arprc2 ri">
+                <div className="arprh">
+                  <span className={`arprst ${r.tone}`}>{r.status}</span>
+                  <span className="arprd2">{r.date}</span>
+                </div>
+                <b className="h3" style={{ fontSize: 20 }}>
+                  {r.title}
+                </b>
+                <p>{r.text}</p>
+                <div className="arprp">
+                  <em>{A.lawSection.inProject}</em>
+                  <span>{r.inProject}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+          <p className="src ri" style={{ marginTop: 16 }}>
+            {LEGAL_NOTE} Stan na {A.lawAsOf}, aktualizujemy przy każdej zmianie.
+          </p>
         </div>
       </InstSection>
     </div>

@@ -3030,7 +3030,11 @@
   @media (pointer: coarse), (max-width: 760px) {
     & .armode,
     & .arlayers .arsys,
-    & .arlall {
+    & .arlall,
+    & .arck .chip,
+    & .arsyss .arsys,
+    & .arnf .chip,
+    & .ardvt {
       min-height: 44px;
     }
     & .arnav {

@@ -1,11 +1,12 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, type Page, test } from '@playwright/test'
 
-import { site } from '../helpers'
+import { api, loginAsAdmin, site, tenantId } from '../helpers'
 
 // I16a: the page for architects `/dla-architektow` (block `instArchitects`, ADR-I005): the house
 // cross-section (views, layers, hotspots, the card) and the tabs of the sections. Data from
-// `pnpm seed` (`seed:instalacje` gives the page its block).
+// `pnpm seed` (`seed:instalacje` gives the page its block and the 20 „Nowe rozwiązania”, 12 of them
+// published). I16b: checklist, numbers, „Nowe rozwiązania”, developers, law.
 const HOST = 'instalacje.localhost'
 
 async function open(page: Page, motion: 'reduce' | 'no-preference' = 'reduce') {
@@ -98,5 +99,90 @@ test.describe('Instalacje page for architects', () => {
       .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
       .analyze()
     expect(violations.map((v) => v.id)).toEqual([])
+  })
+
+  test('the checklist: 20 items for a house, ticks kept in the browser', async ({ page }) => {
+    await open(page)
+    const list = page.locator('#checklista')
+    await expect(list.locator('.arckt .h3')).toHaveText('20 rzeczy do przewidzenia')
+    await list.locator('.arci').first().click()
+    await expect(list.locator('.arckp span')).toHaveText('1 / 20')
+    // Another object clears the ticks; fewer systems, fewer items.
+    await list.getByRole('button', { name: 'Apartament, mieszkanie' }).click()
+    await expect(list.locator('.arckp span')).toHaveText(/^0 \//)
+    await list.locator('.arci').first().click()
+    await page.reload()
+    await expect(list.getByRole('button', { name: 'Apartament, mieszkanie' })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    )
+    await expect(list.locator('.arckp span')).toHaveText(/^1 \//)
+  })
+
+  test('„Nowe rozwiązania”: filter with counts, previous/next within it', async ({ page }) => {
+    await open(page)
+    const news = page.locator('#nowosci')
+    await news
+      .locator('.arnf')
+      .getByRole('button', { name: /^Obraz/ })
+      .click()
+    await expect(news.locator('.arnxpos')).toHaveText(/^1 \/ \d+$/)
+    const count = await news.locator('.arnwi').count()
+    await news.getByRole('button', { name: 'Następne rozwiązanie' }).click()
+    await expect(news.locator('.arnxpos')).toHaveText(`2 / ${count}`)
+    await expect(news.locator('.arnxd .eye')).toHaveText('Obraz')
+    // Unconfirmed cards (drafts with the boss's note) are not on the page.
+    await expect(news).not.toContainText('Głośniki pod gładzią')
+  })
+
+  test('developers and law: tabs, no price promise, the legal note', async ({ page }) => {
+    await open(page)
+    const dev = page.locator('#deweloperzy')
+    await dev.getByRole('tab', { name: 'Garaż i parking' }).click()
+    await expect(dev.getByRole('tabpanel')).toContainText('Elzab EcoPower')
+    await expect(dev).toContainText('Nie obiecujemy, że smart home podniesie cenę lokalu')
+    await expect(page.locator('#przepisy')).toContainText('To nie jest porada prawna. Stan na')
+    await expect(page.locator('#przepisy .arprc2')).toHaveCount(8)
+  })
+
+  test('a card published in the panel shows; one with a marker cannot be published', async ({
+    page,
+    context,
+  }) => {
+    await loginAsAdmin(page)
+    const tenant = await tenantId(page, 'instalacje')
+    const title = `E2E rozwiązanie ${Date.now()}`
+    const card = {
+      tenant,
+      title,
+      category: 'wifi',
+      type: 'Nowość',
+      description: 'Karta dodana przez test e2e.',
+      params: [{ label: 'Parametr', value: '1 m' }],
+      planItems: [{ text: 'Kabel do szafy' }],
+      places: [{ name: 'Dom' }],
+      order: 999,
+    }
+    const marked = await api(page, 'POST', '/api/inst-arch-news', {
+      ...card,
+      description: 'Opis [SZEF: do potwierdzenia]',
+      _status: 'published',
+    })
+    expect(marked.status).toBe(400)
+
+    const created = await api(page, 'POST', '/api/inst-arch-news', {
+      ...card,
+      _status: 'published',
+    })
+    expect(created.status).toBe(201)
+    const id = (created.json.doc as { id: number }).id
+    try {
+      const visitor = await context.newPage()
+      await visitor.emulateMedia({ reducedMotion: 'reduce' })
+      await visitor.goto(site(HOST, '/dla-architektow'))
+      await expect(visitor.locator('#nowosci .arnwi', { hasText: title })).toHaveCount(1)
+    } finally {
+      await api(page, 'DELETE', `/api/inst-arch-news/${id}`)
+    }
   })
 })
