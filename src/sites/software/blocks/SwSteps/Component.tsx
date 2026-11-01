@@ -5,6 +5,7 @@ import { isIconName } from '@/lib/catalog/options'
 import { stepItems } from '@/lib/software/aboutBlocks'
 import { fillText } from '@/lib/software/facts'
 import type { SwStepsBlock as SwStepsBlockData } from '@/payload-types'
+import { CountUp } from '@/sites/software/components/CountUp'
 import { SectionHead } from '@/sites/software/components/home/SectionHead'
 import { softwareTextContext } from '@/sites/software/components/textContext'
 
@@ -87,7 +88,8 @@ export async function SwStepsBlock({ block, tenantId }: Props) {
                 <>
                   {item.marker ? (
                     <span className="block font-display text-[34px] font-extrabold leading-none text-grad-h1 min-[641px]:text-5xl">
-                      {item.marker}
+                      {/* Counts up once when seen (SWV7). */}
+                      <CountUp text={item.marker} />
                     </span>
                   ) : null}
                   {item.text ? (

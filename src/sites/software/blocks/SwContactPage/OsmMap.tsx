@@ -27,6 +27,7 @@ export function OsmMap({ routeHref, routeLabel, zoomLabel, pin, label }: Props) 
   return (
     <div
       data-reveal
+      data-osm-map
       className="relative min-h-[340px] overflow-hidden rounded-[26px] bg-(--map-land) shadow-[inset_0_0_0_1px_var(--border)] min-[641px]:min-h-[520px] min-[641px]:rounded-[30px]"
     >
       <svg
@@ -122,6 +123,7 @@ export function OsmMap({ routeHref, routeLabel, zoomLabel, pin, label }: Props) 
       <div className="absolute right-3.5 bottom-3.5 left-3.5 flex flex-wrap items-end gap-2">
         <a
           href={routeHref}
+          data-route
           rel="noopener"
           target="_blank"
           className="inline-flex min-h-12 items-center gap-2 rounded-2xl bg-button px-5 font-extrabold text-accent-ink shadow-raised"
