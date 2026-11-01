@@ -5,7 +5,7 @@ import { getCatalogIndex } from '@/lib/catalog/data'
 import {
   CATALOG_PATH,
   catalogSeo,
-  OWN_BRAND_SLUG,
+  brandCount,
   parseCatalogState,
   type ParamSource,
 } from '@/lib/catalog/filters'
@@ -62,7 +62,7 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
 export default async function CatalogPage({ params }: Props) {
   const tenant = await requireLine(params, 'biznes')
   const index = await getCatalogIndex(tenant.id)
-  const brands = index.brands.filter((brand) => brand.slug !== OWN_BRAND_SLUG).length
+  const brands = brandCount(index)
   // Counts from the database (K4-FINAL §4.4).
   const stats = [
     {
