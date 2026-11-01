@@ -20,6 +20,7 @@ const defaults = {
   MAIL_FROM_NAME: 'PRO-KOM',
   INQUIRY_RETENTION_MONTHS: 24,
   UMAMI_WEBSITES: {},
+  MAIL_SENDERS: {},
 }
 
 describe('parseEnv', () => {

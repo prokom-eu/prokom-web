@@ -1,5 +1,6 @@
 import { z } from 'zod'
 
+import { mailSenders } from './mail/senders'
 import { normalizeHost } from './tenant/host'
 import { isLine, type Line } from './tenant/lines'
 
@@ -62,6 +63,9 @@ const envSchema = z
     // hard-coded, so moving the mail provider changes no code.
     MAIL_FROM_ADDRESS: z.email(),
     MAIL_FROM_NAME: z.string().min(1).default('PRO-KOM'),
+    // Sender per line (S10d): `<line>=<address>,…`; others use MAIL_FROM_ADDRESS. A line's own
+    // SMTP login, when the mail host needs it: SMTP_PASS_<LINE> (lib/mail/senders.ts).
+    MAIL_SENDERS: mailSenders,
     // Closed inquiries are deleted this many months after their last status change (ADR-003).
     INQUIRY_RETENTION_MONTHS: z.coerce.number().int().min(1).default(24),
     // Cookieless statistics (ADR-020): the Umami container's address as the app reaches it
