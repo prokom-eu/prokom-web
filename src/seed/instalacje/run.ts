@@ -5,6 +5,8 @@ import { hasSameValues } from '../compare'
 import { SEED_CONTEXT } from '../config'
 import { lineSettingsUpdate, siteContactUpdate } from './contact'
 import { FORM_PAGE_BLOCKS, needsFormBlock } from './formPages'
+import { seedInstalacjeGuide } from './guide'
+import { LEGAL_LINKS, seedInstalacjeLegal } from './legal'
 import { seedInstalacjeHome } from './home'
 import { SERVICE_PAGE_KEYS } from './servicePages'
 import {
@@ -107,15 +109,21 @@ export async function seedInstalacje(payload: Payload): Promise<void> {
     ...local,
   })
   const siteUpdate = siteSettings ? siteContactUpdate(siteSettings) : null
-  if (siteSettings && siteUpdate) {
+  // I13: the footer's legal links while the panel has none (the sample settings have none).
+  const footer =
+    siteSettings && !siteSettings.footer?.links?.length
+      ? { ...siteSettings.footer, links: LEGAL_LINKS }
+      : null
+  if (siteSettings && (siteUpdate || footer)) {
     await payload.update({
       collection: 'site-settings',
       id: siteSettings.id,
-      data: siteUpdate,
+      data: { ...siteUpdate, ...(footer && { footer }) },
       ...local,
     })
   }
   count('site-settings contact', siteUpdate ? 'updated' : 'skipped')
+  count('site-settings footer', footer ? 'updated' : 'skipped')
 
   // --- services and objects: ids first, then full data with the relations ---
   const services = servicesToImport()
@@ -279,10 +287,28 @@ export async function seedInstalacje(payload: Payload): Promise<void> {
         ...local,
       })
       count('realizations', 'updated')
+    } else if (existing._status === 'published' && (!existing.kind || !existing.services?.length)) {
+      // I12: the filters of /realizacje (new fields) — only while the panel left them empty.
+      await payload.update({
+        collection: 'realizations',
+        id: existing.id,
+        data: {
+          ...(!existing.kind && { kind: data.kind }),
+          ...(!existing.services?.length && { services: data.services }),
+        },
+        ...local,
+      })
+      count('realizations', 'updated')
     } else {
       count('realizations', 'skipped')
     }
   }
+
+  // --- guide posts (I12): `/poradnik/<slug>`, created while missing ---
+  await seedInstalacjeGuide(payload, tenantId, count)
+
+  // --- legal pages (I13): created while missing, then they belong to the panel ---
+  await seedInstalacjeLegal(payload, tenantId, count)
 
   // --- home page (I5): the `instHome` block and SEO, also over the sample page ---
   await seedInstalacjeHome(payload, tenantId, count)

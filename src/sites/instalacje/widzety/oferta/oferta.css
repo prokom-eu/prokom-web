@@ -1,0 +1,414 @@
+/* Ported from pk.css with narzedzia/przenies-css.mjs (I12): the full offer /uslugi (`.ofbar .ofs` scoped: the same class is the map label of O firmie). */
+[data-line='instalacje'] {
+  & .odb {
+    margin-top: 22px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+    gap: 30px;
+    padding: 34px;
+    border-radius: 28px;
+    background: var(--inst-plan-card);
+    color: var(--inst-deep-ink);
+    box-shadow: inset 0 0 0 1px var(--inst-band-line);
+  }
+  & .odb .lead {
+    color: var(--inst-deep-lead-2);
+  }
+  & .odl {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  & .odi {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 14px;
+    border-radius: 16px;
+    background: var(--inst-foot-glow);
+    box-shadow: inset 0 0 0 1px var(--inst-il-odi-sh);
+    font-size: 14.5px;
+  }
+  & .odi i {
+    color: var(--inst-plan-accent);
+    flex: none;
+  }
+  @media (max-width: 1100px) {
+    & .odb {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 760px) {
+    & .odl {
+      grid-template-columns: 1fr;
+    }
+    & .odb {
+      padding: 22px;
+    }
+  }
+  & .odi > svg {
+    flex: none;
+  }
+  & .uschips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    min-width: 0;
+  }
+  & .uchip {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    min-height: 40px;
+    padding: 0 14px;
+    border-radius: 999px;
+    border: 0;
+    cursor: pointer;
+    background: var(--surface-3);
+    color: var(--ink-soft);
+    font-weight: 800;
+    font-size: 14px;
+    box-shadow: inset 0 0 0 1px var(--border);
+    transition:
+      background 0.25s,
+      color 0.25s,
+      box-shadow 0.25s,
+      transform 0.2s;
+  }
+  @media (hover: hover) {
+    & .uchip:hover {
+      transform: translateY(-1px);
+      box-shadow: inset 0 0 0 1.5px var(--accent-line);
+    }
+  }
+  & .uchip.on {
+    background: var(--accent);
+    color: var(--accent-ink);
+    box-shadow: 0 8px 22px -10px var(--glow);
+  }
+  @media (max-width: 760px) {
+    & .uschips {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      margin: 0 -16px;
+      padding: 2px 16px 6px;
+      scrollbar-width: none;
+    }
+    & .uschips::-webkit-scrollbar {
+      display: none;
+    }
+    & .uchip {
+      flex: none;
+    }
+  }
+  & .ofbar {
+    margin-top: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 18px;
+    border-radius: 24px;
+    background: var(--card);
+    box-shadow:
+      inset 0 0 0 1px var(--border),
+      var(--shadow);
+  }
+  & .ofbar .ofs {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 16px;
+    min-height: 58px;
+    border-radius: 16px;
+    background: var(--surface-3);
+    box-shadow: inset 0 0 0 1px var(--border);
+    color: var(--ink-2);
+  }
+  & .ofbar .ofs:focus-within {
+    box-shadow: inset 0 0 0 2px var(--accent);
+  }
+  & .ofbar .ofs input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    background: transparent;
+    color: var(--ink);
+    font: 700 17px var(--font-sans);
+    outline: none;
+  }
+  & .ofbar .ofs input::placeholder {
+    color: var(--ink-2);
+    font-weight: 600;
+  }
+  & .ofx {
+    border: 0;
+    background: var(--border);
+    color: var(--ink);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 1;
+  }
+  & .ofcnt {
+    font-size: 14px;
+    color: var(--ink-2);
+  }
+  & .ofcnt b {
+    color: var(--ink);
+  }
+  & .ofcnt button {
+    border: 0;
+    background: none;
+    color: var(--accent-text);
+    font-weight: 800;
+    cursor: pointer;
+    padding: 0;
+    font-size: 14px;
+  }
+  & .ofw {
+    display: grid;
+    grid-template-columns: 250px minmax(0, 1fr);
+    gap: 28px;
+    align-items: start;
+  }
+  & .ofnav {
+    position: sticky;
+    top: 96px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  & .ofn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 10px;
+    border-radius: 12px;
+    font-weight: 800;
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    transition:
+      background 0.2s,
+      color 0.2s;
+  }
+  & .ofn svg {
+    color: var(--accent-text);
+    flex: none;
+  }
+  & .ofn span {
+    flex: 1;
+  }
+  & .ofn em {
+    font-style: normal;
+    font-size: 12px;
+    min-width: 24px;
+    text-align: center;
+    padding: 2px 6px;
+    border-radius: 999px;
+    background: var(--surface-3);
+    color: var(--ink-2);
+  }
+  @media (hover: hover) {
+    & .ofn:hover {
+      background: var(--surface-3);
+      color: var(--ink);
+    }
+  }
+  & .ofn.off {
+    opacity: 0.4;
+  }
+  & .ofn.extra {
+    font-weight: 700;
+    color: var(--ink-2);
+  }
+  & .oflist {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  & .ofa {
+    padding: 26px;
+    border-radius: 28px;
+    background: var(--card);
+    box-shadow: inset 0 0 0 1px var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    scroll-margin-top: 96px;
+  }
+  & .ofa.hide {
+    display: none;
+  }
+  & .ofa.extra {
+    background: linear-gradient(180deg, var(--card), var(--surface-2));
+  }
+  & .ofah {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 18px;
+    align-items: start;
+  }
+  & .ofat {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  & .ofat p {
+    margin: 0;
+    color: var(--ink-2);
+    font-size: 15.5px;
+    max-width: 640px;
+  }
+  & .ofb {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+  }
+  & .ofb > span:first-child {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    margin-right: 4px;
+  }
+  & .ofg {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+  & .ofi {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 16px;
+    border-radius: 18px;
+    background: var(--surface-2);
+    box-shadow: inset 0 0 0 1px var(--border);
+    transition:
+      box-shadow 0.2s,
+      transform 0.2s;
+  }
+  @media (hover: hover) {
+    & .ofi:hover {
+      box-shadow: inset 0 0 0 1.5px var(--accent-line);
+      transform: translateY(-2px);
+    }
+  }
+  & .ofi b {
+    font-size: 15.5px;
+    line-height: 1.3;
+  }
+  & .ofi > span {
+    font-size: 14px;
+    color: var(--ink-2);
+    line-height: 1.45;
+  }
+  & .ofit {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: auto;
+    padding-top: 4px;
+  }
+  & .ofit em {
+    font-style: normal;
+    font-size: 11.5px;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent-text);
+  }
+  @media (max-width: 1100px) {
+    & .ofw {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    & .ofnav {
+      position: static;
+      flex-direction: row;
+      overflow-x: auto;
+      gap: 6px;
+      margin: 0 -32px;
+      padding: 0 32px 6px;
+      scrollbar-width: none;
+    }
+    & .ofnav .usl,
+    & .ofnav .btn {
+      display: none;
+    }
+    & .ofn {
+      flex: none;
+      background: var(--card);
+      box-shadow: inset 0 0 0 1px var(--border);
+    }
+    & .ofg {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 760px) {
+    & .ofbar {
+      padding: 14px;
+      margin-left: -4px;
+      margin-right: -4px;
+    }
+    & .ofbar .ofs input {
+      font-size: 15px;
+    }
+    & .ofnav {
+      margin: 0 -16px;
+      padding: 0 16px 6px;
+    }
+    & .ofa {
+      padding: 18px;
+      border-radius: 22px;
+    }
+    & .ofah {
+      grid-template-columns: auto minmax(0, 1fr);
+    }
+    & .ofgo {
+      grid-column: 1 / -1;
+      justify-self: start;
+    }
+    & .ofg {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    & .ofo {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      margin: 0 -14px;
+      padding: 2px 14px 6px;
+    }
+    & .ofo .uchip {
+      flex: none;
+    }
+  }
+  @media (max-width: 760px) {
+    & .odb {
+      padding: 22px;
+    }
+  }
+  & .xa-ofmore {
+    margin-top: 14px;
+    align-self: flex-start;
+  }
+  /* The prototype has no Tailwind reset: icons inline on the text baseline (ADR-I003 §5 p. 6). */
+  & .odi i > svg,
+  & .ofn > svg {
+    display: inline;
+    vertical-align: baseline;
+  }
+  /* Touch targets 44 px on a phone (MOBILE-APLIKACJA §10; the prototype has 40). */
+  @media (max-width: 760px), (pointer: coarse) {
+    & .ofo .uchip {
+      min-height: 44px;
+    }
+  }
+  /* Solutions past the third until „Pokaż wszystkie”: in the HTML for search engines, hidden here. */
+  & .ofi.xa-ofx {
+    display: none;
+  }
+}

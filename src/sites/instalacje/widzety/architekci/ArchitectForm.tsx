@@ -1,5 +1,6 @@
 'use client'
 
+import { track } from '@/lib/analytics/track'
 import { type FormEvent, useEffect, useRef, useState } from 'react'
 
 import { readOutcome } from '@/lib/inquiry/form'
@@ -91,8 +92,10 @@ export function ArchitectForm({ formToken, phone, email }: Props) {
         phone: T.errors.phone,
         consent: T.errors.consent,
       })
-      if (outcome.kind === 'sent') setSent({ number: outcome.number })
-      else if (outcome.kind === 'invalid') {
+      if (outcome.kind === 'sent') {
+        track('kontakt_wyslij')
+        setSent({ number: outcome.number })
+      } else if (outcome.kind === 'invalid') {
         const [key, text] = outcome.formError ? [] : (Object.entries(outcome.fields)[0] ?? [])
         if (key && text) fail(key as ProjectError, text)
         else fail('form', outcome.formError ?? T.errors.failed)

@@ -22,7 +22,8 @@ type Props = {
   parent?: { label: string; href: string } | null
 }
 
-const SERVICES = { label: 'Usługi', href: '/#uslugi' }
+// The full offer since I12 (before: the home section `#uslugi`).
+const SERVICES = { label: 'Usługi', href: '/uslugi' }
 
 // The mountain ridges behind the hero (`zrodlo/inc/pheroA.html`).
 const RIDGE_1 =

@@ -176,7 +176,7 @@ export async function InstServiceBlock({ block, tenantId }: Props) {
           <JsonLd
             data={breadcrumbJsonLd([
               { name: 'Start', url: `${origin}/` },
-              { name: 'Usługi', url: `${origin}/#uslugi` },
+              { name: 'Usługi', url: `${origin}/uslugi` },
               { name: crumb, url: `${origin}${path}` },
             ])}
           />

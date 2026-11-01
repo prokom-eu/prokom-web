@@ -1,5 +1,6 @@
 'use client'
 
+import { track } from '@/lib/analytics/track'
 import Link from 'next/link'
 import { type FormEvent, useEffect, useRef, useState } from 'react'
 
@@ -91,8 +92,10 @@ export function FaultForm({ formToken, phone }: Props) {
         phone: F.errors.phone,
         consent: F.errors.consent,
       })
-      if (outcome.kind === 'sent') setSent({ number: outcome.number, state })
-      else if (outcome.kind === 'invalid') {
+      if (outcome.kind === 'sent') {
+        track('kontakt_wyslij')
+        setSent({ number: outcome.number, state })
+      } else if (outcome.kind === 'invalid') {
         const [key, text] = outcome.formError ? [] : (Object.entries(outcome.fields)[0] ?? [])
         if (key && text) {
           setError({ key: key as FaultError, text })

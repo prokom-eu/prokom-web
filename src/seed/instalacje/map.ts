@@ -38,6 +38,7 @@ import {
   OBJECT_KEYS,
   OFFER_CATEGORIES,
   OFFER_FAMILIES,
+  REALIZATION_KINDS,
   SERVICE_GROUPS,
   SERVICE_KEYS,
 } from '../../lib/instalacje/options'
@@ -64,6 +65,7 @@ export type RealizationData = Data<Realization>
 
 type ServiceKey = (typeof SERVICE_KEYS)[number]['value']
 type ObjectKey = (typeof OBJECT_KEYS)[number]['value']
+type RealizationKind = (typeof REALIZATION_KINDS)[number]['value']
 type OfferCategory = (typeof OFFER_CATEGORIES)[number]['value']
 
 /** Ids of the imported records by key: relations need them, so `run.ts` creates records first. */
@@ -494,8 +496,30 @@ export function archNewsToImport(): ArchNewsItem[] {
  * publication (boss 01.11.2026, ADR-I002 §2). The home page shows the first ones (`Main.rl`,
  * shorter names) → featured.
  */
+/**
+ * Services and object kind of each realization for the filters of `/realizacje` (I12): the
+ * prototype's table `R` of `zrodlo/pages/Realizacje.js` (columns 6 and 7), in the order of
+ * `Realizacje.json` — the package snapshot has no such keys.
+ */
+const REALIZATION_FILTERS: { services: ServiceKey[]; kind: RealizationKind }[] = [
+  { services: ['snd', 'scr', 'wifi'], kind: 'firma' },
+  { services: ['snd', 'scr'], kind: 'kosciol' },
+  { services: ['snd'], kind: 'sklep' },
+  { services: ['snd', 'scr'], kind: 'gastro' },
+  { services: ['scr', 'snd'], kind: 'gastro' },
+  { services: ['snd'], kind: 'gastro' },
+  { services: ['snd'], kind: 'kosciol' },
+  { services: ['snd'], kind: 'kosciol' },
+  { services: ['scr'], kind: 'szkola' },
+  { services: ['scr'], kind: 'sklep' },
+  { services: ['ant'], kind: 'dom' },
+]
+
 export function realizationsToImport(): (RealizationData & { legacyId: number })[] {
   const featured = Main.dane.rl.length
+  if (REALIZATION_FILTERS.length !== Realizacje.dane.rl.list.length) {
+    throw new Error('Seed (Instalacje): REALIZATION_FILTERS does not match Realizacje.json.')
+  }
   return Realizacje.dane.rl.list.map((r, index) => ({
     legacyId: index + 1,
     title: r.n,
@@ -506,6 +530,8 @@ export function realizationsToImport(): (RealizationData & { legacyId: number })
     // The clients agreed to the publication (boss 01.11.2026).
     clientConsent: true,
     featured: index < featured,
+    services: REALIZATION_FILTERS[index]?.services,
+    kind: REALIZATION_FILTERS[index]?.kind,
   }))
 }
 
@@ -521,7 +547,8 @@ const PAGE_FILES: {
   /** Own description when the package's is over 160 characters. */
   seoDescription?: string
 }[] = [
-  { slug: 'uslugi', title: 'Pełna oferta', file: Oferta },
+  // I12: the package's titles of the four pages + „| PRO-KOM Instalacje” have 73–76 characters.
+  { slug: 'uslugi', title: 'Pełna oferta', file: Oferta, seoTitle: 'Oferta instalacji na Podhalu' },
   // The package's title has 57 characters + „| PRO-KOM Instalacje” (SEO §2.2: ≤ 65 in all).
   {
     slug: 'zaplanuj',
@@ -553,9 +580,24 @@ const PAGE_FILES: {
     seoDescription:
       'Współpraca z architektami na Podhalu i w Małopolsce: plan urządzeń na rzutach, wytyczne do projektu, smart home Ampio, głośniki do zabudowy, monitoring.',
   },
-  { slug: 'o-firmie', title: 'O firmie', file: OFirmie },
-  { slug: 'realizacje', title: 'Realizacje', file: Realizacje },
-  { slug: 'poradnik', title: 'Poradnik', file: Poradnik },
+  {
+    slug: 'o-firmie',
+    title: 'O firmie',
+    file: OFirmie,
+    seoTitle: 'O firmie: instalacje na Podhalu od 2004',
+  },
+  {
+    slug: 'realizacje',
+    title: 'Realizacje',
+    file: Realizacje,
+    seoTitle: 'Realizacje: nagłośnienie i multimedia',
+  },
+  {
+    slug: 'poradnik',
+    title: 'Poradnik',
+    file: Poradnik,
+    seoTitle: 'Poradnik: monitoring, RODO i Wi-Fi',
+  },
 ]
 
 /**

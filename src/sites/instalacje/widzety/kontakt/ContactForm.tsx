@@ -1,5 +1,6 @@
 'use client'
 
+import { track } from '@/lib/analytics/track'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { type FormEvent, useRef, useState } from 'react'
@@ -79,6 +80,7 @@ export function ContactForm({ formToken }: { formToken: string }) {
         consent: F.errors.consent,
       })
       if (outcome.kind === 'sent') {
+        track('kontakt_wyslij')
         const query = new URLSearchParams({ kontakt: 'phone' })
         if (outcome.number) query.set('nr', outcome.number)
         router.push(`/wyslane?${query.toString()}`)

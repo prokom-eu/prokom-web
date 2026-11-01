@@ -1,3 +1,4 @@
+import { AnalyticsScript } from '@/components/AnalyticsScript'
 import type { ReactNode } from 'react'
 
 import { SiteLogo } from '@/components/SiteLogo'
@@ -72,6 +73,8 @@ export async function InstalacjeFrame({ tenant, settings, promo, children }: Pro
           status={status}
           phone={phone}
         />
+        {/* Statistics (ADR-020): rendered only when `UMAMI_WEBSITES` has `instalacje=<id>`. */}
+        <AnalyticsScript line={tenant.line} />
       </div>
     </ShellProvider>
   )

@@ -1,0 +1,59 @@
+/* Ported from pk.css with narzedzia/przenies-css.mjs (I12): the realizations /realizacje. */
+[data-line='instalacje'] {
+  & .rfil {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 30px;
+  }
+  & .rfil .chip em {
+    font-style: normal;
+    background: var(--border);
+    border-radius: 6px;
+    padding: 0 6px;
+    font-size: 12px;
+    width: auto;
+    min-width: 20px;
+  }
+  & .rgrid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+  & .rgrid .rl {
+    border: 0;
+    padding: 0;
+    text-align: left;
+    cursor: pointer;
+    color: inherit;
+    font-family: inherit;
+  }
+  & .rgrid .rl.sel {
+    box-shadow: inset 0 0 0 2px var(--accent);
+  }
+  @media (max-width: 1100px) {
+    & .rgrid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (max-width: 760px) {
+    & .rgrid {
+      grid-template-columns: 1fr;
+    }
+  }
+  & .xa-rlmore {
+    margin-top: 18px;
+  }
+  & .rgrid div.rl {
+    cursor: default;
+  }
+  @media (hover: hover) {
+    & .rgrid div.rl:hover {
+      transform: none;
+    }
+  }
+  /* Cards past the sixth until „Pokaż wszystkie” (`.pk .rgrid .xa-rlx`). */
+  & .rgrid .xa-rlx {
+    display: none;
+  }
+}
