@@ -18,7 +18,10 @@ export const ARCHITECTS_CONTACT = {
   role: 'Właściciel PRO-KOM · opiekun architektów i wykonawców',
 } as const
 
-/** A value `pnpm seed` wrote as a sample (`src/seed/sample.ts`), or nothing at all. */
+/**
+ * A value `pnpm seed` wrote as a sample (`src/seed/sample.ts`), or nothing at all — so a field
+ * cleared on purpose in a local panel gets the real value back on the next seed (local only).
+ */
 export function isSample(value: string | null | undefined): boolean {
   const text = value?.trim() ?? ''
   return text === '' || text.startsWith('+48 000') || text.endsWith('@example.test')

@@ -30,8 +30,9 @@ type Counter = { created: number; updated: number; skipped: number }
  * written only when it differs from the package, so a re-run makes no new versions.
  * - Services, objects, offer: every field the package provides wins over an edit in the panel;
  *   published. Services and objects point at each other, so missing ones are created first.
- * - Realizations: the clients agreed (boss 01.11.2026) — created published with the consent; a
- *   draft without consent from an older seed gets it once, later they belong to the panel.
+ * - Realizations: the clients agreed (boss 01.11.2026) — created published with the consent. A
+ *   draft of an older seed (no consent, still exactly the package) is published; one an editor
+ *   changed (texts, consent taken back) stays as it is — then they belong to the panel.
  * - Pages: missing ones as empty drafts with title and SEO (blocks come with their sessions);
  *   an existing page is never touched — except home, which gets its `instHome` block (I5).
  * - Settings: created while missing, then they belong to the panel. The line's real phone and
@@ -265,12 +266,16 @@ export async function seedInstalacje(payload: Payload): Promise<void> {
         ...local,
       })
       count('realizations', 'created')
-    } else if (!existing.clientConsent && existing._status !== 'published') {
-      // A draft of an older seed (no consent then): it gets the consent and is published once.
+    } else if (
+      existing._status !== 'published' &&
+      hasSameValues(existing, { ...data, clientConsent: false })
+    ) {
+      // A draft of an older seed, untouched in the panel: published with the consent. The whole
+      // package record goes with it, so nothing of the draft is lost.
       await payload.update({
         collection: 'realizations',
         id: existing.id,
-        data: { clientConsent: true, _status: 'published' },
+        data: { ...data, _status: 'published' },
         ...local,
       })
       count('realizations', 'updated')

@@ -85,6 +85,7 @@ const withoutNotes = (text: string) =>
 describe('contact map as the prototype', () => {
   it('patches the prototype to one salon (the test would compare two salons otherwise)', () => {
     expect(oneSalon).not.toBe(source)
+    expect(oneSalon).toContain("['Zakopane', 49.30, 19.95, 'z', 0]")
     expect(oneSalon).not.toContain("['Zakopane', 49.30, 19.95]];")
     expect(oneSalon).not.toMatch(/Obsługa z salonu w Zakopanem|Rabki albo Zakopanego/)
   })

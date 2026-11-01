@@ -70,8 +70,7 @@
   "https://pro-kom.eu": "PRO-KOM (hub)",
   "https://prokombiznes.pl": "Biznes",
   "https://prokomsoftware.pl": "Software",
-  "https://prokomserwis.pl": "Tech · naprawy",
-  "https://telefonyzakopane.pl": "Zakopane · salon (sprawdzić docelową domenę salonu przed produkcją)"
+  "https://prokomserwis.pl": "Tech · naprawy"
  },
  "zdjecia": {
   "ev/home.webp": "/instalacje/ev/home.webp",
