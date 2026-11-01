@@ -2508,6 +2508,199 @@ body{margin:0}
 /* v22: wąskie telefony — cena w pasku nie styka się z przyciskiem */
 @media (max-width:374px){.ombarp b{font-size:17px}.ombar{gap:8px}}
 
+/* --- zz_v23.css --- */
+/* =====================================================================
+   v23 · kolory (Krystian, 01.11.2026): bez „kolorów z generatora AI”.
+   Fiolet Software zostaje jako JEDEN płaski akcent (księga znaku, ADR-015).
+   Baza: grafit i papier PRO-KOM. Bez gradientów fiolet–róż–błękit, bez
+   poświat i świecących pierścieni, bez wielokolorowych ikon.
+   ===================================================================== */
+.pk{--accent2:var(--accent);--glow:rgba(0,0,0,.34);--glow2:transparent;--stage:#1B201C;--dark:#151A16;--accentSoft:#231F30;--shadow:0 30px 70px -32px rgba(0,0,0,.75)}
+.pk[data-theme="light"]{--accent2:var(--accent);--glow:rgba(18,22,19,.16);--glow2:transparent;--stage:#ECEEE8;--dark:#151A16;--accentSoft:#EEEAFB;--shadow:0 30px 70px -34px rgba(18,22,19,.28)}
+
+/* tekst „w kolorze” = płaski akcent, bez gradientu */
+.grad,.pk .grad{background:none!important;-webkit-background-clip:border-box!important;background-clip:border-box!important;color:var(--accentText)!important;-webkit-text-fill-color:currentColor!important}
+
+/* poświaty, pierścienie, „podłogi” pod makietami — znikają */
+.hglow,.bring,.pfloor,.kzt:before,.fside:before,.cmp:after{display:none!important}
+.hgrid{opacity:.55}
+
+/* przyciski: cień neutralny zamiast fioletowej poświaty */
+.btn-p{box-shadow:0 12px 26px -14px var(--glow)}
+.btn-p:hover{box-shadow:0 16px 30px -14px var(--glow)}
+
+/* kafle intencji i ikony obszarów: jeden kolor */
+.int:before{display:none!important}
+.int .ii{background:var(--accentSoft)!important;color:var(--accentText)!important;box-shadow:none!important}
+.int:hover .ii{background:var(--accent)!important;color:var(--accentInk)!important}
+
+/* duże sekcje: płaskie tła zamiast fioletowych mgieł */
+.ox,.wp{background:var(--card)!important}
+.pk[data-theme="light"] .ox,.pk[data-theme="light"] .wp{background:#FFFFFF!important}
+.jx,.tx,.dz,.kz{background:var(--bg2)!important}
+.pk[data-theme="light"] .jx,.pk[data-theme="light"] .tx,.pk[data-theme="light"] .dz,.pk[data-theme="light"] .kz{background:#ECEEE8!important}
+.txd,.txc,.pcx,.megap{background:var(--card)!important}
+.pk[data-theme="light"] .txd,.pk[data-theme="light"] .txc{background:#FFFFFF!important}
+.cmp{background:var(--dark)!important}
+.fside{background:var(--dark)!important}
+.ft{background:var(--ftbg)!important}
+.pk[data-theme="light"] .ft{--ftbg:#151A16}
+.dzidle{background:radial-gradient(var(--dot) 1px,transparent 1.2px) 0 0/22px 22px,var(--bg2)!important}
+.dzapp,.dzflow{background:var(--bg2)!important}
+.mkh,.mkph1{background:var(--accentSoft)!important}
+.kzinc,.pk[data-theme="light"] .kzinc{background:var(--accentSoft)!important}
+.kzkpi > span{background:var(--accentSoft)!important}
+
+/* elementy aktywne i wyróżnione: płaski akcent */
+.txl.on,.pk[data-theme="light"] .txl.on,.txp.on,.pk[data-theme="light"] .txp.on,.wpc.on,.tbkc,.kzrec,.dzmi .mh,.nb i:nth-child(1),.dzbars em,.ft .ftbk{background:var(--accent)!important;color:var(--accentInk)!important}
+.txdi,.oa:hover .oai,.dzt:hover .dzti,.dzt.on .dzti,.dzo.on .dzti,.dzbadges i{background:var(--accent)!important;color:var(--accentInk)!important}
+.kzline i,.bsum .lv i,.prog i{background:var(--accent)!important}
+.saynot,.pk[data-theme="light"] .saynot{background:#4E2EA8!important}
+.kztk,.mshk{background:var(--accent)!important}
+
+/* okno szczegółów oferty: kolory kategorii → jeden akcent */
+.omkat,.omszn em,.omfeat i,.omsteps li:first-child em{background:var(--accent)!important;color:var(--accentInk)!important}
+.omask,.omex,.ominc,.pk[data-theme="dark"] .ominc{background:var(--accentSoft)!important}
+
+/* ramka na zdjęcie: neutralna, nie fioletowa */
+.photo{background:var(--bg3)!important;color:var(--muted)!important;box-shadow:inset 0 0 0 1.5px var(--line)!important}
+.photo:before{display:none!important}
+
+/* pasek przewijania w kolorach strony */
+html{scrollbar-color:var(--sbt,#B9B2CF) transparent;scrollbar-width:thin}
+.pk{--sbt:color-mix(in srgb,var(--accent) 45%,var(--line))}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:color-mix(in srgb,#6E45D4 40%,#C9CCC3);border-radius:999px;border:2px solid transparent;background-clip:padding-box}
+::-webkit-scrollbar-thumb:hover{background:#6E45D4;background-clip:padding-box;border:2px solid transparent}
+/* 8 obszarów: ikony i scena jednym kolorem */
+.oxi{background:var(--accentSoft)!important;color:var(--accentText)!important;box-shadow:none!important}
+.oxk:hover .oxi,.oxk.on .oxi{background:var(--accent)!important;color:var(--accentInk)!important;transform:none!important}
+.oxs{background:var(--bg2)!important}
+.pk[data-theme="light"] .oxs{background:#ECEEE8!important}
+.oxs:before{background-image:radial-gradient(var(--dot) 1px,transparent 1.2px)!important}
+/* kreator: ikony potrzeb jednym kolorem */
+.kzi{background:var(--accentSoft)!important;color:var(--accentText)!important;box-shadow:none!important}
+.kzt:hover .kzi,.kzt.on .kzi{background:var(--accent)!important;color:var(--accentInk)!important}
+.tx,.pk[data-theme="light"] .tx{background:transparent!important}
+@media (min-width:1081px){.ftlg{grid-template-columns:repeat(5,minmax(0,1fr))}}
+/* menu na telefonie: kafle oferty jednym kolorem */
+.mtile i{background:var(--accentSoft)!important;color:var(--accentText)!important;box-shadow:none!important}
+.mtile:active i,.mtile:hover i{background:var(--accent)!important;color:var(--accentInk)!important}
+
+/* =====================================================================
+   v23 · telefon: hero i pierwsza sekcja od nowa (≤ 640 px)
+   ===================================================================== */
+.mhc,.mcall{display:none}
+@media (max-width:640px){
+  #start.hero{padding:18px 0 28px!important}
+  #start .hgrid{display:none}
+  .htxt{gap:16px!important}
+  .htxt .pill{font-size:13px;padding:6px 11px 6px 9px;border-radius:999px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line);align-self:flex-start}
+  #start .htxt h1{font-size:clamp(34px,10.4vw,42px)!important;line-height:1.02!important;letter-spacing:-.03em}
+  #start .htxt h1 .grad{display:block;margin-top:4px}
+  .htxt .lead{font-size:16px!important;line-height:1.55}
+  /* karta „panel na żywo” — zamiast składanki modułów */
+  .mhc{display:flex;flex-direction:column;gap:8px;padding:14px;border-radius:24px;background:var(--dark);color:#F4F5F1;box-shadow:var(--shadow);position:relative;overflow:hidden}
+  .mhch{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;font-weight:800;color:#C7CCC6;padding:0 2px 4px}
+  .mhcl{display:inline-flex;align-items:center;gap:8px}.mhcl i{width:14px;height:14px;border-radius:5px;background:var(--accent)}
+  .mhcs{display:inline-flex;align-items:center;gap:6px;color:#7BD36A}.mhcs:before{content:'';width:7px;height:7px;border-radius:50%;background:#7BD36A;animation:ping 2.4s ease-out infinite}
+  .mhcn{display:grid;grid-template-columns:34px minmax(0,1fr) auto;align-items:center;gap:10px;padding:10px;border-radius:16px;background:rgba(255,255,255,.06);box-shadow:inset 0 0 0 1px rgba(255,255,255,.07);opacity:0;transform:translateY(10px);animation:mhcIn .6s cubic-bezier(.2,.8,.2,1) forwards}
+  .mhcn.n1{animation-delay:.35s}.mhcn.n2{animation-delay:.75s}.mhcn.n3{animation-delay:1.15s}
+  .mhci{width:34px;height:34px;border-radius:11px;display:flex;align-items:center;justify-content:center;background:rgba(150,112,238,.18);color:#C7B5FA}
+  .mhcn.n3 .mhci{background:rgba(123,211,106,.16);color:#8FDB7F}
+  .mhcn b{display:block;font-size:14px;line-height:1.25}.mhcn small{display:block;font-size:12.5px;color:#AEB5AF;line-height:1.3}
+  .mhcn em{font-style:normal;font-size:12px;font-weight:700;color:#8E968F}
+  .mhcf{display:flex;justify-content:space-between;align-items:baseline;padding:8px 4px 0;font-size:13px;color:#AEB5AF;border-top:1px solid rgba(255,255,255,.08);margin-top:2px}
+  .mhcf b{font-family:Archivo,sans-serif;font-stretch:112%;font-size:17px;color:#FFFFFF}
+  /* przyciski: główny na całą szerokość, pod nim dwa obok siebie */
+  .hbtns{display:grid!important;grid-template-columns:1fr 1fr;gap:8px!important}
+  .hbtns > .btn-p{grid-column:1 / -1}
+  .hbtns > .btn{min-height:52px;padding:0 12px;width:100%}
+  .mcall{display:inline-flex}
+  .htxt .cb{display:none}
+  /* zaufanie: trzy kolumny zamiast trzech pigułek pod sobą */
+  .htxt .trust{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px!important;padding:12px 6px;border-radius:18px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line)}
+  .htxt .trust > div{flex-direction:column;align-items:center!important;text-align:center;gap:6px!important;font-size:12px!important;line-height:1.25;padding:0!important;background:none!important;box-shadow:none!important;border:0!important;min-height:0!important}
+  .htxt .trust .ti{width:32px;height:32px}
+  #start .hvis{display:none!important}
+  /* pierwsza sekcja: lista jak w aplikacji, a nie cztery wysokie kafle */
+  .intg{grid-template-columns:1fr!important;gap:0!important;border-radius:22px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line);overflow:hidden}
+  .pk[data-theme="light"] .intg{background:#FFFFFF}
+  .int{display:grid!important;grid-template-columns:44px minmax(0,1fr) 20px;grid-template-rows:auto auto;column-gap:12px;row-gap:2px;align-items:center;padding:14px 14px!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;border-bottom:1px solid var(--line);min-height:72px}
+  .int:last-child{border-bottom:0}
+  .int .ii{grid-row:1 / span 2;width:44px!important;height:44px!important;border-radius:14px!important}
+  .int b{font-size:15.5px!important;line-height:1.25}
+  .int small{grid-column:2;font-size:13px!important;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .int .ia{display:flex!important;position:static!important;grid-column:3;grid-row:1 / span 2;width:20px;height:20px;background:none!important;color:var(--muted)}
+  .int:active{background:var(--bg2)!important}
+}
+@keyframes mhcIn{to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.mhcn{animation:none;opacity:1;transform:none}}
+@media (max-width:640px){
+  .htxt > .pill,.htxt > h1,.htxt > .lead{order:0}
+  .htxt > .hbtns{order:4}.htxt > .mhc{order:5}.htxt > .trust{order:6}
+  .htxt .trust > div{white-space:normal!important}
+  .int small{display:-webkit-box!important}
+}
+
+/* =====================================================================
+   v23 · ruch: płynnie, spokojnie, bez skakania. Tylko transform i opacity.
+   Przy „ogranicz ruch” (prefers-reduced-motion) wszystko działa od razu.
+   ===================================================================== */
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+.pk *{-webkit-tap-highlight-color:transparent}
+.pk a,.pk button,.pk [role="button"],.pk label{touch-action:manipulation}
+/* reakcja na dotyk i kliknięcie */
+.pk .btn,.pk .bch,.pk .iconb,.pk .oxk,.pk .kzt,.pk .int,.pk .mtile,.pk .tab,.pk .ktch,.pk .kw,.pk .oxso{transition:transform .18s cubic-bezier(.2,.8,.2,1),box-shadow .25s,background-color .2s,border-color .2s,color .2s}
+.pk .btn:active,.pk .bch:active,.pk .iconb:active,.pk .oxso:active{transform:scale(.97)}
+.pk .oxk:active,.pk .kzt:active,.pk .int:active,.pk .mtile:active,.pk .ktch:active{transform:scale(.985)}
+@media (hover:none){.pk .btn-p:hover,.pk .oa:hover,.pk .int:hover,.pk .kzt:hover{transform:none}}
+/* sekcja „przyjechała” po kliknięciu w bocznym menu: nagłówek mignie akcentem */
+.pk-arrive .h2,.pk-arrive h2{animation:pkArrive 1.3s cubic-bezier(.2,.8,.2,1)}
+@keyframes pkArrive{0%{transform:translateY(10px);opacity:.35}35%{transform:none;opacity:1}55%{text-shadow:0 0 0 transparent}}
+.pk-arrive .eye{animation:pkEye 1.3s ease}
+@keyframes pkEye{0%,100%{letter-spacing:.1em}30%{letter-spacing:.16em}}
+/* sekcje i karty wjeżdżają przy przewijaniu (Chrome/Edge/Safari 26+: scroll-driven; inne: bez animacji) */
+@supports (animation-timeline:view()){
+  .pk .sec .eye,.pk .sec .h2,.pk .sec .lead,.pk .fq,.pk .kmap{animation:pkRise linear both;animation-timeline:view();animation-range:entry 2% cover 18%}
+}
+@supports (animation-timeline:view()){@media (min-width:1081px){
+  .pk .popbody > * > *,.pk .gg > *,.pk .jxg > *,.pk .oa,.pk .tm,.pk .spst,.pk .adc,.pk .lnc,.pk .ktln{animation:pkRise linear both;animation-timeline:view();animation-range:entry 2% cover 18%}
+  .pk .popbody > * > *:nth-child(4n+2),.pk .gg > *:nth-child(3n+2),.pk .jxg > *:nth-child(2),.pk .spst:nth-child(2),.pk .tm:nth-child(2){animation-range:entry 6% cover 22%}
+  .pk .popbody > * > *:nth-child(4n+3),.pk .gg > *:nth-child(3n+3),.pk .jxg > *:nth-child(3),.pk .spst:nth-child(3){animation-range:entry 10% cover 26%}
+  .pk .popbody > * > *:nth-child(4n+4),.pk .spst:nth-child(4){animation-range:entry 14% cover 30%}
+}}
+@keyframes pkRise{from{opacity:0;transform:translateY(26px) scale(.985)}to{opacity:1;transform:none}}
+/* przejścia między stronami (MPA, Chrome/Edge/Safari 18.2+) */
+@view-transition{navigation:auto}
+::view-transition-old(root){animation:pkVtOut .22s ease both}
+::view-transition-new(root){animation:pkVtIn .32s cubic-bezier(.2,.8,.2,1) both}
+@keyframes pkVtOut{to{opacity:0;transform:translateY(-6px)}}
+@keyframes pkVtIn{from{opacity:0;transform:translateY(10px)}}
+.hdr{view-transition-name:pk-hdr}
+.tbar{view-transition-name:pk-tab}
+/* odpowiedź w FAQ rozwija się miękko */
+.fq .pk-pop,.fq p{animation:pkFaq .35s cubic-bezier(.2,.8,.2,1)}
+@keyframes pkFaq{from{opacity:0;transform:translateY(-6px)}}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .pk *,.pk *:before,.pk *:after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  ::view-transition-old(root),::view-transition-new(root){animation:none}
+  .pk .sec .eye,.pk .sec .h2,.pk .sec .lead,.pk .fq,.pk .kmap,.pk .popbody > * > *,.pk .gg > *,.pk .jxg > *,.pk .oa,.pk .tm,.pk .spst,.pk .adc,.pk .lnc,.pk .ktln{animation:none!important}
+}
+/* podstrony: wyróżnione karty płaskim akcentem */
+.ktch.hot,.x4k,.xtyx1,.spc.aurep,.pk[data-theme="light"] .spc.aurep,.reph,.kctac.on,.rzkc.on,.bylph{background:var(--accent)!important;color:var(--accentInk)!important}
+.ktside,.featv{background:var(--dark)!important}
+.brend:before{display:none!important}
+.kcta,.rzk,.midcta,.pk[data-theme="dark"] .strip{background:var(--card)!important}
+.pk[data-theme="light"] .kcta,.pk[data-theme="light"] .rzk,.pk[data-theme="light"] .midcta{background:#FFFFFF!important}
+.x4n,.spst > b{background:none!important;-webkit-background-clip:border-box!important;background-clip:border-box!important;color:var(--accentText)!important;-webkit-text-fill-color:currentColor!important}
+.tl:before{background:var(--accentLine)!important}
+.ktch b{overflow-wrap:anywhere}
+.ktchs > a:nth-child(2) .ktcht b{font-size:16px}
+.adc > a{display:inline-flex;align-items:center;min-height:44px}
+
 /* podstrony */
 /* każda podstrona ma własne CTA na końcu — bez drugiego pasa CTA w stopce */
 .ft .ftcta{display:none}
@@ -2584,6 +2777,21 @@ body{margin:0}
 .scr > div{font-size:15px;line-height:1.45}
 .scr.me{background:var(--accentSoft);box-shadow:inset 0 0 0 1.5px var(--accentLine)}
 .lnc .lnk{margin-top:auto;font-weight:800;font-size:14.5px;color:var(--accentText)}
+.pimg{display:block;width:100%;height:100%;object-fit:cover;border-radius:18px;background:var(--bg3)}
+.ofteam{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:end}
+.oft{margin:0;position:relative;border-radius:26px;overflow:hidden;box-shadow:inset 0 0 0 1px var(--line),var(--shadow);aspect-ratio:4/5;background:var(--bg3)}
+.oft.o2{transform:translateY(-36px)}
+.oft .pimg{border-radius:0}
+.oft figcaption{position:absolute;left:10px;right:10px;bottom:10px;display:flex;flex-direction:column;padding:10px 12px;border-radius:14px;background:rgba(18,22,19,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff}
+.oft figcaption b{font-size:15px}.oft figcaption span{font-size:12.5px;color:#D9DDD8}
+.ofteam .ofbadge{left:-22px;top:-6px;bottom:auto}
+.team.t2{grid-template-columns:repeat(2,minmax(0,1fr));max-width:880px}
+.tm .pimg{height:340px;border-radius:18px}
+.addr.a1{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+.adph{position:relative;border-radius:24px;overflow:hidden;min-height:320px;box-shadow:inset 0 0 0 1px var(--line)}
+.adph .pimg{position:absolute;inset:0;border-radius:0}
+.adph span{position:absolute;left:12px;bottom:12px;padding:6px 10px;border-radius:10px;background:rgba(18,22,19,.72);color:#fff;font-size:12.5px;font-weight:800}
+@media (max-width:760px){.oft.o2{transform:none}.team.t2{grid-template-columns:1fr}.tm .pimg{height:300px}.addr.a1{grid-template-columns:1fr}.adph{min-height:280px}.ofteam .ofbadge{left:8px;bottom:-14px}}
 .salg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .sal{display:flex;flex-direction:column;gap:12px;padding:12px 12px 18px;border-radius:26px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line)}
 .pk[data-theme="light"] .sal{background:#FFFFFF}
@@ -2917,8 +3125,8 @@ body{margin:0}
 <div class="pk" data-theme="{{theme}}" data-page="oferta" style="min-height: 0px">
   <div class="topb" style="background: var(--bg2); border-bottom: 1px solid var(--line); font-size: 13px">
     <div class="wrap" style="padding-top: 8px; padding-bottom: 8px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 20px; color: var(--muted)">
-      <span>Linia firmy PRO-KOM · od 2004 r. · Rabka-Zdrój i Zakopane</span>
-      <span style="display: flex; flex-wrap: wrap; gap: 16px"><a href="https://prokombiznes.pl" style="color: var(--muted)">PRO-KOM Biznes</a><a href="https://prokominstalacje.pl" style="color: var(--muted)">Instalacje</a><a href="https://prokomserwis.pl" style="color: var(--muted)">Tech</a><span style="color: var(--soft); font-weight: 700">[TELEFON SOFTWARE]</span></span>
+      <span>Linia firmy PRO-KOM · od 2004 r. · Rabka-Zdrój</span>
+      <span style="display: flex; flex-wrap: wrap; gap: 16px"><a href="https://prokombiznes.pl" style="color: var(--muted)">PRO-KOM Biznes</a><a href="https://prokominstalacje.pl" style="color: var(--muted)">Instalacje</a><a href="https://prokomserwis.pl" style="color: var(--muted)">Tech</a><span style="color: var(--soft); font-weight: 700">883 200 151</span></span>
     </div>
   </div>
 
@@ -2998,7 +3206,7 @@ body{margin:0}
       <span class="mshl">Firma</span>
       <div class="mshrows"><a href="ONas.dc.html">O firmie<em>›</em></a><a href="Wszystko.dc.html">Jedna firma do wszystkiego<em>›</em></a><a href="Aktualnosci.dc.html">Aktualności i poradnik<em>›</em></a><a href="Kontakt.dc.html">Kontakt<em>›</em></a></div>
       <div class="mshth"><span>Wygląd strony</span><div class="seg" role="group" aria-label="Motyw"><button type="button" class="{{thLCls}}" onClick="{{setLight}}" aria-pressed="{{thLOn}}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2"></path></svg>Jasny</button><button type="button" class="{{thDCls}}" onClick="{{setDark}}" aria-pressed="{{thDOn}}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg>Ciemny</button></div></div>
-      <div class="mshc"><a href="Kontakt.dc.html" class="btn btn-p">Bezpłatna wycena →</a><a href="Kontakt.dc.html" class="btn btn-g"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"></path></svg>[TELEFON SOFTWARE]</a><small>PRO-KOM · ul. Orkana 16B, Rabka-Zdrój · od 2004 r.</small></div>
+      <div class="mshc"><a href="Kontakt.dc.html" class="btn btn-p">Bezpłatna wycena →</a><a href="Kontakt.dc.html" class="btn btn-g"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"></path></svg>883 200 151</a><small>PRO-KOM · ul. Orkana 16B, Rabka-Zdrój · od 2004 r.</small></div>
     </div>
   </div></sc-if>
 
@@ -3057,21 +3265,21 @@ body{margin:0}
         <ul class="fttrust"><li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg>Kod, domena i dane należą do Ciebie</li><li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg>Serwer w Polsce, kopia co noc</li><li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg>Cena i termin na piśmie</li></ul>
       </div>
       <nav class="ftcol" aria-label="Oferta"><b>Oferta</b><a href="Katalog.dc.html">Strony internetowe</a><a href="Katalog.dc.html">Systemy i panele</a><a href="Katalog.dc.html">Aplikacje mobilne</a><a href="Katalog.dc.html">Automatyzacje i AI</a><a href="Katalog.dc.html">Opieka i utrzymanie</a><a href="Cennik.dc.html">Cennik</a><a href="Audyt.dc.html">Darmowy audyt <em>0 zł</em></a></nav>
-      <nav class="ftcol" aria-label="Firma"><b>Firma</b><a href="ONas.dc.html">O firmie</a><a href="Wszystko.dc.html">Jedna firma do wszystkiego</a><a href="Main.dc.html#realizacje">Realizacje</a><a href="Branza.dc.html">Dla branż</a><a href="Aktualnosci.dc.html">Aktualności i poradnik</a><a href="Miasto.dc.html">Rabka-Zdrój</a><a href="Kontakt.dc.html">Kontakt</a></nav>
+      <nav class="ftcol" aria-label="Firma"><b>Firma</b><a href="ONas.dc.html">O firmie</a><a href="Wszystko.dc.html">Jedna firma do wszystkiego</a><a href="Branza.dc.html">Dla branż</a><a href="Aktualnosci.dc.html">Aktualności i poradnik</a><a href="Miasto.dc.html">Rabka-Zdrój</a><a href="Kontakt.dc.html">Kontakt</a></nav>
       <div class="ftcol ftkon"><b>Kontakt</b>
-        <span class="ftk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"></path></svg><span>[TELEFON SOFTWARE]</span></span>
-        <span class="ftk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18v12H3zM3 7l9 6 9-6"></path></svg><span>[E-MAIL SOFTWARE]</span></span>
-        <span class="ftk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21zM12 12a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"></path></svg><span>ul. Orkana 16B, 34‑700 Rabka-Zdrój<small>salon w Zakopanem: [ADRES SALONU W ZAKOPANEM]</small></span></span>
+        <span class="ftk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"></path></svg><span>883 200 151<small>788 986 074</small></span></span>
+        <span class="ftk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18v12H3zM3 7l9 6 9-6"></path></svg><span>kontakt@prokomsoftware.pl</span></span>
+        <span class="ftk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21zM12 12a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"></path></svg><span>ul. Orkana 16B, 34‑700 Rabka-Zdrój<small>pn–pt 9:00–17:00 · sob. nieczynne</small></span></span>
         <span class="ftk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 7v5l3 2M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0"></path></svg><span>pn–pt 9:00–17:00<small>odpowiedź w 1 dzień roboczy</small></span></span>
         <span class="ftk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0"></path></svg><span>Podhale, Małopolska i zdalnie w całej Polsce</span></span>
       </div>
     </div>
-    <div class="wrap ftlines"><span class="ftlh">Jedna firma, sześć adresów</span><div class="ftlg"><a href="https://pro-kom.eu" class="ftl" rel="noopener" style="--lc: #4FB034"><span class="ftlm"><b>PRO<i></i>KOM</b><small>GŁÓWNA</small></span><span class="ftld">wszystkie linie</span></a><a href="https://prokombiznes.pl" class="ftl" rel="noopener" style="--lc: #4A7BE0"><span class="ftlm"><b>PRO<i></i>KOM</b><small>BIZNES</small></span><span class="ftld">kasy, GoPOS, programy, opieka IT</span></a><a href="https://prokominstalacje.pl" class="ftl" rel="noopener" style="--lc: #12B6D8"><span class="ftlm"><b>PRO<i></i>KOM</b><small>INSTALACJE</small></span><span class="ftld">monitoring, sieci, smart home</span></a><a href="Main.dc.html" class="ftl on" aria-current="page" style="--lc: #9670EE"><span class="ftlm"><b>PRO<i></i>KOM</b><small>SOFTWARE</small></span><span class="ftld">strony, systemy, aplikacje</span></a><a href="https://prokomserwis.pl" class="ftl" rel="noopener" style="--lc: #E2483A"><span class="ftlm"><b>PRO<i></i>KOM</b><small>TECH</small></span><span class="ftld">serwis komputerów i telefonów</span></a><a href="Kontakt.dc.html" class="ftl" style="--lc: #F29A00"><span class="ftlm"><b>PRO<i></i>KOM</b><small>ZAKOPANE</small></span><span class="ftld">salon w Zakopanem</span></a></div></div>
+    <div class="wrap ftlines"><span class="ftlh">Jedna firma, pięć linii</span><div class="ftlg"><a href="https://pro-kom.eu" class="ftl" rel="noopener" style="--lc: #4FB034"><span class="ftlm"><b>PRO<i></i>KOM</b><small>GŁÓWNA</small></span><span class="ftld">wszystkie linie</span></a><a href="https://prokombiznes.pl" class="ftl" rel="noopener" style="--lc: #4A7BE0"><span class="ftlm"><b>PRO<i></i>KOM</b><small>BIZNES</small></span><span class="ftld">kasy, GoPOS, programy, opieka IT</span></a><a href="https://prokominstalacje.pl" class="ftl" rel="noopener" style="--lc: #12B6D8"><span class="ftlm"><b>PRO<i></i>KOM</b><small>INSTALACJE</small></span><span class="ftld">monitoring, sieci, smart home</span></a><a href="Main.dc.html" class="ftl on" aria-current="page" style="--lc: #9670EE"><span class="ftlm"><b>PRO<i></i>KOM</b><small>SOFTWARE</small></span><span class="ftld">strony, systemy, aplikacje</span></a><a href="https://prokomserwis.pl" class="ftl" rel="noopener" style="--lc: #E2483A"><span class="ftlm"><b>PRO<i></i>KOM</b><small>TECH</small></span><span class="ftld">serwis komputerów i telefonów</span></a></div></div>
     <div class="wrap ftb"><span>© 2026 PRO-KOM Tadeusz Wójciak · ul. Orkana 16B, 34‑700 Rabka-Zdrój · NIP 7352511447</span><span class="ftbl"><a href="Polityka.dc.html">Polityka prywatności</a><span>Bez ciasteczek śledzących</span></span></div>
   </footer>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["dark","light"],"default":"dark"},"$preview":{"width":1440,"height":4520}}'>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["dark","light"],"default":"dark"},"$preview":{"width":1440,"height":4510}}'>
 class Component extends DCLogic {
   constructor(props) {
     super(props);

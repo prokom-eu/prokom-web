@@ -45,6 +45,19 @@ Wzorce: `screens/<Plansza>-390-light` (17 plansz; `Main` także `-390-dark`) + `
 | Cennik, Audyt | `Cennik-390-light`, `89b`; `Audyt-390-light` | SW11a |
 | O firmie, Jedna firma do wszystkiego, Aktualności, Wpis, Miejscowość, Polityka, Dziękujemy, 404 | `ONas-`, `Wszystko-`, `Aktualnosci-`, `Wpis-`, `Miasto-`, `Polityka-`, `Dziekujemy-`, `NieZnaleziono-390-light` | SW11b |
 
+## 3a. Hero i pierwsza sekcja v23 (01.11.2026, sesja SWV3)
+
+Wzorzec: `screens/Main-390-*` (v23), `stany/v23-01…v23-04`. Na telefonie (≤ 640 px) hero to osobny układ:
+
+1. Pigułka „● Rabka-Zdrój · zdalnie w całej Polsce” (tło karty, obrys).
+2. H1 „Strony i programy dla firm.” + w nowej linii akcent „Zobaczysz, zanim zapłacisz.” (34–42 px).
+3. Lead 16 px.
+4. **Przyciski:** „Dobierz rozwiązanie · 60 s” na całą szerokość; pod nim dwa obok siebie: „Zobacz podglądy” i **„Zadzwoń”** (`tel:+48883200151`). Wysokość 52 px.
+5. **Karta „Twoja Firma · panel”** (grafit, zaokrąglenie 24 px): 3 powiadomienia wjeżdżają po kolei (0,35 / 0,75 / 1,15 s) — „Nowe zapytanie ze strony”, „Ekipa Marka na miejscu”, „Faktura wysłana sama”; stopka „Podgląd do klikania · w 5–7 dni”. Przy reduced motion widoczne od razu.
+6. Pasek zaufania w 3 kolumnach (ikona nad tekstem, 12 px): „Podgląd przed zakupem”, „Kod i dane należą do Ciebie”, „Firma na Podhalu od 2004”.
+7. Składanka modułów z desktopu na telefonie nie występuje.
+8. **Pierwsza sekcja (intencje):** jedna karta-lista: wiersze 72 px (ikona 44 px, tytuł, 2 linie opisu, strzałka), separator między wierszami, stan wciśnięcia tłem.
+
 ## 4. Odczucie aplikacji (poprzeczka jakości z 30.10 — obowiązuje w każdej sesji z UI)
 
 Plansze pokazują wygląd; ta lista mówi, jak ma się **zachowywać** pod palcem. Wszystko CSS + to, co już jest w repo — bez nowych bibliotek animacji, karuzel ani gestów.
@@ -57,6 +70,7 @@ Plansze pokazują wygląd; ta lista mówi, jak ma się **zachowywać** pod palce
 6. **Nawigacja jak w aplikacji.** Przycisk „wstecz” przeglądarki zamyka otwarty arkusz zamiast wychodzić ze strony (wpis w historii przy otwarciu — `BottomSheet` dziś tego nie ma: dołożyć jako opcję wyłączoną domyślnie, żeby Instalacje i Biznes działały bez zmian, z testem; zmiana pliku wspólnego = osobny commit z opisem w PR); powrót z podstrony wraca do tego samego miejsca listy; kotwice (`#formularz`, `#dobierz`, `#kontakt`) przewijają z odstępem pod nagłówek; linki paska i menu z prefetchem (`next/link`).
 7. **Wygląd na poziomie plansz.** Te same zaokrąglenia, cienie, rozmycie paska i nagłówka, gradient kreatora, miniatury — nic „uproszczonego na telefon”. Tryb ciemny bez białych plam (miniatury lekko przyciemnione, makiety w tokenach). Kolory tylko z tokenów.
 8. **Pasek przeglądarki i ekran główny.** `theme-color` w kolorze tła motywu (jasny/ciemny) i `viewport-fit=cover` — dopisać linię `software` w `src/lib/brand/themeColor.ts` (mechanizm Instalacji, wartości z `tokens.css`, test pilnuje zgodności). Manifest (`display: standalone`, ikony `prokom-software_icon-192/512.png` z `public/brand/`) — bez service workera. Robi SWR2 (ramka).
+10. **Ruch v23 (sesja SWV5):** płynne przewijanie do kotwic z odstępem pod nagłówek; szyna sekcji przewija z hamowaniem (520–1100 ms) i nagłówek sekcji krótko „wjeżdża” po dojechaniu (`v23/pkScroll.js`); nagłówki sekcji, pytania FAQ i mapa wjeżdżają przy przewijaniu (`animation-timeline: view()`, bez bibliotek; karty z opóźnieniem tylko ≥ 1081 px — na telefonie karuzele mają własny scroller); przejścia między podstronami (View Transitions, jeśli wersja Next to wspiera — inaczej CSS `@view-transition`), nagłówek i dolny pasek stoją; FAQ rozwija się miękko. Reduced motion = bez animacji.
 9. **Tablet 641–1080 px.** Ten sam układ telefonu (pasek, arkusze), arkusze wyśrodkowane i węższe, siatki 2–3 kolumny tam, gdzie plansza 390 pokazuje 1–2; obrót ekranu zamyka arkusz przy przejściu na desktop (zachowanie `BottomSheet`).
 
 ## 5. Definition of Done telefonu (każda sesja z UI: SWR2–SWR5, SW10, SW11a, SW11b)

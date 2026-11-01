@@ -96,3 +96,17 @@ Wizualizacja v21 + v22 (ciemna stopka, okno szczegółów oferty z miniaturami, 
 5. **Bilet „Twoja wycena” w kreatorze i plakietki wyceny [propozycja]** (SWR4): gradient jak główny przycisk stopki (pkt 1) z białym napisem w obu motywach — gradient `--accent → --accent-2` w ciemnym motywie dałby biały napis na jasnym fiolecie (< 3:1, ten sam problem co v20 pkt 3). Belka ceny na telefonie: `--header-bg` z rozmyciem i pełnym tłem (v21), obrys `--border`.
 6. **Oczekiwane różnice przy porównaniu zrzutów (dopisane do rozstrz. SW0 8):** stopka — tło grafitowe / `#0E0B18` zamiast `#101411` / `#0B0E0C`, opisy `#B5BBB5` zamiast `#AEB5AF`, eyebrow `#B39BF5` zamiast `#C7B5FA`, przycisk pasa CTA w gradiencie z palety zamiast `#7C55E6 → #9A5BD8`; bilet kreatora w gradiencie z palety; gradient H1 nadal bez błękitnej końcówki (plansze v22 też ją mają).
 7. **Test kontrastu** (`themes.test.ts`, SWR2–SWR4) dostaje pary: `--footer-text`, `--footer-muted`, `--footer-eyebrow` na `--footer-bg` (oba motywy), napis na gradiencie przycisku stopki i biletu, `--c-<linia>-on-dark` na `--footer-bg` (≥ 3:1 dla kreski, informacyjnie AA).
+
+## Rozstrzygnięcia v23 (Krystian, 01.11.2026 — wizualizacja finalna)
+
+Krystian po przeglądzie wersji lokalnej: kolory wyglądają „jak z generatora AI” — gradienty fiolet–róż–błękit, poświaty, wielokolorowe ikony. Decyzja: **fiolet Software zostaje jako jeden płaski akcent** (księga znaku, `--c-software*`), baza to grafit i papier PRO-KOM. Te punkty **zastępują** zapisy v20 pkt 3–5 i v22 pkt 1, 3, 5 tam, gdzie mówią o gradientach i poświatach. Zasada bez zmian: żadnych nowych wartości poza `src/styles/tokens.css`.
+
+1. **Bez gradientów akcentu:** `--grad-h1` = płaski `--accent-text`; przyciski, plakietki, bilet wyceny, „Czasem powiemy”, pas CTA stopki — płaskie tło (`--accent` z `--accent-ink` albo ciemny fiolet `--c-software-light-accent-text` z białym napisem, jeśli potrzebny kontrast ≥ 4,5:1 w obu motywach).
+2. **Bez poświat i pierścieni:** `--glow` = neutralny cień (czerń z przezroczystością), `--glow-2` przezroczysty; poświaty hero, pierścienie makiety, „podłogi” pod makietami, obracające się gradienty w ciemnych blokach — usunięte.
+3. **Ikony jednym kolorem:** obszary, intencje, potrzeby w kreatorze, kafle menu, kategoria w oknie oferty — tło `--accent-soft`, ikona `--accent-text`; aktywna / najechana: `--accent` + `--accent-ink`. `--grad-area-*` znikają (kolory obszarów nie są już używane w UI).
+4. **Ciemne bloki grafitowe:** `--surface-dark` i `--footer-bg` w obu motywach z grafitu księgi (wizualizacja: `#151A16`, wartość dobrać z palety: `--c-grafit` lub jego ciemniejszy wariant — bez fioletowego `#0E0B18`/`#171226`).
+5. **Tła sekcji płaskie:** `--stage` neutralny (`--surface-2`), żadnych fioletowych mgieł (`radial-gradient` z akcentem) w tłach sekcji i kart.
+6. **Miniatury rozwiązań:** tła na papierze (tabela w `ZMIANY-v23` §3), w ciemnym motywie dalej lekko przyciemnione (v22 pkt 4).
+7. **Pasek przewijania** linii Software: cienki, kciuk z akcentu zmieszanego z `--border`, przy najechaniu `--accent`.
+8. **Oczekiwane różnice przy porównaniu zrzutów** — znikają te z v20/v22 dotyczące gradientów; kod ma wyglądać jak zrzuty v23.
+9. **Test kontrastu** (`themes.test.ts`): pary na płaskich tłach zamiast par na gradientach.
