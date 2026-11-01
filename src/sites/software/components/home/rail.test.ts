@@ -22,7 +22,7 @@ describe('Software section rail', () => {
     ])
   })
 
-  it('has the 10 entries of the board v23: with „Zasady”, without „Proces”, „Kontakt” and „Realizacje”', () => {
+  it('has the 11 entries: with „Zasady” and „Kontakt” (SWV6), without „Proces” and „Realizacje”', () => {
     const items = softwareRailItems(
       [
         { blockType: 'swHero' },
@@ -53,8 +53,9 @@ describe('Software section rail', () => {
       'technologie',
       'zasady',
       'faq',
+      'kontakt',
     ])
-    expect(Object.keys(RAIL_LABELS)).toHaveLength(10)
+    expect(Object.keys(RAIL_LABELS)).toHaveLength(11)
   })
 
   it('skips a section without its component yet (no anchor on the page)', () => {
@@ -68,7 +69,7 @@ describe('Software section rail', () => {
     expect(items.map((item) => item.id)).toEqual(['oferta'])
   })
 
-  it('ends with „Zasady” and the FAQ block — the contact block is not listed', () => {
+  it('ends with „Zasady”, the FAQ block and the contact block (SWV6)', () => {
     const items = softwareRailItems([
       { blockType: 'swHomeSection', section: 'guarantees' },
       { blockType: 'faq' },
@@ -77,6 +78,7 @@ describe('Software section rail', () => {
     expect(items.map((item) => [item.id, item.label])).toEqual([
       ['zasady', 'Zasady'],
       ['faq', 'Pytania'],
+      ['kontakt', 'Kontakt'],
     ])
   })
 

@@ -9,6 +9,7 @@ import {
   PRIVACY_POLICY_LINK_TEXT,
   PRIVACY_POLICY_PATH,
 } from '@/lib/inquiry/consent'
+import { track } from '@/lib/analytics/track'
 import { linkInText, readOutcome } from '@/lib/inquiry/form'
 import { HONEYPOT_FIELD } from '@/lib/inquiry/honeypot'
 import {
@@ -151,7 +152,12 @@ export function PlannerWizard({ services, formToken, phone, hours }: Props) {
   async function next() {
     const missing = stepError(state, step)
     if (missing) return showError(missing)
-    if (step < 4) return goStep((step + 1) as PlannerStep)
+    if (step < 4) {
+      // Statistics (ADR-020, SEO §5): the start once, then the step reached — no answers.
+      if (step === 1) track('kreator_start')
+      track('kreator_krok', { krok: step + 1 })
+      return goStep((step + 1) as PlannerStep)
+    }
     setBusy(true)
     try {
       const response = await fetch('/api/inquiry', {
@@ -172,6 +178,7 @@ export function PlannerWizard({ services, formToken, phone, hours }: Props) {
         consent: Z.errors.consent,
       })
       if (outcome.kind === 'sent') {
+        track('kreator_wyslij')
         router.push(sentHref(outcome.number, state.via))
         return
       }

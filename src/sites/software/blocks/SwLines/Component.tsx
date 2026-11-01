@@ -18,9 +18,10 @@ function LineIcon({ name, className }: { name?: string | null; className?: strin
 }
 
 /**
- * The PRO-KOM lines on a Software subpage (board `Wszystko`): „Każda robi swoje…” — 5 cards in
- * a row from 1081 px (this site's card outlined, links only to sites that exist) — or „Dwa
- * przykłady z Podhala.” — per client what each line did.
+ * The PRO-KOM lines on a Software subpage (board `Wszystko`): „Każda robi swoje…” — all cards in
+ * one row from 1081 px (this site's card outlined, links only to sites that exist; one point is a
+ * plain description, more are a ticked list — SWV6 `/o-firmie`) — or „Dwa przykłady z Podhala.”
+ * — per client what each line did.
  */
 export async function SwLinesBlock({ block, tenantId }: Props) {
   const context = await softwareTextContext(tenantId)
@@ -91,7 +92,12 @@ export async function SwLinesBlock({ block, tenantId }: Props) {
     <section className="py-12 min-[641px]:py-20">
       <Container wide>
         {head}
-        <ul className="mt-6 grid gap-3 min-[641px]:grid-cols-2 min-[1081px]:grid-cols-5">
+        <ul
+          className={cx(
+            'mt-6 grid gap-3 min-[641px]:grid-cols-2',
+            cards.length === 4 ? 'min-[1081px]:grid-cols-4' : 'min-[1081px]:grid-cols-5',
+          )}
+        >
           {cards.map((card) => (
             <li
               key={card.key}
@@ -115,9 +121,10 @@ export async function SwLinesBlock({ block, tenantId }: Props) {
                 card.href && !card.current ? (
                   <a
                     href={card.href}
-                    className="mt-1 inline-flex min-h-11 items-center text-sm font-extrabold text-accent-text underline-offset-4 hover:underline"
+                    className="mt-1 inline-flex min-h-11 items-center gap-1.5 text-sm font-extrabold text-accent-text underline-offset-4 hover:underline"
                   >
                     {card.address}
+                    <Icon name="arrow" strokeWidth={2.4} className="size-3.5 -rotate-45" />
                   </a>
                 ) : (
                   <p className="mt-1 py-3 text-sm font-extrabold text-accent-text">
@@ -125,7 +132,9 @@ export async function SwLinesBlock({ block, tenantId }: Props) {
                   </p>
                 )
               ) : null}
-              {card.points.length > 0 ? (
+              {card.points.length === 1 ? (
+                <p className="mt-1 text-[15px] leading-relaxed text-ink-2">{card.points[0]}</p>
+              ) : card.points.length > 1 ? (
                 <ul className="mt-2 flex flex-col gap-2 text-sm">
                   {card.points.map((point, index) => (
                     <li key={index} className="flex gap-2">

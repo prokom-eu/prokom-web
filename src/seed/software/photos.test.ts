@@ -8,14 +8,10 @@ import { softwareContactLayout } from './contact'
 import type { PageBlock } from './page'
 import { layoutWithPhotos, SOFTWARE_MEDIA_DIR, SOFTWARE_PHOTOS, type PhotoFile } from './photos'
 
-// SWV4 (ZMIANY-v23 §7): portraits and the entrance photo in Media, on `/o-firmie`,
-// `/jedna-firma` and `/kontakt`.
+// SWV4 (ZMIANY-v23 §7), SWV6: the entrance photo in Media, on `/o-firmie`, `/jedna-firma` and
+// `/kontakt`; no portraits.
 
-const IDS = new Map<PhotoFile, number>([
-  ['krystian.jpg', 11],
-  ['tadeusz.jpg', 12],
-  ['wejscie.jpg', 13],
-])
+const IDS = new Map<PhotoFile, number>([['wejscie.jpg', 13]])
 
 const photosOf = (layout: PageBlock[] | null) =>
   (layout ?? []).flatMap((block) => {
@@ -26,8 +22,12 @@ const photosOf = (layout: PageBlock[] | null) =>
   })
 
 describe('layoutWithPhotos', () => {
-  it('puts both portraits in the hero and the team, and the entrance in the places', () => {
-    expect(photosOf(layoutWithPhotos(softwareAboutLayout(), IDS))).toEqual([11, 12, 11, 12, 13])
+  it('puts only the entrance on `/o-firmie` — no portraits (SWV6)', () => {
+    expect(photosOf(layoutWithPhotos(softwareAboutLayout(), IDS))).toEqual([
+      undefined,
+      undefined,
+      13,
+    ])
   })
 
   it('gives the entrance to `/jedna-firma` and the contact page', () => {
@@ -38,7 +38,7 @@ describe('layoutWithPhotos', () => {
   it('keeps a photo chosen in the panel and reports no change', () => {
     const once = layoutWithPhotos(softwareAboutLayout(), IDS)
     expect(layoutWithPhotos(once, IDS)).toBeNull()
-    expect(layoutWithPhotos(once, new Map([['krystian.jpg', 99]]))).toBeNull()
+    expect(layoutWithPhotos(once, new Map([['wejscie.jpg', 99]]))).toBeNull()
   })
 
   it('has every photo file in the package', () => {

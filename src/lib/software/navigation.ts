@@ -85,7 +85,8 @@ export const navigationSchema = obj({
       cta: link,
       links: z.array(link),
     }),
-    branze: obj({ label, links: z.array(link).min(1) }),
+    /** Chips of active industries only (SWV6 A1); empty = the group is left out. */
+    branze: obj({ label, links: z.array(link) }),
   }),
   footer: footerSchema,
   headerMobile: obj({ cta: link }),

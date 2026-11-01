@@ -1,3 +1,4 @@
+import { NEWS_PATH } from '../posts/list'
 import type { SoftwareHome } from './home'
 import type { Fill } from './process'
 
@@ -88,4 +89,20 @@ function ctaView(
 function linkView([text, href]: readonly [string, string], fill: Fill) {
   const label = fill(text)
   return label ? { label, href } : null
+}
+
+/**
+ * The link under the section only when it leads somewhere: a link to a post (`/aktualnosci/<slug>`)
+ * needs that post public — the package's comparison post waits as a draft for approval (SWV6,
+ * e2e `software-links`). Other links stay.
+ */
+export function withPublishedPostLink(
+  link: WhyNotWordpressView['link'],
+  publishedSlugs: ReadonlySet<string>,
+): WhyNotWordpressView['link'] {
+  if (!link) return null
+  const prefix = `${NEWS_PATH}/`
+  if (!link.href.startsWith(prefix)) return link
+  const slug = decodeURIComponent(link.href.slice(prefix.length).split(/[?#]/)[0] ?? '')
+  return publishedSlugs.has(slug) ? link : null
 }

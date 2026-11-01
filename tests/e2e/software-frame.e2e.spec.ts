@@ -216,6 +216,12 @@ test.describe('Software footer', () => {
       'https://prokombiznes.pl',
     )
     await expect(lines.locator('[aria-current="true"]')).toHaveAccessibleName(/^PRO-KOM Software/)
+    // SWV6: the service line is „Serwis”, not „Tech”.
+    await expect(lines.getByRole('link', { name: /^PRO-KOM Serwis/ })).toHaveAttribute(
+      'href',
+      'https://prokomserwis.pl',
+    )
+    await expect(lines).not.toContainText(/\bTECH\b/i)
 
     await expect(
       footer.getByRole('navigation', { name: 'Informacje prawne' }).getByRole('link'),

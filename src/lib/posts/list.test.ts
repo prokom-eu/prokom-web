@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest'
 import {
   categoriesOfLine,
   categoryChips,
+  hasGuide,
   hasNews,
   isCategoryOfLine,
   NEWS_LINES,
@@ -26,6 +27,31 @@ describe('postHref / newsListHref', () => {
     expect(postHref('ksef-2027')).toBe('/aktualnosci/ksef-2027')
     expect(newsListHref(null)).toBe('/aktualnosci')
     expect(newsListHref('ksef')).toBe('/aktualnosci?kategoria=ksef')
+  })
+
+  it('puts a post of Instalacje under /poradnik, the other lines stay under /aktualnosci', () => {
+    expect(hasGuide('instalacje')).toBe(true)
+    expect(hasGuide('biznes')).toBe(false)
+    expect(postHref('monitoring-a-rodo', 'instalacje')).toBe('/poradnik/monitoring-a-rodo')
+    expect(postHref('ksef-2027', 'biznes')).toBe('/aktualnosci/ksef-2027')
+    expect(postHref('poradnik-sklep', 'software')).toBe('/aktualnosci/poradnik-sklep')
+    expect(postHref('ą b', 'instalacje')).toBe('/poradnik/%C4%85%20b')
+  })
+})
+
+describe('categories of Instalacje', () => {
+  it('belong to Instalacje only, with unique values', () => {
+    expect(categoriesOfLine('instalacje')).toEqual([
+      'Przepisy',
+      'Monitoring',
+      'Obiekty noclegowe',
+      'Energia',
+      'Dźwięk i obraz',
+    ])
+    expect(isCategoryOfLine('przepisy', 'instalacje')).toBe(true)
+    expect(isCategoryOfLine('przepisy', 'software')).toBe(false)
+    expect(isCategoryOfLine('poradnik', 'instalacje')).toBe(false)
+    expect(parseCategory('monitoring', 'instalacje')).toBe('monitoring')
   })
 })
 
@@ -67,6 +93,6 @@ describe('post categories per line', () => {
 
   it('lists the categories of a line', () => {
     expect(categoriesOfLine('software')).toEqual(['Poradnik', 'Nowości', 'Realizacje'])
-    expect(categoriesOfLine('instalacje')).toEqual([])
+    expect(categoriesOfLine('prokom')).toEqual([])
   })
 })

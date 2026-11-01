@@ -48,6 +48,16 @@ describe('postListCards: the base card', () => {
   })
 })
 
+describe('postListCards: the address per line', () => {
+  it('puts a card of Instalacje under /poradnik, without a line under /aktualnosci', () => {
+    expect(postListCards([post('monitoring-a-rodo')], 1, 'instalacje')[0]?.href).toBe(
+      '/poradnik/monitoring-a-rodo',
+    )
+    expect(postListCards([post('ksef-2027')], 1, 'biznes')[0]?.href).toBe('/aktualnosci/ksef-2027')
+    expect(postListCards([post('ksef-2027')], 1)[0]?.href).toBe('/aktualnosci/ksef-2027')
+  })
+})
+
 describe('postListCards', () => {
   const image = (tenant: number, extra: Record<string, unknown> = {}) => ({
     alt: 'Logo KSeF',

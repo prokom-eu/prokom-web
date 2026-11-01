@@ -40,6 +40,17 @@ const PAGES = [
   '/serwis',
   // Dla architektów (I16a).
   '/dla-architektow',
+  // Oferta i Realizacje (I12).
+  '/uslugi',
+  '/realizacje',
+  // O firmie, Poradnik i wpis RODO (I12).
+  '/o-firmie',
+  '/poradnik',
+  '/poradnik/monitoring-a-rodo',
+  // Strony prawne (I13).
+  '/polityka-prywatnosci',
+  '/cookies',
+  '/dostepnosc',
 ]
 
 // Known exceptions, each with its open question in docs/stan/STAN-instalacje.md.
@@ -120,5 +131,28 @@ test.describe('Instalacje line routes', () => {
       const response = await page.goto(url)
       expect(response?.status(), url).toBe(404)
     }
+  })
+})
+
+// I13: the footer's legal links and `llms.txt` (SEO §2.4).
+test.describe('Instalacje legal links and llms.txt', () => {
+  test('the footer links the three legal pages', async ({ page }) => {
+    await open(page, '/')
+    const footer = page.locator('footer')
+    for (const href of ['/polityka-prywatnosci', '/cookies', '/dostepnosc']) {
+      await expect(footer.locator(`a[href="${href}"]`).first()).toBeVisible()
+    }
+  })
+
+  test('llms.txt lists the services and the contact, only on the Instalacje domain', async ({
+    request,
+  }) => {
+    const response = await request.get(site(HOST, '/llms.txt'))
+    expect(response.status()).toBe(200)
+    const text = await response.text()
+    expect(text.startsWith('# PRO-KOM Instalacje')).toBe(true)
+    expect(text).toContain('/monitoring')
+    expect(text).not.toMatch(/\[SZEF|\d+\s?zł/)
+    expect((await request.get(site('biznes.localhost', '/llms.txt'))).status()).toBe(404)
   })
 })
