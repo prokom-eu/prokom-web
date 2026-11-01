@@ -5,9 +5,6 @@
  * Every rule is scoped to the line: a global stylesheet stays loaded after a navigation.
  */
 
-/* Motion of the line (I-M): curves, cascades, carousel dots, reduced motion. */
-@import './ruch.css';
-
 /* `clip`, not `hidden`: `hidden` makes the page a scroll container and breaks `position: sticky`
    of the header and the anchor bar (fixed in the visualisation v4.0). */
 [data-line='instalacje'] .inst-page {
