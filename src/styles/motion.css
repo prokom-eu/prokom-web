@@ -366,14 +366,14 @@
 
 /* --- 4b. Forms ------------------------------------------------------------------------------
    Focus: border and a soft accent glow grow in (the transition of §1); the label of the field
-   darkens. Always, also with reduced motion — it is a state, not a movement. */
-:is([data-line='software'], [data-line='instalacje'])
+   darkens. Always, also with reduced motion — it is a state, not a movement. Software only:
+   the fields of Instalacje keep the prototype's own focus (an inset accent border, e.g.
+   `.zkta:focus`), which this glow would replace. */
+[data-line='software']
   :is(input:not([type='radio'], [type='checkbox'], [type='hidden']), textarea, select):focus {
   box-shadow: 0 0 0 4px var(--accent-soft);
 }
-:is([data-line='software'], [data-line='instalacje'])
-  :has(> :is(input, textarea, select):focus)
-  > label {
+[data-line='software'] :has(> :is(input, textarea, select):focus) > label {
   color: var(--ink);
 }
 
