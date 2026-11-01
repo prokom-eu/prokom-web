@@ -33,7 +33,7 @@ type Props = {
 /**
  * The area served as a static diagram (towns around Rabka) with links to Google Maps — no
  * embedded map, so nothing loads from Google before cookie consent (spec. §6.9). Shared by
- * „Kontakt i dojazd” (`bzContactInfo`) and „Gdzie nas znaleźć” (`bzLocation`).
+ * the K4 Kontakt page (`bzSection`) and „Gdzie nas znaleźć” (`bzLocation`).
  */
 export function AreaMap({ label, companyName, street, fullAddress }: Props) {
   return (
