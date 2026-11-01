@@ -18,10 +18,6 @@
         {
           "v": "< 200 ms",
           "l": "próg Google: reakcja na klik"
-        },
-        {
-          "v": "[WYNIK]",
-          "l": "nasz wynik w PageSpeed"
         }
       ],
       "proof": "Progi: Google, Core Web Vitals."

@@ -8,8 +8,6 @@ const home = homeSchema.parse(softwareSettingsData().home)
 const howWeBuild = home.sections!.howWeBuild!
 const technologies = home.sections!.technologies!
 
-/** Production fill: `[WYNIK]` has no value, so a text with it is not shown. */
-const strict = (text: string) => (text.includes('[WYNIK]') ? null : text)
 const loose = (text: string) => text
 
 describe('„Jak robimy”', () => {
@@ -24,8 +22,17 @@ describe('„Jak robimy”', () => {
     expect(view?.cards[2]?.badge).toBeUndefined()
   })
 
-  it('keeps the threshold source when the measured result is empty (production)', () => {
-    const view = howWeBuildView(howWeBuild, strict)
+  it('keeps the threshold source and the result line, with no empty promise (v23)', () => {
+    const view = howWeBuildView(howWeBuild, loose)
+    expect(view?.source).toMatch(/Google Search Central/)
+    expect(view?.result).toBe(
+      'Wynik szybkości każdej oddanej strony zapisujemy w protokole odbioru.',
+    )
+    expect(JSON.stringify(howWeBuild)).not.toContain('[WYNIK]')
+  })
+
+  it('drops only the result line when it loses a fact on production', () => {
+    const view = howWeBuildView(howWeBuild, (text) => (text === howWeBuild.result ? null : text))
     expect(view?.source).toMatch(/Google Search Central/)
     expect(view?.result).toBeNull()
   })
@@ -56,10 +63,17 @@ describe('„Z czego budujemy”', () => {
     expect(view?.layers[0]).toMatchObject({ tools: ['Next.js', 'TypeScript'] })
   })
 
+  it('shows only the Google thresholds — no unmeasured score of our own (v23)', () => {
+    const view = technologiesView(technologies, home.technologies, loose)
+    expect(view?.layers[0]?.figures.map((figure) => figure.value)).toEqual(['< 2,5 s', '< 200 ms'])
+  })
+
   it('drops a figure without its value on production, never the layer', () => {
-    const view = technologiesView(technologies, home.technologies, strict)
+    const view = technologiesView(technologies, home.technologies, (text) =>
+      text === '< 200 ms' ? null : text,
+    )
     const site = view?.layers[0]
-    expect(site?.figures.map((figure) => figure.value)).toEqual(['< 2,5 s', '< 200 ms'])
+    expect(site?.figures.map((figure) => figure.value)).toEqual(['< 2,5 s'])
     expect(site?.gain).toBeTruthy()
   })
 })

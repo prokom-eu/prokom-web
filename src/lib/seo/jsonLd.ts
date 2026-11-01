@@ -23,6 +23,7 @@ type OrganizationInput = {
 /**
  * `Organization` (the line as the public face of the company) plus one `LocalBusiness` per
  * branch with its opening hours — all from `CompanyData`, so a change in the panel updates it.
+ * Software lists only the first branch.
  */
 export function organizationJsonLd({ company, tenant, contact, origin }: OrganizationInput) {
   const orgId = `${origin}/#organization`
@@ -38,7 +39,10 @@ export function organizationJsonLd({ company, tenant, contact, origin }: Organiz
     email: contact.email ?? company.email,
     taxID: company.nip,
   }
-  const branches = company.locations.map((location, index) => ({
+  // Software works only in Rabka (prokomsoftware ZMIANY-v23 §1): its pages name only the main
+  // office (the first location), never the other salons of the company.
+  const locations = tenant.line === 'software' ? company.locations.slice(0, 1) : company.locations
+  const branches = locations.map((location, index) => ({
     '@type': 'LocalBusiness',
     // By position, not city: two branches in one city must stay two nodes.
     '@id': `${origin}/#oddzial-${index + 1}`,

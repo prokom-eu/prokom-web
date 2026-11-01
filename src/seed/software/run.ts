@@ -14,6 +14,7 @@ import {
   factsData,
   industriesToImport,
   missingFacts,
+  softwareContactUpdate,
   removedSolutions,
   softwareSettingsData,
   softwarePostData,
@@ -213,7 +214,8 @@ export async function seedSoftware(payload: Payload): Promise<void> {
   // --- settings ---
   const settings = softwareSettingsData()
 
-  // Site settings are created by `pnpm seed`; navigation only while empty, facts only missing.
+  // Site settings are created by `pnpm seed`; navigation only while empty, facts only missing,
+  // the line's contact only over the sample values (SWV2).
   const {
     docs: [siteSettings],
   } = await payload.find({
@@ -229,13 +231,16 @@ export async function seedSoftware(payload: Payload): Promise<void> {
     // fall back to the generic one, so locally the seed replaces it (like the wizard, SW7).
     const navigationMissing = !navigationSchema.safeParse(siteSettings.software?.navigation).success
     const facts = missingFacts(siteSettings.software?.facts, factsData())
+    const contact = softwareContactUpdate(siteSettings)
     count('site-settings navigation', navigationMissing)
     count('site-settings facts', facts.length > 0 ? 'updated' : false)
-    if (navigationMissing || facts.length > 0) {
+    count('site-settings contact', contact ? 'updated' : false)
+    if (navigationMissing || facts.length > 0 || contact) {
       await payload.update({
         collection: 'site-settings',
         id: siteSettings.id,
         data: {
+          ...contact,
           software: {
             ...siteSettings.software,
             navigation: navigationMissing ? settings.navigation : siteSettings.software?.navigation,

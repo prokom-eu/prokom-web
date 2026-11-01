@@ -2,7 +2,7 @@
 //   node scripts/content-scan.mjs <origin>
 //   node scripts/content-scan.mjs https://staging.prokomsoftware.pl   (SCAN_AUTH=user:password)
 // Reads the site's sitemap.xml and checks every address, plus /dziekujemy and a missing page:
-// no placeholder in square brackets ([TELEFON SOFTWARE], [ROK ZAKOPANE], [X]…) and no name of a
+// no placeholder in square brackets ([TELEFON SOFTWARE], [ROK SERWIS KAS], [X]…) and no name of a
 // competitor. Placeholders are visible on staging on purpose (production hides unfilled facts),
 // so on staging the report is the list of facts to fill in the panel before production.
 // Exit code 1 when anything is found. The functions are also used by tests (Vitest, Playwright).

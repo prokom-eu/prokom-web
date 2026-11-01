@@ -8,15 +8,15 @@ import type { SoftwareHomeSections } from '../../lib/software/home'
 export const HOME_SECTION_TEXTS: SoftwareHomeSections = {
   areas: {
     eyebrow: 'Oferta · 8 obszarów',
-    title: 'Wszystko dla firmy, w ośmiu obszarach.',
-    lead: 'Kliknij obszar i zobacz, co w nim robimy, co zyskujesz i od ilu to kosztuje.',
+    title: 'Osiem rzeczy, które robimy dla firm.',
+    lead: 'Kliknij obszar: zobaczysz, co dokładnie robimy, co z tego masz i od ilu kosztuje.',
     priceCaption: 'Cena',
     wizardButton: 'Dobierz w 60 s',
   },
   popular: {
     eyebrow: 'Najczęściej zamawiane',
     title: '12 rzeczy, po które firmy przychodzą najczęściej.',
-    lead: 'Każda z ceną „od”, terminem i tym, co dokładnie dostajesz. Otwórz kartę, a zobaczysz, co jest w cenie, przykład z życia i termin. Nie ma Twojej? W pełnej ofercie jest ich więcej.',
+    lead: 'Każda z ceną „od”, terminem i listą tego, co jest w cenie. Kliknij kartę, żeby zobaczyć szczegóły. Wszystkie 29 rozwiązań są w pełnej ofercie.',
     count: ['{n} pozycja', '{n} pozycje', '{n} pozycji'],
     hint: 'kliknij kartę, żeby zobaczyć szczegóły',
     after: {
@@ -46,8 +46,8 @@ export const HOME_SECTION_TEXTS: SoftwareHomeSections = {
   },
   livePreviews: {
     eyebrow: 'Podglądy na żywo · zanim zapłacisz',
-    title: 'Zobacz, jak to będzie wyglądać. Zanim zapłacisz.',
-    lead: 'To nie są obrazki. Laptop pokazuje Twoje biuro, telefon pokazuje Twojego pracownika albo klienta, a oba ekrany żyją razem. Wybierz rodzaj rozwiązania.',
+    title: 'Tak może wyglądać Twoja strona albo system.',
+    lead: 'Wybierz rodzaj rozwiązania. Laptop to Twoje biuro, telefon to Twój pracownik albo klient. Oba ekrany działają razem.',
     hint: ['Przełącza się samo. Kliknij, żeby wybrać.', 'Twój wybór. Klikaj po ekranach.'],
     open: 'Otwórz pełny podgląd',
     add: ['Chcę takie u siebie', '✓ W Twoim projekcie'],
@@ -55,7 +55,7 @@ export const HOME_SECTION_TEXTS: SoftwareHomeSections = {
   process: {
     eyebrow: 'Jak pracujemy i jak powstaje cena',
     title: 'Od rozmowy do działającego systemu. Większość płacisz po odbiorze.',
-    lead: 'Pięć etapów, zero niespodzianek. Kliknij etap: zobaczysz, co się dzieje, co dostajesz do ręki i kiedy płacisz.',
+    lead: 'Pięć etapów. Przy każdym wiesz, co dostajesz do ręki i kiedy płacisz.',
     stage: 'Etap {num} · {t}',
     get: 'Co dostajesz',
     you: 'Ty robisz',
@@ -70,7 +70,6 @@ export const HOME_SECTION_TEXTS: SoftwareHomeSections = {
       link: ['Zapytaj, co się opłaca', '/#kontakt'],
     },
   },
-  showcase: { eyebrow: 'Realizacje' },
   howWeBuild: {
     eyebrow: 'Jak robimy strony i systemy',
     title: 'Nie składamy z gotowych klocków. Piszemy pod Twoją firmę.',
@@ -96,7 +95,7 @@ export const HOME_SECTION_TEXTS: SoftwareHomeSections = {
       },
     ],
     source: 'Źródło progu szybkości: Google Search Central, „Core Web Vitals” i „Page experience”.',
-    result: 'Wynik szybkości każdej oddanej strony zapisujemy w protokole odbioru. Nasz: [WYNIK].',
+    result: 'Wynik szybkości każdej oddanej strony zapisujemy w protokole odbioru.',
   },
   technologies: {
     eyebrow: 'Z czego budujemy i co z tego masz',

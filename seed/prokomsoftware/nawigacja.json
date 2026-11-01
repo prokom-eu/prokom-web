@@ -318,10 +318,6 @@
             "/jedna-firma"
           ],
           [
-            "Realizacje",
-            "/#realizacje"
-          ],
-          [
             "Dla branż",
             "/dla-branz"
           ],
@@ -345,7 +341,7 @@
         "reach": "Podhale, Małopolska i zdalnie w całej Polsce"
       }
     ],
-    "linesTitle": "Jedna firma, sześć adresów",
+    "linesTitle": "Jedna firma, pięć linii",
     "lines": [
       {
         "name": "PRO-KOM",
@@ -382,13 +378,6 @@
         "text": "serwis komputerów i telefonów",
         "href": "https://prokomserwis.pl",
         "color": "tech"
-      },
-      {
-        "name": "Zakopane",
-        "label": "ZAKOPANE",
-        "text": "salon w Zakopanem",
-        "href": "/kontakt",
-        "color": "zakopane"
       }
     ],
     "bottom": [

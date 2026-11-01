@@ -2,8 +2,8 @@
  * Views of the SW11b blocks (`swPageHero`, `swSteps`, `swTeam`, `swLines`; boards `ONas`,
  * `Wszystko`). Pure: the components pass `fill` (facts and prices, `lib/software/facts`) and
  * the image resolver. On production `fill` returns `null` for a text with a missing fact; then
- * the item or card that holds it is left out (ADR-014 §1.4) — `[ROK ZAKOPANE]`, `[IMIĘ I
- * NAZWISKO]`, `[ADRES SALONU W ZAKOPANEM]`. A photo placeholder never reaches production
+ * the item or card that holds it is left out (ADR-014 §1.4) — `[ROK SERWIS KAS]`, `[IMIĘ I
+ * NAZWISKO]`. A photo placeholder never reaches production
  * (spec. §13 pkt 25).
  */
 

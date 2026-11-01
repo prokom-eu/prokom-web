@@ -250,6 +250,12 @@ export const SiteSettings: CollectionConfig = {
       type: 'row',
       fields: [
         { name: 'phone', label: 'Telefon linii', type: 'text' },
+        {
+          name: 'phone2',
+          label: 'Drugi telefon linii',
+          type: 'text',
+          admin: { description: 'Opcjonalny, pokazywany obok głównego (Software).' },
+        },
         { name: 'email', label: 'E-mail linii', type: 'email' },
       ],
     },

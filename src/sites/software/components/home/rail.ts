@@ -21,7 +21,6 @@ export const RAIL_LABELS: Record<string, Omit<RailItem, 'id'>> = {
   'jak-robimy': { label: 'Jak robimy', icon: 'site' },
   'bez-wordpressa': { label: 'Dlaczego nie WordPress', icon: 'shield' },
   technologie: { label: 'Z czego budujemy', icon: 'server' },
-  realizacje: { label: 'Realizacje', icon: 'brief' },
   zasady: { label: 'Zasady', icon: 'doc' },
   faq: { label: 'Pytania', icon: 'q' },
 }

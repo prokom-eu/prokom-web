@@ -120,3 +120,23 @@ export function factsMap(
   }
   return facts
 }
+
+/**
+ * The line's phones and e-mail (`SiteSettings.phone`, `phone2`, `email`) as the facts `[TELEFON]`,
+ * `[TELEFON 2]` and `[E-MAIL]`, so a panel text can name them without a second copy (SWV2).
+ */
+export function contactFacts(settings: {
+  phone?: string | null
+  phone2?: string | null
+  email?: string | null
+}): Record<string, string> {
+  const facts: Record<string, string> = {}
+  const add = (key: string, value: string | null | undefined) => {
+    const text = value?.trim()
+    if (text) facts[key] = text
+  }
+  add('TELEFON', settings.phone)
+  add('TELEFON 2', settings.phone2)
+  add('E-MAIL', settings.email)
+  return facts
+}

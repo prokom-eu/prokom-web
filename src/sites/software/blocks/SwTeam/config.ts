@@ -6,7 +6,7 @@ import { FACTS_NOTE, photoFields, sectionHeadFields, textField } from '../fields
  * People and places of a Software subpage (ADR-014 rozstrz. SW0 7 `swTeam`; boards `ONas`,
  * `Wszystko`): „Kto z Tobą pracuje.” — photo, role, name, text — or „Dwa salony…” — name,
  * address lines, photo. On production a card whose name has a missing fact (`[IMIĘ I NAZWISKO]`)
- * is left out; a detail line with one (`[ADRES SALONU W ZAKOPANEM]`) goes, the card stays.
+ * is left out; a detail line with one (e.g. `[GODZINY]`) goes, the card stays.
  */
 export const SwTeamBlock: Block = {
   slug: 'swTeam',

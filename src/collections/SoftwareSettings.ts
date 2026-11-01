@@ -112,7 +112,7 @@ export const SoftwareSettings: CollectionConfig = {
       ),
       admin: {
         description:
-          'Proces, zasady, porównania, podglądy, realizacje, „Dlaczego nie WordPress”, technologie i „12 rzeczy”. Kolejność sekcji = kolejność bloków na stronie.',
+          'Proces, zasady, porównania, podglądy, „Dlaczego nie WordPress”, technologie i „12 rzeczy”. Kolejność sekcji = kolejność bloków na stronie.',
       },
     },
     {
