@@ -40,14 +40,18 @@ export function RevealObserver() {
           element.setAttribute('data-revealed', '')
         }
       },
-      // Wide sideways: cards of a phone carousel beyond the right edge count as seen with it.
-      { rootMargin: '0px 100% -8% 100%' },
+      { rootMargin: '0px 0px -8% 0px' },
     )
     const height = window.innerHeight
+    const width = window.innerWidth
     for (const element of targets) {
       if (element.hasAttribute('data-revealed') || element.hasAttribute('data-reveal-pending'))
         continue
-      if (!startsBelow(element.getBoundingClientRect().top, height)) continue
+      const box = element.getBoundingClientRect()
+      if (!startsBelow(box.top, height)) continue
+      // A card of a phone carousel beyond the right edge: its scroller clips it, so it would only
+      // be „seen” when swiped to — it stays as it is instead of rising in sideways.
+      if (box.left >= width) continue
       element.setAttribute('data-reveal-pending', '')
       observer.observe(element)
     }

@@ -8,7 +8,8 @@ export const COUNT_MS = 900
 /** A leading whole number and the rest („100+” → 100, „+”); `null` when it does not start so. */
 export function parseCount(text: string): { value: number; suffix: string } | null {
   const match = /^(\d+)(.*)$/.exec(text.trim())
-  if (!match) return null
+  // „1 200+”, „3,5”, „2.5”: a separator and more digits — not a single count, it stays as text.
+  if (!match || /^[\s.,]\d/.test(match[2] ?? '')) return null
   return { value: Number(match[1]), suffix: match[2] ?? '' }
 }
 

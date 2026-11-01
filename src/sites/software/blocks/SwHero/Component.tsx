@@ -162,12 +162,10 @@ export async function SwHeroBlock({ block, tenantId, isFirst = true }: Props) {
               >
                 <Link
                   href={intent.href}
-                  className="group relative grid min-h-[72px] grid-cols-[44px_minmax(0,1fr)_20px] items-center gap-x-3 gap-y-1 p-3.5 active:bg-surface-2 min-[640px]:flex min-[640px]:h-full min-[640px]:flex-col min-[640px]:items-start min-[640px]:gap-3 min-[640px]:rounded-[22px] min-[640px]:border min-[640px]:border-border min-[640px]:bg-card min-[640px]:p-5 min-[640px]:shadow-raised"
-                  data-card
+                  className="group relative grid min-h-[72px] grid-cols-[44px_minmax(0,1fr)_20px] items-center gap-x-3 gap-y-1 p-3.5 active:bg-surface-2 min-[640px]:flex min-[640px]:h-full min-[640px]:flex-col min-[640px]:items-start min-[640px]:gap-3 min-[640px]:rounded-[22px] min-[640px]:border min-[640px]:border-border min-[640px]:bg-card min-[640px]:p-5 min-[640px]:shadow-raised min-[640px]:transition-transform min-[640px]:hover:-translate-y-0.5"
                 >
                   <span
                     aria-hidden="true"
-                    data-card-icon
                     className="row-span-2 grid size-11 place-items-center rounded-[14px] bg-accent-soft text-accent-text transition-colors group-hover:bg-accent group-hover:text-accent-ink min-[640px]:size-13 min-[640px]:rounded-2xl"
                   >
                     {isIconName(intent.icon) && <Icon name={intent.icon} className="size-6" />}

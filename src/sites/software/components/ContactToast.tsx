@@ -6,11 +6,20 @@ import { Icon } from '@/components/ui/Icon'
 
 const SHOW_MS = 2400
 
+/** `decodeURIComponent` that never throws (a broken `%` in a link from the panel). */
+function decode(text: string): string {
+  try {
+    return decodeURIComponent(text)
+  } catch {
+    return text
+  }
+}
+
 /** Text of the toast for a phone or e-mail link, or `null` for any other link. */
 export function contactToastText(href: string): string | null {
-  if (href.startsWith('tel:')) return `Łączę z numerem ${decodeURIComponent(href.slice(4))}`
+  if (href.startsWith('tel:')) return `Łączę z numerem ${decode(href.slice(4))}`
   if (href.startsWith('mailto:')) {
-    const address = decodeURIComponent(href.slice(7).split('?')[0] ?? '')
+    const address = decode(href.slice(7).split('?')[0] ?? '')
     return address ? `Otwieram e-mail do ${address}` : null
   }
   return null

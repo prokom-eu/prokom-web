@@ -154,7 +154,7 @@
 }
 
 /* The map drawing zooms from its centre (see hover above). */
-[data-line='software'] [data-osm-map] svg {
+[data-line='software'] [data-osm-map] > svg {
   transition: scale var(--dur-enter) var(--ease-out);
 }
 

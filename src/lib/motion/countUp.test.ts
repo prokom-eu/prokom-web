@@ -9,6 +9,8 @@ describe('parseCount', () => {
     expect(parseCount('100+')).toEqual({ value: 100, suffix: '+' })
     expect(parseCount('2004')).toEqual({ value: 2004, suffix: '' })
     expect(parseCount('[ROK]')).toBeNull()
+    expect(parseCount('1 200+')).toBeNull()
+    expect(parseCount('3,5')).toBeNull()
   })
 })
 

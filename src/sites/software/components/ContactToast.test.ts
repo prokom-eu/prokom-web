@@ -11,5 +11,6 @@ describe('contactToastText', () => {
       'Otwieram e-mail do kontakt@prokomsoftware.pl',
     )
     expect(contactToastText('/kontakt')).toBeNull()
+    expect(contactToastText('tel:%E0%A4%A')).toBe('Łączę z numerem %E0%A4%A')
   })
 })
