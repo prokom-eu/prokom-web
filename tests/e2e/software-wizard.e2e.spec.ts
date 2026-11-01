@@ -252,7 +252,7 @@ for (const viewport of [
       await expect(title(page)).toHaveText('Zakres i termin')
       await expect(
         main(page)
-          .getByText(/cenę i termin dostaniesz na piśmie w\s5–7\sdni/)
+          .getByText(/cenę i termin dostaniesz w\s5–7\sdni/)
           .first(),
       ).toBeVisible()
       await expect(scopePrice(page)).toHaveCount(0)

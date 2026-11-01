@@ -13,7 +13,7 @@ const main = (page: Page) => page.locator('main')
 test.describe('Software /o-firmie', () => {
   test('hero, numbers, four lines, people without portraits, own CTA (SWV6)', async ({ page }) => {
     await page.goto(site(HOST, '/o-firmie'))
-    await expect(page.locator('h1')).toHaveText('Firma z Rabki. Od 2004 roku.')
+    await expect(page.locator('h1')).toHaveText('Robimy dla firm z Podhala od 2004 roku')
     await expect(main(page).getByRole('link', { name: 'Umów rozmowę' }).first()).toHaveAttribute(
       'href',
       '/kontakt',
@@ -91,7 +91,7 @@ test.describe('Software /jedna-firma', () => {
   test('hero with the lines, four line cards, two examples, gains, CTA', async ({ page }) => {
     await page.goto(site(HOST, '/jedna-firma'))
     await expect(page.locator('h1')).toHaveText(
-      'Strona, program, sprzęt i serwis. W jednej firmie.',
+      'Stronę, kasę, sieć i naprawę laptopa załatwisz w jednej firmie',
     )
     const lines = page.locator('section', {
       has: page.getByRole('heading', { name: 'Co załatwisz w PRO-KOM poza stroną' }),
