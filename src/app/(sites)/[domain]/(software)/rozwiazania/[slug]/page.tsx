@@ -4,14 +4,19 @@ import { notFound } from 'next/navigation'
 
 import { getEnv } from '@/lib/env'
 import { ogImages } from '@/lib/pages/metadata'
-import { metaDescription } from '@/lib/seo/description'
-import { breadcrumbJsonLd, serializeJsonLd, serviceJsonLd } from '@/lib/seo/jsonLd'
+import {
+  breadcrumbJsonLd,
+  serializeJsonLd,
+  serviceJsonLd,
+  SOFTWARE_AREA_SERVED,
+} from '@/lib/seo/jsonLd'
 import { robotsMeta } from '@/lib/seo/robots'
 import { getSiteSettings } from '@/lib/site/data'
 import { toTelHref } from '@/lib/site/link'
 import { CATALOG_PATH } from '@/lib/software/catalog'
 import { getSoftwareFacts, getSolutionPage } from '@/lib/software/data'
 import { fillText } from '@/lib/software/facts'
+import { fitTitle, richDescription } from '@/lib/software/meta'
 import { WIZARD_PATH } from '@/lib/software/wizardFlow'
 import { ContactBlock } from '@/sites/software/components/ContactBlock'
 import { FaqSection } from '@/sites/software/components/FaqSection'
@@ -27,10 +32,9 @@ import { requestOrigin, requireLine } from '../../../tenant'
 
 type Props = { params: Promise<{ domain: string; slug: string }> }
 
-const description = (lead: string | null, name: string) =>
-  metaDescription(
-    lead ?? `${name} — cena „od” i termin na piśmie, podgląd na żywo, PRO-KOM Software.`,
-  )
+// A short card lead gets the term and place, the price only if there is one (audyt P2).
+const description = (lead: string | null, name: string, priced: boolean) =>
+  richDescription(lead ?? `${name} — podgląd na żywo i zakres w cenie.`, { priced })
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const tenant = await requireLine(params, 'software')
@@ -42,10 +46,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   ])
   if (!page) return {}
   const url = `${origin}${CATALOG_PATH}/${page.slug}`
-  const title = page.title.accent ? `${page.name}. ${page.title.accent}` : page.name
+  const title = page.title.accent
+    ? fitTitle(`${page.name}. ${page.title.accent}`, page.name)
+    : page.name
   return {
     title,
-    description: description(page.lead, page.name),
+    description: description(page.lead, page.name, page.priceFrom !== null),
     alternates: { canonical: url },
     robots: robotsMeta(getEnv().SITE_ENV),
     openGraph: {
@@ -54,7 +60,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       siteName: tenant.name,
       url,
       title,
-      description: description(page.lead, page.name),
+      description: description(page.lead, page.name, page.priceFrom !== null),
       images: ogImages(settings?.seo.ogImage ?? null),
     },
   }
@@ -95,6 +101,7 @@ export default async function SolutionPage({ params }: Props) {
       url,
       provider: tenant.name,
       priceFrom: page.priceFrom,
+      areaServed: SOFTWARE_AREA_SERVED,
     }),
   ]
 

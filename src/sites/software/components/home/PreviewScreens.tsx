@@ -312,27 +312,21 @@ function PanelLaptop() {
   )
 }
 
+/**
+ * The office side of the field app: this week's orders as a list (not empty board columns —
+ * audyt 01.11 P1 #18), the protocol the crew just signed on top.
+ */
 function FieldLaptop() {
-  const columns = [
-    [
-      'NOWE · 2',
-      [
-        ['Elewacja', 'Zając · czw'],
-        ['Taras', 'Kmiecik · pt'],
-      ],
-    ],
-    ['W DRODZE · 1', [['Kuchnia', 'Nowakowie · ekipa Piotra']]],
-    ['NA MIEJSCU · 1', [['Poddasze', 'Wiśniewscy · 2 zdjęcia']]],
-    [
-      'GOTOWE · 3',
-      [
-        ['Łazienka nr 128', 'Kowalscy · 3 zdjęcia · podpis'],
-        ['Schody', 'Gąsienica · protokół'],
-      ],
-    ],
+  const rows = [
+    ['Łazienka nr 128', 'Kowalscy', 'Ekipa Marka', 'Gotowe', 'protokół · 3 zdjęcia · podpis'],
+    ['Poddasze', 'Wiśniewscy', 'Ekipa Piotra', 'Na miejscu', '2 zdjęcia „przed”'],
+    ['Kuchnia', 'Nowakowie', 'Ekipa Piotra', 'W drodze', 'start 10:30'],
+    ['Schody', 'Gąsienica', 'Ekipa Marka', 'Gotowe', 'protokół · faktura wystawiona'],
+    ['Elewacja', 'Zając', 'Ekipa Marka', 'Nowe', 'czwartek, 8:00'],
+    ['Taras', 'Kmiecik', 'Ekipa Piotra', 'Nowe', 'piątek, 9:00'],
   ] as const
   return (
-    <div className="flex h-full flex-col gap-[1.4em] px-[2.2em] py-[1.8em]">
+    <div className="flex h-full flex-col gap-[1.2em] px-[2.2em] py-[1.8em]">
       <div className="flex items-center justify-between">
         <b className="text-[1.8em]">Zlecenia · ten tydzień</b>
         <span className="flex gap-[0.6em] text-[1.1em] font-extrabold">
@@ -343,20 +337,36 @@ function FieldLaptop() {
           <span className={cx(box, 'px-[1em] py-[0.6em]')}>Ekipa Piotra</span>
         </span>
       </div>
-      <div className="grid min-h-0 flex-1 grid-cols-4 gap-[1em]">
-        {columns.map(([title, cards]) => (
-          <div key={title} className="flex flex-col gap-[0.8em] rounded-[1.2em] bg-chip p-[1em]">
-            <b className="text-[1.1em] text-ink-2">{title}</b>
-            {cards.map(([name, note], i) => (
-              <span key={name} className={cx(box, 'p-[1em] text-[1.1em]')}>
-                <b className="block">{name}</b>
-                {note}
-                {title.startsWith('GOTOWE') && i === 0 && (
-                  <span className="mt-[0.4em] block font-extrabold text-ok-text">przed chwilą</span>
-                )}
-              </span>
-            ))}
-          </div>
+      <div className={cx(box, 'flex min-h-0 flex-1 flex-col overflow-hidden text-[1.15em]')}>
+        <span className="grid grid-cols-[1.3fr_1fr_0.9fr_1.6fr] gap-[1em] border-b border-border bg-surface-2 px-[1.2em] py-[0.7em] text-[0.9em] font-extrabold text-ink-2">
+          <span>ZLECENIE</span>
+          <span>EKIPA</span>
+          <span>STATUS</span>
+          <span>W BIURZE</span>
+        </span>
+        {rows.map(([job, client, crew, state, note], i) => (
+          <span
+            key={job}
+            className={cx(
+              'grid grid-cols-[1.3fr_1fr_0.9fr_1.6fr] items-center gap-[1em] border-b border-border px-[1.2em] py-[0.75em] last:border-0',
+              i === 0 && 'bg-accent-soft',
+            )}
+          >
+            <span>
+              <b className="block">{job}</b>
+              <span className="text-ink-2">{client}</span>
+            </span>
+            <span>{crew}</span>
+            <span>
+              <Status state={state} />
+            </span>
+            <span className="text-ink-2">
+              {note}
+              {i === 0 && (
+                <b className="mt-[0.2em] block font-extrabold text-ok-text">przed chwilą</b>
+              )}
+            </span>
+          </span>
         ))}
       </div>
     </div>
@@ -561,8 +571,9 @@ function FieldPhone() {
         )}
       </div>
       <div className="grid grid-cols-3 gap-[0.6em] px-[1.2em]">
+        {/* The crew's photos „przed / w trakcie / po” (audyt P1 #18: no empty boxes). */}
         {[0, 1, 2].map((tile) => (
-          <span key={tile} className="h-[4.4em] rounded-[0.8em] bg-accent-soft" />
+          <Picture key={tile} className="h-[4.4em] rounded-[0.8em]" />
         ))}
       </div>
       <div className={cx(box, 'relative mx-[1.2em] mt-[0.8em] h-[4.8em]')}>

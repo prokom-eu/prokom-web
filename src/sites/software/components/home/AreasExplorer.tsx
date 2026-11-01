@@ -6,6 +6,7 @@ import { useId } from 'react'
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
 import type { HomeArea } from '@/lib/software/homeAreas'
+import { keepTogether } from '@/lib/software/price'
 
 import { AreaScene } from './AreaScene'
 import { useAutoTabs } from './useAutoTabs'
@@ -27,7 +28,7 @@ type Props = {
  */
 export function AreasExplorer({ areas, priceCaption, wizardButton }: Props) {
   const id = useId()
-  const { active, picked, paused, pick, onKeyDown, tabRef, region } = useAutoTabs(
+  const { active, rotating, pick, onKeyDown, tabRef, region } = useAutoTabs(
     areas.length,
     AREAS_AUTO_MS,
   )
@@ -37,7 +38,7 @@ export function AreasExplorer({ areas, priceCaption, wizardButton }: Props) {
 
   return (
     <div
-      className="grid gap-5 min-[1081px]:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] min-[1081px]:gap-6"
+      className="grid gap-5 min-[1081px]:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] min-[1081px]:gap-6"
       {...region}
     >
       <div
@@ -98,7 +99,7 @@ export function AreasExplorer({ areas, priceCaption, wizardButton }: Props) {
                 strokeWidth={2.2}
                 className="hidden size-4 text-ink-2 min-[1081px]:block"
               />
-              {selected && !picked && !paused && (
+              {selected && rotating && (
                 <i
                   aria-hidden="true"
                   key={active}
@@ -163,19 +164,21 @@ export function AreasExplorer({ areas, priceCaption, wizardButton }: Props) {
               <small className="text-xs font-extrabold uppercase tracking-[0.12em] text-ink-2">
                 {priceCaption}
               </small>
-              <b className="font-display text-2xl font-extrabold text-accent-text">{area.price}</b>
+              <b className="font-display text-2xl font-extrabold whitespace-nowrap text-accent-text">
+                {area.price}
+              </b>
             </p>
             <div className="grid grid-cols-2 gap-2 min-[640px]:flex">
               <Link
                 href="/#dobierz"
-                className="inline-flex min-h-12 items-center justify-center rounded-xl border-2 border-border bg-card px-4 text-center text-sm font-extrabold text-ink hover:border-accent-line"
+                className="inline-flex min-h-12 items-center justify-center rounded-xl border-2 border-border bg-card px-4 text-center text-sm font-extrabold text-ink hover:border-accent-line min-[640px]:whitespace-nowrap"
               >
-                {wizardButton}
+                {keepTogether(wizardButton)}
               </Link>
               {area.cta && (
                 <Link
                   href={area.cta.href}
-                  className="inline-flex min-h-12 items-center justify-center rounded-xl bg-button px-4 text-center text-sm font-extrabold text-accent-ink"
+                  className="inline-flex min-h-12 items-center justify-center rounded-xl bg-button px-4 text-center text-sm font-extrabold text-accent-ink min-[640px]:whitespace-nowrap"
                 >
                   {area.cta.label}
                 </Link>

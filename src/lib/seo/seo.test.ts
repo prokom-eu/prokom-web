@@ -10,6 +10,7 @@ import {
   productJsonLd,
   videoJsonLd,
   serializeJsonLd,
+  SOFTWARE_AREA_SERVED,
 } from './jsonLd'
 import { pageRobots, robotsMeta, robotsTxt } from './robots'
 import { siteOrigin } from './origin'
@@ -121,7 +122,7 @@ describe('organizationJsonLd', () => {
       name: 'PRO-KOM Biznes',
       legalName: 'PRO-KOM',
       url: 'https://prokombiznes.pl/',
-      telephone: '+48 000 000 101',
+      telephone: '+48000000101', // E.164 (audyt 01.11 P2)
       email: 'biuro@example.test',
       taxID: '1234563218',
       logo: 'https://prokombiznes.pl/brand/prokom-biznes_poziome_kolor.svg',
@@ -166,6 +167,37 @@ describe('organizationJsonLd on Software (SWV2: only Rabka)', () => {
     const branches = data['@graph'].filter((node) => node['@type'] === 'LocalBusiness')
     expect(branches).toHaveLength(1)
     expect(JSON.stringify(data)).not.toContain('Zakopane')
+  })
+
+  it('gives the office an E.164 phone, e-mail, geo, image and the area it serves (audyt P2)', () => {
+    const data = organizationJsonLd({
+      company,
+      tenant: { name: 'PRO-KOM Software', line: 'software' },
+      contact: { phone: '883 200 151', email: 'kontakt@prokomsoftware.pl' },
+      origin: 'https://prokomsoftware.pl',
+    })
+    const branch = data['@graph'].find((node) => node['@type'] === 'LocalBusiness')
+    expect(branch).toMatchObject({
+      telephone: '+48883200151',
+      email: 'kontakt@prokomsoftware.pl',
+      geo: { '@type': 'GeoCoordinates', latitude: 49.60994, longitude: 19.95339 },
+      image: 'https://prokomsoftware.pl/brand/prokom-software_og.png',
+      areaServed: SOFTWARE_AREA_SERVED,
+    })
+  })
+})
+
+describe('serviceJsonLd area (audyt P2)', () => {
+  it('names the area served when given', () => {
+    const data = serviceJsonLd({
+      name: 'Strona wizytówka',
+      description: undefined,
+      url: 'https://prokomsoftware.pl/rozwiazania/strona-wizytowka',
+      provider: 'PRO-KOM Software',
+      priceFrom: 999,
+      areaServed: SOFTWARE_AREA_SERVED,
+    })
+    expect(data).toMatchObject({ areaServed: SOFTWARE_AREA_SERVED })
   })
 })
 

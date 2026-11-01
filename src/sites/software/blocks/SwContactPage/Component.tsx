@@ -248,13 +248,14 @@ export async function SwContactPageBlock({ block, tenantId, isFirst }: Props) {
                       <b
                         className={cx(
                           'break-words font-display leading-tight',
-                          // A long address fits one line, like the board (v23).
+                          // An address breaks after „@” (`<wbr>`), not inside the name; only
+                          // a screen too narrow for the domain breaks it further (audyt P1 #21).
                           channel.kind === 'email'
-                            ? 'text-base min-[641px]:text-[17px]'
+                            ? 'text-[15px] min-[641px]:text-base'
                             : 'text-lg min-[641px]:text-xl',
                         )}
                       >
-                        {channel.value}
+                        {channel.kind === 'email' ? withBreakAfterAt(channel.value) : channel.value}
                       </b>
                       {channel.text ? (
                         <span className={cx('text-sm', strong ? 'text-white/80' : 'text-ink-2')}>
@@ -606,5 +607,18 @@ function ExternalIcon() {
     >
       <path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" />
     </svg>
+  )
+}
+
+/** The e-mail address with a line break opportunity after „@” (audyt 01.11 P1 #21). */
+function withBreakAfterAt(address: string) {
+  const at = address.indexOf('@')
+  if (at < 0) return address
+  return (
+    <>
+      {address.slice(0, at + 1)}
+      <wbr />
+      {address.slice(at + 1)}
+    </>
   )
 }

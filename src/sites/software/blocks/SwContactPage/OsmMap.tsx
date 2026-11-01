@@ -147,7 +147,8 @@ export function OsmMap({ routeHref, routeLabel, zoomLabel, pin, label }: Props) 
             href="https://www.openstreetmap.org/copyright"
             rel="noopener"
             target="_blank"
-            className="underline-offset-2 hover:underline"
+            // At least 24 px high (WCAG 2.5.8, audyt 01.11 P2) in the small attribution pill.
+            className="inline-flex min-h-6 items-center underline-offset-2 hover:underline"
           >
             autorzy OpenStreetMap
             <span className="sr-only"> (nowe okno)</span>

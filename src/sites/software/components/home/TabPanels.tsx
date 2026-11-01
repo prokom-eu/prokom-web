@@ -12,7 +12,9 @@ export const usePanelActive = () => useContext(PanelActive)
 /**
  * Panels of self-switching tabs, all in one grid cell: the box is always as tall as the tallest
  * panel, so switching (also by itself, every few seconds) never moves the page below — no
- * layout shift. The hidden ones are `invisible` and `inert` (no focus, not read out).
+ * layout shift. The hidden ones are `invisible` and `inert` (no focus, not read out). Panels
+ * cross-fade in place: the old one fades out while the new one fades in, so the box is never
+ * empty in between (audyt 01.11 P1 #17); `visibility` flips only at the end of the fade.
  */
 export function TabPanels({
   id,
@@ -36,8 +38,8 @@ export function TabPanels({
             aria-labelledby={`${id}-tab-${i}`}
             inert={!shown}
             className={cx(
-              'col-start-1 row-start-1 min-w-0',
-              shown ? 'motion-safe:animate-pane' : 'invisible',
+              'col-start-1 row-start-1 min-w-0 transition-[opacity,visibility] duration-300 ease-out motion-reduce:transition-none',
+              shown ? 'visible opacity-100' : 'invisible opacity-0',
             )}
           >
             <PanelActive.Provider value={shown}>{panel}</PanelActive.Provider>

@@ -12,6 +12,7 @@ import { hoursSummary } from '@/lib/site/hoursSummary'
 import type { SoftwareNavigation } from '@/lib/software/navigation'
 
 import { WandIcon } from './FrameIcons'
+import { CarouselDots } from './CarouselDots'
 
 type Footer = SoftwareNavigation['footer']
 
@@ -247,7 +248,10 @@ export function SoftwareFooter({ name, footer, phone, phone2, email, company }: 
           >
             {footer.linesTitle}
           </h2>
-          <ul className="-mx-4 flex snap-x snap-mandatory scroll-px-4 gap-2.5 overflow-x-auto px-4 pt-0.5 pb-1.5 [scrollbar-width:none] sm:mx-0 sm:grid sm:overflow-visible sm:p-0 min-[1081px]:grid-cols-5 sm:max-[1080px]:grid-cols-3">
+          <ul
+            id="stopka-linie-lista"
+            className="-mx-4 flex snap-x snap-mandatory scroll-px-4 gap-2.5 overflow-x-auto px-4 pt-0.5 pb-1.5 [scrollbar-width:none] sm:mx-0 sm:grid sm:overflow-visible sm:p-0 min-[1081px]:grid-cols-5 sm:max-[1080px]:grid-cols-3"
+          >
             {footer.lines.map((line) => (
               <li key={line.label} className="shrink-0 basis-[58%] snap-start sm:basis-auto">
                 <a
@@ -268,6 +272,12 @@ export function SoftwareFooter({ name, footer, phone, phone2, email, company }: 
               </li>
             ))}
           </ul>
+          <CarouselDots
+            listId="stopka-linie-lista"
+            count={footer.lines.length}
+            tone="dark"
+            className="sm:hidden"
+          />
         </Container>
       </section>
 

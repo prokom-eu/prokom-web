@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { Container } from '@/components/ui/Container'
 import { cx } from '@/components/ui/cx'
 import type { WhyNotWordpressView } from '@/lib/software/whyNotWordpress'
+import { CarouselDots } from '../CarouselDots'
 
 /**
  * „Dlaczego nie WordPress i PHP” (`#bez-wordpressa`, spec. §4 pkt 8, board `Main`, stany 75, 76,
@@ -35,6 +36,7 @@ export function WhyNotWordpress({ view }: { view: WhyNotWordpressView }) {
 
           {view.facts.length > 0 ? (
             <ul
+              id="bez-wordpressa-fakty"
               data-reveal-cards
               className="-mx-[18px] flex snap-x snap-mandatory gap-2.5 overflow-x-auto px-[18px] pb-2 [scrollbar-width:none] min-[641px]:mx-0 min-[641px]:grid min-[641px]:gap-3 min-[641px]:overflow-visible min-[641px]:px-0 min-[641px]:pb-0 min-[1081px]:grid-cols-3"
             >
@@ -65,6 +67,11 @@ export function WhyNotWordpress({ view }: { view: WhyNotWordpressView }) {
               })}
             </ul>
           ) : null}
+          <CarouselDots
+            listId="bez-wordpressa-fakty"
+            count={view.facts.length}
+            className="min-[641px]:hidden"
+          />
 
           {view.rows.length > 0 ? (
             <div

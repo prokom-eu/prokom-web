@@ -443,7 +443,7 @@ export function Wizard({ rules, solutions, initial, formToken, phone, headingLev
                           <span className="mt-auto flex w-full items-center justify-between gap-2 pt-1">
                             <span
                               data-wizard-tile-price
-                              className="text-sm font-extrabold text-accent-text"
+                              className="text-sm font-extrabold text-accent-text sm:whitespace-nowrap"
                             >
                               {keepTogether(tileHintOf(rules, needId, solutions))}
                             </span>
