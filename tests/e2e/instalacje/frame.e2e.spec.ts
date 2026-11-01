@@ -62,13 +62,11 @@ test.describe('Instalacje frame', () => {
     })
   })
 
-  test('other lines get no manifest nor theme colour', async ({ page }) => {
-    // Biznes: Software has its own since SWR2 (MOBILE-APLIKACJA §4 pkt 8).
-    const manifest = await page.goto(site('biznes.localhost', '/manifest.webmanifest'))
+  test('an unknown domain gets no manifest', async ({ page }) => {
+    // Every seeded line has its own now (Software SWR2, Biznes M1′); a host without a tenant
+    // answers 404, never a default manifest.
+    const manifest = await page.goto(site('localhost', '/manifest.webmanifest'))
     expect(manifest?.status()).toBe(404)
-    await page.goto(site('biznes.localhost'))
-    await expect(page.locator('meta[name="theme-color"]')).toHaveCount(0)
-    await expect(page.locator('link[rel="manifest"]')).toHaveCount(0)
   })
 
   test('an inactive tenant answers 404', async ({ page, context }) => {
