@@ -135,6 +135,8 @@ export type GuideExtras = {
     done: string
     partial: (n: number, all: number) => string
   }
+  /** The art of the „Polecany” card: an icon and an optional sign. */
+  featured: { icon: 'cam' | 'book'; sign: string | null }
   aside: { icon: 'cam'; title: string; text: string; link: { label: string; href: string } }
   readAlso: { label: string; href: string }[]
   /** The band before the footer. */
@@ -198,6 +200,7 @@ export const GUIDE_EXTRAS: Record<string, GuideExtras> = {
       partial: (n, all) =>
         `${n} z ${all}. Brakujące punkty techniczne ustawimy przy przeglądzie. Przy pozostałych podpowiemy, co przygotować.`,
     },
+    featured: { icon: 'cam', sign: 'RODO' },
     aside: {
       icon: 'cam',
       title: 'Ustawimy monitoring według tego poradnika',

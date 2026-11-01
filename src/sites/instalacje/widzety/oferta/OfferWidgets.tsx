@@ -168,8 +168,8 @@ export function OfferList({ areas }: { areas: OfferArea[] }) {
               </div>
             )}
             <div className="ofg">
-              {a.items.map((i) => (
-                <div key={i.name} className="ofi">
+              {a.items.map((i, index) => (
+                <div key={`${i.name}-${index}`} className={'ofi' + (i.hidden ? ' xa-ofx' : '')}>
                   <b>{i.name}</b>
                   <span>{i.description}</span>
                   <div className="ofit">

@@ -107,7 +107,13 @@ describe('offer list as the prototype', () => {
     ).toEqual(
       ref.areas.map((a) => [a.id, a.n, a.d, a.b, a.nItems, a.more, a.less, a.cls.includes('hide')]),
     )
-    expect(ours.areas.map((a) => a.items)).toEqual(
+    expect(
+      ours.areas.map((a) =>
+        a.items
+          .filter((i) => !i.hidden)
+          .map(({ name, description, tags }) => ({ name, description, tags })),
+      ),
+    ).toEqual(
       ref.areas.map((a) => a.items.map((i) => ({ name: i.n, description: i.d, tags: i.t }))),
     )
   })

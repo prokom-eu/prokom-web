@@ -23,7 +23,7 @@ export function GuideQuiz({ items, initial, done, partial }: Props) {
         const on = ticked.includes(index)
         return (
           <button
-            key={text}
+            key={index}
             type="button"
             className={'chk' + (on ? ' on' : '')}
             aria-pressed={on}

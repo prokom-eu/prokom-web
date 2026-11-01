@@ -8,7 +8,7 @@ import { breadcrumbJsonLd, itemListJsonLd } from '@/lib/seo/jsonLd'
 import { siteOrigin } from '@/lib/seo/origin'
 import type { InstGuideBlock as InstGuideBlockData } from '@/payload-types'
 
-import { GUIDE_ANSWERS, poradnik as T } from '../../dane/poradnik'
+import { GUIDE_ANSWERS, GUIDE_EXTRAS, poradnik as T } from '../../dane/poradnik'
 import { INST_ICONS } from '../../icons'
 import { JsonLd } from '../../sekcje/JsonLd'
 import { PageCtaBand } from '../../sekcje/PageCtaBand'
@@ -55,6 +55,11 @@ export async function InstGuideBlock({ block, tenantId }: Props) {
       meta: T.answerMeta,
     })),
   ]
+  // The art of the „Polecany” card comes with the post (`GUIDE_EXTRAS`); without it, a book.
+  const art = (featured && GUIDE_EXTRAS[featured.slug]?.featured) || {
+    icon: 'book' as const,
+    sign: null,
+  }
   const featuredMeta = featured
     ? [T.featured.minutes(featured.minutes), updatedLabel(featured)].filter(Boolean).join(' · ')
     : null
@@ -87,7 +92,7 @@ export async function InstGuideBlock({ block, tenantId }: Props) {
                   <rect width="400" height="260" style={{ fill: 'var(--accent-soft)' }} />
                   <g transform="translate(110 40) scale(7.5)">
                     <path
-                      d={INST_ICONS.cam}
+                      d={INST_ICONS[art.icon]}
                       style={{
                         fill: 'none',
                         stroke: 'var(--accent-text)',
@@ -97,27 +102,31 @@ export async function InstGuideBlock({ block, tenantId }: Props) {
                       }}
                     />
                   </g>
-                  <rect
-                    x="236"
-                    y="150"
-                    width="120"
-                    height="70"
-                    rx="10"
-                    style={{ fill: 'var(--inst-il-sign-bg)' }}
-                  />
-                  <text
-                    x="296"
-                    y="192"
-                    textAnchor="middle"
-                    style={{
-                      fontFamily: 'var(--font-display)',
-                      fontWeight: 900,
-                      fontSize: 18,
-                      fill: 'var(--inst-il-sign-c)',
-                    }}
-                  >
-                    RODO
-                  </text>
+                  {art.sign && (
+                    <>
+                      <rect
+                        x="236"
+                        y="150"
+                        width="120"
+                        height="70"
+                        rx="10"
+                        style={{ fill: 'var(--inst-il-sign-bg)' }}
+                      />
+                      <text
+                        x="296"
+                        y="192"
+                        textAnchor="middle"
+                        style={{
+                          fontFamily: 'var(--font-display)',
+                          fontWeight: 900,
+                          fontSize: 18,
+                          fill: 'var(--inst-il-sign-c)',
+                        }}
+                      >
+                        {art.sign}
+                      </text>
+                    </>
+                  )}
                 </svg>
               </div>
               <div className="prtx">

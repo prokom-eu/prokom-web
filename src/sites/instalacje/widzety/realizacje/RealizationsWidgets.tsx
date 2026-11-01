@@ -77,7 +77,10 @@ export function RealizationGrid({ items }: { items: RealizationItem[] }) {
   const view = realizationsView(items, st)
   return (
     <>
-      <div className="rgrid" aria-live="polite">
+      <p className="vh" aria-live="polite">
+        {`Pokazujemy ${view.list.length} z ${items.length} realizacji`}
+      </p>
+      <div className="rgrid">
         {view.list.map((r) => (
           <div key={r.id} className={'card rl' + (r.hidden ? ' xa-rlx' : '')}>
             <div className="rlimg">

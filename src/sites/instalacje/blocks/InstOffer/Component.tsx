@@ -25,8 +25,8 @@ const CATEGORIES = new Set<string>(['dom', 'apt', 'pens', 'rest', 'sklep', 'firm
 /**
  * The full offer `/uslugi` (ADR-I002 §0, `Oferta.body.html`): the hero with the search and the
  * object chips, the areas with their solutions and the navigation of areas, „W każdej
- * instalacji”, the CTA band. Areas and solutions from the panel (published, this tenant); the
- * whole list is in the HTML (the filters only hide). The block carries the page's h1.
+ * instalacji”, the CTA band. Areas and solutions from the panel (published, this tenant); all 76
+ * are in the server HTML (past the third per area hidden by a class until „Pokaż wszystkie”). The block carries the page's h1.
  */
 export async function InstOfferBlock({ block, tenantId }: Props) {
   const [data, host] = await Promise.all([

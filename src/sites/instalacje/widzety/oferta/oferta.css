@@ -407,4 +407,8 @@
       min-height: 44px;
     }
   }
+  /* Solutions past the third until „Pokaż wszystkie”: in the HTML for search engines, hidden here. */
+  & .ofi.xa-ofx {
+    display: none;
+  }
 }

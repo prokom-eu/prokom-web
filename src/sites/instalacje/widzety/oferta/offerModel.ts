@@ -102,7 +102,8 @@ export type OfferAreaView = {
   family: string
   description: string
   brands: string[]
-  items: { name: string; description: string; tags: string[] }[]
+  /** Every matching solution; `hidden` = past the third until „Pokaż wszystkie” (CSS hides it). */
+  items: { name: string; description: string; tags: string[]; hidden: boolean }[]
   /** Solutions matching the filters (the navigation count). */
   count: number
   /** „Pokaż wszystkie (n)” shown. */
@@ -152,7 +153,7 @@ export function offerView(areas: readonly OfferArea[], state: OfferState) {
       family: a.family,
       description: a.description,
       brands: a.brands,
-      items: more ? all.slice(0, LIMIT) : all,
+      items: all.map((item, index) => ({ ...item, hidden: more && index >= LIMIT })),
       count: all.length,
       more,
       less: Boolean(state.open[a.key]) && !filtered && all.length > LIMIT,

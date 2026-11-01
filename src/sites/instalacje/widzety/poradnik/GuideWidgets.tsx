@@ -70,7 +70,10 @@ export function GuideGrid({ cards }: { cards: GuideCard[] }) {
   const list = cards.filter((c) => current === 'all' || c.category === current)
   return (
     <>
-      <div className="prgrid" aria-live="polite">
+      <p className="vh" aria-live="polite">
+        {`Pokazujemy ${list.length} z ${cards.length} poradników`}
+      </p>
+      <div className="prgrid">
         {list.map((a) => (
           <Link key={a.key} href={a.href} className="card prc2">
             <span className="svk">{a.categoryLabel}</span>

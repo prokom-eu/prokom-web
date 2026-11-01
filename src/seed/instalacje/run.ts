@@ -280,7 +280,7 @@ export async function seedInstalacje(payload: Payload): Promise<void> {
         ...local,
       })
       count('realizations', 'updated')
-    } else if (!existing.kind || !existing.services?.length) {
+    } else if (existing._status === 'published' && (!existing.kind || !existing.services?.length)) {
       // I12: the filters of /realizacje (new fields) — only while the panel left them empty.
       await payload.update({
         collection: 'realizations',

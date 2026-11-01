@@ -21,12 +21,12 @@ test.describe('Instalacje full offer', () => {
     await expect(page.locator('.ofa')).toHaveCount(10)
     await expect(page.locator('.ofcnt')).toContainText('Pokazujemy 76 z 76')
     // Three per area until „Pokaż wszystkie”.
-    await expect(page.locator('#o-kam .ofi')).toHaveCount(3)
+    await expect(page.locator('#o-kam .ofi:visible')).toHaveCount(3)
     await page
       .locator('#o-kam')
       .getByRole('button', { name: /Pokaż wszystkie/ })
       .click()
-    await expect(page.locator('#o-kam .ofi')).toHaveCount(10)
+    await expect(page.locator('#o-kam .ofi:visible')).toHaveCount(10)
 
     // A typo-tolerant search without Polish letters.
     await page.getByRole('searchbox', { name: 'Szukaj w ofercie' }).fill('koscioł')
