@@ -11,8 +11,6 @@ import {
   SmartRooms,
 } from './SmartWidgets'
 
-import './smart.css'
-
 const SECTION = { padding: '0 0 104px' }
 
 /**

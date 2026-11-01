@@ -15,8 +15,6 @@ import { zaplanuj as Z } from '../../dane/zaplanuj'
 import { InstIcon } from '../../InstIcon'
 import { PlannerWizard, type PlannerService } from '../../widzety/zaplanuj/PlannerWizard'
 
-import '../../widzety/zaplanuj/zaplanuj.css'
-
 // The mountain ridges behind the hero (`Zaplanuj.body.html`).
 const RIDGE_1 =
   'M0 260 L0 170 L120 120 L210 150 L330 80 L430 130 L560 70 L690 140 L820 90 L940 150 L1060 100 L1190 150 L1310 110 L1440 150 L1440 260 Z'

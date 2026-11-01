@@ -16,8 +16,6 @@ import { SplitHero } from '../../sekcje/SplitHero'
 import { updatedLabel } from '../../widzety/poradnik/guideMeta'
 import { GuideCategories, GuideGrid, type GuideCard } from '../../widzety/poradnik/GuideWidgets'
 
-import '../../widzety/firma/firma.css'
-
 type Props = { block: InstGuideBlockData; tenantId: number }
 
 /**

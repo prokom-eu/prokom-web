@@ -14,8 +14,6 @@ import { InstSection } from '../../sekcje/InstSection'
 import { JsonLd } from '../../sekcje/JsonLd'
 import { PageCtaBand } from '../../sekcje/PageCtaBand'
 
-import '../../widzety/firma/firma.css'
-
 type Props = { block: InstAboutBlockData; tenantId: number }
 
 /**

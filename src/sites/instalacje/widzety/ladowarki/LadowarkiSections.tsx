@@ -5,8 +5,6 @@ import { InstSection } from '../../sekcje/InstSection'
 import { SectionHead } from '../../sekcje/SectionHead'
 import { ChargerCards, ChargerConfigurator, ChargingCalc } from './LadowarkiWidgets'
 
-import './ladowarki.css'
-
 const SECTION = { padding: '0 0 104px' }
 
 /**

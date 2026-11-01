@@ -39,8 +39,7 @@ import { PrepChecklist } from './PrepChecklist'
 import type { DayMoment, ObjectHotspot, ServiceChip } from './types'
 import { architekci } from '../dane/architekci'
 import { salonsNote } from '../powloka/salons'
-
-import './obiekty.css'
+import { ObjectPageStyles } from '../style/LineStyles'
 
 type Props = { tenantId: number; object: InstObject; sceneKey: BuiltObjectKey; origin: string }
 
@@ -134,6 +133,7 @@ export async function ObjectPage({ tenantId, object, sceneKey, origin }: Props) 
       data-inst-il=""
       style={{ '--h': object.color || undefined } as CSSProperties}
     >
+      <ObjectPageStyles />
       <JsonLd
         data={serviceJsonLd({
           origin,

@@ -33,8 +33,6 @@ import {
 } from './heroModel'
 import { HERO_OBJECT_EVENT } from './heroEvents'
 
-import './glowna.css'
-
 type Props = {
   /** The fixed scene (`HeroBackdrop`, rendered on the server). */
   backdrop: ReactNode

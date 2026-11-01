@@ -17,8 +17,7 @@ import { JsonLd } from '../sekcje/JsonLd'
 import { GuideQuiz } from '../widzety/poradnik/GuideQuiz'
 import { updatedLabel } from '../widzety/poradnik/guideMeta'
 import { salonsNote } from '../powloka/salons'
-
-import '../widzety/firma/firma.css'
+import { GuidePostStyles } from '../style/LineStyles'
 
 type EditorState = Parameters<typeof RichText>[0]['data']
 
@@ -82,6 +81,7 @@ export async function GuidePost({ post, tenantId, origin }: Props) {
 
   return (
     <>
+      <GuidePostStyles />
       <JsonLd
         data={[
           breadcrumbJsonLd([

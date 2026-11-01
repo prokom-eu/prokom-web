@@ -40,8 +40,6 @@ import { type ArchService, InstallationsTabs } from '../../widzety/architekci/In
 import { SolutionsExplorer } from '../../widzety/architekci/SolutionsExplorer'
 import { StageTabs } from '../../widzety/architekci/StageTabs'
 
-import '../../widzety/architekci/architekci.css'
-
 type Props = { block: InstArchitectsBlockData; tenantId: number }
 
 const PATH = '/dla-architektow'

@@ -5,8 +5,6 @@ import { InstSection } from '../../sekcje/InstSection'
 import { SectionHead } from '../../sekcje/SectionHead'
 import { IdTypes, LocksPower } from './DostepWidgets'
 
-import './dostep.css'
-
 const SECTION = { padding: '0 0 104px' }
 
 /**

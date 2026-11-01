@@ -2,7 +2,6 @@ import Link from 'next/link'
 
 import { nieZnaleziono as T } from '../dane/nieZnaleziono'
 import { InstIcon } from '../InstIcon'
-import '../sekcje/sekcje.css'
 
 /**
  * 404 inside the Instalacje frame (header, CTA band, footer from the layout): the message and six
