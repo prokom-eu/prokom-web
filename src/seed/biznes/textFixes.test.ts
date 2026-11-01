@@ -8,7 +8,7 @@ describe('fixTexts', () => {
       {
         blockType: 'bzSection',
         lead: 'Telefon 889 003 889 albo e-mail biznes@pro-kom.eu.',
-        items: [{ text: 'Stacjonarny 18 267 65 11', href: 'tel:+48182676511' }],
+        items: [{ text: 'Drugi telefon 18 267 65 11', href: 'tel:+48182676511' }],
         content: {
           root: { children: [{ text: 'biuro@pro-kom.eu', url: 'mailto:biuro@pro-kom.eu' }] },
         },
@@ -20,7 +20,7 @@ describe('fixTexts', () => {
       {
         blockType: 'bzSection',
         lead: 'Telefon 889 003 889 albo e-mail kontakt@prokombiznes.pl.',
-        items: [{ text: 'Stacjonarny 883 200 151', href: 'tel:+48883200151' }],
+        items: [{ text: 'Drugi telefon 883 200 151', href: 'tel:+48883200151' }],
         content: {
           root: {
             children: [{ text: 'kontakt@prokombiznes.pl', url: 'mailto:kontakt@prokombiznes.pl' }],

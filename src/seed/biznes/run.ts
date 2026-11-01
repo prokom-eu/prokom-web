@@ -1114,27 +1114,8 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     }
   }
 
-  // --- contact data of the line (decision 01.11.2026): settings, inbox, the shared office ---
+  // --- contact data of the line (decision 01.11.2026): phones, e-mail, WhatsApp, the office ---
   await upsertBiznesContact(payload, tenant.id, count)
-
-  // --- WhatsApp: the line's own (sample) number, spec. §1 "ten sam numer na WhatsApp" ---
-  if (siteSettings) {
-    const current = await payload.findByID({
-      collection: 'site-settings',
-      id: siteSettings.id,
-      ...local,
-    })
-    const whatsappMissing = !current.biznes?.whatsapp && Boolean(current.phone)
-    count('site-settings whatsapp', whatsappMissing)
-    if (whatsappMissing) {
-      await payload.update({
-        collection: 'site-settings',
-        id: siteSettings.id,
-        data: { biznes: { ...current.biznes, whatsapp: current.phone } },
-        ...local,
-      })
-    }
-  }
 
   // --- towns served (B8c): the footer and /kontakt list them ---
   if (siteSettings) {

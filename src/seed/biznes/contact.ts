@@ -25,9 +25,11 @@ export const SERVICE_AREAS = [
 
 /**
  * Contact data of prokombiznes.pl — Krystian's decision of 01.11.2026 (replaces K4-FINAL §1
- * contact and the old landline). Real data, also for local databases:
- * the seed writes it to the line's settings and the tenant, and the shared office to
- * `CompanyData`. The texts of the seed that quote a number or address import it from here.
+ * contact and the old landline). Real data, also for local databases: the seed writes it to the
+ * line's settings and the shared office to `CompanyData`. The inquiry inbox
+ * (`Tenants.notificationEmail`) stays fake locally (`seed/tenants.ts`, Mailpit): the real address
+ * is set in the panel only, so test inquiries never reach the customer box. The texts of the seed
+ * that quote a number or address import it from here.
  */
 export const BIZNES_CONTACT = {
   phone: '889 003 889',
@@ -63,8 +65,8 @@ export const BIZNES_COMPANY: Pick<CompanyDatum, 'name' | 'nip' | 'locations'> = 
 type Count = (name: string, result: boolean | 'updated') => void
 
 /**
- * Writes the contact data to the Biznes settings, the tenant's notification inbox and the shared
- * company data — each record only when a value differs, so a second run changes nothing.
+ * Writes the contact data to the Biznes settings and the shared company data — each record only
+ * when a value differs, so a second run changes nothing.
  */
 export async function upsertBiznesContact(
   payload: Payload,
@@ -98,18 +100,6 @@ export async function upsertBiznesContact(
         ...local,
       })
     }
-  }
-
-  const tenant = await payload.findByID({ collection: 'tenants', id: tenantId, ...local })
-  const inboxSame = tenant.notificationEmail === BIZNES_CONTACT.email
-  count('tenant notification e-mail', inboxSame ? false : 'updated')
-  if (!inboxSame) {
-    await payload.update({
-      collection: 'tenants',
-      id: tenantId,
-      data: { notificationEmail: BIZNES_CONTACT.email },
-      ...local,
-    })
   }
 
   const company = await payload.findGlobal({ slug: 'company-data', ...local })

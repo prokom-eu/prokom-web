@@ -11,29 +11,22 @@ const HOSTS = ['biznes.localhost', 'instalacje.localhost', 'software.localhost']
 const uniquePhone = () => `+48 000 ${String(Date.now()).slice(-6)}`
 
 test.describe('company data and site settings', () => {
-  test('a CompanyData change shows on every domain that prints the company name', async ({
-    page,
-  }) => {
+  test('a CompanyData change shows in the Biznes footer', async ({ page }) => {
     await loginAsAdmin(page)
     const { json: original } = await api(page, 'GET', '/api/globals/company-data?depth=0')
     const name = original.name as string
     expect(name).toBeTruthy()
 
     // Biznes takes its phones from its own settings (contact of 01.11.2026); the company name,
-    // NIP and office stay shared — the footer prints the name next to the NIP.
+    // NIP and office stay shared — the footer prints the name next to the NIP. Software's company
+    // data is checked in software-frame.e2e.spec.ts; Instalacje has a minimal footer (I1 → I3).
     const changed = `${name} (${String(Date.now()).slice(-6)})`
     const updated = await api(page, 'POST', '/api/globals/company-data', { name: changed })
     expect(updated.status).toBe(200)
 
     try {
-      // Software's company data is checked in software-frame.e2e.spec.ts. Instalacje: minimal
-      // footer with the line's contact until its shell (I1 → I3).
-      for (const host of HOSTS.filter(
-        (h) => h !== 'software.localhost' && h !== 'instalacje.localhost',
-      )) {
-        await page.goto(site(host))
-        await expect(page.locator('footer')).toContainText(changed)
-      }
+      await page.goto(site('biznes.localhost'))
+      await expect(page.locator('footer')).toContainText(changed)
     } finally {
       await page.goto('/admin/login')
       const restored = await api(page, 'POST', '/api/globals/company-data', { name })
