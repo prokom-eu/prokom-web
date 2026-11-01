@@ -29,7 +29,8 @@ export function useRevealCards(): { 'data-reveal-cards'?: '' } {
 }
 
 /**
- * Sections and cards of Software rise in once as they come into view (SWV7, `motion.css` §3):
+ * Sections and cards of the lines with the motion system (Software, Instalacje) rise in once as
+ * they come into view (SWV7, `motion.css` §3; placed in each line's frame):
  * `data-reveal` elements and the children of `data-reveal-cards`. On each page only what starts
  * below the screen waits hidden (`data-reveal-pending`); once seen it gets `data-revealed` (the
  * animation) and stays — no hiding again on the way up. Nothing with reduced motion or without

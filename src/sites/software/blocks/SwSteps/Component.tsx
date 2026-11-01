@@ -5,7 +5,7 @@ import { isIconName } from '@/lib/catalog/options'
 import { stepItems } from '@/lib/software/aboutBlocks'
 import { fillText } from '@/lib/software/facts'
 import type { SwStepsBlock as SwStepsBlockData } from '@/payload-types'
-import { CountUp } from '@/sites/software/components/CountUp'
+import { CountUp } from '@/components/motion/CountUp'
 import { SectionHead } from '@/sites/software/components/home/SectionHead'
 import { softwareTextContext } from '@/sites/software/components/textContext'
 
