@@ -45,7 +45,7 @@ export async function upsertK4Page(
 }
 
 /**
- * A Biznes page from blocks (B8c `/kontakt`, B9 subpages): created and published when missing;
+ * A Biznes page from blocks (legal pages, K4 pages): created and published when missing;
  * otherwise only block types it lacks are added (`mergeHomeLayout`) — blocks edited in the
  * panel are never overwritten. Reports `pages <slug>`.
  */
