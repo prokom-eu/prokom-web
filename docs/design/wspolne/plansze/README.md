@@ -20,3 +20,5 @@ Pliki `.dc.html` nie otworzą się samodzielnie w przeglądarce (potrzebują śr
 | `Mapa.dc.html` | mapa adresu — schemat ulic; w kodzie prawdziwa geometria z OSM (spec §5 AddressMap) |
 
 **Uwaga — dane w planszach vs spec:** gdzie plansza i `WSPOLNE-ELEMENTY.md` §6.3 różnią się danymi kontaktowymi (Biznes: e-mail i telefony), wygrywa spec.
+
+**Uwaga — fonty:** plansze ładują Archivo i Manrope z `fonts.googleapis.com` tylko na potrzeby podglądu. W kodzie fonty serwujemy z własnego serwera (`next/font/google` w `src/app/(sites)/fonts.ts` — pliki pobierane przy buildzie, bez zapytań do Google; `docs/marka.md`); nie kopiuj tych `<link>` do komponentów.

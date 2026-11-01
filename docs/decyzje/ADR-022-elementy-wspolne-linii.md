@@ -3,7 +3,7 @@
 - Status: przyjęta z poprawkami (F0, 01.11.2026 — sekcja „Poprawki w F0”)
 - Data: 01.11.2026
 - Decydują: Krystian (architektura), szef (treści oznaczone [SZEF])
-- Powiązane: ADR-010 (bloki linii), ADR-012/017 (Biznes), ADR-013/015 (kolory i motywy), ADR-014 (Software), ADR-I001…I005 (Instalacje), ADR-019 (serwer)., ADR-020 (analityka Umami — bez ciasteczek, ważne dla strony Cookies). Rozpoznanie: `docs/design/wspolne/MAPA-DZIS.md`.
+- Powiązane: ADR-010 (bloki linii), ADR-012/017 (Biznes), ADR-013/015 (kolory i motywy), ADR-014 (Software), ADR-I001…I005 (Instalacje), ADR-019 (serwer), ADR-020 (analityka Umami — bez ciasteczek, ważne dla strony Cookies). Rozpoznanie: `docs/design/wspolne/MAPA-DZIS.md`.
 
 ## Kontekst
 Trzy linie w `prokom-web` (Biznes, Instalacje, Software) zbudowały pasek marki, nagłówek, stopkę, formularz, Kontakt i O firmie każda po swojemu. Przegląd 01.11 (na żywo, 3 strony): trzy różne paski marki (inna kolejność linii, inne treści), trzy różne stopki (linie pokazane na trzy sposoby, różne linki prawne, „Serwis” zamiast „Tech”), różne wymiary znaku (Instalacje 140 px), różne wagi nagłówków, trzy różne formularze. Instalacje mają przeniesiony CSS prototypu (`topb`, `hdr`, `ftr2`), Biznes i Software — Tailwind. Dokument zaakceptowany przez szefa 12.10 zakładał wspólny pasek marki, wspólną stopkę z danymi firmy i formularze w jednym układzie.

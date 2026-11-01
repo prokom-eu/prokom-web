@@ -129,7 +129,7 @@ Szablon daje wspólny szkielet; **linia wstawia własne sekcje w nazwanych miejs
 3. **Formularz** — karta dwudzielna (promień 30): lewo `line-dark` + warstwice: „Formularz”, `formTitle`, „Co dalej po wysłaniu” (`nextSteps` pionowo); prawo `ContactForm`.
 4. **Dojazd i zasięg** — tekst (`mapTitle`, `mapLead`, pole miejscowości, wynik) + `ServiceAreaMap`.
 5. **„Inna sprawa? Każda linia ma swój zespół.”** — kafelki pozostałych linii (bez bieżącej, z Gaming), kreska 4 px u góry w kolorze linii.
-6. **FAQ kontaktowe** (`FaqBlock`, 4 pytania: parking, dojazd do klienta, co przygotować, czy bez umawiania — treści z panelu; opis parkingu jeden w `salons[].parkingNote`).
+6. **FAQ kontaktowe** (`FaqBlock`, 4 pytania: parking, dojazd do klienta, co przygotować, czy bez umawiania — treści z panelu; opis parkingu jeden w `locations[].parkingNote`).
 - JSON-LD `LocalBusiness` z CompanyData (+ `openingHoursSpecification` linii), `BreadcrumbList`.
 
 ### 6.2 O firmie `/o-firmie` (plansza „05 · O firmie”)
@@ -186,5 +186,5 @@ Teksty są w planszach (`plansze/Kontakt.dc.html` i `OFirmie.dc.html`, obiekty `
 ## 12. Otwarte
 - [prawnik] zgoda checkbox czy klauzula informacyjna (`consentMode`); treść klauzuli; strona Cookies (bez ciasteczek śledzących — Umami).
 - [SZEF] liczby z flagą (100+, 10 000+); adres i godziny salonu Zakopane; autoryzacje Satel/Ampio; cytat właściciela (bez zdjęcia) — zostaje czy znika.
-- [Krystian] e-mail Tech; linki weryfikacji (Posnet, InsERT); pliki znaku TECH i Gaming do `public/brand/`; usunięcie pól WhatsApp z panelu (migracja usuwająca dane — przy F1/L1).
+- [Krystian] e-mail Tech; linki weryfikacji (Posnet, InsERT); pliki znaku TECH i Gaming do `public/brand/`; usunięcie pól WhatsApp z panelu (migracja usuwająca dane we wspólnych polach — w F1 albo osobnym PR `feat/wsp-*`, nigdy w sesji L; zawsze po decyzji Krystiana).
 - Zamknięte w F0: znak z zieloną kreską jest w paczce; znak w nagłówku 180×36; `shared` w `SiteSettings`; salony = `CompanyData.locations[]`.

@@ -8,7 +8,7 @@ Dotyczy tenantów **biznes, instalacje, software**. Tech (prokomserwis.pl) — o
 ## 0. Podział i zasady
 
 ### Fundament (F) — raz, w jednym folderze, jedna sesja naraz
-- Folder: ten, w którym akurat **nie** trwa sesja linii (np. `D:\PRO-KOM\repos\prokom-web`). Nigdy dwie sesje Claude Code w jednym folderze.
+- Folder: ten, w którym akurat **nie** trwa sesja linii (np. folder `prokom-web`). Nigdy dwie sesje Claude Code w jednym folderze.
 - F robi: dokumenty, **dane i migracje**, tokeny, **wszystkie komponenty wspólne** i **szablony stron z miejscami na sekcje linii**, stronę podglądu komponentów. F **nie wpina** niczego w ramki linii (`src/sites/<linia>/…` bez zmian — wyjątek: seed treści linii w F1).
 - Gałęzie `feat/wsp-*` (F0: `docs/wsp-*`), squash do `develop`.
 
@@ -22,14 +22,14 @@ Dotyczy tenantów **biznes, instalacje, software**. Tech (prokomserwis.pl) — o
 - **Przed każdą sesją z UI:** zrzuty dotkniętych stron (1440 i 390, jasny/ciemny) do `tmp/zrzuty-przed/`; po sesji porównanie — każda niezamierzona zmiana poza zakresem = błąd.
 - Diff > 400 linii → PR-y piętrowe.
 - Nie ruszamy: menu linii (dane i mega menu), hero i sekcji sprzedażowych, katalogu, kreatorów. Nowy pomysł → STAN „Pomysły”.
-- Kolejność z bieżącą pracą: poprawki po audytach przed stagingiem (Biznes prompty 1–4, Instalacje I14b → I-T → I-M) kończymy **przed F1**.
+- Kolejność z bieżącą pracą: poprawki po audytach przed stagingiem (Biznes sesje A/B wg `docs/zadania/prokombiznes.md` §7.2, Instalacje I14b → I-T → I-M) kończymy **przed F1**.
 
 ## 1. Sesje
 
 | Sesja | Etap | Gdzie | Zakres | Szac. | Zależy od |
 |---|---|---|---|---|---|
 | **F0** | A | fundament | pakiet w git, ADR-022, `MAPA-DZIS.md` (z listą dodatków linii na Kontakcie/O firmie), bez kodu | 0,5 | — |
-| **F1** | A | fundament | dane: `CompanyData` (linie, salony, strefy, prawne, `consentMode`), grupa `shared` w 3 ustawieniach linii, migracja, seed z prawdziwymi danymi, hook `[SZEF`, loader | 1 | F0 |
+| **F1** | A | fundament | dane: `CompanyData` (linie, salony, strefy, prawne, `consentMode`), grupa `shared` w `SiteSettings` (ADR-022), migracja, seed z prawdziwymi danymi, hook `[SZEF`, loader | 1 | F0 |
 | **F2** | A | fundament | tokeny ról + komponenty powłoki: `LineLogo`, `OpeningStatus`, `BrandBar`, `SiteHeader`, `SiteFooter`, `LinesBand`, `LegalBar`, `AddressMap`, `TabBar`, `MenuSheet`; strona podglądu `/_wspolne` (tylko dev/staging); strona Cookies w panelu, jeśli brak | 2 | F1 |
 | **L1-B / L1-I / L1-S** | A | linia | wpięcie powłoki w ramkę linii (pasek marki, nagłówek ze slotami, stopka, dolny pasek i arkusz Menu), usunięcie starej powłoki i WhatsAppa | 0,5 × 3 | F2 |
 | **F3** | B | fundament | moduły: `ContactForm`, `FaqBlock`, `Steps`, `ServiceAreaMap` + `zones.ts`, `Contours`, `CompanyCard`, `StatsStrip`, `RulesBento`, `FamilyStrip`, `VerifyCards`; **szablony `ContactPage`, `AboutPage` z miejscami na sekcje linii** (spec §6.0); wspólne API zgody/walidacji/sukcesu dla formularzy specjalnych | 2 | F2 |
@@ -152,7 +152,7 @@ Zrzuty przed: główna, /kontakt, /o-firmie + 2 podstrony linii (1440/390, jasny
 1. W ramce (Frame/layout) linii zastąp: górny pasek → BrandBar; nagłówek → SiteHeader ze slotami (menu i mega menu linii bez zmian jako nav; dodatki linii jako extras/cta); stopkę → SiteFooter (kolumny z shared.footerColumns, ozdoba krawędzi, jeśli linia ma); dolny pasek i menu telefonu → TabBar + MenuSheet (konfiguracja z shared.tabBar; zachowaj istniejące zachowania, np. chowanie paska przy kreatorze).
    - Biznes: lupa i „Zapytanie” z licznikiem jako sloty; dolny pasek Start · Oferta · Zapytanie · Kontakt · Menu (Szukaj = lupa w nagłówku telefonu); kolumna „PRO-KOM w regionie” → LinesBand.
    - Instalacje: klasy topb/hdr/ftr2 → komponenty wspólne (martwy CSS usuń tylko z tych elementów); znak 180×36; grzbiet gór jako ozdoba stopki; dolny pasek Start · Usługi · Zaplanuj · Kontakt · Menu („Dla kogo” do Menu).
-   - Software: BrandBar z SW0 → wspólny („Darmowy audyt” w slocie paska); „Twój projekt” i „Bezpłatna wycena” jako sloty; stopka v21 „Jedna firma, sześć adresów” → LinesBand; dolny pasek Start · Oferta · Kreator · Kontakt · Menu.
+   - Software: BrandBar z SW0 → wspólny („Darmowy audyt” w slocie paska); „Twój projekt” i „Bezpłatna wycena” jako sloty; stopka „Jedna firma, cztery linie” (5 kart) → LinesBand; dolny pasek Start · Oferta · Kreator · Kontakt · Menu.
 2. Usuń z powłoki i stopki linii: WhatsApp (kafelki, wa.me, ikony, click_whatsapp), literały kontaktowe (dane z loadera), „Serwis” jako nazwę linii, „i sklep” przy pro-kom.eu.
 3. Jeśli stare /kontakt lub /o-firmie linii mają WhatsApp, zdjęcia ludzi albo literały kontaktowe — usuń/podmień na dane z loadera już teraz (minimalnie, bez przebudowy — przebudowa w L2).
 DoD: zrzuty po vs przed i vs plansze Chrome/Footer/Telefon (wariant linii); e2e: aria-current, tylko published linie, tel: z danych, LegalBar = tekst wspólny, LinesBand 5/6 wg flagi; ≤1080 px pasek marki ukryty; 0 przewijania w bok 360/390/414 na trasach linii; axe 0; CI; STAN linii.
