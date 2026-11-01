@@ -350,6 +350,12 @@ test.describe('Software catalog on the phone', () => {
       await page.goto(site(HOST, `${PATH}?rozwiazanie=audyt-strony-lub-programu`))
       const dialog = windowOf(page, 'Audyt strony lub programu')
       await expect(dialog).toBeVisible()
+      // The sheet slides up (SWV7 `BottomSheet`): measure where it stops, not mid-way.
+      await dialog.evaluate((element) =>
+        Promise.all(
+          element.getAnimations({ subtree: true }).map((animation) => animation.finished),
+        ),
+      )
       const box = (await dialog.boundingBox())!
       expect(Math.round(box.width)).toBe(width)
       expect(Math.round(box.y + box.height)).toBe(800)
