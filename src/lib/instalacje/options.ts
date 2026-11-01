@@ -33,6 +33,16 @@ export const OFFER_FAMILIES = [
   { label: 'E-mobilność', value: 'emobility' },
 ] as const
 
+/** Object kinds of the filter on `/realizacje` (the prototype's `Realizacje.js → FO`). */
+export const REALIZATION_KINDS = [
+  { label: 'Firma', value: 'firma' },
+  { label: 'Kościół', value: 'kosciol' },
+  { label: 'Gastronomia', value: 'gastro' },
+  { label: 'Sklep i usługi', value: 'sklep' },
+  { label: 'Szkoła', value: 'szkola' },
+  { label: 'Dom', value: 'dom' },
+] as const
+
 export const OBJECT_KEYS = [
   { label: 'Dom i domek letniskowy', value: 'dom' },
   { label: 'Apartament na wynajem', value: 'apt' },

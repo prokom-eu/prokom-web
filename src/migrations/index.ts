@@ -68,6 +68,8 @@ import * as migration_20261101_023959_k4j_strony from './20261101_023959_k4j_str
 import * as migration_20261101_131202_software_v23_data from './20261101_131202_software_v23_data'
 import * as migration_20261101_131620_drop_bloki_b9 from './20261101_131620_drop_bloki_b9'
 import * as migration_20261101_134030_inst_architects_news_settings from './20261101_134030_inst_architects_news_settings'
+import * as migration_20261101_144454_inst_post_categories from './20261101_144454_inst_post_categories'
+import * as migration_20261101_144923_inst_i12_blocks from './20261101_144923_inst_i12_blocks'
 
 export const migrations = [
   {
@@ -419,5 +421,15 @@ export const migrations = [
     up: migration_20261101_134030_inst_architects_news_settings.up,
     down: migration_20261101_134030_inst_architects_news_settings.down,
     name: '20261101_134030_inst_architects_news_settings',
+  },
+  {
+    up: migration_20261101_144454_inst_post_categories.up,
+    down: migration_20261101_144454_inst_post_categories.down,
+    name: '20261101_144454_inst_post_categories',
+  },
+  {
+    up: migration_20261101_144923_inst_i12_blocks.up,
+    down: migration_20261101_144923_inst_i12_blocks.down,
+    name: '20261101_144923_inst_i12_blocks',
   },
 ]

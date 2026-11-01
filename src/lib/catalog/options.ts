@@ -148,8 +148,10 @@ export const WIZARD_BUSINESS_TYPES = [
 ] as const
 
 /**
- * Post categories = filters of `/aktualnosci` (spec. §6.9). One list for all lines (ADR-014
- * rozstrz. SW0 2); a post may only take a category of its tenant's line (`lib/posts/list`).
+ * Post categories = filters of `/aktualnosci` (spec. §6.9) and of the Instalacje `/poradnik`
+ * (ADR-I002 „Posts”, the prototype's `Poradnik.js`). One list for all lines (ADR-014 rozstrz.
+ * SW0 2); a post may only take a category of its tenant's line (`lib/posts/list`). Values are
+ * unique across the lines (one database enum).
  */
 export const POST_CATEGORIES = [
   { label: 'KSeF', value: 'ksef', line: 'biznes' },
@@ -160,6 +162,11 @@ export const POST_CATEGORIES = [
   { label: 'Poradnik', value: 'poradnik', line: 'software' },
   { label: 'Nowości', value: 'nowosci', line: 'software' },
   { label: 'Realizacje', value: 'realizacje', line: 'software' },
+  { label: 'Przepisy', value: 'przepisy', line: 'instalacje' },
+  { label: 'Monitoring', value: 'monitoring', line: 'instalacje' },
+  { label: 'Obiekty noclegowe', value: 'noclegi', line: 'instalacje' },
+  { label: 'Energia', value: 'energia', line: 'instalacje' },
+  { label: 'Dźwięk i obraz', value: 'dzwiek-obraz', line: 'instalacje' },
 ] as const
 
 const HEX_COLOR = /^#[0-9a-f]{6}$/i
