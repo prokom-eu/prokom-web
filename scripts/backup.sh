@@ -30,6 +30,23 @@ if [ -f "$env_file" ]; then
   . "$env_file"
   set +a
 fi
+log() { echo "$(date -u +%Y-%m-%dT%H:%M:%SZ) backup prokom-$stack: $*"; }
+
+heartbeat_var="BACKUP_HEARTBEAT_URL_$(echo "$stack" | tr '[:lower:]' '[:upper:]')"
+heartbeat="${!heartbeat_var:-}"
+ping_heartbeat() {
+  [ -n "$heartbeat" ] || return 0
+  curl -fsS -m 10 --retry 3 -o /dev/null "$heartbeat$1" || log "heartbeat ping failed"
+}
+
+# A failed backup (any error under set -e) reports itself at once, not only after a silent day.
+on_exit() {
+  local status=$?
+  rm -rf "${work:-}"
+  if [ "$status" -ne 0 ]; then ping_heartbeat /fail; fi
+}
+trap on_exit EXIT
+
 : "${AGE_RECIPIENT:?set AGE_RECIPIENT (public age key) in .env.backup}"
 backup_dir="${BACKUP_DIR:-$root/../backups}"
 if [ -z "${RCLONE_REMOTE:-}" ] && [ "${BACKUP_LOCAL_ONLY:-}" != 1 ]; then
@@ -44,26 +61,10 @@ media_volume="${project}_media"
 # The PostgreSQL image of the stack also serves as the throwaway container for the media volume.
 helper_image="$(docker inspect -f '{{.Config.Image}}' "$pg")"
 
-log() { echo "$(date -u +%Y-%m-%dT%H:%M:%SZ) backup $project: $*"; }
-
-heartbeat_var="BACKUP_HEARTBEAT_URL_$(echo "$stack" | tr '[:lower:]' '[:upper:]')"
-heartbeat="${!heartbeat_var:-}"
-ping_heartbeat() {
-  [ -n "$heartbeat" ] || return 0
-  curl -fsS -m 10 --retry 3 -o /dev/null "$heartbeat$1" || log "heartbeat ping failed"
-}
-
 # The unencrypted dump holds personal data (inquiries): kept next to the backups (not in /tmp)
 # and removed on exit.
 mkdir -p "$backup_dir"
 work="$(mktemp -d "$backup_dir/.backup-XXXXXX")"
-# A failed backup (any error under set -e) reports itself at once, not only after a silent day.
-on_exit() {
-  local status=$?
-  rm -rf "$work"
-  if [ "$status" -ne 0 ]; then ping_heartbeat /fail; fi
-}
-trap on_exit EXIT
 
 stamp="$(date -u +%Y%m%dT%H%M%SZ)"
 name="$project-$stamp.tar.age"

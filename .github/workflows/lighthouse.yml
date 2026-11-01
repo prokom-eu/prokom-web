@@ -1,10 +1,11 @@
 # Performance budget (S10, docs/jakosc.md): after every successful staging deploy, Lighthouse
-# (mobile, 3 runs, median) on the home page and one subpage of each site. Budget: Performance,
-# Accessibility, Best Practices, SEO ≥ 90, LCP ≤ 2.5 s, CLS ≤ 0.1 — over budget = red run, which
-# blocks a production deploy (runbook §3). Staging sends noindex on purpose, so the SEO audit
-# "is-crawlable" is skipped. Pages: lighthouserc.json. Reports: artifact "lighthouse".
-# Staging is behind basic auth: a separate login only for this (secret STAGING_BASIC_AUTH,
-# environment `staging`, runbook §2).
+# (mobile, 3 runs, median run) on the home page and one subpage of each site. Budget:
+# Performance, Accessibility, Best Practices, SEO ≥ 90, LCP ≤ 2.5 s, CLS ≤ 0.1 — over budget =
+# red run, which blocks a production deploy (runbook §3). Staging sends noindex on purpose, so
+# the SEO audit "is-crawlable" is skipped. Pages: lighthouserc.json. Reports: artifact
+# "lighthouse". Staging is behind basic auth: a separate login only for this — secret
+# STAGING_BASIC_AUTH holds the ready base64 token (`staging-login.sh lighthouse`, runbook §1.9),
+# so GitHub masks exactly the value that goes into the header. Reports are uploaded without it.
 
 name: Lighthouse
 
@@ -40,13 +41,27 @@ jobs:
 
       - name: Lighthouse CI
         env:
-          BASIC_AUTH: ${{ secrets.STAGING_BASIC_AUTH }}
+          BASIC_TOKEN: ${{ secrets.STAGING_BASIC_AUTH }}
         run: |
-          auth="$(printf '%s' "$BASIC_AUTH" | base64 -w0)"
           npx --yes @lhci/cli@0.15.1 autorun \
-            --collect.settings.extraHeaders="{\"Authorization\":\"Basic $auth\"}"
+            --collect.settings.extraHeaders="{\"Authorization\":\"Basic $BASIC_TOKEN\"}"
 
-      - name: Reports
+      - name: Reports without the staging login
+        if: always()
+        run: |
+          # A report keeps its settings (extraHeaders = the login); the HTML embeds the same data.
+          shopt -s nullglob
+          for f in .lighthouseci/reports/*.json; do
+            jq 'del(.configSettings.extraHeaders)' "$f" > "$f.tmp" && mv "$f.tmp" "$f"
+          done
+          rm -f .lighthouseci/reports/*.html
+          if grep -rl 'Basic ' .lighthouseci/reports; then
+            echo '::error::the staging login is still in a report'
+            rm -rf .lighthouseci/reports
+            exit 1
+          fi
+
+      - name: Upload reports
         if: always()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
