@@ -1,3 +1,4 @@
+import { PLAN_PATH } from '@/lib/catalog/floorPlan'
 import type { IconName } from '@/lib/catalog/options'
 
 export type SiteRailItem = { href: string; label: string; icon: IconName }
@@ -12,7 +13,7 @@ export const SITE_RAIL: readonly SiteRailItem[] = [
   { href: '/marki', label: 'Marki', icon: 'ticket' },
   // TODO(krystian): /konfigurator after K4g.
   { href: '/kreator', label: 'Konfigurator', icon: 'compass' },
-  { href: '/plan-firmy', label: 'Plan Twojej firmy', icon: 'map' },
+  { href: PLAN_PATH, label: 'Plan Twojej firmy', icon: 'map' },
   { href: '/zestawy', label: 'Gotowe zestawy', icon: 'box' },
   { href: '/opieka-it', label: 'Opieka IT', icon: 'shield' },
   { href: '/o-firmie', label: 'O firmie', icon: 'users' },

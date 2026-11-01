@@ -24,6 +24,8 @@ export const PLAN_LABELS = {
 /**
  * Scene of the plan each industry tile shows (K4: „Firmy każdej wielkości” set the scene) — the
  * nearest of the 12 scenes of `plany-k4.json`; a tile without one links to its industry page.
+ * TODO(krystian): część przypisań to wybór sesji (Firma transportowa, Stragan, Hurtownia, Fryzjer)
+ * — potwierdzić albo poprawić w panelu (kafel → „Scena planu”).
  */
 export const TILE_SCENES: Readonly<Record<string, string>> = {
   'Sklep spożywczy': 'sklep',

@@ -16,6 +16,7 @@ import { buildIndustryView, type IndustryView } from './industry'
 import type { Wizard } from './wizard'
 import { readWizardRules } from './wizardRules'
 import { buildProductView, isIndexableProduct, type ProductView } from './product'
+import { isSafeSvg } from './svg'
 import { catalogTag } from './tags'
 import { tenantIdOf } from '../tenant/id'
 
@@ -437,7 +438,10 @@ export const getFloorPlans = (
     { tags: [catalogTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
   )()
 
-/** The drawing of one scene (checked on save by `validateSvg`), or `null`. Cached like the scenes. */
+/**
+ * The drawing of one scene, or `null` — checked again as a drawing here (`isSafeSvg`), the one gate
+ * for the page and the route: a record saved before the allowlist or past the panel never goes out.
+ */
 export const getFloorPlanSvg = (tenantId: number, slug: string): Promise<string | null> =>
   cacheQuery(
     async () => {
@@ -450,7 +454,8 @@ export const getFloorPlanSvg = (tenantId: number, slug: string): Promise<string 
         select: { svg: true },
         overrideAccess: true,
       })
-      return docs[0]?.svg ?? null
+      const svg = docs[0]?.svg
+      return svg && isSafeSvg(svg) ? svg : null
     },
     ['floor-plan-svg', String(tenantId), slug],
     { tags: [catalogTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },

@@ -117,10 +117,11 @@ export function FloorPlan({
     if (svgs[scene.slug] !== undefined) return
     let cancelled = false
     fetch(`/api/plan-svg/${encodeURIComponent(scene.slug)}`)
-      .then((response) => (response.ok ? response.text() : ''))
-      .catch(() => '')
+      .then((response) => (response.ok ? response.text() : null))
+      .catch(() => null)
       .then((svg) => {
-        if (!cancelled) setSvgs((all) => ({ ...all, [scene.slug]: svg }))
+        // A failed load is not remembered: picking the scene again tries once more.
+        if (!cancelled && svg) setSvgs((all) => ({ ...all, [scene.slug]: svg }))
       })
     return () => {
       cancelled = true
@@ -153,7 +154,7 @@ export function FloorPlan({
       <div
         role="group"
         aria-label="Rodzaj firmy"
-        className="-mx-4 flex snap-x gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] sm:mx-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:px-0 lg:grid-cols-6"
+        className="sticky top-[67px] z-20 -mx-4 flex snap-x gap-2 overflow-x-auto bg-surface/90 px-4 py-2 backdrop-blur-md [scrollbar-width:none] sm:static sm:mx-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:bg-transparent sm:px-0 sm:py-0 sm:backdrop-blur-none lg:grid-cols-6"
       >
         {scenes.map((item) => {
           const active = item.slug === scene.slug
