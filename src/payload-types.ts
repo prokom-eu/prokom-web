@@ -4133,6 +4133,9 @@ export interface SwPageHeroBlock {
  * via the `definition` "SwStepsBlock".
  */
 export interface SwStepsBlock {
+  /**
+   * Duże liczby bez etykiety (pole „Etykieta” puste) = pasek tuż pod hero: nagłówek tylko dla czytników ekranu, mniejszy odstęp.
+   */
   variant: 'stats' | 'cards' | 'timeline';
   eyebrow?: string | null;
   heading: string;

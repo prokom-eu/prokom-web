@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { lineCards, photoView, stepItems, teamCards, type Fill } from './aboutBlocks'
+import { initials, lineCards, photoView, stepItems, teamCards, type Fill } from './aboutBlocks'
 
 // `fill` like production: `[ROK ZAKOPANE]` and `[IMIĘ I NAZWISKO]` have no value.
 const facts: Record<string, string> = { GODZINY: 'pn–pt 9:00–17:00' }
@@ -14,6 +14,15 @@ const strictFill: Fill = (value) => {
   })
   return missing ? null : out
 }
+
+describe('initials', () => {
+  it('takes the first letters of the first and the last name (SWV6: team without portraits)', () => {
+    expect(initials('Krystian Potaczek')).toBe('KP')
+    expect(initials('Tadeusz Wójciak')).toBe('TW')
+    expect(initials('  anna  maria  nowak ')).toBe('AN')
+    expect(initials('Łukasz')).toBe('Ł')
+  })
+})
 
 describe('photoView', () => {
   const source = { photo: null, photoCaption: 'Salon w Rabce' }

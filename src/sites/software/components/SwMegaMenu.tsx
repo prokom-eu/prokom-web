@@ -54,21 +54,26 @@ export function SwMegaMenu({ mega }: Props) {
             {mega.card.cta[0]}
           </Link>
 
-          <h2 className="mt-6 text-sm font-extrabold uppercase tracking-[0.1em] text-ink-2">
-            {mega.branze.label}
-          </h2>
-          <ul className="mt-3 flex flex-wrap gap-2">
-            {mega.branze.links.map(([label, href]) => (
-              <li key={href}>
-                <Link
-                  href={href}
-                  className="inline-flex min-h-9 items-center rounded-full bg-chip px-3 text-sm font-bold text-ink hover:bg-surface-3"
-                >
-                  {label}
-                </Link>
-              </li>
-            ))}
-          </ul>
+          {/* Only active industries (SWV6 A1): none — no group at all. */}
+          {mega.branze.links.length > 0 && (
+            <>
+              <h2 className="mt-6 text-sm font-extrabold uppercase tracking-[0.1em] text-ink-2">
+                {mega.branze.label}
+              </h2>
+              <ul className="mt-3 flex flex-wrap gap-2">
+                {mega.branze.links.map(([label, href]) => (
+                  <li key={href}>
+                    <Link
+                      href={href}
+                      className="inline-flex min-h-9 items-center rounded-full bg-chip px-3 text-sm font-bold text-ink hover:bg-surface-3"
+                    >
+                      {label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
 
           {mega.card.links.length > 0 && (
             <ul className="mt-5 space-y-2.5">

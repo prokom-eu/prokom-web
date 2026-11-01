@@ -1,7 +1,7 @@
 import { Container } from '@/components/ui/Container'
 import { cx } from '@/components/ui/cx'
 import { publicImage } from '@/lib/media/public'
-import { photoView, teamCards } from '@/lib/software/aboutBlocks'
+import { initials, photoView, teamCards } from '@/lib/software/aboutBlocks'
 import { fillText } from '@/lib/software/facts'
 import type { SwTeamBlock as SwTeamBlockData } from '@/payload-types'
 import { Photo } from '@/sites/software/components/about/Photo'
@@ -12,8 +12,9 @@ type Props = { block: SwTeamBlockData; tenantId: number }
 
 /**
  * People and places of a Software subpage (boards `ONas`, `Wszystko`): „Kto z Tobą pracuje.” —
- * photo on top, role, name, text (3 columns) — or „Dwa salony…” — name, address lines, photo
- * (2 columns). On the phone one column.
+ * photo on top, role, name, text (3 columns); a person without a photo gets their initials in an
+ * accent circle instead of a placeholder (SWV6, no portraits) — or a place: name, address lines,
+ * photo (2 columns). On the phone one column.
  */
 export async function SwTeamBlock({ block, tenantId }: Props) {
   const context = await softwareTextContext(tenantId)
@@ -40,19 +41,23 @@ export async function SwTeamBlock({ block, tenantId }: Props) {
           )}
         >
           {cards.map((card) => {
-            const photo = card.photo ? (
-              <Photo
-                photo={card.photo}
-                sizes={places ? '(min-width: 761px) 50vw, 100vw' : '(min-width: 761px) 33vw, 100vw'}
-                className={
-                  places
-                    ? 'mt-4 aspect-[16/7]'
-                    : cards.length === 2
-                      ? 'aspect-[16/7]'
-                      : 'aspect-[4/3]'
-                }
-              />
-            ) : null
+            const monogram = !places && !card.photo?.image
+            const photo =
+              card.photo && !monogram ? (
+                <Photo
+                  photo={card.photo}
+                  sizes={
+                    places ? '(min-width: 761px) 50vw, 100vw' : '(min-width: 761px) 33vw, 100vw'
+                  }
+                  className={
+                    places
+                      ? 'mt-4 aspect-[16/7]'
+                      : cards.length === 2
+                        ? 'aspect-[16/7]'
+                        : 'aspect-[4/3]'
+                  }
+                />
+              ) : null
             return (
               <li
                 key={card.key}
@@ -62,6 +67,14 @@ export async function SwTeamBlock({ block, tenantId }: Props) {
                 )}
               >
                 {places ? null : photo}
+                {monogram ? (
+                  <span
+                    aria-hidden="true"
+                    className="mx-2 mt-3 grid size-14 place-items-center rounded-full bg-accent font-display text-xl font-extrabold text-accent-ink"
+                  >
+                    {initials(card.name)}
+                  </span>
+                ) : null}
                 <div className={places ? undefined : 'px-2 pt-4 pb-2.5'}>
                   {card.role ? (
                     <p className="text-xs font-extrabold uppercase tracking-[0.12em] text-accent-text">

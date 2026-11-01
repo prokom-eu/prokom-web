@@ -18,7 +18,8 @@ function MarkIcon({ mark }: { mark: Mark }) {
       title={MARK_LABEL[mark]}
     >
       <span aria-hidden="true">{mark === 'no' ? '–' : mark === 'maybe' ? '?' : '✓'}</span>
-      <span className="sr-only">{MARK_LABEL[mark]}</span>
+      {/* „nie, …” — a comma and a space, or a screen reader runs it into the text (SWV6). */}
+      <span className="sr-only">{MARK_LABEL[mark]}, </span>
     </span>
   )
 }
@@ -27,6 +28,7 @@ function Ours() {
   return (
     <span className="grid size-[22px] shrink-0 place-items-center rounded-full bg-ok text-white">
       <Icon name="check" strokeWidth={2.6} className="size-3.5" />
+      <span className="sr-only">{MARK_LABEL.yes}, </span>
     </span>
   )
 }
@@ -114,18 +116,15 @@ export function Compare({ view, eyebrow, title, tabs }: Props) {
             <li key={index} className="border-t border-border first:border-t-0">
               <p className="px-4 pt-4 pb-2 font-extrabold">{row.criterion}</p>
               <p className="flex items-center gap-2.5 px-4 pb-3 text-sm text-ink-2">
+                {/* Read as „Freelancer: nie, …” — the name before the mark. */}
+                <span className="sr-only">{view.rivals[rival]}: </span>
                 <MarkIcon mark={row.rivals[rival].mark} />
-                <span>
-                  <span className="sr-only">{view.rivals[rival]}: </span>
-                  {row.rivals[rival].text}
-                </span>
+                <span>{row.rivals[rival].text}</span>
               </p>
               <p className="flex items-center gap-2.5 bg-accent-soft px-4 py-3 text-sm font-extrabold">
+                <span className="sr-only">{view.ours}: </span>
                 <Ours />
-                <span>
-                  <span className="sr-only">{view.ours}: </span>
-                  {row.ours}
-                </span>
+                <span>{row.ours}</span>
               </p>
             </li>
           ))}

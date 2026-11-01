@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import { softwareSettingsData } from '../../seed/software/map'
 import { homeSchema, type SoftwareHome } from './home'
-import { whyNotWordpressView } from './whyNotWordpress'
+import { whyNotWordpressView, withPublishedPostLink } from './whyNotWordpress'
 
 const section = (): SoftwareHome['whyNotWordpress'] =>
   homeSchema.parse(softwareSettingsData().home).whyNotWordpress
@@ -73,5 +73,20 @@ describe('whyNotWordpressView', () => {
     const data = section()
     data.cta = { ...data.cta, title: '[TYTUŁ]' }
     expect(whyNotWordpressView(data, strict)?.cta).toBeNull()
+  })
+})
+
+describe('withPublishedPostLink', () => {
+  const link = { label: 'Uczciwe porównanie →', href: '/aktualnosci/wordpress-czy-strona-od-zera' }
+
+  it('drops the link to a post that is not public (a draft awaiting approval, SWV6)', () => {
+    expect(withPublishedPostLink(link, new Set())).toBeNull()
+    expect(withPublishedPostLink(link, new Set(['wordpress-czy-strona-od-zera']))).toEqual(link)
+  })
+
+  it('keeps a link that does not lead to a post', () => {
+    const other = { label: 'Cennik', href: '/cennik' }
+    expect(withPublishedPostLink(other, new Set())).toEqual(other)
+    expect(withPublishedPostLink(null, new Set())).toBeNull()
   })
 })

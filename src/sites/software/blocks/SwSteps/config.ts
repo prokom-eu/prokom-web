@@ -24,6 +24,10 @@ export const SwStepsBlock: Block = {
         { label: 'Karty z ikoną', value: 'cards' },
         { label: 'Oś czasu', value: 'timeline' },
       ],
+      admin: {
+        description:
+          'Duże liczby bez etykiety (pole „Etykieta” puste) = pasek tuż pod hero: nagłówek tylko dla czytników ekranu, mniejszy odstęp.',
+      },
     },
     ...sectionHeadFields,
     {

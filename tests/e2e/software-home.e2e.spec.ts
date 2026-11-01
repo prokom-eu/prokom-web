@@ -373,8 +373,21 @@ test.describe('Software start page', () => {
       'Z czego budujemy',
       'Zasady',
       'Pytania',
+      'Kontakt',
     ])
     await expect(rail).toBeVisible()
+    // SWV6: the marked entry is the section whose top passed 40% of the screen; „Proces” has no
+    // entry, so its rail neighbour before it stays marked; at the bottom of the page — „Kontakt”.
+    const marked = rail.locator('[aria-current="true"]')
+    await page.evaluate(() => {
+      const top = document.getElementById('proces')!.getBoundingClientRect().top
+      window.scrollTo({ top: window.scrollY + top - 100, behavior: 'instant' })
+    })
+    await expect(marked).toHaveText('Dobierz rozwiązanie')
+    await page.evaluate(() =>
+      window.scrollTo({ top: document.scrollingElement!.scrollHeight, behavior: 'instant' }),
+    )
+    await expect(marked).toHaveText('Kontakt')
     await page.setViewportSize({ width: 1400, height: 900 })
     await expect(rail).toBeHidden()
   })

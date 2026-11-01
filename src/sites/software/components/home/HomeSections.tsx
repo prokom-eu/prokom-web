@@ -12,10 +12,11 @@ import { compareView } from '@/lib/software/compare'
 import { fillText } from '@/lib/software/facts'
 import { howWeBuildView, technologiesView } from '@/lib/software/howWeBuild'
 import { offerViewsFor } from '@/lib/software/offer'
+import { getPostList } from '@/lib/posts/data'
 import { popularCards, popularTabs } from '@/lib/software/popular'
 import { livePreviews } from '@/lib/software/previews'
 import { processQuote, processStages } from '@/lib/software/process'
-import { whyNotWordpressView } from '@/lib/software/whyNotWordpress'
+import { whyNotWordpressView, withPublishedPostLink } from '@/lib/software/whyNotWordpress'
 import { Wizard } from '@/sites/software/components/wizard/Wizard'
 import { loadWizardProps } from '@/sites/software/components/wizard/wizardProps'
 
@@ -202,7 +203,10 @@ export async function WhyNotWordpressSection({ tenantId }: { tenantId: number })
   if (!home) return null
   // `{cena:<slug>}` of the rebuild button: the context carries this tenant's „od” prices.
   const view = whyNotWordpressView(home.whyNotWordpress, (text) => fillText(text, context))
-  return view ? <WhyNotWordpress view={view} /> : null
+  if (!view) return null
+  const posts = view.link ? await getPostList(tenantId, 'software') : []
+  const link = withPublishedPostLink(view.link, new Set(posts.map((post) => post.slug)))
+  return <WhyNotWordpress view={{ ...view, link }} />
 }
 
 export async function GuaranteesSection({ tenantId }: { tenantId: number }) {
