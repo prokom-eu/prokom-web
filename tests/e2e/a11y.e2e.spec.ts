@@ -27,6 +27,7 @@ const SITES: {
       '/oferta/kasy-fiskalne',
       '/branze/gastronomia',
       '/kreator',
+      '/plan-firmy',
       '/aktualnosci',
       '/aktualnosci/ksef-od-1-stycznia-2027',
       '/polityka-prywatnosci',
