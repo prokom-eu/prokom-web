@@ -70,7 +70,9 @@ import * as migration_20261101_131620_drop_bloki_b9 from './20261101_131620_drop
 import * as migration_20261101_134030_inst_architects_news_settings from './20261101_134030_inst_architects_news_settings'
 import * as migration_20261101_134538_software_v23_contact_map from './20261101_134538_software_v23_contact_map'
 import * as migration_20261101_145203_k31d_plan from './20261101_145203_k31d_plan'
-import * as migration_20261101_152320_software_swv6_industry_links from './20261101_152320_software_swv6_industry_links'
+import * as migration_20261101_152600_inst_post_categories from './20261101_152600_inst_post_categories'
+import * as migration_20261101_152645_inst_i12_blocks from './20261101_152645_inst_i12_blocks'
+import * as migration_20261101_155018_software_swv6_industry_links from './20261101_155018_software_swv6_industry_links'
 
 export const migrations = [
   {
@@ -434,8 +436,18 @@ export const migrations = [
     name: '20261101_145203_k31d_plan',
   },
   {
-    up: migration_20261101_152320_software_swv6_industry_links.up,
-    down: migration_20261101_152320_software_swv6_industry_links.down,
-    name: '20261101_152320_software_swv6_industry_links',
+    up: migration_20261101_152600_inst_post_categories.up,
+    down: migration_20261101_152600_inst_post_categories.down,
+    name: '20261101_152600_inst_post_categories',
+  },
+  {
+    up: migration_20261101_152645_inst_i12_blocks.up,
+    down: migration_20261101_152645_inst_i12_blocks.down,
+    name: '20261101_152645_inst_i12_blocks',
+  },
+  {
+    up: migration_20261101_155018_software_swv6_industry_links.up,
+    down: migration_20261101_155018_software_swv6_industry_links.down,
+    name: '20261101_155018_software_swv6_industry_links',
   },
 ]

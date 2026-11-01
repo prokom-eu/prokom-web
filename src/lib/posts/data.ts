@@ -7,6 +7,7 @@ import { PAGE_CACHE_SECONDS } from '../pages/data'
 import { postListCards, type PostListCard } from './cards'
 import { ksefPanel, type KsefPanel } from './ksefPanel'
 import { publishedUntil } from './publishedAt'
+import type { Line } from '../tenant/lines'
 import type { PostCategory } from './list'
 import { postsTag } from './tags'
 import { buildPostView, type PostView } from './view'
@@ -34,8 +35,11 @@ export type PostListItem = PostListCard & {
   updatedAt: string
 }
 
-/** All public posts of one tenant, newest first — the list, its filters and the sitemap. */
-export const getPostList = (tenantId: number): Promise<PostListItem[]> =>
+/**
+ * All public posts of one tenant, newest first — the list, its filters and the sitemap. `line`
+ * picks the address of a post (`postHref`: `/poradnik/…` on Instalacje).
+ */
+export const getPostList = (tenantId: number, line?: Line | null): Promise<PostListItem[]> =>
   cacheQuery(
     async () => {
       const payload = await getPayload({ config })
@@ -59,18 +63,22 @@ export const getPostList = (tenantId: number): Promise<PostListItem[]> =>
         },
         overrideAccess: true,
       })
-      const cards = new Map(postListCards(docs, tenantId).map((card) => [card.slug, card]))
+      const cards = new Map(postListCards(docs, tenantId, line).map((card) => [card.slug, card]))
       return docs.flatMap((doc) => {
         const card = cards.get(doc.slug)
         return card ? [{ ...card, categoryValue: doc.category, updatedAt: doc.updatedAt }] : []
       })
     },
-    ['post-list', String(tenantId)],
+    ['post-list', String(tenantId), line ?? ''],
     { tags: [postsTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
   )()
 
 /** One public post of the tenant as `PostView`, or `null` (unknown, draft, future, other site). */
-export const getPostView = (tenantId: number, slug: string): Promise<PostView | null> =>
+export const getPostView = (
+  tenantId: number,
+  slug: string,
+  line?: Line | null,
+): Promise<PostView | null> =>
   cacheQuery(
     async () => {
       const payload = await getPayload({ config })
@@ -89,9 +97,9 @@ export const getPostView = (tenantId: number, slug: string): Promise<PostView | 
         overrideAccess: true,
       })
       const post = docs[0]
-      return post ? buildPostView(post, tenantId, new Date()) : null
+      return post ? buildPostView(post, tenantId, new Date(), line) : null
     },
-    ['post-view', String(tenantId), slug],
+    ['post-view', String(tenantId), slug, line ?? ''],
     { tags: [postsTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
   )()
 

@@ -53963,7 +53963,12 @@
         "programy",
         "poradnik",
         "nowosci",
-        "realizacje"
+        "realizacje",
+        "przepisy",
+        "monitoring",
+        "noclegi",
+        "energia",
+        "dzwiek-obraz"
       ]
     },
     "public.enum_posts_status": {
@@ -53987,7 +53992,12 @@
         "programy",
         "poradnik",
         "nowosci",
-        "realizacje"
+        "realizacje",
+        "przepisy",
+        "monitoring",
+        "noclegi",
+        "energia",
+        "dzwiek-obraz"
       ]
     },
     "public.enum__posts_v_version_status": {
@@ -54470,6 +54480,6 @@
     "tables": {},
     "columns": {}
   },
-  "id": "cf817782-b578-4ada-bde0-fa369640f4b9",
-  "prevId": "00000000-0000-0000-0000-000000000000"
+  "id": "714aca2c-70f1-482a-ae47-23d2dea5e246",
+  "prevId": "6fdbfbed-021d-49ab-8759-4ace7ff63c63"
 }

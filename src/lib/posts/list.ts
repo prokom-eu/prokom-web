@@ -11,6 +11,18 @@ export const NEWS_LINES: readonly Line[] = ['biznes', 'software']
 
 export const NEWS_PATH = '/aktualnosci'
 
+/**
+ * Lines whose posts are a guide under their own route (`/poradnik/<slug>`, ADR-I002 „Posts”):
+ * the list is a `Pages` page of the line, the post a route of its group — not `/aktualnosci`.
+ */
+export const GUIDE_LINES: readonly Line[] = ['instalacje']
+
+export const GUIDE_PATH = '/poradnik'
+
+export function hasGuide(line: Line): boolean {
+  return GUIDE_LINES.includes(line)
+}
+
 /** Query parameter of the category view; such views are `noindex` with the list as canonical. */
 export const CATEGORY_PARAM = 'kategoria'
 
@@ -18,8 +30,10 @@ export function hasNews(line: Line): boolean {
   return NEWS_LINES.includes(line)
 }
 
-export function postHref(slug: string): string {
-  return `${NEWS_PATH}/${encodeURIComponent(slug)}`
+/** The address of a post: `/poradnik/<slug>` on a guide line, `/aktualnosci/<slug>` elsewhere. */
+export function postHref(slug: string, line?: Line | null): string {
+  const base = line && hasGuide(line) ? GUIDE_PATH : NEWS_PATH
+  return `${base}/${encodeURIComponent(slug)}`
 }
 
 export function newsListHref(category: PostCategory | null): string {

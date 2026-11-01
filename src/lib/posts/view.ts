@@ -5,6 +5,7 @@ import { daysUntil } from '../site/days'
 import { tenantIdOf } from '../tenant/id'
 import { postDate } from './cards'
 import { readingMinutes, type RichTextData } from './content'
+import type { Line } from '../tenant/lines'
 import { categoryLabel, postHref } from './list'
 
 type Dated = { date: string; dateTime: string }
@@ -62,7 +63,12 @@ const dayOf = (iso: string) => WARSAW_DAY.format(new Date(iso))
  * What the post page renders (spec. §6.9, board `Wpis`), from a post read with depth 1. Images
  * and products of another tenant are dropped, as everywhere on the public site.
  */
-export function buildPostView(post: Post, tenantId: number, now: Date): PostView {
+export function buildPostView(
+  post: Post,
+  tenantId: number,
+  now: Date,
+  line?: Line | null,
+): PostView {
   const published = postDate(post.publishedAt)
   // A post written today with an earlier publication date was not „updated” today: compare with
   // the later of publication and creation.
@@ -97,7 +103,7 @@ export function buildPostView(post: Post, tenantId: number, now: Date): PostView
   return {
     slug: post.slug,
     title: post.title,
-    href: postHref(post.slug),
+    href: postHref(post.slug, line),
     category: categoryLabel(post.category),
     published,
     updated,
