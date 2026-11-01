@@ -192,7 +192,13 @@ export function QuickPlanForm({ services, formToken }: Props) {
                 <span>{t.step1}</span>
                 <i>{t.step1Note}</i>
               </div>
-              <div ref={servicesGroup} className="hzksv" role="group" aria-label={t.step1}>
+              <div
+                ref={servicesGroup}
+                className="hzksv"
+                role="group"
+                aria-label={t.step1}
+                data-invalid={invalid('services') ? '' : undefined}
+              >
                 {services.map((s) => {
                   const on = state.services.includes(s.key)
                   return (

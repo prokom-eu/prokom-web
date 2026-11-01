@@ -37,8 +37,8 @@ for (const path of PAGES) {
       // „[SZEF: …]”, „[CENA]”, „[TELEFON]” of the prototype must never reach a page (spec §10).
       // `textContent`, not `innerText`: closed FAQ answers (`<details>`) and folded sections are
       // in the HTML but not in `innerText` (audit before staging, P1 2).
-      const html = await page.locator('main').evaluate((main) => main.textContent ?? '')
-      expect(html).not.toMatch(PLACEHOLDER)
+      const allText = await page.locator('main').evaluate((main) => main.textContent ?? '')
+      expect(allText).not.toMatch(PLACEHOLDER)
       // No lists of sources on the page (spec §2): a line that is only the heading „Źródła”.
       // Sentences may start with the word (Nagłośnienie: „Źródła trafiają do miksera…”,
       // „Źródła muzyki”, „Źródła i mikrofony” — sound sources, not references).

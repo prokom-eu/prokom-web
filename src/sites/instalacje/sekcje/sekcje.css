@@ -1047,8 +1047,8 @@
       mask-image: linear-gradient(
         90deg,
         transparent,
-        var(--inst-mask) 20px,
-        var(--inst-mask) calc(100% - 20px),
+        var(--inst-mask) 14px,
+        var(--inst-mask) calc(100% - 14px),
         transparent
       );
     }
@@ -1072,8 +1072,8 @@
       mask-image: linear-gradient(
         90deg,
         transparent,
-        var(--inst-mask) 20px,
-        var(--inst-mask) calc(100% - 20px),
+        var(--inst-mask) 14px,
+        var(--inst-mask) calc(100% - 14px),
         transparent
       );
     }

@@ -98,10 +98,6 @@
     gap: 2px;
     padding: 8px;
     text-align: center;
-    transition: box-shadow 0.2s;
-  }
-  & .brand:hover {
-    box-shadow: inset 0 0 0 1.5px var(--accent);
   }
   & .brand b {
     font-family: var(--font-display);
@@ -2879,6 +2875,11 @@
   & .hzkcons:has(input:focus-visible) em {
     outline: 2px solid var(--inst-plan-accent);
     outline-offset: 2px;
+  }
+  /* A wrong field shows itself also after a mouse click on „Wyślij” (no :focus-visible then). */
+  & .hzkcons:has(input[aria-invalid='true']) em,
+  & .hzksv[data-invalid] .hzkb:not(.on) {
+    box-shadow: inset 0 0 0 1.5px var(--inst-plan-err);
   }
   & .hzkcons a {
     color: inherit;
