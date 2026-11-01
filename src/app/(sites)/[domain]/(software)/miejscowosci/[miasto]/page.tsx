@@ -13,7 +13,6 @@ import { getCityView, getSolutionsIndex } from '@/lib/software/data'
 import { fillText } from '@/lib/software/facts'
 import { isValidSlug } from '@/lib/tenant/uniqueSlug'
 import { Buttons } from '@/sites/software/components/about/Buttons'
-import { Photo } from '@/sites/software/components/about/Photo'
 import { Breadcrumbs } from '@/sites/software/components/Breadcrumbs'
 import { FaqSection } from '@/sites/software/components/FaqSection'
 import { SectionHead } from '@/sites/software/components/home/SectionHead'
@@ -89,13 +88,8 @@ export default async function CityPage({ params }: Props) {
       areaServed: { '@type': 'City', name: city.name },
     },
   ]
-  // A placeholder until a photo is chosen — never on production; no salon claimed here.
-  const photo = context.strict
-    ? null
-    : {
-        image: null,
-        caption: `Zdjęcie z miejscowości ${city.name}: firma klienta albo okolica`,
-      }
+  // No photo of the town yet (SWV8 P0 #2, decision 01.11): the hero shows its badges instead of
+  // a „photo to take” placeholder, also on staging.
 
   return (
     <>
@@ -130,29 +124,18 @@ export default async function CityPage({ params }: Props) {
               </p>
               <Buttons primary={city.hero.ctas[0]} secondary={city.hero.ctas[1]} className="mt-7" />
             </div>
-            {photo || city.hero.badges.length > 0 ? (
-              <div className="relative">
-                {photo ? (
-                  <Photo
-                    photo={photo}
-                    sizes="(min-width: 1081px) 540px, 100vw"
-                    className="aspect-[6/5]"
-                  />
-                ) : null}
-                {city.hero.badges.length > 0 ? (
-                  <ul className="mt-3 grid gap-2.5 min-[641px]:grid-cols-2 min-[1081px]:absolute min-[1081px]:inset-x-[-16px] min-[1081px]:top-4 min-[1081px]:mt-0">
-                    {city.hero.badges.map((badge, index) => (
-                      <li
-                        key={index}
-                        className="rounded-[16px] border border-border bg-card px-4 py-3 shadow-raised min-[1081px]:w-fit min-[1081px]:self-start min-[1081px]:even:ml-auto min-[1081px]:even:mt-20"
-                      >
-                        <p className="text-sm font-extrabold">{badge.title}</p>
-                        {badge.text ? <p className="text-xs text-ink-2">{badge.text}</p> : null}
-                      </li>
-                    ))}
-                  </ul>
-                ) : null}
-              </div>
+            {city.hero.badges.length > 0 ? (
+              <ul className="grid gap-2.5 min-[641px]:grid-cols-2 min-[1081px]:grid-cols-1">
+                {city.hero.badges.map((badge, index) => (
+                  <li
+                    key={index}
+                    className="rounded-[16px] border border-border bg-card px-5 py-4 shadow-raised"
+                  >
+                    <p className="font-extrabold">{badge.title}</p>
+                    {badge.text ? <p className="text-sm text-ink-2">{badge.text}</p> : null}
+                  </li>
+                ))}
+              </ul>
             ) : null}
           </div>
         </Container>
