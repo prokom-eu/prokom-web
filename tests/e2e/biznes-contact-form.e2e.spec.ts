@@ -40,8 +40,9 @@ test.describe('Biznes contact form v20 (B8a)', () => {
     await expect(contact.getByRole('checkbox')).toHaveCount(1)
     await contact.getByLabel(/^Imię/).fill(marker)
     await contact.getByLabel(/^Telefon/).fill('600 100 200')
-    await contact.getByLabel(/^Firma/).fill('Kawiarnia E2E')
-    await contact.getByLabel(/^W czym możemy pomóc/).fill('Otwieramy kawiarnię, potrzebujemy kasy.')
+    // K4-FINAL §5: the town instead of a separate company field; the message is optional.
+    await contact.getByLabel(/^Miejscowość/).fill('Nowy Targ')
+    await contact.getByLabel(/^Wiadomość/).fill('Otwieramy kawiarnię, potrzebujemy kasy.')
     await contact.getByLabel(/Wyrażam zgodę/).check()
     await waitMinimumFillTime(page)
     await contact.getByRole('button', { name: 'Wyślij zapytanie' }).click()
@@ -67,7 +68,7 @@ test.describe('Biznes contact form v20 (B8a)', () => {
         line: 'biznes',
         type: 'contact',
         phone: '600 100 200',
-        company: 'Kawiarnia E2E',
+        city: 'Nowy Targ',
         source: { url: expect.stringMatching(/^http:\/\/biznes\.localhost(:\d+)?\/$/) },
       })
       // No e-mail given: only the office notification, with the number in the subject.
@@ -93,7 +94,8 @@ test.describe('Biznes contact form v20 (B8a)', () => {
     await expect(name).toHaveAttribute('aria-invalid', 'true')
     await expect(name).toHaveAccessibleDescription(/Podaj imię/)
     await expect(contact.getByLabel(/^Telefon/)).toHaveAccessibleDescription(/telefon albo e-mail/)
-    await expect(contact.getByLabel(/^W czym możemy pomóc/)).toHaveAttribute('aria-invalid', 'true')
+    // „Wiadomość (opcjonalnie)”: not an error when empty.
+    await expect(contact.getByLabel(/^Wiadomość/)).not.toHaveAttribute('aria-invalid', 'true')
     await expect(contact.getByLabel(/Wyrażam zgodę/)).toHaveAttribute('aria-invalid', 'true')
     // A phone or an e-mail (K4-FINAL §5): the missing contact is reported on the phone only.
     await expect(contact.getByLabel(/^lub e-mail/)).not.toHaveAttribute('aria-invalid', 'true')
@@ -114,7 +116,7 @@ test.describe('Biznes contact form v20 (B8a)', () => {
     await contact.getByLabel(/^Imię/).fill('Test E2E')
     await contact.getByLabel(/^Telefon/).fill('600 100 200')
     await contact.getByLabel(/^lub e-mail/).fill('jan@')
-    await contact.getByLabel(/^W czym możemy pomóc/).fill('Test.')
+    await contact.getByLabel(/^Wiadomość/).fill('Test.')
     await contact.getByLabel(/Wyrażam zgodę/).check()
     await waitMinimumFillTime(page)
     await contact.getByRole('button', { name: 'Wyślij zapytanie' }).click()
