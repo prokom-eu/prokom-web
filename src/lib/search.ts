@@ -21,6 +21,14 @@ const TYPO_HIT = 0.6
  * at most 0.5, and 0.05 + 0.5 stays under a typo (0.6).
  */
 const GROUP_HIT = 0.05
+/**
+ * A token in the name of the product's main category (audit 01.11): „kasa” lifts the fiscal
+ * registers above a UPS whose name says „kasa i komputer”, „laptop” the laptops. Any kind of hit
+ * there (as is, synonym, typo) counts, just above a hit in the name of a product elsewhere; inside
+ * the category a name hit still comes first (`CATEGORY_HIT + NAME_IN_CATEGORY`).
+ */
+const CATEGORY_HIT = 3.2
+const NAME_IN_CATEGORY = 0.5
 
 /** Words shorter than this are not compared for typos (spec. §8.2: from 4 characters). */
 const TYPO_MIN_TOKEN = 4
@@ -39,6 +47,8 @@ export type SearchEntry<T> = {
   popularity?: number
   /** Name of the element's group: a hit only there weighs `GROUP_HIT`. */
   group?: string | null
+  /** Name of the element's main category: a hit there weighs `CATEGORY_HIT`. */
+  category?: string | null
 }
 
 /** Search settings of a line, as its index carries them. */
@@ -49,6 +59,7 @@ type PreparedEntry<T> = {
   name: string
   own: SearchText
   group: SearchText | null
+  category: SearchText | null
   popularity: number
 }
 
@@ -103,6 +114,7 @@ export function prepareItems<T>(
       name: normalizeText(entry.name),
       own: searchText(entry.hay),
       group: entry.group ? searchText(normalizeText(entry.group)) : null,
+      category: entry.category ? searchText(normalizeText(entry.category)) : null,
       popularity: entry.popularity ?? 0,
     })),
     synonyms: new Map(
@@ -119,6 +131,7 @@ export function prepareItems<T>(
 export function prepareSearch(index: CatalogIndex): PreparedSearch {
   const brandNames = new Map(index.brands.map((brand) => [brand.slug, brand.name]))
   const groupNames = new Map(index.groups.map((group) => [group.slug, group.name]))
+  const categoryNames = new Map(index.categories.map((category) => [category.slug, category.name]))
   return prepareItems(
     index.products.map((product) => ({
       item: product,
@@ -127,6 +140,7 @@ export function prepareSearch(index: CatalogIndex): PreparedSearch {
       hay: product.benefit ? `${product.hay} ${normalizeText(product.benefit)}` : product.hay,
       popularity: product.popularity,
       group: product.group ? groupNames.get(product.group) : null,
+      category: product.categories[0] ? categoryNames.get(product.categories[0]) : null,
     })),
     index.search,
   )
@@ -167,6 +181,9 @@ function tokenScore<T>(
   token: string,
   synonyms: Map<string, string[]>,
 ): number {
+  if (entry.category && textHit(entry.category, token, synonyms)) {
+    return CATEGORY_HIT + (entry.name.includes(token) ? NAME_IN_CATEGORY : 0)
+  }
   switch (textHit(entry.own, token, synonyms)) {
     case 'exact':
       return entry.name.includes(token) ? NAME_HIT : HAY_HIT
