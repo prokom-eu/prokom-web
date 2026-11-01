@@ -23,6 +23,7 @@ describe('siteRailCurrent', () => {
     expect(siteRailCurrent('/')).toBe('/')
     expect(siteRailCurrent('/opieka-it')).toBe('/opieka-it')
     expect(siteRailCurrent('/kontakt')).toBe('/kontakt')
+    expect(siteRailCurrent('/plan-firmy')).toBe('/plan-firmy')
   })
 
   it('marks „Oferta” on categories and products, „Marki” on brands and showrooms', () => {

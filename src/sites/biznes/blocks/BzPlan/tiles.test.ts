@@ -40,6 +40,24 @@ describe('industryTiles', () => {
     ])
   })
 
+  it('sets the plan scene only when the plan has it', () => {
+    const { hidden } = industryTiles(
+      [
+        tile('Sklep', { planScene: 'sklep' }),
+        tile('Brak sceny', { planScene: 'nie-ma' }),
+        tile('Pusta', { planScene: ' ' }),
+        tile('Bez pola'),
+      ],
+      1,
+      new Set(['sklep', 'biuro']),
+    )
+    expect(hidden.map((t) => t.scene)).toEqual(['sklep', null, null, null])
+  })
+
+  it('has no scene without a plan', () => {
+    expect(industryTiles([tile('Sklep', { planScene: 'sklep' })], 1).hidden[0]?.scene).toBeNull()
+  })
+
   it('handles no tiles', () => {
     expect(industryTiles(null, 1)).toEqual({ visible: [], hidden: [] })
   })

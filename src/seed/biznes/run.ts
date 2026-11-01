@@ -15,11 +15,12 @@ import k4HomeFile from '../../../seed/prokombiznes/k4/strona-glowna-k4.json'
 import k4SalonsFile from '../../../seed/prokombiznes/k4/salony-k4.json'
 import k4SlugMap from '../../../seed/prokombiznes/k4/mapa-slugow-k4.json'
 import k4Slowniki from '../../../seed/prokombiznes/k4/slowniki-k4.json'
-import kreator from '../../../seed/prokombiznes/kreator.json'
+import k4WizardFile from '../../../seed/prokombiznes/k4/konfigurator-k4.json'
 import media from '../../../seed/prokombiznes/media.json'
 import gallery from '../../../seed/prokombiznes/media-produkty-v2.json'
 import search from '../../../seed/prokombiznes/wyszukiwarka.json'
-import { wizardFromSeed, wizardSchema } from '../../lib/catalog/wizard'
+import { wizardSchema } from '../../lib/catalog/wizard'
+import { k4Wizard, type K4WizardFile } from './k4Wizard'
 import { mapConcurrent } from '../concurrency'
 import { parseGalleryLimit, SEED_CONTEXT } from '../config'
 import {
@@ -940,8 +941,14 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     where: { tenant: { equals: tenant.id } },
     overrideAccess: true,
   })
-  // Wizard proposals name products by their slug in the catalog (B10c).
-  const wizard = wizardSchema.parse(wizardFromSeed(kreator, (shortId) => slugByKey.get(shortId)))
+  // K4g: Konfigurator 3.0 from konfigurator-k4.json; products by catalog key or K4 slug.
+  const cardSlugs = new Set(slugByKey.values())
+  const k4 = k4Wizard(
+    k4WizardFile as unknown as K4WizardFile,
+    (key) => slugByKey.get(key) ?? (cardSlugs.has(key) ? key : undefined),
+  )
+  for (const key of k4.missing) note('K4g: produkt konfiguratora bez karty', key)
+  const wizard = wizardSchema.parse(k4.wizard)
   count('biznes-settings', settingsCount === 0)
   if (settingsCount === 0) {
     await payload.create({
@@ -950,7 +957,7 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
       ...local,
     })
   } else {
-    // Rules of an older format (before B10c) are replaced; valid ones belong to the panel.
+    // Rules of an older format (B10c kreator) are replaced; valid ones belong to the panel.
     const {
       docs: [settings],
     } = await payload.find({

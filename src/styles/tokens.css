@@ -2839,3 +2839,83 @@
     --inst-il-kmap2-kz2-fill: var(--c-instalacje-night-il-kmap2-kz2-fill);
   }
 }
+
+/* „Plan Twojej firmy” (K31d′): colours of the floor plan drawings, 1:1 from `fp.css` of the
+   K3.1 package (`seed/prokombiznes/k31/plansze-svg/fp.css`). Scoped to the plan stage; the rules
+   that use them live in `src/sites/biznes/components/plan/floorPlan.css`. */
+[data-line='biznes'] .fp-stage {
+  --fpo: #e9eef6;
+  --fp1: #fafbfd;
+  --fp1l: #e7ecf4;
+  --fp2: #f7f1e8;
+  --fp2l: #eadfcf;
+  --fp3: #f2f3f6;
+  --fp3l: #d9dde5;
+  --fp4: #f0f2f9;
+  --fp4l: #e2e6f2;
+  --fpw: #24324d;
+  --fpdg: #fafbfd;
+  --fpwin: #dcebfb;
+  --fplab: #5a6886;
+  --fpf: #ffffff;
+  --fps: #c7d0df;
+  --fpd: #e3d2b9;
+  --fpds: #c4a982;
+  --fpc: #dce2ec;
+  --fpfr: #ddebfa;
+  --fpfrs: #9ebee6;
+  --fpct: #d7e2f8;
+  --fpcts: #8fa9e0;
+  --fpbl: #e7edf8;
+  --fpsf: #c9d6ee;
+  --fpsfs: #9fb2d8;
+  --fpcar: #f1f4f9;
+  --fpcars: #8c9ab3;
+  --fpgl: #c6d7ee;
+  /* Goods on shelves, plants and boxes — the same in both themes (boxes darker at night). */
+  --fpp1: #f4b26b;
+  --fpp2: #8cc7a2;
+  --fpp3: #e98a8a;
+  --fpp4: #9db6ee;
+  --fpp5: #f2d16b;
+  --fpp-opacity: 1;
+  --fppt: #5db487;
+  --fppt2: #3e9a6b;
+  --fpbx: #e8c79a;
+  --fpbxs: #c9a372;
+  --fpent: #ffffff;
+}
+
+[data-line='biznes'][data-theme='dark'] .fp-stage {
+  --fpo: #0c1428;
+  --fp1: #152039;
+  --fp1l: #1c2945;
+  --fp2: #1b2236;
+  --fp2l: #252d45;
+  --fp3: #161e33;
+  --fp3l: #253050;
+  --fp4: #17203a;
+  --fp4l: #202b48;
+  --fpw: #a9bbdd;
+  --fpdg: #152039;
+  --fpwin: #2a4373;
+  --fplab: #93a3c4;
+  --fpf: #22304f;
+  --fps: #34466d;
+  --fpd: #3a3446;
+  --fpds: #5a4e66;
+  --fpc: #2c3b5e;
+  --fpfr: #1f3460;
+  --fpfrs: #3d5d99;
+  --fpct: #243a6e;
+  --fpcts: #3f5fa6;
+  --fpbl: #2a3858;
+  --fpsf: #2e3f68;
+  --fpsfs: #4a5f92;
+  --fpcar: #2a3654;
+  --fpcars: #6a7da3;
+  --fpgl: #3a5180;
+  --fpp-opacity: 0.7;
+  --fpbx: #6b5a40;
+  --fpbxs: #8a7350;
+}

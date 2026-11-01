@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'vitest'
 
-import type { WizardAnswers } from '../catalog/wizardKit'
 import { CONSENT_CLAUSE } from './consent'
 import { parseInquiryInput } from './schema'
 import { EMPTY_ANSWERS, type WizardAnswers as SoftwareAnswers } from '../software/wizardFlow'
@@ -17,44 +16,54 @@ import {
 const contact: WizardContact = {
   name: 'Jan',
   phone: '600 100 200',
-  city: 'Rabka-Zdrój',
+  email: '',
   message: '',
   consent: true,
   website: '',
 }
 
-const answers: WizardAnswers = {
-  businessType: 'gastro',
-  salesPoints: '2',
-  computers: '1–3',
-  premises: 'nowy',
-  needs: ['pos', 'kasa'],
-  when: 'Przed sezonem',
-}
-
-describe('checkWizardRequired', () => {
-  it('asks for the name, the phone and the consent', () => {
+describe('checkWizardRequired (Konfigurator 3.0)', () => {
+  it('asks for the name, a phone or an e-mail, and the consent', () => {
     expect(checkWizardRequired(contact)).toEqual({})
+    expect(checkWizardRequired({ ...contact, phone: '', email: 'jan@firma.pl' })).toEqual({})
     expect(
       Object.keys(checkWizardRequired({ ...contact, name: ' ', phone: '', consent: false })),
     ).toEqual(['name', 'phone', 'consent'])
   })
 })
 
-describe('buildWizardInquiryBody', () => {
-  it('sends the answers and the contact — a body the server schema accepts on Biznes', () => {
+describe('buildWizardInquiryBody (Konfigurator 3.0)', () => {
+  const href = 'https://prokombiznes.pl/konfigurator?kr=gastro%7Cnowa%7C2%7C%7C&utm_source=fb'
+
+  it('sends the result link, the chosen items and the contact — a body the server accepts', () => {
     const body = buildWizardInquiryBody(contact, {
-      href: 'https://prokombiznes.pl/kreator?firma=gastro&utm_source=fb',
+      href,
       formToken: 't',
-      answers,
+      kr: 'gastro|nowa|2||dowozy:1',
+      cart: [
+        { id: 'posnet-ergo-online', q: 1, uwaga: 'Konfigurator: Kasa fiskalna' },
+        { id: 'gopos', q: 2 },
+      ],
     })
     expect(body).toMatchObject({
       type: 'wizard',
-      wizard: answers,
-      source: { url: 'https://prokombiznes.pl/kreator', utmSource: 'fb' },
+      wizard: { kr: 'gastro|nowa|2||dowozy:1' },
+      items: [
+        { slug: 'posnet-ergo-online', quantity: 1, note: 'Konfigurator: Kasa fiskalna' },
+        { slug: 'gopos', quantity: 2 },
+      ],
+      source: { url: 'https://prokombiznes.pl/konfigurator', utmSource: 'fb' },
       consent: { accepted: true, clauseVersion: CONSENT_CLAUSE.version },
     })
-    expect(body).not.toHaveProperty('items')
+    expect(parseInquiryInput(body, 'biznes').error?.issues).toBeUndefined()
+  })
+
+  it('sends nothing chosen as no items, and an e-mail only as contact by e-mail', () => {
+    const body = buildWizardInquiryBody(
+      { ...contact, phone: '', email: 'jan@firma.pl' },
+      { href, formToken: 't', kr: 'gastro|nowa|2||', cart: [] },
+    )
+    expect(body).toMatchObject({ items: [], preferredContact: 'email' })
     expect(parseInquiryInput(body, 'biznes').error?.issues).toBeUndefined()
   })
 })

@@ -2,7 +2,7 @@ import { gzipSync } from 'node:zlib'
 
 import { describe, expect, it } from 'vitest'
 
-import kreator from '../../../seed/prokombiznes/kreator.json'
+import konfigurator from '../../../seed/prokombiznes/k4/konfigurator-k4.json'
 import type {
   BiznesSetting,
   CatalogCategory,
@@ -21,7 +21,7 @@ import {
   WIZARD_PAGE,
 } from './catalogIndex'
 import { image, sourceFromSeed, TENANT } from './seedSource.fixture'
-import { wizardFromSeed } from './wizard'
+import { k4Wizard, type K4WizardFile } from '../../seed/biznes/k4Wizard'
 
 const OTHER_TENANT = 2
 
@@ -82,11 +82,9 @@ describe('buildCatalogIndex on the seed package', () => {
     expect(index.search.popular).toContain('KSeF')
   })
 
-  it('lists the wizard among the pages while it has valid rules (B10c)', () => {
+  it('lists the configurator among the pages while it has valid rules (K4g)', () => {
     const source = sourceFromSeed()
-    const rules = wizardFromSeed(kreator, (id) =>
-      id === 'ergo' ? 'posnet-ergo-online' : undefined,
-    )
+    const rules = k4Wizard(konfigurator as unknown as K4WizardFile, (key) => key).wizard
     const withWizard = buildCatalogIndex({
       ...source,
       settings: { search: source.settings!.search, wizard: rules as BiznesSetting['wizard'] },

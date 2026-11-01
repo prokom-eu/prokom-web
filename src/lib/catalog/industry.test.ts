@@ -47,8 +47,8 @@ const industry = (fields: Partial<Industry> = {}): Industry => ({
 
 describe('wizardHref', () => {
   it('opens the wizard with the business type of the industry (ADR-012 rozstrz. 8)', () => {
-    expect(wizardHref('gastro')).toBe('/kreator?firma=gastro')
-    expect(wizardHref(null)).toBe('/kreator')
+    expect(wizardHref('gastro')).toBe('/konfigurator?firma=gastro')
+    expect(wizardHref(null)).toBe('/konfigurator')
   })
 })
 
@@ -102,7 +102,7 @@ describe('buildIndustryView', () => {
   it('falls back to the name, a general call to action and hides empty sections', () => {
     const view = buildIndustryView(industry(), 1)
     expect(view.title).toBe('Gastronomia')
-    expect(view.cta).toEqual({ label: 'Przygotuj zapytanie', href: '/kreator?firma=gastro' })
+    expect(view.cta).toEqual({ label: 'Przygotuj zapytanie', href: '/konfigurator?firma=gastro' })
     expect(view.day).toBeNull()
     expect(view.flow).toBeNull()
     expect(view.faq.title).toBe('Zanim zdecydujesz')

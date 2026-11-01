@@ -4,6 +4,7 @@ import { BUNDLES_PATH, bundleHref } from '../catalog/bundle'
 import { productHref } from '../catalog/card'
 import { categoryHref, subcategoryHref } from '../catalog/category'
 import { BRANDS_PATH, CATALOG_PATH } from '../catalog/filters'
+import { PLAN_PATH } from '../catalog/floorPlan'
 import { industryHref } from '../catalog/industry'
 import { objectHref } from '../instalacje/menu'
 import { HOME_SLUG, pagePath } from '../pages/slug'
@@ -46,6 +47,8 @@ export type SiteMapInput = {
      * „Do sprawdzenia” are `noindex` (K3-KATALOG §7).
      */
     bundles?: readonly { slug: string; name: string }[] | null
+    /** „Plan Twojej firmy” has a scene to show (K31d′): `/plan-firmy` is listed. */
+    plan?: boolean
     /** `categories[0]` is the main category. */
     products: readonly ({ slug: string; name: string; categories: readonly string[] } & Dated)[]
   } | null
@@ -145,6 +148,13 @@ export function buildSiteMap({
             label: bundle.name,
           })),
         ],
+      })
+    }
+    if (catalog.plan) {
+      sections.push({
+        id: 'plan',
+        title: 'Plan Twojej firmy',
+        links: [{ href: PLAN_PATH, label: 'Plan Twojej firmy' }],
       })
     }
     // „Wkrótce” industries have no page (ADR-012 rozstrz. 7).

@@ -1,20 +1,18 @@
 import { describe, expect, it, vi } from 'vitest'
 
-import kreator from '../../../seed/prokombiznes/kreator.json'
+import konfigurator from '../../../seed/prokombiznes/k4/konfigurator-k4.json'
 import softwareKreator from '../../../seed/prokomsoftware/kreator.json'
 import { wizardSeed } from '../../seed/software/wizardExtras'
-import { wizardFromSeed, wizardSchema } from '../catalog/wizard'
+import { k4Wizard, type K4WizardFile } from '../../seed/biznes/k4Wizard'
+import { wizardSchema } from '../catalog/wizard'
 import { softwareWizardSchema } from '../software/wizard'
 import { CONSENT_CLAUSE } from './consent'
 import { createRateLimiter, FORM_MIN_FILL_MS, issueFormToken } from './spam'
 import { siteUrl, submitInquiryWith, type SubmitDeps } from './submit'
 
-// Wizard rules of tenant 1: the register is Posnet Ergo, the terminal a product not published.
+// Konfigurator rules of tenant 1 (K4g): the package with product keys kept as slugs.
 const rules = wizardSchema.parse(
-  wizardFromSeed(
-    kreator,
-    (id) => ({ ergo: 'posnet-ergo-online', pol: 'terminal-platniczy-polcard' })[id],
-  ),
+  k4Wizard(konfigurator as unknown as K4WizardFile, (key) => key).wizard,
 )
 
 // Software wizard rules (tenant 2): the seed value.
@@ -67,6 +65,7 @@ function deps(overrides: Partial<SubmitDeps> = {}): SubmitDeps {
     findSoftwareWizard: vi.fn(async (tenantId: number) => (tenantId === 2 ? softwareRules : null)),
     sendEmail: vi.fn(async () => undefined),
     panelUrl: (id: number) => `http://panel.localhost:3000/admin/collections/inquiries/${id}`,
+    siteOrigin: (host: string) => `http://${host.toLowerCase()}`,
     log: { info: vi.fn(), warn: vi.fn(), error: vi.fn() },
     ...overrides,
   }
@@ -348,46 +347,75 @@ describe('submitInquiry (ADR-003)', () => {
     })
   })
 
-  describe('wizard (B10c)', () => {
-    const answers = {
-      businessType: 'warsztat',
-      salesPoints: '2',
-      computers: '1–3',
-      premises: 'dziala',
-      needs: ['kasa', 'term'],
-      when: 'Przed sezonem',
+  describe('Konfigurator 3.0 (K4g)', () => {
+    const wizardBody = {
+      ...body,
+      type: 'wizard',
+      message: undefined,
+      email: undefined,
+      wizard: { kr: 'gastro|nowa|2||dowozy:1' },
+      items: [
+        { slug: 'posnet-ergo-online', quantity: 1, note: 'Konfigurator: Kasa fiskalna' },
+        { slug: 'cudza-karta', quantity: 1 },
+      ],
     }
-    const wizardBody = { ...body, type: 'wizard', message: undefined, wizard: answers }
 
-    it('computes the kit from the rules: published products of this tenant, per sales point', async () => {
+    it('saves the chosen items of this tenant and the profile named from the rules', async () => {
       const d = deps()
       expect(await submitInquiryWith(d, { ...request, body: wizardBody })).toMatchObject({
         ok: true,
       })
-      expect(d.findProducts).toHaveBeenCalledWith(1, [
-        'posnet-ergo-online',
-        'terminal-platniczy-polcard',
-      ])
       expect(d.save).toHaveBeenCalledWith(
         expect.objectContaining({
           type: 'wizard',
-          items: [{ product: 7, nameSnapshot: 'Posnet Ergo Online', quantity: 2 }],
-          deadline: 'Przed sezonem',
+          items: [
+            {
+              product: 7,
+              nameSnapshot: 'Posnet Ergo Online',
+              quantity: 1,
+              note: 'Konfigurator: Kasa fiskalna',
+            },
+          ],
           wizard: expect.objectContaining({
-            'Rodzaj firmy': 'Warsztat lub serwis',
-            Zestaw: ['2 × Posnet Ergo Online', 'Terminal płatniczy'],
+            'Rodzaj firmy': 'Gastronomia',
+            Sytuacja: 'Otwieram firmę lub lokal',
+            Skala: '2–3 stanowiska',
+            // Clickable in the panel and the e-mail: the site's address from `Host`.
+            Link: 'http://biznes.localhost:3000/konfigurator?kr=gastro%7Cnowa%7C2%7C%7Cdowozy%3A1',
           }),
         }),
       )
       const notification = vi.mocked(d.sendEmail).mock.calls[0]?.[0]
-      expect(notification?.text).toContain('2 × Posnet Ergo Online')
+      expect(notification?.text).toContain('Gastronomia')
+      expect(notification?.text).toContain('Posnet Ergo Online')
     })
 
-    it('rejects answers outside the rules, or a site without rules, and saves nothing', async () => {
+    it('refuses a list whose every item is gone, like the list form', async () => {
+      const d = deps()
+      const result = await submitInquiryWith(d, {
+        ...request,
+        body: { ...wizardBody, items: [{ slug: 'cudza-karta', quantity: 1 }] },
+      })
+      expect(result).toEqual({ ok: false, error: 'invalid', fields: ['items'] })
+      expect(d.save).not.toHaveBeenCalled()
+    })
+
+    it('accepts a profile without items — „Nie musisz nic wybierać”', async () => {
+      const d = deps()
+      const result = await submitInquiryWith(d, {
+        ...request,
+        body: { ...wizardBody, items: [] },
+      })
+      expect(result).toMatchObject({ ok: true })
+      expect(d.save).toHaveBeenCalledWith(expect.objectContaining({ items: [] }))
+    })
+
+    it('rejects a link outside the rules, an old answers object or a site without rules', async () => {
       for (const [d, wizard] of [
-        [deps(), { ...answers, needs: ['kasa', 'teleport'] }],
-        [deps(), { ...answers, businessType: 'kosmos' }],
-        [deps({ findWizard: vi.fn(async () => null) }), answers],
+        [deps(), { kr: 'kosmos|nowa|2||' }],
+        [deps(), { kr: 'gastro|nowa|2||teleport:1' }],
+        [deps(), { businessType: 'gastro' }],
+        [deps({ findWizard: vi.fn(async () => null) }), { kr: 'gastro|nowa|2||' }],
       ] as const) {
         expect(await submitInquiryWith(d, { ...request, body: { ...wizardBody, wizard } })).toEqual(
           { ok: false, error: 'invalid', fields: ['wizard'] },
