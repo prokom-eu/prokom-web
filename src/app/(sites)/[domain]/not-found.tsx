@@ -3,6 +3,7 @@ import { Heading } from '@/components/ui/Heading'
 import { Section } from '@/components/ui/Section'
 import { errorFields, log } from '@/lib/log'
 import { NotFoundBiznes } from '@/sites/biznes/components/NotFoundBiznes'
+import { NotFoundInstalacje } from '@/sites/instalacje/powloka/NotFoundInstalacje'
 import { NotFoundSoftware } from '@/sites/software/components/NotFoundSoftware'
 
 import { tenantFromRequest } from './tenant'
@@ -11,7 +12,8 @@ import { tenantFromRequest } from './tenant'
 // An unknown domain never gets here — `requireTenant` in the layout falls back to the generic
 // `(sites)/not-found.tsx`, which reveals nothing about the sites we serve.
 // Software has its own page (board `NieZnaleziono`, spec. §6.11) while its texts are saved;
-// Biznes its own with the search and popular places (audit 01.11).
+// Biznes its own with the search and popular places (audit 01.11); Instalacje its own with links
+// to the main pages (audit before staging, P2 5).
 export default async function SiteNotFound() {
   const tenant = await tenantFromRequest().catch(() => null)
   if (tenant?.line === 'software') {
@@ -23,6 +25,7 @@ export default async function SiteNotFound() {
     if (page) return page
   }
   if (tenant?.line === 'biznes') return <NotFoundBiznes />
+  if (tenant?.line === 'instalacje') return <NotFoundInstalacje />
   return (
     <Section className="py-24">
       <Heading level={1} size="xl">
