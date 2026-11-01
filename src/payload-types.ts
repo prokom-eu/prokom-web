@@ -94,6 +94,7 @@ export interface Config {
     realizations: Realization;
     bundles: Bundle;
     showrooms: Showroom;
+    'inst-arch-news': InstArchNew;
     'payload-kv': PayloadKv;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
@@ -129,6 +130,7 @@ export interface Config {
     realizations: RealizationsSelect<false> | RealizationsSelect<true>;
     bundles: BundlesSelect<false> | BundlesSelect<true>;
     showrooms: ShowroomsSelect<false> | ShowroomsSelect<true>;
+    'inst-arch-news': InstArchNewsSelect<false> | InstArchNewsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -6134,6 +6136,58 @@ export interface Showroom {
   createdAt: string;
 }
 /**
+ * Karty sekcji „Nowe rozwiązania” na stronie /dla-architektow. Widoczne po publikacji.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "inst-arch-news".
+ */
+export interface InstArchNew {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  legacyId?: number | null;
+  title: string;
+  category: 'snd' | 'scr' | 'smart' | 'wifi' | 'kam' | 'ev' | 'sz';
+  type: 'Nowość' | 'Rozwiązanie' | 'Szkolenie' | 'Oferta';
+  description: string;
+  params?:
+    | {
+        label: string;
+        value: string;
+        id?: string | null;
+      }[]
+    | null;
+  planItems?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  examples?: string | null;
+  places?:
+    | {
+        name: string;
+        id?: string | null;
+      }[]
+    | null;
+  illustration?: string | null;
+  /**
+   * Mniejsza liczba = wcześniej.
+   */
+  order?: number | null;
+  featured?: boolean | null;
+  /**
+   * Np. „[SZEF: dostępność marki u nas]”.
+   */
+  internalNote?: string | null;
+  /**
+   * Tylko w panelu, nie na stronie.
+   */
+  publishedAt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
@@ -6365,6 +6419,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'showrooms';
         value: number | Showroom;
+      } | null)
+    | ({
+        relationTo: 'inst-arch-news';
+        value: number | InstArchNew;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -10004,6 +10062,46 @@ export interface ShowroomsSelect<T extends boolean = true> {
       };
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "inst-arch-news_select".
+ */
+export interface InstArchNewsSelect<T extends boolean = true> {
+  tenant?: T;
+  legacyId?: T;
+  title?: T;
+  category?: T;
+  type?: T;
+  description?: T;
+  params?:
+    | T
+    | {
+        label?: T;
+        value?: T;
+        id?: T;
+      };
+  planItems?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  examples?: T;
+  places?:
+    | T
+    | {
+        name?: T;
+        id?: T;
+      };
+  illustration?: T;
+  order?: T;
+  featured?: T;
+  internalNote?: T;
+  publishedAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
