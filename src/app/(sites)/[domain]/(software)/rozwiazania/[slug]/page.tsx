@@ -32,9 +32,9 @@ import { requestOrigin, requireLine } from '../../../tenant'
 
 type Props = { params: Promise<{ domain: string; slug: string }> }
 
-// A short card lead gets the price, term and place (audyt 01.11 P2: 120–155 characters).
-const description = (lead: string | null, name: string) =>
-  richDescription(lead ?? `${name} — podgląd na żywo i zakres w cenie.`)
+// A short card lead gets the term and place, the price only if there is one (audyt P2).
+const description = (lead: string | null, name: string, priced: boolean) =>
+  richDescription(lead ?? `${name} — podgląd na żywo i zakres w cenie.`, { priced })
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const tenant = await requireLine(params, 'software')
@@ -51,7 +51,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     : page.name
   return {
     title,
-    description: description(page.lead, page.name),
+    description: description(page.lead, page.name, page.priceFrom !== null),
     alternates: { canonical: url },
     robots: robotsMeta(getEnv().SITE_ENV),
     openGraph: {
@@ -60,7 +60,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       siteName: tenant.name,
       url,
       title,
-      description: description(page.lead, page.name),
+      description: description(page.lead, page.name, page.priceFrom !== null),
       images: ogImages(settings?.seo.ogImage ?? null),
     },
   }

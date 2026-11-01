@@ -49,7 +49,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     `${page.name}: oprogramowanie dla branży`,
     `${page.name} — systemy i strony`,
   )
-  const description = richDescription(page.lead ?? titleOf(page))
+  const description = richDescription(page.lead ?? titleOf(page), { priced: false })
   return {
     title,
     description,
