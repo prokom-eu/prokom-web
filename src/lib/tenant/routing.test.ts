@@ -192,6 +192,35 @@ describe('decideRoute — site domains', () => {
     }
   })
 
+  it('lets one plan drawing through on site domains, read only (its handler checks the line)', () => {
+    for (const method of ['GET', 'HEAD']) {
+      expect(
+        decideRoute({
+          host: 'biznes.localhost',
+          pathname: '/api/plan-svg/sklep',
+          method,
+          panelHost,
+        }),
+      ).toEqual({ type: 'next' })
+    }
+    expect(
+      decideRoute({
+        host: 'biznes.localhost',
+        pathname: '/api/plan-svg/sklep',
+        method: 'POST',
+        panelHost,
+      }),
+    ).toEqual(SITE_404)
+    for (const pathname of [
+      '/api/plan-svg',
+      '/api/plan-svg/',
+      '/api/plan-svg/a/b',
+      '/api/plan-svg/A_B',
+    ]) {
+      expect(route('biznes.localhost', pathname)).toEqual(SITE_404)
+    }
+  })
+
   it('lets the solutions index through on site domains, read only (its handler checks the line)', () => {
     for (const method of ['GET', 'HEAD']) {
       expect(
