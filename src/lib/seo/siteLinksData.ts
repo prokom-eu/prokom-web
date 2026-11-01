@@ -22,7 +22,7 @@ export async function loadSiteMap(tenant: { id: number; line: Line }): Promise<S
       getPublishedPageList(tenant.id),
       catalog ? getCatalogIndex(tenant.id) : null,
       catalog ? getPublishedProductList(tenant.id) : [],
-      hasNews(tenant.line) || hasGuide(tenant.line) ? getPostList(tenant.id) : null,
+      hasNews(tenant.line) || hasGuide(tenant.line) ? getPostList(tenant.id, tenant.line) : null,
       catalog ? getBundles(tenant.id) : [],
       software ? getSolutionsIndex(tenant.id) : null,
       software ? getIndustryPageList(tenant.id) : null,
