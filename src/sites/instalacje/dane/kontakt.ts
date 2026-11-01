@@ -78,5 +78,5 @@ export const kontakt = {
       limit: 'Za dużo zgłoszeń z tego adresu. Spróbuj za chwilę albo zadzwoń.',
     },
   },
-  salons: { eyebrow: 'Salony', route: 'Wyznacz trasę →' },
+  salons: { route: 'Wyznacz trasę →' },
 } as const

@@ -227,7 +227,7 @@ export const architekci = {
         'Wysokości montażu, trasy kabli, dobór wykończeń: kolor maskownic, szkło paneli.',
       ],
       youGet: ['Rzuty z naniesionymi urządzeniami i zestawienie.'],
-      investor: ['Technika zgodna z projektem wnętrza, a nie dobrana na budowie.'],
+      investor: ['Technika zgodna z projektem wnętrza od pierwszego dnia budowy.'],
     },
     {
       title: 'Przed tynkami',
@@ -1107,8 +1107,8 @@ export const architekci = {
   ],
   presentationsSection: {
     eyebrow: 'Zobacz i usłysz',
-    heading: 'Najlepiej przekonuje',
-    accent: 'pokaz na żywo.',
+    heading: 'Pokażemy działanie na żywo,',
+    accent: 'zanim wpiszesz je do projektu.',
     cta: 'Umów prezentację',
   },
   // TODO(krystian): szef — co mamy na pokazie w salonie (etykieta karty „W salonie PRO-KOM”).

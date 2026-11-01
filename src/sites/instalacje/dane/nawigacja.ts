@@ -84,7 +84,7 @@ export const navigation: Navigation = {
     eyebrow: 'Pełna oferta',
     text: 'Wszystko z filtrem po rodzaju obiektu. Jeden wykonawca, jeden numer do serwisu.',
     button: { label: 'Zobacz pełną ofertę →', href: '/uslugi' },
-    link: { label: 'Nie wiesz, od czego zacząć? Zaplanuj →', href: '/zaplanuj' },
+    link: { label: 'Nie wiesz, od czego zacząć? Zaplanuj →', href: '/zaplanuj' },
   },
   megaObjects: {
     eyebrow: 'Twój obiekt',

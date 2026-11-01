@@ -61,6 +61,8 @@ export function QuickPlanForm({ services, formToken }: Props) {
   const honeypot = useRef<HTMLInputElement>(null)
   const nameField = useRef<HTMLInputElement>(null)
   const phoneField = useRef<HTMLInputElement>(null)
+  const servicesGroup = useRef<HTMLDivElement>(null)
+  const consentField = useRef<HTMLInputElement>(null)
   const doneTitle = useRef<HTMLElement>(null)
 
   // The form is replaced by the thanks: focus goes to their title, so a screen reader hears it.
@@ -86,14 +88,20 @@ export function QuickPlanForm({ services, formToken }: Props) {
   const objectLabel = PLAN_OBJECTS.find((o) => o.key === state.object)?.label ?? '—'
   const ready = planError(state) === null
   const invalid = (key: PlanErrorKey) => error?.key === key || undefined
+  // Focus goes to the first wrong field, so a keyboard or screen reader user lands on it.
+  const focusField = (key: string | undefined) => {
+    if (key === 'services') servicesGroup.current?.querySelector('button')?.focus()
+    else if (key === 'name') nameField.current?.focus()
+    else if (key === 'phone') phoneField.current?.focus()
+    else if (key === 'consent') consentField.current?.focus()
+  }
 
   async function submit(event: FormEvent) {
     event.preventDefault()
     const missing = planError(state)
     if (missing) {
       setError({ key: missing, text: t.errors[missing] })
-      if (missing === 'name') nameField.current?.focus()
-      if (missing === 'phone') phoneField.current?.focus()
+      focusField(missing)
       return
     }
     setBusy(true)
@@ -124,8 +132,7 @@ export function QuickPlanForm({ services, formToken }: Props) {
             ? { key: key as PlanErrorKey, text }
             : { key: 'form', text: outcome.formError ?? t.errors.failed },
         )
-        if (key === 'name') nameField.current?.focus()
-        if (key === 'phone') phoneField.current?.focus()
+        focusField(key)
       } else {
         setError({ key: 'form', text: response.status === 429 ? t.errors.limit : outcome.message })
       }
@@ -185,7 +192,13 @@ export function QuickPlanForm({ services, formToken }: Props) {
                 <span>{t.step1}</span>
                 <i>{t.step1Note}</i>
               </div>
-              <div className="hzksv" role="group" aria-label={t.step1}>
+              <div
+                ref={servicesGroup}
+                className="hzksv"
+                role="group"
+                aria-label={t.step1}
+                data-invalid={invalid('services') ? '' : undefined}
+              >
                 {services.map((s) => {
                   const on = state.services.includes(s.key)
                   return (
@@ -302,6 +315,7 @@ export function QuickPlanForm({ services, formToken }: Props) {
               </div>
               <label className={`hzkcons${state.consent ? ' on' : ''}`}>
                 <input
+                  ref={consentField}
                   type="checkbox"
                   className="sr-only"
                   checked={state.consent}

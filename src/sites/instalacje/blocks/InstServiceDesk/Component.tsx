@@ -22,6 +22,7 @@ import { InstSection } from '../../sekcje/InstSection'
 import { PageHero } from '../../sekcje/PageHero'
 import { Related } from '../../sekcje/Related'
 import { FaultForm } from '../../widzety/serwis/FaultForm'
+import { salonsNote } from '../../powloka/salons'
 
 import '../../widzety/serwis/serwis.css'
 
@@ -49,7 +50,7 @@ export async function InstServiceDeskBlock({ block, tenantId }: Props) {
   const origin = siteOrigin(host, getEnv().SITE_ENV)
   const telHref = site?.phone ? toTelHref(site.phone) : null
   const phone = site?.phone && telHref ? { label: site.phone, href: telHref } : null
-  const salons = (company?.locations ?? []).map((l) => `${l.city}, ${l.street}`).join(' · ')
+  const salons = salonsNote(company?.locations ?? [])
   const { hero, cta } = block
   const crumb = hero?.crumb || 'Serwis i przeglądy'
   const related = S.related.flatMap((key) => cards.services.filter((s) => s.key === key))

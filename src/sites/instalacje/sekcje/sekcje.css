@@ -1041,6 +1041,19 @@
       gap: 12px !important;
       margin: 0 -20px;
       padding: 4px 20px 10px;
+      scroll-padding: 0 20px;
+      scrollbar-width: none;
+      /* Fade at the edges (the padding area), so a cut card reads as „more to the side”. */
+      mask-image: linear-gradient(
+        90deg,
+        transparent,
+        var(--inst-mask) 14px,
+        var(--inst-mask) calc(100% - 14px),
+        transparent
+      );
+    }
+    & .pkgs::-webkit-scrollbar {
+      display: none;
     }
     & .pkgs > .pkg {
       flex: 0 0 84%;
@@ -1053,6 +1066,19 @@
       gap: 10px !important;
       margin: 0 -20px;
       padding: 2px 20px 10px;
+      scroll-padding: 0 20px;
+      scrollbar-width: none;
+      /* Fade at the edges (the padding area), so a cut card reads as „more to the side”. */
+      mask-image: linear-gradient(
+        90deg,
+        transparent,
+        var(--inst-mask) 14px,
+        var(--inst-mask) calc(100% - 14px),
+        transparent
+      );
+    }
+    & .rel::-webkit-scrollbar {
+      display: none;
     }
     & .rel > .relc {
       flex: 0 0 62%;

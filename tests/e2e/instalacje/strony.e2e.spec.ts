@@ -13,6 +13,9 @@ const PAGES = INST_PAGES
 // TODO(krystian): the home title has 66 characters (SEO §2.2: ≤ 65) — shorten it in the panel.
 const LONG_TITLE_OK = new Set(['/'])
 
+// „[SZEF: …]”, „[CENA]”, „[TELEFON]” — notes of the prototype for the owner.
+const PLACEHOLDER = /\[[A-ZĄĆĘŁŃÓŚŹŻ][A-ZĄĆĘŁŃÓŚŹŻ ]{2,}[:\]]/
+
 async function open(page: Page, path: string) {
   await page.emulateMedia({ reducedMotion: 'reduce' })
   const response = await page.goto(site(HOST, path))
@@ -32,7 +35,10 @@ for (const path of PAGES) {
       expect(description?.length ?? 0, 'description').toBeLessThanOrEqual(155)
       const text = await page.locator('main').innerText()
       // „[SZEF: …]”, „[CENA]”, „[TELEFON]” of the prototype must never reach a page (spec §10).
-      expect(text).not.toMatch(/\[[A-ZĄĆĘŁŃÓŚŹŻ][A-ZĄĆĘŁŃÓŚŹŻ ]{2,}[:\]]/)
+      // `textContent`, not `innerText`: closed FAQ answers (`<details>`) and folded sections are
+      // in the HTML but not in `innerText` (audit before staging, P1 2).
+      const allText = await page.locator('main').evaluate((main) => main.textContent ?? '')
+      expect(allText).not.toMatch(PLACEHOLDER)
       // No lists of sources on the page (spec §2): a line that is only the heading „Źródła”.
       // Sentences may start with the word (Nagłośnienie: „Źródła trafiają do miksera…”,
       // „Źródła muzyki”, „Źródła i mikrofony” — sound sources, not references).
@@ -40,7 +46,11 @@ for (const path of PAGES) {
       const jsonLd = await page
         .locator('script[type="application/ld+json"]')
         .evaluateAll((els) => els.map((e) => e.textContent ?? ''))
-      for (const block of jsonLd) expect(() => JSON.parse(block)).not.toThrow()
+      for (const block of jsonLd) {
+        expect(() => JSON.parse(block)).not.toThrow()
+        // Google reads structured data too (FAQPage answers).
+        expect(block).not.toMatch(PLACEHOLDER)
+      }
     })
   })
 }

@@ -15,8 +15,8 @@
    "ctaHref": "Zaplanuj.dc.html",
    "crumb": "Nagłośnienie",
    "eye": "Nagłośnienie · restauracje, hotele, kościoły, szkoły · Podhale",
-   "h1a": "Muzyka tam, gdzie trzeba.",
-   "h1b": "Cisza tam, gdzie ma być cicho.",
+   "h1a": "Muzyka na sali, komunikat w holu, cisza na zapleczu.",
+   "h1b": "Każda strefa osobno.",
    "lead": "Projektujemy i montujemy nagłośnienie stref w restauracjach, hotelach, kościołach, szkołach, sklepach i halach. Każda strefa z osobną głośnością, komunikaty z priorytetem i obsługa, którą zrozumie każdy pracownik.",
    "kv": [
     {
@@ -342,7 +342,7 @@
     "cta": "Zaplanuj instalację",
     "href": "Zaplanuj.dc.html"
    },
-   "faqH": "Zanim zadzwonisz.",
+   "faqH": "Pytania o nagłośnienie",
    "relH": "Dźwięk i obraz w jednym projekcie.",
    "pkg": {
     "eye": "Przykładowe zestawy",

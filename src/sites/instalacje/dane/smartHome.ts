@@ -422,7 +422,7 @@ export const smartHome = {
   integrations: {
     head: {
       eyebrow: 'Integracje',
-      heading: 'Pompa ciepła, rekuperacja, alarm, kamery. Wszystko się dogada.',
+      heading: 'Pompa ciepła, rekuperacja, alarm i kamery w jednej aplikacji Ampio.',
       lead: 'Ampio rozmawia w kilkunastu standardach komunikacji, od KNX i DALI po Modbus, MQTT i Matter. Przez Matter łączy się z asystentami Apple, Google i Amazon Alexa.',
     } satisfies SectionHead,
     groups: [

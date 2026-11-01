@@ -270,7 +270,21 @@ export const objectPage = {
     note: 'To przykłady. Ostateczny zakres i cenę ustalamy po wizji lokalnej i podajemy na piśmie.',
   },
   faqHeading: 'Zanim zadzwonisz.',
-  relatedHeading: 'Usługi, które łączymy w tym obiekcie.',
+  /** „Co jeszcze montujemy w …” per object: the heading names the object (redakcja §3c). */
+  relatedHeadings: {
+    dom: 'Co jeszcze montujemy w domach',
+    apt: 'Co jeszcze montujemy w apartamentach',
+    pens: 'Co jeszcze montujemy w pensjonatach',
+    hotel: 'Co jeszcze montujemy w hotelach',
+    rest: 'Co jeszcze montujemy w restauracjach',
+    sklep: 'Co jeszcze montujemy w sklepach',
+    firma: 'Co jeszcze montujemy w firmach i halach',
+    kosc: 'Co jeszcze montujemy w kościołach',
+    szk: 'Co jeszcze montujemy w szkołach',
+    gmina: 'Co jeszcze montujemy w urzędach',
+    dev: 'Co jeszcze montujemy w inwestycjach',
+    bud: 'Co jeszcze montujemy na budowach',
+  } satisfies Record<ObjectKey, string>,
   similarHeading: 'Podobne obiekty',
 } as const
 

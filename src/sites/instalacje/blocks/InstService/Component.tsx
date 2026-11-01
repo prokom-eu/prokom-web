@@ -43,6 +43,7 @@ import { LadowarkiSections } from '../../widzety/ladowarki/LadowarkiSections'
 import { ChargerShowcase } from '../../widzety/ladowarki/LadowarkiWidgets'
 import { NaglosnienieSections } from '../../widzety/naglosnienie/NaglosnienieSections'
 import { ZoneMixer } from '../../widzety/naglosnienie/NaglosnienieWidgets'
+import { salonsNote } from '../../powloka/salons'
 
 type Props = { block: InstServiceBlockData; tenantId: number }
 
@@ -138,7 +139,7 @@ export async function InstServiceBlock({ block, tenantId }: Props) {
   const origin = siteOrigin(host, getEnv().SITE_ENV)
   const telHref = site?.phone ? toTelHref(site.phone) : null
   const phone = site?.phone && telHref ? { label: site.phone, href: telHref } : null
-  const salons = (company?.locations ?? []).map((l) => `${l.city}, ${l.street}`).join(' · ')
+  const salons = salonsNote(company?.locations ?? [])
   const path = `/${service.slug}`
   const planHref = `/zaplanuj?usluga=${service.key}`
   const layout = LAYOUTS[service.key]?.({ planHref })

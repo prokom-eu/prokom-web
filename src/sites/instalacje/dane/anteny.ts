@@ -52,7 +52,7 @@ export const anteny = {
     head: {
       eyebrow: 'Instalacje antenowe',
       heading: 'Od jednej anteny na domu po instalację dla całego bloku.',
-      lead: 'Antenę satelitarną trzeba wycelować z dokładnością do pojedynczych stopni. Dlatego ustawiamy ją miernikiem, a nie „na oko”, i używamy przewodów, wtyków i anten dobrej klasy.',
+      lead: 'Antenę satelitarną trzeba wycelować z dokładnością do pojedynczych stopni. Ustawiamy ją miernikiem i używamy przewodów, wtyków i anten dobrej klasy.',
     },
     items: [
       {
@@ -92,7 +92,7 @@ export const anteny = {
     head: {
       eyebrow: 'Anteny w górach',
       heading: 'Stok zasłania nadajnik, halny szarpie masztem.',
-      lead: 'Na Podhalu antena ma trudniej niż na nizinach. Dobieramy jej typ, wysokość i mocowanie do miejsca, a nie do katalogu.',
+      lead: 'Na Podhalu antena ma trudniej niż na nizinach. Typ, wysokość i mocowanie dobieramy do miejsca: wiatru, stoku i tego, co zasłania nadajnik.',
     },
     items: [
       {
