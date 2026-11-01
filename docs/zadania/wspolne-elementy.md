@@ -1,6 +1,6 @@
 # Elementy wspólne linii — plan sesji Claude Code (prokom-web) · v2 (01.11.2026)
 
-Spec: `docs/design/wspolne/WSPOLNE-ELEMENTY.md` · Decyzja: `docs/adr/ADR-020-elementy-wspolne-linii.md` · Wzorzec: `docs/design/wspolne/plansze/` (+ płótno Krystiana https://claude.ai/artifact/7HKNezL1nNmgeZPJum8rQG).
+Spec: `docs/design/wspolne/WSPOLNE-ELEMENTY.md` · Decyzja: `docs/decyzje/ADR-022-elementy-wspolne-linii.md` · Wzorzec: `docs/design/wspolne/plansze/` (+ płótno Krystiana https://claude.ai/artifact/7HKNezL1nNmgeZPJum8rQG).
 Dotyczy tenantów **biznes, instalacje, software**. Tech (prokomserwis.pl) — osobny plan w `prokom-system/docs/wspolne/`. Gaming — nie dotyczy (poza flagą w `CompanyData.lines`).
 
 **v2 zastępuje plan W0–W7.** Zmiana: część wspólna powstaje **raz** (fundament F0–F3), a wpięcie w strony oraz Kontakt i O firmie z własnymi dodatkami każdej linii robią **sesje linii L1–L2** — w folderze i rytmie danej linii.
@@ -28,7 +28,7 @@ Dotyczy tenantów **biznes, instalacje, software**. Tech (prokomserwis.pl) — o
 
 | Sesja | Etap | Gdzie | Zakres | Szac. | Zależy od |
 |---|---|---|---|---|---|
-| **F0** | A | fundament | pakiet w git, ADR-020, `MAPA-DZIS.md` (z listą dodatków linii na Kontakcie/O firmie), bez kodu | 0,5 | — |
+| **F0** | A | fundament | pakiet w git, ADR-022, `MAPA-DZIS.md` (z listą dodatków linii na Kontakcie/O firmie), bez kodu | 0,5 | — |
 | **F1** | A | fundament | dane: `CompanyData` (linie, salony, strefy, prawne, `consentMode`), grupa `shared` w 3 ustawieniach linii, migracja, seed z prawdziwymi danymi, hook `[SZEF`, loader | 1 | F0 |
 | **F2** | A | fundament | tokeny ról + komponenty powłoki: `LineLogo`, `OpeningStatus`, `BrandBar`, `SiteHeader`, `SiteFooter`, `LinesBand`, `LegalBar`, `AddressMap`, `TabBar`, `MenuSheet`; strona podglądu `/_wspolne` (tylko dev/staging); strona Cookies w panelu, jeśli brak | 2 | F1 |
 | **L1-B / L1-I / L1-S** | A | linia | wpięcie powłoki w ramkę linii (pasek marki, nagłówek ze slotami, stopka, dolny pasek i arkusz Menu), usunięcie starej powłoki i WhatsAppa | 0,5 × 3 | F2 |
@@ -48,17 +48,17 @@ Dotyczy tenantów **biznes, instalacje, software**. Tech (prokomserwis.pl) — o
 
 ## 2. Prompty — fundament
 
-### F0 — pakiet, ADR-020, mapa „dziś → docelowo” (bez kodu)
+### F0 — pakiet, ADR-022, mapa „dziś → docelowo” (bez kodu)
 ```
-/zadanie F0 — elementy wspólne linii: pakiet, ADR-020, mapa „dziś → docelowo” (BEZ KODU)
+/zadanie F0 — elementy wspólne linii: pakiet, ADR-022, mapa „dziś → docelowo” (BEZ KODU)
 
 Kontekst: Biznes, Instalacje i Software zbudowały pasek marki, nagłówek, stopkę, formularz, Kontakt i O firmie każda po swojemu. Ujednolicamy to: część wspólna powstaje raz (fundament F0–F3, ten folder), a wpięcie w strony i Kontakt/O firmie z dodatkami każdej linii robią sesje linii L1–L2 w ich folderach. Ta sesja to tylko dokumenty i rozpoznanie — żadnych zmian w src/, seedach ani migracjach.
 
 Gałąź: docs/wsp-pakiet od aktualnego origin/develop.
 
-0. Pliki pakietu są w drzewie jako NIEŚLEDZONE: docs/design/wspolne/WSPOLNE-ELEMENTY.md, docs/design/wspolne/plansze/*.dc.html + README.md, docs/adr/ADR-020-elementy-wspolne-linii.md, docs/zadania/wspolne-elementy.md (plan v2: F0–F4 + L1–L2). Sprawdź `git status` (13 plików). Jeśli ADR-y leżą gdzie indziej niż docs/adr/ — przenieś ADR-020 obok ADR-019 i popraw odnośniki.
+0. Pliki pakietu są w drzewie jako NIEŚLEDZONE: docs/design/wspolne/WSPOLNE-ELEMENTY.md, docs/design/wspolne/plansze/*.dc.html + README.md, docs/decyzje/ADR-022-elementy-wspolne-linii.md, docs/zadania/wspolne-elementy.md (plan v2: F0–F4 + L1–L2). Sprawdź `git status` (13 plików). Jeśli ADR-y leżą gdzie indziej niż docs/adr/ — przenieś ADR-022 obok ADR-019 i popraw odnośniki.
 
-1. Przeczytaj w całości spec, ADR-020 i plan v2. Przejrzyj plansze (HTML z inline style — kolory, wymiary, teksty; dane w obiektach JS na dole plansz). Zasady treści 01.11 (spec §2) obowiązują od teraz: bez WhatsAppa, bez zdjęć ludzi, dane kontaktowe tylko z panelu, bez obietnic [SZEF], pro-kom.eu bez „sklepu”, nazwa „Tech”, Zakopane tylko na Instalacjach, Gaming tylko jako odnośnik z flagą published.
+1. Przeczytaj w całości spec, ADR-022 i plan v2. Przejrzyj plansze (HTML z inline style — kolory, wymiary, teksty; dane w obiektach JS na dole plansz). Zasady treści 01.11 (spec §2) obowiązują od teraz: bez WhatsAppa, bez zdjęć ludzi, dane kontaktowe tylko z panelu, bez obietnic [SZEF], pro-kom.eu bez „sklepu”, nazwa „Tech”, Zakopane tylko na Instalacjach, Gaming tylko jako odnośnik z flagą published.
 
 2. docs/design/wspolne/MAPA-DZIS.md — tabela dla biznes, instalacje, software: element → plik(i) → co robimy → sesja (F1–F4 / L1 / L2). Uwzględnij:
    - pasek marki, nagłówek (wymiar znaku — Instalacje 140 px), stopka, pasek prawny i linki prawne (Polityka, Cookies, Dostępność, Mapa strony — które linie mają),
@@ -75,23 +75,23 @@ Gałąź: docs/wsp-pakiet od aktualnego origin/develop.
 
 4. public/brand/: czy jest znak PRO-KOM główny z zieloną kreską (prokom-glowna_poziome_*), znaki linii jasne/ciemne, znak TECH. Wynik do MAPA-DZIS.md. Niczego nie dorysowuj.
 
-5. ADR-020 → „przyjęta” (albo z poprawkami — jakie). CLAUDE.md — dopisz:
-   „Elementy wspólne linii: docs/design/wspolne/WSPOLNE-ELEMENTY.md (+ plansze/, MAPA-DZIS.md), plan docs/zadania/wspolne-elementy.md (F = fundament, L = sesje linii), ADR-020.
+5. ADR-022 → „przyjęta” (albo z poprawkami — jakie). CLAUDE.md — dopisz:
+   „Elementy wspólne linii: docs/design/wspolne/WSPOLNE-ELEMENTY.md (+ plansze/, MAPA-DZIS.md), plan docs/zadania/wspolne-elementy.md (F = fundament, L = sesje linii), ADR-022.
    Komponenty wspólne w src/components/shared (bez Payload, bez importów z src/sites/*), loader w src/lib/shared. Sesje linii nie zmieniają tych folderów ani wspólnych pól/migracji — brak → osobny PR feat/wsp-*.
    Zasady 01.11: bez WhatsAppa, bez zdjęć ludzi, dane kontaktowe tylko z panelu, nazwa „Tech”, przy pro-kom.eu bez sklepu, Gaming tylko jako odnośnik.”
    INDEKS / README docs — odnośniki. docs/STAN.md i docs/stan/STAN-instalacje.md — sekcja „Elementy wspólne” (F0 zrobione, następna F1; etap A: F0–F2 + L1 każdej linii przed produkcją; etap B: F3, L2, F4). W planach linii (Biznes PRZEKAZANIE-K4 / plan §7, Software plan SW, Instalacje plan I) dopisz jedną linijkę, które ich sesje zastępują L1/L2 (plan v2 §1).
 
 6. Pytania do mnie zbierz na końcu planu, zanim cokolwiek zmienisz. Czekaj na akceptację.
 
-Nie ruszaj: src/, seed/, migracji. DoD: tylko dokumenty, CI zielone, /przeglad, /koniec-sesji, PR „docs(wspolne): pakiet, ADR-020, mapa dziś” (squash).
+Nie ruszaj: src/, seed/, migracji. DoD: tylko dokumenty, CI zielone, /przeglad, /koniec-sesji, PR „docs(wspolne): pakiet, ADR-022, mapa dziś” (squash).
 ```
 
 ### F1 — dane
 ```
 /zadanie F1 — elementy wspólne: dane firmy i linii w panelu
-Gałąź feat/wsp-dane. Przeczytaj spec §2, §4, §6.3, MAPA-DZIS.md, ADR-020.
-1. CompanyData (albo odpowiednik wg MAPA-DZIS): legalName, nip, address, geo, mapsUrl, ceidgUrl, openingHours[], holidays[], salons[] (key, name, address, geo, hours[], parkingNote, published), lines[] (key, name, kind linia|marka, domain, url, color, colorOnDark, logoLabel, description, descriptionLong, published, order), serviceZones[] (name, towns[], note), legal (ścieżki stron prawnych), consentMode (checkbox|info, domyślnie checkbox). Wartości startowe ze spec §4.1 (Gaming i Zakopane published=false).
-2. src/fields/sharedLineFields.ts — grupa `shared` (spec §4.2) dołączona do BiznesSettings, InstalacjeSettings, SoftwareSettings. Hook: blokada publikacji, gdy pole zawiera „[SZEF” lub „[Krystian”. Pól dla sekcji własnych linii NIE dodawaj — to robią sesje L2.
+Gałąź feat/wsp-dane. Przeczytaj spec §2, §4, §6.3, MAPA-DZIS.md, ADR-022.
+1. CompanyData (mapowanie: MAPA-DZIS §9 — name/nip/email/phones[] istnieją): geo, mapsUrl, ceidgUrl, holidays[], rozszerzenie istniejącego locations[] (= salony: + key, geo, parkingNote, published; name/street/postalCode/city/hours[] już są), lines[] (key, name, kind linia|marka, domain, url, color, colorOnDark, logoLabel, description, descriptionLong, published, order), serviceZones[] (name, towns[], note), legal (ścieżki stron prawnych), consentMode (checkbox|info, domyślnie checkbox). Wartości startowe ze spec §4.1 (Gaming i Zakopane published=false).
+2. src/fields/sharedLineFields.ts — grupa `shared` (spec §4.2) w kolekcji SiteSettings (decyzja F0, ADR-022; istniejące phone/phone2/email/footer zostają i są częścią kontaktu linii). Hook: blokada publikacji, gdy pole zawiera „[SZEF” lub „[Krystian”. Pól dla sekcji własnych linii NIE dodawaj — to robią sesje L2.
 3. Migracja (rebase na develop przed migrate:create). Bez usuwania istniejących danych; istniejące pola kontaktowe użyj zamiast dublować — mapowanie w PR.
 4. Seed: dla każdego tenanta treści z plansz (Kontakt, OFirmie, Footer, Chrome — obiekty danych w skryptach) z poprawkami spec §6.3 (Biznes: kontakt@prokombiznes.pl, 889 003 889 + 883 200 151, bez 18 267 65 11). Seed aktualizuje istniejącą bazę (zapis przy różnicy). Pola z [SZEF] nieopublikowane.
 5. src/lib/shared/getSharedData.ts — jeden loader (CompanyData + shared bieżącej linii + published lines), cache jak inne loadery.
@@ -165,7 +165,7 @@ DoD: zrzuty po vs przed i vs plansze Chrome/Footer/Telefon (wariant linii); e2e:
 1. /kontakt → ContactPage z danymi shared.contact; /o-firmie → AboutPage z shared.about. Treści linii, które dziś są w kodzie/panelu tych stron, przenieś do pól shared (panel/seed linii — bez zmiany definicji pól wspólnych).
 2. Sekcje własne linii (lista z MAPA-DZIS „Dodatki linii”, uzgodniona w F0/F3): zbuduj jako komponenty linii w src/sites/<linia>/… i wstaw w sloty szablonu (spec §6.0). Treść — w ustawieniach tej linii (własne pola i migracja linii, jeśli potrzebne). Wygląd: wizualizacja linii, kolory z tokenów ról.
    - Biznes (przykłady — decyduje MAPA-DZIS): autoryzacje i partnerzy, trasy do Planu Twojej firmy / Opieki IT.
-   - Instalacje: drugi salon (Zakopane, tylko gdy salons[].published), odnośnik do /dla-architektow, zgłoszenie awarii.
+   - Instalacje: drugi salon (Zakopane, tylko gdy locations[].published), odnośnik do /dla-architektow, zgłoszenie awarii.
    - Software: „Twój projekt” (?projekt=1) jako prefill formularza — zachowaj zachowanie z SW11a; sekcje z v23 bez portretów.
 3. Formularze specjalne linii (Biznes lista zapytania, Software kreator, Instalacje Zaplanuj): podepnij pod wspólne ConsentField, walidację kontaktu i SuccessPanel z F3 — układ formularzy bez zmian.
 4. Usuń stare komponenty Kontaktu/O firmie linii (najpierw sprawdź, czy nic innego ich nie używa) i wszystkie zdjęcia/zaślepki ludzi.
