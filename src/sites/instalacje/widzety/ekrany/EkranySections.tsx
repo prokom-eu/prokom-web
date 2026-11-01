@@ -48,7 +48,7 @@ export function EkranySections() {
         </div>
       </InstSection>
 
-      <InstSection id="dwa-salony" style={SECTION}>
+      <InstSection id="dwa-ekrany" style={SECTION}>
         <div className="wrap">
           <div className="card dark ri synw" data-surface="dark">
             <TwoSalons />

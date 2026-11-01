@@ -102,7 +102,7 @@ export const SERVICE_CARDS: ServiceCard[] = [
       'szablony',
     ],
     highlights: [
-      'Wdrażamy to w naszych salonach w Rabce i Zakopanem',
+      'Wdrażamy to w naszym salonie w Rabce-Zdroju',
       'Harmonogram: rano śniadania, wieczorem kolacje',
     ],
     big: true,
@@ -322,8 +322,8 @@ export const glownaSekcje = {
       },
       {
         icon: 'pin',
-        title: 'Dwa salony blisko Ciebie',
-        text: 'Rabka-Zdrój i Zakopane. Dużo usterek naprawiamy zdalnie, a gdy trzeba przyjechać, nie jedziemy z Krakowa.',
+        title: 'Salon blisko Ciebie',
+        text: 'Rabka-Zdrój, blisko obiektów na Podhalu. Dużo usterek naprawiamy zdalnie, a gdy trzeba przyjechać, nie jedziemy z Krakowa.',
       },
     ],
   },

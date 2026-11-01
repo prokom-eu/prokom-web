@@ -290,13 +290,14 @@ test.describe('Instalacje page for architects', () => {
     }
   })
 
-  test('FAQ, no contact section without a name in the panel, sections in order', async ({
-    page,
-  }) => {
+  test('FAQ, the contact person of the seed, sections in order', async ({ page }) => {
     await open(page)
     await expect(page.locator('#faq details')).toHaveCount(10)
-    // The seed leaves the contact person empty (the boss's data, spec §9).
-    await expect(page.locator('#opiekun')).toHaveCount(0)
+    // The seed's contact person (boss 01.11): the owner, with the line's phone and e-mail.
+    const contact = page.locator('#opiekun')
+    await expect(contact.locator('h2')).toHaveText('Tadeusz Wójciak')
+    await expect(contact.locator('a[href^="tel:"]')).toHaveAttribute('href', 'tel:+48889003889')
+    await expect(contact.locator('a[href^="mailto:"]')).toHaveText('kontakt@prokominstalacje.pl')
     const ids = await page.locator('main section[id]').evaluateAll((els) => els.map((e) => e.id))
     expect(ids.indexOf('instalacje')).toBeLessThan(ids.indexOf('nowosci'))
     expect(ids.indexOf('faq')).toBeLessThan(ids.indexOf('wyslij'))

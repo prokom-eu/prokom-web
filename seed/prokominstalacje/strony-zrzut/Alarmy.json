@@ -1,7 +1,7 @@
 {
  "_strona": "Alarmy",
- "_title": "Alarmy i wideodomofony Rabka-Zdrój, Zakopane | PRO-KOM",
- "_description": "Alarmy Satel i Ajax, wideodomofony i domofony na Podhalu. Ochrona domu letniskowego zimą, powiadomienia na telefon, montaż z Rabki-Zdroju i Zakopanego.",
+ "_title": "Alarmy i wideodomofony Rabka-Zdrój, Podhale | PRO-KOM",
+ "_description": "Alarmy Satel i Ajax, wideodomofony i domofony na Podhalu. Ochrona domu letniskowego zimą, powiadomienia na telefon, montaż z Rabki-Zdroju.",
  "_uwaga": "Zrzut danych z wizualizacji v4.0 (stan początkowy strony, motyw jasny). Teksty = treść do seeda. Klucze UI (cls, on, pick) pomijaj.",
  "dane": {
   "ctaEye": "Alarm na Podhalu",
@@ -14,7 +14,7 @@
    "cta": "Zaplanuj instalację",
    "ctaHref": "Zaplanuj.dc.html",
    "crumb": "Alarmy i wideodomofony",
-   "eye": "Systemy alarmowe · Rabka-Zdrój, Zakopane, Podhale",
+   "eye": "Systemy alarmowe · Rabka-Zdrój, Podhale i Tatry",
    "h1a": "Alarm, który budzi złodzieja,",
    "h1b": "a nie Ciebie o trzeciej w nocy.",
    "lead": "Montujemy alarmy przewodowe i bezprzewodowe, czujki dymu, zalania i temperatury oraz wideodomofony z aplikacją. Do domu, domu letniskowego, pensjonatu i firmy. Po montażu testujemy czujki razem z Tobą.",

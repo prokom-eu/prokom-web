@@ -277,13 +277,13 @@ export const ekrany = {
     tvAfter: '.',
   },
 
-  /** Demo: one price change, two salons (`sy`). */
+  /** Demo: one price change, two screens of the salon (`sy`; the prototype: two salons). */
   sync: {
     eyebrow: 'Wdrażamy to u siebie',
-    heading: 'Jedna zmiana ceny. Dwa salony. Kilka sekund.',
+    heading: 'Jedna zmiana ceny. Dwa ekrany. Kilka sekund.',
     // TODO(krystian): confirm the state of the rollout in our salons (the prototype:
     // „[SZEF: potwierdź stan wdrożenia w salonach]”).
-    lead: 'Taki system wdrażamy w naszych salonach w Rabce-Zdroju i Zakopanem: ceny telefonów zmieniamy w jednym miejscu, a ekrany w obu salonach odświeżają się same. Kliknij w demo i sprawdź, jak to działa.',
+    lead: 'Taki system wdrażamy w naszym salonie w Rabce-Zdroju: ceny telefonów zmieniamy w jednym miejscu, a ekrany w witrynie i przy ladzie odświeżają się same. Kliknij w demo i sprawdź, jak to działa.',
     lowerPhone: 'Obniż cenę smartfona o 100 zł',
     promo: 'Promocja na słuchawki',
     reset: 'Przywróć ceny',
@@ -297,7 +297,7 @@ export const ekrany = {
     pricesOfDay: 'Ceny dnia',
     salon: 'Demo · PRO-KOM · salon',
     synced: 'zsynchronizowano',
-    salons: ['Rabka-Zdrój', 'Zakopane'],
+    salons: ['Rabka-Zdrój · witryna', 'Rabka-Zdrój · lada'],
     products: ['Smartfon 128 GB', 'Smartfon 256 GB', 'Tablet 11 cali', 'Słuchawki bezprzewodowe'],
     prices: [1899, 2599, 1499, 349],
   },

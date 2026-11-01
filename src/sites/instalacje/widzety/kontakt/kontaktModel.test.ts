@@ -6,6 +6,7 @@ import { describe, expect, it } from 'vitest'
 import { norm } from '@/lib/instalacje/plan'
 import { parseInquiryInput } from '@/lib/inquiry/schema'
 
+import { kontakt as K } from '../../dane/kontakt'
 import { contactBody, contactError, INITIAL_CONTACT, mapView } from './kontaktModel'
 
 // The reference: the prototype's own class (`zrodlo/pages/Kontakt.js`, v4.2) with the base
@@ -40,9 +41,18 @@ type Proto = {
   initState(): Record<string, unknown>
   page(P: unknown, c: unknown): { kt: Kt }
 }
+// One salon (boss 01.11.2026): the prototype without the Zakopane salon and with our zone texts.
+const oneSalon = source
+  .replace("['Zakopane', 49.30, 19.95, 'z', 1]", "['Zakopane', 49.30, 19.95, 'z', 0]")
+  .replace(
+    "const SH = [['Rabka-Zdrój', 49.61, 19.96], ['Zakopane', 49.30, 19.95]];",
+    "const SH = [['Rabka-Zdrój', 49.61, 19.96]];",
+  )
+  .replace(/z: 'Obsługa z salonu w Zakopanem\.[^']*'/, `z: '${K.zones.z.text}'`)
+  .replace(/p: 'Dojazd z Rabki albo Zakopanego\.[^']*'/, `p: '${K.zones.p.text}'`)
 const Prototype = new Function(
   'norm',
-  `return class { ${source}
+  `return class { ${oneSalon}
     norm(s) { return norm(s) }
     setState(o) { Object.assign(this.state, o) } }`,
 )(norm) as new () => Proto
@@ -73,6 +83,20 @@ const withoutNotes = (text: string) =>
     .trim()
 
 describe('contact map as the prototype', () => {
+  it('patches the prototype to one salon (the test would compare two salons otherwise)', () => {
+    expect(oneSalon).not.toBe(source)
+    expect(oneSalon).not.toContain("['Zakopane', 49.30, 19.95]];")
+    expect(oneSalon).not.toMatch(/Obsługa z salonu w Zakopanem|Rabki albo Zakopanego/)
+  })
+
+  it('routes every town from Rabka — no salon in Zakopane', () => {
+    expect(mapView('Zakopane').text).toBe(
+      'Zakopane · najbliżej z salonu: Rabka-Zdrój. Dojeżdżamy z Rabki-Zdroju.',
+    )
+    expect(mapView('Zakopane').pins).toHaveLength(1)
+    expect(mapView('Rabka').text).not.toContain('najbliżej')
+  })
+
   it.each(['', 'Ra', 'Szczaw', 'zakopane', 'Chabówka', 'Kraków', 'Szaflary', 'Bukowina', 'Rabka'])(
     'query %j',
     (q) => {

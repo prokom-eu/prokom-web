@@ -1,6 +1,6 @@
 {
  "_strona": "Monitoring",
- "_title": "Monitoring CCTV Rabka, Zakopane, Podhale | PRO-KOM",
+ "_title": "Monitoring CCTV Rabka-Zdrój i Podhale | PRO-KOM",
  "_description": "Monitoring CCTV dla domów, pensjonatów i firm na Podhalu: kolor w nocy, podgląd w telefonie, nagrania w obiekcie i 24 miesiące gwarancji na montaż.",
  "_uwaga": "Zrzut danych z wizualizacji v4.0 (stan początkowy strony, motyw jasny). Teksty = treść do seeda. Klucze UI (cls, on, pick) pomijaj.",
  "dane": {
@@ -14,7 +14,7 @@
    "cta": "Zaplanuj instalację",
    "ctaHref": "Zaplanuj.dc.html",
    "crumb": "Monitoring i kamery",
-   "eye": "Monitoring CCTV · Rabka-Zdrój, Zakopane, Podhale",
+   "eye": "Monitoring CCTV · Rabka-Zdrój, Podhale i Tatry",
    "h1a": "Monitoring na Podhalu, który widzi w nocy, w śniegu",
    "h1b": "i tylko to, co trzeba.",
    "lead": "Projektujemy, montujemy i serwisujemy kamery dla domów, pensjonatów, firm i gmin. Wykrywanie ludzi i aut, kolor w nocy, podgląd w telefonie i nagrania w Twoim obiekcie, ustawione tak, żeby ułatwić Ci spełnienie RODO.",
@@ -227,7 +227,7 @@
    {
     "n": "11",
     "q": "Co z serwisem po montażu?",
-    "a": "Robimy przeglądy przed sezonem: czyszczenie kamer, test dysku i nagrań, aktualizacje. Wiele rzeczy sprawdzimy zdalnie, a do obiektu na Podhalu dojeżdżamy z Rabki albo Zakopanego.",
+    "a": "Robimy przeglądy przed sezonem: czyszczenie kamer, test dysku i nagrań, aktualizacje. Wiele rzeczy sprawdzimy zdalnie, a do obiektu na Podhalu dojeżdżamy z Rabki-Zdroju.",
     "open": false
    }
   ],

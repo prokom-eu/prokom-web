@@ -206,7 +206,7 @@ export const serwis = {
   remote: {
     eyebrow: 'Zdalnie i na miejscu',
     heading: 'Dużo naprawiamy, zanim ktokolwiek wsiądzie do auta.',
-    lead: 'Za Twoją zgodą łączymy się z urządzeniami zdalnie. Jeśli trzeba przyjechać, jedziemy z najbliższego salonu: z Rabki albo z Zakopanego.',
+    lead: 'Za Twoją zgodą łączymy się z urządzeniami zdalnie. Jeśli trzeba przyjechać, jedziemy z salonu w Rabce-Zdroju.',
     items: [
       { icon: 'cam', title: 'Kamery', text: 'Ustawienia, nagrywanie, aplikacja.' },
       { icon: 'wifi', title: 'Sieć i Wi-Fi', text: 'Punkty dostępowe, vouchery, aktualizacje.' },

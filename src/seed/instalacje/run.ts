@@ -3,6 +3,7 @@ import type { Payload, Where } from 'payload'
 import { SETTINGS_DEFAULTS } from '../../lib/instalacje/options'
 import { hasSameValues } from '../compare'
 import { SEED_CONTEXT } from '../config'
+import { lineSettingsUpdate, siteContactUpdate } from './contact'
 import { FORM_PAGE_BLOCKS, needsFormBlock } from './formPages'
 import { seedInstalacjeHome } from './home'
 import { SERVICE_PAGE_KEYS } from './servicePages'
@@ -29,12 +30,13 @@ type Counter = { created: number; updated: number; skipped: number }
  * written only when it differs from the package, so a re-run makes no new versions.
  * - Services, objects, offer: every field the package provides wins over an edit in the panel;
  *   published. Services and objects point at each other, so missing ones are created first.
- * - Realizations: created as drafts without the client consent when missing, later they belong
- *   to the panel (consent, photos).
+ * - Realizations: the clients agreed (boss 01.11.2026) — created published with the consent; a
+ *   draft without consent from an older seed gets it once, later they belong to the panel.
  * - Pages: missing ones as empty drafts with title and SEO (blocks come with their sessions);
  *   an existing page is never touched — except home, which gets its `instHome` block (I5).
- * - Settings: created while missing, then they belong to the panel. Phone and e-mail of the
- *   line stay as `pnpm seed` set them (`SiteSettings`), the boss fills them in.
+ * - Settings: created while missing, then they belong to the panel. The line's real phone and
+ *   e-mail (`SiteSettings`), WhatsApp and the architects' contact person replace only the sample
+ *   or an empty field (`./contact`).
  */
 export async function seedInstalacje(payload: Payload): Promise<void> {
   const log = (message: string) => payload.logger.info(`Seed (Instalacje): ${message}`)
@@ -74,6 +76,45 @@ export async function seedInstalacje(payload: Payload): Promise<void> {
     })
   }
   count('instalacje-settings', settingsCount === 0 ? 'created' : 'skipped')
+
+  // --- the line's contact (boss 01.11.2026): only over the sample or an empty field ---
+  const {
+    docs: [lineSettings],
+  } = await payload.find({
+    collection: 'instalacje-settings',
+    where: { tenant: { equals: tenantId } },
+    limit: 1,
+    ...local,
+  })
+  const lineUpdate = lineSettings ? lineSettingsUpdate(lineSettings) : null
+  if (lineSettings && lineUpdate) {
+    await payload.update({
+      collection: 'instalacje-settings',
+      id: lineSettings.id,
+      data: lineUpdate,
+      ...local,
+    })
+  }
+  count('instalacje-settings contact', lineUpdate ? 'updated' : 'skipped')
+
+  const {
+    docs: [siteSettings],
+  } = await payload.find({
+    collection: 'site-settings',
+    where: { tenant: { equals: tenantId } },
+    limit: 1,
+    ...local,
+  })
+  const siteUpdate = siteSettings ? siteContactUpdate(siteSettings) : null
+  if (siteSettings && siteUpdate) {
+    await payload.update({
+      collection: 'site-settings',
+      id: siteSettings.id,
+      data: siteUpdate,
+      ...local,
+    })
+  }
+  count('site-settings contact', siteUpdate ? 'updated' : 'skipped')
 
   // --- services and objects: ids first, then full data with the relations ---
   const services = servicesToImport()
@@ -206,23 +247,36 @@ export async function seedInstalacje(payload: Payload): Promise<void> {
     }
   }
 
-  // --- realizations: drafts without consent, only when missing ---
+  // --- realizations: published with the clients' consent (boss 01.11.2026) ---
   for (const data of realizationsToImport()) {
-    const { totalDocs } = await payload.count({
+    const {
+      docs: [existing],
+    } = await payload.find({
       collection: 'realizations',
       where: inTenant({ legacyId: { equals: data.legacyId } }),
-      overrideAccess: true,
-      context: SEED_CONTEXT,
+      limit: 1,
+      draft: true,
+      ...local,
     })
-    if (totalDocs === 0) {
+    if (!existing) {
       await payload.create({
         collection: 'realizations',
-        data: { ...data, tenant: tenantId, _status: 'draft' },
-        draft: true,
+        data: { ...data, tenant: tenantId, _status: 'published' },
         ...local,
       })
+      count('realizations', 'created')
+    } else if (!existing.clientConsent && existing._status !== 'published') {
+      // A draft of an older seed (no consent then): it gets the consent and is published once.
+      await payload.update({
+        collection: 'realizations',
+        id: existing.id,
+        data: { clientConsent: true, _status: 'published' },
+        ...local,
+      })
+      count('realizations', 'updated')
+    } else {
+      count('realizations', 'skipped')
     }
-    count('realizations', totalDocs === 0 ? 'created' : 'skipped')
   }
 
   // --- home page (I5): the `instHome` block and SEO, also over the sample page ---

@@ -4,7 +4,7 @@ import type { InstIconName } from '../icons'
  * Texts of the contact page `/kontakt` (`zrodlo/pages/Kontakt.body.html` + `Kontakt.js`), 1:1
  * with the prototype except: phone, e-mail, WhatsApp, salons, hours and NIP come from the panel
  * (`SiteSettings`, `InstalacjeSettings`, `CompanyData`) instead of the prototype's
- * placeholders; no `[SZEF…]` notes on the page (travel rules, Zakopane and Saturday hours,
+ * placeholders; no `[SZEF…]` notes on the page (travel rules, Saturday hours,
  * parking — open questions for the boss); the consent is `CONSENT_CLAUSE`. The hero and the
  * band before the footer are edited in the panel (`instContact` block).
  */
@@ -15,14 +15,15 @@ export const kontakt = {
     town: 'Miejscowość',
     empty: 'Wpisz miejscowość (min. 3 litery)',
     emptyText: 'Pokażemy strefę dojazdu i najbliższy salon.',
-    label: 'Mapa stref dojazdu: Rabka-Zdrój, Zakopane, Podhale i Małopolska',
+    label: 'Mapa stref dojazdu: Rabka-Zdrój, Podhale, Tatry i Małopolska',
   },
   // TODO(krystian): travel rules per zone from the boss (prototype: „[SZEF: zasady dojazdu]”,
   // „Wizja lokalna zwykle w kilka dni. [SZEF]”); until then only what the page can promise.
   zones: {
     r: { name: 'Rabka-Zdrój i okolice', text: 'Najbliżej salonu w Rabce.' },
-    z: { name: 'Zakopane i Tatry', text: 'Obsługa z salonu w Zakopanem.' },
-    p: { name: 'Podhale', text: 'Dojazd z Rabki albo Zakopanego.' },
+    // One salon (boss 01.11.2026, no salon in Zakopane): the Tatra zone is served from Rabka.
+    z: { name: 'Zakopane i Tatry', text: 'Dojeżdżamy z Rabki-Zdroju.' },
+    p: { name: 'Podhale', text: 'Dojazd z Rabki-Zdroju.' },
     m: {
       name: 'Małopolska · dojazd ustalimy',
       text: 'Przy większych inwestycjach jedziemy dalej. Dojazd ustalamy indywidualnie.',

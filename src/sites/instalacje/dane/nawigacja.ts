@@ -48,7 +48,7 @@ export const navigation: Navigation = {
       label: 'O firmie',
       href: '/o-firmie',
       icon: 'shield',
-      caption: 'PRO-KOM od 2004 r., Rabka i Zakopane',
+      caption: 'PRO-KOM od 2004 r., Rabka-Zdrój',
     },
     {
       label: 'Kontakt i dojazd',
@@ -126,7 +126,6 @@ export const navigation: Navigation = {
       { label: 'Biznes · kasy, komputery, IT', href: 'https://prokombiznes.pl' },
       { label: 'Software · strony i systemy', href: 'https://prokomsoftware.pl' },
       { label: 'Tech · naprawy sprzętu', href: 'https://prokomserwis.pl' },
-      { label: 'Zakopane · salon', href: 'https://telefonyzakopane.pl' },
     ],
   },
 }
