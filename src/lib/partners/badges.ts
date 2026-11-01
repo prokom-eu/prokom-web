@@ -39,3 +39,18 @@ export function partnerStatusLabel(status: Partner['partnerStatus'] | null | und
   if (status === 'cooperation') return 'We współpracy'
   return null
 }
+
+/**
+ * Status per partner name (the Biznes phone menu, M1′): only statuses confirmed in the panel,
+ * in their full wording (`partnerStatusLabel`); partners without one are left out.
+ */
+export function partnerStatusesByName(
+  partners: { name: string; status: Partner['partnerStatus'] | null | undefined }[],
+): Record<string, string> {
+  return Object.fromEntries(
+    partners.flatMap(({ name, status }) => {
+      const label = partnerStatusLabel(status)
+      return label ? [[name, label]] : []
+    }),
+  )
+}

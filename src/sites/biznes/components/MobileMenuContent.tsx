@@ -45,16 +45,18 @@ const ROW_ICONS: Readonly<Record<string, IconName>> = {
   '/insert': 'doc',
 }
 
-type Row = { label: string; href: string; count?: number }
+type Row = { label: string; href: string; count?: number; status?: string }
 
 const positions = (n: number) => `${n} ${plural(n, ['pozycja', 'pozycje', 'pozycji'])}`
 
 /**
  * Content of the phone menu sheet (MOBILE-APLIKACJA §1, K4-FINAL §7, board `App-Menu`): the
  * departments as coloured tiles with their counts, then Gotowe zestawy, Plan Twojej firmy, the
- * panel's menu items (partners with the status confirmed in the panel, full wording — K4-FINAL
- * §1) and Automaty vendingowe; chips to the remaining pages, the theme switch and the call
+ * panel's menu items (partners with the status confirmed in the panel under the name, full
+ * wording — K4-FINAL §1) and Automaty vendingowe; chips to the remaining pages, the theme switch and the call
  * button. No „highlights” of the old mega menu — their labels are forbidden since K4.
+ * Links `replace` the sheet's own history entry (`BottomSheet` `closeOnBack`): „back” and the
+ * header's „←” then lead to the page the menu was opened on, not to the same page again.
  */
 export function MobileMenuContent({ items, offer, partnerStatuses, phone }: Props) {
   const rows: Row[] = [
@@ -65,12 +67,11 @@ export function MobileMenuContent({ items, offer, partnerStatuses, phone }: Prop
     ...items.flatMap((item): Row[] => {
       if (item.type === 'offer' || !item.href || IN_CHIPS.has(item.href)) return []
       const status = item.partner ? partnerStatuses[item.label] : undefined
-      return [
-        { label: status ? `${item.label} — ${status.toLowerCase()}` : item.label, href: item.href },
-      ]
+      return [{ label: item.label, href: item.href, ...(status && { status }) }]
     }),
     { label: 'Automaty vendingowe', href: VENDING_PATH },
-  ]
+    // A panel item with the address of a fixed row (e.g. /zestawy) shows once.
+  ].filter((row, i, all) => all.findIndex((other) => other.href === row.href) === i)
 
   return (
     <div className="mt-4 flex flex-col gap-5">
@@ -86,6 +87,7 @@ export function MobileMenuContent({ items, offer, partnerStatuses, phone }: Prop
             >
               <Link
                 href={department.href}
+                replace
                 className="flex min-h-[7.5rem] h-full flex-col justify-between gap-3 rounded-[22px] p-3.5 text-white"
                 // Department colours are data of the record (ADR-012). White text sits on the
                 // dark end only, deepened toward the corner: the light end fails AA under text.
@@ -116,14 +118,24 @@ export function MobileMenuContent({ items, offer, partnerStatuses, phone }: Prop
       <ul className="divide-y divide-border">
         {rows.map((row) => (
           <li key={row.href}>
-            <Link href={row.href} className="flex min-h-14 items-center gap-3 font-bold text-ink">
+            <Link
+              href={row.href}
+              replace
+              className="flex min-h-14 items-center gap-3 font-bold text-ink"
+            >
               <span
                 aria-hidden="true"
                 className="inline-flex size-10 shrink-0 items-center justify-center rounded-xl bg-surface-2 text-accent-text"
               >
                 <Icon name={ROW_ICONS[row.href] ?? 'arrow'} className="size-5" strokeWidth={2} />
               </span>
-              <span className="min-w-0 flex-1">{row.label}</span>
+              <span className="min-w-0 flex-1">
+                {row.label}
+                {/* Status in its full wording, as the footer badges (K4-FINAL §1, §7). */}
+                {row.status && (
+                  <span className="block text-sm font-semibold text-ink-2">{row.status}</span>
+                )}
+              </span>
               {row.count !== undefined && (
                 <span className="rounded-full bg-surface-2 px-2.5 py-0.5 text-sm font-bold text-ink-2">
                   {row.count}
@@ -143,6 +155,7 @@ export function MobileMenuContent({ items, offer, partnerStatuses, phone }: Prop
           <li key={chip.href}>
             <Link
               href={chip.href}
+              replace
               className="inline-flex min-h-11 items-center rounded-full border border-border bg-card px-4 text-[0.92rem] font-bold text-ink"
             >
               {chip.label}

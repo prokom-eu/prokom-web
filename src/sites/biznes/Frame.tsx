@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 
 import { getCatalogIndex } from '@/lib/catalog/data'
 import { offerMenu } from '@/lib/catalog/menu'
-import { partnerBadges, partnerStatusLabel } from '@/lib/partners/badges'
+import { partnerBadges, partnerStatusesByName } from '@/lib/partners/badges'
 import { getPartnerStatuses } from '@/lib/partners/data'
 import { hoursSummary } from '@/lib/site/hoursSummary'
 import { toTelHref, toWhatsAppHref } from '@/lib/site/link'
@@ -40,12 +40,6 @@ export async function BiznesFrame({ tenant, settings, biznes, company, promo, ch
     phone: settings.phone && tel ? { label: settings.phone, href: tel } : null,
     whatsapp: biznes.whatsapp ? toWhatsAppHref(biznes.whatsapp) : null,
   }
-  const partnerStatuses = Object.fromEntries(
-    partners.flatMap(({ name, status }) => {
-      const label = partnerStatusLabel(status)
-      return label ? [[name, label]] : []
-    }),
-  )
   const hours = company?.locations[0]?.hours ?? null
   return (
     <>
@@ -55,7 +49,7 @@ export async function BiznesFrame({ tenant, settings, biznes, company, promo, ch
         tenant={tenant}
         navigation={biznes.navigation}
         offer={offerMenu(index)}
-        partnerStatuses={partnerStatuses}
+        partnerStatuses={partnerStatusesByName(partners)}
         hours={hours ? hoursSummary(hours) : null}
         contact={contact}
       />

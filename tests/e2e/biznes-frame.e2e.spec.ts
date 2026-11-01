@@ -34,7 +34,7 @@ test.describe('Biznes on a phone', () => {
       '/plan-firmy',
     )
     // Partner statuses in full wording (K4-FINAL §1), no labels of the old mega menu.
-    await expect(menu.getByRole('link', { name: 'GoPOS — autoryzowany partner' })).toBeVisible()
+    await expect(menu.getByRole('link', { name: /^GoPOS\s*Autoryzowany partner$/ })).toBeVisible()
     await expect(menu).not.toContainText(/abonament|0 zł/i)
     // On phones the theme switch is in the menu, not in the header.
     await expect(menu.getByRole('button', { name: 'Tryb ciemny' })).toBeAttached()
@@ -54,6 +54,19 @@ test.describe('Biznes on a phone', () => {
       .click()
     await expect(page).toHaveURL(/\/kontakt$/)
     await expect(page.getByRole('dialog', { name: 'Menu' })).toBeHidden()
+  })
+
+  // The sheet's history entry is replaced by the next page: one „←” leads back.
+  test('„Wstecz” after a menu link returns to the previous page at once', async ({ page }) => {
+    await page.goto(site('biznes.localhost', '/oferta'))
+    await page.getByRole('banner').getByRole('button', { name: 'Menu' }).click()
+    await page
+      .getByRole('dialog', { name: 'Menu' })
+      .getByRole('link', { name: 'Kontakt i dojazd' })
+      .click()
+    await expect(page).toHaveURL(/\/kontakt$/)
+    await page.getByRole('banner').getByRole('link', { name: 'Wstecz' }).click()
+    await expect(page).toHaveURL(/\/oferta$/)
   })
 
   test('the browser’s back closes the menu and stays on the page', async ({ page }) => {
