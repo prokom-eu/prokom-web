@@ -11,8 +11,6 @@ import { PageCtaBand } from '../../sekcje/PageCtaBand'
 import { SplitHero } from '../../sekcje/SplitHero'
 import { RealizationFilters, RealizationGrid } from '../../widzety/realizacje/RealizationsWidgets'
 
-import '../../widzety/realizacje/realizacje.css'
-
 type Props = { block: InstRealizationsBlockData; tenantId: number }
 
 /**

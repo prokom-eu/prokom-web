@@ -16,8 +16,6 @@ import { SplitHero } from '../../sekcje/SplitHero'
 import type { OfferArea, OfferCategory } from '../../widzety/oferta/offerModel'
 import { OfferBar, OfferList } from '../../widzety/oferta/OfferWidgets'
 
-import '../../widzety/oferta/oferta.css'
-
 type Props = { block: InstOfferBlockData; tenantId: number }
 
 const CATEGORIES = new Set<string>(['dom', 'apt', 'pens', 'rest', 'sklep', 'firma', 'inst', 'dev'])

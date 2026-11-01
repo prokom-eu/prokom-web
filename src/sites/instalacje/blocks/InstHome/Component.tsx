@@ -29,8 +29,6 @@ import { HeroBackdrop } from '../../widzety/glowna/HeroBackdrop'
 import { LiveObjectHero } from '../../widzety/glowna/LiveObjectHero'
 import { SectionRail } from '../../widzety/glowna/SectionRail'
 
-import '../../sekcje/glowna/glowna-sekcje.css'
-
 type Props = { block: InstHomeBlockData; tenantId: number }
 
 /** Where „Zaplanuj instalację” leads: the planner with the hero's starting set (spec §5.1). */

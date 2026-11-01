@@ -7,8 +7,6 @@ import { SectionHead } from '../../sekcje/SectionHead'
 import { FilterSpectrum } from './FilterSpectrum'
 import { TvQuiz } from './TvQuiz'
 
-import './anteny.css'
-
 const SECTION = { padding: '0 0 104px' }
 
 function Features({

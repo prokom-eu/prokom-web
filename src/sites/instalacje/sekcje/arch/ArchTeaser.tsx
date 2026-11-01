@@ -10,8 +10,6 @@ import { ArchHouseScene } from './ArchHouseScene'
 import { hotspotsHtml, INITIAL_ARCH_SCENE } from './archScene'
 import { ARCH_SCENE } from './scene'
 
-import '../../widzety/architekci/architekci.css'
-
 const T = A.teaser
 const PAGE = '/dla-architektow'
 

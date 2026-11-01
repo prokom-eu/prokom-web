@@ -25,8 +25,6 @@ import { ContactHero } from '../../widzety/kontakt/ContactHero'
 import { KONTAKT_MAP_BASE, KONTAKT_MAP_TOP } from '../../widzety/kontakt/mapa'
 import { salonLabel, salonsNote } from '../../powloka/salons'
 
-import '../../widzety/kontakt/kontakt.css'
-
 type Props = { block: InstContactBlockData; tenantId: number }
 
 /**

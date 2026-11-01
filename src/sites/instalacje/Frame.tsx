@@ -19,8 +19,7 @@ import { ShellProvider } from './powloka/ShellProvider'
 import { TabBar } from './powloka/TabBar'
 import { TopBar } from './powloka/TopBar'
 import { salonsList, salonsNote } from './powloka/salons'
-import './instalacje.css'
-import './sekcje/sekcje.css'
+import { FrameStyles } from './style/LineStyles'
 
 type Props = {
   tenant: SiteTenant
@@ -48,6 +47,7 @@ export async function InstalacjeFrame({ tenant, settings, promo, children }: Pro
 
   return (
     <ShellProvider>
+      <FrameStyles />
       <div id="top" className="inst-page min-h-dvh bg-surface text-ink">
         {promo}
         <TopBar

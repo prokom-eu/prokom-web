@@ -7,8 +7,6 @@ import { InstSection } from '../../sekcje/InstSection'
 import { SectionHead } from '../../sekcje/SectionHead'
 import { CableLab, FailoverLab, LinkLab, PortalCode, VlanButtons, WallLab } from './SieciWidgets'
 
-import './sieci.css'
-
 const SECTION = { padding: '0 0 104px' }
 
 function Checks({ items, className }: { items: readonly string[]; className?: string }) {

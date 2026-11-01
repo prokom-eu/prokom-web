@@ -24,8 +24,6 @@ import { Related } from '../../sekcje/Related'
 import { FaultForm } from '../../widzety/serwis/FaultForm'
 import { salonsNote } from '../../powloka/salons'
 
-import '../../widzety/serwis/serwis.css'
-
 type Props = { block: InstServiceDeskBlockData; tenantId: number }
 
 const PATH = '/serwis'

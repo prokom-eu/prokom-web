@@ -7,8 +7,6 @@ import { InstSection } from '../../sekcje/InstSection'
 import { SectionHead } from '../../sekcje/SectionHead'
 import { BrightnessPicker, PixelPitch, TwoSalons } from './EkranyWidgets'
 
-import './ekrany.css'
-
 const SECTION = { padding: '0 0 104px' }
 
 /**

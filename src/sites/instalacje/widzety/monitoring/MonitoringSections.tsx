@@ -9,8 +9,6 @@ import { DoriCalc, RecordingCalc } from './Calculators'
 import { CameraTypes } from './CameraTypes'
 import { SystemDiagram } from './SystemDiagram'
 
-import './monitoring.css'
-
 const SECTION = { padding: '0 0 104px' }
 
 /**

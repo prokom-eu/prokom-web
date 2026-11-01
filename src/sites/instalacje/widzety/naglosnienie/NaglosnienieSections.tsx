@@ -7,8 +7,6 @@ import { InstSection } from '../../sekcje/InstSection'
 import { SectionHead } from '../../sekcje/SectionHead'
 import { ApartFamilies, ChurchDemo, SignalChain, SpeakerCalc } from './NaglosnienieWidgets'
 
-import './naglosnienie.css'
-
 const SECTION = { padding: '0 0 104px' }
 
 /**
