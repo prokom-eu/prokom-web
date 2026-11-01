@@ -5,6 +5,7 @@ import { useEffect, useState, useSyncExternalStore, type ReactNode } from 'react
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
 import type { IconName } from '@/lib/catalog/options'
+import { activeSection } from '@/lib/site/railActive'
 import { requestSearch } from '@/lib/site/searchOpen'
 import { glideTo } from '@/lib/software/smoothScroll'
 
@@ -96,7 +97,7 @@ const noSubscription = () => () => {}
 
 /**
  * Floating section rail of a start page (Biznes spec. §3.7, K36 §1; Software spec. §3.3): the
- * current section marked while scrolling (IntersectionObserver). Plain anchor links — they work
+ * current section marked while scrolling (`lib/site/railActive`). Plain anchor links — they work
  * without JavaScript too; with `glide` a click glides there instead (`lib/software/smoothScroll`).
  */
 export function SectionRail({ items, from = 1400, search = false, glide = false }: Props) {
@@ -116,16 +117,31 @@ export function SectionRail({ items, from = 1400, search = false, glide = false 
 
   useEffect(() => {
     const sections = items.flatMap((item) => document.getElementById(item.id) ?? [])
-    // A section counts as current while it crosses the middle of the screen.
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const hit = entries.find((entry) => entry.isIntersecting)
-        if (hit) setActive(hit.target.id)
-      },
-      { rootMargin: '-45% 0px -50% 0px' },
-    )
-    sections.forEach((section) => observer.observe(section))
-    return () => observer.disconnect()
+    // Measured on scroll and resize, once per frame (`railActive`: top past 40% of the screen,
+    // the last section at the bottom of the page).
+    let frame = 0
+    const update = () => {
+      frame = 0
+      const root = document.scrollingElement ?? document.documentElement
+      const atBottom = window.innerHeight + window.scrollY >= root.scrollHeight - 2
+      const id = activeSection(
+        sections.map((section) => ({ id: section.id, top: section.getBoundingClientRect().top })),
+        window.innerHeight,
+        atBottom,
+      )
+      if (id) setActive(id)
+    }
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(update)
+    }
+    update()
+    window.addEventListener('scroll', schedule, { passive: true })
+    window.addEventListener('resize', schedule, { passive: true })
+    return () => {
+      if (frame) cancelAnimationFrame(frame)
+      window.removeEventListener('scroll', schedule)
+      window.removeEventListener('resize', schedule)
+    }
   }, [items])
 
   const shown =

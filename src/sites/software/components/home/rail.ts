@@ -6,8 +6,9 @@ import {
 } from '@/lib/software/homeSections'
 
 /**
- * Section rail of the Software start page (spec. §3.3; board `Main` v22, `RAILI` — 11 entries:
- * with „Jak robimy”, „Z czego budujemy” and „Zasady”, without „Proces” and „Kontakt”, decyzja 9):
+ * Section rail of the Software start page (spec. §3.3; board `Main` v22, `RAILI`: with „Jak
+ * robimy”, „Z czego budujemy” and „Zasady”, without „Proces”, decyzja 9; „Kontakt” at the end
+ * since SWV6 — audyt 01.11):
  * only sections whose components exist, by the block that renders them — `faq` is the shared FAQ
  * block. A section that renders nothing (texts missing in the panel) is dropped by `SectionRail`
  * itself, when its anchor is not found.
@@ -23,6 +24,7 @@ export const RAIL_LABELS: Record<string, Omit<RailItem, 'id'>> = {
   technologie: { label: 'Z czego budujemy', icon: 'server' },
   zasady: { label: 'Zasady', icon: 'doc' },
   faq: { label: 'Pytania', icon: 'q' },
+  kontakt: { label: 'Kontakt', icon: 'chat' },
 }
 
 type RailBlock = { blockType: string; section?: string | null }
@@ -31,6 +33,7 @@ type RailBlock = { blockType: string; section?: string | null }
 function anchorOf(block: RailBlock, built: readonly HomeSectionValue[]): string | null {
   if (block.blockType === 'swHero') return 'start'
   if (block.blockType === 'faq') return 'faq'
+  if (block.blockType === 'swContact') return 'kontakt'
   if (block.blockType !== 'swHomeSection' || !block.section) return null
   const section = block.section as HomeSectionValue
   return built.includes(section) ? homeSectionAnchor(section) : null
