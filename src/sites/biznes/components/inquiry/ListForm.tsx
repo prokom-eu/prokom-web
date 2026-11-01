@@ -28,9 +28,11 @@ import {
   PREFERRED_CONTACTS,
   type PreferredContact,
 } from '@/lib/inquiry/types'
+
 import { plural } from '@/lib/plural'
 
 import { AreaField, ChoiceField, ConsentField, IconField } from '../forms/fields'
+import { STICKY_ACTION_BUTTON, StickyAction } from '../mobile/StickyAction'
 
 type Props = {
   formToken: string
@@ -88,6 +90,11 @@ function readValues(form: HTMLFormElement): ListFormValues {
 function buttonLabel(count: number): string {
   if (count === 0) return 'Wyślij zapytanie'
   return `Wyślij zapytanie (${count} ${plural(count, ['pozycja', 'pozycje', 'pozycji'])})`
+}
+
+/** The phone's sticky button (K4-FINAL §7): „Wyślij zapytanie · 2 poz.”. */
+function barLabel(count: number): string {
+  return count === 0 ? 'Wyślij zapytanie' : `Wyślij zapytanie · ${count} poz.`
 }
 
 /**
@@ -304,7 +311,11 @@ export function ListForm({
       <button
         type="submit"
         disabled={sending}
-        className="inline-flex min-h-[58px] w-full items-center justify-center gap-2 rounded-xl bg-accent-text px-6 text-base font-bold text-accent-ink shadow-[0_18px_30px_-16px_var(--glow)] hover:bg-ink hover:text-surface disabled:opacity-70"
+        className={cx(
+          'inline-flex min-h-[58px] w-full items-center justify-center gap-2 rounded-xl bg-accent-text px-6 text-base font-bold text-accent-ink shadow-[0_18px_30px_-16px_var(--glow)] hover:bg-ink hover:text-surface disabled:opacity-70',
+          // The page form sends from the sticky bar on a phone.
+          !compact && 'max-md:hidden',
+        )}
       >
         {sending ? 'Wysyłanie…' : buttonLabel(cart.length)}
         {!sending && <Icon name="arrow" strokeWidth={2.4} className="size-[18px]" />}
@@ -319,6 +330,15 @@ export function ListForm({
             </li>
           ))}
         </ul>
+      )}
+      {/* Phone, the page form only (MOBILE-APLIKACJA §1): the send button sticks to the bottom
+          (inside the form, so it runs the same checks) and replaces the one above. */}
+      {!compact && (
+        <StickyAction>
+          <button type="submit" disabled={sending} className={STICKY_ACTION_BUTTON}>
+            {sending ? 'Wysyłanie…' : barLabel(cart.length)}
+          </button>
+        </StickyAction>
       )}
     </form>
   )

@@ -46,7 +46,10 @@ export function BiznesHeader({
   const items = withoutEmptyDropdowns(navigation.menu, { offer: offer.departments.length > 0 })
   return (
     <>
-      <header className="sticky top-0 z-40 border-b border-border bg-surface/85 backdrop-blur-md backdrop-saturate-150">
+      <header
+        data-bz-header
+        className="sticky top-0 z-40 border-b border-border bg-surface/85 backdrop-blur-md backdrop-saturate-150"
+      >
         <Container
           wide
           className="flex min-h-[60px] items-center justify-between gap-3 sm:min-h-[76px] sm:gap-4"

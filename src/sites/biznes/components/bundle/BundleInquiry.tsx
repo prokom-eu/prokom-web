@@ -9,6 +9,8 @@ import { bundleCartItems, type BundleItem } from '@/lib/catalog/bundle'
 import { cartActions, useCart } from '@/lib/cart/store'
 import { plural } from '@/lib/plural'
 
+import { STICKY_ACTION_BUTTON, StickyAction } from '../mobile/StickyAction'
+
 export type BundleRow = BundleItem & { name: string; href: string; thumb: ReactNode }
 
 /**
@@ -47,25 +49,28 @@ export function BundleInquiry({
     })
   }
 
+  const askLabel = `Zapytaj o ten zestaw · ${items.length} poz.`
+  const onAsk = () => {
+    if (listed) return
+    const result = cartActions.addItems(items, (added) =>
+      added === items.length
+        ? `zestaw „${name}”`
+        : `${added} ${plural(added, ['pozycja', 'pozycje', 'pozycji'])} zestawu`,
+    )
+    setNotice(
+      result.skipped > 0
+        ? `Lista zapytania jest pełna — ${result.skipped} ${plural(result.skipped, ['pozycja nie zmieściła', 'pozycje nie zmieściły', 'pozycji nie zmieściło'])} się. Usuń coś z listy i kliknij jeszcze raz.`
+        : result.added === 0 && result.noted > 0
+          ? 'Te pozycje już były w zapytaniu — dopisaliśmy przy nich zestaw.'
+          : null,
+    )
+  }
+
   const ask = (
     <button
       type="button"
       aria-disabled={listed}
-      onClick={() => {
-        if (listed) return
-        const result = cartActions.addItems(items, (added) =>
-          added === items.length
-            ? `zestaw „${name}”`
-            : `${added} ${plural(added, ['pozycja', 'pozycje', 'pozycji'])} zestawu`,
-        )
-        setNotice(
-          result.skipped > 0
-            ? `Lista zapytania jest pełna — ${result.skipped} ${plural(result.skipped, ['pozycja nie zmieściła', 'pozycje nie zmieściły', 'pozycji nie zmieściło'])} się. Usuń coś z listy i kliknij jeszcze raz.`
-            : result.added === 0 && result.noted > 0
-              ? 'Te pozycje już były w zapytaniu — dopisaliśmy przy nich zestaw.'
-              : null,
-        )
-      }}
+      onClick={onAsk}
       className={cx(
         'inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-2xl px-5 font-extrabold transition-colors',
         listed
@@ -79,7 +84,7 @@ export function BundleInquiry({
           <Icon name="check" strokeWidth={2.6} className="size-4" />
         </>
       ) : (
-        <>Zapytaj o ten zestaw · {items.length} poz.</>
+        askLabel
       )}
     </button>
   )
@@ -127,12 +132,15 @@ export function BundleInquiry({
           {plural(items.length, ['pozycja trafi', 'pozycje trafią', 'pozycji trafi'])} do zapytania.
           Ofertę dostaniesz na piśmie.
         </p>
-        <div className="mt-5">{ask}</div>
-        {notice && (
-          <p role="status" className="mt-3 text-sm leading-relaxed font-bold text-white">
-            {notice}
-          </p>
-        )}
+        {/* On a phone the sticky bar carries the action and its notice. */}
+        <div className="mt-5 max-md:hidden">{ask}</div>
+        {/* Always in the page, so screen readers announce a new text. */}
+        <p
+          role="status"
+          className="mt-3 text-sm leading-relaxed font-bold text-white empty:hidden max-md:hidden"
+        >
+          {notice}
+        </p>
         {listed && (
           <Link
             href="/zapytanie"
@@ -161,6 +169,23 @@ export function BundleInquiry({
           </div>
         )}
       </aside>
+      {/* Phone (MOBILE-APLIKACJA §1): the same action sticks to the bottom; once the set is on
+          the list it leads to the inquiry. */}
+      <StickyAction>
+        <p role="status" className="mb-2 text-sm leading-snug font-bold text-ink empty:hidden">
+          {notice}
+        </p>
+        {listed ? (
+          <Link href="/zapytanie" className={STICKY_ACTION_BUTTON}>
+            Zestaw w zapytaniu — przejdź
+            <Icon name="arrow" strokeWidth={2.4} className="size-4" />
+          </Link>
+        ) : (
+          <button type="button" onClick={onAsk} className={STICKY_ACTION_BUTTON}>
+            {askLabel}
+          </button>
+        )}
+      </StickyAction>
     </div>
   )
 }
