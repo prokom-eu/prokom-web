@@ -1,57 +1,13 @@
 import { expect, type Page, test } from '@playwright/test'
 
 import { site } from '../helpers'
+import { INST_HOST, INST_PAGES } from './pages'
 
-// Every finished page of the Instalacje line (plan przyspieszenia §2 p. 3): the checks of spec §10
-// and MOBILE-APLIKACJA §10 that hold for any page. A session adds its pages to PAGES — nothing
-// else; page-specific behaviour stays in the page's own spec. Data from `pnpm seed`.
-const HOST = 'instalacje.localhost'
-
-const PAGES = [
-  '/',
-  '/anteny',
-  '/monitoring',
-  '/alarmy',
-  '/kontrola-dostepu',
-  '/sieci-wifi',
-  '/teletechnika',
-  '/smart-home',
-  '/naglosnienie',
-  '/ekrany',
-  '/ladowarki-ev',
-  // „Dla kogo” (I10).
-  ...[
-    'dom',
-    'apartamenty',
-    'pensjonaty',
-    'hotele',
-    'restauracje',
-    'sklepy',
-    'firmy',
-    'koscioly',
-    'szkoly',
-    'gminy',
-    'deweloperzy',
-    'budowy',
-  ].map((slug) => `/dla-kogo/${slug}`),
-  // Formularze (I11).
-  '/zaplanuj',
-  '/kontakt',
-  '/serwis',
-  // Dla architektów (I16a).
-  '/dla-architektow',
-  // Oferta i Realizacje (I12).
-  '/uslugi',
-  '/realizacje',
-  // O firmie, Poradnik i wpis RODO (I12).
-  '/o-firmie',
-  '/poradnik',
-  '/poradnik/monitoring-a-rodo',
-  // Strony prawne (I13).
-  '/polityka-prywatnosci',
-  '/cookies',
-  '/dostepnosc',
-]
+// Every page of the Instalacje line (`pages.ts`): the checks of spec §10 that hold for any page.
+// Phone checks (360/390/414, touch targets, header, bottom bar): telefon.e2e.spec.ts (I14).
+// Page-specific behaviour stays in the page's own spec. Data from `pnpm seed`.
+const HOST = INST_HOST
+const PAGES = INST_PAGES
 
 // Known exceptions, each with its open question in docs/stan/STAN-instalacje.md.
 // TODO(krystian): the home title has 66 characters (SEO §2.2: ≤ 65) — shorten it in the panel.
@@ -85,37 +41,6 @@ for (const path of PAGES) {
         .locator('script[type="application/ld+json"]')
         .evaluateAll((els) => els.map((e) => e.textContent ?? ''))
       for (const block of jsonLd) expect(() => JSON.parse(block)).not.toThrow()
-    })
-
-    for (const width of [360, 390, 414]) {
-      test(`no horizontal scroll at ${width} px`, async ({ page }) => {
-        await page.setViewportSize({ width, height: 844 })
-        await open(page, path)
-        // Scroll the whole page once: lazy and revealed parts are laid out too.
-        await page.evaluate(async () => {
-          for (let y = 0; y < document.documentElement.scrollHeight; y += 600) {
-            window.scrollTo(0, y)
-            await new Promise((r) => setTimeout(r, 30))
-          }
-        })
-        expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width)
-      })
-    }
-
-    test('buttons are touch targets of at least 40 px on a phone', async ({ page }) => {
-      await page.setViewportSize({ width: 390, height: 844 })
-      await open(page, path)
-      const small = await page
-        .locator('main :is(button, a.btn, [role="tab"]):visible')
-        .evaluateAll((els) =>
-          els
-            .map((el) => ({
-              text: (el.textContent ?? '').trim().slice(0, 30),
-              h: el.getBoundingClientRect().height,
-            }))
-            .filter(({ h }) => h > 0 && h < 40),
-        )
-      expect(small).toEqual([])
     })
   })
 }

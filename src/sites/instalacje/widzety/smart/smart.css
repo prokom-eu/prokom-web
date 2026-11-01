@@ -23,6 +23,10 @@
   & .shp {
     cursor: pointer;
   }
+  /* Invisible touch area of a room, out to the plan's edge at the outer wall (I14). */
+  & .shhit {
+    fill: transparent;
+  }
   & .shout {
     fill: var(--surface-3);
     stroke: var(--ink-soft);

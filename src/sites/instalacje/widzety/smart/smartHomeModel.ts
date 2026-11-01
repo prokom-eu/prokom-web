@@ -11,6 +11,26 @@ export const ROOM_KEYS = Object.keys(PLAN.rooms) as RoomKey[]
 
 // ── Floor plan (`sh`) ────────────────────────────────────────────────────────────────────
 
+type Rect = { x: number; y: number; w: number; h: number }
+
+/** Plan viewBox (640×400); the rooms fill 20…620 × 20…380 inside the outer wall. */
+const PLAN_W = 640
+const PLAN_H = 400
+const ROOMS_EDGE = 20
+
+/**
+ * Touch area of a room (MOBILE-APLIKACJA §6, I14): a room at the outer wall reaches out to the
+ * plan's edge, so the 80-unit garage is still 44 px tall at 360 px. Inner sides stay put —
+ * neighbouring rooms never overlap.
+ */
+export function roomHitRect(r: Rect): Rect {
+  const x = r.x <= ROOMS_EDGE ? 0 : r.x
+  const y = r.y <= ROOMS_EDGE ? 0 : r.y
+  const right = r.x + r.w >= PLAN_W - ROOMS_EDGE ? PLAN_W : r.x + r.w
+  const bottom = r.y + r.h >= PLAN_H - ROOMS_EDGE ? PLAN_H : r.y + r.h
+  return { x, y, w: right - x, h: bottom - y }
+}
+
 export type RoomControls = { l: number; b: number; t: number }
 export type PlanState = {
   rs: Record<RoomKey, RoomControls>
@@ -109,6 +129,8 @@ export type PlanView = {
     temp: string
     terrace: boolean
     selected: boolean
+    /** Touch area (`roomHitRect`). */
+    hit: Rect
   }[]
   windows: {
     x: number
@@ -143,6 +165,7 @@ export function planView(state: PlanState): PlanView {
       temp: key === 'tar' || key === 'gar' ? '' : `${s.t}°`,
       terrace: key === 'tar',
       selected: state.sel === key,
+      hit: roomHitRect(g),
     }
   })
   const windows = PLAN.windows.map(([room, x, y, w, h]) => {

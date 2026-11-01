@@ -15,6 +15,7 @@ import {
   INITIAL_PLAN,
   type PlanState,
   planView,
+  roomHitRect,
   sceneState,
   toggle,
 } from './smartHomeModel'
@@ -232,5 +233,25 @@ describe('checklist and panel', () => {
     const s = smartHome.panels.sizes[size]!
     expect(`grid-template-columns:repeat(${s.cols},minmax(0,1fr))`).toBe(ref.gst)
     expect(s.fields).toBe(ref.icons.length)
+  })
+})
+
+// I14: a room drawn at the outer wall reaches into the plan's margin for the thumb (the
+// garage is 80 of 400 units — 41 px at 360 px), never into a neighbouring room.
+describe('roomHitRect', () => {
+  it('extends the garage down to the edge of the plan', () => {
+    expect(roomHitRect(smartHome.plan.rooms.gar)).toEqual({ x: 300, y: 300, w: 340, h: 100 })
+  })
+
+  it('extends the living room up and left, the hall not at all', () => {
+    expect(roomHitRect(smartHome.plan.rooms.sal)).toEqual({ x: 0, y: 0, w: 300, h: 230 })
+    expect(roomHitRect(smartHome.plan.rooms.hol)).toEqual({ x: 300, y: 170, w: 150, h: 130 })
+  })
+
+  it('the hit areas of the rooms never overlap', () => {
+    const rects = Object.values(smartHome.plan.rooms).map(roomHitRect)
+    for (const [i, a] of rects.entries())
+      for (const b of rects.slice(i + 1))
+        expect(a.x < b.x + b.w && b.x < a.x + a.w && a.y < b.y + b.h && b.y < a.y + a.h).toBe(false)
   })
 })

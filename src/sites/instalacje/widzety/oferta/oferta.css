@@ -355,8 +355,9 @@
       margin-left: -4px;
       margin-right: -4px;
     }
+    /* 16 px: iOS zooms into a smaller field (MOBILE-APLIKACJA §6; prototype 15 px). */
     & .ofbar .ofs input {
-      font-size: 15px;
+      font-size: 16px;
     }
     & .ofnav {
       margin: 0 -16px;
