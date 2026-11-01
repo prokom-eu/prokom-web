@@ -19,6 +19,12 @@ const RULES: { name: string; pattern: RegExp }[] = [
     // The verb only („zapisujemy”, „zapisany”) — „zapisy w umowie” is a plain noun.
     pattern: /(?<![\p{L}])zapis(?:uj|an)\p{L}*(?:\s+(?:go|je|ją))?\s+w\s+umowie/iu,
   },
+  // K4-FINAL §1 and [SZEF]: issuing a qualified signature on the spot is not confirmed.
+  {
+    name: 'podpis na miejscu',
+    pattern:
+      /(?<![\p{L}])wyda(?:jemy|my)\s[^.]{0,60}(?:podpis|pieczęć|EuroCert)|EuroCert\s+na\s+miejscu/iu,
+  },
   ...BANNED_BRANDS.map((brand) => ({
     name: `marka ${brand}`,
     pattern: new RegExp(`(?<![\\p{L}])${brand}(?![\\p{L}])`, 'iu'),

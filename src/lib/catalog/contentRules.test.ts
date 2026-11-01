@@ -50,6 +50,14 @@ describe('forbiddenContent (K3-KATALOG §10: zero prices, banned brands)', () =>
     expect(forbiddenContent('Zapisy w umowie są jasne.')).toEqual([])
   })
 
+  it('finds a qualified signature issued on the spot (K4-FINAL §1, [SZEF])', () => {
+    expect(forbiddenContent('Wydajemy EuroCert na miejscu.')).toEqual(['podpis na miejscu'])
+    expect(forbiddenContent('Podpis i pieczęć EuroCert wydajemy w Rabce.')).toEqual([])
+    expect(forbiddenContent('Wydamy podpis kwalifikowany od ręki.')).toEqual(['podpis na miejscu'])
+    expect(forbiddenContent('Pomożemy wyrobić podpis EuroCert.')).toEqual([])
+    expect(forbiddenContent('Wydajemy fakturę po wdrożeniu.')).toEqual([])
+  })
+
   it('lets ordinary texts through', () => {
     expect(forbiddenContent('Kasa z 2 drukarkami, 5 lat gwarancji, PLU 10 000')).toEqual([])
     expect(forbiddenContent('Wiraty, ratunek i karaty — nie raty')).toEqual(['raty'])
