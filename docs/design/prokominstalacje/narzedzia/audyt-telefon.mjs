@@ -30,7 +30,7 @@ mkdirSync(OUT, { recursive: true })
 
 const browser = await chromium.launch()
 const context = await browser.newContext({
-  viewport: { width: 390, height: 844 },
+  viewport: { width: PHONE_WIDTHS[0], height: 844 },
   deviceScaleFactor: 2,
   isMobile: true,
   hasTouch: true,
@@ -51,7 +51,7 @@ for (const path of list) {
       const found = new Map()
       for (const theme of THEMES) {
         await setTheme(page, theme)
-        for (const p of await auditPhone(page)) {
+        for (const p of await auditPhone(page, width)) {
           const key = `${p.kind}: ${p.detail}`
           found.set(key, [...(found.get(key) ?? []), theme])
         }

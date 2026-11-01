@@ -33,14 +33,13 @@ export async function setTheme(page: Page, theme: string): Promise<void> {
  * Runs every check on the open page. Scrolls the whole page first (lazy and revealed parts are
  * laid out), then measures; leaves the page scrolled to the top.
  */
-export async function auditPhone(page: Page): Promise<PhoneProblem[]> {
-  return page.evaluate(async () => {
+export async function auditPhone(page: Page, width: number): Promise<PhoneProblem[]> {
+  return page.evaluate(async (vw) => {
     const problems: { kind: string; detail: string }[] = []
     const add = (kind: string, detail: string) => problems.push({ kind, detail })
     const frame = () => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)))
     const wait = (ms: number) => new Promise((r) => setTimeout(r, ms))
     const html = document.documentElement
-    const vw = window.innerWidth
     const label = (el: Element) => {
       const id = el.id ? `#${el.id}` : ''
       const cls =
@@ -90,8 +89,13 @@ export async function auditPhone(page: Page): Promise<PhoneProblem[]> {
     const targets = document.querySelectorAll(
       'main :is(button, a.btn, [role="tab"], [role="button"], [role="radio"], [role="switch"], select, textarea, input:not([type="hidden"], [type="checkbox"], [type="radio"], [type="range"], [type="submit"]))',
     )
-    // A honeypot (`aria-hidden`, out of the tab order) is not for people.
-    const hidden = (el: Element) => el.closest('[aria-hidden="true"]') !== null
+    // A honeypot (hidden from readers and out of the tab order) is not for people.
+    const hidden = (el: Element) =>
+      el.getAttribute('aria-hidden') === 'true' && el.getAttribute('tabindex') === '-1'
+    // Scenes whose drawn points have 44 px buttons doing the same (WCAG 2.5.8 „equivalent
+    // control”): the architects' cross-section (arrows of the point card, I16a) and the
+    // Monitoring diagram (arrows and dots under it). Their points are notes, not failures.
+    const SCENES_WITH_BUTTONS = '.arsvgw, .syscroll'
     for (const el of targets) {
       if (!shown(el) || hidden(el)) continue
       // A field inside its label: the whole label is what the thumb hits.
@@ -99,9 +103,7 @@ export async function auditPhone(page: Page): Promise<PhoneProblem[]> {
       const r = area.getBoundingClientRect()
       if (r.height >= 43.5 && r.width >= 43.5) continue
       const size = `${Math.round(r.width)}×${Math.round(r.height)} ${label(el)}`
-      // Points drawn in an SVG scene scale with the drawing; each scene with them also has
-      // 44 px buttons doing the same (arrows, list) — a note, WCAG 2.5.8 „equivalent control”.
-      add(el.closest('svg') ? 'scene' : 'target', size)
+      add(el.closest(SCENES_WITH_BUTTONS) ? 'scene' : 'target', size)
     }
     for (const box of document.querySelectorAll(
       'main input:is([type="checkbox"], [type="radio"])',
@@ -124,7 +126,7 @@ export async function auditPhone(page: Page): Promise<PhoneProblem[]> {
       if (!named) add('form', `bez etykiety ${label(el)} [name=${el.name}]`)
       const key = `${el.name} ${el.autocomplete}`.toLowerCase()
       if (el.tagName === 'INPUT') {
-        if (/tel|phone|telefon/.test(key) && el.type !== 'tel')
+        if (/(tel|phone|telefon)/.test(key) && el.type !== 'tel')
           add('form', `telefon bez type=tel [name=${el.name}]`)
         if (/mail/.test(key) && el.type !== 'email')
           add('form', `e-mail bez type=email [name=${el.name}]`)
@@ -132,12 +134,8 @@ export async function auditPhone(page: Page): Promise<PhoneProblem[]> {
     }
 
     // 4. Folded sections announce their state.
-    for (const b of document.querySelectorAll('main button')) {
-      if (
-        /Pokaż całą sekcję|Zwiń sekcję/.test(b.textContent ?? '') &&
-        !b.hasAttribute('aria-expanded')
-      )
-        add('fold', `bez aria-expanded ${label(b)}`)
+    for (const b of document.querySelectorAll('main button.foldb')) {
+      if (!b.hasAttribute('aria-expanded')) add('fold', `bez aria-expanded ${label(b)}`)
     }
 
     // 5. Carousels snap (note only: tables and the anchor bar scroll without snapping).
@@ -160,20 +158,25 @@ export async function auditPhone(page: Page): Promise<PhoneProblem[]> {
       if (!html.hasAttribute('data-hdr-hidden'))
         add('header', 'nie chowa się po przewinięciu w dół')
       // The anchor bar sits under the hero: scroll well past where it starts, then it is stuck.
+      // Skipped when the page ends too soon after it.
       const anchors = document.querySelector('nav.anchors')
-      if (anchors && shown(anchors) && getComputedStyle(anchors).position === 'sticky') {
-        const start = anchorsStart
-        window.scrollTo(0, start + 600)
+      const maxScroll = html.scrollHeight - window.innerHeight
+      if (
+        anchors &&
+        shown(anchors) &&
+        getComputedStyle(anchors).position === 'sticky' &&
+        anchorsStart + 1200 <= maxScroll
+      ) {
+        window.scrollTo(0, anchorsStart + 600)
         await wait(80)
-        window.scrollTo(0, start + 1200)
+        window.scrollTo(0, anchorsStart + 1200)
         await wait(450)
         const top = anchors.getBoundingClientRect().top
         if (html.hasAttribute('data-hdr-hidden') && Math.abs(top) > 1)
           add('anchors', `pasek kotwic ${Math.round(top)} px od góry przy schowanym nagłówku`)
-        window.scrollTo(0, start + 800)
-      } else {
-        window.scrollTo(0, 700)
       }
+      // Back up from wherever the page stopped (never pinned at its end).
+      window.scrollTo(0, window.scrollY - 400)
       await wait(450)
       if (html.hasAttribute('data-hdr-hidden')) add('header', 'nie wraca po przewinięciu w górę')
     }
@@ -197,5 +200,5 @@ export async function auditPhone(page: Page): Promise<PhoneProblem[]> {
     window.scrollTo(0, 0)
     await wait(450)
     return problems
-  })
+  }, width)
 }
