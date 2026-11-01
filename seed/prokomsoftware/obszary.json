@@ -4,7 +4,7 @@
     {
       "name": "Strony internetowe",
       "short": "Firmowe, dla noclegów, lokali, landing page",
-      "countLabel": "7 rozwiązań",
+      "countLabel": null,
       "icon": "M3 5h18v14H3zM3 9h18M7 7h.01M10 7h.01",
       "gradient": [
         "#6E45D4",
@@ -53,7 +53,7 @@
     {
       "name": "Systemy i panele",
       "short": "Zlecenia, CRM, czas pracy, Excel",
-      "countLabel": "8 rozwiązań",
+      "countLabel": null,
       "icon": "M3 4h18v16H3zM3 9h18M9 9v11",
       "gradient": [
         "#1F6F8B",
@@ -98,7 +98,7 @@
     {
       "name": "Aplikacje mobilne",
       "short": "Dla ekip w terenie i dla klientów",
-      "countLabel": "4 rozwiązania",
+      "countLabel": null,
       "icon": "M8 2h8a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zM11 18h2",
       "gradient": [
         "#3A7BD5",
@@ -135,7 +135,7 @@
     {
       "name": "Sklepy i zamówienia",
       "short": "Rezerwacje, zamówienia, płatności",
-      "countLabel": "3 rozwiązania",
+      "countLabel": null,
       "icon": "M4 5h16v16H4zM4 10h16M9 3v4M15 3v4",
       "gradient": [
         "#E8955A",
@@ -168,7 +168,7 @@
     {
       "name": "Rozbudowa i połączenia",
       "short": "Dobudujemy, czego brakuje",
-      "countLabel": "4 rozwiązania",
+      "countLabel": null,
       "icon": "M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4",
       "gradient": [
         "#24324A",
@@ -205,7 +205,7 @@
     {
       "name": "Automatyzacje i AI",
       "short": "SMS-y, raporty, asystent AI",
-      "countLabel": "3 rozwiązania",
+      "countLabel": null,
       "icon": "M13 2L4 14h7l-1 8 9-12h-7z",
       "gradient": [
         "#B7791F",
@@ -253,15 +253,15 @@
       "order": 7,
       "chips": [
         {
-          "label": "Opieka podstawowa",
+          "label": "Podstawowa",
           "solution": "opieka-nad-strona-i-systemem"
         },
         {
-          "label": "Opieka z monitoringiem",
+          "label": "Rozszerzona",
           "solution": "opieka-nad-strona-i-systemem"
         },
         {
-          "label": "Opieka nad systemem",
+          "label": "Systemy",
           "solution": "opieka-nad-strona-i-systemem"
         },
         {
