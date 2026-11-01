@@ -1451,7 +1451,7 @@ export interface Industry {
        */
       hubCaption?: string | null;
       /**
-       * Np. „Co boli w budowlance”.
+       * Np. „Co zabiera czas w budowlance”.
        */
       problemsEyebrow?: string | null;
       /**

@@ -64,7 +64,7 @@ export function HowWeBuild({ view }: { view: HowWeBuildView }) {
               rel="noopener"
               className="text-accent-text underline underline-offset-4"
             >
-              sprawdź status naprawy na prokomserwis.pl →
+              sprawdź status naprawy na prokomserwis.pl <span aria-hidden="true">→</span>
               <span className="sr-only"> (nowe okno)</span>
             </a>
           </p>

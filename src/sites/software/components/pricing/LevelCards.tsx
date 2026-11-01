@@ -12,7 +12,7 @@ type Props = {
 }
 
 /**
- * Levels of care or kinds of audit as cards (board `Cennik` „Spokój co miesiąc”, `Audyt`):
+ * Levels of care or kinds of audit as cards (board `Cennik` „Opieka po wdrożeniu”, `Audyt`):
  * price, description, reaction or term, what the level gives and its button. The recommended
  * one is framed with „Polecamy” and comes first on the phone (spec. §6.4).
  */

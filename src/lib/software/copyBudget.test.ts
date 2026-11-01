@@ -17,6 +17,17 @@ const files = [
 const text = files.map((file) => readFileSync(file, 'utf8')).join('\n')
 const count = (pattern: RegExp) => text.match(pattern)?.length ?? 0
 
+/** Code of the line too: texts built into components and fallbacks reach the site as well. */
+const codeFiles = (dir: string): string[] =>
+  readdirSync(join(root, dir), { recursive: true, withFileTypes: true })
+    .filter((entry) => entry.isFile() && /\.tsx?$/.test(entry.name))
+    .filter((entry) => !/\.test\.tsx?$/.test(entry.name))
+    .map((entry) => join(entry.parentPath, entry.name))
+const code = [...codeFiles('src/sites/software'), ...codeFiles('src/lib/software')]
+  .filter((file) => !file.endsWith('copyBudget.test.ts'))
+  .map((file) => readFileSync(file, 'utf8'))
+  .join('\n')
+
 describe('Software copy budget (SWV9 §1, §5)', () => {
   it('„zanim / potem zapłacisz” at most 3 times', () => {
     expect(count(/(zanim|potem) zapłacisz/gi)).toBeLessThanOrEqual(3)
@@ -26,8 +37,9 @@ describe('Software copy budget (SWV9 §1, §5)', () => {
     expect(count(/robi się sam|robią się same|składa się sam/gi)).toBeLessThanOrEqual(2)
   })
 
-  it('never „co boli”', () => {
+  it('never „co boli” — in the seeds nor in the code (fallbacks, components)', () => {
     expect(count(/co boli/gi)).toBe(0)
+    expect(code).not.toMatch(/co boli/i)
   })
 
   it('„na piśmie” at most 25 times', () => {
@@ -41,6 +53,7 @@ describe('Software copy budget (SWV9 §1, §5)', () => {
   it('no „od ilu kosztuje”, „Dzień dobry, Anna” or booking in the wizard', () => {
     expect(count(/od ilu kosztuje/gi)).toBe(0)
     expect(count(/Dzień dobry, Anna\b/g)).toBe(0)
+    expect(code).not.toMatch(/Dzień dobry, Anna\b/) // the mock-ups greet in the vocative
     expect(readFileSync(join(root, 'seed/prokomsoftware/kreator.json'), 'utf8')).not.toMatch(
       /rezerwacje\./,
     )

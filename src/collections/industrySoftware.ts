@@ -143,7 +143,7 @@ export const industrySoftwareGroup: Field = {
               label: 'Problemy — nadtytuł',
               type: 'text',
               maxLength: 40,
-              admin: { description: 'Np. „Co boli w budowlance”.' },
+              admin: { description: 'Np. „Co zabiera czas w budowlance”.' },
             },
             {
               name: 'solutionsEyebrow',

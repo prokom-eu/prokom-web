@@ -18,7 +18,7 @@ function LineIcon({ name, className }: { name?: string | null; className?: strin
 }
 
 /**
- * The PRO-KOM lines on a Software subpage (board `Wszystko`): „Każda robi swoje…” — all cards in
+ * The PRO-KOM lines on a Software subpage (board `Wszystko`): „Co załatwisz w PRO-KOM poza stroną” — all cards in
  * one row from 1081 px (this site's card outlined, links only to sites that exist; one point is a
  * plain description, more are a ticked list — SWV6 `/o-firmie`) — or „Dwa przykłady z Podhala.”
  * — per client what each line did.
