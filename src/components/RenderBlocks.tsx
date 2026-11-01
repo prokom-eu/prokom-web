@@ -43,6 +43,10 @@ import { InstContactBlock } from '@/sites/instalacje/blocks/InstContact/Componen
 import { InstHomeBlock } from '@/sites/instalacje/blocks/InstHome/Component'
 import { InstPlannerBlock } from '@/sites/instalacje/blocks/InstPlanner/Component'
 import { InstServiceDeskBlock } from '@/sites/instalacje/blocks/InstServiceDesk/Component'
+import { InstOfferBlock } from '@/sites/instalacje/blocks/InstOffer/Component'
+import { InstRealizationsBlock } from '@/sites/instalacje/blocks/InstRealizations/Component'
+import { InstAboutBlock } from '@/sites/instalacje/blocks/InstAbout/Component'
+import { InstGuideBlock } from '@/sites/instalacje/blocks/InstGuide/Component'
 import { InstServiceBlock } from '@/sites/instalacje/blocks/InstService/Component'
 import { SwHeroBlock } from '@/sites/software/blocks/SwHero/Component'
 import { SwContactBlock } from '@/sites/software/blocks/SwContact/Component'
@@ -72,6 +76,10 @@ const HERO_BLOCKS = new Set([
   'instContact',
   'instServiceDesk',
   'instArchitects',
+  'instOffer',
+  'instRealizations',
+  'instAbout',
+  'instGuide',
 ])
 
 /** First block carries the H1: a hero block, or a K4 section of a hero kind (K4hij). */
@@ -252,6 +260,14 @@ export function RenderBlocks({ page, tenant }: Props) {
             return <InstServiceDeskBlock key={key} block={block} tenantId={tenant.id} />
           case 'instArchitects':
             return <InstArchitectsBlock key={key} block={block} tenantId={tenant.id} />
+          case 'instOffer':
+            return <InstOfferBlock key={key} block={block} tenantId={tenant.id} />
+          case 'instRealizations':
+            return <InstRealizationsBlock key={key} block={block} tenantId={tenant.id} />
+          case 'instAbout':
+            return <InstAboutBlock key={key} block={block} tenantId={tenant.id} />
+          case 'instGuide':
+            return <InstGuideBlock key={key} block={block} tenantId={tenant.id} />
         }
       })}
     </>
