@@ -212,9 +212,11 @@ describe('page SEO (I11)', () => {
   })
 })
 
-describe('page SEO of the contact page (I11)', () => {
-  it('keeps the contact title within 65 characters with the site name', () => {
-    const page = pagesToImport().find((item) => item.slug === 'kontakt')
-    expect(`${page?.seo.title} | PRO-KOM Instalacje`.length).toBeLessThanOrEqual(65)
+describe('page SEO of the contact and service pages (I11)', () => {
+  it('keeps their titles within 65 characters with the site name', () => {
+    for (const slug of ['kontakt', 'serwis']) {
+      const page = pagesToImport().find((item) => item.slug === slug)
+      expect(`${page?.seo.title} | PRO-KOM Instalacje`.length, slug).toBeLessThanOrEqual(65)
+    }
   })
 })

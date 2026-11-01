@@ -11,7 +11,8 @@ import { InstSection } from './InstSection'
 type Props = {
   tenantId: number
   heading: string | null | undefined
-  services: InstService['relatedServices']
+  /** Populated services; only their card fields are used (`/serwis` passes `getInstalacjeCards`). */
+  services: (number | ServiceChip)[] | null | undefined
   /** Populated objects; only their card fields are used (object pages pass `getInstalacjeCards`). */
   objects: (number | ObjectChip)[] | null | undefined
   /** Heading of the „Podobne obiekty” strip (prototype `segRelH`). */
@@ -25,6 +26,11 @@ const ORDER: readonly string[] = SERVICE_KEYS.map(({ value }) => value)
 type ObjectChip = Pick<
   InstObject,
   'id' | 'slug' | 'name' | 'icon' | 'color' | 'menuCaption' | '_status' | 'tenant'
+>
+
+type ServiceChip = Pick<
+  InstService,
+  'id' | 'key' | 'slug' | 'name' | 'icon' | 'color' | 'menuCaption' | '_status' | 'tenant'
 >
 
 type Entry = { _status?: 'draft' | 'published' | null; tenant?: unknown }
@@ -54,7 +60,7 @@ export function Related({
   objectsHeading,
   extraLink,
 }: Props) {
-  const cards = shown<InstService>(services, tenantId)
+  const cards = shown<ServiceChip>(services, tenantId)
     .filter((service) => service.slug)
     .sort((a, b) => ORDER.indexOf(a.key) - ORDER.indexOf(b.key))
   const chips = shown<ObjectChip>(objects, tenantId).filter((object) => object.slug)

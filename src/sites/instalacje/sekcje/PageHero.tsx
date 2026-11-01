@@ -15,8 +15,11 @@ type Props = {
   phone: Phone | null
   /** Right column: the page's widget or illustration (`.phv`). */
   widget?: ReactNode
-  /** Middle breadcrumb (object pages: „Dla kogo”, prototype `hero.midT`); default „Usługi”. */
-  parent?: { label: string; href: string }
+  /**
+   * Middle breadcrumb (object pages: „Dla kogo”, prototype `hero.midT`); default „Usługi”;
+   * `null` = none (prototype `hero.mid: false`, e.g. `/serwis`).
+   */
+  parent?: { label: string; href: string } | null
 }
 
 const SERVICES = { label: 'Usługi', href: '/#uslugi' }
@@ -52,8 +55,12 @@ export function PageHero({ hero, name, anchors, phone, widget, parent = SERVICES
           <nav className="crumb in d1" aria-label="Okruszki">
             <Link href="/">Start</Link>
             <span aria-hidden="true">/</span>
-            <Link href={parent.href}>{parent.label}</Link>
-            <span aria-hidden="true">/</span>
+            {parent && (
+              <>
+                <Link href={parent.href}>{parent.label}</Link>
+                <span aria-hidden="true">/</span>
+              </>
+            )}
             <span aria-current="page">{crumb}</span>
           </nav>
           <div className="phw">

@@ -473,7 +473,13 @@ const PAGE_FILES: { slug: string; title: string; file: SeedPage; seoTitle?: stri
     file: Kontakt,
     seoTitle: 'Kontakt i dojazd: Rabka-Zdrój i Zakopane',
   },
-  { slug: 'serwis', title: 'Serwis', file: Serwis },
+  // The package's title + „| PRO-KOM Instalacje” has 66 characters.
+  {
+    slug: 'serwis',
+    title: 'Serwis',
+    file: Serwis,
+    seoTitle: 'Serwis kamer, alarmów i sieci na Podhalu',
+  },
   { slug: 'o-firmie', title: 'O firmie', file: OFirmie },
   { slug: 'realizacje', title: 'Realizacje', file: Realizacje },
   { slug: 'poradnik', title: 'Poradnik', file: Poradnik },
