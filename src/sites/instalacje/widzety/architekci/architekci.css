@@ -3008,6 +3008,22 @@
     color: light-dark(color-mix(in srgb, var(--hc) 60%, var(--inst-hue-ink)), var(--hc)) !important;
   }
 
+  /* Stage arrows at the first and last stage (disabled, review I16a). */
+  & .aretph .arnav:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
+
+  /* Reduced motion: also the cable flow and the label dot (the prototype stops only the LEDs and
+     the hotspot ring; spec §4 promises no motion, review I16a). */
+  @media (prefers-reduced-motion: reduce) {
+    & .arw,
+    & .arfib,
+    & .arlbl i {
+      animation: none;
+    }
+  }
+
   /* Phone: touch targets of 44 px (MOBILE §10, like I9/I10; the prototype has 32–40 px). The
      hotspots on the drawing stay as drawn (~28 px at 820 px): previous/next in the card reach
      every one of them. */

@@ -91,6 +91,13 @@ export const sceneClass = (s: ArchSceneState) =>
 export const hotspotClass = (i: number, s: ArchSceneState) =>
   'arhs L-' + (HOTSPOTS[i]?.service ?? '') + (i === currentHotspot(s) ? ' on' : '')
 
+/**
+ * A hotspot the eye cannot see: all of them in „Gotowy dom” (`opacity: 0`), and those on a
+ * switched-off layer. It leaves the Tab order and the accessibility tree (review I16a).
+ */
+export const hotspotHidden = (i: number, s: ArchSceneState) =>
+  s.view === 'kl' || s.off.includes(HOTSPOTS[i]?.service as ServiceKey)
+
 /** „Liczby do projektu” of a hotspot. */
 export const hotspotSpec = (h: ArchHotspot) => przekroj.specs[h.spec] ?? przekroj.specFallback
 
@@ -106,7 +113,8 @@ export function hotspotsHtml(hues: Partial<Record<ServiceKey, string>>, s: ArchS
   return HOTSPOTS.map(
     (h, i) =>
       `<g class="${hotspotClass(i, s)}" data-k="${i}" transform="translate(${h.x} ${h.y})" ` +
-      `style="--hc:${safeHue(hues[h.service])}" role="button" tabindex="0" ` +
+      `style="--hc:${safeHue(hues[h.service])}" role="button" ` +
+      `tabindex="${hotspotHidden(i, s) ? -1 : 0}"${hotspotHidden(i, s) ? ' aria-hidden="true"' : ''} ` +
       `aria-label="${i + 1}. ${escapeAttr(h.title)}">` +
       '<circle r="17" class="arhsr"></circle><circle r="11.5" class="arhsc"></circle>' +
       `<text y="4" text-anchor="middle" class="arhst">${i + 1}</text></g>`,
@@ -114,4 +122,4 @@ export function hotspotsHtml(hues: Partial<Record<ServiceKey, string>>, s: ArchS
 }
 
 const escapeAttr = (text: string) =>
-  text.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;')
+  text.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;')

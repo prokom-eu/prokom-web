@@ -14,7 +14,7 @@ import { architekci as A } from '../../dane/architekci'
 import { InstIcon } from '../../InstIcon'
 import { AnchorsBar } from '../../powloka/AnchorsBar'
 import { ArchHouseScene } from '../../sekcje/arch/ArchHouseScene'
-import { hotspotsHtml, INITIAL_ARCH_SCENE } from '../../sekcje/arch/archScene'
+import { hotspotsHtml, INITIAL_ARCH_SCENE, safeHue } from '../../sekcje/arch/archScene'
 import { ARCH_SCENE } from '../../sekcje/arch/scene'
 import { InstSection } from '../../sekcje/InstSection'
 import { JsonLd } from '../../sekcje/JsonLd'
@@ -73,10 +73,7 @@ export async function InstArchitectsBlock({ block, tenantId }: Props) {
   return (
     // The prototype's page hue (`pkSt: --h` = the line's turquoise, Monitoring's colour):
     // section eyebrows and odd sections take it, like the service pages.
-    <div
-      className="inst-svc inst-ar"
-      style={{ '--h': hues.kam ?? 'var(--accent)' } as CSSProperties}
-    >
+    <div className="inst-svc inst-ar" style={{ '--h': safeHue(hues.kam) } as CSSProperties}>
       {origin && (
         <>
           <JsonLd

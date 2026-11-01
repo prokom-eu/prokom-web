@@ -14,6 +14,7 @@ import {
   CALM_ARCH_SCENE,
   currentHotspot,
   hotspotClass,
+  hotspotHidden,
   hotspotsHtml,
   hotspotSpec,
   INITIAL_ARCH_SCENE,
@@ -211,6 +212,20 @@ describe('ArchHouseScene — logic', () => {
   it('reduced motion starts on „Wszystkie instalacje”, hotspot 1, no autoplay', () => {
     expect(CALM_ARCH_SCENE).toMatchObject({ view: 'in', hs: 0, touched: true })
     expect(autoplayStep(CALM_ARCH_SCENE)).toBe(CALM_ARCH_SCENE)
+  })
+
+  it('takes hidden hotspots out of the Tab order (review I16a)', () => {
+    // „Gotowy dom”: none of them is visible.
+    expect(przekroj.hotspots.every((_, i) => hotspotHidden(i, INITIAL_ARCH_SCENE))).toBe(true)
+    const s: ArchSceneState = { ...INITIAL_ARCH_SCENE, view: 'in', off: ['wifi'] }
+    przekroj.hotspots.forEach((h, i) => expect(hotspotHidden(i, s)).toBe(h.service === 'wifi'))
+    const html = hotspotsHtml({}, s)
+    expect(html).toContain(
+      'data-k="6" transform="translate(352 406)" style="--hc:var(--accent)" role="button" tabindex="-1" aria-hidden="true"',
+    )
+    expect(html).toContain(
+      'data-k="0" transform="translate(194 250)" style="--hc:var(--accent)" role="button" tabindex="0" aria-label="1. Kamera pod okapem"',
+    )
   })
 
   it('builds the hotspot markup with safe colours and escaped titles', () => {

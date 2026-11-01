@@ -28,7 +28,7 @@ test.describe('Instalacje page for architects', () => {
     await expect(scene).toHaveClass(/m-in/)
     await expect(page.locator('.arinfot b')).toHaveText('Kamera pod okapem')
 
-    await page.getByRole('tab', { name: 'Przed tynkami' }).click()
+    await page.locator('#hero').getByRole('tab', { name: 'Przed tynkami' }).click()
     await expect(scene).toHaveClass(/m-ty/)
 
     await page.getByRole('button', { name: '7. Punkt Wi-Fi w suficie' }).click()
@@ -51,9 +51,9 @@ test.describe('Instalacje page for architects', () => {
     await page.keyboard.press('Enter')
     await expect(page.locator('.arinfot b')).toHaveText('Szklany panel Ampio')
 
-    await page.getByRole('tab', { name: 'Wszystkie instalacje' }).focus()
+    await page.locator('#hero').getByRole('tab', { name: 'Wszystkie instalacje' }).focus()
     await page.keyboard.press('ArrowLeft')
-    await expect(page.getByRole('tab', { name: 'Przed tynkami' })).toBeFocused()
+    await expect(page.locator('#hero').getByRole('tab', { name: 'Przed tynkami' })).toBeFocused()
     await expect(page.locator('#hero .ars')).toHaveClass(/m-ty/)
   })
 
@@ -66,12 +66,18 @@ test.describe('Instalacje page for architects', () => {
 
   test('the section tabs switch their panels', async ({ page }) => {
     await open(page)
-    await page.getByRole('tab', { name: /Deweloper/ }).click()
+    await page
+      .locator('#dla-ciebie')
+      .getByRole('tab', { name: /Deweloper/ })
+      .click()
     await expect(page.locator('#dla-ciebie [role="tabpanel"]')).toContainText(
       'Zakres dla dewelopera',
     )
 
-    await page.getByRole('tab', { name: /Wykończenie/ }).click()
+    await page
+      .locator('#etapy')
+      .getByRole('tab', { name: /Wykończenie/ })
+      .click()
     await expect(page.locator('#etapy [role="tabpanel"]')).toContainText('Montaż urządzeń')
 
     const services = page.locator('#instalacje [role="tablist"]')

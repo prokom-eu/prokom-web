@@ -6,6 +6,7 @@ import {
   type MouseEvent,
   useEffect,
   useRef,
+  useId,
   useState,
   useSyncExternalStore,
 } from 'react'
@@ -14,6 +15,7 @@ import type { ServiceKey } from '@/lib/instalacje/options'
 
 import { type ArchView, przekroj as T } from '../../dane/przekroj'
 import { InstIcon } from '../../InstIcon'
+import { onTabKey } from '../../widzety/architekci/tabs'
 import { useInterval } from '../useInterval'
 import {
   ARCH_START_MS,
@@ -24,6 +26,7 @@ import {
   CALM_ARCH_SCENE,
   currentHotspot,
   hotspotClass,
+  hotspotHidden,
   hotspotSpec,
   INITIAL_ARCH_SCENE,
   pickHotspot,
@@ -66,6 +69,7 @@ const hue = (color: string | null | undefined) => ({ '--hc': safeHue(color) }) a
 export function ArchHouseScene({ viewBox, html, hues, compact = false }: Props) {
   const ref = useRef<HTMLDivElement>(null)
   const art = useRef<SVGSVGElement>(null)
+  const artId = useId()
   const [state, setState] = useState<ArchSceneState>(INITIAL_ARCH_SCENE)
   const calm = useSyncExternalStore(subscribeMotion, reducedMotion, () => false)
   // Reduced motion: the calm start until the first touch, then the visitor's own state.
@@ -83,7 +87,12 @@ export function ArchHouseScene({ viewBox, html, hues, compact = false }: Props) 
   })
   useEffect(() => {
     art.current?.querySelectorAll<SVGGElement>('[data-k]').forEach((g) => {
-      g.setAttribute('class', hotspotClass(Number(g.dataset.k), scene))
+      const k = Number(g.dataset.k)
+      g.setAttribute('class', hotspotClass(k, scene))
+      // Invisible hotspots leave the Tab order and the accessibility tree (review I16a).
+      const hidden = hotspotHidden(k, scene)
+      g.setAttribute('tabindex', hidden ? '-1' : '0')
+      g.toggleAttribute('aria-hidden', hidden)
     })
   }, [scene])
 
@@ -102,16 +111,9 @@ export function ArchHouseScene({ viewBox, html, hues, compact = false }: Props) 
     event.preventDefault()
     setScene((s) => pickHotspot(s, k))
   }
-  // Arrow keys move between the view tabs (tablist pattern).
-  const onModeKey = (event: KeyboardEvent<HTMLButtonElement>, i: number) => {
-    const d = event.key === 'ArrowRight' ? 1 : event.key === 'ArrowLeft' ? -1 : 0
-    if (!d) return
-    event.preventDefault()
-    const next = T.views[(i + d + T.views.length) % T.views.length]
-    if (!next) return
-    setScene((s) => pickView(s, next.key))
-    const tabs = event.currentTarget.parentElement?.querySelectorAll<HTMLButtonElement>('button')
-    tabs?.[(i + d + T.views.length) % T.views.length]?.focus()
+  const selectView = (i: number) => {
+    const next = T.views[i]
+    if (next) setScene((s) => pickView(s, next.key))
   }
 
   const cur = T.hotspots[hs] ?? T.hotspots[0]
@@ -135,8 +137,9 @@ export function ArchHouseScene({ viewBox, html, hues, compact = false }: Props) 
                     className={on ? 'armode on' : 'armode'}
                     aria-selected={on}
                     tabIndex={on ? 0 : -1}
+                    aria-controls={artId}
                     onClick={() => setScene((s) => pickView(s, v.key as ArchView))}
-                    onKeyDown={(e) => onModeKey(e, i)}
+                    onKeyDown={(e) => onTabKey(e, i, T.views.length, selectView)}
                   >
                     <InstIcon name={v.icon} size={15} />
                     {v.name}
@@ -151,6 +154,7 @@ export function ArchHouseScene({ viewBox, html, hues, compact = false }: Props) 
           </div>
           <svg
             ref={art}
+            id={artId}
             viewBox={viewBox}
             className="arsvg"
             role="group"
@@ -234,7 +238,17 @@ export function ArchHouseScene({ viewBox, html, hues, compact = false }: Props) 
         </div>
       )}
       {/* Read out only after a touch: the autoplay does not talk (like I4–I10). */}
-      <p className="vh" aria-live={scene.touched ? 'polite' : 'off'}>
+      {/* Text description of the drawing for screen readers (spec §8). */}
+      {!compact && (
+        <ol className="vh">
+          {T.hotspots.map((h, i) => (
+            <li key={h.title}>
+              {`${i + 1}. ${h.title} — ${T.layers.find((l) => l.service === h.service)?.name}, ${T.stagePrefix}${h.stage}. ${T.sees}: ${h.sees}`}
+            </li>
+          ))}
+        </ol>
+      )}
+      <p className="vh" aria-live="polite">
         {scene.touched ? `${hs + 1}. ${cur.title}` : ''}
       </p>
     </div>

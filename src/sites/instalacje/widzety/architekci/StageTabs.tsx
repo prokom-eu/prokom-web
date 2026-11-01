@@ -70,6 +70,7 @@ export function StageTabs() {
             <button
               type="button"
               className="arnav"
+              disabled={i === 0}
               onClick={() => setI(Math.max(0, i - 1))}
               aria-label={T.prev}
             >
@@ -78,6 +79,7 @@ export function StageTabs() {
             <button
               type="button"
               className="arnav"
+              disabled={i === n - 1}
               onClick={() => setI(Math.min(n - 1, i + 1))}
               aria-label={T.next}
             >
