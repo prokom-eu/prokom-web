@@ -43,6 +43,9 @@ export function EkranySections() {
                 {where.tvLink.label}
               </Link>
               {where.tvAfter}
+              <Link href={where.realizationsLink.href} className="scr-link">
+                {where.realizationsLink.label}
+              </Link>
             </span>
           </div>
         </div>
