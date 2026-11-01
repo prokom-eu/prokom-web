@@ -198,7 +198,7 @@ export function HeroBuilder({ modules }: Props) {
 
   return (
     <div className="hidden min-w-0 flex-col gap-5 min-[640px]:flex">
-      <div aria-hidden="true" className="relative mx-auto w-full max-w-[640px] pt-10">
+      <div aria-hidden="true" data-parallax className="relative mx-auto w-full max-w-[640px] pt-10">
         <span className="absolute left-1/2 top-0 z-30 inline-flex -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full bg-card px-3 py-1.5 text-xs font-extrabold text-ink shadow-raised ring-1 ring-border">
           <i className="size-2 rounded-full bg-ok" />
           Twój system ·

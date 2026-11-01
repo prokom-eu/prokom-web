@@ -27,9 +27,11 @@ test.describe('Software motion', () => {
   test('the rail glides to a section, focuses it and its heading arrives', async ({ page }) => {
     await page.goto(site(HOST))
     expect(await scrollBehavior(page)).toBe('smooth')
-    // Section headings rise in while scrolling (Chromium supports `animation-timeline`).
-    expect((await animations(page)).map((a) => a.name)).toContain('sw-rise')
+    // SWV7: sections below the screen wait hidden and rise in once seen (`RevealObserver`).
+    const pending = page.locator('[data-reveal-pending]')
+    expect(await pending.count()).toBeGreaterThan(0)
     await page
+
       .getByRole('navigation', { name: 'Na tej stronie' })
       .locator('a[href="#jak-robimy"]')
       .click()
@@ -47,6 +49,12 @@ test.describe('Software motion', () => {
         }),
       )
       .toBe('arrived')
+    // The heading of the section reached has risen in and stays (no hiding on the way back up).
+    const head = page.locator('#jak-robimy [data-reveal]').first()
+    await expect(head).toHaveAttribute('data-revealed', '')
+    await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }))
+    await expect(head).toHaveAttribute('data-revealed', '')
+    await expect(head).not.toHaveAttribute('data-reveal-pending')
   })
 })
 
@@ -56,6 +64,8 @@ test.describe('Software motion with reduced motion', () => {
   test('the start page does not move', async ({ page }) => {
     await page.goto(site(HOST))
     expect(await scrollBehavior(page)).toBe('auto')
+    // Nothing waits hidden for a rise-in (SWV7).
+    expect(await page.locator('[data-reveal-pending]').count()).toBe(0)
     await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight / 2))
     expect((await animations(page)).filter((a) => OURS.test(a.name))).toEqual([])
   })

@@ -24,7 +24,7 @@ const NOTE_ICONS = [
 export function LivePreviewPanel({ preview, texts }: { preview: LivePreview; texts: Texts }) {
   return (
     <div className="flex flex-col gap-4 min-[640px]:gap-5">
-      <div aria-hidden="true" className="relative min-[641px]:aspect-[1060/560]">
+      <div aria-hidden="true" data-parallax className="relative min-[641px]:aspect-[1060/560]">
         <div className="min-[641px]:absolute min-[641px]:top-[3%] min-[641px]:left-[8.5%] min-[641px]:w-[78%]">
           <PreviewLaptop kind={preview.kind} />
         </div>

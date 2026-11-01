@@ -16,7 +16,7 @@ export function SiteLogo({
   const dark = hasDarkTheme(tenant.line)
   const alt = `${tenant.name} — strona główna`
   return (
-    <Link href="/" className="shrink-0">
+    <Link href="/" className="shrink-0" data-site-logo>
       <Image
         src={brandAsset(tenant.line, 'poziome_kolor.svg')}
         alt={alt}

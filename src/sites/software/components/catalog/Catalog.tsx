@@ -327,7 +327,7 @@ export function Catalog({ index, offers, hero }: Props) {
               </div>
             </div>
           ) : (
-            <ul className="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+            <ul data-reveal-cards className="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
               {results.map((solution, i) => (
                 <li key={solution.slug}>
                   <SolutionCard

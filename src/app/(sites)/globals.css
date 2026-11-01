@@ -1,6 +1,7 @@
 /* Public sites only — the Payload panel has its own root layout and styles. */
 @import 'tailwindcss';
 @import '../../styles/tokens.css';
+@import '../../styles/motion.css';
 
 /*
  * Tailwind knows only the brand tokens: the default palette and fonts are reset, so a class
@@ -336,110 +337,14 @@
   display: none;
 }
 
-/*
- * Software on a phone feels like an app (MOBILE-APLIKACJA §4 pkt 1): no grey tap rectangle,
- * no double-tap zoom delay, and every link and button answers the press at once. Inline text
- * links are untouched (a transform does not apply to inline boxes). Tailwind v4 moves elements
- * with `translate`/`scale`, not `transform`, so this does not undo a utility. Hover effects are
- * already limited to `(hover: hover)` by Tailwind.
- */
-[data-line='software'] :is(a, button, summary, [role='tab']) {
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
-}
-@media (prefers-reduced-motion: no-preference) {
-  [data-line='software']
-    :is(a, button, summary, [role='tab']):not(:disabled, [data-stretched]):active {
-    transform: scale(0.97);
-  }
-  /* A button stretched over its card (`after:absolute after:inset-0`, `data-stretched`) must
-     not get a transform: it would become the containing block of its `::after`, shrink it to
-     the button while pressed, and a press elsewhere on the card would never click. The card
-     (`data-card`, the positioned box of the `::after`) answers instead. */
-  [data-line='software'] [data-card]:has([data-stretched]:active) {
-    transform: scale(0.985);
-  }
-}
-
-/*
- * Motion of Software v23 (SWV5, MOBILE-APLIKACJA §4 pkt 10, ZMIANY-v23 §5): transform and opacity
- * only, nothing at all with reduced motion. The room under the sticky header for anchors is the
- * sections' own `scroll-mt-24`.
- */
-@media (prefers-reduced-motion: no-preference) {
-  html[data-line='software'] {
-    scroll-behavior: smooth;
-  }
-
-  /* The rail glided to a section (`lib/software/smoothScroll`): its heading arrives. */
-  [data-line='software'] [data-arrive] h2 {
-    animation: sw-arrive 1.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-  }
-
-  /* An FAQ answer opens softly (the `<details>` content is rendered on open). */
-  [data-line='software'] details[open] > :not(summary) {
-    animation: sw-faq 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
-  }
-
-  /* Section headings, FAQ questions and the map rise in while scrolling; browsers without
-     scroll-driven animations show them as they are. Cards follow one by one from 1081 px only
-     (on a phone the carousels scroll on their own). */
-  @supports (animation-timeline: view()) {
-    [data-line='software'] [data-reveal] {
-      animation: sw-rise linear both;
-      animation-timeline: view();
-      animation-range: entry 2% cover 18%;
-    }
-
-    @media (min-width: 1081px) {
-      [data-line='software'] [data-reveal-cards] > * {
-        animation: sw-rise linear both;
-        animation-timeline: view();
-        animation-range: entry 2% cover 18%;
-      }
-      [data-line='software'] [data-reveal-cards] > :nth-child(4n + 2) {
-        animation-range: entry 6% cover 22%;
-      }
-      [data-line='software'] [data-reveal-cards] > :nth-child(4n + 3) {
-        animation-range: entry 10% cover 26%;
-      }
-      [data-line='software'] [data-reveal-cards] > :nth-child(4n + 4) {
-        animation-range: entry 14% cover 30%;
-      }
-    }
-  }
-
-  /* Page transitions (`PageTransition`: the old page `sw-page-out`, the new `sw-page-in`): the content fades out
-     and rises in; header and bottom bar have their own names, so they stay. */
-  [data-line='software'] [data-sw-header] {
-    view-transition-name: sw-header;
-  }
-  [data-line='software'] [data-tab-bar] {
-    view-transition-name: sw-tab-bar;
-  }
-  html[data-line='software']::view-transition-old(.sw-page-out) {
-    animation: sw-vt-out 0.22s ease both;
-  }
-  html[data-line='software']::view-transition-new(.sw-page-in) {
-    animation: sw-vt-in 0.32s cubic-bezier(0.2, 0.8, 0.2, 1) both;
-  }
-}
+/* Motion of Software (press, hover, reveal, sheets, transitions): `src/styles/motion.css`. The
+   Biznes page transitions below reuse its `sw-vt-out` / `sw-vt-in` keyframes. */
 
 /* Biznes phone app (M1′, MOBILE-APLIKACJA §4 pkt 9, WCAG 2.4.11): a focused field or a scrolled-to
    target never ends up under the bottom bar (tab bar or sticky action). */
 @media (max-width: 767px) {
   html[data-line='biznes'] {
     scroll-padding-bottom: calc(5.5rem + env(safe-area-inset-bottom));
-  }
-}
-
-/* Reduced motion: every part of a page transition (the content, the root, header and bar)
-   swaps without the browser's default cross-fade or move. */
-@media (prefers-reduced-motion: reduce) {
-  html[data-line='software']::view-transition-group(*),
-  html[data-line='software']::view-transition-old(*),
-  html[data-line='software']::view-transition-new(*) {
-    animation: none;
   }
 }
 
@@ -473,45 +378,6 @@
   }
   html[data-line='biznes']::view-transition-new(.bz-page-in) {
     animation: sw-vt-in 0.32s cubic-bezier(0.2, 0.8, 0.2, 1) both;
-  }
-}
-
-@keyframes sw-rise {
-  from {
-    opacity: 0;
-    transform: translateY(26px) scale(0.985);
-  }
-}
-
-@keyframes sw-arrive {
-  0% {
-    opacity: 0.35;
-    transform: translateY(10px);
-  }
-  35% {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-@keyframes sw-faq {
-  from {
-    opacity: 0;
-    transform: translateY(-6px);
-  }
-}
-
-@keyframes sw-vt-out {
-  to {
-    opacity: 0;
-    transform: translateY(-6px);
-  }
-}
-
-@keyframes sw-vt-in {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
   }
 }
 

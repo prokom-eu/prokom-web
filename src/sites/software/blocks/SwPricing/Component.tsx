@@ -163,7 +163,7 @@ export async function SwPricingBlock({ block, tenantId, isFirst }: Props) {
           <Container wide className="flex flex-col gap-6">
             <div>
               {block.tableEyebrow ? <p className={eyebrowClass}>{block.tableEyebrow}</p> : null}
-              <h2 id="cennik-h" className={h2Class}>
+              <h2 id="cennik-h" data-reveal className={h2Class}>
                 {block.tableTitle}
               </h2>
             </div>
@@ -181,7 +181,7 @@ export async function SwPricingBlock({ block, tenantId, isFirst }: Props) {
           <Container wide className="flex flex-col gap-6">
             <div className="max-w-[720px]">
               {block.careEyebrow ? <p className={eyebrowClass}>{block.careEyebrow}</p> : null}
-              <h2 id="opieka-h" className={h2Class}>
+              <h2 id="opieka-h" data-reveal className={h2Class}>
                 {block.careTitle}
               </h2>
               {block.careLead ? (
@@ -213,7 +213,7 @@ export async function SwPricingBlock({ block, tenantId, isFirst }: Props) {
           <Container wide className="flex flex-col gap-6">
             <div className="max-w-[720px]">
               {block.auditEyebrow ? <p className={eyebrowClass}>{block.auditEyebrow}</p> : null}
-              <h2 id="audyt-h" className={h2Class}>
+              <h2 id="audyt-h" data-reveal className={h2Class}>
                 {block.auditTitle}
               </h2>
               {block.auditLead ? (
@@ -232,11 +232,14 @@ export async function SwPricingBlock({ block, tenantId, isFirst }: Props) {
               {block.includedEyebrow ? (
                 <p className={eyebrowClass}>{block.includedEyebrow}</p>
               ) : null}
-              <h2 id="w-cenie-h" className={h2Class}>
+              <h2 id="w-cenie-h" data-reveal className={h2Class}>
                 {block.includedTitle}
               </h2>
             </div>
-            <ul className="grid gap-2.5 min-[641px]:grid-cols-2 min-[1081px]:grid-cols-4">
+            <ul
+              data-reveal-cards
+              className="grid gap-2.5 min-[641px]:grid-cols-2 min-[1081px]:grid-cols-4"
+            >
               {included.map((item) => (
                 <li
                   key={item.id ?? item.title}

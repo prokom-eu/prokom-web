@@ -80,7 +80,13 @@ export function SolutionDialog({
   onClose,
   closeOnBack = false,
 }: Props) {
-  const view = slug ? views[slug] : undefined
+  const opened = slug ? views[slug] : undefined
+  // While it closes, the window keeps showing the last solution (SWV7: the closing transition
+  // would otherwise move an empty panel). Stored during render, the React way for „previous”.
+  const [lastView, setLastView] = useState(opened)
+  if (opened && opened !== lastView) setLastView(opened)
+  const view = opened ?? lastView
+  const isOpen = Boolean(opened)
   const project = useProject()
   const [pick, setPick] = useState<{ slug: string; index: number } | null>(null)
   /** The list was full when this solution was added (no toast then, so the window says it). */
@@ -147,7 +153,7 @@ export function SolutionDialog({
 
   if (!view) {
     return (
-      <BottomSheet open={false} onClose={onClose} title="" panelClassName={PANEL}>
+      <BottomSheet open={false} onClose={onClose} title="" panelClassName={PANEL} motion="dialog">
         {null}
       </BottomSheet>
     )
@@ -305,7 +311,8 @@ export function SolutionDialog({
 
   return (
     <BottomSheet
-      open
+      motion="dialog"
+      open={isOpen}
       onClose={onClose}
       title={view.name}
       headingRef={heading}

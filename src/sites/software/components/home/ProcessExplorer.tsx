@@ -30,8 +30,8 @@ export function ProcessExplorer({ stages, panels }: { stages: Stage[]; panels: R
           className="absolute top-[26px] right-[10%] left-[10%] hidden h-[3px] rounded-full bg-border min-[641px]:block"
         >
           <i
-            className="block h-full rounded-full bg-accent transition-[width] duration-500"
-            style={{ width: `${fill}%` }}
+            className="block h-full w-full origin-left rounded-full bg-accent transition-transform duration-(--dur-enter) ease-(--ease-out) motion-reduce:transition-none"
+            style={{ transform: `scaleX(${fill / 100})` }}
           />
         </div>
         <div

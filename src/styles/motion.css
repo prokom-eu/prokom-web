@@ -1,0 +1,588 @@
+/*
+ * Motion of the Software line — one system (SWV7; MOBILE-APLIKACJA §4, ZMIANY-v23 §5).
+ * Curves and times are tokens (`tokens.css`: --ease-*, --dur-*). Only transform/translate/scale,
+ * opacity, filter and clip-path move — nothing changes the layout (no CLS). Hover only with a fine
+ * pointer; on touch the press state instead. With `prefers-reduced-motion: reduce` nothing moves:
+ * colours still change, quickly.
+ * Hooks in the markup: `data-reveal`, `data-reveal-cards` (sections and card lists rising in,
+ * `RevealObserver`), `data-motion="button|button-outline"`, `data-card`, `data-icon="arrow"`,
+ * `data-mega-panel`, `data-motion` on sheets (`BottomSheet`), `data-sw-header`, `data-tab-bar`.
+ */
+
+/* --- 1. Every clickable element changes smoothly --------------------------------------------
+   In the `base` layer: Tailwind's utilities (`@layer utilities`) win over it, so a component's
+   own `transition-*` or `motion-reduce:transition-none` still decides (a style outside any layer
+   would beat every utility). The transform family springs back after a press; colours and
+   shadows ease out. With reduced motion only colours, shadows and outlines change, quickly. */
+@layer base {
+  :where([data-line='software'])
+    :where(a, button, summary, [role='tab'], [role='switch'], input, select, textarea, label) {
+    transition-property:
+      color, background-color, border-color, box-shadow, outline-color, outline-offset, opacity,
+      filter, text-decoration-color, translate, scale, transform;
+    transition-duration: var(--dur-hover);
+    transition-timing-function:
+      var(--ease-out), var(--ease-out), var(--ease-out), var(--ease-out), var(--ease-out),
+      var(--ease-out), var(--ease-out), var(--ease-out), var(--ease-out), var(--ease-spring),
+      var(--ease-spring), var(--ease-spring);
+  }
+
+  /* Focus ring grows into place (outline-offset 0 → 3 px), never hidden (WCAG 2.4.7). */
+  :where([data-line='software']) :where(a, button, summary, [role='tab'], input, select, textarea) {
+    outline-offset: 0;
+  }
+  :where([data-line='software']) :focus-visible {
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :where([data-line='software'])
+      :where(a, button, summary, [role='tab'], [role='switch'], input, select, textarea, label) {
+      transition-property:
+        color, background-color, border-color, box-shadow, outline-color, opacity,
+        text-decoration-color;
+      transition-duration: 150ms;
+      transition-timing-function: var(--ease-out);
+    }
+  }
+}
+
+/* Buttons of the system (`Button`, `data-motion`): their own `transition-colors` would leave the
+   press and the lift without a transition, so these win over the component's utility. */
+[data-line='software'] :is([data-motion='button'], [data-motion='button-outline']) {
+  transition-property:
+    color, background-color, border-color, box-shadow, filter, translate, scale, transform;
+  transition-duration: var(--dur-hover);
+  transition-timing-function:
+    var(--ease-out), var(--ease-out), var(--ease-out), var(--ease-out), var(--ease-out),
+    var(--ease-spring), var(--ease-spring), var(--ease-spring);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-line='software'] :is([data-motion='button'], [data-motion='button-outline']) {
+    transition-property: color, background-color, border-color, box-shadow;
+    transition-duration: 150ms;
+  }
+}
+
+/* No grey tap rectangle, no double-tap zoom delay (MOBILE-APLIKACJA §4 pkt 1). */
+[data-line='software'] :is(a, button, summary, [role='tab'], label) {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Press: a quick shrink, then the spring of the rule above brings it back. Inline text links
+     are untouched (a transform does not apply to inline boxes). */
+  [data-line='software']
+    :is(a, button, summary, [role='tab']):not(:disabled, [data-stretched]):active {
+    transform: scale(0.97);
+    transition-duration: var(--dur-press);
+  }
+  /* A button stretched over its card (`data-stretched`) must not get a transform: it would
+     become the containing block of its `::after` and a press elsewhere on the card would never
+     click. The card (`data-card`) answers instead. */
+  [data-line='software'] [data-card] {
+    transition:
+      translate var(--dur-state) var(--ease-out),
+      box-shadow var(--dur-state) var(--ease-out),
+      border-color var(--dur-hover) var(--ease-out),
+      transform var(--dur-press) var(--ease-out);
+  }
+  [data-line='software'] [data-card]:has([data-stretched]:active) {
+    transform: scale(0.985);
+  }
+
+  /* The picture of a card grows inside its frame (`data-card-media`: the frame of an `<img>`, or
+     a drawn scene clipped by its card). */
+  [data-line='software'] [data-card-media] img,
+  [data-line='software'] [data-card-media]:not(:has(img)) {
+    transition: scale var(--dur-state) var(--ease-out);
+  }
+
+  /* Arrows in links and buttons, icons in cards. */
+  [data-line='software'] [data-icon='arrow'],
+  [data-line='software'] [data-card] [data-card-icon] {
+    transition:
+      translate var(--dur-hover) var(--ease-out),
+      scale var(--dur-hover) var(--ease-out);
+  }
+}
+
+/* --- 2. Hover — mouse and trackpad only ------------------------------------------------------ */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  [data-line='software'] :is(a, button):hover [data-icon='arrow'] {
+    translate: 3px 0;
+  }
+
+  /* Main buttons: a tone lighter, a bigger shadow, 1 px up. */
+  [data-line='software'] [data-motion='button']:not(:disabled):hover {
+    filter: brightness(1.07);
+    translate: 0 -1px;
+    box-shadow: 0 14px 28px -16px var(--shadow);
+  }
+
+  /* Outline buttons: the soft accent fills from the middle, the border turns accent. */
+  [data-line='software'] [data-motion='button-outline']:not(:disabled):hover {
+    border-color: var(--accent-line);
+  }
+  [data-line='software'] [data-motion='button-outline']:not(:disabled):hover::before {
+    opacity: 1;
+    scale: 1;
+  }
+
+  /* Cards: up 4 px, softer shadow, accent edge, the icon a touch bigger. */
+  [data-line='software'] [data-card]:hover {
+    translate: 0 -4px;
+    box-shadow: 0 22px 40px -28px var(--shadow);
+  }
+  [data-line='software'] [data-card]:hover [data-card-icon] {
+    scale: 1.06;
+  }
+  [data-line='software'] [data-card]:hover [data-card-media] img,
+  [data-line='software'] [data-card]:hover [data-card-media]:not(:has(img)) {
+    scale: 1.03;
+  }
+
+  /* Contact map: a slight zoom of the drawing while the visitor points at „Wyznacz trasę”. */
+  [data-line='software'] [data-osm-map]:has([data-route]:hover) > svg {
+    scale: 1.04;
+  }
+
+  /* Text links keep their real underline (WCAG 1.4.1: not told apart by colour alone); on
+     hover only its colour changes — the transition of §1. */
+}
+
+/* The map drawing zooms from its centre (see hover above). */
+[data-line='software'] [data-osm-map] > svg {
+  transition: scale var(--dur-enter) var(--ease-out);
+}
+
+/* Reading progress starts empty; without scroll-driven animations (or with reduced motion) it
+   stays hidden. */
+[data-line='software'] [data-reading-progress] {
+  scale: 0 1;
+}
+
+/* Pseudo-elements of the hover effects (also without hover, to sit still). */
+[data-line='software'] [data-motion='button-outline'] {
+  position: relative;
+  isolation: isolate;
+}
+[data-line='software'] [data-motion='button-outline']::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--accent-soft);
+  opacity: 0;
+  scale: 0.85;
+  transition:
+    opacity var(--dur-hover) var(--ease-out),
+    scale var(--dur-hover) var(--ease-out);
+}
+/* Printed: nothing waits hidden for a rise-in that never comes. */
+@media print {
+  [data-line='software'] [data-reveal-pending] {
+    opacity: 1 !important;
+  }
+}
+
+/* --- 3. Scroll ------------------------------------------------------------------------------ */
+@media (prefers-reduced-motion: no-preference) {
+  html[data-line='software'] {
+    scroll-behavior: smooth;
+  }
+
+  /* Rising in, once (`RevealObserver`): only what starts below the screen waits hidden
+     (`data-reveal-pending`); without JavaScript everything is simply there. Cards follow one by
+     one, 60 ms apart (at most 6 in the queue), on a phone shorter and at most 3. */
+  [data-line='software'] [data-reveal-pending] {
+    opacity: 0;
+  }
+  [data-line='software'] [data-revealed] {
+    animation: sw-reveal var(--dur-enter) var(--ease-out) backwards;
+    animation-delay: calc(min(var(--reveal-i, 0), 5) * 60ms);
+  }
+  @media (max-width: 1080px) {
+    [data-line='software'] [data-revealed] {
+      --reveal-y: 10px;
+      animation-delay: calc(min(var(--reveal-i, 0), 2) * 60ms);
+    }
+  }
+
+  /* Mock-ups of the hero and the live previews drift a little against the page (≤ 20 px),
+     scroll-driven, desktop only. */
+  @supports (animation-timeline: view()) {
+    @media (min-width: 1081px) {
+      [data-line='software'] [data-parallax] {
+        animation: sw-parallax linear both;
+        animation-timeline: view();
+        animation-range: cover;
+      }
+    }
+  }
+
+  /* Reading progress of a post: the line grows with the scroll. */
+  @supports (animation-timeline: scroll()) {
+    [data-line='software'] [data-reading-progress] {
+      animation: sw-progress linear both;
+      animation-timeline: scroll(root);
+    }
+  }
+
+  /* The rail glided to a section (`lib/software/smoothScroll`): its heading arrives. */
+  [data-line='software'] [data-arrive] h2 {
+    animation: sw-arrive 1.3s var(--ease-out);
+  }
+
+  /* Header: once the page moves, a shadow and a slightly smaller logo — scroll-driven, no JS;
+     transform and shadow only, the header keeps its height. */
+  @supports (animation-timeline: scroll()) {
+    [data-line='software'] [data-sw-header] {
+      animation: sw-header linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 96px;
+    }
+    [data-line='software'] [data-sw-header] [data-site-logo] {
+      transform-origin: left center;
+      animation: sw-logo linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 96px;
+    }
+  }
+}
+
+/* --- 4. Opening and closing ----------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  /* FAQ answers open softly (the content of `<details>` is rendered on open). */
+  [data-line='software'] details[open] > :not(summary) {
+    animation: sw-faq var(--dur-state) var(--ease-out);
+  }
+
+  /* Mega menu „Oferta”: in with a small drop, its columns one after another (30 ms). Closing is
+     instant: `hidden` is `display: none !important` in the reset. */
+  [data-line='software'] [data-mega-panel]:not([hidden]) {
+    animation: sw-drop var(--dur-state) var(--ease-out);
+  }
+  [data-line='software'] [data-mega-panel]:not([hidden]) [data-mega-column] {
+    animation: sw-reveal var(--dur-state) var(--ease-out) backwards;
+    --reveal-y: 6px;
+  }
+  [data-line='software'] [data-mega-column]:nth-child(2) {
+    animation-delay: 30ms;
+  }
+  [data-line='software'] [data-mega-column]:nth-child(3) {
+    animation-delay: 60ms;
+  }
+  [data-line='software'] [data-mega-column]:nth-child(4) {
+    animation-delay: 90ms;
+  }
+  [data-line='software'] [data-mega-column]:nth-child(n + 5) {
+    animation-delay: 120ms;
+  }
+
+  /* Sheets and windows (`BottomSheet`): a sheet slides up from the bottom, a window (≥ 641 px)
+     grows from .96; the page behind dims softly. Closing is the same way back, faster. */
+  [data-line='software'] dialog[data-motion] {
+    transition:
+      translate var(--dur-sheet) var(--ease-out),
+      scale var(--dur-sheet) var(--ease-out),
+      opacity var(--dur-state) var(--ease-out),
+      display var(--dur-sheet) allow-discrete,
+      overlay var(--dur-sheet) allow-discrete;
+  }
+  [data-line='software'] dialog[data-motion]:not([open]) {
+    transition-duration:
+      var(--dur-state), var(--dur-state), 160ms, var(--dur-state), var(--dur-state);
+  }
+  [data-line='software'] dialog[data-motion='sheet']:not([open]) {
+    translate: 0 100%;
+  }
+  @starting-style {
+    [data-line='software'] dialog[data-motion='sheet'][open] {
+      translate: 0 100%;
+    }
+  }
+  @media (min-width: 641px) {
+    [data-line='software'] dialog[data-motion='dialog']:not([open]) {
+      opacity: 0;
+      scale: 0.96;
+    }
+    @starting-style {
+      [data-line='software'] dialog[data-motion='dialog'][open] {
+        opacity: 0;
+        scale: 0.96;
+      }
+    }
+  }
+  @media (max-width: 640px) {
+    [data-line='software'] dialog[data-motion='dialog']:not([open]) {
+      translate: 0 100%;
+    }
+    @starting-style {
+      [data-line='software'] dialog[data-motion='dialog'][open] {
+        translate: 0 100%;
+      }
+    }
+  }
+  [data-line='software'] dialog[data-motion]::backdrop {
+    transition:
+      opacity var(--dur-sheet) var(--ease-out),
+      display var(--dur-sheet) allow-discrete,
+      overlay var(--dur-sheet) allow-discrete;
+  }
+  [data-line='software'] dialog[data-motion]:not([open])::backdrop {
+    opacity: 0;
+  }
+  @starting-style {
+    [data-line='software'] dialog[data-motion][open]::backdrop {
+      opacity: 0;
+    }
+  }
+}
+
+/* --- 4b. Forms ------------------------------------------------------------------------------
+   Focus: border and a soft accent glow grow in (the transition of §1); the label of the field
+   darkens. Always, also with reduced motion — it is a state, not a movement. */
+[data-line='software']
+  :is(input:not([type='radio'], [type='checkbox'], [type='hidden']), textarea, select):focus {
+  box-shadow: 0 0 0 4px var(--accent-soft);
+}
+[data-line='software'] :has(> :is(input, textarea, select):focus) > label {
+  color: var(--ink);
+}
+
+/* Spinner in a sending button. */
+[data-line='software'] [data-spinner] {
+  animation: sw-spin 0.8s linear infinite;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* A tick draws itself (chosen topic, sent form); the chosen tile answers with a small spring. */
+  [data-line='software'] [data-check] {
+    stroke-dasharray: 1;
+    animation: sw-check var(--dur-state) var(--ease-out) both;
+  }
+  [data-line='software'] [data-tile]:has(input:checked) {
+    animation: sw-tile var(--dur-state) var(--ease-spring);
+  }
+
+  /* Wizard: the next step slides in from the right, a step back from the left; the result's
+     parts pop in one after another (60 ms). */
+  [data-line='software'] [data-wizard-dir='next'] > section {
+    animation: sw-step-next var(--dur-state) var(--ease-out);
+  }
+  [data-line='software'] [data-wizard-dir='back'] > section {
+    animation: sw-step-back var(--dur-state) var(--ease-out);
+  }
+  [data-line='software'] [data-wizard-result] > * {
+    animation: sw-reveal var(--dur-enter) var(--ease-out) backwards;
+    --reveal-y: 10px;
+  }
+  [data-line='software'] [data-wizard-result] > :nth-child(2) {
+    animation-delay: 60ms;
+  }
+  [data-line='software'] [data-wizard-result] > :nth-child(3) {
+    animation-delay: 120ms;
+  }
+  [data-line='software'] [data-wizard-result] > :nth-child(n + 4) {
+    animation-delay: 180ms;
+  }
+
+  /* Toasts (phone, e-mail, „Twój projekt”) slide up from the bottom. */
+  [data-line='software'] [data-toast] {
+    animation: sw-reveal var(--dur-state) var(--ease-out);
+    --reveal-y: 12px;
+  }
+
+  /* A field found wrong shakes once (±4 px) and its message slides in. */
+  [data-line='software'] [aria-invalid='true'] {
+    animation: sw-shake 300ms var(--ease-out);
+  }
+  [data-line='software'] form [id$='-error'] {
+    animation: sw-faq var(--dur-state) var(--ease-out);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* A still marker instead of a spinning one. */
+  [data-line='software'] [data-spinner] {
+    animation: none;
+    border-right-color: currentColor;
+    opacity: 0.6;
+  }
+}
+
+/* --- 5. Page and theme transitions ---------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  /* `PageTransition`: the old page `sw-page-out`, the new `sw-page-in`; header and bottom bar
+     have their own names, so they stay. */
+  [data-line='software'] [data-sw-header] {
+    view-transition-name: sw-header;
+  }
+  [data-line='software'] [data-tab-bar] {
+    view-transition-name: sw-tab-bar;
+  }
+  html[data-line='software']::view-transition-old(.sw-page-out) {
+    animation: sw-vt-out 0.22s var(--ease-out) both;
+  }
+  html[data-line='software']::view-transition-new(.sw-page-in) {
+    animation: sw-vt-in 0.32s var(--ease-out) both;
+  }
+
+  /* Theme switch (`revealTheme`): the new theme opens in a circle from the button. Header and
+     bar join the page for that moment, so the whole screen changes at once. */
+  html[data-line='software'][data-theme-reveal] [data-sw-header],
+  html[data-line='software'][data-theme-reveal] [data-tab-bar] {
+    view-transition-name: none;
+  }
+  html[data-line='software'][data-theme-reveal]::view-transition-old(root) {
+    animation: none;
+  }
+  html[data-line='software'][data-theme-reveal]::view-transition-new(root) {
+    animation: sw-theme-reveal var(--dur-enter) var(--ease-in-out);
+  }
+}
+
+/* Reduced motion: every part of a view transition swaps at once. */
+@media (prefers-reduced-motion: reduce) {
+  html[data-line='software']::view-transition-group(*),
+  html[data-line='software']::view-transition-old(*),
+  html[data-line='software']::view-transition-new(*) {
+    animation: none;
+  }
+}
+
+@keyframes sw-reveal {
+  from {
+    opacity: 0;
+    translate: 0 var(--reveal-y, 16px);
+  }
+}
+
+@keyframes sw-parallax {
+  from {
+    translate: 0 20px;
+  }
+  to {
+    translate: 0 -20px;
+  }
+}
+
+@keyframes sw-progress {
+  from {
+    scale: 0 1;
+  }
+  to {
+    scale: 1 1;
+  }
+}
+
+@keyframes sw-spin {
+  to {
+    rotate: 1turn;
+  }
+}
+
+@keyframes sw-check {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes sw-tile {
+  0% {
+    scale: 0.96;
+  }
+}
+
+@keyframes sw-shake {
+  20%,
+  60% {
+    translate: -4px 0;
+  }
+  40%,
+  80% {
+    translate: 4px 0;
+  }
+}
+
+@keyframes sw-step-next {
+  from {
+    opacity: 0;
+    translate: 24px 0;
+  }
+}
+
+@keyframes sw-step-back {
+  from {
+    opacity: 0;
+    translate: -24px 0;
+  }
+}
+
+@keyframes sw-arrive {
+  0% {
+    opacity: 0.35;
+    translate: 0 10px;
+  }
+  35% {
+    opacity: 1;
+    translate: none;
+  }
+}
+
+@keyframes sw-faq {
+  from {
+    opacity: 0;
+    translate: 0 -6px;
+  }
+}
+
+@keyframes sw-drop {
+  from {
+    opacity: 0;
+    translate: 0 -6px;
+    scale: 0.99;
+  }
+}
+
+@keyframes sw-header {
+  to {
+    box-shadow: 0 12px 30px -26px var(--shadow);
+  }
+}
+
+@keyframes sw-logo {
+  to {
+    scale: 0.92;
+  }
+}
+
+@keyframes sw-vt-out {
+  to {
+    opacity: 0;
+    translate: 0 -6px;
+  }
+}
+
+@keyframes sw-vt-in {
+  from {
+    opacity: 0;
+    translate: 0 10px;
+  }
+}
+
+@keyframes sw-theme-reveal {
+  from {
+    clip-path: circle(0 at var(--reveal-x, 50%) var(--reveal-y-origin, 0));
+  }
+  to {
+    clip-path: circle(150vmax at var(--reveal-x, 50%) var(--reveal-y-origin, 0));
+  }
+}

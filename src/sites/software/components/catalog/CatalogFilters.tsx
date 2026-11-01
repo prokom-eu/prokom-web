@@ -1,8 +1,12 @@
 'use client'
 
+import { useRef } from 'react'
+
 import { cx } from '@/components/ui/cx'
 import type { CatalogFacets, SoftwareCatalogState } from '@/lib/software/catalog'
 import type { SolutionsIndex } from '@/lib/software/solutionsIndex'
+
+import { SlidingPill } from '../SlidingPill'
 
 type Props = {
   index: Pick<SolutionsIndex, 'situations' | 'industryGroups'>
@@ -110,6 +114,7 @@ function FilterGroup({
   onPick: (value: string | null) => void
   variant: Props['variant']
 }) {
+  const box = useRef<HTMLDivElement>(null)
   const list = variant === 'list'
   return (
     <div
@@ -126,7 +131,16 @@ function FilterGroup({
       >
         {title}
       </p>
-      <div className={list ? 'space-y-1' : 'flex flex-wrap gap-2.5'}>
+      <div
+        ref={box}
+        className={cx('group/pills relative', list ? 'space-y-1' : 'flex flex-wrap gap-2.5')}
+      >
+        <SlidingPill
+          container={box}
+          active={current}
+          className="bg-accent-soft"
+          radius={list ? 12 : 16}
+        />
         {options.map((option) => {
           const active = option.value === current
           return (
@@ -136,12 +150,12 @@ function FilterGroup({
               aria-pressed={active}
               onClick={() => onPick(option.value)}
               className={cx(
-                'items-center font-bold',
+                'relative z-[1] items-center font-bold',
                 list
                   ? 'flex min-h-11 w-full justify-between gap-3 rounded-xl px-3 py-2 text-left text-[15px]'
                   : 'inline-flex min-h-12 gap-2.5 rounded-2xl border px-4 text-base',
                 active
-                  ? 'border border-accent-text bg-accent-soft text-ink'
+                  ? 'border border-accent-text bg-accent-soft text-ink group-has-[[data-sliding-pill]]/pills:bg-transparent'
                   : list
                     ? 'border border-transparent hover:bg-surface-2'
                     : 'border-border bg-card',

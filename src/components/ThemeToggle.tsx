@@ -1,5 +1,7 @@
 'use client'
 
+import { centreOf, revealTheme } from '@/lib/motion/themeReveal'
+
 import { useTheme } from './useTheme'
 
 /**
@@ -13,7 +15,9 @@ export function ThemeToggle({ className }: { className?: string }) {
   return (
     <button
       type="button"
-      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+      onClick={(event) =>
+        revealTheme(theme === 'dark' ? 'light' : 'dark', setTheme, centreOf(event.currentTarget))
+      }
       aria-pressed={theme === 'dark'}
       className={className}
     >

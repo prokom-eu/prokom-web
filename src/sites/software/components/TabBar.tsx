@@ -40,8 +40,9 @@ const ITEM =
 /**
  * Bottom bar of the Software phone layer (spec. §3.2, `stany/82`, `82b`), up to 1080 px: fixed
  * 10 px above the bottom (plus the safe area), translucent like the header. The active item
- * follows the address (`activeTab`) — accent text and a dash above its icon; the wizard is a
- * raised round button in the accent gradient; „Menu” opens the menu sheet.
+ * follows the address (`activeTab`) — accent text, the icon lifted a little and one dash that
+ * slides above it (SWV7: a slot of 1/n width moved by whole slots, transform only); the wizard is
+ * a raised round button; „Menu” opens the menu sheet.
  */
 export function TabBar({ items, homeHrefs, onMenu, menuOpen }: Props) {
   const pathname = usePathname()
@@ -52,6 +53,17 @@ export function TabBar({ items, homeHrefs, onMenu, menuOpen }: Props) {
       data-tab-bar
       className="fixed inset-x-2.5 bottom-[calc(10px+env(safe-area-inset-bottom))] z-40 flex items-stretch rounded-[26px] border border-border bg-header-bg px-1 backdrop-blur-md backdrop-saturate-150 min-[1081px]:hidden"
     >
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute top-0 left-1 flex justify-center transition-[translate,opacity] duration-(--dur-state) ease-(--ease-out) motion-reduce:transition-none"
+        style={{
+          width: `calc((100% - 8px) / ${items.length})`,
+          translate: `${Math.max(active, 0) * 100}% 0`,
+          opacity: active >= 0 && active !== WIZARD ? 1 : 0,
+        }}
+      >
+        <span className="h-[3px] w-6 rounded-full bg-accent" />
+      </span>
       {items.map(([label, href], i) => {
         const current = i === active
         if (href.startsWith('#')) {
@@ -82,13 +94,14 @@ export function TabBar({ items, homeHrefs, onMenu, menuOpen }: Props) {
             </>
           ) : (
             <>
-              {current && (
-                <span
-                  aria-hidden="true"
-                  className="absolute top-0 h-[3px] w-6 rounded-full bg-accent"
-                />
-              )}
-              {ICONS[i]}
+              <span
+                className={cx(
+                  'transition-[translate] duration-(--dur-state) ease-(--ease-spring) motion-reduce:transition-none',
+                  current && '-translate-y-0.5',
+                )}
+              >
+                {ICONS[i]}
+              </span>
               {label}
             </>
           )

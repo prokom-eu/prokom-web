@@ -21,7 +21,10 @@ export function WhyNotWordpress({ view }: { view: WhyNotWordpressView }) {
               <p className="text-xs font-extrabold uppercase tracking-[0.14em] text-accent-text min-[640px]:text-sm">
                 {view.eyebrow}
               </p>
-              <h2 className="font-display text-[32px] font-extrabold leading-[1.02] tracking-tight min-[640px]:text-5xl min-[1081px]:text-[56px]">
+              <h2
+                data-reveal
+                className="font-display text-[32px] font-extrabold leading-[1.02] tracking-tight min-[640px]:text-5xl min-[1081px]:text-[56px]"
+              >
                 {view.title}
               </h2>
             </div>
@@ -31,7 +34,10 @@ export function WhyNotWordpress({ view }: { view: WhyNotWordpressView }) {
           </div>
 
           {view.facts.length > 0 ? (
-            <ul className="-mx-[18px] flex snap-x snap-mandatory gap-2.5 overflow-x-auto px-[18px] pb-2 [scrollbar-width:none] min-[641px]:mx-0 min-[641px]:grid min-[641px]:gap-3 min-[641px]:overflow-visible min-[641px]:px-0 min-[641px]:pb-0 min-[1081px]:grid-cols-3">
+            <ul
+              data-reveal-cards
+              className="-mx-[18px] flex snap-x snap-mandatory gap-2.5 overflow-x-auto px-[18px] pb-2 [scrollbar-width:none] min-[641px]:mx-0 min-[641px]:grid min-[641px]:gap-3 min-[641px]:overflow-visible min-[641px]:px-0 min-[641px]:pb-0 min-[1081px]:grid-cols-3"
+            >
               {view.facts.map((fact, index) => {
                 const ours = index === view.facts.length - 1
                 return (

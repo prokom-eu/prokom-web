@@ -93,6 +93,7 @@ export async function SwLinesBlock({ block, tenantId }: Props) {
       <Container wide>
         {head}
         <ul
+          data-reveal-cards
           className={cx(
             'mt-6 grid gap-3 min-[641px]:grid-cols-2',
             cards.length === 4 ? 'min-[1081px]:grid-cols-4' : 'min-[1081px]:grid-cols-5',

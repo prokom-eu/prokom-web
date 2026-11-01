@@ -28,7 +28,7 @@ export function SwMegaMenu({ mega }: Props) {
             under „Aplikacje i automatyzacje”). */}
         {[mega.columns.slice(0, 1), mega.columns.slice(1, 2), mega.columns.slice(2)].map(
           (cell, c) => (
-            <div key={c} className="space-y-6 py-3">
+            <div key={c} data-mega-column className="space-y-6 py-3">
               {cell.map((column, i) => (
                 <MegaColumn key={column.title} column={column} icon={COLUMN_ICONS[c + i]} />
               ))}
@@ -37,6 +37,7 @@ export function SwMegaMenu({ mega }: Props) {
         )}
 
         <aside
+          data-mega-column
           aria-label={mega.card.eyebrow}
           className="rounded-2xl border border-accent-line bg-accent-soft p-6"
         >
