@@ -1,7 +1,12 @@
 import type { InstArchitectsBlock as InstArchitectsBlockData } from '@/payload-types'
 
 /** Skeleton of the page (PR `inst/wsp-blok-architekci`); the session I16a brings the rest. */
-export function InstArchitectsBlock({ block }: { block: InstArchitectsBlockData }) {
+export function InstArchitectsBlock({
+  block,
+}: {
+  block: InstArchitectsBlockData
+  tenantId: number
+}) {
   return (
     <section id="hero" className="phero">
       <div className="wrap">
