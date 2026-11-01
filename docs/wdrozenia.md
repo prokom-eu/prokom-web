@@ -11,7 +11,7 @@
 
 ## Pipeline (GitHub Actions)
 1. PR → lint, typecheck, test, build, gitleaks.
-2. Merge do `develop` → obraz Docker (tag = SHA) → GHCR (`ghcr.io/prokom-eu/prokom-web`) → wdrożenie na staging przez SSH → migracje → smoke test (`scripts/smoke.sh`) → testy e2e → Lighthouse CI (budżet z `jakosc.md`).
+2. Merge do `develop` → obraz Docker (tag = SHA) → GHCR (`ghcr.io/prokom-eu/prokom-web`) → **„Deploy staging”** (S10b): przez SSH z kluczem ograniczonym do `deploy staging <SHA>` (bez plików — pliki wdrożenia bramka bierze z obrazu, `/deploy`) → `scripts/deploy.sh` (migracje przy starcie, `healthy`, smoke test na porcie aplikacji, przy błędzie automatyczny powrót, o ile nie weszły nowe migracje) → Lighthouse CI (budżet z `jakosc.md`, S10c). Szczegóły i ręczne uruchomienie: runbook §2.
 3. Merge `develop` → `main` **tylko po akceptacji szefa w Asanie** → ten sam obraz (zbudowany z `develop`, nie budowany ponownie) na produkcję → `pg_dump` → migracje → smoke test.
 4. Smoke test nie przechodzi → wdrożenie nieudane, automatyczny powrót do poprzedniego obrazu aplikacji (baza bez zmian), alert.
 
