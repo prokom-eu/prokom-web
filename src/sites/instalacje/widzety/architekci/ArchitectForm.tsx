@@ -1,6 +1,6 @@
 'use client'
 
-import { type FormEvent, useRef, useState } from 'react'
+import { type FormEvent, useEffect, useRef, useState } from 'react'
 
 import { readOutcome } from '@/lib/inquiry/form'
 import { HONEYPOT_FIELD } from '@/lib/inquiry/honeypot'
@@ -9,6 +9,7 @@ import { architekci as A } from '../../dane/architekci'
 import { InstIcon } from '../../InstIcon'
 import type { Phone } from '../../sekcje/types'
 import { ConsentText } from './ConsentText'
+import { useChosenRole } from './roleStore'
 import {
   INITIAL_PROJECT,
   projectBody,
@@ -41,7 +42,12 @@ const CHOICES: { key: Choice; title: string; options: readonly string[] }[] = [
  * like the service desk form (I11).
  */
 export function ArchitectForm({ formToken, phone, email }: Props) {
-  const [state, setState] = useState<ProjectState>(INITIAL_PROJECT)
+  const [own, setState] = useState<ProjectState>(INITIAL_PROJECT)
+  const [roleTouched, setRoleTouched] = useState(false)
+  const chosenRole = useChosenRole()
+  // „Kim jesteś” follows the role chosen in `#dla-ciebie` until the visitor picks one here.
+  const state = roleTouched ? own : { ...own, role: chosenRole }
+  const done = useRef<HTMLDivElement>(null)
   const [error, setError] = useState<{ key: ProjectError | 'form'; text: string } | null>(null)
   const [busy, setBusy] = useState(false)
   const [sent, setSent] = useState<{ number: string | null } | null>(null)
@@ -56,6 +62,10 @@ export function ArchitectForm({ formToken, phone, email }: Props) {
     setError({ key, text })
     if (key !== 'form') fields.current[key]?.focus()
   }
+  // The form is replaced by the confirmation: move the focus there (review I16c).
+  useEffect(() => {
+    if (sent) done.current?.focus()
+  }, [sent])
   const invalid = (key: ProjectError) =>
     error?.key === key ? { 'aria-invalid': true as const, 'aria-describedby': 'ar-fm-err' } : {}
 
@@ -95,7 +105,7 @@ export function ArchitectForm({ formToken, phone, email }: Props) {
 
   if (sent) {
     return (
-      <div className="arsent" role="status">
+      <div className="arsent" role="status" tabIndex={-1} ref={done}>
         <span className="arokb">
           <InstIcon name="check" size={30} strokeWidth={3} />
         </span>
@@ -121,6 +131,7 @@ export function ArchitectForm({ formToken, phone, email }: Props) {
           onClick={() => {
             setSent(null)
             setState(INITIAL_PROJECT)
+            setRoleTouched(false)
           }}
         >
           {T.again}
@@ -145,7 +156,10 @@ export function ArchitectForm({ formToken, phone, email }: Props) {
                   type="button"
                   className={on ? 'chip on' : 'chip'}
                   aria-pressed={on}
-                  onClick={() => change({ [c.key]: i })}
+                  onClick={() => {
+                    if (c.key === 'role') setRoleTouched(true)
+                    change({ ...state, [c.key]: i })
+                  }}
                 >
                   {o}
                 </button>

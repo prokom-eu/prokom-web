@@ -1,6 +1,6 @@
 'use client'
 
-import { type FormEvent, useId, useRef, useState } from 'react'
+import { type FormEvent, useEffect, useId, useRef, useState } from 'react'
 
 import { readOutcome } from '@/lib/inquiry/form'
 import { HONEYPOT_FIELD } from '@/lib/inquiry/honeypot'
@@ -49,6 +49,11 @@ export function EmailForm({ kind, formToken }: Props) {
     setError({ key, text })
     if (key !== 'form') fields.current[key]?.focus()
   }
+  const done = useRef<HTMLElement>(null)
+  // The form is replaced by the confirmation: move the focus there (review I16c).
+  useEffect(() => {
+    if (sent) done.current?.focus()
+  }, [sent])
   const invalid = (key: EmailError) =>
     error?.key === key ? { 'aria-invalid': true as const, 'aria-describedby': `${id}-err` } : {}
 
@@ -85,7 +90,7 @@ export function EmailForm({ kind, formToken }: Props) {
 
   if (sent) {
     return (
-      <b role="status" style={{ color: 'var(--ok)' }}>
+      <b role="status" tabIndex={-1} ref={done} style={{ color: 'var(--ok)' }}>
         {kind === 'checklist' ? T.pdfSent : T.newsSent}
       </b>
     )
@@ -101,34 +106,40 @@ export function EmailForm({ kind, formToken }: Props) {
       }
     >
       <div className="arpdff">
-        <input
-          ref={(el) => {
-            fields.current.name = el
-          }}
-          className="zin"
-          type="text"
-          autoComplete="given-name"
-          placeholder={T.namePlaceholder}
-          aria-label={T.name}
-          maxLength={120}
-          value={state.name}
-          onChange={(e) => change({ name: e.target.value })}
-          {...invalid('name')}
-        />
-        <input
-          ref={(el) => {
-            fields.current.email = el
-          }}
-          className="zin"
-          type="email"
-          autoComplete="email"
-          placeholder={T.emailPlaceholder}
-          aria-label={T.email}
-          maxLength={254}
-          value={state.email}
-          onChange={(e) => change({ email: e.target.value })}
-          {...invalid('email')}
-        />
+        <label className="arfg armail">
+          <span className="arfl">{T.name}</span>
+          <input
+            ref={(el) => {
+              fields.current.name = el
+            }}
+            className="zin"
+            type="text"
+            autoComplete="given-name"
+            placeholder={T.namePlaceholder}
+            required
+            maxLength={120}
+            value={state.name}
+            onChange={(e) => change({ name: e.target.value })}
+            {...invalid('name')}
+          />
+        </label>
+        <label className="arfg armail">
+          <span className="arfl">{T.email}</span>
+          <input
+            ref={(el) => {
+              fields.current.email = el
+            }}
+            className="zin"
+            type="email"
+            autoComplete="email"
+            placeholder={T.emailPlaceholder}
+            required
+            maxLength={254}
+            value={state.email}
+            onChange={(e) => change({ email: e.target.value })}
+            {...invalid('email')}
+          />
+        </label>
         <button type="submit" className="btn btn-p btn-s" disabled={busy}>
           {kind === 'checklist' ? T.pdfSend : T.newsSend}
         </button>
