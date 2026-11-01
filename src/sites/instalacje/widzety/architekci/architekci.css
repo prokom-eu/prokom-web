@@ -2999,13 +2999,23 @@
   & .arsvdg em,
   & button.arci em,
   & .arinfog em {
-    color: light-dark(color-mix(in srgb, var(--hc) 62%, var(--inst-hue-ink)), var(--hc));
+    color: light-dark(color-mix(in srgb, var(--hc) 52%, var(--inst-hue-ink)), var(--hc));
   }
   & .arsvt2,
   & .arnwm em,
   & .arnxpl em,
   & .arnxd .eye {
-    color: light-dark(color-mix(in srgb, var(--hc) 60%, var(--inst-hue-ink)), var(--hc)) !important;
+    color: light-dark(color-mix(in srgb, var(--hc) 52%, var(--inst-hue-ink)), var(--hc)) !important;
+  }
+  /* AA in the light theme (axe, e2e I16a): the prototype's 60–62% mix and the stage chip in
+     plain `--warn` fall to 3.5–4.4:1 on the tinted card. */
+  & .arstg {
+    color: light-dark(color-mix(in srgb, var(--warn) 62%, var(--inst-hue-ink)), var(--warn));
+  }
+  /* Section eyebrows: the service-page rule mixes the page hue (`--h`, 3.7:1 on light); this
+     page has no service of its own — the accent text colour like the prototype. */
+  & .inst-ar > section[data-rv] .shead .eye {
+    color: var(--accent-text);
   }
 
   /* Stage arrows at the first and last stage (disabled, review I16a). */
