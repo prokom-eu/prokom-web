@@ -9,6 +9,8 @@ import {
   useState,
 } from 'react'
 
+import { SlidingPill } from '@/components/motion/SlidingPill'
+
 import {
   glowna,
   HERO_LAYERS,
@@ -17,6 +19,7 @@ import {
   type HeroLayer,
   type HeroObject,
 } from '../../dane/glowna'
+
 import { InstIcon } from '../../InstIcon'
 import { INST_ICONS, isInstIconName } from '../../icons'
 import { useInterval } from '../../sekcje/useInterval'
@@ -60,6 +63,8 @@ export function LiveObjectHero({ backdrop, children }: Props) {
   const auto = useRef(AUTOPLAY_START)
   const section = useRef<HTMLElement>(null)
   const tabs = useRef<(HTMLButtonElement | null)[]>([])
+  const objectTabs = useRef<HTMLDivElement>(null)
+  const modeTabs = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const query = window.matchMedia(NARROW)
@@ -251,7 +256,13 @@ export function LiveObjectHero({ backdrop, children }: Props) {
         {children}
 
         <div className="hxbar in d4">
-          <div className="glass hotabs" role="tablist" aria-label={t.objectsLabel}>
+          <div ref={objectTabs} className="glass hotabs" role="tablist" aria-label={t.objectsLabel}>
+            <SlidingPill
+              container={objectTabs}
+              active={scene.obj}
+              className="inst-pill"
+              radius={14}
+            />
             {HERO_OBJECTS.map((k, i) => {
               const on = scene.obj === k
               return (
@@ -275,7 +286,13 @@ export function LiveObjectHero({ backdrop, children }: Props) {
               )
             })}
           </div>
-          <div className="glass hmodes" role="group" aria-label={t.modesLabel}>
+          <div ref={modeTabs} className="glass hmodes" role="group" aria-label={t.modesLabel}>
+            <SlidingPill
+              container={modeTabs}
+              active={scene.mode}
+              className="inst-pill"
+              radius={12}
+            />
             {HERO_MODES.map((m) => (
               <button
                 key={m}

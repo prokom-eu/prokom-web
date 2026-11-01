@@ -79,6 +79,7 @@ export function PlannerWizard({ services, formToken, phone, hours }: Props) {
   const [state, setState] = useState<PlannerState>(INITIAL_PLANNER)
   const [error, setError] = useState<{ key: PlannerError | 'form'; text: string } | null>(null)
   const [busy, setBusy] = useState(false)
+  const [dir, setDir] = useState<'next' | 'back'>('next')
   const honeypot = useRef<HTMLInputElement>(null)
   const card = useRef<HTMLFormElement>(null)
   const heading = useRef<HTMLHeadingElement>(null)
@@ -122,6 +123,7 @@ export function PlannerWizard({ services, formToken, phone, hours }: Props) {
   const change = (part: Partial<PlannerState>) => set({ ...state, ...part })
   const goStep = (step: PlannerStep) => {
     moved.current = true
+    setDir(step < state.step ? 'back' : 'next')
     set({ ...state, step })
   }
   const focusField = (key: string) => {
@@ -209,7 +211,8 @@ export function PlannerWizard({ services, formToken, phone, hours }: Props) {
   const navHint = plannerNavHint(state)
 
   return (
-    <div className="zkw">
+    // `data-dir`: a step back slides in from the left (ruch.css §8).
+    <div className="zkw" data-dir={dir}>
       {/* A form: Enter in a field goes to the next step and sends on the last one. The checks
           are ours (`stepError`), not the browser's. */}
       <form

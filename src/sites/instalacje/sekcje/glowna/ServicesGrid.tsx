@@ -10,6 +10,7 @@ import { InstIcon } from '../../InstIcon'
 import { solutionsText } from '../../powloka/offerText'
 import { InstSection } from '../InstSection'
 import { SERVICE_SCENES } from './sceny'
+import { Count } from '../Count'
 
 const t = glownaSekcje.services
 
@@ -61,11 +62,15 @@ export function ServicesGrid({ services, offer, brands, noPriceText }: Props) {
                 <span>{solutionsText(offer.solutions).replace(/^\d+ /, '')}</span>
               </div>
               <div>
-                <b>{brands}</b>
+                <b>
+                  <Count text={String(brands)} />
+                </b>
                 <span>{brandsWord}</span>
               </div>
               <div>
-                <b>{t.since}</b>
+                <b>
+                  <Count text={t.since} />
+                </b>
                 <span>{t.sinceNote}</span>
               </div>
             </div>

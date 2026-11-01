@@ -1,11 +1,12 @@
 'use client'
 
 import Link from 'next/link'
-import type { MouseEvent } from 'react'
+import { type MouseEvent, useRef } from 'react'
 
 import { BottomSheet } from '@/components/BottomSheet'
 import type { InstMenu, MenuColumn } from '@/lib/instalacje/menu'
 import type { OpeningHours, OpeningStatus } from '@/lib/site/hours'
+import { SlidingPill } from '@/components/motion/SlidingPill'
 
 import type { Navigation, SheetTab } from '../dane/types'
 import { InstIcon } from '../InstIcon'
@@ -14,6 +15,7 @@ import { HoursLive } from './HoursLive'
 import { solutionsText } from './offerText'
 import { useShell } from './ShellProvider'
 import { ThemeTile } from './ThemeButton'
+import { Arrow } from '../Arrow'
 
 /** The sheet serves phones and tablets; from 1101 px the header has the mega menu (spec §4). */
 const DESKTOP_QUERY = '(min-width: 1101px)'
@@ -59,6 +61,7 @@ function Tiles({ columns }: { columns: MenuColumn[] }) {
 export function MenuSheet({ navigation, menu, hours, status, phone }: Props) {
   const { sheet, openSheet, closeSheet, closeSheetForLink } = useShell()
   const tab = sheet ?? 'services'
+  const tabs = useRef<HTMLDivElement>(null)
 
   // A link followed in this tab leaves through the next page, not through „back” (capture:
   // before the sheet's own close on a link click). Not for „open in a new tab”, which leaves the
@@ -71,7 +74,8 @@ export function MenuSheet({ navigation, menu, hours, status, phone }: Props) {
 
   const header = (
     <div className="mt-3 flex items-center gap-2">
-      <div className="mtabs" role="group" aria-label="Sekcje menu">
+      <div ref={tabs} className="mtabs" role="group" aria-label="Sekcje menu">
+        <SlidingPill container={tabs} active={tab} className="inst-pill" radius={12} />
         {TABS.map((item) => (
           <button
             key={item}
@@ -115,7 +119,7 @@ export function MenuSheet({ navigation, menu, hours, status, phone }: Props) {
           <>
             <Tiles columns={menu.services} />
             <Link href="/uslugi" className="mall">
-              Pełna oferta: {solutionsText(menu.offer.solutions)} →
+              Pełna oferta: {solutionsText(menu.offer.solutions)} <Arrow />
             </Link>
           </>
         )}

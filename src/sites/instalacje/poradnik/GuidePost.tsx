@@ -17,6 +17,7 @@ import { JsonLd } from '../sekcje/JsonLd'
 import { GuideQuiz } from '../widzety/poradnik/GuideQuiz'
 import { updatedLabel } from '../widzety/poradnik/guideMeta'
 import { salonsNote } from '../powloka/salons'
+import { Arrow } from '../Arrow'
 import { GuidePostStyles } from '../style/LineStyles'
 
 type EditorState = Parameters<typeof RichText>[0]['data']
@@ -245,7 +246,7 @@ export async function GuidePost({ post, tenantId, origin }: Props) {
                     href={r.href}
                     style={{ fontSize: 14.5, color: 'var(--accent-text)', fontWeight: 800 }}
                   >
-                    {r.label} →
+                    {r.label} <Arrow />
                   </Link>
                 ))}
               </div>

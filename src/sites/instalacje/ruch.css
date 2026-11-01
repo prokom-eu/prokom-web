@@ -1,0 +1,384 @@
+/*
+ * Motion of the Instalacje line (session I-M, audit before staging §3) on top of the shared
+ * system (`src/styles/motion.css`: tokens --ease-* / --dur-*, press, arrows, FAQ answers, theme
+ * circle). The prototype's own effects stay (hover lifts, scenes, the `.rv .ri` rise-in, the
+ * planner's slide-in); here they get one set of curves and times, and the missing pieces are
+ * added. Only transform / translate / scale, opacity and filter move — no height changes
+ * (`porownaj.mjs`). Rules start with `html[data-line='instalacje']`: one step more specific than
+ * the prototype's `[data-line='instalacje'] .x`, so the order of the stylesheets does not matter.
+ * The press rules (§1) also out-rank the shared press of motion.css (0,4,0) with `:not(...)`.
+ * With `prefers-reduced-motion: reduce` nothing moves (§9).
+ */
+
+/* --- 1. Buttons and clickable cards: one curve for lifts, a spring after a press ------------ */
+html[data-line='instalacje']
+  :is(
+    .btn,
+    .hbtn-p,
+    .hbtn-g,
+    .iconb,
+    .foldb,
+    .sycta,
+    .hzksend,
+    .zkpb,
+    .bnav a,
+    .bnav button,
+    .ftci,
+    .sgrc,
+    .rl,
+    .obc,
+    .ut2,
+    .gor,
+    .hzkb,
+    .card.feat,
+    .odbl,
+    .relc,
+    .relsegc,
+    .arsv,
+    .arlzc,
+    .arlibx,
+    .arnwi,
+    .lnc,
+    .prc2,
+    .apc,
+    .uchip,
+    .ofi,
+    .rbr,
+    .axc,
+    .zksb,
+    .zkob,
+    .pkg,
+    .chip,
+    .hchip
+  ) {
+  transition-property:
+    color, background-color, border-color, box-shadow, filter, opacity, transform, translate, scale;
+  transition-duration:
+    var(--dur-hover), var(--dur-hover), var(--dur-hover), var(--dur-state), var(--dur-hover),
+    var(--dur-state), var(--dur-state), var(--dur-state), var(--dur-press);
+  transition-timing-function:
+    var(--ease-out), var(--ease-out), var(--ease-out), var(--ease-out), var(--ease-out),
+    var(--ease-out), var(--ease-out), var(--ease-out), var(--ease-spring);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Cards answer a press a little less than buttons (`scale(.97)` of motion.css) — not while a
+     link or a button inside them is pressed (that one shrinks, not both). */
+  html[data-line='instalacje']
+    :is(
+      .sgrc,
+      .rl,
+      .obc,
+      .ut2,
+      .gor,
+      .hzkb,
+      .card.feat,
+      .odbl,
+      .relc,
+      .relsegc,
+      .arlzc,
+      .arlibx,
+      .arnwi,
+      .lnc,
+      .prc2,
+      .apc,
+      .ofi,
+      .axc,
+      .zksb,
+      .pkg
+    ):not(:disabled, :has(:is(a, button):active)):active {
+    scale: 0.98;
+  }
+  /* The bottom bar presses deeper, as in the prototype (`scale(.94)`). */
+  html[data-line='instalacje'] :is(.bnav a, .bnav button):not(:disabled):active {
+    scale: 0.94;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  /* Main buttons: a tone lighter on top of the prototype's lift. */
+  html[data-line='instalacje'] :is(.btn-p, .hbtn-p, .sycta):hover {
+    filter: brightness(1.06);
+  }
+  /* The arrow of a card that is not itself a link or a button. */
+  html[data-line='instalacje'] :is(.relc, .odbl, .pkg, .ut2, .obc):hover [data-icon='arrow'] {
+    translate: 3px 0;
+  }
+}
+
+/* --- 2. Header: underline drawn under a pointed item, mega menu in a cascade ----------------- */
+html[data-line='instalacje'] :is(.nav > a:not(.on), .nav .nbtn:not(.cur))::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--accent-line);
+  scale: 0 1;
+  transform-origin: left center;
+  transition: scale var(--dur-state) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  html[data-line='instalacje'] :is(.nav > a:not(.on), .nav .nbtn:not(.cur)):hover::after {
+    scale: 1 1;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* The active item's line grows in when the page changes (the header itself stays). */
+  html[data-line='instalacje'] :is(.nav > a.on, .nav .nbtn.cur)::after {
+    animation: inst-grow-x var(--dur-enter) var(--ease-out) backwards;
+    transform-origin: left center;
+  }
+
+  html[data-line='instalacje'] .mega:not([hidden]) {
+    animation: inst-megain var(--dur-state) var(--ease-out);
+  }
+  /* Items one after another, 20 ms apart (at most 8 in the queue). */
+  html[data-line='instalacje'] .mega:not([hidden]) :is(.megac a, .megap) {
+    animation: sw-reveal var(--dur-state) var(--ease-out) backwards;
+    --reveal-y: 8px;
+  }
+  html[data-line='instalacje'] .megac a:nth-child(2) {
+    animation-delay: 20ms;
+  }
+  html[data-line='instalacje'] .megac a:nth-child(3) {
+    animation-delay: 40ms;
+  }
+  html[data-line='instalacje'] .megac a:nth-child(4) {
+    animation-delay: 60ms;
+  }
+  html[data-line='instalacje'] .megac a:nth-child(5) {
+    animation-delay: 80ms;
+  }
+  html[data-line='instalacje'] .megac a:nth-child(6) {
+    animation-delay: 100ms;
+  }
+  html[data-line='instalacje'] .megac a:nth-child(7) {
+    animation-delay: 120ms;
+  }
+  html[data-line='instalacje'] .megac a:nth-child(n + 8),
+  html[data-line='instalacje'] .megap {
+    animation-delay: 140ms;
+  }
+
+  /* Menu sheet: the shared curve and time of sheets. */
+  html[data-line='instalacje'] .mshp {
+    animation: inst-sheet-up var(--dur-sheet) var(--ease-out) both;
+  }
+  html[data-line='instalacje'] .mshp::backdrop {
+    animation: inst-fade var(--dur-state) var(--ease-out) both;
+  }
+  /* Bottom bar: the pill of the active tab grows in. */
+  html[data-line='instalacje'] .bnav .act .bni {
+    animation: inst-grow-x var(--dur-state) var(--ease-spring) backwards;
+  }
+}
+
+/* --- 2b. Tabs: one pill flows under the chosen tab (shared `SlidingPill`) -------------------
+   Hero objects and times of day, the architects' section views, the „Więcej” sheet tabs. The
+   pill has the chosen tab's own background; without JavaScript the tab keeps it. */
+html[data-line='instalacje'] :is(.hotabs, .hmodes, .armodes, .mtabs) {
+  position: relative;
+}
+html[data-line='instalacje'] :is(.hotabs, .hmodes, .armodes, .mtabs):has(> .inst-pill) > .on {
+  position: relative;
+  z-index: 1;
+  background: transparent;
+  box-shadow: none;
+}
+html[data-line='instalacje'] .hotabs > .inst-pill {
+  background: var(--hx-accent);
+}
+html[data-line='instalacje'] .hmodes > .inst-pill {
+  background: var(--hx-mode-on-bg);
+}
+html[data-line='instalacje'] .armodes > .inst-pill {
+  background: var(--accent);
+}
+html[data-line='instalacje'] .mtabs > .inst-pill {
+  background: var(--card);
+  box-shadow:
+    var(--inst-tab-shadow),
+    inset 0 0 0 1px var(--border);
+}
+
+/* Theme circle (`revealTheme`): header and bottom bar join the page for that moment, so the
+   whole screen changes at once (their own names keep them still on page changes). */
+html[data-line='instalacje'][data-theme-reveal] :is(.hdr, .bnav) {
+  view-transition-name: none;
+}
+
+/* --- 3. Rising in: the prototype's `.rv .ri` on the shared curve ----------------------------- */
+html[data-line='instalacje'] .rv .ri {
+  transition:
+    opacity var(--dur-enter) var(--ease-out),
+    transform var(--dur-enter) var(--ease-out);
+}
+
+/* --- 3b. Counting figures (`Count`): the spans of the count keep the look of the figure, not
+   the caption style the prototype gives every `span` of a fact (`.kv span`, `.arbri span`). */
+html[data-line='instalacje'] b > [data-count],
+html[data-line='instalacje'] b > [data-count] span {
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+}
+
+/* --- 4. FAQ and folded sections ---------------------------------------------------------------
+   The answer slides in (motion.css §4); the plus turns into a ×, the frame turns accent softly. */
+html[data-line='instalacje'] .fq {
+  transition: box-shadow var(--dur-state) var(--ease-out);
+}
+html[data-line='instalacje'] .fq summary > svg {
+  transition: rotate var(--dur-state) var(--ease-spring);
+}
+html[data-line='instalacje'] .fq[open] summary > svg {
+  rotate: 45deg;
+}
+html[data-line='instalacje'] .foldb svg {
+  transition: transform var(--dur-state) var(--ease-out);
+}
+@media (prefers-reduced-motion: no-preference) {
+  /* The rest of a section appears softly when unfolded. */
+  html[data-line='instalacje'] section[data-fo='1'] > .wrap {
+    animation: inst-unfold var(--dur-enter) var(--ease-out);
+  }
+}
+
+/* --- 5. Points of scenes and plans: they grow under the pointer and the focus ----------------
+   (`.hs` of object scenes and the architects' house; layers fade instead of jumping.) */
+html[data-line='instalacje'] .hs {
+  transition: opacity var(--dur-state) var(--ease-out);
+}
+html[data-line='instalacje'] .hs .hsd {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition:
+    r var(--dur-state) var(--ease-out),
+    scale var(--dur-hover) var(--ease-spring);
+}
+@media (prefers-reduced-motion: no-preference) {
+  html[data-line='instalacje'] .hs:focus-visible .hsd {
+    scale: 1.18;
+  }
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  html[data-line='instalacje'] .hs:hover .hsd {
+    scale: 1.18;
+  }
+}
+
+/* --- 6. Phone carousels: snap and faded edges stay as in I14b. CSS scroll markers (dots) were
+   tried and dropped: they crashed the tab of Chromium 145 on the home page (I-M, CI). */
+
+/* --- 7. Forms ------------------------------------------------------------------------------
+   Fields keep the prototype's focus (inset accent border); it now eases in. A wrong field shakes
+   once (`aria-invalid`, motion.css §4b). */
+html[data-line='instalacje'] :is(input, textarea, select, .zkfl, .zktown, .hzkf, .ofs, .zin) {
+  transition:
+    box-shadow var(--dur-hover) var(--ease-out),
+    border-color var(--dur-hover) var(--ease-out),
+    background-color var(--dur-hover) var(--ease-out);
+}
+
+/* --- 8. Planner (`/zaplanuj`): a step back slides in from the left --------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  html[data-line='instalacje'] .zkw[data-dir='back'] .zkbody {
+    animation: inst-zkback var(--dur-state) var(--ease-out);
+  }
+}
+
+/* --- 9. Reduced motion: nothing moves, colours still change ----------------------------------
+   The prototype's planner, contact map and company map had no such rule. */
+@media (prefers-reduced-motion: reduce) {
+  html[data-line='instalacje']
+    :is(
+      .zkbody,
+      .zkth,
+      .zkerr,
+      .zkdone,
+      .zkdtl,
+      .zkhint,
+      .kz2,
+      .kroute,
+      .kpul,
+      .ofring,
+      .mshp,
+      .mega
+    ),
+  html[data-line='instalacje'] .mshp::backdrop {
+    animation: none;
+  }
+  /* The drawn tick of „Wysłane” is simply there. */
+  html[data-line='instalacje'] :is(.zkok circle, .zkok path) {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+  /* Hover lifts of the prototype: no movement, only the colour and the shadow. */
+  html[data-line='instalacje']
+    :is(
+      .btn,
+      .hbtn-p,
+      .sycta,
+      .hzksend,
+      .zkpb,
+      .ftci,
+      .sgrc,
+      .rl,
+      .obc,
+      .ut2,
+      .hzkb,
+      .card.feat,
+      .odbl,
+      .relc,
+      .relsegc,
+      .arsv,
+      .arlzc,
+      .arlibx,
+      .arnwi,
+      .lnc,
+      .prc2,
+      .apc,
+      .uchip,
+      .ofi,
+      .rbr,
+      .axc,
+      .zksb,
+      .zkob
+    ):is(:hover, :active) {
+    /* `!important`: some lifts of the prototype are more specific (`.inst-svc .card.feat:hover`,
+       `.hx .hbtn-p:hover`), as in its own reduced-motion rule (sekcje.css). */
+    transform: none !important;
+    translate: none !important;
+    scale: none !important;
+  }
+  html[data-line='instalacje'] .fq summary > svg,
+  html[data-line='instalacje'] .foldb svg,
+  html[data-line='instalacje'] .hs .hsd,
+  html[data-line='instalacje'] :is(.nav > a, .nav .nbtn)::after {
+    transition: none;
+  }
+}
+
+@keyframes inst-grow-x {
+  from {
+    scale: 0 1;
+  }
+}
+
+@keyframes inst-unfold {
+  from {
+    opacity: 0.4;
+  }
+}
+
+@keyframes inst-zkback {
+  from {
+    opacity: 0;
+    translate: -14px 0;
+  }
+}

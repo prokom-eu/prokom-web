@@ -24,6 +24,8 @@ export function InstIcon({ name, size = 18, strokeWidth = 2, className }: Props)
       aria-hidden="true"
       focusable="false"
       className={className}
+      // The arrow moves 3 px while its link is pointed at (motion.css §2, I-M).
+      data-icon={name === 'arrow' ? 'arrow' : undefined}
     >
       <path d={INST_ICONS[name]} />
     </svg>

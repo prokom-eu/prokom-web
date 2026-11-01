@@ -2,6 +2,7 @@ import Link from 'next/link'
 
 import { nieZnaleziono as T } from '../dane/nieZnaleziono'
 import { InstIcon } from '../InstIcon'
+import { Arrow } from '../Arrow'
 
 /**
  * 404 inside the Instalacje frame (header, CTA band, footer from the layout): the message and six
@@ -26,7 +27,10 @@ export function NotFoundInstalacje() {
                   <InstIcon name={link.icon} size={22} />
                 </span>
                 <span className="flex flex-col gap-1">
-                  <b className="text-[17px]">{link.title}&nbsp;→</b>
+                  <b className="text-[17px]">
+                    {link.title}&nbsp;
+                    <Arrow />
+                  </b>
                   <span className="text-[14.5px] text-ink-2">{link.text}</span>
                 </span>
               </Link>

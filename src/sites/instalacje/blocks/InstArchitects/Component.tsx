@@ -40,6 +40,8 @@ import { type ArchService, InstallationsTabs } from '../../widzety/architekci/In
 import { SolutionsExplorer } from '../../widzety/architekci/SolutionsExplorer'
 import { StageTabs } from '../../widzety/architekci/StageTabs'
 
+import { Count } from '../../sekcje/Count'
+
 type Props = { block: InstArchitectsBlockData; tenantId: number }
 
 const PATH = '/dla-architektow'
@@ -161,7 +163,9 @@ export async function InstArchitectsBlock({ block, tenantId }: Props) {
             <div className="arkvs in d5">
               {hero.facts.map((fact) => (
                 <div key={fact.id ?? fact.value} className="kv">
-                  <b>{fact.value}</b>
+                  <b>
+                    <Count text={fact.value} />
+                  </b>
                   <span>{fact.label}</span>
                 </div>
               ))}
@@ -208,7 +212,9 @@ export async function InstArchitectsBlock({ block, tenantId }: Props) {
             </div>
             {A.bravas.map((b) => (
               <div key={b.value} className="arbri">
-                <b>{b.value}</b>
+                <b>
+                  <Count text={b.value} />
+                </b>
                 <span>{b.label}</span>
               </div>
             ))}
@@ -310,7 +316,9 @@ export async function InstArchitectsBlock({ block, tenantId }: Props) {
                 className="arlzc ri"
                 style={{ '--hc': safeHue(hues[z.service]) } as CSSProperties}
               >
-                <b>{z.value}</b>
+                <b>
+                  <Count text={z.value} />
+                </b>
                 <span className="arlzt">{z.title}</span>
                 <p>{z.text}</p>
               </div>
@@ -422,7 +430,9 @@ export async function InstArchitectsBlock({ block, tenantId }: Props) {
           <div className="arexkv ri">
             {A.experience.map((k) => (
               <div key={k.value}>
-                <b>{k.value}</b>
+                <b>
+                  <Count text={k.value} />
+                </b>
                 <span>{k.label}</span>
               </div>
             ))}
