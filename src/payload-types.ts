@@ -5869,6 +5869,24 @@ export interface InstalacjeSetting {
    * „24 h” to odpowiedź na zgłoszenie, nie przyjazd (spec §2).
    */
   responseText: string;
+  /**
+   * Bez imienia i nazwiska sekcja „Twój opiekun” się nie pokazuje. Znaczniki [SZEF…] nie trafiają na stronę.
+   */
+  architects?: {
+    name?: string | null;
+    role?: string | null;
+    photo?: (number | null) | Media;
+    /**
+     * Puste = telefon strony.
+     */
+    phone?: string | null;
+    email?: string | null;
+    quote?: string | null;
+    /**
+     * Np. „Odpowiadamy do 24 h w dni robocze.”
+     */
+    responseText?: string | null;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -9468,6 +9486,17 @@ export interface InstalacjeSettingsSelect<T extends boolean = true> {
   warrantyMonths?: T;
   whatsapp?: T;
   responseText?: T;
+  architects?:
+    | T
+    | {
+        name?: T;
+        role?: T;
+        photo?: T;
+        phone?: T;
+        email?: T;
+        quote?: T;
+        responseText?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
