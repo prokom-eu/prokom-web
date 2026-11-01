@@ -8,7 +8,8 @@ import {
   upgradedImportant,
 } from './footer'
 
-const ksef = footerTopics().find((link) => link.label === 'KSeF 2027')!.href
+// The B3b / K3.1 columns linked „KSeF 2027” to the KSeF post.
+const ksef = '/aktualnosci/ksef-od-1-stycznia-2027'
 
 const b3b = [
   { label: 'Opieka IT', href: '/opieka-it' },
@@ -47,11 +48,25 @@ describe('footer K4 (K36 §1)', () => {
     expect(footerData().company?.map((link) => link.label)).toEqual([
       'GoPOS',
       'InsERT i KSeF',
-      'KSeF 2027',
+      'KSeF',
+      'Ulga na kasę',
       'Automaty vendingowe',
       'O firmie',
       'Aktualności',
     ])
+    expect(footerData().company?.find((link) => link.label === 'KSeF')?.href).toBe('/ksef')
+  })
+
+  it('moves the K4b topics to the K4j pages', () => {
+    const k4b = [
+      { label: 'GoPOS', href: '/gopos' },
+      { label: 'InsERT i KSeF', href: '/insert' },
+      { label: 'KSeF 2027', href: ksef },
+      { label: 'Automaty vendingowe', href: '/oferta/automaty-vendingowe' },
+      { label: 'O firmie', href: '/o-firmie' },
+      { label: 'Aktualności', href: '/aktualnosci' },
+    ]
+    expect(upgradedCompany(k4b)).toEqual(footerTopics())
   })
 
   it('gives „Usługi” to a column still as B3b or K3.1 wrote it, also with the early KSeF link', () => {

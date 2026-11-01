@@ -10,9 +10,13 @@ import {
   contactK4Layout,
   goposK4Layout,
   insertK4Layout,
+  ksefK4Layout,
   opiekaK4Layout,
+  ulgaK4Layout,
+  vendingK4Layout,
   type K4FirmaFile,
   type K4PagesFile,
+  type K4VendingFile,
   type SlugOf,
 } from './k4Pages'
 import { biznesOpiekaItLayout, OPIEKA_IT_SLUG } from './opiekaIt'
@@ -23,6 +27,7 @@ type Note = (what: string, item: string) => void
 
 const pages = file as unknown as K4PagesFile
 const firma = file as unknown as K4FirmaFile
+const vending = file as unknown as K4VendingFile
 
 /**
  * K4 subpages (K4hij) from `strony-k4.json`. A page still on the B9 seed layout gets the K4
@@ -80,6 +85,31 @@ export async function seedBiznesK4Pages(
         'Kontakt z PRO-KOM w Rabce-Zdroju: telefon, WhatsApp, e-mail i formularz. Oddzwaniamy w ciągu 60 minut w godzinach pracy. Dojazd na całe Podhale.',
       built: contactK4Layout(firma),
       legacy: [biznesContactLayout()],
+    },
+    // K4j: new pages (D-K4-7), no older seed.
+    {
+      slug: 'automaty-vendingowe',
+      title: 'Automaty vendingowe',
+      description:
+        'Automaty vendingowe Optivendi z PRO-KOM: dobór maszyny do produktu i miejsca, płatności kartą i BLIK, zarządzanie z telefonu. Oferta na piśmie.',
+      built: vendingK4Layout(vending, slugOf),
+      legacy: [],
+    },
+    {
+      slug: 'ksef',
+      title: 'KSeF 2027 — co musi zrobić firma',
+      description:
+        'KSeF bez wyjątków od 1 stycznia 2027: kogo dotyczy, 6 kroków do gotowości, kary z art. 106ni. Program, uprawnienia i certyfikat z PRO-KOM z Rabki.',
+      built: ksefK4Layout(slugOf),
+      legacy: [],
+    },
+    {
+      slug: 'ulga-na-kase-fiskalna',
+      title: 'Ulga na kasę fiskalną',
+      description:
+        'Ulga na kasę fiskalną: 90% ceny netto, do 700 zł na kasę online zgłoszoną na start. Kto może skorzystać, kiedy trzeba oddać ulgę. Rozlicza księgowa.',
+      built: ulgaK4Layout(slugOf),
+      legacy: [],
     },
   ]
   for (const { slug, title, description, built, legacy, ...rest } of k4) {

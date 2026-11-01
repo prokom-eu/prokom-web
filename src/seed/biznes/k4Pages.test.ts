@@ -12,21 +12,27 @@ import {
 } from '../../lib/biznes/pages/sections'
 import { forbiddenContent } from '../../lib/catalog/contentRules'
 import { hardSpaces } from '../../lib/text/hardSpace'
-import type { BzSectionBlock } from '../../payload-types'
+import type { BzSectionBlock, FaqBlock } from '../../payload-types'
 import {
   aboutK4Layout,
   contactK4Layout,
   goposK4Layout,
   insertK4Layout,
+  KSEF_SWITCH_DATE,
+  ksefK4Layout,
   opiekaK4Layout,
+  ulgaK4Layout,
+  vendingK4Layout,
   sourceLink,
   type K4FirmaFile,
   type K4PagesFile,
+  type K4VendingFile,
 } from './k4Pages'
 import type { PageBlock } from './page'
 
 const pages = file as unknown as K4PagesFile
 const firma = file as unknown as K4FirmaFile
+const vending = file as unknown as K4VendingFile
 /** Every board id is known (the seed maps them to slugs; here the id stands for the slug). */
 const identity = (id: string) => id
 
@@ -44,6 +50,9 @@ describe.each([
   ['opieka-it', opiekaK4Layout(firma, identity).layout],
   ['o-firmie', aboutK4Layout(firma).layout],
   ['kontakt', contactK4Layout(firma).layout],
+  ['automaty-vendingowe', vendingK4Layout(vending, identity).layout],
+  ['ksef', ksefK4Layout(identity).layout],
+  ['ulga-na-kase-fiskalna', ulgaK4Layout(identity).layout],
 ])('K4 layout of /%s (K4h)', (_page, layout) => {
   it('uses Biznes blocks only and opens with a hero kind (the H1)', () => {
     expect(layout.every((block) => isBlockAllowed('biznes', block.blockType))).toBe(true)
@@ -215,5 +224,73 @@ describe('/kontakt (K4i)', () => {
     const emails = JSON.stringify(layout).match(/[w.+-]+@[w.-]+/g) ?? []
     expect(emails.every((email) => email === 'biznes@pro-kom.eu')).toBe(true)
     expect(JSON.stringify(layout)).not.toMatch(/ul. [^"]*Zakopane/)
+  })
+})
+
+describe('/automaty-vendingowe (K4j)', () => {
+  const { layout, missing } = vendingK4Layout(vending, identity)
+  const text = JSON.stringify(layout)
+
+  it('says „Partner Optivendi”, never „autoryzowany” or a discount', () => {
+    expect(dataOf(layout, 'vending-hero')?.pill).toContain('Partner Optivendi')
+    expect(text).not.toMatch(/autoryzowan|−20%|-20%/i)
+    expect(missing).toEqual([])
+  })
+
+  it('lists the machines by product kind and the offer by subcategory', () => {
+    expect(dataOf(layout, 'vending-picker')?.tabs).toHaveLength(7)
+    const names = dataOf(layout, 'catalog-tabs')?.tabs.map((t) => t.subcategory.replace(/\s/g, ' '))
+    expect(names).toEqual([
+      'Automaty z windą i mikromarkety',
+      'Automaty spożywcze',
+      'Boxomaty i skrytki',
+    ])
+  })
+})
+
+describe('/ksef (K4j, D-K4-7)', () => {
+  const { layout } = ksefK4Layout(identity)
+
+  it('carries both versions with the switch day of 1.01.2027', () => {
+    const hero = dataOf(layout, 'ksef-hero')!
+    expect(hero.switchDate).toBe(KSEF_SWITCH_DATE)
+    expect(hero.before.h1a).toContain('od 1')
+    expect(hero.after.h1a).toContain('obowiązuje wszystkie firmy')
+    const band = dataOf(layout, 'band')!
+    expect(band.after?.heading).toBe('Sprawdźmy Twój KSeF.')
+  })
+
+  it('asks about the limit before the switch only', () => {
+    const quiz = dataOf(layout, 'ksef-quiz')!
+    expect(quiz.questions.find((q) => q.key === 'lim')?.beforeOnly).toBe(true)
+  })
+
+  it('has the FAQ (FAQPage) and the sources as links', () => {
+    const faqBlock = layout.find((block) => block.blockType === 'faq') as FaqBlock
+    expect(faqBlock.items).toHaveLength(5)
+    expect(dataOf(layout, 'sources')?.items.every((item) => item.url.startsWith('https://'))).toBe(
+      true,
+    )
+  })
+
+  it('drops the hero and the band when the database lacks the KSeF service', () => {
+    const { layout: without } = ksefK4Layout((id) => (id === 'ksef' ? undefined : id))
+    const kinds = sections(without).map((block) => block.variant)
+    expect(kinds).not.toContain('ksef-hero')
+    expect(kinds).not.toContain('band')
+  })
+})
+
+describe('/ulga-na-kase-fiskalna (K4j)', () => {
+  const { layout } = ulgaK4Layout(identity)
+
+  it('says that the accountant settles it, next to the amount', () => {
+    const text = JSON.stringify(layout)
+    expect(text).toMatch(/rozlicza Twoja księgowa/)
+    expect(text).toMatch(/do 700/)
+  })
+
+  it('shows the 4 cash registers of the board', () => {
+    expect(dataOf(layout, 'products')?.slugs).toEqual(['ergo', 'k10', 'minilt', 'pospay2'])
   })
 })
