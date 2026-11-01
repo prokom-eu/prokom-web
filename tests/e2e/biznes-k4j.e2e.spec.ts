@@ -103,7 +103,7 @@ test.describe('Biznes /automaty-vendingowe (K4j)', () => {
       .click()
     await expect(cartButton(page)).toHaveAccessibleName('Zapytanie 1 pozycja')
     const cart = await page.evaluate(() => JSON.parse(localStorage.getItem('pk-cart') ?? '[]'))
-    expect(cart[0]?.uwaga).toBe('Automat vendingowy — dobór')
+    expect(cart[0]?.uwaga).toBe('Automat vendingowy: dobór')
     await expect(page.getByRole('tab', { name: /Boxomaty i skrytki/ })).toBeVisible()
   })
 })

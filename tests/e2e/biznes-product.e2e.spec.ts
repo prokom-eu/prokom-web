@@ -275,7 +275,9 @@ test.describe('Biznes product page 2.0', () => {
     ).toHaveAttribute('href', '/produkt/szuflada-posnet-skl')
     await expect(suggestions).toContainText('Szuflada')
     // A cash register: fiscalisation in the strip and in „Co robimy przy zakupie”.
-    await expect(page.getByText('— fiskalizacja i szkolenie na miejscu')).toBeVisible()
+    await expect(
+      page.getByText('fiskalizacja i szkolenie na miejscu', { exact: true }),
+    ).toBeVisible()
     await expect(
       page.getByText('Dobór, fiskalizacja, szkolenie i serwis w jednej ofercie.'),
     ).toBeVisible()

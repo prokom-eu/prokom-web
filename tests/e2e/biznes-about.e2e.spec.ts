@@ -31,7 +31,7 @@ test.describe('Biznes about page (K4i)', () => {
 
     await expect(page.locator('#zasady li')).toHaveCount(8)
     const lines = page.locator('#linie')
-    await expect(lines.getByRole('heading', { level: 2 })).toHaveText('Jedna firma, cztery linie.')
+    await expect(lines.getByRole('heading', { level: 2 })).toHaveText('Jedna firma, cztery linie')
     await expect(lines.getByText('Jesteś tutaj')).toHaveCount(1)
 
     const brands = page.getByRole('region', {
