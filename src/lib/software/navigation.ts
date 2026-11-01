@@ -22,15 +22,9 @@ const headerItem = z.union([
 
 const linkColumn = obj({ title: label, links: z.array(link).min(1) })
 
-/** PRO-KOM lines of „Jedna firma, sześć adresów” — the keys of `--c-<line>-on-dark`. */
-export const FOOTER_LINE_COLORS = [
-  'prokom',
-  'biznes',
-  'instalacje',
-  'software',
-  'tech',
-  'zakopane',
-] as const
+/** PRO-KOM lines of „Jedna firma, pięć linii” — the keys of `--c-<line>-on-dark`. Without
+ * Zakopane: Software works only in Rabka (ZMIANY-v23 §1). */
+export const FOOTER_LINE_COLORS = ['prokom', 'biznes', 'instalacje', 'software', 'tech'] as const
 
 /** The design package calls the main line „zielen”; in code it is `prokom` (ADR-014 v22 pkt 9). */
 const lineColor = z.preprocess(

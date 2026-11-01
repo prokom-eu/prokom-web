@@ -12,7 +12,6 @@ export const HOME_SECTIONS = [
   { value: 'wizard', label: 'Kreator', anchor: 'dobierz' },
   { value: 'whyNotWordpress', label: 'Dlaczego nie WordPress', anchor: 'bez-wordpressa' },
   { value: 'guarantees', label: 'Zasady', anchor: 'zasady' },
-  { value: 'showcase', label: 'Realizacje', anchor: 'realizacje' },
   // SWR5 (v21): back from `/o-firmie` to the start page.
   { value: 'howWeBuild', label: 'Jak robimy', anchor: 'jak-robimy' },
   { value: 'technologies', label: 'Z czego budujemy', anchor: 'technologie' },
@@ -34,7 +33,6 @@ export const BUILT_HOME_SECTIONS: readonly HomeSectionValue[] = [
   'wizard',
   'whyNotWordpress',
   'guarantees',
-  'showcase',
   'howWeBuild',
   'technologies',
   // SW11b: on `/o-firmie` only — not in the start page order (`homeOrder`), so not in the rail.

@@ -16,7 +16,7 @@ describe('compareView', () => {
         { mark: 'maybe', text: 'jedna osoba, jeden telefon' },
         { mark: 'yes', text: 'tak' },
       ],
-      ours: 'biuro w Rabce i Zakopanem, od 2004 r.',
+      ours: 'biuro w Rabce-Zdroju, od 2004 r.',
     })
   })
 

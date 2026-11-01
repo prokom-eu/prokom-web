@@ -63,6 +63,7 @@ export async function SoftwareFrame({
         name={tenant.name}
         footer={navigation.footer}
         phone={settings.phone}
+        phone2={settings.phone2}
         email={settings.email}
         company={company}
       />

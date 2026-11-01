@@ -4,7 +4,7 @@ import { hrefField, linkGroup } from '../../../../blocks/fields'
 import { SOFTWARE_TOPIC_LABELS } from '../../../../lib/inquiry/types'
 
 /** Lines of „Inne linie PRO-KOM” (`--c-<line>`, `--c-<line>-text`, `--c-<line>-on-dark`). */
-export const CONTACT_LINE_COLORS = ['biznes', 'instalacje', 'tech', 'zakopane', 'prokom'] as const
+export const CONTACT_LINE_COLORS = ['biznes', 'instalacje', 'tech', 'prokom'] as const
 
 /** The four contact cards of the hero (spec. §6.10). */
 export const CONTACT_CHANNELS = ['phone', 'email', 'salon', 'online'] as const
@@ -287,7 +287,6 @@ export const SwContactPageBlock: Block = {
                     { label: 'Biznes', value: 'biznes' },
                     { label: 'Instalacje', value: 'instalacje' },
                     { label: 'Tech', value: 'tech' },
-                    { label: 'Zakopane', value: 'zakopane' },
                     { label: 'Główna (pro-kom.eu)', value: 'prokom' },
                   ],
                 },

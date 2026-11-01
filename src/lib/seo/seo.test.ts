@@ -154,6 +154,21 @@ describe('organizationJsonLd', () => {
   })
 })
 
+describe('organizationJsonLd on Software (SWV2: only Rabka)', () => {
+  it('lists only the main office, never the other salons of the company', () => {
+    const zakopane = { ...company.locations[0]!, name: 'Zakopane', city: 'Zakopane' }
+    const data = organizationJsonLd({
+      company: { ...company, locations: [...company.locations, zakopane] },
+      tenant: { name: 'PRO-KOM Software', line: 'software' },
+      contact: { phone: '883 200 151', email: null },
+      origin: 'https://prokomsoftware.pl',
+    })
+    const branches = data['@graph'].filter((node) => node['@type'] === 'LocalBusiness')
+    expect(branches).toHaveLength(1)
+    expect(JSON.stringify(data)).not.toContain('Zakopane')
+  })
+})
+
 describe('faqJsonLd', () => {
   it('maps questions and answers', () => {
     expect(faqJsonLd([{ question: 'Czy?', answer: 'Tak.' }])).toEqual({

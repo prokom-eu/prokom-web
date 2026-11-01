@@ -10,25 +10,24 @@ type Count = (name: string, result: boolean | 'updated') => void
 type Of<T extends PageBlock['blockType']> = Extract<PageBlock, { blockType: T }>
 
 // TODO(krystian): [SZEF] texts of `/o-firmie` and `/jedna-firma` come from the boards `ONas` and
-// `Wszystko` (the package has no JSON for them) — approval before production: „100+ klientów”,
-// the people and their roles (photos only with consent), the two examples, the years
-// `[ROK ZAKOPANE]` / `[ROK SERWIS KAS]` (empty = the timeline item goes on production).
+// `Wszystko` v23 (the package has no JSON for them) — approval before production: „100+
+// klientów”, the two people and their roles (portraits only with written consent, SWV4), the two
+// examples. Phones and e-mail are the facts `[TELEFON]`, `[TELEFON 2]`, `[E-MAIL]` taken from the
+// line's settings (`contactFacts`), so the panel stays the one source.
 
 const ABOUT_HERO: Of<'swPageHero'> = {
   blockType: 'swPageHero',
   eyebrow: 'O firmie',
   title: 'Firma z Rabki.',
   titleAccent: 'Od 2004 roku.',
-  lead: 'PRO-KOM to sklepy w Rabce-Zdroju i Zakopanem, serwis, sprzęt i programy dla firm. Software to nasza linia od stron, systemów i aplikacji. Za każdym projektem stoi firma z historią, umową i fakturą VAT.',
+  lead: 'PRO-KOM to sklep i serwis w Rabce-Zdroju, sprzęt i programy dla firm. Software to nasza linia od stron, systemów i aplikacji. Za każdym projektem stoi firma z historią, umową i fakturą VAT.',
   primary: { label: 'Umów rozmowę', href: '/kontakt' },
   secondary: { label: 'Co jeszcze robi PRO-KOM', href: '/jedna-firma' },
   visual: 'photos',
+  // Two portraits (board `ONas` v23); the photos come in SWV4, with consent.
   photos: [
-    {
-      photoCaption: 'Salon PRO-KOM przy ul. Orkana 16B w Rabce-Zdroju, witryna od ulicy',
-    },
-    { photoCaption: 'Rozmowa z klientem w salonie, przy biurku' },
-    { photoCaption: 'Salon PRO-KOM w Zakopanem' },
+    { photoCaption: 'Krystian Potaczek, prowadzi Software' },
+    { photoCaption: 'Tadeusz Wójciak, właściciel PRO-KOM' },
   ],
   badge: {
     status: 'działa na co dzień',
@@ -41,12 +40,12 @@ const ABOUT_NUMBERS: Of<'swSteps'> = {
   blockType: 'swSteps',
   variant: 'stats',
   eyebrow: 'W liczbach',
-  heading: 'Konkretnie, bez dmuchania.',
+  heading: 'PRO-KOM w liczbach.',
   items: [
     { marker: '2004', text: 'rok, od którego PRO-KOM działa na Podhalu' },
     { marker: '100+', text: 'klientów biznesowych na Podhalu i w Małopolsce' },
-    { marker: '2', text: 'salony z ludźmi na miejscu: Rabka-Zdrój i Zakopane' },
-    { marker: '5', text: 'linii: Software, Biznes, Instalacje, Tech (serwis) i salon w Zakopanem' },
+    { marker: '4', text: 'linie w jednej firmie: Software, Biznes, Instalacje i Tech (serwis)' },
+    { marker: '1', text: 'miejsce: biuro i salon przy ul. Orkana 16B w Rabce-Zdroju' },
   ],
 }
 
@@ -66,7 +65,7 @@ const ABOUT_COMPANY: Of<'swSteps'> = {
     {
       icon: 'pin',
       title: 'Na miejscu',
-      text: 'Spotkasz się z nami w salonie w Rabce albo w Zakopanem. Zdalnie pracujemy w całej Polsce.',
+      text: 'Spotkasz się z nami w Rabce-Zdroju, przy ul. Orkana 16B. Zdalnie pracujemy w całej Polsce.',
     },
     {
       icon: 'doc',
@@ -76,104 +75,59 @@ const ABOUT_COMPANY: Of<'swSteps'> = {
   ],
 }
 
-const ABOUT_HISTORY: Of<'swSteps'> = {
-  blockType: 'swSteps',
-  variant: 'timeline',
-  eyebrow: 'Historia',
-  heading: 'Najpierw sprzęt i serwis. Potem własne systemy.',
-  lead: 'Software nie wziął się znikąd. Najpierw zbudowaliśmy programy dla siebie.',
-  items: [
-    {
-      marker: '2004',
-      title: 'Start PRO-KOM w Rabce-Zdroju',
-      text: 'Sprzęt komputerowy, serwis i obsługa firm.',
-    },
-    {
-      marker: '[ROK ZAKOPANE]',
-      title: 'Salon w Zakopanem',
-      text: 'Drugi punkt z ludźmi na miejscu.',
-    },
-    {
-      marker: '[ROK SERWIS KAS]',
-      title: 'Autoryzowany serwis kas',
-      text: 'Posnet i Elzab, wdrożenia programów InsERT.',
-    },
-    {
-      marker: '2026',
-      title: 'prokomserwis.pl',
-      text: 'Własny system serwisu: przyjęcia, statusy, SMS-y, panel klienta. Działa na co dzień.',
-    },
-    {
-      marker: '2026',
-      title: 'PRO-KOM Software',
-      text: 'Strony, systemy i aplikacje dla innych firm, na tym samym fundamencie.',
-    },
-  ],
-}
-
 const ABOUT_TEAM: Of<'swTeam'> = {
   blockType: 'swTeam',
   variant: 'people',
   eyebrow: 'Ludzie',
   heading: 'Kto z Tobą pracuje.',
+  lead: 'Mała firma, więc rozmawiasz z ludźmi, którzy podejmują decyzje i budują projekt. Bez pośredników.',
   members: [
     {
       role: 'PRO-KOM Software',
       name: 'Krystian Potaczek',
-      text: 'Prowadzi Software: strony, systemy i aplikacje (Python, Django, Next.js). Z nim ustalasz zakres i odbierasz etapy.',
+      text: 'Prowadzi Software. Projektuje i buduje strony, systemy i aplikacje. Z nim ustalasz zakres, oglądasz podgląd i odbierasz kolejne etapy.',
       photoCaption: 'Portret: Krystian Potaczek',
     },
     {
       role: 'Właściciel',
       name: 'Tadeusz Wójciak',
-      text: 'Właściciel PRO-KOM od 2004 r. Odpowiada za firmę i umowy.',
+      text: 'Właściciel PRO-KOM od 2004 r. Odpowiada za firmę i podpisuje umowy.',
       photoCaption: 'Portret: Tadeusz Wójciak',
-    },
-    {
-      role: 'Obsługa i salon',
-      name: '[IMIĘ I NAZWISKO]',
-      text: 'Pierwszy kontakt na miejscu w Rabce. Umówi spotkanie i przekaże sprawę dalej.',
-      photoCaption: 'Portret: obsługa klienta w salonie',
     },
   ],
 }
 
-// The salon cards: one fact per line — a line with a missing fact goes on production, the card
-// stays (`swTeam` places). The Rabka phone is in the site settings (spec. §3).
+// One place (v23): one fact per line — a line with a missing fact goes on production, the card
+// stays (`swTeam` places). The entrance photo comes in SWV4.
 const ABOUT_PLACES: Of<'swTeam'> = {
   blockType: 'swTeam',
   variant: 'places',
   eyebrow: 'Gdzie nas znaleźć',
-  heading: 'Dwa salony. Ludzie na miejscu.',
+  heading: 'Rabka-Zdrój, ul. Orkana 16B.',
   members: [
     {
-      name: 'Rabka-Zdrój',
-      details: 'PRO-KOM Tadeusz Wójciak\n[ADRES]\n[GODZINY]\nNIP 7352511447',
-      photoCaption: 'Salon w Rabce-Zdroju, wejście od ul. Orkana',
-    },
-    {
-      name: 'Zakopane',
-      details: 'PRO-KOM Zakopane\n[ADRES SALONU W ZAKOPANEM]\n[TELEFON ZAKOPANE]\n[GODZINY]',
-      photoCaption: 'Salon w Zakopanem, wnętrze i lada',
+      name: 'PRO-KOM Tadeusz Wójciak',
+      details:
+        '[ADRES]\ntel. [TELEFON] · [TELEFON 2]\n[E-MAIL]\n[GODZINY] · sobota nieczynne\nNIP 7352511447',
+      photoCaption: 'Tak wygląda wejście',
     },
   ],
 }
 
 const ABOUT_CTA: Of<'callToAction'> = {
   blockType: 'callToAction',
-  heading: 'Poznajmy się. Kawa w salonie albo 30 minut online.',
+  heading: 'Poznajmy się. Kawa w Rabce albo 30 minut online.',
   text: 'Pokaż, jak dziś pracujesz. Powiemy, co da się uprościć, ile to kosztuje i kiedy może działać. Bez zobowiązań.',
   link: { label: 'Umów rozmowę', href: '/kontakt' },
 }
 
-/** `/o-firmie` (spec. §6.6): v21 without „Jak robimy” and „Z czego budujemy” (start page). */
+/** `/o-firmie` (spec. §6.6): v23 — no timeline and no second salon, two people, one place. */
 export function softwareAboutLayout(): PageBlock[] {
   return structuredClone([
     ABOUT_HERO,
     ABOUT_NUMBERS,
     ABOUT_COMPANY,
     { blockType: 'swHomeSection', section: 'compare' },
-    ABOUT_HISTORY,
     ABOUT_TEAM,
     ABOUT_PLACES,
     ABOUT_CTA,
@@ -182,7 +136,7 @@ export function softwareAboutLayout(): PageBlock[] {
 
 const ONE_HERO: Of<'swPageHero'> = {
   blockType: 'swPageHero',
-  eyebrow: 'PRO-KOM · jedna firma, pięć linii',
+  eyebrow: 'PRO-KOM · jedna firma, cztery linie',
   title: 'Strona, program, sprzęt i serwis.',
   titleAccent: 'W jednej firmie.',
   lead: 'Software robi strony i systemy. Resztę, czego potrzebuje firma, załatwisz w PRO-KOM obok: kasy i sprzęt, monitoring i sieci, serwis. Jeden telefon i jedna firma, która zna całość.',
@@ -252,16 +206,6 @@ const ONE_LINES: Of<'swLines'> = {
         { text: 'Naprawy telefonów' },
         { text: 'Status naprawy online' },
         { text: 'Akcesoria i sprzęt' },
-      ],
-    },
-    {
-      name: 'PRO-KOM Zakopane',
-      icon: 'pin',
-      address: 'salon · [ADRES SALONU W ZAKOPANEM]',
-      points: [
-        { text: 'Sprzęt i akcesoria na miejscu' },
-        { text: 'Otwarte [GODZINY]' },
-        { text: 'Spotkanie o stronie albo systemie' },
       ],
     },
   ],
@@ -334,7 +278,7 @@ const ONE_GAINS: Of<'swSteps'> = {
     {
       icon: 'pin',
       title: 'Ludzie na miejscu',
-      text: 'Salony w Rabce i Zakopanem. Przyjedziemy albo przyjdziesz do nas.',
+      text: 'Biuro i salon w Rabce-Zdroju. Przyjedziemy do Ciebie albo przyjdziesz do nas.',
     },
   ],
 }
@@ -343,18 +287,13 @@ const ONE_PLACES: Of<'swTeam'> = {
   blockType: 'swTeam',
   variant: 'people',
   eyebrow: 'Na miejscu',
-  heading: 'Dwa salony z ludźmi na miejscu.',
-  lead: 'Przyjdź z laptopem, z kasą do serwisu albo z pomysłem na stronę. Wszystko w jednym miejscu.',
+  heading: 'Wszystko pod jednym adresem w Rabce-Zdroju.',
+  lead: 'Przyjdź z laptopem do serwisu, z kasą do przeglądu albo z pomysłem na stronę.',
   members: [
     {
-      name: 'Rabka-Zdrój',
-      details: 'ul. Orkana 16B · [GODZINY]',
-      photoCaption: 'Salon PRO-KOM w Rabce-Zdroju: lada, sprzęt i miejsce na rozmowę',
-    },
-    {
-      name: 'Zakopane',
-      details: '[ADRES SALONU W ZAKOPANEM]\n[GODZINY]',
-      photoCaption: 'Salon PRO-KOM w Zakopanem: witryna i wnętrze',
+      name: 'PRO-KOM, ul. Orkana 16B',
+      details: '34-700 Rabka-Zdrój\n[GODZINY] · sobota nieczynne\nSoftware: [TELEFON] · [E-MAIL]',
+      photoCaption: 'Tak wygląda wejście',
     },
   ],
 }
@@ -366,7 +305,7 @@ const ONE_CTA: Of<'callToAction'> = {
   link: { label: 'Umów rozmowę', href: '/kontakt' },
 }
 
-/** `/jedna-firma` (spec. §6.7): five lines with „Tech”, two examples, gains, salons, CTA. */
+/** `/jedna-firma` (spec. §6.7): four lines (v23, no Zakopane), two examples, gains, place, CTA. */
 export function softwareOneCompanyLayout(): PageBlock[] {
   return structuredClone([
     ONE_HERO,

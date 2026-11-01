@@ -1555,6 +1555,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "phone2": {
+          "name": "phone2",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
         "email": {
           "name": "email",
           "type": "varchar",
@@ -61821,7 +61827,6 @@
         "wizard",
         "whyNotWordpress",
         "guarantees",
-        "showcase",
         "howWeBuild",
         "technologies",
         "compare"
@@ -61845,7 +61850,7 @@
     "public.enum_pages_blocks_sw_contact_page_lines_line": {
       "name": "enum_pages_blocks_sw_contact_page_lines_line",
       "schema": "public",
-      "values": ["biznes", "instalacje", "tech", "zakopane", "prokom"]
+      "values": ["biznes", "instalacje", "tech", "prokom"]
     },
     "public.enum_pages_blocks_sw_pricing_tabs_category": {
       "name": "enum_pages_blocks_sw_pricing_tabs_category",
@@ -63157,7 +63162,6 @@
         "wizard",
         "whyNotWordpress",
         "guarantees",
-        "showcase",
         "howWeBuild",
         "technologies",
         "compare"
@@ -63181,7 +63185,7 @@
     "public.enum__pages_v_blocks_sw_contact_page_lines_line": {
       "name": "enum__pages_v_blocks_sw_contact_page_lines_line",
       "schema": "public",
-      "values": ["biznes", "instalacje", "tech", "zakopane", "prokom"]
+      "values": ["biznes", "instalacje", "tech", "prokom"]
     },
     "public.enum__pages_v_blocks_sw_pricing_tabs_category": {
       "name": "enum__pages_v_blocks_sw_pricing_tabs_category",
@@ -64462,6 +64466,6 @@
     "tables": {},
     "columns": {}
   },
-  "id": "8798dfd7-d13a-4491-9815-239afadb1b8f",
+  "id": "40616d3b-0cfa-4860-a3cf-99f4d84e505a",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }

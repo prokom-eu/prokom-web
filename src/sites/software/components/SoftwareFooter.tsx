@@ -20,6 +20,8 @@ type Props = {
   name: string
   footer: Footer
   phone: string | null
+  /** Second number, next to the main one (ZMIANY-v23 §1). */
+  phone2: string | null
   email: string | null
   company: PublicCompanyData | null
 }
@@ -78,17 +80,19 @@ const CONTACT_LINK =
 
 /**
  * Dark footer of the Software line v21 (spec. §3.4, ADR-014 v22 pkt 9, ADR-015 v22 pkt 1):
- * CTA band, the mark with three guarantees, Oferta / Firma / Kontakt, „Jedna firma, sześć
- * adresów” and the bottom bar. Phone and e-mail from the site settings, addresses and hours from
- * the company data — never from the navigation JSON.
+ * CTA band, the mark with three guarantees, Oferta / Firma / Kontakt, „Jedna firma” and the
+ * bottom bar. Phones and e-mail from the site settings, the address and hours from the company
+ * data — never from the navigation JSON. Software works only in Rabka (ZMIANY-v23 §1), so only
+ * the first location (the main office) is shown, not the other salons of the company.
  *
  * A page that ends with its own CTA (`data-final-cta`) hides the band, a page with the PRO-KOM
  * lines (`data-lines-section`) hides the line cards — by CSS in `globals.css`, no list of
  * addresses here (plan §3b, decyzja 6).
  */
-export function SoftwareFooter({ name, footer, phone, email, company }: Props) {
+export function SoftwareFooter({ name, footer, phone, phone2, email, company }: Props) {
   const tel = phone ? toTelHref(phone) : null
-  const [main, ...others] = company?.locations ?? []
+  const tel2 = phone2 ? toTelHref(phone2) : null
+  const main = company?.locations[0]
   const { cta } = footer
   return (
     <footer
@@ -193,6 +197,17 @@ export function SoftwareFooter({ name, footer, phone, email, company }: Props) {
                     )}
                   </ContactRow>
                 )}
+                {phone2 && (
+                  <ContactRow icon="phone" link={tel2 !== null}>
+                    {tel2 ? (
+                      <a href={tel2} className={CONTACT_LINK}>
+                        {phone2}
+                      </a>
+                    ) : (
+                      phone2
+                    )}
+                  </ContactRow>
+                )}
                 {email && (
                   <ContactRow icon="mail" link>
                     <a href={`mailto:${email}`} className={`${CONTACT_LINK} break-all`}>
@@ -203,11 +218,6 @@ export function SoftwareFooter({ name, footer, phone, email, company }: Props) {
                 {main && (
                   <ContactRow icon="pin">
                     {main.street}, {main.postalCode} {main.city}
-                    {others.map((location) => (
-                      <small key={location.name} className={SMALL}>
-                        {location.city}: {location.street}
-                      </small>
-                    ))}
                   </ContactRow>
                 )}
                 {main && main.hours.length > 0 ? (
@@ -237,7 +247,7 @@ export function SoftwareFooter({ name, footer, phone, email, company }: Props) {
           >
             {footer.linesTitle}
           </h2>
-          <ul className="-mx-4 flex snap-x snap-mandatory scroll-px-4 gap-2.5 overflow-x-auto px-4 pt-0.5 pb-1.5 [scrollbar-width:none] sm:mx-0 sm:grid sm:overflow-visible sm:p-0 min-[1081px]:grid-cols-6 sm:max-[1080px]:grid-cols-3">
+          <ul className="-mx-4 flex snap-x snap-mandatory scroll-px-4 gap-2.5 overflow-x-auto px-4 pt-0.5 pb-1.5 [scrollbar-width:none] sm:mx-0 sm:grid sm:overflow-visible sm:p-0 min-[1081px]:grid-cols-5 sm:max-[1080px]:grid-cols-3">
             {footer.lines.map((line) => (
               <li key={line.label} className="shrink-0 basis-[58%] snap-start sm:basis-auto">
                 <a

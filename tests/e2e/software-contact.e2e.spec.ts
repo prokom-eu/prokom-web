@@ -40,7 +40,10 @@ test.describe('Software /kontakt', () => {
     // The page ends with its own form and shows the PRO-KOM lines: no footer band nor cards.
     await expect(page.locator('[data-footer-cta]')).toBeHidden()
     await expect(page.locator('[data-footer-lines]')).toBeHidden()
-    await expect(page.locator('[data-lines-section] li')).toHaveCount(5)
+    await expect(page.locator('[data-lines-section] li')).toHaveCount(4)
+    // v23: Software only in Rabka; the phone card names the second number.
+    await expect(page.locator('main')).not.toContainText(/Zakopan/i)
+    await expect(page.locator('main')).toContainText('albo 788 986 074')
     await expect(page.getByRole('link', { name: /Nawiguj/ })).toHaveAttribute(
       'href',
       /google\.com\/maps/,

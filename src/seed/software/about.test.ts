@@ -21,18 +21,32 @@ describe('Software /o-firmie and /jedna-firma seed', () => {
     }
   })
 
-  it('/o-firmie: comparison stays, „Jak robimy” and technologies are on the start page (v21)', () => {
+  it('/o-firmie: comparison stays, no timeline and no second salon (v23)', () => {
     const sections = about.flatMap((block) =>
       block.blockType === 'swHomeSection' ? [block.section] : [],
     )
     expect(sections).toEqual(['compare'])
     const json = JSON.stringify(about)
     expect(json).not.toContain('Jak robimy')
-    expect(json).toContain('[ROK ZAKOPANE]')
-    expect(json).toContain('[ROK SERWIS KAS]')
+    expect(json).not.toContain('Najpierw sprzęt i serwis')
+    expect(json).not.toContain('Dwa salony')
+    expect(
+      about.some((block) => block.blockType === 'swSteps' && block.variant === 'timeline'),
+    ).toBe(false)
   })
 
-  it('/jedna-firma: five lines with „Tech”, links only to sites that exist', () => {
+  it('/o-firmie: the team is Krystian Potaczek and Tadeusz Wójciak (board `ONas` v23)', () => {
+    const people = about.flatMap((block) =>
+      block.blockType === 'swTeam' && block.variant === 'people' ? (block.members ?? []) : [],
+    )
+    expect(people.map((person) => person.name)).toEqual(['Krystian Potaczek', 'Tadeusz Wójciak'])
+  })
+
+  it('names Software only in Rabka — no Zakopane on either page (v23)', () => {
+    expect(JSON.stringify([...about, ...oneCompany])).not.toMatch(/Zakopan/i)
+  })
+
+  it('/jedna-firma: four lines with „Tech”, links only to sites that exist', () => {
     const items = oneCompany.flatMap((block) =>
       block.blockType === 'swLines' && block.variant === 'lines' ? (block.lines ?? []) : [],
     )
@@ -41,7 +55,6 @@ describe('Software /o-firmie and /jedna-firma seed', () => {
       'PRO-KOM Biznes',
       'PRO-KOM Instalacje',
       'PRO-KOM Tech',
-      'PRO-KOM Zakopane',
     ])
     expect(items.flatMap((line) => (line.href ? [line.href] : []))).toEqual([
       'https://prokombiznes.pl',

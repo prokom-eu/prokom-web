@@ -22,7 +22,7 @@ describe('Software section rail', () => {
     ])
   })
 
-  it('has the 11 entries of the board v22: with „Zasady”, without „Proces” and „Kontakt”', () => {
+  it('has the 10 entries of the board v23: with „Zasady”, without „Proces”, „Kontakt” and „Realizacje”', () => {
     const items = softwareRailItems(
       [
         { blockType: 'swHero' },
@@ -35,7 +35,6 @@ describe('Software section rail', () => {
           'howWeBuild',
           'whyNotWordpress',
           'technologies',
-          'showcase',
           'guarantees',
         ].map((section) => ({ blockType: 'swHomeSection', section })),
         { blockType: 'faq' },
@@ -52,11 +51,10 @@ describe('Software section rail', () => {
       'jak-robimy',
       'bez-wordpressa',
       'technologie',
-      'realizacje',
       'zasady',
       'faq',
     ])
-    expect(Object.keys(RAIL_LABELS)).toHaveLength(11)
+    expect(Object.keys(RAIL_LABELS)).toHaveLength(10)
   })
 
   it('skips a section without its component yet (no anchor on the page)', () => {
@@ -70,15 +68,13 @@ describe('Software section rail', () => {
     expect(items.map((item) => item.id)).toEqual(['oferta'])
   })
 
-  it('ends with „Realizacje”, „Zasady” and the FAQ block — the contact block is not listed', () => {
+  it('ends with „Zasady” and the FAQ block — the contact block is not listed', () => {
     const items = softwareRailItems([
-      { blockType: 'swHomeSection', section: 'showcase' },
       { blockType: 'swHomeSection', section: 'guarantees' },
       { blockType: 'faq' },
       { blockType: 'swContact' },
     ])
     expect(items.map((item) => [item.id, item.label])).toEqual([
-      ['realizacje', 'Realizacje'],
       ['zasady', 'Zasady'],
       ['faq', 'Pytania'],
     ])

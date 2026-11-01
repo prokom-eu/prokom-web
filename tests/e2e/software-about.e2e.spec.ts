@@ -18,9 +18,7 @@ test.describe('Software /o-firmie', () => {
       'href',
       '/kontakt',
     )
-    await expect(
-      main(page).getByRole('heading', { name: 'Konkretnie, bez dmuchania.' }),
-    ).toBeVisible()
+    await expect(main(page).getByRole('heading', { name: 'PRO-KOM w liczbach.' })).toBeVisible()
     await expect(
       main(page)
         .getByRole('img', { name: /Zdjęcie do zrobienia/ })
@@ -50,18 +48,23 @@ test.describe('Software /o-firmie', () => {
     await expect(table).not.toContainText('rzadko, zwykle po zaliczce')
   })
 
-  test('the history keeps the order of the board', async ({ page }) => {
+  test('v23: no timeline, no second salon, two people, one place in Rabka', async ({ page }) => {
     await page.goto(site(HOST, '/o-firmie'))
-    const history = page.locator('section', {
-      has: page.getByRole('heading', { name: /Najpierw sprzęt i serwis/ }),
-    })
-    await expect(history.getByRole('listitem')).toHaveCount(5)
-    await expect(history.getByRole('listitem').first()).toContainText('2004')
+    await expect(main(page)).not.toContainText('Najpierw sprzęt i serwis')
+    await expect(main(page)).not.toContainText(/Zakopan/i)
+    // Hero portrait and team card both name him.
+    await expect(main(page).getByRole('heading', { name: 'Tadeusz Wójciak' }).last()).toBeVisible()
+    await expect(
+      main(page).getByRole('heading', { name: 'Rabka-Zdrój, ul. Orkana 16B.' }),
+    ).toBeVisible()
+    // Phones and e-mail come from the line's settings as facts.
+    await expect(main(page)).toContainText('883 200 151 · 788 986 074')
+    await expect(main(page)).toContainText('kontakt@prokomsoftware.pl')
   })
 })
 
 test.describe('Software /jedna-firma', () => {
-  test('hero with the lines, five line cards, two examples, gains, CTA', async ({ page }) => {
+  test('hero with the lines, four line cards, two examples, gains, CTA', async ({ page }) => {
     await page.goto(site(HOST, '/jedna-firma'))
     await expect(page.locator('h1')).toHaveText(
       'Strona, program, sprzęt i serwis. W jednej firmie.',
@@ -69,7 +72,8 @@ test.describe('Software /jedna-firma', () => {
     const lines = page.locator('section', {
       has: page.getByRole('heading', { name: 'Każda robi swoje. Razem robią całość.' }),
     })
-    await expect(lines.getByRole('heading', { level: 3 })).toHaveCount(5)
+    await expect(lines.getByRole('heading', { level: 3 })).toHaveCount(4)
+    await expect(main(page)).not.toContainText(/Zakopan/i)
     await expect(lines.getByRole('link', { name: 'prokombiznes.pl' })).toHaveAttribute(
       'href',
       'https://prokombiznes.pl',

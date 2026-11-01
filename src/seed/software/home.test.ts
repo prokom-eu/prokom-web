@@ -8,7 +8,7 @@ const ids = (layout: readonly { blockType: string; section?: string | null }[] |
   layout?.map((block) => (block.blockType === 'swHomeSection' ? block.section : block.blockType))
 
 describe('Software start page of the seed', () => {
-  it('puts the 14 sections in the v21 order of the package (homeOrder, spec. §4)', () => {
+  it('puts the 13 sections in the v23 order of the package (homeOrder, spec. §4; no „Realizacje”)', () => {
     expect(ids(softwareHomeLayout())).toEqual([
       'swHero',
       'areas',
@@ -19,7 +19,6 @@ describe('Software start page of the seed', () => {
       'howWeBuild',
       'whyNotWordpress',
       'technologies',
-      'showcase',
       'guarantees',
       'faq',
       'swContact',
@@ -95,7 +94,6 @@ describe('Software start page of the seed', () => {
       'howWeBuild',
       'whyNotWordpress',
       'technologies',
-      'showcase',
       'guarantees',
       'faq',
       'swContact',
@@ -132,7 +130,6 @@ describe('Software start page of the seed', () => {
       'howWeBuild',
       'whyNotWordpress',
       'technologies',
-      'showcase',
       'guarantees',
       'faq',
       'swContact',
