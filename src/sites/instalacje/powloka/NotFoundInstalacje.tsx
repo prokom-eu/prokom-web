@@ -8,6 +8,8 @@ import '../sekcje/sekcje.css'
  * 404 inside the Instalacje frame (header, CTA band, footer from the layout): the message and six
  * ways on. `notFound()` below the root layout cannot export metadata (Next 16 docs:
  * not-found.md → Metadata), so the page's title is a React `<title>`, hoisted into `<head>`.
+ * Its suffix is fixed, not the panel's `seo.titleTemplate`: the 404 reads no data, so a database
+ * failure cannot turn it into a 500.
  */
 export function NotFoundInstalacje() {
   return (
@@ -25,7 +27,7 @@ export function NotFoundInstalacje() {
                   <InstIcon name={link.icon} size={22} />
                 </span>
                 <span className="flex flex-col gap-1">
-                  <b className="text-[17px]">{link.title} →</b>
+                  <b className="text-[17px]">{link.title}&nbsp;→</b>
                   <span className="text-[14.5px] text-ink-2">{link.text}</span>
                 </span>
               </Link>
