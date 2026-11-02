@@ -80,13 +80,13 @@ test.describe('Biznes contact form v20 (B8a)', () => {
     }
   })
 
-  test('required fields and a bad e-mail are explained next to them, at 390 px', async ({
+  test('required fields and a bad e-mail are explained next to them, at 768 px', async ({
     page,
   }) => {
-    await page.setViewportSize({ width: 390, height: 844 })
+    // Below 768 px no page shows this form (boards App-Start, App-Kontakt: the phone card and
+    // the inquiry in the tab bar), so the narrowest check is at 768 px, on /kontakt.
+    await page.setViewportSize({ width: 768, height: 1024 })
     await asNewVisitor(page)
-    // On a phone the home page shows a closing card instead of the form (board App-Start):
-    // the same form is checked on /kontakt.
     await page.goto(site('biznes.localhost', '/kontakt#formularz'))
     const contact = page.locator('#formularz')
     await contact.getByRole('button', { name: 'Wyślij zapytanie' }).click()
@@ -102,7 +102,7 @@ test.describe('Biznes contact form v20 (B8a)', () => {
     // A phone or an e-mail (K4-FINAL §5): the missing contact is reported on the phone only.
     await expect(contact.getByLabel(/^lub e-mail/)).not.toHaveAttribute('aria-invalid', 'true')
 
-    // One column on a phone: no horizontal scroll.
+    // No horizontal scroll at the narrowest width with the form.
     const overflow = await page.evaluate(
       () => document.documentElement.scrollWidth > window.innerWidth,
     )
