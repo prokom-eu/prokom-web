@@ -2,13 +2,14 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type CSSProperties } from 'react'
 
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
 import type { IndexImage } from '@/lib/catalog/catalogIndex'
-import type { IconName } from '@/lib/catalog/options'
 import { productHref } from '@/lib/catalog/card'
+import { groupHref } from '@/lib/catalog/menu'
+import type { IconName } from '@/lib/catalog/options'
 import { plural } from '@/lib/plural'
 
 export type WheelGroup = {
@@ -16,20 +17,21 @@ export type WheelGroup = {
   name: string
   icon: IconName
   count: number
-  description?: string
+  /** Department colours from the catalog (`CatalogGroups`), as on the offer cards. */
+  gradient: [string, string]
   thumbs: { slug: string; name: string; image: IndexImage }[]
 }
 
-type Props = { groups: WheelGroup[]; total: number; phone: string | null }
+type Props = { groups: WheelGroup[] }
 
 /** Board v149c: the wheel switches to the next department every 6.5 s until one is picked. */
 const AUTO_MS = 6500
 /** K36 §12: a department's products sit in an arc next to it, 21° apart. */
 const ARC_STEP = (21 * Math.PI) / 180
 
-// Radii as a share of the wheel's width (board: 282 and 170 px of 640 px).
+// Radii as a share of the wheel's width (board: 282 and 192 px of 640 px).
 const OUTER = 44
-const INNER = 26.5
+const INNER = 30
 
 // Rounded: the server and the browser print long floats differently (hydration mismatch).
 const point = (angle: number, radius: number) => ({
@@ -37,37 +39,42 @@ const point = (angle: number, radius: number) => ({
   top: `${(50 + radius * Math.sin(angle)).toFixed(2)}%`,
 })
 
+const positions = (count: number) => `${count} ${plural(count, ['pozycja', 'pozycje', 'pozycji'])}`
+
 /**
- * The five departments around "your company" (spec. §4 pkt 1): department buttons on the inner
- * ring, product pictures on the slowly turning outer ring, the picked department in the middle.
- * Only small, ready data comes in (never the catalog index). Pointer or keyboard focus on the
- * wheel pauses the turning and the switching (WCAG 2.2.2); `prefers-reduced-motion`: neither.
+ * The five departments of the hero (board `Web-start`, prompt 2 W2): department nodes in their
+ * colours on the inner ring, product pictures on the slowly turning outer ring and the active
+ * department in the middle — „Dział 1 z 5”, its pictures, name, count and „Zobacz dział”. One
+ * department is always active (the first at the start); a click or the timer changes it. Pointer
+ * or keyboard focus on the wheel pauses the turning and switching (WCAG 2.2.2);
+ * `prefers-reduced-motion`: neither.
  */
-export function DepartmentWheel({ groups, total, phone }: Props) {
-  const [active, setActive] = useState<string | null>(null)
+export function DepartmentWheel({ groups }: Props) {
+  const [active, setActive] = useState(0)
   const [picked, setPicked] = useState(false)
   // Pointer over the wheel or focus inside it: nothing changes under the visitor's hand.
   const [paused, setPaused] = useState(false)
 
   useEffect(() => {
-    if (picked || paused || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    const order = [...groups.map((group) => group.slug), null]
+    if (picked || paused || groups.length < 2) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     const timer = window.setInterval(() => {
-      setActive((current) => order[(order.indexOf(current) + 1) % order.length] ?? null)
+      setActive((current) => (current + 1) % groups.length)
     }, AUTO_MS)
     return () => window.clearInterval(timer)
-  }, [groups, picked, paused])
+  }, [groups.length, picked, paused])
 
   // K36 §12: each department's products in an arc around its own direction on the ring.
   const angleOf = (i: number) => (2 * Math.PI * i) / groups.length - Math.PI / 2
   const bubbles = groups.flatMap((group, i) =>
     group.thumbs.map((thumb, k) => ({
       ...thumb,
-      group: group.slug,
+      group: i,
       angle: angleOf(i) + (k - (group.thumbs.length - 1) / 2) * ARC_STEP,
     })),
   )
-  const current = groups.find((group) => group.slug === active)
+  const current = groups[active] ?? groups[0]
+  if (!current) return null
 
   return (
     <div
@@ -81,15 +88,11 @@ export function DepartmentWheel({ groups, total, phone }: Props) {
     >
       <div
         aria-hidden="true"
-        className="absolute inset-[3%] rounded-full bg-[radial-gradient(circle,transparent_60%,var(--glow)_100%)] shadow-[inset_0_0_0_1px_var(--border)]"
+        className="absolute inset-[3%] rounded-full border-[1.5px] border-dashed border-border"
       />
       <div
         aria-hidden="true"
-        className="absolute inset-[15%] rounded-full border-[1.5px] border-dashed border-border"
-      />
-      <div
-        aria-hidden="true"
-        className="absolute inset-[31%] rounded-full shadow-[inset_0_0_0_1px_var(--border)]"
+        className="absolute inset-[15%] rounded-full bg-[radial-gradient(circle,var(--glow)_0%,transparent_70%)] opacity-60"
       />
 
       <ul
@@ -97,8 +100,7 @@ export function DepartmentWheel({ groups, total, phone }: Props) {
         className="absolute inset-0 animate-[spin_120s_linear_infinite] group-focus-within/wheel:[animation-play-state:paused] group-hover/wheel:[animation-play-state:paused] motion-reduce:animate-none"
       >
         {bubbles.map((bubble) => {
-          const dim = current !== undefined && bubble.group !== current.slug
-          const hi = current !== undefined && bubble.group === current.slug
+          const hi = bubble.group === active
           return (
             <li
               key={bubble.slug}
@@ -109,12 +111,9 @@ export function DepartmentWheel({ groups, total, phone }: Props) {
                 href={productHref(bubble.slug)}
                 title={bubble.name}
                 className={cx(
-                  'flex size-full animate-[spin_120s_linear_infinite_reverse] items-center justify-center rounded-full bg-card shadow-[0_14px_30px_-14px_var(--glow),inset_0_0_0_1px_var(--border)] transition-[opacity,scale,box-shadow] duration-300 group-focus-within/wheel:[animation-play-state:paused] group-hover/wheel:[animation-play-state:paused] hover:scale-110 motion-reduce:animate-none',
-                  // v149c: the others stay readable; the pointer on the wheel shows all again.
-                  dim &&
-                    'scale-[.94] opacity-[.82] group-hover/wheel:scale-100 group-hover/wheel:opacity-100',
+                  'flex size-full animate-[spin_120s_linear_infinite_reverse] items-center justify-center rounded-full bg-card shadow-[0_14px_30px_-14px_var(--glow),inset_0_0_0_1px_var(--border)] transition-[scale,box-shadow] duration-300 group-focus-within/wheel:[animation-play-state:paused] group-hover/wheel:[animation-play-state:paused] hover:scale-110 motion-reduce:animate-none motion-reduce:transition-none',
                   hi &&
-                    'scale-110 shadow-[0_14px_30px_-14px_var(--glow),inset_0_0_0_2px_var(--accent)]',
+                    'scale-[1.32] shadow-[0_18px_34px_-14px_var(--glow),inset_0_0_0_3px_var(--accent-text)]',
                 )}
               >
                 <Image
@@ -133,11 +132,11 @@ export function DepartmentWheel({ groups, total, phone }: Props) {
 
       <ul aria-label="Działy oferty">
         {groups.map((group, i) => {
-          const on = group.slug === active
+          const on = i === active
           return (
             <li
               key={group.slug}
-              className="absolute z-[2] -translate-1/2"
+              className={cx('absolute -translate-1/2', on ? 'z-[4]' : 'z-[2]')}
               style={point(angleOf(i), INNER)}
             >
               <button
@@ -145,29 +144,39 @@ export function DepartmentWheel({ groups, total, phone }: Props) {
                 aria-pressed={on}
                 onClick={() => {
                   setPicked(true)
-                  setActive(on ? null : group.slug)
+                  setActive(i)
                 }}
-                className="group/dz flex flex-col items-center gap-2"
+                className="group/dz flex flex-col items-center gap-1.5"
               >
                 <span
+                  style={
+                    {
+                      backgroundImage: `linear-gradient(145deg, ${group.gradient[0]}, ${group.gradient[1]})`,
+                    } as CSSProperties
+                  }
                   className={cx(
-                    'flex size-10 items-center justify-center rounded-full transition-[scale,background-color] duration-200 sm:size-[54px]',
+                    'flex size-10 items-center justify-center rounded-full text-white shadow-[0_12px_24px_-12px_var(--glow)] transition-[scale,box-shadow] duration-200 motion-reduce:transition-none sm:size-[58px]',
                     on
-                      ? 'scale-110 bg-accent-text text-accent-ink'
-                      : 'bg-card text-accent-text shadow-[0_12px_26px_-12px_var(--accent),inset_0_0_0_1.5px_var(--accent)] group-hover/dz:scale-105',
+                      ? 'scale-110 shadow-[0_0_0_4px_var(--surface),0_0_0_6px_var(--accent-text),0_16px_30px_-12px_var(--glow)]'
+                      : 'group-hover/dz:scale-105',
                   )}
                 >
                   <Icon name={group.icon} className="size-5 sm:size-6" />
                 </span>
                 <span
                   className={cx(
-                    'hidden rounded-full px-2.5 py-1 text-[12.5px] font-extrabold whitespace-nowrap sm:block',
+                    'hidden flex-col items-center rounded-lg px-2.5 py-1 leading-tight whitespace-nowrap sm:flex',
                     on
-                      ? 'bg-accent-text text-accent-ink'
-                      : 'bg-surface text-ink-2 shadow-[inset_0_0_0_1px_var(--border)]',
+                      ? 'bg-surface-dark text-white'
+                      : 'bg-card text-ink shadow-[inset_0_0_0_1px_var(--border)]',
                   )}
                 >
-                  {group.name}
+                  <span className="text-[13px] font-extrabold">{group.name}</span>
+                  <span
+                    className={cx('text-[11.5px] font-bold', on ? 'text-white/75' : 'text-ink-2')}
+                  >
+                    {positions(group.count)}
+                  </span>
                 </span>
                 <span className="sr-only sm:hidden">{group.name}</span>
               </button>
@@ -178,42 +187,43 @@ export function DepartmentWheel({ groups, total, phone }: Props) {
 
       <div
         data-surface="dark"
-        className="absolute top-1/2 left-1/2 z-[3] flex aspect-square w-[33%] -translate-1/2 flex-col items-center justify-center rounded-full bg-surface-dark p-3 text-center text-white shadow-[0_30px_60px_-20px_var(--glow),inset_0_0_0_1px_color-mix(in_srgb,var(--c-white)_10%,transparent)] sm:p-4"
+        className="absolute top-1/2 left-1/2 z-[3] flex aspect-square w-[36%] -translate-1/2 flex-col items-center justify-center gap-0.5 min-[1280px]:gap-1 rounded-full bg-surface-dark p-3 text-center text-white shadow-[0_30px_60px_-20px_var(--glow),inset_0_0_0_6px_color-mix(in_srgb,var(--c-white)_8%,transparent)] sm:p-5"
       >
-        {current ? (
-          <>
-            <span className="font-display text-[9px] font-extrabold tracking-[0.14em] text-accent-on-dark uppercase sm:text-[10.5px]">
-              {current.name}
-            </span>
-            <span className="mt-1.5 font-display text-sm leading-none font-extrabold whitespace-nowrap font-stretch-112% sm:mt-2 sm:text-[clamp(20px,2.1vw,30px)]">
-              {current.count} {plural(current.count, ['pozycja', 'pozycje', 'pozycji'])}
-            </span>
-            {current.description && (
-              <span className="mt-1.5 line-clamp-3 max-w-[20ch] text-[10px] leading-snug text-white/80 sm:mt-2 sm:text-xs">
-                {current.description}
+        <span className="font-display text-[9px] font-extrabold tracking-[0.16em] text-accent-on-dark uppercase sm:text-[11px]">
+          Dział {active + 1} z {groups.length}
+        </span>
+        {current.thumbs.length > 0 && (
+          <span aria-hidden="true" className="mt-1 hidden -space-x-2.5 min-[1280px]:flex">
+            {current.thumbs.map((thumb) => (
+              <span
+                key={thumb.slug}
+                className="flex size-11 items-center justify-center rounded-full bg-white shadow-[0_0_0_2px_var(--surface-dark)]"
+              >
+                <Image
+                  src={thumb.image.url}
+                  alt=""
+                  width={thumb.image.width}
+                  height={thumb.image.height}
+                  unoptimized
+                  className="max-h-[66%] w-auto max-w-[70%] object-contain"
+                />
               </span>
-            )}
-          </>
-        ) : (
-          <>
-            <span className="font-display text-[9px] font-extrabold tracking-[0.14em] text-accent-on-dark uppercase sm:text-[10.5px]">
-              PRO-KOM Biznes
-            </span>
-            <span className="mt-1.5 font-display text-sm leading-none font-extrabold whitespace-nowrap font-stretch-112% sm:mt-2 sm:text-[clamp(20px,2.1vw,30px)]">
-              Twoja firma
-            </span>
-            <span className="mt-1.5 max-w-[20ch] text-[10px] leading-snug text-white/80 sm:mt-2 sm:text-xs">
-              {groups.length} {plural(groups.length, ['dział', 'działy', 'działów'])} · {total}{' '}
-              {plural(total, ['rozwiązanie', 'rozwiązania', 'rozwiązań'])}
-              {phone && (
-                <>
-                  <br />
-                  jeden numer: {phone}
-                </>
-              )}
-            </span>
-          </>
+            ))}
+          </span>
         )}
+        <span className="mt-1 font-display text-sm leading-tight font-extrabold font-stretch-112% line-clamp-2 max-w-[84%] sm:text-[clamp(15px,1.3vw,19px)]">
+          {current.name}
+        </span>
+        <span className="text-[10px] font-bold text-white/75 sm:text-[13px]">
+          {positions(current.count)}
+        </span>
+        <Link
+          href={groupHref(current.slug)}
+          className="mt-1 hidden min-h-8 items-center gap-1.5 rounded-full bg-white/12 px-3 text-[12.5px] min-[1280px]:mt-1.5 min-[1280px]:min-h-9 min-[1280px]:px-3.5 min-[1280px]:text-[13px] font-extrabold text-white transition-colors hover:bg-white/20 sm:inline-flex"
+        >
+          Zobacz dział
+          <Icon name="arrow" strokeWidth={2.4} className="size-3.5" />
+        </Link>
       </div>
     </div>
   )

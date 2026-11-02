@@ -34,6 +34,8 @@ type Props = {
   successText?: string | null
   /** „Czego potrzebujesz?” chips (K4-FINAL §5, plansza Kontakt); sent as the inquiry's topics. */
   topics?: readonly string[]
+  /** Label of the chips: „Czego potrzebujesz?” (/kontakt) or the home page wording. */
+  topicsLabel?: string
 }
 
 type Status =
@@ -84,6 +86,7 @@ export function ContactForm({
   promises = [],
   successText,
   topics = [],
+  topicsLabel = 'Czego potrzebujesz?',
 }: Props) {
   const id = useId()
   const fieldId = (name: string) => `${id}-${name}`
@@ -226,7 +229,7 @@ export function ContactForm({
         )}
         {topics.length > 0 && (
           <fieldset className="flex flex-col gap-2.5">
-            <legend className="mb-2 font-bold text-ink">Czego potrzebujesz?</legend>
+            <legend className="mb-2 font-bold text-ink">{topicsLabel}</legend>
             <div className="flex flex-wrap gap-2">
               {topics.map((topic) => {
                 const on = picked.includes(topic)

@@ -2,6 +2,7 @@ import { connection } from 'next/server'
 
 import { Container } from '@/components/ui/Container'
 import { Icon } from '@/components/ui/Icon'
+import { splitSentence } from '@/lib/biznes/textParts'
 import type { IconName } from '@/lib/catalog/options'
 import { getEnv } from '@/lib/env'
 import { issueFormToken } from '@/lib/inquiry/spam'
@@ -23,6 +24,11 @@ type Props = {
   formNote?: string | null
   promises?: string[]
   successText?: string | null
+  /** Topic chips of the form and their label (home page: board „W czym możemy pomóc?”). */
+  topics?: readonly string[]
+  topicsLabel?: string
+  /** Home page (board `#s4-kontakt`): the heading's second sentence on its own line, in the accent. */
+  accentSecondSentence?: boolean
 }
 
 type Channel = { label: string; value: string; href: string; icon: IconName; external?: boolean }
@@ -41,7 +47,11 @@ export async function ContactPanel({
   formNote,
   promises = [],
   successText,
+  topics,
+  topicsLabel,
+  accentSecondSentence = false,
 }: Props) {
+  const [first, accent] = accentSecondSentence ? splitSentence(heading) : [heading, null]
   await connection()
   const [settings, company] = await Promise.all([getSiteSettings(tenantId), getCompanyData()])
   const formToken = issueFormToken(getEnv().PAYLOAD_SECRET)
@@ -74,7 +84,13 @@ export async function ContactPanel({
           >
             <LiveHours hours={hours} className="text-sm text-white" />
             <h2 id={headingId} className={`${BZ_H2} text-white`}>
-              {heading}
+              {first}
+              {accent && (
+                <>
+                  {' '}
+                  <span className="block text-accent-on-dark">{accent}</span>
+                </>
+              )}
             </h2>
             {lead && <p className="leading-relaxed text-white/80">{lead}</p>}
             {channels.length > 0 && (
@@ -117,6 +133,8 @@ export async function ContactPanel({
               note={formNote}
               promises={promises}
               successText={successText}
+              topics={topics}
+              topicsLabel={topicsLabel}
             />
           </div>
         </div>
