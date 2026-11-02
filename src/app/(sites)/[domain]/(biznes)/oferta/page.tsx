@@ -87,7 +87,7 @@ export default async function CatalogPage({ params }: Props) {
     <>
       {/* Board App-Oferta: on a phone the search comes first — the title is in the top bar (the H1
           stays for readers), no breadcrumbs, lead or numbers. */}
-      <div className="mx-auto w-full max-w-7xl px-4 pb-6 pt-5 max-md:pb-0 max-md:pt-3 sm:px-6 sm:pt-7 lg:px-8">
+      <div className="mx-auto w-full max-w-7xl px-4 pb-6 pt-5 max-md:pb-0 max-md:pt-3 sm:px-6 md:pt-7 lg:px-8">
         <div className="max-md:hidden">
           <Breadcrumbs
             items={[

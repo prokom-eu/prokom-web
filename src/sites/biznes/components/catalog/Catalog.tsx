@@ -71,7 +71,8 @@ export function Catalog({ index }: { index: CatalogIndex }) {
   )
   // Rows of 3 at every width (the server's order): re-ordering after hydration on a phone moved
   // every card (layout shift) — the 2-column grid there keeps the departments in turns of 3.
-  // A page is 24 cards, 10 on a phone (board App-Kategoria); the address keeps the page number.
+  // A page is 24 cards, 10 on a phone (board App-Kategoria). The address keeps the page number,
+  // so `?strona=3` is 30 cards on a phone and 72 elsewhere; crawlers and the canonical count 24.
   const pageSize = usePhone() ? CATALOG_PAGE_SIZE_PHONE : CATALOG_PAGE_SIZE
   const { results, visible, facets } = useMemo(
     () => runCatalog(index, search, view, { pageSize }),
@@ -169,7 +170,7 @@ export function Catalog({ index }: { index: CatalogIndex }) {
               placeholder="Szukaj w ofercie: nazwa, marka albo potrzeba, np. kasa mobilna, Wi-Fi dla gości, Subiekt"
               autoComplete="off"
               enterKeyHint="search"
-              className="h-14 w-full rounded-2xl border border-border-input bg-card pl-14 pr-4 text-base text-ink shadow-[0_18px_40px_-30px_var(--glow)] placeholder:text-ink-3 max-md:h-[52px] max-md:text-[15px] sm:h-[66px] sm:text-lg"
+              className="h-14 w-full rounded-2xl border border-border-input bg-card pl-14 pr-4 text-base text-ink shadow-[0_18px_40px_-30px_var(--glow)] placeholder:text-ink-3 max-md:h-[52px] max-md:text-[15px] md:h-[66px] md:text-lg"
             />
           </div>
         </form>

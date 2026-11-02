@@ -46,7 +46,7 @@ export type CatalogState = {
   isNew: boolean
   sort: CatalogSort
   view: CatalogView
-  /** Pages shown so far: page N lists the first N × 12. */
+  /** Pages shown so far: page N lists the first N × the page size (24; 10 on a phone). */
   page: number
 }
 

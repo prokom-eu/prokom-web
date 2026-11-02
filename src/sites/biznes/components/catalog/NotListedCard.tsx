@@ -1,9 +1,9 @@
-import { AskQuoteTile } from '../home/AskQuoteTile'
+import { InquiryLink } from './InquiryLink'
 
 /**
- * Closing card of the phone catalog screens (boards App-Kategoria, App-Oferta): products from
- * outside the list, „Zapytaj o produkt” opens the inquiry drawer. Shown below 768 px only — the
- * full contact form stays on larger screens.
+ * Closing card of the phone category (board App-Kategoria): products from outside the list,
+ * „Zapytaj o produkt” opens the inquiry drawer (without JavaScript: `/zapytanie`). Shown below
+ * 768 px only — the full contact form stays on larger screens. `/oferta` has its own card.
  */
 export function NotListedCard() {
   return (
@@ -15,9 +15,9 @@ export function NotListedCard() {
         <p className="mt-1.5 text-[14px] leading-relaxed text-ink-2">
           Dostarczamy też spoza listy. Sprawdzimy u dystrybutorów.
         </p>
-        <AskQuoteTile className="mt-4 inline-flex min-h-12 w-full items-center justify-center rounded-2xl bg-card px-5 font-extrabold text-ink shadow-[inset_0_0_0_1.5px_var(--border)]">
+        <InquiryLink className="mt-4 inline-flex min-h-12 w-full items-center justify-center rounded-2xl bg-card px-5 font-extrabold text-ink shadow-[inset_0_0_0_1.5px_var(--border)]">
           Zapytaj o produkt
-        </AskQuoteTile>
+        </InquiryLink>
       </div>
     </section>
   )

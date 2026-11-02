@@ -208,7 +208,7 @@ export function CategoryGrid({
             >
               Seria
             </span>
-            <div className="relative -mx-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:px-0">
+            <div className="relative -mx-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] md:mx-0 md:flex-wrap md:px-0">
               {[{ name: '', slug: '', count: products.length }, ...seriesList].map((item) => (
                 <label key={item.slug || 'all'} className={cx(CHIP, 'shrink-0 whitespace-nowrap')}>
                   <input

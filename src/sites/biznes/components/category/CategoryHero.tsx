@@ -50,7 +50,7 @@ export function CategoryHero({ title, eyebrow, lead, crumbs, chips, photos, imag
         </div>
         <div
           data-surface="dark"
-          className="mt-5 grid gap-8 overflow-hidden rounded-[32px] bg-surface-dark bg-[radial-gradient(120%_120%_at_0%_0%,color-mix(in_srgb,var(--accent-text)_40%,transparent),transparent_55%)] p-6 text-white max-md:mt-0 max-md:overflow-visible max-md:rounded-none max-md:bg-transparent max-md:bg-none max-md:p-0 max-md:text-ink sm:p-10 min-[1080px]:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] min-[1080px]:items-center min-[1080px]:px-12 min-[1080px]:py-14"
+          className="mt-5 grid gap-8 overflow-hidden rounded-[32px] bg-surface-dark bg-[radial-gradient(120%_120%_at_0%_0%,color-mix(in_srgb,var(--accent-text)_40%,transparent),transparent_55%)] p-6 text-white max-md:mt-0 max-md:overflow-visible max-md:rounded-none max-md:bg-transparent max-md:bg-none max-md:p-0 max-md:text-ink min-[768px]:p-10 min-[1080px]:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] min-[1080px]:items-center min-[1080px]:px-12 min-[1080px]:py-14"
         >
           <div className="flex min-w-0 flex-col gap-4 max-md:gap-3">
             <p className="flex items-center gap-2 text-[13px] font-extrabold tracking-[0.12em] text-accent-on-dark uppercase max-md:hidden">
@@ -78,7 +78,7 @@ export function CategoryHero({ title, eyebrow, lead, crumbs, chips, photos, imag
                         className={cx(
                           'inline-flex min-h-11 items-center gap-2 rounded-full px-4 text-[15px] font-extrabold whitespace-nowrap transition-colors max-md:text-[14px] max-md:focus-visible:outline-accent-text',
                           chip.current
-                            ? 'bg-white text-surface-dark max-md:bg-surface-dark max-md:text-white'
+                            ? 'bg-white text-surface-dark max-md:bg-accent-text max-md:text-accent-ink'
                             : 'text-white shadow-[inset_0_0_0_1.5px_color-mix(in_srgb,var(--c-white)_22%,transparent)] hover:bg-white/10 max-md:bg-card max-md:text-ink max-md:shadow-[inset_0_0_0_1px_var(--border)] max-md:hover:bg-surface-2',
                         )}
                       >
@@ -87,7 +87,7 @@ export function CategoryHero({ title, eyebrow, lead, crumbs, chips, photos, imag
                           className={cx(
                             'text-xs',
                             chip.current
-                              ? 'text-surface-dark max-md:text-white/75'
+                              ? 'text-surface-dark max-md:text-accent-ink'
                               : 'text-white/70 max-md:text-ink-2',
                           )}
                         >
