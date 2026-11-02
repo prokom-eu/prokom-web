@@ -1,0 +1,13 @@
+# PRO-KOM Gaming staging for the proxy (overlay on compose.proxy.yml, session G16 of prokom-gaming).
+# Add it only when `staging.prokomgaming.pl` points to the server and the `prokom-gaming-staging`
+# certificate exists — nginx does not start with a server block whose certificate is missing
+# (prokom-gaming docs/runbook.md §1). From then on the proxy always starts with it:
+#   docker compose --env-file .env.proxy -f docker/compose.proxy.yml -f docker/compose.proxy.gaming-staging.yml up -d
+# (with compose.proxy.prod.yml too once prokom-web production runs).
+
+services:
+  nginx:
+    environment:
+      GAMING_STAGING_HOST: ${GAMING_STAGING_HOST:?set GAMING_STAGING_HOST}
+    volumes:
+      - ./nginx/templates/gaming-staging.conf.template:/etc/nginx/templates/gaming-staging.conf.template:ro

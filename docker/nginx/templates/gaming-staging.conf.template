@@ -1,0 +1,32 @@
+# PRO-KOM Gaming staging (stack `prokom-gaming-staging` from the prokom-gaming repo). Added by the
+# overlay compose.proxy.gaming-staging.yml only when the `prokom-gaming-staging` certificate
+# exists — nginx does not start with a server block whose certificate is missing.
+
+server {
+  listen 80;
+  server_name ${GAMING_STAGING_HOST};
+  include /etc/nginx/snippets/acme.conf;
+}
+
+server {
+  include /etc/nginx/snippets/tls.conf;
+  server_name ${GAMING_STAGING_HOST};
+  ssl_certificate /etc/letsencrypt/live/prokom-gaming-staging/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/prokom-gaming-staging/privkey.pem;
+  set $app prokom-gaming-staging-app-1:3000;
+  set $umami prokom-gaming-staging-umami-1:3000;
+  include /etc/nginx/snippets/staging.conf;
+  include /etc/nginx/snippets/gaming.conf;
+
+  # The panel's service worker and manifest (push, home screen — ADR-G010) are fetched by the
+  # browser in the background, where a password prompt cannot show. No data in them.
+  location = /admin/sw.js {
+    auth_basic off;
+    include /etc/nginx/snippets/proxy.conf;
+  }
+
+  location = /admin/manifest.webmanifest {
+    auth_basic off;
+    include /etc/nginx/snippets/proxy.conf;
+  }
+}
