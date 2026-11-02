@@ -15,6 +15,8 @@ export const BRANDS_PATH = '/marki'
 
 /** „Pokaż kolejne” adds this many (K33 §4: 24 — whole rows of 3 and of 2). */
 export const CATALOG_PAGE_SIZE = 24
+/** On a phone (board App-Kategoria): „Widzisz 10 z N” and „Pokaż kolejne 10”. */
+export const CATALOG_PAGE_SIZE_PHONE = 10
 
 /**
  * The company's own services are listed under the PRO-KOM brand: not a manufacturer, so it is

@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react'
 
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
@@ -21,7 +21,7 @@ import {
   type CategoryChoice,
   type CategoryGuide,
 } from '@/lib/catalog/category'
-import { CATALOG_PAGE_SIZE } from '@/lib/catalog/filters'
+import { CATALOG_PAGE_SIZE, CATALOG_PAGE_SIZE_PHONE } from '@/lib/catalog/filters'
 import { plural } from '@/lib/plural'
 import { BZ_H2, BZ_LEAD } from '@/sites/biznes/typography'
 
@@ -62,12 +62,21 @@ const SPAN_3: Record<number, string> = {
   3: 'lg:col-span-3',
 }
 
+// Phone (board App-Kategoria): the segments as chips in one row to swipe.
 const SEGMENT =
-  'relative inline-flex min-h-11 cursor-pointer items-center rounded-xl px-4 text-sm font-extrabold text-ink-2 has-checked:bg-card has-checked:text-ink has-checked:shadow-[0_6px_16px_-10px_var(--glow),inset_0_0_0_1px_var(--border)] has-focus-visible:outline-3 has-focus-visible:outline-offset-2 has-focus-visible:outline-accent-text'
+  'relative inline-flex min-h-11 shrink-0 cursor-pointer items-center rounded-xl px-4 text-sm font-extrabold whitespace-nowrap text-ink-2 max-md:bg-card max-md:shadow-[inset_0_0_0_1px_var(--border)] max-md:has-checked:bg-accent-text max-md:has-checked:text-accent-ink max-md:has-checked:shadow-none has-checked:bg-card has-checked:text-ink has-checked:shadow-[0_6px_16px_-10px_var(--glow),inset_0_0_0_1px_var(--border)] has-focus-visible:outline-3 has-focus-visible:outline-offset-2 has-focus-visible:outline-accent-text'
 
 /** Subcategory chip; checked = the accent fill, like the chips of the hero (K31 board). */
 const CHIP =
   'inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-xl bg-card px-4 text-sm font-bold text-ink shadow-[inset_0_0_0_1px_var(--border)] hover:shadow-[inset_0_0_0_1px_var(--ink-3)] has-checked:bg-accent-text has-checked:text-accent-ink has-checked:shadow-none has-focus-visible:outline-3 has-focus-visible:outline-offset-2 has-focus-visible:outline-accent-text'
+
+const PHONE_QUERY = '(max-width: 767px)'
+const subscribePhone = (onChange: () => void) => {
+  const query = window.matchMedia(PHONE_QUERY)
+  query.addEventListener('change', onChange)
+  return () => query.removeEventListener('change', onChange)
+}
+const isPhone = () => window.matchMedia(PHONE_QUERY).matches
 
 /**
  * Products of a category (spec. §6.1): the cash register picker (when the products have types),
@@ -101,7 +110,11 @@ export function CategoryGrid({
     [useCases, products, index],
   )
   const aside = guide !== null
-  const [shown, setShown] = useState(CATALOG_PAGE_SIZE)
+  // Pages, not cards: a page is 24 cards, 10 on a phone. The server renders the desktop page;
+  // a phone shortens it once hydrated (the cards past the 10th are below the fold).
+  const phone = useSyncExternalStore(subscribePhone, isPhone, () => false)
+  const pageSize = phone ? CATALOG_PAGE_SIZE_PHONE : CATALOG_PAGE_SIZE
+  const [pages, setPages] = useState(1)
   const focusCard = useRef<number | null>(null)
 
   const options = useMemo(() => registerOptions(products), [products])
@@ -115,7 +128,7 @@ export function CategoryGrid({
     () => filterCategoryProducts(products, { ...choice, series }),
     [products, choice, series],
   )
-  const visible = results.slice(0, shown)
+  const visible = results.slice(0, pages * pageSize)
   const more = results.length - visible.length
   const registers = options !== null
 
@@ -129,7 +142,7 @@ export function CategoryGrid({
 
   const choose = (change: CategoryChoice) => {
     setChoice((current) => ({ ...current, ...change }))
-    setShown(CATALOG_PAGE_SIZE)
+    setPages(1)
   }
   /** After a pick in the register picker under the grid: the grid it filtered. */
   // The keyboard and the screen reader go with it: the focus moves to the grid heading.
@@ -145,7 +158,7 @@ export function CategoryGrid({
     else url.searchParams.delete(SERIES_PARAM)
     // `replaceState`: the Next router follows it (`useSearchParams`), no new history entry.
     window.history.replaceState(null, '', url)
-    setShown(CATALOG_PAGE_SIZE)
+    setPages(1)
   }
   const toggle = (key: 'brands' | 'industries', slug: string) =>
     choose({
@@ -167,10 +180,13 @@ export function CategoryGrid({
         </h2>
 
         {chips && chips.items.length > 1 && (
-          <fieldset className="mt-8 flex flex-wrap gap-2">
+          <fieldset className="mt-8 flex flex-wrap gap-2 [scrollbar-width:none] max-md:-mx-4 max-md:mt-3 max-md:flex-nowrap max-md:overflow-x-auto max-md:px-4">
             <legend className="sr-only">Podkategoria</legend>
             {[{ name: '', count: products.length }, ...chips.items].map((chip) => (
-              <label key={chip.name || 'all'} className={CHIP}>
+              <label
+                key={chip.name || 'all'}
+                className={cx(CHIP, 'relative shrink-0 whitespace-nowrap')}
+              >
                 <input
                   type="radio"
                   name="podkategoria"
@@ -191,7 +207,7 @@ export function CategoryGrid({
         )}
 
         {bySeries && (
-          <fieldset className="mt-8 flex min-w-0 items-start gap-3">
+          <fieldset className="mt-8 flex min-w-0 items-start gap-3 max-md:mt-3">
             <legend className="sr-only">Seria</legend>
             <span
               aria-hidden="true"
@@ -234,12 +250,14 @@ export function CategoryGrid({
           <div className="min-w-0">
             {guide && (
               // Phones and tablets: the side panel is hidden, its card goes above the grid.
-              <GuideCard guide={guide} className="mt-6 lg:hidden" />
+              <GuideCard guide={guide} className="mt-6 max-md:hidden lg:hidden" />
             )}
-            <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
+            <div className="mt-8 flex flex-wrap items-center justify-between gap-4 max-md:mt-3 max-md:gap-3">
               <div className="flex flex-wrap items-center gap-3">
                 <p role="status" className="text-ink-2">
-                  <b className="font-display text-2xl font-extrabold text-ink">{results.length}</b>{' '}
+                  <b className="font-display text-2xl font-extrabold text-ink max-md:text-lg">
+                    {results.length}
+                  </b>{' '}
                   {countLabel}
                   {pickedType && <span className="sr-only"> · typ: {pickedType.title}</span>}
                 </p>
@@ -259,7 +277,7 @@ export function CategoryGrid({
               {segmentList.length > 1 && (
                 <fieldset
                   className={cx(
-                    'flex flex-wrap gap-1 rounded-2xl bg-surface-2 p-1',
+                    'flex flex-wrap gap-1 rounded-2xl bg-surface-2 p-1 [scrollbar-width:none] max-md:-mx-4 max-md:w-[calc(100%+2rem)] max-md:flex-nowrap max-md:gap-2 max-md:overflow-x-auto max-md:rounded-none max-md:bg-transparent max-md:px-4 max-md:py-0',
                     // With the side panel the brands sit there (from 1024 px up).
                     aside && segmentList.length > 1 && segments === 'brand' && 'lg:hidden',
                   )}
@@ -360,13 +378,13 @@ export function CategoryGrid({
                   type="button"
                   onClick={() => {
                     focusCard.current = visible.length
-                    setShown((current) => current + CATALOG_PAGE_SIZE)
+                    setPages((current) => current + 1)
                   }}
                   className="inline-flex min-h-[50px] items-center gap-2 rounded-xl border-2 border-border-input px-6 font-bold text-ink hover:bg-surface-2"
                 >
                   Pokaż kolejne
                   <span className="text-sm font-extrabold text-ink-3">
-                    {Math.min(more, CATALOG_PAGE_SIZE)}
+                    {Math.min(more, pageSize)}
                   </span>
                 </button>
               </div>

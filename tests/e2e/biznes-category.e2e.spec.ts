@@ -135,3 +135,25 @@ test.describe('Biznes category page', () => {
     }
   })
 })
+
+// Prompt 3 E2: the category on a phone as the board App-Kategoria.
+test.describe('Biznes category on a phone', () => {
+  test.use({ viewport: { width: 390, height: 844 } })
+
+  test('chips, 10 cards and „Pokaż kolejne 10”, the closing card instead of the form', async ({
+    page,
+  }) => {
+    await page.goto(site('biznes.localhost', '/oferta/laptopy'))
+    await expect(page.getByRole('navigation', { name: 'Kategorie działu' })).toBeVisible()
+    const grid = page.locator('[data-category-grid]')
+    await expect(grid.locator(':scope > li')).toHaveCount(10)
+    await expect(page.getByText(/^Widzisz 10 z \d+$/)).toBeVisible()
+    await page.getByRole('button', { name: /^Pokaż kolejne/ }).click()
+    await expect(grid.locator(':scope > li')).toHaveCount(20)
+
+    const last = page.getByRole('region', { name: 'Nie widzisz tego, czego szukasz?' })
+    await expect(last.getByRole('button', { name: 'Zapytaj o produkt' })).toBeVisible()
+    await expect(page.locator('#kontakt form')).toBeHidden()
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390)
+  })
+})

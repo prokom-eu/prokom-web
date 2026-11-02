@@ -29,6 +29,7 @@ import { CategoryGrid } from './CategoryGrid'
 import { CategoryHero, type CategoryChip } from './CategoryHero'
 import { BoughtWith, CategoryFacts, IncludedCards } from './CategorySections'
 import { SubcategoryNav } from './SubcategoryNav'
+import { NotListedCard } from '../catalog/NotListedCard'
 import { ScreenTitleMark } from '@/sites/biznes/components/mobile/ScreenTitleMark'
 
 /** „…potrzebujesz drukarki fiskalnej, nie kasy →” under the cash register picker (board). */
@@ -159,32 +160,41 @@ export async function CategoryPageView({
           useCases={useCases}
         />
       </Container>
-      <IncludedCards included={category.included} />
-      {!subcategory && <CategoryFacts facts={category.facts} />}
-      <BoughtWith
-        heading="Często dobierane razem"
-        tiles={boughtWithTiles(index, category.slug, category.boughtWith)}
-      />
-      {!subcategory && category.faq.items.length > 0 && (
-        <FaqBiznes
-          tenantId={tenantId}
-          block={{
-            blockType: 'faq',
-            eyebrow: category.faq.eyebrow,
-            heading: category.faq.title,
-            lead: category.faq.lead,
-            items: category.faq.items,
-          }}
+      {/* Board App-Kategoria: on a phone the grid is followed only by the closing card. */}
+      <div className="max-md:hidden">
+        <IncludedCards included={category.included} />
+        {!subcategory && <CategoryFacts facts={category.facts} />}
+        <BoughtWith
+          heading="Często dobierane razem"
+          tiles={boughtWithTiles(index, category.slug, category.boughtWith)}
         />
-      )}
-      <HowInquiryWorks callbackTime={callback} />
-      <CatalogContactPanel
-        tenantId={tenantId}
-        id="kontakt"
-        heading={category.contact.heading}
-        lead={category.contact.lead}
-        callbackTime={callback}
-      />
+        {!subcategory && category.faq.items.length > 0 && (
+          <FaqBiznes
+            tenantId={tenantId}
+            block={{
+              blockType: 'faq',
+              eyebrow: category.faq.eyebrow,
+              heading: category.faq.title,
+              lead: category.faq.lead,
+              items: category.faq.items,
+            }}
+          />
+        )}
+        <HowInquiryWorks callbackTime={callback} />
+      </div>
+      {/* `#kontakt` (the grid's help card links here) wraps the form and the phone card. */}
+      <div id="kontakt" className="scroll-mt-24">
+        <div className="max-md:hidden">
+          <CatalogContactPanel
+            tenantId={tenantId}
+            id="kontakt-formularz"
+            heading={category.contact.heading}
+            lead={category.contact.lead}
+            callbackTime={callback}
+          />
+        </div>
+        <NotListedCard />
+      </div>
     </>
   )
 }
