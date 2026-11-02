@@ -67,11 +67,11 @@ Rekordy poczty w strefie **każdej z trzech domen** (`<d>` = domena):
 
 | Typ | Nazwa | Wartość | TTL | Po co | Stan |
 |---|---|---|---|---|---|
-| A | mail | `91.236.131.99` | 3600 | serwer poczty (MX, IMAP/SMTP w programach pocztowych) | do ustawienia |
-| MX | @ | `10 mail.<d>.` | 3600 | poczta przychodząca do skrzynek w hostingu | do ustawienia |
-| TXT | @ | `v=spf1 redirect=_spf-h99.microhost.pl` | 3600 | SPF: serwery wysyłkowe Seohost (`_spf-h99` = adresy `213.239.133.161–165`, `-all`); **jedyny** SPF w domenie — VPS poczty nie wysyła | do ustawienia |
-| TXT | x._domainkey | DKIM — klucz domeny niżej | 3600 | podpis DKIM (hosting podpisuje wysyłkę) | do ustawienia |
-| TXT | _dmarc | `v=DMARC1; p=none; rua=mailto:kontakt@<d>` | 3600 | DMARC: start bez odrzucania, raporty na `kontakt@`; po 2–4 tygodniach bez problemów `p=quarantine` (fundament S10) — hosting proponuje od razu `quarantine` | do ustawienia |
+| A | mail | `91.236.131.99` | 3600 | serwer poczty (MX, IMAP/SMTP w programach pocztowych) | ustawione 2.11 |
+| MX | @ | `10 mail.<d>.` | 3600 | poczta przychodząca do skrzynek w hostingu | ustawione 2.11 |
+| TXT | @ | `v=spf1 redirect=_spf-h99.microhost.pl` | 3600 | SPF: serwery wysyłkowe Seohost (`_spf-h99` = adresy `213.239.133.161–165`, `-all`); **jedyny** SPF w domenie — VPS poczty nie wysyła | ustawione 2.11 |
+| TXT | x._domainkey | DKIM — klucz domeny niżej | 3600 | podpis DKIM (hosting podpisuje wysyłkę) | ustawione 2.11 |
+| TXT | _dmarc | `v=DMARC1; p=none; rua=mailto:kontakt@<d>` | 3600 | DMARC: start bez odrzucania, raporty na `kontakt@`; po 2–4 tygodniach bez problemów `p=quarantine` (fundament S10) — hosting proponuje od razu `quarantine` | ustawione 2.11 |
 
 Bez rekordu SRV `_autodiscover._tcp`: panel Seohost (Strefy DNS) go nie publikuje (2.11, sprawdzone na `dns1`/`dns2`) — w programach pocztowych ustawienia ręcznie: serwer `mail.<d>`, IMAP 993 (SSL), SMTP 465 (SSL), login = pełny adres. W panelu stref: zamiast `@` pełna nazwa domeny, TXT bez cudzysłowów, nazwy i wartości bez kropki na końcu.
 

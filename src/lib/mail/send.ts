@@ -36,7 +36,7 @@ function transportFor(user: string, pass: string): Transporter {
  */
 export async function sendLineEmail(payload: Payload, line: Line, email: Email): Promise<unknown> {
   const env = getEnv()
-  const sender = senderFor(line, env, process.env)
+  const sender = senderFor(line, env)
   const from = { name: env.MAIL_FROM_NAME, address: sender.address }
   if (sender.auth) {
     return transportFor(sender.auth.user, sender.auth.pass).sendMail({ ...email, from })

@@ -46,14 +46,34 @@ export const mailSenders = z
     return senders
   })
 
+export type SmtpPassKey = `SMTP_PASS_${Uppercase<Line>}`
+
+export function smtpPassKey(line: Line): SmtpPassKey {
+  return `SMTP_PASS_${line.toUpperCase()}` as SmtpPassKey
+}
+
+const optionalSecret = z
+  .string()
+  .optional()
+  .transform((value) => (value ? value : undefined))
+
+/** `SMTP_PASS_<LINE>` for every line, validated with the rest of the env (`lib/env`). */
+export const lineSmtpPasswords = {
+  SMTP_PASS_PROKOM: optionalSecret,
+  SMTP_PASS_BIZNES: optionalSecret,
+  SMTP_PASS_INSTALACJE: optionalSecret,
+  SMTP_PASS_SOFTWARE: optionalSecret,
+} satisfies Record<SmtpPassKey, typeof optionalSecret>
+
 /** Who sends a line's mail, and with which SMTP login. */
 export function senderFor(
   line: Line,
-  env: { MAIL_SENDERS: Senders; MAIL_FROM_ADDRESS: string },
-  source: Record<string, string | undefined>,
+  env: { MAIL_SENDERS: Senders; MAIL_FROM_ADDRESS: string } & Partial<
+    Record<SmtpPassKey, string | undefined>
+  >,
 ): Sender {
   const address = env.MAIL_SENDERS[line]
   if (!address) return { address: env.MAIL_FROM_ADDRESS }
-  const pass = source[`SMTP_PASS_${line.toUpperCase()}`]
+  const pass = env[smtpPassKey(line)]
   return pass ? { address, auth: { user: address, pass } } : { address }
 }

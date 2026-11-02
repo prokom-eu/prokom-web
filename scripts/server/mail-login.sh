@@ -43,10 +43,17 @@ for line in BIZNES SOFTWARE INSTALACJE; do
 done
 unset p
 
-# Rewrite only the mail lines; single quotes = taken literally by docker compose.
+# Rewrite only the mail lines; single quotes = taken literally by docker compose. Under the deploy
+# lock: deploy.sh changes APP_IMAGE_TAG in the same file.
+exec 9>"$repo/../.deploy.lock"
+flock -w 600 9 || { echo "A deploy is running — try again in a minute."; exit 1; }
 tmp="$(mktemp "$env_file.XXXXXX")"
 trap 'rm -f "$tmp"' EXIT
-grep -vE '^(SMTP_HOST|SMTP_PORT|SMTP_SECURE|SMTP_USER|SMTP_PASS|SMTP_PASS_[A-Z]+|MAIL_FROM_ADDRESS|MAIL_SENDERS)=' "$env_file" >"$tmp" || true
+# grep: 0 = lines kept, 1 = no other line (impossible here), 2 = read error — never go on with
+# a half file, it would replace DATABASE_URL, PAYLOAD_SECRET and the rest.
+grep -vE '^(SMTP_HOST|SMTP_PORT|SMTP_SECURE|SMTP_USER|SMTP_PASS|SMTP_PASS_[A-Z]+|MAIL_FROM_ADDRESS|MAIL_SENDERS)=' "$env_file" >"$tmp" ||
+  { echo "Could not read $env_file — nothing written."; exit 1; }
+grep -q '^PAYLOAD_SECRET=' "$tmp" || { echo "$env_file has no PAYLOAD_SECRET — nothing written."; exit 1; }
 {
   echo "SMTP_HOST=$host"
   echo "SMTP_PORT=$port"
@@ -59,7 +66,9 @@ grep -vE '^(SMTP_HOST|SMTP_PORT|SMTP_SECURE|SMTP_USER|SMTP_PASS|SMTP_PASS_[A-Z]+
   echo "SMTP_PASS_INSTALACJE='${pass[INSTALACJE]}'"
 } >>"$tmp"
 chmod 600 "$tmp"
+chown --reference="$env_file" "$tmp"
+cp -p "$env_file" "$env_file.bak" # the previous file, until the next run (600, same owner)
 mv "$tmp" "$env_file"
 trap - EXIT
 unset pass
-echo "Saved in $env_file (mail lines only). Restart the app to use it."
+echo "Saved in $env_file (mail lines only; previous file: $env_file.bak). Restart the app to use it."
