@@ -2,6 +2,7 @@ import { connection } from 'next/server'
 
 import { Container } from '@/components/ui/Container'
 import { Icon } from '@/components/ui/Icon'
+import { splitSentence } from '@/lib/biznes/textParts'
 import type { IconName } from '@/lib/catalog/options'
 import { getEnv } from '@/lib/env'
 import { issueFormToken } from '@/lib/inquiry/spam'
@@ -26,15 +27,11 @@ type Props = {
   /** Topic chips of the form and their label (home page: board „W czym możemy pomóc?”). */
   topics?: readonly string[]
   topicsLabel?: string
+  /** Home page (board `#s4-kontakt`): the heading's second sentence on its own line, in the accent. */
+  accentSecondSentence?: boolean
 }
 
 type Channel = { label: string; value: string; href: string; icon: IconName; external?: boolean }
-
-/** „Napisz, czego potrzebujesz. Oddzwonimy…” — the first sentence and the rest. */
-function splitHeading(text: string): [string, string | null] {
-  const at = text.search(/[.?!]\s/)
-  return at < 0 ? [text, null] : [text.slice(0, at + 1), text.slice(at + 2).trim() || null]
-}
 
 /**
  * Navy panel with the channels from the settings and the v20 contact form (ZMIANY-v20 §2.9):
@@ -52,8 +49,9 @@ export async function ContactPanel({
   successText,
   topics,
   topicsLabel,
+  accentSecondSentence = false,
 }: Props) {
-  const [first, accent] = splitHeading(heading)
+  const [first, accent] = accentSecondSentence ? splitSentence(heading) : [heading, null]
   await connection()
   const [settings, company] = await Promise.all([getSiteSettings(tenantId), getCompanyData()])
   const formToken = issueFormToken(getEnv().PAYLOAD_SECRET)
@@ -90,7 +88,6 @@ export async function ContactPanel({
               {accent && (
                 <>
                   {' '}
-                  {/* Board `#s4-kontakt`: the second sentence on its own line, in the accent. */}
                   <span className="block text-accent-on-dark">{accent}</span>
                 </>
               )}

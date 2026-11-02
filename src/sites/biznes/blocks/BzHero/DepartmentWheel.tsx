@@ -187,13 +187,13 @@ export function DepartmentWheel({ groups }: Props) {
 
       <div
         data-surface="dark"
-        className="absolute top-1/2 left-1/2 z-[3] flex aspect-square w-[36%] -translate-1/2 flex-col items-center justify-center gap-1 rounded-full bg-surface-dark p-3 text-center text-white shadow-[0_30px_60px_-20px_var(--glow),inset_0_0_0_6px_color-mix(in_srgb,var(--c-white)_8%,transparent)] sm:p-5"
+        className="absolute top-1/2 left-1/2 z-[3] flex aspect-square w-[36%] -translate-1/2 flex-col items-center justify-center gap-0.5 min-[1280px]:gap-1 rounded-full bg-surface-dark p-3 text-center text-white shadow-[0_30px_60px_-20px_var(--glow),inset_0_0_0_6px_color-mix(in_srgb,var(--c-white)_8%,transparent)] sm:p-5"
       >
         <span className="font-display text-[9px] font-extrabold tracking-[0.16em] text-accent-on-dark uppercase sm:text-[11px]">
           Dział {active + 1} z {groups.length}
         </span>
         {current.thumbs.length > 0 && (
-          <span aria-hidden="true" className="mt-1 hidden -space-x-2.5 sm:flex">
+          <span aria-hidden="true" className="mt-1 hidden -space-x-2.5 min-[1280px]:flex">
             {current.thumbs.map((thumb) => (
               <span
                 key={thumb.slug}
@@ -211,7 +211,7 @@ export function DepartmentWheel({ groups }: Props) {
             ))}
           </span>
         )}
-        <span className="mt-1 font-display text-sm leading-tight font-extrabold font-stretch-112% max-w-[92%] sm:text-[clamp(15px,1.3vw,19px)]">
+        <span className="mt-1 font-display text-sm leading-tight font-extrabold font-stretch-112% line-clamp-2 max-w-[84%] sm:text-[clamp(15px,1.3vw,19px)]">
           {current.name}
         </span>
         <span className="text-[10px] font-bold text-white/75 sm:text-[13px]">
@@ -219,7 +219,7 @@ export function DepartmentWheel({ groups }: Props) {
         </span>
         <Link
           href={groupHref(current.slug)}
-          className="mt-1.5 hidden min-h-9 items-center gap-1.5 rounded-full bg-white/12 px-3.5 text-[13px] font-extrabold text-white transition-colors hover:bg-white/20 sm:inline-flex"
+          className="mt-1 hidden min-h-8 items-center gap-1.5 rounded-full bg-white/12 px-3 text-[12.5px] min-[1280px]:mt-1.5 min-[1280px]:min-h-9 min-[1280px]:px-3.5 min-[1280px]:text-[13px] font-extrabold text-white transition-colors hover:bg-white/20 sm:inline-flex"
         >
           Zobacz dział
           <Icon name="arrow" strokeWidth={2.4} className="size-3.5" />

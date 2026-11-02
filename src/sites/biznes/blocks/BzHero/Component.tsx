@@ -2,11 +2,12 @@ import Link from 'next/link'
 
 import { Container } from '@/components/ui/Container'
 import { Icon } from '@/components/ui/Icon'
+import { splitDots, splitTime } from '@/lib/biznes/textParts'
 import { getCatalogIndex } from '@/lib/catalog/data'
 import { groupSummaries } from '@/lib/catalog/groups'
+import type { IconName } from '@/lib/catalog/options'
 import { getSiteSettings } from '@/lib/site/data'
 import { toTelHref } from '@/lib/site/link'
-import type { IconName } from '@/lib/catalog/options'
 import type { BzHeroBlock as BzHeroBlockData } from '@/payload-types'
 
 import { DepartmentWheel } from './DepartmentWheel'
@@ -15,13 +16,14 @@ type Props = { block: BzHeroBlockData; isFirst: boolean; tenantId: number }
 
 /** „Oddzwaniamy w ciągu **60 minut**” (board): the time in bold. */
 function Emphasis({ text }: { text: string }) {
-  const match = text.match(/^(.*?)(d+s*(?:minut|min|godzinw*|h))(.*)$/)
-  if (!match) return <>{text}</>
+  const parts = splitTime(text)
+  if (!parts) return <>{text}</>
+  const [before, time, after] = parts
   return (
     <>
-      {match[1]}
-      <b className="font-extrabold text-ink">{match[2]}</b>
-      {match[3]}
+      {before}
+      <b className="font-extrabold text-ink">{time}</b>
+      {after}
     </>
   )
 }
@@ -42,15 +44,12 @@ export async function BzHeroBlock({ block, isFirst, tenantId }: Props) {
   // K4-FINAL §1 (audit 01.11): the confirmed promise; the panel field may shorten it.
   const callback = settings?.biznes?.promises.callbackTime || 'Oddzwaniamy w ciągu 60 minut'
   const trust = [
-    // Board: each status on its own line (the panel keeps them in one, split by „ · ”).
-    ...(settings?.biznes?.trustLine ?? '')
-      .split(' · ')
-      .filter(Boolean)
-      .map((text, i) => ({
-        id: `trust-${i}`,
-        icon: (i === 0 ? 'shield' : 'star') as IconName,
-        text,
-      })),
+    // Board: each status on its own line (the panel keeps them in one, split by middle dots).
+    ...splitDots(settings?.biznes?.trustLine ?? '').map((text, i) => ({
+      id: `trust-${i}`,
+      icon: (i === 0 ? 'shield' : 'star') as IconName,
+      text,
+    })),
     ...(block.trustItems ?? []),
   ]
   const Title = isFirst ? 'h1' : 'h2'

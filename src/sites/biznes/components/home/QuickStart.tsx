@@ -50,6 +50,12 @@ const TONE: Record<Tone, { icon: string; tag: string }> = {
   },
 }
 
+// The `--tone-*-tag` colours are made for white text on them and stay dark at night: on the
+// night card (`--card`) they give ~3.1–3.6:1. There the label and action take the ink colours
+// (AA); the tone stays on the icon tile.
+const DARK_TAG = '[[data-theme=dark]_&]:text-ink-2'
+const DARK_ACTION = '[[data-theme=dark]_&]:text-ink'
+
 function TileBody({ tile }: { tile: Tile }) {
   const tone = TONE[tile.tone]
   return (
@@ -65,6 +71,7 @@ function TileBody({ tile }: { tile: Tile }) {
           className={cx(
             'text-[11.5px] font-extrabold tracking-[0.08em] uppercase not-italic',
             tone.tag,
+            DARK_TAG,
           )}
         >
           {tile.tag}
@@ -72,7 +79,13 @@ function TileBody({ tile }: { tile: Tile }) {
         <b className="text-[17px] leading-tight font-extrabold text-ink">{tile.title}</b>
         <small className="text-[13.5px] leading-snug text-ink-2">{tile.text}</small>
       </span>
-      <span className={cx('inline-flex items-center gap-2 text-sm font-extrabold', tone.tag)}>
+      <span
+        className={cx(
+          'inline-flex items-center gap-2 text-sm font-extrabold',
+          tone.tag,
+          DARK_ACTION,
+        )}
+      >
         {tile.action}
         <span
           aria-hidden="true"
@@ -154,7 +167,7 @@ export async function QuickStart({
       title: 'Zapytaj o wycenę',
       text: 'Napisz, czego potrzebujesz. Dobierzemy i wycenimy.',
       // K4-FINAL §1 (audit 01.11): the confirmed 60 minutes, or the panel's own wording.
-      tag: callback ? `${callback} w godzinach pracy` : 'oddzwonimy w 60 min',
+      tag: callback ? `${callback} w godzinach pracy` : 'oddzwaniamy w ciągu 60 minut',
       action: 'Wyślij zapytanie',
       icon: 'chat',
       tone: 'green',

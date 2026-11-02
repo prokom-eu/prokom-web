@@ -113,12 +113,19 @@ export async function BrandsHome({
                     </span>
                   )}
                   <span className="flex-1 text-sm font-bold text-ink">
-                    <span className="sr-only">{brand.name}: </span>
-                    {brand.description ?? brand.name}
+                    {brand.description ? (
+                      <>
+                        <span className="sr-only">{brand.name}: </span>
+                        {brand.description}
+                      </>
+                    ) : (
+                      brand.name
+                    )}
                   </span>
                   <span className="flex items-center gap-2 text-xs font-extrabold">
+                    {/* At night the accent on its tint gives ~4:1: the ink colour keeps AA. */}
                     {role && (
-                      <span className="rounded-md bg-[color-mix(in_srgb,var(--accent-text)_12%,transparent)] px-2 py-1 text-accent-text">
+                      <span className="rounded-md bg-[color-mix(in_srgb,var(--accent-text)_12%,transparent)] px-2 py-1 text-accent-text [[data-theme=dark]_&]:text-ink">
                         {role}
                       </span>
                     )}

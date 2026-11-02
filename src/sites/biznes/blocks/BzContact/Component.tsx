@@ -30,6 +30,7 @@ export function BzContactBlock({ block, tenantId }: Props) {
       successText={block.successText}
       topics={HOME_TOPICS}
       topicsLabel="W czym możemy pomóc?"
+      accentSecondSentence
     />
   )
 }
