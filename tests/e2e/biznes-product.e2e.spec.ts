@@ -427,6 +427,10 @@ test.describe('Biznes product on a phone', () => {
     const size = await versions.evaluate((el) => [el.scrollWidth, el.clientWidth])
     expect(size[0]).toBeGreaterThan(size[1])
 
+    // Board App-Produkt: „Zadzwoń” next to „Dodaj do zapytania” in the bottom bar.
+    const bar = page.locator('[data-sticky-action]')
+    await expect(bar.getByRole('link', { name: /^Zadzwoń/ })).toHaveAttribute('href', /^tel:/)
+
     const more = page.locator('#opis button[aria-expanded]')
     await expect(more).toHaveText('Czytaj cały opis')
     await more.click()

@@ -32,6 +32,7 @@ import { BundleGrid } from '@/sites/biznes/components/bundle/BundleCard'
 import { PageLink } from '@/sites/biznes/components/PageLink'
 import { ProductAbout } from '@/sites/biznes/components/product/ProductAbout'
 import { ProductBento } from '@/sites/biznes/components/product/ProductBento'
+import { Icon } from '@/components/ui/Icon'
 import { StickyAction } from '@/sites/biznes/components/mobile/StickyAction'
 import { ProductAddButton } from '@/sites/biznes/components/product/ProductAddButton'
 import { ProductConfigProvider } from '@/sites/biznes/components/product/ProductConfig'
@@ -258,8 +259,22 @@ export default async function ProductPage({ params }: Props) {
         image={product.images[0] ?? null}
       />
       {/* Phone (MOBILE-APLIKACJA §1): „Dodaj do zapytania” sticks to the bottom of the screen. */}
+      {/* Board App-Produkt: „Zadzwoń” and „Dodaj do zapytania” in the bar (the hero's phone
+          link hides on a phone). */}
       <StickyAction>
-        <ProductAddButton className="w-full" />
+        <div className="flex gap-2.5">
+          {phone && (
+            <a
+              href={phone.href}
+              className="inline-flex min-h-[52px] shrink-0 items-center justify-center gap-2 rounded-2xl bg-surface-2 px-4 font-extrabold text-ink shadow-[inset_0_0_0_1px_var(--border)]"
+            >
+              <Icon name="phone" className="size-5" />
+              Zadzwoń
+              <span className="sr-only">: {phone.label}</span>
+            </a>
+          )}
+          <ProductAddButton className="min-w-0 flex-1" />
+        </div>
       </StickyAction>
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-10 px-4 pt-8 pb-12 sm:px-6 md:gap-28 md:pt-20 md:pb-24 lg:px-8">
         <ProductBento id={ID.overview} heading={product.heading} tiles={tiles} />

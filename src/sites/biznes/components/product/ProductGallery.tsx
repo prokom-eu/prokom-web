@@ -150,7 +150,7 @@ export function ProductGallery({
 
       <div className="flex min-w-0 flex-1 flex-col gap-3">
         <div
-          className="relative isolate overflow-hidden rounded-[26px] bg-card max-md:-mx-4 max-md:rounded-none sm:rounded-[32px]"
+          className="relative isolate overflow-hidden rounded-[26px] bg-card max-md:-mx-4 max-md:rounded-none sm:max-md:-mx-6 md:rounded-[32px]"
           onTouchStart={(event) => {
             touch.current = event.touches[0]?.clientX ?? null
           }}
@@ -177,8 +177,8 @@ export function ProductGallery({
               <StageFallback icon={icon} size="lg" name={name} service={service} />
             )}
           </ProductStage>
-          {/* Audit 01.11: below 640 px the brand chip under the gallery names it, and the lazy
-              logo left an empty white badge until it loaded. */}
+          {/* The logo loads at once (audit 01.11: a lazy one left an empty white badge); on a
+              phone too, as on the board App-Produkt. */}
           {brand && (
             <span className="absolute top-4 left-4 inline-flex h-10 items-center rounded-xl bg-white px-3 shadow-[0_8px_20px_-14px_var(--shd),inset_0_0_0_1px_var(--border)] sm:top-5 sm:left-5">
               {brand.logo ? (

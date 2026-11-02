@@ -25,7 +25,7 @@ export function ProductBento({
       <ul className="grid grid-cols-2 gap-2.5 sm:gap-3 lg:grid-cols-3 lg:grid-rows-2 lg:gap-3.5">
         <li
           data-surface="dark"
-          className="col-span-2 flex flex-col gap-3 rounded-[24px] bg-surface-dark p-5 text-white ring-1 ring-white/10 ring-inset max-md:gap-2 max-md:rounded-[20px] max-md:p-4 sm:p-6 lg:col-span-1 lg:row-span-2"
+          className="col-span-2 flex flex-col gap-3 rounded-[24px] bg-surface-dark p-5 text-white ring-1 ring-white/10 ring-inset max-md:gap-2 max-md:rounded-[20px] max-md:p-4 md:p-6 lg:col-span-1 lg:row-span-2"
         >
           <span className="flex size-10 items-center justify-center rounded-xl bg-white/10 text-accent-on-dark">
             <PathIcon d={productIconPath(first.icon)} className="size-5" />
@@ -41,7 +41,7 @@ export function ProductBento({
           <li
             key={tile.label}
             className={cx(
-              'flex flex-col gap-2.5 rounded-[24px] bg-surface-2 p-5 max-md:gap-1.5 max-md:rounded-[18px] max-md:p-3.5 sm:p-6',
+              'flex flex-col gap-2.5 rounded-[24px] bg-surface-2 p-5 max-md:gap-1.5 max-md:rounded-[18px] max-md:p-3.5 md:p-6',
               rest.length === 2 && 'lg:row-span-2',
             )}
           >

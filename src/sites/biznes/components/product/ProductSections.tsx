@@ -25,7 +25,7 @@ export function ProductVersions({
   if (variants.length < 2) return null
   return (
     <ProductSection id={id} eyebrow="Wersje" heading="Czym różnią się wersje">
-      <ul className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,300px),1fr))] gap-3.5 [scrollbar-width:none] max-md:-mx-4 max-md:flex max-md:snap-x max-md:overflow-x-auto max-md:px-4">
+      <ul className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,300px),1fr))] gap-3.5 [scrollbar-width:none] max-md:-mx-4 max-md:-my-2 max-md:flex max-md:snap-x max-md:scroll-px-4 max-md:overflow-x-auto max-md:px-4 max-md:py-2">
         {variants.map((variant) => (
           <li
             key={variant.name}
@@ -97,7 +97,7 @@ function ProductTile({
 
 // Phone (board App-Produkt): one row to swipe.
 const GRID =
-  'grid grid-cols-2 gap-x-3.5 gap-y-7 lg:grid-cols-4 [scrollbar-width:none] max-md:-mx-4 max-md:flex max-md:snap-x max-md:overflow-x-auto max-md:px-4'
+  'grid grid-cols-2 gap-x-3.5 gap-y-7 lg:grid-cols-4 [scrollbar-width:none] max-md:-mx-4 max-md:-my-2 max-md:flex max-md:snap-x max-md:scroll-px-4 max-md:overflow-x-auto max-md:px-4 max-md:py-2'
 const GRID_ITEM = 'relative max-md:w-[46%] max-md:shrink-0 max-md:snap-start'
 
 /** „Do tego zwykle dobierają” (K31-ZMIANY §4 pkt 7): cards by `dobierz`, chips without a match. */

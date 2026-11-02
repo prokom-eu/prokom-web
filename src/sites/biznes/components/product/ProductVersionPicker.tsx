@@ -26,7 +26,7 @@ export function VersionChips() {
   const current = config ? Object.values(state.selection) : []
   return (
     // Phone (board App-Produkt): one row to swipe.
-    <div className="flex flex-wrap items-center gap-2 [scrollbar-width:none] max-md:-mx-4 max-md:flex-nowrap max-md:overflow-x-auto max-md:px-4">
+    <div className="flex flex-wrap items-center gap-2 [scrollbar-width:none] max-md:-mx-4 max-md:-my-2 max-md:flex-nowrap max-md:overflow-x-auto max-md:px-4 max-md:py-2">
       <span className="mr-1 shrink-0 text-xs font-extrabold tracking-[0.1em] text-ink-3 uppercase">
         W tej karcie
       </span>

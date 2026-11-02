@@ -76,7 +76,7 @@ export function BundleGrid({
       className={cx(
         'grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3',
         phoneRow &&
-          '[scrollbar-width:none] max-md:-mx-4 max-md:flex max-md:snap-x max-md:overflow-x-auto max-md:px-4',
+          '[scrollbar-width:none] max-md:-mx-4 max-md:-my-2 max-md:flex max-md:snap-x max-md:scroll-px-4 max-md:overflow-x-auto max-md:px-4 max-md:py-2',
       )}
     >
       {bundles.map((bundle) => (

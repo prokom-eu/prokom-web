@@ -77,13 +77,13 @@ export function ProductConfigurator({ config }: { config: Configurator }) {
               <h3 className="text-xs font-extrabold tracking-[0.1em] text-ink-2 uppercase">
                 Najczęściej wybierane konfiguracje
               </h3>
-              <ul className="grid gap-3 [scrollbar-width:none] max-md:-mx-4 max-md:flex max-md:snap-x max-md:overflow-x-auto max-md:px-4 sm:grid-cols-[repeat(auto-fit,minmax(220px,1fr))]">
+              <ul className="grid gap-3 [scrollbar-width:none] max-md:-mx-4 max-md:-my-2 max-md:flex max-md:snap-x max-md:scroll-px-4 max-md:overflow-x-auto max-md:px-4 max-md:py-2 sm:grid-cols-[repeat(auto-fit,minmax(220px,1fr))]">
                 {config.presets.map((preset, position) => {
                   const on = state.preset === position
                   return (
                     <li
                       key={preset.name}
-                      className="flex max-md:w-[72%] max-md:shrink-0 max-md:snap-start"
+                      className="flex max-md:w-[72%] max-md:shrink-0 max-md:snap-start max-md:only:w-full"
                     >
                       <button
                         type="button"
@@ -129,7 +129,7 @@ export function ProductConfigurator({ config }: { config: Configurator }) {
               return (
                 <li
                   key={option.name}
-                  className="flex flex-col gap-3 border-b border-border py-6 first:pt-0 max-md:py-4"
+                  className="flex flex-col gap-3 border-b border-border py-6 first:pt-0 max-md:py-4 max-md:first:pt-0"
                 >
                   <div className="flex items-start justify-between gap-4">
                     <h3
