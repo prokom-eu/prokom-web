@@ -233,10 +233,13 @@ export default async function ProductPage({ params }: Props) {
           dangerouslySetInnerHTML={{ __html: serializeJsonLd(data) }}
         />
       ))}
-      <div className="mx-auto w-full max-w-7xl px-4 pt-5 pb-12 sm:px-6 sm:pt-8 sm:pb-16 lg:px-8">
-        <Breadcrumbs items={crumbs} />
-        <ScreenTitleMark name={product.shortName ?? product.heading} />
-        <div className="mt-5 sm:mt-7">
+      <div className="mx-auto w-full max-w-7xl px-4 pt-5 pb-12 max-md:pt-0 sm:px-6 md:pt-8 sm:pb-16 lg:px-8">
+        {/* Board App-Produkt: no breadcrumbs on a phone, the top bar names the category. */}
+        <div className="max-md:hidden">
+          <Breadcrumbs items={crumbs} />
+        </div>
+        <ScreenTitleMark name={category?.name ?? product.shortName ?? product.heading} />
+        <div className="mt-5 max-md:mt-0 md:mt-7">
           <ProductHero
             product={product}
             icon={listed ? cardIcon(listed, index) : 'store'}
@@ -258,7 +261,7 @@ export default async function ProductPage({ params }: Props) {
       <StickyAction>
         <ProductAddButton className="w-full" />
       </StickyAction>
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-20 px-4 pt-14 pb-16 sm:gap-28 sm:px-6 sm:pt-20 sm:pb-24 lg:px-8">
+      <div className="mx-auto flex w-full max-w-7xl flex-col gap-10 px-4 pt-8 pb-12 sm:px-6 md:gap-28 md:pt-20 md:pb-24 lg:px-8">
         <ProductBento id={ID.overview} heading={product.heading} tiles={tiles} />
         <ProductAbout id={ID.about} product={product} />
         {product.configurator && <ProductConfigurator config={product.configurator} />}
@@ -276,7 +279,7 @@ export default async function ProductPage({ params }: Props) {
               </PageLink>
             }
           >
-            <BundleGrid bundles={bundles} />
+            <BundleGrid bundles={bundles} phoneRow />
           </ProductSection>
         )}
         <ProductSuggestions

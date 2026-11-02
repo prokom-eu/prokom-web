@@ -64,14 +64,26 @@ export function BundleCard({
 export function BundleGrid({
   bundles,
   headingLevel = 'h3',
+  phoneRow = false,
 }: {
   bundles: BundleCardData[]
   headingLevel?: 'h3' | 'h4'
+  /** Below 768 px one row to swipe (product page, board App-Produkt). */
+  phoneRow?: boolean
 }) {
   return (
-    <ul className="grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
+    <ul
+      className={cx(
+        'grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3',
+        phoneRow &&
+          '[scrollbar-width:none] max-md:-mx-4 max-md:flex max-md:snap-x max-md:overflow-x-auto max-md:px-4',
+      )}
+    >
       {bundles.map((bundle) => (
-        <li key={bundle.slug}>
+        <li
+          key={bundle.slug}
+          className={cx(phoneRow && 'relative max-md:w-[80%] max-md:shrink-0 max-md:snap-start')}
+        >
           <BundleCard bundle={bundle} headingLevel={headingLevel} />
         </li>
       ))}

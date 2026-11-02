@@ -25,11 +25,11 @@ export function ProductVersions({
   if (variants.length < 2) return null
   return (
     <ProductSection id={id} eyebrow="Wersje" heading="Czym różnią się wersje">
-      <ul className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,300px),1fr))] gap-3.5">
+      <ul className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,300px),1fr))] gap-3.5 [scrollbar-width:none] max-md:-mx-4 max-md:flex max-md:snap-x max-md:overflow-x-auto max-md:px-4">
         {variants.map((variant) => (
           <li
             key={variant.name}
-            className="flex flex-col gap-2 rounded-[22px] bg-card p-5 shadow-[inset_0_0_0_1px_var(--border)]"
+            className="relative flex flex-col gap-2 rounded-[22px] bg-card p-5 shadow-[inset_0_0_0_1px_var(--border)] max-md:w-[78%] max-md:shrink-0 max-md:snap-start"
           >
             <h3 className="text-[1.05rem] font-extrabold text-ink">{variant.name}</h3>
             {variant.difference && (
@@ -95,7 +95,10 @@ function ProductTile({
   )
 }
 
-const GRID = 'grid grid-cols-2 gap-x-3.5 gap-y-7 lg:grid-cols-4'
+// Phone (board App-Produkt): one row to swipe.
+const GRID =
+  'grid grid-cols-2 gap-x-3.5 gap-y-7 lg:grid-cols-4 [scrollbar-width:none] max-md:-mx-4 max-md:flex max-md:snap-x max-md:overflow-x-auto max-md:px-4'
+const GRID_ITEM = 'relative max-md:w-[46%] max-md:shrink-0 max-md:snap-start'
 
 /** „Do tego zwykle dobierają” (K31-ZMIANY §4 pkt 7): cards by `dobierz`, chips without a match. */
 export function ProductSuggestions({
@@ -115,7 +118,7 @@ export function ProductSuggestions({
       {cards.length > 0 && (
         <ul className={GRID}>
           {cards.map(({ label, product }) => (
-            <li key={product.slug}>
+            <li key={product.slug} className={GRID_ITEM}>
               <ProductTile product={product} index={index} label={label} withBenefit={false} />
             </li>
           ))}
@@ -169,7 +172,7 @@ export function ProductFamily({
     >
       <ul className={GRID}>
         {products.map((product) => (
-          <li key={product.slug}>
+          <li key={product.slug} className={GRID_ITEM}>
             <ProductTile product={product} index={index} label={null} withBenefit />
           </li>
         ))}

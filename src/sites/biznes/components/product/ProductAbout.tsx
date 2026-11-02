@@ -4,6 +4,8 @@ import { Icon } from '@/components/ui/Icon'
 import type { ProductView } from '@/lib/catalog/product'
 import { purchaseSentence } from '@/lib/catalog/purchase'
 
+import { ExpandOnPhone } from './ExpandOnPhone'
+
 const LABEL = 'text-xs font-extrabold tracking-[0.1em] text-ink-2 uppercase'
 
 /**
@@ -32,13 +34,17 @@ export function ProductAbout({ id, product }: { id: string; product: ProductView
           Opis
         </h2>
         {product.description ? (
-          <RichText
-            data={product.description}
-            className="rich-text max-w-3xl text-ink-2 [&>p:first-child]:text-[1.2rem] [&>p:first-child]:leading-relaxed [&>p:first-child]:text-ink"
-          />
+          <ExpandOnPhone label="Czytaj cały opis">
+            <RichText
+              data={product.description}
+              className="rich-text max-w-3xl text-ink-2 max-md:text-[14.5px] [&>p:first-child]:text-[1.2rem] [&>p:first-child]:leading-relaxed [&>p:first-child]:text-ink max-md:[&>p:first-child]:text-[16px]"
+            />
+          </ExpandOnPhone>
         ) : (
           product.benefit && (
-            <p className="max-w-3xl text-[1.2rem] leading-relaxed text-ink">{product.benefit}</p>
+            <p className="max-w-3xl text-[1.2rem] leading-relaxed text-ink max-md:text-[16px]">
+              {product.benefit}
+            </p>
           )
         )}
       </div>

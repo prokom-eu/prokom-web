@@ -150,7 +150,7 @@ export function ProductGallery({
 
       <div className="flex min-w-0 flex-1 flex-col gap-3">
         <div
-          className="relative isolate overflow-hidden rounded-[26px] bg-card sm:rounded-[32px]"
+          className="relative isolate overflow-hidden rounded-[26px] bg-card max-md:-mx-4 max-md:rounded-none sm:rounded-[32px]"
           onTouchStart={(event) => {
             touch.current = event.touches[0]?.clientX ?? null
           }}
@@ -180,7 +180,7 @@ export function ProductGallery({
           {/* Audit 01.11: below 640 px the brand chip under the gallery names it, and the lazy
               logo left an empty white badge until it loaded. */}
           {brand && (
-            <span className="absolute top-5 left-5 hidden h-10 items-center rounded-xl bg-white px-3 shadow-[0_8px_20px_-14px_var(--shd),inset_0_0_0_1px_var(--border)] sm:inline-flex">
+            <span className="absolute top-4 left-4 inline-flex h-10 items-center rounded-xl bg-white px-3 shadow-[0_8px_20px_-14px_var(--shd),inset_0_0_0_1px_var(--border)] sm:top-5 sm:left-5">
               {brand.logo ? (
                 <Image
                   src={brand.logo.url}
@@ -238,7 +238,11 @@ export function ProductGallery({
           {count > 1 && (
             <span
               aria-live="polite"
-              className="absolute bottom-4 left-4 rounded-full bg-card px-2.5 py-1 text-xs font-extrabold text-ink-2 shadow-[inset_0_0_0_1px_var(--border)] sm:bottom-5 sm:left-5"
+              className={cx(
+                'absolute bottom-4 left-4 rounded-full bg-card px-2.5 py-1 text-xs font-extrabold text-ink-2 shadow-[inset_0_0_0_1px_var(--border)] sm:bottom-5 sm:left-5',
+                // With the dots under the photo (board App-Produkt) the counter is for readers.
+                count <= MAX_DOTS && 'max-md:sr-only',
+              )}
             >
               {active + 1} / {count}
             </span>
