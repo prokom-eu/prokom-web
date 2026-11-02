@@ -4,7 +4,6 @@ import {
   categoryBrands,
   categoryGuide,
   categoryHref,
-  categoryPill,
   categoryProducts,
   registerOptions,
   seriesFilter,
@@ -21,14 +20,13 @@ import type { CatalogIndex, IndexSubcategory } from '@/lib/catalog/catalogIndex'
 import { CATALOG_PATH } from '@/lib/catalog/filters'
 import { breadcrumbJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
 import { getSiteSettings } from '@/lib/site/data'
-import { toTelHref } from '@/lib/site/link'
 
 import type { Crumb } from '../Breadcrumbs'
 import { CatalogContactPanel } from '../catalog/CatalogContactPanel'
 import { FaqBiznes } from '../home/FaqBiznes'
 import { HowInquiryWorks } from '../HowInquiryWorks'
 import { CategoryGrid } from './CategoryGrid'
-import { CategoryHero } from './CategoryHero'
+import { CategoryHero, type CategoryChip } from './CategoryHero'
 import { BoughtWith, CategoryFacts, IncludedCards } from './CategorySections'
 import { SubcategoryNav } from './SubcategoryNav'
 
@@ -65,11 +63,8 @@ export async function CategoryPageView({
     ? subcategoryProducts(index, category.slug, subcategory.name)
     : categoryProducts(index, category.slug)
   const brands = categoryBrands(products, index)
-  const group = index.groups.find((item) => item.slug === listed.group) ?? null
   const registers = registerOptions(products) !== null
   const callback = settings?.biznes?.promises.callbackTime ?? null
-  const phone = settings?.phone ?? null
-  const tel = phone ? toTelHref(phone) : null
   const self = subcategory
     ? subcategoryHref(category.slug, subcategory.slug)
     : categoryHref(category.slug)
@@ -104,10 +99,6 @@ export async function CategoryPageView({
     pages: [],
     search: { synonyms: {}, stopWords: [], popular: [] },
   }
-  const logos = brands.flatMap(({ slug, name }) => {
-    const logo = index.brands.find((brand) => brand.slug === slug)?.logo
-    return logo ? [{ name, logo }] : []
-  })
   const photos = products.flatMap((product) => (product.image ? [product.image] : [])).slice(0, 3)
   const printers =
     registers &&
@@ -116,13 +107,15 @@ export async function CategoryPageView({
       ? categoryHref(PRINTERS_SLUG)
       : null
   const links = subcategoryLinks(listed)
-  // A category without subcategories shows the other categories of its department (K36 §4).
-  const siblings =
-    links.pages.length === 0 && (listed.subcategories ?? []).length === 0
-      ? index.categories
-          .filter((item) => item.group === listed.group && item.slug !== category.slug)
-          .map((item) => ({ name: item.name, href: categoryHref(item.slug), count: item.count }))
-      : []
+  // Board `Web-kategoria-*`: the department's categories as chips of the hero card (K36 §4).
+  const chips: CategoryChip[] = index.categories
+    .filter((item) => item.group === listed.group)
+    .map((item) => ({
+      name: item.name,
+      href: categoryHref(item.slug),
+      count: item.count,
+      current: item.slug === category.slug,
+    }))
   const guide = categoryGuide({
     slug: category.slug,
     name: subcategory?.name ?? category.name,
@@ -141,30 +134,18 @@ export async function CategoryPageView({
         dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbs) }}
       />
       <CategoryHero
-        category={hero}
+        title={hero.title}
+        eyebrow={subcategory?.name ?? category.name}
+        lead={hero.lead}
         crumbs={crumbs}
-        pill={categoryPill(group?.name ?? null, products, index)}
-        primary={
-          registers
-            ? { label: 'Dobierz kasę w 1 kliknięciu', href: '#dobor' }
-            : { label: 'Zobacz produkty', href: '#produkty' }
-        }
-        phone={phone && tel ? { label: phone, href: tel } : null}
+        chips={chips}
         photos={photos}
-        logos={logos.slice(0, 3)}
       />
       <Container wide className="pb-14 sm:pb-20">
         <SubcategoryNav
           category={{ name: category.name, href: categoryHref(category.slug), count: listed.count }}
           items={links.pages}
           current={self}
-        />
-        <SubcategoryNav
-          label="Inne kategorie działu"
-          category={{ name: category.name, href: categoryHref(category.slug), count: listed.count }}
-          items={siblings}
-          current={self}
-          withCurrent
         />
         <CategoryGrid
           index={islandIndex}

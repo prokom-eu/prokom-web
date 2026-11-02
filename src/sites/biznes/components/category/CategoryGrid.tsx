@@ -131,6 +131,11 @@ export function CategoryGrid({
     setChoice((current) => ({ ...current, ...change }))
     setShown(CATALOG_PAGE_SIZE)
   }
+  /** After a pick in the register picker under the grid: the grid it filtered. */
+  const backToGrid = () => {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    document.getElementById('produkty')?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' })
+  }
   const chooseSeries = (slug: string | null) => {
     const url = new URL(window.location.href)
     if (slug) url.searchParams.set(SERIES_PARAM, slug)
@@ -151,280 +156,289 @@ export function CategoryGrid({
     : plural(results.length, ['pozycja', 'pozycje', 'pozycji'])
 
   return (
-    <section
-      id={registers ? 'dobor' : 'produkty'}
-      aria-labelledby="produkty-h"
-      className="scroll-mt-28"
-    >
-      {registers ? (
-        <div className="max-w-[46rem]">
-          <p className="mb-3 text-[13px] font-extrabold tracking-[0.08em] text-accent-text uppercase">
-            Krok 1 · Jak pracujesz?
-          </p>
-          <h2 id="produkty-h" className={BZ_H2}>
-            Wybierz, a pokażemy pasujące kasy.
-          </h2>
-          {printersHref && (
-            <p className={`${BZ_LEAD} mt-4 text-ink-2`}>
-              Masz program sprzedażowy albo planujesz GoPOS? Wtedy potrzebujesz{' '}
-              <Link href={printersHref} className="font-extrabold text-accent-text hover:underline">
-                drukarki fiskalnej, nie kasy →
-              </Link>
-            </p>
-          )}
-        </div>
-      ) : (
+    <>
+      <section id="produkty" aria-labelledby="produkty-h" className="scroll-mt-28">
+        {/* Board `Web-kategoria-*`: no heading over the grid, only the count (H2 for readers). */}
         <h2 id="produkty-h" className={title ? BZ_H2 : 'sr-only'}>
           {title ?? 'Produkty'}
         </h2>
-      )}
 
-      {options && (
-        <ul className="mt-8 grid grid-cols-2 gap-2.5 sm:gap-3.5 lg:grid-cols-4">
-          {options.map((option) => {
-            const on = choice.registerType === option.value
-            return (
-              <li key={option.value} className="flex">
-                <button
-                  type="button"
-                  aria-pressed={on}
-                  disabled={option.count === 0}
-                  onClick={() => choose({ registerType: on ? undefined : option.value })}
-                  className={cx(
-                    'relative flex w-full flex-col gap-1.5 rounded-[22px] bg-card p-3 text-left shadow-[inset_0_0_0_1.5px_var(--border)] transition-shadow hover:shadow-[inset_0_0_0_1.5px_var(--ink-3)] disabled:cursor-not-allowed disabled:opacity-55 sm:p-4',
-                    on &&
-                      'shadow-[0_20px_40px_-28px_var(--glow),inset_0_0_0_2px_var(--accent-text)] hover:shadow-[0_20px_40px_-28px_var(--glow),inset_0_0_0_2px_var(--accent-text)]',
-                  )}
-                >
-                  <ProductStage as="span" className="h-24 rounded-2xl sm:h-28">
-                    {option.image && (
-                      <Image
-                        src={option.image.url}
-                        alt=""
-                        width={option.image.width}
-                        height={option.image.height}
-                        unoptimized
-                        className={cx(
-                          'relative h-auto max-h-20 w-auto max-w-[70%] object-contain sm:max-h-24',
-                          STAGE_SHADOW,
-                        )}
-                      />
-                    )}
-                  </ProductStage>
-                  <span
-                    aria-hidden="true"
-                    className={cx(
-                      'absolute right-4 top-4 flex size-6 items-center justify-center rounded-full bg-card shadow-[inset_0_0_0_1.5px_var(--border)] sm:right-5 sm:top-5',
-                      on && 'bg-accent-text text-accent-ink shadow-none',
-                    )}
-                  >
-                    {on && <Icon name="check" strokeWidth={3} className="size-3.5" />}
-                  </span>
-                  <span className="mt-2 font-display text-base leading-tight font-extrabold text-ink sm:text-lg">
-                    {option.title}
-                  </span>
-                  <span className="text-sm leading-snug text-ink-2">{option.text}</span>
-                  <span className="mt-auto pt-1 text-sm font-extrabold text-accent-text">
-                    {option.count} {plural(option.count, ['model', 'modele', 'modeli'])}
-                  </span>
-                </button>
-              </li>
-            )
-          })}
-        </ul>
-      )}
-
-      {chips && chips.items.length > 1 && (
-        <fieldset className="mt-8 flex flex-wrap gap-2">
-          <legend className="sr-only">Podkategoria</legend>
-          {[{ name: '', count: products.length }, ...chips.items].map((chip) => (
-            <label key={chip.name || 'all'} className={CHIP}>
-              <input
-                type="radio"
-                name="podkategoria"
-                checked={(choice.subcategory ?? '') === chip.name}
-                onChange={() =>
-                  choose({
-                    subcategory: chip.name || undefined,
-                    category: chip.name ? chips.category : undefined,
-                  })
-                }
-                className="sr-only"
-              />
-              {chip.name || 'Wszystkie'}
-              <span className="text-xs font-extrabold">{chip.count}</span>
-            </label>
-          ))}
-        </fieldset>
-      )}
-
-      {bySeries && (
-        <fieldset className="mt-8 flex min-w-0 items-start gap-3">
-          <legend className="sr-only">Seria</legend>
-          <span
-            aria-hidden="true"
-            className="mt-3.5 shrink-0 text-xs font-extrabold tracking-[0.1em] text-ink-2 uppercase max-sm:hidden"
-          >
-            Seria
-          </span>
-          <div className="relative -mx-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:px-0">
-            {[{ name: '', slug: '', count: products.length }, ...seriesList].map((item) => (
-              <label key={item.slug || 'all'} className={cx(CHIP, 'shrink-0 whitespace-nowrap')}>
+        {chips && chips.items.length > 1 && (
+          <fieldset className="mt-8 flex flex-wrap gap-2">
+            <legend className="sr-only">Podkategoria</legend>
+            {[{ name: '', count: products.length }, ...chips.items].map((chip) => (
+              <label key={chip.name || 'all'} className={CHIP}>
                 <input
                   type="radio"
-                  name="seria"
-                  checked={(series ?? '') === item.name}
-                  onChange={() => chooseSeries(item.slug || null)}
+                  name="podkategoria"
+                  checked={(choice.subcategory ?? '') === chip.name}
+                  onChange={() =>
+                    choose({
+                      subcategory: chip.name || undefined,
+                      category: chip.name ? chips.category : undefined,
+                    })
+                  }
                   className="sr-only"
                 />
-                {item.name || 'Wszystkie'}
-                <span className="text-xs font-extrabold">{item.count}</span>
+                {chip.name || 'Wszystkie'}
+                <span className="text-xs font-extrabold">{chip.count}</span>
               </label>
             ))}
-          </div>
-        </fieldset>
-      )}
-
-      <div
-        className={cx(
-          aside && 'lg:grid lg:grid-cols-[220px_minmax(0,1fr)] lg:items-start lg:gap-8',
+          </fieldset>
         )}
-      >
-        {guide && (
-          <CategoryAside
-            brands={segments === 'brand' ? segmentList : []}
-            uses={uses}
-            choice={choice}
-            onToggle={toggle}
-            guide={guide}
-          />
-        )}
-        <div className="min-w-0">
-          {guide && (
-            // Phones and tablets: the side panel is hidden, its card goes above the grid.
-            <GuideCard guide={guide} className="mt-6 lg:hidden" />
-          )}
-          <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
-            <p role="status" className="text-ink-2">
-              <b className="font-display text-2xl font-extrabold text-ink">{results.length}</b>{' '}
-              {countLabel}
-            </p>
-            {segmentList.length > 1 && (
-              <fieldset
-                className={cx(
-                  'flex flex-wrap gap-1 rounded-2xl bg-surface-2 p-1',
-                  // With the side panel the brands sit there (from 1024 px up).
-                  aside && segmentList.length > 1 && segments === 'brand' && 'lg:hidden',
-                )}
-              >
-                <legend className="sr-only">{segments === 'brand' ? 'Marka' : 'Kategoria'}</legend>
-                {[{ slug: '', name: 'Wszystkie' }, ...segmentList].map((segment) => (
-                  <label key={segment.slug || 'all'} className={SEGMENT}>
-                    <input
-                      type="radio"
-                      name={segments === 'brand' ? 'marka' : 'kategoria'}
-                      checked={(choice[segmentKey] ?? '') === segment.slug}
-                      onChange={() => choose({ [segmentKey]: segment.slug || undefined })}
-                      className="sr-only"
-                    />
-                    {segment.name}
-                  </label>
-                ))}
-              </fieldset>
-            )}
-          </div>
 
-          {results.length === 0 ? (
-            <div className="mt-5 flex flex-col items-start gap-3 rounded-3xl bg-surface-2 p-6">
-              <p className="font-extrabold text-ink">Nic nie pasuje do tego wyboru.</p>
-              <button
-                type="button"
-                onClick={() => {
-                  choose({
-                    registerType: undefined,
-                    brand: undefined,
-                    category: undefined,
-                    subcategory: undefined,
-                    brands: undefined,
-                    industries: undefined,
-                  })
-                  if (series) chooseSeries(null)
-                }}
-                className="inline-flex min-h-11 items-center rounded-xl bg-card px-4 font-extrabold text-ink shadow-[inset_0_0_0_1.5px_var(--border)] hover:shadow-[inset_0_0_0_1.5px_var(--ink-3)]"
-              >
-                Pokaż wszystkie
-              </button>
-            </div>
-          ) : (
-            <ul
-              data-category-grid
-              className="mt-5 grid grid-cols-2 gap-2.5 sm:gap-3.5 lg:grid-cols-3"
+        {bySeries && (
+          <fieldset className="mt-8 flex min-w-0 items-start gap-3">
+            <legend className="sr-only">Seria</legend>
+            <span
+              aria-hidden="true"
+              className="mt-3.5 shrink-0 text-xs font-extrabold tracking-[0.1em] text-ink-2 uppercase max-sm:hidden"
             >
-              {visible.map((product, position) => (
-                <li key={product.slug} className="flex">
-                  <ProductCard
-                    product={product}
-                    index={index}
-                    position={position}
-                    meta={bySeries ? 'series' : 'category'}
+              Seria
+            </span>
+            <div className="relative -mx-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:px-0">
+              {[{ name: '', slug: '', count: products.length }, ...seriesList].map((item) => (
+                <label key={item.slug || 'all'} className={cx(CHIP, 'shrink-0 whitespace-nowrap')}>
+                  <input
+                    type="radio"
+                    name="seria"
+                    checked={(series ?? '') === item.name}
+                    onChange={() => chooseSeries(item.slug || null)}
+                    className="sr-only"
                   />
-                </li>
+                  {item.name || 'Wszystkie'}
+                  <span className="text-xs font-extrabold">{item.count}</span>
+                </label>
               ))}
-              {more === 0 && !guide && help && (
-                <li
+            </div>
+          </fieldset>
+        )}
+
+        <div
+          className={cx(
+            aside && 'lg:grid lg:grid-cols-[220px_minmax(0,1fr)] lg:items-start lg:gap-8',
+          )}
+        >
+          {guide && (
+            <CategoryAside
+              brands={segments === 'brand' ? segmentList : []}
+              uses={uses}
+              choice={choice}
+              onToggle={toggle}
+              guide={guide}
+            />
+          )}
+          <div className="min-w-0">
+            {guide && (
+              // Phones and tablets: the side panel is hidden, its card goes above the grid.
+              <GuideCard guide={guide} className="mt-6 lg:hidden" />
+            )}
+            <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
+              <p role="status" className="text-ink-2">
+                <b className="font-display text-2xl font-extrabold text-ink">{results.length}</b>{' '}
+                {countLabel}
+              </p>
+              {segmentList.length > 1 && (
+                <fieldset
                   className={cx(
-                    'flex',
-                    SPAN_2[helpCardSpan(visible.length, 2)],
-                    SPAN_3[helpCardSpan(visible.length, 3)],
+                    'flex flex-wrap gap-1 rounded-2xl bg-surface-2 p-1',
+                    // With the side panel the brands sit there (from 1024 px up).
+                    aside && segmentList.length > 1 && segments === 'brand' && 'lg:hidden',
                   )}
                 >
-                  <div
-                    data-surface="dark"
-                    className="relative isolate flex w-full flex-col items-start justify-center gap-4 overflow-hidden rounded-[18px] bg-surface-dark bg-[radial-gradient(ellipse_at_85%_0%,var(--glow),transparent_60%)] p-6 text-white sm:rounded-3xl sm:p-8"
-                  >
-                    <p className="text-[13px] font-extrabold tracking-[0.08em] text-accent-on-dark uppercase">
-                      Nie wiesz, którą wybrać?
-                    </p>
-                    <h3 className="max-w-[24ch] font-display text-[clamp(1.35rem,2.2vw,1.9rem)] leading-[1.08] font-extrabold">
-                      {help.title}
-                    </h3>
-                    <p className="max-w-[48ch] leading-relaxed text-white/80">{help.text}</p>
-                    <a
-                      href="#kontakt"
-                      className="inline-flex min-h-12 items-center gap-2 rounded-xl bg-white px-5 font-extrabold text-surface-dark hover:bg-white/85"
-                    >
-                      Zadzwoń albo napisz
-                      <Icon name="arrow" strokeWidth={2.4} className="size-4" />
-                    </a>
-                  </div>
-                </li>
+                  <legend className="sr-only">
+                    {segments === 'brand' ? 'Marka' : 'Kategoria'}
+                  </legend>
+                  {[{ slug: '', name: 'Wszystkie' }, ...segmentList].map((segment) => (
+                    <label key={segment.slug || 'all'} className={SEGMENT}>
+                      <input
+                        type="radio"
+                        name={segments === 'brand' ? 'marka' : 'kategoria'}
+                        checked={(choice[segmentKey] ?? '') === segment.slug}
+                        onChange={() => choose({ [segmentKey]: segment.slug || undefined })}
+                        className="sr-only"
+                      />
+                      {segment.name}
+                    </label>
+                  ))}
+                </fieldset>
               )}
+            </div>
+
+            {results.length === 0 ? (
+              <div className="mt-5 flex flex-col items-start gap-3 rounded-3xl bg-surface-2 p-6">
+                <p className="font-extrabold text-ink">Nic nie pasuje do tego wyboru.</p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    choose({
+                      registerType: undefined,
+                      brand: undefined,
+                      category: undefined,
+                      subcategory: undefined,
+                      brands: undefined,
+                      industries: undefined,
+                    })
+                    if (series) chooseSeries(null)
+                  }}
+                  className="inline-flex min-h-11 items-center rounded-xl bg-card px-4 font-extrabold text-ink shadow-[inset_0_0_0_1.5px_var(--border)] hover:shadow-[inset_0_0_0_1.5px_var(--ink-3)]"
+                >
+                  Pokaż wszystkie
+                </button>
+              </div>
+            ) : (
+              <ul
+                data-category-grid
+                className="mt-5 grid grid-cols-2 gap-2.5 sm:gap-3.5 lg:grid-cols-3"
+              >
+                {visible.map((product, position) => (
+                  <li key={product.slug} className="flex">
+                    <ProductCard
+                      product={product}
+                      index={index}
+                      position={position}
+                      meta={bySeries ? 'series' : 'category'}
+                    />
+                  </li>
+                ))}
+                {more === 0 && !guide && help && (
+                  <li
+                    className={cx(
+                      'flex',
+                      SPAN_2[helpCardSpan(visible.length, 2)],
+                      SPAN_3[helpCardSpan(visible.length, 3)],
+                    )}
+                  >
+                    <div
+                      data-surface="dark"
+                      className="relative isolate flex w-full flex-col items-start justify-center gap-4 overflow-hidden rounded-[18px] bg-surface-dark bg-[radial-gradient(ellipse_at_85%_0%,var(--glow),transparent_60%)] p-6 text-white sm:rounded-3xl sm:p-8"
+                    >
+                      <p className="text-[13px] font-extrabold tracking-[0.08em] text-accent-on-dark uppercase">
+                        Nie wiesz, którą wybrać?
+                      </p>
+                      <h3 className="max-w-[24ch] font-display text-[clamp(1.35rem,2.2vw,1.9rem)] leading-[1.08] font-extrabold">
+                        {help.title}
+                      </h3>
+                      <p className="max-w-[48ch] leading-relaxed text-white/80">{help.text}</p>
+                      <a
+                        href="#kontakt"
+                        className="inline-flex min-h-12 items-center gap-2 rounded-xl bg-white px-5 font-extrabold text-surface-dark hover:bg-white/85"
+                      >
+                        Zadzwoń albo napisz
+                        <Icon name="arrow" strokeWidth={2.4} className="size-4" />
+                      </a>
+                    </div>
+                  </li>
+                )}
+              </ul>
+            )}
+
+            {more > 0 && (
+              <div className="mt-6 flex flex-col items-center gap-2.5">
+                <p className="text-sm font-bold text-ink-3">
+                  Widzisz {visible.length} z {results.length}
+                </p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    focusCard.current = visible.length
+                    setShown((current) => current + CATALOG_PAGE_SIZE)
+                  }}
+                  className="inline-flex min-h-[50px] items-center gap-2 rounded-xl border-2 border-border-input px-6 font-bold text-ink hover:bg-surface-2"
+                >
+                  Pokaż kolejne
+                  <span className="text-sm font-extrabold text-ink-3">
+                    {Math.min(more, CATALOG_PAGE_SIZE)}
+                  </span>
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+      {registers && (
+        // K3 register picker under the grid (decision of Krystian 02.11): it filters the grid
+        // and brings the visitor back to it.
+        <section id="dobor" aria-labelledby="dobor-h" className="mt-16 scroll-mt-28">
+          <div className="max-w-[46rem]">
+            <p className="mb-3 text-[13px] font-extrabold tracking-[0.08em] text-accent-text uppercase">
+              Dobór kasy
+            </p>
+            <h2 id="dobor-h" className={BZ_H2}>
+              Wybierz, jak pracujesz, a pokażemy pasujące kasy
+            </h2>
+            {printersHref && (
+              <p className={`${BZ_LEAD} mt-4 text-ink-2`}>
+                Masz program sprzedażowy albo planujesz GoPOS? Wtedy potrzebujesz{' '}
+                <Link
+                  href={printersHref}
+                  className="font-extrabold text-accent-text hover:underline"
+                >
+                  drukarki fiskalnej, nie kasy →
+                </Link>
+              </p>
+            )}
+          </div>
+          {options && (
+            <ul className="mt-8 grid grid-cols-2 gap-2.5 sm:gap-3.5 lg:grid-cols-4">
+              {options.map((option) => {
+                const on = choice.registerType === option.value
+                return (
+                  <li key={option.value} className="flex">
+                    <button
+                      type="button"
+                      aria-pressed={on}
+                      disabled={option.count === 0}
+                      onClick={() => {
+                        choose({ registerType: on ? undefined : option.value })
+                        backToGrid()
+                      }}
+                      className={cx(
+                        'relative flex w-full flex-col gap-1.5 rounded-[22px] bg-card p-3 text-left shadow-[inset_0_0_0_1.5px_var(--border)] transition-shadow hover:shadow-[inset_0_0_0_1.5px_var(--ink-3)] disabled:cursor-not-allowed disabled:opacity-55 sm:p-4',
+                        on &&
+                          'shadow-[0_20px_40px_-28px_var(--glow),inset_0_0_0_2px_var(--accent-text)] hover:shadow-[0_20px_40px_-28px_var(--glow),inset_0_0_0_2px_var(--accent-text)]',
+                      )}
+                    >
+                      <ProductStage as="span" className="h-24 rounded-2xl sm:h-28">
+                        {option.image && (
+                          <Image
+                            src={option.image.url}
+                            alt=""
+                            width={option.image.width}
+                            height={option.image.height}
+                            unoptimized
+                            className={cx(
+                              'relative h-auto max-h-20 w-auto max-w-[70%] object-contain sm:max-h-24',
+                              STAGE_SHADOW,
+                            )}
+                          />
+                        )}
+                      </ProductStage>
+                      <span
+                        aria-hidden="true"
+                        className={cx(
+                          'absolute right-4 top-4 flex size-6 items-center justify-center rounded-full bg-card shadow-[inset_0_0_0_1.5px_var(--border)] sm:right-5 sm:top-5',
+                          on && 'bg-accent-text text-accent-ink shadow-none',
+                        )}
+                      >
+                        {on && <Icon name="check" strokeWidth={3} className="size-3.5" />}
+                      </span>
+                      <span className="mt-2 font-display text-base leading-tight font-extrabold text-ink sm:text-lg">
+                        {option.title}
+                      </span>
+                      <span className="text-sm leading-snug text-ink-2">{option.text}</span>
+                      <span className="mt-auto pt-1 text-sm font-extrabold text-accent-text">
+                        {option.count} {plural(option.count, ['model', 'modele', 'modeli'])}
+                      </span>
+                    </button>
+                  </li>
+                )
+              })}
             </ul>
           )}
-
-          {more > 0 && (
-            <div className="mt-6 flex flex-col items-center gap-2.5">
-              <p className="text-sm font-bold text-ink-3">
-                Widzisz {visible.length} z {results.length}
-              </p>
-              <button
-                type="button"
-                onClick={() => {
-                  focusCard.current = visible.length
-                  setShown((current) => current + CATALOG_PAGE_SIZE)
-                }}
-                className="inline-flex min-h-[50px] items-center gap-2 rounded-xl border-2 border-border-input px-6 font-bold text-ink hover:bg-surface-2"
-              >
-                Pokaż kolejne
-                <span className="text-sm font-extrabold text-ink-3">
-                  {Math.min(more, CATALOG_PAGE_SIZE)}
-                </span>
-              </button>
-            </div>
-          )}
-        </div>
-      </div>
-    </section>
+        </section>
+      )}
+    </>
   )
 }
 

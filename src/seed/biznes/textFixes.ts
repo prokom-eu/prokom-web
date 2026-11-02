@@ -125,10 +125,9 @@ export const WHOLE_TEXT_FIXES: readonly Fix[] = [
   ['Do 700 zł zwrotu za każdą kasę.', 'do 700 zł zwrotu za każdą kasę'],
   ['Ulga na kasę — pytania', 'Pytania o ulgę na kasę'],
   // The cash register category (`category.ts`).
-  [
-    'Kasy fiskalne online. Dobrane, zafiskalizowane, z serwisem w Rabce.',
-    'Kasy fiskalne online z fiskalizacją i serwisem w Rabce',
-  ],
+  // H1 of the dark hero card is short on the board (`Web-kategoria-kasy`, prompt 2 W3).
+  ['Kasy fiskalne online. Dobrane, zafiskalizowane, z serwisem w Rabce.', 'Kasy fiskalne'],
+  ['Kasy fiskalne online z fiskalizacją i serwisem w Rabce', 'Kasy fiskalne'],
   ['Kupujesz kasę, dostajesz spokój.', 'Co dostajesz z kasą'],
   [
     'Trzy rzeczy, które warto wiedzieć przed zakupem.',

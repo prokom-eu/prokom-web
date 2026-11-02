@@ -50,7 +50,8 @@ export function renamedIncludedEyebrow(
 
 export const CASH_REGISTERS_CONTENT: Content = {
   hero: {
-    title: 'Kasy fiskalne online z fiskalizacją i serwisem w Rabce',
+    // Short H1 of the hero card (board `Web-kategoria-kasy`); `<title>` is `seo.title` or the name.
+    title: 'Kasy fiskalne',
     lead: 'Posnet, Elzab i Fawag: od kieszonkowej kasy dla mechanika po kasę systemową do sklepu ze skanerem. Programujemy, fiskalizujemy, szkolimy i pilnujemy przeglądów.',
     highlights: ['Fiskalizacja i szkolenie'],
   },
