@@ -85,25 +85,29 @@ export default async function CatalogPage({ params }: Props) {
 
   return (
     <>
-      <div className="mx-auto w-full max-w-7xl px-4 pb-6 pt-5 sm:px-6 sm:pt-7 lg:px-8">
-        <Breadcrumbs
-          items={[
-            { name: 'Start', href: '/' },
-            { name: 'Oferta', href: CATALOG_PATH },
-          ]}
-        />
-        <div className="mt-5 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+      {/* Board App-Oferta: on a phone the search comes first — the title is in the top bar (the H1
+          stays for readers), no breadcrumbs, lead or numbers. */}
+      <div className="mx-auto w-full max-w-7xl px-4 pb-6 pt-5 max-md:pb-0 max-md:pt-3 sm:px-6 sm:pt-7 lg:px-8">
+        <div className="max-md:hidden">
+          <Breadcrumbs
+            items={[
+              { name: 'Start', href: '/' },
+              { name: 'Oferta', href: CATALOG_PATH },
+            ]}
+          />
+        </div>
+        <div className="mt-5 flex flex-col gap-6 max-md:mt-0 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl">
-            <p className="text-xs font-extrabold uppercase tracking-[0.12em] text-accent-text">
+            <p className="text-xs font-extrabold uppercase tracking-[0.12em] text-accent-text max-md:hidden">
               Oferta
             </p>
-            <Heading level={1} className="mt-2">
+            <Heading level={1} className="mt-2 max-md:sr-only">
               {TITLE}
             </Heading>
-            <p className="mt-3 text-lg leading-relaxed text-ink-2">{LEAD}</p>
+            <p className="mt-3 text-lg leading-relaxed text-ink-2 max-md:hidden">{LEAD}</p>
           </div>
           {stats.length > 0 && (
-            <dl className="grid grid-cols-3 gap-2 lg:min-w-[380px]">
+            <dl className="grid grid-cols-3 gap-2 max-md:hidden lg:min-w-[380px]">
               {stats.map((stat) => (
                 <div
                   key={stat.label}

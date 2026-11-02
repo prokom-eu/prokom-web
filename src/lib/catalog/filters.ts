@@ -288,7 +288,14 @@ export function runCatalog(
   index: OrderIndex,
   search: PreparedSearch,
   state: CatalogState,
-  { perRow = ROW_WIDE }: { perRow?: number } = {},
+  {
+    perRow = ROW_WIDE,
+    pageSize = CATALOG_PAGE_SIZE,
+  }: {
+    perRow?: number
+    /** Cards per page: 24, on a phone `CATALOG_PAGE_SIZE_PHONE`. */
+    pageSize?: number
+  } = {},
 ): CatalogResult {
   const found = state.query ? searchProducts(search, state.query) : null
   const base = found ?? index.products
@@ -298,7 +305,7 @@ export function runCatalog(
     found && state.sort === 'popular' ? matching : sortProducts(matching, state, index, perRow)
   return {
     results,
-    visible: results.slice(0, state.page * CATALOG_PAGE_SIZE),
+    visible: results.slice(0, state.page * pageSize),
     facets: {
       kinds: {
         device: 0,

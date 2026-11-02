@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
-import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
@@ -27,6 +27,7 @@ import { BZ_H2, BZ_LEAD } from '@/sites/biznes/typography'
 
 import { ProductCard } from '../catalog/ProductCard'
 import { ProductStage, STAGE_SHADOW } from '../ProductStage'
+import { usePhone } from '../mobile/usePhone'
 
 type Props = {
   /** Index with only this category's products (the page never sends the whole catalog). */
@@ -70,14 +71,6 @@ const SEGMENT =
 const CHIP =
   'inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-xl bg-card px-4 text-sm font-bold text-ink shadow-[inset_0_0_0_1px_var(--border)] hover:shadow-[inset_0_0_0_1px_var(--ink-3)] has-checked:bg-accent-text has-checked:text-accent-ink has-checked:shadow-none has-focus-visible:outline-3 has-focus-visible:outline-offset-2 has-focus-visible:outline-accent-text'
 
-const PHONE_QUERY = '(max-width: 767px)'
-const subscribePhone = (onChange: () => void) => {
-  const query = window.matchMedia(PHONE_QUERY)
-  query.addEventListener('change', onChange)
-  return () => query.removeEventListener('change', onChange)
-}
-const isPhone = () => window.matchMedia(PHONE_QUERY).matches
-
 /**
  * Products of a category (spec. §6.1): the cash register picker (when the products have types),
  * brand segments, the grid with the „Nie wiesz, którą wybrać?” card and „Pokaż kolejne”. The
@@ -112,7 +105,7 @@ export function CategoryGrid({
   const aside = guide !== null
   // Pages, not cards: a page is 24 cards, 10 on a phone. The server renders the desktop page;
   // a phone shortens it once hydrated (the cards past the 10th are below the fold).
-  const phone = useSyncExternalStore(subscribePhone, isPhone, () => false)
+  const phone = usePhone()
   const pageSize = phone ? CATALOG_PAGE_SIZE_PHONE : CATALOG_PAGE_SIZE
   const [pages, setPages] = useState(1)
   const focusCard = useRef<number | null>(null)
