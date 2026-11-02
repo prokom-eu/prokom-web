@@ -6,11 +6,25 @@ import { getCatalogIndex } from '@/lib/catalog/data'
 import { groupSummaries } from '@/lib/catalog/groups'
 import { getSiteSettings } from '@/lib/site/data'
 import { toTelHref } from '@/lib/site/link'
+import type { IconName } from '@/lib/catalog/options'
 import type { BzHeroBlock as BzHeroBlockData } from '@/payload-types'
 
 import { DepartmentWheel } from './DepartmentWheel'
 
 type Props = { block: BzHeroBlockData; isFirst: boolean; tenantId: number }
+
+/** „Oddzwaniamy w ciągu **60 minut**” (board): the time in bold. */
+function Emphasis({ text }: { text: string }) {
+  const match = text.match(/^(.*?)(d+s*(?:minut|min|godzinw*|h))(.*)$/)
+  if (!match) return <>{text}</>
+  return (
+    <>
+      {match[1]}
+      <b className="font-extrabold text-ink">{match[2]}</b>
+      {match[3]}
+    </>
+  )
+}
 
 /**
  * Hero of the Biznes home page (spec. §4 pkt 1, ZMIANY-v20 §2.1): H1 with a plain accent part
@@ -25,11 +39,18 @@ export async function BzHeroBlock({ block, isFirst, tenantId }: Props) {
   const groups = groupSummaries(index, { thumbs: 3 })
   const phone = block.showPhone ? (settings?.phone ?? null) : null
   const tel = phone ? toTelHref(phone) : null
-  const callback = settings?.biznes?.promises.callbackTime
+  // K4-FINAL §1 (audit 01.11): the confirmed promise; the panel field may shorten it.
+  const callback = settings?.biznes?.promises.callbackTime || 'Oddzwaniamy w ciągu 60 minut'
   const trust = [
-    ...(settings?.biznes?.trustLine
-      ? [{ id: 'trust-line', icon: 'shield' as const, text: settings.biznes.trustLine }]
-      : []),
+    // Board: each status on its own line (the panel keeps them in one, split by „ · ”).
+    ...(settings?.biznes?.trustLine ?? '')
+      .split(' · ')
+      .filter(Boolean)
+      .map((text, i) => ({
+        id: `trust-${i}`,
+        icon: (i === 0 ? 'shield' : 'star') as IconName,
+        text,
+      })),
     ...(block.trustItems ?? []),
   ]
   const Title = isFirst ? 'h1' : 'h2'
@@ -85,36 +106,29 @@ export async function BzHeroBlock({ block, isFirst, tenantId }: Props) {
             >
               Przeglądaj ofertę · {index.products.length}
             </Link>
+          </div>
+          <p className="-mt-1 flex flex-wrap items-center gap-x-4 gap-y-1 text-[15px] text-ink-2">
             {phone && tel && (
               <a
                 href={tel}
-                className="inline-flex min-h-14 items-center gap-2.5 rounded-2xl bg-card px-6 font-bold text-ink shadow-[inset_0_0_0_1.5px_var(--border)] transition-colors hover:shadow-[inset_0_0_0_1.5px_var(--ink-3)]"
+                className="inline-flex min-h-11 items-center gap-2 font-display text-[17px] font-extrabold text-ink hover:text-accent-text"
               >
-                <Icon name="phone" className="size-[18px]" />
+                <Icon name="phone" className="size-[18px] text-accent-text" />
                 {phone}
               </a>
             )}
-          </div>
-          {callback && (
-            <p className="-mt-1 inline-flex items-center gap-2.5 text-[14.5px] font-bold text-ink-2">
-              <span aria-hidden="true" className="size-2.5 shrink-0 rounded-full bg-ok" />
-              {/* The panel field is short („Oddzwaniamy w ciągu 60 minut”), as in HowInquiryWorks. */}
-              {callback} w godzinach pracy
-            </p>
-          )}
+            <span>
+              <Emphasis text={callback} /> w godzinach pracy
+            </span>
+          </p>
           {trust.length > 0 && (
-            <ul className="flex flex-wrap gap-x-5.5 gap-y-2.5 pt-1.5">
+            <ul className="grid gap-x-6 gap-y-2.5 border-t border-border pt-5 sm:grid-cols-[auto_auto] sm:justify-start">
               {trust.map((item, i) => (
                 <li
                   key={item.id ?? i}
                   className="flex items-center gap-2.5 text-sm font-bold text-ink-2"
                 >
-                  <span
-                    aria-hidden="true"
-                    className="flex size-[34px] items-center justify-center rounded-[11px] bg-card text-accent-text shadow-[inset_0_0_0_1px_var(--border)]"
-                  >
-                    <Icon name={item.icon} className="size-[18px]" />
-                  </span>
+                  <Icon name={item.icon} className="size-[17px] shrink-0 text-accent-text" />
                   {item.text}
                 </li>
               ))}
@@ -125,16 +139,14 @@ export async function BzHeroBlock({ block, isFirst, tenantId }: Props) {
         {groups.length > 0 && (
           <div className="flex flex-col items-center gap-2.5">
             <DepartmentWheel
-              groups={groups.map(({ slug, name, icon, count, description, thumbs }) => ({
+              groups={groups.map(({ slug, name, icon, count, gradient, thumbs }) => ({
                 slug,
                 name,
                 icon,
                 count,
-                description,
+                gradient,
                 thumbs,
               }))}
-              total={index.products.length}
-              phone={settings?.phone ?? null}
             />
             {(block.wheelHint || block.planLinkLabel) && (
               <p className="flex flex-wrap justify-center gap-2 text-center text-[13.5px] text-ink-3">
