@@ -6,6 +6,7 @@ import {
   brandCount,
   activeFilters,
   CATALOG_PAGE_SIZE,
+  CATALOG_PAGE_SIZE_PHONE,
   catalogQueryString,
   catalogSeo,
   clearFilters,
@@ -240,6 +241,18 @@ describe('runCatalog on the seed package', () => {
     expect(run({ page: 2 }).visible).toHaveLength(2 * CATALOG_PAGE_SIZE)
     expect(run({ page: 99 }).visible).toHaveLength(225)
     expect(run({ page: 2 }).visible).toEqual(run({}).results.slice(0, 48))
+  })
+
+  it('on a phone a page is 10 (board App-Kategoria: „Pokaż kolejne 10”)', () => {
+    const phone = (state: Partial<CatalogState>) =>
+      runCatalog(
+        index,
+        search,
+        { ...DEFAULT_STATE, ...state },
+        { pageSize: CATALOG_PAGE_SIZE_PHONE },
+      )
+    expect(phone({}).visible).toHaveLength(10)
+    expect(phone({ page: 3 }).visible).toEqual(run({}).results.slice(0, 30))
   })
 })
 

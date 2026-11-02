@@ -262,6 +262,10 @@ test.describe('Biznes catalog /oferta', () => {
       )
       expect(overflow).toBe(0)
       await expect(filters(page)).toBeHidden()
+      // Board App-Oferta: the search on top (the H1 for readers only), 10 cards a page.
+      await expect(page.locator('h1')).toBeAttached()
+      await expect(cards(page)).toHaveCount(10)
+      await expect(page.getByText(/^Widzisz 10 z \d+$/)).toBeVisible()
 
       const open = page.getByRole('button', { name: 'Filtry', exact: true })
       const sheet = page.getByRole('dialog', { name: 'Filtry' })

@@ -5,7 +5,7 @@ import { cx } from '@/components/ui/cx'
 type Item = { name: string; href: string; count: number }
 
 const CHIP =
-  'inline-flex min-h-11 items-center gap-2 rounded-xl px-4 text-sm font-bold focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-accent-text'
+  'inline-flex min-h-11 items-center gap-2 rounded-xl px-4 text-sm font-bold whitespace-nowrap focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-accent-text'
 
 /**
  * Subcategories with their own page (K3-KATALOG §9, `k31/screens/Web-Kategoria-1440`): links,
@@ -26,12 +26,13 @@ export function SubcategoryNav({
 }) {
   if (items.length === 0) return null
   return (
-    <nav aria-label={label} className="mb-8">
-      <ul className="flex flex-wrap gap-2">
+    <nav aria-label={label} className="mb-8 max-md:mt-3 max-md:mb-0">
+      {/* Phone: one row to swipe. */}
+      <ul className="flex flex-wrap gap-2 [scrollbar-width:none] max-md:-mx-4 max-md:flex-nowrap max-md:overflow-x-auto max-md:px-4">
         {[{ ...category, name: 'Wszystkie' }, ...items].map((item) => {
           const on = item.href === current
           return (
-            <li key={item.href}>
+            <li key={item.href} className="shrink-0">
               <Link
                 href={item.href}
                 aria-current={on ? 'page' : undefined}

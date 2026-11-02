@@ -15,6 +15,8 @@ export const BRANDS_PATH = '/marki'
 
 /** „Pokaż kolejne” adds this many (K33 §4: 24 — whole rows of 3 and of 2). */
 export const CATALOG_PAGE_SIZE = 24
+/** On a phone (board App-Kategoria): „Widzisz 10 z N” and „Pokaż kolejne 10”. */
+export const CATALOG_PAGE_SIZE_PHONE = 10
 
 /**
  * The company's own services are listed under the PRO-KOM brand: not a manufacturer, so it is
@@ -44,7 +46,7 @@ export type CatalogState = {
   isNew: boolean
   sort: CatalogSort
   view: CatalogView
-  /** Pages shown so far: page N lists the first N × 12. */
+  /** Pages shown so far: page N lists the first N × the page size (24; 10 on a phone). */
   page: number
 }
 
@@ -286,7 +288,14 @@ export function runCatalog(
   index: OrderIndex,
   search: PreparedSearch,
   state: CatalogState,
-  { perRow = ROW_WIDE }: { perRow?: number } = {},
+  {
+    perRow = ROW_WIDE,
+    pageSize = CATALOG_PAGE_SIZE,
+  }: {
+    perRow?: number
+    /** Cards per page: 24, on a phone `CATALOG_PAGE_SIZE_PHONE`. */
+    pageSize?: number
+  } = {},
 ): CatalogResult {
   const found = state.query ? searchProducts(search, state.query) : null
   const base = found ?? index.products
@@ -296,7 +305,7 @@ export function runCatalog(
     found && state.sort === 'popular' ? matching : sortProducts(matching, state, index, perRow)
   return {
     results,
-    visible: results.slice(0, state.page * CATALOG_PAGE_SIZE),
+    visible: results.slice(0, state.page * pageSize),
     facets: {
       kinds: {
         device: 0,

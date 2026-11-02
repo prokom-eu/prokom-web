@@ -37,48 +37,58 @@ const TILES = [
 /**
  * Hero of a category as on the boards `Web-kategoria-*` (prompt 2 W3): a dark card with the
  * eyebrow, a short H1, the lead and the chips of the department's categories; on the right three
- * product photos on white tiles. No buttons: the grid follows right under the card.
+ * product photos on white tiles. No buttons: the grid follows right under the card. Below 768 px
+ * (board App-Kategoria) no card: the chips in one row to swipe, then a short H1.
  */
 export function CategoryHero({ title, eyebrow, lead, crumbs, chips, photos, image = null }: Props) {
   const shown = image ? photos.slice(0, 2) : photos.slice(0, 3)
   return (
-    <section aria-labelledby="kategoria-h1" className="pt-5 pb-8 sm:pt-6">
+    <section aria-labelledby="kategoria-h1" className="pt-3 pb-2 md:pt-6 md:pb-8">
       <Container wide>
-        <Breadcrumbs items={crumbs} />
+        <div className="max-md:hidden">
+          <Breadcrumbs items={crumbs} />
+        </div>
         <div
           data-surface="dark"
-          className="mt-5 grid gap-8 overflow-hidden rounded-[32px] bg-surface-dark bg-[radial-gradient(120%_120%_at_0%_0%,color-mix(in_srgb,var(--accent-text)_40%,transparent),transparent_55%)] p-6 text-white sm:p-10 min-[1080px]:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] min-[1080px]:items-center min-[1080px]:px-12 min-[1080px]:py-14"
+          className="mt-5 grid gap-8 overflow-hidden rounded-[32px] bg-surface-dark bg-[radial-gradient(120%_120%_at_0%_0%,color-mix(in_srgb,var(--accent-text)_40%,transparent),transparent_55%)] p-6 text-white max-md:mt-0 max-md:overflow-visible max-md:rounded-none max-md:bg-transparent max-md:bg-none max-md:p-0 max-md:text-ink min-[768px]:p-10 min-[1080px]:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] min-[1080px]:items-center min-[1080px]:px-12 min-[1080px]:py-14"
         >
-          <div className="flex min-w-0 flex-col gap-4">
-            <p className="flex items-center gap-2 text-[13px] font-extrabold tracking-[0.12em] text-accent-on-dark uppercase">
+          <div className="flex min-w-0 flex-col gap-4 max-md:gap-3">
+            <p className="flex items-center gap-2 text-[13px] font-extrabold tracking-[0.12em] text-accent-on-dark uppercase max-md:hidden">
               <span aria-hidden="true" className="h-0.5 w-5 bg-current" />
               {eyebrow}
             </p>
-            <h1 id="kategoria-h1" className={BZ_H1_CARD}>
+            <h1
+              id="kategoria-h1"
+              className={cx(BZ_H1_CARD, 'max-md:order-2 max-md:text-[22px] max-md:leading-[1.1]')}
+            >
               {title}
             </h1>
-            {lead && <p className={`${BZ_LEAD} max-w-[52ch] text-white/80`}>{lead}</p>}
+            {lead && (
+              <p className={`${BZ_LEAD} max-w-[52ch] text-white/80 max-md:hidden`}>{lead}</p>
+            )}
             {chips.length > 1 && (
-              <nav aria-label="Kategorie działu" className="pt-2">
+              <nav aria-label="Kategorie działu" className="pt-2 max-md:order-1 max-md:pt-0">
                 {/* Phone (board App-Kategoria): one row to swipe; wider: wrapped. */}
-                <ul className="-mx-6 flex gap-2 overflow-x-auto px-6 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0">
+                <ul className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] md:mx-0 md:flex-wrap md:overflow-visible md:px-0 md:pb-0">
                   {chips.map((chip) => (
                     <li key={chip.href} className="shrink-0">
                       <Link
                         href={chip.href}
                         aria-current={chip.current ? 'page' : undefined}
                         className={cx(
-                          'inline-flex min-h-11 items-center gap-2 rounded-full px-4 text-[15px] font-extrabold transition-colors',
+                          'inline-flex min-h-11 items-center gap-2 rounded-full px-4 text-[15px] font-extrabold whitespace-nowrap transition-colors max-md:text-[14px] max-md:focus-visible:outline-accent-text',
                           chip.current
-                            ? 'bg-white text-surface-dark'
-                            : 'text-white shadow-[inset_0_0_0_1.5px_color-mix(in_srgb,var(--c-white)_22%,transparent)] hover:bg-white/10',
+                            ? 'bg-white text-surface-dark max-md:bg-accent-text max-md:text-accent-ink'
+                            : 'text-white shadow-[inset_0_0_0_1.5px_color-mix(in_srgb,var(--c-white)_22%,transparent)] hover:bg-white/10 max-md:bg-card max-md:text-ink max-md:shadow-[inset_0_0_0_1px_var(--border)] max-md:hover:bg-surface-2',
                         )}
                       >
                         {chip.name}
                         <span
                           className={cx(
                             'text-xs',
-                            chip.current ? 'text-surface-dark' : 'text-white/70',
+                            chip.current
+                              ? 'text-surface-dark max-md:text-accent-ink'
+                              : 'text-white/70 max-md:text-ink-2',
                           )}
                         >
                           {chip.count}
