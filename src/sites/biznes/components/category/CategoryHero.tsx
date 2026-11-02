@@ -2,8 +2,10 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import { Container } from '@/components/ui/Container'
+import { MediaImage } from '@/components/MediaImage'
 import { cx } from '@/components/ui/cx'
 import type { IndexImage } from '@/lib/catalog/catalogIndex'
+import type { PublicImage } from '@/lib/media/public'
 import { BZ_H1_CARD, BZ_LEAD } from '@/sites/biznes/typography'
 
 import { Breadcrumbs, type Crumb } from '../Breadcrumbs'
@@ -21,6 +23,8 @@ type Props = {
   chips: CategoryChip[]
   /** Up to 3 product photos on white tiles, as on the board. */
   photos: IndexImage[]
+  /** The category's own picture from the panel: the first, large tile when set. */
+  image?: PublicImage | null
 }
 
 /** Board sizes of the three photo tiles: a large one and two smaller, stacked on the right. */
@@ -35,7 +39,8 @@ const TILES = [
  * eyebrow, a short H1, the lead and the chips of the department's categories; on the right three
  * product photos on white tiles. No buttons: the grid follows right under the card.
  */
-export function CategoryHero({ title, eyebrow, lead, crumbs, chips, photos }: Props) {
+export function CategoryHero({ title, eyebrow, lead, crumbs, chips, photos, image = null }: Props) {
+  const shown = image ? photos.slice(0, 2) : photos.slice(0, 3)
   return (
     <section aria-labelledby="kategoria-h1" className="pt-5 pb-8 sm:pt-6">
       <Container wide>
@@ -71,7 +76,10 @@ export function CategoryHero({ title, eyebrow, lead, crumbs, chips, photos }: Pr
                       >
                         {chip.name}
                         <span
-                          className={cx('text-xs', chip.current ? 'text-ink-2' : 'text-white/70')}
+                          className={cx(
+                            'text-xs',
+                            chip.current ? 'text-surface-dark' : 'text-white/70',
+                          )}
                         >
                           {chip.count}
                         </span>
@@ -82,31 +90,49 @@ export function CategoryHero({ title, eyebrow, lead, crumbs, chips, photos }: Pr
               </nav>
             )}
           </div>
-          {photos.length > 0 && (
+          {(image || shown.length > 0) && (
             // Catalog photos have a white background: white tiles in both themes.
             <ul
               aria-hidden="true"
               className="grid grid-cols-[1.45fr_1fr] grid-rows-2 items-center gap-3 max-[1079px]:hidden"
             >
-              {photos.map((photo, position) => (
+              {image && (
                 <li
-                  key={photo.url}
                   className={cx(
-                    'flex items-center justify-center rounded-[22px] bg-white p-4 shadow-[0_30px_50px_-30px_var(--glow)]',
-                    TILES[position],
+                    'flex items-center justify-center overflow-hidden rounded-[22px] bg-white p-4 shadow-[0_30px_50px_-30px_var(--glow)]',
+                    TILES[0],
                   )}
                 >
-                  <Image
-                    src={photo.url}
-                    alt=""
-                    width={photo.width}
-                    height={photo.height}
-                    unoptimized
-                    loading={position === 0 ? 'eager' : 'lazy'}
+                  <MediaImage
+                    image={{ ...image, alt: '' }}
+                    sizes="(min-width: 1080px) 28vw, 1px"
                     className="h-auto max-h-full w-auto max-w-[82%] object-contain"
                   />
                 </li>
-              ))}
+              )}
+              {shown.map((photo, i) => {
+                const position = image ? i + 1 : i
+                return (
+                  <li
+                    key={photo.url}
+                    className={cx(
+                      'flex items-center justify-center rounded-[22px] bg-white p-4 shadow-[0_30px_50px_-30px_var(--glow)]',
+                      TILES[position],
+                    )}
+                  >
+                    <Image
+                      src={photo.url}
+                      alt=""
+                      width={photo.width}
+                      height={photo.height}
+                      unoptimized
+                      // Hidden on phones: a lazy image in `display: none` is not downloaded.
+                      loading="lazy"
+                      className="h-auto max-h-full w-auto max-w-[82%] object-contain"
+                    />
+                  </li>
+                )
+              })}
             </ul>
           )}
         </div>

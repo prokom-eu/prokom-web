@@ -140,6 +140,7 @@ export async function CategoryPageView({
         crumbs={crumbs}
         chips={chips}
         photos={photos}
+        image={subcategory ? null : category.image}
       />
       <Container wide className="pb-14 sm:pb-20">
         <SubcategoryNav

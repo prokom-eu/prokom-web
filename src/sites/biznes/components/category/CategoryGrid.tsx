@@ -132,10 +132,13 @@ export function CategoryGrid({
     setShown(CATALOG_PAGE_SIZE)
   }
   /** After a pick in the register picker under the grid: the grid it filtered. */
+  // The keyboard and the screen reader go with it: the focus moves to the grid heading.
   const backToGrid = () => {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     document.getElementById('produkty')?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' })
+    document.getElementById('produkty-h')?.focus({ preventScroll: true })
   }
+  const pickedType = options?.find((option) => option.value === choice.registerType) ?? null
   const chooseSeries = (slug: string | null) => {
     const url = new URL(window.location.href)
     if (slug) url.searchParams.set(SERIES_PARAM, slug)
@@ -159,7 +162,7 @@ export function CategoryGrid({
     <>
       <section id="produkty" aria-labelledby="produkty-h" className="scroll-mt-28">
         {/* Board `Web-kategoria-*`: no heading over the grid, only the count (H2 for readers). */}
-        <h2 id="produkty-h" className={title ? BZ_H2 : 'sr-only'}>
+        <h2 id="produkty-h" tabIndex={-1} className={cx(title ? BZ_H2 : 'sr-only', 'outline-none')}>
           {title ?? 'Produkty'}
         </h2>
 
@@ -234,10 +237,25 @@ export function CategoryGrid({
               <GuideCard guide={guide} className="mt-6 lg:hidden" />
             )}
             <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
-              <p role="status" className="text-ink-2">
-                <b className="font-display text-2xl font-extrabold text-ink">{results.length}</b>{' '}
-                {countLabel}
-              </p>
+              <div className="flex flex-wrap items-center gap-3">
+                <p role="status" className="text-ink-2">
+                  <b className="font-display text-2xl font-extrabold text-ink">{results.length}</b>{' '}
+                  {countLabel}
+                  {pickedType && <span className="sr-only"> · typ: {pickedType.title}</span>}
+                </p>
+                {/* The register type is picked under the grid: its filter shows (and clears) here. */}
+                {pickedType && (
+                  <button
+                    type="button"
+                    onClick={() => choose({ registerType: undefined })}
+                    aria-label={`Usuń filtr typu: ${pickedType.title}`}
+                    className="inline-flex min-h-10 items-center gap-2 rounded-full bg-accent-text px-3.5 text-sm font-extrabold text-accent-ink hover:bg-ink hover:text-surface"
+                  >
+                    Typ: {pickedType.title}
+                    <span aria-hidden="true">✕</span>
+                  </button>
+                )}
+              </div>
               {segmentList.length > 1 && (
                 <fieldset
                   className={cx(

@@ -140,7 +140,17 @@ export const CatalogCategories: CollectionConfig = {
           admin: { description: 'Puste = nazwa.' },
         },
         { name: 'lead', label: 'Wstęp', type: 'textarea' },
-        { name: 'highlights', label: 'Zalety', type: 'text', hasMany: true, maxRows: 3 },
+        {
+          name: 'highlights',
+          label: 'Zalety',
+          type: 'text',
+          hasMany: true,
+          maxRows: 3,
+          admin: {
+            description:
+              'Nieużywane od wersji v150: karta kategorii nie pokazuje zalet (plansze Web-kategoria).',
+          },
+        },
         imageField('image', 'Obraz'),
       ],
     },

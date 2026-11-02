@@ -1070,6 +1070,9 @@ export interface CatalogCategory {
      */
     title?: string | null;
     lead?: string | null;
+    /**
+     * Nieużywane od wersji v150: karta kategorii nie pokazuje zalet (plansze Web-kategoria).
+     */
     highlights?: string[] | null;
     image?: (number | null) | Media;
   };

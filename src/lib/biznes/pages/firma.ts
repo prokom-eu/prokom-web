@@ -41,7 +41,7 @@ export const careAreasSchema = z.object({
         products: z.array(slug).max(4).default([]),
         image: slug.optional(),
         /** Icon of the tab (SVG path „d”, board `Web-opieka-it`). */
-        iconPath: z.string().max(400).refine(isSvgPath, 'Ikona: ścieżka SVG („d”).').optional(),
+        iconPath: z.string().refine(isSvgPath, 'Ikona: ścieżka SVG („d”).').optional(),
       }),
     )
     .min(1)

@@ -250,7 +250,19 @@ export function TableSection({ block, data }: Props & { data: SectionData<'table
       <ul className="-mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 min-[761px]:hidden">
         {columns.map((column, c) => (
           <li key={column} className={cx(CARD, 'w-[82%] shrink-0 snap-start p-5 text-ink')}>
-            <h3 className="font-display text-lg font-extrabold">{column}</h3>
+            <h3
+              className={cx(
+                'font-display text-lg font-extrabold',
+                contrast && cx('-mx-5 -mt-5 mb-1 rounded-t-[22px] px-5 py-3', CONTRAST_HEAD[c]),
+              )}
+            >
+              {contrast && (
+                <span aria-hidden="true" className="mr-2">
+                  {c === 0 ? '✕' : '✓'}
+                </span>
+              )}
+              {column}
+            </h3>
             <dl className="mt-3 flex flex-col gap-3">
               {data.rows.map((row) => (
                 <div key={row.k}>
