@@ -10,6 +10,7 @@ import { cartActions, useCart } from '@/lib/cart/store'
 import { useCatalogIndex } from '@/lib/catalog/useCatalogIndex'
 import { itemsSummary } from '@/lib/inquiry/listForm'
 import { plural } from '@/lib/plural'
+import { BZ_H1 } from '@/sites/biznes/typography'
 
 import { AddToCartButton } from '../AddToCartButton'
 import { ProductThumb, productSubtitle } from '../ProductThumb'
@@ -155,9 +156,7 @@ export function InquiryPage({ breadcrumbs, formToken, phrase, callbackTime, hour
           {breadcrumbs}
           <div className="mt-4 flex flex-wrap items-end justify-between gap-6">
             <div className="max-w-2xl">
-              <h1 className="font-display text-[clamp(2.5rem,4.4vw,3.75rem)] leading-[0.98] font-extrabold tracking-[-0.02em] text-ink">
-                Twoje zapytanie
-              </h1>
+              <h1 className={`${BZ_H1} text-ink`}>Twoje zapytanie</h1>
               <p className="mt-4 text-lg leading-relaxed text-ink-2">
                 Sprawdź listę, dopisz uwagi i zostaw telefon. Przygotujemy wycenę z wariantami.
               </p>

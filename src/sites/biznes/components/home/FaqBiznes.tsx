@@ -4,6 +4,7 @@ import { faqJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
 import { getCompanyData, getSiteSettings } from '@/lib/site/data'
 import { toTelHref, toWhatsAppHref } from '@/lib/site/link'
 import type { FaqBlock as FaqBlockData } from '@/payload-types'
+import { BZ_H2, BZ_LEAD } from '@/sites/biznes/typography'
 
 import { LiveHours } from './LiveHours'
 
@@ -41,17 +42,10 @@ export async function FaqBiznes({ block, tenantId }: Props) {
               {block.eyebrow}
             </p>
           )}
-          <h2
-            id="faq-h"
-            className="font-display text-[clamp(2rem,4vw,3.4rem)] leading-[1.02] font-extrabold tracking-[-0.02em] font-stretch-110%"
-          >
+          <h2 id="faq-h" className={BZ_H2}>
             {block.heading || DEFAULT_HEADING}
           </h2>
-          {block.lead && (
-            <p className="mt-4 max-w-[46ch] text-[clamp(1.0625rem,1.3vw,1.2rem)] leading-relaxed text-ink-2">
-              {block.lead}
-            </p>
-          )}
+          {block.lead && <p className={`${BZ_LEAD} mt-4 max-w-[46ch] text-ink-2`}>{block.lead}</p>}
           {(phone || email || whatsapp) && (
             <div className="mt-6 max-w-[420px] rounded-[22px] bg-card p-5 shadow-[0_24px_48px_-32px_var(--glow),inset_0_0_0_1px_var(--border)]">
               <LiveHours hours={hours} className="text-sm text-ink" />

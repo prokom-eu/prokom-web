@@ -23,6 +23,7 @@ import { primeCatalogIndex } from '@/lib/catalog/useCatalogIndex'
 import { plural } from '@/lib/plural'
 import { prepareSearch } from '@/lib/search'
 
+import { QuickView } from '../QuickView'
 import { SearchIcon } from '../SearchIcon'
 import { CatalogFilters } from './CatalogFilters'
 import { EmptyResult } from './EmptyResult'
@@ -53,6 +54,8 @@ export function Catalog({ index }: { index: CatalogIndex }) {
   const [syncedQuery, setSyncedQuery] = useState(state.query)
   /** The phrase the box last wrote to the URL. */
   const [written, setWritten] = useState<string | null>(null)
+  /** Quick preview of the grid (board „Podgląd”): position in `visible`, `null` = closed. */
+  const [preview, setPreview] = useState<number | null>(null)
   if (syncedQuery !== state.query) {
     // The URL changed elsewhere (chip ×, Back): the box follows it — but not when the URL only
     // caught up with the box, or what was typed meanwhile (a space, a letter) would vanish.
@@ -395,11 +398,13 @@ export function Catalog({ index }: { index: CatalogIndex }) {
                     index={index}
                     position={position}
                     layout={view.view}
+                    onPreview={() => setPreview(position)}
                   />
                 </li>
               ))}
             </ul>
           )}
+          <QuickView products={visible} current={preview} index={index} onMove={setPreview} />
 
           {more > 0 && (
             <div className="mt-6 flex flex-col items-center gap-2.5">

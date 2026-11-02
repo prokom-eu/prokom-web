@@ -5,6 +5,7 @@ import { Icon } from '@/components/ui/Icon'
 import { isAfterSwitch } from '@/lib/biznes/pages/ksef'
 import type { SectionData } from '@/lib/biznes/pages/sections'
 import type { BzSectionBlock as BzSectionData } from '@/payload-types'
+import { BZ_H2 } from '@/sites/biznes/typography'
 
 import { PhaseText } from '../k4j/Client'
 import { CARD, EYEBROW, HeadingText, SectionActions, SectionShell, sectionId } from '../ui'
@@ -168,10 +169,7 @@ export function BandSection({ block, data }: Props & { data: SectionData<'band'>
             <p className={cx(EYEBROW, 'mb-3 text-accent-on-dark')}>{block.eyebrow}</p>
           )}
           {block.heading && (
-            <h2
-              id={`${id}-h`}
-              className="font-display text-[clamp(1.8rem,3.2vw,2.6rem)] leading-tight font-extrabold text-balance"
-            >
+            <h2 id={`${id}-h`} className={BZ_H2}>
               {data.after ? (
                 <PhaseText
                   date={data.after.date}

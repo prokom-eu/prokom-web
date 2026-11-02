@@ -2,6 +2,7 @@ import Link from 'next/link'
 import type { ReactNode } from 'react'
 
 import { Icon } from '@/components/ui/Icon'
+import { BZ_H2, BZ_LEAD } from '@/sites/biznes/typography'
 
 type Props = {
   id: string
@@ -36,17 +37,10 @@ export function SectionHead({
             {eyebrow}
           </p>
         )}
-        <h2
-          id={id}
-          className="font-display text-[clamp(2rem,4vw,3.4rem)] leading-[1.02] font-extrabold tracking-[-0.02em] text-balance font-stretch-110%"
-        >
+        <h2 id={id} className={BZ_H2}>
           {heading}
         </h2>
-        {lead && (
-          <p className="mt-4 text-[clamp(1.0625rem,1.3vw,1.2rem)] leading-relaxed text-ink-2">
-            {lead}
-          </p>
-        )}
+        {lead && <p className={`${BZ_LEAD} mt-4 text-ink-2`}>{lead}</p>}
       </div>
       {action && (
         <Link

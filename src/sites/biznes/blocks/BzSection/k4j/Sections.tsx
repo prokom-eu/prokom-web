@@ -10,6 +10,7 @@ import { productHref } from '@/lib/catalog/card'
 import { getSiteSettings } from '@/lib/site/data'
 import { toTelHref } from '@/lib/site/link'
 import type { BzSectionBlock as BzSectionData } from '@/payload-types'
+import { BZ_LEAD, BZ_H1 } from '@/sites/biznes/typography'
 
 import { Breadcrumbs, type Crumb } from '../../../components/Breadcrumbs'
 import { DayCount } from '../../BzKsef/DayCount'
@@ -27,8 +28,7 @@ import {
 } from '../ui'
 import { AddMachineButton, ClientTabs, KsefTimeline, PhaseText } from './Client'
 
-const HERO_H1 =
-  'font-display text-[clamp(2.2rem,4.2vw,3.8rem)] leading-[1] font-extrabold tracking-[-0.025em] font-stretch-110% text-balance'
+const HERO_H1 = BZ_H1
 
 /** „1 stycznia 2027” from an ISO day (the day in Poland). */
 const dayLabel = (iso: string) =>
@@ -103,9 +103,7 @@ export function VendingHero({
               )}
             </h1>
             {block.lead && (
-              <p className="max-w-[58ch] text-[clamp(1.0625rem,1.3vw,1.2rem)] leading-relaxed text-pretty text-ink-2">
-                {block.lead}
-              </p>
+              <p className={`${BZ_LEAD} max-w-[58ch] text-pretty text-ink-2`}>{block.lead}</p>
             )}
             <div className="flex flex-wrap gap-3">
               {data.actions.map((action, i) => {
@@ -384,9 +382,7 @@ export async function KsefHero({
       <h1 id="ksef-h" className={HERO_H1}>
         {v.h1a} <em className="text-accent-on-dark not-italic">{v.h1b}</em>
       </h1>
-      <p className="max-w-[60ch] text-[clamp(1.0625rem,1.3vw,1.2rem)] leading-relaxed text-pretty text-white/85">
-        {v.lead}
-      </p>
+      <p className={`${BZ_LEAD} max-w-[60ch] text-pretty text-white/85`}>{v.lead}</p>
     </>
   )
   return (
@@ -597,9 +593,7 @@ export async function UlgaHero({
               )}
             </h1>
             {block.lead && (
-              <p className="max-w-[60ch] text-[clamp(1.0625rem,1.3vw,1.2rem)] leading-relaxed text-pretty text-ink-2">
-                {block.lead}
-              </p>
+              <p className={`${BZ_LEAD} max-w-[60ch] text-pretty text-ink-2`}>{block.lead}</p>
             )}
             <div className="flex flex-wrap gap-3">
               {data.actions.map((action, i) => (

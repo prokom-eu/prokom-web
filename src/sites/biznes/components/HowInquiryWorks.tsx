@@ -1,3 +1,5 @@
+import { BZ_H2 } from '@/sites/biznes/typography'
+
 /** Fallback of step 3 while the call-back promise is empty in the panel ([SZEF], spec. §13). */
 const CALLBACK_FALLBACK = 'Oddzwaniamy z wyceną'
 
@@ -38,10 +40,7 @@ export function HowInquiryWorks({ callbackTime }: Props) {
             <p className="text-sm font-extrabold uppercase tracking-[0.08em] text-accent-on-dark">
               Bez cen na stronie. I dobrze.
             </p>
-            <h2
-              id="jak-zapytac"
-              className="font-display text-[clamp(1.75rem,3vw,2.625rem)] font-extrabold leading-[1.05] text-white font-stretch-110%"
-            >
+            <h2 id="jak-zapytac" className={`${BZ_H2} text-white`}>
               Jedna lista, jeden formularz, jedna wycena.
             </h2>
             <p className="leading-relaxed text-white/80">

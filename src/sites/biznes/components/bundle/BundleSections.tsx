@@ -4,13 +4,13 @@ import Link from 'next/link'
 import { Container } from '@/components/ui/Container'
 import { Icon } from '@/components/ui/Icon'
 import type { IndexImage } from '@/lib/catalog/catalogIndex'
+import { BZ_H1, BZ_H1_COMPACT, BZ_H2, BZ_LEAD } from '@/sites/biznes/typography'
 
 import { Breadcrumbs, type Crumb } from '../Breadcrumbs'
 import { PageLink } from '../PageLink'
 import { ProductStage, STAGE_SHADOW } from '../ProductStage'
 
-const H2 =
-  'font-display text-[clamp(1.75rem,3.4vw,2.5rem)] leading-[1.04] font-extrabold tracking-[-0.02em] text-ink font-stretch-110%'
+const H2 = `${BZ_H2} text-ink`
 
 /**
  * Dark hero of a bundle (`Web-Zestaw-1440`, `App-Zestaw-390`): „Obszar · Poziom”, the name as
@@ -49,15 +49,10 @@ export function BundleHero({
             <span className="self-start rounded-md bg-white/12 px-2.5 py-1 text-xs font-bold text-white/90">
               {label}
             </span>
-            <h1
-              id="zestaw-h1"
-              className="font-display text-[clamp(2rem,3.4vw,3.25rem)] leading-[1.04] font-extrabold tracking-[-0.025em] font-stretch-112%"
-            >
+            <h1 id="zestaw-h1" className={BZ_H1_COMPACT}>
               {name}
             </h1>
-            <p className="max-w-[56ch] text-[clamp(1rem,1.3vw,1.15rem)] leading-relaxed text-white/80">
-              {audience}
-            </p>
+            <p className={`${BZ_LEAD} max-w-[56ch] text-white/80`}>{audience}</p>
             <div className="flex flex-wrap gap-3">
               <PageLink href="#twoj-zestaw" kind="light">
                 Zapytaj o ten zestaw
@@ -215,10 +210,7 @@ export function BundlesHero({
               <span aria-hidden="true" className="h-0.5 w-4 rounded-full bg-current" />
               {eyebrow}
             </p>
-            <h1
-              id="zestawy-h1"
-              className="font-display text-[clamp(2.1rem,4vw,3.75rem)] leading-[1.02] font-extrabold tracking-[-0.025em] font-stretch-112%"
-            >
+            <h1 id="zestawy-h1" className={BZ_H1}>
               Gotowe zestawy: sprzęt, program i usługi, które działają razem
             </h1>
             <p className="max-w-[52ch] leading-relaxed text-white/80">

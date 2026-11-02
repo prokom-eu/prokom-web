@@ -4,6 +4,7 @@ import { MediaImage } from '@/components/MediaImage'
 import { Container } from '@/components/ui/Container'
 import type { BrandView } from '@/lib/catalog/brand'
 import { plural } from '@/lib/plural'
+import { BZ_H1, BZ_LEAD } from '@/sites/biznes/typography'
 
 import { Breadcrumbs, type Crumb } from '../Breadcrumbs'
 import { PageLink } from '../PageLink'
@@ -35,13 +36,9 @@ export function BrandHero({
         <Breadcrumbs items={crumbs} />
         <div className="mt-6 grid items-center gap-8 min-[1080px]:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] min-[1080px]:gap-14">
           <div className="flex flex-col gap-6">
-            <h1 className="font-display text-[clamp(2.3rem,4.4vw,4rem)] leading-[1] font-extrabold tracking-[-0.025em] font-stretch-112%">
-              {brand.name} w PRO-KOM
-            </h1>
+            <h1 className={BZ_H1}>{brand.name} w PRO-KOM</h1>
             {brand.shortDescription && (
-              <p className="max-w-[54ch] text-[clamp(1.0625rem,1.4vw,1.25rem)] leading-relaxed text-ink-2">
-                {brand.shortDescription}
-              </p>
+              <p className={`${BZ_LEAD} max-w-[54ch] text-ink-2`}>{brand.shortDescription}</p>
             )}
             <div className="flex flex-wrap gap-3">
               <PageLink href="#produkty" arrow>

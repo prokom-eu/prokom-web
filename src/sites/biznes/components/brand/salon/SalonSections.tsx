@@ -8,6 +8,7 @@ import { productHref } from '@/lib/catalog/card'
 import type { IndexProduct } from '@/lib/catalog/catalogIndex'
 import type { PlanCard, PlanSection, SalonView } from '@/lib/catalog/salon'
 import { plural } from '@/lib/plural'
+import { BZ_H2 } from '@/sites/biznes/typography'
 
 import { Breadcrumbs, type Crumb } from '../../Breadcrumbs'
 import { ProductStage, STAGE_SHADOW } from '../../ProductStage'
@@ -69,10 +70,7 @@ function SectionHead({
     <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
       <div className="flex max-w-3xl flex-col gap-3">
         <Eyebrow>{eyebrow}</Eyebrow>
-        <h2
-          id={id}
-          className="font-display text-[clamp(1.4rem,3vw,2.4rem)] leading-tight font-extrabold text-balance text-ink"
-        >
+        <h2 id={id} className={`${BZ_H2} text-ink`}>
           <NoBreak text={title} />
         </h2>
         {lead && (
@@ -462,10 +460,7 @@ function DarkPanel({
       <div className="relative grid gap-8 min-[1080px]:grid-cols-2 min-[1080px]:items-center">
         <div className="flex flex-col gap-4">
           <Eyebrow dark>{eyebrow}</Eyebrow>
-          <h2
-            id={`${id}-h`}
-            className="font-display text-[clamp(1.4rem,3vw,2.4rem)] leading-tight font-extrabold text-balance"
-          >
+          <h2 id={`${id}-h`} className={BZ_H2}>
             {title}
           </h2>
           {description && <p className="max-w-[60ch] text-white/80">{description}</p>}
@@ -592,10 +587,7 @@ export function SalonAbout({
     <section aria-labelledby="o-marce-h" className="flex flex-col gap-6">
       <div className="flex flex-col gap-3">
         <Eyebrow>O marce</Eyebrow>
-        <h2
-          id="o-marce-h"
-          className="font-display text-[clamp(1.4rem,3vw,2.4rem)] leading-tight font-extrabold text-balance text-ink"
-        >
+        <h2 id="o-marce-h" className={`${BZ_H2} text-ink`}>
           {headings.facts}
         </h2>
       </div>
@@ -678,10 +670,7 @@ export function SalonFaq({
       <div className="flex flex-col gap-5">
         <div className="flex flex-col gap-3">
           <Eyebrow>Pytania</Eyebrow>
-          <h2
-            id="pytania-h"
-            className="font-display text-[clamp(1.4rem,3vw,2.4rem)] leading-tight font-extrabold text-balance text-ink"
-          >
+          <h2 id="pytania-h" className={`${BZ_H2} text-ink`}>
             {faq.length > 0 ? headings.faq : 'Masz pytanie?'}
           </h2>
         </div>

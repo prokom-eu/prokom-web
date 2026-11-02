@@ -13,6 +13,7 @@ import { FloorPlan } from '@/sites/biznes/components/plan/FloorPlan'
 import { loadFloorPlan } from '@/sites/biznes/components/plan/planData'
 import { PlanStats } from '@/sites/biznes/components/plan/PlanStats'
 import { DEFAULT_PLAN_LABELS } from '@/sites/biznes/components/plan/types'
+import { BZ_H1 } from '@/sites/biznes/typography'
 
 import { requestOrigin, requireLine } from '../../tenant'
 
@@ -74,7 +75,7 @@ export default async function PlanPage({ params }: Props) {
               <span aria-hidden="true" className="h-0.5 w-5 bg-current" />
               Plan Twojej firmy
             </p>
-            <h1 className="mt-2 font-display text-[clamp(2rem,4.6vw,3.4rem)] leading-[1.02] font-extrabold tracking-tight text-balance text-ink">
+            <h1 className={`${BZ_H1} mt-2 text-ink`}>
               Plan Twojej firmy: kliknij urządzenie i zobacz, co pasuje
             </h1>
           </div>

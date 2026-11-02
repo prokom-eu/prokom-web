@@ -13,7 +13,7 @@ type Props = {
    * `primary`: the big switch of the product box, "Dodaj do zapytania" / "✓ Na liście" (§6.2);
    * `onDark`: the same on a navy panel, "Dodaj do zapytania" / "✓ W zapytaniu" (/insert picker).
    */
-  variant?: 'icon' | 'label' | 'primary' | 'onDark'
+  variant?: 'icon' | 'label' | 'primary' | 'onDark' | 'card'
   /** After the switch, e.g. to move focus when this button leaves the page. */
   onToggle?: () => void
 }
@@ -85,6 +85,30 @@ export function AddToCartButton({ slug, name, className, variant = 'icon', onTog
       >
         <Mark on={on} size={16} stroke={2.6} />
         {label}
+      </button>
+    )
+  }
+
+  if (variant === 'card') {
+    // Board `.addb`: in the corner of the card picture, accent until added, then green.
+    const label = on ? 'W zapytaniu' : 'Do zapytania'
+    return (
+      <button
+        type="button"
+        aria-pressed={on}
+        aria-label={`${label}: ${name}`}
+        onClick={toggle}
+        className={cx(
+          'inline-flex min-h-11 items-center justify-center gap-1.5 rounded-[13px] px-3.5 text-sm font-extrabold whitespace-nowrap transition-colors',
+          on
+            ? 'bg-ok-text text-surface'
+            : 'bg-accent-text text-accent-ink hover:bg-ink hover:text-surface',
+          className,
+        )}
+      >
+        <Mark on={on} size={15} stroke={2.6} />
+        {/* Only the „+” on a phone: the picture is small there (`aria-label` names it). */}
+        <span className="max-sm:hidden">{label}</span>
       </button>
     )
   }

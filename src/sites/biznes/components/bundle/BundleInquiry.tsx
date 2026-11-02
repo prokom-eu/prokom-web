@@ -8,6 +8,7 @@ import { Icon } from '@/components/ui/Icon'
 import { bundleCartItems, type BundleItem } from '@/lib/catalog/bundle'
 import { cartActions, useCart } from '@/lib/cart/store'
 import { plural } from '@/lib/plural'
+import { BZ_H2 } from '@/sites/biznes/typography'
 
 import { STICKY_ACTION_BUTTON, StickyAction } from '../mobile/StickyAction'
 
@@ -95,10 +96,7 @@ export function BundleInquiry({
         <div className="flex flex-col gap-5">{children}</div>
         <section aria-labelledby="w-zestawie-h" className="flex flex-col gap-5">
           <div className="flex flex-wrap items-end justify-between gap-3">
-            <h2
-              id="w-zestawie-h"
-              className="font-display text-[clamp(1.75rem,3.4vw,2.5rem)] leading-[1.04] font-extrabold tracking-[-0.02em] text-ink font-stretch-110%"
-            >
+            <h2 id="w-zestawie-h" className={`${BZ_H2} text-ink`}>
               W zestawie
             </h2>
             <span className="rounded-full bg-surface-2 px-3 py-1.5 text-xs font-extrabold text-ink-2">

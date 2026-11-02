@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 
 import { cx } from '@/components/ui/cx'
+import { BZ_H2 } from '@/sites/biznes/typography'
 
 /**
  * A section of the product page (board `Strona`, widok produkt): „— LABEL”, the H2, an optional
@@ -38,10 +39,7 @@ export function ProductSection({
             <span aria-hidden="true" className="h-0.5 w-4 rounded-full bg-current" />
             {eyebrow}
           </p>
-          <h2
-            id={`${id}-h`}
-            className="font-display text-[clamp(1.75rem,3.4vw,2.75rem)] leading-[1.04] font-extrabold tracking-[-0.02em] text-ink font-stretch-110%"
-          >
+          <h2 id={`${id}-h`} className={`${BZ_H2} text-ink`}>
             {heading}
           </h2>
           {lead && <div className="mt-3 text-[1.05rem] leading-relaxed text-ink-2">{lead}</div>}

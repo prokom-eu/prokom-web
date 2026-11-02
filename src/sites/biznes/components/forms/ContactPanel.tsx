@@ -8,6 +8,7 @@ import { issueFormToken } from '@/lib/inquiry/spam'
 import { getCompanyData, getSiteSettings } from '@/lib/site/data'
 import { hoursSummary } from '@/lib/site/hoursSummary'
 import { toTelHref, toWhatsAppHref } from '@/lib/site/link'
+import { BZ_H2 } from '@/sites/biznes/typography'
 
 import { LiveHours } from '../home/LiveHours'
 import { ContactForm } from './ContactForm'
@@ -72,10 +73,7 @@ export async function ContactPanel({
             className="flex flex-col gap-6 bg-surface-dark p-7 text-white sm:p-12"
           >
             <LiveHours hours={hours} className="text-sm text-white" />
-            <h2
-              id={headingId}
-              className="font-display text-[clamp(1.9rem,3vw,2.6rem)] leading-[1.05] font-extrabold text-white"
-            >
+            <h2 id={headingId} className={`${BZ_H2} text-white`}>
               {heading}
             </h2>
             {lead && <p className="leading-relaxed text-white/80">{lead}</p>}

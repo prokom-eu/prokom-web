@@ -2,6 +2,7 @@ import { Container } from '@/components/ui/Container'
 import { Icon } from '@/components/ui/Icon'
 import { daysUntil } from '@/lib/site/days'
 import type { BzKsefBlock as BzKsefBlockData } from '@/payload-types'
+import { BZ_H2 } from '@/sites/biznes/typography'
 
 import { hasLink, PageLink } from '../../components/PageLink'
 import { DayCount } from './DayCount'
@@ -37,10 +38,7 @@ export function BzKsefBlock({ block }: { block: BzKsefBlockData }) {
                 </h2>
               </>
             ) : (
-              <h2
-                id="ksef-h"
-                className="font-display text-[clamp(1.8rem,3vw,2.4rem)] leading-tight font-extrabold"
-              >
+              <h2 id="ksef-h" className={BZ_H2}>
                 {block.eyebrow || 'KSeF'}
               </h2>
             )}

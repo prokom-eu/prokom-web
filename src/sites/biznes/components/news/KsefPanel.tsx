@@ -1,6 +1,7 @@
 import { Container } from '@/components/ui/Container'
 import type { KsefPanel as KsefPanelData } from '@/lib/posts/ksefPanel'
 import { daysUntil } from '@/lib/site/days'
+import { BZ_H2 } from '@/sites/biznes/typography'
 
 import { DayCount } from '../../blocks/BzKsef/DayCount'
 import { PageLink } from '../PageLink'
@@ -39,10 +40,7 @@ export function KsefPanel({ panel }: { panel: KsefPanelData }) {
                   </h2>
                 </>
               ) : (
-                <h2
-                  id="ksef-h"
-                  className="font-display text-[clamp(1.8rem,3vw,2.4rem)] leading-tight font-extrabold"
-                >
+                <h2 id="ksef-h" className={BZ_H2}>
                   {panel.eyebrow || 'KSeF'}
                 </h2>
               )}

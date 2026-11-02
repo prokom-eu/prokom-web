@@ -11,6 +11,7 @@ import type { CatalogIndex, IndexProduct } from '@/lib/catalog/catalogIndex'
 import type { SalonView } from '@/lib/catalog/salon'
 import { cartActions, openCartDrawer } from '@/lib/cart/store'
 import { plural } from '@/lib/plural'
+import { BZ_H2 } from '@/sites/biznes/typography'
 
 import { ProductCard } from '../../catalog/ProductCard'
 import { ProductStage, STAGE_SHADOW } from '../../ProductStage'
@@ -223,10 +224,7 @@ export function SalonChooser({
     >
       <div className="flex flex-col gap-4">
         <Eyebrow>Pomóż mi wybrać</Eyebrow>
-        <h2
-          id="dobor-h"
-          className="font-display text-[clamp(1.4rem,3vw,1.875rem)] font-extrabold text-balance text-ink"
-        >
+        <h2 id="dobor-h" className={`${BZ_H2} text-ink`}>
           {chooser.question ?? 'Od czego zacząć?'}
         </h2>
         <p className="text-ink-2">

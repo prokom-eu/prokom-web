@@ -5,6 +5,7 @@ import type { ProductView } from '@/lib/catalog/product'
 import { featureIcon } from '@/lib/catalog/productIcons'
 import { serviceStrip, serviceTile } from '@/lib/catalog/purchase'
 import type { PublicImage } from '@/lib/media/public'
+import { BZ_H1_COMPACT } from '@/sites/biznes/typography'
 
 import { ColorPicker } from './ColorPicker'
 import { ProductAddButton } from './ProductAddButton'
@@ -98,9 +99,7 @@ export function ProductHero({
             ))}
         </div>
 
-        <h1 className="font-display text-[clamp(2rem,4.2vw,3.5rem)] leading-[1.02] font-extrabold tracking-[-0.025em] text-ink font-stretch-110%">
-          {product.heading}
-        </h1>
+        <h1 className={`${BZ_H1_COMPACT} text-ink`}>{product.heading}</h1>
 
         <VersionChips />
 

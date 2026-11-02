@@ -13,6 +13,7 @@ import { getCompanyData, getSiteSettings } from '@/lib/site/data'
 import { hoursSummary, weekHours } from '@/lib/site/hoursSummary'
 import { toTelHref, toWhatsAppHref } from '@/lib/site/link'
 import type { BzSectionBlock as BzSectionData } from '@/payload-types'
+import { BZ_H1, BZ_LEAD } from '@/sites/biznes/typography'
 
 import { AreaMap } from '../../../components/AreaMap'
 import { Breadcrumbs, type Crumb } from '../../../components/Breadcrumbs'
@@ -94,19 +95,14 @@ export async function AboutHero({
               <span aria-hidden="true" className="size-2 rounded-full bg-ok" />
               {data.pill}
             </p>
-            <h1
-              id="o-firmie-h"
-              className="font-display text-[clamp(2.2rem,4.2vw,3.8rem)] leading-[1] font-extrabold tracking-[-0.025em] font-stretch-110% text-balance"
-            >
+            <h1 id="o-firmie-h" className={BZ_H1}>
               {block.heading || crumbs.at(-1)?.name}{' '}
               {block.headingAccent && (
                 <em className="text-accent-text not-italic">{block.headingAccent}</em>
               )}
             </h1>
             {block.lead && (
-              <p className="max-w-[60ch] text-[clamp(1.0625rem,1.3vw,1.2rem)] leading-relaxed text-pretty text-ink-2">
-                {block.lead}
-              </p>
+              <p className={`${BZ_LEAD} max-w-[60ch] text-pretty text-ink-2`}>{block.lead}</p>
             )}
             <div className="flex flex-wrap gap-3">
               {c.phone && c.tel && (
@@ -436,19 +432,14 @@ export async function ContactHero({
         <div className="grid items-start gap-10 min-[1080px]:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
           <div className="flex flex-col gap-6 text-ink">
             <LiveHours hours={c.hours} className="text-sm text-ink" />
-            <h1
-              id="kontakt-h"
-              className="font-display text-[clamp(2.2rem,4.2vw,3.8rem)] leading-[1] font-extrabold tracking-[-0.025em] font-stretch-110% text-balance"
-            >
+            <h1 id="kontakt-h" className={BZ_H1}>
               {block.heading || crumbs.at(-1)?.name}{' '}
               {block.headingAccent && (
                 <em className="text-accent-text not-italic">{block.headingAccent}</em>
               )}
             </h1>
             {block.lead && (
-              <p className="max-w-[60ch] text-[clamp(1.0625rem,1.3vw,1.2rem)] leading-relaxed text-pretty text-ink-2">
-                {block.lead}
-              </p>
+              <p className={`${BZ_LEAD} max-w-[60ch] text-pretty text-ink-2`}>{block.lead}</p>
             )}
             <ul className="grid gap-3 min-[640px]:grid-cols-2">
               {channels.map((channel) => (

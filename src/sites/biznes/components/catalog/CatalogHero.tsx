@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 
 import { Container } from '@/components/ui/Container'
 import { cx } from '@/components/ui/cx'
+import { BZ_LEAD } from '@/sites/biznes/typography'
 
 import { Breadcrumbs, type Crumb } from '../Breadcrumbs'
 import { PageLink } from '../PageLink'
@@ -56,11 +57,7 @@ export function CatalogHero({
             <h1 className="font-display text-[clamp(2.3rem,4.4vw,4rem)] leading-[1] font-extrabold tracking-[-0.025em] font-stretch-112%">
               {title}
             </h1>
-            {lead && (
-              <p className="max-w-[54ch] text-[clamp(1.0625rem,1.4vw,1.25rem)] leading-relaxed text-ink-2">
-                {lead}
-              </p>
-            )}
+            {lead && <p className={`${BZ_LEAD} max-w-[54ch] text-ink-2`}>{lead}</p>}
             <div className="flex flex-wrap gap-3">
               <PageLink href={primary.href} arrow>
                 {primary.label}

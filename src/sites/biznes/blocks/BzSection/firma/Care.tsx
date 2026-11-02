@@ -7,6 +7,7 @@ import type { CatalogIndex } from '@/lib/catalog/catalogIndex'
 import { getSiteSettings } from '@/lib/site/data'
 import { toTelHref } from '@/lib/site/link'
 import type { BzSectionBlock as BzSectionData } from '@/payload-types'
+import { BZ_H1, BZ_LEAD } from '@/sites/biznes/typography'
 
 import { Breadcrumbs, type Crumb } from '../../../components/Breadcrumbs'
 import { AddActionButton } from '../AddActionButton'
@@ -60,19 +61,14 @@ export async function CareHero({
               <span aria-hidden="true" className="size-2 rounded-full bg-ok" />
               {data.pill}
             </p>
-            <h1
-              id="opieka-h"
-              className="font-display text-[clamp(2.2rem,4.2vw,3.8rem)] leading-[1] font-extrabold tracking-[-0.025em] font-stretch-110% text-balance"
-            >
+            <h1 id="opieka-h" className={BZ_H1}>
               {block.heading || crumbs.at(-1)?.name}{' '}
               {block.headingAccent && (
                 <em className="text-accent-text not-italic">{block.headingAccent}</em>
               )}
             </h1>
             {block.lead && (
-              <p className="max-w-[58ch] text-[clamp(1.0625rem,1.3vw,1.2rem)] leading-relaxed text-pretty text-ink-2">
-                {block.lead}
-              </p>
+              <p className={`${BZ_LEAD} max-w-[58ch] text-pretty text-ink-2`}>{block.lead}</p>
             )}
             <div className="flex flex-wrap gap-3">
               <AddActionButton

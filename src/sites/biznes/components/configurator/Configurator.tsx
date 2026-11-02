@@ -21,6 +21,7 @@ import {
 import type { WizardScale, WizardStage } from '@/lib/catalog/wizard'
 import { cartActions, openCartDrawer, useCart } from '@/lib/cart/store'
 import { plural } from '@/lib/plural'
+import { BZ_H1 } from '@/sites/biznes/typography'
 
 import { BundleCard } from '../bundle/BundleCard'
 import { ProductStage, STAGE_SHADOW, StageFallback } from '../ProductStage'
@@ -259,9 +260,7 @@ export function Configurator({ data }: { data: ConfiguratorData }) {
             <span aria-hidden="true" className="h-0.5 w-5 bg-current" />
             Konfigurator · {eyebrow}
           </p>
-          <h1 className="mt-2 font-display text-[clamp(2rem,4.4vw,3.3rem)] leading-[1.02] font-extrabold tracking-tight text-ink">
-            {heading}
-          </h1>
+          <h1 className={`${BZ_H1} mt-2 text-ink`}>{heading}</h1>
           <p className="mt-3 max-w-[38rem] text-[15.5px] leading-relaxed text-ink-2">
             {step === 3
               ? 'Do każdej potrzeby: nasz wybór z uzasadnieniem i dwie inne opcje. Dodaj wszystko jednym kliknięciem albo wybierz pojedynczo.'
