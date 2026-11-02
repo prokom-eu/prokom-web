@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { ContactBlock } from '@/blocks/Contact/Component'
 import { FaqBlock } from '@/blocks/Faq/Component'
@@ -102,6 +103,14 @@ function opensWithHero(block: NonNullable<PublicPage['layout']>[number] | undefi
  * per line (ADR-014 rozstrz. 7): on Biznes, Partners is the brands bar and FAQ the cards with
  * a contact column; on Software, FAQ takes the line's look (SW8b).
  */
+/**
+ * Biznes home page below 768 px follows the board App-Start, which has no FAQ and no numbers:
+ * those sections stay in the page (and its FAQPage data) but are not shown on a phone.
+ */
+function PhoneHiddenOnHome({ home, children }: { home: boolean; children: ReactNode }) {
+  return home ? <div className="max-md:hidden">{children}</div> : <>{children}</>
+}
+
 export function RenderBlocks({ page, tenant }: Props) {
   const blocks = renderableBlocks(tenant.line, page.layout)
   const biznes = tenant.line === 'biznes'
@@ -158,7 +167,13 @@ export function RenderBlocks({ page, tenant }: Props) {
             }
             return <CallToActionBlock key={key} block={block} />
           case 'faq':
-            if (biznes) return <FaqBiznes key={key} block={block} tenantId={tenant.id} />
+            if (biznes) {
+              return (
+                <PhoneHiddenOnHome key={key} home={page.slug === HOME_SLUG}>
+                  <FaqBiznes block={block} tenantId={tenant.id} />
+                </PhoneHiddenOnHome>
+              )
+            }
             if (software) return <FaqSoftware key={key} block={block} tenantId={tenant.id} />
             return <FaqBlock key={key} block={block} />
           case 'contact':
@@ -200,7 +215,11 @@ export function RenderBlocks({ page, tenant }: Props) {
           case 'bzReferences':
             return <BzReferencesBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzFacts':
-            return <BzFactsBlock key={key} block={block} tenantId={tenant.id} />
+            return (
+              <PhoneHiddenOnHome key={key} home={page.slug === HOME_SLUG}>
+                <BzFactsBlock block={block} tenantId={tenant.id} />
+              </PhoneHiddenOnHome>
+            )
           case 'bzContact':
             return <BzContactBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzLocation':

@@ -381,6 +381,26 @@ test.describe('Biznes home page: industries, plan, steps', () => {
       await expect(grid.getByRole('button', { name: /Pokaż wszystkie branże/ })).toBeVisible()
       expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390)
     })
+
+    test('App-Start: plan scenes as links, the closing card instead of FAQ and the form', async ({
+      page,
+    }) => {
+      await page.goto(site('biznes.localhost'))
+      const plan = page.locator('#plan')
+      await expect(plan.getByRole('link', { name: 'Restauracja', exact: true })).toHaveAttribute(
+        'href',
+        /^\/plan-firmy\?scena=/,
+      )
+      const last = page.getByRole('region', { name: 'Nie wiesz, co wybrać?' })
+      await expect(last.getByRole('link', { name: /\d{3} \d{3} \d{3}/ })).toHaveAttribute(
+        'href',
+        /^tel:/,
+      )
+      await expect(last.getByRole('button', { name: 'Wyślij zapytanie' })).toBeVisible()
+      await expect(page.locator('#faq')).toBeHidden()
+      // `#kontakt` lands on the closing card; the form itself is from 768 px.
+      await expect(page.locator('#kontakt form')).toBeHidden()
+    })
   })
 })
 
@@ -436,7 +456,8 @@ test.describe('Biznes home page: reviews, owner, FAQ, contact', () => {
     await expect(contact.getByRole('heading', { level: 2 })).toHaveText(
       'Napisz, czego potrzebujesz. Oddzwonimy w ciągu 60 minut w godzinach pracy.',
     )
-    await expect(contact.locator('a[href^="tel:"]')).toBeVisible()
+    // `#kontakt` also wraps the phone card (hidden here): the visible phone link only.
+    await expect(contact.locator('a[href^="tel:"]').filter({ visible: true })).toHaveCount(1)
     await expect(contact.locator('form')).toBeVisible()
     await expect(contact).toContainText('Wycena na piśmie')
   })

@@ -15,11 +15,13 @@ type Props = {
   /** Colour of the label; the accent by default (GoPOS sections: `text-ok-text`). */
   eyebrowClassName?: string
   /**
-   * Below 768 px as the phone screens (board App-Start): the H2 with a short text link on the
+   * Below 768 px as the phone screens (board App-Start): a 22 px H2 with a short text link on the
    * right (`phoneAction`, else the action's own label), no eyebrow and no lead.
    */
   appOnPhone?: boolean
   phoneAction?: string
+  /** With `appOnPhone`: keep the eyebrow on a phone (the plan card of App-Start). */
+  phoneEyebrow?: boolean
 }
 
 /**
@@ -36,6 +38,7 @@ export function SectionHead({
   eyebrowClassName = 'text-accent-text',
   appOnPhone = false,
   phoneAction,
+  phoneEyebrow = false,
 }: Props) {
   const phone = appOnPhone ? PHONE_HIDDEN : undefined
   return (
@@ -51,13 +54,13 @@ export function SectionHead({
             className={cx(
               'mb-3 text-[13px] font-extrabold tracking-[0.08em] uppercase',
               eyebrowClassName,
-              phone,
+              !phoneEyebrow && phone,
             )}
           >
             {eyebrow}
           </p>
         )}
-        <h2 id={id} className={BZ_H2}>
+        <h2 id={id} className={cx(BZ_H2, appOnPhone && 'max-md:text-[22px] max-md:leading-[1.1]')}>
           {heading}
         </h2>
         {lead && <p className={cx(BZ_LEAD, 'mt-4 text-ink-2', phone)}>{lead}</p>}
@@ -67,7 +70,15 @@ export function SectionHead({
           href={action.href}
           className="inline-flex min-h-11 shrink-0 items-center text-[14px] font-extrabold text-accent-text md:hidden"
         >
-          {phoneAction ?? action.label}
+          {phoneAction ? (
+            <>
+              {phoneAction}
+              {/* The short word alone says little to a screen reader. */}
+              <span className="sr-only">: {action.label}</span>
+            </>
+          ) : (
+            action.label
+          )}
         </Link>
       )}
       {action && (

@@ -80,7 +80,10 @@ export async function BrandsHome({
               <span aria-hidden="true" className="h-0.5 w-5 bg-current" />
               Marki
             </p>
-            <h2 id="marki-h" className={`${BZ_H2} max-w-[16ch] text-ink`}>
+            <h2
+              id="marki-h"
+              className={`${BZ_H2} max-w-[16ch] text-ink max-md:text-[22px] max-md:leading-[1.1]`}
+            >
               {heading}
             </h2>
           </div>

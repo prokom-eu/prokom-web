@@ -25,6 +25,8 @@ export function PlanSceneLink({
       className={className}
       onClick={(event) => {
         if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return
+        // Below 768 px the home page shows the scenes only, not the plan: the link opens it.
+        if (window.matchMedia('(max-width: 767px)').matches) return
         if (!requestPlanScene(scene)) return
         event.preventDefault()
         const plan = document.getElementById('plan')

@@ -12,7 +12,7 @@ type Props = {
   moreNote: string | null
 }
 
-/** Board: 5 tiles and „Pokaż wszystkie” on a phone, 11 and the tile on larger screens (v150). */
+/** Board: 5 tiles and „Pokaż wszystkie” on a phone (3 × 2, App-Start), 11 and the tile wider. */
 const PHONE_VISIBLE = 5
 
 /**
@@ -27,18 +27,18 @@ export function IndustryGrid({ visible, hidden, moreLabel, moreNote }: Props) {
 
   useEffect(() => {
     if (!open) return
-    const phone = window.matchMedia('(max-width: 639px)').matches
+    const phone = window.matchMedia('(max-width: 767px)').matches
     const target = (phone && firstOnPhone.current) || firstHidden.current
     target?.querySelector('a')?.focus()
   }, [open])
 
   return (
-    <ul className="grid grid-cols-2 gap-3 min-[640px]:grid-cols-3 min-[1080px]:grid-cols-4 min-[1240px]:grid-cols-6">
+    <ul className="grid grid-cols-3 gap-2 min-[640px]:gap-3 min-[1080px]:grid-cols-4 min-[1240px]:grid-cols-6">
       {visible.map((item, i) => (
         <li
           key={item.key}
           ref={i === PHONE_VISIBLE ? firstOnPhone : undefined}
-          className={cx('flex', !open && i >= PHONE_VISIBLE && 'max-[639px]:hidden')}
+          className={cx('flex', !open && i >= PHONE_VISIBLE && 'max-md:hidden')}
         >
           {item.node}
         </li>
@@ -51,27 +51,27 @@ export function IndustryGrid({ visible, hidden, moreLabel, moreNote }: Props) {
         ))
       ) : hidden.length > 0 || visible.length > PHONE_VISIBLE ? (
         // Nothing left beyond the phone's 5 shown tiles: the unfold tile is for phones only.
-        <li className={cx('flex', hidden.length === 0 && 'min-[640px]:hidden')}>
+        <li className={cx('flex', hidden.length === 0 && 'md:hidden')}>
           <button
             type="button"
             aria-expanded={false}
             onClick={() => setOpen(true)}
             data-surface="dark"
-            className="flex w-full flex-col items-start gap-3 rounded-[22px] bg-linear-145 from-surface-dark to-[color-mix(in_srgb,var(--accent)_35%,var(--surface-dark))] p-4 text-left text-white transition-shadow hover:shadow-[0_20px_40px_-22px_var(--glow)]"
+            className="flex w-full flex-col items-start gap-3 rounded-[22px] bg-linear-145 p-4 text-left max-md:gap-2 max-md:rounded-[18px] max-md:p-3 from-surface-dark to-[color-mix(in_srgb,var(--accent)_35%,var(--surface-dark))] text-white transition-shadow hover:shadow-[0_20px_40px_-22px_var(--glow)]"
           >
             <span
               aria-hidden="true"
-              className="flex size-11 items-center justify-center rounded-[14px] bg-white/15"
+              className="flex size-11 items-center justify-center rounded-[14px] bg-white/15 max-md:size-9 max-md:rounded-xl"
             >
               <Icon name="grid" className="size-[22px]" />
             </span>
             <span className="flex flex-col gap-1">
-              <span className="font-display text-[16px] leading-tight font-extrabold text-white">
+              <span className="font-display text-[16px] leading-tight font-extrabold text-white max-md:text-[13.5px]">
                 {moreLabel}
               </span>
-              {moreNote && <span className="text-[13px] text-white">{moreNote}</span>}
+              {moreNote && <span className="text-[13px] text-white max-md:hidden">{moreNote}</span>}
             </span>
-            <span className="mt-auto inline-flex items-center gap-1 text-[13px] font-extrabold text-white">
+            <span className="mt-auto inline-flex items-center gap-1 text-[13px] font-extrabold text-white max-md:text-[11.5px]">
               Rozwiń listę
               <Icon name="arrow" strokeWidth={2.4} className="size-3.5 rotate-90" />
             </span>

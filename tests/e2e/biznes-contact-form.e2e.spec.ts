@@ -85,8 +85,10 @@ test.describe('Biznes contact form v20 (B8a)', () => {
   }) => {
     await page.setViewportSize({ width: 390, height: 844 })
     await asNewVisitor(page)
-    await page.goto(site('biznes.localhost', '/#kontakt'))
-    const contact = page.locator('#kontakt')
+    // On a phone the home page shows a closing card instead of the form (board App-Start):
+    // the same form is checked on /kontakt.
+    await page.goto(site('biznes.localhost', '/kontakt#formularz'))
+    const contact = page.locator('#formularz')
     await contact.getByRole('button', { name: 'Wyślij zapytanie' }).click()
 
     const name = contact.getByLabel(/^Imię/)
@@ -107,7 +109,7 @@ test.describe('Biznes contact form v20 (B8a)', () => {
     expect(overflow).toBe(false)
 
     const { violations } = await new AxeBuilder({ page })
-      .include('#kontakt')
+      .include('#formularz')
       .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
       .analyze()
     expect(violations.map((v) => v.id)).toEqual([])
