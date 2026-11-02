@@ -109,7 +109,8 @@ test.describe('Biznes salon 2.0 (K4f)', () => {
     await page.goto(biznes('/marki/lenovo'))
     await expect(page.getByRole('navigation', { name: 'Okruszki' })).toBeHidden()
     await expect(page.getByRole('table')).toBeHidden()
-    const compare = page.getByRole('button', { name: 'Porównaj w tabeli' })
+    // The label changes to „Zwiń tabelę” once open: find the button by either name.
+    const compare = page.getByRole('button', { name: /^(Porównaj w tabeli|Zwiń tabelę)$/ })
     // Click only while closed: a retry after hydration must not close the table again.
     await expect(async () => {
       if ((await compare.getAttribute('aria-expanded')) !== 'true') await compare.click()
