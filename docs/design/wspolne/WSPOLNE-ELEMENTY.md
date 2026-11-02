@@ -16,7 +16,7 @@ Klient przechodzi między stronami PRO-KOM i ma od razu wiedzieć, że to ta sam
 | Poziom | Co | Zasada |
 |---|---|---|
 | **Wspólne 1:1** | pasek marki z przełącznikiem linii, status godzin, pas „Jedna firma — linie PRO-KOM”, pasek prawny i linki prawne, mapa adresu, wizytówka firmy (dane, NIP, CEIDG), zgoda/klauzula i ochrona formularza | ten sam kod i ta sama treść; zmienia się tylko podświetlona linia i akcent |
-| **Wspólny szkielet, treść z linii** | nagłówek, kolumny stopki, formularz (rdzeń pól + tematy linii), FAQ, „Jak pracujemy”, dolny pasek i arkusz Menu na telefonie, **szablon Kontakt**, **szablon O firmie** | ten sam układ i zachowanie; linia podaje pozycje, teksty, kroki, pytania |
+| **Wspólny szkielet, treść z linii** | nagłówek, kolumny stopki, formularz (rdzeń pól + tematy linii), FAQ, „Jak pracujemy”, dolny pasek i arkusz Menu na telefonie, **boczna szyna z wyszukiwarką (≥ 1400 px)**, **szablon Kontakt**, **szablon O firmie** | ten sam układ i zachowanie; linia podaje pozycje, teksty, kroki, pytania |
 | **Tylko linia** | hero i H1 strony głównej, oferta/katalog/usługi, kreator/konfigurator/plan, mega menu, tło neutralne linii (Biznes granat, reszta papier/grafit), ilustracje i sceny | nie ujednolicamy; zaakceptowane wizualizacje zostają |
 
 ## 2. Zasady treści (decyzje 01.11.2026 — obowiązują wszędzie)
@@ -63,6 +63,8 @@ Kolory znaku (pas linii, przełącznik): PRO-KOM #45A02C / #4FB034 · Biznes #24
 
 **Wymiary:** pasek marki 40 px, nagłówek 76 px, kontener 1280 px (padding boczny 32 px), promienie 10/14/16/22/28, cel dotyku ≥ 44 px (pola formularza ≥ 52 px), odstęp sekcji 72–80 px.
 
+**Pasek przewijania (decyzja Krystiana 02.11, plansza „07 · Szyna” §6):** każda linia ma pasek przewijania strony w swoich kolorach — tor `surface-2`, suwak = akcent linii zmieszany ~68% z torem (`color-mix`), pełny akcent po najechaniu, zaokrąglony, 14 px z 3 px obramowaniem w kolorze toru; w oknach, mega menu, arkuszach i wynikach wyszukiwarki wersja cienka 8 px. Ciemny motyw: suwak w `on-dark`. Dotyczy **głównego paska przewijania okna przeglądarki po prawej** (dziś domyślny szary) i pasków wewnątrz okien. Chrome/Edge/Safari: `::-webkit-scrollbar*` (zaokrąglony suwak z obramowaniem); Firefox: `scrollbar-color` (+ `scrollbar-width: thin` w oknach) **tylko w `@supports not selector(::-webkit-scrollbar)`** — od Chrome 121 samo `scrollbar-color` wyłącza style `::-webkit-scrollbar` i suwak wraca do prostego wyglądu. Reguła raz w globalnych stylach z tokenów (`html[data-line=…]`), bez JS. Ograniczenia: telefony i macOS z ukrytymi paskami („pokaż paski: automatycznie”) pokazują systemowy, nakładany pasek — tam bez zmian. Software ma już kolorowy pasek z v23 — F0 sprawdza, co jest w kodzie, F2 to uogólnia na 3 linie. Test: kontrast suwaka do toru ≥ 3:1 (WCAG 1.4.11) w obu motywach.
+
 **Ruch:** tylko `transform`/`opacity`, `prefers-reduced-motion` wyłącza wszystko (zgodnie z systemem ruchu Software v23).
 
 ## 4. Dane (panel)
@@ -84,6 +86,7 @@ Jedna definicja pól (np. `src/fields/sharedLineFields.ts`) w kolekcji `SiteSett
 - **Pasek marki:** `brandBarSlot` {label, href} (Biznes „Konfigurator”, Instalacje „Zgłoś awarię”, Software „Darmowy audyt”).
 - **Nagłówek:** `headerCta` {label, href, counter: none|inquiry|project}; menu linii — jak dziś (nie ruszamy danych menu).
 - **Telefon:** `tabBar` {second: {label, href}, center: {label, href, icon}} — pozostałe pozycje stałe (Start, Kontakt, Menu).
+- **Boczna szyna:** `rail` {sections[] {anchorId, label, icon}, searchPopular[], searchShortcuts[] {label, href}, synonyms[]} — §5.1. W `CompanyData`: `recentlyViewed` (flaga, domyślnie false).
 - **Stopka:** `footerDescription` (= istniejące `footer.text`), `footerPromises[3]`, `footerColumns[]` ({heading, links[{label, href}]}), `legalNote`.
 - **Kontakt (szablon):** `contact` {h1, lead, writeCta, placeKind („Salon” | „Spotkanie” | „Serwis”), facts[3] {label, value, icon}, routes[3] {title, text, cta, href}, topics[] (chipy formularza), formTitle, placeholder, sendLabel, nextSteps[4] {title, text}, mapTitle, mapLead, salonKeys[], faq[] }.
 - **O firmie (szablon):** `about` {h1, lead, authTitle, auth[], stats[2] {value, label, flag}, rules[6] {title, text}, steps[4] {title, text}, verify[4] {title, text, href}, visitText}.
@@ -110,9 +113,44 @@ Folder: `src/components/shared/` (nazwy przykładowe). **Zasada przenośności:*
 | `FaqBlock` | Moduły, Kontakt | pytania | lewo (przyklejone): nadtytuł, H2 („Zanim zadzwonisz”), lead, opcjonalna karta kontaktu (status + telefon + e-mail); prawo: karty `<details>` z numerem 01–N w `accent-text`, okrągły przycisk 32–34 px (+ → × na tle akcentu), pierwsza otwarta, karta otwarta z ramką akcentu; JSON-LD `FAQPage`. Tło sekcji `surface-2`. |
 | `Steps` | Moduły, O firmie | „Jak pracujemy” | 4 kroki: numer w kafelku 40–52 px (pierwszy w akcencie), linia łącząca, tytuł, opcjonalny czas, opis; wersja pionowa (ciemne tło) i pozioma (O firmie). |
 | `TabBar` + `MenuSheet` | Telefon | telefon | **zasada:** Start · {second linii} · **{center linii — wyróżniony, 52 px, w akcencie, uniesiony}** · Kontakt · Menu. Biznes: Oferta / **Zapytanie** (licznik; Szukaj zostaje lupą w nagłówku); Instalacje: Usługi / **Zaplanuj** („Dla kogo” przechodzi do Menu); Software: Oferta / **Kreator**; Tech: Usługi / **Zgłoś**. Arkusz Menu od dołu: uchwyt, „Menu”, zamknij (40 px), lista linii (ramka = slot linii), **część wspólna:** karta kontaktu (status + numer + „Zadzwoń”), chipy „Linie PRO-KOM” (z Gaming), przełącznik motywu Jasny/Ciemny/Auto. Safe-area, ≥ 44 px, fokus zamknięty w arkuszu, Esc/gest w dół/tło zamyka. |
+| `SiteRail` | Szyna | boczna szyna (≥ 1400 px) | wg §5.1 — **na każdej stronie linii**, zawsze nawiguje po sekcjach strony głównej, na górze wyróżniony przycisk **Szukaj**; wzorzec: szyna Biznesu (K4b, K33 §2.4) + istniejący wspólny `RailShell` (płynący wskaźnik, rozwijanie przez `clip-path`). |
+| `SearchDialog` | Szyna | wyszukiwarka (Ctrl/Cmd K, „/”) | wspólna powłoka okna wyszukiwania dla Instalacji i Software (§5.1); Biznes zostaje przy swojej wyszukiwarce K4b (z podglądem produktu) i tylko podpina ją pod przycisk w `SiteRail`. |
 | `CompanyCard` | O firmie | wizytówka | wiersze: Firma, Adres, NIP, Telefon (linii), E-mail (linii), Godziny; „{authTitle}” + plakietki z tarczą; link „Dane sprawdzisz w CEIDG po numerze NIP →”. |
 | `StatsStrip`, `RulesBento`, `FamilyStrip`, `VerifyCards` | O firmie | sekcje | §6.2 |
 | `ContactPage`, `AboutPage` | Kontakt, O firmie | szablony stron | §6.1, §6.2; trasa `/kontakt` i `/o-firmie` w każdej linii renderuje szablon z danymi linii. |
+
+### 5.1 Boczna szyna (`SiteRail`) i wyszukiwarka (`SearchDialog`) — decyzja Krystiana 02.11
+**Cel:** to, co Biznes ma dziś po lewej (szyna z sekcjami strony głównej i wyróżnionym „Szukaj”), mają też Instalacje i Software — ten sam komponent, dopasowany do linii (sekcje, ikony, akcent, źródło wyszukiwania). Stan Biznesu i istniejącego `RailShell` (Software) spisuje F0 w `MAPA-DZIS.md` — przy różnicy z tym opisem **zachowanie Biznesu jest wzorcem**, a ten opis je porządkuje.
+
+**Zachowanie (wszystkie linie):**
+- Widoczna ≥ 1400 px, przyklejona po lewej, pionowo wyśrodkowana; poniżej 1400 px ukryta (na telefonie jej rolę pełnią `TabBar` + `MenuSheet`). Nie zmienia układu strony (nakłada się na wolny margines; w stanie rozwiniętym nad treścią, z cieniem).
+- **Na każdej stronie linii** pokazuje **sekcje strony głównej**. Na stronie głównej: klik = płynne przewinięcie (`scroll-margin-top` pod nagłówek), aktywna sekcja z `IntersectionObserver`, `aria-current="location"`. Na podstronie: klik = przejście na `/#<sekcja>` (strona główna otwiera się od razu przy tej sekcji, bez migania od góry).
+- **Na górze — wyróżniony przycisk „Szukaj”**: pełny akcent linii (płaski — zgodnie z v23 bez gradientów i poświat w Software; Biznes może zostać przy swoim wyglądzie), jeden spokojny „puls” obrysu przy pierwszym wejściu na stronę (raz na sesję, nie w pętli), podpowiedź „Ctrl K lub /” (na Macu „⌘K”). Klik / skrót otwiera wyszukiwarkę linii.
+- **Stan zwinięty:** kolumna ikon 56 px (obrysowe, z zestawu ikon repo, 20 px, jednolita grubość), pionowa linia postępu z **płynącym wskaźnikiem** aktywnej sekcji. **Rozwinięta** po najechaniu albo fokusie klawiatury (opóźnienie 120 ms, zamykanie 250 ms — jak most w mega menu): etykiety sekcji odsłaniane przez `clip-path` (bez animowania szerokości), kaskada 20 ms. Z klawiatury: Tab przechodzi po pozycjach, Esc zwija.
+- **Ruch:** tylko `transform`/`opacity`/`clip-path`, tokeny `--dur-*`/`--ease-*` z `motion.css`; `prefers-reduced-motion` → bez przesuwania i pulsu (zostaje zmiana koloru).
+- Dostępność: `<nav aria-label="Sekcje strony">`, każda ikona z etykietą tekstową (widoczną po rozwinięciu i dla czytników zawsze), cele ≥ 44 px, kontrast ikon ≥ 3:1, fokus widoczny.
+
+**Dane (panel, grupa `shared.rail` linii):** `sections[]` {anchorId, label, icon} — kolejność = kolejność sekcji strony głównej; test pilnuje, że każdy `anchorId` istnieje na stronie głównej (inaczej pozycja się nie pokazuje). Zaproponowane listy startowe (F0 sprawdza z kodem):
+- Biznes: jak dziś w szynie Biznesu.
+- Software: z szyny v23 (start, oferta, popularne, podglądy, proces, dobierz, technologie, jak-robimy, porównanie, faq, kontakt — bez realizacji, decyzja v23).
+- Instalacje: z szyny sekcji strony głównej (pojawiała się po 400 px — od teraz od razu, jak w Biznesie), łącznie z `#architekci`.
+
+**Wyszukiwarka:**
+- **Biznes** — bez zmian (globalna wyszukiwarka K4b: produkty, strony, kategorie, marki, zestawy, podgląd). `SiteRail` tylko ją otwiera.
+- **Instalacje i Software** — wspólna powłoka `SearchDialog` (okno modalne, pole, grupy wyników, ↑/↓/Enter/Esc, „brak wyników” → „Zapytaj o „…”” → formularz kontaktu z wpisaną treścią + telefon) z **indeksem linii** budowanym na serwerze (mały JSON, cel < 50 KB gzip):
+  - Software: rozwiązania (29), obszary, branże, miejscowości, aktualności, strony (kreator, cennik, audyt, kontakt), pytania FAQ;
+  - Instalacje: usługi (10), obiekty „Dla kogo” (12), rozwiązania (76), poradnik, realizacje (gdy są), strony (Zaplanuj, Serwis, Dla architektów, kontakt), pytania FAQ.
+  - Silnik: ogólna część `lib/search.ts` Biznesu (normalizacja bez polskich znaków, literówki, synonimy, punktacja) przeniesiona do `src/lib/shared/search/` **bez zmiany zachowania Biznesu** (testy Biznesu zielone); słownik synonimów per linia w panelu.
+  - Pusty stan: „Najczęściej szukane” (z panelu linii) i „Na skróty” (główne strony linii).
+- Wzorzec wyglądu: plansza **„07 · Boczna szyna, wyszukiwarka i pasek przewijania”** (Tweaks: linia, dodatki; sekcja 1b — podstrona).
+
+**Dodatki — decyzja Krystiana 02.11 (wchodzą 1, 3, 4, 5, 6; nr 2 „status i telefon w szynie” — nie):** mają być dopracowane wizualnie jak plansza, intuicyjne, z ruchem z systemu `motion.css`.
+1. **Akcja linii z licznikiem** — na dole szyny, oddzielona kreską: Biznes „Zapytanie” (licznik z `pk-cart`, otwiera szufladę), Instalacje „Zaplanuj” (→ `/zaplanuj`, podświetlona na tej stronie), Software „Twój projekt” (licznik, otwiera listę). Dane: `shared.tabBar.center` (ta sama akcja co środek dolnego paska). Plakietka licznika na ikonie (widoczna też w stanie zwiniętym), przy zmianie liczby jeden „podskok” (scale 1 → 1.28 → 1), `aria-live="polite"` z tekstem „W zapytaniu: 3”.
+3. **Postęp strony i „Do góry”** — linia postępu wzdłuż lewej krawędzi szyny (`animation-timeline: scroll()`; gdy przeglądarka nie wspiera — lekki odczyt przewinięcia przez `requestAnimationFrame`, bez nasłuchu w pętli). „Do góry” wjeżdża (opacity + 6 px) dopiero po przewinięciu ponad 1 wysokość ekranu, płynnie przewija na górę i przenosi fokus na początek treści (`#main`), bez skoku przy `prefers-reduced-motion` (wtedy przewinięcie natychmiastowe).
+4. **„Na tej stronie” na podstronach** — gdy podstrona ma ≥ 3 sekcje oznaczone `data-rail-section` (id + etykieta + opcjonalna ikona), szyna pokazuje grupę „Na tej stronie” (aktywna sekcja z `IntersectionObserver`, maks. 10 pozycji, dłuższa lista przewija się w cienkim pasku), a pod nią **„Strona główna” zwiniętą w jeden wiersz-akordeon** („10 sekcji ▾”; rozwinięcie pokazuje sekcje głównej ze strzałką ↗; stan zapamiętany w `sessionStorage` do końca wizyty). Podstrony z < 3 sekcjami: od razu sekcje strony głównej (jak dziś w Biznesie). **Od 1400 px grupa zastępuje przyklejony pasek kotwic** (Instalacje — strony usług i obiektów); poniżej 1400 px pasek kotwic zostaje. Podpisy grup („Na tej stronie”, „Strona główna”) widoczne tylko w stanie rozwiniętym; w zwiniętym — kreska i ikony.
+5. **Paleta poleceń w wyszukiwarce** (wszystkie 3 linie — w Biznesie jako pierwsza grupa w obecnej wyszukiwarce K4b): akcje „Zadzwoń” (`tel:` linii; Biznes też drugi numer), „Skopiuj numer”, „Napisz e-mail” (`mailto:` linii), „Wyznacz trasę” (`mapsUrl`), główna akcja linii (Zapytanie / Zaplanuj / Kreator), „Kontakt”, „Motyw jasny/ciemny”. Pusty stan: akcje jako rząd przycisków z ikonami i słowem-skrótem (tel, mail, trasa, motyw); po wpisaniu: grupa „Akcje” na górze, gdy pasuje słowo kluczowe (słownik w kodzie: tel, telefon, dzwoń, numer, mail, e-mail, napisz, trasa, dojazd, mapa, jak dojechać, motyw, ciemny, jasny + nazwa akcji linii). Enter wykonuje akcję; wszystkie dane z panelu.
+6. **Ostatnio oglądane** — do 5 pozycji (produkt, rozwiązanie, usługa, obiekt, strona; tytuł, adres, rodzaj, czas) w `localStorage` pod kluczem linii (`pk-recent-<linia>`, try/catch), tylko w tej przeglądarce, bez serwera i ciasteczek; w pustym stanie wyszukiwarki grupa „Ostatnio oglądane” z „Wyczyść”. **Flaga w panelu (`CompanyData.recentlyViewed`, domyślnie wyłączona)** — włączamy po opinii prawnika, czy zapis na urządzeniu użytkownika dla tej funkcji wymaga zgody (ustawa Prawo komunikacji elektronicznej); przy włączeniu dopisek w polityce prywatności.
+
 
 ## 6. Szablony stron
 
@@ -152,6 +190,7 @@ Teksty są w planszach (`plansze/Kontakt.dc.html` i `OFirmie.dc.html`, obiekty `
 - `[Krystian]` linki: lista serwisów Posnet, wyszukiwarka partnerów InsERT; `[SZEF]` autoryzacje Satel/Ampio.
 
 ## 7. Telefon (≤ 1080 px)
+- Boczna szyna (`SiteRail`) ukryta poniżej 1400 px; wyszukiwarka dostępna z nagłówka (lupa) i z arkusza Menu.
 - Pasek marki znika; jego treść (status, telefon, linie, motyw) jest w arkuszu Menu.
 - `TabBar` wg §5; stopka: kolumny zwijane (akordeon), `LinesBand` jako przewijany rząd, `LegalBar` z linkami w 2 rzędach (każdy link ≥ 24 px wysokości).
 - Kontakt na telefonie: status → H1 → duży przycisk telefonu (cała karta klikalna) → kafelki e-mail / drugi numer → karta salonu z `AddressMap` 100–112 px → reszta jak desktop w jednej kolumnie.
@@ -172,18 +211,19 @@ Teksty są w planszach (`plansze/Kontakt.dc.html` i `OFirmie.dc.html`, obiekty `
 ## 10. Definition of Done (każda sesja F i L) i testy
 1. Lint, typecheck, testy, build, CI zielone; strony innych linii bez niezamierzonych zmian (zrzuty przed/po strony głównej każdego tenanta).
 2. **Testy treści (nowe, wspólne):** brak „WhatsApp”, „wa.me”, „i sklep” (przy pro-kom.eu), „Serwis” jako nazwy linii w pasie linii, „biznes@pro-kom.eu”, „18 267 65 11”, „example.test”, „000 000” w treściach i seedach tenantów; telefony/e-maile w komponentach tylko z danych.
-3. e2e (Playwright, wszystkie 3 tenanty): pasek marki pokazuje tylko `published` linie, bieżąca ma `aria-current`; `LegalBar` ma identyczny tekst na 3 domenach; `LinesBand` ma 5 kafelków przy Gaming `published:false` i 6 przy `true`; `OpeningStatus` dla zamrożonego czasu (pn 10:00 → otwarte, pn 16:40 → zamykamy za 20 min, sob 10:00 → zamknięte · w poniedziałek); formularz: błędy + sukces + rekord w `Inquiries` z tenantem i tematem; mapa: link „Wyznacz trasę” = `mapsUrl`; telefon: 0 przewijania w bok przy 360/390/414; arkusz Menu: fokus, Esc.
+3. e2e (Playwright, wszystkie 3 tenanty): pasek marki pokazuje tylko `published` linie, bieżąca ma `aria-current`; `LegalBar` ma identyczny tekst na 3 domenach; `LinesBand` ma 5 kafelków przy Gaming `published:false` i 6 przy `true`; `OpeningStatus` dla zamrożonego czasu (pn 10:00 → otwarte, pn 16:40 → zamykamy za 20 min, sob 10:00 → zamknięte · w poniedziałek); formularz: błędy + sukces + rekord w `Inquiries` z tenantem i tematem; mapa: link „Wyznacz trasę” = `mapsUrl`; telefon: 0 przewijania w bok przy 360/390/414; arkusz Menu: fokus, Esc; `SiteRail` (≥ 1400 px): obecna na stronie głównej i 2 podstronach, aktywna sekcja zmienia się przy przewijaniu, klik na podstronie → `/#sekcja` z widoczną sekcją, Ctrl K i „/” otwierają wyszukiwarkę, Esc zamyka i wraca fokus, wyszukiwanie z literówką znajduje wynik, brak wyników → „Zapytaj o”.
 4. Porównanie z planszami (sekcja po sekcji, jasny i ciemny motyw) — rozbieżności wpisane w PR.
 5. `docs/STAN.md` (i `docs/stan/STAN-instalacje.md`, jeśli dotyczy Instalacji) zaktualizowane w tym samym PR.
 
 ## 11. Co to zastępuje w specyfikacjach linii
-- **Biznes:** górny pasek (spec §3.1/K4 rama), stopka K4 (kolumny zostają jako `footerColumns`, kolumna „PRO-KOM w regionie” → `LinesBand`), `/kontakt` i `/o-firmie` z K4i → szablony §6 (treści przenieść do pól `contact`/`about`), dolny pasek M1′ → zasada §5, kafelki WhatsApp — usunięte.
-- **Software:** `BrandBar` SW0 → wspólny; stopka „Jedna firma, cztery linie” (5 kart; wcześniej v21 „sześć adresów”) → `LinesBand` (wzór wyglądu kafelków stąd), pasek prawny → `LegalBar` (dochodzą Cookies i Dostępność), Kontakt v21/v23 i O firmie SW11b → szablony §6 („Twój projekt” w formularzu Kontaktu zostaje jako rozszerzenie `ContactForm` przez slot `formPrefill`), O firmie bez portretów (zmiana wobec v23 — decyzja 01.11).
-- **Instalacje:** klasy prototypu `topb`, `hdr`, `ftr2` (pasek, nagłówek, stopka) → komponenty wspólne; grzbiet gór zostaje jako ozdoba stopki; `/kontakt` i `/o-firmie` (I11/I12) → szablony §6; strefy dojazdu → `serviceZones`; dolny pasek → zasada §5.
+- **Biznes:** górny pasek (spec §3.1/K4 rama), stopka K4 (kolumny zostają jako `footerColumns`, kolumna „PRO-KOM w regionie” → `LinesBand`), `/kontakt` i `/o-firmie` z K4i → szablony §6 (treści przenieść do pól `contact`/`about`), dolny pasek M1′ → zasada §5, boczny pasek K4b → `SiteRail` (wygląd i zachowanie Biznesu = wzorzec, wyszukiwarka K4b zostaje), kafelki WhatsApp — usunięte.
+- **Software:** `BrandBar` SW0 → wspólny; szyna sekcji (spec Software §3.3, tylko główna) → `SiteRail` na wszystkich stronach + wyszukiwarka (nowość); stopka „Jedna firma, cztery linie” (5 kart; wcześniej v21 „sześć adresów”) → `LinesBand` (wzór wyglądu kafelków stąd), pasek prawny → `LegalBar` (dochodzą Cookies i Dostępność), Kontakt v21/v23 i O firmie SW11b → szablony §6 („Twój projekt” w formularzu Kontaktu zostaje jako rozszerzenie `ContactForm` przez slot `formPrefill`), O firmie bez portretów (zmiana wobec v23 — decyzja 01.11).
+- **Instalacje:** klasy prototypu `topb`, `hdr`, `ftr2` (pasek, nagłówek, stopka) → komponenty wspólne; grzbiet gór zostaje jako ozdoba stopki; `/kontakt` i `/o-firmie` (I11/I12) → szablony §6; strefy dojazdu → `serviceZones`; dolny pasek → zasada §5; szyna sekcji strony głównej → `SiteRail` na wszystkich stronach + wyszukiwarka (nowość).
 - **Kto co robi:** komponenty i szablony — fundament (F2, F3); wpięcie powłoki — L1 linii; Kontakt i O firmie z sekcjami własnymi (sloty §6.0) — L2 linii.
 - Wszystko inne w specyfikacjach linii obowiązuje bez zmian.
 
 ## 12. Otwarte
+- [prawnik] „Ostatnio oglądane” (§5.1 pkt 6) — czy zapis w localStorage wymaga zgody; do tego czasu flaga wyłączona.
 - [prawnik] zgoda checkbox czy klauzula informacyjna (`consentMode`); treść klauzuli; strona Cookies (bez ciasteczek śledzących — Umami).
 - [SZEF] liczby z flagą (100+, 10 000+); adres i godziny salonu Zakopane; autoryzacje Satel/Ampio; cytat właściciela (bez zdjęcia) — zostaje czy znika.
 - [Krystian] e-mail Tech; linki weryfikacji (Posnet, InsERT); pliki znaku TECH i Gaming do `public/brand/` — źródła znalezione (`MAPA-DZIS.md` §8), kopiuje F2; usunięcie pól WhatsApp z panelu (migracja usuwająca dane we wspólnych polach — w F1 albo osobnym PR `feat/wsp-*`, nigdy w sesji L; zawsze po decyzji Krystiana).
