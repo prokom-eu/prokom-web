@@ -2,6 +2,7 @@ import type { SectionData, SectionVariant } from '../../lib/biznes/pages/section
 import type { IconName } from '../../lib/catalog/options'
 import { hardSpaces, hardSpacesDeep } from '../../lib/text/hardSpace'
 import type { BzSectionBlock, FaqBlock } from '../../payload-types'
+import { isSvgPath } from '../../lib/catalog/svg'
 import type { PageBlock } from './page'
 import { BIZNES_CONTACT } from './contact'
 
@@ -564,7 +565,7 @@ export function insertK4Layout(file: K4PagesFile, slugOf: SlugOf): K4Layout {
 export type K4FirmaFile = {
   opieka_it: {
     lead: string
-    areas: { t: string; img?: string; co: string[]; p: string[] }[]
+    areas: { t: string; ic?: string; img?: string; co: string[]; p: string[] }[]
     steps: Pair[]
     dla: [string, string, string[], string | null][]
     start: Pair[]
@@ -768,11 +769,17 @@ export function opiekaK4Layout(file: K4FirmaFile, slugOf: SlugOf): K4Layout {
       heading: 'Osiem obszarów, jeden numer telefonu',
       lead: 'Wybierz obszar i zobacz, czym się zajmujemy i na jakim sprzęcie pracujemy.',
       data: {
-        areas: o.areas.map((area) => ({
-          t: area.t,
-          co: area.co,
-          products: r.many(area.p).slice(0, 4),
-        })),
+        areas: o.areas.map((area) => {
+          // Board `Web-opieka-it`: an icon per area in the tabs, the device photo in the panel.
+          const image = area.img ? r.one(area.img) : undefined
+          return {
+            t: area.t,
+            co: area.co,
+            products: r.many(area.p).slice(0, 4),
+            ...(area.ic && isSvgPath(area.ic) ? { iconPath: area.ic } : {}),
+            ...(image ? { image } : {}),
+          }
+        }),
       },
     }),
     section({
@@ -784,6 +791,7 @@ export function opiekaK4Layout(file: K4FirmaFile, slugOf: SlugOf): K4Layout {
       data: {
         head: ['Sytuacja', 'Bez stałej opieki', 'Z opieką PRO-KOM'],
         rows: CARE_SITUATIONS.map(([k, without, withCare]) => ({ k, v: [without, withCare] })),
+        contrast: true,
       },
     }),
     section({

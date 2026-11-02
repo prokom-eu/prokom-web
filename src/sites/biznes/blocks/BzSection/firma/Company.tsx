@@ -442,34 +442,63 @@ export async function ContactHero({
               <p className={`${BZ_LEAD} max-w-[60ch] text-pretty text-ink-2`}>{block.lead}</p>
             )}
             <ul className="grid gap-3 min-[640px]:grid-cols-2">
-              {channels.map((channel) => (
-                <li key={channel.label}>
-                  <a
-                    href={channel.href}
-                    {...(channel.external ? { rel: 'noopener', target: '_blank' } : {})}
-                    className={cx(
-                      CARD,
-                      'flex h-full flex-col gap-1 p-5 text-ink hover:shadow-[inset_0_0_0_1.5px_var(--ink)]',
-                    )}
-                  >
-                    <span
-                      aria-hidden="true"
-                      className="mb-2 flex size-10 items-center justify-center rounded-xl bg-surface-2 text-accent-text"
+              {channels.map((channel, i) => {
+                // Board `Web-kontakt`: the phone card in the accent, the action at the top right.
+                const lead = i === 0 && channel.icon === 'phone'
+                return (
+                  <li key={channel.label}>
+                    <a
+                      href={channel.href}
+                      {...(channel.external ? { rel: 'noopener', target: '_blank' } : {})}
+                      className={cx(
+                        'flex h-full flex-col gap-1 rounded-[22px] p-5 transition-shadow motion-reduce:transition-none',
+                        lead
+                          ? 'bg-accent-text text-accent-ink shadow-[0_24px_44px_-26px_var(--accent-text)] hover:shadow-[0_24px_44px_-20px_var(--accent-text)]'
+                          : cx(CARD, 'text-ink hover:shadow-[inset_0_0_0_1.5px_var(--ink)]'),
+                      )}
                     >
-                      <Icon name={channel.icon} className="size-5" />
-                    </span>
-                    <small className="text-[13px] text-ink-2">{channel.label}</small>
-                    <b className="text-[17px] font-extrabold break-words">{channel.value}</b>
-                    <span className="text-[14px] text-ink-2">{channel.note}</span>
-                    <em className="mt-2 text-[14px] font-extrabold text-accent-text not-italic">
-                      {channel.cta} →
-                    </em>
-                    {channel.external && (
-                      <span className="sr-only"> (otwiera się w nowej karcie)</span>
-                    )}
-                  </a>
-                </li>
-              ))}
+                      <span className="mb-3 flex items-start justify-between gap-3">
+                        <span
+                          aria-hidden="true"
+                          className={cx(
+                            'flex size-10 items-center justify-center rounded-xl',
+                            lead ? 'bg-white/15' : 'bg-surface-2 text-accent-text',
+                          )}
+                        >
+                          <Icon name={channel.icon} className="size-5" />
+                        </span>
+                        <em
+                          className={cx(
+                            'text-[14px] font-extrabold not-italic',
+                            !lead && 'text-accent-text',
+                          )}
+                        >
+                          {channel.cta} →
+                        </em>
+                      </span>
+                      <small
+                        className={cx(
+                          'text-[12px] font-extrabold tracking-[0.08em] uppercase',
+                          lead ? 'text-accent-ink' : 'text-ink-2',
+                        )}
+                      >
+                        {channel.label}
+                      </small>
+                      <b className="text-[19px] leading-tight font-extrabold break-words">
+                        {channel.value}
+                      </b>
+                      <span
+                        className={cx('text-[13.5px]', lead ? 'text-accent-ink' : 'text-ink-2')}
+                      >
+                        {channel.note}
+                      </span>
+                      {channel.external && (
+                        <span className="sr-only"> (otwiera się w nowej karcie)</span>
+                      )}
+                    </a>
+                  </li>
+                )
+              })}
             </ul>
             {c.phone2 && c.phone2Tel && (
               <a href={c.phone2Tel} className="self-start text-[15px] text-ink-2 hover:underline">
@@ -477,16 +506,18 @@ export async function ContactHero({
               </a>
             )}
           </div>
-          <div className="flex flex-col gap-5">
+          {/* Board `Web-kontakt`: one card — the dark area map on top, address and hours below. */}
+          <div className="flex flex-col overflow-hidden rounded-[22px] bg-card shadow-[0_30px_60px_-36px_var(--glow),inset_0_0_0_1px_var(--border)]">
             {c.company && (
               <AreaMap
+                variant="dark"
                 label="Dojeżdżamy na całe Podhale i Małopolskę"
                 companyName={c.company.name}
                 street={c.location ? `${c.location.street}, ${c.location.city}` : null}
                 fullAddress={c.address}
               />
             )}
-            <div className={cx(CARD, 'flex flex-col gap-4 p-5 text-ink')}>
+            <div className="flex flex-col gap-4 p-5 text-ink sm:p-6">
               {c.address && (
                 <p className="flex flex-col">
                   <b className="font-extrabold">{c.location?.street}</b>

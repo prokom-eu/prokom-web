@@ -163,6 +163,17 @@ describe('/opieka-it (K4i)', () => {
   const { layout, missing } = opiekaK4Layout(firma, identity)
   const text = JSON.stringify(layout)
 
+  it('gives every area its icon and device photo, and the comparison its colours (board W3)', () => {
+    const areas = dataOf(layout, 'care-areas')?.areas ?? []
+    expect(areas).toHaveLength(8)
+    for (const area of areas) {
+      expect(area.iconPath, area.t).toMatch(/^M/)
+      expect(area.image, area.t).toBeTruthy()
+    }
+    const table = sections(layout).find((block) => block.variant === 'table')
+    expect(table && parseSectionData('table', table.data)?.contrast).toBe(true)
+  })
+
   it('has no price model and no downtime calculator (K4-FINAL §1, K35 §0)', () => {
     expect(text).not.toMatch(/abonament|stała opłata|paszport IT/i)
     expect(text).not.toMatch(/przestoju|kalkulator/i)

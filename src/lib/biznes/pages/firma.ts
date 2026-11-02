@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { isSvgPath } from '../../catalog/svg'
 
 // Data of the K4i sections (Opieka IT, O firmie, Kontakt — K34 §6–§8, K35 §0, K36 §13). The
 // company card, phones, hours and address come from the panel (CompanyData, SiteSettings), not
@@ -39,6 +40,8 @@ export const careAreasSchema = z.object({
         co: z.array(text).min(1).max(8),
         products: z.array(slug).max(4).default([]),
         image: slug.optional(),
+        /** Icon of the tab (SVG path „d”, board `Web-opieka-it`). */
+        iconPath: z.string().max(400).refine(isSvgPath, 'Ikona: ścieżka SVG („d”).').optional(),
       }),
     )
     .min(1)

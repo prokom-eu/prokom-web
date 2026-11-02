@@ -266,7 +266,7 @@ function render(
       const products = Object.fromEntries(
         productsBySlug(
           index,
-          data.areas.flatMap((area) => area.products),
+          data.areas.flatMap((area) => [...area.products, ...(area.image ? [area.image] : [])]),
         ).map((p) => [p.slug, { slug: p.slug, name: p.name, image: p.image }]),
       )
       return (

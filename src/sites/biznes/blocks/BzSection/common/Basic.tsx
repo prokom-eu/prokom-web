@@ -191,8 +191,16 @@ export function BandSection({ block, data }: Props & { data: SectionData<'band'>
 }
 
 /** `table`: a comparison; on a phone each column is a card in a horizontal strip. */
+/** `contrast` tables (board `Web-opieka-it`): the „without” column in red, the „with” in green. */
+const CONTRAST_HEAD = [
+  'bg-[color-mix(in_srgb,var(--c-biznes-tone-red)_12%,transparent)] text-ink',
+  'bg-ok/15 text-ok-text',
+]
+const CONTRAST_CELL = ['text-ink-2', 'bg-ok/5 font-bold text-ink']
+
 export function TableSection({ block, data }: Props & { data: SectionData<'table'> }) {
   const [, ...columns] = data.head
+  const contrast = data.contrast === true && columns.length === 2
   return (
     <SectionShell block={block}>
       <div className={cx(CARD, 'hidden overflow-hidden min-[761px]:block')}>
@@ -200,8 +208,22 @@ export function TableSection({ block, data }: Props & { data: SectionData<'table
           <thead>
             <tr className="bg-surface-2">
               {data.head.map((cell, i) => (
-                <th key={i} scope="col" className="px-5 py-4 font-display font-extrabold text-ink">
-                  {cell}
+                <th
+                  key={i}
+                  scope="col"
+                  className={cx(
+                    'px-5 py-4 font-display font-extrabold text-ink',
+                    contrast && i > 0 && CONTRAST_HEAD[i - 1],
+                  )}
+                >
+                  {contrast && i > 0 ? (
+                    <span className="inline-flex items-center gap-2">
+                      <span aria-hidden="true">{i === 1 ? '✕' : '✓'}</span>
+                      {cell}
+                    </span>
+                  ) : (
+                    cell
+                  )}
                 </th>
               ))}
             </tr>
@@ -213,7 +235,10 @@ export function TableSection({ block, data }: Props & { data: SectionData<'table
                   {row.k}
                 </th>
                 {row.v.map((cell, i) => (
-                  <td key={i} className="px-5 py-4 text-ink-2">
+                  <td
+                    key={i}
+                    className={cx('px-5 py-4', contrast ? CONTRAST_CELL[i] : 'text-ink-2')}
+                  >
                     {cell}
                   </td>
                 ))}
