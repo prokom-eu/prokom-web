@@ -152,7 +152,10 @@ test.describe('Biznes category on a phone', () => {
     await expect(grid.locator(':scope > li')).toHaveCount(20)
 
     const last = page.getByRole('region', { name: 'Nie widzisz tego, czego szukasz?' })
-    await expect(last.getByRole('button', { name: 'Zapytaj o produkt' })).toBeVisible()
+    await expect(last.getByRole('link', { name: 'Zapytaj o produkt' })).toHaveAttribute(
+      'href',
+      '/zapytanie',
+    )
     await expect(page.locator('#kontakt form')).toBeHidden()
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390)
   })

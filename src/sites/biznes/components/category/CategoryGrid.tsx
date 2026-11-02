@@ -173,7 +173,7 @@ export function CategoryGrid({
         </h2>
 
         {chips && chips.items.length > 1 && (
-          <fieldset className="mt-8 flex flex-wrap gap-2 [scrollbar-width:none] max-md:-mx-4 max-md:mt-3 max-md:flex-nowrap max-md:overflow-x-auto max-md:px-4">
+          <fieldset className="mt-8 flex min-w-0 flex-wrap gap-2 [scrollbar-width:none] max-md:-mx-4 max-md:mt-3 max-md:flex-nowrap max-md:overflow-x-auto max-md:px-4">
             <legend className="sr-only">Podkategoria</legend>
             {[{ name: '', count: products.length }, ...chips.items].map((chip) => (
               <label
@@ -270,7 +270,7 @@ export function CategoryGrid({
               {segmentList.length > 1 && (
                 <fieldset
                   className={cx(
-                    'flex flex-wrap gap-1 rounded-2xl bg-surface-2 p-1 [scrollbar-width:none] max-md:-mx-4 max-md:w-[calc(100%+2rem)] max-md:flex-nowrap max-md:gap-2 max-md:overflow-x-auto max-md:rounded-none max-md:bg-transparent max-md:px-4 max-md:py-0',
+                    'flex min-w-0 flex-wrap gap-1 rounded-2xl bg-surface-2 p-1 [scrollbar-width:none] max-md:-mx-4 max-md:w-[calc(100%+2rem)] max-md:flex-nowrap max-md:gap-2 max-md:overflow-x-auto max-md:rounded-none max-md:bg-transparent max-md:px-4 max-md:py-0',
                     // With the side panel the brands sit there (from 1024 px up).
                     aside && segmentList.length > 1 && segments === 'brand' && 'lg:hidden',
                   )}
