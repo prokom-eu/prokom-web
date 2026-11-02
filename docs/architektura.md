@@ -50,4 +50,4 @@ Formularze → `POST /api/inquiry` → `submitInquiry()` (Zod, honeypot, czas, l
 - Monitoring: Sentry (błędy), zewnętrzny monitoring dostępności; analityka Umami (bez cookies, ADR-020): skrypt i zdarzenia przez tę samą domenę (`/_s/*` → kontener w `proxy.ts`), zmienne `UMAMI_URL` i `UMAMI_WEBSITES`; kontener — S10b/S10c.
 
 ## Czego świadomie NIE robimy (na teraz)
-Sklepu B2B (faza 2), mikroserwisów, Kubernetes, płatnych CMS-ów w chmurze, osobnych repozytoriów na każdą stronę, osobnej aplikacji panelu.
+Sklepu B2B (faza 2), mikroserwisów, Kubernetes, płatnych CMS-ów w chmurze, osobnych repozytoriów na każdą stronę, osobnej aplikacji panelu. Świadomy wyjątek: PRO-KOM Gaming (`prokomgaming.pl`) ma własne repo `prokom-gaming` (sklep z cenami liczonymi z kosztów, konfiguratorem i kontami — inny cykl życia, ADR-G001 tam); dzieli z nami tylko serwer i stos `prokom-proxy` (szablony `gaming-*.conf.template`).
