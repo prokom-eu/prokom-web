@@ -35,21 +35,37 @@ remote_sh() { "$SSH" "$server" "$@"; }
 
 # 1. Same code as staging: the imports must match its schema and migrations.
 tag="$(remote_sh "sed -n 's/^APP_IMAGE_TAG=//p' $remote/.env.staging")"
-head="$(git rev-parse HEAD)"
-if [ "$tag" != "$head" ]; then
-  echo "Staging runs ${tag:0:7}, this checkout is ${head:0:7}." >&2
-  echo "First: git fetch && git switch --detach $tag   (then run this again)" >&2
+# What the imports depend on must equal the staging commit; scripts and docs may be newer.
+code=(src seed docs/design package.json pnpm-lock.yaml)
+git cat-file -e "$tag^{commit}" 2>/dev/null || git fetch -q origin
+if ! git diff --quiet "$tag" -- "${code[@]}"; then
+  echo "This checkout differs from the staging commit ${tag:0:7} in src/, seed/, docs/design or" >&2
+  echo "dependencies. First: git fetch && git switch --detach $tag   (then run this again)" >&2
   exit 1
 fi
-[ -z "$(git status --porcelain -- src seed docs/design)" ] ||
-  { echo "Uncommitted changes in src/, seed/ or docs/design/ — commit or stash them first." >&2; exit 1; }
+# A .env of this folder would fill every variable left unset below (local SMTP,
+# SEED_GALLERY_LIMIT…): run from a checkout without one, e.g. a separate worktree.
+for f in .env .env.local .env.development .env.development.local; do
+  [ ! -e "$f" ] || { echo "This folder has $f — run from a checkout without .env files." >&2; exit 1; }
+done
+[ -z "$(git status --porcelain -- "${code[@]}")" ] ||
+  { echo "Uncommitted changes in ${code[*]} — commit or stash them first." >&2; exit 1; }
+head="$tag" # the content is made with the staging commit's code
 
 work="$(mktemp -d "${TMPDIR:-/tmp}/staging-content-XXXXXX")"
 cleanup() {
   docker rm -f "$pg" >/dev/null 2>&1 || true
   rm -rf "$work"
+  [ -s .env ] || rm -f .env # the empty one from below
+  # Uploaded files of a run that stopped half way (personal data) — gone on the server too.
+  remote_sh "rm -rf $remote/../.staging-content" >/dev/null 2>&1 || true
 }
 trap cleanup EXIT
+remote_sh "rm -rf $remote/../.staging-content"
+: >.env # empty: payload then reads no .env from parent folders (removed in cleanup)
+
+log "dependencies of this commit (pnpm install --frozen-lockfile)"
+pnpm install --frozen-lockfile --reporter=silent
 
 log "backup of staging (predeploy, to B2)"
 remote_sh "cd $remote && scripts/backup.sh staging predeploy" | tail -1
@@ -66,11 +82,20 @@ docker rm -f "$pg" >/dev/null 2>&1 || true
 pass="$(openssl rand -hex 16)"
 docker run -d --name "$pg" -e POSTGRES_USER=prokom -e POSTGRES_PASSWORD="$pass" \
   -e POSTGRES_DB=prokom_staging -p "127.0.0.1:$port:5432" "$pg_image" >/dev/null
-for _ in $(seq 1 30); do docker exec "$pg" pg_isready -U prokom -d prokom_staging >/dev/null 2>&1 && break; sleep 1; done
-docker exec -i "$pg" pg_restore -U prokom -d prokom_staging --no-owner --exit-on-error <"$work/db.dump"
+# Over TCP: during the image's first start a temporary server answers on the unix socket only.
+ready=0
+for _ in $(seq 1 60); do
+  docker exec "$pg" pg_isready -h 127.0.0.1 -U prokom -d prokom_staging >/dev/null 2>&1 && { ready=1; break; }
+  sleep 1
+done
+[ "$ready" = 1 ] || { echo "Local Postgres did not start." >&2; exit 1; }
+docker exec -i "$pg" pg_restore -U prokom -d prokom_staging --no-owner --single-transaction --exit-on-error <"$work/db.dump"
 
 log "line imports: ${lines[*]}"
-# Values for the throwaway run only; no .env of this folder is read for them (exported first).
+# Values for the throwaway run only. `payload` loads the .env of this folder — or, when there is
+# none, of a parent folder — for every variable not set here. The empty .env created above
+# (removed at the end) stops that search, so unset means unset (e.g. SEED_GALLERY_LIMIT = whole
+# galleries, as on staging).
 export DATABASE_URL="postgresql://prokom:$pass@127.0.0.1:$port/prokom_staging"
 # Node on Windows needs C:/… paths, not Git Bash /tmp/….
 MEDIA_DIR="$(cygpath -m "$work/media" 2>/dev/null || echo "$work/media")"
@@ -79,7 +104,8 @@ PAYLOAD_SECRET="$(openssl rand -hex 32)"
 export PAYLOAD_SECRET
 export PANEL_HOST=panel.staging.prokombiznes.pl SITE_ENV=staging NODE_ENV=development
 export SMTP_HOST=127.0.0.1 SMTP_PORT=1025 MAIL_FROM_ADDRESS=seed@example.invalid
-unset MAIL_SENDERS SMTP_USER SMTP_PASS SMTP_PASS_BIZNES SMTP_PASS_SOFTWARE SMTP_PASS_INSTALACJE SENTRY_DSN
+unset MAIL_SENDERS SMTP_USER SMTP_PASS SMTP_PASS_PROKOM SMTP_PASS_BIZNES SMTP_PASS_SOFTWARE \
+  SMTP_PASS_INSTALACJE SENTRY_DSN SEED_GALLERY_LIMIT UMAMI_URL UMAMI_WEBSITES
 pnpm payload migrate
 for l in "${lines[@]}"; do pnpm "seed:$l"; done
 
@@ -91,21 +117,8 @@ remote_sh "mkdir -p $remote/../.staging-content && chmod 700 $remote/../.staging
 remote_sh "cat > $remote/../.staging-content/db.dump" <"$work/new.dump"
 remote_sh "cat > $remote/../.staging-content/media.tar" <"$work/new-media.tar"
 
-log "replace on staging (app stopped for a moment)"
-remote_sh "set -e; d=$remote/../.staging-content; trap 'rm -rf \$d' EXIT
-  exec 9>$remote/../.deploy.lock; flock -w 600 9
-  docker stop prokom-staging-app-1 >/dev/null
-  docker exec prokom-staging-postgres-1 dropdb -U prokom --if-exists --force prokom_staging
-  docker exec prokom-staging-postgres-1 createdb -U prokom prokom_staging
-  docker exec -i prokom-staging-postgres-1 pg_restore -U prokom -d prokom_staging --no-owner --exit-on-error < \$d/db.dump
-  # node (uid 1000) in the app container owns the uploads
-  docker run --rm -i -v prokom-staging_media:/m $pg_image sh -c 'find /m -mindepth 1 -delete && tar -C /m -xf - && chown -R 1000:1000 /m' < \$d/media.tar
-  docker start prokom-staging-app-1 >/dev/null
-  for i in \$(seq 1 60); do s=\$(docker inspect -f '{{.State.Health.Status}}' prokom-staging-app-1); [ \"\$s\" = healthy ] && break; sleep 5; done
-  echo \"   app: \$s\"
-  cd $remote
-  hosts=\$(sed -n 's/^STAGING_SITE_HOSTS=//p' .env.proxy)
-  PANEL_HOST=\$(sed -n 's/^PANEL_HOST=//p' .env.staging) bash scripts/smoke.sh http://127.0.0.1:\$(sed -n 's/^APP_PORT=//p' .env.staging) \$hosts | tail -1
-  echo \"\$(date -u +%Y-%m-%dT%H:%M:%SZ) staging content refreshed (${lines[*]}) at ${head:0:7}\" >> $remote/../deploys.log"
+log "replace on staging — prepared next to the live content, then a short switch"
+# The server half comes from this checkout (= the staging commit), fed to bash over ssh.
+remote_sh "STAGING_REPO=$remote bash -s -- $head '${lines[*]}'" <scripts/server/staging-content-apply.sh
 
 log "done — local copy removed"

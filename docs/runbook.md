@@ -97,16 +97,21 @@ Dziennik: `../deploys.log` (`<czas> staging <stary> -> <nowy> ok | FAILED, rolle
 
 Pipeline przenosi kod i migracje, ale **nie treść**: `pnpm seed*` jest na stagingu zablokowany, a obraz nie ma paczek `seed/` ani zdjęć `docs/design/`. Nowe strony z importów linii (np. Instalacje `/dla-kogo/pensjonaty`) pojawiają się na stagingu dopiero po odświeżeniu — inaczej 404 i czerwony Lighthouse.
 
-Z komputera (Git Bash), w checkoucie **dokładnie** commita ze stagingu (`git fetch && git switch --detach <APP_IMAGE_TAG>` — skrypt sprawdza):
+Z komputera (Git Bash), w checkoucie, w którym `src/`, `seed/`, `docs/design/`, `package.json` i `pnpm-lock.yaml` są **takie jak w commicie stagingu** (skrypt sprawdza; najprościej `git fetch && git switch --detach <APP_IMAGE_TAG>`):
 ```bash
 SSH=/c/Windows/System32/OpenSSH/ssh.exe bash scripts/staging-content.sh [biznes software instalacje]
 ```
-Kroki: `backup.sh staging predeploy` (B2) → zrzut bazy i mediów stagingu → tymczasowy Postgres na komputerze (`127.0.0.1:54331`, usuwany na końcu) → `pnpm payload migrate` + `pnpm seed:<linia>` → baza i media z powrotem (aplikacja zatrzymana ok. 1–2 min, pod blokadą wdrożeń) → `healthy` + smoke → wpis w `../deploys.log`.
-- **Zostaje:** konta (`Users`), zapytania, ustawienia Stron (e-mail powiadomień, domeny `staging`), wszystko spoza paczek — importy linii czytają tenanty, nie zmieniają kont ani zapytań.
-- **Nadpisuje:** pola z paczek (np. katalog Biznesu — „pola z paczki wygrywają z edycją w panelu”). Przed odświeżeniem zapytaj szefa, czy czegoś nie poprawiał na stagingu.
-- **Ginie:** zapytania wysłane w trakcie (minuty) — są w kopii `predeploy`.
-- Lokalna kopia (testowe zapytania, skróty haseł) jest kasowana na końcu, także po błędzie.
-- Po błędzie przed krokiem „replace” staging jest nietknięty; po błędzie w trakcie — §6 z kopią `staging/predeploy`.
+Kroki:
+1. `backup.sh staging predeploy` (B2) — błąd kopii zatrzymuje skrypt;
+2. `pnpm install --frozen-lockfile`, zrzut bazy i mediów stagingu, tymczasowy Postgres na komputerze (`127.0.0.1:54331`, usuwany na końcu);
+3. `pnpm payload migrate` + `pnpm seed:<linia>` (zmienne ustawione w skrypcie — `.env` z folderu ich nie nadpisze; pełne galerie);
+4. na serwerze `scripts/server/staging-content-apply.sh` (z tego checkoutu, przez ssh), pod blokadą wdrożeń: **przygotowanie obok** — nowa baza `prokom_staging_new` i media w `.incoming`, gdy aplikacja jeszcze działa; potem krótka **zamiana** (aplikacja zatrzymana na kilka–kilkanaście sekund, bazy i media przez zmianę nazw) → `healthy` + smoke; **błąd po zamianie = automatyczny powrót** starej bazy i mediów (nieudana kopia zostaje jako `prokom_staging_failed` / `.failed` do obejrzenia); sukces → stare kopie i wgrane pliki usunięte, wpis w `../deploys.log`.
+
+- **Zostaje:** konta (`Users`), zapytania, tenanty (e-mail powiadomień, domeny `staging`) — importy linii tenanty tylko czytają, kont ani zapytań nie dotykają.
+- **Nadpisuje:** to, co jest w paczkach: katalog Biznesu („pola z paczki wygrywają z edycją w panelu”), **globalne Dane firmy** (`seed:biznes` — nazwa, NIP i **salony = tylko Rabka**; salon dodany w panelu stagingu zniknie) i **ustawienia stron** (`site-settings`) wszystkich trzech linii. Przed odświeżeniem zapytaj szefa, czy czegoś nie poprawiał na stagingu.
+- **Ginie:** zapytania wysłane między zrzutem a zamianą (minuty) — są w kopii `predeploy`.
+- Nie przerywaj (Ctrl+C) w kroku 4: zatrzymana aplikacja nie wstanie sama — wtedy `docker start prokom-staging-app-1` i sprawdzenie baz (`prokom_staging`, `_new`, `_old`).
+- Lokalna kopia (testowe zapytania, skróty haseł) i wgrane pliki na serwerze są kasowane na końcu, także po błędzie.
 
 ## 3. Wdrożenie produkcji
 
