@@ -32,6 +32,7 @@ import { BundleGrid } from '@/sites/biznes/components/bundle/BundleCard'
 import { PageLink } from '@/sites/biznes/components/PageLink'
 import { ProductAbout } from '@/sites/biznes/components/product/ProductAbout'
 import { ProductBento } from '@/sites/biznes/components/product/ProductBento'
+import { Icon } from '@/components/ui/Icon'
 import { StickyAction } from '@/sites/biznes/components/mobile/StickyAction'
 import { ProductAddButton } from '@/sites/biznes/components/product/ProductAddButton'
 import { ProductConfigProvider } from '@/sites/biznes/components/product/ProductConfig'
@@ -233,10 +234,13 @@ export default async function ProductPage({ params }: Props) {
           dangerouslySetInnerHTML={{ __html: serializeJsonLd(data) }}
         />
       ))}
-      <div className="mx-auto w-full max-w-7xl px-4 pt-5 pb-12 sm:px-6 sm:pt-8 sm:pb-16 lg:px-8">
-        <Breadcrumbs items={crumbs} />
-        <ScreenTitleMark name={product.shortName ?? product.heading} />
-        <div className="mt-5 sm:mt-7">
+      <div className="mx-auto w-full max-w-7xl px-4 pt-5 pb-12 max-md:pt-0 sm:px-6 md:pt-8 sm:pb-16 lg:px-8">
+        {/* Board App-Produkt: no breadcrumbs on a phone, the top bar names the category. */}
+        <div className="max-md:hidden">
+          <Breadcrumbs items={crumbs} />
+        </div>
+        <ScreenTitleMark name={category?.name ?? product.shortName ?? product.heading} />
+        <div className="mt-5 max-md:mt-0 md:mt-7">
           <ProductHero
             product={product}
             icon={listed ? cardIcon(listed, index) : 'store'}
@@ -255,10 +259,24 @@ export default async function ProductPage({ params }: Props) {
         image={product.images[0] ?? null}
       />
       {/* Phone (MOBILE-APLIKACJA §1): „Dodaj do zapytania” sticks to the bottom of the screen. */}
+      {/* Board App-Produkt: „Zadzwoń” and „Dodaj do zapytania” in the bar (the hero's phone
+          link hides on a phone). */}
       <StickyAction>
-        <ProductAddButton className="w-full" />
+        <div className="flex gap-2.5">
+          {phone && (
+            <a
+              href={phone.href}
+              className="inline-flex min-h-[52px] shrink-0 items-center justify-center gap-2 rounded-2xl bg-surface-2 px-4 font-extrabold text-ink shadow-[inset_0_0_0_1px_var(--border)]"
+            >
+              <Icon name="phone" className="size-5" />
+              Zadzwoń
+              <span className="sr-only">: {phone.label}</span>
+            </a>
+          )}
+          <ProductAddButton className="min-w-0 flex-1" />
+        </div>
       </StickyAction>
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-20 px-4 pt-14 pb-16 sm:gap-28 sm:px-6 sm:pt-20 sm:pb-24 lg:px-8">
+      <div className="mx-auto flex w-full max-w-7xl flex-col gap-10 px-4 pt-8 pb-12 sm:px-6 md:gap-28 md:pt-20 md:pb-24 lg:px-8">
         <ProductBento id={ID.overview} heading={product.heading} tiles={tiles} />
         <ProductAbout id={ID.about} product={product} />
         {product.configurator && <ProductConfigurator config={product.configurator} />}
@@ -276,7 +294,7 @@ export default async function ProductPage({ params }: Props) {
               </PageLink>
             }
           >
-            <BundleGrid bundles={bundles} />
+            <BundleGrid bundles={bundles} phoneRow />
           </ProductSection>
         )}
         <ProductSuggestions

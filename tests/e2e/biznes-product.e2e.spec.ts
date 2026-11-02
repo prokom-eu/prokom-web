@@ -412,3 +412,30 @@ test.describe('Biznes product page 2.0', () => {
     expect(await page.content()).not.toContain('/produkt/')
   })
 })
+
+// Prompt 3 E3: the product on a phone as the board App-Produkt.
+test.describe('Biznes product on a phone', () => {
+  test.use({ viewport: { width: 390, height: 844 } })
+
+  test('category in the top bar, versions in a row, the description folds', async ({ page }) => {
+    await page.goto(site('biznes.localhost', THINKBOOK))
+    await expect(page.locator('main [data-screen-title]')).toHaveAttribute(
+      'data-screen-title',
+      'Laptopy',
+    )
+    const versions = page.getByRole('button', { name: 'G8 IRL (Intel)' }).locator('..')
+    const size = await versions.evaluate((el) => [el.scrollWidth, el.clientWidth])
+    expect(size[0]).toBeGreaterThan(size[1])
+
+    // Board App-Produkt: „Zadzwoń” next to „Dodaj do zapytania” in the bottom bar.
+    const bar = page.locator('[data-sticky-action]')
+    await expect(bar.getByRole('link', { name: /^Zadzwoń/ })).toHaveAttribute('href', /^tel:/)
+
+    const more = page.locator('#opis button[aria-expanded]')
+    await expect(more).toHaveText('Czytaj cały opis')
+    await more.click()
+    await expect(more).toHaveAttribute('aria-expanded', 'true')
+    await expect(more).toHaveText('Zwiń opis')
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390)
+  })
+})

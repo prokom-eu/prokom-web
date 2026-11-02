@@ -68,7 +68,7 @@ export function ProductHero({
         service={serviceTile({ kind: product.kind, brand: brand?.slug ?? null })}
       />
 
-      <div className="flex min-w-0 flex-col gap-5">
+      <div className="flex min-w-0 flex-col gap-5 max-md:gap-4">
         <div className="flex flex-wrap items-center gap-2">
           {brand &&
             (brandHref ? (
@@ -99,7 +99,9 @@ export function ProductHero({
             ))}
         </div>
 
-        <h1 className={`${BZ_H1_COMPACT} text-ink`}>{product.heading}</h1>
+        <h1 className={`${BZ_H1_COMPACT} text-ink max-md:text-[26px] max-md:leading-[1.1]`}>
+          {product.heading}
+        </h1>
 
         <VersionChips />
 
@@ -138,7 +140,8 @@ export function ProductHero({
             {phone && (
               <a
                 href={phone.href}
-                className="inline-flex min-h-[52px] items-center justify-center rounded-2xl bg-card px-6 font-display text-lg font-extrabold text-ink shadow-[inset_0_0_0_1.5px_var(--border)] hover:shadow-[inset_0_0_0_1.5px_var(--ink-3)]"
+                // On a phone „Zadzwoń” is in the sticky bar (M1′).
+                className="inline-flex min-h-[52px] items-center max-md:hidden justify-center rounded-2xl bg-card px-6 font-display text-lg font-extrabold text-ink shadow-[inset_0_0_0_1.5px_var(--border)] hover:shadow-[inset_0_0_0_1.5px_var(--ink-3)]"
               >
                 <span className="sr-only">Zadzwoń: </span>
                 {phone.label}
@@ -150,7 +153,7 @@ export function ProductHero({
           </p>
         </div>
 
-        <ul className="grid gap-4 border-t border-border pt-5 sm:grid-cols-3">
+        <ul className="grid gap-4 border-t border-border pt-5 max-md:hidden sm:grid-cols-3">
           {services.map((service) => (
             <li key={service.title} className="flex gap-3 text-sm">
               <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-surface-2 text-ok-text">
