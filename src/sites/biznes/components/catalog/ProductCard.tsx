@@ -179,7 +179,7 @@ export function ProductCard({
 
       <div className="flex min-w-0 flex-1 flex-col gap-2">
         {eyebrow && (
-          <p className="text-xs font-extrabold tracking-[0.07em] text-ink-3 uppercase">{eyebrow}</p>
+          <p className="text-xs font-extrabold tracking-[0.07em] text-ink-2 uppercase">{eyebrow}</p>
         )}
         <h3 className="text-[15px] leading-[1.25] font-extrabold sm:text-[17px]">
           <Link href={href} className="text-ink hover:text-accent-text">
