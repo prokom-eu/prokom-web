@@ -47,7 +47,7 @@ export async function CareHero({
       className="scroll-mt-28 pt-6 pb-14 sm:pt-8 sm:pb-20"
     >
       <Container wide>
-        <div className="mb-7">
+        <div className="mb-7 max-md:hidden">
           <Breadcrumbs items={withTrail(crumbs, data.trail)} />
         </div>
         {/* Board `Web-opieka-it` (prompt 2 W3): the hero in a dark card, the report on the right. */}

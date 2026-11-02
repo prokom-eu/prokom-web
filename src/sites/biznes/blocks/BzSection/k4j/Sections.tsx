@@ -28,7 +28,9 @@ import {
 } from '../ui'
 import { AddMachineButton, ClientTabs, KsefTimeline, PhaseText } from './Client'
 
-const HERO_H1 = BZ_H1
+// Phone (boards App-*): 30 px in the hero card.
+const HERO_H1 = cx(BZ_H1, 'max-md:text-[30px] max-md:leading-[1.05]')
+const HERO_LEAD = `${BZ_LEAD} max-md:text-[14.5px] max-md:leading-relaxed`
 
 /** „1 stycznia 2027” from an ISO day (the day in Poland). */
 const dayLabel = (iso: string) =>
@@ -68,7 +70,7 @@ export function VendingHero({
   return (
     <section aria-labelledby="vending-h" className="bg-surface-2 pt-6 pb-14 sm:pt-8 sm:pb-20">
       <Container wide>
-        <div className="mb-7">
+        <div className="mb-7 max-md:hidden">
           <Breadcrumbs items={withTrail(crumbs, data.trail)} />
         </div>
         <div className="grid items-center gap-10 min-[1080px]:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]">
@@ -336,17 +338,23 @@ export function SourcesSection({
   data: SectionData<'sources'>
 }) {
   return (
-    <SectionShell block={block} className="py-8 sm:py-10">
-      <div className={cx(CARD, 'flex flex-col gap-3 p-5 text-ink')}>
-        <p className="font-extrabold">Źródła</p>
-        <ul className="flex flex-col gap-2">
+    <SectionShell block={block} className="py-8 max-md:py-4 sm:py-10">
+      {/* Phone (App-KSeF, App-Ulga): a small text under the last section, no card. */}
+      <div
+        className={cx(
+          CARD,
+          'flex flex-col gap-3 p-5 text-ink max-md:gap-1 max-md:rounded-none max-md:bg-transparent max-md:p-0 max-md:shadow-none',
+        )}
+      >
+        <p className="font-extrabold max-md:text-[13px]">Źródła</p>
+        <ul className="flex flex-col gap-2 max-md:gap-0">
           {data.items.map((item) => (
             <li key={item.url}>
               <a
                 href={item.url}
                 rel="noopener"
                 target="_blank"
-                className="inline-flex min-h-11 items-center text-[15px] font-bold text-accent-text hover:underline"
+                className="inline-flex min-h-11 items-center text-[15px] font-bold text-accent-text hover:underline max-md:min-h-10 max-md:text-[13px]"
               >
                 {item.t}
                 <span className="sr-only"> (otwiera się w nowej karcie)</span>
@@ -354,7 +362,7 @@ export function SourcesSection({
             </li>
           ))}
         </ul>
-        {data.note && <p className="text-[13px] text-ink-2">{data.note}</p>}
+        {data.note && <p className="text-[13px] text-ink-2 max-md:text-xs">{data.note}</p>}
       </div>
     </SectionShell>
   )
@@ -382,25 +390,26 @@ export async function KsefHero({
       <h1 id="ksef-h" className={HERO_H1}>
         {v.h1a} <em className="text-accent-on-dark not-italic">{v.h1b}</em>
       </h1>
-      <p className={`${BZ_LEAD} max-w-[60ch] text-pretty text-white/85`}>{v.lead}</p>
+      <p className={`${HERO_LEAD} max-w-[60ch] text-pretty text-white/85`}>{v.lead}</p>
     </>
   )
   return (
     <section
       aria-labelledby="ksef-h"
       data-surface="dark"
-      className="bg-surface-dark pt-6 pb-14 text-white sm:pt-8 sm:pb-20"
+      // Phone (App-KSeF): a card with a margin, like the other heroes of the phone screens.
+      className="bg-surface-dark pt-6 pb-14 text-white max-md:mx-4 max-md:mt-3 max-md:rounded-[26px] max-md:pt-5 max-md:pb-5 min-[768px]:pt-8 min-[768px]:pb-20"
     >
       <Container wide>
-        <div className="mb-7">
+        <div className="mb-7 max-md:hidden">
           <Breadcrumbs items={withTrail(crumbs, data.trail)} onDark />
         </div>
-        <div className="grid items-start gap-10 min-[1080px]:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
-          <div className="flex flex-col gap-6">
+        <div className="grid items-start gap-10 max-md:gap-4 min-[1080px]:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
+          <div className="flex flex-col gap-6 max-md:gap-3.5">
             <p
               className={cx(
                 EYEBROW,
-                'inline-flex items-center gap-2 self-start rounded-full bg-white/10 px-3.5 py-2 text-white ring-1 ring-white/20',
+                'inline-flex items-center gap-2 self-start rounded-full bg-white/10 px-3.5 py-2 text-white ring-1 ring-white/20 max-md:px-3 max-md:py-1.5 max-md:text-[11px] max-md:tracking-normal max-md:normal-case',
               )}
             >
               {data.pill}
@@ -419,24 +428,25 @@ export async function KsefHero({
                 className={BTN_PRIMARY}
               />
               {phone && tel && (
-                <a href={tel} className={BTN_ON_DARK}>
+                // Phone: the call is one tap away in the tab bar (App-KSeF has no hero buttons).
+                <a href={tel} className={cx(BTN_ON_DARK, 'max-md:hidden')}>
                   {phone}
                 </a>
               )}
             </div>
           </div>
-          <div className="flex flex-col gap-4 rounded-[28px] bg-white/5 p-5 ring-1 ring-white/10 sm:p-6">
+          <div className="flex flex-col gap-4 rounded-[28px] bg-white/5 p-5 ring-1 ring-white/10 max-md:gap-2.5 max-md:rounded-[20px] max-md:bg-transparent max-md:p-0 max-md:ring-0 min-[768px]:p-6">
             <PhaseText
               date={data.switchDate}
               serverAfter={serverAfter}
               before={
                 // Counted in the browser; DayCount shows nothing once the day has come.
-                <p className="flex items-baseline gap-3">
+                <p className="flex items-baseline gap-3 max-md:items-center max-md:rounded-[18px] max-md:bg-white/8 max-md:px-4 max-md:py-3 max-md:ring-1 max-md:ring-white/10">
                   <DayCount
                     date={data.switchDate}
-                    className="font-display text-[clamp(3.4rem,6vw,4.6rem)] leading-none font-extrabold tabular-nums"
+                    className="font-display text-[clamp(3.4rem,6vw,4.6rem)] leading-none font-extrabold tabular-nums max-md:text-[40px]"
                   />
-                  <span className="text-lg font-bold">
+                  <span className="text-lg font-bold max-md:text-[13px] max-md:leading-snug">
                     dni do {dayLabel(data.switchDate)} · KSeF bez wyjątków
                   </span>
                 </p>
@@ -484,7 +494,7 @@ export function KsefPenalties({
         {/* Board `Web-ksef` (prompt 2 W3): a burgundy card, mixed from the brand red and navy. */}
         <div
           data-surface="dark"
-          className="flex flex-col gap-4 rounded-[24px] bg-[linear-gradient(160deg,color-mix(in_srgb,var(--c-biznes-tone-red)_42%,var(--surface-dark))_0%,color-mix(in_srgb,var(--c-biznes-tone-red)_14%,var(--surface-dark))_100%)] p-6 text-white sm:p-8"
+          className="flex flex-col gap-4 rounded-[24px] bg-[linear-gradient(160deg,color-mix(in_srgb,var(--c-biznes-tone-red)_42%,var(--surface-dark))_0%,color-mix(in_srgb,var(--c-biznes-tone-red)_14%,var(--surface-dark))_100%)] p-6 text-white max-md:gap-3 max-md:p-[18px] min-[768px]:p-8"
         >
           <p className={cx(EYEBROW, 'flex items-center gap-2 text-white/80')}>
             <span aria-hidden="true" className="h-0.5 w-5 bg-current" />
@@ -495,14 +505,16 @@ export function KsefPenalties({
             {data.penalties.figures.map((figure) => (
               <div
                 key={figure.v}
-                className="flex flex-col-reverse gap-1 rounded-2xl bg-white/5 p-4 ring-1 ring-white/10"
+                className="flex flex-col-reverse gap-1 rounded-2xl bg-white/5 p-4 ring-1 ring-white/10 max-md:p-3"
               >
-                <dt className="text-[14px] text-white/80">{figure.k}</dt>
-                <dd className="font-display text-[2rem] leading-none font-extrabold">{figure.v}</dd>
+                <dt className="text-[14px] text-white/80 max-md:text-xs">{figure.k}</dt>
+                <dd className="font-display text-[2rem] leading-none font-extrabold max-md:text-[24px]">
+                  {figure.v}
+                </dd>
               </div>
             ))}
           </dl>
-          <p className="leading-relaxed text-white/85">
+          <p className="leading-relaxed text-white/85 max-md:text-[13px]">
             {data.penalties.text}{' '}
             <PhaseText
               date={data.switchDate}
@@ -512,7 +524,8 @@ export function KsefPenalties({
             />
           </p>
         </div>
-        <div className={cx(CARD, 'flex flex-col gap-4 p-6 text-ink sm:p-8')}>
+        {/* Not on the phone board App-KSeF (the penalties card is followed by the sources). */}
+        <div className={cx(CARD, 'flex flex-col gap-4 p-6 text-ink max-md:hidden sm:p-8')}>
           <p className={cx(EYEBROW, 'text-accent-text')}>{data.help.eyebrow}</p>
           <h2 className={H2}>{data.help.heading}</h2>
           <ul className="flex flex-col gap-3">
@@ -578,17 +591,20 @@ export async function UlgaHero({
 }) {
   const { phone, tel } = await officePhone(tenantId)
   return (
-    <section aria-labelledby="ulga-h" className="bg-surface-2 pt-6 pb-14 sm:pt-8 sm:pb-20">
+    <section
+      aria-labelledby="ulga-h"
+      className="bg-surface-2 pt-6 pb-14 max-md:pt-4 max-md:pb-6 min-[768px]:pt-8 min-[768px]:pb-20"
+    >
       <Container wide>
-        <div className="mb-7">
+        <div className="mb-7 max-md:hidden">
           <Breadcrumbs items={withTrail(crumbs, data.trail)} />
         </div>
-        <div className="grid items-center gap-10 min-[1080px]:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
-          <div className="flex flex-col gap-6 text-ink">
+        <div className="grid items-center gap-10 max-md:gap-4 min-[1080px]:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
+          <div className="flex flex-col gap-6 text-ink max-md:gap-3.5">
             <p
               className={cx(
                 EYEBROW,
-                'inline-flex items-center gap-2 self-start rounded-full bg-card px-3.5 py-2 text-accent-text shadow-[inset_0_0_0_1px_var(--border)]',
+                'inline-flex items-center gap-2 self-start rounded-full bg-card px-3.5 py-2 text-accent-text shadow-[inset_0_0_0_1px_var(--border)] max-md:px-3 max-md:py-1.5 max-md:text-[11px] max-md:tracking-normal max-md:normal-case',
               )}
             >
               {data.pill}
@@ -600,9 +616,10 @@ export async function UlgaHero({
               )}
             </h1>
             {block.lead && (
-              <p className={`${BZ_LEAD} max-w-[60ch] text-pretty text-ink-2`}>{block.lead}</p>
+              <p className={`${HERO_LEAD} max-w-[60ch] text-pretty text-ink-2`}>{block.lead}</p>
             )}
-            <div className="flex flex-wrap gap-3">
+            {/* Phone (App-Ulga): no hero buttons, the tills follow lower on the page. */}
+            <div className="flex flex-wrap gap-3 max-md:hidden">
               {data.actions.map((action, i) => (
                 <Link
                   key={action.href}
@@ -619,14 +636,22 @@ export async function UlgaHero({
               )}
             </div>
           </div>
-          <dl className="grid grid-cols-2 gap-3">
-            {data.cards.map((card) => (
-              <div key={card.k} className={cx(CARD, 'flex flex-col gap-1 p-5 text-ink')}>
-                <dt className="text-[13px] font-extrabold text-ink-2">{card.k}</dt>
-                <dd className="font-display text-[clamp(1.5rem,2.6vw,2.2rem)] leading-tight font-extrabold">
+          {/* Phone: the two numbers only (90% and 700 zł). */}
+          <dl className="grid grid-cols-2 gap-3 max-md:gap-2">
+            {data.cards.map((card, i) => (
+              <div
+                key={card.k}
+                className={cx(
+                  CARD,
+                  'flex flex-col gap-1 p-5 text-ink max-md:p-3.5',
+                  i > 1 && 'max-md:hidden',
+                )}
+              >
+                <dt className="text-[13px] font-extrabold text-ink-2 max-md:text-xs">{card.k}</dt>
+                <dd className="font-display text-[clamp(1.5rem,2.6vw,2.2rem)] leading-tight font-extrabold max-md:text-[26px]">
                   {card.v}
                 </dd>
-                <dd className="text-[14px] leading-snug text-ink-2">{card.d}</dd>
+                <dd className="text-[14px] leading-snug text-ink-2 max-md:text-xs">{card.d}</dd>
               </div>
             ))}
           </dl>
@@ -639,11 +664,25 @@ export async function UlgaHero({
 /** „Ulga przysługuje” / „Ulga nie przysługuje”. */
 export function YesNo({ block, data }: { block: BzSectionData; data: SectionData<'yes-no'> }) {
   const column = (title: string, items: string[], ok: boolean) => (
-    <div className={cx(CARD, 'flex flex-col gap-3 p-6 text-ink')}>
-      <b className="font-display text-lg font-extrabold">{title}</b>
-      <ul className="flex flex-col gap-2.5">
+    // Phone (App-Ulga): no card, one tinted row per condition (green yes, red no).
+    <div
+      className={cx(
+        CARD,
+        'flex flex-col gap-3 p-6 text-ink max-md:gap-1.5 max-md:rounded-none max-md:bg-transparent max-md:p-0 max-md:shadow-none',
+      )}
+    >
+      <b className="font-display text-lg font-extrabold max-md:sr-only">{title}</b>
+      <ul className="flex flex-col gap-2.5 max-md:gap-1.5">
         {items.map((item) => (
-          <li key={item} className="flex gap-2.5 leading-relaxed text-ink-2">
+          <li
+            key={item}
+            className={cx(
+              'flex gap-2.5 leading-relaxed text-ink-2 max-md:rounded-xl max-md:px-3.5 max-md:py-2.5 max-md:text-[13.5px] max-md:leading-snug max-md:text-ink',
+              ok
+                ? 'max-md:bg-[color-mix(in_srgb,var(--ok)_10%,transparent)]'
+                : 'max-md:bg-[color-mix(in_srgb,var(--c-biznes-tone-red)_8%,transparent)]',
+            )}
+          >
             <span aria-hidden="true" className={ok ? 'text-ok-text' : 'text-ink-2'}>
               {ok ? '✓' : '✕'}
             </span>
@@ -655,7 +694,7 @@ export function YesNo({ block, data }: { block: BzSectionData; data: SectionData
   )
   return (
     <SectionShell block={block}>
-      <div className="grid gap-4 min-[900px]:grid-cols-2">
+      <div className="grid gap-4 max-md:gap-1.5 min-[900px]:grid-cols-2">
         {column(data.yes.t, data.yes.items, true)}
         {column(data.no.t, data.no.items, false)}
       </div>
@@ -667,10 +706,13 @@ export function YesNo({ block, data }: { block: BzSectionData; data: SectionData
 export function Notice({ block, data }: { block: BzSectionData; data: SectionData<'notice'> }) {
   return (
     <SectionShell block={block}>
-      <div className="grid gap-4 min-[900px]:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]">
-        <ul className={cx(CARD, 'flex flex-col gap-3 p-6 text-ink')}>
+      <div className="grid gap-4 max-md:gap-2 min-[900px]:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]">
+        <ul className={cx(CARD, 'flex flex-col gap-3 p-6 text-ink max-md:gap-2 max-md:p-4')}>
           {data.items.map((item) => (
-            <li key={item} className="flex gap-2.5 leading-relaxed text-ink-2">
+            <li
+              key={item}
+              className="flex gap-2.5 leading-relaxed text-ink-2 max-md:text-[13.5px] max-md:leading-snug"
+            >
               <span aria-hidden="true" className="text-promo-ink">
                 !
               </span>
@@ -679,9 +721,9 @@ export function Notice({ block, data }: { block: BzSectionData; data: SectionDat
           ))}
         </ul>
         {data.aside && (
-          <div className="flex flex-col gap-2 rounded-[22px] bg-surface-dark p-6 text-white">
-            <b className="font-display text-lg font-extrabold">{data.aside.t}</b>
-            <p className="leading-relaxed text-white/85">{data.aside.d}</p>
+          <div className="flex flex-col gap-2 rounded-[22px] bg-surface-dark p-6 text-white max-md:gap-1 max-md:p-4">
+            <b className="font-display text-lg font-extrabold max-md:text-base">{data.aside.t}</b>
+            <p className="leading-relaxed text-white/85 max-md:text-[13px]">{data.aside.d}</p>
           </div>
         )}
       </div>
