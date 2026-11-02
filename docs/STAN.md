@@ -17,11 +17,13 @@ Dwie strony powstają równolegle, każda we własnym folderze (git worktree) �
 Instalacje: stan w docs/stan/STAN-instalacje.md (worktree prokom-instal, gałęzie inst/*)
 
 ### Elementy wspólne linii — fundament F0–F4 (plan `docs/zadania/wspolne-elementy.md`, ADR-022)
-- Gałąź: `docs/wsp-pakiet` (F0, PR do `develop` — po scaleniu gałąź zbędna).
-- Zrobione w tej sesji (01.11): pakiet w repo (spec `docs/design/wspolne/WSPOLNE-ELEMENTY.md`, plansze, plan v2); ADR-022 przyjęta z poprawkami — grupa `shared` linii w `SiteSettings`, salony = rozszerzone `CompanyData.locations[]`, znak w nagłówku 180×36; `docs/design/wspolne/MAPA-DZIS.md` (stan 3 linii, literały, zakazane frazy, zdjęcia ludzi, `public/brand`, dodatki Kontaktu i O firmie → sloty, mapowanie danych §9); odnośniki w CLAUDE.md, README, INDEKS Biznesu, STAN-instalacje i planach linii.
-- Niedokończone: nic w F0. Do F3 zostaje jedna sprawa bez slotu: Biznes „Osiem zasad” a `rules[6]` szablonu (MAPA-DZIS §7.2).
-- Następny krok: po scaleniu F0 i po poprawkach po audytach (Biznes sesje A/B wg `docs/zadania/prokombiznes.md` §7.2, Instalacje I14b → I-T → I-M) — sesja **F1** w folderze bez trwającej sesji linii: prompt „F1 — dane” z `docs/zadania/wspolne-elementy.md` §2, gałąź `feat/wsp-dane` od `origin/develop`, wejście `MAPA-DZIS.md` §9.
-- Etap A (przed produkcją linii): F0–F2 + L1 każdej linii. Etap B: F3, L2 × 3, F4 (może wejść po produkcji).
+- Gałąź: `docs/wsp-szyna` (F0b, PR do `develop`). F0 scalone (#282).
+- Zrobione w tej sesji (02.11, F0b): pakiet 02.11 scalony trójstronnie z poprawkami F0 (nowa plansza `plansze/Szyna.dc.html`, spec §3 „Pasek przewijania”, §5.1 `SiteRail` i `SearchDialog`, `shared.rail` + `CompanyData.recentlyViewed`, plan v2 z nowymi szacunkami); `MAPA-DZIS.md` §10 — szyny, wyszukiwarki, pasek przewijania i długie podstrony 3 linii.
+- **Decyzje 02.11:** szyna (`SiteRail`, ≥ 1400 px) na każdej stronie wszystkich linii, z wyróżnionym „Szukaj”; wyszukiwarka (`SearchDialog`) także w Instalacjach i Software (Biznes zostaje przy K4b); pasek przewijania w kolorach linii; dodatki szyny 1, 3, 4, 5, 6 (akcja linii z licznikiem, postęp i „Do góry”, „Na tej stronie”, paleta poleceń, ostatnio oglądane — za flagą `CompanyData.recentlyViewed` do opinii prawnika), bez nr 2 (status i telefon w szynie). Po rozpoznaniu: na podstronach sekcje strony głównej zamiast menu globalnego Biznesu; wymiary i rozwijanie wg planszy (64 → 248 px, `clip-path`, 120/250 ms); aktywna sekcja z istniejącego `railActive.ts`, `aria-current="location"`; pasek kotwic Instalacji i `ProductSectionNav` Biznesu od 1400 px zastąpione grupą „Na tej stronie”. Po przeglądzie: lupa w nagłówku (`SiteHeader`, slot `extras`) we wszystkich liniach poniżej 1400 px — dziś ma ją tylko Biznes.
+- Znaleziony błąd (do F2, nie naprawiany w F0b): pasek przewijania Software (`globals.css:385–409`) — `scrollbar-color` bezwarunkowo wyłącza w Chrome/Edge 121+ jego style `::-webkit-scrollbar`.
+- Niedokończone: nic w F0b. Do F3 zostaje Biznes „Osiem zasad” a `rules[6]` szablonu (MAPA-DZIS §7.2).
+- Następny krok: po scaleniu F0b i po poprawkach po audytach (Biznes sesje A/B wg `docs/zadania/prokombiznes.md` §7.2, Instalacje I-T) — sesja **F1** w folderze bez trwającej sesji linii: prompt „F1 — dane” z `docs/zadania/wspolne-elementy.md` §2 (z `shared.rail`), gałąź `feat/wsp-dane` od `origin/develop`, wejście `MAPA-DZIS.md` §9 i §10.1.
+- Szacunek całości: ok. 13 wieczorów (etap A ok. 7,5: F0–F2 + L1 każdej linii, przed produkcją). Etap B: F3, L2 × 3, F4 (może wejść po produkcji).
 - Zasady treści 01.11 obowiązują od teraz we wszystkich sesjach: bez WhatsAppa, bez zdjęć ludzi, dane kontaktowe z panelu, „Tech” (nie „Serwis”), pro-kom.eu bez „sklepu”, Gaming tylko jako odnośnik.
 
 ### Fundament S10 — serwer — folder `prokom-web-serwer`
@@ -203,6 +205,7 @@ Instalacje: stan w docs/stan/STAN-instalacje.md (worktree prokom-instal, gałęz
 
 ### Elementy wspólne linii
 - **F0 (01.11.2026, PR `docs/wsp-pakiet`):** pakiet, ADR-022 (przyjęta z poprawkami), `docs/design/wspolne/MAPA-DZIS.md`.
+- **F0b (02.11.2026, PR `docs/wsp-szyna`):** boczna szyna, wyszukiwarka i pasek przewijania w pakiecie (spec §3, §5.1, plansza Szyna), `MAPA-DZIS.md` §10, decyzje 02.11.
 
 ### Do 23.10.2026 (wspólne)
 - 30.10.2026 — szybsze CI PR-ów (`chore/ci-szybciej`): PR-y czekały ~6 min na samo przydzielenie runnera, bo każde scalenie do `develop` zajmowało 11 jobów (CI z 6 shardami e2e + Image), a scalenia idą z trzech folderów. Push do `develop`/`main` nie uruchamia już Playwrighta: zamiast 6 shardów jeden job `seed · build` (świeży seed, zapis snapshotu bazy i `.next/cache`, z których korzystają PR-y), obok `lint · typecheck · test` i gitleaks — 5 jobów zamiast 11. `build · e2e` ma `!cancelled()` zamiast `always()`: przebieg anulowany nowszym pushem nie czeka już na runner (wcześniej w kolejce wisiały dwa przebiegi `develop`). Ryzyko: dwa PR-y zielone osobno mogą po squashu zepsuć się razem — pokaże to CI następnego PR (testuje commit scalenia z aktualnym `develop`) albo staging. Reguł gałęzi nie ma (repo bez ochrony i rulesetów), więc nic nie wymagało e2e przy push.
@@ -424,6 +427,7 @@ Instalacje: stan w docs/stan/STAN-instalacje.md (worktree prokom-instal, gałęz
 - Z S9b-1: log Nginx zawiera IP klienta (potrzebne do nadużyć); retencja = rotacja 5 × 10 MB — wspomnieć w polityce prywatności.
 
 ## Otwarte pytania
+- **Elementy wspólne (F0b, 02.11):** [prawnik] czy „Ostatnio oglądane” (zapis w `localStorage`) wymaga zgody — do tego czasu flaga `CompanyData.recentlyViewed` wyłączona.
 - **Elementy wspólne (F0, 01.11):** usunięcie pól WhatsApp z panelu (`SiteSettings.biznes.whatsapp`, `InstalacjeSettings.whatsapp`, opcja `preferredContact: whatsapp`) — migracja usuwająca dane, decyzja przy F1; [prawnik] `consentMode` checkbox czy klauzula informacyjna (spec §12).
 - **Polityka prywatności, cookies, dostępność (B11b, `src/seed/biznes/legal.ts`):** projekty do akceptacji szefa/prawnika przed 26.10 — podstawy prawne, NIP i e-mail w sprawach danych (biuro@ czy biznes@), dostawcy hostingu/poczty/kopii i gdzie trzymają dane, data obowiązywania. Instalacje i Software też linkują `/polityka-prywatnosci` (dziś 404) — przed ich produkcją.
 - **Przeniesienie treści Biznesu na staging/produkcję (B10):** seed jest tylko lokalny — treści kategorii kas, 3 branż, stron z bloków i reguły kreatora trzeba przenieść (pg_dump/restore po przeglądzie albo ręcznie w panelu; „Pomysły na później”, wpis „Z B2 → S10/B11”). Decyzja Krystiana przed 26.10.

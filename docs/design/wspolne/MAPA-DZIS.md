@@ -1,6 +1,6 @@
 # Elementy wspólne — mapa „dziś → docelowo” (F0, 01.11.2026)
 
-Rozpoznanie kodu na `develop` @ `76f6060` (po SWV9). Wejście do F1–F3 (fundament) i L1–L2 (sesje linii). Spec: `WSPOLNE-ELEMENTY.md`, decyzja: `docs/decyzje/ADR-022-elementy-wspolne-linii.md`, plan: `docs/zadania/wspolne-elementy.md`.
+Rozpoznanie kodu na `develop` @ `76f6060` (po SWV9); §10 (szyna, wyszukiwarka, pasek przewijania) — F0b, `develop` @ `ed0af85`. Wejście do F1–F3 (fundament) i L1–L2 (sesje linii). Spec: `WSPOLNE-ELEMENTY.md`, decyzja: `docs/decyzje/ADR-022-elementy-wspolne-linii.md`, plan: `docs/zadania/wspolne-elementy.md`.
 
 Ścieżki względne do katalogu repo; numery linii orientacyjne (stan z dnia rozpoznania). Kolumna „Sesja”: F1 dane · F2 powłoka · F3 moduły i szablony · L1 wpięcie powłoki w linię · L2 Kontakt i O firmie linii · F4 QA.
 
@@ -192,3 +192,75 @@ Decyzje 01.11: grupa `shared` linii w **`SiteSettings`**; salony = **rozszerzone
 | `Inquiries` | typy `contact | list | wizard | search | audit`; `consent` {accepted, clauseVersion, acceptedAt} | bez zmian (spec „typ `kontakt`” = `contact`) |
 
 Loader: dziś `getCompanyData()` i `getSiteSettings(tenantId)` w `src/lib/site/data.ts` (+ `toPublic*` w `public.ts`). `src/lib/shared/getSharedData.ts` (F1) **składa** te dwa loadery, nie dubluje zapytań.
+
+## 10. Boczna szyna, wyszukiwarka, pasek przewijania (F0b, 02.11.2026)
+
+Rozpoznanie na `develop` @ `ed0af85`. Docelowo: `SiteRail` i `SearchDialog` (spec §5.1), reguła paska przewijania (spec §3). Decyzje Krystiana 02.11 po rozpoznaniu: na podstronach sekcje strony głównej (bez menu globalnego Biznesu), wymiary i rozwijanie wg planszy Szyna (64 → 248 px, `clip-path`, 120/250 ms), aktywna sekcja z istniejącego `railActive.ts`, `aria-current="location"`, pasek kotwic Instalacji i `ProductSectionNav` Biznesu zastąpione grupą „Na tej stronie” od 1400 px.
+
+### 10.1 Szyny dziś
+
+| Linia / element | Plik(i) | Dziś | Co robimy | Sesja |
+|---|---|---|---|---|
+| Wspólny `RailShell` | `src/components/SectionRail.tsx` (`RailShell` l. 63–112, `railLinkClass` l. 33, `SectionRail` l. 136) | `<nav>` `fixed top-1/2 left-4`, `hidden` → `min-[1400px]` / `min-[1401px]:block`; zwinięta `w-11` (44 px), rozwinięta `w-[214px]` na `group-hover` / `group-focus-within`; `transition-[width] duration-200`, `overflow-hidden`, bez opóźnień i bez `clip-path`; ramka `rounded-[22px] bg-card p-1` + cień; pozycje `h-9 rounded-[14px] text-sm font-bold`, ikony `Icon` 20 px; opcjonalny przycisk „Szukaj” (`requestSearch()`, `<kbd>` „Ctrl K lub /”, `aria-keyshortcuts`), bez pulsu; nagłówek grupy widoczny po rozwinięciu; pozycje bez sekcji w DOM odfiltrowane (`useSyncExternalStore`), < 2 pozycje → szyna znika | **rozbudować w `SiteRail`** (spec §5.1): 64 → 248 px, `clip-path` zamiast szerokości, 120/250 ms, tokeny `--dur-*`/`--ease-*`, puls „Szukaj” raz na sesję, `aria-current="location"`; przenieść do `src/components/shared/` | F2 |
+| Aktywna sekcja | `src/lib/site/railActive.ts` (+ `railActive.test.ts`) | ostatnia sekcja, której góra minęła 40% okna (`RAIL_LINE = 0.4`), na dole strony ostatnia; pomiar w `requestAnimationFrame` przy scroll/resize | **zostaje** (decyzja 02.11) — używa go `SiteRail`, także w grupie „Na tej stronie” | F2 |
+| Biznes — strona główna | `SectionRail` w `src/app/(sites)/[domain]/page.tsx:56` (`search`, `from=1400`), pozycje `src/sites/biznes/components/home/rail.ts:274–321` (`railItems`, + `rail.test.ts`) | 12 pozycji z bloków: `start` Start (rocket) · `oferta` Działy oferty (store) · `systemy` Systemy i opieka IT (server, warunkowo) · `marki` Marki (star) · `wybierane` Najczęściej wybierane (grid) · `dla-kogo` Dla kogo (users, warunkowo) · `plan` Plan Twojej firmy (map) · `jak-pracujemy` Jak pracujemy (compass) · `opinie` Opinie (chat, warunkowo) · `fakty` O firmie (doc) · `faq` Pytania (q) · `kontakt` Kontakt (phone); zwykłe linki `#id`, bez płynącego wskaźnika; `aria-current="true"`; id na stronie głównej zgodne z listą (`BzHero`, `BzOffer`, `BrandsHome`, `BzFeatured`, `BzPlan`, `BzSteps`, `BzReferences`, `BzFacts`, `FaqBiznes`, `BzContact`) | **lista startowa `shared.rail.sections` Biznesu** (seed F1; warunkowe pozycje jak dziś); `SiteRail` na każdej stronie, przycisk Szukaj otwiera wyszukiwarkę K4b | F1, F2 → L1-B |
+| Biznes — podstrony | `src/sites/biznes/components/rail/SiteRail.tsx` (w `Frame.tsx:57`, `null` na `/`), `rail/siteRailItems.ts:49–59` (+ test) | „Menu boczne” = **menu globalne**: Strona główna, Oferta, Konfigurator, Plan Twojej firmy, Gotowe zestawy, Opieka IT, O firmie, Kontakt, Marki; `aria-current="page"` (`/produkt/*` → Oferta) | **usunąć** (decyzja 02.11) — zastępuje go wspólny `SiteRail` (sekcje strony głównej `/#id` + „Na tej stronie”). Nazwa pliku koliduje z nowym `SiteRail` — L1-B usuwa stary plik i jego test | L1-B |
+| Software — strona główna | ten sam `SectionRail` (`from=1401`, `glide`), pozycje `src/sites/software/components/home/rail.ts:16–28` | 11 pozycji: `start` Start · `oferta` Oferta · `popularne` Najczęściej zamawiane · `podglady` Podglądy na żywo · `dobierz` Dobierz rozwiązanie · `jak-robimy` Jak robimy · `bez-wordpressa` Dlaczego nie WordPress · `technologie` Z czego budujemy · `zasady` Zasady · `faq` Pytania · `kontakt` Kontakt (`proces` bez etykiety — poza szyną); płynący wskaźnik `span[data-rail-marker]` (`--dur-state` 280 ms, `--ease-out`), klik = `glideTo` (`src/lib/software/smoothScroll.ts`) + `pushState` + fokus; **tylko strona główna** | lista startowa `shared.rail.sections` Software (bez realizacji); płynący wskaźnik i `glideTo` → wspólne zachowanie `SiteRail` | F1, F2 → L1-S |
+| Instalacje — strona główna | `src/sites/instalacje/widzety/glowna/SectionRail.tsx` (w `blocks/InstHome/Component.tsx:88`), `widzety/glowna/rail.ts`, pozycje `dane/glownaSekcje.ts:496–507`, CSS `sekcje/glowna/glowna-sekcje.css:11–81, 2887` | **własny komponent, bez `RailShell`**: stałe 40 px, bez rozwijania — etykieta jako dymek na hover i `:focus-visible`; pojawia się po `scrollY > 400` (opacity 0,4 s), od 1400 px; aktywna przy 35% okna; `aria-label="Sekcje strony"`, `aria-current="location"`; 10 pozycji: `start` · `dla-kogo` · `uslugi` · `architekci` · `realizacje` · `gory` · `proces` · `serwis` · `faq` · `zaplanuj` (id są; `trust` bez id, `#kontakt` w `PlanSection.tsx:49`) | lista startowa `shared.rail.sections` Instalacji (widoczna od razu, jak w Biznesie); stary komponent, `rail.ts` i CSS `.rail` usunąć | F1, F2 → L1-I |
+| Instalacje — pasek kotwic | `src/sites/instalacje/powloka/AnchorsBar.tsx` (`nav.anchors`), CSS `instalacje.css:334–361, 890, 989` | przyklejony (`top: 76px`, ≤ 760 px `64px`, przy schowanym nagłówku `0`), przewijany w poziomie, bez śledzenia aktywnej sekcji, na wszystkich szerokościach; używają: `sekcje/PageHero.tsx:119` → `blocks/InstService` (usługi), `obiekty/ObjectPage.tsx` (Dla kogo), `blocks/InstServiceDesk` (serwis); bezpośrednio `blocks/InstArchitects/Component.tsx:176` | **od 1400 px ukryty** — zastępuje go grupa „Na tej stronie”; poniżej zostaje; sekcje dostają `data-rail-section` | L1-I |
+| Biznes — pasek sekcji produktu | `ProductSectionNav.tsx` (strona `(biznes)/produkt/[slug]/page.tsx:177–185`) | przyklejony, od `lg`, `IntersectionObserver` (`rootMargin -35%/-55%`), ok. 12 sekcji | jak pasek kotwic Instalacji: **od 1400 px ukryty**, poniżej zostaje (decyzja 02.11) | L1-B |
+
+### 10.2 Wyszukiwarki dziś
+
+| Linia | Plik(i) | Dziś | Co robimy | Sesja |
+|---|---|---|---|---|
+| Biznes (K4b) | `src/sites/biznes/components/SearchOverlay.tsx` (w `BiznesHeader.tsx:71`), `src/lib/site/searchShortcut.ts`, `src/lib/site/searchOpen.ts`, indeks `GET /api/catalog-index` (`src/app/api/catalog-index/route.ts`, `src/lib/catalog/useCatalogIndex.ts`, `catalogIndex.ts`), synonimy / stop-słowa / popularne z panelu (`src/collections/searchGroup.ts` w `BiznesSettings.search`) | modalny `<dialog>`; Ctrl/Cmd K wszędzie, „/” poza polami; ↑/↓, Esc, klik tła; pusty stan: Najczęściej szukane · Na skróty (6 kategorii + Konfigurator + Plan) · Salony marek; wyniki: Produkty i usługi (7, „Podgląd” → `QuickView`, „Pokaż wszystkie” → `/oferta?szukaj=`) + Strony i usługi (3), Kategorie (4), Marki (3), Gotowe zestawy (2); brak wyników → „Zapytaj o «…»” (`/zapytanie?fraza=`) i **„Napisz na WhatsApp”** | **zostaje** (spec §5.1); dochodzi grupa „Akcje” (paleta poleceń, dodatek 5) na górze; WhatsApp usunąć; otwierana też przyciskiem `SiteRail` | L1-B |
+| Silnik | `src/lib/search.ts` (+ `search.test.ts`), `src/lib/catalog/normalize.ts` | **ogólne:** `normalizeText` (małe litery, ł→l, bez znaków diakrytycznych), `damerauLevenshtein` (od 4 znaków 1 edycja, od 7 — 2), `tokenize`, `prepareItems`, `searchItems`, `resultsLabel`; wagi: nazwa 3, tekst 1, synonim 1, literówka 0,6, popularność `+p/200`; **Biznes (katalog):** `prepareSearch`, `searchProducts`, `matchCategories`, `matchPages`, `matchBrands`; część ogólną używa już `src/lib/software/search.ts` | część ogólną przenieść do `src/lib/shared/search/` bez zmiany zachowania (testy Biznesu zielone); część katalogowa zostaje w Biznesie | F2 |
+| Software | katalog `/rozwiazania` (`components/catalog/Catalog.tsx:164–187`, `src/lib/software/search.ts`, stan w `?q=`); `components/MenuSearch.tsx` (w `PhoneLayer.tsx:72` i na 404; `/api/solutions-index`, 5 podpowiedzi, Enter → `/rozwiazania?q=`) | filtr katalogu i podpowiedzi w menu telefonu; **brak okna wyszukiwania i skrótów** (hasła „Znajdź swoje rozwiązanie” w kodzie nie ma) | `SearchDialog` + indeks linii; filtr katalogu zostaje; `MenuSearch` → otwiera `SearchDialog` albo zostaje polem w arkuszu (L1-S) | F2 → L1-S |
+| Instalacje | `/uslugi`: `widzety/oferta/OfferWidgets.tsx` (`OfferBar`, `.ofbar`, `.ofs`), `offerModel.ts:118` (`offerView`) | filtr klienta na stronie Oferty (normalizacja, `SYNONYMS`/`stem`, chipy obiektów, stan w module, bez URL); **brak okna wyszukiwania i skrótów** | `SearchDialog` + indeks linii; filtr Oferty zostaje; słownik `SYNONYMS` → synonimy linii w panelu | F2 → L1-I |
+| Lupa w nagłówku | Biznes: `BiznesHeader.tsx` (od 1280 px „Szukaj · Ctrl K”, niżej sama lupa); Instalacje, Software: brak | tylko Biznes ma wejście do wyszukiwarki z nagłówka | lupa w `SiteHeader` (slot `extras`) we wszystkich liniach poniżej 1400 px (decyzja 02.11 po F0b) | F2 → L1-I, L1-S |
+
+### 10.3 Pasek przewijania dziś
+
+| Linia | Plik(i) | Dziś | Co robimy | Sesja |
+|---|---|---|---|---|
+| Software (v23) | `src/app/(sites)/globals.css:385–409` | `[data-line='software']` (atrybut na `<html>`, `layout.tsx:25`): `--scrollbar-thumb: color-mix(in srgb, var(--accent) 45%, var(--border))`, **`scrollbar-color` i `scrollbar-width: thin` bezwarunkowo** (l. 390–394), do tego `::-webkit-scrollbar` 10 px, tor przezroczysty, suwak z 2 px obramowaniem i `radius 999`, akcent po najechaniu. **Błąd:** właściwości standardowe dziedziczą się, więc w Chrome/Edge 121+ reguły `::-webkit-scrollbar*` są martwe — zostaje zwykły cienki pasek w kolorze, bez zaokrąglenia, obramowania i zmiany po najechaniu | wspólna reguła 3 linii wg spec §3: `::-webkit-scrollbar*` (14 px, 3 px obramowanie w kolorze toru `surface-2`, suwak = akcent ~68% z torem, akcent po najechaniu; cienka 8 px w oknach, mega menu, arkuszach, wynikach), standard `scrollbar-color` **tylko w `@supports not selector(::-webkit-scrollbar)`**; ciemny motyw — `on-dark`; test kontrastu suwak/tor ≥ 3:1 | F2 |
+| Biznes | — | brak stylu paska; tylko `[scrollbar-width:none]` (`category/CategoryGrid.tsx:279`, `plan/FloorPlan.tsx:157`) i `[scrollbar-width:thin]` (`FloorPlan.tsx:219`) | dostaje regułę wspólną | F2 |
+| Instalacje | m.in. `instalacje.css:347/351`, `obiekty/obiekty.css`, `sekcje/glowna/glowna-sekcje.css`, `sekcje/sekcje.css`, `widzety/*/*.css` | brak stylu głównego paska; poziome przewijaki ukryte parą `scrollbar-width: none` + `::-webkit-scrollbar { display: none }` | dostaje regułę wspólną; ukryte przewijaki bez zmian | F2 |
+| Ukryte przewijaki Biznesu i Software | `[scrollbar-width:none]` w ok. 20 komponentach Software (`Catalog.tsx:204`, `PricingTable.tsx:39`, `home/*Explorer.tsx`, `SoftwareFooter.tsx:253`…) i 2 Biznesu | bez pary `::-webkit-scrollbar { display: none }` — po wprowadzeniu reguły wspólnej (webkit poza `@supports`) **pokazałyby paski** w Chrome | F2: wspólna klasa „ukryty pasek” (obie reguły) albo reguła dla `[scrollbar-width:none]`; zrzuty przed/po | F2 |
+
+### 10.4 Długie podstrony — kandydaci do „Na tej stronie” (spec §5.1 pkt 4, próg ≥ 3 sekcje)
+
+Liczba sekcji najwyższego poziomu; „bez id” = trzeba nadać id i `data-rail-section` w L1 (bez zmiany wyglądu).
+
+| Linia | Strona | Plik | Sekcji | Uwagi |
+|---|---|---|---|---|
+| Biznes | produkt | `(biznes)/produkt/[slug]/page.tsx:65–76` | ok. 12 | id są (przeglad, opis, wybierz-wersje, film, parametry, wersje, zestawy, dobierz, rodzina, faq, zrodla, pas-cta); dziś `ProductSectionNav` |
+| Biznes | GoPOS | `[slug]`, układ `src/seed/biznes/k4Pages.ts:191–395` | 14 | id z pola `anchor` albo `sekcja-<blockId>` (`BzSection/ui.tsx:53`); nazwane: lokal, moduly, pakiet, film-gopos |
+| Biznes | InsERT | `k4Pages.ts:408–560` | 12 | nazwane: ktory, ksef, inspunkty |
+| Biznes | automaty vendingowe | `k4Pages.ts:1037–1140` | 10 | nazwane: co |
+| Biznes | salon marki | `marki/[slug]/page.tsx:225–275` | 9 | id: oferta, oferta2, oferta-cala, dobor, serwis, wdrozenie; bez id: hero, O marce, FAQ |
+| Biznes | Opieka IT | `k4Pages.ts:725–850` | 9 | nazwane: przeglad, zakres |
+| Biznes | ulga na kasę | `k4Pages.ts` | 9 | — |
+| Biznes | kategoria | `oferta/[kategoria]` → `CategoryPageView.tsx` | ok. 8 | id tylko faq, kontakt |
+| Biznes | KSeF | `k4Pages.ts:1149–1410` | 7 | bez nazwanych kotwic |
+| Biznes | Plan Twojej firmy | `plan-firmy/page.tsx`, `FloorPlan.tsx:196, 277, 363` | 3 | id z `useId` — nadać stałe |
+| Biznes | Konfigurator, `/oferta` | — | 0–1 | kreator / katalog — bez grupy |
+| Instalacje | Dla architektów | `blocks/InstArchitects` | 17 | pasek kotwic ma 12 pozycji (`dane/architekci.ts:53`); szyna pokazuje maks. 10, dłuższa lista przewija się |
+| Instalacje | usługa (np. monitoring) | `blocks/InstService`, `src/lib/instalacje/anchors.ts` | 12 | id są |
+| Instalacje | obiekt (np. pensjonaty) | `obiekty/ObjectPage.tsx:171–364` | do 10 | zależnie od danych |
+| Instalacje | serwis | `blocks/InstServiceDesk` | 6 | — |
+| Instalacje | O firmie | `blocks/InstAbout` | 4 | L2 zmienia na szablon |
+| Instalacje | kontakt, zaplanuj | — | 1–3 | bez grupy |
+| Instalacje | poradnik (artykuł) | `poradnik/GuidePost.tsx:146` | — | własny spis treści `nav.toc` — zostaje |
+| Software | O firmie | `src/seed/software/about.ts:170–181` | 8 | bloki Sw* bez id; L2 zmienia na szablon |
+| Software | rozwiązanie | `rozwiazania/[slug]/page.tsx:117–160` | 6 (+ demo) | id: jak-dziala, pytania, kontakt; bez id: hero, porównanie, oferta |
+| Software | cennik | `SwPricing` + FAQ | 6 | id: opieka, audyt, faq |
+| Software | branża | `dla-branz/[branza]` | ok. 6 | id: problemy, pytania, kontakt |
+| Software | miasto | — | 6 | id tylko pytania |
+| Software | jedna firma | `about.ts:356–365` | 6 | bez id |
+| Software | audyt | `SwAuditForm` + FAQ | 5 | id: formularz, rodzaje, faq |
+| Software | kreator `/dobierz` | — | 0 | kreator — bez grupy |
+| Software | wpisy | `SoftwarePost.tsx:157`, `SwRichText.tsx:53` | — | własny spis treści — zostaje |
+
+Plan v2 w L1 (pkt 1a) wymienia część z nich; ta tabela jest pełną listą — zakres oznaczania ustala sesja L danej linii.

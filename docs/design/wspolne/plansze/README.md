@@ -16,6 +16,7 @@ Pliki `.dc.html` nie otworzą się samodzielnie w przeglądarce (potrzebują śr
 | `Moduly.dc.html` | 03 · status godzin, przyciski 4 linii, formularz (wypełnianie / błędy / wysłane), FAQ, kroki |
 | `Kontakt.dc.html` | 04 · szablon Kontakt (zmienna `linia`: Biznes / Instalacje / Software / Tech) |
 | `OFirmie.dc.html` | 05 · szablon O firmie (zmienna `linia`) |
+| `Szyna.dc.html` | 07 · boczna szyna (≥ 1400 px), wyszukiwarka, pasek przewijania (zmienne `linia`, `dodatki`; najedź na szynę) |
 | `Logo.dc.html` | znak linii (w kodzie używamy plików z `public/brand/`, nie tego rysunku) |
 | `Mapa.dc.html` | mapa adresu — schemat ulic; w kodzie prawdziwa geometria z OSM (spec §5 AddressMap) |
 
