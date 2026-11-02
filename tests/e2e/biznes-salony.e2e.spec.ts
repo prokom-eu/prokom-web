@@ -101,4 +101,38 @@ test.describe('Biznes salon 2.0 (K4f)', () => {
     const list = page.locator('#oferta ul').first()
     expect(await list.evaluate((node) => node.scrollWidth > node.clientWidth)).toBe(true)
   })
+
+  test('phone (App-Marka): table behind „Porównaj w tabeli”, offer in four first', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    await page.goto(biznes('/marki/lenovo'))
+    await expect(page.getByRole('navigation', { name: 'Okruszki' })).toBeHidden()
+    await expect(page.getByRole('table')).toBeHidden()
+    await expect(async () => {
+      await page.getByRole('button', { name: 'Porównaj w tabeli' }).click()
+      await expect(page.getByRole('table')).toBeVisible({ timeout: 1000 })
+    }).toPass()
+    const offer = page.locator('#oferta-cala')
+    await expect(offer.getByRole('heading', { level: 2 })).toHaveText(/^Pełna oferta · \d+$/, {
+      useInnerText: true,
+    })
+    const cards = offer.locator('ul > li')
+    const visible = () =>
+      cards.evaluateAll((items) => items.filter((li) => li.checkVisibility()).length)
+    expect(await visible()).toBeLessThanOrEqual(4)
+    // A kind with more than four models: the rest after „Pokaż wszystkie”.
+    const more = offer.getByRole('button', { name: /^Pokaż wszystkie/ })
+    for (const tab of await offer
+      .getByRole('group', { name: 'Rodzaje' })
+      .getByRole('button')
+      .all()) {
+      if (await more.isVisible()) break
+      await tab.click()
+    }
+    if (await more.isVisible()) {
+      await more.click()
+      expect(await visible()).toBeGreaterThan(4)
+    }
+  })
 })

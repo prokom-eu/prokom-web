@@ -142,6 +142,7 @@ export default async function BrandPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
       />
+      <ScreenTitleMark name={brand.name} />
       <BrandHero brand={brand} crumbs={crumbs} count={products.length} />
       <BrandAbout brand={brand} />
       <Container wide className="pb-14 sm:pb-20">
@@ -229,7 +230,10 @@ async function Salon({
         dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
       />
       <ScreenTitleMark name={brand} />
-      <Container wide className="flex flex-col gap-12 pt-6 pb-14 sm:gap-24 sm:pt-8 sm:pb-20">
+      <Container
+        wide
+        className="flex flex-col gap-10 pt-4 pb-10 min-[768px]:gap-24 min-[768px]:pt-8 min-[768px]:pb-20"
+      >
         <div>
           <SalonHero view={view} crumbs={crumbs} />
         </div>
@@ -255,9 +259,15 @@ async function Salon({
           <section
             id="oferta-cala"
             aria-labelledby="oferta-cala-h"
-            className="flex scroll-mt-28 flex-col gap-8"
+            className="flex scroll-mt-28 flex-col gap-8 max-md:gap-4"
           >
-            <SectionHead id="oferta-cala-h" eyebrow={family.eyebrow} title={family.title} note />
+            <SectionHead
+              id="oferta-cala-h"
+              eyebrow={family.eyebrow}
+              title={family.title}
+              phoneTitle={family.phoneTitle}
+              note
+            />
             <SalonFamily family={view.family} index={islandIndex(index, shown)} />
           </section>
         )}

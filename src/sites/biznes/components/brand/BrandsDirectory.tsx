@@ -162,7 +162,8 @@ export function BrandsDirectory({
                 {group.description && <p className="text-ink-2">{group.description}</p>}
               </div>
             </div>
-            <ul className="grid gap-4 [grid-template-columns:repeat(auto-fill,minmax(min(100%,285px),1fr))]">
+            {/* Phone: two small tiles per row, without the product photos. */}
+            <ul className="grid gap-4 [grid-template-columns:repeat(auto-fill,minmax(min(100%,285px),1fr))] max-md:grid-cols-2 max-md:gap-2.5">
               {tiles.map((tile) => (
                 <li key={tile.id} className="flex">
                   <BrandCard tile={tile} />
@@ -269,22 +270,24 @@ function BrandCard({ tile }: { tile: BrandTile }) {
     <Link
       href={tile.href}
       aria-label={`${tile.name} — ${tile.salon ? 'wejdź do salonu' : 'zobacz ofertę'}`}
-      className="relative flex w-full flex-col gap-3 rounded-3xl bg-card p-4 shadow-[0_20px_50px_-34px_var(--glow),inset_0_0_0_1px_var(--border)] transition-shadow hover:shadow-[0_20px_50px_-34px_var(--glow),inset_0_0_0_1.5px_var(--accent-text)]"
+      className="relative flex w-full min-w-0 flex-col gap-3 rounded-3xl bg-card p-4 max-md:gap-2 max-md:rounded-[20px] max-md:p-2.5 shadow-[0_20px_50px_-34px_var(--glow),inset_0_0_0_1px_var(--border)] transition-shadow hover:shadow-[0_20px_50px_-34px_var(--glow),inset_0_0_0_1.5px_var(--accent-text)]"
     >
       {tile.salon && (
-        <span className="absolute top-5 right-5 z-10 rounded-full bg-ink px-2.5 py-1 text-[11px] font-black tracking-[0.06em] text-surface uppercase">
+        <span className="absolute top-5 right-5 z-10 rounded-full bg-ink px-2.5 py-1 text-[11px] font-black tracking-[0.06em] text-surface uppercase max-md:-top-2 max-md:right-3 max-md:px-2 max-md:py-0.5 max-md:text-[9px]">
           Salon
         </span>
       )}
-      <Logo tile={tile} className="h-[76px] px-4" />
+      <Logo tile={tile} className="h-[76px] px-4 max-md:h-[60px] max-md:px-3" />
       <span className="flex flex-col gap-0.5">
-        <b className="font-extrabold text-ink">{tile.name}</b>
+        <b className="font-extrabold text-ink max-md:text-[15px]">{tile.name}</b>
         {tile.description && (
-          <small className="text-sm leading-snug text-ink-2">{tile.description}</small>
+          <small className="text-sm leading-snug text-ink-2 max-md:line-clamp-2 max-md:text-xs">
+            {tile.description}
+          </small>
         )}
       </span>
       {tile.photos.length > 0 && (
-        <span aria-hidden="true" className="grid grid-cols-3 gap-1.5">
+        <span aria-hidden="true" className="grid grid-cols-3 gap-1.5 max-md:hidden">
           {tile.photos.map((photo) => (
             <ProductStage key={photo.url} as="span" className="aspect-square rounded-xl">
               <Image
@@ -312,7 +315,7 @@ function BrandCard({ tile }: { tile: BrandTile }) {
           </span>
         )}
         <span className="ml-auto inline-flex items-center gap-1 text-sm text-accent-text">
-          {tile.salon ? 'Wejdź do salonu' : 'Zobacz ofertę'}
+          <span className="max-md:hidden">{tile.salon ? 'Wejdź do salonu' : 'Zobacz ofertę'}</span>
           <Icon name="arrow" strokeWidth={2.4} className="size-4" />
         </span>
       </span>
