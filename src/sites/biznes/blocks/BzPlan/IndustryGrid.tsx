@@ -27,7 +27,7 @@ export function IndustryGrid({ visible, hidden, moreLabel, moreNote }: Props) {
 
   useEffect(() => {
     if (!open) return
-    const phone = window.matchMedia('(max-width: 639px)').matches
+    const phone = window.matchMedia('(max-width: 767px)').matches
     const target = (phone && firstOnPhone.current) || firstHidden.current
     target?.querySelector('a')?.focus()
   }, [open])
@@ -38,7 +38,7 @@ export function IndustryGrid({ visible, hidden, moreLabel, moreNote }: Props) {
         <li
           key={item.key}
           ref={i === PHONE_VISIBLE ? firstOnPhone : undefined}
-          className={cx('flex', !open && i >= PHONE_VISIBLE && 'max-[639px]:hidden')}
+          className={cx('flex', !open && i >= PHONE_VISIBLE && 'max-md:hidden')}
         >
           {item.node}
         </li>
@@ -51,7 +51,7 @@ export function IndustryGrid({ visible, hidden, moreLabel, moreNote }: Props) {
         ))
       ) : hidden.length > 0 || visible.length > PHONE_VISIBLE ? (
         // Nothing left beyond the phone's 5 shown tiles: the unfold tile is for phones only.
-        <li className={cx('flex', hidden.length === 0 && 'min-[640px]:hidden')}>
+        <li className={cx('flex', hidden.length === 0 && 'md:hidden')}>
           <button
             type="button"
             aria-expanded={false}

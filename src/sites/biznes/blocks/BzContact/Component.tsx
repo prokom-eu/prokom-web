@@ -23,18 +23,19 @@ const HOME_TOPICS = [
 /**
  * `#kontakt` of the Biznes home page (spec. §4 pkt 13): texts from the panel, the rest shared.
  * Below 768 px (board App-Start) the closing card „Nie wiesz, co wybrać?” with the phone and the
- * inquiry drawer takes the form's place; the form stays on `/kontakt` and `/zapytanie`.
+ * inquiry drawer takes the form's place; the form stays on `/kontakt` and `/zapytanie`. The
+ * anchor `#kontakt` (section rail, links from outside) wraps both, so it lands on either.
  */
 export async function BzContactBlock({ block, tenantId }: Props) {
   const settings = await getSiteSettings(tenantId)
   const phone = settings?.phone ?? null
   const tel = phone ? toTelHref(phone) : null
   return (
-    <>
+    <div id="kontakt" className="scroll-mt-24">
       <div className="max-md:hidden">
         <ContactPanel
           tenantId={tenantId}
-          id="kontakt"
+          id="kontakt-formularz"
           heading={block.heading}
           lead={block.lead}
           formHeading={block.formHeading}
@@ -74,6 +75,6 @@ export async function BzContactBlock({ block, tenantId }: Props) {
           </div>
         </div>
       </section>
-    </>
+    </div>
   )
 }

@@ -181,18 +181,19 @@ export async function BzPlanBlock({ block, tenantId }: Props) {
           {/* Phone (board App-Start): the heading and the scenes as chips in a navy card; each
               opens the plan page with its scene — the full plan is from 768 px. */}
           <Container wide>
-            <div className="max-md:rounded-[28px] max-md:bg-surface-dark max-md:p-5 max-md:text-white">
-              {block.eyebrow && (
-                <p className="mb-2 text-[11.5px] font-extrabold tracking-[0.14em] text-white/75 uppercase md:hidden">
-                  {block.eyebrow}
-                </p>
-              )}
+            {/* `data-surface`: focus rings for navy (on a desktop nothing here takes focus). */}
+            <div
+              data-surface="dark"
+              className="max-md:rounded-[28px] max-md:bg-surface-dark max-md:p-5 max-md:text-white"
+            >
               <SectionHead
                 id="plan-h"
                 eyebrow={block.eyebrow}
+                eyebrowClassName="text-accent-text max-md:mb-2 max-md:text-[11.5px] max-md:tracking-[0.14em] max-md:text-white/75"
                 heading={block.heading}
                 lead={block.lead}
                 appOnPhone
+                phoneEyebrow
               />
               <ul className="mt-4 flex flex-wrap gap-2 md:hidden">
                 {plan.scenes.map((scene) => (

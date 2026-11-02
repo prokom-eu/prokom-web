@@ -20,6 +20,8 @@ type Props = {
    */
   appOnPhone?: boolean
   phoneAction?: string
+  /** With `appOnPhone`: keep the eyebrow on a phone (the plan card of App-Start). */
+  phoneEyebrow?: boolean
 }
 
 /**
@@ -36,6 +38,7 @@ export function SectionHead({
   eyebrowClassName = 'text-accent-text',
   appOnPhone = false,
   phoneAction,
+  phoneEyebrow = false,
 }: Props) {
   const phone = appOnPhone ? PHONE_HIDDEN : undefined
   return (
@@ -51,7 +54,7 @@ export function SectionHead({
             className={cx(
               'mb-3 text-[13px] font-extrabold tracking-[0.08em] uppercase',
               eyebrowClassName,
-              phone,
+              !phoneEyebrow && phone,
             )}
           >
             {eyebrow}
@@ -67,7 +70,15 @@ export function SectionHead({
           href={action.href}
           className="inline-flex min-h-11 shrink-0 items-center text-[14px] font-extrabold text-accent-text md:hidden"
         >
-          {phoneAction ?? action.label}
+          {phoneAction ? (
+            <>
+              {phoneAction}
+              {/* The short word alone says little to a screen reader. */}
+              <span className="sr-only">: {action.label}</span>
+            </>
+          ) : (
+            action.label
+          )}
         </Link>
       )}
       {action && (

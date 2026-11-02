@@ -398,7 +398,8 @@ test.describe('Biznes home page: industries, plan, steps', () => {
       )
       await expect(last.getByRole('button', { name: 'Wyślij zapytanie' })).toBeVisible()
       await expect(page.locator('#faq')).toBeHidden()
-      await expect(page.locator('#kontakt')).toBeHidden()
+      // `#kontakt` lands on the closing card; the form itself is from 768 px.
+      await expect(page.locator('#kontakt form')).toBeHidden()
     })
   })
 })
