@@ -25,6 +25,8 @@ const PLATE =
  * „Marki, które znamy od środka.” of the home page v150 (K35 7a, K36 §1): the brands chosen in
  * `BiznesSettings.brands.home` with their status and count, then the tile of all brands. It
  * replaces the moving logo bar on the Biznes line (the shared Partners block keeps its place).
+ * Below 768 px (board App-Start): the logos in a 4-column grid with the status under each, then
+ * a dark bar to all brands.
  */
 export async function BrandsHome({
   block,
@@ -69,12 +71,16 @@ export async function BrandsHome({
     slug ? (brandPageHref(index, slug) ?? `/oferta?marka=${slug}`) : '/oferta'
 
   return (
-    <section id="marki" aria-labelledby="marki-h" className="scroll-mt-24 py-16 sm:py-20">
+    <section
+      id="marki"
+      aria-labelledby="marki-h"
+      className="scroll-mt-24 py-16 max-md:py-6 sm:py-20"
+    >
       <Container wide>
         {/* Board `Web-start` (W2): the heading left, the lead right. */}
-        <div className="flex flex-col gap-4 pb-8 min-[900px]:flex-row min-[900px]:items-end min-[900px]:justify-between min-[900px]:gap-10">
+        <div className="flex flex-col gap-4 pb-8 max-md:pb-4 min-[900px]:flex-row min-[900px]:items-end min-[900px]:justify-between min-[900px]:gap-10">
           <div className="flex flex-col gap-3">
-            <p className="flex items-center gap-2 text-xs font-black tracking-[0.12em] text-accent-text uppercase">
+            <p className="flex items-center gap-2 text-xs font-black tracking-[0.12em] text-accent-text uppercase max-md:hidden">
               <span aria-hidden="true" className="h-0.5 w-5 bg-current" />
               Marki
             </p>
@@ -82,9 +88,69 @@ export async function BrandsHome({
               {heading}
             </h2>
           </div>
-          <p className={`${BZ_LEAD} max-w-[46ch] text-ink-2`}>{lead}</p>
+          <p className={`${BZ_LEAD} max-w-[46ch] text-ink-2 max-md:hidden`}>{lead}</p>
         </div>
-        <ul className="grid gap-3 min-[560px]:grid-cols-2 min-[900px]:grid-cols-3 min-[1200px]:grid-cols-4">
+        <ul className="grid grid-cols-4 gap-2 md:hidden">
+          {brands.map((brand) => {
+            const role = partnerStatusLabel(brand.status)
+            return (
+              <li key={brand.id} className="flex">
+                <Link
+                  href={hrefOf(brand.slug)}
+                  className="flex w-full flex-col items-center gap-1.5 text-center"
+                >
+                  <span className="flex h-14 w-full items-center justify-center rounded-2xl bg-white px-2 shadow-[inset_0_0_0_1px_var(--border)]">
+                    {brand.logo ? (
+                      <MediaImage
+                        image={{ ...brand.logo, alt: '' }}
+                        sizes="80px"
+                        className="max-h-7 w-auto max-w-full object-contain"
+                      />
+                    ) : (
+                      <span
+                        aria-hidden="true"
+                        className="text-[12px] font-extrabold text-surface-dark"
+                      >
+                        {brand.name}
+                      </span>
+                    )}
+                  </span>
+                  <span className="text-[10.5px] leading-tight font-bold text-ink-2">
+                    {role ? (
+                      <>
+                        <span className="sr-only">{brand.name}: </span>
+                        {role}
+                      </>
+                    ) : (
+                      brand.name
+                    )}
+                  </span>
+                </Link>
+              </li>
+            )
+          })}
+        </ul>
+        <Link
+          data-surface="dark"
+          href={BRANDS_PATH}
+          className="mt-4 flex min-h-[72px] items-center justify-between gap-4 rounded-[22px] bg-surface-dark px-5 py-4 text-white md:hidden"
+        >
+          <span className="flex flex-col gap-1">
+            <span className="text-[11px] font-extrabold tracking-[0.14em] text-white/75 uppercase">
+              Salony marek
+            </span>
+            <b className="font-display text-[17px] leading-tight font-extrabold">
+              Zobacz wszystkie marki · {total}
+            </b>
+          </span>
+          <span
+            aria-hidden="true"
+            className="flex size-11 shrink-0 items-center justify-center rounded-full bg-white text-surface-dark"
+          >
+            <Icon name="arrow" strokeWidth={2.4} className="size-5" />
+          </span>
+        </Link>
+        <ul className="grid gap-3 max-md:hidden min-[560px]:grid-cols-2 min-[900px]:grid-cols-3 min-[1200px]:grid-cols-4">
           {brands.map((brand) => {
             const role = partnerStatusLabel(brand.status)
             const count = brand.slug ? (counts.get(brand.slug) ?? 0) : 0

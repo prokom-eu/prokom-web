@@ -249,11 +249,22 @@ test.describe('Biznes home page: offer and featured', () => {
   test.describe('on a phone', () => {
     test.use({ viewport: { width: 390, height: 844 } })
 
-    test('departments are rows and the products a horizontal strip', async ({ page }) => {
+    test('App-Start: hero search, shortcuts, departments and products to swipe', async ({
+      page,
+    }) => {
       await page.goto(site('biznes.localhost'))
-      const rows = page.locator('#oferta ul').first().getByRole('link')
-      await expect(rows).toHaveCount(5)
-      await expect(rows.first()).toContainText(/\d+ pozycj/)
+      const hero = page.locator('#start')
+      await expect(hero.getByRole('button', { name: /Szukaj: kasa/ })).toBeVisible()
+      await expect(hero.getByRole('link', { name: /^Przeglądaj ofertę/ })).toBeHidden()
+      const start = page.getByRole('region', { name: 'Od czego zaczynasz?' })
+      for (const name of ['KSeF 2027', 'Zestawy', 'Opieka IT']) {
+        await expect(start.getByRole('link', { name, exact: true })).toBeVisible()
+      }
+      const departments = page.locator('#oferta ul').first()
+      await expect(departments.locator(':scope > li')).toHaveCount(5)
+      await expect(departments.locator('article').first()).toContainText(/\d+ pozycj/)
+      const deptSize = await departments.evaluate((el) => [el.scrollWidth, el.clientWidth])
+      expect(deptSize[0]).toBeGreaterThan(deptSize[1])
       const strip = page.locator('#wybierane ul').first()
       const { scrollWidth, clientWidth } = await strip.evaluate((el) => ({
         scrollWidth: el.scrollWidth,

@@ -10,6 +10,7 @@ import { BRANDS_PATH, brandCount } from '@/lib/catalog/filters'
 import type { IconName } from '@/lib/catalog/options'
 import { plural } from '@/lib/plural'
 import { getSiteSettings } from '@/lib/site/data'
+import { toTelHref } from '@/lib/site/link'
 
 import { AskQuoteTile } from './AskQuoteTile'
 import type { Tone } from './tones'
@@ -55,6 +56,45 @@ const TONE: Record<Tone, { icon: string; tag: string }> = {
 // (AA); the tone stays on the icon tile.
 const DARK_TAG = '[[data-theme=dark]_&]:text-ink-2'
 const DARK_ACTION = '[[data-theme=dark]_&]:text-ink'
+
+/**
+ * Phone tile (board App-Start `.m5i`): the tone's gradient under white text. It starts from the
+ * `--tone-*-tag` colour, made for white text (≥ 4.5:1), and only lightens a little; the corner tag sits on navy (AA at 10.5 px).
+ */
+const PHONE_TILE: Record<Tone, string> = {
+  blue: 'bg-[linear-gradient(150deg,var(--tone-blue-tag),color-mix(in_srgb,var(--tone-blue-tag)_85%,var(--tone-blue-2)))]',
+  violet:
+    'bg-[linear-gradient(150deg,var(--tone-violet-tag),color-mix(in_srgb,var(--tone-violet-tag)_85%,var(--tone-violet-2)))]',
+  green:
+    'bg-[linear-gradient(150deg,var(--tone-green-tag),color-mix(in_srgb,var(--tone-green-tag)_85%,var(--tone-green-2)))]',
+  red: 'bg-[linear-gradient(150deg,var(--tone-red-tag),color-mix(in_srgb,var(--tone-red-tag)_85%,var(--tone-red-2)))]',
+}
+const PHONE_TILE_BASE =
+  'relative flex min-h-[148px] w-[152px] flex-col items-start gap-1.5 rounded-[22px] p-3.5 text-left text-white'
+
+function PhoneTileBody({ tile }: { tile: Tile }) {
+  return (
+    <>
+      <span
+        aria-hidden="true"
+        className="flex size-[38px] items-center justify-center rounded-xl bg-white/20"
+      >
+        <Icon name={tile.icon} className="size-5" />
+      </span>
+      <em className="absolute top-3 right-2.5 max-w-[60%] truncate rounded-full bg-surface-dark/30 px-2 text-[10.5px] leading-[22px] font-extrabold not-italic">
+        {tile.tag}
+      </em>
+      <b className="mt-auto text-[15px] leading-tight font-extrabold">{tile.title}</b>
+      <small className="text-[12px] font-extrabold">{tile.action} →</small>
+    </>
+  )
+}
+
+/** Shortcuts under the tiles (board App-Start `.m5qa`): an icon on a soft tile, a label under it. */
+const SHORTCUT =
+  'flex min-h-11 flex-col items-center gap-[7px] rounded-2xl px-0.5 pt-2.5 pb-2 text-[12px] font-extrabold text-ink'
+const SHORTCUT_ICON =
+  'flex size-[52px] items-center justify-center rounded-[18px] bg-surface-2 text-accent-text shadow-[inset_0_0_0_1px_var(--border)]'
 
 function TileBody({ tile }: { tile: Tile }) {
   const tone = TONE[tile.tone]
@@ -124,6 +164,13 @@ export async function QuickStart({
   const planHrefHere = planOnPage ? '#plan' : PLAN_PATH
   // A promise shows only once confirmed in the panel (`SiteSettings` → „Obietnice”).
   const callback = settings?.biznes?.promises.callbackTime?.trim()
+  const tel = settings?.phone ? toTelHref(settings.phone) : null
+  const shortcuts: { label: string; href: string; icon: IconName }[] = [
+    ...(tel ? [{ label: 'Zadzwoń', href: tel, icon: 'phone' as const }] : []),
+    { label: 'KSeF 2027', href: '/ksef', icon: 'doc' },
+    { label: 'Zestawy', href: '/zestawy', icon: 'box' },
+    { label: 'Opieka IT', href: '/opieka-it', icon: 'shield' },
+  ]
   const total = index.products.length
   const brands = brandCount(index)
   const tiles: Tile[] = [
@@ -178,12 +225,12 @@ export async function QuickStart({
   const shown = tiles.filter((tile) => tile.href !== planHrefHere || scenes > 0)
 
   return (
-    <section aria-labelledby="szybki-start-h" className="pb-14">
+    <section aria-labelledby="szybki-start-h" className="pb-14 max-md:pb-6">
       <Container wide>
-        <div className="flex flex-col overflow-hidden min-[1080px]:flex-row min-[1080px]:rounded-[26px] min-[1080px]:bg-card min-[1080px]:shadow-[0_30px_60px_-36px_var(--glow),inset_0_0_0_1px_var(--border)]">
+        <div className="flex flex-col min-[1080px]:flex-row min-[1080px]:overflow-hidden min-[1080px]:rounded-[26px] min-[1080px]:bg-card min-[1080px]:shadow-[0_30px_60px_-36px_var(--glow),inset_0_0_0_1px_var(--border)]">
           <div
             data-surface="dark"
-            className="flex flex-col gap-2 rounded-3xl bg-surface-dark p-5 text-white max-[1079px]:mb-3 min-[1080px]:w-[180px] min-[1080px]:shrink-0 min-[1080px]:justify-center min-[1080px]:rounded-none min-[1080px]:px-6"
+            className="flex flex-col gap-2 rounded-3xl bg-surface-dark p-5 text-white max-md:sr-only max-[1079px]:mb-3 min-[1080px]:w-[180px] min-[1080px]:shrink-0 min-[1080px]:justify-center min-[1080px]:rounded-none min-[1080px]:px-6"
           >
             <p className="text-[11.5px] font-extrabold tracking-[0.14em] text-white/75 uppercase">
               Szybki start
@@ -199,7 +246,44 @@ export async function QuickStart({
             </p>
           </div>
           {/* Phone: a row to swipe; wider: five columns with rules between them. */}
-          <ul className="-mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 min-[1080px]:mx-0 min-[1080px]:grid min-[1080px]:flex-1 min-[1080px]:grid-cols-5 min-[1080px]:gap-0 min-[1080px]:divide-x min-[1080px]:divide-border min-[1080px]:overflow-visible min-[1080px]:px-0 min-[1080px]:pb-0">
+          {/* Phone (board App-Start): gradient tiles to swipe, the shortcuts under them. */}
+          <ul className="-mx-4 flex snap-x snap-mandatory scroll-px-4 gap-2.5 overflow-x-auto px-4 pb-1 [scrollbar-width:none] md:hidden">
+            {shown.map((tile) => (
+              <li key={tile.title} className="flex shrink-0 snap-start">
+                {tile.href === null ? (
+                  <AskQuoteTile className={cx(PHONE_TILE_BASE, PHONE_TILE[tile.tone])}>
+                    <PhoneTileBody tile={tile} />
+                  </AskQuoteTile>
+                ) : (
+                  <Link href={tile.href} className={cx(PHONE_TILE_BASE, PHONE_TILE[tile.tone])}>
+                    <PhoneTileBody tile={tile} />
+                  </Link>
+                )}
+              </li>
+            ))}
+          </ul>
+          <ul className="mt-3.5 grid grid-cols-4 gap-2 md:hidden">
+            {shortcuts.map((item) => (
+              <li key={item.label}>
+                {item.href.startsWith('tel:') ? (
+                  <a href={item.href} className={SHORTCUT}>
+                    <span aria-hidden="true" className={SHORTCUT_ICON}>
+                      <Icon name={item.icon} className="size-5" />
+                    </span>
+                    {item.label}
+                  </a>
+                ) : (
+                  <Link href={item.href} className={SHORTCUT}>
+                    <span aria-hidden="true" className={SHORTCUT_ICON}>
+                      <Icon name={item.icon} className="size-5" />
+                    </span>
+                    {item.label}
+                  </Link>
+                )}
+              </li>
+            ))}
+          </ul>
+          <ul className="-mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 max-md:hidden min-[1080px]:mx-0 min-[1080px]:grid min-[1080px]:flex-1 min-[1080px]:grid-cols-5 min-[1080px]:gap-0 min-[1080px]:divide-x min-[1080px]:divide-border min-[1080px]:overflow-visible min-[1080px]:px-0 min-[1080px]:pb-0">
             {shown.map((tile) => (
               <li
                 key={tile.title}

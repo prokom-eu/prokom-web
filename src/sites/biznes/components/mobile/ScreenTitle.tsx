@@ -6,8 +6,13 @@ import { type ReactNode, useEffect, useState } from 'react'
 
 import { parentPath } from '@/lib/biznes/mobileNav'
 
-/** The page's own heading on one line (a `<br>` in it becomes a space), shortened by CSS. */
+/**
+ * The page's short name (`ScreenTitleMark`), else its own heading on one line (a `<br>` in it
+ * becomes a space), shortened by CSS.
+ */
 const readTitle = () => {
+  const mark = document.querySelector('main [data-screen-title]')?.getAttribute('data-screen-title')
+  if (mark) return mark
   const heading = document.querySelector<HTMLElement>('main h1')
   return heading?.innerText.replace(/\s+/g, ' ').trim() ?? ''
 }
@@ -16,7 +21,7 @@ const readTitle = () => {
  * Left side of the phone header (MOBILE-APLIKACJA §1): the logo on the start page; on subpages
  * „←” and the screen title below 768 px (the logo from 768 px). „←” is a link one level up
  * (`parentPath`) and, after a move inside the site, the browser's back — the previous screen
- * comes back with its scroll position. The title is the page's H1, so nothing is typed twice;
+ * comes back with its scroll position. The title is the page's short name (`ScreenTitleMark`) or its H1;
  * it is hidden from screen readers, which hear the H1 itself.
  */
 export function ScreenTitle({ logo }: { logo: ReactNode }) {

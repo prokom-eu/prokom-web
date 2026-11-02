@@ -56,6 +56,7 @@ import { SwContactPageBlock } from '@/sites/software/blocks/SwContactPage/Compon
 import { SwHomeSectionBlock } from '@/sites/software/blocks/SwHomeSection/Component'
 import { SwPricingBlock } from '@/sites/software/blocks/SwPricing/Component'
 import { FaqSoftware } from '@/sites/software/components/home/FaqSoftware'
+import { ScreenTitleMark } from '@/sites/biznes/components/mobile/ScreenTitleMark'
 
 type Props = { page: PublicPage; tenant: SiteTenant }
 
@@ -108,6 +109,7 @@ export function RenderBlocks({ page, tenant }: Props) {
   return (
     <>
       {/* Linked only where an Instalacje block renders, not on the other lines. */}
+      {biznes && page.slug !== HOME_SLUG && <ScreenTitleMark name={page.title} />}
       {blocks.some((block) => INSTALACJE_BLOCK_SLUGS.includes(block.blockType)) && (
         <InstalacjeBlockStyles />
       )}

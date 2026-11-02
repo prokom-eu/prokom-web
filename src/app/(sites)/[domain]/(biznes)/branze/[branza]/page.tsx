@@ -28,6 +28,7 @@ import {
 } from '@/sites/biznes/components/industry/IndustrySections'
 
 import { requestOrigin, requireLine } from '../../../tenant'
+import { ScreenTitleMark } from '@/sites/biznes/components/mobile/ScreenTitleMark'
 
 type Props = { params: Promise<{ domain: string; branza: string }> }
 
@@ -122,6 +123,7 @@ export default async function IndustryPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbs) }}
       />
+      <ScreenTitleMark name={industry.name} />
       <CatalogHero
         crumbs={crumbs}
         pill={`Branże · ${industry.name}`}
