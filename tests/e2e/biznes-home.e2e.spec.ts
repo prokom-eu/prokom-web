@@ -456,7 +456,8 @@ test.describe('Biznes home page: reviews, owner, FAQ, contact', () => {
     await expect(contact.getByRole('heading', { level: 2 })).toHaveText(
       'Napisz, czego potrzebujesz. Oddzwonimy w ciągu 60 minut w godzinach pracy.',
     )
-    await expect(contact.locator('a[href^="tel:"]')).toBeVisible()
+    // `#kontakt` also wraps the phone card (hidden here): the visible phone link only.
+    await expect(contact.locator('a[href^="tel:"]').filter({ visible: true })).toHaveCount(1)
     await expect(contact.locator('form')).toBeVisible()
     await expect(contact).toContainText('Wycena na piśmie')
   })
