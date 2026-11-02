@@ -108,7 +108,10 @@ test.describe('Biznes on a phone', () => {
     const back = header.getByRole('link', { name: 'Wstecz' })
     await expect(back).toBeVisible()
     // The screen title is the page's short name (`ScreenTitleMark`), not its long H1.
-    await expect(header.getByText('Kontakt', { exact: true })).toBeVisible()
+    // `visible`: the hidden menu in the header has its own „Kontakt”.
+    await expect(
+      header.getByText('Kontakt', { exact: true }).filter({ visible: true }),
+    ).toHaveCount(1)
     // After a move inside the site „Wstecz” is the browser's back.
     await back.click()
     await expect(page).toHaveURL(/biznes\.localhost:\d+\/$/)
