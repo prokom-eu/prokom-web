@@ -13,6 +13,7 @@ import { getCompanyData, getSiteSettings } from '@/lib/site/data'
 import { hoursSummary, weekHours } from '@/lib/site/hoursSummary'
 import { toTelHref, toWhatsAppHref } from '@/lib/site/link'
 import type { BzSectionBlock as BzSectionData } from '@/payload-types'
+import { BZ_H1, BZ_LEAD } from '@/sites/biznes/typography'
 
 import { AreaMap } from '../../../components/AreaMap'
 import { Breadcrumbs, type Crumb } from '../../../components/Breadcrumbs'
@@ -29,7 +30,6 @@ import {
   sectionId,
 } from '../ui'
 import { WeekHours } from './WeekHours'
-import { BZ_LEAD } from '@/sites/biznes/typography'
 
 /** Contact data of the panel the K4i sections share: phones, e-mail, address, hours. */
 async function contactData(tenantId: number) {
@@ -95,10 +95,7 @@ export async function AboutHero({
               <span aria-hidden="true" className="size-2 rounded-full bg-ok" />
               {data.pill}
             </p>
-            <h1
-              id="o-firmie-h"
-              className="font-display text-[clamp(2.2rem,4.2vw,3.8rem)] leading-[1] font-extrabold tracking-[-0.025em] font-stretch-110% text-balance"
-            >
+            <h1 id="o-firmie-h" className={BZ_H1}>
               {block.heading || crumbs.at(-1)?.name}{' '}
               {block.headingAccent && (
                 <em className="text-accent-text not-italic">{block.headingAccent}</em>
@@ -435,10 +432,7 @@ export async function ContactHero({
         <div className="grid items-start gap-10 min-[1080px]:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
           <div className="flex flex-col gap-6 text-ink">
             <LiveHours hours={c.hours} className="text-sm text-ink" />
-            <h1
-              id="kontakt-h"
-              className="font-display text-[clamp(2.2rem,4.2vw,3.8rem)] leading-[1] font-extrabold tracking-[-0.025em] font-stretch-110% text-balance"
-            >
+            <h1 id="kontakt-h" className={BZ_H1}>
               {block.heading || crumbs.at(-1)?.name}{' '}
               {block.headingAccent && (
                 <em className="text-accent-text not-italic">{block.headingAccent}</em>

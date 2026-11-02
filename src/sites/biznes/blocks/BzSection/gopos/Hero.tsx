@@ -5,12 +5,12 @@ import { cx } from '@/components/ui/cx'
 import type { SectionData } from '@/lib/biznes/pages/sections'
 import type { CatalogIndex } from '@/lib/catalog/catalogIndex'
 import type { BzSectionBlock as BzSectionData } from '@/payload-types'
+import { BZ_H1, BZ_LEAD } from '@/sites/biznes/typography'
 
 import { Breadcrumbs, type Crumb } from '../../../components/Breadcrumbs'
 import { BTN_ON_DARK, BTN_PRIMARY, EYEBROW, withTrail } from '../ui'
 import { AddActionButton } from '../AddActionButton'
 import { GoposFlow, GoposStage, type StageDevice } from './Stage'
-import { BZ_LEAD } from '@/sites/biznes/typography'
 
 type Props = {
   block: BzSectionData
@@ -76,10 +76,7 @@ export function GoposHero({ block, data, index, crumbs }: Props) {
                 {data.pill}
               </span>
             </div>
-            <h1
-              id="gopos-h"
-              className="font-display text-[clamp(2.3rem,4.4vw,4rem)] leading-[0.98] font-extrabold tracking-[-0.025em] font-stretch-112% text-balance"
-            >
+            <h1 id="gopos-h" className={BZ_H1}>
               {block.heading || crumbs.at(-1)?.name}{' '}
               {block.headingAccent && <em className="text-ok not-italic">{block.headingAccent}</em>}
             </h1>

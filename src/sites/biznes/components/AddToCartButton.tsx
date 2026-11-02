@@ -16,8 +16,6 @@ type Props = {
   variant?: 'icon' | 'label' | 'primary' | 'onDark' | 'card'
   /** After the switch, e.g. to move focus when this button leaves the page. */
   onToggle?: () => void
-  /** `card`: only the „+” on a phone (the label stays for screen readers). */
-  compact?: boolean
 }
 
 const PLUS = 'M12 5v14M5 12h14'
@@ -39,14 +37,7 @@ function Mark({ on, size, stroke }: { on: boolean; size: number; stroke: number 
 }
 
 /** Switch of a product on the inquiry list: adds, or removes when already there. */
-export function AddToCartButton({
-  slug,
-  name,
-  className,
-  variant = 'icon',
-  onToggle,
-  compact = false,
-}: Props) {
+export function AddToCartButton({ slug, name, className, variant = 'icon', onToggle }: Props) {
   const on = useCart().some((item) => item.id === slug)
   const toggle = () => {
     cartActions.toggle(slug, name)
@@ -116,7 +107,8 @@ export function AddToCartButton({
         )}
       >
         <Mark on={on} size={15} stroke={2.6} />
-        <span className={compact ? 'max-sm:sr-only' : undefined}>{label}</span>
+        {/* Only the „+” on a phone: the picture is small there (`aria-label` names it). */}
+        <span className="max-sm:hidden">{label}</span>
       </button>
     )
   }

@@ -10,6 +10,7 @@ import { productHref } from '@/lib/catalog/card'
 import { getSiteSettings } from '@/lib/site/data'
 import { toTelHref } from '@/lib/site/link'
 import type { BzSectionBlock as BzSectionData } from '@/payload-types'
+import { BZ_LEAD, BZ_H1 } from '@/sites/biznes/typography'
 
 import { Breadcrumbs, type Crumb } from '../../../components/Breadcrumbs'
 import { DayCount } from '../../BzKsef/DayCount'
@@ -26,10 +27,8 @@ import {
   withTrail,
 } from '../ui'
 import { AddMachineButton, ClientTabs, KsefTimeline, PhaseText } from './Client'
-import { BZ_LEAD } from '@/sites/biznes/typography'
 
-const HERO_H1 =
-  'font-display text-[clamp(2.2rem,4.2vw,3.8rem)] leading-[1] font-extrabold tracking-[-0.025em] font-stretch-110% text-balance'
+const HERO_H1 = BZ_H1
 
 /** „1 stycznia 2027” from an ISO day (the day in Poland). */
 const dayLabel = (iso: string) =>

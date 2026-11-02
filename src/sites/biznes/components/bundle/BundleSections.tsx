@@ -4,11 +4,11 @@ import Link from 'next/link'
 import { Container } from '@/components/ui/Container'
 import { Icon } from '@/components/ui/Icon'
 import type { IndexImage } from '@/lib/catalog/catalogIndex'
+import { BZ_H1, BZ_H1_COMPACT, BZ_H2, BZ_LEAD } from '@/sites/biznes/typography'
 
 import { Breadcrumbs, type Crumb } from '../Breadcrumbs'
 import { PageLink } from '../PageLink'
 import { ProductStage, STAGE_SHADOW } from '../ProductStage'
-import { BZ_H1, BZ_H1_COMPACT, BZ_H2, BZ_LEAD } from '@/sites/biznes/typography'
 
 const H2 = `${BZ_H2} text-ink`
 

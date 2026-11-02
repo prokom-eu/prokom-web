@@ -2,10 +2,10 @@ import { Container } from '@/components/ui/Container'
 import { Icon } from '@/components/ui/Icon'
 import { daysUntil } from '@/lib/site/days'
 import type { BzKsefBlock as BzKsefBlockData } from '@/payload-types'
+import { BZ_H2 } from '@/sites/biznes/typography'
 
 import { hasLink, PageLink } from '../../components/PageLink'
 import { DayCount } from './DayCount'
-import { BZ_H2 } from '@/sites/biznes/typography'
 
 /**
  * KSeF with a day counter (spec. §6.6 pkt 4, plansza Insert), `#ksef`: a navy card with the big

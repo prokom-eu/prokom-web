@@ -11,10 +11,10 @@ import { normalizeText } from '@/lib/catalog/normalize'
 import { openCartDrawer } from '@/lib/cart/store'
 import { partnerStatusLabel } from '@/lib/partners/badges'
 import { plural } from '@/lib/plural'
+import { BZ_H1, BZ_LEAD } from '@/sites/biznes/typography'
 
 import { PathIcon } from '../product/PathIcon'
 import { ProductStage, STAGE_SHADOW } from '../ProductStage'
-import { BZ_H1, BZ_LEAD } from '@/sites/biznes/typography'
 
 const ALL = 'all'
 

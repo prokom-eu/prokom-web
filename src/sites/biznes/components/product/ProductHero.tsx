@@ -5,13 +5,13 @@ import type { ProductView } from '@/lib/catalog/product'
 import { featureIcon } from '@/lib/catalog/productIcons'
 import { serviceStrip, serviceTile } from '@/lib/catalog/purchase'
 import type { PublicImage } from '@/lib/media/public'
+import { BZ_H1_COMPACT } from '@/sites/biznes/typography'
 
 import { ColorPicker } from './ColorPicker'
 import { ProductAddButton } from './ProductAddButton'
 import { PathIcon, productIconPath } from './PathIcon'
 import { ProductGallery } from './ProductGallery'
 import { VersionChips, YourVersion } from './ProductVersionPicker'
-import { BZ_H1_COMPACT } from '@/sites/biznes/typography'
 
 /** Three highlights from `features` (K31-ZMIANY §4 pkt 1). */
 const HIGHLIGHTS = 3

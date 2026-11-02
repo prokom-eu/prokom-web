@@ -8,10 +8,10 @@ import { issueFormToken } from '@/lib/inquiry/spam'
 import { getCompanyData, getSiteSettings } from '@/lib/site/data'
 import { hoursSummary } from '@/lib/site/hoursSummary'
 import { toTelHref, toWhatsAppHref } from '@/lib/site/link'
+import { BZ_H2 } from '@/sites/biznes/typography'
 
 import { LiveHours } from '../home/LiveHours'
 import { ContactForm } from './ContactForm'
-import { BZ_H2 } from '@/sites/biznes/typography'
 
 type Props = {
   tenantId: number

@@ -8,12 +8,12 @@ import { productHref } from '@/lib/catalog/card'
 import type { IndexProduct } from '@/lib/catalog/catalogIndex'
 import type { PlanCard, PlanSection, SalonView } from '@/lib/catalog/salon'
 import { plural } from '@/lib/plural'
+import { BZ_H2 } from '@/sites/biznes/typography'
 
 import { Breadcrumbs, type Crumb } from '../../Breadcrumbs'
 import { ProductStage, STAGE_SHADOW } from '../../ProductStage'
 import { CAROUSEL, CAROUSEL_ITEM } from './carousel'
 import { Eyebrow, SalonAsk, SalonCompare } from './SalonClient'
-import { BZ_H2 } from '@/sites/biznes/typography'
 
 /**
  * Sections of the salon 2.0 (K4-FINAL §6, board „SALON MARKI 2.0”). Server components; the

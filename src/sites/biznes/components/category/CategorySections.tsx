@@ -7,10 +7,10 @@ import { Icon } from '@/components/ui/Icon'
 import type { BoughtWithTile, CategoryView } from '@/lib/catalog/category'
 import { categoryHref } from '@/lib/catalog/category'
 import { plural } from '@/lib/plural'
+import { BZ_H2 } from '@/sites/biznes/typography'
 
 import { SectionHead } from '../home/SectionHead'
 import { ProductStage } from '../ProductStage'
-import { BZ_H2 } from '@/sites/biznes/typography'
 
 /** „W cenie” (board: „Kupujesz kasę, dostajesz spokój.”): cards with an icon, title and text. */
 export function IncludedCards({ included }: { included: CategoryView['included'] }) {

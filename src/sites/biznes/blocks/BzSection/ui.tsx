@@ -5,11 +5,11 @@ import { Container } from '@/components/ui/Container'
 import { cx } from '@/components/ui/cx'
 import type { SectionAction } from '@/lib/biznes/pages/sections'
 import type { BzSectionBlock as BzSectionData } from '@/payload-types'
+import { BZ_H2, BZ_LEAD } from '@/sites/biznes/typography'
 
 import type { Crumb } from '../../components/Breadcrumbs'
 
 import { AddActionButton } from './AddActionButton'
-import { BZ_H2, BZ_LEAD } from '@/sites/biznes/typography'
 
 /** Keys a K4 tab list handles: they move the selection, not the page. */
 export const TAB_KEYS: ReadonlySet<string> = new Set([

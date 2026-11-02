@@ -7,12 +7,12 @@ import type { CatalogIndex, IndexProduct } from '@/lib/catalog/catalogIndex'
 import { serviceTile } from '@/lib/catalog/purchase'
 import type { ProductView } from '@/lib/catalog/product'
 import type { SourceLink } from '@/lib/catalog/sourceLabels'
+import { BZ_H2 } from '@/sites/biznes/typography'
 
 import { AddToCartButton } from '../AddToCartButton'
 import { ProductStage, STAGE_SHADOW, StageFallback } from '../ProductStage'
 import { ProductAddButton } from './ProductAddButton'
 import { ProductSection } from './ProductSection'
-import { BZ_H2 } from '@/sites/biznes/typography'
 
 /** „Czym różnią się wersje” (K31-ZMIANY §4 pkt 7): cards that never stretch alone. */
 export function ProductVersions({

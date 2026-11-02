@@ -13,9 +13,9 @@ import { FloorPlan } from '@/sites/biznes/components/plan/FloorPlan'
 import { loadFloorPlan } from '@/sites/biznes/components/plan/planData'
 import { PlanStats } from '@/sites/biznes/components/plan/PlanStats'
 import { DEFAULT_PLAN_LABELS } from '@/sites/biznes/components/plan/types'
+import { BZ_H1 } from '@/sites/biznes/typography'
 
 import { requestOrigin, requireLine } from '../../tenant'
-import { BZ_H1 } from '@/sites/biznes/typography'
 
 type Props = { params: Promise<{ domain: string }> }
 

@@ -8,9 +8,9 @@ import { Icon } from '@/components/ui/Icon'
 import { bundleCartItems, type BundleItem } from '@/lib/catalog/bundle'
 import { cartActions, useCart } from '@/lib/cart/store'
 import { plural } from '@/lib/plural'
+import { BZ_H2 } from '@/sites/biznes/typography'
 
 import { STICKY_ACTION_BUTTON, StickyAction } from '../mobile/StickyAction'
-import { BZ_H2 } from '@/sites/biznes/typography'
 
 export type BundleRow = BundleItem & { name: string; href: string; thumb: ReactNode }
 

@@ -23,10 +23,10 @@ import {
 } from '@/lib/catalog/category'
 import { CATALOG_PAGE_SIZE } from '@/lib/catalog/filters'
 import { plural } from '@/lib/plural'
+import { BZ_H2, BZ_LEAD } from '@/sites/biznes/typography'
 
 import { ProductCard } from '../catalog/ProductCard'
 import { ProductStage, STAGE_SHADOW } from '../ProductStage'
-import { BZ_H2, BZ_LEAD } from '@/sites/biznes/typography'
 
 type Props = {
   /** Index with only this category's products (the page never sends the whole catalog). */

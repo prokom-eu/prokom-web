@@ -2,10 +2,10 @@ import type { ReactNode } from 'react'
 
 import { Container } from '@/components/ui/Container'
 import { cx } from '@/components/ui/cx'
+import { BZ_LEAD } from '@/sites/biznes/typography'
 
 import { Breadcrumbs, type Crumb } from '../Breadcrumbs'
 import { PageLink } from '../PageLink'
-import { BZ_LEAD } from '@/sites/biznes/typography'
 
 type Props = {
   crumbs: Crumb[]

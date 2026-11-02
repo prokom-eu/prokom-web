@@ -5,10 +5,10 @@ import { Icon } from '@/components/ui/Icon'
 import { isAfterSwitch } from '@/lib/biznes/pages/ksef'
 import type { SectionData } from '@/lib/biznes/pages/sections'
 import type { BzSectionBlock as BzSectionData } from '@/payload-types'
+import { BZ_H2 } from '@/sites/biznes/typography'
 
 import { PhaseText } from '../k4j/Client'
 import { CARD, EYEBROW, HeadingText, SectionActions, SectionShell, sectionId } from '../ui'
-import { BZ_H2 } from '@/sites/biznes/typography'
 
 type Props = { block: BzSectionData }
 type Item = NonNullable<BzSectionData['items']>[number]

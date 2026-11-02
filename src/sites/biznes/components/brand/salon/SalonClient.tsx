@@ -11,11 +11,11 @@ import type { CatalogIndex, IndexProduct } from '@/lib/catalog/catalogIndex'
 import type { SalonView } from '@/lib/catalog/salon'
 import { cartActions, openCartDrawer } from '@/lib/cart/store'
 import { plural } from '@/lib/plural'
+import { BZ_H2 } from '@/sites/biznes/typography'
 
 import { ProductCard } from '../../catalog/ProductCard'
 import { ProductStage, STAGE_SHADOW } from '../../ProductStage'
 import { CAROUSEL, CAROUSEL_ITEM } from './carousel'
-import { BZ_H2 } from '@/sites/biznes/typography'
 
 export type AskItem = { id: string; note?: string }
 

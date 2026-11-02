@@ -8,6 +8,7 @@ import { CATALOG_PATH } from '@/lib/catalog/filters'
 import { PLAN_PATH } from '@/lib/catalog/floorPlan'
 import type { IconName } from '@/lib/catalog/options'
 import { CONFIGURATOR_PATH } from '@/lib/catalog/wizardEngine'
+import { BZ_H1 } from '@/sites/biznes/typography'
 
 import { NotFoundSearch } from './NotFoundSearch'
 
@@ -37,9 +38,7 @@ export function NotFoundBiznes() {
         <p className="text-sm font-extrabold tracking-[0.12em] text-accent-text uppercase">
           Błąd 404 · strona nie istnieje
         </p>
-        <h1 className="mt-3 max-w-3xl font-display text-[clamp(2rem,4vw,3.5rem)] leading-[1.04] font-extrabold tracking-[-0.02em]">
-          Tej strony tu nie ma.
-        </h1>
+        <h1 className={`${BZ_H1} mt-3 max-w-3xl`}>Tej strony tu nie ma.</h1>
         <p className="mt-4 max-w-2xl text-lg leading-relaxed text-ink-2">
           Adres jest nieprawidłowy albo strona została przeniesiona. Poszukaj w ofercie albo wybierz
           jedno z miejsc poniżej.

@@ -68,7 +68,9 @@ export function ProductCard({
     >
       <ProductStage
         className={cx(
-          'aspect-square w-full rounded-[18px] transition-[box-shadow] duration-300 group-hover/card:shadow-[inset_0_0_0_1.5px_var(--accent-text),0_26px_40px_-30px_var(--glow)] motion-reduce:transition-none sm:rounded-3xl',
+          // Home strip on a phone: the board's fixed 180 px picture (cards are 78% wide there).
+          home ? 'max-sm:h-[180px] sm:aspect-square' : 'aspect-square',
+          'w-full rounded-[18px] transition-[box-shadow] duration-300 group-hover/card:shadow-[inset_0_0_0_1.5px_var(--accent-text),0_26px_40px_-30px_var(--glow)] motion-reduce:transition-none sm:rounded-3xl',
           list && 'sm:w-60 sm:shrink-0',
         )}
       >
@@ -114,14 +116,15 @@ export function ProductCard({
           </span>
         )}
         {(badges.length > 0 || film) && (
-          <ul className="pointer-events-none absolute top-2.5 right-2.5 flex flex-col items-end gap-1.5 sm:top-3 sm:right-3">
+          <ul className="pointer-events-none absolute top-2.5 right-2.5 flex max-w-[48%] flex-col items-end gap-1.5 text-right sm:top-3 sm:right-3">
             {badges.map((badge, i) => (
               <li
                 key={badge.label}
                 className={cx(
                   // One badge on a phone, as in `KatalogM`: two would cover the picture.
                   i > 0 && 'max-sm:hidden',
-                  'rounded-lg px-2 py-1 text-[0.68rem] leading-none font-extrabold tracking-[0.04em] uppercase sm:text-[0.72rem]',
+                  // At most 48% of the picture, wrapping: the brand logo keeps the left corner.
+                  'rounded-lg px-2 py-1 text-[0.68rem] leading-[1.15] font-extrabold tracking-[0.04em] uppercase sm:text-[0.72rem]',
                   BADGE[badge.tone],
                 )}
               >
@@ -150,7 +153,7 @@ export function ProductCard({
             aria-label={`Podgląd: ${product.name}`}
             className={cx(
               CHIP,
-              'absolute bottom-2.5 left-2.5 hidden min-h-11 items-center gap-1.5 px-3 text-sm font-extrabold text-ink opacity-0 transition-opacity group-focus-within/card:opacity-100 group-hover/card:opacity-100 hover:text-accent-text focus-visible:opacity-100 motion-reduce:transition-none sm:bottom-3 sm:left-3 sm:inline-flex',
+              'absolute bottom-2.5 left-2.5 hidden min-h-11 items-center gap-1.5 px-3 text-sm font-extrabold text-ink transition-opacity [@media(hover:hover)]:opacity-0 group-focus-within/card:opacity-100 group-hover/card:opacity-100 hover:text-accent-text focus-visible:opacity-100 motion-reduce:transition-none sm:bottom-3 sm:left-3 sm:inline-flex',
             )}
           >
             <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
@@ -171,7 +174,6 @@ export function ProductCard({
           name={product.name}
           variant="card"
           className="absolute right-2.5 bottom-2.5 z-[2] max-sm:size-11 max-sm:px-0 sm:right-3 sm:bottom-3"
-          compact
         />
       </ProductStage>
 

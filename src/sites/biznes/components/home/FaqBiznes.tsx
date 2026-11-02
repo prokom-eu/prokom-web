@@ -4,9 +4,9 @@ import { faqJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
 import { getCompanyData, getSiteSettings } from '@/lib/site/data'
 import { toTelHref, toWhatsAppHref } from '@/lib/site/link'
 import type { FaqBlock as FaqBlockData } from '@/payload-types'
+import { BZ_H2, BZ_LEAD } from '@/sites/biznes/typography'
 
 import { LiveHours } from './LiveHours'
-import { BZ_H2, BZ_LEAD } from '@/sites/biznes/typography'
 
 type Props = { block: FaqBlockData; tenantId: number }
 

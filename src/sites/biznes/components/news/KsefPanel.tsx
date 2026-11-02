@@ -1,10 +1,10 @@
 import { Container } from '@/components/ui/Container'
 import type { KsefPanel as KsefPanelData } from '@/lib/posts/ksefPanel'
 import { daysUntil } from '@/lib/site/days'
+import { BZ_H2 } from '@/sites/biznes/typography'
 
 import { DayCount } from '../../blocks/BzKsef/DayCount'
 import { PageLink } from '../PageLink'
-import { BZ_H2 } from '@/sites/biznes/typography'
 
 /**
  * The KSeF panel above the news list (board `Aktualnosci`), from the Biznes settings: the days

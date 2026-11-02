@@ -6,11 +6,11 @@ import { Icon } from '@/components/ui/Icon'
 import { BUNDLES_PATH, type BundleCardData } from '@/lib/catalog/bundle'
 import type { CatalogIndex, IndexProduct } from '@/lib/catalog/catalogIndex'
 import type { IndustryView, OtherIndustries } from '@/lib/catalog/industry'
+import { BZ_H2 } from '@/sites/biznes/typography'
 
 import { BundleGrid } from '../bundle/BundleCard'
 import { ProductCard } from '../catalog/ProductCard'
 import { SectionHead } from '../home/SectionHead'
-import { BZ_H2 } from '@/sites/biznes/typography'
 
 type ProductsProps = {
   section: IndustryView['products']

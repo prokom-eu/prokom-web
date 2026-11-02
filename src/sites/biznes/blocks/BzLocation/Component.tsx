@@ -3,9 +3,9 @@ import { getCompanyData, getSiteSettings } from '@/lib/site/data'
 import { hoursSummary } from '@/lib/site/hoursSummary'
 import { toTelHref } from '@/lib/site/link'
 import type { BzLocationBlock as BzLocationBlockData } from '@/payload-types'
+import { BZ_H2 } from '@/sites/biznes/typography'
 
 import { AreaMap } from '../../components/AreaMap'
-import { BZ_H2 } from '@/sites/biznes/typography'
 
 type Props = { block: BzLocationBlockData; tenantId: number }
 

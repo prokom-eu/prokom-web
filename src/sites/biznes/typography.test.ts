@@ -7,13 +7,32 @@ import { BZ_H1, BZ_H2, BZ_LEAD } from './typography'
 
 const ROOTS = ['src/sites/biznes', 'src/app/(sites)/[domain]/(biznes)']
 
-/** H2s that are not section headings: the KSeF countdown, the plan dialog and wizard step titles. */
-const OWN_SIZE = [
-  'blocks/BzKsef/Component.tsx',
-  'components/news/KsefPanel.tsx',
-  'components/plan/PlanPointDialog.tsx',
-  'components/configurator/Configurator.tsx',
-]
+/** H2s that are not section headings: the plan dialog and the wizard step titles. */
+const OWN_SIZE = ['components/plan/PlanPointDialog.tsx', 'components/configurator/Configurator.tsx']
+
+/** H1s rebuilt with the new hero cards of PR 4 (board Web-kategoria-*, salons). */
+const OWN_H1 = ['components/catalog/CatalogHero.tsx', 'components/brand/salon/SalonSections.tsx']
+
+/** Files and their sources, as posix paths. */
+const SOURCES = ROOTS.flatMap(files).map((file) => ({
+  path: file.split(path.sep).join('/'),
+  source: readFileSync(file, 'utf8'),
+}))
+
+/** Headings of a level with their own `clamp` size: in the tag or in an `H2` / `HEADING` constant. */
+function ownSizes(level: 1 | 2, allowed: readonly string[]): string[] {
+  return SOURCES.flatMap(({ path: file, source }) => {
+    if (allowed.some((entry) => file.endsWith(entry))) return []
+    const tags = (source.match(new RegExp(`<h${level}\\b[^>]*>`, 'g')) ?? []).filter((tag) =>
+      /text-\[clamp\(/.test(tag),
+    )
+    const constants =
+      level === 2
+        ? (source.match(/const\s+\w*(?:H2|HEADING)\w*\s*=\s*['`][^'`]*text-\[clamp\(/g) ?? [])
+        : []
+    return [...tags, ...constants].map((found) => `${file}: ${found}`)
+  })
+}
 
 function files(dir: string): string[] {
   return readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
@@ -34,13 +53,10 @@ describe('Biznes type scale (board Strona.dc.html, audit 01.11.2026)', () => {
   })
 
   it('gives no section H2 its own size: they use BZ_H2', () => {
-    const offenders = ROOTS.flatMap(files).flatMap((file) => {
-      const posix = file.split(path.sep).join('/')
-      if (OWN_SIZE.some((allowed) => posix.endsWith(allowed))) return []
-      const source = readFileSync(file, 'utf8')
-      const h2s = source.match(/<h2\b[^>]*>/g) ?? []
-      return h2s.filter((tag) => /text-\[clamp\(/.test(tag)).map((tag) => `${posix}: ${tag}`)
-    })
-    expect(offenders).toEqual([])
+    expect(ownSizes(2, OWN_SIZE)).toEqual([])
+  })
+
+  it('gives no subpage H1 its own size: they use BZ_H1 or BZ_H1_COMPACT', () => {
+    expect(ownSizes(1, OWN_H1)).toEqual([])
   })
 })

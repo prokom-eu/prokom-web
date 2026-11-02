@@ -8,6 +8,7 @@ import type { CatalogIndex } from '@/lib/catalog/catalogIndex'
 import { productHref } from '@/lib/catalog/card'
 import { daysUntil } from '@/lib/site/days'
 import type { BzSectionBlock as BzSectionData } from '@/payload-types'
+import { BZ_H1, BZ_LEAD } from '@/sites/biznes/typography'
 
 import { Breadcrumbs, type Crumb } from '../../../components/Breadcrumbs'
 import { DayCount } from '../../BzKsef/DayCount'
@@ -22,7 +23,6 @@ import {
   SectionShell,
   withTrail,
 } from '../ui'
-import { BZ_H1, BZ_LEAD } from '@/sites/biznes/typography'
 
 /**
  * InsERT hero (K33 §7, plansza Web-InsERT): partner pill, H1 with the accented part, lead, two
