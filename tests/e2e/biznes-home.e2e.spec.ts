@@ -381,6 +381,25 @@ test.describe('Biznes home page: industries, plan, steps', () => {
       await expect(grid.getByRole('button', { name: /Pokaż wszystkie branże/ })).toBeVisible()
       expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390)
     })
+
+    test('App-Start: plan scenes as links, the closing card instead of FAQ and the form', async ({
+      page,
+    }) => {
+      await page.goto(site('biznes.localhost'))
+      const plan = page.locator('#plan')
+      await expect(plan.getByRole('link', { name: 'Restauracja', exact: true })).toHaveAttribute(
+        'href',
+        /^\/plan-firmy\?scena=/,
+      )
+      const last = page.getByRole('region', { name: 'Nie wiesz, co wybrać?' })
+      await expect(last.getByRole('link', { name: /\d{3} \d{3} \d{3}/ })).toHaveAttribute(
+        'href',
+        /^tel:/,
+      )
+      await expect(last.getByRole('button', { name: 'Wyślij zapytanie' })).toBeVisible()
+      await expect(page.locator('#faq')).toBeHidden()
+      await expect(page.locator('#kontakt')).toBeHidden()
+    })
   })
 })
 

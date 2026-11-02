@@ -32,13 +32,15 @@ export async function BzFeaturedBlock({ block, tenantId }: Props) {
   const total = index.products.length
 
   return (
-    <section id="wybierane" aria-labelledby="wybierane-h" className="bg-surface-2 py-16 sm:py-24">
+    <section id="wybierane" aria-labelledby="wybierane-h" className="bg-surface-2 py-6 md:py-24">
       <Container wide>
         <SectionHead
           id="wybierane-h"
           eyebrow={block.eyebrow}
           heading={block.heading}
           lead={block.lead}
+          appOnPhone
+          phoneAction="Więcej"
           action={
             block.catalogLabel
               ? {

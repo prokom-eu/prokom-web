@@ -15,7 +15,7 @@ type Props = {
   /** Colour of the label; the accent by default (GoPOS sections: `text-ok-text`). */
   eyebrowClassName?: string
   /**
-   * Below 768 px as the phone screens (board App-Start): the H2 with a short text link on the
+   * Below 768 px as the phone screens (board App-Start): a 22 px H2 with a short text link on the
    * right (`phoneAction`, else the action's own label), no eyebrow and no lead.
    */
   appOnPhone?: boolean
@@ -57,7 +57,7 @@ export function SectionHead({
             {eyebrow}
           </p>
         )}
-        <h2 id={id} className={BZ_H2}>
+        <h2 id={id} className={cx(BZ_H2, appOnPhone && 'max-md:text-[22px] max-md:leading-[1.1]')}>
           {heading}
         </h2>
         {lead && <p className={cx(BZ_LEAD, 'mt-4 text-ink-2', phone)}>{lead}</p>}

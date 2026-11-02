@@ -26,7 +26,7 @@ export function FeaturedPills({ pills, cards }: Props) {
       <div
         role="group"
         aria-label="Filtr najczęściej wybieranych"
-        className="mt-8 flex flex-wrap gap-2"
+        className="mt-8 flex flex-wrap gap-2 [scrollbar-width:none] max-md:-mx-4 max-md:mt-4 max-md:flex-nowrap max-md:overflow-x-auto max-md:px-4"
       >
         {options.map((option) => {
           const on = option.value === picked
@@ -37,7 +37,7 @@ export function FeaturedPills({ pills, cards }: Props) {
               aria-pressed={on}
               onClick={() => setPicked(option.value)}
               className={cx(
-                'inline-flex min-h-11 items-center gap-2 rounded-full px-4 text-[15px] font-bold transition-colors',
+                'inline-flex min-h-11 shrink-0 items-center gap-2 rounded-full px-4 text-[15px] font-bold whitespace-nowrap transition-colors max-md:text-[14px]',
                 on
                   ? 'bg-accent-text text-accent-ink'
                   : 'bg-card text-ink-2 shadow-[inset_0_0_0_1px_var(--border)] hover:text-ink',
@@ -51,12 +51,12 @@ export function FeaturedPills({ pills, cards }: Props) {
           )
         })}
       </div>
-      <ul className="-mx-4 mt-6 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 min-[640px]:mx-0 min-[640px]:grid min-[640px]:grid-cols-2 min-[640px]:overflow-visible min-[640px]:px-0 min-[640px]:pb-0 min-[900px]:grid-cols-3 min-[1080px]:grid-cols-4">
+      <ul className="-mx-4 mt-6 flex max-md:mt-4 snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 min-[640px]:mx-0 min-[640px]:grid min-[640px]:grid-cols-2 min-[640px]:overflow-visible min-[640px]:px-0 min-[640px]:pb-0 min-[900px]:grid-cols-3 min-[1080px]:grid-cols-4">
         {cards.map(({ key, group, card }) => (
           <li
             key={key}
             hidden={picked !== ALL && group !== picked}
-            className="flex w-[78%] shrink-0 snap-start min-[640px]:w-auto"
+            className="flex w-[180px] shrink-0 snap-start min-[640px]:w-auto"
           >
             {card}
           </li>

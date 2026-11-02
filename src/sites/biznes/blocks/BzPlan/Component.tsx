@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { Container } from '@/components/ui/Container'
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
+import { planHref } from '@/lib/catalog/floorPlan'
 import type { BzPlanBlock as BzPlanBlockData } from '@/payload-types'
 
 import { SectionHead } from '../../components/home/SectionHead'
@@ -17,8 +18,9 @@ import { industryTiles, WIZARD_HREF, type IndustryTile } from './tiles'
 
 type Props = { block: BzPlanBlockData; tenantId: number }
 
+// Phone (board App-Start): three small tiles in a row, without the note.
 const TILE_CLASS =
-  'flex w-full flex-col items-start gap-3 rounded-[22px] bg-card p-4 shadow-[inset_0_0_0_1px_var(--border)] transition-[translate,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_-26px_var(--glow),inset_0_0_0_1px_var(--border)] motion-reduce:transition-none motion-reduce:hover:translate-y-0'
+  'flex w-full flex-col items-start gap-3 rounded-[22px] bg-card p-4 max-md:gap-2 max-md:rounded-[18px] max-md:p-3 shadow-[inset_0_0_0_1px_var(--border)] transition-[translate,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_-26px_var(--glow),inset_0_0_0_1px_var(--border)] motion-reduce:transition-none motion-reduce:hover:translate-y-0'
 
 function Tile({ tile }: { tile: IndustryTile }) {
   const body = (
@@ -26,19 +28,21 @@ function Tile({ tile }: { tile: IndustryTile }) {
       <span
         aria-hidden="true"
         className={cx(
-          'flex size-11 items-center justify-center rounded-[14px] bg-linear-145 text-white',
+          'flex size-11 items-center justify-center rounded-[14px] bg-linear-145 text-white max-md:size-9 max-md:rounded-xl',
           TONE_ICON[tile.tone],
         )}
       >
         <Icon name={tile.icon} className="size-[22px]" />
       </span>
       <span className="flex flex-col gap-1">
-        <span className="font-display text-[16px] leading-tight font-extrabold text-balance text-ink">
+        <span className="font-display text-[16px] leading-tight font-extrabold text-balance text-ink max-md:text-[13.5px]">
           {tile.name}
         </span>
-        {tile.note && <span className="text-[13px] leading-snug text-ink-3">{tile.note}</span>}
+        {tile.note && (
+          <span className="text-[13px] leading-snug text-ink-3 max-md:hidden">{tile.note}</span>
+        )}
       </span>
-      <span className="mt-auto inline-flex items-center gap-1 text-[13px] font-extrabold text-accent-text">
+      <span className="mt-auto inline-flex items-center gap-1 text-[13px] font-extrabold text-accent-text max-md:text-[11.5px]">
         {tile.scene
           ? 'Zobacz plan'
           : tile.href === WIZARD_HREF
@@ -93,16 +97,17 @@ export async function BzPlanBlock({ block, tenantId }: Props) {
   return (
     <>
       {industriesHeading && (hasTiles || funding?.heading) && (
-        <section id="dla-kogo" aria-labelledby="dla-kogo-h" className="bg-surface-2 py-16 sm:py-24">
+        <section id="dla-kogo" aria-labelledby="dla-kogo-h" className="bg-surface-2 py-6 md:py-24">
           <Container wide>
             <SectionHead
               id="dla-kogo-h"
               eyebrow={grid?.eyebrow}
               heading={accentTail(industriesHeading)}
               lead={grid?.lead}
+              appOnPhone
             />
             {hasTiles && (
-              <div className="mt-10">
+              <div className="mt-10 max-md:mt-4">
                 <IndustryGrid
                   visible={tiles.visible.map((tile) => ({
                     key: tile.key,
@@ -120,11 +125,11 @@ export async function BzPlanBlock({ block, tenantId }: Props) {
             {funding?.heading && (
               <div
                 data-surface="dark"
-                className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-4 rounded-[24px] bg-linear-100 from-tone-green-tag to-[color-mix(in_srgb,var(--tone-green-tag)_70%,var(--surface-dark))] p-5 text-white sm:px-6"
+                className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-4 rounded-[24px] max-md:mt-3 max-md:gap-y-3 bg-linear-100 from-tone-green-tag to-[color-mix(in_srgb,var(--tone-green-tag)_70%,var(--surface-dark))] p-5 text-white sm:px-6"
               >
                 <span
                   aria-hidden="true"
-                  className="flex size-11 shrink-0 items-center justify-center rounded-[14px] bg-white/15"
+                  className="flex size-11 shrink-0 items-center justify-center rounded-[14px] bg-white/15 max-md:hidden"
                 >
                   <Icon name="wallet" className="size-[22px]" />
                 </span>
@@ -171,19 +176,41 @@ export async function BzPlanBlock({ block, tenantId }: Props) {
           id="plan"
           aria-labelledby="plan-h"
           tabIndex={-1}
-          className="scroll-mt-20 py-16 outline-none sm:py-24"
+          className="scroll-mt-20 py-16 outline-none max-md:py-6 md:py-24"
         >
+          {/* Phone (board App-Start): the heading and the scenes as chips in a navy card; each
+              opens the plan page with its scene — the full plan is from 768 px. */}
           <Container wide>
-            <SectionHead
-              id="plan-h"
-              eyebrow={block.eyebrow}
-              heading={block.heading}
-              lead={block.lead}
-            />
-            <div className="mt-5">
+            <div className="max-md:rounded-[28px] max-md:bg-surface-dark max-md:p-5 max-md:text-white">
+              {block.eyebrow && (
+                <p className="mb-2 text-[11.5px] font-extrabold tracking-[0.14em] text-white/75 uppercase md:hidden">
+                  {block.eyebrow}
+                </p>
+              )}
+              <SectionHead
+                id="plan-h"
+                eyebrow={block.eyebrow}
+                heading={block.heading}
+                lead={block.lead}
+                appOnPhone
+              />
+              <ul className="mt-4 flex flex-wrap gap-2 md:hidden">
+                {plan.scenes.map((scene) => (
+                  <li key={scene.slug}>
+                    <Link
+                      href={planHref(scene.slug)}
+                      className="inline-flex min-h-11 items-center rounded-full bg-white/10 px-4 text-[14px] font-extrabold text-white shadow-[inset_0_0_0_1px_color-mix(in_srgb,var(--c-white)_14%,transparent)]"
+                    >
+                      {scene.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="mt-5 max-md:hidden">
               <PlanStats scenes={plan.scenes} />
             </div>
-            <div className="mt-8">
+            <div className="mt-8 max-md:hidden">
               <FloorPlan
                 data={plan}
                 headingLevel="h3"
