@@ -93,6 +93,21 @@ Dziennik: `../deploys.log` (`<czas> staging <stary> -> <nowy> ok | FAILED, rolle
 
 **Klucz pipeline'u (raz, zrobione 1.11):** środowisko GitHub `staging` (Settings → Environments; wdrożenia tylko z gałęzi `develop`) z sekretem `STAGING_SSH_KEY` (klucz prywatny ed25519, wygenerowany na serwerze i przekazany wprost do `gh secret set` — nigdzie nie zapisany) oraz zmiennymi `STAGING_SSH_TARGET=<admin>@<IP>` i `STAGING_SSH_KNOWN_HOSTS=<IP> ssh-ed25519 …` (z `/etc/ssh/ssh_host_ed25519_key.pub` serwera — przypięty klucz hosta). Na serwerze w `~/.ssh/authorized_keys` admina: `restrict,command="/home/<admin>/bin/prokom-deploy-gate" ssh-ed25519 … github-deploy-staging` (`restrict` wyłącza też scp/sftp, przekierowania i terminal). Bramka leży poza plikami wdrożenia, więc wdrożenie jej nie podmienia — zmiana bramki: `install -m 700 scripts/server/deploy-gate.sh ~/bin/prokom-deploy-gate` ręcznie. Klucz pozwala tylko wybrać obraz z GHCR (zbudowany przez „Image” z `develop`); kto może scalić do `develop`, ten wdraża kod na serwer — dlatego `develop` tylko przez PR z zielonym CI. Nowy klucz: usuń linię `github-deploy-staging`, wygeneruj parę jak wyżej.
 
+## 2a. Odświeżenie treści stagingu (paczki linii)
+
+Pipeline przenosi kod i migracje, ale **nie treść**: `pnpm seed*` jest na stagingu zablokowany, a obraz nie ma paczek `seed/` ani zdjęć `docs/design/`. Nowe strony z importów linii (np. Instalacje `/dla-kogo/pensjonaty`) pojawiają się na stagingu dopiero po odświeżeniu — inaczej 404 i czerwony Lighthouse.
+
+Z komputera (Git Bash), w checkoucie **dokładnie** commita ze stagingu (`git fetch && git switch --detach <APP_IMAGE_TAG>` — skrypt sprawdza):
+```bash
+SSH=/c/Windows/System32/OpenSSH/ssh.exe bash scripts/staging-content.sh [biznes software instalacje]
+```
+Kroki: `backup.sh staging predeploy` (B2) → zrzut bazy i mediów stagingu → tymczasowy Postgres na komputerze (`127.0.0.1:54331`, usuwany na końcu) → `pnpm payload migrate` + `pnpm seed:<linia>` → baza i media z powrotem (aplikacja zatrzymana ok. 1–2 min, pod blokadą wdrożeń) → `healthy` + smoke → wpis w `../deploys.log`.
+- **Zostaje:** konta (`Users`), zapytania, ustawienia Stron (e-mail powiadomień, domeny `staging`), wszystko spoza paczek — importy linii czytają tenanty, nie zmieniają kont ani zapytań.
+- **Nadpisuje:** pola z paczek (np. katalog Biznesu — „pola z paczki wygrywają z edycją w panelu”). Przed odświeżeniem zapytaj szefa, czy czegoś nie poprawiał na stagingu.
+- **Ginie:** zapytania wysłane w trakcie (minuty) — są w kopii `predeploy`.
+- Lokalna kopia (testowe zapytania, skróty haseł) jest kasowana na końcu, także po błędzie.
+- Po błędzie przed krokiem „replace” staging jest nietknięty; po błędzie w trakcie — §6 z kopią `staging/predeploy`.
+
 ## 3. Wdrożenie produkcji
 
 Tylko po akceptacji szefa w Asanie i tylko obraz, który przeszedł staging (ADR-004). Warunek: przebieg „Lighthouse” po ostatnim wdrożeniu stagingu (tym obrazem) zielony (budżet, ADR-021); anulowany przebieg się nie liczy — Actions → Lighthouse → Run workflow.
