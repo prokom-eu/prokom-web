@@ -100,10 +100,11 @@ describe('k4BrandSettings', () => {
   const ids = new Map(names.map((name, index) => [name, index + 1]))
   const settings = k4BrandSettings(file, (name) => ids.get(name))
 
-  it('keeps the 16 homepage brands in the package order', () => {
+  it('keeps the 16 homepage brands in the order of the board Web-start (prompt 2 W2)', () => {
     expect(settings.home).toHaveLength(16)
-    expect(settings.home[0]).toBe(ids.get('Posnet'))
-    expect(settings.home.at(-1)).toBe(ids.get('Brother'))
+    expect(settings.home[0]).toBe(ids.get('GoPOS'))
+    expect(settings.home[4]).toBe(ids.get('ESET'))
+    expect(settings.home.at(-1)).toBe(ids.get('Ubiquiti'))
   })
 
   it('lists every brand in a group of /marki, Samsung in two', () => {

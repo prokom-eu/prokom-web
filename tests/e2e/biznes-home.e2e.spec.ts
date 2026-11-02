@@ -24,9 +24,10 @@ test.describe('Biznes home page', () => {
       '/oferta',
     )
     await expect(hero.locator('a[href^="tel:"]')).toBeVisible()
-    await expect(hero).toContainText(
-      'Autoryzowany serwis Posnet i Elzab · Autoryzowany partner GoPOS i InsERT',
-    )
+    // Board v150: the trust line split into its statuses, the callback promise by the phone.
+    await expect(hero).toContainText('Autoryzowany serwis Posnet i Elzab')
+    await expect(hero).toContainText('Autoryzowany partner GoPOS i InsERT')
+    await expect(hero).toContainText('Oddzwaniamy w ciągu 60 minut w godzinach pracy')
     await expect(hero).toContainText('100+ klientów firmowych')
     await expect(hero.getByRole('link', { name: 'Zobacz plan Twojej firmy ↓' })).toHaveAttribute(
       'href',
@@ -34,26 +35,33 @@ test.describe('Biznes home page', () => {
     )
   })
 
-  test('the department wheel shows the picked department with its count', async ({ page }) => {
+  test('the department wheel always shows an active department (board v150)', async ({ page }) => {
     await page.clock.install()
     await page.goto(site('biznes.localhost'))
     const departments = page.getByRole('list', { name: 'Działy oferty' }).getByRole('button')
     await expect(departments).toHaveCount(5)
+    const core = page.locator('#start [data-surface="dark"]')
+    // The first department is active from the start: no „your company” in the middle.
+    await expect(departments.first()).toHaveAttribute('aria-pressed', 'true')
+    await expect(core).toContainText('Dział 1 z 5')
+    await expect(core).not.toContainText('Twoja firma')
 
     const software = departments.filter({ hasText: 'Oprogramowanie' })
     await software.click()
     await expect(software).toHaveAttribute('aria-pressed', 'true')
-    const core = page.locator('#start [data-surface="dark"]')
     await expect(core).toContainText('Oprogramowanie')
     await expect(core).toContainText(/\d+ pozycj/)
+    await expect(core.getByRole('link', { name: /Zobacz dział/ })).toHaveAttribute(
+      'href',
+      /^\/oferta\?grupa=/,
+    )
 
-    // A second click goes back to "your company"; the automatic switching stopped.
+    // A second click keeps it; after a pick the automatic switching stopped.
     await software.click()
-    await expect(software).toHaveAttribute('aria-pressed', 'false')
-    await expect(core).toContainText('Twoja firma')
+    await expect(software).toHaveAttribute('aria-pressed', 'true')
     await page.mouse.move(0, 0)
     await page.clock.runFor(9000)
-    await expect(core).toContainText('Twoja firma')
+    await expect(core).toContainText('Oprogramowanie')
   })
 
   test('product pictures of the wheel link to product pages', async ({ page }) => {
@@ -94,8 +102,9 @@ test.describe('Biznes home page', () => {
     const tiles = brands.locator('ul').first().locator(':scope > li > a')
     await expect(tiles).toHaveCount(16)
     // The whole tile is read: name, description, status, count.
-    await expect(tiles.first()).toHaveAccessibleName(/^Posnet .*Autoryzowany serwis/)
-    await expect(tiles.first()).toContainText('Autoryzowany serwis')
+    // Board order (W2): GoPOS first; the name is read once, before the description.
+    await expect(tiles.first()).toHaveAccessibleName(/^GoPOS: .*Autoryzowany partner/)
+    await expect(tiles.first()).toContainText('Autoryzowany partner')
     await expect(tiles.first()).toContainText(/\d+ pozycj/)
     await expect(brands.getByRole('link', { name: /Wszystkie marki/ })).toBeVisible()
     // K4-FINAL §1: no shortened status anywhere.

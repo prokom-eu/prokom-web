@@ -23,9 +23,18 @@ type Props = {
   formNote?: string | null
   promises?: string[]
   successText?: string | null
+  /** Topic chips of the form and their label (home page: board „W czym możemy pomóc?”). */
+  topics?: readonly string[]
+  topicsLabel?: string
 }
 
 type Channel = { label: string; value: string; href: string; icon: IconName; external?: boolean }
+
+/** „Napisz, czego potrzebujesz. Oddzwonimy…” — the first sentence and the rest. */
+function splitHeading(text: string): [string, string | null] {
+  const at = text.search(/[.?!]\s/)
+  return at < 0 ? [text, null] : [text.slice(0, at + 1), text.slice(at + 2).trim() || null]
+}
 
 /**
  * Navy panel with the channels from the settings and the v20 contact form (ZMIANY-v20 §2.9):
@@ -41,7 +50,10 @@ export async function ContactPanel({
   formNote,
   promises = [],
   successText,
+  topics,
+  topicsLabel,
 }: Props) {
+  const [first, accent] = splitHeading(heading)
   await connection()
   const [settings, company] = await Promise.all([getSiteSettings(tenantId), getCompanyData()])
   const formToken = issueFormToken(getEnv().PAYLOAD_SECRET)
@@ -74,7 +86,14 @@ export async function ContactPanel({
           >
             <LiveHours hours={hours} className="text-sm text-white" />
             <h2 id={headingId} className={`${BZ_H2} text-white`}>
-              {heading}
+              {first}
+              {accent && (
+                <>
+                  {' '}
+                  {/* Board `#s4-kontakt`: the second sentence on its own line, in the accent. */}
+                  <span className="block text-accent-on-dark">{accent}</span>
+                </>
+              )}
             </h2>
             {lead && <p className="leading-relaxed text-white/80">{lead}</p>}
             {channels.length > 0 && (
@@ -117,6 +136,8 @@ export async function ContactPanel({
               note={formNote}
               promises={promises}
               successText={successText}
+              topics={topics}
+              topicsLabel={topicsLabel}
             />
           </div>
         </div>

@@ -11,6 +11,7 @@ import { getHomeBrands, getPartners } from '@/lib/partners/data'
 import type { HomeBrand } from '@/lib/partners/homeBrands'
 import { plural } from '@/lib/plural'
 import type { PartnersBlock as PartnersBlockData } from '@/payload-types'
+import { BZ_H2, BZ_LEAD } from '@/sites/biznes/typography'
 
 /** Tiles of the section (K35 7a) and logos in the „Salony marek” tile (board: 11, then „+N”). */
 const HOME_BRANDS = 16
@@ -68,14 +69,20 @@ export async function BrandsHome({
     slug ? (brandPageHref(index, slug) ?? `/oferta?marka=${slug}`) : '/oferta'
 
   return (
-    <section id="marki" aria-labelledby="marki-h" className="scroll-mt-24 py-14">
+    <section id="marki" aria-labelledby="marki-h" className="scroll-mt-24 py-16 sm:py-20">
       <Container wide>
-        <div className="flex max-w-3xl flex-col gap-2 pb-7">
-          <p className="text-xs font-black tracking-[0.08em] text-accent-text uppercase">Marki</p>
-          <h2 id="marki-h" className="font-display text-3xl font-extrabold text-balance text-ink">
-            {heading}
-          </h2>
-          <p className="text-ink-2">{lead}</p>
+        {/* Board `Web-start` (W2): the heading left, the lead right. */}
+        <div className="flex flex-col gap-4 pb-8 min-[900px]:flex-row min-[900px]:items-end min-[900px]:justify-between min-[900px]:gap-10">
+          <div className="flex flex-col gap-3">
+            <p className="flex items-center gap-2 text-xs font-black tracking-[0.12em] text-accent-text uppercase">
+              <span aria-hidden="true" className="h-0.5 w-5 bg-current" />
+              Marki
+            </p>
+            <h2 id="marki-h" className={`${BZ_H2} max-w-[16ch] text-ink`}>
+              {heading}
+            </h2>
+          </div>
+          <p className={`${BZ_LEAD} max-w-[46ch] text-ink-2`}>{lead}</p>
         </div>
         <ul className="grid gap-3 min-[560px]:grid-cols-2 min-[900px]:grid-cols-3 min-[1200px]:grid-cols-4">
           {brands.map((brand) => {
@@ -85,15 +92,15 @@ export async function BrandsHome({
               <li key={brand.id} className="flex">
                 <Link
                   href={hrefOf(brand.slug)}
-                  className="flex w-full flex-col gap-3 rounded-3xl bg-card p-4 shadow-[0_20px_50px_-34px_var(--glow),inset_0_0_0_1px_var(--border)] transition-shadow hover:shadow-[0_20px_50px_-34px_var(--glow),inset_0_0_0_1.5px_var(--accent-text)]"
+                  className="group/brand flex w-full flex-col gap-3 rounded-[22px] bg-card p-3.5 shadow-[0_20px_50px_-34px_var(--glow),inset_0_0_0_1px_var(--border)] transition-shadow hover:shadow-[0_20px_50px_-34px_var(--glow),inset_0_0_0_1.5px_var(--accent-text)] motion-reduce:transition-none"
                 >
                   {brand.logo ? (
                     <span className={PLATE}>
-                      {/* The name is the text next to it: the logo is decoration here. */}
+                      {/* The name is read once, from the line below: the logo is decoration. */}
                       <MediaImage
                         image={{ ...brand.logo, alt: '' }}
                         sizes="160px"
-                        className="max-h-10 w-auto max-w-full object-contain"
+                        className="max-h-10 w-auto max-w-[70%] object-contain"
                       />
                     </span>
                   ) : (
@@ -105,56 +112,73 @@ export async function BrandsHome({
                       {brand.name}
                     </span>
                   )}
-                  <span className="flex flex-1 flex-col gap-1">
-                    <b className="font-extrabold text-ink">{brand.name}</b>
-                    {brand.description && (
-                      <small className="text-sm leading-snug text-ink-2">{brand.description}</small>
-                    )}
+                  <span className="flex-1 text-sm font-bold text-ink">
+                    <span className="sr-only">{brand.name}: </span>
+                    {brand.description ?? brand.name}
                   </span>
-                  <span className="flex flex-wrap items-center justify-between gap-2 text-xs font-extrabold">
-                    {role ? <span className="text-ok-text">{role}</span> : <span />}
+                  <span className="flex items-center gap-2 text-xs font-extrabold">
+                    {role && (
+                      <span className="rounded-md bg-[color-mix(in_srgb,var(--accent-text)_12%,transparent)] px-2 py-1 text-accent-text">
+                        {role}
+                      </span>
+                    )}
                     {count > 0 && (
                       <span className="text-ink-2">
                         {count} {plural(count, ['pozycja', 'pozycje', 'pozycji'])}
                       </span>
                     )}
+                    <Icon
+                      name="arrow"
+                      strokeWidth={2.4}
+                      className="ml-auto size-4 text-accent-text transition-transform group-hover/brand:translate-x-0.5 motion-reduce:transition-none"
+                    />
                   </span>
                 </Link>
               </li>
             )
           })}
           <li className="min-[560px]:col-span-2 min-[900px]:col-span-3 min-[1200px]:col-span-4">
-            <div className="flex flex-col gap-4 rounded-3xl bg-surface-2 p-5 min-[900px]:flex-row min-[900px]:items-center">
-              <div className="flex flex-col gap-1 min-[900px]:max-w-[40%]">
-                <p className="text-xs font-black tracking-[0.08em] text-accent-text uppercase">
+            <div
+              data-surface="dark"
+              className="flex flex-col gap-5 rounded-[26px] bg-surface-dark bg-[radial-gradient(120%_140%_at_100%_0%,color-mix(in_srgb,var(--accent-text)_55%,transparent),transparent_60%)] p-6 text-white min-[1080px]:flex-row min-[1080px]:items-center min-[1080px]:gap-8 min-[1080px]:px-8"
+            >
+              <div className="flex flex-col gap-2 min-[1080px]:max-w-[38%]">
+                <p className="text-xs font-extrabold tracking-[0.14em] text-white/75 uppercase">
                   Salony marek
                 </p>
-                <b className="font-display text-xl font-extrabold text-ink">
+                <b className="font-display text-[clamp(24px,2.2vw,30px)] leading-tight font-extrabold font-stretch-112%">
                   Zobacz wszystkie marki · {total}
                 </b>
-                <p className="text-sm text-ink-2">
+                <p className="text-sm leading-relaxed text-white/80">
                   Najważniejsze marki mają swoje salony: dobór modelu, porównanie serii i serwis.
                   Szukasz konkretnego producenta? Wszystkie są tutaj.
                 </p>
               </div>
-              <ul aria-hidden="true" className="flex flex-1 flex-wrap items-center gap-2">
+              <ul
+                aria-hidden="true"
+                className="grid flex-1 grid-cols-3 gap-2 min-[560px]:grid-cols-4 min-[1080px]:max-w-[400px] min-[1080px]:justify-self-end"
+              >
                 {others.slice(0, MORE_LOGOS).map((partner) => (
                   <li
                     key={partner.id}
-                    className="flex h-10 w-20 items-center justify-center rounded-xl bg-white px-2"
+                    className="flex h-11 items-center justify-center rounded-xl bg-white px-2"
                   >
                     <MediaImage
                       image={{ ...partner.logo, alt: '' }}
-                      sizes="80px"
+                      sizes="92px"
                       className="max-h-6 w-auto max-w-full object-contain"
                     />
                   </li>
                 ))}
-                {rest > 0 && <li className="text-sm font-extrabold text-ink-2">+{rest}</li>}
+                {rest > 0 && (
+                  <li className="flex h-11 items-center justify-center rounded-xl bg-white/10 text-sm font-extrabold text-white">
+                    +{rest}
+                  </li>
+                )}
               </ul>
               <Link
                 href={BRANDS_PATH}
-                className="inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-xl bg-accent-text px-5 font-extrabold text-accent-ink"
+                className="inline-flex min-h-14 shrink-0 items-center justify-center gap-2 self-start rounded-2xl bg-white px-6 font-extrabold text-surface-dark transition-colors hover:bg-accent-text hover:text-accent-ink min-[1080px]:self-center"
               >
                 Wszystkie marki
                 <Icon name="arrow" strokeWidth={2.4} className="size-4" />

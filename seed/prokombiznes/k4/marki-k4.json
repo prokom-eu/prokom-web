@@ -398,22 +398,22 @@
   }
  ],
  "kolejnosc_na_glownej": [
-  "Posnet",
-  "Elzab",
-  "Apple",
-  "Lenovo",
-  "Dell",
-  "Samsung",
-  "Sunmi",
   "GoPOS",
   "InsERT",
-  "Ubiquiti",
-  "Synology",
+  "Posnet",
+  "Elzab",
+  "ESET",
   "Microsoft",
-  "Konica Minolta",
+  "EuroCert",
   "COMEX",
+  "Apple",
+  "Samsung",
+  "Lenovo",
+  "Dell",
+  "Sunmi",
   "PolCard",
-  "Brother"
+  "Konica Minolta",
+  "Ubiquiti"
  ],
  "liczba_marek": 39,
  "zasady_statusow": {
