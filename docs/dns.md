@@ -17,6 +17,7 @@ Sprawdzenie rekordu z PowerShell: `Resolve-DnsName prokombiznes.pl -Type A` (typ
 | prokombiznes.pl | Seohost (ADR-019); DNS `dns1/dns2.microhost.pl` | PRO-KOM | TODO | 31.10.2027 | strona Biznes (tenant `biznes`) |
 | prokominstalacje.pl | Seohost; DNS `dns1/dns2.microhost.pl` | PRO-KOM | TODO | 31.10.2027 | strona Instalacje (tenant `instalacje`) |
 | prokomsoftware.pl | Seohost; DNS `dns1/dns2.microhost.pl` | PRO-KOM | TODO | 31.10.2027 | strona Software (tenant `software`) |
+| prokomgaming.pl | Seohost; DNS `dns1/dns2.microhost.pl` (od 2.11) | PRO-KOM | TODO | 31.10.2027 | Gaming (osobne repo); tu tylko DNS i poczta |
 | pro-kom.eu | `TODO(krystian)`: nazwa.pl czy już Seohost? (migracja — ADR-002) | PRO-KOM | TODO | TODO | obecna strona + **poczta firmy**; panel `panel.pro-kom.eu` (S10) |
 
 Serwer: **VPS webh.pl** (ADR-019, `vm280605`, Łódź), IPv4 **`194.28.50.70`**, IPv6 — brak (nie dodajemy rekordów AAAA; gdyby VPS dostał IPv6, dopisujemy AAAA obok każdego A). Kolumny TODO w tabeli wyżej — z panelu Seohost.
@@ -71,19 +72,24 @@ Rekordy poczty w strefie **każdej z trzech domen** (`<d>` = domena):
 | TXT | @ | `v=spf1 redirect=_spf-h99.microhost.pl` | 3600 | SPF: serwery wysyłkowe Seohost (`_spf-h99` = adresy `213.239.133.161–165`, `-all`); **jedyny** SPF w domenie — VPS poczty nie wysyła | do ustawienia |
 | TXT | x._domainkey | DKIM — klucz domeny niżej | 3600 | podpis DKIM (hosting podpisuje wysyłkę) | do ustawienia |
 | TXT | _dmarc | `v=DMARC1; p=none; rua=mailto:kontakt@<d>` | 3600 | DMARC: start bez odrzucania, raporty na `kontakt@`; po 2–4 tygodniach bez problemów `p=quarantine` (fundament S10) — hosting proponuje od razu `quarantine` | do ustawienia |
-| SRV | _autodiscover._tcp | `10 10 443 autodiscover-h99.seohost.pl.` | 3600 | automatyczna konfiguracja Outlooka i telefonu | do ustawienia |
+
+Bez rekordu SRV `_autodiscover._tcp`: panel Seohost (Strefy DNS) go nie publikuje (2.11, sprawdzone na `dns1`/`dns2`) — w programach pocztowych ustawienia ręcznie: serwer `mail.<d>`, IMAP 993 (SSL), SMTP 465 (SSL), login = pełny adres. W panelu stref: zamiast `@` pełna nazwa domeny, TXT bez cudzysłowów, nazwy i wartości bez kropki na końcu.
 
 Klucze DKIM (`x._domainkey`, wartość 1:1 z panelu hostingu):
 - prokombiznes.pl: `v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqWY1MRlB9hE6QjzqEgFNuj/rKXteZ3v+Rsf8bcBluEQ0Hr/cBsU4oK3fYmHmqyyCtjIRgHy2on6bXOv/ItrsT16uf15XllyVLaZnPUcjqCCP7bGg/9Z3cED/QR1qMW1cf5ZbLckVDpnFJLkfRqj/OEq34ZI1CaU+j7b0w89+PkGwaVUxHQNqHWe8i8U6YICOvmO0b+eA9UFN3Ooi3x4ziMGOey7iyx9Nsl+H6wyxqaluvHS0Al0cQ8FPCanuiAwyzFaic3oUfeNt0qwX99f1phVgMzugilvmoKM48skJbGwzEGs/kch+6KZ6PRP8ev8SwOpRR9UANQCJRNCwolmd5wIDAQAB`
 - prokomsoftware.pl: `v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1URH15Tj0qK6SyYPpFHM1AGRYrFpDkqmFuoE3TIDxCJiBg8A7K1yP+9KR19621u46OY1xCjQx3u+lQNJeL8+WdpJP5AEvNQJE4HsdvL1v9ds1541wCt7r3FzBkCsDnrg+QA7X0vg45hcTMMKU50Js0HwEYCJecsPdGwLoTgjB9uCCKxQMolIneV4ce5u/9DglrPHEpsp7rzijjexX/46kP7aWx5aVRv7gaJc3UtRvZJjuXuYqoSVGebAZ8bdVy5gGqa+L74YFSfsE4nQ+0R27ThX6eswHBcbuuGqeRJDgxpC2dd+vJ/grJZ4QC7uaT1c9CCA/jwPkQwa6nolqEPZHwIDAQAB`
 - prokominstalacje.pl: `v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAk8lIq3RZLTI0hAU/Wp/DpZ2rjKUUDxJhJpKiG6lqjrz/V1u8Sz23wvr5ZDmAN9uuFsN4NKnST1G56bV+uMX5+y5ocalAk5QtT87nZwijIDYvYEO4sTthk+Sx+LoIpXq8el85dzxN6G06cQHmcaceaChpdP6h4QrWNaHJvM9JvtzMbpLvtDnoQ/HXvk+l7Vy6mex+4Cg/APAaYmv/1e9zO0yQHyoOenKbLzCI4rsDFEJjU/Mlw6u+2ocq/q5rSbUPsW0MckGFeSYcsBGN3DVVBQq0c2JbGE9Gnh/+E4cns4b/zAHY5pT4edoeft3a4roNnhN62SX1qjOxa3TPluWNlQIDAQAB`
 
-**prokomgaming.pl** (osobne repo Gaming): delegacja `ns1/ns2.seohost.pl` — strefę obsługuje **sam hosting** (rekordy jak wyżej utworzył panel hostingu automatycznie, razem z A `@`/`www` → `91.236.131.99`, czyli serwer hostingu). Gdy Gaming ma działać na VPS: A `@`/`www` → `194.28.50.70` w panelu hostingu (Zarządzanie DNS) albo przeniesienie strefy do microhost — decyzja w repo Gaming, zapis tutaj.
+**prokomgaming.pl** (osobne repo Gaming): od 2.11 delegacja `dns1/dns2.microhost.pl` (wcześniej `ns1/ns2.seohost.pl` — strefa z hostingu). Strefa w Seohost → Strefy DNS jak pozostałe: A `@`/`www` → `194.28.50.70` (na start — Nginx zamyka połączenie dla nieznanej domeny; Gaming zmienia je, gdy ruszy) i te same rekordy poczty, DKIM: `v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA5/ZbdgBd4SvAZy+PVGZ8guzRNm87QzSOnjwKDjyHWh5htswo8ka9zlTRwZ6MRs6U0c3YvyHRT3KyxdsaxSLZLpL0yPjm67EeDNAWxZUNJXKimK9NG5AhrF/pE7q3HFAEF69Alc7NZ/KoJnPWA3BhWyAEz5uGEhZTzyKnKOkZHkIsnt4NXgvaQaVKyPtDtpiBypwQiTUul9Kj4CblKQKdSJB/DQNe2oEM8tbvLgpnbSIb1+pG+0GPBejf/I0YK8Mm4amZ27qZXqoa8b/NlccfyWz4/Ioz7fESDKiISYNBrXpgZ7aed8ngcPidJkeqOwXf0Fcrxg+k8OE3OMF89l45+QIDAQAB`. Zmiany rekordów Gaming — zapis tutaj (jedno miejsce dla DNS firmy).
 
-- Weryfikacja: wysyłka testowa do mail-tester.com — wynik i data: TODO.
-- Kontrola: mail z formularza na stagingu dochodzi do Gmail i Outlook poza spamem (warunek S10): TODO.
+- **Weryfikacja 2.11.2026:** mail-tester.com **10/10** dla `kontakt@prokombiznes.pl`, `kontakt@prokomsoftware.pl`, `kontakt@prokominstalacje.pl` (SPF, DKIM, DMARC zgodne, serwer poza czarnymi listami; `scripts/server/mail-test.sh`).
+- **Kontrola skrzynek 2.11.2026:** Gmail — wszystkie trzy w „Odebranych → Główne”. Outlook: `TODO(krystian)` (warunek S10: Gmail i Outlook poza spamem).
+- **Wysyłka z aplikacji:** SMTP `srv128408.seohost.com.pl:465` (SSL; certyfikat jest na tę nazwę, nie na `mail.<d>`), login = pełny adres skrzynki; `scripts/server/mail-login.sh <stos>` zapisuje to w `.env.<stos>` po sprawdzeniu hasła prawdziwym logowaniem. Gaming (osobne repo): te same dane z `kontakt@prokomgaming.pl`.
+- DMARC: po 2–4 tygodniach bez problemów (raporty na `kontakt@`) zmiana na `p=quarantine` — `TODO`: ok. 30.11.2026.
 
 ## Historia zmian DNS
 | Data | Domena | Zmiana | Kto | PR |
 |---|---|---|---|---|
+| 2.11.2026 | prokombiznes.pl, prokomsoftware.pl, prokominstalacje.pl | rekordy poczty: A `mail`, MX, SPF, DKIM `x._domainkey`, DMARC `p=none` (hosting poczty Seohost) | Krystian | S10d |
+| 2.11.2026 | prokomgaming.pl | delegacja `ns1/ns2.seohost.pl` → `dns1/dns2.microhost.pl`; nowa strefa: A `@`/`www` → 194.28.50.70, rekordy poczty jak wyżej | Krystian | S10d |
 | 31.10.2026 | prokombiznes.pl, prokominstalacje.pl, prokomsoftware.pl | strefy w Seohost (`@`, `www`, `staging`; prokombiznes.pl także `panel.staging`) → 194.28.50.70; delegacja `ns1/ns2.seohost.pl` → `dns1/dns2.microhost.pl` | Krystian | #185 |
