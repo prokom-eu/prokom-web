@@ -6,7 +6,6 @@ import {
   buildListInquiryBody,
   checkListRequired,
   itemsSummary,
-  LIST_DEADLINES,
   LIST_FIELD_MESSAGES,
   listInquiryType,
   type ListFormValues,
@@ -87,10 +86,6 @@ describe('buildListInquiryBody', () => {
     )
     expect(contact).toMatchObject({ type: 'contact', topics: [] })
     expect(parseInquiryInput(contact, 'biznes').success).toBe(true)
-  })
-
-  it('offers the deadlines of the board', () => {
-    expect(LIST_DEADLINES).toEqual(['Pilne', 'W tym miesiącu', 'Przed sezonem', 'Bez pośpiechu'])
   })
 })
 

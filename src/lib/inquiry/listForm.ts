@@ -7,9 +7,6 @@ import type { InquiryType, PreferredContact } from './types'
 // Browser side of the inquiry list form `/zapytanie` (spec. §6.3, plansza Zapytanie): what it
 // sends to `POST /api/inquiry`. The server validates the same rules (`schema.ts`, ADR-003).
 
-/** „Na kiedy?” of the board; saved as the text of the chosen option. */
-export const LIST_DEADLINES = ['Pilne', 'W tym miesiącu', 'Przed sezonem', 'Bez pośpiechu'] as const
-
 export type ListFormValues = {
   name: string
   phone: string

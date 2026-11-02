@@ -481,8 +481,15 @@ export function KsefPenalties({
   return (
     <SectionShell block={block} head={false}>
       <div className="grid gap-5 min-[1080px]:grid-cols-2">
-        <div className="flex flex-col gap-4 rounded-[24px] bg-surface-dark p-6 text-white sm:p-8">
-          <p className={cx(EYEBROW, 'text-accent-on-dark')}>{data.penalties.eyebrow}</p>
+        {/* Board `Web-ksef` (prompt 2 W3): a burgundy card, mixed from the brand red and navy. */}
+        <div
+          data-surface="dark"
+          className="flex flex-col gap-4 rounded-[24px] bg-[linear-gradient(160deg,color-mix(in_srgb,var(--c-biznes-tone-red)_42%,var(--surface-dark))_0%,color-mix(in_srgb,var(--c-biznes-tone-red)_14%,var(--surface-dark))_100%)] p-6 text-white sm:p-8"
+        >
+          <p className={cx(EYEBROW, 'flex items-center gap-2 text-white/80')}>
+            <span aria-hidden="true" className="h-0.5 w-5 bg-current" />
+            {data.penalties.eyebrow}
+          </p>
           <h2 className={cx(H2, 'text-white')}>{data.penalties.heading}</h2>
           <dl className="grid grid-cols-2 gap-3">
             {data.penalties.figures.map((figure) => (

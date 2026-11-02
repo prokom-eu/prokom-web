@@ -191,8 +191,16 @@ export function BandSection({ block, data }: Props & { data: SectionData<'band'>
 }
 
 /** `table`: a comparison; on a phone each column is a card in a horizontal strip. */
+/** `contrast` tables (board `Web-opieka-it`): the „without” column in red, the „with” in green. */
+const CONTRAST_HEAD = [
+  'bg-[color-mix(in_srgb,var(--c-biznes-tone-red)_12%,transparent)] text-ink',
+  'bg-ok/15 text-ok-text',
+]
+const CONTRAST_CELL = ['text-ink-2', 'bg-ok/5 font-bold text-ink']
+
 export function TableSection({ block, data }: Props & { data: SectionData<'table'> }) {
   const [, ...columns] = data.head
+  const contrast = data.contrast === true && columns.length === 2
   return (
     <SectionShell block={block}>
       <div className={cx(CARD, 'hidden overflow-hidden min-[761px]:block')}>
@@ -200,8 +208,22 @@ export function TableSection({ block, data }: Props & { data: SectionData<'table
           <thead>
             <tr className="bg-surface-2">
               {data.head.map((cell, i) => (
-                <th key={i} scope="col" className="px-5 py-4 font-display font-extrabold text-ink">
-                  {cell}
+                <th
+                  key={i}
+                  scope="col"
+                  className={cx(
+                    'px-5 py-4 font-display font-extrabold text-ink',
+                    contrast && i > 0 && CONTRAST_HEAD[i - 1],
+                  )}
+                >
+                  {contrast && i > 0 ? (
+                    <span className="inline-flex items-center gap-2">
+                      <span aria-hidden="true">{i === 1 ? '✕' : '✓'}</span>
+                      {cell}
+                    </span>
+                  ) : (
+                    cell
+                  )}
                 </th>
               ))}
             </tr>
@@ -213,7 +235,10 @@ export function TableSection({ block, data }: Props & { data: SectionData<'table
                   {row.k}
                 </th>
                 {row.v.map((cell, i) => (
-                  <td key={i} className="px-5 py-4 text-ink-2">
+                  <td
+                    key={i}
+                    className={cx('px-5 py-4', contrast ? CONTRAST_CELL[i] : 'text-ink-2')}
+                  >
                     {cell}
                   </td>
                 ))}
@@ -225,7 +250,19 @@ export function TableSection({ block, data }: Props & { data: SectionData<'table
       <ul className="-mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 min-[761px]:hidden">
         {columns.map((column, c) => (
           <li key={column} className={cx(CARD, 'w-[82%] shrink-0 snap-start p-5 text-ink')}>
-            <h3 className="font-display text-lg font-extrabold">{column}</h3>
+            <h3
+              className={cx(
+                'font-display text-lg font-extrabold',
+                contrast && cx('-mx-5 -mt-5 mb-1 rounded-t-[22px] px-5 py-3', CONTRAST_HEAD[c]),
+              )}
+            >
+              {contrast && (
+                <span aria-hidden="true" className="mr-2">
+                  {c === 0 ? '✕' : '✓'}
+                </span>
+              )}
+              {column}
+            </h3>
             <dl className="mt-3 flex flex-col gap-3">
               {data.rows.map((row) => (
                 <div key={row.k}>

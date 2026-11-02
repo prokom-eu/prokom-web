@@ -73,11 +73,9 @@ test.describe('inquiry list /zapytanie (B8b)', () => {
     const contact = form(page)
     await contact.getByLabel(/^Imię/).fill(marker)
     await contact.getByRole('textbox', { name: /^Telefon/ }).fill('600 100 200')
-    await contact.getByLabel('Miejscowość').fill('Nowy Targ')
-    // The chips are radios under their labels: a click on the label, as a person does.
-    await contact.locator('label', { hasText: 'WhatsApp' }).click()
-    await contact.locator('label', { hasText: 'Przed sezonem' }).click()
-    await expect(contact.getByRole('radio', { name: 'WhatsApp' })).toBeChecked()
+    // K4-FINAL §5 (prompt 2 W3): the same fields as the drawer — no city, contact or deadline.
+    await expect(contact.getByLabel('Miejscowość')).toHaveCount(0)
+    await expect(contact.getByRole('radio')).toHaveCount(0)
     await contact.getByLabel(/Wyrażam zgodę/).check()
     await waitMinimumFillTime(page)
     await contact.getByRole('button', { name: 'Wyślij zapytanie (2 pozycje)' }).click()
@@ -99,9 +97,7 @@ test.describe('inquiry list /zapytanie (B8b)', () => {
       expect(record).toMatchObject({
         type: 'list',
         phone: '600 100 200',
-        city: 'Nowy Targ',
-        preferredContact: 'whatsapp',
-        deadline: 'Przed sezonem',
+        preferredContact: 'phone',
         items: [
           expect.objectContaining({
             nameSnapshot: first.name,

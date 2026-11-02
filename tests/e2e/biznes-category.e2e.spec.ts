@@ -57,7 +57,8 @@ test.describe('Biznes category page', () => {
   test('the register picker and brand segments narrow the grid', async ({ page }) => {
     await page.goto(site('biznes.localhost', KASY))
     const grid = page.locator('[data-category-grid]')
-    const big = page.getByRole('button', { name: /Sklep z dużą liczbą towarów/ })
+    // Anchored: the „Typ: … ✕” chip („Usuń filtr typu: …”) names the same type.
+    const big = page.getByRole('button', { name: /^Sklep z dużą liczbą towarów/ })
     await big.click()
     await expect(big).toHaveAttribute('aria-pressed', 'true')
     await expect(grid.getByRole('article')).toHaveCount(2)

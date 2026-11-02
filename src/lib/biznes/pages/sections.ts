@@ -79,6 +79,8 @@ const videosSchema = z.object({
 const tableSchema = z.object({
   head: z.array(text).min(2).max(4),
   rows: z.array(z.object({ k: text, v: z.array(text) })).max(12),
+  /** Two value columns as „without” and „with” (board `Web-opieka-it`): red ✕ and green ✓. */
+  contrast: z.boolean().optional(),
 })
 
 /** `tabs`: groups of entries (InsERT „Cała oferta”); an entry may link to its product card. */

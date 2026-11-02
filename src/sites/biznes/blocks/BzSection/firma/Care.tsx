@@ -12,7 +12,7 @@ import { BZ_H1, BZ_LEAD } from '@/sites/biznes/typography'
 import { Breadcrumbs, type Crumb } from '../../../components/Breadcrumbs'
 import { AddActionButton } from '../AddActionButton'
 import { productsBySlug } from '../common/Products'
-import { BTN_OUTLINE, BTN_PRIMARY, CARD, EYEBROW, SectionShell, withTrail } from '../ui'
+import { BTN, BTN_ON_DARK, CARD, EYEBROW, SectionShell, withTrail } from '../ui'
 
 const TONE: Record<SectionData<'care-hero'>['report']['rows'][number]['tone'], string> = {
   ok: 'bg-ok/15 text-ok-text',
@@ -44,18 +44,22 @@ export async function CareHero({
     <section
       id={block.anchor || undefined}
       aria-labelledby="opieka-h"
-      className="scroll-mt-28 bg-surface-2 pt-6 pb-14 sm:pt-8 sm:pb-20"
+      className="scroll-mt-28 pt-6 pb-14 sm:pt-8 sm:pb-20"
     >
       <Container wide>
         <div className="mb-7">
           <Breadcrumbs items={withTrail(crumbs, data.trail)} />
         </div>
-        <div className="grid items-center gap-10 min-[1080px]:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]">
-          <div className="flex flex-col gap-6 text-ink">
+        {/* Board `Web-opieka-it` (prompt 2 W3): the hero in a dark card, the report on the right. */}
+        <div
+          data-surface="dark"
+          className="grid items-center gap-10 overflow-hidden rounded-[32px] bg-surface-dark bg-[radial-gradient(110%_120%_at_0%_0%,color-mix(in_srgb,var(--accent-text)_38%,transparent),transparent_55%)] p-6 text-white sm:p-10 min-[1080px]:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] min-[1080px]:px-12 min-[1080px]:py-14"
+        >
+          <div className="flex flex-col gap-6">
             <p
               className={cx(
                 EYEBROW,
-                'inline-flex items-center gap-2 self-start rounded-full bg-card px-3.5 py-2 text-accent-text shadow-[inset_0_0_0_1px_var(--border)]',
+                'inline-flex items-center gap-2 self-start rounded-full bg-white/10 px-3.5 py-2 text-white ring-1 ring-white/20',
               )}
             >
               <span aria-hidden="true" className="size-2 rounded-full bg-ok" />
@@ -63,30 +67,28 @@ export async function CareHero({
             </p>
             <h1 id="opieka-h" className={BZ_H1}>
               {block.heading || crumbs.at(-1)?.name}{' '}
-              {block.headingAccent && (
-                <em className="text-accent-text not-italic">{block.headingAccent}</em>
-              )}
+              {block.headingAccent && <em className="text-ok not-italic">{block.headingAccent}</em>}
             </h1>
             {block.lead && (
-              <p className={`${BZ_LEAD} max-w-[58ch] text-pretty text-ink-2`}>{block.lead}</p>
+              <p className={`${BZ_LEAD} max-w-[58ch] text-pretty text-white/80`}>{block.lead}</p>
             )}
             <div className="flex flex-wrap gap-3">
               <AddActionButton
                 slug={data.review.slug}
                 label={data.review.label}
                 note={data.review.note}
-                className={BTN_PRIMARY}
+                className={cx(BTN, 'bg-white text-surface-dark hover:bg-accent-on-dark')}
               />
               {phone && tel && (
-                <a href={tel} className={BTN_OUTLINE}>
+                <a href={tel} className={BTN_ON_DARK}>
                   {phone}
                 </a>
               )}
             </div>
-            <dl className="grid grid-cols-3 gap-4 border-t border-border pt-5">
+            <dl className="grid grid-cols-3 gap-4 border-t border-white/15 pt-5">
               {data.stats.map((stat) => (
                 <div key={stat.k} className="flex flex-col-reverse gap-1">
-                  <dt className="text-[14px] leading-snug text-ink-2">{stat.k}</dt>
+                  <dt className="text-[14px] leading-snug text-white/75">{stat.k}</dt>
                   <dd className="font-display text-[clamp(1.6rem,2.6vw,2.2rem)] leading-none font-extrabold">
                     {stat.v}
                   </dd>
