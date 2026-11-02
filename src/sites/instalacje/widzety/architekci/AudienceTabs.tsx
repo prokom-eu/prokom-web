@@ -6,6 +6,7 @@ import { architekci as A } from '../../dane/architekci'
 import { InstIcon } from '../../InstIcon'
 import { chooseAudience } from './roleStore'
 import { onTabKey } from './tabs'
+import { Arrow } from '../../Arrow'
 
 /** „Dla kogo jest ta strona” (`#dla-ciebie`, `ar.aud`): 4 roles as tabs, the panel with points and a CTA. */
 export function AudienceTabs() {
@@ -69,7 +70,7 @@ export function AudienceTabs() {
           ))}
         </div>
         <a href={cur.cta.href} className="btn btn-p" style={{ alignSelf: 'flex-start' }}>
-          {cur.cta.label} →
+          {cur.cta.label} <Arrow />
         </a>
       </div>
     </div>

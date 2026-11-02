@@ -117,6 +117,12 @@ Krystian pracuje na jednym komputerze. **GitHub to kopia kodu i jedyna droga na 
   TDD wg docs/jakosc.md i fundament.md (od S2 dla logiki), nie dla szkieletu z szablonu.
 - Przy sprzeczności skilla z tym plikiem albo ze specyfikacją wygrywa ten plik i specyfikacja.
 
+## Elementy wspólne linii (Biznes, Instalacje, Software)
+- Spec `docs/design/wspolne/WSPOLNE-ELEMENTY.md` (+ `plansze/`, `MAPA-DZIS.md`), plan `docs/zadania/wspolne-elementy.md` (F = fundament, L = sesje linii), ADR-022.
+- Komponenty wspólne w `src/components/shared` (bez Payload, bez importów z `src/sites/*`), loader w `src/lib/shared`. Sesje linii nie zmieniają tych folderów ani wspólnych pól/migracji — brak → osobny PR `feat/wsp-*`.
+- Dane: firma w `CompanyData` (salony = `locations[]`), linia w grupie `shared` w `SiteSettings` (ADR-022 „Poprawki w F0”).
+- Zasady 01.11: bez WhatsAppa, bez zdjęć ludzi, dane kontaktowe tylko z panelu, nazwa „Tech”, przy pro-kom.eu bez sklepu, Gaming tylko jako odnośnik.
+
 ## prokombiznes.pl
 - **Od 30.10.2026 etap K4 (wersja finalna v150):** `docs/design/prokombiznes/K4-FINAL.md` + `PRZEKAZANIE-K4.md`, decyzje — ADR-017, plan sesji — `docs/zadania/prokombiznes.md` §7.
 - Wzorzec: `docs/design/prokombiznes/INDEKS.md` (kolejność ważności dokumentów); decyzje repo (adresy `/oferta/…`, model per tenant) — ADR-017 i ADR-012 „Rozstrzygnięcia”, plan sesji — `docs/zadania/prokombiznes.md` §7 (historia: §6).

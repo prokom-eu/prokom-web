@@ -54,6 +54,8 @@ Potem wpisz moje rozstrzygnięcia: <tu wklejam decyzje z czatu> do sekcji „Roz
 
 **Stan 01.11.2026:** SW0–SW12 scalone wg v22. Krystian zaakceptował **wizualizację finalną v23** — przed stagingiem wchodzą sesje **SWV1 → SWV2 → SWV3 → SWV4 → SWV5** (prompty: `docs/design/prokomsoftware/PRZEKAZANIE-v23.md` §3).
 
+**Elementy wspólne (01.11, `docs/zadania/wspolne-elementy.md` §1):** **L1-S** zastępuje pasek marki SW0, stopkę („Jedna firma, cztery linie” → `LinesBand`) i dolny pasek; **L2-S** przenosi Kontakt (SW11a, z „Twój projekt”) i O firmie (SW11b) na wspólny szablon — `/cennik`, `/audyt` i strony prawne zostają w SW11.
+
 **Wzorzec telefonu w każdej sesji z UI** (v20): zakres sesji obejmuje zrzuty 390 px i stany 8x–9x, nie tylko desktop — prompt 4.1 + dopisek „wzorzec telefonu”. **Od 30.10: telefon „jak najlepsza aplikacja” — `docs/design/prokomsoftware/MOBILE-APLIKACJA.md` (§3 ekrany per sesja, §4 odczucie aplikacji, §5 Definition of Done telefonu) obowiązuje w SWR2–SWR5, SW10, SW11a, SW11b.**
 
 | # | Zadanie | Gotowe, gdy | Spec. / plansze |

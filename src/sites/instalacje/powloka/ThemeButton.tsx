@@ -1,6 +1,7 @@
 'use client'
 
 import { useTheme } from '@/components/useTheme'
+import { centreOf, revealTheme } from '@/lib/motion/themeReveal'
 
 import { InstIcon } from '../InstIcon'
 
@@ -8,7 +9,10 @@ import { InstIcon } from '../InstIcon'
 export const themeLabel = (theme: 'light' | 'dark') =>
   theme === 'dark' ? 'Włącz jasny motyw' : 'Włącz ciemny motyw'
 
-/** Header theme switch (prototype `toggleTheme`): sun in the dark theme, moon in the light one. */
+/**
+ * Header theme switch (prototype `toggleTheme`): sun in the dark theme, moon in the light one.
+ * The new theme opens in a circle from the button (`revealTheme`, motion.css §5; I-M).
+ */
 export function ThemeButton() {
   const [theme, setTheme] = useTheme()
   const label = themeLabel(theme)
@@ -18,7 +22,9 @@ export function ThemeButton() {
       className="iconb"
       aria-label={label}
       title={label}
-      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+      onClick={(event) =>
+        revealTheme(theme === 'dark' ? 'light' : 'dark', setTheme, centreOf(event.currentTarget))
+      }
     >
       <InstIcon name={theme === 'dark' ? 'sun' : 'moon'} size={18} />
     </button>
@@ -32,7 +38,9 @@ export function ThemeTile() {
     <button
       type="button"
       className="mshc"
-      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+      onClick={(event) =>
+        revealTheme(theme === 'dark' ? 'light' : 'dark', setTheme, centreOf(event.currentTarget))
+      }
     >
       <InstIcon name={theme === 'dark' ? 'sun' : 'moon'} size={18} />
       <span>

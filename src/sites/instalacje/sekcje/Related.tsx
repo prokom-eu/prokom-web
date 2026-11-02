@@ -7,6 +7,7 @@ import type { ObjectCard, ServiceCard } from '@/lib/instalacje/data'
 import { hue } from '../hue'
 import { InstIcon } from '../InstIcon'
 import { InstSection } from './InstSection'
+import { Arrow } from '../Arrow'
 
 type Props = {
   tenantId: number
@@ -73,7 +74,9 @@ export function Related({
                 </span>
                 <b>{service.name}</b>
                 {service.menuCaption && <span>{service.menuCaption}</span>}
-                <span className="relgo">Zobacz →</span>
+                <span className="relgo">
+                  Zobacz <Arrow />
+                </span>
               </Link>
             ))}
           </div>

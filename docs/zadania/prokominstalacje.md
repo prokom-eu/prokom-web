@@ -43,6 +43,8 @@ Zasady stałe: jedna sesja = jedno zadanie = jedna gałąź = jeden PR. Zmiana w
 | **I15** | staging → akceptacja szefa → produkcja | 1 | I14 + [SZEF] |
 | | **Razem** | **≈ 31,5** | |
 
+**Elementy wspólne (01.11, `docs/zadania/wspolne-elementy.md` §1):** **L1-I** zastępuje powłokę z I3 (`topb`/`hdr`/`ftr2`) i dolny pasek z I14; **L2-I** zastępuje `/kontakt` (I11) i `/o-firmie` (I12).
+
 **Uczciwie o terminie:** ≈ 31,5 wieczoru (27 + 4,75 na stronę dla architektów, W-A + I16a–c) to sama budowa bez bufora. Terminy poniżej liczone dla 27 — I16 przesuwa je o ok. 2 tygodnie przy 2–3 sesjach w tygodniu. Równoległa praca nad Biznesem (produkcja), Gaming (20.11) i Software nie skraca tej liczby — rozkłada ją w czasie. Przy 2–3 sesjach Instalacji w tygodniu produkcja wypada w styczniu; przy 4–5 w tygodniu — w połowie grudnia. Kolejność linii ustala szef (Asana). **Kolejność cięcia, jeśli trzeba zdążyć z wersją 1:** Realizacje (zostają placeholdery, bez strony) → Poradnik (sam wpis RODO) → Oferta bez wyszukiwarki literówek → strony obiektów 9–12 (gminy, kościoły, szkoły, budowy) jako druga fala. **Bez cięć:** strona główna z hero, 10 usług, Zaplanuj, Kontakt, Serwis, telefon jak aplikacja, SEO techniczne, strony prawne.
 
 **I16 (strona dla architektów) — priorytet szefa:** najlepiej zaraz po I11 (I16a można zacząć już po I4). Kolejność cięcia przy braku czasu: najpierw Biblioteka (zostają same linki producentów), potem Doświadczenie łączone z O firmie; przekrój domu, Nowe rozwiązania, Deweloperzy, Przepisy i formularz bez cięć.

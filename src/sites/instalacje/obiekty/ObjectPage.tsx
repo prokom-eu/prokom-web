@@ -39,6 +39,7 @@ import { PrepChecklist } from './PrepChecklist'
 import type { DayMoment, ObjectHotspot, ServiceChip } from './types'
 import { architekci } from '../dane/architekci'
 import { salonsNote } from '../powloka/salons'
+import { Arrow } from '../Arrow'
 import { ObjectPageStyles } from '../style/LineStyles'
 
 type Props = { tenantId: number; object: InstObject; sceneKey: BuiltObjectKey; origin: string }
@@ -198,7 +199,7 @@ export async function ObjectPage({ tenantId, object, sceneKey, origin }: Props) 
                     {s?.href && (
                       <Link href={s.href} className="sgchip">
                         <i />
-                        {s.name} →
+                        {s.name} <Arrow />
                       </Link>
                     )}
                   </article>

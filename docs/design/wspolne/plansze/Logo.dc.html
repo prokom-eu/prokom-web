@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Znak PRO-KOM z nazwą linii</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div role="img" aria-label="PRO-KOM {{label}}" style="display: inline-flex; flex-direction: column; font-family: Archivo, sans-serif; font-stretch: 118%; font-weight: 800; font-size: {{size}}px; line-height: 0.84; color: {{ink}}; letter-spacing: -0.01em">
+  <span style="display: flex; align-items: center; white-space: nowrap">PRO<span style="display: inline-block; width: 0.36em; height: 0.15em; margin: 0 0.05em; background: {{accent}}; border-radius: 0.01em"></span>KOM</span>
+  <span style="display: flex; align-items: center; gap: 0.16em; margin-top: 0.11em; min-height: 0.29em">
+    <span style="flex-grow: 1; height: 0.075em; min-height: 2px; background: {{accent}}"></span>
+    <sc-if value="{{hasLabel}}" hint-placeholder-val="{{ true }}">
+      <span style="font-size: 0.29em; line-height: 1; letter-spacing: 0.3em; margin-right: -0.3em; color: {{accent}}">{{label}}</span>
+    </sc-if>
+  </span>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"label":{"editor":"text","default":"BIZNES"},"accent":{"editor":"color","default":"#244FB0","options":["#244FB0","#0093B3","#8B61E3","#45A02C"]},"dark":{"editor":"boolean","default":false},"size":{"editor":"int","default":40,"min":14,"max":120},"$preview":{"width":400,"height":220}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const label = this.props.label ?? 'BIZNES';
+    return {
+      label: label,
+      hasLabel: label.length > 0,
+      accent: this.props.accent ?? '#244FB0',
+      ink: (this.props.dark ?? false) ? '#FFFFFF' : '#121613',
+      size: this.props.size ?? 40
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -5,6 +5,7 @@ import type { InstService } from '@/payload-types'
 
 import { InstIcon } from '../InstIcon'
 import { InstSection } from './InstSection'
+import { Arrow } from '../Arrow'
 
 type Props = {
   intro: InstService['packagesIntro']
@@ -71,7 +72,7 @@ export function Packages({ intro, packages, prices, planHref }: Props) {
               <div className="pkgf">
                 <span className="prc">{displayPrice(pkg.price, prices)}</span>
                 <Link href={planHref} className="btn btn-g btn-s">
-                  Zapytaj o ten zestaw →
+                  Zapytaj o ten zestaw <Arrow />
                 </Link>
               </div>
             </div>

@@ -8,6 +8,7 @@ import type { PublicCompanyData } from '@/lib/site/public'
 
 import type { Navigation } from '../dane/types'
 import { InstIcon } from '../InstIcon'
+import { Arrow } from '../Arrow'
 
 type Props = {
   navigation: Navigation
@@ -104,7 +105,7 @@ export function Footer({ navigation, menu, company, phone, legal }: Props) {
                 </Link>
               ))}
             <Link href="/uslugi" className="ftstrong">
-              Pełna oferta →
+              Pełna oferta <Arrow />
             </Link>
           </nav>
           <nav aria-label="Dla kogo">
@@ -125,7 +126,7 @@ export function Footer({ navigation, menu, company, phone, legal }: Props) {
               </Link>
             ))}
             <Link href={navigation.cta.href} className="ftstrong">
-              {navigation.cta.label} →
+              {navigation.cta.label} <Arrow />
             </Link>
           </nav>
           <nav aria-label="Strony PRO-KOM">

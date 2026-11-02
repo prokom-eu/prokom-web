@@ -12,6 +12,8 @@
 > | `k4/audyty/` | audyty wersji finalnej — lista kontrolna odbioru |
 > | `seed/prokombiznes/k4/` | katalog 422 kart, kategorie, marki, salony, strony, listy, plany, zestawy, konfigurator, zdjęcia nowych kart |
 >
+> **Elementy wspólne linii (01.11, ADR-022):** pasek marki, stopka, dolny pasek, Kontakt i O firmie — `docs/design/wspolne/WSPOLNE-ELEMENTY.md` (+ `MAPA-DZIS.md`), plan `docs/zadania/wspolne-elementy.md`; zastępują odpowiednie części K4 (sesje L1-B, L2-B).
+>
 > Poniżej indeks z 25.10 (K3/K3.1) — obowiązuje tam, gdzie K4 nic nie zmienia. Zasada z §5 „bez obietnic czasu” jest nieaktualna: „Oddzwaniamy w ciągu 60 minut w godzinach pracy” potwierdzone przez szefa 27.10.
 
 ## Indeks K3/K3.1 (25.10.2026, wizualizacja v126)
