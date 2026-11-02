@@ -17,21 +17,16 @@ import { HONEYPOT_FIELD } from '@/lib/inquiry/honeypot'
 import {
   buildListInquiryBody,
   checkListRequired,
-  LIST_DEADLINES,
   LIST_FIELD_MESSAGES,
   listInquiryType,
   type ListFieldName,
   type ListFormValues,
 } from '@/lib/inquiry/listForm'
-import {
-  PREFERRED_CONTACT_LABELS,
-  PREFERRED_CONTACTS,
-  type PreferredContact,
-} from '@/lib/inquiry/types'
+import type { PreferredContact } from '@/lib/inquiry/types'
 
 import { plural } from '@/lib/plural'
 
-import { AreaField, ChoiceField, ConsentField, IconField } from '../forms/fields'
+import { AreaField, ConsentField, IconField } from '../forms/fields'
 import { STICKY_ACTION_BUTTON, StickyAction } from '../mobile/StickyAction'
 
 type Props = {
@@ -44,8 +39,8 @@ type Props = {
   /** `phoned`: a phone was given, so the answer is a call (else an e-mail). */
   onSent: (sent: { number: string | null; emailed: boolean; phoned: boolean }) => void
   /**
-   * The drawer (K4-FINAL §5): only „Imię lub firma”, phone or e-mail, message and consent;
-   * `/zapytanie` adds company, city, the preferred contact and the deadline.
+   * The drawer: a shorter message box. Both forms ask the same (K4-FINAL §5, prompt 2 W3):
+   * „Imię lub firma”, phone or e-mail, message and consent.
    */
   compact?: boolean
 }
@@ -61,11 +56,6 @@ const FIELD_ORDER: ListFieldName[] = [
 ]
 const CONTACT_HINT = 'Wystarczy telefon albo e-mail.'
 const consentClause = linkInText(CONSENT_CLAUSE.text, PRIVACY_POLICY_LINK_TEXT)
-const CONTACT_OPTIONS = PREFERRED_CONTACTS.map((value) => ({
-  value,
-  label: PREFERRED_CONTACT_LABELS[value],
-}))
-const DEADLINE_OPTIONS = LIST_DEADLINES.map((value) => ({ value, label: value }))
 
 function readValues(form: HTMLFormElement): ListFormValues {
   const data = new FormData(form)
@@ -237,43 +227,7 @@ export function ListForm({
           maxLength={254}
           error={errors.email}
         />
-        {!compact && (
-          <>
-            <IconField
-              id={fieldId('company')}
-              name="company"
-              label="Firma / NIP"
-              autoComplete="organization"
-              maxLength={200}
-              error={errors.company}
-            />
-            <IconField
-              id={fieldId('city')}
-              name="city"
-              label="Miejscowość"
-              autoComplete="address-level2"
-              maxLength={100}
-              error={errors.city}
-            />
-          </>
-        )}
       </div>
-      {!compact && (
-        <>
-          <ChoiceField
-            name="preferredContact"
-            legend="Jak się skontaktować?"
-            options={CONTACT_OPTIONS}
-            defaultValue="phone"
-          />
-          <ChoiceField
-            name="deadline"
-            legend="Na kiedy?"
-            options={DEADLINE_OPTIONS}
-            defaultValue="W tym miesiącu"
-          />
-        </>
-      )}
       <AreaField
         id={fieldId('message')}
         name="message"
