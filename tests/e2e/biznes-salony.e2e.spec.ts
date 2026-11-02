@@ -109,19 +109,23 @@ test.describe('Biznes salon 2.0 (K4f)', () => {
     await page.goto(biznes('/marki/lenovo'))
     await expect(page.getByRole('navigation', { name: 'Okruszki' })).toBeHidden()
     await expect(page.getByRole('table')).toBeHidden()
+    const compare = page.getByRole('button', { name: 'Porównaj w tabeli' })
+    // Click only while closed: a retry after hydration must not close the table again.
     await expect(async () => {
-      await page.getByRole('button', { name: 'Porównaj w tabeli' }).click()
-      await expect(page.getByRole('table')).toBeVisible({ timeout: 1000 })
+      if ((await compare.getAttribute('aria-expanded')) !== 'true') await compare.click()
+      await expect(compare).toHaveAttribute('aria-expanded', 'true', { timeout: 1000 })
     }).toPass()
+    await expect(page.getByRole('table')).toBeVisible()
     const offer = page.locator('#oferta-cala')
     await expect(offer.getByRole('heading', { level: 2 })).toHaveText(/^Pełna oferta · \d+$/, {
       useInnerText: true,
     })
-    const cards = offer.locator('ul > li')
+    // Only the product cards (a card has its own lists of badges).
+    const cards = offer.locator('ul[data-salon-products] > li')
     const visible = () =>
       cards.evaluateAll((items) => items.filter((li) => li.checkVisibility()).length)
     expect(await visible()).toBeLessThanOrEqual(4)
-    // A kind with more than four models: the rest after „Pokaż wszystkie”.
+    // Lenovo has a kind with more than four models: the rest after „Pokaż wszystkie”.
     const more = offer.getByRole('button', { name: /^Pokaż wszystkie/ })
     for (const tab of await offer
       .getByRole('group', { name: 'Rodzaje' })
@@ -130,9 +134,10 @@ test.describe('Biznes salon 2.0 (K4f)', () => {
       if (await more.isVisible()) break
       await tab.click()
     }
-    if (await more.isVisible()) {
-      await more.click()
-      expect(await visible()).toBeGreaterThan(4)
-    }
+    await expect(more).toBeVisible()
+    await more.click()
+    expect(await visible()).toBeGreaterThan(4)
+    // Focus moves to the first newly shown card, not back to the page top.
+    await expect(cards.nth(4).locator('a, button').first()).toBeFocused()
   })
 })

@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useId, useState, type ReactNode } from 'react'
+import { useEffect, useId, useRef, useState, type ReactNode } from 'react'
 
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
@@ -88,8 +88,12 @@ export function SalonCompare({ compare }: { compare: NonNullable<SalonView['comp
           )}
         />
       </button>
+      {/* A scrolling region the keyboard can reach (no focusable cell inside). */}
       <div
         id={id}
+        role="region"
+        aria-label={compare.title ?? 'Porównanie'}
+        tabIndex={0}
         className={cx(
           'overflow-x-auto rounded-3xl bg-card shadow-[inset_0_0_0_1px_var(--border)]',
           open === null && 'max-md:hidden',
@@ -171,6 +175,14 @@ export function SalonFamily({
   const [all, setAll] = useState(false)
   const products = family[tab]?.products ?? []
   const hidden = products.length - PHONE_FIRST
+  const list = useRef<HTMLUListElement>(null)
+  const revealed = useRef(false)
+  // The button disappears on click: focus goes to the first newly shown card, not to <body>.
+  useEffect(() => {
+    if (!all || !revealed.current) return
+    revealed.current = false
+    list.current?.children[PHONE_FIRST]?.querySelector<HTMLElement>('a, button')?.focus()
+  }, [all])
   return (
     <div className="flex flex-col gap-6">
       {family.length > 1 && (
@@ -209,7 +221,11 @@ export function SalonFamily({
           ))}
         </div>
       )}
-      <ul className="grid grid-cols-2 gap-x-4 gap-y-8 max-md:gap-x-3 max-md:gap-y-5 min-[900px]:grid-cols-3 min-[1200px]:grid-cols-4">
+      <ul
+        ref={list}
+        data-salon-products
+        className="grid grid-cols-2 gap-x-4 gap-y-8 max-md:gap-x-3 max-md:gap-y-5 min-[900px]:grid-cols-3 min-[1200px]:grid-cols-4"
+      >
         {products.map((product, position) => (
           <li
             key={product.slug}
@@ -222,7 +238,10 @@ export function SalonFamily({
       {!all && hidden > 0 && (
         <button
           type="button"
-          onClick={() => setAll(true)}
+          onClick={() => {
+            revealed.current = true
+            setAll(true)
+          }}
           className="inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-card text-sm font-extrabold text-ink shadow-[inset_0_0_0_1px_var(--border)] min-[768px]:hidden"
         >
           Pokaż wszystkie · {products.length}

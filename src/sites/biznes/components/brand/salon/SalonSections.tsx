@@ -99,7 +99,7 @@ function SectionHead({
         )}
       </div>
       {note && (
-        <span className="rounded-full bg-surface-2 px-3 py-1.5 text-xs font-extrabold whitespace-nowrap text-ink-2 max-md:col-start-2 max-md:row-start-1 max-md:self-center min-[768px]:self-end">
+        <span className="rounded-full bg-surface-2 px-3 py-1.5 text-xs font-extrabold text-ink-2 max-md:col-start-2 max-md:whitespace-nowrap max-md:row-start-1 max-md:self-center min-[768px]:self-end">
           <span className="max-md:hidden">bez cen · oferta na piśmie</span>
           <span className="min-[768px]:hidden">bez cen</span>
         </span>
@@ -128,7 +128,7 @@ export function SalonHero({ view, crumbs }: { view: SalonView; crumbs: Crumb[] }
       <section
         aria-labelledby="salon-h1"
         data-surface="dark"
-        className="relative mt-5 overflow-hidden max-md:mt-0 rounded-[28px] bg-surface-dark px-5 py-8 text-white ring-1 ring-white/10 ring-inset sm:rounded-[36px] sm:px-12 sm:py-12 lg:px-14"
+        className="relative mt-5 overflow-hidden max-md:mt-0 rounded-[28px] bg-surface-dark px-5 py-8 text-white ring-1 ring-white/10 ring-inset min-[768px]:rounded-[36px] min-[768px]:px-12 min-[768px]:py-12 lg:px-14"
       >
         <span
           aria-hidden="true"
