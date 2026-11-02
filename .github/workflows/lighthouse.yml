@@ -2,7 +2,8 @@
 # (mobile, 3 runs, median run) on the home page and one subpage of each site. Budget:
 # Performance, Accessibility, Best Practices, SEO ≥ 90, LCP ≤ 2.5 s, CLS ≤ 0.1 — over budget =
 # red run, which blocks a production deploy (runbook §3). Staging sends noindex on purpose, so
-# the SEO audit "is-crawlable" is skipped. Pages: lighthouserc.json. Reports: artifact
+# the SEO audits "is-crawlable" and "robots-txt" are skipped (Lighthouse fetches robots.txt
+# without the staging login and gets the 401 page; the smoke test checks robots.txt). Pages: lighthouserc.json. Reports: artifact
 # "lighthouse". Staging is behind basic auth: a separate login only for this — secret
 # STAGING_BASIC_AUTH holds the ready base64 token (`staging-login.sh lighthouse`, runbook §1.9),
 # so GitHub masks exactly the value that goes into the header. Reports are uploaded without it.
