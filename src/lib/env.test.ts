@@ -20,6 +20,7 @@ const defaults = {
   MAIL_FROM_NAME: 'PRO-KOM',
   INQUIRY_RETENTION_MONTHS: 24,
   UMAMI_WEBSITES: {},
+  MAIL_SENDERS: {},
 }
 
 describe('parseEnv', () => {
@@ -147,5 +148,32 @@ describe('parseEnv', () => {
         parseEnv({ ...valid, UMAMI_WEBSITES: `software=${SITE_ID},software=${SITE_ID}` }),
       ).toThrow(/UMAMI_WEBSITES/)
     })
+  })
+})
+
+describe('per-line SMTP passwords (S10d)', () => {
+  it('reads SMTP_PASS_<LINE> for a line with a sender', () => {
+    const env = parseEnv({
+      ...valid,
+      MAIL_SENDERS: 'software=kontakt@prokomsoftware.pl',
+      SMTP_PASS_SOFTWARE: 'secret',
+    })
+    expect(env.SMTP_PASS_SOFTWARE).toBe('secret')
+    expect(env.SMTP_PASS_BIZNES).toBeUndefined()
+  })
+
+  it('treats an empty password as unset', () => {
+    expect(parseEnv({ ...valid, SMTP_PASS_INSTALACJE: '' }).SMTP_PASS_INSTALACJE).toBeUndefined()
+  })
+
+  it('rejects a password for a line without a sender, without printing it', () => {
+    expect(() => parseEnv({ ...valid, SMTP_PASS_INSTALACJE: 'top-secret-value' })).toThrow(
+      /SMTP_PASS_INSTALACJE: set MAIL_SENDERS for instalacje/,
+    )
+    try {
+      parseEnv({ ...valid, SMTP_PASS_INSTALACJE: 'top-secret-value' })
+    } catch (error) {
+      expect(String(error)).not.toContain('top-secret-value')
+    }
   })
 })

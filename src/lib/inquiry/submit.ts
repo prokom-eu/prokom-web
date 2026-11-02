@@ -61,7 +61,8 @@ export type SubmitDeps = {
   findSoftwareWizard: (tenantId: number) => Promise<SoftwareWizard | null>
   /** Returns the record after the hooks, so with the number (`Inquiries.assignNumber`). */
   save: (data: NewInquiry) => Promise<{ id: number; number?: string | null }>
-  sendEmail: (email: Email) => Promise<unknown>
+  /** Sends from the sender of the tenant's line (`lib/mail/senders`, S10d). */
+  sendEmail: (email: Email, line: Line) => Promise<unknown>
   panelUrl: (id: number) => string
   /** The site's address for a `Host` (`siteOrigin`), or `null` — links to the site in a record. */
   siteOrigin: (host: string) => string | null
@@ -404,7 +405,9 @@ export async function submitInquiryWith(
   const confirmation = confirmationEmail(forEmail)
   if (confirmation) emails.push({ kind: 'confirmation', email: confirmation })
 
-  const results = await Promise.allSettled(emails.map(({ email }) => deps.sendEmail(email)))
+  const results = await Promise.allSettled(
+    emails.map(({ email }) => deps.sendEmail(email, tenant.line)),
+  )
   results.forEach((result, i) => {
     if (result.status === 'rejected') {
       deps.log.error(
@@ -511,7 +514,10 @@ export async function submitInquiry(
       },
       save: (data) =>
         payload.create({ collection: 'inquiries', data, depth: 0, overrideAccess: true }),
-      sendEmail: (email) => payload.sendEmail(email),
+      sendEmail: async (email, line) => {
+        const { sendLineEmail } = await import('../mail/send')
+        return sendLineEmail(payload, line, email)
+      },
       siteOrigin: (host) => siteOrigin(host, env.SITE_ENV),
       panelUrl: (id) => {
         // Same scheme rules as the sites; locally the panel runs on the request's port.

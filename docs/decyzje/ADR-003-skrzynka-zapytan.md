@@ -69,3 +69,8 @@ Zmienia dwie reguły z uzupełnienia B8 dla typu `wizard` (spec. §6.8, decyzja 
 ## Konsekwencje
 - Styczeń 2027: `submitInquiry()` zapisuje do API PRO-KOM System; jednorazowy skrypt migruje istniejące rekordy. Formularze bez zmian.
 - Zasada „Payload tylko treści” ma świadomy, czasowy wyjątek — kolekcja `Inquiries` zostanie usunięta po migracji.
+
+## Uzupełnienie 2.11.2026 (S10d, decyzja Krystiana)
+- **Adresy stron i powiadomień:** `kontakt@prokombiznes.pl`, `kontakt@prokomsoftware.pl`, `kontakt@prokominstalacje.pl` (skrzynki w hostingu poczty Seohost, `docs/dns.md` „Poczta”) zamiast `biznes@`/`instalacje@`/`software@pro-kom.eu` — `Tenants.notificationEmail` ustawiany w panelu jak dotąd.
+- **Nadawca per strona:** powiadomienie i potwierdzenie wychodzą z `kontakt@` strony, której dotyczy zapytanie (`MAIL_SENDERS`, opcjonalny własny login SMTP `SMTP_PASS_<LINIA>`, `lib/mail`) — klient dostaje mail z domeny strony, na której wysłał formularz. Linia bez nadawcy (hub) — `MAIL_FROM_ADDRESS`.
+- **Limit:** 300 wysłanych dziennie na skrzynkę (ustawienie hostingu, ochrona reputacji przy wycieku hasła) = ok. 150 zapytań dziennie na stronę (2 maile na zapytanie); limiter formularza (§ wyżej) chroni przed nadużyciem.
