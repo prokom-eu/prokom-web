@@ -108,8 +108,8 @@ export function RenderBlocks({ page, tenant }: Props) {
   const software = tenant.line === 'software'
   return (
     <>
-      {/* Linked only where an Instalacje block renders, not on the other lines. */}
       {biznes && page.slug !== HOME_SLUG && <ScreenTitleMark name={page.title} />}
+      {/* Linked only where an Instalacje block renders, not on the other lines. */}
       {blocks.some((block) => INSTALACJE_BLOCK_SLUGS.includes(block.blockType)) && (
         <InstalacjeBlockStyles />
       )}

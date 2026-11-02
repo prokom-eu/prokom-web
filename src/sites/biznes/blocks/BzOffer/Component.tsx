@@ -104,8 +104,6 @@ function DepartmentCard({ group, phone = false }: { group: Department; phone?: b
                 width={small.width}
                 height={small.height}
                 unoptimized
-                // The other layout's card is `display: none`: a lazy image there is not fetched.
-                loading="lazy"
                 className="absolute right-4 bottom-2 h-[62%] w-auto max-w-[40%] object-contain drop-shadow-[0_14px_18px_var(--glow)] transition-transform duration-300 group-hover/dept:-translate-y-1 motion-reduce:transition-none"
               />
             )}
@@ -116,7 +114,6 @@ function DepartmentCard({ group, phone = false }: { group: Department; phone?: b
                 width={big.width}
                 height={big.height}
                 unoptimized
-                loading="lazy"
                 className="absolute bottom-1 left-[22%] h-[80%] w-auto max-w-[52%] object-contain drop-shadow-[0_18px_22px_var(--glow)] transition-transform duration-300 group-hover/dept:-translate-y-1.5 motion-reduce:transition-none"
               />
             )}
@@ -264,7 +261,7 @@ export async function BzOfferBlock({ block, tenantId }: Props) {
     <section
       id="oferta"
       aria-labelledby="oferta-h"
-      className="bg-card py-16 max-md:bg-transparent max-md:py-6 sm:py-24"
+      className="bg-card py-6 max-md:bg-transparent md:py-24"
     >
       <Container wide>
         <SectionHead

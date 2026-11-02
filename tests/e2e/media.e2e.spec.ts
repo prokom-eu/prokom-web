@@ -109,7 +109,8 @@ test.describe('media and partners', () => {
       // logos served by Payload (the brand name is the text, so a logo has an empty alt there).
       const brands = page.locator('#marki')
       await expect(brands.getByRole('heading', { name: 'Partnerzy E2E' })).toBeVisible()
-      const logo = brands.locator('img[src*="/api/partners/file/"]').first()
+      // `:visible`: the phone grid of the same logos is hidden on a desktop.
+      const logo = brands.locator('img[src*="/api/partners/file/"]:visible').first()
       await logo.scrollIntoViewIfNeeded()
       await expect
         .poll(() => logo.evaluate((img: HTMLImageElement) => img.naturalWidth))

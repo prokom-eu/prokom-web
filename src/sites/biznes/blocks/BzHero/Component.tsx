@@ -58,7 +58,7 @@ export async function BzHeroBlock({ block, isFirst, tenantId }: Props) {
   const Title = isFirst ? 'h1' : 'h2'
 
   return (
-    <section id="start" className="relative overflow-hidden pt-4 pb-3 sm:pt-10 sm:pb-24">
+    <section id="start" className="relative overflow-hidden pt-4 pb-3 md:pt-10 md:pb-24">
       <Container
         wide
         className="relative grid items-center gap-7 min-[1080px]:grid-cols-[minmax(0,1fr)_minmax(0,1.08fr)]"

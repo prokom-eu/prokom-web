@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { Container } from '@/components/ui/Container'
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
+import { BUNDLES_PATH } from '@/lib/catalog/bundle'
 import { getCatalogIndex, getFloorPlans } from '@/lib/catalog/data'
 import { buildPlanScenes, PLAN_PATH } from '@/lib/catalog/floorPlan'
 import { BRANDS_PATH, brandCount } from '@/lib/catalog/filters'
@@ -19,6 +20,8 @@ type Tile = {
   title: string
   text: string
   tag: string
+  /** Shorter tag of the phone tile (two lines of 10.5 px), when `tag` is long. */
+  phoneTag?: string
   action: string
   icon: IconName
   tone: Tone
@@ -81,11 +84,13 @@ function PhoneTileBody({ tile }: { tile: Tile }) {
       >
         <Icon name={tile.icon} className="size-5" />
       </span>
-      <em className="absolute top-3 right-2.5 max-w-[60%] truncate rounded-full bg-surface-dark/30 px-2 text-[10.5px] leading-[22px] font-extrabold not-italic">
-        {tile.tag}
+      <em className="absolute top-3 right-2.5 line-clamp-2 max-w-[60%] rounded-[11px] bg-surface-dark/30 px-2 py-[3px] text-right text-[10.5px] leading-[1.5] font-extrabold not-italic">
+        {tile.phoneTag ?? tile.tag}
       </em>
       <b className="mt-auto text-[15px] leading-tight font-extrabold">{tile.title}</b>
-      <small className="text-[12px] font-extrabold">{tile.action} →</small>
+      <small className="text-[12px] font-extrabold">
+        {tile.action} <span aria-hidden="true">→</span>
+      </small>
     </>
   )
 }
@@ -168,7 +173,7 @@ export async function QuickStart({
   const shortcuts: { label: string; href: string; icon: IconName }[] = [
     ...(tel ? [{ label: 'Zadzwoń', href: tel, icon: 'phone' as const }] : []),
     { label: 'KSeF 2027', href: '/ksef', icon: 'doc' },
-    { label: 'Zestawy', href: '/zestawy', icon: 'box' },
+    { label: 'Zestawy', href: BUNDLES_PATH, icon: 'box' },
     { label: 'Opieka IT', href: '/opieka-it', icon: 'shield' },
   ]
   const total = index.products.length
@@ -215,6 +220,7 @@ export async function QuickStart({
       text: 'Napisz, czego potrzebujesz. Dobierzemy i wycenimy.',
       // K4-FINAL §1 (audit 01.11): the confirmed 60 minutes, or the panel's own wording.
       tag: callback ? `${callback} w godzinach pracy` : 'oddzwaniamy w ciągu 60 minut',
+      phoneTag: callback || 'oddzwaniamy w ciągu 60 minut',
       action: 'Wyślij zapytanie',
       icon: 'chat',
       tone: 'green',
@@ -245,7 +251,7 @@ export async function QuickStart({
               Pięć najkrótszych dróg do tego, czego szukasz.
             </p>
           </div>
-          {/* Phone: a row to swipe; wider: five columns with rules between them. */}
+          {/* 768–1079 px: a row to swipe; wider: five columns with rules between them. */}
           {/* Phone (board App-Start): gradient tiles to swipe, the shortcuts under them. */}
           <ul className="-mx-4 flex snap-x snap-mandatory scroll-px-4 gap-2.5 overflow-x-auto px-4 pb-1 [scrollbar-width:none] md:hidden">
             {shown.map((tile) => (

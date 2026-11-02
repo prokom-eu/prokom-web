@@ -99,7 +99,8 @@ test.describe('Biznes home page', () => {
     await expect(
       brands.getByRole('heading', { name: 'Marki, które znamy od środka.' }),
     ).toBeVisible()
-    const tiles = brands.locator('ul').first().locator(':scope > li > a')
+    // The desktop list (the phone grid before it is hidden).
+    const tiles = brands.locator('ul:visible').first().locator(':scope > li > a')
     await expect(tiles).toHaveCount(16)
     // The whole tile is read: name, description, status, count.
     // Board order (W2): GoPOS first; the name is read once, before the description.

@@ -13,6 +13,15 @@ describe('screenTitle', () => {
     expect(screenTitle('GoPOS dla gastronomii: sala i kuchnia')).toBe('GoPOS dla gastronomii')
   })
 
+  it('cuts at a plain hyphen between spaces, as typed in the panel', () => {
+    expect(screenTitle('Opieka IT - komputery i sieć')).toBe('Opieka IT')
+  })
+
+  it('does not cut at abbreviations', () => {
+    expect(screenTitle('Drukarki, np. etykiet')).toBe('Drukarki, np. etykiet')
+    expect(screenTitle('PRO-KOM Sp. z o.o.')).toBe('PRO-KOM Sp. z o.o.')
+  })
+
   it('cuts at the end of the first sentence', () => {
     expect(screenTitle('Apple dla firm. iPhone, iPad i Mac')).toBe('Apple dla firm')
   })

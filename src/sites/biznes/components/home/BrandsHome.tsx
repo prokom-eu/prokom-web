@@ -71,11 +71,7 @@ export async function BrandsHome({
     slug ? (brandPageHref(index, slug) ?? `/oferta?marka=${slug}`) : '/oferta'
 
   return (
-    <section
-      id="marki"
-      aria-labelledby="marki-h"
-      className="scroll-mt-24 py-16 max-md:py-6 sm:py-20"
-    >
+    <section id="marki" aria-labelledby="marki-h" className="scroll-mt-24 py-6 md:py-20">
       <Container wide>
         {/* Board `Web-start` (W2): the heading left, the lead right. */}
         <div className="flex flex-col gap-4 pb-8 max-md:pb-4 min-[900px]:flex-row min-[900px]:items-end min-[900px]:justify-between min-[900px]:gap-10">
