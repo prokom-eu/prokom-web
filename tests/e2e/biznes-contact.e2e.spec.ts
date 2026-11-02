@@ -26,10 +26,10 @@ test.describe('Biznes /kontakt (K4i)', () => {
     await expect(week).toHaveCount(2)
     await expect(page.locator('main [aria-current="date"]')).toHaveCount(1)
 
-    // Google Maps as links, never an embedded map.
-    await expect(page.getByRole('link', { name: /Otwórz w Mapach Google/ })).toHaveAttribute(
+    // Google Maps as a link (the route from the dark map, board Web-kontakt), never embedded.
+    await expect(page.getByRole('link', { name: /Wyznacz trasę/ }).first()).toHaveAttribute(
       'href',
-      /^https:\/\/www\.google\.com\/maps\/search\//,
+      /^https:\/\/www\.google\.com\/maps\/dir\//,
     )
     await expect(page.locator('iframe')).toHaveCount(0)
 
