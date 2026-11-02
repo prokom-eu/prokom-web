@@ -107,8 +107,8 @@ test.describe('Biznes on a phone', () => {
     await expect(page).toHaveURL(/\/kontakt$/)
     const back = header.getByRole('link', { name: 'Wstecz' })
     await expect(back).toBeVisible()
-    const h1 = (await page.locator('main h1').first().textContent())?.trim() ?? ''
-    await expect(header.getByText(h1, { exact: true })).toBeVisible()
+    // The screen title is the page's short name (`ScreenTitleMark`), not its long H1.
+    await expect(header.getByText('Kontakt', { exact: true })).toBeVisible()
     // After a move inside the site „Wstecz” is the browser's back.
     await back.click()
     await expect(page).toHaveURL(/biznes\.localhost:\d+\/$/)

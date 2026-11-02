@@ -55,6 +55,7 @@ import { CONFIGURATOR_ID } from '@/sites/biznes/components/product/ProductVersio
 import { ProductVideos } from '@/sites/biznes/components/product/ProductVideos'
 
 import { requestOrigin, requireLine } from '../../../tenant'
+import { ScreenTitleMark } from '@/sites/biznes/components/mobile/ScreenTitleMark'
 
 type Props = { params: Promise<{ domain: string; slug: string }> }
 
@@ -234,6 +235,7 @@ export default async function ProductPage({ params }: Props) {
       ))}
       <div className="mx-auto w-full max-w-7xl px-4 pt-5 pb-12 sm:px-6 sm:pt-8 sm:pb-16 lg:px-8">
         <Breadcrumbs items={crumbs} />
+        <ScreenTitleMark name={product.shortName ?? product.heading} />
         <div className="mt-5 sm:mt-7">
           <ProductHero
             product={product}

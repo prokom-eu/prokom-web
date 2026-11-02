@@ -41,6 +41,7 @@ import { CategoryGrid } from '@/sites/biznes/components/category/CategoryGrid'
 import { HowInquiryWorks } from '@/sites/biznes/components/HowInquiryWorks'
 
 import { requestOrigin, requireLine } from '../../../tenant'
+import { ScreenTitleMark } from '@/sites/biznes/components/mobile/ScreenTitleMark'
 
 type Props = { params: Promise<{ domain: string; slug: string }> }
 
@@ -227,6 +228,7 @@ async function Salon({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
       />
+      <ScreenTitleMark name={brand} />
       <Container wide className="flex flex-col gap-12 pt-6 pb-14 sm:gap-24 sm:pt-8 sm:pb-20">
         <div>
           <SalonHero view={view} crumbs={crumbs} />
