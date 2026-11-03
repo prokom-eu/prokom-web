@@ -2,14 +2,16 @@ import { readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 
 /**
- * Reads `tokens.css` for the token tests, so the checked values are the ones the browser gets.
- * Deliberately simple: one rule per selector, no nesting beyond one `@media` block.
- * The path is relative to this module, so the tests work from any working directory.
+ * Reads the token files for the token tests, so the checked values are the ones the browser gets:
+ * `tokens.css` and the Instalacje rules split from it (`tokens-instalacje.css`, ADR-023).
+ * Deliberately simple: one rule per selector, no nesting beyond `@media` blocks.
+ * The paths are relative to this module, so the tests work from any working directory.
  */
-export const tokensCss = readFileSync(
-  fileURLToPath(new URL('./tokens.css', import.meta.url)),
-  'utf8',
-)
+export const TOKEN_FILES = ['tokens.css', 'tokens-instalacje.css'] as const
+
+export const tokensCss = TOKEN_FILES.map((file) =>
+  readFileSync(fileURLToPath(new URL(`./${file}`, import.meta.url)), 'utf8'),
+).join('\n')
 
 export type Declarations = Record<string, string>
 
@@ -36,17 +38,26 @@ export function rule(selector: string, css = tokensCss): Declarations {
   return found
 }
 
-/** Body of the `@media (prefers-color-scheme: dark)` block, to look up rules inside it. */
+/** Bodies of the `@media (prefers-color-scheme: dark)` blocks (one per token file), joined. */
 export function darkMediaBlock(css = tokensCss): string {
-  const start = css.indexOf('@media (prefers-color-scheme: dark)')
-  if (start === -1) return ''
-  const open = css.indexOf('{', start)
-  let depth = 0
-  for (let i = open; i < css.length; i++) {
-    if (css[i] === '{') depth++
-    if (css[i] === '}' && --depth === 0) return css.slice(open + 1, i)
+  const bodies: string[] = []
+  let start = css.indexOf('@media (prefers-color-scheme: dark)')
+  while (start !== -1) {
+    const open = css.indexOf('{', start)
+    let depth = 0
+    let end = -1
+    for (let i = open; i < css.length; i++) {
+      if (css[i] === '{') depth++
+      if (css[i] === '}' && --depth === 0) {
+        end = i
+        break
+      }
+    }
+    if (end === -1) throw new Error('Unclosed @media block in the token files')
+    bodies.push(css.slice(open + 1, end))
+    start = css.indexOf('@media (prefers-color-scheme: dark)', end)
   }
-  throw new Error('Unclosed @media block in tokens.css')
+  return bodies.join('\n')
 }
 
 /** Resolves `var(--x)` chains against the given declarations, e.g. to a hex colour. */
