@@ -12,6 +12,8 @@
 > | `k4/audyty/` | audyty wersji finalnej — lista kontrolna odbioru |
 > | `seed/prokombiznes/k4/` | katalog 422 kart, kategorie, marki, salony, strony, listy, plany, zestawy, konfigurator, zdjęcia nowych kart |
 >
+> **03.11 — poprawki po przeglądzie Krystiana:** koło działów v3 (`kolo/KOLO-HERO.md` + `kolo/prototyp.html`), scena i lokale GoPOS, „O firmie”, kolorowe loga marek (`poprawki-0311/POPRAWKI-0311.md`, `sekcje.html`); sesja i prompt — `poprawki-0311/PRZEKAZANIE-0311.md`. Wygrywają z K4-FINAL i R2 w tych miejscach.
+>
 > **Elementy wspólne linii (01.11, ADR-022):** pasek marki, stopka, dolny pasek, Kontakt i O firmie — `docs/design/wspolne/WSPOLNE-ELEMENTY.md` (+ `MAPA-DZIS.md`), plan `docs/zadania/wspolne-elementy.md`; zastępują odpowiednie części K4 (sesje L1-B, L2-B).
 >
 > Poniżej indeks z 25.10 (K3/K3.1) — obowiązuje tam, gdzie K4 nic nie zmienia. Zasada z §5 „bez obietnic czasu” jest nieaktualna: „Oddzwaniamy w ciągu 60 minut w godzinach pracy” potwierdzone przez szefa 27.10.
