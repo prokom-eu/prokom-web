@@ -9,6 +9,4 @@ import dynamic from 'next/dynamic'
  * HTML is unchanged; the widget code is fetched only on pages that render it,
  * instead of sitting in the route entry shared by every line.
  */
-export const NvrDemoLazy = dynamic(() => import('./NvrDemo').then((m) => m.NvrDemo), {
-  loading: () => null,
-})
+export const NvrDemoLazy = dynamic(() => import('./NvrDemo').then((m) => m.NvrDemo))

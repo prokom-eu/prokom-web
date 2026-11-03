@@ -2,24 +2,12 @@
 
 import dynamic from 'next/dynamic'
 
-// ADR-023: own client chunk, loaded only on pages that render it (SSR stays on). `loading` gives
-// each widget its own Suspense boundary: the rest of the page hydrates without waiting for it,
-// and the server HTML stays until the widget's code arrives.
-export const AddMachineButton = dynamic(() => import('./Client').then((m) => m.AddMachineButton), {
-  loading: () => null,
-})
-export const ClientTabs = dynamic(() => import('./Client').then((m) => m.ClientTabs), {
-  loading: () => null,
-})
-export const KsefChecklist = dynamic(() => import('./Client').then((m) => m.KsefChecklist), {
-  loading: () => null,
-})
-export const KsefQuizWidget = dynamic(() => import('./Client').then((m) => m.KsefQuizWidget), {
-  loading: () => null,
-})
-export const KsefTimeline = dynamic(() => import('./Client').then((m) => m.KsefTimeline), {
-  loading: () => null,
-})
-export const PhaseText = dynamic(() => import('./Client').then((m) => m.PhaseText), {
-  loading: () => null,
-})
+// ADR-023: own client chunk, loaded only on pages that render it (SSR stays on). No `loading`:
+// with it next/dynamic adds a Suspense boundary and the page below streams in hidden segments,
+// revealed by a script later (sections missing without JS and right after load).
+export const AddMachineButton = dynamic(() => import('./Client').then((m) => m.AddMachineButton))
+export const ClientTabs = dynamic(() => import('./Client').then((m) => m.ClientTabs))
+export const KsefChecklist = dynamic(() => import('./Client').then((m) => m.KsefChecklist))
+export const KsefQuizWidget = dynamic(() => import('./Client').then((m) => m.KsefQuizWidget))
+export const KsefTimeline = dynamic(() => import('./Client').then((m) => m.KsefTimeline))
+export const PhaseText = dynamic(() => import('./Client').then((m) => m.PhaseText))
