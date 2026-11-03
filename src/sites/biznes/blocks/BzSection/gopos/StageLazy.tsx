@@ -5,6 +5,9 @@ import dynamic from 'next/dynamic'
 // ADR-023: own client chunk, loaded only on pages that render it (SSR stays on). `loading` gives
 // each widget its own Suspense boundary: the rest of the page hydrates without waiting for it,
 // and the server HTML stays until the widget's code arrives.
-const LAZY = { loading: () => null }
-export const GoposFlow = dynamic(() => import('./Stage').then((m) => m.GoposFlow), LAZY)
-export const GoposStage = dynamic(() => import('./Stage').then((m) => m.GoposStage), LAZY)
+export const GoposFlow = dynamic(() => import('./Stage').then((m) => m.GoposFlow), {
+  loading: () => null,
+})
+export const GoposStage = dynamic(() => import('./Stage').then((m) => m.GoposStage), {
+  loading: () => null,
+})

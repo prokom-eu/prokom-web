@@ -5,7 +5,12 @@ import dynamic from 'next/dynamic'
 // ADR-023: own client chunk, loaded only on pages that render it (SSR stays on). `loading` gives
 // each widget its own Suspense boundary: the rest of the page hydrates without waiting for it,
 // and the server HTML stays until the widget's code arrives.
-const LAZY = { loading: () => null }
-export const CareAreas = dynamic(() => import('./CareWidgets').then((m) => m.CareAreas), LAZY)
-export const Seats = dynamic(() => import('./CareWidgets').then((m) => m.Seats), LAZY)
-export const SwitchSteps = dynamic(() => import('./CareWidgets').then((m) => m.SwitchSteps), LAZY)
+export const CareAreas = dynamic(() => import('./CareWidgets').then((m) => m.CareAreas), {
+  loading: () => null,
+})
+export const Seats = dynamic(() => import('./CareWidgets').then((m) => m.Seats), {
+  loading: () => null,
+})
+export const SwitchSteps = dynamic(() => import('./CareWidgets').then((m) => m.SwitchSteps), {
+  loading: () => null,
+})
