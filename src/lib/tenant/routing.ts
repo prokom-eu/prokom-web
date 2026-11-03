@@ -41,9 +41,10 @@ const CATALOG_INDEX_PATH = '/api/catalog-index'
 // Solutions index of the Software site (ADR-014 §4): the same kind of handler, read only; it
 // answers 404 on domains of other lines.
 const SOLUTIONS_INDEX_PATH = '/api/solutions-index'
-// One drawing of „Plan Twojej firmy” (K31d′): read only, a scene slug; the handler answers 404
-// on domains of other lines and re-checks the drawing.
-const PLAN_SVG = /^\/api\/plan-svg\/[a-z0-9-]{1,60}$/
+// One scene of „Plan Twojej firmy” (K31d′): its drawing (`plan-svg`) or its products and bundles
+// (`plan-scene`, ADR-023). Read only, a scene slug; the handlers answer 404 on domains of other
+// lines and check the slug against the tenant's scenes.
+const PLAN_SCENE = /^\/api\/plan-(?:svg|scene)\/[a-z0-9-]{1,60}$/
 // Liveness of the app and its database (S9): Docker, the smoke test and monitoring call it by
 // IP or any domain, so it answers on every host. Read only, returns no data.
 const HEALTH_PATH = '/api/health'
@@ -94,7 +95,7 @@ export function decideRoute({
   if (pathname === INQUIRY_TOKEN_PATH && READ_METHODS.includes(method)) return { type: 'next' }
   if (pathname === CATALOG_INDEX_PATH && READ_METHODS.includes(method)) return { type: 'next' }
   if (pathname === SOLUTIONS_INDEX_PATH && READ_METHODS.includes(method)) return { type: 'next' }
-  if (PLAN_SVG.test(pathname) && READ_METHODS.includes(method)) return { type: 'next' }
+  if (PLAN_SCENE.test(pathname) && READ_METHODS.includes(method)) return { type: 'next' }
   if (panelOnly) return { type: 'notFoundPage', pathname: `/${host}/${NOT_FOUND_SEGMENT}` }
   if (PUBLIC_PREFIXES.some((prefix) => pathname.startsWith(`${prefix}/`))) return { type: 'next' }
   return { type: 'rewrite', pathname: pathname === '/' ? `/${host}` : `/${host}${pathname}` }
