@@ -75,3 +75,19 @@ Kolumna „+ zod + fonty” to próbny build z obiema zmianami (deklaracja `font
 3. Runtime React/Next (~150 KB gzip), wspólny dla wszystkich linii.
 
 **Opcja B** (trasy per linia) niczego z tego nie usuwa — cudzy JS jest już wycięty — więc zostaje odłożona.
+
+## Dopisek: CSS per linia (03.11.2026, `perf/css-linii`)
+**Problem:** jeden arkusz `globals.css` (386 KB, 57,6 KB gzip) ze stylami wszystkich linii blokował render każdej strony: Tailwind skanował cały projekt, a w `tokens.css` były tokeny Instalacji (~11 KB gzip).
+
+**Decyzja (Krystian 03.11, opcja A z dwóch):** jeden arkusz Tailwind **per linia**.
+- Część wspólna: `src/styles/site.css` (tokeny, `motion.css`, `@theme`, warstwy `base`/`components`, wspólne reguły, `@source` kodu wspólnego: `app`, `blocks`, `components`, `lib`). Nie jest wpisem.
+- Wpisy: `src/sites/biznes/style/biznes.css`, `src/sites/software/style/software.css`, `src/sites/instalacje/style/tailwind.css` (+ `styles/tokens-instalacje.css`) i `src/app/(sites)/globals.css` (bez linii: hub, nieznana domena, błąd globalny). Każdy: `@import 'tailwindcss' source(none)` → `site.css` → `@source '..'` (folder linii) → reguły tylko tej linii.
+- Ładowanie: główny layout nie importuje CSS; `src/app/(sites)/LineSheet.tsx` (`'use client'`, `next/dynamic`) renderuje arkusz linii hosta — ten sam mechanizm co style Instalacji (`LineStyles.tsx`, 01.11). `global-error.tsx` też przez `next/dynamic` (statyczny import byłby wstępnie ładowany na każdej stronie). Pilnuje `src/app/(sites)/lineSheet.test.ts`.
+- Na stronie jest dokładnie jeden Tailwind, więc kolejność klas się nie miesza (dwa arkusze utility — wspólny i linii — mogłyby nadpisać `md:flex` klasą `hidden` z drugiego pliku).
+- Tokeny: reguły `[data-line='instalacje']` (jasny, ciemny, ciemny systemowy) w `src/styles/tokens-instalacje.css`; prymitywy `--c-instalacje-*` zostają w `tokens.css`. Uzupełnienie ADR-007: wartości kolorów tylko w `src/styles/tokens*.css`; testy kontrastu czytają oba pliki (`parse-tokens.ts`).
+
+**Wynik (arkusz blokujący render, gzip):** Biznes 57,6 → 38,7 KB, Software → 32,5 KB, Instalacje → 31,0 KB (+ jej arkusze ramki bez zmian). Wygląd bez zmian: style obliczone wszystkich elementów identyczne na 23 stronach (Biznes 10, Software 5, Instalacje 4, nieznana domena) w 1440 i 390, jasny i ciemny.
+
+**Lighthouse mobile** (lokalnie `pnpm build && pnpm start`, lhci 0.15.1, mediana z 3, baza: develop po #313): Biznes `/` 80 → 82, `/oferta` 83 → 83, produkt 85 → 86, `/marki/apple` 86 → 86, `/kontakt` 86 → 87, `/plan-firmy` 86 → 86; Instalacje `/`, `/kontakt` 87 → 87; Software `/`, `/rozwiazania` 86 → 87. Mały zysk, bo FCP był już ~1,2 s — resztę różnicy opisuje dopisek „Dane planu firmy” niżej.
+
+**Reguła:** klasa Tailwind użyta w folderze jednej linii trafia tylko do jej arkusza; kod wspólny (`components`, `blocks`, `lib`, `app`) jest w każdym. Komponent jednej linii renderowany przez drugą wymaga `@source` w arkuszu drugiej (dziś: `news/` Biznesu w Software) — pilnuje tego `lineSheet.test.ts` (każdy plik innej linii osiągalny z importów linii musi być objęty jej `@source`).

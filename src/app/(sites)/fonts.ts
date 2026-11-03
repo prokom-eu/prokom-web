@@ -3,7 +3,7 @@ import localFont from 'next/font/local'
 // Files from the brand package (`04_zrodlo/fonty`, OFL licences next to them), served from our
 // own domain; the build needs no network (ADR-007, S9a). Each file is one subset, and
 // `next/font/local` cannot give a file its own `unicode-range`, so every subset is its own family
-// and `globals.css` chains them: the browser takes each character from the first family that has
+// and `styles/site.css` chains them: the browser takes each character from the first family that has
 // it — Polish letters come from `latin-ext`. The `Fallback` metrics (less layout shift) sit on the
 // last family of each chain. All four are preloaded, as before with Google: Polish text needs
 // `latin-ext` on almost every page.

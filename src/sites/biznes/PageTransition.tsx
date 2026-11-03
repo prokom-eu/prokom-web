@@ -9,7 +9,7 @@ import { type ReactNode, ViewTransition } from 'react'
  * Page content of Biznes cross-fades when the address changes (M1′, MOBILE-APLIKACJA §1;
  * Next.js guide „View transitions”; the Software pattern): keyed by the path, the old page
  * exits and the new one enters (`::view-transition-*(.bz-page-out / .bz-page-in)`,
- * globals.css). `default="none"`: every other transition stays still — the menu sheet's own
+ * style/biznes.css). `default="none"`: every other transition stays still — the menu sheet's own
  * history entry (`BottomSheet` `closeOnBack`) is a router transition too. Header and tab bar
  * keep their own names. Without browser support or with reduced motion the page simply swaps.
  */

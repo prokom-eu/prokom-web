@@ -1,0 +1,51 @@
+/*
+ * Stylesheet of the Biznes line (ADR-023 „CSS per linia”): Tailwind with the shared styles and the
+ * classes of `src/sites/biznes` only. Loaded by `src/app/(sites)/LineSheet.tsx` on Biznes pages.
+ */
+@import 'tailwindcss' source(none);
+@import '../../../styles/site.css';
+
+@source '..';
+
+/* Biznes page transitions on phones reuse the `sw-vt-out` / `sw-vt-in` keyframes of `motion.css`. */
+
+/* Biznes phone app (M1′, MOBILE-APLIKACJA §4 pkt 9, WCAG 2.4.11): a focused field or a scrolled-to
+   target never ends up under the bottom bar (tab bar or sticky action). */
+@media (max-width: 767px) {
+  html[data-line='biznes'] {
+    scroll-padding-bottom: calc(5.5rem + env(safe-area-inset-bottom));
+  }
+}
+
+/* Biznes: the same with reduced motion, and on wider screens — the phone app moves, the desktop
+   stays as it was (MOBILE-APLIKACJA, „Desktop się nie zmienia”). */
+@media (prefers-reduced-motion: reduce), (min-width: 768px) {
+  html[data-line='biznes']::view-transition-group(*),
+  html[data-line='biznes']::view-transition-old(*),
+  html[data-line='biznes']::view-transition-new(*) {
+    animation: none;
+  }
+}
+
+/* Biznes phone app (M1′, MOBILE-APLIKACJA §1): a page with its own sticky action (product,
+   bundle, inquiry, configurator, post — `StickyAction`) shows it instead of the tab bar. */
+[data-line='biznes'] body:has([data-sticky-action]) [data-tab-bar] {
+  display: none;
+}
+
+/* Biznes page transitions on phones (`PageTransition`, the same motion as Software): the content
+   fades out and rises in; header and tab bar keep their own names, so they stay. */
+@media (max-width: 767px) and (prefers-reduced-motion: no-preference) {
+  [data-line='biznes'] [data-bz-header] {
+    view-transition-name: bz-header;
+  }
+  [data-line='biznes'] [data-tab-bar] {
+    view-transition-name: bz-tab-bar;
+  }
+  html[data-line='biznes']::view-transition-old(.bz-page-out) {
+    animation: sw-vt-out 0.22s ease both;
+  }
+  html[data-line='biznes']::view-transition-new(.bz-page-in) {
+    animation: sw-vt-in 0.32s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+}

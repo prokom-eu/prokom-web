@@ -1,7 +1,7 @@
 /**
  * Gliding jump to a section of the Software start page (SWV5, MOBILE-APLIKACJA §4 pkt 10;
  * pattern `docs/design/prokomsoftware/v23/pkScroll.js`): longer for a longer way (520–1100 ms),
- * easing in and out, then the section's heading „arrives” (`data-arrive`, globals.css). With
+ * easing in and out, then the section's heading „arrives” (`data-arrive`, motion.css). With
  * reduced motion it is a plain jump; the visitor's own wheel, touch or key stops the glide.
  */
 

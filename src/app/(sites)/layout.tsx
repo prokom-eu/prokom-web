@@ -6,7 +6,7 @@ import { getTenantByHost } from '@/lib/tenant/byHost'
 import { normalizeHost } from '@/lib/tenant/host'
 
 import { fontVariables } from './fonts'
-import './globals.css'
+import { LineSheet } from './LineSheet'
 
 /**
  * Root shell for all public sites; the tenant is resolved one level down, in `[domain]`.
@@ -32,7 +32,11 @@ export default async function SitesRootLayout({ children }: { children: React.Re
           <script dangerouslySetInnerHTML={{ __html: themeScript(line) }} />
         </head>
       )}
-      <body>{children}</body>
+      <body>
+        {/* The line's stylesheet (ADR-023): no global CSS import here, see `LineSheet`. */}
+        <LineSheet line={line} />
+        {children}
+      </body>
     </html>
   )
 }

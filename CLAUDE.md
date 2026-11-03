@@ -32,7 +32,8 @@ src/
   collections/  globals/  blocks/
   components/              # wspólne komponenty (szkielet: BrandBar, SiteHeader, SiteFooter)
   components/ui/           # komponenty bazowe: Container, Section, Heading, Button, TextLink
-  styles/tokens.css        # JEDYNE miejsce z wartościami kolorów (ADR-007, ADR-013); testy kontrastu obok
+  styles/tokens*.css       # JEDYNE miejsce z wartościami kolorów (ADR-007, ADR-013; Instalacje: tokens-instalacje.css); testy kontrastu obok
+  styles/site.css          # style wspólne; arkusz Tailwind per linia w sites/<linia>/style (ADR-023 „CSS per linia”)
   sites/<tenant>/          # tylko to, co naprawdę unikalne dla jednej strony
   lib/                     # tenant, brand (linie, motyw), seo, inquiry, env
   proxy.ts                 # Next 16: dawne middleware.ts (lib/tenant/routing)

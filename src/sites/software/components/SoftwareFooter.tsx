@@ -87,7 +87,7 @@ const CONTACT_LINK =
  * the first location (the main office) is shown, not the other salons of the company.
  *
  * A page that ends with its own CTA (`data-final-cta`) hides the band, a page with the PRO-KOM
- * lines (`data-lines-section`) hides the line cards — by CSS in `globals.css`, no list of
+ * lines (`data-lines-section`) hides the line cards — by CSS in `styles/site.css`, no list of
  * addresses here (plan §3b, decyzja 6).
  */
 export function SoftwareFooter({ name, footer, phone, phone2, email, company }: Props) {
