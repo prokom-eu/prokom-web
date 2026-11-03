@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useId, useMemo, useRef, useState, type CSSProperties } from 'react'
 
 import { ICON_BUTTON } from '@/components/ui/iconButton'
 import { cartCount, MAX_QTY, suggestFor } from '@/lib/cart/cart'
@@ -111,6 +111,7 @@ export function CartDrawer({ phone }: Props) {
 
   return (
     <dialog
+      data-motion="drawer"
       ref={dialog}
       aria-labelledby={titleId}
       onClose={() => {
@@ -226,13 +227,16 @@ export function CartDrawer({ phone }: Props) {
         ) : (
           <>
             <ul className="flex flex-col gap-2">
-              {cart.map((item) => {
+              {cart.map((item, position) => {
                 const product = bySlug.get(item.id)
                 if (!product) return null
                 const sub = productSubtitle(product, index)
                 return (
                   <li
                     key={item.id}
+                    // R2: the list rises in one by one when the drawer opens, a new item joins.
+                    data-cascade
+                    style={{ '--reveal-i': position } as CSSProperties}
                     className="grid grid-cols-[auto_1fr_auto] items-center gap-3 rounded-2xl bg-surface-2 p-2.5"
                   >
                     <ProductThumb product={product} index={index} />

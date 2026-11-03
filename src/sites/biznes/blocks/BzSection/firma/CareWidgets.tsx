@@ -11,6 +11,7 @@ import { cartActions } from '@/lib/cart/store'
 import type { IndexImage } from '@/lib/catalog/catalogIndex'
 import { productHref } from '@/lib/catalog/card'
 
+import { useSwap } from '../../../components/motion/useSwap'
 import { PathIcon } from '../../../components/product/PathIcon'
 import { BTN_PRIMARY, CARD, TAB_KEYS } from '../ui'
 
@@ -28,6 +29,7 @@ export function CareAreas({
   products: Record<string, AreaProduct>
 }) {
   const [current, setCurrent] = useState(0)
+  const swap = useSwap(current)
   const base = useId()
   const area = data.areas[current] ?? data.areas[0]!
   const go = (next: number) => {
@@ -87,6 +89,7 @@ export function CareAreas({
       <div
         id={`${base}-p`}
         role="tabpanel"
+        {...swap}
         aria-labelledby={`${base}-t${current}`}
         className={cx(CARD, 'flex flex-col gap-5 p-6 text-ink sm:p-7')}
       >

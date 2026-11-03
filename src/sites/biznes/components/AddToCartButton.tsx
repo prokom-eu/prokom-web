@@ -1,5 +1,7 @@
 'use client'
 
+import { useState } from 'react'
+
 import { cx } from '@/components/ui/cx'
 import { cartActions, useCart } from '@/lib/cart/store'
 
@@ -21,11 +23,25 @@ type Props = {
 const PLUS = 'M12 5v14M5 12h14'
 const CHECK = 'M5 12l5 5L20 7'
 
-function Mark({ on, size, stroke }: { on: boolean; size: number; stroke: number }) {
+/** R2: after the visitor's own click the tick draws itself (`data-check`); never on load. */
+function Mark({
+  on,
+  size,
+  stroke,
+  drawn,
+}: {
+  on: boolean
+  size: number
+  stroke: number
+  drawn: boolean
+}) {
   return (
     <svg viewBox="0 0 24 24" width={size} height={size} aria-hidden="true">
       <path
+        key={on ? 'check' : 'plus'}
         d={on ? CHECK : PLUS}
+        pathLength={1}
+        data-check={on && drawn ? '' : undefined}
         fill="none"
         stroke="currentColor"
         strokeWidth={stroke}
@@ -39,7 +55,9 @@ function Mark({ on, size, stroke }: { on: boolean; size: number; stroke: number 
 /** Switch of a product on the inquiry list: adds, or removes when already there. */
 export function AddToCartButton({ slug, name, className, variant = 'icon', onToggle }: Props) {
   const on = useCart().some((item) => item.id === slug)
+  const [clicked, setClicked] = useState(false)
   const toggle = () => {
+    setClicked(true)
     cartActions.toggle(slug, name)
     onToggle?.()
   }
@@ -60,7 +78,7 @@ export function AddToCartButton({ slug, name, className, variant = 'icon', onTog
           className,
         )}
       >
-        <Mark on={on} size={18} stroke={2.6} />
+        <Mark on={on} drawn={clicked} size={18} stroke={2.6} />
         {label}
       </button>
     )
@@ -83,7 +101,7 @@ export function AddToCartButton({ slug, name, className, variant = 'icon', onTog
           className,
         )}
       >
-        <Mark on={on} size={16} stroke={2.6} />
+        <Mark on={on} drawn={clicked} size={16} stroke={2.6} />
         {label}
       </button>
     )
@@ -106,7 +124,7 @@ export function AddToCartButton({ slug, name, className, variant = 'icon', onTog
           className,
         )}
       >
-        <Mark on={on} size={15} stroke={2.6} />
+        <Mark on={on} drawn={clicked} size={15} stroke={2.6} />
         {/* Only the „+” on a phone: the picture is small there (`aria-label` names it). */}
         <span className="max-sm:hidden">{label}</span>
       </button>
@@ -130,7 +148,7 @@ export function AddToCartButton({ slug, name, className, variant = 'icon', onTog
           className,
         )}
       >
-        <Mark on={on} size={15} stroke={2.6} />
+        <Mark on={on} drawn={clicked} size={15} stroke={2.6} />
         {label}
       </button>
     )
@@ -148,7 +166,7 @@ export function AddToCartButton({ slug, name, className, variant = 'icon', onTog
         className,
       )}
     >
-      <Mark on={on} size={17} stroke={2.4} />
+      <Mark on={on} drawn={clicked} size={17} stroke={2.4} />
     </button>
   )
 }

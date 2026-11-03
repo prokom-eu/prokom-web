@@ -2,6 +2,7 @@
 
 import { useId, useState, useSyncExternalStore, type ReactNode } from 'react'
 
+import { useRevealCards } from '@/components/motion/RevealObserver'
 import { cx } from '@/components/ui/cx'
 import {
   isAfterSwitch,
@@ -58,6 +59,8 @@ export function KsefTimeline({
   serverStatuses: readonly TimelineStatus[]
 }) {
   const after = useAfterSwitch(switchDate, serverAfter)
+  // R2: the milestones rise in one after another, once (`RevealObserver`).
+  const revealCards = useRevealCards()
   const dates = points.map((point) => point.date)
   const statuses = useSyncExternalStore(
     noop,
@@ -65,7 +68,7 @@ export function KsefTimeline({
     () => serverStatuses.join('|'),
   ).split('|') as TimelineStatus[]
   return (
-    <ol className="flex flex-col gap-2.5">
+    <ol {...revealCards} className="flex flex-col gap-2.5">
       {points.map((point, i) => {
         const status: TimelineStatus = after ? 'obowiązuje' : (statuses[i] ?? 'wkrótce')
         return (

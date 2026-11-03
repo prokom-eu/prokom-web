@@ -6,6 +6,7 @@ import {
   useRef,
   useState,
   useSyncExternalStore,
+  type CSSProperties,
   type ReactNode,
   type RefObject,
 } from 'react'
@@ -78,6 +79,7 @@ export function RailShell({
     >
       <div
         ref={boxRef}
+        data-rail-box
         className="relative flex w-11 flex-col gap-1 overflow-hidden rounded-[22px] bg-card p-1 shadow-[0_20px_40px_-28px_var(--glow),inset_0_0_0_1px_var(--border)] transition-[width] duration-200 group-focus-within/rail:w-[214px] group-hover/rail:w-[214px] motion-reduce:transition-none"
       >
         {marker}
@@ -209,10 +211,10 @@ export function SectionRail({ items, from = 1400, search = false, glide = false 
         )
       }
     >
-      {shown.map((item) => {
+      {shown.map((item, i) => {
         const current = item.id === active
         return (
-          <li key={item.id}>
+          <li key={item.id} style={{ '--rail-i': i } as CSSProperties}>
             <a
               href={`#${item.id}`}
               aria-current={current ? 'true' : undefined}
@@ -234,7 +236,7 @@ export function SectionRail({ items, from = 1400, search = false, glide = false 
               }
             >
               <Icon name={item.icon} className="size-5 shrink-0" />
-              {item.label}
+              <span data-rail-label>{item.label}</span>
             </a>
           </li>
         )

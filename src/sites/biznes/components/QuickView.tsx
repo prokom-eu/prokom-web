@@ -55,6 +55,7 @@ export function QuickView({ products, current, index, onMove }: Props) {
 
   return (
     <dialog
+      data-motion="dialog"
       ref={dialog}
       aria-labelledby={headingId}
       onClose={() => onMove(null)}

@@ -84,6 +84,8 @@ export function FloorPlan({
   )
   const [open, setOpen] = useState<number | null>(null)
   const [added, setAdded] = useState<string | null>(null)
+  // R2: pointing at a point lights up its row in „Na tym planie”, and the other way round.
+  const [hot, setHot] = useState<number | null>(null)
   const pointRefs = useRef<Map<number, HTMLButtonElement>>(new Map())
   const headingId = useId()
   const bundlesId = useId()
@@ -236,7 +238,10 @@ export function FloorPlan({
                     else pointRefs.current.delete(point.n)
                   }}
                   type="button"
+                  data-plan-point
                   onClick={() => setOpen(points.indexOf(point))}
+                  onPointerEnter={() => setHot(point.n)}
+                  onPointerLeave={() => setHot(null)}
                   aria-label={`${point.n}. ${point.label} — ${product.name}`}
                   className="group absolute z-10 -translate-x-1/2 -translate-y-1/2 rounded-full focus-visible:outline-offset-4"
                   style={{ left: `${point.x}%`, top: `${point.y}%` }}
@@ -245,7 +250,8 @@ export function FloorPlan({
                     as="span"
                     className={cx(
                       'size-11 rounded-full bg-white shadow-[0_6px_16px_-6px_var(--shd),0_0_0_2px_var(--surface-dark)] transition-transform group-hover:scale-110 lg:size-12',
-                      active && 'fp-active scale-110',
+                      (active || hot === point.n) && 'scale-110',
+                      active && 'fp-active',
                     )}
                   >
                     <Thumb product={product} size="point" />
@@ -295,7 +301,12 @@ export function FloorPlan({
                 <button
                   type="button"
                   onClick={() => setOpen(i)}
-                  className="flex min-h-14 w-full items-center gap-3 rounded-xl py-2 text-left hover:bg-surface-2 sm:px-1"
+                  onPointerEnter={() => setHot(point.n)}
+                  onPointerLeave={() => setHot(null)}
+                  className={cx(
+                    'flex min-h-14 w-full items-center gap-3 rounded-xl py-2 text-left hover:bg-surface-2 sm:px-1',
+                    hot === point.n && 'bg-surface-2',
+                  )}
                 >
                   <span
                     aria-hidden="true"

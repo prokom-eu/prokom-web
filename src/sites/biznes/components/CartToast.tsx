@@ -42,6 +42,7 @@ export function CartToast() {
       {added && (
         <div
           key={added.key}
+          data-toast
           className="pointer-events-auto flex max-w-full items-center gap-3.5 rounded-2xl bg-surface-dark py-3 pl-4 pr-3 text-[0.95rem] text-white shadow-2xl"
         >
           <span

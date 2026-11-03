@@ -95,6 +95,7 @@ export async function BrandsHome({
             return (
               <li key={brand.id} className="flex">
                 <Link
+                  data-logo-tint
                   href={hrefOf(brand.slug)}
                   className="flex w-full flex-col items-center gap-1.5 text-center"
                 >
@@ -156,6 +157,7 @@ export async function BrandsHome({
             return (
               <li key={brand.id} className="flex">
                 <Link
+                  data-logo-tint
                   href={hrefOf(brand.slug)}
                   className="group/brand flex w-full flex-col gap-3 rounded-[22px] bg-card p-3.5 shadow-[0_20px_50px_-34px_var(--glow),inset_0_0_0_1px_var(--border)] transition-shadow hover:shadow-[0_20px_50px_-34px_var(--glow),inset_0_0_0_1.5px_var(--accent-text)] motion-reduce:transition-none"
                 >

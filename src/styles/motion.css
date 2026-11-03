@@ -235,7 +235,7 @@
 
 /* --- 3. Scroll ------------------------------------------------------------------------------ */
 @media (prefers-reduced-motion: no-preference) {
-  html[data-line='software'] {
+  html:is([data-line='software'], [data-line='biznes']) {
     scroll-behavior: smooth;
   }
 
@@ -278,7 +278,7 @@
   }
 
   /* The rail glided to a section (`lib/software/smoothScroll`): its heading arrives. */
-  [data-line='software'] [data-arrive] h2 {
+  :is([data-line='software'], [data-line='biznes']) [data-arrive] h2 {
     animation: sw-arrive 1.3s var(--ease-out);
   }
 
@@ -310,29 +310,31 @@
 
   /* Mega menu „Oferta”: in with a small drop, its columns one after another (30 ms). Closing is
      instant: `hidden` is `display: none !important` in the reset. */
-  [data-line='software'] [data-mega-panel]:not([hidden]) {
+  :is([data-line='software'], [data-line='biznes']) [data-mega-panel]:not([hidden]) {
     animation: sw-drop var(--dur-state) var(--ease-out);
   }
-  [data-line='software'] [data-mega-panel]:not([hidden]) [data-mega-column] {
+  :is([data-line='software'], [data-line='biznes'])
+    [data-mega-panel]:not([hidden])
+    [data-mega-column] {
     animation: sw-reveal var(--dur-state) var(--ease-out) backwards;
     --reveal-y: 6px;
   }
-  [data-line='software'] [data-mega-column]:nth-child(2) {
+  :is([data-line='software'], [data-line='biznes']) [data-mega-column]:nth-child(2) {
     animation-delay: 30ms;
   }
-  [data-line='software'] [data-mega-column]:nth-child(3) {
+  :is([data-line='software'], [data-line='biznes']) [data-mega-column]:nth-child(3) {
     animation-delay: 60ms;
   }
-  [data-line='software'] [data-mega-column]:nth-child(4) {
+  :is([data-line='software'], [data-line='biznes']) [data-mega-column]:nth-child(4) {
     animation-delay: 90ms;
   }
-  [data-line='software'] [data-mega-column]:nth-child(n + 5) {
+  :is([data-line='software'], [data-line='biznes']) [data-mega-column]:nth-child(n + 5) {
     animation-delay: 120ms;
   }
 
   /* Sheets and windows (`BottomSheet`): a sheet slides up from the bottom, a window (≥ 641 px)
      grows from .96; the page behind dims softly. Closing is the same way back, faster. */
-  [data-line='software'] dialog[data-motion] {
+  :is([data-line='software'], [data-line='biznes']) dialog[data-motion] {
     transition:
       translate var(--dur-sheet) var(--ease-out),
       scale var(--dur-sheet) var(--ease-out),
@@ -340,53 +342,66 @@
       display var(--dur-sheet) allow-discrete,
       overlay var(--dur-sheet) allow-discrete;
   }
-  [data-line='software'] dialog[data-motion]:not([open]) {
+  :is([data-line='software'], [data-line='biznes']) dialog[data-motion]:not([open]) {
     transition-duration:
       var(--dur-state), var(--dur-state), 160ms, var(--dur-state), var(--dur-state);
   }
-  [data-line='software'] dialog[data-motion='sheet']:not([open]) {
+  :is([data-line='software'], [data-line='biznes']) dialog[data-motion='sheet']:not([open]) {
     translate: 0 100%;
   }
   @starting-style {
-    [data-line='software'] dialog[data-motion='sheet'][open] {
+    :is([data-line='software'], [data-line='biznes']) dialog[data-motion='sheet'][open] {
       translate: 0 100%;
     }
   }
   @media (min-width: 641px) {
-    [data-line='software'] dialog[data-motion='dialog']:not([open]) {
+    :is([data-line='software'], [data-line='biznes']) dialog[data-motion='dialog']:not([open]) {
       opacity: 0;
       scale: 0.96;
     }
     @starting-style {
-      [data-line='software'] dialog[data-motion='dialog'][open] {
+      :is([data-line='software'], [data-line='biznes']) dialog[data-motion='dialog'][open] {
         opacity: 0;
         scale: 0.96;
       }
     }
   }
   @media (max-width: 640px) {
-    [data-line='software'] dialog[data-motion='dialog']:not([open]) {
+    :is([data-line='software'], [data-line='biznes']) dialog[data-motion='dialog']:not([open]) {
       translate: 0 100%;
     }
     @starting-style {
-      [data-line='software'] dialog[data-motion='dialog'][open] {
+      :is([data-line='software'], [data-line='biznes']) dialog[data-motion='dialog'][open] {
         translate: 0 100%;
       }
     }
   }
-  [data-line='software'] dialog[data-motion]::backdrop {
+  :is([data-line='software'], [data-line='biznes']) dialog[data-motion]::backdrop {
     transition:
       opacity var(--dur-sheet) var(--ease-out),
       display var(--dur-sheet) allow-discrete,
       overlay var(--dur-sheet) allow-discrete;
   }
-  [data-line='software'] dialog[data-motion]:not([open])::backdrop {
+  :is([data-line='software'], [data-line='biznes']) dialog[data-motion]:not([open])::backdrop {
     opacity: 0;
   }
   @starting-style {
-    [data-line='software'] dialog[data-motion][open]::backdrop {
+    :is([data-line='software'], [data-line='biznes']) dialog[data-motion][open]::backdrop {
       opacity: 0;
     }
+  }
+
+  /* Biznes: the inquiry drawer slides in from the right; the search dims and blurs the page. */
+  [data-line='biznes'] dialog[data-motion='drawer']:not([open]) {
+    translate: 100% 0;
+  }
+  @starting-style {
+    [data-line='biznes'] dialog[data-motion='drawer'][open] {
+      translate: 100% 0;
+    }
+  }
+  [data-line='biznes'] dialog[data-backdrop='blur']::backdrop {
+    backdrop-filter: blur(6px);
   }
 }
 
@@ -476,6 +491,100 @@
     border-right-color: currentColor;
     opacity: 0.6;
   }
+}
+
+/* --- 4c. Biznes: sections and subpages (prompt 4 R2) ---------------------------------------
+   Hooks: `data-swap` (a tab's content after a change, `useSwap`), `data-cascade` (items that join
+   a list: filter, search results, the inquiry drawer; `--reveal-i` = position), `data-bump` (the
+   inquiry counter, remounted on a new count), `data-fade` (gallery picture after a change),
+   `data-logo-tint` (brand logos), `data-plan-point` (points of the floor plan),
+   `data-pill-list` (a button group with a `SlidingPill`). Nothing here runs on page load: every
+   hook is set only after the visitor did something, or by the rise-in (`data-revealed`). */
+@media (prefers-reduced-motion: no-preference) {
+  /* A tab's new content fades in with a small rise. Two names, so each change restarts it. */
+  [data-line='biznes'] [data-swap='a'] {
+    animation: bz-swap-a var(--dur-state) var(--ease-out);
+  }
+  [data-line='biznes'] [data-swap='b'] {
+    animation: bz-swap-b var(--dur-state) var(--ease-out);
+  }
+  [data-line='biznes'] [data-cascade] {
+    animation: sw-reveal var(--dur-state) var(--ease-out) backwards;
+    animation-delay: calc(min(var(--reveal-i, 0), 8) * 40ms);
+    --reveal-y: 8px;
+  }
+  [data-line='biznes'] [data-bump] {
+    animation: bz-bump var(--dur-state) var(--ease-spring);
+  }
+  [data-line='biznes'] [data-fade] {
+    animation: bz-fade var(--dur-state) var(--ease-out);
+  }
+  /* The floor plan's points pulse once when the plan rises in. */
+  [data-line='biznes'] [data-revealed] [data-plan-point]::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 9999px;
+    box-shadow: 0 0 0 2px var(--accent);
+    opacity: 0;
+    pointer-events: none;
+    animation: bz-ping 1.1s var(--ease-out) 0.3s;
+  }
+}
+
+/* Brand logos: grey until the pointer comes (mouse and trackpad only; touch keeps the colour). */
+@media (hover: hover) and (pointer: fine) {
+  [data-line='biznes'] [data-logo-tint] img {
+    filter: grayscale(1);
+    opacity: 0.75;
+    transition:
+      filter var(--dur-hover) var(--ease-out),
+      opacity var(--dur-hover) var(--ease-out);
+  }
+  [data-line='biznes'] [data-logo-tint]:is(:hover, :focus-visible) img {
+    filter: none;
+    opacity: 1;
+  }
+}
+
+/* Side rail (R2, Krystian 03.11): opens a little slower and softer than a hover, the labels
+   follow one after another, the icon of the pointed entry grows a little. Clicking a section
+   glides there and its heading arrives (`SectionRail` `glide`, §3); the marker slides along. */
+[data-line='biznes'] [data-rail-box] {
+  transition-duration: var(--dur-state);
+  transition-timing-function: var(--ease-out);
+}
+@media (prefers-reduced-motion: no-preference) {
+  [data-line='biznes'] [data-rail-label] {
+    opacity: 0;
+    translate: -6px 0;
+    transition:
+      opacity var(--dur-hover) var(--ease-out),
+      translate var(--dur-state) var(--ease-out);
+  }
+  [data-line='biznes'] nav:is(:hover, :focus-within) [data-rail-label] {
+    opacity: 1;
+    translate: none;
+    transition-delay: calc(60ms + min(var(--rail-i, 0), 10) * 18ms);
+  }
+  [data-line='biznes'] [data-rail-box] a > svg {
+    transition: scale var(--dur-hover) var(--ease-spring);
+  }
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  [data-line='biznes'] [data-rail-box] a:hover > svg {
+    scale: 1.1;
+  }
+}
+
+/* With a sliding pill drawn, the chosen button gives up its own background: the pill carries it. */
+[data-line='biznes']
+  [data-pill-list]:has(> [data-sliding-pill])
+  > :is([aria-pressed='true'], [aria-selected='true']) {
+  position: relative;
+  z-index: 1;
+  background-color: transparent;
+  box-shadow: none;
 }
 
 /* --- 5. Page and theme transitions ---------------------------------------------------------- */
@@ -651,5 +760,42 @@
   }
   to {
     clip-path: circle(150vmax at var(--reveal-x, 50%) var(--reveal-y-origin, 0));
+  }
+}
+
+@keyframes bz-swap-a {
+  from {
+    opacity: 0;
+    translate: 0 6px;
+  }
+}
+
+@keyframes bz-swap-b {
+  from {
+    opacity: 0;
+    translate: 0 6px;
+  }
+}
+
+@keyframes bz-bump {
+  50% {
+    scale: 1.15;
+  }
+}
+
+@keyframes bz-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes bz-ping {
+  0% {
+    opacity: 0.9;
+    scale: 1;
+  }
+  100% {
+    opacity: 0;
+    scale: 1.6;
   }
 }

@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import type { CSSProperties } from 'react'
 
 import { RailShell, railLinkClass } from '@/components/SectionRail'
 import { Icon } from '@/components/ui/Icon'
@@ -19,17 +20,17 @@ export function SiteRail() {
   return (
     // „Menu boczne” as on the board: „Menu” alone is the phone's menu button and dialog.
     <RailShell label="Menu boczne" heading="Menu" search>
-      {SITE_RAIL.map((item) => {
+      {SITE_RAIL.map((item, i) => {
         const here = item.href === current
         return (
-          <li key={item.href}>
+          <li key={item.href} style={{ '--rail-i': i } as CSSProperties}>
             <Link
               href={item.href}
               aria-current={here ? 'page' : undefined}
               className={railLinkClass(here)}
             >
               <Icon name={item.icon} className="size-5 shrink-0" />
-              {item.label}
+              <span data-rail-label>{item.label}</span>
             </Link>
           </li>
         )

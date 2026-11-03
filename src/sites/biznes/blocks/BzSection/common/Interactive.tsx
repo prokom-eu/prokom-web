@@ -8,6 +8,7 @@ import type { SectionData } from '@/lib/biznes/pages/sections'
 import { productHref } from '@/lib/catalog/card'
 
 import { VideoFacade } from '../../../components/VideoFacade'
+import { useSwap } from '../../../components/motion/useSwap'
 import { CARD, TAB_KEYS } from '../ui'
 
 /** `videos`: the picked film behind the facade (ADR-016) and the list of films next to it. */
@@ -57,6 +58,7 @@ export function VideoPicker({ data }: { data: SectionData<'videos'> }) {
 /** `tabs`: groups of entries behind tabs (arrow keys move between tabs). */
 export function TabsPicker({ data }: { data: SectionData<'tabs'> }) {
   const [current, setCurrent] = useState(0)
+  const swap = useSwap(current)
   const base = useId()
   const tab = data.tabs[current] ?? data.tabs[0]!
   const move = (delta: number) => {
@@ -100,7 +102,7 @@ export function TabsPicker({ data }: { data: SectionData<'tabs'> }) {
           </button>
         ))}
       </div>
-      <div id={`${base}-p`} role="tabpanel" aria-labelledby={`${base}-t${current}`}>
+      <div id={`${base}-p`} role="tabpanel" aria-labelledby={`${base}-t${current}`} {...swap}>
         {/* Phone (App-InsERT „Cała oferta”): the entries as rows of one list. */}
         <ul className="mt-5 grid gap-4 max-md:mt-3 max-md:gap-0 max-md:divide-y max-md:divide-border max-md:rounded-[20px] max-md:px-4 max-md:shadow-[inset_0_0_0_1px_var(--border)] min-[640px]:grid-cols-2 min-[1080px]:grid-cols-3">
           {tab.items.map((item) => (
