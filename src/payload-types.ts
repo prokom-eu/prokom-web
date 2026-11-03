@@ -511,6 +511,10 @@ export interface CatalogGroup {
   tenant?: (number | null) | Tenant;
   name: string;
   /**
+   * Etykieta działu na kole strony głównej, gdy nazwa jest długa (np. „Sieć i ochrona”).
+   */
+  shortName?: string | null;
+  /**
    * Część adresu, np. „sprzedaz”.
    */
   slug: string;
@@ -594,7 +598,75 @@ export interface CatalogGroup {
    * Do 5 produktów działu na początku listy „Polecane” w ofercie.
    */
   topProducts?: (number | Product)[] | null;
+  /**
+   * Do 6 produktów; koło rozkłada wszystkie pozycje równo.
+   */
   wheelProducts?: (number | Product)[] | null;
+  /**
+   * Np. „Opieka IT dla firm” → /opieka-it. Puste = brak.
+   */
+  wheelLink?: {
+    label?: string | null;
+    href?: string | null;
+    icon?:
+      | (
+          | 'shield'
+          | 'cal'
+          | 'users'
+          | 'store'
+          | 'bolt'
+          | 'doc'
+          | 'life'
+          | 'arrow'
+          | 'check'
+          | 'phone'
+          | 'mail'
+          | 'pin'
+          | 'clock'
+          | 'monitor'
+          | 'remote'
+          | 'bell'
+          | 'wallet'
+          | 'chat'
+          | 'wrench'
+          | 'rocket'
+          | 'map'
+          | 'star'
+          | 'q'
+          | 'flash'
+          | 'grad'
+          | 'server'
+          | 'compass'
+          | 'panel'
+          | 'site'
+          | 'grid'
+          | 'plug'
+          | 'ticket'
+          | 'lifebuoy'
+          | 'chart'
+          | 'sign'
+          | 'cash'
+          | 'search'
+          | 'x'
+          | 'bed'
+          | 'food'
+          | 'refresh'
+          | 'globe'
+          | 'box'
+          | 'car'
+          | 'home'
+          | 'mountain'
+          | 'heart'
+          | 'bag'
+          | 'card'
+          | 'target'
+          | 'key'
+          | 'mega'
+          | 'mount'
+          | 'brief'
+        )
+      | null;
+  };
   /**
    * Mniejsza liczba = wcześniej.
    */
@@ -660,6 +732,18 @@ export interface Product {
    * Galeria w tej kolejności; pierwsze jest główne (karta).
    */
   images?: (number | Media)[] | null;
+  /**
+   * Wycięte zdjęcie bez tła do koła na stronie głównej. Bez niego koło bierze pierwsze zdjęcie galerii.
+   */
+  wheelImage?: (number | null) | Media;
+  /**
+   * Krótka nazwa w dymku, np. „Apple MacBook Air (M5)”.
+   */
+  wheelName?: string | null;
+  /**
+   * Nazwa koloru z listy Kolory, np. „burgund”: koło otwiera kartę z tym kolorem.
+   */
+  wheelColor?: string | null;
   /**
    * Wersje jednej karty, np. „Jota ONLINE BT/WiFi”, i czym się różnią.
    */
@@ -2511,9 +2595,14 @@ export interface BzReferencesBlock {
  */
 export interface BzFactsBlock {
   /**
-   * Sekcja ma kotwicę #fakty — ten blok wstaw na stronie tylko raz.
+   * Sekcja ma kotwicę #fakty — ten blok wstaw na stronie tylko raz. Bez słowa właściciela nagłówek jest widoczny, z nim — tylko dla czytników ekranu.
    */
   heading: string;
+  /**
+   * Dokładnie ten fragment nagłówka dostaje kolor akcentu.
+   */
+  headingAccent?: string | null;
+  lead?: string | null;
   owner: {
     label?: string | null;
     quote: string;
@@ -6371,6 +6460,8 @@ export interface BzReferencesBlockSelect<T extends boolean = true> {
  */
 export interface BzFactsBlockSelect<T extends boolean = true> {
   heading?: T;
+  headingAccent?: T;
+  lead?: T;
   owner?:
     | T
     | {
@@ -7552,6 +7643,7 @@ export interface InquiryDeletionsSelect<T extends boolean = true> {
 export interface CatalogGroupsSelect<T extends boolean = true> {
   tenant?: T;
   name?: T;
+  shortName?: T;
   slug?: T;
   icon?: T;
   description?: T;
@@ -7573,6 +7665,13 @@ export interface CatalogGroupsSelect<T extends boolean = true> {
       };
   topProducts?: T;
   wheelProducts?: T;
+  wheelLink?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        icon?: T;
+      };
   order?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -7892,6 +7991,9 @@ export interface ProductsSelect<T extends boolean = true> {
   badge?: T;
   keywords?: T;
   images?: T;
+  wheelImage?: T;
+  wheelName?: T;
+  wheelColor?: T;
   variants?:
     | T
     | {
