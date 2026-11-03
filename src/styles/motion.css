@@ -97,6 +97,13 @@
     scale: 0.97;
     transition-duration: var(--dur-press);
   }
+  /* Biznes (prompt 4 R1): `transform` as Software — Tailwind v4 `translate-*`/`scale-*` classes
+     are separate properties, so a pressed card or button keeps its own offset. */
+  [data-line='biznes']
+    :is(a, button, summary, [role='tab']):not(:disabled, [data-stretched]):active {
+    transform: scale(0.97);
+    transition-duration: var(--dur-press);
+  }
   /* A button stretched over its card (`data-stretched`) must not get a transform: it would
      become the containing block of its `::after` and a press elsewhere on the card would never
      click. The card (`data-card`) answers instead. */
@@ -494,18 +501,14 @@
   html[data-line='software'][data-theme-reveal] [data-tab-bar] {
     view-transition-name: none;
   }
-  html:is(
-      [data-line='software'],
-      [data-line='instalacje'],
-      [data-line='biznes']
-    )[data-theme-reveal]::view-transition-old(root) {
+  html:is([data-line='software'], [data-line='instalacje'])[data-theme-reveal]::view-transition-old(
+      root
+    ) {
     animation: none;
   }
-  html:is(
-      [data-line='software'],
-      [data-line='instalacje'],
-      [data-line='biznes']
-    )[data-theme-reveal]::view-transition-new(root) {
+  html:is([data-line='software'], [data-line='instalacje'])[data-theme-reveal]::view-transition-new(
+      root
+    ) {
     animation: sw-theme-reveal var(--dur-enter) var(--ease-in-out);
   }
 }

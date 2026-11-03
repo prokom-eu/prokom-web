@@ -42,22 +42,56 @@ for (const path of PAGES) {
   }
 }
 
-test.describe('reduced motion', () => {
-  test.use({ reducedMotion: 'reduce' })
-
-  test('nothing waits hidden and buttons do not move', async ({ page }) => {
-    await page.setViewportSize({ width: 390, height: 844 })
-    await page.goto(site(HOST, '/kontakt'))
-    await expect(page.locator('[data-reveal-pending]')).toHaveCount(0)
-    const moving = await page.evaluate(() =>
-      [...document.querySelectorAll<HTMLElement>('main a[href], main button')]
-        .filter((element) => element.getClientRects().length > 0)
-        .filter((element) =>
-          /\b(translate|scale|transform)\b/.test(getComputedStyle(element).transitionProperty),
-        )
-        .slice(0, 3)
-        .map((element) => (element.textContent ?? '').trim().slice(0, 30)),
-    )
-    expect(moving).toEqual([])
+/** Scrolls to the bottom and back, step by step, so every section passes the screen. */
+async function scrollThrough(page: Page) {
+  await page.evaluate(async () => {
+    for (let y = 0; y < document.body.scrollHeight; y += window.innerHeight / 2) {
+      window.scrollTo(0, y)
+      await new Promise((resolve) => setTimeout(resolve, 60))
+    }
   })
+}
+
+test('rise-in: nothing on the first screen waits; after scrolling nothing stays hidden', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await page.goto(site(HOST, '/kontakt'))
+  await page.waitForLoadState('networkidle')
+  // The first screen is never hidden (LCP), below it the K4 sections wait for their turn.
+  const firstScreen = await page.evaluate(
+    () =>
+      [...document.querySelectorAll('[data-reveal-pending]')].filter(
+        (element) => element.getBoundingClientRect().top < window.innerHeight * 0.9,
+      ).length,
+  )
+  expect(firstScreen).toBe(0)
+  await expect(page.locator('[data-reveal-pending]').first()).toBeAttached()
+  await scrollThrough(page)
+  await expect(page.locator('[data-reveal-pending]')).toHaveCount(0)
+  await expect(page.locator('[data-revealed]').first()).toBeAttached()
+})
+
+test.describe('reduced motion', () => {
+  test.use({ contextOptions: { reducedMotion: 'reduce' } })
+
+  for (const path of ['/', '/kontakt']) {
+    test(`nothing waits hidden and buttons do not move: ${path}`, async ({ page }) => {
+      await page.setViewportSize({ width: 390, height: 844 })
+      await page.goto(site(HOST, path))
+      await page.waitForLoadState('networkidle')
+      await scrollThrough(page)
+      await expect(page.locator('[data-reveal-pending]')).toHaveCount(0)
+      const moving = await page.evaluate(() =>
+        [...document.querySelectorAll<HTMLElement>('main a[href], main button')]
+          .filter((element) => element.getClientRects().length > 0)
+          .filter((element) =>
+            /(translate|scale|transform)/.test(getComputedStyle(element).transitionProperty),
+          )
+          .slice(0, 3)
+          .map((element) => (element.textContent ?? '').trim().slice(0, 30)),
+      )
+      expect(moving).toEqual([])
+    })
+  }
 })

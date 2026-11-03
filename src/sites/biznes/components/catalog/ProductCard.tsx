@@ -91,7 +91,7 @@ export function ProductCard({
               height={product.image.height}
               unoptimized
               className={cx(
-                'relative h-[78%] w-[78%] object-contain transition-transform duration-300 group-hover/card:-translate-y-1 group-hover/card:scale-[1.02] motion-reduce:transition-none',
+                'relative h-[78%] w-[78%] object-contain transition-transform duration-300 group-hover/card:scale-[1.03] motion-reduce:transition-none',
                 STAGE_SHADOW,
               )}
             />
