@@ -92,7 +92,7 @@ Kolumna „+ zod + fonty” to próbny build z obiema zmianami (deklaracja `font
 
 **Reguła:** klasa Tailwind użyta w folderze jednej linii trafia tylko do jej arkusza; kod wspólny (`components`, `blocks`, `lib`, `app`) jest w każdym. Komponent jednej linii renderowany przez drugą wymaga `@source` w arkuszu drugiej (dziś: `news/` Biznesu w Software) — pilnuje tego `lineSheet.test.ts` (każdy plik innej linii osiągalny z importów linii musi być objęty jej `@source`).
 
-## Dopisek: Dane planu firmy poza HTML głównej (03.11.2026, `perf/biznes-plan-dane`)
+## Dopisek: Dane planu firmy poza HTML głównej (03.11.2026, `perf/biznes-plan-scen`)
 **Problem:** blok `bzPlan` na głównej Biznesu wysyłał w HTML/RSC cały plan: 12 scen z punktami i produkty wszystkich scen (~125 KB surowe, z czego produkty ~96 KB).
 
 **Decyzja:** główna wysyła wszystkie sceny (kafle, liczniki, punkty), ale produkty i zestawy tylko pierwszej sceny (`planForScenes`, `src/sites/biznes/components/plan/planScenes.ts`). Pozostałe sceny dochodzą z `GET /api/plan-scene/<scena>` — ten sam wzór co `/api/plan-svg`: tylko domena Biznesu, slug sprawdzany z listą scen tenanta, plan czytany z tenantem hosta (`loadFloorPlan`), `Cache-Control: public, max-age=300`. `FloorPlan` pobiera scenę przy wyborze i z wyprzedzeniem przy najechaniu/fokusie na kafel; w trakcie ładowania liczniki ze sceny, przycisk „Dodaj cały plan” nieaktywny, po błędzie komunikat z „Spróbuj ponownie”. `/plan-firmy` i `?scena=` bez zmian (strona dostaje cały plan, nie pyta trasy — e2e).
