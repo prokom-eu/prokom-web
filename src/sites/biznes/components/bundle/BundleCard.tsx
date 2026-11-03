@@ -25,7 +25,7 @@ export function BundleCard({
       href={bundle.href}
       className="group flex h-full flex-col overflow-hidden rounded-[22px] bg-card shadow-[inset_0_0_0_1px_var(--border)] transition-shadow hover:shadow-[inset_0_0_0_1.5px_var(--ink-3),0_18px_40px_-28px_var(--glow)]"
     >
-      <ProductStage className="h-[180px] gap-1 px-4 max-md:h-[130px] sm:h-[200px]">
+      <ProductStage className="h-[180px] gap-1 px-4 max-md:h-[130px] min-[768px]:h-[200px]">
         {bundle.photos.map((photo, position) => (
           <Image
             key={photo.url}

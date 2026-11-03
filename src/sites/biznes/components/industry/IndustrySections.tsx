@@ -28,7 +28,7 @@ export function IndustryProducts({ section, products, total, index, catalogHref 
     <section
       id="zestaw"
       aria-labelledby="zestaw-h"
-      className="scroll-mt-28 bg-surface-2 py-14 max-md:py-7 sm:py-20"
+      className="scroll-mt-28 bg-surface-2 py-14 max-md:py-7 min-[768px]:py-20"
     >
       <Container wide>
         <SectionHead
@@ -39,7 +39,7 @@ export function IndustryProducts({ section, products, total, index, catalogHref 
           appOnPhone
         />
         {/* Phone (App-Branza „Sprzęt i programy”): one row of cards to swipe. */}
-        <ul className="mt-8 grid grid-cols-2 gap-2.5 max-md:mt-4 max-md:-mx-4 max-md:-my-2 max-md:flex max-md:snap-x max-md:snap-mandatory max-md:scroll-px-4 max-md:gap-3 max-md:overflow-x-auto max-md:px-4 max-md:py-2 max-md:[scrollbar-width:none] sm:gap-3.5 lg:grid-cols-3">
+        <ul className="mt-8 grid grid-cols-2 gap-2.5 max-md:mt-4 max-md:-mx-4 max-md:-my-2 max-md:flex max-md:snap-x max-md:snap-mandatory max-md:scroll-px-4 max-md:gap-3 max-md:overflow-x-auto max-md:px-4 max-md:py-2 max-md:[scrollbar-width:none] min-[768px]:gap-3.5 lg:grid-cols-3">
           {products.map((product, position) => (
             <li
               key={product.slug}
@@ -77,7 +77,7 @@ export function IndustryBundles({ bundles }: { bundles: BundleCardData[] }) {
     <section
       id="gotowe-zestawy"
       aria-labelledby="gotowe-zestawy-h"
-      className="scroll-mt-28 py-14 max-md:py-7 sm:py-20"
+      className="scroll-mt-28 py-14 max-md:py-7 min-[768px]:py-20"
     >
       <Container wide>
         <SectionHead
@@ -111,7 +111,10 @@ export function OtherIndustriesSection({
   wizardHref: string
 }) {
   return (
-    <section aria-labelledby="inne-branze-h" className="bg-surface-2 py-12 max-md:py-7 sm:py-16">
+    <section
+      aria-labelledby="inne-branze-h"
+      className="bg-surface-2 py-12 max-md:py-7 min-[768px]:py-16"
+    >
       <Container wide>
         <h2 id="inne-branze-h" className={cx(BZ_H2, 'max-md:text-[22px] max-md:leading-[1.1]')}>
           Inne branże

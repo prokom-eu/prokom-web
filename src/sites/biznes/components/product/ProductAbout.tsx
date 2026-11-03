@@ -50,8 +50,9 @@ export function ProductAbout({ id, product }: { id: string; product: ProductView
       </div>
       <aside
         aria-label="W skrócie o produkcie"
-        // Phone (App-Produkt): only „Dla kogo” as small chips under the description.
-        className="flex flex-col divide-y divide-border self-start rounded-[26px] bg-surface-2 px-6 py-2 max-md:divide-y-0 max-md:rounded-none max-md:bg-transparent max-md:p-0"
+        // Phone (App-Produkt): only „Dla kogo” as small chips under the description (none →
+        // no empty landmark).
+        className={`${product.industries.length === 0 ? 'max-md:hidden ' : ''}flex flex-col divide-y divide-border self-start rounded-[26px] bg-surface-2 px-6 py-2 max-md:divide-y-0 max-md:rounded-none max-md:bg-transparent max-md:p-0`}
       >
         {product.industries.length > 0 && (
           <div className="py-4 max-md:py-0">

@@ -11,6 +11,14 @@ import { INDUSTRY_PATH } from '../catalog/industry'
 export type BiznesTab = 'start' | 'oferta' | 'szukaj' | 'zapytanie' | 'kontakt'
 
 export const INQUIRY_PAGE_PATH = '/zapytanie'
+
+/**
+ * A call that points at the contact section of an industry page or a post (`…#kontakt`): that
+ * section is not shown on a phone (boards App-Branza, App-Wpis), so there the inquiry page asks.
+ */
+export function phoneContactHref(href: string): string {
+  return href.endsWith('#kontakt') ? INQUIRY_PAGE_PATH : href
+}
 /** The industries section of the home page (`bzPlan` anchor). */
 const INDUSTRIES_ON_HOME = '/#dla-kogo'
 export const CONTACT_PATH = '/kontakt'

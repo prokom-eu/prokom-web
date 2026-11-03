@@ -143,7 +143,7 @@ export default async function PostPage({ params }: Props) {
       <article aria-labelledby="post-h">
         <PostHeader post={post} crumbs={crumbs} />
         <Container wide className="pb-14 sm:pb-20">
-          <div className="grid gap-12 min-[1080px]:grid-cols-[minmax(0,1fr)_340px] min-[1080px]:gap-24">
+          <div className="grid gap-12 max-md:gap-0 min-[1080px]:grid-cols-[minmax(0,1fr)_340px] min-[1080px]:gap-24">
             <div className="max-w-[46rem]">
               <PostTocMobile outline={outline} />
               {post.summary && <PostSummary text={post.summary} />}

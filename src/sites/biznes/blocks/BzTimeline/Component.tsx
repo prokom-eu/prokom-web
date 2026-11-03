@@ -30,7 +30,7 @@ export function BzTimelineBlock({ block, tone = 'ok' }: Props) {
   const colors = TONE[tone]
   const headingId = `kroki-${block.id ?? 'sekcja'}-h`
   return (
-    <section aria-labelledby={headingId} className="py-14 max-md:py-7 sm:py-20">
+    <section aria-labelledby={headingId} className="py-14 max-md:py-7 min-[768px]:py-20">
       <Container wide>
         <SectionHead
           id={headingId}
@@ -48,7 +48,7 @@ export function BzTimelineBlock({ block, tone = 'ok' }: Props) {
             // One column per step on a computer (2–6 steps), as on the board.
             style={{ '--steps': block.steps.length } as CSSProperties}
             // Phone (App-Branza „Dzień w lokalu”): rows — the hour on the left, the text right.
-            className="relative grid gap-8 max-md:gap-0 max-md:divide-y max-md:divide-border min-[640px]:grid-cols-2 min-[1080px]:grid-cols-[repeat(var(--steps),minmax(0,1fr))]"
+            className="relative grid gap-8 max-md:gap-0 max-md:divide-y max-md:divide-border min-[768px]:grid-cols-2 min-[1080px]:grid-cols-[repeat(var(--steps),minmax(0,1fr))]"
           >
             {block.steps.map((step, i) => (
               <li

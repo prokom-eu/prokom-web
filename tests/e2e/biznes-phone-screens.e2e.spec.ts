@@ -121,3 +121,14 @@ test('a post on a phone: the sticky „Zapytaj” leads to the inquiry page', as
     '/zapytanie',
   )
 })
+
+for (const path of ['/zestawy', '/produkt/lenovo-thinkbook-14-g8-g9']) {
+  test(`${path}: no sideways scroll on a phone`, async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    await page.goto(biznes(path))
+    const overflow = await page.evaluate(
+      () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+    )
+    expect(overflow).toBeLessThanOrEqual(0)
+  })
+}

@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 
 import { Container } from '@/components/ui/Container'
 import { cx } from '@/components/ui/cx'
+import { phoneContactHref } from '@/lib/biznes/mobileNav'
 import { BZ_LEAD } from '@/sites/biznes/typography'
 
 import { Breadcrumbs, type Crumb } from '../Breadcrumbs'
@@ -68,15 +69,21 @@ export function CatalogHero({
               </p>
             )}
             <div className="flex flex-wrap gap-3 max-md:gap-2">
-              <PageLink href={primary.href} arrow>
-                {primary.label}
-              </PageLink>
+              {/* A call to the contact section: on a phone that section is not shown. */}
+              <span className="contents md:hidden">
+                <PageLink href={phoneContactHref(primary.href)} arrow>
+                  {primary.label}
+                </PageLink>
+              </span>
+              <span className="contents max-md:hidden">
+                <PageLink href={primary.href} arrow>
+                  {primary.label}
+                </PageLink>
+              </span>
               {phone && (
-                <span className="max-md:hidden">
-                  <PageLink href={phone.href} kind="outline">
-                    Zadzwoń: {phone.label}
-                  </PageLink>
-                </span>
+                <PageLink href={phone.href} kind="outline" className="max-md:hidden">
+                  Zadzwoń: {phone.label}
+                </PageLink>
               )}
             </div>
             {chips.length > 0 && (
