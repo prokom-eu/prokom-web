@@ -144,6 +144,16 @@ test.describe('Biznes search', () => {
           .getByRole('link', { name: /Posnet/ })
           .first(),
       ).toBeVisible()
+      // R2: the dialog scales in and the results rise in; axe reads the colours once they stand
+      // still (looping animations, e.g. the brand marquee, are left out).
+      await page.evaluate(() =>
+        Promise.all(
+          document
+            .getAnimations()
+            .filter((animation) => animation.effect?.getComputedTiming().endTime !== Infinity)
+            .map((animation) => animation.finished.catch(() => undefined)),
+        ),
+      )
       const { violations } = await new AxeBuilder({ page }).withTags(WCAG).analyze()
       expect(
         violations.map((v) => ({ rule: v.id, targets: v.nodes.map((n) => n.target) })),
