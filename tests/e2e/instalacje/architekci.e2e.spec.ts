@@ -28,6 +28,8 @@ async function open(page: Page, motion: 'reduce' | 'no-preference' = 'reduce') {
   await page.emulateMedia({ reducedMotion: motion })
   const response = await page.goto(site(HOST, '/dla-architektow'))
   expect(response?.status()).toBe(200)
+  // ADR-023: the page's widgets hydrate lazily; a click before their code arrives is lost.
+  await page.waitForLoadState('networkidle')
 }
 
 test.describe('Instalacje page for architects', () => {
