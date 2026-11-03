@@ -3,6 +3,7 @@ import type { ReactNode } from 'react'
 
 import { Container } from '@/components/ui/Container'
 import { cx } from '@/components/ui/cx'
+import { phoneFormHref } from '@/lib/biznes/pages/phone'
 import type { SectionAction } from '@/lib/biznes/pages/sections'
 import type { BzSectionBlock as BzSectionData } from '@/payload-types'
 import { BZ_H2, BZ_LEAD } from '@/sites/biznes/typography'
@@ -44,6 +45,9 @@ const SURFACE: Record<BzSectionData['surface'], string> = {
   dark: 'bg-surface-dark text-white',
 }
 
+/** Section padding; phone (boards App-*): a tighter rhythm. */
+export const SECTION_PADDING = 'py-14 max-md:py-7 sm:py-20'
+
 /** Page breadcrumbs with the hero's middle items: Strona główna / …trail / page. */
 export function withTrail(crumbs: readonly Crumb[], trail: readonly Crumb[]): Crumb[] {
   if (crumbs.length < 2) return [...crumbs]
@@ -81,6 +85,7 @@ export function SectionShell({
   head = true,
   aside,
   className,
+  padding = SECTION_PADDING,
 }: {
   block: BzSectionData
   children: ReactNode
@@ -88,6 +93,11 @@ export function SectionShell({
   /** Next to the heading on the right (e.g. „bez cen — wycena na piśmie”). */
   aside?: ReactNode
   className?: string
+  /**
+   * Vertical padding as one string: `cx` does not merge classes, so a second `py-*` passed in
+   * `className` would win or lose by CSS order, not by intent.
+   */
+  padding?: string
 }) {
   const id = sectionId(block)
   const dark = block.surface === 'dark'
@@ -97,8 +107,8 @@ export function SectionShell({
       id={id}
       aria-labelledby={labelled ? `${id}-h` : undefined}
       aria-label={labelled ? undefined : (block.eyebrow ?? undefined)}
-      // Phone (boards App-*): tighter rhythm, the head is the H2 alone (no label, no lead).
-      className={cx('scroll-mt-28 py-14 max-md:py-7 sm:py-20', SURFACE[block.surface], className)}
+      // Phone (boards App-*): the head is the H2 alone (no label, no lead).
+      className={cx('scroll-mt-28', padding, SURFACE[block.surface], className)}
     >
       <Container wide>
         {head && (block.heading || block.eyebrow) && (
@@ -171,6 +181,39 @@ export function SourceLine({ block, className }: { block: BzSectionData; classNa
   )
 }
 
+/**
+ * A link inside the site (`#…` on the page or a path). A link to the contact form gets a twin
+ * for phones that leads to the inquiry page — the form is not shown below 768 px.
+ */
+export function SiteLink({
+  href,
+  className,
+  children,
+}: {
+  href: string
+  className: string
+  children: ReactNode
+}) {
+  const one = (to: string, extra?: string) =>
+    to.startsWith('#') ? (
+      <a href={to} className={cx(className, extra)}>
+        {children}
+      </a>
+    ) : (
+      <Link href={to} className={cx(className, extra)}>
+        {children}
+      </Link>
+    )
+  const phone = phoneFormHref(href)
+  if (!phone) return one(href)
+  return (
+    <>
+      {one(href, 'max-md:hidden')}
+      {one(phone, 'min-[768px]:hidden')}
+    </>
+  )
+}
+
 /** Buttons of a section: links and „add to the inquiry”. */
 export function SectionActions({
   actions,
@@ -203,9 +246,9 @@ export function SectionActions({
             {action.label}
           </a>
         ) : (
-          <Link key={action.label} href={action.href} className={style}>
+          <SiteLink key={action.label} href={action.href} className={style}>
             {action.label}
-          </Link>
+          </SiteLink>
         )
       })}
     </div>

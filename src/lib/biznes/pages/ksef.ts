@@ -120,4 +120,6 @@ export const ksefPenaltiesSchema = z.object({
     products: z.array(slug).max(4),
     link: z.object({ label: text, href: text }),
   }),
+  /** Phone only (App-KSeF): the button under the penalties card; the hero has none there. */
+  ask: z.object({ slug, label: text, note: text }).optional(),
 })

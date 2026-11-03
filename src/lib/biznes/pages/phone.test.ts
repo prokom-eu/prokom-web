@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { hiddenOnPhone } from './phone'
+import { hiddenOnPhone, phoneFormHref } from './phone'
 
 describe('hiddenOnPhone (boards App-*: sections a phone screen leaves out)', () => {
   it('home: FAQ and the numbers, nothing else', () => {
@@ -21,6 +21,14 @@ describe('hiddenOnPhone (boards App-*: sections a phone screen leaves out)', () 
     expect(hiddenOnPhone('kontakt', { blockType: 'bzSection', variant: 'contact-form' })).toBe(true)
     expect(hiddenOnPhone('kontakt', { blockType: 'bzSection', variant: 'cards' })).toBe(false)
     expect(hiddenOnPhone('kontakt', { blockType: 'faq' })).toBe(false)
+  })
+
+  it('links to the contact form go to the inquiry page on a phone', () => {
+    expect(phoneFormHref('#formularz')).toBe('/zapytanie')
+    expect(phoneFormHref('/kontakt#formularz')).toBe('/zapytanie')
+    expect(phoneFormHref('/kontakt')).toBeNull()
+    expect(phoneFormHref('#pakiet')).toBeNull()
+    expect(phoneFormHref('/oferta#formularz')).toBeNull()
   })
 
   it('a page without rules shows everything', () => {

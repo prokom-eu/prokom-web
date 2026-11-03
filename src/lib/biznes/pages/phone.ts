@@ -1,3 +1,4 @@
+import { INQUIRY_PAGE_PATH } from '@/lib/biznes/mobileNav'
 import { HOME_SLUG } from '@/lib/pages/slug'
 
 /**
@@ -25,6 +26,17 @@ const RULES: Record<string, readonly Rule[]> = {
   // App-OFirmie: hero with the company data, trust cards, how we work, the lines, brands, the
   // closing band — no „Gdzie nas znaleźć”.
   'o-firmie': [{ type: 'bzLocation' }],
+}
+
+/** The contact form (`#formularz` on /kontakt) is not shown below 768 px. */
+const FORM_LINK = /^(?:\/kontakt)?#formularz$/
+
+/**
+ * Where a link to the contact form leads on a phone: the inquiry page (same fields, works with an
+ * empty list — decyzja Krystiana 02.11), so no button points at a hidden section. Other links: null.
+ */
+export function phoneFormHref(href: string): string | null {
+  return FORM_LINK.test(href) ? INQUIRY_PAGE_PATH : null
 }
 
 export function hiddenOnPhone(slug: string, block: BlockLike): boolean {

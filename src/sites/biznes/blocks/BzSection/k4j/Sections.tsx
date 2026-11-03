@@ -24,6 +24,7 @@ import {
   EYEBROW,
   H2,
   SectionShell,
+  SiteLink,
   withTrail,
 } from '../ui'
 import { AddMachineButton, ClientTabs, KsefTimeline, PhaseText } from './Client'
@@ -110,15 +111,10 @@ export function VendingHero({
             <div className="flex flex-wrap gap-3">
               {data.actions.map((action, i) => {
                 const style = i === 0 ? BTN_PRIMARY : BTN_OUTLINE
-                // An anchor stays a plain link; another page goes through the client router.
-                return action.href.startsWith('#') ? (
-                  <a key={action.href} href={action.href} className={style}>
+                return (
+                  <SiteLink key={action.href} href={action.href} className={style}>
                     {action.label}
-                  </a>
-                ) : (
-                  <Link key={action.href} href={action.href} className={style}>
-                    {action.label}
-                  </Link>
+                  </SiteLink>
                 )
               })}
             </div>
@@ -338,7 +334,7 @@ export function SourcesSection({
   data: SectionData<'sources'>
 }) {
   return (
-    <SectionShell block={block} className="py-8 max-md:py-4 sm:py-10">
+    <SectionShell block={block} padding="py-14 max-md:py-4 sm:py-20">
       {/* Phone (App-KSeF, App-Ulga): a small text under the last section, no card. */}
       <div
         className={cx(
@@ -425,7 +421,8 @@ export async function KsefHero({
                 slug={data.ask.slug}
                 label={data.ask.label}
                 note={data.ask.note}
-                className={BTN_PRIMARY}
+                // Phone (App-KSeF): the button sits under the penalties card instead.
+                className={cx(BTN_PRIMARY, 'max-md:hidden')}
               />
               {phone && tel && (
                 // Phone: the call is one tap away in the tab bar (App-KSeF has no hero buttons).
@@ -524,6 +521,14 @@ export function KsefPenalties({
             />
           </p>
         </div>
+        {data.ask && (
+          <AddActionButton
+            slug={data.ask.slug}
+            label={data.ask.label}
+            note={data.ask.note}
+            className={cx(BTN_PRIMARY, 'w-full min-[768px]:hidden')}
+          />
+        )}
         {/* Not on the phone board App-KSeF (the penalties card is followed by the sources). */}
         <div className={cx(CARD, 'flex flex-col gap-4 p-6 text-ink max-md:hidden sm:p-8')}>
           <p className={cx(EYEBROW, 'text-accent-text')}>{data.help.eyebrow}</p>

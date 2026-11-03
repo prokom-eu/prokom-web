@@ -1,5 +1,3 @@
-import Link from 'next/link'
-
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
 import { isAfterSwitch } from '@/lib/biznes/pages/ksef'
@@ -7,7 +5,16 @@ import type { SectionData } from '@/lib/biznes/pages/sections'
 import type { BzSectionBlock as BzSectionData } from '@/payload-types'
 
 import { PhaseText } from '../k4j/Client'
-import { CARD, EYEBROW, H2, HeadingText, SectionActions, SectionShell, sectionId } from '../ui'
+import {
+  CARD,
+  EYEBROW,
+  H2,
+  HeadingText,
+  SectionActions,
+  SectionShell,
+  SiteLink,
+  sectionId,
+} from '../ui'
 
 type Props = { block: BzSectionData }
 type Item = NonNullable<BzSectionData['items']>[number]
@@ -18,7 +25,7 @@ const items = (block: BzSectionData): Item[] => block.items ?? []
 export function StatsSection({ block }: Props) {
   const dark = block.surface === 'dark'
   return (
-    <SectionShell block={block} className="py-10 sm:py-14">
+    <SectionShell block={block}>
       <dl className="grid grid-cols-2 gap-x-6 gap-y-8 min-[900px]:grid-cols-4">
         {items(block).map((item, i) => (
           <div key={item.id ?? i} className="flex flex-col-reverse gap-1.5">
@@ -49,7 +56,7 @@ function CardLink({ href, label }: { href: string; label: string }) {
       </a>
     )
   }
-  if (/^(tel|mailto):|^#/.test(href)) {
+  if (/^(tel|mailto):/.test(href)) {
     return (
       <a href={href} className={className}>
         {label} →
@@ -57,9 +64,9 @@ function CardLink({ href, label }: { href: string; label: string }) {
     )
   }
   return (
-    <Link href={href} className={className}>
+    <SiteLink href={href} className={className}>
       {label} →
-    </Link>
+    </SiteLink>
   )
 }
 
