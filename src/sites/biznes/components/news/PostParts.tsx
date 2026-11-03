@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
 import { Icon } from '@/components/ui/Icon'
+import { INQUIRY_PAGE_PATH } from '@/lib/biznes/mobileNav'
 import type { PostCard } from '@/lib/posts/cards'
 import type { OutlineItem } from '@/lib/posts/content'
 import type { PostView } from '@/lib/posts/view'
@@ -118,7 +119,11 @@ export function PostAside({ post, outline, related }: AsideProps) {
           outside the dark card, whose `data-surface` would recolour the bar. */}
       {post.cta && (
         <StickyAction>
-          <Link href={post.cta.link.href} className={STICKY_ACTION_BUTTON}>
+          {/* The contact section is not shown on a phone (App-Wpis): the inquiry page asks. */}
+          <Link
+            href={post.cta.link.href.endsWith('#kontakt') ? INQUIRY_PAGE_PATH : post.cta.link.href}
+            className={STICKY_ACTION_BUTTON}
+          >
             {post.cta.link.label}
           </Link>
         </StickyAction>
