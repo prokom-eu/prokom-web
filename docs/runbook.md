@@ -13,7 +13,8 @@ Co robić krok po kroku przy wdrożeniu, cofnięciu, odtworzeniu z kopii i awari
 **Uruchamianie proxy (stan od 3.11.2026 — Gaming na produkcji, prokom-web jeszcze nie):** zawsze ze wszystkimi nakładkami, które mają certyfikat i zmienne w `.env.proxy` — pominięta nakładka wyłącza tę domenę:
 ```bash
 cd /srv/prokom/prokom-web
-docker compose --env-file .env.proxy -f docker/compose.proxy.yml   -f docker/compose.proxy.gaming-staging.yml -f docker/compose.proxy.gaming-prod.yml up -d nginx
+docker compose --env-file .env.proxy -f docker/compose.proxy.yml \
+  -f docker/compose.proxy.gaming-staging.yml -f docker/compose.proxy.gaming-prod.yml up -d nginx
 ```
 Po starcie produkcji prokom-web dochodzi `-f docker/compose.proxy.prod.yml` (§3). Odnawianie certyfikatów: kontener `certbot` (`renew --webroot`) — także tych wystawionych `--standalone`.
 | Kopie | `scripts/backup.sh`, `scripts/restore.sh`, zmienne `.env.backup` | lokalnie `../backups/`, poza serwerem `RCLONE_REMOTE` |
