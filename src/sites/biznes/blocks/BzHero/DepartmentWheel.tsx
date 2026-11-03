@@ -12,6 +12,8 @@ import { groupHref } from '@/lib/catalog/menu'
 import type { IconName } from '@/lib/catalog/options'
 import { plural } from '@/lib/plural'
 
+import { useSwap } from '../../components/motion/useSwap'
+
 export type WheelGroup = {
   slug: string
   name: string
@@ -54,6 +56,10 @@ export function DepartmentWheel({ groups }: Props) {
   const [picked, setPicked] = useState(false)
   // Pointer over the wheel or focus inside it: nothing changes under the visitor's hand.
   const [paused, setPaused] = useState(false)
+  // R2: the pointed department lights up its pictures on the ring; after a change the middle
+  // fades its new name in (`data-fade`), never on load.
+  const [hovered, setHovered] = useState<number | null>(null)
+  const fade = 'data-swap' in useSwap(active) ? { 'data-fade': '' } : {}
 
   useEffect(() => {
     if (picked || paused || groups.length < 2) return
@@ -101,6 +107,7 @@ export function DepartmentWheel({ groups }: Props) {
       >
         {bubbles.map((bubble) => {
           const hi = bubble.group === active
+          const hot = !hi && bubble.group === hovered
           return (
             <li
               key={bubble.slug}
@@ -114,6 +121,8 @@ export function DepartmentWheel({ groups }: Props) {
                   'flex size-full animate-[spin_120s_linear_infinite_reverse] items-center justify-center rounded-full bg-card shadow-[0_14px_30px_-14px_var(--glow),inset_0_0_0_1px_var(--border)] transition-[scale,box-shadow] duration-300 group-focus-within/wheel:[animation-play-state:paused] group-hover/wheel:[animation-play-state:paused] hover:scale-110 motion-reduce:animate-none motion-reduce:transition-none',
                   hi &&
                     'scale-[1.32] shadow-[0_18px_34px_-14px_var(--glow),inset_0_0_0_3px_var(--accent-text)]',
+                  hot &&
+                    'scale-[1.16] shadow-[0_16px_30px_-14px_var(--glow),inset_0_0_0_2px_var(--accent-text)]',
                 )}
               >
                 <Image
@@ -146,6 +155,8 @@ export function DepartmentWheel({ groups }: Props) {
                   setPicked(true)
                   setActive(i)
                 }}
+                onPointerEnter={() => setHovered(i)}
+                onPointerLeave={() => setHovered(null)}
                 className="group/dz flex flex-col items-center gap-1.5"
               >
                 <span
@@ -158,7 +169,7 @@ export function DepartmentWheel({ groups }: Props) {
                     'flex size-10 items-center justify-center rounded-full text-white shadow-[0_12px_24px_-12px_var(--glow)] transition-[scale,box-shadow] duration-200 motion-reduce:transition-none sm:size-[58px]',
                     on
                       ? 'scale-110 shadow-[0_0_0_4px_var(--surface),0_0_0_6px_var(--accent-text),0_16px_30px_-12px_var(--glow)]'
-                      : 'group-hover/dz:scale-105',
+                      : 'group-hover/dz:scale-[1.04]',
                   )}
                 >
                   <Icon name={group.icon} className="size-5 sm:size-6" />
@@ -193,7 +204,12 @@ export function DepartmentWheel({ groups }: Props) {
           Dział {active + 1} z {groups.length}
         </span>
         {current.thumbs.length > 0 && (
-          <span aria-hidden="true" className="mt-1 hidden -space-x-2.5 min-[1280px]:flex">
+          <span
+            key={`thumbs-${active}`}
+            {...fade}
+            aria-hidden="true"
+            className="mt-1 hidden -space-x-2.5 min-[1280px]:flex"
+          >
             {current.thumbs.map((thumb) => (
               <span
                 key={thumb.slug}
@@ -211,10 +227,18 @@ export function DepartmentWheel({ groups }: Props) {
             ))}
           </span>
         )}
-        <span className="mt-1 font-display text-sm leading-tight font-extrabold font-stretch-112% line-clamp-2 max-w-[84%] sm:text-[clamp(15px,1.3vw,19px)]">
+        <span
+          key={`name-${active}`}
+          {...fade}
+          className="mt-1 font-display text-sm leading-tight font-extrabold font-stretch-112% line-clamp-2 max-w-[84%] sm:text-[clamp(15px,1.3vw,19px)]"
+        >
           {current.name}
         </span>
-        <span className="text-[10px] font-bold text-white/75 sm:text-[13px]">
+        <span
+          key={`count-${active}`}
+          {...fade}
+          className="text-[10px] font-bold text-white/75 sm:text-[13px]"
+        >
           {positions(current.count)}
         </span>
         <Link

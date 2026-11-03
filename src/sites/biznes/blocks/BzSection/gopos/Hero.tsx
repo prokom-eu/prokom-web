@@ -10,7 +10,8 @@ import { BZ_H1, BZ_LEAD } from '@/sites/biznes/typography'
 import { Breadcrumbs, type Crumb } from '../../../components/Breadcrumbs'
 import { BTN_ON_DARK, BTN_PRIMARY, EYEBROW, withTrail } from '../ui'
 import { AddActionButton } from '../AddActionButton'
-import { GoposFlow, GoposStage, type StageDevice } from './Stage'
+import type { StageDevice } from './Stage'
+import { GoposFlow, GoposStage } from './StageLazy'
 
 type Props = {
   block: BzSectionData

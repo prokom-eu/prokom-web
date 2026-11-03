@@ -9,7 +9,7 @@ import { robotsMeta } from '@/lib/seo/robots'
 import { getSiteSettings } from '@/lib/site/data'
 import { SOFTWARE_ROUTE_DESCRIPTIONS } from '@/lib/software/meta'
 import { WIZARD_PATH } from '@/lib/software/wizardFlow'
-import { Wizard } from '@/sites/software/components/wizard/Wizard'
+import { Wizard } from '@/sites/software/components/wizard/WizardLazy'
 import { loadWizardProps } from '@/sites/software/components/wizard/wizardProps'
 
 import { requestOrigin, requireLine } from '../../tenant'

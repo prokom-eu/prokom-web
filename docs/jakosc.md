@@ -27,6 +27,7 @@ Zadanie jest skończone, gdy:
 
 ## Wydajność i dostępność
 - [ ] Lighthouse ≥ 90: Performance, SEO, Accessibility, Best Practices; LCP ≤ 2,5 s, CLS ≤ 0,1 (wersja mobilna). Na stagingu pilnuje tego Lighthouse CI (S10).
+- [ ] Widżet kliencki (`'use client'`) importowany z komponentu serwerowego bloku CMS, sekcji albo strony idzie przez leniwe opakowanie `<Plik>Lazy.tsx` w tym samym folderze: `export const X = dynamic(() => import('./Plik').then((m) => m.X), { loading: () => null })` (SSR zostaje; `loading` daje widżetowi własną granicę Suspense, więc reszta strony hydratuje się bez czekania na jego paczkę). Bez tego trafia do wspólnego wpisu trasy `[domain]` i pobiera go każda linia (ADR-023). Wyjątek: drobne przyciski i hooki (kilka linii).
 - [ ] Obrazy przez `next/image`, właściwe rozmiary, `alt`.
 - [ ] Kontrast WCAG AA, widoczny focus, formularze z etykietami i komunikatami błędów.
 

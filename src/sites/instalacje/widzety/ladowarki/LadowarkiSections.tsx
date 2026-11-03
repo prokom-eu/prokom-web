@@ -1,9 +1,9 @@
 import { CHARGER_KEYS, ladowarki } from '../../dane/ladowarki'
 import { LEGAL_NOTE } from '../../dane/prawo'
 import { InstIcon } from '../../InstIcon'
-import { InstSection } from '../../sekcje/InstSection'
+import { InstSection } from '../../sekcje/InstSectionLazy'
 import { SectionHead } from '../../sekcje/SectionHead'
-import { ChargerCards, ChargerConfigurator, ChargingCalc } from './LadowarkiWidgets'
+import { ChargerCards, ChargerConfigurator, ChargingCalc } from './LadowarkiWidgetsLazy'
 
 const SECTION = { padding: '0 0 104px' }
 

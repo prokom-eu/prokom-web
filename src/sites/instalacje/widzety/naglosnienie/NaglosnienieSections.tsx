@@ -3,9 +3,9 @@ import Link from 'next/link'
 import { naglosnienie } from '../../dane/naglosnienie'
 import { LEGAL_NOTE } from '../../dane/prawo'
 import { InstIcon } from '../../InstIcon'
-import { InstSection } from '../../sekcje/InstSection'
+import { InstSection } from '../../sekcje/InstSectionLazy'
 import { SectionHead } from '../../sekcje/SectionHead'
-import { ApartFamilies, ChurchDemo, SignalChain, SpeakerCalc } from './NaglosnienieWidgets'
+import { ApartFamilies, ChurchDemo, SignalChain, SpeakerCalc } from './NaglosnienieWidgetsLazy'
 
 const SECTION = { padding: '0 0 104px' }
 

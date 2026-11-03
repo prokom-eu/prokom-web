@@ -8,11 +8,11 @@ import type { BzPlanBlock as BzPlanBlockData } from '@/payload-types'
 
 import { SectionHead } from '../../components/home/SectionHead'
 import { TONE_ICON } from '../../components/home/tones'
-import { FloorPlan } from '../../components/plan/FloorPlan'
+import { FloorPlan } from '../../components/plan/FloorPlanLazy'
 import { loadFloorPlan } from '../../components/plan/planData'
 import { PlanStats } from '../../components/plan/PlanStats'
 import { DEFAULT_PLAN_LABELS } from '../../components/plan/types'
-import { IndustryGrid } from './IndustryGrid'
+import { IndustryGrid } from './IndustryGridLazy'
 import { PlanSceneLink } from './PlanSceneLink'
 import { industryTiles, WIZARD_HREF, type IndustryTile } from './tiles'
 
@@ -179,8 +179,9 @@ export async function BzPlanBlock({ block, tenantId }: Props) {
           className="scroll-mt-20 py-16 outline-none max-md:py-6 md:py-24"
         >
           {/* Phone (board App-Start): the heading and the scenes as chips in a navy card; each
-              opens the plan page with its scene — the full plan is from 768 px. */}
-          <Container wide>
+              opens the plan page with its scene — the full plan is from 768 px. R2: the plan
+              rises in once (`data-reveal`) and its points pulse once (motion.css §4c). */}
+          <Container wide data-reveal="">
             {/* `data-surface`: focus rings for navy (on a desktop nothing here takes focus). */}
             <div
               data-surface="dark"

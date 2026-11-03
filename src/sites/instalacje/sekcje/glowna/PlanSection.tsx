@@ -6,8 +6,9 @@ import { issueFormToken } from '@/lib/inquiry/spam'
 
 import { glownaSekcje } from '../../dane/glownaSekcje'
 import { InstIcon } from '../../InstIcon'
-import { type PlanService, QuickPlanForm } from '../../widzety/glowna/QuickPlanForm'
-import { InstSection } from '../InstSection'
+import type { PlanService } from '../../widzety/glowna/QuickPlanForm'
+import { QuickPlanForm } from '../../widzety/glowna/QuickPlanFormLazy'
+import { InstSection } from '../InstSectionLazy'
 import type { Phone } from '../types'
 
 const t = glownaSekcje.plan

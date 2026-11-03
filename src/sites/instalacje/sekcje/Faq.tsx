@@ -4,7 +4,7 @@ import { faqJsonLd } from '@/lib/seo/jsonLd'
 import type { CSSProperties } from 'react'
 
 import { InstIcon } from '../InstIcon'
-import { InstSection } from './InstSection'
+import { InstSection } from './InstSectionLazy'
 import { JsonLd } from './JsonLd'
 import type { Phone } from './types'
 

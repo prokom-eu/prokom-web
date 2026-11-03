@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { cx } from '@/components/ui/cx'
 import type { LivePreview } from '@/lib/software/previews'
 
-import { PreviewProjectButton } from './LivePreviewTabs'
+import { PreviewProjectButton } from './LivePreviewTabsLazy'
 import { PreviewLaptop, PreviewPhone } from './PreviewScreens'
 
 type Texts = { open: string; add: readonly [string, string] }

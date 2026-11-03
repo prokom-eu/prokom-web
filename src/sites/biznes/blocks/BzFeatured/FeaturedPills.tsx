@@ -1,8 +1,11 @@
 'use client'
 
-import { useState, type ReactNode } from 'react'
+import { useRef, useState, type CSSProperties, type ReactNode } from 'react'
 
+import { SlidingPill } from '@/components/motion/SlidingPill'
 import { cx } from '@/components/ui/cx'
+
+import { useSwap } from '../../components/motion/useSwap'
 
 export type FeaturedPill = { value: string; label: string; count: number }
 
@@ -17,17 +20,25 @@ const ALL = 'all'
 /**
  * Pills of „O to firmy pytają najczęściej” (K35 7a): „Wszystkie 16” and the groups that have
  * cards. Plain buttons with `aria-pressed`; the list keeps its cards, the others are hidden.
+ * R2: the chosen pill flows (`SlidingPill`), and after a change the shown cards rise in one by
+ * one (`data-cascade`) — never on page load.
  */
 export function FeaturedPills({ pills, cards }: Props) {
   const [picked, setPicked] = useState(ALL)
+  const group = useRef<HTMLDivElement>(null)
+  const changed = 'data-swap' in useSwap(picked)
+  let shown = 0
   const options = [{ value: ALL, label: 'Wszystkie', count: cards.length }, ...pills]
   return (
     <>
       <div
+        ref={group}
+        data-pill-list
         role="group"
         aria-label="Filtr najczęściej wybieranych"
-        className="mt-8 flex flex-wrap gap-2 [scrollbar-width:none] max-md:-mx-4 max-md:mt-4 max-md:flex-nowrap max-md:overflow-x-auto max-md:px-4"
+        className="relative mt-8 flex flex-wrap gap-2 [scrollbar-width:none] max-md:-mx-4 max-md:mt-4 max-md:flex-nowrap max-md:overflow-x-auto max-md:px-4"
       >
+        <SlidingPill container={group} active={picked} className="bg-accent-text" radius={9999} />
         {options.map((option) => {
           const on = option.value === picked
           return (
@@ -51,16 +62,25 @@ export function FeaturedPills({ pills, cards }: Props) {
           )
         })}
       </div>
-      <ul className="-mx-4 mt-6 flex max-md:mt-4 snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 min-[640px]:mx-0 min-[640px]:grid min-[640px]:grid-cols-2 min-[640px]:overflow-visible min-[640px]:px-0 min-[640px]:pb-0 min-[900px]:grid-cols-3 min-[1080px]:grid-cols-4">
-        {cards.map(({ key, group, card }) => (
-          <li
-            key={key}
-            hidden={picked !== ALL && group !== picked}
-            className="flex w-[180px] shrink-0 snap-start min-[640px]:w-auto"
-          >
-            {card}
-          </li>
-        ))}
+      <ul
+        key={picked}
+        className="-mx-4 mt-6 flex max-md:mt-4 snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 min-[640px]:mx-0 min-[640px]:grid min-[640px]:grid-cols-2 min-[640px]:overflow-visible min-[640px]:px-0 min-[640px]:pb-0 min-[900px]:grid-cols-3 min-[1080px]:grid-cols-4"
+      >
+        {cards.map(({ key, group: cardGroup, card }) => {
+          const hidden = picked !== ALL && cardGroup !== picked
+          const position = hidden ? 0 : shown++
+          return (
+            <li
+              key={key}
+              hidden={hidden}
+              data-cascade={changed && !hidden ? '' : undefined}
+              style={changed ? ({ '--reveal-i': position } as CSSProperties) : undefined}
+              className="flex w-[180px] shrink-0 snap-start min-[640px]:w-auto"
+            >
+              {card}
+            </li>
+          )
+        })}
       </ul>
     </>
   )

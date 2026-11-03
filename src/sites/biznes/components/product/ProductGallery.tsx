@@ -9,6 +9,7 @@ import type { IndexLogo } from '@/lib/catalog/catalogIndex'
 import type { IconName } from '@/lib/catalog/options'
 import type { PublicImage } from '@/lib/media/public'
 
+import { useSwap } from '../motion/useSwap'
 import { ProductStage, STAGE_SHADOW, StageFallback } from '../ProductStage'
 import { useProductConfig } from './ProductConfig'
 
@@ -60,6 +61,8 @@ export function ProductGallery({
   const touch = useRef<number | null>(null)
   const count = images.length
   const image = images[active]
+  // R2: after the visitor picks another picture it fades in; not on load (LCP).
+  const fade = 'data-swap' in useSwap(active)
   const go = (delta: number) => setActive((current) => (current + delta + count) % count)
 
   const showVideo = () => {
@@ -165,12 +168,14 @@ export function ProductGallery({
           <ProductStage className="aspect-[4/3.4] w-full px-8 pt-16 pb-12 sm:aspect-[1/0.92] lg:aspect-[1/0.95]">
             {image ? (
               <MediaImage
+                key={active}
                 image={image}
                 sizes="(min-width: 1024px) 560px, 100vw"
                 eager={active === 0}
                 className={cx(
                   'relative max-h-full w-auto max-w-[86%] object-contain',
                   STAGE_SHADOW,
+                  fade && 'motion-safe:animate-[bz-fade_var(--dur-state)_var(--ease-out)]',
                 )}
               />
             ) : (

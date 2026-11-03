@@ -1,6 +1,6 @@
 # ADR-023: Paczki JavaScript per linia (wydajność stron)
 
-- Status: **przyjęta — opcja A** (decyzja Krystiana 03.11.2026)
+- Status: **przyjęta — opcja A** (decyzja Krystiana 03.11.2026); krok 2 wdrożony 03.11 (wynik na końcu)
 - Data: 03.11.2026
 - Decyduje: Krystian (architektura, strefa wspólna)
 - Powiązane: ADR-001 (jedna aplikacja Next.js dla wielu domen), ADR-010 (bloki linii), ADR-022 (elementy wspólne linii), ADR-I001 (strefa wspólna Instalacji), `docs/jakosc.md` (Lighthouse ≥ 90), STAN „Sesja B — BX-RUCH+” (pomiar W4).
@@ -45,3 +45,33 @@ Instalacje i Software to ~28% JS strony Biznesu, nieużywane na niej wcale. Syme
 2. **Instalacje → Software → Biznes:** po jednym PR na linię (widżety z bloków CMS i stron), e2e danej linii zielone.
 3. **Pomiar końcowy** jak w sesji B (`pnpm build && pnpm start`, lhci 0.15.1, 6 stron Biznesu + po 2 strony Instalacji i Software): wynik przed/po w PR i w STAN.
 4. **Odbiór:** strona Biznesu nie ładuje paczek Instalacji ani Software; Lighthouse mobile ≥ 90 na 6 stronach Biznesu albo udokumentowana reszta różnicy i decyzja o opcji B.
+
+## Wynik kroku 2 (03.11.2026, `perf/prokombiznes-leniwe-widzety`)
+Zrobione w jednym PR (decyzja Krystiana 03.11: Instalacje i Software też tutaj, osobne commity):
+- **Leniwe opakowania** `<Plik>Lazy.tsx` dla 60 modułów klienckich osiągalnych z `RenderBlocks` (Biznes 14, Instalacje 34, Software 11, wspólny `InquiryForm`); importy podmienione tylko w modułach serwerowych, nazwy eksportów bez zmian. Reguła w `docs/jakosc.md` i liście kontrolnej `recenzent`.
+- **zod poza wspólnym wpisem:** ramka Biznesu (nagłówek, wyszukiwarka, szyna) ciągnęła zod przez `catalogIndex → wizard`. `brandLogo` i stałe kreatora są teraz w lekkich modułach (`lib/catalog/brandLogo.ts`, `wizardOptions.ts`).
+- **Lżejsze fonty** (decyzja Krystiana 03.11): Archivo tylko z osią szerokości 100–125 % (tyle używa strona), pliki `latin-ext` tylko Latin Extended-A — 216 → 127 KB. Wygląd bez zmian.
+
+Wpis trasy stron CMS (`[domain]/page`, `[slug]/page`): **314 → 105 KB gzip** JS; na stronie Biznesu nie ma już paczek Instalacji ani Software (JS pobierany przez `/` wg Lighthouse: ~460 → 232 KB gzip).
+
+Lighthouse mobile (lokalnie `pnpm build && pnpm start`, lhci 0.15.1, mediana z 3):
+
+| strona | przed | widżety | + zod + fonty |
+|---|---|---|---|
+| Biznes `/` | 75 | 77 | 79 |
+| `/oferta` | 76 | 78 | 79 |
+| `/produkt/posnet-ergo-online` | 81 | 81 | 84 |
+| `/marki/apple` | 81 | 81 | 83 |
+| `/kontakt` | 78 | 83 | 87 |
+| `/plan-firmy` | 81 | 79 | 84 |
+| Instalacje `/`, `/kontakt` | 79, 79 | 84, 84 | 87, 87 |
+| Software `/`, `/rozwiazania` | 79, 84 | 84, 84 | 86, 86 |
+
+Kolumna „+ zod + fonty” to próbny build z obiema zmianami (deklaracja `font-stretch` dostosowana po pomiarze, bez wpływu na wagę). W lokalnej bazie Instalacji są tylko `/` i `/kontakt`.
+
+**Reszta różnicy do 90 (udokumentowana, decyzja Krystiana 03.11: później, osobne zadania):**
+1. **CSS wszystkich linii** w jednym arkuszu: 382 KB (56 KB gzip), blokuje render — Tailwind skanuje cały `src`, do tego CSS Instalacji z `style/blocks.tsx`.
+2. **HTML i RSC strony głównej:** 982 KB (130 KB gzip); największa pozycja to dane „Planu Twojej firmy” dla wszystkich scen (~124 KB surowe w propsach `FloorPlan`) plus podwójne układy telefon/komputer.
+3. Runtime React/Next (~150 KB gzip), wspólny dla wszystkich linii.
+
+**Opcja B** (trasy per linia) niczego z tego nie usuwa — cudzy JS jest już wycięty — więc zostaje odłożona.

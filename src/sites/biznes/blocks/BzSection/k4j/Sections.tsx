@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
+import { CountUp } from '@/components/motion/CountUp'
 import { Container } from '@/components/ui/Container'
 import { cx } from '@/components/ui/cx'
 import { isAfterSwitch, timelineStatus } from '@/lib/biznes/pages/ksef'
@@ -27,7 +28,7 @@ import {
   SiteLink,
   withTrail,
 } from '../ui'
-import { AddMachineButton, ClientTabs, KsefTimeline, PhaseText } from './Client'
+import { AddMachineButton, ClientTabs, KsefTimeline, PhaseText } from './ClientLazy'
 
 // Phone (boards App-*): 30 px in the hero card.
 const HERO_H1 = cx(BZ_H1, 'max-md:text-[30px] max-md:leading-[1.05]')
@@ -679,7 +680,7 @@ export async function UlgaHero({
               >
                 <dt className="text-[13px] font-extrabold text-ink-2 max-md:text-xs">{card.k}</dt>
                 <dd className="font-display text-[clamp(1.5rem,2.6vw,2.2rem)] leading-tight font-extrabold max-md:text-[26px]">
-                  {card.v}
+                  <CountUp text={card.v} />
                 </dd>
                 <dd className="text-[14px] leading-snug text-ink-2 max-md:text-xs">{card.d}</dd>
               </div>

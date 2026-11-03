@@ -20,10 +20,10 @@ import {
   StepsSection,
   TableSection,
 } from './common/Basic'
-import { TabsPicker, VideoPicker } from './common/Interactive'
+import { TabsPicker, VideoPicker } from './common/InteractiveLazy'
 import { ProductGrid, productsBySlug } from './common/Products'
 import { Audience, CareHero, StartCalendar } from './firma/Care'
-import { CareAreas, Seats, SwitchSteps } from './firma/CareWidgets'
+import { CareAreas, Seats, SwitchSteps } from './firma/CareWidgetsLazy'
 import {
   AboutHero,
   BrandsSection,
@@ -32,7 +32,7 @@ import {
   LinesSection,
 } from './firma/Company'
 import { GoposHero } from './gopos/Hero'
-import { KsefChecklist, KsefQuizWidget } from './k4j/Client'
+import { KsefChecklist, KsefQuizWidget } from './k4j/ClientLazy'
 import {
   AppMockup,
   CatalogTabs,
@@ -45,9 +45,9 @@ import {
   VendingPicker,
   YesNo,
 } from './k4j/Sections'
-import { GoposAreas, GoposHub, GoposPackage, GoposVenues } from './gopos/Widgets'
+import { GoposAreas, GoposHub, GoposPackage, GoposVenues } from './gopos/WidgetsLazy'
 import { InsertHero, InsertKsef, InsertRequirements } from './insert/Sections'
-import { InsertPicker, InsertPoints } from './insert/Widgets'
+import { InsertPicker, InsertPoints } from './insert/WidgetsLazy'
 import { SectionShell } from './ui'
 
 type Props = {

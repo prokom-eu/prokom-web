@@ -3,7 +3,7 @@ import Link from 'next/link'
 import type { CatalogIndex, IndexProduct } from '@/lib/catalog/catalogIndex'
 import { productHref } from '@/lib/catalog/card'
 
-import { AddToCartButton } from '../AddToCartButton'
+import { AddToCartButton } from '../AddToCartButtonLazy'
 import { ProductThumb, productSubtitle } from '../ProductThumb'
 import { SearchIcon } from '../SearchIcon'
 

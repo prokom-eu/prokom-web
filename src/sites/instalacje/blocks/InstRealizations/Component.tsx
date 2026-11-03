@@ -9,7 +9,10 @@ import type { InstRealizationsBlock as InstRealizationsBlockData } from '@/paylo
 import { JsonLd } from '../../sekcje/JsonLd'
 import { PageCtaBand } from '../../sekcje/PageCtaBand'
 import { SplitHero } from '../../sekcje/SplitHero'
-import { RealizationFilters, RealizationGrid } from '../../widzety/realizacje/RealizationsWidgets'
+import {
+  RealizationFilters,
+  RealizationGrid,
+} from '../../widzety/realizacje/RealizationsWidgetsLazy'
 
 type Props = { block: InstRealizationsBlockData; tenantId: number }
 

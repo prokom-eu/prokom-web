@@ -8,7 +8,8 @@ import { Container } from '@/components/ui/Container'
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
 import { brandAsset, HORIZONTAL_LOGO_SIZE } from '@/lib/brand/lines'
-import { BUNDLES_PAGE, brandLogo, type ShowcaseStatus } from '@/lib/catalog/catalogIndex'
+import { brandLogo } from '@/lib/catalog/brandLogo'
+import { BUNDLES_PAGE, type ShowcaseStatus } from '@/lib/catalog/catalogIndex'
 import { fillCatalogCounts } from '@/lib/catalog/counts'
 import { getCatalogIndex } from '@/lib/catalog/data'
 import { brandCount } from '@/lib/catalog/filters'
@@ -22,8 +23,8 @@ import { plural } from '@/lib/plural'
 import type { BzOfferBlock as BzOfferBlockData } from '@/payload-types'
 
 import { SectionHead } from '../../components/home/SectionHead'
-import { DepartmentCategories } from './DepartmentCategories'
-import { SearchTile } from './SearchTile'
+import { DepartmentCategories } from './DepartmentCategoriesLazy'
+import { SearchTile } from './SearchTileLazy'
 
 type Props = { block: BzOfferBlockData; tenantId: number }
 

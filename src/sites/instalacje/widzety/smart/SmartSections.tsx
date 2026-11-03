@@ -1,6 +1,6 @@
 import { smartHome } from '../../dane/smartHome'
 import { InstIcon } from '../../InstIcon'
-import { InstSection } from '../../sekcje/InstSection'
+import { InstSection } from '../../sekcje/InstSectionLazy'
 import { SectionHead } from '../../sekcje/SectionHead'
 import {
   SmartApp,
@@ -9,7 +9,7 @@ import {
   SmartFailure,
   SmartPanel,
   SmartRooms,
-} from './SmartWidgets'
+} from './SmartWidgetsLazy'
 
 const SECTION = { padding: '0 0 104px' }
 

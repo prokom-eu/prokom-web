@@ -3,7 +3,7 @@ import type { ReactNode } from 'react'
 import { cx } from '@/components/ui/cx'
 import { type ProcessQuote, type ProcessStage, stageEyebrow } from '@/lib/software/process'
 
-import { WeekTrack } from './ProcessExplorer'
+import { WeekTrack } from './ProcessExplorerLazy'
 
 type Texts = { stage: string; get: string; you: string }
 /** Sample quote of stage 2; `null` when it cannot be shown (missing fact on production). */

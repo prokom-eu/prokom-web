@@ -1,12 +1,5 @@
-import {
-  WIZARD_SCALES,
-  WIZARD_STAGES,
-  type Wizard,
-  type WizardQuestion,
-  type WizardRecommendation,
-  type WizardScale,
-  type WizardStage,
-} from './wizard'
+import type { Wizard, WizardQuestion, WizardRecommendation } from './wizard'
+import { WIZARD_SCALES, WIZARD_STAGES, type WizardScale, type WizardStage } from './wizardOptions'
 
 /**
  * Engine of Konfigurator 3.0 (K35 §1.2), ported 1:1 from the board's `k3model` as pure functions

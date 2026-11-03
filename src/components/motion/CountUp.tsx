@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 
 import { COUNT_MS, countAt, countStart, parseCount } from '@/lib/motion/countUp'
+import { startsBelow } from '@/lib/motion/reveal'
 
 /**
  * A figure that counts up once when it comes into view (SWV7 „PRO-KOM w liczbach”; Instalacje
@@ -22,7 +23,9 @@ export function CountUp({ text }: { text: string }) {
       !element ||
       !parsed ||
       typeof IntersectionObserver === 'undefined' ||
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+      // On the first screen the server's text stays: nothing counts on page load (R2, LCP).
+      !startsBelow(element.getBoundingClientRect().top, window.innerHeight)
     )
       return
     let frame = 0

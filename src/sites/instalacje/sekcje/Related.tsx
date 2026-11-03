@@ -6,7 +6,7 @@ import type { ObjectCard, ServiceCard } from '@/lib/instalacje/data'
 
 import { hue } from '../hue'
 import { InstIcon } from '../InstIcon'
-import { InstSection } from './InstSection'
+import { InstSection } from './InstSectionLazy'
 import { Arrow } from '../Arrow'
 
 type Props = {

@@ -17,6 +17,7 @@ import { cartActions } from '@/lib/cart/store'
 import type { IndexImage } from '@/lib/catalog/catalogIndex'
 import { productHref } from '@/lib/catalog/card'
 
+import { useSwap } from '../../../components/motion/useSwap'
 import { BTN_OUTLINE, BTN_PRIMARY, CARD, EYEBROW, TAB_KEYS } from '../ui'
 import { Ticket } from './Stage'
 import { goposActions, pickedOr, useGopos } from './store'
@@ -34,7 +35,8 @@ function useTabs(count: number) {
     document.getElementById(`${base}-t${i}`)?.focus()
     return i
   }
-  return { current, setCurrent, base, go }
+  const swap = useSwap(current)
+  return { current, setCurrent, base, go, swap }
 }
 
 /** „Twój lokal” (#lokal): a venue tab sets the package to its starting modules. */
@@ -99,6 +101,7 @@ export function GoposVenues({
       <div
         id={`${tabs.base}-p`}
         role="tabpanel"
+        {...tabs.swap}
         aria-labelledby={`${tabs.base}-t${index}`}
         className={cx(
           CARD,
@@ -200,6 +203,7 @@ export function GoposAreas({ data }: { data: SectionData<'gopos-areas'> }) {
         <div
           id={`${tabs.base}-p`}
           role="tabpanel"
+          {...tabs.swap}
           aria-labelledby={`${tabs.base}-t${tabs.current}`}
         >
           <ul className={cx(CARD, 'flex flex-col divide-y divide-border p-2 text-ink')}>

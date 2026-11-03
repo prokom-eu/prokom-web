@@ -15,7 +15,7 @@ import { fillText } from '@/lib/software/facts'
 import type { SwContactBlock as SwContactBlockData } from '@/payload-types'
 import { softwareTextContext } from '@/sites/software/components/textContext'
 
-import { ContactForm } from './ContactForm'
+import { ContactForm } from './ContactFormLazy'
 
 type Props = { block: SwContactBlockData; tenantId: number }
 

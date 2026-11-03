@@ -9,7 +9,7 @@ import type { ProductView } from '@/lib/catalog/product'
 import type { SourceLink } from '@/lib/catalog/sourceLabels'
 import { BZ_H2 } from '@/sites/biznes/typography'
 
-import { AddToCartButton } from '../AddToCartButton'
+import { AddToCartButton } from '../AddToCartButtonLazy'
 import { ProductStage, STAGE_SHADOW, StageFallback } from '../ProductStage'
 import { ProductAddButton } from './ProductAddButton'
 import { ProductSection } from './ProductSection'

@@ -2,7 +2,8 @@ import type { CatalogCategory, Industry, Partner, Product } from '@/payload-type
 
 import { publicImage, type PublicImage } from '../media/public'
 import { tenantIdOf } from '../tenant/id'
-import { brandLogo, type IndexLogo } from './catalogIndex'
+import { brandLogo } from './brandLogo'
+import type { IndexLogo } from './catalogIndex'
 import { buildConfigurator, type Configurator } from './configurator'
 import { isHexColor } from './options'
 import { displayName } from './productName'

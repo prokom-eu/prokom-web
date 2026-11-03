@@ -4,7 +4,8 @@ import { plural } from '../plural'
 import { isHttpsUrl } from '../site/link'
 import { tenantIdOf } from '../tenant/id'
 import { bindShortWords } from '../typography'
-import { brandLogo, type IndexLogo, type IndexProduct } from './catalogIndex'
+import { brandLogo } from './brandLogo'
+import type { IndexLogo, IndexProduct } from './catalogIndex'
 
 /**
  * Salon 2.0 (K4-FINAL §6, board `Strona.dc.html` „SALON MARKI 2.0”): one template for every

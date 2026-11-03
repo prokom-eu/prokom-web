@@ -4,7 +4,7 @@ import { displayPrice, type PriceSettings } from '@/lib/instalacje/price'
 import type { InstService } from '@/payload-types'
 
 import { InstIcon } from '../InstIcon'
-import { InstSection } from './InstSection'
+import { InstSection } from './InstSectionLazy'
 import { Arrow } from '../Arrow'
 
 type Props = {

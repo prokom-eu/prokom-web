@@ -113,7 +113,7 @@ export function MegaMenuPanel({ offer, phone, hours }: Props) {
         className="grid grid-cols-[16.5rem_minmax(0,1fr)] gap-x-8 py-6 min-[1280px]:grid-cols-[16.5rem_minmax(0,1fr)_18rem]"
       >
         {/* Departments */}
-        <div className="border-r border-border pr-6">
+        <div data-mega-column className="border-r border-border pr-6">
           <p
             id={`${id}-departments`}
             className="mb-3 px-3 text-xs font-extrabold tracking-[0.14em] text-ink-2 uppercase"
@@ -176,6 +176,7 @@ export function MegaMenuPanel({ offer, phone, hours }: Props) {
 
         {/* Categories of the department */}
         <section
+          data-mega-column
           id={`${id}-panel`}
           role="tabpanel"
           aria-labelledby={`${id}-tab-${active}`}
@@ -274,7 +275,10 @@ export function MegaMenuPanel({ offer, phone, hours }: Props) {
         </section>
 
         {/* Shortcuts: a column from 1280 px, a row of four below */}
-        <div className="col-span-full mt-6 border-t border-border pt-6 min-[1280px]:col-span-1 min-[1280px]:mt-0 min-[1280px]:border-t-0 min-[1280px]:border-l min-[1280px]:pt-0 min-[1280px]:pl-6">
+        <div
+          data-mega-column
+          className="col-span-full mt-6 border-t border-border pt-6 min-[1280px]:col-span-1 min-[1280px]:mt-0 min-[1280px]:border-t-0 min-[1280px]:border-l min-[1280px]:pt-0 min-[1280px]:pl-6"
+        >
           <p className="mb-3 text-xs font-extrabold tracking-[0.14em] text-ink-2 uppercase">
             Na skróty
           </p>

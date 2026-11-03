@@ -14,7 +14,7 @@ import { Breadcrumbs } from '@/sites/software/components/Breadcrumbs'
 import { LevelCards } from '@/sites/software/components/pricing/LevelCards'
 import { softwareTextContext } from '@/sites/software/components/textContext'
 
-import { PricingTable } from './PricingTable'
+import { PricingTable } from './PricingTableLazy'
 
 type Props = { block: SwPricingData; tenantId: number; isFirst: boolean }
 

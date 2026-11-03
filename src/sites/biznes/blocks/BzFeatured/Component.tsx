@@ -6,7 +6,7 @@ import type { BzFeaturedBlock as BzFeaturedBlockData } from '@/payload-types'
 
 import { ProductCard } from '../../components/catalog/ProductCard'
 import { SectionHead } from '../../components/home/SectionHead'
-import { FeaturedPills } from './FeaturedPills'
+import { FeaturedPills } from './FeaturedPillsLazy'
 
 type Props = { block: BzFeaturedBlockData; tenantId: number }
 

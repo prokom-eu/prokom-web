@@ -12,7 +12,8 @@ import { getSoftwareFacts, getSoftwareHome } from '@/lib/software/data'
 import { fillText, type TextContext } from '@/lib/software/facts'
 import type { SwHeroBlock as SwHeroBlockData } from '@/payload-types'
 
-import { HeroBuilder, type HeroModule } from './HeroBuilder'
+import type { HeroModule } from './HeroBuilder'
+import { HeroBuilder } from './HeroBuilderLazy'
 import { HeroPanelCard } from './HeroPanelCard'
 
 type Props = { block: SwHeroBlockData; tenantId: number; isFirst?: boolean }

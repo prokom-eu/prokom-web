@@ -4,9 +4,9 @@ import { issueFormToken } from '@/lib/inquiry/spam'
 import { LEGAL_NOTE } from '../../dane/prawo'
 import { teletechnika } from '../../dane/teletechnika'
 import { InstIcon } from '../../InstIcon'
-import { InstSection } from '../../sekcje/InstSection'
+import { InstSection } from '../../sekcje/InstSectionLazy'
 import { SectionHead } from '../../sekcje/SectionHead'
-import { QuoteForm } from './QuoteForm'
+import { QuoteForm } from './QuoteFormLazy'
 
 const SECTION = { padding: '0 0 104px' }
 

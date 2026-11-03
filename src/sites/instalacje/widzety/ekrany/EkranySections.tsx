@@ -3,9 +3,9 @@ import Link from 'next/link'
 import { ekrany } from '../../dane/ekrany'
 import { LEGAL_NOTE } from '../../dane/prawo'
 import { InstIcon } from '../../InstIcon'
-import { InstSection } from '../../sekcje/InstSection'
+import { InstSection } from '../../sekcje/InstSectionLazy'
 import { SectionHead } from '../../sekcje/SectionHead'
-import { BrightnessPicker, PixelPitch, TwoSalons } from './EkranyWidgets'
+import { BrightnessPicker, PixelPitch, TwoSalons } from './EkranyWidgetsLazy'
 
 const SECTION = { padding: '0 0 104px' }
 

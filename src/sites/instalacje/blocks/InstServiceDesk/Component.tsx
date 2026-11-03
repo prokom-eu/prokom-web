@@ -18,10 +18,10 @@ import { InstIcon } from '../../InstIcon'
 import { CtaBandView } from '../../powloka/CtaBandView'
 import { Faq } from '../../sekcje/Faq'
 import { JsonLd } from '../../sekcje/JsonLd'
-import { InstSection } from '../../sekcje/InstSection'
+import { InstSection } from '../../sekcje/InstSectionLazy'
 import { PageHero } from '../../sekcje/PageHero'
 import { Related } from '../../sekcje/Related'
-import { FaultForm } from '../../widzety/serwis/FaultForm'
+import { FaultForm } from '../../widzety/serwis/FaultFormLazy'
 import { salonsNote } from '../../powloka/salons'
 
 type Props = { block: InstServiceDeskBlockData; tenantId: number }

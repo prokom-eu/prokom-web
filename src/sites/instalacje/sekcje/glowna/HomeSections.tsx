@@ -4,7 +4,7 @@ import type { HomeRealization } from '@/lib/instalacje/data'
 
 import { glownaSekcje } from '../../dane/glownaSekcje'
 import { InstIcon } from '../../InstIcon'
-import { InstSection } from '../InstSection'
+import { InstSection } from '../InstSectionLazy'
 import { SectionHead } from '../SectionHead'
 import { ShowAll } from './ShowAll'
 

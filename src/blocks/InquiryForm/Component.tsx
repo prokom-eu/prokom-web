@@ -1,6 +1,6 @@
 import { connection } from 'next/server'
 
-import { InquiryForm } from '@/components/InquiryForm'
+import { InquiryForm } from '@/components/InquiryFormLazy'
 import { Heading } from '@/components/ui/Heading'
 import { Section } from '@/components/ui/Section'
 import { getEnv } from '@/lib/env'

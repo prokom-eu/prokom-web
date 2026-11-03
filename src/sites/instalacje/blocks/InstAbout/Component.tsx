@@ -10,7 +10,7 @@ import type { InstAboutBlock as InstAboutBlockData } from '@/payload-types'
 
 import { oFirmie as T } from '../../dane/oFirmie'
 import { InstIcon } from '../../InstIcon'
-import { InstSection } from '../../sekcje/InstSection'
+import { InstSection } from '../../sekcje/InstSectionLazy'
 import { JsonLd } from '../../sekcje/JsonLd'
 import { PageCtaBand } from '../../sekcje/PageCtaBand'
 
