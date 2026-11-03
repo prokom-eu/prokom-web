@@ -1,6 +1,17 @@
 import { z } from 'zod'
 
 import { isSvgPath } from './svg'
+import { ENGINE_NEEDS, WIZARD_LINK_KINDS, WIZARD_SCALES, WIZARD_STAGES } from './wizardOptions'
+
+export {
+  ENGINE_NEEDS,
+  WIZARD_LINK_KINDS,
+  WIZARD_SCALES,
+  WIZARD_STAGES,
+  type WizardLinkKind,
+  type WizardScale,
+  type WizardStage,
+} from './wizardOptions'
 
 /**
  * Rules of Konfigurator 3.0 (`/konfigurator`, K35 §1, ADR-017 D-K4-4), kept as one JSON value in
@@ -15,27 +26,6 @@ const id = z.string().regex(/^[a-z0-9-]{1,40}$/, 'Identyfikator: małe litery, c
 const text = (max: number) => z.string().trim().min(1).max(max)
 const iconPath = z.string().max(400).refine(isSvgPath, 'Ikona: ścieżka SVG („d”).')
 const slugs = z.array(id).max(12)
-
-/** Scales of the board: 1 stanowisko, 2–3, 4–10, ponad 10 — the engine's rules read them. */
-export const WIZARD_SCALES = ['1', '2', '4', '10'] as const
-export type WizardScale = (typeof WIZARD_SCALES)[number]
-
-/** Situations the engine knows (K35 §1.2 pkt 1 — `etap`). */
-export const WIZARD_STAGES = ['nowa', 'wymiana', 'awaria', 'ksef'] as const
-export type WizardStage = (typeof WIZARD_STAGES)[number]
-
-/** Needs the engine adds by itself (situation, scale) — they must be in the list of needs. */
-export const ENGINE_NEEDS = ['ksef', 'opieka', 'plat', 'kopie', 'ups'] as const
-
-/** Where a result link of a need leads (`l` of the board): a brand, a page, the offer. */
-export const WIZARD_LINK_KINDS = [
-  'marka',
-  'gopos',
-  'insert',
-  'oferta',
-  'vending',
-  'opieka',
-] as const
 
 const option = z.object({ id, name: text(60), caption: text(120) })
 
@@ -146,7 +136,6 @@ export const wizardSchema = z
 export type Wizard = z.infer<typeof wizardSchema>
 export type WizardQuestion = z.infer<typeof question>
 export type WizardRecommendation = z.infer<typeof recommendation>
-export type WizardLinkKind = (typeof WIZARD_LINK_KINDS)[number]
 
 /** `validate` of the JSON field: `true` or the first problem, readable in the panel. */
 export function validateWizard(value: unknown): true | string {

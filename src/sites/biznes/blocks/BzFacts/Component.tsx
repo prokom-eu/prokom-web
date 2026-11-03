@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 import { Container } from '@/components/ui/Container'
 import { Icon } from '@/components/ui/Icon'
-import { brandLogo } from '@/lib/catalog/catalogIndex'
+import { brandLogo } from '@/lib/catalog/brandLogo'
 import { getSiteSettings } from '@/lib/site/data'
 import { tenantIdOf } from '@/lib/tenant/id'
 import type { BzFactsBlock as BzFactsBlockData, Partner } from '@/payload-types'

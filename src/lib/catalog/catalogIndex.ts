@@ -9,8 +9,9 @@ import type {
 } from '@/payload-types'
 
 import { publicImage } from '../media/public'
-import { imageSources, pickSource } from '../media/sizes'
+import { pickSource } from '../media/sizes'
 import { tenantIdOf } from '../tenant/id'
+import { brandLogo } from './brandLogo'
 import { HOME_SLUG } from '../pages/slug'
 import type { FeaturedGroup, IconName } from './options'
 import { normalizeText } from './normalize'
@@ -24,9 +25,6 @@ import { wizardSchema } from './wizard'
 
 /** Card width × 2 for sharp screens: one file per product keeps the index small. */
 const CARD_IMAGE_WIDTH = 480
-
-/** Brand logos are ~20 px high on cards and filters: the small `logo` size is enough. */
-const LOGO_WIDTH = 240
 
 export type IndexImage = { url: string; alt: string; width: number; height: number }
 
@@ -223,13 +221,6 @@ function groupShowcase(group: CatalogGroup, tenantId: number): GroupShowcase | u
       : [],
   }
   return result.images.length > 0 || result.statuses.length > 0 ? result : undefined
-}
-
-/** Small logo of a brand (cards, filters, the product box); none without a file. */
-export function brandLogo(brand: Partner): IndexLogo | undefined {
-  const sources = imageSources(brand)
-  if (!brand.width || !brand.height || sources.length === 0) return undefined
-  return { url: pickSource(sources, LOGO_WIDTH), width: brand.width, height: brand.height }
 }
 
 const subcategoryKey = (category: string, name: string) => `${category}/${name.trim()}`
