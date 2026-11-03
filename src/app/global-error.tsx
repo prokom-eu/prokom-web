@@ -1,6 +1,10 @@
 'use client'
 
-import './(sites)/globals.css'
+import dynamic from 'next/dynamic'
+
+// A static CSS import here would be linked (preloaded) on every page; the sheet of pages without a
+// line loads only when this page renders (ADR-023 „CSS per linia”, `(sites)/LineSheet.tsx`).
+const BaseSheet = dynamic(() => import('./(sites)/baseSheet'))
 
 type Props = { error: Error & { digest?: string }; retry: () => void }
 
@@ -10,6 +14,7 @@ export default function GlobalError({ error, retry }: Props) {
   return (
     <html lang="pl">
       <body>
+        <BaseSheet />
         <title>Błąd — PRO-KOM</title>
         <main className="mx-auto max-w-2xl px-4 py-24">
           <h1 className="font-display text-3xl font-bold text-ink">Coś poszło nie tak</h1>

@@ -15,7 +15,7 @@ type Props = {
 /**
  * The live quote on the phone and tablet (≤ 1080 px, ZMIANY-v21 §3, MOBILE-APLIKACJA §3): a bar
  * at the bottom edge with the price, the term and the next step. While it is on the page,
- * `data-wizard-bar` hides the bottom tab bar and the „Twój projekt” pill (globals.css, `:has()`),
+ * `data-wizard-bar` hides the bottom tab bar and the „Twój projekt” pill (styles/site.css, `:has()`),
  * like the footer's CTA band — no JavaScript between the frame and the wizard.
  */
 export function WizardBar({ label, price, term, action, ask }: Props) {

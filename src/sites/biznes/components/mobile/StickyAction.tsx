@@ -8,7 +8,7 @@ export const STICKY_ACTION_BUTTON =
  * Sticky action of a phone screen below 768 px (MOBILE-APLIKACJA §1): „Dodaj do zapytania”,
  * „Zapytaj o ten zestaw”, „Wyślij zapytanie”, the post's CTA. Translucent like the tab bar and
  * above the safe area; while it is on the page the tab bar hides (`data-sticky-action`,
- * globals.css), so the bottom of the screen holds one bar; one layer above it where `:has` is
+ * style/biznes.css), so the bottom of the screen holds one bar; one layer above it where `:has` is
  * missing. The button it replaces in the page content hides below 768 px (`max-md:hidden`).
  */
 export function StickyAction({ children }: { children: ReactNode }) {

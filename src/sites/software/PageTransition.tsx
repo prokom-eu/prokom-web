@@ -8,7 +8,7 @@ import { type ReactNode, ViewTransition } from 'react'
 /**
  * Page content of Software cross-fades when the address changes (SWV5, ZMIANY-v23 §5; Next.js
  * guide „View transitions”, no config flag): keyed by the path, the old page exits and the new
- * one enters (`::view-transition-*(.sw-page-out / .sw-page-in)`, globals.css). `default="none"`:
+ * one enters (`::view-transition-*(.sw-page-out / .sw-page-in)`, motion.css). `default="none"`:
  * every other transition stays still — a sheet's own history entry (`BottomSheet`
  * `closeOnBack`) is a router transition too, and a view transition there would hold the page
  * (no clicks, no updates) while it runs. Header and bottom bar keep their own names. Without
