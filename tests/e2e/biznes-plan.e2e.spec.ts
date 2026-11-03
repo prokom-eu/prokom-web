@@ -89,4 +89,27 @@ test.describe('Biznes plan of the company (K31d′)', () => {
     const response = await request.get(site('software.localhost', '/api/plan-svg/sklep'))
     expect(response.status()).toBe(404)
   })
+
+  // ADR-023: the home page sends the products of the first scene only; the others load when picked.
+  test('home page: another scene loads its products when picked', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await page.goto(biznes('/'))
+    await page.waitForLoadState('networkidle')
+    const plan = page.locator('#plan')
+    const scene = page.waitForResponse((r) => r.url().includes('/api/plan-scene/biuro'))
+    await plan
+      .getByRole('group', { name: 'Rodzaj firmy' })
+      .getByRole('button', { name: /Biuro/ })
+      .click()
+    expect((await scene).status()).toBe(200)
+    await expect(plan.getByRole('heading', { level: 3, name: /^Biuro/ })).toBeVisible()
+    await expect(plan.locator('.fp-stage').getByRole('button', { name: /ThinkBook/ })).toBeVisible()
+  })
+
+  test('scene products answer only for a scene of the Biznes site', async ({ request }) => {
+    expect((await request.get(biznes('/api/plan-scene/biuro'))).status()).toBe(200)
+    expect((await request.get(biznes('/api/plan-scene/nie-ma-takiej'))).status()).toBe(404)
+    const other = await request.get(site('software.localhost', '/api/plan-scene/biuro'))
+    expect(other.status()).toBe(404)
+  })
 })

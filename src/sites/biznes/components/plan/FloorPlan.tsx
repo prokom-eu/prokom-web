@@ -13,6 +13,7 @@ import { onPlanSceneRequest } from '@/lib/site/planScene'
 import { BundleCard } from '../bundle/BundleCard'
 import { ProductStage, StageFallback } from '../ProductStage'
 import { PlanPointDialog } from './PlanPointDialog'
+import { isSceneLoaded, mergeScene, type PlanScenePayload } from './planScenes'
 import type { FloorPlanData, FloorPlanLabels, PlanProduct } from './types'
 
 import './floorPlan.css'
@@ -64,7 +65,9 @@ function Thumb({ product, size }: { product: PlanProduct; size: 'point' | 'list'
  * tiles (phone: chips), the drawing of the active scene with numbered product points, „Na tym
  * planie” under it, the bar „Dodaj cały plan do zapytania” and the scene's ready bundles. One
  * component on `/plan-firmy` and on the home page. Only the active drawing is in the page; the
- * others load from `/api/plan-svg/<scena>` when picked. `?scena=` picks the scene on load.
+ * others load from `/api/plan-svg/<scena>` when picked. On the home page the products and bundles
+ * of the other scenes load the same way, from `/api/plan-scene/<scena>` (ADR-023), already when
+ * a scene tile is pointed at. `?scena=` picks the scene on load.
  */
 export function FloorPlan({
   data,
@@ -77,7 +80,11 @@ export function FloorPlan({
   headingLevel?: 'h2' | 'h3'
 }) {
   const Heading = headingLevel
-  const { scenes, products } = data
+  const { scenes } = data
+  // Products and bundles of the loaded scenes (all of them on `/plan-firmy`).
+  const [loaded, setLoaded] = useState(() => ({ products: data.products, bundles: data.bundles }))
+  const requested = useRef(new Set(Object.keys(data.bundles)))
+  const products = loaded.products
   const [sceneSlug, setSceneSlug] = useState(scenes[0]?.slug ?? '')
   const [svgs, setSvgs] = useState<Record<string, string>>(() =>
     data.firstSvg && scenes[0] ? { [scenes[0].slug]: data.firstSvg } : {},
@@ -107,6 +114,24 @@ export function FloorPlan({
     [scenes],
   )
 
+  // A failed load is not remembered: picking the scene again tries once more.
+  const loadScene = useCallback(
+    (slug: string) => {
+      if (requested.current.has(slug) || !scenes.some((item) => item.slug === slug)) return
+      requested.current.add(slug)
+      fetch(`/api/plan-scene/${encodeURIComponent(slug)}`)
+        .then((response) => (response.ok ? (response.json() as Promise<PlanScenePayload>) : null))
+        .catch(() => null)
+        .then((payload) => {
+          if (payload) setLoaded((current) => mergeScene(current, slug, payload))
+          else requested.current.delete(slug)
+        })
+    },
+    [scenes],
+  )
+
+  useEffect(() => loadScene(scene.slug), [scene.slug, loadScene])
+
   // `?scena=` of the address (read here, so the page stays static) and the industry tiles.
   useEffect(() => {
     const fromUrl = new URLSearchParams(window.location.search).get('scena')
@@ -130,9 +155,12 @@ export function FloorPlan({
     }
   }, [scene.slug, svgs])
 
+  const ready = isSceneLoaded(loaded, scene.slug)
   const points = scene.points.filter((point) => products[point.product])
+  // While the scene's products load, the counts come from the scene (its points are listed cards).
+  const count = ready ? points.length : scene.points.length
   const items = planCartItems({ ...scene, points })
-  const bundles = data.bundles[scene.slug] ?? []
+  const bundles = loaded.bundles[scene.slug] ?? []
   const columns = listColumns(points.length)
   const svg = svgs[scene.slug]
 
@@ -166,6 +194,8 @@ export function FloorPlan({
               type="button"
               aria-pressed={active}
               onClick={() => show(item.slug)}
+              onPointerEnter={() => loadScene(item.slug)}
+              onFocus={() => loadScene(item.slug)}
               className={cx(
                 'flex min-h-11 shrink-0 snap-start items-center gap-3 rounded-full px-4 py-2 text-left transition-colors sm:rounded-2xl sm:p-3',
                 active
@@ -197,13 +227,13 @@ export function FloorPlan({
       {/* The scene: heading, the drawing with points. */}
       <section
         aria-labelledby={headingId}
+        aria-busy={!ready}
         className="overflow-hidden rounded-[24px] bg-card shadow-[inset_0_0_0_1px_var(--border)]"
       >
         <div className="flex flex-wrap items-start justify-between gap-3 px-4 pt-4 pb-3 sm:px-5">
           <div className="min-w-0">
             <p className="text-[12px] font-extrabold tracking-[0.12em] text-accent-text uppercase sm:hidden">
-              {points.length} {plural(points.length, ['rozwiązanie', 'rozwiązania', 'rozwiązań'])} z
-              naszej oferty
+              {count} {plural(count, ['rozwiązanie', 'rozwiązania', 'rozwiązań'])} z naszej oferty
             </p>
             <Heading
               id={headingId}
@@ -214,7 +244,7 @@ export function FloorPlan({
             {scene.lead && <p className="mt-1 text-[13.5px] text-ink-2">{scene.lead}</p>}
           </div>
           <span className="hidden rounded-full bg-surface-2 px-3 py-1 text-[12.5px] font-bold text-ink-2 sm:inline-block">
-            {points.length} {plural(points.length, POINTS)}
+            {count} {plural(count, POINTS)}
           </span>
         </div>
 
