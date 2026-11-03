@@ -50,7 +50,8 @@ export async function FaqBiznes({ block, tenantId }: Props) {
             <p className={`${BZ_LEAD} mt-4 max-w-[46ch] text-ink-2 max-md:hidden`}>{block.lead}</p>
           )}
           {(phone || email || whatsapp) && (
-            // Phone (boards App-*): the questions only; calling is in the tab bar.
+            // Phone (boards App-*): the questions only; the contact card is one tap away
+            // under „Kontakt” in the tab bar.
             <div className="mt-6 max-w-[420px] rounded-[22px] bg-card p-5 shadow-[0_24px_48px_-32px_var(--glow),inset_0_0_0_1px_var(--border)] max-md:hidden">
               <LiveHours hours={hours} className="text-sm text-ink" />
               {phone && tel && (

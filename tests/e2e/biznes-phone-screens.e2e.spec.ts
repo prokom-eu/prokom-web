@@ -86,3 +86,10 @@ test('Opieka IT on a phone: the comparison is one row that unfolds', async ({ pa
   await page.setViewportSize({ width: 1440, height: 900 })
   await expect(row).toBeHidden()
 })
+
+test('Opieka IT on a computer: the folded sections are open from the start', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 })
+  await page.goto(biznes('/opieka-it'))
+  await expect(page.getByRole('button', { name: /z\s+opieką\s+i\s+bez/i })).toHaveCount(0)
+  await expect(page.getByRole('heading', { level: 2, name: /z\s+opieką\s+i\s+bez/i })).toBeVisible()
+})

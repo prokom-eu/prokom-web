@@ -23,7 +23,7 @@ export function VideoPicker({ data }: { data: SectionData<'videos'> }) {
       />
       <div className="flex min-w-0 flex-col gap-2">
         {/* Phone (App-GoPOS „Filmy”): the titles in one row of pills under the player. */}
-        <ul className="flex flex-col gap-2 max-md:-mx-4 max-md:-my-2 max-md:flex-row max-md:snap-x max-md:snap-mandatory max-md:scroll-px-4 max-md:gap-3 max-md:overflow-x-auto max-md:px-4 max-md:py-2 max-md:[scrollbar-width:none] max-md:gap-2">
+        <ul className="flex flex-col gap-2 max-md:-mx-4 max-md:-my-2 max-md:flex-row max-md:snap-x max-md:snap-mandatory max-md:scroll-px-4 max-md:gap-2 max-md:overflow-x-auto max-md:px-4 max-md:py-2 max-md:[scrollbar-width:none]">
           {data.videos.map((item, i) => (
             <li key={item.id} className="max-md:w-[72%] max-md:shrink-0 max-md:snap-start">
               <button

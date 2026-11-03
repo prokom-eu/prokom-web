@@ -112,7 +112,8 @@ export function SectionShell({
     >
       <Container wide>
         {head && (block.heading || block.eyebrow) && (
-          <div className="mb-9 flex flex-wrap items-end justify-between gap-x-10 gap-y-4 max-md:mb-4 max-md:flex-nowrap max-md:items-center max-md:gap-x-3">
+          // Folded on a phone (`FoldOnPhone`, `data-folded`): its row is the heading there.
+          <div className="mb-9 flex flex-wrap items-end justify-between gap-x-10 gap-y-4 max-md:mb-4 max-md:flex-nowrap max-md:items-center max-md:gap-x-3 max-md:in-data-[folded]:hidden">
             <div className="max-w-[46rem] min-w-0 grow basis-[34rem]">
               {block.eyebrow && (
                 <p

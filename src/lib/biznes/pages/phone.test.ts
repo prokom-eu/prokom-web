@@ -31,6 +31,19 @@ describe('hiddenOnPhone (boards App-*: sections a phone screen leaves out)', () 
     expect(phoneFormHref('/oferta#formularz')).toBeNull()
   })
 
+  it('GoPOS, Opieka IT and vending hide only what their boards leave out', () => {
+    expect(hiddenOnPhone('gopos', { blockType: 'bzSection', variant: 'stats' })).toBe(true)
+    expect(hiddenOnPhone('gopos', { blockType: 'faq' })).toBe(false)
+    expect(hiddenOnPhone('opieka-it', { blockType: 'bzSection', variant: 'band' })).toBe(true)
+    expect(hiddenOnPhone('opieka-it', { blockType: 'bzSection', variant: 'seats' })).toBe(false)
+    expect(
+      hiddenOnPhone('automaty-vendingowe', { blockType: 'bzSection', variant: 'sources' }),
+    ).toBe(true)
+    expect(hiddenOnPhone('automaty-vendingowe', { blockType: 'bzSection', variant: 'band' })).toBe(
+      false,
+    )
+  })
+
   it('Opieka IT folds the comparison and the audience, not the steps', () => {
     expect(foldedOnPhone('opieka-it', { blockType: 'bzSection', variant: 'table' })).toBe(true)
     expect(foldedOnPhone('opieka-it', { blockType: 'bzSection', variant: 'audience' })).toBe(true)

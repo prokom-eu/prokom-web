@@ -354,11 +354,21 @@ export function ChipsSection({ block, data }: Props & { data: SectionData<'chips
     </li>
   )
   return (
-    <SectionShell block={block}>
+    <SectionShell
+      block={block}
+      // Phone (App-GoPOS „Integracje 30+”): the count as a pill next to the heading.
+      aside={
+        data.total ? (
+          <span className="shrink-0 rounded-full bg-surface-2 px-3 py-1.5 text-xs font-extrabold text-ink-2 md:hidden">
+            {data.total.v}
+          </span>
+        ) : null
+      }
+    >
       <ul className="grid gap-4 max-md:gap-2 min-[640px]:grid-cols-2 min-[1080px]:grid-cols-4">
         {visible.map(group)}
         {data.total && (
-          // Phone (App-GoPOS): the count is in the heading pill, not a big card.
+          // Phone: the count is the pill next to the heading (`aside`), not a big card.
           <li className="flex flex-col justify-center gap-1 rounded-[22px] bg-accent-text p-5 text-accent-ink max-md:hidden">
             <span className="font-display text-[2.4rem] leading-none font-extrabold">
               {data.total.v}

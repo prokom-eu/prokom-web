@@ -34,7 +34,10 @@ const RULES: Record<string, readonly Rule[]> = {
   'automaty-vendingowe': [{ type: 'bzSection', variant: 'sources' }],
 }
 
-/** Sections folded to one row on a phone (boards App-*: a title row that unfolds). */
+/**
+ * Sections folded to one row on a phone (boards App-*: a title row that unfolds). A section
+ * without a heading has no title for the row: it stays shown in full.
+ */
 const FOLDS: Record<string, readonly Rule[]> = {
   // App-Opieka: „Z opieką i bez”, „Dla kogo”.
   'opieka-it': [
