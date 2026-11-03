@@ -11,12 +11,13 @@ const SCAN_EVENT = 'reveal:scan'
 const noop = () => () => {}
 
 /**
- * For a card list inside a `Suspense` boundary (the catalog): React may hydrate it after the
- * observer's first pass, and a `data-reveal-pending` or `style` it finds on a card it has not
- * hydrated yet is a hydration mismatch (SWV8 P0 #1). The list carries `data-reveal-cards` only
- * once it has hydrated — spread the returned props on it — and then asks for a new pass.
+ * For reveal targets inside a `Suspense` boundary — the catalog, and the sections loaded with
+ * `next/dynamic` (ADR-023): React may hydrate them after the observer's first pass, and a
+ * `data-reveal-pending` or `style` it finds on an element it has not hydrated yet is a hydration
+ * mismatch (SWV8 P0 #1). `true` once the component has hydrated — put `data-reveal` /
+ * `data-reveal-cards` on only then — and it then asks the observer for a new pass.
  */
-export function useRevealCards(): { 'data-reveal-cards'?: '' } {
+export function useRevealReady(): boolean {
   const hydrated = useSyncExternalStore(
     noop,
     () => true,
@@ -25,7 +26,12 @@ export function useRevealCards(): { 'data-reveal-cards'?: '' } {
   useEffect(() => {
     if (hydrated) window.dispatchEvent(new Event(SCAN_EVENT))
   }, [hydrated])
-  return hydrated ? { 'data-reveal-cards': '' } : {}
+  return hydrated
+}
+
+/** `useRevealReady` for a card list: spread the returned props on it. */
+export function useRevealCards(): { 'data-reveal-cards'?: '' } {
+  return useRevealReady() ? { 'data-reveal-cards': '' } : {}
 }
 
 /**

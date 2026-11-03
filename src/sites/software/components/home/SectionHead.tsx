@@ -7,14 +7,26 @@ type Props = {
   lead: string | null
   /** Lead next to the heading from 1081 px (board `Main`: „12 rzeczy”), else under it. */
   aside?: boolean
+  /**
+   * Rises in on scroll (default). A section loaded lazily (`next/dynamic`) passes
+   * `useRevealReady()`, so the mark comes only after it has hydrated.
+   */
+  reveal?: boolean
   className?: string
 }
 
 /** Eyebrow, H2 and lead of a start page section (board `Main`); rises in on scroll (SWV5). */
-export function SectionHead({ eyebrow, title, lead, aside = false, className }: Props) {
+export function SectionHead({
+  eyebrow,
+  title,
+  lead,
+  aside = false,
+  reveal = true,
+  className,
+}: Props) {
   return (
     <div
-      data-reveal
+      data-reveal={reveal || undefined}
       className={cx(
         'flex flex-col gap-4',
         aside &&

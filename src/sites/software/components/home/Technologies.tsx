@@ -6,6 +6,8 @@ import { Container } from '@/components/ui/Container'
 import { cx } from '@/components/ui/cx'
 import type { TechnologiesView } from '@/lib/software/howWeBuild'
 
+import { useRevealReady } from '@/components/motion/RevealObserver'
+
 import { SectionHead } from './SectionHead'
 import { TabPanels } from './TabPanels'
 import { useAutoTabs } from './useAutoTabs'
@@ -39,6 +41,8 @@ function LayerIcon({ path, size }: { path: string; size: number }) {
  */
 export function Technologies({ view }: { view: TechnologiesView }) {
   const id = useId()
+  // Loaded with `next/dynamic`: the heading's rise-in mark only after hydration (SWV8 P0 #1).
+  const revealReady = useRevealReady()
   const { active, rotating, pick, onKeyDown, tabRef, region } = useAutoTabs(
     view.layers.length,
     LAYERS_AUTO_MS,
@@ -47,7 +51,13 @@ export function Technologies({ view }: { view: TechnologiesView }) {
   return (
     <section id="technologie" className="scroll-mt-24 py-10 min-[640px]:py-14">
       <Container wide className="flex flex-col gap-6 min-[1081px]:gap-8">
-        <SectionHead eyebrow={view.eyebrow} title={view.title} lead={view.lead} aside />
+        <SectionHead
+          eyebrow={view.eyebrow}
+          title={view.title}
+          lead={view.lead}
+          aside
+          reveal={revealReady}
+        />
         <div className="flex flex-col gap-4 min-[1081px]:gap-6" {...region}>
           <div
             role="tablist"
