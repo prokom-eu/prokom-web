@@ -125,6 +125,14 @@ export function Configurator({ data }: { data: ConfiguratorData }) {
   const { rules, products } = data
   const [state, setState] = useState<WizardState>(data.initial.state)
   const [step, setStep] = useState(data.initial.step)
+  // R2: the next step slides in from the right, a step back from the left (`data-wizard-dir`,
+  // motion.css §4); nothing on load.
+  const [shownStep, setShownStep] = useState(step)
+  const [direction, setDirection] = useState<'next' | 'back' | undefined>(undefined)
+  if (shownStep !== step) {
+    setShownStep(step)
+    setDirection(step > shownStep ? 'next' : 'back')
+  }
   const [copied, setCopied] = useState(false)
   const [added, setAdded] = useState<string | null>(null)
   const topRef = useRef<HTMLDivElement>(null)
@@ -329,8 +337,12 @@ export function Configurator({ data }: { data: ConfiguratorData }) {
                 <span aria-hidden="true" className="block h-1 w-full rounded-full bg-surface-3">
                   <span
                     className={cx(
-                      'block h-full rounded-full',
-                      i < step ? 'w-full bg-ok-text' : i === step ? 'w-1/2 bg-accent' : 'w-0',
+                      'block h-full w-full origin-left rounded-full transition-[scale,background-color] duration-(--dur-state) ease-(--ease-out) motion-reduce:transition-none',
+                      i < step
+                        ? 'scale-x-100 bg-ok-text'
+                        : i === step
+                          ? 'scale-x-50 bg-accent'
+                          : 'scale-x-0 bg-accent',
                     )}
                   />
                 </span>
@@ -340,8 +352,11 @@ export function Configurator({ data }: { data: ConfiguratorData }) {
         })}
       </ol>
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,1fr)_330px] lg:items-start">
-        <section aria-labelledby={`${formId}-step`} className="min-w-0">
+      <div
+        data-wizard-dir={direction}
+        className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,1fr)_330px] lg:items-start"
+      >
+        <section key={step} aria-labelledby={`${formId}-step`} className="min-w-0">
           {step === 0 && (
             <div className={cx(CARD, 'p-5 sm:p-7')}>
               <StepHeading id={`${formId}-step`} innerRef={headingRef}>

@@ -3,6 +3,7 @@ import Link from 'next/link'
 
 import { Container } from '@/components/ui/Container'
 import { Icon } from '@/components/ui/Icon'
+import { CountUp } from '@/components/motion/CountUp'
 import { brandLogo } from '@/lib/catalog/brandLogo'
 import { getSiteSettings } from '@/lib/site/data'
 import { tenantIdOf } from '@/lib/tenant/id'
@@ -125,7 +126,7 @@ export async function BzFactsBlock({ block, tenantId }: Props) {
                   >
                     <dt className="text-[12.5px] leading-snug text-ink-2">{stat.label}</dt>
                     <dd className="font-display text-[26px] leading-none font-extrabold text-ink">
-                      {stat.value}
+                      <CountUp text={stat.value} />
                     </dd>
                   </div>
                 ))}
