@@ -1,3 +1,4 @@
+import { getFloorPlans } from '@/lib/catalog/data'
 import { log } from '@/lib/log'
 import { REQUEST_ID_HEADER, requestIdFrom } from '@/lib/requestId'
 import { getTenantByHost } from '@/lib/tenant/byHost'
@@ -22,7 +23,12 @@ export async function GET(request: Request, { params }: { params: Promise<{ slug
     if (!tenant || tenant.line !== 'biznes')
       return new Response(null, { status: 404, headers: NO_STORE })
     tenantId = tenant.id
-    const plan = await loadFloorPlan(tenant.id)
+    // Unknown slugs cost no plan build (cached list of scenes, as in `/api/plan-svg`).
+    const { records } = await getFloorPlans(tenant.id)
+    if (!records.some((record) => record.slug === slug)) {
+      return new Response(null, { status: 404, headers: NO_STORE })
+    }
+    const plan = await loadFloorPlan(tenant.id, { firstSvg: false })
     const payload = plan ? scenePayload(plan, slug) : null
     if (!payload) return new Response(null, { status: 404, headers: NO_STORE })
     return Response.json(payload, { headers: { 'Cache-Control': 'public, max-age=300' } })

@@ -106,6 +106,24 @@ test.describe('Biznes plan of the company (K31d′)', () => {
     await expect(plan.locator('.fp-stage').getByRole('button', { name: /ThinkBook/ })).toBeVisible()
   })
 
+  test('/plan-firmy has every scene in the page: picking one asks for no products', async ({
+    page,
+  }) => {
+    const asked: string[] = []
+    page.on('request', (r) => {
+      if (r.url().includes('/api/plan-scene/')) asked.push(r.url())
+    })
+    await page.goto(biznes('/plan-firmy'))
+    await page.waitForLoadState('networkidle')
+    await page
+      .getByRole('group', { name: 'Rodzaj firmy' })
+      .getByRole('button', { name: /Biuro/ })
+      .click()
+    await expect(page.getByRole('heading', { level: 2, name: /^Biuro/ })).toBeVisible()
+    await expect(page.locator('.fp-stage').getByRole('button', { name: /ThinkBook/ })).toBeVisible()
+    expect(asked).toEqual([])
+  })
+
   test('scene products answer only for a scene of the Biznes site', async ({ request }) => {
     expect((await request.get(biznes('/api/plan-scene/biuro'))).status()).toBe(200)
     expect((await request.get(biznes('/api/plan-scene/nie-ma-takiej'))).status()).toBe(404)
