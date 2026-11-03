@@ -102,34 +102,35 @@ export function GoposVenues({
         aria-labelledby={`${tabs.base}-t${index}`}
         className={cx(
           CARD,
-          'grid gap-6 p-6 sm:p-8 min-[900px]:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]',
+          'grid gap-6 p-6 max-md:gap-3 max-md:p-[18px] sm:p-8 min-[900px]:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]',
         )}
       >
-        <div className="flex flex-col gap-4 text-ink">
-          <h3 className="font-display text-[clamp(1.5rem,2.6vw,2.1rem)] leading-tight font-extrabold text-balance">
+        <div className="flex flex-col gap-4 text-ink max-md:gap-3">
+          <h3 className="font-display text-[clamp(1.5rem,2.6vw,2.1rem)] leading-tight font-extrabold text-balance max-md:text-[21px]">
             {venue.h1a} <em className="text-ok-text not-italic">{venue.h1b}</em>
           </h3>
-          <p className="leading-relaxed text-pretty text-ink-2">{venue.lead}</p>
+          <p className="leading-relaxed text-pretty text-ink-2 max-md:text-sm">{venue.lead}</p>
           <div>
             <p className={cx(EYEBROW, 'mb-2 text-ink-2')}>Pakiet na start</p>
             <ul className="flex flex-wrap gap-2">
               {['GoPOS', ...venue.modules.map((module) => module.name)].map((name) => (
                 <li
                   key={name}
-                  className="rounded-full bg-ok/15 px-3 py-1.5 text-[14px] font-extrabold text-ink"
+                  className="rounded-full bg-ok/15 px-3 py-1.5 text-[14px] font-extrabold text-ink max-md:px-2.5 max-md:py-1 max-md:text-[13px]"
                 >
                   {name}
                 </li>
               ))}
             </ul>
           </div>
-          <div className="mt-2 flex flex-wrap gap-3">
+          <div className="mt-2 flex flex-wrap gap-3 max-md:mt-1 max-md:grid">
             <a href="#pakiet" className={BTN_PRIMARY}>
               Skonfiguruj pakiet
             </a>
           </div>
         </div>
-        <div className="relative flex min-h-[240px] items-center justify-center rounded-2xl bg-surface-2 p-6">
+        {/* Not on the phone board App-GoPOS (the venue card is text and the package). */}
+        <div className="relative flex min-h-[240px] items-center justify-center rounded-2xl bg-surface-2 p-6 max-md:hidden">
           {image && (
             <Image
               unoptimized
@@ -367,7 +368,7 @@ export function GoposPackage({ data }: { data: SectionData<'gopos-package'> }) {
                     goposActions.setPicked(toggleModule(data.modules, picked, module.slug))
                   }
                   className={cx(
-                    'flex size-full min-h-14 gap-3 rounded-2xl p-4 text-left transition-shadow',
+                    'flex size-full min-h-14 gap-3 rounded-2xl p-4 text-left transition-shadow max-md:p-3.5',
                     on
                       ? 'bg-card shadow-[inset_0_0_0_2px_var(--ok-text)]'
                       : 'bg-card shadow-[inset_0_0_0_1px_var(--border)] hover:shadow-[inset_0_0_0_1px_var(--ink-3)]',
@@ -385,7 +386,9 @@ export function GoposPackage({ data }: { data: SectionData<'gopos-package'> }) {
                   </span>
                   <span className="flex flex-col gap-1">
                     <b className="leading-snug font-extrabold text-ink">{module.name}</b>
-                    <span className="text-[14px] leading-relaxed text-ink-2">{module.text}</span>
+                    <span className="text-[14px] leading-relaxed text-ink-2 max-md:text-[13px] max-md:leading-snug">
+                      {module.text}
+                    </span>
                   </span>
                 </button>
               </li>
@@ -394,7 +397,7 @@ export function GoposPackage({ data }: { data: SectionData<'gopos-package'> }) {
         </ul>
         <aside
           aria-label="Twój pakiet GoPOS"
-          className="flex flex-col gap-4 self-start rounded-[22px] bg-surface-dark p-6 text-white min-[1080px]:sticky min-[1080px]:top-28"
+          className="flex flex-col gap-4 self-start rounded-[22px] bg-surface-dark p-6 text-white max-md:gap-3 max-md:p-[18px] min-[1080px]:sticky min-[1080px]:top-28"
         >
           <p className="font-display text-lg font-extrabold">Twój pakiet GoPOS</p>
           <dl className="flex flex-col gap-2" aria-live="polite">

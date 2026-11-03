@@ -88,7 +88,7 @@ export function GoposStage({
                 aria-pressed={on}
                 onClick={() => goposActions.pickStep(device.step)}
                 className={cx(
-                  'relative flex aspect-[4/3] w-full items-center justify-center rounded-2xl bg-white p-4 transition-[opacity,box-shadow] duration-300 motion-reduce:transition-none',
+                  'relative flex aspect-[4/3] w-full items-center justify-center rounded-2xl bg-white p-4 transition-[opacity,box-shadow] duration-300 motion-reduce:transition-none max-md:aspect-[16/10] max-md:p-2.5 max-md:pt-7',
                   on ? 'shadow-[0_0_0_3px_var(--ok)]' : 'shadow-[0_18px_40px_-24px_black]',
                   dim && 'opacity-50',
                 )}
@@ -125,7 +125,8 @@ export function GoposStage({
 export function GoposFlow({ flow }: { flow: Flow }) {
   const { step } = useGopos()
   return (
-    <ol className="mt-10 grid gap-3 min-[640px]:grid-cols-2 min-[1080px]:grid-cols-4">
+    // Phone (App-GoPOS): the steps two by two under the stage, the label and the step only.
+    <ol className="mt-10 grid gap-3 max-md:mt-4 max-md:grid-cols-2 max-md:gap-2 min-[640px]:grid-cols-2 min-[1080px]:grid-cols-4">
       {flow.map((item, i) => (
         <li key={item.k}>
           <button
@@ -133,19 +134,19 @@ export function GoposFlow({ flow }: { flow: Flow }) {
             aria-pressed={step === i}
             onClick={() => goposActions.pickStep(i)}
             className={cx(
-              'flex size-full min-h-14 gap-3 rounded-2xl p-4 text-left ring-1 transition-colors ring-inset',
+              'flex size-full min-h-14 gap-3 rounded-2xl p-4 text-left ring-1 transition-colors ring-inset max-md:gap-2 max-md:p-2.5',
               step === i ? 'bg-white/14 ring-ok' : 'bg-white/5 ring-white/15 hover:bg-white/10',
             )}
           >
-            <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-white/15 font-display font-extrabold">
+            <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-white/15 font-display font-extrabold max-md:size-6 max-md:text-xs">
               {i + 1}
             </span>
-            <span className="flex flex-col gap-0.5">
-              <em className="text-[12px] font-extrabold tracking-[0.06em] text-ok uppercase not-italic">
+            <span className="flex min-w-0 flex-col gap-0.5">
+              <em className="text-[12px] font-extrabold tracking-[0.06em] text-ok uppercase not-italic max-md:text-[10px]">
                 {item.k}
               </em>
-              <b className="leading-snug">{item.t}</b>
-              <small className="text-[14px] text-white/75">{item.d}</small>
+              <b className="leading-snug max-md:text-[13px]">{item.t}</b>
+              <small className="text-[14px] text-white/75 max-md:hidden">{item.d}</small>
             </span>
           </button>
         </li>

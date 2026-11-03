@@ -26,6 +26,8 @@ const RULES: Record<string, readonly Rule[]> = {
   // App-OFirmie: hero with the company data, trust cards, how we work, the lines, brands, the
   // closing band — no „Gdzie nas znaleźć”.
   'o-firmie': [{ type: 'bzLocation' }],
+  // App-GoPOS: every section but the producer's numbers under the hero.
+  gopos: [{ type: 'bzSection', variant: 'stats' }],
 }
 
 /** The contact form (`#formularz` on /kontakt) is not shown below 768 px. */
