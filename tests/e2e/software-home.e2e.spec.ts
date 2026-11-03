@@ -475,6 +475,8 @@ test.describe('Software start page — contact form', () => {
       route.fulfill({ status: 503, contentType: 'application/json', body: '{}' }),
     )
     await page.goto(site(HOST, '/#kontakt'))
+    // The form is a lazy widget (ADR-023): typing before it hydrates would be reset.
+    await page.waitForLoadState('networkidle')
     const section = contact(page)
     await section.getByLabel('Opisz krótko, po swojemu').fill('Test błędu serwera.')
     await section.getByLabel('Imię i firma').fill('E2E')
