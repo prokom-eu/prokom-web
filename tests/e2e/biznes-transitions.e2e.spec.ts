@@ -116,7 +116,10 @@ test.describe('side rail and dialogs (R2)', () => {
         page.evaluate(() => {
           const section = document.getElementById('faq')!
           const top = Math.round(section.getBoundingClientRect().top)
-          const margin = Math.round(Number.parseFloat(getComputedStyle(section).scrollMarginTop))
+          // Same rule as `sectionOffset` (lib/software/smoothScroll): no own scroll margin →
+          // room for the sticky header (HEADER_OFFSET, 84 px).
+          const own = Number.parseFloat(getComputedStyle(section).scrollMarginTop)
+          const margin = Math.round(Number.isFinite(own) && own > 0 ? own : 84)
           return Math.abs(top - margin) <= 2 && section.hasAttribute('data-arrive')
             ? 'arrived'
             : top
