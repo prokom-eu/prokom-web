@@ -74,6 +74,9 @@ export const getCatalogIndex = cache((tenantId: number): Promise<CatalogIndex> =
               featured: true,
               featuredOrder: true,
               featuredGroup: true,
+              wheelImage: true,
+              wheelName: true,
+              wheelColor: true,
             },
             overrideAccess: true,
           }),
@@ -149,7 +152,7 @@ export const getCatalogIndex = cache((tenantId: number): Promise<CatalogIndex> =
         })),
       })
     },
-    ['catalog-index-k4d', String(tenantId)],
+    ['catalog-index-k4e', String(tenantId)],
     { tags: [catalogTag(tenantId), pagesTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
   )(),
 )
