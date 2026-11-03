@@ -105,7 +105,7 @@ export function Catalog({ index }: { index: CatalogIndex }) {
   useEffect(() => {
     if (focusCard.current === null) return
     const card = listRef.current?.querySelector<HTMLAnchorElement>(
-      `[data-card="${focusCard.current}"] h3 a`,
+      `[data-card-index="${focusCard.current}"] h3 a`,
     )
     focusCard.current = null
     card?.focus()

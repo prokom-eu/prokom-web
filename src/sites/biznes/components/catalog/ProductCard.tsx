@@ -60,7 +60,9 @@ export function ProductCard({
 
   return (
     <article
-      data-card={position}
+      // `data-card`: the motion hook (lift on hover); the index for focus is its own attribute.
+      data-card=""
+      data-card-index={position}
       className={cx(
         'group/card relative flex w-full flex-col gap-2.5',
         list && 'sm:flex-row sm:items-start sm:gap-5',

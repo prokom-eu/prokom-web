@@ -105,6 +105,8 @@ export function SectionShell({
   return (
     <section
       id={id}
+      // Rises in once when it starts below the screen (`RevealObserver`, prompt 4 R1).
+      data-reveal=""
       aria-labelledby={labelled ? `${id}-h` : undefined}
       aria-label={labelled ? undefined : (block.eyebrow ?? undefined)}
       // Phone (boards App-*): the head is the H2 alone (no label, no lead).
