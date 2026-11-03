@@ -12,6 +12,7 @@ import {
   presetSelection,
   togglePreset,
   toggleValue,
+  colorFromQuery,
   versionSelection,
 } from './configurator'
 import { variantSlug } from './productName'
@@ -182,5 +183,22 @@ describe('colorNote (K32 §9)', () => {
     )
     expect(colorNote('lawendowy', '')).toBe('Kolor: lawendowy')
     expect(colorNote(null, 'Wersja: 256 GB')).toBe('Wersja: 256 GB')
+  })
+})
+
+describe('colorFromQuery (`?kolor=`, KOLO-HERO v3)', () => {
+  const colors = ['burgund', 'błękit lodowca', 'Srebrny']
+
+  it('picks the colour named in the address, ignoring case and Polish letters', () => {
+    expect(colorFromQuery(colors, 'burgund')).toBe(0)
+    expect(colorFromQuery(colors, 'BLEKIT LODOWCA')).toBe(1)
+    expect(colorFromQuery(colors, ' srebrny ')).toBe(2)
+  })
+
+  it('keeps the default for an unknown or missing colour', () => {
+    expect(colorFromQuery(colors, 'zielony')).toBeNull()
+    expect(colorFromQuery(colors, '')).toBeNull()
+    expect(colorFromQuery(colors, null)).toBeNull()
+    expect(colorFromQuery([], 'burgund')).toBeNull()
   })
 })
