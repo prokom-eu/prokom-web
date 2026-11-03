@@ -104,7 +104,14 @@ export function imageField(
         filterOptions: tenantImageFilter,
         ...(description && { admin: { description } }),
       }
-    : { name, label, type: 'upload', relationTo: 'media', filterOptions: tenantImageFilter }
+    : {
+        name,
+        label,
+        type: 'upload',
+        relationTo: 'media',
+        filterOptions: tenantImageFilter,
+        ...(description && { admin: { description } }),
+      }
 }
 
 /** Brands are the shared `Partners`; only those shown on the edited document's tenant. */

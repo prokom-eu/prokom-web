@@ -33,6 +33,16 @@ export const CatalogGroups: CollectionConfig = {
   indexes: [{ fields: ['tenant', 'slug'], unique: true }],
   fields: [
     { name: 'name', label: 'Nazwa', type: 'text', required: true },
+    {
+      name: 'shortName',
+      label: 'Nazwa skrócona',
+      type: 'text',
+      maxLength: 24,
+      admin: {
+        description:
+          'Etykieta działu na kole strony głównej, gdy nazwa jest długa (np. „Sieć i ochrona”).',
+      },
+    },
     slugField('catalog-groups', 'sprzedaz'),
     { name: 'icon', label: 'Ikona', type: 'select', required: true, options: ICON_OPTIONS },
     {
@@ -120,13 +130,41 @@ export const CatalogGroups: CollectionConfig = {
       admin: { description: 'Do 5 produktów działu na początku listy „Polecane” w ofercie.' },
     },
     {
-      // `kolo_hero` (K36 §12): three products next to the department on the homepage wheel.
+      // `kolo_hero` (KOLO-HERO v3): the department's products on the homepage wheel, in order.
       name: 'wheelProducts',
       label: 'Produkty przy dziale na kole (strona główna)',
       type: 'relationship',
       relationTo: 'products',
       hasMany: true,
-      maxRows: 3,
+      maxRows: 6,
+      admin: { description: 'Do 6 produktów; koło rozkłada wszystkie pozycje równo.' },
+    },
+    {
+      // KOLO-HERO v3: one extra bubble after the products, for a page that is not a product.
+      name: 'wheelLink',
+      label: 'Dodatkowa pozycja na kole (strona)',
+      type: 'group',
+      admin: { description: 'Np. „Opieka IT dla firm” → /opieka-it. Puste = brak.' },
+      fields: [
+        {
+          type: 'row',
+          fields: [
+            { name: 'label', label: 'Nazwa', type: 'text', maxLength: 40 },
+            {
+              name: 'href',
+              label: 'Adres',
+              type: 'text',
+              validate: (value: unknown) =>
+                value == null ||
+                value === '' ||
+                (typeof value === 'string' && /^\/(?!\/)/.test(value))
+                  ? true
+                  : 'Adres strony w tej witrynie, np. /opieka-it.',
+            },
+            { name: 'icon', label: 'Ikona', type: 'select', options: ICON_OPTIONS },
+          ],
+        },
+      ],
     },
     orderField,
   ],
