@@ -1,5 +1,7 @@
 import { expect, test, type Page } from '@playwright/test'
 
+import { HEADER_OFFSET } from '../../src/lib/software/smoothScroll'
+
 import { site } from './helpers'
 
 // Prompt 4 R1 (Definition of Done): Biznes joins the motion system of Software and Instalacje
@@ -114,14 +116,16 @@ test.describe('side rail and dialogs (R2)', () => {
     await expect(page).toHaveURL(/#faq$/)
     await expect
       .poll(() =>
-        page.evaluate(() => {
+        page.evaluate((headerOffset) => {
           const section = document.getElementById('faq')!
           const top = Math.round(section.getBoundingClientRect().top)
-          const margin = Math.round(Number.parseFloat(getComputedStyle(section).scrollMarginTop))
+          // Same stop as `glideTo`: the section's own `scroll-margin-top`, else room for the header.
+          const own = Number.parseFloat(getComputedStyle(section).scrollMarginTop)
+          const margin = Math.round(own > 0 ? own : headerOffset)
           return Math.abs(top - margin) <= 2 && section.hasAttribute('data-arrive')
             ? 'arrived'
             : top
-        }),
+        }, HEADER_OFFSET),
       )
       .toBe('arrived')
     await expect(link).toHaveAttribute('aria-current', 'true')
