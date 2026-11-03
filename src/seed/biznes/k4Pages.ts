@@ -1326,6 +1326,15 @@ export function ksefK4Layout(slugOf: SlugOf): K4Layout {
           before: 'W 2026 r. obowiązuje okres przejściowy bez tych kar.',
           after: 'Okres przejściowy bez kar skończył się 31 grudnia 2026 r.',
         },
+        ...(ask
+          ? {
+              ask: {
+                slug: ask,
+                label: 'Przygotujcie moją firmę do KSeF',
+                note: 'Przygotowanie firmy do KSeF',
+              },
+            }
+          : {}),
         help: {
           eyebrow: 'Jak pomagamy',
           heading: 'Od programu po pierwszą fakturę',

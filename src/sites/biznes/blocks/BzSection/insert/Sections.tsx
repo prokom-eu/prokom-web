@@ -51,7 +51,7 @@ export function InsertHero({
       className="relative isolate overflow-hidden bg-surface-dark pt-6 pb-12 text-white sm:pt-8 sm:pb-16"
     >
       <Container wide>
-        <div className="mb-7">
+        <div className="mb-7 max-md:hidden">
           <Breadcrumbs items={withTrail(crumbs, data.trail)} onDark />
         </div>
         <div className="grid items-center gap-10 min-[1080px]:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">

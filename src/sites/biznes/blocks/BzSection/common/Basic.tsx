@@ -1,14 +1,20 @@
-import Link from 'next/link'
-
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
 import { isAfterSwitch } from '@/lib/biznes/pages/ksef'
 import type { SectionData } from '@/lib/biznes/pages/sections'
 import type { BzSectionBlock as BzSectionData } from '@/payload-types'
-import { BZ_H2 } from '@/sites/biznes/typography'
 
 import { PhaseText } from '../k4j/Client'
-import { CARD, EYEBROW, HeadingText, SectionActions, SectionShell, sectionId } from '../ui'
+import {
+  CARD,
+  EYEBROW,
+  H2,
+  HeadingText,
+  SectionActions,
+  SectionShell,
+  SiteLink,
+  sectionId,
+} from '../ui'
 
 type Props = { block: BzSectionData }
 type Item = NonNullable<BzSectionData['items']>[number]
@@ -19,7 +25,7 @@ const items = (block: BzSectionData): Item[] => block.items ?? []
 export function StatsSection({ block }: Props) {
   const dark = block.surface === 'dark'
   return (
-    <SectionShell block={block} className="py-10 sm:py-14">
+    <SectionShell block={block}>
       <dl className="grid grid-cols-2 gap-x-6 gap-y-8 min-[900px]:grid-cols-4">
         {items(block).map((item, i) => (
           <div key={item.id ?? i} className="flex flex-col-reverse gap-1.5">
@@ -50,7 +56,7 @@ function CardLink({ href, label }: { href: string; label: string }) {
       </a>
     )
   }
-  if (/^(tel|mailto):|^#/.test(href)) {
+  if (/^(tel|mailto):/.test(href)) {
     return (
       <a href={href} className={className}>
         {label} →
@@ -58,40 +64,59 @@ function CardLink({ href, label }: { href: string; label: string }) {
     )
   }
   return (
-    <Link href={href} className={className}>
+    <SiteLink href={href} className={className}>
       {label} →
-    </Link>
+    </SiteLink>
   )
 }
 
 /** `cards`: three or four cards with an optional icon, label and link. */
 export function CardsSection({ block }: Props) {
   const list = items(block)
+  // Phone (boards App-*): cards with a link swipe in one row (App-Kontakt, App-OFirmie); plain
+  // cards sit two by two in small tiles (App-GoPOS).
+  const row = list.some((item) => item.href)
   return (
     <SectionShell block={block}>
       <ul
         className={cx(
           'grid gap-4 min-[640px]:grid-cols-2',
           list.length % 4 === 0 ? 'min-[1080px]:grid-cols-4' : 'min-[1080px]:grid-cols-3',
+          row
+            ? 'max-md:-mx-4 max-md:-my-2 max-md:flex max-md:snap-x max-md:snap-mandatory max-md:scroll-px-4 max-md:gap-3 max-md:overflow-x-auto max-md:px-4 max-md:py-2 max-md:[scrollbar-width:none]'
+            : 'max-md:grid-cols-2 max-md:gap-2.5',
         )}
       >
         {list.map((item, i) => (
-          <li key={item.id ?? i} className={cx(CARD, 'flex flex-col gap-2.5 p-6 text-ink sm:p-7')}>
+          <li
+            key={item.id ?? i}
+            className={cx(
+              CARD,
+              'flex flex-col gap-2.5 p-6 text-ink sm:p-7 max-md:gap-1.5',
+              row
+                ? 'max-md:relative max-md:w-[66%] max-md:shrink-0 max-md:snap-start max-md:p-4'
+                : 'max-md:min-w-0 max-md:rounded-[18px] max-md:p-3.5',
+            )}
+          >
             {item.icon && (
               <span
                 aria-hidden="true"
-                className="mb-1 flex size-11 items-center justify-center rounded-xl bg-surface-2 text-accent-text"
+                className="mb-1 flex size-11 items-center justify-center rounded-xl bg-surface-2 text-accent-text max-md:size-9"
               >
-                <Icon name={item.icon} strokeWidth={2.2} className="size-5" />
+                <Icon name={item.icon} strokeWidth={2.2} className="size-5 max-md:size-4" />
               </span>
             )}
             {item.label && !item.href && (
-              <p className={cx(EYEBROW, 'text-accent-text')}>{item.label}</p>
+              <p className={cx(EYEBROW, 'text-accent-text max-md:text-[11px]')}>{item.label}</p>
             )}
-            <h3 className="font-display text-[1.2rem] leading-tight font-extrabold text-balance">
+            <h3 className="font-display text-[1.2rem] leading-tight font-extrabold text-balance max-md:text-[15px]">
               {item.title}
             </h3>
-            {item.text && <p className="leading-relaxed text-pretty text-ink-2">{item.text}</p>}
+            {item.text && (
+              <p className="leading-relaxed text-pretty text-ink-2 max-md:text-[13px] max-md:leading-snug">
+                {item.text}
+              </p>
+            )}
             {item.href && <CardLink href={item.href} label={item.label || 'Zobacz więcej'} />}
           </li>
         ))}
@@ -105,25 +130,38 @@ export function StepsSection({ block }: Props) {
   const list = items(block)
   return (
     <SectionShell block={block}>
+      {/* Phone (App-Ulga, App-GoPOS): a numbered column, the circle left, the text right. */}
       <ol
         className={cx(
-          'grid gap-4 min-[640px]:grid-cols-2',
+          'grid gap-4 max-md:gap-3 min-[768px]:grid-cols-2',
           list.length >= 5 ? 'min-[1080px]:grid-cols-5' : 'min-[1080px]:grid-cols-4',
         )}
       >
         {list.map((item, i) => (
-          <li key={item.id ?? i} className={cx(CARD, 'flex flex-col gap-2 p-6 text-ink')}>
+          <li
+            key={item.id ?? i}
+            className={cx(
+              CARD,
+              'flex flex-col gap-2 p-6 text-ink max-md:grid max-md:grid-cols-[2.25rem_minmax(0,1fr)] max-md:gap-x-3 max-md:gap-y-0.5 max-md:rounded-none max-md:bg-transparent max-md:p-0 max-md:shadow-none',
+            )}
+          >
             <span
               aria-hidden="true"
-              className="mb-2 flex size-10 items-center justify-center rounded-full bg-accent-text font-display text-[15px] font-extrabold text-accent-ink"
+              className="mb-2 flex size-10 items-center justify-center rounded-full bg-accent-text font-display text-[15px] font-extrabold text-accent-ink max-md:row-span-3 max-md:mb-0 max-md:size-9 max-md:text-sm"
             >
               {i + 1}
             </span>
-            {item.label && <p className={cx(EYEBROW, 'text-ink-2')}>{item.label}</p>}
-            <h3 className="font-display text-[1.1rem] leading-tight font-extrabold">
+            {item.label && (
+              <p className={cx(EYEBROW, 'text-ink-2 max-md:text-[10.5px]')}>{item.label}</p>
+            )}
+            <h3 className="font-display text-[1.1rem] leading-tight font-extrabold max-md:text-base">
               {item.title}
             </h3>
-            {item.text && <p className="text-[15px] leading-relaxed text-ink-2">{item.text}</p>}
+            {item.text && (
+              <p className="text-[15px] leading-relaxed text-ink-2 max-md:text-[13px] max-md:leading-snug">
+                {item.text}
+              </p>
+            )}
           </li>
         ))}
       </ol>
@@ -161,15 +199,16 @@ export function BandSection({ block, data }: Props & { data: SectionData<'band'>
     <section
       id={id}
       aria-labelledby={block.heading ? `${id}-h` : undefined}
-      className="scroll-mt-28 px-4 py-12 sm:px-6 sm:py-16 lg:px-8"
+      className="scroll-mt-28 px-4 py-12 max-md:py-6 sm:px-6 sm:py-16 lg:px-8"
     >
-      <div className="mx-auto flex max-w-7xl flex-col gap-6 rounded-[28px] bg-surface-dark px-6 py-10 text-white sm:px-10 min-[900px]:flex-row min-[900px]:items-center min-[900px]:justify-between">
+      {/* Phone (App-OFirmie, App-GoPOS): a compact card, the buttons across it. */}
+      <div className="mx-auto flex max-w-7xl flex-col gap-6 rounded-[28px] bg-surface-dark px-6 py-10 text-white max-md:gap-4 max-md:rounded-[24px] max-md:px-[18px] max-md:py-6 sm:px-10 min-[900px]:flex-row min-[900px]:items-center min-[900px]:justify-between">
         <div className="max-w-[44rem]">
           {block.eyebrow && (
-            <p className={cx(EYEBROW, 'mb-3 text-accent-on-dark')}>{block.eyebrow}</p>
+            <p className={cx(EYEBROW, 'mb-3 text-accent-on-dark max-md:hidden')}>{block.eyebrow}</p>
           )}
           {block.heading && (
-            <h2 id={`${id}-h`} className={BZ_H2}>
+            <h2 id={`${id}-h`} className={H2}>
               {data.after ? (
                 <PhaseText
                   date={data.after.date}
@@ -182,9 +221,17 @@ export function BandSection({ block, data }: Props & { data: SectionData<'band'>
               )}
             </h2>
           )}
-          {block.lead && <p className="mt-3 leading-relaxed text-white/80">{block.lead}</p>}
+          {block.lead && (
+            <p className="mt-3 leading-relaxed text-white/80 max-md:mt-2 max-md:text-[13.5px]">
+              {block.lead}
+            </p>
+          )}
         </div>
-        <SectionActions actions={data.actions} onDark className="shrink-0" />
+        <SectionActions
+          actions={data.actions}
+          onDark
+          className="shrink-0 max-md:grid max-md:grid-cols-1 max-md:gap-2"
+        />
       </div>
     </section>
   )

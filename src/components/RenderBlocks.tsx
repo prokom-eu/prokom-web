@@ -29,6 +29,7 @@ import { BzReferencesBlock } from '@/sites/biznes/blocks/BzReferences/Component'
 import { BzStepsBlock } from '@/sites/biznes/blocks/BzSteps/Component'
 import { BzTimelineBlock } from '@/sites/biznes/blocks/BzTimeline/Component'
 import { getEnv } from '@/lib/env'
+import { hiddenOnPhone } from '@/lib/biznes/pages/phone'
 import { Breadcrumbs } from '@/sites/biznes/components/Breadcrumbs'
 import { SwLinesBlock } from '@/sites/software/blocks/SwLines/Component'
 import { SwPageHeroBlock } from '@/sites/software/blocks/SwPageHero/Component'
@@ -104,11 +105,11 @@ function opensWithHero(block: NonNullable<PublicPage['layout']>[number] | undefi
  * a contact column; on Software, FAQ takes the line's look (SW8b).
  */
 /**
- * Biznes home page below 768 px follows the board App-Start, which has no FAQ and no numbers:
- * those sections stay in the page (and its FAQPage data) but are not shown on a phone.
+ * Biznes below 768 px follows the phone boards App-*: a section the board leaves out stays in the
+ * page (and its FAQPage data) but is not shown on a phone (`lib/biznes/pages/phone`).
  */
-function PhoneHiddenOnHome({ home, children }: { home: boolean; children: ReactNode }) {
-  return home ? <div className="max-md:hidden">{children}</div> : <>{children}</>
+function PhoneHidden({ hidden, children }: { hidden: boolean; children: ReactNode }) {
+  return hidden ? <div className="max-md:hidden">{children}</div> : <>{children}</>
 }
 
 export function RenderBlocks({ page, tenant }: Props) {
@@ -169,9 +170,9 @@ export function RenderBlocks({ page, tenant }: Props) {
           case 'faq':
             if (biznes) {
               return (
-                <PhoneHiddenOnHome key={key} home={page.slug === HOME_SLUG}>
+                <PhoneHidden key={key} hidden={hiddenOnPhone(page.slug, block)}>
                   <FaqBiznes block={block} tenantId={tenant.id} />
-                </PhoneHiddenOnHome>
+                </PhoneHidden>
               )
             }
             if (software) return <FaqSoftware key={key} block={block} tenantId={tenant.id} />
@@ -216,14 +217,18 @@ export function RenderBlocks({ page, tenant }: Props) {
             return <BzReferencesBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzFacts':
             return (
-              <PhoneHiddenOnHome key={key} home={page.slug === HOME_SLUG}>
+              <PhoneHidden key={key} hidden={hiddenOnPhone(page.slug, block)}>
                 <BzFactsBlock block={block} tenantId={tenant.id} />
-              </PhoneHiddenOnHome>
+              </PhoneHidden>
             )
           case 'bzContact':
             return <BzContactBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzLocation':
-            return <BzLocationBlock key={key} block={block} tenantId={tenant.id} />
+            return (
+              <PhoneHidden key={key} hidden={hiddenOnPhone(page.slug, block)}>
+                <BzLocationBlock block={block} tenantId={tenant.id} />
+              </PhoneHidden>
+            )
           case 'bzOrderFlow':
             return <BzOrderFlowBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzTimeline':
@@ -232,15 +237,16 @@ export function RenderBlocks({ page, tenant }: Props) {
             return <BzKsefBlock key={key} block={block} />
           case 'bzSection':
             return (
-              <BzSectionBlock
-                key={key}
-                block={block}
-                tenantId={tenant.id}
-                crumbs={[
-                  { name: 'Strona główna', href: '/' },
-                  { name: page.title, href: pagePath(page.slug) },
-                ]}
-              />
+              <PhoneHidden key={key} hidden={hiddenOnPhone(page.slug, block)}>
+                <BzSectionBlock
+                  block={block}
+                  tenantId={tenant.id}
+                  crumbs={[
+                    { name: 'Strona główna', href: '/' },
+                    { name: page.title, href: pagePath(page.slug) },
+                  ]}
+                />
+              </PhoneHidden>
             )
           case 'swHero':
             return <SwHeroBlock key={key} block={block} isFirst={i === 0} tenantId={tenant.id} />
