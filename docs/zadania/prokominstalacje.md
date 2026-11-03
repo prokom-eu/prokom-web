@@ -16,6 +16,8 @@ Pliki danych widżetów (ADR-I002 „Pliki danych w kodzie”): każda sesja str
 Zasady stałe: jedna sesja = jedno zadanie = jedna gałąź = jeden PR. Zmiana w strefie wspólnej (ADR-I001 §3) = osobny mały PR `inst/wsp-*` scalony od razu. Nowy pomysł w trakcie = wpis w STAN („Pomysły”), nie „przy okazji”. Telefon w każdej sesji z UI (MOBILE-APLIKACJA §10). SEO w każdej sesji z nową stroną (SEO §2.2–2.3).
 
 ## 1. Sesje i szacunek
+
+**Runda v5 (03.11.2026):** `docs/design/prokominstalacje/RUNDA-V5.md` — prompty sesji w §12; ma pierwszeństwo przed prototypem v4.2.
 **Od 30.10 obowiązuje plan przyspieszenia** (`prokominstalacje-przyspieszenie.md`: narzędzia po I6, tokeny wszystkich stron jednym PR, auto-merge małych PR-ów, jeden folder i sesje połączone — 31.10) — pozostałe ≈ 22 wieczory → ≈ 15; tabela niżej to szacunek pierwotny.
 
 | Sesja | Zakres | Wieczory | Zależy od |
@@ -40,8 +42,12 @@ Zasady stałe: jedna sesja = jedno zadanie = jedna gałąź = jeden PR. Zmiana w
 | **I16a** | `/dla-architektow` cz. 1: blok `InstArchitects`, `ArchHouseScene`, hero i sekcje 1–6 (`prokominstalacje-architekci.md`) | 2 | I3, I4 |
 | **I16b** | cz. 2: kolekcja `InstArchNews` + seed, Nowe rozwiązania, Checklista, Liczby, Deweloperzy, Przepisy | 1,5 | I16a |
 | **I16c** | cz. 3: Opiekun, formularze, FAQ, sekcja `#architekci` na głównej (`ArchTeaser`), linki, SEO | 1 | I16b, I6, I11 |
-| **I15** | staging → akceptacja szefa → produkcja | 1 | I14 + [SZEF] |
-| | **Razem** | **≈ 31,5** | |
+| **V5-A** | runda v5: hero, logo marek, Dla kogo, domknięcie ruchu (`RUNDA-V5.md` §1–§3, §9) | 1,5 | I-M |
+| **V5-B** | runda v5: realizacje ze zdjęciami (migracja `photos`), architekci bez przesyłania plików, zdjęcia Nowych rozwiązań (§4, §7) | 1,5 | V5-A |
+| **I15** | staging → akceptacja szefa → produkcja | 1 | V5-B + [SZEF] |
+| **V5-C** | po stagingu: Na Podhalu, Jak pracujemy, Pełna oferta, Teletechnika (§5, §6, §8, §10) | 1,5–2 | I15 (staging) |
+| **V5-D** | po stagingu: ulepszenia podstron (§11) | 0,5–1 | V5-C |
+| | **Razem** | **≈ 37** | |
 
 **Elementy wspólne (01.11, `docs/zadania/wspolne-elementy.md` §1):** **L1-I** zastępuje powłokę z I3 (`topb`/`hdr`/`ftr2`) i dolny pasek z I14; **L2-I** zastępuje `/kontakt` (I11) i `/o-firmie` (I12).
 
