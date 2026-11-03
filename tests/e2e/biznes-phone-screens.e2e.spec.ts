@@ -93,3 +93,42 @@ test('Opieka IT on a computer: the folded sections are open from the start', asy
   await expect(page.getByRole('button', { name: /z\s+opieką\s+i\s+bez/i })).toHaveCount(0)
   await expect(page.getByRole('heading', { level: 2, name: /z\s+opieką\s+i\s+bez/i })).toBeVisible()
 })
+
+for (const path of [
+  '/branze/gastronomia',
+  '/aktualnosci',
+  '/aktualnosci/ksef-od-1-stycznia-2027',
+]) {
+  test(`${path}: phone without the contact form, no sideways scroll`, async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    await page.goto(biznes(path))
+    // App-Branza / App-Aktualnosci / App-Wpis end without the form (the tab bar asks).
+    await expect(page.locator('#kontakt')).toBeHidden()
+    const overflow = await page.evaluate(
+      () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+    )
+    expect(overflow).toBeLessThanOrEqual(0)
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await expect(page.locator('#kontakt')).toBeVisible()
+  })
+}
+
+test('a post on a phone: the sticky „Zapytaj” leads to the inquiry page', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await page.goto(biznes('/aktualnosci/ksef-od-1-stycznia-2027'))
+  await expect(page.getByRole('link', { name: 'Zapytaj o wdrożenie' })).toHaveAttribute(
+    'href',
+    '/zapytanie',
+  )
+})
+
+for (const path of ['/zestawy', '/produkt/lenovo-thinkbook-14-g8-g9']) {
+  test(`${path}: no sideways scroll on a phone`, async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    await page.goto(biznes(path))
+    const overflow = await page.evaluate(
+      () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+    )
+    expect(overflow).toBeLessThanOrEqual(0)
+  })
+}

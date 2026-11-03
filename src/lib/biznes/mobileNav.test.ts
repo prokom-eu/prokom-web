@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { activeBiznesTab, parentPath } from './mobileNav'
+import { activeBiznesTab, parentPath, phoneContactHref } from './mobileNav'
 
 describe('activeBiznesTab', () => {
   it('marks Start only on the start page itself', () => {
@@ -61,5 +61,13 @@ describe('parentPath', () => {
 
   it('ignores a trailing slash', () => {
     expect(parentPath('/oferta/laptopy/')).toBe('/oferta')
+  })
+})
+
+describe('phoneContactHref', () => {
+  it('a link to the contact section leads to the inquiry page; others stay', () => {
+    expect(phoneContactHref('/aktualnosci/ksef#kontakt')).toBe('/zapytanie')
+    expect(phoneContactHref('#kontakt')).toBe('/zapytanie')
+    expect(phoneContactHref('/konfigurator?firma=gastro')).toBe('/konfigurator?firma=gastro')
   })
 })

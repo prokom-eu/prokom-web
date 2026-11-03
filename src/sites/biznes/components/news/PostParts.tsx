@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
 import { Icon } from '@/components/ui/Icon'
+import { phoneContactHref } from '@/lib/biznes/mobileNav'
 import type { PostCard } from '@/lib/posts/cards'
 import type { OutlineItem } from '@/lib/posts/content'
 import type { PostView } from '@/lib/posts/view'
@@ -93,7 +94,11 @@ export function PostAside({ post, outline, related }: AsideProps) {
   return (
     <div className="flex h-full flex-col gap-3.5">
       {post.cta && (
-        <div data-surface="dark" className="rounded-[24px] bg-surface-dark p-6 text-white">
+        // Phone (App-Wpis): the sticky bar below carries this call; the card is not shown.
+        <div
+          data-surface="dark"
+          className="rounded-[24px] bg-surface-dark p-6 text-white max-md:hidden"
+        >
           {post.cta.eyebrow && (
             <p className="text-[13px] font-extrabold tracking-[0.08em] text-accent-on-dark uppercase">
               {post.cta.eyebrow}
@@ -114,13 +119,14 @@ export function PostAside({ post, outline, related }: AsideProps) {
           outside the dark card, whose `data-surface` would recolour the bar. */}
       {post.cta && (
         <StickyAction>
-          <Link href={post.cta.link.href} className={STICKY_ACTION_BUTTON}>
+          {/* The contact section is not shown on a phone (App-Wpis): the inquiry page asks. */}
+          <Link href={phoneContactHref(post.cta.link.href)} className={STICKY_ACTION_BUTTON}>
             {post.cta.link.label}
           </Link>
         </StickyAction>
       )}
       {post.countdown && (
-        <div className={CARD}>
+        <div className={`${CARD} max-md:hidden`}>
           <p className="font-bold text-ink">{post.countdown.label}</p>
           <DayCount
             date={post.countdown.date}
@@ -132,7 +138,7 @@ export function PostAside({ post, outline, related }: AsideProps) {
         </div>
       )}
       {related.length > 0 && (
-        <nav aria-label={NEWS_TEXTS.readAlso} className={CARD}>
+        <nav aria-label={NEWS_TEXTS.readAlso} className={`${CARD} max-md:hidden`}>
           <p className="font-bold text-ink">{NEWS_TEXTS.readAlso}</p>
           <ul className="mt-3 flex flex-col gap-2.5">
             {related.map((item) => (
