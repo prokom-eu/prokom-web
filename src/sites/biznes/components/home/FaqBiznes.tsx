@@ -1,3 +1,4 @@
+import { cx } from '@/components/ui/cx'
 import { Container } from '@/components/ui/Container'
 import { Icon } from '@/components/ui/Icon'
 import { faqJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
@@ -27,27 +28,30 @@ export async function FaqBiznes({ block, tenantId }: Props) {
   const hours = company?.locations[0]?.hours ?? []
 
   return (
-    <section id="faq" aria-labelledby="faq-h" className="bg-surface-2 py-16 sm:py-24">
+    <section id="faq" aria-labelledby="faq-h" className="bg-surface-2 py-16 max-md:py-7 sm:py-24">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: serializeJsonLd(faqJsonLd(block.items)) }}
       />
       <Container
         wide
-        className="grid gap-10 min-[1080px]:grid-cols-[minmax(0,0.8fr)_minmax(0,1fr)]"
+        className="grid gap-10 max-md:gap-4 min-[1080px]:grid-cols-[minmax(0,0.8fr)_minmax(0,1fr)]"
       >
         <div className="min-[1080px]:sticky min-[1080px]:top-28 min-[1080px]:self-start">
           {block.eyebrow && (
-            <p className="mb-3 text-[13px] font-extrabold tracking-[0.08em] text-accent-text uppercase">
+            <p className="mb-3 text-[13px] font-extrabold tracking-[0.08em] text-accent-text uppercase max-md:hidden">
               {block.eyebrow}
             </p>
           )}
-          <h2 id="faq-h" className={BZ_H2}>
+          <h2 id="faq-h" className={cx(BZ_H2, 'max-md:text-[22px] max-md:leading-[1.1]')}>
             {block.heading || DEFAULT_HEADING}
           </h2>
-          {block.lead && <p className={`${BZ_LEAD} mt-4 max-w-[46ch] text-ink-2`}>{block.lead}</p>}
+          {block.lead && (
+            <p className={`${BZ_LEAD} mt-4 max-w-[46ch] text-ink-2 max-md:hidden`}>{block.lead}</p>
+          )}
           {(phone || email || whatsapp) && (
-            <div className="mt-6 max-w-[420px] rounded-[22px] bg-card p-5 shadow-[0_24px_48px_-32px_var(--glow),inset_0_0_0_1px_var(--border)]">
+            // Phone (boards App-*): the questions only; calling is in the tab bar.
+            <div className="mt-6 max-w-[420px] rounded-[22px] bg-card p-5 shadow-[0_24px_48px_-32px_var(--glow),inset_0_0_0_1px_var(--border)] max-md:hidden">
               <LiveHours hours={hours} className="text-sm text-ink" />
               {phone && tel && (
                 <a
@@ -84,18 +88,18 @@ export async function FaqBiznes({ block, tenantId }: Props) {
             </div>
           )}
         </div>
-        <ol className="flex flex-col gap-2.5">
+        <ol className="flex flex-col gap-2.5 max-md:gap-2">
           {block.items.map((item, i) => (
             <li key={item.id ?? i}>
               <details
                 open={i === 0}
                 className="group rounded-[18px] bg-card shadow-[inset_0_0_0_1px_var(--border)] transition-shadow open:shadow-[0_20px_40px_-28px_var(--glow),inset_0_0_0_1.5px_var(--accent-text)]"
               >
-                <summary className="flex min-h-[68px] cursor-pointer list-none items-center gap-4 px-5 py-4 [&::-webkit-details-marker]:hidden">
+                <summary className="flex min-h-[68px] cursor-pointer list-none items-center gap-4 px-5 py-4 max-md:min-h-14 max-md:gap-3 max-md:px-4 max-md:py-3 [&::-webkit-details-marker]:hidden">
                   <span className="font-display text-sm font-extrabold text-accent-text">
                     {String(i + 1).padStart(2, '0')}
                   </span>
-                  <span className="flex-1 text-[16.5px] leading-snug font-extrabold text-ink">
+                  <span className="flex-1 text-[16.5px] leading-snug font-extrabold text-ink max-md:text-[15px]">
                     {item.question}
                   </span>
                   <span
@@ -113,7 +117,9 @@ export async function FaqBiznes({ block, tenantId }: Props) {
                     </svg>
                   </span>
                 </summary>
-                <p className="px-5 pb-5 pl-[3.6rem] leading-relaxed text-ink-2">{item.answer}</p>
+                <p className="px-5 pb-5 pl-[3.6rem] leading-relaxed text-ink-2 max-md:px-4 max-md:pb-4 max-md:pl-[3.2rem] max-md:text-sm">
+                  {item.answer}
+                </p>
               </details>
             </li>
           ))}

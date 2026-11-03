@@ -173,18 +173,25 @@ export function StepsSection({ block }: Props) {
 export function CasesSection({ block }: Props) {
   return (
     <SectionShell block={block}>
-      <ul className="grid gap-4 min-[640px]:grid-cols-2 min-[1080px]:grid-cols-4">
+      {/* Phone (App-GoPOS „Wyniki klientów”): the results in one row to swipe. */}
+      <ul className="grid gap-4 max-md:-mx-4 max-md:-my-2 max-md:flex max-md:snap-x max-md:snap-mandatory max-md:scroll-px-4 max-md:gap-3 max-md:overflow-x-auto max-md:px-4 max-md:py-2 max-md:[scrollbar-width:none] min-[640px]:grid-cols-2 min-[1080px]:grid-cols-4">
         {items(block).map((item, i) => (
           <li
             key={item.id ?? i}
             className={cx(
-              'flex flex-col gap-2 rounded-[22px] p-6',
+              'flex flex-col gap-2 rounded-[22px] p-6 max-md:w-[52%] max-md:shrink-0 max-md:snap-start max-md:gap-1 max-md:p-4',
               i === 0 ? 'bg-surface-dark text-white' : cx(CARD, 'text-ink'),
             )}
           >
-            <p className="font-display text-[2.4rem] leading-none font-extrabold">{item.label}</p>
-            <p className={i === 0 ? 'text-white/85' : 'text-ink-2'}>{item.text}</p>
-            <p className="mt-auto pt-3 font-extrabold">{item.title}</p>
+            <p className="font-display text-[2.4rem] leading-none font-extrabold max-md:text-[30px]">
+              {item.label}
+            </p>
+            <p className={cx('max-md:text-[13px]', i === 0 ? 'text-white/85' : 'text-ink-2')}>
+              {item.text}
+            </p>
+            <p className="mt-auto pt-3 font-extrabold max-md:pt-1.5 max-md:text-[13px]">
+              {item.title}
+            </p>
           </li>
         ))}
       </ul>
@@ -330,11 +337,16 @@ export function ChipsSection({ block, data }: Props & { data: SectionData<'chips
   const visible = data.visible > 0 ? data.groups.slice(0, data.visible) : data.groups
   const rest = data.visible > 0 ? data.groups.slice(data.visible) : []
   const group = (g: (typeof data.groups)[number]) => (
-    <li key={g.t} className={cx(CARD, 'flex flex-col gap-3 p-5 text-ink')}>
-      <h3 className="font-extrabold">{g.t}</h3>
-      <ul className="flex flex-wrap gap-2">
+    <li key={g.t} className={cx(CARD, 'flex flex-col gap-3 p-5 text-ink max-md:gap-2 max-md:p-4')}>
+      <h3 className="font-extrabold max-md:text-[11px] max-md:tracking-[0.08em] max-md:text-accent-text max-md:uppercase">
+        {g.t}
+      </h3>
+      <ul className="flex flex-wrap gap-2 max-md:gap-1.5">
         {g.items.map((chip) => (
-          <li key={chip} className="rounded-full bg-surface-2 px-3 py-1.5 text-[14px] text-ink-2">
+          <li
+            key={chip}
+            className="rounded-full bg-surface-2 px-3 py-1.5 text-[14px] text-ink-2 max-md:px-2.5 max-md:py-1 max-md:text-[13px]"
+          >
             {chip}
           </li>
         ))}
@@ -343,10 +355,11 @@ export function ChipsSection({ block, data }: Props & { data: SectionData<'chips
   )
   return (
     <SectionShell block={block}>
-      <ul className="grid gap-4 min-[640px]:grid-cols-2 min-[1080px]:grid-cols-4">
+      <ul className="grid gap-4 max-md:gap-2 min-[640px]:grid-cols-2 min-[1080px]:grid-cols-4">
         {visible.map(group)}
         {data.total && (
-          <li className="flex flex-col justify-center gap-1 rounded-[22px] bg-accent-text p-5 text-accent-ink">
+          // Phone (App-GoPOS): the count is in the heading pill, not a big card.
+          <li className="flex flex-col justify-center gap-1 rounded-[22px] bg-accent-text p-5 text-accent-ink max-md:hidden">
             <span className="font-display text-[2.4rem] leading-none font-extrabold">
               {data.total.v}
             </span>

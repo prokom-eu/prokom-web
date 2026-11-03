@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { hiddenOnPhone, phoneFormHref } from './phone'
+import { foldedOnPhone, hiddenOnPhone, phoneFormHref } from './phone'
 
 describe('hiddenOnPhone (boards App-*: sections a phone screen leaves out)', () => {
   it('home: FAQ and the numbers, nothing else', () => {
@@ -29,6 +29,15 @@ describe('hiddenOnPhone (boards App-*: sections a phone screen leaves out)', () 
     expect(phoneFormHref('/kontakt')).toBeNull()
     expect(phoneFormHref('#pakiet')).toBeNull()
     expect(phoneFormHref('/oferta#formularz')).toBeNull()
+  })
+
+  it('Opieka IT folds the comparison and the audience, not the steps', () => {
+    expect(foldedOnPhone('opieka-it', { blockType: 'bzSection', variant: 'table' })).toBe(true)
+    expect(foldedOnPhone('opieka-it', { blockType: 'bzSection', variant: 'audience' })).toBe(true)
+    expect(foldedOnPhone('opieka-it', { blockType: 'bzSection', variant: 'switch-steps' })).toBe(
+      false,
+    )
+    expect(foldedOnPhone('ksef', { blockType: 'bzSection', variant: 'table' })).toBe(false)
   })
 
   it('a page without rules shows everything', () => {

@@ -193,11 +193,25 @@ export function VendingPicker({
             key={tab.t}
             className="grid gap-5 min-[1080px]:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]"
           >
-            <p className={cx(CARD, 'p-6 leading-relaxed text-ink-2')}>{tab.d}</p>
-            <ul className="flex flex-col gap-3">
+            <p
+              className={cx(
+                CARD,
+                'p-6 leading-relaxed text-ink-2 max-md:p-4 max-md:text-[13.5px] max-md:leading-snug',
+              )}
+            >
+              {tab.d}
+            </p>
+            {/* Phone (App-Vending): short rows — photo, name, the add button. */}
+            <ul className="flex flex-col gap-3 max-md:gap-2">
               {tab.products.map((product) => (
-                <li key={product.slug} className={cx(CARD, 'flex items-center gap-4 p-3 text-ink')}>
-                  <span className="flex size-20 shrink-0 items-center justify-center rounded-xl bg-white p-2">
+                <li
+                  key={product.slug}
+                  className={cx(
+                    CARD,
+                    'flex items-center gap-4 p-3 text-ink max-md:gap-3 max-md:p-2.5',
+                  )}
+                >
+                  <span className="flex size-20 shrink-0 items-center justify-center rounded-xl bg-white p-2 max-md:size-14">
                     {product.image && (
                       <Image
                         unoptimized
@@ -212,12 +226,14 @@ export function VendingPicker({
                   <span className="flex min-w-0 flex-1 flex-col">
                     <Link
                       href={productHref(product.slug)}
-                      className="font-extrabold hover:underline"
+                      className="font-extrabold hover:underline max-md:text-sm max-md:leading-snug"
                     >
                       {product.name}
                     </Link>
                     {product.benefit && (
-                      <small className="text-[14px] text-ink-2">{product.benefit}</small>
+                      <small className="text-[14px] text-ink-2 max-md:line-clamp-1 max-md:text-xs">
+                        {product.benefit}
+                      </small>
                     )}
                   </span>
                   <AddMachineButton slug={product.slug} name={product.name} note={data.note} />
@@ -242,17 +258,26 @@ export function AppMockup({
   return (
     <SectionShell block={block}>
       <div className="grid items-center gap-8 min-[1080px]:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]">
-        <ul className="grid gap-3 min-[640px]:grid-cols-2">
+        {/* Phone (App-Vending): the features as one list; no phone picture. */}
+        <ul className="grid gap-3 max-md:gap-0 max-md:divide-y max-md:divide-border max-md:rounded-[20px] max-md:px-4 max-md:shadow-[inset_0_0_0_1px_var(--border)] min-[640px]:grid-cols-2">
           {data.features.map((feature) => (
-            <li key={feature.t} className={cx(CARD, 'flex flex-col gap-1 p-5 text-ink')}>
-              <b className="font-extrabold">{feature.t}</b>
-              <small className="text-[14px] leading-relaxed text-ink-2">{feature.d}</small>
+            <li
+              key={feature.t}
+              className={cx(
+                CARD,
+                'flex flex-col gap-1 p-5 text-ink max-md:gap-0 max-md:rounded-none max-md:bg-transparent max-md:px-0 max-md:py-2.5 max-md:shadow-none',
+              )}
+            >
+              <b className="font-extrabold max-md:text-sm">{feature.t}</b>
+              <small className="text-[14px] leading-relaxed text-ink-2 max-md:text-xs">
+                {feature.d}
+              </small>
             </li>
           ))}
         </ul>
         <div
           aria-hidden="true"
-          className="mx-auto w-full max-w-[300px] rounded-[36px] bg-surface-dark p-3 shadow-[0_40px_80px_-40px_black]"
+          className="mx-auto w-full max-w-[300px] rounded-[36px] bg-surface-dark p-3 shadow-[0_40px_80px_-40px_black] max-md:hidden"
         >
           <div className="flex flex-col gap-3 rounded-[28px] bg-card p-4 text-ink">
             <div className="flex items-center justify-between">

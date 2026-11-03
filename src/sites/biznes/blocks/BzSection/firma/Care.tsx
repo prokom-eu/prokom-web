@@ -167,13 +167,13 @@ export function Audience({
 }) {
   return (
     <SectionShell block={block}>
-      <ul className="grid gap-4 min-[640px]:grid-cols-2 min-[1080px]:grid-cols-4">
+      <ul className="grid gap-4 max-md:gap-2.5 min-[640px]:grid-cols-2 min-[1080px]:grid-cols-4">
         {data.items.map((item) => {
           const [product] = item.image ? productsBySlug(index, [item.image]) : []
           return (
-            <li key={item.t} className={cx(CARD, 'flex flex-col gap-2 p-5 text-ink')}>
+            <li key={item.t} className={cx(CARD, 'flex flex-col gap-2 p-5 text-ink max-md:p-4')}>
               {product?.image && (
-                <span className="mb-2 flex h-28 items-center justify-center rounded-2xl bg-surface-2 p-3">
+                <span className="mb-2 flex h-28 items-center justify-center rounded-2xl bg-surface-2 p-3 max-md:hidden">
                   <Image
                     unoptimized
                     src={product.image.url}
@@ -215,8 +215,16 @@ export function StartCalendar({
   return (
     <SectionShell block={block}>
       <div className="grid gap-5 min-[1080px]:grid-cols-2">
-        <div className={cx(CARD, 'flex flex-col gap-4 p-6 text-ink sm:p-7')}>
-          <p className={cx(EYEBROW, 'text-accent-text')}>{data.start.eyebrow}</p>
+        {/* Phone (App-Opieka): „Na start” as a dark list; the calendar is not on the board. */}
+        <div
+          className={cx(
+            CARD,
+            'flex flex-col gap-4 p-6 text-ink max-md:gap-2.5 max-md:bg-surface-dark max-md:p-[18px] max-md:text-white max-md:shadow-none sm:p-7',
+          )}
+        >
+          <p className={cx(EYEBROW, 'text-accent-text max-md:text-accent-on-dark')}>
+            {data.start.eyebrow}
+          </p>
           <h3 className="font-display text-[1.5rem] leading-tight font-extrabold">
             {data.start.heading}
           </h3>
@@ -228,13 +236,15 @@ export function StartCalendar({
                 </i>
                 <span className="flex flex-col">
                   <b className="font-extrabold">{item.t}</b>
-                  <small className="text-[14px] leading-relaxed text-ink-2">{item.d}</small>
+                  <small className="text-[14px] leading-relaxed text-ink-2 max-md:text-[13px] max-md:text-white/70">
+                    {item.d}
+                  </small>
                 </span>
               </li>
             ))}
           </ol>
         </div>
-        <div className={cx(CARD, 'flex flex-col gap-4 p-6 text-ink sm:p-7')}>
+        <div className={cx(CARD, 'flex flex-col gap-4 p-6 text-ink max-md:hidden sm:p-7')}>
           <p className={cx(EYEBROW, 'text-accent-text')}>{data.calendar.eyebrow}</p>
           <h3 className="font-display text-[1.5rem] leading-tight font-extrabold">
             {data.calendar.heading}

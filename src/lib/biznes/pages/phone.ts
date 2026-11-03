@@ -28,6 +28,19 @@ const RULES: Record<string, readonly Rule[]> = {
   'o-firmie': [{ type: 'bzLocation' }],
   // App-GoPOS: every section but the producer's numbers under the hero.
   gopos: [{ type: 'bzSection', variant: 'stats' }],
+  // App-Opieka: no closing band (the seats card asks for the care).
+  'opieka-it': [{ type: 'bzSection', variant: 'band' }],
+  // App-Vending: no sources block.
+  'automaty-vendingowe': [{ type: 'bzSection', variant: 'sources' }],
+}
+
+/** Sections folded to one row on a phone (boards App-*: a title row that unfolds). */
+const FOLDS: Record<string, readonly Rule[]> = {
+  // App-Opieka: „Z opieką i bez”, „Dla kogo”.
+  'opieka-it': [
+    { type: 'bzSection', variant: 'table' },
+    { type: 'bzSection', variant: 'audience' },
+  ],
 }
 
 /** The contact form (`#formularz` on /kontakt) is not shown below 768 px. */
@@ -42,7 +55,15 @@ export function phoneFormHref(href: string): string | null {
 }
 
 export function hiddenOnPhone(slug: string, block: BlockLike): boolean {
-  return (RULES[slug] ?? []).some(
+  return matches(RULES[slug], block)
+}
+
+export function foldedOnPhone(slug: string, block: BlockLike): boolean {
+  return matches(FOLDS[slug], block)
+}
+
+function matches(rules: readonly Rule[] | undefined, block: BlockLike): boolean {
+  return (rules ?? []).some(
     (rule) =>
       rule.type === block.blockType &&
       (rule.variant === undefined || rule.variant === block.variant),
