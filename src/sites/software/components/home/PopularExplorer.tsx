@@ -2,6 +2,7 @@
 
 import { type KeyboardEvent, useId, useRef, useState } from 'react'
 
+import { useRevealCards } from '@/components/motion/RevealObserver'
 import { SlidingPill } from '@/components/motion/SlidingPill'
 import { cx } from '@/components/ui/cx'
 import { plural } from '@/lib/plural'
@@ -40,6 +41,8 @@ const KEYS: Record<string, (index: number, count: number) => number> = {
  */
 export function PopularExplorer({ cards, tabs, display, offers, count, hint }: Props) {
   const id = useId()
+  // Loaded with `next/dynamic`: the cards' rise-in mark only after hydration (SWV8 P0 #1).
+  const revealCards = useRevealCards()
   const [tab, setTab] = useState(tabs[0]?.key ?? 'all')
   const [open, setOpen] = useState<string | null>(null)
   const buttons = useRef<(HTMLButtonElement | null)[]>([])
@@ -125,7 +128,7 @@ export function PopularExplorer({ cards, tabs, display, offers, count, hint }: P
       <div id={`${id}-list`} role="tabpanel" aria-labelledby={`${id}-tab-${tab}`}>
         <ul
           id={`${id}-cards`}
-          data-reveal-cards
+          {...revealCards}
           className="-mx-4 flex snap-x snap-mandatory items-start gap-3 overflow-x-auto px-4 pb-2 [scrollbar-width:none] min-[640px]:mx-0 min-[640px]:grid min-[640px]:items-stretch min-[640px]:grid-cols-2 min-[640px]:gap-4 min-[640px]:overflow-visible min-[640px]:px-0 min-[640px]:pb-0 min-[1081px]:grid-cols-4"
         >
           {shown.map((card, i) => (
