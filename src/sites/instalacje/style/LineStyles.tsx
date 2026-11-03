@@ -9,7 +9,8 @@ import dynamic from 'next/dynamic'
  * renders its CSS as `<link rel="stylesheet" precedence>` only where the component renders,
  * React hoists it into <head> and the page paints after it loads (no flash of unstyled content).
  * All of the line's stylesheets go through here, so they share one cascade group, in render
- * order (frame first). A new stylesheet goes into one of these modules (`style.test.ts`).
+ * order: the Tailwind sheet first (`LineSheet` in the root layout), then the frame. A new stylesheet
+ * goes into one of these modules (`style.test.ts`).
  */
 const Tailwind = dynamic(() => import('./tailwind'))
 const Frame = dynamic(() => import('./frame'))

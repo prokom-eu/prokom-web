@@ -88,4 +88,4 @@ Kolumna „+ zod + fonty” to próbny build z obiema zmianami (deklaracja `font
 
 **Wynik (arkusz blokujący render, gzip):** Biznes 57,6 → 38,7 KB, Software → 32,5 KB, Instalacje → 31,0 KB (+ jej arkusze ramki bez zmian). Wygląd bez zmian: style obliczone wszystkich elementów identyczne na 23 stronach (Biznes 10, Software 5, Instalacje 4, nieznana domena) w 1440 i 390, jasny i ciemny.
 
-**Reguła:** klasa Tailwind użyta w folderze jednej linii trafia tylko do jej arkusza; kod wspólny (`components`, `blocks`, `lib`, `app`) jest w każdym. Komponent jednej linii renderowany przez drugą wymaga `@source` tego pliku w arkuszu drugiej (dziś: `PostContent` Biznesu w Software).
+**Reguła:** klasa Tailwind użyta w folderze jednej linii trafia tylko do jej arkusza; kod wspólny (`components`, `blocks`, `lib`, `app`) jest w każdym. Komponent jednej linii renderowany przez drugą wymaga `@source` w arkuszu drugiej (dziś: `news/` Biznesu w Software) — pilnuje tego `lineSheet.test.ts` (każdy plik innej linii osiągalny z importów linii musi być objęty jej `@source`).

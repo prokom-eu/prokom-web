@@ -6,8 +6,8 @@
 @import '../../../styles/site.css';
 
 @source '..';
-/* A news post renders the Biznes post body (`PostContent`). */
-@source '../../biznes/components/news/PostContent.tsx';
+/* A news post renders the Biznes post body (`news/PostContent`); the folder, in case it grows. */
+@source '../../biznes/components/news';
 
 /*
  * Thumbnails of Software solutions (spec. §5.2, ADR-015 v22 pkt 4): the SVG files carry their own

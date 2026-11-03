@@ -1,5 +1,5 @@
-import { readdirSync, readFileSync } from 'node:fs'
-import { join } from 'node:path'
+import { existsSync, readdirSync, readFileSync } from 'node:fs'
+import { dirname, join, normalize, relative, resolve } from 'node:path'
 
 import { describe, expect, it } from 'vitest'
 
@@ -50,6 +50,52 @@ describe('one Tailwind sheet per line', () => {
       .filter((file) => read(file).includes('tokens-instalacje.css'))
       .map((file) => file.split('\\').join('/'))
     expect(withLineTokens).toEqual([ENTRIES.instalacje])
+  })
+
+  // A component of one line rendered by another (e.g. Biznes `PostContent` in Software) has its
+  // classes only in its own line's sheet unless the other sheet scans it too (`@source`).
+  it("every file of another line that a line's code reaches is in that line's @source", () => {
+    const posix = (file: string) => normalize(file).split('\\').join('/')
+    const resolveFile = (spec: string, from: string): string | null => {
+      const base = spec.startsWith('@/') ? join('src', spec.slice(2)) : resolve(dirname(from), spec)
+      const found = ['.tsx', '.ts', '/index.tsx', '/index.ts', '']
+        .map((ext) => base + ext)
+        .find((file) => existsSync(file) && !file.endsWith('/'))
+      return found ? posix(relative('.', found)) : null
+    }
+    const importsOf = (file: string) =>
+      [...read(file).matchAll(/(?:^import |from |import\()'([^']+)'/gm)]
+        .map(([, spec]) => spec!)
+        .filter((spec) => spec.startsWith('.') || spec.startsWith('@/sites/'))
+        .map((spec) => resolveFile(spec, file))
+        .filter((file): file is string => file !== null && /\.tsx?$/.test(file))
+
+    for (const line of ['biznes', 'software', 'instalacje'] as const) {
+      const own = `src/sites/${line}/`
+      const sheet = ENTRIES[line]
+      const scanned = [...read(sheet).matchAll(/^@source '([^']+)';/gm)].map(([, path]) =>
+        posix(relative('.', resolve(dirname(sheet), path!))),
+      )
+      const covered = (file: string) =>
+        scanned.some((path) => file === path || file.startsWith(`${path}/`))
+      // Files of other lines reached from this line's code, following their own imports.
+      const queue = sources(own)
+        .filter((file) => /\.tsx?$/.test(file) && !file.endsWith('.test.ts'))
+        .flatMap(importsOf)
+        .filter((file) => file.startsWith('src/sites/') && !file.startsWith(own))
+      const reached = new Set<string>()
+      while (queue.length) {
+        const file = queue.pop()!
+        if (reached.has(file)) continue
+        reached.add(file)
+        queue.push(...importsOf(file).filter((next) => !next.startsWith(own)))
+      }
+      const foreign = [...reached].filter((file) => file.startsWith('src/sites/'))
+      expect(
+        foreign.filter((file) => !covered(file)),
+        line,
+      ).toEqual([])
+    }
   })
 
   it('LineSheet renders a sheet for every line', () => {
