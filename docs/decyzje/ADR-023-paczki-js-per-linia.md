@@ -91,3 +91,26 @@ Kolumna „+ zod + fonty” to próbny build z obiema zmianami (deklaracja `font
 **Lighthouse mobile** (lokalnie `pnpm build && pnpm start`, lhci 0.15.1, mediana z 3, baza: develop po #313): Biznes `/` 80 → 82, `/oferta` 83 → 83, produkt 85 → 86, `/marki/apple` 86 → 86, `/kontakt` 86 → 87, `/plan-firmy` 86 → 86; Instalacje `/`, `/kontakt` 87 → 87; Software `/`, `/rozwiazania` 86 → 87. Mały zysk, bo FCP był już ~1,2 s — resztę różnicy opisuje dopisek „Dane planu firmy” niżej.
 
 **Reguła:** klasa Tailwind użyta w folderze jednej linii trafia tylko do jej arkusza; kod wspólny (`components`, `blocks`, `lib`, `app`) jest w każdym. Komponent jednej linii renderowany przez drugą wymaga `@source` w arkuszu drugiej (dziś: `news/` Biznesu w Software) — pilnuje tego `lineSheet.test.ts` (każdy plik innej linii osiągalny z importów linii musi być objęty jej `@source`).
+
+## Dopisek: Dane planu firmy poza HTML głównej (03.11.2026, `perf/biznes-plan-dane`)
+**Problem:** blok `bzPlan` na głównej Biznesu wysyłał w HTML/RSC cały plan: 12 scen z punktami i produkty wszystkich scen (~125 KB surowe, z czego produkty ~96 KB).
+
+**Decyzja:** główna wysyła wszystkie sceny (kafle, liczniki, punkty), ale produkty i zestawy tylko pierwszej sceny (`planForScenes`, `src/sites/biznes/components/plan/planScenes.ts`). Pozostałe sceny dochodzą z `GET /api/plan-scene/<scena>` — ten sam wzór co `/api/plan-svg`: tylko domena Biznesu, slug sprawdzany z listą scen tenanta, plan czytany z tenantem hosta (`loadFloorPlan`), `Cache-Control: public, max-age=300`. `FloorPlan` pobiera scenę przy wyborze i z wyprzedzeniem przy najechaniu/fokusie na kafel; w trakcie ładowania liczniki ze sceny, przycisk „Dodaj cały plan” nieaktywny, po błędzie komunikat z „Spróbuj ponownie”. `/plan-firmy` i `?scena=` bez zmian (strona dostaje cały plan, nie pyta trasy — e2e).
+
+**Wynik:** dane planu w HTML głównej 125 → 42 KB surowe, HTML głównej 131 → 106 KB gzip.
+
+## Lighthouse po CSS per linia i danych planu (03.11.2026)
+Lokalnie `pnpm build && pnpm start`, lhci 0.15.1, mediana z 3, baza: develop po #313.
+
+| strona | przed | CSS per linia | + dane planu | próba: preload tylko Manrope latin |
+|---|---|---|---|---|
+| Biznes `/` | 80 | 82 | 81 | 81 |
+| `/oferta` | 83 | 83 | 85 | 80 |
+| `/produkt/posnet-ergo-online` | 85 | 86 | 86 | 84 |
+| `/marki/apple` | 86 | 86 | 86 | 85 |
+| `/kontakt` | 86 | 87 | 87 | 85 |
+| `/plan-firmy` | 86 | 86 | 86 | 83 |
+| Instalacje `/`, `/kontakt` | 87, 87 | 87, 87 | 87, 87 | 86, 86 |
+| Software `/`, `/rozwiazania` | 86, 86 | 87, 87 | 87, 87 | 86, 85 |
+
+**Reszta różnicy do 90 (wszystkie linie, każda strona):** FCP i Speed Index ~1,2 s (ocena 0,99–1), TBT ~13 ms, CLS 0 — całą różnicę robi **LCP ~4,0 s** (ocena ~0,5). Elementem LCP jest akapit tekstu (lead pod H1); zmierzone bez symulacji FCP = LCP ≈ 0,2 s, ale symulacja wolnego 4G (Lantern) wlicza w LCP tekstu wszystkie żądania rozpoczęte przed nim, w tym 4 pliki fontów (128 KB). Próba bez preloadu trzech fontów nie pomogła (fonty i tak startują z CSS przed pierwszym malowaniem; wynik −1…−3, CLS do 0,04) — nie wchodzi. Dalsze kroki to decyzja Krystiana (pytanie w STAN): pomiar na stagingu (prawdziwy serwer: HTTP/2, kompresja) zanim cokolwiek dalej, albo zmiana strategii fontów (decyzja marki, ADR-007).
