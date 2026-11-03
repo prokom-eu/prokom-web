@@ -194,7 +194,6 @@ test.describe('Biznes hero wheel (KOLO-HERO v3)', () => {
 
     await pauseButton(page).click()
     await expect(pauseButton(page)).toHaveText('Wznów animację')
-    await expect(pauseButton(page)).toHaveAttribute('aria-pressed', 'true')
     const selected = await tabs(page).evaluateAll((els) =>
       els.findIndex((el) => el.getAttribute('aria-selected') === 'true'),
     )

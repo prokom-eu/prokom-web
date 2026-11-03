@@ -93,8 +93,10 @@ export function wheelGroups(
   const bySlug = new Map(index.products.map((product) => [product.slug, product]))
   return index.groups.map((group) => {
     const cards: WheelItem[] = (group.wheelCards ?? []).flatMap((card) => {
+      // Each bubble stands in its own department (KOLO-HERO §Pozycje): a card of another one
+      // picked in the panel would sit under the wrong department, or twice on the ring.
       const product = bySlug.get(card.slug)
-      if (!product) return []
+      if (!product || product.group !== group.slug) return []
       const query = card.color ? `?kolor=${encodeURIComponent(card.color)}` : ''
       return [
         {
