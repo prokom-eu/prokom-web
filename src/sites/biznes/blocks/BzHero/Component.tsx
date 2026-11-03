@@ -4,7 +4,7 @@ import { Container } from '@/components/ui/Container'
 import { Icon } from '@/components/ui/Icon'
 import { splitDots, splitTime } from '@/lib/biznes/textParts'
 import { getCatalogIndex } from '@/lib/catalog/data'
-import { groupSummaries } from '@/lib/catalog/groups'
+import { wheelGroups } from '@/lib/catalog/groups'
 import type { IconName } from '@/lib/catalog/options'
 import { getSiteSettings } from '@/lib/site/data'
 import { toTelHref } from '@/lib/site/link'
@@ -41,7 +41,7 @@ export async function BzHeroBlock({ block, isFirst, tenantId }: Props) {
     getCatalogIndex(tenantId),
     getSiteSettings(tenantId),
   ])
-  const groups = groupSummaries(index, { thumbs: 3 })
+  const groups = wheelGroups(index)
   const phone = block.showPhone ? (settings?.phone ?? null) : null
   const tel = phone ? toTelHref(phone) : null
   // K4-FINAL §1 (audit 01.11): the confirmed promise; the panel field may shorten it.
@@ -140,28 +140,12 @@ export async function BzHeroBlock({ block, isFirst, tenantId }: Props) {
         </div>
 
         {groups.length > 0 && (
-          <div className="flex flex-col items-center gap-2.5 max-md:hidden">
+          <div className="flex justify-center max-md:hidden">
             <DepartmentWheel
-              groups={groups.map(({ slug, name, icon, count, gradient, thumbs }) => ({
-                slug,
-                name,
-                icon,
-                count,
-                gradient,
-                thumbs,
-              }))}
+              groups={groups}
+              hint={block.wheelHint}
+              planLabel={block.planLinkLabel}
             />
-            {(block.wheelHint || block.planLinkLabel) && (
-              <p className="flex flex-wrap justify-center gap-2 text-center text-[13.5px] text-ink-3">
-                {block.wheelHint && <span>{block.wheelHint}</span>}
-                {block.wheelHint && block.planLinkLabel && <span aria-hidden="true">·</span>}
-                {block.planLinkLabel && (
-                  <a href="#plan" className="font-extrabold text-accent-text hover:underline">
-                    {block.planLinkLabel}
-                  </a>
-                )}
-              </p>
-            )}
           </div>
         )}
       </Container>
