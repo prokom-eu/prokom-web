@@ -2,7 +2,7 @@ import type { CSSProperties } from 'react'
 
 import { anteny } from '../../dane/anteny'
 import { InstIcon } from '../../InstIcon'
-import { InstSection } from '../../sekcje/InstSection'
+import { InstSection } from '../../sekcje/InstSectionLazy'
 import { SectionHead } from '../../sekcje/SectionHead'
 import { FilterSpectrum } from './FilterSpectrum'
 import { TvQuiz } from './TvQuiz'

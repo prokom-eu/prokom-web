@@ -5,8 +5,8 @@ import type { ServiceKey } from '@/lib/instalacje/options'
 
 import { architekci as A } from '../../dane/architekci'
 import { InstIcon } from '../../InstIcon'
-import { InstSection } from '../InstSection'
-import { ArchHouseScene } from './ArchHouseScene'
+import { InstSection } from '../InstSectionLazy'
+import { ArchHouseScene } from './ArchHouseSceneLazy'
 import { hotspotsHtml, INITIAL_ARCH_SCENE } from './archScene'
 import { ARCH_SCENE } from './scene'
 

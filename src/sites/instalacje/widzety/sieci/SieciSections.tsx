@@ -3,9 +3,16 @@ import { type CSSProperties, Fragment, type ReactNode } from 'react'
 import { LEGAL_NOTE } from '../../dane/prawo'
 import { sieci } from '../../dane/sieci'
 import { InstIcon } from '../../InstIcon'
-import { InstSection } from '../../sekcje/InstSection'
+import { InstSection } from '../../sekcje/InstSectionLazy'
 import { SectionHead } from '../../sekcje/SectionHead'
-import { CableLab, FailoverLab, LinkLab, PortalCode, VlanButtons, WallLab } from './SieciWidgets'
+import {
+  CableLab,
+  FailoverLab,
+  LinkLab,
+  PortalCode,
+  VlanButtons,
+  WallLab,
+} from './SieciWidgetsLazy'
 
 const SECTION = { padding: '0 0 104px' }
 

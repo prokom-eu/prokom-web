@@ -26,8 +26,8 @@ import { PlanSection } from '../../sekcje/glowna/PlanSection'
 import { type HomeService, ServicesGrid, TrustBand } from '../../sekcje/glowna/ServicesGrid'
 import { JsonLd } from '../../sekcje/JsonLd'
 import { HeroBackdrop } from '../../widzety/glowna/HeroBackdrop'
-import { LiveObjectHero } from '../../widzety/glowna/LiveObjectHero'
-import { SectionRail } from '../../widzety/glowna/SectionRail'
+import { LiveObjectHero } from '../../widzety/glowna/LiveObjectHeroLazy'
+import { SectionRail } from '../../widzety/glowna/SectionRailLazy'
 
 type Props = { block: InstHomeBlockData; tenantId: number }
 

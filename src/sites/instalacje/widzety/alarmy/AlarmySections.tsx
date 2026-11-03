@@ -1,9 +1,9 @@
 import { LEGAL_NOTE } from '../../dane/prawo'
 import { alarmy } from '../../dane/alarmy'
 import { InstIcon } from '../../InstIcon'
-import { InstSection } from '../../sekcje/InstSection'
+import { InstSection } from '../../sekcje/InstSectionLazy'
 import { SectionHead } from '../../sekcje/SectionHead'
-import { AlarmVersions, DoorPhone, HolidayHouse, IntercomQuestion } from './AlarmWidgets'
+import { AlarmVersions, DoorPhone, HolidayHouse, IntercomQuestion } from './AlarmWidgetsLazy'
 
 const SECTION = { padding: '0 0 104px' }
 

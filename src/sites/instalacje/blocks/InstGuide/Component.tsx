@@ -14,7 +14,8 @@ import { JsonLd } from '../../sekcje/JsonLd'
 import { PageCtaBand } from '../../sekcje/PageCtaBand'
 import { SplitHero } from '../../sekcje/SplitHero'
 import { updatedLabel } from '../../widzety/poradnik/guideMeta'
-import { GuideCategories, GuideGrid, type GuideCard } from '../../widzety/poradnik/GuideWidgets'
+import type { GuideCard } from '../../widzety/poradnik/GuideWidgets'
+import { GuideCategories, GuideGrid } from '../../widzety/poradnik/GuideWidgetsLazy'
 
 type Props = { block: InstGuideBlockData; tenantId: number }
 

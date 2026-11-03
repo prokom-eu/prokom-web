@@ -8,7 +8,7 @@ import { glownaSekcje, SERVICE_CARDS } from '../../dane/glownaSekcje'
 import type { ServiceKey } from '../../dane/types'
 import { InstIcon } from '../../InstIcon'
 import { solutionsText } from '../../powloka/offerText'
-import { InstSection } from '../InstSection'
+import { InstSection } from '../InstSectionLazy'
 import { SERVICE_SCENES } from './sceny'
 import { Count } from '../Count'
 

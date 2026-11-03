@@ -13,7 +13,8 @@ import type { InstPlannerBlock as InstPlannerBlockData } from '@/payload-types'
 
 import { zaplanuj as Z } from '../../dane/zaplanuj'
 import { InstIcon } from '../../InstIcon'
-import { PlannerWizard, type PlannerService } from '../../widzety/zaplanuj/PlannerWizard'
+import type { PlannerService } from '../../widzety/zaplanuj/PlannerWizard'
+import { PlannerWizard } from '../../widzety/zaplanuj/PlannerWizardLazy'
 
 // The mountain ridges behind the hero (`Zaplanuj.body.html`).
 const RIDGE_1 =

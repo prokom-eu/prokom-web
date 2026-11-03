@@ -3,11 +3,11 @@ import Link from 'next/link'
 import { LEGAL_NOTE } from '../../dane/prawo'
 import { monitoring } from '../../dane/monitoring'
 import { InstIcon } from '../../InstIcon'
-import { InstSection } from '../../sekcje/InstSection'
+import { InstSection } from '../../sekcje/InstSectionLazy'
 import { SectionHead } from '../../sekcje/SectionHead'
-import { DoriCalc, RecordingCalc } from './Calculators'
-import { CameraTypes } from './CameraTypes'
-import { SystemDiagram } from './SystemDiagram'
+import { DoriCalc, RecordingCalc } from './CalculatorsLazy'
+import { CameraTypes } from './CameraTypesLazy'
+import { SystemDiagram } from './SystemDiagramLazy'
 
 const SECTION = { padding: '0 0 104px' }
 

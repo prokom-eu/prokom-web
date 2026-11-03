@@ -3,7 +3,7 @@ import Link from 'next/link'
 import type { InstService } from '@/payload-types'
 
 import { InstIcon } from '../InstIcon'
-import { InstSection } from './InstSection'
+import { InstSection } from './InstSectionLazy'
 
 type Props = {
   intro: InstService['priceIntro']

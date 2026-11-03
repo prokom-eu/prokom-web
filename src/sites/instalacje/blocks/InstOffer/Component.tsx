@@ -9,12 +9,12 @@ import type { InstOfferBlock as InstOfferBlockData } from '@/payload-types'
 import { oferta as T } from '../../dane/oferta'
 import { isInstIconName } from '../../icons'
 import { InstIcon } from '../../InstIcon'
-import { InstSection } from '../../sekcje/InstSection'
+import { InstSection } from '../../sekcje/InstSectionLazy'
 import { JsonLd } from '../../sekcje/JsonLd'
 import { PageCtaBand } from '../../sekcje/PageCtaBand'
 import { SplitHero } from '../../sekcje/SplitHero'
 import type { OfferArea, OfferCategory } from '../../widzety/oferta/offerModel'
-import { OfferBar, OfferList } from '../../widzety/oferta/OfferWidgets'
+import { OfferBar, OfferList } from '../../widzety/oferta/OfferWidgetsLazy'
 
 type Props = { block: InstOfferBlockData; tenantId: number }
 

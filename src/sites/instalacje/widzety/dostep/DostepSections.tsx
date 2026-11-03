@@ -1,9 +1,9 @@
 import { LEGAL_NOTE } from '../../dane/prawo'
 import { dostep } from '../../dane/dostep'
 import { InstIcon } from '../../InstIcon'
-import { InstSection } from '../../sekcje/InstSection'
+import { InstSection } from '../../sekcje/InstSectionLazy'
 import { SectionHead } from '../../sekcje/SectionHead'
-import { IdTypes, LocksPower } from './DostepWidgets'
+import { IdTypes, LocksPower } from './DostepWidgetsLazy'
 
 const SECTION = { padding: '0 0 104px' }
 
