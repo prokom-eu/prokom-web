@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useId, useState, type ReactNode } from 'react'
+import { useEffect, useId, useRef, useState, type ReactNode } from 'react'
 
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
@@ -15,7 +15,9 @@ import { BZ_H2 } from '@/sites/biznes/typography'
 
 import { ProductCard } from '../../catalog/ProductCard'
 import { ProductStage, STAGE_SHADOW } from '../../ProductStage'
-import { CAROUSEL, CAROUSEL_ITEM } from './carousel'
+
+/** Products of a kind shown on a phone before „Pokaż wszystkie”. */
+const PHONE_FIRST = 4
 
 export type AskItem = { id: string; note?: string }
 
@@ -62,47 +64,57 @@ export function SalonCompare({ compare }: { compare: NonNullable<SalonView['comp
         aria-expanded={open ?? undefined}
         aria-controls={id}
         onClick={() =>
-          setOpen((value) => !(value ?? window.matchMedia('(min-width: 761px)').matches))
+          setOpen((value) => !(value ?? window.matchMedia('(min-width: 768px)').matches))
         }
-        className="inline-flex min-h-11 items-center gap-2 self-start rounded-full bg-card px-5 text-sm font-extrabold text-ink shadow-[inset_0_0_0_1px_var(--border)]"
+        // Phone: a full-width row „Porównaj w tabeli” with a chevron (board App-Marka).
+        className="inline-flex min-h-11 items-center gap-2 self-start rounded-full bg-card px-5 text-sm font-extrabold text-ink shadow-[inset_0_0_0_1px_var(--border)] max-md:min-h-12 max-md:w-full max-md:justify-between max-md:self-stretch max-md:rounded-2xl"
       >
-        {/* Before the first click the CSS decides (open from 761 px). */}
-        <span className={cx(open === null && 'max-[760px]:hidden', open === false && 'hidden')}>
+        {/* Before the first click the CSS decides (open from 768 px). */}
+        <span className={cx(open === null && 'max-md:hidden', open === false && 'hidden')}>
           Zwiń tabelę
         </span>
-        <span className={cx(open === null && 'min-[761px]:hidden', open === true && 'hidden')}>
-          Pokaż tabelę porównania
+        <span className={cx(open === null && 'min-[768px]:hidden', open === true && 'hidden')}>
+          <span className="max-md:hidden">Pokaż tabelę porównania</span>
+          <span className="min-[768px]:hidden">Porównaj w tabeli</span>
         </span>
         <Icon
           name="arrow"
           strokeWidth={2.4}
           className={cx(
             'size-4 transition-transform',
-            open === null && 'max-[760px]:rotate-90 min-[761px]:-rotate-90',
+            open === null && 'max-md:rotate-90 min-[768px]:-rotate-90',
             open === true && '-rotate-90',
             open === false && 'rotate-90',
           )}
         />
       </button>
+      {/* A scrolling region the keyboard can reach (no focusable cell inside). */}
       <div
         id={id}
+        role="region"
+        aria-label={compare.title ?? 'Porównanie'}
+        tabIndex={0}
         className={cx(
           'overflow-x-auto rounded-3xl bg-card shadow-[inset_0_0_0_1px_var(--border)]',
-          open === null && 'max-[760px]:hidden',
+          open === null && 'max-md:hidden',
           open === false && 'hidden',
         )}
       >
-        <table className="w-full min-w-[560px] border-collapse text-sm">
+        {/* Phone: the first column stays, the models scroll sideways at a readable width. */}
+        <table className="w-full min-w-[560px] border-collapse text-sm max-md:w-auto max-md:min-w-full max-md:text-[13px]">
           <thead>
             <tr className="bg-surface-2">
-              <th scope="col" className="px-5 py-4 text-left font-extrabold text-ink">
+              <th
+                scope="col"
+                className="px-5 py-4 text-left font-extrabold text-ink max-md:sticky max-md:left-0 max-md:z-[1] max-md:w-[118px] max-md:min-w-[118px] max-md:bg-surface-2 max-md:px-3"
+              >
                 {compare.title ?? 'Porównanie'}
               </th>
               {compare.columns.map((column) => (
                 <th
                   key={column}
                   scope="col"
-                  className="px-4 py-4 text-center font-extrabold text-ink"
+                  className="px-4 py-4 text-center font-extrabold text-ink max-md:min-w-[150px] max-md:px-3"
                 >
                   {column}
                 </th>
@@ -112,13 +124,19 @@ export function SalonCompare({ compare }: { compare: NonNullable<SalonView['comp
           <tbody>
             {compare.rows.map((row) => (
               <tr key={row.label} className="border-t border-border">
-                <th scope="row" className="px-5 py-3.5 text-left font-semibold text-ink">
+                <th
+                  scope="row"
+                  className="px-5 py-3.5 text-left font-semibold text-ink max-md:sticky max-md:left-0 max-md:z-[1] max-md:w-[118px] max-md:min-w-[118px] max-md:bg-card max-md:px-3 max-md:shadow-[1px_0_0_var(--border)]"
+                >
                   {row.label}
                 </th>
                 {compare.columns.map((column, i) => {
                   const cell = row.cells[i]
                   return (
-                    <td key={column} className="px-4 py-3.5 text-center font-semibold text-ink">
+                    <td
+                      key={column}
+                      className="px-4 py-3.5 text-center font-semibold text-ink max-md:min-w-[150px] max-md:px-3"
+                    >
                       {cell?.kind === 'yes' ? (
                         <span className="inline-flex size-7 items-center justify-center rounded-lg bg-ok/15 text-ok-text">
                           <Icon name="check" strokeWidth={3} className="size-3.5" />
@@ -153,7 +171,18 @@ export function SalonFamily({
   index: CatalogIndex
 }) {
   const [tab, setTab] = useState(0)
+  // Phone: the first four in two columns, the rest after „Pokaż wszystkie” (board App-Marka).
+  const [all, setAll] = useState(false)
   const products = family[tab]?.products ?? []
+  const hidden = products.length - PHONE_FIRST
+  const list = useRef<HTMLUListElement>(null)
+  const revealed = useRef(false)
+  // The button disappears on click: focus goes to the first newly shown card, not to <body>.
+  useEffect(() => {
+    if (!all || !revealed.current) return
+    revealed.current = false
+    list.current?.children[PHONE_FIRST]?.querySelector<HTMLElement>('a, button')?.focus()
+  }, [all])
   return (
     <div className="flex flex-col gap-6">
       {family.length > 1 && (
@@ -161,14 +190,17 @@ export function SalonFamily({
           role="group"
           aria-label="Rodzaje"
           // Rows on a computer (board: up to 14 tabs in Lenovo), a sideways strip on a phone.
-          className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1 min-[761px]:flex-wrap min-[761px]:overflow-visible"
+          className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1 [scrollbar-width:none] max-md:-mx-4 max-md:-my-2 max-md:scroll-px-4 max-md:px-4 max-md:py-2 min-[768px]:flex-wrap min-[768px]:overflow-visible"
         >
           {family.map((item, i) => (
             <button
               key={item.title}
               type="button"
               aria-pressed={tab === i}
-              onClick={() => setTab(i)}
+              onClick={() => {
+                setTab(i)
+                setAll(false)
+              }}
               className={cx(
                 'inline-flex min-h-11 shrink-0 items-center gap-2.5 rounded-full px-5 text-sm font-extrabold whitespace-nowrap transition-colors',
                 tab === i
@@ -190,17 +222,32 @@ export function SalonFamily({
         </div>
       )}
       <ul
-        className={cx(
-          'grid gap-x-4 gap-y-8 min-[761px]:grid-cols-2 min-[900px]:grid-cols-3 min-[1200px]:grid-cols-4',
-          CAROUSEL,
-        )}
+        ref={list}
+        data-salon-products
+        className="grid grid-cols-2 gap-x-4 gap-y-8 max-md:gap-x-3 max-md:gap-y-5 min-[900px]:grid-cols-3 min-[1200px]:grid-cols-4"
       >
         {products.map((product, position) => (
-          <li key={product.slug} className={cx('flex', CAROUSEL_ITEM)}>
+          <li
+            key={product.slug}
+            className={cx('flex min-w-0', !all && position >= PHONE_FIRST && 'max-md:hidden')}
+          >
             <ProductCard product={product} index={index} position={position} />
           </li>
         ))}
       </ul>
+      {!all && hidden > 0 && (
+        <button
+          type="button"
+          onClick={() => {
+            revealed.current = true
+            setAll(true)
+          }}
+          className="inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-card text-sm font-extrabold text-ink shadow-[inset_0_0_0_1px_var(--border)] min-[768px]:hidden"
+        >
+          Pokaż wszystkie · {products.length}
+          <Icon name="arrow" strokeWidth={2.4} className="size-4 rotate-90" />
+        </button>
+      )}
     </div>
   )
 }
@@ -220,24 +267,27 @@ export function SalonChooser({
     <section
       id="dobor"
       aria-labelledby="dobor-h"
-      className="grid scroll-mt-28 gap-6 rounded-[32px] bg-surface-2 p-5 sm:p-8 min-[960px]:grid-cols-2 min-[960px]:gap-8"
+      // Phone: no panel, the question and the answers straight on the page (board App-Salon-*).
+      className="grid scroll-mt-28 gap-6 rounded-[32px] bg-surface-2 p-5 max-md:gap-3 max-md:rounded-none max-md:bg-transparent max-md:p-0 min-[768px]:p-8 min-[960px]:grid-cols-2 min-[960px]:gap-8"
     >
-      <div className="flex flex-col gap-4">
-        <Eyebrow>Pomóż mi wybrać</Eyebrow>
-        <h2 id="dobor-h" className={`${BZ_H2} text-ink`}>
+      <div className="flex flex-col gap-4 max-md:gap-3">
+        <div className="max-md:hidden">
+          <Eyebrow>Pomóż mi wybrać</Eyebrow>
+        </div>
+        <h2 id="dobor-h" className={`${BZ_H2} text-ink max-md:text-[22px] max-md:leading-[1.1]`}>
           {chooser.question ?? 'Od czego zacząć?'}
         </h2>
-        <p className="text-ink-2">
+        <p className="text-ink-2 max-md:hidden">
           Jedno pytanie, a podpowiemy, od czego zacząć. Ostateczny model dobierzemy po krótkiej
           rozmowie.
         </p>
-        <fieldset className="flex flex-col gap-2.5">
+        <fieldset className="flex min-w-0 flex-col gap-2.5 max-md:gap-2">
           <legend className="sr-only">{chooser.question ?? 'Od czego zacząć?'}</legend>
           {chooser.options.map((item, i) => (
             <label
               key={item.label}
               className={cx(
-                'flex min-h-14 cursor-pointer items-center gap-3 rounded-2xl bg-card px-5 font-extrabold text-ink transition-shadow',
+                'flex min-h-14 cursor-pointer items-center gap-3 rounded-2xl bg-card px-5 font-extrabold text-ink transition-shadow max-md:min-h-12 max-md:px-4 max-md:text-sm',
                 picked === i
                   ? 'shadow-[inset_0_0_0_1.5px_var(--accent-text)]'
                   : 'shadow-[inset_0_0_0_1px_var(--border)] hover:shadow-[inset_0_0_0_1px_var(--ink-3)]',
@@ -257,10 +307,12 @@ export function SalonChooser({
       </div>
       <div
         aria-live="polite"
-        className="flex flex-col gap-4 self-start rounded-3xl bg-card p-5 shadow-[inset_0_0_0_1px_var(--border)] sm:p-6"
+        className="flex flex-col gap-4 self-start rounded-3xl bg-card p-5 shadow-[inset_0_0_0_1px_var(--border)] max-md:gap-3 max-md:p-3.5 min-[768px]:p-6"
       >
-        <Eyebrow>Podpowiadamy</Eyebrow>
-        {option.why && <p className="text-ink-2">{option.why}</p>}
+        <div className="max-md:hidden">
+          <Eyebrow>Podpowiadamy</Eyebrow>
+        </div>
+        {option.why && <p className="text-ink-2 max-md:text-sm">{option.why}</p>}
         {option.products.length > 0 && (
           <ul className="flex flex-col gap-2.5">
             {option.products.map((product) => (
@@ -305,7 +357,9 @@ function MiniModel({ product }: { product: IndexProduct }) {
       <span className="flex min-w-0 flex-1 flex-col">
         <b className="font-extrabold text-ink">{product.name}</b>
         {product.benefit && (
-          <small className="text-sm leading-snug text-ink-2">{product.benefit}</small>
+          <small className="text-sm leading-snug text-ink-2 max-md:line-clamp-2 max-md:text-xs">
+            {product.benefit}
+          </small>
         )}
       </span>
       <Icon name="arrow" strokeWidth={2.4} className="size-4 shrink-0 text-accent-text" />

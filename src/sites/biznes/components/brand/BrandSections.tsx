@@ -27,14 +27,17 @@ export function BrandHero({
   count: number
 }) {
   return (
-    <section className="relative overflow-hidden pt-6 pb-12 sm:pt-8 sm:pb-16">
+    <section className="relative overflow-hidden pt-6 pb-12 max-md:pt-4 max-md:pb-10 min-[768px]:pt-8 min-[768px]:pb-16">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 top-0 h-[520px] bg-[radial-gradient(ellipse_at_90%_10%,var(--glow),transparent_60%)]"
       />
       <Container wide className="relative">
-        <Breadcrumbs items={crumbs} />
-        <div className="mt-6 grid items-center gap-8 min-[1080px]:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] min-[1080px]:gap-14">
+        {/* Phone: no breadcrumbs, the top bar names the brand (as the salons). */}
+        <div className="max-md:hidden">
+          <Breadcrumbs items={crumbs} />
+        </div>
+        <div className="mt-6 max-md:mt-0 grid items-center gap-8 min-[1080px]:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] min-[1080px]:gap-14">
           <div className="flex flex-col gap-6">
             <h1 className={BZ_H1}>{brand.name} w PRO-KOM</h1>
             {brand.shortDescription && (
@@ -51,7 +54,7 @@ export function BrandHero({
               )}
             </div>
           </div>
-          <div className="flex min-h-48 items-center justify-center rounded-[32px] bg-white p-10 shadow-[inset_0_0_0_1px_var(--border)] sm:min-h-64">
+          <div className="flex min-h-48 items-center justify-center rounded-[32px] bg-white p-10 shadow-[inset_0_0_0_1px_var(--border)] max-md:min-h-32 max-md:rounded-[24px] max-md:p-6 min-[768px]:min-h-64">
             {brand.logo ? (
               <MediaImage
                 image={brand.logo}
