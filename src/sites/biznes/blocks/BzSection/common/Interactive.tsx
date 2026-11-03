@@ -15,34 +15,40 @@ export function VideoPicker({ data }: { data: SectionData<'videos'> }) {
   const [current, setCurrent] = useState(0)
   const video = data.videos[current] ?? data.videos[0]!
   return (
-    <div className="grid gap-5 min-[1080px]:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
+    <div className="grid grid-cols-[minmax(0,1fr)] gap-5 max-md:gap-3 min-[1080px]:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
       <VideoFacade
         key={video.id}
         video={{ id: video.id, title: video.t, channel: video.k, lang: null }}
         label={data.label}
       />
-      <div className="flex flex-col gap-2">
-        <ul className="flex flex-col gap-2">
+      <div className="flex min-w-0 flex-col gap-2">
+        {/* Phone (App-GoPOS „Filmy”): the titles in one row of pills under the player. */}
+        <ul className="flex flex-col gap-2 max-md:-mx-4 max-md:-my-2 max-md:flex-row max-md:snap-x max-md:snap-mandatory max-md:scroll-px-4 max-md:gap-2 max-md:overflow-x-auto max-md:px-4 max-md:py-2 max-md:[scrollbar-width:none]">
           {data.videos.map((item, i) => (
-            <li key={item.id}>
+            <li key={item.id} className="max-md:w-[72%] max-md:shrink-0 max-md:snap-start">
               <button
                 type="button"
                 aria-pressed={i === current}
                 onClick={() => setCurrent(i)}
                 className={cx(
-                  'flex min-h-14 w-full flex-col gap-0.5 rounded-2xl px-4 py-3 text-left transition-shadow',
+                  'flex min-h-14 w-full flex-col gap-0.5 rounded-2xl px-4 py-3 text-left transition-shadow max-md:min-h-11 max-md:rounded-full max-md:py-2.5',
                   i === current
-                    ? 'bg-card shadow-[inset_0_0_0_2px_var(--accent-text)]'
+                    ? 'bg-card shadow-[inset_0_0_0_2px_var(--accent-text)] max-md:bg-ink max-md:shadow-none max-md:[&>span]:text-surface'
                     : 'bg-card shadow-[inset_0_0_0_1px_var(--border)] hover:shadow-[inset_0_0_0_1px_var(--ink-3)]',
                 )}
               >
-                <span className="leading-snug font-extrabold text-ink">{item.t}</span>
-                <span className="text-[13px] text-ink-2">{item.k}</span>
+                <span className="leading-snug font-extrabold text-ink max-md:truncate max-md:text-[13px]">
+                  <span className="min-[768px]:hidden">{i + 1}. </span>
+                  {item.t}
+                </span>
+                <span className="text-[13px] text-ink-2 max-md:hidden">{item.k}</span>
               </button>
             </li>
           ))}
         </ul>
-        {data.note && <p className="mt-2 text-[13px] text-ink-2">{data.note}</p>}
+        {data.note && (
+          <p className="mt-2 text-[13px] text-ink-2 max-md:mt-1 max-md:text-xs">{data.note}</p>
+        )}
       </div>
     </div>
   )
@@ -95,16 +101,31 @@ export function TabsPicker({ data }: { data: SectionData<'tabs'> }) {
         ))}
       </div>
       <div id={`${base}-p`} role="tabpanel" aria-labelledby={`${base}-t${current}`}>
-        <ul className="mt-5 grid gap-4 min-[640px]:grid-cols-2 min-[1080px]:grid-cols-3">
+        {/* Phone (App-InsERT „Cała oferta”): the entries as rows of one list. */}
+        <ul className="mt-5 grid gap-4 max-md:mt-3 max-md:gap-0 max-md:divide-y max-md:divide-border max-md:rounded-[20px] max-md:px-4 max-md:shadow-[inset_0_0_0_1px_var(--border)] min-[640px]:grid-cols-2 min-[1080px]:grid-cols-3">
           {tab.items.map((item) => (
-            <li key={item.t} className={cx(CARD, 'flex flex-col gap-1.5 p-5 text-ink')}>
-              {item.l && <span className="text-[13px] font-extrabold text-ink-2">{item.l}</span>}
-              <b className="font-display text-[1.1rem] font-extrabold">{item.t}</b>
-              <span className="text-[15px] leading-relaxed text-ink-2">{item.d}</span>
+            <li
+              key={item.t}
+              className={cx(
+                CARD,
+                'flex flex-col gap-1.5 p-5 text-ink max-md:gap-0.5 max-md:rounded-none max-md:bg-transparent max-md:px-0 max-md:py-3 max-md:shadow-none',
+              )}
+            >
+              {item.l && (
+                <span className="text-[13px] font-extrabold text-ink-2 max-md:text-[11px]">
+                  {item.l}
+                </span>
+              )}
+              <b className="font-display text-[1.1rem] font-extrabold max-md:text-[15px]">
+                {item.t}
+              </b>
+              <span className="text-[15px] leading-relaxed text-ink-2 max-md:text-[13px] max-md:leading-snug">
+                {item.d}
+              </span>
               {item.slug && (
                 <Link
                   href={productHref(item.slug)}
-                  className="mt-auto pt-2 font-extrabold text-accent-text hover:underline"
+                  className="mt-auto pt-2 font-extrabold text-accent-text hover:underline max-md:pt-1 max-md:text-[13px]"
                 >
                   Zobacz kartę →
                 </Link>

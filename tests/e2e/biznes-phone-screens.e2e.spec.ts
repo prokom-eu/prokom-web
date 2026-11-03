@@ -56,3 +56,40 @@ test('KSeF: the button under the penalties on a phone, in the hero on a computer
   await expect(ask(/^Przygotujcie moją firmę$/)).toBeVisible()
   await expect(ask(/^Przygotujcie moją firmę do KSeF$/)).toBeHidden()
 })
+
+for (const path of ['/gopos', '/insert', '/opieka-it', '/automaty-vendingowe']) {
+  test(`${path}: no sideways scroll on a phone`, async ({ page }) => {
+    for (const width of [360, 414]) {
+      await page.setViewportSize({ width, height: 844 })
+      await page.goto(biznes(path))
+      const overflow = await page.evaluate(
+        () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      )
+      expect(overflow, `${path} @ ${width}`).toBeLessThanOrEqual(0)
+    }
+  })
+}
+
+test('Opieka IT on a phone: the comparison is one row that unfolds', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await page.goto(biznes('/opieka-it'))
+  const row = page.getByRole('button', { name: /z\s+opieką\s+i\s+bez/i }).first()
+  await expect(row).toHaveAttribute('aria-expanded', 'false')
+  const panel = page.locator(`[id="${await row.getAttribute('aria-controls')}"]`)
+  await expect(panel).toBeHidden()
+  await expect(async () => {
+    if ((await row.getAttribute('aria-expanded')) !== 'true') await row.click()
+    await expect(row).toHaveAttribute('aria-expanded', 'true', { timeout: 1000 })
+  }).toPass()
+  await expect(panel).toBeVisible()
+  // From 768 px the section is always open and the row is not there.
+  await page.setViewportSize({ width: 1440, height: 900 })
+  await expect(row).toBeHidden()
+})
+
+test('Opieka IT on a computer: the folded sections are open from the start', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 })
+  await page.goto(biznes('/opieka-it'))
+  await expect(page.getByRole('button', { name: /z\s+opieką\s+i\s+bez/i })).toHaveCount(0)
+  await expect(page.getByRole('heading', { level: 2, name: /z\s+opieką\s+i\s+bez/i })).toBeVisible()
+})

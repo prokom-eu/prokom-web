@@ -48,15 +48,16 @@ export function InsertHero({
     <section
       aria-labelledby="insert-h"
       data-surface="dark"
-      className="relative isolate overflow-hidden bg-surface-dark pt-6 pb-12 text-white sm:pt-8 sm:pb-16"
+      // Phone (App-InsERT): a card with a margin, the programs as small text tiles.
+      className="relative isolate overflow-hidden bg-surface-dark pt-6 pb-12 text-white max-md:mx-4 max-md:mt-3 max-md:rounded-[26px] max-md:pt-5 max-md:pb-5 min-[768px]:pt-8 min-[768px]:pb-16"
     >
       <Container wide>
         <div className="mb-7 max-md:hidden">
           <Breadcrumbs items={withTrail(crumbs, data.trail)} onDark />
         </div>
-        <div className="grid items-center gap-10 min-[1080px]:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-          <div className="flex flex-col gap-6">
-            <div className="flex flex-wrap items-center gap-3">
+        <div className="grid items-center gap-10 max-md:gap-4 min-[1080px]:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+          <div className="flex flex-col gap-6 max-md:gap-3.5">
+            <div className="flex flex-wrap items-center gap-3 max-md:gap-2">
               {logo && (
                 <span className="inline-flex h-11 items-center rounded-xl bg-white px-3">
                   <Image
@@ -72,22 +73,26 @@ export function InsertHero({
               <span
                 className={cx(
                   EYEBROW,
-                  'inline-flex rounded-full bg-white/10 px-3.5 py-2 text-white ring-1 ring-white/20 ring-inset',
+                  'inline-flex rounded-full bg-white/10 px-3.5 py-2 text-white ring-1 ring-white/20 ring-inset max-md:px-3 max-md:py-1.5 max-md:text-[11px] max-md:tracking-normal max-md:normal-case',
                 )}
               >
                 {data.pill}
               </span>
             </div>
-            <h1 id="insert-h" className={BZ_H1}>
+            <h1 id="insert-h" className={cx(BZ_H1, 'max-md:text-[30px] max-md:leading-[1.05]')}>
               {block.heading || crumbs.at(-1)?.name}{' '}
               {block.headingAccent && (
                 <span className="text-accent-on-dark">{block.headingAccent}</span>
               )}
             </h1>
             {block.lead && (
-              <p className={`${BZ_LEAD} max-w-[56ch] text-pretty text-white/85`}>{block.lead}</p>
+              <p
+                className={`${BZ_LEAD} max-w-[56ch] text-pretty text-white/85 max-md:text-[14.5px] max-md:leading-relaxed`}
+              >
+                {block.lead}
+              </p>
             )}
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-3 max-md:grid max-md:grid-cols-2 max-md:gap-2">
               {data.actions.map((action, i) => (
                 <a
                   key={action.href}
@@ -99,14 +104,14 @@ export function InsertHero({
               ))}
             </div>
           </div>
-          <div className="flex flex-col gap-5">
-            <ul className="grid grid-cols-3 gap-3 min-[640px]:grid-cols-4">
+          <div className="flex flex-col gap-5 max-md:gap-3">
+            <ul className="grid grid-cols-3 gap-3 max-md:gap-1.5 min-[640px]:grid-cols-4">
               {boxes.map((box) => (
                 <li key={box.slug}>
                   <Link
                     href={productHref(box.slug)}
                     title={box.name}
-                    className="flex aspect-[3/4] flex-col items-center justify-end gap-2 rounded-2xl bg-white/5 p-3 ring-1 ring-white/10 transition-colors hover:bg-white/10"
+                    className="flex aspect-[3/4] flex-col items-center justify-end gap-2 rounded-2xl bg-white/5 p-3 ring-1 ring-white/10 transition-colors hover:bg-white/10 max-md:aspect-auto max-md:min-h-12 max-md:justify-center max-md:rounded-xl max-md:p-2"
                   >
                     <Image
                       unoptimized
@@ -114,14 +119,17 @@ export function InsertHero({
                       alt={box.name}
                       width={box.image.width}
                       height={box.image.height}
-                      className="max-h-[75%] w-auto object-contain"
+                      className="max-h-[75%] w-auto object-contain max-md:hidden"
                     />
-                    <span className="text-center text-[13px] font-extrabold">{box.name}</span>
+                    <span className="text-center text-[13px] font-extrabold max-md:text-xs max-md:leading-tight">
+                      {box.name}
+                    </span>
                   </Link>
                 </li>
               ))}
             </ul>
-            <ul className="flex flex-wrap gap-2">
+            {/* Phone: the partner status is in the pill above. */}
+            <ul className="flex flex-wrap gap-2 max-md:hidden">
               {data.badges.map((badge) => (
                 <li
                   key={badge}
@@ -171,18 +179,32 @@ export function InsertKsef({
         ) : null
       }
     >
-      <ol className="grid gap-4 min-[900px]:grid-cols-3">
+      {/* Phone (App-InsERT): the dates as compact rows. */}
+      <ol className="grid gap-4 max-md:gap-0 max-md:divide-y max-md:divide-border max-md:rounded-[20px] max-md:px-4 max-md:shadow-[inset_0_0_0_1px_var(--border)] min-[900px]:grid-cols-3">
         {data.timeline.map((item) => (
-          <li key={item.d} className={cx(CARD, 'flex flex-col gap-1.5 p-5 text-ink')}>
-            <em className="text-[13px] font-extrabold text-accent-text not-italic">{item.d}</em>
-            <b className="font-display text-lg font-extrabold">{item.t}</b>
-            <span className="text-[15px] leading-relaxed text-ink-2">{item.s}</span>
+          <li
+            key={item.d}
+            className={cx(
+              CARD,
+              'flex flex-col gap-1.5 p-5 text-ink max-md:grid max-md:grid-cols-[88px_minmax(0,1fr)] max-md:gap-x-3 max-md:gap-y-0.5 max-md:rounded-none max-md:bg-transparent max-md:px-0 max-md:py-3 max-md:shadow-none',
+            )}
+          >
+            <em className="text-[13px] font-extrabold text-accent-text not-italic max-md:row-span-2 max-md:text-xs">
+              {item.d}
+            </em>
+            <b className="font-display text-lg font-extrabold max-md:text-[15px]">{item.t}</b>
+            <span className="text-[15px] leading-relaxed text-ink-2 max-md:text-[13px] max-md:leading-snug">
+              {item.s}
+            </span>
           </li>
         ))}
       </ol>
-      <ol className="mt-5 grid gap-3 min-[640px]:grid-cols-2 min-[1080px]:grid-cols-3">
+      <ol className="mt-5 grid gap-3 max-md:mt-4 max-md:gap-1.5 min-[640px]:grid-cols-2 min-[1080px]:grid-cols-3">
         {data.checklist.map((item, i) => (
-          <li key={item.t} className="flex gap-3 rounded-2xl bg-surface-2 p-4">
+          <li
+            key={item.t}
+            className="flex gap-3 rounded-2xl bg-surface-2 p-4 max-md:items-center max-md:p-3"
+          >
             <i className="flex size-8 shrink-0 items-center justify-center rounded-full bg-accent-text font-display font-extrabold text-accent-ink not-italic">
               {i + 1}
             </i>

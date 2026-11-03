@@ -166,7 +166,7 @@ export function SwitchSteps({ data }: { data: SectionData<'switch-steps'> }) {
   const [mode, setMode] = useState(0)
   const steps = (data.modes[mode] ?? data.modes[0]!).steps
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-6 max-md:gap-3">
       <div className="flex flex-wrap gap-2" role="group" aria-label="Pokaż kroki">
         {data.modes.map((item, i) => (
           <button
@@ -185,24 +185,35 @@ export function SwitchSteps({ data }: { data: SectionData<'switch-steps'> }) {
           </button>
         ))}
       </div>
+      {/* Phone (App-Opieka „Jak to działa”): the steps as one list in a card. */}
       <ol
         aria-live="polite"
-        className="grid gap-4 min-[640px]:grid-cols-2 min-[1080px]:grid-cols-4"
+        className="grid gap-4 max-md:gap-0 max-md:rounded-[22px] max-md:p-2 max-md:shadow-[inset_0_0_0_1px_var(--border)] min-[640px]:grid-cols-2 min-[1080px]:grid-cols-4"
       >
         {steps.map((step, i) => (
-          <li key={step.t} className={cx(CARD, 'flex flex-col gap-2 p-6 text-ink')}>
+          <li
+            key={step.t}
+            className={cx(
+              CARD,
+              'flex flex-col gap-2 p-6 text-ink max-md:grid max-md:grid-cols-[2.25rem_minmax(0,1fr)] max-md:gap-x-3 max-md:gap-y-0.5 max-md:rounded-none max-md:p-3 max-md:shadow-none',
+            )}
+          >
             {/* Board `Web-opieka-it`: an icon tile with the step number on its corner. */}
             <span
               aria-hidden="true"
-              className="relative mb-2 flex size-11 items-center justify-center rounded-xl bg-ok-text text-surface"
+              className="relative mb-2 flex size-11 items-center justify-center rounded-xl bg-ok-text text-surface max-md:row-span-2 max-md:mb-0 max-md:size-9"
             >
               <Icon name={STEP_ICONS[i % STEP_ICONS.length]!} className="size-5" />
               <span className="absolute -top-2 -right-2 flex size-5 items-center justify-center rounded-full bg-surface-dark text-[11px] font-extrabold text-white">
                 {i + 1}
               </span>
             </span>
-            <b className="font-display text-[1.1rem] leading-tight font-extrabold">{step.t}</b>
-            <span className="text-[15px] leading-relaxed text-ink-2">{step.d}</span>
+            <b className="font-display text-[1.1rem] leading-tight font-extrabold max-md:text-base">
+              {step.t}
+            </b>
+            <span className="text-[15px] leading-relaxed text-ink-2 max-md:text-[13px] max-md:leading-snug">
+              {step.d}
+            </span>
           </li>
         ))}
       </ol>
