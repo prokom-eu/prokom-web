@@ -25,7 +25,7 @@ import { Photo } from '@/sites/software/components/about/Photo'
 import { WandIcon } from '@/sites/software/components/FrameIcons'
 import { softwareTextContext } from '@/sites/software/components/textContext'
 
-import { ContactForm } from '../SwContact/ContactForm'
+import { ContactForm } from '../SwContact/ContactFormLazy'
 import { ContactHours } from './ContactHours'
 import { OsmMap } from './OsmMap'
 import { ENTRANCE_CAPTION, type CONTACT_CHANNELS } from './config'

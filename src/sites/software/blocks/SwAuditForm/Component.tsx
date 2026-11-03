@@ -17,7 +17,7 @@ import { Breadcrumbs } from '@/sites/software/components/Breadcrumbs'
 import { LevelCards } from '@/sites/software/components/pricing/LevelCards'
 import { softwareTextContext } from '@/sites/software/components/textContext'
 
-import { AuditForm } from './AuditForm'
+import { AuditForm } from './AuditFormLazy'
 
 type Props = { block: SwAuditFormData; tenantId: number; isFirst: boolean }
 
