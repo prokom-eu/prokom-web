@@ -5,6 +5,7 @@ import Link from 'next/link'
 import {
   useCallback,
   useEffect,
+  useId,
   useLayoutEffect,
   useReducer,
   useRef,
@@ -41,10 +42,9 @@ type State = {
   chosen: boolean
 }
 
-type Action = { type: 'pick'; index: number; angle: number; byUser: boolean } | { type: 'restart' }
+type Action = { type: 'pick'; index: number; angle: number; byUser: boolean }
 
 function reducer(state: State, action: Action): State {
-  if (action.type === 'restart') return { ...state, run: state.run + 1 }
   const target = action.angle + 90
   const delta = ((((target - state.rot) % 360) + 540) % 360) - 180
   return {
@@ -94,6 +94,7 @@ export function DepartmentWheel({ groups, hint, planLabel }: Props) {
   const wheelRef = useRef<HTMLDivElement>(null)
   const tipRef = useRef<HTMLDivElement>(null)
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([])
+  const uid = useId()
 
   const pick = useCallback(
     (index: number, byUser: boolean) =>
@@ -181,7 +182,8 @@ export function DepartmentWheel({ groups, hint, planLabel }: Props) {
   }
 
   const showTip = (item: WheelItem, el: HTMLElement) => setTip({ name: item.name, el })
-  const tabId = (i: number) => `bzw-tab-${i}`
+  const tabId = (i: number) => `${uid}-tab-${i}`
+  const coreId = `${uid}-core`
 
   return (
     <div className="flex w-full flex-col items-center gap-2.5">
@@ -284,7 +286,7 @@ export function DepartmentWheel({ groups, hint, planLabel }: Props) {
                 role="tab"
                 id={tabId(i)}
                 aria-selected={on}
-                aria-controls="bzw-core"
+                aria-controls={coreId}
                 aria-label={`${group.name}, ${positions(group.count)}`}
                 tabIndex={on ? 0 : -1}
                 className="bzw-node bzw-at"
@@ -314,7 +316,7 @@ export function DepartmentWheel({ groups, hint, planLabel }: Props) {
         </div>
 
         <div
-          id="bzw-core"
+          id={coreId}
           className="bzw-core"
           role="tabpanel"
           aria-labelledby={tabId(state.active)}
@@ -356,17 +358,15 @@ export function DepartmentWheel({ groups, hint, planLabel }: Props) {
         {hint && <span>{hint}</span>}
         {hint && planLabel && <span aria-hidden="true">·</span>}
         {planLabel && <a href="#plan">{planLabel}</a>}
-        <span aria-hidden="true" className="bzw-motion-only">
-          ·
-        </span>
+        {(hint || planLabel) && (
+          <span aria-hidden="true" className="bzw-motion-only">
+            ·
+          </span>
+        )}
         <button
           type="button"
           className="bzw-pause bzw-motion-only"
-          aria-pressed={paused}
-          onClick={() => {
-            setPaused((value) => !value)
-            if (paused) dispatch({ type: 'restart' })
-          }}
+          onClick={() => setPaused((value) => !value)}
         >
           {paused ? 'Wznów animację' : 'Wstrzymaj animację'}
         </button>

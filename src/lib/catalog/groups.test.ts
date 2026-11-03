@@ -111,6 +111,8 @@ describe('wheelGroups (KOLO-HERO v3)', () => {
         wheelCards: [
           { slug: 'ergo', name: 'Posnet Ergo', image: image('kolo-ergo') },
           { slug: 'k10', name: 'Elzab K10', color: 'Błękit lodowca' },
+          // A card of another department picked in the panel stays off this run.
+          { slug: 'serwis-kas', name: 'Serwis kas' },
         ],
       },
       {
