@@ -13,6 +13,7 @@ import { onPlanSceneRequest } from '@/lib/site/planScene'
 import { BundleCard } from '../bundle/BundleCard'
 import { ProductStage, StageFallback } from '../ProductStage'
 import { PlanPointDialog } from './PlanPointDialog'
+import { isSceneLoaded, mergeScene, type PlanScenePayload } from './planScenes'
 import type { FloorPlanData, FloorPlanLabels, PlanProduct } from './types'
 
 import './floorPlan.css'
@@ -64,7 +65,9 @@ function Thumb({ product, size }: { product: PlanProduct; size: 'point' | 'list'
  * tiles (phone: chips), the drawing of the active scene with numbered product points, „Na tym
  * planie” under it, the bar „Dodaj cały plan do zapytania” and the scene's ready bundles. One
  * component on `/plan-firmy` and on the home page. Only the active drawing is in the page; the
- * others load from `/api/plan-svg/<scena>` when picked. `?scena=` picks the scene on load.
+ * others load from `/api/plan-svg/<scena>` when picked. On the home page the products and bundles
+ * of the other scenes load the same way, from `/api/plan-scene/<scena>` (ADR-023), already when
+ * a scene tile is pointed at. `?scena=` picks the scene on load.
  */
 export function FloorPlan({
   data,
@@ -77,7 +80,13 @@ export function FloorPlan({
   headingLevel?: 'h2' | 'h3'
 }) {
   const Heading = headingLevel
-  const { scenes, products } = data
+  const { scenes } = data
+  // Products and bundles of the loaded scenes (all of them on `/plan-firmy`).
+  const [loaded, setLoaded] = useState(() => ({ products: data.products, bundles: data.bundles }))
+  const requested = useRef(new Set(Object.keys(data.bundles)))
+  // Scenes whose products did not load: the plan says so and offers another try.
+  const [failed, setFailed] = useState<readonly string[]>([])
+  const products = loaded.products
   const [sceneSlug, setSceneSlug] = useState(scenes[0]?.slug ?? '')
   const [svgs, setSvgs] = useState<Record<string, string>>(() =>
     data.firstSvg && scenes[0] ? { [scenes[0].slug]: data.firstSvg } : {},
@@ -107,6 +116,29 @@ export function FloorPlan({
     [scenes],
   )
 
+  // A failed load is not remembered: „Spróbuj ponownie” (or pointing at the tile) asks again.
+  const loadScene = useCallback(
+    (slug: string) => {
+      if (requested.current.has(slug) || !scenes.some((item) => item.slug === slug)) return
+      requested.current.add(slug)
+      setFailed((current) => current.filter((item) => item !== slug))
+      fetch(`/api/plan-scene/${encodeURIComponent(slug)}`)
+        .then((response) => (response.ok ? (response.json() as Promise<PlanScenePayload>) : null))
+        .catch(() => null)
+        .then((payload) => {
+          if (payload) {
+            setLoaded((current) => mergeScene(current, slug, payload))
+            return
+          }
+          requested.current.delete(slug)
+          setFailed((current) => [...current, slug])
+        })
+    },
+    [scenes],
+  )
+
+  useEffect(() => loadScene(scene.slug), [scene.slug, loadScene])
+
   // `?scena=` of the address (read here, so the page stays static) and the industry tiles.
   useEffect(() => {
     const fromUrl = new URLSearchParams(window.location.search).get('scena')
@@ -130,9 +162,15 @@ export function FloorPlan({
     }
   }, [scene.slug, svgs])
 
+  const ready = isSceneLoaded(loaded, scene.slug)
+  const loadFailed = !ready && failed.includes(scene.slug)
   const points = scene.points.filter((point) => products[point.product])
+  // While the scene's products load, the counts come from the scene (its points are listed cards).
+  const count = ready ? points.length : scene.points.length
   const items = planCartItems({ ...scene, points })
-  const bundles = data.bundles[scene.slug] ?? []
+  // Every product once, like `planCartItems`, until the products are here.
+  const itemCount = ready ? items.length : new Set(scene.points.map((p) => p.product)).size
+  const bundles = loaded.bundles[scene.slug] ?? []
   const columns = listColumns(points.length)
   const svg = svgs[scene.slug]
 
@@ -151,7 +189,7 @@ export function FloorPlan({
   }
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4" aria-busy={!ready && !loadFailed}>
       {/* Scenes: 6 × 2 tiles on a computer, sticky chips in a row on a phone. */}
       <div
         role="group"
@@ -166,6 +204,8 @@ export function FloorPlan({
               type="button"
               aria-pressed={active}
               onClick={() => show(item.slug)}
+              onPointerEnter={() => loadScene(item.slug)}
+              onFocus={() => loadScene(item.slug)}
               className={cx(
                 'flex min-h-11 shrink-0 snap-start items-center gap-3 rounded-full px-4 py-2 text-left transition-colors sm:rounded-2xl sm:p-3',
                 active
@@ -202,8 +242,7 @@ export function FloorPlan({
         <div className="flex flex-wrap items-start justify-between gap-3 px-4 pt-4 pb-3 sm:px-5">
           <div className="min-w-0">
             <p className="text-[12px] font-extrabold tracking-[0.12em] text-accent-text uppercase sm:hidden">
-              {points.length} {plural(points.length, ['rozwiązanie', 'rozwiązania', 'rozwiązań'])} z
-              naszej oferty
+              {count} {plural(count, ['rozwiązanie', 'rozwiązania', 'rozwiązań'])} z naszej oferty
             </p>
             <Heading
               id={headingId}
@@ -214,7 +253,7 @@ export function FloorPlan({
             {scene.lead && <p className="mt-1 text-[13.5px] text-ink-2">{scene.lead}</p>}
           </div>
           <span className="hidden rounded-full bg-surface-2 px-3 py-1 text-[12.5px] font-bold text-ink-2 sm:inline-block">
-            {points.length} {plural(points.length, POINTS)}
+            {count} {plural(count, POINTS)}
           </span>
         </div>
 
@@ -273,6 +312,21 @@ export function FloorPlan({
             })}
           </div>
         </div>
+        {loadFailed && (
+          <p
+            role="alert"
+            className="mx-2 mb-3 flex flex-wrap items-center gap-x-3 gap-y-1 rounded-[14px] bg-surface-2 px-4 py-3 text-[14px] font-semibold text-ink-2 sm:mx-3"
+          >
+            Nie udało się wczytać urządzeń tej sceny.
+            <button
+              type="button"
+              onClick={() => loadScene(scene.slug)}
+              className="min-h-11 font-extrabold text-accent-text underline underline-offset-4"
+            >
+              Spróbuj ponownie
+            </button>
+          </p>
+        )}
         <p className="flex justify-between px-4 pb-3 text-[12.5px] font-bold text-ink-3 sm:hidden">
           <span>Przesuń plan palcem →</span>
           <span>Dotknij urządzenie</span>
@@ -352,9 +406,10 @@ export function FloorPlan({
           <button
             type="button"
             onClick={addPlan}
-            className="inline-flex min-h-11 flex-1 items-center justify-center rounded-xl bg-card px-4 text-[14px] font-extrabold text-ink shadow-[inset_0_0_0_1px_var(--border)] hover:shadow-[inset_0_0_0_1px_var(--ink-3)] sm:flex-none"
+            disabled={!ready}
+            className="inline-flex min-h-11 flex-1 items-center justify-center rounded-xl bg-card px-4 text-[14px] font-extrabold text-ink shadow-[inset_0_0_0_1px_var(--border)] hover:shadow-[inset_0_0_0_1px_var(--ink-3)] disabled:cursor-wait disabled:opacity-60 sm:flex-none"
           >
-            {labels.inquiryLabel} · {items.length} poz.
+            {labels.inquiryLabel} · {itemCount} poz.
           </button>
           {bundles.length > 0 && (
             <a

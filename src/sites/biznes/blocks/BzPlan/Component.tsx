@@ -10,6 +10,7 @@ import { SectionHead } from '../../components/home/SectionHead'
 import { TONE_ICON } from '../../components/home/tones'
 import { FloorPlan } from '../../components/plan/FloorPlanLazy'
 import { loadFloorPlan } from '../../components/plan/planData'
+import { planForScenes } from '../../components/plan/planScenes'
 import { PlanStats } from '../../components/plan/PlanStats'
 import { DEFAULT_PLAN_LABELS } from '../../components/plan/types'
 import { IndustryGrid } from './IndustryGridLazy'
@@ -213,8 +214,13 @@ export async function BzPlanBlock({ block, tenantId }: Props) {
               <PlanStats scenes={plan.scenes} />
             </div>
             <div className="mt-8 max-md:hidden">
+              {/* Only the first scene's products and bundles in the page (ADR-023); the others
+                  load when picked. */}
               <FloorPlan
-                data={plan}
+                data={planForScenes(
+                  plan,
+                  plan.scenes.slice(0, 1).map((scene) => scene.slug),
+                )}
                 headingLevel="h3"
                 labels={{
                   listNote: block.sceneNote || DEFAULT_PLAN_LABELS.listNote,

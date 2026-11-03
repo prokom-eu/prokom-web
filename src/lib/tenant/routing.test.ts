@@ -192,33 +192,41 @@ describe('decideRoute — site domains', () => {
     }
   })
 
-  it('lets one plan drawing through on site domains, read only (its handler checks the line)', () => {
-    for (const method of ['GET', 'HEAD']) {
+  // The drawing of one scene, and its products and bundles (`/api/plan-scene`, ADR-023).
+  it.each(['plan-svg', 'plan-scene'])(
+    'lets one /api/%s/<scena> through on site domains, read only (its handler checks the line)',
+    (api) => {
+      for (const method of ['GET', 'HEAD']) {
+        expect(
+          decideRoute({
+            host: 'biznes.localhost',
+            pathname: `/api/${api}/sklep`,
+            method,
+            panelHost,
+          }),
+        ).toEqual({ type: 'next' })
+      }
       expect(
         decideRoute({
           host: 'biznes.localhost',
-          pathname: '/api/plan-svg/sklep',
-          method,
+          pathname: `/api/${api}/sklep`,
+          method: 'POST',
           panelHost,
         }),
-      ).toEqual({ type: 'next' })
-    }
-    expect(
-      decideRoute({
-        host: 'biznes.localhost',
-        pathname: '/api/plan-svg/sklep',
-        method: 'POST',
-        panelHost,
-      }),
-    ).toEqual(SITE_404)
-    for (const pathname of [
-      '/api/plan-svg',
-      '/api/plan-svg/',
-      '/api/plan-svg/a/b',
-      '/api/plan-svg/A_B',
-    ]) {
-      expect(route('biznes.localhost', pathname)).toEqual(SITE_404)
-    }
+      ).toEqual(SITE_404)
+      for (const pathname of [
+        `/api/${api}`,
+        `/api/${api}/`,
+        `/api/${api}/a/b`,
+        `/api/${api}/A_B`,
+      ]) {
+        expect(route('biznes.localhost', pathname)).toEqual(SITE_404)
+      }
+    },
+  )
+
+  it('keeps other /api/plan-* paths closed on site domains', () => {
+    expect(route('biznes.localhost', '/api/plan-data/sklep')).toEqual(SITE_404)
   })
 
   it('lets the solutions index through on site domains, read only (its handler checks the line)', () => {

@@ -8,9 +8,13 @@ import type { FloorPlanData, PlanProduct } from './types'
 /**
  * Everything the plan needs, read on the server (K31d′): scenes with points of listed cards only,
  * their products (name, photo, benefit, features, 4 parameters, film), the „Gotowe” bundles of
- * each scene and the drawing of the first scene. `null` when the tenant has no scene.
+ * each scene and the drawing of the first scene (`firstSvg: false` skips it, for
+ * `/api/plan-scene`). `null` when the tenant has no scene.
  */
-export async function loadFloorPlan(tenantId: number): Promise<FloorPlanData | null> {
+export async function loadFloorPlan(
+  tenantId: number,
+  { firstSvg = true }: { firstSvg?: boolean } = {},
+): Promise<FloorPlanData | null> {
   const [index, plans, allBundles] = await Promise.all([
     getCatalogIndex(tenantId),
     getFloorPlans(tenantId),
@@ -51,5 +55,10 @@ export async function loadFloorPlan(tenantId: number): Promise<FloorPlanData | n
     ]),
   )
 
-  return { scenes, products, bundles, firstSvg: await getFloorPlanSvg(tenantId, scenes[0].slug) }
+  return {
+    scenes,
+    products,
+    bundles,
+    firstSvg: firstSvg ? await getFloorPlanSvg(tenantId, scenes[0].slug) : null,
+  }
 }
