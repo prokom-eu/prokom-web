@@ -34,7 +34,7 @@ import { BuildingScene } from '../../widzety/teletechnika/BuildingScene'
 import { TeletechnikaSections } from '../../widzety/teletechnika/TeletechnikaSections'
 import { teletechnika } from '../../dane/teletechnika'
 import { MonitoringSections } from '../../widzety/monitoring/MonitoringSections'
-import { NvrDemo } from '../../widzety/monitoring/NvrDemo'
+import { NvrDemoLazy } from '../../widzety/monitoring/NvrDemoLazy'
 import { SmartSections, SmartWarrantyNote } from '../../widzety/smart/SmartSections'
 import { SmartPlan } from '../../widzety/smart/SmartWidgets'
 import { EkranySections } from '../../widzety/ekrany/EkranySections'
@@ -64,7 +64,7 @@ type LayoutContext = { planHref: string }
 /** Pages built so far (I4, I7–I9); the other services show the shared sections until theirs. */
 const LAYOUTS: Partial<Record<string, (ctx: LayoutContext) => ServiceLayout>> = {
   kam: ({ planHref }) => ({
-    widget: <NvrDemo />,
+    widget: <NvrDemoLazy />,
     sections: <MonitoringSections planHref={planHref} />,
     folded: ['cena', 'faq'],
   }),
